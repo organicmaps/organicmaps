@@ -274,6 +274,8 @@ UNIT_TEST(Retrieval_Smoke)
   }
 
   // Retrieve all whiskey bars from the left-bottom 5 x 5 square.
+  // Note that due to current coverage algorithm the number of
+  // retrieved results can be greater than 36.
   {
     TestCallback callback(id);
     search::Retrieval::Limits limits;
@@ -282,11 +284,14 @@ UNIT_TEST(Retrieval_Smoke)
     retrieval.Init(index, infos, m2::RectD(m2::PointD(0, 0), m2::PointD(1, 1)), params, limits);
     retrieval.Go(callback);
     TEST(callback.WasTriggered(), ());
-    TEST_EQUAL(36 /* number of whiskey bars in a 5 x 5 square (border is counted) */,
-               callback.Offsets().size(), ());
+    TEST_GREATER_OR_EQUAL(callback.Offsets().size(),
+                          36 /* number of whiskey bars in a 5 x 5 square (border is counted) */,
+                          ());
   }
 
-  // Retrieve exactly 8 whiskey bars from the center.
+  // Retrieve exactly 8 whiskey bars from the center.  Note that due
+  // to current coverage algorithm the number of retrieved results can
+  // be greater than 8.
   {
     TestCallback callback(id);
     search::Retrieval::Limits limits;
@@ -296,7 +301,7 @@ UNIT_TEST(Retrieval_Smoke)
                    limits);
     retrieval.Go(callback);
     TEST(callback.WasTriggered(), ());
-    TEST_EQUAL(callback.Offsets().size(), 8, ());
+    TEST_GREATER_OR_EQUAL(callback.Offsets().size(), 8, ());
   }
 }
 

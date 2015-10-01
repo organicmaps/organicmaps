@@ -135,7 +135,7 @@ private:
   //
   // *NOTE* |scale| of successive calls of this method should be
   // non-decreasing.
-  WARN_UNUSED_RESULT bool RetrieveForScale(double scale, Callback & callback);
+  WARN_UNUSED_RESULT bool RetrieveForScale(Bucket & bucket, double scale, Callback & callback);
 
   // Inits bucket retrieval strategy. Returns false when cancelled.
   WARN_UNUSED_RESULT bool InitBucketStrategy(Bucket & bucket);

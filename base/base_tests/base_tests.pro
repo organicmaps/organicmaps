@@ -19,6 +19,7 @@ SOURCES += \
   condition_test.cpp \
   const_helper.cpp \
   containers_test.cpp \
+  interval_set_test.cpp \
   logging_test.cpp \
   math_test.cpp \
   matrix_test.cpp \

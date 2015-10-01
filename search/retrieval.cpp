@@ -10,7 +10,7 @@
 #include "coding/reader_wrapper.hpp"
 
 #include "base/assert.hpp"
-#include "base/logging.hpp"
+#include "base/interval_set.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/cmath.hpp"
@@ -34,10 +34,12 @@ struct CancelException : public exception
 // Otherwise, slow path is used.
 uint64_t constexpr kFastPathThreshold = 100;
 
-struct EmptyFilter
+void CoverRect(m2::RectD const & rect, int scale, covering::IntervalsT & result)
 {
-  inline bool operator()(uint32_t /* featureId */) const { return true; }
-};
+  covering::CoveringGetter covering(rect, covering::ViewportWithLowLevels);
+  auto const & intervals = covering.Get(scale);
+  result.insert(result.end(), intervals.begin(), intervals.end());
+}
 
 // Retrieves from the search index corresponding to |handle| all
 // features matching to |params|.
@@ -45,6 +47,8 @@ template <typename ToDo>
 void RetrieveAddressFeatures(MwmSet::MwmHandle const & handle, SearchQueryParams const & params,
                              ToDo && toDo)
 {
+  auto emptyFilter = [](uint32_t /* featureId */) { return true; };
+
   auto * value = handle.GetValue<MwmValue>();
   ASSERT(value, ());
   serial::CodingParams codingParams(trie::GetCodingParams(value->GetHeader().GetDefCodingParams()));
@@ -52,31 +56,21 @@ void RetrieveAddressFeatures(MwmSet::MwmHandle const & handle, SearchQueryParams
   auto const trieRoot = trie::ReadTrie(SubReaderWrapper<Reader>(searchReader.GetPtr()),
                                        trie::ValueReader(codingParams));
 
-  MatchFeaturesInTrie(params, *trieRoot, EmptyFilter(), forward<ToDo>(toDo));
+  MatchFeaturesInTrie(params, *trieRoot, emptyFilter, forward<ToDo>(toDo));
 }
 
 // Retrieves from the geomery index corresponding to handle all
 // features in (and, possibly, around) viewport and executes |toDo| on
 // them.
 template <typename ToDo>
-void RetrieveGeometryFeatures(MwmSet::MwmHandle const & handle, m2::RectD viewport,
-                              SearchQueryParams const & params, ToDo && toDo)
+void RetrieveGeometryFeatures(MwmSet::MwmHandle const & handle,
+                              covering::IntervalsT const & covering, int scale, ToDo && toDo)
 {
   auto * value = handle.GetValue<MwmValue>();
   ASSERT(value, ());
-  feature::DataHeader const & header = value->GetHeader();
 
-  if (!viewport.Intersect(header.GetBounds()))
-    return;
-
-  auto const scaleRange = header.GetScaleRange();
-  int const scale = min(max(params.m_scale, scaleRange.first), scaleRange.second);
-
-  covering::CoveringGetter covering(viewport, covering::ViewportWithLowLevels);
-  covering::IntervalsT const & intervals = covering.Get(scale);
   ScaleIndex<ModelReaderPtr> index(value->m_cont.GetReader(INDEX_FILE_TAG), value->m_factory);
-
-  for (auto const & interval : intervals)
+  for (auto const & interval : covering)
     index.ForEachInIntervalAndScale(toDo, interval.first, interval.second, scale);
 }
 
@@ -143,14 +137,19 @@ class SlowPathStrategy : public Retrieval::Strategy
 public:
   SlowPathStrategy(MwmSet::MwmHandle & handle, m2::RectD const & viewport,
                    SearchQueryParams const & params, vector<uint32_t> const & addressFeatures)
-    : Strategy(handle, viewport), m_params(params)
+    : Strategy(handle, viewport), m_params(params), m_coverageScale(0)
   {
     if (addressFeatures.empty())
       return;
 
-    m_nonReported.resize(*max_element(addressFeatures.begin(), addressFeatures.end()) + 1);
-    for (auto const & featureId : addressFeatures)
-      m_nonReported[featureId] = true;
+    m_nonReported.insert(addressFeatures.begin(), addressFeatures.end());
+
+    auto * value = m_handle.GetValue<MwmValue>();
+    ASSERT(value, ());
+    feature::DataHeader const & header = value->GetHeader();
+    auto const scaleRange = header.GetScaleRange();
+    m_coverageScale = min(max(m_params.m_scale, scaleRange.first), scaleRange.second);
+    m_bounds = header.GetBounds();
   }
 
   // Retrieval::Strategy overrides:
@@ -160,7 +159,25 @@ public:
     m2::RectD currViewport = m_viewport;
     currViewport.Scale(scale);
 
+    // Early exit when scaled viewport does not intersect mwm bounds.
+    if (!currViewport.Intersect(m_bounds))
+      return true;
+
+    // Early exit when all features from this mwm were already
+    // reported.
+    if (m_nonReported.empty())
+      return true;
+
     vector<uint32_t> geometryFeatures;
+
+    // Early exit when whole mwm is inside scaled viewport.
+    if (currViewport.IsRectInside(m_bounds))
+    {
+      geometryFeatures.assign(m_nonReported.begin(), m_nonReported.end());
+      m_nonReported.clear();
+      callback(geometryFeatures);
+      return true;
+    }
 
     try
     {
@@ -169,16 +186,20 @@ public:
         if (cancellable.IsCancelled())
           throw CancelException();
 
-        if (feature < m_nonReported.size() && m_nonReported[feature])
+        if (m_nonReported.count(feature) != 0)
         {
           geometryFeatures.push_back(feature);
-          m_nonReported[feature] = false;
+          m_nonReported.erase(feature);
         }
       };
 
       if (m_prevScale < 0)
       {
-        RetrieveGeometryFeatures(m_handle, currViewport, m_params, collector);
+        covering::IntervalsT coverage;
+        CoverRect(currViewport, m_coverageScale, coverage);
+        RetrieveGeometryFeatures(m_handle, coverage, m_coverageScale, collector);
+        for (auto const & interval : coverage)
+          m_visited.Add(interval);
       }
       else
       {
@@ -190,10 +211,30 @@ public:
         m2::RectD b(a.RightTop(), c.RightTop());
         m2::RectD d(a.LeftBottom(), c.LeftBottom());
 
-        RetrieveGeometryFeatures(m_handle, a, m_params, collector);
-        RetrieveGeometryFeatures(m_handle, b, m_params, collector);
-        RetrieveGeometryFeatures(m_handle, c, m_params, collector);
-        RetrieveGeometryFeatures(m_handle, d, m_params, collector);
+        covering::IntervalsT coverage;
+        CoverRect(a, m_coverageScale, coverage);
+        CoverRect(b, m_coverageScale, coverage);
+        CoverRect(c, m_coverageScale, coverage);
+        CoverRect(d, m_coverageScale, coverage);
+
+        sort(coverage.begin(), coverage.end());
+        coverage.erase(unique(coverage.begin(), coverage.end()), coverage.end());
+        coverage = covering::SortAndMergeIntervals(coverage);
+        coverage.erase(
+            remove_if(coverage.begin(), coverage.end(), [this](covering::IntervalT const & interval)
+                      {
+              return m_visited.Elems().count(interval) != 0;
+            }),
+            coverage.end());
+
+        covering::IntervalsT reducedCoverage;
+        for (auto const & interval : coverage)
+          m_visited.SubtractFrom(interval, reducedCoverage);
+
+        RetrieveGeometryFeatures(m_handle, reducedCoverage, m_coverageScale, collector);
+
+        for (auto const & interval : reducedCoverage)
+          m_visited.Add(interval);
       }
     }
     catch (CancelException &)
@@ -208,7 +249,14 @@ public:
 private:
   SearchQueryParams const & m_params;
 
-  vector<bool> m_nonReported;
+  set<uint32_t> m_nonReported;
+
+  // This set is used to accumulate all read intervals from mwm and
+  // prevent further reads from the same offsets.
+  my::IntervalSet<int64_t> m_visited;
+
+  m2::RectD m_bounds;
+  int m_coverageScale;
 };
 }  // namespace
 
@@ -320,11 +368,15 @@ void Retrieval::Go(Callback & callback)
     if (m_limits.IsMaxViewportScaleSet() && reducedScale >= m_limits.GetMaxViewportScale())
       reducedScale = m_limits.GetMaxViewportScale();
 
-    if (!RetrieveForScale(reducedScale, callback))
-      break;
+    for (auto & bucket : m_buckets)
+    {
+      if (!RetrieveForScale(bucket, reducedScale, callback))
+        break;
+    }
 
     if (Finished())
       break;
+
     if (m_limits.IsMaxViewportScaleSet() && reducedScale >= m_limits.GetMaxViewportScale())
       break;
     if (m_limits.IsMaxNumFeaturesSet() && m_featuresReported >= m_limits.GetMaxNumFeatures())
@@ -334,59 +386,55 @@ void Retrieval::Go(Callback & callback)
   }
 }
 
-bool Retrieval::RetrieveForScale(double scale, Callback & callback)
+bool Retrieval::RetrieveForScale(Bucket & bucket, double scale, Callback & callback)
 {
   m2::RectD viewport = m_viewport;
   viewport.Scale(scale);
 
-  for (auto & bucket : m_buckets)
+  if (IsCancelled())
+    return false;
+
+  if (bucket.m_finished || !viewport.IsIntersect(bucket.m_bounds))
+    return true;
+
+  if (!bucket.m_intersectsWithViewport)
   {
-    if (IsCancelled())
+    // This is the first time viewport intersects with
+    // mwm. Initialize bucket's retrieval strategy.
+    if (!InitBucketStrategy(bucket))
       return false;
+    bucket.m_intersectsWithViewport = true;
+    if (bucket.m_addressFeatures.empty())
+      bucket.m_finished = true;
+  }
 
-    if (bucket.m_finished || !viewport.IsIntersect(bucket.m_bounds))
-      continue;
+  ASSERT(bucket.m_intersectsWithViewport, ());
+  ASSERT_LESS_OR_EQUAL(bucket.m_featuresReported, bucket.m_addressFeatures.size(), ());
+  if (bucket.m_featuresReported == bucket.m_addressFeatures.size())
+  {
+    // All features were reported for the bucket, mark it as
+    // finished and move to the next bucket.
+    FinishBucket(bucket, callback);
+    return true;
+  }
 
-    if (!bucket.m_intersectsWithViewport)
-    {
-      // This is the first time viewport intersects with
-      // mwm. Initialize bucket's retrieval strategy.
-      if (!InitBucketStrategy(bucket))
-        return false;
-      bucket.m_intersectsWithViewport = true;
-      if (bucket.m_addressFeatures.empty())
-        bucket.m_finished = true;
-    }
+  auto wrapper = [&](vector<uint32_t> & features)
+  {
+    ReportFeatures(bucket, features, scale, callback);
+  };
 
-    ASSERT(bucket.m_intersectsWithViewport, ());
-    ASSERT_LESS_OR_EQUAL(bucket.m_featuresReported, bucket.m_addressFeatures.size(), ());
-    if (bucket.m_featuresReported == bucket.m_addressFeatures.size())
-    {
-      // All features were reported for the bucket, mark it as
-      // finished and move to the next bucket.
-      FinishBucket(bucket, callback);
-      continue;
-    }
+  if (!bucket.m_strategy->Retrieve(scale, *this /* cancellable */, wrapper))
+    return false;
 
-    auto wrapper = [&](vector<uint32_t> & features)
-    {
-      ReportFeatures(bucket, features, scale, callback);
-    };
-
-    if (!bucket.m_strategy->Retrieve(scale, *this /* cancellable */, wrapper))
-      return false;
-
-    if (viewport.IsRectInside(bucket.m_bounds))
-    {
-      // Viewport completely covers the bucket, so mark it as finished
-      // and switch to the next bucket. Note that "viewport covers the
-      // bucket" is not the same as "all features from the bucket were
-      // reported", because of scale parameter. Search index reports
-      // all matching features, but geometry index can skip features
-      // from more detailed scales.
-      FinishBucket(bucket, callback);
-      continue;
-    }
+  if (viewport.IsRectInside(bucket.m_bounds))
+  {
+    // Viewport completely covers the bucket, so mark it as finished
+    // and switch to the next bucket. Note that "viewport covers the
+    // bucket" is not the same as "all features from the bucket were
+    // reported", because of scale parameter. Search index reports
+    // all matching features, but geometry index can skip features
+    // from more detailed scales.
+    FinishBucket(bucket, callback);
   }
 
   return true;
@@ -431,6 +479,7 @@ void Retrieval::FinishBucket(Bucket & bucket, Callback & callback)
   if (bucket.m_finished)
     return;
   bucket.m_finished = true;
+  bucket.m_handle = MwmSet::MwmHandle();
   callback.OnMwmProcessed(bucket.m_handle.GetId());
 }
 
@@ -447,18 +496,10 @@ bool Retrieval::Finished() const
 void Retrieval::ReportFeatures(Bucket & bucket, vector<uint32_t> & featureIds, double scale,
                                Callback & callback)
 {
-  ASSERT(!m_limits.IsMaxNumFeaturesSet() || m_featuresReported <= m_limits.GetMaxNumFeatures(), ());
-  if (m_limits.IsMaxNumFeaturesSet())
-  {
-    uint64_t const delta = m_limits.GetMaxNumFeatures() - m_featuresReported;
-    if (featureIds.size() > delta)
-      featureIds.resize(delta);
-  }
-  if (!featureIds.empty())
-  {
-    callback.OnFeaturesRetrieved(bucket.m_handle.GetId(), scale, featureIds);
-    bucket.m_featuresReported += featureIds.size();
-    m_featuresReported += featureIds.size();
-  }
+  if (featureIds.empty())
+    return;
+  callback.OnFeaturesRetrieved(bucket.m_handle.GetId(), scale, featureIds);
+  bucket.m_featuresReported += featureIds.size();
+  m_featuresReported += featureIds.size();
 }
 }  // namespace search

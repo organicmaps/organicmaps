@@ -11,7 +11,8 @@ class FeatureType;
 
 namespace covering
 {
-  typedef vector<pair<int64_t, int64_t> > IntervalsT;
+  typedef pair<int64_t, int64_t> IntervalT;
+  typedef vector<IntervalT> IntervalsT;
 
   // Cover feature with RectIds and return their integer representations.
   vector<int64_t> CoverFeature(FeatureType const & feature,
