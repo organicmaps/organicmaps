@@ -150,25 +150,30 @@ public:
     return distMeters;
   }
 
-  void CalculateOffset(OsrmMappingTypes::FtSeg const & seg, m2::PointD const & segPt, NodeID & nodeId, int & offset, bool forward) const
+  /// Calculates part of a node weight in the OSRM format. Projection point @segPt divides node on
+  /// two parts. So we find weight of a part, set by the @offsetToRight parameter.
+  void CalculateWeight(OsrmMappingTypes::FtSeg const & seg, m2::PointD const & segPt, NodeID & nodeId, int & weight, bool offsetToRight) const
   {
+    // nodeId can be INVALID_NODE_ID when reverse node is absent. This node has no weight.
     if (nodeId == INVALID_NODE_ID || m_dataFacade.GetOutDegree(nodeId) == 0)
     {
-      offset = 0;
+      weight = 0;
       return;
     }
 
+    // Distance from the node border to the projection point in meters.
     double distance = 0;
     auto const range = m_mapping.GetSegmentsRange(nodeId);
-    OsrmMappingTypes::FtSeg segment, currentSegment;
+    OsrmMappingTypes::FtSeg segment;
+    OsrmMappingTypes::FtSeg currentSegment;
 
-    size_t startIndex = forward ? range.second - 1 : range.first;
-    size_t endIndex = forward ? range.first - 1 : range.second;
-    int indexIncrement = forward ? -1 : 1;
+    size_t startIndex = offsetToRight ? range.second - 1 : range.first;
+    size_t endIndex = offsetToRight ? range.first - 1 : range.second;
+    int indexIncrement = offsetToRight ? -1 : 1;
 
-    for (size_t i = startIndex; i != endIndex; i += indexIncrement)
+    for (size_t segmentIndex = startIndex; segmentIndex != endIndex; segmentIndex += indexIncrement)
     {
-      m_mapping.GetSegmentByIndex(i, segment);
+      m_mapping.GetSegmentByIndex(segmentIndex, segment);
       if (!segment.IsValid())
         continue;
 
@@ -184,7 +189,7 @@ public:
 
         if (segment.m_pointStart < segment.m_pointEnd)
         {
-          if (forward)
+          if (offsetToRight)
           {
             currentSegment.m_pointEnd = seg.m_pointEnd;
             currentSegment.m_pointStart = segment.m_pointStart;
@@ -197,7 +202,7 @@ public:
         }
         else
         {
-          if (forward)
+          if (offsetToRight)
           {
             currentSegment.m_pointStart = segment.m_pointEnd;
             currentSegment.m_pointEnd = seg.m_pointEnd;
@@ -222,38 +227,43 @@ public:
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
     // node.m_seg always forward ordered (m_pointStart < m_pointEnd)
-    distance -= MercatorBounds::DistanceOnEarth(ft.GetPoint(forward ? seg.m_pointEnd : seg.m_pointStart), segPt);
+    distance -= MercatorBounds::DistanceOnEarth(ft.GetPoint(offsetToRight ? seg.m_pointEnd : seg.m_pointStart), segPt);
 
-    // Offset measures in decades of seconds. We don't konw about speed restrictions on the road.
-    // So we find it through a whole edge weight.
-    double fullDist = 0.0;
-    for (size_t i = startIndex; i != endIndex; i += indexIncrement)
+    // Offset is measured in decades of seconds. We don't know about speed restrictions on the road.
+    // So we find it by a whole edge weight.
+
+    // Whole node distance in meters.
+    double fullDistanceM = 0.0;
+    for (size_t segmentIndex = startIndex; segmentIndex != endIndex; segmentIndex += indexIncrement)
     {
-      m_mapping.GetSegmentByIndex(i, segment);
+      m_mapping.GetSegmentByIndex(segmentIndex, segment);
       if (!segment.IsValid())
         continue;
-      fullDist += CalculateDistance(segment);
+      fullDistanceM += CalculateDistance(segment);
     }
 
-    double const ratio = (fullDist == 0) ? 0 : distance / fullDist;
+    ASSERT_GREATER(fullDistanceM, 0, ("No valid segments on the edge."));
+    double const ratio = (fullDistanceM == 0) ? 0 : distance / fullDistanceM;
 
     auto const beginEdge = m_dataFacade.BeginEdges(nodeId);
+    auto const endEdge = m_dataFacade.EndEdges(nodeId);
+    // Minimal OSRM edge weight in decades of seconds.
     EdgeWeight minWeight = m_dataFacade.GetEdgeData(beginEdge, nodeId).distance;
-    for (EdgeID i = beginEdge + 1; i != m_dataFacade.EndEdges(nodeId); ++i)
+    for (EdgeID i = beginEdge + 1; i != endEdge; ++i)
       minWeight = min(m_dataFacade.GetEdgeData(i, nodeId).distance, minWeight);
 
-    offset = max(static_cast<int>(minWeight * ratio), 0);
+    weight = max(static_cast<int>(minWeight * ratio), 0);
   }
 
   void CalculateOffsets(FeatureGraphNode & node) const
   {
-    CalculateOffset(node.segment, node.segmentPoint, node.node.forward_node_id, node.node.forward_offset, true);
-    CalculateOffset(node.segment, node.segmentPoint, node.node.reverse_node_id, node.node.reverse_offset, false);
+    CalculateWeight(node.segment, node.segmentPoint, node.node.forward_node_id, node.node.forward_weight, true /* offsetToRight */);
+    CalculateWeight(node.segment, node.segmentPoint, node.node.reverse_node_id, node.node.reverse_weight, false /* offsetToRight */);
 
     // need to initialize weights for correct work of PhantomNode::GetForwardWeightPlusOffset
     // and PhantomNode::GetReverseWeightPlusOffset
-    node.node.forward_weight = 0;
-    node.node.reverse_weight = 0;
+    node.node.forward_offset = 0;
+    node.node.reverse_offset = 0;
   }
 
   void MakeResult(TFeatureGraphNodeVec & res, size_t maxCount, string const & mwmName)
