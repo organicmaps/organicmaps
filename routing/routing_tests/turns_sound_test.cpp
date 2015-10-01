@@ -7,14 +7,19 @@
 
 namespace
 {
-using namespace location;
-using namespace routing::turns;
-using namespace routing::turns::sound;
-
 // A error to compare two double after conversion feet to meters.
 double const kEps = 1.;
 // A error to compare two doubles which are almost equal.
 double const kSmallEps = .001;
+}  // namespace
+
+namespace routing
+{
+namespace turns
+{
+namespace sound
+{
+using namespace location;
 
 UNIT_TEST(TurnNotificationSettingsMetersTest)
 {
@@ -96,8 +101,8 @@ UNIT_TEST(TurnsSoundMetersTest)
       \"in_600_meters\":\"In 600 meters.\",\
       \"make_a_right_turn\":\"Make a right turn.\"\
       }";
-  turnSound.SetLocaleWithJson(engShortJson);
-  turnSound.SetNotificationTimeSecond(20);
+  turnSound.m_getTtsText.ForTestingSetLocaleWithJson(engShortJson);
+  turnSound.m_settings.ForTestingSetNotificationTimeSecond(20);
 
   turnSound.Reset();
   turnSound.SetSpeedMetersPerSecond(30.);
@@ -179,8 +184,8 @@ UNIT_TEST(TurnsSoundMetersTwoTurnsTest)
       \"make_a_sharp_right_turn\":\"Make a sharp right turn.\",\
       \"enter_the_roundabout\":\"Enter the roundabout.\"\
       }";
-  turnSound.SetLocaleWithJson(engShortJson);
-  turnSound.SetNotificationTimeSecond(20);
+  turnSound.m_getTtsText.ForTestingSetLocaleWithJson(engShortJson);
+  turnSound.m_settings.ForTestingSetNotificationTimeSecond(20);
 
   turnSound.Reset();
   turnSound.SetSpeedMetersPerSecond(35.);
@@ -243,8 +248,8 @@ UNIT_TEST(TurnsSoundFeetTest)
       \"in_2000_feet\":\"In 2000 feet.\",\
       \"enter_the_roundabout\":\"Enter the roundabout.\"\
       }";
-  turnSound.SetLocaleWithJson(engShortJson);
-  turnSound.SetNotificationTimeSecond(20);
+  turnSound.m_getTtsText.ForTestingSetLocaleWithJson(engShortJson);
+  turnSound.m_settings.ForTestingSetNotificationTimeSecond(20);
 
   turnSound.Reset();
   turnSound.SetSpeedMetersPerSecond(30.);
@@ -308,4 +313,6 @@ UNIT_TEST(TurnsSoundFeetTest)
 
   TEST(turnSound.IsEnabled(), ());
 }
-}  // namespace
+}  // namespace sound
+}  // namespace turns
+}  // namespace routing

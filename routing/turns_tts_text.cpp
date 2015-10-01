@@ -40,7 +40,7 @@ void GetTtsText::SetLocale(string const & locale)
   ASSERT(m_getCurLang, ());
 }
 
-void GetTtsText::SetLocaleWithJson(string const & jsonBuffer)
+void GetTtsText::ForTestingSetLocaleWithJson(string const & jsonBuffer)
 {
   m_getCurLang.reset(new platform::GetTextById(jsonBuffer));
   ASSERT(m_getCurLang && m_getCurLang->IsValid(), ());

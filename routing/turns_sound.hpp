@@ -33,6 +33,10 @@ string DebugPrint(PronouncedNotification const notificationProgress);
 /// and relevant speed.
 class TurnsSound
 {
+  friend void UnitTest_TurnsSoundMetersTest();
+  friend void UnitTest_TurnsSoundMetersTwoTurnsTest();
+  friend void UnitTest_TurnsSoundFeetTest();
+
   /// m_enabled == true when tts is turned on.
   /// Important! Clients (iOS/Android) implies that m_enabled is false by default.
   bool m_enabled;
@@ -69,10 +73,6 @@ public:
   inline LengthUnits GetLengthUnits() const { return m_settings.GetLengthUnits(); }
   inline void SetLocale(string const & locale) { m_getTtsText.SetLocale(locale); }
   inline string GetLocale() const { return m_getTtsText.GetLocale(); }
-  /// SetLocaleWithJson is used for writing unit tests only.
-  void SetLocaleWithJson(string const & jsonBuffer) { m_getTtsText.SetLocaleWithJson(jsonBuffer); }
-  /// SetNotificationTimeSecond is used for writing unit tests only.
-  void SetNotificationTimeSecond(uint32_t time) { m_settings.SetNotificationTimeSecond(time); }
   void SetSpeedMetersPerSecond(double speed);
 
    /// \brief GenerateTurnSound updates information about the next turn notification.

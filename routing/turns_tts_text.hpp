@@ -25,8 +25,7 @@ public:
   /// TODO(vbykoianko) Check if locale is available. If not use default (en) locale.
   void SetLocale(string const & locale);
   inline string GetLocale() const { return m_locale; }
-  /// SetLocaleWithJson is used for writing unit tests only.
-  void SetLocaleWithJson(string const & jsonBuffer);
+  void ForTestingSetLocaleWithJson(string const & jsonBuffer);
 
 private:
   string GetTextById(string const & textId) const;
