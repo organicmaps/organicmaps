@@ -45,7 +45,7 @@ find_osmconvert() {
     if [ -e "$OMIM_PATH/tools/osmctools/osmconvert.c" ]; then
       cc -x c -lz -O3 "$OMIM_PATH/tools/osmctools/osmconvert.c" -o "$OSMCONVERT"
     else
-      curl -s http://m.m.i24.cc/osmconvert.c | cc -x c - -lz -O3 -o $OSMCONVERT
+      curl -s https://raw.githubusercontent.com/mapsme/osmctools/master/osmconvert.c | cc -x c - -lz -O3 -o $OSMCONVERT
     fi
   fi
 }
