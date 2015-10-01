@@ -120,7 +120,7 @@ private:
 
   /// Returns a nearest speed camera record on your way and distance to it.
   /// Returns kInvalidSpeedCameraDistance if there is no cameras on your way.
-  double GetCurrentCam(SpeedCameraRestriction & camera, Index const & index);
+  double GetDistanceToCurrentCamM(SpeedCameraRestriction & camera, Index const & index);
 
   /// RemoveRoute removes m_route and resets route attributes (m_state, m_lastDistance, m_moveAwayCounter).
   void RemoveRoute();
@@ -131,8 +131,8 @@ private:
   Route m_route;
   State m_state;
   m2::PointD m_endPoint;
-  size_t m_lastWarnedSpeedCamera;
-  size_t m_lastCheckedCamera;
+  size_t m_lastWarnedSpeedCameraIndex;
+  size_t m_lastCheckedCameraIndex;
   // TODO (ldragunov) Rewrite UI interop to message queue and avoid mutable.
   /// This field is mutable because it's modified in a constant getter. Note that the notification
   /// about camera will be sent at most once.

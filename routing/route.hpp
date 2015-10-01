@@ -60,7 +60,7 @@ public:
   uint32_t GetTotalTimeSec() const;
   uint32_t GetCurrentTimeToEndSec() const;
 
-  FollowedPolyline const & GetFollowedPolyline() const {return m_poly;}
+  FollowedPolyline const & GetFollowedPolyline() const { return m_poly; }
 
   string const & GetRouterId() const { return m_router; }
   m2::PolylineD const & GetPoly() const { return m_poly.GetPolyline(); }
