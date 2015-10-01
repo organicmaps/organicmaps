@@ -180,15 +180,15 @@ drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex,
         params.m_margin = 5.0f * visualScale;
         params.m_facet = 8.0f * visualScale;
 
-        dp::Color color = dp::Color(0, 0, 0, 0.44 * 255);
-        dp::Color pressedColor = dp::Color(0, 0, 0, 0.72 * 255);
+        auto color = dp::Color(0, 0, 0, 0.44 * 255);
+        auto pressedColor = dp::Color(0, 0, 0, 0.72 * 255);
         if (control.m_buttonType == CountryStatusHelper::BUTTON_TYPE_MAP_ROUTING)
         {
           color = dp::Color(32, 152, 82, 255);
           pressedColor = dp::Color(24, 128, 68, 255);
         }
 
-        TButtonHandlers::const_iterator buttonHandlerIt = buttonHandlers.find(control.m_buttonType);
+        auto const buttonHandlerIt = buttonHandlers.find(control.m_buttonType);
         Shape::TTapHandler buttonHandler = (buttonHandlerIt != buttonHandlers.end() ? buttonHandlerIt->second : nullptr);
         params.m_bodyHandleCreator = bind(&CreateButtonHandle, state, buttonHandler, color, pressedColor, _1, _2);
         params.m_labelHandleCreator = bind(&CreateLabelHandle, state, _1, _2);
