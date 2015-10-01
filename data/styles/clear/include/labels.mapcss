@@ -985,7 +985,7 @@ area|z16[leisure=park], area|z17-[leisure=garden] {
 }
 
 
-area|z17-[leisure=park] {
+area|z17-[leisure=park][name] {
   icon-image: park-m.svg;
   text-offset: 10;
   text: name;
@@ -995,6 +995,8 @@ area|z17-[leisure=park] {
   text-halo-color: @label_halo_light;
   text-halo-radius: 0;
 }
+
+area|z17-[leisure=park][!name] {}
 
 area|z17[leisure=garden] {
   text: name;

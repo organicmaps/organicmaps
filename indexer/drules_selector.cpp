@@ -102,6 +102,15 @@ bool GetPopulation(FeatureType const & ft, uint32_t & population)
   return true;
 }
 
+// Feature tag value evaluator for tag 'name'
+bool GetName(FeatureType const & ft, string & name)
+{
+  string intName;
+  ft.GetPreferredNames(name, intName);
+  return true;
+}
+
+
 // Add new tag value evaluator here
 
 }  // namespace
@@ -127,6 +136,10 @@ unique_ptr<ISelector> ParseSelector(string const & str)
       return unique_ptr<ISelector>();
     }
     return make_unique<Selector<uint32_t>>(&GetPopulation, e.m_operator, static_cast<uint32_t>(value));
+  }
+  else if (e.m_tag == "name")
+  {
+    return make_unique<Selector<string>>(&GetName, e.m_operator, e.m_value);
   }
 
   // Add new tag here
