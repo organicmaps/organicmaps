@@ -17,38 +17,43 @@
 
 namespace tesselator
 {
-  int TesselateInterior(PolygonsT const & polys, TrianglesInfo & info)
+int TesselateInterior(PolygonsT const & polys, TrianglesInfo & info)
+{
+  int constexpr kCoordinatesPerVertex = 2;
+  int constexpr kVerticesInPolygon = 3;
+
+  auto const deleter = [](TESStesselator * tess) {tessDeleteTess(tess);};
+  unique_ptr<TESStesselator, decltype(deleter)> tess(tessNewTess(nullptr), deleter);
+
+  for (auto const & contour : polys)
   {
-    int const kCoordinatesPerVertex = 2;
-    int const kVerticesInPolygon = 3;
-
-    auto const deleter = [](TESStesselator * tess){ tessDeleteTess(tess); };
-    unique_ptr<TESStesselator, decltype(deleter)> tess(tessNewTess(nullptr), deleter);
-    for (auto const & contour : polys)
-      tessAddContour(tess.get(), kCoordinatesPerVertex, &contour[0], sizeof(contour[0]), contour.size());
-    if (0 == tessTesselate(tess.get(), TESS_WINDING_ODD, TESS_CONSTRAINED_DELAUNAY_TRIANGLES,
-                           kVerticesInPolygon, kCoordinatesPerVertex, nullptr))
-    {
-      LOG(LERROR, ("Tesselator error for polygon", polys));
-      return 0;
-    }
-
-    int const elementCount = tessGetElementCount(tess.get());
-    if (elementCount)
-    {
-      int const vertexCount = tessGetVertexCount(tess.get());
-      TESSreal const * vertices = tessGetVertices(tess.get());
-      m2::PointD const * points = reinterpret_cast<m2::PointD const *>(vertices);
-      info.AssignPoints(points, points + vertexCount);
-
-      // Elements are triplets of vertex indices.
-      TESSindex const * elements = tessGetElements(tess.get());
-      info.Reserve(elementCount);
-      for (int i = 0; i < elementCount; ++i)
-        info.Add(elements[i * 3], elements[i * 3 + 1], elements[i * 3 + 2]);
-    }
-    return elementCount;
+    tessAddContour(tess.get(), kCoordinatesPerVertex, &contour[0], sizeof(contour[0]),
+                   static_cast<int>(contour.size()));
   }
+
+  if (0 == tessTesselate(tess.get(), TESS_WINDING_ODD, TESS_CONSTRAINED_DELAUNAY_TRIANGLES,
+                         kVerticesInPolygon, kCoordinatesPerVertex, nullptr))
+  {
+    LOG(LERROR, ("Tesselator error for polygon", polys));
+    return 0;
+  }
+
+  int const elementCount = tessGetElementCount(tess.get());
+  if (elementCount)
+  {
+    int const vertexCount = tessGetVertexCount(tess.get());
+    TESSreal const * vertices = tessGetVertices(tess.get());
+    m2::PointD const * points = reinterpret_cast<m2::PointD const *>(vertices);
+    info.AssignPoints(points, points + vertexCount);
+
+    // Elements are triplets of vertex indices.
+    TESSindex const * elements = tessGetElements(tess.get());
+    info.Reserve(elementCount);
+    for (int i = 0; i < elementCount; ++i)
+      info.Add(elements[i * 3], elements[i * 3 + 1], elements[i * 3 + 2]);
+  }
+  return elementCount;
+}
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
   // TrianglesInfo::ListInfo implementation
@@ -56,7 +61,7 @@ namespace tesselator
 
   int TrianglesInfo::ListInfo::empty_key = -1;
 
-  void TrianglesInfo::ListInfo::AddNeighbour(int p1, int p2, size_t trg)
+  void TrianglesInfo::ListInfo::AddNeighbour(int p1, int p2, int trg)
   {
     // find or insert element for key
     pair<TNeighbours::iterator, bool> ret = m_neighbors.insert(make_pair(make_pair(p1, p2), trg));
@@ -69,7 +74,7 @@ namespace tesselator
   {
     m_triangles.emplace_back(p0, p1, p2);
 
-    size_t const trg = m_triangles.size() - 1;
+    int const trg = static_cast<int>(m_triangles.size()) - 1;
     AddNeighbour(p0, p1, trg);
     AddNeighbour(p1, p2, trg);
     AddNeighbour(p2, p0, trg);
@@ -84,13 +89,13 @@ namespace tesselator
   }
 
   /// Find best (cheap in serialization) start edge for processing.
-  TrianglesInfo::ListInfo::iter_t
+  TrianglesInfo::ListInfo::TIterator
   TrianglesInfo::ListInfo::FindStartTriangle(PointsInfo const & points) const
   {
-    iter_t ret = m_neighbors.end();
+    TIterator ret = m_neighbors.end();
     size_t cr = numeric_limits<size_t>::max();
 
-    for (iter_t i = m_neighbors.begin(); i != m_neighbors.end(); ++i)
+    for (TIterator i = m_neighbors.begin(); i != m_neighbors.end(); ++i)
     {
       if (!m_visited[i->second] &&
           m_neighbors.find(make_pair(i->first.second, i->first.first)) == m_neighbors.end())
@@ -141,7 +146,7 @@ namespace tesselator
     int j = my::NextModN(i, 3);
 
     int ind = 0;
-    iter_t it = m_neighbors.find(make_pair(trg.m_p[j], trg.m_p[i]));
+    TIterator it = m_neighbors.find(make_pair(trg.m_p[j], trg.m_p[i]));
     nb[ind++] = (it != m_neighbors.end()) ? it->second : empty_key;
 
     it = m_neighbors.find(make_pair(trg.m_p[my::NextModN(j, 3)], trg.m_p[j]));
@@ -168,7 +173,7 @@ namespace tesselator
 
   template <class TPopOrder>
   void TrianglesInfo::ListInfo::MakeTrianglesChainImpl(
-      PointsInfo const & points, iter_t start, vector<Edge> & chain) const
+      PointsInfo const & points, TIterator start, vector<Edge> & chain) const
   {
     chain.clear();
 
@@ -223,7 +228,7 @@ namespace tesselator
   };
 
   void TrianglesInfo::ListInfo::MakeTrianglesChain(
-    PointsInfo const & points, iter_t start, vector<Edge> & chain, bool /*goodOrder*/) const
+    PointsInfo const & points, TIterator start, vector<Edge> & chain, bool /*goodOrder*/) const
   {
     //if (goodOrder)
       MakeTrianglesChainImpl<edge_greater_delta>(points, start, chain);

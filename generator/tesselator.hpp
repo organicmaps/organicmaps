@@ -72,10 +72,10 @@ namespace tesselator
         }
       };
 
-      typedef unordered_map<pair<int, int>, size_t, HashPair<int, int>> TNeighbours;
+      using TNeighbours = unordered_map<pair<int, int>, int, HashPair<int, int>>;
       TNeighbours m_neighbors;
 
-      void AddNeighbour(int p1, int p2, size_t trg);
+      void AddNeighbour(int p1, int p2, int trg);
 
       void GetNeighbors(
           Triangle const & trg, Triangle const & from, int * nb) const;
@@ -84,7 +84,7 @@ namespace tesselator
           PointsInfo const & points, Triangle const & from, Triangle const & to) const;
 
     public:
-      typedef TNeighbours::const_iterator iter_t;
+      using TIterator = TNeighbours::const_iterator;
 
       ListInfo(size_t count)
       {
@@ -105,13 +105,13 @@ namespace tesselator
         return (m_visited != test);
       }
 
-      iter_t FindStartTriangle(PointsInfo const & points) const;
+      TIterator FindStartTriangle(PointsInfo const & points) const;
 
     private:
       template <class TPopOrder>
-      void MakeTrianglesChainImpl(PointsInfo const & points, iter_t start, vector<Edge> & chain) const;
+      void MakeTrianglesChainImpl(PointsInfo const & points, TIterator start, vector<Edge> & chain) const;
     public:
-      void MakeTrianglesChain(PointsInfo const & points, iter_t start, vector<Edge> & chain, bool goodOrder) const;
+      void MakeTrianglesChain(PointsInfo const & points, TIterator start, vector<Edge> & chain, bool goodOrder) const;
 
       size_t GetCount() const { return m_triangles.size(); }
       Triangle GetTriangle(size_t i) const { return m_triangles[i]; }
@@ -167,7 +167,7 @@ namespace tesselator
 
         do
         {
-          typename ListInfo::iter_t start = i->FindStartTriangle(points);
+          typename ListInfo::TIterator start = i->FindStartTriangle(points);
           i->MakeTrianglesChain(points, start, chain, goodOrder);
 
           m2::PointU arr[] = { points.m_points[start->first.first],
