@@ -1,14 +1,7 @@
 #!/bin/bash
-
+# Removes indices after an app run. You can pass a path as the first argument.
 set -u -x
-BASE_PATH=$(pwd)
-DATA_PATH=$BASE_PATH/../../data
-
-COUNTRY_LIST=${COUNTRY_LIST-$(ls -1 $DATA_PATH/*.mwm)}
-
-if [ "$COUNTRY_LIST" ]
-then
-  echo "$COUNTRY_LIST" | while read file ; do
-    rm -rf "${file%.mwm}/"
-  done
-fi
+TARGET="${1:-$(dirname "$0")/../../data}"
+for mwm in "$TARGET/"*.mwm; do
+  rm -rf "$TARGET/$(basename "$mwm" .mwm)"
+done
