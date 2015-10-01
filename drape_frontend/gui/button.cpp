@@ -74,9 +74,12 @@ uint32_t BuildCorner(vector<Button::ButtonVertex> & vertices,
 
 }
 
-ButtonHandle::ButtonHandle(dp::Anchor anchor, m2::PointF const & size)
+ButtonHandle::ButtonHandle(dp::Anchor anchor, m2::PointF const & size,
+                           dp::Color const & color, dp::Color const & pressedColor)
   : TBase(anchor, m2::PointF::Zero(), size)
   , m_isInPressedState(false)
+  , m_color(color)
+  , m_pressedColor(pressedColor)
 {}
 
 void ButtonHandle::OnTapBegin()
@@ -91,8 +94,7 @@ void ButtonHandle::OnTapEnd()
 
 bool ButtonHandle::Update(ScreenBase const & screen)
 {
-  glsl::vec4 color = glsl::ToVec4(m_isInPressedState ? dp::Color(0x0, 0x0, 0x0, 0xCC) :
-                                                       dp::Color(0x0, 0x0, 0x0, 0x99));
+  glsl::vec4 color = glsl::ToVec4(m_isInPressedState ? m_pressedColor : m_color);
   m_uniforms.SetFloatValue("u_color", color.r, color.g, color.b, color.a);
   return TBase::Update(screen);
 }

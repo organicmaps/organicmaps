@@ -150,10 +150,7 @@ ref_ptr<Handle> ShapeRenderer::ProcessTapEvent(m2::RectD const & touchArea)
   ForEachShapeInfo([&resultHandle, &touchArea](ShapeControl::ShapeInfo & shapeInfo)
                    {
                      if (shapeInfo.m_handle->IsTapped(touchArea))
-                     {
-                       ASSERT(resultHandle == nullptr, ("Overlays cannot be intersected"));
                        resultHandle = make_ref(shapeInfo.m_handle);
-                     }
                    });
 
   return resultHandle;

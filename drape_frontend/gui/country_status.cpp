@@ -23,8 +23,9 @@ class CountryStatusButtonHandle : public ButtonHandle
 public:
   CountryStatusButtonHandle(CountryStatusHelper::ECountryState const state,
                             Shape::TTapHandler const & tapHandler,
-                            dp::Anchor anchor, m2::PointF const & size)
-    : TBase(anchor, size)
+                            dp::Anchor anchor, m2::PointF const & size,
+                            dp::Color const & color, dp::Color const & pressedColor)
+    : TBase(anchor, size, color, pressedColor)
     , m_state(state)
     , m_tapHandler(tapHandler)
   {}
@@ -92,9 +93,10 @@ private:
 
 drape_ptr<dp::OverlayHandle> CreateButtonHandle(CountryStatusHelper::ECountryState const state,
                                                 Shape::TTapHandler const & tapHandler,
+                                                dp::Color const & color, dp::Color const & pressedColor,
                                                 dp::Anchor anchor, m2::PointF const & size)
 {
-  return make_unique_dp<CountryStatusButtonHandle>(state, tapHandler, anchor, size);
+  return make_unique_dp<CountryStatusButtonHandle>(state, tapHandler, anchor, size, color, pressedColor);
 }
 
 drape_ptr<dp::OverlayHandle> CreateLabelHandle(CountryStatusHelper::ECountryState const state,
@@ -166,24 +168,30 @@ drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex,
     {
     case CountryStatusHelper::CONTROL_TYPE_BUTTON:
       {
-        TButtonHandlers::const_iterator buttonHandlerIt = buttonHandlers.find(control.m_buttonType);
-        Shape::TTapHandler buttonHandler = (buttonHandlerIt != buttonHandlers.end() ? buttonHandlerIt->second : nullptr);
-        Button::THandleCreator buttonHandleCreator = bind(&CreateButtonHandle, state, buttonHandler, _1, _2);
-        Button::THandleCreator labelHandleCreator = bind(&CreateLabelHandle, state, _1, _2);
-
-        float visualScale = df::VisualParams::Instance().GetVisualScale();
+        float const visualScale = df::VisualParams::Instance().GetVisualScale();
 
         ShapeControl shapeControl;
         Button::Params params;
         params.m_anchor = m_position.m_anchor;
         params.m_label = control.m_label;
         params.m_labelFont = dp::FontDecl(dp::Color::White(), 16);
-        params.m_minWidth = 300;
+        params.m_minWidth = 400;
         params.m_maxWidth = 600;
         params.m_margin = 5.0f * visualScale;
         params.m_facet = 8.0f * visualScale;
-        params.m_bodyHandleCreator = buttonHandleCreator;
-        params.m_labelHandleCreator = labelHandleCreator;
+
+        dp::Color color = dp::Color(0, 0, 0, 0.44 * 255);
+        dp::Color pressedColor = dp::Color(0, 0, 0, 0.72 * 255);
+        if (control.m_buttonType == CountryStatusHelper::BUTTON_TYPE_MAP_ROUTING)
+        {
+          color = dp::Color(32, 152, 82, 255);
+          pressedColor = dp::Color(24, 128, 68, 255);
+        }
+
+        TButtonHandlers::const_iterator buttonHandlerIt = buttonHandlers.find(control.m_buttonType);
+        Shape::TTapHandler buttonHandler = (buttonHandlerIt != buttonHandlers.end() ? buttonHandlerIt->second : nullptr);
+        params.m_bodyHandleCreator = bind(&CreateButtonHandle, state, buttonHandler, color, pressedColor, _1, _2);
+        params.m_labelHandleCreator = bind(&CreateLabelHandle, state, _1, _2);
 
         Button::Draw(params, shapeControl, tex);
         renderer->AddShapeControl(move(shapeControl));

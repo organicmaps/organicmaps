@@ -13,7 +13,8 @@ class ButtonHandle : public TappableHandle
   typedef TappableHandle TBase;
 
 public:
-  ButtonHandle(dp::Anchor anchor, m2::PointF const & size);
+  ButtonHandle(dp::Anchor anchor, m2::PointF const & size,
+               dp::Color const & color, dp::Color const & pressedColor);
 
   void OnTapBegin() override;
   void OnTapEnd() override;
@@ -21,6 +22,8 @@ public:
 
 private:
   bool m_isInPressedState;
+  dp::Color m_color;
+  dp::Color m_pressedColor;
 };
 
 class Button
@@ -54,6 +57,7 @@ public:
     float m_maxWidth = 0.0f;
     float m_margin = 0.0f;
     float m_facet = 0.0f;
+
     THandleCreator m_bodyHandleCreator;
     THandleCreator m_labelHandleCreator;
   };

@@ -134,7 +134,7 @@ CountryStatusHelper::Control const & CountryStatusHelper::GetControl(size_t inde
 
 float CountryStatusHelper::GetControlMargin()
 {
-  return 5.0f * df::VisualParams::Instance().GetVisualScale();
+  return 20.0f * df::VisualParams::Instance().GetVisualScale();
 }
 
 void CountryStatusHelper::GetProgressInfo(string & alphabet, size_t & maxLength)
