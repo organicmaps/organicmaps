@@ -302,10 +302,10 @@ namespace ftype
 
         // Next objects trying to find by value first.
         ClassifObjectPtr pObj =
-            ForEachTagEx<ClassifObjectPtr>(p, skipRows, [&](string const & k, string const & v)
+            ForEachTagEx<ClassifObjectPtr>(p, skipRows, [&current](string const & k, string const & v)
             {
               if (!NeedMatchValue(k, v))
-                return ClassifObjectPtr(0, 0);
+                return ClassifObjectPtr();
               return current->BinaryFind(v);
             });
 
@@ -389,7 +389,7 @@ namespace ftype
     return string();
   }
 
-  void PreprocessElement(OsmElement * p, FeatureParams & params)
+  void PreprocessElement(OsmElement * p)
   {
     bool hasLayer = false;
     char const * layer = nullptr;
@@ -404,6 +404,9 @@ namespace ftype
       { "layer", "*", [&hasLayer] { hasLayer = true; }},
 
       { "railway", "subway_entrance", [&isSubwayEntrance] { isSubwayEntrance = true; }},
+
+      /// @todo Unfortunatelly, it's not working in many cases (route=subway, transport=subway).
+      /// Actually, it's better to process subways after feature types assignment.
       { "station", "subway", [&isSubwayStation] { isSubwayStation = true; }},
     });
 
@@ -507,7 +510,7 @@ namespace ftype
   void GetNameAndType(OsmElement * p, FeatureParams & params)
   {
     // Stage1: Preprocess tags.
-    PreprocessElement(p, params);
+    PreprocessElement(p);
 
     // Stage2: Process feature name on all languages.
     ForEachTag<bool>(p, NamesExtractor(params));
@@ -518,9 +521,10 @@ namespace ftype
       { "atm", "yes", [](string & k, string & v) { k.swap(v); k = "amenity"; }},
       { "restaurant", "yes", [](string & k, string & v) { k.swap(v); k = "amenity"; }},
       { "hotel", "yes", [](string & k, string & v) { k.swap(v); k = "tourism"; }},
-      { "addr:housename", "*", [&params](string & k, string & v) { params.AddHouseName(v); k.clear(); v.clear();}},
-      { "addr:street", "*", [&params](string & k, string & v) { params.AddStreetAddress(v); k.clear(); v.clear();}},
-      { "addr:flats", "*", [&params](string & k, string & v) { params.flats = v; k.clear(); v.clear();}},
+      { "building", "entrance", [](string & k, string & v) { k.swap(v); v = "yes"; }},
+      { "addr:housename", "*", [&params](string & k, string & v) { params.AddHouseName(v); k.clear(); v.clear(); }},
+      { "addr:street", "*", [&params](string & k, string & v) { params.AddStreetAddress(v); k.clear(); v.clear(); }},
+      { "addr:flats", "*", [&params](string & k, string & v) { params.flats = v; k.clear(); v.clear(); }},
       { "addr:housenumber", "*", [&params](string & k, string & v)
         {
           // Treat "numbers" like names if it's not an actual number.
@@ -535,8 +539,7 @@ namespace ftype
           uint64_t n;
           if (strings::to_uint64(v, n))
             params.rank = static_cast<uint8_t>(log(double(n)) / log(1.1));
-          k.clear();
-          v.clear();
+          k.clear(); v.clear();
         }},
       { "ref", "*", [&params](string & k, string & v)
         {
@@ -556,7 +559,7 @@ namespace ftype
         }},
     });
 
-    // Stage4: Match tags to classificator for find feature types.
+    // Stage4: Match tags in classificator to find feature types.
     MatchTypes(p, params);
 
     // Stage5: Postprocess feature types.

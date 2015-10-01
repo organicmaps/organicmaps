@@ -1213,7 +1213,9 @@ node|z17-[tourism=information][office]
   icon-image: information-office.svg;
 }
 area|z17-[barrier=gate],
-node|z17-[barrier=gate]
+node|z17-[barrier=gate],
+area|z17-[barrier=entrance],
+node|z17-[barrier=entrance],
 {
   icon-image: gate.svg;
 }

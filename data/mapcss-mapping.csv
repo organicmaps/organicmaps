@@ -1033,3 +1033,6 @@ railway|subway_entrance|madrid;[railway=subway_entrance][city=madrid];;name;int_
 railway|subway_entrance|roma;[railway=subway_entrance][city=roma];;name;int_name;1033;
 railway|subway_entrance|spb;[railway=subway_entrance][city=spb];;name;int_name;1034;
 aerialway|drag_lift;[aerialway=drag_lift];;name;int_name;1035;
+amenity|dentist;[amenity=dentist];;name;int_name;1037;
+amenity|clinic;[amenity=clinic];;name;int_name;1038;
+barrier|entrance;[barrier=entrance];;name;int_name;1040;
