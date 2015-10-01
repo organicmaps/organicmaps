@@ -19,8 +19,8 @@ namespace tesselator
 {
 int TesselateInterior(PolygonsT const & polys, TrianglesInfo & info)
 {
-  int const kCoordinatesPerVertex = 2;
-  int const kVerticesInPolygon = 3;
+  int constexpr kCoordinatesPerVertex = 2;
+  int constexpr kVerticesInPolygon = 3;
 
   auto const deleter = [](TESStesselator * tess) {tessDeleteTess(tess);};
   unique_ptr<TESStesselator, decltype(deleter)> tess(tessNewTess(nullptr), deleter);
@@ -89,13 +89,13 @@ int TesselateInterior(PolygonsT const & polys, TrianglesInfo & info)
   }
 
   /// Find best (cheap in serialization) start edge for processing.
-  TrianglesInfo::ListInfo::iter_t
+  TrianglesInfo::ListInfo::TIterator
   TrianglesInfo::ListInfo::FindStartTriangle(PointsInfo const & points) const
   {
-    iter_t ret = m_neighbors.end();
+    TIterator ret = m_neighbors.end();
     size_t cr = numeric_limits<size_t>::max();
 
-    for (iter_t i = m_neighbors.begin(); i != m_neighbors.end(); ++i)
+    for (TIterator i = m_neighbors.begin(); i != m_neighbors.end(); ++i)
     {
       if (!m_visited[i->second] &&
           m_neighbors.find(make_pair(i->first.second, i->first.first)) == m_neighbors.end())
@@ -146,7 +146,7 @@ int TesselateInterior(PolygonsT const & polys, TrianglesInfo & info)
     int j = my::NextModN(i, 3);
 
     int ind = 0;
-    iter_t it = m_neighbors.find(make_pair(trg.m_p[j], trg.m_p[i]));
+    TIterator it = m_neighbors.find(make_pair(trg.m_p[j], trg.m_p[i]));
     nb[ind++] = (it != m_neighbors.end()) ? it->second : empty_key;
 
     it = m_neighbors.find(make_pair(trg.m_p[my::NextModN(j, 3)], trg.m_p[j]));
@@ -173,7 +173,7 @@ int TesselateInterior(PolygonsT const & polys, TrianglesInfo & info)
 
   template <class TPopOrder>
   void TrianglesInfo::ListInfo::MakeTrianglesChainImpl(
-      PointsInfo const & points, iter_t start, vector<Edge> & chain) const
+      PointsInfo const & points, TIterator start, vector<Edge> & chain) const
   {
     chain.clear();
 
@@ -228,7 +228,7 @@ int TesselateInterior(PolygonsT const & polys, TrianglesInfo & info)
   };
 
   void TrianglesInfo::ListInfo::MakeTrianglesChain(
-    PointsInfo const & points, iter_t start, vector<Edge> & chain, bool /*goodOrder*/) const
+    PointsInfo const & points, TIterator start, vector<Edge> & chain, bool /*goodOrder*/) const
   {
     //if (goodOrder)
       MakeTrianglesChainImpl<edge_greater_delta>(points, start, chain);
