@@ -85,13 +85,13 @@ UNIT_TEST(GetTtsTextTest)
                                   LengthUnits::Meters);
   Notification const notifiation4(0, 0, true, TurnDirection::TurnLeft, LengthUnits::Meters);
 
-  getTtsText.SetLocaleWithJson(engShortJson);
+  getTtsText.ForTestingSetLocaleWithJson(engShortJson);
   TEST_EQUAL(getTtsText(notifiation1), "In 500 meters. Make a right turn.", ());
   TEST_EQUAL(getTtsText(notifiation2), "In 300 meters. Make a left turn.", ());
   TEST_EQUAL(getTtsText(notifiation3), "You have reached the destination.", ());
   TEST_EQUAL(getTtsText(notifiation4), "Then. Make a left turn.", ());
 
-  getTtsText.SetLocaleWithJson(rusShortJson);
+  getTtsText.ForTestingSetLocaleWithJson(rusShortJson);
   TEST_EQUAL(getTtsText(notifiation1), "Через 500 метров. Поворот направо.", ());
   TEST_EQUAL(getTtsText(notifiation2), "Через 300 метров. Поворот налево.", ());
   TEST_EQUAL(getTtsText(notifiation3), "Вы достигли конца маршрута.", ());
