@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="23px" height="24px" viewBox="0 0 23 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12081) - http://www.bohemiancoding.com/sketch -->
+    <title>millitary-m</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="millitary-m" sketch:type="MSLayerGroup">
+            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <ellipse id="Oval-1-Copy-40" fill="#7F7D54" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <g id="Group" transform="translate(3.000000, 6.000000)" sketch:type="MSShapeGroup">
+                <path d="M13.0480196,9.49635906 L3.45869491,9.49635906 C2.43887921,9.49635906 1.6115,8.42779693 1.6115,7.5715 C1.6115,6.71438207 2.43887921,6.019 3.45869491,6.019 L13.1528051,6.019 C14.1726208,6.01982099 15,6.71520307 15,7.5715 C15,8.42779693 14.0678353,9.49635906 13.0480196,9.49635906 Z" id="Shape" stroke="#FFFFFF"></path>
+                <path d="M16.6125,7.227 L16.6125,7.227 C16.6125,5.511375 15.6245,4.122 14.4065,4.122 L2.8185,4.122 C1.5995,4.122 0.6115,5.511375 0.6115,7.227 L0.6115,7.227 L16.6125,7.227 L16.6125,7.227 Z" id="Shape" fill="#FFFFFF"></path>
+                <path d="M8.6115,2.019 L17.0532028,2.019 L17.0532028,3.00950677 L8.6115,3.00950677 L8.6115,2.019 Z" id="Rectangle-path" fill="#FFFFFF"></path>
+                <path d="M11.8475,5.019 L3.6115,5.019 L3.6115,0.019 L10.2945,0.019 L11.8475,5.019 Z" id="Shape" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>

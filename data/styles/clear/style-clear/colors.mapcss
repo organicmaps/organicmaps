@@ -88,10 +88,10 @@
 /* NATURAL */
 @glacier: #FFFFFF;
 @water: #83C6D2;
-@river: #65A4C3;
+@river: #6ea4bd;
 @forest: #AABB66;
 @park: #AABB66; /*  #A4B275 #BCCC74*/
-@beach: #FAEE99;
+@beach: #ffeeaa;
 
 /* BUILDINGS */
 @housename: #7F7F7F;
@@ -104,6 +104,7 @@
 @hospital: #FFAAAA;
 @industrial: #D1D1D1;
 @sport: #CCCCAA;
+@parking: #EeEeCC;
 
 /* BARRIERS */
 @fence: #BBBBAA;
@@ -159,7 +160,7 @@
 @building_label: #7F7F7F;
 
 /* PISTE */
-@piste: grey;
+@piste: #c867f6;
 @piste_novice: #40A90B;
 @piste_easy: #40A90B;
 @piste_intermadiate: #DF4741;

@@ -91,7 +91,7 @@
 @water: #002222;
 @river: #062026;
 @forest: #1B2500;
-@park: #1B2500; 
+@park: #1B2500;
 @beach: #28281A;
 
 /* BUILDINGS */
@@ -105,6 +105,7 @@
 @hospital: #3B2D23;
 @industrial: #141400;
 @sport: #111100;
+@parking: #001111;
 
 /* BARRIERS */
 @fence: #444444;
