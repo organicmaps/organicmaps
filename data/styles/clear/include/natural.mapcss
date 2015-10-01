@@ -116,7 +116,11 @@ line|z15-[waterway=stream] {
 }
 
 line|z15-[waterway=stream][intermittent=yes] {
-	dashes: 5,5;
+	dashes: 5.5;
+	width: 1;
+	opacity: 1;
+	color: @river;
+	z-index: 50;
 }
 
 line|z17-[waterway=ditch] {
@@ -130,7 +134,7 @@ line|z17-[waterway=ditch] {
 line|z15-[waterway=dam] {
 	width: 1;
 	opacity: 0.8;
-	color: @dark;
+	color: @bridge_casing;
 	z-index: 283;
 }
 
@@ -239,6 +243,13 @@ area|z15-[leisure=beach_resort],
 area|z15-[natural=beach],
 {
   fill-color: @beach;
-  fill-opacity: 0.7;
+  fill-opacity: 0.85;
+  z-index: 40;
+}
+area|z17-[leisure=beach_resort],
+area|z17-[natural=beach],
+{
+  fill-color: @beach;
+  fill-opacity: 1;
   z-index: 40;
 }

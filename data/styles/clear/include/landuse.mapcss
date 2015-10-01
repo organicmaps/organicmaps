@@ -43,12 +43,23 @@ area|z15-[landuse=industrial] {
 
 
 /* CEMETRY */
-area|z12-[landuse=cemetery] {
+
+area|z14[landuse=cemetery] {
   fill-color: @park;
-  fill-opacity: 0.5;
-  z-index: 150;
+  fill-opacity: 0.85;
+  z-index: -10;
+}
+area|z14[amenity=grave_yard] {
+  fill-color: @park;
+  fill-opacity: 0.85;
+  z-index: -10;
 }
 
+area|z15-[amenity=grave_yard], area|z15-[landuse=cemetery] {
+  fill-color: @park;
+  fill-opacity: 1;
+  z-index: -1000;
+}
 
 /* UNIVERSITY */
 area|z14[amenity=university] {
@@ -71,3 +82,13 @@ area|z17-[leisure=playground]  {
   fill-opacity: 1;
   z-index: 150;
 }
+/* PARKINGS
+area|z16-[amenity=parking] {fill-color: @parking;fill-oppacity:1;z-index: 3;}
+*/
+/* MILITARY */
+/* area|z14[landuse=military] {
+  fill-color: ;
+  fill-opacity: 0.5;
+  z-index: 10;
+}
+*/

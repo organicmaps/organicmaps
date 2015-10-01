@@ -58,13 +58,13 @@ node|z17-[natural=volcano],{ icon-image: volcano-l.svg; text-offset: 8; font-siz
 node|z15-16[natural=peak] { icon-image: peak-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z17-[natural=peak] { icon-image: peak-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; }
 
-node|z12-14[boundary=national_park],area|z12-14[boundary=national_park] { icon-image: npark-s.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; z-index: 1000;}
-node|z15-16[boundary=national_park],area|z15-16[boundary=national_park] { icon-image: npark-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; z-index: 1000;}
-node|z17-[boundary=national_park],area|z17-[boundary=national_park] { icon-image: npark-l.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; z-index: 1000;}
+node|z12-14[boundary=national_park],area|z12-14[boundary=national_park] { icon-image: nparkf-s.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; z-index: 1000;}
+node|z15-16[boundary=national_park],area|z15-16[boundary=national_park] { icon-image: nparkf-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; z-index: 1000;}
+node|z17-[boundary=national_park],area|z17-[boundary=national_park] { icon-image: nparkf-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 1000;}
 
-node|z12-14[leisure=nature_reserve],area|z12-14[leisure=nature_reserve] { icon-image: npark-s.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; z-index: 1000; }
-node|z15-16[leisure=nature_reserve],area|z15-16[leisure=nature_reserve] { icon-image: npark-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; z-index: 1000; }
-node|z17-[leisure=nature_reserve],area|z17-[leisure=nature_reserve] { icon-image: npark-l.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; z-index: 1000; }
+node|z12-14[leisure=nature_reserve],area|z12-14[leisure=nature_reserve] { icon-image: nparkf-s.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; z-index: 1000; }
+node|z15-16[leisure=nature_reserve],area|z15-16[leisure=nature_reserve] { icon-image: nparkf-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; z-index: 1000; }
+node|z17-[leisure=nature_reserve],area|z17-[leisure=nature_reserve] { icon-image: nparkf-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 1000; }
 
 
 /* AMENITY */
@@ -74,6 +74,8 @@ node|z19-[amenity], area|z19-[amenity] { icon-image: none.svg;  text-offset: 8; 
 
 
 /* AMENITY */
+node|z15-[natural=spring],area|z17-[natural=spring]{ icon-image: drinking-water-m.svg; z-index: 1000; text-offset:8; font-size: 10;  text: name; text-color: @poi_label; z-index: 100;  }
+
 node|z16[amenity=place_of_worship], area|z16[amenity=place_of_worship] { icon-image: place-of-worship-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z16[amenity=theatre], area|z16[amenity=theatre] { icon-image: theatre-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z16[amenity=kindergarten], area|z16[amenity=kindergarten] { icon-image: kindergarten-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
@@ -82,6 +84,7 @@ node|z16[amenity=college], area|z16[amenity=college] { icon-image: college-m.svg
 node|z16[amenity=hospital], area|z16[amenity=hospital] { icon-image: hospital-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z16[amenity=university], area|z16[amenity=university] { icon-image: college-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; z-index: 4; }
 node|z16[amenity=fuel], area|z16[amenity=fuel] { icon-image: fuel-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
+node|z16-[natural=spring],area|z16-[natural=spring]{ icon-image: drinking-water-m.svg; z-index: 1000; text-offset:8; font-size: 10;  text: name; text-color: @poi_label; z-index: 100;  }
 
 
 node|z17[amenity=place_of_worship], area|z17[amenity=place_of_worship] { icon-image: place-of-worship-l.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
@@ -101,6 +104,10 @@ node|z17[amenity=bicycle_rental], area|z17[amenity=bicycle_rental] { icon-image:
 node|z17[amenity=post_office] { icon-image: mail-l.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z17[amenity=cafe], area|z17[amenity=cafe] { icon-image: cafe-l.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z17[amenity=restaurant], area|z17[amenity=restaurant] { icon-image: restaurant-l.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
+node|z17-[amenity=fountain],area|z17-[amenity=fountain] { icon-image: fountain-l.svg; z-index: 1000; text-offset: 8; font-size: 10;  text: name; text-color: @poi_label; }
+node|z17-[amenity=drinking_water],area|z17-[amenity=drinking_water],node|z17-[amenity=water_point] ,area|z17-[amenity=water_point]{ icon-image: drinking-water-l.svg; }
+node|z17-[natural=spring],area|z17-[natural=spring]{ icon-image: drinking-water-l.svg; z-index: 1000; text-offset:8; font-size: 10;  text: name; text-color: @poi_label; z-index: 100;  }
+
 
 node|z18-[amenity=place_of_worship], area|z18-[amenity=place_of_worship] { icon-image: place-of-worship-l.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z18-[amenity=theatre], area|z18-[amenity=theatre] { icon-image: theatre-l.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
@@ -126,10 +133,13 @@ node|z18-[amenity=bar], area|z18-[amenity=bar] { icon-image: bar-l.svg; text-off
 node|z18-[amenity=pub], area|z18-[amenity=pub] { icon-image: pub-l.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z18-[amenity=bureau_de_change] { icon-image: banknote-l.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z18-[amenity=bench] { icon-image: bench.svg; }
-node|z18-[amenity=fountain] { icon-image: fountain-l.svg; z-index: 1000; text-offset: 8; font-size: 10;  text: name; text-color: @poi_label; }
+node|z18-[amenity=fountain],area|z18-[amenity=fountain] { icon-image: fountain-l.svg; z-index: 1000; text-offset: 8; font-size: 10;  text: name; text-color: @poi_label; }
+node|z18-[amenity=drinking_water],area|z18-[amenity=drinking_water],node|z18-[amenity=water_point],area|z18-[amenity=water_point] { icon-image: drinking-water-l.svg; }
+node|z18-[natural=spring],area|z18-[natural=spring]{ icon-image: drinking-water-l.svg; z-index: 1000; text-offset: 8; font-size: 10;  text: name; text-color: @poi_label; }
 node|z18-[amenity=library] { icon-image: library-l.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
+node|z18-[amenity=waste_disposal], area|z18-[amenity=waste_disposal] { icon-image: recycling-l.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
+
 node|z19-[amenity=telephone] { icon-image: phone-l.svg;  }
-node|z19-[amenity=drinking_water] { icon-image: drinking-water-l.svg; }
 node|z19-[amenity=recycling], area|z19-[amenity=recycling], { icon-image: recycling-l.svg; }
 
 /* LEISURE */
@@ -174,11 +184,17 @@ node|z17-[building=hospital], area|z17-[building=hospital] { icon-image: hospita
 
 
 /* PARKINGS */
-node|z17[amenity=parking] { icon-image: parking-s.svg; }
-node|z17[amenity=parking][access=permissive],
-node|z17[amenity=parking][access=private] { icon-image: zero-icon.svg; }
+area|z16-[amenity=parking] {fill-color: @parking;fill-oppacity:1;z-index: 0;}
 
-node|z18-[amenity=parking], area|z18-[amenity=parking] { icon-image: parking-m.svg;  text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
+node|z17[amenity=parking] { icon-image: parking-s.svg; z-index: 4;  }
+node|z17[amenity=parking] { icon-image: parking-s.svg;  z-index: 4; }
+node|z17[amenity=parking][access=permissive],
+node|z17[amenity=parking][access=private] { icon-image: zero-icon.svg; z-index: 4;  }
+
+
+
+node|z18-[amenity=parking], area|z18-[amenity=parking] { icon-image: parking-m.svg;  text-offset: 8; font-size: 10; text: name; text-color: @poi_label;  z-index: 4; }
+
 
 /* MAN MADE */
 

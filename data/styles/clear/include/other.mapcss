@@ -80,6 +80,8 @@ line|z14-[piste:type=downhill][piste:difficulty=easy] { color:  @piste_easy; }
 line|z14-[piste:type=downhill][piste:difficulty=intermediate] { color: @piste_intermadiate; }
 line|z14-[piste:type=downhill][piste:difficulty=advanced] { color: @piste_advanced; }
 line|z14-[piste:type=downhill][piste:difficulty=expert] { color: @piste_expert; }
+line|z14-[piste:type=downhill][piste:difficulty=freeride] { color: @piste_expert; }
+
 
 
 /*

@@ -783,9 +783,11 @@ node|z8-9[place=region],
 
 
 area|z16[building],
-node|z16[building]
+node|z16[building],
+area|z16[addr:housenumber][addr:street],
+node|z16[addr:housenumber][addr:street]
 {
-  text: "addr:housename";
+  text: "addr:housenumber";
   font-size: 8;
   text-color: @housename;
   text-position: center;
@@ -793,9 +795,11 @@ node|z16[building]
 }
 
 area|z17[building],
-node|z17[building]
+node|z17[building],
+area|z17[addr:housenumber][addr:street],
+node|z17[addr:housenumber][addr:street]
 {
-  text: name;
+  text: "addr:housenumber";
   font-size: 9;
   text-color: @building_label;
   text-position: center;
@@ -804,9 +808,11 @@ node|z17[building]
 
 
 area|z18-[building],
-node|z18-[building]
+node|z18-[building],
+area|z18-[addr:housenumber][addr:street],
+node|z18-[addr:housenumber][addr:street]
 {
-  text: name;
+  text: "addr:housenumber";
   font-size: 10;
   text-color: @building_label;
   text-position: center;
@@ -1008,4 +1014,50 @@ area|z18-[leisure=garden] {
   text-halo-opacity: 0.3;
   text-halo-color: @label_halo_light;
   text-halo-radius: 0;
+}
+/* BEACH LABELS */
+
+area|z15-[leisure=beach_resort],
+area|z15-[natural=beach], {
+  text: name;
+  font-size: 10;
+  text-color: @poi_label;
+}
+
+/* MILITARY */
+
+area|z17-[landuse=military],
+node|z17-[landuse=military] {
+  icon-image: military-l.svg;
+  text-offset: 10;
+  text: name;
+  font-size: 10;
+  text-color: @poi_label;
+  z-index: 1000;
+}
+/* CEMETRY */
+
+area|z15-[landuse=cemetery] {
+  icon-image: cemetery-m.svg;
+  text-offset: 10;
+  text: name;
+  font-size: 10;
+  text-color: @poi_label;
+  z-index: 1000;
+}
+area|z17-[landuse=cemetery] {
+  icon-image: cemetery-l.svg;
+  text-offset: 10;
+  text: name;
+  font-size: 10;
+  text-color: @poi_label;
+  z-index: 1000;
+}
+area|z17-[amenity=grave_yard] {
+  icon-image: cemetry-l.svg;
+  text-offset: 10;
+  text: name;
+  font-size: 10;
+  text-color: @poi_label;
+  z-index: 1000;
 }

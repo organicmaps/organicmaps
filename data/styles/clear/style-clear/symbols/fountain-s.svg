@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+<svg width="17px" height="18px" viewBox="0 0 17 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12081) - http://www.bohemiancoding.com/sketch -->
     <title>fountain-s</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="fountain-s" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-42" opacity="0.496443563" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="7.5" cy="7.5" r="7.5"></circle>
-            <path d="M7.5,11 C6.34687857,11 5,10.3 5,8.55 C5,7.325 6.96428571,4.7 7.5,4 C8.03571429,4.7 10,7.325 10,8.55 C10,10.3 8.65312143,11 7.5,11 L7.5,11 Z" id="path4133-5-copy" fill="#4794C7" sketch:type="MSShapeGroup"></path>
+        <g id="fountain-s" sketch:type="MSLayerGroup" transform="translate(0.000000, 0.019000)">
+            <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
+            <circle id="Oval-1-Copy-42" fill="#2E89B0" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
+            <g id="Group-Copy-4" transform="translate(9.000000, 8.481000) rotate(-180.000000) translate(-9.000000, -8.481000) translate(5.000000, 2.981000)" fill="#FFFFFF" sketch:type="MSShapeGroup">
+                <path d="M0.985084491,7.84017683 L0.985084491,7.00761746 L1.99146469,7.00761746 L1.99146467,7.58569967 C1.99146467,7.98201656 2.16917753,8.87545298 2.56937999,8.98860453 C3.22088619,9.17280863 3.69833201,8.14471231 3.80104741,7.67886614 L4.45342901,5.42472695 L4.47286165,5.42472695 L4.47286165,7.74700484 C4.47286165,8.33301661 4.19543194,8.97338695 3.7676012,9.41969992 C3.43807225,9.76346449 3.01931677,9.99210308 2.56937999,9.99210308 C1.53389769,9.99210308 0.985084491,8.87755366 0.985084491,7.84017683 Z" id="Shape"></path>
+                <path d="M6.97523876,6.99009226 L7.99509092,6.99009226 L7.9950909,7.74700484 C7.9950909,8.55254564 7.64858161,9.47450624 6.97384192,9.84635874 C6.77965067,9.95337853 6.55827216,10.014833 6.31014212,10.014833 C5.35223991,10.014833 4.49224192,9.02872794 4.49224192,7.99135111 L4.47280928,5.42472695 L4.49224192,5.42472695 L5.14462352,7.67886614 C5.24733892,8.14471231 5.72767612,9.10470723 6.2339501,8.9899206 C6.68092436,8.8885789 6.97523874,7.88884456 6.97523874,7.49113709 L6.97523876,6.99009226 Z" id="Shape"></path>
+                <path d="M4.51620791,2.38639427 C2.40776611,2.38639427 0.982888617,3.94517029 0.982888617,6 L7.99542413,6 C7.99542425,3.94517029 6.6274258,2.38639427 4.51620791,2.38639427 Z" id="Shape"></path>
+                <path d="M2,1 L4.50000006,2.62068596 L7,1 L2,1 Z" id="Shape"></path>
+            </g>
         </g>
     </g>
 </svg>

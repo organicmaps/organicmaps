@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12081) - http://www.bohemiancoding.com/sketch -->
+    <title>nparkF-s</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Natural" sketch:type="MSLayerGroup" transform="translate(-71.000000, -5.000000)">
+            <g id="nparkF-s" transform="translate(71.000000, 5.000000)" sketch:type="MSShapeGroup">
+                <circle id="Oval-1-Copy-43" fill="#FFFFFF" cx="8.5" cy="8.5" r="8.5"></circle>
+                <circle id="Oval-1-Copy-42" fill="#3A7921" cx="8.5" cy="8.5" r="7.5"></circle>
+                <path d="M8.5,3.91287426 L5,7.07692303 L7.04377508,7.07692303 L5,9.04385843 L7.04377508,9.04385843 L5,11.0009678 L5.68400832,11.0009678 L7.99911189,11.0009678 L7.99911189,13.0164069 L8.99568152,13.0164073 L8.99568152,11.0009681 L12,11.0009678 L9.9828372,9.04385843 L12,9.04385843 L9.9828372,7.07692303 L12,7.07692303 L8.5,3.91287426 Z" id="rect4152-3-3-5-copy" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
