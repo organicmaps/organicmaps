@@ -95,7 +95,7 @@ void KineticScroller::GrabViewRect(ScreenBase const & modelView, double timeStam
     delta = delta.Normalize();
 
     // velocity on pixels
-    double v = min(pxDeltaLength / elapsed, kKineticMaxSpeed);
+    double v = min(pxDeltaLength / elapsed, kKineticMaxSpeed * VisualParams::Instance().GetVisualScale());
 
     // at this point length(m_direction) already in pixel space, and delta normalized
     m_direction = delta * kKineticInertia * v + m_direction * (1.0 - kKineticInertia);

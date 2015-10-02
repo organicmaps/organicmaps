@@ -44,16 +44,18 @@ public:
   virtual ~UserMarksProvider() {}
 
   void BeginRead();
-    bool IsDirty() const;
-    virtual bool IsDrawable() const = 0;
 
-    virtual size_t GetUserPointCount() const = 0;
-    /// never store UserPointMark reference
-    virtual UserPointMark const * GetUserPointMark(size_t index) const = 0;
+  bool IsDirty() const;
+  virtual bool IsDrawable() const = 0;
 
-    virtual size_t GetUserLineCount() const = 0;
-    /// never store UserLineMark reference
-    virtual UserLineMark const * GetUserLineMark(size_t index) const = 0;
+  virtual size_t GetUserPointCount() const = 0;
+  /// never store UserPointMark reference
+  virtual UserPointMark const * GetUserPointMark(size_t index) const = 0;
+
+  virtual size_t GetUserLineCount() const = 0;
+  /// never store UserLineMark reference
+  virtual UserLineMark const * GetUserLineMark(size_t index) const = 0;
+
   void EndRead();
 
   void IncrementCounter();
@@ -64,14 +66,13 @@ public:
 
 protected:
   void BeginWrite();
-    void SetDirty();
+  void SetDirty();
   void EndWrite();
 
 private:
   void Lock();
   void Unlock();
 
-private:
   threads::Mutex m_mutex;
   bool m_isDirty = false;
   atomic<bool> m_pendingOnDelete;

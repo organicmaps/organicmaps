@@ -11,8 +11,6 @@
 
 #include "std/algorithm.hpp"
 
-////////////////////////////////////////////////////////////////////////
-
 namespace
 {
   class FindMarkFunctor
@@ -65,9 +63,7 @@ namespace
   }
 
   size_t const VisibleFlag = 0;
-  size_t const VisibleDirtyFlag = 1;
-  size_t const DrawableFlag = 2;
-  size_t const DrawableDirtyFlag = 3;
+  size_t const DrawableFlag = 1;
 }
 
 UserMarkContainer::UserMarkContainer(double layerDepth, UserMarkType type, Framework & fm)
@@ -145,11 +141,7 @@ void UserMarkContainer::ReleaseController()
     return;
 
   df::TileKey key = CreateTileKey(this);
-  if (IsVisibleFlagDirty() || IsDrawableFlagDirty())
-    engine->ChangeVisibilityUserMarksLayer(key, IsVisible() && IsDrawable());
-
-  m_flags[VisibleDirtyFlag] = false;
-  m_flags[DrawableDirtyFlag] = false;
+  engine->ChangeVisibilityUserMarksLayer(key, IsVisible() && IsDrawable());
 
   if (IsDirty())
   {
@@ -237,29 +229,18 @@ void UserMarkContainer::Clear(size_t skipCount/* = 0*/)
 void UserMarkContainer::SetIsDrawable(bool isDrawable)
 {
   if (IsDrawable() != isDrawable)
-  {
-    m_flags[DrawableDirtyFlag] = true;
     m_flags[DrawableFlag] = isDrawable;
-  }
 }
 
 void UserMarkContainer::SetIsVisible(bool isVisible)
 {
   if (IsVisible() != isVisible)
-  {
-    m_flags[VisibleDirtyFlag] = true;
     m_flags[VisibleFlag] = isVisible;
-  }
 }
 
-bool UserMarkContainer::IsVisibleFlagDirty()
+void UserMarkContainer::Update()
 {
-  return m_flags[VisibleDirtyFlag];
-}
-
-bool UserMarkContainer::IsDrawableFlagDirty()
-{
-  return m_flags[DrawableDirtyFlag];
+  SetDirty();
 }
 
 namespace

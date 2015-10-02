@@ -260,6 +260,8 @@ public:
   using TActivateCallbackFn = function<void (unique_ptr<UserMarkCopy> mark)>;
   void SetUserMarkActivationListener(TActivateCallbackFn const & fn) { m_activateUserMarkFn = fn; }
 
+  void ResetLastTapEvent();
+
 private:
   struct TapEventData
   {

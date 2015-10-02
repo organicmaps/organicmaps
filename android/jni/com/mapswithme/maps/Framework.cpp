@@ -421,6 +421,7 @@ bool Framework::ShowMapForURL(string const & url)
 
 void Framework::DeactivatePopup()
 {
+  m_work.ResetLastTapEvent();
   m_work.DeactivateUserMark();
 }
 

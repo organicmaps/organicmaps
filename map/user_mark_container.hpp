@@ -37,6 +37,7 @@ public:
   virtual UserMark * GetUserMarkForEdit(size_t index) = 0;
   virtual void DeleteUserMark(size_t index) = 0;
   virtual void Clear(size_t skipCount = 0) = 0;
+  virtual void Update() = 0;
 };
 
 class UserMarkContainer : public df::UserMarksProvider
@@ -62,14 +63,12 @@ public:
   UserMarksController & RequestController();
   void ReleaseController();
 
-  ////////////////////////////////////////////////////////////
   /// Render info
   size_t GetUserPointCount() const override;
   df::UserPointMark const * GetUserPointMark(size_t index) const override;
 
   size_t GetUserLineCount() const override;
   df::UserLineMark const * GetUserLineMark(size_t index) const override;
-  ////////////////////////////////////////////////////////////
 
   float GetPointDepth() const;
 
@@ -87,16 +86,11 @@ protected:
   void Clear(size_t skipCount = 0) override;
   void SetIsDrawable(bool isDrawable) override;
   void SetIsVisible(bool isVisible) override;
+  void Update() override;
 
-protected:
   virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg) = 0;
 
-protected:
   Framework & m_framework;
-
-private:
-  bool IsVisibleFlagDirty();
-  bool IsDrawableFlagDirty();
 
 private:
   bitset<4> m_flags;
