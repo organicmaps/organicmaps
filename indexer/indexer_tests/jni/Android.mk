@@ -10,6 +10,6 @@ include ../../android/UnitTests/jni/AndroidBeginning.mk
 
 LOCAL_MODULE    := indexer_tests
 
-LOCAL_STATIC_LIBRARIES := android_native_app_glue indexer platform geometry coding base protobuf tomcrypt zlib
+LOCAL_STATIC_LIBRARIES := android_native_app_glue indexer platform geometry coding base protobuf tomcrypt opening_hours minizip zlib
 
 include ../../android/UnitTests/jni/AndroidEnding.mk

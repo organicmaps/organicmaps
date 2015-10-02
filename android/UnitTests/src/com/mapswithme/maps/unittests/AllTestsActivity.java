@@ -4,7 +4,7 @@ package com.mapswithme.maps.unittests;
 public class AllTestsActivity extends android.app.NativeActivity {
 
     static {
-       System.loadLibrary("integration_tests");
+       System.loadLibrary("routing_integration_tests");
        System.loadLibrary("indexer_tests");
        System.loadLibrary("all_tests");
     }

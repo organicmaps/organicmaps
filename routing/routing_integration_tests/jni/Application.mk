@@ -1,1 +1,1 @@
-../../android/UnitTests/jni/Application.mk
+../../../android/UnitTests/jni/Application.mk

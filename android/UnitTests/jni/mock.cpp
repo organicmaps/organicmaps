@@ -226,6 +226,12 @@ void Platform::RunOnGuiThread(TFunctor const & fn)
   LOG(LWARNING, ("Platform::RunOnGuiThread() is not implemented."));
 }
 
+Platform::EConnectionType Platform::ConnectionStatus()
+{
+  LOG(LWARNING, ("Platform::ConnectionStatus() is not implemented."));
+  return Platform::EConnectionType::CONNECTION_NONE;
+}
+
 JavaVM * GetJVM() 
 { 
   LOG(LWARNING, ("GetJVM() returns nullptr."));

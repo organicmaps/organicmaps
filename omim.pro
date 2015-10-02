@@ -38,7 +38,7 @@ SUBDIRS += storage
 CONFIG(gtool):!CONFIG(no-tests) {
   SUBDIRS += search
   SUBDIRS += map
-  SUBDIRS += integration_tests
+  SUBDIRS += routing/routing_integration_tests
 }
 
 CONFIG(desktop) {

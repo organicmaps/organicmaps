@@ -5,11 +5,11 @@
 # - there are additional libs here (android_native_app_glue and zlib);
 
 LOCAL_PATH := $(call my-dir)
-ROOT_PATH := ..
-include ../android/UnitTests/jni/AndroidBeginning.mk
+ROOT_PATH := ../..
+include ../../android/UnitTests/jni/AndroidBeginning.mk
 
-LOCAL_MODULE    := integration_tests
+LOCAL_MODULE    := routing_integration_tests
 
-LOCAL_STATIC_LIBRARIES := android_native_app_glue base tomcrypt map routing search storage geometry osrm jansson indexer protobuf succinct stats_client platform coding zlib
+LOCAL_STATIC_LIBRARIES := android_native_app_glue base tomcrypt map routing search storage geometry osrm jansson indexer protobuf succinct stats_client platform coding opening_hours minizip zlib
 
-include ../android/UnitTests/jni/AndroidEnding.mk
+include ../../android/UnitTests/jni/AndroidEnding.mk
