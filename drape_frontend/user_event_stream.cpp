@@ -575,6 +575,12 @@ bool UserEventStream::EndDrag(Touch const & t, double timestamp, bool cancelled)
 
 void UserEventStream::BeginScale(Touch const & t1, Touch const & t2)
 {
+  if (m_state == STATE_SCALE)
+  {
+    Scale(t1, t2);
+    return;
+  }
+
   TEST_CALL(BEGIN_SCALE);
   ASSERT_EQUAL(m_state, STATE_EMPTY, ());
   m_state = STATE_SCALE;
