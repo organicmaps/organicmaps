@@ -13,6 +13,11 @@ TEMPLATE = app
 ROOT_DIR = ../..
 DEPENDENCIES = map routing search storage indexer platform geometry coding base osrm jansson protobuf tomcrypt succinct stats_client
 
+# this dependency is not built on Linux
+!linux* {
+  DEPENDENCIES += opening_hours
+}
+
 macx-*: LIBS *= "-framework IOKit" "-framework SystemConfiguration"
 
 include($$ROOT_DIR/common.pri)
