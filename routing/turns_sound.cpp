@@ -1,4 +1,4 @@
-#include "routing/turns_sound.hpp"
+  #include "routing/turns_sound.hpp"
 
 #include "platform/location.hpp"
 
@@ -77,7 +77,7 @@ void TurnsSound::GenerateTurnSound(TurnItem const & turn, double distanceToTurnM
         uint32_t const distToPronounce =
             m_settings.RoundByPresetSoundedDistancesUnits(turnNotificationDistUnits);
         string const text = GenerateTurnText(distToPronounce, turn.m_exitNum, false, turn.m_turn,
-                                      m_settings.GetLengthUnits());
+                                             m_settings.GetLengthUnits());
         if (!text.empty())
           turnNotifications.emplace_back(text);
         // @TODO(vbykoianko) Check if there's a turn immediately after the current turn.
