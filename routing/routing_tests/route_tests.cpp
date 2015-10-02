@@ -107,3 +107,53 @@ UNIT_TEST(NextTurnTest)
   TEST_EQUAL(turn, kTestTurns[2], ());
   TEST_EQUAL(nextTurn, turns::TurnItem(), ());
 }
+
+UNIT_TEST(NextTurnsTest)
+{
+  Route route("TestRouter");
+  route.SetGeometry(kTestGeometry.begin(), kTestGeometry.end());
+  vector<turns::TurnItem> turns(kTestTurns);
+  route.SetTurnInstructions(turns);
+  vector<turns::TurnItemDist> turnsDist;
+
+  {
+    TEST(route.GetNextTurns(turnsDist), ());
+    TEST_EQUAL(turnsDist.size(), 2, ());
+    double const firstSegLenM = MercatorBounds::DistanceOnEarth(kTestGeometry[0], kTestGeometry[1]);
+    double const secondSegLenM = MercatorBounds::DistanceOnEarth(kTestGeometry[1], kTestGeometry[2]);
+    TEST(my::AlmostEqualAbs(turnsDist[0].m_distMeters, firstSegLenM, 0.1), ());
+    TEST(my::AlmostEqualAbs(turnsDist[1].m_distMeters, firstSegLenM + secondSegLenM, 0.1), ());
+    TEST_EQUAL(turnsDist[0].m_turnItem, kTestTurns[0], ());
+    TEST_EQUAL(turnsDist[1].m_turnItem, kTestTurns[1], ());
+  }
+  {
+    double const x = 0.;
+    double const y = 0.5;
+    route.MoveIterator(GetGps(x, y));
+    TEST(route.GetNextTurns(turnsDist), ());
+    TEST_EQUAL(turnsDist.size(), 2, ());
+    double const firstSegLenM = MercatorBounds::DistanceOnEarth({x, y}, kTestGeometry[1]);
+    double const secondSegLenM = MercatorBounds::DistanceOnEarth(kTestGeometry[1], kTestGeometry[2]);
+    TEST(my::AlmostEqualAbs(turnsDist[0].m_distMeters, firstSegLenM, 0.1), ());
+    TEST(my::AlmostEqualAbs(turnsDist[1].m_distMeters, firstSegLenM + secondSegLenM, 0.1), ());
+    TEST_EQUAL(turnsDist[0].m_turnItem, kTestTurns[0], ());
+    TEST_EQUAL(turnsDist[1].m_turnItem, kTestTurns[1], ());
+  }
+  {
+    double const x = 1.;
+    double const y = 2.5;
+    route.MoveIterator(GetGps(x, y));
+    TEST(!route.GetNextTurns(turnsDist), ());
+    TEST_EQUAL(turnsDist.size(), 1, ());
+    double const firstSegLenM = MercatorBounds::DistanceOnEarth({x, y}, kTestGeometry[4]);
+    TEST(my::AlmostEqualAbs(turnsDist[0].m_distMeters, firstSegLenM, 0.1), ());
+    TEST_EQUAL(turnsDist[0].m_turnItem, kTestTurns[2], ());
+  }
+  {
+    double const x = 1.;
+    double const y = 3.5;
+    route.MoveIterator(GetGps(x, y));
+    TEST(!route.GetNextTurns(turnsDist), ());
+    TEST_EQUAL(turnsDist.size(), 1, ());
+  }
+}
