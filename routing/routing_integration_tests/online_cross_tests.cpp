@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "integration_tests/routing_test_tools.hpp"
+#include "routing/routing_integration_tests/routing_test_tools.hpp"
 
 namespace
 {

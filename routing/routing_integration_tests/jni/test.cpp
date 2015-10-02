@@ -5,7 +5,7 @@
 
 extern int main(int argc, char * argv[]);
 
-namespace integration_tests
+namespace routing_integration_tests
 {
   void test(android_app * state)
   {

@@ -79,7 +79,7 @@ android {
 }
 
 def NUM_OF_PARALLEL_MAKE_TASKS = Runtime.runtime.availableProcessors() + 1
-def INTEGRATION_TESTS_BUILD = '../../integration_tests/'
+def INTEGRATION_TESTS_BUILD = '../../routing/routing_integration_tests/'
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 def NDK_BUILD = properties.getProperty('ndk.dir') + '/ndk-build'

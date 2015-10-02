@@ -8,8 +8,8 @@ LOCAL_PATH := $(call my-dir)
 ROOT_PATH := ../..
 include ../../android/UnitTests/jni/AndroidBeginning.mk
 
-LOCAL_MODULE    := indexer_tests
+LOCAL_MODULE    := routing_integration_tests
 
-LOCAL_STATIC_LIBRARIES := android_native_app_glue indexer platform geometry coding base protobuf tomcrypt opening_hours minizip zlib
+LOCAL_STATIC_LIBRARIES := android_native_app_glue base tomcrypt map routing search storage geometry osrm jansson indexer protobuf succinct stats_client platform coding opening_hours minizip zlib
 
 include ../../android/UnitTests/jni/AndroidEnding.mk

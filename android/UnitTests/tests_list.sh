@@ -9,4 +9,4 @@
 MY_PATH=$(dirname "$0")                 # relative
 MY_PATH="`( cd \"$MY_PATH\" && pwd )`"  # absolutized and normalized
 
-declare -r TESTS_LIST=($MY_PATH/../../integration_tests/ $MY_PATH/../../indexer/indexer_tests/)
+declare -r TESTS_LIST=($MY_PATH/../../routing/routing_integration_tests/ $MY_PATH/../../indexer/indexer_tests/)

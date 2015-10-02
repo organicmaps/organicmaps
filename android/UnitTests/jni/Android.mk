@@ -7,8 +7,8 @@ MY_PREBUILT_LIBS_PATH := ../libs/tmp/$(TARGET_ARCH_ABI)
 $(info $(MY_PREBUILT_LIBS_PATH))
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := integration_tests
-LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libintegration_tests.so
+LOCAL_MODULE := routing_integration_tests
+LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/librouting_integration_tests.so
 include $(PREBUILT_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
@@ -27,6 +27,6 @@ LOCAL_SRC_FILES := ./main.cpp
 LOCAL_STATIC_LIBRARIES := android_native_app_glue
 
 # todo(vbykoianko) extract the names of the libs from tests_list.sh
-LOCAL_SHARED_LIBRARIES := integration_tests indexer_tests 
+LOCAL_SHARED_LIBRARIES := routing_integration_tests indexer_tests 
 
 include ./jni/AndroidEnding.mk
