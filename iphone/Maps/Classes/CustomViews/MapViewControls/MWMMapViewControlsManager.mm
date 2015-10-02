@@ -97,7 +97,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)dismissPlacePage
 {
-  [self.placePageManager dismissPlacePage];
+  [self.placePageManager hidePlacePage];
 }
 
 - (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark

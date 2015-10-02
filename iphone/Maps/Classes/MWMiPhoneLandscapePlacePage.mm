@@ -40,7 +40,22 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 
 - (void)show
 {
+  if (self.state == MWMiPhoneLandscapePlacePageStateOpen)
+    return;
+  CGSize const size = self.extendedPlacePageView.superview.size;
+  CGFloat const height = MIN(size.width, size.height);
+  CGFloat const offset = MIN(height, kMaximumPlacePageWidth);
+  self.extendedPlacePageView.minX = -offset;
+  self.actionBar.width = offset;
+  self.actionBar.minX = 0.0;
   self.state = MWMiPhoneLandscapePlacePageStateOpen;
+}
+
+- (void)hide
+{
+  if (self.state == MWMiPhoneLandscapePlacePageStateClosed)
+    return;
+  self.state = MWMiPhoneLandscapePlacePageStateClosed;
 }
 
 - (void)configureContentInset
@@ -84,7 +99,6 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
   switch (self.state)
   {
     case MWMiPhoneLandscapePlacePageStateClosed:
-      [self.actionBar removeFromSuperview];
       self.targetPoint = CGPointMake(-offset / 2., (height + self.topBound) / 2.);
       break;
     case MWMiPhoneLandscapePlacePageStateOpen:
@@ -110,7 +124,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
     if (self.panVelocity > 0)
       [self show];
     else
-      [self.manager dismissPlacePage];
+      [self hide];
   }
 }
 
@@ -144,6 +158,8 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 
 - (void)setState:(MWMiPhoneLandscapePlacePageState)state
 {
+  if (_state == state)
+    return;
   _state = state;
   [self updateTargetPoint];
 }
@@ -151,14 +167,13 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 - (void)setTopBound:(CGFloat)topBound
 {
   super.topBound = topBound;
-  CGSize const size = UIScreen.mainScreen.bounds.size;
+  CGSize const size = self.extendedPlacePageView.superview.size;
   CGFloat const height = MIN(size.width, size.height);
-  CGFloat const offset = MIN(height, kMaximumPlacePageWidth);
-  self.extendedPlacePageView.frame = CGRectMake(0., topBound, offset, height - topBound);
-  self.actionBar.width = offset;
-  self.actionBar.minX = 0.0;
+  CGRect const frame = self.extendedPlacePageView.frame;
+  self.extendedPlacePageView.frame = {{frame.origin.x, topBound}, {frame.size.width, height - topBound}};
   self.actionBar.maxY = height - topBound;
-  [self updateTargetPoint];
+  if (self.state == MWMiPhoneLandscapePlacePageStateOpen)
+    [self updateTargetPoint];
   [self configureContentInset];
 }
 
@@ -166,11 +181,13 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 {
   _targetPoint = targetPoint;
   __weak MWMiPhoneLandscapePlacePage * weakSelf = self;
+  if (self.state == MWMiPhoneLandscapePlacePageStateClosed)
+    GetFramework().GetBalloonManager().RemovePin();
   [self startAnimatingPlacePage:self initialVelocity:CGPointMake(self.panVelocity, 0.0) completion:^
   {
     __strong MWMiPhoneLandscapePlacePage * self = weakSelf;
     if (self.state == MWMiPhoneLandscapePlacePageStateClosed)
-      [super dismiss];
+      [self.manager dismissPlacePage];
     else
       self.panRecognizer.enabled = YES;
   }];

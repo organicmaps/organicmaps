@@ -6,6 +6,8 @@
 
 @property (nonatomic) BOOL isBookmark;
 
+@property (weak, nonatomic) IBOutlet UIButton * shareButton;
+
 + (MWMPlacePageActionBar *)actionBarForPlacePage:(MWMPlacePage *)placePage;
 - (void)configureWithPlacePage:(MWMPlacePage *)placePage;
 

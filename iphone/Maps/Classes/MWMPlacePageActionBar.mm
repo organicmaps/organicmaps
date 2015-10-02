@@ -17,7 +17,6 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 @property (weak, nonatomic) MWMPlacePage * placePage;
 @property (weak, nonatomic) IBOutlet UIButton * apiBackButton;
 @property (weak, nonatomic) IBOutlet UIButton * bookmarkButton;
-@property (weak, nonatomic) IBOutlet UIButton * shareButton;
 @property (weak, nonatomic) IBOutlet UIButton * routeButton;
 @property (weak, nonatomic) IBOutlet UILabel * apiBackLabel;
 @property (weak, nonatomic) IBOutlet UILabel * routeLabel;

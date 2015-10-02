@@ -12,7 +12,6 @@
 
 #include "Framework.h"
 
-static NSString * const kPlacePageViewDragKeyPath = @"center";
 static CGFloat const kPlacePageBottomOffset = 31.;
 
 typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
@@ -32,27 +31,6 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 @end
 
 @implementation MWMiPhonePortraitPlacePage
-
-- (instancetype)initWithManager:(MWMPlacePageViewManager *)manager
-{
-  self = [super initWithManager:manager];
-  if (self)
-  {
-    [self.extendedPlacePageView addObserver:self forKeyPath:kPlacePageViewDragKeyPath options:NSKeyValueObservingOptionNew context:nullptr];
-  }
-  return self;
-}
-
-- (void)dealloc
-{
-  [self.extendedPlacePageView removeObserver:self forKeyPath:kPlacePageViewDragKeyPath];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-  if ([self.extendedPlacePageView isEqual:object] && [keyPath isEqualToString:kPlacePageViewDragKeyPath])
-    [self.manager dragPlacePage:self.extendedPlacePageView.origin];
-}
 
 - (void)configure
 {
@@ -77,6 +55,11 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 - (void)show
 {
   self.state = MWMiPhonePortraitPlacePageStatePreview;
+}
+
+- (void)hide
+{
+  self.state = MWMiPhonePortraitPlacePageStateClosed;
 }
 
 - (void)dismiss
@@ -275,13 +258,15 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
     return;
   _targetPoint = targetPoint;
   __weak MWMiPhonePortraitPlacePage * weakSelf = self;
+  if (self.state == MWMiPhonePortraitPlacePageStateClosed)
+    GetFramework().GetBalloonManager().RemovePin();
   [self startAnimatingPlacePage:self initialVelocity:CGPointMake(0.0, self.panVelocity) completion:^
   {
     __strong MWMiPhonePortraitPlacePage * self = weakSelf;
     if (self.state == MWMiPhonePortraitPlacePageStateClosed)
     {
       self.keyboardHeight = 0.;
-      [super dismiss];
+      [self.manager dismissPlacePage];
     }
     else
     {

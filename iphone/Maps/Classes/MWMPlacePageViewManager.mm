@@ -55,6 +55,11 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   return self;
 }
 
+- (void)hidePlacePage
+{
+  [self.placePage hide];
+}
+
 - (void)dismissPlacePage
 {
   [self.delegate placePageDidClose];
@@ -119,10 +124,10 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
     BOOL hasSpeed;
     self.entity.category = [[MapsAppDelegate theApp].m_locationManager formattedSpeedAndAltitude:hasSpeed];
   }
-  self.placePage.topBound = self.topBound;
-  self.placePage.leftBound = self.leftBound;
   self.placePage.parentViewHeight = self.ownerViewController.view.height;
   [self.placePage configure];
+  self.placePage.topBound = self.topBound;
+  self.placePage.leftBound = self.leftBound;
   [self refreshPlacePage];
 }
 
@@ -191,10 +196,12 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 {
   MWMPlacePageEntity * entity = self.entity;
   CLLocationCoordinate2D const coord = CLLocationCoordinate2DMake(entity.point.x, entity.point.y);
-  MWMActivityViewController * shareVC = [MWMActivityViewController shareControllerForLocationTitle:entity.title
-                                                                                          location:coord
-                                                                                        myPosition:NO];
-  [shareVC presentInParentViewController:self.ownerViewController anchorView:self.placePage.actionBar];
+  MWMActivityViewController * shareVC =
+      [MWMActivityViewController shareControllerForLocationTitle:entity.title
+                                                        location:coord
+                                                      myPosition:NO];
+  [shareVC presentInParentViewController:self.ownerViewController
+                              anchorView:self.placePage.actionBar.shareButton];
 }
 
 - (void)apiBack
@@ -253,9 +260,9 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   [self.placePage reloadBookmark];
 }
 
-- (void)dragPlacePage:(CGPoint)point
+- (void)dragPlacePage:(CGRect)frame
 {
-  [self.delegate dragPlacePage:point];
+  [self.delegate dragPlacePage:frame];
 }
 
 - (void)onLocationUpdate:(location::GpsInfo const &)info

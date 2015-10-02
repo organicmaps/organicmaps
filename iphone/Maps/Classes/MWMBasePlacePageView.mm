@@ -48,12 +48,12 @@ extern CGFloat const kBookmarkCellHeight = 135.;
   if (type == MWMPlacePageEntityTypeBookmark)
   {
     self.titleLabel.text = entity.bookmarkTitle.length > 0 ? entity.bookmarkTitle : entity.title;
-    self.typeLabel.text = entity.bookmarkCategory;
+    self.typeLabel.text = [entity.bookmarkCategory capitalizedString];
   }
   else
   {
     self.titleLabel.text = entity.title;
-    self.typeLabel.text = entity.category;
+    self.typeLabel.text = [entity.category capitalizedString];
   }
 
   BOOL const isMyPosition = type == MWMPlacePageEntityTypeMyPosition;
@@ -149,9 +149,9 @@ static CGFloat const kTitleBottomOffset = 2.;
 
 - (void)addBookmark
 {
+  self.entity.type = MWMPlacePageEntityTypeBookmark;
   [self.typeDescriptionView removeFromSuperview];
   self.typeDescriptionView = nil;
-  self.typeLabel.text = self.entity.bookmarkCategory;
   [self.typeLabel sizeToFit];
   [self.entity insertBookmarkInTypes];
   [self configure];
@@ -159,6 +159,7 @@ static CGFloat const kTitleBottomOffset = 2.;
 
 - (void)removeBookmark
 {
+  self.entity.type = MWMPlacePageEntityTypeRegular;
   [self.entity removeBookmarkFromTypes];
   [self configure];
 }

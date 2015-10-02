@@ -19,6 +19,7 @@
 - (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark;
 - (void)refreshPlacePage;
 - (void)dismissPlacePage;
+- (void)hidePlacePage;
 - (void)buildRoute;
 - (void)share;
 - (void)addBookmark;
@@ -28,7 +29,7 @@
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator;
 - (void)reloadBookmark;
-- (void)dragPlacePage:(CGPoint)point;
+- (void)dragPlacePage:(CGRect)frame;
 - (void)showDirectionViewWithTitle:(NSString *)title type:(NSString *)type;
 - (void)hideDirectionView;
 - (void)addSubviews:(NSArray *)views withNavigationController:(UINavigationController *)controller;
