@@ -8,6 +8,12 @@
       location = "container:"
       name = "3party">
       <FileRef
+         location = "group:agg/agg.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:lodepng/lodepng.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "container:gflags/gflags.xcodeproj">
       </FileRef>
       <FileRef
@@ -101,4 +107,11 @@
    <FileRef
       location = "container:MapsMe/MapsMe.xcodeproj">
    </FileRef>
+   <Group
+      location = "container:"
+      name = "iOS">
+      <FileRef
+         location = "group:../iphone/Maps/Maps.xcodeproj">
+      </FileRef>
+   </Group>
 </Workspace>

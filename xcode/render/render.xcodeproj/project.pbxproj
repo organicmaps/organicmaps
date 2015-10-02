@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		674A29531B26EB33001A525C /* agg_curves.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A29181B26EB33001A525C /* agg_curves.cpp */; };
 		674A29541B26EB33001A525C /* area_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674A29191B26EB33001A525C /* area_info.hpp */; };
 		674A29551B26EB33001A525C /* basic_tiling_render_policy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A291A1B26EB33001A525C /* basic_tiling_render_policy.cpp */; };
 		674A29561B26EB33001A525C /* basic_tiling_render_policy.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674A291B1B26EB33001A525C /* basic_tiling_render_policy.hpp */; };
@@ -75,7 +74,6 @@
 /* Begin PBXFileReference section */
 		674A29091B26EAAB001A525C /* librender.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = librender.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		674A29171B26EAC0001A525C /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
-		674A29181B26EB33001A525C /* agg_curves.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_curves.cpp; sourceTree = "<group>"; };
 		674A29191B26EB33001A525C /* area_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = area_info.hpp; sourceTree = "<group>"; };
 		674A291A1B26EB33001A525C /* basic_tiling_render_policy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = basic_tiling_render_policy.cpp; sourceTree = "<group>"; };
 		674A291B1B26EB33001A525C /* basic_tiling_render_policy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = basic_tiling_render_policy.hpp; sourceTree = "<group>"; };
@@ -175,7 +173,6 @@
 				67AB92ED1B7B3ED000AB5194 /* route_renderer.hpp */,
 				67AB92EE1B7B3ED000AB5194 /* route_shape.cpp */,
 				67AB92EF1B7B3ED000AB5194 /* route_shape.hpp */,
-				674A29181B26EB33001A525C /* agg_curves.cpp */,
 				674A29191B26EB33001A525C /* area_info.hpp */,
 				674A291A1B26EB33001A525C /* basic_tiling_render_policy.cpp */,
 				674A291B1B26EB33001A525C /* basic_tiling_render_policy.hpp */,
@@ -356,7 +353,6 @@
 				674A29641B26EB33001A525C /* feature_styler.cpp in Sources */,
 				674A29881B26EB33001A525C /* tiling_render_policy_st.cpp in Sources */,
 				674A29571B26EB33001A525C /* coverage_generator.cpp in Sources */,
-				674A29531B26EB33001A525C /* agg_curves.cpp in Sources */,
 				674A295B1B26EB33001A525C /* default_font.cpp in Sources */,
 				674A297C1B26EB33001A525C /* tile_cache.cpp in Sources */,
 				674A29861B26EB33001A525C /* tiling_render_policy_mt.cpp in Sources */,
