@@ -6,6 +6,8 @@
 + (UIColor *)primary;
 + (UIColor *)primaryLight;
 + (UIColor *)fadeBackground;
++ (UIColor *)menuBackground;
++ (UIColor *)downloadBadgeBackground;
 + (UIColor *)pressBackground;
 + (UIColor *)red;
 + (UIColor *)orange;
