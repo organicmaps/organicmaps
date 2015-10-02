@@ -50,7 +50,6 @@ uint8_t CheckCameraInPoint(m2::PointD const & point, Index const & index)
     if (!ftypes::IsSpeedCamChecker::Instance()(hl))
       return;
 
-    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
     if (my::AlmostEqualAbs(ft.GetCenter().x, point.x, kCoordinateEqualityDelta) &&
         my::AlmostEqualAbs(ft.GetCenter().y, point.y, kCoordinateEqualityDelta))
       speedLimit = ReadCameraRestriction(ft);

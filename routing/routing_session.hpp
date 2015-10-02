@@ -14,6 +14,7 @@
 #include "base/deferred_task.hpp"
 #include "base/mutex.hpp"
 
+#include "std/limits.hpp"
 #include "std/unique_ptr.hpp"
 
 namespace location
@@ -23,7 +24,14 @@ class RouteMatchingInfo;
 
 namespace routing
 {
-struct SpeedCameraRestriction;
+struct SpeedCameraRestriction
+{
+  uint32_t m_index;  // Index of a polyline point where camera is located.
+  uint8_t m_maxSpeedKmH;  // Maximum speed allowed by the camera.
+
+  SpeedCameraRestriction(uint32_t index, uint8_t maxSpeed) : m_index(index), m_maxSpeedKmH(maxSpeed) {}
+  SpeedCameraRestriction() : m_index(0), m_maxSpeedKmH(numeric_limits<uint8_t>::max()) {}
+};
 
 class RoutingSession
 {
@@ -132,7 +140,7 @@ private:
   State m_state;
   m2::PointD m_endPoint;
   size_t m_lastWarnedSpeedCameraIndex;
-  size_t m_lastCheckedCameraIndex;
+  SpeedCameraRestriction m_lastCheckedCamera;
   // TODO (ldragunov) Rewrite UI interop to message queue and avoid mutable.
   /// This field is mutable because it's modified in a constant getter. Note that the notification
   /// about camera will be sent at most once.
