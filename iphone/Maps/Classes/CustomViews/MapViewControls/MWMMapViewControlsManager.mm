@@ -23,7 +23,6 @@ extern NSString * const kAlohalyticsTapEventKey;
     MWMSearchManagerProtocol, MWMSearchViewProtocol, MWMBottomMenuControllerProtocol>
 
 @property (nonatomic) MWMZoomButtons * zoomButtons;
-//@property (nonatomic) MWMLocationButton * locationButton;
 @property (nonatomic) MWMBottomMenuViewController * menuController;
 @property (nonatomic) MWMPlacePageViewManager * placePageManager;
 @property (nonatomic) MWMNavigationDashboardManager * navigationManager;
@@ -129,14 +128,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   UIView * searchView = self.searchManager.view;
   self.leftBound = searchView.width;
   self.topBound = searchView.height;
-}
-
-#pragma mark - MWMSideMenuManagerProtocol
-
-- (void)sideMenuDidUpdateLayout
-{
-//  [self.zoomButtons setBottomBound:self.menuManager.menuButtonFrameWithSpacing.origin.y];
-  [self.zoomButtons setBottomBound:0.0];
 }
 
 #pragma mark - MWMSearchManagerProtocol & MWMBottomMenuControllerProtocol
@@ -309,7 +300,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   _hidden = hidden;
   self.zoomHidden = _zoomHidden;
   self.menuState = _menuState;
-//  self.locationHidden = _locationHidden;
   GetFramework().SetFullScreenMode(hidden);
 }
 
@@ -336,12 +326,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   return self.navigationManager.state;
 }
-
-//- (void)setLocationHidden:(BOOL)locationHidden
-//{
-//  _locationHidden = locationHidden;
-//  self.locationButton.hidden = self.hidden || locationHidden;
-//}
 
 - (BOOL)isDirectionViewShown
 {

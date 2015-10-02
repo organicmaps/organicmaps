@@ -10,7 +10,6 @@
 
 @property (nonatomic) BOOL hidden;
 @property (nonatomic) BOOL zoomHidden;
-//@property (nonatomic) BOOL locationHidden;
 @property (nonatomic) MWMBottomMenuState menuState;
 @property (nonatomic, readonly) MWMNavigationDashboardState navigationState;
 @property (nonatomic) BOOL searchHidden;
