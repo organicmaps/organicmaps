@@ -179,3 +179,20 @@ For XCode configuration instructions, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 If a script has trouble finding your Qt 5 installation, edit `omim/autobuild/detect_qmake.sh`,
 adding a path to `qmake` there.
+
+## Map Servers
+
+The "guest" configuration does not have any map server addresses built-in. That means, while your
+application would work well with [downloaded maps](http://direct.mapswithme.com/direct/latest/),
+it won't be able to download them by itself. To fix this, add some servers to
+`DEFAULT_URLS_JSON` define in the `private.h` file. These servers should have mwm files
+in `/maps/151231` paths, symlinked to `/ios`, `/android`, `/mac` and `/win` (depending on operating
+systems from which your maps will be downloaded).
+
+`151231` is a version number, which should be a six-digit integer, usually in form
+`YYMMDD` of the date map data was downloaded. The version and file sizes of all mwm and
+routing files should be put into `data/countries.txt` file.
+
+Android application may also download some resources - fonts and World files - from the same
+servers. It checks sizes of existing files via `external_resources.txt`, and if some of these
+don't match, it considers them obsolete and downloads new resource files.
