@@ -3,14 +3,12 @@
 #import "MapViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMAPIBar.h"
-#import "MWMLocationButton.h"
+#import "MWMBottomMenuViewController.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMPlacePageViewManager.h"
 #import "MWMPlacePageViewManagerDelegate.h"
 #import "MWMSearchManager.h"
 #import "MWMSearchView.h"
-#import "MWMSideMenuManager.h"
-#import "MWMSideMenuManagerDelegate.h"
 #import "MWMZoomButtons.h"
 #import "RouteState.h"
 
@@ -22,11 +20,11 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 @interface MWMMapViewControlsManager ()<
     MWMPlacePageViewManagerProtocol, MWMNavigationDashboardManagerProtocol,
-    MWMSideMenuManagerProtocol, MWMSearchManagerProtocol, MWMSearchViewProtocol>
+    MWMSearchManagerProtocol, MWMSearchViewProtocol, MWMBottomMenuControllerProtocol>
 
 @property (nonatomic) MWMZoomButtons * zoomButtons;
-@property (nonatomic) MWMLocationButton * locationButton;
-@property (nonatomic) MWMSideMenuManager * menuManager;
+//@property (nonatomic) MWMLocationButton * locationButton;
+@property (nonatomic) MWMBottomMenuViewController * menuController;
 @property (nonatomic) MWMPlacePageViewManager * placePageManager;
 @property (nonatomic) MWMNavigationDashboardManager * navigationManager;
 @property (nonatomic) MWMSearchManager * searchManager;
@@ -52,14 +50,13 @@ extern NSString * const kAlohalyticsTapEventKey;
     return nil;
   self.ownerController = controller;
   self.zoomButtons = [[MWMZoomButtons alloc] initWithParentView:controller.view];
-  self.locationButton = [[MWMLocationButton alloc] initWithParentView:controller.view];
-  self.menuManager = [[MWMSideMenuManager alloc] initWithParentController:controller delegate:self];
   self.placePageManager = [[MWMPlacePageViewManager alloc] initWithViewController:controller delegate:self];
   self.navigationManager = [[MWMNavigationDashboardManager alloc] initWithParentView:controller.view delegate:self];
   self.searchManager = [[MWMSearchManager alloc] initWithParentView:controller.view delegate:self];
+  self.menuController = [[MWMBottomMenuViewController alloc] initWithParentController:controller delegate:self];
   self.hidden = NO;
   self.zoomHidden = NO;
-  self.menuState = MWMSideMenuStateInactive;
+  self.menuState = MWMBottomMenuStateInactive;
   return self;
 }
 
@@ -68,6 +65,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
                                 duration:(NSTimeInterval)duration
 {
+  [self.menuController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
   [self.placePageManager willRotateToInterfaceOrientation:toInterfaceOrientation];
   [self.navigationManager willRotateToInterfaceOrientation:toInterfaceOrientation];
   [self.searchManager willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
@@ -77,6 +75,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
+  [self.menuController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.placePageManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.navigationManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.searchManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
@@ -113,10 +112,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 #pragma mark - MWMSearchManagerProtocol
 
-- (void)searchViewWillEnterState:(MWMSearchManagerState)state
-{
-}
-
 - (void)searchViewDidEnterState:(MWMSearchManagerState)state
 {
   if (state == MWMSearchManagerStateHidden)
@@ -140,10 +135,11 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)sideMenuDidUpdateLayout
 {
-  [self.zoomButtons setBottomBound:self.menuManager.menuButtonFrameWithSpacing.origin.y];
+//  [self.zoomButtons setBottomBound:self.menuManager.menuButtonFrameWithSpacing.origin.y];
+  [self.zoomButtons setBottomBound:0.0];
 }
 
-#pragma mark - MWMSearchManagerProtocol & MWMSideMenuManagerProtocol
+#pragma mark - MWMSearchManagerProtocol & MWMBottomMenuControllerProtocol
 
 - (void)actionDownloadMaps
 {
@@ -152,12 +148,33 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.ownerController.navigationController pushViewController:vc animated:YES];
 }
 
+#pragma mark - MWMBottomMenuControllerProtocol
+
+- (void)closeInfoScreens
+{
+  if (IPAD)
+  {
+    self.searchManager.state = MWMSearchManagerStateHidden;
+  }
+  else
+  {
+    CGSize const ownerViewSize = self.ownerController.view.size;
+    if (ownerViewSize.width > ownerViewSize.height)
+      [self.placePageManager hidePlacePage];
+  }
+}
+
 #pragma mark - MWMPlacePageViewManagerDelegate
 
-- (void)dragPlacePage:(CGPoint)point
+- (void)dragPlacePage:(CGRect)frame
 {
-  CGFloat const bound = MIN(self.menuManager.menuButtonFrameWithSpacing.origin.y, point.y);
-  [self.zoomButtons setBottomBound:bound];
+  if (IPAD)
+    return;
+  CGSize const ownerViewSize = self.ownerController.view.size;
+  if (ownerViewSize.width > ownerViewSize.height)
+    self.menuController.leftBound = frame.origin.x + frame.size.width;
+  else
+    [self.zoomButtons setBottomBound:frame.origin.y];
 }
 
 - (void)placePageDidClose
@@ -169,12 +186,11 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)addPlacePageViews:(NSArray *)views
 {
   UIView * ownerView = self.ownerController.view;
-  UIView * searchView = self.searchManager.view;
   for (UIView * view in views)
-  {
-    if (![ownerView.subviews containsObject:view])
-      [ownerView insertSubview:view belowSubview:searchView];
-  }
+    [ownerView addSubview:view];
+  [ownerView bringSubviewToFront:self.searchManager.view];
+  if (IPAD)
+    [ownerView bringSubviewToFront:self.menuController.view];
 }
 
 - (void)updateStatusBarStyle
@@ -293,7 +309,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   _hidden = hidden;
   self.zoomHidden = _zoomHidden;
   self.menuState = _menuState;
-  self.locationHidden = _locationHidden;
+//  self.locationHidden = _locationHidden;
   GetFramework().SetFullScreenMode(hidden);
 }
 
@@ -303,16 +319,16 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.zoomButtons.hidden = self.hidden || zoomHidden;
 }
 
-- (void)setMenuState:(MWMSideMenuState)menuState
+- (void)setMenuState:(MWMBottomMenuState)menuState
 {
   _menuState = menuState;
-  self.menuManager.state = self.hidden ? MWMSideMenuStateHidden : menuState;
+  self.menuController.state = self.hidden ? MWMBottomMenuStateHidden : menuState;
 }
 
-- (MWMSideMenuState)menuState
+- (MWMBottomMenuState)menuState
 {
-  if (self.menuManager.state == MWMSideMenuStateActive)
-    return MWMSideMenuStateActive;
+  if (self.menuController.state == MWMBottomMenuStateActive)
+    return MWMBottomMenuStateActive;
   return _menuState;
 }
 
@@ -321,11 +337,11 @@ extern NSString * const kAlohalyticsTapEventKey;
   return self.navigationManager.state;
 }
 
-- (void)setLocationHidden:(BOOL)locationHidden
-{
-  _locationHidden = locationHidden;
-  self.locationButton.hidden = self.hidden || locationHidden;
-}
+//- (void)setLocationHidden:(BOOL)locationHidden
+//{
+//  _locationHidden = locationHidden;
+//  self.locationButton.hidden = self.hidden || locationHidden;
+//}
 
 - (BOOL)isDirectionViewShown
 {
@@ -343,7 +359,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   if (!IPAD)
     return;
-  _leftBound = self.placePageManager.leftBound = self.navigationManager.leftBound = leftBound;
+  _leftBound = self.placePageManager.leftBound = self.navigationManager.leftBound = self.menuController.leftBound = leftBound;
 }
 
 - (BOOL)searchHidden
