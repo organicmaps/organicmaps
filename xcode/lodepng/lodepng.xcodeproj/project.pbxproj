@@ -1,0 +1,260 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		67E8DB031BBC13690053C5BA /* lodepng_io_private.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67E8DAFF1BBC13690053C5BA /* lodepng_io_private.hpp */; settings = {ASSET_TAGS = (); }; };
+		67E8DB041BBC13690053C5BA /* lodepng_io.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67E8DB001BBC13690053C5BA /* lodepng_io.hpp */; settings = {ASSET_TAGS = (); }; };
+		67E8DB051BBC13690053C5BA /* lodepng.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E8DB011BBC13690053C5BA /* lodepng.cpp */; settings = {ASSET_TAGS = (); }; };
+		67E8DB061BBC13690053C5BA /* lodepng.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67E8DB021BBC13690053C5BA /* lodepng.hpp */; settings = {ASSET_TAGS = (); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		67E8DAF61BBC12560053C5BA /* liblodepng.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblodepng.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		67E8DAFD1BBC12640053C5BA /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
+		67E8DAFF1BBC13690053C5BA /* lodepng_io_private.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = lodepng_io_private.hpp; path = ../../3party/lodepng/lodepng_io_private.hpp; sourceTree = "<group>"; };
+		67E8DB001BBC13690053C5BA /* lodepng_io.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = lodepng_io.hpp; path = ../../3party/lodepng/lodepng_io.hpp; sourceTree = "<group>"; };
+		67E8DB011BBC13690053C5BA /* lodepng.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = lodepng.cpp; path = ../../3party/lodepng/lodepng.cpp; sourceTree = "<group>"; };
+		67E8DB021BBC13690053C5BA /* lodepng.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = lodepng.hpp; path = ../../3party/lodepng/lodepng.hpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		67E8DAF31BBC12560053C5BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		67E8DAED1BBC12560053C5BA = {
+			isa = PBXGroup;
+			children = (
+				67E8DAFD1BBC12640053C5BA /* defaults.xcconfig */,
+				67E8DAFE1BBC13480053C5BA /* lodepng */,
+				67E8DAF71BBC12560053C5BA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		67E8DAF71BBC12560053C5BA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				67E8DAF61BBC12560053C5BA /* liblodepng.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		67E8DAFE1BBC13480053C5BA /* lodepng */ = {
+			isa = PBXGroup;
+			children = (
+				67E8DAFF1BBC13690053C5BA /* lodepng_io_private.hpp */,
+				67E8DB001BBC13690053C5BA /* lodepng_io.hpp */,
+				67E8DB011BBC13690053C5BA /* lodepng.cpp */,
+				67E8DB021BBC13690053C5BA /* lodepng.hpp */,
+			);
+			name = lodepng;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		67E8DAF41BBC12560053C5BA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67E8DB061BBC13690053C5BA /* lodepng.hpp in Headers */,
+				67E8DB041BBC13690053C5BA /* lodepng_io.hpp in Headers */,
+				67E8DB031BBC13690053C5BA /* lodepng_io_private.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		67E8DAF51BBC12560053C5BA /* lodepng */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 67E8DAFA1BBC12560053C5BA /* Build configuration list for PBXNativeTarget "lodepng" */;
+			buildPhases = (
+				67E8DAF21BBC12560053C5BA /* Sources */,
+				67E8DAF31BBC12560053C5BA /* Frameworks */,
+				67E8DAF41BBC12560053C5BA /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = lodepng;
+			productName = lodepng;
+			productReference = 67E8DAF61BBC12560053C5BA /* liblodepng.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		67E8DAEE1BBC12560053C5BA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = maps.me;
+				TargetAttributes = {
+					67E8DAF51BBC12560053C5BA = {
+						CreatedOnToolsVersion = 7.0;
+					};
+				};
+			};
+			buildConfigurationList = 67E8DAF11BBC12560053C5BA /* Build configuration list for PBXProject "lodepng" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 67E8DAED1BBC12560053C5BA;
+			productRefGroup = 67E8DAF71BBC12560053C5BA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				67E8DAF51BBC12560053C5BA /* lodepng */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		67E8DAF21BBC12560053C5BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67E8DB051BBC13690053C5BA /* lodepng.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		67E8DAF81BBC12560053C5BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 67E8DAFD1BBC12640053C5BA /* defaults.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
+			};
+			name = Debug;
+		};
+		67E8DAF91BBC12560053C5BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 67E8DAFD1BBC12640053C5BA /* defaults.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
+			};
+			name = Release;
+		};
+		67E8DAFB1BBC12560053C5BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		67E8DAFC1BBC12560053C5BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		67E8DAF11BBC12560053C5BA /* Build configuration list for PBXProject "lodepng" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67E8DAF81BBC12560053C5BA /* Debug */,
+				67E8DAF91BBC12560053C5BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		67E8DAFA1BBC12560053C5BA /* Build configuration list for PBXNativeTarget "lodepng" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67E8DAFB1BBC12560053C5BA /* Debug */,
+				67E8DAFC1BBC12560053C5BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 67E8DAEE1BBC12560053C5BA /* Project object */;
+}
