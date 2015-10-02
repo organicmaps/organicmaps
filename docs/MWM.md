@@ -55,11 +55,11 @@ The usual line we use is:
 
 This is a shortcut for following options:
 
-* `-u` - update a planet file from osm.org (use `-U` when you need to download one, specify `PLANET`
+* `-u`: update a planet file from osm.org (use `-U` when you need to download one, specify `PLANET`
 variable if it's not in `$HOME/planet/planet-latest.o5m`).
-* `-l` - filter and process coastlines, creating `WorldCoasts.geom` and `.rawgeom` files.
-* `-w` - generate overview maps, `World.mwm` and `WorldCoasts.mwm`.
-* `-r` - generate routing indices, `.mwm.routing` file for each `.mwm`.
+* `-l`: filter and process coastlines, creating `WorldCoasts.geom` and `.rawgeom` files.
+* `-w`: generate overview maps, `World.mwm` and `WorldCoasts.mwm`.
+* `-r`: generate routing indices, `.mwm.routing` file for each `.mwm`.
 
 All border polygons from `BORDERS_PATH` are processed into MWM files by default. You can
 specify only required polygons in `REGIONS` variable, or set it to empty value, so no regular
