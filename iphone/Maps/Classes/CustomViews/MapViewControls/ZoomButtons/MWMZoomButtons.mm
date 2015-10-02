@@ -30,6 +30,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     [[NSBundle mainBundle] loadNibNamed:kMWMZoomButtonsViewNibName owner:self options:nil];
     [view addSubview:self.zoomView];
+    [self.zoomView layoutIfNeeded];
+    self.zoomView.topBound = 0.0;
+    self.zoomView.bottomBound = view.height;
     self.zoomSwipeEnabled = NO;
   }
   return self;

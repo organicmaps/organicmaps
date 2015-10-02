@@ -14,25 +14,18 @@ static CGFloat const kZoomViewHideBoundPercent = 0.4;
 
 @implementation MWMZoomButtonsView
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
+- (void)awakeFromNib
 {
-  self = [super initWithCoder:aDecoder];
-  if (self)
-  {
-    self.defaultBounds = self.bounds;
-    self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.topBound = 0.0;
-    self.bottomBound = 0.0;
-  }
-  return self;
+  self.defaultBounds = self.bounds;
+  self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
 - (void)layoutSubviews
 {
-  [super layoutSubviews];
   self.bounds = self.defaultBounds;
   [self layoutXPosition:self.hidden];
   [self layoutYPosition];
+  [super layoutSubviews];
 }
 
 - (void)layoutXPosition:(BOOL)hidden
@@ -83,7 +76,8 @@ static CGFloat const kZoomViewHideBoundPercent = 0.4;
 
 - (void)setHidden:(BOOL)hidden animated:(BOOL)animated
 {
-  if (animated) {
+  if (animated)
+  {
     if (self.hidden == hidden)
       return;
     if (!hidden)
@@ -105,6 +99,8 @@ static CGFloat const kZoomViewHideBoundPercent = 0.4;
   }
 }
 
+@synthesize topBound = _topBound;
+
 - (void)setTopBound:(CGFloat)topBound
 {
   if (_topBound == topBound)
@@ -113,12 +109,28 @@ static CGFloat const kZoomViewHideBoundPercent = 0.4;
   [self animate];
 }
 
+- (CGFloat)topBound
+{
+  return MAX(0.0, _topBound);
+}
+
+@synthesize bottomBound = _bottomBound;
+
 - (void)setBottomBound:(CGFloat)bottomBound
 {
   if (_bottomBound == bottomBound)
     return;
   _bottomBound = bottomBound;
   [self animate];
+}
+
+- (CGFloat)bottomBound
+{
+  if (!self.superview)
+    return _bottomBound;
+  BOOL const isPortrait = self.superview.width < self.superview.height;
+  CGFloat limit = IPAD ? 320.0 : isPortrait ? 200.0 : 80.0;
+  return MIN(self.superview.height - limit, _bottomBound);
 }
 
 @end
