@@ -96,7 +96,47 @@ asynchronously if `ASYNC_PBF=1` variable is set.
 
 ### Variables
 
-*todo*
+Almost every default in the script can be redefined with environment variables.
+You will have to use some of these, unless you are using our map-building servers.
+
+* `GENERATOR_TOOL`: a location of `generator_tool` program. Example: `~/omim-build-debug/out/debug/generator_tool`.
+* `BUILD_PATH`: a path to either `generator_tool` or its build directory. Example: `~/omim-build-debug`.
+* `PLANET`: pa ath or name of the planet file. If there is no file, specify `-U` option,
+and it will be downloaded. Should be in o5m format. Default is `~/planet/planet-latest.o5m`.
+* `TARGET`: a target path for `mwm` and `routing` files. Some temporary subdirectories
+will be created inside: `logs`, `borders` and `intermediate_data`.
+* `MAIL`: comma-separated e-mail addresses, which will receive notifications about
+finished or failed generation.
+* `OSMCTOOLS`: a path to pre-compiled OSM C Tools: `osmconvert`, `osmupdate` and
+`osmfilter`. If these were not found, it will compile sources from the repo.
+* `OMIM_PATH`: a path to the omim repository root. Will be guessed when the
+script is not moved from `omim/tools/unix`. It is needed for locating a data
+directory (`omim/data`, can be overridden with `DATA_PATH`), generator tool
+build path (see `BUILD_PATH`) and OSRM backend scripts (see `OSRM_PATH`).
+* `OSRM_PATH`: a path to `omim/3party/osrm/osrm-backend`. Needed for searching
+for a routing profile (`$OSRM_PATH/profiles.car.lua` by default, but can be
+overridden with `PROFILE`) and for osrm executables (`$OSRM_PATH/build`,
+or set `OSRM_BUILD_PATH`).
+* `DATA_PATH`: a path to classificators and border polygons; the latter can
+be redefined with `BORDERS_PATH`.
+* `INTDIR`: a temporary directory that is created when the script starts, and
+removed when `KEEP_INTDIR` is clean and the script ends. Contains `status` file
+that keeps script arguments for resuming processing, and `osrm_done` file,
+which is a flag for successful OSRM indices building process.
+* `KEEP_INTDIR`: if empty (by default it is not), the temporary directory will
+be deleted when the script finishes. Note that it might have `WorldCoasts.geom`
+file, built on step 2, which is required for generating coastlines (step 4).
+* `NODE_STORAGE` (or `NS`): where is a node cache kept: in memory (`mem`, which
+is the default), or on disk (`map`). Tests show that for a complete world,
+with `map` the process eats some hundreds of gigabytes and crashes, while with
+`mem` the memory consumption is stable at around 40 GB.
+* `ASYNC_PBF`: by default, pbf files for routing are built between steps 2 and 3,
+but if this flag is set (e.g. to `1`), they are built asynchronously. But
+it can fail due to low memory.
+* `MERGE_INTERVAL`: delay in minutes between attempts to merge a coast line.
+Default is 40.
+* `REGIONS`: a list of `.poly` files for regions to be built. Can be empty.
+Example: `../../data/borders/UK* ../../data/borders/*Ireland*`.
 
 ### Testing
 
@@ -109,7 +149,3 @@ Run the script with options for `generate_planet`, e.g.
 
 In a half an hour you'll get files for 4 regions in a `target` subdirectory. Note that
 you can build both generator tool and OSRM backend with the `build_omim.sh` script.
-
-## Format
-
-*todo*
