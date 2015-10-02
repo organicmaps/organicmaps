@@ -1651,6 +1651,69 @@ cont {
   }
 }
 cont {
+  name: "amenity-clinic"
+  element {
+    scale: 16
+    symbol {
+      name: "hospital-m"
+      priority: 16728
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15728
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "hospital-l"
+      priority: 16728
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15728
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "hospital-l"
+      priority: 16728
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15728
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "hospital-l"
+      priority: 16728
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15728
+    }
+  }
+}
+cont {
   name: "amenity-college"
   element {
     scale: 16
@@ -1714,11 +1777,119 @@ cont {
   }
 }
 cont {
-  name: "amenity-doctors"
+  name: "amenity-dentist"
+  element {
+    scale: 16
+    symbol {
+      name: "hospital-m"
+      priority: 16728
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15728
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "hospital-l"
+      priority: 16728
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15728
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "hospital-l"
+      priority: 16728
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15728
+    }
+  }
   element {
     scale: 19
     symbol {
-      name: "none"
+      name: "hospital-l"
+      priority: 16728
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15728
+    }
+  }
+}
+cont {
+  name: "amenity-doctors"
+  element {
+    scale: 16
+    symbol {
+      name: "hospital-m"
+      priority: 16728
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15728
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "hospital-l"
+      priority: 16728
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15728
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "hospital-l"
+      priority: 16728
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15728
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "hospital-l"
       priority: 16728
     }
     caption {
@@ -22311,7 +22482,7 @@ cont {
     }
     caption {
       primary {
-        height: 12
+        height: 13
         color: 1131520
       }
       priority: 15169
@@ -22554,6 +22725,15 @@ cont {
       }
       priority: 15169
     }
+    apply_if: "name"
+  }
+  element {
+    scale: 17
+    area {
+      color: 1122816
+      priority: 1170
+    }
+    apply_if: "!name"
   }
   element {
     scale: 18
@@ -22565,6 +22745,15 @@ cont {
       name: "park-m"
       priority: 16169
     }
+    apply_if: "name"
+  }
+  element {
+    scale: 18
+    area {
+      color: 1122816
+      priority: 1170
+    }
+    apply_if: "!name"
   }
   element {
     scale: 19
@@ -22576,6 +22765,15 @@ cont {
       name: "park-m"
       priority: 16169
     }
+    apply_if: "name"
+  }
+  element {
+    scale: 19
+    area {
+      color: 1122816
+      priority: 1170
+    }
+    apply_if: "!name"
   }
 }
 cont {
@@ -22668,6 +22866,15 @@ cont {
       }
       priority: 15169
     }
+    apply_if: "name"
+  }
+  element {
+    scale: 17
+    area {
+      color: 1122816
+      priority: 1170
+    }
+    apply_if: "!name"
   }
   element {
     scale: 18
@@ -22679,6 +22886,15 @@ cont {
       name: "park-m"
       priority: 16169
     }
+    apply_if: "name"
+  }
+  element {
+    scale: 18
+    area {
+      color: 1122816
+      priority: 1170
+    }
+    apply_if: "!name"
   }
   element {
     scale: 19
@@ -22690,6 +22906,15 @@ cont {
       name: "park-m"
       priority: 16169
     }
+    apply_if: "name"
+  }
+  element {
+    scale: 19
+    area {
+      color: 1122816
+      priority: 1170
+    }
+    apply_if: "!name"
   }
 }
 cont {
@@ -22782,6 +23007,15 @@ cont {
       }
       priority: 15169
     }
+    apply_if: "name"
+  }
+  element {
+    scale: 17
+    area {
+      color: 1122816
+      priority: 1170
+    }
+    apply_if: "!name"
   }
   element {
     scale: 18
@@ -22793,6 +23027,15 @@ cont {
       name: "park-m"
       priority: 16169
     }
+    apply_if: "name"
+  }
+  element {
+    scale: 18
+    area {
+      color: 1122816
+      priority: 1170
+    }
+    apply_if: "!name"
   }
   element {
     scale: 19
@@ -22804,6 +23047,15 @@ cont {
       name: "park-m"
       priority: 16169
     }
+    apply_if: "name"
+  }
+  element {
+    scale: 19
+    area {
+      color: 1122816
+      priority: 1170
+    }
+    apply_if: "!name"
   }
 }
 cont {
@@ -22896,6 +23148,15 @@ cont {
       }
       priority: 15169
     }
+    apply_if: "name"
+  }
+  element {
+    scale: 17
+    area {
+      color: 1122816
+      priority: 1170
+    }
+    apply_if: "!name"
   }
   element {
     scale: 18
@@ -22907,6 +23168,15 @@ cont {
       name: "park-m"
       priority: 16169
     }
+    apply_if: "name"
+  }
+  element {
+    scale: 18
+    area {
+      color: 1122816
+      priority: 1170
+    }
+    apply_if: "!name"
   }
   element {
     scale: 19
@@ -22918,6 +23188,15 @@ cont {
       name: "park-m"
       priority: 16169
     }
+    apply_if: "name"
+  }
+  element {
+    scale: 19
+    area {
+      color: 1122816
+      priority: 1170
+    }
+    apply_if: "!name"
   }
 }
 cont {

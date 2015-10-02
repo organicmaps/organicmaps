@@ -1033,3 +1033,6 @@ railway|subway_entrance|madrid
 railway|subway_entrance|roma
 railway|subway_entrance|spb
 aerialway|drag_lift
+amenity|dentist
+amenity|clinic
+barrier|entrance

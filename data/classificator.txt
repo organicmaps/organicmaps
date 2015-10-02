@@ -33,7 +33,9 @@ world  +
         car_sharing  -
         casino  -
         cinema  -
+        clinic  -
         college  -
+        dentist  -
         doctors  -
         drinking_water  -
         embassy  -
@@ -110,6 +112,7 @@ world  +
         bollard  -
         city_wall  -
         cycle_barrier  -
+        entrance  -
         fence  -
         gate  -
         hedge  -
