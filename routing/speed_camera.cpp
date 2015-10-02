@@ -10,10 +10,14 @@
 #include "coding/writer.hpp"
 
 #include "base/string_utils.hpp"
+#include "base/math.hpp"
+
+#include "std/limits.hpp"
 
 namespace
 {
 double constexpr kCameraCheckRadiusMeters = 2.0;
+double constexpr kCoordinateEqualityDelta = 0.000001;
 }  // namespace
 
 namespace routing
@@ -26,7 +30,7 @@ uint8_t ReadCameraRestriction(FeatureType & ft)
   ft.ParseMetadata();
   feature::Metadata const & md = ft.GetMetadata();
   string const & speed = md.Get(Metadata::FMD_MAXSPEED);
-  if (!speed.length())
+  if (speed.empty())
     return 0;
   int result;
   strings::to_int(speed, result);
@@ -47,7 +51,8 @@ uint8_t CheckCameraInPoint(m2::PointD const & point, Index const & index)
       return;
 
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-    if (ft.GetCenter() == point)
+    if (my::AlmostEqualAbs(ft.GetCenter().x, point.x, kCoordinateEqualityDelta) &&
+        my::AlmostEqualAbs(ft.GetCenter().y, point.y, kCoordinateEqualityDelta))
       speedLimit = ReadCameraRestriction(ft);
   };
 
