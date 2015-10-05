@@ -194,7 +194,6 @@ UNIT_TEST(TurnsSoundMetersTwoTurnsTest)
   turnSound.Reset();
   turnSound.SetSpeedMetersPerSecond(35.);
 
-  //TurnItem turnItem1(5 /* idx */, TurnDirection::TurnSharpRight);
   vector<TurnItemDist> turns = {{{5 /* idx */, TurnDirection::TurnSharpRight}, 800.}};
   vector<string> turnNotifications;
 

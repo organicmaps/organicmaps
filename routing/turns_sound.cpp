@@ -1,4 +1,4 @@
-  #include "routing/turns_sound.hpp"
+#include "routing/turns_sound.hpp"
 
 #include "platform/location.hpp"
 
@@ -67,7 +67,7 @@ void TurnsSound::GenerateTurnSound(vector<TurnItemDist> const & turns, vector<st
   ASSERT_LESS_OR_EQUAL(firstTurn.m_distMeters, secondTurn.m_distMeters, ());
   if (secondTurn.m_distMeters - firstTurn.m_distMeters > kMaxTurnDistM)
     return;
-  string const secondNotification = GenerateTurnText(0 /*distanceUnits is not used because of then is used*/,
+  string const secondNotification = GenerateTurnText(0 /* distanceUnits is not used because of "Then" is used */,
                                                      secondTurn.m_turnItem.m_exitNum, true,
                                                      secondTurn.m_turnItem.m_turn,
                                                      m_settings.GetLengthUnits());
@@ -102,9 +102,6 @@ string TurnsSound::GenerateFirstTurnSound(TurnItem const & turn, double distance
         // First turn sound notification.
         uint32_t const distToPronounce =
             m_settings.RoundByPresetSoundedDistancesUnits(turnNotificationDistUnits);
-
-        // @TODO(vbykoianko) Check if there's a turn immediately after the current turn.
-        // If so add an extra item to turnNotifications with "then parameter".
         m_nextTurnNotificationProgress = PronouncedNotification::First;
         return GenerateTurnText(distToPronounce, turn.m_exitNum, false, turn.m_turn,
                                 m_settings.GetLengthUnits());
@@ -122,8 +119,6 @@ string TurnsSound::GenerateFirstTurnSound(TurnItem const & turn, double distance
   if (m_nextTurnNotificationProgress == PronouncedNotification::First &&
       distanceToTurnMeters < distanceToPronounceNotificationMeters)
   {
-    // @TODO(vbykoianko) Check if there's a turn immediately after the current turn.
-    // If so add an extra item to info.turnNotifications with "then parameter".
     m_nextTurnNotificationProgress = PronouncedNotification::Second;
     return GenerateTurnText(0, turn.m_exitNum, false, turn.m_turn, m_settings.GetLengthUnits());
   }
