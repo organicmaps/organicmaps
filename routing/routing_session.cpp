@@ -282,11 +282,9 @@ void RoutingSession::GenerateTurnSound(vector<string> & turnNotifications)
   if (!m_route.IsValid() || !IsNavigable())
     return;
 
-  double distanceToTurnMeters = 0.;
-  turns::TurnItem turn;
-  m_route.GetCurrentTurn(distanceToTurnMeters, turn);
-
-  m_turnsSound.GenerateTurnSound(turn, distanceToTurnMeters, turnNotifications);
+  vector<turns::TurnItemDist> turns;
+  if (m_route.GetNextTurns(turns))
+    m_turnsSound.GenerateTurnSound(turns, turnNotifications);
 }
 
 void RoutingSession::AssignRoute(Route & route, IRouter::ResultCode e)

@@ -50,11 +50,14 @@ string GetTtsText::operator()(Notification const & notification) const
 {
   if (notification.m_distanceUnits == 0 && !notification.m_useThenInsteadOfDistance)
     return GetTextById(GetDirectionTextId(notification));
+  if (notification.m_useThenInsteadOfDistance && notification.m_turnDir == TurnDirection::NoTurn)
+    return "";
+
+  string const dirStr = GetTextById(GetDirectionTextId(notification));
+  if (dirStr.empty())
+    return "";
 
   string const distStr = GetTextById(GetDistanceTextId(notification));
-  string const dirStr = GetTextById(GetDirectionTextId(notification));
-  if (distStr.empty() && dirStr.empty())
-    return "";
   return distStr + " " + dirStr;
 }
 
