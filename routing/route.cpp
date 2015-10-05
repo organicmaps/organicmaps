@@ -199,7 +199,7 @@ bool Route::GetNextTurns(vector<turns::TurnItemDist> & turns)
 
   turns::TurnItemDist nextTurn;
   if (!GetNextTurn(nextTurn.m_distMeters, nextTurn.m_turnItem))
-    return false;
+    return true;
   turns.push_back(move(nextTurn));
   return true;
 }
