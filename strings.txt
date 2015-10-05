@@ -7219,7 +7219,7 @@
     he = מחק מסלול
     hu = Útvonal törlése
     it = Elimina il percorso
-    ja = るーどを削除
+    ja = ルートを削除
     da = Slet ruteangivelse
     nl = Verwijder routering
     fr = Supprimer Itinéraire
