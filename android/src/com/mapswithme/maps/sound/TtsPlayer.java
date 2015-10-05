@@ -17,6 +17,7 @@ public enum TtsPlayer
   INSTANCE;
 
   private static final Locale DEFAULT_LOCALE = Locale.US;
+  private static final float SPEECH_RATE = 1.2f;
 
   // The both mTtts and mTtsLocale should be initialized before usage.
   private TextToSpeech mTts;
@@ -115,6 +116,7 @@ public enum TtsPlayer
           return;
         }
 
+        mTts.setSpeechRate(SPEECH_RATE);
         nativeSetTurnNotificationsLocale(localeTwine);
         mTts.setLanguage(mTtsLocale);
         Log.i(TAG, "setLocaleIfAvailable() onInit nativeSetTurnNotificationsLocale(" + localeTwine + ")");
