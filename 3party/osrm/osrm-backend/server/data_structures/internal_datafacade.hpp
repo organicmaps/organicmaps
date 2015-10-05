@@ -327,7 +327,7 @@ template <class EdgeDataT> class InternalDataFacade final : public BaseDataFacad
         return m_query_graph->GetEdgeData(e);
     }
 
-    EdgeDataT GetEdgeData(const EdgeID e, const NodeID n) override final
+    EdgeDataT GetEdgeData(const EdgeID e, const NodeID n) const override final
     {
         return m_query_graph->GetEdgeData(e);
     }
