@@ -143,7 +143,7 @@ UNIT_TEST(NextTurnsTest)
     double const x = 1.;
     double const y = 2.5;
     route.MoveIterator(GetGps(x, y));
-    TEST(!route.GetNextTurns(turnsDist), ());
+    TEST(route.GetNextTurns(turnsDist), ());
     TEST_EQUAL(turnsDist.size(), 1, ());
     double const firstSegLenM = MercatorBounds::DistanceOnEarth({x, y}, kTestGeometry[4]);
     TEST(my::AlmostEqualAbs(turnsDist[0].m_distMeters, firstSegLenM, 0.1), ());
@@ -153,7 +153,7 @@ UNIT_TEST(NextTurnsTest)
     double const x = 1.;
     double const y = 3.5;
     route.MoveIterator(GetGps(x, y));
-    TEST(!route.GetNextTurns(turnsDist), ());
+    TEST(route.GetNextTurns(turnsDist), ());
     TEST_EQUAL(turnsDist.size(), 1, ());
   }
 }
