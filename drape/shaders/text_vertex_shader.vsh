@@ -13,7 +13,11 @@ varying vec2 v_outlineColorTexCoord;
 
 void main()
 {
-  gl_Position = (vec4(a_normal, 0, 0) + a_position * modelView) * projection;
+  // Here we intentionally decrease precision of 'pos' calculation
+  // to eliminate jittering effect in process of billboard reconstruction.
+  lowp vec4 pos = a_position * modelView;
+  highp vec4 shiftedPos = vec4(a_normal, 0, 0) + pos;
+  gl_Position = shiftedPos * projection;
   v_colorTexCoord = a_colorTexCoord;
   v_maskTexCoord = a_maskTexCoord;
   v_outlineColorTexCoord = a_outlineColorTexCoord;
