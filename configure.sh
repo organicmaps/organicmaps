@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Please run this script to configure the repository after cloning it.
 
 # Stop on the first error.
