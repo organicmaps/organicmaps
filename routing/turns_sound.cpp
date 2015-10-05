@@ -48,32 +48,31 @@ void TurnsSound::GenerateTurnSound(vector<TurnItemDist> const & turns, vector<st
 {
   turnNotifications.clear();
 
-  const size_t turnsSz = turns.size();
-  if (!m_enabled || turnsSz == 0)
+  if (!m_enabled || turns.empty())
     return;
 
   TurnItemDist const & firstTurn = turns.front();
-  string const firstNotification = GenerateFirstTurnSound(firstTurn.m_turnItem, firstTurn.m_distMeters);
+  string firstNotification = GenerateFirstTurnSound(firstTurn.m_turnItem, firstTurn.m_distMeters);
   if (m_nextTurnNotificationProgress == PronouncedNotification::Nothing)
     return;
   if (firstNotification.empty())
     return;
-  turnNotifications.push_back(move(firstNotification));
+  turnNotifications.emplace_back(move(firstNotification));
 
-  // Generating notifications like Then turn left if necessary.
-  if (turnsSz <= 1)
+  // Generating notifications like "Then turn left" if necessary.
+  if (turns.size() < 2)
     return;
   TurnItemDist const & secondTurn = turns[1];
   ASSERT_LESS_OR_EQUAL(firstTurn.m_distMeters, secondTurn.m_distMeters, ());
   if (secondTurn.m_distMeters - firstTurn.m_distMeters > kMaxTurnDistM)
     return;
-  string const secondNotification = GenerateTurnText(0 /* distanceUnits is not used because of "Then" is used */,
-                                                     secondTurn.m_turnItem.m_exitNum, true,
-                                                     secondTurn.m_turnItem.m_turn,
-                                                     m_settings.GetLengthUnits());
+  string secondNotification = GenerateTurnText(0 /* distanceUnits is not used because of "Then" is used */,
+                                               secondTurn.m_turnItem.m_exitNum, true,
+                                               secondTurn.m_turnItem.m_turn,
+                                               m_settings.GetLengthUnits());
   if (secondNotification.empty())
     return;
-  turnNotifications.push_back(move(secondNotification));
+  turnNotifications.emplace_back(move(secondNotification));
 }
 
 string TurnsSound::GenerateFirstTurnSound(TurnItem const & turn, double distanceToTurnMeters)
@@ -103,8 +102,8 @@ string TurnsSound::GenerateFirstTurnSound(TurnItem const & turn, double distance
         uint32_t const distToPronounce =
             m_settings.RoundByPresetSoundedDistancesUnits(turnNotificationDistUnits);
         m_nextTurnNotificationProgress = PronouncedNotification::First;
-        return GenerateTurnText(distToPronounce, turn.m_exitNum, false, turn.m_turn,
-                                m_settings.GetLengthUnits());
+        return GenerateTurnText(distToPronounce, turn.m_exitNum, false /* useThenInsteadOfDistance */,
+                                turn.m_turn, m_settings.GetLengthUnits());
       }
     }
     else
@@ -113,16 +112,18 @@ string TurnsSound::GenerateFirstTurnSound(TurnItem const & turn, double distance
       // It happens if one turn follows shortly behind another one.
       m_nextTurnNotificationProgress = PronouncedNotification::First;
     }
-    return "";
+    return string();
   }
 
   if (m_nextTurnNotificationProgress == PronouncedNotification::First &&
       distanceToTurnMeters < distanceToPronounceNotificationMeters)
   {
     m_nextTurnNotificationProgress = PronouncedNotification::Second;
-    return GenerateTurnText(0, turn.m_exitNum, false, turn.m_turn, m_settings.GetLengthUnits());
+    return GenerateTurnText(0 /* distanceUnits */, turn.m_exitNum,
+                            false /* useThenInsteadOfDistance */,
+                            turn.m_turn, m_settings.GetLengthUnits());
   }
-  return "";
+  return string();
 }
 
 void TurnsSound::Enable(bool enable)

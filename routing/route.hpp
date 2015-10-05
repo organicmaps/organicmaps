@@ -72,13 +72,19 @@ public:
   double GetCurrentDistanceToEndMeters() const;
   double GetMercatorDistanceFromBegin() const;
 
+  /// \brief GetCurrentTurn returns information about the nearest turn.
+  /// \param distanceToTurnMeters is a distance from current position to the nearest turn.
+  /// \param turn is information about the nearest turn.
   bool GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
   /// @return true if GetNextTurn() returns a valid result in parameters, false otherwise.
-  /// \param distanceToTurnMeters is a distance from current possition to the second turn.
+  /// \param distanceToTurnMeters is a distance from current position to the second turn.
   /// \param turn is information about the second turn.
+  /// @return true if its parameters are filled with correct result.
   /// \note All parameters are filled while a GetNextTurn function call.
   bool GetNextTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
-  bool GetNextTurns(vector<turns::TurnItemDist> & turns);
+  /// \brief Extract information about zero, one or two nearest turns depending on current position.
+  /// @return true if its parameter is filled with correct result. (At least with one element.)
+  bool GetNextTurns(vector<turns::TurnItemDist> & turns) const;
 
   void GetCurrentDirectionPoint(m2::PointD & pt) const;
 

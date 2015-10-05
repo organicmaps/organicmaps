@@ -72,11 +72,11 @@ string DebugPrint(TurnItem const & turnItem)
 
 string DebugPrint(TurnItemDist const & turnItemDist)
 {
-    stringstream out;
-    out << "TurnItemDist [ m_turnItem = " << DebugPrint(turnItemDist.m_turnItem)
-        << ", m_distMeters = " << turnItemDist.m_distMeters
-        << " ]" << endl;
-    return out.str();
+  stringstream out;
+  out << "TurnItemDist [ m_turnItem = " << DebugPrint(turnItemDist.m_turnItem)
+      << ", m_distMeters = " << turnItemDist.m_distMeters
+      << " ]" << endl;
+  return out.str();
 }
 
 string const GetTurnString(TurnDirection turn)
