@@ -81,7 +81,7 @@ done
 # Step 4: run intergation tests
 echo
 echo '### INTEGRATION TESTS'
-"$(dirname "$GENERATOR_TOOL")/integration_tests" "--data_path=$FTARGET/" "--user_resource_path=$OMIM_PATH/data/" "--suppress=online_cross_tests.*" 2>&1
+"$(dirname "$GENERATOR_TOOL")/routing_integration_tests" "--data_path=$FTARGET/" "--user_resource_path=$OMIM_PATH/data/" "--suppress=online_cross_tests.*" 2>&1
 
 # Clean the temporary directory
 rm -r "$FTARGET"
