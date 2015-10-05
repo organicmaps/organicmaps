@@ -114,7 +114,7 @@ void InformationDisplay::InitLocationState(Framework * fw)
   p.m_position = EPosCenter;
   p.m_depth = locationDepth;
   p.m_pivot = m2::PointD(0, 0);
-  p.m_locationAreaColor = Color(0x51, 0xA3, 0xDC, 0x46);
+  p.m_locationAreaColor = Color(30, 150, 240, 20);
   p.m_framework = fw;
 
   m_locationState.reset(new location::State(p));
