@@ -2,7 +2,7 @@
 # Please run this script to configure the repository after cloning it.
 
 # Stop on the first error.
-set -e
+set -e -u
 
 PRIVATE_HEADER="private.h"
 PRIVATE_PROPERTIES="android/secure.properties"
@@ -54,8 +54,7 @@ ext {
   fi
 fi
 
-git clone --depth 1 "$PRIVATE_REPO" "$TMP_REPO_DIR"
-if [ $? == 0 ]; then
+if git clone --depth 1 "$PRIVATE_REPO" "$TMP_REPO_DIR"; then
   echo "Saved private repository url to $SAVED_PRIVATE_REPO_FILE"
   echo "$PRIVATE_REPO" > "$SAVED_PRIVATE_REPO_FILE"
   rm -rf "$TMP_REPO_DIR/.git" "$TMP_REPO_DIR/README.md"
