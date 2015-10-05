@@ -118,12 +118,10 @@ void MyPosition::CacheAccuracySector(ref_ptr<dp::TextureManager> mng)
   float const etalonSector = math::twicePi / static_cast<double>(TriangleCount);
 
   dp::TextureManager::ColorRegion color;
-  mng->GetColorRegion(dp::Color(0x51, 0xA3, 0xDC, 0x46), color);
+  mng->GetColorRegion(dp::Color(30, 150, 240, 20), color);
   glsl::vec2 colorCoord = glsl::ToVec2(color.GetTexRect().Center());
 
   buffer_vector<Vertex, TriangleCount> buffer;
-  //buffer.emplace_back(glsl::vec2(0.0f, 0.0f), colorCoord);
-
   glsl::vec2 startNormal(0.0f, 1.0f);
 
   for (size_t i = 0; i < TriangleCount + 1; ++i)
