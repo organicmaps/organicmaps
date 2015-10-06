@@ -20,7 +20,7 @@ template <class TIter> string DistToTextId(TIter begin, TIter end, uint32_t dist
   if (distToSound == end)
   {
     ASSERT(false, ("notification.m_distanceUnits is not correct."));
-    return "";
+    return string();
   }
   return distToSound->second;
 }
@@ -50,11 +50,14 @@ string GetTtsText::operator()(Notification const & notification) const
 {
   if (notification.m_distanceUnits == 0 && !notification.m_useThenInsteadOfDistance)
     return GetTextById(GetDirectionTextId(notification));
+  if (notification.m_useThenInsteadOfDistance && notification.m_turnDir == TurnDirection::NoTurn)
+    return string();
+
+  string const dirStr = GetTextById(GetDirectionTextId(notification));
+  if (dirStr.empty())
+    return string();
 
   string const distStr = GetTextById(GetDistanceTextId(notification));
-  string const dirStr = GetTextById(GetDirectionTextId(notification));
-  if (distStr.empty() && dirStr.empty())
-    return "";
   return distStr + " " + dirStr;
 }
 
@@ -75,7 +78,7 @@ string GetDistanceTextId(Notification const & notification)
   if (!notification.IsValid())
   {
     ASSERT(false, ());
-    return "";
+    return string();
   }
 
   if (notification.m_useThenInsteadOfDistance)
@@ -85,7 +88,7 @@ string GetDistanceTextId(Notification const & notification)
   {
     case LengthUnits::Undefined:
       ASSERT(false, ());
-      return "";
+      return string();
     case LengthUnits::Meters:
       return DistToTextId(GetAllSoundedDistMeters().cbegin(), GetAllSoundedDistMeters().cend(),
                           notification.m_distanceUnits);
@@ -94,7 +97,7 @@ string GetDistanceTextId(Notification const & notification)
                           notification.m_distanceUnits);
   }
   ASSERT(false, ());
-  return "";
+  return string();
 }
 
 string GetDirectionTextId(Notification const & notification)
@@ -129,10 +132,10 @@ string GetDirectionTextId(Notification const & notification)
     case TurnDirection::NoTurn:
     case TurnDirection::Count:
       ASSERT(false, ());
-      return "";
+      return string();
   }
   ASSERT(false, ());
-  return "";
+  return string();
 }
 }  // namespace sound
 }  // namespace turns

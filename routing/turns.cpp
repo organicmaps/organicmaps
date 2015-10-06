@@ -70,6 +70,15 @@ string DebugPrint(TurnItem const & turnItem)
   return out.str();
 }
 
+string DebugPrint(TurnItemDist const & turnItemDist)
+{
+  stringstream out;
+  out << "TurnItemDist [ m_turnItem = " << DebugPrint(turnItemDist.m_turnItem)
+      << ", m_distMeters = " << turnItemDist.m_distMeters
+      << " ]" << endl;
+  return out.str();
+}
+
 string const GetTurnString(TurnDirection turn)
 {
   for (auto const & p : g_turnNames)

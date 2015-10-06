@@ -148,7 +148,9 @@ Route::TTurns::const_iterator Route::GetCurrentTurn() const
          });
 }
 
-void Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const
+// @TODO After current GPS position passes the finish of the route the method GetCurrentTurn
+// continues to return the last turn of the route. It looks like an issue.
+bool Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const
 {
   auto it = GetCurrentTurn();
   if (it == m_turns.end())
@@ -156,13 +158,14 @@ void Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn
     ASSERT(it != m_turns.end(), ());
     distanceToTurnMeters = 0;
     turn = turns::TurnItem();
-    return;
+    return false;
   }
 
   size_t const segIdx = (*it).m_index;
   turn = (*it);
   distanceToTurnMeters = m_poly.GetDistanceM(m_poly.GetCurrentIter(),
                                              m_poly.GetIterToIndex(segIdx));
+  return true;
 }
 
 bool Route::GetNextTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const
@@ -182,6 +185,21 @@ bool Route::GetNextTurn(double & distanceToTurnMeters, turns::TurnItem & turn) c
   turn = *it;
   distanceToTurnMeters = m_poly.GetDistanceM(m_poly.GetCurrentIter(),
                                              m_poly.GetIterToIndex(it->m_index));
+  return true;
+}
+
+bool Route::GetNextTurns(vector<turns::TurnItemDist> & turns) const
+{
+  turns.clear();
+
+  turns::TurnItemDist currentTurn;
+  if (!GetCurrentTurn(currentTurn.m_distMeters, currentTurn.m_turnItem))
+    return false;
+  turns.emplace_back(move(currentTurn));
+
+  turns::TurnItemDist nextTurn;
+  if (GetNextTurn(nextTurn.m_distMeters, nextTurn.m_turnItem))
+    turns.emplace_back(move(nextTurn));
   return true;
 }
 

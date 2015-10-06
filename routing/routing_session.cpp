@@ -23,10 +23,6 @@ double constexpr kShowLanesDistInMeters = 500.;
 // The distance before the next turn in meters when notification
 // about the turn after the next one will be shown if available.
 double constexpr kShowTheTurnAfterTheNextM = 500.;
-// If the distance between two sequential turns is more than kMaxTurnDistM
-// the information about the second turn will be shown when the user is
-// approaching to the first one.
-double constexpr kMaxTurnDistM = 400.;
 
 // @todo(kshalnev) The distance may depend on the current speed.
 double constexpr kShowPedestrianTurnInMeters = 5.;
@@ -222,7 +218,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
       ASSERT_LESS_OR_EQUAL(0, distBetweenTurnsM, ());
 
       if (m_routingSettings.m_showTurnAfterNext &&
-          distanceToTurnMeters < kShowTheTurnAfterTheNextM && distBetweenTurnsM < kMaxTurnDistM)
+          distanceToTurnMeters < kShowTheTurnAfterTheNextM && distBetweenTurnsM < turns::kMaxTurnDistM)
       {
         info.m_nextTurn = nextTurn.m_turn;
       }
@@ -286,11 +282,9 @@ void RoutingSession::GenerateTurnSound(vector<string> & turnNotifications)
   if (!m_route.IsValid() || !IsNavigable())
     return;
 
-  double distanceToTurnMeters = 0.;
-  turns::TurnItem turn;
-  m_route.GetCurrentTurn(distanceToTurnMeters, turn);
-
-  m_turnsSound.GenerateTurnSound(turn, distanceToTurnMeters, turnNotifications);
+  vector<turns::TurnItemDist> turns;
+  if (m_route.GetNextTurns(turns))
+    m_turnsSound.GenerateTurnSound(turns, turnNotifications);
 }
 
 void RoutingSession::AssignRoute(Route & route, IRouter::ResultCode e)

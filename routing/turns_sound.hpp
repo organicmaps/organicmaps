@@ -63,6 +63,8 @@ class TurnsSound
 
   string GenerateTurnText(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
                           TurnDirection turnDir, LengthUnits lengthUnits) const;
+  /// Generates turn sound notification for the nearest to the current position turn.
+  string GenerateFirstTurnSound(TurnItem const & turn, double distanceToTurnMeters);
 public:
   TurnsSound() : m_enabled(false), m_speedMetersPerSecond(0.), m_settings(),
       m_nextTurnNotificationProgress(PronouncedNotification::Nothing), m_nextTurnIndex(0) {}
@@ -83,8 +85,7 @@ public:
    /// \param distanceToTurnMeters is distance to the next turn in meters.
    /// \param turnNotifications is a parameter to fill it if it's necessary.
    /// \note The client implies turnNotifications does not contain empty strings.
-  void GenerateTurnSound(TurnItem const & turn, double distanceToTurnMeters,
-                         vector<string> & turnNotifications);
+  void GenerateTurnSound(vector<TurnItemDist> const & turns, vector<string> & turnNotifications);
   /// Reset states which reflects current route position.
   /// The method shall be called after creating a new route or after rerouting.
   void Reset();
