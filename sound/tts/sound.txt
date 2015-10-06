@@ -487,7 +487,7 @@
     tr = Üç yüz metre sonra.
     fr = Dans trois cents mètres.
     nl = Over driehonderd meter.
-    de = In dreihundertfünfzig Metern.
+    de = In dreihundert Metern.
     ar = بعد 300 متر
     el = Σε τριακόσια μέτρα.
     it = Tra trecento metri.
@@ -847,7 +847,7 @@
     tr = Üç kilometre sonra.
     fr = Dans trois kilomètres.
     nl = Over drie kilometer.
-    de = In dreieinhalb Kilometern.
+    de = In drei Kilometern.
     ar = بعد 3 كيلو متر
     el = Σε τρία χιλιόμετρα.
     it = Tra tre chilometri.
@@ -2167,7 +2167,7 @@
     tr = Bir buçuk mil sonra.
     fr = Dans un virgule cinq mile.
     nl = Over anderhalve mijl:
-    de = In dreieinhalb Kilometern.
+    de = In anderthalb Meilen.
     ar = بعد ميل ونصف
     el = Σε ενάμιση μίλι.
     it = Tra un miglio e mezzo.
