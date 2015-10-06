@@ -421,7 +421,7 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_routing">ルートをダウンロード</string>
 	<!-- Context menu item for downloader. -->
-	<string name="downloader_delete_routing">るーどを削除</string>
+	<string name="downloader_delete_routing">ルートを削除</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">地図をダウンロード</string>
 	<string name="downloader_download_map_no_routing">ルートなしで地図をダウンロード</string>

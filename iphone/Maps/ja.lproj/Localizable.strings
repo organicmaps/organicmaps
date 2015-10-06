@@ -672,7 +672,7 @@
 "downloader_download_routing" = "ルートをダウンロード";
 
 /* Context menu item for downloader. */
-"downloader_delete_routing" = "るーどを削除";
+"downloader_delete_routing" = "ルートを削除";
 
 /* Context menu item for downloader. */
 "downloader_download_map" = "地図をダウンロード";
