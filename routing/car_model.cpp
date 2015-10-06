@@ -52,4 +52,11 @@ CarModel::CarModel()
   SetAdditionalRoadTypes(classif(), arr, ARRAY_SIZE(arr));
 }
 
+// static
+CarModel const & CarModel::Instance()
+{
+  static CarModel const instance;
+  return instance;
+}
+
 }  // namespace routing

@@ -2,6 +2,7 @@
 #include "cross_mwm_router.hpp"
 #include "online_cross_fetcher.hpp"
 #include "osrm2feature_map.hpp"
+#include "osrm_helpers.hpp"
 #include "osrm_router.hpp"
 #include "turns_generator.hpp"
 
@@ -54,318 +55,6 @@ double constexpr kPathFoundProgress = 70.0f;
 // TODO (ldragunov) Switch all RawRouteData and incapsulate to own omim types.
 using RawRouteData = InternalRouteResult;
 
-namespace
-{
-
-class Point2PhantomNode
-{
-
-public:
-  Point2PhantomNode(OsrmFtSegMapping const & mapping, Index const * pIndex,
-                    m2::PointD const & direction, TDataFacade const & facade)
-      : m_direction(direction), m_mapping(mapping), m_pIndex(pIndex), m_dataFacade(facade)
-  {
-  }
-
-  struct Candidate
-  {
-    double m_dist;
-    uint32_t m_segIdx;
-    uint32_t m_fid;
-    m2::PointD m_point;
-
-    Candidate() : m_dist(numeric_limits<double>::max()), m_fid(kInvalidFid) {}
-  };
-
-  static void FindNearestSegment(FeatureType const & ft, m2::PointD const & point, Candidate & res)
-  {
-    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-
-    size_t const count = ft.GetPointsCount();
-    uint32_t const featureId = ft.GetID().m_index;
-    ASSERT_GREATER(count, 1, ());
-    for (size_t i = 1; i < count; ++i)
-    {
-      m2::ProjectionToSection<m2::PointD> segProj;
-      segProj.SetBounds(ft.GetPoint(i - 1), ft.GetPoint(i));
-
-      m2::PointD const pt = segProj(point);
-      double const d = point.SquareLength(pt);
-      if (d < res.m_dist)
-      {
-        res.m_dist = d;
-        res.m_fid = featureId;
-        res.m_segIdx = static_cast<uint32_t>(i - 1);
-        res.m_point = pt;
-      }
-    }
-  }
-
-  void SetPoint(m2::PointD const & pt)
-  {
-    m_point = pt;
-  }
-
-  bool HasCandidates() const
-  {
-    return !m_candidates.empty();
-  }
-
-  void operator() (FeatureType const & ft)
-  {
-    static CarModel const carModel;
-    if (ft.GetFeatureType() != feature::GEOM_LINE || !carModel.IsRoad(ft))
-      return;
-
-    Candidate res;
-
-    FindNearestSegment(ft, m_point, res);
-
-    if (!m_mwmId.IsAlive())
-      m_mwmId = ft.GetID().m_mwmId;
-    ASSERT_EQUAL(m_mwmId, ft.GetID().m_mwmId, ());
-
-    if (res.m_fid != kInvalidFid)
-      m_candidates.push_back(res);
-  }
-
-  double CalculateDistance(OsrmMappingTypes::FtSeg const & s) const
-  {
-    ASSERT_NOT_EQUAL(s.m_pointStart, s.m_pointEnd, ());
-
-    Index::FeaturesLoaderGuard loader(*m_pIndex, m_mwmId);
-    FeatureType ft;
-    loader.GetFeatureByIndex(s.m_fid, ft);
-    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-
-    double distMeters = 0.0;
-    size_t const n = max(s.m_pointEnd, s.m_pointStart);
-    size_t i = min(s.m_pointStart, s.m_pointEnd) + 1;
-    do
-    {
-      distMeters += MercatorBounds::DistanceOnEarth(ft.GetPoint(i - 1), ft.GetPoint(i));
-      ++i;
-    } while (i <= n);
-
-    return distMeters;
-  }
-
-  /// Calculates part of a node weight in the OSRM format. Projection point @segPt divides node on
-  /// two parts. So we find weight of a part, set by the @offsetToRight parameter.
-  void CalculateWeight(OsrmMappingTypes::FtSeg const & seg, m2::PointD const & segPt, NodeID & nodeId, int & weight, bool offsetToRight) const
-  {
-    // nodeId can be INVALID_NODE_ID when reverse node is absent. This node has no weight.
-    if (nodeId == INVALID_NODE_ID || m_dataFacade.GetOutDegree(nodeId) == 0)
-    {
-      weight = 0;
-      return;
-    }
-
-    // Distance from the node border to the projection point in meters.
-    double distance = 0;
-    auto const range = m_mapping.GetSegmentsRange(nodeId);
-    OsrmMappingTypes::FtSeg segment;
-    OsrmMappingTypes::FtSeg currentSegment;
-
-    size_t startIndex = offsetToRight ? range.second - 1 : range.first;
-    size_t endIndex = offsetToRight ? range.first - 1 : range.second;
-    int indexIncrement = offsetToRight ? -1 : 1;
-
-    for (size_t segmentIndex = startIndex; segmentIndex != endIndex; segmentIndex += indexIncrement)
-    {
-      m_mapping.GetSegmentByIndex(segmentIndex, segment);
-      if (!segment.IsValid())
-        continue;
-
-      auto segmentLeft = min(segment.m_pointStart, segment.m_pointEnd);
-      auto segmentRight = max(segment.m_pointEnd, segment.m_pointStart);
-
-      // seg.m_pointEnd - seg.m_pointStart == 1, so check
-      // just a case, when seg is inside s
-      if ((seg.m_pointStart != segmentLeft || seg.m_pointEnd != segmentRight) &&
-          (segmentLeft <= seg.m_pointStart && segmentRight >= seg.m_pointEnd))
-      {
-        currentSegment.m_fid = segment.m_fid;
-
-        if (segment.m_pointStart < segment.m_pointEnd)
-        {
-          if (offsetToRight)
-          {
-            currentSegment.m_pointEnd = seg.m_pointEnd;
-            currentSegment.m_pointStart = segment.m_pointStart;
-          }
-          else
-          {
-            currentSegment.m_pointStart = seg.m_pointStart;
-            currentSegment.m_pointEnd = segment.m_pointEnd;
-          }
-        }
-        else
-        {
-          if (offsetToRight)
-          {
-            currentSegment.m_pointStart = segment.m_pointEnd;
-            currentSegment.m_pointEnd = seg.m_pointEnd;
-          }
-          else
-          {
-            currentSegment.m_pointEnd = seg.m_pointStart;
-            currentSegment.m_pointStart = segment.m_pointStart;
-          }
-        }
-
-        distance += CalculateDistance(currentSegment);
-        break;
-      }
-      else
-        distance += CalculateDistance(segment);
-    }
-
-    Index::FeaturesLoaderGuard loader(*m_pIndex, m_mwmId);
-    FeatureType ft;
-    loader.GetFeatureByIndex(seg.m_fid, ft);
-    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-
-    // node.m_seg always forward ordered (m_pointStart < m_pointEnd)
-    distance -= MercatorBounds::DistanceOnEarth(ft.GetPoint(offsetToRight ? seg.m_pointEnd : seg.m_pointStart), segPt);
-
-    // Offset is measured in decades of seconds. We don't know about speed restrictions on the road.
-    // So we find it by a whole edge weight.
-
-    // Whole node distance in meters.
-    double fullDistanceM = 0.0;
-    for (size_t segmentIndex = startIndex; segmentIndex != endIndex; segmentIndex += indexIncrement)
-    {
-      m_mapping.GetSegmentByIndex(segmentIndex, segment);
-      if (!segment.IsValid())
-        continue;
-      fullDistanceM += CalculateDistance(segment);
-    }
-
-    ASSERT_GREATER(fullDistanceM, 0, ("No valid segments on the edge."));
-    double const ratio = (fullDistanceM == 0) ? 0 : distance / fullDistanceM;
-
-    auto const beginEdge = m_dataFacade.BeginEdges(nodeId);
-    auto const endEdge = m_dataFacade.EndEdges(nodeId);
-    // Minimal OSRM edge weight in decades of seconds.
-    EdgeWeight minWeight = m_dataFacade.GetEdgeData(beginEdge, nodeId).distance;
-    for (EdgeID i = beginEdge + 1; i != endEdge; ++i)
-      minWeight = min(m_dataFacade.GetEdgeData(i, nodeId).distance, minWeight);
-
-    weight = max(static_cast<int>(minWeight * ratio), 0);
-  }
-
-  void CalculateOffsets(FeatureGraphNode & node) const
-  {
-    CalculateWeight(node.segment, node.segmentPoint, node.node.forward_node_id, node.node.forward_weight, true /* offsetToRight */);
-    CalculateWeight(node.segment, node.segmentPoint, node.node.reverse_node_id, node.node.reverse_weight, false /* offsetToRight */);
-
-    // need to initialize weights for correct work of PhantomNode::GetForwardWeightPlusOffset
-    // and PhantomNode::GetReverseWeightPlusOffset
-    node.node.forward_offset = 0;
-    node.node.reverse_offset = 0;
-  }
-
-  void MakeResult(TFeatureGraphNodeVec & res, size_t maxCount, string const & mwmName)
-  {
-    if (!m_mwmId.IsAlive())
-      return;
-
-    vector<OsrmMappingTypes::FtSeg> segments;
-
-    segments.resize(maxCount);
-
-    OsrmFtSegMapping::FtSegSetT segmentSet;
-    sort(m_candidates.begin(), m_candidates.end(), [] (Candidate const & r1, Candidate const & r2)
-    {
-      return (r1.m_dist < r2.m_dist);
-    });
-
-    size_t const n = min(m_candidates.size(), maxCount);
-    for (size_t j = 0; j < n; ++j)
-    {
-      OsrmMappingTypes::FtSeg & seg = segments[j];
-      Candidate const & c = m_candidates[j];
-
-      seg.m_fid = c.m_fid;
-      seg.m_pointStart = c.m_segIdx;
-      seg.m_pointEnd = c.m_segIdx + 1;
-
-      segmentSet.insert(&seg);
-    }
-
-    OsrmFtSegMapping::OsrmNodesT nodes;
-    m_mapping.GetOsrmNodes(segmentSet, nodes);
-
-    res.clear();
-    res.resize(maxCount);
-
-    for (size_t j = 0; j < maxCount; ++j)
-    {
-      size_t const idx = j;
-
-      if (!segments[idx].IsValid())
-        continue;
-
-      auto it = nodes.find(segments[idx].Store());
-      if (it == nodes.end())
-        continue;
-
-      FeatureGraphNode & node = res[idx];
-
-      if (!m_direction.IsAlmostZero())
-      {
-        // Filter income nodes by direction mode
-        OsrmMappingTypes::FtSeg const & node_seg = segments[idx];
-        FeatureType feature;
-        Index::FeaturesLoaderGuard loader(*m_pIndex, m_mwmId);
-        loader.GetFeatureByIndex(node_seg.m_fid, feature);
-        feature.ParseGeometry(FeatureType::BEST_GEOMETRY);
-        m2::PointD const featureDirection = feature.GetPoint(node_seg.m_pointEnd) - feature.GetPoint(node_seg.m_pointStart);
-        bool const sameDirection = (m2::DotProduct(featureDirection, m_direction) / (featureDirection.Length() * m_direction.Length()) > 0);
-        if (sameDirection)
-        {
-          node.node.forward_node_id = it->second.first;
-          node.node.reverse_node_id = INVALID_NODE_ID;
-        }
-        else
-        {
-          node.node.forward_node_id = INVALID_NODE_ID;
-          node.node.reverse_node_id = it->second.second;
-        }
-      }
-      else
-      {
-        node.node.forward_node_id = it->second.first;
-        node.node.reverse_node_id = it->second.second;
-      }
-
-      node.segment = segments[idx];
-      node.segmentPoint = m_candidates[j].m_point;
-      node.mwmName = mwmName;
-
-      CalculateOffsets(node);
-    }
-    res.erase(remove_if(res.begin(), res.end(), [](FeatureGraphNode const & f)
-                        {
-                          return f.mwmName.empty();
-                        }),
-                        res.end());
-  }
-
-private:
-  m2::PointD m_point;
-  m2::PointD const m_direction;
-  OsrmFtSegMapping const & m_mapping;
-  buffer_vector<Candidate, 128> m_candidates;
-  MwmSet::MwmId m_mwmId;
-  Index const * m_pIndex;
-  TDataFacade const & m_dataFacade;
-
-  DISALLOW_COPY(Point2PhantomNode);
-};
-} // namespace
-
 // static
 bool OsrmRouter::CheckRoutingAbility(m2::PointD const & startPoint, m2::PointD const & finalPoint,
                                      TCountryFileFn const & countryFileFn, Index * index)
@@ -410,7 +99,7 @@ void FindGraphNodeOffsets(uint32_t const nodeId, m2::PointD const & point,
 {
   graphNode.segmentPoint = point;
 
-  Point2PhantomNode::Candidate best;
+  helpers::Point2PhantomNode::Candidate best;
 
   auto range = mapping->m_segMapping.GetSegmentsRange(nodeId);
   for (size_t i = range.first; i < range.second; ++i)
@@ -424,8 +113,8 @@ void FindGraphNodeOffsets(uint32_t const nodeId, m2::PointD const & point,
     Index::FeaturesLoaderGuard loader(*pIndex, mapping->GetMwmId());
     loader.GetFeatureByIndex(s.m_fid, ft);
 
-    Point2PhantomNode::Candidate mappedSeg;
-    Point2PhantomNode::FindNearestSegment(ft, point, mappedSeg);
+    helpers::Point2PhantomNode::Candidate mappedSeg;
+    helpers::Point2PhantomNode::FindNearestSegment(ft, point, mappedSeg);
 
     OsrmMappingTypes::FtSeg seg;
     seg.m_fid = mappedSeg.m_fid;
@@ -690,7 +379,7 @@ IRouter::ResultCode OsrmRouter::FindPhantomNodes(m2::PointD const & point,
                                                  TRoutingMappingPtr const & mapping)
 {
   ASSERT(mapping, ());
-  Point2PhantomNode getter(mapping->m_segMapping, m_pIndex, direction, mapping->m_dataFacade);
+  helpers::Point2PhantomNode getter(*mapping, *m_pIndex, direction);
   getter.SetPoint(point);
 
   m_pIndex->ForEachInRectForMWM(getter, MercatorBounds::RectByCenterXYAndSizeInMeters(
@@ -726,7 +415,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
   LOG(LDEBUG, ("Shortest path length:", routingResult.shortestPathLength));
 
   //! @todo: Improve last segment time calculation
-  CarModel carModel;
+  CarModel const & carModel = CarModel::Instance();
 #ifdef DEBUG
   size_t lastIdx = 0;
 #endif

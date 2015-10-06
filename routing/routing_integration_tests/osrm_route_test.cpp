@@ -213,7 +213,8 @@ namespace
   UNIT_TEST(RussiaSmolenskRussiaMoscowTimeTest)
   {
     TRouteResult const routeResult = integration::CalculateRoute(
-        integration::GetOsrmComponents(), {32.05489, 65.78463}, {0., 0.}, {37.60169, 67.45807});
+        integration::GetOsrmComponents(), MercatorBounds::FromLatLon(54.7998, 32.05489), {0., 0.},
+        MercatorBounds::FromLatLon(55.753, 37.60169));
 
     Route const & route = *routeResult.first;
     IRouter::ResultCode const result = routeResult.second;
@@ -225,8 +226,8 @@ namespace
   UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22TimeTest)
   {
     TRouteResult const routeResult = integration::CalculateRoute(
-        integration::GetOsrmComponents(), {37.53804, 67.53647}, {0., 0.}, {37.40990, 67.64474});
-
+        integration::GetOsrmComponents(), MercatorBounds::FromLatLon(55.7971, 37.53804), {0., 0.},
+        MercatorBounds::FromLatLon(55.8579, 37.40990));
     Route const & route = *routeResult.first;
     IRouter::ResultCode const result = routeResult.second;
     TEST_EQUAL(result, IRouter::NoError, ());

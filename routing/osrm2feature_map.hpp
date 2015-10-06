@@ -95,7 +95,16 @@ namespace OsrmMappingTypes
     }
   };
 #pragma pack (pop)
-}
+
+/// Checks if a smallSeg is inside a bigSeg and at least one point of a smallSeg is differ from
+/// point of a bigSeg. Note that the smallSeg must be an ordered segment with 1 point length.
+bool IsInside(FtSeg const & bigSeg, FtSeg const & smallSeg);
+
+/// Splits segment by splitter segment and take part of it.
+/// Warning this function includes a whole splitter segment to a result segment described by the
+/// resultFromLeft variable.
+FtSeg SplitSegment(FtSeg const & segment, FtSeg const & splitter, bool const resultFromLeft);
+}  // namespace OsrmMappingTypes
 
 class OsrmFtSegMapping;
 
