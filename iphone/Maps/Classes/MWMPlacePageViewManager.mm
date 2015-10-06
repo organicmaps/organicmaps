@@ -277,7 +277,6 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
   UserMark const * bookmark = guard.m_controller.GetUserMark(bookmarkIndex);
   m_userMark.reset(new UserMarkCopy(bookmark, false));
-  f.ActivateUserMark(bookmark, false);
   [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
                                                     object:nil
                                                   userInfo:nil];
@@ -301,7 +300,6 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
   PoiMarkPoint const * poi = f.GetAddressMark(bookmark->GetPivot());
   m_userMark.reset(new UserMarkCopy(poi, false));
-  f.ActivateUserMark(poi, false);
   if (bookmarkCategory)
   {
     BookmarkCategory::Guard guard(*bookmarkCategory);
