@@ -148,16 +148,12 @@ Route::TTurns::const_iterator Route::GetCurrentTurn() const
          });
 }
 
-// @TODO After current GPS position passes the finish of the route the method GetCurrentTurn
-// continues to return the last turn of the route. It looks like an issue.
 bool Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const
 {
   auto it = GetCurrentTurn();
   if (it == m_turns.end())
   {
-    ASSERT(it != m_turns.end(), ());
-    distanceToTurnMeters = 0;
-    turn = turns::TurnItem();
+    ASSERT(false, ());
     return false;
   }
 
@@ -190,11 +186,11 @@ bool Route::GetNextTurn(double & distanceToTurnMeters, turns::TurnItem & turn) c
 
 bool Route::GetNextTurns(vector<turns::TurnItemDist> & turns) const
 {
-  turns.clear();
-
   turns::TurnItemDist currentTurn;
   if (!GetCurrentTurn(currentTurn.m_distMeters, currentTurn.m_turnItem))
     return false;
+
+  turns.clear();
   turns.emplace_back(move(currentTurn));
 
   turns::TurnItemDist nextTurn;
