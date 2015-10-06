@@ -896,7 +896,7 @@
     comment = Leave Review dialog - Not now button (remind me later)
     cs = Upozornit mě později
     sk = Upozorniť ma neskôr
-    de = Errinern Sie mich später
+    de = Erinnern Sie mich später
     es = Recordarme mas tarde
     fr = Me le rappeler plus tard
     it = Ricordamelo in seguito
@@ -1223,7 +1223,7 @@
     comment = Choose measurement on first launch alert - title
     cs = Jaký systém pro měření preferuješ?
     sk = Aký systém pre meranie preferujete?
-    de = Welches Messsystem ziehen Sie vor?
+    de = Welches Maßsystem ziehen Sie vor?
     es = ¿Cual sistema de medición prefieres?
     fr = Quel système de mesure préférez-vous ?
     it = Quale sistema di misura preferisci?
@@ -1714,7 +1714,7 @@
     en = A hardware accelerated OpenGL is required. Unfortunately, your device is not supported.
     cs = Je vyžadována hardwarová akcelerace OpenGL. Bohužel, tvé zařízení není podporováno.
     sk = Je vyžadovaná hardwarová akcelerácia OpenGL. Bohužial, vaše zariadenie nie je podporované.
-    de = Das Programm braucht OpenGL um funktionnieren zu können. Leider wird ihr Gerät nicht unterschtüzt.
+    de = Das Programm braucht OpenGL um zu funktionieren. Leider wird ihr Gerät nicht unterschtüzt.
     es = Un acelerador de hardware OpenGL se requiere. Desafortunadamente, su dispositivo móvil no es compatible.
     fr = L'accélération OpenGL matérielle est exigée. Malheureusement, votre appareil n'est pas pris en charge.
     it = È necessaria una accelerazione hardware OpenGL. Purtroppo, il tuo dispositivo non è supportato.
@@ -3148,7 +3148,7 @@
     comment = Toast which is displayed when GPS has been deactivated
     cs = Navigace GPS deaktivována. Prosím, povol ji v Nastavení.
     sk = Navigácia GPS deaktivovaná. Prosím, povoľte ju v Nastaveniach.
-    de = GPS ist deaktiviert. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.
+    de = GPS ist deaktiviert. Schalten Sie es bitte ein, um das Programm bequem nutzen zu können.
     es = El GPS está inhabilitado. Por favor, activelo en los ajustes.
     fr = Le GPS est désactivé. Veuillez l'activer dans les Paramètres.
     it = Il GPS è disabilitato. Cortesemente abilitalo nelle Impostazioni.
@@ -3676,7 +3676,7 @@
     comment = Search Suggestion
     cs = Nemocnice
     sk = Nemocnica
-    de = Spital
+    de = Krankenhaus
     es = Hospital
     fr = Hôpital/clinique
     it = Ospedale
@@ -4277,7 +4277,7 @@
     comment = No, thanks
     cs = Ne, díky
     sk = Nie, ďakujem
-    de = Nein, Danke
+    de = Nein danke
     es = No, gracias
     fr = Non, merci
     it = No, grazie
@@ -4341,7 +4341,7 @@
     ko = 현재 위치를 알아 보십시오. %1$@ 또는 %2$@ 열기
     it = Vedi dove sono ora. Apri %1$@ o %2$@
     ja = 私は今ここにいます。リンク: %1$@ , %2$@
-    de = Sieh, wo ich gerade bin. Klicke auf den Link %1$@ oder %2$@
+    de = Schau wo ich gerade bin. Klicke auf den Link %1$@ oder %2$@
     nl = Kijk waar ik nu ben. Open %1$@ of %2$@
     cs = Koukni kde jsem. Otevři odkaz: %1$@ nebo %2$@
     sk = Pozri kde som. Otvor odkaz: %1$@ alebo %2$@
@@ -7774,7 +7774,7 @@
     hu = Az alkalmazás fejlesztése érdekében ossz meg bármilyen ötletet vagy problémát.
     el = Μοιραστείτε οποιεσδήποτε ιδέες ή προβλήματα, ώστε να μπορέσουμε να βελτιώσουμε την εφαρμογή για εσάς.
     ar = שתף איתנו רעיונות או בעיות שיש לך, כדי שנוכל לשפר את האפליקציה למענך.
-    de = Teilen Sie uns Ihre Anregungen und Fragen mit, sodass wir die App für Sie verbessern können.
+    de = Teilen Sie uns Ihre Anregungen und Fragen mit, so dass wir die App für Sie verbessern können.
     fr = Partagez vos idées ou vos problèmes de façon à ce que nous puissions améliorer l'application.
     nl = Deel alle ideeën of problemen zodat we de app voor je kunnen verbeteren.
     fi = Jaathan ideasi ja kohtaamasi ongelmat, jotta voimme parantaa sovellusta sinua varten.
@@ -9188,7 +9188,7 @@
     ko = 튀김 요리
     id = gorengan
     hu = olajban sütött ételek
-    de = Friture
+    de = Friterie
     fr = friture
     nl = frituur
     fi = uppopaistettu
@@ -9221,7 +9221,7 @@
     ko = 바베큐
     id = barbekyu
     hu = barbecue
-    de = Barbecue
+    de = Grill
     fr = barbecue
     nl = barbecue
     fi = grilli
@@ -9386,7 +9386,7 @@
     ko = 도너츠
     id = donat
     hu = fánk
-    de = Donut
+    de = Donuts
     fr = donuts
     nl = donuts
     fi = donitsi
@@ -9815,7 +9815,7 @@
     ko = 바베큐
     id = bbq
     hu = grill
-    de = BBQ
+    de = Grill
     fr = barbecue
     nl = barbecue
     fi = bbq
@@ -9980,7 +9980,7 @@
     ko = 포르투갈식 음식
     id = masakan portugis
     hu = portugál konyha
-    de = portugiesisch Küche
+    de = portugiesische Küche
     fr = cuisine portugaise
     nl = portugees
     fi = portugalilainen keittiö
@@ -10211,7 +10211,7 @@
     ko = 도너츠
     id = donat
     hu = fánk
-    de = Doughnut
+    de = Donuts
     fr = donuts
     nl = donuts
     fi = donitsi
@@ -11003,7 +11003,7 @@
     ko = 바베큐
     id = barbekyu
     hu = barbeque
-    de = Barbeque
+    de = Grill
     fr = barbecue
     nl = barbecue
     fi = grillaus
@@ -11135,7 +11135,7 @@
     ko = 북마크
     in = bookmark
     hu = könyvjelző
-    de = lesezeichen
+    de = Lesezeichen
     fr = signet
     nl = markeren
     fi = kirjanmerkki
@@ -12760,7 +12760,7 @@
     uk = Маршрут з перетином межі карти більш оптимальний.
     vi = Có một tuyến đường tối ưu hơn đi qua cạnh của bản đồ này.
     hu = Elérhető egy optimálisabb útvonal, amely áthalad a jelenlegi térkép szélén.
-    de = Es ist eine optimalere Route verfügbar, die den Rand dieser Karte überschreitet.
+    de = Es ist eine bessere Route verfügbar, die den Rand dieser Karte überschreitet.
     fi = Tarjolla on suorempi reitti, joka ylittää tämän kartan reunan.
     cs = K dispozici je optimálnější trasa, která překračuje hranice této mapy.
     it = È disponibile un percorso migliore che oltrepassa il limite di questa mappa.
@@ -12884,7 +12884,7 @@
     uk = Завантажити карту і побудувати більш оптимальний маршрут з перетином межі карти?
     vi = Bạn có muốn tải về bản đồ và tạo một tuyến đường tối ưu hơn kéo dài trên nhiều hơn một bản đồ?
     hu = Szeretné letölteni a térképet és létrehozni egy optimálisabb útvonalat, amely több, mint egy térképen terül el?
-    de = Möchten Sie die Karte herunterladen und eine optimalere Route erstellen, die mehr als eine Karte umfasst?
+    de = Möchten Sie die Karte herunterladen und eine bessere Route erstellen, die mehr als eine Karte umfasst?
     fi = Haluatko ladata kartan ja luoda paremman reitin, joka ylettyy usealle kartalle?
     cs = Chcete mapu stáhnout a vytvořit optimálnější trasu, která vede přes více než jednu mapu?
     it = Vuoi scaricare la mappa e creare un percorso migliore che si estende su più mappe?
@@ -12915,7 +12915,7 @@
     uk = Для побудови більш оптимального маршруту з перетином межі потрібно завантажити карту.
     vi = Tải về bản đồ để tạo tuyến đường tối ưu hơn mà đi qua cạnh của bản đồ này.
     hu = Töltse le a térképet, hogy létrehozzon egy optimálisabb útvonalat, amely áthalad a jelenlegi térkép szélén.
-    de = Laden Sie die Karte herunter, um eine optimalere Route zu erstellen, die den Rand dieser Karte überschreitet.
+    de = Laden Sie die Karte herunter, um eine bessere Route zu erstellen, die den Rand dieser Karte überschreitet.
     fi = Lataa kartta ja luo parempi reitti, joka ylittää tämän kartan reunan.
     cs = Stáhnout mapu a vytvořit optimálnější trasu, která překračuje hranice této mapy.
     it = Per creare un percorso migliore che oltrepassa il limite di questa mappa, scarica la mappa.
@@ -12980,7 +12980,7 @@
     uk = Щоб розпочати пошук та створення маршрутів, будь ласка, завантажте карту і вам більше ніколи не знадобиться інтернет-з’єднання.
     vi = Để bắt đầu tìm kiếm và tạo đường đi, vui lòng tải về bản đồ, và bạn sẽ không cần đến kết nối Internet nữa.
     hu = Útvonalak kereséséhez és létrehozásához, kérjük, töltsd le a térképet és többé nem lesz szükséged internetkapcsolatra.
-    de = Um mit der Suche und dem Erstellen von Routen zu beginnen, laden Sie bitte die Karte herunter und Sie benötigen fortan keine Internetverbindung mehr.
+    de = Um mit der Suche und dem Erstellen von Routen zu beginnen, laden Sie bitte die Karte herunter. Sie benötigen danach keine Internetverbindung mehr.
     fi = Lataa kartta aloittaksesi haun ja luodaksesi reittejä. Tämän jälkeen et enää tule tarvitsemaan Internet-yhteyttä.
     cs = Chcete-li začít hledat a vytvářet trasy, pak si prosím stáhněte mapu a nebudete již potřebovat připojení.
     it = Per iniziare a cercare e a creare i percorsi, scarica la mappa e non avrai più bisogno di una connessione a internet.
@@ -13042,7 +13042,7 @@
     uk = Вибрати іншу карту
     vi = Chọn bản đồ khác
     hu = Jelölj ki másik térképet
-    de = Eine andere karte auswählen
+    de = Eine andere Karte auswählen
     fi = Valitse toinen kartta
     cs = Vybrat jinou mapu
     it = Seleziona un'altra mappa
