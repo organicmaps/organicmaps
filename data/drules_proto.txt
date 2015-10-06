@@ -8212,7 +8212,6 @@ cont {
       primary {
         height: 10
         color: 8947831
-        text: "addr:housenumber"
       }
       secondary {
         height: 11
@@ -8233,7 +8232,6 @@ cont {
       primary {
         height: 11
         color: 4473924
-        text: "addr:housenumber"
       }
       secondary {
         height: 11
@@ -8254,7 +8252,6 @@ cont {
       primary {
         height: 11
         color: 4473924
-        text: "addr:housenumber"
       }
       secondary {
         height: 11
@@ -8275,7 +8272,6 @@ cont {
       primary {
         height: 11
         color: 4473924
-        text: "addr:housenumber"
       }
       secondary {
         height: 11
@@ -8295,7 +8291,6 @@ cont {
       primary {
         height: 10
         color: 8947831
-        text: "addr:housenumber"
       }
       priority: 15000
     }
@@ -8306,7 +8301,6 @@ cont {
       primary {
         height: 11
         color: 4473924
-        text: "addr:housenumber"
       }
       priority: 15000
     }
@@ -8317,7 +8311,6 @@ cont {
       primary {
         height: 11
         color: 4473924
-        text: "addr:housenumber"
       }
       priority: 15000
     }
@@ -8328,7 +8321,6 @@ cont {
       primary {
         height: 11
         color: 4473924
-        text: "addr:housenumber"
       }
       priority: 15000
     }
