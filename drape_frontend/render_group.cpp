@@ -59,10 +59,7 @@ bool RenderGroup::IsLess(RenderGroup const & other) const
 
 void RenderGroup::UpdateAnimation()
 {
-  double opactity = 1.0;
-  if (m_disappearAnimation != nullptr)
-    opactity = m_disappearAnimation->GetOpacity();
-
+  double const opactity = GetOpacity();
   m_uniforms.SetFloatValue("u_opacity", opactity);
 }
 
@@ -84,9 +81,8 @@ bool RenderGroup::IsAnimating() const
 
 void RenderGroup::Disappear()
 {
-  m_disappearAnimation = make_unique<OpacityAnimation>(0.25 /* duration */,
-                                                       1.0 /* startOpacity */,
-                                                       0.0 /* endOpacity */);
+  m_disappearAnimation = make_unique<OpacityAnimation>(0.2 /* duration */, 0.25 /* delay */,
+                                                       1.0 /* startOpacity */, 0.0 /* endOpacity */);
 }
 
 bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_ptr<RenderGroup> const & r)
