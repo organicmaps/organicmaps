@@ -1,8 +1,9 @@
+#include "geometry_utils.hpp"
 #include "search_engine.hpp"
 #include "search_query.hpp"
-#include "geometry_utils.hpp"
+#include "suggest.hpp"
 
-#include "storage/country_info.hpp"
+#include "storage/country_info_getter.hpp"
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/search_string_utils.hpp"
@@ -28,19 +29,15 @@ namespace search
 
 double const DIST_EQUAL_QUERY = 100.0;
 
-using TSuggestsContainer = vector<Query::TSuggest>;
+using TSuggestsContainer = vector<Suggest>;
 
 class EngineData
 {
 public:
-  EngineData(Reader * pCategoriesR, ModelReaderPtr polyR, ModelReaderPtr countryR)
-    : m_categories(pCategoriesR), m_infoGetter(polyR, countryR)
-  {
-  }
+  EngineData(Reader * categoriesR) : m_categories(categoriesR) {}
 
   CategoriesHolder m_categories;
-  TSuggestsContainer m_stringsToSuggest;
-  storage::CountryInfoGetter m_infoGetter;
+  TSuggestsContainer m_suggests;
 };
 
 namespace
@@ -68,26 +65,26 @@ public:
   {
     cont.reserve(m_suggests.size());
     for (TSuggestMap::const_iterator i = m_suggests.begin(); i != m_suggests.end(); ++i)
-      cont.push_back(Query::TSuggest(i->first.first, i->second, i->first.second));
+      cont.push_back(Suggest(i->first.first, i->second, i->first.second));
   }
 };
 
 }
 
-Engine::Engine(IndexType const * pIndex, Reader * pCategoriesR, ModelReaderPtr polyR,
-               ModelReaderPtr countryR, string const & locale,
-               unique_ptr<SearchQueryFactory> && factory)
-    : m_pFactory(move(factory)), m_pData(new EngineData(pCategoriesR, polyR, countryR))
+Engine::Engine(Index & index, Reader * categoriesR, storage::CountryInfoGetter const & infoGetter,
+               string const & locale, unique_ptr<SearchQueryFactory> && factory)
+  : m_factory(move(factory))
+  , m_data(make_unique<EngineData>(categoriesR))
 {
   m_isReadyThread.clear();
 
   InitSuggestions doInit;
-  m_pData->m_categories.ForEachName(bind<void>(ref(doInit), _1));
-  doInit.GetSuggests(m_pData->m_stringsToSuggest);
+  m_data->m_categories.ForEachName(bind<void>(ref(doInit), _1));
+  doInit.GetSuggests(m_data->m_suggests);
 
-  m_pQuery = m_pFactory->BuildSearchQuery(pIndex, &m_pData->m_categories,
-                                          &m_pData->m_stringsToSuggest, &m_pData->m_infoGetter);
-  m_pQuery->SetPreferredLocale(locale);
+  m_query =
+      m_factory->BuildSearchQuery(index, m_data->m_categories, m_data->m_suggests, infoGetter);
+  m_query->SetPreferredLocale(locale);
 }
 
 Engine::~Engine()
@@ -96,7 +93,7 @@ Engine::~Engine()
 
 void Engine::SupportOldFormat(bool b)
 {
-  m_pQuery->SupportOldFormat(b);
+  m_query->SupportOldFormat(b);
 }
 
 void Engine::PrepareSearch(m2::RectD const & viewport)
@@ -144,14 +141,14 @@ bool Engine::Search(SearchParams const & params, m2::RectD const & viewport)
 void Engine::SetViewportAsync(m2::RectD const & viewport)
 {
   // First of all - cancel previous query.
-  m_pQuery->Cancel();
+  m_query->Cancel();
 
   // Enter to run new search.
   threads::MutexGuard searchGuard(m_searchMutex);
 
   m2::RectD r(viewport);
   (void)GetInflatedViewport(r);
-  m_pQuery->SetViewport(r, true);
+  m_query->SetViewport(r, true);
 }
 
 void Engine::EmitResults(SearchParams const & params, Results & res)
@@ -171,12 +168,12 @@ void Engine::SetRankPivot(SearchParams const & params,
     m2::PointD const pos = MercatorBounds::FromLatLon(params.m_lat, params.m_lon);
     if (m2::Inflate(viewport, viewport.SizeX() / 4.0, viewport.SizeY() / 4.0).IsPointInside(pos))
     {
-      m_pQuery->SetRankPivot(pos);
+      m_query->SetRankPivot(pos);
       return;
     }
   }
 
-  m_pQuery->SetRankPivot(viewport.Center());
+  m_query->SetRankPivot(viewport.Center());
 }
 
 void Engine::SearchAsync()
@@ -185,7 +182,7 @@ void Engine::SearchAsync()
     return;
 
   // First of all - cancel previous query.
-  m_pQuery->Cancel();
+  m_query->Cancel();
 
   // Enter to run new search.
   threads::MutexGuard searchGuard(m_searchMutex);
@@ -210,24 +207,24 @@ void Engine::SearchAsync()
   bool const viewportSearch = params.HasSearchMode(SearchParams::IN_VIEWPORT_ONLY);
 
   // Initialize query.
-  m_pQuery->Init(viewportSearch);
+  m_query->Init(viewportSearch);
 
   SetRankPivot(params, viewport, viewportSearch);
 
-  m_pQuery->SetSearchInWorld(params.HasSearchMode(SearchParams::SEARCH_WORLD));
+  m_query->SetSearchInWorld(params.HasSearchMode(SearchParams::SEARCH_WORLD));
 
   // Language validity is checked inside
-  m_pQuery->SetInputLocale(params.m_inputLocale);
+  m_query->SetInputLocale(params.m_inputLocale);
 
   ASSERT(!params.m_query.empty(), ());
-  m_pQuery->SetQuery(params.m_query);
+  m_query->SetQuery(params.m_query);
 
   Results res;
 
-  // Call m_pQuery->IsCanceled() everywhere it needed without storing return value.
-  // This flag can be changed from another thread.
+  // Call m_query->IsCancelled() everywhere it needed without storing
+  // return value.  This flag can be changed from another thread.
 
-  m_pQuery->SearchCoordinates(params.m_query, res);
+  m_query->SearchCoordinates(params.m_query, res);
 
   try
   {
@@ -236,21 +233,21 @@ void Engine::SearchAsync()
 
     if (viewportSearch)
     {
-      m_pQuery->SetViewport(viewport, true);
-      m_pQuery->SearchViewportPoints(res);
+      m_query->SetViewport(viewport, true);
+      m_query->SearchViewportPoints(res);
 
       if (res.GetCount() > 0)
         EmitResults(params, res);
     }
     else
     {
-      while (!m_pQuery->IsCancelled())
+      while (!m_query->IsCancelled())
       {
         bool const isInflated = GetInflatedViewport(viewport);
         size_t const oldCount = res.GetCount();
 
-        m_pQuery->SetViewport(viewport, oneTimeSearch);
-        m_pQuery->Search(res, RESULTS_COUNT);
+        m_query->SetViewport(viewport, oneTimeSearch);
+        m_query->Search(res, RESULTS_COUNT);
 
         size_t const newCount = res.GetCount();
         bool const exit = (oneTimeSearch || !isInflated || newCount >= RESULTS_COUNT);
@@ -269,11 +266,11 @@ void Engine::SearchAsync()
 
   // Make additional search in whole mwm when not enough results (only for non-empty query).
   size_t const count = res.GetCount();
-  if (!viewportSearch && !m_pQuery->IsCancelled() && count < RESULTS_COUNT)
+  if (!viewportSearch && !m_query->IsCancelled() && count < RESULTS_COUNT)
   {
     try
     {
-      m_pQuery->SearchAdditional(res, RESULTS_COUNT);
+      m_query->SearchAdditional(res, RESULTS_COUNT);
     }
     catch (Query::CancelException const &)
     {
@@ -285,42 +282,7 @@ void Engine::SearchAsync()
   }
 
   // Emit finish marker to client.
-  params.m_callback(Results::GetEndMarker(m_pQuery->IsCancelled()));
-}
-
-string Engine::GetCountryFile(m2::PointD const & pt)
-{
-  threads::MutexGuard searchGuard(m_searchMutex);
-
-  return m_pData->m_infoGetter.GetRegionFile(pt);
-}
-
-string Engine::GetCountryCode(m2::PointD const & pt)
-{
-  threads::MutexGuard searchGuard(m_searchMutex);
-
-  storage::CountryInfo info;
-  m_pData->m_infoGetter.GetRegionInfo(pt, info);
-  return info.m_flag;
-}
-
-template <class T> string Engine::GetCountryNameT(T const & t)
-{
-  threads::MutexGuard searchGuard(m_searchMutex);
-
-  storage::CountryInfo info;
-  m_pData->m_infoGetter.GetRegionInfo(t, info);
-  return info.m_name;
-}
-
-string Engine::GetCountryName(m2::PointD const & pt)
-{
-  return GetCountryNameT(pt);
-}
-
-string Engine::GetCountryName(string const & id)
-{
-  return GetCountryNameT(id);
+  params.m_callback(Results::GetEndMarker(m_query->IsCancelled()));
 }
 
 bool Engine::GetNameByType(uint32_t type, int8_t locale, string & name) const
@@ -330,7 +292,7 @@ bool Engine::GetNameByType(uint32_t type, int8_t locale, string & name) const
 
   while (true)
   {
-    if (m_pData->m_categories.GetNameByType(type, locale, name))
+    if (m_data->m_categories.GetNameByType(type, locale, name))
       return true;
 
     if (--level == 0)
@@ -342,16 +304,11 @@ bool Engine::GetNameByType(uint32_t type, int8_t locale, string & name) const
   return false;
 }
 
-m2::RectD Engine::GetCountryBounds(string const & file) const
-{
-  return m_pData->m_infoGetter.CalcLimitRect(file);
-}
-
 void Engine::ClearViewportsCache()
 {
   threads::MutexGuard guard(m_searchMutex);
 
-  m_pQuery->ClearCaches();
+  m_query->ClearCaches();
 }
 
 void Engine::ClearAllCaches()
@@ -362,8 +319,7 @@ void Engine::ClearAllCaches()
   // So that allows to prevent lock of UI while search query wouldn't be processed.
   if (m_searchMutex.TryLock())
   {
-    m_pQuery->ClearCaches();
-    m_pData->m_infoGetter.ClearCaches();
+    m_query->ClearCaches();
 
     m_searchMutex.Unlock();
   }

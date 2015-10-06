@@ -21,7 +21,7 @@ HEADERS += \
 
 SOURCES += \
   ../../testing/testingmain.cpp \
-  country_info_test.cpp \
+  country_info_getter_test.cpp \
   fake_map_files_downloader.cpp \
   queued_country_tests.cpp \
   simple_tree_test.cpp \

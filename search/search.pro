@@ -30,6 +30,7 @@ HEADERS += \
     search_query_factory.hpp \
     search_query_params.hpp \
     search_string_intersection.hpp \
+    suggest.hpp \
 
 SOURCES += \
     approximate_string_match.cpp \

@@ -41,6 +41,8 @@
 #include "indexer/feature_utils.hpp"
 //@}
 
+#include "storage/country_info_getter.hpp"
+
 #include "anim/controller.hpp"
 
 #include "gui/controller.hpp"
@@ -247,8 +249,13 @@ Framework::Framework()
   m_model.SetOnMapDeregisteredCallback(bind(&Framework::OnMapDeregistered, this, _1));
   LOG(LDEBUG, ("Classificator initialized"));
 
+
+  // To avoid possible races - init country info getter once in constructor.
+  InitCountryInfoGetter();
+  LOG(LDEBUG, ("Country info getter initialized"));
+
   // To avoid possible races - init search engine once in constructor.
-  (void)GetSearchEngine();
+  InitSearchEngine();
   LOG(LDEBUG, ("Search engine initialized"));
 
   RegisterAllMaps();
@@ -420,9 +427,9 @@ string Framework::GetCountryName(TIndex const & index) const
 
 m2::RectD Framework::GetCountryBounds(string const & file) const
 {
-  m2::RectD const r = GetSearchEngine()->GetCountryBounds(file);
-  ASSERT ( r.IsValid(), () );
-  return r;
+  m2::RectD const bounds = m_infoGetter->CalcLimitRect(file);
+  ASSERT(bounds.IsValid(), ());
+  return bounds;
 }
 
 m2::RectD Framework::GetCountryBounds(TIndex const & index) const
@@ -452,7 +459,7 @@ void Framework::UpdateLatestCountryFile(LocalCountryFile const & localFile)
   if (id.IsAlive())
     InvalidateRect(id.GetInfo()->m_limitRect, true /* doForceUpdate */);
 
-  GetSearchEngine()->ClearViewportsCache();
+  m_searchEngine->ClearViewportsCache();
 }
 
 void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
@@ -486,7 +493,7 @@ void Framework::RegisterAllMaps()
 
   m_countryTree.Init(maps);
 
-  GetSearchEngine()->SupportOldFormat(minFormat < version::v3);
+  m_searchEngine->SupportOldFormat(minFormat < version::v3);
 }
 
 void Framework::DeregisterAllMaps()
@@ -823,8 +830,11 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
 
 bool Framework::IsCountryLoaded(m2::PointD const & pt) const
 {
+  // TODO (@gorshenin, @govako): the method's name is quite
+  // obfuscating and should be fixed.
+
   // Correct, but slow version (check country polygon).
-  string const fName = GetSearchEngine()->GetCountryFile(pt);
+  string const fName = m_infoGetter->GetRegionFile(pt);
   if (fName.empty())
     return true;
 
@@ -989,7 +999,7 @@ void Framework::UpdateUserViewportChanged()
     m_lastSearch.SetSearchMode(search::SearchParams::IN_VIEWPORT_ONLY);
     m_lastSearch.SetForceSearch(false);
 
-    (void)GetSearchEngine()->Search(m_lastSearch, GetCurrentViewport());
+    m_searchEngine->Search(m_lastSearch, GetCurrentViewport());
   }
 }
 
@@ -1002,7 +1012,8 @@ void Framework::UpdateSearchResults(search::Results const & results)
 void Framework::ClearAllCaches()
 {
   m_model.ClearCaches();
-  GetSearchEngine()->ClearAllCaches();
+  m_infoGetter->ClearCaches();
+  m_searchEngine->ClearAllCaches();
 }
 
 void Framework::MemoryWarning()
@@ -1229,46 +1240,61 @@ void Framework::StopScale(ScaleEvent const & e)
 }
 //@}
 
-search::Engine * Framework::GetSearchEngine() const
+void Framework::InitCountryInfoGetter()
 {
-  if (!m_pSearchEngine)
+  ASSERT(!m_infoGetter.get(), ("InitCountryInfoGetter() must be called only once."));
+  Platform const & platform = GetPlatform();
+  try
   {
-    Platform & pl = GetPlatform();
-
-    try
-    {
-      m_pSearchEngine.reset(new search::Engine(
-          &m_model.GetIndex(), pl.GetReader(SEARCH_CATEGORIES_FILE_NAME),
-          pl.GetReader(PACKED_POLYGONS_FILE), pl.GetReader(COUNTRIES_FILE),
-          languages::GetCurrentOrig(), make_unique<search::SearchQueryFactory>()));
-    }
-    catch (RootException const & e)
-    {
-      LOG(LCRITICAL, ("Can't load needed resources for search::Engine: ", e.Msg()));
-    }
+    m_infoGetter.reset(new storage::CountryInfoGetter(platform.GetReader(PACKED_POLYGONS_FILE),
+                                                      platform.GetReader(COUNTRIES_FILE)));
   }
+  catch (RootException const & e)
+  {
+    LOG(LCRITICAL, ("Can't load needed resources for storage::CountryInfoGetter:", e.Msg()));
+  }
+}
 
-  return m_pSearchEngine.get();
+void Framework::InitSearchEngine()
+{
+  ASSERT(!m_searchEngine.get(), ("InitSearchEngine() must be called only once."));
+  ASSERT(m_infoGetter.get(), ());
+  Platform const & platform = GetPlatform();
+
+  try
+  {
+    m_searchEngine.reset(new search::Engine(
+        const_cast<Index &>(m_model.GetIndex()), platform.GetReader(SEARCH_CATEGORIES_FILE_NAME),
+        *m_infoGetter, languages::GetCurrentOrig(), make_unique<search::SearchQueryFactory>()));
+  }
+  catch (RootException const & e)
+  {
+    LOG(LCRITICAL, ("Can't load needed resources for search::Engine:", e.Msg()));
+  }
 }
 
 TIndex Framework::GetCountryIndex(m2::PointD const & pt) const
 {
-  return m_storage.FindIndexByFile(GetSearchEngine()->GetCountryFile(pt));
+  return m_storage.FindIndexByFile(m_infoGetter->GetRegionFile(pt));
 }
 
 string Framework::GetCountryName(m2::PointD const & pt) const
 {
-  return GetSearchEngine()->GetCountryName(pt);
+  storage::CountryInfo info;
+  m_infoGetter->GetRegionInfo(pt, info);
+  return info.m_name;
 }
 
 string Framework::GetCountryName(string const & id) const
 {
-  return GetSearchEngine()->GetCountryName(id);
+  storage::CountryInfo info;
+  m_infoGetter->GetRegionInfo(id, info);
+  return info.m_name;
 }
 
 void Framework::PrepareSearch()
 {
-  GetSearchEngine()->PrepareSearch(GetCurrentViewport());
+  m_searchEngine->PrepareSearch(GetCurrentViewport());
 }
 
 bool Framework::Search(search::SearchParams const & params)
@@ -1284,7 +1310,7 @@ bool Framework::Search(search::SearchParams const & params)
   search::SearchParams const & rParams = params;
 #endif
 
-  return GetSearchEngine()->Search(rParams, GetCurrentViewport());
+  return m_searchEngine->Search(rParams, GetCurrentViewport());
 }
 
 bool Framework::GetCurrentPosition(double & lat, double & lon) const
@@ -1624,7 +1650,9 @@ void Framework::SetupMeasurementSystem()
 
 string Framework::GetCountryCode(m2::PointD const & pt) const
 {
-  return GetSearchEngine()->GetCountryCode(pt);
+  storage::CountryInfo info;
+  m_infoGetter->GetRegionInfo(pt, info);
+  return info.m_flag;
 }
 
 gui::Controller * Framework::GetGuiController() const
@@ -2176,9 +2204,9 @@ void Framework::SetRouterImpl(RouterType type)
 
   auto countryFileGetter = [this](m2::PointD const & p) -> string
   {
-    // TODO (@gorshenin): fix search engine to return CountryFile
+    // TODO (@gorshenin): fix CountryInfoGetter to return CountryFile
     // instances instead of plain strings.
-    return GetSearchEngine()->GetCountryFile(p);
+    return m_infoGetter->GetRegionFile(p);
   };
 
   if (type == RouterType::Pedestrian)
@@ -2338,9 +2366,9 @@ RouterType Framework::GetBestRouter(m2::PointD const & startPoint, m2::PointD co
     else
     {
       // Return on a short distance the vehicle router flag only if we are already have routing files.
-      auto countryFileGetter = [this](m2::PointD const & p)
+      auto countryFileGetter = [this](m2::PointD const & pt)
       {
-        return GetSearchEngine()->GetCountryFile(p);
+        return m_infoGetter->GetRegionFile(pt);
       };
       if (!OsrmRouter::CheckRoutingAbility(startPoint, finalPoint, countryFileGetter,
                                            &m_model.GetIndex()))

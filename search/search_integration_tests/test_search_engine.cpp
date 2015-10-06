@@ -3,8 +3,6 @@
 #include "indexer/categories_holder.hpp"
 #include "indexer/scales.hpp"
 
-#include "storage/country_info.hpp"
-
 #include "search/search_query.hpp"
 #include "search/search_query_factory.hpp"
 
@@ -17,10 +15,9 @@ namespace
 class TestQuery : public search::Query
 {
 public:
-  TestQuery(Index const * index, CategoriesHolder const * categories,
-            search::Query::TStringsToSuggestVector const * stringsToSuggest,
-            storage::CountryInfoGetter const * infoGetter)
-    : search::Query(index, categories, stringsToSuggest, infoGetter)
+  TestQuery(Index & index, CategoriesHolder const & categories,
+            vector<search::Suggest> const & suggests, storage::CountryInfoGetter const & infoGetter)
+    : search::Query(index, categories, suggests, infoGetter)
   {
   }
 
@@ -34,21 +31,20 @@ public:
 class TestSearchQueryFactory : public search::SearchQueryFactory
 {
   // search::SearchQueryFactory overrides:
-  unique_ptr<search::Query> BuildSearchQuery(
-      Index const * index, CategoriesHolder const * categories,
-      search::Query::TStringsToSuggestVector const * stringsToSuggest,
-      storage::CountryInfoGetter const * infoGetter) override
+  unique_ptr<search::Query> BuildSearchQuery(Index & index, CategoriesHolder const & categories,
+                                             vector<search::Suggest> const & suggests,
+                                             storage::CountryInfoGetter const & infoGetter) override
   {
-    return make_unique<TestQuery>(index, categories, stringsToSuggest, infoGetter);
+    return make_unique<TestQuery>(index, categories, suggests, infoGetter);
   }
 };
 }  // namespace
 
-TestSearchEngine::TestSearchEngine(std::string const & locale)
-    : m_platform(GetPlatform()),
-      m_engine(this, m_platform.GetReader(SEARCH_CATEGORIES_FILE_NAME),
-               m_platform.GetReader(PACKED_POLYGONS_FILE), m_platform.GetReader(COUNTRIES_FILE),
-               locale, make_unique<TestSearchQueryFactory>())
+TestSearchEngine::TestSearchEngine(string const & locale)
+  : m_platform(GetPlatform())
+  , m_infoGetter(m_platform.GetReader(PACKED_POLYGONS_FILE), m_platform.GetReader(COUNTRIES_FILE))
+  , m_engine(*this, m_platform.GetReader(SEARCH_CATEGORIES_FILE_NAME), m_infoGetter, locale,
+             make_unique<TestSearchQueryFactory>())
 {
 }
 

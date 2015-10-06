@@ -1,7 +1,7 @@
 #include "intermediate_result.hpp"
 #include "geometry_utils.hpp"
 
-#include "storage/country_info.hpp"
+#include "storage/country_info_getter.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/classificator.hpp"
@@ -201,23 +201,24 @@ namespace
   };
 }
 
-string PreResult2::GetRegionName(storage::CountryInfoGetter const * pInfo, uint32_t fType) const
+string PreResult2::GetRegionName(storage::CountryInfoGetter const & infoGetter,
+                                 uint32_t fType) const
 {
   static SkipRegionInfo const checker;
   if (checker.IsSkip(fType))
     return string();
 
   storage::CountryInfo info;
-  m_region.GetRegion(pInfo, info);
+  m_region.GetRegion(infoGetter, info);
   return info.m_name;
 }
 
-Result PreResult2::GenerateFinalResult(storage::CountryInfoGetter const * pInfo,
+Result PreResult2::GenerateFinalResult(storage::CountryInfoGetter const & infoGetter,
                                        CategoriesHolder const * pCat,
                                        set<uint32_t> const * pTypes, int8_t locale) const
 {
   uint32_t const type = GetBestType(pTypes);
-  string const regionName = GetRegionName(pInfo, type);
+  string const regionName = GetRegionName(infoGetter, type);
 
   switch (m_resultType)
   {
@@ -237,12 +238,12 @@ Result PreResult2::GenerateFinalResult(storage::CountryInfoGetter const * pInfo,
   }
 }
 
-Result PreResult2::GeneratePointResult(storage::CountryInfoGetter const * pInfo,
+Result PreResult2::GeneratePointResult(storage::CountryInfoGetter const & infoGetter,
                                      CategoriesHolder const * pCat,
                                      set<uint32_t> const * pTypes, int8_t locale) const
 {
-  uint32_t const type = GetBestType(pTypes);
-  return Result(m_id, GetCenter(), m_str, GetRegionName(pInfo, type),
+  uint8_t const type = GetBestType(pTypes);
+  return Result(m_id, GetCenter(), m_str, GetRegionName(infoGetter, type),
                 ReadableFeatureType(pCat, type, locale));
 }
 
@@ -357,14 +358,13 @@ string PreResult2::ReadableFeatureType(CategoriesHolder const * pCat,
   return classif().GetReadableObjectName(type);
 }
 
-void PreResult2::RegionInfo::GetRegion(storage::CountryInfoGetter const * pInfo,
+void PreResult2::RegionInfo::GetRegion(storage::CountryInfoGetter const & infoGetter,
                                        storage::CountryInfo & info) const
 {
   if (!m_file.empty())
-    pInfo->GetRegionInfo(m_file, info);
+    infoGetter.GetRegionInfo(m_file, info);
   else
-    pInfo->GetRegionInfo(m_point, info);
+    infoGetter.GetRegionInfo(m_point, info);
 }
-
 }  // namespace search::impl
 }  // namespace search

@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "storage/country_info.hpp"
+#include "storage/country_info_getter.hpp"
 #include "storage/country.hpp"
 
 #include "indexer/mercator.hpp"
@@ -9,23 +9,31 @@
 
 #include "base/logging.hpp"
 
+#include "std/unique_ptr.hpp"
+
 
 using namespace storage;
 
 namespace
 {
-  typedef storage::CountryInfoGetter CountryInfoT;
-  CountryInfoT * GetCountryInfo()
-  {
-    Platform & pl = GetPlatform();
-    return new CountryInfoT(pl.GetReader(PACKED_POLYGONS_FILE),
-                            pl.GetReader(COUNTRIES_FILE));
-  }
+unique_ptr<CountryInfoGetter> CreateCountryInfoGetter()
+{
+  Platform & platform = GetPlatform();
+  return make_unique<CountryInfoGetter>(platform.GetReader(PACKED_POLYGONS_FILE),
+                                        platform.GetReader(COUNTRIES_FILE));
 }
 
-UNIT_TEST(CountryInfo_GetByPoint_Smoke)
+bool IsEmptyName(map<string, CountryInfo> const & id2info, string const & id)
 {
-  unique_ptr<CountryInfoT> const getter(GetCountryInfo());
+  auto const it = id2info.find(id);
+  TEST(it != id2info.end(), ());
+  return it->second.m_name.empty();
+}
+}  // namespace
+
+UNIT_TEST(CountryInfoGetter_GetByPoint_Smoke)
+{
+  auto const getter = CreateCountryInfoGetter();
 
   CountryInfo info;
 
@@ -43,17 +51,7 @@ UNIT_TEST(CountryInfo_GetByPoint_Smoke)
   TEST_EQUAL(info.m_flag, "jp", ());
 }
 
-namespace
-{
-  bool IsEmptyName(map<string, CountryInfo> const & id2info, string const & id)
-  {
-    map<string, CountryInfo>::const_iterator i = id2info.find(id);
-    TEST(i != id2info.end(), ());
-    return i->second.m_name.empty();
-  }
-}
-
-UNIT_TEST(CountryInfo_ValidName_Smoke)
+UNIT_TEST(CountryInfoGetter_ValidName_Smoke)
 {
   string buffer;
   ReaderPtr<Reader>(GetPlatform().GetReader(COUNTRIES_FILE)).ReadAsString(buffer);
@@ -68,9 +66,9 @@ UNIT_TEST(CountryInfo_ValidName_Smoke)
   TEST(IsEmptyName(id2info, "UK_Northern Ireland"), ());
 }
 
-UNIT_TEST(CountryInfo_SomeRects)
+UNIT_TEST(CountryInfoGetter_SomeRects)
 {
-  unique_ptr<CountryInfoT> const getter(GetCountryInfo());
+  auto const getter = CreateCountryInfoGetter();
 
   m2::RectD rects[3];
   getter->CalcUSALimitRect(rects);
