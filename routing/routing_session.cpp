@@ -86,10 +86,12 @@ void RoutingSession::DoReadyCallback::operator()(Route & route, IRouter::ResultC
   UNUSED_VALUE(guard);
 
   if (e != IRouter::NeedMoreMaps)
+  {
     m_rs.AssignRoute(route, e);
+  }
   else
   {
-    for (string const & country: route.GetAbsentCountries())
+    for (string const & country : route.GetAbsentCountries())
       m_rs.m_route.AddAbsentCountry(country);
   }
 
