@@ -67,7 +67,7 @@ if [ "$(uname -s)" == "Darwin" ]; then
   PROCESSES=4
 else
   SPEC=linux-clang-libc++
-  PROCESSES=$(($(nproc) / 2))
+  PROCESSES=$(nproc)
 fi
 
 build_conf()
