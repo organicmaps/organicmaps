@@ -66,7 +66,7 @@ if [ "$(uname -s)" == "Darwin" ]; then
   SPEC=macx-clang
   PROCESSES=4
 else
-  SPEC=linux-clang
+  SPEC=linux-clang-libc++
   PROCESSES=$(($(nproc) / 2))
 fi
 
