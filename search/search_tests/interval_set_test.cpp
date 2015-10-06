@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "base/interval_set.hpp"
+#include "search/interval_set.hpp"
 
 #include "std/initializer_list.hpp"
 
@@ -49,6 +49,21 @@ UNIT_TEST(IntervalSet_Add)
   CheckSet(set, {TInterval<int>(-4, 10)});
 }
 
+UNIT_TEST(IntervalSet_AdjacentIntervalAdd)
+{
+  IntervalSet<int> set;
+  TEST(set.Elems().empty(), ());
+
+  set.Add(TInterval<int>(100, 106));
+  CheckSet(set, {TInterval<int>(100, 106)});
+
+  set.Add(TInterval<int>(106, 110));
+  CheckSet(set, {TInterval<int>(100, 110)});
+
+  set.Add(TInterval<int>(90, 100));
+  CheckSet(set, {TInterval<int>(90, 110)});
+}
+
 UNIT_TEST(IntervalSet_SubtractFrom)
 {
   IntervalSet<int> set;
@@ -86,13 +101,6 @@ UNIT_TEST(IntervalSet_SubtractFrom)
     set.SubtractFrom(TInterval<int>(-1, 11), difference);
     vector<TInterval<int>> expected{TInterval<int>(-1, 0), TInterval<int>(2, 4),
                                     TInterval<int>(7, 10)};
-    TEST_EQUAL(difference, expected, ());
-  }
-
-  {
-    vector<TInterval<int>> difference;
-    set.SubtractFrom(TInterval<int>(1, 5), difference);
-    vector<TInterval<int>> expected{TInterval<int>(2, 4)};
     TEST_EQUAL(difference, expected, ());
   }
 

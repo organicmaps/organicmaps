@@ -16,6 +16,7 @@ HEADERS += \
     house_detector.hpp \
     indexed_value.hpp \
     intermediate_result.hpp \
+    interval_set.hpp \
     keyword_lang_matcher.hpp \
     keyword_matcher.hpp \
     latlon_match.hpp \

@@ -7,14 +7,17 @@
 
 namespace my
 {
-// This class represents a set of disjoint half-opened intervals.
+// This class represents a set of disjoint intervals in the form
+// [begin, end).  Note that neighbour intervals are always coalesced,
+// so while [0, 1), [1, 2) and [2, 3) are disjoint, after addition to
+// the set they will be stored as a single [0, 3).
 template <typename TElem>
 class IntervalSet
 {
 public:
   using TInterval = pair<TElem, TElem>;
 
-  // Adds an |interval| to the set.
+  // Adds an |interval| to the set, coalescing adjacent intervals if needed.
   //
   // Complexity: O(num of intervals intersecting with |interval| +
   // log(total number of intervals)).
@@ -27,7 +30,7 @@ public:
   // log(total number of intervals)).
   void SubtractFrom(TInterval const & interval, vector<TInterval> & difference) const;
 
-  // Returns all elements of a set as a set of intervals.
+  // Returns all elements of the set as a set of intervals.
   //
   // Complexity: O(1).
   inline set<TInterval> const & Elems() const { return m_intervals; }
@@ -56,7 +59,7 @@ void IntervalSet<TElem>::Add(TInterval const & interval)
   TElem from = interval.first;
   TElem to = interval.second;
 
-  // Update |from| and |to| in accordance with corner intervals (if any).
+  // Updates |from| and |to| in accordance with corner intervals (if any).
   if (begin != end)
   {
     if (begin->first < from)
@@ -69,9 +72,9 @@ void IntervalSet<TElem>::Add(TInterval const & interval)
   }
 
   // Now all elements [from, to) can be added to the set as a single
-  // interval which replace all intervals in [begin, end). But note
-  // that it can be possible to merge new interval with its neighbors,
-  // so we need to check it.
+  // interval which will replace all intervals in [begin, end). But
+  // note that it can be possible to merge new interval with its
+  // neighbors, so following code checks it.
   if (begin != m_intervals.begin())
   {
     auto prevBegin = begin;
@@ -108,12 +111,12 @@ void IntervalSet<TElem>::SubtractFrom(TInterval const & interval,
   {
     if (it->first > from)
     {
-      difference.emplace_back(from, min(it->first, to));
+      difference.emplace_back(from, it->first);
       from = it->second;
     }
     else
     {
-      from = std::max(from, it->second);
+      from = max(from, it->second);
     }
   }
 

@@ -1,6 +1,7 @@
 #include "search/retrieval.hpp"
 
 #include "search/feature_offset_match.hpp"
+#include "search/interval_set.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
@@ -10,7 +11,6 @@
 #include "coding/reader_wrapper.hpp"
 
 #include "base/assert.hpp"
-#include "base/interval_set.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/cmath.hpp"
@@ -222,7 +222,7 @@ public:
         coverage = covering::SortAndMergeIntervals(coverage);
         coverage.erase(
             remove_if(coverage.begin(), coverage.end(), [this](covering::IntervalT const & interval)
-                      {
+            {
               return m_visited.Elems().count(interval) != 0;
             }),
             coverage.end());

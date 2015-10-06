@@ -42,7 +42,6 @@ HEADERS += \
     const_helper.hpp \
     exception.hpp \
     internal/message.hpp \
-    interval_set.hpp \
     limited_priority_queue.hpp \
     logging.hpp \
     macros.hpp \
