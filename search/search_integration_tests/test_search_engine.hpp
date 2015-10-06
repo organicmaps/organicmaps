@@ -6,6 +6,8 @@
 
 #include "search/search_engine.hpp"
 
+#include "storage/country_info_getter.hpp"
+
 #include "std/string.hpp"
 
 class Platform;
@@ -24,5 +26,6 @@ public:
 
 private:
   Platform & m_platform;
+  storage::CountryInfoGetter m_infoGetter;
   search::Engine m_engine;
 };

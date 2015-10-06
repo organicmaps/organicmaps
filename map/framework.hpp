@@ -64,6 +64,11 @@ namespace search
   struct AddressInfo;
 }
 
+namespace storage
+{
+class CountryInfoGetter;
+}
+
 namespace gui { class Controller; }
 namespace anim { class Controller; }
 namespace routing { namespace turns{ class Settings; } }
@@ -105,7 +110,10 @@ protected:
 
   StringsBundle m_stringsBundle;
 
-  mutable unique_ptr<search::Engine> m_pSearchEngine;
+  // The order matters here: storage::CountryInfoGetter must be
+  // initialized before search::Engine.
+  unique_ptr<storage::CountryInfoGetter> m_infoGetter;
+  unique_ptr<search::Engine> m_searchEngine;
   search::QuerySaver m_searchQuerySaver;
 
   model::FeaturesFetcher m_model;
@@ -320,7 +328,9 @@ public:
 #endif // USE_DRAPE
 
 private:
-  search::Engine * GetSearchEngine() const;
+  void InitCountryInfoGetter();
+  void InitSearchEngine();
+
   search::SearchParams m_lastSearch;
   uint8_t m_fixedSearchResults;
 

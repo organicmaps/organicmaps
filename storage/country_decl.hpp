@@ -14,8 +14,8 @@ namespace storage
     m2::RectD m_rect;
 
     CountryDef() {}
-    CountryDef(string const & name, m2::RectD const & r)
-      : m_name(name), m_rect(r)
+    CountryDef(string const & name, m2::RectD const & rect)
+      : m_name(name), m_rect(rect)
     {
     }
   };

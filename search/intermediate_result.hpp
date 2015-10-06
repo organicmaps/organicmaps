@@ -9,8 +9,8 @@ class CategoriesHolder;
 
 namespace storage
 {
-  class CountryInfoGetter;
-  struct CountryInfo;
+class CountryInfoGetter;
+struct CountryInfo;
 }
 
 namespace search
@@ -79,15 +79,15 @@ public:
   /// For RESULT_BUILDING.
   PreResult2(m2::PointD const & pt, string const & str, uint32_t type);
 
-  /// @param[in]  pInfo   Need to get region for result.
+  /// @param[in]  infoGetter Need to get region for result.
   /// @param[in]  pCat    Categories need to display readable type string.
   /// @param[in]  pTypes  Set of preffered types that match input tokens by categories.
   /// @param[in]  lang    Current system language.
-  Result GenerateFinalResult(storage::CountryInfoGetter const * pInfo,
-                             CategoriesHolder const * pCat,
-                             set<uint32_t> const * pTypes, int8_t locale) const;
+  Result GenerateFinalResult(storage::CountryInfoGetter const & infoGetter,
+                             CategoriesHolder const * pCat, set<uint32_t> const * pTypes,
+                             int8_t locale) const;
 
-  Result GeneratePointResult(storage::CountryInfoGetter const * pInfo,
+  Result GeneratePointResult(storage::CountryInfoGetter const & infoGetter,
                              CategoriesHolder const * pCat,
                              set<uint32_t> const * pTypes, int8_t locale) const;
 
@@ -151,11 +151,11 @@ private:
       m_point = pt;
     }
 
-    void GetRegion(storage::CountryInfoGetter const * pInfo,
+    void GetRegion(storage::CountryInfoGetter const & infoGetter,
                    storage::CountryInfo & info) const;
   } m_region;
 
-  string GetRegionName(storage::CountryInfoGetter const * pInfo, uint32_t fType) const;
+  string GetRegionName(storage::CountryInfoGetter const & infoGetter, uint32_t fType) const;
 
   m2::PointD GetCenter() const { return m_region.m_point; }
 

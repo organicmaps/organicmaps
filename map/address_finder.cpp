@@ -485,7 +485,7 @@ void Framework::GetAddressInfoForGlobalPoint(m2::PointD const & pt, search::Addr
   DoGetAddressInfo getAddress(pt, scale, GetChecker(), addressR);
 
   m_model.ForEachFeature(rect, getAddress, scale);
-  getAddress.FillAddress(GetSearchEngine(), info);
+  getAddress.FillAddress(m_searchEngine.get(), info);
 
   // @todo Temporarily commented - it's slow and not used in UI
   //GetLocality(pt, info);
@@ -508,7 +508,7 @@ void Framework::GetAddressInfo(FeatureType const & ft, m2::PointD const & pt, se
   // FeatureType::WORST_GEOMETRY - no need to check on visibility
   DoGetAddressInfo getAddress(pt, FeatureType::WORST_GEOMETRY, GetChecker(), addressR);
   getAddress(ft);
-  getAddress.FillAddress(GetSearchEngine(), info);
+  getAddress.FillAddress(m_searchEngine.get(), info);
 
   /// @todo Temporarily commented - it's slow and not used in UI
   //GetLocality(pt, info);
