@@ -16,8 +16,6 @@ namespace df
 
 struct CaptionDescription
 {
-  CaptionDescription();
-
   void Init(FeatureType const & f,
             int const zoomLevel);
 
@@ -29,7 +27,6 @@ struct CaptionDescription
   string const & GetAuxText() const;
   string const & GetRoadNumber() const;
   string GetPathName() const;
-  double GetPopulationRank() const;
   bool IsNameExists() const;
 
 private:
@@ -41,7 +38,6 @@ private:
   string m_auxText;
   string m_roadNumber;
   string m_houseNumber;
-  double m_populationRank;
 };
 
 class Stylist
