@@ -98,6 +98,8 @@ public:
 
   Retrieval();
 
+  // Initializes retrieval process, sets up internal state, takes all
+  // necessary system resources.
   void Init(Index & index, vector<shared_ptr<MwmInfo>> const & infos, m2::RectD const & viewport,
             SearchQueryParams const & params, Limits const & limits);
 
@@ -109,6 +111,9 @@ public:
   // rectangle, it reports all features from cells that cover (not
   // covered by) a rectangle.
   void Go(Callback & callback);
+
+  // Releases all taken system resources.
+  void Release();
 
 private:
   // This class is a wrapper around single mwm during retrieval

@@ -1665,6 +1665,7 @@ void Query::SearchInMwms(TMWMVector const & mwmsInfo, SearchQueryParams const & 
   m_retrieval.Init(m_index, mwmsInfo, *viewport, params, limits);
   RetrievalCallback callback(m_index, *this, viewportId);
   m_retrieval.Go(callback);
+  m_retrieval.Release();
 }
 
 void Query::SuggestStrings(Results & res)

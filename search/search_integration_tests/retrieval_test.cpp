@@ -43,9 +43,22 @@ void InitParams(string const & query, search::SearchQueryParams & params)
   params.m_langs.insert(StringUtf8Multilang::GetLangIndex("en"));
 }
 
+bool AllMwmsReleased(Index & index)
+{
+  vector<shared_ptr<MwmInfo>> infos;
+  index.GetMwmsInfo(infos);
+  for (auto const & info : infos)
+  {
+    if (info->GetNumRefs() != 0)
+      return false;
+  }
+  return true;
+}
+
 class MatchingRule
 {
 public:
+
   virtual ~MatchingRule() = default;
 
   virtual bool Matches(FeatureType const & feature) const = 0;
@@ -362,8 +375,11 @@ UNIT_TEST(Retrieval_3Mwms)
     retrieval.Init(index, infos, m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)), params,
                    limits);
     retrieval.Go(callback);
+    retrieval.Release();
+
     TEST(callback.WasTriggered(), ());
     TEST_EQUAL(callback.Offsets().size(), 1, ());
+    TEST(AllMwmsReleased(index), ());
   }
 
   {
@@ -374,8 +390,11 @@ UNIT_TEST(Retrieval_3Mwms)
     retrieval.Init(index, infos, m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)), params,
                    limits);
     retrieval.Go(callback);
+    retrieval.Release();
+
     TEST_EQUAL(3 /* total number of mwms */, callback.GetNumMwms(), ());
     TEST_EQUAL(3 /* total number of features in all these mwms */, callback.GetNumFeatures(), ());
+    TEST(AllMwmsReleased(index), ());
   }
 
   {
@@ -385,8 +404,11 @@ UNIT_TEST(Retrieval_3Mwms)
     retrieval.Init(index, infos, m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)), params,
                    limits);
     retrieval.Go(callback);
+    retrieval.Release();
+
     TEST_EQUAL(3, callback.GetNumMwms(), ());
     TEST_EQUAL(3, callback.GetNumFeatures(), ());
+    TEST(AllMwmsReleased(index), ());
   }
 }
 

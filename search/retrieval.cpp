@@ -329,13 +329,14 @@ void Retrieval::Init(Index & index, vector<shared_ptr<MwmInfo>> const & infos,
                      m2::RectD const & viewport, SearchQueryParams const & params,
                      Limits const & limits)
 {
+  Release();
+
   m_index = &index;
   m_viewport = viewport;
   m_params = params;
   m_limits = limits;
   m_featuresReported = 0;
 
-  m_buckets.clear();
   for (auto const & info : infos)
   {
     MwmSet::MwmHandle handle = index.GetMwmHandleById(MwmSet::MwmId(info));
@@ -386,6 +387,8 @@ void Retrieval::Go(Callback & callback)
   }
 }
 
+void Retrieval::Release() { m_buckets.clear(); }
+
 bool Retrieval::RetrieveForScale(Bucket & bucket, double scale, Callback & callback)
 {
   m2::RectD viewport = m_viewport;
@@ -404,8 +407,6 @@ bool Retrieval::RetrieveForScale(Bucket & bucket, double scale, Callback & callb
     if (!InitBucketStrategy(bucket))
       return false;
     bucket.m_intersectsWithViewport = true;
-    if (bucket.m_addressFeatures.empty())
-      bucket.m_finished = true;
   }
 
   ASSERT(bucket.m_intersectsWithViewport, ());
@@ -478,9 +479,13 @@ void Retrieval::FinishBucket(Bucket & bucket, Callback & callback)
 {
   if (bucket.m_finished)
     return;
+
+  auto const mwmId = bucket.m_handle.GetId();
+
   bucket.m_finished = true;
   bucket.m_handle = MwmSet::MwmHandle();
-  callback.OnMwmProcessed(bucket.m_handle.GetId());
+
+  callback.OnMwmProcessed(mwmId);
 }
 
 bool Retrieval::Finished() const
