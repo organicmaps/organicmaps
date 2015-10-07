@@ -1,17 +1,18 @@
-#import "MWMPlacePage.h"
 #import "MWMBasePlacePageView.h"
+#import "MWMBookmarkColorViewController.h"
+#import "MWMBookmarkDescriptionViewController.h"
+#import "MWMDirectionView.h"
+#import "MWMPlacePage.h"
+#import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageViewManager.h"
-#import "MWMPlacePageActionBar.h"
-#import "MWMDirectionView.h"
-#import "MWMBookmarkColorViewController.h"
 #import "SelectSetVC.h"
-#import "MWMBookmarkDescriptionViewController.h"
 
 #import "../../3party/Alohalytics/src/alohalytics_objc.h"
 
 static NSString * const kPlacePageNibIdentifier = @"PlacePageView";
 extern NSString * const kAlohalyticsTapEventKey;
+static NSString * const kPlacePageViewCenterKeyPath = @"center";
 
 @interface MWMPlacePage ()
 
@@ -28,8 +29,33 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     [[NSBundle mainBundle] loadNibNamed:kPlacePageNibIdentifier owner:self options:nil];
     self.manager = manager;
+    if (!IPAD)
+    {
+      [self.extendedPlacePageView addObserver:self
+                                   forKeyPath:kPlacePageViewCenterKeyPath
+                                      options:NSKeyValueObservingOptionNew
+                                      context:nullptr];
+    }
   }
   return self;
+}
+
+- (void)dealloc
+{
+  if (!IPAD)
+  {
+    [self.extendedPlacePageView removeObserver:self forKeyPath:kPlacePageViewCenterKeyPath];
+  }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+  if ([self.extendedPlacePageView isEqual:object] &&
+      [keyPath isEqualToString:kPlacePageViewCenterKeyPath])
+    [self.manager dragPlacePage:self.extendedPlacePageView.frame];
 }
 
 - (void)configure
@@ -42,6 +68,11 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)show
 {
   // Should override this method if you want to show place page with custom animation.
+}
+
+- (void)hide
+{
+  // Should override this method if you want to hide place page with custom animation.
 }
 
 - (void)dismiss

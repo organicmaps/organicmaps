@@ -74,7 +74,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 @interface MapViewController ()
 
 @property (nonatomic, readwrite) MWMMapViewControlsManager * controlsManager;
-@property (nonatomic) MWMSideMenuState menuRestoreState;
+@property (nonatomic) MWMBottomMenuState menuRestoreState;
 
 @property (nonatomic) ForceRoutingStateChange forceRoutingStateChange;
 @property (nonatomic) BOOL disableStandbyOnLocationStateMode;
@@ -541,7 +541,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
   BOOL const isLight = !self.controlsManager.searchHidden ||
-                       self.controlsManager.menuState == MWMSideMenuStateActive ||
+                       self.controlsManager.menuState == MWMBottomMenuStateActive ||
                        self.controlsManager.isDirectionViewShown ||
                        (GetFramework().GetMapStyle() == MapStyleDark &&
                         self.controlsManager.navigationState == MWMNavigationDashboardStateHidden);
@@ -588,7 +588,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
     self.forceRoutingStateChange = ForceRoutingStateChangeNone;
     self.userTouchesAction = UserTouchesActionNone;
-    self.menuRestoreState = MWMSideMenuStateInactive;
+    self.menuRestoreState = MWMBottomMenuStateInactive;
 
     // restore previous screen position
     if (!f.LoadState())

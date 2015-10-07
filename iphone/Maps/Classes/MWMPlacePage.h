@@ -17,6 +17,7 @@
 
 - (instancetype)initWithManager:(MWMPlacePageViewManager *)manager;
 - (void)show;
+- (void)hide;
 - (void)dismiss;
 - (void)configure;
 

@@ -12,6 +12,8 @@
 #include "map/active_maps_layout.hpp"
 
 extern NSString * const kAlohalyticsTapEventKey;
+extern NSString * const kSearchStateWillChangeNotification = @"SearchStateWillChangeNotification";
+extern NSString * const kSearchStateKey = @"SearchStateKey";
 
 @interface MWMSearchManager ()<MWMSearchTableViewProtocol, MWMSearchDownloadProtocol,
                                MWMSearchTabbedViewProtocol, ActiveMapsObserverProtocol,
@@ -318,24 +320,28 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   if (_state == state)
     return;
-  [self.delegate searchViewWillEnterState:state];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kSearchStateWillChangeNotification
+                                                      object:nil
+                                                    userInfo:@{
+                                                      kSearchStateKey : @(state)
+                                                    }];
   if (_state == MWMSearchManagerStateHidden)
     [self changeFromHiddenState];
   _state = state;
   switch (state)
   {
-    case MWMSearchManagerStateHidden:
-      [self changeToHiddenState];
-      break;
-    case MWMSearchManagerStateDefault:
-      [self changeToDefaultState];
-      break;
-    case MWMSearchManagerStateTableSearch:
-      [self changeToTableSearchState];
-      break;
-    case MWMSearchManagerStateMapSearch:
-      [self changeToMapSearchState];
-      break;
+  case MWMSearchManagerStateHidden:
+    [self changeToHiddenState];
+    break;
+  case MWMSearchManagerStateDefault:
+    [self changeToDefaultState];
+    break;
+  case MWMSearchManagerStateTableSearch:
+    [self changeToTableSearchState];
+    break;
+  case MWMSearchManagerStateMapSearch:
+    [self changeToMapSearchState];
+    break;
   }
   [self.delegate searchViewDidEnterState:state];
 }

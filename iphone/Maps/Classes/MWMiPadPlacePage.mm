@@ -119,6 +119,11 @@ static CGFloat const kBottomOffset = 12.;
   }];
 }
 
+- (void)hide
+{
+  [self.manager dismissPlacePage];
+}
+
 - (void)dismiss
 {
   UIView * view = self.navigationController.view;

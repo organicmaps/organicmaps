@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="MWMBottomMenuCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="108" height="64"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="108" height="64"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_menu_download" translatesAutoresizingMaskIntoConstraints="NO" id="8oJ-8z-qRL">
+                        <rect key="frame" x="40" y="12" width="28" height="28"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="28" id="Hth-JK-nv2"/>
+                            <constraint firstAttribute="height" constant="28" id="zil-Ys-XYB"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Uc-o1-PsF">
+                        <rect key="frame" x="42" y="40" width="25" height="12"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular10"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="con-tP-3dJ" userLabel="DownloadBadgeBackground">
+                        <rect key="frame" x="54" y="8" width="32" height="20"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FT9-8n-RZm" userLabel="DownloadBadgeCount">
+                                <rect key="frame" x="0.0" y="0.0" width="32" height="20"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="Y5v-7h-SGf"/>
+                            <constraint firstAttribute="width" constant="32" id="ubK-0L-pDn"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="downloadBadgeBackground"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <animations/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <animations/>
+            <constraints>
+                <constraint firstItem="8oJ-8z-qRL" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="12" id="2cM-2D-sow"/>
+                <constraint firstItem="5Uc-o1-PsF" firstAttribute="centerX" secondItem="8oJ-8z-qRL" secondAttribute="centerX" id="7mg-0L-6Gh"/>
+                <constraint firstItem="5Uc-o1-PsF" firstAttribute="top" secondItem="8oJ-8z-qRL" secondAttribute="bottom" id="B0s-TE-b2G"/>
+                <constraint firstItem="con-tP-3dJ" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" constant="16" id="D2E-03-NVr"/>
+                <constraint firstItem="con-tP-3dJ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="F16-vw-i9s"/>
+                <constraint firstItem="8oJ-8z-qRL" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Tmm-tM-W5p"/>
+            </constraints>
+            <size key="customSize" width="341" height="243"/>
+            <connections>
+                <outlet property="badgeBackground" destination="con-tP-3dJ" id="HTS-XC-755"/>
+                <outlet property="badgeCount" destination="FT9-8n-RZm" id="fsm-sE-ugf"/>
+                <outlet property="icon" destination="8oJ-8z-qRL" id="pq7-9J-TT9"/>
+                <outlet property="label" destination="5Uc-o1-PsF" id="3yq-cC-BNe"/>
+            </connections>
+            <point key="canvasLocation" x="420" y="617"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ic_menu_download" width="28" height="28"/>
+    </resources>
+</document>

@@ -1,5 +1,5 @@
+#import "MWMBottomMenuViewController.h"
 #import "MWMNavigationDashboardManager.h"
-#import "MWMSideMenuManager.h"
 
 #include "map/user_mark.hpp"
 #include "platform/location.hpp"
@@ -10,8 +10,7 @@
 
 @property (nonatomic) BOOL hidden;
 @property (nonatomic) BOOL zoomHidden;
-@property (nonatomic) BOOL locationHidden;
-@property (nonatomic) MWMSideMenuState menuState;
+@property (nonatomic) MWMBottomMenuState menuState;
 @property (nonatomic, readonly) MWMNavigationDashboardState navigationState;
 @property (nonatomic) BOOL searchHidden;
 

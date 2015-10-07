@@ -1,5 +1,3 @@
-#import <UIKit/UIKit.h>
-
-@interface MWMExtendedPlacePageView : UIView
+@interface MWMExtendedPlacePageView : SolidTouchView
 
 @end

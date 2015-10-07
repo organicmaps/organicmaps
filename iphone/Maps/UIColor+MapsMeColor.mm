@@ -34,6 +34,15 @@ static CGFloat const alpha100 = 1.;
   return [[UIColor blackColor] colorWithAlphaComponent:alpha80];
 }
 
++ (UIColor *)menuBackground
+{
+  return [[UIColor whiteColor] colorWithAlphaComponent:alpha80];
+}
+
++ (UIColor *)downloadBadgeBackground
+{
+  return [UIColor colorWithRed:scaled(255.) green:scaled(55.) blue:scaled(35.) alpha:alpha100];
+}
 // Background color && press color
 + (UIColor *)pressBackground
 {

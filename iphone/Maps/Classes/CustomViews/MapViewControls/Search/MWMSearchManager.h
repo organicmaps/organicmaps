@@ -11,7 +11,6 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerState)
 
 @protocol MWMSearchManagerProtocol <NSObject>
 
-- (void)searchViewWillEnterState:(MWMSearchManagerState)state;
 - (void)searchViewDidEnterState:(MWMSearchManagerState)state;
 - (void)actionDownloadMaps;
 
