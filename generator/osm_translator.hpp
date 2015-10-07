@@ -488,6 +488,7 @@ public:
             holes(e.ref);
         }
 
+        auto const & holesGeometry = holes.GetHoles();
         outer.ForEachArea(true, [&] (FeatureBuilder1::TPointSeq const & pts, vector<uint64_t> const & ids)
         {
           FeatureBuilder1 ft;
@@ -499,7 +500,7 @@ public:
             ft.AddPoint(pt);
 
           ft.AddOsmId(osm::Id::Relation(p->id));
-          EmitArea(ft, params, [&holes] (FeatureBuilder1 & ft) {ft.SetAreaAddHoles(holes.GetHoles());});
+          EmitArea(ft, params, [&holesGeometry] (FeatureBuilder1 & ft) {ft.SetAreaAddHoles(holesGeometry);});
         });
 
         state = FeatureState::Ok;
