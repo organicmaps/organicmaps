@@ -131,6 +131,7 @@ tizen/*/.*
 
 tizen/*/crash-info/*
 .idea/*
+.idea
 
 # Private repository files.
 .private_repository_url
