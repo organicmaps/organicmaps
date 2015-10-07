@@ -728,3 +728,58 @@ UNIT_TEST(OsmType_Subway)
     TEST(params.IsTypeExist(GetType({"railway", "station", "subway", "london"})), (params));
   }
 }
+
+UNIT_TEST(OsmType_Hospital)
+{
+  {
+    char const * arr[][2] = {
+      { "building", "hospital" },
+    };
+
+    OsmElement e;
+    FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+    FeatureParams params;
+    ftype::GetNameAndType(&e, params);
+
+    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"building"})), (params));
+  }
+
+  {
+    char const * arr[][2] = {
+      { "building", "yes" },
+      { "amenity", "hospital" },
+    };
+
+    OsmElement e;
+    FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+    FeatureParams params;
+    ftype::GetNameAndType(&e, params);
+
+    TEST_EQUAL(params.m_Types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"building"})), (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "hospital"})), (params));
+  }
+}
+
+UNIT_TEST(OsmType_Entrance)
+{
+  {
+    char const * arr[][2] = {
+      { "building", "entrance" },
+      { "barrier", "entrance" },
+    };
+
+    OsmElement e;
+    FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+    FeatureParams params;
+    ftype::GetNameAndType(&e, params);
+
+    TEST_EQUAL(params.m_Types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"entrance"})), (params));
+    TEST(params.IsTypeExist(GetType({"barrier", "entrance"})), (params));
+  }
+}

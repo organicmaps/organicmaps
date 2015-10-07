@@ -1477,7 +1477,7 @@ ro:cimitir
 nb:gravplass
 fi:hautausmaa
 
-amenity-hospital|amenity-doctors
+amenity-hospital|amenity-doctors|amenity-dentist|amenity-clinic
 en:3hospital|clinic|3doctor|U+1F691|U+1F3E5|U+1F489|U+1F48A
 ru:3больница|3госпиталь|врач|доктор
 uk:3лікарня|клініка|лікар|травмпункт
