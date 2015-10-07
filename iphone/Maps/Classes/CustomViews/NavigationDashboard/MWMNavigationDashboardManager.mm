@@ -349,7 +349,7 @@
       [self showStatePlanning];
       break;
     case MWMNavigationDashboardStateError:
-      NSAssert(_state == MWMNavigationDashboardStatePlanning, @"Invalid state change (error)");
+      NSAssert(_state == MWMNavigationDashboardStatePlanning || _state == MWMNavigationDashboardStateReady, @"Invalid state change (error)");
       [self handleError];
       break;
     case MWMNavigationDashboardStateReady:

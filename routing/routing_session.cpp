@@ -81,7 +81,15 @@ void RoutingSession::DoReadyCallback::operator()(Route & route, IRouter::ResultC
   threads::MutexGuard guard(m_routeSessionMutexInner);
   UNUSED_VALUE(guard);
 
-  m_rs.AssignRoute(route, e);
+  if (e != IRouter::NeedMoreMaps)
+  {
+    m_rs.AssignRoute(route, e);
+  }
+  else
+  {
+    for (string const & country : route.GetAbsentCountries())
+      m_rs.m_route.AddAbsentCountry(country);
+  }
 
   m_callback(m_rs.m_route, e);
 }
@@ -123,15 +131,8 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
   ASSERT(m_state != RoutingNotActive, ());
   ASSERT(m_router != nullptr, ());
 
-  if (m_state == RouteNotReady)
-  {
-    if (++m_moveAwayCounter > kOnRouteMissedCount)
-      return RouteNeedRebuild;
-    else
-      return RouteNotReady;
-  }
-
-  if (m_state == RouteNeedRebuild || m_state == RouteFinished || m_state == RouteBuilding)
+  if (m_state == RouteNeedRebuild || m_state == RouteFinished || m_state == RouteBuilding ||
+      m_state == RouteNotReady)
     return m_state;
 
   threads::MutexGuard guard(m_routeSessionMutex);
