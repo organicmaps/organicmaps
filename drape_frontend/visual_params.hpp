@@ -30,10 +30,24 @@ public:
   uint32_t GetTouchRectRadius() const;
   double GetDragThreshold() const;
 
+  struct GlyphVisualParams
+  {
+    float m_outlineMinStart;
+    float m_outlineMinEnd;
+    float m_outlineMaxStart;
+    float m_outlineMaxEnd;
+    float m_alphaGlyphMin;
+    float m_alphaGlyphMax;
+  };
+
+  GlyphVisualParams const & GetGlyphVisualParams() const;
+  uint32_t GetGlyphSdfScale() const;
+
 private:
   int m_tileSize;
   double m_visualScale;
   bool m_isYotaDevice;
+  GlyphVisualParams m_glyphVisualParams;
 };
 
 m2::RectD const & GetWorldRect();

@@ -1,7 +1,11 @@
 #include "drape_frontend/render_group.hpp"
+#include "drape_frontend/visual_params.hpp"
+
+#include "drape/shader_def.hpp"
+
+#include "geometry/screenbase.hpp"
 
 #include "base/stl_add.hpp"
-#include "geometry/screenbase.hpp"
 
 #include "std/bind.hpp"
 
@@ -17,6 +21,15 @@ RenderGroup::RenderGroup(dp::GLState const & state, df::TileKey const & tileKey)
   : TBase(state, tileKey)
   , m_pendingOnDelete(false)
 {
+  if (state.GetProgramIndex() == gpu::TEXT_PROGRAM)
+  {
+    auto const & params = VisualParams::Instance().GetGlyphVisualParams();
+    m_uniforms.SetFloatValue("u_outlineGlyphParams",
+                             params.m_outlineMinStart, params.m_outlineMinEnd,
+                             params.m_outlineMaxStart, params.m_outlineMaxEnd);
+    m_uniforms.SetFloatValue("u_glyphParams",
+                             params.m_alphaGlyphMin, params.m_alphaGlyphMax);
+  }
 }
 
 RenderGroup::~RenderGroup()

@@ -60,8 +60,7 @@ namespace dp
 namespace
 {
 
-int const SDF_SCALE_FACTOR = 4;
-int const SDF_BORDER = 4 * SDF_SCALE_FACTOR;
+uint32_t const kSdfBorder = 4;
 
 template <typename ToDo>
 void ParseUniBlocks(string const & uniBlocksFile, ToDo toDo)
@@ -121,8 +120,9 @@ void ParseFontList(string const & fontListFile, ToDo toDo)
 class Font
 {
 public:
-  Font(ReaderPtr<Reader> fontReader, FT_Library lib)
+  Font(uint32_t sdfScale, ReaderPtr<Reader> fontReader, FT_Library lib)
     : m_fontReader(fontReader)
+    , m_sdfScale(sdfScale)
   {
     m_stream.base = 0;
     m_stream.size = m_fontReader.Size();
@@ -161,7 +161,7 @@ public:
 
   GlyphManager::Glyph GetGlyph(strings::UniChar unicodePoint, uint32_t baseHeight) const
   {
-    FREETYPE_CHECK(FT_Set_Pixel_Sizes(m_fontFace, SDF_SCALE_FACTOR * baseHeight, SDF_SCALE_FACTOR * baseHeight));
+    FREETYPE_CHECK(FT_Set_Pixel_Sizes(m_fontFace, m_sdfScale * baseHeight, m_sdfScale * baseHeight));
     FREETYPE_CHECK(FT_Load_Glyph(m_fontFace, FT_Get_Char_Index(m_fontFace, unicodePoint), FT_LOAD_RENDER));
 
     FT_Glyph glyph;
@@ -172,14 +172,14 @@ public:
 
     FT_Bitmap bitmap = m_fontFace->glyph->bitmap;
 
-    float const scale = 1.0f / SDF_SCALE_FACTOR;
+    float const scale = 1.0f / m_sdfScale;
 
     SharedBufferManager::shared_buffer_ptr_t data;
     int imageWidth = bitmap.width;
     int imageHeight = bitmap.rows;
     if (bitmap.buffer != nullptr)
     {
-      sdf_image::SdfImage img(bitmap.rows, bitmap.pitch, bitmap.buffer, SDF_BORDER);
+      sdf_image::SdfImage img(bitmap.rows, bitmap.pitch, bitmap.buffer, m_sdfScale * kSdfBorder);
       imageWidth = img.GetWidth() * scale;
       imageHeight = img.GetHeight() * scale;
 
@@ -219,9 +219,9 @@ public:
       resultGlyph.m_fontIndex = glyph.m_fontIndex;
 
       sdf_image::SdfImage img(glyph.m_image.m_bitmapRows, glyph.m_image.m_bitmapPitch,
-                              glyph.m_image.m_data->data(), SDF_BORDER);
+                              glyph.m_image.m_data->data(), m_sdfScale * kSdfBorder);
 
-      img.GenerateSDF(1.0f / (float)SDF_SCALE_FACTOR);
+      img.GenerateSDF(1.0f / (float)m_sdfScale);
 
       ASSERT(img.GetWidth() == glyph.m_image.m_width, ());
       ASSERT(img.GetHeight() == glyph.m_image.m_height, ());
@@ -267,6 +267,7 @@ private:
   ReaderPtr<Reader> m_fontReader;
   FT_StreamRec_ m_stream;
   FT_Face m_fontFace;
+  uint32_t m_sdfScale;
 };
 
 }
@@ -376,7 +377,7 @@ GlyphManager::GlyphManager(GlyphManager::Params const & params)
     vector<FT_ULong> charCodes;
     try
     {
-      m_impl->m_fonts.emplace_back(GetPlatform().GetReader(fontName), m_impl->m_library);
+      m_impl->m_fonts.emplace_back(params.m_sdfScale, GetPlatform().GetReader(fontName), m_impl->m_library);
       m_impl->m_fonts.back().GetCharcodes(charCodes);
     }
     catch(RootException const & e)

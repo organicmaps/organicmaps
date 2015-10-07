@@ -261,6 +261,7 @@ void BackendRenderer::InitGLDependentResource()
   params.m_glyphMngParams.m_uniBlocks = "unicode_blocks.txt";
   params.m_glyphMngParams.m_whitelist = "fonts_whitelist.txt";
   params.m_glyphMngParams.m_blacklist = "fonts_blacklist.txt";
+  params.m_glyphMngParams.m_sdfScale = VisualParams::Instance().GetGlyphSdfScale();
   GetPlatform().GetFontNames(params.m_glyphMngParams.m_fonts);
 
   m_texMng->Init(params);

@@ -5,6 +5,7 @@
 #include "base/thread.hpp"
 
 #include "std/bind.hpp"
+#include "std/cstring.hpp"
 #include "std/list.hpp"
 
 #ifdef DEBUG

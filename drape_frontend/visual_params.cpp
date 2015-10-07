@@ -39,7 +39,19 @@ void VisualParams::Init(double vs, uint32_t tileSize, vector<uint32_t> const & a
   g_VizParams.m_visualScale = vs;
   if (find(additionalOptions.begin(), additionalOptions.end(), YotaDevice) != additionalOptions.end())
     g_VizParams.m_isYotaDevice = true;
+
+  // Here we set up glyphs rendering parameters separately for high-res and low-res screens.
+  if (vs <= 1.0)
+    g_VizParams.m_glyphVisualParams = { 0.48, 0.625, 0.64, 0.95, 0.48, 0.625 };
+  else
+    g_VizParams.m_glyphVisualParams = { 0.41, 0.565, 0.57, 0.95, 0.45, 0.6 };
+
   RISE_INITED;
+}
+
+uint32_t VisualParams::GetGlyphSdfScale() const
+{
+  return (m_visualScale <= 1.0) ? 3 : 4;
 }
 
 VisualParams & VisualParams::Instance()
@@ -108,6 +120,11 @@ uint32_t VisualParams::GetTouchRectRadius() const
 double VisualParams::GetDragThreshold() const
 {
   return 10.0 * GetVisualScale();
+}
+
+VisualParams::GlyphVisualParams const & VisualParams::GetGlyphVisualParams() const
+{
+  return m_glyphVisualParams;
 }
 
 VisualParams::VisualParams()
