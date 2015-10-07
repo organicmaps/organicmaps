@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMRouteTypeButton">
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="image" keyPath="icon" value="ic_walk_off"/>
+                <userDefinedRuntimeAttribute type="image" keyPath="highlightedIcon" value="ic_walk_press"/>
+                <userDefinedRuntimeAttribute type="image" keyPath="selectedIcon" value="ic_walk_on"/>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="button" destination="lVp-Fs-BAY" id="JS7-Or-l16"/>
+                <outlet property="spinner" destination="rxM-kQ-bqe" id="5Sv-eB-OZc"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="aeF-L5-MMe">
+            <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lVp-Fs-BAY">
+                    <rect key="frame" x="3" y="4" width="41" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <animations/>
+                    <state key="normal" image="ic_walk_off"/>
+                    <state key="selected" image="ic_walk_on"/>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Spinner_1" id="rxM-kQ-bqe">
+                    <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <animations/>
+                </imageView>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="370" y="307"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Spinner_1" width="40" height="40"/>
+        <image name="ic_walk_off" width="41" height="40"/>
+        <image name="ic_walk_on" width="41" height="40"/>
+        <image name="ic_walk_press" width="44" height="44"/>
+    </resources>
+</document>

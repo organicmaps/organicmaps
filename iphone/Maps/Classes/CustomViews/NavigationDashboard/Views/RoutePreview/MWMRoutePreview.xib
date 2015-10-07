@@ -113,10 +113,10 @@
                     <rect key="frame" x="0.0" y="140" width="320" height="48"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OOA-K7-ybj" userLabel="Planning box">
-                            <rect key="frame" x="128" y="14" width="180" height="20"/>
+                            <rect key="frame" x="132" y="14" width="176" height="20"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Planning..." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yzu-Z9-ZiH">
-                                    <rect key="frame" x="0.0" y="0.0" width="180" height="20"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="176" height="20"/>
                                     <animations/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.26000000000000001" colorSpace="calibratedRGB"/>
@@ -137,10 +137,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Fm-p4-iHv" userLabel="Error box">
-                            <rect key="frame" x="128" y="14" width="180" height="20"/>
+                            <rect key="frame" x="132" y="14" width="176" height="20"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Planning..." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bZb-KY-Y9r" userLabel="Error">
-                                    <rect key="frame" x="0.0" y="0.0" width="180" height="20"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="176" height="20"/>
                                     <animations/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.95686274509803915" green="0.2627450980392157" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
@@ -161,10 +161,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tjE-md-mqu" userLabel="Result box">
-                            <rect key="frame" x="128" y="14" width="180" height="20"/>
+                            <rect key="frame" x="132" y="14" width="176" height="20"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="results" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v46-iC-Qyb">
-                                    <rect key="frame" x="0.0" y="0.0" width="180" height="20"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="176" height="20"/>
                                     <animations/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
@@ -182,35 +182,39 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oQc-l8-sZH" userLabel="Buttons Box">
-                            <rect key="frame" x="16" y="0.0" width="84" height="48"/>
+                            <rect key="frame" x="8" y="0.0" width="96" height="48"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ydn-b9-sw5" userLabel="Walk Button">
-                                    <rect key="frame" x="44" y="4" width="40" height="40"/>
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cZF-Ha-2tB" customClass="MWMRouteTypeButton">
+                                    <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
                                     <animations/>
-                                    <state key="normal" image="ic_walk_off">
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <state key="selected" image="ic_walk_on"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="icon" value="ic_drive_off"/>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="highlightedIcon" value="ic_type_drive_off_press"/>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="selectedIcon" value="ic_drive_on"/>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="routePreviewChange:" destination="-1" eventType="touchUpInside" id="Td4-IZ-b9h"/>
+                                        <action selector="routePreviewChange:" destination="-1" eventType="touchUpInside" id="OZw-Td-RZg"/>
                                     </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pRu-dO-IHo" userLabel="Drive Button">
-                                    <rect key="frame" x="0.0" y="4" width="40" height="40"/>
+                                </view>
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6D3-QF-6wm" customClass="MWMRouteTypeButton">
+                                    <rect key="frame" x="48" y="0.0" width="48" height="48"/>
                                     <animations/>
-                                    <state key="normal" image="ic_drive_off">
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <state key="selected" image="ic_drive_on"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="icon" value="ic_walk_off"/>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="highlightedIcon" value="ic_type_walk_off_press"/>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="selectedIcon" value="ic_walk_on"/>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="routePreviewChange:" destination="-1" eventType="touchUpInside" id="8M7-S3-7tS"/>
+                                        <action selector="routePreviewChange:" destination="-1" eventType="touchUpInside" id="rGh-pI-yHL"/>
                                     </connections>
-                                </button>
+                                </view>
                             </subviews>
                             <animations/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="84" id="3TM-BU-wVs"/>
+                                <constraint firstAttribute="width" constant="96" id="3TM-BU-wVs"/>
                                 <constraint firstAttribute="height" constant="48" id="Mws-KZ-ghs"/>
                             </constraints>
                         </view>
@@ -224,7 +228,7 @@
                         <constraint firstItem="OOA-K7-ybj" firstAttribute="leading" secondItem="oQc-l8-sZH" secondAttribute="trailing" constant="28" id="TAE-ae-pa6"/>
                         <constraint firstItem="tjE-md-mqu" firstAttribute="centerY" secondItem="Sr7-UO-G0z" secondAttribute="centerY" id="ikK-X1-3S9"/>
                         <constraint firstItem="oQc-l8-sZH" firstAttribute="centerY" secondItem="Sr7-UO-G0z" secondAttribute="centerY" id="jmL-Ol-DwJ"/>
-                        <constraint firstItem="oQc-l8-sZH" firstAttribute="leading" secondItem="Sr7-UO-G0z" secondAttribute="leading" constant="16" id="kJx-Hv-da4"/>
+                        <constraint firstItem="oQc-l8-sZH" firstAttribute="leading" secondItem="Sr7-UO-G0z" secondAttribute="leading" constant="8" id="kJx-Hv-da4"/>
                         <constraint firstItem="8Fm-p4-iHv" firstAttribute="leading" secondItem="oQc-l8-sZH" secondAttribute="trailing" constant="28" id="pPr-SX-Yd8"/>
                         <constraint firstAttribute="height" constant="48" id="tZt-LS-raP"/>
                         <constraint firstAttribute="trailing" secondItem="OOA-K7-ybj" secondAttribute="trailing" constant="12" id="uFe-u5-hEf"/>
@@ -267,12 +271,12 @@
                 <outlet property="errorBox" destination="8Fm-p4-iHv" id="wTj-tn-NrE"/>
                 <outlet property="extendButton" destination="0YR-3a-ucN" id="fJG-ts-aGf"/>
                 <outlet property="layout" destination="R9u-Qo-R0Y" id="cqs-S1-d4J"/>
-                <outlet property="pedestrian" destination="Ydn-b9-sw5" id="rMJ-YL-Aqo"/>
+                <outlet property="pedestrian" destination="6D3-QF-6wm" id="bdh-zx-9LW"/>
                 <outlet property="planningBox" destination="OOA-K7-ybj" id="kh6-F2-aBF"/>
                 <outlet property="planningRouteViewHeight" destination="2SX-TZ-tS3" id="IwX-TA-FxL"/>
                 <outlet property="resultLabel" destination="v46-iC-Qyb" id="RtF-Gr-uQC"/>
                 <outlet property="resultsBox" destination="tjE-md-mqu" id="eiV-ww-oCE"/>
-                <outlet property="vehicle" destination="pRu-dO-IHo" id="1yX-9H-hAx"/>
+                <outlet property="vehicle" destination="cZF-Ha-2tB" id="QP3-tU-nfO"/>
             </connections>
             <point key="canvasLocation" x="448" y="341"/>
         </view>
@@ -282,6 +286,8 @@
         <image name="ic_drive_off" width="40" height="40"/>
         <image name="ic_drive_on" width="40" height="40"/>
         <image name="ic_nav_bar_back" width="44" height="44"/>
+        <image name="ic_type_drive_off_press" width="40" height="40"/>
+        <image name="ic_type_walk_off_press" width="41" height="40"/>
         <image name="ic_walk_off" width="41" height="40"/>
         <image name="ic_walk_on" width="41" height="40"/>
     </resources>

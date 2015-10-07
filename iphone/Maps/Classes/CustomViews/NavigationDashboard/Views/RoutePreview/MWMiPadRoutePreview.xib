@@ -82,28 +82,32 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sXu-tl-a0m" userLabel="Buttons Box">
                             <rect key="frame" x="100" y="0.0" width="120" height="48"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nzk-Ow-FYm" userLabel="Walk Button">
-                                    <rect key="frame" x="80" y="4" width="40" height="40"/>
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jDl-pu-eov" customClass="MWMRouteTypeButton">
+                                    <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
                                     <animations/>
-                                    <state key="normal" image="ic_walk_off">
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <state key="selected" image="ic_walk_on"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="icon" value="ic_drive_off"/>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="highlightedIcon" value="ic_type_drive_off_press"/>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="selectedIcon" value="ic_drive_on"/>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="routePreviewChange:" destination="-1" eventType="touchUpInside" id="5dg-bE-A1T"/>
+                                        <action selector="routePreviewChange:" destination="-1" eventType="touchUpInside" id="855-IB-Ziq"/>
                                     </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pwv-Ld-169" userLabel="Drive Button">
-                                    <rect key="frame" x="0.0" y="4" width="40" height="40"/>
+                                </view>
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VhE-hA-Leo" customClass="MWMRouteTypeButton">
+                                    <rect key="frame" x="72" y="0.0" width="48" height="48"/>
                                     <animations/>
-                                    <state key="normal" image="ic_drive_off">
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <state key="selected" image="ic_drive_on"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="icon" value="ic_walk_off"/>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="highlightedIcon" value="ic_type_walk_off_press"/>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="selectedIcon" value="ic_walk_on"/>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="routePreviewChange:" destination="-1" eventType="touchUpInside" id="Rmg-s6-J1s"/>
+                                        <action selector="routePreviewChange:" destination="-1" eventType="touchUpInside" id="ul6-f7-l9I"/>
                                     </connections>
-                                </button>
+                                </view>
                             </subviews>
                             <animations/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -285,12 +289,12 @@
                 <outlet property="contentView" destination="3s2-BV-X5i" id="mp7-Qq-drU"/>
                 <outlet property="errorBox" destination="QEP-6s-YTM" id="kH0-yP-1Gk"/>
                 <outlet property="layout" destination="YwC-vB-4LF" id="Hta-la-OdY"/>
-                <outlet property="pedestrian" destination="Nzk-Ow-FYm" id="lsv-Ah-DGt"/>
+                <outlet property="pedestrian" destination="VhE-hA-Leo" id="R3O-th-Jw0"/>
                 <outlet property="planningBox" destination="tdV-a8-fmG" id="dR4-f7-H2J"/>
                 <outlet property="resultLabel" destination="zml-eW-DsI" id="GaF-AU-thr"/>
                 <outlet property="resultsBox" destination="Rqr-bu-crx" id="MgA-Aj-m5e"/>
                 <outlet property="statusBoxHeight" destination="4qT-ha-p75" id="Ias-po-Adc"/>
-                <outlet property="vehicle" destination="pwv-Ld-169" id="Tkt-TW-dcX"/>
+                <outlet property="vehicle" destination="jDl-pu-eov" id="awM-KI-2xO"/>
             </connections>
             <point key="canvasLocation" x="448" y="574.5"/>
         </view>
@@ -300,6 +304,8 @@
         <image name="ic_drive_off" width="40" height="40"/>
         <image name="ic_drive_on" width="40" height="40"/>
         <image name="ic_nav_bar_back" width="44" height="44"/>
+        <image name="ic_type_drive_off_press" width="40" height="40"/>
+        <image name="ic_type_walk_off_press" width="41" height="40"/>
         <image name="ic_walk_off" width="41" height="40"/>
         <image name="ic_walk_on" width="41" height="40"/>
     </resources>

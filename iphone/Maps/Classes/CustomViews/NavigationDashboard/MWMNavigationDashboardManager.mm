@@ -9,6 +9,7 @@
 #import "MWMRouteHelperPanelsDrawer.h"
 #import "MWMRoutePreview.h"
 #import "MWMTextToSpeech.h"
+#import "MWMRouteTypeButton.h"
 
 @interface MWMNavigationDashboardManager ()
 
@@ -224,7 +225,7 @@
 
 #pragma mark - MWMRoutePreview
 
-- (IBAction)routePreviewChange:(UIButton *)sender
+- (IBAction)routePreviewChange:(MWMRouteTypeButton *)sender
 {
   if (sender.selected)
     return;
