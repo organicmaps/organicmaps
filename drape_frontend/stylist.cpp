@@ -79,6 +79,16 @@ double CalcPopulationRank(FeatureType const & f)
   return 0.0;
 }
 
+void FilterRulesByRuntimeSelector(FeatureType const & f, int zoomLevel, drule::KeysT & keys)
+{
+  keys.erase_if([&f, zoomLevel](drule::Key const & key)->bool
+  {
+    drule::BaseRule const * const rule = drule::rules().Find(key);
+    ASSERT(rule != nullptr, ());
+    return !rule->TestFeature(f, zoomLevel);
+  });
+}
+
 class KeyFunctor
 {
 public:
@@ -339,6 +349,8 @@ bool InitStylist(FeatureType const & f,
 {
   drule::KeysT keys;
   pair<int, bool> geomType = feature::GetDrawRule(f, zoomLevel, keys);
+
+  FilterRulesByRuntimeSelector(f, zoomLevel, keys);
 
   if (keys.empty())
     return false;
