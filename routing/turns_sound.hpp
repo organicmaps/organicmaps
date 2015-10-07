@@ -36,6 +36,7 @@ class TurnsSound
   friend void UnitTest_TurnsSoundMetersTest();
   friend void UnitTest_TurnsSoundMetersTwoTurnsTest();
   friend void UnitTest_TurnsSoundFeetTest();
+  friend void UnitTest_TurnsSoundComposedTurnTest();
 
   /// m_enabled == true when tts is turned on.
   /// Important! Clients (iOS/Android) implies that m_enabled is false by default.
@@ -56,6 +57,11 @@ class TurnsSound
   /// After the second notification has been pronounced
   /// m_nextTurnNotificationProgress == Second.
   PronouncedNotification m_nextTurnNotificationProgress;
+  /// The flag is set to true if notification about the second turn was pronounced.
+  /// It could happen in expressions like "Turn right. Then turn left."
+  /// This flag is used to pass the information if second turn notification was pronounced
+  /// between two calls of GenerateTurnSound() method.
+  bool m_turnNotificationWithThen;
   uint32_t m_nextTurnIndex;
   /// getTtsText is a convector form turn notification information and locale to
   /// notification string.
@@ -65,9 +71,14 @@ class TurnsSound
                           TurnDirection turnDir, LengthUnits lengthUnits) const;
   /// Generates turn sound notification for the nearest to the current position turn.
   string GenerateFirstTurnSound(TurnItem const & turn, double distanceToTurnMeters);
+  /// Changes the state of the class to emulate that first turn notification is pronouned
+  /// without pronunciation.
+  void FastForwardFirstTurnNotification();
+
 public:
   TurnsSound() : m_enabled(false), m_speedMetersPerSecond(0.), m_settings(),
-      m_nextTurnNotificationProgress(PronouncedNotification::Nothing), m_nextTurnIndex(0) {}
+      m_nextTurnNotificationProgress(PronouncedNotification::Nothing),
+      m_turnNotificationWithThen(false),  m_nextTurnIndex(0) {}
 
   bool IsEnabled() const { return m_enabled; }
   void Enable(bool enable);
