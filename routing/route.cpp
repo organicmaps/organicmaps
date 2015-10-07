@@ -148,23 +148,6 @@ Route::TTurns::const_iterator Route::GetCurrentTurn() const
          });
 }
 
-double Route::GetCurrentCam(SpeedCameraRestriction & camera, Index const & index) const
-{
-  size_t const currentIndex = max(m_poly.GetCurrentIter().m_ind, m_lastCheckedCamera);
-  for (size_t i = currentIndex; i < m_poly.GetPolyline().GetSize(); ++i)
-  {
-    uint8_t speed = CheckCameraInPoint(m_poly.GetPolyline().GetPoint(i), index);
-    if (speed != kNoSpeedCamera)
-    {
-      camera = SpeedCameraRestriction(static_cast<uint32_t>(i), speed);
-      m_lastCheckedCamera = i;
-      return m_poly.GetDistanceM(m_poly.GetCurrentIter(), m_poly.GetIterToIndex(i));
-    }
-  }
-  m_lastCheckedCamera = m_poly.GetPolyline().GetSize();
-  return kInvalidSpeedCameraDistance;
-}
-
 bool Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const
 {
   auto it = GetCurrentTurn();

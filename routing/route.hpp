@@ -88,8 +88,6 @@ public:
   /// \brief Extract information about zero, one or two nearest turns depending on current position.
   /// @return true if its parameter is filled with correct result. (At least with one element.)
   bool GetNextTurns(vector<turns::TurnItemDist> & turns) const;
-  /// Returns nearest speed camera and distance to it.
-  double GetCurrentCam(SpeedCameraRestriction & camera, Index const & index) const;
 
   void GetCurrentDirectionPoint(m2::PointD & pt) const;
 
