@@ -112,19 +112,15 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 {
   UIView * ppv = self.extendedPlacePageView;
   UIView * ppvSuper = ppv.superview;
-  ppv.minX += [sender translationInView:ppvSuper].x;
-  ppv.minX = MIN(ppv.minX, 0.0);
+  ppv.midX = MIN(ppv.midX + [sender translationInView:ppvSuper].x, ppv.width / 2.0);
   [sender setTranslation:CGPointZero inView:ppvSuper];
   [self cancelSpringAnimation];
   UIGestureRecognizerState const state = sender.state;
   if (state == UIGestureRecognizerStateEnded || state == UIGestureRecognizerStateCancelled)
   {
-    sender.enabled = NO;
     self.panVelocity = [sender velocityInView:ppvSuper].x;
-    if (self.panVelocity > 0)
-      [self show];
-    else
-      [self hide];
+    self.state = self.panVelocity > 0 ? MWMiPhoneLandscapePlacePageStateOpen : MWMiPhoneLandscapePlacePageStateClosed;
+    [self updateTargetPoint];
   }
 }
 
@@ -181,15 +177,15 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 {
   _targetPoint = targetPoint;
   __weak MWMiPhoneLandscapePlacePage * weakSelf = self;
-  if (self.state == MWMiPhoneLandscapePlacePageStateClosed)
+  BOOL const stateClosed = self.state == MWMiPhoneLandscapePlacePageStateClosed;
+  if (stateClosed)
     GetFramework().GetBalloonManager().RemovePin();
+  self.panRecognizer.enabled = !stateClosed;
   [self startAnimatingPlacePage:self initialVelocity:CGPointMake(self.panVelocity, 0.0) completion:^
   {
     __strong MWMiPhoneLandscapePlacePage * self = weakSelf;
-    if (self.state == MWMiPhoneLandscapePlacePageStateClosed)
+    if (stateClosed)
       [self.manager dismissPlacePage];
-    else
-      self.panRecognizer.enabled = YES;
   }];
   self.panVelocity = 0.0;
 }
