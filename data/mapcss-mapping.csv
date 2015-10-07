@@ -1036,3 +1036,4 @@ aerialway|drag_lift;[aerialway=drag_lift];;name;int_name;1035;
 amenity|dentist;[amenity=dentist];;name;int_name;1036;
 amenity|clinic;[amenity=clinic];;name;int_name;1037;
 barrier|entrance;[barrier=entrance];;name;int_name;1038;
+barrier|border_control;[barrier=border_control];;name;int_name;1039;

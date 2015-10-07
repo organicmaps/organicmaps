@@ -5508,6 +5508,37 @@ cont {
   }
 }
 cont {
+  name: "barrier-border_control"
+  element {
+    scale: 16
+    symbol {
+      name: "barrier"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "barrier"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "barrier"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "barrier"
+      priority: 16000
+    }
+  }
+}
+cont {
   name: "barrier-city_wall"
   element {
     scale: 16
