@@ -114,6 +114,9 @@ public:
   void SetWidgetLayout(gui::TWidgetsLayoutInfo && info);
   gui::TWidgetsSizeInfo const & GetWidgetSizes();
 
+  void Enable3dMode(float angleFOV, float angleX, float deltaZ);
+  void Disable3dMode();
+
 private:
   void AddUserEvent(UserEvent const & e);
   void ModelViewChanged(ScreenBase const & screen);

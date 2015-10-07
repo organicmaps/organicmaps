@@ -15,3 +15,4 @@ BOOKMARK_PROGRAM user_mark.vsh texturing_fragment_shader.fsh
 ROUTE_PROGRAM route_vertex_shader.vsh route_fragment_shader.fsh
 ROUTE_ARROW_PROGRAM route_vertex_shader.vsh route_arrow_fragment_shader.fsh
 DEBUG_RECT_PROGRAM debug_rect_vertex_shader.vsh debug_rect_fragment_shader.fsh
+TEXTURING_3D_PROGRAM texturing3d_vertex_shader.vsh texturing3d_fragment_shader.fsh

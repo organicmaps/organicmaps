@@ -46,6 +46,8 @@ namespace df
 {
 
 class SelectionShape;
+class Framebuffer;
+class Renderer3d;
 
 struct TapInfo
 {
@@ -223,6 +225,10 @@ private:
   drape_ptr<dp::OverlayTree> m_overlayTree;
 
   dp::UniformValuesStorage m_generalUniforms;
+
+  bool m_useFramebuffer;
+  drape_ptr<Framebuffer> m_framebuffer;
+  drape_ptr<Renderer3d> m_renderer3d;
 
   Viewport m_viewport;
   UserEventStream m_userEventStream;

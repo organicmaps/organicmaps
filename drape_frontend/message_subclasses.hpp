@@ -630,4 +630,34 @@ public:
   Type GetType() const override { return Message::DeactivateRouteFollowing; }
 };
 
+class Enable3dModeMessage : public Message
+{
+public:
+  Enable3dModeMessage(float angleFOV, float angleX, float deltaZ)
+    : m_angleFOV(angleFOV)
+    , m_angleX(angleX)
+    , m_deltaZ(deltaZ)
+  {}
+
+  Type GetType() const override { return Message::Enable3dMode; }
+
+  float GetAngleFOV() const { return m_angleFOV; }
+  float GetAngleX() const { return m_angleX; }
+  float GetDeltaZ() const { return m_deltaZ; }
+
+private:
+  float m_angleFOV;
+  float m_angleX;
+  float m_deltaZ;
+};
+
+class Disable3dModeMessage : public Message
+{
+public:
+  Disable3dModeMessage()
+  {}
+
+  Type GetType() const override { return Message::Disable3dMode; }
+};
+
 } // namespace df

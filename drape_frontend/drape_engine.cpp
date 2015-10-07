@@ -429,4 +429,18 @@ gui::TWidgetsSizeInfo const & DrapeEngine::GetWidgetSizes()
   return m_widgetSizes;
 }
 
+void DrapeEngine::Enable3dMode(float angleFOV, float angleX, float deltaZ)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<Enable3dModeMessage>(angleFOV, angleX, deltaZ),
+                                  MessagePriority::Normal);
+}
+
+void DrapeEngine::Disable3dMode()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<Disable3dModeMessage>(),
+                                  MessagePriority::Normal);
+}
+
 } // namespace df
