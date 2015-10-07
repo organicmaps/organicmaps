@@ -33,6 +33,7 @@
 {
   [super awakeFromNib];
   self.additionalButtons.hidden = self.goButton.hidden = self.streetLabel.hidden = self.downloadBadge.hidden = YES;
+  self.restoreState = MWMBottomMenuStateInactive;
 }
 
 - (void)layoutSubviews
@@ -288,6 +289,7 @@
       [self updateMenuButtonFromState:_state toState:state];
     break;
   case MWMBottomMenuStateActive:
+    self.restoreState = _state;
     [self updateMenuButtonFromState:_state toState:state];
     self.separator.hidden = self.additionalButtons.hidden = NO;
     self.p2pButton.hidden = self.searchButton.hidden = self.bookmarksButton.hidden = NO;
@@ -318,7 +320,7 @@
 - (void)setLeftBound:(CGFloat)leftBound
 {
   _leftBound = leftBound;
-  self.state = leftBound > 1.0 ? MWMBottomMenuStateCompact : MWMBottomMenuStateInactive;
+  self.state = leftBound > 1.0 ? MWMBottomMenuStateCompact : self.restoreState;
   [self setNeedsLayout];
 }
 

@@ -13,6 +13,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuState)
 @interface MWMBottomMenuView : SolidTouchView
 
 @property(nonatomic) MWMBottomMenuState state;
+@property(nonatomic) MWMBottomMenuState restoreState;
 
 @property(nonatomic) CGFloat leftBound;
 @property(nonatomic) CGFloat layoutThreshold;
