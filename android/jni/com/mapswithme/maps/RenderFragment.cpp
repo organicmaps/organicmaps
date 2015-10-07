@@ -6,9 +6,9 @@ extern "C"
 {
 
 JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_RenderFragment_createEngine(JNIEnv * env, jobject thiz, jobject surface, jint destiny)
+Java_com_mapswithme_maps_RenderFragment_createEngine(JNIEnv * env, jobject thiz, jobject surface, jint density)
 {
-  return static_cast<jboolean>(g_framework->CreateDrapeEngine(env, surface, static_cast<int>(destiny)));
+  return static_cast<jboolean>(g_framework->CreateDrapeEngine(env, surface, static_cast<int>(density)));
 }
 
 JNIEXPORT void JNICALL

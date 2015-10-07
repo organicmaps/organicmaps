@@ -194,7 +194,7 @@ bool IsLocationEmulation(QMouseEvent * e)
       p.m_widgetsInitInfo[widget] = pos;
     });
 
-    p.m_widgetsInitInfo[gui::WIDGET_SCALE_LABLE] = gui::Position(dp::LeftBottom);
+    p.m_widgetsInitInfo[gui::WIDGET_SCALE_LABEL] = gui::Position(dp::LeftBottom);
 
     m_framework->CreateDrapeEngine(make_ref(m_contextFactory), move(p));
     m_framework->AddViewportListener(bind(&DrawWidget::OnViewportChanged, this, _1));

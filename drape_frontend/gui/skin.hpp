@@ -14,7 +14,7 @@ enum EWidget
   WIDGET_RULER = 0x1,
   WIDGET_COMPASS = 0x2,
   WIDGET_COPYRIGHT = 0x4,
-  WIDGET_SCALE_LABLE = 0x8,
+  WIDGET_SCALE_LABEL = 0x8,
   /// WIDGET_COUNTRY_STATUS - controlled by rendering kernel. Don't use it in platform code
   WIDGET_COUNTRY_STATUS = 0x8000
 };

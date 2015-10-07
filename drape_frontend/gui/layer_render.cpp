@@ -167,7 +167,7 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheWidgets(TWidgetsInitInfo const & in
     make_pair(WIDGET_COMPASS, bind(&LayerCacher::CacheCompass, this, _1, _2, _3)),
     make_pair(WIDGET_RULER, bind(&LayerCacher::CacheRuler, this, _1, _2, _3)),
     make_pair(WIDGET_COPYRIGHT, bind(&LayerCacher::CacheCopyright, this, _1, _2, _3)),
-    make_pair(WIDGET_SCALE_LABLE, bind(&LayerCacher::CacheScaleLabel, this, _1, _2, _3))
+    make_pair(WIDGET_SCALE_LABEL, bind(&LayerCacher::CacheScaleLabel, this, _1, _2, _3))
   };
 
   drape_ptr<LayerRenderer> renderer = make_unique_dp<LayerRenderer>();
@@ -244,7 +244,7 @@ m2::PointF LayerCacher::CacheScaleLabel(Position const & position, ref_ptr<Layer
   drape_ptr<ShapeRenderer> scaleRenderer = make_unique_dp<ShapeRenderer>();
   m2::PointF size = MutableLabelDrawer::Draw(params, textures, bind(&ShapeRenderer::AddShape, scaleRenderer.get(), _1, _2));
 
-  renderer->AddShapeRenderer(WIDGET_SCALE_LABLE, move(scaleRenderer));
+  renderer->AddShapeRenderer(WIDGET_SCALE_LABEL, move(scaleRenderer));
   return size;
 }
 
