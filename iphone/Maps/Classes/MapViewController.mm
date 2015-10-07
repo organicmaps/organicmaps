@@ -5,6 +5,7 @@
 #import "MWMAlertViewController.h"
 #import "MWMAPIBar.h"
 #import "MWMMapViewControlsManager.h"
+#import "MWMRoutingProtocol.h"
 #import "RouteState.h"
 #import "UIFont+MapsMeFonts.h"
 #import "UIViewController+Navigation.h"
@@ -197,7 +198,26 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 - (void)onUserMarkClicked:(unique_ptr<UserMarkCopy>)mark
 {
-  [self.controlsManager showPlacePageWithUserMark:std::move(mark)];
+  MapsAppDelegate * a = MapsAppDelegate.theApp;
+  switch (a.routingPlaneMode) {
+    case MWMRoutingPlaneModeNone:
+    case MWMRoutingPlaneModePlacePage:
+      [self.controlsManager showPlacePageWithUserMark:std::move(mark)];
+      break;
+    case MWMRoutingPlaneModeSearchSource:
+    case MWMRoutingPlaneModeSearchDestination:
+    {
+      auto const searchMark = static_cast<SearchMarkPoint const *>(mark->GetUserMark());
+      auto const & addressInfo = searchMark->GetInfo();
+      MWMRoutePoint const p = {searchMark->GetOrg(), @(addressInfo.GetPinName().c_str())};
+      if (a.routingPlaneMode == MWMRoutingPlaneModeSearchSource)
+        [self.controlsManager buildRouteFrom:p];
+      else
+        [self.controlsManager buildRouteTo:p];
+      a.routingPlaneMode = MWMRoutingPlaneModePlacePage;
+      break;
+    }
+  }
 }
 
 - (void)processMapClickAtPoint:(CGPoint)point longClick:(BOOL)isLongClick

@@ -1,4 +1,5 @@
 #import "Common.h"
+#import "MapsAppDelegate.h"
 #import "MWMBottomMenuView.h"
 #import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"
@@ -272,7 +273,8 @@
   case MWMBottomMenuStateHidden:
     break;
   case MWMBottomMenuStateInactive:
-    _leftBound = 0.0;
+    if (MapsAppDelegate.theApp.routingPlaneMode == MWMRoutingPlaneModeNone)
+      _leftBound = 0.0;
     self.downloadBadge.hidden =
         GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount() == 0;
     self.p2pButton.hidden = self.searchButton.hidden = self.bookmarksButton.hidden = NO;

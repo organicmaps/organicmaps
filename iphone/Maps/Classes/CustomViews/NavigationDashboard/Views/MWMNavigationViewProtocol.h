@@ -3,5 +3,6 @@
 @protocol MWMNavigationViewProtocol <NSObject>
 
 - (void)navigationDashBoardDidUpdate;
+- (void)routePreviewDidChangeFrame:(CGRect)newFrame;
 
 @end

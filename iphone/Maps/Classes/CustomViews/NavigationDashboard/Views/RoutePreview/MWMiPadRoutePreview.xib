@@ -56,6 +56,9 @@
                                         <size key="value" width="304" height="36"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="parentView" destination="u2u-Vb-2eH" id="ebV-nZ-xhX"/>
+                                </connections>
                             </collectionViewLayout>
                             <connections>
                                 <outlet property="dataSource" destination="u2u-Vb-2eH" id="nyl-Sz-zTu"/>
@@ -252,17 +255,61 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gcR-zj-b7P">
+                    <rect key="frame" x="0.0" y="607" width="320" height="48"/>
+                    <subviews>
+                        <button hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4IJ-pR-Ztp" userLabel="Go">
+                            <rect key="frame" x="100" y="8" width="120" height="32"/>
+                            <animations/>
+                            <accessibility key="accessibilityConfiguration" identifier="goButton"/>
+                            <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
+                            <state key="normal" title="Start"/>
+                            <state key="selected">
+                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.26000000000000001" colorSpace="calibratedRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="routing_go"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="whiteColor"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueDark"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="navigationGoPressed:" destination="-1" eventType="touchUpInside" id="6Mw-RM-bqr"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="5GN-4g-vV1"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="layer.borderUIColor">
+                            <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
             </subviews>
             <animations/>
             <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstItem="gcR-zj-b7P" firstAttribute="leading" secondItem="u2u-Vb-2eH" secondAttribute="leading" id="1RD-kG-W2O"/>
                 <constraint firstAttribute="trailing" secondItem="87p-Qg-8f3" secondAttribute="trailing" id="5wh-lx-rUz"/>
                 <constraint firstItem="3s2-BV-X5i" firstAttribute="top" secondItem="u2u-Vb-2eH" secondAttribute="top" id="8Qb-GY-2hU"/>
                 <constraint firstItem="87p-Qg-8f3" firstAttribute="leading" secondItem="u2u-Vb-2eH" secondAttribute="leading" id="9bA-9R-pwq"/>
+                <constraint firstAttribute="bottom" secondItem="gcR-zj-b7P" secondAttribute="bottom" id="QYs-r4-Jyl"/>
                 <constraint firstItem="87p-Qg-8f3" firstAttribute="top" secondItem="dCk-ko-ZXf" secondAttribute="bottom" constant="20" id="Wdh-lF-PT4"/>
                 <constraint firstAttribute="trailing" secondItem="dCk-ko-ZXf" secondAttribute="trailing" id="ZuD-Xf-f8d"/>
                 <constraint firstItem="3s2-BV-X5i" firstAttribute="leading" secondItem="u2u-Vb-2eH" secondAttribute="leading" id="e90-R4-YQR"/>
                 <constraint firstAttribute="trailing" secondItem="3s2-BV-X5i" secondAttribute="trailing" id="lnu-7l-aPG"/>
+                <constraint firstAttribute="trailing" secondItem="gcR-zj-b7P" secondAttribute="trailing" id="n9j-dG-kOB"/>
                 <constraint firstItem="dCk-ko-ZXf" firstAttribute="leading" secondItem="u2u-Vb-2eH" secondAttribute="leading" id="t6m-zB-7rK"/>
                 <constraint firstItem="dCk-ko-ZXf" firstAttribute="top" secondItem="3s2-BV-X5i" secondAttribute="bottom" id="uv5-No-Ghd"/>
             </constraints>
@@ -288,11 +335,13 @@
                 <outlet property="completeImageView" destination="pQb-pb-L88" id="FAi-yN-HNc"/>
                 <outlet property="contentView" destination="3s2-BV-X5i" id="mp7-Qq-drU"/>
                 <outlet property="errorBox" destination="QEP-6s-YTM" id="kH0-yP-1Gk"/>
+                <outlet property="goButton" destination="4IJ-pR-Ztp" id="48a-At-Nqq"/>
                 <outlet property="layout" destination="YwC-vB-4LF" id="Hta-la-OdY"/>
                 <outlet property="pedestrian" destination="VhE-hA-Leo" id="R3O-th-Jw0"/>
                 <outlet property="planningBox" destination="tdV-a8-fmG" id="dR4-f7-H2J"/>
                 <outlet property="resultLabel" destination="zml-eW-DsI" id="GaF-AU-thr"/>
                 <outlet property="resultsBox" destination="Rqr-bu-crx" id="MgA-Aj-m5e"/>
+                <outlet property="statusBox" destination="87p-Qg-8f3" id="mSF-4e-CPU"/>
                 <outlet property="statusBoxHeight" destination="4qT-ha-p75" id="Ias-po-Adc"/>
                 <outlet property="vehicle" destination="jDl-pu-eov" id="awM-KI-2xO"/>
             </connections>

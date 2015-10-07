@@ -1,5 +1,7 @@
 #import "MWMRoutePointLayout.h"
 
+static CGFloat const kHeight = 36.;
+
 @implementation MWMRoutePointLayout
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
@@ -25,6 +27,13 @@
   return 8.;
 }
 
+- (CGSize)itemSize
+{
+  if (IPAD)
+    return {304., kHeight};
+  return self.actualSize;
+}
+
 - (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath
 {
   if (!self.isNeedToInitialLayout)
@@ -43,10 +52,15 @@
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
 {
-  BOOL const isPortrait = self.collectionView.superview.superview.superview.height > self.collectionView.superview.superview.superview.width;
-  CGFloat const width = isPortrait ? newBounds.size.width : newBounds.size.width / 2. - self.minimumInteritemSpacing / 2.;
-  self.itemSize = {width, 36.};
+  self.itemSize = self.actualSize;
   return YES;
+}
+
+- (CGSize)actualSize
+{
+  BOOL const isPortrait = self.parentView.superview.height > self.parentView.superview.width;
+  CGFloat const width = isPortrait ? self.collectionView.width : self.collectionView.width / 2. - self.minimumInteritemSpacing / 2.;
+  return {width, kHeight};
 }
 
 @end

@@ -1,3 +1,4 @@
+#import "MapsAppDelegate.h"
 #import "MapsObservers.h"
 #import "MWMConsole.h"
 #import "MWMSearchDownloadViewController.h"
@@ -107,6 +108,10 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 {
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"searchCancel"];
   self.state = MWMSearchManagerStateHidden;
+  MapsAppDelegate * a = MapsAppDelegate.theApp;
+  MWMRoutingPlaneMode const m = a.routingPlaneMode;
+  if (m == MWMRoutingPlaneModeSearchDestination || m == MWMRoutingPlaneModeSearchSource)
+    a.routingPlaneMode = MWMRoutingPlaneModePlacePage;
 }
 
 - (void)tabButtonPressed:(MWMSearchTabButtonsView *)sender

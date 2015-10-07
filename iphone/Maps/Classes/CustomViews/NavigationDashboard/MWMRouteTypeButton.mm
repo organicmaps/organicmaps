@@ -2,8 +2,8 @@
 
 @interface MWMRouteTypeButton ()
 
-@property (nonatomic, weak) IBOutlet UIButton * button;
-@property (nonatomic, weak) IBOutlet UIImageView * spinner;
+@property (weak, nonatomic) IBOutlet UIButton * button;
+@property (weak, nonatomic) IBOutlet UIImageView * spinner;
 
 @end
 
@@ -23,8 +23,8 @@
 
 - (void)stopAnimating
 {
+  [self.spinner.layer removeAllAnimations];
   self.spinner.hidden = YES;
-  [self.spinner stopAnimating];
 }
 
 - (void)startAnimating
@@ -69,12 +69,15 @@
   return self.button.isSelected;
 }
 
+- (BOOL)isAnimating
+{
+  return self.spinner.isAnimating;
+}
+
 - (void)tap
 {
   if (self.selected)
     return;
-
-  [self startAnimating];
   [self sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 

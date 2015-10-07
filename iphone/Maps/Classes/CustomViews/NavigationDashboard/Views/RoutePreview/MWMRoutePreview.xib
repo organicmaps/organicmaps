@@ -20,7 +20,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="188"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WqK-Yb-PmP" customClass="SolidTouchView">
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WqK-Yb-PmP" customClass="SolidTouchView">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="140"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wpf-tw-Coz" userLabel="Back">
@@ -86,7 +86,11 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="80" id="3R7-i6-rG1"/>
                             </constraints>
-                            <collectionViewLayout key="collectionViewLayout" id="R9u-Qo-R0Y" customClass="MWMRoutePointLayout"/>
+                            <collectionViewLayout key="collectionViewLayout" id="R9u-Qo-R0Y" customClass="MWMRoutePointLayout">
+                                <connections>
+                                    <outlet property="parentView" destination="aNH-vh-DPz" id="E8J-7W-up9"/>
+                                </connections>
+                            </collectionViewLayout>
                             <connections>
                                 <outlet property="dataSource" destination="aNH-vh-DPz" id="hJP-ak-DOp"/>
                                 <outlet property="delegate" destination="aNH-vh-DPz" id="IvN-9e-GGx"/>
@@ -97,7 +101,6 @@
                     <color key="backgroundColor" red="0.12156862745098039" green="0.59999999999999998" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="140" id="2SX-TZ-tS3"/>
-                        <constraint firstAttribute="bottom" secondItem="DrK-vI-WkO" secondAttribute="bottom" constant="12" id="8bB-mO-MT9"/>
                         <constraint firstItem="DrK-vI-WkO" firstAttribute="top" secondItem="DMt-LJ-mzn" secondAttribute="bottom" constant="14" id="Ln4-6f-0un"/>
                         <constraint firstItem="0YR-3a-ucN" firstAttribute="centerX" secondItem="WqK-Yb-PmP" secondAttribute="centerX" id="MiR-4r-70K"/>
                         <constraint firstItem="wpf-tw-Coz" firstAttribute="leading" secondItem="WqK-Yb-PmP" secondAttribute="leading" id="bK5-4Q-Rv9"/>

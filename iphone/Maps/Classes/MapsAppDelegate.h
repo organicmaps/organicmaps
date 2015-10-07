@@ -7,6 +7,14 @@
 @class MapViewController;
 @class LocationManager;
 
+typedef NS_ENUM(NSUInteger, MWMRoutingPlaneMode)
+{
+  MWMRoutingPlaneModeNone,
+  MWMRoutingPlaneModePlacePage,
+  MWMRoutingPlaneModeSearchSource,
+  MWMRoutingPlaneModeSearchDestination
+};
+
 @interface MapsAppDelegate : UIResponder<UIApplicationDelegate, UIAlertViewDelegate,
                                          ActiveMapsObserverProtocol, DownloadIndicatorProtocol>
 {
@@ -16,6 +24,7 @@
 }
 
 @property (nonatomic) UIWindow * window;
+@property (nonatomic) MWMRoutingPlaneMode routingPlaneMode;
 
 @property (nonatomic, readonly) MapViewController * mapViewController;
 @property (nonatomic, readonly) LocationManager * m_locationManager;

@@ -15,6 +15,7 @@
                 <outlet property="additionalButtons" destination="hSd-fM-qKd" id="tT1-ml-chk"/>
                 <outlet property="buttonsCollectionView" destination="hSd-fM-qKd" id="Qrb-GJ-Buz"/>
                 <outlet property="locationButton" destination="s0b-7N-YrO" id="6ko-iv-WDQ"/>
+                <outlet property="p2pButton" destination="xQ0-ZK-UXk" id="LdY-Rt-Dh4"/>
                 <outlet property="streetLabel" destination="xr9-L5-hTa" id="BXb-CM-RK2"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -46,6 +47,7 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <accessibility key="accessibilityConfiguration" identifier="p2pButton"/>
                             <state key="normal" image="ic_menu_point_to_point"/>
+                            <state key="selected" image="ic_menu_point_to_point_press"/>
                             <state key="highlighted" image="ic_menu_point_to_point_press"/>
                             <connections>
                                 <action selector="point2PointButtonTouchUpInside:" destination="-1" eventType="touchUpInside" id="s4j-nH-gFP"/>

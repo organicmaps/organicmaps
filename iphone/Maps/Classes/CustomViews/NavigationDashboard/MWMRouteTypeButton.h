@@ -10,5 +10,6 @@ IB_DESIGNABLE
 
 - (void)startAnimating;
 - (void)stopAnimating;
+- (BOOL)isAnimating;
 
 @end

@@ -729,6 +729,8 @@
 		F63774E61B59375E00BCF54D /* MWMRoutingDisclaimerAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMRoutingDisclaimerAlert.xib; sourceTree = "<group>"; };
 		F63774E81B59376F00BCF54D /* MWMRoutingDisclaimerAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRoutingDisclaimerAlert.h; sourceTree = "<group>"; };
 		F63774E91B59376F00BCF54D /* MWMRoutingDisclaimerAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRoutingDisclaimerAlert.mm; sourceTree = "<group>"; };
+		F63BA3721BCE6F770044C504 /* MWMRoutePoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MWMRoutePoint.h; path = APIBar/MWMRoutePoint.h; sourceTree = "<group>"; };
+		F63BA3731BCE70D60044C504 /* MWMRoutingProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRoutingProtocol.h; sourceTree = "<group>"; };
 		F64A37CE1B9EE24C00180464 /* MWMRouteHelperPanelsDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRouteHelperPanelsDrawer.h; sourceTree = "<group>"; };
 		F64A37CF1B9EE24C00180464 /* MWMRouteHelperPanelsDrawer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRouteHelperPanelsDrawer.mm; sourceTree = "<group>"; };
 		F64F19811AB81A00006EAF7E /* MWMAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAlertViewController.h; sourceTree = "<group>"; };
@@ -1421,6 +1423,8 @@
 				34CFFE881B7DE67F009D0C9F /* Search */,
 				3465E7D51B66589900854C4D /* APIBar */,
 				340537621BBED98600D452C6 /* MWMMapViewControlsCommon.h */,
+				F63BA3721BCE6F770044C504 /* MWMRoutePoint.h */,
+				F63BA3731BCE70D60044C504 /* MWMRoutingProtocol.h */,
 				34BC72101B0DECAE0012A34B /* MWMMapViewControlsManager.h */,
 				34BC72111B0DECAE0012A34B /* MWMMapViewControlsManager.mm */,
 				349C26AE1BB0116D0005DF2F /* BottomMenu */,
@@ -2350,7 +2354,6 @@
 				F64F19A41AB81A00006EAF7E /* MWMDownloadTransitMapAlert.xib in Resources */,
 				F6BBF2C81B4FFB8C000CF8E2 /* MWMLocationAlert.xib in Resources */,
 				F6BB6CBE1BB15A5E00DF1DF2 /* MWMRoutePreview.xib in Resources */,
-				4A4765B31BA6FF5F00540CC4 /* city_rank.txt in Resources */,
 				34B82AD71B84746E00180497 /* MWMSearchSuggestionCell.xib in Resources */,
 				F6172FA51BBD5A3E0081D325 /* MWMiPadRoutePreview.xib in Resources */,
 				97A5967F19B9CD47007A963F /* copyright.html in Resources */,

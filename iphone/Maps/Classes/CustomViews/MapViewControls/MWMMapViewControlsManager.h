@@ -1,12 +1,13 @@
 #import "MWMBottomMenuViewController.h"
 #import "MWMNavigationDashboardManager.h"
+#import "MWMRoutingProtocol.h"
 
 #include "map/user_mark.hpp"
 #include "platform/location.hpp"
 
 @class MapViewController;
 
-@interface MWMMapViewControlsManager : NSObject
+@interface MWMMapViewControlsManager : NSObject <MWMRoutingProtocol>
 
 @property (nonatomic) BOOL hidden;
 @property (nonatomic) BOOL zoomHidden;
@@ -37,7 +38,9 @@
 
 - (void)setupRoutingDashboard:(location::FollowingInfo const &)info;
 - (void)playTurnNotifications;
+- (void)routingHidden;
 - (void)routingReady;
+- (void)routingPrepare;
 - (void)routingNavigation;
 - (void)handleRoutingError;
 - (void)setRouteBuildingProgress:(CGFloat)progress;

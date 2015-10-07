@@ -15,14 +15,14 @@
 
 @property (nonatomic) IBOutlet MWMRoutePreview * iPhoneRoutePreview;
 @property (nonatomic) IBOutlet MWMRoutePreview * iPadRoutePreview;
-@property (weak, nonatomic) MWMRoutePreview * routePreview;
+@property (weak, nonatomic, readwrite) MWMRoutePreview * routePreview;
 
 @property (nonatomic) IBOutlet MWMNavigationDashboard * navigationDashboardLandscape;
 @property (nonatomic) IBOutlet MWMNavigationDashboard * navigationDashboardPortrait;
 @property (weak, nonatomic) MWMNavigationDashboard * navigationDashboard;
+@property (weak, nonatomic) MWMRouteTypeButton * activeRouteTypeButton;
 
 @property (weak, nonatomic) UIView * ownerView;
-@property (weak, nonatomic) id<MWMNavigationDashboardManagerProtocol> delegate;
 
 @property (nonatomic) MWMNavigationDashboardEntity * entity;
 @property (nonatomic) MWMTextToSpeech * tts;
@@ -35,13 +35,13 @@
 
 @implementation MWMNavigationDashboardManager
 
-- (instancetype)initWithParentView:(UIView *)view delegate:(id<MWMNavigationDashboardManagerProtocol>)delegate
+- (instancetype)initWithParentView:(UIView *)view delegate:(id<MWMNavigationDashboardManagerProtocol, MWMRoutePreviewDataSource>)delegate
 {
   self = [super init];
   if (self)
   {
     self.ownerView = view;
-    self.delegate = delegate;
+    _delegate = delegate;
     BOOL const isPortrait = self.ownerView.width < self.ownerView.height;
 
     if (IPAD)
@@ -55,7 +55,9 @@
       self.routePreview = self.iPhoneRoutePreview;
     }
 
+    self.routePreview.dashboardManager = self;
     self.routePreview.delegate = delegate;
+    self.routePreview.dataSource = delegate;
     if (IPAD)
     {
       [NSBundle.mainBundle loadNibNamed:@"MWMNiPadNavigationDashboard" owner:self options:nil];
@@ -152,12 +154,7 @@
   if (isPrepareState)
     return;
 
-  if (self.state == MWMNavigationDashboardStateReady)
-  {
-    [self.routePreview configureWithEntity:self.entity];
-    return;
-  }
-
+  [self.routePreview configureWithEntity:self.entity];
   [self.navigationDashboardLandscape configureWithEntity:self.entity];
   [self.navigationDashboardPortrait configureWithEntity:self.entity];
   if (self.state != MWMNavigationDashboardStateNavigation)
@@ -230,30 +227,48 @@
   if (sender.selected)
     return;
   sender.selected = YES;
+  self.activeRouteTypeButton = sender;
   auto & f = GetFramework();
+  routing::RouterType type;
   if ([sender isEqual:self.routePreview.pedestrian])
   {
     self.routePreview.vehicle.selected = NO;
-    f.SetRouter(routing::RouterType::Pedestrian);
+    type = routing::RouterType::Pedestrian;
   }
   else
   {
     self.routePreview.pedestrian.selected = NO;
-    f.SetRouter(routing::RouterType::Vehicle);
+    type = routing::RouterType::Vehicle;
   }
   f.CloseRouting();
-  [self.delegate buildRouteWithType:f.GetRouter()];
+  f.SetRouter(type);
+  f.SetLastUsedRouter(type);
+  if (!self.delegate.isPossibleToBuildRoute)
+    return;
+  [sender startAnimating];
+  [self.delegate buildRoute];
 }
 
 - (void)setRouteBuildingProgress:(CGFloat)progress
 {
-  [self.routePreview setRouteBuildingProgress:progress];
+  if (progress < 6)
+  {
+    [self.activeRouteTypeButton startAnimating];
+  }
+  else
+  {
+    if (self.activeRouteTypeButton.isAnimating)
+      [self.activeRouteTypeButton stopAnimating];
+    [self.routePreview setRouteBuildingProgress:progress];
+  }
 }
 
 #pragma mark - MWMNavigationDashboard
 
 - (IBAction)navigationCancelPressed:(UIButton *)sender
 {
+  if (IPAD && self.state != MWMNavigationDashboardStateNavigation)
+    [self.delegate routePreviewDidChangeFrame:{}];
   self.state = MWMNavigationDashboardStateHidden;
   [self removePanel:self.nextTurnPanel];
 //  [self removePanel:self.lanesPanel];
@@ -279,6 +294,13 @@
 //  [self removePanel:self.lanesPanel];
 }
 
+- (void)showStatePrepare
+{
+  [self.routePreview addToView:self.ownerView];
+  [self.routePreview statePrepare];
+  [self setupActualRoute];
+}
+
 - (void)showStatePlanning
 {
   [self.navigationDashboard remove];
@@ -286,17 +308,7 @@
   [self.routePreview statePlanning];
   [self removePanel:self.nextTurnPanel];
 //  [self removePanel:self.lanesPanel];
-  switch (GetFramework().GetRouter())
-  {
-    case routing::RouterType::Pedestrian:
-      self.routePreview.pedestrian.selected = YES;
-      self.routePreview.vehicle.selected = NO;
-      break;
-    case routing::RouterType::Vehicle:
-      self.routePreview.vehicle.selected = YES;
-      self.routePreview.pedestrian.selected = NO;
-      break;
-  }
+  [self setupActualRoute];
 }
 
 - (void)showStateReady
@@ -308,6 +320,23 @@
 {
   [self.routePreview remove];
   [self.navigationDashboard addToView:self.ownerView];
+}
+
+- (void)setupActualRoute
+{
+  switch (GetFramework().GetRouter())
+  {
+  case routing::RouterType::Pedestrian:
+    self.routePreview.pedestrian.selected = YES;
+    self.routePreview.vehicle.selected = NO;
+    self.activeRouteTypeButton = self.routePreview.pedestrian;
+    break;
+  case routing::RouterType::Vehicle:
+    self.routePreview.vehicle.selected = YES;
+    self.routePreview.pedestrian.selected = NO;
+    self.activeRouteTypeButton = self.routePreview.vehicle;
+    break;
+  }
 }
 
 #pragma mark - Properties
@@ -339,23 +368,26 @@
     return;
   switch (state)
   {
-    case MWMNavigationDashboardStateHidden:
-      [self hideState];
-      break;
-    case MWMNavigationDashboardStatePlanning:
-      [self showStatePlanning];
-      break;
-    case MWMNavigationDashboardStateError:
-      NSAssert(_state == MWMNavigationDashboardStatePlanning || _state == MWMNavigationDashboardStateReady, @"Invalid state change (error)");
-      [self handleError];
-      break;
-    case MWMNavigationDashboardStateReady:
-      NSAssert(_state == MWMNavigationDashboardStatePlanning, @"Invalid state change (ready)");
-      [self showStateReady];
-      break;
-    case MWMNavigationDashboardStateNavigation:
-      [self showStateNavigation];
-      break;
+  case MWMNavigationDashboardStateHidden:
+    [self hideState];
+    break;
+  case MWMNavigationDashboardStatePrepare:
+    [self showStatePrepare];
+    break;
+  case MWMNavigationDashboardStatePlanning:
+    [self showStatePlanning];
+    break;
+  case MWMNavigationDashboardStateError:
+    NSAssert(_state == MWMNavigationDashboardStatePlanning || _state == MWMNavigationDashboardStateReady, @"Invalid state change (error)");
+    [self handleError];
+    break;
+  case MWMNavigationDashboardStateReady:
+    NSAssert(_state == MWMNavigationDashboardStatePlanning, @"Invalid state change (ready)");
+    [self showStateReady];
+    break;
+  case MWMNavigationDashboardStateNavigation:
+    [self showStateNavigation];
+    break;
   }
   _state = state;
   [self.delegate updateStatusBarStyle];
@@ -378,16 +410,17 @@
 {
   switch (self.state)
   {
-    case MWMNavigationDashboardStateHidden:
-      return 0.0;
-    case MWMNavigationDashboardStatePlanning:
-    case MWMNavigationDashboardStateReady:
-    case MWMNavigationDashboardStateError:
-      if (IPAD)
-        return self.topBound;
-      return self.routePreview.visibleHeight;
-    case MWMNavigationDashboardStateNavigation:
-      return self.navigationDashboard.visibleHeight;
+  case MWMNavigationDashboardStateHidden:
+    return 0.0;
+  case MWMNavigationDashboardStatePlanning:
+  case MWMNavigationDashboardStateReady:
+  case MWMNavigationDashboardStateError:
+  case MWMNavigationDashboardStatePrepare:
+    if (IPAD)
+      return self.topBound;
+    return self.routePreview.visibleHeight;
+  case MWMNavigationDashboardStateNavigation:
+    return self.navigationDashboard.visibleHeight;
   }
 }
 

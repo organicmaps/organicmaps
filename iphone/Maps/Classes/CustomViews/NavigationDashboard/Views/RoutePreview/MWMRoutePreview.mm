@@ -1,5 +1,6 @@
 #import "Common.h"
 #import "MWMNavigationDashboardEntity.h"
+#import "MWMNavigationDashboardManager.h"
 #import "MWMRoutePointCell.h"
 #import "MWMRoutePointLayout.h"
 #import "MWMRoutePreview.h"
@@ -10,14 +11,18 @@
 
 static NSDictionary * const kEtaAttributes = @{NSForegroundColorAttributeName : UIColor.blackPrimaryText,
                                                           NSFontAttributeName : UIFont.medium17};
+static CGFloat const kBottomPanelHeight = 48.;
+static CGFloat const kAdditionalHeight = 20.;
 
 @interface MWMRoutePreview () <MWMRoutePointCellDelegate>
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * planningRouteViewHeight;
-@property (weak, nonatomic) IBOutlet UIButton * extendButton;
+@property (weak, nonatomic, readwrite) IBOutlet UIButton * extendButton;
+@property (weak, nonatomic) IBOutlet UIButton * goButton;
 @property (weak, nonatomic) IBOutlet UICollectionView * collectionView;
 @property (weak, nonatomic) IBOutlet MWMRoutePointLayout * layout;
 @property (weak, nonatomic) IBOutlet UIImageView * arrowImageView;
+@property (weak, nonatomic) IBOutlet UIView * statusBox;
 @property (weak, nonatomic) IBOutlet UIView * planningBox;
 @property (weak, nonatomic) IBOutlet UIView * resultsBox;
 @property (weak, nonatomic) IBOutlet UIView * errorBox;
@@ -34,11 +39,16 @@ static NSDictionary * const kEtaAttributes = @{NSForegroundColorAttributeName : 
 - (void)awakeFromNib
 {
   [super awakeFromNib];
-  [self setupActualHeight];
+  self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   self.layer.shouldRasterize = YES;
   self.layer.rasterizationScale = UIScreen.mainScreen.scale;
   [self.collectionView registerNib:[UINib nibWithNibName:[MWMRoutePointCell className] bundle:nil]
         forCellWithReuseIdentifier:[MWMRoutePointCell className]];
+}
+
+- (void)didMoveToSuperview
+{
+  [self setupActualHeight];
 }
 
 - (void)configureWithEntity:(MWMNavigationDashboardEntity *)entity
@@ -61,8 +71,26 @@ static NSDictionary * const kEtaAttributes = @{NSForegroundColorAttributeName : 
   self.arriveLabel.text = [NSString stringWithFormat:@"%@ %@", L(@"routing_arrive"), arriveStr];
 }
 
+- (void)statePrepare
+{
+  self.goButton.hidden = NO;
+  self.goButton.enabled = NO;
+  self.extendButton.selected = YES;
+  [self setupActualHeight];
+  [self.collectionView reloadData];
+  [self.layout invalidateLayout];
+  self.statusBox.hidden = YES;
+  self.resultsBox.hidden = YES;
+  self.planningBox.hidden = YES;
+  self.errorBox.hidden = YES;
+}
+
 - (void)statePlanning
 {
+  self.goButton.hidden = NO;
+  self.goButton.enabled = NO;
+  self.goButton.enabled = NO;
+  self.statusBox.hidden = NO;
   self.resultsBox.hidden = YES;
   self.errorBox.hidden = YES;
   self.planningBox.hidden = NO;
@@ -74,6 +102,9 @@ static NSDictionary * const kEtaAttributes = @{NSForegroundColorAttributeName : 
 
 - (void)stateError
 {
+  self.goButton.hidden = NO;
+  self.goButton.enabled = NO;
+  self.statusBox.hidden = NO;
   self.planningBox.hidden = YES;
   self.resultsBox.hidden = YES;
   self.errorBox.hidden = NO;
@@ -84,6 +115,9 @@ static NSDictionary * const kEtaAttributes = @{NSForegroundColorAttributeName : 
 
 - (void)stateReady
 {
+  self.goButton.hidden = NO;
+  self.goButton.enabled = YES;
+  self.statusBox.hidden = NO;
   self.planningBox.hidden = YES;
   self.errorBox.hidden = YES;
   self.resultsBox.hidden = NO;
@@ -125,10 +159,17 @@ static NSDictionary * const kEtaAttributes = @{NSForegroundColorAttributeName : 
   }];
 }
 
+- (void)reloadData
+{
+  [self.collectionView reloadData];
+}
+
 - (void)layoutSubviews
 {
   [self setupActualHeight];
   [super layoutSubviews];
+  if (IPAD)
+    [self.delegate routePreviewDidChangeFrame:self.frame];
 }
 
 #pragma mark - Properties
@@ -139,16 +180,12 @@ static NSDictionary * const kEtaAttributes = @{NSForegroundColorAttributeName : 
     return super.defaultFrame;
   CGFloat const width = 320.;
   CGFloat const origin = self.isVisible ? 0. : -width;
-  return {{origin, self.topBound}, {width, self.height}};
+  return {{origin, self.topBound}, {width, self.superview.height - kAdditionalHeight}};
 }
 
 - (CGFloat)visibleHeight
 {
-  CGFloat height = 0.;
-  for (UIView * v in self.subviews)
-    if (![v isEqual:self.statusbarBackground])
-      height += v.height;
-  return height;
+  return self.planningRouteViewHeight.constant + kBottomPanelHeight + kAdditionalHeight;
 }
 
 - (void)setRouteBuildingProgress:(CGFloat)progress { }
@@ -170,15 +207,53 @@ static NSDictionary * const kEtaAttributes = @{NSForegroundColorAttributeName : 
 {
   if (IPAD)
   {
-    self.height = self.superview.height;
+    self.height = self.superview.height - kAdditionalHeight;
     return;
   }
   BOOL const isPortrait = self.superview.height > self.superview.width;
   CGFloat const height = isPortrait ? 140. : 96.;
   self.planningRouteViewHeight.constant = self.extendButton.selected ? height : 44.;
+  [self.dashboardManager.delegate routePreviewDidChangeFrame:{self.origin, {self.width, self.planningRouteViewHeight.constant + kBottomPanelHeight + kAdditionalHeight}}];
+}
+
+- (void)setDataSource:(id<MWMRoutePreviewDataSource>)dataSource
+{
+  _dataSource = dataSource;
+  [self reloadData];
+}
+
+- (void)snapshotCell:(MWMRoutePointCell *)cell
+{
+  UIGraphicsBeginImageContextWithOptions(cell.bounds.size, NO, 0.);
+  [cell drawViewHierarchyInRect:cell.bounds afterScreenUpdates:YES];
+  UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
+  UIGraphicsEndImageContext();
+  self.movingCellImage = [[UIImageView alloc] initWithImage:image];
+  [self.collectionView addSubview:self.movingCellImage];
+  CALayer * l = self.movingCellImage.layer;
+  l.masksToBounds = NO;
+  l.shadowColor = UIColor.blackColor.CGColor;
+  l.shadowRadius = 4.;
+  l.shadowOpacity = 0.4;
+  l.shadowOffset = {0., 0.};
+  l.shouldRasterize = YES;
+  l.rasterizationScale = [[UIScreen mainScreen] scale];
 }
 
 #pragma mark - MWMRoutePointCellDelegate
+
+- (void)startEditingCell:(MWMRoutePointCell *)cell
+{
+  NSUInteger const index = [self.collectionView indexPathForCell:cell].row;
+  [self.dashboardManager.delegate didStartEditingRoutePoint:index == 0 ? YES : NO];
+}
+
+- (void)swapPoints
+{
+  [self.dashboardManager.delegate swapPointsAndRebuildRouteIfPossible];
+}
+
+#pragma mark - PanGestureRecognizer
 
 - (void)didPan:(UIPanGestureRecognizer *)pan cell:(MWMRoutePointCell *)cell
 {
@@ -191,24 +266,19 @@ static NSDictionary * const kEtaAttributes = @{NSForegroundColorAttributeName : 
     self.layout.isNeedToInitialLayout = NO;
     isNeedToMove = NO;
     indexPathOfMovingCell = [self.collectionView indexPathForCell:cell];
-    UIGraphicsBeginImageContextWithOptions(cell.bounds.size, NO, 0.);
-    [cell drawViewHierarchyInRect:cell.bounds afterScreenUpdates:YES];
-    UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    self.movingCellImage = [[UIImageView alloc] initWithImage:image];
-    [self.collectionView addSubview:self.movingCellImage];
-    self.movingCellImage.center = {locationPoint.x - cell.width / 2, locationPoint.y};
+    [self snapshotCell:cell];
+    self.movingCellImage.center = {locationPoint.x - cell.width / 2 + 30, locationPoint.y};
     [UIView animateWithDuration:kDefaultAnimationDuration animations:^
     {
       cell.contentView.alpha = 0.;
       CGFloat const scale = 1.05;
-      self.movingCellImage.transform = CGAffineTransformMakeScale(scale, scale);
+      self.movingCellImage.transform = CGAffineTransformMakeScale(1., scale);
     }];
   }
 
   if (pan.state == UIGestureRecognizerStateChanged)
   {
-    self.movingCellImage.center = {locationPoint.x - cell.width / 2, locationPoint.y};
+    self.movingCellImage.center = {locationPoint.x - cell.width / 2 + 30, locationPoint.y};
     NSIndexPath * finalIndexPath = [self.collectionView indexPathForItemAtPoint:locationPoint];
     if (finalIndexPath && ![finalIndexPath isEqual:indexPathOfMovingCell])
     {
@@ -273,7 +343,7 @@ static NSDictionary * const kEtaAttributes = @{NSForegroundColorAttributeName : 
 {
   MWMRoutePointCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:[MWMRoutePointCell className] forIndexPath:indexPath];
   cell.number.text = @(indexPath.row + 1).stringValue;
-  cell.title.text = !indexPath.row ? @"Current position" : @"";
+  cell.title.text = !indexPath.row ? self.dataSource.source : self.dataSource.destination;
   cell.delegate = self;
   return cell;
 }

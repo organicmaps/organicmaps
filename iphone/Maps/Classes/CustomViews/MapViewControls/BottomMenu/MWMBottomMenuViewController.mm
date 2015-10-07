@@ -40,6 +40,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 @property(weak, nonatomic) IBOutlet UICollectionView * buttonsCollectionView;
 
 @property(weak, nonatomic) IBOutlet UIButton * locationButton;
+@property(weak, nonatomic) IBOutlet UIButton * p2pButton;
 @property(weak, nonatomic) IBOutlet UICollectionView * additionalButtons;
 @property(weak, nonatomic) IBOutlet UILabel * streetLabel;
 
@@ -128,6 +129,14 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 {
   self.state = MWMBottomMenuStateText;
   self.streetLabel.text = streetName;
+}
+
+- (void)setInactive
+{
+  self.p2pButton.selected = NO;
+  if (IPAD)
+    return;
+  self.state = MWMBottomMenuStateInactive;
 }
 
 - (void)setPlanning
@@ -376,6 +385,13 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 
 - (IBAction)point2PointButtonTouchUpInside:(UIButton *)sender
 {
+  BOOL const isSelected = !sender.isSelected;
+  sender.selected = isSelected;
+  [MapsAppDelegate theApp].routingPlaneMode = isSelected ? MWMRoutingPlaneModePlacePage : MWMRoutingPlaneModeNone;
+  if (isSelected)
+    [self.controller.controlsManager routingPrepare];
+  else
+    [self.controller.controlsManager routingHidden];
 }
 
 - (IBAction)searchButtonTouchUpInside:(UIButton *)sender
@@ -416,6 +432,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 }
 - (IBAction)goButtonTouchUpInside:(UIButton *)sender
 {
+  [self.controller.controlsManager routingNavigation];
 }
 
 - (void)dimBackgroundTap

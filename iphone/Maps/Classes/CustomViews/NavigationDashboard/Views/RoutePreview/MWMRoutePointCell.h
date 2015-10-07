@@ -6,6 +6,7 @@
 
 @required
 - (void)didPan:(UIPanGestureRecognizer *)pan cell:(MWMRoutePointCell *)cell;
+- (void)startEditingCell:(MWMRoutePointCell *)cell;
 
 @end
 

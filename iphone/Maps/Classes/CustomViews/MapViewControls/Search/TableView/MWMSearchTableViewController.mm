@@ -114,7 +114,8 @@ LocationObserver>
   }
   else
   {
-    if (IPAD)
+    MWMRoutingPlaneMode const m = MapsAppDelegate.theApp.routingPlaneMode;
+    if (IPAD || m == MWMRoutingPlaneModeSearchSource || m == MWMRoutingPlaneModeSearchDestination)
       return MWMSearchTableCellTypeCommon;
     else
       return indexPath.row == 0 ? MWMSearchTableCellTypeOnMap : MWMSearchTableCellTypeCommon;

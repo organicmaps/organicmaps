@@ -22,6 +22,7 @@
 - (void)onEnterForeground;
 
 - (void)setStreetName:(NSString *)streetName;
+- (void)setInactive;
 - (void)setPlanning;
 - (void)setGo;
 
