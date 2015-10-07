@@ -2,6 +2,7 @@
 #import "MWMBottomMenuView.h"
 #import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"
+#import "UIFont+MapsMeFonts.h"
 
 #include "Framework.h"
 
@@ -88,24 +89,12 @@
     self.goButton.alpha = 0.0;
     self.streetLabel.alpha = 0.0;
     break;
-  case MWMBottomMenuStatePlanning:
-    [self.goButton setBackgroundImage:nil forState:UIControlStateNormal];
-    [self.goButton setBackgroundImage:nil forState:UIControlStateHighlighted];
-    self.goButton.backgroundColor = [UIColor clearColor];
-    [self.goButton setTitleColor:[UIColor blackHintText] forState:UIControlStateNormal];
-    self.p2pButton.alpha = self.searchButton.alpha = self.bookmarksButton.alpha = 0.0;
-    self.goButton.alpha = 1.0;
-    self.streetLabel.alpha = 0.0;
-    break;
   case MWMBottomMenuStateGo:
-    [self.goButton setBackgroundImage:nil forState:UIControlStateNormal];
-    [self.goButton setBackgroundImage:nil forState:UIControlStateHighlighted];
-    self.goButton.backgroundColor = [UIColor linkBlue];
-    [self.goButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.p2pButton.alpha = self.searchButton.alpha = self.bookmarksButton.alpha = 0.0;
     self.goButton.alpha = 1.0;
     self.streetLabel.alpha = 0.0;
     break;
+  case MWMBottomMenuStatePlanning:
   case MWMBottomMenuStateText:
     self.p2pButton.alpha = self.searchButton.alpha = self.bookmarksButton.alpha = 0.0;
     self.goButton.alpha = 0.0;
@@ -299,16 +288,19 @@
     [self updateMenuButtonFromState:_state toState:state];
     break;
   case MWMBottomMenuStatePlanning:
-    self.goButton.hidden = NO;
-    self.goButton.enabled = NO;
+    self.streetLabel.font = [UIFont regular17];
+    self.streetLabel.textColor = [UIColor blackHintText];
+    self.streetLabel.text = L(@"routing_planning");
+    self.streetLabel.hidden = NO;
     [self updateMenuButtonFromState:_state toState:state];
     break;
   case MWMBottomMenuStateGo:
     self.goButton.hidden = NO;
-    self.goButton.enabled = YES;
     [self updateMenuButtonFromState:_state toState:state];
     break;
   case MWMBottomMenuStateText:
+    self.streetLabel.font = [UIFont medium16];
+    self.streetLabel.textColor = [UIColor blackSecondaryText];
     self.streetLabel.hidden = NO;
     [self updateMenuButtonFromState:_state toState:state];
     break;
