@@ -35,6 +35,7 @@ namespace feature
       FMD_EMAIL = 14,
       FMD_POSTCODE = 15,
       FMD_WIKIPEDIA = 16,
+      FMD_MAXSPEED = 17,
       FMD_COUNT
     };
 

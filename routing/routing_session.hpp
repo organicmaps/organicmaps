@@ -14,6 +14,7 @@
 #include "base/deferred_task.hpp"
 #include "base/mutex.hpp"
 
+#include "std/limits.hpp"
 #include "std/unique_ptr.hpp"
 
 namespace location
@@ -23,6 +24,15 @@ class RouteMatchingInfo;
 
 namespace routing
 {
+struct SpeedCameraRestriction
+{
+  size_t m_index;  // Index of a polyline point where camera is located.
+  uint8_t m_maxSpeedKmH;  // Maximum speed allowed by the camera.
+
+  SpeedCameraRestriction(size_t index, uint8_t maxSpeed) : m_index(index), m_maxSpeedKmH(maxSpeed) {}
+  SpeedCameraRestriction() : m_index(0), m_maxSpeedKmH(numeric_limits<uint8_t>::max()) {}
+};
+
 class RoutingSession
 {
 public:
@@ -77,7 +87,8 @@ public:
   bool IsOnRoute() const { return (m_state == OnRoute); }
   void Reset();
 
-  State OnLocationPositionChanged(m2::PointD const & position, location::GpsInfo const & info);
+  State OnLocationPositionChanged(m2::PointD const & position, location::GpsInfo const & info,
+                                  Index const & index);
   void GetRouteFollowingInfo(location::FollowingInfo & info) const;
 
   void MatchLocationToRoute(location::GpsInfo & location,
@@ -115,6 +126,10 @@ private:
 
   void AssignRoute(Route & route, IRouter::ResultCode e);
 
+  /// Returns a nearest speed camera record on your way and distance to it.
+  /// Returns kInvalidSpeedCameraDistance if there is no cameras on your way.
+  double GetDistanceToCurrentCamM(SpeedCameraRestriction & camera, Index const & index);
+
   /// RemoveRoute removes m_route and resets route attributes (m_state, m_lastDistance, m_moveAwayCounter).
   void RemoveRoute();
   void RemoveRouteImpl();
@@ -124,6 +139,12 @@ private:
   Route m_route;
   State m_state;
   m2::PointD m_endPoint;
+  size_t m_lastWarnedSpeedCameraIndex;
+  SpeedCameraRestriction m_lastCheckedCamera;
+  // TODO (ldragunov) Rewrite UI interop to message queue and avoid mutable.
+  /// This field is mutable because it's modified in a constant getter. Note that the notification
+  /// about camera will be sent at most once.
+  mutable bool m_speedWarningSignal;
 
   mutable threads::Mutex m_routeSessionMutex;
 

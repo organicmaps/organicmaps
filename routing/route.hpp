@@ -60,6 +60,8 @@ public:
   uint32_t GetTotalTimeSec() const;
   uint32_t GetCurrentTimeToEndSec() const;
 
+  FollowedPolyline const & GetFollowedPolyline() const { return m_poly; }
+
   string const & GetRouterId() const { return m_router; }
   m2::PolylineD const & GetPoly() const { return m_poly.GetPolyline(); }
   TTurns const & GetTurns() const { return m_turns; }
@@ -76,6 +78,7 @@ public:
   /// \param distanceToTurnMeters is a distance from current position to the nearest turn.
   /// \param turn is information about the nearest turn.
   bool GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
+
   /// @return true if GetNextTurn() returns a valid result in parameters, false otherwise.
   /// \param distanceToTurnMeters is a distance from current position to the second turn.
   /// \param turn is information about the second turn.

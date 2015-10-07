@@ -142,7 +142,7 @@ protected:
     for (auto const & p : e.tags)
     {
       // Store only this tags to use it in railway stations processing for the particular city.
-      if (p.first == "network" || p.first == "operator" || p.first == "route")
+      if (p.first == "network" || p.first == "operator" || p.first == "route" || p.first == "maxspeed")
         if (!TBase::IsKeyTagExists(p.first))
           TBase::m_current->AddTag(p.first, p.second);
     }

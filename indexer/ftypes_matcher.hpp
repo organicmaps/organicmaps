@@ -46,6 +46,14 @@ public:
   static IsATMChecker const & Instance();
 };
 
+class IsSpeedCamChecker : public BaseChecker
+{
+  IsSpeedCamChecker();
+
+public:
+  static IsSpeedCamChecker const & Instance();
+};
+
 class IsFuelStationChecker : public BaseChecker
 {
 public:

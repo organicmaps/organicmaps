@@ -70,6 +70,19 @@ IsATMChecker const & IsATMChecker::Instance()
   return inst;
 }
 
+IsSpeedCamChecker::IsSpeedCamChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"highway", "speed_camera"}));
+}
+
+// static
+IsSpeedCamChecker const & IsSpeedCamChecker::Instance()
+{
+  static const IsSpeedCamChecker instance;
+  return instance;
+}
+
 IsFuelStationChecker::IsFuelStationChecker()
 {
   Classificator const & c = classif();
