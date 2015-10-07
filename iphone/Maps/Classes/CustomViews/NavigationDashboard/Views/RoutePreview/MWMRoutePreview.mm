@@ -3,6 +3,7 @@
 #import "MWMRoutePointCell.h"
 #import "MWMRoutePointLayout.h"
 #import "MWMRoutePreview.h"
+#import "MWMRouteTypeButton.h"
 #import "TimeUtils.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
