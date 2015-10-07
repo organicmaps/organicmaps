@@ -1,6 +1,7 @@
 #include "indexer/drules_selector.hpp"
 #include "indexer/drules_selector_parser.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/scales.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -110,6 +111,18 @@ bool GetName(FeatureType const & ft, string & name)
   return true;
 }
 
+// Feature tag value evaluator for tag 'envelope_area' (envelope area in sq.meters)
+bool GetEnvelopeArea(FeatureType const & ft, double & sqM)
+{
+  if (feature::GEOM_AREA != ft.GetFeatureType())
+    return false;
+
+  m2::RectD const rect = ft.GetLimitRect(scales::GetUpperScale());
+
+  sqM = MercatorBounds::AreaOnEarth(rect.LeftTop(), rect.LeftBottom(), rect.RightBottom()) +
+        MercatorBounds::AreaOnEarth(rect.LeftTop(), rect.RightTop(), rect.RightBottom());
+  return true;
+}
 
 // Add new tag value evaluator here
 
@@ -121,18 +134,17 @@ unique_ptr<ISelector> ParseSelector(string const & str)
   if (!ParseSelector(str, e))
   {
     // bad string format
-    LOG(LDEBUG, ("Invalid selector format: ", str));
+    LOG(LDEBUG, ("Invalid selector format:", str));
     return unique_ptr<ISelector>();
   }
 
-  // Tag 'population'
   if (e.m_tag == "population")
   {
     int value = 0;
     if (!e.m_value.empty() && (!strings::to_int(e.m_value, value) || value < 0))
     {
       // bad string format
-      LOG(LDEBUG, ("Invalid selector: ", str));
+      LOG(LDEBUG, ("Invalid selector:", str));
       return unique_ptr<ISelector>();
     }
     return make_unique<Selector<uint32_t>>(&GetPopulation, e.m_operator, static_cast<uint32_t>(value));
@@ -141,11 +153,22 @@ unique_ptr<ISelector> ParseSelector(string const & str)
   {
     return make_unique<Selector<string>>(&GetName, e.m_operator, e.m_value);
   }
+  else if (e.m_tag == "envelope_area")
+  {
+    double value = 0;
+    if (!e.m_value.empty() && (!strings::to_double(e.m_value, value) || value < 0))
+    {
+      // bad string format
+      LOG(LDEBUG, ("Invalid selector:", str));
+      return unique_ptr<ISelector>();
+    }
+    return make_unique<Selector<double>>(&GetEnvelopeArea, e.m_operator, value);
+  }
 
   // Add new tag here
 
   // unrecognized selector
-  LOG(LDEBUG, ("Unrecognized selector: ", str));
+  LOG(LDEBUG, ("Unrecognized selector:", str));
   return unique_ptr<ISelector>();
 }
 
@@ -158,7 +181,7 @@ unique_ptr<ISelector> ParseSelector(vector<string> const & strs)
     unique_ptr<ISelector> s = ParseSelector(str);
     if (nullptr == s)
     {
-      LOG(LDEBUG, ("Invalid composite selector: ", str));
+      LOG(LDEBUG, ("Invalid composite selector:", str));
       return unique_ptr<ISelector>();
     }
     cs->Add(move(s));
