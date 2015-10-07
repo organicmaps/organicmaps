@@ -12,10 +12,10 @@ namespace
 
 bool IsTag(string const & str)
 {
-  // tag consists of a-z or A-Z letters and not empty
+  // tag consists of a-z or A-Z letters or _ and not empty
   for (auto const c : str)
   {
-    if (!(c >= 'a' && c <= 'z') && !(c >= 'A' && c <= 'Z'))
+    if (!(c >= 'a' && c <= 'z') && !(c >= 'A' && c <= 'Z') && c != '_')
       return false;
   }
   return !str.empty();
