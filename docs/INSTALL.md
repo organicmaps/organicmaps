@@ -91,7 +91,7 @@ iOS devices, use iTunes.
 into a resource directory, e.g. `/Applications/MAPS.ME/Content/Resources` on Mac OS X.
 Placing these into a maps directory should also work.
 
-For instructions on making your own maps, see [MWM.md](MWM.md).
+For instructions on making your own maps, see [MAPS.md](MAPS.md).
 
 ## Maps Generator
 
@@ -146,7 +146,7 @@ easy to type.
 to SDK and NDK. Or specify these in command line:
 
         --sdk /Users/yourusername/Library/Android/sdk \
-        --ndk /Users/yourusername/Library/Android/android-ndk-r10d
+        --ndk /Users/yourusername/Library/Android/ndk
 
 * Go to `omim/android` and run `./gradlew clean assembleWebRelease`.
     * There are `Release`, `Beta` and `Debug` builds.
