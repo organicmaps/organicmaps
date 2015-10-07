@@ -159,8 +159,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
   UIView * ppv = self.extendedPlacePageView;
   UIView * ppvSuper = ppv.superview;
 
-  ppv.minY += [sender translationInView:ppvSuper].y;
-  ppv.midY = MAX(ppv.midY, [self getOpenTargetPoint].y);
+  ppv.midY = MAX(ppv.midY + [sender translationInView:ppvSuper].y, [self getOpenTargetPoint].y);
   _targetPoint = ppv.center;
   if (ppv.minY <= 0.0)
     [MWMPlacePageNavigationBar showNavigationBarForPlacePage:self];
