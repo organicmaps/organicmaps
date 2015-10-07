@@ -33,8 +33,9 @@ uint8_t ReadCameraRestriction(FeatureType & ft)
   if (speed.empty())
     return 0;
   int result;
-  strings::to_int(speed, result);
-  return result;
+  if (strings::to_int(speed, result))
+    return result;
+  return 0;
 }
 
 uint8_t CheckCameraInPoint(m2::PointD const & point, Index const & index)

@@ -435,8 +435,8 @@ double RoutingSession::GetDistanceToCurrentCamM(SpeedCameraRestriction & camera,
     camera = m_lastCheckedCamera;
     return m_poly.GetDistanceM(currentIter, m_poly.GetIterToIndex(camera.m_index));
   }
-  size_t const currentIndex = max(static_cast<size_t>(currentIter.m_ind),
-                                  static_cast<size_t>(m_lastCheckedCamera.m_index) + 1);
+  size_t const currentIndex = max(currentIter.m_ind,
+                                  m_lastCheckedCamera.m_index + 1);
   for (size_t i = currentIndex; i < m_poly.GetPolyline().GetSize(); ++i)
   {
     uint8_t speed = CheckCameraInPoint(m_poly.GetPolyline().GetPoint(i), index);

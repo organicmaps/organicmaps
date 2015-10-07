@@ -26,10 +26,10 @@ namespace routing
 {
 struct SpeedCameraRestriction
 {
-  uint32_t m_index;  // Index of a polyline point where camera is located.
+  size_t m_index;  // Index of a polyline point where camera is located.
   uint8_t m_maxSpeedKmH;  // Maximum speed allowed by the camera.
 
-  SpeedCameraRestriction(uint32_t index, uint8_t maxSpeed) : m_index(index), m_maxSpeedKmH(maxSpeed) {}
+  SpeedCameraRestriction(size_t index, uint8_t maxSpeed) : m_index(index), m_maxSpeedKmH(maxSpeed) {}
   SpeedCameraRestriction() : m_index(0), m_maxSpeedKmH(numeric_limits<uint8_t>::max()) {}
 };
 
