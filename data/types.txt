@@ -1036,3 +1036,4 @@ aerialway|drag_lift
 amenity|dentist
 amenity|clinic
 barrier|entrance
+barrier|border_control

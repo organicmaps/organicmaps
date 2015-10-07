@@ -110,6 +110,7 @@ world  +
     barrier  +
         block  -
         bollard  -
+        border_control  -
         city_wall  -
         cycle_barrier  -
         entrance  -
