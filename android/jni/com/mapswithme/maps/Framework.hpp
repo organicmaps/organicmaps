@@ -35,8 +35,6 @@ namespace android
     drape_ptr<dp::ThreadSafeFactory> m_contextFactory;
     ::Framework m_work;
 
-    unique_ptr<gui::Skin> m_skin;
-
     typedef shared_ptr<jobject> TJobject;
     TJobject m_javaCountryListener;
     typedef map<int, TJobject> TListenerMap;
@@ -49,6 +47,8 @@ namespace android
     double m_lastCompass;
 
     string m_searchQuery;
+
+    map<gui::EWidget, gui::Position> m_guiPositions;
 
     float GetBestDensity(int densityDpi);
 
@@ -156,6 +156,9 @@ namespace android
     void SetMyPositionModeListener(location::TMyPositionModeChanged const & fn);
     location::EMyPositionMode GetMyPositionMode() const;
     void SetMyPositionMode(location::EMyPositionMode mode);
+
+    void SetupWidget(gui::EWidget widget, float x, float y, dp::Anchor anchor);
+    void ApplyWidgets();
 
     // Fills mapobject's metadata from UserMark
     void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, UserMark const * userMark);

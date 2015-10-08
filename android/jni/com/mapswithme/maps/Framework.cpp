@@ -149,15 +149,8 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   p.m_surfaceHeight = factory->GetHeight();
   p.m_visualScale = visualScale;
 
-  /// @TODO (android developers) remove this stuff and create real logic for init and layout core widgets
-  m_skin.reset(new gui::Skin(gui::ResolveGuiSkinFile("default"), visualScale));
-  m_skin->Resize(p.m_surfaceWidth, p.m_surfaceHeight);
-  m_skin->ForEach([&p](gui::EWidget widget, gui::Position const & pos)
-  {
-    p.m_widgetsInitInfo[widget] = pos;
-  });
-
-  p.m_widgetsInitInfo[gui::WIDGET_SCALE_LABEL] = gui::Position(dp::LeftBottom);
+  ASSERT(!m_guiPositions.empty(), ("GUI elements must be set-up before engine is created"));
+  p.m_widgetsInitInfo = m_guiPositions;
 
   m_work.LoadBookmarks();
   m_work.SetMyPositionModeListener(bind(&Framework::MyPositionModeChanged, this, _1));
@@ -192,20 +185,6 @@ void Framework::Resize(int w, int h)
 {
   m_contextFactory->CastFactory<AndroidOGLContextFactory>()->UpdateSurfaceSize();
   m_work.OnSize(w, h);
-
-  /// @TODO (android developers) remove this stuff and create real logic for layout core widgets
-  if (m_skin)
-  {
-    m_skin->Resize(w, h);
-
-    gui::TWidgetsLayoutInfo layout;
-    m_skin->ForEach([&layout](gui::EWidget w, gui::Position const & pos)
-    {
-      layout[w] = pos.m_pixelPivot;
-    });
-
-    m_work.SetWidgetLayout(move(layout));
-  }
 }
 
 void Framework::DetachSurface()
@@ -482,6 +461,20 @@ location::EMyPositionMode Framework::GetMyPositionMode() const
 void Framework::SetMyPositionMode(location::EMyPositionMode mode)
 {
   m_currentMode = mode;
+}
+
+void Framework::SetupWidget(gui::EWidget widget, float x, float y, dp::Anchor anchor)
+{
+  m_guiPositions[widget] = gui::Position(m2::PointF(x, y), anchor);
+}
+
+void Framework::ApplyWidgets()
+{
+  gui::TWidgetsLayoutInfo layout;
+  for (auto const & widget : m_guiPositions)
+    layout[widget.first] = widget.second.m_pixelPivot;
+
+  m_work.SetWidgetLayout(move(layout));
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////

@@ -2,6 +2,7 @@ package com.mapswithme.maps;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -9,10 +10,11 @@ import android.util.DisplayMetrics;
 import android.view.*;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.downloader.DownloadHelper;
+import com.mapswithme.util.UiUtils;
 
 public class MapFragment extends BaseMwmFragment
-  implements View.OnTouchListener,
-             SurfaceHolder.Callback
+                      implements View.OnTouchListener,
+                                 SurfaceHolder.Callback
 {
   // Should be equal to values from Framework.cpp MultiTouchAction enum
   private static final int NATIVE_ACTION_UP = 0x01;
@@ -22,9 +24,9 @@ public class MapFragment extends BaseMwmFragment
 
   // Should correspond to gui::EWidget from skin.hpp
   private static final int WIDGET_RULER = 0x01;
-  private static final int WIDGET_COPYRIGHT = 0x02;
-  private static final int WIDGET_COUNTRY_STATUS = 0x04;
-  private static final int WIDGET_COMPASS = 0x08;
+  private static final int WIDGET_COMPASS = 0x02;
+  private static final int WIDGET_COPYRIGHT = 0x04;
+  private static final int WIDGET_SCALE_LABEL = 0x08;
 
   // Should correspond to dp::Anchor from drape_global.hpp
   private static final int ANCHOR_CENTER = 0x00;
@@ -41,8 +43,9 @@ public class MapFragment extends BaseMwmFragment
   private static final int INVALID_POINTER_MASK = 0xFF;
   private static final int INVALID_TOUCH_ID = -1;
 
-  private SurfaceHolder mSurfaceHolder;
-  private int mDisplayDensity;
+  private int mHeight;
+  private boolean mRequireResize;
+  private boolean mEngineCreated;
 
   public interface MapRenderingListener
   {
@@ -54,26 +57,54 @@ public class MapFragment extends BaseMwmFragment
   @Override
   public void surfaceCreated(SurfaceHolder surfaceHolder)
   {
-    mSurfaceHolder = surfaceHolder;
+    final Surface surface = surfaceHolder.getSurface();
     if (nativeIsEngineCreated())
-      nativeAttachSurface(mSurfaceHolder.getSurface());
+    {
+      nativeAttachSurface(surface);
+      mRequireResize = true;
+      return;
+    }
+
+    mRequireResize = false;
+    final Rect rect = surfaceHolder.getSurfaceFrame();
+    setupWidgets(rect.width(), rect.height());
+
+    final DisplayMetrics metrics = new DisplayMetrics();
+    getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+    mEngineCreated = nativeCreateEngine(surface, metrics.densityDpi);
+    if (mEngineCreated)
+      onRenderingInitialized();
     else
-      initEngine();
+      reportUnsupported();
   }
 
   @Override
-  public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int w, int h)
+  public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height)
   {
-    nativeSurfaceResized(w, h);
+    if (!mEngineCreated)
+      return;
+
+    if (!mRequireResize && surfaceHolder.isCreating())
+      return;
+
+    nativeSurfaceChanged(width, height);
+
+    mRequireResize = false;
+    setupWidgets(width, height);
+    nativeApplyWidgets();
   }
 
   @Override
   public void surfaceDestroyed(SurfaceHolder surfaceHolder)
   {
-    mSurfaceHolder = null;
+    if (!mEngineCreated)
+      return;
 
     if (getActivity() == null || !getActivity().isChangingConfigurations())
     {
+      // We're in the main thread here. So nothing from the queue will be run between these two calls.
+      // Destroy engine first, then clear the queue that theoretically can be filled by nativeDestroyEngine().
       nativeDestroyEngine();
       MwmApplication.get().clearFunctorsOnUiThread();
     } else
@@ -95,9 +126,6 @@ public class MapFragment extends BaseMwmFragment
   public void onCreate(Bundle b)
   {
     super.onCreate(b);
-    final DisplayMetrics metrics = new DisplayMetrics();
-    getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-    mDisplayDensity = metrics.densityDpi;
     setRetainInstance(true);
   }
 
@@ -157,37 +185,42 @@ public class MapFragment extends BaseMwmFragment
     }
   }
 
-  private void initEngine()
-  {
-    if (nativeCreateEngine(mSurfaceHolder.getSurface(), mDisplayDensity))
-      onRenderingInitialized();
-    else
-      reportUnsupported();
-  }
-
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
     return inflater.inflate(R.layout.fragment_map, container, false);
   }
 
-  protected void applyWidgetPivots(final int mapHeight, final int mapWidth)
+  private void setupWidgets(int width, int height)
   {
-    //Framework.setWidgetPivot(Framework.MAP_WIDGET_RULER,
-    //                        mSurfaceWidth - UiUtils.dimen(R.dimen.margin_ruler_right),
-    //                         mSurfaceHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom));
-    //Framework.setWidgetPivot(Framework.MAP_WIDGET_COPYRIGHT,
-    //                         mSurfaceWidth - UiUtils.dimen(R.dimen.margin_ruler_right),
-    //                         mSurfaceHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom));
+    mHeight = height;
 
-    //adjustCompass(0);
+    nativeSetupWidget(WIDGET_RULER,
+                      width - UiUtils.dimen(R.dimen.margin_ruler_right),
+                      mHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom),
+                      ANCHOR_RIGHT_BOTTOM);
+
+    nativeSetupWidget(WIDGET_COPYRIGHT,
+                      width / 2,
+                      UiUtils.dimen(R.dimen.margin_base),
+                      ANCHOR_TOP);
+
+    nativeSetupWidget(WIDGET_SCALE_LABEL,
+                      UiUtils.dimen(R.dimen.margin_base),
+                      UiUtils.dimen(R.dimen.margin_base),
+                      ANCHOR_LEFT_TOP);
+
+    adjustCompass(0, false);
   }
 
-  public void adjustCompass(int offset)
+  public void adjustCompass(int offset, boolean forceRedraw)
   {
-    //Framework.setWidgetPivot(Framework.MAP_WIDGET_COMPASS,
-    //                         UiUtils.dimen(R.dimen.margin_compass_left) + offset,
-    //                         mSurfaceHeight - UiUtils.dimen(R.dimen.margin_compass_bottom));
+    nativeSetupWidget(WIDGET_COMPASS,
+                      UiUtils.dimen(R.dimen.margin_compass_left) + offset,
+                      mHeight - UiUtils.dimen(R.dimen.margin_compass_bottom),
+                      ANCHOR_CENTER);
+    if (forceRedraw)
+      nativeApplyWidgets();
   }
 
   public void onRenderingInitialized()
@@ -256,6 +289,8 @@ public class MapFragment extends BaseMwmFragment
   private static native void nativeDestroyEngine();
   private static native void nativeAttachSurface(Surface surface);
   private static native void nativeDetachSurface();
-  private static native void nativeSurfaceResized(int w, int h);
+  private static native void nativeSurfaceChanged(int w, int h);
   private static native void nativeOnTouch(int actionType, int id1, float x1, float y1, int id2, float x2, float y2, int maskedPointer);
+  private static native void nativeSetupWidget(int widget, float x, float y, int anchor);
+  private static native void nativeApplyWidgets();
 }

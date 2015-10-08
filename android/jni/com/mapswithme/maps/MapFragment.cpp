@@ -72,18 +72,18 @@ extern "C"
   JNIEXPORT jfloatArray JNICALL
   Java_com_mapswithme_maps_location_LocationHelper_nativeUpdateCompassSensor(JNIEnv * env, jclass clazz, jint ind, jfloatArray arr)
   {
-    int const count = 3;
+    int const kCount = 3;
 
     // get Java array
     jfloat buffer[3];
-    env->GetFloatArrayRegion(arr, 0, count, buffer);
+    env->GetFloatArrayRegion(arr, 0, kCount, buffer);
 
     // get the result
     g_framework->UpdateCompassSensor(ind, buffer);
 
     // pass result back to Java
-    jfloatArray ret = (jfloatArray)env->NewFloatArray(count);
-    env->SetFloatArrayRegion(ret, 0, count, buffer);
+    jfloatArray ret = (jfloatArray)env->NewFloatArray(kCount);
+    env->SetFloatArrayRegion(ret, 0, kCount, buffer);
     return ret;
   }
 
@@ -175,7 +175,7 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MapFragment_nativeSurfaceResized(JNIEnv * env, jclass clazz, jint w, jint h)
+  Java_com_mapswithme_maps_MapFragment_nativeSurfaceChanged(JNIEnv * env, jclass clazz, jint w, jint h)
   {
     g_framework->Resize(static_cast<int>(w), static_cast<int>(h));
   }
@@ -188,5 +188,17 @@ extern "C"
   {
     g_framework->Touch(static_cast<int>(action), android::Framework::Finger(id1, x1, y1),
                        android::Framework::Finger(id2, x2, y2), maskedPointer);
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MapFragment_nativeSetupWidget(JNIEnv * env, jclass clazz, jint widget, jfloat x, jfloat y, jint anchor)
+  {
+    g_framework->SetupWidget(static_cast<gui::EWidget>(widget), static_cast<float>(x), static_cast<float>(y), static_cast<dp::Anchor>(anchor));
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MapFragment_nativeApplyWidgets(JNIEnv * env, jclass clazz)
+  {
+    g_framework->ApplyWidgets();
   }
 } // extern "C"

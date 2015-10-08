@@ -1166,13 +1166,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void adjustCompass(int offset)
   {
-    if (mMapFragment != null && mMapFragment.isAdded())
-    {
-      mMapFragment.adjustCompass(mPanelAnimator.isVisible() ? offset : 0);
+    if (mMapFragment == null || !mMapFragment.isAdded())
+      return;
 
-      if (mLastCompassData != null)
-        MapFragment.nativeCompassUpdated(mLastCompassData.magneticNorth, mLastCompassData.trueNorth, true);
-    }
+    mMapFragment.adjustCompass(mPanelAnimator.isVisible() ? offset : 0, true);
+
+    if (mLastCompassData != null)
+      MapFragment.nativeCompassUpdated(mLastCompassData.magneticNorth, mLastCompassData.trueNorth, true);
   }
 
   @Override
