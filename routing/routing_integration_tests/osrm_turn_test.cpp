@@ -202,7 +202,7 @@ UNIT_TEST(RussiaHugeRoundaboutTurnTest)
   integration::GetNthTurn(route, 1)
       .TestValid()
       .TestDirection(TurnDirection::LeaveRoundAbout)
-      .TestRoundAboutExitNum(0);
+      .TestRoundAboutExitNum(4);
 }
 
 UNIT_TEST(BelarusMiskProspNezavisimostiMKADTurnTest)
