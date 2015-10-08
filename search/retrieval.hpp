@@ -124,13 +124,13 @@ private:
 
     MwmSet::MwmHandle m_handle;
     m2::RectD m_bounds;
-    vector<uint32_t> m_addressFeatures;
 
     // The order matters here - strategy may contain references to the
     // fields above, thus it must be destructed before them.
     unique_ptr<Strategy> m_strategy;
 
     size_t m_featuresReported;
+    size_t m_numAddressFeatures;
     bool m_intersectsWithViewport : 1;
     bool m_finished : 1;
   };
@@ -143,7 +143,7 @@ private:
   WARN_UNUSED_RESULT bool RetrieveForScale(Bucket & bucket, double scale, Callback & callback);
 
   // Inits bucket retrieval strategy. Returns false when cancelled.
-  WARN_UNUSED_RESULT bool InitBucketStrategy(Bucket & bucket);
+  WARN_UNUSED_RESULT bool InitBucketStrategy(Bucket & bucket, double scale);
 
   // Marks bucket as finished and invokes callback.
   void FinishBucket(Bucket & bucket, Callback & callback);

@@ -31,6 +31,7 @@
 #include "coding/reader_wrapper.hpp"
 
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
@@ -1296,8 +1297,41 @@ void Query::SearchAddress(Results & res)
           /// @todo Hack - do not search for address in World.mwm; Do it better in future.
           bool const b = m_worldSearch;
           m_worldSearch = false;
-          SearchFeaturesInViewport(params, mwmsInfo, LOCALITY_V);
-          m_worldSearch = b;
+          MY_SCOPE_GUARD(restoreWorldSearch, [&]() { m_worldSearch = b; });
+
+          // Candidates for search around locality. Initially filled
+          // with mwms containing city center.
+          TMWMVector candidateMwms;
+          auto localityMismatch = [&cityCenter, &rect, this](shared_ptr<MwmInfo> const & info)
+          {
+            return !info->m_limitRect.IsIntersect(rect);
+          };
+          remove_copy_if(mwmsInfo.begin(), mwmsInfo.end(), back_inserter(candidateMwms),
+                         localityMismatch);
+
+          auto boundingBoxCmp = [](shared_ptr<MwmInfo> const & lhs, shared_ptr<MwmInfo> const & rhs)
+          {
+            auto const & lhsBox = lhs->m_limitRect;
+            double const lhsSize = max(lhsBox.SizeX(), lhsBox.SizeY());
+
+            auto & rhsBox = rhs->m_limitRect;
+            double const rhsSize = max(rhsBox.SizeX(), rhsBox.SizeY());
+
+            return lhsSize < rhsSize;
+          };
+
+          // Candidate mwm for search around locality. Among all
+          // candidates the one with smallest dimensions is
+          // selected. This hack is used here to prevent
+          // interferention from mwms whose bounding boxes are too
+          // pessimisic, say, from -180 to +180 in Mercator
+          // coordiantes. This is the case for Russia_Far_Eastern.
+          auto const candidateMwmIt = min_element(candidateMwms.begin(), candidateMwms.end(), boundingBoxCmp);
+          if (candidateMwmIt != candidateMwms.end())
+          {
+            TMWMVector localityMwm = {*candidateMwmIt};
+            SearchFeaturesInViewport(params, localityMwm, LOCALITY_V);
+          }
         }
         else
         {

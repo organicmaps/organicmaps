@@ -6,6 +6,7 @@
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/index.hpp"
+#include "indexer/scales.hpp"
 #include "indexer/search_trie.hpp"
 
 #include "coding/reader_wrapper.hpp"
@@ -21,6 +22,17 @@ namespace search
 {
 namespace
 {
+// A value used to represent maximum viewport scale.
+double const kInfinity = numeric_limits<double>::infinity();
+
+// Maximum viewport scale level when we stop to expand viewport and
+// simply return all rest features from mwms.
+double const kMaxViewportScaleLevel = 10.0;
+
+// Upper bound on a number of features when fast path is used.
+// Otherwise, slow path is used.
+uint64_t constexpr kFastPathThreshold = 100;
+
 // This exception can be thrown by callbacks from deeps of search and
 // geometry retrieval for fast cancellation of time-consuming tasks.
 //
@@ -29,10 +41,6 @@ namespace
 struct CancelException : public exception
 {
 };
-
-// Upper bound on a number of features when fast path is used.
-// Otherwise, slow path is used.
-uint64_t constexpr kFastPathThreshold = 100;
 
 void CoverRect(m2::RectD const & rect, int scale, covering::IntervalsT & result)
 {
@@ -313,6 +321,7 @@ bool Retrieval::Strategy::Retrieve(double scale, my::Cancellable const & cancell
 Retrieval::Bucket::Bucket(MwmSet::MwmHandle && handle)
   : m_handle(move(handle))
   , m_featuresReported(0)
+  , m_numAddressFeatures(0)
   , m_intersectsWithViewport(false)
   , m_finished(false)
 {
@@ -391,11 +400,16 @@ void Retrieval::Release() { m_buckets.clear(); }
 
 bool Retrieval::RetrieveForScale(Bucket & bucket, double scale, Callback & callback)
 {
-  m2::RectD viewport = m_viewport;
-  viewport.Scale(scale);
-
   if (IsCancelled())
     return false;
+
+  m2::RectD viewport = m_viewport;
+  viewport.Scale(scale);
+  if (scales::GetScaleLevelD(viewport) <= kMaxViewportScaleLevel)
+  {
+    viewport.MakeInfinite();
+    scale = kInfinity;
+  }
 
   if (bucket.m_finished || !viewport.IsIntersect(bucket.m_bounds))
     return true;
@@ -404,14 +418,14 @@ bool Retrieval::RetrieveForScale(Bucket & bucket, double scale, Callback & callb
   {
     // This is the first time viewport intersects with
     // mwm. Initialize bucket's retrieval strategy.
-    if (!InitBucketStrategy(bucket))
+    if (!InitBucketStrategy(bucket, scale))
       return false;
     bucket.m_intersectsWithViewport = true;
   }
 
   ASSERT(bucket.m_intersectsWithViewport, ());
-  ASSERT_LESS_OR_EQUAL(bucket.m_featuresReported, bucket.m_addressFeatures.size(), ());
-  if (bucket.m_featuresReported == bucket.m_addressFeatures.size())
+  ASSERT_LESS_OR_EQUAL(bucket.m_featuresReported, bucket.m_numAddressFeatures, ());
+  if (bucket.m_featuresReported == bucket.m_numAddressFeatures)
   {
     // All features were reported for the bucket, mark it as
     // finished and move to the next bucket.
@@ -441,10 +455,12 @@ bool Retrieval::RetrieveForScale(Bucket & bucket, double scale, Callback & callb
   return true;
 }
 
-bool Retrieval::InitBucketStrategy(Bucket & bucket)
+bool Retrieval::InitBucketStrategy(Bucket & bucket, double scale)
 {
   ASSERT(!bucket.m_strategy, ());
-  ASSERT(bucket.m_addressFeatures.empty(), ());
+  ASSERT_EQUAL(0, bucket.m_numAddressFeatures, ());
+
+  vector<uint32_t> addressFeatures;
 
   try
   {
@@ -452,7 +468,7 @@ bool Retrieval::InitBucketStrategy(Bucket & bucket)
     {
       if (IsCancelled())
         throw CancelException();
-      bucket.m_addressFeatures.push_back(value.m_featureId);
+      addressFeatures.push_back(value.m_featureId);
     };
     RetrieveAddressFeatures(bucket.m_handle, m_params, collector);
   }
@@ -461,15 +477,17 @@ bool Retrieval::InitBucketStrategy(Bucket & bucket)
     return false;
   }
 
-  if (bucket.m_addressFeatures.size() < kFastPathThreshold)
+  bucket.m_numAddressFeatures = addressFeatures.size();
+
+  if (bucket.m_numAddressFeatures < kFastPathThreshold)
   {
     bucket.m_strategy.reset(
-        new FastPathStrategy(*m_index, bucket.m_handle, m_viewport, bucket.m_addressFeatures));
+        new FastPathStrategy(*m_index, bucket.m_handle, m_viewport, addressFeatures));
   }
   else
   {
     bucket.m_strategy.reset(
-        new SlowPathStrategy(bucket.m_handle, m_viewport, m_params, bucket.m_addressFeatures));
+        new SlowPathStrategy(bucket.m_handle, m_viewport, m_params, addressFeatures));
   }
 
   return true;
@@ -501,8 +519,17 @@ bool Retrieval::Finished() const
 void Retrieval::ReportFeatures(Bucket & bucket, vector<uint32_t> & featureIds, double scale,
                                Callback & callback)
 {
+  if (m_limits.IsMaxNumFeaturesSet())
+  {
+    if (m_featuresReported >= m_limits.GetMaxNumFeatures())
+      return;
+    uint64_t rest = m_limits.GetMaxNumFeatures() - m_featuresReported;
+    if (rest < featureIds.size())
+      featureIds.resize(static_cast<size_t>(rest));
+  }
   if (featureIds.empty())
     return;
+
   callback.OnFeaturesRetrieved(bucket.m_handle.GetId(), scale, featureIds);
   bucket.m_featuresReported += featureIds.size();
   m_featuresReported += featureIds.size();

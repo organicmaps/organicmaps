@@ -131,7 +131,6 @@ void SearchQueryParams::ForEachToken(ToDo && toDo)
     toDo(m_prefixTokens.front(), count);
   }
 }
-}  // namespace search
 
 string DebugPrint(search::SearchQueryParams const & params)
 {
@@ -140,3 +139,4 @@ string DebugPrint(search::SearchQueryParams const & params)
      << ", m_prefixTokens=" << DebugPrint(params.m_prefixTokens) << "]";
   return os.str();
 }
+}  // namespace search

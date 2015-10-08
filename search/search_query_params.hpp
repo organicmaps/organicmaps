@@ -36,6 +36,6 @@ private:
   template <class ToDo>
   void ForEachToken(ToDo && toDo);
 };
-}  // namespace search
 
 string DebugPrint(search::SearchQueryParams const & params);
+}  // namespace search
