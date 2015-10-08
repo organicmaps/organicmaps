@@ -55,7 +55,6 @@ double Settings::ConvertMetersPerSecondToUnitsPerSecond(double speedInMetersPerS
       return MeasurementUtils::MetersToFeet(speedInMetersPerSecond);
   }
 
-  // m_lengthUnits is equal to LengthUnits::Undefined or to unknown value.
   ASSERT(false, ("m_lengthUnits is equal to unknown value."));
   return 0.;
 }
@@ -73,7 +72,23 @@ double Settings::ConvertUnitsToMeters(double distanceInUnits) const
       return MeasurementUtils::FeetToMeters(distanceInUnits);
   }
 
-  // m_lengthUnits is equal to LengthUnits::Undefined or to unknown value.
+  ASSERT(false, ());
+  return 0.;
+}
+
+double Settings::ConvertMetersToUnits(double distanceInMeters) const
+{
+  switch (m_lengthUnits)
+  {
+    case LengthUnits::Undefined:
+      ASSERT(false, ());
+      return 0.;
+    case LengthUnits::Meters:
+      return distanceInMeters;
+    case LengthUnits::Feet:
+      return MeasurementUtils::MetersToFeet(distanceInMeters);
+  }
+
   ASSERT(false, ());
   return 0.;
 }
