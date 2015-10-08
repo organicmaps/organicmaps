@@ -16,12 +16,32 @@ UNIT_TEST(TestDruleSelectorIsSet)
   TEST_EQUAL(SelectorOperatorIsSet, e.m_operator, ());
 }
 
+UNIT_TEST(TestDruleSelectorIsSet2)
+{
+  SelectorExpression e;
+  TEST(ParseSelector("bbox_area", e), ());
+
+  TEST_EQUAL("bbox_area", e.m_tag, ());
+  TEST_EQUAL("", e.m_value, ());
+  TEST_EQUAL(SelectorOperatorIsSet, e.m_operator, ());
+}
+
 UNIT_TEST(TestDruleSelectorIsNotSet)
 {
   SelectorExpression e;
   TEST(ParseSelector("!name", e), ());
 
   TEST_EQUAL("name", e.m_tag, ());
+  TEST_EQUAL("", e.m_value, ());
+  TEST_EQUAL(SelectorOperatorIsNotSet, e.m_operator, ());
+}
+
+UNIT_TEST(TestDruleSelectorIsNotSet2)
+{
+  SelectorExpression e;
+  TEST(ParseSelector("!bbox_area", e), ());
+
+  TEST_EQUAL("bbox_area", e.m_tag, ());
   TEST_EQUAL("", e.m_value, ());
   TEST_EQUAL(SelectorOperatorIsNotSet, e.m_operator, ());
 }
@@ -56,12 +76,32 @@ UNIT_TEST(TestDruleSelectorLess)
   TEST_EQUAL(SelectorOperatorLess, e.m_operator, ());
 }
 
+UNIT_TEST(TestDruleSelectorLess2)
+{
+  SelectorExpression e;
+  TEST(ParseSelector("bbox_area<1000", e), ());
+
+  TEST_EQUAL("bbox_area", e.m_tag, ());
+  TEST_EQUAL("1000", e.m_value, ());
+  TEST_EQUAL(SelectorOperatorLess, e.m_operator, ());
+}
+
 UNIT_TEST(TestDruleSelectorGreater)
 {
   SelectorExpression e;
   TEST(ParseSelector("population>1000", e), ());
 
   TEST_EQUAL("population", e.m_tag, ());
+  TEST_EQUAL("1000", e.m_value, ());
+  TEST_EQUAL(SelectorOperatorGreater, e.m_operator, ());
+}
+
+UNIT_TEST(TestDruleSelectorGreater2)
+{
+  SelectorExpression e;
+  TEST(ParseSelector("bbox_area>1000", e), ());
+
+  TEST_EQUAL("bbox_area", e.m_tag, ());
   TEST_EQUAL("1000", e.m_value, ());
   TEST_EQUAL(SelectorOperatorGreater, e.m_operator, ());
 }

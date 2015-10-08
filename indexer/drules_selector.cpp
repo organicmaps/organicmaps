@@ -111,8 +111,8 @@ bool GetName(FeatureType const & ft, string & name)
   return true;
 }
 
-// Feature tag value evaluator for tag 'envelope_area' (envelope area in sq.meters)
-bool GetEnvelopeArea(FeatureType const & ft, double & sqM)
+// Feature tag value evaluator for tag 'bbox_area' (bounding box area in sq.meters)
+bool GetBoundingBoxArea(FeatureType const & ft, double & sqM)
 {
   if (feature::GEOM_AREA != ft.GetFeatureType())
     return false;
@@ -153,7 +153,7 @@ unique_ptr<ISelector> ParseSelector(string const & str)
   {
     return make_unique<Selector<string>>(&GetName, e.m_operator, e.m_value);
   }
-  else if (e.m_tag == "envelope_area")
+  else if (e.m_tag == "bbox_area")
   {
     double value = 0;
     if (!e.m_value.empty() && (!strings::to_double(e.m_value, value) || value < 0))
@@ -162,7 +162,7 @@ unique_ptr<ISelector> ParseSelector(string const & str)
       LOG(LDEBUG, ("Invalid selector:", str));
       return unique_ptr<ISelector>();
     }
-    return make_unique<Selector<double>>(&GetEnvelopeArea, e.m_operator, value);
+    return make_unique<Selector<double>>(&GetBoundingBoxArea, e.m_operator, value);
   }
 
   // Add new tag here
