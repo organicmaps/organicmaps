@@ -87,7 +87,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  RoutingController.Container
 {
   public static final String EXTRA_TASK = "map_task";
-  private final static String EXTRA_CONSUMED = "mwm.extra.intent.processed";
+  private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
   private static final String EXTRA_UPDATE_COUNTRIES = ".extra.update.countries";
 
   private static final String[] DOCKED_FRAGMENTS = { SearchFragment.class.getName(),
@@ -345,7 +345,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mMapFragment = (MapFragment) MapFragment.instantiate(this, MapFragment.class.getName(), null);
       getSupportFragmentManager()
           .beginTransaction()
-          .replace(R.id.map_fragment_container, mMapFragment, MapFragment.FRAGMENT_TAG)
+          .replace(R.id.map_fragment_container, mMapFragment, FRAGMENT_TAG)
           .commit();
     }
     mFrame.setOnTouchListener(this);
@@ -613,7 +613,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mTasks.add(mapTask);
       intent.removeExtra(EXTRA_TASK);
 
-      if (mMapFragment.isRenderingInitialized())
+      if (MapFragment.nativeIsEngineCreated())
         runTasks();
 
       // mark intent as consumed
@@ -624,7 +624,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onLocationError(int errorCode)
   {
-    mMapFragment.nativeOnLocationError(errorCode);
+    MapFragment.nativeOnLocationError(errorCode);
 
     if (errorCode == LocationHelper.ERROR_DENIED)
     {
@@ -1086,12 +1086,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     case R.id.map_button_plus:
       Statistics.INSTANCE.trackEvent(Statistics.EventName.ZOOM_IN);
       AlohaHelper.logClick(AlohaHelper.ZOOM_IN);
-      mMapFragment.nativeScalePlus();
+      MapFragment.nativeScalePlus();
       break;
     case R.id.map_button_minus:
       Statistics.INSTANCE.trackEvent(Statistics.EventName.ZOOM_OUT);
       AlohaHelper.logClick(AlohaHelper.ZOOM_OUT);
-      mMapFragment.nativeScaleMinus();
+      MapFragment.nativeScaleMinus();
       break;
     }
   }
@@ -1132,7 +1132,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public boolean run(MwmActivity target)
     {
-      return target.mMapFragment.showMapForUrl(mUrl);
+      return MapFragment.nativeShowMapForUrl(mUrl);
     }
   }
 
@@ -1171,7 +1171,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mMapFragment.adjustCompass(mPanelAnimator.isVisible() ? offset : 0);
 
       if (mLastCompassData != null)
-        mMapFragment.nativeCompassUpdated(mLastCompassData.magneticNorth, mLastCompassData.trueNorth, true);
+        MapFragment.nativeCompassUpdated(mLastCompassData.magneticNorth, mLastCompassData.trueNorth, true);
     }
   }
 
