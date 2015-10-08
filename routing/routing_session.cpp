@@ -110,6 +110,7 @@ void RoutingSession::RemoveRouteImpl()
   m_state = RoutingNotActive;
   m_lastDistance = 0.0;
   m_moveAwayCounter = 0;
+  m_turnsSound.Reset();
 
   Route(string()).Swap(m_route);
 }
@@ -131,7 +132,6 @@ void RoutingSession::Reset()
 
   RemoveRouteImpl();
   m_router->ClearState();
-  m_turnsSound.Reset();
 
   m_passedDistanceOnRouteMeters = 0.0;
   m_lastWarnedSpeedCameraIndex = 0;
