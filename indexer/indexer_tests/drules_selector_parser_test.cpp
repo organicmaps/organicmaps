@@ -19,9 +19,9 @@ UNIT_TEST(TestDruleSelectorIsSet)
 UNIT_TEST(TestDruleSelectorIsSet2)
 {
   SelectorExpression e;
-  TEST(ParseSelector("envelope_area", e), ());
+  TEST(ParseSelector("bbox_area", e), ());
 
-  TEST_EQUAL("envelope_area", e.m_tag, ());
+  TEST_EQUAL("bbox_area", e.m_tag, ());
   TEST_EQUAL("", e.m_value, ());
   TEST_EQUAL(SelectorOperatorIsSet, e.m_operator, ());
 }
@@ -39,9 +39,9 @@ UNIT_TEST(TestDruleSelectorIsNotSet)
 UNIT_TEST(TestDruleSelectorIsNotSet2)
 {
   SelectorExpression e;
-  TEST(ParseSelector("!envelope_area", e), ());
+  TEST(ParseSelector("!bbox_area", e), ());
 
-  TEST_EQUAL("envelope_area", e.m_tag, ());
+  TEST_EQUAL("bbox_area", e.m_tag, ());
   TEST_EQUAL("", e.m_value, ());
   TEST_EQUAL(SelectorOperatorIsNotSet, e.m_operator, ());
 }
@@ -79,9 +79,9 @@ UNIT_TEST(TestDruleSelectorLess)
 UNIT_TEST(TestDruleSelectorLess2)
 {
   SelectorExpression e;
-  TEST(ParseSelector("envelope_area<1000", e), ());
+  TEST(ParseSelector("bbox_area<1000", e), ());
 
-  TEST_EQUAL("envelope_area", e.m_tag, ());
+  TEST_EQUAL("bbox_area", e.m_tag, ());
   TEST_EQUAL("1000", e.m_value, ());
   TEST_EQUAL(SelectorOperatorLess, e.m_operator, ());
 }
@@ -99,9 +99,9 @@ UNIT_TEST(TestDruleSelectorGreater)
 UNIT_TEST(TestDruleSelectorGreater2)
 {
   SelectorExpression e;
-  TEST(ParseSelector("envelope_area>1000", e), ());
+  TEST(ParseSelector("bbox_area>1000", e), ());
 
-  TEST_EQUAL("envelope_area", e.m_tag, ());
+  TEST_EQUAL("bbox_area", e.m_tag, ());
   TEST_EQUAL("1000", e.m_value, ());
   TEST_EQUAL(SelectorOperatorGreater, e.m_operator, ());
 }
