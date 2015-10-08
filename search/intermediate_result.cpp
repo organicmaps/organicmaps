@@ -242,7 +242,7 @@ Result PreResult2::GeneratePointResult(storage::CountryInfoGetter const & infoGe
                                      CategoriesHolder const * pCat,
                                      set<uint32_t> const * pTypes, int8_t locale) const
 {
-  uint8_t const type = GetBestType(pTypes);
+  uint32_t const type = GetBestType(pTypes);
   return Result(m_id, GetCenter(), m_str, GetRegionName(infoGetter, type),
                 ReadableFeatureType(pCat, type, locale));
 }
@@ -320,27 +320,17 @@ string PreResult2::DebugPrint() const
 
 uint32_t PreResult2::GetBestType(set<uint32_t> const * pPrefferedTypes) const
 {
-  uint32_t type = 0;
-
   if (pPrefferedTypes)
   {
-    for (uint32_t t : m_types)
-      if (pPrefferedTypes->count(t) > 0)
-      {
-        type = t;
-        break;
-      }
+    for (uint32_t type : m_types)
+      if (pPrefferedTypes->count(type) > 0)
+        return type;
   }
 
-  if (type == 0)
-  {
-    type = m_types.GetBestType();
-
-    // Do type truncate (2-level is enough for search results) only for
-    // non-preffered types (types from categories leave original).
-    ftype::TruncValue(type, 2);
-  }
-
+  // Do type truncate (2-level is enough for search results) only for
+  // non-preffered types (types from categories leave original).
+  uint32_t type = m_types.GetBestType();
+  ftype::TruncValue(type, 2);
   return type;
 }
 
