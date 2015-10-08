@@ -11,6 +11,7 @@ import android.view.*;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.downloader.DownloadHelper;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.concurrency.UiThread;
 
 public class MapFragment extends BaseMwmFragment
                       implements View.OnTouchListener,
@@ -53,6 +54,60 @@ public class MapFragment extends BaseMwmFragment
   }
 
   public static final String FRAGMENT_TAG = MapFragment.class.getName();
+
+  private void setupWidgets(int width, int height)
+  {
+    mHeight = height;
+
+    nativeSetupWidget(WIDGET_RULER,
+                      width - UiUtils.dimen(R.dimen.margin_ruler_right),
+                      mHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom),
+                      ANCHOR_RIGHT_BOTTOM);
+
+    nativeSetupWidget(WIDGET_COPYRIGHT,
+                      width / 2,
+                      UiUtils.dimen(R.dimen.margin_base),
+                      ANCHOR_TOP);
+
+    nativeSetupWidget(WIDGET_SCALE_LABEL,
+                      UiUtils.dimen(R.dimen.margin_base),
+                      UiUtils.dimen(R.dimen.margin_base),
+                      ANCHOR_LEFT_TOP);
+
+    adjustCompass(0, false);
+  }
+
+  public void adjustCompass(int offset, boolean forceRedraw)
+  {
+    nativeSetupWidget(WIDGET_COMPASS,
+                      UiUtils.dimen(R.dimen.margin_compass_left) + offset,
+                      mHeight - UiUtils.dimen(R.dimen.margin_compass_bottom),
+                      ANCHOR_CENTER);
+    if (forceRedraw)
+      nativeApplyWidgets();
+  }
+
+  private void onRenderingInitialized()
+  {
+    final Activity activity = getActivity();
+    if (isAdded() && activity instanceof MapRenderingListener)
+      ((MapRenderingListener) activity).onRenderingInitialized();
+  }
+
+  private void reportUnsupported()
+  {
+    new AlertDialog.Builder(getActivity())
+        .setMessage(getString(R.string.unsupported_phone))
+        .setCancelable(false)
+        .setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            getActivity().moveTaskToBack(true);
+          }
+        }).show();
+  }
 
   @Override
   public void surfaceCreated(SurfaceHolder surfaceHolder)
@@ -114,19 +169,25 @@ public class MapFragment extends BaseMwmFragment
   }
 
   @Override
+  public void onCreate(Bundle b)
+  {
+    super.onCreate(b);
+    setRetainInstance(true);
+  }
+
+  @Override
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+  {
+    return inflater.inflate(R.layout.fragment_map, container, false);
+  }
+
+  @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
     final SurfaceView surfaceView = (SurfaceView) view.findViewById(R.id.map_surfaceview);
     surfaceView.getHolder().addCallback(this);
     nativeConnectDownloadButton();
-  }
-
-  @Override
-  public void onCreate(Bundle b)
-  {
-    super.onCreate(b);
-    setRetainInstance(true);
   }
 
   @Override
@@ -185,73 +246,10 @@ public class MapFragment extends BaseMwmFragment
     }
   }
 
-  @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
-  {
-    return inflater.inflate(R.layout.fragment_map, container, false);
-  }
-
-  private void setupWidgets(int width, int height)
-  {
-    mHeight = height;
-
-    nativeSetupWidget(WIDGET_RULER,
-                      width - UiUtils.dimen(R.dimen.margin_ruler_right),
-                      mHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom),
-                      ANCHOR_RIGHT_BOTTOM);
-
-    nativeSetupWidget(WIDGET_COPYRIGHT,
-                      width / 2,
-                      UiUtils.dimen(R.dimen.margin_base),
-                      ANCHOR_TOP);
-
-    nativeSetupWidget(WIDGET_SCALE_LABEL,
-                      UiUtils.dimen(R.dimen.margin_base),
-                      UiUtils.dimen(R.dimen.margin_base),
-                      ANCHOR_LEFT_TOP);
-
-    adjustCompass(0, false);
-  }
-
-  public void adjustCompass(int offset, boolean forceRedraw)
-  {
-    nativeSetupWidget(WIDGET_COMPASS,
-                      UiUtils.dimen(R.dimen.margin_compass_left) + offset,
-                      mHeight - UiUtils.dimen(R.dimen.margin_compass_bottom),
-                      ANCHOR_CENTER);
-    if (forceRedraw)
-      nativeApplyWidgets();
-  }
-
-  public void onRenderingInitialized()
-  {
-    final Activity host = getActivity();
-    if (isAdded() && host instanceof MapRenderingListener)
-    {
-      final MapRenderingListener listener = (MapRenderingListener) host;
-      listener.onRenderingInitialized();
-    }
-  }
-
-  public void reportUnsupported()
-  {
-    new AlertDialog.Builder(getActivity())
-        .setMessage(getString(R.string.unsupported_phone))
-        .setCancelable(false)
-        .setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dlg, int which)
-          {
-            getActivity().moveTaskToBack(true);
-          }
-        }).show();
-  }
-
   @SuppressWarnings("UnusedDeclaration")
   public void OnDownloadCountryClicked(final int group, final int country, final int region, final int options)
   {
-    getActivity().runOnUiThread(new Runnable()
+    UiThread.run(new Runnable()
     {
       @Override
       public void run()
@@ -263,7 +261,7 @@ public class MapFragment extends BaseMwmFragment
           return;
         }
 
-        long size = MapStorage.INSTANCE.countryRemoteSizeInBytes(index, options);
+        final long size = MapStorage.INSTANCE.countryRemoteSizeInBytes(index, options);
         DownloadHelper.downloadWithCellularCheck(getActivity(), size, MapStorage.INSTANCE.countryName(index), new DownloadHelper.OnDownloadListener()
         {
           @Override
