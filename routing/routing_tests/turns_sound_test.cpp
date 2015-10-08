@@ -394,6 +394,83 @@ UNIT_TEST(TurnsSoundComposedTurnTest)
   turnSound.GenerateTurnSound(turns6, turnNotifications);
   TEST_EQUAL(turnNotifications, expectedNotification6, ());
 }
+
+UNIT_TEST(TurnsSoundRoundaboutTurnTest)
+{
+  TurnsSound turnSound;
+  turnSound.Enable(true);
+  turnSound.SetLengthUnits(routing::turns::sound::LengthUnits::Meters);
+  string const engShortJson =
+      "\
+      {\
+      \"enter_the_roundabout\":\"Enter the roundabout.\",\
+      \"leave_the_roundabout\":\"Leave the roundabout.\",\
+      \"take_the_2nd_exit\":\"Take the second exit.\",\
+      \"in_600_meters\":\"In 600 meters.\",\
+      \"then\":\"Then.\",\
+      \"you_have_reached_the_destination\":\"You have reached the destination.\"\
+      }";
+  turnSound.m_getTtsText.ForTestingSetLocaleWithJson(engShortJson);
+  turnSound.m_settings.ForTestingSetNotificationTimeSecond(30);
+
+  turnSound.Reset();
+  turnSound.SetSpeedMetersPerSecond(20.);
+  vector<string> turnNotifications;
+
+  // Starting nearing the first turn.
+  // 1000 meters till the first turn.
+  vector<TurnItemDist> const turns1 = {{{5 /* idx */, TurnDirection::EnterRoundAbout, 2 /* m_exitNum */},
+                                        1000. /* m_distMeters */},
+                                       {{10 /* idx */, TurnDirection::LeaveRoundAbout, 2 /* m_exitNum */},
+                                        2000. /* m_distMeters */}};
+  turnSound.GenerateTurnSound(turns1, turnNotifications);
+  TEST(turnNotifications.empty(), ());
+
+  // 620 meters till the first turn.
+  vector<TurnItemDist> const turns2 = {{{5 /* idx */, TurnDirection::EnterRoundAbout, 2 /* m_exitNum */},
+                                        620. /* m_distMeters */},
+                                       {{10 /* idx */, TurnDirection::LeaveRoundAbout, 2 /* m_exitNum */},
+                                        1620. /* m_distMeters */}};
+  vector<string> const expectedNotification2 = {{"In 600 meters. Enter the roundabout."},
+                                                {"Then. Take the second exit."}};
+  turnSound.GenerateTurnSound(turns2, turnNotifications);
+  TEST_EQUAL(turnNotifications, expectedNotification2, ());
+
+  // 3 meters till the first turn.
+  vector<TurnItemDist> const turns3 = {{{5 /* idx */, TurnDirection::EnterRoundAbout, 2 /* m_exitNum */},
+                                        3. /* m_distMeters */},
+                                       {{10 /* idx */, TurnDirection::LeaveRoundAbout, 2 /* m_exitNum */},
+                                        1003. /* m_distMeters */}};
+  vector<string> const expectedNotification3 = {{"Enter the roundabout."},
+                                                {"Then. Take the second exit."}};
+  turnSound.GenerateTurnSound(turns3, turnNotifications);
+  TEST_EQUAL(turnNotifications, expectedNotification3, ());
+
+  // 900 meters till the second turn.
+  vector<TurnItemDist> const turns4 = {{{10 /* idx */, TurnDirection::LeaveRoundAbout, 2 /* m_exitNum */},
+                                        900. /* m_distMeters */},
+                                       {{15 /* idx */, TurnDirection::ReachedYourDestination},
+                                        1900. /* m_distMeters */}};
+  turnSound.GenerateTurnSound(turns4, turnNotifications);
+  TEST(turnNotifications.empty(), ());
+
+  // 300 meters till the second turn.
+  vector<TurnItemDist> const turns5 = {{{10 /* idx */, TurnDirection::LeaveRoundAbout, 2 /* m_exitNum */},
+                                        300. /* m_distMeters */},
+                                       {{15 /* idx */, TurnDirection::ReachedYourDestination},
+                                        1300. /* m_distMeters */}};
+  turnSound.GenerateTurnSound(turns5, turnNotifications);
+  TEST(turnNotifications.empty(), ());
+
+  // 3 meters till the second turn.
+  vector<TurnItemDist> const turns6 = {{{10 /* idx */, TurnDirection::LeaveRoundAbout, 2 /* m_exitNum */},
+                                        3. /* m_distMeters */},
+                                       {{15 /* idx */, TurnDirection::ReachedYourDestination},
+                                        1003. /* m_distMeters */}};
+  vector<string> const expectedNotification6 = {{"Leave the roundabout."}};
+  turnSound.GenerateTurnSound(turns6, turnNotifications);
+  TEST_EQUAL(turnNotifications, expectedNotification6, ());
+}
 }  // namespace sound
 }  // namespace turns
 }  // namespace routing

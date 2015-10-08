@@ -37,6 +37,7 @@ class TurnsSound
   friend void UnitTest_TurnsSoundMetersTwoTurnsTest();
   friend void UnitTest_TurnsSoundFeetTest();
   friend void UnitTest_TurnsSoundComposedTurnTest();
+  friend void UnitTest_TurnsSoundRoundaboutTurnTest();
 
   /// m_enabled == true when tts is turned on.
   /// Important! Clients (iOS/Android) implies that m_enabled is false by default.
