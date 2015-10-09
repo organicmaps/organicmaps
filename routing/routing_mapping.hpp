@@ -25,7 +25,7 @@ struct RoutingMapping
 
   /// Default constructor to create invalid instance for existing client code.
   /// @postcondition IsValid() == false.
-  RoutingMapping() = default;
+  RoutingMapping() : m_pIndex(nullptr) {}
   /// @param countryFile Country file name without extension.
   RoutingMapping(string const & countryFile, MwmSet * pIndex);
   ~RoutingMapping();
@@ -56,7 +56,7 @@ struct RoutingMapping
   void FreeFileIfPossible();
 
 private:
-  void LoadFileIfNeed();
+  void LoadFileIfNeeded();
 
   size_t m_mapCounter;
   size_t m_facadeCounter;
@@ -65,6 +65,7 @@ private:
   FilesMappingContainer m_container;
   IRouter::ResultCode m_error;
   MwmSet::MwmHandle m_handle;
+  // We save a mwmId for possibility to unlock a mwm file by rewriting m_handle.
   Index::MwmId m_mwmId;
   MwmSet * m_pIndex;
 };

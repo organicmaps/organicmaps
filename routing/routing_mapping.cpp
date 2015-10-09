@@ -55,6 +55,9 @@ RoutingMapping::RoutingMapping(string const & countryFile, MwmSet * pIndex)
       m_error(IRouter::ResultCode::RouteFileNotExist),
       m_pIndex(pIndex)
 {
+  if (m_pIndex == 0)
+    return;
+
   m_handle = pIndex->GetMwmHandleByCountryFile(CountryFile(countryFile));
   if (!m_handle.IsAlive())
     return;
@@ -80,7 +83,7 @@ RoutingMapping::RoutingMapping(string const & countryFile, MwmSet * pIndex)
   m_error = IRouter::ResultCode::NoError;
 }
 
-void RoutingMapping::LoadFileIfNeed()
+void RoutingMapping::LoadFileIfNeeded()
 {
   if (!m_handle.IsAlive() && m_mwmId.IsAlive() && m_pIndex)
     m_handle = m_pIndex->GetMwmHandleById(m_mwmId);
@@ -102,7 +105,7 @@ RoutingMapping::~RoutingMapping()
 
 void RoutingMapping::Map()
 {
-  LoadFileIfNeed();
+  LoadFileIfNeeded();
   ++m_mapCounter;
   if (!m_segMapping.IsMapped())
   {
@@ -123,7 +126,7 @@ void RoutingMapping::LoadFacade()
 {
   if (!m_facadeCounter)
   {
-    LoadFileIfNeed();
+    LoadFileIfNeeded();
     m_dataFacade.Load(m_container);
   }
   ++m_facadeCounter;
@@ -144,7 +147,7 @@ void RoutingMapping::LoadCrossContext()
   if (m_crossContextLoaded)
     return;
 
-  LoadFileIfNeed();
+  LoadFileIfNeeded();
 
   if (m_container.IsExist(ROUTING_CROSS_CONTEXT_TAG))
   {
