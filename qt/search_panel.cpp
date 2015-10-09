@@ -191,6 +191,19 @@ bool SearchPanel::TryChangeRouterCmd(QString const & str)
   return true;
 }
 
+// TODO: This code only for demonstration purposes and will be removed soon
+bool SearchPanel::Try3dModeCmd(QString const & str)
+{
+  bool const is3dModeOn = (str == "?3d");
+  bool const is3dModeOff = (str == "?2d");
+
+  if (!is3dModeOn && !is3dModeOff)
+    return false;
+
+  m_pDrawWidget->GetFramework().Enable3dMode(is3dModeOn);
+
+  return true;
+}
 
 void SearchPanel::OnSearchTextChanged(QString const & str)
 {
@@ -200,6 +213,8 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   if (TryChangeMapStyleCmd(normalized))
     return;
   if (TryChangeRouterCmd(normalized))
+    return;
+  if (Try3dModeCmd(normalized))
     return;
 
   // search even with empty query

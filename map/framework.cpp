@@ -2046,3 +2046,12 @@ void Framework::SetRouteFinishPoint(m2::PointD const & pt, bool isValid)
   if (m_drapeEngine != nullptr)
     m_drapeEngine->SetRoutePoint(pt, false /* isStart */, isValid);
 }
+
+void Framework::Enable3dMode(bool enable)
+{
+  ASSERT(m_drapeEngine != nullptr, ());
+  if (enable)
+    m_drapeEngine->Enable3dMode(M_PI / 3.0f, -M_PI_4, 0.5f);
+  else
+    m_drapeEngine->Disable3dMode();
+}
