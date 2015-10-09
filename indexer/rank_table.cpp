@@ -166,19 +166,18 @@ public:
     unique_ptr<RankTableV0> table;
     switch (CheckEndianness(MemReader(region->ImmutableData(), region->Size())))
     {
-      case CheckResult::CorruptedHeader:
-        break;
-      case CheckResult::EndiannessMismatch:
-        table.reset(new RankTableV0());
-        coding::ReverseMap(table->m_coding, region->MutableData() + kHeaderSize,
-                           "SimpleDenseCoding");
-        table->m_region = move(region);
-        break;
-      case CheckResult::EndiannessMatch:
-        table.reset(new RankTableV0());
-        coding::Map(table->m_coding, region->ImmutableData() + kHeaderSize, "SimpleDenseCoding");
-        table->m_region = move(region);
-        break;
+    case CheckResult::CorruptedHeader:
+      break;
+    case CheckResult::EndiannessMismatch:
+      table.reset(new RankTableV0());
+      coding::ReverseMap(table->m_coding, region->MutableData() + kHeaderSize, "SimpleDenseCoding");
+      table->m_region = move(region);
+      break;
+    case CheckResult::EndiannessMatch:
+      table.reset(new RankTableV0());
+      coding::Map(table->m_coding, region->ImmutableData() + kHeaderSize, "SimpleDenseCoding");
+      table->m_region = move(region);
+      break;
     }
     return table;
   }
@@ -188,7 +187,9 @@ private:
   coding::SimpleDenseCoding m_coding;
 };
 
-// Creates a rank section and serializes |table| to it.
+// Following two functions create a rank section and serialize |table|
+// to it. If there was an old section with ranks, these functions
+// overwrite it.
 void SerializeRankTable(RankTable & table, FilesContainerW & wcont)
 {
   if (wcont.IsExist(RANKS_FILE_TAG))
@@ -203,6 +204,12 @@ void SerializeRankTable(RankTable & table, FilesContainerW & wcont)
 
   wcont.Write(buffer, RANKS_FILE_TAG);
   wcont.Finish();
+}
+
+void SerializeRankTable(RankTable & table, string const & mapPath)
+{
+  FilesContainerW wcont(mapPath);
+  SerializeRankTable(table, wcont);
 }
 
 // Deserializes rank table from a rank section. Returns null when it's
@@ -221,8 +228,8 @@ unique_ptr<RankTable> LoadRankTable(unique_ptr<TRegion> && region)
       static_cast<RankTable::Version>(region->ImmutableData()[kVersionOffset]);
   switch (version)
   {
-    case RankTable::V0:
-      return RankTableV0::Load(move(region));
+  case RankTable::V0:
+    return RankTableV0::Load(move(region));
   }
   return unique_ptr<RankTable>();
 }
@@ -239,6 +246,50 @@ uint8_t CalcSearchRank(FeatureType const & ft)
 
   m2::PointD const center = feature::GetCenter(ft);
   return feature::GetSearchRank(types, center, ft.GetPopulation());
+}
+
+// Creates rank table if it does not exists in |rcont| or has wrong
+// endianness. Otherwise (table exists and has correct format) returns
+// null.
+unique_ptr<RankTable> CreateRankTableIfNotExists(FilesContainerR & rcont)
+{
+  unique_ptr<RankTable> table;
+
+  if (rcont.IsExist(RANKS_FILE_TAG))
+  {
+    switch (CheckEndianness(rcont.GetReader(RANKS_FILE_TAG)))
+    {
+    case CheckResult::CorruptedHeader:
+    {
+      // Worst case - we need to create rank table from scratch.
+      break;
+    }
+    case CheckResult::EndiannessMismatch:
+    {
+      // Try to copy whole serialized data and instantiate table via
+      // reverse mapping.
+      auto region = GetMemoryRegionForTag(rcont, RANKS_FILE_TAG);
+      table = LoadRankTable(move(region));
+      break;
+    }
+    case CheckResult::EndiannessMatch:
+    {
+      // Table exists and has proper format. Nothing to do here.
+      return unique_ptr<RankTable>();
+    }
+    }
+  }
+
+  // Table doesn't exist or has wrong format. It's better to create it
+  // from scratch.
+  if (!table)
+  {
+    vector<uint8_t> ranks;
+    RankTableBuilder::CalcSearchRanks(rcont, ranks);
+    table = make_unique<RankTableV0>(ranks);
+  }
+
+  return table;
 }
 }  // namespace
 
@@ -267,56 +318,57 @@ void RankTableBuilder::CalcSearchRanks(FilesContainerR & rcont, vector<uint8_t> 
 }
 
 // static
-void RankTableBuilder::CreateIfNotExists(platform::LocalCountryFile const & localFile)
+bool RankTableBuilder::CreateIfNotExists(platform::LocalCountryFile const & localFile) noexcept
 {
-  string mapPath;
-
-  unique_ptr<RankTable> table;
+  try
   {
-    ModelReaderPtr reader = platform::GetCountryReader(localFile, MapOptions::Map);
-    if (!reader.GetPtr())
-      return;
+    string mapPath;
 
-    mapPath = reader.GetName();
-
-    FilesContainerR rcont(reader);
-    if (rcont.IsExist(RANKS_FILE_TAG))
+    unique_ptr<RankTable> table;
     {
-      switch (CheckEndianness(rcont.GetReader(RANKS_FILE_TAG)))
-      {
-        case CheckResult::CorruptedHeader:
-        {
-          // Worst case - we need to create rank table from scratch.
-          break;
-        }
-        case CheckResult::EndiannessMismatch:
-        {
-          // Try to copy whole serialized data and instantiate table via reverse mapping.
-          auto region = GetMemoryRegionForTag(rcont, RANKS_FILE_TAG);
-          table = LoadRankTable(move(region));
-          break;
-        }
-        case CheckResult::EndiannessMatch:
-        {
-          // Table exists and has proper format. Nothing to do here.
-          return;
-        }
-      }
+      ModelReaderPtr reader = platform::GetCountryReader(localFile, MapOptions::Map);
+      if (!reader.GetPtr())
+        return false;
+
+      mapPath = reader.GetName();
+
+      FilesContainerR rcont(reader);
+      table = CreateRankTableIfNotExists(rcont);
     }
 
-    // Table doesn't exist or has wrong format. It's better to create
-    // it from scratch.
-    if (!table)
-    {
-      vector<uint8_t> ranks;
-      CalcSearchRanks(rcont, ranks);
-      table = make_unique<RankTableV0>(ranks);
-    }
+    if (table)
+      SerializeRankTable(*table, mapPath);
+
+    return true;
   }
+  catch (exception & e)
+  {
+    LOG(LWARNING, ("Can' create rank table for:", localFile, ":", e.what()));
+    return false;
+  }
+}
 
-  ASSERT(table.get(), ());
-  FilesContainerW wcont(mapPath, FileWriter::OP_WRITE_EXISTING);
-  SerializeRankTable(*table, wcont);
+// static
+bool RankTableBuilder::CreateIfNotExists(string const & mapPath) noexcept
+{
+  try
+  {
+    unique_ptr<RankTable> table;
+    {
+      FilesContainerR rcont(mapPath);
+      table = CreateRankTableIfNotExists(rcont);
+    }
+
+    if (table)
+      SerializeRankTable(*table, mapPath);
+
+    return true;
+  }
+  catch (exception & e)
+  {
+    LOG(LWARNING, ("Can' create rank table for:", mapPath, ":", e.what()));
+    return false;
+  }
 }
 
 // static

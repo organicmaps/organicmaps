@@ -22,7 +22,6 @@
 #include "indexer/rank_table.hpp"
 #include "indexer/search_index_builder.hpp"
 
-#include "coding/file_container.hpp"
 #include "coding/file_name_utils.hpp"
 
 #include "base/timer.hpp"
@@ -37,7 +36,6 @@
 #include "std/fstream.hpp"
 #include "std/iomanip.hpp"
 #include "std/numeric.hpp"
-#include "std/vector.hpp"
 
 
 DEFINE_bool(generate_update, false,
@@ -210,15 +208,8 @@ int main(int argc, char ** argv)
         LOG(LCRITICAL, ("Error generating search index."));
 
       LOG(LINFO, ("Generating rank table for ", datFile));
-      vector<uint8_t> ranks;
-      {
-        FilesContainerR rcont(datFile);
-        search::RankTableBuilder::CalcSearchRanks(rcont, ranks);
-      }
-      {
-        FilesContainerW wcont(datFile, FileWriter::OP_WRITE_EXISTING);
-        search::RankTableBuilder::Create(ranks, wcont);
-      }
+      if (!search::RankTableBuilder::CreateIfNotExists(datFile))
+        LOG(LCRITICAL, ("Error generating rank table."));
     }
   }
 

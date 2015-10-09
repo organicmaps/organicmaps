@@ -1,6 +1,7 @@
 #pragma once
 
 #include "std/cstdint.hpp"
+#include "std/string.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
@@ -86,13 +87,17 @@ public:
   // Calculates search ranks for all features in an mwm.
   static void CalcSearchRanks(FilesContainerR & rcont, vector<uint8_t> & ranks);
 
-  // Creates rank table for an mwm.
+  // Following methods create rank table for an mwm.
   // * When rank table already exists and has proper endianness, does nothing.
   // * When rank table already exists but has improper endianness, re-creates it by
   //   reverse mapping.
   // * When rank table does not exist or exists but is damaged, calculates all
   //   features' ranks and creates rank table.
-  static void CreateIfNotExists(platform::LocalCountryFile const & localFile);
+  //
+  // Return true if rank table was successfully generated and written
+  // or already exists and has correct format.
+  static bool CreateIfNotExists(platform::LocalCountryFile const & localFile) noexcept;
+  static bool CreateIfNotExists(string const & mapPath) noexcept;
 
   // Force creation of a rank table from array of ranks. Existing rank
   // table is removed (if any). Note that |wcont| must be instantiated

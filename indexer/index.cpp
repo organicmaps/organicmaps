@@ -72,14 +72,7 @@ unique_ptr<MwmSet::MwmValueBase> Index::CreateValue(MwmInfo & info) const
   if (!infoEx.m_rankTableCtorCalled)
   {
     infoEx.m_rankTableCtorCalled = true;
-    try
-    {
-      search::RankTableBuilder::CreateIfNotExists(localFile);
-    }
-    catch (exception const & e)
-    {
-      LOG(LWARNING, ("Can't create rank table for:", localFile, ":", e.what()));
-    }
+    search::RankTableBuilder::CreateIfNotExists(localFile);
   }
 
   unique_ptr<MwmValue> p(new MwmValue(localFile));
