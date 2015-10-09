@@ -1,6 +1,8 @@
 #include "routing/turns_sound_settings.hpp"
 #include "routing/turns_tts_text.hpp"
 
+#include "base/string_utils.hpp"
+
 #include "std/algorithm.hpp"
 #include "std/string.hpp"
 #include "std/utility.hpp"
@@ -110,37 +112,25 @@ string GetRoundaboutTextId(Notification const & notification)
   if (!notification.m_useThenInsteadOfDistance)
     return "leave_the_roundabout"; // Notification just before leaving a roundabout.
 
-  uint8_t const maxTranslatedExit = 11;
-  if (notification.m_exitNum == 0 || notification.m_exitNum > maxTranslatedExit)
+  static const uint8_t kMaxSoundedExit = 11;
+  if (notification.m_exitNum == 0 || notification.m_exitNum > kMaxSoundedExit)
     return "leave_the_roundabout";
 
-  switch (notification.m_exitNum)
+  if (notification.m_exitNum < 4)
   {
-    case 1:
-      return "take_the_1st_exit";
-    case 2:
-      return "take_the_2nd_exit";
-    case 3:
-      return "take_the_3rd_exit";
-    case 4:
-      return "take_the_4th_exit";
-    case 5:
-      return "take_the_5th_exit";
-    case 6:
-      return "take_the_6th_exit";
-    case 7:
-      return "take_the_7th_exit";
-    case 8:
-      return "take_the_8th_exit";
-    case 9:
-      return "take_the_9th_exit";
-    case 10:
-      return "take_the_10th_exit";
-    case 11:
-      return "take_the_11th_exit";
+    switch (notification.m_exitNum)
+    {
+      case 1:
+        return "take_the_1st_exit";
+      case 2:
+        return "take_the_2nd_exit";
+      case 3:
+        return "take_the_3rd_exit";
+    }
+    ASSERT(false, ());
+    return string();
   }
-  ASSERT(false, ());
-  return string();
+  return "take_the_" + strings::to_string(static_cast<int>(notification.m_exitNum)) + "th_exit";
 }
 
 string GetDirectionTextId(Notification const & notification)
