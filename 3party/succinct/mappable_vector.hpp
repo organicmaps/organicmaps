@@ -17,6 +17,10 @@ namespace coding
 {
 template<typename TWriter>
 class FreezeVisitor;
+
+template <typename TWriter>
+class ReverseFreezeVisitor;
+
 class MapVisitor;
 class ReverseMapVisitor;
 }
@@ -125,6 +129,10 @@ namespace succinct { namespace mapper {
 
         template<typename TWriter>
         friend class coding::FreezeVisitor;
+
+        template<typename TWriter>
+        friend class coding::ReverseFreezeVisitor;
+
         friend class coding::MapVisitor;
         friend class coding::ReverseMapVisitor;
 

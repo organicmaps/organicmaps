@@ -13,8 +13,11 @@
 #include "coding/file_name_utils.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
+#include "coding/writer.hpp"
 
 #include "base/scope_guard.hpp"
+
+#include "defines.hpp"
 
 #include "std/string.hpp"
 #include "std/vector.hpp"
@@ -99,4 +102,58 @@ UNIT_TEST(RankTableBuilder_EndToEnd)
   TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
 
   TestTable(ranks, mapPath);
+}
+
+UNIT_TEST(RankTableBuilder_WrongEndianness)
+{
+  char const kTestFile[] = "test.mwm";
+  MY_SCOPE_GUARD(cleanup, bind(&FileWriter::DeleteFileX, kTestFile));
+
+  vector<uint8_t> ranks = {0, 1, 2, 3, 4};
+  {
+    FilesContainerW wcont(kTestFile);
+    search::RankTableBuilder::Create(ranks, wcont);
+  }
+
+  // Load rank table in host endianness.
+  unique_ptr<search::RankTable> table;
+  {
+    FilesContainerR rcont(kTestFile);
+    table = search::RankTable::Load(rcont);
+    TEST(table.get(), ());
+    TestTable(ranks, *table);
+  }
+
+  // Serialize rank table in opposite endianness.
+  {
+    vector<char> data;
+    {
+      MemWriter<decltype(data)> writer(data);
+      table->Serialize(writer, false /* preserveHostEndianness */);
+    }
+
+    FilesContainerW wcont(kTestFile);
+    wcont.Write(data, RANKS_FILE_TAG);
+  }
+
+  // Try to load rank table from opposite endianness.
+  {
+    FilesContainerR rcont(kTestFile);
+    auto table = search::RankTable::Load(rcont);
+    TEST(table.get(), ());
+    TestTable(ranks, *table);
+  }
+
+  // It's impossible to map rank table from opposite endianness.
+  {
+    FilesMappingContainer mcont(kTestFile);
+    auto table = search::RankTable::Load(mcont);
+    TEST(!table.get(), ());
+  }
+
+  // Try to re-create rank table in test file.
+  TEST(search::RankTableBuilder::CreateIfNotExists(kTestFile), ());
+
+  // Try to load and map rank table - both methods should work now.
+  TestTable(ranks, kTestFile);
 }

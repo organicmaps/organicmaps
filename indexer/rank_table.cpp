@@ -128,16 +128,19 @@ public:
   uint8_t Get(uint64_t i) const override { return m_coding.Get(i); }
   uint64_t Size() const override { return m_coding.Size(); }
   RankTable::Version GetVersion() const override { return V0; }
-  void Serialize(Writer & writer) override
+  void Serialize(Writer & writer, bool preserveHostEndianness) override
   {
     static uint64_t const padding = 0;
 
     uint8_t const version = GetVersion();
-    uint8_t const flags = IsBigEndian();
+    uint8_t const flags = preserveHostEndianness ? IsBigEndian() : !IsBigEndian();
     writer.Write(&version, sizeof(version));
     writer.Write(&flags, sizeof(flags));
     writer.Write(&padding, 6);
-    Freeze(m_coding, writer, "SimpleDenseCoding");
+    if (preserveHostEndianness)
+      Freeze(m_coding, writer, "SimpleDenseCoding");
+    else
+      ReverseFreeze(m_coding, writer, "SimpleDenseCoding");
   }
 
   // Loads RankTableV0 from a raw memory region.
@@ -199,7 +202,7 @@ void SerializeRankTable(RankTable & table, FilesContainerW & wcont)
   vector<char> buffer;
   {
     MemWriter<decltype(buffer)> writer(buffer);
-    table.Serialize(writer);
+    table.Serialize(writer, true /* hostEndianness */);
   }
 
   wcont.Write(buffer, RANKS_FILE_TAG);

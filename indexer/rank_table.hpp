@@ -56,8 +56,11 @@ public:
   // Returns underlying data format version.
   virtual Version GetVersion() const = 0;
 
-  // Serializes rank table.
-  virtual void Serialize(Writer & writer) = 0;
+  // Serializes rank table. When |preserveHostEndianness| is true,
+  // table is serialized in host endianness, otherwise, opposite
+  // endianness is used. Please, don't set this parameter to false
+  // unless you know what you do.
+  virtual void Serialize(Writer & writer, bool preserveHostEndianness) = 0;
 
   // Copies whole section corresponding to a rank table and
   // deserializes it. Returns nullptr if there're no ranks section or

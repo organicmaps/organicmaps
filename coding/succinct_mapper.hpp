@@ -21,6 +21,20 @@ static T * Align8Ptr(T * ptr)
 
 inline uint32_t ToAlign8(uint64_t written) { return (0x8 - (written & 0x7)) & 0x7; }
 
+inline bool IsAligned(uint64_t offset) { return ToAlign8(offset) == 0; }
+
+template <typename TWriter>
+void WritePadding(TWriter & writer, uint64_t & bytesWritten)
+{
+  static uint64_t const zero = 0;
+
+  uint32_t const padding = ToAlign8(bytesWritten);
+  if (padding == 0)
+    return;
+  writer.Write(&zero, padding);
+  bytesWritten += padding;
+}
+
 class MapVisitor
 {
 public:
@@ -125,7 +139,7 @@ public:
   typename enable_if<!is_pod<T>::value, FreezeVisitor &>::type operator()(T & val,
                                                                           char const * /* name */)
   {
-    ASSERT(IsAligned(), ());
+    ASSERT(IsAligned(m_writer.Pos()), ());
     val.map(*this);
     return *this;
   }
@@ -134,46 +148,86 @@ public:
   typename enable_if<is_pod<T>::value, FreezeVisitor &>::type operator()(T & val,
                                                                          char const * /* name */)
   {
-    ASSERT(IsAligned(), ());
+    ASSERT(IsAligned(m_writer.Pos()), ());
     m_writer.Write(&val, sizeof(T));
     m_bytesWritten += sizeof(T);
-    WritePadding();
+    WritePadding(m_writer, m_bytesWritten);
     return *this;
   }
 
   template <typename T>
   FreezeVisitor & operator()(succinct::mapper::mappable_vector<T> & vec, char const * /* name */)
   {
-    ASSERT(IsAligned(), ());
+    ASSERT(IsAligned(m_writer.Pos()), ());
     (*this)(vec.m_size, "size");
 
     size_t const bytes = static_cast<size_t>(vec.m_size * sizeof(T));
     m_writer.Write(vec.m_data, bytes);
     m_bytesWritten += bytes;
-    WritePadding();
+    WritePadding(m_writer, m_bytesWritten);
     return *this;
   }
 
   uint64_t BytesWritten() const { return m_bytesWritten; }
 
 private:
-  bool IsAligned() const { return ToAlign8(m_writer.Pos()) == 0; }
-
-  void WritePadding()
-  {
-    static uint64_t const zero = 0;
-
-    uint32_t const padding = ToAlign8(m_bytesWritten);
-    if (padding == 0)
-      return;
-    m_writer.Write(&zero, padding);
-    m_bytesWritten += padding;
-  }
-
   TWriter & m_writer;
   uint64_t m_bytesWritten;
 
   DISALLOW_COPY_AND_MOVE(FreezeVisitor);
+};
+
+template <typename TWriter>
+class ReverseFreezeVisitor
+{
+public:
+  explicit ReverseFreezeVisitor(TWriter & writer) : m_writer(writer), m_bytesWritten(0) {}
+
+  template <typename T>
+  typename enable_if<!is_pod<T>::value, ReverseFreezeVisitor &>::type operator()(
+      T & val, char const * /* name */)
+  {
+    ASSERT(IsAligned(m_writer.Pos()), ());
+    val.map(*this);
+    return *this;
+  }
+
+  template <typename T>
+  typename enable_if<is_pod<T>::value, ReverseFreezeVisitor &>::type operator()(
+      T & val, char const * /* name */)
+  {
+    ASSERT(IsAligned(m_writer.Pos()), ());
+    T const reversedVal = ReverseByteOrder(val);
+    m_writer.Write(&reversedVal, sizeof(reversedVal));
+    m_bytesWritten += sizeof(T);
+    WritePadding(m_writer, m_bytesWritten);
+    return *this;
+  }
+
+  template <typename T>
+  ReverseFreezeVisitor & operator()(succinct::mapper::mappable_vector<T> & vec,
+                                    char const * /* name */)
+  {
+    ASSERT(IsAligned(m_writer.Pos()), ());
+    (*this)(vec.m_size, "size");
+
+    for (auto const & val : vec)
+    {
+      T const reversedVal = ReverseByteOrder(val);
+      m_writer.Write(&reversedVal, sizeof(reversedVal));
+    }
+    m_bytesWritten += static_cast<size_t>(vec.m_size * sizeof(T));
+    WritePadding(m_writer, m_bytesWritten);
+    return *this;
+  }
+
+  uint64_t BytesWritten() const { return m_bytesWritten; }
+
+private:
+  TWriter & m_writer;
+  uint64_t m_bytesWritten;
+
+  DISALLOW_COPY_AND_MOVE(ReverseFreezeVisitor);
 };
 
 template <typename T>
@@ -196,6 +250,14 @@ template <typename T, typename TWriter>
 uint64_t Freeze(T & val, TWriter & writer, char const * name)
 {
   FreezeVisitor<TWriter> visitor(writer);
+  visitor(val, name);
+  return visitor.BytesWritten();
+}
+
+template <typename T, typename TWriter>
+uint64_t ReverseFreeze(T & val, TWriter & writer, char const * name)
+{
+  ReverseFreezeVisitor<TWriter> visitor(writer);
   visitor(val, name);
   return visitor.BytesWritten();
 }
