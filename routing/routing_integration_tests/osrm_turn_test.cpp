@@ -348,3 +348,18 @@ UNIT_TEST(RussiaMoscowLeningradskiyPrptToTheCenterUTurnTest)
   integration::TestTurnCount(route, 2);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(TurnDirection::TurnLeft);
 }
+
+// Test case: checking that no unnecessary turn on a serpentine road.
+// This test was written after reducing factors kMaxPointsCount and kMinDistMeters.
+UNIT_TEST(SwitzerlandSamstagernBergstrasseTest)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetOsrmComponents(), MercatorBounds::FromLatLon(47.19300, 8.67568), {0., 0.},
+      MercatorBounds::FromLatLon(47.19162, 8.67590));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 0);
+}
