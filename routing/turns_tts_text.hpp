@@ -36,6 +36,9 @@ private:
 
 /// Generates text message id about the distance of the notification. For example: In 300 meters.
 string GetDistanceTextId(Notification const & notification);
+/// Generates text message id for roundabouts.
+/// For example: leave_the_roundabout or take_the_3rd_exit
+string GetRoundaboutTextId(Notification const & notification);
 /// Generates text message id about the direction of the notification. For example: Make a right
 /// turn.
 string GetDirectionTextId(Notification const & notification);

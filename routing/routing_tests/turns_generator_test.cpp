@@ -138,7 +138,7 @@ UNIT_TEST(TestFixupTurns)
 
   FixupTurns(pointsMerc1, turnsDir1);
   Route::TTurns const expectedTurnDir1 = {{0, TurnDirection::EnterRoundAbout, 2},
-                                          {2, TurnDirection::LeaveRoundAbout},
+                                          {2, TurnDirection::LeaveRoundAbout, 2},
                                           {3, TurnDirection::ReachedYourDestination}};
   TEST_EQUAL(turnsDir1, expectedTurnDir1, ());
 

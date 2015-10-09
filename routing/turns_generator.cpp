@@ -579,7 +579,8 @@ void FixupTurns(vector<m2::PointD> const & points, Route::TTurns & turnsDir)
     }
     else if (roundabout && t.m_turn == TurnDirection::LeaveRoundAbout)
     {
-      roundabout->m_exitNum = exitNum + 1;
+      roundabout->m_exitNum = exitNum + 1; // For EnterRoundAbout turn.
+      t.m_exitNum = roundabout->m_exitNum; // For LeaveRoundAbout turn.
       roundabout = nullptr;
       exitNum = 0;
     }

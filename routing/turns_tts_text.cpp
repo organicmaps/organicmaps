@@ -1,6 +1,8 @@
 #include "routing/turns_sound_settings.hpp"
 #include "routing/turns_tts_text.hpp"
 
+#include "base/string_utils.hpp"
+
 #include "std/algorithm.hpp"
 #include "std/string.hpp"
 #include "std/utility.hpp"
@@ -100,6 +102,37 @@ string GetDistanceTextId(Notification const & notification)
   return string();
 }
 
+string GetRoundaboutTextId(Notification const & notification)
+{
+  if (notification.m_turnDir != TurnDirection::LeaveRoundAbout)
+  {
+    ASSERT(false, ());
+    return string();
+  }
+  if (!notification.m_useThenInsteadOfDistance)
+    return "leave_the_roundabout"; // Notification just before leaving a roundabout.
+
+  static const uint8_t kMaxSoundedExit = 11;
+  if (notification.m_exitNum == 0 || notification.m_exitNum > kMaxSoundedExit)
+    return "leave_the_roundabout";
+
+  if (notification.m_exitNum < 4)
+  {
+    switch (notification.m_exitNum)
+    {
+      case 1:
+        return "take_the_1st_exit";
+      case 2:
+        return "take_the_2nd_exit";
+      case 3:
+        return "take_the_3rd_exit";
+    }
+    ASSERT(false, ());
+    return string();
+  }
+  return "take_the_" + strings::to_string(static_cast<int>(notification.m_exitNum)) + "th_exit";
+}
+
 string GetDirectionTextId(Notification const & notification)
 {
   switch (notification.m_turnDir)
@@ -123,7 +156,7 @@ string GetDirectionTextId(Notification const & notification)
     case TurnDirection::EnterRoundAbout:
       return "enter_the_roundabout";
     case TurnDirection::LeaveRoundAbout:
-      return "leave_the_roundabout";
+      return GetRoundaboutTextId(notification);
     case TurnDirection::ReachedYourDestination:
       return "you_have_reached_the_destination";
     case TurnDirection::StayOnRoundAbout:

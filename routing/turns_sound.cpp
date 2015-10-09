@@ -29,6 +29,18 @@ uint32_t CalculateDistBeforeMeters(double m_speedMetersPerSecond)
       static_cast<uint32_t>(m_speedMetersPerSecond * kStartBeforeSeconds);
   return my::clamp(startBeforeMeters, kMinStartBeforeMeters, kMaxStartBeforeMeters);
 }
+
+// Returns true if the closest turn is an entrance to a roundabout and the second is
+// an exit form a roundabout.
+// Note. There are some cases when another turn (besides an exit from roundabout)
+// follows an entrance to a roundabout. It could happend in case of turns inside a roundabout.
+// Returns false otherwise.
+bool IsClassicEntranceToRoundabout(routing::turns::TurnItemDist const & firstTurn,
+                                   routing::turns::TurnItemDist const & secondTurn)
+{
+  return firstTurn.m_turnItem.m_turn == routing::turns::TurnDirection::EnterRoundAbout
+      && secondTurn.m_turnItem.m_turn == routing::turns::TurnDirection::LeaveRoundAbout;
+}
 }  // namespace
 
 namespace routing
@@ -64,8 +76,11 @@ void TurnsSound::GenerateTurnSound(vector<TurnItemDist> const & turns, vector<st
     return;
   TurnItemDist const & secondTurn = turns[1];
   ASSERT_LESS_OR_EQUAL(firstTurn.m_distMeters, secondTurn.m_distMeters, ());
-  if (secondTurn.m_distMeters - firstTurn.m_distMeters > kMaxTurnDistM)
+  if (secondTurn.m_distMeters - firstTurn.m_distMeters > kMaxTurnDistM
+      && !IsClassicEntranceToRoundabout(firstTurn, secondTurn))
+  {
     return;
+  }
   string secondNotification = GenerateTurnText(0 /* distanceUnits is not used because of "Then" is used */,
                                                secondTurn.m_turnItem.m_exitNum, true,
                                                secondTurn.m_turnItem.m_turn,
