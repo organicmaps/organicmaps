@@ -498,6 +498,7 @@ void FrontendRenderer::OnResize(ScreenBase const & screen)
   m_viewport.SetViewport(0, 0, screen.GetWidth(), screen.GetHeight());
   m_myPositionController->SetPixelRect(screen.PixelRect());
   m_contextFactory->getDrawContext()->resize(m_viewport.GetWidth(), m_viewport.GetHeight());
+  m_framebuffer->SetDefaultContext(m_contextFactory->getDrawContext());
   m_framebuffer->SetSize(m_viewport.GetWidth(), m_viewport.GetHeight());
   m_renderer3d->SetSize(m_viewport.GetWidth(), m_viewport.GetHeight());
   RefreshProjection();
@@ -654,7 +655,10 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 #endif
 
   if (m_useFramebuffer)
+  {
+    m_framebuffer->SetDefaultContext(m_contextFactory->getDrawContext());
     m_framebuffer->Enable();
+  }
 
   RenderGroupComparator comparator;
   sort(m_renderGroups.begin(), m_renderGroups.end(), bind(&RenderGroupComparator::operator (), &comparator, _1, _2));

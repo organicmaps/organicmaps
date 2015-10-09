@@ -16,7 +16,8 @@ namespace df
 Framebuffer::Framebuffer()
   : m_colorTextureId(0)
   , m_depthTextureId(0)
-  , m_fbo(0)
+  , m_framebufferId(0)
+  , m_defaultContext(0)
 {
 
 }
@@ -30,7 +31,7 @@ void Framebuffer::Destroy()
 {
   if (m_colorTextureId)
   {
-    GLFunctions::glDeleteTexture(m_depthTextureId);
+    GLFunctions::glDeleteTexture(m_colorTextureId);
     m_colorTextureId = 0;
   }
   if (m_depthTextureId)
@@ -38,16 +39,23 @@ void Framebuffer::Destroy()
     GLFunctions::glDeleteTexture(m_depthTextureId);
     m_depthTextureId = 0;
   }
-  if (m_fbo)
+  if (m_framebufferId)
   {
-    GLFunctions::glDeleteFramebuffer(&m_fbo);
-    m_fbo = 0;
+    GLFunctions::glDeleteFramebuffer(&m_framebufferId);
+    m_framebufferId = 0;
   }
+}
+
+void Framebuffer::SetDefaultContext(dp::OGLContext * context)
+{
+  m_defaultContext = context;
 }
 
 void Framebuffer::SetSize(uint32_t width, uint32_t height)
 {
   assert(width > 0 && height > 0);
+  assert(m_defaultContext);
+
   if (m_width == width && m_height == height)
     return;
 
@@ -61,6 +69,8 @@ void Framebuffer::SetSize(uint32_t width, uint32_t height)
   GLFunctions::glTexImage2D(m_width, m_height, gl_const::GLRGBA, gl_const::GLUnsignedByteType, NULL);
   GLFunctions::glTexParameter(gl_const::GLMagFilter, gl_const::GLLinear);
   GLFunctions::glTexParameter(gl_const::GLMinFilter, gl_const::GLLinear);
+  GLFunctions::glTexParameter(gl_const::GLWrapT, gl_const::GLClampToEdge);
+  GLFunctions::glTexParameter(gl_const::GLWrapS, gl_const::GLClampToEdge);
 
   m_depthTextureId = GLFunctions::glGenTexture();
   GLFunctions::glBindTexture(m_depthTextureId);
@@ -68,8 +78,8 @@ void Framebuffer::SetSize(uint32_t width, uint32_t height)
 
   GLFunctions::glBindTexture(0);
 
-  GLFunctions::glGenFramebuffer(&m_fbo);
-  GLFunctions::glBindFramebuffer(m_fbo);
+  GLFunctions::glGenFramebuffer(&m_framebufferId);
+  GLFunctions::glBindFramebuffer(m_framebufferId);
 
   GLFunctions::glFramebufferTexture2D(gl_const::GLColorAttachment, m_colorTextureId);
   GLFunctions::glFramebufferTexture2D(gl_const::GLDepthAttachment, m_depthTextureId);
@@ -80,17 +90,18 @@ void Framebuffer::SetSize(uint32_t width, uint32_t height)
     LOG(LWARNING, ("INCOMPLETE FRAMEBUFFER: ", strings::to_string(status)));
 
   //GLFunctions::glFlush();
-  GLFunctions::glBindFramebuffer(0);
+  m_defaultContext->setDefaultFramebuffer();
 }
 
 void Framebuffer::Enable()
 {
-  GLFunctions::glBindFramebuffer(m_fbo);
+  GLFunctions::glBindFramebuffer(m_framebufferId);
 }
 
 void Framebuffer::Disable()
 {
-  GLFunctions::glBindFramebuffer(0);
+  assert(m_defaultContext);
+  m_defaultContext->setDefaultFramebuffer();
 }
 
 uint32_t Framebuffer::GetTextureId() const
