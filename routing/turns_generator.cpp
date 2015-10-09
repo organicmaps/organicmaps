@@ -22,8 +22,8 @@ using namespace routing::turns;
 namespace
 {
 double const kFeaturesNearTurnMeters = 3.0;
-size_t constexpr kMaxPointsCount = 7;
-double constexpr kMinDistMeters = 300.;
+size_t constexpr kMaxPointsCount = 5;
+double constexpr kMinDistMeters = 200.;
 size_t constexpr kNotSoCloseMaxPointsCount = 3;
 double constexpr kNotSoCloseMinDistMeters = 30.;
 
