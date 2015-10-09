@@ -373,9 +373,14 @@ namespace
 
 void Navigator::Scale(m2::PointD const & pt, double factor)
 {
+  CalculateScale(pt, factor, m_Screen);
+}
+
+void Navigator::CalculateScale(m2::PointD const & pt, double factor, ScreenBase & screen)
+{
   m2::PointD startPt, endPt;
-  CalcScalePoints(pt, factor, m_Screen.PixelRect(), startPt, endPt);
-  ScaleImpl(pt, endPt, pt, startPt, factor > 1, false);
+  CalcScalePoints(pt, factor, screen.PixelRect(), startPt, endPt);
+  ScaleImpl(pt, endPt, pt, startPt, factor > 1, false, screen);
 }
 
 bool Navigator::CheckMinScale(ScreenBase const & screen) const
@@ -407,13 +412,13 @@ bool Navigator::CheckBorders(ScreenBase const & screen) const
 
 bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
                           m2::PointD const & oldPt1, m2::PointD const & oldPt2,
-                          bool skipMinScaleAndBordersCheck,
-                          bool doRotateScreen)
+                          bool skipMinScaleAndBordersCheck, bool doRotateScreen,
+                          ScreenBase & screen)
 {
-  math::Matrix<double, 3, 3> newM = m_Screen.GtoPMatrix() * ScreenBase::CalcTransform(oldPt1, oldPt2, newPt1, newPt2);
+  math::Matrix<double, 3, 3> newM = screen.GtoPMatrix() * ScreenBase::CalcTransform(oldPt1, oldPt2, newPt1, newPt2);
 
-  double oldAngle = m_Screen.GetAngle();
-  ScreenBase tmp = m_Screen;
+  double oldAngle = screen.GetAngle();
+  ScreenBase tmp = screen;
   tmp.SetGtoPMatrix(newM);
   if (!doRotateScreen)
     tmp.Rotate(-(tmp.GetAngle() - oldAngle));
@@ -438,7 +443,7 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
   if (!CheckBorders(tmp))
     tmp = ScaleInto(tmp, worldR);
 
-  m_Screen = tmp;
+  screen = tmp;
   return true;
 }
 
@@ -481,10 +486,9 @@ void Navigator::DoScale(m2::PointD const & pt1, m2::PointD const & pt2)
 
   m_Screen = PrevScreen;
 
-  if (!ScaleImpl(pt1, pt2,
-                 m_LastPt1, m_LastPt2,
+  if (!ScaleImpl(pt1, pt2, m_LastPt1, m_LastPt2,
                  pt1.Length(pt2) > m_LastPt1.Length(m_LastPt2),
-                 m_IsRotatingDuringScale))
+                 m_IsRotatingDuringScale, m_Screen))
   {
     m_Screen = PrevScreen;
   }

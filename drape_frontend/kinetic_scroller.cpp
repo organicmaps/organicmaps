@@ -40,6 +40,8 @@ public:
   {
   }
 
+  ModelViewAnimationType GetType() const override { return ModelViewAnimationType::KineticScroll; }
+
   m2::AnyRectD GetCurrentRect(ScreenBase const & screen) const override
   {
     // current position = target position - amplutide * e ^ (elapsed / duration)

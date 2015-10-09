@@ -151,6 +151,7 @@ private:
   void OnRotated() override;
   void CorrectScalePoint(m2::PointD & pt) const override;
   void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const override;
+  void CorrectGlobalScalePoint(m2::PointD & pt) const override;
   void OnScaleEnded() override;
 
   class Routine : public threads::IRoutine

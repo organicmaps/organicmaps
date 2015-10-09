@@ -182,7 +182,10 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
   }
 
   if (breakAnim)
+  {
     m_animation.reset();
+    modelViewChange = true;
+  }
 
   if (m_animation != nullptr)
   {
@@ -217,24 +220,25 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
 
   if (isAnim)
   {
-    m2::AnyRectD rect = GetTargetRect();
-    m2::PointD currentCenter = rect.GlobalZero();
-    m2::PointD const glbScaleCenter = m_navigator.PtoG(scaleCenter);
-    m2::PointD const centerMove = (currentCenter - glbScaleCenter) / factor;
+    // Reset current animation if there is any.
+    ResetCurrentAnimation();
 
-    currentCenter = glbScaleCenter + centerMove;
+    m2::PointD glbScaleCenter = m_navigator.PtoG(scaleCenter);
+    if (m_listener)
+      m_listener->CorrectGlobalScalePoint(glbScaleCenter);
 
-    m2::RectD sizeRect = rect.GetLocalRect();
-    sizeRect.Scale(1.0 / factor);
+    ScreenBase screen = GetCurrentScreen();
+    m_navigator.CalculateScale(scaleCenter, factor, screen);
+    m2::PointD offset = GetCurrentScreen().PixelRect().Center() - scaleCenter;
 
-    auto creator = [this, &scaleCenter, &glbScaleCenter](m2::AnyRectD const & startRect, m2::AnyRectD const & endRect,
-                                                         double aDuration, double mDuration, double sDuration)
+    auto creator = [this, &glbScaleCenter, &offset](m2::AnyRectD const & startRect, m2::AnyRectD const & endRect,
+                                                    double aDuration, double mDuration, double sDuration)
     {
-      m_animation.reset(new FixedPointAnimation(startRect, endRect, aDuration, mDuration,
-                                                sDuration, scaleCenter, glbScaleCenter));
+      m_animation.reset(new ScaleAnimation(startRect, endRect, aDuration, mDuration,
+                                           sDuration, glbScaleCenter, offset));
     };
 
-    return SetRect(m2::AnyRectD(currentCenter, rect.Angle(), sizeRect), true, creator);
+    return SetRect(screen.GlobalRect(), true, creator);
   }
 
   m_navigator.Scale(scaleCenter, factor);
@@ -262,6 +266,9 @@ bool UserEventStream::SetRect(m2::RectD rect, int zoom, bool applyRotation, bool
 
 bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim)
 {
+  // Reset current animation if there is any.
+  ResetCurrentAnimation();
+
   return SetRect(rect, isAnim, [this](m2::AnyRectD const & startRect, m2::AnyRectD const & endRect,
                                       double aDuration, double mDuration, double sDuration)
   {
@@ -297,6 +304,9 @@ bool UserEventStream::SetFollowAndRotate(m2::AnyRectD const & rect, m2::PointD c
 {
   if (isAnim)
   {
+    // Reset current animation if there is any.
+    ResetCurrentAnimation();
+
     ScreenBase const & screen = m_navigator.Screen();
     m2::AnyRectD const startRect = GetCurrentRect();
     double const angleDuration = ModelViewAnimation::GetRotateDuration(startRect.Angle().val(), azimuth);
@@ -312,6 +322,16 @@ bool UserEventStream::SetFollowAndRotate(m2::AnyRectD const & rect, m2::PointD c
   m_animation.reset();
   m_navigator.SetFromRect(rect);
   return true;
+}
+
+void UserEventStream::ResetCurrentAnimation()
+{
+  if (m_animation != nullptr)
+  {
+    m2::AnyRectD rect = m_animation->GetCurrentRect(GetCurrentScreen());
+    m_navigator.SetFromRect(rect);
+    m_animation.reset();
+  }
 }
 
 m2::AnyRectD UserEventStream::GetCurrentRect() const
@@ -374,7 +394,9 @@ bool UserEventStream::TouchDown(array<Touch, 2> const & touches)
           m_startDragOrg = touches[0].m_location;
         }
         else
+        {
           isMapTouch = false;
+        }
       }
     }
   }

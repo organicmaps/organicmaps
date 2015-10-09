@@ -214,6 +214,7 @@ public:
     virtual void OnScaleStarted() = 0;
     virtual void OnRotated() = 0;
     virtual void CorrectScalePoint(m2::PointD & pt) const = 0;
+    virtual void CorrectGlobalScalePoint(m2::PointD & pt) const = 0;
     virtual void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const = 0;
     virtual void OnScaleEnded() = 0;
   };
@@ -286,6 +287,8 @@ private:
   bool TryBeginFilter(Touch const & t);
   void EndFilter(Touch const & t);
   void CancelFilter(Touch const & t);
+
+  void ResetCurrentAnimation();
 
 private:
   TIsCountryLoaded m_isCountryLoaded;

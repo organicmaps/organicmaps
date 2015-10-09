@@ -58,6 +58,7 @@ public:
   void Rotated();
   void CorrectScalePoint(m2::PointD & pt) const;
   void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const;
+  void CorrectGlobalScalePoint(m2::PointD & pt) const;
   void ScaleEnded();
 
   void SetRenderShape(drape_ptr<MyPosition> && shape);

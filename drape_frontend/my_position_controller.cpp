@@ -178,6 +178,12 @@ void MyPositionController::CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2)
   }
 }
 
+void MyPositionController::CorrectGlobalScalePoint(m2::PointD & pt) const
+{
+  if (IsModeChangeViewport())
+    pt = m_position;
+}
+
 void MyPositionController::ScaleEnded()
 {
   SetModeInfo(ResetModeBit(m_modeInfo, BlockAnimation));

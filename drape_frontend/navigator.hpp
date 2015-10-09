@@ -44,6 +44,7 @@ public:
   bool IsRotatingDuringScale() const;
 
   void Scale(m2::PointD const & pt, double factor);
+  void CalculateScale(m2::PointD const & pt, double factor, ScreenBase & screen);
   bool InAction() const;
 
 private:
@@ -77,12 +78,10 @@ private:
   // Do screen rotates during the two fingers scaling.
   bool m_IsRotatingDuringScale;
   // Used in DoScale and ScaleByPoint
-  bool ScaleImpl(m2::PointD const & newPt1,
-                 m2::PointD const & newPt2,
-                 m2::PointD const & oldPt1,
-                 m2::PointD const & oldPt2,
-                 bool skipMinScaleAndBordersCheck,
-                 bool doRotateScreen);
+  bool ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
+                 m2::PointD const & oldPt1, m2::PointD const & oldPt2,
+                 bool skipMinScaleAndBordersCheck, bool doRotateScreen,
+                 ScreenBase & screen);
 };
 
 m2::AnyRectD ToRotated(Navigator const & navigator, m2::RectD const & rect);

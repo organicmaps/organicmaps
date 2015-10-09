@@ -731,6 +731,11 @@ void FrontendRenderer::CorrectScalePoint(m2::PointD & pt) const
   m_myPositionController->CorrectScalePoint(pt);
 }
 
+void FrontendRenderer::CorrectGlobalScalePoint(m2::PointD & pt) const
+{
+  m_myPositionController->CorrectGlobalScalePoint(pt);
+}
+
 void FrontendRenderer::CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const
 {
   m_myPositionController->CorrectScalePoint(pt1, pt2);
@@ -911,7 +916,7 @@ void FrontendRenderer::ChangeModelView(m2::PointD const & userPos, double azimut
 {
   ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
   m2::RectD const & pixelRect = screen.PixelRect();
-  m2::AnyRectD targetRect = m_userEventStream.GetTargetRect();
+  m2::AnyRectD targetRect = m_userEventStream.GetCurrentScreen().GlobalRect();
 
   auto calculateOffset = [&pixelRect, &targetRect](m2::PointD const & pixelPos)
   {
