@@ -65,6 +65,19 @@ namespace feature
   }
 
   // static
+  unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::Load(FilesContainerR const & cont)
+  {
+    unique_ptr<FeaturesOffsetsTable> ptr(new FeaturesOffsetsTable());
+
+    ptr->m_file.Open(cont.GetFileName());
+    auto p = cont.GetAbsoluteOffsetAndSize(FEATURE_OFFSETS_FILE_TAG);
+    ptr->m_handle.Assign(ptr->m_file.Map(p.first, p.second, FEATURE_OFFSETS_FILE_TAG));
+
+    succinct::mapper::map(ptr->m_table, ptr->m_handle.GetData<char>());
+    return ptr;
+  }
+
+  // static
   unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::CreateImpl(
       platform::LocalCountryFile const & localFile,
       FilesContainerR const & cont, string const & storePath)
@@ -73,6 +86,12 @@ namespace feature
 
     CountryIndexes::PreparePlaceOnDisk(localFile);
 
+    return Build(cont, storePath);
+  }
+
+  unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::Build(FilesContainerR const & cont,
+                                                               string const & storePath)
+  {
     Builder builder;
     FeaturesVector::ForEachOffset(cont.GetReader(DATA_FILE_TAG), [&builder] (uint32_t offset)
     {

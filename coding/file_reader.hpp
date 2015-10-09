@@ -22,6 +22,8 @@ public:
   FileReader SubReader(uint64_t pos, uint64_t size) const;
   FileReader * CreateSubReader(uint64_t pos, uint64_t size) const;
 
+  inline uint64_t GetOffset() const { return m_Offset; }
+
 protected:
   /// Make assertion that pos + size in FileReader bounds.
   bool AssertPosAndSize(uint64_t pos, uint64_t size) const;

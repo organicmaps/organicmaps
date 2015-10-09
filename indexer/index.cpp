@@ -24,11 +24,17 @@ MwmValue::MwmValue(LocalCountryFile const & localFile)
 
 void MwmValue::SetTable(MwmInfoEx & info)
 {
-  if (GetHeader().GetFormat() < version::v5)
+  auto const ver = GetHeader().GetFormat();
+  if (ver < version::v5)
     return;
 
   if (!info.m_table)
-    info.m_table = feature::FeaturesOffsetsTable::CreateIfNotExistsAndLoad(m_file, m_cont);
+  {
+    if (ver == version::v5)
+      info.m_table = feature::FeaturesOffsetsTable::CreateIfNotExistsAndLoad(m_file, m_cont);
+    else
+      info.m_table = feature::FeaturesOffsetsTable::Load(m_cont);
+  }
   m_table = info.m_table.get();
 }
 

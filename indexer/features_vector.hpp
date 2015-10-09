@@ -55,6 +55,8 @@ private:
 /// Used in generator_tool and unit tests.
 class FeaturesVectorTest
 {
+  DISALLOW_COPY(FeaturesVectorTest);
+
   FilesContainerR m_cont;
   feature::DataHeader m_header;
   FeaturesVector m_vector;
