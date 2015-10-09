@@ -69,10 +69,11 @@ public class MapFragment extends BaseMwmFragment
                       UiUtils.dimen(R.dimen.margin_base),
                       ANCHOR_TOP);
 
-    nativeSetupWidget(WIDGET_SCALE_LABEL,
-                      UiUtils.dimen(R.dimen.margin_base),
-                      UiUtils.dimen(R.dimen.margin_base),
-                      ANCHOR_LEFT_TOP);
+    if (BuildConfig.DEBUG)
+      nativeSetupWidget(WIDGET_SCALE_LABEL,
+                        UiUtils.dimen(R.dimen.margin_base),
+                        UiUtils.dimen(R.dimen.margin_base),
+                        ANCHOR_LEFT_TOP);
 
     adjustCompass(0, false);
   }
