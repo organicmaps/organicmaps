@@ -23,7 +23,7 @@ public:
   using IdType = size_t;
   using IdSet = vector<IdType>;
 
-  CountryInfoGetter(ModelReaderPtr polyR, ModelReaderPtr countryR);
+  virtual ~CountryInfoGetter() = default;
 
   // Returns country file name without an extension for a country |pt|
   // belongs to. If there are no such country, returns an empty
@@ -58,11 +58,10 @@ public:
   bool IsBelongToRegions(string const & fileName, IdSet const & regions) const;
 
   // Clears regions cache.
-  void ClearCaches() const;
+  inline void ClearCaches() const { ClearCachesImpl(); }
 
-private:
-  // Returns true when |pt| belongs to a country identified by |id|.
-  bool IsBelongToRegion(size_t id, m2::PointD const & pt) const;
+protected:
+  CountryInfoGetter() = default;
 
   // Returns identifier of a first country containing |pt|.
   IdType FindFirstCountry(m2::PointD const & pt) const;
@@ -71,15 +70,47 @@ private:
   template <typename ToDo>
   void ForEachCountry(string const & prefix, ToDo && toDo) const;
 
+  // Clears regions cache.
+  virtual void ClearCachesImpl() const = 0;
+
+  // Returns true when |pt| belongs to a country identified by |id|.
+  virtual bool IsBelongToRegionImpl(size_t id, m2::PointD const & pt) const = 0;
+
+  // List of all known countries.
   vector<CountryDef> m_countries;
 
   // Maps country file name without an extension to a country info.
   map<string, CountryInfo> m_id2info;
+};
 
-  // Only cache and reader can be modified from different threads, so
-  // they're guarded by m_cacheMutex.
+// This class reads info about countries from polygons file and
+// countries file and caches it.
+class CountryInfoReader : public CountryInfoGetter
+{
+public:
+  CountryInfoReader(ModelReaderPtr polyR, ModelReaderPtr countryR);
+
+protected:
+  // CountryInfoGetter overrides:
+  void ClearCachesImpl() const override;
+  bool IsBelongToRegionImpl(size_t id, m2::PointD const & pt) const override;
+
   FilesContainerR m_reader;
   mutable my::Cache<uint32_t, vector<m2::RegionD>> m_cache;
   mutable mutex m_cacheMutex;
+};
+
+// This class allows users to get info about very simply rectangular
+// countries, whose info can be described by CountryDef instances.
+// It's needed for testing purposes only.
+class CountryInfoGetterForTesting : public CountryInfoGetter
+{
+public:
+  CountryInfoGetterForTesting(vector<CountryDef> const & countries);
+
+protected:
+  // CountryInfoGetter overrides:
+  void ClearCachesImpl() const override;
+  bool IsBelongToRegionImpl(size_t id, m2::PointD const & pt) const override;
 };
 }  // namespace storage

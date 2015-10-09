@@ -1301,37 +1301,15 @@ void Query::SearchAddress(Results & res)
 
           // Candidates for search around locality. Initially filled
           // with mwms containing city center.
-          TMWMVector candidateMwms;
-          auto localityMismatch = [&cityCenter, &rect, this](shared_ptr<MwmInfo> const & info)
+          TMWMVector localityMwms;
+          string const localityFile = m_infoGetter.GetRegionFile(cityCenter);
+          auto localityMismatch = [&localityFile](shared_ptr<MwmInfo> const & info)
           {
-            return !info->m_limitRect.IsIntersect(rect);
+            return info->GetCountryName() != localityFile;
           };
-          remove_copy_if(mwmsInfo.begin(), mwmsInfo.end(), back_inserter(candidateMwms),
+          remove_copy_if(mwmsInfo.begin(), mwmsInfo.end(), back_inserter(localityMwms),
                          localityMismatch);
-
-          auto boundingBoxCmp = [](shared_ptr<MwmInfo> const & lhs, shared_ptr<MwmInfo> const & rhs)
-          {
-            auto const & lhsBox = lhs->m_limitRect;
-            double const lhsSize = max(lhsBox.SizeX(), lhsBox.SizeY());
-
-            auto & rhsBox = rhs->m_limitRect;
-            double const rhsSize = max(rhsBox.SizeX(), rhsBox.SizeY());
-
-            return lhsSize < rhsSize;
-          };
-
-          // Candidate mwm for search around locality. Among all
-          // candidates the one with smallest dimensions is
-          // selected. This hack is used here to prevent
-          // interferention from mwms whose bounding boxes are too
-          // pessimisic, say, from -180 to +180 in Mercator
-          // coordiantes. This is the case for Russia_Far_Eastern.
-          auto const candidateMwmIt = min_element(candidateMwms.begin(), candidateMwms.end(), boundingBoxCmp);
-          if (candidateMwmIt != candidateMwms.end())
-          {
-            TMWMVector localityMwm = {*candidateMwmIt};
-            SearchFeaturesInViewport(params, localityMwm, LOCALITY_V);
-          }
+          SearchFeaturesInViewport(params, localityMwms, LOCALITY_V);
         }
         else
         {

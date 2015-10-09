@@ -27,7 +27,7 @@ double const kInfinity = numeric_limits<double>::infinity();
 
 // Maximum viewport scale level when we stop to expand viewport and
 // simply return all rest features from mwms.
-double const kMaxViewportScaleLevel = 10.0;
+double const kMaxViewportScaleLevel = scales::GetUpperCountryScale();
 
 // Upper bound on a number of features when fast path is used.
 // Otherwise, slow path is used.

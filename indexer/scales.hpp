@@ -14,6 +14,8 @@ namespace scales
   inline int GetUpperStyleScale() { return UPPER_STYLE_SCALE; }
   /// Upper scales for World visible styles and indexer buckets.
   inline int GetUpperWorldScale() { return 9; }
+  /// Upper scale level for countries.
+  inline int GetUpperCountryScale() { return GetUpperWorldScale() + 1; }
   /// Upper scale for user comfort view (e.g. location zoom).
   inline int GetUpperComfortScale() { return UPPER_STYLE_SCALE - 2; }
   /// Default navigation mode scale

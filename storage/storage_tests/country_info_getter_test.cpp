@@ -19,7 +19,7 @@ namespace
 unique_ptr<CountryInfoGetter> CreateCountryInfoGetter()
 {
   Platform & platform = GetPlatform();
-  return make_unique<CountryInfoGetter>(platform.GetReader(PACKED_POLYGONS_FILE),
+  return make_unique<CountryInfoReader>(platform.GetReader(PACKED_POLYGONS_FILE),
                                         platform.GetReader(COUNTRIES_FILE));
 }
 

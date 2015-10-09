@@ -66,7 +66,7 @@ namespace integration
   unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter()
   {
     Platform const & platform = GetPlatform();
-    return make_unique<storage::CountryInfoGetter>(platform.GetReader(PACKED_POLYGONS_FILE),
+    return make_unique<storage::CountryInfoReader>(platform.GetReader(PACKED_POLYGONS_FILE),
                                                    platform.GetReader(COUNTRIES_FILE));
   }
 

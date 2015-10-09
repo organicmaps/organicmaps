@@ -45,17 +45,7 @@ private:
 };
 }  // namespace
 
-CountryInfoGetter::CountryInfoGetter(ModelReaderPtr polyR, ModelReaderPtr countryR)
-  : m_reader(polyR), m_cache(3)
-{
-  ReaderSource<ModelReaderPtr> src(m_reader.GetReader(PACKED_POLYGONS_INFO_TAG));
-  rw::Read(src, m_countries);
-
-  string buffer;
-  countryR.ReadAsString(buffer);
-  LoadCountryFile2CountryInfo(buffer, m_id2info);
-}
-
+// CountryInfoGetter -------------------------------------------------------------------------------
 string CountryInfoGetter::GetRegionFile(m2::PointD const & pt) const
 {
   IdType const id = FindFirstCountry(pt);
@@ -114,7 +104,7 @@ bool CountryInfoGetter::IsBelongToRegions(m2::PointD const & pt, IdSet const & r
 {
   for (auto const & id : regions)
   {
-    if (m_countries[id].m_rect.IsPointInside(pt) && IsBelongToRegion(id, pt))
+    if (m_countries[id].m_rect.IsPointInside(pt) && IsBelongToRegionImpl(id, pt))
       return true;
   }
   return false;
@@ -130,7 +120,39 @@ bool CountryInfoGetter::IsBelongToRegions(string const & fileName, IdSet const &
   return false;
 }
 
-void CountryInfoGetter::ClearCaches() const
+CountryInfoGetter::IdType CountryInfoGetter::FindFirstCountry(m2::PointD const & pt) const
+{
+  for (size_t id = 0; id < m_countries.size(); ++id)
+  {
+    if (m_countries[id].m_rect.IsPointInside(pt) && IsBelongToRegionImpl(id, pt))
+      return id;
+  }
+  return kInvalidId;
+}
+
+template <typename ToDo>
+void CountryInfoGetter::ForEachCountry(string const & prefix, ToDo && toDo) const
+{
+  for (auto const & country : m_countries)
+  {
+    if (strings::StartsWith(country.m_name, prefix.c_str()))
+      toDo(country);
+  }
+}
+
+// CountryInfoReader -------------------------------------------------------------------------------
+CountryInfoReader::CountryInfoReader(ModelReaderPtr polyR, ModelReaderPtr countryR)
+  : m_reader(polyR), m_cache(3)
+{
+  ReaderSource<ModelReaderPtr> src(m_reader.GetReader(PACKED_POLYGONS_INFO_TAG));
+  rw::Read(src, m_countries);
+
+  string buffer;
+  countryR.ReadAsString(buffer);
+  LoadCountryFile2CountryInfo(buffer, m_id2info);
+}
+
+void CountryInfoReader::ClearCachesImpl() const
 {
   lock_guard<mutex> lock(m_cacheMutex);
 
@@ -138,7 +160,7 @@ void CountryInfoGetter::ClearCaches() const
   m_cache.Reset();
 }
 
-bool CountryInfoGetter::IsBelongToRegion(size_t id, m2::PointD const & pt) const
+bool CountryInfoReader::IsBelongToRegionImpl(size_t id, m2::PointD const & pt) const
 {
   lock_guard<mutex> lock(m_cacheMutex);
 
@@ -168,23 +190,23 @@ bool CountryInfoGetter::IsBelongToRegion(size_t id, m2::PointD const & pt) const
   return false;
 }
 
-CountryInfoGetter::IdType CountryInfoGetter::FindFirstCountry(m2::PointD const & pt) const
+// CountryInfoGetterForTesting ---------------------------------------------------------------------
+CountryInfoGetterForTesting::CountryInfoGetterForTesting(vector<CountryDef> const & countries)
 {
-  for (size_t id = 0; id < m_countries.size(); ++id)
-  {
-    if (m_countries[id].m_rect.IsPointInside(pt) && IsBelongToRegion(id, pt))
-      return id;
-  }
-  return kInvalidId;
-}
-
-template <typename ToDo>
-void CountryInfoGetter::ForEachCountry(string const & prefix, ToDo && toDo) const
-{
+  m_countries.assign(countries.begin(), countries.end());
   for (auto const & country : m_countries)
   {
-    if (strings::StartsWith(country.m_name, prefix.c_str()))
-      toDo(country);
+    string const & name = country.m_name;
+    m_id2info[name].m_name = name;
   }
+}
+
+void CountryInfoGetterForTesting::ClearCachesImpl() const {}
+
+bool CountryInfoGetterForTesting::IsBelongToRegionImpl(size_t id,
+                                                       m2::PointD const & pt) const
+{
+  CHECK_LESS(id, m_countries.size(), ());
+  return m_countries[id].m_rect.IsPointInside(pt);
 }
 }  // namespace storage

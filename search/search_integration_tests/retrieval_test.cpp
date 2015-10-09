@@ -14,6 +14,9 @@
 #include "search/search_tests_support/test_search_engine.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
 
+#include "storage/country_decl.hpp"
+#include "storage/country_info_getter.hpp"
+
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
@@ -163,6 +166,7 @@ bool MatchResults(Index const & index, vector<shared_ptr<MatchingRule>> rules,
   for (auto const & u : unexpected)
     os << "  " << u << endl;
 
+  LOG(LWARNING, (os.str()));
   return false;
 }
 
@@ -465,7 +469,16 @@ UNIT_TEST(Retrieval_CafeMTV)
     builder.Add(*mtvCity);
   }
 
-  TestSearchEngine engine("en");
+  m2::RectD const mskViewport(m2::PointD(0.99, -0.1), m2::PointD(1.01, 0.1));
+  m2::RectD const mtvViewport(m2::PointD(-1.1, -0.1), m2::PointD(-0.99, 0.1));
+
+  // There are test requests involving locality search, thus it's
+  // better to mock information about countries.
+  vector<storage::CountryDef> countries;
+  countries.emplace_back(msk.GetCountryName(), mskViewport);
+  countries.emplace_back(mtv.GetCountryName(), mtvViewport);
+
+  TestSearchEngine engine("en", make_unique<storage::CountryInfoGetterForTesting>(countries));
   TEST_EQUAL(MwmSet::RegResult::Success, engine.RegisterMap(msk).second, ());
   TEST_EQUAL(MwmSet::RegResult::Success, engine.RegisterMap(mtv).second, ());
   TEST_EQUAL(MwmSet::RegResult::Success, engine.RegisterMap(testWorld).second, ());
@@ -474,11 +487,8 @@ UNIT_TEST(Retrieval_CafeMTV)
   auto const mtvId = engine.GetMwmIdByCountryFile(mtv.GetCountryFile());
   auto const testWorldId = engine.GetMwmIdByCountryFile(testWorld.GetCountryFile());
 
-  m2::RectD const moscowViewport(m2::PointD(0.99, -0.1), m2::PointD(1.01, 0.1));
-  m2::RectD const mtvViewport(m2::PointD(-1.1, -0.1), m2::PointD(-0.99, 0.1));
-
   {
-    TestSearchRequest request(engine, "Moscow ", "en", search::SearchParams::ALL, moscowViewport);
+    TestSearchRequest request(engine, "Moscow ", "en", search::SearchParams::ALL, mskViewport);
     request.Wait();
 
     initializer_list<shared_ptr<MatchingRule>> mskCityAlts = {
