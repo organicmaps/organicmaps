@@ -165,7 +165,9 @@ if [ -n "${REGIONS:-}" ]; then
     log "BORDERS" "Note: old borders from $TARGET/borders were moved to $BORDERS_BACKUP_PATH"
     mv "$TARGET/borders"/*.poly "$BORDERS_BACKUP_PATH"
   fi
-  echo "$REGIONS" | xargs -I % cp "%" "$TARGET/borders/"
+  for i in $REGIONS; do
+    cp "$i" "$TARGET/borders/"
+  done
 elif [ -z "${REGIONS-1}" ]; then
   # A user asked specifically for no regions
   NO_REGIONS=1
