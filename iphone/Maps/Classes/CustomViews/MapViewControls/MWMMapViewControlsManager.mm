@@ -46,7 +46,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)setMyPositionMode:(location::EMyPositionMode) mode
 {
-  [self.locationButton setMyPositionMode:mode];
+  [self.menuController onLocationStateModeChanged:mode];
 }
 
 - (instancetype)initWithParentController:(MapViewController *)controller

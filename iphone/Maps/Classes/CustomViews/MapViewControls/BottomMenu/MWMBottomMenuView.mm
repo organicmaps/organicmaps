@@ -177,9 +177,11 @@
   CGFloat const contentScaleFactor = superView.contentScaleFactor;
   m2::PointD const pivot(superView.width * contentScaleFactor - 36.0,
                          (superView.height - self.mainButtons.height) * contentScaleFactor - 24.0);
-  auto & infoDisplay = GetFramework().GetInformationDisplay();
-  infoDisplay.SetWidgetPivot(InformationDisplay::WidgetType::Ruler, pivot);
-  infoDisplay.SetWidgetPivot(InformationDisplay::WidgetType::CopyrightLabel, pivot);
+
+  gui::TWidgetsLayoutInfo layout;
+  layout[gui::WIDGET_RULER] = pivot;
+  layout[gui::WIDGET_COPYRIGHT] = pivot;
+  GetFramework().SetWidgetLayout(move(layout));
 }
 
 - (void)layoutGeometry

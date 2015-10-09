@@ -916,7 +916,7 @@ void Framework::EnterForeground()
     m_drapeEngine->SetRenderingEnabled(true);
 }
 
-search::Engine * Framework::GetSearchEngine() const
+void Framework::InitCountryInfoGetter()
 {
   ASSERT(!m_infoGetter.get(), ("InitCountryInfoGetter() must be called only once."));
   Platform const & platform = GetPlatform();
@@ -1915,7 +1915,7 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
   if (!IsRoutingActive())
     return;
 
-  RoutingSession::State state = m_routingSession.OnLocationPositionChanged(info);
+  RoutingSession::State state = m_routingSession.OnLocationPositionChanged(info, m_model.GetIndex());
   if (state == RoutingSession::RouteNeedRebuild)
   {
     auto readyCallback = [this] (Route const & route, IRouter::ResultCode code)
