@@ -8,6 +8,7 @@
 
 #include "base/macros.hpp"
 
+#include "std/atomic.hpp"
 #include "std/deque.hpp"
 #include "std/map.hpp"
 #include "std/mutex.hpp"
@@ -71,7 +72,7 @@ private:
   inline void SetStatus(Status status) { m_status = status; }
 
   platform::LocalCountryFile m_file;  ///< Path to the mwm file.
-  Status m_status;                    ///< Current country status.
+  atomic<Status> m_status;            ///< Current country status.
   uint8_t m_numRefs;                  ///< Number of active handles.
 };
 
