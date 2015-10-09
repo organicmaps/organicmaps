@@ -39,7 +39,7 @@ struct RoutingMapping
   void LoadCrossContext();
   void FreeCrossContext();
 
-  bool IsValid() const { return m_handle.IsAlive() && m_error == IRouter::ResultCode::NoError; }
+  bool IsValid() const { return m_mwmId.IsAlive() && m_error == IRouter::ResultCode::NoError; }
 
   IRouter::ResultCode GetError() const { return m_error; }
 
@@ -49,9 +49,15 @@ struct RoutingMapping
    */
   string const & GetCountryName() const { return m_countryFile; }
 
-  Index::MwmId const & GetMwmId() const { return m_handle.GetId(); }
+  Index::MwmId const & GetMwmId() const { return m_mwmId; }
+
+  // Free file handles if it is possible. Works only if there is no mapped sections. Cross section
+  // will be valid after free.
+  void FreeFileIfPossible();
 
 private:
+  void LoadFileIfNeed();
+
   size_t m_mapCounter;
   size_t m_facadeCounter;
   bool m_crossContextLoaded;
@@ -59,6 +65,8 @@ private:
   FilesMappingContainer m_container;
   IRouter::ResultCode m_error;
   MwmSet::MwmHandle m_handle;
+  Index::MwmId m_mwmId;
+  MwmSet * m_pIndex;
 };
 
 typedef shared_ptr<RoutingMapping> TRoutingMappingPtr;
