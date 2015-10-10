@@ -195,7 +195,10 @@ void FindAllLocalMaps(vector<LocalCountryFile> & localFiles)
     catch (RootException const & ex)
     {
       if (i == localFiles.end())
-        LOG(LERROR, ("Can't find any:", file, "Reason:", ex.Msg()));
+      {
+        // This warning is possible on android devices without pre-downloaded Worlds/fonts files.
+        LOG(LWARNING, ("Can't find any:", file, "Reason:", ex.Msg()));
+      }
     }
   }
 }
