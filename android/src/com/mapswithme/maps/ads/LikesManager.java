@@ -32,8 +32,7 @@ public enum LikesManager
     GPLUS_NEW_USERS(GooglePlusDialogFragment.class, DIALOG_DELAY_DEFAULT),
     GPLUS_OLD_USERS(GooglePlusDialogFragment.class, DIALOG_DELAY_DEFAULT),
     FACEBOOK_INVITE_NEW_USERS(FacebookInvitesDialogFragment.class, DIALOG_DELAY_DEFAULT),
-    FACEBOOK_INVITES_OLD_USERS(FacebookInvitesDialogFragment.class, DIALOG_DELAY_DEFAULT),
-    NEW_STYLE_OLD_USERS(UpdateMapsDialogFragment.class, DIALOG_DELAY_SHORT);
+    FACEBOOK_INVITES_OLD_USERS(FacebookInvitesDialogFragment.class, DIALOG_DELAY_DEFAULT);
 
     public final Class<? extends DialogFragment> clazz;
     public final int delay;
@@ -53,7 +52,6 @@ public enum LikesManager
 
   static
   {
-    sOldUsersMapping.put(1, LikeType.NEW_STYLE_OLD_USERS);
     sOldUsersMapping.put(4, LikeType.GPLAY_OLD_USERS);
 //    sOldUsersMapping.put(4, LikeType.GPLUS_OLD_USERS);
     sOldUsersMapping.put(6, LikeType.FACEBOOK_INVITES_OLD_USERS);
