@@ -184,7 +184,7 @@ UNIT_TEST(TurnsSoundMetersTwoTurnsTest)
   string const engShortJson =
       "\
       {\
-      \"in_700_meters\":\"In 700 meters.\",\
+      \"in_600_meters\":\"In 600 meters.\",\
       \"make_a_sharp_right_turn\":\"Make a sharp right turn.\",\
       \"enter_the_roundabout\":\"Enter the roundabout.\"\
       }";
@@ -203,9 +203,13 @@ UNIT_TEST(TurnsSoundMetersTwoTurnsTest)
   TEST(turnNotifications.empty(), ());
 
   // 700 meters till the turn. It's time to pronounce the first voice notification.
+  // The speed is high.
+  // The compensation of kStartBeforeSeconds/kMinStartBeforeMeters/kMaxStartBeforeMeters is not enough.
+  // The user will be closer to the turn while pronouncing despite the compensation.
+  // So it should be pronounced "In 600 meters."
   turns.front().m_distMeters = 700.;
   turnSound.GenerateTurnSound(turns, turnNotifications);
-  vector<string> const expectedNotification1 = {{"In 700 meters. Make a sharp right turn."}};
+  vector<string> const expectedNotification1 = {{"In 600 meters. Make a sharp right turn."}};
   TEST_EQUAL(turnNotifications, expectedNotification1, ());
 
   turnSound.SetSpeedMetersPerSecond(32.);
