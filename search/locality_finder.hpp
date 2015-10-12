@@ -55,12 +55,13 @@ public:
     }
   }
 
-  void SetViewportByIndex(m2::RectD const & rect, size_t idx);
-  void SetViewportSafe(m2::RectD const & rect);
+  void SetViewportByIndex(m2::RectD const & viewport, size_t idx);
+  /// Set new viewport for the reserved slot only if it's no a part of the previous one.
+  void SetReservedViewportIfNeeded(m2::RectD const & viewport);
 
   /// Check for localities in pre-cached viewports only.
   void GetLocalityInViewport(m2::PointD const & pt, string & name) const;
-  /// Checl for localities in all Index and make new cache if needed.
+  /// Check for localities in all Index and make new cache if needed.
   void GetLocalityCreateCache(m2::PointD const & pt, string & name);
 
   void ClearCacheAll();
@@ -81,4 +82,4 @@ private:
   int8_t m_lang;
 };
 
-}
+} // namespace search

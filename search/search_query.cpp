@@ -1974,7 +1974,7 @@ void Query::SearchAdditional(Results & res, size_t resCount)
 
     // Hack with 90.0 is important for the countries divided by 180 meridian.
     if (rect.IsValid() && (rect.maxX() - rect.minX()) <= 90.0)
-      m_locality.SetViewportSafe(rect);
+      m_locality.SetReservedViewportIfNeeded(rect);
 #endif
 
     FlushResults(res, true, resCount);

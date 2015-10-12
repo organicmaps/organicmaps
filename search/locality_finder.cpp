@@ -94,7 +94,6 @@ private:
 LocalityItem::LocalityItem(m2::RectD const & rect, uint32_t population, ID id, string const & name)
   : m_rect(rect), m_name(name), m_population(population), m_id(id)
 {
-
 }
 
 LocalityFinder::LocalityFinder(Index const * pIndex)
@@ -149,19 +148,22 @@ void LocalityFinder::RecreateCache(Cache & cache, m2::RectD rect) const
   }
 }
 
-void LocalityFinder::SetViewportByIndex(m2::RectD const & rect, size_t idx)
+void LocalityFinder::SetViewportByIndex(m2::RectD const & viewport, size_t idx)
 {
   ASSERT_LESS(idx, (size_t)MAX_VIEWPORT_COUNT, ());
-  RecreateCache(m_cache[idx], rect);
+  RecreateCache(m_cache[idx], viewport);
 }
 
-void LocalityFinder::SetViewportSafe(m2::RectD const & rect)
+void LocalityFinder::SetReservedViewportIfNeeded(m2::RectD const & viewport)
 {
-  size_t constexpr kSafeIndex = 2;
-  if (m_cache[kSafeIndex].m_rect.IsValid() && m_cache[kSafeIndex].m_rect.IsRectInside(rect))
+  size_t constexpr kReservedIndex = 2;
+  if (m_cache[kReservedIndex].m_rect.IsValid() &&
+      m_cache[kReservedIndex].m_rect.IsRectInside(viewport))
+  {
     return;
+  }
 
-  SetViewportByIndex(rect, kSafeIndex);
+  SetViewportByIndex(viewport, kReservedIndex);
 }
 
 void LocalityFinder::GetLocalityInViewport(m2::PointD const & pt, string & name) const

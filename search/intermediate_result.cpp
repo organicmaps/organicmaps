@@ -323,8 +323,10 @@ uint32_t PreResult2::GetBestType(set<uint32_t> const * pPrefferedTypes) const
   if (pPrefferedTypes)
   {
     for (uint32_t type : m_types)
+    {
       if (pPrefferedTypes->count(type) > 0)
         return type;
+    }
   }
 
   // Do type truncate (2-level is enough for search results) only for
