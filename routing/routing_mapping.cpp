@@ -55,8 +55,7 @@ RoutingMapping::RoutingMapping(string const & countryFile, MwmSet * pIndex)
       m_error(IRouter::ResultCode::RouteFileNotExist),
       m_pIndex(pIndex)
 {
-  if (m_pIndex == 0)
-    return;
+  CHECK(m_pIndex != nullptr, ());
 
   m_handle = pIndex->GetMwmHandleByCountryFile(CountryFile(countryFile));
   if (!m_handle.IsAlive())
@@ -85,7 +84,8 @@ RoutingMapping::RoutingMapping(string const & countryFile, MwmSet * pIndex)
 
 void RoutingMapping::LoadFileIfNeeded()
 {
-  if (!m_handle.IsAlive() && m_mwmId.IsAlive() && m_pIndex)
+  ASSERT(m_pIndex != nullptr, ());
+  if (!m_handle.IsAlive() && m_mwmId.IsAlive())
     m_handle = m_pIndex->GetMwmHandleById(m_mwmId);
 }
 
