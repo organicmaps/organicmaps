@@ -160,9 +160,9 @@
 @building_label: #7F7F7F;
 
 /* PISTE */
-@piste: #c867f6;
-@piste_novice: #40A90B;
-@piste_easy: #40A90B;
-@piste_intermadiate: #DF4741;
+@piste: #7766ff;
+@piste_novice: #11dd00;
+@piste_easy: #11dd00;
+@piste_intermadiate: #ff0000;
 @piste_expert: #333333;
 @piste_advanced: #333333;

@@ -81,7 +81,22 @@ line|z8-[boundary=administrative][admin_level=4]
   z-index: 400;
   dashes: 1.5,1;
 }
-
+line|z8-[boundary=administrative][admin_level=4]
+{
+  color: @border_region;
+  width: 0.9;
+  opacity: 1;
+  z-index: 400;
+  dashes: 1.5,1;
+}
+line|z11-[boundary=administrative][admin_level=4]
+{
+  color: @border_region;
+  width: 1.2;
+  opacity: 1;
+  z-index: 400;
+  dashes: 2,1;
+}
 
 /* DEBUG */
 /* line|z2-[boundary=administrative][admin_level=2] {

@@ -7,15 +7,40 @@ area|z11-[place=hamlet] {
 fill-color: @background;
 }
 */
+/* PIER */
+area|z12-[man_made=pier],
+area|z12-[man_made=breakwater],
 
+ {
+  fill-color: @background;
+  fill-opacity: 1;
+  z-index: 1000;
+}
+
+line|z14-[man_made=pier],
+line|z14-[man_made=breakwater]
+{ casing-width: 0.3;
+  casing-color: @background;
+  fill-color: @background;
+ fill-opacity: 1;
+ z-index: 1000;
+}
+line|z17-[man_made=pier],
+line|z17-[man_made=breakwater]
+{ casing-width: 1;
+  casing-color: @background;
+  fill-color: @background;
+ fill-opacity: 1;
+ z-index: 1000;
+}
 
 /* PEDESTRIAN AREAS */
 
-area|z15[highway=pedestrian][area?],
-area|z15[area:highway=pedestrian],
-area|z15[highway=footway][area?][!sac_scale],
-area|z15[area:highway=footway],
-area|z15[area:highway=living_street],
+area|z14-[highway=pedestrian][area?],
+area|z14-[area:highway=pedestrian],
+area|z14-[highway=footway][area?][!sac_scale],
+area|z14-[area:highway=footway],
+area|z14-[area:highway=living_street],
 {
   fill-color: @pedestrian_area;
   fill-opacity: 0.3;
@@ -38,7 +63,7 @@ area|z16-[area:highway=living_street],
 area|z15-[landuse=industrial] {
   fill-color: @industrial;
   fill-opacity: 1;
-  z-index: 10;
+  z-index: -10;
 }
 
 
@@ -54,24 +79,31 @@ area|z14[amenity=grave_yard] {
   fill-opacity: 0.85;
   z-index: -10;
 }
-
-area|z15-[amenity=grave_yard], area|z15-[landuse=cemetery] {
+area|z15-[amenity=grave_yard],
+area|z15-[landuse=cemetery] {
   fill-color: @park;
   fill-opacity: 1;
   z-index: -1000;
 }
 
+
 /* UNIVERSITY */
-area|z14[amenity=university] {
+area|z14-15[amenity=university] {
   fill-color: @unversity;
-  fill-opacity: 0.5;
+  fill-opacity: 0.8;
   z-index: 10;
 }
 
-area|z15-[amenity=university] {
+area|z16-17[amenity=university] {
   fill-color: @unversity;
-  fill-opacity: 0.5;
+  fill-opacity: 1;
   z-index: 10;
+}
+
+area|z18-[amenity=university] {
+  fill-color: @unversity;
+  fill-opacity: 1;
+  z-index: 0;
 }
 
 area|z16-[leisure=pitch],
@@ -82,9 +114,9 @@ area|z17-[leisure=playground]  {
   fill-opacity: 1;
   z-index: 150;
 }
-/* PARKINGS
-area|z16-[amenity=parking] {fill-color: @parking;fill-oppacity:1;z-index: 3;}
-*/
+/* PARKINGS*/
+
+
 /* MILITARY */
 /* area|z14[landuse=military] {
   fill-color: ;
