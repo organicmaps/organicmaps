@@ -202,7 +202,7 @@ void SerializeRankTable(RankTable & table, FilesContainerW & wcont)
   vector<char> buffer;
   {
     MemWriter<decltype(buffer)> writer(buffer);
-    table.Serialize(writer, true /* hostEndianness */);
+    table.Serialize(writer, true /* preserveHostEndianness */);
   }
 
   wcont.Write(buffer, RANKS_FILE_TAG);
