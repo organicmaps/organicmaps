@@ -24,13 +24,13 @@ MwmValue::MwmValue(LocalCountryFile const & localFile)
 
 void MwmValue::SetTable(MwmInfoEx & info)
 {
-  auto const ver = GetHeader().GetFormat();
-  if (ver < version::v5)
+  auto const version = GetHeader().GetFormat();
+  if (version < version::v5)
     return;
 
   if (!info.m_table)
   {
-    if (ver == version::v5)
+    if (version == version::v5)
       info.m_table = feature::FeaturesOffsetsTable::CreateIfNotExistsAndLoad(m_file, m_cont);
     else
       info.m_table = feature::FeaturesOffsetsTable::Load(m_cont);

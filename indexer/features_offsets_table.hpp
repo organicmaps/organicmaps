@@ -59,7 +59,7 @@ namespace feature
 
     static unique_ptr<FeaturesOffsetsTable> Load(FilesContainerR const & cont);
     static unique_ptr<FeaturesOffsetsTable> Build(FilesContainerR const & cont,
-                                                     string const & storePath);
+                                                  string const & storePath);
 
     /// Get table for the MWM map, represented by localFile and cont.
     static unique_ptr<FeaturesOffsetsTable> CreateIfNotExistsAndLoad(
@@ -111,4 +111,7 @@ namespace feature
     detail::MappedFile m_file;
     detail::MappedFile::Handle m_handle;
   };
+
+  bool BuildOffsetsTable(string const & filePath);
+
 }  // namespace feature

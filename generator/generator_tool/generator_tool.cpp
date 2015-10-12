@@ -166,39 +166,25 @@ int main(int argc, char ** argv)
   for (size_t i = 0; i < count; ++i)
   {
     string const & country = genInfo.m_bucketNames[i];
-    string const datFile = path + country + DATA_FILE_EXTENSION;
+    string const datFile = my::JoinFoldersToPath(path, country + DATA_FILE_EXTENSION);
 
     if (FLAGS_generate_geometry)
     {
-      LOG(LINFO, ("Generating result features for", country));
-
       int mapType = feature::DataHeader::country;
       if (country == WORLD_FILE_NAME)
         mapType = feature::DataHeader::world;
       if (country == WORLD_COASTS_FILE_NAME)
         mapType = feature::DataHeader::worldcoasts;
 
+      // If error - move to next bucket without index generation.
+
+      LOG(LINFO, ("Generating result features for", country));
       if (!feature::GenerateFinalFeatures(genInfo, country, mapType))
-      {
-        // If error - move to next bucket without index generation
         continue;
-      }
 
       LOG(LINFO, ("Generating offsets table for", datFile));
-
-      try
-      {
-        string const destPath = datFile + ".offsets";
-
-        (void)feature::FeaturesOffsetsTable::Build(FilesContainerR(datFile), destPath);
-        FilesContainerW(datFile, FileWriter::OP_WRITE_EXISTING).Write(destPath, FEATURE_OFFSETS_FILE_TAG);
-
-        FileWriter::DeleteFileX(destPath);
-      }
-      catch (RootException const & ex)
-      {
-        LOG(LERROR, ("Generating offsets table failed for", datFile, "Reason", ex.Msg()));
-      }
+      if (!feature::BuildOffsetsTable(datFile))
+        continue;
     }
 
     if (FLAGS_generate_index)

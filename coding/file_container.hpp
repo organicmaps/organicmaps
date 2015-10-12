@@ -189,7 +189,7 @@ public:
     uint64_t m_origSize;
   };
 
-  Handle Map(uint64_t off, uint64_t size, string const & tag) const;
+  Handle Map(uint64_t offset, uint64_t size, string const & tag) const;
 
 private:
 #ifdef OMIM_OS_WINDOWS
@@ -200,11 +200,13 @@ private:
 #endif
 };
 
-}
+} // namespace detail
 
 class FilesMappingContainer : public FilesContainerBase
 {
 public:
+  typedef detail::MappedFile::Handle Handle;
+
   /// Do nothing by default, call Open to attach to file.
   FilesMappingContainer() = default;
   explicit FilesMappingContainer(string const & fName);
@@ -213,8 +215,6 @@ public:
 
   void Open(string const & fName);
   void Close();
-
-  typedef detail::MappedFile::Handle Handle;
 
   Handle Map(Tag const & tag) const;
   FileReader GetReader(Tag const & tag) const;

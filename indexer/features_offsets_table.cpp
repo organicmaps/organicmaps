@@ -10,6 +10,7 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 
 #include "std/string.hpp"
 
@@ -67,14 +68,14 @@ namespace feature
   // static
   unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::Load(FilesContainerR const & cont)
   {
-    unique_ptr<FeaturesOffsetsTable> ptr(new FeaturesOffsetsTable());
+    unique_ptr<FeaturesOffsetsTable> table(new FeaturesOffsetsTable());
 
-    ptr->m_file.Open(cont.GetFileName());
+    table->m_file.Open(cont.GetFileName());
     auto p = cont.GetAbsoluteOffsetAndSize(FEATURE_OFFSETS_FILE_TAG);
-    ptr->m_handle.Assign(ptr->m_file.Map(p.first, p.second, FEATURE_OFFSETS_FILE_TAG));
+    table->m_handle.Assign(table->m_file.Map(p.first, p.second, FEATURE_OFFSETS_FILE_TAG));
 
-    succinct::mapper::map(ptr->m_table, ptr->m_handle.GetData<char>());
-    return ptr;
+    succinct::mapper::map(table->m_table, table->m_handle.GetData<char>());
+    return table;
   }
 
   // static
@@ -166,4 +167,23 @@ namespace feature
     ASSERT_EQUAL(offset, m_table.select(leftBound), ("Can't find offset", offset, "in the table"));
     return leftBound;
   }
+
+  bool BuildOffsetsTable(string const & filePath)
+  {
+    try
+    {
+      string const destPath = filePath + ".offsets";
+      MY_SCOPE_GUARD(fileDeleter, bind(FileWriter::DeleteFileX, destPath));
+
+      (void)feature::FeaturesOffsetsTable::Build(FilesContainerR(filePath), destPath);
+      FilesContainerW(filePath, FileWriter::OP_WRITE_EXISTING).Write(destPath, FEATURE_OFFSETS_FILE_TAG);
+      return true;
+    }
+    catch (RootException const & ex)
+    {
+      LOG(LERROR, ("Generating offsets table failed for", filePath, "reason", ex.Msg()));
+      return false;
+    }
+  }
+
 }  // namespace feature
