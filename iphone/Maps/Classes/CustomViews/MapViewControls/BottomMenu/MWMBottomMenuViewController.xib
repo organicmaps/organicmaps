@@ -119,7 +119,7 @@
                                     <integer key="value" value="8"/>
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="routing_go"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="whiteColor"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="whiteColor"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueDark"/>
                             </userDefinedRuntimeAttributes>
