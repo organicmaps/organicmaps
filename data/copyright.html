@@ -11,6 +11,11 @@
     .license-list li { margin-bottom: 0.3em; }
     .license, .license:visited { color: black; }
     a:visited { color: blue; }
+
+    /* Translated elements are invisible by default */
+    [lang = "en"], [lang = "ru"] {
+      display: none;
+    }
   </style>
   <script type="text/javascript">
     var ua = navigator.userAgent.toLowerCase();
@@ -21,14 +26,29 @@
         elements[index].style.display = 'block';
       }
     }
+
+    function showLanguage() {
+      var lang = navigator.language || navigator.userLanguage;
+      lang = lang.substring(0, 2);
+      if (lang == "be" || lang == "uk")
+        lang = "ru";
+      else if (lang != "en" && lang != "ru")
+        lang = "en";
+      var elems = document.querySelectorAll('[lang="' + lang + '"]')
+      // Make them visible
+      for (i = 0; i < elems.length; ++i)
+        elems[i].style.display = 'block';
+    }
   </script>
 </head>
 
-<body>
+<body onload="showLanguage()">
   <div class="section">
-    <p>Map data &copy; <a href="http://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="http://opendatacommons.org/licenses/odbl/">ODbL</a>.</p>
+    <p lang="en">Map data &copy; <a href="http://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="http://opendatacommons.org/licenses/odbl/">ODbL</a>.</p>
+    <p lang="ru">Картографические данные &copy; участники <a href="http://www.openstreetmap.org/">OpenStreetMap</a>, <a href="http://opendatacommons.org/licenses/odbl/">ODbL</a>.</p>
 
-    <p><strong>maps.me</strong> would not be possible without the generous contributions of the following projects:</p>
+    <p lang="en"><strong>maps.me</strong> would not be possible without the generous contributions of the following projects:</p>
+    <p lang="ru">Приложение <strong>maps.me</strong> было бы невозможно без участия следующих проектов:</p>
 
     <ul class="license-list">
       <li><a href="http://antigrain.com/">Anti-Grain Geometry</a><br>&copy; 2002&ndash;2005 Maxim Shemanarev; <a href="#agg-license" class="license">License</a></li>
@@ -84,7 +104,8 @@
       &copy; 2014 serso aka se.solovyev; <a href="#apache2-license" class="license">Apache License</a></li>
     </ul>
 
-    <p>We also use these wonderful fonts for labels on the map:</p>
+    <p lang="en">We also use these wonderful fonts for labels on the map:</p>
+    <p lang="ru">В приложении мы использовали следующие шрифты:</p>
 
     <ul class="license-list">
       <li><a href="https://www.google.com/fonts/specimen/Roboto">Roboto</a><br>
