@@ -800,8 +800,5 @@
 	<string name="search_not_found_location">Baixe o mapa da sua localização atual.</string>
 	<string name="search_history_title">Histórico de Busca</string>
 	<string name="search_history_text">Acesse os termos de busca recentes rapidamente.</string>
-	<string name="update_maps_alert_title">Está mais fácil explorar o mapa</string>
-	<string name="update_maps_alert_message">Melhoramos os estilos de mapa: agora todos os objetos estão mais agradáveis e mais claros. Atualize os mapas para aproveitar o novo design ao máximo.</string>
-	<string name="update_maps_alert_button_title">Atualizar mapas</string>
 	<string name="clear_search">Limpar histórico de pesquisa</string>
 </resources>

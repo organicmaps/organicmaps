@@ -1269,10 +1269,4 @@
 
 "search_history_text" = "Siirry nopeasti aikaisempaan hakuun.";
 
-"update_maps_alert_title" = "Karttojen käyttäminen on nyt entistäkin helpompaa";
-
-"update_maps_alert_message" = "Olemme parantaneet karttoja, ja nyt kaikki kuvakkeet näkyvät ystävällisemmin ja selkeämmin. Päivitä karttasi saadaksesti uudesta designista kaikki irti.";
-
-"update_maps_alert_button_title" = "Päivitä kartat";
-
 "clear_search" = "Poista hakuhistoria";

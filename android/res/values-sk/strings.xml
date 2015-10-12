@@ -806,8 +806,5 @@
 	<string name="search_not_found_location">Stiahnite si mapu svojej súčasnej polohy.</string>
 	<string name="search_history_title">História vyhľadávania</string>
 	<string name="search_history_text">Rýchlo pristupujte k nedávnym hľadaným výrazom.</string>
-	<string name="update_maps_alert_title">Prehliadanie máp je teraz jednoduchšie</string>
-	<string name="update_maps_alert_message">Zlepšili sme štýl máp: Teraz všetky objekty vyzerajú priateľskejšie a jasnejšie. Aktualizujte si mapy, aby ste z nového dizajnu získali čo najviac.</string>
-	<string name="update_maps_alert_button_title">Aktualizácia máp</string>
 	<string name="clear_search">Vymazať históriu vyhľadávania</string>
 </resources>

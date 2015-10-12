@@ -802,8 +802,5 @@
 	<string name="search_not_found_location">Lataa nykyisen sijaintisi kartta.</string>
 	<string name="search_history_title">Hakuhistoria</string>
 	<string name="search_history_text">Siirry nopeasti aikaisempaan hakuun.</string>
-	<string name="update_maps_alert_title">Karttojen käyttäminen on nyt entistäkin helpompaa</string>
-	<string name="update_maps_alert_message">Olemme parantaneet karttoja, ja nyt kaikki kuvakkeet näkyvät ystävällisemmin ja selkeämmin. Päivitä karttasi saadaksesti uudesta designista kaikki irti.</string>
-	<string name="update_maps_alert_button_title">Päivitä kartat</string>
 	<string name="clear_search">Poista hakuhistoria</string>
 </resources>

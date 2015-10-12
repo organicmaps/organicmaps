@@ -1269,10 +1269,4 @@
 
 "search_history_text" = "Gå hurtigt ind på seneste forespørgsel.";
 
-"update_maps_alert_title" = "Det er lettere nu at udforske kortet";
-
-"update_maps_alert_message" = "Vi har forbedret stilarterne på kortet: Nu ser alle objekter venligere og klarere ud. Opdatér kortet for at få det meste ud af det nye design.";
-
-"update_maps_alert_button_title" = "Opdatér kort";
-
 "clear_search" = "Ryd historiksøgning";
