@@ -203,22 +203,27 @@ void WriteCrossSection(routing::CrossRoutingContextWriter const & crossContext, 
 void BuildCrossRoutingIndex(string const & baseDir, string const & countryName, string const & osrmFile)
 {
   LOG(LINFO, ("Cross mwm routing section builder"));
-  string const mwmFile = baseDir + countryName + DATA_FILE_EXTENSION;
+
+  CountryFile countryFile(countryName);
+  LocalCountryFile localFile(baseDir, countryFile, 0 /* version */);
+  localFile.SyncWithDisk();
+
+  LOG(LINFO, ("Loading indexes..."));
   osrm::NodeDataVectorT nodeData;
   gen::OsmID2FeatureID osm2ft;
-  if (!LoadIndexes(mwmFile, osrmFile, nodeData, osm2ft))
+  if (!LoadIndexes(localFile.GetPath(MapOptions::Map), osrmFile, nodeData, osm2ft))
     return;
 
-  routing::CrossRoutingContextWriter crossContext;
-  LOG(LINFO, ("Loading countries borders"));
+  LOG(LINFO, ("Loading countries borders..."));
   borders::CountriesContainerT m_countries;
   CHECK(borders::LoadCountriesList(baseDir, m_countries),
         ("Error loading country polygons files"));
 
+  LOG(LINFO, ("Finding cross nodes..."));
+  routing::CrossRoutingContextWriter crossContext;
   FindCrossNodes(nodeData, osm2ft, m_countries, countryName, crossContext);
 
-  string const mwmRoutingPath = mwmFile + ROUTING_FILE_EXTENSION;
-
+  string const mwmRoutingPath = localFile.GetPath(MapOptions::CarRouting);
   CalculateCrossAdjacency(mwmRoutingPath, crossContext);
   WriteCrossSection(crossContext, mwmRoutingPath);
 }
