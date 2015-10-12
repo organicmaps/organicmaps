@@ -77,24 +77,15 @@ string GetTtsText::GetTextById(string const & textId) const
 
 string GetDistanceTextId(Notification const & notification)
 {
-  if (!notification.IsValid())
-  {
-    ASSERT(false, ());
-    return string();
-  }
-
   if (notification.m_useThenInsteadOfDistance)
     return "then";
 
   switch (notification.m_lengthUnits)
   {
-    case LengthUnits::Undefined:
-      ASSERT(false, ());
-      return string();
-    case LengthUnits::Meters:
+    case ::Settings::Metric:
       return DistToTextId(GetAllSoundedDistMeters().cbegin(), GetAllSoundedDistMeters().cend(),
                           notification.m_distanceUnits);
-    case LengthUnits::Feet:
+    case ::Settings::Foot:
       return DistToTextId(GetAllSoundedDistFeet().cbegin(), GetAllSoundedDistFeet().cend(),
                           notification.m_distanceUnits);
   }

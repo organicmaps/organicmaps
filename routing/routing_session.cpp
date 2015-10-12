@@ -403,7 +403,7 @@ bool RoutingSession::AreTurnNotificationsEnabled() const
   return m_turnsSound.IsEnabled();
 }
 
-void RoutingSession::SetTurnNotificationsUnits(routing::turns::sound::LengthUnits const & units)
+void RoutingSession::SetTurnNotificationsUnits(Settings::Units const units)
 {
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);

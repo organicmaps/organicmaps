@@ -27,7 +27,7 @@ UNIT_TEST(TurnNotificationSettingsMetersTest)
                           200 /* minNotificationDistanceUnits */,
                           700 /* maxNotificationDistanceUnits */,
                           {100, 200, 300, 400, 500, 600, 700} /* soundedDistancesUnits */,
-                          LengthUnits::Meters /* lengthUnits */);
+                          ::Settings::Metric /* lengthUnits */);
 
   TEST(settings.IsValid(), ());
   TEST(my::AlmostEqualAbs(
@@ -51,7 +51,7 @@ UNIT_TEST(TurnNotificationSettingsFeetTest)
                           500 /* minNotificationDistanceUnits */,
                           2000 /* maxNotificationDistanceUnits */,
                           {200, 400, 600, 800, 1000, 1500, 2000} /* soundedDistancesUnits */,
-                          LengthUnits::Feet /* lengthUnits */);
+                          ::Settings::Foot /* lengthUnits */);
 
   TEST(settings.IsValid(), ());
   TEST(my::AlmostEqualAbs(
@@ -74,19 +74,16 @@ UNIT_TEST(TurnNotificationSettingsNotValidTest)
   Settings settings1(20 /* notificationTimeSeconds */, 500 /* minNotificationDistanceUnits */,
                      2000 /* maxNotificationDistanceUnits */,
                      {200, 400, 800, 600, 1000, 1500, 2000} /* soundedDistancesUnits */,
-                     LengthUnits::Feet /* lengthUnits */);
+                     ::Settings::Foot /* lengthUnits */);
   TEST(!settings1.IsValid(), ());
 
-  Settings settings2(20 /* notificationTimeSeconds */, 500 /* minNotificationDistanceUnits */,
+  Settings settings2(20 /* notificationTimeSeconds */, 5000 /* minNotificationDistanceUnits */,
                      2000 /* maxNotificationDistanceUnits */,
                      {200, 400, 600, 800, 1000, 1500, 2000} /* soundedDistancesUnits */,
-                     LengthUnits::Undefined /* lengthUnits */);
+                     ::Settings::Metric /* lengthUnits */);
   TEST(!settings2.IsValid(), ());
 
-  Settings settings3(20 /* notificationTimeSeconds */, 5000 /* minNotificationDistanceUnits */,
-                     2000 /* maxNotificationDistanceUnits */,
-                     {200, 400, 600, 800, 1000, 1500, 2000} /* soundedDistancesUnits */,
-                     LengthUnits::Meters /* lengthUnits */);
+  Settings settings3;
   TEST(!settings3.IsValid(), ());
 }
 
@@ -94,7 +91,7 @@ UNIT_TEST(TurnsSoundMetersTest)
 {
   TurnsSound turnSound;
   turnSound.Enable(true);
-  turnSound.SetLengthUnits(routing::turns::sound::LengthUnits::Meters);
+  turnSound.SetLengthUnits(::Settings::Metric);
   string const engShortJson =
       "\
       {\
@@ -180,7 +177,7 @@ UNIT_TEST(TurnsSoundMetersTwoTurnsTest)
 {
   TurnsSound turnSound;
   turnSound.Enable(true);
-  turnSound.SetLengthUnits(routing::turns::sound::LengthUnits::Meters);
+  turnSound.SetLengthUnits(::Settings::Metric);
   string const engShortJson =
       "\
       {\
@@ -253,7 +250,7 @@ UNIT_TEST(TurnsSoundFeetTest)
 {
   TurnsSound turnSound;
   turnSound.Enable(true);
-  turnSound.SetLengthUnits(routing::turns::sound::LengthUnits::Feet);
+  turnSound.SetLengthUnits(::Settings::Foot);
   string const engShortJson =
       "\
       {\
@@ -334,7 +331,7 @@ UNIT_TEST(TurnsSoundComposedTurnTest)
 {
   TurnsSound turnSound;
   turnSound.Enable(true);
-  turnSound.SetLengthUnits(routing::turns::sound::LengthUnits::Meters);
+  turnSound.SetLengthUnits(::Settings::Metric);
   string const engShortJson =
       "\
       {\
@@ -403,7 +400,7 @@ UNIT_TEST(TurnsSoundRoundaboutTurnTest)
 {
   TurnsSound turnSound;
   turnSound.Enable(true);
-  turnSound.SetLengthUnits(routing::turns::sound::LengthUnits::Meters);
+  turnSound.SetLengthUnits(::Settings::Metric);
   string const engShortJson =
       "\
       {\

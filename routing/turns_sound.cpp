@@ -50,7 +50,7 @@ namespace turns
 namespace sound
 {
 string TurnsSound::GenerateTurnText(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
-                                    TurnDirection turnDir, LengthUnits lengthUnits) const
+                                    TurnDirection turnDir, ::Settings::Units lengthUnits) const
 {
   Notification const notification(distanceUnits, exitNum, useThenInsteadOfDistance, turnDir, lengthUnits);
   return m_getTtsText(notification);
@@ -169,25 +169,22 @@ void TurnsSound::Enable(bool enable)
   m_enabled = enable;
 }
 
-void TurnsSound::SetLengthUnits(LengthUnits units)
+void TurnsSound::SetLengthUnits(::Settings::Units units)
 {
   m_settings.SetLengthUnits(units);
   switch(units)
   {
-  case LengthUnits::Undefined:
-    ASSERT(false, ());
-    return;
-  case LengthUnits::Meters:
+  case ::Settings::Metric:
     m_settings = Settings(30 /* notificationTimeSeconds */, 200 /* minNotificationDistanceUnits */,
                           2000 /* maxNotificationDistanceUnits */,
                           GetSoundedDistMeters() /* soundedDistancesUnits */,
-                          LengthUnits::Meters /* lengthUnits */);
+                          ::Settings::Metric /* lengthUnits */);
     return;
-  case LengthUnits::Feet:
+  case ::Settings::Foot:
     m_settings = Settings(30 /* notificationTimeSeconds */, 500 /* minNotificationDistanceUnits */,
                           5000 /* maxNotificationDistanceUnits */,
                           GetSoundedDistFeet() /* soundedDistancesUnits */,
-                          LengthUnits::Feet /* lengthUnits */);
+                          ::Settings::Foot /* lengthUnits */);
     return;
   }
 }

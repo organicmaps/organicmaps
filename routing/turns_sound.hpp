@@ -1,8 +1,9 @@
 #pragma once
 
-#include "routing/turns.hpp"
 #include "routing/turns_sound_settings.hpp"
 #include "routing/turns_tts_text.hpp"
+
+#include "platform/settings.hpp"
 
 #include "std/string.hpp"
 
@@ -69,7 +70,7 @@ class TurnsSound
   GetTtsText m_getTtsText;
 
   string GenerateTurnText(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
-                          TurnDirection turnDir, LengthUnits lengthUnits) const;
+                          TurnDirection turnDir, ::Settings::Units lengthUnits) const;
   /// Generates turn sound notification for the nearest to the current position turn.
   string GenerateFirstTurnSound(TurnItem const & turn, double distanceToTurnMeters);
   /// Changes the state of the class to emulate that first turn notification is pronouned
@@ -83,8 +84,8 @@ public:
 
   bool IsEnabled() const { return m_enabled; }
   void Enable(bool enable);
-  void SetLengthUnits(LengthUnits units);
-  inline LengthUnits GetLengthUnits() const { return m_settings.GetLengthUnits(); }
+  void SetLengthUnits(::Settings::Units units);
+  inline ::Settings::Units GetLengthUnits() const { return m_settings.GetLengthUnits(); }
   inline void SetLocale(string const & locale) { m_getTtsText.SetLocale(locale); }
   inline string GetLocale() const { return m_getTtsText.GetLocale(); }
   void SetSpeedMetersPerSecond(double speed);

@@ -1636,11 +1636,8 @@ void Framework::SetupMeasurementSystem()
 {
   Settings::Units units = Settings::Metric;
   Settings::Get("Units", units);
-  // @TODO(vbykoianko) Rewrites code to use enum class LengthUnits only.
-  m_routingSession.SetTurnNotificationsUnits(units == Settings::Foot ?
-                                             routing::turns::sound::LengthUnits::Feet :
-                                             routing::turns::sound::LengthUnits::Meters);
 
+  m_routingSession.SetTurnNotificationsUnits(units);
   m_informationDisplay.measurementSystemChanged();
   Invalidate();
 }

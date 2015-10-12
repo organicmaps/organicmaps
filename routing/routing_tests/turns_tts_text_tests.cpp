@@ -19,36 +19,36 @@ bool PairDistEquals(PairDist const & lhs, PairDist const & rhs)
 UNIT_TEST(GetDistanceTextIdMetersTest)
 {
   // Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
-  //    TurnDirection turnDir, LengthUnits lengthUnits)
-  Notification const notifiation1(500, 0, false, TurnDirection::TurnRight, LengthUnits::Meters);
+  //    TurnDirection turnDir, Settings::Units lengthUnits)
+  Notification const notifiation1(500, 0, false, TurnDirection::TurnRight, ::Settings::Metric);
   TEST_EQUAL(GetDistanceTextId(notifiation1), "in_500_meters", ());
-  Notification const notifiation2(500, 0, true, TurnDirection::TurnRight, LengthUnits::Meters);
+  Notification const notifiation2(500, 0, true, TurnDirection::TurnRight, ::Settings::Metric);
   TEST_EQUAL(GetDistanceTextId(notifiation2), "then", ());
-  Notification const notifiation3(200, 0, false, TurnDirection::TurnRight, LengthUnits::Meters);
+  Notification const notifiation3(200, 0, false, TurnDirection::TurnRight, ::Settings::Metric);
   TEST_EQUAL(GetDistanceTextId(notifiation3), "in_200_meters", ());
-  Notification const notifiation4(2000, 0, false, TurnDirection::TurnRight, LengthUnits::Meters);
+  Notification const notifiation4(2000, 0, false, TurnDirection::TurnRight, ::Settings::Metric);
   TEST_EQUAL(GetDistanceTextId(notifiation4), "in_2_kilometers", ());
 }
 
 UNIT_TEST(GetDistanceTextIdFeetTest)
 {
-  Notification const notifiation1(500, 0, false, TurnDirection::TurnRight, LengthUnits::Feet);
+  Notification const notifiation1(500, 0, false, TurnDirection::TurnRight, ::Settings::Foot);
   TEST_EQUAL(GetDistanceTextId(notifiation1), "in_500_feet", ());
-  Notification const notifiation2(500, 0, true, TurnDirection::TurnRight, LengthUnits::Feet);
+  Notification const notifiation2(500, 0, true, TurnDirection::TurnRight, ::Settings::Foot);
   TEST_EQUAL(GetDistanceTextId(notifiation2), "then", ());
-  Notification const notifiation3(800, 0, false, TurnDirection::TurnRight, LengthUnits::Feet);
+  Notification const notifiation3(800, 0, false, TurnDirection::TurnRight, ::Settings::Foot);
   TEST_EQUAL(GetDistanceTextId(notifiation3), "in_800_feet", ());
-  Notification const notifiation4(5000, 0, false, TurnDirection::TurnRight, LengthUnits::Feet);
+  Notification const notifiation4(5000, 0, false, TurnDirection::TurnRight, ::Settings::Foot);
   TEST_EQUAL(GetDistanceTextId(notifiation4), "in_5000_feet", ());
 }
 
 UNIT_TEST(GetDirectionTextIdTest)
 {
-  Notification const notifiation1(500, 0, false, TurnDirection::TurnRight, LengthUnits::Feet);
+  Notification const notifiation1(500, 0, false, TurnDirection::TurnRight, ::Settings::Foot);
   TEST_EQUAL(GetDirectionTextId(notifiation1), "make_a_right_turn", ());
-  Notification const notifiation2(1000, 0, false, TurnDirection::GoStraight, LengthUnits::Meters);
+  Notification const notifiation2(1000, 0, false, TurnDirection::GoStraight, ::Settings::Metric);
   TEST_EQUAL(GetDirectionTextId(notifiation2), "go_straight", ());
-  Notification const notifiation3(700, 0, false, TurnDirection::UTurn, LengthUnits::Meters);
+  Notification const notifiation3(700, 0, false, TurnDirection::UTurn, ::Settings::Metric);
   TEST_EQUAL(GetDirectionTextId(notifiation3), "make_a_u_turn", ());
 }
 
@@ -78,12 +78,12 @@ UNIT_TEST(GetTtsTextTest)
 
   GetTtsText getTtsText;
   // Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
-  //    TurnDirection turnDir, LengthUnits lengthUnits)
-  Notification const notifiation1(500, 0, false, TurnDirection::TurnRight, LengthUnits::Meters);
-  Notification const notifiation2(300, 0, false, TurnDirection::TurnLeft, LengthUnits::Meters);
+  //    TurnDirection turnDir, Settings::Units lengthUnits)
+  Notification const notifiation1(500, 0, false, TurnDirection::TurnRight, ::Settings::Metric);
+  Notification const notifiation2(300, 0, false, TurnDirection::TurnLeft, ::Settings::Metric);
   Notification const notifiation3(0, 0, false, TurnDirection::ReachedYourDestination,
-                                  LengthUnits::Meters);
-  Notification const notifiation4(0, 0, true, TurnDirection::TurnLeft, LengthUnits::Meters);
+                                  ::Settings::Metric);
+  Notification const notifiation4(0, 0, true, TurnDirection::TurnLeft, ::Settings::Metric);
 
   getTtsText.ForTestingSetLocaleWithJson(engShortJson);
   TEST_EQUAL(getTtsText(notifiation1), "In 500 meters. Make a right turn.", ());
