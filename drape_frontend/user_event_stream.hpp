@@ -127,20 +127,16 @@ struct SetAnyRectEvent
 
 struct FollowAndRotateEvent
 {
-  FollowAndRotateEvent(m2::AnyRectD const & targetRect, m2::PointD const & userPos,
-                       double newCenterOffset, double oldCenterOffset, double azimuth, bool isAnim)
-    : m_targetRect(targetRect)
-    , m_userPos(userPos)
-    , m_newCenterOffset(newCenterOffset)
-    , m_oldCenterOffset(oldCenterOffset)
+  FollowAndRotateEvent(m2::PointD const & userPos, m2::PointD const & pixelZero,
+                       double azimuth, bool isAnim)
+    : m_userPos(userPos)
+    , m_pixelZero(pixelZero)
     , m_azimuth(azimuth)
     , m_isAnim(isAnim)
   {}
 
-  m2::AnyRectD m_targetRect;
   m2::PointD m_userPos;
-  double m_newCenterOffset;
-  double m_oldCenterOffset;
+  m2::PointD m_pixelZero;
   double m_azimuth;
   bool m_isAnim;
 };
@@ -255,8 +251,7 @@ private:
   bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim);
   bool SetRect(m2::AnyRectD const & rect, bool isAnim);
   bool SetRect(m2::AnyRectD const & rect, bool isAnim, TAnimationCreator const & animCreator);
-  bool SetFollowAndRotate(m2::AnyRectD const & rect, m2::PointD const & userPos,
-                          double newCenterOffset, double oldCenterOffset, double azimuth, bool isAnim);
+  bool SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos, double azimuth, bool isAnim);
 
   m2::AnyRectD GetCurrentRect() const;
 
@@ -288,7 +283,7 @@ private:
   void EndFilter(Touch const & t);
   void CancelFilter(Touch const & t);
 
-  void ResetCurrentAnimation();
+  void ResetCurrentAnimation(bool finishAnimation = false);
 
 private:
   TIsCountryLoaded m_isCountryLoaded;

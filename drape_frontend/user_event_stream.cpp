@@ -170,8 +170,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       }
       break;
     case UserEvent::EVENT_FOLLOW_AND_ROTATE:
-      breakAnim = SetFollowAndRotate(e.m_followAndRotate.m_targetRect, e.m_followAndRotate.m_userPos,
-                                     e.m_followAndRotate.m_newCenterOffset,e.m_followAndRotate.m_oldCenterOffset,
+      breakAnim = SetFollowAndRotate(e.m_followAndRotate.m_userPos, e.m_followAndRotate.m_pixelZero,
                                      e.m_followAndRotate.m_azimuth, e.m_followAndRotate.m_isAnim);
       TouchCancel(m_touches);
       break;
@@ -231,8 +230,8 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
     m_navigator.CalculateScale(scaleCenter, factor, screen);
     m2::PointD offset = GetCurrentScreen().PixelRect().Center() - scaleCenter;
 
-    auto creator = [this, &glbScaleCenter, &offset](m2::AnyRectD const & startRect, m2::AnyRectD const & endRect,
-                                                    double aDuration, double mDuration, double sDuration)
+    auto const creator = [this, &glbScaleCenter, &offset](m2::AnyRectD const & startRect, m2::AnyRectD const & endRect,
+                                                          double aDuration, double mDuration, double sDuration)
     {
       m_animation.reset(new ScaleAnimation(startRect, endRect, aDuration, mDuration,
                                            sDuration, glbScaleCenter, offset));
@@ -299,36 +298,47 @@ bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim, TAnimation
   return true;
 }
 
-bool UserEventStream::SetFollowAndRotate(m2::AnyRectD const & rect, m2::PointD const & userPos,
-                                         double newCenterOffset, double oldCenterOffset, double azimuth, bool isAnim)
+bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos, double azimuth, bool isAnim)
 {
+  // Extract target local rect from current animation to preserve final scale.
+  m2::RectD targetLocalRect;
+  if (m_animation != nullptr)
+    targetLocalRect = m_animation->GetTargetRect(GetCurrentScreen()).GetLocalRect();
+  else
+    targetLocalRect = GetCurrentRect().GetLocalRect();
+
   if (isAnim)
   {
     // Reset current animation if there is any.
     ResetCurrentAnimation();
 
     ScreenBase const & screen = m_navigator.Screen();
+    m2::PointD const newCenter = FollowAndRotateAnimation::CalculateCenter(screen, userPos, pixelPos, -azimuth);
+
     m2::AnyRectD const startRect = GetCurrentRect();
-    double const angleDuration = ModelViewAnimation::GetRotateDuration(startRect.Angle().val(), azimuth);
-    double const moveDuration = ModelViewAnimation::GetMoveDuration(startRect.GlobalZero(), rect.GlobalZero(), screen);
+    double const angleDuration = ModelViewAnimation::GetRotateDuration(startRect.Angle().val(), -azimuth);
+    double const moveDuration = ModelViewAnimation::GetMoveDuration(startRect.GlobalZero(), newCenter, screen);
     double const duration = max(angleDuration, moveDuration);
     if (duration > 0.0 && duration < kMaxAnimationTimeSec)
     {
-      m_animation.reset(new FollowAndRotateAnimation(startRect, userPos, newCenterOffset, oldCenterOffset, azimuth, duration));
+      m_animation.reset(new FollowAndRotateAnimation(startRect, targetLocalRect, userPos,
+                                                     screen.GtoP(userPos), pixelPos, azimuth, duration));
       return false;
     }
   }
 
   m_animation.reset();
-  m_navigator.SetFromRect(rect);
+  m2::PointD const center = FollowAndRotateAnimation::CalculateCenter(m_navigator.Screen(), userPos, pixelPos, -azimuth);
+  m_navigator.SetFromRect(m2::AnyRectD(center, -azimuth, targetLocalRect));
   return true;
 }
 
-void UserEventStream::ResetCurrentAnimation()
+void UserEventStream::ResetCurrentAnimation(bool finishAnimation)
 {
-  if (m_animation != nullptr)
+  if (m_animation)
   {
-    m2::AnyRectD rect = m_animation->GetCurrentRect(GetCurrentScreen());
+    m2::AnyRectD const rect = finishAnimation ? m_animation->GetTargetRect(GetCurrentScreen()) :
+                                                m_animation->GetCurrentRect(GetCurrentScreen());
     m_navigator.SetFromRect(rect);
     m_animation.reset();
   }

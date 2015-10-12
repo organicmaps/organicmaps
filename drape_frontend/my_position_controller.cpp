@@ -534,8 +534,8 @@ void MyPositionController::CreateAnim(m2::PointD const & oldPos, double oldAzimu
   double moveDuration = ModelViewAnimation::GetMoveDuration(oldPos, m_position, screen);
   double rotateDuration = ModelViewAnimation::GetRotateDuration(oldAzimut, m_drawDirection);
   double maxDuration = max(moveDuration, rotateDuration);
-  double MAX_MY_POSITION_DURATION = 2.0; // in seconds
-  if (maxDuration > 0.0 && maxDuration < MAX_MY_POSITION_DURATION)
+  double kMaxMyPositionDuration = 2.0; // in seconds
+  if (maxDuration > 0.0 && maxDuration < kMaxMyPositionDuration)
     m_anim.reset(new MyPositionAnim(oldPos, m_position, moveDuration, oldAzimut, m_drawDirection, rotateDuration));
 }
 

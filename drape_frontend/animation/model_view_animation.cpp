@@ -108,7 +108,6 @@ void ScaleAnimation::ApplyPixelOffset(ScreenBase const & screen, m2::AnyRectD & 
   m2::PointD const pixelPoint = s.GtoP(m_globalPoint);
   m2::PointD const newCenter = s.PtoG(pixelPoint + m_pixelOffset);
 
-
   rect = m2::AnyRectD(newCenter, rect.Angle(), rect.GetLocalRect());
 }
 
@@ -126,37 +125,62 @@ m2::AnyRectD ScaleAnimation::GetTargetRect(ScreenBase const & screen) const
   return r;
 }
 
-FollowAndRotateAnimation::FollowAndRotateAnimation(m2::AnyRectD const & startRect, m2::PointD const & userPos,
-                                                   double newCenterOffset, double oldCenterOffset,
+FollowAndRotateAnimation::FollowAndRotateAnimation(m2::AnyRectD const & startRect,
+                                                   m2::RectD const & targetLocalRect,
+                                                   m2::PointD const & userPos,
+                                                   m2::PointD const & startPixelPos,
+                                                   m2::PointD const & endPixelPos,
                                                    double azimuth, double duration)
   : BaseModelViewAnimation(duration)
-  , m_angleInterpolator(startRect.Angle().val(), azimuth)
+  , m_angleInterpolator(startRect.Angle().val(), -azimuth)
   , m_rect(startRect.GetLocalRect())
+  , m_target(targetLocalRect)
   , m_userPos(userPos)
-  , m_newCenterOffset(newCenterOffset)
-  , m_oldCenterOffset(oldCenterOffset)
+  , m_startPixelPos(startPixelPos)
+  , m_endPixelPos(endPixelPos)
 {}
 
 m2::AnyRectD FollowAndRotateAnimation::GetCurrentRect(ScreenBase const & screen) const
 {
-  return GetRect(GetElapsedTime());
+  return GetRect(screen, GetElapsedTime());
 }
 
 m2::AnyRectD FollowAndRotateAnimation::GetTargetRect(ScreenBase const & screen) const
 {
-  return GetRect(GetDuration());
+  return GetRect(screen, GetDuration());
 }
 
-m2::AnyRectD FollowAndRotateAnimation::GetRect(double elapsedTime) const
+m2::PointD FollowAndRotateAnimation::CalculateCenter(ScreenBase const & screen, m2::PointD const & userPos,
+                                                     m2::PointD const & pixelPos, double azimuth)
+{
+  return CalculateCenter(screen.GlobalRect().GetLocalRect(), screen.PixelRect(), userPos, pixelPos, azimuth);
+}
+
+m2::PointD FollowAndRotateAnimation::CalculateCenter(m2::RectD const & localRect, m2::RectD const & pixelRect,
+                                                     m2::PointD const & userPos, m2::PointD const & pixelPos,
+                                                     double azimuth)
+{
+  m2::PointD formingVector = pixelRect.Center() - pixelPos;
+  formingVector.x /= pixelRect.SizeX();
+  formingVector.y /= pixelRect.SizeY();
+  formingVector.x *= localRect.SizeX();
+  formingVector.y *= localRect.SizeY();
+  double const centerOffset = formingVector.Length();
+
+  m2::PointD viewVector = userPos.Move(1.0, azimuth + math::pi2) - userPos;
+  viewVector.Normalize();
+  return userPos + (viewVector * centerOffset);
+}
+
+m2::AnyRectD FollowAndRotateAnimation::GetRect(ScreenBase const & screen, double elapsedTime) const
 {
   double const t = GetSafeT(elapsedTime, GetDuration());
   double const azimuth = m_angleInterpolator.Interpolate(t);
-  double const centerOffset = InterpolateDouble(m_oldCenterOffset, m_newCenterOffset, t);
+  m2::RectD const currentRect = InterpolateRect(m_rect, m_target, t);
+  m2::PointD const pixelPos = InterpolatePoint(m_startPixelPos, m_endPixelPos, t);
+  m2::PointD const centerPos = CalculateCenter(currentRect, screen.PixelRect(), m_userPos, pixelPos, azimuth);
 
-  m2::PointD viewVector = m_userPos.Move(1.0, azimuth + math::pi2) - m_userPos;
-  viewVector.Normalize();
-  m2::PointD centerPos = m_userPos + (viewVector * centerOffset);
-  return m2::AnyRectD(centerPos, azimuth, m_rect);
+  return m2::AnyRectD(centerPos, azimuth, currentRect);
 }
 
 } // namespace df
