@@ -2,6 +2,6 @@
 
 @interface MWMiPadPlacePage : MWMPlacePage
 
-- (void)updatePlacePageLayout;
+- (void)updatePlacePageLayoutAnimated:(BOOL)animated;
 
 @end

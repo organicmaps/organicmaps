@@ -107,7 +107,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   if (IPAD)
   {
     self.placePage.parentViewHeight = self.ownerViewController.view.width;
-    [(MWMiPadPlacePage *)self.placePage updatePlacePageLayout];
+    [(MWMiPadPlacePage *)self.placePage updatePlacePageLayoutAnimated:NO];
   }
   else
   {

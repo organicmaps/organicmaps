@@ -1,10 +1,10 @@
 #import "Common.h"
-#import "MWMiPhoneLandscapePlacePage.h"
 #import "MWMBasePlacePageView.h"
+#import "MWMiPhoneLandscapePlacePage.h"
+#import "MWMPlacePage+Animation.h"
 #import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageViewManager.h"
 #import "MWMSpringAnimation.h"
-#import "MWMPlacePage+Animation.h"
 
 #include "Framework.h"
 
@@ -88,6 +88,12 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 - (void)removeBookmark
 {
   [super removeBookmark];
+  [self configureContentInset];
+}
+
+- (void)reloadBookmark
+{
+  [super reloadBookmark];
   [self configureContentInset];
 }
 

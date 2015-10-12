@@ -1,15 +1,14 @@
 #import "Common.h"
-#import "MWMiPadPlacePage.h"
-#import "MWMPlacePageViewManager.h"
-#import "MWMPlacePageActionBar.h"
 #import "MWMBasePlacePageView.h"
 #import "MWMBookmarkColorViewController.h"
+#import "MWMBookmarkDescriptionViewController.h"
+#import "MWMiPadPlacePage.h"
+#import "MWMPlacePageActionBar.h"
+#import "MWMPlacePageViewManager.h"
 #import "SelectSetVC.h"
 #import "UIViewController+Navigation.h"
-#import "MWMBookmarkDescriptionViewController.h"
 #import "ViewController.h"
 
-extern CGFloat kBookmarkCellHeight;
 static CGFloat const kLeftOffset = 12.;
 static CGFloat const kTopOffset = 36.;
 static CGFloat const kBottomOffset = 12.;
@@ -96,7 +95,7 @@ static CGFloat const kBottomOffset = 12.;
   [super configure];
 
   CGFloat const defaultWidth = 360.;
-  [self updatePlacePageLayout];
+  [self updatePlacePageLayoutAnimated:NO];
   [self addPlacePageShadowToView:self.navigationController.view offset:CGSizeMake(0.0, -2.0)];
 
   [self.manager addSubviews:@[self.navigationController.view] withNavigationController:self.navigationController];
@@ -150,25 +149,25 @@ static CGFloat const kBottomOffset = 12.;
 - (void)willFinishEditingBookmarkTitle:(NSString *)title
 {
   [super willFinishEditingBookmarkTitle:title];
-  [self updatePlacePageLayout];
+  [self updatePlacePageLayoutAnimated:NO];
 }
 
 - (void)addBookmark
 {
   [super addBookmark];
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-  {
-    [self updatePlacePageLayout];
-  }];
+  [self updatePlacePageLayoutAnimated:YES];
 }
 
 - (void)removeBookmark
 {
   [super removeBookmark];
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-  {
-    [self updatePlacePageLayout];
-  }];
+  [self updatePlacePageLayoutAnimated:YES];
+}
+
+- (void)reloadBookmark
+{
+  [super reloadBookmark];
+  [self updatePlacePageLayoutAnimated:YES];
 }
 
 - (void)changeBookmarkColor
@@ -215,12 +214,15 @@ static CGFloat const kBottomOffset = 12.;
   }
 }
 
-- (void)updatePlacePageLayout
+- (void)updatePlacePageLayoutAnimated:(BOOL)animated
 {
-  CGFloat const actionBarHeight = self.actionBar.height;
-  self.height = self.basePlacePageView.height + self.anchorImageView.height + actionBarHeight - 1;
-  self.actionBar.origin = CGPointMake(0., self.height - actionBarHeight);
-  [self updatePlacePagePosition];
+  [UIView animateWithDuration:animated ? kDefaultAnimationDuration : 0.0 animations:^
+  {
+    CGFloat const actionBarHeight = self.actionBar.height;
+    self.height = self.basePlacePageView.height + self.anchorImageView.height + actionBarHeight - 1;
+    self.actionBar.origin = CGPointMake(0., self.height - actionBarHeight);
+    [self updatePlacePagePosition];
+  }];
 }
 
 - (void)updatePlacePagePosition
