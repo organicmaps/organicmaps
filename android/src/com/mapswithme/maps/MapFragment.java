@@ -70,15 +70,17 @@ public class MapFragment extends BaseMwmFragment
                       ANCHOR_TOP);
 
     if (BuildConfig.DEBUG)
+    {
       nativeSetupWidget(WIDGET_SCALE_LABEL,
                         UiUtils.dimen(R.dimen.margin_base),
                         UiUtils.dimen(R.dimen.margin_base),
                         ANCHOR_LEFT_TOP);
+    }
 
-    adjustCompass(0, false);
+    setupCompass(0, false);
   }
 
-  public void adjustCompass(int offset, boolean forceRedraw)
+  void setupCompass(int offset, boolean forceRedraw)
   {
     nativeSetupWidget(WIDGET_COMPASS,
                       UiUtils.dimen(R.dimen.margin_compass_left) + offset,
@@ -279,7 +281,7 @@ public class MapFragment extends BaseMwmFragment
   private static native void nativeDownloadCountry(MapStorage.Index index, int options);
   static native void nativeOnLocationError(int errorCode);
   static native void nativeLocationUpdated(long time, double lat, double lon, float accuracy, double altitude, float speed, float bearing);
-  static native void nativeCompassUpdated(double magneticNorth, double trueNorth, boolean force);
+  static native void nativeCompassUpdated(double magneticNorth, double trueNorth, boolean forceRedraw);
   static native void nativeScalePlus();
   static native void nativeScaleMinus();
   static native boolean nativeShowMapForUrl(String url);

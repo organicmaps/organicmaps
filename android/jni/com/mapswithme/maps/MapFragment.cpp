@@ -59,12 +59,12 @@ extern "C"
 #pragma clang optimize off
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MapFragment_nativeCompassUpdated(JNIEnv * env, jclass clazz, jdouble magneticNorth, jdouble trueNorth, jboolean force)
+  Java_com_mapswithme_maps_MapFragment_nativeCompassUpdated(JNIEnv * env, jclass clazz, jdouble magneticNorth, jdouble trueNorth, jboolean forceRedraw)
   {
     location::CompassInfo info;
     info.m_bearing = (trueNorth >= 0.0) ? trueNorth : magneticNorth;
 
-    g_framework->OnCompassUpdated(info, force);
+    g_framework->OnCompassUpdated(info, forceRedraw);
   }
 
 #pragma clang pop_options
@@ -72,18 +72,16 @@ extern "C"
   JNIEXPORT jfloatArray JNICALL
   Java_com_mapswithme_maps_location_LocationHelper_nativeUpdateCompassSensor(JNIEnv * env, jclass clazz, jint ind, jfloatArray arr)
   {
-    int const kCount = 3;
+    int const kCoordsCount = 3;
 
-    // get Java array
-    jfloat buffer[3];
-    env->GetFloatArrayRegion(arr, 0, kCount, buffer);
+    // Extract coords
+    jfloat coords[kCoordsCount];
+    env->GetFloatArrayRegion(arr, 0, kCoordsCount, coords);
+    g_framework->UpdateCompassSensor(ind, coords);
 
-    // get the result
-    g_framework->UpdateCompassSensor(ind, buffer);
-
-    // pass result back to Java
-    jfloatArray ret = (jfloatArray)env->NewFloatArray(kCount);
-    env->SetFloatArrayRegion(ret, 0, kCount, buffer);
+    // Put coords back to java result array
+    jfloatArray ret = (jfloatArray)env->NewFloatArray(kCoordsCount);
+    env->SetFloatArrayRegion(ret, 0, kCoordsCount, coords);
     return ret;
   }
 

@@ -1169,7 +1169,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mMapFragment == null || !mMapFragment.isAdded())
       return;
 
-    mMapFragment.adjustCompass(mPanelAnimator.isVisible() ? offset : 0, true);
+    mMapFragment.setupCompass(mPanelAnimator.isVisible() ? offset : 0, true /* forceRedraw */);
 
     if (mLastCompassData != null)
       MapFragment.nativeCompassUpdated(mLastCompassData.magneticNorth, mLastCompassData.trueNorth, true);

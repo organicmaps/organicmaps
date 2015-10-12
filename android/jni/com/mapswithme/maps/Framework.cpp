@@ -83,13 +83,13 @@ void Framework::OnLocationUpdated(location::GpsInfo const & info)
   m_work.OnLocationUpdate(info);
 }
 
-void Framework::OnCompassUpdated(location::CompassInfo const & info, bool force)
+void Framework::OnCompassUpdated(location::CompassInfo const & info, bool forceRedraw)
 {
-  static double const COMPASS_THRASHOLD = my::DegToRad(1.0);
+  static double const COMPASS_THRESHOLD = my::DegToRad(1.0);
 
   /// @todo Do not emit compass bearing too often while we are passing it through nv-queue.
   /// Need to make more experiments in future.
-  if (force || fabs(ang::GetShortestDistance(m_lastCompass, info.m_bearing)) >= COMPASS_THRASHOLD)
+  if (forceRedraw || fabs(ang::GetShortestDistance(m_lastCompass, info.m_bearing)) >= COMPASS_THRESHOLD)
   {
     m_lastCompass = info.m_bearing;
     m_work.OnCompassUpdate(info);
