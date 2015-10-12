@@ -19,7 +19,7 @@ bool PairDistEquals(PairDist const & lhs, PairDist const & rhs)
 UNIT_TEST(GetDistanceTextIdMetersTest)
 {
   // Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
-  //    TurnDirection turnDir, Settings::Units lengthUnits)
+  //    TurnDirection turnDir, ::Settings::Units lengthUnits)
   Notification const notifiation1(500, 0, false, TurnDirection::TurnRight, ::Settings::Metric);
   TEST_EQUAL(GetDistanceTextId(notifiation1), "in_500_meters", ());
   Notification const notifiation2(500, 0, true, TurnDirection::TurnRight, ::Settings::Metric);
@@ -32,6 +32,8 @@ UNIT_TEST(GetDistanceTextIdMetersTest)
 
 UNIT_TEST(GetDistanceTextIdFeetTest)
 {
+  // Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
+  //    TurnDirection turnDir, ::Settings::Units lengthUnits)
   Notification const notifiation1(500, 0, false, TurnDirection::TurnRight, ::Settings::Foot);
   TEST_EQUAL(GetDistanceTextId(notifiation1), "in_500_feet", ());
   Notification const notifiation2(500, 0, true, TurnDirection::TurnRight, ::Settings::Foot);
@@ -42,14 +44,46 @@ UNIT_TEST(GetDistanceTextIdFeetTest)
   TEST_EQUAL(GetDistanceTextId(notifiation4), "in_5000_feet", ());
 }
 
+UNIT_TEST(GetRoundaboutTextIdTest)
+{
+  // Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
+  //    TurnDirection turnDir, ::Settings::Units lengthUnits)
+  Notification const notifiation1(500, 0, false, TurnDirection::LeaveRoundAbout, ::Settings::Foot);
+  TEST_EQUAL(GetRoundaboutTextId(notifiation1), "leave_the_roundabout", ());
+  Notification const notifiation2(0, 3, true, TurnDirection::LeaveRoundAbout, ::Settings::Foot);
+  TEST_EQUAL(GetRoundaboutTextId(notifiation2), "take_the_3rd_exit", ());
+  Notification const notifiation3(0, 7, true, TurnDirection::LeaveRoundAbout, ::Settings::Metric);
+  TEST_EQUAL(GetRoundaboutTextId(notifiation3), "take_the_7th_exit", ());
+  Notification const notifiation4(0, 15, true, TurnDirection::LeaveRoundAbout, ::Settings::Metric);
+  TEST_EQUAL(GetRoundaboutTextId(notifiation4), "leave_the_roundabout", ());
+}
+
+UNIT_TEST(GetYouArriveTextIdTest)
+{
+  // Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
+  //    TurnDirection turnDir, ::Settings::Units lengthUnits)
+  Notification const notifiation1(500, 0, false, TurnDirection::ReachedYourDestination, ::Settings::Foot);
+  TEST_EQUAL(GetYouArriveTextId(notifiation1), "destination", ());
+  Notification const notifiation2(0, 0, false, TurnDirection::ReachedYourDestination, ::Settings::Metric);
+  TEST_EQUAL(GetYouArriveTextId(notifiation2), "you_have_reached_the_destination", ());
+  Notification const notifiation3(0, 0, true, TurnDirection::ReachedYourDestination, ::Settings::Metric);
+  TEST_EQUAL(GetYouArriveTextId(notifiation3), "destination", ());
+}
+
 UNIT_TEST(GetDirectionTextIdTest)
 {
+  // Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
+  //    TurnDirection turnDir, ::Settings::Units lengthUnits)
   Notification const notifiation1(500, 0, false, TurnDirection::TurnRight, ::Settings::Foot);
   TEST_EQUAL(GetDirectionTextId(notifiation1), "make_a_right_turn", ());
   Notification const notifiation2(1000, 0, false, TurnDirection::GoStraight, ::Settings::Metric);
   TEST_EQUAL(GetDirectionTextId(notifiation2), "go_straight", ());
   Notification const notifiation3(700, 0, false, TurnDirection::UTurn, ::Settings::Metric);
   TEST_EQUAL(GetDirectionTextId(notifiation3), "make_a_u_turn", ());
+  Notification const notifiation4(200, 0, false, TurnDirection::ReachedYourDestination, ::Settings::Metric);
+  TEST_EQUAL(GetDirectionTextId(notifiation4), "destination", ());
+  Notification const notifiation5(0, 0, false, TurnDirection::ReachedYourDestination, ::Settings::Metric);
+  TEST_EQUAL(GetDirectionTextId(notifiation5), "you_have_reached_the_destination", ());
 }
 
 UNIT_TEST(GetTtsTextTest)
