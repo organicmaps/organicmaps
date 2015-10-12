@@ -84,7 +84,7 @@ public class SearchFragment extends BaseMwmFragment
       }
 
       // TODO: This code only for demonstration purposes and will be removed soon
-      if (tryChangeMapStyle(query))
+      if (tryChangeMapStyle(query) || try3dMode(query))
         return;
 
       runSearch();
@@ -332,6 +332,20 @@ public class SearchFragment extends BaseMwmFragment
     // change map style for the Map activity
     final int mapStyle = isOld ? Framework.MAP_STYLE_LIGHT : (isDark ? Framework.MAP_STYLE_DARK : Framework.MAP_STYLE_CLEAR);
     Framework.setMapStyle(mapStyle);
+
+    return true;
+  }
+
+  private boolean try3dMode(String str)
+  {
+    final boolean is3d = str.equals("?3d");
+    final boolean is2d = str.equals("?2d");
+
+    if (!is3d && !is2d)
+      return false;
+
+    hideSearch();
+    Framework.nativeEnable3dMode(is3d);
 
     return true;
   }
