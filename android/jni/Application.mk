@@ -27,5 +27,9 @@ else
   APP_CFLAGS += -DRELEASE -D_RELEASE
 ifeq ($(PRODUCTION),1)
   APP_CFLAGS += -DOMIM_PRODUCTION
+  # Temporary workaround for crashes on x86 arch when throwing C++ exceptions.
+  # More details here: https://code.google.com/p/android/issues/detail?id=179410
+  # TODO: Check if this workaround is needed in newer NDK versions (after current one r10e).
+  LIBCXX_FORCE_REBUILD := trueifeq ($(PRODUCTION),1)
 endif
 endif
