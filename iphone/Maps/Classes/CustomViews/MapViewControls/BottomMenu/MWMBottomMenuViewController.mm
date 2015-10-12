@@ -53,6 +53,8 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 
 @property(nonatomic) int locationListenerSlot;
 
+@property(nonatomic) location::State::Mode locationState;
+
 @end
 
 @implementation MWMBottomMenuViewController
@@ -152,48 +154,76 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 
 - (void)onLocationStateModeChanged:(location::State::Mode)state
 {
+  self.locationState = state;
   UIButton * locBtn = self.locationButton;
+  [locBtn.imageView stopAnimating];
   [locBtn.imageView.layer removeAllAnimations];
   switch (state)
   {
-  case location::State::Mode::UnknownPosition:
-    [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_off_mode_light"]
-            forState:UIControlStateNormal];
-    break;
-  case location::State::Mode::PendingPosition:
+    case location::State::Mode::UnknownPosition:
+    case location::State::Mode::NotFollow:
+    case location::State::Mode::Follow:
+      break;
+    case location::State::Mode::PendingPosition:
+    {
+      [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_pending"]
+              forState:UIControlStateNormal];
+      CABasicAnimation * rotation;
+      rotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+      rotation.duration = kDefaultAnimationDuration;
+      rotation.toValue = @(M_PI * 2.0 * rotation.duration);
+      rotation.cumulative = YES;
+      rotation.repeatCount = MAXFLOAT;
+      [locBtn.imageView.layer addAnimation:rotation forKey:@"locationImage"];
+      break;
+    }
+    case location::State::Mode::RotateAndFollow:
+    {
+      NSUInteger const morphImagesCount = 6;
+      NSUInteger const endValue = morphImagesCount + 1;
+      NSMutableArray * morphImages = [NSMutableArray arrayWithCapacity:morphImagesCount];
+      for (NSUInteger i = 1, j = 0; i != endValue; i++, j++)
+        morphImages[j] = [UIImage imageNamed:[@"ic_follow_mode_light_" stringByAppendingString:@(i).stringValue]];
+      locBtn.imageView.animationImages = morphImages;
+      locBtn.imageView.animationRepeatCount = 1;
+      locBtn.imageView.image = morphImages.lastObject;
+      [locBtn.imageView startAnimating];
+      break;
+    }
+  }
+  [self refreshLocationButtonState];
+}
+
+- (void)refreshLocationButtonState
+{
+  dispatch_async(dispatch_get_main_queue(), ^
   {
-    [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_pending"]
-            forState:UIControlStateNormal];
-    CABasicAnimation * rotation;
-    rotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    rotation.duration = kDefaultAnimationDuration;
-    rotation.toValue = @(M_PI * 2.0 * rotation.duration);
-    rotation.cumulative = YES;
-    rotation.repeatCount = MAXFLOAT;
-    [locBtn.imageView.layer addAnimation:rotation forKey:@"locationImage"];
-    break;
-  }
-  case location::State::Mode::NotFollow:
-    [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_get_position"]
-            forState:UIControlStateNormal];
-    break;
-  case location::State::Mode::Follow:
-    [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_follow"] forState:UIControlStateNormal];
-    break;
-  case location::State::Mode::RotateAndFollow:
-    UIButton * btn = self.locationButton;
-    NSUInteger const morphImagesCount = 6;
-    NSUInteger const startValue = 1;
-    NSUInteger const endValue = morphImagesCount + 1;
-    NSMutableArray * morphImages = [NSMutableArray arrayWithCapacity:morphImagesCount];
-    for (NSUInteger i = startValue, j = 0; i != endValue; i++, j++)
-      morphImages[j] = [UIImage imageNamed:[@"ic_follow_mode_light_" stringByAppendingString:@(i).stringValue]];
-    btn.imageView.animationImages = morphImages;
-    btn.imageView.animationRepeatCount = 1;
-    btn.imageView.image = morphImages.lastObject;
-    [btn.imageView startAnimating];
-    break;
-  }
+    if (self.locationButton.imageView.isAnimating)
+    {
+      [self refreshLocationButtonState];
+    }
+    else
+    {
+      UIButton * locBtn = self.locationButton;
+      switch (self.locationState)
+      {
+        case location::State::Mode::PendingPosition:
+          break;
+        case location::State::Mode::UnknownPosition:
+          [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_off_mode_light"] forState:UIControlStateNormal];
+          break;
+        case location::State::Mode::NotFollow:
+          [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_get_position"] forState:UIControlStateNormal];
+          break;
+        case location::State::Mode::Follow:
+          [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_follow"] forState:UIControlStateNormal];
+          break;
+        case location::State::Mode::RotateAndFollow:
+          [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_follow_and_rotate"] forState:UIControlStateNormal];
+          break;
+      }
+    }
+  });
 }
 
 #pragma mark - Notifications
