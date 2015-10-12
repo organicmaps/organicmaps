@@ -1,14 +1,14 @@
 #import "Common.h"
+#import "MapViewController.h"
+#import "MWMBasePlacePageView.h"
 #import "MWMiPhonePortraitPlacePage.h"
-#import "MWMSpringAnimation.h"
+#import "MWMMapViewControlsManager.h"
+#import "MWMPlacePage+Animation.h"
 #import "MWMPlacePageActionBar.h"
+#import "MWMPlacePageEntity.h"
 #import "MWMPlacePageNavigationBar.h"
 #import "MWMPlacePageViewManager.h"
-#import "MWMBasePlacePageView.h"
-#import "MWMPlacePage+Animation.h"
-#import "MWMPlacePageEntity.h"
-#import "MWMMapViewControlsManager.h"
-#import "MapViewController.h"
+#import "MWMSpringAnimation.h"
 
 #include "Framework.h"
 
@@ -78,6 +78,12 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 {
  [super removeBookmark];
   self.state = MWMiPhonePortraitPlacePageStatePreview;
+}
+
+- (void)reloadBookmark
+{
+  [super reloadBookmark];
+  [self updateTargetPoint];
 }
 
 - (void)updateMyPositionStatus:(NSString *)status

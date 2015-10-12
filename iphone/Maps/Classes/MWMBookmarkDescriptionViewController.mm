@@ -76,6 +76,12 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
   [self.iPadOwnerNavigationController setNavigationBarHidden:NO];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+  [super viewWillDisappear:animated];
+  [self.manager reloadBookmark];
+}
+
 - (void)setState:(BookmarkDescriptionState)state
 {
   MWMPlacePageEntity * entity = self.manager.entity;

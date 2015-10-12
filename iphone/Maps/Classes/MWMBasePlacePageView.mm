@@ -1,22 +1,22 @@
 #import "MWMBasePlacePageView.h"
-#import "MWMPlacePageInfoCell.h"
-#import "MWMPlacePageBookmarkCell.h"
-#import "MWMPlacePageEntity.h"
 #import "MWMPlacePage.h"
 #import "MWMPlacePageActionBar.h"
-#import "MWMPlacePageViewManager.h"
+#import "MWMPlacePageBookmarkCell.h"
+#import "MWMPlacePageEntity.h"
+#import "MWMPlacePageInfoCell.h"
 #import "MWMPlacePageTypeDescription.h"
-#import <CoreLocation/CoreLocation.h>
+#import "MWMPlacePageViewManager.h"
 
 static NSString * const kPlacePageLinkCellIdentifier = @"PlacePageLinkCell";
 static NSString * const kPlacePageInfoCellIdentifier = @"PlacePageInfoCell";
 static NSString * const kPlacePageBookmarkCellIdentifier = @"PlacePageBookmarkCell";
-extern CGFloat const kBookmarkCellHeight = 135.;
 
 @interface MWMBasePlacePageView ()
 
 @property (weak, nonatomic) MWMPlacePageEntity * entity;
 @property (weak, nonatomic) IBOutlet MWMPlacePage * ownerPlacePage;
+
+@property (nonatomic) MWMPlacePageBookmarkCell * bookmarkSizingCell;
 
 @end
 
@@ -28,9 +28,16 @@ extern CGFloat const kBookmarkCellHeight = 135.;
 - (void)awakeFromNib
 {
   [super awakeFromNib];
-  [self.featureTable registerNib:[UINib nibWithNibName:kPlacePageInfoCellIdentifier bundle:nil] forCellReuseIdentifier:kPlacePageInfoCellIdentifier];
-  [self.featureTable registerNib:[UINib nibWithNibName:kPlacePageLinkCellIdentifier bundle:nil] forCellReuseIdentifier:kPlacePageLinkCellIdentifier];
-  [self.featureTable registerNib:[UINib nibWithNibName:kPlacePageBookmarkCellIdentifier bundle:nil] forCellReuseIdentifier:kPlacePageBookmarkCellIdentifier];
+
+  self.featureTable.delegate = self;
+  self.featureTable.dataSource = self;
+
+  [self.featureTable registerNib:[UINib nibWithNibName:kPlacePageInfoCellIdentifier bundle:nil]
+          forCellReuseIdentifier:kPlacePageInfoCellIdentifier];
+  [self.featureTable registerNib:[UINib nibWithNibName:kPlacePageLinkCellIdentifier bundle:nil]
+          forCellReuseIdentifier:kPlacePageLinkCellIdentifier];
+  [self.featureTable registerNib:[UINib nibWithNibName:kPlacePageBookmarkCellIdentifier bundle:nil]
+          forCellReuseIdentifier:kPlacePageBookmarkCellIdentifier];
 }
 
 - (void)configureWithEntity:(MWMPlacePageEntity *)entity
@@ -64,8 +71,6 @@ extern CGFloat const kBookmarkCellHeight = 135.;
 
   self.distanceLabel.text = @"";
 
-  self.featureTable.delegate = self;
-  self.featureTable.dataSource = self;
   [self.featureTable reloadData];
   [self layoutSubviews];
 }
@@ -166,9 +171,9 @@ static CGFloat const kTitleBottomOffset = 2.;
 
 - (void)reloadBookmarkCell
 {
-  NSUInteger const count = self.entity.metadataTypes.count;
-  NSIndexPath * index = [NSIndexPath indexPathForRow:count - 1 inSection:0];
-  [self.featureTable reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationAutomatic];
+  [self.featureTable reloadData];
+  [self setNeedsLayout];
+  [self layoutIfNeeded];
 }
 
 - (IBAction)directionButtonTap
@@ -190,7 +195,11 @@ static CGFloat const kTitleBottomOffset = 2.;
 {
   NSNumber * const currentType = self.entity.metadataTypes[indexPath.row];
   if (currentType.integerValue == MWMPlacePageMetadataTypeBookmark)
-    return kBookmarkCellHeight;
+  {
+    [self.bookmarkSizingCell config:self.ownerPlacePage forHeight:YES];
+    CGFloat height = self.bookmarkSizingCell.cellHeight;
+    return height;
+  }
 
   CGFloat const defaultCellHeight = 44.;
   CGFloat const defaultWidth = tableView.width;
@@ -217,12 +226,7 @@ static CGFloat const kTitleBottomOffset = 2.;
   {
     MWMPlacePageBookmarkCell * cell = (MWMPlacePageBookmarkCell *)[tableView dequeueReusableCellWithIdentifier:kPlacePageBookmarkCellIdentifier];
 
-    if (!cell)
-      cell = [[MWMPlacePageBookmarkCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kPlacePageBookmarkCellIdentifier];
-
-    cell.ownerTableView = tableView;
-    cell.placePage = self.ownerPlacePage;
-    [cell configure];
+    [cell config:self.ownerPlacePage forHeight:NO];
     return cell;
   }
 
@@ -231,12 +235,16 @@ static CGFloat const kTitleBottomOffset = 2.;
 
   MWMPlacePageInfoCell * cell = (MWMPlacePageInfoCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
 
-  if (!cell)
-    cell = [[MWMPlacePageInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-
   cell.currentEntity = self.entity;
   [cell configureWithType:currentType info:self.entity.metadataValues[indexPath.row]];
   return cell;
+}
+
+- (MWMPlacePageBookmarkCell *)bookmarkSizingCell
+{
+  if (!_bookmarkSizingCell)
+    _bookmarkSizingCell = [self.featureTable dequeueReusableCellWithIdentifier:kPlacePageBookmarkCellIdentifier];
+  return _bookmarkSizingCell;
 }
 
 @end
