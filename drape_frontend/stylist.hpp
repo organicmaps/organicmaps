@@ -1,6 +1,7 @@
 #pragma once
 
 #include "indexer/feature_data.hpp"
+#include "indexer/drawing_rule_def.hpp"
 
 #include "base/buffer_vector.hpp"
 
@@ -21,6 +22,7 @@ struct CaptionDescription
 
   void FormatCaptions(FeatureType const & f,
                       feature::EGeomType type,
+                      drule::text_type_t mainTextType,
                       bool auxCaptionExists);
 
   string const & GetMainText() const;
@@ -54,7 +56,7 @@ public:
 
   using TRuleWrapper = pair<drule::BaseRule const *, double>;
   using TRuleCallback = function<void (TRuleWrapper const &)>;
-  void ForEachRule(TRuleCallback const & fn);
+  void ForEachRule(TRuleCallback const & fn) const;
 
   bool IsEmpty() const;
 
