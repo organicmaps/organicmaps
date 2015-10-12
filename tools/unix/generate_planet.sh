@@ -129,6 +129,7 @@ DATA_PATH="$OMIM_PATH/data"
 TARGET="${TARGET:-$DATA_PATH}"
 mkdir -p "$TARGET"
 INTDIR="${INTDIR:-$TARGET/intermediate_data}"
+[ "$(df -m "$INTDIR" | tail -n 1 | awk '{ printf "%d\n", $4 / 1024 }')" -lt "250" ] && echo "WARNING: You have less than 250 MB for intermediate data, that's not enough for the whole planet."
 OSMCTOOLS="${OSMCTOOLS:-$HOME/osmctools}"
 [ ! -d "$OSMCTOOLS" ] && OSMCTOOLS="$INTDIR"
 MERGE_INTERVAL=${MERGE_INTERVAL:-40}
@@ -147,7 +148,7 @@ UPDATE_DATE="$(date +%y%m%d)"
 LOG_PATH="${LOG_PATH:-$TARGET/logs}"
 mkdir -p "$LOG_PATH"
 PLANET_LOG="$LOG_PATH/generate_planet.log"
-[ -n "${MAIL-}" ] && trap "grep STATUS \"$PLANET_LOG\" | mailx -s \"Generate_planet: build failed\" \"$MAIL\"; exit 1" SIGINT SIGTERM
+[ -n "${MAIL-}" ] && trap "grep STATUS \"$PLANET_LOG\" | mailx -s \"Generate_planet: build failed\" \"$MAIL\"; exit 1" SIGTERM ERR
 echo -e "\n\n----------------------------------------\n\n" >> "$PLANET_LOG"
 log "STATUS" "Start"
 
@@ -165,9 +166,7 @@ if [ -n "${REGIONS:-}" ]; then
     log "BORDERS" "Note: old borders from $TARGET/borders were moved to $BORDERS_BACKUP_PATH"
     mv "$TARGET/borders"/*.poly "$BORDERS_BACKUP_PATH"
   fi
-  for i in $REGIONS; do
-    cp "$i" "$TARGET/borders/"
-  done
+  echo "$REGIONS" | xargs -I % cp "%" "$TARGET/borders/"
 elif [ -z "${REGIONS-1}" ]; then
   # A user asked specifically for no regions
   NO_REGIONS=1
@@ -443,4 +442,5 @@ rm "$STATUS_FILE"
 [ -f "$OSRM_FLAG" ] && rm "$OSRM_FLAG"
 [ -n "$(ls "$TARGET" | grep '\.mwm\.osm2ft')" ] && mv "$TARGET"/*.mwm.osm2ft "$INTDIR"
 [ -z "$KEEP_INTDIR" ] && rm -r "$INTDIR"
+trap - SIGTERM ERR
 log "STATUS" "Done"
