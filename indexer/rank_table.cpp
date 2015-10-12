@@ -211,7 +211,7 @@ void SerializeRankTable(RankTable & table, FilesContainerW & wcont)
 
 void SerializeRankTable(RankTable & table, string const & mapPath)
 {
-  FilesContainerW wcont(mapPath);
+  FilesContainerW wcont(mapPath, FileWriter::OP_WRITE_EXISTING);
   SerializeRankTable(table, wcont);
 }
 
