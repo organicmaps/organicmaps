@@ -15,6 +15,8 @@
 using namespace platform;
 using namespace my;
 
+/*
+ * This test is useless because of we don't build offsets index from now.
 #ifndef OMIM_OS_WINDOWS
 UNIT_TEST(MwmSet_FileSystemErrors)
 {
@@ -56,3 +58,4 @@ UNIT_TEST(MwmSet_FileSystemErrors)
   TEST(infos.empty(), ());
 }
 #endif
+*/

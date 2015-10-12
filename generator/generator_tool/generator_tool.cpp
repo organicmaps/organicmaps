@@ -15,6 +15,7 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/data_header.hpp"
+#include "indexer/features_offsets_table.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/index_builder.hpp"
 #include "indexer/search_index_builder.hpp"
@@ -165,29 +166,30 @@ int main(int argc, char ** argv)
   for (size_t i = 0; i < count; ++i)
   {
     string const & country = genInfo.m_bucketNames[i];
+    string const datFile = my::JoinFoldersToPath(path, country + DATA_FILE_EXTENSION);
 
     if (FLAGS_generate_geometry)
     {
-      LOG(LINFO, ("Generating result features for file", country));
-
       int mapType = feature::DataHeader::country;
       if (country == WORLD_FILE_NAME)
         mapType = feature::DataHeader::world;
       if (country == WORLD_COASTS_FILE_NAME)
         mapType = feature::DataHeader::worldcoasts;
 
-      if (!feature::GenerateFinalFeatures(genInfo, country, mapType))
-      {
-        // If error - move to next bucket without index generation
-        continue;
-      }
-    }
+      // If error - move to next bucket without index generation.
 
-    string const datFile = path + country + DATA_FILE_EXTENSION;
+      LOG(LINFO, ("Generating result features for", country));
+      if (!feature::GenerateFinalFeatures(genInfo, country, mapType))
+        continue;
+
+      LOG(LINFO, ("Generating offsets table for", datFile));
+      if (!feature::BuildOffsetsTable(datFile))
+        continue;
+    }
 
     if (FLAGS_generate_index)
     {
-      LOG(LINFO, ("Generating index for ", datFile));
+      LOG(LINFO, ("Generating index for", datFile));
 
       if (!indexer::BuildIndexFromDatFile(datFile, FLAGS_intermediate_data_path + country))
         LOG(LCRITICAL, ("Error generating index."));

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "coding/file_container.hpp"
 #include "coding/mmap_reader.hpp"
 
 #include "defines.hpp"
@@ -12,7 +13,6 @@
 #include "3party/succinct/mapper.hpp"
 
 
-class FilesContainerR;
 namespace platform
 {
   class LocalCountryFile;
@@ -57,6 +57,10 @@ namespace feature
     /// Load table by full path to the table file.
     static unique_ptr<FeaturesOffsetsTable> Load(string const & filePath);
 
+    static unique_ptr<FeaturesOffsetsTable> Load(FilesContainerR const & cont);
+    static unique_ptr<FeaturesOffsetsTable> Build(FilesContainerR const & cont,
+                                                  string const & storePath);
+
     /// Get table for the MWM map, represented by localFile and cont.
     static unique_ptr<FeaturesOffsetsTable> CreateIfNotExistsAndLoad(
         platform::LocalCountryFile const & localFile, FilesContainerR const & cont);
@@ -94,6 +98,7 @@ namespace feature
   private:
     FeaturesOffsetsTable(succinct::elias_fano::elias_fano_builder & builder);
     FeaturesOffsetsTable(string const & filePath);
+    FeaturesOffsetsTable() = default;
 
     static unique_ptr<FeaturesOffsetsTable> LoadImpl(string const & filePath);
     static unique_ptr<FeaturesOffsetsTable> CreateImpl(platform::LocalCountryFile const & localFile,
@@ -101,7 +106,12 @@ namespace feature
                                                        string const & storePath);
 
     succinct::elias_fano m_table;
-
     unique_ptr<MmapReader> m_pReader;
+
+    detail::MappedFile m_file;
+    detail::MappedFile::Handle m_handle;
   };
+
+  bool BuildOffsetsTable(string const & filePath);
+
 }  // namespace feature

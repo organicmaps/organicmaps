@@ -123,24 +123,30 @@ public:
   inline uint64_t GetFileSize() const { return m_source.Size(); }
   inline string const & GetFileName() const { return m_source.GetName(); }
 
+  pair<uint64_t, uint64_t> GetAbsoluteOffsetAndSize(Tag const & tag) const;
+
 private:
   ReaderT m_source;
 };
 
-class FilesMappingContainer : public FilesContainerBase
+namespace detail
 {
-public:
-  /// Do nothing by default, call Open to attach to file.
-  FilesMappingContainer() = default;
-  explicit FilesMappingContainer(string const & fName);
 
-  ~FilesMappingContainer();
+class MappedFile
+{
+  DISALLOW_COPY(MappedFile);
+
+public:
+  MappedFile() = default;
+  ~MappedFile() { Close(); }
 
   void Open(string const & fName);
   void Close();
 
-  class Handle : private noncopyable
+  class Handle
   {
+    DISALLOW_COPY(Handle);
+
     void Reset();
 
   public:
@@ -183,6 +189,33 @@ public:
     uint64_t m_origSize;
   };
 
+  Handle Map(uint64_t offset, uint64_t size, string const & tag) const;
+
+private:
+#ifdef OMIM_OS_WINDOWS
+  void * m_hFile = (void *)-1;
+  void * m_hMapping = (void *)-1;
+#else
+  int m_fd = -1;
+#endif
+};
+
+} // namespace detail
+
+class FilesMappingContainer : public FilesContainerBase
+{
+public:
+  typedef detail::MappedFile::Handle Handle;
+
+  /// Do nothing by default, call Open to attach to file.
+  FilesMappingContainer() = default;
+  explicit FilesMappingContainer(string const & fName);
+
+  ~FilesMappingContainer();
+
+  void Open(string const & fName);
+  void Close();
+
   Handle Map(Tag const & tag) const;
   FileReader GetReader(Tag const & tag) const;
 
@@ -190,12 +223,7 @@ public:
 
 private:
   string m_name;
-#ifdef OMIM_OS_WINDOWS
-  void * m_hFile = (void *)-1;
-  void * m_hMapping = (void *)-1;
-#else
-  int m_fd = -1;
-#endif
+  detail::MappedFile m_file;
 };
 
 class FilesContainerW : public FilesContainerBase
