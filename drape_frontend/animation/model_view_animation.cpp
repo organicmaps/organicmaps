@@ -161,10 +161,8 @@ m2::PointD FollowAndRotateAnimation::CalculateCenter(m2::RectD const & localRect
                                                      double azimuth)
 {
   m2::PointD formingVector = pixelRect.Center() - pixelPos;
-  formingVector.x /= pixelRect.SizeX();
-  formingVector.y /= pixelRect.SizeY();
-  formingVector.x *= localRect.SizeX();
-  formingVector.y *= localRect.SizeY();
+  formingVector.x *= (localRect.SizeX() / pixelRect.SizeX());
+  formingVector.y *= (localRect.SizeY() / pixelRect.SizeY());
   double const centerOffset = formingVector.Length();
 
   m2::PointD viewVector = userPos.Move(1.0, azimuth + math::pi2) - userPos;
