@@ -2,6 +2,7 @@
 #include "logging.hpp"
 
 #include "base/assert.hpp"
+#include "std/vector.hpp"
 
 static JavaVM * g_jvm = 0;
 extern JavaVM * GetJVM()
@@ -104,6 +105,14 @@ namespace jni
       env->ReleaseStringUTFChars(str, utfBuffer);
     }
     return result;
+  }
+
+  string ToNativeString(JNIEnv * env, jbyteArray const & bytes)
+  {
+    int const len = env->GetArrayLength(bytes);
+    vector<char> buffer(len);
+    env->GetByteArrayRegion(bytes, 0, len, reinterpret_cast<jbyte *>(buffer.data()));
+    return string(buffer.data(), len);
   }
 
   jstring ToJavaString(JNIEnv * env, char const * s)

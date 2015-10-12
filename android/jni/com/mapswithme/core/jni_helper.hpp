@@ -25,6 +25,10 @@ namespace jni
 
   string ToNativeString(JNIEnv * env, jstring str);
 
+  // Converts UTF-8 array to native UTF-8 string. Result differs from simple GetStringUTFChars call for characters greater than U+10000,
+  // since jni uses modified UTF (MUTF-8) for strings.
+  string ToNativeString(JNIEnv * env, jbyteArray const & utfBytes);
+
   jstring ToJavaString(JNIEnv * env, char const * s);
 
   inline jstring ToJavaString(JNIEnv * env, string const & s)
