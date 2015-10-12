@@ -72,6 +72,7 @@ public:
   inline void SetLengthUnits(LengthUnits units) { m_lengthUnits = units; }
   double ConvertMetersPerSecondToUnitsPerSecond(double speedInMetersPerSecond) const;
   double ConvertUnitsToMeters(double distanceInUnits) const;
+  double ConvertMetersToUnits(double distanceInMeters) const;
   void ForTestingSetNotificationTimeSecond(uint32_t time) { m_timeSeconds = time; }
 };
 

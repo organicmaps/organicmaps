@@ -123,11 +123,19 @@ string TurnsSound::GenerateFirstTurnSound(TurnItem const & turn, double distance
         }
         else
         {
+          double const distToPronounceMeters = distanceToTurnMeters - distanceToPronounceNotificationMeters;
+          if (distToPronounceMeters < 0)
+          {
+            FastForwardFirstTurnNotification();
+            return string(); // The current position is too close to the turn for the first notification.
+          }
+
           // Pronouncing first turn sound notification.
-          uint32_t const distToPronounce =
-              m_settings.RoundByPresetSoundedDistancesUnits(turnNotificationDistUnits);
+          double const distToPronounceUnits = m_settings.ConvertMetersToUnits(distToPronounceMeters);
+          uint32_t const roundedDistToPronounceUnits =
+              m_settings.RoundByPresetSoundedDistancesUnits(distToPronounceUnits);
           m_nextTurnNotificationProgress = PronouncedNotification::First;
-          return GenerateTurnText(distToPronounce, turn.m_exitNum, false /* useThenInsteadOfDistance */,
+          return GenerateTurnText(roundedDistToPronounceUnits, turn.m_exitNum, false /* useThenInsteadOfDistance */,
                                   turn.m_turn, m_settings.GetLengthUnits());
         }
       }
