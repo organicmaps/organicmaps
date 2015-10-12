@@ -91,11 +91,9 @@ private:
 };
 
 
-
 LocalityItem::LocalityItem(m2::RectD const & rect, uint32_t population, ID id, string const & name)
   : m_rect(rect), m_name(name), m_population(population), m_id(id)
 {
-
 }
 
 LocalityFinder::LocalityFinder(Index const * pIndex)
@@ -150,26 +148,43 @@ void LocalityFinder::RecreateCache(Cache & cache, m2::RectD rect) const
   }
 }
 
-void LocalityFinder::SetViewportByIndex(m2::RectD const & rect, size_t idx)
+void LocalityFinder::SetViewportByIndex(m2::RectD const & viewport, size_t idx)
 {
   ASSERT_LESS(idx, (size_t)MAX_VIEWPORT_COUNT, ());
-  RecreateCache(m_cache[idx], rect);
+  RecreateCache(m_cache[idx], viewport);
 }
 
-void LocalityFinder::GetLocalityInViewport(const m2::PointD & pt, string & name) const
+void LocalityFinder::SetReservedViewportIfNeeded(m2::RectD const & viewport)
 {
-  for (size_t i = 0; i < MAX_VIEWPORT_COUNT; ++i)
-    m_cache[i].GetLocality(pt, name);
+  size_t constexpr kReservedIndex = 2;
+  if (m_cache[kReservedIndex].m_rect.IsValid() &&
+      m_cache[kReservedIndex].m_rect.IsRectInside(viewport))
+  {
+    return;
+  }
+
+  SetViewportByIndex(viewport, kReservedIndex);
 }
 
-void LocalityFinder::GetLocalityCreateCache(const m2::PointD & pt, string & name) const
+void LocalityFinder::GetLocalityInViewport(m2::PointD const & pt, string & name) const
+{
+  name.clear();
+  for (size_t i = 0; i < MAX_VIEWPORT_COUNT; ++i)
+  {
+    m_cache[i].GetLocality(pt, name);
+    if (!name.empty())
+      break;
+  }
+}
+
+void LocalityFinder::GetLocalityCreateCache(m2::PointD const & pt, string & name)
 {
   // search in temporary caches and find most unused cache
   size_t minUsageIdx = 0;
   size_t minUsage = numeric_limits<size_t>::max();
-  for (size_t idx = 0; idx < MAX_CACHE_TMP_COUNT; ++idx)
+  for (size_t idx = 0; idx < MAX_VIEWPORT_COUNT; ++idx)
   {
-    Cache const & cache = m_cache_tmp[idx];
+    Cache const & cache = m_cache[idx];
     cache.GetLocality(pt, name);
     if (!name.empty())
       return;
@@ -181,7 +196,7 @@ void LocalityFinder::GetLocalityCreateCache(const m2::PointD & pt, string & name
     }
   }
 
-  Cache & cache = m_cache_tmp[minUsageIdx];
+  Cache & cache = m_cache[minUsageIdx];
   RecreateCache(cache, MercatorBounds::RectByCenterXYAndSizeInMeters(pt, MAX_RADIUS_CITY));
   cache.GetLocality(pt, name);
 }
@@ -190,9 +205,6 @@ void LocalityFinder::ClearCacheAll()
 {
   for (size_t i = 0; i < MAX_VIEWPORT_COUNT; ++i)
     ClearCache(i);
-
-  for (size_t i = 0; i < MAX_CACHE_TMP_COUNT; ++i)
-    m_cache_tmp[i].Clear();
 }
 
 void LocalityFinder::ClearCache(size_t idx)
@@ -200,8 +212,6 @@ void LocalityFinder::ClearCache(size_t idx)
   ASSERT_LESS(idx, (size_t)MAX_VIEWPORT_COUNT, ());
   m_cache[idx].Clear();
 }
-
-
 
 void LocalityFinder::Cache::Clear()
 {

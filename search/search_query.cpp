@@ -931,7 +931,7 @@ void Query::ProcessSuggestions(vector<T> & vec, Results & res) const
     return;
 
   int added = 0;
-  for (typename vector<T>::iterator i = vec.begin(); i != vec.end();)
+  for (auto i = vec.begin(); i != vec.end();)
   {
     impl::PreResult2 const & r = **i;
 
@@ -1966,6 +1966,16 @@ void Query::SearchAdditional(Results & res, size_t resCount)
         SearchInMWM(handle, params);
       }
     }
+
+#ifdef FIND_LOCALITY_TEST
+    m2::RectD rect;
+    for (auto const & r : m_results[0])
+      rect.Add(r.GetCenter());
+
+    // Hack with 90.0 is important for the countries divided by 180 meridian.
+    if (rect.IsValid() && (rect.maxX() - rect.minX()) <= 90.0)
+      m_locality.SetReservedViewportIfNeeded(rect);
+#endif
 
     FlushResults(res, true, resCount);
   }
