@@ -4,6 +4,7 @@ In general, [Google's coding standard](http://google-styleguide.googlecode.com/s
 
 Below are our specific (but not all!) exceptions to the Google's coding standard:
 
+- All code should conform to C++11 standard (not C++14 or higher). If target platform does not support all features of C++11, older C++ standard should be used.
 - We use `.cpp` and `.hpp` files, not `.cc` and `.h` (`.c` and `.h` are used for C code), in UTF-8 encoding.
 - File names are lowercase with underscores, like `file_reader.cpp`.
 - We use `#pragma once` instead of the `#define` Guard in header files.
