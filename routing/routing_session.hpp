@@ -103,7 +103,7 @@ public:
   // Sound notifications for turn instructions.
   void EnableTurnNotifications(bool enable);
   bool AreTurnNotificationsEnabled() const;
-  void SetTurnNotificationsUnits(routing::turns::sound::LengthUnits const & units);
+  void SetTurnNotificationsUnits(Settings::Units const units);
   void SetTurnNotificationsLocale(string const & locale);
   string GetTurnNotificationsLocale() const;
   void GenerateTurnSound(vector<string> & turnNotifications);

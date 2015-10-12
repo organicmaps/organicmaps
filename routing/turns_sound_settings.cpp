@@ -14,8 +14,7 @@ namespace sound
 {
 bool Settings::IsValid() const
 {
-  return m_lengthUnits != LengthUnits::Undefined &&
-         m_minDistanceUnits <= m_maxDistanceUnits &&
+  return m_minDistanceUnits <= m_maxDistanceUnits &&
          !m_soundedDistancesUnits.empty() &&
          is_sorted(m_soundedDistancesUnits.cbegin(), m_soundedDistancesUnits.cend());
 }
@@ -46,12 +45,9 @@ double Settings::ConvertMetersPerSecondToUnitsPerSecond(double speedInMetersPerS
 {
   switch (m_lengthUnits)
   {
-    case LengthUnits::Undefined:
-      ASSERT(false, ());
-      return 0.;
-    case LengthUnits::Meters:
+    case ::Settings::Metric:
       return speedInMetersPerSecond;
-    case LengthUnits::Feet:
+    case ::Settings::Foot:
       return MeasurementUtils::MetersToFeet(speedInMetersPerSecond);
   }
 
@@ -63,12 +59,9 @@ double Settings::ConvertUnitsToMeters(double distanceInUnits) const
 {
   switch (m_lengthUnits)
   {
-    case LengthUnits::Undefined:
-      ASSERT(false, ());
-      return 0.;
-    case LengthUnits::Meters:
+    case ::Settings::Metric:
       return distanceInUnits;
-    case LengthUnits::Feet:
+    case ::Settings::Foot:
       return MeasurementUtils::FeetToMeters(distanceInUnits);
   }
 
@@ -80,34 +73,14 @@ double Settings::ConvertMetersToUnits(double distanceInMeters) const
 {
   switch (m_lengthUnits)
   {
-    case LengthUnits::Undefined:
-      ASSERT(false, ());
-      return 0.;
-    case LengthUnits::Meters:
+    case ::Settings::Metric:
       return distanceInMeters;
-    case LengthUnits::Feet:
+    case ::Settings::Foot:
       return MeasurementUtils::MetersToFeet(distanceInMeters);
   }
 
   ASSERT(false, ());
   return 0.;
-}
-
-string DebugPrint(LengthUnits const & lengthUnits)
-{
-  switch (lengthUnits)
-  {
-    case LengthUnits::Undefined:
-      return "LengthUnits::Undefined";
-    case LengthUnits::Meters:
-      return "LengthUnits::Meters";
-    case LengthUnits::Feet:
-      return "LengthUnits::Feet";
-  }
-
-  stringstream out;
-  out << "Unknown LengthUnits value: " << static_cast<int>(lengthUnits);
-  return out.str();
 }
 
 string DebugPrint(Notification const & notification)
@@ -117,7 +90,7 @@ string DebugPrint(Notification const & notification)
       << ", m_exitNum == " << notification.m_exitNum
       << ", m_useThenInsteadOfDistance == " << notification.m_useThenInsteadOfDistance
       << ", m_turnDir == " << DebugPrint(notification.m_turnDir)
-      << ", m_lengthUnits == " << DebugPrint(notification.m_lengthUnits) << " ]" << endl;
+      << ", m_lengthUnits == " << notification.m_lengthUnits << " ]" << endl;
   return out.str();
 }
 

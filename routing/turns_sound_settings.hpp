@@ -2,21 +2,16 @@
 
 #include "routing/turns.hpp"
 
+#include "platform/settings.hpp"
+
+#include "std/vector.hpp"
+
 namespace routing
 {
 namespace turns
 {
 namespace sound
 {
-enum class LengthUnits
-{
-  Undefined,
-  Meters,
-  Feet
-};
-
-string DebugPrint(LengthUnits const & lengthUnits);
-
 /// \brief The Settings struct is a structure for gathering information about turn sound
 /// notifications settings.
 /// All distance parameters shall be set in m_lengthUnits. (Meters of feet for the time being.)
@@ -29,17 +24,17 @@ class Settings
   /// \brief m_distancesToPronounce is a list of distances in m_lengthUnits
   ///  which are ready to be pronounced.
   vector<uint32_t> m_soundedDistancesUnits;
-  LengthUnits m_lengthUnits;
+  ::Settings::Units m_lengthUnits;
 
 public:
   Settings()
       : m_minDistanceUnits(0),
         m_maxDistanceUnits(0),
         m_soundedDistancesUnits(),
-        m_lengthUnits(LengthUnits::Undefined) {}
+        m_lengthUnits(::Settings::Metric) {}
   Settings(uint32_t notificationTimeSeconds, uint32_t minNotificationDistanceUnits,
            uint32_t maxNotificationDistanceUnits, vector<uint32_t> const & soundedDistancesUnits,
-           LengthUnits lengthUnits)
+           ::Settings::Units lengthUnits)
       : m_timeSeconds(notificationTimeSeconds),
         m_minDistanceUnits(minNotificationDistanceUnits),
         m_maxDistanceUnits(maxNotificationDistanceUnits),
@@ -51,6 +46,7 @@ public:
 
   /// \brief IsValid checks if Settings data is consistent.
   /// \warning The complexity is up to linear in size of m_soundedDistancesUnits.
+  /// \note For any instance created by default constructor IsValid() returns false.
   bool IsValid() const;
 
   /// \brief computes the distance an end user shall be informed about the future turn
@@ -68,8 +64,8 @@ public:
   /// The result will be one of the m_soundedDistancesUnits values.
   uint32_t RoundByPresetSoundedDistancesUnits(uint32_t turnNotificationUnits) const;
 
-  inline LengthUnits GetLengthUnits() const { return m_lengthUnits; }
-  inline void SetLengthUnits(LengthUnits units) { m_lengthUnits = units; }
+  inline ::Settings::Units GetLengthUnits() const { return m_lengthUnits; }
+  inline void SetLengthUnits(::Settings::Units units) { m_lengthUnits = units; }
   double ConvertMetersPerSecondToUnitsPerSecond(double speedInMetersPerSecond) const;
   double ConvertUnitsToMeters(double distanceInUnits) const;
   double ConvertMetersToUnits(double distanceInMeters) const;
@@ -84,10 +80,10 @@ struct Notification
   uint8_t m_exitNum;
   bool m_useThenInsteadOfDistance;
   TurnDirection m_turnDir;
-  LengthUnits m_lengthUnits;
+  ::Settings::Units m_lengthUnits;
 
   Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
-               TurnDirection turnDir, LengthUnits lengthUnits)
+               TurnDirection turnDir, ::Settings::Units lengthUnits)
       : m_distanceUnits(distanceUnits),
         m_exitNum(exitNum),
         m_useThenInsteadOfDistance(useThenInsteadOfDistance),
@@ -101,8 +97,6 @@ struct Notification
            m_useThenInsteadOfDistance == rhv.m_useThenInsteadOfDistance &&
            m_turnDir == rhv.m_turnDir && m_lengthUnits == rhv.m_lengthUnits;
   }
-
-  inline bool IsValid() const { return m_lengthUnits != LengthUnits::Undefined; }
 };
 
 string DebugPrint(Notification const & turnGeom);
