@@ -51,7 +51,7 @@ if [ "$1" == "pbf" ]; then
   export OSMCTOOLS
   export PLANET
   export INTDIR
-  find "$TMPBORDERS" -name '*.poly' -print0 | xargs -0 -P $NUM_PROCESSES -I % \
+  find "$TMPBORDERS" -maxdepth 1 -name '*.poly' -print0 | xargs -0 -P $NUM_PROCESSES -I % \
     sh -c '"$OSMCTOOLS/osmconvert" "$PLANET" --hash-memory=2000 -B="%" --complex-ways --out-pbf -o="$INTDIR/$(basename "%" .poly).pbf"'
   [ $? != 0 ] && fail "Failed to process all the regions"
   rm -r "$TMPBORDERS"
@@ -111,7 +111,7 @@ elif [ "$1" == "mwm" ]; then
   export TARGET
   export LOG_PATH
   export DATA_PATH="$OMIM_PATH/data/"
-  find "$INTDIR" -name '*.osrm' -print0 | xargs -0 -P $NUM_PROCESSES -I % \
+  find "$INTDIR" -maxdepth 1 -name '*.osrm' -print0 | xargs -0 -P $NUM_PROCESSES -I % \
     sh -c 'O="%"; B="$(basename "$O" .osrm)"; "$G" $K --osrm_file_name="$O" --data_path="$TARGET" --user_resource_path="$DATA_PATH" --output="$B" 2>> "$LOG_PATH/$B.log"'
 
   if [ -n "${POLY_DIR-}" ]; then

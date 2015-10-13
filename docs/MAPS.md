@@ -135,8 +135,8 @@ but if this flag is set (e.g. to `1`), they are built asynchronously. But
 it can fail due to low memory.
 * `MERGE_INTERVAL`: delay in minutes between attempts to merge a coast line.
 Default is 40.
-* `REGIONS`: a list of `.poly` files for regions to be built. Can be empty.
-Example: `../../data/borders/UK* ../../data/borders/*Ireland*`.
+* `REGIONS`: a list of `.poly` files for regions to be built. One for each line.
+Can be empty. Example: `$(ls ../../data/borders/{UK*,Ireland}.poly)`.
 
 ### Testing
 
