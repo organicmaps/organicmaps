@@ -112,6 +112,7 @@ namespace feature
     detail::MappedFile::Handle m_handle;
   };
 
-  // Builds feature offsets table in an mwm.
+  // Builds feature offsets table in an mwm or rebuilds an existing
+  // one.
   bool BuildOffsetsTable(string const & filePath);
 }  // namespace feature
