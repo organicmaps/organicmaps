@@ -1,0 +1,12 @@
+includepaths
+{
+"../src"
+}
+
+files
+{
+("../src")
+pugiconfig.hpp
+pugixml.cpp
+pugixml.hpp
+}

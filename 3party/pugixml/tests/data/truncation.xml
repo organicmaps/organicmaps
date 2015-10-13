@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE 週報 SYSTEM "weekly-utf-8.dtd">
+<!-- 週報サンプル -->
+<mesh name="mesh_root">
+	<!-- here is a mesh node -->
+	some text
+	<![CDATA[someothertext]]>
+	some more text
+	<node attr1="value1" attr2="value2" />
+	<node attr1="value2">
+	    <汉语 名字="name" 价值="value">世界有很多语言𤭢</汉语>
+		<innernode/>
+	</node>
+	<氏名>
+		<氏>山田</氏>
+		<名>太郎</名>
+	</氏名>
+	<?include somedata?>
+</mesh>

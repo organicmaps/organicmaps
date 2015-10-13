@@ -1,0 +1,169 @@
+# Latest jamplus is needed to use this
+
+# Targets:
+# pugixml - build pugixml library
+# tests - build pugixml test suite
+# run_tests - run pugixml test suite
+# coverage - get test suite coverage
+
+# Options:
+# toolset=name - select toolset
+# 	supported toolsets: mingw*, msvc*
+
+# default toolset/configuration
+if ( ! $(toolset) )
+{
+	if ( $(OS) = SOLARIS )
+	{
+		toolset = suncc ;
+	}
+	else if ( $(UNIX) )
+	{
+		local GCCVERSION = [ Subst [ Shell "gcc -dumpversion" ] : $(NEWLINE) ] ;
+		toolset = "gcc"$(GCCVERSION) ;
+	}
+	else
+	{
+		toolset = msvc ;
+	}
+}
+
+if ( ! $(configuration) )
+{
+	configuration = "debug" ;
+}
+
+if ( ! $(defines) )
+{
+	defines = "PUGIXML_STANDARD" ;
+}
+
+# coverage options
+if ( $(toolset:I=^mingw) || $(toolset:I=^gcc) )
+{
+	CCFLAGS = -fprofile-arcs -ftest-coverage ;
+	LDFLAGS = -fprofile-arcs ;
+
+	if $(fullcoverage)
+	{
+		GCOVFLAGS = --branch-probabilities --function-summaries ;
+	}
+	else
+	{
+		GCOVFLAGS = --no-output ;
+	}
+}
+
+# build folder
+BUILD = build ;
+
+# enable dependency cache
+DEPCACHE.standard = $(BUILD)/.depcache ;
+
+# rules
+include "Jamrules.jam" ;
+
+# split define sets into list
+local DEFINESETS = [ Split $(defines) : ':' ] ;
+
+# split configurations into list
+local CONFIGURATIONS = [ Split $(configuration) : ',' ] ;
+
+for CONFIG in $(CONFIGURATIONS)
+{
+	for DEFINESET in $(DEFINESETS)
+	{
+		local DEFINES = [ Split $(DEFINESET) : ',' ] ;
+
+		# build folder
+		local CFGBUILD = $(BUILD)/$(toolset)/$(DEFINES:J=_)/$(CONFIG) ;
+
+		# compilation options
+		local CFGFLAGS = $(CCFLAGS) [ GetCFlags $(CONFIG) : $(DEFINES) ] ;
+
+		# build library
+		local PUGIXML = $(CFGBUILD)/pugixml.lib ;
+		Library $(PUGIXML) : src/pugixml.cpp : $(CFGFLAGS) ;
+		Alias pugixml : $(PUGIXML) ;
+
+		# build tests
+		local TESTS = $(CFGBUILD)/tests.exe ;
+		local TEST_SOURCES = [ Glob tests : *.cpp ] ;
+		TEST_SOURCES -= [ Glob tests : fuzz_*.cpp ] ;
+		Application $(TESTS) : $(TEST_SOURCES) : $(CFGFLAGS) : $(PUGIXML) ;
+		Alias tests : $(TESTS) ;
+
+		# run tests
+		Test $(TESTS)_run : $(TESTS) ;
+		Alias run_tests : $(TESTS)_run ;
+
+		# gather coverage
+		Coverage $(TESTS)_coverage : $(PUGIXML) ;
+		Alias coverage : $(TESTS)_coverage ;
+
+		GCOVFLAGS on $(TESTS)_coverage = $(GCOVFLAGS) -o $(CFGBUILD)/src ; # because stupid gcov can't find files via relative paths
+
+		# add special autotest markers to build log
+		if $(autotest)
+		{
+			COVPREFIX on $(TESTS)_coverage = "... autotest $(CONFIG) [$(DEFINESET)]" ;
+		}
+
+		# gather coverage after tests run
+		Depends $(TESTS)_coverage : $(TESTS)_run ;
+	}
+}
+
+# documentation
+Documentation docs/manual.html : docs/manual.qbk : docs/manual.xsl ;
+Documentation docs/quickstart.html : docs/quickstart.qbk : docs/quickstart.xsl ;
+
+Alias docs : docs/manual.html docs/quickstart.html ;
+
+# samples
+for SAMPLE in [ Glob docs/samples : *.cpp ]
+{
+	local CONFIG = "debug" ;
+	local DEFINES = "PUGIXML_STANDARD" ;
+
+	# build folder
+	local CFGBUILD = $(BUILD)/$(toolset)/$(DEFINES:J=_)/$(CONFIG) ;
+
+	# compilation options
+	local CFGFLAGS = $(CCFLAGS) [ GetCFlags $(CONFIG) : $(DEFINES) ] ;
+	CFGFLAGS += -I src ;
+
+	# build and run sample
+	local EXECUTABLE = $(CFGBUILD)/samples/$(SAMPLE:B).exe ;
+	local PUGIXML = $(CFGBUILD)/pugixml.lib ;
+
+	Application $(EXECUTABLE) : $(SAMPLE) : $(CFGFLAGS) : $(PUGIXML) ;
+
+	RunSampleAction $(EXECUTABLE)_run : $(EXECUTABLE) ;
+	Depends $(EXECUTABLE)_run : $(EXECUTABLE) ;
+
+	Depends samples : $(EXECUTABLE)_run ;
+}
+
+# release
+VERSION = 1.6 ;
+RELEASE_FILES =
+	[ Glob contrib : *.cpp *.hpp ]
+	[ Glob src : *.cpp *.hpp ]
+	[ Glob docs : *.html *.css ]
+	[ Glob docs/samples : *.cpp *.hpp *.xml ]
+	[ Glob docs/images : *.png ]
+	[ Glob docs/manual : *.html ]
+	@("scripts/**":W=:X=svn)
+	readme.txt
+	;
+
+actions ArchiveAction
+{
+	perl tests/archive.pl $(<) $(>)
+}
+
+ArchiveAction pugixml-$(VERSION).zip : $(RELEASE_FILES) ;
+ArchiveAction pugixml-$(VERSION).tar.gz : $(RELEASE_FILES) ;
+Depends release : pugixml-$(VERSION).zip pugixml-$(VERSION).tar.gz : $(RELEASE_FILES) ;
+NotFile release ;

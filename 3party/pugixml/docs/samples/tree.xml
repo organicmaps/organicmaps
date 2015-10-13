@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<mesh name="mesh_root">
+	<!-- here is a mesh node -->
+	some text
+	<![CDATA[someothertext]]>
+	some more text
+	<node attr1="value1" attr2="value2" />
+	<node attr1="value2">
+		<innernode/>
+	</node>
+</mesh>
+<?include somedata?>

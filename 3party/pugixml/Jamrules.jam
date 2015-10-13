@@ -1,0 +1,1032 @@
+# Rules for Jamfile.jam
+
+if ( $(toolset:I=^mingw) || $(toolset:I=^gcc) || $(toolset:I=^bada) || $(toolset:I=^android) || $(toolset:I=^blackberry) )
+{
+	if ( $(toolset:I=^gcc) )
+	{
+		GCCPATH = "" ;
+	}
+    else if ( $(toolset:I=^android) )
+    {
+		GCCPATH = "%$(toolset)_PATH%\\toolchains\\arm-linux-androideabi-4.4.3\\prebuilt\\windows\\bin\\arm-linux-androideabi-" ;
+    }
+    else if ( $(toolset:I=^bada) )
+    {
+		GCCPATH = "%$(toolset)_PATH%\\Tools\\Toolchains\\ARM\\bin\\arm-bada-eabi-" ;
+    }
+    else if ( $(toolset:I=^blackberry) )
+    {
+		GCCPATH = "%$(toolset)_PATH%\\host\\win32\\x86\\usr\\bin\\ntoarmv7-" ;
+    }
+	else
+	{
+		GCCPATH = "%$(toolset)_PATH%\\bin\\" ;
+    }
+
+	if ( $(OS) != MACOSX )
+	{
+		ARCH = "" ;
+
+        if ( $(toolset:I=^bada) )
+        {
+            LDFLAGS += -lstdc++ -lsupc++-xnew -lc ;
+        }
+        else if ( $(toolset:I=^android) )
+        {
+            LDFLAGS += -nostdlib ;
+            LDFLAGS += -L"%$(toolset)_PATH%\\platforms\\android-5\\arch-arm\\usr\\lib" ;
+
+            if ( $(toolset:I=stlport) )
+            {
+                LDFLAGS += -L"%$(toolset)_PATH%\\sources\\cxx-stl\\stlport\\libs\\armeabi-v7a" ;
+                LDFLAGS += -lstlport_static ;
+            }
+            else
+            {
+                LDFLAGS += -L"%$(toolset)_PATH%\\sources\\cxx-stl\\gnu-libstdc++\\libs\\armeabi-v7a" ;
+                LDFLAGS += -lgnustl_static -lsupc++ ;
+            }
+
+            LDFLAGS += "%$(toolset)_PATH%\\platforms\\android-5\\arch-arm\\usr\\lib\\crtbegin_dynamic.o" ;
+            LDFLAGS += -lstdc++ -lc -lm -lgcc ;
+        }
+        else if ( $(OS) = NT || $(OS) = FREEBSD )
+        {
+            LDFLAGS += -static-libgcc -static ;
+        }
+	}
+	else
+	{
+		if ( $(toolset:I=_x64) )
+		{
+			ARCH = -arch x86_64 ;
+		}
+		else if ( $(toolset:I=_ppc) )
+		{
+			ARCH = -arch ppc ;
+		}
+
+		LDFLAGS += $(ARCH) ;
+	}
+
+    GCCVERSION = [ Shell "$(GCCPATH)gcc -dumpversion" ] ;
+
+	rule GetCFlags CONFIG : DEFINES
+	{
+		local RESULT = -D$(DEFINES) ;
+
+		RESULT += -W -Wall -Wextra -pedantic -Werror ;
+        RESULT += -Wabi -Wno-non-template-friend -Wcast-qual -Wcast-align ;
+        RESULT += -Woverloaded-virtual -Wno-pmf-conversions -Wsign-promo -Wformat=2 -Winit-self ;
+        RESULT += -Wunused -Wstrict-aliasing=2 -Wundef -Wshadow -Wredundant-decls ;
+
+        # gcc 4.0 has some warning regressions
+        if ( ! $(GCCVERSION:I=4\.0) )
+        {
+            RESULT += -Wold-style-cast ; # gives warnings for fpclassify() on gcc 4.0.1
+            RESULT += -Wswitch-default ; # gives false-positives for couple of switches on template argument on gcc 4.0.1
+            RESULT += -Wctor-dtor-privacy ; # gives false-positives for structs on gcc 4.0.1
+        }
+
+        # these warnings are supported on newer GCC versions only
+        if ( $(GCCVERSION) >= "4.4.0" )
+        {
+            RESULT += -Wstrict-null-sentinel -Wlogical-op -Wmissing-declarations ;
+        }
+
+		if ( $(toolset:I=_0x) )
+		{
+			RESULT += -std=c++0x ;
+		}
+
+		if ( $(fulldebug) )
+		{
+			RESULT += -g ;
+		}
+
+		if ( $(CONFIG) = "debug" )
+		{
+			RESULT += -D_DEBUG ;
+		}
+		else
+		{
+			RESULT += -DNDEBUG -O3 ;
+		}
+
+		if ( PUGIXML_NO_EXCEPTIONS in $(DEFINES) )
+		{
+			RESULT += -fno-exceptions ;
+		}
+
+        if ( $(toolset:I=^android) )
+        {
+            RESULT += -DANDROID ;
+            RESULT += -mfloat-abi=softfp ;
+
+            if ( $(toolset:I=stlport) )
+            {
+                RESULT += -isystem"%$(toolset)_path%/sources/cxx-stl/stlport/stlport" ;
+                RESULT += -isystem"%$(toolset)_path%/sources/cxx-stl/system/include" ;
+            }
+            else
+            {
+                RESULT += -isystem"%$(toolset)_path%/sources/cxx-stl/gnu-libstdc++/include" ;
+                RESULT += -isystem"%$(toolset)_path%/sources/cxx-stl/gnu-libstdc++/libs/armeabi-v7a/include" ;
+            }
+
+            RESULT += -isystem"%$(toolset)_path%/platforms/android-5/arch-arm/usr/include" ;
+        }
+
+		RESULT += $(ARCH) ;
+
+		return $(RESULT) ;
+	}
+
+	actions ObjectAction
+	{
+		"$(GCCPATH)gcc" -c $(>) -o $(<) $(CCFLAGS)
+	}
+
+	actions LibraryAction
+	{
+		"$(GCCPATH)ar" rcs $(<) $(>)
+	}
+
+	actions LinkAction
+	{
+		"$(GCCPATH)g++" $(>) -o $(<) $(LDFLAGS)
+	}
+}
+else if ( $(toolset:I=^msvc) )
+{
+	if ( $(fulldebug) )
+	{
+		LDFLAGS += /DEBUG ;
+	}
+
+    if ( $(toolset:I=_wince) )
+    {
+        postfix = "\\x86_arm" ;
+
+        LDFLAGS += /SUBSYSTEM:WINDOWSCE ;
+        LDFLAGS += coredll.lib corelibc.lib ccrtrtti.lib ;
+        LDFLAGS += "/LIBPATH:\"%$(toolset)_PATH%\\lib\\armv4\"" ;
+        LDFLAGS += "/LIBPATH:\"%WINCESDK_PATH%\\lib\\armv4\"" ;
+    }
+    else
+    {
+        local sdk_postfix ;
+
+        if ( $(toolset:I=x64$) )
+        {
+            postfix = "\\amd64" ;
+            lib_postfix = "\\amd64" ;
+            sdk_postfix = "\\x64" ;
+            kits_postfix = "\\x64" ;
+            LDFLAGS += /MACHINE:X64 ;
+        }
+        else if ( $(toolset:I=arm$) )
+        {
+            postfix = "\\x86_arm" ;
+            lib_postfix = "\\arm" ;
+            sdk_postfix = "\\arm" ;
+            kits_postfix = "\\arm" ;
+            LDFLAGS += /MACHINE:ARM ;
+        }
+        else
+        {
+            postfix = "" ;
+            lib_postfix = "" ;
+            sdk_postfix = "" ;
+            kits_postfix = "\\x86" ;
+        }
+
+        LDFLAGS += "/LIBPATH:\"%$(toolset)_PATH%\\lib$(lib_postfix)\"" ;
+
+        if ( $(toolset:I=msvc(6|7)) )
+        {
+            LDFLAGS += "/LIBPATH:\"%$(toolset)_PATH%\\PlatformSDK\\lib$(lib_postfix)\"" ;
+        }
+        else if ( $(toolset:I=msvc(8|9|10)) )
+        {
+            LDFLAGS += "/LIBPATH:\"%WINSDK_PATH%\\lib$(sdk_postfix)\"" ;
+        }
+        else
+        {
+            LDFLAGS += "/LIBPATH:\"%WINKITS_PATH%\\lib\\win8\\um$(kits_postfix)\"" ;
+            LDFLAGS += "/LIBPATH:\"%WINKITS_PATH%\\lib\\winv6.3\\um$(kits_postfix)\"" ;
+        }
+    }
+
+	rule GetCFlags CONFIG : DEFINES
+	{
+		local RESULT = /D$(DEFINES) ;
+
+		if ( $(fulldebug) )
+		{
+			RESULT += /Z7 ;
+		}
+
+        local RUNTIME = "MT" ;
+
+        if ( $(toolset:I=_clr) )
+        {
+            RUNTIME = "MD" ;
+        }
+
+		if ( $(CONFIG) = "debug" )
+		{
+			RESULT += /D_DEBUG /$(RUNTIME)d ;
+		}
+		else
+		{
+			RESULT += /DNDEBUG /Ox /$(RUNTIME) ;
+		}
+
+		if ( $(toolset) = msvc7 || $(toolset) = msvc71 || $(toolset) = msvc8 )
+		{
+			RESULT += /Wp64 ; # Wp64 is deprecated from msvc9
+		}
+
+		if ( $(toolset) != msvc6 )
+		{
+			RESULT += /W4 ;
+		}
+		else
+		{
+			RESULT += /W3 ; # lots of warnings at W4 in standard library
+		}
+
+        if ( $(toolset:I=_clr) )
+        {
+            RESULT += /clr ;
+        }
+        else if ( ! ( PUGIXML_NO_EXCEPTIONS in $(DEFINES) ) )
+		{
+			RESULT += /EHsc ;
+		}
+		else if ( $(toolset) = "msvc6" || $(toolset) = "msvc71" || $(toolset:I=_wince) )
+		{
+			# No no-exception STL in MSVC6, buggy no-exception STL in MSVC71
+            # No proper runtime library variant for no-exception in WinCE (ccrtrtti.lib contains what() & dtor)
+			RESULT += /EHsc ;
+		}
+		else
+		{
+			RESULT += /D_HAS_EXCEPTIONS=0 ;
+		}
+
+        if ( $(toolset:I=_wince) )
+        {
+            RESULT += /D_WIN32_WCE /DARM ;
+            RESULT += "/I\"%$(toolset)_PATH%\\include\"" ;
+            RESULT += "/I\"%WINCESDK_PATH%\\Include\"" ;
+        }
+        else
+        {
+            RESULT += "/I\"%$(toolset)_PATH%\\include\"" ;
+
+            if ( $(toolset:I=msvc(6|7)) )
+            {
+                RESULT += "/I\"%$(toolset)_PATH%\\PlatformSDK\\include\"" ;
+            }
+            else if ( $(toolset:I=msvc(8|9|10)) )
+            {
+                RESULT += "/I\"%WINSDK_PATH%\\Include\"" ;
+            }
+            else
+            {
+                RESULT += "/I\"%WINKITS_PATH%\\include\\shared\"" ;
+                RESULT += "/I\"%WINKITS_PATH%\\include\\um\"" ;
+
+                if ( $(toolset:I=arm$) )
+                {
+                    RESULT += /D_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE ;
+                }
+            }
+        }
+
+		return $(RESULT) ;
+	}
+
+	actions ObjectAction
+	{
+		"%$(toolset)_PATH%\bin$(postfix)\cl.exe" /WX /c $(>) /Fo$(<) /nologo $(CCFLAGS)
+	}
+
+	actions LibraryAction
+	{
+		"%$(toolset)_PATH%\bin$(postfix)\lib.exe" /NOLOGO /OUT:$(<) $(>)
+	}
+
+	actions LinkAction
+	{
+		"%$(toolset)_PATH%\bin$(postfix)\link.exe" /SUBSYSTEM:CONSOLE /NOLOGO /OUT:$(<) /PDB:$(<:S=.pdb) $(>) $(LDFLAGS)
+	}
+}
+else if ( $(toolset:I=^ic) )
+{
+    if ( $(OS) = NT )
+    {
+        if ( $(toolset) = ic8 || $(toolset) = ic9 )
+        {
+            msvc = "msvc71" ;
+        }
+        else
+        {
+            msvc = "msvc8" ;
+        }
+
+        if ( $(toolset) = ic11 )
+        {
+            postfix = "\\ia32" ;
+        }
+        else if ( $(toolset) = ic11_x64 )
+        {
+            postfix = "\\intel64" ;
+        }
+        else
+        {
+            postfix = "" ;
+        }
+
+        if ( $(toolset:I=_x64$) )
+        {
+            msvc_postfix = "\\amd64" ;
+            LDFLAGS += /MACHINE:X64 ;
+        }
+        else
+        {
+            msvc_postfix = "" ;
+        }
+
+        rule GetCFlags CONFIG : DEFINES
+        {
+            local RESULT = /D$(DEFINES) ;
+
+            RESULT += /W3 /WX /Qvec_report0 ;
+
+            if ( $(toolset) != ic8 )
+            {
+                RESULT += /fp:precise ;
+            }
+
+            if ( $(CONFIG) = "debug" )
+            {
+                RESULT += /D_DEBUG /Od /MTd ;
+            }
+            else
+            {
+                RESULT += /DNDEBUG /Ox /MT ;
+            }
+
+            if ( ! ( PUGIXML_NO_EXCEPTIONS in $(DEFINES) ) )
+            {
+                RESULT += /EHsc ;
+            }
+
+            return $(RESULT) ;
+        }
+
+        actions ObjectAction
+        {
+            set PATH=%$(msvc)_PATH%\bin
+            "%$(toolset)_PATH%\bin$(postfix)\icl.exe" /I"%$(msvc)_PATH%\include" /I"%$(msvc)_PATH%\PlatformSDK\Include" /I"%$(toolset)_PATH%\include" /c $(>) /Fo$(<) /nologo $(CCFLAGS)
+        }
+
+        actions LibraryAction
+        {
+            "%$(msvc)_PATH%\bin\lib.exe" /NOLOGO /OUT:$(<) $(>)
+        }
+
+        actions LinkAction
+        {
+            "%$(msvc)_PATH%\bin\link.exe" /SUBSYSTEM:CONSOLE /NOLOGO /OUT:$(<) $(>) /LIBPATH:"%$(toolset)_PATH%\lib$(postfix)" /LIBPATH:"%$(msvc)_PATH%\lib$(msvc_postfix)" /LIBPATH:"%$(msvc)_PATH%\PlatformSDK\lib$(msvc_postfix)" $(LDFLAGS)
+        }
+    }
+    else
+    {
+        rule GetCFlags CONFIG : DEFINES
+        {
+            local RESULT = -D$(DEFINES) ;
+
+            RESULT += -fp-model strict ;
+
+            RESULT += -Wall -Werror -Wcheck ;
+            RESULT += -Wformat -Wformat-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-aliasing ;
+            RESULT += -Wstrict-prototypes -Wpointer-arith -Wuninitialized -Wdeprecated -Wabi ;
+            RESULT += -Wcast-qual -Wunused-function -Wunknown-pragmas -Wmain -Wcomment -Wconversion ;
+            RESULT += -Wreturn-type -Wextra-tokens -Wpragma-once -Wshadow -Woverloaded-virtual -Wtrigraphs ;
+            RESULT += -Wmultichar -Woverflow -Wwrite-strings -Wsign-compare -Wp64 -Wshorten-64-to-32 ;
+
+            if ( $(fulldebug) )
+            {
+                RESULT += -g ;
+            }
+
+            if ( $(CONFIG) = "debug" )
+            {
+                RESULT += -D_DEBUG ;
+            }
+            else
+            {
+                RESULT += -DNDEBUG -O3 ;
+            }
+
+            if ( PUGIXML_NO_EXCEPTIONS in $(DEFINES) )
+            {
+                RESULT += -fno-exceptions ;
+            }
+
+            return $(RESULT) ;
+        }
+
+        actions ObjectAction
+        {
+            icc -c $(>) -o $(<) $(CCFLAGS)
+        }
+
+        actions LibraryAction
+        {
+            ar rcs $(<) $(>)
+        }
+
+        actions LinkAction
+        {
+            icc $(>) -o $(<) $(LDFLAGS)
+        }
+    }
+}
+else if ( $(toolset:I=^dmc) )
+{
+	rule GetCFlags CONFIG : DEFINES
+	{
+		local RESULT = -D$(DEFINES) ;
+
+		RESULT += -wx -f ;
+
+		if ( $(CONFIG) = "debug" )
+		{
+			RESULT += -D_DEBUG ;
+		}
+		else
+		{
+			RESULT += -DNDEBUG -o ;
+		}
+
+		if ( ! ( PUGIXML_NO_EXCEPTIONS in $(DEFINES) ) )
+		{
+			RESULT += -Ae ;
+		}
+
+		return $(RESULT) ;
+	}
+
+	actions ObjectAction
+	{
+		"%$(toolset)_PATH%\bin\dmc.exe" -c -I%$(toolset)_PATH%\stlport\stlport $(>) -o$(<) $(CCFLAGS)
+	}
+
+	actions LibraryAction
+	{
+		"%$(toolset)_PATH%\bin\lib.exe" -c $(<) $(>)
+	}
+
+	actions LinkAction
+	{
+		"%$(toolset)_PATH%\bin\link.exe" $(>:\\) , $(<:\\) , nul , $(LDFLAGS:\\) -L/co/ma
+	}
+}
+else if ( $(toolset:I=^cw) )
+{
+	cw_bin = "%$(toolset)_PATH%\\Other Metrowerks Tools\\Command Line Tools" ;
+
+	rule GetCFlags CONFIG : DEFINES
+	{
+		local RESULT = -D$(DEFINES) ;
+
+		RESULT += -cwd include -ansi strict -iso_templates on -msext off -w all,cmdline,iserror,nonotused,nonotinlined,noimplicitconv,nounwanted ;
+
+		if ( $(CONFIG) = "debug" )
+		{
+			RESULT += -D_DEBUG ;
+		}
+		else
+		{
+			RESULT += -DNDEBUG -O4 ;
+		}
+
+		if ( PUGIXML_NO_EXCEPTIONS in $(DEFINES) )
+		{
+			RESULT += -Cpp_exceptions off ;
+		}
+
+		return $(RESULT) ;
+	}
+
+	actions ObjectAction
+	{
+		"$(cw_bin)\mwcc.exe" -c $(>) -o $(<) $(CCFLAGS)
+	}
+
+	actions LibraryAction
+	{
+		"$(cw_bin)\mwld.exe" -library -o $(<) $(>)
+	}
+
+	actions LinkAction
+	{
+		"$(cw_bin)\mwld.exe" -subsystem console -o $(<) $(>) $(LDFLAGS)
+	}
+}
+else if ( $(toolset:I=^bcc) )
+{
+	rule GetCFlags CONFIG : DEFINES
+	{
+		local RESULT = -D$(DEFINES) ;
+
+		RESULT += -fp -w -w! -w-8026 -w-8027 -w-8091 -w-8004 ;
+
+		if ( $(CONFIG) = "debug" )
+		{
+			RESULT += -D_DEBUG ;
+		}
+		else
+		{
+			RESULT += -DNDEBUG -Ox ;
+		}
+
+		return $(RESULT) ;
+	}
+
+	actions ObjectAction
+	{
+		"%$(toolset)_PATH%\bin\bcc32.exe" $(CCFLAGS) -c -q -Q -o $(<) $(>)
+	}
+
+	actions LibraryAction
+	{
+		"%$(toolset)_PATH%\bin\tlib.exe" /C $(<:\\) -+$(>:\\)
+	}
+
+	actions LinkAction
+	{
+		"%$(toolset)_PATH%\bin\ilink32.exe" -L"%$(toolset)_PATH%\lib" -Tpe -ap -Gn -x -c "%$(toolset)_PATH%\lib\c0x32.obj" $(>:\\) , $(<:\\) , , $(LDFLAGS:\\) cw32 import32
+	}
+}
+else if ( $(toolset:I=^suncc) )
+{
+	if ( $(toolset:I=_x64) )
+	{
+		ARCH = -m64 ;
+	}
+	else
+	{
+		ARCH = -m32 ;
+	}
+
+	LDFLAGS += $(ARCH) ;
+
+	rule GetCFlags CONFIG : DEFINES
+	{
+		local RESULT = -D$(DEFINES) ;
+
+		RESULT += +w -xwe ;
+
+		if ( $(CONFIG) = "debug" )
+		{
+			RESULT += -D_DEBUG ;
+		}
+		else
+		{
+			RESULT += -DNDEBUG -O ;
+		}
+
+		if ( PUGIXML_NO_EXCEPTIONS in $(DEFINES) )
+		{
+			RESULT += -noex ;
+		}
+
+		RESULT += $(ARCH) ;
+
+		return $(RESULT) ;
+	}
+
+	actions ObjectAction
+	{
+		sunCC $(CCFLAGS) -c -o $(<) $(>)
+	}
+
+	actions LibraryAction
+	{
+		ar rcs $(<) $(>)
+	}
+
+	actions LinkAction
+	{
+		sunCC $(>) -o $(<) $(LDFLAGS)
+	}
+}
+else if ( $(toolset:I=^xbox360) )
+{
+	rule GetCFlags CONFIG : DEFINES
+	{
+		local RESULT = /D$(DEFINES) ;
+
+		if ( $(CONFIG) = "debug" )
+		{
+			RESULT += /D_DEBUG /MTd ;
+		}
+		else
+		{
+			RESULT += /DNDEBUG /Ox /MT ;
+		}
+
+		RESULT += /W4 ;
+
+		if ( ! ( PUGIXML_NO_EXCEPTIONS in $(DEFINES) ) )
+		{
+			RESULT += /EHsc ;
+		}
+		else
+		{
+			RESULT += /D_HAS_EXCEPTIONS=0 ;
+		}
+
+		return $(RESULT) ;
+	}
+
+	actions ObjectAction
+	{
+		"%XEDK%\bin\win32\cl.exe" /WX /I"%XEDK%\include\xbox" /c $(>) /Fo$(<) /nologo $(CCFLAGS)
+	}
+
+	actions LibraryAction
+	{
+		"%XEDK%\bin\win32\lib.exe" /NOLOGO /OUT:$(<) $(>)
+	}
+
+	actions LinkAction
+	{
+		"%XEDK%\bin\win32\link.exe" /NOLOGO /OUT:$(<) /PDB:$(<:S=.pdb) $(>) /LIBPATH:"%XEDK%\lib\xbox" $(LDFLAGS)
+	}
+}
+else if ( $(toolset:I=^ps3_gcc) )
+{
+	rule GetCFlags CONFIG : DEFINES
+	{
+		local RESULT = -D$(DEFINES) ;
+
+		RESULT += -W -Wall -Wextra -Werror ;
+
+		if ( $(CONFIG) = "debug" )
+		{
+			RESULT += -D_DEBUG ;
+		}
+		else
+		{
+			RESULT += -DNDEBUG -O3 ;
+		}
+
+		if ( PUGIXML_NO_EXCEPTIONS in $(DEFINES) )
+		{
+			RESULT += -fno-exceptions ;
+		}
+
+		return $(RESULT) ;
+	}
+
+	actions ObjectAction
+	{
+		"%SCE_PS3_ROOT%\host-win32\ppu\bin\ppu-lv2-gcc" -c $(>) -o $(<) $(CCFLAGS)
+	}
+
+	actions LibraryAction
+	{
+		"%SCE_PS3_ROOT%\host-win32\ppu\bin\ppu-lv2-ar" rcs $(<) $(>)
+	}
+
+	actions LinkAction
+	{
+		"%SCE_PS3_ROOT%\host-win32\ppu\bin\ppu-lv2-g++" $(>) -o $(<) $(LDFLAGS)
+	}
+}
+else if ( $(toolset:I=^ps3_snc) )
+{
+	rule GetCFlags CONFIG : DEFINES
+	{
+		local RESULT = -D$(DEFINES) ;
+
+		RESULT += -Werror -Xuninitwarn=0 ;
+
+		if ( $(CONFIG) = "debug" )
+		{
+			RESULT += -D_DEBUG ;
+		}
+		else
+		{
+			RESULT += -DNDEBUG -O3 ;
+		}
+
+		if ! ( PUGIXML_NO_EXCEPTIONS in $(DEFINES) )
+		{
+			RESULT += -Xc+=exceptions ;
+		}
+
+		return $(RESULT) ;
+	}
+
+	actions ObjectAction
+	{
+		"%SCE_PS3_ROOT%\host-win32\sn\bin\ps3ppusnc" -c $(>) -o $(<) $(CCFLAGS)
+	}
+
+	actions LibraryAction
+	{
+		"%SCE_PS3_ROOT%\host-win32\sn\bin\ps3snarl" rcs $(<) $(>)
+	}
+
+	actions LinkAction
+	{
+		"%SCE_PS3_ROOT%\host-win32\sn\bin\ps3ppuld" $(>) -o $(<) $(LDFLAGS)
+	}
+}
+else
+{
+	exit "Unknown toolset $(toolset)!" ;
+}
+
+RUNRESULT = "success" ;
+COVSUCCESS = "echo $" "(COVPREFIX) $" "(RUNRESULT)" ;
+
+if ( $(toolset:I=^mingw) || $(toolset:I=^gcc) )
+{
+	actions maxtargets 1 CoverageAction
+	{
+		@($(COVSUCCESS:J=):A)
+		"$(GCCPATH)gcov" $(>) $(GCOVFLAGS) | perl tests/gcov-filter.pl $(COVPREFIX)$(SPACE)gcov
+	}
+}
+else
+{
+	actions CoverageAction
+	{
+		@($(COVSUCCESS:J=):A)
+	}
+}
+
+if ( $(UNIX) )
+{
+	actions screenoutput RunAction
+	{
+		$(>)
+	}
+
+	actions RunSampleAction
+	{
+		cd docs/samples
+		../../$(>)
+	}
+
+	actions quietly ignore MakeDirAction
+	{
+		mkdir -p $(<)
+	}
+
+	actions quietly ignore DeleteAction
+	{
+		rm -f $(>)
+	}
+}
+else
+{
+	if ( $(toolset:I=(^xbox360|^ps3|wince$|arm$|^android|^bada|^blackberry)) )
+	{
+        RUNRESULT = "skiprun" ;
+
+		actions RunAction
+		{
+		}
+
+		actions RunSampleAction
+		{
+		}
+	}
+	else
+	{
+		actions screenoutput RunAction
+		{
+			$(>:\\)
+		}
+
+		actions RunSampleAction
+		{
+			cd docs\samples
+			..\..\$(>:\\)
+		}
+	}
+
+	actions quietly ignore MakeDirAction
+	{
+		mkdir $(<:\\) >nul 2>&1
+	}
+
+	actions quietly ignore DeleteAction
+	{
+		del /F $(>:\\) >nul 2>&1
+	}
+}
+
+if ( $(OS) = NT )
+{
+    QUICKBOOK = %QUICKBOOK_PATH%bin\\quickbook.exe ;
+    XSLTPROC = %QUICKBOOK_PATH%bin\\xsltproc.exe ;
+}
+else
+{
+    QUICKBOOK = quickbook ;
+    XSLTPROC = xsltproc ;
+    QUICKBOOK_PATH = /usr/share ;
+}
+
+actions QuickbookAction
+{
+    $(QUICKBOOK) --output-file $(<) --input-file $(>)
+}
+
+actions response XSLTProcAction
+{
+	$(XSLTPROC) --nonet --novalid --path$(SPACE)$(XSLPATH:C) --stringparam$(SPACE)$(XSLPARAM) --output $(<) @(<?xml version="1.0"?>
+	<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+	<xsl:import$(SPACE)href="file:///$(XSL:/)"$(SPACE)/>
+	</xsl:stylesheet>) $(>)
+}
+
+rule MakeFileDir TARGET
+{
+	local DIR = $(TARGET:D) ;
+
+	MakeDirAction $(DIR) ;
+	Needs $(TARGET) : $(DIR) ;
+}
+
+rule Alias TARGET : SOURCE
+{
+	NotFile $(TARGET) ;
+	Always $(TARGET) ;
+	Depends $(TARGET) : $(SOURCE) ;
+}
+
+rule Object TARGET : SOURCE : CCFLAGS
+{
+	HDRRULE on $(SOURCE) = C.HdrRule ;
+	HDRSCAN on $(SOURCE) = $(C.HDRPATTERN) ;
+
+	MakeFileDir $(TARGET) ;
+
+	ObjectAction $(TARGET) : $(SOURCE) ;
+	Depends $(TARGET) : $(SOURCE) ;
+
+	CCFLAGS on $(TARGET) = $(CCFLAGS) ;
+	UseCommandLine $(TARGET) : $(CCFLAGS) ;
+}
+
+rule Objects BUILD : SOURCES : CCFLAGS
+{
+	local OBJECTS ;
+
+	for SOURCE in $(SOURCES)
+	{
+		local OBJECT = $(BUILD)/$(SOURCE:S=.o) ;
+
+		Object $(OBJECT) : $(SOURCE) : $(CCFLAGS) ;
+		OBJECTS += $(OBJECT) ;
+	}
+
+	return $(OBJECTS) ;
+}
+
+rule Library TARGET : SOURCES : CCFLAGS
+{
+	# build object files
+	local OBJECTS = [ Objects $(TARGET:D) : $(SOURCES) : $(CCFLAGS) ] ;
+
+	# build library
+	MakeFileDir $(TARGET) ;
+	LibraryAction $(TARGET) : $(OBJECTS) ;
+	Depends $(TARGET) : $(OBJECTS) ;
+
+	# remember library objects for coverage
+	$(TARGET)_objects = $(OBJECTS) ;
+}
+
+rule Application TARGET : SOURCES : CCFLAGS : LIBRARIES
+{
+	# build object files
+	local OBJECTS = [ Objects $(TARGET:D) : $(SOURCES) : $(CCFLAGS) ] ;
+
+	# set libraries
+	LDFLAGS on $(TARGET) = $(LDFLAGS) $(LIBRARIES) ;
+
+	# build application
+	MakeFileDir $(TARGET) ;
+
+	LinkAction $(TARGET) : $(OBJECTS) ;
+	Depends $(TARGET) : $(OBJECTS) $(LIBRARIES) ;
+
+	# remember executable objects for coverage
+	$(TARGET)_objects = $(OBJECTS) $($(LIBRARIES)_objects) ;
+}
+
+rule CleanCoverage TARGET
+{
+	# make target
+	local CLEAN_TARGET = $(TARGET)_clean_coverage ;
+
+	NotFile $(CLEAN_TARGET) ;
+	Always $(CLEAN_TARGET) ;
+	Depends $(TARGET) : $(CLEAN_TARGET) ;
+
+	# clean object files
+	local FILES = $($(SOURCE)_objects:S=.gcda) ;
+
+	# disable "independent target" warnings
+	NotFile $(FILES) ;
+
+	DeleteAction $(CLEAN_TARGET) : $(FILES) ;
+}
+
+rule Test TARGET : SOURCE
+{
+	# make alias
+	Alias $(TARGET) : $(SOURCE) ;
+
+	# run tests
+	RunAction $(TARGET) : $(SOURCE) ;
+
+	# remember executable objects for coverage
+	$(TARGET)_objects = $($(SOURCE)_objects) ;
+
+	# clean coverage files before run
+	CleanCoverage $(TARGET) ;
+}
+
+rule Coverage TARGET : SOURCE
+{
+	local FILES = $($(SOURCE)_objects:S=.gcda) ;
+
+	# disable "independent target" warnings
+	NotFile $(FILES) ;
+
+	CoverageAction $(TARGET) : $(FILES) ;
+	Depends $(TARGET) : $(SOURCE) ;
+}
+
+rule QuickbookImport SOURCE : IMPORT
+{
+	Includes $(SOURCE) : $(SOURCE:D)/$(IMPORT) ;
+}
+
+rule Documentation TARGET : SOURCE : STYLESHEET
+{
+	# escape colon with %3A because colon is a path list separator
+	local XSLDIR = [ Subst $(QUICKBOOK_PATH) : ":" : "%%%%3A" ] ;
+
+	# quickbook import scan
+	HDRRULE on $(SOURCE) = QuickbookImport ;
+	HDRSCAN on $(SOURCE) = "\\[import[ 	]+([^]]*)\\]" ;
+
+	# quickbook -> boostbook
+	local BOOSTBOOK = $(BUILD)/$(SOURCE:S=.bb.xml) ;
+
+	MakeFileDir $(BOOSTBOOK) ;
+	QuickbookAction $(BOOSTBOOK) : $(SOURCE) ;
+	Depends $(BOOSTBOOK) : $(SOURCE) ;
+
+	# boostbook -> docbook
+	local DOCBOOK = $(BUILD)/$(SOURCE:S=.db.xml) ;
+
+	XSL on $(DOCBOOK) = $(QUICKBOOK_PATH)/boostbook/xsl/docbook.xsl ;
+	XSLPATH on $(DOCBOOK) = $(XSLDIR)/boostbook/dtd $(XSLDIR)/docbook-xml ;
+	XSLTProcAction $(DOCBOOK) : $(BOOSTBOOK) ;
+	Depends $(DOCBOOK) : $(BOOSTBOOK) ;
+
+	# docbook -> html
+	local HTML = $(TARGET) ;
+
+	XSL on $(HTML) = $(QUICKBOOK_PATH)/boostbook/xsl/html.xsl $(CWD)/$(STYLESHEET) ;
+	XSLPATH on $(HTML) = $(XSLDIR)/docbook-xml $(XSLDIR)/docbook-xsl/html $(XSLDIR)/docbook-xsl/lib ;
+
+	XSLPARAM on $(HTML) =
+		"generate.manifest 0"
+		"html.stylesheet pugixml.css"
+		"root.filename $(TARGET:B)"
+		"generate.section.toc.level 1"
+		"toc.section.depth 3"
+		"admon.graphics.path images/"
+		"navig.graphics.path images/"
+		;
+
+	XSLTProcAction $(HTML) : $(DOCBOOK) ;
+	Depends $(HTML) : $(DOCBOOK) $(STYLESHEET) ;
+}
