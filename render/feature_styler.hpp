@@ -62,8 +62,6 @@ namespace di
     ScreenBase const * m_convertor;
     m2::RectD const * m_rect;
 
-    double m_popRank;
-
     bool IsEmpty() const;
 
     string const GetPathName() const;
