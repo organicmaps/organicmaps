@@ -39,10 +39,13 @@ vector<search::Result> const & TestSearchRequest::Results() const
 void TestSearchRequest::Done(search::Results const & results)
 {
   lock_guard<mutex> lock(m_mu);
-  m_results.insert(m_results.end(), results.Begin(), results.End());
   if (results.IsEndMarker())
   {
     m_done = true;
     m_cv.notify_one();
+  }
+  else
+  {
+    m_results.assign(results.Begin(), results.End());
   }
 }
