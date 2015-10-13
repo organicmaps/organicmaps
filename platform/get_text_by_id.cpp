@@ -11,6 +11,8 @@
 
 namespace
 {
+string const kDefaultLanguage = "en";
+
 string GetTextSourceString(platform::TextSource textSouce)
 {
 #if defined(OMIM_OS_ANDROID) || defined(OMIM_OS_IPHONE)
@@ -28,30 +30,62 @@ string GetTextSourceString(platform::TextSource textSouce)
 #endif
   ASSERT(false, ());
 }
-}  // namespace
 
-namespace platform
-{
-GetTextById::GetTextById(TextSource textSouce, string const & localeName)
+bool GetJsonBuffer(platform::TextSource textSouce, string const & localeName, string & jsonBuffer)
 {
   string const pathToJson = my::JoinFoldersToPath(
       {GetTextSourceString(textSouce), localeName + ".json"}, "localize.json");
 
-  // @TODO(vbykoianko) Add assert if locale path pathToJson is not valid.
-  string jsonBuffer;
   try
   {
+    jsonBuffer.clear();
     GetPlatform().GetReader(pathToJson)->ReadAsString(jsonBuffer);
   }
   catch (RootException const & ex)
   {
-    LOG(LWARNING, ("Can't open sound instructions file", pathToJson, ex.what()));
-    return;
+    LOG(LWARNING, ("Can't open", localeName,"sound instructions file. pathToJson is",
+                   pathToJson, ex.what()));
+    return false; // No json file for localeName
   }
-  InitFromJson(jsonBuffer);
+  return true;
+}
+}  // namespace
+
+namespace platform
+{
+unique_ptr<GetTextById> MakeGetTextById(string const & jsonBuffer, string const & localeName)
+{
+  unique_ptr<GetTextById> result(new GetTextById(jsonBuffer, localeName));
+  if (!result || !result->IsValid())
+  {
+    ASSERT(false, ());
+    return nullptr;
+  }
+  return result;
 }
 
-GetTextById::GetTextById(string const & jsonBuffer) { InitFromJson(jsonBuffer); }
+unique_ptr<GetTextById> GetTextByIdFactory(TextSource textSouce, string const & localeName)
+{
+  string jsonBuffer;
+  if (GetJsonBuffer(textSouce, localeName, jsonBuffer))
+    return MakeGetTextById(jsonBuffer, localeName);
+
+  if (GetJsonBuffer(textSouce, kDefaultLanguage, jsonBuffer))
+    return MakeGetTextById(jsonBuffer, kDefaultLanguage);
+
+  ASSERT(false, ("sound.txt does not contain default language."));
+  return nullptr;
+}
+
+unique_ptr<GetTextById> ForTestingGetTextByIdFactory(string const & jsonBuffer, string const & localeName)
+{
+  return MakeGetTextById(jsonBuffer, localeName);
+}
+
+GetTextById::GetTextById(string const & jsonBuffer, string const & localeName) : m_locale(localeName)
+{
+  InitFromJson(jsonBuffer);
+}
 
 void GetTextById::InitFromJson(string const & jsonBuffer)
 {
@@ -84,7 +118,7 @@ void GetTextById::InitFromJson(string const & jsonBuffer)
 string GetTextById::operator()(string const & textId) const
 {
   if (!IsValid())
-    return "";
+    return string();
 
   auto const textIt = m_localeTexts.find(textId);
   if (textIt == m_localeTexts.end())

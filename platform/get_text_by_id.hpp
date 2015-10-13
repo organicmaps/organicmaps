@@ -1,6 +1,7 @@
 #pragma once
 
 #include "std/string.hpp"
+#include "std/unique_ptr.hpp"
 #include "std/unordered_map.hpp"
 #include "std/utility.hpp"
 
@@ -18,19 +19,30 @@ enum class TextSource
 class GetTextById
 {
 public:
-  GetTextById(TextSource textSouce, string const & localeName);
-  /// The constructor is used for writing unit tests only.
-  explicit GetTextById(string const & jsonBuffer);
-
-  bool IsValid() const { return !m_localeTexts.empty(); }
   /// @return a pair of a text string in a specified locale for textId and a boolean flag.
   /// If textId is found in m_localeTexts then the boolean flag is set to true.
   /// The boolean flag is set to false otherwise.
   string operator()(string const & textId) const;
-
+  string GetLocale() const { return m_locale; }
 private:
-  void InitFromJson(string const & jsonBuffer);
+  friend unique_ptr<GetTextById> GetTextByIdFactory(TextSource textSouce, string const & localeName);
+  friend unique_ptr<GetTextById> ForTestingGetTextByIdFactory(string const & jsonBuffer, string const & localeName);
+  friend unique_ptr<GetTextById> MakeGetTextById(string const & jsonBuffer, string const & localeName);
 
+  GetTextById(string const & jsonBuffer, string const & localeName);
+  void InitFromJson(string const & jsonBuffer);
+  /// \note IsValid is used only in factories and shall be private.
+  bool IsValid() const { return !m_localeTexts.empty(); }
+
+  string m_locale;
   unordered_map<string, string> m_localeTexts;
 };
+
+/// Factoris to create intances of GetTextById.
+/// If unique_ptr<GetTextById> is created by GetTextByIdFactory or ForTestingGetTextByIdFactory
+/// threre are only two possibities.
+/// * a factory returns a valid instance
+/// * a factory returns nullptr
+unique_ptr<GetTextById> GetTextByIdFactory(TextSource textSouce, string const & localeName);
+unique_ptr<GetTextById> ForTestingGetTextByIdFactory(string const & jsonBuffer, string const & localeName);
 }  // namespace platform

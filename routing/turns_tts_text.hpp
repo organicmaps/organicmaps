@@ -22,16 +22,14 @@ class GetTtsText
 {
 public:
   string operator()(Notification const & notification) const;
-  /// TODO(vbykoianko) Check if locale is available. If not use default (en) locale.
   void SetLocale(string const & locale);
-  inline string GetLocale() const { return m_locale; }
-  void ForTestingSetLocaleWithJson(string const & jsonBuffer);
+  string GetLocale() const;
+  void ForTestingSetLocaleWithJson(string const & jsonBuffer, string const & locale);
 
 private:
   string GetTextById(string const & textId) const;
 
   unique_ptr<platform::GetTextById> m_getCurLang;
-  string m_locale;
 };
 
 /// Generates text message id about the distance of the notification. For example: In 300 meters.

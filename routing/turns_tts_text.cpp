@@ -36,16 +36,14 @@ namespace sound
 {
 void GetTtsText::SetLocale(string const & locale)
 {
-  m_locale = locale;
-  m_getCurLang.reset(new platform::GetTextById(platform::TextSource::TtsSound, locale));
-  /// @todo Factor out file check from constructor and do not create m_getCurLang object in case of error.
+  m_getCurLang = platform::GetTextByIdFactory(platform::TextSource::TtsSound, locale);
   ASSERT(m_getCurLang, ());
 }
 
-void GetTtsText::ForTestingSetLocaleWithJson(string const & jsonBuffer)
+void GetTtsText::ForTestingSetLocaleWithJson(string const & jsonBuffer, string const & locale)
 {
-  m_getCurLang.reset(new platform::GetTextById(jsonBuffer));
-  ASSERT(m_getCurLang && m_getCurLang->IsValid(), ());
+  m_getCurLang = platform::ForTestingGetTextByIdFactory(jsonBuffer, locale);
+  ASSERT(m_getCurLang, ());
 }
 
 string GetTtsText::operator()(Notification const & notification) const
@@ -63,11 +61,21 @@ string GetTtsText::operator()(Notification const & notification) const
   return distStr + " " + dirStr;
 }
 
+string GetTtsText::GetLocale() const
+{
+  if (m_getCurLang)
+  {
+    ASSERT(false, ());
+    return string();
+  }
+  return m_getCurLang->GetLocale();
+}
+
 string GetTtsText::GetTextById(string const & textId) const
 {
   ASSERT(!textId.empty(), ());
 
-  if (!m_getCurLang || !m_getCurLang->IsValid())
+  if (!m_getCurLang)
   {
     ASSERT(false, ());
     return "";
