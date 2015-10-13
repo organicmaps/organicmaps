@@ -126,7 +126,7 @@ graphics::EDensity getDensityType(int exactDensityDPI, double scale)
     p.m_widgetsInitInfo[widget] = pos;
   });
 
-  p.m_widgetsInitInfo[gui::WIDGET_SCALE_LABLE] = gui::Position(dp::LeftBottom);
+  p.m_widgetsInitInfo[gui::WIDGET_SCALE_LABEL] = gui::Position(dp::LeftBottom);
 
   GetFramework().CreateDrapeEngine(make_ref<dp::OGLContextFactory>(m_factory), move(p));
 
