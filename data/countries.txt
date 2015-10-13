@@ -27,13 +27,13 @@
      "n":"Botswana",
      "c":"bw",
      "s":7996645,
-     "rs":7444720
+     "rs":7444008
     },
     {
      "n":"Burkina Faso",
      "c":"bf",
      "s":9046486,
-     "rs":10047083
+     "rs":10046502
     },
     {
      "n":"Burundi",
@@ -178,7 +178,7 @@
      "n":"Morocco",
      "c":"ma",
      "s":38435619,
-     "rs":31101058
+     "rs":31100192
     },
     {
      "n":"Mozambique",
@@ -268,7 +268,7 @@
      "n":"Togo",
      "c":"tg",
      "s":6196638,
-     "rs":5273816
+     "rs":5271102
     },
     {
      "n":"Tunisia",
@@ -351,7 +351,7 @@
      "n":"India",
      "c":"in",
      "s":236189470,
-     "rs":229294350
+     "rs":229289585
     },
     {
      "n":"Indonesia",
@@ -367,13 +367,13 @@
        "n":"Chūbu",
        "f":"Japan_Chubu",
        "s":107180487,
-       "rs":195480650
+       "rs":195469187
       },
       {
        "n":"Chūgoku",
        "f":"Japan_Chugoku",
        "s":50766868,
-       "rs":46390813
+       "rs":46389723
       },
       {
        "n":"Hokkaidō",
@@ -385,13 +385,13 @@
        "n":"Tokyo & Kantō",
        "f":"Japan_Kanto",
        "s":102293358,
-       "rs":235127777
+       "rs":235123234
       },
       {
        "n":"Kinki",
        "f":"Japan_Kinki",
        "s":71162703,
-       "rs":97324455
+       "rs":97319198
       },
       {
        "n":"Kyūshū",
@@ -409,7 +409,7 @@
        "n":"Tōhoku",
        "f":"Japan_Tohoku",
        "s":80171081,
-       "rs":81091029
+       "rs":81089851
       }
      ]
     },
@@ -459,7 +459,7 @@
      "n":"Pakistan",
      "c":"pk",
      "s":17965859,
-     "rs":25962347
+     "rs":25961458
     },
     {
      "n":"Philippines",
@@ -501,7 +501,7 @@
      "n":"Thailand",
      "c":"th",
      "s":50175294,
-     "rs":57453249
+     "rs":57450872
     },
     {
      "n":"Turkmenistan",
@@ -513,7 +513,7 @@
      "n":"Uzbekistan",
      "c":"uz",
      "s":18509661,
-     "rs":23998477
+     "rs":23992752
     },
     {
      "n":"Vietnam",
@@ -577,7 +577,7 @@
      "n":"Albania",
      "c":"al",
      "s":9519074,
-     "rs":4414272
+     "rs":4414075
     },
     {
      "n":"Andorra",
@@ -595,7 +595,7 @@
      "n":"Austria",
      "c":"at",
      "s":269490678,
-     "rs":69366944
+     "rs":69347870
     },
     {
      "n":"Azerbaijan",
@@ -613,7 +613,7 @@
      "n":"Belgium",
      "c":"be",
      "s":178239645,
-     "rs":50338682
+     "rs":50123246
     },
     {
      "n":"Bosnia and Herzegovina",
@@ -631,7 +631,7 @@
      "n":"Croatia",
      "c":"hr",
      "s":47051726,
-     "rs":16178872
+     "rs":16164500
     },
     {
      "n":"Cyprus",
@@ -643,7 +643,7 @@
      "n":"Czech Republic",
      "c":"cz",
      "s":417219625,
-     "rs":46372357
+     "rs":46354226
     },
     {
      "n":"Denmark",
@@ -672,56 +672,56 @@
        "c":"fr",
        "f":"France_Alsace",
        "s":58278043,
-       "rs":8960808
+       "rs":8951864
       },
       {
        "n":"Aquitaine",
        "c":"fr",
        "f":"France_Aquitaine",
        "s":109250172,
-       "rs":31430958
+       "rs":31188809
       },
       {
        "n":"Auvergne",
        "c":"fr",
        "f":"France_Auvergne",
        "s":62946265,
-       "rs":18889270
+       "rs":18727191
       },
       {
        "n":"Basse-Normandie",
        "c":"fr",
        "f":"France_Basse-Normandie",
        "s":56158872,
-       "rs":14965406
+       "rs":14915076
       },
       {
        "n":"Bourgogne",
        "c":"fr",
        "f":"France_Bourgogne",
        "s":80676431,
-       "rs":19704791
+       "rs":19473051
       },
       {
        "n":"Bretagne",
        "c":"fr",
        "f":"France_Bretagne",
        "s":130071307,
-       "rs":32091073
+       "rs":32061776
       },
       {
        "n":"Centre",
        "c":"fr",
        "f":"France_Centre",
        "s":86839959,
-       "rs":27475092
+       "rs":26922363
       },
       {
        "n":"Champagne-Ardenne",
        "c":"fr",
        "f":"France_Champagne-Ardenne",
        "s":35458571,
-       "rs":9924583
+       "rs":9867157
       },
       {
        "n":"Corsica",
@@ -735,91 +735,91 @@
        "c":"fr",
        "f":"France_Franche-Comte",
        "s":45701811,
-       "rs":9543408
+       "rs":9493331
       },
       {
        "n":"Haute-Normandie",
        "c":"fr",
        "f":"France_Haute-Normandie",
        "s":38175738,
-       "rs":11600626
+       "rs":11534968
       },
       {
        "n":"Languedoc-Roussillon",
        "c":"fr",
        "f":"France_Languedoc-Roussillon",
        "s":97440989,
-       "rs":20891378
+       "rs":20874939
       },
       {
        "n":"Limousin",
        "c":"fr",
        "f":"France_Limousin",
        "s":37597358,
-       "rs":13920797
+       "rs":13614983
       },
       {
        "n":"Lorraine",
        "c":"fr",
        "f":"France_Lorraine",
        "s":75642648,
-       "rs":13824573
+       "rs":13802264
       },
       {
        "n":"Midi-Pyrénées",
        "c":"fr",
        "f":"France_Midi-Pyrenees",
        "s":139348053,
-       "rs":34402655
+       "rs":34161196
       },
       {
        "n":"Nord-Pas-de-Calais",
        "c":"fr",
        "f":"France_Nord-Pas-de-Calais",
        "s":95605334,
-       "rs":21523150
+       "rs":21385611
       },
       {
        "n":"Paris & Île-de-France",
        "c":"fr",
        "f":"France_Paris & Ile-de-France",
        "s":121046795,
-       "rs":24467898
+       "rs":24416537
       },
       {
        "n":"Pays de la Loire",
        "c":"fr",
        "f":"France_Pays de la Loire",
        "s":153503580,
-       "rs":37120434
+       "rs":36825117
       },
       {
        "n":"Picardie",
        "c":"fr",
        "f":"France_Picardie",
        "s":61570955,
-       "rs":13893283
+       "rs":13708441
       },
       {
        "n":"Poitou-Charentes",
        "c":"fr",
        "f":"France_Poitou-Charentes",
        "s":93313803,
-       "rs":27529433
+       "rs":27225416
       },
       {
        "n":"Provence-Alpes-Côte d'Azur",
        "c":"fr",
        "f":"France_Provence-Alpes-Cote d'Azur",
        "s":129149744,
-       "rs":21224680
+       "rs":21216748
       },
       {
        "n":"Rhône-Alpes",
        "c":"fr",
        "f":"France_Rhone-Alpes",
        "s":183233412,
-       "rs":41450637
+       "rs":41285246
       }
      ]
     },
@@ -838,84 +838,84 @@
        "c":"de",
        "f":"Germany_Baden-Wurttemberg",
        "s":221588183,
-       "rs":62503247
+       "rs":62468408
       },
       {
        "n":"Bavaria",
        "c":"de",
        "f":"Germany_Bavaria",
        "s":289950366,
-       "rs":90591745
+       "rs":90541072
       },
       {
        "n":"Berlin & Brandenburg",
        "c":"de",
        "f":"Germany_Berlin & Brandenburg",
        "s":97007897,
-       "rs":21079419
+       "rs":21076190
       },
       {
        "n":"Bremen & Lower Saxony",
        "c":"de",
        "f":"Germany_Bremen & Lower Saxony",
        "s":180030064,
-       "rs":51959161
+       "rs":51911332
       },
       {
        "n":"Hamburg",
        "c":"de",
        "f":"Germany_Hamburg",
        "s":18098572,
-       "rs":3363898
+       "rs":3356833
       },
       {
        "n":"Hesse",
        "c":"de",
        "f":"Germany_Hesse",
        "s":115424789,
-       "rs":30163419
+       "rs":30144751
       },
       {
        "n":"Mecklenburg-Vorpommern",
        "c":"de",
        "f":"Germany_Mecklenburg-Vorpommern",
        "s":49980432,
-       "rs":10323889
+       "rs":10322096
       },
       {
        "n":"North Rhine-Westphalia",
        "c":"de",
        "f":"Germany_North Rhine-Westphalia",
        "s":374700602,
-       "rs":88319333
+       "rs":88218607
       },
       {
        "n":"Rhineland-Palatinate",
        "c":"de",
        "f":"Germany_Rhineland-Palatinate",
        "s":75787613,
-       "rs":22997100
+       "rs":22990034
       },
       {
        "n":"Saarland",
        "c":"de",
        "f":"Germany_Saarland",
        "s":18412273,
-       "rs":4546896
+       "rs":4544294
       },
       {
        "n":"Saxony-Anhalt",
        "c":"de",
        "f":"Germany_Saxony-Anhalt",
        "s":52806763,
-       "rs":13320194
+       "rs":13313303
       },
       {
        "n":"Saxony",
        "c":"de",
        "f":"Germany_Saxony",
        "s":91134521,
-       "rs":25591217
+       "rs":25578413
       },
       {
        "n":"Schleswig-Holstein",
@@ -929,7 +929,7 @@
        "c":"de",
        "f":"Germany_Thuringia",
        "s":53062737,
-       "rs":14108997
+       "rs":14100951
       }
      ]
     },
@@ -949,7 +949,7 @@
      "n":"Hungary",
      "c":"hu",
      "s":84807076,
-     "rs":36649452
+     "rs":36642765
     },
     {
      "n":"Iceland",
@@ -967,7 +967,7 @@
      "n":"Italy",
      "c":"it",
      "s":671922397,
-     "rs":231895701
+     "rs":231891995
     },
     {
      "n":"Kosovo",
@@ -979,7 +979,7 @@
      "n":"Latvia",
      "c":"lv",
      "s":39309924,
-     "rs":10766652
+     "rs":10765883
     },
     {
      "n":"Liechtenstein",
@@ -997,13 +997,13 @@
      "n":"Luxembourg",
      "c":"lu",
      "s":10635559,
-     "rs":2714996
+     "rs":2712542
     },
     {
      "n":"Macedonia",
      "c":"mk",
      "s":11717283,
-     "rs":3695539
+     "rs":3695310
     },
     {
      "n":"Malta",
@@ -1033,7 +1033,7 @@
      "n":"Netherlands",
      "c":"nl",
      "s":760840298,
-     "rs":80573117
+     "rs":80526078
     },
     {
      "n":"Norway",
@@ -1045,7 +1045,7 @@
      "n":"Poland",
      "c":"pl",
      "s":577717904,
-     "rs":108422388
+     "rs":108409459
     },
     {
      "n":"Portugal",
@@ -1128,19 +1128,19 @@
      "n":"Slovakia",
      "c":"sk",
      "s":106799470,
-     "rs":15643380
+     "rs":15637674
     },
     {
      "n":"Slovenia",
      "c":"si",
      "s":43388084,
-     "rs":8748521
+     "rs":8709349
     },
     {
      "n":"Spain",
      "c":"es",
      "s":400638252,
-     "rs":201221850
+     "rs":201214427
     },
     {
      "n":"Svalbard and Jan Mayen",
@@ -1158,7 +1158,7 @@
      "n":"Switzerland",
      "c":"ch",
      "s":165575546,
-     "rs":42261792
+     "rs":42248156
     },
     {
      "n":"Turkey",
@@ -1193,14 +1193,14 @@
        "c":"uk_england",
        "f":"UK_England",
        "s":439823832,
-       "rs":200979709
+       "rs":200976976
       },
       {
        "n":"Northern Ireland",
        "c":"uk_northern_ireland",
        "f":"UK_Northern Ireland",
        "s":13453246,
-       "rs":7218330
+       "rs":7217341
       },
       {
        "n":"Scotland",
@@ -1214,7 +1214,7 @@
        "c":"uk_wales",
        "f":"UK_Wales",
        "s":34247220,
-       "rs":14497534
+       "rs":14492135
       }
      ]
     },
@@ -1230,7 +1230,7 @@
       {
        "n":"Ukraine",
        "s":233352621,
-       "rs":104442758
+       "rs":104438276
       }
      ]
     }
@@ -1267,7 +1267,7 @@
      "n":"Israel",
      "c":"il",
      "s":26985568,
-     "rs":10961555
+     "rs":10938549
     },
     {
      "n":"Jordan",
@@ -1297,7 +1297,7 @@
      "n":"Palestine",
      "c":"ps",
      "s":11320463,
-     "rs":7912610
+     "rs":7896524
     },
     {
      "n":"Qatar",
@@ -1690,7 +1690,7 @@
        "c":"ca",
        "f":"Canada_Alberta",
        "s":83615236,
-       "rs":34568480
+       "rs":34559235
       },
       {
        "n":"British Columbia",
@@ -1711,7 +1711,7 @@
        "c":"ca",
        "f":"Canada_New Brunswick",
        "s":43356148,
-       "rs":4443614
+       "rs":4443169
       },
       {
        "n":"Newfoundland and Labrador",
@@ -1746,7 +1746,7 @@
        "c":"ca",
        "f":"Canada_Ontario",
        "s":437735922,
-       "rs":52444665
+       "rs":52444044
       },
       {
        "n":"Prince Edward Island",
@@ -1760,7 +1760,7 @@
        "c":"ca",
        "f":"Canada_Quebec",
        "s":293942049,
-       "rs":31036250
+       "rs":31035177
       },
       {
        "n":"Saskatchewan",
@@ -1799,7 +1799,7 @@
        "c":"us",
        "f":"USA_Alabama",
        "s":40613568,
-       "rs":56297184
+       "rs":56208524
       },
       {
        "n":"Alaska",
@@ -1813,14 +1813,14 @@
        "c":"us",
        "f":"USA_Arizona",
        "s":60690047,
-       "rs":53051119
+       "rs":53048858
       },
       {
        "n":"Arkansas",
        "c":"us",
        "f":"USA_Arkansas",
        "s":33244028,
-       "rs":38116463
+       "rs":38090027
       },
       {
        "n":"California",
@@ -1841,7 +1841,7 @@
        "c":"us",
        "f":"USA_Connecticut",
        "s":15041614,
-       "rs":15925057
+       "rs":15923680
       },
       {
        "n":"Delaware",
@@ -1855,7 +1855,7 @@
        "c":"us",
        "f":"USA_Florida",
        "s":92646347,
-       "rs":120672425
+       "rs":120628157
       },
       {
        "n":"Georgia",
@@ -1876,7 +1876,7 @@
        "c":"us",
        "f":"USA_Idaho",
        "s":30236211,
-       "rs":29702416
+       "rs":29615873
       },
       {
        "n":"Illinois",
@@ -1890,7 +1890,7 @@
        "c":"us",
        "f":"USA_Indiana",
        "s":36768476,
-       "rs":72444604
+       "rs":72405091
       },
       {
        "n":"Iowa",
@@ -1904,21 +1904,21 @@
        "c":"us",
        "f":"USA_Kansas",
        "s":32437381,
-       "rs":70166052
+       "rs":70117280
       },
       {
        "n":"Kentucky",
        "c":"us",
        "f":"USA_Kentucky",
        "s":59228868,
-       "rs":35524109
+       "rs":35521541
       },
       {
        "n":"Louisiana",
        "c":"us",
        "f":"USA_Louisiana",
        "s":60653300,
-       "rs":38773008
+       "rs":38771091
       },
       {
        "n":"Maine",
@@ -1939,49 +1939,49 @@
        "c":"us",
        "f":"USA_Massachusetts",
        "s":117589383,
-       "rs":40054249
+       "rs":40047008
       },
       {
        "n":"Michigan",
        "c":"us",
        "f":"USA_Michigan",
        "s":70085121,
-       "rs":79260277
+       "rs":79253122
       },
       {
        "n":"Minnesota",
        "c":"us",
        "f":"USA_Minnesota",
        "s":94632222,
-       "rs":63852143
+       "rs":63836624
       },
       {
        "n":"Mississippi",
        "c":"us",
        "f":"USA_Mississippi",
        "s":36825656,
-       "rs":31144900
+       "rs":31140259
       },
       {
        "n":"Missouri",
        "c":"us",
        "f":"USA_Missouri",
        "s":50208781,
-       "rs":74239126
+       "rs":74191832
       },
       {
        "n":"Montana",
        "c":"us",
        "f":"USA_Montana",
        "s":36409400,
-       "rs":22723153
+       "rs":22719224
       },
       {
        "n":"Nebraska",
        "c":"us",
        "f":"USA_Nebraska",
        "s":29364654,
-       "rs":47846639
+       "rs":47838026
       },
       {
        "n":"Nevada",
@@ -1995,14 +1995,14 @@
        "c":"us",
        "f":"USA_New Hampshire",
        "s":20056601,
-       "rs":11604317
+       "rs":11602056
       },
       {
        "n":"New Jersey",
        "c":"us",
        "f":"USA_New Jersey",
        "s":47940855,
-       "rs":41985344
+       "rs":41983878
       },
       {
        "n":"New Mexico",
@@ -2016,7 +2016,7 @@
        "c":"us",
        "f":"USA_New York",
        "s":111517038,
-       "rs":77416322
+       "rs":77406264
       },
       {
        "n":"North Carolina",
@@ -2030,14 +2030,14 @@
        "c":"us",
        "f":"USA_North Dakota",
        "s":45968392,
-       "rs":31389593
+       "rs":31384944
       },
       {
        "n":"Ohio",
        "c":"us",
        "f":"USA_Ohio",
        "s":57692596,
-       "rs":94007241
+       "rs":93936399
       },
       {
        "n":"Oklahoma",
@@ -2051,21 +2051,21 @@
        "c":"us",
        "f":"USA_Oregon",
        "s":80909557,
-       "rs":41060463
+       "rs":41057718
       },
       {
        "n":"Pennsylvania",
        "c":"us",
        "f":"USA_Pennsylvania",
        "s":75504533,
-       "rs":101682833
+       "rs":101675116
       },
       {
        "n":"Rhode Island",
        "c":"us",
        "f":"USA_Rhode Island",
        "s":5005558,
-       "rs":6203698
+       "rs":6195902
       },
       {
        "n":"South Carolina",
@@ -2086,14 +2086,14 @@
        "c":"us",
        "f":"USA_Tennessee",
        "s":45750303,
-       "rs":52739808
+       "rs":52724174
       },
       {
        "n":"Texas",
        "c":"us",
        "f":"USA_Texas",
        "s":143719968,
-       "rs":256901854
+       "rs":256898133
       },
       {
        "n":"Utah",
@@ -2107,14 +2107,14 @@
        "c":"us",
        "f":"USA_Vermont",
        "s":10942226,
-       "rs":5626093
+       "rs":5624208
       },
       {
        "n":"Virginia",
        "c":"us",
        "f":"USA_Virginia",
        "s":110147056,
-       "rs":83885014
+       "rs":83872905
       },
       {
        "n":"Washington",
@@ -2128,28 +2128,28 @@
        "c":"us",
        "f":"USA_District of Columbia",
        "s":8419164,
-       "rs":2618187
+       "rs":2617314
       },
       {
        "n":"West Virginia",
        "c":"us",
        "f":"USA_West Virginia",
        "s":17790158,
-       "rs":21318093
+       "rs":21303186
       },
       {
        "n":"Wisconsin",
        "c":"us",
        "f":"USA_Wisconsin",
        "s":63568610,
-       "rs":58601861
+       "rs":58596643
       },
       {
        "n":"Wyoming",
        "c":"us",
        "f":"USA_Wyoming",
        "s":24322489,
-       "rs":14064168
+       "rs":14046004
       }
      ]
     }
@@ -2329,7 +2329,7 @@
      "n":"Argentina",
      "c":"ar",
      "s":100558361,
-     "rs":198511350
+     "rs":198509910
     },
     {
      "n":"Bolivia",
@@ -2345,31 +2345,31 @@
        "n":"Central-West",
        "f":"Brazil_Central-West",
        "s":28719211,
-       "rs":65757906
+       "rs":65753486
       },
       {
        "n":"North",
        "f":"Brazil_North",
        "s":23451105,
-       "rs":33181027
+       "rs":33180274
       },
       {
        "n":"Northeast",
        "f":"Brazil_Northeast",
        "s":37395820,
-       "rs":85025970
+       "rs":85024489
       },
       {
        "n":"South",
        "f":"Brazil_South",
        "s":58640801,
-       "rs":100549912
+       "rs":100534009
       },
       {
        "n":"Rio & Southeast",
        "f":"Brazil_Southeast",
        "s":101639907,
-       "rs":200738559
+       "rs":200736858
       }
      ]
     },
@@ -2431,7 +2431,7 @@
      "n":"Venezuela",
      "c":"ve",
      "s":20416991,
-     "rs":29978293
+     "rs":29977864
     }
    ]
   }
