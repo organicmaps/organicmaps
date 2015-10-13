@@ -127,6 +127,9 @@ class ResponseProvider:
                     "/unit_tests/notexisting_unittest": self.test_404,
                     "/unit_tests/permanent" : self.test_301,
                     "/unit_tests/47kb.file" : self.test_47_kb,
+                    # Following two URIs are used to test downloading failures on different platforms.
+                    "/unit_tests/mac/1234/Uruguay.mwm" : self.test_404,
+                    "/unit_tests/linux/1234/Uruguay.mwm" : self.test_404,
                     "/ping" : self.pong,
                     "/kill" : self.kill,
                     "/id" :self.my_id,

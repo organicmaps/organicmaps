@@ -10,14 +10,22 @@ DEPENDENCIES = storage indexer platform_tests_support platform geometry coding b
 
 include($$ROOT_DIR/common.pri)
 
-macx-*: LIBS *= "-framework IOKit"
-linux*|win32-msvc*: QT *= network
+DEFINES *= OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP
 
 QT *= core
+
+macx-* {
+  QT *= gui widgets # needed for QApplication with event loop, to test async events (downloader, etc.)
+  LIBS *= "-framework IOKit" "-framework QuartzCore"
+}
+win32*|linux* {
+  QT *= network
+}
 
 HEADERS += \
   fake_map_files_downloader.hpp \
   task_runner.hpp \
+  test_map_files_downloader.hpp \
 
 SOURCES += \
   ../../testing/testingmain.cpp \
@@ -27,3 +35,4 @@ SOURCES += \
   simple_tree_test.cpp \
   storage_tests.cpp \
   task_runner.cpp \
+  test_map_files_downloader.cpp \

@@ -36,8 +36,8 @@
 #define ROUTING_NODEIND_TO_FTSEGIND_FILE_TAG  "node2ftseg"
 
 #define READY_FILE_EXTENSION ".ready"
-#define RESUME_FILE_EXTENSION ".resume3"
-#define DOWNLOADING_FILE_EXTENSION ".downloading3"
+#define RESUME_FILE_EXTENSION ".resume"
+#define DOWNLOADING_FILE_EXTENSION ".downloading"
 #define BOOKMARKS_FILE_EXTENSION ".kml"
 #define ROUTING_FILE_EXTENSION ".routing"
 

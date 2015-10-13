@@ -38,6 +38,7 @@ PASSED = "passed"
 
 PORT = 34568
 
+TESTS_REQUIRING_SERVER = ["platform_tests", "storage_tests"]
 
 class TestRunner:
 
@@ -126,7 +127,7 @@ class TestRunner:
             
             self.log_exec_file(test_file)
 
-            if test_file == "platform_tests":
+            if test_file in TESTS_REQUIRING_SERVER:
                 self.start_server()
         
             test_file_with_keys = "{test_file}{data}{resources}".format(test_file=test_file, data=self.data_path, resources=self.user_resource_path)
@@ -139,7 +140,7 @@ class TestRunner:
 
             process.wait()
 
-            if test_file == "platform_tests":
+            if test_file in TESTS_REQUIRING_SERVER:
                 self.stop_server()
 
             if process.returncode > 0:

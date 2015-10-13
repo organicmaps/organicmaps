@@ -159,7 +159,7 @@ UNIT_TEST(LocalCountryFile_CleanupMapFiles)
   TEST(Contains(localFiles, brazilLocalFile), (brazilLocalFile, localFiles));
   TEST(Contains(localFiles, irelandLocalFile), (irelandLocalFile, localFiles));
 
-  CleanupMapsDirectory();
+  CleanupMapsDirectory(0 /* latestVersion */);
 
   japanLocalFile.SyncWithDisk();
   TEST_EQUAL(MapOptions::Nothing, japanLocalFile.GetFiles(), ());
@@ -183,23 +183,36 @@ UNIT_TEST(LocalCountryFile_CleanupMapFiles)
 
 UNIT_TEST(LocalCountryFile_CleanupPartiallyDownloadedFiles)
 {
-  ScopedFile toBeDeleted[] = {{"Ireland.mwm.ready", "Ireland"},
-                              {"Netherlands.mwm.routing.downloading2", "Netherlands"},
-                              {"Germany.mwm.ready3", "Germany"},
-                              {"UK_England.mwm.resume4", "UK"}};
-  ScopedFile toBeKept[] = {
-      {"Italy.mwm", "Italy"}, {"Spain.mwm", "Spain map"}, {"Spain.mwm.routing", "Spain routing"}};
+  ScopedDir oldDir("101009");
+  ScopedDir latestDir("101010");
 
-  CleanupMapsDirectory();
+  ScopedFile toBeDeleted[] = {
+      {"Ireland.mwm.ready", "Ireland"},
+      {"Netherlands.mwm.routing.downloading2", "Netherlands"},
+      {"Germany.mwm.ready3", "Germany"},
+      {"UK_England.mwm.resume4", "UK"},
+      {my::JoinFoldersToPath(oldDir.GetRelativePath(), "Russia_Central.mwm.downloading"),
+       "Central Russia map"}};
+  ScopedFile toBeKept[] = {
+      {"Italy.mwm", "Italy"},
+      {"Spain.mwm", "Spain map"},
+      {"Spain.mwm.routing", "Spain routing"},
+      {my::JoinFoldersToPath(latestDir.GetRelativePath(), "Russia_Southern.mwm.downloading"),
+       "Southern Russia map"}};
+
+  CleanupMapsDirectory(101010 /* latestVersion */);
 
   for (ScopedFile & file : toBeDeleted)
   {
     TEST(!file.Exists(), (file));
     file.Reset();
   }
+  TEST(!oldDir.Exists(), (oldDir));
+  oldDir.Reset();
 
   for (ScopedFile & file : toBeKept)
     TEST(file.Exists(), (file));
+  TEST(latestDir.Exists(), (latestDir));
 }
 
 // Creates test-dir and following files:
