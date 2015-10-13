@@ -1578,7 +1578,7 @@ void Framework::ActivateUserMark(UserMark const * mark, bool needAnim)
 
 void Framework::DeactivateUserMark()
 {
-  ActivateUserMark(nullptr, true);
+  CallDrapeFunction(bind(&df::DrapeEngine::DeselectObject, _1));
 }
 
 bool Framework::HasActiveUserMark()
