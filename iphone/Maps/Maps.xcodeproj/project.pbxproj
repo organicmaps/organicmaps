@@ -2787,6 +2787,7 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Drape Release";
@@ -2904,6 +2905,7 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Drape Debug";
@@ -2916,6 +2918,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp.watchkitextension";
 				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -2930,6 +2933,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp.watchkitextension";
 				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -2944,6 +2948,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp.watchkitextension";
 				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -2958,6 +2963,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp.watchkitextension";
 				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -2972,6 +2978,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp.watchkitextension";
 				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -2986,6 +2993,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp.watchkitextension";
 				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -3000,6 +3008,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp.watchkitextension";
 				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -3014,6 +3023,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp.watchkitextension";
 				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -3052,6 +3062,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -3087,6 +3098,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -3126,6 +3138,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -3161,6 +3174,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -3196,6 +3210,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -3231,6 +3246,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -3266,6 +3282,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -3301,6 +3318,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -3416,6 +3434,7 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PROVISIONING_PROFILE = "";
 			};
 			name = Simulator;
@@ -3528,6 +3547,7 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -3645,6 +3665,7 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PROVISIONING_PROFILE = "";
 			};
 			name = AdHoc;
@@ -3762,6 +3783,7 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Production Full";
@@ -3877,6 +3899,7 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -3992,6 +4015,7 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Simulator Release";
