@@ -2,6 +2,7 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/data_header.hpp"
+#include "indexer/features_offsets_table.hpp"
 #include "indexer/index_builder.hpp"
 #include "indexer/search_index_builder.hpp"
 
@@ -50,6 +51,7 @@ void TestMwmBuilder::Finish()
   CHECK(GenerateFinalFeatures(info, m_file.GetCountryFile().GetNameWithoutExt(),
                               feature::DataHeader::country),
         ("Can't sort features."));
+  CHECK(feature::BuildOffsetsTable(m_file.GetPath(MapOptions::Map)), ("Can't build feature offsets table."));
   CHECK(indexer::BuildIndexFromDatFile(m_file.GetPath(MapOptions::Map),
                                        m_file.GetPath(MapOptions::Map)),
         ("Can't build geometry index."));
