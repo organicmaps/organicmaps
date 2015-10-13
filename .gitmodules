@@ -4,3 +4,6 @@
 [submodule "tools/kothic"]
 	path = tools/kothic
 	url = git://github.com/mapsme/kothic.git
+[submodule "3party/Alohalytics"]
+	path = 3party/Alohalytics
+	url = git@github.com:mapsme/Alohalytics.git
