@@ -76,8 +76,13 @@ public:
 /// notification to pronounce.
 struct Notification
 {
+  /// m_distanceUnits is a distance to the turn in m_lengthUnits (meters or feet).
+  /// If m_distanceUnits == 0 then the information about distance to the turn shall
+  /// not be pronounced.
   uint32_t m_distanceUnits;
   uint8_t m_exitNum;
+  /// if m_useThenInsteadOfDistance == true the m_distanceUnits is ignored.
+  /// The word "Then" shall be pronounced intead of the distance.
   bool m_useThenInsteadOfDistance;
   TurnDirection m_turnDir;
   ::Settings::Units m_lengthUnits;

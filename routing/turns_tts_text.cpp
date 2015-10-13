@@ -124,6 +124,19 @@ string GetRoundaboutTextId(Notification const & notification)
   return "take_the_" + strings::to_string(static_cast<int>(notification.m_exitNum)) + "th_exit";
 }
 
+string GetYouArriveTextId(Notification const & notification)
+{
+  if (notification.m_turnDir != TurnDirection::ReachedYourDestination)
+  {
+    ASSERT(false, ());
+    return string();
+  }
+
+  if (notification.m_distanceUnits != 0 || notification.m_useThenInsteadOfDistance)
+    return "destination";
+  return "you_have_reached_the_destination";
+}
+
 string GetDirectionTextId(Notification const & notification)
 {
   switch (notification.m_turnDir)
@@ -149,7 +162,7 @@ string GetDirectionTextId(Notification const & notification)
     case TurnDirection::LeaveRoundAbout:
       return GetRoundaboutTextId(notification);
     case TurnDirection::ReachedYourDestination:
-      return "you_have_reached_the_destination";
+      return GetYouArriveTextId(notification);
     case TurnDirection::StayOnRoundAbout:
     case TurnDirection::StartAtEndOfStreet:
     case TurnDirection::TakeTheExit:
