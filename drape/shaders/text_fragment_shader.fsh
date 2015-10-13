@@ -15,7 +15,7 @@ vec4 colorize(vec4 base, vec4 outline, float alpha)
   if (alpha > u_outlineGlyphParams.z)
   {
     float oFactor = smoothstep(u_outlineGlyphParams.w, u_outlineGlyphParams.z, alpha);
-    return mix(vec4(outline.rgb,0), outline, oFactor);
+    return vec4(outline.rgb, mix(0.0, outline.a, oFactor));
   }
   if (alpha > u_outlineGlyphParams.y)
   {
@@ -34,7 +34,7 @@ vec4 without_outline(vec4 base, float alpha)
   if (alpha > u_glyphParams.x)
   {
     float oFactor = smoothstep(u_glyphParams.x, u_glyphParams.y, alpha);
-    return mix(base, vec4(0, 0, 0, 0), oFactor);
+    return vec4(base.rgb, mix(base.a, 0.0, oFactor));
   }
   return base;
 }

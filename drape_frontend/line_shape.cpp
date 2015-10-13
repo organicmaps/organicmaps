@@ -136,6 +136,11 @@ public:
     return 0;
   }
 
+  float GetSide(bool isLeft) const
+  {
+    return isLeft ? 1.0 : -1.0;
+  }
+
 protected:
   vector<glsl::vec2> const & GenerateCap(LineSegment const & segment, EPointType type,
                                          float sign, bool isStart)
@@ -286,6 +291,9 @@ public:
 
   void SubmitCap(LineSegment const & segment, bool isStart)
   {
+    if (m_params.m_cap == dp::ButtCap)
+      return;
+
     EPointType const type = isStart ? StartPoint : EndPoint;
     if (m_params.m_cap != dp::RoundCap)
     {
@@ -296,11 +304,6 @@ public:
     {
       CreateRoundCap(segment.m_points[type]);
     }
-  }
-
-  float GetSide(bool isLeft)
-  {
-    return isLeft ? 1.0 : -1.0;
   }
 
 private:
@@ -344,6 +347,7 @@ private:
 class DashedLineBuilder : public BaseLineBuilder<gpu::DashedLineVertex>
 {
   using TBase = BaseLineBuilder<gpu::DashedLineVertex>;
+  using TNormal = gpu::LineVertex::TNormal;
 
 public:
   struct BuilderParams : BaseBuilderParams
@@ -377,13 +381,15 @@ public:
   }
 
   void SubmitVertex(LineSegment const & segment, glsl::vec3 const & pivot,
-                    glsl::vec2 const & normal, bool /*isLeft*/, float offsetFromStart)
+                    glsl::vec2 const & normal, bool isLeft, float offsetFromStart)
   {
     float distance = GetProjectionLength(pivot.xy() + m_glbHalfWidth * normal,
                                          segment.m_points[StartPoint],
                                          segment.m_points[EndPoint]) - offsetFromStart;
 
-    m_geometry.emplace_back(V(pivot, GetHalfWidth() * normal, m_colorCoord, m_texCoordGen.GetTexCoordsByDistance(distance)));
+    float const halfWidth = GetHalfWidth();
+    m_geometry.emplace_back(V(pivot, TNormal(halfWidth * normal, halfWidth * GetSide(isLeft)),
+                              m_colorCoord, m_texCoordGen.GetTexCoordsByDistance(distance)));
   }
 
   void SubmitJoin(LineSegment const & seg1, LineSegment const & seg2)
@@ -401,14 +407,15 @@ public:
 private:
   void SubmitJoinImpl(glsl::vec3 const & pivot, vector<glsl::vec2> const & normals)
   {
+    float const halfWidth = GetHalfWidth();
     size_t const trianglesCount = normals.size() / 3;
     for (int j = 0; j < trianglesCount; j++)
     {
-      size_t baseIndex = 3 * j;
-      glsl::vec2 texCoord = m_texCoordGen.GetTexCoords(0.0f);
-      m_joinGeom.push_back(V(pivot, normals[baseIndex + 0], m_colorCoord, texCoord));
-      m_joinGeom.push_back(V(pivot, normals[baseIndex + 1], m_colorCoord, texCoord));
-      m_joinGeom.push_back(V(pivot, normals[baseIndex + 2], m_colorCoord, texCoord));
+      size_t const baseIndex = 3 * j;
+      glsl::vec2 const texCoord = m_texCoordGen.GetTexCoords(0.0f);
+      m_joinGeom.push_back(V(pivot, TNormal(normals[baseIndex + 0], halfWidth), m_colorCoord, texCoord));
+      m_joinGeom.push_back(V(pivot, TNormal(normals[baseIndex + 1], halfWidth), m_colorCoord, texCoord));
+      m_joinGeom.push_back(V(pivot, TNormal(normals[baseIndex + 2], halfWidth), m_colorCoord, texCoord));
     }
   }
 

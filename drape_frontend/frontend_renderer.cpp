@@ -397,6 +397,7 @@ void FrontendRenderer::OnAddRenderGroup(TileKey const & tileKey, dp::GLState con
                                         drape_ptr<dp::RenderBucket> && renderBucket)
 {
   AddToRenderGroup(m_renderGroups, state, move(renderBucket), tileKey);
+  m_renderGroups.back()->Appear();
 }
 
 void FrontendRenderer::OnDeferRenderGroup(TileKey const & tileKey, dp::GLState const & state,
@@ -413,6 +414,7 @@ void FrontendRenderer::OnActivateTile(TileKey const & tileKey)
     {
       m_renderGroups.push_back(move(*it));
       it = m_deferredRenderGroups.erase(it);
+      m_renderGroups.back()->Appear();
     }
     else
     {

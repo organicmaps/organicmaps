@@ -31,16 +31,16 @@ void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManag
   gpu::SolidTexturingVertex vertexes[] =
   {
     gpu::SolidTexturingVertex{ position,
-                               glsl::vec2(-halfSize.x,  halfSize.y),
+                               glsl::vec2(-halfSize.x, halfSize.y),
                                glsl::vec2(texRect.minX(), texRect.maxY())},
     gpu::SolidTexturingVertex{ position,
-                               glsl::vec2(-halfSize.x,  -halfSize.y),
+                               glsl::vec2(-halfSize.x, -halfSize.y),
                                glsl::vec2(texRect.minX(), texRect.minY())},
     gpu::SolidTexturingVertex{ position,
-                               glsl::vec2(halfSize.x,  halfSize.y),
+                               glsl::vec2(halfSize.x, halfSize.y),
                                glsl::vec2(texRect.maxX(), texRect.maxY())},
     gpu::SolidTexturingVertex{ position,
-                               glsl::vec2(halfSize.x,  -halfSize.y),
+                               glsl::vec2(halfSize.x, -halfSize.y),
                                glsl::vec2(texRect.maxX(), texRect.minY())},
   };
 

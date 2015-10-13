@@ -86,6 +86,8 @@ struct LineVertex : BaseVertex
 
 struct DashedLineVertex : BaseVertex
 {
+  using TNormal = glsl::vec3;
+
   DashedLineVertex();
   DashedLineVertex(TPosition const & position, TNormal const & normal,
                    TTexCoord const & color, TTexCoord const & mask);

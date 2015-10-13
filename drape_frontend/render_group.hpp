@@ -63,11 +63,14 @@ public:
   void UpdateAnimation() override;
   double GetOpacity() const;
   bool IsAnimating() const;
+
+  void Appear();
   void Disappear();
 
 private:
   vector<drape_ptr<dp::RenderBucket> > m_renderBuckets;
   unique_ptr<OpacityAnimation> m_disappearAnimation;
+  unique_ptr<OpacityAnimation> m_appearAnimation;
 
   mutable bool m_pendingOnDelete;
 

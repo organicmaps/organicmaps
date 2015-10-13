@@ -78,6 +78,9 @@ void RenderGroup::UpdateAnimation()
 
 double RenderGroup::GetOpacity() const
 {
+  if (m_appearAnimation != nullptr)
+    return m_appearAnimation->GetOpacity();
+
   if (m_disappearAnimation != nullptr)
     return m_disappearAnimation->GetOpacity();
 
@@ -86,16 +89,31 @@ double RenderGroup::GetOpacity() const
 
 bool RenderGroup::IsAnimating() const
 {
-  if (m_disappearAnimation == nullptr || m_disappearAnimation->IsFinished())
-    return false;
+  if (m_appearAnimation && !m_appearAnimation->IsFinished())
+    return true;
 
-  return true;
+  if (m_disappearAnimation && !m_disappearAnimation->IsFinished())
+    return true;
+
+  return false;
+}
+
+void RenderGroup::Appear()
+{
+  if (m_state.GetDepthLayer() == dp::GLState::OverlayLayer)
+  {
+    m_appearAnimation = make_unique<OpacityAnimation>(0.25 /* duration */, 0.0 /* delay */,
+                                                      0.0 /* startOpacity */, 1.0 /* endOpacity */);
+  }
 }
 
 void RenderGroup::Disappear()
 {
-  m_disappearAnimation = make_unique<OpacityAnimation>(0.2 /* duration */, 0.25 /* delay */,
-                                                       1.0 /* startOpacity */, 0.0 /* endOpacity */);
+  if (m_state.GetDepthLayer() == dp::GLState::OverlayLayer)
+  {
+    m_disappearAnimation = make_unique<OpacityAnimation>(0.2 /* duration */, 0.05 /* delay */,
+                                                         1.0 /* startOpacity */, 0.0 /* endOpacity */);
+  }
 }
 
 bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_ptr<RenderGroup> const & r)
