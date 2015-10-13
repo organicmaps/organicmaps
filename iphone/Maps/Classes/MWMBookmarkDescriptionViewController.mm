@@ -19,6 +19,8 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 @property (weak, nonatomic) IBOutlet UITextView * textView;
 @property (weak, nonatomic) IBOutlet UIWebView * webView;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * textViewBottomOffset;
+
 @property (nonatomic) UIBarButtonItem * leftButton;
 @property (nonatomic) UIBarButtonItem * rightButton;
 
@@ -58,13 +60,13 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
     return;
   }
 
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(keyboardWillShown:)
-                                               name:UIKeyboardWillShowNotification object:nil];
-
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(keyboardWillBeHidden:)
-                                               name:UIKeyboardWillHideNotification object:nil];
+  if (!IPAD)
+  {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillChangeFrame:)
+                                                 name:UIKeyboardWillChangeFrameNotification
+                                               object:nil];
+  }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -203,25 +205,18 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 
 #pragma mark - Notifications
 
-- (void)keyboardWillShown:(NSNotification *)aNotification
+- (void)keyboardWillChangeFrame:(NSNotification *)aNotification
 {
   NSDictionary * info = [aNotification userInfo];
-  CGSize const kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-  CGFloat const externalHeight = self.navigationController.navigationBar.height + [UIApplication sharedApplication].statusBarFrame.size.height;
-  self.textView.height -= (kbSize.height - externalHeight);
-}
-
-- (void)keyboardWillBeHidden:(NSNotification *)aNotification
-{
-  NSDictionary * info = [aNotification userInfo];
-  CGSize const kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-  CGFloat const externalHeight = self.navigationController.navigationBar.height + [UIApplication sharedApplication].statusBarFrame.size.height;
-  self.textView.height += (kbSize.height - externalHeight);
+  CGSize const kbSize = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+  CGFloat const offsetToKeyboard = 8.0;
+  self.textViewBottomOffset.constant = kbSize.height + offsetToKeyboard;
 }
 
 - (void)dealloc
 {
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
+  if (!IPAD)
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - UIWebViewDelegate

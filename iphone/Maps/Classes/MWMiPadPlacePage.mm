@@ -11,7 +11,8 @@
 
 static CGFloat const kLeftOffset = 12.;
 static CGFloat const kTopOffset = 36.;
-static CGFloat const kBottomOffset = 12.;
+static CGFloat const kBottomOffset = 60.;
+static CGFloat const kKeyboardOffset = 12.;
 
 @interface MWMiPadPlacePageViewController : ViewController
 
@@ -254,7 +255,8 @@ static CGFloat const kBottomOffset = 12.;
 
 - (CGFloat)getAvailableHeight
 {
-  return self.parentViewHeight - self.keyboardHeight - kTopOffset - kBottomOffset;
+  CGFloat const bottomOffset = self.keyboardHeight > 0.0 ? kKeyboardOffset : kBottomOffset;
+  return self.parentViewHeight - self.keyboardHeight - kTopOffset - bottomOffset;
 }
 
 #pragma mark - Properties

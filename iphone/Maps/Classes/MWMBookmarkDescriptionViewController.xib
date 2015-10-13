@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMBookmarkDescriptionViewController">
             <connections>
                 <outlet property="textView" destination="24o-IB-Pbl" id="sUc-Ad-jBz"/>
+                <outlet property="textViewBottomOffset" destination="fvC-Lz-Wl4" id="e0E-a6-gOl"/>
                 <outlet property="view" destination="iN0-l3-epB" id="CMc-df-bqm"/>
                 <outlet property="webView" destination="lov-Ku-GJM" id="0tn-HE-9c5"/>
             </connections>
