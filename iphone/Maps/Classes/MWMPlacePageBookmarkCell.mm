@@ -64,7 +64,6 @@ static NSUInteger sWebViewHeight = 0;
   if (self.entity.bookmarkDescription.length == 0)
   {
     self.note.hidden = YES;
-    self.noteViewHeight.constant = 0.0;
   }
   else
   {
