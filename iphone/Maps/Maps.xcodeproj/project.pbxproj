@@ -315,10 +315,6 @@
 		F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */; };
 		F7FDD823147F30CC005900FA /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = F7FDD822147F30CC005900FA /* drules_proto.bin */; };
 		FA054612155C465E001F4E37 /* SelectSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA054611155C465E001F4E37 /* SelectSetVC.mm */; };
-		FA140651162A6288002BC1ED /* empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA14064D162A6288002BC1ED /* empty@2x.png */; };
-		FA140653162A6288002BC1ED /* empty.png in Resources */ = {isa = PBXBuildFile; fileRef = FA14064E162A6288002BC1ED /* empty.png */; };
-		FA140655162A6288002BC1ED /* eye.png in Resources */ = {isa = PBXBuildFile; fileRef = FA14064F162A6288002BC1ED /* eye.png */; };
-		FA140657162A6288002BC1ED /* eye@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA140650162A6288002BC1ED /* eye@2x.png */; };
 		FA29FDAA141E77F8004ADF66 /* Preferences.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA29FDA9141E77F8004ADF66 /* Preferences.mm */; };
 		FA36B80D15403A4F004560CC /* BookmarksVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA36B80615403A4F004560CC /* BookmarksVC.mm */; };
 		FA459EB414327AF700B5BB3C /* WorldCoasts.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */; };
@@ -821,10 +817,6 @@
 		F7FDD822147F30CC005900FA /* drules_proto.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto.bin; path = ../../data/drules_proto.bin; sourceTree = "<group>"; };
 		FA054610155C465E001F4E37 /* SelectSetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectSetVC.h; path = Bookmarks/SelectSetVC.h; sourceTree = SOURCE_ROOT; };
 		FA054611155C465E001F4E37 /* SelectSetVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SelectSetVC.mm; path = Bookmarks/SelectSetVC.mm; sourceTree = SOURCE_ROOT; };
-		FA14064D162A6288002BC1ED /* empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "empty@2x.png"; path = "Bookmarks/empty@2x.png"; sourceTree = SOURCE_ROOT; };
-		FA14064E162A6288002BC1ED /* empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = empty.png; path = Bookmarks/empty.png; sourceTree = SOURCE_ROOT; };
-		FA14064F162A6288002BC1ED /* eye.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = eye.png; path = Bookmarks/eye.png; sourceTree = SOURCE_ROOT; };
-		FA140650162A6288002BC1ED /* eye@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "eye@2x.png"; path = "Bookmarks/eye@2x.png"; sourceTree = SOURCE_ROOT; };
 		FA29FDA8141E77F8004ADF66 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Preferences.h; path = Settings/Preferences.h; sourceTree = "<group>"; };
 		FA29FDA9141E77F8004ADF66 /* Preferences.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Preferences.mm; path = Settings/Preferences.mm; sourceTree = "<group>"; };
 		FA36B80515403A4F004560CC /* BookmarksVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = BookmarksVC.h; path = Bookmarks/BookmarksVC.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -2055,7 +2047,6 @@
 			children = (
 				F785EB3E16386FC4003A38A8 /* BookmarkCell.h */,
 				F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */,
-				FA36B8171540466A004560CC /* Images */,
 				FAA614B6155F16950031C345 /* AddSetVC.h */,
 				FAA614B7155F16950031C345 /* AddSetVC.mm */,
 				FA054610155C465E001F4E37 /* SelectSetVC.h */,
@@ -2067,17 +2058,6 @@
 			);
 			name = Bookmarks;
 			path = Classes;
-			sourceTree = "<group>";
-		};
-		FA36B8171540466A004560CC /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				FA14064E162A6288002BC1ED /* empty.png */,
-				FA14064D162A6288002BC1ED /* empty@2x.png */,
-				FA14064F162A6288002BC1ED /* eye.png */,
-				FA140650162A6288002BC1ED /* eye@2x.png */,
-			);
-			name = Images;
 			sourceTree = "<group>";
 		};
 		FA4135DF120A25B90062D5B4 /* Settings */ = {
@@ -2316,14 +2296,10 @@
 				4A00DBDF1AB704C400113624 /* drules_proto_dark.bin in Resources */,
 				4A23D15D1B8B4DD700D4EB6F /* resources-mdpi_clear in Resources */,
 				F6FE2C111B03A016009814AA /* PlacePageNavigationBar.xib in Resources */,
-				FA140651162A6288002BC1ED /* empty@2x.png in Resources */,
 				F61579361AC2CEB60032D8E9 /* MWMRateAlert.xib in Resources */,
-				FA140653162A6288002BC1ED /* empty.png in Resources */,
 				34634B1B1BB42D270013573C /* MWMBottomMenuCollectionViewLandscapeCell.xib in Resources */,
-				FA140655162A6288002BC1ED /* eye.png in Resources */,
 				347FDDA11BB59B4E00871410 /* Mapsme.storyboard in Resources */,
 				3438CDF91B8616760051AA78 /* MWMSearchShowOnMapCell.xib in Resources */,
-				FA140657162A6288002BC1ED /* eye@2x.png in Resources */,
 				34BAB6EE1BB2DFCE00DB941B /* MWMBottomMenuCollectionViewPortraitCell.xib in Resources */,
 				349A358D1B53EABC009677EE /* MWMSearchDownloadMapRequest.xib in Resources */,
 				4A23D15B1B8B4DD700D4EB6F /* drules_proto_clear.bin in Resources */,
