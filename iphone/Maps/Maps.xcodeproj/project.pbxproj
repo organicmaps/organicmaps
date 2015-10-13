@@ -123,6 +123,7 @@
 		34F45E8E1B96E88100AC93F8 /* MWMSearchTabButtonsView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F45E8D1B96E88100AC93F8 /* MWMSearchTabButtonsView.mm */; };
 		34F45E901B96E8B100AC93F8 /* MWMSearchTabButtonsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34F45E8F1B96E8B100AC93F8 /* MWMSearchTabButtonsView.xib */; };
 		34F8ADD91B97229A004184CC /* MWMSearchTableView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F8ADD81B97229A004184CC /* MWMSearchTableView.mm */; };
+		34FE4C451BCC013500066718 /* MWMMapWidgets.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34FE4C441BCC013500066718 /* MWMMapWidgets.mm */; settings = {ASSET_TAGS = (); }; };
 		45159BF91B0CA2D5009BFA85 /* resources-6plus in Resources */ = {isa = PBXBuildFile; fileRef = 45159BF81B0CA2D5009BFA85 /* resources-6plus */; };
 		4519503A1B7A3E070085DA05 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 451950391B7A3E070085DA05 /* patterns.txt */; };
 		4519503B1B7A3E390085DA05 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 451950391B7A3E070085DA05 /* patterns.txt */; };
@@ -1012,6 +1013,8 @@
 		34F45E8F1B96E8B100AC93F8 /* MWMSearchTabButtonsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMSearchTabButtonsView.xib; sourceTree = "<group>"; };
 		34F8ADD71B97229A004184CC /* MWMSearchTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchTableView.h; sourceTree = "<group>"; };
 		34F8ADD81B97229A004184CC /* MWMSearchTableView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchTableView.mm; sourceTree = "<group>"; };
+		34FE4C431BCC013500066718 /* MWMMapWidgets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapWidgets.h; sourceTree = "<group>"; };
+		34FE4C441BCC013500066718 /* MWMMapWidgets.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapWidgets.mm; sourceTree = "<group>"; };
 		3D443C9C19E421EE0025C2FC /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		45159BF81B0CA2D5009BFA85 /* resources-6plus */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-6plus"; path = "../../data/resources-6plus"; sourceTree = "<group>"; };
 		451950391B7A3E070085DA05 /* patterns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = patterns.txt; path = ../../data/patterns.txt; sourceTree = "<group>"; };
@@ -1576,6 +1579,7 @@
 			isa = PBXGroup;
 			children = (
 				F607C18B1C047FCA00B53A87 /* Segue */,
+				34FE4C421BCC013500066718 /* Widgets */,
 				346EDAD81B9F0E15004F8DB5 /* Components */,
 				340837101B7243B500B5C185 /* Share */,
 				340F24601B1490ED00F874CD /* RouteState */,
@@ -2140,6 +2144,15 @@
 				F64A7B861BB2CD3D00CB03B0 /* RoutePointCell */,
 			);
 			path = RoutePreview;
+			sourceTree = "<group>";
+		};
+		34FE4C421BCC013500066718 /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				34FE4C431BCC013500066718 /* MWMMapWidgets.h */,
+				34FE4C441BCC013500066718 /* MWMMapWidgets.mm */,
+			);
+			path = Widgets;
 			sourceTree = "<group>";
 		};
 		560634EF1B787EBE00F3D670 /* Sound */ = {
@@ -3406,6 +3419,7 @@
 				F62404FB1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.mm in Sources */,
 				34CC4C0E1B82069C00E44C1F /* MWMSearchTabbedCollectionViewCell.mm in Sources */,
 				F6588E2C1B15C26700EE1E58 /* MWMTextView.mm in Sources */,
+				34FE4C451BCC013500066718 /* MWMMapWidgets.mm in Sources */,
 				F61B0F2C1B8B82DB00C08258 /* MWMNextTurnPanel.mm in Sources */,
 				F6F722F81AE1572400DA3DA1 /* MWMiPhonePortraitPlacePage.mm in Sources */,
 				F6CB21681AEFC6AA00FB8963 /* MWMPlacePageActionBar.mm in Sources */,
@@ -3422,8 +3436,6 @@
 				34CFFE8B1B7DE6FD009D0C9F /* MWMSearchManager.mm in Sources */,
 				F6BBF2C61B4FFB72000CF8E2 /* MWMLocationAlert.mm in Sources */,
 				F66A8FB01B09F268001B9C97 /* MWMPlacePage.mm in Sources */,
-				34BC72251B0DECAE0012A34B /* MWMSideMenuButton.mm in Sources */,
-				EE7F29821219ECA300EB67A9 /* RenderContext.mm in Sources */,
 				F6ED13911B1EF96B0095C6DE /* MWMBookmarkDescriptionViewController.mm in Sources */,
 				349A35851B53E967009677EE /* MWMDownloadMapRequestView.mm in Sources */,
 				F64F19991AB81A00006EAF7E /* MWMAlertViewController.mm in Sources */,

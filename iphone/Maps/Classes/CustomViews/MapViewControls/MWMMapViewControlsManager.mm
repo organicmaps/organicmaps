@@ -1,5 +1,6 @@
 #import "Common.h"
 #import "CountryTreeVC.h"
+#import "EAGLView.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
 #import "MWMAlertViewController.h"
@@ -564,7 +565,8 @@ extern NSString * const kAlohalyticsTapEventKey;
   _hidden = hidden;
   self.zoomHidden = _zoomHidden;
   self.menuState = _menuState;
-  GetFramework().SetFullScreenMode(hidden);
+  EAGLView * glView = (EAGLView *)self.ownerController.view;
+  glView.widgetsManager.fullScreen = hidden;
 }
 
 - (void)setZoomHidden:(BOOL)zoomHidden

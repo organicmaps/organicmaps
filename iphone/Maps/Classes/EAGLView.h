@@ -1,5 +1,4 @@
-#import <UIKit/UIKit.h>
-
+#import "MWMMapWidgets.h"
 
 #include "../../std/shared_ptr.hpp"
 #include "../../indexer/map_style.hpp"
@@ -20,6 +19,8 @@ namespace dp
   // It's possible when we add/remove subviews (bookmark balloons) and it hangs the map without this check
   CGRect lastViewSize;
 }
+
+@property (nonatomic) MWMMapWidgets * widgetsManager;
 
 - (void)deallocateNative;
 - (CGPoint)viewPoint2GlobalPoint:(CGPoint)pt;

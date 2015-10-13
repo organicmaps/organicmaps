@@ -1,5 +1,6 @@
 #import "Common.h"
 #import "MapsAppDelegate.h"
+#import "EAGLView.h"
 #import "MWMBottomMenuView.h"
 #import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"
@@ -69,7 +70,7 @@
   }
   [UIView animateWithDuration:kDefaultAnimationDuration animations:^{ [self updateAlphaAndColor]; }
                    completion:^(BOOL finished) { [self updateVisibility]; }];
-  [self layoutWidgets];
+  ((EAGLView *)self.superview).widgetsManager.bottomBound = self.mainButtons.height;
   [super layoutSubviews];
 }
 
@@ -169,19 +170,6 @@
     self.streetLabel.hidden = NO;
     break;
   }
-}
-
-- (void)layoutWidgets
-{
-  UIView * superView = self.superview;
-  CGFloat const contentScaleFactor = superView.contentScaleFactor;
-  m2::PointD const pivot(superView.width * contentScaleFactor - 36.0,
-                         (superView.height - self.mainButtons.height) * contentScaleFactor - 24.0);
-
-  gui::TWidgetsLayoutInfo layout;
-  layout[gui::WIDGET_RULER] = pivot;
-  layout[gui::WIDGET_COPYRIGHT] = pivot;
-  GetFramework().SetWidgetLayout(move(layout));
 }
 
 - (void)layoutGeometry
