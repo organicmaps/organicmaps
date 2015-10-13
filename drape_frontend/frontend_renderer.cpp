@@ -30,11 +30,7 @@ namespace
 {
 
 const double VSyncInterval = 0.030;
-//#ifdef DEBUG
-//const double VSyncInterval = 0.030;
-//#else
 //const double VSyncInterval = 0.014;
-//#endif
 
 } // namespace
 
@@ -818,13 +814,12 @@ void FrontendRenderer::Routine::Do()
   blendingParams.Apply();
 
   my::HighResTimer timer;
-  //double processingTime = InitAvarageTimePerMessage; // By init we think that one message processed by 1ms
-
   timer.Reset();
   double frameTime = 0.0;
   int inactiveFrameCount = 0;
   bool viewChanged = true;
   ScreenBase modelView = m_renderer.UpdateScene(viewChanged);
+
   while (!IsCancelled())
   {
     context->setDefaultFramebuffer();
@@ -846,19 +841,15 @@ void FrontendRenderer::Routine::Do()
     }
     else
     {
-      double availableTime = VSyncInterval - (timer.ElapsedSeconds() /*+ avarageMessageTime*/);
-
+      double availableTime = VSyncInterval - timer.ElapsedSeconds();
       if (availableTime < 0.0)
         availableTime = 0.01;
 
       while (availableTime > 0)
       {
         m_renderer.ProcessSingleMessage(availableTime * 1000.0);
-        availableTime = VSyncInterval - (timer.ElapsedSeconds() /*+ avarageMessageTime*/);
-        //messageCount++;
+        availableTime = VSyncInterval - timer.ElapsedSeconds();
       }
-
-      //processingTime = (timer.ElapsedSeconds() - processingTime) / messageCount;
     }
 
     context->present();

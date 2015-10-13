@@ -69,9 +69,6 @@ void BackendRenderer::RecacheCountryStatus()
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(outputMsg), MessagePriority::High);
 }
 
-/////////////////////////////////////////
-//           MessageAcceptor           //
-/////////////////////////////////////////
 void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
 {
   switch (message->GetType())

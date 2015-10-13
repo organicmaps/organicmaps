@@ -42,9 +42,9 @@ void VisualParams::Init(double vs, uint32_t tileSize, vector<uint32_t> const & a
 
   // Here we set up glyphs rendering parameters separately for high-res and low-res screens.
   if (vs <= 1.0)
-    g_VizParams.m_glyphVisualParams = { 0.43, 0.6, 0.615, 0.95, 0.43, 0.6 };
+    g_VizParams.m_glyphVisualParams = { 0.44, 0.6, 0.615, 0.95, 0.44, 0.6 };
   else
-    g_VizParams.m_glyphVisualParams = { 0.4, 0.575, 0.58, 0.95, 0.4, 0.575 };
+    g_VizParams.m_glyphVisualParams = { 0.41, 0.575, 0.58, 0.95, 0.41, 0.575 };
 
   RISE_INITED;
 }

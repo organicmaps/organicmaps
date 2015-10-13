@@ -1,5 +1,7 @@
 #include "shape.hpp"
 
+#include "drape_frontend/visual_params.hpp"
+
 #include "drape/glsl_func.hpp"
 #include "drape/utils/projection.hpp"
 
@@ -21,6 +23,13 @@ bool Handle::Update(ScreenBase const & screen)
     m_uniforms.SetMatrix4x4Value("modelView",
                                  value_ptr(transpose(translate(mat4(), vec3(m_pivot, 0.0)))));
     m_uniforms.SetFloatValue("u_opacity", 1.0);
+
+    auto const & params = df::VisualParams::Instance().GetGlyphVisualParams();
+    m_uniforms.SetFloatValue("u_outlineGlyphParams",
+                             params.m_outlineMinStart, params.m_outlineMinEnd,
+                             params.m_outlineMaxStart, params.m_outlineMaxEnd);
+    m_uniforms.SetFloatValue("u_glyphParams",
+                             params.m_alphaGlyphMin, params.m_alphaGlyphMax);
   }
 
   return true;

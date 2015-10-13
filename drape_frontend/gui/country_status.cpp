@@ -174,7 +174,7 @@ drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex,
         Button::Params params;
         params.m_anchor = m_position.m_anchor;
         params.m_label = control.m_label;
-        params.m_labelFont = dp::FontDecl(dp::Color::White(), 16);
+        params.m_labelFont = dp::FontDecl(dp::Color::White(), 18);
         params.m_minWidth = 400;
         params.m_maxWidth = 600;
         params.m_margin = 5.0f * visualScale;

@@ -90,6 +90,8 @@ public:
   bool IsOnRoute() const { return (m_state == OnRoute); }
   void Reset();
 
+  Route const & GetRoute() const { return m_route; }
+
   State OnLocationPositionChanged(location::GpsInfo const & info, Index const & index);
   void GetRouteFollowingInfo(location::FollowingInfo & info) const;
 
