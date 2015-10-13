@@ -46,6 +46,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
   CGFloat const height = MIN(size.width, size.height);
   CGFloat const offset = MIN(height, kMaximumPlacePageWidth);
   self.extendedPlacePageView.minX = -offset;
+  self.extendedPlacePageView.width = offset;
   self.actionBar.width = offset;
   self.actionBar.minX = 0.0;
   self.state = MWMiPhoneLandscapePlacePageStateOpen;
