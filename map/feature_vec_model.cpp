@@ -52,7 +52,7 @@ pair<MwmSet::MwmId, MwmSet::RegResult> FeaturesFetcher::RegisterMap(
     auto result = m_multiIndex.RegisterMap(localFile);
     if (result.second != MwmSet::RegResult::Success)
     {
-      LOG(LWARNING, ("Can't add map", localFile.GetCountryName(),
+      LOG(LWARNING, ("Can't add map", localFile.GetCountryName(), "(", result.second, ").",
                      "Probably it's already added or has newer data version."));
     }
     else
