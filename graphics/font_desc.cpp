@@ -16,12 +16,6 @@ namespace graphics
                        m_isMasked(isMasked), m_maskColor(maskColor)
   {}
 
-  void FontDesc::SetRank(double rank)
-  {
-    if (rank > 0)
-      m_size += static_cast<int>(rank * m_size);
-  }
-
   bool FontDesc::IsValid() const
   {
     return m_size != -1;

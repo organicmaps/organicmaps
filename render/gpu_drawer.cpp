@@ -196,21 +196,14 @@ void GPUDrawer::DrawText(m2::PointD const & pt,
                          di::FeatureStyler const & fs,
                          di::DrawRule const & rule)
 {
-  if (fs.m_popRank < 0.0)
-    return; // do not draw
-
   graphics::FontDesc primaryFont;
   m2::PointD primaryOffset;
   ConvertStyle(rule.m_rule->GetCaption(0), VisualScale(), primaryFont, primaryOffset);
-  primaryFont.SetRank(fs.m_popRank);
 
   graphics::FontDesc secondaryFont;
   m2::PointD secondaryOffset;
   if (rule.m_rule->GetCaption(1))
-  {
     ConvertStyle(rule.m_rule->GetCaption(1), VisualScale(), secondaryFont, secondaryOffset);
-    secondaryFont.SetRank(fs.m_popRank);
-  }
 
   graphics::StraightTextElement::Params params;
   params.m_depth = rule.m_depth;

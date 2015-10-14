@@ -64,12 +64,6 @@ void Drawer::GenerateRoadNumbers(di::PathInfo const & path, graphics::FontDesc c
 
 void Drawer::Draw(di::FeatureInfo const & fi)
 {
-  // [STYLES_HARDCODE] If city population rank is less than zero then
-  // do not draw node name and node point
-  if (fi.m_styler.m_geometryType == feature::GEOM_POINT &&
-      fi.m_styler.m_popRank < 0.0)
-    return;
-
   DrawFeatureStart(fi.m_id);
 
   buffer_vector<di::DrawRule, 8> const & rules = fi.m_styler.m_rules;

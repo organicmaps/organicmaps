@@ -615,21 +615,16 @@ void CPUDrawer::CallTextRendererFn(TextShape const * shape, TTextRendererCall co
   ASSERT(shape->m_drawRule.m_rule->GetCaption(0) != nullptr, ());
   di::FeatureStyler const & fs = GetInfo(shape->m_geomID, m_stylers);
 
-  if (fs.m_popRank < 0.0)
-    return; // do not draw
-
   CaptionDefProto const * primCaption = shape->m_drawRule.m_rule->GetCaption(0);
   CaptionDefProto const * secCaption = shape->m_drawRule.m_rule->GetCaption(1);
 
   graphics::FontDesc primFont, secFont;
   m2::PointD primOffset, secOffset;
   ConvertStyle(primCaption, VisualScale(), primFont, primOffset);
-  primFont.SetRank(fs.m_popRank);
   CorrectFont(primFont);
   if (secCaption != nullptr)
   {
     ConvertStyle(secCaption, VisualScale(), secFont, secOffset);
-    secFont.SetRank(fs.m_popRank);
     CorrectFont(secFont);
   }
 

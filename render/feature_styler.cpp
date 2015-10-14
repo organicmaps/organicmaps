@@ -110,14 +110,6 @@ namespace di
 
     uint32_t const population = ftypes::GetPopulation(f);
 
-    // [STYLE_HARDCODE] Calculate population rank for cities and towns only.
-    // It affects font size. If population rank is less than zero, feature is not drawn.
-    ftypes::Type const localityType = ftypes::IsLocalityChecker::Instance().GetType(f);
-    if (localityType == ftypes::CITY || localityType == ftypes::TOWN)
-      m_popRank = drule::rules().GetCityRank(zoom, population);
-    else
-      m_popRank = 0.0;
-
     double area = 0.0;
     if (m_geometryType != feature::GEOM_POINT)
     {
