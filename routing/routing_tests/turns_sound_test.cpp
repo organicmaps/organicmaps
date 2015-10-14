@@ -89,7 +89,8 @@ UNIT_TEST(TurnNotificationSettingsNotValidTest)
 
 UNIT_TEST(TurnsSoundMetersTest)
 {
-  TurnsSound turnSound;
+  TurnsSound turnSound(5 /* startBeforeSeconds */, 10 /* minStartBeforeMeters */,
+                       100 /* maxStartBeforeMeters */,  100 /* minDistToSayNotificationMeters */);
   turnSound.Enable(true);
   turnSound.SetLengthUnits(::Settings::Metric);
   string const engShortJson =
@@ -175,7 +176,8 @@ UNIT_TEST(TurnsSoundMetersTest)
 // So the first notification of the second turn shall be skipped.
 UNIT_TEST(TurnsSoundMetersTwoTurnsTest)
 {
-  TurnsSound turnSound;
+  TurnsSound turnSound(5 /* startBeforeSeconds */, 10 /* minStartBeforeMeters */,
+                       100 /* maxStartBeforeMeters */,  100 /* minDistToSayNotificationMeters */);
   turnSound.Enable(true);
   turnSound.SetLengthUnits(::Settings::Metric);
   string const engShortJson =
@@ -201,7 +203,8 @@ UNIT_TEST(TurnsSoundMetersTwoTurnsTest)
 
   // 700 meters till the turn. It's time to pronounce the first voice notification.
   // The speed is high.
-  // The compensation of kStartBeforeSeconds/kMinStartBeforeMeters/kMaxStartBeforeMeters is not enough.
+  // The compensation of TurnsSound::m_startBeforeSeconds/TurnsSound::m_minStartBeforeMeters/
+  // TurnsSound::m_maxStartBeforeMeters is not enough.
   // The user will be closer to the turn while pronouncing despite the compensation.
   // So it should be pronounced "In 600 meters."
   turns.front().m_distMeters = 700.;
@@ -248,7 +251,8 @@ UNIT_TEST(TurnsSoundMetersTwoTurnsTest)
 
 UNIT_TEST(TurnsSoundFeetTest)
 {
-  TurnsSound turnSound;
+  TurnsSound turnSound(5 /* startBeforeSeconds */, 10 /* minStartBeforeMeters */,
+                       100 /* maxStartBeforeMeters */,  100 /* minDistToSayNotificationMeters */);
   turnSound.Enable(true);
   turnSound.SetLengthUnits(::Settings::Foot);
   string const engShortJson =
@@ -329,7 +333,8 @@ UNIT_TEST(TurnsSoundFeetTest)
 
 UNIT_TEST(TurnsSoundComposedTurnTest)
 {
-  TurnsSound turnSound;
+  TurnsSound turnSound(5 /* startBeforeSeconds */, 10 /* minStartBeforeMeters */,
+                       100 /* maxStartBeforeMeters */,  100 /* minDistToSayNotificationMeters */);
   turnSound.Enable(true);
   turnSound.SetLengthUnits(::Settings::Metric);
   string const engShortJson =
@@ -398,7 +403,8 @@ UNIT_TEST(TurnsSoundComposedTurnTest)
 
 UNIT_TEST(TurnsSoundRoundaboutTurnTest)
 {
-  TurnsSound turnSound;
+  TurnsSound turnSound(5 /* startBeforeSeconds */, 10 /* minStartBeforeMeters */,
+                       100 /* maxStartBeforeMeters */,  100 /* minDistToSayNotificationMeters */);
   turnSound.Enable(true);
   turnSound.SetLengthUnits(::Settings::Metric);
   string const engShortJson =
