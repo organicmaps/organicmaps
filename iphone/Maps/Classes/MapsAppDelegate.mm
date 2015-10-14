@@ -9,6 +9,7 @@
 #import "Preferences.h"
 #import "RouteState.h"
 #import "Statistics.h"
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Parse/Parse.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
@@ -158,8 +159,7 @@ void InitLocalizedStrings()
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   // Initialize all 3party engines.
-  BOOL returnValue = [[Statistics instance] application:application
-                          didFinishLaunchingWithOptions:launchOptions];
+  BOOL returnValue = [self initStatistics:application didFinishLaunchingWithOptions:launchOptions];
 
   NSURL * urlUsedToLaunchMaps = launchOptions[UIApplicationLaunchOptionsURLKey];
   if (urlUsedToLaunchMaps != nil)
@@ -167,11 +167,9 @@ void InitLocalizedStrings()
   else
     returnValue = YES;
 
-  [HttpThread setDownloadIndicatorProtocol:[MapsAppDelegate theApp]];
+  [HttpThread setDownloadIndicatorProtocol:self];
 
   [self trackWatchUser];
-
-  [[Statistics instance] logEvent:@"Device Info" withParameters:@{@"Country" : [AppInfo sharedInfo].countryCode}];
 
   InitLocalizedStrings();
   
@@ -308,6 +306,31 @@ void InitLocalizedStrings()
   [[NSNotificationCenter defaultCenter] removeObserver:self];
   // Global cleanup
   DeleteFramework();
+}
+
+- (BOOL)initStatistics:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+  Statistics * statistics = [Statistics instance];
+  BOOL returnValue = [statistics application:application didFinishLaunchingWithOptions:launchOptions];
+  [statistics logEvent:@"Device Info" withParameters:@{@"Country" : [AppInfo sharedInfo].countryCode}];
+
+  NSString * connectionType;
+  switch (Platform::ConnectionStatus())
+  {
+    case Platform::EConnectionType::CONNECTION_NONE:
+      break;
+    case Platform::EConnectionType::CONNECTION_WIFI:
+      connectionType = @"Wi-Fi";
+      break;
+    case Platform::EConnectionType::CONNECTION_WWAN:
+      connectionType = [[CTTelephonyNetworkInfo alloc] init].currentRadioAccessTechnology;
+      break;
+  }
+  if (!connectionType)
+    connectionType = @"Offline";
+  [statistics logEvent:@"Connection" withParameters:@{@"Type" : connectionType}];
+
+  return returnValue;
 }
 
 - (void)disableDownloadIndicator
