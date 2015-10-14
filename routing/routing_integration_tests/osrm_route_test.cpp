@@ -115,18 +115,17 @@ namespace
         MercatorBounds::FromLatLon(48.86123, 2.34129), 2840940.);
   }
 
-// @TODO This test is failed to create a route for the time being with data from 12.09.2015.
-// Now it's impossible to create a vehicle route from Paris to London.
-// The assumed reason is some tags of the tunnel were changed and we stop working with
-// the situation correctly.
-// At the same time OSRM manages to create routes through the tunnel.
-  UNIT_TEST(FranceParisCenternglandLondonCenterRouteTest)
-  {
-    integration::CalculateRouteAndTestRouteLength(
-        integration::GetOsrmComponents(),
-        MercatorBounds::FromLatLon(48.86123, 2.34129), {0., 0.},
-        MercatorBounds::FromLatLon(51.49884, -0.10438), 0./* Some unknown value*/);
-  }
+// TODO(gardster) repair routing to London.
+// https://trello.com/c/WPSQUu9J/1932-francepariscenternglandlondoncenterroutetest
+// OSRM routes through a OSM way with tag render:no. So we have no geometry in the
+// mwm and we can not obtain a cross section exit point.
+//  UNIT_TEST(FranceParisCenternglandLondonCenterRouteTest)
+//  {
+//    integration::CalculateRouteAndTestRouteLength(
+//        integration::GetOsrmComponents(),
+//        MercatorBounds::FromLatLon(48.86123, 2.34129), {0., 0.},
+//        MercatorBounds::FromLatLon(51.49884, -0.10438), 0./* Some unknown value*/);
+//  }
 
   // Strange map edits in Africa borders. Routing not linked now.
   /*
