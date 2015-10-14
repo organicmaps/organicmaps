@@ -6,15 +6,18 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
+#include "geometry/point2d.hpp"
+
 #include "base/logging.hpp"
 
 using namespace routing;
 
 namespace
 {
-void CheckCrosses()
+UNIT_TEST(CheckCrossSections)
 {
   static double constexpr kPointEquality = 0.01;
+  static m2::PointD const kZeroPoint = m2::PointD(0., 0.);
   vector<platform::LocalCountryFile> localFiles;
   platform::FindAllLocalMaps(localFiles);
 
@@ -38,8 +41,7 @@ void CheckCrosses()
     auto ingoing = crossReader.GetIngoingIterators();
     for (auto i = ingoing.first; i != ingoing.second; ++i)
     {
-      if (my::AlmostEqualAbs(i->m_point.x, 0.0, kPointEquality) &&
-          my::AlmostEqualAbs(i->m_point.y, 0.0, kPointEquality))
+      if (i->m_point.EqualDxDy(kZeroPoint, kPointEquality))
       {
         ingoingErrors++;
         break;
@@ -48,20 +50,15 @@ void CheckCrosses()
     auto outgoing = crossReader.GetOutgoingIterators();
     for (auto i = outgoing.first; i != outgoing.second; ++i)
     {
-      if (my::AlmostEqualAbs(i->m_point.x, 0.0, kPointEquality) &&
-          my::AlmostEqualAbs(i->m_point.y, 0.0, kPointEquality))
+      if (i->m_point.EqualDxDy(kZeroPoint, kPointEquality))
       {
         outgoingErrors++;
         break;
       }
     }
   }
-  TEST_EQUAL(ingoingErrors + outgoingErrors, 0, ("Some countries have zero point exits."));
+  TEST_EQUAL(ingoingErrors, 0, ("Some countries have zero point incomes."));
+  TEST_EQUAL(outgoingErrors, 0, ("Some countries have zero point exits."));
   LOG(LINFO, ("Found ", localFiles.size(), "countries.", noRouting, "has no routing file."));
-}
-
-UNIT_TEST(CheckCrossSections)
-{
-  CheckCrosses();
 }
 }  // namespace
