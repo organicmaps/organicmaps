@@ -47,17 +47,15 @@ bool CheckMwmConsistency(LocalCountryFile const & localFile)
 namespace routing
 {
 
-RoutingMapping::RoutingMapping(string const & countryFile, MwmSet * pIndex)
+RoutingMapping::RoutingMapping(string const & countryFile, MwmSet & index)
     : m_mapCounter(0),
       m_facadeCounter(0),
       m_crossContextLoaded(0),
       m_countryFile(countryFile),
       m_error(IRouter::ResultCode::RouteFileNotExist),
-      m_pIndex(pIndex)
+      m_pIndex(&index)
 {
-  CHECK(m_pIndex != nullptr, ());
-
-  m_handle = pIndex->GetMwmHandleByCountryFile(CountryFile(countryFile));
+  m_handle = index.GetMwmHandleByCountryFile(CountryFile(countryFile));
   if (!m_handle.IsAlive())
     return;
 
@@ -86,13 +84,19 @@ void RoutingMapping::LoadFileIfNeeded()
 {
   ASSERT(m_pIndex != nullptr, ());
   if (!m_handle.IsAlive() && m_mwmId.IsAlive())
+  {
     m_handle = m_pIndex->GetMwmHandleById(m_mwmId);
+    m_container.Open(m_mwmId.GetInfo()->GetLocalFile().GetPath(MapOptions::CarRouting));
+  }
 }
 
 void RoutingMapping::FreeFileIfPossible()
 {
-  if (m_handle.IsAlive() && m_mapCounter == 0 && m_facadeCounter == 0)
+  if (m_mapCounter == 0 && m_facadeCounter == 0 && m_handle.IsAlive())
+  {
     m_handle = MwmSet::MwmHandle();
+    m_container.Close();
+  }
 }
 
 RoutingMapping::~RoutingMapping()
@@ -106,6 +110,8 @@ RoutingMapping::~RoutingMapping()
 void RoutingMapping::Map()
 {
   LoadFileIfNeeded();
+  if (!m_handle.IsAlive())
+    return;
   ++m_mapCounter;
   if (!m_segMapping.IsMapped())
   {
@@ -127,6 +133,8 @@ void RoutingMapping::LoadFacade()
   if (!m_facadeCounter)
   {
     LoadFileIfNeeded();
+    if (!m_handle.IsAlive())
+      return;
     m_dataFacade.Load(m_container);
   }
   ++m_facadeCounter;
@@ -149,6 +157,9 @@ void RoutingMapping::LoadCrossContext()
 
   LoadFileIfNeeded();
 
+  if (!m_handle.IsAlive())
+    return;
+
   if (m_container.IsExist(ROUTING_CROSS_CONTEXT_TAG))
   {
     m_crossContext.Load(m_container.GetReader(ROUTING_CROSS_CONTEXT_TAG));
@@ -160,6 +171,7 @@ void RoutingMapping::FreeCrossContext()
 {
   m_crossContextLoaded = false;
   m_crossContext = CrossRoutingContextReader();
+  FreeFileIfPossible();
 }
 
 TRoutingMappingPtr RoutingIndexManager::GetMappingByPoint(m2::PointD const & point)

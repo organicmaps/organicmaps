@@ -27,7 +27,7 @@ struct RoutingMapping
   /// @postcondition IsValid() == false.
   RoutingMapping() : m_pIndex(nullptr) {}
   /// @param countryFile Country file name without extension.
-  RoutingMapping(string const & countryFile, MwmSet * pIndex);
+  RoutingMapping(string const & countryFile, MwmSet & index);
   ~RoutingMapping();
 
   void Map();
@@ -39,7 +39,7 @@ struct RoutingMapping
   void LoadCrossContext();
   void FreeCrossContext();
 
-  bool IsValid() const { return m_mwmId.IsAlive() && m_error == IRouter::ResultCode::NoError; }
+  bool IsValid() const { return m_error == IRouter::ResultCode::NoError && m_mwmId.IsAlive(); }
 
   IRouter::ResultCode GetError() const { return m_error; }
 
@@ -97,10 +97,9 @@ public:
 class RoutingIndexManager
 {
 public:
-  RoutingIndexManager(TCountryFileFn const & countryFileFn, MwmSet * index)
+  RoutingIndexManager(TCountryFileFn const & countryFileFn, MwmSet & index)
       : m_countryFileFn(countryFileFn), m_index(index)
   {
-    ASSERT(index, ());
   }
 
   TRoutingMappingPtr GetMappingByPoint(m2::PointD const & point);
@@ -118,7 +117,7 @@ public:
 private:
   TCountryFileFn m_countryFileFn;
   unordered_map<string, TRoutingMappingPtr> m_mapping;
-  MwmSet * m_index;
+  MwmSet & m_index;
 };
 
 }  // namespace routing
