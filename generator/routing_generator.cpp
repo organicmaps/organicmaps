@@ -25,8 +25,6 @@
 
 #include "base/logging.hpp"
 
-#include "std/fstream.hpp"
-
 #include "3party/osrm/osrm-backend/data_structures/edge_based_node_data.hpp"
 #include "3party/osrm/osrm-backend/data_structures/query_edge.hpp"
 #include "3party/osrm/osrm-backend/data_structures/internal_route_result.hpp"

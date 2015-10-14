@@ -22,20 +22,15 @@
 #include "indexer/rank_table.hpp"
 #include "indexer/search_index_builder.hpp"
 
+#include "platform/platform.hpp"
+
 #include "coding/file_name_utils.hpp"
 
 #include "base/timer.hpp"
 
 #include "defines.hpp"
 
-#include "platform/platform.hpp"
-
 #include "3party/gflags/src/gflags/gflags.h"
-
-#include "std/iostream.hpp"
-#include "std/fstream.hpp"
-#include "std/iomanip.hpp"
-#include "std/numeric.hpp"
 
 
 DEFINE_bool(generate_update, false,
