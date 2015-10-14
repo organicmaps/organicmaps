@@ -1,3 +1,4 @@
+#import "Common.h"
 #import "MWMZoomButtonsView.h"
 #import "MWMMapViewControlsCommon.h"
 
@@ -103,7 +104,7 @@ static CGFloat const kZoomViewHideBoundPercent = 0.4;
 
 - (void)setTopBound:(CGFloat)topBound
 {
-  if (_topBound == topBound)
+  if (equalScreenDimensions(_topBound, topBound))
     return;
   _topBound = topBound;
   [self animate];
@@ -118,7 +119,7 @@ static CGFloat const kZoomViewHideBoundPercent = 0.4;
 
 - (void)setBottomBound:(CGFloat)bottomBound
 {
-  if (_bottomBound == bottomBound)
+  if (equalScreenDimensions(_bottomBound, bottomBound))
     return;
   _bottomBound = bottomBound;
   [self animate];
