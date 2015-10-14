@@ -9,10 +9,13 @@
 #include "drape/texture_manager.hpp"
 
 #include "std/cstdint.hpp"
+#include "std/unordered_set.hpp"
 #include "std/utility.hpp"
 
 namespace gui
 {
+
+using TAlphabet = unordered_set<strings::UniChar>;
 
 class StaticLabel
 {
@@ -47,15 +50,13 @@ public:
     dp::GLState m_state;
     buffer_vector<Vertex, 128> m_buffer;
     m2::RectF m_boundRect;
+    TAlphabet m_alphabet;
   };
 
-  /// return pixelSize of text
   static void CacheStaticText(string const & text, char const * delim,
-                                    dp::Anchor anchor, dp::FontDecl const & font,
-                                    ref_ptr<dp::TextureManager> mng, LabelResult & result);
+                              dp::Anchor anchor, dp::FontDecl const & font,
+                              ref_ptr<dp::TextureManager> mng, LabelResult & result);
 };
-
-////////////////////////////////////////////////////////////////////////////////////////////////
 
 class MutableLabel
 {
@@ -122,6 +123,11 @@ public:
   void SetText(LabelResult & result, string text) const;
   m2::PointF GetAvarageSize() const;
 
+  using TAlphabetNode = pair<strings::UniChar, dp::TextureManager::GlyphRegion>;
+  using TAlphabet = vector<TAlphabetNode>;
+
+  TAlphabet const & GetAlphabet() const { return m_alphabet; }
+
 private:
   void SetMaxLength(uint16_t maxLength);
   ref_ptr<dp::Texture> SetAlphabet(string const & alphabet, ref_ptr<dp::TextureManager> mng);
@@ -131,20 +137,23 @@ private:
   uint16_t m_maxLength = 0;
   float m_textRatio = 0.0f;
 
-  typedef pair<strings::UniChar, dp::TextureManager::GlyphRegion> TAlphabetNode;
-  typedef vector<TAlphabetNode> TAlphabet;
   TAlphabet m_alphabet;
 };
 
 class MutableLabelHandle : public Handle
 {
-  typedef Handle TBase;
+  using TBase = Handle;
 
 public:
   MutableLabelHandle(dp::Anchor anchor, m2::PointF const & pivot);
 
+  MutableLabelHandle(dp::Anchor anchor, m2::PointF const & pivot,
+                     ref_ptr<dp::TextureManager> textures);
+
   void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator,
                             ScreenBase const & screen) const override;
+
+  bool Update(ScreenBase const & screen) override;
 
   ref_ptr<MutableLabel> GetTextView();
   void UpdateSize(m2::PointF const & size);
@@ -152,11 +161,14 @@ public:
 protected:
   void SetContent(string && content);
   void SetContent(string const & content);
+  void SetTextureManager(ref_ptr<dp::TextureManager> textures);
 
 private:
   drape_ptr<MutableLabel> m_textView;
   mutable bool m_isContentDirty;
   string m_content;
+  ref_ptr<dp::TextureManager> m_textureManager;
+  bool m_glyphsReady;
 };
 
 class MutableLabelDrawer
@@ -179,4 +191,23 @@ public:
   static m2::PointF Draw(Params const & params, ref_ptr<dp::TextureManager> mng,
                          dp::Batcher::TFlushFn const & flushFn);
 };
+
+class StaticLabelHandle : public Handle
+{
+  using TBase = Handle;
+
+public:
+  StaticLabelHandle(ref_ptr<dp::TextureManager> textureManager,
+                    dp::Anchor anchor, m2::PointF const & pivot,
+                    m2::PointF const & size,
+                    TAlphabet const & alphabet);
+
+  bool Update(ScreenBase const & screen) override;
+
+private:
+  strings::UniString m_alphabet;
+  ref_ptr<dp::TextureManager> m_textureManager;
+  bool m_glyphsReady;
+};
+
 }

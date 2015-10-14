@@ -98,6 +98,9 @@ public:
   /// If you implement some kind of dynamic texture, you must synchronyze UploadData and index creation operations
   bool UpdateDynamicTextures();
 
+  /// This method must be called only on Frontend renderer's thread.
+  bool AreGlyphsReady(strings::UniString const & str) const;
+
 private:
   struct GlyphGroup
   {

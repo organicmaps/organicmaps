@@ -84,13 +84,13 @@ public:
       }
     }
 
-    TBase::Update(screen);
+    bool const result = TBase::Update(screen);
     UpdateImpl(screen, helper);
 
     if (m_animation.IsFinished())
       TBase::SetIsVisible(m_isVisibleAtEnd);
 
-    return true;
+    return result;
   }
 
 protected:
@@ -108,11 +108,11 @@ private:
 class RulerHandle : public BaseRulerHandle<Handle>
 {
   using TBase = BaseRulerHandle<Handle>;
+
 public:
   RulerHandle(dp::Anchor anchor, m2::PointF const & pivot, bool appearing)
-    : BaseRulerHandle(anchor, pivot, appearing)
-  {
-  }
+    : TBase(anchor, pivot, appearing)
+  {}
 
 private:
   void UpdateImpl(ScreenBase const & screen, RulerHelper const & helper) override
@@ -133,10 +133,12 @@ class RulerTextHandle : public BaseRulerHandle<MutableLabelHandle>
   using TBase = BaseRulerHandle<MutableLabelHandle>;
 
 public:
-  RulerTextHandle(dp::Anchor anchor, m2::PointF const & pivot, bool isAppearing)
+  RulerTextHandle(dp::Anchor anchor, m2::PointF const & pivot, bool isAppearing,
+                  ref_ptr<dp::TextureManager> textures)
     : TBase(anchor, pivot, isAppearing)
     , m_firstUpdate(true)
   {
+    SetTextureManager(textures);
   }
 
   bool Update(ScreenBase const & screen) override
@@ -240,9 +242,9 @@ void Ruler::DrawText(m2::PointF & size, ShapeControl & control, ref_ptr<dp::Text
   params.m_maxLength = maxTextLength;
   params.m_font = DrapeGui::GetGuiTextFont();
   params.m_pivot = m_position.m_pixelPivot + m2::PointF(0.0, helper.GetVerticalTextOffset());
-  params.m_handleCreator = [isAppearing](dp::Anchor anchor, m2::PointF const & pivot)
+  params.m_handleCreator = [isAppearing, tex](dp::Anchor anchor, m2::PointF const & pivot)
   {
-    return make_unique_dp<RulerTextHandle>(anchor, pivot, isAppearing);
+    return make_unique_dp<RulerTextHandle>(anchor, pivot, isAppearing, tex);
   };
 
   m2::PointF textSize = MutableLabelDrawer::Draw(params, tex, bind(&ShapeControl::AddShape, &control, _1, _2));

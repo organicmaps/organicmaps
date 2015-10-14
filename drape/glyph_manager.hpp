@@ -12,6 +12,8 @@
 namespace dp
 {
 
+struct UnicodeBlock;
+
 class GlyphManager
 {
 public:
@@ -66,6 +68,7 @@ public:
     GlyphMetrics m_metrics;
     GlyphImage m_image;
     int m_fontIndex;
+    strings::UniChar m_code;
   };
 
   GlyphManager(Params const & params);
@@ -74,11 +77,18 @@ public:
   Glyph GetGlyph(strings::UniChar unicodePoints);
   Glyph GenerateGlyph(Glyph const & glyph) const;
 
+  void MarkGlyphReady(Glyph const & glyph);
+  bool AreGlyphsReady(strings::UniString const & str) const;
+
   typedef function<void (strings::UniChar start, strings::UniChar end)> TUniBlockCallback;
   void ForEachUnicodeBlock(TUniBlockCallback const & fn) const;
 
-private:
   Glyph GetInvalidGlyph() const;
+
+private:
+  int GetFontIndex(strings::UniChar unicodePoint);
+  int GetFontIndexImmutable(strings::UniChar unicodePoint) const;
+  int FindFontIndexInBlock(UnicodeBlock const & block, strings::UniChar unicodePoint) const;
 
 private:
   struct Impl;

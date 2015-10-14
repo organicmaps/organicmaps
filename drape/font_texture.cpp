@@ -143,7 +143,12 @@ GlyphIndex::GlyphIndex(m2::PointU size, ref_ptr<GlyphManager> mng)
   : m_packer(size)
   , m_mng(mng)
   , m_generator(new GlyphGenerator(mng, bind(&GlyphIndex::OnGlyphGenerationCompletion, this, _1, _2)))
-{}
+{
+  // Cache invalid glyph.
+  GlyphKey const key = GlyphKey(m_mng->GetInvalidGlyph().m_code);
+  bool newResource = false;
+  MapResource(key, newResource);
+}
 
 GlyphIndex::~GlyphIndex()
 {
@@ -173,6 +178,12 @@ ref_ptr<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphKey const & key, boo
   if (!m_packer.PackGlyph(glyph.m_image.m_width, glyph.m_image.m_height, r))
   {
     glyph.m_image.Destroy();
+    LOG(LWARNING, ("Glyphs packer could not pack a glyph", uniChar));
+
+    auto invalidGlyph = m_index.find(m_mng->GetInvalidGlyph().m_code);
+    if (invalidGlyph != m_index.end())
+      return make_ref(&invalidGlyph->second);
+
     return nullptr;
   }
 
@@ -190,9 +201,6 @@ bool GlyphIndex::HasAsyncRoutines() const
 
 void GlyphIndex::OnGlyphGenerationCompletion(m2::RectU const & rect, GlyphManager::Glyph const & glyph)
 {
-  if (!glyph.m_image.m_data)
-    return;
-
   threads::MutexGuard g(m_lock);
   m_pendingNodes.emplace_back(rect, glyph);
 }
@@ -206,6 +214,16 @@ void GlyphIndex::UploadResources(ref_ptr<Texture> texture)
   {
     threads::MutexGuard g(m_lock);
     m_pendingNodes.swap(pendingNodes);
+  }
+
+  for (auto it = pendingNodes.begin(); it != pendingNodes.end();)
+  {
+    m_mng->MarkGlyphReady(it->second);
+
+    if (!it->second.m_image.m_data)
+      it = pendingNodes.erase(it);
+    else
+      ++it;
   }
 
   buffer_vector<size_t, 3> ranges;

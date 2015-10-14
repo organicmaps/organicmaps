@@ -112,8 +112,6 @@ void LayerRenderer::OnTouchCancel(m2::RectD const & touchArea)
   }
 }
 
-////////////////////////////////////////////////////////////////////////////////////
-
 namespace
 {
 
@@ -121,8 +119,8 @@ class ScaleLabelHandle : public MutableLabelHandle
 {
   using TBase = MutableLabelHandle;
 public:
-  ScaleLabelHandle()
-    : TBase(dp::LeftBottom, m2::PointF::Zero())
+  ScaleLabelHandle(ref_ptr<dp::TextureManager> textures)
+    : TBase(dp::LeftBottom, m2::PointF::Zero(), textures)
     , m_scale(0)
   {
     SetIsVisible(true);
@@ -236,9 +234,9 @@ m2::PointF LayerCacher::CacheScaleLabel(Position const & position, ref_ptr<Layer
   params.m_anchor = position.m_anchor;
   params.m_font = DrapeGui::GetGuiTextFont();
   params.m_pivot = position.m_pixelPivot;
-  params.m_handleCreator = [](dp::Anchor, m2::PointF const &)
+  params.m_handleCreator = [textures](dp::Anchor, m2::PointF const &)
   {
-    return make_unique_dp<ScaleLabelHandle>();
+    return make_unique_dp<ScaleLabelHandle>(textures);
   };
 
   drape_ptr<ShapeRenderer> scaleRenderer = make_unique_dp<ShapeRenderer>();

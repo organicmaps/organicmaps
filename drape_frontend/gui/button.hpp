@@ -1,6 +1,7 @@
 #pragma once
 
 #include "shape.hpp"
+#include "gui_text.hpp"
 
 #include "std/function.hpp"
 #include "std/string.hpp"
@@ -46,6 +47,7 @@ public:
 
   using TCreatorResult = drape_ptr<dp::OverlayHandle>;
   using THandleCreator = function<TCreatorResult (dp::Anchor, m2::PointF const &)>;
+  using TLabelHandleCreator = function<TCreatorResult (dp::Anchor, m2::PointF const &, gui::TAlphabet const &)>;
 
   struct Params
   {
@@ -59,7 +61,7 @@ public:
     float m_facet = 0.0f;
 
     THandleCreator m_bodyHandleCreator;
-    THandleCreator m_labelHandleCreator;
+    TLabelHandleCreator m_labelHandleCreator;
   };
 
   static void Draw(Params const & params, ShapeControl & control, ref_ptr<dp::TextureManager> texMgr);

@@ -269,6 +269,7 @@ void CalculateOffsets(dp::Anchor anchor,
 void TextLayout::Init(strings::UniString const & text, float fontSize,
                       ref_ptr<dp::TextureManager> textures)
 {
+  m_text = text;
   m_textSizeRatio = fontSize / BASE_HEIGHT;
   textures->GetGlyphRegions(text, m_metrics);
 }
@@ -303,6 +304,11 @@ float TextLayout::GetPixelLength() const
 float TextLayout::GetPixelHeight() const
 {
   return m_textSizeRatio * BASE_HEIGHT;
+}
+
+strings::UniString const & TextLayout::GetText() const
+{
+  return m_text;
 }
 
 StraightTextLayout::StraightTextLayout(strings::UniString const & text, float fontSize,

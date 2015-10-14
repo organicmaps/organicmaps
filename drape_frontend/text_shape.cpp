@@ -22,10 +22,12 @@ namespace
 class StraightTextHandle : public TextHandle
 {
 public:
-  StraightTextHandle(FeatureID const & id, dp::Anchor anchor, glsl::vec2 const & pivot,
+  StraightTextHandle(FeatureID const & id, strings::UniString const & text,
+                     dp::Anchor anchor, glsl::vec2 const & pivot,
                      glsl::vec2 const & pxSize, glsl::vec2 const & offset,
-                     double priority, gpu::TTextDynamicVertexBuffer && normals)
-    : TextHandle(id, anchor, priority, move(normals))
+                     double priority, ref_ptr<dp::TextureManager> textureManager,
+                     gpu::TTextDynamicVertexBuffer && normals)
+    : TextHandle(id, text, anchor, priority, textureManager, move(normals))
     , m_pivot(glsl::ToPoint(pivot))
     , m_offset(glsl::ToPoint(offset))
     , m_size(glsl::ToPoint(pxSize))
@@ -141,10 +143,12 @@ void TextShape::DrawSubString(StraightTextLayout const & layout,
 
   m2::PointU const & pixelSize = layout.GetPixelSize();
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<StraightTextHandle>(m_params.m_featureID,
+                                                                           layout.GetText(),
                                                                            m_params.m_anchor,
                                                                            glsl::ToVec2(m_basePoint),
                                                                            glsl::vec2(pixelSize.x, pixelSize.y),
                                                                            baseOffset, m_params.m_depth,
+                                                                           textures,
                                                                            move(dynamicBuffer));
 
   dp::AttributeProvider provider(2, staticBuffer.size());

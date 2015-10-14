@@ -98,7 +98,9 @@ void ShapeRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramMana
   ForEachShapeInfo(
       [&uniformStorage, &screen, mng](ShapeControl::ShapeInfo & info) mutable
       {
-        info.m_handle->Update(screen);
+        if (!info.m_handle->Update(screen))
+          return;
+
         if (!info.m_handle->IsVisible())
           return;
 

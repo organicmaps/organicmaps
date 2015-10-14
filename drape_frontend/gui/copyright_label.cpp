@@ -15,15 +15,18 @@ namespace gui
 
 namespace
 {
-  double const COPYRIGHT_VISIBLE_TIME = 3.0f;
-  double const COPYRIGHT_HIDE_DURATION = 0.25f;
+  double const kCopyrightVisibleTime = 2.0f;
+  double const kCopyrightHideTime = 0.25f;
 
-  class CopyrightHandle : public Handle
+  class CopyrightHandle : public StaticLabelHandle
   {
-    using TBase = Handle;
+    using TBase = StaticLabelHandle;
+
   public:
-    CopyrightHandle(dp::Anchor anchor, m2::PointF const & pivot, m2::PointF const & size)
-      : TBase(anchor, pivot, size)
+    CopyrightHandle(ref_ptr<dp::TextureManager> textureManager,
+                    dp::Anchor anchor, m2::PointF const & pivot,
+                    m2::PointF const & size, TAlphabet const & alphabet)
+      : TBase(textureManager, anchor, pivot, size, alphabet)
     {
       SetIsVisible(true);
     }
@@ -33,10 +36,11 @@ namespace
       if (!IsVisible())
         return false;
 
-      TBase::Update(screen);
+      if (!TBase::Update(screen))
+        return false;
 
       if (m_animation == nullptr)
-        m_animation.reset(new df::OpacityAnimation(COPYRIGHT_HIDE_DURATION, COPYRIGHT_VISIBLE_TIME, 1.0f, 0.0f));
+        m_animation.reset(new df::OpacityAnimation(kCopyrightHideTime, kCopyrightVisibleTime, 1.0f, 0.0f));
       else if (m_animation->IsFinished())
       {
         DrapeGui::Instance().DeactivateCopyright();
@@ -73,7 +77,9 @@ drape_ptr<ShapeRenderer> CopyrightLabel::Draw(m2::PointF & size, ref_ptr<dp::Tex
   size_t indexCount = dp::Batcher::IndexPerQuad * vertexCount / dp::Batcher::VertexPerQuad;
 
   size = m2::PointF(result.m_boundRect.SizeX(), result.m_boundRect.SizeY());
-  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CopyrightHandle>(m_position.m_anchor, m_position.m_pixelPivot, size);
+  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CopyrightHandle>(tex, m_position.m_anchor,
+                                                                        m_position.m_pixelPivot, size,
+                                                                        result.m_alphabet);
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(indexCount, vertexCount);

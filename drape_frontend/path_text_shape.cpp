@@ -31,9 +31,9 @@ class PathTextHandle : public df::TextHandle
 public:
   PathTextHandle(m2::SharedSpline const & spl,
                  df::SharedTextLayout const & layout,
-                 float const mercatorOffset,
-                 float const depth)
-    : TextHandle(FeatureID(), dp::Center, depth)
+                 float const mercatorOffset, float const depth,
+                 ref_ptr<dp::TextureManager> textureManager)
+    : TextHandle(FeatureID(), layout->GetText(), dp::Center, depth, textureManager)
     , m_spline(spl)
     , m_layout(layout)
   {
@@ -44,6 +44,9 @@ public:
 
   bool Update(ScreenBase const & screen) override
   {
+    if (!df::TextHandle::Update(screen))
+      return false;
+
     return m_layout->CacheDynamicGeometry(m_centerPointIter, screen, m_normals);
   }
 
@@ -190,7 +193,8 @@ void PathTextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManage
     provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));
     provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(dynBuffer.data()));
 
-    drape_ptr<dp::OverlayHandle> handle = make_unique_dp<PathTextHandle>(m_spline, layoutPtr, offset, m_params.m_depth);
+    drape_ptr<dp::OverlayHandle> handle = make_unique_dp<PathTextHandle>(m_spline, layoutPtr, offset,
+                                                                         m_params.m_depth, textures);
     batcher->InsertListOfStrip(state, make_ref(&provider), move(handle), 4);
   }
 }

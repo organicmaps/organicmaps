@@ -175,7 +175,7 @@ void Button::Draw(Params const & params, ShapeControl & control, ref_ptr<dp::Tex
     dp::Batcher batcher(indexCount, vertexCount);
     dp::SessionGuard guard(batcher, bind(&ShapeControl::AddShape, &control, _1, _2));
     batcher.InsertListOfStrip(result.m_state, make_ref(&provider),
-                              params.m_labelHandleCreator(params.m_anchor, textSize),
+                              params.m_labelHandleCreator(params.m_anchor, textSize, result.m_alphabet),
                               dp::Batcher::VertexPerQuad);
   }
 }

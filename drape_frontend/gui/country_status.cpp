@@ -47,14 +47,16 @@ private:
   Shape::TTapHandler m_tapHandler;
 };
 
-class CountryStatusLabelHandle : public Handle
+class CountryStatusLabelHandle : public StaticLabelHandle
 {
-  using TBase = Handle;
+  using TBase = StaticLabelHandle;
 
 public:
   CountryStatusLabelHandle(CountryStatusHelper::ECountryState const state,
-                           dp::Anchor anchor, m2::PointF const & size)
-    : TBase(anchor, m2::PointF::Zero(), size)
+                           ref_ptr<dp::TextureManager> textureManager,
+                           dp::Anchor anchor, m2::PointF const & size,
+                           TAlphabet const & alphabet)
+    : TBase(textureManager, anchor, m2::PointF::Zero(), size, alphabet)
     , m_state(state)
   {}
 
@@ -73,8 +75,9 @@ class CountryProgressHandle : public MutableLabelHandle
   using TBase = MutableLabelHandle;
 
 public:
-  CountryProgressHandle(dp::Anchor anchor, CountryStatusHelper::ECountryState const state)
-    : TBase(anchor, m2::PointF::Zero()), m_state(state)
+  CountryProgressHandle(dp::Anchor anchor, CountryStatusHelper::ECountryState const state,
+                        ref_ptr<dp::TextureManager> textures)
+    : TBase(anchor, m2::PointF::Zero(), textures), m_state(state)
   {}
 
   bool Update(ScreenBase const & screen) override
@@ -100,10 +103,11 @@ drape_ptr<dp::OverlayHandle> CreateButtonHandle(CountryStatusHelper::ECountrySta
 }
 
 drape_ptr<dp::OverlayHandle> CreateLabelHandle(CountryStatusHelper::ECountryState const state,
-                                               dp::Anchor anchor,
-                                               m2::PointF const & size)
+                                               ref_ptr<dp::TextureManager> textureManager,
+                                               dp::Anchor anchor, m2::PointF const & size,
+                                               TAlphabet const & alphabet)
 {
-  return make_unique_dp<CountryStatusLabelHandle>(state, anchor, size);
+  return make_unique_dp<CountryStatusLabelHandle>(state, textureManager, anchor, size, alphabet);
 }
 
 void DrawLabelControl(string const & text, dp::Anchor anchor, dp::Batcher::TFlushFn const & flushFn,
@@ -123,7 +127,7 @@ void DrawLabelControl(string const & text, dp::Anchor anchor, dp::Batcher::TFlus
   dp::Batcher batcher(indexCount, vertexCount);
   dp::SessionGuard guard(batcher, flushFn);
   m2::PointF size(result.m_boundRect.SizeX(), result.m_boundRect.SizeY());
-  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CountryStatusLabelHandle>(state, anchor, size);
+  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CountryStatusLabelHandle>(state, mng, anchor, size, result.m_alphabet);
   batcher.InsertListOfStrip(result.m_state, make_ref(&provider), move(handle),
                             dp::Batcher::VertexPerQuad);
 }
@@ -138,9 +142,9 @@ void DrawProgressControl(dp::Anchor anchor, dp::Batcher::TFlushFn const & flushF
   params.m_anchor = anchor;
   params.m_pivot = m2::PointF::Zero();
   params.m_font = dp::FontDecl(dp::Color::Black(), 18);
-  params.m_handleCreator = [state](dp::Anchor anchor, m2::PointF const & /*pivot*/)
+  params.m_handleCreator = [state, mng](dp::Anchor anchor, m2::PointF const & /*pivot*/)
   {
-    return make_unique_dp<CountryProgressHandle>(anchor, state);
+    return make_unique_dp<CountryProgressHandle>(anchor, state, mng);
   };
 
   MutableLabelDrawer::Draw(params, mng, flushFn);
@@ -191,7 +195,7 @@ drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex,
         auto const buttonHandlerIt = buttonHandlers.find(control.m_buttonType);
         Shape::TTapHandler buttonHandler = (buttonHandlerIt != buttonHandlers.end() ? buttonHandlerIt->second : nullptr);
         params.m_bodyHandleCreator = bind(&CreateButtonHandle, state, buttonHandler, color, pressedColor, _1, _2);
-        params.m_labelHandleCreator = bind(&CreateLabelHandle, state, _1, _2);
+        params.m_labelHandleCreator = bind(&CreateLabelHandle, state, tex, _1, _2, _3);
 
         Button::Draw(params, shapeControl, tex);
         renderer->AddShapeControl(move(shapeControl));
