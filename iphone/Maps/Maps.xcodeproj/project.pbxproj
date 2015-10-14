@@ -2763,6 +2763,11 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-Wno-unused-local-typedef",
+					"-Wfloat-equal",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PROVISIONING_PROFILE = "";
 			};
@@ -2881,6 +2886,11 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-Wno-unused-local-typedef",
+					"-Wfloat-equal",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PROVISIONING_PROFILE = "";
 			};
@@ -3410,6 +3420,11 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-Wno-unused-local-typedef",
+					"-Wfloat-equal",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PROVISIONING_PROFILE = "";
 			};
@@ -3523,6 +3538,11 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-Wno-unused-local-typedef",
+					"-Wfloat-equal",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PROVISIONING_PROFILE = "";
 			};
@@ -3641,6 +3661,11 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-Wno-unused-local-typedef",
+					"-Wfloat-equal",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PROVISIONING_PROFILE = "";
 			};
@@ -3759,6 +3784,11 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-Wno-unused-local-typedef",
+					"-Wfloat-equal",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PROVISIONING_PROFILE = "";
 			};
@@ -3875,6 +3905,11 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-Wno-unused-local-typedef",
+					"-Wfloat-equal",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PROVISIONING_PROFILE = "";
 			};
@@ -3991,6 +4026,11 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-Wno-unused-local-typedef",
+					"-Wfloat-equal",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PROVISIONING_PROFILE = "";
 			};
