@@ -33,7 +33,7 @@ UNIT_TEST(CheckCrossSections)
     if (file.GetFiles() != MapOptions::MapWithCarRouting)
     {
       noRouting++;
-      LOG(LINFO, ("Warning! Routing file not found!"));
+      LOG(LINFO, ("Warning! Routing file not found for:", file.GetCountryName()));
       continue;
     }
     FilesMappingContainer container(file.GetPath(MapOptions::CarRouting));
@@ -59,6 +59,7 @@ UNIT_TEST(CheckCrossSections)
   }
   TEST_EQUAL(ingoingErrors, 0, ("Some countries have zero point incomes."));
   TEST_EQUAL(outgoingErrors, 0, ("Some countries have zero point exits."));
-  LOG(LINFO, ("Found ", localFiles.size(), "countries.", noRouting, "has no routing file."));
+  LOG(LINFO, ("Found", localFiles.size(), "countries.",
+              noRouting, "countries are without routing file."));
 }
 }  // namespace
