@@ -48,7 +48,10 @@ class TurnsSound
       m_turnNotificationWithThen(false),  m_nextTurnIndex(0),
       m_startBeforeSeconds(startBeforeSeconds), m_minStartBeforeMeters(minStartBeforeMeters),
       m_maxStartBeforeMeters(maxStartBeforeMeters),
-      m_minDistToSayNotificationMeters(minDistToSayNotificationMeters) {}
+      m_minDistToSayNotificationMeters(minDistToSayNotificationMeters)
+  {
+    ASSERT_LESS_OR_EQUAL(m_minStartBeforeMeters, m_maxStartBeforeMeters, ());
+  }
 
   /// m_enabled == true when tts is turned on.
   /// Important! Clients (iOS/Android) implies that m_enabled is false by default.
@@ -110,7 +113,10 @@ public:
       m_nextTurnNotificationProgress(PronouncedNotification::Nothing),
       m_turnNotificationWithThen(false),  m_nextTurnIndex(0),
       m_startBeforeSeconds(5), m_minStartBeforeMeters(25), m_maxStartBeforeMeters(150),
-      m_minDistToSayNotificationMeters(170) {}
+      m_minDistToSayNotificationMeters(170)
+  {
+    ASSERT_LESS_OR_EQUAL(m_minStartBeforeMeters, m_maxStartBeforeMeters, ());
+  }
 
   bool IsEnabled() const { return m_enabled; }
   void Enable(bool enable);
