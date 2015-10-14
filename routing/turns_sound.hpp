@@ -40,6 +40,16 @@ class TurnsSound
   friend void UnitTest_TurnsSoundComposedTurnTest();
   friend void UnitTest_TurnsSoundRoundaboutTurnTest();
 
+  /// \brief The private contructor is used only for testing.
+  TurnsSound(uint32_t startBeforeSeconds, uint32_t minStartBeforeMeters,
+             uint32_t maxStartBeforeMeters, uint32_t minDistToSayNotificationMeters)
+    : m_enabled(false), m_speedMetersPerSecond(0.), m_settings(),
+      m_nextTurnNotificationProgress(PronouncedNotification::Nothing),
+      m_turnNotificationWithThen(false),  m_nextTurnIndex(0),
+      m_startBeforeSeconds(startBeforeSeconds), m_minStartBeforeMeters(minStartBeforeMeters),
+      m_maxStartBeforeMeters(maxStartBeforeMeters),
+      m_minDistToSayNotificationMeters(minDistToSayNotificationMeters) {}
+
   /// m_enabled == true when tts is turned on.
   /// Important! Clients (iOS/Android) implies that m_enabled is false by default.
   bool m_enabled;
@@ -77,10 +87,30 @@ class TurnsSound
   /// without pronunciation.
   void FastForwardFirstTurnNotification();
 
+  // To inform an end user about the next turn with the help of an voice information message
+  // an operation system needs:
+  // - to launch TTS subsystem;
+  // - to pronounce the message.
+  // So to inform the user in time it's necessary to start
+  // m_startBeforeSeconds before the time. It is used in the following way:
+  // we start playing voice notice in m_startBeforeSeconds * TurnsSound::m_speedMetersPerSecond
+  // meters before the turn (for the second voice notification).
+  // When m_startBeforeSeconds * TurnsSound::m_speedMetersPerSecond  is too small or too large
+  // we use m_minStartBeforeMeters or m_maxStartBeforeMeters correspondingly.
+  uint32_t const m_startBeforeSeconds;
+  uint32_t const m_minStartBeforeMeters;
+  uint32_t const m_maxStartBeforeMeters;
+
+  // m_minDistToSayNotificationMeters is minimum distance between two turns
+  // when pronouncing the first notification about the second turn makes sense.
+  uint32_t const m_minDistToSayNotificationMeters;
+
 public:
   TurnsSound() : m_enabled(false), m_speedMetersPerSecond(0.), m_settings(),
       m_nextTurnNotificationProgress(PronouncedNotification::Nothing),
-      m_turnNotificationWithThen(false),  m_nextTurnIndex(0) {}
+      m_turnNotificationWithThen(false),  m_nextTurnIndex(0),
+      m_startBeforeSeconds(5), m_minStartBeforeMeters(10), m_maxStartBeforeMeters(100),
+      m_minDistToSayNotificationMeters(100) {}
 
   bool IsEnabled() const { return m_enabled; }
   void Enable(bool enable);
