@@ -50,4 +50,8 @@ private:
 /// * a factory returns nullptr
 TGetTextByIdPtr GetTextByIdFactory(TextSource textSource, string const & localeName);
 TGetTextByIdPtr ForTestingGetTextByIdFactory(string const & jsonBuffer, string const & localeName);
+
+/// \bried fills jsonBuffer with json file in twine format with strings in a language of localeName.
+/// @return true if no error was happened and false otherwise.
+bool GetJsonBuffer(platform::TextSource textSource, string const & localeName, string & jsonBuffer);
 }  // namespace platform

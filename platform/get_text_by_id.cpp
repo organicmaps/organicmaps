@@ -15,23 +15,18 @@ string const kDefaultLanguage = "en";
 
 string GetTextSourceString(platform::TextSource textSource)
 {
-#if defined(OMIM_OS_ANDROID) || defined(OMIM_OS_IPHONE)
   switch (textSource)
   {
     case platform::TextSource::TtsSound:
-      return "sound-strings";
+      return string("sound-strings");
   }
-#else
-  switch (textSource)
-  {
-    case platform::TextSource::TtsSound:
-      return "../data/sound-strings";
-  }
-#endif
   ASSERT(false, ());
   return string();
 }
+}  // namespace
 
+namespace platform
+{
 bool GetJsonBuffer(platform::TextSource textSource, string const & localeName, string & jsonBuffer)
 {
   string const pathToJson = my::JoinFoldersToPath(
@@ -50,10 +45,7 @@ bool GetJsonBuffer(platform::TextSource textSource, string const & localeName, s
   }
   return true;
 }
-}  // namespace
 
-namespace platform
-{
 TGetTextByIdPtr MakeGetTextById(string const & jsonBuffer, string const & localeName)
 {
   TGetTextByIdPtr result(new GetTextById(jsonBuffer, localeName));
