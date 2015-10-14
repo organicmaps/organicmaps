@@ -603,7 +603,14 @@ public:
   // Sound notifications for turn instructions.
   inline void EnableTurnNotifications(bool enable) { m_routingSession.EnableTurnNotifications(enable); }
   inline bool AreTurnNotificationsEnabled() const { return m_routingSession.AreTurnNotificationsEnabled(); }
+  /// \brief Sets a locale for TTS.
+  /// \param locale is a string with locale code. For example "en", "ru", "zh-Hant" and so on.
+  /// \note See sound/tts/languages.txt for the full list of available locales.
   inline void SetTurnNotificationsLocale(string const & locale) { m_routingSession.SetTurnNotificationsLocale(locale); }
+  /// @return current TTS locale. For example "en", "ru", "zh-Hant" and so on.
+  /// In case of error returns an empty string.
+  /// \note The method returns correct locale after SetTurnNotificationsLocale has been called.
+  /// If not, it returns an empty string.
   inline string GetTurnNotificationsLocale() const { return m_routingSession.GetTurnNotificationsLocale(); }
   /// \brief When an end user is going to a turn he gets sound turn instructions.
   /// If C++ part wants the client to pronounce an instruction GenerateTurnSound (in turnNotifications) returns

@@ -98,7 +98,7 @@ UNIT_TEST(TurnsSoundMetersTest)
       \"in_600_meters\":\"In 600 meters.\",\
       \"make_a_right_turn\":\"Make a right turn.\"\
       }";
-  turnSound.m_getTtsText.ForTestingSetLocaleWithJson(engShortJson);
+  turnSound.m_getTtsText.ForTestingSetLocaleWithJson(engShortJson, "en");
   turnSound.m_settings.ForTestingSetNotificationTimeSecond(20);
 
   turnSound.Reset();
@@ -185,7 +185,7 @@ UNIT_TEST(TurnsSoundMetersTwoTurnsTest)
       \"make_a_sharp_right_turn\":\"Make a sharp right turn.\",\
       \"enter_the_roundabout\":\"Enter the roundabout.\"\
       }";
-  turnSound.m_getTtsText.ForTestingSetLocaleWithJson(engShortJson);
+  turnSound.m_getTtsText.ForTestingSetLocaleWithJson(engShortJson, "en");
   turnSound.m_settings.ForTestingSetNotificationTimeSecond(20);
 
   turnSound.Reset();
@@ -257,7 +257,7 @@ UNIT_TEST(TurnsSoundFeetTest)
       \"in_2000_feet\":\"In 2000 feet.\",\
       \"enter_the_roundabout\":\"Enter the roundabout.\"\
       }";
-  turnSound.m_getTtsText.ForTestingSetLocaleWithJson(engShortJson);
+  turnSound.m_getTtsText.ForTestingSetLocaleWithJson(engShortJson, "en");
   turnSound.m_settings.ForTestingSetNotificationTimeSecond(20);
 
   turnSound.Reset();
@@ -341,7 +341,7 @@ UNIT_TEST(TurnsSoundComposedTurnTest)
       \"then\":\"Then.\",\
       \"you_have_reached_the_destination\":\"You have reached the destination.\"\
       }";
-  turnSound.m_getTtsText.ForTestingSetLocaleWithJson(engShortJson);
+  turnSound.m_getTtsText.ForTestingSetLocaleWithJson(engShortJson, "en");
   turnSound.m_settings.ForTestingSetNotificationTimeSecond(30);
 
   turnSound.Reset();
@@ -412,7 +412,7 @@ UNIT_TEST(TurnsSoundRoundaboutTurnTest)
       \"in_600_meters\":\"In 600 meters.\",\
       \"then\":\"Then.\"\
       }";
-  turnSound.m_getTtsText.ForTestingSetLocaleWithJson(engShortJson);
+  turnSound.m_getTtsText.ForTestingSetLocaleWithJson(engShortJson, "en");
   turnSound.m_settings.ForTestingSetNotificationTimeSecond(30);
 
   turnSound.Reset();
@@ -502,6 +502,19 @@ UNIT_TEST(TurnsSoundRoundaboutTurnTest)
                                                 {"Then. Take the fourth exit."}};
   turnSound.GenerateTurnSound(turns9, turnNotifications);
   TEST_EQUAL(turnNotifications, expectedNotification9, ());
+}
+
+UNIT_TEST(GetJsonBufferTest)
+{
+  string const localeNameEn = "en";
+  string jsonBuffer;
+  TEST(GetJsonBuffer(platform::TextSource::TtsSound, localeNameEn, jsonBuffer), ());
+  TEST(!jsonBuffer.empty(), ());
+
+  string const localeNameRu = "ru";
+  jsonBuffer.clear();
+  TEST(GetJsonBuffer(platform::TextSource::TtsSound, localeNameRu, jsonBuffer), ());
+  TEST(!jsonBuffer.empty(), ());
 }
 }  // namespace sound
 }  // namespace turns

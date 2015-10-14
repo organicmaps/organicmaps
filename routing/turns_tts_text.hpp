@@ -22,16 +22,21 @@ class GetTtsText
 {
 public:
   string operator()(Notification const & notification) const;
-  /// TODO(vbykoianko) Check if locale is available. If not use default (en) locale.
+  /// \brief Sets a locale.
+  /// @param locale is a string representation of locale. For example "en", "ru", "zh-Hant" and so on.
+  /// \note See sound/tts/languages.txt for the full list of available locales.
   void SetLocale(string const & locale);
-  inline string GetLocale() const { return m_locale; }
-  void ForTestingSetLocaleWithJson(string const & jsonBuffer);
+  /// @return current TTS locale. For example "en", "ru", "zh-Hant" and so on.
+  /// \note The method returns correct locale after SetLocale has been called.
+  /// If not, it returns an empty string.
+  string GetLocale() const;
+
+  void ForTestingSetLocaleWithJson(string const & jsonBuffer, string const & locale);
 
 private:
   string GetTextById(string const & textId) const;
 
   unique_ptr<platform::GetTextById> m_getCurLang;
-  string m_locale;
 };
 
 /// Generates text message id about the distance of the notification. For example: In 300 meters.
