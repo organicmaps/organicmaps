@@ -78,17 +78,18 @@ public:
 
       default:
         switch (m_child.type)
-      {
-        case OsmElement::EntityType::Member:
-          m_parent.AddMember(m_child.ref, m_child.memberType, m_child.role);
-          break;
-        case OsmElement::EntityType::Tag:
-          m_parent.AddTag(m_child.k, m_child.v);
-          break;
-        case OsmElement::EntityType::Nd:
-          m_parent.AddNd(m_child.ref);
-        default: break;
-      }
+        {
+          case OsmElement::EntityType::Member:
+            m_parent.AddMember(m_child.ref, m_child.memberType, m_child.role);
+            break;
+          case OsmElement::EntityType::Tag:
+            m_parent.AddTag(m_child.k, m_child.v);
+            break;
+          case OsmElement::EntityType::Nd:
+            m_parent.AddNd(m_child.ref);
+          default:
+            break;
+        }
         m_current = &m_parent;
         m_child.Clear();
     }
