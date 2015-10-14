@@ -247,8 +247,11 @@ uint8_t CalcSearchRank(FeatureType const & ft)
   if (types.Empty())
     return 0;
 
-  m2::PointD const center = feature::GetCenter(ft);
-  return feature::GetSearchRank(types, center, ft.GetPopulation());
+  // Rank (and population) is used for point features only at this moment.
+  if (ft.GetFeatureType() == feature::GEOM_POINT)
+    return feature::GetSearchRank(types, ft.GetCenter(), ft.GetPopulation());
+  else
+    return 0;
 }
 
 // Creates rank table if it does not exists in |rcont| or has wrong
