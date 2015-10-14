@@ -76,7 +76,7 @@ string GetTtsText::GetTextById(string const & textId) const
   if (m_getCurLang == nullptr)
   {
     ASSERT(false, ());
-    return "";
+    return string();
   }
   return (*m_getCurLang)(textId);
 }

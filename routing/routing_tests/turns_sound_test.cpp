@@ -503,6 +503,19 @@ UNIT_TEST(TurnsSoundRoundaboutTurnTest)
   turnSound.GenerateTurnSound(turns9, turnNotifications);
   TEST_EQUAL(turnNotifications, expectedNotification9, ());
 }
+
+UNIT_TEST(GetJsonBufferTest)
+{
+  string const localeNameEn = "en";
+  string jsonBuffer;
+  TEST(GetJsonBuffer(platform::TextSource::TtsSound, localeNameEn, jsonBuffer), ());
+  TEST(!jsonBuffer.empty(), ());
+
+  string const localeNameRu = "ru";
+  jsonBuffer.clear();
+  TEST(GetJsonBuffer(platform::TextSource::TtsSound, localeNameRu, jsonBuffer), ());
+  TEST(!jsonBuffer.empty(), ());
+}
 }  // namespace sound
 }  // namespace turns
 }  // namespace routing
