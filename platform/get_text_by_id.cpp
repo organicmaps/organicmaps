@@ -43,9 +43,9 @@ bool GetJsonBuffer(platform::TextSource textSource, string const & localeName, s
   }
   catch (RootException const & ex)
   {
-    LOG(LWARNING, ("Can't open", localeName,"sound instructions file. pathToJson is",
-                   pathToJson, ex.what()));
-    return false; // No json file for localeName
+    LOG(LWARNING, ("Can't open", localeName, "sound instructions file. pathToJson is", pathToJson,
+                   ex.what()));
+    return false;  // No json file for localeName
   }
   return true;
 }
@@ -82,7 +82,8 @@ TGetTextByIdPtr ForTestingGetTextByIdFactory(string const & jsonBuffer, string c
   return MakeGetTextById(jsonBuffer, localeName);
 }
 
-GetTextById::GetTextById(string const & jsonBuffer, string const & localeName) : m_locale(localeName)
+GetTextById::GetTextById(string const & jsonBuffer, string const & localeName)
+  : m_locale(localeName)
 {
   InitFromJson(jsonBuffer);
 }

@@ -27,9 +27,11 @@ public:
   /// The boolean flag is set to false otherwise.
   string operator()(string const & textId) const;
   string GetLocale() const { return m_locale; }
+
 private:
   friend TGetTextByIdPtr GetTextByIdFactory(TextSource textSource, string const & localeName);
-  friend TGetTextByIdPtr ForTestingGetTextByIdFactory(string const & jsonBuffer, string const & localeName);
+  friend TGetTextByIdPtr ForTestingGetTextByIdFactory(string const & jsonBuffer,
+                                                      string const & localeName);
   friend TGetTextByIdPtr MakeGetTextById(string const & jsonBuffer, string const & localeName);
 
   GetTextById(string const & jsonBuffer, string const & localeName);
