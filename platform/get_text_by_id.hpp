@@ -15,7 +15,7 @@ enum class TextSource
 };
 
 class GetTextById;
-typedef unique_ptr<GetTextById> TGetTextByIdPtr;
+using TGetTextByIdPtr = unique_ptr<GetTextById>;
 
 /// GetTextById represents text messages which are saved in textsDir
 /// in a specified locale.
@@ -45,7 +45,7 @@ private:
 
 /// Factories to create GetTextById instances.
 /// If TGetTextByIdPtr is created by GetTextByIdFactory or ForTestingGetTextByIdFactory
-/// threre are only two possibities:
+/// there are only two possibities:
 /// * a factory returns a valid instance
 /// * a factory returns nullptr
 TGetTextByIdPtr GetTextByIdFactory(TextSource textSource, string const & localeName);

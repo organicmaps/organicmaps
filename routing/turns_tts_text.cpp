@@ -61,7 +61,7 @@ string GetTtsText::operator()(Notification const & notification) const
 
 string GetTtsText::GetLocale() const
 {
-  if (m_getCurLang)
+  if (m_getCurLang == nullptr)
   {
     ASSERT(false, ());
     return string();
@@ -73,7 +73,7 @@ string GetTtsText::GetTextById(string const & textId) const
 {
   ASSERT(!textId.empty(), ());
 
-  if (!m_getCurLang)
+  if (m_getCurLang == nullptr)
   {
     ASSERT(false, ());
     return "";

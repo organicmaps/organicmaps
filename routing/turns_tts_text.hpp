@@ -24,7 +24,7 @@ public:
   string operator()(Notification const & notification) const;
   /// \brief Sets a locale.
   /// @param locale is a string representation of locale. For example "en", "ru", "zh-Hant" and so on.
-  /// \note ee sound/tts/languages.txt for the full list of available locales.
+  /// \note See sound/tts/languages.txt for the full list of available locales.
   void SetLocale(string const & locale);
   /// @return current TTS locale. For example "en", "ru", "zh-Hant" and so on.
   /// \note The method returns correct locale after SetLocale has been called.

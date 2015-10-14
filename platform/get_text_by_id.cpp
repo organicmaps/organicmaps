@@ -29,6 +29,7 @@ string GetTextSourceString(platform::TextSource textSource)
   }
 #endif
   ASSERT(false, ());
+  return string();
 }
 
 bool GetJsonBuffer(platform::TextSource textSource, string const & localeName, string & jsonBuffer)
@@ -58,7 +59,7 @@ TGetTextByIdPtr MakeGetTextById(string const & jsonBuffer, string const & locale
   TGetTextByIdPtr result(new GetTextById(jsonBuffer, localeName));
   if (!result->IsValid())
   {
-    ASSERT(false, ());
+    ASSERT(false, ("Can't create a GetTextById instance from a json file. localeName=", localeName));
     return nullptr;
   }
   return result;
