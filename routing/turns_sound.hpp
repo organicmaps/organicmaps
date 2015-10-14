@@ -109,8 +109,8 @@ public:
   TurnsSound() : m_enabled(false), m_speedMetersPerSecond(0.), m_settings(),
       m_nextTurnNotificationProgress(PronouncedNotification::Nothing),
       m_turnNotificationWithThen(false),  m_nextTurnIndex(0),
-      m_startBeforeSeconds(5), m_minStartBeforeMeters(10), m_maxStartBeforeMeters(100),
-      m_minDistToSayNotificationMeters(100) {}
+      m_startBeforeSeconds(5), m_minStartBeforeMeters(25), m_maxStartBeforeMeters(150),
+      m_minDistToSayNotificationMeters(170) {}
 
   bool IsEnabled() const { return m_enabled; }
   void Enable(bool enable);
