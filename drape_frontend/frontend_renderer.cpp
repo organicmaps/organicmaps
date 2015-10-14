@@ -44,7 +44,8 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_gpuProgramManager(new dp::GpuProgramManager())
   , m_routeRenderer(new RouteRenderer())
   , m_overlayTree(new dp::OverlayTree())
-  , m_useFramebuffer(true)
+  , m_useFramebuffer(false)
+  , m_3dModeChanged(false)
   , m_framebuffer(new Framebuffer())
   , m_renderer3d(new Renderer3d())
   , m_viewport(params.m_viewport)
@@ -466,14 +467,15 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<Enable3dModeMessage> msg = message;
       m_renderer3d->SetVerticalFOV(msg->GetAngleFOV());
       m_renderer3d->SetPlaneAngleX(msg->GetAngleX());
-      m_renderer3d->SetPlaneOffsetZ(msg->GetDeltaZ());
       m_useFramebuffer = true;
+      m_3dModeChanged = true;
       break;
     }
 
   case Message::Disable3dMode:
     {
       m_useFramebuffer = false;
+      m_3dModeChanged = true;
       break;
     }
 
@@ -1134,7 +1136,26 @@ ScreenBase const & FrontendRenderer::ProcessEvents(bool & modelViewChanged, bool
 {
   ScreenBase const & modelView = m_userEventStream.ProcessEvents(modelViewChanged, viewportChanged);
   gui::DrapeGui::Instance().SetInUserAction(m_userEventStream.IsInUserAction());
-  return modelView;
+
+  ScreenBase modelView2 = modelView;
+
+  modelViewChanged = modelViewChanged || m_3dModeChanged;
+  viewportChanged = viewportChanged || m_3dModeChanged;
+  if (m_useFramebuffer && modelViewChanged)
+  {
+    double scale = max(m_renderer3d->GetScaleX(), m_renderer3d->GetScaleY());
+
+    int w = modelView2.GetWidth();
+    int h = modelView2.GetHeight();
+
+    m2::AnyRectD rectG = modelView2.GlobalRect();
+    double dyG = rectG.GetLocalRect().SizeY() * (scale - 1.0);
+    modelView2.Scale(1.0/scale);
+    modelView2.MoveG(m2::PointD(0, -dyG / 2.0));
+  }
+  m_3dModeChanged = false;
+
+  return modelView2;
 }
 
 void FrontendRenderer::PrepareScene(ScreenBase const & modelView)

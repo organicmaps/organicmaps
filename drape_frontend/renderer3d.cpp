@@ -17,13 +17,17 @@ Renderer3d::Renderer3d()
   , m_height(0)
   , m_fov(M_PI / 3.0f)
   , m_angleX(-M_PI_4)
-  , m_offsetZ(0.5f)
+  , m_offsetZ(0.0f)
+  , m_offsetY(0.0f)
+  , m_offsetX(0.0f)
+  , m_scaleX(1.0)
+  , m_scaleY(1.0)
   , m_VAO(0)
   , m_bufferId(0)
 {
-  UpdateProjectionMatrix();
-  UpdateRotationMatrix();
-  UpdateTranslationMatrix();
+  SetPlaneAngleX(m_angleX);
+  SetVerticalFOV(m_fov);
+  CalculateGeometry();
 }
 
 Renderer3d::~Renderer3d()
@@ -46,21 +50,65 @@ void Renderer3d::SetVerticalFOV(float fov)
 {
   m_fov = fov;
 
+  CalculateGeometry();
   UpdateProjectionMatrix();
+}
+
+void Renderer3d::CalculateGeometry()
+{
+  m_offsetZ = 1 / tan(m_fov / 2.0) + sin(-m_angleX);
+  m_offsetY = -1 + cos(-m_angleX);
+
+  m_scaleY = cos(-m_angleX) + sin(-m_angleX) * tan(m_fov / 2.0 - m_angleX);
+  m_scaleX = 1.0 + 2*sin(-m_angleX) * cos(m_fov / 2.0) / (m_offsetZ * cos(m_fov / 2.0 - m_angleX));
+  m_scaleX = m_scaleY;
+/*
+  const float vertices[] =
+  {
+    -1.0f,  1.0f, 0.0f, 1.0f,
+     1.0f,  1.0f, 1.0f, 1.0f,
+    -1.0f, -1.0f, 0.0f, 0.0f,
+     1.0f, -1.0f, 1.0f, 0.0f
+  };
+*/
+  m_vertices[0] = -1.0f * m_scaleX;
+  m_vertices[1] = 2.0f * m_scaleY - 1.0f;
+  m_vertices[2] = 0.0f;
+  m_vertices[3] = 1.0f;
+
+  m_vertices[4] = 1.0f * m_scaleX;
+  m_vertices[5] = 2.0f * m_scaleY - 1.0f;
+  m_vertices[6] = 1.0f;
+  m_vertices[7] = 1.0f;
+
+  m_vertices[8] = -1.0f * m_scaleX;
+  m_vertices[9] = -1.0f;
+  m_vertices[10] = 0.0f;
+  m_vertices[11] = 0.0f;
+
+  m_vertices[12] = 1.0f * m_scaleX;
+  m_vertices[13] = -1.0f;
+  m_vertices[14] = 1.0f;
+  m_vertices[15] = 0.0f;
+
+  UpdateRotationMatrix();
+  UpdateTranslationMatrix();
+}
+
+float Renderer3d::GetScaleX() const
+{
+  return m_scaleX;
+}
+
+float Renderer3d::GetScaleY() const
+{
+  return m_scaleY;
 }
 
 void Renderer3d::SetPlaneAngleX(float angleX)
 {
   m_angleX = angleX;
-
-  UpdateRotationMatrix();
-}
-
-void Renderer3d::SetPlaneOffsetZ(float offsetZ)
-{
-  m_offsetZ = offsetZ;
-
-  UpdateTranslationMatrix();
+  CalculateGeometry();
 }
 
 void Renderer3d::Build(ref_ptr<dp::GpuProgram> prg)
@@ -82,15 +130,6 @@ void Renderer3d::Build(ref_ptr<dp::GpuProgram> prg)
   GLFunctions::glEnableVertexAttribute(attributeLocation);
   GLFunctions::glVertexAttributePointer(attributeLocation, 2, gl_const::GLFloatType, false,
                                         sizeof(float) * 4, sizeof(float) * 2);
-
-  const float vertices[] =
-  {
-    -1.0f,  1.0f, 0.0f, 1.0f,
-     1.0f,  1.0f, 1.0f, 1.0f,
-    -1.0f, -1.0f, 0.0f, 0.0f,
-     1.0f, -1.0f, 1.0f, 0.0f
-  };
-  GLFunctions::glBufferData(gl_const::GLArrayBuffer, sizeof(vertices), vertices, gl_const::GLStaticDraw);
 }
 
 void Renderer3d::Render(uint32_t textureId, ref_ptr<dp::GpuProgramManager> mng)
@@ -116,6 +155,11 @@ void Renderer3d::Render(uint32_t textureId, ref_ptr<dp::GpuProgramManager> mng)
   GLFunctions::glBindBuffer(m_bufferId, gl_const::GLArrayBuffer);
   GLFunctions::glBindVertexArray(m_VAO);
 
+
+
+  GLFunctions::glBufferData(gl_const::GLArrayBuffer, sizeof(m_vertices), m_vertices, gl_const::GLStaticDraw);
+
+  GLFunctions::glViewport(0, 0, m_width, m_height);
   GLFunctions::glClear();
   GLFunctions::glDrawArrays(gl_const::GLTriangleStrip, 0, 4);
 
@@ -128,7 +172,7 @@ void Renderer3d::Render(uint32_t textureId, ref_ptr<dp::GpuProgramManager> mng)
 void Renderer3d::UpdateProjectionMatrix()
 {
   float ctg_fovy = 1.0/tanf(m_fov/2.0f);
-  float aspect = (float)m_width / m_height;
+  float aspect = 1.0;
   float near = 0.1f;
   float far = 100.0f;
 
@@ -158,7 +202,7 @@ void Renderer3d::UpdateTranslationMatrix()
   m_translationMatrix.fill(0.0f);
 
   float dx = 0.0f;
-  float dy = 0.0f;
+  float dy = m_offsetY;
   float dz = m_offsetZ;
 
   m_translationMatrix[0] = 1.0f;
