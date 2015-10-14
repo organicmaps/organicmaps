@@ -37,13 +37,11 @@ namespace sound
 void GetTtsText::SetLocale(string const & locale)
 {
   m_getCurLang = platform::GetTextByIdFactory(platform::TextSource::TtsSound, locale);
-  ASSERT(m_getCurLang, ());
 }
 
 void GetTtsText::ForTestingSetLocaleWithJson(string const & jsonBuffer, string const & locale)
 {
   m_getCurLang = platform::ForTestingGetTextByIdFactory(jsonBuffer, locale);
-  ASSERT(m_getCurLang, ());
 }
 
 string GetTtsText::operator()(Notification const & notification) const

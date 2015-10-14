@@ -13,16 +13,16 @@ namespace
 {
 string const kDefaultLanguage = "en";
 
-string GetTextSourceString(platform::TextSource textSouce)
+string GetTextSourceString(platform::TextSource textSource)
 {
 #if defined(OMIM_OS_ANDROID) || defined(OMIM_OS_IPHONE)
-  switch (textSouce)
+  switch (textSource)
   {
     case platform::TextSource::TtsSound:
       return "sound-strings";
   }
 #else
-  switch (textSouce)
+  switch (textSource)
   {
     case platform::TextSource::TtsSound:
       return "../data/sound-strings";
@@ -31,10 +31,10 @@ string GetTextSourceString(platform::TextSource textSouce)
   ASSERT(false, ());
 }
 
-bool GetJsonBuffer(platform::TextSource textSouce, string const & localeName, string & jsonBuffer)
+bool GetJsonBuffer(platform::TextSource textSource, string const & localeName, string & jsonBuffer)
 {
   string const pathToJson = my::JoinFoldersToPath(
-      {GetTextSourceString(textSouce), localeName + ".json"}, "localize.json");
+      {GetTextSourceString(textSource), localeName + ".json"}, "localize.json");
 
   try
   {
@@ -53,10 +53,10 @@ bool GetJsonBuffer(platform::TextSource textSouce, string const & localeName, st
 
 namespace platform
 {
-unique_ptr<GetTextById> MakeGetTextById(string const & jsonBuffer, string const & localeName)
+TGetTextByIdPtr MakeGetTextById(string const & jsonBuffer, string const & localeName)
 {
-  unique_ptr<GetTextById> result(new GetTextById(jsonBuffer, localeName));
-  if (!result || !result->IsValid())
+  TGetTextByIdPtr result(new GetTextById(jsonBuffer, localeName));
+  if (!result->IsValid())
   {
     ASSERT(false, ());
     return nullptr;
@@ -64,20 +64,20 @@ unique_ptr<GetTextById> MakeGetTextById(string const & jsonBuffer, string const 
   return result;
 }
 
-unique_ptr<GetTextById> GetTextByIdFactory(TextSource textSouce, string const & localeName)
+TGetTextByIdPtr GetTextByIdFactory(TextSource textSource, string const & localeName)
 {
   string jsonBuffer;
-  if (GetJsonBuffer(textSouce, localeName, jsonBuffer))
+  if (GetJsonBuffer(textSource, localeName, jsonBuffer))
     return MakeGetTextById(jsonBuffer, localeName);
 
-  if (GetJsonBuffer(textSouce, kDefaultLanguage, jsonBuffer))
+  if (GetJsonBuffer(textSource, kDefaultLanguage, jsonBuffer))
     return MakeGetTextById(jsonBuffer, kDefaultLanguage);
 
   ASSERT(false, ("sound.txt does not contain default language."));
   return nullptr;
 }
 
-unique_ptr<GetTextById> ForTestingGetTextByIdFactory(string const & jsonBuffer, string const & localeName)
+TGetTextByIdPtr ForTestingGetTextByIdFactory(string const & jsonBuffer, string const & localeName)
 {
   return MakeGetTextById(jsonBuffer, localeName);
 }
@@ -117,12 +117,9 @@ void GetTextById::InitFromJson(string const & jsonBuffer)
 
 string GetTextById::operator()(string const & textId) const
 {
-  if (!IsValid())
-    return string();
-
   auto const textIt = m_localeTexts.find(textId);
   if (textIt == m_localeTexts.end())
-    return "";
+    return string();
   return textIt->second;
 }
 }  // namespace platform

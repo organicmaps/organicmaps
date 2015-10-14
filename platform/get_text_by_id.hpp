@@ -14,6 +14,9 @@ enum class TextSource
   TtsSound = 0
 };
 
+class GetTextById;
+typedef unique_ptr<GetTextById> TGetTextByIdPtr;
+
 /// GetTextById represents text messages which are saved in textsDir
 /// in a specified locale.
 class GetTextById
@@ -25,9 +28,9 @@ public:
   string operator()(string const & textId) const;
   string GetLocale() const { return m_locale; }
 private:
-  friend unique_ptr<GetTextById> GetTextByIdFactory(TextSource textSouce, string const & localeName);
-  friend unique_ptr<GetTextById> ForTestingGetTextByIdFactory(string const & jsonBuffer, string const & localeName);
-  friend unique_ptr<GetTextById> MakeGetTextById(string const & jsonBuffer, string const & localeName);
+  friend TGetTextByIdPtr GetTextByIdFactory(TextSource textSource, string const & localeName);
+  friend TGetTextByIdPtr ForTestingGetTextByIdFactory(string const & jsonBuffer, string const & localeName);
+  friend TGetTextByIdPtr MakeGetTextById(string const & jsonBuffer, string const & localeName);
 
   GetTextById(string const & jsonBuffer, string const & localeName);
   void InitFromJson(string const & jsonBuffer);
@@ -38,11 +41,11 @@ private:
   unordered_map<string, string> m_localeTexts;
 };
 
-/// Factoris to create intances of GetTextById.
-/// If unique_ptr<GetTextById> is created by GetTextByIdFactory or ForTestingGetTextByIdFactory
-/// threre are only two possibities.
+/// Factories to create GetTextById instances.
+/// If TGetTextByIdPtr is created by GetTextByIdFactory or ForTestingGetTextByIdFactory
+/// threre are only two possibities:
 /// * a factory returns a valid instance
 /// * a factory returns nullptr
-unique_ptr<GetTextById> GetTextByIdFactory(TextSource textSouce, string const & localeName);
-unique_ptr<GetTextById> ForTestingGetTextByIdFactory(string const & jsonBuffer, string const & localeName);
+TGetTextByIdPtr GetTextByIdFactory(TextSource textSource, string const & localeName);
+TGetTextByIdPtr ForTestingGetTextByIdFactory(string const & jsonBuffer, string const & localeName);
 }  // namespace platform

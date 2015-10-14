@@ -15,7 +15,7 @@ UNIT_TEST(GetTextByIdEnglishTest)
       \"in_1_mile\":\"In one mile.\"\
       }";
 
-  unique_ptr<platform::GetTextById> getEnglish = platform::ForTestingGetTextByIdFactory(shortJson, "en");
+  auto getEnglish = platform::ForTestingGetTextByIdFactory(shortJson, "en");
   TEST_EQUAL((*getEnglish)("make_a_slight_right_turn"), "Make a slight right turn.", ());
   TEST_EQUAL((*getEnglish)("in_900_meters"), "In nine hundred meters.", ());
   TEST_EQUAL((*getEnglish)("then"), "Then.", ());
@@ -38,7 +38,7 @@ UNIT_TEST(GetTextByIdRussianTest)
       \"in_1_mile\":\"Через одну милю.\"\
       }";
 
-  unique_ptr<platform::GetTextById> getRussian = platform::ForTestingGetTextByIdFactory(shortJson, "ru");
+  auto getRussian = platform::ForTestingGetTextByIdFactory(shortJson, "ru");
   TEST_EQUAL((*getRussian)("in_800_meters"), "Через восемьсот метров.", ());
   TEST_EQUAL((*getRussian)("make_a_slight_right_turn"), "Плавный поворот направо.", ());
   TEST_EQUAL((*getRussian)("take_the_6th_exit"), "Шестой поворот с кольца.", ());
@@ -61,7 +61,7 @@ UNIT_TEST(GetTextByIdKoreanTest)
       \"in_5000_feet\":\"5000피트 앞\"\
       }";
 
-  unique_ptr<platform::GetTextById> getKorean = platform::ForTestingGetTextByIdFactory(shortJson, "ko");
+  auto getKorean = platform::ForTestingGetTextByIdFactory(shortJson, "ko");
   TEST_EQUAL((*getKorean)("in_700_meters"), "700 미터 앞", ());
   TEST_EQUAL((*getKorean)("make_a_right_turn"), "우회전입니다.", ());
   TEST_EQUAL((*getKorean)("take_the_5th_exit"), "다섯 번째 출구입니다.", ());
@@ -84,7 +84,7 @@ UNIT_TEST(GetTextByIdArabicTest)
       \"in_4000_feet\":\"بعد 4000 قدم\"\
       }";
 
-  unique_ptr<platform::GetTextById> getArabic = platform::ForTestingGetTextByIdFactory(shortJson, "ar");
+  auto getArabic = platform::ForTestingGetTextByIdFactory(shortJson, "ar");
   TEST_EQUAL((*getArabic)("in_1_kilometer"), "بعد كيلو متر واحدٍ", ());
   TEST_EQUAL((*getArabic)("leave_the_roundabout"), "اخرج من الطريق الدوار", ());
   TEST_EQUAL((*getArabic)("take_the_3rd_exit"), "اسلك المخرج الثالث", ());
@@ -107,7 +107,7 @@ UNIT_TEST(GetTextByIdFrenchTest)
       \"in_3500_feet\":\"Dans trois mille cinq cents pieds.\"\
       }";
 
-  unique_ptr<platform::GetTextById> getFrench = platform::ForTestingGetTextByIdFactory(shortJson, "fr");
+  auto getFrench = platform::ForTestingGetTextByIdFactory(shortJson, "fr");
   TEST_EQUAL((*getFrench)("in_1_5_kilometers"), "Dans un virgule cinq kilomètre.", ());
   TEST_EQUAL((*getFrench)("enter_the_roundabout"), "Prenez le rond-point.", ());
   TEST_EQUAL((*getFrench)("take_the_2nd_exit"), "Prenez la deuxième sortie.", ());
