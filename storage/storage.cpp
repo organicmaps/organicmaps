@@ -23,7 +23,6 @@
 
 #include "3party/Alohalytics/src/alohalytics.h"
 
-
 using namespace downloader;
 using namespace platform;
 
@@ -392,6 +391,20 @@ void Storage::DownloadNextCountryFromQueue()
     return;
 
   QueuedCountry & queuedCountry = m_queue.front();
+  TIndex const & index = queuedCountry.GetIndex();
+
+  // It's not even possible to prepare directory for files before
+  // downloading.  Mark this country as failed and switch to next
+  // country.
+  if (!PreparePlaceForCountryFiles(GetCountryFile(index), GetCurrentDataVersion()))
+  {
+    OnMapDownloadFinished(index, false /* success */, queuedCountry.GetInitOptions());
+    NotifyStatusChanged(index);
+    m_queue.pop_front();
+    DownloadNextCountryFromQueue();
+    return;
+  }
+
   DownloadNextFile(queuedCountry);
 
   // New status for the country, "Downloading"
@@ -400,7 +413,20 @@ void Storage::DownloadNextCountryFromQueue()
 
 void Storage::DownloadNextFile(QueuedCountry const & country)
 {
-  CountryFile const & countryFile = GetCountryFile(country.GetIndex());
+  TIndex const & index = country.GetIndex();
+  CountryFile const & countryFile = GetCountryFile(index);
+
+  string const filePath = GetFileDownloadPath(index, country.GetCurrentFile());
+  uint64_t size;
+
+  // It may happen that the file already was downloaded, so there're
+  // no need to request servers list and download file.  Let's
+  // switch to next file.
+  if (GetPlatform().GetFileSizeByFullPath(filePath, size))
+  {
+    OnMapFileDownloadFinished(true /* success */, MapFilesDownloader::TProgress(size, size));
+    return;
+  }
 
   // send Country name for statistics
   m_downloader->GetServersList(GetCurrentDataVersion(), countryFile.GetNameWithoutExt(),
@@ -747,6 +773,11 @@ void Storage::SetDownloaderForTesting(unique_ptr<MapFilesDownloader> && download
   m_downloader = move(downloader);
 }
 
+void Storage::SetCurrentDataVersionForTesting(int64_t currentVersion)
+{
+  m_currentVersion = currentVersion;
+}
+
 Storage::TLocalFilePtr Storage::GetLocalFile(TIndex const & index, int64_t version) const
 {
   auto const it = m_localFiles.find(index);
@@ -831,6 +862,9 @@ bool Storage::DeleteCountryFilesFromDownloader(TIndex const & index, MapOptions 
     // Abrupt downloading of the current file if it should be removed.
     if (HasOptions(opt, queuedCountry->GetCurrentFile()))
       m_downloader->Reset();
+
+    // Remove all files downloader had been created for a country.
+    DeleteDownloaderFilesForCountry(GetCountryFile(index), GetCurrentDataVersion());
   }
 
   queuedCountry->RemoveOptions(opt);
@@ -858,8 +892,6 @@ uint64_t Storage::GetDownloadSize(QueuedCountry const & queuedCountry) const
 
 string Storage::GetFileDownloadPath(TIndex const & index, MapOptions file) const
 {
-  Platform & platform = GetPlatform();
-  CountryFile const & countryFile = GetCountryFile(index);
-  return platform.WritablePathForFile(countryFile.GetNameWithExt(file) + READY_FILE_EXTENSION);
+  return platform::GetFileDownloadPath(GetCountryFile(index), file, GetCurrentDataVersion());
 }
 }  // namespace storage

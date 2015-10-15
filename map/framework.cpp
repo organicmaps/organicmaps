@@ -470,7 +470,7 @@ void Framework::RegisterAllMaps()
          ("Registering maps while map downloading leads to removing downloading maps from "
           "ActiveMapsListener::m_items."));
 
-  platform::CleanupMapsDirectory();
+  platform::CleanupMapsDirectory(m_storage.GetCurrentDataVersion());
   m_storage.RegisterAllLocalMaps();
 
   int minFormat = numeric_limits<int>::max();

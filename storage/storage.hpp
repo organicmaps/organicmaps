@@ -179,6 +179,7 @@ public:
   inline int64_t GetCurrentDataVersion() const { return m_currentVersion; }
 
   void SetDownloaderForTesting(unique_ptr<MapFilesDownloader> && downloader);
+  void SetCurrentDataVersionForTesting(int64_t currentVersion);
 
 private:
   friend void UnitTest_StorageTest_DeleteCountry();

@@ -106,11 +106,20 @@ UNIT_TEST(DirsRoutines)
   Platform & platform = GetPlatform();
   string const baseDir = platform.WritableDir();
   string const testDir = my::JoinFoldersToPath(baseDir, "test-dir");
+  string const testFile = my::JoinFoldersToPath(testDir, "test-file");
 
   TEST(!Platform::IsFileExistsByFullPath(testDir), ());
   TEST_EQUAL(platform.MkDir(testDir), Platform::ERR_OK, ());
 
   TEST(Platform::IsFileExistsByFullPath(testDir), ());
+  TEST(Platform::IsDirectoryEmpty(testDir), ());
+
+  {
+    FileWriter writer(testFile);
+  }
+  TEST(!Platform::IsDirectoryEmpty(testDir), ());
+  FileWriter::DeleteFileX(testFile);
+
   TEST_EQUAL(Platform::RmDir(testDir), Platform::ERR_OK, ());
 
   TEST(!Platform::IsFileExistsByFullPath(testDir), ());

@@ -140,6 +140,8 @@ public:
 
   static void GetFilesByType(string const & directory, unsigned typeMask, FilesList & outFiles);
 
+  static bool IsDirectoryEmpty(string const & directory);
+
   static EError GetFileType(string const & path, EFileType & type);
 
   /// @return false if file is not exist

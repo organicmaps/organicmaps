@@ -8,6 +8,8 @@
 #include "base/scope_guard.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/cstring.hpp"
+#include "std/unique_ptr.hpp"
 
 #include <dirent.h>
 #include <sys/types.h>
@@ -19,6 +21,18 @@
 #else
   #include <sys/vfs.h>
 #endif
+
+namespace
+{
+struct CloseDir
+{
+  void operator()(DIR * dir) const
+  {
+    if (dir)
+      closedir(dir);
+  }
+};
+}  // namespace
 
 void Platform::GetSystemFontNames(FilesList & res) const
 {
@@ -136,6 +150,24 @@ bool Platform::IsFileExistsByFullPath(string const & filePath)
   return stat(filePath.c_str(), &s) == 0;
 }
 
+bool Platform::IsDirectoryEmpty(string const & directory)
+{
+  unique_ptr<DIR, CloseDir> dir(opendir(directory.c_str()));
+  if (!dir)
+    return true;
+
+  struct dirent * entry;
+
+  // Invariant: all files met so far are "." or "..".
+  while ((entry = readdir(dir.get())) != nullptr)
+  {
+    // A file is not a special UNIX file. Early exit here.
+    if (strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name, "..") != 0)
+      return false;
+  }
+  return true;
+}
+
 bool Platform::GetFileSizeByFullPath(string const & filePath, uint64_t & size)
 {
   struct stat s;
@@ -168,26 +200,22 @@ Platform::TStorageStatus Platform::GetWritableStorageStatus(uint64_t neededSize)
 
 namespace pl
 {
-
 void EnumerateFilesByRegExp(string const & directory, string const & regexp,
                             vector<string> & res)
 {
-  DIR * dir;
-  struct dirent * entry;
-  if ((dir = opendir(directory.c_str())) == NULL)
+  unique_ptr<DIR, CloseDir> dir(opendir(directory.c_str()));
+  if (!dir)
     return;
 
   regexp::RegExpT exp;
   regexp::Create(regexp, exp);
 
-  while ((entry = readdir(dir)) != 0)
+  struct dirent * entry;
+  while ((entry = readdir(dir.get())) != 0)
   {
     string const name(entry->d_name);
     if (regexp::IsExist(name, exp))
       res.push_back(name);
   }
-
-  closedir(dir);
 }
-
-}
+}  // namespace pl

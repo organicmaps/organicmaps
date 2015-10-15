@@ -421,6 +421,21 @@ UNIT_TEST(StartsWith)
   TEST(!StartsWith(s, "axy"), ());
 }
 
+UNIT_TEST(EndsWith)
+{
+  using namespace strings;
+  TEST(EndsWith(string(), ""), ());
+
+  string s("xyz");
+  TEST(EndsWith(s, ""), ());
+  TEST(EndsWith(s, "z"), ());
+  TEST(EndsWith(s, "yz"), ());
+  TEST(EndsWith(s, "xyz"), ());
+  TEST(!EndsWith(s, "abcxyz"), ());
+  TEST(!EndsWith(s, "ayz"), ());
+  TEST(!EndsWith(s, "axyz"), ());
+}
+
 UNIT_TEST(UniString_LessAndEqualsAndNotEquals)
 {
   vector<strings::UniString> v;

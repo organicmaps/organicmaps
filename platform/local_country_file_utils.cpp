@@ -6,14 +6,17 @@
 #include "coding/internal/file_data.hpp"
 #include "coding/reader.hpp"
 
+#include "base/assert.hpp"
 #include "base/string_utils.hpp"
 #include "base/logging.hpp"
+#include "base/regexp.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/cctype.hpp"
 #include "std/sstream.hpp"
 #include "std/unique_ptr.hpp"
 
+#include "defines.hpp"
 
 namespace platform
 {
@@ -24,8 +27,6 @@ char const kNodesExt[] = ".bftsegnodes";
 char const kOffsetsExt[] = ".offsets";
 
 size_t const kMaxTimestampLength = 18;
-
-bool IsSpecialFile(string const & file) { return file == "." || file == ".."; }
 
 bool GetFileTypeChecked(string const & path, Platform::EFileType & type)
 {
@@ -72,23 +73,34 @@ string GetSpecialFilesSearchScope()
   return "r";
 #endif  // defined(OMIM_OS_ANDROID)
 }
+
+void DeleteDownloaderFilesForAllCountries(string const & directory)
+{
+  static string const regexp = "\\.(downloading|resume|ready)[0-9]?$";
+  Platform::FilesList files;
+  Platform::GetFilesByRegExp(directory, regexp, files);
+  for (auto const & file : files)
+    my::DeleteFileX(my::JoinFoldersToPath(directory, file));
+}
 }  // namespace
 
-void CleanupMapsDirectory()
+void DeleteDownloaderFilesForCountry(CountryFile const & countryFile, int64_t version)
+{
+  for (MapOptions file : {MapOptions::Map, MapOptions::CarRouting})
+  {
+    string const path = GetFileDownloadPath(countryFile, file, version);
+    ASSERT(strings::EndsWith(path, READY_FILE_EXTENSION), ());
+    my::DeleteFileX(path);
+    my::DeleteFileX(path + RESUME_FILE_EXTENSION);
+    my::DeleteFileX(path + DOWNLOADING_FILE_EXTENSION);
+  }
+}
+
+void CleanupMapsDirectory(int64_t latestVersion)
 {
   Platform & platform = GetPlatform();
 
   string const mapsDir = platform.WritableDir();
-
-  // Remove partially downloaded maps.
-  {
-    Platform::FilesList files;
-    // .(downloading|resume|ready)[0-9]?$
-    string const regexp = "\\.(downloading|resume|ready)[0-9]?$";
-    platform.GetFilesByRegExp(mapsDir, regexp, files);
-    for (string const & file : files)
-      my::DeleteFileX(my::JoinFoldersToPath(mapsDir, file));
-  }
 
   {
     // Delete Brazil.mwm and Japan.mwm maps, because they was replaces with
@@ -111,20 +123,27 @@ void CleanupMapsDirectory()
   platform.GetFilesByType(mapsDir, Platform::FILE_TYPE_DIRECTORY, subdirs);
   for (string const & subdir : subdirs)
   {
-    int64_t version;
-    if (ParseVersion(subdir, version))
+    // No need to visit parent directory.
+    if (subdir == "..")
+      continue;
+
+    int64_t version = 0;
+    if (subdir != "." && !ParseVersion(subdir, version))
+      continue;
+
+    string const subdirPath = my::JoinFoldersToPath(mapsDir, subdir);
+
+    // It's OK to remove all temprorary files for maps older than app.
+    if (version != latestVersion)
+      DeleteDownloaderFilesForAllCountries(subdirPath);
+
+    // Remove subdirectory if it does not contain any files except "." and "..".
+    if (subdir != "." && Platform::IsDirectoryEmpty(subdirPath))
     {
-      vector<string> files;
-      string const subdirPath = my::JoinFoldersToPath(mapsDir, subdir);
-      platform.GetFilesByType(subdirPath,
-                              Platform::FILE_TYPE_REGULAR | Platform::FILE_TYPE_DIRECTORY, files);
-      if (all_of(files.begin(), files.end(), &IsSpecialFile))
-      {
-        Platform::EError const ret = Platform::RmDir(subdirPath);
-        ASSERT_EQUAL(Platform::ERR_OK, ret,
-               ("Can't remove empty directory:", subdirPath, "error:", ret));
-        UNUSED_VALUE(ret);
-      }
+      Platform::EError const ret = Platform::RmDir(subdirPath);
+      ASSERT_EQUAL(Platform::ERR_OK, ret,
+                   ("Can't remove empty directory:", subdirPath, "error:", ret));
+      UNUSED_VALUE(ret);
     }
   }
 
@@ -230,6 +249,15 @@ shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(CountryFile const & cou
   if (!MkDirChecked(directory))
     return shared_ptr<LocalCountryFile>();
   return make_shared<LocalCountryFile>(directory, countryFile, version);
+}
+
+string GetFileDownloadPath(CountryFile const & countryFile, MapOptions file, int64_t version)
+{
+  Platform & platform = GetPlatform();
+  string const readyFile = countryFile.GetNameWithExt(file) + READY_FILE_EXTENSION;
+  if (version == 0)
+    return my::JoinFoldersToPath(platform.WritableDir(), readyFile);
+  return my::JoinFoldersToPath({platform.WritableDir(), strings::to_string(version)}, readyFile);
 }
 
 ModelReader * GetCountryReader(platform::LocalCountryFile const & file, MapOptions options)
