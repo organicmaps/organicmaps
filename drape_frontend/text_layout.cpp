@@ -98,7 +98,7 @@ public:
 private:
   glsl::vec2 m_penPosition;
   gpu::TTextDynamicVertexBuffer & m_buffer;
-  float m_textRatio = 0.0;
+  float m_textRatio = 0.0f;
   bool m_isFirstGlyph = true;
 };
 

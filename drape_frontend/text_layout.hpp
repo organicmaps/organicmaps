@@ -50,7 +50,7 @@ protected:
 
   dp::TextureManager::TGlyphsBuffer m_metrics;
   strings::UniString m_text;
-  float m_textSizeRatio = 0.0;
+  float m_textSizeRatio = 0.0f;
 };
 
 class StraightTextLayout : public TextLayout

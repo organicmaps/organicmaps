@@ -125,9 +125,8 @@ void StaticLabel::CacheStaticText(string const & text, char const * delim,
 
   ASSERT(!textParts.empty(), ());
 
-  for (strings::UniString const & str : textParts)
-    for (strings::UniChar const & c : str)
-      result.m_alphabet.insert(c);
+  for (auto const & str : textParts)
+    result.m_alphabet.insert(str.begin(), str.end());
 
   dp::TextureManager::TMultilineGlyphsBuffer buffers;
   mng->GetGlyphRegions(textParts, buffers);
@@ -576,12 +575,10 @@ StaticLabelHandle::StaticLabelHandle(ref_ptr<dp::TextureManager> textureManager,
                                      m2::PointF const & size,
                                      TAlphabet const & alphabet)
   : TBase(anchor, pivot, size)
+  , m_alphabet(alphabet.begin(), alphabet.end())
   , m_textureManager(textureManager)
   , m_glyphsReady(false)
-{
-  for (strings::UniChar const & c : alphabet)
-    m_alphabet.push_back(c);
-}
+{}
 
 bool StaticLabelHandle::Update(ScreenBase const & screen)
 {

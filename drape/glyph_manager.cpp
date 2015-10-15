@@ -10,7 +10,6 @@
 #include "base/math.hpp"
 #include "base/timer.hpp"
 
-#include "std/mutex.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/unordered_set.hpp"
 
@@ -311,14 +310,14 @@ struct UnicodeBlock
   int GetFontOffset(int idx) const
   {
     if (m_fontsWeight.empty())
-      return -1;
+      return kInvalidFont;
 
     int maxWight = 0;
     int upperBoundWeight = numeric_limits<int>::max();
-    if (idx != -1)
+    if (idx != kInvalidFont)
       upperBoundWeight = m_fontsWeight[idx];
 
-    int index = -1;
+    int index = kInvalidFont;
     for (size_t i = 0; i < m_fontsWeight.size(); ++i)
     {
       int w = m_fontsWeight[i];
@@ -475,7 +474,7 @@ GlyphManager::GlyphManager(GlyphManager::Params const & params)
 
 GlyphManager::~GlyphManager()
 {
-  for (unique_ptr<Font> const & f : m_impl->m_fonts)
+  for (auto const & f : m_impl->m_fonts)
     f->DestroyFont();
 
   FREETYPE_CHECK(FT_Done_FreeType(m_impl->m_library));
@@ -525,20 +524,14 @@ int GlyphManager::GetFontIndexImmutable(strings::UniChar unicodePoint) const
 
 int GlyphManager::FindFontIndexInBlock(UnicodeBlock const & block, strings::UniChar unicodePoint) const
 {
-  int fontIndex = kInvalidFont;
   ASSERT(block.HasSymbol(unicodePoint), ());
-  do
+  for (int fontIndex = block.GetFontOffset(kInvalidFont); fontIndex != kInvalidFont; fontIndex = block.GetFontOffset(fontIndex))
   {
-    if (fontIndex != kInvalidFont)
-    {
-      ASSERT_LESS(fontIndex, m_impl->m_fonts.size(), ());
-      unique_ptr<Font> const & f = m_impl->m_fonts[fontIndex];
-      if (f->HasGlyph(unicodePoint))
-        return fontIndex;
-    }
-    fontIndex = block.GetFontOffset(fontIndex);
+    ASSERT_LESS(fontIndex, m_impl->m_fonts.size(), ());
+    auto const & f = m_impl->m_fonts[fontIndex];
+    if (f->HasGlyph(unicodePoint))
+      return fontIndex;
   }
-  while(fontIndex != kInvalidFont);
 
   return kInvalidFont;
 }
@@ -549,7 +542,7 @@ GlyphManager::Glyph GlyphManager::GetGlyph(strings::UniChar unicodePoint)
   if (fontIndex == kInvalidFont)
     return GetInvalidGlyph();
 
-  unique_ptr<Font> const & f = m_impl->m_fonts[fontIndex];
+  auto const & f = m_impl->m_fonts[fontIndex];
   Glyph glyph = f->GetGlyph(unicodePoint, m_impl->m_baseGlyphHeight);
   glyph.m_fontIndex = fontIndex;
   return glyph;
@@ -559,7 +552,7 @@ GlyphManager::Glyph GlyphManager::GenerateGlyph(Glyph const & glyph) const
 {
   ASSERT_NOT_EQUAL(glyph.m_fontIndex, -1, ());
   ASSERT_LESS(glyph.m_fontIndex, m_impl->m_fonts.size(), ());
-  unique_ptr<Font> const & f = m_impl->m_fonts[glyph.m_fontIndex];
+  auto const & f = m_impl->m_fonts[glyph.m_fontIndex];
   return f->GenerateGlyph(glyph);
 }
 
@@ -578,7 +571,7 @@ void GlyphManager::MarkGlyphReady(Glyph const & glyph)
 
 bool GlyphManager::AreGlyphsReady(strings::UniString const & str) const
 {
-  for (strings::UniChar const & code : str)
+  for (auto const & code : str)
   {
     int const fontIndex = GetFontIndexImmutable(code);
     if (fontIndex == kInvalidFont)

@@ -59,10 +59,9 @@ void TextHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutato
 
 bool TextHandle::Update(ScreenBase const & screen)
 {
-  if (m_glyphsReady)
-    return true;
+  if (!m_glyphsReady)
+    m_glyphsReady = m_textureManager->AreGlyphsReady(m_text);
 
-  m_glyphsReady = m_textureManager->AreGlyphsReady(m_text);
   return m_glyphsReady;
 }
 

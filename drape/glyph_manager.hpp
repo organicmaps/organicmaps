@@ -87,6 +87,7 @@ public:
 
 private:
   int GetFontIndex(strings::UniChar unicodePoint);
+  // Immutable version can be called from any thread and doesn't require internal synchronization.
   int GetFontIndexImmutable(strings::UniChar unicodePoint) const;
   int FindFontIndexInBlock(UnicodeBlock const & block, strings::UniChar unicodePoint) const;
 

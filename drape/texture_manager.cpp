@@ -33,8 +33,8 @@ size_t const kDuplicatedGlyphsCount = 128;
 size_t const kReservedPatterns = 10;
 size_t const kReservedColors = 20;
 
-float const kGlyphAreaMultiplier = 1.2;
-float const kGlyphAreaCoverage = 0.9;
+float const kGlyphAreaMultiplier = 1.2f;
+float const kGlyphAreaCoverage = 0.9f;
 
 namespace
 {
@@ -266,7 +266,7 @@ size_t TextureManager::FindGlyphsGroup(strings::UniChar const & c) const
 size_t TextureManager::FindGlyphsGroup(strings::UniString const & text) const
 {
   size_t groupIndex = kInvalidGlyphGroup;
-  for (strings::UniChar const & c : text)
+  for (auto const & c : text)
   {
     // skip glyphs which can be duplicated
     if (c < kDuplicatedGlyphsCount)
@@ -313,7 +313,7 @@ size_t TextureManager::FindGlyphsGroup(TMultilineText const & text) const
 size_t TextureManager::GetNumberOfUnfoundCharacters(strings::UniString const & text, HybridGlyphGroup const & group) const
 {
   size_t cnt = 0;
-  for (strings::UniChar const & c : text)
+  for (auto const & c : text)
     if (group.m_glyphs.find(c) == group.m_glyphs.end())
       cnt++;
 
@@ -322,7 +322,7 @@ size_t TextureManager::GetNumberOfUnfoundCharacters(strings::UniString const & t
 
 void TextureManager::MarkCharactersUsage(strings::UniString const & text, HybridGlyphGroup & group)
 {
-  for (strings::UniChar const & c : text)
+  for (auto const & c : text)
     group.m_glyphs.emplace(c);
 }
 
