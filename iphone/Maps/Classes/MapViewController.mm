@@ -517,16 +517,10 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   self.controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-  [super viewDidAppear:animated];
-  self.menuRestoreState = self.controlsManager.menuState;
-}
-
 - (void)viewWillDisappear:(BOOL)animated
 {
   [super viewWillDisappear:animated];
-
+  self.menuRestoreState = self.controlsManager.menuState;
   GetFramework().SetUpdatesEnabled(false);
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
