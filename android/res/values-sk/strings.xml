@@ -302,7 +302,6 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Diaľka</string>
 	<string name="share_my_location">Zdielať moje umiestnenie</string>
-	<string name="become_a_pro">Vykonať upgrade</string>
 	<string name="menu_search">Vyhľadávanie</string>
 	<string name="pref_zoom_title">Tlačítka priblíženia/oddialenia</string>
 	<string name="pref_zoom_summary">Zobraziť na obrazovke</string>

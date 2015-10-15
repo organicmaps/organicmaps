@@ -308,10 +308,25 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Длина</string>
 	<string name="share_my_location">Поделиться местоположением</string>
-	<string name="become_a_pro">Загрузить PRO</string>
 	<string name="menu_search">Поиск</string>
+	<!-- Settings screen: "Map" category title -->
+	<string name="prefs_group_map">Карта</string>
+	<!-- Settings screen: "Route" category title -->
+	<string name="prefs_group_route">Маршрут</string>
+	<!-- Settings screen: "Miscellaneous" category title -->
+	<string name="prefs_group_misc">Прочее</string>
 	<string name="pref_zoom_title">Кнопки масштаба</string>
 	<string name="pref_zoom_summary">Показать на карте</string>
+	<!-- Settings «Map» category: «Map style» title -->
+	<string name="pref_map_style_title">Стиль карты</string>
+	<!-- Settings «Map» category: «Map style» summary -->
+	<string name="pref_map_style_summary">Стиль отображения карты</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_classic_light">Классическая светлая</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_classic_dark">Классическая тёмная</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_modern_light">Современная светлая</string>
 	<string name="placepage_distance">Расстояние</string>
 	<string name="placepage_coordinates">Координаты</string>
 	<string name="placepage_unsorted">Без категории</string>
@@ -359,6 +374,10 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">Настройки и другое</string>
 	<!-- Text in menu -->
+	<string name="website">Сайт</string>
+	<!-- Text in menu -->
+	<string name="blog">Блог</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">Сообщество MAPS.ME</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">MAPS.ME в Facebook</string>
@@ -366,10 +385,20 @@
 	<string name="follow_on_twitter">MAPS.ME в Twitter</string>
 	<!-- Text in menu -->
 	<string name="contact_us">Свяжитесь с нами</string>
+	<!-- Settings: Send feedback button and dialog title -->
+	<string name="feedback">Связаться с нами</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">Отправить отзыв</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">Подписаться на новости</string>
 	<!-- Text in menu -->
 	<string name="rate_the_app">Оценить приложение</string>
+	<!-- Rate in Google Play (Android only) -->
+	<string name="rate_gp">Оценить в Google Play</string>
+	<!-- Share with friends: menu item title -->
+	<string name="tell_friends">Рассказать друзьям</string>
+	<!-- Share with friends: sharing text -->
+	<string name="tell_friends_text">Привет! Установи Maps.me!</string>
 	<!-- Text in menu -->
 	<string name="help">Помощь</string>
 	<!-- Text in menu -->
@@ -380,6 +409,8 @@
 	<string name="subscribe_me_subject">Подпишите меня на email-рассылку MAPS.ME</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Я хочу первым узнавать обо всех новостях, обновлениях приложения и акциях. Я могу отписаться от рассылки в любой момент.</string>
+	<!-- About short text (below logo) -->
+	<string name="about_description">Объединив усилия Mail.Ru Group и данные OpenStreetMap, мы создаем незаменимое приложение для путешествий.</string>
 	<!-- About text -->
 	<string name="about_text">MAPS.ME предлагает карты всех городов, всех стран мира, которые работают без подключения к интернету. Путешествуйте с уверенностью: где бы вы ни находились, MAPS.ME помогут решить любую вашу проблему - помогут определить ваше местоположение, найти ресторан, отель, заправку, банк, туалет и т.д.\n\nМы постоянно работаем над добавлением новых функций, поэтому если у вас есть идеи или предложения по улучшению MAPS.ME, пишите нам. Если у вас возникла проблема с приложением, сообщите нам, пожалуйста, о ней. Наш емэйл support@maps.me. Мы отвечаем на все письма! Если вам нравится приложение и вы хотите поддержать нас, есть несколько простых и абсолютно бесплатных способов:\n\n- оставьте отзыв в вашем магазине приложений\n- подпишитесь на наши новости на Facebook странице http://www.facebook.com/mapswithme\n- или просто расскажите о MAPS.ME своей маме, друзьям и коллегам :)\n\nСпасибо за вашу поддержку!\n\nP.S. В приложении мы используем картографические данные проекта OpenStreetMap, который работает по принципу Википедии, давая возможность пользователям со всего мира создавать и редактировать карты. Если вы заметили, что на карте что-то не соответствует действительности либо отсутствует, вы можете откорректировать это прямо на сайте http://openstreetmap.org, и эти исправления появятся во время следующего обновления MAPS.ME.</string>
 	<!-- Alert text -->

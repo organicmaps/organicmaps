@@ -293,7 +293,6 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">길이</string>
 	<string name="share_my_location">내 위치 공유</string>
-	<string name="become_a_pro">업그레이드</string>
 	<string name="menu_search">검색</string>
 	<string name="pref_zoom_title">확대/축소 버튼</string>
 	<string name="pref_zoom_summary">화면에 표시</string>

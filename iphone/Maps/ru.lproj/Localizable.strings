@@ -478,13 +478,35 @@
 
 "share_my_location" = "Поделиться местоположением";
 
-"become_a_pro" = "Загрузить PRO";
-
 "menu_search" = "Поиск";
+
+/* Settings screen: "Map" category title */
+"prefs_group_map" = "Карта";
+
+/* Settings screen: "Route" category title */
+"prefs_group_route" = "Маршрут";
+
+/* Settings screen: "Miscellaneous" category title */
+"prefs_group_misc" = "Прочее";
 
 "pref_zoom_title" = "Кнопки масштаба";
 
 "pref_zoom_summary" = "Показать на карте";
+
+/* Settings «Map» category: «Map style» title */
+"pref_map_style_title" = "Стиль карты";
+
+/* Settings «Map» category: «Map style» summary */
+"pref_map_style_summary" = "Стиль отображения карты";
+
+/* «Map style» entry value */
+"pref_map_style_classic_light" = "Классическая светлая";
+
+/* «Map style» entry value */
+"pref_map_style_classic_dark" = "Классическая тёмная";
+
+/* «Map style» entry value */
+"pref_map_style_modern_light" = "Современная светлая";
 
 "placepage_distance" = "Расстояние";
 
@@ -558,6 +580,12 @@
 "settings_and_more" = "Настройки и другое";
 
 /* Text in menu */
+"website" = "Сайт";
+
+/* Text in menu */
+"blog" = "Блог";
+
+/* Text in menu */
 "maps_me_community" = "Сообщество MAPS.ME";
 
 /* Text in menu */
@@ -569,11 +597,23 @@
 /* Text in menu */
 "contact_us" = "Свяжитесь с нами";
 
+/* Settings: Send feedback button and dialog title */
+"feedback" = "Связаться с нами";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "Отправить отзыв";
+
 /* Text in menu */
 "subscribe_to_news" = "Подписаться на новости";
 
 /* Text in menu */
 "rate_the_app" = "Оценить приложение";
+
+/* Rate in Google Play (Android only) */
+"rate_gp" = "Оценить в Google Play";
+
+/* Share with friends */
+"tell_friends" = "Рассказать друзьям";
 
 /* Text in menu */
 "help" = "Помощь";
@@ -589,6 +629,9 @@
 
 /* Email body */
 "subscribe_me_body" = "Я хочу первым узнавать обо всех новостях, обновлениях приложения и акциях. Я могу отписаться от рассылки в любой момент.";
+
+/* About short text (below logo) */
+"about_description" = "Объединив усилия Mail.Ru Group и данные OpenStreetMap, мы создаем незаменимое приложение для путешествий.";
 
 /* About text */
 "about_text" = "MAPS.ME предлагает карты всех городов, всех стран мира, которые работают без подключения к интернету. Путешествуйте с уверенностью: где бы вы ни находились, MAPS.ME помогут решить любую вашу проблему - помогут определить ваше местоположение, найти ресторан, отель, заправку, банк, туалет и т.д.\n\nМы постоянно работаем над добавлением новых функций, поэтому если у вас есть идеи или предложения по улучшению MAPS.ME, пишите нам. Если у вас возникла проблема с приложением, сообщите нам, пожалуйста, о ней. Наш емэйл support@maps.me. Мы отвечаем на все письма! Если вам нравится приложение и вы хотите поддержать нас, есть несколько простых и абсолютно бесплатных способов:\n\n- оставьте отзыв в вашем магазине приложений\n- подпишитесь на наши новости на Facebook странице http://www.facebook.com/mapswithme\n- или просто расскажите о MAPS.ME своей маме, друзьям и коллегам :)\n\nСпасибо за вашу поддержку!\n\nP.S. В приложении мы используем картографические данные проекта OpenStreetMap, который работает по принципу Википедии, давая возможность пользователям со всего мира создавать и редактировать карты. Если вы заметили, что на карте что-то не соответствует действительности либо отсутствует, вы можете откорректировать это прямо на сайте http://openstreetmap.org, и эти исправления появятся во время следующего обновления MAPS.ME.";
