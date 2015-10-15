@@ -10,8 +10,9 @@
 
 #include <direct.h>
 #include <shlobj.h>
-#include <sys/types.h>
+#include <shlwapi.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 
 static bool GetUserWritableDir(string & outDir)
 {
@@ -153,6 +154,11 @@ Platform::TStorageStatus Platform::GetWritableStorageStatus(uint64_t neededSize)
     return NOT_ENOUGH_SPACE;
 
   return STORAGE_OK;
+}
+
+bool Platform::IsDirectoryEmpty(string const & directory)
+{
+  return PathIsDirectoryEmptyA(directory.c_str());
 }
 
 bool Platform::GetFileSizeByFullPath(string const & filePath, uint64_t & size)

@@ -6,6 +6,7 @@
 #include "coding/internal/file_data.hpp"
 #include "coding/reader.hpp"
 
+#include "base/assert.hpp"
 #include "base/string_utils.hpp"
 #include "base/logging.hpp"
 #include "base/regexp.hpp"
@@ -26,15 +27,6 @@ char const kNodesExt[] = ".bftsegnodes";
 char const kOffsetsExt[] = ".offsets";
 
 size_t const kMaxTimestampLength = 18;
-
-bool IsSpecialFile(string const & file) { return file == "." || file == ".."; }
-
-bool IsEmptyDirectory(string const & directory)
-{
-  Platform::FilesList files;
-  Platform::GetFilesByRegExp(directory, ".*", files);
-  return all_of(files.begin(), files.end(), &IsSpecialFile);
-}
 
 bool GetFileTypeChecked(string const & path, Platform::EFileType & type)
 {
@@ -97,6 +89,7 @@ void DeleteDownloaderFilesForCountry(CountryFile const & countryFile, int64_t ve
   for (MapOptions file : {MapOptions::Map, MapOptions::CarRouting})
   {
     string const path = GetFileDownloadPath(countryFile, file, version);
+    ASSERT(strings::EndsWith(path, READY_FILE_EXTENSION), ());
     my::DeleteFileX(path);
     my::DeleteFileX(path + RESUME_FILE_EXTENSION);
     my::DeleteFileX(path + DOWNLOADING_FILE_EXTENSION);
@@ -145,7 +138,7 @@ void CleanupMapsDirectory(int64_t latestVersion)
       DeleteDownloaderFilesForAllCountries(subdirPath);
 
     // Remove subdirectory if it does not contain any files except "." and "..".
-    if (subdir != "." && IsEmptyDirectory(subdirPath))
+    if (subdir != "." && Platform::IsDirectoryEmpty(subdirPath))
     {
       Platform::EError const ret = Platform::RmDir(subdirPath);
       ASSERT_EQUAL(Platform::ERR_OK, ret,
