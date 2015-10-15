@@ -160,6 +160,14 @@ android {
       // Change it in the next version after publishing app to the store.
       buildConfigField 'int', 'RATING_THRESHOLD', '6'
     }
+
+    moboMarket {
+      versionName = android.defaultConfig.versionName + '-MoboMarket'
+      android.sourceSets.moboMarket.assets.srcDirs = ['flavors/mwm-ttf-assets']
+      // TODO While store url is unknown, force all rating reviews to be sent to our email.
+      // Change it in the next version after publishing app to the store.
+      buildConfigField 'int', 'RATING_THRESHOLD', '6'
+    }
   }
 
   // Currently (as of 1.2.3 gradle plugin) ABI filters aren't supported inside of product flavors, so we cannot generate splitted builds only for Google build.
