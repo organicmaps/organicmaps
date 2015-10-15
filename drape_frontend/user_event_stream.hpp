@@ -128,16 +128,18 @@ struct SetAnyRectEvent
 struct FollowAndRotateEvent
 {
   FollowAndRotateEvent(m2::PointD const & userPos, m2::PointD const & pixelZero,
-                       double azimuth, bool isAnim)
+                       double azimuth, int preferredZoomLevel, bool isAnim)
     : m_userPos(userPos)
     , m_pixelZero(pixelZero)
     , m_azimuth(azimuth)
+    , m_preferredZoomLevel(preferredZoomLevel)
     , m_isAnim(isAnim)
   {}
 
   m2::PointD m_userPos;
   m2::PointD m_pixelZero;
   double m_azimuth;
+  int m_preferredZoomLevel;
   bool m_isAnim;
 };
 
@@ -251,7 +253,8 @@ private:
   bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim);
   bool SetRect(m2::AnyRectD const & rect, bool isAnim);
   bool SetRect(m2::AnyRectD const & rect, bool isAnim, TAnimationCreator const & animCreator);
-  bool SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos, double azimuth, bool isAnim);
+  bool SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos,
+                          double azimuth, int preferredZoomLevel, bool isAnim);
 
   m2::AnyRectD GetCurrentRect() const;
 

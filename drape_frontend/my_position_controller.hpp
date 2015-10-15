@@ -29,7 +29,8 @@ public:
     /// Somehow show map that "rect" will see
     virtual void ChangeModelView(m2::RectD const & rect) = 0;
     /// Show map where "usePos" (mercator) placed in "pxZero" on screen and map rotated around "userPos"
-    virtual void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero) = 0;
+    virtual void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
+                                 int preferredZoomLevel) = 0;
   };
 
   // Render bits
@@ -70,7 +71,7 @@ public:
 
   void StopLocationFollow();
   void StopCompassFollow();
-  void NextMode();
+  void NextMode(int preferredZoomLevel = -1);
   void TurnOff();
   void Invalidate();
 
@@ -102,9 +103,10 @@ private:
   void ChangeModelView(m2::PointD const & center);
   void ChangeModelView(double azimuth);
   void ChangeModelView(m2::RectD const & rect);
-  void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero);
+  void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
+                       int preferredZoomLevel);
 
-  void Follow();
+  void Follow(int preferredZoomLevel = -1);
   m2::PointD GetRaFPixelBinding() const;
   m2::PointD GetCurrentPixelBinding() const;
 

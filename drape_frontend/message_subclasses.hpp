@@ -370,14 +370,23 @@ public:
 
   explicit ChangeMyPositionModeMessage(EChangeType changeType)
     : m_changeType(changeType)
-  {
-  }
+    , m_preferredZoomLevel(-1)
+  {}
+
+  explicit ChangeMyPositionModeMessage(EChangeType changeType, int zoomLevel)
+    : m_changeType(changeType)
+    , m_preferredZoomLevel(zoomLevel)
+  {}
 
   EChangeType GetChangeType() const { return m_changeType; }
   Type GetType() const override { return Message::ChangeMyPostitionMode; }
 
+  void SetPreferredZoomLevel(int zoomLevel) { m_preferredZoomLevel = zoomLevel; }
+  int GetPreferredZoomLevel() const { return m_preferredZoomLevel; }
+
 private:
   EChangeType const m_changeType;
+  int m_preferredZoomLevel;
 };
 
 class CompassInfoMessage : public Message

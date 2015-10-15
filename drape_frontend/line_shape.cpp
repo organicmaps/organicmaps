@@ -399,6 +399,9 @@ public:
 
   void SubmitCap(LineSegment const & segment, bool isStart)
   {
+    if (m_params.m_cap == dp::ButtCap)
+      return;
+
     EPointType const type = isStart ? StartPoint : EndPoint;
     float const sign = isStart ? -1.0 : 1.0;
     SubmitJoinImpl(glsl::vec3(segment.m_points[type], m_params.m_depth), GenerateCap(segment, type, sign, isStart));

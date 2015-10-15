@@ -49,14 +49,14 @@ enum Anchor
 enum LineCap
 {
   SquareCap = -1,
-  RoundCap  = 0,
-  ButtCap   = 1,
+  RoundCap = 0,
+  ButtCap = 1,
 };
 
 enum LineJoin
 {
-  MiterJoin   = -1,
-  BevelJoin  = 0,
+  MiterJoin = -1,
+  BevelJoin = 0,
   RoundJoin = 1,
 };
 

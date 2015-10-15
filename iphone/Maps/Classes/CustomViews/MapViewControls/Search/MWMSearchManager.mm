@@ -286,7 +286,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   UITextField * textField = self.searchTextField;
   f.SaveSearchQuery(make_pair(textField.textInputMode.primaryLanguage.UTF8String,
                               textField.text.precomposedStringWithCompatibilityMapping.UTF8String));
-  f.DeactivateUserMark();
+  f.ActivateUserMark(nullptr, true);
   [self.searchTextField resignFirstResponder];
   self.rootView.compact = YES;
   self.tableViewController.searchOnMap = YES;

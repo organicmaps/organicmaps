@@ -205,7 +205,7 @@ void MyPositionController::SetFixedZoom()
   SetModeInfo(SetModeBit(m_modeInfo, FixedZoomBit));
 }
 
-void MyPositionController::NextMode()
+void MyPositionController::NextMode(int preferredZoomLevel)
 {
   string const kAlohalyticsClickEvent = "$onClick";
   location::EMyPositionMode currentMode = GetMode();
@@ -251,7 +251,7 @@ void MyPositionController::NextMode()
   }
 
   SetModeInfo(ChangeMode(m_modeInfo, newMode));
-  Follow();
+  Follow(preferredZoomLevel);
 }
 
 void MyPositionController::TurnOff()
@@ -342,11 +342,8 @@ void MyPositionController::AnimateStateTransition(location::EMyPositionMode oldM
       ChangeModelView(m2::RectD(m_position - size, m_position + size));
     }
   }
-  else if (newMode == location::MODE_ROTATE_AND_FOLLOW)
-  {
-    Follow();
-  }
-  else if (oldMode == location::MODE_ROTATE_AND_FOLLOW && newMode == location::MODE_UNKNOWN_POSITION)
+  else if (oldMode == location::MODE_ROTATE_AND_FOLLOW &&
+           (newMode == location::MODE_FOLLOW || newMode == location::MODE_UNKNOWN_POSITION))
   {
     ChangeModelView(0.0);
     ChangeModelView(m_position);
@@ -473,19 +470,19 @@ void MyPositionController::ChangeModelView(m2::RectD const & rect)
 }
 
 void MyPositionController::ChangeModelView(m2::PointD const & userPos, double azimuth,
-                                           m2::PointD const & pxZero)
+                                           m2::PointD const & pxZero, int preferredZoomLevel)
 {
   if (m_listener)
-    m_listener->ChangeModelView(userPos, azimuth, pxZero);
+    m_listener->ChangeModelView(userPos, azimuth, pxZero, preferredZoomLevel);
 }
 
-void MyPositionController::Follow()
+void MyPositionController::Follow(int preferredZoomLevel)
 {
   location::EMyPositionMode currentMode = GetMode();
   if (currentMode == location::MODE_FOLLOW)
     ChangeModelView(m_position);
   else if (currentMode == location::MODE_ROTATE_AND_FOLLOW)
-    ChangeModelView(m_position, m_drawDirection, GetRaFPixelBinding());
+    ChangeModelView(m_position, m_drawDirection, GetRaFPixelBinding(), preferredZoomLevel);
 }
 
 m2::PointD MyPositionController::GetRaFPixelBinding() const
@@ -557,8 +554,8 @@ void MyPositionController::DeactivateRouting()
     location::EMyPositionMode currentMode = GetMode();
     if (currentMode == location::MODE_ROTATE_AND_FOLLOW)
       SetModeInfo(ChangeMode(m_modeInfo, location::MODE_FOLLOW));
-
-    ChangeModelView(0.0);
+    else
+      ChangeModelView(0.0);
   }
 }
 

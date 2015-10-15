@@ -1820,13 +1820,12 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
 void Framework::FollowRoute()
 {
   ASSERT(m_drapeEngine != nullptr, ());
-  m_drapeEngine->MyPositionNextMode();
 
-  m2::PointD const & position = m_routingSession.GetUserCurrentPosition();
   int const scale = (m_currentRouterType == RouterType::Pedestrian) ?
                      scales::GetUpperComfortScale() :
                      scales::GetNavigationScale();
-  m_drapeEngine->SetModelViewCenter(position, scale, true);
+
+  m_drapeEngine->FollowRoute(scale);
 }
 
 void Framework::SetRouter(RouterType type)

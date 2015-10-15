@@ -261,6 +261,14 @@ void DrapeEngine::MyPositionNextMode()
                                   MessagePriority::High);
 }
 
+void DrapeEngine::FollowRoute(int preferredZoomLevel)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<ChangeMyPositionModeMessage>(ChangeMyPositionModeMessage::TYPE_NEXT,
+                                                                              preferredZoomLevel),
+                                  MessagePriority::High);
+}
+
 void DrapeEngine::CancelMyPosition()
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,

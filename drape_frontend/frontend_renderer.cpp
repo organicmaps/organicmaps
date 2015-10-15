@@ -232,7 +232,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       switch (msg->GetChangeType())
       {
       case ChangeMyPositionModeMessage::TYPE_NEXT:
-        m_myPositionController->NextMode();
+        m_myPositionController->NextMode(msg->GetPreferredZoomLevel());
         break;
       case ChangeMyPositionModeMessage::TYPE_STOP_FOLLOW:
         m_myPositionController->StopLocationFollow();
@@ -905,9 +905,9 @@ void FrontendRenderer::ChangeModelView(m2::RectD const & rect)
 }
 
 void FrontendRenderer::ChangeModelView(m2::PointD const & userPos, double azimuth,
-                                       m2::PointD const & pxZero)
+                                       m2::PointD const & pxZero, int preferredZoomLevel)
 {
-  AddUserEvent(FollowAndRotateEvent(userPos, pxZero, azimuth, true));
+  AddUserEvent(FollowAndRotateEvent(userPos, pxZero, azimuth, preferredZoomLevel, true));
 }
 
 ScreenBase const & FrontendRenderer::UpdateScene(bool & modelViewChanged)

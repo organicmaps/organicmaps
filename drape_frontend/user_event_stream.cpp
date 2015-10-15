@@ -171,7 +171,8 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       break;
     case UserEvent::EVENT_FOLLOW_AND_ROTATE:
       breakAnim = SetFollowAndRotate(e.m_followAndRotate.m_userPos, e.m_followAndRotate.m_pixelZero,
-                                     e.m_followAndRotate.m_azimuth, e.m_followAndRotate.m_isAnim);
+                                     e.m_followAndRotate.m_azimuth, e.m_followAndRotate.m_preferredZoomLevel,
+                                     e.m_followAndRotate.m_isAnim);
       TouchCancel(m_touches);
       break;
     default:
@@ -298,14 +299,28 @@ bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim, TAnimation
   return true;
 }
 
-bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos, double azimuth, bool isAnim)
+bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos,
+                                         double azimuth, int preferredZoomLevel, bool isAnim)
 {
-  // Extract target local rect from current animation to preserve final scale.
+  // Extract target local rect from current animation or calculate it from preferredZoomLevel
+  // to preserve final scale.
   m2::RectD targetLocalRect;
-  if (m_animation != nullptr)
-    targetLocalRect = m_animation->GetTargetRect(GetCurrentScreen()).GetLocalRect();
+  if (preferredZoomLevel != -1)
+  {
+    ScreenBase newScreen = GetCurrentScreen();
+    m2::RectD r = df::GetRectForDrawScale(preferredZoomLevel, m2::PointD::Zero());
+    CheckMinGlobalRect(r);
+    CheckMinMaxVisibleScale(m_isCountryLoaded, r, preferredZoomLevel);
+    newScreen.SetFromRect(m2::AnyRectD(r));
+    targetLocalRect = newScreen.GlobalRect().GetLocalRect();
+  }
   else
-    targetLocalRect = GetCurrentRect().GetLocalRect();
+  {
+    if (m_animation != nullptr)
+      targetLocalRect = m_animation->GetTargetRect(GetCurrentScreen()).GetLocalRect();
+    else
+      targetLocalRect = GetCurrentRect().GetLocalRect();
+  }
 
   if (isAnim)
   {
