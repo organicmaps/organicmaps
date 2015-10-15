@@ -57,7 +57,7 @@ CONFIG(desktop) {
     SUBDIRS += qt
   }
 
-  CONFIG(map_designer) {
+  CONFIG(map_designer):CONFIG(desktop) {
     SUBDIRS += skin_generator
   }
 
