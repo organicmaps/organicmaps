@@ -37,7 +37,7 @@ void Point2PhantomNode::FindNearestSegment(FeatureType const & ft, m2::PointD co
 
 void Point2PhantomNode::operator()(FeatureType const & ft)
 {
-  //TODO(gardster) Extract GEOM_LINE check into CatModel.
+  //TODO(gardster) Extract GEOM_LINE check into CarModel.
   if (ft.GetFeatureType() != feature::GEOM_LINE || !CarModel::Instance().IsRoad(ft))
     return;
 
@@ -72,7 +72,7 @@ double Point2PhantomNode::CalculateDistance(OsrmMappingTypes::FtSeg const & s) c
 
 void Point2PhantomNode::CalculateWeight(OsrmMappingTypes::FtSeg const & seg,
                                         m2::PointD const & segPt, NodeID const & nodeId,
-                                        bool calcFromRight, int & weight) const
+                                        bool calcFromRight, int & weight, int & offset) const
 {
   // nodeId can be INVALID_NODE_ID when reverse node is absent. This node has no weight.
   if (nodeId == INVALID_NODE_ID || m_routingMapping.m_dataFacade.GetOutDegree(nodeId) == 0)
@@ -140,7 +140,8 @@ void Point2PhantomNode::CalculateWeight(OsrmMappingTypes::FtSeg const & seg,
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
     minWeight = GetMinNodeWeight(nodeId, ft.GetPoint(segment.m_pointEnd));
   }
-  weight = max(static_cast<int>(minWeight * ratio), 0);
+  offset = minWeight;
+  weight = max(static_cast<int>(minWeight * ratio), 0) - minWeight;
 }
 
 EdgeWeight Point2PhantomNode::GetMinNodeWeight(NodeID node, m2::PointD const & point) const
@@ -263,7 +264,7 @@ void Point2PhantomNode::MakeResult(vector<FeatureGraphNode> & res, size_t maxCou
     node.segmentPoint = m_candidates[j].m_point;
     node.mwmName = mwmName;
 
-    CalculateOffsets(node);
+    CalculateWeights(node);
   }
   res.erase(remove_if(res.begin(), res.end(),
                       [](FeatureGraphNode const & f)
@@ -273,17 +274,14 @@ void Point2PhantomNode::MakeResult(vector<FeatureGraphNode> & res, size_t maxCou
             res.end());
 }
 
-void Point2PhantomNode::CalculateOffsets(FeatureGraphNode & node) const
+void Point2PhantomNode::CalculateWeights(FeatureGraphNode & node) const
 {
+    // Need to initialize weights for correct work of PhantomNode::GetForwardWeightPlusOffset
+    // and PhantomNode::GetReverseWeightPlusOffset.
   CalculateWeight(node.segment, node.segmentPoint, node.node.forward_node_id,
-                  true /* calcFromRight */, node.node.forward_weight);
+                  true /* calcFromRight */, node.node.forward_weight, node.node.forward_offset);
   CalculateWeight(node.segment, node.segmentPoint, node.node.reverse_node_id,
-                  false /* calcFromRight */, node.node.reverse_weight);
-
-  // Need to initialize weights for correct work of PhantomNode::GetForwardWeightPlusOffset
-  // and PhantomNode::GetReverseWeightPlusOffset.
-  node.node.forward_offset = 0;
-  node.node.reverse_offset = 0;
+                  false /* calcFromRight */, node.node.reverse_weight, node.node.reverse_offset);
 }
 
 void Point2Node::operator()(FeatureType const & ft)
@@ -292,7 +290,7 @@ void Point2Node::operator()(FeatureType const & ft)
     return;
   uint32_t const featureId = ft.GetID().m_index;
   for (auto const n : m_routingMapping.m_segMapping.GetNodeIdByFid(featureId))
-    n_nodeIds.push_back(n);
+    m_nodeIds.push_back(n);
 }
 }  // namespace helpers
 }  // namespace routing

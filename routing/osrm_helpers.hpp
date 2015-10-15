@@ -58,13 +58,13 @@ private:
   /// Calculates part of a node weight in the OSRM format. Projection point @segPt divides node on
   /// two parts. So we find weight of a part, set by the @calcFromRight parameter.
   void CalculateWeight(OsrmMappingTypes::FtSeg const & seg, m2::PointD const & segPt,
-                       NodeID const & nodeId, bool calcFromRight, int & weight) const;
+                       NodeID const & nodeId, bool calcFromRight, int & weight, int & offset) const;
 
   /// Returns minimal weight of the node.
   EdgeWeight GetMinNodeWeight(NodeID node, m2::PointD const & point) const;
 
   /// Calculates weights and offsets section of the routing tasks.
-  void CalculateOffsets(FeatureGraphNode & node) const;
+  void CalculateWeights(FeatureGraphNode & node) const;
 
   m2::PointD m_point;
   m2::PointD const m_direction;
@@ -79,11 +79,11 @@ private:
 class Point2Node
 {
   RoutingMapping const & m_routingMapping;
-  vector<NodeID> & n_nodeIds;
+  vector<NodeID> & m_nodeIds;
 
 public:
   Point2Node(RoutingMapping const & routingMapping, vector<NodeID> & nodeID)
-    : m_routingMapping(routingMapping), n_nodeIds(nodeID)
+    : m_routingMapping(routingMapping), m_nodeIds(nodeID)
   {
   }
 

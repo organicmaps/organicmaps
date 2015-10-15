@@ -1,4 +1,3 @@
-#include "car_model.hpp"
 #include "cross_mwm_router.hpp"
 #include "online_cross_fetcher.hpp"
 #include "osrm2feature_map.hpp"
@@ -414,8 +413,6 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
 
   LOG(LDEBUG, ("Shortest path length:", routingResult.shortestPathLength));
 
-  //! @todo: Improve last segment time calculation
-  CarModel const & carModel = CarModel::Instance();
 #ifdef DEBUG
   size_t lastIdx = 0;
 #endif
@@ -506,7 +503,20 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
 
         auto startIdx = seg.m_pointStart;
         auto endIdx = seg.m_pointEnd;
-        bool const needTime = (segmentIndex == 0) || (segmentIndex == numSegments - 1);
+        if (segmentIndex == 0)
+        {
+          if (pathSegments[segmentIndex].node == routingResult.sourceEdge.node.forward_node_id)
+            estimatedTime += -routingResult.sourceEdge.node.forward_weight/10;
+          else
+            estimatedTime += -routingResult.sourceEdge.node.reverse_weight/10;
+        }
+        if (segmentIndex == numSegments - 1)
+        {
+          if (pathSegments[segmentIndex].node == routingResult.sourceEdge.node.forward_node_id)
+            estimatedTime += routingResult.sourceEdge.node.forward_weight/10;
+          else
+            estimatedTime += routingResult.sourceEdge.node.reverse_weight/10;
+        }
 
         if (segmentIndex == 0 && k == startK && segBegin.IsValid())
           startIdx = (seg.m_pointEnd > seg.m_pointStart) ? segBegin.m_pointStart : segBegin.m_pointEnd;
@@ -518,16 +528,12 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
           for (auto idx = startIdx; idx <= endIdx; ++idx)
           {
             points.push_back(ft.GetPoint(idx));
-            if (needTime && idx > startIdx)
-              estimatedTime += MercatorBounds::DistanceOnEarth(ft.GetPoint(idx - 1), ft.GetPoint(idx)) / carModel.GetSpeed(ft);
           }
         }
         else
         {
           for (auto idx = startIdx; idx > endIdx; --idx)
           {
-            if (needTime)
-              estimatedTime += MercatorBounds::DistanceOnEarth(ft.GetPoint(idx - 1), ft.GetPoint(idx)) / carModel.GetSpeed(ft);
             points.push_back(ft.GetPoint(idx));
           }
           points.push_back(ft.GetPoint(endIdx));

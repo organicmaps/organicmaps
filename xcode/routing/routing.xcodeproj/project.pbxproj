@@ -70,6 +70,8 @@
 		A1616E2B1B6B60AB003F078E /* router_delegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1616E291B6B60AB003F078E /* router_delegate.cpp */; };
 		A1616E2C1B6B60AB003F078E /* router_delegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A1616E2A1B6B60AB003F078E /* router_delegate.hpp */; };
 		A1616E2E1B6B60B3003F078E /* astar_progress.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A1616E2D1B6B60B3003F078E /* astar_progress.hpp */; };
+		A17B42981BCFBD0E00A1EAE4 /* osrm_helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A17B42961BCFBD0E00A1EAE4 /* osrm_helpers.cpp */; settings = {ASSET_TAGS = (); }; };
+		A17B42991BCFBD0E00A1EAE4 /* osrm_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A17B42971BCFBD0E00A1EAE4 /* osrm_helpers.hpp */; settings = {ASSET_TAGS = (); }; };
 		A1876BC61BB19C4300C9C743 /* speed_camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1876BC41BB19C4300C9C743 /* speed_camera.cpp */; settings = {ASSET_TAGS = (); }; };
 		A1876BC71BB19C4300C9C743 /* speed_camera.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A1876BC51BB19C4300C9C743 /* speed_camera.hpp */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
@@ -140,6 +142,8 @@
 		A1616E291B6B60AB003F078E /* router_delegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = router_delegate.cpp; sourceTree = "<group>"; };
 		A1616E2A1B6B60AB003F078E /* router_delegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = router_delegate.hpp; sourceTree = "<group>"; };
 		A1616E2D1B6B60B3003F078E /* astar_progress.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = astar_progress.hpp; sourceTree = "<group>"; };
+		A17B42961BCFBD0E00A1EAE4 /* osrm_helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osrm_helpers.cpp; path = ../../routing/osrm_helpers.cpp; sourceTree = "<group>"; };
+		A17B42971BCFBD0E00A1EAE4 /* osrm_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = osrm_helpers.hpp; path = ../../routing/osrm_helpers.hpp; sourceTree = "<group>"; };
 		A1876BC41BB19C4300C9C743 /* speed_camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_camera.cpp; sourceTree = "<group>"; };
 		A1876BC51BB19C4300C9C743 /* speed_camera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = speed_camera.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -169,6 +173,8 @@
 		675343EF1A3F640D00A0A8C3 = {
 			isa = PBXGroup;
 			children = (
+				A17B42961BCFBD0E00A1EAE4 /* osrm_helpers.cpp */,
+				A17B42971BCFBD0E00A1EAE4 /* osrm_helpers.hpp */,
 				670D05A61B0E02560013A7AC /* defaults.xcconfig */,
 				675343FA1A3F640D00A0A8C3 /* routing */,
 				675343F91A3F640D00A0A8C3 /* Products */,
@@ -277,6 +283,7 @@
 				6753441C1A3F644F00A0A8C3 /* route.hpp in Headers */,
 				A1616E2C1B6B60AB003F078E /* router_delegate.hpp in Headers */,
 				67C7D4301B4EB48F00FE41AA /* turns_sound.hpp in Headers */,
+				A17B42991BCFBD0E00A1EAE4 /* osrm_helpers.hpp in Headers */,
 				67C7D42E1B4EB48F00FE41AA /* turns_sound_settings.hpp in Headers */,
 				670EE55E1B6001E7001E8064 /* routing_session.hpp in Headers */,
 				670EE55F1B6001E7001E8064 /* routing_settings.hpp in Headers */,
@@ -365,6 +372,7 @@
 				670D049E1B0B4A970013A7AC /* nearest_edge_finder.cpp in Sources */,
 				674F9BD61B0A580E00704FFA /* turns_generator.cpp in Sources */,
 				675344171A3F644F00A0A8C3 /* osrm_router.cpp in Sources */,
+				A17B42981BCFBD0E00A1EAE4 /* osrm_helpers.cpp in Sources */,
 				674F9BD21B0A580E00704FFA /* road_graph_router.cpp in Sources */,
 				A1876BC61BB19C4300C9C743 /* speed_camera.cpp in Sources */,
 				671F58BD1B874EC80032311E /* followed_polyline.cpp in Sources */,
