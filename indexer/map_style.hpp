@@ -1,5 +1,7 @@
 #pragma once
 
+#include "std/string.hpp"
+
 enum MapStyle
 {
   MapStyleLight = 0,
@@ -7,3 +9,5 @@ enum MapStyle
   MapStyleClear = 2
   // Add new map style here
 };
+
+string DebugPrint(MapStyle mapStyle);

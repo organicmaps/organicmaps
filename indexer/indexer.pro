@@ -37,6 +37,7 @@ SOURCES += \
     geometry_serialization.cpp \
     index.cpp \
     index_builder.cpp \
+    map_style.cpp \
     map_style_reader.cpp \
     mercator.cpp \
     mwm_set.cpp \

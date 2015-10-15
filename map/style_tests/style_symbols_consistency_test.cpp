@@ -108,6 +108,8 @@ UNIT_TEST(Test_SymbolsConsistency)
 
       if (!missed.empty())
       {
+        // We are interested in all set of bugs, therefore we do not stop test here but
+        // continue it just keep in res that test failed.
         LOG(LINFO, ("Symbols mismatch: style", style, ", density", density, ", missed", missed));
         res = false;
       }
