@@ -7,7 +7,7 @@ SUBDIRS = freetype fribidi minizip jansson tomcrypt protobuf osrm expat \
 
 !linux* {
 SUBDIRS += opening_hours \
-
+           opening_hours/opening_hours_tests \
 }
 
 !iphone*:!tizen*:!android* {

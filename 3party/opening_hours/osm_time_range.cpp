@@ -527,7 +527,8 @@ namespace
       holyday %= (charset::no_case[lit(L"SH")] >> -day_offset) | charset::no_case[lit(L"PH")];
       holiday_sequence %= holyday % ',';
       weekday_range = (charset::no_case[wdays][at_c<0>(_val) |= (1<<_1)]
-                       >> L'[' >> nth_entry[at_c<1>(_val) |= _1] % L',' >> L']' >> day_offset[at_c<2>(_val) = _1])
+                       >> L'[' >> nth_entry[at_c<1>(_val) |= _1] % L','
+                       >> L']' >> day_offset[at_c<2>(_val) = _1])
         | (charset::no_case[wdays][at_c<0>(_val) |= (1<<_1)] >> L'[' >> nth_entry[at_c<1>(_val) |= _1] % L',' >> L']')
         | charset::no_case[(wdays >> dash >> wdays)] [at_c<0>(_val) |= ((2 << ((_2)-(_1))) - 1) << (_1)]
         | charset::no_case[wdays][at_c<0>(_val) |= (1<<_1)]
@@ -874,7 +875,7 @@ namespace
     }
     if (!next)
       return next;
-    
+
     next = r.timespan.empty();
     for (auto const & ts : r.timespan)
     {
@@ -901,8 +902,8 @@ OSMTimeRange::OSMTimeRange(std::string const & rules)
 
 void OSMTimeRange::parse()
 {
-  std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-  std::wstring src = converter.from_bytes(m_sourceString);
+  std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter; // could not work on android
+  std::wstring src = converter.from_bytes(m_sourceString); // m_sourceString should be wstring
   m_valid = parse_timerange(src.begin(), src.end(), m_rules);
 }
 

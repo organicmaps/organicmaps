@@ -198,7 +198,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TimeHit)
 BOOST_AUTO_TEST_CASE(OpeningHours_StaticSet)
 {
   {
-    OSMTimeRange oh("06:00-02:00/21:03");
+    OSMTimeRange oh("06:00-02:00/21:03"); // interval is greater than smth
     BOOST_CHECK(oh.IsValid());
   }
 
@@ -327,7 +327,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_StaticSet)
     BOOST_CHECK(oh.IsValid());
   }
   {
-    OSMTimeRange oh("Пн. — пт.: 09:00 — 21:00; сб.: 09:00 — 19:00");
+    OSMTimeRange oh("Пн. — пт.: 09:00 — 21:00; сб.: 09:00 — 19:00"); // Пн -> пн
     BOOST_CHECK(oh.IsValid());
   }
   {
