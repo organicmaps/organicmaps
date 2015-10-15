@@ -1269,10 +1269,4 @@
 
 "search_history_text" = "Uzyskaj szybki dostęp do ostatniego hasła wyszukiwania.";
 
-"update_maps_alert_title" = "Orientacja stała się prostsza";
-
-"update_maps_alert_message" = "Ulepszyliśmy style map: teraz wszystkie obiekty wyglądają przyjaźnie i bardziej zrozumiale. Proszę zaktualizować mapy, aby wykorzystać zalety nowego design’u.";
-
-"update_maps_alert_button_title" = "Zaktualizuj mapy";
-
 "clear_search" = "Wyczyść historię wyszukiwania";

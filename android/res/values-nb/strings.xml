@@ -802,8 +802,5 @@
 	<string name="search_not_found_location">Last ned kartet til din nåværende beliggenhet.</string>
 	<string name="search_history_title">Søkehistorikk</string>
 	<string name="search_history_text">Vis de siste søkene raskt.</string>
-	<string name="update_maps_alert_title">Enklere utforsking på kartet</string>
-	<string name="update_maps_alert_message">Vi har forbedret utformingen på kartene: Nå vil alle objektene se tydeligere og mer brukervennlige ut. Oppdater kartene for å få det meste ut av den nye utformingen.</string>
-	<string name="update_maps_alert_button_title">Oppdater kart</string>
 	<string name="clear_search">Tøm søkehistorikk</string>
 </resources>

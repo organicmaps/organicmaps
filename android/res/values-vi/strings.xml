@@ -802,8 +802,5 @@
 	<string name="search_not_found_location">Tải về bản đồ vị trí hiện tại của bạn.</string>
 	<string name="search_history_title">Lịch sử tìm kiếm</string>
 	<string name="search_history_text">Truy cập nhanh chóng đến câu hỏi tìm kiếm gần đây.</string>
-	<string name="update_maps_alert_title">Khám phá bản đồ giờ đã dễ hơn</string>
-	<string name="update_maps_alert_message">Chúng tôi đã cải thiện giao diện bản đồ: giờ đây tất cả các đối tượng trông thân thiện và rõ ràng hơn. Cập nhật bản đồ để nhận được nhiều nhất từ thiết kế mới.</string>
-	<string name="update_maps_alert_button_title">cập nhật bản đồ</string>
 	<string name="clear_search">Xóa Lịch sử Tìm kiếm</string>
 </resources>

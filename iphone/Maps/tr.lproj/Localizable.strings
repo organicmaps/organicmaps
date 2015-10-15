@@ -1269,10 +1269,4 @@
 
 "search_history_text" = "En son yapılan arama sorgularına hızlı erişim.";
 
-"update_maps_alert_title" = "Navigasyon daha da kolaylaştı";
-
-"update_maps_alert_message" = "Haritaların tarzını geliştirdik: artık bütün nesneler daha arkadaşça ve daha anlaşılır gözüküyor. Yeni tasarımdan yararlanmak için haritaları yükseltin.";
-
-"update_maps_alert_button_title" = "Haritaları güncelle";
-
 "clear_search" = "Arama geçmişini temizle";

@@ -807,8 +807,5 @@
 	<string name="search_not_found_location">Mevcut konumunuzun haritasını indirin.</string>
 	<string name="search_history_title">Arama Geçmişi</string>
 	<string name="search_history_text">En son yapılan arama sorgularına hızlı erişim.</string>
-	<string name="update_maps_alert_title">Navigasyon daha da kolaylaştı</string>
-	<string name="update_maps_alert_message">Haritaların tarzını geliştirdik: artık bütün nesneler daha arkadaşça ve daha anlaşılır gözüküyor. Yeni tasarımdan yararlanmak için haritaları yükseltin.</string>
-	<string name="update_maps_alert_button_title">Haritaları güncelle</string>
 	<string name="clear_search">Arama geçmişini temizle</string>
 </resources>

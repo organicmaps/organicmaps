@@ -1269,10 +1269,4 @@
 
 "search_history_text" = "最近の検索クエリに素早くアクセス。";
 
-"update_maps_alert_title" = "地図の閲覧がより簡単に";
-
-"update_maps_alert_message" = "地図のスタイルを改善しました：全てのオブジェクトがわかりやすくはっきりとなりました。新しいデザインを最大限に活用するには、地図をアップデートしてください。";
-
-"update_maps_alert_button_title" = "地図をアップデート";
-
 "clear_search" = "検索履歴を消去";

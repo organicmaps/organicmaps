@@ -48,6 +48,7 @@ public class RoutingLayout extends RelativeLayout implements View.OnClickListene
   private TextView mTvTotalDistance;
   private TextView mTvTotalTime;
   private ImageView mIvTurn;
+  private TextView mTvExitNum;
   private View mNextTurn;
   private ImageView mIvNextTurn;
   private TextView mTvTurnDistance;
@@ -145,6 +146,7 @@ public class RoutingLayout extends RelativeLayout implements View.OnClickListene
     mTvTotalTime = (TextView) mLayoutTurnInstructions.findViewById(R.id.tv__total_time);
     mTvArrivalTime = (TextView) mLayoutTurnInstructions.findViewById(R.id.tv__arrival_time);
     mIvTurn = (ImageView) mLayoutTurnInstructions.findViewById(R.id.iv__turn);
+    mTvExitNum = (TextView) mLayoutTurnInstructions.findViewById(R.id.tv__exit_num);
     mNextTurn = findViewById(R.id.next_turn);
     mIvNextTurn = (ImageView) mNextTurn.findViewById(R.id.iv__next_turn);
     mTvTurnDistance = (TextView) mLayoutTurnInstructions.findViewById(R.id.tv__turn_distance);
@@ -205,7 +207,7 @@ public class RoutingLayout extends RelativeLayout implements View.OnClickListene
         UiUtils.disappearSlidingUp(this, null);
       else
         UiUtils.hide(this);
-      UiUtils.hide(mBtnStart);
+      UiUtils.hide(mBtnStart, mTvExitNum);
       Framework.nativeCloseRouting();
       mEndPoint = null;
       break;
@@ -311,6 +313,11 @@ public class RoutingLayout extends RelativeLayout implements View.OnClickListene
     mTvTurnDistance.setText(buildSpannedText(UiUtils.dimen(R.dimen.text_size_display_1), UiUtils.dimen(R.dimen.text_size_toolbar),
                                              routingInfo.distToTurn, routingInfo.turnUnits));
     routingInfo.vehicleTurnDirection.setTurnDrawable(mIvTurn);
+    if (RoutingInfo.VehicleTurnDirection.isRoundAbout(routingInfo.vehicleTurnDirection))
+      UiUtils.setTextAndShow(mTvExitNum, String.valueOf(routingInfo.exitNum));
+    else
+      UiUtils.hide(mTvExitNum);
+
     // TODO (marchuk): Uncomment after the second turn notification is fixed.
 //    if (routingInfo.vehicleNextTurnDirection.containsNextTurn())
 //    {

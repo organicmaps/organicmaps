@@ -1269,10 +1269,4 @@
 
 "search_history_text" = "Vis de siste søkene raskt.";
 
-"update_maps_alert_title" = "Enklere utforsking på kartet";
-
-"update_maps_alert_message" = "Vi har forbedret utformingen på kartene: Nå vil alle objektene se tydeligere og mer brukervennlige ut. Oppdater kartene for å få det meste ut av den nye utformingen.";
-
-"update_maps_alert_button_title" = "Oppdater kart";
-
 "clear_search" = "Tøm søkehistorikk";

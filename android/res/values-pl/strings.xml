@@ -804,8 +804,5 @@
 	<string name="search_not_found_location">Pobierz mapę swojej bieżącej lokalizacji.</string>
 	<string name="search_history_title">Historia wyszukiwania</string>
 	<string name="search_history_text">Uzyskaj szybki dostęp do ostatniego hasła wyszukiwania.</string>
-	<string name="update_maps_alert_title">Orientacja stała się prostsza</string>
-	<string name="update_maps_alert_message">Ulepszyliśmy style map: teraz wszystkie obiekty wyglądają przyjaźnie i bardziej zrozumiale. Proszę zaktualizować mapy, aby wykorzystać zalety nowego design’u.</string>
-	<string name="update_maps_alert_button_title">Zaktualizuj mapy</string>
 	<string name="clear_search">Wyczyść historię wyszukiwania</string>
 </resources>

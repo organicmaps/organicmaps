@@ -80,7 +80,7 @@ public class WorkerService extends IntentService
     }
   }
 
-  private void handleActionCheckUpdate()
+  private static void handleActionCheckUpdate()
   {
     if (!Framework.nativeIsDataVersionChanged())
       return;

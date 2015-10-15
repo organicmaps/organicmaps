@@ -57,7 +57,7 @@
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Kein Speicherplatz vorhanden. Löschen Sie bitte unnötige Karten oder Apps, um den Download %s durchführen zu können.</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
-	<string name="remind_me_later">Errinern Sie mich später</string>
+	<string name="remind_me_later">Erinnern Sie mich später</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Später</string>
 	<!-- Don't show some dialog any more -->
@@ -79,7 +79,7 @@
 	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
 	<string name="new_map_data_format_upgrade_dialog">Wir haben die Karten aktualisiert und kleiner gemacht. Für grosse Länder können Sie ausgewälte Regionen einzeln herunterladen. Um die neuen Karten zu benutzen, löschen Sie bitte die alten.</string>
 	<!-- Choose measurement on first launch alert - title -->
-	<string name="which_measurement_system">Welches Messsystem ziehen Sie vor?</string>
+	<string name="which_measurement_system">Welches Maßsystem ziehen Sie vor?</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Ortungsdienste sind inaktiv. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.</string>
 	<!-- Location Services are not available on the device alert - message -->
@@ -104,7 +104,7 @@
 	<string name="connection_settings">Verbindungseinstellungen</string>
 	<string name="download_mb_or_kb">Herunterladen %s</string>
 	<string name="close">Schließen</string>
-	<string name="unsupported_phone">Das Programm braucht OpenGL um funktionnieren zu können. Leider wird ihr Gerät nicht unterschtüzt.</string>
+	<string name="unsupported_phone">Das Programm braucht OpenGL um zu funktionieren. Leider wird ihr Gerät nicht unterschtüzt.</string>
 	<string name="download">Herunterladen</string>
 	<string name="external_storage_is_not_available">SD Karte/USB Speicher mit geladenen Karten nicht verfügbar</string>
 	<string name="disconnect_usb_cable">Bitte USB Kabel entfernen oder Speicherkarte einsetzen um MAPS.ME zu verwenden</string>
@@ -179,7 +179,7 @@
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Sichtbar</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
-	<string name="gps_is_disabled_long_text">GPS ist deaktiviert. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.</string>
+	<string name="gps_is_disabled_long_text">GPS ist deaktiviert. Schalten Sie es bitte ein, um das Programm bequem nutzen zu können.</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Maßeinheiten</string>
 	<!-- Detailed description of Measurement Units settings button -->
@@ -212,7 +212,7 @@
 	<!-- Search Suggestion -->
 	<string name="pharmacy">Apotheke</string>
 	<!-- Search Suggestion -->
-	<string name="hospital">Spital</string>
+	<string name="hospital">Krankenhaus</string>
 	<!-- Search Suggestion -->
 	<string name="toilet">Toilette</string>
 	<!-- Search Suggestion -->
@@ -248,11 +248,11 @@
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
 	<string name="appStore_message">Wir hoffen, dass Ihnen die Verwendung von MAPS.ME Freude bereitet! Wenn ja, geben Sie bitte eine Bewertung oder einen Bericht für die App im App Store ab. Es dauert weniger als eine Minute, kann uns aber wirklich helfen. Danke für Ihre Unterstützung!</string>
 	<!-- No, thanks -->
-	<string name="no_thanks">Nein, Danke</string>
+	<string name="no_thanks">Nein danke</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="bookmark_share_sms">Meine Nadel auf der Karte sehen. Klicke auf den Link %1$s oder %2$s</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">Sieh, wo ich gerade bin. Klicke auf den Link %1$s oder %2$s</string>
+	<string name="my_position_share_sms">Schau wo ich gerade bin. Klicke auf den Link %1$s oder %2$s</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Schau dir meine Nadel auf der MAPS.ME-Karte an</string>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
@@ -452,7 +452,7 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_thanks">Vielen Dank!</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_share_ideas">Teilen Sie uns Ihre Anregungen und Fragen mit, sodass wir die App für Sie verbessern können.</string>
+	<string name="rating_share_ideas">Teilen Sie uns Ihre Anregungen und Fragen mit, so dass wir die App für Sie verbessern können.</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_send_feedback">Feedback senden</string>
 	<!-- Text for g+ dialog -->
@@ -538,9 +538,9 @@
 	<!-- Cuisine -->
 	<string name="cuisine_korean">koreanische Küche</string>
 	<!-- Cuisine -->
-	<string name="cuisine_friture">Friture</string>
+	<string name="cuisine_friture">Friterie</string>
 	<!-- Cuisine -->
-	<string name="cuisine_barbecue">Barbecue</string>
+	<string name="cuisine_barbecue">Grill</string>
 	<!-- Cuisine -->
 	<string name="cuisine_bavarian">bayerische Küche</string>
 	<!-- Cuisine -->
@@ -550,7 +550,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_mediterranean">mediterrane Küche</string>
 	<!-- Cuisine -->
-	<string name="cuisine_donut">Donut</string>
+	<string name="cuisine_donut">Donuts</string>
 	<!-- Cuisine -->
 	<string name="cuisine_beef_bowl">Gyūdon</string>
 	<!-- Cuisine -->
@@ -576,7 +576,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_tapas">Tapas</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bbq">BBQ</string>
+	<string name="cuisine_bbq">Grill</string>
 	<!-- Cuisine -->
 	<string name="cuisine_bagel">Bagel</string>
 	<!-- Cuisine -->
@@ -586,7 +586,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_sausage">Wurst</string>
 	<!-- Cuisine -->
-	<string name="cuisine_portuguese">portugiesisch Küche</string>
+	<string name="cuisine_portuguese">portugiesische Küche</string>
 	<!-- Cuisine -->
 	<string name="cuisine_grill">Grill</string>
 	<!-- Cuisine -->
@@ -600,7 +600,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_african">afrikanische Küche</string>
 	<!-- Cuisine -->
-	<string name="cuisine_doughnut">Doughnut</string>
+	<string name="cuisine_doughnut">Donuts</string>
 	<!-- Cuisine -->
 	<string name="cuisine_georgian">georgische Küche</string>
 	<!-- Cuisine -->
@@ -648,7 +648,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_moroccan">marokkanische Küche</string>
 	<!-- Cuisine -->
-	<string name="cuisine_barbeque">Barbeque</string>
+	<string name="cuisine_barbeque">Grill</string>
 	<!-- Cuisine -->
 	<string name="cuisine_peruvian">Peruanisch</string>
 	<!-- Cuisine -->
@@ -656,7 +656,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_tea">Tee</string>
 	<!-- bookmark button text -->
-	<string name="bookmark">lesezeichen</string>
+	<string name="bookmark">Lesezeichen</string>
 	<!-- map is not downloaded -->
 	<string name="not_found_map">Es gibt keine Karte für Ihren Standort</string>
 	<!-- location service disabled -->
@@ -729,18 +729,18 @@
 	<string name="dialog_routing_try_again">Bitte versuchen Sie es erneut</string>
 	<string name="dialog_routing_send_error">Problem melden</string>
 	<string name="dialog_routing_if_get_cross_route">Möchten Sie eine direktere Route erstellen, die mehr als eine Karte umfasst?</string>
-	<string name="dialog_routing_cross_route_is_optimal">Es ist eine optimalere Route verfügbar, die den Rand dieser Karte überschreitet.</string>
+	<string name="dialog_routing_cross_route_is_optimal">Es ist eine bessere Route verfügbar, die den Rand dieser Karte überschreitet.</string>
 	<string name="dialog_routing_always_cross_that_border">Diese Grenze immer überschreiten</string>
 	<string name="dialog_routing_not_now">Nicht jetzt</string>
 	<string name="dialog_routing_build_route">Erstellen</string>
-	<string name="dialog_routing_download_and_build_cross_route">Möchten Sie die Karte herunterladen und eine optimalere Route erstellen, die mehr als eine Karte umfasst?</string>
-	<string name="dialog_routing_download_cross_route">Laden Sie die Karte herunter, um eine optimalere Route zu erstellen, die den Rand dieser Karte überschreitet.</string>
+	<string name="dialog_routing_download_and_build_cross_route">Möchten Sie die Karte herunterladen und eine bessere Route erstellen, die mehr als eine Karte umfasst?</string>
+	<string name="dialog_routing_download_cross_route">Laden Sie die Karte herunter, um eine bessere Route zu erstellen, die den Rand dieser Karte überschreitet.</string>
 	<string name="dialog_routing_cross_route_always">Diese Grenze immer überschreiten</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
-	<string name="search_without_internet_advertisement">Um mit der Suche und dem Erstellen von Routen zu beginnen, laden Sie bitte die Karte herunter und Sie benötigen fortan keine Internetverbindung mehr.</string>
+	<string name="search_without_internet_advertisement">Um mit der Suche und dem Erstellen von Routen zu beginnen, laden Sie bitte die Karte herunter. Sie benötigen danach keine Internetverbindung mehr.</string>
 	<string name="search_select_map">Karte auswählen</string>
-	<string name="search_select_other_map">Eine andere karte auswählen</string>
+	<string name="search_select_other_map">Eine andere Karte auswählen</string>
 	<string name="search_vehicle_routes">Fahranweisungen</string>
 	<!-- «Show» context menu -->
 	<string name="show">Anzeigen</string>
@@ -798,8 +798,5 @@
 	<string name="search_not_found_location">Laden Sie die Karte Ihres aktuellen Standorts herunter.</string>
 	<string name="search_history_title">Suchverlauf</string>
 	<string name="search_history_text">Schnell auf die letzten Suchanfragen zugreifen.</string>
-	<string name="update_maps_alert_title">Das Erkunden der Karte ist nun einfacher</string>
-	<string name="update_maps_alert_message">Wir haben die Stile der Karte verbessert: Nun sehen alle Objekte freundlicher und sauberer aus. Aktualisieren Sie die Karten, um das Maximum aus dem neuen Design herauszuholen.</string>
-	<string name="update_maps_alert_button_title">Karten aktualisieren</string>
 	<string name="clear_search">Suchhistorie löschen</string>
 </resources>

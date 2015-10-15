@@ -796,8 +796,5 @@
 	<string name="search_not_found_location">Descarga el mapa de tu ubicación actual.</string>
 	<string name="search_history_title">Historial de búsquedas</string>
 	<string name="search_history_text">Acceder rápidamente a las consultas de búsquedas recientes.</string>
-	<string name="update_maps_alert_title">Explorar el mapa es más fácil</string>
-	<string name="update_maps_alert_message">Hemos mejorado los estilos de los mapas: ahora todos los objetos resultan más fáciles y claros. Actualiza los mapas para sacar el máximo partido al nuevo diseño.</string>
-	<string name="update_maps_alert_button_title">Actualizar mapas</string>
 	<string name="clear_search">Eliminar el historial de búsqueda</string>
 </resources>

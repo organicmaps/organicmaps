@@ -806,8 +806,5 @@
 	<string name="search_not_found_location">Завантажте карту вашого місцезнаходження.</string>
 	<string name="search_history_title">Історія пошуку</string>
 	<string name="search_history_text">Швидкий доступ до недавніх результатів пошуку.</string>
-	<string name="update_maps_alert_title">Орієнтуватись стало легше</string>
-	<string name="update_maps_alert_message">Ми покращили стилі карт: тепер усі об\&#39;єкти виглядають більш дружніми та зрозумілими. Оновіть карти, щоб використати усі переваги нового дизайну.</string>
-	<string name="update_maps_alert_button_title">Оновити карти</string>
 	<string name="clear_search">Очистити історію пошуку</string>
 </resources>

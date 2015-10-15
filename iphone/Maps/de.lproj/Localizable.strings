@@ -94,7 +94,7 @@
 "free_disk_space_for_country_x" = "Kein Speicherplatz vorhanden. Löschen Sie bitte unnötige Karten oder Apps, um den Download %@ durchführen zu können.";
 
 /* Leave Review dialog - Not now button (remind me later) */
-"remind_me_later" = "Errinern Sie mich später";
+"remind_me_later" = "Erinnern Sie mich später";
 
 /* Update maps later/Buy pro version later button text */
 "later" = "Später";
@@ -127,7 +127,7 @@
 "new_map_data_format_upgrade_dialog" = "Wir haben die Karten aktualisiert und kleiner gemacht. Für grosse Länder können Sie ausgewälte Regionen einzeln herunterladen. Um die neuen Karten zu benutzen, löschen Sie bitte die alten.";
 
 /* Choose measurement on first launch alert - title */
-"which_measurement_system" = "Welches Messsystem ziehen Sie vor?";
+"which_measurement_system" = "Welches Maßsystem ziehen Sie vor?";
 
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "Ortungsdienste sind inaktiv. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.";
@@ -170,7 +170,7 @@
 
 "close" = "Schließen";
 
-"unsupported_phone" = "Das Programm braucht OpenGL um funktionnieren zu können. Leider wird ihr Gerät nicht unterschtüzt.";
+"unsupported_phone" = "Das Programm braucht OpenGL um zu funktionieren. Leider wird ihr Gerät nicht unterschtüzt.";
 
 "download" = "Herunterladen";
 
@@ -295,7 +295,7 @@
 "visible" = "Sichtbar";
 
 /* Toast which is displayed when GPS has been deactivated */
-"gps_is_disabled_long_text" = "GPS ist deaktiviert. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.";
+"gps_is_disabled_long_text" = "GPS ist deaktiviert. Schalten Sie es bitte ein, um das Programm bequem nutzen zu können.";
 
 /* Measurement units title in settings activity */
 "measurement_units" = "Maßeinheiten";
@@ -345,7 +345,7 @@
 "pharmacy" = "Apotheke";
 
 /* Search Suggestion */
-"hospital" = "Spital";
+"hospital" = "Krankenhaus";
 
 /* Search Suggestion */
 "toilet" = "Toilette";
@@ -402,13 +402,13 @@
 "appStore_message" = "Wir hoffen, dass Ihnen die Verwendung von MAPS.ME Freude bereitet! Wenn ja, geben Sie bitte eine Bewertung oder einen Bericht für die App im App Store ab. Es dauert weniger als eine Minute, kann uns aber wirklich helfen. Danke für Ihre Unterstützung!";
 
 /* No, thanks */
-"no_thanks" = "Nein, Danke";
+"no_thanks" = "Nein danke";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
 "bookmark_share_sms" = "Meine Nadel auf der Karte sehen. Klicke auf den Link %1$@ oder %2$@";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Sieh, wo ich gerade bin. Klicke auf den Link %1$@ oder %2$@";
+"my_position_share_sms" = "Schau wo ich gerade bin. Klicke auf den Link %1$@ oder %2$@";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Schau dir meine Nadel auf der MAPS.ME-Karte an";
@@ -722,7 +722,7 @@
 "rating_thanks" = "Vielen Dank!";
 
 /* Text for rating dialog */
-"rating_share_ideas" = "Teilen Sie uns Ihre Anregungen und Fragen mit, sodass wir die App für Sie verbessern können.";
+"rating_share_ideas" = "Teilen Sie uns Ihre Anregungen und Fragen mit, so dass wir die App für Sie verbessern können.";
 
 /* Text for rating dialog */
 "rating_send_feedback" = "Feedback senden";
@@ -851,10 +851,10 @@
 "cuisine_korean" = "koreanische Küche";
 
 /* Cuisine */
-"cuisine_friture" = "Friture";
+"cuisine_friture" = "Friterie";
 
 /* Cuisine */
-"cuisine_barbecue" = "Barbecue";
+"cuisine_barbecue" = "Grill";
 
 /* Cuisine */
 "cuisine_bavarian" = "bayerische Küche";
@@ -869,7 +869,7 @@
 "cuisine_mediterranean" = "mediterrane Küche";
 
 /* Cuisine */
-"cuisine_donut" = "Donut";
+"cuisine_donut" = "Donuts";
 
 /* Cuisine */
 "cuisine_beef_bowl" = "Gyūdon";
@@ -908,7 +908,7 @@
 "cuisine_tapas" = "Tapas";
 
 /* Cuisine */
-"cuisine_bbq" = "BBQ";
+"cuisine_bbq" = "Grill";
 
 /* Cuisine */
 "cuisine_bagel" = "Bagel";
@@ -923,7 +923,7 @@
 "cuisine_sausage" = "Wurst";
 
 /* Cuisine */
-"cuisine_portuguese" = "portugiesisch Küche";
+"cuisine_portuguese" = "portugiesische Küche";
 
 /* Cuisine */
 "cuisine_grill" = "Grill";
@@ -944,7 +944,7 @@
 "cuisine_african" = "afrikanische Küche";
 
 /* Cuisine */
-"cuisine_doughnut" = "Doughnut";
+"cuisine_doughnut" = "Donuts";
 
 /* Cuisine */
 "cuisine_georgian" = "georgische Küche";
@@ -1016,7 +1016,7 @@
 "cuisine_moroccan" = "marokkanische Küche";
 
 /* Cuisine */
-"cuisine_barbeque" = "Barbeque";
+"cuisine_barbeque" = "Grill";
 
 /* Cuisine */
 "cuisine_peruvian" = "Peruanisch";
@@ -1028,7 +1028,7 @@
 "cuisine_tea" = "Tee";
 
 /* bookmark button text */
-"bookmark" = "lesezeichen";
+"bookmark" = "Lesezeichen";
 
 /* map is not downloaded */
 "not_found_map" = "Es gibt keine Karte für Ihren Standort";
@@ -1153,7 +1153,7 @@
 
 "dialog_routing_if_get_cross_route" = "Möchten Sie eine direktere Route erstellen, die mehr als eine Karte umfasst?";
 
-"dialog_routing_cross_route_is_optimal" = "Es ist eine optimalere Route verfügbar, die den Rand dieser Karte überschreitet.";
+"dialog_routing_cross_route_is_optimal" = "Es ist eine bessere Route verfügbar, die den Rand dieser Karte überschreitet.";
 
 "dialog_routing_always_cross_that_border" = "Diese Grenze immer überschreiten";
 
@@ -1161,19 +1161,19 @@
 
 "dialog_routing_build_route" = "Erstellen";
 
-"dialog_routing_download_and_build_cross_route" = "Möchten Sie die Karte herunterladen und eine optimalere Route erstellen, die mehr als eine Karte umfasst?";
+"dialog_routing_download_and_build_cross_route" = "Möchten Sie die Karte herunterladen und eine bessere Route erstellen, die mehr als eine Karte umfasst?";
 
-"dialog_routing_download_cross_route" = "Laden Sie die Karte herunter, um eine optimalere Route zu erstellen, die den Rand dieser Karte überschreitet.";
+"dialog_routing_download_cross_route" = "Laden Sie die Karte herunter, um eine bessere Route zu erstellen, die den Rand dieser Karte überschreitet.";
 
 "dialog_routing_cross_route_always" = "Diese Grenze immer überschreiten";
 
 /********** Strings for downloading map from search **********/
 
-"search_without_internet_advertisement" = "Um mit der Suche und dem Erstellen von Routen zu beginnen, laden Sie bitte die Karte herunter und Sie benötigen fortan keine Internetverbindung mehr.";
+"search_without_internet_advertisement" = "Um mit der Suche und dem Erstellen von Routen zu beginnen, laden Sie bitte die Karte herunter. Sie benötigen danach keine Internetverbindung mehr.";
 
 "search_select_map" = "Karte auswählen";
 
-"search_select_other_map" = "Eine andere karte auswählen";
+"search_select_other_map" = "Eine andere Karte auswählen";
 
 "search_vehicle_routes" = "Fahranweisungen";
 
@@ -1268,11 +1268,5 @@
 "search_history_title" = "Suchverlauf";
 
 "search_history_text" = "Schnell auf die letzten Suchanfragen zugreifen.";
-
-"update_maps_alert_title" = "Das Erkunden der Karte ist nun einfacher";
-
-"update_maps_alert_message" = "Wir haben die Stile der Karte verbessert: Nun sehen alle Objekte freundlicher und sauberer aus. Aktualisieren Sie die Karten, um das Maximum aus dem neuen Design herauszuholen.";
-
-"update_maps_alert_button_title" = "Karten aktualisieren";
 
 "clear_search" = "Suchhistorie löschen";
