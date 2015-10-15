@@ -5,7 +5,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../../..
-DEPENDENCIES = opening_hours
+DEPENDENCIES += opening_hours \
 
 include($$ROOT_DIR/common.pri)
 

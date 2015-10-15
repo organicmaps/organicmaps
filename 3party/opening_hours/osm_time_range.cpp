@@ -892,19 +892,13 @@ namespace
 
 } // anonymouse namespace
 
-OSMTimeRange::OSMTimeRange(std::string const & rules)
-: m_sourceString(rules)
-, m_valid(false)
-, m_state(osmoh::State::eUnknown)
+OSMTimeRange OSMTimeRange::FromString(std::string const & rules)
 {
-  parse();
-}
-
-void OSMTimeRange::parse()
-{
+  OSMTimeRange timeRange;
   std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter; // could not work on android
-  std::wstring src = converter.from_bytes(m_sourceString); // m_sourceString should be wstring
-  m_valid = parse_timerange(src.begin(), src.end(), m_rules);
+  std::wstring src = converter.from_bytes(rules); // rules should be wstring
+  timeRange.m_valid = parse_timerange(src.begin(), src.end(), timeRange.m_rules);
+  return timeRange;
 }
 
 OSMTimeRange & OSMTimeRange::operator () (time_t timestamp)

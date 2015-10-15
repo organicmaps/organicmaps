@@ -110,14 +110,8 @@ namespace osmoh
 
 class OSMTimeRange
 {
-  std::string m_sourceString;
-  bool m_valid;
-  osmoh::State::EState m_state;
-  std::vector<osmoh::TimeRule> m_rules;
-  std::string m_comment;
-
 public:
-  OSMTimeRange(std::string const & rules);
+  OSMTimeRange() = default;
 
   inline bool IsValid() const { return m_valid; }
   inline bool IsOpen() const { return m_state == osmoh::State::eOpen; }
@@ -126,9 +120,15 @@ public:
   inline std::string const & Comment() const { return m_comment; }
 
   OSMTimeRange & operator()(time_t timestamp);
-  OSMTimeRange & operator()(std::string const & timestr, char const * timefmt="%d-%m-%Y %R");
+  OSMTimeRange & operator()(std::string const & timestr,
+                            char const * timefmt="%d-%m-%Y %R");
+
+  static OSMTimeRange FromString(std::string const & rules);
 
 private:
-  void parse();
+  bool m_valid{false};
+  osmoh::State::EState m_state{osmoh::State::eUnknown};
+  std::vector<osmoh::TimeRule> m_rules;
+  std::string m_comment;
 };
 
