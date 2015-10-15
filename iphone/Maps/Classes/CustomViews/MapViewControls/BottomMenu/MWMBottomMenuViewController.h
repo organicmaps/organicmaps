@@ -19,6 +19,8 @@
 - (instancetype)initWithParentController:(MapViewController *)controller
                                 delegate:(id<MWMBottomMenuControllerProtocol>)delegate;
 
+- (void)onEnterForeground;
+
 - (void)setStreetName:(NSString *)streetName;
 - (void)setPlanning;
 - (void)setGo;

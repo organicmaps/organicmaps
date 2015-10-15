@@ -17,6 +17,8 @@
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentController:(MapViewController *)controller;
 
+- (void)onEnterForeground;
+
 #pragma mark - Layout
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
