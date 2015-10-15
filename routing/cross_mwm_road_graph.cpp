@@ -166,6 +166,7 @@ void CrossMwmGraph::GetOutgoingEdgesList(BorderCross const & v,
   TRoutingMappingPtr currentMapping = m_indexManager.GetMappingByName(v.toNode.mwmName);
   ASSERT(currentMapping->IsValid(), ());
   currentMapping->LoadCrossContext();
+  currentMapping->FreeFileIfPossible();
 
   CrossRoutingContextReader const & currentContext = currentMapping->m_crossContext;
   auto inRange = currentContext.GetIngoingIterators();

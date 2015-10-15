@@ -370,13 +370,13 @@ private:
 bool OsrmRouter::CheckRoutingAbility(m2::PointD const & startPoint, m2::PointD const & finalPoint,
                                      TCountryFileFn const & countryFileFn, Index * index)
 {
-  RoutingIndexManager manager(countryFileFn, index);
+  RoutingIndexManager manager(countryFileFn, *index);
   return manager.GetMappingByPoint(startPoint)->IsValid() &&
          manager.GetMappingByPoint(finalPoint)->IsValid();
 }
 
 OsrmRouter::OsrmRouter(Index * index, TCountryFileFn const & countryFileFn)
-    : m_pIndex(index), m_indexManager(countryFileFn, index)
+    : m_pIndex(index), m_indexManager(countryFileFn, *index)
 {
 }
 

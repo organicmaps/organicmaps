@@ -70,7 +70,7 @@ UNIT_TEST(RoutingMappingCountryFileLockTest)
 {
   LocalFileGenerator generator("1TestCountry");
   {
-    RoutingMapping testMapping(generator.GetCountryName(), (&generator.GetMwmSet()));
+    RoutingMapping testMapping(generator.GetCountryName(), (generator.GetMwmSet()));
     TEST(testMapping.IsValid(), ());
     TEST_EQUAL(generator.GetNumRefs(), 1, ());
   }
@@ -83,7 +83,7 @@ UNIT_TEST(IndexManagerLockManagementTest)
   string const fileName("1TestCountry");
   LocalFileGenerator generator(fileName);
   RoutingIndexManager manager([&fileName](m2::PointD const & q) { return fileName; },
-                              &generator.GetMwmSet());
+                              generator.GetMwmSet());
   {
     auto testMapping = manager.GetMappingByName(fileName);
     TEST(testMapping->IsValid(), ());

@@ -25,9 +25,9 @@ struct RoutingMapping
 
   /// Default constructor to create invalid instance for existing client code.
   /// @postcondition IsValid() == false.
-  RoutingMapping() = default;
+  RoutingMapping() : m_pIndex(nullptr) {}
   /// @param countryFile Country file name without extension.
-  RoutingMapping(string const & countryFile, MwmSet * pIndex);
+  RoutingMapping(string const & countryFile, MwmSet & index);
   ~RoutingMapping();
 
   void Map();
@@ -39,7 +39,7 @@ struct RoutingMapping
   void LoadCrossContext();
   void FreeCrossContext();
 
-  bool IsValid() const { return m_handle.IsAlive() && m_error == IRouter::ResultCode::NoError; }
+  bool IsValid() const { return m_error == IRouter::ResultCode::NoError && m_mwmId.IsAlive(); }
 
   IRouter::ResultCode GetError() const { return m_error; }
 
@@ -49,9 +49,15 @@ struct RoutingMapping
    */
   string const & GetCountryName() const { return m_countryFile; }
 
-  Index::MwmId const & GetMwmId() const { return m_handle.GetId(); }
+  Index::MwmId const & GetMwmId() const { return m_mwmId; }
+
+  // Free file handles if it is possible. Works only if there is no mapped sections. Cross section
+  // will be valid after free.
+  void FreeFileIfPossible();
 
 private:
+  void LoadFileIfNeeded();
+
   size_t m_mapCounter;
   size_t m_facadeCounter;
   bool m_crossContextLoaded;
@@ -59,6 +65,9 @@ private:
   FilesMappingContainer m_container;
   IRouter::ResultCode m_error;
   MwmSet::MwmHandle m_handle;
+  // We save a mwmId for possibility to unlock a mwm file by rewriting m_handle.
+  Index::MwmId m_mwmId;
+  MwmSet * m_pIndex;
 };
 
 typedef shared_ptr<RoutingMapping> TRoutingMappingPtr;
@@ -88,10 +97,9 @@ public:
 class RoutingIndexManager
 {
 public:
-  RoutingIndexManager(TCountryFileFn const & countryFileFn, MwmSet * index)
+  RoutingIndexManager(TCountryFileFn const & countryFileFn, MwmSet & index)
       : m_countryFileFn(countryFileFn), m_index(index)
   {
-    ASSERT(index, ());
   }
 
   TRoutingMappingPtr GetMappingByPoint(m2::PointD const & point);
@@ -109,7 +117,7 @@ public:
 private:
   TCountryFileFn m_countryFileFn;
   unordered_map<string, TRoutingMappingPtr> m_mapping;
-  MwmSet * m_index;
+  MwmSet & m_index;
 };
 
 }  // namespace routing
