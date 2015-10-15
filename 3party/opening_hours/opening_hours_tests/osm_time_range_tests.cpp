@@ -42,13 +42,13 @@
 #include <boost/spirit/include/qi.hpp>
 
 template <typename Char, typename Parser>
-bool test(Char const* in, Parser const& p, bool full_match = true)
+bool test(Char const * in, Parser const & p, bool full_match = true)
 {
   // we don't care about the result of the "what" function.
   // we only care that all parsers have it:
   boost::spirit::qi::what(p);
 
-  Char const* last = in;
+  Char const * last = in;
   while (*last)
     last++;
   return boost::spirit::qi::parse(in, last, p) && (!full_match || (in == last));
@@ -74,12 +74,12 @@ BOOST_AUTO_TEST_CASE(OpeningHours_Locale)
   std::locale loc("en_US");
   std::locale prev = std::locale::global(loc);
 
-  BOOST_CHECK(test(L"TeSt",charset::no_case[qi::lit("test")]));
-  BOOST_CHECK(test(L"Пн",charset::no_case[alltime]));
-  BOOST_CHECK(test(L"UU",charset::no_case[alltime]));
-  BOOST_CHECK(test(L"ŒÆ",charset::no_case[alltime]));
-  BOOST_CHECK(test(L"КАР",charset::no_case[charset::string(L"кар")]));
-  BOOST_CHECK(test(L"КрУглосуточно",charset::no_case[qi::lit(L"круглосуточно")]));
+  BOOST_CHECK(test(L"TeSt", charset::no_case[qi::lit("test")]));
+  BOOST_CHECK(test(L"Пн", charset::no_case[alltime]));
+  BOOST_CHECK(test(L"UU", charset::no_case[alltime]));
+  BOOST_CHECK(test(L"ŒÆ", charset::no_case[alltime]));
+  BOOST_CHECK(test(L"КАР", charset::no_case[charset::string(L"кар")]));
+  BOOST_CHECK(test(L"КрУглосуточно", charset::no_case[qi::lit(L"круглосуточно")]));
 
   std::locale::global(prev);
 }
@@ -198,7 +198,8 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TimeHit)
 BOOST_AUTO_TEST_CASE(OpeningHours_StaticSet)
 {
   {
-    OSMTimeRange oh = OSMTimeRange::FromString("06:00-02:00/21:03"); // interval is greater than smth
+    // TODO(mgsergio) move validation from parsing
+    OSMTimeRange oh = OSMTimeRange::FromString("06:00-02:00/21:03");
     BOOST_CHECK(oh.IsValid());
   }
 
@@ -327,7 +328,8 @@ BOOST_AUTO_TEST_CASE(OpeningHours_StaticSet)
     BOOST_CHECK(oh.IsValid());
   }
   {
-    OSMTimeRange oh = OSMTimeRange::FromString("Пн. — пт.: 09:00 — 21:00; сб.: 09:00 — 19:00"); // Пн -> пн
+    // TODO(mgsergio) Check if we need locale. // пн -> Пн
+    OSMTimeRange oh = OSMTimeRange::FromString("пн. — пт.: 09:00 — 21:00; сб.: 09:00 — 19:00");
     BOOST_CHECK(oh.IsValid());
   }
   {

@@ -113,11 +113,11 @@ class OSMTimeRange
 public:
   OSMTimeRange() = default;
 
-  inline bool IsValid() const { return m_valid; }
-  inline bool IsOpen() const { return m_state == osmoh::State::eOpen; }
-  inline bool IsClosed() const { return m_state == osmoh::State::eClosed; }
-  inline bool IsUnknown() const { return m_state == osmoh::State::eUnknown; }
-  inline std::string const & Comment() const { return m_comment; }
+  bool IsValid() const { return m_valid; }
+  bool IsOpen() const { return m_state == osmoh::State::eOpen; }
+  bool IsClosed() const { return m_state == osmoh::State::eClosed; }
+  bool IsUnknown() const { return m_state == osmoh::State::eUnknown; }
+  std::string const & Comment() const { return m_comment; }
 
   OSMTimeRange & operator()(time_t timestamp);
   OSMTimeRange & operator()(std::string const & timestr,
@@ -131,4 +131,3 @@ private:
   std::vector<osmoh::TimeRule> m_rules;
   std::string m_comment;
 };
-
