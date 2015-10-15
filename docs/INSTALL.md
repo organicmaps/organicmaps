@@ -57,6 +57,11 @@ Do a git clone:
     cd omim
     echo | ./configure.sh
 
+On Ubuntu 14.04, you'll need a PPA with an up-to-date version of libc++.
+You shouldn't need this on newer versions.
+
+    sudo add-apt-repository ppa:jhe/llvm-toolchain
+
 Then:
 
     sudo apt-get install clang-3.5 libc++-dev libboost-iostreams-dev libglu1-mesa-dev
