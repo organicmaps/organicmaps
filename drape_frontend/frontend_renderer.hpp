@@ -230,6 +230,7 @@ private:
   bool m_3dModeChanged;
   drape_ptr<Framebuffer> m_framebuffer;
   drape_ptr<Renderer3d> m_renderer3d;
+  m2::RectD m_pixelRect;
 
   Viewport m_viewport;
   UserEventStream m_userEventStream;

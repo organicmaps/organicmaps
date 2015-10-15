@@ -17,9 +17,9 @@ Framebuffer::Framebuffer()
   : m_colorTextureId(0)
   , m_depthTextureId(0)
   , m_framebufferId(0)
+  , m_maxTextureSize(GLFunctions::glGetInteger(gl_const::GLMaxTextureSize))
   , m_defaultContext(0)
 {
-
 }
 
 Framebuffer::~Framebuffer()
@@ -51,6 +51,11 @@ void Framebuffer::SetDefaultContext(dp::OGLContext * context)
   m_defaultContext = context;
 }
 
+int32_t Framebuffer::GetMaxSize() const
+{
+  return m_maxTextureSize;
+}
+
 void Framebuffer::SetSize(uint32_t width, uint32_t height)
 {
   assert(width > 0 && height > 0);
@@ -59,8 +64,8 @@ void Framebuffer::SetSize(uint32_t width, uint32_t height)
   if (m_width == width && m_height == height)
     return;
 
-  m_width = width;
   m_height = height;
+  m_width = width;
 
   Destroy();
 

@@ -155,12 +155,11 @@ void Renderer3d::Render(uint32_t textureId, ref_ptr<dp::GpuProgramManager> mng)
   GLFunctions::glBindBuffer(m_bufferId, gl_const::GLArrayBuffer);
   GLFunctions::glBindVertexArray(m_VAO);
 
-
-
   GLFunctions::glBufferData(gl_const::GLArrayBuffer, sizeof(m_vertices), m_vertices, gl_const::GLStaticDraw);
 
   GLFunctions::glViewport(0, 0, m_width, m_height);
   GLFunctions::glClear();
+
   GLFunctions::glDrawArrays(gl_const::GLTriangleStrip, 0, 4);
 
   prg->Unbind();
