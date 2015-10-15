@@ -56,6 +56,7 @@ public enum Statistics
       public static final String SUBSCRIBE = "Settings. Subscribed";
       public static final String REPORT_BUG = "Settings. Bug reported";
       public static final String RATE = "Settings. Rate app called";
+      public static final String TELL_FRIEND = "Settings. Tell to friend";
       public static final String FACEBOOK = "Settings. Go to FB.";
       public static final String TWITTER = "Settings. Go to twitter.";
       public static final String HELP = "Settings. Help.";
@@ -74,8 +75,6 @@ public enum Statistics
     public static final String FACEBOOK_INVITE_LATER = "Facebook invites dialog cancelled.";
     public static final String FACEBOOK_INVITE_INVITED = "GPlay dialog cancelled.";
     public static final String RATE_DIALOG_RATED = "GPlay dialog. Rating set";
-    public static final String NEW_STYLE_DIALOG_RATED = "New style. Rated.";
-    public static final String NEW_STYLE_DIALOG_CANCELLED = "New style. Cancelled.";
   }
 
   public static class EventParam

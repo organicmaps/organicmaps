@@ -20,6 +20,7 @@ import com.mapswithme.maps.widget.ScrollViewShadowController;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -43,6 +44,7 @@ public class AboutFragment extends Fragment
     mFrame.findViewById(R.id.twitter).setOnClickListener(this);
     mFrame.findViewById(R.id.subscribe).setOnClickListener(this);
     mFrame.findViewById(R.id.rate).setOnClickListener(this);
+    mFrame.findViewById(R.id.share).setOnClickListener(this);
     mFrame.findViewById(R.id.copyright).setOnClickListener(this);
 
     return mFrame;
@@ -109,9 +111,9 @@ public class AboutFragment extends Fragment
           AlohaHelper.logClick(AlohaHelper.Settings.MAIL_SUBSCRIBE);
 
           startActivity(new Intent(Intent.ACTION_SENDTO)
-                          .setData(Utils.buildMailUri(Constants.Email.SUBSCRIBE,
-                                                      getString(R.string.subscribe_me_subject),
-                                                      getString(R.string.subscribe_me_body))));
+                            .setData(Utils.buildMailUri(Constants.Email.SUBSCRIBE,
+                                                        getString(R.string.subscribe_me_subject),
+                                                        getString(R.string.subscribe_me_body))));
           break;
 
         case R.id.rate:
@@ -119,6 +121,13 @@ public class AboutFragment extends Fragment
           AlohaHelper.logClick(AlohaHelper.Settings.RATE);
 
           UiUtils.openAppInMarket(getActivity(), BuildConfig.REVIEW_URL);
+          break;
+
+        case R.id.share:
+          Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.Settings.TELL_FRIEND);
+          AlohaHelper.logClick(AlohaHelper.Settings.TELL_FRIEND);
+
+          ShareOption.ANY.share(getActivity(), getString(R.string.tell_friends_text), R.string.tell_friends);
           break;
 
         case R.id.copyright:

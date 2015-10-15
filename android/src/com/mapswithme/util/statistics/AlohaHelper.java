@@ -27,6 +27,7 @@ public class AlohaHelper
     public static final String MAIL_SUBSCRIBE = "subscribeToNews";
     public static final String REPORT_BUG = "reportABug";
     public static final String RATE = "rate";
+    public static final String TELL_FRIEND = "tellFriend";
     public static final String FACEBOOK = "likeOnFb";
     public static final String TWITTER = "followOnTwitter";
     public static final String HELP = "help";

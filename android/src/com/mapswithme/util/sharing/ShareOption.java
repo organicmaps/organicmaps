@@ -84,9 +84,14 @@ public abstract class ShareOption
       super(R.string.share, new Intent(Intent.ACTION_SEND).setType(TargetUtils.TYPE_TEXT_PLAIN));
     }
 
-    public void share(final Activity activity, final String body)
+    public void share(Activity activity, String body)
     {
       SharingHelper.shareOutside(new TextShareable(activity, body));
+    }
+
+    public void share(Activity activity, String body, @StringRes int titleRes)
+    {
+      SharingHelper.shareOutside(new TextShareable(activity, body), titleRes);
     }
   }
 }
