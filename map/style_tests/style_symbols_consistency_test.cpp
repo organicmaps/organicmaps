@@ -5,6 +5,8 @@
 #include "indexer/drules_include.hpp"
 #include "indexer/map_style_reader.hpp"
 
+#include "graphics/defines.hpp"
+
 #include "coding/reader.hpp"
 #include "coding/parse_xml.hpp"
 
@@ -68,38 +70,27 @@ unordered_set<string> Subtract(unordered_set<string> const & s1, unordered_set<s
   return res;
 }
 
-array<MapStyle, 3> g_styles =
-{{
-  MapStyleLight,
-  MapStyleDark,
-  MapStyleClear
-}};
-
-array<string, 6> g_densities =
-{{
-  "ldpi",
-  "mdpi",
-  "hdpi",
-  "xhdpi",
-  "xxhdpi",
-  "6plus"
-}};
-
 }  // namespace
 
 UNIT_TEST(Test_SymbolsConsistency)
 {
+  // Tests that all symbols specified in drawing rules have corresponding symbols in resources
+
   bool res = true;
 
-  for (auto const style : g_styles)
+  for (size_t s = 0; s < MapStyleCount; ++s)
   {
-    GetStyleReader().SetCurrentStyle(style);
+    MapStyle const mapStyle = static_cast<MapStyle>(s);
+
+    GetStyleReader().SetCurrentStyle(mapStyle);
     classificator::Load();
 
     unordered_set<string> const drawingRuleSymbols = GetSymbolsSetFromDrawingRule();
 
-    for (auto const & density : g_densities)
+    for (size_t d = 0; d < graphics::EDensityCount; ++d)
     {
+      string const density = graphics::convert(static_cast<graphics::EDensity>(d));
+
       unordered_set<string> const resourceStyles = GetSymbolsSetFromResourcesFile(density);
 
       unordered_set<string> const s = Subtract(drawingRuleSymbols, resourceStyles);
@@ -110,7 +101,7 @@ UNIT_TEST(Test_SymbolsConsistency)
       {
         // We are interested in all set of bugs, therefore we do not stop test here but
         // continue it just keep in res that test failed.
-        LOG(LINFO, ("Symbols mismatch: style", style, ", density", density, ", missed", missed));
+        LOG(LINFO, ("Symbols mismatch: style", mapStyle, ", density", density, ", missed", missed));
         res = false;
       }
     }

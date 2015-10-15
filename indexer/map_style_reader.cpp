@@ -28,6 +28,9 @@ string GetStyleSuffix(MapStyle mapStyle)
     return kSuffixLegacyDark;
   case MapStyleClear:
     return kSuffixModernClear;
+
+  case MapStyleCount:
+    break;
   }
   LOG(LWARNING, ("Unknown map style", mapStyle));
   return kSuffixModernClear;
