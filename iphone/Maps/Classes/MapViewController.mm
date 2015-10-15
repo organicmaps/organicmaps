@@ -493,7 +493,10 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   GetFramework().EnterForeground();
 
   if (self.isViewLoaded && self.view.window)
+  {
     [self invalidate]; // only invalidate when map is displayed on the screen
+    [self.controlsManager onEnterForeground];
+  }
 }
 
 - (void)viewWillAppear:(BOOL)animated

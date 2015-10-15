@@ -59,6 +59,11 @@ extern NSString * const kAlohalyticsTapEventKey;
   return self;
 }
 
+- (void)onEnterForeground
+{
+  [self.menuController onEnterForeground];
+}
+
 #pragma mark - Layout
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation

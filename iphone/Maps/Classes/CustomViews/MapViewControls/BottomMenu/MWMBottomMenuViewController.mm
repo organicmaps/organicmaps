@@ -103,6 +103,11 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   GetFramework().GetLocationState()->RemoveStateModeListener(self.locationListenerSlot);
 }
 
+- (void)onEnterForeground
+{
+  [self onLocationStateModeChanged:GetFramework().GetLocationState()->GetMode()];
+}
+
 #pragma mark - Layout
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
