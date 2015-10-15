@@ -13,7 +13,7 @@ namespace routing
 {
 namespace helpers
 {
-/// Class-getter for making routing tasks by geometry point.
+/// A helper class that prepares structures for OSRM by a geometry near a point.
 class Point2PhantomNode
 {
 public:
@@ -45,15 +45,16 @@ public:
   // Returns true if there are candidate features for routing tasks.
   bool HasCandidates() const { return !m_candidates.empty(); }
 
-  // Getter method.
+  // Functor, for getting features from a index foreach method.
   void operator()(FeatureType const & ft);
 
   /// Makes OSRM tasks result vector.
   void MakeResult(vector<FeatureGraphNode> & res, size_t maxCount, string const & mwmName);
 
 private:
-  // Calculates whole segment distance in meters.
-  double CalculateDistance(OsrmMappingTypes::FtSeg const & s) const;
+  // Calculates distance in meters on the feature from startPoint to endPoint.
+  double CalculateDistance(FeatureType const & feature, size_t const startPoint,
+                           size_t const endPoint) const;
 
   /// Calculates part of a node weight in the OSRM format. Projection point @segPt divides node on
   /// two parts. So we find weight of a part, set by the @calcFromRight parameter.
@@ -87,6 +88,7 @@ public:
   {
   }
 
+  // Functor, for getting features from a index foreach method.
   void operator()(FeatureType const & ft);
 
   DISALLOW_COPY_AND_MOVE(Point2Node);

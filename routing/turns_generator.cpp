@@ -74,7 +74,7 @@ public:
 
   void operator()(FeatureType const & ft)
   {
-    if (ft.GetFeatureType() != feature::GEOM_LINE || !CarModel::Instance().IsRoad(ft))
+    if (!CarModel::Instance().IsRoad(ft))
       return;
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
     size_t const count = ft.GetPointsCount();

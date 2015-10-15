@@ -116,7 +116,7 @@ bool IsInside(FtSeg const & bigSeg, FtSeg const & smallSeg)
   ASSERT_EQUAL(smallSeg.m_pointEnd - smallSeg.m_pointStart, 1, ());
 
   auto segmentLeft = min(bigSeg.m_pointStart, bigSeg.m_pointEnd);
-  auto segmentRight = max(bigSeg.m_pointEnd, bigSeg.m_pointStart);
+  auto segmentRight = max(bigSeg.m_pointStart, bigSeg.m_pointEnd);
 
   return (smallSeg.m_pointStart != segmentLeft || smallSeg.m_pointEnd != segmentRight) &&
          (segmentLeft <= smallSeg.m_pointStart && segmentRight >= smallSeg.m_pointEnd);
@@ -220,7 +220,7 @@ void OsrmFtSegMapping::DumpSegmentByNode(TOsrmNodeId nodeId) const
 #endif
 }
 
-void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res) const
+void OsrmFtSegMapping::GetOsrmNodes(TFtSegVec const & segments, OsrmNodesT & res) const
 {
   auto addResFn = [&] (uint64_t seg, TOsrmNodeId nodeId, bool forward)
   {
@@ -246,7 +246,7 @@ void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res) cons
 
   for (auto it = segments.begin(); it != segments.end(); ++it)
   {
-    OsrmMappingTypes::FtSeg const & seg = *(*it);
+    OsrmMappingTypes::FtSeg const & seg = *it;
 
     TNodesList const & nodeIds = m_backwardIndex.GetNodeIdByFid(seg.m_fid);
 

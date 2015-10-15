@@ -37,8 +37,7 @@ void Point2PhantomNode::FindNearestSegment(FeatureType const & ft, m2::PointD co
 
 void Point2PhantomNode::operator()(FeatureType const & ft)
 {
-  //TODO(gardster) Extract GEOM_LINE check into CarModel.
-  if (ft.GetFeatureType() != feature::GEOM_LINE || !CarModel::Instance().IsRoad(ft))
+  if (!CarModel::Instance().IsRoad(ft))
     return;
 
   Candidate res;
@@ -49,18 +48,15 @@ void Point2PhantomNode::operator()(FeatureType const & ft)
     m_candidates.push_back(res);
 }
 
-double Point2PhantomNode::CalculateDistance(OsrmMappingTypes::FtSeg const & s) const
+double Point2PhantomNode::CalculateDistance(FeatureType const & ft,
+                                            size_t const pointStart,
+                                            size_t const pointEnd) const
 {
-  ASSERT_NOT_EQUAL(s.m_pointStart, s.m_pointEnd, ());
-
-  Index::FeaturesLoaderGuard loader(m_index, m_routingMapping.GetMwmId());
-  FeatureType ft;
-  loader.GetFeatureByIndex(s.m_fid, ft);
-  ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+  ASSERT_NOT_EQUAL(pointStart, pointEnd, ());
 
   double distMeters = 0.0;
-  size_t const n = max(s.m_pointEnd, s.m_pointStart);
-  size_t i = min(s.m_pointStart, s.m_pointEnd) + 1;
+  size_t const n = max(pointStart, pointEnd);
+  size_t i = min(pointStart, pointEnd) + 1;
   do
   {
     distMeters += MercatorBounds::DistanceOnEarth(ft.GetPoint(i - 1), ft.GetPoint(i));
@@ -77,69 +73,69 @@ void Point2PhantomNode::CalculateWeight(OsrmMappingTypes::FtSeg const & seg,
   // nodeId can be INVALID_NODE_ID when reverse node is absent. This node has no weight.
   if (nodeId == INVALID_NODE_ID || m_routingMapping.m_dataFacade.GetOutDegree(nodeId) == 0)
   {
+    offset = 0;
     weight = 0;
     return;
   }
 
+  Index::FeaturesLoaderGuard loader(m_index, m_routingMapping.GetMwmId());
+
   // Offset is measured in milliseconds. We don't know about speed restrictions on the road.
   // So we find it by a whole edge weight.
   // Distance from the node border to the projection point is in meters.
-  double distanceM = 0;
+  double distanceM = 0.;
+  // Whole node distance in meters.
+  double fullDistanceM = 0.;
+  // Minimal OSRM edge weight in milliseconds.
+  EdgeWeight minWeight = 0;
+
   auto const range = m_routingMapping.m_segMapping.GetSegmentsRange(nodeId);
   OsrmMappingTypes::FtSeg segment;
 
-  size_t startIndex = calcFromRight ? range.second - 1 : range.first;
-  size_t endIndex = calcFromRight ? range.first - 1 : range.second;
-  int indexIncrement = calcFromRight ? -1 : 1;
+  size_t const startIndex = calcFromRight ? range.second - 1 : range.first;
+  size_t const endIndex = calcFromRight ? range.first - 1 : range.second;
+  int const indexIncrement = calcFromRight ? -1 : 1;
 
+  bool foundSeg = false;
+  m2::PointD lastPoint;
   for (size_t segmentIndex = startIndex; segmentIndex != endIndex; segmentIndex += indexIncrement)
   {
     m_routingMapping.m_segMapping.GetSegmentByIndex(segmentIndex, segment);
     if (!segment.IsValid())
       continue;
+
+    FeatureType ft;
+    loader.GetFeatureByIndex(segment.m_fid, ft);
+    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
     if (segment.m_fid == seg.m_fid && OsrmMappingTypes::IsInside(segment, seg))
     {
-      distanceM += CalculateDistance(OsrmMappingTypes::SplitSegment(segment, seg, !calcFromRight));
-      break;
+      auto const splittedSegment = OsrmMappingTypes::SplitSegment(segment, seg, !calcFromRight);
+      distanceM += CalculateDistance(ft, splittedSegment.m_pointStart, splittedSegment.m_pointEnd);
+      // node.m_seg always forward ordered (m_pointStart < m_pointEnd)
+      distanceM -= MercatorBounds::DistanceOnEarth(
+          ft.GetPoint(calcFromRight ? seg.m_pointEnd : seg.m_pointStart), segPt);
+
+      foundSeg = true;
     }
 
-    distanceM += CalculateDistance(segment);
-  }
+    double distance = CalculateDistance(ft, segment.m_pointStart, segment.m_pointEnd);
+    if (!foundSeg)
+      distanceM += distance;
+    fullDistanceM += distance;
 
-  Index::FeaturesLoaderGuard loader(m_index, m_routingMapping.GetMwmId());
-  FeatureType ft;
-  loader.GetFeatureByIndex(seg.m_fid, ft);
-  ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-
-  // node.m_seg always forward ordered (m_pointStart < m_pointEnd)
-  distanceM -= MercatorBounds::DistanceOnEarth(
-      ft.GetPoint(calcFromRight ? seg.m_pointEnd : seg.m_pointStart), segPt);
-
-  // Whole node distance in meters.
-  double fullDistanceM = 0.0;
-  for (size_t segmentIndex = startIndex; segmentIndex != endIndex; segmentIndex += indexIncrement)
-  {
-    m_routingMapping.m_segMapping.GetSegmentByIndex(segmentIndex, segment);
-    if (!segment.IsValid())
-      continue;
-    fullDistanceM += CalculateDistance(segment);
+    //Find whole edge weight by node outgoing point.
+    if (segmentIndex == range.second - 1)
+      minWeight = GetMinNodeWeight(nodeId, ft.GetPoint(segment.m_pointEnd));
   }
 
   ASSERT_GREATER(fullDistanceM, 0, ("No valid segments on the edge."));
   double const ratio = (fullDistanceM == 0) ? 0 : distanceM / fullDistanceM;
   ASSERT_LESS_OR_EQUAL(ratio, 1., ());
 
-  // Minimal OSRM edge weight in milliseconds.
-  EdgeWeight minWeight = 0;
-
-  if (segment.IsValid())
-  {
-    FeatureType ft;
-    loader.GetFeatureByIndex(segment.m_fid, ft);
-    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-    minWeight = GetMinNodeWeight(nodeId, ft.GetPoint(segment.m_pointEnd));
-  }
+  // OSRM calculates edge weight form start to user point how offset + weight.
+  // But it doesn't place info about start and end edge result weight into result structure.
+  // So we store whole edge weight into offset and calculates this weights at a postprocessing step.
   offset = minWeight;
   weight = max(static_cast<int>(minWeight * ratio), 0) - minWeight;
 }
@@ -162,7 +158,7 @@ EdgeWeight Point2PhantomNode::GetMinNodeWeight(NodeID node, m2::PointD const & p
   geomNodes.erase(unique(geomNodes.begin(), geomNodes.end()), geomNodes.end());
 
   // Filtering virtual edges.
-  for (EdgeID const e : m_routingMapping.m_dataFacade.GetAdjacentEdgeRange(node))
+  for (EdgeID const & e : m_routingMapping.m_dataFacade.GetAdjacentEdgeRange(node))
   {
     QueryEdge::EdgeData const data = m_routingMapping.m_dataFacade.GetEdgeData(e, node);
     if (data.forward && !data.shortcut)
@@ -171,11 +167,11 @@ EdgeWeight Point2PhantomNode::GetMinNodeWeight(NodeID node, m2::PointD const & p
     }
   }
 
-  for (NodeID const adjacentNode : geomNodes)
+  for (NodeID const & adjacentNode : geomNodes)
   {
     if (adjacentNode == node)
       continue;
-    for (EdgeID const e : m_routingMapping.m_dataFacade.GetAdjacentEdgeRange(adjacentNode))
+    for (EdgeID const & e : m_routingMapping.m_dataFacade.GetAdjacentEdgeRange(adjacentNode))
     {
       if (m_routingMapping.m_dataFacade.GetTarget(e) != node)
         continue;
@@ -195,15 +191,14 @@ void Point2PhantomNode::MakeResult(vector<FeatureGraphNode> & res, size_t maxCou
 {
   vector<OsrmMappingTypes::FtSeg> segments;
 
-  segments.resize(maxCount);
-
-  OsrmFtSegMapping::FtSegSetT segmentSet;
   sort(m_candidates.begin(), m_candidates.end(), [](Candidate const & r1, Candidate const & r2)
        {
          return (r1.m_dist < r2.m_dist);
        });
 
   size_t const n = min(m_candidates.size(), maxCount);
+  segments.resize(n);
+
   for (size_t j = 0; j < n; ++j)
   {
     OsrmMappingTypes::FtSeg & seg = segments[j];
@@ -212,12 +207,10 @@ void Point2PhantomNode::MakeResult(vector<FeatureGraphNode> & res, size_t maxCou
     seg.m_fid = c.m_fid;
     seg.m_pointStart = c.m_segIdx;
     seg.m_pointEnd = c.m_segIdx + 1;
-
-    segmentSet.insert(&seg);
   }
 
   OsrmFtSegMapping::OsrmNodesT nodes;
-  m_routingMapping.m_segMapping.GetOsrmNodes(segmentSet, nodes);
+  m_routingMapping.m_segMapping.GetOsrmNodes(segments, nodes);
 
   res.clear();
   res.resize(maxCount);
@@ -286,10 +279,10 @@ void Point2PhantomNode::CalculateWeights(FeatureGraphNode & node) const
 
 void Point2Node::operator()(FeatureType const & ft)
 {
-  if (ft.GetFeatureType() != feature::GEOM_LINE || !CarModel::Instance().IsRoad(ft))
+  if (!CarModel::Instance().IsRoad(ft))
     return;
   uint32_t const featureId = ft.GetID().m_index;
-  for (auto const n : m_routingMapping.m_segMapping.GetNodeIdByFid(featureId))
+  for (auto const & n : m_routingMapping.m_segMapping.GetNodeIdByFid(featureId))
     m_nodeIds.push_back(n);
 }
 }  // namespace helpers
