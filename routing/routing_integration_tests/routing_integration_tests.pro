@@ -26,6 +26,7 @@ QT *= core
 
 SOURCES += \
   ../../testing/testingmain.cpp \
+  cross_section_tests.cpp \
   online_cross_tests.cpp \
   osrm_route_test.cpp \
   osrm_turn_test.cpp \
