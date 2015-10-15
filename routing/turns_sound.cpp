@@ -4,30 +4,13 @@
 
 namespace
 {
-// To inform an end user about the next turn with the help of an voice information message
-// an operation system needs:
-// - to launch TTS subsystem;
-// - to pronounce the message.
-// So to inform the user in time it's necessary to start
-// kStartBeforeSeconds before the time. It is used in the following way:
-// we start playing voice notice in kStartBeforeSeconds * TurnsSound::m_speedMetersPerSecond
-// meters before the turn (for the second voice notification).
-// When kStartBeforeSeconds * TurnsSound::m_speedMetersPerSecond  is too small or too large
-// we use kMinStartBeforeMeters or kMaxStartBeforeMeters correspondingly.
-uint32_t const kStartBeforeSeconds = 5;
-uint32_t const kMinStartBeforeMeters = 10;
-uint32_t const kMaxStartBeforeMeters = 100;
-
-// kMinDistToSayNotificationMeters is minimum distance between two turns
-// when pronouncing the first notification about the second turn makes sense.
-uint32_t const kMinDistToSayNotificationMeters = 100;
-
-uint32_t CalculateDistBeforeMeters(double m_speedMetersPerSecond)
+uint32_t CalculateDistBeforeMeters(double speedMetersPerSecond, uint32_t startBeforeSeconds,
+                                   uint32_t minStartBeforeMeters, uint32_t maxStartBeforeMeters)
 {
-  ASSERT_LESS_OR_EQUAL(0, m_speedMetersPerSecond, ());
+  ASSERT_LESS_OR_EQUAL(0, speedMetersPerSecond, ());
   uint32_t const startBeforeMeters =
-      static_cast<uint32_t>(m_speedMetersPerSecond * kStartBeforeSeconds);
-  return my::clamp(startBeforeMeters, kMinStartBeforeMeters, kMaxStartBeforeMeters);
+      static_cast<uint32_t>(speedMetersPerSecond * startBeforeSeconds);
+  return my::clamp(startBeforeMeters, minStartBeforeMeters, maxStartBeforeMeters);
 }
 
 // Returns true if the closest turn is an entrance to a roundabout and the second is
@@ -102,11 +85,13 @@ string TurnsSound::GenerateFirstTurnSound(TurnItem const & turn, double distance
     m_nextTurnIndex = turn.m_index;
   }
 
-  uint32_t const distanceToPronounceNotificationMeters = CalculateDistBeforeMeters(m_speedMetersPerSecond);
+  uint32_t const distanceToPronounceNotificationMeters =
+      CalculateDistBeforeMeters(m_speedMetersPerSecond, m_startBeforeSeconds,
+                                m_minStartBeforeMeters, m_maxStartBeforeMeters);
 
   if (m_nextTurnNotificationProgress == PronouncedNotification::Nothing)
   {
-    if (distanceToTurnMeters > kMinDistToSayNotificationMeters)
+    if (distanceToTurnMeters > m_minDistToSayNotificationMeters)
     {
       double const currentSpeedUntisPerSecond =
           m_settings.ConvertMetersPerSecondToUnitsPerSecond(m_speedMetersPerSecond);
