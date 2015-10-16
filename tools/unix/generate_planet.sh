@@ -129,7 +129,6 @@ DATA_PATH="$OMIM_PATH/data"
 TARGET="${TARGET:-$DATA_PATH}"
 mkdir -p "$TARGET"
 INTDIR="${INTDIR:-$TARGET/intermediate_data}"
-[ "$(df -m "$INTDIR" | tail -n 1 | awk '{ printf "%d\n", $4 / 1024 }')" -lt "250" ] && echo "WARNING: You have less than 250 MB for intermediate data, that's not enough for the whole planet."
 OSMCTOOLS="${OSMCTOOLS:-$HOME/osmctools}"
 [ ! -d "$OSMCTOOLS" ] && OSMCTOOLS="$INTDIR"
 MERGE_INTERVAL=${MERGE_INTERVAL:-40}
@@ -148,9 +147,9 @@ UPDATE_DATE="$(date +%y%m%d)"
 LOG_PATH="${LOG_PATH:-$TARGET/logs}"
 mkdir -p "$LOG_PATH"
 PLANET_LOG="$LOG_PATH/generate_planet.log"
-[ -n "${MAIL-}" ] && trap "grep STATUS \"$PLANET_LOG\" | mailx -s \"Generate_planet: build failed\" \"$MAIL\"; exit 1" SIGTERM ERR
+[ -n "${MAIL-}" ] && trap "grep STATUS \"$PLANET_LOG\" | mailx -s \"Generate_planet: build failed at $(hostname)\" \"$MAIL\"; exit 1" SIGTERM ERR
 echo -e "\n\n----------------------------------------\n\n" >> "$PLANET_LOG"
-log "STATUS" "Start"
+log "STATUS" "Start ${DESC-}"
 
 # Run external script to find generator_tool
 source "$SCRIPTS_PATH/find_generator_tool.sh"
@@ -195,6 +194,9 @@ export LC_ALL=en_US.UTF-8
 
 [ -n "$OPT_CLEAN" -a -d "$INTDIR" ] && rm -r "$INTDIR"
 mkdir -p "$INTDIR"
+if [ "$(df -m "$INTDIR" | tail -n 1 | awk '{ printf "%d\n", $4 / 1024 }')" -lt "250" ]; then
+  echo "WARNING: You have less than 250 MB for intermediate data, that's not enough for the whole planet."
+fi
 
 if [ -r "$STATUS_FILE" ]; then
   # Read all control variables from file
@@ -426,7 +428,7 @@ if [ "$MODE" == "test" ]; then
   bash "$TESTING_SCRIPT" "$TARGET" > "$TEST_LOG"
   # Send both log files via e-mail
   if [ -n "${MAIL-}" ]; then
-    cat <(grep STATUS "$PLANET_LOG") <(echo ---------------) "$TEST_LOG" | mailx -s "Generate_planet: build completed" "$MAIL"
+    cat <(grep STATUS "$PLANET_LOG") <(echo ---------------) "$TEST_LOG" | mailx -s "Generate_planet: build completed at $(hostname)" "$MAIL"
   fi
 fi
 
