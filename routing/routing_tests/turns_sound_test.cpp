@@ -412,9 +412,9 @@ UNIT_TEST(TurnsSoundRoundaboutTurnTest)
       {\
       \"enter_the_roundabout\":\"Enter the roundabout.\",\
       \"leave_the_roundabout\":\"Leave the roundabout.\",\
-      \"take_the_1st_exit\":\"Take the first exit.\",\
-      \"take_the_2nd_exit\":\"Take the second exit.\",\
-      \"take_the_4th_exit\":\"Take the fourth exit.\",\
+      \"take_the_1_exit\":\"Take the first exit.\",\
+      \"take_the_2_exit\":\"Take the second exit.\",\
+      \"take_the_4_exit\":\"Take the fourth exit.\",\
       \"in_600_meters\":\"In 600 meters.\",\
       \"then\":\"Then.\"\
       }";

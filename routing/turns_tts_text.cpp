@@ -113,21 +113,7 @@ string GetRoundaboutTextId(Notification const & notification)
   if (notification.m_exitNum == 0 || notification.m_exitNum > kMaxSoundedExit)
     return "leave_the_roundabout";
 
-  if (notification.m_exitNum < 4)
-  {
-    switch (notification.m_exitNum)
-    {
-      case 1:
-        return "take_the_1st_exit";
-      case 2:
-        return "take_the_2nd_exit";
-      case 3:
-        return "take_the_3rd_exit";
-    }
-    ASSERT(false, ());
-    return string();
-  }
-  return "take_the_" + strings::to_string(static_cast<int>(notification.m_exitNum)) + "th_exit";
+  return "take_the_" + strings::to_string(static_cast<int>(notification.m_exitNum)) + "_exit";
 }
 
 string GetYouArriveTextId(Notification const & notification)
