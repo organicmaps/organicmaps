@@ -310,6 +310,8 @@ public:
   void SetMapStyle(MapStyle mapStyle);
   MapStyle GetMapStyle() const;
 
+  void SetupMeasurementSystem();
+
   void SetWidgetLayout(gui::TWidgetsLayoutInfo && layout);
   const gui::TWidgetsSizeInfo & GetWidgetSizes();
 

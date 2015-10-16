@@ -477,6 +477,11 @@ void Framework::ApplyWidgets()
   m_work.SetWidgetLayout(move(layout));
 }
 
+void Framework::SetupMeasurementSystem()
+{
+  m_work.SetupMeasurementSystem();
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////
 void Framework::ItemStatusChanged(int childPosition)
 {

@@ -201,25 +201,25 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
       break;
     }
   }
-  [self refreshLocationButtonState];
+  [self refreshLocationButtonState: state];
 }
 
-- (void)refreshLocationButtonState
+- (void)refreshLocationButtonState:(location::EMyPositionMode)state
 {
   dispatch_async(dispatch_get_main_queue(), ^
   {
     if (self.locationButton.imageView.isAnimating)
     {
-      [self refreshLocationButtonState];
+      [self refreshLocationButtonState: state];
     }
     else
     {
       UIButton * locBtn = self.locationButton;
-      switch (self.locationState)
+      switch (state)
       {
         case location::MODE_PENDING_POSITION:
           break;
-        case location::State::Mode::UnknownPosition:
+        case location::MODE_UNKNOWN_POSITION:
           [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_off_mode_light"] forState:UIControlStateNormal];
           break;
         case location::MODE_NOT_FOLLOW:

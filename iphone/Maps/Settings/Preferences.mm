@@ -22,12 +22,14 @@
 + (void)setup:(id)controller
 {
   Settings::Units u;
-	if (!Settings::Get("Units", u))
+  if (!Settings::Get("Units", u))
   {
     // get system locale preferences
     BOOL const isMetric = [[[NSLocale autoupdatingCurrentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue];
     if (isMetric)
+    {
       u = Settings::Metric;
+    }
     else
     {
       u = Settings::Foot;
@@ -35,9 +37,10 @@
       PrefDelegate * d = [[PrefDelegate alloc] init];
       d.m_controller = controller;
     }
-
+    
     Settings::Set("Units", u);
   }
+  GetFramework().SetupMeasurementSystem();
 }
 
 @end
