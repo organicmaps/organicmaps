@@ -230,8 +230,8 @@ BOOST_FUSION_ADAPT_STRUCT
 BOOST_FUSION_ADAPT_STRUCT
 (
     osmoh::TimeRule,
-    (std::vector<osmoh::Weekday>, weekdays)
-    (std::vector<osmoh::TimeSpan>, timespan)
+    (osmoh::TWeekdays, weekdays)
+    (osmoh::TTimeSpans, timespan)
     (osmoh::State, state)
     (uint8_t, int_flags)
  )
@@ -495,7 +495,7 @@ class month_selector_parser : public qi::grammar<Iterator, space_type>
 
 
 template <typename Iterator>
-class weekday_selector_parser : public qi::grammar<Iterator, std::vector<osmoh::Weekday>(), space_type>
+class weekday_selector_parser : public qi::grammar<Iterator, osmoh::TWeekdays(), space_type>
 {
  protected:
   qi::rule<Iterator, uint8_t(), space_type> nth;
@@ -504,8 +504,8 @@ class weekday_selector_parser : public qi::grammar<Iterator, std::vector<osmoh::
   qi::rule<Iterator, space_type> holyday;
   qi::rule<Iterator, space_type> holiday_sequence;
   qi::rule<Iterator, osmoh::Weekday(), space_type> weekday_range;
-  qi::rule<Iterator, std::vector<osmoh::Weekday>(), space_type> weekday_sequence;
-  qi::rule<Iterator, std::vector<osmoh::Weekday>(), space_type> main;
+  qi::rule<Iterator, osmoh::TWeekdays(), space_type> weekday_sequence;
+  qi::rule<Iterator, osmoh::TWeekdays(), space_type> main;
  public:
   weekday_selector_parser() : weekday_selector_parser::base_type(main)
   {
@@ -551,7 +551,7 @@ class weekday_selector_parser : public qi::grammar<Iterator, std::vector<osmoh::
 };
 
 template <typename Iterator>
-class time_selector_parser : public qi::grammar<Iterator, std::vector<osmoh::TimeSpan>(), space_type>
+class time_selector_parser : public qi::grammar<Iterator, osmoh::TTimeSpans(), space_type>
 {
  protected:
   qi::rule<Iterator, osmoh::Time(), space_type, qi::locals<uint8_t>> hour_minutes;
@@ -560,7 +560,7 @@ class time_selector_parser : public qi::grammar<Iterator, std::vector<osmoh::Tim
   qi::rule<Iterator, osmoh::Time(), space_type> extended_time;
   qi::rule<Iterator, osmoh::Time(), space_type> time;
   qi::rule<Iterator, osmoh::TimeSpan(), space_type> timespan;
-  qi::rule<Iterator, std::vector<osmoh::TimeSpan>(), space_type> main;
+  qi::rule<Iterator, osmoh::TTimeSpans(), space_type> main;
 
   class validate_timespan_impl
   {
@@ -718,7 +718,7 @@ class selectors_parser : public qi::grammar<Iterator, osmoh::TimeRule(), space_t
 };
 
 template <typename Iterator>
-class time_domain_parser : public qi::grammar<Iterator, std::vector<osmoh::TimeRule>(), space_type, qi::locals<qi::rule<Iterator, space_type>*>>
+class time_domain_parser : public qi::grammar<Iterator, osmoh::TTimeRules(), space_type, qi::locals<qi::rule<Iterator, space_type>*>>
 {
 protected:
   selectors_parser<Iterator> selector_sequence;
@@ -728,7 +728,7 @@ protected:
   qi::rule<Iterator, space_type> base_separator;
   qi::rule<Iterator, osmoh::TimeRule(), space_type> rule_sequence;
   qi::rule<Iterator, osmoh::State(), space_type> rule_modifier;
-  qi::rule<Iterator, std::vector<osmoh::TimeRule>(), space_type, qi::locals<qi::rule<Iterator, space_type>*>> main;
+  qi::rule<Iterator, osmoh::TTimeRules(), space_type, qi::locals<qi::rule<Iterator, space_type>*>> main;
 
 public:
   time_domain_parser() : time_domain_parser::base_type(main)
@@ -769,7 +769,7 @@ public:
 };
 
 template <typename Iterator>
-bool parse_timerange(Iterator first, Iterator last, std::vector<osmoh::TimeRule> & context)
+bool parse_timerange(Iterator first, Iterator last, osmoh::TTimeRules & context)
 {
   using qi::double_;
   using qi::phrase_parse;
@@ -889,8 +889,6 @@ bool check_rule(osmoh::TimeRule const & r, std::tm const & stm, std::ostream * h
   }
   return next && !(r.timespan.empty() && r.weekdays.empty());
 }
-
-
 } // anonymouse namespace
 
 OSMTimeRange OSMTimeRange::FromString(std::string const & rules)
