@@ -27,7 +27,7 @@ public class SettingsActivity extends PreferenceActivity
 {
   private final FragmentListHelper mFragmentListHelper = new FragmentListHelper();
   private AppCompatDelegate mDelegate;
-  private String mNextBreadcrumb;
+  private CharSequence mNextBreadcrumb;
 
   private AppCompatDelegate getDelegate()
   {
@@ -84,12 +84,13 @@ public class SettingsActivity extends PreferenceActivity
     Toolbar toolbar = (Toolbar) toolbarHolder.findViewById(R.id.toolbar);
     UiUtils.showHomeUpButton(toolbar);
 
-    // Yes, attach it twice
+    // First, add toolbar view to UI.
     root.addView(toolbarHolder, 0);
+    // Second, attach it as ActionBar (it does not add view, so we need previous step).
     getDelegate().setSupportActionBar(toolbar);
 
-    MwmApplication.get().initCounters();
     MwmApplication.get().initNativeCore();
+    MwmApplication.get().initCounters();
     ViewServer.get(this).addWindow(this);
   }
 

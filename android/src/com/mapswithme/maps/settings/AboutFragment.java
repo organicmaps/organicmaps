@@ -1,12 +1,10 @@
 package com.mapswithme.maps.settings;
 
 
-import android.app.Fragment;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,16 +22,26 @@ import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
-public class AboutFragment extends Fragment
+public class AboutFragment extends BaseSettingsFragment
                         implements View.OnClickListener
 {
-  private View mFrame;
-  private BaseShadowController mShadowController;
+  @Override
+  protected int getLayoutRes()
+  {
+    return R.layout.about;
+  }
+
+  @Override
+  protected BaseShadowController createShadowController()
+  {
+    ((View)mFrame.getParent()).setPadding(0, 0, 0, 0);
+    return new ScrollViewShadowController((ObservableScrollView)mFrame.findViewById(R.id.content_frame));
+  }
 
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
-    mFrame = inflater.inflate(R.layout.about, container, false);
+    super.onCreateView(inflater, container, savedInstanceState);
 
     ((TextView)mFrame.findViewById(R.id.version))
       .setText(getString(R.string.version, BuildConfig.VERSION_NAME));
@@ -48,27 +56,6 @@ public class AboutFragment extends Fragment
     mFrame.findViewById(R.id.copyright).setOnClickListener(this);
 
     return mFrame;
-  }
-
-  @Override
-  public void onActivityCreated(Bundle savedInstanceState)
-  {
-    super.onActivityCreated(savedInstanceState);
-
-    if (((PreferenceActivity)getActivity()).onIsMultiPane())
-    {
-      ((View)mFrame.getParent()).setPadding(0, 0, 0, 0);
-      mShadowController = new ScrollViewShadowController((ObservableScrollView)mFrame.findViewById(R.id.content_frame)).attach();
-    }
-  }
-
-  @Override
-  public void onDestroyView()
-  {
-    super.onDestroyView();
-
-    if (mShadowController != null)
-      mShadowController.detach();
   }
 
   @Override

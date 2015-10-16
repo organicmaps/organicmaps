@@ -12,6 +12,7 @@ import com.mapswithme.util.Utils;
 import java.util.List;
 
 public class StoragePathFragment extends BaseMwmListFragment
+                              implements StoragePathManager.MoveFilesListener
 {
   private StoragePathManager mPathManager = new StoragePathManager();
   private StoragePathAdapter mAdapter;
@@ -39,36 +40,11 @@ public class StoragePathFragment extends BaseMwmListFragment
         if (mAdapter != null)
           mAdapter.updateList(storageItems, currentStorageIndex, StorageUtils.getWritableDirSize());
       }
-    }, new StoragePathManager.MoveFilesListener()
-    {
-      @Override
-      public void moveFilesFinished(String newPath)
-      {
-        mAdapter.updateList(mPathManager.getStorageItems(), mPathManager.getCurrentStorageIndex(), StorageUtils.getWritableDirSize());
-      }
+    }, this);
 
-      @Override
-      public void moveFilesFailed(int errorCode)
-      {
-        if (!isAdded())
-          return;
+    if (mAdapter == null)
+      mAdapter = new StoragePathAdapter(mPathManager, getActivity());
 
-        final String message = "Failed to move maps with internal error: " + errorCode;
-        final Activity activity = getActivity();
-        new AlertDialog.Builder(activity)
-            .setTitle(message)
-            .setPositiveButton(R.string.report_a_bug, new DialogInterface.OnClickListener()
-            {
-              @Override
-              public void onClick(DialogInterface dialog, int which)
-              {
-                Utils.sendSupportMail(activity, message);
-              }
-            }).show();
-      }
-    });
-
-    initAdapter();
     mAdapter.updateList(mPathManager.getStorageItems(), mPathManager.getCurrentStorageIndex(), StorageUtils.getWritableDirSize());
     setListAdapter(mAdapter);
   }
@@ -80,9 +56,32 @@ public class StoragePathFragment extends BaseMwmListFragment
     mPathManager.stopExternalStorageWatching();
   }
 
-  private void initAdapter()
+  @Override
+  public void moveFilesFinished(String newPath)
   {
-    if (mAdapter == null)
-      mAdapter = new StoragePathAdapter(mPathManager, getActivity());
+    mAdapter.updateList(mPathManager.getStorageItems(), mPathManager.getCurrentStorageIndex(), StorageUtils.getWritableDirSize());
+  }
+
+  @Override
+  public void moveFilesFailed(int errorCode)
+  {
+    if (!isAdded())
+      return;
+
+    final String message = "Failed to move maps with internal error: " + errorCode;
+    final Activity activity = getActivity();
+    if (activity.isFinishing())
+      return;
+
+    new AlertDialog.Builder(activity)
+        .setTitle(message)
+        .setPositiveButton(R.string.report_a_bug, new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dialog, int which)
+          {
+            Utils.sendSupportMail(activity, message);
+          }
+        }).show();
   }
 }

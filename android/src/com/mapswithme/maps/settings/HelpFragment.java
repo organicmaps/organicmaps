@@ -1,11 +1,9 @@
 package com.mapswithme.maps.settings;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,21 +15,33 @@ import com.mapswithme.maps.widget.BaseShadowController;
 import com.mapswithme.maps.widget.ObservableWebView;
 import com.mapswithme.maps.widget.WebViewShadowController;
 import com.mapswithme.util.Constants;
-import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
-public class HelpFragment extends Fragment
+public class HelpFragment extends BaseSettingsFragment
 {
-  private View mFrame;
   private WebContainerDelegate mDelegate;
-  private BaseShadowController mShadowController;
+
+  @Override
+  protected int getLayoutRes()
+  {
+    return R.layout.fragment_prefs_help;
+  }
+
+  @Override
+  protected BaseShadowController createShadowController()
+  {
+    ((View)mFrame.getParent()).setPadding(0, 0, 0, 0);
+    adjustMargins(mDelegate.getWebView());
+    return new WebViewShadowController((ObservableWebView)mDelegate.getWebView())
+               .addBottomShadow();
+  }
 
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
-    mFrame = inflater.inflate(R.layout.fragment_prefs_help, container, false);
+    super.onCreateView(inflater, container, savedInstanceState);
 
     mDelegate = new WebContainerDelegate(mFrame, Constants.Url.FAQ)
     {
@@ -87,37 +97,5 @@ public class HelpFragment extends Fragment
     });
 
     return mFrame;
-  }
-
-  @Override
-  public void onActivityCreated(Bundle savedInstanceState)
-  {
-    super.onActivityCreated(savedInstanceState);
-
-    if (((PreferenceActivity)getActivity()).onIsMultiPane())
-    {
-      ((View)mFrame.getParent()).setPadding(0, 0, 0, 0);
-      adjustMargins(mDelegate.getWebView());
-      mShadowController = new WebViewShadowController((ObservableWebView)mDelegate.getWebView())
-                              .addBottomShadow()
-                              .attach();
-    }
-  }
-
-  @Override
-  public void onDestroyView()
-  {
-    super.onDestroyView();
-    if (mShadowController != null)
-      mShadowController.detach();
-  }
-
-  static void adjustMargins(View view)
-  {
-    int margin = UiUtils.dimen(R.dimen.margin_half);
-    ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-    lp.leftMargin = margin;
-    lp.rightMargin = margin;
-    view.setLayoutParams(lp);
   }
 }

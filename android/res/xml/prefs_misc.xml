@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
   <SwitchPreference android:key="@string/pref_send_statistics"
-                    android:summary="@string/allow_statistics_hint"
-                    android:title="@string/allow_statistics"/>
+                    android:title="@string/allow_statistics"
+                    android:summary="@string/allow_statistics_hint"/>
 
   <SwitchPreference android:key="@string/pref_play_services"
-                    android:summary="@string/pref_use_google_play"
                     android:title="Google Play Services"
+                    android:summary="@string/pref_use_google_play"
                     android:defaultValue="true"/>
 </PreferenceScreen>

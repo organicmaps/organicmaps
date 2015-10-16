@@ -45,14 +45,6 @@
     <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoRegular</item>
   </style>
 
-  <style name="MwmWidget.ActionBar" parent="android:Widget.Holo.Light.ActionBar.Solid.Inverse">
-    <item name="android:background">@color/base_green</item>
-    <item name="android:displayOptions">homeAsUp|showTitle</item>
-    <item name="android:titleTextAppearance" tools:ignore="NewApi">@style/MwmTextAppearance.Toolbar.Title</item>
-    <item name="android:homeAsUpIndicator">@drawable/abc_ic_ab_back_mtrl_am_alpha</item>
-    <item name="homeAsUpIndicator">@drawable/abc_ic_ab_back_mtrl_am_alpha</item>
-  </style>
-
   <style name="MwmWidget.ToolbarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
     <item name="android:background">?attr/colorPrimary</item>
     <item name="android:elevation" tools:ignore="NewApi">@dimen/appbar_elevation</item>
@@ -70,7 +62,7 @@
     <item name="colorAccent">@android:color/white</item>
   </style>
 
-  <style name="MwmWidget.ListView" parent="android:Widget.Holo.Light.ListView">
+  <style name="MwmWidget.ListView" parent="Widget.AppCompat.ListView">
     <item name="android:fadingEdge">none</item>
     <item name="android:divider">@color/base_black_divider</item>
     <item name="android:background">@null</item>
@@ -80,7 +72,7 @@
     <item name="android:cacheColorHint">@android:color/transparent</item>
   </style>
 
-  <style name="MwmWidget.TextView" parent="android:Widget.Holo.Light.TextView">
+  <style name="MwmWidget.TextView" parent="android:Widget.TextView">
     <item name="android:background">@android:color/transparent</item>
   </style>
 

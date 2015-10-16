@@ -1,9 +1,7 @@
 package com.mapswithme.maps.settings;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,18 +14,30 @@ import com.mapswithme.maps.widget.ObservableWebView;
 import com.mapswithme.maps.widget.WebViewShadowController;
 import com.mapswithme.util.Constants;
 
-public class CopyrightFragment extends Fragment
+public class CopyrightFragment extends BaseSettingsFragment
                             implements OnBackPressListener
 {
   private WebContainerDelegate mDelegate;
-  private BaseShadowController mShadowController;
+
+  @Override
+  protected int getLayoutRes()
+  {
+    return R.layout.fragment_prefs_copyright;
+  }
+
+  @Override
+  protected BaseShadowController createShadowController()
+  {
+    adjustMargins(mDelegate.getWebView());
+    return new WebViewShadowController((ObservableWebView)mDelegate.getWebView());
+  }
 
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
-    View frame = inflater.inflate(R.layout.fragment_prefs_copyright, container, false);
+    super.onCreateView(inflater, container, savedInstanceState);
 
-    mDelegate = new WebContainerDelegate(frame, Constants.Url.COPYRIGHT)
+    mDelegate = new WebContainerDelegate(mFrame, Constants.Url.COPYRIGHT)
     {
       @Override
       protected void doStartActivity(Intent intent)
@@ -36,27 +46,7 @@ public class CopyrightFragment extends Fragment
       }
     };
 
-    return frame;
-  }
-
-  @Override
-  public void onActivityCreated(Bundle savedInstanceState)
-  {
-    super.onActivityCreated(savedInstanceState);
-
-    if (((PreferenceActivity)getActivity()).onIsMultiPane())
-    {
-      HelpFragment.adjustMargins(mDelegate.getWebView());
-      mShadowController = new WebViewShadowController((ObservableWebView)mDelegate.getWebView()).attach();
-    }
-  }
-
-  @Override
-  public void onDestroyView()
-  {
-    super.onDestroyView();
-    if (mShadowController != null)
-      mShadowController.detach();
+    return mFrame;
   }
 
   @Override

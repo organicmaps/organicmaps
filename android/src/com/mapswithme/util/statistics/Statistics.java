@@ -64,6 +64,8 @@ public enum Statistics
       public static final String COPYRIGHT = "Settings. Copyright.";
       public static final String GROUP_MAP = "Settings. Group: map.";
       public static final String GROUP_MISC = "Settings. Group: misc.";
+
+      private Settings() {}
     }
 
     public static final String SEARCH_KEY_CLICKED = "Search key pressed.";
@@ -75,6 +77,8 @@ public enum Statistics
     public static final String FACEBOOK_INVITE_LATER = "Facebook invites dialog cancelled.";
     public static final String FACEBOOK_INVITE_INVITED = "GPlay dialog cancelled.";
     public static final String RATE_DIALOG_RATED = "GPlay dialog. Rating set";
+
+    private EventName() {}
   }
 
   public static class EventParam
@@ -89,6 +93,8 @@ public enum Statistics
     public static final String DELAY_MILLIS = "Delay in milliseconds";
     public static final String ENABLED = "Enabled";
     public static final String RATING = "Rating";
+
+    private EventParam() {}
   }
 
   private static class MyTrackerParams

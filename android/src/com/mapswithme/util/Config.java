@@ -126,9 +126,10 @@ public final class Config
   private static void incrementSessionNumber()
   {
     long lastSessionTimestamp = getLong(KEY_APP_LAST_SESSION_TIMESTAMP);
-    if (!DateUtils.isToday(lastSessionTimestamp))
-      setLong(KEY_APP_LAST_SESSION_TIMESTAMP, System.currentTimeMillis());
+    if (DateUtils.isToday(lastSessionTimestamp))
+      return;
 
+    setLong(KEY_APP_LAST_SESSION_TIMESTAMP, System.currentTimeMillis());
     increment(KEY_APP_SESSION_NUMBER);
   }
 

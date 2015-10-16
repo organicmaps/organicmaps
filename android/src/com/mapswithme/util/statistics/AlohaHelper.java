@@ -34,6 +34,8 @@ public class AlohaHelper
     public static final String ABOUT = "about";
     public static final String COPYRIGHT = "copyright";
     public static final String CHANGE_UNITS = "settingsMiles";
+
+    private Settings() {}
   }
 
   // for aloha stats
