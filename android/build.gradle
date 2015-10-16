@@ -11,6 +11,7 @@ buildscript {
 allprojects {
   repositories {
     jcenter()
+    mavenCentral()
   }
 }
 
@@ -31,6 +32,7 @@ dependencies {
   compile 'com.facebook.android:facebook-android-sdk:4.6.0'
   compile 'com.parse.bolts:bolts-android:1.2.1'
   compile 'com.parse:parse-android:1.10.2'
+  compile 'com.google.code.gson:gson:2.4'
   compile fileTree(dir: '3rd_party', include: '*.jar')
   // BottomSheet
   compile project(":3rd_party:BottomSheet")
