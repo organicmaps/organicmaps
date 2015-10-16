@@ -51,9 +51,9 @@ UNIT_TEST(GetRoundaboutTextIdTest)
   Notification const notifiation1(500, 0, false, TurnDirection::LeaveRoundAbout, ::Settings::Foot);
   TEST_EQUAL(GetRoundaboutTextId(notifiation1), "leave_the_roundabout", ());
   Notification const notifiation2(0, 3, true, TurnDirection::LeaveRoundAbout, ::Settings::Foot);
-  TEST_EQUAL(GetRoundaboutTextId(notifiation2), "take_the_3rd_exit", ());
+  TEST_EQUAL(GetRoundaboutTextId(notifiation2), "take_the_3_exit", ());
   Notification const notifiation3(0, 7, true, TurnDirection::LeaveRoundAbout, ::Settings::Metric);
-  TEST_EQUAL(GetRoundaboutTextId(notifiation3), "take_the_7th_exit", ());
+  TEST_EQUAL(GetRoundaboutTextId(notifiation3), "take_the_7_exit", ());
   Notification const notifiation4(0, 15, true, TurnDirection::LeaveRoundAbout, ::Settings::Metric);
   TEST_EQUAL(GetRoundaboutTextId(notifiation4), "leave_the_roundabout", ());
 }
