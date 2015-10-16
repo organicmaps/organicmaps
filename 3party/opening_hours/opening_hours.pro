@@ -4,11 +4,12 @@
 #
 #-------------------------------------------------
 
-ROOT_DIR = ../..
 
 TARGET = opening_hours
 TEMPLATE = lib
 CONFIG += staticlib
+
+ROOT_DIR = ../..
 
 include($$ROOT_DIR/common.pri)
 
