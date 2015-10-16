@@ -86,7 +86,7 @@ CONFIG(desktop) {
     SUBDIRS += indexer/indexer_tests
     SUBDIRS += graphics/graphics_tests
     SUBDIRS += gui/gui_tests
-    SUBDIRS += pedestrian_routing_benchmarks
+    SUBDIRS += pedestrian_routing_tests
     SUBDIRS += search/search_integration_tests
 
     CONFIG(drape) {
