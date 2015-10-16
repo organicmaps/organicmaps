@@ -108,6 +108,10 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   [super viewWillDisappear:animated];
 }
 
+- (void)onEnterForeground
+{
+}
+
 #pragma mark - Refresh Collection View layout
 
 - (void)refreshLayout
