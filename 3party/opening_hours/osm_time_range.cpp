@@ -902,7 +902,7 @@ OSMTimeRange OSMTimeRange::FromString(std::string const & rules)
   return timeRange;
 }
 
-OSMTimeRange & OSMTimeRange::operator () (time_t timestamp)
+OSMTimeRange & OSMTimeRange::UpdateState(time_t timestamp)
 {
   std::tm stm = *localtime(&timestamp);
 
@@ -940,10 +940,10 @@ OSMTimeRange & OSMTimeRange::operator () (time_t timestamp)
   return *this;
 }
 
-OSMTimeRange & OSMTimeRange::operator () (std::string const & timestr, char const * timefmt)
+OSMTimeRange & OSMTimeRange::UpdateState(std::string const & timestr, char const * timefmt)
 {
   std::tm when = {};
   std::stringstream ss(timestr);
   ss >> std::get_time(&when, timefmt);
-  return this->operator()(std::mktime(&when));
+  return UpdateState(std::mktime(&when));
 }

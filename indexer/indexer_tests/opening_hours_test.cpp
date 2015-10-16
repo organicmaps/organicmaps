@@ -120,57 +120,57 @@ UNIT_TEST(OpeningHours_TimeHit)
   {
     OSMTimeRange oh = OSMTimeRange::FromString("06:13-15:00; 16:30+");
     TEST(oh.IsValid(), ("Incorrect schedule string"));
-    TEST(oh("12-12-2013 7:00").IsOpen(), ());
-    TEST(oh("12-12-2013 16:00").IsClosed(), ());
-    TEST(oh("12-12-2013 20:00").IsOpen(), ());
+    TEST(oh.UpdateState("12-12-2013 7:00").IsOpen(), ());
+    TEST(oh.UpdateState("12-12-2013 16:00").IsClosed(), ());
+    TEST(oh.UpdateState("12-12-2013 20:00").IsOpen(), ());
   }
   {
     OSMTimeRange oh = OSMTimeRange::FromString("We-Sa; Mo[1,3] closed; Su[-1,-2] closed; Fr[2] open; Fr[-2], Fr open; Su[-2] -2 days");
     TEST(oh.IsValid(), ("Incorrect schedule string"));
-    TEST(oh("20-03-2015 18:00").IsOpen(), ());
-    TEST(oh("17-03-2015 18:00").IsClosed(), ());
+    TEST(oh.UpdateState("20-03-2015 18:00").IsOpen(), ());
+    TEST(oh.UpdateState("17-03-2015 18:00").IsClosed(), ());
   }
 
   {
     OSMTimeRange oh = OSMTimeRange::FromString("We-Fr; Mo[1,3] closed; Su[-1,-2] closed");
     TEST(oh.IsValid(), ("Incorrect schedule string"));
-    TEST(oh("20-03-2015 18:00").IsOpen(), ());
-    TEST(oh("17-03-2015 18:00").IsClosed(), ());
+    TEST(oh.UpdateState("20-03-2015 18:00").IsOpen(), ());
+    TEST(oh.UpdateState("17-03-2015 18:00").IsClosed(), ());
   }
   {
     OSMTimeRange oh = OSMTimeRange::FromString("We-Fr; Mo[1,3] +1 day closed; Su[-1,-2] -3 days closed");
     TEST(oh.IsValid(), ("Incorrect schedule string"));
-    TEST(oh("20-03-2015 18:00").IsOpen(), ());
-    TEST(oh("17-03-2015 18:00").IsClosed(), ());
+    TEST(oh.UpdateState("20-03-2015 18:00").IsOpen(), ());
+    TEST(oh.UpdateState("17-03-2015 18:00").IsClosed(), ());
   }
   {
     OSMTimeRange oh = OSMTimeRange::FromString("Mo-Su 14:30-17:00; Mo[1] closed; Su[-1] closed");
     TEST(oh.IsValid(), ("Incorrect schedule string"));
-    TEST(oh("09-03-2015 16:00").IsOpen(), ());
-    TEST(oh("02-03-2015 16:00").IsClosed(), ());
-    TEST(oh("22-03-2015 16:00").IsOpen(), ());
-    TEST(oh("29-03-2015 16:00").IsClosed(), ());
+    TEST(oh.UpdateState("09-03-2015 16:00").IsOpen(), ());
+    TEST(oh.UpdateState("02-03-2015 16:00").IsClosed(), ());
+    TEST(oh.UpdateState("22-03-2015 16:00").IsOpen(), ());
+    TEST(oh.UpdateState("29-03-2015 16:00").IsClosed(), ());
   }
   {
     OSMTimeRange oh = OSMTimeRange::FromString("PH,Tu-Su 10:00-18:00; Sa[1] 10:00-18:00 open \"Eintritt ins gesamte Haus frei\"; Jan 1,Dec 24,Dec 25,easter -2 days: closed");
     TEST(oh.IsValid(), ("Incorrect schedule string"));
-    TEST(oh("03-03-2015 16:00").IsOpen(), ());
+    TEST(oh.UpdateState("03-03-2015 16:00").IsOpen(), ());
     TEST(oh.Comment().empty(), ());
-    TEST(oh("07-03-2015 16:00").IsOpen(), ());
+    TEST(oh.UpdateState("07-03-2015 16:00").IsOpen(), ());
     TEST(oh.Comment().empty() == false, ());
   }
   {
     OSMTimeRange oh = OSMTimeRange::FromString("Mo-Su 11:00+; Mo [1,3] off");
     TEST(oh.IsValid(), ("Incorrect schedule string"));
-    TEST(oh("04-03-2015 16:00").IsOpen(), ());
-    TEST(oh("09-03-2015 16:00").IsOpen(), ());
-    TEST(oh("02-03-2015 16:00").IsClosed(), ());
-    TEST(oh("16-03-2015 16:00").IsClosed(), ());
+    TEST(oh.UpdateState("04-03-2015 16:00").IsOpen(), ());
+    TEST(oh.UpdateState("09-03-2015 16:00").IsOpen(), ());
+    TEST(oh.UpdateState("02-03-2015 16:00").IsClosed(), ());
+    TEST(oh.UpdateState("16-03-2015 16:00").IsClosed(), ());
   }
   {
     OSMTimeRange oh = OSMTimeRange::FromString("08:00-16:00 open, 16:00-03:00 open \"public room\"");
     TEST(oh.IsValid(), ("Incorrect schedule string"));
-    TEST(oh("01-03-2015 20:00").IsOpen(), ());
-    TEST(oh("01-03-2015 20:00").Comment() == "public room", ());
+    TEST(oh.UpdateState("01-03-2015 20:00").IsOpen(), ());
+    TEST(oh.UpdateState("01-03-2015 20:00").Comment() == "public room", ());
   }
 }
