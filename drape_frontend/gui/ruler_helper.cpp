@@ -155,7 +155,8 @@ bool RulerHelper::IsVisible(ScreenBase const & screen) const
 
 float RulerHelper::GetRulerHalfHeight() const
 {
-  return 1 * df::VisualParams::Instance().GetVisualScale();
+  float const kRulerHalfHeight = 1.0f;
+  return kRulerHalfHeight * df::VisualParams::Instance().GetVisualScale();
 }
 
 float RulerHelper::GetRulerPixelLength() const
