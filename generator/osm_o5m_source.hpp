@@ -354,7 +354,7 @@ public:
         break;
       }
       default:
-        CHECK(false, (""));
+        CHECK(false, ("Unexpected relation type:", kv.key));
     }
     if (ref)
     {
