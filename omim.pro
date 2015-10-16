@@ -79,7 +79,7 @@ CONFIG(desktop) {
     SUBDIRS += render/render_tests
     SUBDIRS += storage/storage_tests
     SUBDIRS += search/search_tests
-    SUBDIRS += map/map_tests map/benchmark_tool map/mwm_tests
+    SUBDIRS += map/map_tests map/benchmark_tool map/mwm_tests map/style_tests
     SUBDIRS += routing/routing_integration_tests
     SUBDIRS += routing/routing_tests
     SUBDIRS += generator/generator_tests
