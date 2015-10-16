@@ -89,109 +89,109 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TimeHit)
   {
     OSMTimeRange oh = OSMTimeRange::FromString("06:13-15:00; 16:30+");
     BOOST_CHECK(oh.IsValid());
-    BOOST_CHECK(oh("12-12-2013 7:00").IsOpen());
-    BOOST_CHECK(oh("12-12-2013 16:00").IsClosed());
-    BOOST_CHECK(oh("12-12-2013 20:00").IsOpen());
+    BOOST_CHECK(oh.UpdateState("12-12-2013 7:00").IsOpen());
+    BOOST_CHECK(oh.UpdateState("12-12-2013 16:00").IsClosed());
+    BOOST_CHECK(oh.UpdateState("12-12-2013 20:00").IsOpen());
   }
   {
     OSMTimeRange oh = OSMTimeRange::FromString("We-Sa; Mo[1,3] closed; Su[-1,-2] closed; Fr[2] open; Fr[-2], Fr open; Su[-2] -2 days");
     BOOST_CHECK(oh.IsValid());
-    BOOST_CHECK(oh("20-03-2015 18:00").IsOpen());
-    BOOST_CHECK(oh("17-03-2015 18:00").IsClosed());
+    BOOST_CHECK(oh.UpdateState("20-03-2015 18:00").IsOpen());
+    BOOST_CHECK(oh.UpdateState("17-03-2015 18:00").IsClosed());
   }
 
   {
     OSMTimeRange oh = OSMTimeRange::FromString("We-Fr; Mo[1,3] closed; Su[-1,-2] closed");
     BOOST_CHECK(oh.IsValid());
-    BOOST_CHECK(oh("20-03-2015 18:00").IsOpen());
-    BOOST_CHECK(oh("17-03-2015 18:00").IsClosed());
+    BOOST_CHECK(oh.UpdateState("20-03-2015 18:00").IsOpen());
+    BOOST_CHECK(oh.UpdateState("17-03-2015 18:00").IsClosed());
   }
   {
     OSMTimeRange oh = OSMTimeRange::FromString("We-Fr; Mo[1,3] +1 day closed; Su[-1,-2] -3 days closed");
     BOOST_CHECK(oh.IsValid());
-    BOOST_CHECK(oh("20-03-2015 18:00").IsOpen());
-    BOOST_CHECK(oh("17-03-2015 18:00").IsClosed());
+    BOOST_CHECK(oh.UpdateState("20-03-2015 18:00").IsOpen());
+    BOOST_CHECK(oh.UpdateState("17-03-2015 18:00").IsClosed());
   }
   {
     OSMTimeRange oh = OSMTimeRange::FromString("Mo-Su 14:30-17:00; Mo[1] closed; Su[-1] closed");
     BOOST_CHECK(oh.IsValid());
-    BOOST_CHECK(oh("09-03-2015 16:00").IsOpen());
-    BOOST_CHECK(oh("02-03-2015 16:00").IsClosed());
-    BOOST_CHECK(oh("22-03-2015 16:00").IsOpen());
-    BOOST_CHECK(oh("29-03-2015 16:00").IsClosed());
+    BOOST_CHECK(oh.UpdateState("09-03-2015 16:00").IsOpen());
+    BOOST_CHECK(oh.UpdateState("02-03-2015 16:00").IsClosed());
+    BOOST_CHECK(oh.UpdateState("22-03-2015 16:00").IsOpen());
+    BOOST_CHECK(oh.UpdateState("29-03-2015 16:00").IsClosed());
   }
   {
     OSMTimeRange oh = OSMTimeRange::FromString("PH,Tu-Su 10:00-18:00; Sa[1] 10:00-18:00 open \"Eintritt ins gesamte Haus frei\"; Jan 1,Dec 24,Dec 25,easter -2 days: closed");
     BOOST_CHECK(oh.IsValid());
-    BOOST_CHECK(oh("03-03-2015 16:00").IsOpen());
+    BOOST_CHECK(oh.UpdateState("03-03-2015 16:00").IsOpen());
     BOOST_CHECK(oh.Comment().empty());
-    BOOST_CHECK(oh("07-03-2015 16:00").IsOpen());
+    BOOST_CHECK(oh.UpdateState("07-03-2015 16:00").IsOpen());
     BOOST_CHECK(oh.Comment().empty() == false);
   }
   {
     OSMTimeRange oh = OSMTimeRange::FromString("Mo-Su 11:00+; Mo [1,3] off");
     BOOST_CHECK(oh.IsValid());
-    BOOST_CHECK(oh("04-03-2015 16:00").IsOpen());
-    BOOST_CHECK(oh("09-03-2015 16:00").IsOpen());
-    BOOST_CHECK(oh("02-03-2015 16:00").IsClosed());
-    BOOST_CHECK(oh("16-03-2015 16:00").IsClosed());
+    BOOST_CHECK(oh.UpdateState("04-03-2015 16:00").IsOpen());
+    BOOST_CHECK(oh.UpdateState("09-03-2015 16:00").IsOpen());
+    BOOST_CHECK(oh.UpdateState("02-03-2015 16:00").IsClosed());
+    BOOST_CHECK(oh.UpdateState("16-03-2015 16:00").IsClosed());
   }
   {
     OSMTimeRange oh = OSMTimeRange::FromString("08:00-16:00 open, 16:00-03:00 open \"public room\"");
     BOOST_CHECK(oh.IsValid());
-    BOOST_CHECK(oh("01-03-2015 20:00").IsOpen());
-    BOOST_CHECK(oh("01-03-2015 20:00").Comment() == "public room");
+    BOOST_CHECK(oh.UpdateState("01-03-2015 20:00").IsOpen());
+    BOOST_CHECK(oh.UpdateState("01-03-2015 20:00").Comment() == "public room");
   }
   {
     OSMTimeRange oh = OSMTimeRange::FromString("9:00－02:00");
     BOOST_CHECK(oh.IsValid());
-    BOOST_CHECK(oh("01-01-2000 07:00").IsClosed());
-    BOOST_CHECK(oh("01-01-2000 09:00").IsOpen());
-    BOOST_CHECK(oh("01-01-2000 12:00").IsOpen());
-    BOOST_CHECK(oh("01-01-2000 20:00").IsOpen());
-    BOOST_CHECK(oh("01-01-2000 24:00").IsOpen());
-    BOOST_CHECK(oh("01-01-2000 00:00").IsOpen());
-    BOOST_CHECK(oh("01-01-2000 01:00").IsOpen());
-    BOOST_CHECK(oh("01-01-2000 01:59").IsOpen());
-    BOOST_CHECK(oh("01-01-2000 02:00").IsClosed());
+    BOOST_CHECK(oh.UpdateState("01-01-2000 07:00").IsClosed());
+    BOOST_CHECK(oh.UpdateState("01-01-2000 09:00").IsOpen());
+    BOOST_CHECK(oh.UpdateState("01-01-2000 12:00").IsOpen());
+    BOOST_CHECK(oh.UpdateState("01-01-2000 20:00").IsOpen());
+    BOOST_CHECK(oh.UpdateState("01-01-2000 24:00").IsOpen());
+    BOOST_CHECK(oh.UpdateState("01-01-2000 00:00").IsOpen());
+    BOOST_CHECK(oh.UpdateState("01-01-2000 01:00").IsOpen());
+    BOOST_CHECK(oh.UpdateState("01-01-2000 01:59").IsOpen());
+    BOOST_CHECK(oh.UpdateState("01-01-2000 02:00").IsClosed());
   }
   {
     OSMTimeRange oh = OSMTimeRange::FromString("09:00am-19:00pm"); // hours > 12, ignore pm
     BOOST_CHECK(oh.IsValid());
-    BOOST_CHECK(oh("01-01-2000 20:00").IsClosed());
-    BOOST_CHECK(oh("01-01-2000 8:00").IsClosed());
-    BOOST_CHECK(oh("01-01-2000 14:00").IsOpen());
+    BOOST_CHECK(oh.UpdateState("01-01-2000 20:00").IsClosed());
+    BOOST_CHECK(oh.UpdateState("01-01-2000 8:00").IsClosed());
+    BOOST_CHECK(oh.UpdateState("01-01-2000 14:00").IsOpen());
   }
   {
     OSMTimeRange oh = OSMTimeRange::FromString("09:00h-7:00 pm"); // symbols case
     BOOST_CHECK(oh.IsValid());
-    BOOST_CHECK(oh("01-01-2000 20:00").IsClosed());
-    BOOST_CHECK(oh("01-01-2000 8:00").IsClosed());
-    BOOST_CHECK(oh("01-01-2000 14:00").IsOpen());
+    BOOST_CHECK(oh.UpdateState("01-01-2000 20:00").IsClosed());
+    BOOST_CHECK(oh.UpdateState("01-01-2000 8:00").IsClosed());
+    BOOST_CHECK(oh.UpdateState("01-01-2000 14:00").IsOpen());
   }
   {
     OSMTimeRange oh = OSMTimeRange::FromString("Mo-Fr: 11-19 Uhr;Sa: 10-18 Uhr");
     BOOST_CHECK(oh.IsValid());
-    BOOST_CHECK_EQUAL(oh("08-03-2015 20:00").IsClosed(), true);
-    BOOST_CHECK_EQUAL(oh("18-03-2015 12:00").IsClosed(), false);
-    BOOST_CHECK_EQUAL(oh("16-03-2015 10:00").IsOpen(), false);
-    BOOST_CHECK(oh("14-03-2015 10:00").IsOpen());
-    BOOST_CHECK(oh("16-03-2015 11:00").IsOpen());
-    BOOST_CHECK(oh("01-01-2000 14:00").IsOpen());
+    BOOST_CHECK_EQUAL(oh.UpdateState("08-03-2015 20:00").IsClosed(), true);
+    BOOST_CHECK_EQUAL(oh.UpdateState("18-03-2015 12:00").IsClosed(), false);
+    BOOST_CHECK_EQUAL(oh.UpdateState("16-03-2015 10:00").IsOpen(), false);
+    BOOST_CHECK(oh.UpdateState("14-03-2015 10:00").IsOpen());
+    BOOST_CHECK(oh.UpdateState("16-03-2015 11:00").IsOpen());
+    BOOST_CHECK(oh.UpdateState("01-01-2000 14:00").IsOpen());
   }
   {
     OSMTimeRange oh = OSMTimeRange::FromString("Apr 9-19");
     BOOST_CHECK(oh.IsValid());
-    BOOST_CHECK_EQUAL(oh("01-01-2000 20:00").IsClosed(), false);
-    BOOST_CHECK_EQUAL(oh("01-01-2000 8:00").IsClosed(), false);
-    BOOST_CHECK(oh("01-01-2000 14:00").IsOpen());
+    BOOST_CHECK_EQUAL(oh.UpdateState("01-01-2000 20:00").IsClosed(), false);
+    BOOST_CHECK_EQUAL(oh.UpdateState("01-01-2000 8:00").IsClosed(), false);
+    BOOST_CHECK(oh.UpdateState("01-01-2000 14:00").IsOpen());
   }
   {
     OSMTimeRange oh = OSMTimeRange::FromString("9-19"); // it's no time, it's days of month
     BOOST_CHECK(oh.IsValid());
-    BOOST_CHECK_EQUAL(oh("01-01-2000 20:00").IsClosed(), false);
-    BOOST_CHECK_EQUAL(oh("01-01-2000 8:00").IsClosed(), false);
-    BOOST_CHECK(oh("01-01-2000 14:00").IsOpen());
+    BOOST_CHECK_EQUAL(oh.UpdateState("01-01-2000 20:00").IsClosed(), false);
+    BOOST_CHECK_EQUAL(oh.UpdateState("01-01-2000 8:00").IsClosed(), false);
+    BOOST_CHECK(oh.UpdateState("01-01-2000 14:00").IsOpen());
   }
 }
 
