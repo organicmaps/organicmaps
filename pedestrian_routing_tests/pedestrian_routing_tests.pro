@@ -1,4 +1,4 @@
-TARGET = pedestrian_routing_benchmarks
+TARGET = pedestrian_routing_tests
 CONFIG += console warn_on
 CONFIG -= app_bundle
 TEMPLATE = app
@@ -15,4 +15,4 @@ QT *= core
 
 SOURCES += \
   ../testing/testingmain.cpp \
-  pedestrian_routing_benchmarks.cpp \
+  pedestrian_routing_tests.cpp \
