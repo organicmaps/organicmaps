@@ -8,54 +8,19 @@
 #include "std/array.hpp"
 
 
-namespace
-{
-  bool NeedProcessParent(ClassifObject const * p)
-  {
-    return false;
-  }
-}
-
 template <class ToDo> typename ToDo::ResultType
 Classificator::ProcessObjects(uint32_t type, ToDo & toDo) const
 {
   typedef typename ToDo::ResultType ResultType;
   ResultType res = ResultType(); // default initialization
 
-  ClassifObject const * p = &m_root;
-  uint8_t i = 0;
-  uint8_t v;
-
-  // it's enough for now with our 3-level classificator
-  array<ClassifObject const *, 8> path;
-
-  // get objects route in hierarchy for type
-  while (ftype::GetValue(type, i, v))
+  ClassifObject const * p = GetObject(type);
+  if (p != &m_root)
   {
-    p = p->GetObject(v);
-    if (p != 0)
-    {
-      path[i++] = p;
-      toDo(p);
-    }
-    else
-      break;
+    ASSERT(p, ());
+    toDo(p, res);
   }
-  if (path.empty())
-    return res;
-  else
-  {
-    // process objects from child to root
-    for (; i > 0; --i)
-    {
-      // process and stop find if needed
-      if (toDo(path[i-1], res)) break;
-
-      // no need to process parents
-      if (!NeedProcessParent(path[i-1])) break;
-    }
-    return res;
-  }
+  return res;
 }
 
 ClassifObject const * Classificator::GetObject(uint32_t type) const
