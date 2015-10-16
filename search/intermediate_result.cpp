@@ -41,7 +41,7 @@ void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
   // Lib opening_hours is not built for Linux since stdlib doesn't have required functions.
   string const openHours = src.Get(feature::Metadata::FMD_OPEN_HOURS);
   if (!openHours.empty())
-    meta.m_isClosed = OSMTimeRange(openHours)(time(nullptr)).IsClosed();
+    meta.m_isClosed = OSMTimeRange::FromString(openHours)(time(nullptr)).IsClosed();
 #endif
 
   meta.m_stars = 0;

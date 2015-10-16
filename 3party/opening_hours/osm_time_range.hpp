@@ -30,11 +30,13 @@
 
 namespace osmoh
 {
-  class Time
+
+
+class Time
+{
+public:
+  enum EFlags
   {
-  public:
-    enum EFlags
-    {
       eNone = 0,
       eHours = 1,
       eMinutes = 2,
@@ -71,16 +73,16 @@ namespace osmoh
     friend std::ostream & operator << (std::ostream & s, TimeSpan const & span);
   };
 
-  class Weekdays
+  class Weekday
   {
   public:
     uint8_t weekdays;
     uint16_t nth;
     int32_t offset;
 
-    Weekdays() : weekdays(0), nth(0), offset(0) {}
+    Weekday() : weekdays(0), nth(0), offset(0) {}
 
-    friend std::ostream & operator << (std::ostream & s, Weekdays const & w);
+    friend std::ostream & operator << (std::ostream & s, Weekday const & w);
   };
 
   class State
@@ -101,7 +103,7 @@ namespace osmoh
   class TimeRule
   {
   public:
-    std::vector<Weekdays> weekdays;
+    std::vector<Weekday> weekdays;
     std::vector<TimeSpan> timespan;
     State state;
     uint8_t int_flags = 0;

@@ -31,7 +31,7 @@ inline string DebugPrint(EPlaceState state)
 
 inline EPlaceState PlaceStateCheck(string const & openingHours, time_t timestamp)
 {
-  OSMTimeRange oh(openingHours);
+  OSMTimeRange oh = OSMTimeRange::FromString(openingHours);
   auto future = system_clock::from_time_t(timestamp);
   future += minutes(15);
   size_t nowState = oh(timestamp).IsOpen() ? 0 : 1;
