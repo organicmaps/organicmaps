@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
 
-import com.google.gsonaltered.Gson;
+import com.google.gson.Gson;
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.CountryItem;
 import com.mapswithme.maps.ads.LikesManager;
