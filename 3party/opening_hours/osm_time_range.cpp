@@ -365,7 +365,8 @@ struct weeknum_ : qi::symbols<char, unsigned>
 {
   weeknum_()
   {
-    add       ( "1",  1)( "2",  2)( "3",  3)( "4",  4)( "5",  5)( "6",  6)( "7",  7)( "8",  8)( "9",  9)
+    add
+        ( "1",  1)( "2",  2)( "3",  3)( "4",  4)( "5",  5)( "6",  6)( "7",  7)( "8",  8)( "9",  9)
         ("01",  1)("02",  2)("03",  3)("04",  4)("05",  5)("06",  6)("07",  7)("08",  8)("09",  9)
         ("10", 10)("11", 11)("12", 12)("13", 13)("14", 14)("15", 15)("16", 16)("17", 17)("18", 18)("19", 19)
         ("20", 20)("21", 21)("22", 22)("23", 23)("24", 24)("25", 25)("26", 26)("27", 27)("28", 28)("29", 29)
@@ -391,14 +392,14 @@ struct daynum_ : qi::symbols<char, unsigned>
 } daynum;
 
 template <class Iterator>
-class year_selector_parser : public qi::grammar<Iterator, space_type>
+class year_selector : public qi::grammar<Iterator, space_type>
 {
  protected:
   qi::rule<Iterator, space_type> year;
   qi::rule<Iterator, space_type> year_range;
   qi::rule<Iterator, space_type> main;
  public:
-  year_selector_parser() : year_selector_parser::base_type(main)
+  year_selector() : year_selector::base_type(main)
   {
     using qi::uint_;
     using qi::lit;
@@ -417,14 +418,14 @@ class year_selector_parser : public qi::grammar<Iterator, space_type>
 };
 
 template <typename Iterator>
-class week_selector_parser : public qi::grammar<Iterator, space_type>
+class week_selector : public qi::grammar<Iterator, space_type>
 {
  protected:
   qi::rule<Iterator, space_type> week;
   qi::rule<Iterator, space_type> year_range;
   qi::rule<Iterator, space_type> main;
  public:
-  week_selector_parser() : week_selector_parser::base_type(main)
+  week_selector() : week_selector::base_type(main)
   {
     using qi::uint_;
     using qi::lit;
@@ -440,7 +441,7 @@ class week_selector_parser : public qi::grammar<Iterator, space_type>
 };
 
 template <typename Iterator>
-class month_selector_parser : public qi::grammar<Iterator, space_type>
+class month_selector : public qi::grammar<Iterator, space_type>
 {
  protected:
   qi::rule<Iterator, space_type> date;
@@ -450,7 +451,7 @@ class month_selector_parser : public qi::grammar<Iterator, space_type>
   qi::rule<Iterator, space_type> month_range;
   qi::rule<Iterator, space_type> main;
  public:
-  month_selector_parser() : month_selector_parser::base_type(main)
+  month_selector() : month_selector::base_type(main)
   {
     using qi::int_;
     using qi::lit;
@@ -495,7 +496,7 @@ class month_selector_parser : public qi::grammar<Iterator, space_type>
 
 
 template <typename Iterator>
-class weekday_selector_parser : public qi::grammar<Iterator, osmoh::TWeekdays(), space_type>
+class weekday_selector : public qi::grammar<Iterator, osmoh::TWeekdays(), space_type>
 {
  protected:
   qi::rule<Iterator, uint8_t(), space_type> nth;
@@ -507,7 +508,7 @@ class weekday_selector_parser : public qi::grammar<Iterator, osmoh::TWeekdays(),
   qi::rule<Iterator, osmoh::TWeekdays(), space_type> weekday_sequence;
   qi::rule<Iterator, osmoh::TWeekdays(), space_type> main;
  public:
-  weekday_selector_parser() : weekday_selector_parser::base_type(main)
+  weekday_selector() : weekday_selector::base_type(main)
   {
     using qi::_a;
     using qi::_1;
@@ -551,7 +552,7 @@ class weekday_selector_parser : public qi::grammar<Iterator, osmoh::TWeekdays(),
 };
 
 template <typename Iterator>
-class time_selector_parser : public qi::grammar<Iterator, osmoh::TTimeSpans(), space_type>
+class time_selector : public qi::grammar<Iterator, osmoh::TTimeSpans(), space_type>
 {
  protected:
   qi::rule<Iterator, osmoh::Time(), space_type, qi::locals<uint8_t>> hour_minutes;
@@ -588,7 +589,7 @@ class time_selector_parser : public qi::grammar<Iterator, osmoh::TTimeSpans(), s
   };
 
  public:
-  time_selector_parser() : time_selector_parser::base_type(main)
+  time_selector() : time_selector::base_type(main)
   {
     using qi::int_;
     using qi::_1;
@@ -664,21 +665,21 @@ class time_selector_parser : public qi::grammar<Iterator, osmoh::TTimeSpans(), s
 };
 
 template <typename Iterator>
-class selectors_parser : public qi::grammar<Iterator, osmoh::TimeRule(), space_type>
+class selectors : public qi::grammar<Iterator, osmoh::TimeRule(), space_type>
 {
  protected:
-  weekday_selector_parser<Iterator> weekday_selector;
-  time_selector_parser<Iterator> time_selector;
-  year_selector_parser<Iterator> year_selector;
-  month_selector_parser<Iterator> month_selector;
-  week_selector_parser<Iterator> week_selector;
+  weekday_selector<Iterator> weekday_selector;
+  time_selector<Iterator> time_selector;
+  year_selector<Iterator> year_selector;
+  month_selector<Iterator> month_selector;
+  week_selector<Iterator> week_selector;
 
   qi::rule<Iterator, std::string(), space_type> comment;
   qi::rule<Iterator, osmoh::TimeRule(), space_type> small_range_selectors;
   qi::rule<Iterator, space_type> wide_range_selectors;
   qi::rule<Iterator, osmoh::TimeRule(), space_type> main;
  public:
-  selectors_parser() : selectors_parser::base_type(main)
+  selectors() : selectors::base_type(main)
   {
     using qi::_1;
     using qi::_val;
@@ -718,10 +719,10 @@ class selectors_parser : public qi::grammar<Iterator, osmoh::TimeRule(), space_t
 };
 
 template <typename Iterator>
-class time_domain_parser : public qi::grammar<Iterator, osmoh::TTimeRules(), space_type, qi::locals<qi::rule<Iterator, space_type>*>>
+class time_domain : public qi::grammar<Iterator, osmoh::TTimeRules(), space_type, qi::locals<qi::rule<Iterator, space_type>*>>
 {
 protected:
-  selectors_parser<Iterator> selector_sequence;
+  selectors<Iterator> selector_sequence;
 
   qi::rule<Iterator, std::string(), space_type> comment;
   qi::rule<Iterator, space_type> separator;
@@ -731,7 +732,7 @@ protected:
   qi::rule<Iterator, osmoh::TTimeRules(), space_type, qi::locals<qi::rule<Iterator, space_type>*>> main;
 
 public:
-  time_domain_parser() : time_domain_parser::base_type(main)
+  time_domain() : time_domain::base_type(main)
   {
     using qi::lit;
     using qi::lexeme;
@@ -771,11 +772,10 @@ public:
 template <typename Iterator>
 bool parse_timerange(Iterator first, Iterator last, osmoh::TTimeRules & context)
 {
-  using qi::double_;
   using qi::phrase_parse;
   using charset::space;
 
-  time_domain_parser<Iterator> time_domain;
+  time_domain<Iterator> time_domain;
 
   bool r = phrase_parse(
       first,       /* start iterator */
