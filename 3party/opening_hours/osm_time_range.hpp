@@ -30,6 +30,14 @@
 
 namespace osmoh
 {
+class Weekday;
+class TimeSpan;
+class TimeRule;
+
+using TWeekdays = std::vector<Weekday>;
+using TTimeSpans = std::vector<TimeSpan>;
+using TTimeRules = std::vector<TimeRule>;
+
 class Time
 {
  public:
@@ -55,6 +63,7 @@ class Time
   Time & Sunset() { flags = eSunset; return *this; }
   Time & Sunrise() { flags = eSunrise; return *this; }
 
+  std::string ToString() const;
   friend std::ostream & operator << (std::ostream & s, Time const & t);
 };
 
@@ -68,6 +77,7 @@ class TimeSpan
 
   TimeSpan() : flags(Time::eNone) {}
 
+  std::string ToString() const;
   friend std::ostream & operator << (std::ostream & s, TimeSpan const & span);
 };
 
@@ -80,6 +90,7 @@ class Weekday
 
   Weekday() : weekdays(0), nth(0), offset(0) {}
 
+  std::string ToString() const;
   friend std::ostream & operator << (std::ostream & s, Weekday const & w);
 };
 
@@ -101,8 +112,8 @@ class State
 class TimeRule
 {
  public:
-  std::vector<Weekday> weekdays;
-  std::vector<TimeSpan> timespan;
+  TWeekdays weekdays;
+  TTimeSpans timespan;
   State state;
   uint8_t int_flags = 0;
 };
@@ -123,11 +134,14 @@ class OSMTimeRange
   OSMTimeRange & UpdateState(std::string const & timestr,
                              char const * timefmt="%d-%m-%Y %R");
 
+  std::string ToString() const;
+
   static OSMTimeRange FromString(std::string const & rules);
 
  private:
   bool m_valid{false};
   osmoh::State::EState m_state{osmoh::State::eUnknown};
-  std::vector<osmoh::TimeRule> m_rules;
+
+  osmoh::TTimeRules m_rules;
   std::string m_comment;
 };
