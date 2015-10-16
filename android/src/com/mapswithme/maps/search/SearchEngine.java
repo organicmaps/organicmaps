@@ -2,6 +2,7 @@ package com.mapswithme.maps.search;
 
 import com.mapswithme.util.concurrency.UiThread;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,9 +62,33 @@ public enum SearchEngine implements NativeSearchListener
    * @param force     Should be false for repeating requests with the same query.
    * @return whether search was actually started.
    */
-  public static native boolean nativeRunSearch(String query, String language, long timestamp, boolean force, boolean hasLocation, double lat, double lon);
+  public static boolean runSearch(String query, String language, long timestamp, boolean force, boolean hasLocation, double lat, double lon)
+  {
+    try
+    {
+      return nativeRunSearch(query.getBytes("utf-8"), language, timestamp, force, hasLocation, lat, lon);
+    } catch (UnsupportedEncodingException ignored) { }
 
-  public static native void nativeRunInteractiveSearch(String query, String language, long timestamp);
+    return false;
+  }
+
+  public static void runInteractiveSearch(String query, String language, long timestamp)
+  {
+    try
+    {
+      nativeRunInteractiveSearch(query.getBytes("utf-8"), language, timestamp);
+    } catch (UnsupportedEncodingException ignored) { }
+  }
+
+  /**
+   * @param bytes utf-8 formatted bytes of query.
+   */
+  private static native boolean nativeRunSearch(byte[] bytes, String language, long timestamp, boolean force, boolean hasLocation, double lat, double lon);
+
+  /**
+   * @param bytes utf-8 formatted query bytes
+   */
+  private static native void nativeRunInteractiveSearch(byte[] bytes, String language, long timestamp);
 
   public static native void nativeShowResult(int index);
 

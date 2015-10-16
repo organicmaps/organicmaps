@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -375,7 +377,7 @@ public class SearchFragment extends BaseMwmFragment
   {
     final String query = getQuery();
     mLastQueryTimestamp = System.nanoTime();
-    SearchEngine.nativeRunInteractiveSearch(query, Language.getKeyboardLocale(), mLastQueryTimestamp);
+    SearchEngine.runInteractiveSearch(query, Language.getKeyboardLocale(), mLastQueryTimestamp);
     SearchEngine.nativeShowAllResults();
     FloatingSearchToolbarController.saveQuery(query);
     Utils.navigateToParent(getActivity());
@@ -411,11 +413,11 @@ public class SearchFragment extends BaseMwmFragment
     mLastQueryTimestamp = System.nanoTime();
     // TODO @yunitsky Implement more elegant solution.
     if (getActivity() instanceof MwmActivity)
-      SearchEngine.nativeRunInteractiveSearch(getQuery(), Language.getKeyboardLocale(), mLastQueryTimestamp);
+      SearchEngine.runInteractiveSearch(getQuery(), Language.getKeyboardLocale(), mLastQueryTimestamp);
     else
     {
-      final boolean searchStarted = SearchEngine.nativeRunSearch(getQuery(), Language.getKeyboardLocale(), mLastQueryTimestamp, true,
-                                                                 mLastPosition.valid, mLastPosition.lat, mLastPosition.lon);
+      final boolean searchStarted = SearchEngine.runSearch(getQuery(), Language.getKeyboardLocale(), mLastQueryTimestamp, true,
+                                                           mLastPosition.valid, mLastPosition.lat, mLastPosition.lon);
       if (!searchStarted)
         return;
     }
