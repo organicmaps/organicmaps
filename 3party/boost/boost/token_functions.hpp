@@ -40,6 +40,7 @@
 #include <boost/assert.hpp>
 #include <boost/detail/workaround.hpp>
 #include <boost/mpl/if.hpp>
+#include <boost/throw_exception.hpp>
 #if !defined(BOOST_NO_CWCTYPE)
 #include <cwctype>
 #endif
@@ -125,7 +126,7 @@ namespace boost{
     template <typename iterator, typename Token>
     void do_escape(iterator& next,iterator end,Token& tok) {
       if (++next == end)
-        throw escaped_list_error(std::string("cannot end with escape"));
+        BOOST_THROW_EXCEPTION(escaped_list_error(std::string("cannot end with escape")));
       if (Traits::eq(*next,'n')) {
         tok+='\n';
         return;
@@ -143,7 +144,7 @@ namespace boost{
         return;
       }
       else
-        throw escaped_list_error(std::string("unknown escape sequence"));
+        BOOST_THROW_EXCEPTION(escaped_list_error(std::string("unknown escape sequence")));
     }
 
     public:

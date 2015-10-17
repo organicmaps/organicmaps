@@ -1,4 +1,4 @@
-/* Copyright 2003-2013 Joaquin M Lopez Munoz.
+/* Copyright 2003-2014 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -41,6 +41,7 @@ class bidir_node_iterator:
     const typename Node::value_type&>
 {
 public:
+  /* coverity[uninit_ctor]: suppress warning */
   bidir_node_iterator(){}
   explicit bidir_node_iterator(Node* node_):node(node_){}
 

@@ -59,6 +59,10 @@ namespace boost { namespace unordered { namespace detail {
             sizeof(value_type),
             boost::alignment_of<value_type>::value>::type data_;
 
+        value_base() :
+            data_()
+        {}
+
         void* address() {
             return this;
         }
@@ -187,11 +191,11 @@ namespace boost { namespace unordered { namespace detail {
         typedef boost::unordered::iterator_detail::
             iterator<node> iterator;
         typedef boost::unordered::iterator_detail::
-            c_iterator<node, const_node_pointer> c_iterator;
+            c_iterator<node> c_iterator;
         typedef boost::unordered::iterator_detail::
             l_iterator<node, policy> l_iterator;
         typedef boost::unordered::iterator_detail::
-            cl_iterator<node, const_node_pointer, policy> cl_iterator;
+            cl_iterator<node, policy> cl_iterator;
 
         ////////////////////////////////////////////////////////////////////////
         // Members
@@ -339,7 +343,7 @@ namespace boost { namespace unordered { namespace detail {
             return policy::new_bucket_count(
                 boost::unordered::detail::double_to_size(floor(
                     static_cast<double>(size) /
-                    static_cast<double>(mlf_))) + 1);
+                    static_cast<double>(mlf_)) + 1));
         }
 
         ////////////////////////////////////////////////////////////////////////
@@ -496,9 +500,11 @@ namespace boost { namespace unordered { namespace detail {
             op2.commit();
         }
 
+        // Only call with nodes allocated with the currect allocator, or
+        // one that is equal to it. (Can't assert because other's
+        // allocators might have already been moved).
         void move_buckets_from(table& other)
         {
-            BOOST_ASSERT(node_alloc() == other.node_alloc());
             BOOST_ASSERT(!buckets_);
             buckets_ = other.buckets_;
             bucket_count_ = other.bucket_count_;
@@ -706,15 +712,25 @@ namespace boost { namespace unordered { namespace detail {
         void move_assign(table& x, true_type)
         {
             delete_buckets();
+            set_hash_functions new_func_this(*this, x);
             allocators_.move_assign(x.allocators_);
-            move_assign_no_alloc(x);
+            // No throw from here.
+            mlf_ = x.mlf_;
+            max_load_ = x.max_load_;
+            move_buckets_from(x);
+            new_func_this.commit();
         }
 
         void move_assign(table& x, false_type)
         {
             if (node_alloc() == x.node_alloc()) {
                 delete_buckets();
-                move_assign_no_alloc(x);
+                set_hash_functions new_func_this(*this, x);
+                // No throw from here.
+                mlf_ = x.mlf_;
+                max_load_ = x.max_load_;
+                move_buckets_from(x);
+                new_func_this.commit();
             }
             else {
                 set_hash_functions new_func_this(*this, x);
@@ -738,16 +754,6 @@ namespace boost { namespace unordered { namespace detail {
                 node_holder<node_allocator> nodes(x);
                 table_impl::fill_buckets(nodes.begin(), *this, node_creator);
             }
-        }
-        
-        void move_assign_no_alloc(table& x)
-        {
-            set_hash_functions new_func_this(*this, x);
-            // No throw from here.
-            mlf_ = x.mlf_;
-            max_load_ = x.max_load_;
-            move_buckets_from(x);
-            new_func_this.commit();
         }
 
         // Accessors

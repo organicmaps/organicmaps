@@ -11,6 +11,14 @@
 #ifndef BOOST_INTERPROCESS_DETAIL_OS_FILE_FUNCTIONS_HPP
 #define BOOST_INTERPROCESS_DETAIL_OS_FILE_FUNCTIONS_HPP
 
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
 #include <boost/interprocess/errors.hpp>
@@ -19,7 +27,7 @@
 #include <string>
 #include <limits>
 #include <climits>
-#include <boost/type_traits/make_unsigned.hpp>
+#include <boost/move/detail/type_traits.hpp> //make_unsigned
 
 #if defined (BOOST_INTERPROCESS_WINDOWS)
 #  include <boost/interprocess/detail/win32_api.hpp>
@@ -48,8 +56,8 @@ namespace interprocess {
 
 #if defined (BOOST_INTERPROCESS_WINDOWS)
 
-typedef void *             file_handle_t;
-typedef long long          offset_t;
+typedef void *                   file_handle_t;
+typedef __int64  offset_t;
 typedef struct mapping_handle_impl_t{
    void *   handle;
    bool     is_shm;
@@ -146,10 +154,11 @@ inline bool truncate_file (file_handle_t hnd, std::size_t size)
    if(!winapi::get_file_size(hnd, filesize))
       return false;
 
-   typedef boost::make_unsigned<offset_t>::type uoffset_t;
+   typedef ::boost::move_detail::make_unsigned<offset_t>::type uoffset_t;
    const uoffset_t max_filesize = uoffset_t((std::numeric_limits<offset_t>::max)());
+   const uoffset_t uoff_size = uoffset_t(size);
    //Avoid unused variable warnings in 32 bit systems
-   if(uoffset_t(size) > max_filesize){
+   if(uoff_size > max_filesize){
       winapi::set_last_error(winapi::error_file_too_large);
       return false;
    }
@@ -453,6 +462,9 @@ inline file_handle_t create_or_open_file
             break;
          }
       }
+      else{
+         break;
+      }
    }
    return ret;
 }
@@ -469,7 +481,7 @@ inline bool delete_file(const char *name)
 
 inline bool truncate_file (file_handle_t hnd, std::size_t size)
 {
-   typedef boost::make_unsigned<off_t>::type uoff_t;
+   typedef boost::move_detail::make_unsigned<off_t>::type uoff_t;
    if(uoff_t((std::numeric_limits<off_t>::max)()) < size){
       errno = EINVAL;
       return false;

@@ -119,5 +119,15 @@
 // that feature off.
 // #define BOOST_WHATEVER_NO_LIB
  
-
+// BOOST_LIB_BUILDID: Set to the same value as the value passed to Boost.Build's
+// --buildid command line option.  For example if you built using:
+//
+// bjam address-model=64 --buildid=amd64
+//
+// then compile your code with:
+//
+// -DBOOST_LIB_BUILDID = amd64
+//
+// to ensure the correct libraries are selected at link time.
+// #define BOOST_LIB_BUILDID amd64
 

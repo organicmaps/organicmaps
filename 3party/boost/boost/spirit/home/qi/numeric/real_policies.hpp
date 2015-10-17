@@ -39,7 +39,7 @@ namespace boost { namespace spirit { namespace qi
         static bool
         parse_n(Iterator& first, Iterator const& last, Attribute& attr_)
         {
-            return extract_uint<T, 10, 1, -1>::call(first, last, attr_);
+            return extract_uint<Attribute, 10, 1, -1>::call(first, last, attr_);
         }
 
         template <typename Iterator>
@@ -54,9 +54,21 @@ namespace boost { namespace spirit { namespace qi
 
         template <typename Iterator, typename Attribute>
         static bool
-        parse_frac_n(Iterator& first, Iterator const& last, Attribute& attr_)
+        parse_frac_n(Iterator& first, Iterator const& last, Attribute& attr_, int& frac_digits)
         {
-            return extract_uint<T, 10, 1, -1, true>::call(first, last, attr_);
+            Iterator savef = first;
+            bool r = extract_uint<Attribute, 10, 1, -1, true, true>::call(first, last, attr_);
+            if (r)
+            {
+                // Optimization note: don't compute frac_digits if T is
+                // an unused_type. This should be optimized away by the compiler.
+                if (!is_same<T, unused_type>::value)
+                    frac_digits =
+                        static_cast<int>(std::distance(savef, first));
+                // ignore extra (non-significant digits)
+                extract_uint<unused_type, 10, 1, -1>::call(first, last, unused);
+            }
+            return r;
         }
 
         template <typename Iterator>
@@ -116,7 +128,7 @@ namespace boost { namespace spirit { namespace qi
             // nan[(...)] ?
             if (detail::string_parse("nan", "NAN", first, last, unused))
             {
-                if (*first == '(')
+                if (first != last && *first == '(')
                 {
                     // skip trailing (...) part
                     Iterator i = first;

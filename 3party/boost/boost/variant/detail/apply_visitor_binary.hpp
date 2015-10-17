@@ -3,8 +3,8 @@
 // See http://www.boost.org for updates, documentation, and revision history.
 //-----------------------------------------------------------------------------
 //
-// Copyright (c) 2002-2003
-// Eric Friedman
+// Copyright (c) 2002-2003 Eric Friedman
+// Copyright (c) 2014 Antony Polukhin
 //
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
@@ -23,6 +23,11 @@
 #include "boost/utility/enable_if.hpp"
 #include "boost/mpl/not.hpp"
 #include "boost/type_traits/is_const.hpp"
+#endif
+
+
+#if !defined(BOOST_NO_CXX14_DECLTYPE_AUTO) && !defined(BOOST_NO_CXX11_DECLTYPE_N3276)
+#   include "boost/variant/detail/has_result_type.hpp"
 #endif
 
 namespace boost {
@@ -69,7 +74,6 @@ public: // visitor interfaces
 
 private:
     apply_visitor_binary_invoke& operator=(const apply_visitor_binary_invoke&);
-
 };
 
 template <typename Visitor, typename Visitable2>
@@ -172,6 +176,104 @@ apply_visitor(
 
     return boost::apply_visitor(unwrapper, visitable1);
 }
+
+
+#if !defined(BOOST_NO_CXX14_DECLTYPE_AUTO) && !defined(BOOST_NO_CXX11_DECLTYPE_N3276)
+
+//////////////////////////////////////////////////////////////////////////
+// function template apply_visitor(visitor, visitable1, visitable2)
+//
+// C++14 part.
+//
+
+namespace detail { namespace variant {
+
+template <typename Visitor, typename Value1>
+class apply_visitor_binary_invoke_cpp14
+{
+    Visitor& visitor_;
+    Value1& value1_;
+
+public: // structors
+
+    apply_visitor_binary_invoke_cpp14(Visitor& visitor, Value1& value1) BOOST_NOEXCEPT
+        : visitor_(visitor)
+        , value1_(value1)
+    {
+    }
+
+public: // visitor interfaces
+
+    template <typename Value2>
+    decltype(auto) operator()(Value2& value2)
+    {
+        return visitor_(value1_, value2);
+    }
+
+private:
+    apply_visitor_binary_invoke_cpp14& operator=(const apply_visitor_binary_invoke_cpp14&);
+};
+
+template <typename Visitor, typename Visitable2>
+class apply_visitor_binary_unwrap_cpp14
+{
+    Visitor& visitor_;
+    Visitable2& visitable2_;
+
+public: // structors
+
+    apply_visitor_binary_unwrap_cpp14(Visitor& visitor, Visitable2& visitable2) BOOST_NOEXCEPT
+        : visitor_(visitor)
+        , visitable2_(visitable2)
+    {
+    }
+
+public: // visitor interfaces
+
+    template <typename Value1>
+    decltype(auto) operator()(Value1& value1)
+    {
+        apply_visitor_binary_invoke_cpp14<
+              Visitor
+            , Value1
+            > invoker(visitor_, value1);
+
+        return boost::apply_visitor(invoker, visitable2_);
+    }
+
+private:
+    apply_visitor_binary_unwrap_cpp14& operator=(const apply_visitor_binary_unwrap_cpp14&);
+};
+
+}} // namespace detail::variant
+
+template <typename Visitor, typename Visitable1, typename Visitable2>
+inline decltype(auto) apply_visitor(Visitor& visitor, Visitable1& visitable1, Visitable2& visitable2,
+    typename boost::disable_if<
+        boost::detail::variant::has_result_type<Visitor>
+    >::type* = 0)
+{
+    ::boost::detail::variant::apply_visitor_binary_unwrap_cpp14<
+          Visitor, Visitable2
+        > unwrapper(visitor, visitable2);
+
+    return boost::apply_visitor(unwrapper, visitable1);
+}
+
+template <typename Visitor, typename Visitable1, typename Visitable2>
+inline decltype(auto) apply_visitor(const Visitor& visitor, Visitable1& visitable1, Visitable2& visitable2,
+    typename boost::disable_if<
+        boost::detail::variant::has_result_type<Visitor>
+    >::type* = 0)
+{
+    ::boost::detail::variant::apply_visitor_binary_unwrap_cpp14<
+          const Visitor, Visitable2
+        > unwrapper(visitor, visitable2);
+
+    return boost::apply_visitor(unwrapper, visitable1);
+}
+
+#endif // !defined(BOOST_NO_CXX14_DECLTYPE_AUTO) && !defined(BOOST_NO_CXX11_DECLTYPE_N3276)
 
 } // namespace boost
 

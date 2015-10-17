@@ -23,8 +23,8 @@ namespace std{
 #include <boost/detail/workaround.hpp> // fixup for RogueWave
 
 #include <boost/serialization/throw_exception.hpp>
-#include <boost/scoped_ptr.hpp>
 
+#include <boost/core/no_exceptions_support.hpp>
 #include <boost/archive/archive_exception.hpp>
 #include <boost/archive/codecvt_null.hpp>
 #include <boost/archive/add_facet.hpp>
@@ -37,7 +37,7 @@ namespace archive {
 // implementation of basic_binary_iprimitive
 
 template<class Archive, class Elem, class Tr>
-BOOST_ARCHIVE_OR_WARCHIVE_DECL(void)
+BOOST_ARCHIVE_OR_WARCHIVE_DECL void
 basic_binary_iprimitive<Archive, Elem, Tr>::init()
 {
     // Detect  attempts to pass native binary archives across
@@ -90,7 +90,7 @@ basic_binary_iprimitive<Archive, Elem, Tr>::init()
 }
 
 template<class Archive, class Elem, class Tr>
-BOOST_ARCHIVE_OR_WARCHIVE_DECL(void)
+BOOST_ARCHIVE_OR_WARCHIVE_DECL void
 basic_binary_iprimitive<Archive, Elem, Tr>::load(wchar_t * ws)
 {
     std::size_t l; // number of wchar_t !!!
@@ -100,7 +100,7 @@ basic_binary_iprimitive<Archive, Elem, Tr>::load(wchar_t * ws)
 }
 
 template<class Archive, class Elem, class Tr>
-BOOST_ARCHIVE_OR_WARCHIVE_DECL(void)
+BOOST_ARCHIVE_OR_WARCHIVE_DECL void
 basic_binary_iprimitive<Archive, Elem, Tr>::load(std::string & s)
 {
     std::size_t l;
@@ -117,7 +117,7 @@ basic_binary_iprimitive<Archive, Elem, Tr>::load(std::string & s)
 
 #ifndef BOOST_NO_CWCHAR
 template<class Archive, class Elem, class Tr>
-BOOST_ARCHIVE_OR_WARCHIVE_DECL(void)
+BOOST_ARCHIVE_OR_WARCHIVE_DECL void
 basic_binary_iprimitive<Archive, Elem, Tr>::load(char * s)
 {
     std::size_t l;
@@ -129,7 +129,7 @@ basic_binary_iprimitive<Archive, Elem, Tr>::load(char * s)
 
 #ifndef BOOST_NO_STD_WSTRING
 template<class Archive, class Elem, class Tr>
-BOOST_ARCHIVE_OR_WARCHIVE_DECL(void)
+BOOST_ARCHIVE_OR_WARCHIVE_DECL void
 basic_binary_iprimitive<Archive, Elem, Tr>::load(std::wstring & ws)
 {
     std::size_t l;
@@ -145,24 +145,23 @@ basic_binary_iprimitive<Archive, Elem, Tr>::load(std::wstring & ws)
 #endif
 
 template<class Archive, class Elem, class Tr>
-BOOST_ARCHIVE_OR_WARCHIVE_DECL(BOOST_PP_EMPTY())
+BOOST_ARCHIVE_OR_WARCHIVE_DECL
 basic_binary_iprimitive<Archive, Elem, Tr>::basic_binary_iprimitive(
     std::basic_streambuf<Elem, Tr> & sb, 
     bool no_codecvt
 ) :
 #ifndef BOOST_NO_STD_LOCALE
     m_sb(sb),
-    archive_locale(NULL),
     locale_saver(m_sb)
 {
     if(! no_codecvt){
         archive_locale.reset(
-            boost::archive::add_facet(
+            add_facet(
                 std::locale::classic(),
                 new codecvt_null<Elem>
             )
         );
-        m_sb.pubimbue(* archive_locale);
+        //m_sb.pubimbue(* archive_locale);
     }
 }
 #else
@@ -195,15 +194,16 @@ class input_streambuf_access : public std::basic_streambuf<Elem, Tr> {
 // scoped_ptr requires that archive_locale be a complete type at time of
 // destruction so define destructor here rather than in the header
 template<class Archive, class Elem, class Tr>
-BOOST_ARCHIVE_OR_WARCHIVE_DECL(BOOST_PP_EMPTY())
+BOOST_ARCHIVE_OR_WARCHIVE_DECL
 basic_binary_iprimitive<Archive, Elem, Tr>::~basic_binary_iprimitive(){
     // push back unread characters
     //destructor can't throw !
-    try{
+    BOOST_TRY{
         static_cast<detail::input_streambuf_access<Elem, Tr> &>(m_sb).sync();
     }
-    catch(...){
+    BOOST_CATCH(...){
     }
+    BOOST_CATCH_END
 }
 
 } // namespace archive

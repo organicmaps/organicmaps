@@ -29,6 +29,9 @@
 #include <boost/random/detail/seed.hpp>
 #include <boost/random/detail/seed_impl.hpp>
 #include <boost/random/detail/generator_seed_seq.hpp>
+#include <boost/random/detail/polynomial.hpp>
+
+#include <boost/random/detail/disable_warnings.hpp>
 
 namespace boost {
 namespace random {
@@ -199,8 +202,15 @@ public:
      */
     void discard(boost::uintmax_t z)
     {
-        for(boost::uintmax_t j = 0; j < z; ++j) {
-            (*this)();
+#ifndef BOOST_RANDOM_MERSENNE_TWISTER_DISCARD_THRESHOLD
+#define BOOST_RANDOM_MERSENNE_TWISTER_DISCARD_THRESHOLD 10000000
+#endif
+        if(z > BOOST_RANDOM_MERSENNE_TWISTER_DISCARD_THRESHOLD) {
+            discard_many(z);
+        } else {
+            for(boost::uintmax_t j = 0; j < z; ++j) {
+                (*this)();
+            }
         }
     }
 
@@ -366,6 +376,111 @@ private:
         } else {
             return *(last - (n - 1 - index));
         }
+    }
+
+    /**
+     * Optimized algorithm for large jumps.
+     *
+     * Hiroshi Haramoto, Makoto Matsumoto, and Pierre L'Ecuyer. 2008.
+     * A Fast Jump Ahead Algorithm for Linear Recurrences in a Polynomial
+     * Space. In Proceedings of the 5th international conference on
+     * Sequences and Their Applications (SETA '08).
+     * DOI=10.1007/978-3-540-85912-3_26
+     */
+    void discard_many(boost::uintmax_t z)
+    {
+        // Compute the minimal polynomial, phi(t)
+        // This depends only on the transition function,
+        // which is constant.  The characteristic
+        // polynomial is the same as the minimal
+        // polynomial for a maximum period generator
+        // (which should be all specializations of
+        // mersenne_twister.)  Even if it weren't,
+        // the characteristic polynomial is guaranteed
+        // to be a multiple of the minimal polynomial,
+        // which is good enough.
+        detail::polynomial phi = get_characteristic_polynomial();
+
+        // calculate g(t) = t^z % phi(t)
+        detail::polynomial g = mod_pow_x(z, phi);
+
+        // h(s_0, t) = \sum_{i=0}^{2k-1}o(s_i)t^{2k-i-1}
+        detail::polynomial h;
+        const std::size_t num_bits = w*n - r;
+        for(std::size_t j = 0; j < num_bits * 2; ++j) {
+            // Yes, we're advancing the generator state
+            // here, but it doesn't matter because
+            // we're going to overwrite it completely
+            // in reconstruct_state.
+            if(i >= n) twist();
+            h[2*num_bits - j - 1] = x[i++] & UIntType(1);
+        }
+        // g(t)h(s_0, t)
+        detail::polynomial gh = g * h;
+        detail::polynomial result;
+        for(std::size_t j = 0; j <= num_bits; ++j) {
+            result[j] = gh[2*num_bits - j - 1];
+        }
+        reconstruct_state(result);
+    }
+    static detail::polynomial get_characteristic_polynomial()
+    {
+        const std::size_t num_bits = w*n - r;
+        detail::polynomial helper;
+        helper[num_bits - 1] = 1;
+        mersenne_twister_engine tmp;
+        tmp.reconstruct_state(helper);
+        // Skip the first num_bits elements, since we
+        // already know what they are.
+        for(std::size_t j = 0; j < num_bits; ++j) {
+            if(tmp.i >= n) tmp.twist();
+            if(j == num_bits - 1)
+                assert((tmp.x[tmp.i] & 1) == 1);
+            else
+                assert((tmp.x[tmp.i] & 1) == 0);
+            ++tmp.i;
+        }
+        detail::polynomial phi;
+        phi[num_bits] = 1;
+        detail::polynomial next_bits = tmp.as_polynomial(num_bits);
+        for(std::size_t j = 0; j < num_bits; ++j) {
+            int val = next_bits[j] ^ phi[num_bits-j-1];
+            phi[num_bits-j-1] = val;
+            if(val) {
+                for(std::size_t k = j + 1; k < num_bits; ++k) {
+                    phi[num_bits-k-1] ^= next_bits[k-j-1];
+                }
+            }
+        }
+        return phi;
+    }
+    detail::polynomial as_polynomial(std::size_t size) {
+        detail::polynomial result;
+        for(std::size_t j = 0; j < size; ++j) {
+            if(i >= n) twist();
+            result[j] = x[i++] & UIntType(1);
+        }
+        return result;
+    }
+    void reconstruct_state(const detail::polynomial& p)
+    {
+        const UIntType upper_mask = (~static_cast<UIntType>(0)) << r;
+        const UIntType lower_mask = ~upper_mask;
+        const std::size_t num_bits = w*n - r;
+        for(std::size_t j = num_bits - n + 1; j <= num_bits; ++j)
+            x[j % n] = p[j];
+
+        UIntType y0 = 0;
+        for(std::size_t j = num_bits + 1; j >= n - 1; --j) {
+            UIntType y1 = x[j % n] ^ x[(j + m) % n];
+            if(p[j - n + 1])
+                y1 = (y1 ^ a) << UIntType(1) | UIntType(1);
+            else
+                y1 = y1 << UIntType(1);
+            x[(j + 1) % n] = (y0 & upper_mask) | (y1 & lower_mask);
+            y0 = y1;
+        }
+        i = 0;
     }
 
     /// \endcond
@@ -561,5 +676,7 @@ using random::mt19937_64;
 BOOST_RANDOM_PTR_HELPER_SPEC(boost::mt11213b)
 BOOST_RANDOM_PTR_HELPER_SPEC(boost::mt19937)
 BOOST_RANDOM_PTR_HELPER_SPEC(boost::mt19937_64)
+
+#include <boost/random/detail/enable_warnings.hpp>
 
 #endif // BOOST_RANDOM_MERSENNE_TWISTER_HPP

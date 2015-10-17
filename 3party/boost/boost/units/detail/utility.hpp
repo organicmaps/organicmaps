@@ -11,18 +11,9 @@
 #ifndef BOOST_UNITS_UTILITY_HPP
 #define BOOST_UNITS_UTILITY_HPP
 
-#include <cstdlib>
 #include <typeinfo>
 #include <string>
-
-#if defined(__GLIBCXX__) || defined(__GLIBCPP__)
-#define BOOST_UNITS_USE_DEMANGLING
-#include <cxxabi.h>
-#endif // __GNUC__
-
-#ifdef BOOST_UNITS_USE_DEMANGLING
-
-#include <boost/algorithm/string/replace.hpp>
+#include <boost/core/demangle.hpp>
 
 namespace boost {
 
@@ -34,71 +25,33 @@ inline
 std::string
 demangle(const char* name)
 {
-    // need to demangle C++ symbols
-    char*       realname;
-    std::size_t len; 
-    int         stat;
-     
-    realname = abi::__cxa_demangle(name,NULL,&len,&stat);
-    
-    if (realname != NULL)
+    std::string demangled = core::demangle(name);
+
+    const std::string::size_type prefix_len = sizeof("boost::units::") - 1;
+    std::string::size_type i = 0;
+    for (;;)
     {
-        std::string   out(realname);
-        
-        std::free(realname);
-        
-        boost::replace_all(out,"boost::units::","");
-        
-        return out;
+        std::string::size_type pos = demangled.find("boost::units::", i, prefix_len);
+        if (pos == std::string::npos)
+            break;
+
+        demangled.erase(pos, prefix_len);
+        i = pos;
     }
-    
-    return std::string("demangle :: error - unable to demangle specified symbol");
-}
-
-} // namespace detail
-
-template<class L>
-std::string simplify_typename(const L& /*source*/)
-{
-    const std::string   demangled = detail::demangle(typeid(L).name());
 
     return demangled;
 }
 
-} // namespace units
-
-} // namespace boost
-
-#else // BOOST_UNITS_USE_DEMANGLING
-
-namespace boost {
-
-namespace units {
-
-namespace detail {
-
-inline
-std::string
-demangle(const char* name)
-{
-    return name;
-}
-
 } // namespace detail
 
 template<class L>
-std::string simplify_typename(const L& /*source*/)
+inline std::string simplify_typename(const L& /*source*/)
 {
-    return std::string(typeid(L).name());
+    return detail::demangle(typeid(L).name());
 }
 
 } // namespace units
 
 } // namespace boost
-
-// To get system-specific predefined macros:
-// gcc -arch ppc -dM -E - < /dev/null | sort 
-
-#endif // BOOST_UNITS_USE_DEMANGLING
 
 #endif // BOOST_UNITS_UTILITY_HPP

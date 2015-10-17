@@ -16,21 +16,18 @@
 
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-#include <cstddef> // size_t
 #include <forward_list>
 #include <iterator>  // distance
 
-#include <boost/config.hpp> // msvc 6.0 needs this for warning suppression
-#if defined(BOOST_NO_STDC_NAMESPACE)
-namespace std{ 
-    using ::size_t; 
-} // namespace std
-#endif
-
 #include <boost/serialization/collections_save_imp.hpp>
 #include <boost/serialization/collections_load_imp.hpp>
-#include <boost/serialization/split_free.hpp>
+#include <boost/archive/detail/basic_iarchive.hpp>
 #include <boost/serialization/nvp.hpp>
+#include <boost/serialization/collection_size_type.hpp>
+#include <boost/serialization/item_version_type.hpp>
+#include <boost/serialization/split_free.hpp>
+#include <boost/serialization/detail/stack_constructor.hpp>
+#include <boost/serialization/detail/is_default_constructible.hpp>
 
 namespace boost { 
 namespace serialization {
@@ -48,37 +45,59 @@ inline void save(
     >(ar, t, count);
 }
 
+namespace stl {
+
+template<
+    class Archive,
+    class T,
+    class Allocator
+>
+typename boost::disable_if<
+    typename detail::is_default_constructible<
+        typename std::forward_list<T, Allocator>::value_type
+    >,
+    void
+>::type
+collection_load_impl(
+    Archive & ar,
+    std::forward_list<T, Allocator> &t,
+    collection_size_type count,
+    item_version_type item_version
+){
+    t.clear();
+    boost::serialization::detail::stack_construct<Archive, T> u(ar, item_version);
+    ar >> boost::serialization::make_nvp("item", u.reference());
+    t.push_front(u.reference());
+    typename std::forward_list<T, Allocator>::iterator last;
+    last = t.begin();
+    ar.reset_object_address(&(*t.begin()) , & u.reference());
+    while(--count > 0){
+        detail::stack_construct<Archive, T> u(ar, item_version);
+        ar >> boost::serialization::make_nvp("item", u.reference());
+        last = t.insert_after(last, u.reference());
+        ar.reset_object_address(&(*last) , & u.reference());
+    }
+}
+
+} // stl
+
 template<class Archive, class U, class Allocator>
 inline void load(
     Archive & ar,
     std::forward_list<U, Allocator> &t,
     const unsigned int file_version
 ){
-    t.clear();
-    // retrieve number of elements
-    collection_size_type count;
-    ar >> BOOST_SERIALIZATION_NVP(count);
-    if(collection_size_type(0) == count)
-        return;
-    item_version_type item_version(0);
     const boost::archive::library_version_type library_version(
         ar.get_library_version()
     );
+    // retrieve number of elements
+    item_version_type item_version(0);
+    collection_size_type count;
+    ar >> BOOST_SERIALIZATION_NVP(count);
     if(boost::archive::library_version_type(3) < library_version){
         ar >> BOOST_SERIALIZATION_NVP(item_version);
     }
-    boost::serialization::detail::stack_construct<Archive, U> u(ar, item_version);
-    ar >> boost::serialization::make_nvp("item", u.reference());
-    t.push_front(u.reference());
-    typename std::forward_list<U, Allocator>::iterator last;
-    last = t.begin();
-    while(--count > 0){
-        boost::serialization::detail::stack_construct<Archive, U> 
-            u(ar, file_version);
-        ar >> boost::serialization::make_nvp("item", u.reference());
-        last = t.insert_after(last, u.reference());
-        ar.reset_object_address(& (*last), & u.reference());
-    }
+    stl::collection_load_impl(ar, t, count, item_version);
 }
 
 // split non-intrusive serialization function member into separate

@@ -26,8 +26,8 @@ namespace boost { namespace fusion { namespace detail
     struct build_cons<First, Last, true>
     {
         typedef nil_ type;
-        
-        BOOST_FUSION_GPU_ENABLED
+
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static nil_
         call(First const&, Last const&)
         {
@@ -38,7 +38,7 @@ namespace boost { namespace fusion { namespace detail
     template <typename First, typename Last>
     struct build_cons<First, Last, false>
     {
-        typedef  
+        typedef
             build_cons<typename result_of::next<First>::type, Last>
         next_build_cons;
 
@@ -47,7 +47,7 @@ namespace boost { namespace fusion { namespace detail
           , typename next_build_cons::type> 
         type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type
         call(First const& f, Last const& l)
         {

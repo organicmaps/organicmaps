@@ -76,7 +76,7 @@ public :
     { }
 
     template< class System , class StateIn , class DerivIn , class StateOut >
-    void do_step_impl( System system , const StateIn &in , const DerivIn &dxdt , time_type t , StateOut &out , time_type dt )
+    void do_step_impl( System /* system */ , const StateIn &in , const DerivIn &dxdt , time_type /* t */ , StateOut &out , time_type dt )
     {
         stepper_base_type::m_algebra.for_each3( out , in , dxdt ,
                 typename operations_type::template scale_sum2< value_type , time_type >( 1.0 , dt ) );
@@ -84,7 +84,7 @@ public :
     }
 
     template< class StateOut , class StateIn1 , class StateIn2 >
-    void calc_state( StateOut &x , time_type t ,  const StateIn1 &old_state , time_type t_old , const StateIn2 &current_state , time_type t_new ) const
+    void calc_state( StateOut &x , time_type t ,  const StateIn1 &old_state , time_type t_old , const StateIn2 & /*current_state*/ , time_type /* t_new */ ) const
     {
         const time_type delta = t - t_old;
         stepper_base_type::m_algebra.for_each3( x , old_state , stepper_base_type::m_dxdt.m_v ,

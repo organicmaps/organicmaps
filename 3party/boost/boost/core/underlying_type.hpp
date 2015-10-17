@@ -65,8 +65,8 @@ struct underlying_type_impl
  *
  * Requires EnumType must be an enum type or the emulation of a scoped enum.
  * If BOOST_NO_UNDERLYING_TYPE is defined, the implementation will not be able
- * to deduce the underlying type of enums. The used is expected to specialize
- * this trait.
+ * to deduce the underlying type of enums. The user is expected to specialize
+ * this trait in this case.
  */
 template< typename EnumType >
 struct underlying_type :

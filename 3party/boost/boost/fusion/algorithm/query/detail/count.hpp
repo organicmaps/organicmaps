@@ -25,10 +25,10 @@ namespace boost { namespace fusion { namespace detail
 
     // T1 is convertible to T2 or vice versa
     template <>
-    struct compare_convertible<true> 
+    struct compare_convertible<true>
     {
         template <typename T1, typename T2>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static bool
         call(T1 const& x, T2 const& y)
         {
@@ -41,7 +41,7 @@ namespace boost { namespace fusion { namespace detail
     struct compare_convertible<false>
     {
         template <typename T1, typename T2>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static bool
         call(T1 const&, T2 const&)
         {
@@ -53,16 +53,16 @@ namespace boost { namespace fusion { namespace detail
     struct count_compare
     {
         typedef typename detail::call_param<T1>::type param;
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         count_compare(param in_x)
             : x(in_x) {}
 
         template <typename T2>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         bool
-        operator()(T2 const& y)
+        operator()(T2 const& y) const
         {
-            return 
+            return
                 compare_convertible<
                     mpl::or_<
                         is_convertible<T1, T2>

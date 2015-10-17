@@ -8,10 +8,6 @@
 #if !defined(BOOST_SPIRIT_X3_IS_PARSER_MAY_20_2013_0235PM)
 #define BOOST_SPIRIT_X3_IS_PARSER_MAY_20_2013_0235PM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/mpl/bool.hpp>
 #include <boost/spirit/home/x3/core/parser.hpp>
 #include <boost/spirit/home/x3/support/utility/sfinae.hpp>

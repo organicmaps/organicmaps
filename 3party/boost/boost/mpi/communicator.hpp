@@ -19,6 +19,7 @@
 #include <boost/optional.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/mpi/datatype.hpp>
+#include <boost/mpi/nonblocking.hpp>
 #include <utility>
 #include <iterator>
 #include <stdexcept> // for std::range_error
@@ -486,6 +487,12 @@ class BOOST_MPI_DECL communicator
    */
   status recv(int source, int tag) const;
 
+  /** @brief Send a message to remote process nd receive another message
+   *  from another process.
+   */
+  template<typename T>
+  status sendrecv(int dest, int stag, const T& sval, int src, int rtag, T& rval) const;
+
   /**
    *  @brief Send a message to a remote process without blocking.
    *
@@ -859,6 +866,25 @@ class BOOST_MPI_DECL communicator
   void abort(int errcode) const;
 
  protected:
+
+  /**
+   * INTERNAL ONLY
+   *
+   * Implementation of sendrecv for mpi type.
+   */
+  template<typename T>
+  status sendrecv_impl(int dest, int stag, const T& sval, int src, int rtag, T& rval,
+                       mpl::true_) const;
+
+  /**
+   * INTERNAL ONLY
+   *
+   * Implementation of sendrecv for complex types, which must be passed as archives.
+   */
+  template<typename T>
+  status sendrecv_impl(int dest, int stag, const T& sval, int src, int rtag, T& rval,
+                       mpl::false_) const;
+
   /**
    * INTERNAL ONLY
    *
@@ -1249,6 +1275,44 @@ status communicator::recv(int source, int tag, T* values, int n) const
 {
   return this->array_recv_impl(source, tag, values, n, is_mpi_datatype<T>());
 }
+
+
+template<typename T>
+status communicator::sendrecv_impl(int dest, int stag, const T& sval, int src, int rtag, T& rval,
+                                    mpl::true_) const
+{
+  status stat;
+  BOOST_MPI_CHECK_RESULT(MPI_Sendrecv,
+                         (const_cast<T*>(&sval), 1,
+                          get_mpi_datatype<T>(sval),
+                          dest, stag,
+                          &rval, 1,
+                          get_mpi_datatype<T>(rval),
+                          src, rtag,
+                          MPI_Comm(*this), &stat.m_status));
+  return stat;
+}
+
+template<typename T>
+status communicator::sendrecv_impl(int dest, int stag, const T& sval, int src, int rtag, T& rval,
+                                   mpl::false_) const
+{
+  int const SEND = 0;
+  int const RECV = 1;
+  request srrequests[2];
+  srrequests[SEND] = this->isend_impl(dest, stag, sval, mpl::false_());
+  srrequests[RECV] = this->irecv_impl(src,  rtag, rval, mpl::false_());
+  status srstatuses[2];
+  wait_all(srrequests, srrequests + 2, srstatuses);
+  return srstatuses[RECV];
+}
+
+template<typename T>
+status communicator::sendrecv(int dest, int stag, const T& sval, int src, int rtag, T& rval) const
+{
+  return this->sendrecv_impl(dest, stag, sval, src, rtag, rval, is_mpi_datatype<T>());
+}
+
 
 // We're sending a type that has an associated MPI datatype, so we
 // map directly to that datatype.

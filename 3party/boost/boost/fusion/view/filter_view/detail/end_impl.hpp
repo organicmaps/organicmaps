@@ -30,7 +30,7 @@ namespace boost { namespace fusion
                 typedef typename Sequence::category category;
                 typedef filter_iterator<category,last_type, last_type, pred_type> type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& s)
                 {

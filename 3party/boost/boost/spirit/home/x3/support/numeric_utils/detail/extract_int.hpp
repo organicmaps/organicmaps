@@ -11,10 +11,6 @@
 #if !defined(BOOST_SPIRIT_X3_DETAIL_EXTRACT_INT_APRIL_17_2006_0816AM)
 #define BOOST_SPIRIT_X3_DETAIL_EXTRACT_INT_APRIL_17_2006_0816AM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/spirit/home/x3/support/unused.hpp>
 #include <boost/spirit/home/x3/support/traits/attribute_type.hpp>
 #include <boost/spirit/home/x3/support/traits/move_to.hpp>

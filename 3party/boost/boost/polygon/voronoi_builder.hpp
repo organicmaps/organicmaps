@@ -26,14 +26,18 @@ namespace boost {
 namespace polygon {
 // GENERAL INFO:
 // The sweepline algorithm implementation to compute Voronoi diagram of
-// points and non-intersecting segments (except endpoints).
+// points and non-intersecting segments (excluding endpoints).
 // Complexity - O(N*logN), memory usage - O(N), where N is the total number
-// of input geometries. Input geometries should have integer coordinate type.
+// of input geometries.
+//
+// CONTRACT:
+// 1) Input geometries should have integral (e.g. int32, int64) coordinate type.
+// 2) Input geometries should not intersect except their endpoints.
 //
 // IMPLEMENTATION DETAILS:
-// Each input point creates one site event. Each input segment creates three
-// site events: two for its endpoints and one for the segment itself (this is
-// made to simplify output construction). All the site events are constructed
+// Each input point creates one input site. Each input segment creates three
+// input sites: two for its endpoints and one for the segment itself (this is
+// made to simplify output construction). All the site objects are constructed
 // and sorted at the algorithm initialization step. Priority queue is used to
 // dynamically hold circle events. At each step of the algorithm execution the
 // leftmost event is retrieved by comparing the current site event and the

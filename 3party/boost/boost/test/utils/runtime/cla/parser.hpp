@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2005-2008.
-//  Use, modification, and distribution are subject to the 
-//  Boost Software License, Version 1.0. (See accompanying file 
+//  (C) Copyright Gennadiy Rozental 2005-2014.
+//  Use, modification, and distribution are subject to the
+//  Boost Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -12,8 +12,8 @@
 //  Description : defines parser - public interface for CLA parsing and accessing
 // ***************************************************************************
 
-#ifndef BOOST_RT_CLA_PARSER_HPP_062604GER
-#define BOOST_RT_CLA_PARSER_HPP_062604GER
+#ifndef BOOST_TEST_UTILS_RUNTIME_CLA_PARSER_HPP
+#define BOOST_TEST_UTILS_RUNTIME_CLA_PARSER_HPP
 
 // Boost.Runtime.Parameter
 #include <boost/test/utils/runtime/config.hpp>
@@ -32,7 +32,7 @@
 
 namespace boost {
 
-namespace BOOST_RT_PARAM_NAMESPACE {
+namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE {
 
 namespace cla {
 
@@ -76,6 +76,7 @@ private:
 class parser {
 public:
     typedef std::list<parameter_ptr>::const_iterator param_iterator;
+    typedef std::list<parameter_ptr>::size_type param_size_type;
 
     // Constructor
     explicit            parser( cstring program_name = cstring() );
@@ -100,10 +101,12 @@ public:
     // parameters access
     param_iterator      first_param() const;
     param_iterator      last_param() const;
+    param_size_type     num_params() const  { return m_parameters.size(); }
+    void                reset();
 
     // arguments access
     const_argument_ptr  operator[]( cstring string_id ) const;
-    cstring             get( cstring string_id ) const;    
+    cstring             get( cstring string_id ) const;
 
     template<typename T>
     T const&            get( cstring string_id ) const
@@ -139,15 +142,17 @@ private:
 
 } // namespace cla
 
-} // namespace BOOST_RT_PARAM_NAMESPACE
+} // namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE
 
 } // namespace boost
 
-#ifndef BOOST_RT_PARAM_OFFLINE
+#ifndef BOOST_TEST_UTILS_RUNTIME_PARAM_OFFLINE
 
-#  define BOOST_RT_PARAM_INLINE inline
-#  include <boost/test/utils/runtime/cla/parser.ipp>
+#ifndef BOOST_TEST_UTILS_RUNTIME_PARAM_INLINE
+#   define BOOST_TEST_UTILS_RUNTIME_PARAM_INLINE inline
+#endif
+# include <boost/test/utils/runtime/cla/parser.ipp>
 
 #endif
 
-#endif // BOOST_RT_CLA_PARSER_HPP_062604GER
+#endif // BOOST_TEST_UTILS_RUNTIME_CLA_PARSER_HPP

@@ -114,6 +114,8 @@ namespace boost
         };
     } // namespace range_detail
 
+    namespace iterators
+    {
     namespace detail
     {
         // Rationale:
@@ -245,8 +247,8 @@ namespace boost
             any_iterator_type stored_iterator;
         };
 
-
-    }
+    } //namespace detail
+    } //namespace iterators
 
     namespace range_detail
     {

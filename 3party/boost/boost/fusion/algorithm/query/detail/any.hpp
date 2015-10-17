@@ -24,7 +24,7 @@ namespace boost { namespace fusion {
 namespace detail
 {
     template <typename First, typename Last, typename F>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline bool
     linear_any(First const&, Last const&, F const&, mpl::true_)
     {
@@ -32,12 +32,12 @@ namespace detail
     }
 
     template <typename First, typename Last, typename F>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline bool
     linear_any(First const& first, Last const& last, F& f, mpl::false_)
     {
         typename result_of::deref<First>::type x = *first;
-        return f(x) || 
+        return f(x) ||
             detail::linear_any(
                 fusion::next(first)
               , last
@@ -46,7 +46,7 @@ namespace detail
     }
 
     template <typename Sequence, typename F, typename Tag>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline bool
     any(Sequence const& seq, F f, Tag)
     {
@@ -63,11 +63,11 @@ namespace detail
     struct unrolled_any
     {
         template <typename It, typename F>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static bool call(It const& it, F f)
         {
-            return 
-                f(*it) || 
+            return
+                f(*it) ||
                 f(*fusion::advance_c<1>(it))||
                 f(*fusion::advance_c<2>(it)) ||
                 f(*fusion::advance_c<3>(it)) ||
@@ -79,11 +79,11 @@ namespace detail
     struct unrolled_any<3>
     {
         template <typename It, typename F>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static bool call(It const& it, F f)
         {
-            return 
-                f(*it) || 
+            return
+                f(*it) ||
                 f(*fusion::advance_c<1>(it)) ||
                 f(*fusion::advance_c<2>(it));
         }
@@ -93,11 +93,11 @@ namespace detail
     struct unrolled_any<2>
     {
         template <typename It, typename F>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static bool call(It const& it, F f)
         {
-            return 
-                f(*it) || 
+            return
+                f(*it) ||
                 f(*fusion::advance_c<1>(it));
         }
     };
@@ -106,7 +106,7 @@ namespace detail
     struct unrolled_any<1>
     {
         template <typename It, typename F>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static bool call(It const& it, F f)
         {
             return f(*it);
@@ -117,7 +117,7 @@ namespace detail
     struct unrolled_any<0>
     {
         template <typename It, typename F>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static bool call(It const&, F)
         {
             return false;
@@ -125,7 +125,7 @@ namespace detail
     };
 
     template <typename Sequence, typename F>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline bool
     any(Sequence const& seq, F f, random_access_traversal_tag)
     {

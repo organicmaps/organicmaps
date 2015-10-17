@@ -18,7 +18,9 @@
 
 #if defined(_MSC_VER) && (defined(_M_AMD64) || defined(_M_IX86))
 extern "C" void _mm_pause(void);
+#if defined(BOOST_MSVC)
 #pragma intrinsic(_mm_pause)
+#endif
 #endif
 
 namespace boost {
@@ -29,10 +31,8 @@ BOOST_FORCEINLINE void pause() BOOST_NOEXCEPT
 {
 #if defined(_MSC_VER) && (defined(_M_AMD64) || defined(_M_IX86))
     _mm_pause();
-
 #elif defined(__GNUC__) && (defined(__i386__) || defined(__x86_64__))
     __asm__ __volatile__("pause;");
-
 #endif
 }
 

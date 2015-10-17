@@ -7,10 +7,6 @@
 #if !defined(BOOST_SPIRIT_X3_TST_MAP_JUNE_03_2007_1143AM)
 #define BOOST_SPIRIT_X3_TST_MAP_JUNE_03_2007_1143AM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/spirit/home/x3/string/detail/tst.hpp>
 #include <unordered_map>
 #include <boost/pool/object_pool.hpp>
@@ -129,7 +125,7 @@ namespace boost { namespace spirit { namespace x3
 
         void clear()
         {
-            BOOST_FOREACH(typename map_type::value_type& x, map)
+            for (typename map_type::value_type& x : map)
             {
                 node::destruct_node(x.second.root, this);
                 if (x.second.data)
@@ -141,7 +137,7 @@ namespace boost { namespace spirit { namespace x3
         template <typename F>
         void for_each(F f) const
         {
-            BOOST_FOREACH(typename map_type::value_type const& x, map)
+            for (typename map_type::value_type const& x : map)
             {
                 std::basic_string<Char> s(1, x.first);
                 node::for_each(x.second.root, s, f);
@@ -164,7 +160,7 @@ namespace boost { namespace spirit { namespace x3
 
         void copy(tst_map const& rhs)
         {
-            BOOST_FOREACH(typename map_type::value_type const& x, rhs.map)
+            for (typename map_type::value_type const& x : rhs.map)
             {
                 map_data xx = {node::clone_node(x.second.root, this), 0};
                 if (x.second.data)
@@ -177,7 +173,7 @@ namespace boost { namespace spirit { namespace x3
         {
             if (this != &rhs)
             {
-                BOOST_FOREACH(typename map_type::value_type& x, map)
+                for (typename map_type::value_type& x : map)
                 {
                     node::destruct_node(x.second.root, this);
                 }

@@ -32,43 +32,55 @@ namespace boost
     executor() {}
 
     /**
-     * \b Effects: Destroys the executor.
+     * \par Effects
+     * Destroys the executor.
      *
-     * \b Synchronization: The completion of all the closures happen before the completion of the executor destructor.
+     * \par Synchronization
+     * The completion of all the closures happen before the completion of the executor destructor.
      */
     virtual ~executor() {};
 
     /**
-     * \b Effects: close the \c executor for submissions.
+     * \par Effects
+     * Close the \c executor for submissions.
      * The worker threads will work until there is no more closures to run.
      */
     virtual void close() = 0;
 
     /**
-     * \b Returns: whether the pool is closed for submissions.
+     * \par Returns
+     * Whether the pool is closed for submissions.
      */
     virtual bool closed() = 0;
 
     /**
-     * \b Effects: The specified closure will be scheduled for execution at some point in the future.
+     * \par Effects
+     * The specified closure will be scheduled for execution at some point in the future.
      * If invoked closure throws an exception the executor will call std::terminate, as is the case with threads.
      *
-     * \b Synchronization: completion of closure on a particular thread happens before destruction of thread's thread local variables.
+     * \par Synchronization
+     * Ccompletion of closure on a particular thread happens before destruction of thread's thread local variables.
      *
-     * \b Throws: \c sync_queue_is_closed if the thread pool is closed.
+     * \par Throws
+     * \c sync_queue_is_closed if the thread pool is closed.
      * Whatever exception that can be throw while storing the closure.
      */
     virtual void submit(BOOST_THREAD_RV_REF(work) closure) = 0;
+//    virtual void submit(work& closure) = 0;
 
     /**
-     * \b Requires: \c Closure is a model of Callable(void()) and a model of CopyConstructible/MoveConstructible.
+     * \par Requires
+     * \c Closure is a model of Callable(void()) and a model of CopyConstructible/MoveConstructible.
      *
-     * \b Effects: The specified closure will be scheduled for execution at some point in the future.
+     * \par Effects
+     * The specified closure will be scheduled for execution at some point in the future.
      * If invoked closure throws an exception the thread pool will call std::terminate, as is the case with threads.
      *
-     * \b Synchronization: completion of closure on a particular thread happens before destruction of thread's thread local variables.
+     * \par Synchronization
+     * Completion of closure on a particular thread happens before destruction of thread's thread local variables.
      *
-     * \b Throws: \c sync_queue_is_closed if the thread pool is closed.
+     * \par Throws
+     * \c sync_queue_is_closed if the thread pool is closed.
      * Whatever exception that can be throw while storing the closure.
      */
 
@@ -94,16 +106,23 @@ namespace boost
     }
 
     /**
-     * Effects: try to execute one task.
-     * Returns: whether a task has been executed.
-     * Throws: whatever the current task constructor throws or the task() throws.
+     * \par Effects
+     * Try to execute one task.
+     *
+     * \par Returns
+     * Whether a task has been executed.
+     *
+     * \par Throws
+     * Whatever the current task constructor throws or the task() throws.
      */
     virtual bool try_executing_one() = 0;
 
     /**
-     * \b Requires: This must be called from an scheduled task.
+     * \par Requires
+     * This must be called from an scheduled task.
      *
-     * \b Effects: reschedule functions until pred()
+     * \par Effects
+     * Reschedule functions until pred()
      */
     template <typename Pred>
     bool reschedule_until(Pred const& pred)
@@ -118,7 +137,6 @@ namespace boost
       return true;
     }
   };
-
 
   }
   using executors::executor;

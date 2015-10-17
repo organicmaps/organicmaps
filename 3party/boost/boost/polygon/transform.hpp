@@ -42,16 +42,26 @@ namespace polygon {
 class axis_transformation {
  public:
   enum ATR {
+#ifdef BOOST_POLYGON_ENABLE_DEPRECATED
+    EN = 0,
+    WN = 1,
+    ES = 2,
+    WS = 3,
+    NE = 4,
+    SE = 5,
+    NW = 6,
+    SW = 7,
+#endif
     NULL_TRANSFORM = 0,
     BEGIN_TRANSFORM = 0,
-      EN = 0, EAST_NORTH = 0,
-      WN = 1, WEST_NORTH = 1, FLIP_X       = 1,
-      ES = 2, EAST_SOUTH = 2, FLIP_Y       = 2,
-      WS = 3, WEST_SOUTH = 3, FLIP_XY      = 3,
-      NE = 4, NORTH_EAST = 4, SWAP_XY      = 4,
-      SE = 5, SOUTH_EAST = 5, ROTATE_LEFT  = 5,
-      NW = 6, NORTH_WEST = 6, ROTATE_RIGHT = 6,
-      SW = 7, SOUTH_WEST = 7, FLIP_SWAP_XY = 7,
+    EAST_NORTH = 0,
+    WEST_NORTH = 1, FLIP_X       = 1,
+    EAST_SOUTH = 2, FLIP_Y       = 2,
+    WEST_SOUTH = 3, FLIP_XY      = 3,
+    NORTH_EAST = 4, SWAP_XY      = 4,
+    SOUTH_EAST = 5, ROTATE_LEFT  = 5,
+    NORTH_WEST = 6, ROTATE_RIGHT = 6,
+    SOUTH_WEST = 7, FLIP_SWAP_XY = 7,
     END_TRANSFORM = 7
   };
 

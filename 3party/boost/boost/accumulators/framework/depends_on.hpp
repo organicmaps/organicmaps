@@ -223,13 +223,13 @@ namespace boost { namespace accumulators
         template<typename First, typename Last>
         struct build_acc_list<First, Last, true>
         {
-            typedef fusion::nil type;
+            typedef fusion::nil_ type;
 
             template<typename Args>
-            static fusion::nil
+            static fusion::nil_
             call(Args const &, First const&, Last const&)
             {
-                return fusion::nil();
+                return fusion::nil_();
             }
         };
 

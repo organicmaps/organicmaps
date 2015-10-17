@@ -24,7 +24,7 @@ namespace boost { namespace fusion
     }
 
     template <typename T, typename Sequence>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::remove<Sequence const, T>::type
     remove(Sequence const& seq)
     {

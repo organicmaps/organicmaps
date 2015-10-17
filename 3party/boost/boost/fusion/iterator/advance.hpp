@@ -75,7 +75,7 @@ namespace boost { namespace fusion
     }
 
     template <int N, typename Iterator>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::advance_c<Iterator, N>::type const
     advance_c(Iterator const& i)
     {
@@ -83,7 +83,7 @@ namespace boost { namespace fusion
     }
 
     template<typename N, typename Iterator>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::advance<Iterator, N>::type const
     advance(Iterator const& i)
     {

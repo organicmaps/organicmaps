@@ -46,11 +46,12 @@ namespace boost {
  *     );
  */
 template <class Lockable, class Function, class... Args>
-auto with_lock_guard(
+typename boost::result_of<Function(Args...)>::type with_lock_guard(
     Lockable& m,
     BOOST_FWD_REF(Function) func,
     BOOST_FWD_REF(Args)... args
-) -> decltype(func(boost::forward<Args>(args)...)) {
+) //-> decltype(func(boost::forward<Args>(args)...))
+{
   boost::lock_guard<Lockable> lock(m);
   return func(boost::forward<Args>(args)...);
 }

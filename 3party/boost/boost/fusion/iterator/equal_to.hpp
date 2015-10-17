@@ -74,7 +74,7 @@ namespace boost { namespace fusion
     namespace iterator_operators
     {
         template <typename Iter1, typename Iter2>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         inline typename
         boost::enable_if<
             mpl::and_<is_fusion_iterator<Iter1>, is_fusion_iterator<Iter2> >
@@ -86,7 +86,7 @@ namespace boost { namespace fusion
         }
 
         template <typename Iter1, typename Iter2>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         inline typename
         boost::enable_if<
             mpl::and_<is_fusion_iterator<Iter1>, is_fusion_iterator<Iter2> >

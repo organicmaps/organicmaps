@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2005-2008.
-//  Use, modification, and distribution are subject to the 
-//  Boost Software License, Version 1.0. (See accompanying file 
+//  (C) Copyright Gennadiy Rozental 2005-2014.
+//  Use, modification, and distribution are subject to the
+//  Boost Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -12,8 +12,8 @@
 //  Description : implements model of generic parameter with dual naming
 // ***************************************************************************
 
-#ifndef BOOST_RT_CLA_DUAL_NAME_PARAMETER_IPP_062904GER
-#define BOOST_RT_CLA_DUAL_NAME_PARAMETER_IPP_062904GER
+#ifndef BOOST_TEST_UTILS_RUNTIME_CLA_DUAL_NAME_PARAMETER_IPP
+#define BOOST_TEST_UTILS_RUNTIME_CLA_DUAL_NAME_PARAMETER_IPP
 
 // Boost.Runtime.Parameter
 #include <boost/test/utils/runtime/config.hpp>
@@ -23,7 +23,7 @@
 
 namespace boost {
 
-namespace BOOST_RT_PARAM_NAMESPACE {
+namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE {
 
 namespace cla {
 
@@ -31,11 +31,11 @@ namespace cla {
 // **************               dual_name_policy               ************** //
 // ************************************************************************** //
 
-BOOST_RT_PARAM_INLINE 
+BOOST_TEST_UTILS_RUNTIME_PARAM_INLINE
 dual_name_policy::dual_name_policy()
 {
-    m_primary.accept_modifier( prefix = BOOST_RT_PARAM_CSTRING_LITERAL( "--" ) );
-    m_secondary.accept_modifier( prefix = BOOST_RT_PARAM_CSTRING_LITERAL( "-" ) );
+    m_primary.accept_modifier( prefix = BOOST_TEST_UTILS_RUNTIME_PARAM_CSTRING_LITERAL( "--" ) );
+    m_secondary.accept_modifier( prefix = BOOST_TEST_UTILS_RUNTIME_PARAM_CSTRING_LITERAL( "-" ) );
 }
 
 //____________________________________________________________________________//
@@ -46,8 +46,8 @@ template<typename K>
 inline void
 split( string_name_policy& snp, char_name_policy& cnp, cstring src, K const& k )
 {
-    cstring::iterator sep = std::find( src.begin(), src.end(), BOOST_RT_PARAM_LITERAL( '|' ) );
-    
+    cstring::iterator sep = std::find( src.begin(), src.end(), BOOST_TEST_UTILS_RUNTIME_PARAM_LITERAL( '|' ) );
+
     if( sep != src.begin() )
         snp.accept_modifier( k = cstring( src.begin(), sep ) );
 
@@ -57,7 +57,7 @@ split( string_name_policy& snp, char_name_policy& cnp, cstring src, K const& k )
 
 } // local namespace
 
-BOOST_RT_PARAM_INLINE void
+BOOST_TEST_UTILS_RUNTIME_PARAM_INLINE void
 dual_name_policy::set_prefix( cstring src )
 {
     split( m_primary, m_secondary, src, prefix );
@@ -65,7 +65,7 @@ dual_name_policy::set_prefix( cstring src )
 
 //____________________________________________________________________________//
 
-BOOST_RT_PARAM_INLINE void
+BOOST_TEST_UTILS_RUNTIME_PARAM_INLINE void
 dual_name_policy::set_name( cstring src )
 {
     split( m_primary, m_secondary, src, name );
@@ -73,7 +73,7 @@ dual_name_policy::set_name( cstring src )
 
 //____________________________________________________________________________//
 
-BOOST_RT_PARAM_INLINE void
+BOOST_TEST_UTILS_RUNTIME_PARAM_INLINE void
 dual_name_policy::set_separator( cstring src )
 {
     split( m_primary, m_secondary, src, separator );
@@ -83,8 +83,8 @@ dual_name_policy::set_separator( cstring src )
 
 } // namespace cla
 
-} // namespace BOOST_RT_PARAM_NAMESPACE
+} // namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE
 
 } // namespace boost
 
-#endif // BOOST_RT_CLA_DUAL_NAME_PARAMETER_IPP_062904GER
+#endif // BOOST_TEST_UTILS_RUNTIME_CLA_DUAL_NAME_PARAMETER_IPP

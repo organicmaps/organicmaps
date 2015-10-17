@@ -14,13 +14,19 @@
 #ifndef BOOST_INTRUSIVE_RBTREE_NODE_HPP
 #define BOOST_INTRUSIVE_RBTREE_NODE_HPP
 
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 #include <boost/intrusive/detail/config_begin.hpp>
-#include <iterator>
-#include <boost/intrusive/pointer_traits.hpp>
+#include <boost/intrusive/pointer_rebind.hpp>
 #include <boost/intrusive/rbtree_algorithms.hpp>
 #include <boost/intrusive/pointer_plus_bits.hpp>
 #include <boost/intrusive/detail/mpl.hpp>
-#include <boost/intrusive/detail/utilities.hpp>
 #include <boost/intrusive/detail/tree_node.hpp>
 
 namespace boost {
@@ -36,9 +42,9 @@ namespace intrusive {
 template<class VoidPointer>
 struct compact_rbtree_node
 {
-   typedef typename pointer_traits
-      <VoidPointer>::template rebind_pointer
-         <compact_rbtree_node<VoidPointer> >::type node_ptr;
+   typedef compact_rbtree_node<VoidPointer> node;
+   typedef typename pointer_rebind<VoidPointer, node >::type         node_ptr;
+   typedef typename pointer_rebind<VoidPointer, const node >::type   const_node_ptr;
    enum color { red_t, black_t };
    node_ptr parent_, left_, right_;
 };
@@ -47,9 +53,9 @@ struct compact_rbtree_node
 template<class VoidPointer>
 struct rbtree_node
 {
-   typedef typename pointer_traits
-      <VoidPointer>::template rebind_pointer
-         <rbtree_node<VoidPointer> >::type   node_ptr;
+   typedef rbtree_node<VoidPointer> node;
+   typedef typename pointer_rebind<VoidPointer, node >::type         node_ptr;
+   typedef typename pointer_rebind<VoidPointer, const node >::type   const_node_ptr;
 
    enum color { red_t, black_t };
    node_ptr parent_, left_, right_;
@@ -62,11 +68,8 @@ template<class VoidPointer>
 struct default_rbtree_node_traits_impl
 {
    typedef rbtree_node<VoidPointer> node;
-
-   typedef typename pointer_traits
-      <VoidPointer>::template rebind_pointer<node>::type          node_ptr;
-   typedef typename pointer_traits
-      <VoidPointer>::template rebind_pointer<const node>::type    const_node_ptr;
+   typedef typename node::node_ptr        node_ptr;
+   typedef typename node::const_node_ptr  const_node_ptr;
 
    typedef typename node::color color;
 
@@ -119,10 +122,8 @@ template<class VoidPointer>
 struct compact_rbtree_node_traits_impl
 {
    typedef compact_rbtree_node<VoidPointer> node;
-   typedef typename pointer_traits
-      <VoidPointer>::template rebind_pointer<node>::type          node_ptr;
-   typedef typename pointer_traits
-      <VoidPointer>::template rebind_pointer<const node>::type    const_node_ptr;
+   typedef typename node::node_ptr        node_ptr;
+   typedef typename node::const_node_ptr  const_node_ptr;
 
    typedef pointer_plus_bits<node_ptr, 1> ptr_bit;
 
@@ -182,7 +183,7 @@ struct rbtree_node_traits_dispatch<VoidPointer, true>
    :  public compact_rbtree_node_traits_impl<VoidPointer>
 {};
 
-//Inherit from the detail::link_dispatch depending on the embedding capabilities
+//Inherit from rbtree_node_traits_dispatch depending on the embedding capabilities
 template<class VoidPointer, bool OptimizeSize = false>
 struct rbtree_node_traits
    :  public rbtree_node_traits_dispatch

@@ -27,7 +27,7 @@ namespace boost { namespace fusion
             {
                 typedef map_iterator<Sequence, 0> type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type call(Sequence& seq)
                 {
                     return type(seq);

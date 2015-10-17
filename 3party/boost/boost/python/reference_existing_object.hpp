@@ -17,7 +17,7 @@ namespace detail
 {
   template <class R>
   struct reference_existing_object_requires_a_pointer_or_reference_return_type
-# if defined(__GNUC__) && __GNUC__ >= 3 || defined(__EDG__)
+# if defined(__GNUC__) || defined(__EDG__)
   {}
 # endif
   ;

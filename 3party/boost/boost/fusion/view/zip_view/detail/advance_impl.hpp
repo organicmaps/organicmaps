@@ -34,7 +34,7 @@ namespace boost { namespace fusion {
             };
 
             template<typename It>
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             typename result<poly_advance(It)>::type
             operator()(const It& it) const
             {
@@ -57,7 +57,7 @@ namespace boost { namespace fusion {
                 typedef zip_view_iterator<
                     typename result_of::transform<typename It::iterators, detail::poly_advance<N> >::type> type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(It const& it)
                 {

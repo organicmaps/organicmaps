@@ -397,10 +397,10 @@ void copy_results(MR1& out, MR2 const& in)
    out.set_base(in.base().base());
    for(int i = 0; i < (int)in.size(); ++i)
    {
-      if(in[i].matched)
+      if(in[i].matched || !i)
       {
          out.set_first(in[i].first.base(), i);
-         out.set_second(in[i].second.base(), i);
+         out.set_second(in[i].second.base(), i, in[i].matched);
       }
    }
 }

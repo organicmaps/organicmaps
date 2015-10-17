@@ -9,6 +9,7 @@
 #define BOOST_ACCUMULATORS_STATISTICS_TIMES2_ITERATOR_HPP_DE_01_01_2006
 
 #include <functional>
+#include <boost/detail/workaround.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
@@ -34,13 +35,16 @@ namespace detail
         );
     }
 
-
     ///////////////////////////////////////////////////////////////////////////////
     // lvalue_index_iterator
     template<typename Base>
     struct lvalue_index_iterator
       : Base
     {
+        lvalue_index_iterator()
+          : Base()
+        {}
+
         lvalue_index_iterator(Base base)
           : Base(base)
         {

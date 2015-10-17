@@ -603,7 +603,7 @@ namespace boost
         template<
             class Rng,
             class Category =
-                typename iterator_traversal<
+                typename iterators::pure_iterator_traversal<
                     typename range_iterator<Rng>::type
                 >::type
         >

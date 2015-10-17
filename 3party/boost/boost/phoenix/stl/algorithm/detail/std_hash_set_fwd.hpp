@@ -15,7 +15,7 @@
 #ifndef BOOST_PHOENIX_STD_HASH_SET_FWD_EN_16_12_2004
 #define BOOST_PHOENIX_STD_HASH_SET_FWD_EN_16_12_2004
 
-#include <boost/config.hpp>
+#include <boost/phoenix/config.hpp>
 
 #if defined(BOOST_HAS_HASH)
 

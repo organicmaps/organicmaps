@@ -358,9 +358,9 @@ struct within<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)>, Geometry2>
         Geometry2 const& m_geometry2;
         Strategy const& m_strategy;
 
-        visitor(Geometry2 const& geometry2, Strategy const& strategy):
-        m_geometry2(geometry2),
-        m_strategy(strategy)
+        visitor(Geometry2 const& geometry2, Strategy const& strategy)
+            : m_geometry2(geometry2)
+            , m_strategy(strategy)
         {}
 
         template <typename Geometry1>
@@ -378,10 +378,8 @@ struct within<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)>, Geometry2>
           Geometry2 const& geometry2,
           Strategy const& strategy)
     {
-        return boost::apply_visitor(
-            visitor<Strategy>(geometry2, strategy),
-            geometry1
-        );
+        return boost::apply_visitor(visitor<Strategy>(geometry2, strategy),
+                                    geometry1);
     }
 };
 
@@ -394,9 +392,9 @@ struct within<Geometry1, boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
         Geometry1 const& m_geometry1;
         Strategy const& m_strategy;
 
-        visitor(Geometry1 const& geometry1, Strategy const& strategy):
-        m_geometry1(geometry1),
-        m_strategy(strategy)
+        visitor(Geometry1 const& geometry1, Strategy const& strategy)
+            : m_geometry1(geometry1)
+            , m_strategy(strategy)
         {}
 
         template <typename Geometry2>
@@ -414,9 +412,8 @@ struct within<Geometry1, boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
           boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> const& geometry2,
           Strategy const& strategy)
     {
-        return boost::apply_visitor(
-            visitor<Strategy>(geometry1, strategy),
-            geometry2
+        return boost::apply_visitor(visitor<Strategy>(geometry1, strategy),
+                                    geometry2
         );
     }
 };
@@ -453,10 +450,9 @@ struct within<
           boost::variant<BOOST_VARIANT_ENUM_PARAMS(T2)> const& geometry2,
           Strategy const& strategy)
     {
-        return boost::apply_visitor(
-            visitor<Strategy>(strategy),
-            geometry1, geometry2
-        );
+        return boost::apply_visitor(visitor<Strategy>(strategy),
+                                    geometry1,
+                                    geometry2);
     }
 };
 

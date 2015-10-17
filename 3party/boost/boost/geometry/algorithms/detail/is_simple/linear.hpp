@@ -33,7 +33,7 @@
 #include <boost/geometry/algorithms/not_implemented.hpp>
 
 #include <boost/geometry/algorithms/detail/check_iterator_range.hpp>
-#include <boost/geometry/algorithms/detail/signed_index_type.hpp>
+#include <boost/geometry/algorithms/detail/signed_size_type.hpp>
 
 #include <boost/geometry/algorithms/detail/disjoint/linear_linear.hpp>
 #include <boost/geometry/algorithms/detail/overlay/get_turn_info.hpp>
@@ -60,7 +60,7 @@ namespace detail { namespace is_simple
 
 template <typename Turn>
 inline bool check_segment_indices(Turn const& turn,
-                                  signed_index_type last_index)
+                                  signed_size_type last_index)
 {
     return
         (turn.operations[0].seg_id.segment_index == 0

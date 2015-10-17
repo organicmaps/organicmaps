@@ -10,6 +10,7 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_IS_VALID_HAS_DUPLICATES_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_IS_VALID_HAS_DUPLICATES_HPP
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/range.hpp>
 
 #include <boost/geometry/core/closure.hpp>
@@ -35,6 +36,8 @@ struct has_duplicates
     template <typename VisitPolicy>
     static inline bool apply(Range const& range, VisitPolicy& visitor)
     {
+        boost::ignore_unused(visitor);
+
         typedef typename closeable_view<Range const, Closure>::type view_type;
         typedef typename boost::range_const_iterator
             <

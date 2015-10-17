@@ -24,6 +24,7 @@
 #include <boost/math/special_functions/ellint_1.hpp>
 #include <boost/math/special_functions/ellint_2.hpp>
 #include <boost/math/special_functions/log1p.hpp>
+#include <boost/math/special_functions/atanh.hpp>
 #include <boost/math/constants/constants.hpp>
 #include <boost/math/policies/error_handling.hpp>
 #include <boost/math/tools/workaround.hpp>
@@ -43,176 +44,231 @@ T ellint_pi_imp(T v, T k, T vc, const Policy& pol);
 template <typename T, typename Policy>
 T ellint_pi_imp(T v, T phi, T k, T vc, const Policy& pol)
 {
-    // Note vc = 1-v presumably without cancellation error.
-    T value, x, y, z, p, t;
+   // Note vc = 1-v presumably without cancellation error.
+   BOOST_MATH_STD_USING
 
-    BOOST_MATH_STD_USING
-    using namespace boost::math::tools;
-    using namespace boost::math::constants;
+   static const char* function = "boost::math::ellint_3<%1%>(%1%,%1%,%1%)";
 
-    static const char* function = "boost::math::ellint_3<%1%>(%1%,%1%,%1%)";
+   if(abs(k) > 1)
+   {
+      return policies::raise_domain_error<T>(function,
+         "Got k = %1%, function requires |k| <= 1", k, pol);
+   }
 
-    if (abs(k) > 1)
-    {
-       return policies::raise_domain_error<T>(function,
-            "Got k = %1%, function requires |k| <= 1", k, pol);
-    }
+   T sphi = sin(fabs(phi));
+   T result = 0;
 
-    T sphi = sin(fabs(phi));
+   if(v > 1 / (sphi * sphi))
+   {
+      // Complex result is a domain error:
+      return policies::raise_domain_error<T>(function,
+         "Got v = %1%, but result is complex for v > 1 / sin^2(phi)", v, pol);
+   }
 
-    if(v > 1 / (sphi * sphi))
-    {
-        // Complex result is a domain error:
-       return policies::raise_domain_error<T>(function,
-            "Got v = %1%, but result is complex for v > 1 / sin^2(phi)", v, pol);
-    }
-
-    // Special cases first:
-    if(v == 0)
-    {
-       // A&S 17.7.18 & 19
-       return (k == 0) ? phi : ellint_f_imp(phi, k, pol);
-    }
-    if(phi == constants::pi<T>() / 2)
-    {
-       // Have to filter this case out before the next
-       // special case, otherwise we might get an infinity from
-       // tan(phi).
-       // Also note that since we can't represent PI/2 exactly
-       // in a T, this is a bit of a guess as to the users true
-       // intent...
-       //
-       return ellint_pi_imp(v, k, vc, pol);
-    }
-    if(k == 0)
-    {
-       // A&S 17.7.20:
-       if(v < 1)
-       {
-          T vcr = sqrt(vc);
-          return atan(vcr * tan(phi)) / vcr;
-       }
-       else if(v == 1)
-       {
-          return tan(phi);
-       }
-       else
-       {
-          // v > 1:
-          T vcr = sqrt(-vc);
-          T arg = vcr * tan(phi);
-          return (boost::math::log1p(arg, pol) - boost::math::log1p(-arg, pol)) / (2 * vcr);
-       }
-    }
-
-    if(v < 0)
-    {
-       //
-       // If we don't shift to 0 <= v <= 1 we get
-       // cancellation errors later on.  Use
-       // A&S 17.7.15/16 to shift to v > 0:
-       //
-       T k2 = k * k;
-       T N = (k2 - v) / (1 - v);
-       T Nm1 = (1 - k2) / (1 - v);
-       T p2 = sqrt(-v * (k2 - v) / (1 - v));
-       T delta = sqrt(1 - k2 * sphi * sphi);
-       T result = ellint_pi_imp(N, phi, k, Nm1, pol);
-
-       result *= sqrt(Nm1 * (1 - k2 / N));
-       result += ellint_f_imp(phi, k, pol) * k2 / p2;
-       result += atan((p2/2) * sin(2 * phi) / delta);
-       result /= sqrt((1 - v) * (1 - k2 / v));
-       return result;
-    }
-#if 0  // disabled but retained for future reference: see below.
-    if(v > 1)
-    {
-       //
-       // If v > 1 we can use the identity in A&S 17.7.7/8
-       // to shift to 0 <= v <= 1.  Unfortunately this
-       // identity appears only to function correctly when
-       // 0 <= phi <= pi/2, but it's when phi is outside that
-       // range that we really need it: That's when
-       // Carlson's formula fails, and what's more the periodicity
-       // reduction used below on phi doesn't work when v > 1.
-       //
-       // So we're stuck... the code is archived here in case
-       // some bright spart can figure out the fix.
-       //
-       T k2 = k * k;
-       T N = k2 / v;
-       T Nm1 = (v - k2) / v;
-       T p1 = sqrt((-vc) * (1 - k2 / v));
-       T delta = sqrt(1 - k2 * sphi * sphi);
-       //
-       // These next two terms have a large amount of cancellation
-       // so it's not clear if this relation is useable even if
-       // the issues with phi > pi/2 can be fixed:
-       //
-       T result = -ellint_pi_imp(N, phi, k, Nm1);
-       result += ellint_f_imp(phi, k);
-       //
-       // This log term gives the complex result when
-       //     n > 1/sin^2(phi)
-       // However that case is dealt with as an error above, 
-       // so we should always get a real result here:
-       //
-       result += log((delta + p1 * tan(phi)) / (delta - p1 * tan(phi))) / (2 * p1);
-       return result;
-    }
-#endif
-
-    // Carlson's algorithm works only for |phi| <= pi/2,
-    // use the integrand's periodicity to normalize phi
-    //
-    // Xiaogang's original code used a cast to long long here
-    // but that fails if T has more digits than a long long,
-    // so rewritten to use fmod instead:
-    //
-    if(fabs(phi) > 1 / tools::epsilon<T>())
-    {
-       if(v > 1)
-          return policies::raise_domain_error<T>(
+   // Special cases first:
+   if(v == 0)
+   {
+      // A&S 17.7.18 & 19
+      return (k == 0) ? phi : ellint_f_imp(phi, k, pol);
+   }
+   if(v == 1)
+   {
+      // http://functions.wolfram.com/08.06.03.0008.01
+      T m = k * k;
+      result = sqrt(1 - m * sphi * sphi) * tan(phi) - ellint_e_imp(phi, k, pol);
+      result /= 1 - m;
+      result += ellint_f_imp(phi, k, pol);
+      return result;
+   }
+   if(phi == constants::half_pi<T>())
+   {
+      // Have to filter this case out before the next
+      // special case, otherwise we might get an infinity from
+      // tan(phi).
+      // Also note that since we can't represent PI/2 exactly
+      // in a T, this is a bit of a guess as to the users true
+      // intent...
+      //
+      return ellint_pi_imp(v, k, vc, pol);
+   }
+   if((phi > constants::half_pi<T>()) || (phi < 0))
+   {
+      // Carlson's algorithm works only for |phi| <= pi/2,
+      // use the integrand's periodicity to normalize phi
+      //
+      // Xiaogang's original code used a cast to long long here
+      // but that fails if T has more digits than a long long,
+      // so rewritten to use fmod instead:
+      //
+      // See http://functions.wolfram.com/08.06.16.0002.01
+      //
+      if(fabs(phi) > 1 / tools::epsilon<T>())
+      {
+         if(v > 1)
+            return policies::raise_domain_error<T>(
             function,
             "Got v = %1%, but this is only supported for 0 <= phi <= pi/2", v, pol);
-       //  
-       // Phi is so large that phi%pi is necessarily zero (or garbage),
-       // just return the second part of the duplication formula:
-       //
-       value = 2 * fabs(phi) * ellint_pi_imp(v, k, vc, pol) / constants::pi<T>();
-    }
-    else
-    {
-       T rphi = boost::math::tools::fmod_workaround(T(fabs(phi)), T(constants::half_pi<T>()));
-       T m = boost::math::round((fabs(phi) - rphi) / constants::half_pi<T>());
-       int sign = 1;
-       if(boost::math::tools::fmod_workaround(m, T(2)) > 0.5)
-       {
-          m += 1;
-          sign = -1;
-          rphi = constants::half_pi<T>() - rphi;
-       }
-       T sinp = sin(rphi);
-       T cosp = cos(rphi);
-       x = cosp * cosp;
-       t = sinp * sinp;
-       y = 1 - k * k * t;
-       z = 1;
-       if(v * t < 0.5)
-           p = 1 - v * t;
-       else
-           p = x + vc * t;
-       value = sign * sinp * (ellint_rf_imp(x, y, z, pol) + v * t * ellint_rj_imp(x, y, z, p, pol) / 3);
-       if((m > 0) && (vc > 0))
-         value += m * ellint_pi_imp(v, k, vc, pol);
-    }
+         //
+         // Phi is so large that phi%pi is necessarily zero (or garbage),
+         // just return the second part of the duplication formula:
+         //
+         result = 2 * fabs(phi) * ellint_pi_imp(v, k, vc, pol) / constants::pi<T>();
+      }
+      else
+      {
+         T rphi = boost::math::tools::fmod_workaround(T(fabs(phi)), T(constants::half_pi<T>()));
+         T m = boost::math::round((fabs(phi) - rphi) / constants::half_pi<T>());
+         int sign = 1;
+         if((m != 0) && (k >= 1))
+         {
+            return policies::raise_domain_error<T>(function, "Got k=1 and phi=%1% but the result is complex in that domain", phi, pol);
+         }
+         if(boost::math::tools::fmod_workaround(m, T(2)) > 0.5)
+         {
+            m += 1;
+            sign = -1;
+            rphi = constants::half_pi<T>() - rphi;
+         }
+         result = sign * ellint_pi_imp(v, rphi, k, vc, pol);
+         if((m > 0) && (vc > 0))
+            result += m * ellint_pi_imp(v, k, vc, pol);
+      }
+      return phi < 0 ? -result : result;
+   }
+   if(k == 0)
+   {
+      // A&S 17.7.20:
+      if(v < 1)
+      {
+         T vcr = sqrt(vc);
+         return atan(vcr * tan(phi)) / vcr;
+      }
+      else if(v == 1)
+      {
+         return tan(phi);
+      }
+      else
+      {
+         // v > 1:
+         T vcr = sqrt(-vc);
+         T arg = vcr * tan(phi);
+         return (boost::math::log1p(arg, pol) - boost::math::log1p(-arg, pol)) / (2 * vcr);
+      }
+   }
+   if(v < 0)
+   {
+      //
+      // If we don't shift to 0 <= v <= 1 we get
+      // cancellation errors later on.  Use
+      // A&S 17.7.15/16 to shift to v > 0.
+      //
+      // Mathematica simplifies the expressions
+      // given in A&S as follows (with thanks to
+      // Rocco Romeo for figuring these out!):
+      //
+      // V = (k2 - n)/(1 - n)
+      // Assuming[(k2 >= 0 && k2 <= 1) && n < 0, FullSimplify[Sqrt[(1 - V)*(1 - k2 / V)] / Sqrt[((1 - n)*(1 - k2 / n))]]]
+      // Result: ((-1 + k2) n) / ((-1 + n) (-k2 + n))
+      //
+      // Assuming[(k2 >= 0 && k2 <= 1) && n < 0, FullSimplify[k2 / (Sqrt[-n*(k2 - n) / (1 - n)] * Sqrt[(1 - n)*(1 - k2 / n)])]]
+      // Result : k2 / (k2 - n)
+      //
+      // Assuming[(k2 >= 0 && k2 <= 1) && n < 0, FullSimplify[Sqrt[1 / ((1 - n)*(1 - k2 / n))]]]
+      // Result : Sqrt[n / ((k2 - n) (-1 + n))]
+      //
+      T k2 = k * k;
+      T N = (k2 - v) / (1 - v);
+      T Nm1 = (1 - k2) / (1 - v);
+      T p2 = -v * N;
+      T t;
+      if(p2 <= tools::min_value<T>())
+         p2 = sqrt(-v) * sqrt(N);
+      else
+         p2 = sqrt(p2);
+      T delta = sqrt(1 - k2 * sphi * sphi);
+      if(N > k2)
+      {
+         result = ellint_pi_imp(N, phi, k, Nm1, pol);
+         result *= v / (v - 1);
+         result *= (k2 - 1) / (v - k2);
+      }
 
-    if (phi < 0)
-    {
-        value = -value;    // odd function
-    }
-    return value;
+      if(k != 0)
+      {
+         t = ellint_f_imp(phi, k, pol);
+         t *= k2 / (k2 - v);
+         result += t;
+      }
+      t = v / ((k2 - v) * (v - 1));
+      if(t > tools::min_value<T>())
+      {
+         result += atan((p2 / 2) * sin(2 * phi) / delta) * sqrt(t);
+      }
+      else
+      {
+         result += atan((p2 / 2) * sin(2 * phi) / delta) * sqrt(fabs(1 / (k2 - v))) * sqrt(fabs(v / (v - 1)));
+      }
+      return result;
+   }
+   if(k == 1)
+   {
+      // See http://functions.wolfram.com/08.06.03.0013.01
+      result = sqrt(v) * atanh(sqrt(v) * sin(phi)) - log(1 / cos(phi) + tan(phi));
+      result /= v - 1;
+      return result;
+   }
+#if 0  // disabled but retained for future reference: see below.
+   if(v > 1)
+   {
+      //
+      // If v > 1 we can use the identity in A&S 17.7.7/8
+      // to shift to 0 <= v <= 1.  In contrast to previous
+      // revisions of this header, this identity does now work
+      // but appears not to produce better error rates in
+      // practice.  Archived here for future reference...
+      //
+      T k2 = k * k;
+      T N = k2 / v;
+      T Nm1 = (v - k2) / v;
+      T p1 = sqrt((-vc) * (1 - k2 / v));
+      T delta = sqrt(1 - k2 * sphi * sphi);
+      //
+      // These next two terms have a large amount of cancellation
+      // so it's not clear if this relation is useable even if
+      // the issues with phi > pi/2 can be fixed:
+      //
+      result = -ellint_pi_imp(N, phi, k, Nm1, pol);
+      result += ellint_f_imp(phi, k, pol);
+      //
+      // This log term gives the complex result when
+      //     n > 1/sin^2(phi)
+      // However that case is dealt with as an error above,
+      // so we should always get a real result here:
+      //
+      result += log((delta + p1 * tan(phi)) / (delta - p1 * tan(phi))) / (2 * p1);
+      return result;
+   }
+#endif
+   //
+   // Carlson's algorithm works only for |phi| <= pi/2,
+   // by the time we get here phi should already have been
+   // normalised above.
+   //
+   BOOST_ASSERT(fabs(phi) < constants::half_pi<T>());
+   BOOST_ASSERT(phi >= 0);
+   T x, y, z, p, t;
+   T cosp = cos(phi);
+   x = cosp * cosp;
+   t = sphi * sphi;
+   y = 1 - k * k * t;
+   z = 1;
+   if(v * t < 0.5)
+      p = 1 - v * t;
+   else
+      p = x + vc * t;
+   result = sphi * (ellint_rf_imp(x, y, z, pol) + v * t * ellint_rj_imp(x, y, z, p, pol) / 3);
+
+   return result;
 }
 
 // Complete elliptic integral (Legendre form) of the third kind
@@ -244,16 +300,16 @@ T ellint_pi_imp(T v, T k, T vc, const Policy& pol)
 
     if(v < 0)
     {
+       // Apply A&S 17.7.17:
        T k2 = k * k;
        T N = (k2 - v) / (1 - v);
        T Nm1 = (1 - k2) / (1 - v);
-       T p2 = sqrt(-v * (k2 - v) / (1 - v));
-
-       T result = boost::math::detail::ellint_pi_imp(N, k, Nm1, pol);
-
-       result *= sqrt(Nm1 * (1 - k2 / N));
-       result += ellint_k_imp(k, pol) * k2 / p2;
-       result /= sqrt((1 - v) * (1 - k2 / v));
+       T result = 0;
+       result = boost::math::detail::ellint_pi_imp(N, k, Nm1, pol);
+       // This next part is split in two to avoid spurious over/underflow:
+       result *= -v / (1 - v);
+       result *= (1 - k2) / (k2 - v);
+       result += ellint_k_imp(k, pol) * k2 / (k2 - v);
        return result;
     }
 

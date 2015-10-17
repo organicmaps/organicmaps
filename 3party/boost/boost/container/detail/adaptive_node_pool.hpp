@@ -11,7 +11,11 @@
 #ifndef BOOST_CONTAINER_DETAIL_ADAPTIVE_NODE_POOL_HPP
 #define BOOST_CONTAINER_DETAIL_ADAPTIVE_NODE_POOL_HPP
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -19,17 +23,18 @@
 #include <boost/container/detail/workaround.hpp>
 
 #include <boost/intrusive/set.hpp>
-#include <boost/aligned_storage.hpp>
 #include <boost/container/detail/alloc_lib_auto_link.hpp>
 #include <boost/container/detail/multiallocation_chain.hpp>
 #include <boost/container/detail/pool_common_alloc.hpp>
 #include <boost/container/detail/mutex.hpp>
 #include <boost/container/detail/adaptive_node_pool_impl.hpp>
 #include <boost/container/detail/multiallocation_chain.hpp>
+#include <boost/container/detail/type_traits.hpp>
+
 #include <cstddef>
 #include <cmath>
 #include <cassert>
-#include <new>
+
 
 namespace boost {
 namespace container {

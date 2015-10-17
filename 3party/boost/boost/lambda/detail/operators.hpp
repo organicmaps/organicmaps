@@ -161,23 +161,6 @@ namespace detail {
 
 // Note that the overloading is const vs. non-const first argument
 
-#ifdef BOOST_NO_TEMPLATED_STREAMS
-template<class T> struct convert_ostream_to_ref_others_to_c_plain_by_default {
-  typedef typename detail::IF<
-                       boost::is_convertible<T*, std::ostream*>::value,
-                       T&,
-                       typename const_copy_argument <T>::type
-                     >::RET type;
-};
-
-template<class T> struct convert_istream_to_ref_others_to_c_plain_by_default {
-  typedef typename detail::IF<
-                       boost::is_convertible<T*, std::istream*>::value,
-                       T&,
-                       typename const_copy_argument <T>::type
-                     >::RET type;
-};
-#else
 
 template<class T> struct convert_ostream_to_ref_others_to_c_plain_by_default {
   typedef typename detail::IF<
@@ -198,7 +181,6 @@ template<class T> struct convert_istream_to_ref_others_to_c_plain_by_default {
                        typename const_copy_argument <T>::type
                      >::RET type;
 };
-#endif
 
 } // detail
 

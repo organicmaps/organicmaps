@@ -27,18 +27,18 @@ namespace boost
   {
     namespace detail
     {
-      extern inline void do_postconstruct(const postconstructible *ptr)
+      inline void do_postconstruct(const postconstructible *ptr)
       {
         postconstructible *nonconst_ptr = const_cast<postconstructible*>(ptr);
         nonconst_ptr->postconstruct();
       }
-      extern inline void do_postconstruct(...)
+      inline void do_postconstruct(...)
       {
       }
-      extern inline void do_predestruct(...)
+      inline void do_predestruct(...)
       {
       }
-      extern inline void do_predestruct(const predestructible *ptr)
+      inline void do_predestruct(const predestructible *ptr)
       {
         try
         {

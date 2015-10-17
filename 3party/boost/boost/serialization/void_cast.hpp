@@ -47,7 +47,7 @@ class extended_type_info;
 // Return the altered pointer. If there exists no sequence of casts that
 // can transform from_type to to_type, return a NULL.  
 
-BOOST_SERIALIZATION_DECL(void const *)
+BOOST_SERIALIZATION_DECL void const *
 void_upcast(
     extended_type_info const & derived,  
     extended_type_info const & base, 
@@ -67,7 +67,7 @@ void_upcast(
     ));
 }
 
-BOOST_SERIALIZATION_DECL(void const *)
+BOOST_SERIALIZATION_DECL void const *
 void_downcast(
     extended_type_info const & derived,  
     extended_type_info const & base, 
@@ -89,26 +89,26 @@ void_downcast(
 
 namespace void_cast_detail {
 
-class BOOST_SERIALIZATION_DECL(BOOST_PP_EMPTY()) void_caster :
+class BOOST_SYMBOL_VISIBLE void_caster :
     private boost::noncopyable
 {
     friend 
-    BOOST_SERIALIZATION_DECL(void const *)
+    BOOST_SERIALIZATION_DECL void const *
     boost::serialization::void_upcast(
         extended_type_info const & derived,
         extended_type_info const & base,
         void const * const
     );
     friend 
-    BOOST_SERIALIZATION_DECL(void const *)  
+    BOOST_SERIALIZATION_DECL void const *
     boost::serialization::void_downcast(
         extended_type_info const & derived,
         extended_type_info const & base,
         void const * const
     );
 protected:
-    void recursive_register(bool includes_virtual_base = false) const;
-    void recursive_unregister() const;
+    BOOST_SERIALIZATION_DECL void recursive_register(bool includes_virtual_base = false) const;
+    BOOST_SERIALIZATION_DECL void recursive_unregister() const;
     virtual bool has_virtual_base() const = 0;
 public:
     // Data members
@@ -151,7 +151,7 @@ public:
 #endif
 
 template <class Derived, class Base>
-class void_caster_primitive : 
+class BOOST_SYMBOL_VISIBLE void_caster_primitive :
     public void_caster
 {
     virtual void const * downcast(void const * const t) const {
@@ -199,7 +199,7 @@ void_caster_primitive<Derived, Base>::~void_caster_primitive(){
 }
 
 template <class Derived, class Base>
-class void_caster_virtual_base : 
+class BOOST_SYMBOL_VISIBLE void_caster_virtual_base :
     public void_caster
 {
     virtual bool has_virtual_base() const {
@@ -244,7 +244,7 @@ void_caster_virtual_base<Derived,Base>::~void_caster_virtual_base(){
 }
 
 template <class Derived, class Base>
-struct void_caster_base :
+struct BOOST_SYMBOL_VISIBLE void_caster_base :
     public void_caster
 {
     typedef
@@ -281,7 +281,7 @@ inline const void_cast_detail::void_caster & void_cast_register(
 }
 
 template<class Derived, class Base>
-class void_caster :
+class BOOST_SYMBOL_VISIBLE void_caster :
     public void_cast_detail::void_caster_base<Derived, Base>::type
 {
 };

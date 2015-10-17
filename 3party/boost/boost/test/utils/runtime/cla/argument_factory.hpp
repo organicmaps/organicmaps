@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2005-2008.
-//  Use, modification, and distribution are subject to the 
-//  Boost Software License, Version 1.0. (See accompanying file 
+//  (C) Copyright Gennadiy Rozental 2005-2014.
+//  Use, modification, and distribution are subject to the
+//  Boost Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -12,8 +12,8 @@
 //  Description : generic typed_argument_factory implementation
 // ***************************************************************************
 
-#ifndef BOOST_RT_CLA_ARGUMENT_FACTORY_HPP_062604GER
-#define BOOST_RT_CLA_ARGUMENT_FACTORY_HPP_062604GER
+#ifndef BOOST_TEST_UTILS_RUNTIME_CLA_ARGUMENT_FACTORY_HPP
+#define BOOST_TEST_UTILS_RUNTIME_CLA_ARGUMENT_FACTORY_HPP
 
 // Boost.Runtime.Parameter
 #include <boost/test/utils/runtime/config.hpp>
@@ -33,15 +33,13 @@
 
 #include <boost/test/utils/runtime/cla/iface/argument_factory.hpp>
 
-// Boost.Test
-#include <boost/test/utils/callback.hpp>
-
 // Boost
 #include <boost/optional.hpp>
+#include <boost/function/function2.hpp>
 
 namespace boost {
 
-namespace BOOST_RT_PARAM_NAMESPACE {
+namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE {
 
 namespace cla {
 
@@ -72,7 +70,7 @@ struct typed_argument_factory : public argument_factory {
     typed_argument_factory()
     : m_value_interpreter( rt_cla_detail::default_value_interpreter() )
     {}
-    BOOST_RT_PARAM_UNNEEDED_VIRTUAL ~typed_argument_factory() {}
+    BOOST_TEST_UTILS_RUNTIME_PARAM_UNNEEDED_VIRTUAL ~typed_argument_factory() {}
 
     // properties modification
     template<typename Modifier>
@@ -82,24 +80,24 @@ struct typed_argument_factory : public argument_factory {
         optionally_assign( m_value_interpreter, m, interpreter );
 
         if( m.has( default_value ) ) {
-            BOOST_RT_PARAM_VALIDATE_LOGIC( !m_value_generator, 
-                BOOST_RT_PARAM_LITERAL( "multiple value generators for parameter" ) );
+            BOOST_TEST_UTILS_RUNTIME_PARAM_VALIDATE_LOGIC( !m_value_generator,
+                BOOST_TEST_UTILS_RUNTIME_PARAM_LITERAL( "multiple value generators for parameter" ) );
 
             T const& dv_ref = m[default_value];
             m_value_generator = rt_cla_detail::const_generator<T>( dv_ref );
         }
 
         if( m.has( default_refer_to ) ) {
-            BOOST_RT_PARAM_VALIDATE_LOGIC( !m_value_generator, 
-                BOOST_RT_PARAM_LITERAL( "multiple value generators for parameter" ) );
+            BOOST_TEST_UTILS_RUNTIME_PARAM_VALIDATE_LOGIC( !m_value_generator,
+                BOOST_TEST_UTILS_RUNTIME_PARAM_LITERAL( "multiple value generators for parameter" ) );
 
             cstring ref_id = m[default_refer_to];
             m_value_generator = rt_cla_detail::ref_generator<T>( ref_id );
         }
 
         if( m.has( assign_to ) ) {
-            BOOST_RT_PARAM_VALIDATE_LOGIC( !m_value_handler, 
-                BOOST_RT_PARAM_LITERAL( "multiple value handlers for parameter" ) );
+            BOOST_TEST_UTILS_RUNTIME_PARAM_VALIDATE_LOGIC( !m_value_handler,
+                BOOST_TEST_UTILS_RUNTIME_PARAM_LITERAL( "multiple value handlers for parameter" ) );
 
             m_value_handler = rt_cla_detail::assigner<T>( m[assign_to] );
         }
@@ -112,9 +110,9 @@ struct typed_argument_factory : public argument_factory {
 
 // !! private?
     // Data members
-    unit_test::callback2<parameter const&,T&>                   m_value_handler;
-    unit_test::callback2<parser const&,boost::optional<T>&>     m_value_generator;
-    unit_test::callback2<argv_traverser&,boost::optional<T>&>   m_value_interpreter;
+    boost::function<void (parameter const&,T&)>                 m_value_handler;
+    boost::function<void (parser const&,boost::optional<T>&)>   m_value_generator;
+    boost::function<void (argv_traverser&,boost::optional<T>&)> m_value_interpreter;
 };
 
 //____________________________________________________________________________//
@@ -125,23 +123,23 @@ typed_argument_factory<T>::produce_using( parameter& p, argv_traverser& tr )
 {
     boost::optional<T> value;
 
-    try {
+    BOOST_TEST_IMPL_TRY {
         m_value_interpreter( tr, value );
     }
-    catch( ... ) { // !! should we do that?
-        BOOST_RT_PARAM_TRACE( "Fail to parse argument value" );
+    BOOST_TEST_IMPL_CATCHALL() { // !! should we do that?
+        BOOST_TEST_UTILS_RUNTIME_PARAM_TRACE( "Fail to parse argument value" );
 
         if( !p.p_optional_value )
-            throw;
+            BOOST_TEST_IMPL_RETHROW;
     }
 
     argument_ptr actual_arg = p.actual_argument();
 
-    BOOST_RT_CLA_VALIDATE_INPUT( !!value || p.p_optional_value, tr, 
-        BOOST_RT_PARAM_LITERAL( "Argument value missing for parameter " ) << p.id_2_report() );
+    BOOST_TEST_UTILS_RUNTIME_CLA_VALIDATE_INPUT( !!value || p.p_optional_value, tr,
+        BOOST_TEST_UTILS_RUNTIME_PARAM_LITERAL( "Argument value missing for parameter " ) << p.id_2_report() );
 
-    BOOST_RT_CLA_VALIDATE_INPUT( !actual_arg || p.p_multiplicable, tr, 
-        BOOST_RT_PARAM_LITERAL( "Unexpected repetition of the parameter " ) << p.id_2_report() );
+    BOOST_TEST_UTILS_RUNTIME_CLA_VALIDATE_INPUT( !actual_arg || p.p_multiplicable, tr,
+        BOOST_TEST_UTILS_RUNTIME_PARAM_LITERAL( "Unexpected repetition of the parameter " ) << p.id_2_report() );
 
     if( !!value && !!m_value_handler )
         m_value_handler( p, *value );
@@ -154,7 +152,7 @@ typed_argument_factory<T>::produce_using( parameter& p, argv_traverser& tr )
         typedef std::list<boost::optional<T> > optional_list;
 
         if( !actual_arg )
-            actual_arg.reset( p.p_optional_value 
+            actual_arg.reset( p.p_optional_value
                 ? static_cast<argument*>(new typed_argument<optional_list>( p ))
                 : static_cast<argument*>(new typed_argument<std::list<T> >( p )) );
 
@@ -165,7 +163,7 @@ typed_argument_factory<T>::produce_using( parameter& p, argv_traverser& tr )
         }
         else {
             std::list<T>& values = arg_value<std::list<T> >( *actual_arg );
-            
+
             values.push_back( *value );
         }
     }
@@ -176,7 +174,7 @@ typed_argument_factory<T>::produce_using( parameter& p, argv_traverser& tr )
 //____________________________________________________________________________//
 
 template<typename T>
-inline argument_ptr 
+inline argument_ptr
 typed_argument_factory<T>::produce_using( parameter& p, parser const& pa )
 {
     argument_ptr actual_arg;
@@ -211,8 +209,8 @@ typed_argument_factory<T>::argument_usage_info( format_stream& fs )
 
 } // namespace boost
 
-} // namespace BOOST_RT_PARAM_NAMESPACE
+} // namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE
 
 } // namespace cla
 
-#endif // BOOST_RT_CLA_ARGUMENT_FACTORY_HPP_062604GER
+#endif // BOOST_TEST_UTILS_RUNTIME_CLA_ARGUMENT_FACTORY_HPP

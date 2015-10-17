@@ -65,7 +65,7 @@ private:
 protected:
     // default processing - invoke serialization library
     template<class T>
-    void save_override(T & t, BOOST_PFTO int){
+    void save_override(T & t){
         archive::save(* this->This(), t);
     }
     void save_start(const char * /*name*/){}

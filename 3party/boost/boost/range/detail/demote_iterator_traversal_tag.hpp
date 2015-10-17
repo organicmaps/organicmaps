@@ -79,8 +79,8 @@ BOOST_DEMOTE_TRAVERSAL_TAG( random_access_traversal_tag, random_access_traversal
 template<class IteratorTraversalTag1, class IteratorTraversalTag2>
 struct demote_iterator_traversal_tag
     : inner_demote_iterator_traversal_tag<
-        typename boost::detail::pure_traversal_tag< IteratorTraversalTag1 >::type,
-        typename boost::detail::pure_traversal_tag< IteratorTraversalTag2 >::type
+        typename boost::iterators::pure_traversal_tag< IteratorTraversalTag1 >::type,
+        typename boost::iterators::pure_traversal_tag< IteratorTraversalTag2 >::type
       >
 {
 };

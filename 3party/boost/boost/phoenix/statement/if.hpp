@@ -8,7 +8,7 @@
 #ifndef BOOST_PHOENIX_STATEMENT_IF_HPP
 #define BOOST_PHOENIX_STATEMENT_IF_HPP
 
-#include <boost/config.hpp>
+#include <boost/phoenix/config.hpp>
 #include <boost/phoenix/core/limits.hpp>
 #include <boost/phoenix/core/actor.hpp>
 #include <boost/phoenix/core/call.hpp>

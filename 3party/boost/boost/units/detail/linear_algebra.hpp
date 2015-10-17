@@ -246,7 +246,7 @@ struct determine_extra_equations {
         typedef typename RowsBegin::item top_row;
         typedef typename determine_extra_equations_skip_zeros_impl<
             top_row::item::Numerator == 0,
-            RowsBegin::item::size::value == 1
+            RowsBegin::size::value == 1
         >::template apply<
             RowsBegin,
             RowsBegin::size::value,

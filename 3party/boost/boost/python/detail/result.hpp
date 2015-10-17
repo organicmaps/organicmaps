@@ -43,9 +43,7 @@ namespace boost { namespace python { namespace detail {
 template <class R, class T>
 boost::type<R>* result(R (T::*), int = 0) { return 0; }
 
-#  if (defined(BOOST_MSVC) && _MSC_FULL_VER <= 13102140)  \
-   || (defined(__GNUC__) && __GNUC__ < 3)                 \
-   || (defined(__MWERKS__) && __MWERKS__ < 0x3000)
+#  if (defined(__MWERKS__) && __MWERKS__ < 0x3000)
 // This code actually works on all implementations, but why use it when we don't have to?
 template <class T>
 struct get_result_type

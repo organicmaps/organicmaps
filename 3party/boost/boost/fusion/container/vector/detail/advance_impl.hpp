@@ -18,7 +18,7 @@ namespace boost { namespace fusion
     {
         template <typename Tag>
         struct advance_impl;
-    
+
         template <>
         struct advance_impl<vector_iterator_tag>
         {
@@ -28,8 +28,8 @@ namespace boost { namespace fusion
                 typedef typename Iterator::index index;
                 typedef typename Iterator::vector vector;
                 typedef vector_iterator<vector, index::value+N::value> type;
-    
-                BOOST_FUSION_GPU_ENABLED
+
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Iterator const& i)
                 {

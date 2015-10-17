@@ -11,7 +11,11 @@
 #ifndef BOOST_INTERPROCESS_SHM_NAMED_SEMAPHORE_HPP
 #define BOOST_INTERPROCESS_SHM_NAMED_SEMAPHORE_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -33,13 +37,13 @@ namespace ipcdetail {
 
 class shm_named_semaphore
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
    //Non-copyable
    shm_named_semaphore();
    shm_named_semaphore(const shm_named_semaphore &);
    shm_named_semaphore &operator=(const shm_named_semaphore &);
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    shm_named_semaphore(create_only_t, const char *name, unsigned int initialCount, const permissions &perm = permissions());
@@ -57,7 +61,7 @@ class shm_named_semaphore
 
    static bool remove(const char *name);
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    friend class interprocess_tester;
    void dont_close_on_destruction();
@@ -68,7 +72,7 @@ class shm_named_semaphore
    typedef ipcdetail::managed_open_or_create_impl<shared_memory_object, 0, true, false> open_create_impl_t;
    open_create_impl_t m_shmem;
    typedef named_creation_functor<interprocess_semaphore, int> construct_func_t;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
 
 inline shm_named_semaphore::~shm_named_semaphore()

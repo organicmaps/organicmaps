@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2005-2008.
+//  (C) Copyright Gennadiy Rozental 2005-2014.
 //  Use, modification, and distribution are subject to the
 //  Boost Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -12,8 +12,8 @@
 //  Description : defines interface for identification_policy
 // ***************************************************************************
 
-#ifndef BOOST_RT_CLA_IFACE_ID_POLICY_HPP_062604GER
-#define BOOST_RT_CLA_IFACE_ID_POLICY_HPP_062604GER
+#ifndef BOOST_TEST_UTILS_RUNTIME_CLA_IFACE_ID_POLICY_HPP
+#define BOOST_TEST_UTILS_RUNTIME_CLA_IFACE_ID_POLICY_HPP
 
 // Boost.Runtime.Parameter
 #include <boost/test/utils/runtime/config.hpp>
@@ -26,7 +26,7 @@
 
 namespace boost {
 
-namespace BOOST_RT_PARAM_NAMESPACE {
+namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE {
 
 namespace cla {
 
@@ -66,8 +66,8 @@ protected:
 
 } // namespace cla
 
-} // namespace BOOST_RT_PARAM_NAMESPACE
+} // namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE
 
 } // namespace boost
 
-#endif // BOOST_RT_CLA_IFACE_ID_POLICY_HPP_062604GER
+#endif // BOOST_TEST_UTILS_RUNTIME_CLA_IFACE_ID_POLICY_HPP

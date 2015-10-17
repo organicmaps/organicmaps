@@ -11,7 +11,11 @@
 #ifndef BOOST_INTERPROCESS_NAMED_MUTEX_HPP
 #define BOOST_INTERPROCESS_NAMED_MUTEX_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -46,14 +50,14 @@ class named_condition;
 //!each process should have it's own named_mutex.
 class named_mutex
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
    //Non-copyable
    named_mutex();
    named_mutex(const named_mutex &);
    named_mutex &operator=(const named_mutex &);
    friend class named_condition;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    //!Creates a global mutex with a name.
@@ -103,7 +107,7 @@ class named_mutex
    //!Returns false on error. Never throws.
    static bool remove(const char *name);
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    friend class ipcdetail::interprocess_tester;
    void dont_close_on_destruction();
@@ -123,10 +127,10 @@ class named_mutex
 
    internal_mutex_type m_mut;
 
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
 inline named_mutex::named_mutex(create_only_t, const char *name, const permissions &perm)
    :  m_mut(create_only_t(), name, perm)
@@ -161,7 +165,7 @@ inline bool named_mutex::timed_lock(const boost::posix_time::ptime &abs_time)
 inline bool named_mutex::remove(const char *name)
 {  return internal_mutex_type::remove(name);   }
 
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 }  //namespace interprocess {
 }  //namespace boost {

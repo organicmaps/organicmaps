@@ -13,10 +13,10 @@
 #include <boost/function/function1.hpp>
 #include <boost/lexical_cast.hpp>
 
-
 #include <string>
 #include <vector>
 #include <typeinfo>
+#include <limits>
 
 namespace boost { namespace program_options {
 
@@ -38,6 +38,11 @@ namespace boost { namespace program_options {
             should be present on the command line. */
         virtual unsigned max_tokens() const = 0;
 
+        /** Returns true if the option should only take adjacent token,
+            not one from further command-line arguments.
+        */
+        virtual bool adjacent_tokens_only() const = 0;
+
         /** Returns true if values from different sources should be composed.
             Otherwise, value from the first source is used and values from
             other sources are discarded.
@@ -48,7 +53,7 @@ namespace boost { namespace program_options {
 
         */
         virtual bool is_required() const = 0;
-        
+
         /** Parses a group of tokens that specify a value of option.
             Stores the result in 'value_store', using whatever representation
             is desired. May be be called several times if value of the same
@@ -134,6 +139,7 @@ namespace boost { namespace program_options {
 
         unsigned min_tokens() const;
         unsigned max_tokens() const;
+        bool adjacent_tokens_only() const { return false; }
 
         bool is_composing() const { return false; }
 
@@ -156,6 +162,7 @@ namespace boost { namespace program_options {
         bool m_zero_tokens;
     };
 
+#ifndef BOOST_NO_RTTI
     /** Base class for all option that have a fixed type, and are
         willing to announce this type to the outside world.
         Any 'value_semantics' for which you want to find out the
@@ -172,20 +179,23 @@ namespace boost { namespace program_options {
         // class is silly, but just in case.
         virtual ~typed_value_base() {}
     };
+#endif
 
 
     /** Class which handles value of a specific type. */
     template<class T, class charT = char>
-    class typed_value : public value_semantic_codecvt_helper<charT>,
-                        public typed_value_base
+    class typed_value : public value_semantic_codecvt_helper<charT>
+#ifndef BOOST_NO_RTTI
+                      , public typed_value_base
+#endif
     {
     public:
         /** Ctor. The 'store_to' parameter tells where to store
             the value when it's known. The parameter can be NULL. */
         typed_value(T* store_to) 
         : m_store_to(store_to), m_composing(false),
-          m_multitoken(false), m_zero_tokens(false),
-          m_required(false)
+          m_implicit(false), m_multitoken(false),
+          m_zero_tokens(false), m_required(false)
         {} 
 
         /** Specifies default value, which will be used
@@ -313,13 +323,15 @@ namespace boost { namespace program_options {
 
         unsigned max_tokens() const {
             if (m_multitoken) {
-                return 32000;
+                return std::numeric_limits<unsigned>::max BOOST_PREVENT_MACRO_SUBSTITUTION();
             } else if (m_zero_tokens) {
                 return 0;
             } else {
                 return 1;
             }
         }
+
+        bool adjacent_tokens_only() const { return !m_implicit_value.empty(); }
 
         bool is_required() const { return m_required; }
 
@@ -350,10 +362,12 @@ namespace boost { namespace program_options {
 
     public: // typed_value_base overrides
         
+#ifndef BOOST_NO_RTTI
         const std::type_info& value_type() const
         {
             return typeid(T);
         }
+#endif
         
 
     private:

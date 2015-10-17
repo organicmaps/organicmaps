@@ -36,6 +36,14 @@
 #ifndef BOOST_INTERPROCESS_VECTORSTREAM_HPP
 #define BOOST_INTERPROCESS_VECTORSTREAM_HPP
 
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
 
@@ -67,13 +75,13 @@ class basic_vectorbuf
    typedef typename CharTraits::off_type     off_type;
    typedef CharTraits                        traits_type;
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    typedef std::basic_streambuf<char_type, traits_type> base_t;
 
    basic_vectorbuf(const basic_vectorbuf&);
    basic_vectorbuf & operator =(const basic_vectorbuf&);
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    //!Constructor. Throws if vector_type default
@@ -161,7 +169,7 @@ class basic_vectorbuf
    void clear()
    {  m_vect.clear();   this->initialize_pointers();   }
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    //Maximizes high watermark to the initial vector size,
    //initializes read and write iostream buffers to the capacity
@@ -290,8 +298,8 @@ class basic_vectorbuf
          return pos_type(off_type(-1));
       else if((in && out) && (dir == std::ios_base::cur))
          return pos_type(off_type(-1));
-      else if((in  && (!(m_mode & std::ios_base::in) || this->gptr() == 0)) ||
-               (out && (!(m_mode & std::ios_base::out) || this->pptr() == 0)))
+      else if((in  && (!(m_mode & std::ios_base::in) || (off != 0 && this->gptr() == 0) )) ||
+               (out && (!(m_mode & std::ios_base::out) || (off != 0 && this->pptr() == 0))))
          return pos_type(off_type(-1));
 
       off_type newoff;
@@ -356,7 +364,7 @@ class basic_vectorbuf
    std::ios_base::openmode m_mode;
    mutable vector_type     m_vect;
    mutable char_type*      mp_high_water;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
 
 //!A basic_istream class that holds a character vector specified by CharVector
@@ -366,9 +374,9 @@ class basic_vectorbuf
 template <class CharVector, class CharTraits>
 class basic_ivectorstream
    : public std::basic_istream<typename CharVector::value_type, CharTraits>
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    , private basic_vectorbuf<CharVector, CharTraits>
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 {
    public:
    typedef CharVector                                                   vector_type;
@@ -379,7 +387,7 @@ class basic_ivectorstream
    typedef typename std::basic_ios<char_type, CharTraits>::off_type     off_type;
    typedef typename std::basic_ios<char_type, CharTraits>::traits_type  traits_type;
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    typedef basic_vectorbuf<CharVector, CharTraits>    vectorbuf_t;
    typedef std::basic_ios<char_type, CharTraits>      basic_ios_t;
@@ -387,7 +395,7 @@ class basic_ivectorstream
 
    vectorbuf_t &       get_buf()      {  return *this;  }
    const vectorbuf_t & get_buf() const{  return *this;  }
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
 
@@ -447,9 +455,9 @@ class basic_ivectorstream
 template <class CharVector, class CharTraits>
 class basic_ovectorstream
    : public std::basic_ostream<typename CharVector::value_type, CharTraits>
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    , private basic_vectorbuf<CharVector, CharTraits>
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 {
    public:
    typedef CharVector                                                   vector_type;
@@ -460,7 +468,7 @@ class basic_ovectorstream
    typedef typename std::basic_ios<char_type, CharTraits>::off_type     off_type;
    typedef typename std::basic_ios<char_type, CharTraits>::traits_type  traits_type;
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    typedef basic_vectorbuf<CharVector, CharTraits>    vectorbuf_t;
    typedef std::basic_ios<char_type, CharTraits>      basic_ios_t;
@@ -468,7 +476,7 @@ class basic_ovectorstream
 
    vectorbuf_t &       get_buf()      {  return *this;  }
    const vectorbuf_t & get_buf()const {  return *this;  }
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    //!Constructor. Throws if vector_type default
@@ -522,9 +530,9 @@ class basic_ovectorstream
 template <class CharVector, class CharTraits>
 class basic_vectorstream
    : public std::basic_iostream<typename CharVector::value_type, CharTraits>
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    , private basic_vectorbuf<CharVector, CharTraits>
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 {
    public:
    typedef CharVector                                                   vector_type;
@@ -535,7 +543,7 @@ class basic_vectorstream
    typedef typename std::basic_ios<char_type, CharTraits>::off_type     off_type;
    typedef typename std::basic_ios<char_type, CharTraits>::traits_type  traits_type;
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    typedef basic_vectorbuf<CharVector, CharTraits>    vectorbuf_t;
    typedef std::basic_ios<char_type, CharTraits>      basic_ios_t;
@@ -543,7 +551,7 @@ class basic_vectorstream
 
    vectorbuf_t &       get_buf()      {  return *this;  }
    const vectorbuf_t & get_buf() const{  return *this;  }
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    //!Constructor. Throws if vector_type default

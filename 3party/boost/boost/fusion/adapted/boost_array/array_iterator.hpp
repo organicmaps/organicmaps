@@ -32,7 +32,7 @@ namespace boost { namespace fusion
         typedef mpl::int_<Pos> index;
         typedef Array array_type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         array_iterator(Array& a)
             : array(a) {}
 
@@ -57,7 +57,7 @@ namespace boost { namespace fusion
                 >::type 
             type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type
             call(Iterator const & it)
             {
@@ -72,7 +72,7 @@ namespace boost { namespace fusion
             typedef typename Iterator::array_type array_type;
             typedef array_iterator<array_type, index::value + N::value> type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type
             call(Iterator const& i)
             {
@@ -95,7 +95,7 @@ namespace boost { namespace fusion
                 >::type 
             type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type
             call(I1 const&, I2 const&)
             {
@@ -108,5 +108,14 @@ namespace boost { namespace fusion
         array_iterator<Array, Pos>& operator=(array_iterator<Array, Pos> const&);
     };
 }}
+
+#ifdef BOOST_FUSION_WORKAROUND_FOR_LWG_2408
+namespace std
+{
+    template <typename Array, int Pos>
+    struct iterator_traits< ::boost::fusion::array_iterator<Array, Pos> >
+    { };
+}
+#endif
 
 #endif

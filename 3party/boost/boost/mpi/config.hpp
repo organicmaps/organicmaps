@@ -20,10 +20,17 @@
 #include <mpi.h>
 #include <boost/config.hpp>
 
-/** @brief Define this macro to avoid expensice MPI_Pack/Unpack calls on 
- *  homogeneous machines.
-*/
-//#define BOOST_MPI_HOMOGENEOUS
+/** @brief Comment this macro is you are running in an heterogeneous environement.
+ *
+ * When this flags is enabled, we assume some simple, POD like, type can be
+ * transmited without paying the cost of portable serialization.
+ *
+ * Comment this if your platform is not homogeneous and that portable
+ * serialization/deserialization must be performed.
+ *
+ * It you do so, check that you MPI implementation supports thats kind of environement.
+ */
+#define BOOST_MPI_HOMOGENEOUS
 
 // If this is an MPI-2 implementation, define configuration macros for
 // the features we are interested in.
@@ -71,10 +78,20 @@
 #  define BOOST_MPI_CALLING_CONVENTION
 #endif
 
+/** @brief Indicates that MPI_Bcast supports MPI_BOTTOM.
+ *
+ * Some implementations have a broken MPI_Bcast wrt to MPI_BOTTOM.
+ * BullX MPI and LAM seems to be among them, at least for some versions.
+ * The `broacast_test.cpp` test `test_skeleton_and_content` can be used to
+ * detect that.
+ */
+#define BOOST_MPI_BCAST_BOTTOM_WORKS_FINE
+
 #if defined(LAM_MPI)
 // Configuration for LAM/MPI
 #  define BOOST_MPI_HAS_MEMORY_ALLOCATION
 #  define BOOST_MPI_HAS_NOARG_INITIALIZATION
+#  undef  BOOST_MPI_BCAST_BOTTOM_WORKS_FINE
 #elif defined(MPICH_NAME)
 // Configuration for MPICH
 #endif

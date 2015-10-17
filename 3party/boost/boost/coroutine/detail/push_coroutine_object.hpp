@@ -16,6 +16,7 @@
 #include <boost/coroutine/detail/config.hpp>
 #include <boost/coroutine/detail/coroutine_context.hpp>
 #include <boost/coroutine/detail/flags.hpp>
+#include <boost/coroutine/detail/preallocated.hpp>
 #include <boost/coroutine/detail/push_coroutine_impl.hpp>
 #include <boost/coroutine/detail/trampoline_push.hpp>
 #include <boost/coroutine/exceptions.hpp>
@@ -41,9 +42,9 @@ struct push_coroutine_context
     coroutine_context   callee;
 
     template< typename Coro >
-    push_coroutine_context( stack_context const& stack_ctx, Coro *) :
+    push_coroutine_context( preallocated const& palloc, Coro *) :
         caller(),
-        callee( trampoline_push< Coro >, stack_ctx)
+        callee( trampoline_push< Coro >, palloc)
     {}
 };
 
@@ -53,9 +54,9 @@ struct push_coroutine_context_void
     coroutine_context   callee;
 
     template< typename Coro >
-    push_coroutine_context_void( stack_context const& stack_ctx, Coro *) :
+    push_coroutine_context_void( preallocated const& palloc, Coro *) :
         caller(),
-        callee( trampoline_push_void< Coro >, stack_ctx)
+        callee( trampoline_push_void< Coro >, palloc)
     {}
 };
 
@@ -84,25 +85,23 @@ private:
 public:
 #ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
     push_coroutine_object( Fn fn, attributes const& attrs,
-                           stack_context const& stack_ctx,
-                           stack_context const& internal_stack_ctx,
+                           preallocated const& palloc,
                            StackAllocator const& stack_alloc) BOOST_NOEXCEPT :
-        ctx_t( internal_stack_ctx, this),
+        ctx_t( palloc, this),
         base_t( & this->caller,
                 & this->callee,
                 stack_unwind == attrs.do_unwind,
                 fpu_preserved == attrs.preserve_fpu),
         fn_( fn),
-        stack_ctx_( stack_ctx),
+        stack_ctx_( palloc.sctx),
         stack_alloc_( stack_alloc)
     {}
 #endif
 
     push_coroutine_object( BOOST_RV_REF( Fn) fn, attributes const& attrs,
-                           stack_context const& stack_ctx,
-                           stack_context const& internal_stack_ctx,
+                           preallocated const& palloc,
                            StackAllocator const& stack_alloc) BOOST_NOEXCEPT :
-        ctx_t( internal_stack_ctx, this),
+        ctx_t( palloc, this),
         base_t( & this->caller,
                 & this->callee,
                 stack_unwind == attrs.do_unwind,
@@ -110,9 +109,9 @@ public:
 #ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
         fn_( fn),
 #else
-        fn_( forward< Fn >( fn) ),
+        fn_( boost::forward< Fn >( fn) ),
 #endif
-        stack_ctx_( stack_ctx),
+        stack_ctx_( palloc.sctx),
         stack_alloc_( stack_alloc)
     {}
 
@@ -172,25 +171,23 @@ private:
 public:
 #ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
     push_coroutine_object( Fn fn, attributes const& attrs,
-                           stack_context const& stack_ctx,
-                           stack_context const& internal_stack_ctx,
+                           preallocated const& palloc,
                            StackAllocator const& stack_alloc) BOOST_NOEXCEPT :
-        ctx_t( internal_stack_ctx, this),
+        ctx_t( palloc, this),
         base_t( & this->caller,
                 & this->callee,
                 stack_unwind == attrs.do_unwind,
                 fpu_preserved == attrs.preserve_fpu),
         fn_( fn),
-        stack_ctx_( stack_ctx),
+        stack_ctx_( palloc.sctx),
         stack_alloc_( stack_alloc)
     {}
 #endif
 
     push_coroutine_object( BOOST_RV_REF( Fn) fn, attributes const& attrs,
-                           stack_context const& stack_ctx,
-                           stack_context const& internal_stack_ctx,
+                           preallocated const& palloc,
                            StackAllocator const& stack_alloc) BOOST_NOEXCEPT :
-        ctx_t( internal_stack_ctx, this),
+        ctx_t( palloc, this),
         base_t( & this->caller,
                 & this->callee,
                 stack_unwind == attrs.do_unwind,
@@ -198,9 +195,9 @@ public:
 #ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
         fn_( fn),
 #else
-        fn_( forward< Fn >( fn) ),
+        fn_( boost::forward< Fn >( fn) ),
 #endif
-        stack_ctx_( stack_ctx),
+        stack_ctx_( palloc.sctx),
         stack_alloc_( stack_alloc)
     {}
 
@@ -260,25 +257,23 @@ private:
 public:
 #ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
     push_coroutine_object( Fn fn, attributes const& attrs,
-                           stack_context const& stack_ctx,
-                           stack_context const& internal_stack_ctx,
+                           preallocated const& palloc,
                            StackAllocator const& stack_alloc) BOOST_NOEXCEPT :
-        ctx_t( internal_stack_ctx, this),
+        ctx_t( palloc, this),
         base_t( & this->caller,
                 & this->callee,
                 stack_unwind == attrs.do_unwind,
                 fpu_preserved == attrs.preserve_fpu),
         fn_( fn),
-        stack_ctx_( stack_ctx),
+        stack_ctx_( palloc.sctx),
         stack_alloc_( stack_alloc)
     {}
 #endif
 
     push_coroutine_object( BOOST_RV_REF( Fn) fn, attributes const& attrs,
-                           stack_context const& stack_ctx,
-                           stack_context const& internal_stack_ctx,
+                           preallocated const& palloc,
                            StackAllocator const& stack_alloc) BOOST_NOEXCEPT :
-        ctx_t( internal_stack_ctx, this),
+        ctx_t( palloc, this),
         base_t( & this->caller,
                 & this->callee,
                 stack_unwind == attrs.do_unwind,
@@ -286,9 +281,9 @@ public:
 #ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
         fn_( fn),
 #else
-        fn_( forward< Fn >( fn) ),
+        fn_( boost::forward< Fn >( fn) ),
 #endif
-        stack_ctx_( stack_ctx),
+        stack_ctx_( palloc.sctx),
         stack_alloc_( stack_alloc)
     {}
 

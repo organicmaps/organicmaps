@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 //
 // (C) Copyright Olaf Krzikalla 2004-2006.
-// (C) Copyright Ion Gaztanaga  2006-2013
+// (C) Copyright Ion Gaztanaga  2006-2014
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -16,9 +16,12 @@
 #include <boost/intrusive/detail/config_begin.hpp>
 #include <boost/intrusive/intrusive_fwd.hpp>
 #include <boost/intrusive/hashtable.hpp>
-#include <boost/move/move.hpp>
-#include <iterator>
+#include <boost/move/utility_core.hpp>
+#include <boost/static_assert.hpp>
 
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
 
 namespace boost {
 namespace intrusive {
@@ -61,14 +64,24 @@ namespace intrusive {
 #if defined(BOOST_INTRUSIVE_DOXYGEN_INVOKED)
 template<class T, class ...Options>
 #else
-template<class ValueTraits, class Hash, class Equal, class SizeType, class BucketTraits, std::size_t BoolFlags>
+template<class ValueTraits, class VoidOrKeyOfValue, class VoidOrKeyHash, class VoidOrKeyEqual, class SizeType, class BucketTraits, std::size_t BoolFlags>
 #endif
 class unordered_set_impl
-   : public hashtable_impl<ValueTraits, Hash, Equal, SizeType, BucketTraits, BoolFlags>
+   : public hashtable_impl<ValueTraits, VoidOrKeyOfValue, VoidOrKeyHash, VoidOrKeyEqual, BucketTraits, SizeType, BoolFlags|hash_bool_flags::unique_keys_pos>
 {
    /// @cond
    private:
-   typedef hashtable_impl<ValueTraits, Hash, Equal, SizeType, BucketTraits, BoolFlags> table_type;
+   typedef hashtable_impl<ValueTraits, VoidOrKeyOfValue, VoidOrKeyHash, VoidOrKeyEqual, BucketTraits, SizeType, BoolFlags|hash_bool_flags::unique_keys_pos> table_type;
+
+   template<class Iterator, class MaybeConstThis, class KeyType, class KeyHasher, class KeyEqual>
+   static std::pair<Iterator,Iterator> priv_equal_range(MaybeConstThis &c, const KeyType& key, KeyHasher hash_func, KeyEqual equal_func)
+   {
+      Iterator const it = c.find(key, hash_func, equal_func);
+      std::pair<Iterator,Iterator> ret(it, it);
+      if(it != c.end())
+         ++ret.second;
+      return ret;
+   }
 
    //! This class is
    //! movable
@@ -79,6 +92,8 @@ class unordered_set_impl
 
    public:
    typedef typename implementation_defined::value_type                  value_type;
+   typedef typename implementation_defined::key_type                    key_type;
+   typedef typename implementation_defined::key_of_value                key_of_value;
    typedef typename implementation_defined::value_traits                value_traits;
    typedef typename implementation_defined::bucket_traits               bucket_traits;
    typedef typename implementation_defined::pointer                     pointer;
@@ -87,7 +102,6 @@ class unordered_set_impl
    typedef typename implementation_defined::const_reference             const_reference;
    typedef typename implementation_defined::difference_type             difference_type;
    typedef typename implementation_defined::size_type                   size_type;
-   typedef typename implementation_defined::key_type                    key_type;
    typedef typename implementation_defined::key_equal                   key_equal;
    typedef typename implementation_defined::hasher                      hasher;
    typedef typename implementation_defined::bucket_type                 bucket_type;
@@ -105,19 +119,7 @@ class unordered_set_impl
 
    public:
 
-   //! <b>Requires</b>: buckets must not be being used by any other resource.
-   //!
-   //! <b>Effects</b>: Constructs an empty unordered_set_impl, storing a reference
-   //!   to the bucket array and copies of the hasher and equal functors.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: If value_traits::node_traits::node
-   //!   constructor throws (this does not happen with predefined Boost.Intrusive hooks)
-   //!   or the copy constructor or invocation of Hash or Equal throws.
-   //!
-   //! <b>Notes</b>: buckets array must be disposed only after
-   //!   *this is disposed.
+   //! @copydoc ::boost::intrusive::hashtable::hashtable(const bucket_traits &,const hasher &,const key_equal &,const value_traits &)
    explicit unordered_set_impl( const bucket_traits &b_traits
                               , const hasher & hash_func = hasher()
                               , const key_equal &equal_func = key_equal()
@@ -125,21 +127,7 @@ class unordered_set_impl
       :  table_type(b_traits, hash_func, equal_func, v_traits)
    {}
 
-   //! <b>Requires</b>: buckets must not be being used by any other resource
-   //!   and Dereferencing iterator must yield an lvalue of type value_type.
-   //!
-   //! <b>Effects</b>: Constructs an empty unordered_set and inserts elements from
-   //!   [b, e).
-   //!
-   //! <b>Complexity</b>: If N is std::distance(b, e): Average case is O(N)
-   //!   (with a good hash function and with buckets_len >= N),worst case O(N2).
-   //!
-   //! <b>Throws</b>: If value_traits::node_traits::node
-   //!   constructor throws (this does not happen with predefined Boost.Intrusive hooks)
-   //!   or the copy constructor or invocation of hasher or key_equal throws.
-   //!
-   //! <b>Notes</b>: buckets array must be disposed only after
-   //!   *this is disposed.
+   //! @copydoc ::boost::intrusive::hashtable::hashtable(bool,Iterator,Iterator,const bucket_traits &,const hasher &,const key_equal &,const value_traits &)
    template<class Iterator>
    unordered_set_impl( Iterator b
                      , Iterator e
@@ -147,859 +135,272 @@ class unordered_set_impl
                      , const hasher & hash_func = hasher()
                      , const key_equal &equal_func = key_equal()
                      , const value_traits &v_traits = value_traits())
-      :  table_type(b_traits, hash_func, equal_func, v_traits)
-   {  table_type::insert_unique(b, e);  }
-
-   //! <b>Effects</b>: to-do
-   //!
-   unordered_set_impl(BOOST_RV_REF(unordered_set_impl) x)
-      :  table_type(::boost::move(static_cast<table_type&>(x)))
+      :  table_type(true, b, e, b_traits, hash_func, equal_func, v_traits)
    {}
 
-   //! <b>Effects</b>: to-do
-   //!
+   //! @copydoc ::boost::intrusive::hashtable::hashtable(hashtable&&)
+   unordered_set_impl(BOOST_RV_REF(unordered_set_impl) x)
+      :  table_type(BOOST_MOVE_BASE(table_type, x))
+   {}
+
+   //! @copydoc ::boost::intrusive::hashtable::operator=(hashtable&&)
    unordered_set_impl& operator=(BOOST_RV_REF(unordered_set_impl) x)
-   {  return static_cast<unordered_set_impl&>(table_type::operator=(::boost::move(static_cast<table_type&>(x)))); }
+   {  return static_cast<unordered_set_impl&>(table_type::operator=(BOOST_MOVE_BASE(table_type, x))); }
 
    #ifdef BOOST_INTRUSIVE_DOXYGEN_INVOKED
-   //! <b>Effects</b>: Detaches all elements from this. The objects in the unordered_set
-   //!   are not deleted (i.e. no destructors are called).
-   //!
-   //! <b>Complexity</b>: Linear to the number of elements in the unordered_set, if
-   //!   it's a safe-mode or auto-unlink value. Otherwise constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   ~unordered_set_impl()
-   {}
+   //! @copydoc ::boost::intrusive::hashtable::~hashtable()
+   ~unordered_set_impl();
 
-   //! <b>Effects</b>: Returns an iterator pointing to the beginning of the unordered_set.
-   //!
-   //! <b>Complexity</b>: Constant time if `cache_begin<>` is true. Amortized
-   //!   constant time with worst case (empty unordered_set) O(this->bucket_count())
-   //!
-   //! <b>Throws</b>: Nothing.
-   iterator begin()
-   { return table_type::begin();  }
+   //! @copydoc ::boost::intrusive::hashtable::begin()
+   iterator begin();
 
-   //! <b>Effects</b>: Returns a const_iterator pointing to the beginning
-   //!   of the unordered_set.
-   //!
-   //! <b>Complexity</b>: Constant time if `cache_begin<>` is true. Amortized
-   //!   constant time with worst case (empty unordered_set) O(this->bucket_count())
-   //!
-   //! <b>Throws</b>: Nothing.
-   const_iterator begin() const
-   { return table_type::begin();  }
+   //! @copydoc ::boost::intrusive::hashtable::begin()const
+   const_iterator begin() const;
 
-   //! <b>Effects</b>: Returns a const_iterator pointing to the beginning
-   //!   of the unordered_set.
-   //!
-   //! <b>Complexity</b>: Constant time if `cache_begin<>` is true. Amortized
-   //!   constant time with worst case (empty unordered_set) O(this->bucket_count())
-   //!
-   //! <b>Throws</b>: Nothing.
-   const_iterator cbegin() const
-   { return table_type::cbegin();  }
+   //! @copydoc ::boost::intrusive::hashtable::cbegin()const
+   const_iterator cbegin() const;
 
-   //! <b>Effects</b>: Returns an iterator pointing to the end of the unordered_set.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   iterator end()
-   { return table_type::end();  }
+   //! @copydoc ::boost::intrusive::hashtable::end()
+   iterator end();
 
-   //! <b>Effects</b>: Returns a const_iterator pointing to the end of the unordered_set.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   const_iterator end() const
-   { return table_type::end();  }
+   //! @copydoc ::boost::intrusive::hashtable::end()const
+   const_iterator end() const;
 
-   //! <b>Effects</b>: Returns a const_iterator pointing to the end of the unordered_set.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   const_iterator cend() const
-   { return table_type::cend();  }
+   //! @copydoc ::boost::intrusive::hashtable::cend()const
+   const_iterator cend() const;
 
-   //! <b>Effects</b>: Returns the hasher object used by the unordered_set.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: If hasher copy-constructor throws.
-   hasher hash_function() const
-   { return table_type::hash_function(); }
+   //! @copydoc ::boost::intrusive::hashtable::hash_function()const
+   hasher hash_function() const;
 
-   //! <b>Effects</b>: Returns the key_equal object used by the unordered_set.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: If key_equal copy-constructor throws.
-   key_equal key_eq() const
-   { return table_type::key_eq(); }
+   //! @copydoc ::boost::intrusive::hashtable::key_eq()const
+   key_equal key_eq() const;
 
-   //! <b>Effects</b>: Returns true if the container is empty.
-   //!
-   //! <b>Complexity</b>: if constant-time size and cache_last options are disabled,
-   //!   average constant time (worst case, with empty() == true: O(this->bucket_count()).
-   //!   Otherwise constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   bool empty() const
-   { return table_type::empty(); }
+   //! @copydoc ::boost::intrusive::hashtable::empty()const
+   bool empty() const;
 
-   //! <b>Effects</b>: Returns the number of elements stored in the unordered_set.
-   //!
-   //! <b>Complexity</b>: Linear to elements contained in *this if
-   //!   constant-time size option is disabled. Constant-time otherwise.
-   //!
-   //! <b>Throws</b>: Nothing.
-   size_type size() const
-   { return table_type::size(); }
+   //! @copydoc ::boost::intrusive::hashtable::size()const
+   size_type size() const;
 
-   //! <b>Requires</b>: the hasher and the equality function unqualified swap
-   //!   call should not throw.
-   //!
-   //! <b>Effects</b>: Swaps the contents of two unordered_sets.
-   //!   Swaps also the contained bucket array and equality and hasher functors.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: If the swap() call for the comparison or hash functors
-   //!   found using ADL throw. Basic guarantee.
-   void swap(unordered_set_impl& other)
-   { table_type::swap(other.table_); }
+   //! @copydoc ::boost::intrusive::hashtable::hashtable
+   void swap(unordered_set_impl& other);
 
-   //! <b>Requires</b>: Disposer::operator()(pointer) shouldn't throw.
-   //!   Cloner should yield to nodes that compare equal and produce the same
-   //!   hash than the original node.
-   //!
-   //! <b>Effects</b>: Erases all the elements from *this
-   //!   calling Disposer::operator()(pointer), clones all the
-   //!   elements from src calling Cloner::operator()(const_reference )
-   //!   and inserts them on *this. The hash function and the equality
-   //!   predicate are copied from the source.
-   //!
-   //!   If store_hash option is true, this method does not use the hash function.
-   //!
-   //!   If any operation throws, all cloned elements are unlinked and disposed
-   //!   calling Disposer::operator()(pointer).
-   //!
-   //! <b>Complexity</b>: Linear to erased plus inserted elements.
-   //!
-   //! <b>Throws</b>: If cloner or hasher throw or hash or equality predicate copying
-   //!   throws. Basic guarantee.
+   //! @copydoc ::boost::intrusive::hashtable::clone_from(const hashtable&,Cloner,Disposer)
    template <class Cloner, class Disposer>
-   void clone_from(const unordered_set_impl &src, Cloner cloner, Disposer disposer)
-   {  table_type::clone_from(src.table_, cloner, disposer);  }
+   void clone_from(const unordered_set_impl &src, Cloner cloner, Disposer disposer);
+
+   #else
+
+   using table_type::clone_from;
 
    #endif //#ifdef BOOST_INTRUSIVE_DOXYGEN_INVOKED
 
-   //! <b>Requires</b>: value must be an lvalue
-   //!
-   //! <b>Effects</b>: Tries to inserts value into the unordered_set.
-   //!
-   //! <b>Returns</b>: If the value
-   //!   is not already present inserts it and returns a pair containing the
-   //!   iterator to the new value and true. If there is an equivalent value
-   //!   returns a pair containing an iterator to the already present value
-   //!   and false.
-   //!
-   //! <b>Complexity</b>: Average case O(1), worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If the internal hasher or the equality functor throws. Strong guarantee.
-   //!
-   //! <b>Note</b>: Does not affect the validity of iterators and references.
-   //!   No copy-constructors are called.
+   //! @copydoc ::boost::intrusive::hashtable::clone_from(hashtable&&,Cloner,Disposer)
+   template <class Cloner, class Disposer>
+   void clone_from(BOOST_RV_REF(unordered_set_impl) src, Cloner cloner, Disposer disposer)
+   {  table_type::clone_from(BOOST_MOVE_BASE(table_type, src), cloner, disposer);  }
+
+   //! @copydoc ::boost::intrusive::hashtable::insert_unique(reference)
    std::pair<iterator, bool> insert(reference value)
    {  return table_type::insert_unique(value);  }
 
-   //! <b>Requires</b>: Dereferencing iterator must yield an lvalue
-   //!   of type value_type.
-   //!
-   //! <b>Effects</b>: Equivalent to this->insert(t) for each element in [b, e).
-   //!
-   //! <b>Complexity</b>: Average case O(N), where N is std::distance(b, e).
-   //!   Worst case O(N*this->size()).
-   //!
-   //! <b>Throws</b>: If the internal hasher or the equality functor throws. Basic guarantee.
-   //!
-   //! <b>Note</b>: Does not affect the validity of iterators and references.
-   //!   No copy-constructors are called.
+   //! @copydoc ::boost::intrusive::hashtable::insert_unique(Iterator,Iterator)
    template<class Iterator>
    void insert(Iterator b, Iterator e)
    {  table_type::insert_unique(b, e);  }
 
-   //! <b>Requires</b>: "hasher" must be a hash function that induces
-   //!   the same hash values as the stored hasher. The difference is that
-   //!   "hasher" hashes the given key instead of the value_type.
-   //!
-   //!   "key_value_equal" must be a equality function that induces
-   //!   the same equality as key_equal. The difference is that
-   //!   "key_value_equal" compares an arbitrary key with the contained values.
-   //!
-   //! <b>Effects</b>: Checks if a value can be inserted in the unordered_set, using
-   //!   a user provided key instead of the value itself.
-   //!
-   //! <b>Returns</b>: If there is an equivalent value
-   //!   returns a pair containing an iterator to the already present value
-   //!   and false. If the value can be inserted returns true in the returned
-   //!   pair boolean and fills "commit_data" that is meant to be used with
-   //!   the "insert_commit" function.
-   //!
-   //! <b>Complexity</b>: Average case O(1), worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If hasher or key_value_equal throw. Strong guarantee.
-   //!
-   //! <b>Notes</b>: This function is used to improve performance when constructing
-   //!   a value_type is expensive: if there is an equivalent value
-   //!   the constructed object must be discarded. Many times, the part of the
-   //!   node that is used to impose the hash or the equality is much cheaper to
-   //!   construct than the value_type and this function offers the possibility to
-   //!   use that the part to check if the insertion will be successful.
-   //!
-   //!   If the check is successful, the user can construct the value_type and use
-   //!   "insert_commit" to insert the object in constant-time.
-   //!
-   //!   "commit_data" remains valid for a subsequent "insert_commit" only if no more
-   //!   objects are inserted or erased from the unordered_set.
-   //!
-   //!   After a successful rehashing insert_commit_data remains valid.
-   template<class KeyType, class KeyHasher, class KeyValueEqual>
+   //! @copydoc ::boost::intrusive::hashtable::insert_unique_check(const KeyType&,KeyHasher,KeyEqual,insert_commit_data&)
+   template<class KeyType, class KeyHasher, class KeyEqual>
    std::pair<iterator, bool> insert_check
-      (const KeyType &key, KeyHasher hasher, KeyValueEqual key_value_equal, insert_commit_data &commit_data)
+      (const KeyType &key, KeyHasher hasher, KeyEqual key_value_equal, insert_commit_data &commit_data)
    {  return table_type::insert_unique_check(key, hasher, key_value_equal, commit_data); }
 
-   //! <b>Requires</b>: value must be an lvalue of type value_type. commit_data
-   //!   must have been obtained from a previous call to "insert_check".
-   //!   No objects should have been inserted or erased from the unordered_set between
-   //!   the "insert_check" that filled "commit_data" and the call to "insert_commit".
-   //!
-   //! <b>Effects</b>: Inserts the value in the unordered_set using the information obtained
-   //!   from the "commit_data" that a previous "insert_check" filled.
-   //!
-   //! <b>Returns</b>: An iterator to the newly inserted object.
-   //!
-   //! <b>Complexity</b>: Constant time.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Notes</b>: This function has only sense if a "insert_check" has been
-   //!   previously executed to fill "commit_data". No value should be inserted or
-   //!   erased between the "insert_check" and "insert_commit" calls.
-   //!
-   //!   After a successful rehashing insert_commit_data remains valid.
+   //! @copydoc ::boost::intrusive::hashtable::insert_unique_commit
    iterator insert_commit(reference value, const insert_commit_data &commit_data)
    {  return table_type::insert_unique_commit(value, commit_data); }
 
    #ifdef BOOST_INTRUSIVE_DOXYGEN_INVOKED
 
-   //! <b>Effects</b>: Erases the element pointed to by i.
-   //!
-   //! <b>Complexity</b>: Average case O(1), worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>: Invalidates the iterators (but not the references)
-   //!    to the erased element. No destructors are called.
-   void erase(const_iterator i)
-   {  table_type::erase(i);  }
+   //! @copydoc ::boost::intrusive::hashtable::erase(const_iterator)
+   void erase(const_iterator i);
 
-   //! <b>Effects</b>: Erases the range pointed to by b end e.
-   //!
-   //! <b>Complexity</b>: Average case O(std::distance(b, e)),
-   //!   worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>: Invalidates the iterators (but not the references)
-   //!    to the erased elements. No destructors are called.
-   void erase(const_iterator b, const_iterator e)
-   {  table_type::erase(b, e);  }
+   //! @copydoc ::boost::intrusive::hashtable::erase(const_iterator,const_iterator)
+   void erase(const_iterator b, const_iterator e);
 
-   //! <b>Effects</b>: Erases all the elements with the given value.
-   //!
-   //! <b>Returns</b>: The number of erased elements.
-   //!
-   //! <b>Complexity</b>: Average case O(this->count(value)).
-   //!   Worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If the internal hasher or the equality functor throws.  Basic guarantee.
-   //!
-   //! <b>Note</b>: Invalidates the iterators (but not the references)
-   //!    to the erased elements. No destructors are called.
-   size_type erase(const_reference value)
-   {  return table_type::erase(value);  }
+   //! @copydoc ::boost::intrusive::hashtable::erase(const key_type &)
+   size_type erase(const key_type &key);
 
-   //! <b>Requires</b>: "hasher" must be a hash function that induces
-   //!   the same hash values as the stored hasher. The difference is that
-   //!   "hasher" hashes the given key instead of the value_type.
-   //!
-   //!   "key_value_equal" must be a equality function that induces
-   //!   the same equality as key_equal. The difference is that
-   //!   "key_value_equal" compares an arbitrary key with the contained values.
-   //!
-   //! <b>Effects</b>: Erases all the elements that have the same hash and
-   //!   compare equal with the given key.
-   //!
-   //! <b>Returns</b>: The number of erased elements.
-   //!
-   //! <b>Complexity</b>: Average case O(this->count(value)).
-   //!   Worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If hash_func or equal_func throw. Basic guarantee.
-   //!
-   //! <b>Note</b>: Invalidates the iterators (but not the references)
-   //!    to the erased elements. No destructors are called.
-   template<class KeyType, class KeyHasher, class KeyValueEqual>
-   size_type erase(const KeyType& key, KeyHasher hash_func, KeyValueEqual equal_func)
-   {  return table_type::erase(key, hash_func, equal_func);  }
+   //! @copydoc ::boost::intrusive::hashtable::erase(const KeyType&,KeyHasher,KeyEqual)
+   template<class KeyType, class KeyHasher, class KeyEqual>
+   size_type erase(const KeyType& key, KeyHasher hash_func, KeyEqual equal_func);
 
-   //! <b>Requires</b>: Disposer::operator()(pointer) shouldn't throw.
-   //!
-   //! <b>Effects</b>: Erases the element pointed to by i.
-   //!   Disposer::operator()(pointer) is called for the removed element.
-   //!
-   //! <b>Complexity</b>: Average case O(1), worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>: Invalidates the iterators
-   //!    to the erased elements.
+   //! @copydoc ::boost::intrusive::hashtable::erase_and_dispose(const_iterator,Disposer)
    template<class Disposer>
-   void erase_and_dispose(const_iterator i, Disposer disposer
-                              /// @cond
-                              , typename detail::enable_if_c<!detail::is_convertible<Disposer, const_iterator>::value >::type * = 0
-                              /// @endcond
-                              )
-   {  table_type::erase_and_dispose(i, disposer);  }
+   BOOST_INTRUSIVE_DOC1ST(void
+      , typename detail::disable_if_convertible<Disposer BOOST_INTRUSIVE_I const_iterator>::type)
+      erase_and_dispose(const_iterator i, Disposer disposer);
 
-   //! <b>Requires</b>: Disposer::operator()(pointer) shouldn't throw.
-   //!
-   //! <b>Effects</b>: Erases the range pointed to by b end e.
-   //!   Disposer::operator()(pointer) is called for the removed elements.
-   //!
-   //! <b>Complexity</b>: Average case O(std::distance(b, e)),
-   //!   worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>: Invalidates the iterators
-   //!    to the erased elements.
+   //! @copydoc ::boost::intrusive::hashtable::erase_and_dispose(const_iterator,const_iterator,Disposer)
    template<class Disposer>
-   void erase_and_dispose(const_iterator b, const_iterator e, Disposer disposer)
-   {  table_type::erase_and_dispose(b, e, disposer);  }
+   void erase_and_dispose(const_iterator b, const_iterator e, Disposer disposer);
 
-   //! <b>Requires</b>: Disposer::operator()(pointer) shouldn't throw.
-   //!
-   //! <b>Effects</b>: Erases all the elements with the given value.
-   //!   Disposer::operator()(pointer) is called for the removed elements.
-   //!
-   //! <b>Returns</b>: The number of erased elements.
-   //!
-   //! <b>Complexity</b>: Average case O(this->count(value)).
-   //!   Worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If the internal hasher or the equality functor throws. Basic guarantee.
-   //!
-   //! <b>Note</b>: Invalidates the iterators (but not the references)
-   //!    to the erased elements. No destructors are called.
+   //! @copydoc ::boost::intrusive::hashtable::erase_and_dispose(const key_type &,Disposer)
    template<class Disposer>
-   size_type erase_and_dispose(const_reference value, Disposer disposer)
-   {  return table_type::erase_and_dispose(value, disposer);  }
+   size_type erase_and_dispose(const key_type &key, Disposer disposer);
 
-   //! <b>Requires</b>: Disposer::operator()(pointer) shouldn't throw.
-   //!
-   //! <b>Effects</b>: Erases all the elements with the given key.
-   //!   according to the comparison functor "equal_func".
-   //!   Disposer::operator()(pointer) is called for the removed elements.
-   //!
-   //! <b>Returns</b>: The number of erased elements.
-   //!
-   //! <b>Complexity</b>: Average case O(this->count(value)).
-   //!   Worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If hash_func or equal_func throw. Basic guarantee.
-   //!
-   //! <b>Note</b>: Invalidates the iterators
-   //!    to the erased elements.
-   template<class KeyType, class KeyHasher, class KeyValueEqual, class Disposer>
-   size_type erase_and_dispose(const KeyType& key, KeyHasher hash_func, KeyValueEqual equal_func, Disposer disposer)
-   {  return table_type::erase_and_dispose(key, hash_func, equal_func, disposer);  }
+   //! @copydoc ::boost::intrusive::hashtable::erase_and_dispose(const KeyType&,KeyHasher,KeyEqual,Disposer)
+   template<class KeyType, class KeyHasher, class KeyEqual, class Disposer>
+   size_type erase_and_dispose(const KeyType& key, KeyHasher hash_func, KeyEqual equal_func, Disposer disposer);
 
-   //! <b>Effects</b>: Erases all of the elements.
-   //!
-   //! <b>Complexity</b>: Linear to the number of elements on the container.
-   //!   if it's a safe-mode or auto-unlink value_type. Constant time otherwise.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>: Invalidates the iterators (but not the references)
-   //!    to the erased elements. No destructors are called.
-   void clear()
-   {  return table_type::clear();  }
+   //! @copydoc ::boost::intrusive::hashtable::clear
+   void clear();
 
-   //! <b>Requires</b>: Disposer::operator()(pointer) shouldn't throw.
-   //!
-   //! <b>Effects</b>: Erases all of the elements.
-   //!
-   //! <b>Complexity</b>: Linear to the number of elements on the container.
-   //!   Disposer::operator()(pointer) is called for the removed elements.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>: Invalidates the iterators (but not the references)
-   //!    to the erased elements. No destructors are called.
+   //! @copydoc ::boost::intrusive::hashtable::clear_and_dispose
    template<class Disposer>
-   void clear_and_dispose(Disposer disposer)
-   {  return table_type::clear_and_dispose(disposer);  }
+   void clear_and_dispose(Disposer disposer);
 
-   //! <b>Effects</b>: Returns the number of contained elements with the given value
-   //!
-   //! <b>Complexity</b>: Average case O(1), worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If the internal hasher or the equality functor throws.
-   size_type count(const_reference value) const
-   {  return table_type::find(value) != end();  }
+   //! @copydoc ::boost::intrusive::hashtable::count(const key_type &)const
+   size_type count(const key_type &key) const;
 
-   //! <b>Requires</b>: "hash_func" must be a hash function that induces
-   //!   the same hash values as the stored hasher. The difference is that
-   //!   "hash_func" hashes the given key instead of the value_type.
-   //!
-   //!   "equal_func" must be a equality function that induces
-   //!   the same equality as key_equal. The difference is that
-   //!   "equal_func" compares an arbitrary key with the contained values.
-   //!
-   //! <b>Effects</b>: Returns the number of contained elements with the given key
-   //!
-   //! <b>Complexity</b>: Average case O(1), worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If hash_func or equal_func throw.
-   template<class KeyType, class KeyHasher, class KeyValueEqual>
-   size_type count(const KeyType& key, KeyHasher hash_func, KeyValueEqual equal_func) const
-   {  return table_type::find(key, hash_func, equal_func) != end();  }
+   //! @copydoc ::boost::intrusive::hashtable::count(const KeyType&,KeyHasher,KeyEqual)const
+   template<class KeyType, class KeyHasher, class KeyEqual>
+   size_type count(const KeyType& key, KeyHasher hash_func, KeyEqual equal_func) const;
 
-   //! <b>Effects</b>: Finds an iterator to the first element is equal to
-   //!   "value" or end() if that element does not exist.
-   //!
-   //! <b>Complexity</b>: Average case O(1), worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If the internal hasher or the equality functor throws.
-   iterator find(const_reference value)
-   {  return table_type::find(value);  }
+   //! @copydoc ::boost::intrusive::hashtable::find(const key_type &)
+   iterator find(const key_type &key);
 
-   //! <b>Requires</b>: "hash_func" must be a hash function that induces
-   //!   the same hash values as the stored hasher. The difference is that
-   //!   "hash_func" hashes the given key instead of the value_type.
-   //!
-   //!   "equal_func" must be a equality function that induces
-   //!   the same equality as key_equal. The difference is that
-   //!   "equal_func" compares an arbitrary key with the contained values.
-   //!
-   //! <b>Effects</b>: Finds an iterator to the first element whose key is
-   //!   "key" according to the given hasher and equality functor or end() if
-   //!   that element does not exist.
-   //!
-   //! <b>Complexity</b>: Average case O(1), worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If hash_func or equal_func throw.
-   //!
-   //! <b>Note</b>: This function is used when constructing a value_type
-   //!   is expensive and the value_type can be compared with a cheaper
-   //!   key type. Usually this key is part of the value_type.
-   template<class KeyType, class KeyHasher, class KeyValueEqual>
-   iterator find(const KeyType& key, KeyHasher hash_func, KeyValueEqual equal_func)
-   {  return table_type::find(key, hash_func, equal_func);  }
+   //! @copydoc ::boost::intrusive::hashtable::find(const KeyType &,KeyHasher,KeyEqual)
+   template<class KeyType, class KeyHasher, class KeyEqual>
+   iterator find(const KeyType& key, KeyHasher hash_func, KeyEqual equal_func);
 
-   //! <b>Effects</b>: Finds a const_iterator to the first element whose key is
-   //!   "key" or end() if that element does not exist.
-   //!
-   //! <b>Complexity</b>: Average case O(1), worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If the internal hasher or the equality functor throws.
-   const_iterator find(const_reference value) const
-   {  return table_type::find(value);  }
+   //! @copydoc ::boost::intrusive::hashtable::count(const key_type &)const
+   const_iterator find(const key_type &key) const;
 
-   //! <b>Requires</b>: "hash_func" must be a hash function that induces
-   //!   the same hash values as the stored hasher. The difference is that
-   //!   "hash_func" hashes the given key instead of the value_type.
-   //!
-   //!   "equal_func" must be a equality function that induces
-   //!   the same equality as key_equal. The difference is that
-   //!   "equal_func" compares an arbitrary key with the contained values.
-   //!
-   //! <b>Effects</b>: Finds an iterator to the first element whose key is
-   //!   "key" according to the given hasher and equality functor or end() if
-   //!   that element does not exist.
-   //!
-   //! <b>Complexity</b>: Average case O(1), worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If hash_func or equal_func throw.
-   //!
-   //! <b>Note</b>: This function is used when constructing a value_type
-   //!   is expensive and the value_type can be compared with a cheaper
-   //!   key type. Usually this key is part of the value_type.
-   template<class KeyType, class KeyHasher, class KeyValueEqual>
-   const_iterator find(const KeyType& key, KeyHasher hash_func, KeyValueEqual equal_func) const
-   {  return table_type::find(key, hash_func, equal_func);  }
+   //! @copydoc ::boost::intrusive::hashtable::find(const KeyType &,KeyHasher,KeyEqual)const
+   template<class KeyType, class KeyHasher, class KeyEqual>
+   const_iterator find(const KeyType& key, KeyHasher hash_func, KeyEqual equal_func) const;
+   #endif
 
-   //! <b>Effects</b>: Returns a range containing all elements with values equivalent
-   //!   to value. Returns std::make_pair(this->end(), this->end()) if no such
-   //!   elements exist.
-   //!
-   //! <b>Complexity</b>: Average case O(this->count(value)). Worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If the internal hasher or the equality functor throws.
-   std::pair<iterator,iterator> equal_range(const_reference value)
-   {  return table_type::equal_range(value);  }
+   //! @copydoc ::boost::intrusive::hashtable::equal_range(const key_type&)
+   std::pair<iterator,iterator> equal_range(const key_type &key)
+   {  return this->equal_range(key, this->hash_function(), this->key_eq());  }
 
-   //! <b>Requires</b>: "hash_func" must be a hash function that induces
-   //!   the same hash values as the stored hasher. The difference is that
-   //!   "hash_func" hashes the given key instead of the value_type.
-   //!
-   //!   "equal_func" must be a equality function that induces
-   //!   the same equality as key_equal. The difference is that
-   //!   "equal_func" compares an arbitrary key with the contained values.
-   //!
-   //! <b>Effects</b>: Returns a range containing all elements with equivalent
-   //!   keys. Returns std::make_pair(this->end(), this->end()) if no such
-   //!   elements exist.
-   //!
-   //! <b>Complexity</b>: Average case O(this->count(key, hash_func, hash_func)).
-   //!   Worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If hash_func or the equal_func throw.
-   //!
-   //! <b>Note</b>: This function is used when constructing a value_type
-   //!   is expensive and the value_type can be compared with a cheaper
-   //!   key type. Usually this key is part of the value_type.
-   template<class KeyType, class KeyHasher, class KeyValueEqual>
-   std::pair<iterator,iterator> equal_range(const KeyType& key, KeyHasher hash_func, KeyValueEqual equal_func)
-   {  return table_type::equal_range(key, hash_func, equal_func);  }
+   //! @copydoc ::boost::intrusive::hashtable::equal_range(const KeyType &,KeyHasher,KeyEqual)
+   template<class KeyType, class KeyHasher, class KeyEqual>
+   std::pair<iterator,iterator> equal_range(const KeyType& key, KeyHasher hash_func, KeyEqual equal_func)
+   {  return this->priv_equal_range<iterator>(*this, key, hash_func, equal_func); }
 
-   //! <b>Effects</b>: Returns a range containing all elements with values equivalent
-   //!   to value. Returns std::make_pair(this->end(), this->end()) if no such
-   //!   elements exist.
-   //!
-   //! <b>Complexity</b>: Average case O(this->count(value)). Worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If the internal hasher or the equality functor throws.
+   //! @copydoc ::boost::intrusive::hashtable::equal_range(const key_type&)const
    std::pair<const_iterator, const_iterator>
-      equal_range(const_reference value) const
-   {  return table_type::equal_range(value);  }
+      equal_range(const key_type &key) const
+   {  return this->equal_range(key, this->hash_function(), this->key_eq());  }
 
-   //! <b>Requires</b>: "hash_func" must be a hash function that induces
-   //!   the same hash values as the stored hasher. The difference is that
-   //!   "hash_func" hashes the given key instead of the value_type.
-   //!
-   //!   "equal_func" must be a equality function that induces
-   //!   the same equality as key_equal. The difference is that
-   //!   "equal_func" compares an arbitrary key with the contained values.
-   //!
-   //! <b>Effects</b>: Returns a range containing all elements with equivalent
-   //!   keys. Returns std::make_pair(this->end(), this->end()) if no such
-   //!   elements exist.
-   //!
-   //! <b>Complexity</b>: Average case O(this->count(key, hash_func, equal_func)).
-   //!   Worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If the hash_func or equal_func throw.
-   //!
-   //! <b>Note</b>: This function is used when constructing a value_type
-   //!   is expensive and the value_type can be compared with a cheaper
-   //!   key type. Usually this key is part of the value_type.
-   template<class KeyType, class KeyHasher, class KeyValueEqual>
+   //! @copydoc ::boost::intrusive::hashtable::equal_range(const KeyType &,KeyHasher,KeyEqual)const
+   template<class KeyType, class KeyHasher, class KeyEqual>
    std::pair<const_iterator, const_iterator>
-      equal_range(const KeyType& key, KeyHasher hash_func, KeyValueEqual equal_func) const
-   {  return table_type::equal_range(key, hash_func, equal_func);  }
+      equal_range(const KeyType& key, KeyHasher hash_func, KeyEqual equal_func) const
+   {  return this->priv_equal_range<const_iterator>(*this, key, hash_func, equal_func); }
 
-   //! <b>Requires</b>: value must be an lvalue and shall be in a unordered_set of
-   //!   appropriate type. Otherwise the behavior is undefined.
-   //!
-   //! <b>Effects</b>: Returns: a valid iterator belonging to the unordered_set
-   //!   that points to the value
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: If the internal hash function throws.
-   iterator iterator_to(reference value)
-   {  return table_type::iterator_to(value);  }
+   #if defined(BOOST_INTRUSIVE_DOXYGEN_INVOKED)
+   //! @copydoc ::boost::intrusive::hashtable::iterator_to(reference)
+   iterator iterator_to(reference value);
 
-   //! <b>Requires</b>: value must be an lvalue and shall be in a unordered_set of
-   //!   appropriate type. Otherwise the behavior is undefined.
-   //!
-   //! <b>Effects</b>: Returns: a valid const_iterator belonging to the
-   //!   unordered_set that points to the value
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: If the internal hash function throws.
-   const_iterator iterator_to(const_reference value) const
-   {  return table_type::iterator_to(value);  }
+   //! @copydoc ::boost::intrusive::hashtable::iterator_to(const_reference)const
+   const_iterator iterator_to(const_reference value) const;
 
-   //! <b>Requires</b>: value must be an lvalue and shall be in a unordered_set of
-   //!   appropriate type. Otherwise the behavior is undefined.
-   //!
-   //! <b>Effects</b>: Returns: a valid local_iterator belonging to the unordered_set
-   //!   that points to the value
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>: This static function is available only if the <i>value traits</i>
-   //!   is stateless.
-   static local_iterator s_local_iterator_to(reference value)
-   {  return table_type::s_local_iterator_to(value);  }
+   //! @copydoc ::boost::intrusive::hashtable::s_local_iterator_to(reference)
+   static local_iterator s_local_iterator_to(reference value);
 
-   //! <b>Requires</b>: value must be an lvalue and shall be in a unordered_set of
-   //!   appropriate type. Otherwise the behavior is undefined.
-   //!
-   //! <b>Effects</b>: Returns: a valid const_local_iterator belonging to
-   //!   the unordered_set that points to the value
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>: This static function is available only if the <i>value traits</i>
-   //!   is stateless.
-   static const_local_iterator s_local_iterator_to(const_reference value)
-   {  return table_type::s_local_iterator_to(value);  }
+   //! @copydoc ::boost::intrusive::hashtable::s_local_iterator_to(const_reference)
+   static const_local_iterator s_local_iterator_to(const_reference value);
 
-   //! <b>Requires</b>: value must be an lvalue and shall be in a unordered_set of
-   //!   appropriate type. Otherwise the behavior is undefined.
-   //!
-   //! <b>Effects</b>: Returns: a valid local_iterator belonging to the unordered_set
-   //!   that points to the value
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   local_iterator local_iterator_to(reference value)
-   {  return table_type::local_iterator_to(value);  }
+   //! @copydoc ::boost::intrusive::hashtable::local_iterator_to(reference)
+   local_iterator local_iterator_to(reference value);
 
-   //! <b>Requires</b>: value must be an lvalue and shall be in a unordered_set of
-   //!   appropriate type. Otherwise the behavior is undefined.
-   //!
-   //! <b>Effects</b>: Returns: a valid const_local_iterator belonging to
-   //!   the unordered_set that points to the value
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   const_local_iterator local_iterator_to(const_reference value) const
-   {  return table_type::local_iterator_to(value);  }
+   //! @copydoc ::boost::intrusive::hashtable::local_iterator_to(const_reference)
+   const_local_iterator local_iterator_to(const_reference value) const;
 
-   //! <b>Effects</b>: Returns the number of buckets passed in the constructor
-   //!   or the last rehash function.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   size_type bucket_count() const
-   {  return table_type::bucket_count();   }
+   //! @copydoc ::boost::intrusive::hashtable::bucket_count
+   size_type bucket_count() const;
 
-   //! <b>Requires</b>: n is in the range [0, this->bucket_count()).
-   //!
-   //! <b>Effects</b>: Returns the number of elements in the nth bucket.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   size_type bucket_size(size_type n) const
-   {  return table_type::bucket_size(n);   }
+   //! @copydoc ::boost::intrusive::hashtable::bucket_size
+   size_type bucket_size(size_type n) const;
 
-   //! <b>Effects</b>: Returns the index of the bucket in which elements
-   //!   with keys equivalent to k would be found, if any such element existed.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: If the hash functor throws.
-   //!
-   //! <b>Note</b>: the return value is in the range [0, this->bucket_count()).
-   size_type bucket(const value_type& k) const
-   {  return table_type::bucket(k);   }
+   //! @copydoc ::boost::intrusive::hashtable::bucket(const key_type&)const
+   size_type bucket(const key_type& k) const;
 
-   //! <b>Requires</b>: "hash_func" must be a hash function that induces
-   //!   the same hash values as the stored hasher. The difference is that
-   //!   "hash_func" hashes the given key instead of the value_type.
-   //!
-   //! <b>Effects</b>: Returns the index of the bucket in which elements
-   //!   with keys equivalent to k would be found, if any such element existed.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: If hash_func throws.
-   //!
-   //! <b>Note</b>: the return value is in the range [0, this->bucket_count()).
+   //! @copydoc ::boost::intrusive::hashtable::bucket(const KeyType&,KeyHasher)const
    template<class KeyType, class KeyHasher>
-   size_type bucket(const KeyType& k,  KeyHasher hash_func) const
-   {  return table_type::bucket(k, hash_func);   }
+   size_type bucket(const KeyType& k,  KeyHasher hash_func) const;
 
-   //! <b>Effects</b>: Returns the bucket array pointer passed in the constructor
-   //!   or the last rehash function.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   bucket_ptr bucket_pointer() const
-   {  return table_type::bucket_pointer();   }
+   //! @copydoc ::boost::intrusive::hashtable::bucket_pointer
+   bucket_ptr bucket_pointer() const;
 
-   //! <b>Requires</b>: n is in the range [0, this->bucket_count()).
-   //!
-   //! <b>Effects</b>: Returns a local_iterator pointing to the beginning
-   //!   of the sequence stored in the bucket n.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>:  [this->begin(n), this->end(n)) is a valid range
-   //!   containing all of the elements in the nth bucket.
-   local_iterator begin(size_type n)
-   {  return table_type::begin(n);   }
+   //! @copydoc ::boost::intrusive::hashtable::begin(size_type)
+   local_iterator begin(size_type n);
 
-   //! <b>Requires</b>: n is in the range [0, this->bucket_count()).
-   //!
-   //! <b>Effects</b>: Returns a const_local_iterator pointing to the beginning
-   //!   of the sequence stored in the bucket n.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>:  [this->begin(n), this->end(n)) is a valid range
-   //!   containing all of the elements in the nth bucket.
-   const_local_iterator begin(size_type n) const
-   {  return table_type::begin(n);   }
+   //! @copydoc ::boost::intrusive::hashtable::begin(size_type)const
+   const_local_iterator begin(size_type n) const;
 
-   //! <b>Requires</b>: n is in the range [0, this->bucket_count()).
-   //!
-   //! <b>Effects</b>: Returns a const_local_iterator pointing to the beginning
-   //!   of the sequence stored in the bucket n.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>:  [this->begin(n), this->end(n)) is a valid range
-   //!   containing all of the elements in the nth bucket.
-   const_local_iterator cbegin(size_type n) const
-   {  return table_type::cbegin(n);   }
+   //! @copydoc ::boost::intrusive::hashtable::cbegin(size_type)const
+   const_local_iterator cbegin(size_type n) const;
 
-   //! <b>Requires</b>: n is in the range [0, this->bucket_count()).
-   //!
-   //! <b>Effects</b>: Returns a local_iterator pointing to the end
-   //!   of the sequence stored in the bucket n.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>:  [this->begin(n), this->end(n)) is a valid range
-   //!   containing all of the elements in the nth bucket.
-   local_iterator end(size_type n)
-   {  return table_type::end(n);   }
+   //! @copydoc ::boost::intrusive::hashtable::end(size_type)
+   local_iterator end(size_type n);
 
-   //! <b>Requires</b>: n is in the range [0, this->bucket_count()).
-   //!
-   //! <b>Effects</b>: Returns a const_local_iterator pointing to the end
-   //!   of the sequence stored in the bucket n.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>:  [this->begin(n), this->end(n)) is a valid range
-   //!   containing all of the elements in the nth bucket.
-   const_local_iterator end(size_type n) const
-   {  return table_type::end(n);   }
+   //! @copydoc ::boost::intrusive::hashtable::end(size_type)const
+   const_local_iterator end(size_type n) const;
 
-   //! <b>Requires</b>: n is in the range [0, this->bucket_count()).
-   //!
-   //! <b>Effects</b>: Returns a const_local_iterator pointing to the end
-   //!   of the sequence stored in the bucket n.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>:  [this->begin(n), this->end(n)) is a valid range
-   //!   containing all of the elements in the nth bucket.
-   const_local_iterator cend(size_type n) const
-   {  return table_type::cend(n);   }
+   //! @copydoc ::boost::intrusive::hashtable::cend(size_type)const
+   const_local_iterator cend(size_type n) const;
 
-   //! <b>Requires</b>: new_buckets must be a pointer to a new bucket array
-   //!   or the same as the old bucket array. new_size is the length of the
-   //!   the array pointed by new_buckets. If new_buckets == this->bucket_pointer()
-   //!   n can be bigger or smaller than this->bucket_count().
-   //!
-   //! <b>Effects</b>: Updates the internal reference with the new bucket erases
-   //!   the values from the old bucket and inserts then in the new one.
-   //!
-   //!   If store_hash option is true, this method does not use the hash function.
-   //!
-   //! <b>Complexity</b>: Average case linear in this->size(), worst case quadratic.
-   //!
-   //! <b>Throws</b>: If the hasher functor throws. Basic guarantee.
-   void rehash(const bucket_traits &new_bucket_traits)
-   {  table_type::rehash(new_bucket_traits); }
+   //! @copydoc ::boost::intrusive::hashtable::rehash(const bucket_traits &)
+   void rehash(const bucket_traits &new_bucket_traits);
 
-   //! <b>Requires</b>:
-   //!
-   //! <b>Effects</b>:
-   //!
-   //! <b>Complexity</b>:
-   //!
-   //! <b>Throws</b>:
-   //!
-   //! <b>Note</b>: this method is only available if incremental<true> option is activated.
-   bool incremental_rehash(bool grow = true)
-   {  return table_type::incremental_rehash(grow);  }
+   //! @copydoc ::boost::intrusive::hashtable::incremental_rehash(bool)
+   bool incremental_rehash(bool grow = true);
 
-   //! <b>Note</b>: this method is only available if incremental<true> option is activated.
-   bool incremental_rehash(const bucket_traits &new_bucket_traits)
-   {  return table_type::incremental_rehash(new_bucket_traits);  }
+   //! @copydoc ::boost::intrusive::hashtable::incremental_rehash(const bucket_traits &)
+   bool incremental_rehash(const bucket_traits &new_bucket_traits);
 
-   //! <b>Requires</b>:
-   //!
-   //! <b>Effects</b>:
-   //!
-   //! <b>Complexity</b>:
-   //!
-   //! <b>Throws</b>:
-   size_type split_count() const
-   {  return table_type::split_count(); }
+   //! @copydoc ::boost::intrusive::hashtable::split_count
+   size_type split_count() const;
 
-   //! <b>Effects</b>: Returns the nearest new bucket count optimized for
-   //!   the container that is bigger than n. This suggestion can be used
-   //!   to create bucket arrays with a size that will usually improve
-   //!   container's performance. If such value does not exist, the
-   //!   higher possible value is returned.
-   //!
-   //! <b>Complexity</b>: Amortized constant time.
-   //!
-   //! <b>Throws</b>: Nothing.
-   static size_type suggested_upper_bucket_count(size_type n)
-   {  return table_type::suggested_upper_bucket_count(n);  }
+   //! @copydoc ::boost::intrusive::hashtable::suggested_upper_bucket_count
+   static size_type suggested_upper_bucket_count(size_type n);
 
-   //! <b>Effects</b>: Returns the nearest new bucket count optimized for
-   //!   the container that is smaller than n. This suggestion can be used
-   //!   to create bucket arrays with a size that will usually improve
-   //!   container's performance. If such value does not exist, the
-   //!   lower possible value is returned.
-   //!
-   //! <b>Complexity</b>: Amortized constant time.
-   //!
-   //! <b>Throws</b>: Nothing.
-   static size_type suggested_lower_bucket_count(size_type n)
-   {  return table_type::suggested_lower_bucket_count(n);  }
+   //! @copydoc ::boost::intrusive::hashtable::suggested_lower_bucket_count
+   static size_type suggested_lower_bucket_count(size_type n);
 
    #endif   //   #ifdef BOOST_INTRUSIVE_DOXYGEN_INVOKED
+
+   friend bool operator==(const unordered_set_impl &x, const unordered_set_impl &y)
+   {
+      if(table_type::constant_time_size && x.size() != y.size()){
+         return false;
+      }
+      //Find each element of x in y
+      for (const_iterator ix = x.cbegin(), ex = x.cend(), ey = y.cend(); ix != ex; ++ix){
+         const_iterator iy = y.find(key_of_value()(*ix));
+         if (iy == ey || !(*ix == *iy))
+            return false;
+      }
+      return true;
+   }
+
+   friend bool operator!=(const unordered_set_impl &x, const unordered_set_impl &y)
+   {  return !(x == y); }
+
+   friend bool operator<(const unordered_set_impl &x, const unordered_set_impl &y)
+   {  return ::boost::intrusive::algo_lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());  }
+
+   friend bool operator>(const unordered_set_impl &x, const unordered_set_impl &y)
+   {  return y < x;  }
+
+   friend bool operator<=(const unordered_set_impl &x, const unordered_set_impl &y)
+   {  return !(y < x);  }
+
+   friend bool operator>=(const unordered_set_impl &x, const unordered_set_impl &y)
+   {  return !(x < y);  }
 };
 
 //! Helper metafunction to define an \c unordered_set that yields to the same type when the
@@ -1034,6 +435,7 @@ struct make_unordered_set
 
    typedef unordered_set_impl
       < value_traits
+      , typename packed_options::key_of_value
       , typename packed_options::hash
       , typename packed_options::equal
       , typename packed_options::size_type
@@ -1107,11 +509,19 @@ class unordered_set
    {}
 
    unordered_set(BOOST_RV_REF(unordered_set) x)
-      :  Base(::boost::move(static_cast<Base&>(x)))
+      :  Base(BOOST_MOVE_BASE(Base, x))
    {}
 
    unordered_set& operator=(BOOST_RV_REF(unordered_set) x)
-   {  return static_cast<unordered_set&>(this->Base::operator=(::boost::move(static_cast<Base&>(x))));  }
+   {  return static_cast<unordered_set&>(this->Base::operator=(BOOST_MOVE_BASE(Base, x)));  }
+
+   template <class Cloner, class Disposer>
+   void clone_from(const unordered_set &src, Cloner cloner, Disposer disposer)
+   {  Base::clone_from(src, cloner, disposer);  }
+
+   template <class Cloner, class Disposer>
+   void clone_from(BOOST_RV_REF(unordered_set) src, Cloner cloner, Disposer disposer)
+   {  Base::clone_from(BOOST_MOVE_BASE(Base, src), cloner, disposer);  }
 };
 
 #endif
@@ -1155,14 +565,14 @@ class unordered_set
 #if defined(BOOST_INTRUSIVE_DOXYGEN_INVOKED)
 template<class T, class ...Options>
 #else
-template<class ValueTraits, class Hash, class Equal, class SizeType, class BucketTraits, std::size_t BoolFlags>
+template<class ValueTraits, class VoidOrKeyOfValue, class VoidOrKeyHash, class VoidOrKeyEqual, class SizeType, class BucketTraits, std::size_t BoolFlags>
 #endif
 class unordered_multiset_impl
-   : public hashtable_impl<ValueTraits, Hash, Equal, SizeType, BucketTraits, BoolFlags>
+   : public hashtable_impl<ValueTraits, VoidOrKeyOfValue, VoidOrKeyHash, VoidOrKeyEqual, BucketTraits, SizeType, BoolFlags>
 {
    /// @cond
    private:
-   typedef hashtable_impl<ValueTraits, Hash, Equal, SizeType, BucketTraits, BoolFlags> table_type;
+   typedef hashtable_impl<ValueTraits, VoidOrKeyOfValue, VoidOrKeyHash, VoidOrKeyEqual, BucketTraits, SizeType, BoolFlags> table_type;
    /// @endcond
 
    //Movable
@@ -1172,6 +582,7 @@ class unordered_multiset_impl
 
    public:
    typedef typename implementation_defined::value_type                  value_type;
+   typedef typename implementation_defined::key_type                    key_type;
    typedef typename implementation_defined::value_traits                value_traits;
    typedef typename implementation_defined::bucket_traits               bucket_traits;
    typedef typename implementation_defined::pointer                     pointer;
@@ -1180,7 +591,6 @@ class unordered_multiset_impl
    typedef typename implementation_defined::const_reference             const_reference;
    typedef typename implementation_defined::difference_type             difference_type;
    typedef typename implementation_defined::size_type                   size_type;
-   typedef typename implementation_defined::key_type                    key_type;
    typedef typename implementation_defined::key_equal                   key_equal;
    typedef typename implementation_defined::hasher                      hasher;
    typedef typename implementation_defined::bucket_type                 bucket_type;
@@ -1198,19 +608,7 @@ class unordered_multiset_impl
 
    public:
 
-   //! <b>Requires</b>: buckets must not be being used by any other resource.
-   //!
-   //! <b>Effects</b>: Constructs an empty unordered_multiset, storing a reference
-   //!   to the bucket array and copies of the hasher and equal functors.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: If value_traits::node_traits::node
-   //!   constructor throws (this does not happen with predefined Boost.Intrusive hooks)
-   //!   or the copy constructor or invocation of Hash or Equal throws.
-   //!
-   //! <b>Notes</b>: buckets array must be disposed only after
-   //!   *this is disposed.
+   //! @copydoc ::boost::intrusive::hashtable::hashtable(const bucket_traits &,const hasher &,const key_equal &,const value_traits &)
    explicit unordered_multiset_impl ( const bucket_traits &b_traits
                                     , const hasher & hash_func = hasher()
                                     , const key_equal &equal_func = key_equal()
@@ -1218,21 +616,7 @@ class unordered_multiset_impl
       :  table_type(b_traits, hash_func, equal_func, v_traits)
    {}
 
-   //! <b>Requires</b>: buckets must not be being used by any other resource
-   //!   and Dereferencing iterator must yield an lvalue of type value_type.
-   //!
-   //! <b>Effects</b>: Constructs an empty unordered_multiset and inserts elements from
-   //!   [b, e).
-   //!
-   //! <b>Complexity</b>: If N is std::distance(b, e): Average case is O(N)
-   //!   (with a good hash function and with buckets_len >= N),worst case O(N2).
-   //!
-   //! <b>Throws</b>: If value_traits::node_traits::node
-   //!   constructor throws (this does not happen with predefined Boost.Intrusive hooks)
-   //!   or the copy constructor or invocation of hasher or key_equal throws.
-   //!
-   //! <b>Notes</b>: buckets array must be disposed only after
-   //!   *this is disposed.
+   //! @copydoc ::boost::intrusive::hashtable::hashtable(bool,Iterator,Iterator,const bucket_traits &,const hasher &,const key_equal &,const value_traits &)
    template<class Iterator>
    unordered_multiset_impl ( Iterator b
                            , Iterator e
@@ -1240,801 +624,228 @@ class unordered_multiset_impl
                            , const hasher & hash_func = hasher()
                            , const key_equal &equal_func = key_equal()
                            , const value_traits &v_traits = value_traits())
-      :  table_type(b_traits, hash_func, equal_func, v_traits)
-   {  table_type::insert_equal(b, e);  }
+      :  table_type(false, b, e, b_traits, hash_func, equal_func, v_traits)
+   {}
 
    //! <b>Effects</b>: to-do
    //!
    unordered_multiset_impl(BOOST_RV_REF(unordered_multiset_impl) x)
-      :  table_type(::boost::move(static_cast<table_type&>(x)))
+      :  table_type(BOOST_MOVE_BASE(table_type, x))
    {}
 
    //! <b>Effects</b>: to-do
    //!
    unordered_multiset_impl& operator=(BOOST_RV_REF(unordered_multiset_impl) x)
-   {  return static_cast<unordered_multiset_impl&>(table_type::operator=(::boost::move(static_cast<table_type&>(x))));  }
+   {  return static_cast<unordered_multiset_impl&>(table_type::operator=(BOOST_MOVE_BASE(table_type, x)));  }
 
    #ifdef BOOST_INTRUSIVE_DOXYGEN_INVOKED
 
-   //! <b>Effects</b>: Detaches all elements from this. The objects in the unordered_multiset
-   //!   are not deleted (i.e. no destructors are called).
-   //!
-   //! <b>Complexity</b>: Linear to the number of elements in the unordered_multiset, if
-   //!   it's a safe-mode or auto-unlink value. Otherwise constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   ~unordered_multiset_impl()
-   {}
+   //! @copydoc ::boost::intrusive::hashtable::~hashtable()
+   ~unordered_multiset_impl();
 
-   //! <b>Effects</b>: Returns an iterator pointing to the beginning of the unordered_multiset.
-   //!
-   //! <b>Complexity</b>: Constant time if `cache_begin<>` is true. Amortized
-   //!   constant time with worst case (empty unordered_set) O(this->bucket_count())
-   //!
-   //! <b>Throws</b>: Nothing.
-   iterator begin()
-   { return table_type::begin();  }
+   //! @copydoc ::boost::intrusive::hashtable::begin()
+   iterator begin();
 
-   //! <b>Effects</b>: Returns a const_iterator pointing to the beginning
-   //!   of the unordered_multiset.
-   //!
-   //! <b>Complexity</b>: Constant time if `cache_begin<>` is true. Amortized
-   //!   constant time with worst case (empty unordered_set) O(this->bucket_count())
-   //!
-   //! <b>Throws</b>: Nothing.
-   const_iterator begin() const
-   { return table_type::begin();  }
+   //! @copydoc ::boost::intrusive::hashtable::begin()const
+   const_iterator begin() const;
 
-   //! <b>Effects</b>: Returns a const_iterator pointing to the beginning
-   //!   of the unordered_multiset.
-   //!
-   //! <b>Complexity</b>: Constant time if `cache_begin<>` is true. Amortized
-   //!   constant time with worst case (empty unordered_set) O(this->bucket_count())
-   //!
-   //! <b>Throws</b>: Nothing.
-   const_iterator cbegin() const
-   { return table_type::cbegin();  }
+   //! @copydoc ::boost::intrusive::hashtable::cbegin()const
+   const_iterator cbegin() const;
 
-   //! <b>Effects</b>: Returns an iterator pointing to the end of the unordered_multiset.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   iterator end()
-   { return table_type::end();  }
+   //! @copydoc ::boost::intrusive::hashtable::end()
+   iterator end();
 
-   //! <b>Effects</b>: Returns a const_iterator pointing to the end of the unordered_multiset.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   const_iterator end() const
-   { return table_type::end();  }
+   //! @copydoc ::boost::intrusive::hashtable::end()const
+   const_iterator end() const;
 
-   //! <b>Effects</b>: Returns a const_iterator pointing to the end of the unordered_multiset.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   const_iterator cend() const
-   { return table_type::cend();  }
+   //! @copydoc ::boost::intrusive::hashtable::cend()const
+   const_iterator cend() const;
 
-   //! <b>Effects</b>: Returns the hasher object used by the unordered_set.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: If hasher copy-constructor throws.
-   hasher hash_function() const
-   { return table_type::hash_function(); }
+   //! @copydoc ::boost::intrusive::hashtable::hash_function()const
+   hasher hash_function() const;
 
-   //! <b>Effects</b>: Returns the key_equal object used by the unordered_multiset.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: If key_equal copy-constructor throws.
-   key_equal key_eq() const
-   { return table_type::key_eq(); }
+   //! @copydoc ::boost::intrusive::hashtable::key_eq()const
+   key_equal key_eq() const;
 
-   //! <b>Effects</b>: Returns true if the container is empty.
-   //!
-   //! <b>Complexity</b>: if constant-time size and cache_last options are disabled,
-   //!   average constant time (worst case, with empty() == true: O(this->bucket_count()).
-   //!   Otherwise constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   bool empty() const
-   { return table_type::empty(); }
+   //! @copydoc ::boost::intrusive::hashtable::empty()const
+   bool empty() const;
 
-   //! <b>Effects</b>: Returns the number of elements stored in the unordered_multiset.
-   //!
-   //! <b>Complexity</b>: Linear to elements contained in *this if
-   //!   constant-time size option is disabled. Constant-time otherwise.
-   //!
-   //! <b>Throws</b>: Nothing.
-   size_type size() const
-   { return table_type::size(); }
+   //! @copydoc ::boost::intrusive::hashtable::size()const
+   size_type size() const;
 
-   //! <b>Requires</b>: the hasher and the equality function unqualified swap
-   //!   call should not throw.
-   //!
-   //! <b>Effects</b>: Swaps the contents of two unordered_multisets.
-   //!   Swaps also the contained bucket array and equality and hasher functors.
-   //!
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: If the swap() call for the comparison or hash functors
-   //!   found using ADL throw. Basic guarantee.
-   void swap(unordered_multiset_impl& other)
-   { table_type::swap(other.table_); }
+   //! @copydoc ::boost::intrusive::hashtable::hashtable
+   void swap(unordered_multiset_impl& other);
 
-   //! <b>Requires</b>: Disposer::operator()(pointer) shouldn't throw.
-   //!   Cloner should yield to nodes that compare equal and produce the same
-   //!   hash than the original node.
-   //!
-   //! <b>Effects</b>: Erases all the elements from *this
-   //!   calling Disposer::operator()(pointer), clones all the
-   //!   elements from src calling Cloner::operator()(const_reference )
-   //!   and inserts them on *this. The hash function and the equality
-   //!   predicate are copied from the source.
-   //!
-   //!   If store_hash option is true, this method does not use the hash function.
-   //!
-   //!   If any operation throws, all cloned elements are unlinked and disposed
-   //!   calling Disposer::operator()(pointer).
-   //!
-   //! <b>Complexity</b>: Linear to erased plus inserted elements.
-   //!
-   //! <b>Throws</b>: If cloner or hasher throw or hash or equality predicate copying
-   //!   throws. Basic guarantee.
+   //! @copydoc ::boost::intrusive::hashtable::clone_from(const hashtable&,Cloner,Disposer)
    template <class Cloner, class Disposer>
-   void clone_from(const unordered_multiset_impl &src, Cloner cloner, Disposer disposer)
-   {  table_type::clone_from(src.table_, cloner, disposer);  }
+   void clone_from(const unordered_multiset_impl &src, Cloner cloner, Disposer disposer);
+
+   #else
+
+   using table_type::clone_from;
 
    #endif   //   #ifdef BOOST_INTRUSIVE_DOXYGEN_INVOKED
 
-   //! <b>Requires</b>: value must be an lvalue
-   //!
-   //! <b>Effects</b>: Inserts value into the unordered_multiset.
-   //!
-   //! <b>Returns</b>: An iterator to the new inserted value.
-   //!
-   //! <b>Complexity</b>: Average case O(1), worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If the internal hasher or the equality functor throws. Strong guarantee.
-   //!
-   //! <b>Note</b>: Does not affect the validity of iterators and references.
-   //!   No copy-constructors are called.
+   //! @copydoc ::boost::intrusive::hashtable::clone_from(hashtable&&,Cloner,Disposer)
+   template <class Cloner, class Disposer>
+   void clone_from(BOOST_RV_REF(unordered_multiset_impl) src, Cloner cloner, Disposer disposer)
+   {  table_type::clone_from(BOOST_MOVE_BASE(table_type, src), cloner, disposer);  }
+
+   //! @copydoc ::boost::intrusive::hashtable::insert_equal(reference)
    iterator insert(reference value)
    {  return table_type::insert_equal(value);  }
 
-   //! <b>Requires</b>: Dereferencing iterator must yield an lvalue
-   //!   of type value_type.
-   //!
-   //! <b>Effects</b>: Equivalent to this->insert(t) for each element in [b, e).
-   //!
-   //! <b>Complexity</b>: Average case is O(N), where N is the
-   //!   size of the range.
-   //!
-   //! <b>Throws</b>: If the internal hasher or the equality functor throws. Basic guarantee.
-   //!
-   //! <b>Note</b>: Does not affect the validity of iterators and references.
-   //!   No copy-constructors are called.
+   //! @copydoc ::boost::intrusive::hashtable::insert_equal(Iterator,Iterator)
    template<class Iterator>
    void insert(Iterator b, Iterator e)
    {  table_type::insert_equal(b, e);  }
 
    #ifdef BOOST_INTRUSIVE_DOXYGEN_INVOKED
 
-   //! <b>Effects</b>: Erases the element pointed to by i.
-   //!
-   //! <b>Complexity</b>: Average case O(1), worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>: Invalidates the iterators (but not the references)
-   //!    to the erased element. No destructors are called.
-   void erase(const_iterator i)
-   {  table_type::erase(i);  }
+   //! @copydoc ::boost::intrusive::hashtable::erase(const_iterator)
+   void erase(const_iterator i);
 
-   //! <b>Effects</b>: Erases the range pointed to by b end e.
-   //!
-   //! <b>Complexity</b>: Average case O(std::distance(b, e)),
-   //!   worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>: Invalidates the iterators (but not the references)
-   //!    to the erased elements. No destructors are called.
-   void erase(const_iterator b, const_iterator e)
-   {  table_type::erase(b, e);  }
+   //! @copydoc ::boost::intrusive::hashtable::erase(const_iterator,const_iterator)
+   void erase(const_iterator b, const_iterator e);
 
-   //! <b>Effects</b>: Erases all the elements with the given value.
-   //!
-   //! <b>Returns</b>: The number of erased elements.
-   //!
-   //! <b>Complexity</b>: Average case O(this->count(value)).
-   //!   Worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If the internal hasher or the equality functor throws. Basic guarantee.
-   //!
-   //! <b>Note</b>: Invalidates the iterators (but not the references)
-   //!    to the erased elements. No destructors are called.
-   size_type erase(const_reference value)
-   {  return table_type::erase(value);  }
+   //! @copydoc ::boost::intrusive::hashtable::erase(const key_type &)
+   size_type erase(const key_type &key);
 
-   //! <b>Requires</b>: "hash_func" must be a hash function that induces
-   //!   the same hash values as the stored hasher. The difference is that
-   //!   "hash_func" hashes the given key instead of the value_type.
-   //!
-   //!   "key_value_equal" must be a equality function that induces
-   //!   the same equality as key_equal. The difference is that
-   //!   "key_value_equal" compares an arbitrary key with the contained values.
-   //!
-   //! <b>Effects</b>: Erases all the elements that have the same hash and
-   //!   compare equal with the given key.
-   //!
-   //! <b>Returns</b>: The number of erased elements.
-   //!
-   //! <b>Complexity</b>: Average case O(this->count(value)).
-   //!   Worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If the hash_func or the equal_func functors throws.
-   //!   Basic guarantee.
-   //!
-   //! <b>Note</b>: Invalidates the iterators (but not the references)
-   //!    to the erased elements. No destructors are called.
-   template<class KeyType, class KeyHasher, class KeyValueEqual>
-   size_type erase(const KeyType& key, KeyHasher hash_func, KeyValueEqual equal_func)
-   {  return table_type::erase(key, hash_func, equal_func);  }
+   //! @copydoc ::boost::intrusive::hashtable::erase(const KeyType&,KeyHasher,KeyEqual)
+   template<class KeyType, class KeyHasher, class KeyEqual>
+   size_type erase(const KeyType& key, KeyHasher hash_func, KeyEqual equal_func);
 
-   //! <b>Requires</b>: Disposer::operator()(pointer) shouldn't throw.
-   //!
-   //! <b>Effects</b>: Erases the element pointed to by i.
-   //!   Disposer::operator()(pointer) is called for the removed element.
-   //!
-   //! <b>Complexity</b>: Average case O(1), worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>: Invalidates the iterators
-   //!    to the erased elements.
+   //! @copydoc ::boost::intrusive::hashtable::erase_and_dispose(const_iterator,Disposer)
    template<class Disposer>
-   void erase_and_dispose(const_iterator i, Disposer disposer
-                              /// @cond
-                              , typename detail::enable_if_c<!detail::is_convertible<Disposer, const_iterator>::value >::type * = 0
-                              /// @endcond
-                              )
-   {  table_type::erase_and_dispose(i, disposer);  }
+   BOOST_INTRUSIVE_DOC1ST(void
+      , typename detail::disable_if_convertible<Disposer BOOST_INTRUSIVE_I const_iterator>::type)
+      erase_and_dispose(const_iterator i, Disposer disposer);
 
-   #if !defined(BOOST_INTRUSIVE_DOXYGEN_INVOKED)
+   //! @copydoc ::boost::intrusive::hashtable::erase_and_dispose(const_iterator,const_iterator,Disposer)
    template<class Disposer>
-   void erase_and_dispose(const_iterator i, Disposer disposer)
-   {  this->erase_and_dispose(const_iterator(i), disposer);   }
-   #endif
+   void erase_and_dispose(const_iterator b, const_iterator e, Disposer disposer);
 
-   //! <b>Requires</b>: Disposer::operator()(pointer) shouldn't throw.
-   //!
-   //! <b>Effects</b>: Erases the range pointed to by b end e.
-   //!   Disposer::operator()(pointer) is called for the removed elements.
-   //!
-   //! <b>Complexity</b>: Average case O(std::distance(b, e)),
-   //!   worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>: Invalidates the iterators
-   //!    to the erased elements.
+   //! @copydoc ::boost::intrusive::hashtable::erase_and_dispose(const key_type &,Disposer)
    template<class Disposer>
-   void erase_and_dispose(const_iterator b, const_iterator e, Disposer disposer)
-   {  table_type::erase_and_dispose(b, e, disposer);  }
+   size_type erase_and_dispose(const key_type &key, Disposer disposer);
 
-   //! <b>Requires</b>: Disposer::operator()(pointer) shouldn't throw.
-   //!
-   //! <b>Effects</b>: Erases all the elements with the given value.
-   //!   Disposer::operator()(pointer) is called for the removed elements.
-   //!
-   //! <b>Returns</b>: The number of erased elements.
-   //!
-   //! <b>Complexity</b>: Average case O(this->count(value)).
-   //!   Worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If the internal hasher or the equality functor throws. Basic guarantee.
-   //!
-   //! <b>Note</b>: Invalidates the iterators (but not the references)
-   //!    to the erased elements. No destructors are called.
+   //! @copydoc ::boost::intrusive::hashtable::erase_and_dispose(const KeyType&,KeyHasher,KeyEqual,Disposer)
+   template<class KeyType, class KeyHasher, class KeyEqual, class Disposer>
+   size_type erase_and_dispose(const KeyType& key, KeyHasher hash_func, KeyEqual equal_func, Disposer disposer);
+
+   //! @copydoc ::boost::intrusive::hashtable::clear
+   void clear();
+
+   //! @copydoc ::boost::intrusive::hashtable::clear_and_dispose
    template<class Disposer>
-   size_type erase_and_dispose(const_reference value, Disposer disposer)
-   {  return table_type::erase_and_dispose(value, disposer);  }
+   void clear_and_dispose(Disposer disposer);
 
-   //! <b>Requires</b>: Disposer::operator()(pointer) shouldn't throw.
-   //!
-   //! <b>Effects</b>: Erases all the elements with the given key.
-   //!   according to the comparison functor "equal_func".
-   //!   Disposer::operator()(pointer) is called for the removed elements.
-   //!
-   //! <b>Returns</b>: The number of erased elements.
-   //!
-   //! <b>Complexity</b>: Average case O(this->count(value)).
-   //!   Worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If hash_func or equal_func throw. Basic guarantee.
-   //!
-   //! <b>Note</b>: Invalidates the iterators
-   //!    to the erased elements.
-   template<class KeyType, class KeyHasher, class KeyValueEqual, class Disposer>
-   size_type erase_and_dispose(const KeyType& key, KeyHasher hash_func, KeyValueEqual equal_func, Disposer disposer)
-   {  return table_type::erase_and_dispose(key, hash_func, equal_func, disposer);  }
+   //! @copydoc ::boost::intrusive::hashtable::count(const key_type &)const
+   size_type count(const key_type &key) const;
 
-   //! <b>Effects</b>: Erases all the elements of the container.
-   //!
-   //! <b>Complexity</b>: Linear to the number of elements on the container.
-   //!   if it's a safe-mode or auto-unlink value_type. Constant time otherwise.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>: Invalidates the iterators (but not the references)
-   //!    to the erased elements. No destructors are called.
-   void clear()
-   {  return table_type::clear();  }
+   //! @copydoc ::boost::intrusive::hashtable::count(const KeyType&,KeyHasher,KeyEqual)const
+   template<class KeyType, class KeyHasher, class KeyEqual>
+   size_type count(const KeyType& key, KeyHasher hash_func, KeyEqual equal_func) const;
 
-   //! <b>Requires</b>: Disposer::operator()(pointer) shouldn't throw.
-   //!
-   //! <b>Effects</b>: Erases all the elements of the container.
-   //!
-   //! <b>Complexity</b>: Linear to the number of elements on the container.
-   //!   Disposer::operator()(pointer) is called for the removed elements.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>: Invalidates the iterators (but not the references)
-   //!    to the erased elements. No destructors are called.
-   template<class Disposer>
-   void clear_and_dispose(Disposer disposer)
-   {  return table_type::clear_and_dispose(disposer);  }
+   //! @copydoc ::boost::intrusive::hashtable::find(const key_type &)
+   iterator find(const key_type &key);
 
-   //! <b>Effects</b>: Returns the number of contained elements with the given key
-   //!
-   //! <b>Complexity</b>: Average case O(1), worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If the internal hasher or the equality functor throws.
-   size_type count(const_reference value) const
-   {  return table_type::count(value);  }
+   //! @copydoc ::boost::intrusive::hashtable::find(const KeyType &,KeyHasher,KeyEqual)
+   template<class KeyType, class KeyHasher, class KeyEqual>
+   iterator find(const KeyType& key, KeyHasher hash_func, KeyEqual equal_func);
 
-   //! <b>Requires</b>: "hash_func" must be a hash function that induces
-   //!   the same hash values as the stored hasher. The difference is that
-   //!   "hash_func" hashes the given key instead of the value_type.
-   //!
-   //!   "key_value_equal" must be a equality function that induces
-   //!   the same equality as key_equal. The difference is that
-   //!   "key_value_equal" compares an arbitrary key with the contained values.
-   //!
-   //! <b>Effects</b>: Returns the number of contained elements with the given key
-   //!
-   //! <b>Complexity</b>: Average case O(1), worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If the internal hasher or the equality functor throws.
-   template<class KeyType, class KeyHasher, class KeyValueEqual>
-   size_type count(const KeyType& key, KeyHasher hash_func, KeyValueEqual equal_func) const
-   {  return table_type::count(key, hash_func, equal_func);  }
+   //! @copydoc ::boost::intrusive::hashtable::count(const key_type &)const
+   const_iterator find(const key_type &key) const;
 
-   //! <b>Effects</b>: Finds an iterator to the first element whose value is
-   //!   "value" or end() if that element does not exist.
-   //!
-   //! <b>Complexity</b>: Average case O(1), worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If the internal hasher or the equality functor throws.
-   iterator find(const_reference value)
-   {  return table_type::find(value);  }
+   //! @copydoc ::boost::intrusive::hashtable::find(const KeyType &,KeyHasher,KeyEqual)const
+   template<class KeyType, class KeyHasher, class KeyEqual>
+   const_iterator find(const KeyType& key, KeyHasher hash_func, KeyEqual equal_func) const;
 
-   //! <b>Requires</b>: "hash_func" must be a hash function that induces
-   //!   the same hash values as the stored hasher. The difference is that
-   //!   "hash_func" hashes the given key instead of the value_type.
-   //!
-   //!   "key_value_equal" must be a equality function that induces
-   //!   the same equality as key_equal. The difference is that
-   //!   "key_value_equal" compares an arbitrary key with the contained values.
-   //!
-   //! <b>Effects</b>: Finds an iterator to the first element whose key is
-   //!   "key" according to the given hasher and equality functor or end() if
-   //!   that element does not exist.
-   //!
-   //! <b>Complexity</b>: Average case O(1), worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If the internal hasher or the equality functor throws.
-   //!
-   //! <b>Note</b>: This function is used when constructing a value_type
-   //!   is expensive and the value_type can be compared with a cheaper
-   //!   key type. Usually this key is part of the value_type.
-   template<class KeyType, class KeyHasher, class KeyValueEqual>
-   iterator find(const KeyType& key, KeyHasher hash_func, KeyValueEqual equal_func)
-   {  return table_type::find(key, hash_func, equal_func);  }
+   //! @copydoc ::boost::intrusive::hashtable::equal_range(const key_type&)
+   std::pair<iterator,iterator> equal_range(const key_type &key);
 
-   //! <b>Effects</b>: Finds a const_iterator to the first element whose key is
-   //!   "key" or end() if that element does not exist.
-   //!
-   //! <b>Complexity</b>: Average case O(1), worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If the internal hasher or the equality functor throws.
-   const_iterator find(const_reference value) const
-   {  return table_type::find(value);  }
+   //! @copydoc ::boost::intrusive::hashtable::equal_range(const KeyType &,KeyHasher,KeyEqual)
+   template<class KeyType, class KeyHasher, class KeyEqual>
+   std::pair<iterator,iterator> equal_range(const KeyType& key, KeyHasher hash_func, KeyEqual equal_func);
 
-   //! <b>Requires</b>: "hash_func" must be a hash function that induces
-   //!   the same hash values as the stored hasher. The difference is that
-   //!   "hash_func" hashes the given key instead of the value_type.
-   //!
-   //!   "key_value_equal" must be a equality function that induces
-   //!   the same equality as key_equal. The difference is that
-   //!   "key_value_equal" compares an arbitrary key with the contained values.
-   //!
-   //! <b>Effects</b>: Finds an iterator to the first element whose key is
-   //!   "key" according to the given hasher and equality functor or end() if
-   //!   that element does not exist.
-   //!
-   //! <b>Complexity</b>: Average case O(1), worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If the internal hasher or the equality functor throws.
-   //!
-   //! <b>Note</b>: This function is used when constructing a value_type
-   //!   is expensive and the value_type can be compared with a cheaper
-   //!   key type. Usually this key is part of the value_type.
-   template<class KeyType, class KeyHasher, class KeyValueEqual>
-   const_iterator find(const KeyType& key, KeyHasher hash_func, KeyValueEqual equal_func) const
-   {  return table_type::find(key, hash_func, equal_func);  }
-
-   //! <b>Effects</b>: Returns a range containing all elements with values equivalent
-   //!   to value. Returns std::make_pair(this->end(), this->end()) if no such
-   //!   elements exist.
-   //!
-   //! <b>Complexity</b>: Average case O(this->count(value)). Worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If the internal hasher or the equality functor throws.
-   std::pair<iterator,iterator> equal_range(const_reference value)
-   {  return table_type::equal_range(value);  }
-
-   //! <b>Requires</b>: "hash_func" must be a hash function that induces
-   //!   the same hash values as the stored hasher. The difference is that
-   //!   "hash_func" hashes the given key instead of the value_type.
-   //!
-   //!   "key_value_equal" must be a equality function that induces
-   //!   the same equality as key_equal. The difference is that
-   //!   "key_value_equal" compares an arbitrary key with the contained values.
-   //!
-   //! <b>Effects</b>: Returns a range containing all elements with equivalent
-   //!   keys. Returns std::make_pair(this->end(), this->end()) if no such
-   //!   elements exist.
-   //!
-   //! <b>Complexity</b>: Average case O(this->count(key, hash_func, equal_func)).
-   //!   Worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If the internal hasher or the equality functor throws.
-   //!
-   //! <b>Note</b>: This function is used when constructing a value_type
-   //!   is expensive and the value_type can be compared with a cheaper
-   //!   key type. Usually this key is part of the value_type.
-   template<class KeyType, class KeyHasher, class KeyValueEqual>
-   std::pair<iterator,iterator> equal_range
-      (const KeyType& key, KeyHasher hash_func, KeyValueEqual equal_func)
-   {  return table_type::equal_range(key, hash_func, equal_func);  }
-
-   //! <b>Effects</b>: Returns a range containing all elements with values equivalent
-   //!   to value. Returns std::make_pair(this->end(), this->end()) if no such
-   //!   elements exist.
-   //!
-   //! <b>Complexity</b>: Average case O(this->count(value)). Worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If the internal hasher or the equality functor throws.
+   //! @copydoc ::boost::intrusive::hashtable::equal_range(const key_type&)const
    std::pair<const_iterator, const_iterator>
-      equal_range(const_reference value) const
-   {  return table_type::equal_range(value);  }
+      equal_range(const key_type &key) const;
 
-   //! <b>Requires</b>: "hash_func" must be a hash function that induces
-   //!   the same hash values as the stored hasher. The difference is that
-   //!   "hash_func" hashes the given key instead of the value_type.
-   //!
-   //!   "key_value_equal" must be a equality function that induces
-   //!   the same equality as key_equal. The difference is that
-   //!   "key_value_equal" compares an arbitrary key with the contained values.
-   //!
-   //! <b>Effects</b>: Returns a range containing all elements with equivalent
-   //!   keys. Returns std::make_pair(this->end(), this->end()) if no such
-   //!   elements exist.
-   //!
-   //! <b>Complexity</b>: Average case O(this->count(key, hash_func, equal_func)).
-   //!   Worst case O(this->size()).
-   //!
-   //! <b>Throws</b>: If the internal hasher or the equality functor throws.
-   //!
-   //! <b>Note</b>: This function is used when constructing a value_type
-   //!   is expensive and the value_type can be compared with a cheaper
-   //!   key type. Usually this key is part of the value_type.
-   template<class KeyType, class KeyHasher, class KeyValueEqual>
+   //! @copydoc ::boost::intrusive::hashtable::equal_range(const KeyType &,KeyHasher,KeyEqual)const
+   template<class KeyType, class KeyHasher, class KeyEqual>
    std::pair<const_iterator, const_iterator>
-      equal_range(const KeyType& key, KeyHasher hash_func, KeyValueEqual equal_func) const
-   {  return table_type::equal_range(key, hash_func, equal_func);  }
+      equal_range(const KeyType& key, KeyHasher hash_func, KeyEqual equal_func) const;
 
-   //! <b>Requires</b>: value must be an lvalue and shall be in a unordered_multiset of
-   //!   appropriate type. Otherwise the behavior is undefined.
-   //!
-   //! <b>Effects</b>: Returns: a valid iterator belonging to the unordered_multiset
-   //!   that points to the value
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: If the hash function throws.
-   iterator iterator_to(reference value)
-   {  return table_type::iterator_to(value);  }
+   //! @copydoc ::boost::intrusive::hashtable::iterator_to(reference)
+   iterator iterator_to(reference value);
 
-   //! <b>Requires</b>: value must be an lvalue and shall be in a unordered_multiset of
-   //!   appropriate type. Otherwise the behavior is undefined.
-   //!
-   //! <b>Effects</b>: Returns: a valid const_iterator belonging to the
-   //!   unordered_multiset that points to the value
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: If the hash function throws.
-   const_iterator iterator_to(const_reference value) const
-   {  return table_type::iterator_to(value);  }
+   //! @copydoc ::boost::intrusive::hashtable::iterator_to(const_reference)const
+   const_iterator iterator_to(const_reference value) const;
 
-   //! <b>Requires</b>: value must be an lvalue and shall be in a unordered_set of
-   //!   appropriate type. Otherwise the behavior is undefined.
-   //!
-   //! <b>Effects</b>: Returns: a valid local_iterator belonging to the unordered_set
-   //!   that points to the value
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>: This static function is available only if the <i>value traits</i>
-   //!   is stateless.
-   static local_iterator s_local_iterator_to(reference value)
-   {  return table_type::s_local_iterator_to(value);  }
+   //! @copydoc ::boost::intrusive::hashtable::s_local_iterator_to(reference)
+   static local_iterator s_local_iterator_to(reference value);
 
-   //! <b>Requires</b>: value must be an lvalue and shall be in a unordered_set of
-   //!   appropriate type. Otherwise the behavior is undefined.
-   //!
-   //! <b>Effects</b>: Returns: a valid const_local_iterator belonging to
-   //!   the unordered_set that points to the value
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>: This static function is available only if the <i>value traits</i>
-   //!   is stateless.
-   static const_local_iterator s_local_iterator_to(const_reference value)
-   {  return table_type::s_local_iterator_to(value);  }
+   //! @copydoc ::boost::intrusive::hashtable::s_local_iterator_to(const_reference)
+   static const_local_iterator s_local_iterator_to(const_reference value);
 
-   //! <b>Requires</b>: value must be an lvalue and shall be in a unordered_set of
-   //!   appropriate type. Otherwise the behavior is undefined.
-   //!
-   //! <b>Effects</b>: Returns: a valid local_iterator belonging to the unordered_set
-   //!   that points to the value
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   local_iterator local_iterator_to(reference value)
-   {  return table_type::local_iterator_to(value);  }
+   //! @copydoc ::boost::intrusive::hashtable::local_iterator_to(reference)
+   local_iterator local_iterator_to(reference value);
 
-   //! <b>Requires</b>: value must be an lvalue and shall be in a unordered_set of
-   //!   appropriate type. Otherwise the behavior is undefined.
-   //!
-   //! <b>Effects</b>: Returns: a valid const_local_iterator belonging to
-   //!   the unordered_set that points to the value
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   const_local_iterator local_iterator_to(const_reference value) const
-   {  return table_type::local_iterator_to(value);  }
+   //! @copydoc ::boost::intrusive::hashtable::local_iterator_to(const_reference)
+   const_local_iterator local_iterator_to(const_reference value) const;
 
-   //! <b>Effects</b>: Returns the number of buckets passed in the constructor
-   //!   or the last rehash function.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   size_type bucket_count() const
-   {  return table_type::bucket_count();   }
+   //! @copydoc ::boost::intrusive::hashtable::bucket_count
+   size_type bucket_count() const;
 
-   //! <b>Requires</b>: n is in the range [0, this->bucket_count()).
-   //!
-   //! <b>Effects</b>: Returns the number of elements in the nth bucket.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   size_type bucket_size(size_type n) const
-   {  return table_type::bucket_size(n);   }
+   //! @copydoc ::boost::intrusive::hashtable::bucket_size
+   size_type bucket_size(size_type n) const;
 
-   //! <b>Effects</b>: Returns the index of the bucket in which elements
-   //!   with keys equivalent to k would be found, if any such element existed.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: If the hash functor throws.
-   //!
-   //! <b>Note</b>: the return value is in the range [0, this->bucket_count()).
-   size_type bucket(const value_type& k) const
-   {  return table_type::bucket(k);   }
+   //! @copydoc ::boost::intrusive::hashtable::bucket(const key_type&)const
+   size_type bucket(const key_type& k) const;
 
-   //! <b>Requires</b>: "hash_func" must be a hash function that induces
-   //!   the same hash values as the stored hasher. The difference is that
-   //!   "hash_func" hashes the given key instead of the value_type.
-   //!
-   //! <b>Effects</b>: Returns the index of the bucket in which elements
-   //!   with keys equivalent to k would be found, if any such element existed.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: If the hash functor throws.
-   //!
-   //! <b>Note</b>: the return value is in the range [0, this->bucket_count()).
+   //! @copydoc ::boost::intrusive::hashtable::bucket(const KeyType&,KeyHasher)const
    template<class KeyType, class KeyHasher>
-   size_type bucket(const KeyType& k, const KeyHasher &hash_func) const
-   {  return table_type::bucket(k, hash_func);   }
+   size_type bucket(const KeyType& k, KeyHasher hash_func) const;
 
-   //! <b>Effects</b>: Returns the bucket array pointer passed in the constructor
-   //!   or the last rehash function.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   bucket_ptr bucket_pointer() const
-   {  return table_type::bucket_pointer();   }
+   //! @copydoc ::boost::intrusive::hashtable::bucket_pointer
+   bucket_ptr bucket_pointer() const;
 
-   //! <b>Requires</b>: n is in the range [0, this->bucket_count()).
-   //!
-   //! <b>Effects</b>: Returns a local_iterator pointing to the beginning
-   //!   of the sequence stored in the bucket n.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>:  [this->begin(n), this->end(n)) is a valid range
-   //!   containing all of the elements in the nth bucket.
-   local_iterator begin(size_type n)
-   {  return table_type::begin(n);   }
+   //! @copydoc ::boost::intrusive::hashtable::begin(size_type)
+   local_iterator begin(size_type n);
 
-   //! <b>Requires</b>: n is in the range [0, this->bucket_count()).
-   //!
-   //! <b>Effects</b>: Returns a const_local_iterator pointing to the beginning
-   //!   of the sequence stored in the bucket n.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>:  [this->begin(n), this->end(n)) is a valid range
-   //!   containing all of the elements in the nth bucket.
-   const_local_iterator begin(size_type n) const
-   {  return table_type::begin(n);   }
+   //! @copydoc ::boost::intrusive::hashtable::begin(size_type)const
+   const_local_iterator begin(size_type n) const;
 
-   //! <b>Requires</b>: n is in the range [0, this->bucket_count()).
-   //!
-   //! <b>Effects</b>: Returns a const_local_iterator pointing to the beginning
-   //!   of the sequence stored in the bucket n.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>:  [this->begin(n), this->end(n)) is a valid range
-   //!   containing all of the elements in the nth bucket.
-   const_local_iterator cbegin(size_type n) const
-   {  return table_type::cbegin(n);   }
+   //! @copydoc ::boost::intrusive::hashtable::cbegin(size_type)const
+   const_local_iterator cbegin(size_type n) const;
 
-   //! <b>Requires</b>: n is in the range [0, this->bucket_count()).
-   //!
-   //! <b>Effects</b>: Returns a local_iterator pointing to the end
-   //!   of the sequence stored in the bucket n.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>:  [this->begin(n), this->end(n)) is a valid range
-   //!   containing all of the elements in the nth bucket.
-   local_iterator end(size_type n)
-   {  return table_type::end(n);   }
+   //! @copydoc ::boost::intrusive::hashtable::end(size_type)
+   local_iterator end(size_type n);
 
-   //! <b>Requires</b>: n is in the range [0, this->bucket_count()).
-   //!
-   //! <b>Effects</b>: Returns a const_local_iterator pointing to the end
-   //!   of the sequence stored in the bucket n.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>:  [this->begin(n), this->end(n)) is a valid range
-   //!   containing all of the elements in the nth bucket.
-   const_local_iterator end(size_type n) const
-   {  return table_type::end(n);   }
+   //! @copydoc ::boost::intrusive::hashtable::end(size_type)const
+   const_local_iterator end(size_type n) const;
 
-   //! <b>Requires</b>: n is in the range [0, this->bucket_count()).
-   //!
-   //! <b>Effects</b>: Returns a const_local_iterator pointing to the end
-   //!   of the sequence stored in the bucket n.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>:  [this->begin(n), this->end(n)) is a valid range
-   //!   containing all of the elements in the nth bucket.
-   const_local_iterator cend(size_type n) const
-   {  return table_type::cend(n);   }
+   //! @copydoc ::boost::intrusive::hashtable::cend(size_type)const
+   const_local_iterator cend(size_type n) const;
 
-   //! <b>Requires</b>: new_buckets must be a pointer to a new bucket array
-   //!   or the same as the old bucket array. new_size is the length of the
-   //!   the array pointed by new_buckets. If new_buckets == this->bucket_pointer()
-   //!   n can be bigger or smaller than this->bucket_count().
-   //!
-   //! <b>Effects</b>: Updates the internal reference with the new bucket erases
-   //!   the values from the old bucket and inserts then in the new one.
-   //!
-   //!   If store_hash option is true, this method does not use the hash function.
-   //!
-   //! <b>Complexity</b>: Average case linear in this->size(), worst case quadratic.
-   //!
-   //! <b>Throws</b>: If the hasher functor throws.
-   void rehash(const bucket_traits &new_bucket_traits)
-   {  table_type::rehash(new_bucket_traits); }
+   //! @copydoc ::boost::intrusive::hashtable::rehash(const bucket_traits &)
+   void rehash(const bucket_traits &new_bucket_traits);
 
-   //! <b>Requires</b>:
-   //!
-   //! <b>Effects</b>:
-   //!
-   //! <b>Complexity</b>:
-   //!
-   //! <b>Throws</b>:
-   //!
-   //! <b>Note</b>: this method is only available if incremental<true> option is activated.
-   bool incremental_rehash(bool grow = true)
-   {  return table_type::incremental_rehash(grow);  }
+   //! @copydoc ::boost::intrusive::hashtable::incremental_rehash(bool)
+   bool incremental_rehash(bool grow = true);
 
-   //! <b>Note</b>: this method is only available if incremental<true> option is activated.
-   bool incremental_rehash(const bucket_traits &new_bucket_traits)
-   {  return table_type::incremental_rehash(new_bucket_traits);  }
+   //! @copydoc ::boost::intrusive::hashtable::incremental_rehash(const bucket_traits &)
+   bool incremental_rehash(const bucket_traits &new_bucket_traits);
 
-   //! <b>Requires</b>:
-   //!
-   //! <b>Effects</b>:
-   //!
-   //! <b>Complexity</b>:
-   //!
-   //! <b>Throws</b>:
-   size_type split_count() const
-   {  return table_type::split_count(); }
+   //! @copydoc ::boost::intrusive::hashtable::split_count
+   size_type split_count() const;
 
-   //! <b>Effects</b>: Returns the nearest new bucket count optimized for
-   //!   the container that is bigger than n. This suggestion can be used
-   //!   to create bucket arrays with a size that will usually improve
-   //!   container's performance. If such value does not exist, the
-   //!   higher possible value is returned.
-   //!
-   //! <b>Complexity</b>: Amortized constant time.
-   //!
-   //! <b>Throws</b>: Nothing.
-   static size_type suggested_upper_bucket_count(size_type n)
-   {  return table_type::suggested_upper_bucket_count(n);  }
+   //! @copydoc ::boost::intrusive::hashtable::suggested_upper_bucket_count
+   static size_type suggested_upper_bucket_count(size_type n);
 
-   //! <b>Effects</b>: Returns the nearest new bucket count optimized for
-   //!   the container that is smaller than n. This suggestion can be used
-   //!   to create bucket arrays with a size that will usually improve
-   //!   container's performance. If such value does not exist, the
-   //!   lower possible value is returned.
-   //!
-   //! <b>Complexity</b>: Amortized constant time.
-   //!
-   //! <b>Throws</b>: Nothing.
-   static size_type suggested_lower_bucket_count(size_type n)
-   {  return table_type::suggested_lower_bucket_count(n);  }
+   //! @copydoc ::boost::intrusive::hashtable::suggested_lower_bucket_count
+   static size_type suggested_lower_bucket_count(size_type n);
 
    #endif   //   #ifdef BOOST_INTRUSIVE_DOXYGEN_INVOKED
 };
@@ -2071,6 +882,7 @@ struct make_unordered_multiset
 
    typedef unordered_multiset_impl
       < value_traits
+      , typename packed_options::key_of_value
       , typename packed_options::hash
       , typename packed_options::equal
       , typename packed_options::size_type
@@ -2143,11 +955,19 @@ class unordered_multiset
    {}
 
    unordered_multiset(BOOST_RV_REF(unordered_multiset) x)
-      :  Base(::boost::move(static_cast<Base&>(x)))
+      :  Base(BOOST_MOVE_BASE(Base, x))
    {}
 
    unordered_multiset& operator=(BOOST_RV_REF(unordered_multiset) x)
-   {  return static_cast<unordered_multiset&>(this->Base::operator=(::boost::move(static_cast<Base&>(x))));  }
+   {  return static_cast<unordered_multiset&>(this->Base::operator=(BOOST_MOVE_BASE(Base, x)));  }
+
+   template <class Cloner, class Disposer>
+   void clone_from(const unordered_multiset &src, Cloner cloner, Disposer disposer)
+   {  Base::clone_from(src, cloner, disposer);  }
+
+   template <class Cloner, class Disposer>
+   void clone_from(BOOST_RV_REF(unordered_multiset) src, Cloner cloner, Disposer disposer)
+   {  Base::clone_from(BOOST_MOVE_BASE(Base, src), cloner, disposer);  }
 };
 
 #endif

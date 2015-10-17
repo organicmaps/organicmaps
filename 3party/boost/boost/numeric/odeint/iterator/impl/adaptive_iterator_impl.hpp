@@ -205,7 +205,7 @@ namespace odeint {
          * \param sys The system function (ODE) to solve.
          * \param s The initial state.
          */
-        adaptive_iterator_impl( stepper_type stepper , system_type sys , state_type &s )
+        adaptive_iterator_impl( stepper_type stepper , system_type sys , state_type& /* s */ )
             : base_type( stepper , sys ) { }
 
     protected:

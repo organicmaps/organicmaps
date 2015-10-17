@@ -15,9 +15,13 @@
 #ifndef BOOST_INTERPROCESS_MUTEX_HPP
 #define BOOST_INTERPROCESS_MUTEX_HPP
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -50,7 +54,7 @@ class mutex_traits;
 
 #endif
 
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 //!\file
 //!Describes a mutex class that can be placed in memory shared by
@@ -65,7 +69,7 @@ class interprocess_condition;
 //!shared between processes. Allows timed lock tries
 class interprocess_mutex
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    //Non-copyable
    interprocess_mutex(const interprocess_mutex &);
    interprocess_mutex &operator=(const interprocess_mutex &);
@@ -89,7 +93,7 @@ class interprocess_mutex
       #error "Unknown platform for interprocess_mutex"
    #endif
 
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
    public:
 
    //!Constructor.
@@ -127,7 +131,7 @@ class interprocess_mutex
    //!Throws: interprocess_exception on error.
    void unlock();
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    internal_mutex_type &internal_mutex()
    {  return m_mutex;   }
 
@@ -136,7 +140,7 @@ class interprocess_mutex
 
    private:
    internal_mutex_type m_mutex;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
 
 }  //namespace interprocess {

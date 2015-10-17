@@ -344,7 +344,7 @@ private:
         exit_pt():m_forward(){}
         // by assignments, we keep our forwarding functor unchanged as our containing SM did not change
     template <class RHS>
-        exit_pt(RHS& rhs):m_forward(){}
+        exit_pt(RHS&):m_forward(){}
         exit_pt<ExitPoint>& operator= (const exit_pt<ExitPoint>& ) 
         { 
             return *this; 
@@ -1274,22 +1274,34 @@ private:
         m_events_queue.m_events_queue.push_back(f);
     }
     template <class EventType>
-    void enqueue_event_helper(EventType const& evt, ::boost::mpl::true_ const &)
+    void enqueue_event_helper(EventType const& , ::boost::mpl::true_ const &)
     {
         // no queue
     }
 
     void execute_queued_events_helper(::boost::mpl::false_ const &)
     {
-        transition_fct to_call = m_events_queue.m_events_queue.front();
-        m_events_queue.m_events_queue.pop_front();
-        to_call();
+        while(!m_events_queue.m_events_queue.empty())
+        {
+            transition_fct to_call = m_events_queue.m_events_queue.front();
+            m_events_queue.m_events_queue.pop_front();
+            to_call();
+        }
     }
     void execute_queued_events_helper(::boost::mpl::true_ const &)
     {
         // no queue required
     }
-
+    void execute_single_queued_event_helper(::boost::mpl::false_ const &)
+    {
+        transition_fct to_call = m_events_queue.m_events_queue.front();
+        m_events_queue.m_events_queue.pop_front();
+        to_call();
+    }
+    void execute_single_queued_event_helper(::boost::mpl::true_ const &)
+    {
+        // no queue required
+    }
     // enqueues an event in the message queue
     // call execute_queued_events to process all queued events.
     // Be careful if you do this during event processing, the event will be processed immediately
@@ -1305,7 +1317,10 @@ private:
     {
         execute_queued_events_helper(typename is_no_message_queue<library_sm>::type());
     }
-
+    void execute_single_queued_event()
+    {
+        execute_single_queued_event_helper(typename is_no_message_queue<library_sm>::type());
+    }
     typename events_queue_t::size_type get_message_queue_size() const
     {
         return m_events_queue.m_events_queue.size();
@@ -1367,7 +1382,7 @@ private:
             >::type
             ,void 
         >::type
-        operator()(T& t) const
+        operator()(T&) const
         {
             // no state to serialize
         }
@@ -1704,7 +1719,7 @@ private:
     }
     // the following functions handle pre/post-process handling  of a message queue
     template <class StateType,class EventType>
-    bool do_pre_msg_queue_helper(EventType const& evt, ::boost::mpl::true_ const &)
+    bool do_pre_msg_queue_helper(EventType const&, ::boost::mpl::true_ const &)
     {
         // no message queue needed
         return true;

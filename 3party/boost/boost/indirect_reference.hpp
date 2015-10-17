@@ -17,7 +17,7 @@
 # include <boost/mpl/eval_if.hpp>
 # include <boost/pointee.hpp>
 
-namespace boost { 
+namespace boost {
 
 namespace detail
 {
@@ -37,7 +37,7 @@ struct indirect_reference
     >
 {
 };
-  
+
 } // namespace boost
 
 #endif // INDIRECT_REFERENCE_DWA200415_HPP

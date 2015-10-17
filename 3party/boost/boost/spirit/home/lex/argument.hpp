@@ -93,16 +93,6 @@ namespace boost { namespace spirit { namespace lex
         template <typename Env>
         void eval(Env const& env) const
         {
-            typedef
-                typename remove_reference<
-                   typename remove_const<
-                        typename mpl::at_c<typename Env::args_type, 4>::type
-                    >::type
-                >::type
-            context_type;
-
-            typedef typename context_type::state_name_type string;
-
             fusion::at_c<4>(env.args()).set_state_name(
                 traits::get_c_string(actor_.eval(env)));
         }

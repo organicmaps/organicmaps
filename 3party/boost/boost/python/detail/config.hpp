@@ -29,9 +29,6 @@
 # endif
 
 # if defined(BOOST_MSVC)
-#  if _MSC_VER < 1300
-#   define BOOST_MSVC6_OR_EARLIER 1
-#  endif
 
 #  pragma warning (disable : 4786) // disable truncated debug symbols
 #  pragma warning (disable : 4251) // disable exported dll function

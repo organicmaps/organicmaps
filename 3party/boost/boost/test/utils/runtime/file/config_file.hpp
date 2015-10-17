@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2005-2008.
+//  (C) Copyright Gennadiy Rozental 2005-2014.
 //  Use, modification, and distribution are subject to the
 //  Boost Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -12,8 +12,8 @@
 //  Description : defines models configuration file, it's parameter and parameter namespaces
 // ***************************************************************************
 
-#ifndef BOOST_RT_FILE_CONFIG_FILE_HPP_010105GER
-#define BOOST_RT_FILE_CONFIG_FILE_HPP_010105GER
+#ifndef BOOST_TEST_UTILS_RUNTIME_FILE_CONFIG_FILE_HPP
+#define BOOST_TEST_UTILS_RUNTIME_FILE_CONFIG_FILE_HPP
 
 // Boost.Runtime.Parameter
 #include <boost/test/utils/runtime/config.hpp>
@@ -32,7 +32,7 @@
 
 namespace boost {
 
-namespace BOOST_RT_PARAM_NAMESPACE {
+namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE {
 
 namespace file {
 
@@ -65,7 +65,7 @@ namespace {
 nfp::typed_keyword<cstring, struct value_marker_t>          value_marker;
 nfp::typed_keyword<cstring, struct value_delimeter_t>       value_delimeter;
 nfp::typed_keyword<cstring, struct namespace_delimeter_t>   namespace_delimeter;
-} // local namespace 
+} // local namespace
 
 // ************************************************************************** //
 // **************        runtime::file::param_namespace        ************** //
@@ -86,9 +86,9 @@ public:
     template<typename Modifier>
     void                    load( config_file_iterator cf_it, Modifier const& m )
     {
-        cstring vm = m.has( value_marker )        ? m[value_marker]        : BOOST_RT_PARAM_CSTRING_LITERAL( "\"" );
-        cstring vd = m.has( value_delimeter )     ? m[value_delimeter]     : BOOST_RT_PARAM_CSTRING_LITERAL( "= \t\n\r" );
-        cstring nd = m.has( namespace_delimeter ) ? m[namespace_delimeter] : BOOST_RT_PARAM_CSTRING_LITERAL( "::" );
+        cstring vm = m.has( value_marker )        ? m[value_marker]        : BOOST_TEST_UTILS_RUNTIME_PARAM_CSTRING_LITERAL( "\"" );
+        cstring vd = m.has( value_delimeter )     ? m[value_delimeter]     : BOOST_TEST_UTILS_RUNTIME_PARAM_CSTRING_LITERAL( "= \t\n\r" );
+        cstring nd = m.has( namespace_delimeter ) ? m[namespace_delimeter] : BOOST_TEST_UTILS_RUNTIME_PARAM_CSTRING_LITERAL( "::" );
 
         load_impl( cf_it, vm, vd, nd );
     }
@@ -126,7 +126,7 @@ protected:
     explicit                param_namespace( cstring name, param_namespace const* parent = 0 );
 
 private:
-    void                    load_impl( config_file_iterator cf_it, 
+    void                    load_impl( config_file_iterator cf_it,
                                        cstring value_marker_, cstring value_delimeter_, cstring namespace_delimeter_ );
 
     // Data members
@@ -175,8 +175,8 @@ public:
 
 } // namespace file
 
-} // namespace BOOST_RT_PARAM_NAMESPACE
+} // namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE
 
 } // namespace boost
 
-#endif // BOOST_RT_FILE_CONFIG_FILE_HPP_010105GER
+#endif // BOOST_TEST_UTILS_RUNTIME_FILE_CONFIG_FILE_HPP_010105GER

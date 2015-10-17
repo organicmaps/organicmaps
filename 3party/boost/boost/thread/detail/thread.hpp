@@ -7,6 +7,7 @@
 // (C) Copyright 2011-2012 Vicente J. Botet Escriba
 
 #include <boost/thread/detail/config.hpp>
+#include <boost/predef/platform.h>
 
 #include <boost/thread/exceptions.hpp>
 #ifndef BOOST_NO_IOSTREAM
@@ -291,7 +292,8 @@ namespace boost
         template <class F>
         explicit thread(F f
         , typename disable_if_c<
-            boost::thread_detail::is_convertible<F&,BOOST_THREAD_RV_REF(F)>::value
+        boost::thread_detail::is_rv<F>::value // todo ass a thread_detail::is_rv
+        //boost::thread_detail::is_convertible<F&,BOOST_THREAD_RV_REF(F)>::value
             //|| is_same<typename decay<F>::type, thread>::value
            , dummy* >::type=0
         ):
@@ -301,7 +303,8 @@ namespace boost
         }
         template <class F>
         thread(attributes const& attrs, F f
-        , typename disable_if<boost::thread_detail::is_convertible<F&,BOOST_THREAD_RV_REF(F) >, dummy* >::type=0
+            , typename disable_if<boost::thread_detail::is_rv<F>, dummy* >::type=0
+            //, typename disable_if<boost::thread_detail::is_convertible<F&,BOOST_THREAD_RV_REF(F) >, dummy* >::type=0
         ):
             thread_info(make_thread_info(f))
         {

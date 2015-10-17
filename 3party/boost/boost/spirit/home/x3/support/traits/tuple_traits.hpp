@@ -7,10 +7,6 @@
 #if !defined(BOOST_SPIRIT_X3_TUPLE_TRAITS_JANUARY_2012_1132PM)
 #define BOOST_SPIRIT_X3_TUPLE_TRAITS_JANUARY_2012_1132PM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/fusion/include/is_sequence.hpp>
 #include <boost/fusion/include/size.hpp>
 #include <boost/mpl/bool.hpp>

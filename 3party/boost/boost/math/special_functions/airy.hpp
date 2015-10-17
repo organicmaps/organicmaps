@@ -164,7 +164,7 @@ T airy_ai_zero_imp(int m, const Policy& pol)
    if(m < 0)
    {
       return policies::raise_domain_error<T>("boost::math::airy_ai_zero<%1%>(%1%, int)",
-                                             "Requested the %1%'th zero, but the rank must be 1 or more !", m, pol);
+         "Requested the %1%'th zero, but the rank must be 1 or more !", static_cast<T>(m), pol);
    }
 
    // Handle case when the zero'th zero is requested.
@@ -217,7 +217,7 @@ T airy_bi_zero_imp(int m, const Policy& pol)
    if(m < 0)
    {
       return policies::raise_domain_error<T>("boost::math::airy_bi_zero<%1%>(%1%, int)",
-                                             "Requested the %1%'th zero, but the rank must 1 or more !", m, pol);
+         "Requested the %1%'th zero, but the rank must 1 or more !", static_cast<T>(m), pol);
    }
 
    // Handle case when the zero'th zero is requested.

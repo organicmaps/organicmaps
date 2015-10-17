@@ -47,7 +47,7 @@ namespace boost
 
         void call()
         {
-          f();
+          if (impl) f();
         }
       };
     public:

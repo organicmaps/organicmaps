@@ -19,38 +19,54 @@
 #ifndef BOOST_CONTAINER_STABLE_VECTOR_HPP
 #define BOOST_CONTAINER_STABLE_VECTOR_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
 #include <boost/container/detail/config_begin.hpp>
 #include <boost/container/detail/workaround.hpp>
-#include <boost/container/container_fwd.hpp>
-#include <boost/assert.hpp>
-#include <boost/container/throw_exception.hpp>
-#include <boost/container/detail/allocator_version_traits.hpp>
-#include <boost/container/detail/utilities.hpp>
-#include <boost/container/detail/iterators.hpp>
-#include <boost/container/detail/algorithms.hpp>
-#include <boost/container/allocator_traits.hpp>
-#include <boost/container/throw_exception.hpp>
-#include <boost/intrusive/pointer_traits.hpp>
-#include <boost/detail/no_exceptions_support.hpp>
-#include <boost/aligned_storage.hpp>
-#include <boost/move/utility.hpp>
-#include <boost/move/iterator.hpp>
-#include <boost/move/detail/move_helpers.hpp>
-#include <algorithm> //max
 
-#include <memory>
-#include <new> //placement new
+// container
+#include <boost/container/allocator_traits.hpp>
+#include <boost/container/container_fwd.hpp>
+#include <boost/container/new_allocator.hpp> //new_allocator
+#include <boost/container/throw_exception.hpp>
+// container/detail
+#include <boost/container/detail/addressof.hpp>
+#include <boost/container/detail/algorithm.hpp> //algo_equal(), algo_lexicographical_compare
+#include <boost/container/detail/alloc_helpers.hpp>
+#include <boost/container/detail/allocator_version_traits.hpp>
+#include <boost/container/detail/construct_in_place.hpp>
+#include <boost/container/detail/iterator.hpp>
+#include <boost/container/detail/iterators.hpp>
+#include <boost/container/detail/placement_new.hpp>
+#include <boost/container/detail/to_raw_pointer.hpp>
+#include <boost/container/detail/type_traits.hpp>
+// intrusive
+#include <boost/intrusive/pointer_traits.hpp>
+// intrusive/detail
+#include <boost/intrusive/detail/minimal_pair_header.hpp>   //pair
+// move
+#include <boost/move/utility_core.hpp>
+#include <boost/move/iterator.hpp>
+#include <boost/move/adl_move_swap.hpp>
+// move/detail
+#include <boost/move/detail/move_helpers.hpp>
+// other
+#include <boost/assert.hpp>
+#include <boost/core/no_exceptions_support.hpp>
+// std
+#if !defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST)
+#include <initializer_list>
+#endif
 
 #ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
-
-#include <boost/container/vector.hpp>
-
-//#define STABLE_VECTOR_ENABLE_INVARIANT_CHECKING
-
+   #include <boost/container/vector.hpp>
+   //#define STABLE_VECTOR_ENABLE_INVARIANT_CHECKING
 #endif   //#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
 
 namespace boost {
@@ -226,7 +242,7 @@ class stable_vector_iterator
 {
    typedef boost::intrusive::pointer_traits<Pointer>                                non_const_ptr_traits;
    public:
-	typedef std::random_access_iterator_tag                                          iterator_category;
+   typedef std::random_access_iterator_tag                                          iterator_category;
    typedef typename non_const_ptr_traits::element_type                              value_type;
    typedef typename non_const_ptr_traits::difference_type                           difference_type;
    typedef typename ::boost::container::container_detail::if_c
@@ -256,102 +272,103 @@ class stable_vector_iterator
 
    public:
 
-   explicit stable_vector_iterator(node_base_ptr p) BOOST_CONTAINER_NOEXCEPT
+   explicit stable_vector_iterator(node_base_ptr p) BOOST_NOEXCEPT_OR_NOTHROW
       : m_pn(p)
    {}
 
-   stable_vector_iterator() BOOST_CONTAINER_NOEXCEPT
+   stable_vector_iterator() BOOST_NOEXCEPT_OR_NOTHROW
+      : m_pn() //Value initialization to achieve "null iterators" (N3644)
    {}
 
-   stable_vector_iterator(stable_vector_iterator<Pointer, false> const& other) BOOST_CONTAINER_NOEXCEPT
+   stable_vector_iterator(stable_vector_iterator<Pointer, false> const& other) BOOST_NOEXCEPT_OR_NOTHROW
       :  m_pn(other.node_pointer())
    {}
 
-   node_ptr node_pointer() const BOOST_CONTAINER_NOEXCEPT
+   node_ptr node_pointer() const BOOST_NOEXCEPT_OR_NOTHROW
    {  return node_ptr_traits::static_cast_from(m_pn);  }
 
    public:
    //Pointer like operators
-   reference operator*()  const BOOST_CONTAINER_NOEXCEPT
+   reference operator*()  const BOOST_NOEXCEPT_OR_NOTHROW
    {  return  node_pointer()->value;  }
 
-   pointer   operator->() const BOOST_CONTAINER_NOEXCEPT
+   pointer   operator->() const BOOST_NOEXCEPT_OR_NOTHROW
    {  return ptr_traits::pointer_to(this->operator*());  }
 
    //Increment / Decrement
-   stable_vector_iterator& operator++() BOOST_CONTAINER_NOEXCEPT
+   stable_vector_iterator& operator++() BOOST_NOEXCEPT_OR_NOTHROW
    {
       node_base_ptr_ptr p(this->m_pn->up);
       this->m_pn = *(++p);
       return *this;
    }
 
-   stable_vector_iterator operator++(int) BOOST_CONTAINER_NOEXCEPT
+   stable_vector_iterator operator++(int) BOOST_NOEXCEPT_OR_NOTHROW
    {  stable_vector_iterator tmp(*this);  ++*this; return stable_vector_iterator(tmp); }
 
-   stable_vector_iterator& operator--() BOOST_CONTAINER_NOEXCEPT
+   stable_vector_iterator& operator--() BOOST_NOEXCEPT_OR_NOTHROW
    {
       node_base_ptr_ptr p(this->m_pn->up);
       this->m_pn = *(--p);
       return *this;
    }
 
-   stable_vector_iterator operator--(int) BOOST_CONTAINER_NOEXCEPT
+   stable_vector_iterator operator--(int) BOOST_NOEXCEPT_OR_NOTHROW
    {  stable_vector_iterator tmp(*this);  --*this; return stable_vector_iterator(tmp);  }
 
-   reference operator[](difference_type off) const BOOST_CONTAINER_NOEXCEPT
+   reference operator[](difference_type off) const BOOST_NOEXCEPT_OR_NOTHROW
    {  return node_ptr_traits::static_cast_from(this->m_pn->up[off])->value;  }
 
-   stable_vector_iterator& operator+=(difference_type off) BOOST_CONTAINER_NOEXCEPT
+   stable_vector_iterator& operator+=(difference_type off) BOOST_NOEXCEPT_OR_NOTHROW
    {
       if(off) this->m_pn = this->m_pn->up[off];
       return *this;
    }
 
-   friend stable_vector_iterator operator+(const stable_vector_iterator &left, difference_type off) BOOST_CONTAINER_NOEXCEPT
+   friend stable_vector_iterator operator+(const stable_vector_iterator &left, difference_type off) BOOST_NOEXCEPT_OR_NOTHROW
    {
       stable_vector_iterator tmp(left);
       tmp += off;
       return tmp;
    }
 
-   friend stable_vector_iterator operator+(difference_type off, const stable_vector_iterator& right) BOOST_CONTAINER_NOEXCEPT
+   friend stable_vector_iterator operator+(difference_type off, const stable_vector_iterator& right) BOOST_NOEXCEPT_OR_NOTHROW
    {
       stable_vector_iterator tmp(right);
       tmp += off;
       return tmp;
    }
 
-   stable_vector_iterator& operator-=(difference_type off) BOOST_CONTAINER_NOEXCEPT
+   stable_vector_iterator& operator-=(difference_type off) BOOST_NOEXCEPT_OR_NOTHROW
    {  *this += -off; return *this;   }
 
-   friend stable_vector_iterator operator-(const stable_vector_iterator &left, difference_type off) BOOST_CONTAINER_NOEXCEPT
+   friend stable_vector_iterator operator-(const stable_vector_iterator &left, difference_type off) BOOST_NOEXCEPT_OR_NOTHROW
    {
       stable_vector_iterator tmp(left);
       tmp -= off;
       return tmp;
    }
 
-   friend difference_type operator-(const stable_vector_iterator& left, const stable_vector_iterator& right) BOOST_CONTAINER_NOEXCEPT
+   friend difference_type operator-(const stable_vector_iterator &left, const stable_vector_iterator &right) BOOST_NOEXCEPT_OR_NOTHROW
    {  return left.m_pn->up - right.m_pn->up;  }
 
    //Comparison operators
-   friend bool operator==   (const stable_vector_iterator& l, const stable_vector_iterator& r) BOOST_CONTAINER_NOEXCEPT
+   friend bool operator==   (const stable_vector_iterator& l, const stable_vector_iterator& r) BOOST_NOEXCEPT_OR_NOTHROW
    {  return l.m_pn == r.m_pn;  }
 
-   friend bool operator!=   (const stable_vector_iterator& l, const stable_vector_iterator& r) BOOST_CONTAINER_NOEXCEPT
+   friend bool operator!=   (const stable_vector_iterator& l, const stable_vector_iterator& r) BOOST_NOEXCEPT_OR_NOTHROW
    {  return l.m_pn != r.m_pn;  }
 
-   friend bool operator<    (const stable_vector_iterator& l, const stable_vector_iterator& r) BOOST_CONTAINER_NOEXCEPT
+   friend bool operator<    (const stable_vector_iterator& l, const stable_vector_iterator& r) BOOST_NOEXCEPT_OR_NOTHROW
    {  return l.m_pn->up < r.m_pn->up;  }
 
-   friend bool operator<=   (const stable_vector_iterator& l, const stable_vector_iterator& r) BOOST_CONTAINER_NOEXCEPT
+   friend bool operator<=   (const stable_vector_iterator& l, const stable_vector_iterator& r) BOOST_NOEXCEPT_OR_NOTHROW
    {  return l.m_pn->up <= r.m_pn->up;  }
 
-   friend bool operator>    (const stable_vector_iterator& l, const stable_vector_iterator& r) BOOST_CONTAINER_NOEXCEPT
+   friend bool operator>    (const stable_vector_iterator& l, const stable_vector_iterator& r) BOOST_NOEXCEPT_OR_NOTHROW
    {  return l.m_pn->up > r.m_pn->up;  }
 
-   friend bool operator>=   (const stable_vector_iterator& l, const stable_vector_iterator& r) BOOST_CONTAINER_NOEXCEPT
+   friend bool operator>=   (const stable_vector_iterator& l, const stable_vector_iterator& r) BOOST_NOEXCEPT_OR_NOTHROW
    {  return l.m_pn->up >= r.m_pn->up;  }
 };
 
@@ -404,7 +421,7 @@ class stable_vector_iterator
 //! \tparam T The type of object that is stored in the stable_vector
 //! \tparam Allocator The allocator used for all internal memory management
 #ifdef BOOST_CONTAINER_DOXYGEN_INVOKED
-template <class T, class Allocator = std::allocator<T> >
+template <class T, class Allocator = new_allocator<T> >
 #else
 template <class T, class Allocator>
 #endif
@@ -447,10 +464,6 @@ class stable_vector
    typedef typename node_ptr_traits::reference        node_reference;
    typedef typename const_node_ptr_traits::reference  const_node_reference;
 
-   typedef ::boost::container::container_detail::
-      integral_constant<unsigned, 1>                  allocator_v1;
-   typedef ::boost::container::container_detail::
-      integral_constant<unsigned, 2>                  allocator_v2;
    typedef ::boost::container::container_detail::integral_constant
       <unsigned, boost::container::container_detail::
       version<Allocator>::value>                              alloc_version;
@@ -480,7 +493,7 @@ class stable_vector
       , false>                                           iterator_impl;
    typedef stable_vector_iterator
       < typename allocator_traits<Allocator>::pointer
-      , false>                                           const_iterator_impl;
+      , true>                                            const_iterator_impl;
    #endif   //#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
    public:
 
@@ -500,8 +513,8 @@ class stable_vector
    typedef node_allocator_type                                                         stored_allocator_type;
    typedef BOOST_CONTAINER_IMPDEF(iterator_impl)                                       iterator;
    typedef BOOST_CONTAINER_IMPDEF(const_iterator_impl)                                 const_iterator;
-   typedef BOOST_CONTAINER_IMPDEF(std::reverse_iterator<iterator>)                     reverse_iterator;
-   typedef BOOST_CONTAINER_IMPDEF(std::reverse_iterator<const_iterator>)               const_reverse_iterator;
+   typedef BOOST_CONTAINER_IMPDEF(boost::container::reverse_iterator<iterator>)        reverse_iterator;
+   typedef BOOST_CONTAINER_IMPDEF(boost::container::reverse_iterator<const_iterator>)  const_reverse_iterator;
 
    #ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
    private:
@@ -538,10 +551,44 @@ class stable_vector
    //! <b>Throws</b>: Nothing
    //!
    //! <b>Complexity</b>: Constant.
-   explicit stable_vector(const allocator_type& al) BOOST_CONTAINER_NOEXCEPT
+   explicit stable_vector(const allocator_type& al) BOOST_NOEXCEPT_OR_NOTHROW
       : internal_data(al), index(al)
    {
       STABLE_VECTOR_CHECK_INVARIANT;
+   }
+
+   //! <b>Effects</b>: Constructs a stable_vector
+   //!   and inserts n value initialized values.
+   //!
+   //! <b>Throws</b>: If allocator_type's default constructor
+   //!   throws or T's default or copy constructor throws.
+   //!
+   //! <b>Complexity</b>: Linear to n.
+   explicit stable_vector(size_type n)
+      : internal_data(), index()
+   {
+      stable_vector_detail::clear_on_destroy<stable_vector> cod(*this);
+      this->resize(n);
+      STABLE_VECTOR_CHECK_INVARIANT;
+      cod.release();
+   }
+
+   //! <b>Effects</b>: Constructs a stable_vector
+   //!   and inserts n default initialized values.
+   //!
+   //! <b>Throws</b>: If allocator_type's default constructor
+   //!   throws or T's default or copy constructor throws.
+   //!
+   //! <b>Complexity</b>: Linear to n.
+   //!
+   //! <b>Note</b>: Non-standard extension
+   stable_vector(size_type n, default_init_t)
+      : internal_data(), index()
+   {
+      stable_vector_detail::clear_on_destroy<stable_vector> cod(*this);
+      this->resize(n, default_init);
+      STABLE_VECTOR_CHECK_INVARIANT;
+      cod.release();
    }
 
    //! <b>Effects</b>: Constructs a stable_vector that will use a copy of allocator a
@@ -551,8 +598,8 @@ class stable_vector
    //!   throws or T's default or copy constructor throws.
    //!
    //! <b>Complexity</b>: Linear to n.
-   explicit stable_vector(size_type n)
-      : internal_data(), index()
+   explicit stable_vector(size_type n, const allocator_type &a)
+      : internal_data(), index(a)
    {
       stable_vector_detail::clear_on_destroy<stable_vector> cod(*this);
       this->resize(n);
@@ -569,8 +616,8 @@ class stable_vector
    //! <b>Complexity</b>: Linear to n.
    //!
    //! <b>Note</b>: Non-standard extension
-   stable_vector(size_type n, default_init_t)
-      : internal_data(), index()
+   stable_vector(size_type n, default_init_t, const allocator_type &a)
+      : internal_data(), index(a)
    {
       stable_vector_detail::clear_on_destroy<stable_vector> cod(*this);
       this->resize(n, default_init);
@@ -628,7 +675,25 @@ class stable_vector
       cod.release();
    }
 
-   //! <b>Effects</b>: Move constructor. Moves mx's resources to *this.
+#if !defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST)
+   //! <b>Effects</b>: Constructs a stable_vector that will use a copy of allocator a
+   //!  and inserts a copy of the range [il.begin(), il.last()) in the stable_vector
+   //!
+   //! <b>Throws</b>: If allocator_type's default constructor
+   //!   throws or T's constructor taking a dereferenced initializer_list iterator throws.
+   //!
+   //! <b>Complexity</b>: Linear to the range [il.begin(), il.end()).
+   stable_vector(std::initializer_list<value_type> il, const allocator_type& l = allocator_type())
+      : internal_data(l), index(l)
+   {
+      stable_vector_detail::clear_on_destroy<stable_vector> cod(*this);
+      insert(cend(), il.begin(), il.end());
+      STABLE_VECTOR_CHECK_INVARIANT;
+      cod.release();
+   }
+#endif
+
+   //! <b>Effects</b>: Move constructor. Moves x's resources to *this.
    //!
    //! <b>Throws</b>: If allocator_type's copy constructor throws.
    //!
@@ -654,7 +719,7 @@ class stable_vector
    }
 
    //! <b>Effects</b>: Move constructor using the specified allocator.
-   //!                 Moves mx's resources to *this.
+   //!                 Moves x's resources to *this.
    //!
    //! <b>Throws</b>: If allocator_type's copy constructor throws.
    //!
@@ -663,11 +728,12 @@ class stable_vector
       : internal_data(a), index(a)
    {
       if(this->priv_node_alloc() == x.priv_node_alloc()){
+         this->index.swap(x.index);
          this->priv_swap_members(x);
       }
       else{
          stable_vector_detail::clear_on_destroy<stable_vector> cod(*this);
-         this->insert(this->cend(), x.begin(), x.end());
+         this->insert(this->cend(), boost::make_move_iterator(x.begin()), boost::make_move_iterator(x.end()));
          STABLE_VECTOR_CHECK_INVARIANT;
          cod.release();
       }
@@ -712,7 +778,7 @@ class stable_vector
       return *this;
    }
 
-   //! <b>Effects</b>: Move assignment. All mx's values are transferred to *this.
+   //! <b>Effects</b>: Move assignment. All x's values are transferred to *this.
    //!
    //! <b>Postcondition</b>: x.empty(). *this contains a the elements x had
    //!   before the function.
@@ -724,7 +790,8 @@ class stable_vector
    //!   propagate_on_container_move_assignment is true or
    //!   this->get>allocator() == x.get_allocator(). Linear otherwise.
    stable_vector& operator=(BOOST_RV_REF(stable_vector) x)
-      BOOST_CONTAINER_NOEXCEPT_IF(allocator_traits_type::propagate_on_container_move_assignment::value)
+      BOOST_NOEXCEPT_IF(allocator_traits_type::propagate_on_container_move_assignment::value
+                                  || allocator_traits_type::is_always_equal::value)
    {
       //for move constructor, no aliasing (&x != this) is assummed.
       BOOST_ASSERT(this != &x);
@@ -737,12 +804,13 @@ class stable_vector
       //Resources can be transferred if both allocators are
       //going to be equal after this function (either propagated or already equal)
       if(propagate_alloc || allocators_equal){
+         STABLE_VECTOR_CHECK_INVARIANT
          //Destroy objects but retain memory in case x reuses it in the future
          this->clear();
          //Move allocator if needed
          container_detail::move_alloc(this_alloc, x_alloc, flag);
          //Take resources
-         this->index = boost::move(x.index);
+         this->index.swap(x.index);
          this->priv_swap_members(x);
       }
       //Else do a one by one move
@@ -752,6 +820,18 @@ class stable_vector
       }
       return *this;
    }
+
+#if !defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST)
+   //! <b>Effects</b>: Make *this container contains elements from il.
+   //!
+   //! <b>Complexity</b>: Linear to the range [il.begin(), il.end()).
+   stable_vector& operator=(std::initializer_list<value_type> il)
+   {
+      STABLE_VECTOR_CHECK_INVARIANT;
+      assign(il.begin(), il.end());
+      return *this;
+   }
+#endif
 
    //! <b>Effects</b>: Assigns the n copies of val to *this.
    //!
@@ -771,13 +851,12 @@ class stable_vector
    //!
    //! <b>Complexity</b>: Linear to n.
    template<typename InputIterator>
-   void assign(InputIterator first,InputIterator last
-      #if !defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
-      , typename container_detail::enable_if_c
-         < !container_detail::is_convertible<InputIterator, size_type>::value
-         >::type * = 0
-      #endif
-      )
+   #if !defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
+   typename container_detail::disable_if_convertible<InputIterator, size_type>::type
+   #else
+   void
+   #endif
+      assign(InputIterator first,InputIterator last)
    {
       STABLE_VECTOR_CHECK_INVARIANT;
       iterator first1   = this->begin();
@@ -791,6 +870,19 @@ class stable_vector
          this->insert(last1, first, last);
       }
    }
+
+#if !defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST)
+   //! <b>Effects</b>: Assigns the the range [il.begin(), il.end()) to *this.
+   //!
+   //! <b>Throws</b>: If memory allocation throws or
+   //!   T's constructor from dereferencing initializer_list iterator throws.
+   //!
+   void assign(std::initializer_list<value_type> il)
+   {
+      STABLE_VECTOR_CHECK_INVARIANT;
+      assign(il.begin(), il.end());
+   }
+#endif
 
    //! <b>Effects</b>: Returns a copy of the internal allocator.
    //!
@@ -807,7 +899,7 @@ class stable_vector
    //! <b>Complexity</b>: Constant.
    //!
    //! <b>Note</b>: Non-standard extension.
-   const stored_allocator_type &get_stored_allocator() const BOOST_CONTAINER_NOEXCEPT
+   const stored_allocator_type &get_stored_allocator() const BOOST_NOEXCEPT_OR_NOTHROW
    {  return this->priv_node_alloc(); }
 
    //! <b>Effects</b>: Returns a reference to the internal allocator.
@@ -817,7 +909,7 @@ class stable_vector
    //! <b>Complexity</b>: Constant.
    //!
    //! <b>Note</b>: Non-standard extension.
-   stored_allocator_type &get_stored_allocator() BOOST_CONTAINER_NOEXCEPT
+   stored_allocator_type &get_stored_allocator() BOOST_NOEXCEPT_OR_NOTHROW
    {  return this->priv_node_alloc(); }
 
    //////////////////////////////////////////////
@@ -831,7 +923,7 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   iterator  begin() BOOST_CONTAINER_NOEXCEPT
+   iterator  begin() BOOST_NOEXCEPT_OR_NOTHROW
    {   return (this->index.empty()) ? this->end(): iterator(node_ptr_traits::static_cast_from(this->index.front())); }
 
    //! <b>Effects</b>: Returns a const_iterator to the first element contained in the stable_vector.
@@ -839,7 +931,7 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_iterator  begin() const BOOST_CONTAINER_NOEXCEPT
+   const_iterator  begin() const BOOST_NOEXCEPT_OR_NOTHROW
    {   return (this->index.empty()) ? this->cend() : const_iterator(node_ptr_traits::static_cast_from(this->index.front())) ;   }
 
    //! <b>Effects</b>: Returns an iterator to the end of the stable_vector.
@@ -847,7 +939,7 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   iterator        end() BOOST_CONTAINER_NOEXCEPT
+   iterator        end() BOOST_NOEXCEPT_OR_NOTHROW
    {  return iterator(this->priv_get_end_node());  }
 
    //! <b>Effects</b>: Returns a const_iterator to the end of the stable_vector.
@@ -855,7 +947,7 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_iterator  end() const BOOST_CONTAINER_NOEXCEPT
+   const_iterator  end() const BOOST_NOEXCEPT_OR_NOTHROW
    {  return const_iterator(this->priv_get_end_node());  }
 
    //! <b>Effects</b>: Returns a reverse_iterator pointing to the beginning
@@ -864,7 +956,7 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   reverse_iterator       rbegin() BOOST_CONTAINER_NOEXCEPT
+   reverse_iterator       rbegin() BOOST_NOEXCEPT_OR_NOTHROW
    {  return reverse_iterator(this->end());  }
 
    //! <b>Effects</b>: Returns a const_reverse_iterator pointing to the beginning
@@ -873,7 +965,7 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reverse_iterator rbegin() const BOOST_CONTAINER_NOEXCEPT
+   const_reverse_iterator rbegin() const BOOST_NOEXCEPT_OR_NOTHROW
    {  return const_reverse_iterator(this->end());  }
 
    //! <b>Effects</b>: Returns a reverse_iterator pointing to the end
@@ -882,7 +974,7 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   reverse_iterator       rend() BOOST_CONTAINER_NOEXCEPT
+   reverse_iterator       rend() BOOST_NOEXCEPT_OR_NOTHROW
    {  return reverse_iterator(this->begin());   }
 
    //! <b>Effects</b>: Returns a const_reverse_iterator pointing to the end
@@ -891,7 +983,7 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reverse_iterator rend() const BOOST_CONTAINER_NOEXCEPT
+   const_reverse_iterator rend() const BOOST_NOEXCEPT_OR_NOTHROW
    {  return const_reverse_iterator(this->begin());   }
 
    //! <b>Effects</b>: Returns a const_iterator to the first element contained in the stable_vector.
@@ -899,7 +991,7 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_iterator         cbegin() const BOOST_CONTAINER_NOEXCEPT
+   const_iterator         cbegin() const BOOST_NOEXCEPT_OR_NOTHROW
    {  return this->begin();   }
 
    //! <b>Effects</b>: Returns a const_iterator to the end of the stable_vector.
@@ -907,7 +999,7 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_iterator         cend() const BOOST_CONTAINER_NOEXCEPT
+   const_iterator         cend() const BOOST_NOEXCEPT_OR_NOTHROW
    {  return this->end();  }
 
    //! <b>Effects</b>: Returns a const_reverse_iterator pointing to the beginning
@@ -916,7 +1008,7 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reverse_iterator crbegin() const BOOST_CONTAINER_NOEXCEPT
+   const_reverse_iterator crbegin() const BOOST_NOEXCEPT_OR_NOTHROW
    {  return this->rbegin();  }
 
    //! <b>Effects</b>: Returns a const_reverse_iterator pointing to the end
@@ -925,7 +1017,7 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reverse_iterator crend()const BOOST_CONTAINER_NOEXCEPT
+   const_reverse_iterator crend()const BOOST_NOEXCEPT_OR_NOTHROW
    {  return this->rend(); }
 
    //////////////////////////////////////////////
@@ -939,7 +1031,7 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   bool empty() const BOOST_CONTAINER_NOEXCEPT
+   bool empty() const BOOST_NOEXCEPT_OR_NOTHROW
    {  return this->index.size() <= ExtraPointers;  }
 
    //! <b>Effects</b>: Returns the number of the elements contained in the stable_vector.
@@ -947,10 +1039,10 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   size_type size() const BOOST_CONTAINER_NOEXCEPT
+   size_type size() const BOOST_NOEXCEPT_OR_NOTHROW
    {
       const size_type index_size = this->index.size();
-      return (index_size - ExtraPointers) & (std::size_t(0u) -std::size_t(index_size != 0));
+      return (index_size - ExtraPointers) & (size_type(0u) -size_type(index_size != 0));
    }
 
    //! <b>Effects</b>: Returns the largest possible size of the stable_vector.
@@ -958,7 +1050,7 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   size_type max_size() const BOOST_CONTAINER_NOEXCEPT
+   size_type max_size() const BOOST_NOEXCEPT_OR_NOTHROW
    {  return this->index.max_size() - ExtraPointers;  }
 
    //! <b>Effects</b>: Inserts or erases elements at the end such that
@@ -1016,17 +1108,16 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   size_type capacity() const BOOST_CONTAINER_NOEXCEPT
+   size_type capacity() const BOOST_NOEXCEPT_OR_NOTHROW
    {
       const size_type index_size             = this->index.size();
       BOOST_ASSERT(!index_size || index_size >= ExtraPointers);
-      const size_type bucket_extra_capacity = this->index.capacity()- index_size;
       const size_type node_extra_capacity   = this->internal_data.pool_size;
-      const size_type extra_capacity        = (bucket_extra_capacity < node_extra_capacity)
-         ? bucket_extra_capacity : node_extra_capacity;
+      //Pool count must be less than index capacity, as index is a vector
+      BOOST_ASSERT(node_extra_capacity <= (this->index.capacity()- index_size));
       const size_type index_offset =
-         (ExtraPointers + extra_capacity) & (size_type(0u) - size_type(index_size != 0));
-      return index_size - index_offset;
+         (node_extra_capacity - ExtraPointers) & (size_type(0u) - size_type(index_size != 0));
+      return index_size + index_offset;
    }
 
    //! <b>Effects</b>: If n is less than or equal to capacity(), this call has no
@@ -1104,7 +1195,7 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   reference front() BOOST_CONTAINER_NOEXCEPT
+   reference front() BOOST_NOEXCEPT_OR_NOTHROW
    {  return static_cast<node_reference>(*this->index.front()).value;  }
 
    //! <b>Requires</b>: !empty()
@@ -1115,7 +1206,7 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reference front() const BOOST_CONTAINER_NOEXCEPT
+   const_reference front() const BOOST_NOEXCEPT_OR_NOTHROW
    {  return static_cast<const_node_reference>(*this->index.front()).value;  }
 
    //! <b>Requires</b>: !empty()
@@ -1126,7 +1217,7 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   reference back() BOOST_CONTAINER_NOEXCEPT
+   reference back() BOOST_NOEXCEPT_OR_NOTHROW
    {  return static_cast<node_reference>(*this->index[this->size()-1u]).value;  }
 
    //! <b>Requires</b>: !empty()
@@ -1137,7 +1228,7 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reference back() const BOOST_CONTAINER_NOEXCEPT
+   const_reference back() const BOOST_NOEXCEPT_OR_NOTHROW
    {  return static_cast<const_node_reference>(*this->index[this->size()-1u]).value;  }
 
    //! <b>Requires</b>: size() > n.
@@ -1148,7 +1239,7 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   reference operator[](size_type n) BOOST_CONTAINER_NOEXCEPT
+   reference operator[](size_type n) BOOST_NOEXCEPT_OR_NOTHROW
    {
       BOOST_ASSERT(n < this->size());
       return static_cast<node_reference>(*this->index[n]).value;
@@ -1162,11 +1253,71 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reference operator[](size_type n) const BOOST_CONTAINER_NOEXCEPT
+   const_reference operator[](size_type n) const BOOST_NOEXCEPT_OR_NOTHROW
    {
       BOOST_ASSERT(n < this->size());
       return static_cast<const_node_reference>(*this->index[n]).value;
    }
+
+   //! <b>Requires</b>: size() >= n.
+   //!
+   //! <b>Effects</b>: Returns an iterator to the nth element
+   //!   from the beginning of the container. Returns end()
+   //!   if n == size().
+   //!
+   //! <b>Throws</b>: Nothing.
+   //!
+   //! <b>Complexity</b>: Constant.
+   //!
+   //! <b>Note</b>: Non-standard extension
+   iterator nth(size_type n) BOOST_NOEXCEPT_OR_NOTHROW
+   {
+      BOOST_ASSERT(this->size() >= n);
+      return (this->index.empty()) ? this->end() : iterator(node_ptr_traits::static_cast_from(this->index[n]));
+   }
+
+   //! <b>Requires</b>: size() >= n.
+   //!
+   //! <b>Effects</b>: Returns a const_iterator to the nth element
+   //!   from the beginning of the container. Returns end()
+   //!   if n == size().
+   //!
+   //! <b>Throws</b>: Nothing.
+   //!
+   //! <b>Complexity</b>: Constant.
+   //!
+   //! <b>Note</b>: Non-standard extension
+   const_iterator nth(size_type n) const BOOST_NOEXCEPT_OR_NOTHROW
+   {
+      BOOST_ASSERT(this->size() >= n);
+      return (this->index.empty()) ? this->cend() : iterator(node_ptr_traits::static_cast_from(this->index[n]));
+   }
+
+   //! <b>Requires</b>: begin() <= p <= end().
+   //!
+   //! <b>Effects</b>: Returns the index of the element pointed by p
+   //!   and size() if p == end().
+   //!
+   //! <b>Throws</b>: Nothing.
+   //!
+   //! <b>Complexity</b>: Constant.
+   //!
+   //! <b>Note</b>: Non-standard extension
+   size_type index_of(iterator p) BOOST_NOEXCEPT_OR_NOTHROW
+   {  return this->priv_index_of(p.node_pointer());  }
+
+   //! <b>Requires</b>: begin() <= p <= end().
+   //!
+   //! <b>Effects</b>: Returns the index of the element pointed by p
+   //!   and size() if p == end().
+   //!
+   //! <b>Throws</b>: Nothing.
+   //!
+   //! <b>Complexity</b>: Constant.
+   //!
+   //! <b>Note</b>: Non-standard extension
+   size_type index_of(const_iterator p) const BOOST_NOEXCEPT_OR_NOTHROW
+   {  return this->priv_index_of(p.node_pointer());  }
 
    //! <b>Requires</b>: size() > n.
    //!
@@ -1206,7 +1357,7 @@ class stable_vector
    //
    //////////////////////////////////////////////
 
-   #if defined(BOOST_CONTAINER_PERFECT_FORWARDING) || defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
+   #if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) || defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
 
    //! <b>Effects</b>: Inserts an object of type T constructed with
    //!   std::forward<Args>(args)... in the end of the stable_vector.
@@ -1223,63 +1374,55 @@ class stable_vector
       this->insert(this->cend(), EmplaceIterator(ef), EmplaceIterator());
    }
 
-   //! <b>Requires</b>: position must be a valid iterator of *this.
+   //! <b>Requires</b>: p must be a valid iterator of *this.
    //!
    //! <b>Effects</b>: Inserts an object of type T constructed with
-   //!   std::forward<Args>(args)... before position
+   //!   std::forward<Args>(args)... before p
    //!
    //! <b>Throws</b>: If memory allocation throws or the in-place constructor throws.
    //!
-   //! <b>Complexity</b>: If position is end(), amortized constant time
+   //! <b>Complexity</b>: If p is end(), amortized constant time
    //!   Linear time otherwise.
    template<class ...Args>
-   iterator emplace(const_iterator position, Args && ...args)
+   iterator emplace(const_iterator p, Args && ...args)
    {
-      //Just call more general insert(pos, size, value) and return iterator
-      size_type pos_n = position - cbegin();
+      size_type pos_n = p - cbegin();
       typedef emplace_functor<Args...>         EmplaceFunctor;
       typedef emplace_iterator<value_type, EmplaceFunctor, difference_type> EmplaceIterator;
       EmplaceFunctor &&ef = EmplaceFunctor(boost::forward<Args>(args)...);
-      this->insert(position, EmplaceIterator(ef), EmplaceIterator());
+      this->insert(p, EmplaceIterator(ef), EmplaceIterator());
       return iterator(this->begin() + pos_n);
    }
 
    #else
 
-   #define BOOST_PP_LOCAL_MACRO(n)                                                              \
-   BOOST_PP_EXPR_IF(n, template<) BOOST_PP_ENUM_PARAMS(n, class P) BOOST_PP_EXPR_IF(n, >)       \
-   void emplace_back(BOOST_PP_ENUM(n, BOOST_CONTAINER_PP_PARAM_LIST, _))                        \
-   {                                                                                            \
-      typedef BOOST_PP_CAT(BOOST_PP_CAT(emplace_functor, n), arg)                               \
-         BOOST_PP_EXPR_IF(n, <) BOOST_PP_ENUM_PARAMS(n, P) BOOST_PP_EXPR_IF(n, >)               \
-            EmplaceFunctor;                                                                     \
-      typedef emplace_iterator<value_type, EmplaceFunctor, difference_type>  EmplaceIterator;   \
-      EmplaceFunctor ef BOOST_PP_LPAREN_IF(n)                                                   \
-                        BOOST_PP_ENUM(n, BOOST_CONTAINER_PP_PARAM_FORWARD, _)                   \
-                        BOOST_PP_RPAREN_IF(n);                                                  \
-      this->insert(this->cend() , EmplaceIterator(ef), EmplaceIterator());                      \
-   }                                                                                            \
-                                                                                                \
-   BOOST_PP_EXPR_IF(n, template<) BOOST_PP_ENUM_PARAMS(n, class P) BOOST_PP_EXPR_IF(n, >)       \
-   iterator emplace(const_iterator pos                                                          \
-           BOOST_PP_ENUM_TRAILING(n, BOOST_CONTAINER_PP_PARAM_LIST, _))                         \
-   {                                                                                            \
-      typedef BOOST_PP_CAT(BOOST_PP_CAT(emplace_functor, n), arg)                               \
-         BOOST_PP_EXPR_IF(n, <) BOOST_PP_ENUM_PARAMS(n, P) BOOST_PP_EXPR_IF(n, >)               \
-            EmplaceFunctor;                                                                     \
-      typedef emplace_iterator<value_type, EmplaceFunctor, difference_type>  EmplaceIterator;   \
-      EmplaceFunctor ef BOOST_PP_LPAREN_IF(n)                                                   \
-                        BOOST_PP_ENUM(n, BOOST_CONTAINER_PP_PARAM_FORWARD, _)                   \
-                        BOOST_PP_RPAREN_IF(n);                                                  \
-      size_type pos_n = pos - this->cbegin();                                                   \
-      this->insert(pos, EmplaceIterator(ef), EmplaceIterator());                                \
-      return iterator(this->begin() + pos_n);                                                   \
-   }                                                                                            \
-   //!
-   #define BOOST_PP_LOCAL_LIMITS (0, BOOST_CONTAINER_MAX_CONSTRUCTOR_PARAMETERS)
-   #include BOOST_PP_LOCAL_ITERATE()
+   #define BOOST_CONTAINER_STABLE_VECTOR_EMPLACE_CODE(N) \
+   BOOST_MOVE_TMPL_LT##N BOOST_MOVE_CLASS##N BOOST_MOVE_GT##N \
+   void emplace_back(BOOST_MOVE_UREF##N)\
+   {\
+      typedef emplace_functor##N\
+         BOOST_MOVE_LT##N BOOST_MOVE_TARG##N BOOST_MOVE_GT##N EmplaceFunctor;\
+      typedef emplace_iterator<value_type, EmplaceFunctor, difference_type>  EmplaceIterator;\
+      EmplaceFunctor ef BOOST_MOVE_LP##N BOOST_MOVE_FWD##N BOOST_MOVE_RP##N;\
+      this->insert(this->cend() , EmplaceIterator(ef), EmplaceIterator());\
+   }\
+   \
+   BOOST_MOVE_TMPL_LT##N BOOST_MOVE_CLASS##N BOOST_MOVE_GT##N \
+   iterator emplace(const_iterator p BOOST_MOVE_I##N BOOST_MOVE_UREF##N)\
+   {\
+      typedef emplace_functor##N\
+         BOOST_MOVE_LT##N BOOST_MOVE_TARG##N BOOST_MOVE_GT##N EmplaceFunctor;\
+      typedef emplace_iterator<value_type, EmplaceFunctor, difference_type>  EmplaceIterator;\
+      EmplaceFunctor ef BOOST_MOVE_LP##N BOOST_MOVE_FWD##N BOOST_MOVE_RP##N;\
+      const size_type pos_n = p - this->cbegin();\
+      this->insert(p, EmplaceIterator(ef), EmplaceIterator());\
+      return this->begin() += pos_n;\
+   }\
+   //
+   BOOST_MOVE_ITERATE_0TO9(BOOST_CONTAINER_STABLE_VECTOR_EMPLACE_CODE)
+   #undef BOOST_CONTAINER_STABLE_VECTOR_EMPLACE_CODE
 
-   #endif   //#ifdef BOOST_CONTAINER_PERFECT_FORWARDING
+   #endif   // !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
 
    #if defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
    //! <b>Effects</b>: Inserts a copy of x at the end of the stable_vector.
@@ -1291,7 +1434,7 @@ class stable_vector
    void push_back(const T &x);
 
    //! <b>Effects</b>: Constructs a new element in the end of the stable_vector
-   //!   and moves the resources of mx to this new element.
+   //!   and moves the resources of x to this new element.
    //!
    //! <b>Throws</b>: If memory allocation throws.
    //!
@@ -1302,94 +1445,112 @@ class stable_vector
    #endif
 
    #if defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
-   //! <b>Requires</b>: position must be a valid iterator of *this.
+   //! <b>Requires</b>: p must be a valid iterator of *this.
    //!
-   //! <b>Effects</b>: Insert a copy of x before position.
+   //! <b>Effects</b>: Insert a copy of x before p.
    //!
    //! <b>Returns</b>: An iterator to the inserted element.
    //!
    //! <b>Throws</b>: If memory allocation throws or x's copy constructor throws.
    //!
-   //! <b>Complexity</b>: If position is end(), amortized constant time
+   //! <b>Complexity</b>: If p is end(), amortized constant time
    //!   Linear time otherwise.
-   iterator insert(const_iterator position, const T &x);
+   iterator insert(const_iterator p, const T &x);
 
-   //! <b>Requires</b>: position must be a valid iterator of *this.
+   //! <b>Requires</b>: p must be a valid iterator of *this.
    //!
-   //! <b>Effects</b>: Insert a new element before position with mx's resources.
+   //! <b>Effects</b>: Insert a new element before p with x's resources.
    //!
    //! <b>Returns</b>: an iterator to the inserted element.
    //!
    //! <b>Throws</b>: If memory allocation throws.
    //!
-   //! <b>Complexity</b>: If position is end(), amortized constant time
+   //! <b>Complexity</b>: If p is end(), amortized constant time
    //!   Linear time otherwise.
-   iterator insert(const_iterator position, T &&x);
+   iterator insert(const_iterator p, T &&x);
    #else
    BOOST_MOVE_CONVERSION_AWARE_CATCH_1ARG(insert, T, iterator, priv_insert, const_iterator, const_iterator)
    #endif
 
-   //! <b>Requires</b>: pos must be a valid iterator of *this.
+   //! <b>Requires</b>: p must be a valid iterator of *this.
    //!
-   //! <b>Effects</b>: Insert n copies of x before position.
+   //! <b>Effects</b>: Insert n copies of x before p.
    //!
-   //! <b>Returns</b>: an iterator to the first inserted element or position if n is 0.
+   //! <b>Returns</b>: an iterator to the first inserted element or p if n is 0.
    //!
    //! <b>Throws</b>: If memory allocation throws or T's copy constructor throws.
    //!
    //! <b>Complexity</b>: Linear to n.
-   iterator insert(const_iterator position, size_type n, const T& t)
+   iterator insert(const_iterator p, size_type n, const T& t)
    {
       STABLE_VECTOR_CHECK_INVARIANT;
       typedef constant_iterator<value_type, difference_type> cvalue_iterator;
-      return this->insert(position, cvalue_iterator(t, n), cvalue_iterator());
+      return this->insert(p, cvalue_iterator(t, n), cvalue_iterator());
    }
+
+   //! <b>Requires</b>: p must be a valid iterator of *this.
+#if !defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST)
+   //! <b>Requires</b>: p must be a valid iterator of *this.
+   //!
+   //! <b>Effects</b>: Insert a copy of the [il.begin(), il.end()) range before p.
+   //!
+   //! <b>Returns</b>: an iterator to the first inserted element or p if first == last.
+   //!
+   //! <b>Complexity</b>: Linear to distance [il.begin(), il.end()).
+   iterator insert(const_iterator p, std::initializer_list<value_type> il)
+   {
+      STABLE_VECTOR_CHECK_INVARIANT;
+      return insert(p, il.begin(), il.end());
+   }
+#endif
 
    //! <b>Requires</b>: pos must be a valid iterator of *this.
    //!
-   //! <b>Effects</b>: Insert a copy of the [first, last) range before pos.
+   //! <b>Effects</b>: Insert a copy of the [first, last) range before p.
    //!
-   //! <b>Returns</b>: an iterator to the first inserted element or position if first == last.
+   //! <b>Returns</b>: an iterator to the first inserted element or p if first == last.
    //!
    //! <b>Throws</b>: If memory allocation throws, T's constructor from a
    //!   dereferenced InpIt throws or T's copy constructor throws.
    //!
-   //! <b>Complexity</b>: Linear to std::distance [first, last).
+   //! <b>Complexity</b>: Linear to distance [first, last).
    template <class InputIterator>
-   iterator insert(const_iterator position, InputIterator first, InputIterator last
-      #if !defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
-      , typename container_detail::enable_if_c
-         < !container_detail::is_convertible<InputIterator, size_type>::value
-            && container_detail::is_input_iterator<InputIterator>::value
-         >::type * = 0
-      #endif
-      )
+   #if !defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
+   typename container_detail::disable_if_or
+      < iterator
+      , container_detail::is_convertible<InputIterator, size_type>
+      , container_detail::is_not_input_iterator<InputIterator>
+      >::type
+   #else
+   iterator
+   #endif
+      insert(const_iterator p, InputIterator first, InputIterator last)
    {
       STABLE_VECTOR_CHECK_INVARIANT;
-      const size_type pos_n = position - this->cbegin();
+      const size_type pos_n = p - this->cbegin();
       for(; first != last; ++first){
-         this->emplace(position, *first);
+         this->emplace(p, *first);
       }
       return this->begin() + pos_n;
    }
 
    #if !defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
    template <class FwdIt>
-   iterator insert(const_iterator position, FwdIt first, FwdIt last
-      , typename container_detail::enable_if_c
-         < !container_detail::is_convertible<FwdIt, size_type>::value
-            && !container_detail::is_input_iterator<FwdIt>::value
-         >::type * = 0
-      )
+   typename container_detail::disable_if_or
+      < iterator
+      , container_detail::is_convertible<FwdIt, size_type>
+      , container_detail::is_input_iterator<FwdIt>
+      >::type
+      insert(const_iterator p, FwdIt first, FwdIt last)
    {
-      const size_type num_new = static_cast<size_type>(std::distance(first, last));
-      const size_type pos     = static_cast<size_type>(position - this->cbegin());
+      const size_type num_new = static_cast<size_type>(boost::container::iterator_distance(first, last));
+      const size_type idx     = static_cast<size_type>(p - this->cbegin());
       if(num_new){
-         //Fills the node pool and inserts num_new null pointers in pos.
-         //If a new buffer was needed fixes up pointers up to pos so
+         //Fills the node pool and inserts num_new null pointers in idx.
+         //If a new buffer was needed fixes up pointers up to idx so
          //past-new nodes are not aligned until the end of this function
          //or in a rollback in case of exception
-         index_iterator it_past_newly_constructed(this->priv_insert_forward_non_templated(pos, num_new));
+         index_iterator it_past_newly_constructed(this->priv_insert_forward_non_templated(idx, num_new));
          const index_iterator it_past_new(it_past_newly_constructed + num_new);
          {
             //Prepare rollback
@@ -1407,10 +1568,10 @@ class stable_vector
             //rollback.~insert_rollback() called in case of exception
          }
          //Fix up pointers for past-new nodes (new nodes were fixed during construction) and
-         //nodes before insertion position in priv_insert_forward_non_templated(...)
+         //nodes before insertion p in priv_insert_forward_non_templated(...)
          index_traits_type::fix_up_pointers_from(this->index, it_past_newly_constructed);
       }
-      return this->begin() + pos;
+      return this->begin() + idx;
    }
    #endif
 
@@ -1419,21 +1580,21 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant time.
-   void pop_back() BOOST_CONTAINER_NOEXCEPT
+   void pop_back() BOOST_NOEXCEPT_OR_NOTHROW
    {  this->erase(--this->cend());   }
 
-   //! <b>Effects</b>: Erases the element at position pos.
+   //! <b>Effects</b>: Erases the element at p.
    //!
    //! <b>Throws</b>: Nothing.
    //!
-   //! <b>Complexity</b>: Linear to the elements between pos and the
-   //!   last element. Constant if pos is the last element.
-   iterator erase(const_iterator position) BOOST_CONTAINER_NOEXCEPT
+   //! <b>Complexity</b>: Linear to the elements between p and the
+   //!   last element. Constant if p is the last element.
+   iterator erase(const_iterator p) BOOST_NOEXCEPT_OR_NOTHROW
    {
       STABLE_VECTOR_CHECK_INVARIANT;
-      const size_type d = position - this->cbegin();
+      const size_type d = p - this->cbegin();
       index_iterator it = this->index.begin() + d;
-      this->priv_delete_node(position.node_pointer());
+      this->priv_delete_node(p.node_pointer());
       it = this->index.erase(it);
       index_traits_type::fix_up_pointers_from(this->index, it);
       return iterator(node_ptr_traits::static_cast_from(*it));
@@ -1444,8 +1605,8 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Linear to the distance between first and last
-   //!   plus linear to the elements between pos and the last element.
-   iterator erase(const_iterator first, const_iterator last) BOOST_CONTAINER_NOEXCEPT
+   //!   plus linear to the elements between p and the last element.
+   iterator erase(const_iterator first, const_iterator last) BOOST_NOEXCEPT_OR_NOTHROW
    {
       STABLE_VECTOR_CHECK_INVARIANT;
       const const_iterator cbeg(this->cbegin());
@@ -1477,6 +1638,8 @@ class stable_vector
    //!
    //! <b>Complexity</b>: Constant.
    void swap(stable_vector & x)
+      BOOST_NOEXCEPT_IF( allocator_traits_type::propagate_on_container_swap::value
+                                || allocator_traits_type::is_always_equal::value)
    {
       STABLE_VECTOR_CHECK_INVARIANT;
       container_detail::bool_<allocator_traits_type::propagate_on_container_swap::value> flag;
@@ -1491,14 +1654,14 @@ class stable_vector
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Linear to the number of elements in the stable_vector.
-   void clear() BOOST_CONTAINER_NOEXCEPT
+   void clear() BOOST_NOEXCEPT_OR_NOTHROW
    {   this->erase(this->cbegin(),this->cend()); }
 
    //! <b>Effects</b>: Returns true if x and y are equal
    //!
    //! <b>Complexity</b>: Linear to the number of elements in the container.
    friend bool operator==(const stable_vector& x, const stable_vector& y)
-   {  return x.size() == y.size() && std::equal(x.begin(), x.end(), y.begin());  }
+   {  return x.size() == y.size() && ::boost::container::algo_equal(x.begin(), x.end(), y.begin());  }
 
    //! <b>Effects</b>: Returns true if x and y are unequal
    //!
@@ -1510,7 +1673,7 @@ class stable_vector
    //!
    //! <b>Complexity</b>: Linear to the number of elements in the container.
    friend bool operator<(const stable_vector& x, const stable_vector& y)
-   {  return std::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());  }
+   {  return ::boost::container::algo_lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());  }
 
    //! <b>Effects</b>: Returns true if x is greater than y
    //!
@@ -1538,6 +1701,14 @@ class stable_vector
 
    #ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
    private:
+
+   size_type priv_index_of(node_ptr p) const
+   {
+      //Check range
+      BOOST_ASSERT(this->index.empty() || (this->index.data() <= p->up));
+      BOOST_ASSERT(this->index.empty() || p->up <= (this->index.data() + this->index.size()));
+      return this->index.empty() ? 0 : p->up - this->index.data();
+   }
 
    class insert_rollback
    {
@@ -1584,7 +1755,7 @@ class stable_vector
       node_ptr m_p;
    };
 
-   index_iterator priv_insert_forward_non_templated(size_type pos, size_type num_new)
+   index_iterator priv_insert_forward_non_templated(size_type idx, size_type num_new)
    {
       index_traits_type::initialize_end_node(this->index, this->internal_data.end_node, num_new);
 
@@ -1595,15 +1766,15 @@ class stable_vector
 
       //Now try to make room in the vector
       const node_base_ptr_ptr old_buffer = this->index.data();
-      this->index.insert(this->index.begin() + pos, num_new, node_ptr());
+      this->index.insert(this->index.begin() + idx, num_new, node_ptr());
       bool new_buffer = this->index.data() != old_buffer;
 
       //Fix the pointers for the newly allocated buffer
       const index_iterator index_beg = this->index.begin();
       if(new_buffer){
-         index_traits_type::fix_up_pointers(index_beg, index_beg + pos);
+         index_traits_type::fix_up_pointers(index_beg, index_beg + idx);
       }
-      return index_beg + pos;
+      return index_beg + idx;
    }
 
    bool priv_capacity_bigger_than_size() const
@@ -1615,7 +1786,7 @@ class stable_vector
    template <class U>
    void priv_push_back(BOOST_MOVE_CATCH_FWD(U) x)
    {
-      if(this->priv_capacity_bigger_than_size()){
+      if(BOOST_LIKELY(this->priv_capacity_bigger_than_size())){
          //Enough memory in the pool and in the index
          const node_ptr p = this->priv_get_from_pool();
          BOOST_ASSERT(!!p);
@@ -1634,18 +1805,18 @@ class stable_vector
       }
    }
 
-   iterator priv_insert(const_iterator position, const value_type &t)
+   iterator priv_insert(const_iterator p, const value_type &t)
    {
       typedef constant_iterator<value_type, difference_type> cvalue_iterator;
-      return this->insert(position, cvalue_iterator(t, 1), cvalue_iterator());
+      return this->insert(p, cvalue_iterator(t, 1), cvalue_iterator());
    }
 
-   iterator priv_insert(const_iterator position, BOOST_RV_REF(T) x)
+   iterator priv_insert(const_iterator p, BOOST_RV_REF(T) x)
    {
       typedef repeat_iterator<T, difference_type>  repeat_it;
       typedef boost::move_iterator<repeat_it>      repeat_move_it;
-      //Just call more general insert(pos, size, value) and return iterator
-      return this->insert(position, repeat_move_it(repeat_it(x, 1)), repeat_move_it(repeat_it()));
+      //Just call more general insert(p, size, value) and return iterator
+      return this->insert(p, repeat_move_it(repeat_it(x, 1)), repeat_move_it(repeat_it()));
    }
 
    void priv_clear_pool()
@@ -1762,7 +1933,7 @@ class stable_vector
          , container_detail::addressof(p->value)
          , it);
       //This does not throw
-      ::new(static_cast<node_base_type*>(container_detail::to_raw_pointer(p)))
+      ::new(static_cast<node_base_type*>(container_detail::to_raw_pointer(p)), boost_container_new_t())
          node_base_type(index_traits_type::ptr_to_node_base_ptr(*up_index));
    }
 
@@ -1775,12 +1946,12 @@ class stable_vector
          , container_detail::addressof(p->value)
          , ::boost::forward<ValueConvertible>(value_convertible));
       //This does not throw
-      ::new(static_cast<node_base_type*>(container_detail::to_raw_pointer(p))) node_base_type;
+      ::new(static_cast<node_base_type*>(container_detail::to_raw_pointer(p)), boost_container_new_t()) node_base_type;
    }
 
    void priv_swap_members(stable_vector &x)
    {
-      boost::container::swap_dispatch(this->internal_data.pool_size, x.internal_data.pool_size);
+      boost::adl_move_swap(this->internal_data.pool_size, x.internal_data.pool_size);
       index_traits_type::readjust_end_node(this->index, this->internal_data.end_node);
       index_traits_type::readjust_end_node(x.index, x.internal_data.end_node);
    }
@@ -1790,8 +1961,19 @@ class stable_vector
    {
       index_type & index_ref =  const_cast<index_type&>(this->index);
 
-      if(index.empty())
+      const size_type index_size = this->index.size();
+      if(!index_size)
          return !this->capacity() && !this->size();
+
+      if(index_size < ExtraPointers)
+         return false;
+
+      const size_type bucket_extra_capacity = this->index.capacity()- index_size;
+      const size_type node_extra_capacity   = this->internal_data.pool_size;
+      if(bucket_extra_capacity < node_extra_capacity){
+         return false;
+      }
+
       if(this->priv_get_end_node() != *(index.end() - ExtraPointers)){
          return false;
       }
@@ -1865,20 +2047,23 @@ class stable_vector
 
 #undef STABLE_VECTOR_CHECK_INVARIANT
 
-#endif   //#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
-
-/*
+}  //namespace container {
 
 //!has_trivial_destructor_after_move<> == true_type
 //!specialization for optimizations
 template <class T, class Allocator>
 struct has_trivial_destructor_after_move<boost::container::stable_vector<T, Allocator> >
-   : public has_trivial_destructor_after_move<Allocator>::value
-{};
+{
+   typedef typename ::boost::container::allocator_traits<Allocator>::pointer pointer;
+   static const bool value = ::boost::has_trivial_destructor_after_move<Allocator>::value &&
+                             ::boost::has_trivial_destructor_after_move<pointer>::value;
+};
 
-*/
+namespace container {
 
-}}
+#endif   //#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
+
+}} //namespace boost{  namespace container {
 
 #include <boost/container/detail/config_end.hpp>
 

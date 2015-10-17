@@ -1,4 +1,4 @@
-/* Copyright 2003-2013 Joaquin M Lopez Munoz.
+/* Copyright 2003-2015 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -135,7 +135,7 @@ void sequenced_index_sort(Node* header,Compare comp)
   >::type                               carry_spc_type;
   carry_spc_type                        carry_spc;
   impl_type&                            carry=
-    *static_cast<impl_type*>(static_cast<void*>(&carry_spc));
+    *reinterpret_cast<impl_type*>(&carry_spc);
   typedef typename aligned_storage<
     sizeof(
       impl_type
@@ -147,7 +147,7 @@ void sequenced_index_sort(Node* header,Compare comp)
   >::type                               counter_spc_type;
   counter_spc_type                      counter_spc;
   impl_type*                            counter=
-    static_cast<impl_type*>(static_cast<void*>(&counter_spc));
+    reinterpret_cast<impl_type*>(&counter_spc);
   std::size_t                           fill=0;
 
   carry.prior()=carry.next()=static_cast<impl_pointer>(&carry);

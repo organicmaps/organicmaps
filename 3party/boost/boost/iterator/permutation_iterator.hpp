@@ -13,28 +13,28 @@
 #include <boost/iterator/iterator_adaptor.hpp>
 
 
-namespace boost
-{
+namespace boost {
+namespace iterators {
 
 template< class ElementIterator
         , class IndexIterator>
 class permutation_iterator
-  : public iterator_adaptor< 
+  : public iterator_adaptor<
              permutation_iterator<ElementIterator, IndexIterator>
-           , IndexIterator, typename detail::iterator_traits<ElementIterator>::value_type
-           , use_default, typename detail::iterator_traits<ElementIterator>::reference>
+           , IndexIterator, typename boost::detail::iterator_traits<ElementIterator>::value_type
+           , use_default, typename boost::detail::iterator_traits<ElementIterator>::reference>
 {
-  typedef iterator_adaptor< 
+  typedef iterator_adaptor<
             permutation_iterator<ElementIterator, IndexIterator>
-          , IndexIterator, typename detail::iterator_traits<ElementIterator>::value_type
-          , use_default, typename detail::iterator_traits<ElementIterator>::reference> super_t;
+          , IndexIterator, typename boost::detail::iterator_traits<ElementIterator>::value_type
+          , use_default, typename boost::detail::iterator_traits<ElementIterator>::reference> super_t;
 
   friend class iterator_core_access;
 
 public:
   permutation_iterator() : m_elt_iter() {}
 
-  explicit permutation_iterator(ElementIterator x, IndexIterator y) 
+  explicit permutation_iterator(ElementIterator x, IndexIterator y)
       : super_t(y), m_elt_iter(x) {}
 
   template<class OtherElementIterator, class OtherIndexIterator>
@@ -54,18 +54,22 @@ private:
     template <class,class> friend class permutation_iterator;
 #else
  public:
-#endif 
+#endif
     ElementIterator m_elt_iter;
 };
 
 
 template <class ElementIterator, class IndexIterator>
-permutation_iterator<ElementIterator, IndexIterator> 
+inline permutation_iterator<ElementIterator, IndexIterator>
 make_permutation_iterator( ElementIterator e, IndexIterator i )
 {
     return permutation_iterator<ElementIterator, IndexIterator>( e, i );
 }
 
+} // namespace iterators
+
+using iterators::permutation_iterator;
+using iterators::make_permutation_iterator;
 
 } // namespace boost
 

@@ -15,9 +15,16 @@
 // $Revision$
 
 #include <boost/preprocessor/seq/subseq.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
+#include <boost/preprocessor/arithmetic/add.hpp>
+
+#define BOOST_MPL_PP_RANGE_ITEM(z,n,_) (n)
 
 #define BOOST_MPL_PP_RANGE(first, length) \
-    BOOST_PP_SEQ_SUBSEQ((0)(1)(2)(3)(4)(5)(6)(7)(8)(9), first, length) \
+    BOOST_PP_SEQ_SUBSEQ( \
+        BOOST_PP_REPEAT(BOOST_PP_ADD(first,length), BOOST_MPL_PP_RANGE_ITEM, _), \
+        first, length \
+    ) \
 /**/
 
 #endif // BOOST_MPL_AUX_PREPROCESSOR_RANGE_HPP_INCLUDED

@@ -52,15 +52,15 @@ namespace boost { namespace fusion
         typedef mpl::int_<base_type::size> size;
         typedef mpl::false_ is_view;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         map() {}
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         map(map const& seq)
           : base_type(seq.base())
         {}
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         map(map&& seq)
           : base_type(std::forward<map>(seq))
         {}
@@ -87,7 +87,7 @@ namespace boost { namespace fusion
         {}
 
         template <typename First, typename ...T_>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         map(First const& first, T_ const&... rest)
           : base_type(first, rest...)
         {}
@@ -95,17 +95,17 @@ namespace boost { namespace fusion
         template <typename First, typename ...T_>
         BOOST_FUSION_GPU_ENABLED
         map(First&& first, T_&&... rest)
-          : base_type(std::forward<First>(first), std::forward<T_>(rest)...)
+          : base_type(BOOST_FUSION_FWD_ELEM(First, first), BOOST_FUSION_FWD_ELEM(T_, rest)...)
         {}
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         map& operator=(map const& rhs)
         {
             base_type::operator=(rhs.base());
             return *this;
         }
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         map& operator=(map&& rhs)
         {
             base_type::operator=(std::forward<base_type>(rhs.base()));
@@ -113,7 +113,7 @@ namespace boost { namespace fusion
         }
 
         template <typename Sequence>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         typename enable_if<traits::is_sequence<Sequence>, map&>::type
         operator=(Sequence const& seq)
         {
@@ -121,10 +121,10 @@ namespace boost { namespace fusion
             return *this;
         }
 
-        BOOST_FUSION_GPU_ENABLED
-        base_type& base() { return *this; }
-        BOOST_FUSION_GPU_ENABLED
-        base_type const& base() const { return *this; }
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+        base_type& base() BOOST_NOEXCEPT { return *this; }
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+        base_type const& base() const BOOST_NOEXCEPT { return *this; }
     };
 }}
 

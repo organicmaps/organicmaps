@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2005-2008.
-//  Use, modification, and distribution are subject to the 
-//  Boost Software License, Version 1.0. (See accompanying file 
+//  (C) Copyright Gennadiy Rozental 2005-2014.
+//  Use, modification, and distribution are subject to the
+//  Boost Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -12,8 +12,8 @@
 //  Description : defines model of generic parameter with dual naming
 // ***************************************************************************
 
-#ifndef BOOST_RT_CLA_DUAL_NAME_PARAMETER_HPP_062604GER
-#define BOOST_RT_CLA_DUAL_NAME_PARAMETER_HPP_062604GER
+#ifndef BOOST_TEST_UTILS_RUNTIME_CLA_DUAL_NAME_PARAMETER_HPP
+#define BOOST_TEST_UTILS_RUNTIME_CLA_DUAL_NAME_PARAMETER_HPP
 
 // Boost.Runtime.Parameter
 #include <boost/test/utils/runtime/config.hpp>
@@ -23,7 +23,7 @@
 
 namespace boost {
 
-namespace BOOST_RT_PARAM_NAMESPACE {
+namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE {
 
 namespace cla {
 
@@ -76,21 +76,23 @@ public:
 
 //____________________________________________________________________________//
 
-BOOST_RT_CLA_NAMED_PARAM_GENERATORS( dual_name_parameter )
+BOOST_TEST_UTILS_RUNTIME_CLA_NAMED_PARAM_GENERATORS( dual_name_parameter )
 
 //____________________________________________________________________________//
 
 } // namespace cla
 
-} // namespace BOOST_RT_PARAM_NAMESPACE
+} // namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE
 
 } // namespace boost
 
-#ifndef BOOST_RT_PARAM_OFFLINE
+#ifndef BOOST_TEST_UTILS_RUNTIME_PARAM_OFFLINE
 
-#  define BOOST_RT_PARAM_INLINE inline
-#  include <boost/test/utils/runtime/cla/dual_name_parameter.ipp>
+#ifndef BOOST_TEST_UTILS_RUNTIME_PARAM_INLINE
+#   define BOOST_TEST_UTILS_RUNTIME_PARAM_INLINE inline
+#endif
+#   include <boost/test/utils/runtime/cla/dual_name_parameter.ipp>
 
 #endif
 
-#endif // BOOST_RT_CLA_DUAL_NAME_PARAMETER_HPP_062604GER
+#endif // BOOST_TEST_UTILS_RUNTIME_CLA_DUAL_NAME_PARAMETER_HPP

@@ -28,7 +28,7 @@ namespace boost { namespace fusion
             {
                 typedef typename Sequence::concat_last_type type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& s)
                 {

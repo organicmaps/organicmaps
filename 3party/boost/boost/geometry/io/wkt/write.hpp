@@ -449,7 +449,7 @@ struct devarianted_wkt<variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
         variant<BOOST_VARIANT_ENUM_PARAMS(T)> const& geometry
     )
     {
-        apply_visitor(visitor<OutputStream>(os), geometry);
+        boost::apply_visitor(visitor<OutputStream>(os), geometry);
     }
 };
 

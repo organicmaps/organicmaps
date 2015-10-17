@@ -16,7 +16,9 @@
 #include <boost/config.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/ice.hpp>
+#include <boost/mpl/and.hpp>
+
+#include <utility> // for std::move
 
 #if defined (BOOST_MSVC)
 #  pragma warning(push)
@@ -34,14 +36,14 @@ namespace boost { namespace fusion
             typedef typename result_of::end<Seq2>::type end2_type;
 
             template <typename I1, typename I2>
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static void
             call(I1 const&, I2 const&, mpl::true_)
             {
             }
 
             template <typename I1, typename I2>
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static void
             call(I1 const& src, I2 const& dest, mpl::false_)
             {
@@ -50,7 +52,7 @@ namespace boost { namespace fusion
             }
 
             template <typename I1, typename I2>
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static void
             call(I1 const& src, I2 const& dest)
             {
@@ -60,17 +62,19 @@ namespace boost { namespace fusion
         };
     }
 
+    namespace result_of
+    {
+        template <typename Seq1, typename Seq2>
+        struct move
+            : enable_if<mpl::and_<
+                  traits::is_sequence<Seq1>,
+                  traits::is_sequence<Seq2>
+              > > {};
+    }
+
     template <typename Seq1, typename Seq2>
-    BOOST_FUSION_GPU_ENABLED
-    inline
-    typename
-        enable_if_c<
-            type_traits::ice_and<
-                traits::is_sequence<Seq1>::value
-              , traits::is_sequence<Seq2>::value
-            >::value,
-            void
-        >::type
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+    inline typename result_of::move<Seq1, Seq2>::type
     move(Seq1&& src, Seq2& dest)
     {
         BOOST_STATIC_ASSERT(

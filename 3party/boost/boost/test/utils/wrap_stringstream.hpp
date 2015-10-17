@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2002-2008.
+//  (C) Copyright Gennadiy Rozental 2002-2014.
 //  Distributed under the Boost Software License, Version 1.0.
-//  (See accompanying file LICENSE_1_0.txt or copy at 
+//  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -13,8 +13,8 @@
 //                to provide the unified interface
 // ***************************************************************************
 
-#ifndef BOOST_WRAP_STRINGSTREAM_HPP_071894GER
-#define BOOST_WRAP_STRINGSTREAM_HPP_071894GER
+#ifndef BOOST_TEST_UTILS_WRAP_STRINGSTREAM_HPP
+#define BOOST_TEST_UTILS_WRAP_STRINGSTREAM_HPP
 
 // Boost.Test
 #include <boost/test/detail/config.hpp>
@@ -81,7 +81,7 @@ basic_wrap_stringstream<CharT>::stream()
 template <typename CharT>
 inline basic_wrap_stringstream<CharT>&
 basic_wrap_stringstream<CharT>::ref()
-{ 
+{
     return *this;
 }
 
@@ -114,7 +114,7 @@ operator<<( basic_wrap_stringstream<CharT>& targ, basic_wrap_stringstream<CharT>
 
 //____________________________________________________________________________//
 
-#if BOOST_TEST_USE_STD_LOCALE 
+#if BOOST_TEST_USE_STD_LOCALE
 
 template <typename CharT>
 inline basic_wrap_stringstream<CharT>&
@@ -157,8 +157,6 @@ typedef basic_wrap_stringstream<wchar_t>    wrap_wstringstream;
 
 }  // namespace boost
 
-//____________________________________________________________________________//
-
 #include <boost/test/detail/enable_warnings.hpp>
 
-#endif  // BOOST_WRAP_STRINGSTREAM_HPP_071894GER
+#endif  // BOOST_TEST_UTILS_WRAP_STRINGSTREAM_HPP

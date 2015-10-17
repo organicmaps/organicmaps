@@ -1,5 +1,5 @@
 //
-// Copyright (c) Antony Polukhin, 2013-2014.
+// Copyright (c) Antony Polukhin, 2013-2015.
 //
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -10,7 +10,6 @@
 #define BOOST_TYPE_INDEX_TYPE_INDEX_FACADE_HPP
 
 #include <boost/config.hpp>
-#include <boost/functional/hash_fwd.hpp>
 #include <string>
 #include <cstring>
 
@@ -25,6 +24,11 @@
 #ifdef BOOST_HAS_PRAGMA_ONCE
 # pragma once
 #endif
+
+// Forward declaration from #include <boost/functional/hash_fwd.hpp>
+namespace boost {
+    template <class It> std::size_t hash_range(It, It);
+}
 
 namespace boost { namespace typeindex {
 
@@ -70,13 +74,13 @@ public:
     typedef TypeInfo                                type_info_t;
 
     /// \b Override: This function \b may be redefined in Derived class. Overrides \b must not throw.
-    /// \return Name of a type. By default retuns Derived::raw_name().
+    /// \return Name of a type. By default returns Derived::raw_name().
     inline const char* name() const BOOST_NOEXCEPT {
         return derived().raw_name();
     }
 
     /// \b Override: This function \b may be redefined in Derived class. Overrides may throw.
-    /// \return Human redable type name. By default retuns Derived::name().
+    /// \return Human readable type name. By default returns Derived::name().
     inline std::string pretty_name() const {
         return derived().name();
     }
@@ -101,8 +105,8 @@ public:
     /// \return Hash code of a type. By default hashes types by raw_name().
     /// \note <boost/functional/hash.hpp> has to be included if this function is used.
     inline std::size_t hash_code() const BOOST_NOEXCEPT {
-        const char* const name = derived().raw_name();
-        return boost::hash_range(name, name + std::strlen(name));
+        const char* const name_raw = derived().raw_name();
+        return boost::hash_range(name_raw, name_raw + std::strlen(name_raw));
     }
 
 #if defined(BOOST_TYPE_INDEX_DOXYGEN_INVOKED)

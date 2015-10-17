@@ -68,16 +68,16 @@ namespace date_time {
            typename frac_sec_type::int_type resolution_adjust,
 #endif
            unsigned short frac_digits,
-           typename v_type = boost::int32_t >
+           typename var_type = boost::int32_t >
   class time_resolution_traits {
   public:
     typedef typename frac_sec_type::int_type fractional_seconds_type;
     typedef typename frac_sec_type::int_type tick_type;
     typedef typename frac_sec_type::impl_type impl_type;
-    typedef v_type  day_type;
-    typedef v_type  hour_type;
-    typedef v_type  min_type;
-    typedef v_type  sec_type;
+    typedef var_type  day_type;
+    typedef var_type  hour_type;
+    typedef var_type  min_type;
+    typedef var_type  sec_type;
 
     // bring in function from frac_sec_type traits structs
     static fractional_seconds_type as_number(impl_type i)

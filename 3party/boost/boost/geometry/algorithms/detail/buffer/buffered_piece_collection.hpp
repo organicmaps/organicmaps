@@ -799,6 +799,29 @@ struct buffered_piece_collection
         m_first_piece_index = static_cast<signed_size_type>(boost::size(m_pieces));
     }
 
+    inline void abort_ring()
+    {
+        // Remove all created pieces for this ring, sections, last offsetted
+        while (! m_pieces.empty()
+               && m_pieces.back().first_seg_id.multi_index
+               == current_segment_id.multi_index)
+        {
+            m_pieces.erase(m_pieces.end() - 1);
+        }
+
+        while (! monotonic_sections.empty()
+               && monotonic_sections.back().ring_id.multi_index
+               == current_segment_id.multi_index)
+        {
+            monotonic_sections.erase(monotonic_sections.end() - 1);
+        }
+
+        offsetted_rings.erase(offsetted_rings.end() - 1);
+        current_robust_ring.clear();
+
+        m_first_piece_index = -1;
+    }
+
     inline void update_closing_point()
     {
         BOOST_GEOMETRY_ASSERT(! offsetted_rings.empty());
@@ -979,8 +1002,7 @@ struct buffered_piece_collection
             return;
         }
 
-        geometry::detail::envelope::envelope_range<>::apply(pc.robust_ring,
-                pc.robust_envelope);
+        geometry::envelope(pc.robust_ring, pc.robust_envelope);
 
         geometry::assign_inverse(pc.robust_offsetted_envelope);
         for (signed_size_type i = 0; i < pc.offsetted_count; i++)

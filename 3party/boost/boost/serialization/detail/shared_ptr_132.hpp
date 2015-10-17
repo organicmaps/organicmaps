@@ -120,13 +120,8 @@ public:
     {
     }
 
-#if BOOST_WORKAROUND( __BORLANDC__, BOOST_TESTED_AT( 0x564) )
     template<class Y>
     explicit shared_ptr(Y * p): px(p), pn(p, boost::checked_deleter<Y>()) // Y must be complete
-#else
-    template<class Y>
-    explicit shared_ptr(Y * p): px(p), pn(p, boost::checked_deleter<Y>()) // Y must be complete
-#endif
     {
         detail::sp_enable_shared_from_this( pn, p, p );
     }
@@ -145,15 +140,13 @@ public:
 //  generated copy constructor, assignment, destructor are fine...
 
 //  except that Borland C++ has a bug, and g++ with -Wsynth warns
-#if defined(__BORLANDC__) || defined(__GNUC__)
-
+#if defined(__GNUC__)
     shared_ptr & operator=(shared_ptr const & r) // never throws
     {
         px = r.px;
         pn = r.pn; // shared_count::op= doesn't throw
         return *this;
     }
-
 #endif
 
     template<class Y>

@@ -48,17 +48,17 @@ namespace detail{
 //
 // Figure out the kind of integer that has twice as many bits as some builtin
 // integer type I.  Use a native type if we can (including types which may not
-// be recognised by boost::int_t because they're larger than long long),
+// be recognised by boost::int_t because they're larger than boost::long_long_type),
 // otherwise synthesize a cpp_int to do the job.
 //
 template <class I>
 struct double_integer
 {
    static const unsigned int_t_digits =
-      2 * sizeof(I) <= sizeof(long long) ? std::numeric_limits<I>::digits * 2 : 1;
+      2 * sizeof(I) <= sizeof(boost::long_long_type) ? std::numeric_limits<I>::digits * 2 : 1;
 
    typedef typename mpl::if_c<
-      2 * sizeof(I) <= sizeof(long long),
+      2 * sizeof(I) <= sizeof(boost::long_long_type),
       typename mpl::if_c<
          is_signed<I>::value,
          typename boost::int_t<int_t_digits>::least,

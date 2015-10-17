@@ -88,10 +88,6 @@ T sinpx(T z)
    {
       z = -z;
    }
-   else
-   {
-      sign = -sign;
-   }
    T fl = floor(z);
    T dist;
    if(is_odd(fl))
@@ -1030,6 +1026,70 @@ T gamma_incomplete_imp(T a, T x, bool normalised, bool invert,
 
    T result = 0; // Just to avoid warning C4701: potentially uninitialized local variable 'result' used
 
+   if(a >= max_factorial<T>::value && !normalised)
+   {
+      //
+      // When we're computing the non-normalized incomplete gamma
+      // and a is large the result is rather hard to compute unless
+      // we use logs.  There are really two options - if x is a long
+      // way from a in value then we can reliably use methods 2 and 4
+      // below in logarithmic form and go straight to the result.
+      // Otherwise we let the regularized gamma take the strain
+      // (the result is unlikely to unerflow in the central region anyway)
+      // and combine with lgamma in the hopes that we get a finite result.
+      //
+      if(invert && (a * 4 < x))
+      {
+         // This is method 4 below, done in logs:
+         result = a * log(x) - x;
+         if(p_derivative)
+            *p_derivative = exp(result);
+         result += log(upper_gamma_fraction(a, x, policies::get_epsilon<T, Policy>()));
+      }
+      else if(!invert && (a > 4 * x))
+      {
+         // This is method 2 below, done in logs:
+         result = a * log(x) - x;
+         if(p_derivative)
+            *p_derivative = exp(result);
+         T init_value = 0;
+         result += log(detail::lower_gamma_series(a, x, pol, init_value) / a);
+      }
+      else
+      {
+         result = gamma_incomplete_imp(a, x, true, invert, pol, p_derivative);
+         if(result == 0)
+         {
+            if(invert)
+            {
+               // Try http://functions.wolfram.com/06.06.06.0039.01
+               result = 1 + 1 / (12 * a) + 1 / (288 * a * a);
+               result = log(result) - a + (a - 0.5f) * log(a) + log(boost::math::constants::root_two_pi<T>());
+               if(p_derivative)
+                  *p_derivative = exp(a * log(x) - x);
+            }
+            else
+            {
+               // This is method 2 below, done in logs, we're really outside the
+               // range of this method, but since the result is almost certainly
+               // infinite, we should probably be OK:
+               result = a * log(x) - x;
+               if(p_derivative)
+                  *p_derivative = exp(result);
+               T init_value = 0;
+               result += log(detail::lower_gamma_series(a, x, pol, init_value) / a);
+            }
+         }
+         else
+         {
+            result = log(result) + boost::math::lgamma(a, pol);
+         }
+      }
+      if(result > tools::log_max_value<T>())
+         return policies::raise_overflow_error<T>(function, 0, pol);
+      return exp(result);
+   }
+
    BOOST_ASSERT((p_derivative == 0) || (normalised == true));
 
    bool is_int, is_half_int;
@@ -1058,6 +1118,10 @@ T gamma_incomplete_imp(T a, T x, bool normalised, bool invert,
       // calculate Q via finite sum for half integer a:
       invert = !invert;
       eval_method = 1;
+   }
+   else if((x < tools::root_epsilon<T>()) && (a > 1))
+   {
+      eval_method = 6;
    }
    else if(x < 0.5)
    {
@@ -1172,13 +1236,39 @@ T gamma_incomplete_imp(T a, T x, bool normalised, bool invert,
             *p_derivative = result;
          if(result != 0)
          {
+            //
+            // If we're going to be inverting the result then we can
+            // reduce the number of series evaluations by quite
+            // a few iterations if we set an initial value for the
+            // series sum based on what we'll end up subtracting it from
+            // at the end.
+            // Have to be careful though that this optimization doesn't
+            // lead to spurious numberic overflow.  Note that the
+            // scary/expensive overflow checks below are more often
+            // than not bypassed in practice for "sensible" input
+            // values:
+            //
             T init_value = 0;
+            bool optimised_invert = false;
             if(invert)
             {
-               init_value = -a * (normalised ? 1 : boost::math::tgamma(a, pol)) / result;
+               init_value = (normalised ? 1 : boost::math::tgamma(a, pol));
+               if(normalised || (result >= 1) || (tools::max_value<T>() * result > init_value))
+               {
+                  init_value /= result;
+                  if(normalised || (a < 1) || (tools::max_value<T>() / a > init_value))
+                  {
+                     init_value *= -a;
+                     optimised_invert = true;
+                  }
+                  else
+                     init_value = 0;
+               }
+               else
+                  init_value = 0;
             }
             result *= detail::lower_gamma_series(a, x, pol, init_value) / a;
-            if(invert)
+            if(optimised_invert)
             {
                invert = false;
                result = -result;
@@ -1240,6 +1330,13 @@ T gamma_incomplete_imp(T a, T x, bool normalised, bool invert,
          if(p_derivative)
             *p_derivative = regularised_gamma_prefix(a, x, pol, lanczos_type());
          break;
+      }
+   case 6:
+      {
+         // x is so small that P is necessarily very small too,
+         // use http://functions.wolfram.com/GammaBetaErf/GammaRegularized/06/01/05/01/01/
+         result = !normalised ? pow(x, a) / (a) : pow(x, a) / boost::math::tgamma(a + 1, pol);
+         result *= 1 - a * x / (a + 1);
       }
    }
 
@@ -1482,6 +1579,7 @@ T tgamma_ratio_imp(T x, T y, const Policy& pol)
 template <class T, class Policy>
 T gamma_p_derivative_imp(T a, T x, const Policy& pol)
 {
+   BOOST_MATH_STD_USING
    //
    // Usual error checks first:
    //
@@ -1507,8 +1605,14 @@ T gamma_p_derivative_imp(T a, T x, const Policy& pol)
       // overflow:
       return policies::raise_overflow_error<T>("boost::math::gamma_p_derivative<%1%>(%1%, %1%)", 0, pol);
    }
-
-   f1 /= x;
+   if(f1 == 0)
+   {
+      // Underflow in calculation, use logs instead:
+      f1 = a * log(x) - x - lgamma(a, pol) - log(x);
+      f1 = exp(f1);
+   }
+   else
+      f1 /= x;
 
    return f1;
 }

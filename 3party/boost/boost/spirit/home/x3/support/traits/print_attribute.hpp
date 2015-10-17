@@ -8,10 +8,6 @@
 #if !defined(BOOST_SPIRIT_X3_PRINT_ATTRIBUTE_JANUARY_20_2013_0814AM)
 #define BOOST_SPIRIT_X3_PRINT_ATTRIBUTE_JANUARY_20_2013_0814AM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/variant.hpp>
 #include <boost/optional/optional.hpp>
 #include <boost/fusion/include/is_sequence.hpp>

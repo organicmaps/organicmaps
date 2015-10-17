@@ -7,7 +7,7 @@
 #endif
 
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////8
-// basic_streambuf_local_saver.hpp
+// basic_streambuf_locale_saver.hpp
 
 // (C) Copyright 2005 Robert Ramey - http://www.rrsd.com
 
@@ -55,8 +55,10 @@ public:
         {}
     ~basic_streambuf_locale_saver()
         { this->restore(); }
-    void  restore()
-        { s_save_.pubimbue( a_save_ ); }
+    void  restore(){
+        s_save_.pubsync();
+        s_save_.pubimbue( a_save_ );
+    }
 private:
     state_type &       s_save_;
     aspect_type const  a_save_;

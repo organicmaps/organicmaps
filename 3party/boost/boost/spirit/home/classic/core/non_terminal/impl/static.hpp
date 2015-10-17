@@ -111,7 +111,11 @@ BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
     typename static_<T, Tag>::storage_type static_<T, Tag>::data_;
 
     template <class T, class Tag>
+#ifndef BOOST_THREAD_PROVIDES_ONCE_CXX11
     once_flag static_<T, Tag>::constructed_ = BOOST_ONCE_INIT;
+#else
+    once_flag static_<T, Tag>::constructed_;
+#endif
 
 BOOST_SPIRIT_CLASSIC_NAMESPACE_END
 

@@ -13,9 +13,16 @@
 #ifndef BOOST_INTRUSIVE_AVLTREE_NODE_HPP
 #define BOOST_INTRUSIVE_AVLTREE_NODE_HPP
 
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 #include <boost/intrusive/detail/config_begin.hpp>
-#include <iterator>
-#include <boost/intrusive/pointer_traits.hpp>
+#include <boost/intrusive/pointer_rebind.hpp>
 #include <boost/intrusive/avltree_algorithms.hpp>
 #include <boost/intrusive/pointer_plus_bits.hpp>
 #include <boost/intrusive/detail/mpl.hpp>
@@ -33,9 +40,8 @@ namespace intrusive {
 template<class VoidPointer>
 struct compact_avltree_node
 {
-   typedef typename pointer_traits
-      <VoidPointer>::template rebind_pointer
-         <compact_avltree_node<VoidPointer> >::type node_ptr;
+   typedef typename pointer_rebind<VoidPointer, compact_avltree_node<VoidPointer> >::type       node_ptr;
+   typedef typename pointer_rebind<VoidPointer, const compact_avltree_node<VoidPointer> >::type const_node_ptr;
    enum balance { negative_t, zero_t, positive_t };
    node_ptr parent_, left_, right_;
 };
@@ -44,9 +50,8 @@ struct compact_avltree_node
 template<class VoidPointer>
 struct avltree_node
 {
-   typedef typename pointer_traits
-      <VoidPointer>::template rebind_pointer
-         <avltree_node<VoidPointer> >::type node_ptr;
+   typedef typename pointer_rebind<VoidPointer, avltree_node<VoidPointer> >::type         node_ptr;
+   typedef typename pointer_rebind<VoidPointer, const avltree_node<VoidPointer> >::type   const_node_ptr;
    enum balance { negative_t, zero_t, positive_t };
    node_ptr parent_, left_, right_;
    balance balance_;
@@ -58,13 +63,8 @@ template<class VoidPointer>
 struct default_avltree_node_traits_impl
 {
    typedef avltree_node<VoidPointer> node;
-
-   typedef typename pointer_traits
-      <VoidPointer>::template rebind_pointer
-         <node>::type node_ptr;
-   typedef typename pointer_traits
-      <VoidPointer>::template rebind_pointer
-         <const node>::type const_node_ptr;
+   typedef typename node::node_ptr        node_ptr;
+   typedef typename node::const_node_ptr  const_node_ptr;
 
    typedef typename node::balance balance;
 
@@ -120,13 +120,8 @@ template<class VoidPointer>
 struct compact_avltree_node_traits_impl
 {
    typedef compact_avltree_node<VoidPointer> node;
-
-   typedef typename pointer_traits
-      <VoidPointer>::template rebind_pointer
-         <node>::type node_ptr;
-   typedef typename pointer_traits
-      <VoidPointer>::template rebind_pointer
-         <const node>::type const_node_ptr;
+   typedef typename node::node_ptr        node_ptr;
+   typedef typename node::const_node_ptr  const_node_ptr;
    typedef typename node::balance balance;
 
    typedef pointer_plus_bits<node_ptr, 2> ptr_bit;
@@ -176,7 +171,7 @@ struct avltree_node_traits_dispatch<VoidPointer, true>
    :  public compact_avltree_node_traits_impl<VoidPointer>
 {};
 
-//Inherit from the detail::link_dispatch depending on the embedding capabilities
+//Inherit from rbtree_node_traits_dispatch depending on the embedding capabilities
 template<class VoidPointer, bool OptimizeSize = false>
 struct avltree_node_traits
    :  public avltree_node_traits_dispatch

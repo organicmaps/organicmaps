@@ -151,7 +151,7 @@ T rising_factorial_imp(T x, int n, const Policy& pol)
    if((x < 1) && (x + n < 0))
    {
       T val = boost::math::tgamma_delta_ratio(1 - x, static_cast<T>(-n), pol);
-      return (n & 1) ? -val : val;
+      return (n & 1) ? T(-val) : val;
    }
    //
    // We don't optimise this for small n, because

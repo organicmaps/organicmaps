@@ -156,8 +156,8 @@ template <typename AngleCollection, typename Turns>
 inline void get_left_turns(AngleCollection const& sorted_angles,
         Turns& turns)
 {
-    std::set<int> good_incoming;
-    std::set<int> good_outgoing;
+    std::set<std::size_t> good_incoming;
+    std::set<std::size_t> good_outgoing;
 
     for (typename boost::range_iterator<AngleCollection const>::type it =
         sorted_angles.begin(); it != sorted_angles.end(); ++it)
@@ -244,14 +244,14 @@ inline void block_turns(AngleCollection& sorted, std::size_t cluster_size)
     for (typename boost::range_iterator<AngleCollection>::type it = sorted.begin();
         it != sorted.end(); ++it)
     {
-        int cluster_index = it->cluster_index;
-        int previous_index = cluster_index - 1;
+        signed_size_type cluster_index = static_cast<signed_size_type>(it->cluster_index);
+        signed_size_type previous_index = cluster_index - 1;
         if (previous_index < 0)
         {
             previous_index = cluster_size - 1;
         }
-        int next_index = cluster_index + 1;
-        if (next_index >= static_cast<int>(cluster_size))
+        signed_size_type next_index = cluster_index + 1;
+        if (next_index >= static_cast<signed_size_type>(cluster_size))
         {
             next_index = 0;
         }

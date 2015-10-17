@@ -11,7 +11,11 @@
 #ifndef BOOST_INTERPROCESS_SHM_NAMED_RECURSIVE_MUTEX_HPP
 #define BOOST_INTERPROCESS_SHM_NAMED_RECURSIVE_MUTEX_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -33,18 +37,18 @@ namespace boost {
 namespace interprocess {
 namespace ipcdetail {
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 class interprocess_tester;
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 class shm_named_recursive_mutex
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    //Non-copyable
    shm_named_recursive_mutex();
    shm_named_recursive_mutex(const shm_named_recursive_mutex &);
    shm_named_recursive_mutex &operator=(const shm_named_recursive_mutex &);
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
    public:
 
    //!Creates a global recursive_mutex with a name.
@@ -94,7 +98,7 @@ class shm_named_recursive_mutex
    //!from the system
    static bool remove(const char *name);
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    friend class interprocess_tester;
    void dont_close_on_destruction();
@@ -104,7 +108,7 @@ class shm_named_recursive_mutex
    typedef ipcdetail::managed_open_or_create_impl<shared_memory_object, 0, true, false> open_create_impl_t;
    open_create_impl_t m_shmem;
    typedef named_creation_functor<interprocess_recursive_mutex> construct_func_t;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
 
 inline shm_named_recursive_mutex::~shm_named_recursive_mutex()

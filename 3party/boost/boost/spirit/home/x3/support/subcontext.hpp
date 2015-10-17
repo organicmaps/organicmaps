@@ -9,10 +9,6 @@
 #if !defined(BOOST_SPIRIT_X3_SUBCONTEXT_APR_15_2013_0840AM)
 #define BOOST_SPIRIT_X3_SUBCONTEXT_APR_15_2013_0840AM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/fusion/support/pair.hpp>
 #include <boost/spirit/home/x3/support/context.hpp>
 #include <boost/spirit/home/x3/support/unused.hpp>
@@ -29,12 +25,6 @@ namespace boost { namespace spirit { namespace x3
         subcontext(Context const& /*context*/)
         {}
         
-        template <typename ID_, typename Unused = void>
-        struct get_result
-        {
-            typedef unused_type type;
-        };
-
         template <typename ID_>
         unused_type
         get(ID_) const

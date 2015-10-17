@@ -21,7 +21,7 @@ namespace boost { namespace fusion
         struct value_of_impl<cons_iterator_tag>
         {
             template <typename Iterator>
-            struct apply 
+            struct apply
             {
                 typedef typename Iterator::cons_type cons_type;
                 typedef typename cons_type::car_type type;

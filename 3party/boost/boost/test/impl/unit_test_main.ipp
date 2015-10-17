@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2001-2008.
+//  (C) Copyright Gennadiy Rozental 2001-2014.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -18,153 +18,163 @@
 // Boost.Test
 #include <boost/test/framework.hpp>
 #include <boost/test/results_collector.hpp>
-#include <boost/test/unit_test_suite_impl.hpp>
 #include <boost/test/results_reporter.hpp>
 
-#include <boost/test/detail/unit_test_parameters.hpp>
+#include <boost/test/tree/visitor.hpp>
+#include <boost/test/tree/test_unit.hpp>
+#include <boost/test/tree/traverse.hpp>
 
-#if !defined(__BORLANDC__) && !BOOST_WORKAROUND( BOOST_MSVC, < 1300 ) && !BOOST_WORKAROUND( __SUNPRO_CC, < 0x5100 )
-#define BOOST_TEST_SUPPORT_RUN_BY_NAME
-#include <boost/test/utils/iterator/token_iterator.hpp>
-#endif
+#include <boost/test/unit_test_parameters.hpp>
+
+#include <boost/test/utils/foreach.hpp>
+#include <boost/test/utils/basic_cstring/io.hpp>
 
 // Boost
 #include <boost/cstdlib.hpp>
-#include <boost/bind.hpp>
 
 // STL
+#include <cstdio>
 #include <stdexcept>
 #include <iostream>
+#include <iomanip>
+#include <set>
 
 #include <boost/test/detail/suppress_warnings.hpp>
 
 //____________________________________________________________________________//
 
 namespace boost {
-
 namespace unit_test {
 
+namespace ut_detail {
+
 // ************************************************************************** //
-// **************                 test_case_filter             ************** //
+// **************             hrf_content_reporter             ************** //
 // ************************************************************************** //
 
-class test_case_filter : public test_tree_visitor {
-public:
-    struct single_filter {
-        single_filter( const_string in )
-        {
-            if( in == "*" )
-                m_kind  = SFK_ALL;
-            else if( first_char( in ) == '*' && last_char( in ) == '*' ) {
-                m_kind  = SFK_SUBSTR;
-                m_value = in.substr( 1, in.size()-1 );
-            }
-            else if( first_char( in ) == '*' ) {
-                m_kind  = SFK_TRAILING;
-                m_value = in.substr( 1 );
-            }
-            else if( last_char( in ) == '*' ) {
-                m_kind  = SFK_LEADING;
-                m_value = in.substr( 0, in.size()-1 );
-            }
-            else {
-                m_kind  = SFK_MATCH;
-                m_value = in;
-            }
-        };
-
-        bool            pass( test_unit const& tu ) const
-        {
-            const_string name( tu.p_name );
-    
-            switch( m_kind ) {
-            default:
-            case SFK_ALL:
-                return true;
-
-            case SFK_LEADING:
-                return name.substr( 0, m_value.size() ) == m_value;
-
-            case SFK_TRAILING:
-                return name.size() >= m_value.size() && name.substr( name.size() - m_value.size() ) == m_value;
-
-            case SFK_SUBSTR:
-                return name.find( m_value ) != const_string::npos;
-
-            case SFK_MATCH:
-                return m_value == tu.p_name.get();
-            }
-        }
-        enum kind { SFK_ALL, SFK_LEADING, SFK_TRAILING, SFK_SUBSTR, SFK_MATCH };
-
-        kind            m_kind;
-        const_string    m_value;
-    };
-    // Constructor
-#ifndef BOOST_TEST_SUPPORT_RUN_BY_NAME
-    explicit        test_case_filter( const_string ) : m_depth( 0 ) {}
-#else
-    explicit        test_case_filter( const_string tc_to_run ) 
-    : m_depth( 0 )
-    {
-        string_token_iterator tit( tc_to_run, (dropped_delimeters = "/", kept_delimeters = dt_none) );
-
-        while( tit != string_token_iterator() ) {
-            m_filters.push_back( 
-                std::vector<single_filter>( string_token_iterator( *tit, (dropped_delimeters = ",", kept_delimeters = dt_none)  ), 
-                                            string_token_iterator() ) );
-
-            ++tit;           
-        }
-    }
-#endif
-    
-    void            filter_unit( test_unit const& tu )
-    {
-        if( (++m_depth - 1) > m_filters.size() ) {
-            tu.p_enabled.value = true;
-            return;
-        }
-
-        if( m_depth == 1 )
-            return;
-
-        std::vector<single_filter> const& filters = m_filters[m_depth-2];
-
-        tu.p_enabled.value =
-            std::find_if( filters.begin(), filters.end(), bind( &single_filter::pass, _1, boost::ref(tu) ) ) != filters.end();
-    }
-
-    // test tree visitor interface
-    virtual void    visit( test_case const& tc )
-    {
-        if( m_depth < m_filters.size() ) {
-            tc.p_enabled.value = false;
-            return;
-        }
-
-        filter_unit( tc );
-
-        --m_depth;
-    }
-
-    virtual bool    test_suite_start( test_suite const& ts )
-    { 
-        filter_unit( ts );
-
-        if( !ts.p_enabled )
-            --m_depth;
-
-        return ts.p_enabled;
-    }
-
-    virtual void    test_suite_finish( test_suite const& )  { --m_depth; }
+struct hrf_content_reporter : test_tree_visitor {
+    explicit        hrf_content_reporter( std::ostream& os ) : m_os( os ), m_indent( -4 ) {} // skip master test suite
 
 private:
+    void            report_test_unit( test_unit const& tu )
+    {
+        m_os << std::setw( m_indent ) << "" << tu.p_name;
+        m_os << (tu.p_default_status == test_unit::RS_ENABLED ? "*" : " ");
+        //m_os << '[' << tu.p_sibling_rank << ']';
+        if( !tu.p_description->empty() )
+            m_os << ": " << tu.p_description;
+
+        m_os << "\n";
+    }
+    virtual void    visit( test_case const& tc ) { report_test_unit( tc ); }
+    virtual bool    test_suite_start( test_suite const& ts )
+    {
+        if( m_indent >= 0 )
+            report_test_unit( ts );
+        m_indent += 4;
+        return true;
+    }
+    virtual void    test_suite_finish( test_suite const& )
+    {
+        m_indent -= 4;
+    }
+
     // Data members
-    std::vector<std::vector<single_filter> >    m_filters;
-    unsigned                                    m_depth;
+    std::ostream&   m_os;
+    int             m_indent;
 };
+
+// ************************************************************************** //
+// **************             dot_content_reporter             ************** //
+// ************************************************************************** //
+
+struct dot_content_reporter : test_tree_visitor {
+    explicit        dot_content_reporter( std::ostream& os ) : m_os( os ) {}
+
+private:
+    void            report_test_unit( test_unit const& tu )
+    {
+        bool master_ts = tu.p_parent_id == INV_TEST_UNIT_ID;
+
+        m_os << "tu" << tu.p_id;
+
+        m_os << (master_ts ? "[shape=ellipse,peripheries=2" : "[shape=Mrecord" );
+
+        m_os << ",fontname=Helvetica";
+
+        m_os << (tu.is_enabled() ? ",color=green" : ",color=yellow");
+
+        if( master_ts )
+            m_os << ",label=\"" << tu.p_name << "\"];\n";
+        else {
+            m_os << ",label=\"" << tu.p_name << "|" << tu.p_file_name << "(" << tu.p_line_num << ")";
+            if( tu.p_timeout > 0  )
+                m_os << "|timeout=" << tu.p_timeout;
+            if( tu.p_expected_failures != 0  )
+                m_os << "|expected failures=" << tu.p_expected_failures;
+            if( !tu.p_labels->empty() ) {
+                m_os << "|labels:";
+
+                BOOST_TEST_FOREACH( std::string const&, l, tu.p_labels.get() )
+                    m_os << " @" << l;
+            }
+            m_os << "\"];\n";
+        }
+
+        if( !master_ts )
+            m_os << "tu" << tu.p_parent_id << " -> " << "tu" << tu.p_id << ";\n";
+
+        BOOST_TEST_FOREACH( test_unit_id, dep_id, tu.p_dependencies.get() ) {
+            test_unit const& dep = framework::get( dep_id, TUT_ANY );
+
+            m_os << "tu" << tu.p_id << " -> " << "tu" << dep.p_id << "[color=red,style=dotted,constraint=false];\n";
+        }
+
+    }
+    virtual void    visit( test_case const& tc )
+    { 
+        report_test_unit( tc );
+    }
+    virtual bool    test_suite_start( test_suite const& ts )
+    {
+        if( ts.p_parent_id == INV_TEST_UNIT_ID )
+            m_os << "digraph G {rankdir=LR;\n";
+
+        report_test_unit( ts );
+
+        m_os << "{\n";
+
+        return true;
+    }
+    virtual void    test_suite_finish( test_suite const& ts )
+    {
+        m_os << "}\n";
+        if( ts.p_parent_id == INV_TEST_UNIT_ID )
+            m_os << "}\n";
+    }
+
+    std::ostream&   m_os;
+};
+
+// ************************************************************************** //
+// **************               labels_collector               ************** //
+// ************************************************************************** //
+
+struct labels_collector : test_tree_visitor {
+    std::set<std::string> const& labels() const { return m_labels; }
+
+private:
+    virtual bool            visit( test_unit const& tu )
+    {
+        m_labels.insert( tu.p_labels->begin(), tu.p_labels->end() );
+        return true;
+    }
+
+    // Data members
+    std::set<std::string>   m_labels;
+};
+
+} // namespace ut_detail
 
 // ************************************************************************** //
 // **************                  unit_test_main              ************** //
@@ -173,45 +183,81 @@ private:
 int BOOST_TEST_DECL
 unit_test_main( init_unit_test_func init_func, int argc, char* argv[] )
 {
-    try {
+    int result_code = 0;
+
+    BOOST_TEST_IMPL_TRY {
         framework::init( init_func, argc, argv );
 
-        if( !runtime_config::test_to_run().is_empty() ) {
-            test_case_filter filter( runtime_config::test_to_run() );
+        if( runtime_config::wait_for_debugger() ) {
+            results_reporter::get_stream() << "Press any key to continue..." << std::endl;
 
-            traverse_test_tree( framework::master_test_suite().p_id, filter );
+            std::getchar();
+            results_reporter::get_stream() << "Continuing..." << std::endl;
+        }
+
+        framework::finalize_setup_phase();
+
+        if( runtime_config::list_content() != unit_test::OF_INVALID ) {
+            if( runtime_config::list_content() == unit_test::OF_DOT ) {
+                ut_detail::dot_content_reporter reporter( results_reporter::get_stream() );
+
+                traverse_test_tree( framework::master_test_suite().p_id, reporter, true );
+            }
+            else {
+                ut_detail::hrf_content_reporter reporter( results_reporter::get_stream() );
+
+                traverse_test_tree( framework::master_test_suite().p_id, reporter, true );
+            }
+
+            return boost::exit_success;
+        }
+
+        if( runtime_config::list_labels() ) {
+            ut_detail::labels_collector collector;
+
+            traverse_test_tree( framework::master_test_suite().p_id, collector, true );
+
+            results_reporter::get_stream() << "Available labels:\n  ";
+            std::copy( collector.labels().begin(), collector.labels().end(),
+                       std::ostream_iterator<std::string>( results_reporter::get_stream(), "\n  " ) );
+            results_reporter::get_stream() << "\n";
+
+            return boost::exit_success;
         }
 
         framework::run();
 
         results_reporter::make_report();
 
-        return runtime_config::no_result_code() 
-                    ? boost::exit_success
-                    : results_collector.results( framework::master_test_suite().p_id ).result_code();
+        result_code = runtime_config::no_result_code()
+                        ? boost::exit_success
+                        : results_collector.results( framework::master_test_suite().p_id ).result_code();
     }
-    catch( framework::nothing_to_test const& ) {
-        return boost::exit_success;
+    BOOST_TEST_IMPL_CATCH0( framework::nothing_to_test ) {
+        result_code = boost::exit_success;
     }
-    catch( framework::internal_error const& ex ) {
+    BOOST_TEST_IMPL_CATCH( framework::internal_error, ex ) {
         results_reporter::get_stream() << "Boost.Test framework internal error: " << ex.what() << std::endl;
-        
-        return boost::exit_exception_failure;
+
+        result_code = boost::exit_exception_failure;
     }
-    catch( framework::setup_error const& ex ) {
+    BOOST_TEST_IMPL_CATCH( framework::setup_error, ex ) {
         results_reporter::get_stream() << "Test setup error: " << ex.what() << std::endl;
-        
-        return boost::exit_exception_failure;
+
+        result_code = boost::exit_exception_failure;
     }
-    catch( ... ) {
+    BOOST_TEST_IMPL_CATCHALL() {
         results_reporter::get_stream() << "Boost.Test framework internal error: unknown reason" << std::endl;
-        
-        return boost::exit_exception_failure;
+
+        result_code = boost::exit_exception_failure;
     }
+
+    framework::shutdown();
+
+    return result_code;
 }
 
 } // namespace unit_test
-
 } // namespace boost
 
 #if !defined(BOOST_TEST_DYN_LINK) && !defined(BOOST_TEST_NO_MAIN)

@@ -164,7 +164,7 @@ struct comparable_distance
           Geometry2 const& geometry2,
           Strategy const& strategy)
     {
-        return apply_visitor(visitor<Strategy>(geometry2, strategy), geometry1);
+        return boost::apply_visitor(visitor<Strategy>(geometry2, strategy), geometry1);
     }
 };
 
@@ -225,7 +225,7 @@ struct comparable_distance
           boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> const& geometry2,
           Strategy const& strategy)
     {
-        return apply_visitor(visitor<Strategy>(geometry1, strategy), geometry2);
+        return boost::apply_visitor(visitor<Strategy>(geometry1, strategy), geometry2);
     }
 };
 
@@ -287,7 +287,7 @@ struct comparable_distance
           boost::variant<BOOST_VARIANT_ENUM_PARAMS(T2)> const& geometry2,
           Strategy const& strategy)
     {
-        return apply_visitor(visitor<Strategy>(strategy), geometry1, geometry2);
+        return boost::apply_visitor(visitor<Strategy>(strategy), geometry1, geometry2);
     }
 };
 
@@ -353,7 +353,7 @@ comparable_distance(Geometry1 const& geometry1, Geometry2 const& geometry2)
     concept::check<Geometry1 const>();
     concept::check<Geometry2 const>();
 
-    return comparable_distance(geometry1, geometry2, default_strategy());
+    return geometry::comparable_distance(geometry1, geometry2, default_strategy());
 }
 
 

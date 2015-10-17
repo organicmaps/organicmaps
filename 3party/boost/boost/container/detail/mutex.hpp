@@ -19,6 +19,14 @@
 #ifndef BOOST_CONTAINER_MUTEX_HPP
 #define BOOST_CONTAINER_MUTEX_HPP
 
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 //#define BOOST_CONTAINER_NO_MT
 //#define BOOST_CONTAINER_NO_SPINLOCKS
 
@@ -134,8 +142,10 @@
       #define SLEEP_EX_DURATION     50 /* delay for yield/sleep */
       #define SPIN_LOCK_YIELD  SleepEx(SLEEP_EX_DURATION, FALSE)
    #elif defined (__SVR4) && defined (__sun) /* solaris */
+      #include <thread.h>
       #define SPIN_LOCK_YIELD   thr_yield();
    #elif !defined(LACKS_SCHED_H)
+      #include <sched.h>
       #define SPIN_LOCK_YIELD   sched_yield();
    #else
       #define SPIN_LOCK_YIELD
@@ -156,7 +166,7 @@
    #define BOOST_CONTAINER_TRY_LOCK(sl)          !BOOST_CONTAINER_CAS_LOCK(sl)
    #define BOOST_CONTAINER_RELEASE_LOCK(sl)      BOOST_CONTAINER_CLEAR_LOCK(sl)
    #define BOOST_CONTAINER_ACQUIRE_LOCK(sl)      (BOOST_CONTAINER_CAS_LOCK(sl)? boost_interprocess_spin_acquire_lock(sl) : 0)
-   #define BOOST_CONTAINER_INITIAL_LOCK(sl)      (*sl = 0)
+   #define BOOST_MOVE_INITIAL_LOCK(sl)      (*sl = 0)
    #define BOOST_CONTAINER_DESTROY_LOCK(sl)      (0)
 #elif BOOST_MUTEX_HELPER == BOOST_MUTEX_HELPER_WIN32
    //
@@ -193,7 +203,7 @@ namespace container_detail {
       void operator=(const spin_mutex &);
 
    public:
-      spin_mutex() { BOOST_CONTAINER_INITIAL_LOCK(&sl); }
+      spin_mutex() { BOOST_MOVE_INITIAL_LOCK(&sl); }
 
       void lock() { BOOST_CONTAINER_ACQUIRE_LOCK(&sl); }
       void unlock() { BOOST_CONTAINER_RELEASE_LOCK(&sl); }

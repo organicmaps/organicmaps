@@ -5,8 +5,8 @@
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 ==============================================================================*/
 
-#if !defined(BOOST_FUSION_REPETITIVE_VIEW_ITERATOR_HPP_INCLUDED)
-#define BOOST_FUSION_REPETITIVE_VIEW_HPP_ITERATOR_INCLUDED
+#ifndef BOOST_FUSION_REPETITIVE_VIEW_ITERATOR_HPP_INCLUDED
+#define BOOST_FUSION_REPETITIVE_VIEW_ITERATOR_HPP_INCLUDED
 
 #include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/iterator_base.hpp>
@@ -36,22 +36,31 @@ namespace boost { namespace fusion
         typedef typename convert_iterator<typename result_of::end<Sequence>::type>::type end_type;
         typedef single_pass_traversal_tag category;
 
-        BOOST_FUSION_GPU_ENABLED explicit repetitive_view_iterator(Sequence& in_seq)
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+        explicit repetitive_view_iterator(Sequence& in_seq)
             : seq(in_seq), pos(begin(in_seq)) {}
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         repetitive_view_iterator(Sequence& in_seq, pos_type const& in_pos)
             : seq(in_seq), pos(in_pos) {}
 
         Sequence& seq;
         pos_type pos;
-        
 
     private:
         // silence MSVC warning C4512: assignment operator could not be generated
         repetitive_view_iterator& operator= (repetitive_view_iterator const&);
     };
 }}
+
+#ifdef BOOST_FUSION_WORKAROUND_FOR_LWG_2408
+namespace std
+{
+    template <typename Sequence, typename Pos>
+    struct iterator_traits< ::boost::fusion::repetitive_view_iterator<Sequence, Pos> >
+    { };
+}
+#endif
 
 #endif
 

@@ -17,7 +17,7 @@ namespace detail
 {
   template <class R>
   struct manage_new_object_requires_a_pointer_return_type
-# if defined(__GNUC__) && __GNUC__ >= 3 || defined(__EDG__)
+# if defined(__GNUC__) || defined(__EDG__)
   {}
 # endif
   ;

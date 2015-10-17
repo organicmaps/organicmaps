@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2005-2008.
+//  (C) Copyright Gennadiy Rozental 2005-2014.
 //  Distributed under the Boost Software License, Version 1.0.
-//  (See accompanying file LICENSE_1_0.txt or copy at 
+//  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -12,13 +12,13 @@
 //  Description : simple facilities for accessing type information at runtime
 // ***************************************************************************
 
-#ifndef BOOST_TEST_RTTI_HPP_062604GER
-#define BOOST_TEST_RTTI_HPP_062604GER
+#ifndef BOOST_TEST_UTILS_RTTI_HPP
+#define BOOST_TEST_UTILS_RTTI_HPP
 
+// C Runtime
 #include <cstddef>
 
 namespace boost {
-
 namespace rtti {
 
 // ************************************************************************** //
@@ -43,7 +43,7 @@ private:
 
 //____________________________________________________________________________//
 
-template<typename T>   
+template<typename T>
 inline id_t
 type_id()
 {
@@ -58,7 +58,6 @@ type_id()
 //____________________________________________________________________________//
 
 } // namespace rtti
-
 } // namespace boost
 
-#endif // BOOST_RT_RTTI_HPP_062604GER
+#endif // BOOST_TEST_UTILS_RTTI_HPP

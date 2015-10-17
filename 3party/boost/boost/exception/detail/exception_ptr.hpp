@@ -21,9 +21,9 @@
 #include <boost/exception/diagnostic_information.hpp>
 #include <boost/exception/detail/type_info.hpp>
 #include <boost/exception/detail/clone_current_exception.hpp>
-//#ifndef BOOST_NO_RTTI
-//#include <boost/units/detail/utility.hpp>
-//#endif
+#ifndef BOOST_NO_RTTI
+#include <boost/core/demangle.hpp>
+#endif
 #include <boost/shared_ptr.hpp>
 #include <stdexcept>
 #include <new>
@@ -92,7 +92,7 @@ boost
     std::string
     to_string( original_exception_type const & x )
         {
-        return /*units::detail::demangle*/(x.value()->name());
+        return core::demangle(x.value()->name());
         }
 #endif
 

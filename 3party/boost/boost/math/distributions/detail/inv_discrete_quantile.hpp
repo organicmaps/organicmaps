@@ -305,7 +305,7 @@ inline typename Dist::value_type round_to_floor(const Dist& d, typename Dist::va
       cc = result - 1;
       if(cc < support(d).first)
          break;
-      typename Dist::value_type pp = c ? cdf(complement(d, cc)) : cdf(d, cc);
+      pp = c ? cdf(complement(d, cc)) : cdf(d, cc);
       if(pp == p)
          result = cc;
       else if(c ? pp > p : pp < p)
@@ -339,7 +339,7 @@ inline typename Dist::value_type round_to_ceil(const Dist& d, typename Dist::val
       cc = result + 1;
       if(cc > support(d).second)
          break;
-      typename Dist::value_type pp = c ? cdf(complement(d, cc)) : cdf(d, cc);
+      pp = c ? cdf(complement(d, cc)) : cdf(d, cc);
       if(pp == p)
          result = cc;
       else if(c ? pp < p : pp > p)

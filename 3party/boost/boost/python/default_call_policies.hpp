@@ -23,7 +23,7 @@ namespace detail
 {
 // for "readable" error messages
   template <class T> struct specify_a_return_value_policy_to_wrap_functions_returning
-# if defined(__GNUC__) && __GNUC__ >= 3 || defined(__EDG__)
+# if defined(__GNUC__) || defined(__EDG__)
   {}
 # endif 
   ;

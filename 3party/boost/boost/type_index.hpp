@@ -22,14 +22,27 @@
 
 #if defined(BOOST_TYPE_INDEX_USER_TYPEINDEX)
 #   include BOOST_TYPE_INDEX_USER_TYPEINDEX
+#   ifdef BOOST_HAS_PRAGMA_DETECT_MISMATCH
+#       pragma detect_mismatch( "boost__type_index__abi", "user defined type_index class is used: " BOOST_STRINGIZE(BOOST_TYPE_INDEX_USER_TYPEINDEX))
+#   endif
 #elif (!defined(BOOST_NO_RTTI) && !defined(BOOST_TYPE_INDEX_FORCE_NO_RTTI_COMPATIBILITY)) || defined(BOOST_MSVC)
 #   include <boost/type_index/stl_type_index.hpp>
-#   ifdef BOOST_NO_RTTI
+#   if defined(BOOST_NO_RTTI) || defined(BOOST_TYPE_INDEX_FORCE_NO_RTTI_COMPATIBILITY)
 #       include <boost/type_index/detail/stl_register_class.hpp>
+#       ifdef BOOST_HAS_PRAGMA_DETECT_MISMATCH
+#           pragma detect_mismatch( "boost__type_index__abi", "RTTI is off - typeid() is used only for templates")
+#       endif
+#   else
+#       ifdef BOOST_HAS_PRAGMA_DETECT_MISMATCH
+#           pragma detect_mismatch( "boost__type_index__abi", "RTTI is used")
+#       endif
 #   endif
 #else
 #   include <boost/type_index/ctti_type_index.hpp>
 #   include <boost/type_index/detail/ctti_register_class.hpp>
+#   ifdef BOOST_HAS_PRAGMA_DETECT_MISMATCH
+#       pragma detect_mismatch( "boost__type_index__abi", "RTTI is off - using CTTI")
+#   endif
 #endif
 
 #ifndef BOOST_TYPE_INDEX_REGISTER_CLASS

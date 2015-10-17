@@ -49,10 +49,10 @@ namespace boost { namespace fusion
             template <typename Sequence>
             struct apply : Sequence::template size<Sequence> {};
         };
- 
+
         template <>
         struct size_impl<boost_tuple_tag>;
- 
+
         template <>
         struct size_impl<boost_array_tag>;
 
@@ -67,18 +67,14 @@ namespace boost { namespace fusion
     {
         template <typename Sequence>
         struct size
-            : extension::size_impl<typename detail::tag_of<Sequence>::type>::
-        template apply<Sequence>
-
-        {
-            typedef typename extension::size_impl<typename detail::tag_of<Sequence>::type>::
-            template apply<Sequence>::type size_application;
-            BOOST_STATIC_CONSTANT(int, value = size_application::value);
-        };
+            : mpl::int_<
+                  extension::size_impl<typename detail::tag_of<Sequence>::type>
+                      ::template apply<Sequence>::type::value
+              > {};
     }
 
     template <typename Sequence>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::size<Sequence>::type
     size(Sequence const&)
     {

@@ -182,7 +182,7 @@ private:
 
     // stepper for systems with function for dq/dt = f(p) and dp/dt = -f(q)
     template< class System , class StateIn , class StateOut >
-    void do_step_impl( System system , const StateIn &in , time_type t , StateOut &out , time_type dt , boost::mpl::true_ )
+    void do_step_impl( System system , const StateIn &in , time_type /* t */ , StateOut &out , time_type dt , boost::mpl::true_ )
     {
         typedef typename odeint::unwrap_reference< System >::type system_type;
         typedef typename odeint::unwrap_reference< typename system_type::first_type >::type coor_deriv_func_type;

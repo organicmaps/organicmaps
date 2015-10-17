@@ -34,7 +34,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Sequence, typename F>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::transform<Sequence const, F>::type
     transform(Sequence const& seq, F f)
     {
@@ -42,7 +42,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Sequence1, typename Sequence2, typename F>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::transform<Sequence1 const, Sequence2 const, F>::type
     transform(Sequence1 const& seq1, Sequence2 const& seq2, F f)
     {

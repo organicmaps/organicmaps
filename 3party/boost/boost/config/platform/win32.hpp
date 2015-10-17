@@ -41,8 +41,10 @@
 #endif
 
 #if defined(__MINGW32__) && (__GNUC__ >= 4)
-#  define BOOST_HAS_EXPM1
-#  define BOOST_HAS_LOG1P
+// Mingw has these functions but there are persistent problems
+// with calls to these crashing, so disable for now:
+//#  define BOOST_HAS_EXPM1
+//#  define BOOST_HAS_LOG1P
 #  define BOOST_HAS_GETTIMEOFDAY
 #endif
 //

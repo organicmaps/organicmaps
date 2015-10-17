@@ -33,7 +33,7 @@ namespace boost { namespace fusion {
                 typedef typename Last::first_type last_type;
                 typedef typename result_of::distance<last_type, first_type>::type type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(First const& first, Last const& last)
                 {

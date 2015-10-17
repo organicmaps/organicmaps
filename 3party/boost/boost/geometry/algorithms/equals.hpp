@@ -372,7 +372,7 @@ struct equals<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)>, Geometry2>
         Geometry2 const& geometry2
     )
     {
-        return apply_visitor(visitor(geometry2), geometry1);
+        return boost::apply_visitor(visitor(geometry2), geometry1);
     }
 };
 
@@ -401,7 +401,7 @@ struct equals<Geometry1, boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
         boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> const& geometry2
     )
     {
-        return apply_visitor(visitor(geometry1), geometry2);
+        return boost::apply_visitor(visitor(geometry1), geometry2);
     }
 };
 
@@ -431,7 +431,7 @@ struct equals<
         boost::variant<BOOST_VARIANT_ENUM_PARAMS(T2)> const& geometry2
     )
     {
-        return apply_visitor(visitor(), geometry1, geometry2);
+        return boost::apply_visitor(visitor(), geometry1, geometry2);
     }
 };
 

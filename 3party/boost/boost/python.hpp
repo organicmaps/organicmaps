@@ -53,6 +53,7 @@
 # include <boost/python/pointee.hpp>
 # include <boost/python/pure_virtual.hpp>
 # include <boost/python/ptr.hpp>
+# include <boost/python/raw_function.hpp>
 # include <boost/python/reference_existing_object.hpp>
 # include <boost/python/register_ptr_to_python.hpp>
 # include <boost/python/return_arg.hpp>
@@ -61,7 +62,9 @@
 # include <boost/python/return_value_policy.hpp>
 # include <boost/python/scope.hpp>
 # include <boost/python/self.hpp>
+# include <boost/python/slice.hpp>
 # include <boost/python/slice_nil.hpp>
+# include <boost/python/stl_iterator.hpp>
 # include <boost/python/str.hpp>
 # include <boost/python/to_python_converter.hpp>
 # include <boost/python/to_python_indirect.hpp>

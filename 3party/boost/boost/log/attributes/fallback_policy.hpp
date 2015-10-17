@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2014.
+ *          Copyright Andrey Semashev 2007 - 2015.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -15,11 +15,11 @@
 #ifndef BOOST_LOG_ATTRIBUTES_FALLBACK_POLICY_HPP_INCLUDED_
 #define BOOST_LOG_ATTRIBUTES_FALLBACK_POLICY_HPP_INCLUDED_
 
+#include <boost/type_index.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/log/detail/config.hpp>
 #include <boost/log/exceptions.hpp>
-#include <boost/log/utility/type_info_wrapper.hpp>
 #include <boost/log/attributes/fallback_policy_fwd.hpp>
 #include <boost/log/detail/header.hpp>
 
@@ -59,7 +59,7 @@ struct fallback_to_none
     /*!
      * The method is called when value extraction failed because the attribute value has different type than requested.
      */
-    static void on_invalid_type(type_info_wrapper const&)
+    static void on_invalid_type(typeindex::type_index const&)
     {
     }
 
@@ -99,7 +99,7 @@ struct fallback_to_throw
     /*!
      * The method is called when value extraction failed because the attribute value has different type than requested.
      */
-    static void on_invalid_type(type_info_wrapper const& t)
+    static void on_invalid_type(typeindex::type_index const& t)
     {
         BOOST_LOG_THROW_DESCR_PARAMS(invalid_type, "Attribute value has incompatible type", (t));
     }
@@ -161,7 +161,7 @@ struct fallback_to_default
     /*!
      * The method is called when value extraction failed because the attribute value has different type than requested.
      */
-    static void on_invalid_type(type_info_wrapper const&)
+    static void on_invalid_type(typeindex::type_index const&)
     {
     }
 

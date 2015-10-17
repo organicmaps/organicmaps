@@ -11,7 +11,11 @@
 #ifndef BOOST_INTERPROCESS_MANAGED_EXTERNAL_BUFFER_HPP
 #define BOOST_INTERPROCESS_MANAGED_EXTERNAL_BUFFER_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -19,7 +23,7 @@
 #include <boost/interprocess/detail/workaround.hpp>
 #include <boost/interprocess/creation_tags.hpp>
 #include <boost/interprocess/detail/managed_memory_impl.hpp>
-#include <boost/move/move.hpp>
+#include <boost/move/utility_core.hpp>
 #include <boost/assert.hpp>
 //These includes needed to fulfill default template parameters of
 //predeclarations in interprocess_fwd.hpp
@@ -45,11 +49,11 @@ template
 class basic_managed_external_buffer
    : public ipcdetail::basic_managed_memory_impl <CharType, AllocationAlgorithm, IndexType>
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    typedef ipcdetail::basic_managed_memory_impl
       <CharType, AllocationAlgorithm, IndexType>    base_t;
    BOOST_MOVABLE_BUT_NOT_COPYABLE(basic_managed_external_buffer)
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    typedef typename base_t::size_type              size_type;
@@ -103,6 +107,26 @@ class basic_managed_external_buffer
    void swap(basic_managed_external_buffer &other)
    {  base_t::swap(other); }
 };
+
+#ifdef BOOST_INTERPROCESS_DOXYGEN_INVOKED
+
+//!Typedef for a default basic_managed_external_buffer
+//!of narrow characters
+typedef basic_managed_external_buffer
+   <char
+   ,rbtree_best_fit<null_mutex_family>
+   ,iset_index>
+managed_external_buffer;
+
+//!Typedef for a default basic_managed_external_buffer
+//!of wide characters
+typedef basic_managed_external_buffer
+   <wchar_t
+   ,rbtree_best_fit<null_mutex_family>
+   ,iset_index>
+wmanaged_external_buffer;
+
+#endif   //#ifdef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 }  //namespace interprocess {
 }  //namespace boost {

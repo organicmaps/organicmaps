@@ -27,10 +27,6 @@
 #include <boost/scoped_array.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/assert.hpp>
-//#include <boost/detail/lightweight_mutex.hpp>
-//  fails on VC++ static builds because the runtime does not permit use of locks in
-//  staticly initialized code, and VC++ 2010 (and probably other versions) statically
-//  initializes some instances of class path.
 #include <algorithm>
 #include <cstddef>
 #include <cstring>
@@ -39,7 +35,8 @@
 #ifdef BOOST_WINDOWS_API
 # include "windows_file_codecvt.hpp"
 # include <windows.h>
-#elif defined(macintosh) || defined(__APPLE__) || defined(__APPLE_CC__) || defined(__FreeBSD__)
+#elif defined(macintosh) || defined(__APPLE__) || defined(__APPLE_CC__) \
+ || defined(__FreeBSD__) || defined(__OPEN_BSD__) || defined(__HAIKU__)
 # include <boost/filesystem/detail/utf8_codecvt_facet.hpp>
 #endif
 
@@ -57,10 +54,6 @@ using std::wstring;
 
 using boost::system::error_code;
 
-#ifndef BOOST_FILESYSTEM_CODECVT_BUF_SIZE
-# define BOOST_FILESYSTEM_CODECVT_BUF_SIZE 256
-#endif
-
 //--------------------------------------------------------------------------------------//
 //                                                                                      //
 //                                class path helpers                                    //
@@ -77,8 +70,6 @@ namespace
   typedef path::string_type       string_type;
   typedef string_type::size_type  size_type;
 
-  //const std::size_t default_codecvt_buf_size = BOOST_FILESYSTEM_CODECVT_BUF_SIZE;
-
 # ifdef BOOST_WINDOWS_API
 
   const wchar_t separator = L'/';
@@ -88,8 +79,6 @@ namespace
   const wchar_t colon = L':';
   const wchar_t dot = L'.';
   const wchar_t questionmark = L'?';
-  const fs::path dot_path(L".");
-  const fs::path dot_dot_path(L"..");
 
   inline bool is_letter(wchar_t c)
   {
@@ -103,8 +92,6 @@ namespace
   const char* separator_string = "/";
   const char* preferred_separator_string = "/";
   const char dot = '.';
-  const fs::path dot_path(".");
-  const fs::path dot_dot_path("..");
 
 # endif
 
@@ -198,6 +185,13 @@ namespace filesystem
 
 # ifdef BOOST_WINDOWS_API
 
+  const std::string path::generic_string() const
+  {
+    path tmp(*this);
+    std::replace(tmp.m_pathname.begin(), tmp.m_pathname.end(), L'\\', L'/');
+    return tmp.string();
+  }
+
   const std::string path::generic_string(const codecvt_type& cvt) const
   {
     path tmp(*this);
@@ -257,6 +251,13 @@ namespace filesystem
   path& path::remove_filename()
   {
     m_pathname.erase(m_parent_path_end());
+    return *this;
+  }
+
+  path&  path::remove_trailing_separator()
+  {
+    if (!m_pathname.empty() && is_separator(m_pathname[m_pathname.size() - 1]))
+      m_pathname.erase(m_pathname.size() - 1);
     return *this;
   }
 
@@ -362,14 +363,14 @@ namespace filesystem
               && pos
               && is_separator(m_pathname[pos])
               && !is_root_separator(m_pathname, pos))
-      ? dot_path
+      ? detail::dot_path()
       : path(m_pathname.c_str() + pos);
   }
 
   path path::stem() const
   {
     path name(filename());
-    if (name == dot_path || name == dot_dot_path) return name;
+    if (name == detail::dot_path() || name == detail::dot_dot_path()) return name;
     size_type pos(name.m_pathname.rfind(dot));
     return pos == string_type::npos
       ? name
@@ -379,7 +380,7 @@ namespace filesystem
   path path::extension() const
   {
     path name(filename());
-    if (name == dot_path || name == dot_dot_path) return path();
+    if (name == detail::dot_path() || name == detail::dot_dot_path()) return path();
     size_type pos(name.m_pathname.rfind(dot));
     return pos == string_type::npos
       ? path()
@@ -440,7 +441,7 @@ namespace filesystem
 
           iterator next(itr);
           if (temp.empty() && ++next != stop
-            && next == last && *last == dot_path) temp /= dot_path;
+            && next == last && *last == detail::dot_path()) temp /= detail::dot_path();
           continue;
         }
       }
@@ -448,7 +449,7 @@ namespace filesystem
       temp /= *itr;
     };
 
-    if (temp.empty()) temp /= dot_path;
+    if (temp.empty()) temp /= detail::dot_path();
     m_pathname = temp.m_pathname;
     return *this;
   }
@@ -661,6 +662,28 @@ namespace filesystem
         return 0;
       return first1 == last1 ? -1 : 1;
     }
+
+    BOOST_FILESYSTEM_DECL
+    const path&  dot_path()
+    {
+#   ifdef BOOST_WINDOWS_API
+      static const fs::path dot_pth(L".");
+#   else
+      static const fs::path dot_pth(".");
+#   endif
+      return dot_pth;
+    }
+
+    BOOST_FILESYSTEM_DECL
+    const path&  dot_dot_path()
+    {
+#   ifdef BOOST_WINDOWS_API
+      static const fs::path dot_dot(L"..");
+#   else
+      static const fs::path dot_dot("..");
+#   endif
+      return dot_dot;
+    }
   }
 
 //--------------------------------------------------------------------------------------//
@@ -736,7 +759,7 @@ namespace filesystem
         && !is_root_separator(it.m_path_ptr->m_pathname, it.m_pos-1))
       {
         --it.m_pos;
-        it.m_element = dot_path;
+        it.m_element = detail::dot_path();
         return;
       }
     }
@@ -762,7 +785,7 @@ namespace filesystem
        )
     {
       --it.m_pos;
-      it.m_element = dot_path;
+      it.m_element = detail::dot_path();
       return;
     }
 
@@ -809,14 +832,13 @@ namespace
   //  indicated the current code is roughly 9% slower than the previous code, and that
   //  seems a small price to pay for better code that is easier to use.
 
-  //boost::detail::lightweight_mutex locale_mutex;
-
   inline std::locale default_locale()
   {
 # if defined(BOOST_WINDOWS_API)
     std::locale global_loc = std::locale();
     return std::locale(global_loc, new windows_file_codecvt);
-# elif defined(macintosh) || defined(__APPLE__) || defined(__APPLE_CC__) || defined(__FreeBSD__)
+# elif defined(macintosh) || defined(__APPLE__) || defined(__APPLE_CC__) \
+  || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__)
     // "All BSD system functions expect their string parameters to be in UTF-8 encoding
     // and nothing else." See
     // http://developer.apple.com/mac/library/documentation/MacOSX/Conceptual/BPInternational/Articles/FileEncodings.html
@@ -855,6 +877,9 @@ namespace
   // is really needed.
   {
     static std::locale loc(default_locale());
+#ifdef BOOST_FILESYSTEM_DEBUG
+    std::cout << "***** path_locale() called" << std::endl;
+#endif
     return loc;
   }
 }  // unnamed namespace
@@ -871,14 +896,18 @@ namespace filesystem
 
   const path::codecvt_type& path::codecvt()
   {
+#ifdef BOOST_FILESYSTEM_DEBUG
+    std::cout << "***** path::codecvt() called" << std::endl;
+#endif
     BOOST_ASSERT_MSG(&path_locale(), "boost::filesystem::path locale initialization error");
-//    boost::detail::lightweight_mutex::scoped_lock lock(locale_mutex);
     return std::use_facet<std::codecvt<wchar_t, char, std::mbstate_t> >(path_locale());
   }
 
   std::locale path::imbue(const std::locale& loc)
   {
-//    boost::detail::lightweight_mutex::scoped_lock lock(locale_mutex);
+#ifdef BOOST_FILESYSTEM_DEBUG
+    std::cout << "***** path::imbue() called" << std::endl;
+#endif
     std::locale temp(path_locale());
     path_locale() = loc;
     return temp;

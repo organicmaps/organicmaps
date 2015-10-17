@@ -108,7 +108,10 @@ inline RealType pdf(const extreme_value_distribution<RealType, Policy>& dist, co
       return result;
    if(0 == detail::check_x(function, x, &result, Policy()))
       return result;
-   result = exp((a-x)/b) * exp(-exp((a-x)/b)) / b;
+   RealType e = (a - x) / b;
+   if(e < tools::log_max_value<RealType>())
+      result = exp(e) * exp(-exp(e)) / b;
+   // else.... result *must* be zero since exp(e) is infinite...
    return result;
 } // pdf
 

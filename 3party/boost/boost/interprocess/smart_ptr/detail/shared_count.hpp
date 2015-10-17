@@ -14,9 +14,11 @@
 #ifndef BOOST_INTERPROCESS_DETAIL_SHARED_COUNT_HPP_INCLUDED
 #define BOOST_INTERPROCESS_DETAIL_SHARED_COUNT_HPP_INCLUDED
 
-// MS compatible compilers support #pragma once
-
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 # pragma once
 #endif
 
@@ -29,8 +31,10 @@
 #include <boost/interprocess/smart_ptr/detail/sp_counted_impl.hpp>
 #include <boost/interprocess/detail/utilities.hpp>
 #include <boost/container/allocator_traits.hpp>
-#include <boost/detail/no_exceptions_support.hpp>
-#include <functional>       // std::less
+#include <boost/core/no_exceptions_support.hpp>
+#include <boost/move/adl_move_swap.hpp>
+#include <boost/intrusive/detail/minimal_less_equal_header.hpp>   //std::less
+#include <boost/container/detail/placement_new.hpp>
 
 namespace boost {
 namespace interprocess {
@@ -104,7 +108,7 @@ class shared_count
                         deallocator(m_pi, alloc);
             //It's more correct to use VoidAllocator::construct but
             //this needs copy constructor and we don't like it
-            new(ipcdetail::to_raw_pointer(m_pi))counted_impl(p, a, d);
+            ::new(ipcdetail::to_raw_pointer(m_pi), boost_container_new_t())counted_impl(p, a, d);
             deallocator.release();
          }
       }
@@ -189,7 +193,7 @@ class shared_count
    }
 
    void swap(shared_count & r) // nothrow
-   {  ipcdetail::do_swap(m_px, r.m_px);   ipcdetail::do_swap(m_pi, r.m_pi);   }
+   {  ::boost::adl_move_swap(m_px, r.m_px);  ::boost::adl_move_swap(m_pi, r.m_pi);   }
 
    long use_count() const // nothrow
    {  return m_pi != 0? m_pi->use_count(): 0;  }
@@ -306,7 +310,7 @@ class weak_count
    }
 
    void swap(weak_count & r) // nothrow
-   {  ipcdetail::do_swap(m_px, r.m_px);  ipcdetail::do_swap(m_pi, r.m_pi);   }
+   {  ::boost::adl_move_swap(m_px, r.m_px);  ::boost::adl_move_swap(m_pi, r.m_pi);   }
 
    long use_count() const // nothrow
    {  return m_pi != 0? m_pi->use_count() : 0;   }

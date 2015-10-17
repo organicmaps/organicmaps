@@ -11,15 +11,28 @@
 #ifndef BOOST_INTERPROCESS_FILE_MAPPING_HPP
 #define BOOST_INTERPROCESS_FILE_MAPPING_HPP
 
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
+
+#if !defined(BOOST_INTERPROCESS_MAPPED_FILES)
+#error "Boost.Interprocess: This platform does not support memory mapped files!"
+#endif
 
 #include <boost/interprocess/interprocess_fwd.hpp>
 #include <boost/interprocess/exceptions.hpp>
 #include <boost/interprocess/detail/utilities.hpp>
 #include <boost/interprocess/creation_tags.hpp>
 #include <boost/interprocess/detail/os_file_functions.hpp>
-#include <boost/move/move.hpp>
+#include <boost/interprocess/detail/simple_swap.hpp>
+#include <boost/move/utility_core.hpp>
 #include <string>    //std::string
 
 //!\file
@@ -32,9 +45,9 @@ namespace interprocess {
 //!create mapped regions from the mapped files
 class file_mapping
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    BOOST_MOVABLE_BUT_NOT_COPYABLE(file_mapping)
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    //!Constructs an empty file mapping.
@@ -91,14 +104,14 @@ class file_mapping
    //!being used other processes and no deletion permission was shared.
    static bool remove(const char *filename);
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    //!Closes a previously opened file mapping. Never throws.
    void priv_close();
    file_handle_t  m_handle;
    mode_t         m_mode;
    std::string    m_filename;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
 
 inline file_mapping::file_mapping()
@@ -114,8 +127,8 @@ inline const char *file_mapping::get_name() const
 
 inline void file_mapping::swap(file_mapping &other)
 {
-   std::swap(m_handle, other.m_handle);
-   std::swap(m_mode, other.m_mode);
+   (simple_swap)(m_handle, other.m_handle);
+   (simple_swap)(m_mode, other.m_mode);
    m_filename.swap(other.m_filename);
 }
 
@@ -150,7 +163,7 @@ inline file_mapping::file_mapping
 inline bool file_mapping::remove(const char *filename)
 {  return ipcdetail::delete_file(filename);  }
 
-///@cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
 inline void file_mapping::priv_close()
 {
@@ -159,8 +172,6 @@ inline void file_mapping::priv_close()
       m_handle = ipcdetail::invalid_file();
    }
 }
-
-///@endcond
 
 //!A class that stores the name of a file
 //!and tries to remove it in its destructor
@@ -177,6 +188,8 @@ class remove_file_on_destroy
    ~remove_file_on_destroy()
    {  ipcdetail::delete_file(m_name);  }
 };
+
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 }  //namespace interprocess {
 }  //namespace boost {

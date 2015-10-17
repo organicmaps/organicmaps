@@ -7,10 +7,6 @@
 #if !defined(SPIRIT_EXPECT_MARCH_16_2012_1024PM)
 #define SPIRIT_EXPECT_MARCH_16_2012_1024PM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/spirit/home/x3/support/context.hpp>
 #include <boost/spirit/home/x3/core/parser.hpp>
 #include <boost/throw_exception.hpp>
@@ -70,11 +66,11 @@ namespace boost { namespace spirit { namespace x3
         expect_directive<typename extension::as_parser<Subject>::value_type>
         operator[](Subject const& subject) const
         {
-            return {as_parser(subject)};
+            return { as_parser(subject) };
         }
     };
 
-    expect_gen const expect = expect_gen();
+    auto const expect = expect_gen{};
 }}}
 
 #endif

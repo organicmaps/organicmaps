@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2014.
+ *          Copyright Andrey Semashev 2007 - 2015.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -15,14 +15,13 @@
 #ifndef BOOST_LOG_SOURCES_GLOBAL_LOGGER_STORAGE_HPP_INCLUDED_
 #define BOOST_LOG_SOURCES_GLOBAL_LOGGER_STORAGE_HPP_INCLUDED_
 
-#include <typeinfo>
 #include <stdexcept>
+#include <boost/type_index.hpp>
 #include <boost/smart_ptr/shared_ptr.hpp>
 #include <boost/smart_ptr/make_shared_object.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
 #include <boost/log/detail/config.hpp>
 #include <boost/log/detail/singleton.hpp>
-#include <boost/log/detail/visible_type.hpp>
 #include <boost/log/detail/header.hpp>
 
 #ifdef BOOST_HAS_PRAGMA_ONCE
@@ -41,17 +40,19 @@ namespace aux {
 struct BOOST_LOG_NO_VTABLE BOOST_SYMBOL_VISIBLE logger_holder_base
 {
     //! The source file name where the logger was registered
-    const char* m_RegistrationFile;
+    const char* const m_RegistrationFile;
     //! The line number where the logger was registered
-    unsigned int m_RegistrationLine;
+    const unsigned int m_RegistrationLine;
+    //! Stored logger type
+    const typeindex::type_index m_LoggerType;
 
-    logger_holder_base(const char* file, unsigned int line) :
+    logger_holder_base(const char* file, unsigned int line, typeindex::type_index logger_type) BOOST_NOEXCEPT :
         m_RegistrationFile(file),
-        m_RegistrationLine(line)
+        m_RegistrationLine(line),
+        m_LoggerType(logger_type)
     {
     }
     virtual ~logger_holder_base() {}
-    virtual std::type_info const& logger_type() const = 0;
 };
 
 //! The actual logger holder class
@@ -63,11 +64,10 @@ struct BOOST_SYMBOL_VISIBLE logger_holder :
     LoggerT m_Logger;
 
     logger_holder(const char* file, unsigned int line, LoggerT const& logger) :
-        logger_holder_base(file, line),
+        logger_holder_base(file, line, typeindex::type_id< LoggerT >()),
         m_Logger(logger)
     {
     }
-    std::type_info const& logger_type() const { return typeid(LoggerT); }
 };
 
 //! The class implements a global repository of tagged loggers
@@ -76,7 +76,7 @@ struct global_storage
     typedef shared_ptr< logger_holder_base >(*initializer_t)();
 
     //! Finds or creates the logger and returns its holder
-    BOOST_LOG_API static shared_ptr< logger_holder_base > get_or_init(std::type_info const& key, initializer_t initializer);
+    BOOST_LOG_API static shared_ptr< logger_holder_base > get_or_init(typeindex::type_index key, initializer_t initializer);
 
     //  Non-constructible, non-copyable, non-assignable
     BOOST_DELETED_FUNCTION(global_storage())
@@ -86,8 +86,8 @@ struct global_storage
 
 //! Throws the \c odr_violation exception
 BOOST_LOG_API BOOST_LOG_NORETURN void throw_odr_violation(
-    std::type_info const& tag_type,
-    std::type_info const& logger_type,
+    typeindex::type_index tag_type,
+    typeindex::type_index logger_type,
     logger_holder_base const& registered);
 
 //! The class implements a logger singleton
@@ -116,18 +116,24 @@ struct logger_singleton :
     static void init_instance()
     {
         shared_ptr< logger_holder< logger_type > >& instance = base_type::get_instance();
-        shared_ptr< logger_holder_base > holder = global_storage::get_or_init(
-            typeid(boost::log::aux::visible_type< TagT >),
-            &logger_singleton::construct_logger);
-        instance = boost::dynamic_pointer_cast< logger_holder< logger_type > >(holder);
-        if (!instance)
+        const typeindex::type_index tag_type_index = typeindex::type_id< TagT >();
+        shared_ptr< logger_holder_base > holder = global_storage::get_or_init(tag_type_index, &logger_singleton::construct_logger);
+        const typeindex::type_index logger_type_index = typeindex::type_id< logger_type >();
+        if (holder->m_LoggerType == logger_type_index)
+        {
+            // Note: dynamic_cast may fail here if logger_type is not visible (for example, with Clang on Linux, if the original logger
+            //       instance was initialized in a different DSO than where it's being queried). logger_holder default visibility doesn't
+            //       help since it is inhibited by the template parameter visibility.
+            instance = boost::static_pointer_cast< logger_holder< logger_type > >(holder);
+        }
+        else
         {
             // In pure C++ this should never happen, since there cannot be two
             // different tag types that have equal type_infos. In real life it can
             // happen if the same-named tag is defined differently in two or more
             // dlls. This check is intended to detect such ODR violations. However, there
             // is no protection against different definitions of the logger type itself.
-            throw_odr_violation(typeid(TagT), typeid(logger_type), *holder);
+            throw_odr_violation(tag_type_index, logger_type_index, *holder);
         }
     }
 

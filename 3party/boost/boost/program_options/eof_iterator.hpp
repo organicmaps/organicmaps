@@ -10,17 +10,17 @@
 
 namespace boost {
 
-    /** The 'eof_iterator' class is useful for constructing forward iterators 
-        in cases where iterator extract data from some source and it's easy 
-        to detect 'eof' -- i.e. the situation where there's no data. One 
+    /** The 'eof_iterator' class is useful for constructing forward iterators
+        in cases where iterator extract data from some source and it's easy
+        to detect 'eof' \-- i.e. the situation where there's no data. One
         apparent example is reading lines from a file.
-        
+
         Implementing such iterators using 'iterator_facade' directly would
-        require to create class with three core operation, a couple of 
-        constructors. When using 'eof_iterator', the derived class should define 
+        require to create class with three core operation, a couple of
+        constructors. When using 'eof_iterator', the derived class should define
         only one method to get new value, plus a couple of constructors.
 
-        The basic idea is that iterator has 'eof' bit. Two iterators are equal 
+        The basic idea is that iterator has 'eof' bit. Two iterators are equal
         only if both have their 'eof' bits set. The 'get' method either obtains
         the new value or sets the 'eof' bit.
 
@@ -33,13 +33,13 @@ namespace boost {
         3. The 'get' method. It should operate this way:
             - look at some 'data pointer' to see if new element is available;
               if not, it should call 'found_eof'.
-            - extract new element and store it at location returned by the 'value' 
+            - extract new element and store it at location returned by the 'value'
                method.
             - advance the data pointer.
 
-        Essentially, the 'get' method has the functionality of both 'increment' 
-        and 'dereference'. It's very good for the cases where data extraction 
-        implicitly moves data pointer, like for stream operation.         
+        Essentially, the 'get' method has the functionality of both 'increment'
+        and 'dereference'. It's very good for the cases where data extraction
+        implicitly moves data pointer, like for stream operation.
     */
     template<class Derived, class ValueType>
     class eof_iterator : public iterator_facade<Derived, const ValueType,
@@ -65,16 +65,16 @@ namespace boost {
         {
             m_at_eof = true;
         }
-        
+
 
     private: // iterator core operations
         friend class iterator_core_access;
-    
-        void increment() 
+
+        void increment()
         {
             static_cast<Derived&>(*this).get();
         }
-    
+
         bool equal(const eof_iterator& other) const
         {
             if (m_at_eof && other.m_at_eof)
@@ -82,14 +82,14 @@ namespace boost {
             else
                 return false;
         }
-        
+
         const ValueType& dereference() const
         {
             return m_value;
         }
 
         bool m_at_eof;
-        ValueType m_value;        
+        ValueType m_value;
     };
 }
 

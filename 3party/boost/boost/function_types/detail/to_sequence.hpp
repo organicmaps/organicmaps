@@ -32,14 +32,12 @@ struct to_sequence
   type;
 };
 
-#ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 // reduce template instantiations, if possible
 template<typename T, typename U>
 struct to_sequence< components<T,U> > 
 {
   typedef typename components<T,U>::types type;
 };
-#endif
 
 } } } // namespace ::boost::function_types::detail
 

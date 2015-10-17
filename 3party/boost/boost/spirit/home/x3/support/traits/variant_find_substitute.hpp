@@ -8,10 +8,6 @@
 #if !defined(BOOST_SPIRIT_X3_VARIANT_FIND_SUBSTITUTE_APR_18_2014_930AM)
 #define BOOST_SPIRIT_X3_VARIANT_FIND_SUBSTITUTE_APR_18_2014_930AM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/spirit/home/x3/support/traits/is_substitute.hpp>
 
 namespace boost { namespace spirit { namespace x3 { namespace traits

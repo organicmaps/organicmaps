@@ -1,4 +1,4 @@
-/* Copyright 2003-2013 Joaquin M Lopez Munoz.
+/* Copyright 2003-2015 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -39,7 +39,7 @@ namespace detail{
  * mean a  type  P such that, given a p of type P
  *   *...n...*x is convertible to Type&, for some n>=1.
  * Examples of chained pointers are raw and smart pointers, iterators and
- * arbitrary combinations of these (vg. Type** or auto_ptr<Type*>.)
+ * arbitrary combinations of these (vg. Type** or unique_ptr<Type*>.)
  */
 
 template<typename Type>

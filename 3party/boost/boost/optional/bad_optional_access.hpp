@@ -13,6 +13,9 @@
 #define BOOST_BAD_OPTIONAL_ACCESS_22MAY2014_HPP
 
 #include <stdexcept>
+#if __cplusplus < 201103L
+#include <string> // to make converting-ctor std::string(char const*) visible
+#endif
 
 namespace boost {
 

@@ -17,7 +17,6 @@
 //  See http://www.boost.org for updates, documentation, and revision history.
 
 #include <boost/config.hpp>
-#include <boost/serialization/pfto.hpp>
 #include <boost/detail/workaround.hpp>
 
 #include <boost/archive/detail/common_iarchive.hpp>
@@ -44,7 +43,7 @@ namespace detail {
 /////////////////////////////////////////////////////////////////////////
 // class xml_iarchive - read serialized objects from a input text stream
 template<class Archive>
-class basic_xml_iarchive :
+class BOOST_SYMBOL_VISIBLE basic_xml_iarchive :
     public detail::common_iarchive<Archive>
 {
 #ifdef BOOST_NO_MEMBER_TEMPLATE_FRIENDS
@@ -60,21 +59,21 @@ protected:
     #endif
 #endif
     unsigned int depth;
-    BOOST_ARCHIVE_OR_WARCHIVE_DECL(void)
+    BOOST_ARCHIVE_OR_WARCHIVE_DECL void
     load_start(const char *name);
-    BOOST_ARCHIVE_OR_WARCHIVE_DECL(void)
+    BOOST_ARCHIVE_OR_WARCHIVE_DECL void
     load_end(const char *name);
 
     // Anything not an attribute and not a name-value pair is an
     // should be trapped here.
     template<class T>
-    void load_override(T & t,  BOOST_PFTO int)
+    void load_override(T & t)
     {
         // If your program fails to compile here, its most likely due to
         // not specifying an nvp wrapper around the variable to
         // be serialized.
         BOOST_MPL_ASSERT((serialization::is_wrapper< T >));
-        this->detail_common_iarchive::load_override(t, 0);
+        this->detail_common_iarchive::load_override(t);
     }
 
     // Anything not an attribute - see below - should be a name value
@@ -82,14 +81,10 @@ protected:
     typedef detail::common_iarchive<Archive> detail_common_iarchive;
     template<class T>
     void load_override(
-        #ifndef BOOST_NO_FUNCTION_TEMPLATE_ORDERING
-        const
-        #endif
-        boost::serialization::nvp< T > & t,
-        int
+        const boost::serialization::nvp< T > & t
     ){
         this->This()->load_start(t.name());
-        this->detail_common_iarchive::load_override(t.value(), 0);
+        this->detail_common_iarchive::load_override(t.value());
         this->This()->load_end(t.name());
     }
 
@@ -101,23 +96,23 @@ protected:
     // an xml archive.  So we can skip it here.  Note: we MUST override
     // it otherwise it will be loaded as a normal primitive w/o tag and
     // leaving the archive in an undetermined state
-    void load_override(class_id_optional_type & /* t */, int){}
-    BOOST_ARCHIVE_OR_WARCHIVE_DECL(void)
-    load_override(object_id_type & t, int);
-    BOOST_ARCHIVE_OR_WARCHIVE_DECL(void)
-    load_override(version_type & t, int);
-    BOOST_ARCHIVE_OR_WARCHIVE_DECL(void)
-    load_override(class_id_type & t, int);
-    BOOST_ARCHIVE_OR_WARCHIVE_DECL(void)
-    load_override(tracking_type & t, int);
+    void load_override(class_id_optional_type & /* t */){}
+    BOOST_ARCHIVE_OR_WARCHIVE_DECL void
+    load_override(object_id_type & t);
+    BOOST_ARCHIVE_OR_WARCHIVE_DECL void
+    load_override(version_type & t);
+    BOOST_ARCHIVE_OR_WARCHIVE_DECL void
+    load_override(class_id_type & t);
+    BOOST_ARCHIVE_OR_WARCHIVE_DECL void
+    load_override(tracking_type & t);
     // class_name_type can't be handled here as it depends upon the
     // char type used by the stream.  So require the derived implementation
     // handle this.
-    // void load_override(class_name_type & t, int);
+    // void load_override(class_name_type & t);
 
-    BOOST_ARCHIVE_OR_WARCHIVE_DECL(BOOST_PP_EMPTY())
+    BOOST_ARCHIVE_OR_WARCHIVE_DECL
     basic_xml_iarchive(unsigned int flags);
-    BOOST_ARCHIVE_OR_WARCHIVE_DECL(BOOST_PP_EMPTY())
+    BOOST_ARCHIVE_OR_WARCHIVE_DECL
     ~basic_xml_iarchive();
 };
 

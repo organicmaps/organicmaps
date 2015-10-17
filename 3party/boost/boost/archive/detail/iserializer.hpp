@@ -40,7 +40,7 @@ namespace std{
 #include <boost/mpl/greater_equal.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/bool.hpp>
-#include <boost/detail/no_exceptions_support.hpp>
+#include <boost/core/no_exceptions_support.hpp>
 
 #ifndef BOOST_SERIALIZATION_DEFAULT_TYPE_INFO   
     #include <boost/serialization/extended_type_info_typeid.hpp>   
@@ -57,12 +57,11 @@ namespace std{
 #include <boost/type_traits/is_polymorphic.hpp>
 
 #include <boost/serialization/assume_abstract.hpp>
-
-#if ! (                                                \
-    defined(__BORLANDC__)                              \
-    || BOOST_WORKAROUND(__IBMCPP__, < 1210)            \
+#define DONT_USE_HAS_NEW_OPERATOR (                    \
+       BOOST_WORKAROUND(__IBMCPP__, < 1210)            \
     || defined(__SUNPRO_CC) && (__SUNPRO_CC < 0x590)   \
 )
+#if ! DONT_USE_HAS_NEW_OPERATOR
 #include <boost/type_traits/has_new_operator.hpp>
 #endif
 
@@ -210,8 +209,8 @@ struct heap_allocation {
         static T * invoke_new(){
             return static_cast<T *>(operator new(sizeof(T)));
         }
-        static viod invoke_delete(){
-            (operator delete(sizeof(T)));
+        static void invoke_delete(T *t){
+            (operator delete(t));
         }
     #else
         // note: we presume that a true value for has_new_operator
@@ -617,40 +616,6 @@ inline void load(Archive & ar, T &t){
         >::type typex;
     typex::invoke(ar, t);
 }
-
-#if 0
-
-// BORLAND
-#if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x560))
-// borland has a couple of problems
-// a) if function is partially specialized - see below
-// const paramters are transformed to non-const ones
-// b) implementation of base_object can't be made to work
-// correctly which results in all base_object s being const.
-// So, strip off the const for borland.  This breaks the trap
-// for loading const objects - but I see no alternative
-template<class Archive, class T>
-inline void load(Archive &ar, const T & t){
-    load(ar, const_cast<T &>(t));
-}
-#endif
-
-// let wrappers through.
-#ifndef BOOST_NO_FUNCTION_TEMPLATE_ORDERING
-template<class Archive, class T>
-inline void load_wrapper(Archive &ar, const T&t, mpl::true_){
-    boost::archive::load(ar, const_cast<T&>(t));
-}
-
-#if !BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x560))
-template<class Archive, class T>
-inline void load(Archive &ar, const T&t){
-  load_wrapper(ar,t,serialization::is_wrapper< T >());
-}
-#endif 
-#endif
-
-#endif
 
 } // namespace archive
 } // namespace boost

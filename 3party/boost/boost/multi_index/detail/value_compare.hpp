@@ -1,4 +1,4 @@
-/* Copyright 2003-2013 Joaquin M Lopez Munoz.
+/* Copyright 2003-2015 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -15,7 +15,6 @@
 
 #include <boost/config.hpp> /* keep it first to prevent nasty warns in MSVC */
 #include <boost/call_traits.hpp>
-#include <functional>
 
 namespace boost{
 
@@ -24,8 +23,12 @@ namespace multi_index{
 namespace detail{
 
 template<typename Value,typename KeyFromValue,typename Compare>
-struct value_comparison:std::binary_function<Value,Value,bool>
+struct value_comparison
 {
+  typedef Value first_argument_type;
+  typedef Value second_argument_type;
+  typedef bool  result_type;
+
   value_comparison(
     const KeyFromValue& key_=KeyFromValue(),const Compare& comp_=Compare()):
     key(key_),comp(comp_)

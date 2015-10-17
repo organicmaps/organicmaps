@@ -94,25 +94,33 @@ extern "C" long __cdecl InterlockedExchangeAdd( long*, long );
 
 #elif defined( BOOST_MSVC ) || defined( BOOST_INTEL_WIN )
 
-#if defined( BOOST_MSVC ) && BOOST_MSVC >= 1500
+#if defined( BOOST_MSVC ) && BOOST_MSVC >= 1400
 
 #include <intrin.h>
 
-#elif defined( __CLRCALL_PURE_OR_CDECL )
-
-extern "C" long __CLRCALL_PURE_OR_CDECL _InterlockedIncrement( long volatile * );
-extern "C" long __CLRCALL_PURE_OR_CDECL _InterlockedDecrement( long volatile * );
-extern "C" long __CLRCALL_PURE_OR_CDECL _InterlockedCompareExchange( long volatile *, long, long );
-extern "C" long __CLRCALL_PURE_OR_CDECL _InterlockedExchange( long volatile *, long );
-extern "C" long __CLRCALL_PURE_OR_CDECL _InterlockedExchangeAdd( long volatile *, long );
-
 #else
 
-extern "C" long __cdecl _InterlockedIncrement( long volatile * );
-extern "C" long __cdecl _InterlockedDecrement( long volatile * );
-extern "C" long __cdecl _InterlockedCompareExchange( long volatile *, long, long );
-extern "C" long __cdecl _InterlockedExchange( long volatile *, long );
-extern "C" long __cdecl _InterlockedExchangeAdd( long volatile *, long );
+# if defined( __CLRCALL_PURE_OR_CDECL )
+#  define BOOST_INTERLOCKED_CLRCALL_PURE_OR_CDECL __CLRCALL_PURE_OR_CDECL
+# else
+#  define BOOST_INTERLOCKED_CLRCALL_PURE_OR_CDECL __cdecl
+# endif
+
+extern "C" long BOOST_INTERLOCKED_CLRCALL_PURE_OR_CDECL _InterlockedIncrement( long volatile * );
+extern "C" long BOOST_INTERLOCKED_CLRCALL_PURE_OR_CDECL _InterlockedDecrement( long volatile * );
+extern "C" long BOOST_INTERLOCKED_CLRCALL_PURE_OR_CDECL _InterlockedCompareExchange( long volatile *, long, long );
+extern "C" long BOOST_INTERLOCKED_CLRCALL_PURE_OR_CDECL _InterlockedExchange( long volatile *, long );
+extern "C" long BOOST_INTERLOCKED_CLRCALL_PURE_OR_CDECL _InterlockedExchangeAdd( long volatile *, long );
+
+# undef BOOST_INTERLOCKED_CLRCALL_PURE_OR_CDECL
+
+# if defined( BOOST_MSVC ) && BOOST_MSVC >= 1310
+#  pragma intrinsic( _InterlockedIncrement )
+#  pragma intrinsic( _InterlockedDecrement )
+#  pragma intrinsic( _InterlockedCompareExchange )
+#  pragma intrinsic( _InterlockedExchange )
+#  pragma intrinsic( _InterlockedExchangeAdd )
+# endif
 
 #endif
 

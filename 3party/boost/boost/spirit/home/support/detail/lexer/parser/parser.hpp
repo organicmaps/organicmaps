@@ -87,7 +87,7 @@ Grammar:
             default:
                 std::ostringstream ss_;
 
-                ss_ << "A syntax error occured: '" <<
+                ss_ << "A syntax error occurred: '" <<
                     lhs_token_.precedence_string () <<
                     "' against '" << rhs_token_.precedence_string () <<
                     "' at index " << state_.index () << ".";

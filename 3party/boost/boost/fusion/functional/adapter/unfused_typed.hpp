@@ -63,7 +63,7 @@ namespace boost { namespace fusion
 
     public:
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         inline explicit unfused_typed(func_const_fwd_t f = Function())
             : fnc_transformed(f)
         { }
@@ -130,7 +130,7 @@ namespace boost
 #define M(z,i,s)                                                                \
     typename call_param<typename result_of::value_at_c<s,i>::type>::type a##i
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             inline typename boost::result_of<
                 function_c(arg_vector_t &) >::type
             operator()(BOOST_PP_ENUM(N,M,arg_vector_t)) const
@@ -143,7 +143,7 @@ namespace boost
                 return static_cast<Derived const *>(this)->fnc_transformed(arg);
             }
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             inline typename boost::result_of<
                 function(arg_vector_t &) >::type 
             operator()(BOOST_PP_ENUM(N,M,arg_vector_t)) 

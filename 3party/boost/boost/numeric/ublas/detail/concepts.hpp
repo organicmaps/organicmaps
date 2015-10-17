@@ -639,113 +639,148 @@ namespace boost { namespace numeric { namespace ublas {
      */
     namespace {
 
+    // Replaced the ZeroElement and OneElement functions with the templated versions
+    // because the former where giving warnings with clang
     template<class T>
     T
-    ZeroElement (T);
-    template<>
-    float
-    ZeroElement (float) {
-        return 0.f;
+    ZeroElement (T) {
+        return T(0.0);
     }
-    template<>
-    double
-    ZeroElement (double) {
-        return 0.;
+
+    template<class T>
+    vector<T>
+    ZeroElement (vector<T>) {
+        return zero_vector<T> ();
     }
-    template<>
-    vector<float>
-    ZeroElement (vector<float>) {
-        return zero_vector<float> ();
-    }
-    template<>
-    vector<double>
-    ZeroElement (vector<double>) {
-        return zero_vector<double> ();
-    }
-    template<>
-    matrix<float>
-    ZeroElement (matrix<float>) {
-        return zero_matrix<float> ();
-    }
-    template<>
-    matrix<double>
-    ZeroElement (matrix<double>) {
-        return zero_matrix<double> ();
-    }
-    template<>
-    std::complex<float>
-    ZeroElement (std::complex<float>) {
-        return std::complex<float> (0.f);
-    }
-    template<>
-    std::complex<double>
-    ZeroElement (std::complex<double>) {
-        return std::complex<double> (0.);
-    }
-    template<>
-    vector<std::complex<float> >
-    ZeroElement (vector<std::complex<float> >) {
-        return zero_vector<std::complex<float> > ();
-    }
-    template<>
-    vector<std::complex<double> >
-    ZeroElement (vector<std::complex<double> >) {
-        return zero_vector<std::complex<double> > ();
-    }
-    template<>
-    matrix<std::complex<float> >
-    ZeroElement (matrix<std::complex<float> >) {
-        return zero_matrix<std::complex<float> > ();
-    }
-    template<>
-    matrix<std::complex<double> >
-    ZeroElement (matrix<std::complex<double> >) {
-        return zero_matrix<std::complex<double> > ();
+
+    template<class T>
+    matrix<T>
+    ZeroElement (matrix<T>) {
+        return zero_matrix<T> ();
     }
 
     template<class T>
     T
-    OneElement (T);
-    template<>
-    float
-    OneElement (float) {
-        return 1.f;
+    OneElement (T) {
+        return T(0.0);
     }
-    template<>
-    double
-    OneElement (double) {
-        return 1.;
+
+    template<class T>
+    vector<T>
+    OneElement (vector<T>) {
+        return zero_vector<T> ();
     }
-    template<>
-    matrix<float>
-    OneElement (matrix<float>) {
-        return identity_matrix<float> ();
+
+    template<class T>
+    matrix<T>
+    OneElement (matrix<T>) {
+        return identity_matrix<T> ();
     }
-    template<>
-    matrix<double>
-    OneElement (matrix<double>) {
-        return identity_matrix<double> ();
-    }
-    template<>
-    std::complex<float>
-    OneElement (std::complex<float>) {
-        return std::complex<float> (1.f);
-    }
-    template<>
-    std::complex<double>
-    OneElement (std::complex<double>) {
-        return std::complex<double> (1.);
-    }
-    template<>
-    matrix<std::complex<float> >
-    OneElement (matrix<std::complex<float> >) {
-        return identity_matrix<std::complex<float> > ();
-    }
-    template<>
-    matrix<std::complex<double> >
-    OneElement (matrix<std::complex<double> >) {
-        return identity_matrix<std::complex<double> > ();
-    }
+
+//    template<>
+//    float
+//    ZeroElement (float) {
+//        return 0.f;
+//    }
+//    template<>
+//    double
+//    ZeroElement (double) {
+//        return 0.;
+//    }
+//    template<>
+//    vector<float>
+//    ZeroElement (vector<float>) {
+//        return zero_vector<float> ();
+//    }
+//    template<>
+//    vector<double>
+//    ZeroElement (vector<double>) {
+//        return zero_vector<double> ();
+//    }
+//    template<>
+//    matrix<float>
+//    ZeroElement (matrix<float>) {
+//        return zero_matrix<float> ();
+//    }
+//    template<>
+//    matrix<double>
+//    ZeroElement (matrix<double>) {
+//        return zero_matrix<double> ();
+//    }
+//    template<>
+//    std::complex<float>
+//    ZeroElement (std::complex<float>) {
+//        return std::complex<float> (0.f);
+//    }
+//    template<>
+//    std::complex<double>
+//    ZeroElement (std::complex<double>) {
+//        return std::complex<double> (0.);
+//    }
+//    template<>
+//    vector<std::complex<float> >
+//    ZeroElement (vector<std::complex<float> >) {
+//        return zero_vector<std::complex<float> > ();
+//    }
+//    template<>
+//    vector<std::complex<double> >
+//    ZeroElement (vector<std::complex<double> >) {
+//        return zero_vector<std::complex<double> > ();
+//    }
+//    template<>
+//    matrix<std::complex<float> >
+//    ZeroElement (matrix<std::complex<float> >) {
+//        return zero_matrix<std::complex<float> > ();
+//    }
+//    template<>
+//    matrix<std::complex<double> >
+//    ZeroElement (matrix<std::complex<double> >) {
+//        return zero_matrix<std::complex<double> > ();
+//    }
+
+//    template<class T>
+//    T
+//    OneElement (T);
+//    template<>
+//    float
+//    OneElement (float) {
+//        return 1.f;
+//    }
+//    template<>
+//    double
+//    OneElement (double) {
+//        return 1.;
+//    }
+//    template<>
+//    matrix<float>
+//    OneElement (matrix<float>) {
+//        return identity_matrix<float> ();
+//    }
+//    template<>
+//    matrix<double>
+//    OneElement (matrix<double>) {
+//        return identity_matrix<double> ();
+//    }
+//    template<>
+//    std::complex<float>
+//    OneElement (std::complex<float>) {
+//        return std::complex<float> (1.f);
+//    }
+//    template<>
+//    std::complex<double>
+//    OneElement (std::complex<double>) {
+//        return std::complex<double> (1.);
+//    }
+//    template<>
+//    matrix<std::complex<float> >
+//    OneElement (matrix<std::complex<float> >) {
+//        return identity_matrix<std::complex<float> > ();
+//    }
+//    template<>
+//    matrix<std::complex<double> >
+//    OneElement (matrix<std::complex<double> >) {
+//        return identity_matrix<std::complex<double> > ();
+//    }
 
     template<class E1, class E2>
     bool
@@ -893,7 +928,7 @@ namespace boost { namespace numeric { namespace ublas {
         }
     };
 
-    void concept_checks () {
+inline void concept_checks () {
 
         // Allow tests to be group to keep down compiler storage requirement
 #ifdef INTERAL
@@ -1515,21 +1550,21 @@ namespace boost { namespace numeric { namespace ublas {
 #endif
 
 #ifdef EXTERNAL
-        function_requires< AdditiveAbelianGroupConcept<float> >();
-        function_requires< CommutativeRingWithIdentityConcept<float> >();
-        function_requires< FieldConcept<float> >();
-        function_requires< VectorSpaceConcept<float, vector<float> > >();
-        function_requires< Prod_RingWithIdentityConcept<matrix<float> > >();
-        function_requires< VectorSpaceConcept<float, matrix<float> > >();
-        function_requires< LinearOperatorConcept<float, vector<float>, matrix<float> > >();
+        function_requires< AdditiveAbelianGroupConcept<T> >();
+        function_requires< CommutativeRingWithIdentityConcept<T> >();
+        function_requires< FieldConcept<T> >();
+        function_requires< VectorSpaceConcept<T, vector<T> > >();
+        function_requires< Prod_RingWithIdentityConcept<matrix<T> > >();
+        function_requires< VectorSpaceConcept<T, matrix<T> > >();
+        function_requires< LinearOperatorConcept<T, vector<T>, matrix<T> > >();
 
-        function_requires< AdditiveAbelianGroupConcept<std::complex<float> > >();
-        function_requires< CommutativeRingWithIdentityConcept<std::complex<float> > >();
-        function_requires< FieldConcept<std::complex<float> > >();
-        function_requires< VectorSpaceConcept<std::complex<float>, vector<std::complex<float> > > >();
-        function_requires< Prod_RingWithIdentityConcept<matrix<std::complex<float> > > >();
-        function_requires< VectorSpaceConcept<std::complex<float>, matrix<std::complex<float> > > >();
-        function_requires< LinearOperatorConcept<std::complex<float>, vector<std::complex<float> >, matrix<std::complex<float> > > >();
+        function_requires< AdditiveAbelianGroupConcept<std::complex<T> > >();
+        function_requires< CommutativeRingWithIdentityConcept<std::complex<T> > >();
+        function_requires< FieldConcept<std::complex<T> > >();
+        function_requires< VectorSpaceConcept<std::complex<T>, vector<std::complex<T> > > >();
+        function_requires< Prod_RingWithIdentityConcept<matrix<std::complex<T> > > >();
+        function_requires< VectorSpaceConcept<std::complex<T>, matrix<std::complex<T> > > >();
+        function_requires< LinearOperatorConcept<std::complex<T>, vector<std::complex<T> >, matrix<std::complex<T> > > >();
 #endif
     }
 

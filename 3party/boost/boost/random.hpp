@@ -67,6 +67,7 @@
 #include <boost/random/geometric_distribution.hpp>
 #include <boost/random/lognormal_distribution.hpp>
 #include <boost/random/negative_binomial_distribution.hpp>
+#include <boost/random/non_central_chi_squared_distribution.hpp>
 #include <boost/random/normal_distribution.hpp>
 #include <boost/random/piecewise_constant_distribution.hpp>
 #include <boost/random/piecewise_linear_distribution.hpp>

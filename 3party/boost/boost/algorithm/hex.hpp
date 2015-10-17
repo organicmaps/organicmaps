@@ -207,7 +207,6 @@ OutputIterator unhex ( InputIterator first, InputIterator last, OutputIterator o
 /// \note           Based on the MySQL function of the same name
 template <typename T, typename OutputIterator>
 OutputIterator unhex ( const T *ptr, OutputIterator out ) {
-    typedef typename detail::hex_iterator_traits<OutputIterator>::value_type OutputType;
 //  If we run into the terminator while decoding, we will throw a
 //      malformed input exception. It would be nicer to throw a 'Not enough input'
 //      exception - but how much extra work would that require?

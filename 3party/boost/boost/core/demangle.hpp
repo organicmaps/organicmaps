@@ -17,17 +17,12 @@
 # pragma once
 #endif
 
-#if defined(ANDROID) && (defined(__i386__) || defined(mips))
-// do not define anything to avoid compilation issue with libc++ in Android SDK
-// it uses gabi for libc++ on mips and x86
-#else
 #if defined( __clang__ ) && defined( __has_include )
 # if __has_include(<cxxabi.h>)
 #  define BOOST_CORE_HAS_CXXABI_H
 # endif
 #elif defined( __GLIBCXX__ ) || defined( __GLIBCPP__ )
 # define BOOST_CORE_HAS_CXXABI_H
-#endif
 #endif
 
 #if defined( BOOST_CORE_HAS_CXXABI_H )

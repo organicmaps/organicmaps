@@ -56,10 +56,16 @@ public:
     return tmp;
   }
   inline bool operator==(const iterator_compact_to_points& that) const {
-    return (iter_ == that.iter_);
+    if (iter_ == iter_end_) {
+      return iter_ == that.iter_;
+    }
+    return (iter_ == that.iter_) && (x(pt_) == x(that.pt_));
   }
   inline bool operator!=(const iterator_compact_to_points& that) const {
-    return (iter_ != that.iter_);
+    if (iter_ == iter_end_) {
+      return iter_ != that.iter_;
+    }
+    return (iter_ != that.iter_) || (x(pt_) != x(that.pt_));
   }
   inline reference operator*() const { return pt_; }
 };

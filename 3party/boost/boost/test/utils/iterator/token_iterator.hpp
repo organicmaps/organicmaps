@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2004-2008.
+//  (C) Copyright Gennadiy Rozental 2004-2014.
 //  Distributed under the Boost Software License, Version 1.0.
-//  (See accompanying file LICENSE_1_0.txt or copy at 
+//  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -12,8 +12,8 @@
 //  Description : token iterator for string and range tokenization
 // ***************************************************************************
 
-#ifndef BOOST_TOKEN_ITERATOR_HPP_071894GER
-#define BOOST_TOKEN_ITERATOR_HPP_071894GER
+#ifndef BOOST_TEST_UTILS_TOKEN_ITERATOR_HPP
+#define BOOST_TEST_UTILS_TOKEN_ITERATOR_HPP
 
 // Boost
 #include <boost/config.hpp>
@@ -47,7 +47,7 @@ namespace unit_test {
 // **************               ti_delimeter_type              ************** //
 // ************************************************************************** //
 
-enum ti_delimeter_type { 
+enum ti_delimeter_type {
     dt_char,        // character is delimeter if it among explicit list of some characters
     dt_ispunct,     // character is delimeter if it satisfies ispunct functor
     dt_isspace,     // character is delimeter if it satisfies isspace functor
@@ -93,7 +93,7 @@ public:
     void        set_delimeters( Src d )
     {
         nfp::optionally_assign( m_delimeters, d );
-        
+
         if( !m_delimeters.is_empty() )
             m_type = dt_char;
     }
@@ -135,7 +135,7 @@ struct token_assigner {
     template<typename Iterator, typename C, typename T>
     static void assign( Iterator b, Iterator e, std::basic_string<C,T>& t )
     { for( ; b != e; ++b ) t += *b; }
-    
+
     template<typename Iterator, typename C>
     static void assign( Iterator b, Iterator e, basic_cstring<C>& t )  { t.assign( b, e ); }
 #else
@@ -151,7 +151,7 @@ struct token_assigner {
 template<>
 struct token_assigner<single_pass_traversal_tag> {
     template<typename Iterator, typename Token>
-    static void assign( Iterator b, Iterator e, Token& t )  {}
+    static void assign( Iterator /*b*/, Iterator /*e*/, Token& /*t*/ )  {}
 
     template<typename Iterator, typename Token>
     static void append_move( Iterator& b, Token& t )        { t += *b; ++b; }
@@ -213,7 +213,7 @@ protected:
         nfp::optionally_assign( m_tokens_left, m, max_tokens );
     }
 
-    template<typename Iter> 
+    template<typename Iter>
     bool                    get( Iter& begin, Iter end )
     {
         typedef ut_detail::token_assigner<BOOST_DEDUCED_TYPENAME iterator_traversal<Iter>::type> Assigner;
@@ -240,22 +240,22 @@ protected:
                     Assigner::append_move( begin, this->m_value );
 
             --m_tokens_left;
-        } 
+        }
         else { // m_keep_empty_tokens is true
             check_point = begin;
 
             if( begin == end ) {
-                if( m_token_produced ) 
+                if( m_token_produced )
                     return false;
 
                 m_token_produced = true;
             }
             if( m_is_kept( *begin ) ) {
-                if( m_token_produced ) 
+                if( m_token_produced )
                     Assigner::append_move( begin, this->m_value );
 
                 m_token_produced = !m_token_produced;
-            } 
+            }
             else if( !m_token_produced && m_is_dropped( *begin ) )
                 m_token_produced = true;
             else {
@@ -414,5 +414,5 @@ make_range_token_iterator( Iter begin, Iter end, Modifier const& m )
 
 #include <boost/test/detail/enable_warnings.hpp>
 
-#endif // BOOST_TOKEN_ITERATOR_HPP_071894GER
+#endif // BOOST_TEST_UTILS_TOKEN_ITERATOR_HPP
 

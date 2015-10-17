@@ -90,7 +90,7 @@ namespace date_time {
       uint64_t micros = winapi::file_time_to_microseconds(ft); // it will not wrap, since ft is the current time
                                                                // and cannot be before 1970-Jan-01
       std::time_t t = static_cast<std::time_t>(micros / 1000000UL); // seconds since epoch
-      // microseconds -- static casts supress warnings
+      // microseconds -- static casts suppress warnings
       boost::uint32_t sub_sec = static_cast<boost::uint32_t>(micros % 1000000UL);
 #else
 #error Internal Boost.DateTime error: BOOST_DATE_TIME_HAS_HIGH_PRECISION_CLOCK is defined, however neither gettimeofday nor FILETIME support is detected.

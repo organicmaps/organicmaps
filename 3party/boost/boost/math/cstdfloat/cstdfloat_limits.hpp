@@ -40,7 +40,7 @@
         static                 boost::math::cstdfloat::detail::float_internal128_t  (max) () BOOST_NOEXCEPT  { return BOOST_CSTDFLOAT_FLOAT128_MAX; }
         static                 boost::math::cstdfloat::detail::float_internal128_t  lowest() BOOST_NOEXCEPT  { return -(max)(); }
         BOOST_STATIC_CONSTEXPR int                                                  digits                   = 113;
-        BOOST_STATIC_CONSTEXPR int                                                  digits10                 = 34;
+        BOOST_STATIC_CONSTEXPR int                                                  digits10                 = 33;
         BOOST_STATIC_CONSTEXPR int                                                  max_digits10             = 36;
         BOOST_STATIC_CONSTEXPR bool                                                 is_signed                = true;
         BOOST_STATIC_CONSTEXPR bool                                                 is_integer               = false;

@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2004-2008.
+//  (C) Copyright Gennadiy Rozental 2004-2014.
 //  Distributed under the Boost Software License, Version 1.0.
-//  (See accompanying file LICENSE_1_0.txt or copy at 
+//  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -9,11 +9,11 @@
 //
 //  Version     : $Revision$
 //
-//  Description : 
+//  Description :
 // ***************************************************************************
 
-#ifndef BOOST_ISTREAM_LINE_ITERATOR_HPP_071894GER
-#define BOOST_ISTREAM_LINE_ITERATOR_HPP_071894GER
+#ifndef BOOST_TEST_UTILS_ISTREAM_LINE_ITERATOR_HPP
+#define BOOST_TEST_UTILS_ISTREAM_LINE_ITERATOR_HPP
 
 // Boost
 #include <boost/test/utils/basic_cstring/basic_cstring.hpp>
@@ -58,7 +58,7 @@ public:
         this->init();
     }
     explicit basic_istream_line_iterator( istream_type& input )
-    : m_input_stream( &input ) 
+    : m_input_stream( &input )
     , m_delimeter( input.widen( '\n' ) )
     {
         this->init();
@@ -89,5 +89,5 @@ typedef basic_istream_line_iterator<wchar_t>    wistream_line_iterator;
 
 #include <boost/test/detail/enable_warnings.hpp>
 
-#endif // BOOST_ISTREAM_LINE_ITERATOR_HPP_071894GER
+#endif // BOOST_TEST_UTILS_ISTREAM_LINE_ITERATOR_HPP
 

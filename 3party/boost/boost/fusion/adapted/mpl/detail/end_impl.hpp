@@ -33,7 +33,7 @@ namespace boost { namespace fusion
                 >::type iterator;
                 typedef mpl_iterator<iterator> type;
                 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence)
                 {

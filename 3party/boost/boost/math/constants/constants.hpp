@@ -269,9 +269,9 @@ namespace boost{ namespace math
    \
    \
    /* Now the namespace specific versions: */ \
-   } namespace float_constants{ static const float name = BOOST_JOIN(x, F); }\
-   namespace double_constants{ static const double name = x; } \
-   namespace long_double_constants{ static const long double name = BOOST_JOIN(x, L); }\
+   } namespace float_constants{ BOOST_STATIC_CONSTEXPR float name = BOOST_JOIN(x, F); }\
+   namespace double_constants{ BOOST_STATIC_CONSTEXPR double name = x; } \
+   namespace long_double_constants{ BOOST_STATIC_CONSTEXPR long double name = BOOST_JOIN(x, L); }\
    namespace constants{
 
   BOOST_DEFINE_MATH_CONSTANT(half, 5.000000000000000000000000000000000000e-01, "5.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e-01")

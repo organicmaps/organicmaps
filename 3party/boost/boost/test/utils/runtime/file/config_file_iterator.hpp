@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2005-2008.
-//  Use, modification, and distribution are subject to the 
-//  Boost Software License, Version 1.0. (See accompanying file 
+//  (C) Copyright Gennadiy Rozental 2005-2014.
+//  Use, modification, and distribution are subject to the
+//  Boost Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -12,8 +12,8 @@
 //  Description : flexible configuration file iterator definition
 // ***************************************************************************
 
-#ifndef BOOST_RT_FILE_CONFIG_FILE_ITERATOR_HPP_062604GER
-#define BOOST_RT_FILE_CONFIG_FILE_ITERATOR_HPP_062604GER
+#ifndef BOOST_TEST_UTILS_RUNTIME_FILE_CONFIG_FILE_ITERATOR_HPP
+#define BOOST_TEST_UTILS_RUNTIME_FILE_CONFIG_FILE_ITERATOR_HPP
 
 // Boost.Runtime.Parameter
 #include <boost/test/utils/runtime/config.hpp>
@@ -22,19 +22,19 @@
 
 // Boost.Test
 #include <boost/test/utils/iterator/input_iterator_facade.hpp>
-#include <boost/test/utils/callback.hpp>
 #include <boost/test/utils/named_params.hpp>
 
 // Boost
 #include <boost/shared_ptr.hpp>
+#include <boost/function.hpp>
 
 namespace boost {
 
-namespace BOOST_RT_PARAM_NAMESPACE {
+namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE {
 
 namespace file {
 
-// Public typedef 
+// Public typedef
 typedef std::pair<dstring,long> location;
 
 // ************************************************************************** //
@@ -99,7 +99,7 @@ class config_file_iterator : public unit_test::input_iterator_facade<config_file
     typedef unit_test::input_iterator_facade<config_file_iterator,cstring,cstring> base;
 public:
     // Public typedefs
-    typedef unit_test::callback1<cstring>   command_handler;
+    typedef boost::function<void (cstring)>   command_handler;
 
     // Constructors
                     config_file_iterator() {}
@@ -159,8 +159,8 @@ private:
 
 } // namespace file
 
-} // namespace BOOST_RT_PARAM_NAMESPACE
+} // namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE
 
 } // namespace boost
 
-#endif // BOOST_RT_FILE_CONFIG_FILE_ITERATOR_HPP_062604GER
+#endif // BOOST_TEST_UTILS_RUNTIME_FILE_CONFIG_FILE_ITERATOR_HPP

@@ -31,7 +31,7 @@ namespace boost { namespace fusion
                 BOOST_MPL_ASSERT((mpl::equal_to<N, mpl::int_<0> >));
                 typedef typename Sequence::value_type type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type 
                 call(Sequence& seq)
                 {

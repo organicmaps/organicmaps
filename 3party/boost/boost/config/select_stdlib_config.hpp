@@ -28,13 +28,19 @@
 
 #else
 
-// If our std lib was not some version of STLport, then include <utility> as it is about 
-// the smallest of the std lib headers that includes real C++ stuff.  (Some std libs do not
-// include their C++-related macros in <cstddef> so this additional include makes sure
-// we get those definitions)
-// (again do not rely on this header being included since users can short-circuit this 
-//  header if they know whose std lib they are using.)
-#include <boost/config/no_tr1/utility.hpp>
+// If our std lib was not some version of STLport, and has not otherwise
+// been detected, then include <utility> as it is about
+// the smallest of the std lib headers that includes real C++ stuff.
+// Some std libs do not include their C++-related macros in <cstddef>
+// so this additional include makes sure we get those definitions.
+// Note: do not rely on this header being included since users can short-circuit this
+// #include if they know whose std lib they are using.
+#if !defined(__LIBCOMO__) && !defined(__STD_RWCOMPILER_H__) && !defined(_RWSTD_VER)\
+   && !defined(_LIBCPP_VERSION) && !defined(__GLIBCPP__) && !defined(__GLIBCXX__)\
+   && !defined(__STL_CONFIG_H) && !defined(__MSL_CPP__) && !defined(__IBMCPP__)\
+   && !defined(MSIPL_COMPILE_H) && !defined(_YVALS) && !defined(_CPPLIB_VER)
+#include <utility>
+#endif
 
 #if defined(__LIBCOMO__)
 // Comeau STL:

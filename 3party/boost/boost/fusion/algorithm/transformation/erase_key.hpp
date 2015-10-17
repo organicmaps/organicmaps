@@ -24,7 +24,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Key, typename Sequence>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::erase_key<Sequence const, Key>::type
     erase_key(Sequence const& seq)
     {

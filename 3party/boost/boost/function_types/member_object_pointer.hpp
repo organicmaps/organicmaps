@@ -10,7 +10,6 @@
 #define BOOST_FT_MEMBER_OBJECT_POINTER_HPP_INCLUDED
 
 #include <boost/mpl/aux_/lambda_support.hpp>
-#include <boost/type_traits/detail/template_arity_spec.hpp>
 
 #include <boost/function_types/detail/synthesize.hpp>
 #include <boost/function_types/detail/to_sequence.hpp>
@@ -26,7 +25,6 @@ namespace boost
       BOOST_MPL_AUX_LAMBDA_SUPPORT(1,member_object_pointer,(Types))
     };
   } 
-  BOOST_TT_AUX_TEMPLATE_ARITY_SPEC(1,function_types::member_object_pointer)
 } 
 
 #endif

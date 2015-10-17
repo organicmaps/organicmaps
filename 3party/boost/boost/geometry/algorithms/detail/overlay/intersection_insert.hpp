@@ -39,6 +39,7 @@
 #include <boost/geometry/policies/robustness/get_rescale_policy.hpp>
 
 #include <boost/geometry/views/segment_view.hpp>
+#include <boost/geometry/views/detail/boundary_view.hpp>
 
 #include <boost/geometry/algorithms/detail/overlay/linear_linear.hpp>
 #include <boost/geometry/algorithms/detail/overlay/pointlike_pointlike.hpp>
@@ -284,7 +285,8 @@ namespace dispatch
 template
 <
     // real types
-    typename Geometry1, typename Geometry2,
+    typename Geometry1,
+    typename Geometry2,
     typename GeometryOut,
     overlay_type OverlayType,
     // orientation
@@ -574,6 +576,46 @@ struct intersection_insert_reversed
 };
 
 
+// dispatch for intersection(areal, areal, linear)
+template
+<
+    typename Geometry1, typename Geometry2,
+    typename LinestringOut,
+    bool Reverse1, bool Reverse2, bool ReverseOut,
+    typename Tag1, typename Tag2
+>
+struct intersection_insert
+    <
+        Geometry1, Geometry2,
+        LinestringOut,
+        overlay_intersection,
+        Reverse1, Reverse2, ReverseOut,
+        Tag1, Tag2, linestring_tag,
+        true, true, false
+    >
+{
+    template
+    <
+        typename RobustPolicy, typename OutputIterator, typename Strategy
+    >
+    static inline OutputIterator apply(Geometry1 const& geometry1,
+                                       Geometry2 const& geometry2,
+                                       RobustPolicy const& robust_policy,
+                                       OutputIterator oit,
+                                       Strategy const& strategy)
+    {
+        detail::boundary_view<Geometry1 const> view1(geometry1);
+        detail::boundary_view<Geometry2 const> view2(geometry2);
+
+        return detail::overlay::linear_linear_linestring
+            <
+                detail::boundary_view<Geometry1 const>,
+                detail::boundary_view<Geometry2 const>,
+                LinestringOut,
+                overlay_intersection
+            >::apply(view1, view2, robust_policy, oit, strategy);
+    }
+};
 
 // dispatch for non-areal geometries
 template

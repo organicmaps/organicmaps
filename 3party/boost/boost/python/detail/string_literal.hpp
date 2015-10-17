@@ -14,7 +14,6 @@
 
 namespace boost { namespace python { namespace detail { 
 
-# ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 template <class T>
 struct is_string_literal : mpl::false_
 {
@@ -45,43 +44,6 @@ struct is_string_literal<T[n]>
 {
 };
 #  endif 
-# else
-template <bool is_array = true>
-struct string_literal_helper
-{
-    typedef char (&yes_string_literal)[1];
-    typedef char (&no_string_literal)[2];
-
-    template <class T>
-    struct apply
-    {
-        typedef apply<T> self;
-        static T x;
-        static yes_string_literal check(char const*);
-        static no_string_literal check(char*);
-        static no_string_literal check(void const volatile*);
-        
-        BOOST_STATIC_CONSTANT(
-            bool, value = sizeof(self::check(x)) == sizeof(yes_string_literal));
-        typedef mpl::bool_<value> type;
-    };
-};
-
-template <>
-struct string_literal_helper<false>
-{
-    template <class T>
-    struct apply : mpl::false_
-    {
-    };
-};
-
-template <class T>
-struct is_string_literal
-    : string_literal_helper<is_array<T>::value>::apply<T>
-{
-};
-# endif
 
 }}} // namespace boost::python::detail
 

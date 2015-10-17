@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2004-2008.
+//  (C) Copyright Gennadiy Rozental 2004-2014.
 //  Distributed under the Boost Software License, Version 1.0.
-//  (See accompanying file LICENSE_1_0.txt or copy at 
+//  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -12,8 +12,8 @@
 //  Description : generic char traits class; wraps std::char_traits
 // ***************************************************************************
 
-#ifndef BOOST_TEST_BCS_CHAR_TRAITS_HPP_071894GER
-#define BOOST_TEST_BCS_CHAR_TRAITS_HPP_071894GER
+#ifndef BOOST_TEST_UTILS_BCS_CHAR_TRAITS_HPP
+#define BOOST_TEST_UTILS_BCS_CHAR_TRAITS_HPP
 
 // Boost
 #include <boost/config.hpp>
@@ -119,11 +119,11 @@ struct char_traits_with_find : std::string_char_traits<CharT> {
     }
 };
 
-template<> struct bcs_char_traits_impl<char> : char_traits_with_find<char> {};
-template<> struct bcs_char_traits_impl<wchar_t> : char_traits_with_find<wchar_t> {};
+template<> struct bcs_char_traits_impl<char> : public char_traits_with_find<char> {};
+template<> struct bcs_char_traits_impl<wchar_t> : public char_traits_with_find<wchar_t> {};
 #else
-template<> struct bcs_char_traits_impl<char> : std::char_traits<char> {};
-template<> struct bcs_char_traits_impl<wchar_t> : std::char_traits<wchar_t> {};
+template<> struct bcs_char_traits_impl<char> : public std::char_traits<char> {};
+template<> struct bcs_char_traits_impl<wchar_t> : public std::char_traits<wchar_t> {};
 #endif
 
 template<typename CharT>
@@ -147,4 +147,4 @@ public:
 
 #include <boost/test/detail/enable_warnings.hpp>
 
-#endif // BOOST_TEST_BCS_CHAR_TRAITS_HPP_071894GER
+#endif // BOOST_TEST_UTILS_BCS_CHAR_TRAITS_HPP

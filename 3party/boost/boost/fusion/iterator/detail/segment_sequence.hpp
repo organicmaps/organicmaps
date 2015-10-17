@@ -30,7 +30,7 @@ namespace boost { namespace fusion { namespace detail
         typedef Sequence sequence_type;
         sequence_type sequence;
 
-        BOOST_FUSION_GPU_ENABLED explicit segment_sequence(Sequence const & seq)
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED explicit segment_sequence(Sequence const & seq)
             : sequence(seq)
         {}
     };
@@ -61,7 +61,7 @@ namespace extension
         {
             typedef typename Sequence::sequence_type type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type call(Sequence & seq)
             {
                 return seq.sequence;

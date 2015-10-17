@@ -63,7 +63,6 @@ namespace boost { namespace numeric { namespace ublas {
     BOOST_UBLAS_INLINE
     void swap_rows (const PM &pm, MV &mv, vector_tag) {
         typedef typename PM::size_type size_type;
-        typedef typename MV::value_type value_type;
 
         size_type size = pm.size ();
         for (size_type i = 0; i < size; ++ i) {
@@ -75,7 +74,6 @@ namespace boost { namespace numeric { namespace ublas {
     BOOST_UBLAS_INLINE
     void swap_rows (const PM &pm, MV &mv, matrix_tag) {
         typedef typename PM::size_type size_type;
-        typedef typename MV::value_type value_type;
 
         size_type size = pm.size ();
         for (size_type i = 0; i < size; ++ i) {
@@ -93,11 +91,12 @@ namespace boost { namespace numeric { namespace ublas {
     // LU factorization without pivoting
     template<class M>
     typename M::size_type lu_factorize (M &m) {
-        typedef M matrix_type;
+
         typedef typename M::size_type size_type;
         typedef typename M::value_type value_type;
 
 #if BOOST_UBLAS_TYPE_CHECK
+        typedef M matrix_type;
         matrix_type cm (m);
 #endif
         size_type singular = 0;
@@ -129,11 +128,11 @@ namespace boost { namespace numeric { namespace ublas {
     // LU factorization with partial pivoting
     template<class M, class PM>
     typename M::size_type lu_factorize (M &m, PM &pm) {
-        typedef M matrix_type;
         typedef typename M::size_type size_type;
         typedef typename M::value_type value_type;
 
 #if BOOST_UBLAS_TYPE_CHECK
+        typedef M matrix_type;
         matrix_type cm (m);
 #endif
         size_type singular = 0;
@@ -265,10 +264,10 @@ namespace boost { namespace numeric { namespace ublas {
     // LU substitution
     template<class M, class E>
     void lu_substitute (const M &m, vector_expression<E> &e) {
+#if BOOST_UBLAS_TYPE_CHECK
         typedef const M const_matrix_type;
         typedef vector<typename E::value_type> vector_type;
 
-#if BOOST_UBLAS_TYPE_CHECK
         vector_type cv1 (e);
 #endif
         inplace_solve (m, e, unit_lower_tag ());
@@ -283,10 +282,10 @@ namespace boost { namespace numeric { namespace ublas {
     }
     template<class M, class E>
     void lu_substitute (const M &m, matrix_expression<E> &e) {
+#if BOOST_UBLAS_TYPE_CHECK
         typedef const M const_matrix_type;
         typedef matrix<typename E::value_type> matrix_type;
 
-#if BOOST_UBLAS_TYPE_CHECK
         matrix_type cm1 (e);
 #endif
         inplace_solve (m, e, unit_lower_tag ());
@@ -306,10 +305,10 @@ namespace boost { namespace numeric { namespace ublas {
     }
     template<class E, class M>
     void lu_substitute (vector_expression<E> &e, const M &m) {
+#if BOOST_UBLAS_TYPE_CHECK
         typedef const M const_matrix_type;
         typedef vector<typename E::value_type> vector_type;
 
-#if BOOST_UBLAS_TYPE_CHECK
         vector_type cv1 (e);
 #endif
         inplace_solve (e, m, upper_tag ());
@@ -324,10 +323,10 @@ namespace boost { namespace numeric { namespace ublas {
     }
     template<class E, class M>
     void lu_substitute (matrix_expression<E> &e, const M &m) {
+#if BOOST_UBLAS_TYPE_CHECK
         typedef const M const_matrix_type;
         typedef matrix<typename E::value_type> matrix_type;
 
-#if BOOST_UBLAS_TYPE_CHECK
         matrix_type cm1 (e);
 #endif
         inplace_solve (e, m, upper_tag ());

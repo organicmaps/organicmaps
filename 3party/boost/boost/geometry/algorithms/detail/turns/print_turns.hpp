@@ -56,7 +56,7 @@ struct turn_printer
             <<": seg: " << turn.operations[0].seg_id.source_index
             << ", m: " << turn.operations[0].seg_id.multi_index
             << ", r: " << turn.operations[0].seg_id.ring_index
-            << ", s: " << turn.operations[0].seg_id.segment_index << ", ";
+            << ", s: " << turn.operations[0].seg_id.segment_index;
         out << ", fr: " << fraction[0];
         out << ", col?: " << turn.operations[0].is_collinear;
         out << ' ' << geometry::dsv(turn.point) << ' ';
@@ -70,7 +70,7 @@ struct turn_printer
             << ": seg: " << turn.operations[1].seg_id.source_index
             << ", m: " << turn.operations[1].seg_id.multi_index
             << ", r: " << turn.operations[1].seg_id.ring_index
-            << ", s: " << turn.operations[1].seg_id.segment_index << ", ";
+            << ", s: " << turn.operations[1].seg_id.segment_index;
         out << ", fr: " << fraction[1];
         out << ", col?: " << turn.operations[1].is_collinear;
         out << ' ' << geometry::dsv(turn.point) << ' ';

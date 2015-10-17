@@ -31,7 +31,7 @@ namespace boost { namespace fusion
                 typedef typename result_of::advance<begin_type,N>::type pos;
                 typedef typename result_of::deref<pos>::type type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Seq& s)
                 {

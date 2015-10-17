@@ -19,7 +19,7 @@ namespace detail{
 
 //
 // These traits calculate the largest type in the list
-// [unsigned] long long, long, int, which has the specified number
+// [unsigned] boost::long_long_type, long, int, which has the specified number
 // of bits.  Note that intN_t and boost::int_t<N> find the first
 // member of the above list, not the last.  We want the last in the
 // list to ensure that mixed arithmetic operations are as efficient
@@ -29,8 +29,8 @@ template <unsigned N>
 struct largest_signed_type
 {
    typedef typename mpl::if_c<
-      1 + std::numeric_limits<long long>::digits == N,
-      long long,
+      1 + std::numeric_limits<boost::long_long_type>::digits == N,
+      boost::long_long_type,
       typename mpl::if_c<
          1 + std::numeric_limits<long>::digits == N,
          long,
@@ -47,8 +47,8 @@ template <unsigned N>
 struct largest_unsigned_type
 {
    typedef typename mpl::if_c<
-      std::numeric_limits<unsigned long long>::digits == N,
-      unsigned long long,
+      std::numeric_limits<boost::ulong_long_type>::digits == N,
+      boost::ulong_long_type,
       typename mpl::if_c<
          std::numeric_limits<unsigned long>::digits == N,
          unsigned long,

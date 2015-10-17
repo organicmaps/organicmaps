@@ -28,6 +28,10 @@
  * generates n+1 overloads, if rvalue refs are supported, or else 2^(n+1)-1
  * overloads accepting any combination of lvalue refs and const lvalue refs,
  * up to BOOST_FLYWEIGHT_LIMIT_PERFECT_FWD_ARGS args.
+ *
+ * BOOST_FLYWEIGHT_PERFECT_FWD_WITH_ARGS(name,body) is a variation omitting the
+ * overloads with zero args --when perfect forwarding is available, this second
+ * macro is exactly the same as the original.
  */
 
 #include <boost/config.hpp> /* keep it first to prevent nasty warns in MSVC */
@@ -78,6 +82,9 @@ BOOST_PP_SEQ_HEAD(BOOST_PP_SEQ_TAIL(args)))
 #define BOOST_FLYWEIGHT_PERFECT_FWD(name,body) \
 template<typename... Args>name(Args&&... args) \
 body((PASS)(std::forward<Args>(args)...))
+
+#define BOOST_FLYWEIGHT_PERFECT_FWD_WITH_ARGS  \
+BOOST_FLYWEIGHT_PERFECT_FWD
 
 #endif
 #endif

@@ -19,10 +19,6 @@
 namespace boost { 
 namespace lambda {
 
-using ::boost::type_traits::ice_and;
-using ::boost::type_traits::ice_or;
-using ::boost::type_traits::ice_not;
-
 // Much of the type deduction code for standard arithmetic types 
 // from Gary Powell
 
@@ -77,8 +73,7 @@ template <class Act, class A> struct return_type_1_prot {
 public:
   typedef typename 
     detail::IF<
-  //      is_protectable<Act>::value && is_lambda_functor<A>::value,
-      ice_and<is_protectable<Act>::value, is_lambda_functor<A>::value>::value,
+      is_protectable<Act>::value && is_lambda_functor<A>::value,
       lambda_functor<
         lambda_functor_base< 
           Act, 
@@ -112,9 +107,7 @@ namespace detail {
   // add const to rvalues, so that all rvalues are stored as const in 
   // the args tuple
     typedef typename detail::IF_type<
-//      boost::is_reference<T>::value && !boost::is_const<non_ref_T>::value,
-      ice_and<boost::is_reference<T>::value,
-              ice_not<boost::is_const<non_ref_T>::value>::value>::value,
+      boost::is_reference<T>::value && !boost::is_const<non_ref_T>::value,
       detail::identity_mapping<T>,
       const_copy_argument<non_ref_T> // handles funtion and array 
     >::type type;                      // types correctly
@@ -148,11 +141,8 @@ template <class Act, class A, class B> struct return_type_2_prot {
 
 typedef typename 
   detail::IF<
-//    is_protectable<Act>::value &&
-//      (is_lambda_functor<A>::value || is_lambda_functor<B>::value),
-    ice_and<is_protectable<Act>::value,
-            ice_or<is_lambda_functor<A>::value, 
-                   is_lambda_functor<B>::value>::value>::value,
+    is_protectable<Act>::value &&
+      (is_lambda_functor<A>::value || is_lambda_functor<B>::value),
     lambda_functor<
       lambda_functor_base< 
         Act, 
@@ -187,11 +177,8 @@ struct return_type_2_comma
 
 typedef typename 
   detail::IF<
-//  is_protectable<other_action<comma_action> >::value && // it is protectable
-//  (is_lambda_functor<A>::value || is_lambda_functor<B>::value),
-    ice_and<is_protectable<other_action<comma_action> >::value, // it is protectable
-            ice_or<is_lambda_functor<A>::value, 
-                   is_lambda_functor<B>::value>::value>::value,
+    is_protectable<other_action<comma_action> >::value && // it is protectable
+    (is_lambda_functor<A>::value || is_lambda_functor<B>::value),
     lambda_functor<
       lambda_functor_base< 
         other_action<comma_action>, 

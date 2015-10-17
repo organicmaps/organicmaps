@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2005-2008.
-//  Use, modification, and distribution are subject to the 
-//  Boost Software License, Version 1.0. (See accompanying file 
+//  (C) Copyright Gennadiy Rozental 2005-2014.
+//  Use, modification, and distribution are subject to the
+//  Boost Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -12,8 +12,8 @@
 //  Description : generic typed parameter model
 // ***************************************************************************
 
-#ifndef BOOST_RT_CLA_TYPED_PARAMETER_HPP_062604GER
-#define BOOST_RT_CLA_TYPED_PARAMETER_HPP_062604GER
+#ifndef BOOST_TEST_UTILS_RUNTIME_CLA_TYPED_PARAMETER_HPP
+#define BOOST_TEST_UTILS_RUNTIME_CLA_TYPED_PARAMETER_HPP
 
 // Boost.Runtime.Parameter
 #include <boost/test/utils/runtime/config.hpp>
@@ -29,7 +29,7 @@
 
 namespace boost {
 
-namespace BOOST_RT_PARAM_NAMESPACE {
+namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE {
 
 namespace cla {
 
@@ -40,8 +40,8 @@ namespace cla {
 template<typename T>
 class typed_parameter : public cla::parameter {
 public:
-    explicit typed_parameter( identification_policy& ID ) 
-    : cla::parameter( ID, m_arg_factory, rtti::type_id<T>() == rtti::type_id<bool>() ) 
+    explicit typed_parameter( identification_policy& ID )
+    : cla::parameter( ID, m_arg_factory, rtti::type_id<T>() == rtti::type_id<bool>() )
     {}
 
     // parameter properties modification
@@ -52,8 +52,8 @@ public:
 
         m_arg_factory.accept_modifier( m );
 
-        BOOST_RT_PARAM_VALIDATE_LOGIC( !p_optional || !m_arg_factory.m_value_generator,
-            BOOST_RT_PARAM_LITERAL( "can't define a value generator for optional parameter " ) << id_2_report() );
+        BOOST_TEST_UTILS_RUNTIME_PARAM_VALIDATE_LOGIC( !p_optional || !m_arg_factory.m_value_generator,
+            BOOST_TEST_UTILS_RUNTIME_PARAM_LITERAL( "can't define a value generator for optional parameter " ) << id_2_report() );
     }
 
 private:
@@ -63,8 +63,8 @@ private:
 
 } // namespace cla
 
-} // namespace BOOST_RT_PARAM_NAMESPACE
+} // namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE
 
 } // namespace boost
 
-#endif // BOOST_RT_CLA_TYPED_PARAMETER_HPP_062604GER
+#endif // BOOST_TEST_UTILS_RUNTIME_CLA_TYPED_PARAMETER_HPP

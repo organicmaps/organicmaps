@@ -512,7 +512,7 @@ struct buffer_inserter<ring_tag, RingInput, RingOutput>
         typename PointStrategy,
         typename RobustPolicy
     >
-    static inline void apply(RingInput const& ring,
+    static inline strategy::buffer::result_code apply(RingInput const& ring,
             Collection& collection,
             DistanceStrategy const& distance,
             SideStrategy const& side_strategy,
@@ -559,6 +559,7 @@ struct buffer_inserter<ring_tag, RingInput, RingOutput>
                     collection, distance, point_strategy
                 );
         }
+        return code;
     }
 };
 
@@ -648,7 +649,7 @@ struct buffer_inserter<linestring_tag, Linestring, Polygon>
         typename PointStrategy,
         typename RobustPolicy
     >
-    static inline void apply(Linestring const& linestring, Collection& collection,
+    static inline strategy::buffer::result_code apply(Linestring const& linestring, Collection& collection,
             DistanceStrategy const& distance,
             SideStrategy const& side_strategy,
             JoinStrategy const& join_strategy,
@@ -690,6 +691,7 @@ struct buffer_inserter<linestring_tag, Linestring, Polygon>
                     collection, distance, point_strategy
                 );
         }
+        return code;
     }
 };
 
@@ -733,9 +735,16 @@ private:
         for (Iterator it = begin; it != end; ++it)
         {
             collection.start_new_ring();
-            policy::apply(*it, collection, distance, side_strategy,
+            strategy::buffer::result_code const code
+                    = policy::apply(*it, collection, distance, side_strategy,
                     join_strategy, end_strategy, point_strategy,
                     robust_policy);
+
+            if (code == strategy::buffer::result_error_numerical)
+            {
+                collection.abort_ring();
+                return;
+            }
             collection.finish_ring(is_interior);
         }
     }
@@ -789,11 +798,21 @@ public:
     {
         {
             collection.start_new_ring();
-            policy::apply(exterior_ring(polygon), collection,
+
+            strategy::buffer::result_code const code
+                = policy::apply(exterior_ring(polygon), collection,
                     distance, side_strategy,
                     join_strategy, end_strategy, point_strategy,
                     robust_policy);
-            collection.finish_ring(false, geometry::num_interior_rings(polygon) > 0u);
+
+            if (code == strategy::buffer::result_error_numerical)
+            {
+                collection.abort_ring();
+            }
+            else
+            {
+                collection.finish_ring(false, geometry::num_interior_rings(polygon) > 0u);
+            }
         }
 
         apply_interior_rings(interior_rings(polygon),

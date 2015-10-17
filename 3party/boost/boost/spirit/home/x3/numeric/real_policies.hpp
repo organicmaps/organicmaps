@@ -8,10 +8,6 @@
 #if !defined(SPIRIT_REAL_POLICIES_APRIL_17_2006_1158PM)
 #define SPIRIT_REAL_POLICIES_APRIL_17_2006_1158PM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/spirit/home/x3/string/detail/string_parse.hpp>
 #include <boost/spirit/home/x3/support/numeric_utils/extract_int.hpp>
 

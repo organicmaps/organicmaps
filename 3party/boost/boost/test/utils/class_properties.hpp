@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2001-2008.
+//  (C) Copyright Gennadiy Rozental 2001-2014.
 //  Distributed under the Boost Software License, Version 1.0.
-//  (See accompanying file LICENSE_1_0.txt or copy at 
+//  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -9,12 +9,12 @@
 //
 //  Version     : $Revision$
 //
-//  Description : simple facility that mimmic notion of read-only read-write 
+//  Description : simple facility that mimmic notion of read-only read-write
 //  properties in C++ classes. Original idea by Henrik Ravn.
 // ***************************************************************************
 
-#ifndef BOOST_TEST_CLASS_PROPERTIES_HPP_071894GER
-#define BOOST_TEST_CLASS_PROPERTIES_HPP_071894GER
+#ifndef BOOST_TEST_UTILS_CLASS_PROPERTIES_HPP
+#define BOOST_TEST_UTILS_CLASS_PROPERTIES_HPP
 
 // Boost.Test
 #include <boost/test/detail/config.hpp>
@@ -36,7 +36,6 @@
 //____________________________________________________________________________//
 
 namespace boost {
-
 namespace unit_test {
 
 // ************************************************************************** //
@@ -116,28 +115,6 @@ DEFINE_PROPERTY_FREE_BINARY_OPERATOR( != )
 
 #undef DEFINE_PROPERTY_FREE_BINARY_OPERATOR
 
-#if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-
-#define DEFINE_PROPERTY_LOGICAL_OPERATOR( op )                                  \
-template<class PropertyType>                                                    \
-inline bool                                                                     \
-operator op( bool b, class_property<PropertyType> const& p )                    \
-{                                                                               \
-    return b op p.get();                                                        \
-}                                                                               \
-template<class PropertyType>                                                    \
-inline bool                                                                     \
-operator op( class_property<PropertyType> const& p, bool b )                    \
-{                                                                               \
-    return b op p.get();                                                        \
-}                                                                               \
-/**/
-
-DEFINE_PROPERTY_LOGICAL_OPERATOR( && )
-DEFINE_PROPERTY_LOGICAL_OPERATOR( || )
-
-#endif
-
 // ************************************************************************** //
 // **************               readonly_property              ************** //
 // ************************************************************************** //
@@ -209,13 +186,10 @@ public:
 //____________________________________________________________________________//
 
 } // unit_test
-
 } // namespace boost
-
-//____________________________________________________________________________//
 
 #include <boost/test/detail/enable_warnings.hpp>
 
 #undef BOOST_TEST_NO_PROTECTED_USING
 
-#endif // BOOST_TEST_CLASS_PROPERTIES_HPP_071894GER
+#endif // BOOST_TEST_UTILS_CLASS_PROPERTIES_HPP

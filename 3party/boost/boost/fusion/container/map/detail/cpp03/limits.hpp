@@ -8,7 +8,7 @@
 #define FUSION_MAP_LIMITS_07212005_1104
 
 #include <boost/fusion/support/config.hpp>
-#include <boost/fusion/container/vector/limits.hpp>
+#include <boost/fusion/container/vector/detail/cpp03/limits.hpp>
 
 #if !defined(FUSION_MAX_MAP_SIZE)
 # define FUSION_MAX_MAP_SIZE FUSION_MAX_VECTOR_SIZE

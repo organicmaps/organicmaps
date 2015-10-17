@@ -63,19 +63,11 @@ struct implementation_level_impl {
         //else
         typename mpl::eval_if<
             is_array< T >,
-            #if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x560))
-                mpl::int_<not_serializable>,
-            #else
                 mpl::int_<object_serializable>,
-            #endif
         //else
         typename mpl::eval_if<
             is_enum< T >,
-            //#if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x560))
-            //    mpl::int_<not_serializable>,
-            //#else
                 mpl::int_<primitive_type>,
-            //#endif
         //else
             mpl::int_<not_serializable>
         >

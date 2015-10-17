@@ -30,10 +30,13 @@
 // iterator_category deduction for iterator_facade
 //
 
-// forward declaration
-namespace boost { struct use_default; }
+namespace boost {
+namespace iterators {
 
-namespace boost { namespace detail  {
+// forward declaration
+struct use_default;
+
+namespace detail {
 
 struct input_output_iterator_tag
   : std::input_iterator_tag
@@ -63,9 +66,9 @@ struct iterator_writability_disabled
       , boost::detail::indirect_traits::is_reference_to_const<Reference>
       , is_const<ValueParam>
     >
-# else 
+# else
   : is_const<ValueParam>
-# endif 
+# endif
 {};
 
 
@@ -96,7 +99,7 @@ struct iterator_facade_default_category
       , typename mpl::eval_if<
             mpl::and_<
                 is_convertible<Traversal, single_pass_traversal_tag>
-                
+
                 // check for readability
               , is_convertible<Reference, ValueParam>
             >
@@ -132,7 +135,6 @@ template <class Category, class Traversal>
 struct iterator_category_with_traversal
   : Category, Traversal
 {
-# if !BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
     // Make sure this isn't used to build any categories where
     // convertibility to Traversal is redundant.  Should just use the
     // Category element in that case.
@@ -147,8 +149,7 @@ struct iterator_category_with_traversal
     BOOST_MPL_ASSERT_NOT((is_iterator_traversal<Category>));
 #  if !BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1310))
     BOOST_MPL_ASSERT((is_iterator_traversal<Traversal>));
-#  endif 
-# endif 
+#  endif
 };
 
 // Computes an iterator_category tag whose traversal is Traversal and
@@ -156,14 +157,12 @@ struct iterator_category_with_traversal
 template <class Traversal, class ValueParam, class Reference>
 struct facade_iterator_category_impl
 {
-# if !BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
     BOOST_MPL_ASSERT_NOT((is_iterator_category<Traversal>));
-# endif 
-    
+
     typedef typename iterator_facade_default_category<
         Traversal,ValueParam,Reference
     >::type category;
-    
+
     typedef typename mpl::if_<
         is_same<
             Traversal
@@ -187,7 +186,7 @@ struct facade_iterator_category
 {
 };
 
-}} // namespace boost::detail
+}}} // namespace boost::iterators::detail
 
 # include <boost/iterator/detail/config_undef.hpp>
 

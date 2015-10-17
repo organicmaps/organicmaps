@@ -68,28 +68,28 @@ struct make_fibonacci_heap_base
             base_type(arg)
         {}
 
+        type(type const & rhs):
+            base_type(static_cast<base_type const &>(rhs)),
+            allocator_type(static_cast<allocator_type const &>(rhs))
+        {}
+
+        type & operator=(type const & rhs)
+        {
+            base_type::operator=(static_cast<base_type const &>(rhs));
+            allocator_type::operator=(static_cast<allocator_type const &>(rhs));
+            return *this;
+        }
+
 #ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
         type(type && rhs):
             base_type(std::move(static_cast<base_type&>(rhs))),
             allocator_type(std::move(static_cast<allocator_type&>(rhs)))
         {}
 
-        type(type & rhs):
-            base_type(static_cast<base_type&>(rhs)),
-            allocator_type(static_cast<allocator_type&>(rhs))
-        {}
-
         type & operator=(type && rhs)
         {
             base_type::operator=(std::move(static_cast<base_type&>(rhs)));
             allocator_type::operator=(std::move(static_cast<allocator_type&>(rhs)));
-            return *this;
-        }
-
-        type & operator=(type const & rhs)
-        {
-            base_type::operator=(static_cast<base_type const &>(rhs));
-            allocator_type::operator=(static_cast<allocator_type const &>(rhs));
             return *this;
         }
 #endif
@@ -238,13 +238,6 @@ public:
     /// \copydoc boost::heap::priority_queue::priority_queue(priority_queue &&)
     fibonacci_heap(fibonacci_heap && rhs):
         super_t(std::move(rhs)), top_element(rhs.top_element)
-    {
-        roots.splice(roots.begin(), rhs.roots);
-        rhs.top_element = NULL;
-    }
-
-    fibonacci_heap(fibonacci_heap & rhs):
-        super_t(rhs), top_element(rhs.top_element)
     {
         roots.splice(roots.begin(), rhs.roots);
         rhs.top_element = NULL;
@@ -439,14 +432,7 @@ public:
      * */
     void update (handle_type handle)
     {
-        node_pointer n = handle.node_;
-        node_pointer parent = n->get_parent();
-
-        if (parent) {
-            n->parent = NULL;
-            roots.splice(roots.begin(), parent->children, node_list_type::s_iterator_to(*n));
-        }
-        add_children_to_root(n);
+        update_lazy(handle);
         consolidate();
     }
 
@@ -465,6 +451,9 @@ public:
             roots.splice(roots.begin(), parent->children, node_list_type::s_iterator_to(*n));
         }
         add_children_to_root(n);
+
+        if (super_t::operator()(top_element->value, n->value))
+            top_element = n;
     }
 
 
@@ -573,7 +562,7 @@ public:
     }
 
     /**
-     * \b Effects: Returns an ordered iterator to the first element contained in the priority queue.
+     * \b Effects: Returns an ordered iterator to the end of the priority queue.
      *
      * \b Note: Ordered iterators traverse the priority queue in heap order.
      * */
@@ -598,6 +587,7 @@ public:
 
         roots.splice(roots.end(), rhs.roots);
 
+        rhs.top_element = NULL;
         rhs.set_size(0);
 
         super_t::set_stability_count((std::max)(super_t::get_stability_count(),
@@ -741,7 +731,7 @@ private:
                 aux[node_rank] = n;
             }
 
-            if (super_t::operator()(top_element->value, n->value))
+            if (!super_t::operator()(n->value, top_element->value))
                 top_element = n;
         }
         while (it != roots.end());

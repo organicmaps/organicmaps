@@ -2,7 +2,7 @@
 // impl/spawn.hpp
 // ~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2015 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,6 +17,7 @@
 
 #include <boost/asio/detail/config.hpp>
 #include <boost/asio/async_result.hpp>
+#include <boost/asio/detail/atomic_count.hpp>
 #include <boost/asio/detail/handler_alloc_helpers.hpp>
 #include <boost/asio/detail/handler_cont_helpers.hpp>
 #include <boost/asio/detail/handler_invoke_helpers.hpp>
@@ -38,6 +39,7 @@ namespace detail {
       : coro_(ctx.coro_.lock()),
         ca_(ctx.ca_),
         handler_(ctx.handler_),
+        ready_(0),
         ec_(ctx.ec_),
         value_(0)
     {
@@ -46,21 +48,24 @@ namespace detail {
     void operator()(T value)
     {
       *ec_ = boost::system::error_code();
-      *value_ = value;
-      (*coro_)();
+      *value_ = BOOST_ASIO_MOVE_CAST(T)(value);
+      if (--*ready_ == 0)
+        (*coro_)();
     }
 
     void operator()(boost::system::error_code ec, T value)
     {
       *ec_ = ec;
-      *value_ = value;
-      (*coro_)();
+      *value_ = BOOST_ASIO_MOVE_CAST(T)(value);
+      if (--*ready_ == 0)
+        (*coro_)();
     }
 
   //private:
     shared_ptr<typename basic_yield_context<Handler>::callee_type> coro_;
     typename basic_yield_context<Handler>::caller_type& ca_;
     Handler& handler_;
+    atomic_count* ready_;
     boost::system::error_code* ec_;
     T* value_;
   };
@@ -73,6 +78,7 @@ namespace detail {
       : coro_(ctx.coro_.lock()),
         ca_(ctx.ca_),
         handler_(ctx.handler_),
+        ready_(0),
         ec_(ctx.ec_)
     {
     }
@@ -80,19 +86,22 @@ namespace detail {
     void operator()()
     {
       *ec_ = boost::system::error_code();
-      (*coro_)();
+      if (--*ready_ == 0)
+        (*coro_)();
     }
 
     void operator()(boost::system::error_code ec)
     {
       *ec_ = ec;
-      (*coro_)();
+      if (--*ready_ == 0)
+        (*coro_)();
     }
 
   //private:
     shared_ptr<typename basic_yield_context<Handler>::callee_type> coro_;
     typename basic_yield_context<Handler>::caller_type& ca_;
     Handler& handler_;
+    atomic_count* ready_;
     boost::system::error_code* ec_;
   };
 
@@ -172,8 +181,10 @@ public:
 
   explicit async_result(detail::coro_handler<Handler, T>& h)
     : handler_(h),
-      ca_(h.ca_)
+      ca_(h.ca_),
+      ready_(2)
   {
+    h.ready_ = &ready_;
     out_ec_ = h.ec_;
     if (!out_ec_) h.ec_ = &ec_;
     h.value_ = &value_;
@@ -182,14 +193,16 @@ public:
   type get()
   {
     handler_.coro_.reset(); // Must not hold shared_ptr to coro while suspended.
-    ca_();
+    if (--ready_ != 0)
+      ca_();
     if (!out_ec_ && ec_) throw boost::system::system_error(ec_);
-    return value_;
+    return BOOST_ASIO_MOVE_CAST(type)(value_);
   }
 
 private:
   detail::coro_handler<Handler, T>& handler_;
   typename basic_yield_context<Handler>::caller_type& ca_;
+  detail::atomic_count ready_;
   boost::system::error_code* out_ec_;
   boost::system::error_code ec_;
   type value_;
@@ -203,8 +216,10 @@ public:
 
   explicit async_result(detail::coro_handler<Handler, void>& h)
     : handler_(h),
-      ca_(h.ca_)
+      ca_(h.ca_),
+      ready_(2)
   {
+    h.ready_ = &ready_;
     out_ec_ = h.ec_;
     if (!out_ec_) h.ec_ = &ec_;
   }
@@ -212,13 +227,15 @@ public:
   void get()
   {
     handler_.coro_.reset(); // Must not hold shared_ptr to coro while suspended.
-    ca_();
+    if (--ready_ != 0)
+      ca_();
     if (!out_ec_ && ec_) throw boost::system::system_error(ec_);
   }
 
 private:
   detail::coro_handler<Handler, void>& handler_;
   typename basic_yield_context<Handler>::caller_type& ca_;
+  detail::atomic_count ready_;
   boost::system::error_code* out_ec_;
   boost::system::error_code ec_;
 };

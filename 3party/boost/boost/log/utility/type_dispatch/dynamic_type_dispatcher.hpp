@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2014.
+ *          Copyright Andrey Semashev 2007 - 2015.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -19,11 +19,10 @@
 #include <memory>
 #include <map>
 #include <boost/ref.hpp>
+#include <boost/type_index.hpp>
 #include <boost/smart_ptr/shared_ptr.hpp>
 #include <boost/smart_ptr/make_shared_object.hpp>
 #include <boost/log/detail/config.hpp>
-#include <boost/log/detail/visible_type.hpp>
-#include <boost/log/utility/type_info_wrapper.hpp>
 #include <boost/log/utility/type_dispatch/type_dispatcher.hpp>
 #include <boost/log/detail/header.hpp>
 
@@ -78,7 +77,7 @@ private:
 #endif // BOOST_LOG_DOXYGEN_PASS
 
     //! The dispatching map
-    typedef std::map< type_info_wrapper, shared_ptr< callback_base > > dispatching_map;
+    typedef std::map< typeindex::type_index, shared_ptr< callback_base > > dispatching_map;
     dispatching_map m_DispatchingMap;
 
 public:
@@ -118,7 +117,7 @@ public:
         boost::shared_ptr< callback_base > p(
             boost::make_shared< callback_impl< T, VisitorT > >(boost::cref(visitor)));
 
-        type_info_wrapper wrapper(typeid(aux::visible_type< T >));
+        typeindex::type_index wrapper(typeindex::type_id< T >());
         m_DispatchingMap[wrapper].swap(p);
     }
 
@@ -132,11 +131,10 @@ public:
 
 private:
 #ifndef BOOST_LOG_DOXYGEN_PASS
-    static callback_base get_callback(type_dispatcher* p, std::type_info const& type)
+    static callback_base get_callback(type_dispatcher* p, typeindex::type_index type)
     {
         dynamic_type_dispatcher* const self = static_cast< dynamic_type_dispatcher* >(p);
-        type_info_wrapper wrapper(type);
-        dispatching_map::iterator it = self->m_DispatchingMap.find(wrapper);
+        dispatching_map::iterator it = self->m_DispatchingMap.find(type);
         if (it != self->m_DispatchingMap.end())
             return *it->second;
         else

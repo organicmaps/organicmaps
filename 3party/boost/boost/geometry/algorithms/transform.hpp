@@ -70,9 +70,9 @@ struct transform_box
         typedef typename point_type<Box2>::type point_type2;
 
         point_type1 lower_left, upper_right;
-        detail::assign::assign_box_2d_corner<min_corner, min_corner>(
+        geometry::detail::assign::assign_box_2d_corner<min_corner, min_corner>(
                     b1, lower_left);
-        detail::assign::assign_box_2d_corner<max_corner, max_corner>(
+        geometry::detail::assign::assign_box_2d_corner<max_corner, max_corner>(
                     b1, upper_right);
 
         point_type2 p1, p2;
@@ -88,10 +88,10 @@ struct transform_box
             if (x1 > x2) { std::swap(x1, x2); }
             if (y1 > y2) { std::swap(y1, y2); }
 
-            set<min_corner, 0>(b2, x1);
-            set<min_corner, 1>(b2, y1);
-            set<max_corner, 0>(b2, x2);
-            set<max_corner, 1>(b2, y2);
+            geometry::set<min_corner, 0>(b2, x1);
+            geometry::set<min_corner, 1>(b2, y1);
+            geometry::set<max_corner, 0>(b2, x2);
+            geometry::set<max_corner, 1>(b2, y2);
 
             return true;
         }
@@ -161,8 +161,8 @@ struct transform_polygon
 
         geometry::clear(poly2);
 
-        if (!transform_range_out<point2_type>(exterior_ring(poly1),
-                    std::back_inserter(exterior_ring(poly2)), strategy))
+        if (!transform_range_out<point2_type>(geometry::exterior_ring(poly1),
+                    std::back_inserter(geometry::exterior_ring(poly2)), strategy))
         {
             return false;
         }
@@ -174,12 +174,13 @@ struct transform_polygon
                 <
                     typename traits::interior_mutable_type<Polygon2>::type
                 >::type
-            >::apply(interior_rings(poly2), num_interior_rings(poly1));
+            >::apply(geometry::interior_rings(poly2),
+                     geometry::num_interior_rings(poly1));
 
-        typename interior_return_type<Polygon1 const>::type
-            rings1 = interior_rings(poly1);
-        typename interior_return_type<Polygon2>::type
-            rings2 = interior_rings(poly2);
+        typename geometry::interior_return_type<Polygon1 const>::type
+            rings1 = geometry::interior_rings(poly1);
+        typename geometry::interior_return_type<Polygon2>::type
+            rings2 = geometry::interior_rings(poly2);
 
         typename detail::interior_iterator<Polygon1 const>::type
             it1 = boost::begin(rings1);
@@ -424,7 +425,7 @@ struct transform<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)>, Geometry2>
         Strategy const& strategy
     )
     {
-        return apply_visitor(visitor<Strategy>(geometry2, strategy), geometry1);
+        return boost::apply_visitor(visitor<Strategy>(geometry2, strategy), geometry1);
     }
 };
 
@@ -469,7 +470,7 @@ inline bool transform(Geometry1 const& geometry1, Geometry2& geometry2,
 template <typename Geometry1, typename Geometry2>
 inline bool transform(Geometry1 const& geometry1, Geometry2& geometry2)
 {
-    return transform(geometry1, geometry2, default_strategy());
+    return geometry::transform(geometry1, geometry2, default_strategy());
 }
 
 

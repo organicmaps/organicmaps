@@ -34,7 +34,7 @@ namespace detail {
 
 class basic_serializer;
 
-class BOOST_ARCHIVE_OR_WARCHIVE_DECL(BOOST_PP_EMPTY())
+class BOOST_SYMBOL_VISIBLE
 basic_serializer_map : public
     boost::noncopyable
 {
@@ -50,9 +50,9 @@ basic_serializer_map : public
     > map_type;
     map_type m_map;
 public:
-    bool insert(const basic_serializer * bs);
-    void erase(const basic_serializer * bs);
-    const basic_serializer * find(
+    BOOST_ARCHIVE_DECL bool insert(const basic_serializer * bs);
+    BOOST_ARCHIVE_DECL void erase(const basic_serializer * bs);
+    BOOST_ARCHIVE_DECL const basic_serializer * find(
         const boost::serialization::extended_type_info & type_
     ) const;
 private:

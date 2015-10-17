@@ -41,7 +41,7 @@ namespace boost { namespace fusion
         typedef Category category;
         BOOST_STATIC_ASSERT((!result_of::equal_to<first_type, last_type>::value));
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         joint_view_iterator(First const& in_first, Concat const& in_concat)
             : first(first_converter::call(in_first))
             , concat(concat_converter::call(in_concat))
@@ -55,6 +55,15 @@ namespace boost { namespace fusion
         joint_view_iterator& operator= (joint_view_iterator const&);
     };
 }}
+
+#ifdef BOOST_FUSION_WORKAROUND_FOR_LWG_2408
+namespace std
+{
+    template <typename Category, typename First, typename Last, typename Concat>
+    struct iterator_traits< ::boost::fusion::joint_view_iterator<Category, First, Last, Concat> >
+    { };
+}
+#endif
 
 #endif
 

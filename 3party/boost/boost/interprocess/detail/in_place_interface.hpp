@@ -11,14 +11,18 @@
 #ifndef BOOST_INTERPROCESS_IN_PLACE_INTERFACE_HPP
 #define BOOST_INTERPROCESS_IN_PLACE_INTERFACE_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
 #include <boost/interprocess/detail/type_traits.hpp>
-#include <boost/type_traits/alignment_of.hpp>
+#include <boost/container/detail/type_traits.hpp>  //alignment_of, aligned_storage
 #include <typeinfo>  //typeid
 
 //!\file
@@ -47,7 +51,7 @@ template<class T>
 struct placement_destroy :  public in_place_interface
 {
    placement_destroy()
-	   :  in_place_interface(::boost::alignment_of<T>::value, sizeof(T), typeid(T).name())
+      :  in_place_interface(::boost::container::container_detail::alignment_of<T>::value, sizeof(T), typeid(T).name())
    {}
 
    virtual void destroy_n(void *mem, std::size_t num, std::size_t &destroyed)

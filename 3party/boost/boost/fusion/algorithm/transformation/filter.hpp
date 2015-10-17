@@ -22,9 +22,9 @@ namespace boost { namespace fusion
             typedef filter_view<Sequence, is_same<mpl::_, T> > type;
         };
     }
-    
+
     template <typename T, typename Sequence>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::filter<Sequence const, T>::type
     filter(Sequence const& seq)
     {

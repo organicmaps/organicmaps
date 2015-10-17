@@ -25,7 +25,7 @@ namespace odeint {
 template< class T1 , class T2 , class Enabler=void >
 struct same_instance_impl
 { 
-    static bool same_instance( const T1 &x1 , const T2 &x2 )
+    static bool same_instance( const T1& /* x1 */ , const T2& /* x2 */ )
     {
         return false;
     }

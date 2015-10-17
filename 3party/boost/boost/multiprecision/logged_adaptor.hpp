@@ -288,6 +288,23 @@ inline void eval_ldexp(logged_adaptor<Backend>& result, const logged_adaptor<Bac
    log_postfix_event(result.value(), exp, "ldexp");
 }
 
+template <class Backend, class Exp>
+inline void eval_scalbn(logged_adaptor<Backend>& result, const logged_adaptor<Backend>& arg, Exp exp)
+{
+   log_prefix_event(arg.value(), "scalbn");
+   eval_scalbn(result.value(), arg.value(), exp);
+   log_postfix_event(result.value(), exp, "scalbn");
+}
+
+template <class Backend>
+inline typename Backend::exponent_type eval_ilogb(const logged_adaptor<Backend>& arg)
+{
+   log_prefix_event(arg.value(), "ilogb");
+   typename Backend::exponent_type r = eval_ilogb(arg.value());
+   log_postfix_event(arg.value(), "ilogb");
+   return r;
+}
+
 NON_MEMBER_OP2(floor, "floor");
 NON_MEMBER_OP2(ceil, "ceil");
 NON_MEMBER_OP2(sqrt, "sqrt");
@@ -468,6 +485,7 @@ NON_MEMBER_OP2(atan, "atan");
 NON_MEMBER_OP2(sinh, "sinh");
 NON_MEMBER_OP2(cosh, "cosh");
 NON_MEMBER_OP2(tanh, "tanh");
+NON_MEMBER_OP2(logb, "logb");
 NON_MEMBER_OP3(fmod, "fmod");
 NON_MEMBER_OP3(pow, "pow");
 NON_MEMBER_OP3(atan2, "atan2");

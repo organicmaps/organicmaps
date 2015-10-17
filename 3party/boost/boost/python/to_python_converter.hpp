@@ -48,12 +48,7 @@ template < class T, class Conversion, bool has_get_pytype=false >
 struct to_python_converter 
 {
 #ifndef BOOST_PYTHON_NO_PY_SIGNATURES
-#if 0 //defined _MSC_VER && _MSC_VER >=1310
-    //probably other compilers could come here as well
-    typedef typename detail::test_get_pytype<Conversion> HasGetPytype;
-#else
     typedef boost::mpl::bool_<has_get_pytype> HasGetPytype;
-#endif
 
     static PyTypeObject const* get_pytype_1(boost::mpl::true_ *)
     {

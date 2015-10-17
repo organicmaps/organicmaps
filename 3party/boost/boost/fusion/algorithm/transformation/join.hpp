@@ -23,7 +23,7 @@ namespace boost { namespace fusion {
     }
 
     template<typename LhSequence, typename RhSequence>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::join<LhSequence const, RhSequence const>::type
     join(LhSequence const& lhs, RhSequence const& rhs)
     {

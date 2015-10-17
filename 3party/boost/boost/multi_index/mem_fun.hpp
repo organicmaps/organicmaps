@@ -1,4 +1,4 @@
-/* Copyright 2003-2013 Joaquin M Lopez Munoz.
+/* Copyright 2003-2015 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -36,7 +36,7 @@ namespace multi_index{
  * to T we  mean a type P such that, given a p of Type P
  *   *...n...*x is convertible to T&, for some n>=1.
  * Examples of chained pointers are raw and smart pointers, iterators and
- * arbitrary combinations of these (vg. T** or auto_ptr<T*>.)
+ * arbitrary combinations of these (vg. T** or unique_ptr<T*>.)
  */
 
 template<class Class,typename Type,Type (Class::*PtrToMemberFunction)()const>

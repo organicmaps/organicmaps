@@ -155,7 +155,7 @@ public:
         code(code)
     {
         unsigned int off = 0;
-        while (off < sizeof(buffer) && *what_)
+        while (off < sizeof(buffer) - 1 && *what_)
             buffer[off++] = *what_++;
         buffer[off] = 0;
     }

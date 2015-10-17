@@ -18,6 +18,7 @@
 ///   CODATA 2006 values as of 2007/03/30
 ///
 
+#include <boost/units/quantity.hpp>
 #include <boost/units/static_constant.hpp>
 
 #include <boost/units/systems/detail/constants.hpp>

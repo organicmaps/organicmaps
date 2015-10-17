@@ -24,7 +24,7 @@ namespace boost { namespace fusion
         struct value_at_impl<map_tag>
         {
             template <typename Sequence, typename N>
-            struct apply 
+            struct apply
             {
                 typedef typename mpl::at<typename Sequence::storage_type::types, N>::type type;
             };

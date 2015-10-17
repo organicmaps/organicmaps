@@ -29,7 +29,7 @@ namespace boost { namespace fusion {
             struct apply
                 : result_of::distance<typename First::first_type, typename Last::first_type>
             {
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static 
                 typename result_of::distance<typename First::first_type, typename Last::first_type>::type
                 call(First const& first, Last const& last)
@@ -47,7 +47,7 @@ namespace boost { namespace fusion {
             struct apply
                 : result_of::distance<typename First::first1_type, typename Last::first1_type>
             {
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static 
                 typename result_of::distance<typename First::first1_type, typename Last::first1_type>::type
                 call(First const& first, Last const& last)

@@ -1,4 +1,4 @@
-/* Copyright 2003-2014 Joaquin M Lopez Munoz.
+/* Copyright 2003-2015 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -14,6 +14,7 @@
 #endif
 
 #include <boost/config.hpp> /* keep it first to prevent nasty warns in MSVC */
+#include <boost/bind.hpp>
 #include <boost/call_traits.hpp>
 #include <boost/detail/allocator_utilities.hpp>
 #include <boost/detail/no_exceptions_support.hpp>
@@ -516,7 +517,8 @@ public:
   void remove(value_param_type value)
   {
     sequenced_index_remove(
-      *this,std::bind2nd(std::equal_to<value_type>(),value));
+      *this,
+      ::boost::bind(std::equal_to<value_type>(),::boost::arg<1>(),value));
   }
 
   template<typename Predicate>

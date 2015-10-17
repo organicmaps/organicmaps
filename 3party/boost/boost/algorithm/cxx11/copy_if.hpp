@@ -18,10 +18,6 @@
 
 namespace boost { namespace algorithm {
 
-#if __cplusplus >= 201103L
-//  Use the C++11 versions of copy_if if it is available
-using std::copy_if;         // Section 25.3.1
-#else
 /// \fn copy_if ( InputIterator first, InputIterator last, OutputIterator result, Predicate p )
 /// \brief Copies all the elements from the input range that satisfy the
 /// predicate to the output range.
@@ -42,7 +38,6 @@ OutputIterator copy_if ( InputIterator first, InputIterator last, OutputIterator
             *result++ = *first;
     return result;
 }
-#endif
 
 /// \fn copy_if ( const Range &r, OutputIterator result, Predicate p )
 /// \brief Copies all the elements from the input range that satisfy the

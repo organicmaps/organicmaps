@@ -98,7 +98,7 @@ size_t integrate_adaptive(
         }
 
         size_t trials = 0;
-        controlled_step_result res = success;
+        controlled_step_result res;
         do
         {
             res = st.try_step( system , start_state , start_time , dt );

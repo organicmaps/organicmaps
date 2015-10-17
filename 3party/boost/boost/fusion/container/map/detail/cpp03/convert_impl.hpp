@@ -41,7 +41,7 @@ namespace boost { namespace fusion
                     template apply<typename result_of::begin<Sequence>::type>::type
                 type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type call(Sequence& seq)
                 {
                     return gen::call(fusion::begin(seq));

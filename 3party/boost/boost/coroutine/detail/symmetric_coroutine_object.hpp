@@ -13,6 +13,7 @@
 
 #include <boost/coroutine/detail/config.hpp>
 #include <boost/coroutine/detail/flags.hpp>
+#include <boost/coroutine/detail/preallocated.hpp>
 #include <boost/coroutine/detail/symmetric_coroutine_impl.hpp>
 #include <boost/coroutine/detail/symmetric_coroutine_yield.hpp>
 #include <boost/coroutine/exceptions.hpp>
@@ -52,31 +53,29 @@ private:
 public:
 #ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
     symmetric_coroutine_object( Fn fn, attributes const& attrs,
-                                stack_context const& stack_ctx,
-                                stack_context const& internal_stack_ctx,
+                                preallocated const& palloc,
                                 StackAllocator const& stack_alloc) BOOST_NOEXCEPT :
-        impl_t( internal_stack_ctx,
+        impl_t( palloc,
                 stack_unwind == attrs.do_unwind,
                 fpu_preserved == attrs.preserve_fpu),
         fn_( fn),
-        stack_ctx_( stack_ctx),
+        stack_ctx_( palloc.sctx),
         stack_alloc_( stack_alloc)
     {}
 #endif
 
     symmetric_coroutine_object( BOOST_RV_REF( Fn) fn, attributes const& attrs,
-                                stack_context const& stack_ctx,
-                                stack_context const& internal_stack_ctx,
+                                preallocated const& palloc,
                                 StackAllocator const& stack_alloc) BOOST_NOEXCEPT :
-        impl_t( internal_stack_ctx,
+        impl_t( palloc,
                 stack_unwind == attrs.do_unwind,
                 fpu_preserved == attrs.preserve_fpu),
 #ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
         fn_( fn),
 #else
-        fn_( forward< Fn >( fn) ),
+        fn_( boost::forward< Fn >( fn) ),
 #endif
-        stack_ctx_( stack_ctx),
+        stack_ctx_( palloc.sctx),
         stack_alloc_( stack_alloc)
     {}
 
@@ -133,31 +132,29 @@ private:
 public:
 #ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
     symmetric_coroutine_object( Fn fn, attributes const& attrs,
-                                stack_context const& stack_ctx,
-                                stack_context const& internal_stack_ctx,
+                                preallocated const& palloc,
                                 StackAllocator const& stack_alloc) BOOST_NOEXCEPT :
-        impl_t( internal_stack_ctx,
+        impl_t( palloc,
                 stack_unwind == attrs.do_unwind,
                 fpu_preserved == attrs.preserve_fpu),
         fn_( fn),
-        stack_ctx_( stack_ctx),
+        stack_ctx_( palloc.sctx),
         stack_alloc_( stack_alloc)
     {}
 #endif
 
     symmetric_coroutine_object( BOOST_RV_REF( Fn) fn, attributes const& attrs,
-                                stack_context const& stack_ctx,
-                                stack_context const& internal_stack_ctx,
+                                preallocated const& palloc,
                                 StackAllocator const& stack_alloc) BOOST_NOEXCEPT :
-        impl_t( internal_stack_ctx,
+        impl_t( palloc,
                 stack_unwind == attrs.do_unwind,
                 fpu_preserved == attrs.preserve_fpu),
 #ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
         fn_( fn),
 #else
-        fn_( forward< Fn >( fn) ),
+        fn_( boost::forward< Fn >( fn) ),
 #endif
-        stack_ctx_( stack_ctx),
+        stack_ctx_( palloc.sctx),
         stack_alloc_( stack_alloc)
     {}
 
@@ -214,31 +211,29 @@ private:
 public:
 #ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
     symmetric_coroutine_object( Fn fn, attributes const& attrs,
-                                stack_context const& stack_ctx,
-                                stack_context const& internal_stack_ctx,
+                                preallocated const& palloc,
                                 StackAllocator const& stack_alloc) BOOST_NOEXCEPT :
-        impl_t( internal_stack_ctx,
+        impl_t( palloc,
                 stack_unwind == attrs.do_unwind,
                 fpu_preserved == attrs.preserve_fpu),
         fn_( fn),
-        stack_ctx_( stack_ctx),
+        stack_ctx_( palloc.sctx),
         stack_alloc_( stack_alloc)
     {}
 #endif
 
     symmetric_coroutine_object( BOOST_RV_REF( Fn) fn, attributes const& attrs,
-                                stack_context const& stack_ctx,
-                                stack_context const& internal_stack_ctx,
+                                preallocated const& palloc,
                                 StackAllocator const& stack_alloc) BOOST_NOEXCEPT :
-        impl_t( internal_stack_ctx,
+        impl_t( palloc,
                 stack_unwind == attrs.do_unwind,
                 fpu_preserved == attrs.preserve_fpu),
 #ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
         fn_( fn),
 #else
-        fn_( forward< Fn >( fn) ),
+        fn_( boost::forward< Fn >( fn) ),
 #endif
-        stack_ctx_( stack_ctx),
+        stack_ctx_( palloc.sctx),
         stack_alloc_( stack_alloc)
     {}
 

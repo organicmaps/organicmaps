@@ -37,7 +37,7 @@ namespace extra_detail { // anon
 #endif
 
 template<class Archive>
-BOOST_ARCHIVE_OR_WARCHIVE_DECL(bool)
+BOOST_ARCHIVE_OR_WARCHIVE_DECL bool
 archive_serializer_map<Archive>::insert(const basic_serializer * bs){
     return boost::serialization::singleton<
         extra_detail::map<Archive>
@@ -45,7 +45,7 @@ archive_serializer_map<Archive>::insert(const basic_serializer * bs){
 }
 
 template<class Archive>
-BOOST_ARCHIVE_OR_WARCHIVE_DECL(void)
+BOOST_ARCHIVE_OR_WARCHIVE_DECL void
 archive_serializer_map<Archive>::erase(const basic_serializer * bs){
     if(boost::serialization::singleton<
         extra_detail::map<Archive>
@@ -57,7 +57,7 @@ archive_serializer_map<Archive>::erase(const basic_serializer * bs){
 }
 
 template<class Archive>
-BOOST_ARCHIVE_OR_WARCHIVE_DECL(const basic_serializer *) 
+BOOST_ARCHIVE_OR_WARCHIVE_DECL const basic_serializer *
 archive_serializer_map<Archive>::find(
     const boost::serialization::extended_type_info & eti
 ) {

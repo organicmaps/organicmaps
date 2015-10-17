@@ -42,7 +42,8 @@ template <typename PointP, typename PointQ,
 >
 struct side_calculator
 {
-    typedef boost::geometry::strategy::side::side_by_triangle<> side; // todo: get from coordinate system
+    // todo: get from coordinate system
+    typedef boost::geometry::strategy::side::side_by_triangle<> side;
 
     inline side_calculator(Pi const& pi, Pj const& pj, Pk const& pk,
                            Qi const& qi, Qj const& qj, Qk const& qk)
@@ -71,8 +72,9 @@ struct robust_points
 {
     typedef typename geometry::robust_point_type
         <
-        Point1, RobustPolicy
+            Point1, RobustPolicy
         >::type robust_point1_type;
+
     // TODO: define robust_point2_type using Point2?
     typedef robust_point1_type robust_point2_type;
 
@@ -96,23 +98,23 @@ template <typename Point1, typename Point2, typename RobustPolicy>
 class intersection_info_base
     : private robust_points<Point1, Point2, RobustPolicy>
 {
-    typedef robust_points<Point1, Point2, RobustPolicy> base_t;
+    typedef robust_points<Point1, Point2, RobustPolicy> base;
 
 public:
     typedef Point1 point1_type;
     typedef Point2 point2_type;
 
-    typedef typename base_t::robust_point1_type robust_point1_type;
-    typedef typename base_t::robust_point2_type robust_point2_type;
+    typedef typename base::robust_point1_type robust_point1_type;
+    typedef typename base::robust_point2_type robust_point2_type;
 
     typedef side_calculator<robust_point1_type, robust_point2_type> side_calculator_type;
     
     intersection_info_base(Point1 const& pi, Point1 const& pj, Point1 const& pk,
                            Point2 const& qi, Point2 const& qj, Point2 const& qk,
                            RobustPolicy const& robust_policy)
-        : base_t(pi, pj, pk, qi, qj, qk, robust_policy)
-        , m_side_calc(base_t::m_rpi, base_t::m_rpj, base_t::m_rpk,
-                      base_t::m_rqi, base_t::m_rqj, base_t::m_rqk)
+        : base(pi, pj, pk, qi, qj, qk, robust_policy)
+        , m_side_calc(base::m_rpi, base::m_rpj, base::m_rpk,
+                      base::m_rqi, base::m_rqj, base::m_rqk)
         , m_pi(pi), m_pj(pj), m_pk(pk)
         , m_qi(qi), m_qj(qj), m_qk(qk)
     {}
@@ -125,13 +127,13 @@ public:
     inline Point2 const& qj() const { return m_qj; }
     inline Point2 const& qk() const { return m_qk; }
 
-    inline robust_point1_type const& rpi() const { return base_t::m_rpi; }
-    inline robust_point1_type const& rpj() const { return base_t::m_rpj; }
-    inline robust_point1_type const& rpk() const { return base_t::m_rpk; }
+    inline robust_point1_type const& rpi() const { return base::m_rpi; }
+    inline robust_point1_type const& rpj() const { return base::m_rpj; }
+    inline robust_point1_type const& rpk() const { return base::m_rpk; }
 
-    inline robust_point2_type const& rqi() const { return base_t::m_rqi; }
-    inline robust_point2_type const& rqj() const { return base_t::m_rqj; }
-    inline robust_point2_type const& rqk() const { return base_t::m_rqk; }
+    inline robust_point2_type const& rqi() const { return base::m_rqi; }
+    inline robust_point2_type const& rqj() const { return base::m_rqj; }
+    inline robust_point2_type const& rqk() const { return base::m_rqk; }
 
     inline side_calculator_type const& sides() const { return m_side_calc; }
     
@@ -187,11 +189,17 @@ private:
 };
 
 
-template <typename Point1, typename Point2, typename TurnPoint, typename RobustPolicy>
+template
+<
+    typename Point1,
+    typename Point2,
+    typename TurnPoint,
+    typename RobustPolicy
+>
 class intersection_info
     : public intersection_info_base<Point1, Point2, RobustPolicy>
 {
-    typedef intersection_info_base<Point1, Point2, RobustPolicy> base_t;
+    typedef intersection_info_base<Point1, Point2, RobustPolicy> base;
 
     typedef typename strategy_intersection
         <
@@ -205,7 +213,7 @@ class intersection_info
 public:
     typedef model::referring_segment<Point1 const> segment_type1;
     typedef model::referring_segment<Point2 const> segment_type2;
-    typedef typename base_t::side_calculator_type side_calculator_type;
+    typedef typename base::side_calculator_type side_calculator_type;
     
     typedef typename strategy::return_type result_type;
     typedef typename boost::tuples::element<0, result_type>::type i_info_type; // intersection_info
@@ -214,10 +222,12 @@ public:
     intersection_info(Point1 const& pi, Point1 const& pj, Point1 const& pk,
                       Point2 const& qi, Point2 const& qj, Point2 const& qk,
                       RobustPolicy const& robust_policy)
-        : base_t(pi, pj, pk, qi, qj, qk, robust_policy)
+        : base(pi, pj, pk, qi, qj, qk, robust_policy)
         , m_result(strategy::apply(segment_type1(pi, pj),
                                    segment_type2(qi, qj),
-                                   robust_policy))
+                                   robust_policy,
+                                   base::rpi(), base::rpj(),
+                                   base::rqi(), base::rqj()))
         , m_robust_policy(robust_policy)
     {}
 
@@ -228,19 +238,22 @@ public:
     // TODO: it's more like is_spike_ip_p
     inline bool is_spike_p() const
     {
-        if ( base_t::sides().pk_wrt_p1() == 0 )
+        if (base::sides().pk_wrt_p1() == 0)
         {
-            if ( ! is_ip_j<0>() )
-                return false;
-
-            int const qk_p1 = base_t::sides().qk_wrt_p1();
-            int const qk_p2 = base_t::sides().qk_wrt_p2();
-                
-            if ( qk_p1 == -qk_p2 )
+            if (! is_ip_j<0>())
             {
-                if ( qk_p1 == 0 )
+                return false;
+            }
+
+            int const qk_p1 = base::sides().qk_wrt_p1();
+            int const qk_p2 = base::sides().qk_wrt_p2();
+                
+            if (qk_p1 == -qk_p2)
+            {
+                if (qk_p1 == 0)
                 {
-                    return is_spike_of_collinear(base_t::pi(), base_t::pj(), base_t::pk());
+                    return is_spike_of_collinear(base::pi(), base::pj(),
+                                                 base::pk());
                 }
                         
                 return true;
@@ -253,19 +266,22 @@ public:
     // TODO: it's more like is_spike_ip_q
     inline bool is_spike_q() const
     {
-        if ( base_t::sides().qk_wrt_q1() == 0 )
+        if (base::sides().qk_wrt_q1() == 0)
         {
-            if ( ! is_ip_j<1>() )
-                return false;
-
-            int const pk_q1 = base_t::sides().pk_wrt_q1();
-            int const pk_q2 = base_t::sides().pk_wrt_q2();
-                
-            if ( pk_q1 == -pk_q2 )
+            if (! is_ip_j<1>())
             {
-                if ( pk_q1 == 0 )
+                return false;
+            }
+
+            int const pk_q1 = base::sides().pk_wrt_q1();
+            int const pk_q2 = base::sides().pk_wrt_q2();
+                
+            if (pk_q1 == -pk_q2)
+            {
+                if (pk_q1 == 0)
                 {
-                    return is_spike_of_collinear(base_t::qi(), base_t::qj(), base_t::qk());
+                    return is_spike_of_collinear(base::qi(), base::qj(),
+                                                 base::qk());
                 }
                         
                 return true;
@@ -277,9 +293,10 @@ public:
 
 private:
     template <typename Point>
-    inline bool is_spike_of_collinear(Point const& i, Point const& j, Point const& k) const
+    inline bool is_spike_of_collinear(Point const& i, Point const& j,
+                                      Point const& k) const
     {
-        typedef model::referring_segment<Point const> seg_t;
+        typedef model::referring_segment<Point const> seg;
 
         typedef strategy_intersection
             <
@@ -289,7 +306,7 @@ private:
         typedef typename si::segment_intersection_strategy_type strategy;
         
         typename strategy::return_type result
-            = strategy::apply(seg_t(i, j), seg_t(j, k), m_robust_policy);
+            = strategy::apply(seg(i, j), seg(j, k), m_robust_policy);
         
         return result.template get<0>().count == 2;
     }
@@ -300,9 +317,9 @@ private:
         int arrival = d_info().arrival[OpId];
         bool same_dirs = d_info().dir_a == 0 && d_info().dir_b == 0;
 
-        if ( same_dirs )
+        if (same_dirs)
         {
-            if ( i_info().count == 2 )
+            if (i_info().count == 2)
             {
                 return arrival != -1;
             }

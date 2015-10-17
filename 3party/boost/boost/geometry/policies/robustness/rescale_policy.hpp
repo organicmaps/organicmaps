@@ -1,9 +1,13 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2014 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2014 Bruno Lalande, Paris, France.
-// Copyright (c) 2014 Mateusz Loskot, London, UK.
-// Copyright (c) 2014 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2014-2015 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2014-2015 Bruno Lalande, Paris, France.
+// Copyright (c) 2014-2015 Mateusz Loskot, London, UK.
+// Copyright (c) 2014-2015 Adam Wulkiewicz, Lodz, Poland.
+
+// Copyright (c) 2015, Oracle and/or its affiliates.
+
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -19,6 +23,8 @@
 #include <boost/geometry/policies/robustness/segment_ratio.hpp>
 #include <boost/geometry/policies/robustness/segment_ratio_type.hpp>
 #include <boost/geometry/policies/robustness/robust_point_type.hpp>
+
+#include <boost/geometry/util/math.hpp>
 
 namespace boost { namespace geometry
 {
@@ -48,7 +54,8 @@ struct robust_policy
         CalculationType const a = static_cast<CalculationType>(get<Dimension>(m_int_min));
         CalculationType const b = static_cast<CalculationType>(get<Dimension>(m_fp_min));
         CalculationType const result = a + (value - b) * m_multiplier;
-        return static_cast<output_ct>(result);
+
+        return geometry::math::rounding_cast<output_ct>(result);
     }
 
     FpPoint m_fp_min;

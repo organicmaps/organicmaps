@@ -271,8 +271,8 @@ inline void buffer(GeometryIn const& geometry_in,
     }
 
     model::box<point_type> box;
-    envelope(geometry_in, box);
-    buffer(box, box, distance_strategy.max_distance(join_strategy, end_strategy));
+    geometry::envelope(geometry_in, box);
+    geometry::buffer(box, box, distance_strategy.max_distance(join_strategy, end_strategy));
 
     rescale_policy_type rescale_policy
             = boost::geometry::get_rescale_policy<rescale_policy_type>(box);

@@ -47,7 +47,7 @@ namespace detail {
 } // namespace detail
 
 template<class Archive>
-class xml_oarchive_impl : 
+class BOOST_SYMBOL_VISIBLE xml_oarchive_impl :
     public basic_text_oprimitive<std::ostream>,
     public basic_xml_oarchive<Archive>
 {
@@ -82,19 +82,19 @@ protected:
     save(const boost::serialization::item_version_type & t){
         save(static_cast<const unsigned int>(t));
     }
-    BOOST_ARCHIVE_DECL(void) 
+    BOOST_ARCHIVE_DECL void
     save(const char * t);
     #ifndef BOOST_NO_INTRINSIC_WCHAR_T
-    BOOST_ARCHIVE_DECL(void)
+    BOOST_ARCHIVE_DECL void
     save(const wchar_t * t);
     #endif
-    BOOST_ARCHIVE_DECL(void)
+    BOOST_ARCHIVE_DECL void
     save(const std::string &s);
     #ifndef BOOST_NO_STD_WSTRING
-    BOOST_ARCHIVE_DECL(void)
+    BOOST_ARCHIVE_DECL void
     save(const std::wstring &ws);
     #endif
-    BOOST_ARCHIVE_DECL(BOOST_PP_EMPTY()) 
+    BOOST_ARCHIVE_DECL
     xml_oarchive_impl(std::ostream & os, unsigned int flags);
     ~xml_oarchive_impl(){}
 public:
@@ -118,7 +118,7 @@ public:
 // do not derive from this class.  If you want to extend this functionality
 // via inhertance, derived from xml_oarchive_impl instead.  This will
 // preserve correct static polymorphism.
-class xml_oarchive : 
+class BOOST_SYMBOL_VISIBLE xml_oarchive :
     public xml_oarchive_impl<xml_oarchive>
 {
 public:

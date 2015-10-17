@@ -347,8 +347,8 @@ class voronoi_diagram {
       const detail::site_event<CT>& site1,
       const detail::site_event<CT>& site2) {
     // Get sites' indexes.
-    int site_index1 = site1.sorted_index();
-    int site_index2 = site2.sorted_index();
+    std::size_t site_index1 = site1.sorted_index();
+    std::size_t site_index2 = site2.sorted_index();
 
     bool is_linear = is_linear_edge(site1, site2);
     bool is_primary = is_primary_edge(site1, site2);

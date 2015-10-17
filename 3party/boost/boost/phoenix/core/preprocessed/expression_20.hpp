@@ -36,7 +36,7 @@ namespace boost { namespace phoenix
         typedef
             typename proto::result_of::make_expr<
                 Tag
-              , proto::basic_default_domain
+              , phoenix_default_domain
               , typename proto::detail::uncvref<typename call_traits<A0>::value_type>::type
             >::type
             base_type;
@@ -52,7 +52,7 @@ namespace boost { namespace phoenix
                 {
                     proto::make_expr<
                         Tag
-                      , proto::basic_default_domain
+                      , phoenix_default_domain
                     >(a0)
                 };
             return e;
@@ -79,7 +79,7 @@ namespace boost { namespace phoenix
         typedef
             typename proto::result_of::make_expr<
                 Tag
-              , proto::basic_default_domain
+              , phoenix_default_domain
               , typename proto::detail::uncvref<typename call_traits<A0>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A1>::value_type>::type
             >::type
             base_type;
@@ -95,7 +95,7 @@ namespace boost { namespace phoenix
                 {
                     proto::make_expr<
                         Tag
-                      , proto::basic_default_domain
+                      , phoenix_default_domain
                     >(a0 , a1)
                 };
             return e;
@@ -122,7 +122,7 @@ namespace boost { namespace phoenix
         typedef
             typename proto::result_of::make_expr<
                 Tag
-              , proto::basic_default_domain
+              , phoenix_default_domain
               , typename proto::detail::uncvref<typename call_traits<A0>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A1>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A2>::value_type>::type
             >::type
             base_type;
@@ -138,7 +138,7 @@ namespace boost { namespace phoenix
                 {
                     proto::make_expr<
                         Tag
-                      , proto::basic_default_domain
+                      , phoenix_default_domain
                     >(a0 , a1 , a2)
                 };
             return e;
@@ -165,7 +165,7 @@ namespace boost { namespace phoenix
         typedef
             typename proto::result_of::make_expr<
                 Tag
-              , proto::basic_default_domain
+              , phoenix_default_domain
               , typename proto::detail::uncvref<typename call_traits<A0>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A1>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A2>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A3>::value_type>::type
             >::type
             base_type;
@@ -181,7 +181,7 @@ namespace boost { namespace phoenix
                 {
                     proto::make_expr<
                         Tag
-                      , proto::basic_default_domain
+                      , phoenix_default_domain
                     >(a0 , a1 , a2 , a3)
                 };
             return e;
@@ -208,7 +208,7 @@ namespace boost { namespace phoenix
         typedef
             typename proto::result_of::make_expr<
                 Tag
-              , proto::basic_default_domain
+              , phoenix_default_domain
               , typename proto::detail::uncvref<typename call_traits<A0>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A1>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A2>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A3>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A4>::value_type>::type
             >::type
             base_type;
@@ -224,7 +224,7 @@ namespace boost { namespace phoenix
                 {
                     proto::make_expr<
                         Tag
-                      , proto::basic_default_domain
+                      , phoenix_default_domain
                     >(a0 , a1 , a2 , a3 , a4)
                 };
             return e;
@@ -251,7 +251,7 @@ namespace boost { namespace phoenix
         typedef
             typename proto::result_of::make_expr<
                 Tag
-              , proto::basic_default_domain
+              , phoenix_default_domain
               , typename proto::detail::uncvref<typename call_traits<A0>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A1>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A2>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A3>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A4>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A5>::value_type>::type
             >::type
             base_type;
@@ -267,7 +267,7 @@ namespace boost { namespace phoenix
                 {
                     proto::make_expr<
                         Tag
-                      , proto::basic_default_domain
+                      , phoenix_default_domain
                     >(a0 , a1 , a2 , a3 , a4 , a5)
                 };
             return e;
@@ -294,7 +294,7 @@ namespace boost { namespace phoenix
         typedef
             typename proto::result_of::make_expr<
                 Tag
-              , proto::basic_default_domain
+              , phoenix_default_domain
               , typename proto::detail::uncvref<typename call_traits<A0>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A1>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A2>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A3>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A4>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A5>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A6>::value_type>::type
             >::type
             base_type;
@@ -310,7 +310,7 @@ namespace boost { namespace phoenix
                 {
                     proto::make_expr<
                         Tag
-                      , proto::basic_default_domain
+                      , phoenix_default_domain
                     >(a0 , a1 , a2 , a3 , a4 , a5 , a6)
                 };
             return e;
@@ -337,7 +337,7 @@ namespace boost { namespace phoenix
         typedef
             typename proto::result_of::make_expr<
                 Tag
-              , proto::basic_default_domain
+              , phoenix_default_domain
               , typename proto::detail::uncvref<typename call_traits<A0>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A1>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A2>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A3>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A4>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A5>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A6>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A7>::value_type>::type
             >::type
             base_type;
@@ -353,7 +353,7 @@ namespace boost { namespace phoenix
                 {
                     proto::make_expr<
                         Tag
-                      , proto::basic_default_domain
+                      , phoenix_default_domain
                     >(a0 , a1 , a2 , a3 , a4 , a5 , a6 , a7)
                 };
             return e;
@@ -380,7 +380,7 @@ namespace boost { namespace phoenix
         typedef
             typename proto::result_of::make_expr<
                 Tag
-              , proto::basic_default_domain
+              , phoenix_default_domain
               , typename proto::detail::uncvref<typename call_traits<A0>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A1>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A2>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A3>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A4>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A5>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A6>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A7>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A8>::value_type>::type
             >::type
             base_type;
@@ -396,7 +396,7 @@ namespace boost { namespace phoenix
                 {
                     proto::make_expr<
                         Tag
-                      , proto::basic_default_domain
+                      , phoenix_default_domain
                     >(a0 , a1 , a2 , a3 , a4 , a5 , a6 , a7 , a8)
                 };
             return e;
@@ -423,7 +423,7 @@ namespace boost { namespace phoenix
         typedef
             typename proto::result_of::make_expr<
                 Tag
-              , proto::basic_default_domain
+              , phoenix_default_domain
               , typename proto::detail::uncvref<typename call_traits<A0>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A1>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A2>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A3>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A4>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A5>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A6>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A7>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A8>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A9>::value_type>::type
             >::type
             base_type;
@@ -439,7 +439,7 @@ namespace boost { namespace phoenix
                 {
                     proto::make_expr<
                         Tag
-                      , proto::basic_default_domain
+                      , phoenix_default_domain
                     >(a0 , a1 , a2 , a3 , a4 , a5 , a6 , a7 , a8 , a9)
                 };
             return e;
@@ -466,7 +466,7 @@ namespace boost { namespace phoenix
         typedef
             typename proto::result_of::make_expr<
                 Tag
-              , proto::basic_default_domain
+              , phoenix_default_domain
               , typename proto::detail::uncvref<typename call_traits<A0>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A1>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A2>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A3>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A4>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A5>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A6>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A7>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A8>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A9>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A10>::value_type>::type
             >::type
             base_type;
@@ -482,7 +482,7 @@ namespace boost { namespace phoenix
                 {
                     proto::make_expr<
                         Tag
-                      , proto::basic_default_domain
+                      , phoenix_default_domain
                     >(a0 , a1 , a2 , a3 , a4 , a5 , a6 , a7 , a8 , a9 , a10)
                 };
             return e;
@@ -509,7 +509,7 @@ namespace boost { namespace phoenix
         typedef
             typename proto::result_of::make_expr<
                 Tag
-              , proto::basic_default_domain
+              , phoenix_default_domain
               , typename proto::detail::uncvref<typename call_traits<A0>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A1>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A2>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A3>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A4>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A5>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A6>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A7>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A8>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A9>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A10>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A11>::value_type>::type
             >::type
             base_type;
@@ -525,7 +525,7 @@ namespace boost { namespace phoenix
                 {
                     proto::make_expr<
                         Tag
-                      , proto::basic_default_domain
+                      , phoenix_default_domain
                     >(a0 , a1 , a2 , a3 , a4 , a5 , a6 , a7 , a8 , a9 , a10 , a11)
                 };
             return e;
@@ -552,7 +552,7 @@ namespace boost { namespace phoenix
         typedef
             typename proto::result_of::make_expr<
                 Tag
-              , proto::basic_default_domain
+              , phoenix_default_domain
               , typename proto::detail::uncvref<typename call_traits<A0>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A1>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A2>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A3>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A4>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A5>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A6>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A7>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A8>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A9>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A10>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A11>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A12>::value_type>::type
             >::type
             base_type;
@@ -568,7 +568,7 @@ namespace boost { namespace phoenix
                 {
                     proto::make_expr<
                         Tag
-                      , proto::basic_default_domain
+                      , phoenix_default_domain
                     >(a0 , a1 , a2 , a3 , a4 , a5 , a6 , a7 , a8 , a9 , a10 , a11 , a12)
                 };
             return e;
@@ -595,7 +595,7 @@ namespace boost { namespace phoenix
         typedef
             typename proto::result_of::make_expr<
                 Tag
-              , proto::basic_default_domain
+              , phoenix_default_domain
               , typename proto::detail::uncvref<typename call_traits<A0>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A1>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A2>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A3>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A4>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A5>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A6>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A7>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A8>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A9>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A10>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A11>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A12>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A13>::value_type>::type
             >::type
             base_type;
@@ -611,7 +611,7 @@ namespace boost { namespace phoenix
                 {
                     proto::make_expr<
                         Tag
-                      , proto::basic_default_domain
+                      , phoenix_default_domain
                     >(a0 , a1 , a2 , a3 , a4 , a5 , a6 , a7 , a8 , a9 , a10 , a11 , a12 , a13)
                 };
             return e;
@@ -638,7 +638,7 @@ namespace boost { namespace phoenix
         typedef
             typename proto::result_of::make_expr<
                 Tag
-              , proto::basic_default_domain
+              , phoenix_default_domain
               , typename proto::detail::uncvref<typename call_traits<A0>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A1>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A2>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A3>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A4>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A5>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A6>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A7>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A8>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A9>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A10>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A11>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A12>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A13>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A14>::value_type>::type
             >::type
             base_type;
@@ -654,7 +654,7 @@ namespace boost { namespace phoenix
                 {
                     proto::make_expr<
                         Tag
-                      , proto::basic_default_domain
+                      , phoenix_default_domain
                     >(a0 , a1 , a2 , a3 , a4 , a5 , a6 , a7 , a8 , a9 , a10 , a11 , a12 , a13 , a14)
                 };
             return e;
@@ -681,7 +681,7 @@ namespace boost { namespace phoenix
         typedef
             typename proto::result_of::make_expr<
                 Tag
-              , proto::basic_default_domain
+              , phoenix_default_domain
               , typename proto::detail::uncvref<typename call_traits<A0>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A1>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A2>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A3>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A4>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A5>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A6>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A7>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A8>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A9>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A10>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A11>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A12>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A13>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A14>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A15>::value_type>::type
             >::type
             base_type;
@@ -697,7 +697,7 @@ namespace boost { namespace phoenix
                 {
                     proto::make_expr<
                         Tag
-                      , proto::basic_default_domain
+                      , phoenix_default_domain
                     >(a0 , a1 , a2 , a3 , a4 , a5 , a6 , a7 , a8 , a9 , a10 , a11 , a12 , a13 , a14 , a15)
                 };
             return e;
@@ -724,7 +724,7 @@ namespace boost { namespace phoenix
         typedef
             typename proto::result_of::make_expr<
                 Tag
-              , proto::basic_default_domain
+              , phoenix_default_domain
               , typename proto::detail::uncvref<typename call_traits<A0>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A1>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A2>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A3>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A4>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A5>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A6>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A7>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A8>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A9>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A10>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A11>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A12>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A13>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A14>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A15>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A16>::value_type>::type
             >::type
             base_type;
@@ -740,7 +740,7 @@ namespace boost { namespace phoenix
                 {
                     proto::make_expr<
                         Tag
-                      , proto::basic_default_domain
+                      , phoenix_default_domain
                     >(a0 , a1 , a2 , a3 , a4 , a5 , a6 , a7 , a8 , a9 , a10 , a11 , a12 , a13 , a14 , a15 , a16)
                 };
             return e;
@@ -767,7 +767,7 @@ namespace boost { namespace phoenix
         typedef
             typename proto::result_of::make_expr<
                 Tag
-              , proto::basic_default_domain
+              , phoenix_default_domain
               , typename proto::detail::uncvref<typename call_traits<A0>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A1>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A2>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A3>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A4>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A5>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A6>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A7>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A8>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A9>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A10>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A11>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A12>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A13>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A14>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A15>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A16>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A17>::value_type>::type
             >::type
             base_type;
@@ -783,7 +783,7 @@ namespace boost { namespace phoenix
                 {
                     proto::make_expr<
                         Tag
-                      , proto::basic_default_domain
+                      , phoenix_default_domain
                     >(a0 , a1 , a2 , a3 , a4 , a5 , a6 , a7 , a8 , a9 , a10 , a11 , a12 , a13 , a14 , a15 , a16 , a17)
                 };
             return e;
@@ -810,7 +810,7 @@ namespace boost { namespace phoenix
         typedef
             typename proto::result_of::make_expr<
                 Tag
-              , proto::basic_default_domain
+              , phoenix_default_domain
               , typename proto::detail::uncvref<typename call_traits<A0>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A1>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A2>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A3>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A4>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A5>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A6>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A7>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A8>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A9>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A10>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A11>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A12>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A13>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A14>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A15>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A16>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A17>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A18>::value_type>::type
             >::type
             base_type;
@@ -826,7 +826,7 @@ namespace boost { namespace phoenix
                 {
                     proto::make_expr<
                         Tag
-                      , proto::basic_default_domain
+                      , phoenix_default_domain
                     >(a0 , a1 , a2 , a3 , a4 , a5 , a6 , a7 , a8 , a9 , a10 , a11 , a12 , a13 , a14 , a15 , a16 , a17 , a18)
                 };
             return e;
@@ -853,7 +853,7 @@ namespace boost { namespace phoenix
         typedef
             typename proto::result_of::make_expr<
                 Tag
-              , proto::basic_default_domain
+              , phoenix_default_domain
               , typename proto::detail::uncvref<typename call_traits<A0>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A1>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A2>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A3>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A4>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A5>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A6>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A7>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A8>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A9>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A10>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A11>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A12>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A13>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A14>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A15>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A16>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A17>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A18>::value_type>::type , typename proto::detail::uncvref<typename call_traits<A19>::value_type>::type
             >::type
             base_type;
@@ -869,7 +869,7 @@ namespace boost { namespace phoenix
                 {
                     proto::make_expr<
                         Tag
-                      , proto::basic_default_domain
+                      , phoenix_default_domain
                     >(a0 , a1 , a2 , a3 , a4 , a5 , a6 , a7 , a8 , a9 , a10 , a11 , a12 , a13 , a14 , a15 , a16 , a17 , a18 , a19)
                 };
             return e;

@@ -1,4 +1,4 @@
-/* Copyright 2003-2014 Joaquin M Lopez Munoz.
+/* Copyright 2003-2015 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -15,6 +15,7 @@
 
 #include <boost/config.hpp> /* keep it first to prevent nasty warns in MSVC */
 #include <algorithm>
+#include <boost/bind.hpp>
 #include <boost/call_traits.hpp>
 #include <boost/detail/no_exceptions_support.hpp>
 #include <boost/detail/workaround.hpp>
@@ -49,7 +50,6 @@
 #endif
 
 #if !defined(BOOST_MULTI_INDEX_DISABLE_SERIALIZATION)
-#include <boost/bind.hpp>
 #include <boost/multi_index/detail/rnd_index_loader.hpp>
 #endif
 
@@ -583,7 +583,8 @@ public:
     difference_type n=
       end()-make_iterator(
         random_access_index_remove<node_type>(
-          ptrs,std::bind2nd(std::equal_to<value_type>(),value)));
+          ptrs,
+          ::boost::bind(std::equal_to<value_type>(),::boost::arg<1>(),value)));
     while(n--)pop_back();
   }
 

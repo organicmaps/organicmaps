@@ -45,7 +45,7 @@ namespace boost { namespace fusion { namespace advance_detail
             >::type
         type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type const&
         call(type const& i)
         {
@@ -53,7 +53,7 @@ namespace boost { namespace fusion { namespace advance_detail
         }
 
         template <typename I>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type
         call(I const& i)
         {
@@ -86,7 +86,7 @@ namespace boost { namespace fusion { namespace advance_detail
             >::type
         type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type const&
         call(type const& i)
         {
@@ -94,7 +94,7 @@ namespace boost { namespace fusion { namespace advance_detail
         }
 
         template <typename I>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type
         call(I const& i)
         {

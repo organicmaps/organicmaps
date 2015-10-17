@@ -60,9 +60,11 @@ wait_any(ForwardIterator first, ForwardIterator last)
   while (true) {
     // Check if we have found a completed request. If so, return it.
     if (current->m_requests[0] != MPI_REQUEST_NULL &&
-        current->m_requests[1] != MPI_REQUEST_NULL)
+        (current->m_requests[1] != MPI_REQUEST_NULL ||
+         current->m_handler)) {
       if (optional<status> result = current->test())
         return std::make_pair(*result, current);
+    }
 
     // Check if this request (and all others before it) are "trivial"
     // requests, e.g., they can be represented with a single
@@ -138,10 +140,12 @@ template<typename ForwardIterator>
 optional<std::pair<status, ForwardIterator> >
 test_any(ForwardIterator first, ForwardIterator last)
 {
-  for (ForwardIterator current = first; first != last; ++first) {
+  while (first != last) {
     // Check if we have found a completed request. If so, return it.
-    if (optional<status> result = current->test())
-      return std::make_pair(*result, current);
+    if (optional<status> result = first->test()) {
+      return std::make_pair(*result, first);
+    }
+    ++first;
   }
 
   // We found nothing

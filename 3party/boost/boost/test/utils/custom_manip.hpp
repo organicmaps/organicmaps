@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2005-2008.
+//  (C) Copyright Gennadiy Rozental 2005-2014.
 //  Distributed under the Boost Software License, Version 1.0.
-//  (See accompanying file LICENSE_1_0.txt or copy at 
+//  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -12,8 +12,8 @@
 //  Description : simple helpers for creating cusom output manipulators
 // ***************************************************************************
 
-#ifndef BOOST_TEST_CUSTOM_MANIP_HPP_071894GER
-#define BOOST_TEST_CUSTOM_MANIP_HPP_071894GER
+#ifndef BOOST_TEST_UTILS_CUSTOM_MANIP_HPP
+#define BOOST_TEST_UTILS_CUSTOM_MANIP_HPP
 
 // STL
 #include <iosfwd>
@@ -23,7 +23,6 @@
 //____________________________________________________________________________//
 
 namespace boost {
-
 namespace unit_test {
 
 // ************************************************************************** //
@@ -53,11 +52,8 @@ operator<<( std::ostream& ostr, custom_manip<Uniq> const& ) { return custom_prin
 //____________________________________________________________________________//
 
 } // namespace unit_test
-
 } // namespace boost
-
-//____________________________________________________________________________//
 
 #include <boost/test/detail/enable_warnings.hpp>
 
-#endif // BOOST_TEST_CUSTOM_MANIP_HPP_071894GER
+#endif // BOOST_TEST_UTILS_CUSTOM_MANIP_HPP

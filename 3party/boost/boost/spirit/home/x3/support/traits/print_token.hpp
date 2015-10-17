@@ -8,10 +8,6 @@
 #if !defined(BOOST_SPIRIT_X3_PRINT_TOKEN_JANUARY_20_2013_0814AM)
 #define BOOST_SPIRIT_X3_PRINT_TOKEN_JANUARY_20_2013_0814AM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/type_traits/is_convertible.hpp>

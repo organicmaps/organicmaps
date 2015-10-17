@@ -18,7 +18,7 @@ namespace detail
 {
   template <std::size_t>
   struct return_internal_reference_owner_arg_must_be_greater_than_zero
-# if defined(__GNUC__) && __GNUC__ >= 3 || defined(__EDG__)
+# if defined(__GNUC__) || defined(__EDG__)
   {}
 # endif
   ;

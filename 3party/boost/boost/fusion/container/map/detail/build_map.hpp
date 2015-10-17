@@ -28,7 +28,7 @@ namespace boost { namespace fusion { namespace detail
     struct build_map<First, Last, is_assoc, true>
     {
         typedef map<> type;
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type
         call(First const&, Last const&)
         {
@@ -44,7 +44,7 @@ namespace boost { namespace fusion { namespace detail
     {
         typedef map<T, Rest...> type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type
         call(T const& first, map<Rest...> const& rest)
         {
@@ -66,7 +66,7 @@ namespace boost { namespace fusion { namespace detail
 
         typedef typename push_front::type type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type
         call(First const& f, Last const& l)
         {

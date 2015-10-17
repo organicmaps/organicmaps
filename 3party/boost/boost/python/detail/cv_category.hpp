@@ -12,7 +12,7 @@ template <bool is_const_, bool is_volatile_>
 struct cv_tag
 {
     BOOST_STATIC_CONSTANT(bool, is_const = is_const_);
-    BOOST_STATIC_CONSTANT(bool, is_volatile = is_const_);
+    BOOST_STATIC_CONSTANT(bool, is_volatile = is_volatile_);
 };
 
 typedef cv_tag<false,false> cv_unqualified;

@@ -118,7 +118,7 @@ namespace boost { namespace polygon{
             //std::cout << "write out " << nextRect << std::endl;
             outputContainer.push_back(copy_construct<typename cT::value_type, Rectangle>(nextRect2));
           } else {
-            //std::cout << "supress " << nextRect << std::endl;
+            //std::cout << "suppress " << nextRect << std::endl;
           }
         }
         if(itr != node->end() && iresult && tresult) {

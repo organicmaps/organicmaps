@@ -197,7 +197,7 @@ const refactor_action_gen<> refactor_action_d = refactor_action_gen<>();
 //  attach_action_parser class
 //
 //      This helper template allows to attach an action given separately
-//      to to all parsers, out of which the given parser is constructed and
+//      to all parsers, out of which the given parser is constructed and
 //      reconstructs a new parser having the same structure.
 //
 //      For instance the parser:
@@ -208,7 +208,7 @@ const refactor_action_gen<> refactor_action_d = refactor_action_gen<>();
 //              >> another_parser[some_attached_functor]
 //
 //      The original parser should be a action_parser_category parser,
-//      else the compilation will fail
+//      else the compilation will fail.
 //
 //      If the parser, to which the action is attached is not an binary parser,
 //      no refactoring is done at all.

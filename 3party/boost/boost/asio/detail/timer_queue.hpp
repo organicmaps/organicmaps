@@ -2,7 +2,7 @@
 // detail/timer_queue.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2015 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -193,13 +193,13 @@ private:
   // Move the item at the given index up the heap to its correct position.
   void up_heap(std::size_t index)
   {
-    std::size_t parent = (index - 1) / 2;
-    while (index > 0
-        && Time_Traits::less_than(heap_[index].time_, heap_[parent].time_))
+    while (index > 0)
     {
+      std::size_t parent = (index - 1) / 2;
+      if (!Time_Traits::less_than(heap_[index].time_, heap_[parent].time_))
+        break;
       swap_heap(index, parent);
       index = parent;
-      parent = (index - 1) / 2;
     }
   }
 
@@ -246,9 +246,8 @@ private:
       {
         swap_heap(index, heap_.size() - 1);
         heap_.pop_back();
-        std::size_t parent = (index - 1) / 2;
         if (index > 0 && Time_Traits::less_than(
-              heap_[index].time_, heap_[parent].time_))
+              heap_[index].time_, heap_[(index - 1) / 2].time_))
           up_heap(index);
         else
           down_heap(index);

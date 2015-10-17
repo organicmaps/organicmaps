@@ -119,14 +119,9 @@ struct relate_cartesian_segments
 
         boost::ignore_unused_variable_warning(robust_policy);
 
-        typedef typename select_calculation_type
-            <Segment1, Segment2, CalculationType>::type coordinate_type;
-
         using geometry::detail::equals::equals_point_point;
         bool const a_is_point = equals_point_point(robust_a1, robust_a2);
         bool const b_is_point = equals_point_point(robust_b1, robust_b2);
-
-        typedef side::side_by_triangle<coordinate_type> side;
 
         if(a_is_point && b_is_point)
         {
@@ -136,19 +131,31 @@ struct relate_cartesian_segments
                 ;
         }
 
+        typedef typename select_calculation_type
+            <Segment1, Segment2, CalculationType>::type coordinate_type;
+
+        typedef side::side_by_triangle<coordinate_type> side;
+
         side_info sides;
         sides.set<0>(side::apply(robust_b1, robust_b2, robust_a1),
                      side::apply(robust_b1, robust_b2, robust_a2));
-        sides.set<1>(side::apply(robust_a1, robust_a2, robust_b1),
-                     side::apply(robust_a1, robust_a2, robust_b2));
 
-        bool collinear = sides.collinear();
-
-        if (sides.same<0>() || sides.same<1>())
+        if (sides.same<0>())
         {
             // Both points are at same side of other segment, we can leave
             return Policy::disjoint();
         }
+
+        sides.set<1>(side::apply(robust_a1, robust_a2, robust_b1),
+                     side::apply(robust_a1, robust_a2, robust_b2));
+
+        if (sides.same<1>())
+        {
+            // Both points are at same side of other segment, we can leave
+            return Policy::disjoint();
+        }
+
+        bool collinear = sides.collinear();
 
         typedef typename select_most_precise
             <

@@ -12,7 +12,7 @@
 #ifndef BOOST_BIMAP_VIEWS_UNOREDERED_MULTIMAP_VIEW_HPP
 #define BOOST_BIMAP_VIEWS_UNOREDERED_MULTIMAP_VIEW_HPP
 
-#if defined(_MSC_VER) && (_MSC_VER>=1200)
+#if defined(_MSC_VER)
 #pragma once
 #endif
 

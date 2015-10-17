@@ -7,25 +7,21 @@
 #if !defined(BOOST_SPIRIT_X3_STRING_PARSE_APR_18_2006_1125PM)
 #define BOOST_SPIRIT_X3_STRING_PARSE_APR_18_2006_1125PM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/spirit/home/x3/support/traits/move_to.hpp>
 
 namespace boost { namespace spirit { namespace x3 { namespace detail
 {
-    template <typename Char, typename Iterator, typename Attribute>
+    template <typename Char, typename Iterator, typename Attribute, typename CaseCompareFunc>
     inline bool string_parse(
         Char const* str
-      , Iterator& first, Iterator const& last, Attribute& attr)
+      , Iterator& first, Iterator const& last, Attribute& attr, CaseCompareFunc const& compare)
     {
         Iterator i = first;
         Char ch = *str;
 
         for (; !!ch; ++i)
         {
-            if (i == last || (ch != *i))
+            if (i == last || (compare(ch, *i) != 0))
                 return false;
             ch = *++str;
         }
@@ -35,17 +31,17 @@ namespace boost { namespace spirit { namespace x3 { namespace detail
         return true;
     }
 
-    template <typename String, typename Iterator, typename Attribute>
+    template <typename String, typename Iterator, typename Attribute, typename CaseCompareFunc>
     inline bool string_parse(
         String const& str
-      , Iterator& first, Iterator const& last, Attribute& attr)
+      , Iterator& first, Iterator const& last, Attribute& attr, CaseCompareFunc const& compare)
     {
         Iterator i = first;
         typename String::const_iterator stri = str.begin();
         typename String::const_iterator str_last = str.end();
 
         for (; stri != str_last; ++stri, ++i)
-            if (i == last || (*stri != *i))
+            if (i == last || (compare(*stri, *i) != 0))
                 return false;
         x3::traits::move_to(first, i, attr);
         first = i;

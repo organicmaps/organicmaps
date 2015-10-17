@@ -15,6 +15,8 @@
 
 #include <functional>
 
+#include <boost/core/ignore_unused.hpp>
+
 #include <boost/numeric/ublas/traits.hpp>
 #ifdef BOOST_UBLAS_USE_DUFF_DEVICE
 #include <boost/numeric/ublas/detail/duff.hpp>
@@ -1161,6 +1163,7 @@ namespace boost { namespace numeric { namespace ublas {
 #elif defined(BOOST_UBLAS_HAVE_BINDINGS)
             return boost::numeric::bindings::atlas::dot (c1 ().row (i), c2 ().column (j));
 #else
+            boost::ignore_unused(j);
             return apply (static_cast<const matrix_expression<C1> > (c1), static_cast<const matrix_expression<C2> > (c2, i));
 #endif
         }

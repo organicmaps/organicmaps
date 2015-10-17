@@ -12,7 +12,7 @@
 #ifndef BOOST_BIMAP_TAGS_SUPPORT_VALUE_TYPE_OF_HPP
 #define BOOST_BIMAP_TAGS_SUPPORT_VALUE_TYPE_OF_HPP
 
-#if defined(_MSC_VER) && (_MSC_VER>=1200)
+#if defined(_MSC_VER)
 #pragma once
 #endif
 

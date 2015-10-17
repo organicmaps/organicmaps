@@ -42,7 +42,7 @@ namespace boost { namespace fusion
                     >
                 type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type call(Iterator const& i)
                 {
                     return type(i.seq, next(i.pos));
@@ -59,7 +59,7 @@ namespace boost { namespace fusion
                     > 
                 type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type call(Iterator const& i)
                 {
                     return type(i.seq);
@@ -80,7 +80,7 @@ namespace boost { namespace fusion
 
                 typedef Iterator type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type call(Iterator const& i)
                 {
                     return type(i);

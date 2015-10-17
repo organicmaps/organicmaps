@@ -27,6 +27,7 @@
 #include <boost/math/tools/promotion.hpp> // for argument promotion.
 #include <boost/math/policies/policy.hpp>
 #include <boost/mpl/comparison.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <boost/config/no_tr1/complex.hpp>
 
 #define BOOST_NO_MACRO_EXPAND /**/
@@ -145,6 +146,12 @@ namespace boost
    typename tools::promote_args<RT1, RT2, RT3>::type
          ibeta_derivative(RT1 a, RT2 b, RT3 x, const Policy& pol);  // derivative of incomplete beta
 
+   // Binomial:
+   template <class T, class Policy>
+   T binomial_coefficient(unsigned n, unsigned k, const Policy& pol);
+   template <class T>
+   T binomial_coefficient(unsigned n, unsigned k);
+
    // erf & erfc error functions.
    template <class RT> // Error function.
    typename tools::promote_args<RT>::type erf(RT z);
@@ -176,7 +183,7 @@ namespace boost
          legendre_p(int l, T x);
 
    template <class T, class Policy>
-   typename tools::promote_args<T>::type
+   typename boost::enable_if_c<policies::is_policy<Policy>::value, typename tools::promote_args<T>::type>::type
          legendre_p(int l, T x, const Policy& pol);
 
    template <class T>
@@ -184,7 +191,7 @@ namespace boost
          legendre_q(unsigned l, T x);
 
    template <class T, class Policy>
-   typename tools::promote_args<T>::type
+   typename boost::enable_if_c<policies::is_policy<Policy>::value, typename tools::promote_args<T>::type>::type
          legendre_q(unsigned l, T x, const Policy& pol);
 
    template <class T1, class T2, class T3>
@@ -298,6 +305,14 @@ namespace boost
    typename tools::promote_args<T1, T2, T3, T4>::type
          ellint_rj(T1 x, T2 y, T3 z, T4 p, const Policy& pol);
 
+   template <class T1, class T2, class T3>
+   typename tools::promote_args<T1, T2, T3>::type
+      ellint_rg(T1 x, T2 y, T3 z);
+
+   template <class T1, class T2, class T3, class Policy>
+   typename tools::promote_args<T1, T2, T3>::type
+      ellint_rg(T1 x, T2 y, T3 z, const Policy& pol);
+
    template <typename T>
    typename tools::promote_args<T>::type ellint_2(T k);
 
@@ -315,6 +330,27 @@ namespace boost
 
    template <class T1, class T2, class Policy>
    typename tools::promote_args<T1, T2>::type ellint_1(T1 k, T2 phi, const Policy& pol);
+
+   template <typename T>
+   typename tools::promote_args<T>::type ellint_d(T k);
+
+   template <class T1, class T2>
+   typename tools::promote_args<T1, T2>::type ellint_d(T1 k, T2 phi);
+
+   template <class T1, class T2, class Policy>
+   typename tools::promote_args<T1, T2>::type ellint_d(T1 k, T2 phi, const Policy& pol);
+
+   template <class T1, class T2>
+   typename tools::promote_args<T1, T2>::type jacobi_zeta(T1 k, T2 phi);
+
+   template <class T1, class T2, class Policy>
+   typename tools::promote_args<T1, T2>::type jacobi_zeta(T1 k, T2 phi, const Policy& pol);
+
+   template <class T1, class T2>
+   typename tools::promote_args<T1, T2>::type heuman_lambda(T1 k, T2 phi);
+
+   template <class T1, class T2, class Policy>
+   typename tools::promote_args<T1, T2>::type heuman_lambda(T1 k, T2 phi, const Policy& pol);
 
    namespace detail{
 
@@ -462,6 +498,20 @@ namespace boost
 
    template <class T, class Policy>
    typename tools::promote_args<T>::type digamma(T x, const Policy&);
+
+   // trigamma:
+   template <class T>
+   typename tools::promote_args<T>::type trigamma(T x);
+
+   template <class T, class Policy>
+   typename tools::promote_args<T>::type trigamma(T x, const Policy&);
+
+   // polygamma:
+   template <class T>
+   typename tools::promote_args<T>::type polygamma(int n, T x);
+
+   template <class T, class Policy>
+   typename tools::promote_args<T>::type polygamma(int n, T x, const Policy&);
 
    // Hypotenuse function sqrt(x ^ 2 + y ^ 2).
    template <class T1, class T2>
@@ -1052,6 +1102,8 @@ namespace boost
    inline typename boost::math::tools::promote_args<RT1, RT2, RT3>::type \
    ibeta_derivative(RT1 a, RT2 b, RT3 x){ return ::boost::math::ibeta_derivative(a, b, x, Policy()); }\
 \
+   template <class T> T binomial_coefficient(unsigned n, unsigned k){ return ::boost::math::binomial_coefficient<T, Policy>(n, k, Policy()); }\
+\
    template <class RT>\
    inline typename boost::math::tools::promote_args<RT>::type erf(RT z) { return ::boost::math::erf(z, Policy()); }\
 \
@@ -1128,11 +1180,27 @@ namespace boost
    inline typename boost::math::tools::promote_args<T1, T2, T3, T4>::type \
    ellint_rj(T1 x, T2 y, T3 z, T4 p){ return boost::math::ellint_rj(x, y, z, p, Policy()); }\
 \
+   template <class T1, class T2, class T3>\
+   inline typename boost::math::tools::promote_args<T1, T2, T3>::type \
+   ellint_rg(T1 x, T2 y, T3 z){ return ::boost::math::ellint_rg(x, y, z, Policy()); }\
+   \
    template <typename T>\
    inline typename boost::math::tools::promote_args<T>::type ellint_2(T k){ return boost::math::ellint_2(k, Policy()); }\
 \
    template <class T1, class T2>\
    inline typename boost::math::tools::promote_args<T1, T2>::type ellint_2(T1 k, T2 phi){ return boost::math::ellint_2(k, phi, Policy()); }\
+\
+   template <typename T>\
+   inline typename boost::math::tools::promote_args<T>::type ellint_d(T k){ return boost::math::ellint_d(k, Policy()); }\
+\
+   template <class T1, class T2>\
+   inline typename boost::math::tools::promote_args<T1, T2>::type ellint_d(T1 k, T2 phi){ return boost::math::ellint_d(k, phi, Policy()); }\
+\
+   template <class T1, class T2>\
+   inline typename boost::math::tools::promote_args<T1, T2>::type jacobi_zeta(T1 k, T2 phi){ return boost::math::jacobi_zeta(k, phi, Policy()); }\
+\
+   template <class T1, class T2>\
+   inline typename boost::math::tools::promote_args<T1, T2>::type heuman_lambda(T1 k, T2 phi){ return boost::math::heuman_lambda(k, phi, Policy()); }\
 \
    template <typename T>\
    inline typename boost::math::tools::promote_args<T>::type ellint_1(T k){ return boost::math::ellint_1(k, Policy()); }\
@@ -1205,6 +1273,12 @@ namespace boost
    template <class T>\
    inline typename boost::math::tools::promote_args<T>::type digamma(T x){ return boost::math::digamma(x, Policy()); }\
 \
+   template <class T>\
+   inline typename boost::math::tools::promote_args<T>::type trigamma(T x){ return boost::math::trigamma(x, Policy()); }\
+\
+   template <class T>\
+   inline typename boost::math::tools::promote_args<T>::type polygamma(int n, T x){ return boost::math::polygamma(n, x, Policy()); }\
+   \
    template <class T1, class T2>\
    inline typename boost::math::tools::promote_args<T1, T2>::type \
    hypot(T1 x, T2 y){ return boost::math::hypot(x, y, Policy()); }\

@@ -23,7 +23,6 @@
 #include <boost/mpl/if.hpp>
 #include <boost/multi_index/detail/scope_guard.hpp>
 #include <boost/swap.hpp>
-#include <boost/throw_exception.hpp>
 #include <boost/type_traits/aligned_storage.hpp>
 #include <boost/type_traits/alignment_of.hpp>
 #include <boost/type_traits/has_nothrow_copy.hpp>

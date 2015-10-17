@@ -8,10 +8,6 @@
 #if !defined(BOOST_SPIRIT_X3_UNUSED_APRIL_16_2006_0616PM)
 #define BOOST_SPIRIT_X3_UNUSED_APRIL_16_2006_0616PM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <ostream>
 #include <istream>
 #include <boost/mpl/identity.hpp>
@@ -64,16 +60,13 @@ namespace boost { namespace spirit { namespace x3
         // unused_type can also masquerade as an empty context (see context.hpp)
 
         template <typename ID>
-        struct get_result : mpl::identity<unused_type> {};
-
-        template <typename ID>
         unused_type get(ID) const
         {
-            return unused_type();
+            return {};
         }
     };
 
-    unused_type const unused = unused_type();
+    auto const unused = unused_type{};
 
     inline std::ostream& operator<<(std::ostream& out, unused_type const&)
     {

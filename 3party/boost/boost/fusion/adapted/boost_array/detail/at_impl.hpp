@@ -14,7 +14,7 @@
 #include <boost/mpl/if.hpp>
 
 namespace boost { namespace fusion {
-    
+
     struct boost_array_tag;
 
     namespace extension
@@ -33,7 +33,7 @@ namespace boost { namespace fusion {
                     typename Sequence::const_reference, 
                     typename Sequence::reference>::type type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& seq)
                 {

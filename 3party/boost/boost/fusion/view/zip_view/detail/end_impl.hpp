@@ -55,7 +55,7 @@ namespace boost { namespace fusion {
             };
 
             template<typename Seq>
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             typename result<endpoints(Seq&)>::type
             operator()(Seq& seq) const
             {
@@ -63,14 +63,14 @@ namespace boost { namespace fusion {
             }
 
             template<typename Seq>
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             typename result<endpoints(Seq const&)>::type
             operator()(Seq const& seq) const
             {
                 return fusion::advance<M>(fusion::begin(seq));
             }
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             unused_type operator()(unused_type const&) const
             {
                 return unused_type();
@@ -93,7 +93,7 @@ namespace boost { namespace fusion {
                     typename result_of::transform<typename Sequence::sequences, detail::endpoints<typename Sequence::size> >::type,
                     typename Sequence::category> type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& sequence)
                 {

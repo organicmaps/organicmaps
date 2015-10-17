@@ -44,6 +44,7 @@ class hashed_index_iterator:
     const typename Node::value_type&>
 {
 public:
+  /* coverity[uninit_ctor]: suppress warning */
   hashed_index_iterator(){}
   hashed_index_iterator(Node* node_):node(node_){}
 

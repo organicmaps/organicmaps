@@ -87,20 +87,20 @@ namespace boost { namespace spirit { namespace x3
         with_directive<typename extension::as_parser<Subject>::value_type, ID, T>
         operator[](Subject const& subject) const
         {
-            return {as_parser(subject), val};
+            return { as_parser(subject), val };
         }
     };
 
     template <typename ID, typename T>
     inline with_gen<ID, T> with(T& val)
     {
-        return with_gen<ID, T>{val};
+        return { val };
     }
     
     template <typename ID, typename T>
     inline with_gen<ID, T const> with(T const& val)
     {
-        return with_gen<ID, T const>{val};
+        return { val };
     }
 }}}
 

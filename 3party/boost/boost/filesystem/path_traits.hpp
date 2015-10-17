@@ -91,43 +91,65 @@ namespace path_traits {
   // value types differ  ---------------------------------------------------------------//
   //
   //   A from_end argument of 0 is less efficient than a known end, so use only if needed
-  
-  BOOST_FILESYSTEM_DECL
-  void convert(const char* from,
-                const char* from_end,    // 0 for null terminated MBCS
-                std::wstring & to,
-                const codecvt_type& cvt);
+
+  //  with codecvt
 
   BOOST_FILESYSTEM_DECL
-  void convert(const wchar_t* from,
-                const wchar_t* from_end,  // 0 for null terminated MBCS
-                std::string & to,
-                const codecvt_type& cvt);
+    void convert(const char* from,
+    const char* from_end,    // 0 for null terminated MBCS
+    std::wstring & to,
+    const codecvt_type& cvt);
 
-  inline 
-  void convert(const char* from,
-                std::wstring & to,
-                const codecvt_type& cvt)
+  BOOST_FILESYSTEM_DECL
+    void convert(const wchar_t* from,
+    const wchar_t* from_end,  // 0 for null terminated MBCS
+    std::string & to,
+    const codecvt_type& cvt);
+
+  inline
+    void convert(const char* from,
+    std::wstring & to,
+    const codecvt_type& cvt)
   {
     BOOST_ASSERT(from);
     convert(from, 0, to, cvt);
   }
 
-  inline 
-  void convert(const wchar_t* from,
-                std::string & to,
-                const codecvt_type& cvt)
+  inline
+    void convert(const wchar_t* from,
+    std::string & to,
+    const codecvt_type& cvt)
   {
     BOOST_ASSERT(from);
     convert(from, 0, to, cvt);
   }
+
+  //  without codecvt
+
+  inline
+    void convert(const char* from,
+    const char* from_end,    // 0 for null terminated MBCS
+    std::wstring & to);
+
+  inline
+    void convert(const wchar_t* from,
+    const wchar_t* from_end,  // 0 for null terminated MBCS
+    std::string & to);
+
+  inline
+    void convert(const char* from,
+    std::wstring & to);
+
+  inline
+    void convert(const wchar_t* from,
+    std::string & to);
 
   // value types same  -----------------------------------------------------------------//
 
-  // char
+  // char with codecvt
 
-  inline 
-  void convert(const char* from, const char* from_end, std::string & to,
+  inline
+    void convert(const char* from, const char* from_end, std::string & to,
     const codecvt_type&)
   {
     BOOST_ASSERT(from);
@@ -135,19 +157,19 @@ namespace path_traits {
     to.append(from, from_end);
   }
 
-  inline 
-  void convert(const char* from,
-                std::string & to,
-                const codecvt_type&)
+  inline
+    void convert(const char* from,
+    std::string & to,
+    const codecvt_type&)
   {
     BOOST_ASSERT(from);
     to += from;
   }
 
-  // wchar_t
+  // wchar_t with codecvt
 
-  inline 
-  void convert(const wchar_t* from, const wchar_t* from_end, std::wstring & to,
+  inline
+    void convert(const wchar_t* from, const wchar_t* from_end, std::wstring & to,
     const codecvt_type&)
   {
     BOOST_ASSERT(from);
@@ -155,10 +177,44 @@ namespace path_traits {
     to.append(from, from_end);
   }
 
-  inline 
-  void convert(const wchar_t* from,
-                std::wstring & to,
-                const codecvt_type&)
+  inline
+    void convert(const wchar_t* from,
+    std::wstring & to,
+    const codecvt_type&)
+  {
+    BOOST_ASSERT(from);
+    to += from;
+  }
+
+  // char without codecvt
+
+  inline
+    void convert(const char* from, const char* from_end, std::string & to)
+  {
+    BOOST_ASSERT(from);
+    BOOST_ASSERT(from_end);
+    to.append(from, from_end);
+  }
+
+  inline
+    void convert(const char* from, std::string & to)
+  {
+    BOOST_ASSERT(from);
+    to += from;
+  }
+
+  // wchar_t without codecvt
+
+  inline
+    void convert(const wchar_t* from, const wchar_t* from_end, std::wstring & to)
+  {
+    BOOST_ASSERT(from);
+    BOOST_ASSERT(from_end);
+    to.append(from, from_end);
+  }
+
+  inline
+    void convert(const wchar_t* from, std::wstring & to)
   {
     BOOST_ASSERT(from);
     to += from;
@@ -166,7 +222,7 @@ namespace path_traits {
 
   //  Source dispatch  -----------------------------------------------------------------//
 
-  //  contiguous containers
+  //  contiguous containers with codecvt
   template <class U> inline
     void dispatch(const std::string& c, U& to, const codecvt_type& cvt)
   {
@@ -192,12 +248,38 @@ namespace path_traits {
       convert(&*c.begin(), &*c.begin() + c.size(), to, cvt);
   }
 
-  //  non-contiguous containers
+  //  contiguous containers without codecvt
+  template <class U> inline
+    void dispatch(const std::string& c, U& to)
+  {
+    if (c.size())
+      convert(&*c.begin(), &*c.begin() + c.size(), to);
+  }
+  template <class U> inline
+    void dispatch(const std::wstring& c, U& to)
+  {
+    if (c.size())
+      convert(&*c.begin(), &*c.begin() + c.size(), to);
+  }
+  template <class U> inline
+    void dispatch(const std::vector<char>& c, U& to)
+  {
+    if (c.size())
+      convert(&*c.begin(), &*c.begin() + c.size(), to);
+  }
+  template <class U> inline
+    void dispatch(const std::vector<wchar_t>& c, U& to)
+  {
+    if (c.size())
+      convert(&*c.begin(), &*c.begin() + c.size(), to);
+  }
+
+  //  non-contiguous containers with codecvt
   template <class Container, class U> inline
     // disable_if aids broken compilers (IBM, old GCC, etc.) and is harmless for
     // conforming compilers. Replace by plain "void" at some future date (2012?) 
     typename boost::disable_if<boost::is_array<Container>, void>::type
-      dispatch(const Container & c, U& to, const codecvt_type& cvt)
+    dispatch(const Container & c, U& to, const codecvt_type& cvt)
   {
     if (c.size())
     {
@@ -208,24 +290,59 @@ namespace path_traits {
 
   //  c_str
   template <class T, class U> inline
-  void dispatch(T * const & c_str, U& to, const codecvt_type& cvt)
+    void dispatch(T * const & c_str, U& to, const codecvt_type& cvt)
   {
-//    std::cout << "dispatch() const T *\n";
+    //    std::cout << "dispatch() const T *\n";
     BOOST_ASSERT(c_str);
     convert(c_str, to, cvt);
   }
-  
+
+  //  Note: there is no dispatch on C-style arrays because the array may
+  //  contain a string smaller than the array size.
+
+  BOOST_FILESYSTEM_DECL
+    void dispatch(const directory_entry & de,
+#                ifdef BOOST_WINDOWS_API
+    std::wstring & to,
+#                else
+    std::string & to,
+#                endif
+    const codecvt_type&);
+
+  //  non-contiguous containers without codecvt
+  template <class Container, class U> inline
+    // disable_if aids broken compilers (IBM, old GCC, etc.) and is harmless for
+    // conforming compilers. Replace by plain "void" at some future date (2012?)
+    typename boost::disable_if<boost::is_array<Container>, void>::type
+    dispatch(const Container & c, U& to)
+  {
+    if (c.size())
+    {
+      std::basic_string<typename Container::value_type> seq(c.begin(), c.end());
+      convert(seq.c_str(), seq.c_str()+seq.size(), to);
+    }
+  }
+
+  //  c_str
+  template <class T, class U> inline
+    void dispatch(T * const & c_str, U& to)
+  {
+    //    std::cout << "dispatch() const T *\n";
+    BOOST_ASSERT(c_str);
+    convert(c_str, to);
+  }
+
   //  Note: there is no dispatch on C-style arrays because the array may
   //  contain a string smaller than the array size. 
 
   BOOST_FILESYSTEM_DECL
-  void dispatch(const directory_entry & de,
+    void dispatch(const directory_entry & de,
 #                ifdef BOOST_WINDOWS_API
-                   std::wstring & to,
+    std::wstring & to
 #                else   
-                   std::string & to,
+    std::string & to
 #                endif
-                 const codecvt_type&);
+    );
 
 
 }}} // namespace boost::filesystem::path_traits

@@ -11,7 +11,11 @@
 #ifndef BOOST_INTERPROCESS_SHM_NAMED_CONDITION_HPP
 #define BOOST_INTERPROCESS_SHM_NAMED_CONDITION_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -44,21 +48,21 @@ namespace boost {
 namespace interprocess {
 namespace ipcdetail {
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 class interprocess_tester;
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 //! A global condition variable that can be created by name.
 //! This condition variable is designed to work with named_mutex and
 //! can't be placed in shared memory or memory mapped files.
 class shm_named_condition
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    //Non-copyable
    shm_named_condition();
    shm_named_condition(const shm_named_condition &);
    shm_named_condition &operator=(const shm_named_condition &);
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
    public:
    //!Creates a global condition with a name.
    //!If the condition can't be created throws interprocess_exception
@@ -122,7 +126,7 @@ class shm_named_condition
    //!Returns false on error. Never throws.
    static bool remove(const char *name);
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
 
    #if defined (BOOST_INTERPROCESS_NAMED_MUTEX_USES_POSIX_SEMAPHORES)
@@ -156,10 +160,10 @@ class shm_named_condition
 
    template <class T, class Arg> friend class boost::interprocess::ipcdetail::named_creation_functor;
    typedef boost::interprocess::ipcdetail::named_creation_functor<internal_condition> construct_func_t;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
 inline shm_named_condition::~shm_named_condition()
 {}
@@ -224,7 +228,7 @@ inline bool shm_named_condition::timed_wait
 inline bool shm_named_condition::remove(const char *name)
 {  return shared_memory_object::remove(name); }
 
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 }  //namespace ipcdetail
 }  //namespace interprocess

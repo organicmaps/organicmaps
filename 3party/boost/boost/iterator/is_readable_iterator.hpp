@@ -5,18 +5,22 @@
 # define IS_READABLE_ITERATOR_DWA2003112_HPP
 
 #include <boost/mpl/bool.hpp>
+#include <boost/mpl/aux_/lambda_support.hpp>
 #include <boost/detail/iterator.hpp>
+#include <boost/type_traits/add_lvalue_reference.hpp>
 
-#include <boost/type_traits/detail/bool_trait_def.hpp>
 #include <boost/iterator/detail/any_conversion_eater.hpp>
 
 // should be the last #include
+#include <boost/type_traits/integral_constant.hpp>
 #include <boost/iterator/detail/config_def.hpp>
 
 #ifndef BOOST_NO_IS_CONVERTIBLE
 
 namespace boost {
- 
+
+namespace iterators {
+
 namespace detail
 {
   // Guts of is_readable_iterator.  Value is the iterator's value_type
@@ -24,14 +28,14 @@ namespace detail
   template <class Value>
   struct is_readable_iterator_impl
   {
-      static char tester(Value&, int);
+      static char tester(typename add_lvalue_reference<Value>::type, int);
       static char (& tester(any_conversion_eater, ...) )[2];
-    
+
       template <class It>
       struct rebind
       {
           static It& x;
-          
+
           BOOST_STATIC_CONSTANT(
               bool
             , value = (
@@ -44,7 +48,7 @@ namespace detail
   };
 
 #undef BOOST_READABLE_PRESERVER
-  
+
   //
   // void specializations to handle std input and output iterators
   //
@@ -94,11 +98,17 @@ namespace detail
   {};
 } // namespace detail
 
-// Define the trait with full mpl lambda capability and various broken
-// compiler workarounds
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(
-    is_readable_iterator,T,::boost::detail::is_readable_iterator_impl2<T>::value)
-    
+template< typename T > struct is_readable_iterator
+: public ::boost::integral_constant<bool,::boost::iterators::detail::is_readable_iterator_impl2<T>::value>
+{
+public:
+    BOOST_MPL_AUX_LAMBDA_SUPPORT(1,is_readable_iterator,(T))
+};
+
+} // namespace iterators
+
+using iterators::is_readable_iterator;
+
 } // namespace boost
 
 #endif

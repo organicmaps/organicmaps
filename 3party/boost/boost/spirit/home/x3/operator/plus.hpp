@@ -8,10 +8,6 @@
 #if !defined(SPIRIT_PLUS_MARCH_13_2007_0127PM)
 #define SPIRIT_PLUS_MARCH_13_2007_0127PM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/spirit/home/x3/core/parser.hpp>
 #include <boost/spirit/home/x3/support/traits/container_traits.hpp>
 #include <boost/spirit/home/x3/support/traits/attribute_of.hpp>
@@ -48,7 +44,7 @@ namespace boost { namespace spirit { namespace x3
     inline plus<typename extension::as_parser<Subject>::value_type>
     operator+(Subject const& subject)
     {
-        return {as_parser(subject)};
+        return { as_parser(subject) };
     }
 }}}
 

@@ -279,9 +279,9 @@ operator>>(std::basic_istream<CharT, Traits>& in, tribool& x)
       bool falsename_ok = true, truename_ok = true, othername_ok = true;
 
       // Modeled after the code from Library DR 17
-      while (falsename_ok && pos < falsename.size()
-             || truename_ok && pos < truename.size()
-             || othername_ok && pos < othername.size()) {
+      while ((falsename_ok && pos < falsename.size())
+             || (truename_ok && pos < truename.size())
+             || (othername_ok && pos < othername.size())) {
         typename Traits::int_type c = in.get();
         if (c == Traits::eof())
           return in;

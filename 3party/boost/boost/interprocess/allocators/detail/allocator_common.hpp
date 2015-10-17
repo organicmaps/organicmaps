@@ -11,6 +11,14 @@
 #ifndef BOOST_INTERPROCESS_ALLOCATOR_DETAIL_ALLOCATOR_COMMON_HPP
 #define BOOST_INTERPROCESS_ALLOCATOR_DETAIL_ALLOCATOR_COMMON_HPP
 
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
 
@@ -26,12 +34,11 @@
 #include <boost/container/detail/multiallocation_chain.hpp>
 #include <boost/interprocess/mem_algo/detail/mem_algo_common.hpp>
 #include <boost/interprocess/detail/segment_manager_helper.hpp>
-#include <boost/move/move.hpp>
+#include <boost/move/utility_core.hpp>
 #include <boost/interprocess/detail/type_traits.hpp>
 #include <boost/interprocess/detail/utilities.hpp>
-#include <algorithm> //std::swap
-#include <utility>   //std::pair
-#include <new>
+#include <boost/container/detail/placement_new.hpp>
+#include <boost/move/adl_move_swap.hpp>
 
 namespace boost {
 namespace interprocess {
@@ -291,9 +298,9 @@ class cache_impl
    public:
    void swap(cache_impl &other)
    {
-      ipcdetail::do_swap(mp_node_pool, other.mp_node_pool);
-      m_cached_nodes.swap(other.m_cached_nodes);
-      ipcdetail::do_swap(m_max_cached_nodes, other.m_max_cached_nodes);
+      ::boost::adl_move_swap(mp_node_pool, other.mp_node_pool);
+      ::boost::adl_move_swap(m_cached_nodes, other.m_cached_nodes);
+      ::boost::adl_move_swap(m_max_cached_nodes, other.m_max_cached_nodes);
    }
 };
 
@@ -334,14 +341,14 @@ class array_allocation_impl
       return (size_type)this->derived()->get_segment_manager()->size(ipcdetail::to_raw_pointer(p))/sizeof(T);
    }
 
-   std::pair<pointer, bool>
-      allocation_command(boost::interprocess::allocation_type command,
-                         size_type limit_size,
-                         size_type preferred_size,
-                         size_type &received_size, const pointer &reuse = 0)
+   pointer allocation_command(boost::interprocess::allocation_type command,
+                         size_type limit_size, size_type &prefer_in_recvd_out_size, pointer &reuse)
    {
-      return this->derived()->get_segment_manager()->allocation_command
-         (command, limit_size, preferred_size, received_size, ipcdetail::to_raw_pointer(reuse));
+      value_type *reuse_raw = ipcdetail::to_raw_pointer(reuse);
+      pointer const p = this->derived()->get_segment_manager()->allocation_command
+         (command, limit_size, prefer_in_recvd_out_size, reuse_raw);
+      reuse = reuse_raw;
+      return p;
    }
 
    //!Allocates many elements of size elem_size in a contiguous block
@@ -395,7 +402,7 @@ class array_allocation_impl
    //!For backwards compatibility with libraries using C++03 allocators
    template<class P>
    void construct(const pointer &ptr, BOOST_FWD_REF(P) p)
-   {  ::new((void*)ipcdetail::to_raw_pointer(ptr)) value_type(::boost::forward<P>(p));  }
+   {  ::new((void*)ipcdetail::to_raw_pointer(ptr), boost_container_new_t()) value_type(::boost::forward<P>(p));  }
 
    //!Destroys object. Throws if object's
    //!destructor throws
@@ -667,7 +674,7 @@ class cached_allocator_impl
    //!Swaps allocators. Does not throw. If each allocator is placed in a
    //!different shared memory segments, the result is undefined.
    friend void swap(cached_allocator_impl &alloc1, cached_allocator_impl &alloc2)
-   {  alloc1.m_cache.swap(alloc2.m_cache);   }
+   {  ::boost::adl_move_swap(alloc1.m_cache, alloc2.m_cache);   }
 
    void deallocate_cache()
    {  m_cache.deallocate_all_cached_nodes(); }
@@ -676,9 +683,10 @@ class cached_allocator_impl
    void deallocate_free_chunks()
    {  m_cache.get_node_pool()->deallocate_free_blocks();   }
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    cache_impl<node_pool_t> m_cache;
+   #endif   //!defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 };
 
 //!Equality test for same type of

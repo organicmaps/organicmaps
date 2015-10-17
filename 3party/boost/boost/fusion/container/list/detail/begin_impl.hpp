@@ -36,8 +36,8 @@ namespace boost { namespace fusion
             struct apply
             {
                 typedef cons_iterator<Sequence> type;
-    
-                BOOST_FUSION_GPU_ENABLED
+
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& t)
                 {

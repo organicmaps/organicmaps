@@ -247,7 +247,7 @@ namespace boost { namespace property_tree
 
         /** Get the child at the given path, or throw @c ptree_bad_path.
          * @note Depending on the path, the result at each level may not be
-         *       completely determinate, i.e. if the same key appears multiple
+         *       completely deterministic, i.e. if the same key appears multiple
          *       times, which child is chosen is not specified. This can lead
          *       to the path not being resolved even though there is a
          *       descendant with this path. Example:

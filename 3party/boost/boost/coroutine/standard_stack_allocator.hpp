@@ -7,6 +7,10 @@
 #ifndef BOOST_COROUTINES_STANDARD_STACK_ALLOCATOR_H
 #define BOOST_COROUTINES_STANDARD_STACK_ALLOCATOR_H
 
+#if defined(BOOST_USE_VALGRIND)
+#include <valgrind/valgrind.h>
+#endif
+
 #include <cstddef>
 #include <cstdlib>
 #include <new>
@@ -40,6 +44,9 @@ struct basic_standard_stack_allocator
 
         ctx.size = size;
         ctx.sp = static_cast< char * >( limit) + ctx.size;
+#if defined(BOOST_USE_VALGRIND)
+        ctx.valgrind_stack_id = VALGRIND_STACK_REGISTER( ctx.sp, limit);
+#endif
     }
 
     void deallocate( stack_context & ctx)
@@ -47,6 +54,10 @@ struct basic_standard_stack_allocator
         BOOST_ASSERT( ctx.sp);
         BOOST_ASSERT( traits_type::minimum_size() <= ctx.size);
         BOOST_ASSERT( traits_type::is_unbounded() || ( traits_type::maximum_size() >= ctx.size) );
+
+#if defined(BOOST_USE_VALGRIND)
+        VALGRIND_STACK_DEREGISTER( ctx.valgrind_stack_id);
+#endif
 
         void * limit = static_cast< char * >( ctx.sp) - ctx.size;
         std::free( limit);

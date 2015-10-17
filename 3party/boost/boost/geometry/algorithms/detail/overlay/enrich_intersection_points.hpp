@@ -357,14 +357,14 @@ inline void enrich_assign(Container& operations,
                     = turn_points[it->turn_index].operations[it->operation_index];
 
             prev_op.enriched.travels_to_ip_index
-                    = static_cast<int>(it->turn_index);
+                    = static_cast<signed_size_type>(it->turn_index);
             prev_op.enriched.travels_to_vertex_index
                     = it->subject->seg_id.segment_index;
 
             if (! first
                 && prev_op.seg_id.segment_index == op.seg_id.segment_index)
             {
-                prev_op.enriched.next_ip_index = static_cast<int>(it->turn_index);
+                prev_op.enriched.next_ip_index = static_cast<signed_size_type>(it->turn_index);
             }
             first = false;
         }

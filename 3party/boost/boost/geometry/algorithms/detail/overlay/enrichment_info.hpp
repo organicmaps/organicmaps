@@ -37,13 +37,13 @@ struct enrichment_info
     // vertex to which is free travel after this IP,
     // so from "segment_index+1" to "travels_to_vertex_index", without IP-s,
     // can be -1
-    signed_index_type travels_to_vertex_index;
+    signed_size_type travels_to_vertex_index;
 
     // same but now IP index, so "next IP index" but not on THIS segment
-    int travels_to_ip_index;
+    signed_size_type travels_to_ip_index;
 
     // index of next IP on this segment, -1 if there is no one
-    int next_ip_index;
+    signed_size_type next_ip_index;
 };
 
 

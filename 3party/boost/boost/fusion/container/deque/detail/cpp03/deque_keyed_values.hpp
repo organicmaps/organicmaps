@@ -24,7 +24,6 @@
 
 #include <boost/mpl/plus.hpp>
 #include <boost/mpl/int.hpp>
-#include <boost/mpl/print.hpp>
 
 #define FUSION_VOID(z, n, _) void_
 
@@ -68,13 +67,13 @@ namespace boost { namespace fusion { namespace detail
     {
         typedef nil_keyed_element type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type construct()
         {
             return type();
         }
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type forward_()
         {
             return type();

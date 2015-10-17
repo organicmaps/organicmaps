@@ -25,46 +25,11 @@ struct if_selected
     };
 };
 
-# if defined(BOOST_MSVC) && (BOOST_MSVC == 1300)
-namespace msvc70_aux {
-
-template< bool > struct inherit_from
-{
-    template< typename T > struct result
-    {
-        typedef T type;
-    };
-};
-
-template<> struct inherit_from<true>
-{
-    template< typename T > struct result
-    {
-        struct type {};
-    };
-};
-
-template< typename T >
-struct never_true
-{
-    BOOST_STATIC_CONSTANT(bool, value = false);
-};
-
-} // namespace msvc70_aux
-
-#endif // # if defined(BOOST_MSVC) && (BOOST_MSVC == 1300)
-
 template <class T>
 struct elif_selected
 {
-# if !(defined(BOOST_MSVC) && BOOST_MSVC <= 1300 || defined(__MWERKS__) && __MWERKS__ <= 0x2407)
+# if !(defined(__MWERKS__) && __MWERKS__ <= 0x2407)
     template <class U> class then;
-# elif defined(BOOST_MSVC) && (BOOST_MSVC == 1300)
-    template <class U>
-    struct then : msvc70_aux::inherit_from< msvc70_aux::never_true<U>::value >
-        ::template result< if_selected<T> >::type
-    {
-    };
 # else
     template <class U>
     struct then : if_selected<T>
@@ -73,7 +38,7 @@ struct elif_selected
 # endif 
 };
 
-# if !(defined(BOOST_MSVC) && BOOST_MSVC <= 1300 || defined(__MWERKS__) && __MWERKS__ <= 0x2407)
+# if !(defined(__MWERKS__) && __MWERKS__ <= 0x2407)
 template <class T>
 template <class U>
 class elif_selected<T>::then : public if_selected<T>

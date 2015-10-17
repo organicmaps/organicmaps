@@ -19,10 +19,6 @@
 
 namespace boost { namespace algorithm {
 
-#if __cplusplus >= 201103L
-//  Use the C++11 versions of find_if_not if it is available
-using std::find_if_not;      // Section 25.2.5
-#else
 /// \fn find_if_not(InputIterator first, InputIterator last, Predicate p)
 /// \brief Finds the first element in the sequence that does not satisfy the predicate.
 /// \return         The iterator pointing to the desired element.
@@ -41,7 +37,6 @@ InputIterator find_if_not ( InputIterator first, InputIterator last, Predicate p
             break;
     return first;
 }
-#endif
 
 /// \fn find_if_not ( const Range &r, Predicate p )
 /// \brief Finds the first element in the sequence that does not satisfy the predicate.

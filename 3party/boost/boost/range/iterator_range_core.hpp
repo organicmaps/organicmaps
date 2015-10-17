@@ -66,13 +66,13 @@ namespace boost
             template< class ForwardRange >
             static IteratorT adl_begin( ForwardRange& r )
             {
-                return static_cast<IteratorT>( boost::begin( r ) );
+                return IteratorT( boost::begin( r ) );
             }
 
             template< class ForwardRange >
             static IteratorT adl_end( ForwardRange& r )
             {
-                return static_cast<IteratorT>( boost::end( r ) );
+                return IteratorT( boost::end( r ) );
             }
         };
 
@@ -442,14 +442,28 @@ public:
             > base_type;
 
             template<class Source>
-            struct is_compatible_range
-                : is_convertible<
+            struct is_compatible_range_
+              : is_convertible<
                     BOOST_DEDUCED_TYPENAME mpl::eval_if<
                         has_range_iterator<Source>,
                         range_iterator<Source>,
                         mpl::identity<void>
                     >::type,
                     BOOST_DEDUCED_TYPENAME base_type::iterator
+                >
+            {
+            };
+
+            template<class Source>
+            struct is_compatible_range
+                : mpl::and_<
+                    mpl::not_<
+                        is_convertible<
+                            Source,
+                            BOOST_DEDUCED_TYPENAME base_type::iterator
+                        >
+                    >,
+                    is_compatible_range_<Source>
                 >
             {
             };

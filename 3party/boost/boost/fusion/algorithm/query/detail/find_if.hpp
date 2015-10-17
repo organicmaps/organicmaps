@@ -184,7 +184,7 @@ namespace detail
         type;
 
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type
         recursive_call(Iterator const& iter, mpl::true_)
         {
@@ -192,7 +192,7 @@ namespace detail
         }
 
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type
         recursive_call(Iterator const& iter, mpl::false_)
         {
@@ -200,7 +200,7 @@ namespace detail
         }
 
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type
         recursive_call(Iterator const& iter)
         {
@@ -209,7 +209,7 @@ namespace detail
         }
 
         template <typename Iterator, typename Tag>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type
         choose_call(Iterator const& iter, Tag)
         {
@@ -217,7 +217,7 @@ namespace detail
         }
 
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type
         choose_call(Iterator const& iter, random_access_traversal_tag)
         {
@@ -226,7 +226,7 @@ namespace detail
         }
 
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type
         iter_call(Iterator const& iter)
         {
@@ -234,7 +234,7 @@ namespace detail
         }
 
         template <typename Sequence>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type
         call(Sequence& seq)
         {

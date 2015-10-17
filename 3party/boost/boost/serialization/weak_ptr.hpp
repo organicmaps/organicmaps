@@ -7,7 +7,7 @@
 #endif
 
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////8
-// shared_ptr.hpp: serialization for boost shared pointer
+// weak_ptr.hpp: serialization for boost weak pointer
 
 // (C) Copyright 2004 Robert Ramey and Martin Ecker
 // Use, modification and distribution is subject to the Boost Software

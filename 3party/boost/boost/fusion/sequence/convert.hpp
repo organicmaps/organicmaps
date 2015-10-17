@@ -7,6 +7,8 @@
 #if !defined(FUSION_CONVERT_10022005_1442)
 #define FUSION_CONVERT_10022005_1442
 
+#include <boost/fusion/support/config.hpp>
+
 namespace boost { namespace fusion
 {
     namespace extension
@@ -29,7 +31,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Tag, typename Sequence>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::convert<Tag, Sequence>::type
     convert(Sequence& seq)
     {
@@ -38,7 +40,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Tag, typename Sequence>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::convert<Tag, Sequence const>::type
     convert(Sequence const& seq)
     {

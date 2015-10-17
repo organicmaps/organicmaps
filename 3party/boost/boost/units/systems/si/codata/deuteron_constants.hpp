@@ -11,6 +11,7 @@
 #ifndef BOOST_UNITS_CODATA_DEUTERON_CONSTANTS_HPP
 #define BOOST_UNITS_CODATA_DEUTERON_CONSTANTS_HPP
 
+#include <boost/units/quantity.hpp>
 #include <boost/units/static_constant.hpp>
 
 #include <boost/units/systems/detail/constants.hpp>

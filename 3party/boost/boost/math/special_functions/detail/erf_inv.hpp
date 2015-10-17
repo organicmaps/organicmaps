@@ -103,7 +103,7 @@ T erf_inv_imp(const T& p, const T& q, const Policy&, const boost::mpl::int_<64>*
          BOOST_MATH_BIG_CONSTANT(T, 64, 1.72114765761200282724)
       };
       T g = sqrt(-2 * log(q));
-      T xs = q - 0.25;
+      T xs = q - 0.25f;
       T r = tools::evaluate_polynomial(P, xs) / tools::evaluate_polynomial(Q, xs);
       result = g / (Y + r);
    }
@@ -156,7 +156,7 @@ T erf_inv_imp(const T& p, const T& q, const Policy&, const boost::mpl::int_<64>*
             BOOST_MATH_BIG_CONSTANT(T, 64, 0.152264338295331783612),
             BOOST_MATH_BIG_CONSTANT(T, 64, 0.01105924229346489121)
          };
-         T xs = x - 1.125;
+         T xs = x - 1.125f;
          T R = tools::evaluate_polynomial(P, xs) / tools::evaluate_polynomial(Q, xs);
          result = Y * x + R * x;
       }

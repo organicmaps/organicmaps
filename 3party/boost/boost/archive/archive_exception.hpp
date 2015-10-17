@@ -21,7 +21,6 @@
 #include <string>
 
 #include <boost/config.hpp> 
-#include <boost/preprocessor/empty.hpp>
 #include <boost/archive/detail/decl.hpp>
 
 // note: the only reason this is in here is that windows header
@@ -40,11 +39,16 @@ namespace archive {
 //////////////////////////////////////////////////////////////////////
 // exceptions thrown by archives
 //
-class BOOST_ARCHIVE_DECL(BOOST_PP_EMPTY()) archive_exception : 
+class BOOST_SYMBOL_VISIBLE archive_exception :
     public virtual std::exception
 {
-protected:
+private:
     char m_buffer[128];
+protected:
+    BOOST_ARCHIVE_DECL unsigned int
+    append(unsigned int l, const char * a);
+    BOOST_ARCHIVE_DECL
+    archive_exception() BOOST_NOEXCEPT;
 public:
     typedef enum {
         no_exception,       // initialized without code
@@ -76,19 +80,15 @@ public:
                             // type has been instantiated in more than one module.
         output_stream_error // error on input stream
     } exception_code;
-public:
     exception_code code;
-    archive_exception(
+
+    BOOST_ARCHIVE_DECL archive_exception(
         exception_code c, 
         const char * e1 = NULL,
         const char * e2 = NULL
-    );
-    virtual ~archive_exception() throw();
-    virtual const char *what() const throw();
-protected:
-    unsigned int
-    append(unsigned int l, const char * a);
-    archive_exception();
+    ) BOOST_NOEXCEPT;
+    virtual BOOST_ARCHIVE_DECL ~archive_exception() BOOST_NOEXCEPT_OR_NOTHROW ;
+    virtual BOOST_ARCHIVE_DECL const char * what() const BOOST_NOEXCEPT_OR_NOTHROW ;
 };
 
 }// namespace archive

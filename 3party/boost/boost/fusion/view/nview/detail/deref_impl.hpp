@@ -34,7 +34,7 @@ namespace boost { namespace fusion
                 typedef typename result_of::at<
                     typename sequence_type::sequence_type, index>::type type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type call(Iterator const& i)
                 {
                     return at<index>(i.seq.seq);

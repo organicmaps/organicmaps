@@ -1,7 +1,8 @@
 /*=============================================================================
     Copyright (c) 2001-2007 Joel de Guzman
+    Copyright (c) 2014      John Fletcher
 
-    Distributed under the Boost Software License, Version 1.0. (See accompanying 
+    Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 ==============================================================================*/
 
@@ -10,6 +11,8 @@
 #ifndef PHOENIX_BIND_BIND_MEMBER_FUNCTION_HPP
 #define PHOENIX_BIND_BIND_MEMBER_FUNCTION_HPP
 
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_member_function_pointer.hpp>
 #include <boost/phoenix/core/expression.hpp>
 #include <boost/phoenix/core/reference.hpp>
 #include <boost/phoenix/core/detail/function_eval.hpp>
@@ -20,9 +23,11 @@ namespace boost { namespace phoenix
 
     template <typename RT, typename ClassT, typename ClassA>
     inline
+    typename boost::lazy_enable_if<
+      boost::is_member_function_pointer<RT (ClassT::*)()>,
     typename detail::expression::function_eval<
             detail::member_function_ptr<0, RT, RT(ClassT::*)()>
-          , ClassA
+          , ClassA >
     >::type const
     bind(RT(ClassT::*f)(), ClassA const& obj)
     {
@@ -36,9 +41,11 @@ namespace boost { namespace phoenix
 
     template <typename RT, typename ClassT, typename ClassA>
     inline
+    typename boost::lazy_enable_if<
+      boost::is_member_function_pointer<RT (ClassT::*)()>,
     typename detail::expression::function_eval<
             detail::member_function_ptr<0, RT, RT(ClassT::*)() const>
-          , ClassA
+          , ClassA >
     >::type const
     bind(RT(ClassT::*f)() const, ClassA const& obj)
     {

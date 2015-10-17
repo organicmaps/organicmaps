@@ -31,7 +31,7 @@ namespace boost { namespace fusion
     }
 
     template <typename F>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::BOOST_FUSION_FUNC_NAME<F>::type
     BOOST_FUSION_FUNC_NAME(F const & f)
     {

@@ -41,7 +41,7 @@ namespace void_cast_detail{
     class void_caster;
 }
 
-class BOOST_SERIALIZATION_DECL(BOOST_PP_EMPTY()) extended_type_info :
+class BOOST_SYMBOL_VISIBLE extended_type_info :
     private boost::noncopyable
 {
 private:
@@ -56,12 +56,12 @@ private:
     const char * m_key;
 
 protected:
-    void key_unregister() const;
-    void key_register() const;
+    BOOST_SERIALIZATION_DECL void key_unregister() const;
+    BOOST_SERIALIZATION_DECL void key_register() const;
     // this class can't be used as is. It's just the 
     // common functionality for all type_info replacement
     // systems.  Hence, make these protected
-    extended_type_info(
+    BOOST_SERIALIZATION_DECL extended_type_info(
         const unsigned int type_info_key,
         const char * key
     );
@@ -69,20 +69,20 @@ protected:
     #if defined(__GNUC__)
     virtual
     #endif
-    ~extended_type_info();
+    BOOST_SERIALIZATION_DECL ~extended_type_info();
 public:
     const char * get_key() const {
         return m_key;
     }
     virtual const char * get_debug_info() const = 0;
-    bool operator<(const extended_type_info &rhs) const;
-    bool operator==(const extended_type_info &rhs) const;
+    BOOST_SERIALIZATION_DECL bool operator<(const extended_type_info &rhs) const;
+    BOOST_SERIALIZATION_DECL bool operator==(const extended_type_info &rhs) const;
     bool operator!=(const extended_type_info &rhs) const {
         return !(operator==(rhs));
     }
     // note explicit "export" of static function to work around
     // gcc 4.5 mingw error
-    static const extended_type_info *
+    static BOOST_SERIALIZATION_DECL const extended_type_info *
     find(const char *key);
     // for plugins
     virtual void * construct(unsigned int /*count*/ = 0, ...) const = 0;
