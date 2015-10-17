@@ -72,6 +72,9 @@ Then:
 Prepend with `CONFIG=gtool` if only generator_tool is needed. You would need 1.5 GB of memory
 to compile `stats` module.
 
+The generated binaries appear in `omim-build-<flavour>/out/<flavour>/`.
+Run tests from this directory with `../../../omim/tools/unix/run_tests.sh`.
+
 To build and run OSRM binaries:
 
     sudo apt-get install libtbb2 libluabind0.9.1 liblua50 libstxxl1
