@@ -21,9 +21,11 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
 */
-#include "osm_time_range.hpp"
+#include <osm_time_range.hpp>
+#include <osm_parsers.hpp>
 
 #include <iostream>
+#include <sstream>
 #include <fstream>
 #include <map>
 #include <locale>
@@ -54,6 +56,41 @@ bool test(Char const * in, Parser const & p, bool full_match = true)
   return boost::spirit::qi::parse(in, last, p) && (!full_match || (in == last));
 }
 
+template <template <typename> class Parser, typename Char>
+std::basic_string<Char> ParseAndUnparse(Char const * input)
+{
+  // we don't care about the result of the "what" function.
+  // we only care that all parsers have it:
+
+  using boost::spirit::qi::phrase_parse;
+  using boost::spirit::standard_wide::space;
+
+  // TODO move to template
+  osmoh::TTimeRules timeRules;
+  std::basic_string<Char> const str(input);
+
+  Parser<decltype(begin(str))> p;
+  boost::spirit::qi::what(p);
+
+  auto parsed = boost::spirit::qi::phrase_parse(
+      begin(str),
+      end(str),
+      p,
+      space,
+      timeRules);
+
+  if (!parsed)
+    return {};
+
+  std::basic_stringstream<Char> sstr;
+  for (auto it = begin(timeRules); it != end(timeRules); ++it)
+  {
+    sstr << (*it);
+    if (next(it) != end(timeRules))
+      sstr << ' ';
+  }
+  return sstr.str();
+}
 
 BOOST_AUTO_TEST_CASE(OpeningHours_Locale)
 {
@@ -199,13 +236,15 @@ BOOST_AUTO_TEST_CASE(OpeningHours_StaticSet)
 {
   {
     // TODO(mgsergio) move validation from parsing
-    OSMTimeRange oh = OSMTimeRange::FromString("06:00-02:00/21:03");
-    BOOST_CHECK(oh.IsValid());
+    //  OSMTimeRange oh = OSMTimeRange::FromString("06:00-02:00/21:03");
+    //  BOOST_CHECK(oh.IsValid());
+    auto const rule = "06:00-02:00/21:03";
+    BOOST_CHECK_EQUAL(ParseAndUnparse<osmoh::parsing::time_domain>(rule), rule);
   }
 
   {
-    OSMTimeRange oh = OSMTimeRange::FromString("06:00-09:00/03");
-    BOOST_CHECK(oh.IsValid());
+    // BOOST_CHECK(test_hard<osmoh::parsing::time_domain>("06:00-09:00/03"));
+    //BOOST_CHECK(oh.IsValid());
   }
   {
     OSMTimeRange oh = OSMTimeRange::FromString("06:00-07:00/03");

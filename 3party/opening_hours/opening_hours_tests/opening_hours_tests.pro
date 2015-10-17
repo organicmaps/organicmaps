@@ -1,4 +1,3 @@
-
 TARGET = opening_hours_tests
 CONFIG += console worn_off
 CONFIG -= app_bundle
@@ -9,7 +8,10 @@ DEPENDENCIES += opening_hours \
 
 include($$ROOT_DIR/common.pri)
 
-INCLUDEPATH += $$ROOT_DIR/3party/opening_hours
+OPENING_HOURS_INCLUDE = $$ROOT_DIR/3party/opening_hours
+INCLUDEPATH += $$OPENING_HOURS_INCLUDE
 
 SOURCES += osm_time_range_tests.cpp
-SOURCES += ../osm_time_range.hpp
+HEADERS += $$OPENING_HOURS_INCLUDE/osm_time_range.hpp \
+           $$OPENING_HOURS_INCLUDE/osm_parsers.hpp
+           $$OPENING_HOURS_INCLUDE/adopted_structs.hpp

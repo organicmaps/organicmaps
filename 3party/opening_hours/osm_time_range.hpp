@@ -113,9 +113,11 @@ class TimeRule
 {
  public:
   TWeekdays weekdays;
-  TTimeSpans timespan;
+  TTimeSpans timespan; // TODO(mgsergio) rename to timespans
   State state;
   uint8_t int_flags = 0;
+
+  friend std::ostream & operator <<(std::ostream & s, TimeRule const & r);
 };
 } // namespace osmoh
 
