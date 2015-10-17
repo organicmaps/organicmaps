@@ -93,7 +93,7 @@ public:
     EdgeDataT res;
 
     res.shortcut = m_shortcuts[e];
-    res.id = res.shortcut ? (node - static_cast<NodeID>(bits::ZigZagDecode(m_edgeId[m_shortcuts.rank(e)]))) : 0;
+    res.id = res.shortcut ? (node - static_cast<NodeID>(bits::ZigZagDecode(m_edgeId[static_cast<size_t>(m_shortcuts.rank(e))]))) : 0;
     res.backward = (m_matrix.select(e) % 2 == 1);
     res.forward = !res.backward;
     res.distance = static_cast<int>(m_edgeData[e]);
