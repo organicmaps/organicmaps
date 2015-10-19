@@ -122,13 +122,14 @@ class TestRunner:
     def run_tests(self, tests_to_run):
         failed = []
         passed = []
+        self.start_server()
 
         for test_file in tests_to_run:
             
             self.log_exec_file(test_file)
 
-            if test_file in TESTS_REQUIRING_SERVER:
-                self.start_server()
+            # if test_file in TESTS_REQUIRING_SERVER:
+            #     self.start_server()
         
             test_file_with_keys = "{test_file}{data}{resources}".format(test_file=test_file, data=self.data_path, resources=self.user_resource_path)
         
@@ -140,8 +141,8 @@ class TestRunner:
 
             process.wait()
 
-            if test_file in TESTS_REQUIRING_SERVER:
-                self.stop_server()
+            # if test_file in TESTS_REQUIRING_SERVER:
+            #     self.stop_server()
 
             if process.returncode > 0:
                 failed.append(test_file)
@@ -150,6 +151,7 @@ class TestRunner:
             
             self.log_exec_file(test_file, result=process.returncode)
 
+        self.stop_server()
         return {FAILED: failed, PASSED: passed}
 
 
