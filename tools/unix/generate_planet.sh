@@ -257,7 +257,6 @@ if [ "$MODE" == "coast" ]; then
         log "STATUS" "Coastline merge failed"
         if [ -n "$OPT_UPDATE" ]; then
           [ -n "${MAIL-}" ] && tail -n 50 "$LOG_PATH/WorldCoasts.log" | mailx -s "Generate_planet: coastline merge failed, next try in $MERGE_INTERVAL minutes" "$MAIL"
-          date -u
           echo "Will try fresh coasts again in $MERGE_INTERVAL minutes, or press a key..."
           read -rs -n 1 -t $(($MERGE_INTERVAL * 60)) || true
           TRY_AGAIN=1
