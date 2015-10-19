@@ -120,15 +120,10 @@ extern "C"
     }
 
     int const res = HasSpaceForFiles(pl, path, g_totalBytesToDownload);
-    switch (res)
-    {
-    case ERR_STORAGE_DISCONNECTED:
+    if (res == ERR_STORAGE_DISCONNECTED)
       LOG(LWARNING, ("External file system is not available"));
-      break;
-    case ERR_NOT_ENOUGH_FREE_SPACE:
+    else if (res == ERR_NOT_ENOUGH_FREE_SPACE)
       LOG(LWARNING, ("Not enough space to extract files"));
-      break;
-    };
 
     g_currentRequest.reset();
 
