@@ -106,6 +106,7 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 {
   self.textView.hidden = NO;
   self.textView.text = text;
+  [self.textView becomeFirstResponder];
   [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
     self.webView.alpha = 0.;
