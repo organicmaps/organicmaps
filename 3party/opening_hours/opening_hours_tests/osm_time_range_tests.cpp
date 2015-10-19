@@ -119,7 +119,102 @@ BOOST_AUTO_TEST_CASE(OpeningHours_Locale)
   std::locale::global(prev);
 }
 
-BOOST_AUTO_TEST_CASE(OpeningHours_ParseUnparse)
+BOOST_AUTO_TEST_CASE(OpeningHours_TestTime)
+{
+  using namespace osmoh;
+
+  {
+    BOOST_CHECK(!Time{}.HasValue());
+  }
+  {
+    Time time{10_min};
+    BOOST_CHECK(time.HasValue());
+    BOOST_CHECK(!time.IsHoursMinutes());
+    BOOST_CHECK(!time.IsTime());
+    BOOST_CHECK(time.IsMinutes());
+    BOOST_CHECK(!time.IsEvent());
+    BOOST_CHECK(!time.IsEventOffset());
+  }
+  {
+    Time time{100_min};
+    BOOST_CHECK(time.HasValue());
+    BOOST_CHECK(time.IsHoursMinutes());
+    BOOST_CHECK(time.IsTime());
+    BOOST_CHECK(!time.IsMinutes());
+    BOOST_CHECK(!time.IsEvent());
+    BOOST_CHECK(!time.IsEventOffset());
+
+    BOOST_CHECK_EQUAL(time.GetHoursCount(), 1);
+    BOOST_CHECK_EQUAL(time.GetMinutesCount(), 40);
+  }
+  {
+    Time time{};
+    time.SetHours(22_h);
+    time.SetMinutes(15_min);
+    BOOST_CHECK(time.HasValue());
+    BOOST_CHECK(time.IsHoursMinutes());
+    BOOST_CHECK(time.IsTime());
+    BOOST_CHECK(!time.IsMinutes());
+    BOOST_CHECK(!time.IsEvent());
+    BOOST_CHECK(!time.IsEventOffset());
+
+    BOOST_CHECK_EQUAL(time.GetHoursCount(), 22);
+    BOOST_CHECK_EQUAL(time.GetMinutesCount(), 15);
+  }
+  {
+    Time time{};
+    time.SetEvent(Time::EEvent::eSunrise);
+    BOOST_CHECK(time.HasValue());
+    BOOST_CHECK(!time.IsHoursMinutes());
+    BOOST_CHECK(time.IsTime());
+    BOOST_CHECK(!time.IsMinutes());
+    BOOST_CHECK(time.IsEvent());
+    BOOST_CHECK(!time.IsEventOffset());
+  }
+  {
+    Time time{};
+    time.SetEvent(Time::EEvent::eSunrise);
+    time.SetHours(22_h);
+    time.SetMinutes(15_min);
+    BOOST_CHECK(time.HasValue());
+    BOOST_CHECK(!time.IsHoursMinutes());
+    BOOST_CHECK(time.IsTime());
+    BOOST_CHECK(!time.IsMinutes());
+    BOOST_CHECK(time.IsEvent());
+    BOOST_CHECK(time.IsEventOffset());
+  }
+  {
+    Time time{10_min};
+    BOOST_CHECK_EQUAL((-time).GetMinutesCount(), -10);
+  }
+  {
+    Time t1{2_h};
+    Time t2{100_min};
+    Time t3 = t1 - t2;
+    BOOST_CHECK_EQUAL(t3.GetHoursCount(), 0);
+    BOOST_CHECK_EQUAL(t3.GetMinutesCount(), 20);
+  }
+  // TODO(mgsergio): more tests with event and get hours/minutes
+}
+
+BOOST_AUTO_TEST_CASE(OpeningHours_TestTimespan)
+{
+  using namespace osmoh;
+
+  {
+    Timespan span;
+    span.SetStart(10_h);
+    BOOST_CHECK(span.IsOpen());
+    span.SetEnd(12_h);
+    BOOST_CHECK(!span.IsOpen());
+
+    BOOST_CHECK(!span.HasPeriod());
+    span.SetPeriod(10_min);
+    BOOST_CHECK(span.HasPeriod());
+  }
+}
+
+BOOST_AUTO_TEST_CASE(OpeningHours_TestParseUnparse)
 {
   {
     auto const rule = "06:00";
@@ -157,8 +252,36 @@ BOOST_AUTO_TEST_CASE(OpeningHours_ParseUnparse)
                                                 osmoh::TTimespans>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
-
-
+  {
+    auto const rule = "dusk";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::time_selector,
+                                                osmoh::TTimespans>(rule);
+  }
+  {
+    auto const rule = "dawn+";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::time_selector,
+                                                osmoh::TTimespans>(rule);
+  }
+  {
+    auto const rule = "sunrise-sunset";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::time_selector,
+                                                osmoh::TTimespans>(rule);
+  }
+  {
+    auto const rule = "(dusk-12:12)";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::time_selector,
+                                                osmoh::TTimespans>(rule);
+  }
+  {
+    auto const rule = "(dusk-12:12)+";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::time_selector,
+                                                osmoh::TTimespans>(rule);
+  }
+  {
+    auto const rule = "(dusk-12:12)-sunset";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::time_selector,
+                                                osmoh::TTimespans>(rule);
+  }
 }
 
 

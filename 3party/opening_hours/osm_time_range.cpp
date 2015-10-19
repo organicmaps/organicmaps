@@ -32,6 +32,11 @@
 namespace osmoh
 {
 
+Time::Time(THours const hours)
+{
+  SetHours(hours);
+}
+
 Time::Time(TMinutes const minutes)
 {
   SetMinutes(minutes);
@@ -99,7 +104,7 @@ bool Time::IsEventOffset() const
 
 bool Time::IsHoursMinutes() const
 {
-  return !IsEvent() && (m_state & (eHaveHours | eHaveMinutes));
+  return !IsEvent() && ((m_state & eHaveHours) && (m_state & eHaveMinutes));
 }
 
 bool Time::IsMinutes() const
@@ -157,7 +162,7 @@ std::ostream & operator<<(std::ostream & ost, Time::EEvent const event)
 std::ostream & operator<<(std::ostream & ost, Time const & time)
 {
   std::ios_base::fmtflags backupFlags = ost.flags();
-  if (!time.IsTime() && !time.IsEvent())
+  if (!time.HasValue())
   {
     ost << "hh:mm";
     return ost;

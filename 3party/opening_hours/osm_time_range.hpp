@@ -64,9 +64,12 @@ class Time
  public:
   Time() = default;
   Time(Time const &) = default;
+  Time(THours const hours);
   Time(TMinutes const minutes);
   Time(THours const hours, TMinutes const minutes);
   Time(EEvent const event);
+
+  Time & operator=(Time const &) = default;
 
   THours::rep GetHoursCount() const;
   TMinutes::rep GetMinutesCount() const;
