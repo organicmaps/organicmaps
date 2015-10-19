@@ -77,9 +77,10 @@ void Ge0Parser::DecodeLatLon(string const & url, double & lat, double & lon)
   lon = DecodeLonFromInt(lonInt, (1 << MAPSWITHME_MAX_COORD_BITS) - 1);
 }
 
-void Ge0Parser::DecodeLatLonToInt(string const & url, int & lat, int & lon, int const bytes)
+void Ge0Parser::DecodeLatLonToInt(string const & url, int & lat, int & lon, size_t const bytes)
 {
-  for(int i = 0, shift = MAPSWITHME_MAX_COORD_BITS - 3; i < bytes; ++i, shift -= 3)
+  int shift = MAPSWITHME_MAX_COORD_BITS - 3;
+  for(size_t i = 0; i < bytes; ++i, shift -= 3)
   {
     const uint8_t a = DecodeBase64Char(url[i]);
     const int lat1 =  (((a >> 5) & 1) << 2 |
