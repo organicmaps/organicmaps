@@ -312,8 +312,8 @@ class OsmToFeatureTranslator
       if (type != ftype::GetEmptyValue() && !ft.GetName().empty())
       {
         m_places.ReplaceEqualInRect(Place(ft, type),
-                                    bind(&Place::IsEqual, _1, _2),
-                                    bind(&Place::IsBetterThan, _1, _2));
+            [](Place const & p1, Place const & p2) { return p1.IsEqual(p2); },
+            [](Place const & p1, Place const & p2) { return p1.IsBetterThan(p2); });
       }
       else
         m_emitter(ft);

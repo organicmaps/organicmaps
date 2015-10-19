@@ -260,11 +260,22 @@ void FeatureBuilder1::RemoveUselessNames()
   if (!m_params.name.IsEmpty() && !IsCoastCell())
   {
     using namespace feature;
-
-    static TypeSetChecker const checkBoundary({ "boundary", "administrative" });
+    // Use lambda syntax to correctly compile according to standard:
+    // http://en.cppreference.com/w/cpp/algorithm/remove
+    //     The signature of the predicate function should be equivalent to the following:
+    //     bool pred(const Type &a);
+    // Without it on clang-libc++ on Linux we get:
+    // candidate template ignored: substitution failure
+    //      [with _Tp = bool (unsigned int) const]: reference to function type 'bool (unsigned int) const' cannot have 'const'
+    //      qualifier
+    auto const typeRemover = [](uint32_t type)
+    {
+      static TypeSetChecker const checkBoundary({ "boundary", "administrative" });
+      return checkBoundary.IsEqual(type);
+    };
 
     TypesHolder types(GetFeatureBase());
-    if (types.RemoveIf(bind(&TypeSetChecker::IsEqual, cref(checkBoundary), _1)))
+    if (types.RemoveIf(typeRemover))
     {
       pair<int, int> const range = GetDrawableScaleRangeForRules(types, RULE_ANY_TEXT);
       if (range.first == -1)
