@@ -77,11 +77,11 @@ public enum SearchEngine implements NativeSearchListener
     return false;
   }
 
-  public static void runInteractiveSearch(String query, String language, long timestamp)
+  public static void runInteractiveSearch(String query, String language, long timestamp, boolean viewportOnly)
   {
     try
     {
-      nativeRunInteractiveSearch(query.getBytes("utf-8"), language, timestamp);
+      nativeRunInteractiveSearch(query.getBytes("utf-8"), language, timestamp, viewportOnly);
     } catch (UnsupportedEncodingException ignored) { }
   }
 
@@ -123,7 +123,7 @@ public enum SearchEngine implements NativeSearchListener
   /**
    * @param bytes utf-8 formatted query bytes
    */
-  private static native void nativeRunInteractiveSearch(byte[] bytes, String language, long timestamp);
+  private static native void nativeRunInteractiveSearch(byte[] bytes, String language, long timestamp, boolean viewportOnly);
 
   private static native void nativeShowResult(int index);
 

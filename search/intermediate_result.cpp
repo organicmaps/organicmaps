@@ -238,13 +238,11 @@ Result PreResult2::GenerateFinalResult(storage::CountryInfoGetter const & infoGe
   }
 }
 
-Result PreResult2::GeneratePointResult(storage::CountryInfoGetter const & infoGetter,
-                                     CategoriesHolder const * pCat,
-                                     set<uint32_t> const * pTypes, int8_t locale) const
+Result PreResult2::GeneratePointResult(CategoriesHolder const * pCat, set<uint32_t> const * pTypes,
+                                       int8_t locale) const
 {
   uint32_t const type = GetBestType(pTypes);
-  return Result(m_id, GetCenter(), m_str, GetRegionName(infoGetter, type),
-                ReadableFeatureType(pCat, type, locale));
+  return Result(m_id, GetCenter(), m_str, ReadableFeatureType(pCat, type, locale));
 }
 
 bool PreResult2::LessRank(PreResult2 const & r1, PreResult2 const & r2)

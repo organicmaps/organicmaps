@@ -263,15 +263,15 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)updateSearchResultsOnMap
 {
-  if (!self.searchOnMap)
-    return;
-  GetFramework().UpdateSearchResults(searchResults);
+  if (self.searchOnMap)
+    GetFramework().UpdateSearchResults(searchResults);
 }
 
 - (void)updateSearchResultsInTable
 {
-  if (!IPAD && self.searchOnMap)
+  if (!IPAD && _searchOnMap)
     return;
+
   self.commonSizingCell = nil;
   [self.tableView reloadData];
 }
@@ -296,11 +296,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 {
   if (!text)
     return;
+
   if (locale)
     searchParams.SetInputLocale(locale.UTF8String);
   searchParams.m_query = text.precomposedStringWithCompatibilityMapping.UTF8String;
   searchParams.SetForceSearch(true);
   searchResults.Clear();
+
   [self updateSearch];
 }
 
@@ -310,10 +312,19 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   if (!searchParams.m_query.empty())
   {
     self.watchLocationUpdates = YES;
-    if (self.searchOnMap)
+    if (IPAD)
     {
       f.StartInteractiveSearch(searchParams);
-      if (searchResults.GetCount())
+      f.UpdateUserViewportChanged();
+    }
+    else if (_searchOnMap)
+    {
+      search::SearchParams local(searchParams);
+      local.SetSearchMode(search::SearchParams::IN_VIEWPORT_ONLY |
+                          search::SearchParams::SEARCH_WORLD);
+      f.StartInteractiveSearch(local);
+
+      if (searchResults.GetCount() > 0)
         f.ShowAllSearchResults(searchResults);
       f.UpdateUserViewportChanged();
     }
