@@ -374,7 +374,7 @@ void CountryStatusDisplay::SetContentForProgress()
   ASSERT(m_label->isVisible(), ());
   int percent = 0;
   if (m_progressSize.second != 0)
-    percent = m_progressSize.first * 100 / m_progressSize.second;
+    percent = static_cast<int>(m_progressSize.first * 100 / m_progressSize.second);
   m_label->setText(FormatStatusMessage<string, int>("country_status_downloading", &m_displayMapName, &percent));
 }
 
