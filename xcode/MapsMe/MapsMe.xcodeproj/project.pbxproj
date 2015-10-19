@@ -173,12 +173,12 @@
 
 /* Begin PBXFileReference section */
 		670D05BC1B0E10640013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
-		6714E5DE1BD13F67008AB603 /* drules_proto_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_clear.bin; path = ../../data/drules_proto_clear.bin; sourceTree = "<group>"; };
-		6714E5DF1BD13F67008AB603 /* drules_proto_clear.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = drules_proto_clear.txt; path = ../../data/drules_proto_clear.txt; sourceTree = "<group>"; };
-		6714E5E01BD13F67008AB603 /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_dark.bin; path = ../../data/drules_proto_dark.bin; sourceTree = "<group>"; };
-		6714E5E11BD13F67008AB603 /* drules_proto_dark.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = drules_proto_dark.txt; path = ../../data/drules_proto_dark.txt; sourceTree = "<group>"; };
-		6714E5E21BD13F67008AB603 /* drules_proto-bw.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = "drules_proto-bw.bin"; path = "../../data/drules_proto-bw.bin"; sourceTree = "<group>"; };
-		6714E5E31BD13F67008AB603 /* drules_proto-bw.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = "drules_proto-bw.txt"; path = "../../data/drules_proto-bw.txt"; sourceTree = "<group>"; };
+		6714E5DE1BD13F67008AB603 /* drules_proto_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_clear.bin; sourceTree = "<group>"; };
+		6714E5DF1BD13F67008AB603 /* drules_proto_clear.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = drules_proto_clear.txt; sourceTree = "<group>"; };
+		6714E5E01BD13F67008AB603 /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_dark.bin; sourceTree = "<group>"; };
+		6714E5E11BD13F67008AB603 /* drules_proto_dark.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = drules_proto_dark.txt; sourceTree = "<group>"; };
+		6714E5E21BD13F67008AB603 /* drules_proto-bw.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "drules_proto-bw.bin"; sourceTree = "<group>"; };
+		6714E5E31BD13F67008AB603 /* drules_proto-bw.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "drules_proto-bw.txt"; sourceTree = "<group>"; };
 		6714E6001BD14016008AB603 /* resources-mdpi_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-mdpi_clear"; sourceTree = "<group>"; };
 		6714E6011BD14016008AB603 /* resources-mdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-mdpi_dark"; sourceTree = "<group>"; };
 		671F59011B8755FE0032311E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -326,6 +326,8 @@
 		6729A4591A684401007D5872 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				67E8DC911BBC1D3F0053C5BA /* libagg.a */,
+				67E8DC921BBC1D3F0053C5BA /* liblodepng.a */,
 				671F592F1B8759460032311E /* libminizip.a */,
 				671F59011B8755FE0032311E /* libz.dylib */,
 				674A29901B26F0AE001A525C /* libalohalitics.a */,
@@ -367,6 +369,12 @@
 		6729A5C91A693045007D5872 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6714E5DE1BD13F67008AB603 /* drules_proto_clear.bin */,
+				6714E5DF1BD13F67008AB603 /* drules_proto_clear.txt */,
+				6714E5E01BD13F67008AB603 /* drules_proto_dark.bin */,
+				6714E5E11BD13F67008AB603 /* drules_proto_dark.txt */,
+				6714E5E21BD13F67008AB603 /* drules_proto-bw.bin */,
+				6714E5E31BD13F67008AB603 /* drules_proto-bw.txt */,
 				6729A6701A695CA8007D5872 /* languages.txt */,
 				6729A66A1A695C70007D5872 /* copyright.html */,
 				6729A66B1A695C70007D5872 /* eula.html */,
@@ -404,14 +412,6 @@
 		675345401A404C6100A0A8C3 = {
 			isa = PBXGroup;
 			children = (
-				6714E5DE1BD13F67008AB603 /* drules_proto_clear.bin */,
-				6714E5DF1BD13F67008AB603 /* drules_proto_clear.txt */,
-				6714E5E01BD13F67008AB603 /* drules_proto_dark.bin */,
-				6714E5E11BD13F67008AB603 /* drules_proto_dark.txt */,
-				6714E5E21BD13F67008AB603 /* drules_proto-bw.bin */,
-				6714E5E31BD13F67008AB603 /* drules_proto-bw.txt */,
-				67E8DC911BBC1D3F0053C5BA /* libagg.a */,
-				67E8DC921BBC1D3F0053C5BA /* liblodepng.a */,
 				670D05BC1B0E10640013A7AC /* defaults.xcconfig */,
 				6729A5C91A693045007D5872 /* Resources */,
 				6729A4591A684401007D5872 /* Libs */,
