@@ -66,10 +66,10 @@ fi
 
 # OS-specific parameters
 if [ "$(uname -s)" == "Darwin" ]; then
-  SPEC=macx-clang
+  SPEC=${SPEC:-macx-clang}
   PROCESSES=$(sysctl -n hw.ncpu)
 else
-  SPEC=linux-clang-libc++
+  SPEC=${SPEC:-linux-clang-libc++}
   PROCESSES=$(nproc)
 fi
 
@@ -137,7 +137,7 @@ build_osrm()
   OSRM_OMIM_LIBS="omim-build/out/$OSRM_OMIM_CONF"
   (
     cd "$OSRM_TARGET"
-    "$CMAKE" "-DBOOST_ROOT=$BOOST_PATH" -DCMAKE_BUILD_TYPE=$OSRM_CONF "-DOMIM_DEBUG_PATH=$OSRM_OMIM_LIBS" "-DOMIM_RELEASE_PATH=$OSRM_OMIM_LIBS" "$BACKEND"
+    "$CMAKE" "-DBOOST_ROOT=$BOOST_PATH" -DCMAKE_BUILD_TYPE=$OSRM_CONF "-DOMIM_BUILD_PATH=$OSRM_OMIM_LIBS" "$BACKEND"
     make clean
     make
   )
