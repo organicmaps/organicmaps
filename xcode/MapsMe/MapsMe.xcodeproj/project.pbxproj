@@ -17,6 +17,14 @@
 		670D059A1B0CBD5B0013A7AC /* mainwindow.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345761A404CB200A0A8C3 /* mainwindow.hpp */; };
 		670D059B1B0CBD5B0013A7AC /* proxystyle.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753457A1A404CB200A0A8C3 /* proxystyle.hpp */; };
 		670D059C1B0CBD5B0013A7AC /* widgets.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345851A404CB200A0A8C3 /* widgets.hpp */; };
+		6714E5E41BD13F67008AB603 /* drules_proto_clear.bin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6714E5DE1BD13F67008AB603 /* drules_proto_clear.bin */; };
+		6714E5E51BD13F67008AB603 /* drules_proto_clear.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6714E5DF1BD13F67008AB603 /* drules_proto_clear.txt */; };
+		6714E5E61BD13F67008AB603 /* drules_proto_dark.bin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6714E5E01BD13F67008AB603 /* drules_proto_dark.bin */; };
+		6714E5E71BD13F67008AB603 /* drules_proto_dark.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6714E5E11BD13F67008AB603 /* drules_proto_dark.txt */; };
+		6714E5E81BD13F67008AB603 /* drules_proto-bw.bin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6714E5E21BD13F67008AB603 /* drules_proto-bw.bin */; };
+		6714E5E91BD13F67008AB603 /* drules_proto-bw.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6714E5E31BD13F67008AB603 /* drules_proto-bw.txt */; };
+		6714E6021BD14016008AB603 /* resources-mdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 6714E6001BD14016008AB603 /* resources-mdpi_clear */; settings = {ASSET_TAGS = (); }; };
+		6714E6031BD14016008AB603 /* resources-mdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 6714E6011BD14016008AB603 /* resources-mdpi_dark */; settings = {ASSET_TAGS = (); }; };
 		671F59021B8755FE0032311E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 671F59011B8755FE0032311E /* libz.dylib */; };
 		671F59301B8759460032311E /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671F592F1B8759460032311E /* libminizip.a */; };
 		6729A5C11A693014007D5872 /* categories.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A5B91A693013007D5872 /* categories.txt */; };
@@ -125,6 +133,12 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
+				6714E5E41BD13F67008AB603 /* drules_proto_clear.bin in CopyFiles */,
+				6714E5E51BD13F67008AB603 /* drules_proto_clear.txt in CopyFiles */,
+				6714E5E61BD13F67008AB603 /* drules_proto_dark.bin in CopyFiles */,
+				6714E5E71BD13F67008AB603 /* drules_proto_dark.txt in CopyFiles */,
+				6714E5E81BD13F67008AB603 /* drules_proto-bw.bin in CopyFiles */,
+				6714E5E91BD13F67008AB603 /* drules_proto-bw.txt in CopyFiles */,
 				6729A6711A695CA8007D5872 /* languages.txt in CopyFiles */,
 				6729A66D1A695C70007D5872 /* copyright.html in CopyFiles */,
 				6729A66E1A695C70007D5872 /* eula.html in CopyFiles */,
@@ -159,6 +173,14 @@
 
 /* Begin PBXFileReference section */
 		670D05BC1B0E10640013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
+		6714E5DE1BD13F67008AB603 /* drules_proto_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_clear.bin; path = ../../data/drules_proto_clear.bin; sourceTree = "<group>"; };
+		6714E5DF1BD13F67008AB603 /* drules_proto_clear.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = drules_proto_clear.txt; path = ../../data/drules_proto_clear.txt; sourceTree = "<group>"; };
+		6714E5E01BD13F67008AB603 /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_dark.bin; path = ../../data/drules_proto_dark.bin; sourceTree = "<group>"; };
+		6714E5E11BD13F67008AB603 /* drules_proto_dark.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = drules_proto_dark.txt; path = ../../data/drules_proto_dark.txt; sourceTree = "<group>"; };
+		6714E5E21BD13F67008AB603 /* drules_proto-bw.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = "drules_proto-bw.bin"; path = "../../data/drules_proto-bw.bin"; sourceTree = "<group>"; };
+		6714E5E31BD13F67008AB603 /* drules_proto-bw.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = "drules_proto-bw.txt"; path = "../../data/drules_proto-bw.txt"; sourceTree = "<group>"; };
+		6714E6001BD14016008AB603 /* resources-mdpi_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-mdpi_clear"; sourceTree = "<group>"; };
+		6714E6011BD14016008AB603 /* resources-mdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-mdpi_dark"; sourceTree = "<group>"; };
 		671F59011B8755FE0032311E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		671F592F1B8759460032311E /* libminizip.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libminizip.a; path = "/Volumes/AltHD/omim/xcode/minizip/../../../omim-xcode-build/Debug/libminizip.a"; sourceTree = "<absolute>"; };
 		6729A5B91A693013007D5872 /* categories.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = categories.txt; sourceTree = "<group>"; };
@@ -366,6 +388,8 @@
 				6729A5CA1A69309E007D5872 /* types.txt */,
 				6729A5B91A693013007D5872 /* categories.txt */,
 				6729A5BA1A693013007D5872 /* classificator.txt */,
+				6714E6001BD14016008AB603 /* resources-mdpi_clear */,
+				6714E6011BD14016008AB603 /* resources-mdpi_dark */,
 				6729A5BB1A693013007D5872 /* countries.txt */,
 				6729A5BC1A693013007D5872 /* resources-hdpi */,
 				6729A5BD1A693014007D5872 /* resources-ldpi */,
@@ -380,6 +404,12 @@
 		675345401A404C6100A0A8C3 = {
 			isa = PBXGroup;
 			children = (
+				6714E5DE1BD13F67008AB603 /* drules_proto_clear.bin */,
+				6714E5DF1BD13F67008AB603 /* drules_proto_clear.txt */,
+				6714E5E01BD13F67008AB603 /* drules_proto_dark.bin */,
+				6714E5E11BD13F67008AB603 /* drules_proto_dark.txt */,
+				6714E5E21BD13F67008AB603 /* drules_proto-bw.bin */,
+				6714E5E31BD13F67008AB603 /* drules_proto-bw.txt */,
 				67E8DC911BBC1D3F0053C5BA /* libagg.a */,
 				67E8DC921BBC1D3F0053C5BA /* liblodepng.a */,
 				670D05BC1B0E10640013A7AC /* defaults.xcconfig */,
@@ -497,6 +527,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6714E6031BD14016008AB603 /* resources-mdpi_dark in Resources */,
+				6714E6021BD14016008AB603 /* resources-mdpi_clear in Resources */,
 				6729A6681A69394D007D5872 /* resources.qrc in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
