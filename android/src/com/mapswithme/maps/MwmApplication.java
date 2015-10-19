@@ -93,6 +93,10 @@ public class MwmApplication extends Application
   {
     super.onCreate();
 
+    initPaths();
+    nativeInitPlatform(getApkPath(), getDataStoragePath(), getTempPath(), getObbGooglePath(),
+                       BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE,
+                       Yota.isFirstYota(), UiUtils.isSmallTablet() || UiUtils.isBigTablet());
     initParse();
     sPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
   }
@@ -102,10 +106,7 @@ public class MwmApplication extends Application
     if (mIsFrameworkInitialized)
       return;
 
-    initPaths();
-    nativeInit(getApkPath(), getDataStoragePath(), getTempPath(), getObbGooglePath(),
-               BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE,
-               Yota.isFirstYota(), UiUtils.isSmallTablet() || UiUtils.isBigTablet());
+    nativeInitFramework();
     ActiveCountryTree.addListener(this);
     initNativeStrings();
     BookmarkManager.getIcons(); // init BookmarkManager (automatically loads bookmarks)
@@ -184,10 +185,13 @@ public class MwmApplication extends Application
     System.loadLibrary("mapswithme");
   }
 
-  private native void nativeInit(String apkPath, String storagePath,
-                                 String tmpPath, String obbGooglePath,
-                                 String flavorName, String buildType,
-                                 boolean isYota, boolean isTablet);
+  /**
+   * Initializes native Platform with paths. Should be called before usage of any other native components.
+   */
+  private native void nativeInitPlatform(String apkPath, String storagePath, String tmpPath, String obbGooglePath,
+                                         String flavorName, String buildType, boolean isYota, boolean isTablet);
+
+  private native void nativeInitFramework();
 
   public native boolean nativeIsBenchmarking();
 
