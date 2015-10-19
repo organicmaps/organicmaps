@@ -195,9 +195,10 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 - (void)share
 {
   MWMPlacePageEntity * entity = self.entity;
+  NSString * title = entity.bookmarkTitle ? entity.bookmarkTitle : entity.title;
   CLLocationCoordinate2D const coord = CLLocationCoordinate2DMake(entity.point.x, entity.point.y);
   MWMActivityViewController * shareVC =
-      [MWMActivityViewController shareControllerForLocationTitle:entity.title
+      [MWMActivityViewController shareControllerForLocationTitle:title
                                                         location:coord
                                                       myPosition:NO];
   [shareVC presentInParentViewController:self.ownerViewController
