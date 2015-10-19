@@ -129,7 +129,7 @@ build_osrm()
   # Making the first letter uppercase for CMake
   OSRM_CONF="$(echo ${OSRM_OMIM_CONF:0:1} | tr '[a-z]' '[A-Z]')${OSRM_OMIM_CONF:1}"
   BACKEND="$OMIM_PATH/3party/osrm/osrm-backend"
-  OSRM_TARGET="${OSRM_TARGET:-$BACKEND/build}"
+  OSRM_TARGET="${OSRM_TARGET:-${TARGET:-$OMIM_PATH/../osrm-backend-$OSRM_OMIM_CONF}}"
   [ -d "$OSRM_TARGET" -a -n "$OPT_CLEAN" ] && rm -r "$OSRM_TARGET"
   mkdir -p "$OSRM_TARGET"
   # First, build omim libraries
@@ -144,6 +144,12 @@ build_osrm()
   rm -r "$OSRM_TARGET/$OSRM_OMIM_LIBS"
 }
 
-[ -n "$OPT_DEBUG" ]   && build_conf debug
-[ -n "$OPT_RELEASE" ] && build_conf release
-[ -n "$OPT_OSRM" ]    && build_osrm release
+build()
+{
+  build_conf $1
+  [ -n "$OPT_OSRM" ] && build_osrm $1
+}
+
+[ -n "$OPT_DEBUG" ]   && build debug
+[ -n "$OPT_RELEASE" ] && build release
+[ -n "$OPT_OSRM" -a -z "$OPT_DEBUG$OPT_RELEASE" ] && build_osrm release
