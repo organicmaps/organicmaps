@@ -469,6 +469,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_renderer3d->SetPlaneAngleX(msg->GetAngleX());
       m_useFramebuffer = true;
       m_3dModeChanged = true;
+      AddUserEvent(Enable3dModeEvent(max(m_renderer3d->GetScaleX(), m_renderer3d->GetScaleY())));
       break;
     }
 
@@ -476,6 +477,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       m_useFramebuffer = false;
       m_3dModeChanged = true;
+      AddUserEvent(Disable3dMode(false));
       break;
     }
 
@@ -1154,28 +1156,19 @@ ScreenBase const & FrontendRenderer::ProcessEvents(bool & modelViewChanged, bool
   ScreenBase const & modelView = m_userEventStream.ProcessEvents(modelViewChanged, viewportChanged);
   gui::DrapeGui::Instance().SetInUserAction(m_userEventStream.IsInUserAction());
 
-  ScreenBase modelView2 = modelView;
   m_pixelRect = modelView.PixelRect();
 
-  modelViewChanged = modelViewChanged || m_3dModeChanged;
   viewportChanged = viewportChanged || m_3dModeChanged;
-  if (m_useFramebuffer && modelViewChanged)
-  {
-    double scale = max(m_renderer3d->GetScaleX(), m_renderer3d->GetScaleY());
-
-    m2::RectD const & pxRect = modelView2.PixelRect();
-    m2::RectI iRect(0, 0, (int)(pxRect.maxX() * scale), (int)(pxRect.maxY() * scale));
-
-    m2::AnyRectD const & gRect = modelView2.GlobalRect();
-    double dyG = gRect.GetLocalRect().SizeY() * (scale - 1.0);
-    modelView2.Scale(1.0 / scale);
-    modelView2.MoveG(m2::PointD(0, -dyG / 2.0));
-
-    modelView2 = ScreenBase(iRect, modelView2.GlobalRect());
-  }
   m_3dModeChanged = false;
 
-  return modelView2;
+  if (m_useFramebuffer)
+  {
+    double scale = max(m_renderer3d->GetScaleX(), m_renderer3d->GetScaleY());
+    m_pixelRect.setMaxX(pxRect.maxX() / scale);
+    m_pixelRect.setMaxY(pxRect.maxY() / scale);
+  }
+
+  return modelView;
 }
 
 void FrontendRenderer::PrepareScene(ScreenBase const & modelView)

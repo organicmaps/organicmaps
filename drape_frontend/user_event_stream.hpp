@@ -144,6 +144,24 @@ struct FollowAndRotateEvent
   bool m_isAnim;
 };
 
+struct Enable3dModeEvent
+{
+  Enable3dModeEvent(double scale)
+    : m_scale(scale)
+  {}
+
+  double m_scale;
+};
+
+struct Disable3dMode
+{
+  Disable3dMode(bool isAnim)
+    : m_isAnim(isAnim)
+  {}
+
+  bool m_isAnim;
+};
+
 struct RotateEvent
 {
   RotateEvent(double targetAzimut) : m_targetAzimut(targetAzimut) {}
@@ -170,7 +188,9 @@ struct UserEvent
     EVENT_SET_ANY_RECT,
     EVENT_RESIZE,
     EVENT_ROTATE,
-    EVENT_FOLLOW_AND_ROTATE
+    EVENT_FOLLOW_AND_ROTATE,
+    EVENT_ENABLE_3D_MODE,
+    EVENT_DISABLE_3D_MODE
   };
 
   UserEvent(TouchEvent const & e) : m_type(EVENT_TOUCH) { m_touchEvent = e; }
@@ -181,6 +201,8 @@ struct UserEvent
   UserEvent(ResizeEvent const & e) : m_type(EVENT_RESIZE) { m_resize = e; }
   UserEvent(RotateEvent const & e) : m_type(EVENT_ROTATE) { m_rotate = e; }
   UserEvent(FollowAndRotateEvent const & e) : m_type(EVENT_FOLLOW_AND_ROTATE) { m_followAndRotate = e; }
+  UserEvent(Enable3dModeEvent const & e) : m_type(EVENT_ENABLE_3D_MODE) { m_enable3dMode = e; }
+  UserEvent(Disable3dMode const & e) : m_type(EVENT_DISABLE_3D_MODE) { m_disable3dMode = e; }
 
   EEventType m_type;
   union
@@ -193,6 +215,8 @@ struct UserEvent
     ResizeEvent m_resize;
     RotateEvent m_rotate;
     FollowAndRotateEvent m_followAndRotate;
+    Enable3dModeEvent m_enable3dMode;
+    Disable3dMode m_disable3dMode;
   };
 };
 
@@ -261,6 +285,9 @@ private:
   bool SetRect(m2::AnyRectD const & rect, bool isAnim, TAnimationCreator const & animCreator);
   bool SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos,
                           double azimuth, int preferredZoomLevel, bool isAnim);
+
+  void Enable3dMode(double scale);
+  void Disable3dMode();
 
   m2::AnyRectD GetCurrentRect() const;
 

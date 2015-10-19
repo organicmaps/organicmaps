@@ -11,8 +11,6 @@ void main()
 {
 
   v_tcoord = a_tcoord;
-  gl_Position.xy = a_pos;
-  gl_Position.zw = vec2(0.0, 1.0);
-  gl_Position = projection * translate * rotate * gl_Position;
+  gl_Position = projection * translate * rotate * vec4(a_pos, 0.0, 1.0);
 }
 
