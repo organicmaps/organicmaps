@@ -29,7 +29,7 @@ and run
 
 The `build_omim.sh` script basically runs these commands:
 
-    qmake omim.pro -spec linux-clang CONFIG+=debug
+    qmake omim.pro -spec linux-clang-libc++ CONFIG+=debug
     make -j <number_of_processes>
 
 It will compile binaries to the `out` subdirectory of the current directory.
