@@ -2,6 +2,7 @@
 
 #include "map/user_mark.hpp"
 #include "map/user_mark_container.hpp"
+#include "map/styled_point.hpp"
 
 #include "coding/reader.hpp"
 
@@ -65,14 +66,14 @@ private:
   time_t m_timeStamp;
 };
 
-class Bookmark : public ICustomDrawable
+class Bookmark : public StyledPoint
 {
   BookmarkData m_data;
   double m_animScaleFactor;
 
 public:
   Bookmark(m2::PointD const & ptOrg, UserMarkContainer * container)
-    : ICustomDrawable(ptOrg, container)
+    : StyledPoint(ptOrg, container)
     , m_animScaleFactor(1.0)
   {
   }
@@ -80,13 +81,13 @@ public:
   Bookmark(BookmarkData const & data,
            m2::PointD const & ptOrg,
            UserMarkContainer * container)
-    : ICustomDrawable(ptOrg, container)
+    : StyledPoint(data.GetType(), ptOrg, container)
     , m_data(data)
     , m_animScaleFactor(1.0)
   {
   }
 
-  void SetData(BookmarkData const & data) { m_data = data; }
+  void SetData(BookmarkData const & data) { m_data = data; SetStyle(m_data.GetType()); }
   BookmarkData const & GetData() const { return m_data; }
 
   virtual Type GetMarkType() const override { return UserMark::Type::BOOKMARK; }
@@ -96,7 +97,7 @@ public:
   void SetName(string const & name) { m_data.SetName(name); }
   /// @return Now its a bookmark color - name of icon file
   string const & GetType() const { return m_data.GetType(); }
-  void SetType(string const & type) { m_data.SetType(type); }
+  void SetType(string const & type) { m_data.SetType(type); SetStyle(type); }
   m2::RectD GetViewport() const { return m2::RectD(GetOrg(), GetOrg()); }
 
   string const & GetDescription() const { return m_data.GetDescription(); }

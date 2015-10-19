@@ -20,6 +20,7 @@ HEADERS += \
     benchmark_engine.hpp \
     ruler.hpp \
     bookmark.hpp \
+    styled_point.hpp \
     geourl_process.hpp \
     country_status_display.hpp \
     rotate_screen_task.hpp \
@@ -53,6 +54,7 @@ SOURCES += \
     address_finder.cpp \
     geourl_process.cpp \
     bookmark.cpp \
+    styled_point.cpp \
     country_status_display.cpp \
     rotate_screen_task.cpp \
     compass_arrow.cpp \
