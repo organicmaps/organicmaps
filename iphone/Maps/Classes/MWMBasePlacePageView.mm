@@ -171,6 +171,7 @@ static CGFloat const kTitleBottomOffset = 2.;
 
 - (void)reloadBookmarkCell
 {
+  [self configure];
   [self.featureTable reloadData];
   [self setNeedsLayout];
   [self layoutIfNeeded];
