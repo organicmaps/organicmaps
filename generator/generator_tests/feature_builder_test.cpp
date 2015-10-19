@@ -105,12 +105,24 @@ UNIT_TEST(FVisibility_RemoveNoDrawableTypes)
   classificator::Load();
   Classificator const & c = classif();
 
-  vector<uint32_t> types;
-  types.push_back(c.GetTypeByPath({ "building" }));
-  types.push_back(c.GetTypeByPath({ "amenity", "theatre" }));
+  {
+    vector<uint32_t> types;
+    types.push_back(c.GetTypeByPath({ "building" }));
+    types.push_back(c.GetTypeByPath({ "amenity", "theatre" }));
 
-  TEST(feature::RemoveNoDrawableTypes(types, feature::GEOM_AREA), ());
-  TEST_EQUAL(types.size(), 2, ());
+    TEST(feature::RemoveNoDrawableTypes(types, feature::GEOM_AREA), ());
+    TEST_EQUAL(types.size(), 2, ());
+  }
+
+  {
+    vector<uint32_t> types;
+    types.push_back(c.GetTypeByPath({ "amenity" }));
+    types.push_back(c.GetTypeByPath({ "building" }));
+
+    TEST(feature::RemoveNoDrawableTypes(types, feature::GEOM_AREA, true), ());
+    TEST_EQUAL(types.size(), 1, ());
+    TEST_EQUAL(types[0], c.GetTypeByPath({ "building" }), ());
+  }
 }
 
 UNIT_TEST(FBuilder_RemoveUselessNames)

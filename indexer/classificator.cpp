@@ -56,7 +56,7 @@ void ClassifObject::AddDrawRule(drule::Key const & k)
 
 ClassifObjectPtr ClassifObject::BinaryFind(string const & s) const
 {
-  auto i = lower_bound(m_objs.begin(), m_objs.end(), s, less_name_t());
+  auto const i = lower_bound(m_objs.begin(), m_objs.end(), s, less_name_t());
   if ((i == m_objs.end()) || ((*i).m_name != s))
     return ClassifObjectPtr(0, 0);
   else
@@ -314,7 +314,7 @@ bool ClassifObject::IsDrawableLike(feature::EGeomType ft, bool emptyName) const
   {
     ASSERT_LESS(k.m_type, drule::count_of_rules, ());
 
-    // In case when feature name is empty we donn't take into account caption drawing rules.
+    // In case when feature name is empty we don't take into account caption drawing rules.
     if ((visible[ft][k.m_type] == 1) &&
         (!emptyName || (k.m_type != drule::caption && k.m_type != drule::pathtext)))
     {
