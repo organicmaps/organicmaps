@@ -31,22 +31,6 @@ unique_ptr<UserMarkCopy> Bookmark::Copy() const
   return unique_ptr<UserMarkCopy>(new UserMarkCopy(this, false));
 }
 
-graphics::DisplayList * Bookmark::GetDisplayList(UserMarkDLCache * cache) const
-{
-  return cache->FindUserMark(UserMarkDLCache::Key(GetType(), graphics::EPosAbove, GetContainer()->GetDepth()));
-}
-
-double Bookmark::GetAnimScaleFactor() const
-{
-  return m_animScaleFactor;
-}
-
-m2::PointD const & Bookmark::GetPixelOffset() const
-{
-  static m2::PointD s_offset(0.0, 3.0);
-  return s_offset;
-}
-
 shared_ptr<anim::Task> Bookmark::CreateAnimTask(Framework & fm)
 {
   m_animScaleFactor = 0.0;
@@ -211,12 +195,6 @@ namespace
     LINE
   };
 
-  static char const * s_arrSupportedColors[] =
-  {
-    "placemark-red", "placemark-blue", "placemark-purple", "placemark-yellow",
-    "placemark-pink", "placemark-brown", "placemark-green", "placemark-orange"
-  };
-
   class KMLParser
   {
     // Fixes icons which are not supported by MapsWithMe
@@ -224,13 +202,7 @@ namespace
     {
       // Remove leading '#' symbol
       string const result = s.substr(1);
-      for (size_t i = 0; i < ARRAY_SIZE(s_arrSupportedColors); ++i)
-        if (result == s_arrSupportedColors[i])
-          return result;
-
-      // Not recognized symbols are replaced with default one
-      LOG(LWARNING, ("Icon", result, "for bookmark", m_name, "is not supported"));
-      return s_arrSupportedColors[0];
+      return style::GetSupportedStyle(result, m_name);
     }
 
     BookmarkCategory & m_category;
@@ -565,7 +537,7 @@ namespace
 
 string BookmarkCategory::GetDefaultType()
 {
-  return s_arrSupportedColors[0];
+  return style::GetDefaultStyle();
 }
 
 namespace
