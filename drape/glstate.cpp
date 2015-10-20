@@ -112,6 +112,11 @@ void ApplyTextures(GLState state, ref_ptr<GpuProgram> program)
   else
   {
     // Some Android devices (Galaxy Nexus) require to reset texture state explicitly.
+    // It's caused by a bug in OpenGL driver (for Samsung Nexus, maybe others). Normally 
+    // we don't need to explicitly call glBindTexture(GL_TEXTURE2D, 0) after glUseProgram
+    // in case of the GPU-program doesn't use textures. Here we have to do it to work around
+    // graphics artefacts. The overhead isn't significant, we don't know on which devices 
+    // it may happen so do it for all Android devices.
 #ifdef OMIM_OS_ANDROID
     GLFunctions::glActiveTexture(gl_const::GLTexture0);
     GLFunctions::glBindTexture(0);
@@ -129,6 +134,7 @@ void ApplyTextures(GLState state, ref_ptr<GpuProgram> program)
   else
   {
     // Some Android devices (Galaxy Nexus) require to reset texture state explicitly.
+    // See detailed description above.
 #ifdef OMIM_OS_ANDROID
     GLFunctions::glActiveTexture(gl_const::GLTexture0 + 1);
     GLFunctions::glBindTexture(0);
