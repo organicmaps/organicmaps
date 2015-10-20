@@ -1,4 +1,5 @@
 #import "Common.h"
+#import "MWMCircularProgress.h"
 #import "MWMNavigationDashboardEntity.h"
 #import "MWMNavigationDashboardManager.h"
 #import "MWMRoutePointCell.h"
@@ -14,8 +15,10 @@ static NSDictionary * const kEtaAttributes = @{NSForegroundColorAttributeName : 
 static CGFloat const kBottomPanelHeight = 48.;
 static CGFloat const kAdditionalHeight = 20.;
 
-@interface MWMRoutePreview () <MWMRoutePointCellDelegate>
+@interface MWMRoutePreview () <MWMRoutePointCellDelegate, MWMCircularProgressDelegate>
 
+@property (weak, nonatomic) IBOutlet UIView * pedestrian;
+@property (weak, nonatomic) IBOutlet UIView * vehicle;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * planningRouteViewHeight;
 @property (weak, nonatomic, readwrite) IBOutlet UIButton * extendButton;
 @property (weak, nonatomic) IBOutlet UIButton * goButton;
@@ -32,6 +35,9 @@ static CGFloat const kAdditionalHeight = 20.;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * statusBoxHeight;
 @property (nonatomic) UIImageView * movingCellImage;
 
+@property (nonatomic) MWMCircularProgress * pedestrianProgressView;
+@property (nonatomic) MWMCircularProgress * vehicleProgressView;
+
 @end
 
 @implementation MWMRoutePreview
@@ -44,6 +50,15 @@ static CGFloat const kAdditionalHeight = 20.;
   self.layer.rasterizationScale = UIScreen.mainScreen.scale;
   [self.collectionView registerNib:[UINib nibWithNibName:[MWMRoutePointCell className] bundle:nil]
         forCellWithReuseIdentifier:[MWMRoutePointCell className]];
+
+  self.pedestrianProgressView = [[MWMCircularProgress alloc] initWithParentView:self.pedestrian delegate:self];
+  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_drive_off"] forState:UIControlStateNormal];
+  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_drive_press"] forState:UIControlStateHighlighted];
+  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_drive_on"] forState:UIControlStateSelected];
+  self.vehicleProgressView = [[MWMCircularProgress alloc] initWithParentView:self.vehicle delegate:self];
+  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_walk_off"] forState:UIControlStateNormal];
+  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_walk_press"] forState:UIControlStateHighlighted];
+  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_walk_on"] forState:UIControlStateSelected];
 }
 
 - (void)didMoveToSuperview
@@ -170,6 +185,12 @@ static CGFloat const kAdditionalHeight = 20.;
   [super layoutSubviews];
   if (IPAD)
     [self.delegate routePreviewDidChangeFrame:self.frame];
+}
+
+#pragma mark - MWMCircularProgressDelegate
+
+- (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
+{
 }
 
 #pragma mark - Properties

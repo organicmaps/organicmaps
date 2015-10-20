@@ -16,6 +16,7 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 @property (nonatomic) CAShapeLayer * progressLayer;
 
 @property (weak, nonatomic) IBOutlet MWMCircularProgress * owner;
+@property (weak, nonatomic) IBOutlet UIImageView * spinner;
 
 @end
 
@@ -50,11 +51,39 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 
 - (void)updatePath:(CGFloat)progress
 {
+  if (progress > 0.0)
+    [self stopSpinner];
   CGFloat const outerRadius = self.width / 2.0;
   CGPoint const center = CGPointMake(outerRadius, outerRadius);
   CGFloat const radius = outerRadius - kLineWidth;
   UIBezierPath * path = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:angleWithProgress(0.0) endAngle:angleWithProgress(progress) clockwise:YES];
   self.progressLayer.path = path.CGPath;
+}
+
+#pragma mark - Spinner
+
+- (void)startSpinner
+{
+  if (!self.spinner.hidden)
+    return;
+  self.backgroundLayer.hidden = self.progressLayer.hidden = YES;
+  self.spinner.hidden = NO;
+  NSUInteger const animationImagesCount = 12;
+  NSMutableArray * animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];
+  for (NSUInteger i = 0; i < animationImagesCount; ++i)
+    animationImages[i] = [UIImage imageNamed:[NSString stringWithFormat:@"Spinner_%@", @(i+1)]];
+
+  self.spinner.animationImages = animationImages;
+  [self.spinner startAnimating];
+}
+
+- (void)stopSpinner
+{
+  if (self.spinner.hidden)
+    return;
+  self.backgroundLayer.hidden = self.progressLayer.hidden = NO;
+  self.spinner.hidden = YES;
+  [self.spinner.layer removeAllAnimations];
 }
 
 #pragma mark - Animation

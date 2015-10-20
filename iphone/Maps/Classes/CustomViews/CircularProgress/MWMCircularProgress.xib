@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMCircularProgress">
@@ -18,6 +18,7 @@
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="viF-Ee-7h0">
                     <rect key="frame" x="-6" y="-6" width="44" height="44"/>
+                    <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <state key="normal" image="ic_stop_spinner">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -27,18 +28,28 @@
                         <action selector="buttonTouchUpInside:" destination="-1" eventType="touchUpInside" id="aPG-4e-uSw"/>
                     </connections>
                 </button>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aMt-XV-9UK" userLabel="Spinner">
+                    <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                    <animations/>
+                </imageView>
             </subviews>
+            <animations/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="viF-Ee-7h0" firstAttribute="top" secondItem="2DE-Qh-89K" secondAttribute="top" constant="-6" id="3gS-24-Olj"/>
+                <constraint firstItem="aMt-XV-9UK" firstAttribute="leading" secondItem="2DE-Qh-89K" secondAttribute="leading" id="JK6-QX-JcI"/>
+                <constraint firstAttribute="bottom" secondItem="aMt-XV-9UK" secondAttribute="bottom" id="VFI-Yh-q1q"/>
                 <constraint firstAttribute="trailing" secondItem="viF-Ee-7h0" secondAttribute="trailing" constant="-6" id="fQT-G3-rJF"/>
+                <constraint firstItem="aMt-XV-9UK" firstAttribute="top" secondItem="2DE-Qh-89K" secondAttribute="top" id="fbs-bw-DIs"/>
                 <constraint firstAttribute="bottom" secondItem="viF-Ee-7h0" secondAttribute="bottom" constant="-6" id="j4s-7V-lg9"/>
+                <constraint firstAttribute="trailing" secondItem="aMt-XV-9UK" secondAttribute="trailing" id="k01-wU-25n"/>
                 <constraint firstItem="viF-Ee-7h0" firstAttribute="leading" secondItem="2DE-Qh-89K" secondAttribute="leading" constant="-6" id="sHS-iu-Url"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="owner" destination="-1" id="0n7-PI-5tO"/>
+                <outlet property="spinner" destination="aMt-XV-9UK" id="bmp-bV-h3C"/>
             </connections>
         </view>
     </objects>

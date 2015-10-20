@@ -11,5 +11,7 @@
 
 - (void)refreshProgress;
 - (void)updatePath:(CGFloat)progress;
+- (void)startSpinner;
+- (void)stopSpinner;
 
 @end

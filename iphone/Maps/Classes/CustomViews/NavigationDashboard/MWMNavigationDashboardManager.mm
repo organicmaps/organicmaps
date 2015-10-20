@@ -224,29 +224,29 @@
 
 - (IBAction)routePreviewChange:(MWMRouteTypeButton *)sender
 {
-  if (sender.selected)
-    return;
-  sender.selected = YES;
-  self.activeRouteTypeButton = sender;
-  auto & f = GetFramework();
-  routing::RouterType type;
-  if ([sender isEqual:self.routePreview.pedestrian])
-  {
-    self.routePreview.vehicle.selected = NO;
-    type = routing::RouterType::Pedestrian;
-  }
-  else
-  {
-    self.routePreview.pedestrian.selected = NO;
-    type = routing::RouterType::Vehicle;
-  }
-  f.CloseRouting();
-  f.SetRouter(type);
-  f.SetLastUsedRouter(type);
-  if (!self.delegate.isPossibleToBuildRoute)
-    return;
-  [sender startAnimating];
-  [self.delegate buildRoute];
+//  if (sender.selected)
+//    return;
+//  sender.selected = YES;
+//  self.activeRouteTypeButton = sender;
+//  auto & f = GetFramework();
+//  routing::RouterType type;
+//  if ([sender isEqual:self.routePreview.pedestrian])
+//  {
+//    self.routePreview.vehicle.selected = NO;
+//    type = routing::RouterType::Pedestrian;
+//  }
+//  else
+//  {
+//    self.routePreview.pedestrian.selected = NO;
+//    type = routing::RouterType::Vehicle;
+//  }
+//  f.CloseRouting();
+//  f.SetRouter(type);
+//  f.SetLastUsedRouter(type);
+//  if (!self.delegate.isPossibleToBuildRoute)
+//    return;
+//  [sender startAnimating];
+//  [self.delegate buildRoute];
 }
 
 - (void)setRouteBuildingProgress:(CGFloat)progress
@@ -324,19 +324,19 @@
 
 - (void)setupActualRoute
 {
-  switch (GetFramework().GetRouter())
-  {
-  case routing::RouterType::Pedestrian:
-    self.routePreview.pedestrian.selected = YES;
-    self.routePreview.vehicle.selected = NO;
-    self.activeRouteTypeButton = self.routePreview.pedestrian;
-    break;
-  case routing::RouterType::Vehicle:
-    self.routePreview.vehicle.selected = YES;
-    self.routePreview.pedestrian.selected = NO;
-    self.activeRouteTypeButton = self.routePreview.vehicle;
-    break;
-  }
+//  switch (GetFramework().GetRouter())
+//  {
+//  case routing::RouterType::Pedestrian:
+//    self.routePreview.pedestrian.selected = YES;
+//    self.routePreview.vehicle.selected = NO;
+//    self.activeRouteTypeButton = self.routePreview.pedestrian;
+//    break;
+//  case routing::RouterType::Vehicle:
+//    self.routePreview.vehicle.selected = YES;
+//    self.routePreview.pedestrian.selected = NO;
+//    self.activeRouteTypeButton = self.routePreview.vehicle;
+//    break;
+//  }
 }
 
 #pragma mark - Properties

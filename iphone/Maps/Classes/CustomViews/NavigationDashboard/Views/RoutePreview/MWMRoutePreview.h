@@ -14,8 +14,6 @@
 
 @interface MWMRoutePreview : MWMNavigationView
 
-@property (weak, nonatomic) IBOutlet MWMRouteTypeButton * pedestrian;
-@property (weak, nonatomic) IBOutlet MWMRouteTypeButton * vehicle;
 @property (weak, nonatomic, readonly) IBOutlet UIButton * extendButton;
 @property (weak, nonatomic) id<MWMRoutePreviewDataSource> dataSource;
 @property (weak, nonatomic) MWMNavigationDashboardManager * dashboardManager;

@@ -33,6 +33,23 @@
   self.nextProgressToAnimate = nil;
 }
 
+- (void)setImage:(nullable UIImage *)image forState:(UIControlState)state
+{
+  [self.button setImage:image forState:state];
+}
+
+#pragma mark - Spinner
+
+- (void)startSpinner
+{
+  [self.rootView startSpinner];
+}
+
+- (void)stopSpinner
+{
+  [self.rootView stopSpinner];
+}
+
 #pragma mark - Animation
 
 - (void)animationDidStop:(CABasicAnimation *)anim finished:(BOOL)flag
@@ -76,6 +93,16 @@
 }
 
 - (BOOL)failed
+{
+  return self.button.selected;
+}
+
+- (void)setSelected:(BOOL)selected
+{
+  self.button.selected = selected;
+}
+
+- (BOOL)selected
 {
   return self.button.selected;
 }
