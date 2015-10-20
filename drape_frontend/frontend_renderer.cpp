@@ -820,27 +820,40 @@ void FrontendRenderer::Routine::Do()
 
   my::HighResTimer timer;
   timer.Reset();
+
   double frameTime = 0.0;
   int inactiveFrameCount = 0;
-  bool viewChanged = true;
-  ScreenBase modelView = m_renderer.UpdateScene(viewChanged);
+  bool modelViewChanged = true;
+  bool viewportChanged = true;
 
   while (!IsCancelled())
   {
+    ScreenBase modelView = m_renderer.ProcessEvents(modelViewChanged, viewportChanged);
+    if (viewportChanged)
+      m_renderer.OnResize(modelView);
+
     context->setDefaultFramebuffer();
+
+    if (modelViewChanged || viewportChanged)
+      m_renderer.PrepareScene(modelView);
 
     bool const hasAsyncRoutines = m_renderer.m_texMng->UpdateDynamicTextures();
     m_renderer.RenderScene(modelView);
 
     bool const animActive = InterpolationHolder::Instance().Advance(frameTime);
-    modelView = m_renderer.UpdateScene(viewChanged);
+
+    if (modelViewChanged)
+    {
+      m_renderer.UpdateScene(modelView);
+      m_renderer.EmitModelViewChanged(modelView);
+    }
 
     bool const waitCompletion = m_renderer.m_userEventStream.IsWaitingForActionCompletion();
 
     // Check for a frame is inactive.
-    bool const isInactiveFrame = !viewChanged && m_renderer.IsQueueEmpty() &&
+    bool const isInactiveFrame = !modelViewChanged && !viewportChanged &&
                                  !animActive && !hasAsyncRoutines &&
-                                 !waitCompletion;
+                                 !waitCompletion && m_renderer.IsQueueEmpty();
     if (isInactiveFrame)
       ++inactiveFrameCount;
     else
@@ -923,30 +936,28 @@ void FrontendRenderer::ChangeModelView(m2::PointD const & userPos, double azimut
   AddUserEvent(FollowAndRotateEvent(userPos, pxZero, azimuth, preferredZoomLevel, true));
 }
 
-ScreenBase const & FrontendRenderer::UpdateScene(bool & modelViewChanged)
+ScreenBase const & FrontendRenderer::ProcessEvents(bool & modelViewChanged, bool & viewportChanged)
 {
-  bool viewportChanged;
   ScreenBase const & modelView = m_userEventStream.ProcessEvents(modelViewChanged, viewportChanged);
   gui::DrapeGui::Instance().SetInUserAction(m_userEventStream.IsInUserAction());
-  if (viewportChanged)
-    OnResize(modelView);
-
-  if (modelViewChanged)
-  {
-    ResolveZoomLevel(modelView);
-    TTilesCollection tiles;
-    ResolveTileKeys(modelView, tiles);
-
-    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                              make_unique_dp<UpdateReadManagerMessage>(modelView, move(tiles)),
-                              MessagePriority::High);
-
-    RefreshModelView(modelView);
-    RefreshBgColor();
-    EmitModelViewChanged(modelView);
-  }
-
   return modelView;
+}
+
+void FrontendRenderer::PrepareScene(ScreenBase const & modelView)
+{
+  RefreshModelView(modelView);
+  RefreshBgColor();
+}
+
+void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
+{
+  ResolveZoomLevel(modelView);
+  TTilesCollection tiles;
+  ResolveTileKeys(modelView, tiles);
+
+  m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                            make_unique_dp<UpdateReadManagerMessage>(modelView, move(tiles)),
+                            MessagePriority::High);
 }
 
 void FrontendRenderer::EmitModelViewChanged(ScreenBase const & modelView) const

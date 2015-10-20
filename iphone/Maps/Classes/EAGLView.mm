@@ -77,6 +77,15 @@
   }
 }
 
+- (void)applyOnSize:(int)width withHeight:(int)height
+{
+  dispatch_async(dispatch_get_main_queue(), ^
+  {
+    GetFramework().OnSize(width, height);
+    [self.widgetsManager resize:CGSizeMake(width, height)];
+  });
+}
+
 - (void)onSize:(int)width withHeight:(int)height
 {
   int w = width * self.contentScaleFactor;
@@ -89,9 +98,7 @@
     return;
   }
 
-  GetFramework().OnSize(w, h);
-
-  [self.widgetsManager resize:CGSizeMake(w, h)];
+  [self applyOnSize:w withHeight:h];
 }
 
 - (double)correctContentScale

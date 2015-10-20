@@ -133,7 +133,10 @@ private:
   void RefreshProjection();
   void RefreshModelView(ScreenBase const & screen);
   void RefreshBgColor();
-  ScreenBase const & UpdateScene(bool & modelViewChanged);
+
+  ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged);
+  void PrepareScene(ScreenBase const & modelView);
+  void UpdateScene(ScreenBase const & modelView);
 
   void EmitModelViewChanged(ScreenBase const & modelView) const;
 
