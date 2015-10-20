@@ -11,6 +11,7 @@
 # - Compiled generator_tool somewhere in omim/../build/out/whatever, or supply BUILD_PATH
 # - For routing, compiled OSRM binaries in omim/../osrm-backend-release, or supply OSRM_BUILD_PATH
 # - Target path for mwm is the same as o5m path, or supply TARGET
+# - Set TMPDIR variable if you have no space in the default temporary location.
 
 # Cross-borders routing index is not created, since we don't assume
 # the source file to be one of the pre-defined countries.
