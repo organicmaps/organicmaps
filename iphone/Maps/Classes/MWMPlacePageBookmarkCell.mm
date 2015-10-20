@@ -21,6 +21,7 @@ static NSUInteger sWebViewHeight = 0;
 @property (weak, nonatomic) IBOutlet UILabel * noteLabel;
 @property (weak, nonatomic) IBOutlet UIWebView * noteWebView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * noteViewHeight;
+@property (weak, nonatomic) IBOutlet UIButton * editBookmarkButton;
 
 @property (weak, nonatomic) MWMPlacePage * placePage;
 
@@ -64,10 +65,12 @@ static NSUInteger sWebViewHeight = 0;
   if (self.entity.bookmarkDescription.length == 0)
   {
     self.note.hidden = YES;
+    [self.editBookmarkButton setTitle:L(@"description") forState:UIControlStateNormal];
   }
   else
   {
     self.note.hidden = NO;
+    [self.editBookmarkButton setTitle:L(@"edit") forState:UIControlStateNormal];
     if (self.entity.isHTMLDescription)
     {
       self.noteWebView.hidden = NO;

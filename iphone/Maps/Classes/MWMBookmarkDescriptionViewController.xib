@@ -26,7 +26,7 @@
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="description"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="edit_description_hint"/>
                     </userDefinedRuntimeAttributes>
                 </textView>
                 <webView alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lov-Ku-GJM">
