@@ -84,7 +84,7 @@ public:
 
   bool IsDrawable(int scale) const;
   bool IsDrawableAny() const;
-  bool IsDrawableLike(feature::EGeomType ft) const;
+  bool IsDrawableLike(feature::EGeomType ft, bool emptyName = false) const;
 
   pair<int, int> GetDrawScaleRange() const;
 
@@ -110,10 +110,8 @@ public:
     }
   }
 
-  typedef bitset<scales::UPPER_STYLE_SCALE+1> visible_mask_t;
-  visible_mask_t GetVisibilityMask() const { return m_visibility; }
-  void SetVisibilityMask(visible_mask_t mask) { m_visibility = mask; }
-  void SetVisibilityOnScale(const bool isVisible, const int scale) { m_visibility[scale] = isVisible; }
+  typedef bitset<scales::UPPER_STYLE_SCALE+1> TVisibleMask;
+  void SetVisibilityOnScale(bool isVisible, int scale) { m_visibility[scale] = isVisible; }
 
   /// @name Policies for classificator tree serialization.
   //@{
@@ -146,10 +144,7 @@ private:
   string m_name;
   vector<drule::Key> m_drawRule;
   vector<ClassifObject> m_objs;
-  visible_mask_t m_visibility;
-
-  typedef vector<ClassifObject>::iterator iter_t;
-  typedef vector<ClassifObject>::const_iterator const_iter_t;
+  TVisibleMask m_visibility;
 };
 
 inline void swap(ClassifObject & r1, ClassifObject & r2)

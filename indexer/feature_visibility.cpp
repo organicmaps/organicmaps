@@ -8,54 +8,19 @@
 #include "std/array.hpp"
 
 
-namespace
-{
-  bool NeedProcessParent(ClassifObject const * p)
-  {
-    return false;
-  }
-}
-
 template <class ToDo> typename ToDo::ResultType
 Classificator::ProcessObjects(uint32_t type, ToDo & toDo) const
 {
   typedef typename ToDo::ResultType ResultType;
   ResultType res = ResultType(); // default initialization
 
-  ClassifObject const * p = &m_root;
-  uint8_t i = 0;
-  uint8_t v;
-
-  // it's enough for now with our 3-level classificator
-  array<ClassifObject const *, 8> path;
-
-  // get objects route in hierarchy for type
-  while (ftype::GetValue(type, i, v))
+  ClassifObject const * p = GetObject(type);
+  if (p != &m_root)
   {
-    p = p->GetObject(v);
-    if (p != 0)
-    {
-      path[i++] = p;
-      toDo(p);
-    }
-    else
-      break;
+    ASSERT(p, ());
+    toDo(p, res);
   }
-  if (path.empty())
-    return res;
-  else
-  {
-    // process objects from child to root
-    for (; i > 0; --i)
-    {
-      // process and stop find if needed
-      if (toDo(path[i-1], res)) break;
-
-      // no need to process parents
-      if (!NeedProcessParent(path[i-1])) break;
-    }
-    return res;
-  }
+  return res;
 }
 
 ClassifObject const * Classificator::GetObject(uint32_t type) const
@@ -147,8 +112,8 @@ void GetDrawRule(vector<uint32_t> const & types, int level, int geoType,
 
   DrawRuleGetter doRules(level, EGeomType(geoType), keys);
 
-  for (size_t i = 0; i < types.size(); ++i)
-    (void)c.ProcessObjects(types[i], doRules);
+  for (uint32_t t : types)
+    (void)c.ProcessObjects(t, doRules);
 }
 
 namespace
@@ -176,17 +141,21 @@ namespace
 
   class IsDrawableLikeChecker
   {
-    EGeomType m_type;
+    EGeomType m_geomType;
+    bool m_emptyName;
 
   public:
-    IsDrawableLikeChecker(EGeomType type) : m_type(type) {}
+    IsDrawableLikeChecker(EGeomType geomType, bool emptyName = false)
+      : m_geomType(geomType), m_emptyName(emptyName)
+    {
+    }
 
     typedef bool ResultType;
 
     void operator() (ClassifObject const *) {}
     bool operator() (ClassifObject const * p, bool & res)
     {
-      if (p->IsDrawableLike(m_type))
+      if (p->IsDrawableLike(m_geomType, m_emptyName))
       {
         res = true;
         return true;
@@ -218,11 +187,11 @@ namespace
       drule::KeysT keys;
       p->GetSuitable(m_scale, m_ft, keys);
 
-      for (size_t i = 0; i < keys.size(); ++i)
+      for (auto const & k : keys)
       {
-        if ((m_arr[0] && keys[i].m_type == drule::caption) ||
-            (m_arr[1] && keys[i].m_type == drule::pathtext) ||
-            (m_arr[2] && keys[i].m_type == drule::symbol))
+        if ((m_arr[0] && k.m_type == drule::caption) ||
+            (m_arr[1] && k.m_type == drule::pathtext) ||
+            (m_arr[2] && k.m_type == drule::symbol))
         {
           res = true;
           return true;
@@ -259,13 +228,13 @@ bool IsDrawableAny(uint32_t type)
   return (TypeAlwaysExists(type) || classif().GetObject(type)->IsDrawableAny());
 }
 
-bool IsDrawableLike(vector<uint32_t> const & types, EGeomType ft)
+bool IsDrawableLike(vector<uint32_t> const & types, EGeomType geomType)
 {
   Classificator const & c = classif();
 
-  IsDrawableLikeChecker doCheck(ft);
-  for (size_t i = 0; i < types.size(); ++i)
-    if (c.ProcessObjects(types[i], doCheck))
+  IsDrawableLikeChecker doCheck(geomType);
+  for (uint32_t t : types)
+    if (c.ProcessObjects(t, doCheck))
       return true;
   return false;
 }
@@ -302,42 +271,31 @@ bool IsDrawableForIndexClassifOnly(FeatureBase const & f, int level)
   return false;
 }
 
-namespace
+bool RemoveNoDrawableTypes(vector<uint32_t> & types, EGeomType geomType, bool emptyName)
 {
-  class IsNonDrawableType
+  Classificator const & c = classif();
+
+  types.erase(remove_if(types.begin(), types.end(), [&] (uint32_t t)
   {
-    Classificator & m_c;
-    EGeomType m_type;
+   if (TypeAlwaysExists(t, geomType))
+     return false;
 
-  public:
-    IsNonDrawableType(EGeomType ft) : m_c(classif()), m_type(ft) {}
+   IsDrawableLikeChecker doCheck(geomType, emptyName);
+   if (c.ProcessObjects(t, doCheck))
+     return false;
 
-    bool operator() (uint32_t t) const
-    {
-      if (TypeAlwaysExists(t, m_type))
-        return false;
+   // IsDrawableLikeChecker checks only unique area styles,
+   // so we need to take into account point styles too.
+   if (geomType == GEOM_AREA)
+   {
+     IsDrawableLikeChecker doCheck(GEOM_POINT, emptyName);
+     if (c.ProcessObjects(t, doCheck))
+       return false;
+   }
 
-      IsDrawableLikeChecker doCheck(m_type);
-      if (m_c.ProcessObjects(t, doCheck))
-        return false;
+   return true;
+  }), types.end());
 
-      // IsDrawableLikeChecker checks only unique area styles,
-      // so we need to take into account point styles too.
-      if (m_type == GEOM_AREA)
-      {
-        IsDrawableLikeChecker doCheck(GEOM_POINT);
-        if (m_c.ProcessObjects(t, doCheck))
-          return false;
-      }
-
-      return true;
-    }
-  };
-}
-
-bool RemoveNoDrawableTypes(vector<uint32_t> & types, EGeomType ft)
-{
-  types.erase(remove_if(types.begin(), types.end(), IsNonDrawableType(ft)), types.end());
   return !types.empty();
 }
 
