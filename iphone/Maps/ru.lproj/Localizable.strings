@@ -360,7 +360,7 @@
 "no_search_results_found" = "Нет результатов поиска";
 
 /* Notes field in Bookmarks view */
-"description" = "Добавить примечание";
+"description" = "Примечание";
 
 /* Button text */
 "share_by_email" = "Послать по email";
@@ -612,8 +612,11 @@
 /* Rate in Google Play (Android only) */
 "rate_gp" = "Оценить в Google Play";
 
-/* Share with friends */
+/* Share with friends: menu item title */
 "tell_friends" = "Рассказать друзьям";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "Привет! Установи Maps.me!";
 
 /* Text in menu */
 "help" = "Помощь";

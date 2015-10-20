@@ -102,7 +102,6 @@
 	<!-- Confirmation in downloading countries dialog -->
 	<text id="IDS_ARE_YOU_SURE">Tem a certeza de que pretende continuar?</text>
 	<text id="IDS_SHARE_MY_LOCATION">Partilhar a minha localização</text>
-	<text id="IDS_BECOME_A_PRO">Obter PRO</text>
 	<text id="IDS_PREF_ZOOM_TITLE">Botões de zoom</text>
 	<text id="IDS_PREF_ZOOM_SUMMARY">Mostrar no ecrã</text>
 	<!-- Search Suggestion -->

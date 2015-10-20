@@ -230,7 +230,7 @@
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Нет результатов поиска</string>
 	<!-- Notes field in Bookmarks view -->
-	<string name="description">Добавить примечание</string>
+	<string name="description">Примечание</string>
 	<!-- Button text -->
 	<string name="share_by_email">Послать по email</string>
 	<!-- Email Subject when sharing bookmarks category -->

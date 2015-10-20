@@ -104,7 +104,6 @@
 	<!-- Confirmation in downloading countries dialog -->
 	<text id="IDS_ARE_YOU_SURE">Are you sure you want to continue?</text>
 	<text id="IDS_SHARE_MY_LOCATION">Share My Location</text>
-	<text id="IDS_BECOME_A_PRO">Upgrade</text>
 	<text id="IDS_PREF_ZOOM_TITLE">Zoom buttons</text>
 	<text id="IDS_PREF_ZOOM_SUMMARY">Display on the screen</text>
 	<!-- Show on first launch. -->
