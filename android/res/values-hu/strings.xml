@@ -304,7 +304,6 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Hossz</string>
 	<string name="share_my_location">Helyzetem megosztása</string>
-	<string name="become_a_pro">Frissítés most</string>
 	<string name="menu_search">Keresés</string>
 	<string name="pref_zoom_title">Nagyítás/kicsinyítés gombok</string>
 	<string name="pref_zoom_summary">Mutassa a kijelzőn</string>

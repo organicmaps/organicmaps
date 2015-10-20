@@ -8,11 +8,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
-
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Constants;
 
-import java.util.ArrayList;
 import java.util.List;
 
 class StoragePathAdapter extends BaseAdapter
@@ -117,7 +115,7 @@ class StoragePathAdapter extends BaseAdapter
       mStoragePathManager.changeStorage(index);
   }
 
-  public void updateList(ArrayList<StorageItem> items, int currentItemIndex, long dirSize)
+  public void updateList(List<StorageItem> items, int currentItemIndex, long dirSize)
   {
     mSizeNeeded = dirSize;
     mItems = items;

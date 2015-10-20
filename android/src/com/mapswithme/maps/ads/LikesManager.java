@@ -3,10 +3,11 @@ package com.mapswithme.maps.ads;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.SparseArray;
-
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.Config;
 import com.mapswithme.util.concurrency.UiThread;
 
 import java.lang.ref.WeakReference;
@@ -15,12 +16,10 @@ public enum LikesManager
 {
   INSTANCE;
 
-  public static final String LAST_RATED_SESSION = "LastRatedSession";
-  public static final String RATED_DIALOG = "RatedDialog";
 
   private static final int DIALOG_DELAY_DEFAULT = 30000;
   private static final int DIALOG_DELAY_SHORT = 5000;
-  private static final int SESSION_NUM = MwmApplication.get().getSessionsNumber();
+  private static final int SESSION_NUM = Config.getSessionCount();
 
   /*
    Maps type of like dialog to the dialog, performing like.
@@ -73,7 +72,7 @@ public enum LikesManager
     sNewUsersMapping.put(55, LikeType.FACEBOOK_INVITE_NEW_USERS);
   }
 
-  private final boolean mIsNewUser = MwmApplication.get().getFirstInstallVersion() == BuildConfig.VERSION_CODE;
+  private final boolean mIsNewUser = (Config.getFirstInstallVersion() == BuildConfig.VERSION_CODE);
   private Runnable mLikeRunnable;
   private WeakReference<FragmentActivity> mActivityRef;
 
@@ -96,9 +95,10 @@ public enum LikesManager
 
   private void displayLikeDialog(final Class<? extends DialogFragment> dialogFragmentClass, final int delayMillis)
   {
-    if (isSessionRated(SESSION_NUM) || isRatingApplied(dialogFragmentClass))
+    if (Config.isSessionRated(SESSION_NUM) || Config.isRatingApplied(dialogFragmentClass))
       return;
-    setSessionRated(SESSION_NUM);
+
+    Config.setRatedSession(SESSION_NUM);
 
     UiThread.cancelDelayedTasks(mLikeRunnable);
     mLikeRunnable = new Runnable()
@@ -126,25 +126,5 @@ public enum LikesManager
       }
     };
     UiThread.runLater(mLikeRunnable, delayMillis);
-  }
-
-  public static boolean isSessionRated(int sessionNum)
-  {
-    return MwmApplication.get().nativeGetInt(LAST_RATED_SESSION, 0) >= sessionNum;
-  }
-
-  public static void setSessionRated(int sessionNum)
-  {
-    MwmApplication.get().nativeSetInt(LAST_RATED_SESSION, sessionNum);
-  }
-
-  public static boolean isRatingApplied(final Class<? extends DialogFragment> dialogFragmentClass)
-  {
-    return MwmApplication.get().nativeGetBoolean(RATED_DIALOG + dialogFragmentClass.getSimpleName(), false);
-  }
-
-  public static void setRatingApplied(final Class<? extends DialogFragment> dialogFragmentClass, boolean applied)
-  {
-    MwmApplication.get().nativeSetBoolean(RATED_DIALOG + dialogFragmentClass.getSimpleName(), applied);
   }
 }

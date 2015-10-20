@@ -14,6 +14,14 @@ public class ObservableScrollView extends ScrollView
     void onScrollEnd();
   }
 
+  public static class SimpleScrollListener implements ScrollListener
+  {
+    @Override
+    public void onScroll(int left, int top) {}
+
+    @Override
+    public void onScrollEnd() {}
+  }
 
   private static final int SCROLL_END_DETECT_INTERVAL = 100;
 

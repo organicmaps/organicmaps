@@ -268,8 +268,8 @@ public class Utils
   {
     final Intent intent = new Intent(Intent.ACTION_SEND);
     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    intent.putExtra(Intent.EXTRA_EMAIL, new String[]{BuildConfig.SUPPORT_MAIL});
-    intent.putExtra(Intent.EXTRA_SUBJECT, "[android] " + subject);
+    intent.putExtra(Intent.EXTRA_EMAIL, new String[] { Constants.Email.SUPPORT });
+    intent.putExtra(Intent.EXTRA_SUBJECT, "[" + BuildConfig.VERSION_NAME + "] " + subject);
     intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + Utils.saveLogToFile()));
     intent.putExtra(Intent.EXTRA_TEXT, ""); // do this so some email clients don't complain about empty body.
     intent.setType("message/rfc822");

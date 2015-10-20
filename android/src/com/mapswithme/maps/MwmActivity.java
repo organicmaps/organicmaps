@@ -776,7 +776,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void adjustZoomButtons(boolean routingActive)
   {
-    boolean show = (routingActive || MwmApplication.get().nativeGetBoolean(SettingsActivity.ZOOM_BUTTON_ENABLED, true));
+    boolean show = (routingActive || Config.getShowZoomButtons());
     UiUtils.showIf(show, mBtnZoomIn, mBtnZoomOut);
 
     if (!show)

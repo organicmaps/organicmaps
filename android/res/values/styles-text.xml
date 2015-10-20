@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <style name="MwmTextAppearance">
+    <item name="android:textStyle">normal</item>
+    <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoRegular</item>
+  </style>
+
+  <style name="MwmTextAppearance.Display1">
+    <item name="android:textSize">@dimen/text_size_display_1</item>
+    <item name="android:textColor">@color/text_dark</item>
+  </style>
+
+  <style name="MwmTextAppearance.Display1.Plus">
+    <item name="android:textSize">@dimen/text_size_display_1_plus</item>
+  </style>
+
+  <style name="MwmTextAppearance.Display2">
+    <item name="android:textSize">@dimen/text_size_display_2</item>
+    <item name="android:textColor">@color/text_dark</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+
+  <style name="MwmTextAppearance.Display3">
+    <item name="android:textSize">@dimen/text_size_display_3</item>
+    <item name="android:textColor">@color/text_dark</item>
+  </style>
+
+  <style name="MwmTextAppearance.Headline">
+    <item name="android:textSize">@dimen/text_size_headline</item>
+    <item name="android:textColor">@color/text_dark</item>
+  </style>
+
+  <style name="MwmTextAppearance.Toolbar">
+    <item name="android:textSize">@dimen/text_size_toolbar</item>
+    <item name="android:textColor">@color/text_light</item>
+    <item name="android:textColorHint">@color/text_light_hint</item>
+  </style>
+
+  <style name="MwmTextAppearance.Title">
+    <item name="android:textSize">@dimen/text_size_title</item>
+    <item name="android:textColor">@color/text_dark</item>
+  </style>
+
+  <style name="MwmTextAppearance.Title.Light">
+    <item name="android:textSize">@dimen/text_size_title</item>
+    <item name="android:textColor">@color/text_light</item>
+  </style>
+
+  <style name="MwmTextAppearance.Body1">
+    <item name="android:textSize">@dimen/text_size_body_1</item>
+    <item name="android:textColor">@color/text_dark</item>
+  </style>
+
+  <style name="MwmTextAppearance.Body1.Light">
+    <item name="android:textColor">@color/text_light</item>
+  </style>
+
+  <style name="MwmTextAppearance.Body2">
+    <item name="android:textSize">@dimen/text_size_body_2</item>
+    <item name="android:textColor">@color/text_dark_subtitle</item>
+  </style>
+
+  <style name="MwmTextAppearance.Caption">
+    <item name="android:textSize">@dimen/text_size_caption</item>
+    <item name="android:textColor">@color/text_dark_subtitle</item>
+  </style>
+
+  <style name="MwmTextAppearance.Body3">
+    <item name="android:textSize">@dimen/text_size_body_3</item>
+    <item name="android:textColor">@color/text_dark_subtitle</item>
+  </style>
+
+  <style name="MwmTextAppearance.Body3.Light">
+    <item name="android:textSize">@dimen/text_size_body_3</item>
+    <item name="android:textColor">@color/text_light</item>
+  </style>
+
+  <style name="MwmTextAppearance.Body4">
+    <item name="android:textSize">@dimen/text_size_body_4</item>
+    <item name="android:textColor">@color/text_dark_subtitle</item>
+  </style>
+
+  <style name="MwmTextAppearance.Body4.Light">
+    <item name="android:textColor">@color/text_light</item>
+  </style>
+
+  <style name="MwmTextAppearance.IconTitle">
+    <item name="android:textSize">@dimen/text_size_icon_title</item>
+    <item name="android:textColor">@color/text_green</item>
+  </style>
+
+  <style name="MwmTextAppearance.Button">
+    <item name="android:textSize">@dimen/text_size_button</item>
+    <item name="android:textColor">@color/text_green</item>
+    <item name="android:textAllCaps">true</item>
+  </style>
+
+  <style name="MwmTextAppearance.Toolbar.Button" parent="MwmTextAppearance.Body3.Light">
+    <item name="android:textAllCaps">true</item>
+  </style>
+
+  <style name="MwmTextAppearance.Hint.InputLayout" parent="TextAppearance.AppCompat">
+    <item name="android:textColorHint">?attr/colorAccent</item>
+  </style>
+
+  <style name="MwmTextAppearance.Toolbar.Title" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+    <item name="android:textSize">@dimen/text_size_toolbar</item>
+  </style>
+
+  <style name="MwmTextAppearance.Counter">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:minWidth">20dp</item>
+    <item name="android:minHeight">20dp</item>
+    <item name="android:paddingLeft">2dp</item>
+    <item name="android:paddingRight">2dp</item>
+    <item name="android:gravity">center</item>
+    <item name="android:background">@drawable/counter</item>
+    <item name="android:textAppearance">@style/MwmTextAppearance.Body3.Light</item>
+  </style>
+
+  <style name="MwmTextAppearance.RoutingNumber">
+    <item name="android:textSize">@dimen/text_size_routing_number</item>
+    <item name="android:textColor">@color/text_dark_subtitle</item>
+  </style>
+</resources>

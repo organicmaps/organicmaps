@@ -219,7 +219,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mRoutingButton = ppButtons.findViewById(R.id.ll__route);
 
     mShadowController = new ScrollViewShadowController((ObservableScrollView) mPpDetails)
-                            .addShadow(BaseShadowController.BOTTOM, R.id.shadow_bottom)
+                            .addBottomShadow()
                             .attach();
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)

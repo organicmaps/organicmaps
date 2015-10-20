@@ -6,11 +6,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-
-import com.mapswithme.util.ViewServer;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.ViewServer;
 import com.mapswithme.util.statistics.Statistics;
 
 public class BaseMwmFragmentActivity extends AppCompatActivity

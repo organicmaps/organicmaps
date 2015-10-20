@@ -5084,32 +5084,6 @@
     nb = Del posisjonen min
     fi = Jaa sijaintini
 
-  [become_a_pro]
-    tags = tizen
-    en = Upgrade
-    ru = Загрузить PRO
-    uk = Купити PRO
-    es = Obtener PRO
-    pt = Obter PRO
-    pl = Uaktualnij
-    it = Aggiorna
-    nl = Upgrade
-    de = Upgrade
-    cs = Provést upgrade
-    sk = Vykonať upgrade
-    fr = Mettre à niveau
-    ja = アップグレード
-    ko = 업그레이드
-    zh-Hant = 升級
-    hu = Frissítés most
-    th = อัปเกรด
-    zh-Hans = 升级
-    ar = ترقية
-    da = Opgrader
-    tr = Yükselt
-    sv = Uppgradera
-    he = שדרוג
-
   [menu_search]
     en = Search
     ru = Поиск
@@ -5140,8 +5114,26 @@
     nb = Søk
     fi = Haku
 
+  [prefs_group_map]
+    tags = android
+    comment = Settings screen: "Map" category title
+    en = Map
+    ru = Карта
+
+  [prefs_group_route]
+    tags = android
+    comment = Settings screen: "Route" category title
+    en = Route
+    ru = Маршрут
+
+  [prefs_group_misc]
+    tags = android
+    comment = Settings screen: "Miscellaneous" category title
+    en = Miscellaneous
+    ru = Прочее
+
   [pref_zoom_title]
-    tags = tizen
+    tags = android,tizen
     en = Zoom buttons
     ru = Кнопки масштаба
     uk = Кнопки трансфокації
@@ -5172,7 +5164,7 @@
     fi = Zoomauspainikkeet
 
   [pref_zoom_summary]
-    tags = tizen
+    tags = android,tizen
     en = Display on the screen
     ru = Показать на карте
     uk = Відображення на екрані
@@ -5201,6 +5193,36 @@
     ro = Afișare pe ecran
     nb = Vis på skjermen
     fi = Näytä ruudulla
+
+  [pref_map_style_title]
+     tags = android
+     comment = Settings «Map» category: «Map style» title
+     en = Map style
+     ru = Стиль карты
+
+  [pref_map_style_summary]
+     tags = android
+     comment = Settings «Map» category: «Map style» summary
+     en = Change map presentation
+     ru = Стиль отображения карты
+
+  [pref_map_style_classic_light]
+     tags = android
+     comment = «Map style» entry value
+     en = Classic light
+     ru = Классическая светлая
+
+  [pref_map_style_classic_dark]
+     tags = android
+     comment = «Map style» entry value
+     en = Classic dark
+     ru = Классическая тёмная
+
+  [pref_map_style_modern_light]
+     tags = android
+     comment = «Map style» entry value
+     en = Modern light
+     ru = Современная светлая
 
   [placepage_distance]
     en = Distance
@@ -5992,6 +6014,18 @@
     nb = Innstillinger med mer
     fi = Asetukset &amp; Lisää
 
+  [website]
+    tags = android
+    comment = Text in menu
+    en = Website
+    ru = Сайт
+
+  [blog]
+    tags = android
+    comment = Text in menu
+    en = Blog
+    ru = Блог
+
   [maps_me_community]
     tags = ios, android
     comment = Text in menu
@@ -6089,7 +6123,7 @@
     fi = Seuraa meitä Twitterissä
 
   [contact_us]
-    tags = ios, android
+    tags = ios
     comment = Text in menu
     en = Contact us
     cs = Kontaktovat nás
@@ -6119,6 +6153,18 @@
     ro = Contactați-ne
     nb = Kontakt oss
     fi = Ota yhteyttä
+
+  [feedback]
+    tags = android
+    comment = Settings: Send feedback button and dialog title
+    en = Feedback
+    ru = Связаться с нами
+
+  [feedback_general]
+    tags = android
+    comment = Settings: "Send general feedback" button
+    en = General feedback
+    ru = Отправить отзыв
 
   [subscribe_to_news]
     tags = ios, android
@@ -6183,6 +6229,24 @@
     ro = Votați-ne aplicația
     nb = Ranger appen
     fi = Arvioi sovellus
+
+  [rate_gp]
+    tags = android
+    comment = Rate in Google Play (Android only)
+    en = Rate on Google Play
+    ru = Оценить в Google Play
+
+  [tell_friends]
+    tags = android
+    comment = Share with friends: menu item title
+    en = Tell a Friend
+    ru = Рассказать друзьям
+
+  [tell_friends_text]
+    tags = android
+    comment = Share with friends: sharing text
+    en = Hi! Install Maps.me!
+    ru = Привет! Установи Maps.me!
 
   [help]
     tags = ios, android
@@ -6249,7 +6313,7 @@
     fi = Copyright
 
   [report_a_bug]
-    tags = ios, android
+    tags = ios
     comment = Text in menu
     en = Report a bug
     cs = Nahlásit chybu
@@ -6343,6 +6407,12 @@
     ro = Vreau să fiu primul care află despre cele mai recente actualizări și promoții. Îmi pot anula abonamentul în orice moment.
     nb = Jeg ønsker å være den første som får vite om siste nytt og nye kampanjer. Jeg kan avbestille abonnementet når som helst.
     fi = Liittäkää minut MAPS.ME -uutiskirjeen tilaajaksi saadakseni ensimmäisenä tietoa uusista päivityksistä ja TARJOUKSISTA. Voin peruuttaa tilaukseni koska tahansa.
+
+ [about_description]
+    tags = ios, android
+    comment = About short text (below logo)
+    en = Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!
+    ru = Объединив усилия Mail.Ru Group и данные OpenStreetMap, мы создаем незаменимое приложение для путешествий.
 
  [about_text]
     tags = ios, android

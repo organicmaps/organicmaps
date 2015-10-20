@@ -308,7 +308,6 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Longueur</string>
 	<string name="share_my_location">Partager ma position</string>
-	<string name="become_a_pro">Mettre à niveau</string>
 	<string name="menu_search">Rechercher</string>
 	<string name="pref_zoom_title">Boutons de zoom</string>
 	<string name="pref_zoom_summary">Afficher à l\&#39;écran</string>
