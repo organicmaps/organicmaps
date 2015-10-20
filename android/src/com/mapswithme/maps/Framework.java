@@ -103,8 +103,6 @@ public class Framework
 
   public native static void injectData(SearchResult searchResult, long index);
 
-  public native static void cleanSearchLayerOnMap();
-
   public native static void invalidate();
 
   public native static void deactivatePopup();

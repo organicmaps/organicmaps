@@ -12,7 +12,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,6 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,14 +96,6 @@ public class SearchFragment extends BaseMwmFragment
     }
 
     @Override
-    protected void onClearClick()
-    {
-      super.onClearClick();
-      FloatingSearchToolbarController.cancelApiCall();
-      FloatingSearchToolbarController.cancelSearch();
-    }
-
-    @Override
     protected void onVoiceInputClick()
     {
       try
@@ -127,8 +117,6 @@ public class SearchFragment extends BaseMwmFragment
       }
 
       clear();
-      FloatingSearchToolbarController.cancelSearch();
-      updateFrames();
     }
   }
 
@@ -365,9 +353,8 @@ public class SearchFragment extends BaseMwmFragment
   {
     final String query = getQuery();
     SearchRecents.add(query);
-    FloatingSearchToolbarController.cancelApiCall();
-    FloatingSearchToolbarController.saveQuery("");
-    SearchEngine.nativeShowResult(resultIndex);
+    SearchEngine.cancelApiCall();
+    SearchEngine.showResult(query, resultIndex);
     Utils.navigateToParent(getActivity());
 
     Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_KEY_CLICKED);
@@ -378,8 +365,7 @@ public class SearchFragment extends BaseMwmFragment
     final String query = getQuery();
     mLastQueryTimestamp = System.nanoTime();
     SearchEngine.runInteractiveSearch(query, Language.getKeyboardLocale(), mLastQueryTimestamp);
-    SearchEngine.nativeShowAllResults();
-    FloatingSearchToolbarController.saveQuery(query);
+    SearchEngine.showAllResults(query);
     Utils.navigateToParent(getActivity());
 
     Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_ON_MAP_CLICKED);
@@ -400,12 +386,19 @@ public class SearchFragment extends BaseMwmFragment
   @Override
   public void onLocationError(int errorCode) {}
 
-  private void stopSearch()
+  private void onSearchEnd()
   {
     mSearchRunning = false;
     mToolbarController.showProgress(false);
     updateFrames();
     updateResultsPlaceholder();
+  }
+
+  private void stopSearch()
+  {
+    SearchEngine.cancelApiCall();
+    SearchEngine.cancelSearch();
+    onSearchEnd();
   }
 
   private void runSearch()
@@ -445,7 +438,7 @@ public class SearchFragment extends BaseMwmFragment
   public void onResultsEnd(long timestamp)
   {
     if (mSearchRunning && isAdded())
-      stopSearch();
+      onSearchEnd();
   }
 
   @Override
@@ -470,7 +463,11 @@ public class SearchFragment extends BaseMwmFragment
   @Override
   public boolean onBackPressed()
   {
-    return false;
+    if (!searchActive())
+      return false;
+
+    mToolbarController.clear();
+    return true;
   }
 
   public void setRecyclerScrollListener(RecyclerView recycler)

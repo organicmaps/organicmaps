@@ -1,5 +1,7 @@
 package com.mapswithme.maps.search;
 
+import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.util.concurrency.UiThread;
 
 import java.io.UnsupportedEncodingException;
@@ -9,6 +11,9 @@ import java.util.List;
 public enum SearchEngine implements NativeSearchListener
 {
   INSTANCE;
+
+  // Query, which results are shown on the map.
+  private static String sSavedQuery;
 
   @Override
   public void onResultsUpdate(final SearchResult[] results, final long timestamp)
@@ -80,6 +85,36 @@ public enum SearchEngine implements NativeSearchListener
     } catch (UnsupportedEncodingException ignored) { }
   }
 
+  public static String getQuery()
+  {
+    return sSavedQuery;
+  }
+
+  public static void cancelApiCall()
+  {
+    if (ParsedMwmRequest.hasRequest())
+      ParsedMwmRequest.setCurrentRequest(null);
+    Framework.nativeClearApiPoints();
+  }
+
+  public static void cancelSearch()
+  {
+    sSavedQuery = "";
+    nativeCancelInteractiveSearch();
+  }
+
+  public static void showResult(String query, int index)
+  {
+    sSavedQuery = "";
+    nativeShowResult(index);
+  }
+
+  public static void showAllResults(String query)
+  {
+    sSavedQuery = query;
+    nativeShowAllResults();
+  }
+
   /**
    * @param bytes utf-8 formatted bytes of query.
    */
@@ -90,7 +125,9 @@ public enum SearchEngine implements NativeSearchListener
    */
   private static native void nativeRunInteractiveSearch(byte[] bytes, String language, long timestamp);
 
-  public static native void nativeShowResult(int index);
+  private static native void nativeShowResult(int index);
 
-  public static native void nativeShowAllResults();
+  private static native void nativeShowAllResults();
+
+  public static native void nativeCancelInteractiveSearch();
 }
