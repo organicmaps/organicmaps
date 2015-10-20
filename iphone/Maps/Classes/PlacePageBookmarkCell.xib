@@ -95,7 +95,7 @@
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="note"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="description"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
@@ -170,7 +170,6 @@
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
-                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="edit_bookmark"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="editTap" destination="jfp-wb-Z7G" eventType="touchUpInside" id="IKA-2o-75q"/>
@@ -229,6 +228,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="categoryButton" destination="jxG-Qv-eKF" id="pom-En-q4u"/>
+                <outlet property="editBookmarkButton" destination="8KR-m1-j51" id="VNq-cx-CxM"/>
                 <outlet property="markButton" destination="Wax-9r-T5y" id="PlC-Ww-Hpr"/>
                 <outlet property="note" destination="f8i-PA-TJb" id="kAv-qp-HXO"/>
                 <outlet property="noteLabel" destination="fVU-OV-gcK" id="Zes-4a-UyY"/>
@@ -240,7 +240,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ic_arrow_gray" width="8" height="12"/>
+        <image name="ic_arrow_gray" width="8" height="14"/>
         <image name="ic_bookmark" width="16" height="16"/>
         <image name="placemark-red-on" width="28" height="28"/>
     </resources>
