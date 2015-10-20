@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.LocationState;
 import com.mapswithme.maps.R;
@@ -195,7 +196,6 @@ public class RoutingLayout extends RelativeLayout implements View.OnClickListene
 
   public void setState(State state, boolean animated)
   {
-    // TODO show routing progress after its implemented.
     mState = state;
     switch (mState)
     {
@@ -214,9 +214,7 @@ public class RoutingLayout extends RelativeLayout implements View.OnClickListene
 
       Framework.nativeCloseRouting();
       UiUtils.show(mLayoutSetupRouting, mWvProgress, mTvPlanning);
-      // TODO (marchuk): Uncomment after the second turn notification is fixed.
-//      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mIvCancelRouteBuild, mNextTurn);
-      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mIvCancelRouteBuild);
+      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mIvCancelRouteBuild, mNextTurn);
       mTvPlanning.setText(R.string.routing_planning);
       mWvProgress.setProgress(0);
       if (animated)
@@ -233,22 +231,16 @@ public class RoutingLayout extends RelativeLayout implements View.OnClickListene
       break;
     case ROUTE_BUILT:
       UiUtils.show(this, mLayoutSetupRouting, mTvPrepareDistance, mTvPrepareTime, mIvCancelRouteBuild);
-      // TODO (marchuk): Uncomment after the second turn notification is fixed.
-//      UiUtils.hide(mLayoutTurnInstructions, mWvProgress, mTvPlanning, mNextTurn);
-      UiUtils.hide(mLayoutTurnInstructions, mWvProgress, mTvPlanning);
+      UiUtils.hide(mLayoutTurnInstructions, mWvProgress, mTvPlanning, mNextTurn);
       if (animated)
         UiUtils.appearSlidingDown(mBtnStart, null);
       else
         UiUtils.show(mBtnStart);
-
       refreshRouteSetup();
       break;
     case ROUTE_BUILD_ERROR:
       UiUtils.show(mLayoutSetupRouting, mIvCancelRouteBuild, mTvPlanning);
-      // TODO (marchuk): Uncomment after the second turn notification is fixed.
-//      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mWvProgress, mNextTurn);
-      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mWvProgress);
-
+      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mWvProgress, mNextTurn);
       mTvPlanning.setText(R.string.routing_planning_error);
       break;
     case TURN_INSTRUCTIONS:
@@ -315,14 +307,15 @@ public class RoutingLayout extends RelativeLayout implements View.OnClickListene
     else
       UiUtils.hide(mTvExitNum);
 
-    // TODO (marchuk): Uncomment after the second turn notification is fixed.
-//    if (routingInfo.vehicleNextTurnDirection.containsNextTurn())
-//    {
-//      UiUtils.appearSlidingDown(mNextTurn, null);
-//      routingInfo.vehicleNextTurnDirection.setNextTurnDrawable(mIvNextTurn);
-//    }
-//    else
-//      UiUtils.disappearSlidingUp(mNextTurn, null);
+    if (routingInfo.vehicleNextTurnDirection.containsNextTurn())
+    {
+      if (mNextTurn.getVisibility() != VISIBLE && mNextTurn.getAnimation() == null)
+        UiUtils.appearSlidingDown(mNextTurn, null);
+
+      routingInfo.vehicleNextTurnDirection.setNextTurnDrawable(mIvNextTurn);
+    }
+    else if (mNextTurn.getVisibility() == VISIBLE && mNextTurn.getAnimation() == null)
+      UiUtils.disappearSlidingUp(mNextTurn, null);
   }
 
   private void refreshPedestrianAzimutAndDistance(RoutingInfo info)
