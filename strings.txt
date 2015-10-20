@@ -3843,8 +3843,8 @@
     ja = メモ
     ko = 메모
     nl = Notities
-    ru = Добавить примечание
-    uk = Додати примітку
+    ru = Примечание
+    uk = Примітка
     zh-Hant = 描述說明
     pl = Notatki
     pt = Notas
