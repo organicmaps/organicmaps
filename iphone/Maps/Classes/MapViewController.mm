@@ -525,6 +525,15 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
+- (void)presentViewController:(UIViewController *)viewControllerToPresent
+                     animated:(BOOL)flag
+                   completion:(void (^__nullable)(void))completion
+{
+  if (isIOSVersionLessThan(8))
+    self.menuRestoreState = self.controlsManager.menuState;
+  [super presentViewController:viewControllerToPresent animated:flag completion:completion];
+}
+
 - (void)orientationChanged:(NSNotification *)notification
 {
   [self willRotateToInterfaceOrientation:self.interfaceOrientation duration:0.];
