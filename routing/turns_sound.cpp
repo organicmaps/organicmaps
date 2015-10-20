@@ -41,8 +41,9 @@ string TurnsSound::GenerateTurnText(uint32_t distanceUnits, uint8_t exitNum, boo
 
 void TurnsSound::GenerateTurnSound(vector<TurnItemDist> const & turns, vector<string> & turnNotifications)
 {
-  turnNotifications.clear();
+  m_secondTurnNotification = GenerateSecondTurnNotification(turns);
 
+  turnNotifications.clear();
   if (!m_enabled || turns.empty())
     return;
 
@@ -187,6 +188,8 @@ void TurnsSound::Reset()
   m_nextTurnNotificationProgress = PronouncedNotification::Nothing;
   m_nextTurnIndex = 0;
   m_turnNotificationWithThen = false;
+  m_secondTurnNotification = TurnDirection::NoTurn;
+  m_secondTurnNotificationIndex = 0;
 }
 
 void TurnsSound::FastForwardFirstTurnNotification()
@@ -194,6 +197,44 @@ void TurnsSound::FastForwardFirstTurnNotification()
   m_turnNotificationWithThen = false;
   if (m_nextTurnNotificationProgress == PronouncedNotification::Nothing)
     m_nextTurnNotificationProgress = PronouncedNotification::First;
+}
+
+TurnDirection TurnsSound::GenerateSecondTurnNotification(vector<TurnItemDist> const & turns)
+{
+  // To work correctly the method needs to have at least two closest turn.
+  if (turns.size() < 2)
+  {
+    m_secondTurnNotificationIndex = 0;
+    return TurnDirection::NoTurn;
+  }
+
+  TurnItemDist const & firstTurn = turns[0];
+  TurnItemDist const & secondTurn = turns[1];
+
+  if (firstTurn.m_turnItem.m_index != m_secondTurnNotificationIndex)
+    m_secondTurnNotificationIndex = 0; // It's a new closest(fisrt) turn.
+
+  if (m_secondTurnNotificationIndex == firstTurn.m_turnItem.m_index && m_secondTurnNotificationIndex != 0)
+    return secondTurn.m_turnItem.m_turn; // m_secondTurnNotificationIndex was set to true before.
+
+  double const distBetweenTurns = secondTurn.m_distMeters - firstTurn.m_distMeters;
+  if (distBetweenTurns < 0)
+  {
+    ASSERT(false, ());
+    return TurnDirection::NoTurn;
+  }
+  if (distBetweenTurns > kMaxTurnDistM)
+    return TurnDirection::NoTurn;
+
+  uint32_t const startPronounceDistMeters = m_settings.ComputeTurnDistance(m_speedMetersPerSecond) +
+      CalculateDistBeforeMeters(m_speedMetersPerSecond, m_startBeforeSeconds,
+                                m_minStartBeforeMeters, m_maxStartBeforeMeters);;
+  if (firstTurn.m_distMeters <= startPronounceDistMeters)
+  {
+    m_secondTurnNotificationIndex = firstTurn.m_turnItem.m_index;
+    return secondTurn.m_turnItem.m_turn; // It's time to inform about the turn after the next one.
+  }
+  return TurnDirection::NoTurn;
 }
 
 string DebugPrint(PronouncedNotification const notificationProgress)
