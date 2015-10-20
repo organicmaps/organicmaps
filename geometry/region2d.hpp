@@ -35,10 +35,11 @@ namespace m2
 
         return my::AlmostEqualAbs(val, 0.0, kPrecision * kPrecision);
       }
-      inline bool IsAlmostBetween(double val, double left, double right) const
+      // Determines if value of a val lays between a p1 and a p2 values with some precision.
+      inline bool IsAlmostBetween(double val, double p1, double p2) const
       {
-        return ((val >= left - kPrecision) && (val <= right + kPrecision)) ||
-               ((val <= left + kPrecision) && (val >= right - kPrecision));
+        return (val >= p1 - kPrecision && val <= p2 + kPrecision) ||
+               (val <= p1 + kPrecision && val >= p2 - kPrecision);
       }
     };
 
@@ -56,8 +57,8 @@ namespace m2
       }
       inline bool IsAlmostBetween(double val, double left, double right) const
       {
-        return ((val >= left) && (val <= right)) ||
-               ((val <= left) && (val >= right));
+        return (val >= left && val <= right) ||
+               (val <= left && val >= right);
       }
     };
 
@@ -155,14 +156,15 @@ namespace m2
 
     ContainerT Data() const { return m_points; }
 
-    template <class EqualF>
+    template <class TEqualF>
     inline bool IsIntersect(CoordT const & x11, CoordT const & y11, CoordT const & x12, CoordT const & y12,
                             CoordT const & x21, CoordT const & y21, CoordT const & x22, CoordT const & y22,
-                            EqualF equalF, PointT & pt) const
+                            TEqualF equalF, PointT & pt) const
     {
-      if (!((y12 - y11) * (x22 - x21) - (x12 - x11) * (y22-y21)))
+      double const divider = ((y12 - y11) * (x22 - x21) - (x12 - x11) * (y22-y21));
+      if (equalF.EqualZeroSquarePrecision(divider))
         return false;
-      double v = ((x12 - x11) * (y21 - y11) + (y12 - y11) * (x11 - x21)) / ((y12 - y11) * (x22 - x21) - (x12 - x11) * (y22 - y21));
+      double v = ((x12 - x11) * (y21 - y11) + (y12 - y11) * (x11 - x21)) / divider;
       PointT p(x21 + (x22 - x21) * v, y21 + (y22 - y21) * v);
 
       if (!equalF.IsAlmostBetween(p.x, x11, x12))
@@ -186,8 +188,8 @@ namespace m2
   public:
 
     /// Taken from Computational Geometry in C and modified
-    template <class EqualF>
-    bool Contains(PointT const & pt, EqualF equalF) const
+    template <class TEqualF>
+    bool Contains(PointT const & pt, TEqualF equalF) const
     {
       if (!m_rect.IsPointInside(pt))
         return false;
@@ -266,8 +268,8 @@ namespace m2
     }
 
     /// Slow check that point lies at the border.
-    template <class EqualF>
-    bool AtBorder(PointT const & pt, double const delta, EqualF equalF) const
+    template <class TEqualF>
+    bool AtBorder(PointT const & pt, double const delta, TEqualF equalF) const
     {
       if (!m_rect.IsPointInside(pt))
         return false;
