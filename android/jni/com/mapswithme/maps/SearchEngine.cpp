@@ -216,4 +216,13 @@ extern "C"
       g_framework->NativeFramework()->ShowAllSearchResults(results);
     });
   }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_search_SearchEngine_nativeCancelInteractiveSearch(JNIEnv * env, jclass clazz)
+  {
+    android::Platform::RunOnGuiThreadImpl([]()
+    {
+      g_framework->NativeFramework()->CancelInteractiveSearch();
+    });
+  }
 } // extern "C"

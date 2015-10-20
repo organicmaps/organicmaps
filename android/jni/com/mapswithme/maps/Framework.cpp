@@ -1162,12 +1162,6 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_cleanSearchLayerOnMap(JNIEnv * env, jclass clazz)
-  {
-    android::Platform::RunOnGuiThreadImpl(bind(&::Framework::CancelInteractiveSearch, frm()));
-  }
-
-  JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_invalidate(JNIEnv * env, jclass clazz)
   {
     g_framework->Invalidate();
