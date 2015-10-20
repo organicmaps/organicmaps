@@ -8,6 +8,7 @@
 #include "drape_frontend/renderer3d.hpp"
 
 #include "drape/debug_rect_renderer.hpp"
+#include "drape/shader_def.hpp"
 #include "drape/support_manager.hpp"
 
 #include "drape/utils/glyph_usage_tracker.hpp"
@@ -45,7 +46,8 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_routeRenderer(new RouteRenderer())
   , m_overlayTree(new dp::OverlayTree())
   , m_useFramebuffer(false)
-  , m_3dModeChanged(false)
+  , m_isSpriteRenderPass(false)
+  , m_3dModeChanged(true)
   , m_framebuffer(new Framebuffer())
   , m_renderer3d(new Renderer3d())
   , m_viewport(params.m_viewport)
@@ -464,20 +466,26 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
   case Message::Enable3dMode:
     {
-      ref_ptr<Enable3dModeMessage> msg = message;
-      m_renderer3d->SetVerticalFOV(msg->GetAngleFOV());
-      m_renderer3d->SetPlaneAngleX(msg->GetAngleX());
-      m_useFramebuffer = true;
-      m_3dModeChanged = true;
-      AddUserEvent(Enable3dModeEvent(max(m_renderer3d->GetScaleX(), m_renderer3d->GetScaleY())));
+      if (!m_useFramebuffer)
+      {
+        ref_ptr<Enable3dModeMessage> msg = message;
+        m_renderer3d->SetVerticalFOV(msg->GetAngleFOV());
+        m_renderer3d->SetPlaneAngleX(msg->GetAngleX());
+        m_useFramebuffer = true;
+        m_3dModeChanged = true;
+        AddUserEvent(Enable3dModeEvent(max(m_renderer3d->GetScaleX(), m_renderer3d->GetScaleY())));
+      }
       break;
     }
 
   case Message::Disable3dMode:
     {
-      m_useFramebuffer = false;
-      m_3dModeChanged = true;
-      AddUserEvent(Disable3dMode(false));
+      if (m_useFramebuffer)
+      {
+        m_useFramebuffer = false;
+        m_3dModeChanged = true;
+        AddUserEvent(Disable3dMode(false));
+      }
       break;
     }
 
@@ -522,6 +530,8 @@ void FrontendRenderer::OnResize(ScreenBase const & screen)
     m_renderer3d->SetSize(m_pixelRect.SizeX(), m_pixelRect.SizeY());
     m_framebuffer->SetDefaultContext(m_contextFactory->getDrawContext());
     m_framebuffer->SetSize(width, height);
+
+    RefreshPivotTransform();
   }
 }
 
@@ -784,6 +794,24 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   {
     m_framebuffer->Disable();
     m_renderer3d->Render(m_framebuffer->GetTextureId(), make_ref(m_gpuProgramManager));
+// Test code to check ortho overlays in 3d mode
+    m_isSpriteRenderPass = true;
+    GLFunctions::glDisable(gl_const::GLDepthTest);
+    for (currentRenderGroup = 0; currentRenderGroup < m_renderGroups.size(); ++currentRenderGroup)
+    {
+      drape_ptr<RenderGroup> const & group = m_renderGroups[currentRenderGroup];
+      RenderSingleGroup(modelView, make_ref(group));
+    }
+
+    for (drape_ptr<UserMarkRenderGroup> const & group : m_userMarkRenderGroups)
+    {
+      ASSERT(group.get() != nullptr, ());
+      group->UpdateAnimation();
+      if (m_userMarkVisibility.find(group->GetTileKey()) != m_userMarkVisibility.end())
+        RenderSingleGroup(modelView, make_ref(group));
+    }
+    m_isSpriteRenderPass = false;
+// End of test code
   }
 
   GLFunctions::glEnable(gl_const::GLDepthTest);
@@ -793,8 +821,23 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 #endif
 }
 
+bool FrontendRenderer::IsSpriteProgram(int programIndex) const
+{
+  return programIndex == gpu::TEXTURING_SPRITE_PROGRAM
+      || programIndex == gpu::TEXT_SPRITE_PROGRAM
+      || programIndex == gpu::TEXT_OUTLINED_SPRITE_PROGRAM
+      || programIndex == gpu::BOOKMARK_SPRITE_PROGRAM;
+}
+
 void FrontendRenderer::RenderSingleGroup(ScreenBase const & modelView, ref_ptr<BaseRenderGroup> group)
 {
+  dp::GLState const & state = group->GetState();
+  bool isSpriteProgram = IsSpriteProgram(state.GetProgramIndex());
+
+  if ((m_isSpriteRenderPass && !isSpriteProgram) ||
+      (m_useFramebuffer && !m_isSpriteRenderPass && isSpriteProgram))
+    return;
+
   group->UpdateAnimation();
   group->Render(modelView);
 }
@@ -820,6 +863,14 @@ void FrontendRenderer::RefreshModelView(ScreenBase const & screen)
   mv(3, 0) = m(0, 2); mv(3, 1) = m(1, 2); mv(3, 2) = 0; mv(3, 3) = m(2, 2);
 
   m_generalUniforms.SetMatrix4x4Value("modelView", mv.m_data);
+}
+
+void FrontendRenderer::RefreshPivotTransform()
+{
+  if (m_useFramebuffer)
+    m_generalUniforms.SetMatrix4x4Value("pivotTransform", m_renderer3d->GetTransform().m_data);
+  else
+    m_generalUniforms.SetMatrix4x4Value("pivotTransform", math::Identity<float, 4>().m_data);
 }
 
 void FrontendRenderer::RefreshBgColor()
@@ -1175,6 +1226,7 @@ void FrontendRenderer::PrepareScene(ScreenBase const & modelView)
 {
   RefreshModelView(modelView);
   RefreshBgColor();
+  RefreshPivotTransform();
 }
 
 void FrontendRenderer::UpdateScene(ScreenBase const & modelView)

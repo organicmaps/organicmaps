@@ -157,7 +157,7 @@ void CacheUserPoints(UserMarksProvider const * provider,
     buffer.emplace_back(pos, right + up + offset, glsl::ToVec2(texRect.RightBottom()), runAnim);
   }
 
-  dp::GLState state(gpu::BOOKMARK_PROGRAM, dp::GLState::UserMarkLayer);
+  dp::GLState state(gpu::BOOKMARK_SPRITE_PROGRAM, dp::GLState::UserMarkLayer);
   state.SetColorTexture(region.GetTexture());
 
   dp::AttributeProvider attribProvider(1, buffer.size());

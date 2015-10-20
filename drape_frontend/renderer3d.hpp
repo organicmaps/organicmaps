@@ -1,7 +1,10 @@
 #pragma once
 
-#include "drape/gpu_program_manager.hpp"
 #include "viewport.hpp"
+
+#include "drape/gpu_program_manager.hpp"
+
+#include "base/matrix.hpp"
 
 namespace df
 {
@@ -16,6 +19,8 @@ public:
   void SetVerticalFOV(float fov);
   void SetPlaneAngleX(float angleX);
 
+  math::Matrix<float, 4, 4> const & GetTransform() const;
+
   float GetScaleX() const;
   float GetScaleY() const;
 
@@ -26,6 +31,7 @@ private:
 
   void CalculateGeometry();
 
+  void UpdateScaleMatrix();
   void UpdateRotationMatrix();
   void UpdateTranslationMatrix();
   void UpdateProjectionMatrix();
@@ -35,21 +41,22 @@ private:
 
   float m_fov;
   float m_angleX;
-  float m_offsetX;
   float m_offsetY;
   float m_offsetZ;
 
   float m_scaleX;
   float m_scaleY;
 
-  array<float, 16> m_rotationMatrix;
-  array<float, 16> m_translationMatrix;
-  array<float, 16> m_projectionMatrix;
+  math::Matrix<float, 4, 4> m_scaleMatrix;
+  math::Matrix<float, 4, 4> m_rotationMatrix;
+  math::Matrix<float, 4, 4> m_translationMatrix;
+  math::Matrix<float, 4, 4> m_projectionMatrix;
+  math::Matrix<float, 4, 4> m_transformMatrix;
 
   uint32_t m_VAO;
   uint32_t m_bufferId;
 
-  float m_vertices[16];
+  array<float, 16> m_vertices;
 };
 
 }

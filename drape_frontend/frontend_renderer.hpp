@@ -140,6 +140,7 @@ private:
   void RenderSingleGroup(ScreenBase const & modelView, ref_ptr<BaseRenderGroup> group);
   void RefreshProjection();
   void RefreshModelView(ScreenBase const & screen);
+  void RefreshPivotTransform();
   void RefreshBgColor();
 
   ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged);
@@ -209,6 +210,8 @@ private:
   FeatureID GetVisiblePOI(m2::PointD const & pixelPoint) const;
   FeatureID GetVisiblePOI(m2::RectD const & pixelRect) const;
 
+  bool IsSpriteProgram(int programIndex) const;
+
 private:
   drape_ptr<dp::GpuProgramManager> m_gpuProgramManager;
 
@@ -227,6 +230,7 @@ private:
   dp::UniformValuesStorage m_generalUniforms;
 
   bool m_useFramebuffer;
+  bool m_isSpriteRenderPass;
   bool m_3dModeChanged;
   drape_ptr<Framebuffer> m_framebuffer;
   drape_ptr<Renderer3d> m_renderer3d;
