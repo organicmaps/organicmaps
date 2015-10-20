@@ -6,6 +6,8 @@
 #include "geometry/distance_on_sphere.hpp"
 #include "platform/measurement_utils.hpp"
 
+using namespace routing::turns;
+
 @implementation MWMNavigationDashboardEntity
 
 - (void)updateWithFollowingInfo:(location::FollowingInfo const &)info
@@ -50,7 +52,7 @@
     _nextTurnImage = image(info.m_nextTurn, true);
   }
   _turnImage = image(info.m_turn, false);
-  if (info.m_turn == routing::turns::TurnDirection::EnterRoundAbout)
+  if (info.m_turn == TurnDirection::EnterRoundAbout || info.m_turn == TurnDirection::LeaveRoundAbout)
     _roundExitNumber = info.m_exitNum;
   else
     _roundExitNumber = 0;
@@ -61,7 +63,6 @@ UIImage * image(routing::turns::TurnDirection t, bool isNextTurn)
   if (GetFramework().GetRouter() == routing::RouterType::Pedestrian)
     return [UIImage imageNamed:@"ic_direction"];
 
-  using namespace routing::turns;
   NSString * imageName;
   switch (t)
   {
@@ -89,15 +90,17 @@ UIImage * image(routing::turns::TurnDirection t, bool isNextTurn)
     case TurnDirection::ReachedYourDestination:
       imageName = @"finish_point";
       break;
+    case TurnDirection::LeaveRoundAbout:
     case TurnDirection::EnterRoundAbout:
       imageName = @"round";
       break;
+    case TurnDirection::GoStraight:
+      imageName = @"straight";
+      break;
     case TurnDirection::StartAtEndOfStreet:
-    case TurnDirection::LeaveRoundAbout:
     case TurnDirection::StayOnRoundAbout:
     case TurnDirection::TakeTheExit:
     case TurnDirection::Count:
-    case TurnDirection::GoStraight:
     case TurnDirection::NoTurn:
       imageName = isNextTurn ? nil : @"straight";
       break;
