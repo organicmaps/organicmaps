@@ -230,8 +230,8 @@ void InitLocalizedStrings()
   if (m_activeDownloadsCounter)
   {
     m_backgroundTask = [application beginBackgroundTaskWithExpirationHandler:^{
-      [application endBackgroundTask:m_backgroundTask];
-      m_backgroundTask = UIBackgroundTaskInvalid;
+      [application endBackgroundTask:self->m_backgroundTask];
+      self->m_backgroundTask = UIBackgroundTaskInvalid;
     }];
   }
 }
