@@ -60,7 +60,7 @@ elif [ "$1" == "prepare" ]; then
   rm -f "$OSRM_FLAG"
   [ -z "$(ls "$INTDIR"/*.pbf)" ] && fail "Please build PBF files first"
   OSRM_PATH="${OSRM_PATH:-$OMIM_PATH/3party/osrm/osrm-backend}"
-  OSRM_BUILD_PATH="${OSRM_BUILD_PATH:-$OSRM_PATH/build}"
+  OSRM_BUILD_PATH="${OSRM_BUILD_PATH:-$OMIM_PATH/../osrm-backend-release}"
   [ ! -x "$OSRM_BUILD_PATH/osrm-extract" ] && fail "Please compile OSRM binaries to $OSRM_BUILD_PATH"
 
   OSRM_THREADS=${OSRM_THREADS:-15}
@@ -132,7 +132,7 @@ elif [ "$1" == "online" ]; then
   "$OSMCTOOLS/osmconvert" "$PLANET" --hash-memory=2000 --out-pbf -o="$PBF"
 
   OSRM_PATH="${OSRM_PATH:-$OMIM_PATH/3party/osrm/osrm-backend}"
-  OSRM_BUILD_PATH="${OSRM_BUILD_PATH:-$OSRM_PATH/build}"
+  OSRM_BUILD_PATH="${OSRM_BUILD_PATH:-$OMIM_PATH/../osrm-backend-release}"
   [ ! -x "$OSRM_BUILD_PATH/osrm-extract" ] && fail "Please compile OSRM binaries to $OSRM_BUILD_PATH"
 
   OSRM_THREADS=${OSRM_THREADS:-15}
