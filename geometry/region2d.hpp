@@ -218,6 +218,10 @@ namespace m2
           BigCoordT const delta = prev.y - curr.y;
           BigCoordT const cp = CrossProduct(curr, prev);
 
+          // Squared precision is needed here because of comparison between cross product of two
+          // vectors and zero. It's impossible to compare them relatively, so they're compared
+          // absolutely, and, as cross product is proportional to product of lengths of both
+          // operands precision must be squared too.
           if (!equalF.EqualZeroSquarePrecision(cp))
           {
             bool const PrevGreaterCurr = delta > 0.0;
