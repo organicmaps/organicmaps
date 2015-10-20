@@ -28,24 +28,27 @@ win32:CONFIG(drape) {
 
 SUBDIRS = 3party base geometry coding
 
-SUBDIRS += platform
-SUBDIRS += stats
 SUBDIRS += indexer
 SUBDIRS += routing
-SUBDIRS += storage
 
-# Integration tests dependencies for gtool
-CONFIG(gtool):!CONFIG(no-tests) {
-  SUBDIRS += search
-  SUBDIRS += map
-  SUBDIRS += routing/routing_integration_tests
+!CONFIG(osrm) {
+  SUBDIRS += platform
+  SUBDIRS += stats
+  SUBDIRS += storage
+
+  # Integration tests dependencies for gtool
+  CONFIG(gtool):!CONFIG(no-tests) {
+    SUBDIRS += search
+    SUBDIRS += map
+    SUBDIRS += routing/routing_integration_tests
+  }
+
+  CONFIG(desktop) {
+    SUBDIRS += generator generator/generator_tool
+  }
 }
 
-CONFIG(desktop) {
-  SUBDIRS += generator generator/generator_tool
-}
-
-!CONFIG(gtool) {
+!CONFIG(gtool):!CONFIG(osrm) {
   SUBDIRS *= anim
   SUBDIRS *= graphics
   SUBDIRS *= gui

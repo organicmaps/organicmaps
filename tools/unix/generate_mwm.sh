@@ -9,8 +9,9 @@
 # - Data path with classificators etc. should be present in $OMIM_PATH/data
 #     Inside it should be at least: categories.txt, classificator.txt, types.txt, drules_proto.bin
 # - Compiled generator_tool somewhere in omim/../build/out/whatever, or supply BUILD_PATH
-# - For routing, compiled OSRM binaries in omim/3party/osrm/osrm-backend/build, or supply OSRM_BUILD_PATH
+# - For routing, compiled OSRM binaries in omim/../osrm-backend-release, or supply OSRM_BUILD_PATH
 # - Target path for mwm is the same as o5m path, or supply TARGET
+# - Set TMPDIR variable if you have no space in the default temporary location.
 
 # Cross-borders routing index is not created, since we don't assume
 # the source file to be one of the pre-defined countries.
@@ -113,7 +114,7 @@ fi
 if [ $# -gt 1 ]; then
   # Create .mwm.routing file
   OSRM_PATH="${OSRM_PATH:-$OMIM_PATH/3party/osrm/osrm-backend}"
-  OSRM_BUILD_PATH="${OSRM_BUILD_PATH:-$OSRM_PATH/build}"
+  OSRM_BUILD_PATH="${OSRM_BUILD_PATH:-$OMIM_PATH/../osrm-backend-release}"
   [ ! -x "$OSRM_BUILD_PATH/osrm-extract" -a -x "$SCRIPT_PATH/bin/osrm-extract" ] && OSRM_BUILD_PATH="$SCRIPT_PATH/bin"
   [ ! -x "$OSRM_BUILD_PATH/osrm-extract" ] && fail "Please compile OSRM binaries to $OSRM_BUILD_PATH"
   [ ! -r "$TARGET/$BASE_NAME.mwm" ] && fail "Please build mwm file beforehand"
