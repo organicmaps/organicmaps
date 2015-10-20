@@ -385,7 +385,10 @@ void MatchFeaturesInTrie(SearchQueryParams const & params, trie::DefaultIterator
                          TFilter const & filter, ToDo && toDo)
 {
   TrieValuesHolder<TFilter> categoriesHolder(filter);
-  CHECK(MatchCategoriesInTrie(params, trieRoot, categoriesHolder), ("Can't find categories."));
+  if (!MatchCategoriesInTrie(params, trieRoot, categoriesHolder)) {
+    LOG(LERROR, ("Can't find categories."));
+    return;
+  }
 
   impl::OffsetIntersecter<TFilter> intersecter(filter);
   for (size_t i = 0; i < params.m_tokens.size(); ++i)

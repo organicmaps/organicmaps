@@ -56,6 +56,7 @@ void TestMwmBuilder::Finish()
         ("Can't sort features."));
 
   string const path = m_file.GetPath(MapOptions::Map);
+  CHECK(feature::BuildOffsetsTable(path), ("Can't build feature offsets table."));
   CHECK(indexer::BuildIndexFromDatFile(path, path),
         ("Can't build geometry index."));
   CHECK(indexer::BuildSearchIndexFromDatFile(path, true /* forceRebuild */),
