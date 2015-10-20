@@ -612,8 +612,11 @@
 /* Rate in Google Play (Android only) */
 "rate_gp" = "Rate on Google Play";
 
-/* Share with friends */
+/* Share with friends: menu item title */
 "tell_friends" = "Tell a Friend";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "Hi! Install Maps.me!";
 
 /* Text in menu */
 "help" = "Bantuan";

@@ -104,7 +104,6 @@
 	<!-- Confirmation in downloading countries dialog -->
 	<text id="IDS_ARE_YOU_SURE">Продовжити?</text>
 	<text id="IDS_SHARE_MY_LOCATION">Поділитися моїм місцезнаходженням</text>
-	<text id="IDS_BECOME_A_PRO">Купити PRO</text>
 	<text id="IDS_PREF_ZOOM_TITLE">Кнопки трансфокації</text>
 	<text id="IDS_PREF_ZOOM_SUMMARY">Відображення на екрані</text>
 	<!-- Search Suggestion -->
