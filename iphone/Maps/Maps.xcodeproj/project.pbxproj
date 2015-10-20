@@ -2835,6 +2835,7 @@
 					"-Wall",
 					"-Wno-unused-local-typedef",
 					"-Wfloat-equal",
+					"-Wimplicit-retain-self",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PROVISIONING_PROFILE = "";
@@ -2958,6 +2959,7 @@
 					"-Wall",
 					"-Wno-unused-local-typedef",
 					"-Wfloat-equal",
+					"-Wimplicit-retain-self",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PROVISIONING_PROFILE = "";
@@ -3492,6 +3494,7 @@
 					"-Wall",
 					"-Wno-unused-local-typedef",
 					"-Wfloat-equal",
+					"-Wimplicit-retain-self",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PROVISIONING_PROFILE = "";
@@ -3610,6 +3613,7 @@
 					"-Wall",
 					"-Wno-unused-local-typedef",
 					"-Wfloat-equal",
+					"-Wimplicit-retain-self",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PROVISIONING_PROFILE = "";
@@ -3733,6 +3737,7 @@
 					"-Wall",
 					"-Wno-unused-local-typedef",
 					"-Wfloat-equal",
+					"-Wimplicit-retain-self",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PROVISIONING_PROFILE = "";
@@ -3856,6 +3861,7 @@
 					"-Wall",
 					"-Wno-unused-local-typedef",
 					"-Wfloat-equal",
+					"-Wimplicit-retain-self",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PROVISIONING_PROFILE = "";
@@ -3977,6 +3983,7 @@
 					"-Wall",
 					"-Wno-unused-local-typedef",
 					"-Wfloat-equal",
+					"-Wimplicit-retain-self",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PROVISIONING_PROFILE = "";
@@ -4098,6 +4105,7 @@
 					"-Wall",
 					"-Wno-unused-local-typedef",
 					"-Wfloat-equal",
+					"-Wimplicit-retain-self",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PROVISIONING_PROFILE = "";
