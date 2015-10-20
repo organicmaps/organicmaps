@@ -142,11 +142,9 @@ public enum TtsPlayer
 
   public void playTurnNotifications()
   {
-    if (!isValid())
-      return; // speak() is called while TTS is not ready or could not be initialized.
-
     final String[] turnNotifications = Framework.nativeGenerateTurnSound();
-    if (turnNotifications != null)
+    
+    if (turnNotifications != null && isValid())
       for (String textToSpeak : turnNotifications)
         speak(textToSpeak);
   }
