@@ -21,10 +21,6 @@ int constexpr kOnRouteMissedCount = 5;
 
 // @TODO(vbykoianko) The distance should depend on the current speed.
 double constexpr kShowLanesDistInMeters = 500.;
-// @TODO(vbykoianko) The distance should depend on the current speed.
-// The distance before the next turn in meters when notification
-// about the turn after the next one will be shown if available.
-double constexpr kShowTheTurnAfterTheNextM = 500.;
 
 // @todo(kshalnev) The distance may depend on the current speed.
 double constexpr kShowPedestrianTurnInMeters = 5.;
@@ -245,33 +241,17 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   formatDistFn(m_route.GetCurrentDistanceToEndMeters(), info.m_distToTarget, info.m_targetUnitsSuffix);
 
   double distanceToTurnMeters = 0.;
-  double distanceToNextTurnMeters = 0.;
   turns::TurnItem turn;
-  turns::TurnItem nextTurn;
   m_route.GetCurrentTurn(distanceToTurnMeters, turn);
   formatDistFn(distanceToTurnMeters, info.m_distToTurn, info.m_turnUnitsSuffix);
   info.m_turn = turn.m_turn;
 
   // The turn after the next one.
-  if (m_route.GetNextTurn(distanceToNextTurnMeters, nextTurn))
-  {
-    double const distBetweenTurnsM = distanceToNextTurnMeters - distanceToTurnMeters;
-    ASSERT_LESS_OR_EQUAL(0, distBetweenTurnsM, ());
-
-    if (m_routingSettings.m_showTurnAfterNext &&
-        distanceToTurnMeters < kShowTheTurnAfterTheNextM && distBetweenTurnsM < turns::kMaxTurnDistM)
-    {
-      info.m_nextTurn = nextTurn.m_turn;
-    }
-    else
-    {
-      info.m_nextTurn = routing::turns::TurnDirection::NoTurn;
-    }
-  }
+  if (m_routingSettings.m_showTurnAfterNext)
+    info.m_nextTurn = m_turnsSound.GetSecondTurnNotification();
   else
-  {
     info.m_nextTurn = routing::turns::TurnDirection::NoTurn;
-  }
+
   info.m_exitNum = turn.m_exitNum;
   info.m_time = m_route.GetCurrentTimeToEndSec();
   info.m_sourceName = turn.m_sourceName;

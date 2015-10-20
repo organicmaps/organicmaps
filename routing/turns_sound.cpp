@@ -4,6 +4,11 @@
 
 namespace
 {
+// If the distance between two sequential turns is more than kMaxTurnDistM
+// the information about the second turn will be shown or pronounced when the user is
+// approaching to the first one.
+double constexpr kMaxTurnDistM = 400.;
+
 uint32_t CalculateDistBeforeMeters(double speedMetersPerSecond, uint32_t startBeforeSeconds,
                                    uint32_t minStartBeforeMeters, uint32_t maxStartBeforeMeters)
 {
