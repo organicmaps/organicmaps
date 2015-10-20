@@ -71,7 +71,7 @@ void Point2PhantomNode::CalculateWeight(OsrmMappingTypes::FtSeg const & seg,
                                         bool calcFromRight, int & weight, int & offset) const
 {
   // nodeId can be INVALID_NODE_ID when reverse node is absent. This node has no weight.
-  if (nodeId == INVALID_NODE_ID || m_routingMapping.m_dataFacade.GetOutDegree(nodeId) == 0)
+  if (nodeId == INVALID_NODE_ID)
   {
     offset = 0;
     weight = 0;
@@ -108,25 +108,30 @@ void Point2PhantomNode::CalculateWeight(OsrmMappingTypes::FtSeg const & seg,
     loader.GetFeatureByIndex(segment.m_fid, ft);
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
+    // Find whole edge weight by node outgoing point.
+    if (segmentIndex == range.second - 1)
+      minWeight = GetMinNodeWeight(nodeId, ft.GetPoint(segment.m_pointEnd));
+
+    // Calculate distances.
+    double distance = CalculateDistance(ft, segment.m_pointStart, segment.m_pointEnd);
+    fullDistanceM += distance;
+    if (foundSeg)
+      continue;
+
     if (segment.m_fid == seg.m_fid && OsrmMappingTypes::IsInside(segment, seg))
     {
       auto const splittedSegment = OsrmMappingTypes::SplitSegment(segment, seg, !calcFromRight);
       distanceM += CalculateDistance(ft, splittedSegment.m_pointStart, splittedSegment.m_pointEnd);
       // node.m_seg always forward ordered (m_pointStart < m_pointEnd)
       distanceM -= MercatorBounds::DistanceOnEarth(
-          ft.GetPoint(calcFromRight ? seg.m_pointEnd : seg.m_pointStart), segPt);
+          ft.GetPoint(calcFromRight ? seg.m_pointStart : seg.m_pointEnd), segPt);
 
       foundSeg = true;
     }
-
-    double distance = CalculateDistance(ft, segment.m_pointStart, segment.m_pointEnd);
-    if (!foundSeg)
+    else
+    {
       distanceM += distance;
-    fullDistanceM += distance;
-
-    //Find whole edge weight by node outgoing point.
-    if (segmentIndex == range.second - 1)
-      minWeight = GetMinNodeWeight(nodeId, ft.GetPoint(segment.m_pointEnd));
+    }
   }
 
   ASSERT_GREATER(fullDistanceM, 0, ("No valid segments on the edge."));
@@ -142,17 +147,17 @@ void Point2PhantomNode::CalculateWeight(OsrmMappingTypes::FtSeg const & seg,
 
 EdgeWeight Point2PhantomNode::GetMinNodeWeight(NodeID node, m2::PointD const & point) const
 {
-  static double const kInfinity = numeric_limits<EdgeWeight>::infinity();
-  static double const kReadCrossRadiusM = 1.0E-4;
+  static double const kInfinity = numeric_limits<EdgeWeight>::max();
+  static double const kReadCrossRadiusMercator = 1.0E-4;
   EdgeWeight minWeight = kInfinity;
   // Geting nodes by geometry.
   vector<NodeID> geomNodes;
   Point2Node p2n(m_routingMapping, geomNodes);
 
   m_index.ForEachInRectForMWM(p2n,
-                              m2::RectD(point.x - kReadCrossRadiusM, point.y - kReadCrossRadiusM,
-                                        point.x + kReadCrossRadiusM, point.y + kReadCrossRadiusM),
-                              scales::GetUpperScale(), m_routingMapping.GetMwmId());
+    m2::RectD(point.x - kReadCrossRadiusMercator, point.y - kReadCrossRadiusMercator,
+              point.x + kReadCrossRadiusMercator, point.y + kReadCrossRadiusMercator),
+    scales::GetUpperScale(), m_routingMapping.GetMwmId());
 
   sort(geomNodes.begin(), geomNodes.end());
   geomNodes.erase(unique(geomNodes.begin(), geomNodes.end()), geomNodes.end());
@@ -162,9 +167,7 @@ EdgeWeight Point2PhantomNode::GetMinNodeWeight(NodeID node, m2::PointD const & p
   {
     QueryEdge::EdgeData const data = m_routingMapping.m_dataFacade.GetEdgeData(e, node);
     if (data.forward && !data.shortcut)
-    {
       minWeight = min(minWeight, data.distance);
-    }
   }
 
   for (NodeID const & adjacentNode : geomNodes)
@@ -272,9 +275,9 @@ void Point2PhantomNode::CalculateWeights(FeatureGraphNode & node) const
     // Need to initialize weights for correct work of PhantomNode::GetForwardWeightPlusOffset
     // and PhantomNode::GetReverseWeightPlusOffset.
   CalculateWeight(node.segment, node.segmentPoint, node.node.forward_node_id,
-                  true /* calcFromRight */, node.node.forward_weight, node.node.forward_offset);
+                  false /* calcFromRight */, node.node.forward_weight, node.node.forward_offset);
   CalculateWeight(node.segment, node.segmentPoint, node.node.reverse_node_id,
-                  false /* calcFromRight */, node.node.reverse_weight, node.node.reverse_offset);
+                  true /* calcFromRight */, node.node.reverse_weight, node.node.reverse_offset);
 }
 
 void Point2Node::operator()(FeatureType const & ft)

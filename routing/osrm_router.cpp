@@ -50,6 +50,8 @@ double constexpr kMwmLoadedProgress = 10.0f;
 double constexpr kPointsFoundProgress = 15.0f;
 double constexpr kCrossPathFoundProgress = 50.0f;
 double constexpr kPathFoundProgress = 70.0f;
+// Osrm multiples seconds to 10, so we need to divide it back.
+double constexpr kOSRMWeightToSecondsMultiplier = 1./10.;
 } //  namespace
 // TODO (ldragunov) Switch all RawRouteData and incapsulate to own omim types.
 using RawRouteData = InternalRouteResult;
@@ -436,8 +438,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
         turns::GetTurnDirection(*m_pIndex, turnInfo, turnItem);
 
         // ETA information.
-        // Osrm multiples seconds to 10, so we need to divide it back.
-        double const nodeTimeSeconds = pathData.segmentWeight / 10.0;
+        double const nodeTimeSeconds = pathData.segmentWeight * kOSRMWeightToSecondsMultiplier;
 
 #ifdef DEBUG
         double distMeters = 0.0;
@@ -477,15 +478,43 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
 
       //m_mapping.DumpSegmentByNode(path_data.node);
 
-      //Do not put out node geometry (we do not have it)!
+      bool const isStartSegment = (segmentIndex == 0);
+      bool const isEndSegment = (segmentIndex == numSegments - 1);
+      // Calculate estimated time for a start and a end node cases.
+      if (isStartSegment || isEndSegment)
+      {
+        double multiplier = 1.;
+        double weight = 0.;
+        if (isStartSegment)
+        {
+          // -1 because a whole node weight is already in esimated time, and we need to substruct time
+          // form a node start to a user point.
+          multiplier = -1.;
+          auto const & node = routingResult.sourceEdge.node;
+          if (pathSegments[segmentIndex].node == node.forward_node_id)
+            weight = node.forward_weight;
+          else
+            weight = node.reverse_weight;
+        }
+        if (isEndSegment)
+        {
+          auto const & node = routingResult.targetEdge.node;
+          if (pathSegments[segmentIndex].node == node.forward_node_id)
+            weight = node.forward_weight;
+          else
+            weight = node.reverse_weight;
+        }
+        estimatedTime += multiplier * kOSRMWeightToSecondsMultiplier * weight;
+      }
+
       size_t startK = 0, endK = buffer.size();
-      if (segmentIndex == 0)
+      if (isStartSegment)
       {
         if (!segBegin.IsValid())
           continue;
         startK = FindIntersectingSeg(segBegin);
       }
-      if (segmentIndex + 1 == numSegments)
+      if (isEndSegment)
       {
         if (!segEnd.IsValid())
           continue;
@@ -503,40 +532,21 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
 
         auto startIdx = seg.m_pointStart;
         auto endIdx = seg.m_pointEnd;
-        if (segmentIndex == 0)
-        {
-          if (pathSegments[segmentIndex].node == routingResult.sourceEdge.node.forward_node_id)
-            estimatedTime += -routingResult.sourceEdge.node.forward_weight/10;
-          else
-            estimatedTime += -routingResult.sourceEdge.node.reverse_weight/10;
-        }
-        if (segmentIndex == numSegments - 1)
-        {
-          if (pathSegments[segmentIndex].node == routingResult.sourceEdge.node.forward_node_id)
-            estimatedTime += routingResult.sourceEdge.node.forward_weight/10;
-          else
-            estimatedTime += routingResult.sourceEdge.node.reverse_weight/10;
-        }
-
-        if (segmentIndex == 0 && k == startK && segBegin.IsValid())
+        if (isStartSegment && k == startK && segBegin.IsValid())
           startIdx = (seg.m_pointEnd > seg.m_pointStart) ? segBegin.m_pointStart : segBegin.m_pointEnd;
-        if (segmentIndex == numSegments - 1 && k == endK - 1 && segEnd.IsValid())
+        if (isEndSegment && k == endK - 1 && segEnd.IsValid())
           endIdx = (seg.m_pointEnd > seg.m_pointStart) ? segEnd.m_pointEnd : segEnd.m_pointStart;
 
-        if (seg.m_pointEnd > seg.m_pointStart)
+        if (startIdx < endIdx)
         {
           for (auto idx = startIdx; idx <= endIdx; ++idx)
-          {
             points.push_back(ft.GetPoint(idx));
-          }
         }
         else
         {
-          for (auto idx = startIdx; idx > endIdx; --idx)
-          {
+          // I use big signed type because endIdx can be 0.
+          for (int64_t idx = startIdx; idx >= endIdx; --idx)
             points.push_back(ft.GetPoint(idx));
-          }
-          points.push_back(ft.GetPoint(endIdx));
         }
       }
     }

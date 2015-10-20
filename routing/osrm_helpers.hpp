@@ -36,10 +36,10 @@ public:
     {}
   };
 
-  // Finds nearest segment of a feature geometry.
+  // Finds nearest segment to a feature geometry.
   static void FindNearestSegment(FeatureType const & ft, m2::PointD const & point, Candidate & res);
 
-  // Sets point from where calculate weights.
+  // Sets point from where weights are calculated.
   void SetPoint(m2::PointD const & pt) { m_point = pt; }
 
   // Returns true if there are candidate features for routing tasks.
