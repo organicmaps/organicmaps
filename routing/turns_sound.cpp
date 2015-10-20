@@ -9,15 +9,6 @@ namespace
 // approaching to the first one.
 double constexpr kMaxTurnDistM = 400.;
 
-uint32_t CalculateDistBeforeMeters(double speedMetersPerSecond, uint32_t startBeforeSeconds,
-                                   uint32_t minStartBeforeMeters, uint32_t maxStartBeforeMeters)
-{
-  ASSERT_LESS_OR_EQUAL(0, speedMetersPerSecond, ());
-  uint32_t const startBeforeMeters =
-      static_cast<uint32_t>(speedMetersPerSecond * startBeforeSeconds);
-  return my::clamp(startBeforeMeters, minStartBeforeMeters, maxStartBeforeMeters);
-}
-
 // Returns true if the closest turn is an entrance to a roundabout and the second is
 // an exit form a roundabout.
 // Note. There are some cases when another turn (besides an exit from roundabout)
@@ -91,21 +82,13 @@ string TurnsSound::GenerateFirstTurnSound(TurnItem const & turn, double distance
     m_nextTurnIndex = turn.m_index;
   }
 
-  uint32_t const distanceToPronounceNotificationMeters =
-      CalculateDistBeforeMeters(m_speedMetersPerSecond, m_startBeforeSeconds,
-                                m_minStartBeforeMeters, m_maxStartBeforeMeters);
-
+  uint32_t const distanceToPronounceNotificationM = m_settings.ComputeDistToPronounceDistM(m_speedMetersPerSecond);
   if (m_nextTurnNotificationProgress == PronouncedNotification::Nothing)
   {
-    if (distanceToTurnMeters > m_minDistToSayNotificationMeters)
+    if (!m_settings.TooCloseForFisrtNotification(distanceToTurnMeters))
     {
-      double const currentSpeedUntisPerSecond =
-          m_settings.ConvertMetersPerSecondToUnitsPerSecond(m_speedMetersPerSecond);
-      double const turnNotificationDistUnits =
-          m_settings.ComputeTurnDistance(currentSpeedUntisPerSecond);
       uint32_t const startPronounceDistMeters =
-          m_settings.ConvertUnitsToMeters(turnNotificationDistUnits) + distanceToPronounceNotificationMeters;
-
+          m_settings.ComputeTurnDistanceM(m_speedMetersPerSecond) + distanceToPronounceNotificationM;
       if (distanceToTurnMeters < startPronounceDistMeters)
       {
         if (m_turnNotificationWithThen)
@@ -114,7 +97,7 @@ string TurnsSound::GenerateFirstTurnSound(TurnItem const & turn, double distance
         }
         else
         {
-          double const distToPronounceMeters = distanceToTurnMeters - distanceToPronounceNotificationMeters;
+          double const distToPronounceMeters = distanceToTurnMeters - distanceToPronounceNotificationM;
           if (distToPronounceMeters < 0)
           {
             FastForwardFirstTurnNotification();
@@ -142,7 +125,7 @@ string TurnsSound::GenerateFirstTurnSound(TurnItem const & turn, double distance
   }
 
   if (m_nextTurnNotificationProgress == PronouncedNotification::First &&
-      distanceToTurnMeters < distanceToPronounceNotificationMeters)
+      distanceToTurnMeters < distanceToPronounceNotificationM)
   {
     m_nextTurnNotificationProgress = PronouncedNotification::Second;
     FastForwardFirstTurnNotification();
@@ -166,16 +149,16 @@ void TurnsSound::SetLengthUnits(::Settings::Units units)
   switch(units)
   {
   case ::Settings::Metric:
-    m_settings = Settings(30 /* notificationTimeSeconds */, 200 /* minNotificationDistanceUnits */,
-                          2000 /* maxNotificationDistanceUnits */,
-                          GetSoundedDistMeters() /* soundedDistancesUnits */,
-                          ::Settings::Metric /* lengthUnits */);
+    m_settings.SetState(30 /* notificationTimeSeconds */, 200 /* minNotificationDistanceUnits */,
+                        2000 /* maxNotificationDistanceUnits */,
+                        GetSoundedDistMeters() /* soundedDistancesUnits */,
+                        ::Settings::Metric /* lengthUnits */);
     return;
   case ::Settings::Foot:
-    m_settings = Settings(30 /* notificationTimeSeconds */, 500 /* minNotificationDistanceUnits */,
-                          5000 /* maxNotificationDistanceUnits */,
-                          GetSoundedDistFeet() /* soundedDistancesUnits */,
-                          ::Settings::Foot /* lengthUnits */);
+    m_settings.SetState(30 /* notificationTimeSeconds */, 500 /* minNotificationDistanceUnits */,
+                        5000 /* maxNotificationDistanceUnits */,
+                        GetSoundedDistFeet() /* soundedDistancesUnits */,
+                        ::Settings::Foot /* lengthUnits */);
     return;
   }
 }
@@ -206,7 +189,6 @@ void TurnsSound::FastForwardFirstTurnNotification()
 
 TurnDirection TurnsSound::GenerateSecondTurnNotification(vector<TurnItemDist> const & turns)
 {
-  // To work correctly the method needs to have at least two closest turn.
   if (turns.size() < 2)
   {
     m_secondTurnNotificationIndex = 0;
@@ -218,22 +200,17 @@ TurnDirection TurnsSound::GenerateSecondTurnNotification(vector<TurnItemDist> co
 
   if (firstTurn.m_turnItem.m_index != m_secondTurnNotificationIndex)
     m_secondTurnNotificationIndex = 0; // It's a new closest(fisrt) turn.
-
-  if (m_secondTurnNotificationIndex == firstTurn.m_turnItem.m_index && m_secondTurnNotificationIndex != 0)
+  else if (m_secondTurnNotificationIndex != 0)
     return secondTurn.m_turnItem.m_turn; // m_secondTurnNotificationIndex was set to true before.
 
-  double const distBetweenTurns = secondTurn.m_distMeters - firstTurn.m_distMeters;
-  if (distBetweenTurns < 0)
-  {
-    ASSERT(false, ());
-    return TurnDirection::NoTurn;
-  }
-  if (distBetweenTurns > kMaxTurnDistM)
+  double const distBetweenTurnsMeters = secondTurn.m_distMeters - firstTurn.m_distMeters;
+  ASSERT_LESS_OR_EQUAL(0., distBetweenTurnsMeters, ());
+
+  if (distBetweenTurnsMeters > kMaxTurnDistM)
     return TurnDirection::NoTurn;
 
-  uint32_t const startPronounceDistMeters = m_settings.ComputeTurnDistance(m_speedMetersPerSecond) +
-      CalculateDistBeforeMeters(m_speedMetersPerSecond, m_startBeforeSeconds,
-                                m_minStartBeforeMeters, m_maxStartBeforeMeters);;
+  uint32_t const startPronounceDistMeters = m_settings.ComputeTurnDistanceM(m_speedMetersPerSecond) +
+      m_settings.ComputeDistToPronounceDistM(m_speedMetersPerSecond);
   if (firstTurn.m_distMeters <= startPronounceDistMeters)
   {
     m_secondTurnNotificationIndex = firstTurn.m_turnItem.m_index;

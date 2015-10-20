@@ -43,15 +43,11 @@ class TurnsSound
   /// \brief The private contructor is used only for testing.
   TurnsSound(uint32_t startBeforeSeconds, uint32_t minStartBeforeMeters,
              uint32_t maxStartBeforeMeters, uint32_t minDistToSayNotificationMeters)
-    : m_enabled(false), m_speedMetersPerSecond(0.), m_settings(),
+    : m_enabled(false), m_speedMetersPerSecond(0.),
+      m_settings(startBeforeSeconds, minStartBeforeMeters, maxStartBeforeMeters, minDistToSayNotificationMeters),
       m_nextTurnNotificationProgress(PronouncedNotification::Nothing),
-      m_turnNotificationWithThen(false),  m_nextTurnIndex(0), m_secondTurnNotification(TurnDirection::NoTurn),
-      m_startBeforeSeconds(startBeforeSeconds), m_minStartBeforeMeters(minStartBeforeMeters),
-      m_maxStartBeforeMeters(maxStartBeforeMeters),
-      m_minDistToSayNotificationMeters(minDistToSayNotificationMeters)
-  {
-    ASSERT_LESS_OR_EQUAL(m_minStartBeforeMeters, m_maxStartBeforeMeters, ());
-  }
+      m_turnNotificationWithThen(false),  m_nextTurnIndex(0),
+      m_secondTurnNotification(TurnDirection::NoTurn) {}
 
   /// m_enabled == true when tts is turned on.
   /// Important! Clients (iOS/Android) implies that m_enabled is false by default.
@@ -102,42 +98,22 @@ class TurnsSound
   /// Changes the state of the class to emulate that first turn notification is pronouned
   /// without pronunciation.
   void FastForwardFirstTurnNotification();
-  /// @return something different from TurnDirection::NoTurn
-  /// if it's necessary to show second notification turn informer.
   /// \param turns contains information about the next turns staring from closest turn.
   /// That means turns[0] is the closest turn (if available).
+  /// @return the second closest turn or TurnDirection::NoTurn.
   /// \note If GenerateSecondTurnNotification returns a value different form TurnDirection::NoTurn
   /// for a turn once it will return the same value until the turn is changed.
-  /// \note This method works if TurnsSound is enable and if TurnsSound is disable in the same way.
+  /// \note This method works independent from m_enabled value.
+  /// So it works when the class enable and disable.
   TurnDirection GenerateSecondTurnNotification(vector<TurnItemDist> const & turns);
 
-  // To inform an end user about the next turn with the help of an voice information message
-  // an operation system needs:
-  // - to launch TTS subsystem;
-  // - to pronounce the message.
-  // So to inform the user in time it's necessary to start
-  // m_startBeforeSeconds before the time. It is used in the following way:
-  // we start playing voice notice in m_startBeforeSeconds * TurnsSound::m_speedMetersPerSecond
-  // meters before the turn (for the second voice notification).
-  // When m_startBeforeSeconds * TurnsSound::m_speedMetersPerSecond  is too small or too large
-  // we use m_minStartBeforeMeters or m_maxStartBeforeMeters correspondingly.
-  uint32_t const m_startBeforeSeconds;
-  uint32_t const m_minStartBeforeMeters;
-  uint32_t const m_maxStartBeforeMeters;
-
-  // m_minDistToSayNotificationMeters is minimum distance between two turns
-  // when pronouncing the first notification about the second turn makes sense.
-  uint32_t const m_minDistToSayNotificationMeters;
-
 public:
-  TurnsSound() : m_enabled(false), m_speedMetersPerSecond(0.), m_settings(),
+  TurnsSound() : m_enabled(false), m_speedMetersPerSecond(0.),
+      m_settings(5 /* m_startBeforeSeconds */, 25 /* m_minStartBeforeMeters */,
+                 150 /* m_maxStartBeforeMeters */, 170 /* m_minDistToSayNotificationMeters */),
       m_nextTurnNotificationProgress(PronouncedNotification::Nothing),
-      m_turnNotificationWithThen(false),  m_nextTurnIndex(0), m_secondTurnNotification(TurnDirection::NoTurn),
-      m_startBeforeSeconds(5), m_minStartBeforeMeters(25), m_maxStartBeforeMeters(150),
-      m_minDistToSayNotificationMeters(170)
-  {
-    ASSERT_LESS_OR_EQUAL(m_minStartBeforeMeters, m_maxStartBeforeMeters, ());
-  }
+      m_turnNotificationWithThen(false),  m_nextTurnIndex(0),
+      m_secondTurnNotification(TurnDirection::NoTurn) {}
 
   bool IsEnabled() const { return m_enabled; }
   void Enable(bool enable);
@@ -161,17 +137,20 @@ public:
   void Reset();
   /// \brief The method was implemented to display the second turn notification
   /// in an appropriate moment.
-  /// @returns something different from TurnDirection::NoTurn
+  /// @return the second closest turn.
+  /// The return value is different form TurnDirection::NoTurn
   /// if an end user is close enough to the first (current) turn and
-  /// the distance between the closest and the second cloest turn is not large.
+  /// the distance between the closest and the second closest turn is not large.
   /// (That means a notification about turn after the closest one was pronounced.)
   /// For example, if while closing to the closest turn was pronounced
   /// "Turn right. Then turn left." 500 meters before the closest turn, after that moment
   /// GetSecondTurnNotification returns TurnDirection::TurnLeft if distance to first turn < 500 meters.
   /// After the closest composed turn was passed GetSecondTurnNotification returns TurnDirection::NoTurn.
+  /// \note If the returning value is TurnDirection::NoTurn no turn shall be displayed.
   /// \note If GetSecondTurnNotification returns a value different form TurnDirection::NoTurn
   /// for a turn once it continues returning the same value until the turn is changed.
-  /// \note This method works if TurnsSound is enable and if TurnsSound is disable.
+  /// \note This method works independent from m_enabled value.
+  /// So it works when the class enable and disable.
   TurnDirection GetSecondTurnNotification() const { return m_secondTurnNotification; }
 };
 }  // namespace sound

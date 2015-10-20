@@ -9,8 +9,6 @@ namespace
 {
 // A error to compare two double after conversion feet to meters.
 double const kEps = 1.;
-// A error to compare two doubles which are almost equal.
-double const kSmallEps = .001;
 }  // namespace
 
 namespace routing
@@ -26,6 +24,10 @@ UNIT_TEST(TurnNotificationSettingsMetersTest)
   Settings const settings(20 /* notificationTimeSeconds */,
                           200 /* minNotificationDistanceUnits */,
                           700 /* maxNotificationDistanceUnits */,
+                          5 /* m_startBeforeSeconds */,
+                          25 /* m_minStartBeforeMeters */,
+                          150 /* m_maxStartBeforeMeters */,
+                          170 /* m_minDistToSayNotificationMeters */,
                           {100, 200, 300, 400, 500, 600, 700} /* soundedDistancesUnits */,
                           ::Settings::Metric /* lengthUnits */);
 
@@ -38,11 +40,17 @@ UNIT_TEST(TurnNotificationSettingsMetersTest)
   TEST_EQUAL(settings.RoundByPresetSoundedDistancesUnits(300 /* distanceInUnits */), 300, ());
   TEST_EQUAL(settings.RoundByPresetSoundedDistancesUnits(0 /* distanceInUnits */), 100, ());
 
-  TEST(my::AlmostEqualAbs(settings.ComputeTurnDistance(0. /* distanceInUnits */), 200., kSmallEps), ());
-  TEST(my::AlmostEqualAbs(settings.ComputeTurnDistance(10. /* distanceInUnits */), 200., kSmallEps), ());
-  TEST(my::AlmostEqualAbs(settings.ComputeTurnDistance(20. /* distanceInUnits */), 400., kSmallEps), ());
-  TEST(my::AlmostEqualAbs(settings.ComputeTurnDistance(35. /* distanceInUnits */), 700., kSmallEps), ());
-  TEST(my::AlmostEqualAbs(settings.ComputeTurnDistance(200. /* distanceInUnits */), 700., kSmallEps), ());
+  TEST_EQUAL(settings.ComputeTurnDistanceM(0. /* speedMetersPerSecond */), 200., ());
+  TEST_EQUAL(settings.ComputeTurnDistanceM(10. /* speedMetersPerSecond */), 200., ());
+  TEST_EQUAL(settings.ComputeTurnDistanceM(20. /* speedMetersPerSecond */), 400., ());
+  TEST_EQUAL(settings.ComputeTurnDistanceM(35. /* speedMetersPerSecond */), 700., ());
+  TEST_EQUAL(settings.ComputeTurnDistanceM(200. /* speedMetersPerSecond */), 700., ());
+
+  TEST_EQUAL(settings.ComputeDistToPronounceDistM(0. /* speedMetersPerSecond */), 25., ());
+  TEST_EQUAL(settings.ComputeDistToPronounceDistM(10. /* speedMetersPerSecond */), 50., ());
+  TEST_EQUAL(settings.ComputeDistToPronounceDistM(20. /* speedMetersPerSecond */), 100., ());
+  TEST_EQUAL(settings.ComputeDistToPronounceDistM(35. /* speedMetersPerSecond */), 150., ());
+  TEST_EQUAL(settings.ComputeDistToPronounceDistM(200. /* speedMetersPerSecond */), 150., ());
 }
 
 UNIT_TEST(TurnNotificationSettingsFeetTest)
@@ -50,6 +58,10 @@ UNIT_TEST(TurnNotificationSettingsFeetTest)
   Settings const settings(20 /* notificationTimeSeconds */,
                           500 /* minNotificationDistanceUnits */,
                           2000 /* maxNotificationDistanceUnits */,
+                          5 /* m_startBeforeSeconds */,
+                          25 /* m_minStartBeforeMeters */,
+                          150 /* m_maxStartBeforeMeters */,
+                          170 /* m_minDistToSayNotificationMeters */,
                           {200, 400, 600, 800, 1000, 1500, 2000} /* soundedDistancesUnits */,
                           ::Settings::Foot /* lengthUnits */);
 
@@ -61,30 +73,29 @@ UNIT_TEST(TurnNotificationSettingsFeetTest)
   TEST(my::AlmostEqualAbs(settings.ConvertUnitsToMeters(300. /* distanceInUnits */), 91., kEps), ());
   TEST_EQUAL(settings.RoundByPresetSoundedDistancesUnits(500 /* distanceInUnits */), 600, ());
   TEST_EQUAL(settings.RoundByPresetSoundedDistancesUnits(0 /* distanceInUnits */), 200, ());
-
-  TEST(my::AlmostEqualAbs(settings.ComputeTurnDistance(0. /* distanceInUnits */), 500., kSmallEps), ());
-  TEST(my::AlmostEqualAbs(settings.ComputeTurnDistance(10. /* distanceInUnits */), 500., kSmallEps), ());
-  TEST(my::AlmostEqualAbs(settings.ComputeTurnDistance(30. /* distanceInUnits */), 600., kSmallEps), ());
-  TEST(my::AlmostEqualAbs(settings.ComputeTurnDistance(40. /* distanceInUnits */), 800., kSmallEps), ());
-  TEST(my::AlmostEqualAbs(settings.ComputeTurnDistance(200. /* distanceInUnits */), 2000., kSmallEps), ());
 }
 
 UNIT_TEST(TurnNotificationSettingsNotValidTest)
 {
   Settings settings1(20 /* notificationTimeSeconds */, 500 /* minNotificationDistanceUnits */,
                      2000 /* maxNotificationDistanceUnits */,
+                     5 /* m_startBeforeSeconds */,
+                     25 /* m_minStartBeforeMeters */,
+                     150 /* m_maxStartBeforeMeters */,
+                     170 /* m_minDistToSayNotificationMeters */,
                      {200, 400, 800, 600, 1000, 1500, 2000} /* soundedDistancesUnits */,
                      ::Settings::Foot /* lengthUnits */);
   TEST(!settings1.IsValid(), ());
 
   Settings settings2(20 /* notificationTimeSeconds */, 5000 /* minNotificationDistanceUnits */,
                      2000 /* maxNotificationDistanceUnits */,
+                     5 /* m_startBeforeSeconds */,
+                     25 /* m_minStartBeforeMeters */,
+                     150 /* m_maxStartBeforeMeters */,
+                     170 /* m_minDistToSayNotificationMeters */,
                      {200, 400, 600, 800, 1000, 1500, 2000} /* soundedDistancesUnits */,
                      ::Settings::Metric /* lengthUnits */);
   TEST(!settings2.IsValid(), ());
-
-  Settings settings3;
-  TEST(!settings3.IsValid(), ());
 }
 
 UNIT_TEST(TurnsSoundMetersTest)
