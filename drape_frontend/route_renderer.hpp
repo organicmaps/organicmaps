@@ -37,8 +37,11 @@ class RouteRenderer final
 public:
   RouteRenderer();
 
-  void Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
-              dp::UniformValuesStorage const & commonUniforms);
+  void RenderRoute(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
+                   dp::UniformValuesStorage const & commonUniforms);
+
+  void RenderRouteSigns(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
+                        dp::UniformValuesStorage const & commonUniforms);
 
   void SetRouteData(drape_ptr<RouteData> && routeData, ref_ptr<dp::GpuProgramManager> mng);
 

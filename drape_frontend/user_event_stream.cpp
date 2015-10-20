@@ -472,7 +472,7 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches, double timestam
   case STATE_TAP_DETECTION:
   case STATE_WAIT_DOUBLE_TAP:
     ASSERT_EQUAL(touchCount, 1, ());
-    if (m_startDragOrg.SquareLength(touches[0].m_location) > VisualParams::Instance().GetDragThreshold())
+    if (m_startDragOrg.Length(touches[0].m_location) > VisualParams::Instance().GetDragThreshold())
       CancelTapDetector();
     break;
   case STATE_DRAG:
@@ -772,6 +772,11 @@ void UserEventStream::CancelFilter(Touch const & t)
 bool UserEventStream::IsInUserAction() const
 {
   return m_state == STATE_DRAG || m_state == STATE_SCALE;
+}
+
+bool UserEventStream::IsWaitingForActionCompletion() const
+{
+  return m_state == STATE_TAP_DETECTION || m_state == STATE_WAIT_DOUBLE_TAP;
 }
 
 }

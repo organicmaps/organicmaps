@@ -109,6 +109,14 @@ void ApplyTextures(GLState state, ref_ptr<GpuProgram> program)
     tex->Bind();
     GLFunctions::glUniformValuei(colorTexLoc, 0);
   }
+  else
+  {
+    // Some Android devices (Galaxy Nexus) require to reset texture state explicitly.
+#ifdef OMIM_OS_ANDROID
+    GLFunctions::glActiveTexture(gl_const::GLTexture0);
+    GLFunctions::glBindTexture(0);
+#endif
+  }
 
   tex = state.GetMaskTexture();
   if (tex != nullptr)
@@ -117,6 +125,14 @@ void ApplyTextures(GLState state, ref_ptr<GpuProgram> program)
     GLFunctions::glActiveTexture(gl_const::GLTexture0 + 1);
     tex->Bind();
     GLFunctions::glUniformValuei(maskTexLoc, 1);
+  }
+  else
+  {
+    // Some Android devices (Galaxy Nexus) require to reset texture state explicitly.
+#ifdef OMIM_OS_ANDROID
+    GLFunctions::glActiveTexture(gl_const::GLTexture0 + 1);
+    GLFunctions::glBindTexture(0);
+#endif
   }
 }
 

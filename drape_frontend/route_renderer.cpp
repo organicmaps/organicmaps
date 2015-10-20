@@ -161,8 +161,8 @@ void RouteRenderer::InterpolateByZoom(ScreenBase const & screen, float & halfWid
   }
 }
 
-void RouteRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
-                           dp::UniformValuesStorage const & commonUniforms)
+void RouteRenderer::RenderRoute(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
+                                dp::UniformValuesStorage const & commonUniforms)
 {
   if (!m_routeData)
     return;
@@ -178,18 +178,16 @@ void RouteRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramMana
     dp::GLState const & state = m_routeData->m_route.m_state;
 
     // set up uniforms
-    dp::UniformValuesStorage uniformStorage;
+    dp::UniformValuesStorage uniforms = commonUniforms;
     glsl::vec4 color = glsl::ToVec4(m_routeData->m_color);
-    uniformStorage.SetFloatValue("u_color", color.r, color.g, color.b, alpha);
-    uniformStorage.SetFloatValue("u_halfWidth", halfWidth, halfWidth * screen.GetScale());
-    uniformStorage.SetFloatValue("u_clipLength", m_distanceFromBegin);
+    uniforms.SetFloatValue("u_color", color.r, color.g, color.b, alpha);
+    uniforms.SetFloatValue("u_routeParams", halfWidth, halfWidth * screen.GetScale(), m_distanceFromBegin);
 
     // set up shaders and apply uniforms
-    ref_ptr<dp::GpuProgram> prg = mng->GetProgram(state.GetProgramIndex());
+    ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::ROUTE_PROGRAM);
     prg->Bind();
     dp::ApplyBlending(state, prg);
-    dp::ApplyUniforms(commonUniforms, prg);
-    dp::ApplyUniforms(uniformStorage, prg);
+    dp::ApplyUniforms(uniforms, prg);
 
     // render routes
     for (drape_ptr<dp::RenderBucket> const & bucket : m_routeData->m_route.m_buckets)
@@ -216,6 +214,13 @@ void RouteRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramMana
     for (drape_ptr<ArrowRenderProperty> & property : m_routeData->m_arrows)
       RenderArrow(prg, property, halfWidth, screen);
   }
+}
+
+void RouteRenderer::RenderRouteSigns(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
+                                     dp::UniformValuesStorage const & commonUniforms)
+{
+  if (!m_routeData)
+    return;
 
   // render end of route
   {
@@ -223,10 +228,12 @@ void RouteRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramMana
 
     dp::UniformValuesStorage uniforms = commonUniforms;
     uniforms.SetFloatValue("u_opacity", 1.0);
+
     ref_ptr<dp::GpuProgram> program = mng->GetProgram(state.GetProgramIndex());
     program->Bind();
     dp::ApplyState(m_routeData->m_endOfRouteSign.m_state, program);
     dp::ApplyUniforms(uniforms, program);
+
     for (drape_ptr<dp::RenderBucket> const & bucket : m_routeData->m_endOfRouteSign.m_buckets)
       bucket->Render(screen);
   }
@@ -240,7 +247,7 @@ void RouteRenderer::RenderArrow(ref_ptr<dp::GpuProgram> prg, drape_ptr<ArrowRend
   double const textureWidth = 2.0 * arrowHalfWidth * kArrowAspect;
 
   dp::UniformValuesStorage uniformStorage;
-  uniformStorage.SetFloatValue("u_halfWidth", arrowHalfWidth, glbArrowHalfWidth);
+  uniformStorage.SetFloatValue("u_routeParams", arrowHalfWidth, glbArrowHalfWidth, m_distanceFromBegin);
 
   // calculate arrows
   CalculateArrowBorders(property, kArrowSize, screen.GetScale(), textureWidth, glbArrowHalfWidth);

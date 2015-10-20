@@ -114,12 +114,20 @@ uint32_t VisualParams::GetTileSize() const
 
 uint32_t VisualParams::GetTouchRectRadius() const
 {
-  return 20 * GetVisualScale();
+  float const kRadiusInPixels = 20.0f;
+  return kRadiusInPixels * GetVisualScale();
 }
 
 double VisualParams::GetDragThreshold() const
 {
-  return 10.0 * GetVisualScale();
+  double const kDragThresholdInPixels = 10.0;
+  return kDragThresholdInPixels * GetVisualScale();
+}
+
+double VisualParams::GetScaleThreshold() const
+{
+  double const kScaleThresholdInPixels = 2.0;
+  return kScaleThresholdInPixels * GetVisualScale();
 }
 
 VisualParams::GlyphVisualParams const & VisualParams::GetGlyphVisualParams() const

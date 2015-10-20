@@ -449,7 +449,11 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
 
 void Navigator::DoScale(m2::PointD const & pt1, m2::PointD const & pt2)
 {
-  if (m_LastPt1 == pt1 && m_LastPt2 == pt2)
+  double const threshold = df::VisualParams::Instance().GetScaleThreshold();
+  double const deltaPt1 = (pt1 - m_LastPt1).Length();
+  double const deltaPt2 = (pt2 - m_LastPt2).Length();
+
+  if (deltaPt1 < threshold && deltaPt2 < threshold)
     return;
   if (pt1 == pt2)
     return;
@@ -500,10 +504,6 @@ void Navigator::DoScale(m2::PointD const & pt1, m2::PointD const & pt2)
 void Navigator::StopScale(m2::PointD const & pt1, m2::PointD const & pt2)
 {
   DoScale(pt1, pt2);
-
-  ASSERT_EQUAL(m_LastPt1, pt1, ());
-  ASSERT_EQUAL(m_LastPt2, pt2, ());
-
   m_InAction = false;
 }
 

@@ -1,4 +1,4 @@
-varying vec2 v_length;
+varying vec3 v_length;
 
 uniform sampler2D u_colorTex;
 uniform vec4 u_textureRect;
@@ -21,10 +21,10 @@ vec2 calculateUv(vec2 len, vec4 arrowBorder)
 void main(void)
 {
   vec4 arrowBorder = u_arrowBorders[0];
-  vec2 uv = calculateUv(v_length, u_arrowBorders[0]) +
-            calculateUv(v_length, u_arrowBorders[1]) +
-            calculateUv(v_length, u_arrowBorders[2]) +
-            calculateUv(v_length, u_arrowBorders[3]);
+  vec2 uv = calculateUv(v_length.xy, u_arrowBorders[0]) +
+            calculateUv(v_length.xy, u_arrowBorders[1]) +
+            calculateUv(v_length.xy, u_arrowBorders[2]) +
+            calculateUv(v_length.xy, u_arrowBorders[3]);
 
   vec4 color = texture2D(u_colorTex, uv);
   gl_FragColor = color;

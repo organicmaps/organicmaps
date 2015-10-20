@@ -225,6 +225,8 @@ public:
   m2::AnyRectD GetTargetRect() const;
   bool IsInUserAction() const;
 
+  bool IsWaitingForActionCompletion() const;
+
   void SetListener(ref_ptr<Listener> listener) { m_listener = listener; }
 
 #ifdef DEBUG

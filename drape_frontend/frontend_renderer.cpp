@@ -467,7 +467,7 @@ FeatureID FrontendRenderer::GetVisiblePOI(m2::RectD const & pixelRect) const
   ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
   for (ref_ptr<dp::OverlayHandle> handle : selectResult)
   {
-    double const  curDist = pt.SquareLength(handle->GetPivot(screen));
+    double const curDist = pt.SquareLength(handle->GetPivot(screen));
     if (curDist < dist)
     {
       dist = curDist;
@@ -586,15 +586,17 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
   GLFunctions::glDisable(gl_const::GLDepthTest);
 
+  m_routeRenderer->RenderRoute(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+
   for (drape_ptr<UserMarkRenderGroup> const & group : m_userMarkRenderGroups)
   {
     ASSERT(group.get() != nullptr, ());
-    group->UpdateAnimation();
     if (m_userMarkVisibility.find(group->GetTileKey()) != m_userMarkVisibility.end())
       RenderSingleGroup(modelView, make_ref(group));
   }
 
-  m_routeRenderer->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+  m_routeRenderer->RenderRouteSigns(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+
   m_myPositionController->Render(MyPositionController::RenderMyPosition,
                                  modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
@@ -611,13 +613,14 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 void FrontendRenderer::RenderSingleGroup(ScreenBase const & modelView, ref_ptr<BaseRenderGroup> group)
 {
   group->UpdateAnimation();
-  dp::GLState const & state = group->GetState();
 
+  dp::GLState const & state = group->GetState();
   ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
   program->Bind();
+
+  ApplyState(state, program);
   ApplyUniforms(m_generalUniforms, program);
   ApplyUniforms(group->GetUniforms(), program);
-  ApplyState(state, program);
 
   group->Render(modelView);
 }
@@ -813,6 +816,8 @@ void FrontendRenderer::Routine::Do()
   dp::BlendingParams blendingParams;
   blendingParams.Apply();
 
+  int const kMaxInactiveFrames = 60;
+
   my::HighResTimer timer;
   timer.Reset();
   double frameTime = 0.0;
@@ -823,19 +828,27 @@ void FrontendRenderer::Routine::Do()
   while (!IsCancelled())
   {
     context->setDefaultFramebuffer();
+
     bool const hasAsyncRoutines = m_renderer.m_texMng->UpdateDynamicTextures();
     m_renderer.RenderScene(modelView);
+
     bool const animActive = InterpolationHolder::Instance().Advance(frameTime);
     modelView = m_renderer.UpdateScene(viewChanged);
 
-    if (!viewChanged && m_renderer.IsQueueEmpty() && !animActive && !hasAsyncRoutines)
+    bool const waitCompletion = m_renderer.m_userEventStream.IsWaitingForActionCompletion();
+
+    // Check for a frame is inactive.
+    bool const isInactiveFrame = !viewChanged && m_renderer.IsQueueEmpty() &&
+                                 !animActive && !hasAsyncRoutines &&
+                                 !waitCompletion;
+    if (isInactiveFrame)
       ++inactiveFrameCount;
     else
       inactiveFrameCount = 0;
 
-    if (inactiveFrameCount > 60)
+    if (inactiveFrameCount > kMaxInactiveFrames)
     {
-      // process a message or wait for a message
+      // Process a message or wait for a message.
       m_renderer.ProcessSingleMessage();
       inactiveFrameCount = 0;
     }

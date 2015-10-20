@@ -26,9 +26,11 @@ public:
   double GetVisualScale() const;
   uint32_t GetTileSize() const;
 
-  /// How many pixels around touch point are used to get bookmark or POI in consideration of visual scale
+  /// How many pixels around touch point are used to get bookmark or POI in consideration of visual scale.
   uint32_t GetTouchRectRadius() const;
+
   double GetDragThreshold() const;
+  double GetScaleThreshold() const;
 
   struct GlyphVisualParams
   {

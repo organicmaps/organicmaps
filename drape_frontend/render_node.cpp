@@ -36,8 +36,8 @@ void RenderNode::Apply(ref_ptr<dp::GpuProgramManager> mng, dp::UniformValuesStor
     m_isBuilded = true;
   }
 
-  dp::ApplyUniforms(uniforms, prg);
   dp::ApplyState(m_state, prg);
+  dp::ApplyUniforms(uniforms, prg);
 }
 
 }
