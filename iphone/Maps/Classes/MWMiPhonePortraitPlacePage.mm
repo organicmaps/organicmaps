@@ -27,6 +27,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 @property (nonatomic) MWMiPhonePortraitPlacePageState state;
 @property (nonatomic) CGPoint targetPoint;
 @property (nonatomic) CGFloat panVelocity;
+@property (nonatomic) BOOL isHover;
 
 @end
 
@@ -40,16 +41,25 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
   CGFloat const width = MIN(size.width, size.height);
   CGFloat const height = MAX(size.width, size.height);
   UIView * ppv = self.extendedPlacePageView;
+  [self determineIfIsHover];
   ppv.frame = CGRectMake(0., height, width, 2 * height);
   _targetPoint = ppv.center;
   self.actionBar.width = width;
-  self.actionBar.center = CGPointMake(width / 2., height + self.actionBar.height / 2.);
+  self.actionBar.center = {width / 2, height + self.actionBar.height / 2};
   [self.manager addSubviews:@[ppv, self.actionBar] withNavigationController:nil];
   [UIView animateWithDuration:kDefaultAnimationDuration delay:0. options:UIViewAnimationOptionCurveEaseOut animations:^
   {
-    self.actionBar.center = CGPointMake(width / 2., height - self.actionBar.height / 2.);
+    self.actionBar.center = {width / 2, height - self.actionBar.height / 2};
   }
   completion:nil];
+}
+
+- (void)determineIfIsHover
+{
+  CGSize const size = UIScreen.mainScreen.bounds.size;
+  CGFloat const height = MAX(size.width, size.height);
+  CGFloat const maximumY = height / 4.;
+  self.isHover = self.topY < maximumY ? YES : NO;
 }
 
 - (void)show
@@ -83,6 +93,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 - (void)reloadBookmark
 {
   [super reloadBookmark];
+  [self determineIfIsHover];
   [self updateTargetPoint];
 }
 
@@ -120,7 +131,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
   switch (self.state)
   {
     case MWMiPhonePortraitPlacePageStateClosed:
-      self.targetPoint = CGPointMake(ppv.width / 2., ppv.height * 2.);
+      self.targetPoint = {ppv.width / 2, ppv.height * 2};
       break;
     case MWMiPhonePortraitPlacePageStatePreview:
       self.targetPoint = [self getPreviewTargetPoint];
@@ -129,7 +140,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
       self.targetPoint = [self getOpenTargetPoint];
       break;
     case MWMiPhonePortraitPlacePageStateHover:
-      self.targetPoint = CGPointMake(ppv.center.x, MAX([MWMSpringAnimation approxTargetFor:ppv.center.y velocity:self.panVelocity], [self getOpenTargetPoint].y));
+      self.targetPoint = [self getHoverTargetPoint];
       break;
   }
 }
@@ -143,7 +154,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
   MWMBasePlacePageView * basePPV = self.basePlacePageView;
   CGFloat const typeHeight = basePPV.typeLabel.text.length > 0 ? basePPV.typeLabel.height : basePPV.typeDescriptionView.height;
   CGFloat const h = height - (basePPV.titleLabel.height + kPlacePageBottomOffset + typeHeight + self.actionBar.height);
-  return CGPointMake(width / 2., height + h);
+  return {width / 2, height + h};
 }
 
 - (CGPoint)getOpenTargetPoint
@@ -152,10 +163,26 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
   BOOL const isLandscape = size.width > size.height;
   CGFloat const width = isLandscape ? size.height : size.width;
   CGFloat const height = isLandscape ? size.width : size.height;
+  return {width / 2, height + self.topY};
+}
+
+- (CGPoint)getHoverTargetPoint
+{
+  CGSize const size = UIScreen.mainScreen.bounds.size;
+  CGFloat const height = size.height;
+  return {size.width / 2, height + height / 4};
+}
+
+- (CGFloat)topY
+{
   MWMBasePlacePageView * basePPV = self.basePlacePageView;
-  CGFloat const typeHeight = basePPV.typeLabel.text.length > 0 ? basePPV.typeLabel.height : basePPV.typeDescriptionView.height;
-  CGFloat const h = height - (basePPV.titleLabel.height + kPlacePageBottomOffset + typeHeight + [(UITableView *)basePPV.featureTable height] + self.actionBar.height + self.keyboardHeight);
-  return CGPointMake(width / 2., height + h);
+  CGSize const size = UIScreen.mainScreen.bounds.size;
+  CGFloat const height = MAX(size.width, size.height);
+  CGFloat const typeHeight = basePPV.typeLabel.text.length > 0 ?
+                             basePPV.typeLabel.height :
+                             basePPV.typeDescriptionView.height;
+  return height - (basePPV.titleLabel.height + kPlacePageBottomOffset + typeHeight +
+                   [(UITableView *)basePPV.featureTable height] + self.actionBar.height + self.keyboardHeight);
 }
 
 #pragma mark - Actions
@@ -179,21 +206,45 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
     self.panVelocity = [sender velocityInView:ppvSuper].y;
     CGFloat const estimatedYPosition = [MWMSpringAnimation approxTargetFor:ppv.frame.origin.y velocity:self.panVelocity];
     CGFloat const bound1 = ppvSuper.height * 0.2;
-    CGFloat const bound2 = ppvSuper.height * 0.5;
+    CGFloat const bound2 = ppvSuper.height * (self.isHover ? 0.7 : 0.5);
     if (estimatedYPosition < bound1)
     {
-      if (self.panVelocity <= 0.0)
-        self.state = MWMiPhonePortraitPlacePageStateHover;
-      else
-        self.state = MWMiPhonePortraitPlacePageStateOpen;
+      if (self.isHover)
+      {
+        if (self.state != MWMiPhonePortraitPlacePageStateHover)
+          self.state = MWMiPhonePortraitPlacePageStateHover;
+        return;
+      }
+      self.state = MWMiPhonePortraitPlacePageStateOpen;
     }
     else if (self.panVelocity <= 0.0)
     {
+      if (self.isHover)
+      {
+        if (self.state != MWMiPhonePortraitPlacePageStateHover)
+          self.state = MWMiPhonePortraitPlacePageStateHover;
+        return;
+      }
       self.state = MWMiPhonePortraitPlacePageStateOpen;
     }
     else if (ppv.minY < bound2)
     {
-      self.state = MWMiPhonePortraitPlacePageStatePreview;
+      if (self.isHover)
+      {
+        if (self.state == MWMiPhonePortraitPlacePageStateHover)
+        {
+          if (self.targetPoint.y < self.getHoverTargetPoint.y)
+            self.state = MWMiPhonePortraitPlacePageStateHover;
+          else
+            self.state = MWMiPhonePortraitPlacePageStatePreview;
+          return;
+        }
+        self.state = MWMiPhonePortraitPlacePageStateHover;
+      }
+      else
+      {
+        self.state = MWMiPhonePortraitPlacePageStatePreview;
+      }
     }
     else
     {
@@ -211,18 +262,32 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
       self.state = MWMiPhonePortraitPlacePageStatePreview;
       break;
     case MWMiPhonePortraitPlacePageStatePreview:
-      self.state = MWMiPhonePortraitPlacePageStateOpen;
+      self.state = self.isHover ? MWMiPhonePortraitPlacePageStateHover : MWMiPhonePortraitPlacePageStateOpen;
       break;
     case MWMiPhonePortraitPlacePageStateOpen:
-    case MWMiPhonePortraitPlacePageStateHover:
       self.state = MWMiPhonePortraitPlacePageStatePreview;
+    case MWMiPhonePortraitPlacePageStateHover:
+      if (!self.isHover)
+      {
+        self.state = MWMiPhonePortraitPlacePageStatePreview;
+      }
+      else
+      {
+        if (self.targetPoint.y < self.getHoverTargetPoint.y)
+          self.state = MWMiPhonePortraitPlacePageStateHover;
+        else
+          self.state = MWMiPhonePortraitPlacePageStatePreview;
+      }
       break;
   }
 }
 
 - (void)willStartEditingBookmarkTitle
 {
-  self.state = MWMiPhonePortraitPlacePageStateOpen;
+  if (self.isHover)
+    self.state = MWMiPhonePortraitPlacePageStateHover;
+  else
+    self.state = MWMiPhonePortraitPlacePageStateOpen;
 }
 
 - (void)willFinishEditingBookmarkTitle:(NSString *)title
@@ -264,7 +329,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
   __weak MWMiPhonePortraitPlacePage * weakSelf = self;
   if (self.state == MWMiPhonePortraitPlacePageStateClosed)
     GetFramework().GetBalloonManager().RemovePin();
-  [self startAnimatingPlacePage:self initialVelocity:CGPointMake(0.0, self.panVelocity) completion:^
+  [self startAnimatingPlacePage:self initialVelocity:{0.0, self.panVelocity} completion:^
   {
     __strong MWMiPhonePortraitPlacePage * self = weakSelf;
     if (self.state == MWMiPhonePortraitPlacePageStateClosed)
