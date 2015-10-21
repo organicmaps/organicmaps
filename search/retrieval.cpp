@@ -67,9 +67,8 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(MwmSet::MwmHandl
   ASSERT(value, ());
   serial::CodingParams codingParams(trie::GetCodingParams(value->GetHeader().GetDefCodingParams()));
   ModelReaderPtr searchReader = value->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
-  auto const trieRoot =
-      trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<FeatureWithRankAndCenter>>(
-          SubReaderWrapper<Reader>(searchReader.GetPtr()), codingParams);
+  auto const trieRoot = trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<FeatureIndexValue>>(
+      SubReaderWrapper<Reader>(searchReader.GetPtr()), codingParams);
 
   auto emptyFilter = [](uint32_t /* featureId */)
   {

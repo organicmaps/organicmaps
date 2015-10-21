@@ -94,7 +94,7 @@ private:
     if (childCount == 63)
       childCount = ReadVarUint<uint32_t>(src);
 
-    // [value] ... [value]
+    // [valueList]
     m_valueList.Deserialize(src, valueCount);
 
     // [childInfo] ... [childInfo]

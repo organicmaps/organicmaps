@@ -17,13 +17,13 @@
 // pre-order alphabetically reversed (parent, last child, first child).
 
 // Leaf node format:
-// [value] ... [value]
+// [valueList]
 
 // Internal node format:
 // [1: header]: [2: min(valueCount, 3)] [6: min(childCount, 63)]
 // [vu valueCount]: if valueCount in header == 3
 // [vu childCount]: if childCount in header == 63
-// [value] ... [value]
+// [valueList]
 // [childInfo] ... [childInfo]
 
 // Child info format:

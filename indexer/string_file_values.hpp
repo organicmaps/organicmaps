@@ -23,31 +23,42 @@
 /// A wrapper around feature index.
 struct FeatureIndexValue
 {
-  FeatureIndexValue() : m_value(0) {}
+  FeatureIndexValue() : m_featureId(0) {}
 
+  FeatureIndexValue(uint64_t featureId) : m_featureId(featureId) {}
+
+  // The serialization and deserialization is needed for StringsFile.
+  // Use ValueList for group serialization in CBVs.
   template <typename TWriter>
-  void Write(TWriter & writer) const
+  void Serialize(TWriter & writer) const
   {
-    WriteToSink(writer, m_value);
+    WriteToSink(writer, m_featureId);
   }
 
   template <typename TReader>
-  void Read(TReader & reader)
+  void Deserialize(TReader & reader)
   {
-    m_value = ReadPrimitiveFromSource<uint64_t>(reader);
+    ReaderSource<TReader> src(reader);
+    DeserializeFromSource(src);
   }
 
-  inline void const * data() const { return &m_value; }
+  template <typename TSource>
+  void DeserializeFromSource(TSource & src)
+  {
+    m_featureId = ReadPrimitiveFromSource<uint64_t>(src);
+  }
 
-  inline size_t size() const { return sizeof(m_value); }
+  inline void const * data() const { return &m_featureId; }
 
-  bool operator<(FeatureIndexValue const & value) const { return m_value < value.m_value; }
+  inline size_t size() const { return sizeof(m_featureId); }
 
-  bool operator==(FeatureIndexValue const & value) const { return m_value == value.m_value; }
+  bool operator<(FeatureIndexValue const & o) const { return m_featureId < o.m_featureId; }
 
-  void swap(FeatureIndexValue & value) { ::swap(m_value, value.m_value); }
+  bool operator==(FeatureIndexValue const & o) const { return m_featureId == o.m_featureId; }
 
-  uint64_t m_value;
+  void Swap(FeatureIndexValue & o) { ::swap(m_featureId, o.m_featureId); }
+
+  uint64_t m_featureId;
 };
 
 struct FeatureWithRankAndCenter
@@ -117,12 +128,20 @@ public:
 
   ValueList() : m_cbv(unique_ptr<coding::CompressedBitVector>()) {}
 
+  ValueList(ValueList<FeatureIndexValue> const & o) : m_codingParams(o.m_codingParams)
+  {
+    if (o.m_cbv)
+      m_cbv = coding::CompressedBitVectorBuilder::FromCBV(*o.m_cbv);
+    else
+      m_cbv = unique_ptr<coding::CompressedBitVector>();
+  }
+
   void Init(vector<FeatureIndexValue> const & values)
   {
-    vector<uint64_t> offsets(values.size());
-    for (size_t i = 0; i < offsets.size(); ++i)
-      offsets[i] = values[i].m_value;
-    m_cbv = coding::CompressedBitVectorBuilder::FromBitPositions(offsets);
+    vector<uint64_t> ids(values.size());
+    for (size_t i = 0; i < ids.size(); ++i)
+      ids[i] = values[i].m_featureId;
+    m_cbv = coding::CompressedBitVectorBuilder::FromBitPositions(ids);
   }
 
   // This method returns number of values in the current instance of
@@ -161,7 +180,10 @@ public:
   template <typename TF>
   void ForEach(TF && f) const
   {
-    coding::CompressedBitVectorEnumerator::ForEach(*m_cbv, forward<TF>(f));
+    coding::CompressedBitVectorEnumerator::ForEach(*m_cbv, [&](uint64_t const bitPosition)
+                                                   {
+                                                     f(TValue(bitPosition));
+                                                   });
   }
 
   void SetCodingParams(serial::CodingParams const & codingParams) { m_codingParams = codingParams; }

@@ -2,8 +2,11 @@
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
+#include "base/assert.hpp"
+
 #include "std/algorithm.hpp"
 #include "std/unique_ptr.hpp"
+#include "std/utility.hpp"
 #include "std/vector.hpp"
 
 namespace coding
@@ -149,6 +152,9 @@ public:
   // Chooses a strategy to store the bit vector with bits from a bitmap obtained
   // by concatenating the elements of bitGroups.
   static unique_ptr<CompressedBitVector> FromBitGroups(vector<uint64_t> && bitGroups);
+
+  // Copies a CBV.
+  static unique_ptr<CompressedBitVector> FromCBV(CompressedBitVector const & cbv);
 
   // Reads a bit vector from reader which must contain a valid
   // bit vector representation (see CompressedBitVector::Serialize for the format).

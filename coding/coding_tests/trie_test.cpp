@@ -277,7 +277,7 @@ UNIT_TEST(TrieBuilder_Build)
         trie::ReadTrie<MemReader, ValueList<uint32_t>>(memReader, serial::CodingParams());
     vector<KeyValuePair> res;
     KeyValuePairBackInserter f;
-    trie::ForEachRef(*root, f, vector<trie::TrieChar>());
+    trie::ForEachRefWithValues(*root, f, vector<trie::TrieChar>());
     sort(f.m_v.begin(), f.m_v.end());
     TEST_EQUAL(v, f.m_v, ());
   }

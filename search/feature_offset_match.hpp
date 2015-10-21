@@ -113,7 +113,6 @@ void FullMatchInTrie(trie::DefaultIterator const & trieRoot, strings::UniChar co
 
   ASSERT_EQUAL ( symbolsMatched, s.size(), () );
 
-  LOG(LINFO, ("foreach`ing", it->m_valueList.Size()));
   it->m_valueList.ForEach(f);
 }
 
@@ -152,11 +151,9 @@ void PrefixMatchInTrie(trie::DefaultIterator const & trieRoot, strings::UniChar 
   }
 }
 
-template <class TFilter>
+template <typename TFilter, typename TValue>
 class OffsetIntersecter
 {
-  using TValue = FeatureWithRankAndCenter;
-
   struct HashFn
   {
     size_t operator()(TValue const & v) const { return v.m_featureId; }
@@ -232,7 +229,7 @@ struct TrieRootPrefix
   }
 };
 
-template <class TFilter>
+template <typename TFilter, typename TValue>
 class TrieValuesHolder
 {
 public:
@@ -246,7 +243,7 @@ public:
     m_index = index;
   }
 
-  void operator()(Query::TTrieValue const & v)
+  void operator()(TValue const & v)
   {
     if (m_filter(v.m_featureId))
       m_holder[m_index].push_back(v);
@@ -261,7 +258,7 @@ public:
   }
 
 private:
-  vector<vector<Query::TTrieValue>> m_holder;
+  vector<vector<TValue>> m_holder;
   size_t m_index;
   TFilter const & m_filter;
 };
@@ -380,10 +377,11 @@ template <typename TFilter, typename ToDo>
 void MatchFeaturesInTrie(SearchQueryParams const & params, trie::DefaultIterator const & trieRoot,
                          TFilter const & filter, ToDo && toDo)
 {
+  using TValue = trie::DefaultIterator::TValue;
   TrieValuesHolder<TFilter> categoriesHolder(filter);
   bool const categoriesMatched = MatchCategoriesInTrie(params, trieRoot, categoriesHolder);
 
-  impl::OffsetIntersecter<TFilter> intersecter(filter);
+  impl::OffsetIntersecter<TFilter, TValue> intersecter(filter);
   for (size_t i = 0; i < params.m_tokens.size(); ++i)
   {
     ForEachLangPrefix(params, trieRoot, [&](TrieRootPrefix & langRoot, int8_t lang)

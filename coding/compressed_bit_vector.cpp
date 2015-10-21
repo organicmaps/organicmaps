@@ -312,6 +312,27 @@ unique_ptr<CompressedBitVector> CompressedBitVectorBuilder::FromBitGroups(
   return make_unique<SparseCBV>(setBits);
 }
 
+// static
+unique_ptr<CompressedBitVector> CompressedBitVectorBuilder::FromCBV(CompressedBitVector const & cbv)
+{
+  auto strat = cbv.GetStorageStrategy();
+  switch (strat)
+  {
+    case CompressedBitVector::StorageStrategy::Dense:
+    {
+      DenseCBV const & dense = static_cast<DenseCBV const &>(cbv);
+      auto bitGroups = dense.m_bitGroups;
+      return CompressedBitVectorBuilder::FromBitGroups(move(bitGroups));
+    }
+    case CompressedBitVector::StorageStrategy::Sparse:
+    {
+      SparseCBV const & sparse = static_cast<SparseCBV const &>(cbv);
+      return CompressedBitVectorBuilder::FromBitPositions(sparse.m_positions);
+    }
+  }
+  return unique_ptr<CompressedBitVector>();
+}
+
 string DebugPrint(CompressedBitVector::StorageStrategy strat)
 {
   switch (strat)

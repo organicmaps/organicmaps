@@ -177,11 +177,15 @@ struct ValueBuilder<FeatureWithRankAndCenter>
 template <>
 struct ValueBuilder<FeatureIndexValue>
 {
+  ValueBuilder(serial::CodingParams const & cp) : m_cp(cp) {}
+
   void MakeValue(FeatureType const & /* f */, feature::TypesHolder const & /* types */,
                  uint32_t index, FeatureIndexValue & value) const
   {
-    value.m_value = index;
+    value.m_featureId = index;
   }
+
+  serial::CodingParams m_cp;
 };
 
 template <typename TStringsFile>
@@ -258,22 +262,23 @@ public:
   }
 };
 
+template <typename TValue>
 void AddFeatureNameIndexPairs(FilesContainerR const & container,
                               CategoriesHolder & categoriesHolder,
-                              StringsFile<FeatureWithRankAndCenter> & stringsFile)
+                              StringsFile<TValue> & stringsFile)
 {
   FeaturesVectorTest features(container);
   feature::DataHeader const & header = features.GetHeader();
 
   serial::CodingParams codingParams(trie::GetCodingParams(header.GetDefCodingParams()));
 
-  ValueBuilder<FeatureWithRankAndCenter> valueBuilder(codingParams);
+  ValueBuilder<TValue> valueBuilder(codingParams);
 
   unique_ptr<SynonymsHolder> synonyms;
   if (header.GetType() == feature::DataHeader::world)
     synonyms.reset(new SynonymsHolder(GetPlatform().WritablePathForFile(SYNONYMS_FILE)));
 
-  features.GetVector().ForEach(FeatureInserter<StringsFile<FeatureWithRankAndCenter>>(
+  features.GetVector().ForEach(FeatureInserter<StringsFile<TValue>>(
       synonyms.get(), stringsFile, categoriesHolder, header.GetScaleRange(), valueBuilder));
 }
 }  // namespace
@@ -326,12 +331,14 @@ bool BuildSearchIndexFromDatFile(string const & datFile, bool forceRebuild)
 void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter,
                       string const & stringsFilePath)
 {
+  using TValue = FeatureIndexValue;
+
   Platform & platform = GetPlatform();
 
   LOG(LINFO, ("Start building search index for", container.GetFileName()));
   my::Timer timer;
 
-  StringsFile<FeatureWithRankAndCenter> stringsFile(stringsFilePath);
+  StringsFile<TValue> stringsFile(stringsFilePath);
 
   CategoriesHolder categoriesHolder(platform.GetReader(SEARCH_CATEGORIES_FILE_NAME));
 
@@ -341,9 +348,8 @@ void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter,
   LOG(LINFO, ("End sorting strings:", timer.ElapsedSeconds()));
 
   stringsFile.OpenForRead();
-  trie::Build<Writer, typename StringsFile<FeatureWithRankAndCenter>::IteratorT,
-              ValueList<FeatureWithRankAndCenter>>(indexWriter, stringsFile.Begin(),
-                                                   stringsFile.End());
+  trie::Build<Writer, typename StringsFile<TValue>::IteratorT, ValueList<TValue>>(
+      indexWriter, stringsFile.Begin(), stringsFile.End());
 
   LOG(LINFO, ("End building search index, elapsed seconds:", timer.ElapsedSeconds()));
 }

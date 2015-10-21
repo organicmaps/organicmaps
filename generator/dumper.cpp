@@ -164,7 +164,7 @@ namespace feature
 
     SearchTokensCollector() : m_currentS(), m_currentCount(0) {}
 
-    void operator()(strings::UniString const & s, FeatureWithRankAndCenter const &)
+    void operator()(strings::UniString const & s)
     {
       if (m_currentS == s)
       {
@@ -200,7 +200,7 @@ namespace feature
     feature::DataHeader header(container);
     serial::CodingParams codingParams(trie::GetCodingParams(header.GetDefCodingParams()));
 
-    auto const pTrieRoot = trie::ReadTrie<ModelReaderPtr, ValueList<FeatureWithRankAndCenter>>(
+    auto const pTrieRoot = trie::ReadTrie<ModelReaderPtr, ValueList<FeatureIndexValue>>(
         container.GetReader(SEARCH_INDEX_FILE_TAG), codingParams);
 
     SearchTokensCollector f;
