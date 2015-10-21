@@ -1,19 +1,22 @@
 #include "testing/testing.hpp"
+#include "coding/byte_stream.hpp"
+#include "coding/reader.hpp"
 #include "coding/trie.hpp"
 #include "coding/trie_builder.hpp"
 #include "coding/trie_reader.hpp"
-#include "coding/byte_stream.hpp"
 #include "coding/write_to_sink.hpp"
+
+#include "indexer/coding_params.hpp"
+#include "indexer/string_file_values.hpp"
 
 #include "base/logging.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/cstring.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
-#include "std/cstring.hpp"
 
 #include <boost/utility/binary.hpp>
-
 
 namespace
 {
@@ -83,14 +86,13 @@ string DebugPrint(KeyValuePair const & p)
 
 struct KeyValuePairBackInserter
 {
-  vector<KeyValuePair> m_v;
   template <class TString>
-  void operator()(TString const & s, trie::FixedSizeValueReader<4>::ValueType const & rawValue)
+  void operator()(TString const & s, uint32_t const & value)
   {
-    uint32_t value;
-    memcpy(&value, &rawValue, 4);
     m_v.push_back(KeyValuePair(s, value));
   }
+
+  vector<KeyValuePair> m_v;
 };
 
 struct MaxValueCalc
@@ -110,14 +112,18 @@ struct MaxValueCalc
 class CharValueList
 {
 public:
+  using TValue = char;
+
+  void Init(vector<TValue> const &) {}
+
   CharValueList(const string & s) : m_string(s) {}
 
-  size_t size() const { return m_string.size(); }
+  size_t Size() const { return m_string.size(); }
 
-  bool empty() const { return m_string.empty(); }
+  bool IsEmpty() const { return m_string.empty(); }
 
   template <typename TSink>
-  void Dump(TSink & sink) const
+  void Serialize(TSink & sink) const
   {
     sink.Write(m_string.data(), m_string.size());
   }
@@ -126,31 +132,61 @@ private:
   string m_string;
 };
 
-class Uint32ValueList
+}  //  namespace
+
+template <>
+class ValueList<uint32_t>
 {
 public:
-  using TBuffer = vector<uint32_t>;
+  using TValue = uint32_t;
 
-  void Append(uint32_t value)
-  {
-    m_values.push_back(value);
-  }
+  ValueList() = default;
+  ValueList(serial::CodingParams const & codingParams) : m_codingParams(codingParams) {}
 
-  uint32_t size() const { return m_values.size(); }
+  void Init(vector<TValue> const & values) { m_values = values; }
 
-  bool empty() const { return m_values.empty(); }
+  size_t Size() const { return m_values.size(); }
+
+  bool IsEmpty() const { return m_values.empty(); }
 
   template <typename TSink>
-  void Dump(TSink & sink) const
+  void Serialize(TSink & sink) const
   {
-    sink.Write(m_values.data(), m_values.size() * sizeof(TBuffer::value_type));
+    for (auto const & value : m_values)
+      WriteToSink(sink, value);
   }
 
-private:
-  TBuffer m_values;
-};
+  template <typename TSource>
+  void Deserialize(TSource & src, uint32_t valueCount)
+  {
+    m_values.resize(valueCount);
+    for (size_t i = 0; i < valueCount; ++i)
+      m_values[i] = ReadPrimitiveFromSource<TValue>(src);
+  }
 
-}  // unnamed namespace
+  template <typename TSource>
+  void Deserialize(TSource & src)
+  {
+    while (src.Size() > 0)
+    {
+      m_values.push_back(TValue());
+      m_values.back() = ReadPrimitiveFromSource<TValue>(src);
+    }
+  }
+
+  template <typename TF>
+  void ForEach(TF && f) const
+  {
+    for (auto const & value : m_values)
+      f(value);
+  }
+
+  void SetCodingParams(serial::CodingParams const & codingParams) { m_codingParams = codingParams; }
+
+private:
+  vector<TValue> m_values;
+  serial::CodingParams m_codingParams;
+};
 
 #define ZENC bits::ZigZagEncode
 #define MKSC(x) static_cast<signed char>(x)
@@ -158,8 +194,8 @@ private:
 
 UNIT_TEST(TrieBuilder_WriteNode_Smoke)
 {
-  vector<uint8_t> serial;
-  PushBackByteSink<vector<uint8_t> > sink(serial);
+  vector<uint8_t> buf;
+  PushBackByteSink<vector<uint8_t>> sink(buf);
   ChildNodeInfo children[] = {
       ChildNodeInfo(true, 1, "1A"), ChildNodeInfo(false, 2, "B"), ChildNodeInfo(false, 3, "zz"),
       ChildNodeInfo(true, 4,
@@ -194,7 +230,7 @@ UNIT_TEST(TrieBuilder_WriteNode_Smoke)
     MKUC(BOOST_BINARY(11000000) | ZENC(0)),                                 // Child 5: header: [+leaf] [+supershort]
   };
 
-  TEST_EQUAL(serial, vector<uint8_t>(&expected[0], &expected[0] + ARRAY_SIZE(expected)), ());
+  TEST_EQUAL(buf, vector<uint8_t>(&expected[0], &expected[0] + ARRAY_SIZE(expected)), ());
 }
 
 UNIT_TEST(TrieBuilder_Build)
@@ -230,15 +266,15 @@ UNIT_TEST(TrieBuilder_Build)
     for (size_t i = 0; i < v.size(); ++i)
       vs.push_back(string(v[i].m_key.begin(), v[i].m_key.end()));
 
-    vector<uint8_t> serial;
-    PushBackByteSink<vector<uint8_t> > sink(serial);
+    vector<uint8_t> buf;
+    PushBackByteSink<vector<uint8_t>> sink(buf);
     trie::Build<PushBackByteSink<vector<uint8_t>>, typename vector<KeyValuePair>::iterator,
-                Uint32ValueList>(sink, v.begin(), v.end());
-    reverse(serial.begin(), serial.end());
+                ValueList<uint32_t>>(sink, v.begin(), v.end());
+    reverse(buf.begin(), buf.end());
 
-    MemReader memReader = MemReader(&serial[0], serial.size());
-    using TIterator = trie::Iterator<trie::FixedSizeValueReader<4>::ValueType>;
-    auto const root = trie::ReadTrie(memReader, trie::FixedSizeValueReader<4>());
+    MemReader memReader = MemReader(&buf[0], buf.size());
+    auto const root =
+        trie::ReadTrie<MemReader, ValueList<uint32_t>>(memReader, serial::CodingParams());
     vector<KeyValuePair> res;
     KeyValuePairBackInserter f;
     trie::ForEachRef(*root, f, vector<trie::TrieChar>());

@@ -74,7 +74,7 @@ public:
     void Read(TReader & src)
     {
       rw::Read(src, m_name);
-      m_val.Read(src);
+      m_val.DeserializeFromSource(src);
     }
 
     inline void const * value_data() const { return m_val.data(); }
@@ -84,7 +84,7 @@ public:
     void Swap(TString & r)
     {
       m_name.swap(r.m_name);
-      m_val.swap(r.m_val);
+      m_val.Swap(r.m_val);
     }
   };
 
@@ -125,7 +125,7 @@ public:
         trie.ForEach([&memWriter](const strings::UniString & s, const ValueT & v)
                      {
                        rw::Write(memWriter, s);
-                       v.Write(memWriter);
+                       v.Serialize(memWriter);
                      });
       }
 

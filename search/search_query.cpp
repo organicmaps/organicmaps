@@ -1612,7 +1612,8 @@ void Query::SearchLocality(MwmValue const * pMwm, Locality & res1, Region & res2
   ModelReaderPtr searchReader = pMwm->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
 
   auto const trieRoot =
-      trie::ReadTrie(SubReaderWrapper<Reader>(searchReader.GetPtr()), trie::ValueReader(cp));
+      trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<FeatureWithRankAndCenter>>(
+          SubReaderWrapper<Reader>(searchReader.GetPtr()), cp);
 
   ForEachLangPrefix(params, *trieRoot, [&](TrieRootPrefix & langRoot, int8_t lang)
   {

@@ -4,6 +4,8 @@
 #include "base/base.hpp"
 #include "base/buffer_vector.hpp"
 
+#include "indexer/string_file_values.hpp"
+
 #include "std/unique_ptr.hpp"
 
 namespace trie
@@ -16,7 +18,7 @@ typedef uint32_t TrieChar;
 // However 0 is used because the first byte is actually language id.
 static uint32_t const DEFAULT_CHAR = 0;
 
-template <typename TValue>
+template <typename TValueList>
 class Iterator
 {
   //dbg::ObjectTracker m_tracker;
@@ -29,12 +31,12 @@ public:
   };
 
   buffer_vector<Edge, 8> m_edge;
-  buffer_vector<TValue, 2> m_value;
+  TValueList m_valueList;
 
   virtual ~Iterator() {}
 
-  virtual unique_ptr<Iterator<TValue>> Clone() const = 0;
-  virtual unique_ptr<Iterator<TValue>> GoToEdge(size_t i) const = 0;
+  virtual unique_ptr<Iterator<TValueList>> Clone() const = 0;
+  virtual unique_ptr<Iterator<TValueList>> GoToEdge(size_t i) const = 0;
 };
 
 struct EmptyValueReader
@@ -65,11 +67,13 @@ struct FixedSizeValueReader
   }
 };
 
-template <typename TValue, typename F, typename TString>
-void ForEachRef(Iterator<TValue> const & iter, F & f, TString const & s)
+template <typename TValueList, typename TF, typename TString>
+void ForEachRef(Iterator<TValueList> const & iter, TF && f, TString const & s)
 {
-  for (size_t i = 0; i < iter.m_value.size(); ++i)
-    f(s, iter.m_value[i]);
+  iter.m_valueList.ForEach([&f, &s](typename TValueList::TValue value)
+                           {
+                             f(s, value);
+                           });
   for (size_t i = 0; i < iter.m_edge.size(); ++i)
   {
     TString s1(s);
@@ -79,4 +83,4 @@ void ForEachRef(Iterator<TValue> const & iter, F & f, TString const & s)
   }
 }
 
-}  // namespace Trie
+}  // namespace trie

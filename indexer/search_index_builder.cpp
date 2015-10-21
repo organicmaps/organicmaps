@@ -13,12 +13,13 @@
 #include "indexer/string_file_values.hpp"
 #include "indexer/types_skipper.hpp"
 
-#include "search/search_common.hpp"    // for MAX_TOKENS constant
+#include "search/search_common.hpp"  // for MAX_TOKENS constant
 
 #include "defines.hpp"
 
 #include "platform/platform.hpp"
 
+#include "coding/file_name_utils.hpp"
 #include "coding/reader_writer_ops.hpp"
 #include "coding/trie_builder.hpp"
 #include "coding/writer.hpp"
@@ -42,7 +43,6 @@
 
 namespace
 {
-
 class SynonymsHolder
 {
   unordered_multimap<string, string> m_map;
@@ -155,27 +155,23 @@ template <typename ValueT>
 struct ValueBuilder;
 
 template <>
-struct ValueBuilder<SerializedFeatureInfoValue>
+struct ValueBuilder<FeatureWithRankAndCenter>
 {
-  using TSaver = trie::ValueReader;
-  TSaver m_valueSaver;
-
-  ValueBuilder(serial::CodingParams const & cp) : m_valueSaver(cp) {}
+  ValueBuilder(serial::CodingParams const & cp) : m_cp(cp) {}
 
   void MakeValue(FeatureType const & ft, feature::TypesHolder const & types, uint32_t index,
-                 SerializedFeatureInfoValue & value) const
+                 FeatureWithRankAndCenter & v) const
   {
-    TSaver::ValueType v;
+    v.SetCodingParams(m_cp);
+
     v.m_featureId = index;
 
     // get BEST geometry rect of feature
     v.m_pt = feature::GetCenter(ft);
     v.m_rank = feature::GetSearchRank(types, v.m_pt, ft.GetPopulation());
-
-    // write to buffer
-    PushBackByteSink<SerializedFeatureInfoValue::ValueT> sink(value.m_value);
-    m_valueSaver.Save(sink, v);
   }
+
+  serial::CodingParams m_cp;
 };
 
 template <>
@@ -197,7 +193,6 @@ class FeatureInserter
   CategoriesHolder const & m_categories;
 
   using ValueT = typename TStringsFile::ValueT;
-  using TSaver = trie::ValueReader;
 
   pair<int, int> m_scales;
 
@@ -265,169 +260,91 @@ public:
 
 void AddFeatureNameIndexPairs(FilesContainerR const & container,
                               CategoriesHolder & categoriesHolder,
-                              StringsFile<FeatureIndexValue> & stringsFile)
+                              StringsFile<FeatureWithRankAndCenter> & stringsFile)
 {
   FeaturesVectorTest features(container);
   feature::DataHeader const & header = features.GetHeader();
 
-  ValueBuilder<FeatureIndexValue> valueBuilder;
+  serial::CodingParams codingParams(trie::GetCodingParams(header.GetDefCodingParams()));
+
+  ValueBuilder<FeatureWithRankAndCenter> valueBuilder(codingParams);
 
   unique_ptr<SynonymsHolder> synonyms;
   if (header.GetType() == feature::DataHeader::world)
     synonyms.reset(new SynonymsHolder(GetPlatform().WritablePathForFile(SYNONYMS_FILE)));
 
-  features.GetVector().ForEach(FeatureInserter<StringsFile<FeatureIndexValue>>(
+  features.GetVector().ForEach(FeatureInserter<StringsFile<FeatureWithRankAndCenter>>(
       synonyms.get(), stringsFile, categoriesHolder, header.GetScaleRange(), valueBuilder));
-}
-
-void BuildSearchIndex(FilesContainerR const & cont, CategoriesHolder const & catHolder,
-                      Writer & writer, string const & tmpFilePath)
-{
-  {
-    FeaturesVectorTest features(cont);
-    feature::DataHeader const & header = features.GetHeader();
-
-    serial::CodingParams cp(trie::GetCodingParams(header.GetDefCodingParams()));
-    ValueBuilder<SerializedFeatureInfoValue> valueBuilder(cp);
-
-    unique_ptr<SynonymsHolder> synonyms;
-    if (header.GetType() == feature::DataHeader::world)
-      synonyms.reset(new SynonymsHolder(GetPlatform().WritablePathForFile(SYNONYMS_FILE)));
-
-    StringsFile<SerializedFeatureInfoValue> names(tmpFilePath);
-
-    features.GetVector().ForEach(FeatureInserter<StringsFile<SerializedFeatureInfoValue>>(
-        synonyms.get(), names, catHolder, header.GetScaleRange(), valueBuilder));
-
-    names.EndAdding();
-    names.OpenForRead();
-
-    trie::Build<Writer, typename StringsFile<SerializedFeatureInfoValue>::IteratorT,
-                ValueList<SerializedFeatureInfoValue>>(writer, names.Begin(), names.End());
-
-    // at this point all readers of StringsFile should be dead
-  }
-
-  FileWriter::DeleteFileX(tmpFilePath);
 }
 }  // namespace
 
-namespace indexer {
-bool BuildSearchIndexFromDatFile(string const & datFile, bool forceRebuild)
+namespace indexer
 {
-  LOG(LINFO, ("Start building search index. Bits = ", search::kPointCodingBits));
-
-  try
-  {
-    Platform & pl = GetPlatform();
-    string const tmpFile1 = datFile + ".search_index_1.tmp";
-    string const tmpFile2 = datFile + ".search_index_2.tmp";
-
-    {
-      FilesContainerR readCont(datFile);
-
-      if (!forceRebuild && readCont.IsExist(SEARCH_INDEX_FILE_TAG))
-        return true;
-
-      FileWriter writer(tmpFile2);
-
-      CategoriesHolder catHolder(pl.GetReader(SEARCH_CATEGORIES_FILE_NAME));
-
-      BuildSearchIndex(readCont, catHolder, writer, tmpFile1);
-
-      LOG(LINFO, ("Search index size = ", writer.Size()));
-    }
-
-    {
-      // Write to container in reversed order.
-      FilesContainerW writeCont(datFile, FileWriter::OP_WRITE_EXISTING);
-      FileWriter writer = writeCont.GetWriter(SEARCH_INDEX_FILE_TAG);
-      rw_ops::Reverse(FileReader(tmpFile2), writer);
-    }
-
-    FileWriter::DeleteFileX(tmpFile2);
-  }
-  catch (Reader::Exception const & e)
-  {
-    LOG(LERROR, ("Error while reading file: ", e.Msg()));
-    return false;
-  }
-  catch (Writer::Exception const & e)
-  {
-    LOG(LERROR, ("Error writing index file: ", e.Msg()));
-    return false;
-  }
-
-  LOG(LINFO, ("End building search index."));
-  return true;
-}
-
-bool AddCompresedSearchIndexSection(string const & fName, bool forceRebuild)
+bool BuildSearchIndexFromDatFile(string const & datFile, bool forceRebuild)
 {
   Platform & platform = GetPlatform();
 
-  FilesContainerR readContainer(platform.GetReader(fName));
-  if (readContainer.IsExist(COMPRESSED_SEARCH_INDEX_FILE_TAG) && !forceRebuild)
+  FilesContainerR readContainer(platform.GetReader(datFile));
+  if (readContainer.IsExist(SEARCH_INDEX_FILE_TAG) && !forceRebuild)
     return true;
 
-  string const indexFile = platform.WritablePathForFile("compressed-search-index.tmp");
-  MY_SCOPE_GUARD(indexFileGuard, bind(&FileWriter::DeleteFileX, indexFile));
+  string mwmName = datFile;
+  my::GetNameFromFullPath(mwmName);
+  my::GetNameWithoutExt(mwmName);
+  string const indexFilePath = platform.WritablePathForFile(mwmName + ".sdx.tmp");
+  string const stringsFilePath = platform.WritablePathForFile(mwmName + ".sdx.strings.tmp");
+  MY_SCOPE_GUARD(indexFileGuard, bind(&FileWriter::DeleteFileX, indexFilePath));
+  MY_SCOPE_GUARD(stringsFileGuard, bind(&FileWriter::DeleteFileX, stringsFilePath));
 
   try
   {
     {
-      FileWriter indexWriter(indexFile);
-      BuildCompressedSearchIndex(readContainer, indexWriter);
+      FileWriter indexWriter(indexFilePath);
+      BuildSearchIndex(readContainer, indexWriter, stringsFilePath);
+      LOG(LINFO, ("Search index size = ", indexWriter.Size()));
     }
     {
       FilesContainerW writeContainer(readContainer.GetFileName(), FileWriter::OP_WRITE_EXISTING);
-      FileWriter writer = writeContainer.GetWriter(COMPRESSED_SEARCH_INDEX_FILE_TAG);
-      rw_ops::Reverse(FileReader(indexFile), writer);
+      FileWriter writer = writeContainer.GetWriter(SEARCH_INDEX_FILE_TAG);
+      rw_ops::Reverse(FileReader(indexFilePath), writer);
     }
   }
   catch (Reader::Exception const & e)
   {
-    LOG(LERROR, ("Error while reading file: ", e.Msg()));
+    LOG(LERROR, ("Error while reading file:", e.Msg()));
     return false;
   }
   catch (Writer::Exception const & e)
   {
-    LOG(LERROR, ("Error writing index file: ", e.Msg()));
+    LOG(LERROR, ("Error writing index file:", e.Msg()));
     return false;
   }
 
   return true;
 }
 
-void BuildCompressedSearchIndex(FilesContainerR & container, Writer & indexWriter)
+void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter,
+                      string const & stringsFilePath)
 {
   Platform & platform = GetPlatform();
 
-  LOG(LINFO, ("Start building compressed search index for", container.GetFileName()));
+  LOG(LINFO, ("Start building search index for", container.GetFileName()));
   my::Timer timer;
 
-  string stringsFilePath = platform.WritablePathForFile("strings.tmp");
-  StringsFile<FeatureIndexValue> stringsFile(stringsFilePath);
-  MY_SCOPE_GUARD(stringsFileGuard, bind(&FileWriter::DeleteFileX, stringsFilePath));
+  StringsFile<FeatureWithRankAndCenter> stringsFile(stringsFilePath);
 
   CategoriesHolder categoriesHolder(platform.GetReader(SEARCH_CATEGORIES_FILE_NAME));
 
   AddFeatureNameIndexPairs(container, categoriesHolder, stringsFile);
 
   stringsFile.EndAdding();
-
   LOG(LINFO, ("End sorting strings:", timer.ElapsedSeconds()));
 
   stringsFile.OpenForRead();
-  trie::Build<Writer, typename StringsFile<FeatureIndexValue>::IteratorT,
-              ValueList<FeatureIndexValue>>(indexWriter, stringsFile.Begin(), stringsFile.End());
+  trie::Build<Writer, typename StringsFile<FeatureWithRankAndCenter>::IteratorT,
+              ValueList<FeatureWithRankAndCenter>>(indexWriter, stringsFile.Begin(),
+                                                   stringsFile.End());
 
-  LOG(LINFO, ("End building compressed search index, elapsed seconds:", timer.ElapsedSeconds()));
-}
-
-void BuildCompressedSearchIndex(string const & fName, Writer & indexWriter)
-{
-  FilesContainerR container(GetPlatform().GetReader(fName));
-  BuildCompressedSearchIndex(container, indexWriter);
+  LOG(LINFO, ("End building search index, elapsed seconds:", timer.ElapsedSeconds()));
 }
 }  // namespace indexer

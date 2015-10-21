@@ -3,42 +3,38 @@
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
 
+#include "indexer/coding_params.hpp"
+#include "indexer/string_file_values.hpp"
+
 #include "base/assert.hpp"
 #include "base/bits.hpp"
 #include "base/macros.hpp"
 
 namespace trie
 {
-template <class TValueReader>
-class LeafIterator0 : public Iterator<typename TValueReader::ValueType>
+template <class TValueList>
+class LeafIterator0 : public Iterator<TValueList>
 {
 public:
-  using ValueType = typename TValueReader::ValueType;
+  using Iterator<TValueList>::m_valueList;
 
   template <class TReader>
-  LeafIterator0(TReader const & reader, TValueReader const & valueReader)
+  LeafIterator0(TReader const & reader, serial::CodingParams const & codingParams)
   {
-    uint32_t const size = static_cast<uint32_t>(reader.Size());
     ReaderSource<TReader> src(reader);
-    while (src.Pos() < size)
-    {
-      this->m_value.push_back(ValueType());
-#ifdef DEBUG
-      uint64_t const pos = src.Pos();
-#endif
-      valueReader(src, this->m_value.back());
-      ASSERT_NOT_EQUAL(pos, src.Pos(), ());
-    }
-    ASSERT_EQUAL(size, src.Pos(), ());
+    m_valueList.SetCodingParams(codingParams);
+    m_valueList.Deserialize(src);
+    // todo(@mpimenov) There used to be an assert here
+    // that src is completely exhausted by this time.
   }
 
   // trie::Iterator overrides:
-  unique_ptr<Iterator<ValueType>> Clone() const override
+  unique_ptr<Iterator<TValueList>> Clone() const override
   {
-    return make_unique<LeafIterator0<TValueReader>>(*this);
+    return make_unique<LeafIterator0<TValueList>>(*this);
   }
 
-  unique_ptr<Iterator<ValueType>> GoToEdge(size_t i) const override
+  unique_ptr<Iterator<TValueList>> GoToEdge(size_t i) const override
   {
     ASSERT(false, (i));
     UNUSED_VALUE(i);
@@ -46,70 +42,38 @@ public:
   }
 };
 
-template <class TReader, class TValueReader>
-class IteratorImplBase : public Iterator<typename TValueReader::ValueType>
-{
-protected:
-  enum { IS_READER_IN_MEMORY = 0 };
-};
-
-template <class TValueReader>
-class IteratorImplBase<SharedMemReader, TValueReader>
-    : public Iterator<typename TValueReader::ValueType>
-{
-protected:
-  enum { IS_READER_IN_MEMORY = 1 };
-};
-
-template <class TReader, class TValueReader>
-class Iterator0 : public IteratorImplBase<TReader, TValueReader>
+template <class TReader, class TValueList>
+class Iterator0 : public Iterator<TValueList>
 {
 public:
-  typedef typename TValueReader::ValueType ValueType;
+  using Iterator<TValueList>::m_valueList;
+  using Iterator<TValueList>::m_edge;
 
-  Iterator0(TReader const & reader, TValueReader const & valueReader, TrieChar baseChar)
-    : m_reader(reader), m_valueReader(valueReader)
+  Iterator0(TReader const & reader, TrieChar baseChar, serial::CodingParams const & codingParams)
+    : m_reader(reader), m_codingParams(codingParams)
   {
+    m_valueList.SetCodingParams(m_codingParams);
     ParseNode(baseChar);
   }
 
   // trie::Iterator overrides:
-  unique_ptr<Iterator<ValueType>> Clone() const override
+  unique_ptr<Iterator<TValueList>> Clone() const override
   {
-    return make_unique<Iterator0<TReader, TValueReader>>(*this);
+    return make_unique<Iterator0<TReader, TValueList>>(*this);
   }
 
-  unique_ptr<Iterator<ValueType>> GoToEdge(size_t i) const override
+  unique_ptr<Iterator<TValueList>> GoToEdge(size_t i) const override
   {
     ASSERT_LESS(i, this->m_edge.size(), ());
     uint32_t const offset = m_edgeInfo[i].m_offset;
     uint32_t const size = m_edgeInfo[i+1].m_offset - offset;
 
-    // TODO: Profile to check that MemReader optimization helps?
-    /*
-    if (!IteratorImplBase<TReader, TValueReader>::IS_READER_IN_MEMORY &&
-        size < 1024)
-    {
-      SharedMemReader memReader(size);
-      m_reader.Read(offset, memReader.Data(), size);
-      if (m_edgeInfo[i].m_isLeaf)
-        return make_unique<LeafIterator0<SharedMemReader, TValueReader>>(
-              memReader, m_valueReader);
-      else
-        return make_unique<Iterator0<SharedMemReader, TValueReader>>(
-              memReader, m_valueReader,
-              this->m_edge[i].m_str.back());
-    }
-    else
-    */
-    {
-      if (m_edgeInfo[i].m_isLeaf)
-        return make_unique<LeafIterator0<TValueReader>>(m_reader.SubReader(offset, size),
-                                                        m_valueReader);
-      else
-        return make_unique<Iterator0<TReader, TValueReader>>(
-            m_reader.SubReader(offset, size), m_valueReader, this->m_edge[i].m_str.back());
-    }
+    if (m_edgeInfo[i].m_isLeaf)
+      return make_unique<LeafIterator0<TValueList>>(m_reader.SubReader(offset, size),
+                                                    m_codingParams);
+
+    return make_unique<Iterator0<TReader, TValueList>>(
+        m_reader.SubReader(offset, size), this->m_edge[i].m_str.back(), m_codingParams);
   }
 
 private:
@@ -131,9 +95,7 @@ private:
       childCount = ReadVarUint<uint32_t>(src);
 
     // [value] ... [value]
-    this->m_value.resize(valueCount);
-    for (uint32_t i = 0; i < valueCount; ++i)
-      m_valueReader(src, this->m_value[i]);
+    m_valueList.Deserialize(src, valueCount);
 
     // [childInfo] ... [childInfo]
     this->m_edge.resize(childCount);
@@ -141,7 +103,7 @@ private:
     m_edgeInfo[0].m_offset = 0;
     for (uint32_t i = 0; i < childCount; ++i)
     {
-      typename Iterator<ValueType>::Edge & e = this->m_edge[i];
+      typename Iterator<TValueList>::Edge & e = this->m_edge[i];
 
       // [1: header]: [1: isLeaf] [1: isShortEdge] [6: (edgeChar0 - baseChar) or min(edgeLen-1, 63)]
       uint8_t const header = ReadPrimitiveFromSource<uint8_t>(src);
@@ -185,15 +147,15 @@ private:
   buffer_vector<EdgeInfo, 9> m_edgeInfo;
 
   TReader m_reader;
-  TValueReader m_valueReader;
+  serial::CodingParams m_codingParams;
 };
 
 // Returns iterator to the root of the trie.
-template <class TReader, class TValueReader>
-unique_ptr<Iterator<typename TValueReader::ValueType>> ReadTrie(
-    TReader const & reader, TValueReader valueReader = TValueReader())
+template <class TReader, class TValueList>
+unique_ptr<Iterator<TValueList>> ReadTrie(TReader const & reader,
+                                          serial::CodingParams const & codingParams)
 {
-  return make_unique<Iterator0<TReader, TValueReader>>(reader, valueReader, DEFAULT_CHAR);
+  return make_unique<Iterator0<TReader, TValueList>>(reader, DEFAULT_CHAR, codingParams);
 }
 
 }  // namespace trie

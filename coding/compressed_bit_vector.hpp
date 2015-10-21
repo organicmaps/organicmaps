@@ -156,6 +156,14 @@ public:
   static unique_ptr<CompressedBitVector> Deserialize(TReader & reader)
   {
     ReaderSource<TReader> src(reader);
+    return DeserializeFromSource(src);
+  }
+
+  // Reads a bit vector from source which must contain a valid
+  // bit vector representation (see CompressedBitVector::Serialize for the format).
+  template <typename TSource>
+  static unique_ptr<CompressedBitVector> DeserializeFromSource(TSource & src)
+  {
     uint8_t header = ReadPrimitiveFromSource<uint8_t>(src);
     CompressedBitVector::StorageStrategy strat =
         static_cast<CompressedBitVector::StorageStrategy>(header);
@@ -174,7 +182,7 @@ public:
         return make_unique<SparseCBV>(move(setBits));
       }
     }
-    return nullptr;
+    return unique_ptr<CompressedBitVector>();
   }
 };
 

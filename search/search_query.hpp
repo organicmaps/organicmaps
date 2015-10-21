@@ -110,7 +110,7 @@ public:
   /// @name This stuff is public for implementation classes in search_query.cpp
   /// Do not use it in client code.
   //@{
-  using TTrieValue = trie::ValueReader::ValueType;
+  using TTrieValue = FeatureWithRankAndCenter;
 
   void InitParams(bool localitySearch, SearchQueryParams & params);
 

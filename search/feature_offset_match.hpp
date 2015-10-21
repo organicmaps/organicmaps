@@ -112,8 +112,9 @@ void FullMatchInTrie(trie::DefaultIterator const & trieRoot, strings::UniChar co
 #endif
 
   ASSERT_EQUAL ( symbolsMatched, s.size(), () );
-  for (size_t i = 0; i < it->m_value.size(); ++i)
-    f(it->m_value[i]);
+
+  LOG(LINFO, ("foreach`ing", it->m_valueList.Size()));
+  it->m_valueList.ForEach(f);
 }
 
 template <typename F>
@@ -141,13 +142,10 @@ void PrefixMatchInTrie(trie::DefaultIterator const & trieRoot, strings::UniChar 
 
   while (!trieQueue.empty())
   {
-    // Next 2 lines don't throw any exceptions while moving
-    // ownership from container to smart pointer.
     auto const it = trieQueue.back();
     trieQueue.pop_back();
 
-    for (size_t i = 0; i < it->m_value.size(); ++i)
-      f(it->m_value[i]);
+    it->m_valueList.ForEach(f);
 
     for (size_t i = 0; i < it->m_edge.size(); ++i)
       trieQueue.push_back(it->GoToEdge(i));
@@ -157,24 +155,21 @@ void PrefixMatchInTrie(trie::DefaultIterator const & trieRoot, strings::UniChar 
 template <class TFilter>
 class OffsetIntersecter
 {
-  using ValueT = trie::ValueReader::ValueType;
+  using TValue = FeatureWithRankAndCenter;
 
   struct HashFn
   {
-    size_t operator() (ValueT const & v) const
-    {
-      return v.m_featureId;
-    }
+    size_t operator()(TValue const & v) const { return v.m_featureId; }
   };
   struct EqualFn
   {
-    bool operator() (ValueT const & v1, ValueT const & v2) const
+    bool operator()(TValue const & v1, TValue const & v2) const
     {
       return (v1.m_featureId == v2.m_featureId);
     }
   };
 
-  using TSet = unordered_set<ValueT, HashFn, EqualFn>;
+  using TSet = unordered_set<TValue, HashFn, EqualFn>;
 
   TFilter const & m_filter;
   unique_ptr<TSet> m_prevSet;
@@ -183,7 +178,7 @@ class OffsetIntersecter
 public:
   explicit OffsetIntersecter(TFilter const & filter) : m_filter(filter), m_set(new TSet) {}
 
-  void operator() (ValueT const & v)
+  void operator()(TValue const & v)
   {
     if (m_prevSet && !m_prevSet->count(v))
       return;

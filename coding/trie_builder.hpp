@@ -6,6 +6,7 @@
 #include "base/buffer_vector.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/vector.hpp"
 
 // Trie format:
 // [1: header]
@@ -46,18 +47,18 @@ void WriteNode(TSink & sink, TrieChar baseChar, TValueList const & valueList,
   if (begChild == endChild && !isRoot)
   {
     // Leaf node.
-    valueList.Dump(sink);
+    valueList.Serialize(sink);
     return;
   }
   uint32_t const childCount = endChild - begChild;
-  uint32_t const valueCount = valueList.size();
+  uint32_t const valueCount = valueList.Size();
   uint8_t const header = static_cast<uint32_t>((min(valueCount, 3U) << 6) + min(childCount, 63U));
   sink.Write(&header, 1);
   if (valueCount >= 3)
     WriteVarUint(sink, valueCount);
   if (childCount >= 63)
     WriteVarUint(sink, childCount);
-  valueList.Dump(sink);
+  valueList.Serialize(sink);
   for (TChildIter it = begChild; it != endChild; /*++it*/)
   {
     uint8_t header = (it->IsLeaf() ? 128 : 0);
@@ -103,7 +104,7 @@ struct ChildInfo
 {
   bool m_isLeaf;
   uint32_t m_size;
-  buffer_vector<TrieChar, 8> m_edge;
+  vector<TrieChar> m_edge;
 
   ChildInfo(bool isLeaf, uint32_t size, TrieChar c) : m_isLeaf(isLeaf), m_size(size), m_edge(1, c)
   {
@@ -121,19 +122,44 @@ struct NodeInfo
   uint64_t m_begPos;
   TrieChar m_char;
   vector<ChildInfo> m_children;
+
+  // This is ugly but will do until we rename ValueList.
+  // Here is the rationale. ValueList<> is the entity that
+  // we store in the nodes of the search trie. It can be read
+  // or written via its methods but not directly as was assumed
+  // in a previous version of this code. That version provided
+  // serialization methods for ValueList but the deserialization
+  // was ad hoc.
+  // Because of the possibility of serialized ValueLists to represent
+  // something completely different from an array of FeatureIds
+  // (a compressed bit vector, for instance) and because of the
+  // need to update a node's ValueList until the node is finalized
+  // this vector is needed here. It is better to leave it here
+  // than to expose it in ValueList.
+  vector<typename TValueList::TValue> m_temporaryValueList;
   TValueList m_valueList;
+  bool m_mayAppend;
 
   NodeInfo() : m_begPos(0), m_char(0) {}
-  NodeInfo(uint64_t pos, TrieChar trieChar) : m_begPos(pos), m_char(trieChar) {}
+  NodeInfo(uint64_t pos, TrieChar trieChar) : m_begPos(pos), m_char(trieChar), m_mayAppend(true) {}
+
+  // It is finalized in the sense that no more appends are possible
+  // so it is a fine moment to initialize the underlying ValueList.
+  void FinalizeValueList()
+  {
+    m_valueList.Init(m_temporaryValueList);
+    m_mayAppend = false;
+  }
 };
 
 template <typename TSink, typename TValueList>
-void WriteNodeReverse(TSink & sink, TrieChar baseChar, NodeInfo<TValueList> const & node,
+void WriteNodeReverse(TSink & sink, TrieChar baseChar, NodeInfo<TValueList> & node,
                       bool isRoot = false)
 {
   using TOutStorage = buffer_vector<uint8_t, 64>;
   TOutStorage out;
   PushBackByteSink<TOutStorage> outSink(out);
+  node.FinalizeValueList();
   WriteNode(outSink, baseChar, node.m_valueList, node.m_children.rbegin(), node.m_children.rend(),
             isRoot);
   reverse(out.begin(), out.end());
@@ -150,23 +176,38 @@ void PopNodes(TSink & sink, TNodes & nodes, int nodesToPop)
     TNodeInfo & node = nodes.back();
     TNodeInfo & prevNode = nodes[nodes.size() - 2];
 
-    if (node.m_valueList.empty() && node.m_children.size() <= 1)
+    if (node.m_temporaryValueList.empty() && node.m_children.size() <= 1)
     {
       ASSERT_EQUAL(node.m_children.size(), 1, ());
       ChildInfo & child = node.m_children[0];
-      prevNode.m_children.push_back(ChildInfo(child.m_isLeaf, child.m_size, node.m_char));
-      prevNode.m_children.back().m_edge.append(child.m_edge.begin(), child.m_edge.end());
+      prevNode.m_children.emplace_back(child.m_isLeaf, child.m_size, node.m_char);
+      auto & prevChild = prevNode.m_children.back();
+      prevChild.m_edge.insert(prevChild.m_edge.end(), child.m_edge.begin(), child.m_edge.end());
     }
     else
     {
       WriteNodeReverse(sink, node.m_char, node);
-      prevNode.m_children.push_back(ChildInfo(node.m_children.empty(),
-                                              static_cast<uint32_t>(sink.Pos() - node.m_begPos),
-                                              node.m_char));
+      prevNode.m_children.emplace_back(
+          node.m_children.empty(), static_cast<uint32_t>(sink.Pos() - node.m_begPos), node.m_char);
     }
 
     nodes.pop_back();
   }
+}
+
+template <typename TNodeInfo, typename TValue>
+void AppendValue(TNodeInfo & node, TValue const & value)
+{
+  // External-memory trie adds <string, value> pairs in a sorted
+  // order so the values are supposed to be accumulated in the
+  // sorted order and we can avoid sorting them before doing
+  // further operations such as ValueList construction.
+  using namespace std::rel_ops;
+  ASSERT(node.m_temporaryValueList.empty() || node.m_temporaryValueList.back() <= value, ());
+  if (!node.m_temporaryValueList.empty() && node.m_temporaryValueList.back() == value)
+    return;
+  ASSERT(node.m_mayAppend, ());
+  node.m_temporaryValueList.push_back(value);
 }
 
 template <typename TSink, typename TIter, typename TValueList>
@@ -175,8 +216,8 @@ void Build(TSink & sink, TIter const beg, TIter const end)
   using TTrieString = buffer_vector<TrieChar, 32>;
   using TNodeInfo = NodeInfo<TValueList>;
 
-  buffer_vector<TNodeInfo, 32> nodes;
-  nodes.push_back(TNodeInfo(sink.Pos(), DEFAULT_CHAR));
+  vector<TNodeInfo> nodes;
+  nodes.emplace_back(sink.Pos(), DEFAULT_CHAR);
 
   TTrieString prevKey;
 
@@ -200,8 +241,8 @@ void Build(TSink & sink, TIter const beg, TIter const end)
 
     uint64_t const pos = sink.Pos();
     for (size_t i = nCommon; i < key.size(); ++i)
-      nodes.push_back(TNodeInfo(pos, key[i]));
-    nodes.back().m_valueList.Append(e.GetValue());
+      nodes.emplace_back(pos, key[i]);
+    AppendValue(nodes.back(), e.GetValue());
 
     prevKey.swap(key);
     prevE.Swap(e);
