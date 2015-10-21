@@ -12,6 +12,10 @@
 @property(weak, nonatomic) IBOutlet UIView * separator;
 @property(weak, nonatomic) IBOutlet UICollectionView * additionalButtons;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * mainButtonWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * separatorWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * additionalButtonsWidth;
+
 @property(weak, nonatomic) IBOutlet UIView * downloadBadge;
 
 @property(weak, nonatomic) IBOutlet UIButton * locationButton;
@@ -172,9 +176,10 @@
     self.additionalButtons.height = self.width > self.layoutThreshold ? 64.0 : 148.0;
     break;
   }
-  CGFloat const width = self.superview.width - self.leftBound;
+  CGFloat const width = MIN(self.superview.width - self.leftBound, self.superview.width);
   CGFloat const height = self.mainButtons.height + self.separator.height + self.additionalButtons.height;
   self.frame = {{self.superview.width - width, self.superview.height - height}, {width, height}};
+  self.mainButtonWidth.constant = self.separatorWidth.constant = self.additionalButtonsWidth.constant = width;
 }
 
 - (void)updateMenuButtonFromState:(MWMBottomMenuState)fromState toState:(MWMBottomMenuState)toState
@@ -311,8 +316,8 @@
 
 - (void)setLeftBound:(CGFloat)leftBound
 {
-  _leftBound = leftBound;
-  self.state = leftBound > 1.0 ? MWMBottomMenuStateCompact : self.restoreState;
+  _leftBound = MAX(leftBound, 0.0);
+  self.state = _leftBound > 1.0 ? MWMBottomMenuStateCompact : self.restoreState;
   [self setNeedsLayout];
 }
 
