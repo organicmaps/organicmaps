@@ -1,7 +1,11 @@
 #include "platform/platform.hpp"
 
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
+
 #include "coding/file_reader.hpp"
+
+#include "std/bind.hpp"
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -15,8 +19,8 @@
 
 namespace
 {
-  // Web service ip to check internet connection. Now it's a mail.ru ip.
-  char constexpr kSomeWorkingWebServer[] = "217.69.139.202";
+// Web service ip to check internet connection. Now it's a mail.ru ip.
+char constexpr kSomeWorkingWebServer[] = "217.69.139.202";
 }  // namespace
 
 /// @return directory where binary resides, including slash at the end
@@ -100,7 +104,7 @@ Platform::Platform()
 }
 
 string Platform::UniqueClientId() const
-{  
+{
   string machineFile = "/var/lib/dbus/machine-id";
   if (IsFileExistsByFullPath("/etc/machine-id"))
     machineFile = "/etc/machine-id";
@@ -113,7 +117,6 @@ string Platform::UniqueClientId() const
   }
   else
     return "n0dbus0n0lsb00000000000000000000";
-
 }
 
 void Platform::RunOnGuiThread(TFunctor const & fn)
@@ -131,21 +134,18 @@ void Platform::RunAsync(TFunctor const & fn, Priority p)
 Platform::EConnectionType Platform::ConnectionStatus()
 {
   int socketFd = socket(AF_INET, SOCK_STREAM, 0);
-  struct sockaddr_in addr;
-  if(socketFd < 0)
+  MY_SCOPE_GUARD(closeSocket, bind(&close, socketFd));
+  if (socketFd < 0)
     return EConnectionType::CONNECTION_NONE;
 
-  memset(&addr, '0', sizeof(addr));
+  struct sockaddr_in addr;
+  memset(&addr, 0, sizeof(addr));
   addr.sin_family = AF_INET;
   addr.sin_port = htons(80);
   inet_pton(AF_INET, kSomeWorkingWebServer, &addr.sin_addr);
 
-  if(connect(socketFd, (struct sockaddr *)&addr, sizeof(addr)) < 0)
-  {
-    close(socketFd);
+  if (connect(socketFd, reinterpret_cast<struct sockaddr *>(&addr), sizeof(addr)) < 0)
     return EConnectionType::CONNECTION_NONE;
-  }
 
-  close(socketFd);
   return EConnectionType::CONNECTION_WIFI;
 }
