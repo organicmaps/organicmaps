@@ -72,6 +72,27 @@ namespace bits
     return static_cast<uint32_t>(x);
   }
 
+  inline uint8_t CeilLog(uint64_t x) noexcept
+  {
+#define CHECK_RSH(x, msb, offset) \
+    if (x >> offset)              \
+    {                             \
+      x >>= offset;               \
+      msb += offset;              \
+    }
+
+    uint8_t msb = 0;
+    CHECK_RSH(x, msb, 32);
+    CHECK_RSH(x, msb, 16);
+    CHECK_RSH(x, msb, 8);
+    CHECK_RSH(x, msb, 4);
+    CHECK_RSH(x, msb, 2);
+    CHECK_RSH(x, msb, 1);
+#undef CHECK_RSH
+
+    return msb;
+  }
+
   // Will be implemented when needed.
   uint64_t PopCount(uint64_t const * p, uint64_t n);
 

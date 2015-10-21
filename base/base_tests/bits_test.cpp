@@ -108,3 +108,25 @@ UNIT_TEST(NumUsedBits)
   TEST_EQUAL(bits::NumUsedBits(0x0FABCDEF0FABCDEFULL), 60, ());
   TEST_EQUAL(bits::NumUsedBits(0x000000000000FDEFULL), 16, ());
 }
+
+UNIT_TEST(PopCount64)
+{
+  TEST_EQUAL(0, bits::PopCount(static_cast<uint64_t>(0x0)), ());
+  TEST_EQUAL(1, bits::PopCount(static_cast<uint64_t>(0x1)), ());
+  TEST_EQUAL(32, bits::PopCount(0xAAAAAAAA55555555), ());
+  TEST_EQUAL(64, bits::PopCount(0xFFFFFFFFFFFFFFFF), ());
+}
+
+UNIT_TEST(CeilLog)
+{
+  TEST_EQUAL(0, bits::CeilLog(0x0), ());
+  TEST_EQUAL(0, bits::CeilLog(0x1), ());
+  TEST_EQUAL(1, bits::CeilLog(0x2), ());
+  TEST_EQUAL(1, bits::CeilLog(0x3), ());
+  TEST_EQUAL(2, bits::CeilLog(0x4), ());
+
+  TEST_EQUAL(6, bits::CeilLog(0x7f), ());
+  TEST_EQUAL(7, bits::CeilLog(0x80), ());
+  TEST_EQUAL(31, bits::CeilLog(0xFFFFFFFF), ());
+  TEST_EQUAL(63, bits::CeilLog(0xFFFFFFFFFFFFFFFF), ());
+}

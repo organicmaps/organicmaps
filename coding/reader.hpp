@@ -247,13 +247,3 @@ TPrimitive ReadPrimitiveFromSource(TSource & source)
   source.Read(&primitive, sizeof(primitive));
   return SwapIfBigEndian(primitive);
 }
-
-template <typename TPrimitive, typename TSource>
-void ReadPrimitiveVectorFromSource(TSource && source, vector<TPrimitive> & result)
-{
-  // Do not overspecify the size type: uint32_t is enough.
-  size_t size = static_cast<size_t>(ReadPrimitiveFromSource<uint32_t>(source));
-  result.resize(size);
-  for (size_t i = 0; i < size; ++i)
-    result[i] = ReadPrimitiveFromSource<TPrimitive>(source);
-}

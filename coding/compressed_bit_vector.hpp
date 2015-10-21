@@ -1,14 +1,10 @@
-#include "std/vector.hpp"
-
-#include "base/assert.hpp"
-
+#include "coding/read_write_utils.hpp"
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/unique_ptr.hpp"
-
-#include "base/assert.hpp"
+#include "std/vector.hpp"
 
 namespace coding
 {
@@ -38,12 +34,16 @@ public:
   static unique_ptr<CompressedBitVector> Intersect(CompressedBitVector const & lhs,
                                                    CompressedBitVector const & rhs);
 
+  // Subtracts two bit vectors.
+  static unique_ptr<CompressedBitVector> Subtract(CompressedBitVector const & lhs,
+                                                  CompressedBitVector const & rhs);
+
   // Returns the number of set bits (population count).
-  virtual uint32_t PopCount() const = 0;
+  virtual uint64_t PopCount() const = 0;
 
   // todo(@pimenov) How long will 32 bits be enough here?
   // Would operator[] look better?
-  virtual bool GetBit(uint32_t pos) const = 0;
+  virtual bool GetBit(uint64_t pos) const = 0;
 
   // Returns the strategy used when storing this bit vector.
   virtual StorageStrategy GetStorageStrategy() const = 0;
@@ -65,7 +65,7 @@ string DebugPrint(CompressedBitVector::StorageStrategy strat);
 class DenseCBV : public CompressedBitVector
 {
 public:
-  static uint32_t const kBlockSize = 64;
+  static uint64_t const kBlockSize = 64;
 
   DenseCBV() = default;
 
@@ -95,19 +95,21 @@ public:
   uint64_t GetBitGroup(size_t i) const;
 
   // CompressedBitVector overrides:
-  uint32_t PopCount() const override;
-  bool GetBit(uint32_t pos) const override;
+  uint64_t PopCount() const override;
+  bool GetBit(uint64_t pos) const override;
   StorageStrategy GetStorageStrategy() const override;
   void Serialize(Writer & writer) const override;
 
 private:
   vector<uint64_t> m_bitGroups;
-  uint32_t m_popCount = 0;
+  uint64_t m_popCount = 0;
 };
 
 class SparseCBV : public CompressedBitVector
 {
 public:
+  using TIterator = vector<uint64_t>::const_iterator;
+
   SparseCBV(vector<uint64_t> const & setBits);
 
   SparseCBV(vector<uint64_t> && setBits);
@@ -123,10 +125,13 @@ public:
   }
 
   // CompressedBitVector overrides:
-  uint32_t PopCount() const override;
-  bool GetBit(uint32_t pos) const override;
+  uint64_t PopCount() const override;
+  bool GetBit(uint64_t pos) const override;
   StorageStrategy GetStorageStrategy() const override;
   void Serialize(Writer & writer) const override;
+
+  inline TIterator Begin() const { return m_positions.cbegin(); }
+  inline TIterator End() const { return m_positions.cend(); }
 
 private:
   // 0-based positions of the set bits.
@@ -139,6 +144,7 @@ public:
   // Chooses a strategy to store the bit vector with bits from setBits set to one
   // and returns a pointer to a class that fits best.
   static unique_ptr<CompressedBitVector> FromBitPositions(vector<uint64_t> const & setBits);
+  static unique_ptr<CompressedBitVector> FromBitPositions(vector<uint64_t> && setBits);
 
   // Chooses a strategy to store the bit vector with bits from a bitmap obtained
   // by concatenating the elements of bitGroups.
@@ -158,14 +164,14 @@ public:
       case CompressedBitVector::StorageStrategy::Dense:
       {
         vector<uint64_t> bitGroups;
-        ReadPrimitiveVectorFromSource(src, bitGroups);
+        rw::ReadVectorOfPOD(src, bitGroups);
         return DenseCBV::BuildFromBitGroups(move(bitGroups));
       }
       case CompressedBitVector::StorageStrategy::Sparse:
       {
         vector<uint64_t> setBits;
-        ReadPrimitiveVectorFromSource(src, setBits);
-        return make_unique<SparseCBV>(setBits);
+        rw::ReadVectorOfPOD(src, setBits);
+        return make_unique<SparseCBV>(move(setBits));
       }
     }
     return nullptr;

@@ -9,21 +9,50 @@
 
 namespace
 {
-void CheckIntersection(vector<uint64_t> & setBits1, vector<uint64_t> & setBits2,
-                       unique_ptr<coding::CompressedBitVector> const & cbv)
+void Intersect(vector<uint64_t> & setBits1, vector<uint64_t> & setBits2, vector<uint64_t> & result)
 {
-  TEST(cbv.get(), ());
-  vector<uint64_t> expected;
   sort(setBits1.begin(), setBits1.end());
   sort(setBits2.begin(), setBits2.end());
   set_intersection(setBits1.begin(), setBits1.end(), setBits2.begin(), setBits2.end(),
-                   back_inserter(expected));
-  TEST_EQUAL(expected.size(), cbv->PopCount(), ());
-  vector<bool> expectedBitmap(expected.back() + 1);
+                   back_inserter(result));
+}
+
+void Subtract(vector<uint64_t> & setBits1, vector<uint64_t> & setBits2, vector<uint64_t> & result)
+{
+  sort(setBits1.begin(), setBits1.end());
+  sort(setBits2.begin(), setBits2.end());
+  set_difference(setBits1.begin(), setBits1.end(), setBits2.begin(), setBits2.end(),
+                 back_inserter(result));
+}
+
+template <typename TBinaryOp>
+void CheckBinaryOp(TBinaryOp op, vector<uint64_t> & setBits1, vector<uint64_t> & setBits2,
+                   coding::CompressedBitVector const & cbv)
+{
+  vector<uint64_t> expected;
+  op(setBits1, setBits2, expected);
+  TEST_EQUAL(expected.size(), cbv.PopCount(), ());
+
+  vector<bool> expectedBitmap;
+  if (!expected.empty())
+    expectedBitmap.resize(expected.back() + 1);
+
   for (size_t i = 0; i < expected.size(); ++i)
     expectedBitmap[expected[i]] = true;
   for (size_t i = 0; i < expectedBitmap.size(); ++i)
-    TEST_EQUAL(cbv->GetBit(i), expectedBitmap[i], ());
+    TEST_EQUAL(cbv.GetBit(i), expectedBitmap[i], ());
+}
+
+void CheckIntersection(vector<uint64_t> & setBits1, vector<uint64_t> & setBits2,
+                       coding::CompressedBitVector const & cbv)
+{
+  CheckBinaryOp(&Intersect, setBits1, setBits2, cbv);
+}
+
+void CheckSubtraction(vector<uint64_t> & setBits1, vector<uint64_t> & setBits2,
+                      coding::CompressedBitVector const & cbv)
+{
+  CheckBinaryOp(&Subtract, setBits1, setBits2, cbv);
 }
 }  // namespace
 
@@ -43,9 +72,10 @@ UNIT_TEST(CompressedBitVector_Intersect1)
   auto cbv2 = coding::CompressedBitVectorBuilder::FromBitPositions(setBits2);
   TEST(cbv1.get(), ());
   TEST(cbv2.get(), ());
+
   auto cbv3 = coding::CompressedBitVector::Intersect(*cbv1, *cbv2);
   TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Dense, cbv3->GetStorageStrategy(), ());
-  CheckIntersection(setBits1, setBits2, cbv3);
+  CheckIntersection(setBits1, setBits2, *cbv3);
 }
 
 UNIT_TEST(CompressedBitVector_Intersect2)
@@ -64,9 +94,10 @@ UNIT_TEST(CompressedBitVector_Intersect2)
   auto cbv2 = coding::CompressedBitVectorBuilder::FromBitPositions(setBits2);
   TEST(cbv1.get(), ());
   TEST(cbv2.get(), ());
+
   auto cbv3 = coding::CompressedBitVector::Intersect(*cbv1, *cbv2);
   TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Sparse, cbv3->GetStorageStrategy(), ());
-  CheckIntersection(setBits1, setBits2, cbv3);
+  CheckIntersection(setBits1, setBits2, *cbv3);
 }
 
 UNIT_TEST(CompressedBitVector_Intersect3)
@@ -87,7 +118,7 @@ UNIT_TEST(CompressedBitVector_Intersect3)
   TEST(cbv2.get(), ());
   auto cbv3 = coding::CompressedBitVector::Intersect(*cbv1, *cbv2);
   TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Sparse, cbv3->GetStorageStrategy(), ());
-  CheckIntersection(setBits1, setBits2, cbv3);
+  CheckIntersection(setBits1, setBits2, *cbv3);
 }
 
 UNIT_TEST(CompressedBitVector_Intersect4)
@@ -108,7 +139,79 @@ UNIT_TEST(CompressedBitVector_Intersect4)
   TEST(cbv2.get(), ());
   auto cbv3 = coding::CompressedBitVector::Intersect(*cbv1, *cbv2);
   TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Sparse, cbv3->GetStorageStrategy(), ());
-  CheckIntersection(setBits1, setBits2, cbv3);
+  CheckIntersection(setBits1, setBits2, *cbv3);
+}
+
+UNIT_TEST(CompressedBitVector_Subtract1)
+{
+  vector<uint64_t> setBits1 = {0, 1, 2, 3, 4, 5, 6};
+  vector<uint64_t> setBits2 = {1, 2, 3, 4, 5, 6, 7};
+
+  auto cbv1 = coding::CompressedBitVectorBuilder::FromBitPositions(setBits1);
+  auto cbv2 = coding::CompressedBitVectorBuilder::FromBitPositions(setBits2);
+  TEST(cbv1.get(), ());
+  TEST(cbv2.get(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Dense, cbv1->GetStorageStrategy(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Dense, cbv2->GetStorageStrategy(), ());
+
+  auto cbv3 = coding::CompressedBitVector::Subtract(*cbv1, *cbv2);
+  TEST(cbv3.get(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Dense, cbv3->GetStorageStrategy(), ());
+  CheckSubtraction(setBits1, setBits2, *cbv3);
+}
+
+UNIT_TEST(CompressedBitVector_Subtract2)
+{
+  vector<uint64_t> setBits1;
+  for (size_t i = 0; i < 100; ++i)
+    setBits1.push_back(i);
+
+  vector<uint64_t> setBits2 = {9, 14};
+  auto cbv1 = coding::CompressedBitVectorBuilder::FromBitPositions(setBits1);
+  auto cbv2 = coding::CompressedBitVectorBuilder::FromBitPositions(setBits2);
+  TEST(cbv1.get(), ());
+  TEST(cbv2.get(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Dense, cbv1->GetStorageStrategy(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Sparse, cbv2->GetStorageStrategy(), ());
+
+  auto cbv3 = coding::CompressedBitVector::Subtract(*cbv1, *cbv2);
+  TEST(cbv3.get(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Dense, cbv3->GetStorageStrategy(), ());
+  CheckSubtraction(setBits1, setBits2, *cbv3);
+}
+
+UNIT_TEST(CompressedBitVector_Subtract3)
+{
+  vector<uint64_t> setBits1 = {0, 9};
+  vector<uint64_t> setBits2 = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+  auto cbv1 = coding::CompressedBitVectorBuilder::FromBitPositions(setBits1);
+  auto cbv2 = coding::CompressedBitVectorBuilder::FromBitPositions(setBits2);
+  TEST(cbv1.get(), ());
+  TEST(cbv2.get(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Sparse, cbv1->GetStorageStrategy(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Dense, cbv2->GetStorageStrategy(), ());
+
+  auto cbv3 = coding::CompressedBitVector::Subtract(*cbv1, *cbv2);
+  TEST(cbv3.get(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Sparse, cbv3->GetStorageStrategy(), ());
+  CheckSubtraction(setBits1, setBits2, *cbv3);
+}
+
+UNIT_TEST(CompressedBitVector_Subtract4)
+{
+  vector<uint64_t> setBits1 = {0, 5, 15};
+  vector<uint64_t> setBits2 = {0, 10};
+  auto cbv1 = coding::CompressedBitVectorBuilder::FromBitPositions(setBits1);
+  auto cbv2 = coding::CompressedBitVectorBuilder::FromBitPositions(setBits2);
+  TEST(cbv1.get(), ());
+  TEST(cbv2.get(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Sparse, cbv1->GetStorageStrategy(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Sparse, cbv2->GetStorageStrategy(), ());
+
+  auto cbv3 = coding::CompressedBitVector::Subtract(*cbv1, *cbv2);
+  TEST(cbv3.get(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Sparse, cbv3->GetStorageStrategy(), ());
+  CheckSubtraction(setBits1, setBits2, *cbv3);
 }
 
 UNIT_TEST(CompressedBitVector_SerializationDense)
@@ -121,6 +224,7 @@ UNIT_TEST(CompressedBitVector_SerializationDense)
   {
     MemWriter<vector<uint8_t>> writer(buf);
     auto cbv = coding::CompressedBitVectorBuilder::FromBitPositions(setBits);
+    TEST_EQUAL(setBits.size(), cbv->PopCount(), ());
     TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Dense, cbv->GetStorageStrategy(), ());
     cbv->Serialize(writer);
   }
