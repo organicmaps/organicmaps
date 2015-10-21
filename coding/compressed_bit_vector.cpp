@@ -185,6 +185,7 @@ DenseCBV::DenseCBV(vector<uint64_t> const & setBits)
 {
   if (setBits.empty())
   {
+    m_popCount = 0;
     return;
   }
   uint64_t const maxBit = *max_element(setBits.begin(), setBits.end());

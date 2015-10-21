@@ -167,11 +167,9 @@ public:
   template <typename TSource>
   void Deserialize(TSource & src)
   {
+    m_values.clear();
     while (src.Size() > 0)
-    {
-      m_values.push_back(TValue());
-      m_values.back() = ReadPrimitiveFromSource<TValue>(src);
-    }
+      m_values.emplace_back(ReadPrimitiveFromSource<TValue>(src));
   }
 
   template <typename TF>

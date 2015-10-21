@@ -22,8 +22,9 @@ public:
   LeafIterator0(TReader const & reader, serial::CodingParams const & codingParams)
   {
     ReaderSource<TReader> src(reader);
+    uint32_t valueCount = ReadVarUint<uint32_t>(src);
     m_valueList.SetCodingParams(codingParams);
-    m_valueList.Deserialize(src);
+    m_valueList.Deserialize(src, valueCount);
     // todo(@mpimenov) There used to be an assert here
     // that src is completely exhausted by this time.
   }
@@ -69,8 +70,10 @@ public:
     uint32_t const size = m_edgeInfo[i+1].m_offset - offset;
 
     if (m_edgeInfo[i].m_isLeaf)
+    {
       return make_unique<LeafIterator0<TValueList>>(m_reader.SubReader(offset, size),
                                                     m_codingParams);
+    }
 
     return make_unique<Iterator0<TReader, TValueList>>(
         m_reader.SubReader(offset, size), this->m_edge[i].m_str.back(), m_codingParams);

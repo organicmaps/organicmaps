@@ -199,7 +199,7 @@ private:
 
     QValue(TString const & s, size_t i) : m_string(s), m_index(i) {}
 
-    inline bool operator>(QValue const & rhs) const { return !(m_string < rhs.m_string); }
+    inline bool operator>(QValue const & rhs) const { return !(m_string < rhs.m_string) && !(m_string == rhs.m_string); }
   };
 
   priority_queue<QValue, vector<QValue>, greater<QValue>> m_queue;

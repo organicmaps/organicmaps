@@ -44,14 +44,15 @@ template <typename TSink, typename TChildIter, typename TValueList>
 void WriteNode(TSink & sink, TrieChar baseChar, TValueList const & valueList,
                TChildIter const begChild, TChildIter const endChild, bool isRoot = false)
 {
+  uint32_t const valueCount = valueList.Size();
   if (begChild == endChild && !isRoot)
   {
     // Leaf node.
+    WriteVarUint(sink, valueCount);
     valueList.Serialize(sink);
     return;
   }
   uint32_t const childCount = endChild - begChild;
-  uint32_t const valueCount = valueList.Size();
   uint8_t const header = static_cast<uint32_t>((min(valueCount, 3U) << 6) + min(childCount, 63U));
   sink.Write(&header, 1);
   if (valueCount >= 3)
@@ -140,8 +141,11 @@ struct NodeInfo
   TValueList m_valueList;
   bool m_mayAppend;
 
-  NodeInfo() : m_begPos(0), m_char(0) {}
-  NodeInfo(uint64_t pos, TrieChar trieChar) : m_begPos(pos), m_char(trieChar), m_mayAppend(true) {}
+  NodeInfo() : m_begPos(0), m_char(0), m_valueList(TValueList()), m_mayAppend(true) {}
+  NodeInfo(uint64_t pos, TrieChar trieChar)
+    : m_begPos(pos), m_char(trieChar), m_valueList(TValueList()), m_mayAppend(true)
+  {
+  }
 
   // It is finalized in the sense that no more appends are possible
   // so it is a fine moment to initialize the underlying ValueList.

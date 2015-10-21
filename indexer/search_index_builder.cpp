@@ -297,8 +297,8 @@ bool BuildSearchIndexFromDatFile(string const & datFile, bool forceRebuild)
   my::GetNameFromFullPath(mwmName);
   my::GetNameWithoutExt(mwmName);
   string const indexFilePath = platform.WritablePathForFile(mwmName + ".sdx.tmp");
-  string const stringsFilePath = platform.WritablePathForFile(mwmName + ".sdx.strings.tmp");
   MY_SCOPE_GUARD(indexFileGuard, bind(&FileWriter::DeleteFileX, indexFilePath));
+  string const stringsFilePath = platform.WritablePathForFile(mwmName + ".sdx.strings.tmp");
   MY_SCOPE_GUARD(stringsFileGuard, bind(&FileWriter::DeleteFileX, stringsFilePath));
 
   try

@@ -4,8 +4,6 @@
 #include "base/base.hpp"
 #include "base/buffer_vector.hpp"
 
-#include "indexer/string_file_values.hpp"
-
 #include "std/unique_ptr.hpp"
 
 namespace trie

@@ -63,7 +63,10 @@ struct FeatureIndexValue
 
 struct FeatureWithRankAndCenter
 {
-  FeatureWithRankAndCenter() = default;
+  FeatureWithRankAndCenter()
+    : m_pt(m2::PointD()), m_featureId(0), m_rank(0), m_codingParams(serial::CodingParams())
+  {
+  }
 
   FeatureWithRankAndCenter(m2::PointD pt, uint32_t featureId, uint8_t rank,
                            serial::CodingParams codingParams)
@@ -108,7 +111,7 @@ struct FeatureWithRankAndCenter
   void SetCodingParams(serial::CodingParams const & codingParams) { m_codingParams = codingParams; }
 
   m2::PointD m_pt;       // Center point of the feature.
-  uint32_t m_featureId;  // Offset of the feature.
+  uint32_t m_featureId;  // Feature identifier.
   uint8_t m_rank;        // Rank of the feature.
   serial::CodingParams m_codingParams;
 };
@@ -126,7 +129,10 @@ class ValueList<FeatureIndexValue>
 public:
   using TValue = FeatureIndexValue;
 
-  ValueList() : m_cbv(unique_ptr<coding::CompressedBitVector>()) {}
+  ValueList()
+    : m_cbv(unique_ptr<coding::CompressedBitVector>()), m_codingParams(serial::CodingParams())
+  {
+  }
 
   ValueList(ValueList<FeatureIndexValue> const & o) : m_codingParams(o.m_codingParams)
   {
@@ -150,37 +156,54 @@ public:
   // compressed bit vector, this method returns 1 when there're at
   // least one feature's index in the list - so, compressed bit
   // vector will be built and serialized - and 0 otherwise.
-  size_t Size() const { return m_cbv->PopCount() == 0 ? 0 : 1; }
+  size_t Size() const
+  {
+    if (!m_cbv)
+      return 0;
+    return m_cbv->PopCount() == 0 ? 0 : 1;
+  }
 
-  bool IsEmpty() const { return m_cbv->PopCount(); }
+  bool IsEmpty() const
+  {
+    if (!m_cbv)
+      return true;
+    return m_cbv->PopCount() == 0;
+  }
 
   template <typename TSink>
   void Serialize(TSink & sink) const
   {
+    if (IsEmpty())
+      return;
     vector<uint8_t> buf;
     MemWriter<vector<uint8_t>> writer(buf);
     m_cbv->Serialize(writer);
     sink.Write(buf.data(), buf.size());
   }
 
-  // Note the default parameter. It is here for compatibility with
+  // Note the valueCount parameter. It is here for compatibility with
   // an old data format that was serializing FeatureWithRankAndCenter`s.
   // They were put in a vector, this vector's size was encoded somehow
   // and then the vector was written with a method similar to Serialize above.
   // The deserialization code read the valueCount separately and then
   // read each FeatureWithRankAndCenter one by one.
-  // A newer approach is to make Serialize/Deserialize responsible for
-  // every part of serialization and as such it does not need valueCount.
+  // A better approach is to make Serialize/Deserialize responsible for
+  // every part of serialization and as such it should not need valueCount.
   template <typename TSource>
-  void Deserialize(TSource & src, uint32_t valueCount = 0)
+  void Deserialize(TSource & src, uint32_t valueCount)
   {
-    m_cbv = coding::CompressedBitVectorBuilder::DeserializeFromSource(src);
+    if (valueCount > 0)
+      m_cbv = coding::CompressedBitVectorBuilder::DeserializeFromSource(src);
+    else
+      m_cbv = unique_ptr<coding::CompressedBitVector>();
   }
 
   template <typename TF>
   void ForEach(TF && f) const
   {
-    coding::CompressedBitVectorEnumerator::ForEach(*m_cbv, [&](uint64_t const bitPosition)
+    if (!m_cbv)
+      return;
+    coding::CompressedBitVectorEnumerator::ForEach(*m_cbv, [&f](uint64_t const bitPosition)
                                                    {
                                                      f(TValue(bitPosition));
                                                    });
@@ -201,7 +224,8 @@ class ValueList<FeatureWithRankAndCenter>
 public:
   using TValue = FeatureWithRankAndCenter;
 
-  ValueList() = default;
+  ValueList() : m_codingParams(serial::CodingParams()) {}
+
   ValueList(serial::CodingParams const & codingParams) : m_codingParams(codingParams) {}
 
   void Init(vector<TValue> const & values) { m_values = values; }
@@ -230,17 +254,12 @@ public:
   template <typename TSource>
   void Deserialize(TSource & src)
   {
-    uint32_t const size = static_cast<uint32_t>(src.Size());
-    while (src.Pos() < size)
+    m_values.clear();
+    while (src.Size() > 0)
     {
-#ifdef DEBUG
-      uint64_t const pos = src.Pos();
-#endif
       m_values.push_back(TValue());
       m_values.back().DeserializeFromSource(src);
-      ASSERT_NOT_EQUAL(pos, src.Pos(), ());
     }
-    ASSERT_EQUAL(size, src.Pos(), ());
   }
 
   template <typename TF>

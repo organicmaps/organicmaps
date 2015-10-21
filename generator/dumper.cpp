@@ -200,11 +200,11 @@ namespace feature
     feature::DataHeader header(container);
     serial::CodingParams codingParams(trie::GetCodingParams(header.GetDefCodingParams()));
 
-    auto const pTrieRoot = trie::ReadTrie<ModelReaderPtr, ValueList<FeatureIndexValue>>(
+    auto const trieRoot = trie::ReadTrie<ModelReaderPtr, ValueList<FeatureIndexValue>>(
         container.GetReader(SEARCH_INDEX_FILE_TAG), codingParams);
 
     SearchTokensCollector f;
-    trie::ForEachRef(*pTrieRoot, f, strings::UniString());
+    trie::ForEachRef(*trieRoot, f, strings::UniString());
     f.Finish();
 
     while (!f.tokens.empty())
