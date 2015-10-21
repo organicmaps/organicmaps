@@ -316,9 +316,11 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 - (void)showDirectionViewWithTitle:(NSString *)title type:(NSString *)type
 {
   MWMDirectionView * directionView = self.directionView;
+  UIView * ownerView = self.ownerViewController.view;
   directionView.titleLabel.text = title;
   directionView.typeLabel.text = type;
-  [self.ownerViewController.view addSubview:directionView];
+  [ownerView addSubview:directionView];
+  [ownerView endEditing:YES];
   [directionView setNeedsLayout];
   [self.delegate updateStatusBarStyle];
   [(MapsAppDelegate *)[UIApplication sharedApplication].delegate disableStandby];
