@@ -141,9 +141,8 @@ static CGFloat const kKeyboardOffset = 12.;
   }];
 }
 
-- (void)willStartEditingBookmarkTitle:(CGFloat)keyboardHeight
+- (void)willStartEditingBookmarkTitle
 {
-  [super willStartEditingBookmarkTitle:keyboardHeight];
   [self updatePlacePagePosition];
 }
 
@@ -191,6 +190,7 @@ static CGFloat const kKeyboardOffset = 12.;
   MWMBookmarkDescriptionViewController * controller = [[MWMBookmarkDescriptionViewController alloc] initWithPlacePageManager:self.manager];
   controller.iPadOwnerNavigationController = self.navigationController;
   [self.navigationController pushViewController:controller animated:YES];
+  [self updatePlacePageLayoutAnimated:NO];
 }
 
 - (IBAction)didPan:(UIPanGestureRecognizer *)sender
@@ -238,8 +238,10 @@ static CGFloat const kKeyboardOffset = 12.;
   UITableView * featureTable = self.basePlacePageView.featureTable;
   CGFloat const height = self.navigationController.view.height;
   CGFloat const tableContentHeight = featureTable.contentSize.height;
-  CGFloat const headerViewHeight = self.basePlacePageView.separatorView.maxY;
-  CGFloat const availableTableHeight = height - headerViewHeight - self.actionBar.height;
+  CGFloat const headerHeight = self.basePlacePageView.separatorView.maxY;
+  CGFloat const actionBarHeight = self.actionBar.height;
+  CGFloat const anchorHeight = self.anchorImageView.height;
+  CGFloat const availableTableHeight = height - headerHeight - actionBarHeight - anchorHeight;
   CGFloat const externalHeight = tableContentHeight - availableTableHeight;
   if (externalHeight > 0.)
   {
@@ -248,22 +250,35 @@ static CGFloat const kKeyboardOffset = 12.;
   }
   else
   {
-    [featureTable setContentOffset:CGPointZero animated:YES];
+    featureTable.contentInset = UIEdgeInsetsZero;
     featureTable.scrollEnabled = NO;
   }
+}
+
+- (void)keyboardWillChangeFrame:(NSNotification *)aNotification
+{
+  [super keyboardWillChangeFrame:aNotification];
+  [self updateHeight];
 }
 
 - (CGFloat)getAvailableHeight
 {
   CGFloat const bottomOffset = self.keyboardHeight > 0.0 ? kKeyboardOffset : kBottomOffset;
-  return self.parentViewHeight - self.keyboardHeight - kTopOffset - bottomOffset;
+  CGFloat const availableHeight = self.parentViewHeight - self.keyboardHeight - kTopOffset - bottomOffset;
+  return availableHeight;
 }
 
 #pragma mark - Properties
 
 - (void)setHeight:(CGFloat)height
 {
-  _height = MIN(height, [self getAvailableHeight]);
+  _height = height;
+  [self updateHeight];
+}
+
+- (void)updateHeight
+{
+  _height = MIN(_height, [self getAvailableHeight]);
   self.navigationController.view.height = _height;
   self.extendedPlacePageView.height = _height;
 }

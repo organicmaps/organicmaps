@@ -220,9 +220,8 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
   }
 }
 
-- (void)willStartEditingBookmarkTitle:(CGFloat)keyboardHeight
+- (void)willStartEditingBookmarkTitle
 {
-  [super willStartEditingBookmarkTitle:keyboardHeight];
   self.state = MWMiPhonePortraitPlacePageStateOpen;
 }
 
@@ -270,7 +269,6 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
     __strong MWMiPhonePortraitPlacePage * self = weakSelf;
     if (self.state == MWMiPhonePortraitPlacePageStateClosed)
     {
-      self.keyboardHeight = 0.;
       [self.manager dismissPlacePage];
     }
     else
