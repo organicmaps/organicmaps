@@ -92,9 +92,11 @@ void MapsWithMe_TransformName(char * s)
 // See rfc3986, rfc1738, rfc2396.
 size_t MapsWithMe_UrlEncodeString(char const * s, size_t size, char ** res)
 {
+  size_t i;
+  char * out;
   *res = malloc(size * 3 + 1);
-  char * out = *res;
-  for (size_t i = 0; i < size; ++i)
+  out = *res;
+  for (i = 0; i < size; ++i)
   {
     unsigned char c = (unsigned char)(s[i]);
     switch (c)

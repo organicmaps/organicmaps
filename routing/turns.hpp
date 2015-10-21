@@ -98,9 +98,10 @@ typedef vector<LaneWay> TSingleLane;
 struct SingleLaneInfo
 {
   TSingleLane m_lane;
-  bool m_isRecommended;
+  bool m_isRecommended = false;
 
-  SingleLaneInfo(initializer_list<LaneWay> const & l = {}) : m_lane(l), m_isRecommended(false) {}
+  SingleLaneInfo() = default;
+  SingleLaneInfo(initializer_list<LaneWay> const & l) : m_lane(l) {}
   bool operator==(SingleLaneInfo const & other) const;
 };
 
