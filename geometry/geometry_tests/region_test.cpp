@@ -134,6 +134,15 @@ UNIT_TEST(Region)
   region.AddPoint(P(34.4, 33.2));
   TEST(region.IsValid(), ());
 
+  {
+  // equality case
+  {
+    P const data[] = { P(1, 1), P(0, 4.995), P(1, 4.999996), P(1.000003, 5.000001), P(0.5, 10), P(10, 10), P(10, 1) };
+    region.Assign(data, data + ARRAY_SIZE(data));
+  }
+  TEST(!region.Contains(P(0.9999987, 0.9999938)), ());
+  TEST(!region.Contains(P(0.999998, 4.9999987)), ());
+  }
 }
 
 UNIT_TEST(Region_Contains_int32)

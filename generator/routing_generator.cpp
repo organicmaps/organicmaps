@@ -119,10 +119,14 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
             if (outStart == outEnd)
               continue;
 
-            border.FindIntersection(MercatorBounds::FromLatLon(segment.lat1, segment.lon1),
-                                    MercatorBounds::FromLatLon(segment.lat2, segment.lon2),
-                                    intersection);
+            if (!border.FindIntersection(MercatorBounds::FromLatLon(segment.lat1, segment.lon1),
+                                         MercatorBounds::FromLatLon(segment.lat2, segment.lon2),
+                                         intersection))
 
+            {
+                ASSERT(false, ("Can't determine a intersection point with a border!"));
+                continue;
+            }
             // for old format compatibility
             intersection = m2::PointD(MercatorBounds::XToLon(intersection.x), MercatorBounds::YToLat(intersection.y));
             if (!outStart && outEnd)
