@@ -134,10 +134,10 @@ extern NSString * const kMwmTextToSpeechDisable = @"MWMTEXTTOSPEECH_DISABLE";
   
   vector<string> notifications;
   frm.GenerateTurnNotifications(notifications);
-  
+
   if (![self isValid])
     return;
-  
+
   for (auto const & text : notifications)
     [self speakOneString:@(text.c_str())];
 }

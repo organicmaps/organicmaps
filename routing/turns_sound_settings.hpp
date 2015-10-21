@@ -51,34 +51,36 @@ class Settings
 
   // This constructor is for testing only.
   Settings(uint32_t notificationTimeSeconds, uint32_t minNotificationDistanceUnits,
-           uint32_t maxNotificationDistanceUnits,
-           uint32_t startBeforeSeconds, uint32_t minStartBeforeMeters,
-           uint32_t maxStartBeforeMeters, uint32_t minDistToSayNotificationMeters,
-           vector<uint32_t> const & soundedDistancesUnits,
+           uint32_t maxNotificationDistanceUnits, uint32_t startBeforeSeconds,
+           uint32_t minStartBeforeMeters, uint32_t maxStartBeforeMeters,
+           uint32_t minDistToSayNotificationMeters, vector<uint32_t> const & soundedDistancesUnits,
            ::Settings::Units lengthUnits)
-      : m_timeSeconds(notificationTimeSeconds),
-        m_minDistanceUnits(minNotificationDistanceUnits),
-        m_maxDistanceUnits(maxNotificationDistanceUnits),
-        m_startBeforeSeconds(startBeforeSeconds),
-        m_minStartBeforeMeters(minStartBeforeMeters),
-        m_maxStartBeforeMeters(maxStartBeforeMeters),
-        m_minDistToSayNotificationMeters(minDistToSayNotificationMeters),
-        m_soundedDistancesUnits(soundedDistancesUnits),
-        m_lengthUnits(lengthUnits)
+    : m_timeSeconds(notificationTimeSeconds)
+    , m_minDistanceUnits(minNotificationDistanceUnits)
+    , m_maxDistanceUnits(maxNotificationDistanceUnits)
+    , m_startBeforeSeconds(startBeforeSeconds)
+    , m_minStartBeforeMeters(minStartBeforeMeters)
+    , m_maxStartBeforeMeters(maxStartBeforeMeters)
+    , m_minDistToSayNotificationMeters(minDistToSayNotificationMeters)
+    , m_soundedDistancesUnits(soundedDistancesUnits)
+    , m_lengthUnits(lengthUnits)
   {
     ASSERT(!m_soundedDistancesUnits.empty(), ());
   }
+
 public:
   Settings(uint32_t startBeforeSeconds, uint32_t minStartBeforeMeters,
            uint32_t maxStartBeforeMeters, uint32_t minDistToSayNotificationMeters)
-      : m_timeSeconds(0),
-        m_minDistanceUnits(0),
-        m_maxDistanceUnits(0),
-        m_startBeforeSeconds(startBeforeSeconds),
-        m_minStartBeforeMeters(minStartBeforeMeters),
-        m_maxStartBeforeMeters(maxStartBeforeMeters),
-        m_minDistToSayNotificationMeters(minDistToSayNotificationMeters),
-        m_lengthUnits(::Settings::Metric) {}
+    : m_timeSeconds(0)
+    , m_minDistanceUnits(0)
+    , m_maxDistanceUnits(0)
+    , m_startBeforeSeconds(startBeforeSeconds)
+    , m_minStartBeforeMeters(minStartBeforeMeters)
+    , m_maxStartBeforeMeters(maxStartBeforeMeters)
+    , m_minDistToSayNotificationMeters(minDistToSayNotificationMeters)
+    , m_lengthUnits(::Settings::Metric)
+  {
+  }
 
   void SetState(uint32_t notificationTimeSeconds, uint32_t minNotificationDistanceUnits,
                 uint32_t maxNotificationDistanceUnits,

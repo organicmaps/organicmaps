@@ -21,12 +21,9 @@ using namespace location;
 
 UNIT_TEST(TurnNotificationSettingsMetersTest)
 {
-  Settings const settings(20 /* notificationTimeSeconds */,
-                          200 /* minNotificationDistanceUnits */,
-                          700 /* maxNotificationDistanceUnits */,
-                          5 /* m_startBeforeSeconds */,
-                          25 /* m_minStartBeforeMeters */,
-                          150 /* m_maxStartBeforeMeters */,
+  Settings const settings(20 /* notificationTimeSeconds */, 200 /* minNotificationDistanceUnits */,
+                          700 /* maxNotificationDistanceUnits */, 5 /* m_startBeforeSeconds */,
+                          25 /* m_minStartBeforeMeters */, 150 /* m_maxStartBeforeMeters */,
                           170 /* m_minDistToSayNotificationMeters */,
                           {100, 200, 300, 400, 500, 600, 700} /* soundedDistancesUnits */,
                           ::Settings::Metric /* lengthUnits */);
@@ -55,12 +52,9 @@ UNIT_TEST(TurnNotificationSettingsMetersTest)
 
 UNIT_TEST(TurnNotificationSettingsFeetTest)
 {
-  Settings const settings(20 /* notificationTimeSeconds */,
-                          500 /* minNotificationDistanceUnits */,
-                          2000 /* maxNotificationDistanceUnits */,
-                          5 /* m_startBeforeSeconds */,
-                          25 /* m_minStartBeforeMeters */,
-                          150 /* m_maxStartBeforeMeters */,
+  Settings const settings(20 /* notificationTimeSeconds */, 500 /* minNotificationDistanceUnits */,
+                          2000 /* maxNotificationDistanceUnits */, 5 /* m_startBeforeSeconds */,
+                          25 /* m_minStartBeforeMeters */, 150 /* m_maxStartBeforeMeters */,
                           170 /* m_minDistToSayNotificationMeters */,
                           {200, 400, 600, 800, 1000, 1500, 2000} /* soundedDistancesUnits */,
                           ::Settings::Foot /* lengthUnits */);
@@ -78,20 +72,16 @@ UNIT_TEST(TurnNotificationSettingsFeetTest)
 UNIT_TEST(TurnNotificationSettingsNotValidTest)
 {
   Settings settings1(20 /* notificationTimeSeconds */, 500 /* minNotificationDistanceUnits */,
-                     2000 /* maxNotificationDistanceUnits */,
-                     5 /* m_startBeforeSeconds */,
-                     25 /* m_minStartBeforeMeters */,
-                     150 /* m_maxStartBeforeMeters */,
+                     2000 /* maxNotificationDistanceUnits */, 5 /* m_startBeforeSeconds */,
+                     25 /* m_minStartBeforeMeters */, 150 /* m_maxStartBeforeMeters */,
                      170 /* m_minDistToSayNotificationMeters */,
                      {200, 400, 800, 600, 1000, 1500, 2000} /* soundedDistancesUnits */,
                      ::Settings::Foot /* lengthUnits */);
   TEST(!settings1.IsValid(), ());
 
   Settings settings2(20 /* notificationTimeSeconds */, 5000 /* minNotificationDistanceUnits */,
-                     2000 /* maxNotificationDistanceUnits */,
-                     5 /* m_startBeforeSeconds */,
-                     25 /* m_minStartBeforeMeters */,
-                     150 /* m_maxStartBeforeMeters */,
+                     2000 /* maxNotificationDistanceUnits */, 5 /* m_startBeforeSeconds */,
+                     25 /* m_minStartBeforeMeters */, 150 /* m_maxStartBeforeMeters */,
                      170 /* m_minDistToSayNotificationMeters */,
                      {200, 400, 600, 800, 1000, 1500, 2000} /* soundedDistancesUnits */,
                      ::Settings::Metric /* lengthUnits */);
@@ -226,7 +216,8 @@ UNIT_TEST(TurnsSoundMetersTwoTurnsTest)
 
   // 700 meters till the turn. It's time to pronounce the first voice notification.
   // The speed is high.
-  // The compensation of NotificationManager::m_startBeforeSeconds/NotificationManager::m_minStartBeforeMeters/
+  // The compensation of
+  // NotificationManager::m_startBeforeSeconds/NotificationManager::m_minStartBeforeMeters/
   // NotificationManager::m_maxStartBeforeMeters is not enough.
   // The user will be closer to the turn while pronouncing despite the compensation.
   // So it should be pronounced "In 600 meters."
@@ -524,7 +515,8 @@ UNIT_TEST(TurnsSoundRoundaboutTurnTest)
                                         1005. /* m_distMeters */}};
   vector<string> const expectedNotification7 = {{"Enter the roundabout."},
                                                 {"Then. Take the first exit."}};
-  notificationManager.GenerateTurnNotifications(turns7, turnNotifications); // The first notification fast forwarding.
+  notificationManager.GenerateTurnNotifications(
+      turns7, turnNotifications);  // The first notification fast forwarding.
   notificationManager.GenerateTurnNotifications(turns7, turnNotifications);
   TEST_EQUAL(turnNotifications, expectedNotification7, ());
   TEST_EQUAL(notificationManager.GetSecondTurnNotification(), TurnDirection::NoTurn, ());

@@ -42,12 +42,17 @@ class NotificationManager
 
   /// \brief The private contructor is used only for testing.
   NotificationManager(uint32_t startBeforeSeconds, uint32_t minStartBeforeMeters,
-             uint32_t maxStartBeforeMeters, uint32_t minDistToSayNotificationMeters)
-    : m_enabled(false), m_speedMetersPerSecond(0.),
-      m_settings(startBeforeSeconds, minStartBeforeMeters, maxStartBeforeMeters, minDistToSayNotificationMeters),
-      m_nextTurnNotificationProgress(PronouncedNotification::Nothing),
-      m_turnNotificationWithThen(false),  m_nextTurnIndex(0),
-      m_secondTurnNotification(TurnDirection::NoTurn) {}
+                      uint32_t maxStartBeforeMeters, uint32_t minDistToSayNotificationMeters)
+    : m_enabled(false)
+    , m_speedMetersPerSecond(0.)
+    , m_settings(startBeforeSeconds, minStartBeforeMeters, maxStartBeforeMeters,
+                 minDistToSayNotificationMeters)
+    , m_nextTurnNotificationProgress(PronouncedNotification::Nothing)
+    , m_turnNotificationWithThen(false)
+    , m_nextTurnIndex(0)
+    , m_secondTurnNotification(TurnDirection::NoTurn)
+  {
+  }
 
   /// m_enabled == true when tts is turned on.
   /// Important! Clients (iOS/Android) implies that m_enabled is false by default.
@@ -58,6 +63,7 @@ class NotificationManager
   /// @TODO(vbykoianko) It's better to use an average speed
   /// for last several seconds instead of the current speed here.
   double m_speedMetersPerSecond;
+
   Settings m_settings;
   /// m_nextTurnNotificationProgress keeps a status which is being changing while
   /// an end user is coming to the closest (the next) turn along the route.
@@ -73,6 +79,7 @@ class NotificationManager
   /// This flag is used to pass the information if second turn notification was pronounced
   /// between two calls of GenerateTurnNotifications() method.
   bool m_turnNotificationWithThen;
+
   uint32_t m_nextTurnIndex;
   /// getTtsText is a convector form turn notification information and locale to
   /// notification string.
@@ -80,7 +87,8 @@ class NotificationManager
   /// if m_secondTurnNotification == true it's time to display the second turn notification
   /// visual informer, and false otherwise.
   /// m_secondTurnNotification is a direction of the turn after the closest one
-  /// if an end user shall be informed about it. If not, m_secondTurnNotification == TurnDirection::NoTurn
+  /// if an end user shall be informed about it. If not, m_secondTurnNotification ==
+  /// TurnDirection::NoTurn
   TurnDirection m_secondTurnNotification;
   /// m_secondTurnNotificationIndex is an index of the closest turn on the route polyline
   /// where m_secondTurnNotification was set to true last time for a turn.
@@ -108,12 +116,17 @@ class NotificationManager
   TurnDirection GenerateSecondTurnNotification(vector<TurnItemDist> const & turns);
 
 public:
-  NotificationManager() : m_enabled(false), m_speedMetersPerSecond(0.),
-      m_settings(5 /* m_startBeforeSeconds */, 25 /* m_minStartBeforeMeters */,
-                 150 /* m_maxStartBeforeMeters */, 170 /* m_minDistToSayNotificationMeters */),
-      m_nextTurnNotificationProgress(PronouncedNotification::Nothing),
-      m_turnNotificationWithThen(false),  m_nextTurnIndex(0),
-      m_secondTurnNotification(TurnDirection::NoTurn) {}
+  NotificationManager()
+    : m_enabled(false)
+    , m_speedMetersPerSecond(0.)
+    , m_settings(5 /* m_startBeforeSeconds */, 25 /* m_minStartBeforeMeters */,
+                 150 /* m_maxStartBeforeMeters */, 170 /* m_minDistToSayNotificationMeters */)
+    , m_nextTurnNotificationProgress(PronouncedNotification::Nothing)
+    , m_turnNotificationWithThen(false)
+    , m_nextTurnIndex(0)
+    , m_secondTurnNotification(TurnDirection::NoTurn)
+  {
+  }
 
   bool IsEnabled() const { return m_enabled; }
   void Enable(bool enable);
@@ -123,15 +136,16 @@ public:
   inline string GetLocale() const { return m_getTtsText.GetLocale(); }
   void SetSpeedMetersPerSecond(double speed);
 
-   /// \brief GenerateTurnNotifications updates information about the next turn notification.
-   /// It also fills turnNotifications when it's necessary.
-   /// If this TurnsSound wants to play a sound message once it should push one item to
-   /// the vector turnNotifications once when GenerateTurnNotifications is called.
-   /// \param turns contains information about the next turns starting from the closest one.
-   /// \param distanceToTurnMeters is distance to the next turn in meters.
-   /// \param turnNotifications is a parameter to fill it if it's necessary.
-   /// \note The client implies turnNotifications does not contain empty strings.
-  void GenerateTurnNotifications(vector<TurnItemDist> const & turns, vector<string> & turnNotifications);
+  /// \brief GenerateTurnNotifications updates information about the next turn notification.
+  /// It also fills turnNotifications when it's necessary.
+  /// If this TurnsSound wants to play a sound message once it should push one item to
+  /// the vector turnNotifications once when GenerateTurnNotifications is called.
+  /// \param turns contains information about the next turns starting from the closest one.
+  /// \param distanceToTurnMeters is distance to the next turn in meters.
+  /// \param turnNotifications is a parameter to fill it if it's necessary.
+  /// \note The client implies turnNotifications does not contain empty strings.
+  void GenerateTurnNotifications(vector<TurnItemDist> const & turns,
+                                 vector<string> & turnNotifications);
   /// Reset states which reflects current route position.
   /// The method shall be called after creating a new route or after rerouting.
   void Reset();
@@ -144,8 +158,10 @@ public:
   /// (That means a notification about turn after the closest one was pronounced.)
   /// For example, if while closing to the closest turn was pronounced
   /// "Turn right. Then turn left." 500 meters before the closest turn, after that moment
-  /// GetSecondTurnNotification returns TurnDirection::TurnLeft if distance to first turn < 500 meters.
-  /// After the closest composed turn was passed GetSecondTurnNotification returns TurnDirection::NoTurn.
+  /// GetSecondTurnNotification returns TurnDirection::TurnLeft if distance to first turn < 500
+  /// meters.
+  /// After the closest composed turn was passed GetSecondTurnNotification returns
+  /// TurnDirection::NoTurn.
   /// \note If the returning value is TurnDirection::NoTurn no turn shall be displayed.
   /// \note If GetSecondTurnNotification returns a value different form TurnDirection::NoTurn
   /// for a turn once it continues returning the same value until the turn is changed.

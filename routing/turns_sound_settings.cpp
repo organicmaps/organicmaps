@@ -14,7 +14,8 @@ namespace sound
 {
 void Settings::SetState(uint32_t notificationTimeSeconds, uint32_t minNotificationDistanceUnits,
                         uint32_t maxNotificationDistanceUnits,
-                        vector<uint32_t> const & soundedDistancesUnits, ::Settings::Units lengthUnits)
+                        vector<uint32_t> const & soundedDistancesUnits,
+                        ::Settings::Units lengthUnits)
 {
   m_timeSeconds = notificationTimeSeconds;
   m_minDistanceUnits = minNotificationDistanceUnits;
