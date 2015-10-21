@@ -133,19 +133,6 @@ protected:
   virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg);
 };
 
-class ApiUserMarkContainer : public UserMarkContainer
-{
-public:
-  ApiUserMarkContainer(double layerDepth, Framework & framework);
-
-  virtual Type GetType() const { return API_MARK; }
-
-  virtual string GetActiveTypeName() const;
-protected:
-  virtual string GetTypeName() const;
-  virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg);
-};
-
 class DebugUserMarkContainer : public UserMarkContainer
 {
 public:

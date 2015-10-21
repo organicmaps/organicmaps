@@ -92,50 +92,6 @@ private:
   bool m_needDestroy;
 };
 
-class ApiMarkPoint : public UserMark
-{
-public:
-  ApiMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container)
-    : UserMark(ptOrg, container)
-  {
-  }
-
-  ApiMarkPoint(string const & name,
-           string const & id,
-           m2::PointD const & ptOrg,
-           UserMarkContainer * container)
-    : UserMark(ptOrg, container)
-    , m_name(name)
-    , m_id(id)
-  {
-  }
-
-  UserMark::Type GetMarkType() const override { return UserMark::Type::API; }
-
-  string const & GetName() const { return m_name; }
-  void SetName(string const & name) { m_name = name; }
-
-  string const & GetID() const   { return m_id; }
-  void SetID(string const & id)  { m_id = id; }
-
-  unique_ptr<UserMarkCopy> Copy() const override
-  {
-    return unique_ptr<UserMarkCopy>(
-        new UserMarkCopy(new ApiMarkPoint(m_name, m_id, m_ptOrg, m_container)));
-  }
-
-  virtual void FillLogEvent(TEventContainer & details) const override
-  {
-    UserMark::FillLogEvent(details);
-    details["markType"] = "API";
-    details["name"] = GetName();
-  }
-
-private:
-  string m_name;
-  string m_id;
-};
-
 class DebugMarkPoint : public UserMark
 {
 public:

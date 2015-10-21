@@ -36,6 +36,8 @@ HEADERS += \
     user_mark_container.hpp \
     user_mark.hpp \
     user_mark_dl_cache.hpp \
+    api_mark_container.hpp \
+    api_mark_point.hpp \
     anim_phase_chain.hpp \
     pin_click_manager.hpp \
     country_tree.hpp \
@@ -69,6 +71,7 @@ SOURCES += \
     alfa_animation_task.cpp \
     user_mark_container.cpp \
     user_mark_dl_cache.cpp \
+    api_mark_container.cpp \
     anim_phase_chain.cpp \
     pin_click_manager.cpp \
     country_tree.cpp \

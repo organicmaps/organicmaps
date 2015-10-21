@@ -8,6 +8,8 @@
 
 #include "map/bookmark.hpp"
 #include "map/bookmark_manager.hpp"
+#include "map/api_mark_point.hpp"
+#include "map/api_mark_container.hpp"
 #include "map/pin_click_manager.hpp"
 
 #include "map/mwm_url.hpp"
