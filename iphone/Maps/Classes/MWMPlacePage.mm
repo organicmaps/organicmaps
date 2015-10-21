@@ -36,6 +36,15 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
                                       options:NSKeyValueObservingOptionNew
                                       context:nullptr];
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillChangeFrame:)
+                                                 name:UIKeyboardWillChangeFrameNotification
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
   }
   return self;
 }
@@ -46,6 +55,18 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
   {
     [self.extendedPlacePageView removeObserver:self forKeyPath:kPlacePageViewCenterKeyPath];
   }
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)keyboardWillChangeFrame:(NSNotification *)aNotification
+{
+  NSDictionary * info = [aNotification userInfo];
+  self.keyboardHeight = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+}
+
+- (void)keyboardWillHide
+{
+  self.keyboardHeight = 0.0;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -98,7 +119,6 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
 {
   [self.basePlacePageView removeBookmark];
   [self.manager removeBookmark];
-  self.keyboardHeight = 0.;
 }
 
 - (void)share
@@ -165,16 +185,10 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
   [self.basePlacePageView reloadBookmarkCell];
 }
 
-- (void)willStartEditingBookmarkTitle:(CGFloat)keyboardHeight
-{
-  self.keyboardHeight = keyboardHeight;
-}
-
 - (void)willFinishEditingBookmarkTitle:(NSString *)title
 {
   self.basePlacePageView.titleLabel.text = title;
   [self.basePlacePageView layoutIfNeeded];
-  self.keyboardHeight = 0.;
 }
 
 - (IBAction)didTap:(UITapGestureRecognizer *)sender

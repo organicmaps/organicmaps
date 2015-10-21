@@ -96,10 +96,8 @@ static NSUInteger sWebViewHeight = 0;
 
 - (void)keyboardWillShown:(NSNotification *)aNotification
 {
-  NSDictionary const * info = [aNotification userInfo];
-  CGSize const kbSize = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
   if ([self.title isEditing])
-    [self.placePage willStartEditingBookmarkTitle:kbSize.height];
+    [self.placePage willStartEditingBookmarkTitle];
 }
 
 - (void)keyboardWillBeHidden

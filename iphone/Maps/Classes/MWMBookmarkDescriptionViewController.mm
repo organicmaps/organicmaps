@@ -157,6 +157,7 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 
 - (void)cancelTap
 {
+  [self.textView resignFirstResponder];
   if (self.manager.entity.isHTMLDescription)
     self.state = BookmarkDescriptionStateViewHTML;
   else
@@ -168,12 +169,7 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
   MWMPlacePageEntity * entity = self.manager.entity;
   entity.bookmarkDescription = self.textView.text;
   [entity synchronize];
-  [self.textView resignFirstResponder];
-
-  if (entity.isHTMLDescription)
-    self.state = BookmarkDescriptionStateViewHTML;
-  else
-    [self popViewController];
+  [self cancelTap];
 }
 
 - (void)backTap
