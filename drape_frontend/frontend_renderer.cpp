@@ -1164,8 +1164,8 @@ ScreenBase const & FrontendRenderer::ProcessEvents(bool & modelViewChanged, bool
   if (m_useFramebuffer)
   {
     double scale = max(m_renderer3d->GetScaleX(), m_renderer3d->GetScaleY());
-    m_pixelRect.setMaxX(pxRect.maxX() / scale);
-    m_pixelRect.setMaxY(pxRect.maxY() / scale);
+    m_pixelRect.setMaxX(m_pixelRect.maxX() / scale);
+    m_pixelRect.setMaxY(m_pixelRect.maxY() / scale);
   }
 
   return modelView;
