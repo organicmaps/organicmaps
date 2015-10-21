@@ -32,12 +32,6 @@
 
 namespace osmoh
 {
-class Weekday;
-class Timespan;
-class TimeRule;
-
-using TWeekdays = std::vector<Weekday>;
-using TTimespans = std::vector<Timespan>;
 
 class Time
 {
@@ -47,6 +41,8 @@ class Time
     eHaveHours = 1,
     eHaveMinutes = 2,
   };
+
+  using TEStateRep = std::underlying_type<EState>::type;
 
  public:
   enum class EEvent
@@ -99,7 +95,7 @@ class Time
  private:
   EEvent m_event{EEvent::eNotEvent};
   TMinutes m_duration{TMinutes::zero()};
-  std::underlying_type<EState>::type m_state{EState::eIsNotTime};
+  TEStateRep m_state{EState::eIsNotTime};
 };
 
 inline constexpr Time::THours operator ""_h(unsigned long long h)
@@ -146,22 +142,152 @@ class Timespan
   bool m_plus{false};
 };
 
+using TTimespans = std::vector<Timespan>;
+
 std::ostream & operator<<(std::ostream & ost, Timespan const & span);
 std::ostream & operator<<(std::ostream & ost, osmoh::TTimespans const & timespans);
+
+class NthEntry
+{
+ public:
+  enum class ENth
+  {
+    None,
+    First,
+    Second,
+    Third,
+    Fourth,
+    Fifth
+  };
+
+ public:
+  bool IsEmpty() const;
+  bool HasStart() const;
+  bool HasEnd() const;
+
+  ENth GetStart() const;
+  ENth GetEnd() const;
+
+  void SetStart(ENth const s);
+  void SetEnd(ENth const e);
+
+ private:
+  ENth m_start{};
+  ENth m_end{};
+};
+
+std::ostream & operator<<(std::ostream & ost, NthEntry const entry);
+
+class WeekdayRange
+{
+  using TNths = std::vector<NthEntry>;
+
+ public:
+  enum EWeekday
+  {
+    None,
+    Su,
+    Mo,
+    Tu,
+    We,
+    Th,
+    Fr,
+    Sa
+  };
+
+ public:
+  bool HasWday(EWeekday const & wday) const;
+
+  bool HasSu() const;
+  bool HasMo() const;
+  bool HasTu() const;
+  bool HasWe() const;
+  bool HasTh() const;
+  bool HasFr() const;
+  bool HasSa() const;
+
+  bool HasStart() const;
+  bool HasEnd() const;
+  bool IsEmpty() const;
+
+  EWeekday GetStart() const;
+  EWeekday GetEnd() const;
+  size_t GetDaysCount() const;
+
+  void SetStart(EWeekday const & wday);
+  void SetEnd(EWeekday const & wday);
+
+  int32_t GetOffset() const;
+  void SetOffset(int32_t const offset);
+
+  bool HasNth() const;
+  TNths const & GetNths() const;
+
+  void AddNth(NthEntry const & entry);
+
+ private:
+  EWeekday m_start{};
+  EWeekday m_end{};
+  int32_t m_offset{};
+  TNths m_nths;
+};
+
+inline constexpr WeekdayRange::EWeekday operator ""_day(unsigned long long day)
+{
+  return ((day <= WeekdayRange::EWeekday::None || day > WeekdayRange::EWeekday::Sa)
+          ? WeekdayRange::EWeekday::None
+          : static_cast<WeekdayRange::EWeekday>(day));
+}
+
+using TWeekdayRanges = std::vector<WeekdayRange>;
+
+std::ostream & operator<<(std::ostream & ost, WeekdayRange::EWeekday const wday);
+std::ostream & operator<<(std::ostream & ost, WeekdayRange const & range);
+std::ostream & operator<<(std::ostream & ost, TWeekdayRanges const & ranges);
+
+class Holiday
+{
+ public:
+  bool IsPlural() const;
+  void SetPlural(bool const plural);
+
+  int32_t GetOffset() const;
+  void SetOffset(int32_t const offset);
+
+ private:
+  bool m_plural{false};
+  int32_t m_offset{};
+};
+
+using THolidays = std::vector<Holiday>;
+
+std::ostream & operator<<(std::ostream & ost, Holiday const & holiday);
+std::ostream & operator<<(std::ostream & ost, THolidays const & holidys);
+
+class Weekdays // Correspond to weekday_selector in osm opening hours
+{
+ public:
+  bool HasWeekday() const;
+  bool HasHolidays() const;
+
+  TWeekdayRanges const & GetWeekdayRanges() const;
+  THolidays const & GetHolidays() const;
+
+  void SetWeekdayRanges(TWeekdayRanges const ranges);
+  void SetHolidays(THolidays const & holidays);
+
+  void AddWeekdayRange(WeekdayRange const range);
+  void AddHoliday(Holiday const & holiday);
+
+ private:
+  TWeekdayRanges m_weekdayRanges;
+  THolidays m_holidays;
+};
+
+using TWeekdayss = std::vector<Weekdays>; // TODO(mgsergio): make up a better name
+
+std::ostream & operator<<(std::ostream & ost, Weekdays const & weekday);
 } // namespace osmoh
-
-// class Weekday
-// {
-//  public:
-//   uint8_t weekdays;
-//   uint16_t nth;
-//   int32_t offset;
-
-//   Weekday() : weekdays(0), nth(0), offset(0) {}
-
-//   std::string ToString() const;
-//   friend std::ostream & operator << (std::ostream & s, Weekday const & w);
-// };
 
 // class State
 // {

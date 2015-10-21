@@ -29,6 +29,36 @@
 #include <cstdlib>
 #include <codecvt>
 
+namespace
+{
+template <typename T>
+void print_vector(std::ostream & ost, std::vector<T> const & v)
+{
+  auto it = begin(v);
+  if (it == end(v))
+    return;
+  ost << *it++;
+  while(it != end(v))
+  {
+    ost << ',' << *it++;
+  }
+}
+
+void print_offset(std::ostream & ost, int32_t const offset)
+{
+  if (offset == 0)
+    return;
+
+  ost << ' ';
+  if (offset > 0)
+    ost << '+';
+  ost << offset;
+  ost << ' ' << "day";
+  if (std::abs(offset) > 1)
+    ost << 's';
+}
+} // namespace
+
 namespace osmoh
 {
 
@@ -274,14 +304,290 @@ std::ostream & operator<<(std::ostream & ost, Timespan const & span)
 
 std::ostream & operator<<(std::ostream & ost, osmoh::TTimespans const & timespans)
 {
-  auto it = begin(timespans);
-  ost << *it++;
-  while(it != end(timespans))
+  print_vector(ost, timespans);
+  return ost;
+}
+
+
+bool NthEntry::IsEmpty() const
+{
+  return !HasStart() && !HasEnd();
+}
+
+bool NthEntry::HasStart() const
+{
+  return GetStart() != ENth::None;
+}
+
+bool NthEntry::HasEnd() const
+{
+  return GetEnd() != ENth::None;
+}
+
+NthEntry::ENth NthEntry::GetStart() const
+{
+  return m_start;
+}
+
+NthEntry::ENth NthEntry::GetEnd() const
+{
+  return m_end;
+}
+
+void NthEntry::SetStart(ENth const s)
+{
+  m_start = s;
+}
+
+void NthEntry::SetEnd(ENth const e)
+{
+  m_end = e;
+}
+
+std::ostream & operator<<(std::ostream & ost, NthEntry const entry)
+{
+  if (entry.HasStart())
+    ost << static_cast<uint32_t>(entry.GetStart());
+  if (entry.HasEnd())
+    ost << '-' << static_cast<uint32_t>(entry.GetEnd());
+  return ost;
+}
+
+bool WeekdayRange::HasWday(EWeekday const & wday) const
+{
+  if (IsEmpty() || wday == EWeekday::None)
+    return false;
+
+  if (!HasEnd())
+    return GetStart() == wday;
+
+  return GetStart() <= wday && wday <= GetEnd();
+}
+
+bool WeekdayRange::HasSu() const { return HasWday(Su); }
+bool WeekdayRange::HasMo() const { return HasWday(Mo); }
+bool WeekdayRange::HasTu() const { return HasWday(Tu); }
+bool WeekdayRange::HasWe() const { return HasWday(We); }
+bool WeekdayRange::HasTh() const { return HasWday(Th); }
+bool WeekdayRange::HasFr() const { return HasWday(Fr); }
+bool WeekdayRange::HasSa() const { return HasWday(Sa); }
+
+bool WeekdayRange::HasStart() const
+{
+  return GetStart() != EWeekday::None;
+}
+
+bool WeekdayRange::HasEnd() const
+{
+  return GetEnd() != EWeekday::None;;
+}
+
+bool WeekdayRange::IsEmpty() const
+{
+  return GetStart() == EWeekday::None && GetEnd() == EWeekday::None;
+}
+
+WeekdayRange::EWeekday WeekdayRange::GetStart() const
+{
+  return m_start;
+}
+
+WeekdayRange::EWeekday WeekdayRange::GetEnd() const
+{
+  return m_end;
+}
+
+size_t WeekdayRange::GetDaysCount() const
+{
+  if (IsEmpty())
+    return 0;
+  return m_start - m_end + 1;
+}
+
+void WeekdayRange::SetStart(EWeekday const & wday)
+{
+  m_start = wday;
+}
+
+void WeekdayRange::SetEnd(EWeekday const & wday)
+{
+  m_end = wday;
+}
+
+int32_t WeekdayRange::GetOffset() const
+{
+  return m_offset;
+}
+
+void WeekdayRange::SetOffset(int32_t const offset)
+{
+  m_offset = offset;
+}
+
+bool WeekdayRange::HasNth() const
+{
+  return !m_nths.empty();
+}
+
+WeekdayRange::TNths const & WeekdayRange::GetNths() const
+{
+  return m_nths;
+}
+
+void WeekdayRange::AddNth(NthEntry const & entry)
+{
+  m_nths.push_back(entry);
+}
+
+std::ostream & operator<<(std::ostream & ost, WeekdayRange::EWeekday const wday)
+{
+  switch(wday)
   {
-    ost << ',' << *it++;
+    case WeekdayRange::EWeekday::Su:
+      ost << "Su";
+      break;
+    case WeekdayRange::EWeekday::Mo:
+      ost << "Mo";
+      break;
+    case WeekdayRange::EWeekday::Tu:
+      ost << "Tu";
+      break;
+    case WeekdayRange::EWeekday::We:
+      ost << "We";
+      break;
+    case WeekdayRange::EWeekday::Th:
+      ost << "Th";
+      break;
+    case WeekdayRange::EWeekday::Fr:
+      ost << "Fr";
+      break;
+    case WeekdayRange::EWeekday::Sa:
+      ost << "Sa";
+      break;
+    case WeekdayRange::EWeekday::None:
+      ost << "not-a-day";
   }
   return ost;
 }
+
+std::ostream & operator<<(std::ostream & ost, WeekdayRange const & range)
+{
+  ost << range.GetStart();
+  if (range.HasEnd())
+    ost << '-' << range.GetEnd();
+  else
+  {
+    if (range.HasNth())
+    {
+      print_vector(ost, range.GetNths());
+    }
+    print_offset(ost, range.GetOffset());
+  }
+  return ost;
+}
+
+std::ostream & operator<<(std::ostream & ost, TWeekdayRanges const & ranges)
+{
+  print_vector(ost, ranges);
+  return ost;
+}
+
+
+bool Holiday::IsPlural() const
+{
+  return m_plural;
+}
+
+void Holiday::SetPlural(bool const plural)
+{
+  m_plural = plural;
+}
+
+int32_t Holiday::GetOffset() const
+{
+  return m_offset;
+}
+
+void Holiday::SetOffset(int32_t const offset)
+{
+  m_offset = offset;
+}
+
+std::ostream & operator<<(std::ostream & ost, Holiday const & holiday)
+{
+  if (holiday.IsPlural())
+    ost << "PH";
+  else
+  {
+    ost << "SH";
+    print_offset(ost, holiday.GetOffset());
+  }
+  return ost;
+}
+
+std::ostream & operator<<(std::ostream & ost, THolidays const & holidays)
+{
+  print_vector(ost, holidays);
+  return ost;
+}
+
+
+bool Weekdays::HasWeekday() const
+{
+  return !GetWeekdayRanges().empty();
+}
+
+bool Weekdays::HasHolidays() const
+{
+  return !GetHolidays().empty();
+}
+
+TWeekdayRanges const & Weekdays::GetWeekdayRanges() const
+{
+  return m_weekdayRanges;
+}
+
+THolidays const & Weekdays::GetHolidays() const
+{
+  return m_holidays;
+}
+
+void Weekdays::SetWeekdayRanges(TWeekdayRanges const ranges)
+{
+  m_weekdayRanges = ranges;
+}
+
+void Weekdays::SetHolidays(THolidays const & holidays)
+{
+  m_holidays = holidays;
+}
+
+void Weekdays::AddWeekdayRange(WeekdayRange const range)
+{
+  m_weekdayRanges.push_back(range);
+}
+
+void Weekdays::AddHoliday(Holiday const & holiday)
+{
+  m_holidays.push_back(holiday);
+}
+
+std::ostream & operator<<(std::ostream & ost, Weekdays const & weekday)
+{
+  ost << weekday.GetHolidays();
+  if (weekday.HasWeekday() && weekday.HasHolidays())
+    ost << ',';
+  ost << weekday.GetWeekdayRanges();
+  return ost;
+}
+
+std::ostream & operator<<(std::ostream & ost, TWeekdayss const & weekdays)
+{
+  print_vector(ost, weekdays);
+  return ost;
+}
+
+
 
 // std::ostream & operator << (std::ostream & s, Weekday const & w)
 // {
