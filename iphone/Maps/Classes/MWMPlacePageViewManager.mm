@@ -188,14 +188,14 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 {
   m2::PointD const & destination = m_userMark->GetUserMark()->GetOrg();
   m2::PointD const myPosition (ToMercator([MapsAppDelegate theApp].m_locationManager.lastLocation.coordinate));
-  [self.delegate buildRouteFrom:{myPosition} to:{destination, self.placePage.basePlacePageView.titleLabel.text}];
+  [self.delegate buildRouteFrom:MWMRoutePoint(myPosition) to:{destination, self.placePage.basePlacePageView.titleLabel.text}];
 }
 
 - (void)routeFrom
 {
   UserMark const * m = m_userMark->GetUserMark();
   if (m->GetMarkType() == UserMark::Type::MY_POSITION)
-    [self.delegate buildRouteFrom:{m->GetOrg()}];
+    [self.delegate buildRouteFrom:MWMRoutePoint(m->GetOrg())];
   else
     [self.delegate buildRouteFrom:{m->GetOrg(), self.placePage.basePlacePageView.titleLabel.text}];
 }
@@ -204,7 +204,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 {
   UserMark const * m = m_userMark->GetUserMark();
   if (m->GetMarkType() == UserMark::Type::MY_POSITION)
-    [self.delegate buildRouteTo:{m->GetOrg()}];
+    [self.delegate buildRouteTo:MWMRoutePoint(m->GetOrg())];
   else
     [self.delegate buildRouteTo:{m->GetOrg(), self.placePage.basePlacePageView.titleLabel.text}];
 }

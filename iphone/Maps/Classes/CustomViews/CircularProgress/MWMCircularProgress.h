@@ -13,11 +13,12 @@
 @property (nonatomic) CGFloat progress;
 @property (nonatomic) BOOL failed;
 @property (nonatomic) BOOL selected;
+@property (weak, nonatomic) id <MWMCircularProgressDelegate> delegate;
 
 - (void)setImage:(nullable UIImage *)image forState:(UIControlState)state;
 
 - (nonnull instancetype)init __attribute__((unavailable("init is not available")));
-- (nonnull instancetype)initWithParentView:(nonnull UIView *)parentView delegate:(nonnull id <MWMCircularProgressDelegate>)delegate;
+- (nonnull instancetype)initWithParentView:(nonnull UIView *)parentView;
 - (void)reset;
 - (void)startSpinner;
 - (void)stopSpinner;

@@ -6,7 +6,7 @@ typedef struct MWMRoutePoint
 
   MWMRoutePoint(m2::PointD const & p, NSString * n) : point(p), name(n), isMyPosition(false) {};
 
-  MWMRoutePoint(m2::PointD const & p) : point(p), name(L(@"my_position")), isMyPosition(true) {};
+  explicit MWMRoutePoint(m2::PointD const & p) : point(p), name(L(@"my_position")), isMyPosition(true) {};
 
   bool operator ==(MWMRoutePoint const & p) const
   {

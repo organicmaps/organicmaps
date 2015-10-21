@@ -26,6 +26,11 @@
   return [MWMFacebookAlert alert];
 }
 
++ (MWMAlert *)point2PointAlertWithOkBlock:(RightButtonAction)block
+{
+  return [MWMDefaultAlert point2PointAlertWithOkBlock:block];
+}
+
 + (MWMAlert *)routingDisclaimerAlertWithInitialOrientation:(UIInterfaceOrientation)orientation
 {
   return [MWMRoutingDisclaimerAlert alertWithInitialOrientation:orientation];

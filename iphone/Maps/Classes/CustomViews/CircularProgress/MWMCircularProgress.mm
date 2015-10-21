@@ -5,23 +5,19 @@
 
 @property (nonatomic) IBOutlet MWMCircularProgressView * rootView;
 @property (nonatomic) IBOutlet UIButton * button;
-
 @property (nonatomic) NSNumber * nextProgressToAnimate;
-
-@property (weak, nonatomic) id <MWMCircularProgressDelegate> delegate;
 
 @end
 
 @implementation MWMCircularProgress
 
-- (nonnull instancetype)initWithParentView:(nonnull UIView *)parentView delegate:(nonnull id <MWMCircularProgressDelegate>)delegate
+- (nonnull instancetype)initWithParentView:(nonnull UIView *)parentView
 {
   self = [super init];
   if (self)
   {
     [[NSBundle mainBundle] loadNibNamed:self.class.className owner:self options:nil];
     [parentView addSubview:self.rootView];
-    self.delegate = delegate;
     [self reset];
   }
   return self;

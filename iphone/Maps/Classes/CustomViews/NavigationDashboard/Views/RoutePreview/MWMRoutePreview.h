@@ -11,10 +11,13 @@
 @class MWMNavigationDashboardEntity;
 @class MWMRouteTypeButton;
 @class MWMNavigationDashboardManager;
+@class MWMCircularProgress;
 
 @interface MWMRoutePreview : MWMNavigationView
 
 @property (weak, nonatomic, readonly) IBOutlet UIButton * extendButton;
+@property (nonatomic, readonly) MWMCircularProgress * pedestrianProgressView;
+@property (nonatomic, readonly) MWMCircularProgress * vehicleProgressView;
 @property (weak, nonatomic) id<MWMRoutePreviewDataSource> dataSource;
 @property (weak, nonatomic) MWMNavigationDashboardManager * dashboardManager;
 
@@ -23,7 +26,6 @@
 - (void)statePlanning;
 - (void)stateError;
 - (void)stateReady;
-- (void)setRouteBuildingProgress:(CGFloat)progress;
 - (void)reloadData;
 
 @end

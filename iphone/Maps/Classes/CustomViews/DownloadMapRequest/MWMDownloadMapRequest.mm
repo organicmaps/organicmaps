@@ -37,7 +37,8 @@
   {
     [[NSBundle mainBundle] loadNibNamed:self.class.className owner:self options:nil];
     [parentView addSubview:self.rootView];
-    self.progressView = [[MWMCircularProgress alloc] initWithParentView:self.progressViewWrapper delegate:self];
+    self.progressView = [[MWMCircularProgress alloc] initWithParentView:self.progressViewWrapper];
+    self.progressView.delegate = self;
     self.delegate = delegate;
     [self showRequest];
   }

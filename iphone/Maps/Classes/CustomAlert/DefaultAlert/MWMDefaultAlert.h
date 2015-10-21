@@ -13,5 +13,6 @@
 + (instancetype)noWiFiAlertWithName:(NSString *)name downloadBlock:(RightButtonAction)block;
 + (instancetype)noConnectionAlert;
 + (instancetype)locationServiceNotSupportedAlert;
++ (instancetype)point2PointAlertWithOkBlock:(RightButtonAction)block;
 
 @end

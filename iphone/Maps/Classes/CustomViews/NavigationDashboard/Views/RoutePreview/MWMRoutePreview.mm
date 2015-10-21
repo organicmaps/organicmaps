@@ -15,7 +15,7 @@ static NSDictionary * const kEtaAttributes = @{NSForegroundColorAttributeName : 
 static CGFloat const kBottomPanelHeight = 48.;
 static CGFloat const kAdditionalHeight = 20.;
 
-@interface MWMRoutePreview () <MWMRoutePointCellDelegate, MWMCircularProgressDelegate>
+@interface MWMRoutePreview () <MWMRoutePointCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView * pedestrian;
 @property (weak, nonatomic) IBOutlet UIView * vehicle;
@@ -35,8 +35,8 @@ static CGFloat const kAdditionalHeight = 20.;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * statusBoxHeight;
 @property (nonatomic) UIImageView * movingCellImage;
 
-@property (nonatomic) MWMCircularProgress * pedestrianProgressView;
-@property (nonatomic) MWMCircularProgress * vehicleProgressView;
+@property (nonatomic, readwrite) MWMCircularProgress * pedestrianProgressView;
+@property (nonatomic, readwrite) MWMCircularProgress * vehicleProgressView;
 
 @end
 
@@ -51,14 +51,14 @@ static CGFloat const kAdditionalHeight = 20.;
   [self.collectionView registerNib:[UINib nibWithNibName:[MWMRoutePointCell className] bundle:nil]
         forCellWithReuseIdentifier:[MWMRoutePointCell className]];
 
-  self.pedestrianProgressView = [[MWMCircularProgress alloc] initWithParentView:self.pedestrian delegate:self];
-  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_drive_off"] forState:UIControlStateNormal];
-  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_drive_press"] forState:UIControlStateHighlighted];
-  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_drive_on"] forState:UIControlStateSelected];
-  self.vehicleProgressView = [[MWMCircularProgress alloc] initWithParentView:self.vehicle delegate:self];
-  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_walk_off"] forState:UIControlStateNormal];
-  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_walk_press"] forState:UIControlStateHighlighted];
-  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_walk_on"] forState:UIControlStateSelected];
+  self.pedestrianProgressView = [[MWMCircularProgress alloc] initWithParentView:self.pedestrian];
+  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk_off"] forState:UIControlStateNormal];
+  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk_press"] forState:UIControlStateHighlighted];
+  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk_on"] forState:UIControlStateSelected];
+  self.vehicleProgressView = [[MWMCircularProgress alloc] initWithParentView:self.vehicle];
+  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive_off"] forState:UIControlStateNormal];
+  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive_press"] forState:UIControlStateHighlighted];
+  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive_on"] forState:UIControlStateSelected];
 }
 
 - (void)didMoveToSuperview
@@ -187,12 +187,6 @@ static CGFloat const kAdditionalHeight = 20.;
     [self.delegate routePreviewDidChangeFrame:self.frame];
 }
 
-#pragma mark - MWMCircularProgressDelegate
-
-- (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
-{
-}
-
 #pragma mark - Properties
 
 - (CGRect)defaultFrame
@@ -208,8 +202,6 @@ static CGFloat const kAdditionalHeight = 20.;
 {
   return self.planningRouteViewHeight.constant + kBottomPanelHeight + kAdditionalHeight;
 }
-
-- (void)setRouteBuildingProgress:(CGFloat)progress { }
 
 - (IBAction)extendTap
 {

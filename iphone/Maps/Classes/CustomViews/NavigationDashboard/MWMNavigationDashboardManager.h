@@ -19,7 +19,7 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
 
 - (void)buildRoute;
 - (BOOL)isPossibleToBuildRoute;
-- (void)didStartFollowing;
+- (BOOL)didStartFollowing;
 - (void)didCancelRouting;
 - (void)updateStatusBarStyle;
 - (void)didStartEditingRoutePoint:(BOOL)isSource;

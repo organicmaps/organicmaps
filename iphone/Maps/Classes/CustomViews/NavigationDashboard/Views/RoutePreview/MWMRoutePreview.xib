@@ -191,17 +191,11 @@
                                     <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
                                     <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <connections>
-                                        <action selector="routePreviewChange:" destination="-1" eventType="touchUpInside" id="OZw-Td-RZg"/>
-                                    </connections>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6D3-QF-6wm">
                                     <rect key="frame" x="48" y="0.0" width="48" height="48"/>
                                     <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <connections>
-                                        <action selector="routePreviewChange:" destination="-1" eventType="touchUpInside" id="rGh-pI-yHL"/>
-                                    </connections>
                                 </view>
                             </subviews>
                             <animations/>

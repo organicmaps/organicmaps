@@ -85,31 +85,15 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sXu-tl-a0m" userLabel="Buttons Box">
                             <rect key="frame" x="100" y="0.0" width="120" height="48"/>
                             <subviews>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jDl-pu-eov" customClass="MWMRouteTypeButton">
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jDl-pu-eov">
                                     <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
                                     <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="icon" value="ic_drive_off"/>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="highlightedIcon" value="ic_type_drive_off_press"/>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="selectedIcon" value="ic_drive_on"/>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="routePreviewChange:" destination="-1" eventType="touchUpInside" id="855-IB-Ziq"/>
-                                    </connections>
                                 </view>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VhE-hA-Leo" customClass="MWMRouteTypeButton">
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VhE-hA-Leo">
                                     <rect key="frame" x="72" y="0.0" width="48" height="48"/>
                                     <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="icon" value="ic_walk_off"/>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="highlightedIcon" value="ic_type_walk_off_press"/>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="selectedIcon" value="ic_walk_on"/>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="routePreviewChange:" destination="-1" eventType="touchUpInside" id="ul6-f7-l9I"/>
-                                    </connections>
                                 </view>
                             </subviews>
                             <animations/>
@@ -350,12 +334,6 @@
     </objects>
     <resources>
         <image name="ic_checkmark" width="24" height="24"/>
-        <image name="ic_drive_off" width="40" height="40"/>
-        <image name="ic_drive_on" width="40" height="40"/>
         <image name="ic_nav_bar_back" width="44" height="44"/>
-        <image name="ic_type_drive_off_press" width="40" height="40"/>
-        <image name="ic_type_walk_off_press" width="41" height="40"/>
-        <image name="ic_walk_off" width="41" height="40"/>
-        <image name="ic_walk_on" width="41" height="40"/>
     </resources>
 </document>

@@ -1,6 +1,7 @@
 #import "Common.h"
 #import "Macros.h"
 #import "MapsAppDelegate.h"
+#import "MWMCircularProgress.h"
 #import "MWMLanesPanel.h"
 #import "MWMNavigationDashboard.h"
 #import "MWMNavigationDashboardEntity.h"
@@ -11,7 +12,7 @@
 #import "MWMTextToSpeech.h"
 #import "MWMRouteTypeButton.h"
 
-@interface MWMNavigationDashboardManager ()
+@interface MWMNavigationDashboardManager () <MWMCircularProgressDelegate>
 
 @property (nonatomic) IBOutlet MWMRoutePreview * iPhoneRoutePreview;
 @property (nonatomic) IBOutlet MWMRoutePreview * iPadRoutePreview;
@@ -20,7 +21,7 @@
 @property (nonatomic) IBOutlet MWMNavigationDashboard * navigationDashboardLandscape;
 @property (nonatomic) IBOutlet MWMNavigationDashboard * navigationDashboardPortrait;
 @property (weak, nonatomic) MWMNavigationDashboard * navigationDashboard;
-@property (weak, nonatomic) MWMRouteTypeButton * activeRouteTypeButton;
+@property (weak, nonatomic) MWMCircularProgress * activeRouteTypeButton;
 
 @property (weak, nonatomic) UIView * ownerView;
 
@@ -43,7 +44,6 @@
     self.ownerView = view;
     _delegate = delegate;
     BOOL const isPortrait = self.ownerView.width < self.ownerView.height;
-
     if (IPAD)
     {
       [NSBundle.mainBundle loadNibNamed:@"MWMiPadRoutePreview" owner:self options:nil];
@@ -56,6 +56,7 @@
     }
 
     self.routePreview.dashboardManager = self;
+    self.routePreview.pedestrianProgressView.delegate = self.routePreview.vehicleProgressView.delegate = self;
     self.routePreview.delegate = delegate;
     self.routePreview.dataSource = delegate;
     if (IPAD)
@@ -220,47 +221,46 @@
   panel.hidden = YES;
 }
 
-#pragma mark - MWMRoutePreview
+#pragma mark - MWMCircularProgressDelegate
 
-- (IBAction)routePreviewChange:(MWMRouteTypeButton *)sender
+- (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
 {
-//  if (sender.selected)
-//    return;
-//  sender.selected = YES;
-//  self.activeRouteTypeButton = sender;
-//  auto & f = GetFramework();
-//  routing::RouterType type;
-//  if ([sender isEqual:self.routePreview.pedestrian])
-//  {
-//    self.routePreview.vehicle.selected = NO;
-//    type = routing::RouterType::Pedestrian;
-//  }
-//  else
-//  {
-//    self.routePreview.pedestrian.selected = NO;
-//    type = routing::RouterType::Vehicle;
-//  }
-//  f.CloseRouting();
-//  f.SetRouter(type);
-//  f.SetLastUsedRouter(type);
-//  if (!self.delegate.isPossibleToBuildRoute)
-//    return;
-//  [sender startAnimating];
-//  [self.delegate buildRoute];
-}
-
-- (void)setRouteBuildingProgress:(CGFloat)progress
-{
-  if (progress < 6)
+  if (progress.selected)
+    return;
+  progress.selected = YES;
+  self.activeRouteTypeButton = progress;
+  auto & f = GetFramework();
+  routing::RouterType type;
+  if ([progress isEqual:self.routePreview.pedestrianProgressView])
   {
-    [self.activeRouteTypeButton startAnimating];
+    self.routePreview.vehicleProgressView.selected = NO;
+    type = routing::RouterType::Pedestrian;
   }
   else
   {
-    if (self.activeRouteTypeButton.isAnimating)
-      [self.activeRouteTypeButton stopAnimating];
-    [self.routePreview setRouteBuildingProgress:progress];
+    self.routePreview.pedestrianProgressView.selected = NO;
+    type = routing::RouterType::Vehicle;
   }
+  f.CloseRouting();
+  f.SetRouter(type);
+  f.SetLastUsedRouter(type);
+  if (!self.delegate.isPossibleToBuildRoute)
+    return;
+  [progress startSpinner];
+  [self.delegate buildRoute];
+}
+
+#pragma mark - MWMRoutePreview
+
+- (void)setRouteBuildingProgress:(CGFloat)progress
+{
+  dispatch_async(dispatch_get_main_queue(), ^
+  {
+    if (progress < 5.)
+      [self.activeRouteTypeButton startSpinner];
+    else
+      [self.activeRouteTypeButton setProgress:progress / 100.];
+  });
 }
 
 #pragma mark - MWMNavigationDashboard
@@ -280,8 +280,8 @@
 
 - (IBAction)navigationGoPressed:(UIButton *)sender
 {
-  self.state = MWMNavigationDashboardStateNavigation;
-  [self.delegate didStartFollowing];
+  if ([self.delegate didStartFollowing])
+    self.state = MWMNavigationDashboardStateNavigation;
 }
 
 #pragma mark - State changes
@@ -324,19 +324,19 @@
 
 - (void)setupActualRoute
 {
-//  switch (GetFramework().GetRouter())
-//  {
-//  case routing::RouterType::Pedestrian:
-//    self.routePreview.pedestrian.selected = YES;
-//    self.routePreview.vehicle.selected = NO;
-//    self.activeRouteTypeButton = self.routePreview.pedestrian;
-//    break;
-//  case routing::RouterType::Vehicle:
-//    self.routePreview.vehicle.selected = YES;
-//    self.routePreview.pedestrian.selected = NO;
-//    self.activeRouteTypeButton = self.routePreview.vehicle;
-//    break;
-//  }
+  switch (GetFramework().GetRouter())
+  {
+  case routing::RouterType::Pedestrian:
+    self.routePreview.pedestrianProgressView.selected = YES;
+    self.routePreview.vehicleProgressView.selected = NO;
+    self.activeRouteTypeButton = self.routePreview.pedestrianProgressView;
+    break;
+  case routing::RouterType::Vehicle:
+    self.routePreview.vehicleProgressView.selected = YES;
+    self.routePreview.pedestrianProgressView.selected = NO;
+    self.activeRouteTypeButton = self.routePreview.vehicleProgressView;
+    break;
+  }
 }
 
 #pragma mark - Properties

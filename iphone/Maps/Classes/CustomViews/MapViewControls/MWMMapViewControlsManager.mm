@@ -58,7 +58,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.hidden = NO;
   self.zoomHidden = NO;
   self.menuState = MWMBottomMenuStateInactive;
-  self.routeSource = {ToMercator(MapsAppDelegate.theApp.m_locationManager.lastLocation.coordinate)};
+  self.routeSource = MWMRoutePoint(ToMercator(MapsAppDelegate.theApp.m_locationManager.lastLocation.coordinate));
   self.routeDestination = MWMRoutePoint::MWMRoutePointZero();
   return self;
 }
@@ -315,13 +315,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.navigationManager.state = MWMNavigationDashboardStatePlanning;
   [self.menuController setPlanning];
   GetFramework().BuildRoute(self.routeSource.point, self.routeDestination.point, 0 /* timeoutSec */);
-  // This hack is needed to instantly show initial progress.
-  // Because user may think that nothing happens when he is building a route.
-  dispatch_async(dispatch_get_main_queue(), ^
-  {
-    CGFloat const initialRoutingProgress = 5.;
-    [self setRouteBuildingProgress:initialRoutingProgress];
-  });
+  [self.navigationManager setRouteBuildingProgress:0.];
 }
 
 - (BOOL)isPossibleToBuildRoute
@@ -338,13 +332,26 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.placePageManager setTopBound:topBound];
 }
 
-- (void)didStartFollowing
+- (BOOL)didStartFollowing
 {
+  if (!self.routeSource.isMyPosition)
+  {
+    MWMAlertViewController * controller = [[MWMAlertViewController alloc] initWithViewController:self.ownerController];
+    [controller presentPoint2PointAlertWithOkBlock:^{
+      m2::PointD const locationPoint = ToMercator(MapsAppDelegate.theApp.m_locationManager.lastLocation.coordinate);
+      self.routeSource = MWMRoutePoint(locationPoint);
+      [self.navigationManager.routePreview reloadData];
+      [self buildRoute];
+    }];
+    return NO;
+  }
   self.hidden = NO;
   self.zoomHidden = NO;
   GetFramework().FollowRoute();
   self.disableStandbyOnRouteFollowing = YES;
+  [self.menuController setStreetName:@""];
   [RouteState save];
+  return YES;
 }
 
 - (void)didCancelRouting
@@ -372,7 +379,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)resetRoutingPoint
 {
-  self.routeSource = {ToMercator(MapsAppDelegate.theApp.m_locationManager.lastLocation.coordinate)};
+  self.routeSource = MWMRoutePoint(ToMercator(MapsAppDelegate.theApp.m_locationManager.lastLocation.coordinate));
   self.routeDestination = MWMRoutePoint::MWMRoutePointZero();
 }
 
@@ -397,10 +404,10 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)routingNavigation
 {
+  if (![self didStartFollowing])
+    return;
   self.navigationManager.state = MWMNavigationDashboardStateNavigation;
   MapsAppDelegate.theApp.routingPlaneMode = MWMRoutingPlaneModeNone;
-  [self didStartFollowing];
-  [self.menuController setStreetName:@""];
 }
 
 - (void)setDisableStandbyOnRouteFollowing:(BOOL)disableStandbyOnRouteFollowing

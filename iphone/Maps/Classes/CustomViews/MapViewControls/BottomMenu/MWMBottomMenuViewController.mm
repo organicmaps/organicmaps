@@ -134,8 +134,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 - (void)setInactive
 {
   self.p2pButton.selected = NO;
-  if (IPAD)
-    return;
   self.state = MWMBottomMenuStateInactive;
 }
 
