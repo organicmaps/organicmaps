@@ -116,6 +116,7 @@
 
   BookmarkCategory const * category = GetFramework().GetBookmarkManager().GetBmCategory(bac.first);
   entity.bookmarkCategory = @(category->GetName().c_str());
+  [self.manager changeBookmarkCategory:bac];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
