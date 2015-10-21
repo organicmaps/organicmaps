@@ -1,6 +1,4 @@
-#import <Foundation/Foundation.h>
-
-#include "map/user_mark.hpp"
+#include "Framework.h"
 
 @class MWMPlacePageEntity, MWMPlacePageNavigationBar;
 @protocol MWMPlacePageViewManagerProtocol;
@@ -29,6 +27,7 @@
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator;
 - (void)reloadBookmark;
+- (void)changeBookmarkCategory:(BookmarkAndCategory)bac;
 - (void)dragPlacePage:(CGRect)frame;
 - (void)showDirectionViewWithTitle:(NSString *)title type:(NSString *)type;
 - (void)hideDirectionView;

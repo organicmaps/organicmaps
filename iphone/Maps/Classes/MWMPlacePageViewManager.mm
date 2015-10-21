@@ -15,7 +15,8 @@
 #import "MWMPlacePageViewManager.h"
 #import "MWMPlacePageViewManagerDelegate.h"
 
-#include "Framework.h"
+#include "geometry/distance_on_sphere.hpp"
+#include "platform/measurement_utils.hpp"
 
 extern NSString * const kBookmarksChangedNotification;
 
@@ -213,6 +214,13 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   [self.delegate apiBack];
 }
 
+- (void)changeBookmarkCategory:(BookmarkAndCategory)bac;
+{
+  BookmarkCategory const * category = GetFramework().GetBmCategory(bac.first);
+  Bookmark const * bookmark = category->GetBookmark(bac.second);
+  m_userMark.reset(new UserMarkCopy(bookmark, false));
+}
+
 - (void)addBookmark
 {
   Framework & f = GetFramework();
@@ -259,6 +267,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 {
   [self.entity synchronize];
   [self.placePage reloadBookmark];
+  [self updateDistance];
 }
 
 - (void)dragPlacePage:(CGRect)frame
@@ -284,14 +293,11 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   CLLocation * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
   if (!location || !m_userMark)
     return @"";
-
-  double azimut = -1;
-  double north = -1;
-  [[MapsAppDelegate theApp].m_locationManager getNorthRad:north];
   string distance;
   CLLocationCoordinate2D const coord = location.coordinate;
-  GetFramework().GetDistanceAndAzimut(m_userMark->GetUserMark()->GetOrg(), coord.latitude, coord.longitude, north,
-                                      distance, azimut);
+  ms::LatLon const target = MercatorBounds::ToLatLon(m_userMark->GetUserMark()->GetOrg());
+  MeasurementUtils::FormatDistance(ms::DistanceOnEarth(coord.latitude, coord.longitude,
+                                                       target.lat, target.lon), distance);
   return @(distance.c_str());
 }
 
