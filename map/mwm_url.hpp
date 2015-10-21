@@ -17,6 +17,7 @@ struct ApiPoint
   double m_lon;
   string m_name;
   string m_id;
+  string m_style;
 };
 
 class Uri;
