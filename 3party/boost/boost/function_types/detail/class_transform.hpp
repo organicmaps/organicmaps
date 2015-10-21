@@ -28,7 +28,6 @@ struct class_transform
 { typedef typename mpl::apply1<L,T>::type type; };
 
 
-#ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 // We can short-circuit the mechanism implemented in the primary template for 
 // the most common lambda expression and save both the "un-lambdaing" and the
 // type traits invocation (we know that T can only be a class type).
@@ -53,7 +52,6 @@ template<typename T> struct class_transform< T, add_pointer< remove_cv<_> > >
 
 template<typename T, typename U> struct class_transform< T, mpl::always<U> >
 { typedef U type; };
-#endif
 
 
 } } } // namespace ::boost::function_types::detail

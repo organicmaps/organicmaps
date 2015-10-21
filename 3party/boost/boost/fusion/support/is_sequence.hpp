@@ -32,7 +32,7 @@ namespace boost { namespace fusion
         {
             template <typename Sequence>
             struct apply
-              : is_convertible<Sequence, detail::from_sequence_convertible_type>
+              : is_convertible<Sequence, fusion::detail::from_sequence_convertible_type>
             {};
         };
 
@@ -69,7 +69,7 @@ namespace boost { namespace fusion
 
         template <typename Sequence, typename Enable = void>
         struct is_native_fusion_sequence
-          : is_convertible<Sequence, detail::from_sequence_convertible_type>
+          : is_convertible<Sequence, fusion::detail::from_sequence_convertible_type>
         {};
     }
 }}

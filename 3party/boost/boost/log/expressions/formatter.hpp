@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2014.
+ *          Copyright Andrey Semashev 2007 - 2015.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -18,7 +18,11 @@
 #include <boost/ref.hpp>
 #include <boost/move/core.hpp>
 #include <boost/move/utility.hpp>
+#if defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
 #include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/type_traits/remove_cv.hpp>
+#endif
 #include <boost/log/detail/config.hpp>
 #include <boost/log/detail/light_function.hpp>
 #include <boost/log/attributes/attribute_value_set.hpp>
@@ -144,14 +148,32 @@ public:
      */
 #if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template< typename FunT >
-    basic_formatter(FunT const& fun)
-#else
-    template< typename FunT >
-    basic_formatter(FunT const& fun, typename disable_if< move_detail::is_rv< FunT >, int >::type = 0)
-#endif
-        : m_Formatter(fun)
+    basic_formatter(FunT&& fun) : m_Formatter(boost::forward< FunT >(fun))
     {
     }
+#elif !defined(BOOST_MSVC) || BOOST_MSVC > 1400
+    template< typename FunT >
+    basic_formatter(FunT const& fun, typename disable_if_c< move_detail::is_rv< FunT >::value, int >::type = 0) : m_Formatter(fun)
+    {
+    }
+#else
+    // MSVC 8 blows up in unexpected ways if we use SFINAE to disable constructor instantiation
+    template< typename FunT >
+    basic_formatter(FunT const& fun) : m_Formatter(fun)
+    {
+    }
+    template< typename FunT >
+    basic_formatter(rv< FunT >& fun) : m_Formatter(fun)
+    {
+    }
+    template< typename FunT >
+    basic_formatter(rv< FunT > const& fun) : m_Formatter(static_cast< FunT const& >(fun))
+    {
+    }
+    basic_formatter(rv< this_type > const& that) : m_Formatter(that.m_Formatter)
+    {
+    }
+#endif
 
     /*!
      * Move assignment. The moved-from formatter is left in an unspecified state.
@@ -174,16 +196,20 @@ public:
      */
 #if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template< typename FunT >
-    basic_formatter& operator= (FunT const& fun)
+    basic_formatter& operator= (FunT&& fun)
+    {
+        this_type(boost::forward< FunT >(fun)).swap(*this);
+        return *this;
+    }
 #else
     template< typename FunT >
     typename disable_if< is_same< typename remove_cv< FunT >::type, this_type >, this_type& >::type
     operator= (FunT const& fun)
-#endif
     {
         this_type(fun).swap(*this);
         return *this;
     }
+#endif
 
     /*!
      * Formatting operator.

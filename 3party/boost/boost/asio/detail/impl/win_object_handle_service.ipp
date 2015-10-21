@@ -2,7 +2,7 @@
 // detail/impl/win_object_handle_service.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2015 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 // Copyright (c) 2011 Boris Schaeling (boris@highscore.de)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -430,8 +430,9 @@ void win_object_handle_service::wait_callback(PVOID param, BOOLEAN)
       }
     }
 
+    io_service_impl& ios = impl->owner_->io_service_;
     lock.unlock();
-    impl->owner_->io_service_.post_deferred_completions(completed_ops);
+    ios.post_deferred_completions(completed_ops);
   }
 }
 

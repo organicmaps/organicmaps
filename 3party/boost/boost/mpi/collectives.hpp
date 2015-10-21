@@ -333,6 +333,75 @@ template<typename T>
 void gather(const communicator& comm, const T* in_values, int n, int root);
 
 /**
+ *  @brief Similar to boost::mpi::gather with the difference that the number
+ *  of values to be send by non-root processes can vary.
+ *
+ *    @param comm The communicator over which the gather will occur.
+ *
+ *    @param in_values The array of values to be transmitted by each process.
+ *
+ *    @param in_size For each non-root process this specifies the size
+ *    of @p in_values.
+ *
+ *    @param out_values A pointer to storage that will be populated with
+ *    the values from each process. For non-root processes, this parameter
+ *    may be omitted. If it is still provided, however, it will be unchanged.
+ *
+ *    @param sizes A vector containing the number of elements each non-root
+ *    process will send.
+ *
+ *    @param displs A vector such that the i-th entry specifies the
+ *    displacement (relative to @p out_values) from which to take the ingoing
+ *    data at the @p root process. Overloaded versions for which @p displs is
+ *    omitted assume that the data is to be placed contiguously at the root process.
+ *
+ *    @param root The process ID number that will collect the
+ *    values. This value must be the same on all processes.
+ */
+template<typename T>
+void
+gatherv(const communicator& comm, const std::vector<T>& in_values,
+        T* out_values, const std::vector<int>& sizes, const std::vector<int>& displs,
+        int root);
+
+/**
+ * \overload
+ */
+template<typename T>
+void
+gatherv(const communicator& comm, const T* in_values, int in_size,
+        T* out_values, const std::vector<int>& sizes, const std::vector<int>& displs,
+        int root);
+
+/**
+ * \overload
+ */
+template<typename T>
+void gatherv(const communicator& comm, const std::vector<T>& in_values, int root);
+
+/**
+ * \overload
+ */
+template<typename T>
+void gatherv(const communicator& comm, const T* in_values, int in_size, int root);
+
+/**
+ * \overload
+ */
+template<typename T>
+void
+gatherv(const communicator& comm, const T* in_values, int in_size,
+        T* out_values, const std::vector<int>& sizes, int root);
+
+/**
+ * \overload
+ */
+template<typename T>
+void
+gatherv(const communicator& comm, const std::vector<T>& in_values,
+        T* out_values, const std::vector<int>& sizes, int root);
+
+/**
  *  @brief Scatter the values stored at the root to all processes
  *  within the communicator.
  *
@@ -347,7 +416,7 @@ void gather(const communicator& comm, const T* in_values, int n, int root);
  *  When the type @c T has an associated MPI data type, this routine
  *  invokes @c MPI_Scatter to scatter the values.
  *
- *    @param comm The communicator over which the gather will occur.
+ *    @param comm The communicator over which the scatter will occur.
  *
  *    @param in_values A vector or pointer to storage that will contain
  *    the values to send to each process, indexed by the process rank.
@@ -400,6 +469,71 @@ scatter(const communicator& comm, const T* in_values, T* out_values, int n,
  */
 template<typename T>
 void scatter(const communicator& comm, T* out_values, int n, int root);
+
+/**
+ *  @brief Similar to boost::mpi::scatter with the difference that the number
+ *  of values stored at the root process does not need to be a multiple of
+ *  the communicator's size.
+ *
+ *    @param comm The communicator over which the scatter will occur.
+ *
+ *    @param in_values A vector or pointer to storage that will contain
+ *    the values to send to each process, indexed by the process rank.
+ *    For non-root processes, this parameter may be omitted. If it is
+ *    still provided, however, it will be unchanged.
+ *
+ *    @param sizes A vector containing the number of elements each non-root
+ *    process will receive.
+ *
+ *    @param displs A vector such that the i-th entry specifies the
+ *    displacement (relative to @p in_values) from which to take the outgoing
+ *    data to process i. Overloaded versions for which @p displs is omitted
+ *    assume that the data is contiguous at the @p root process.
+ *
+ *    @param out_values The array of values received by each process.
+ *
+ *    @param out_size For each non-root process this will contain the size
+ *    of @p out_values.
+ *
+ *    @param root The process ID number that will scatter the
+ *    values. This value must be the same on all processes.
+ */
+template<typename T>
+void
+scatterv(const communicator& comm, const std::vector<T>& in_values,
+         const std::vector<int>& sizes, const std::vector<int>& displs,
+         T* out_values, int out_size, int root);
+
+/**
+ * \overload
+ */
+template<typename T>
+void
+scatterv(const communicator& comm, const T* in_values,
+         const std::vector<int>& sizes, const std::vector<int>& displs,
+         T* out_values, int out_size, int root);
+
+/**
+ * \overload
+ */
+template<typename T>
+void scatterv(const communicator& comm, T* out_values, int out_size, int root);
+
+/**
+ * \overload
+ */
+template<typename T>
+void
+scatterv(const communicator& comm, const T* in_values,
+         const std::vector<int>& sizes, T* out_values, int root);
+
+/**
+ * \overload
+ */
+template<typename T>
+void
+scatterv(const communicator& comm, const std::vector<T>& in_values,
+         const std::vector<int>& sizes, T* out_values, int root);
 
 /**
  *  @brief Combine the values stored by each process into a single
@@ -554,7 +688,9 @@ scan(const communicator& comm, const T* in_values, int n, T* out_values, Op op);
 #  include <boost/mpi/collectives/all_to_all.hpp>
 #  include <boost/mpi/collectives/broadcast.hpp>
 #  include <boost/mpi/collectives/gather.hpp>
+#  include <boost/mpi/collectives/gatherv.hpp>
 #  include <boost/mpi/collectives/scatter.hpp>
+#  include <boost/mpi/collectives/scatterv.hpp>
 #  include <boost/mpi/collectives/reduce.hpp>
 #  include <boost/mpi/collectives/scan.hpp>
 #endif

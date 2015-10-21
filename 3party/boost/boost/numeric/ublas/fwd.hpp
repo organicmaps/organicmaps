@@ -17,6 +17,10 @@
 
 #include <memory>
 
+#ifdef BOOST_UBLAS_CPP_GE_2011
+#include <array>
+#endif
+
 namespace boost { namespace numeric { namespace ublas {
 
     // Storage types
@@ -88,6 +92,10 @@ namespace boost { namespace numeric { namespace ublas {
 
     template<class T, class A = unbounded_array<T> >
     class vector;
+#ifdef BOOST_UBLAS_CPP_GE_2011
+    template<class T, std::size_t N, class A = std::array<T, N> >
+    class fixed_vector;
+#endif
     template<class T, std::size_t N>
     class bounded_vector;
 
@@ -125,6 +133,10 @@ namespace boost { namespace numeric { namespace ublas {
 
     template<class T, class L = row_major, class A = unbounded_array<T> >
     class matrix;
+#ifdef BOOST_UBLAS_CPP_GE_2011
+    template<class T, std::size_t M, std::size_t N, class L = row_major, class A = std::array<T, M*N> >
+    class fixed_matrix;
+#endif
     template<class T, std::size_t M, std::size_t N, class L = row_major>
     class bounded_matrix;
 

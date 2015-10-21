@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2005-2008.
+//  (C) Copyright Gennadiy Rozental 2005-2014.
 //  Distributed under the Boost Software License, Version 1.0.
-//  (See accompanying file LICENSE_1_0.txt or copy at 
+//  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -12,29 +12,32 @@
 //  Description : facilities for named function parameters support
 // ***************************************************************************
 
-#ifndef BOOST_TEST_NAMED_PARAM_022505GER
-#define BOOST_TEST_NAMED_PARAM_022505GER
+#ifndef BOOST_TEST_UTILS_NAMED_PARAM
+#define BOOST_TEST_UTILS_NAMED_PARAM
 
 // Boost
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
+#include <boost/mpl/bool.hpp>
 
 // Boost.Test
 #include <boost/test/utils/rtti.hpp>
 #include <boost/test/utils/assign_op.hpp>
 
 #include <boost/type_traits/remove_reference.hpp>
+#include <boost/type_traits/remove_cv.hpp>
+
+#include <boost/test/detail/throw_exception.hpp>
 
 #include <boost/test/detail/suppress_warnings.hpp>
 
 //____________________________________________________________________________//
 
 namespace boost {
-
 namespace nfp { // named function parameters
 
 // ************************************************************************** //
-// **************              forward declarations            ************** //
+// **************             forward declarations             ************** //
 // ************************************************************************** //
 
 template<typename T, typename unique_id,typename RefType>   struct named_parameter;
@@ -52,16 +55,17 @@ struct access_to_invalid_parameter {};
 
 //____________________________________________________________________________//
 
-inline void 
-report_access_to_invalid_parameter()
+inline void
+report_access_to_invalid_parameter(bool v)
 {
-    throw access_to_invalid_parameter();
+    if(v)
+        BOOST_TEST_IMPL_THROW( access_to_invalid_parameter() );
 }
 
 //____________________________________________________________________________//
 
 // ************************************************************************** //
-// **************                       nil                    ************** //
+// **************                      nil                     ************** //
 // ************************************************************************** //
 
 struct nil {
@@ -71,35 +75,35 @@ struct nil {
 #else
     operator T const&() const
 #endif
-    { report_access_to_invalid_parameter(); static T* v = 0; return *v; }
+    { report_access_to_invalid_parameter(true); static T* v = 0; return *v; }
 
     template<typename T>
     T any_cast() const
-    { report_access_to_invalid_parameter(); static typename remove_reference<T>::type* v = 0; return *v; }
+    { report_access_to_invalid_parameter(true); static typename remove_reference<T>::type* v = 0; return *v; }
 
     template<typename Arg1>
     nil operator()( Arg1 const& )
-    { report_access_to_invalid_parameter(); return nil(); }
+    { report_access_to_invalid_parameter(true); return nil(); }
 
     template<typename Arg1,typename Arg2>
     nil operator()( Arg1 const&, Arg2 const& )
-    { report_access_to_invalid_parameter(); return nil(); }
+    { report_access_to_invalid_parameter(true); return nil(); }
 
     template<typename Arg1,typename Arg2,typename Arg3>
     nil operator()( Arg1 const&, Arg2 const&, Arg3 const& )
-    { report_access_to_invalid_parameter(); return nil(); }
+    { report_access_to_invalid_parameter(true); return nil(); }
 
     // Visitation support
     template<typename Visitor>
-    void            apply_to( Visitor& V ) const {}
+    void            apply_to( Visitor& /*v*/ ) const {}
 
     static nil&     inst() { static nil s_inst; return s_inst; }
 private:
     nil() {}
 };
-    
+
 // ************************************************************************** //
-// **************              named_parameter_base            ************** //
+// **************             named_parameter_base             ************** //
 // ************************************************************************** //
 
 template<typename Derived>
@@ -112,11 +116,11 @@ struct named_parameter_base {
 //____________________________________________________________________________//
 
 // ************************************************************************** //
-// **************             named_parameter_combine          ************** //
+// **************            named_parameter_combine           ************** //
 // ************************************************************************** //
 
 template<typename NP, typename Rest = nil>
-struct named_parameter_combine 
+struct named_parameter_combine
 : Rest
 , named_parameter_base<named_parameter_combine<NP,Rest> > {
     typedef typename NP::ref_type  res_type;
@@ -164,10 +168,10 @@ private:
 } // namespace nfp_detail
 
 // ************************************************************************** //
-// **************                 named_parameter              ************** //
+// **************                named_parameter               ************** //
 // ************************************************************************** //
 
-template<typename T, typename unique_id,typename ReferenceType=T&>
+template<typename T, typename unique_id, typename ReferenceType=T&>
 struct named_parameter
 : nfp_detail::named_parameter_base<named_parameter<T, unique_id,ReferenceType> >
 {
@@ -177,7 +181,7 @@ struct named_parameter
     typedef unique_id       id;
 
     // Constructor
-    explicit        named_parameter( ref_type v ) 
+    explicit        named_parameter( ref_type v )
     : m_value( v )
     , m_erased( false )
     {}
@@ -216,7 +220,7 @@ private:
 //____________________________________________________________________________//
 
 // ************************************************************************** //
-// **************                    no_params                 ************** //
+// **************                   no_params                  ************** //
 // ************************************************************************** //
 
 namespace nfp_detail {
@@ -230,7 +234,7 @@ nfp_detail::no_params_type no_params( '\0' );
 //____________________________________________________________________________//
 
 // ************************************************************************** //
-// **************                     keyword                  ************** //
+// **************                    keyword                   ************** //
 // ************************************************************************** //
 
 template<typename unique_id, bool required = false>
@@ -252,7 +256,7 @@ struct keyword {
 //____________________________________________________________________________//
 
 // ************************************************************************** //
-// **************                  typed_keyword               ************** //
+// **************                 typed_keyword                ************** //
 // ************************************************************************** //
 
 template<typename T, typename unique_id, bool required = false>
@@ -281,14 +285,14 @@ struct typed_keyword<bool,unique_id,false>
 //____________________________________________________________________________//
 
 // ************************************************************************** //
-// **************                optionally_assign             ************** //
+// **************               optionally_assign              ************** //
 // ************************************************************************** //
 
 template<typename T>
 inline void
 optionally_assign( T&, nfp_detail::nil )
 {
-    nfp_detail::report_access_to_invalid_parameter();
+    nfp_detail::report_access_to_invalid_parameter(true);
 }
 
 //____________________________________________________________________________//
@@ -319,11 +323,48 @@ optionally_assign( T& target, Params const& p, Keyword k )
 
 //____________________________________________________________________________//
 
-} // namespace nfp
+// ************************************************************************** //
+// **************                is_named_params               ************** //
+// ************************************************************************** //
 
+template<typename T>
+struct is_named_params : public boost::mpl::false_ {};
+
+template<typename T, typename unique_id, typename ReferenceType>
+struct is_named_params<named_parameter<T,unique_id,ReferenceType> > : public boost::mpl::true_ {};
+
+template<typename NP, typename Rest>
+struct is_named_params<nfp_detail::named_parameter_combine<NP,Rest> > : public boost::mpl::true_ {};
+
+// ************************************************************************** //
+// **************                  param_type                  ************** //
+// ************************************************************************** //
+
+template<typename Params,typename KeywordType,typename DefaultType=void>
+struct param_type {
+    typedef DefaultType type;
+};
+
+template<typename NP,typename Rest,typename Keyword,typename DefaultType>
+struct param_type<nfp_detail::named_parameter_combine<NP,Rest>,Keyword,DefaultType> : param_type<Rest,Keyword,DefaultType> {
+};
+
+template<typename T, typename unique_id, typename ReferenceType,bool required,typename DefaultType>
+struct param_type<named_parameter<T,unique_id,ReferenceType>,keyword<unique_id,required>,DefaultType> {
+    typedef typename boost::remove_cv<T>::type type;
+};
+
+template<typename T, typename unique_id, typename ReferenceType,typename Rest,bool required,typename DefaultType>
+struct param_type<nfp_detail::named_parameter_combine<named_parameter<T,unique_id,ReferenceType>,Rest>,
+                  keyword<unique_id,required>,
+                  DefaultType> {
+    typedef typename boost::remove_cv<T>::type type;
+};
+
+} // namespace nfp
 } // namespace boost
 
 #include <boost/test/detail/enable_warnings.hpp>
 
-#endif // BOOST_TEST_NAMED_PARAM_022505GER
+#endif // BOOST_TEST_UTILS_NAMED_PARAM
 

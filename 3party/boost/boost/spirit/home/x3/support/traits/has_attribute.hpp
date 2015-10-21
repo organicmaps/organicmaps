@@ -9,10 +9,6 @@
 #if !defined(BOOST_SPIRIT_X3_HAS_ATTRIBUTE_JUN_6_2012_1714PM)
 #define BOOST_SPIRIT_X3_HAS_ATTRIBUTE_JUN_6_2012_1714PM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/spirit/home/x3/support/traits/attribute_of.hpp>
 #include <boost/spirit/home/x3/support/utility/sfinae.hpp>
 #include <boost/mpl/bool.hpp>

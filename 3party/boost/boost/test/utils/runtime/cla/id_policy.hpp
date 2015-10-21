@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2005-2008.
+//  (C) Copyright Gennadiy Rozental 2005-2014.
 //  Use, modification, and distribution are subject to the
 //  Boost Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -12,8 +12,8 @@
 //  Description : some generic identification policies definition
 // ***************************************************************************
 
-#ifndef BOOST_RT_CLA_ID_POLICY_HPP_062604GER
-#define BOOST_RT_CLA_ID_POLICY_HPP_062604GER
+#ifndef BOOST_TEST_UTILS_RUNTIME_CLA_ID_POLICY_HPP
+#define BOOST_TEST_UTILS_RUNTIME_CLA_ID_POLICY_HPP
 
 // Boost.Runtime.Parameter
 #include <boost/test/utils/runtime/config.hpp>
@@ -30,7 +30,7 @@
 
 namespace boost {
 
-namespace BOOST_RT_PARAM_NAMESPACE {
+namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE {
 
 namespace cla {
 
@@ -65,7 +65,7 @@ protected:
     explicit basic_naming_policy( rtti::id_t dyn_type )
     : identification_policy( dyn_type )
     {}
-    BOOST_RT_PARAM_UNNEEDED_VIRTUAL ~basic_naming_policy() {}
+    BOOST_TEST_UTILS_RUNTIME_PARAM_UNNEEDED_VIRTUAL ~basic_naming_policy() {}
 
     // Naming policy interface
     virtual bool    match_prefix( argv_traverser& tr ) const;
@@ -102,11 +102,11 @@ public:
     }
     virtual void    usage_info( format_stream& fs ) const
     {
-        fs << BOOST_RT_PARAM_LITERAL( '{' );
+        fs << BOOST_TEST_UTILS_RUNTIME_PARAM_LITERAL( '{' );
         m_primary.usage_info( fs );
-        fs << BOOST_RT_PARAM_LITERAL( '|' );
+        fs << BOOST_TEST_UTILS_RUNTIME_PARAM_LITERAL( '|' );
         m_secondary.usage_info( fs );
-        fs << BOOST_RT_PARAM_LITERAL( '}' );
+        fs << BOOST_TEST_UTILS_RUNTIME_PARAM_LITERAL( '}' );
     }
     virtual bool    matching( parameter const& p, argv_traverser& tr, bool primary ) const
     {
@@ -122,7 +122,7 @@ public:
     }
 
 protected:
-    BOOST_RT_PARAM_UNNEEDED_VIRTUAL ~dual_id_policy() {}
+    BOOST_TEST_UTILS_RUNTIME_PARAM_UNNEEDED_VIRTUAL ~dual_id_policy() {}
 
     // Data members
     PrimaryId       m_primary;
@@ -131,15 +131,17 @@ protected:
 
 } // namespace cla
 
-} // namespace BOOST_RT_PARAM_NAMESPACE
+} // namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE
 
 } // namespace boost
 
-#ifndef BOOST_RT_PARAM_OFFLINE
+#ifndef BOOST_TEST_UTILS_RUNTIME_PARAM_OFFLINE
 
-#  define BOOST_RT_PARAM_INLINE inline
-#  include <boost/test/utils/runtime/cla/id_policy.ipp>
+#ifndef BOOST_TEST_UTILS_RUNTIME_PARAM_INLINE
+#   define BOOST_TEST_UTILS_RUNTIME_PARAM_INLINE inline
+#endif
+#   include <boost/test/utils/runtime/cla/id_policy.ipp>
 
 #endif
 
-#endif // BOOST_RT_CLA_ID_POLICY_HPP_062604GER
+#endif // BOOST_TEST_UTILS_RUNTIME_CLA_ID_POLICY_HPP

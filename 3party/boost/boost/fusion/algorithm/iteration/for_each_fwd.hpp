@@ -20,9 +20,8 @@ namespace boost { namespace fusion
     }
 
     template <typename Sequence, typename F>
-    BOOST_FUSION_GPU_ENABLED
-    inline
-    typename
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+    inline typename
         enable_if<
             traits::is_sequence<Sequence>
           , void
@@ -30,9 +29,8 @@ namespace boost { namespace fusion
     for_each(Sequence& seq, F const& f);
 
     template <typename Sequence, typename F>
-    BOOST_FUSION_GPU_ENABLED
-    inline
-    typename
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+    inline typename
         enable_if<
             traits::is_sequence<Sequence>
           , void

@@ -11,7 +11,11 @@
 #ifndef BOOST_INTERPROCESS_MANAGED_SHARED_MEMORY_HPP
 #define BOOST_INTERPROCESS_MANAGED_SHARED_MEMORY_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -57,7 +61,7 @@ class basic_managed_shared_memory
       ,ipcdetail::shmem_open_or_create<AllocationAlgorithm>::type::ManagedOpenOrCreateUserOffset>
    , private ipcdetail::shmem_open_or_create<AllocationAlgorithm>::type
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    typedef ipcdetail::basic_managed_memory_impl
       <CharType, AllocationAlgorithm, IndexType,
       ipcdetail::shmem_open_or_create<AllocationAlgorithm>::type::ManagedOpenOrCreateUserOffset>   base_t;
@@ -75,7 +79,7 @@ class basic_managed_shared_memory
    private:
    typedef typename base_t::char_ptr_holder_t   char_ptr_holder_t;
    BOOST_MOVABLE_BUT_NOT_COPYABLE(basic_managed_shared_memory)
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public: //functions
 
@@ -193,7 +197,7 @@ class basic_managed_shared_memory
       return base_t::template shrink_to_fit
          <basic_managed_shared_memory>(shmname);
    }
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
    //!Tries to find a previous named allocation address. Returns a memory
    //!buffer and the object count. If not found returned pointer is 0.
@@ -209,8 +213,45 @@ class basic_managed_shared_memory
       }
    }
 
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
+
+#ifdef BOOST_INTERPROCESS_DOXYGEN_INVOKED
+
+//!Typedef for a default basic_managed_shared_memory
+//!of narrow characters
+typedef basic_managed_shared_memory
+   <char
+   ,rbtree_best_fit<mutex_family>
+   ,iset_index>
+managed_shared_memory;
+
+//!Typedef for a default basic_managed_shared_memory
+//!of wide characters
+typedef basic_managed_shared_memory
+   <wchar_t
+   ,rbtree_best_fit<mutex_family>
+   ,iset_index>
+wmanaged_shared_memory;
+
+//!Typedef for a default basic_managed_shared_memory
+//!of narrow characters to be placed in a fixed address
+typedef basic_managed_shared_memory
+   <char
+   ,rbtree_best_fit<mutex_family, void*>
+   ,iset_index>
+fixed_managed_shared_memory;
+
+//!Typedef for a default basic_managed_shared_memory
+//!of narrow characters to be placed in a fixed address
+typedef basic_managed_shared_memory
+   <wchar_t
+   ,rbtree_best_fit<mutex_family, void*>
+   ,iset_index>
+wfixed_managed_shared_memory;
+
+
+#endif   //#ifdef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 }  //namespace interprocess {
 }  //namespace boost {

@@ -23,6 +23,7 @@
 #include <boost/geometry/util/select_most_precise.hpp>
 
 #ifdef BOOST_GEOMETRY_DEBUG_BUFFER_WARN
+#include <iostream>
 #include <boost/geometry/io/wkt/wkt.hpp>
 #endif
 
@@ -99,14 +100,14 @@ private :
         // - generates 1 point  in between for an angle of 125 based on 3 points
         // - generates 0 points in between for an angle of 90  based on 4 points
 
-        int const n = (std::max)(static_cast<int>(
-            ceil(m_points_per_circle * angle_diff / two_pi)), 1);
+        std::size_t const n = (std::max)(static_cast<std::size_t>(
+            ceil(m_points_per_circle * angle_diff / two_pi)), std::size_t(1));
 
         PromotedType const diff = angle_diff / static_cast<PromotedType>(n);
         PromotedType a = angle1 - diff;
 
         // Walk to n - 1 to avoid generating the last point
-        for (int i = 0; i < n - 1; i++, a -= diff)
+        for (std::size_t i = 0; i < n - 1; i++, a -= diff)
         {
             Point p;
             set<0>(p, get<0>(vertex) + buffer_distance * cos(a));

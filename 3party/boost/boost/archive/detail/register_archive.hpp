@@ -28,7 +28,7 @@ struct _ptr_serialization_support
     typedef int type;
 };
 
-#ifdef __SUNPRO_CC
+#if defined(__SUNPRO_CC) && (__SUNPRO_CC < 0x5130)
 
 template<int N>
 struct counter : counter<N-1> {};

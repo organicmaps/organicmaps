@@ -24,6 +24,15 @@
 #include <boost/fusion/container/vector/vector.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/mpl/bool.hpp>
+#include <boost/preprocessor/iterate.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES) && \
+    defined(BOOST_MSVC) && (BOOST_MSVC == 1700)
+// see map_forward_ctor.hpp
+#include <boost/core/enable_if.hpp>
+#include <boost/type_traits/is_same.hpp>
+#endif
 
 #if !defined(BOOST_FUSION_DONT_USE_PREPROCESSED_FILES)
 #include <boost/fusion/container/map/detail/cpp03/preprocessed/map.hpp>
@@ -45,6 +54,8 @@
 #pragma wave option(preserve: 1)
 #endif
 
+#define FUSION_HASH #
+
 namespace boost { namespace fusion
 {
     struct void_;
@@ -65,9 +76,13 @@ namespace boost { namespace fusion
 
         typedef typename storage_type::size size;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         map()
             : data() {}
+
+        BOOST_FUSION_GPU_ENABLED
+        map(map const& rhs)
+            : data(rhs.data) {}
 
         template <typename Sequence>
         BOOST_FUSION_GPU_ENABLED
@@ -77,23 +92,51 @@ namespace boost { namespace fusion
         #include <boost/fusion/container/map/detail/cpp03/map_forward_ctor.hpp>
 
         template <typename T>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         map& operator=(T const& rhs)
         {
             data = rhs;
             return *this;
         }
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         map& operator=(map const& rhs)
         {
             data = rhs.data;
             return *this;
         }
 
-        BOOST_FUSION_GPU_ENABLED
+#if defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES)
+FUSION_HASH if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
+#endif
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES) || \
+    (defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES))
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+        map(map&& rhs)
+            : data(std::move(rhs.data)) {}
+
+        template <typename T>
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+        map& operator=(T&& rhs)
+        {
+            data = BOOST_FUSION_FWD_ELEM(T, rhs);
+            return *this;
+        }
+
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+        map& operator=(map&& rhs)
+        {
+            data = std::move(rhs.data);
+            return *this;
+        }
+#endif
+#if defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES)
+FUSION_HASH endif
+#endif
+
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         storage_type& get_data() { return data; }
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         storage_type const& get_data() const { return data; }
 
     private:
@@ -101,6 +144,8 @@ namespace boost { namespace fusion
         storage_type data;
     };
 }}
+
+#undef FUSION_HASH
 
 #if defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES)
 #pragma wave option(output: null)

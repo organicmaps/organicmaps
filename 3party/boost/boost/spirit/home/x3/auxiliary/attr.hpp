@@ -9,10 +9,6 @@
 #ifndef BOOST_SPIRIT_X3_ATTR_JUL_23_2008_0956AM
 #define BOOST_SPIRIT_X3_ATTR_JUL_23_2008_0956AM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/spirit/home/x3/core/parser.hpp>
 #include <boost/spirit/home/x3/support/unused.hpp>
 #include <boost/spirit/home/x3/support/traits/container_traits.hpp>
@@ -112,24 +108,24 @@ namespace boost { namespace spirit { namespace x3
             typename remove_reference<Value>::type>::type>
         operator()(Value&& value) const
         {
-            return {std::forward<Value>(value)};
+            return { std::forward<Value>(value) };
         }
         
         template <typename Value, std::size_t N>
         attr_parser<typename remove_cv<Value>::type[N]>
         operator()(Value (&value)[N]) const
         {
-            return {value};
+            return { value };
         }
         template <typename Value, std::size_t N>
         attr_parser<typename remove_cv<Value>::type[N]>
         operator()(Value (&&value)[N]) const
         {
-            return {value};
+            return { value };
         }
     };
 
-    attr_gen const attr = attr_gen();
+    auto const attr = attr_gen{};
 }}}
 
 #endif

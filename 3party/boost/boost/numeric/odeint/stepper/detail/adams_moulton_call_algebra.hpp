@@ -32,7 +32,7 @@ template< class Algebra , class Operations >
 struct adams_moulton_call_algebra< 1 , Algebra , Operations >
 {
     template< class StateIn , class StateOut , class DerivIn , class StepStorage , class Coefficients , class Time >
-    void operator()( Algebra &algebra , const StateIn &in , StateOut &out , const DerivIn &dxdt , const StepStorage &steps , const Coefficients &coef , Time dt ) const
+    void operator()( Algebra &algebra , const StateIn &in , StateOut &out , const DerivIn &dxdt , const StepStorage& /* steps */ , const Coefficients &coef , Time dt ) const
     {
         typedef typename Coefficients::value_type value_type;
         algebra.for_each3( out , in , dxdt , typename Operations::template scale_sum2< value_type , Time >( 1.0 , dt * coef[0] ) );

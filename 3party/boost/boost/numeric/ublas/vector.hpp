@@ -1,6 +1,7 @@
 //
 //  Copyright (c) 2000-2010
 //  Joerg Walter, Mathias Koch, David Bellot
+//  Copyright (c) 2014, Athanasios Iliopoulos
 //
 //  Distributed under the Boost Software License, Version 1.0. (See
 //  accompanying file LICENSE_1_0.txt or copy at
@@ -16,12 +17,20 @@
 #ifndef _BOOST_UBLAS_VECTOR_
 #define _BOOST_UBLAS_VECTOR_
 
+#include <boost/config.hpp>
 #include <boost/numeric/ublas/storage.hpp>
 #include <boost/numeric/ublas/vector_expression.hpp>
 #include <boost/numeric/ublas/detail/vector_assign.hpp>
 #include <boost/serialization/collection_size_type.hpp>
 #include <boost/serialization/nvp.hpp>
 
+#ifdef BOOST_UBLAS_CPP_GE_2011
+#include <array>
+#include <initializer_list>
+#if defined(BOOST_MSVC) // For std::forward in fixed_vector
+#include <utility>
+#endif
+#endif
 
 // Iterators based on ideas of Jeremy Siek
 
@@ -83,7 +92,7 @@ namespace boost { namespace numeric { namespace ublas {
 	/// \param data container of type \c A
 	/// \todo remove this definition because \c size is not used
 	    BOOST_UBLAS_INLINE
-	    vector (size_type size, const array_type &data):
+        vector (size_type /*size*/, const array_type &data):
 	        vector_container<self_type> (),
 	        data_ (data) {}
 
@@ -638,11 +647,23 @@ namespace boost { namespace numeric { namespace ublas {
 	        return find (0);
 	    }
 
+    /// \brief return an iterator on the first element of the vector
+        BOOST_UBLAS_INLINE
+        const_iterator cbegin () const {
+            return begin ();
+        }
+
 	/// \brief return an iterator after the last element of the vector
-	     BOOST_UBLAS_INLINE
-	     const_iterator end () const {
-	         return find (data_.size ());
-	     }
+        BOOST_UBLAS_INLINE
+        const_iterator end () const {
+            return find (data_.size ());
+        }
+
+    /// \brief return an iterator after the last element of the vector
+         BOOST_UBLAS_INLINE
+         const_iterator cend () const {
+             return end ();
+         }
 
 #ifndef BOOST_UBLAS_USE_INDEXED_ITERATOR
 	     class iterator:
@@ -758,12 +779,24 @@ namespace boost { namespace numeric { namespace ublas {
 	        return const_reverse_iterator (end ());
 	    }
 	
+    /// \brief Return a const reverse iterator before the first element of the reversed vector (i.e. end() of normal vector)
+        BOOST_UBLAS_INLINE
+        const_reverse_iterator crbegin () const {
+            return rbegin ();
+        }
+
 	/// \brief Return a const reverse iterator on the end of the reverse vector (i.e. first element of the normal vector) 
 	    BOOST_UBLAS_INLINE
 	    const_reverse_iterator rend () const {
 	        return const_reverse_iterator (begin ());
 	    }
 	
+    /// \brief Return a const reverse iterator on the end of the reverse vector (i.e. first element of the normal vector)
+        BOOST_UBLAS_INLINE
+        const_reverse_iterator crend () const {
+            return rend ();
+        }
+
 	/// \brief Return a const reverse iterator before the first element of the reversed vector (i.e. end() of normal vector)
 	    BOOST_UBLAS_INLINE
 	    reverse_iterator rbegin () {
@@ -792,6 +825,785 @@ namespace boost { namespace numeric { namespace ublas {
 	     array_type data_;
 	 };
 
+
+#ifdef BOOST_UBLAS_CPP_GE_2011
+     /** \brief A dense vector of values of type \c T.
+      *
+      * For a \f$n\f$-dimensional vector \f$v\f$ and \f$0\leq i < n\f$ every element \f$v_i\f$ is mapped
+      * to the \f$i\f$-th element of the container. A storage type \c A can be specified which defaults to \c std::array.
+      * Elements are constructed by \c A, which need not initialise their value.
+      *
+      * \tparam T type of the objects stored in the vector (like int, double, complex,...)
+      * \tparam A The type of the storage array of the vector. Default is \c std::array<T>.
+      */
+     template<class T, std::size_t N, class A>
+     class fixed_vector:
+         public vector_container<fixed_vector<T, N, A> > {
+
+         typedef fixed_vector<T, N, A> self_type;
+     public:
+#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+         using vector_container<self_type>::operator ();
+#endif
+
+        typedef typename A::size_type       size_type;
+        typedef typename A::difference_type difference_type;
+        typedef T value_type;
+        typedef typename type_traits<T>::const_reference const_reference;
+        typedef T &reference;
+        typedef T *pointer;
+        typedef const T *const_pointer;
+        typedef A array_type;
+        typedef const vector_reference<const self_type> const_closure_type;
+        typedef vector_reference<self_type> closure_type;
+        typedef self_type vector_temporary_type;
+        typedef dense_tag storage_category;
+
+        // Construction and destruction
+
+    /// \brief Constructor of a fixed_vector
+        BOOST_UBLAS_INLINE
+        fixed_vector ():
+            vector_container<self_type> (),
+            data_ () {}
+
+    /// \brief Constructor of a fixed_vector by copying from another container
+    /// This type uses the generic name \c array_type within the vector definition.
+    /// \param data container of type \c A
+         BOOST_UBLAS_INLINE
+         fixed_vector (const array_type &data):
+             vector_container<self_type> (),
+             data_ (data) {}
+
+    /// \brief Constructor of a fixed_vector with a unique initial value
+    /// \param init value to assign to each element of the vector
+         BOOST_UBLAS_INLINE
+         fixed_vector (const value_type &init):
+             vector_container<self_type> (),
+             data_ () {
+             data_.fill( init );
+         }
+
+    /// \brief Copy-constructor of a fixed_vector
+    /// \param v is the fixed_vector to be duplicated
+        BOOST_UBLAS_INLINE
+        fixed_vector (const fixed_vector &v):
+            vector_container<self_type> (),
+            data_ (v.data_) {}
+
+    /// \brief Copy-constructor of a vector from a vector_expression
+    /// Depending on the vector_expression, this constructor can have the cost of the computations
+    /// of the expression (trivial to say it, but take it must be taken into account in your complexity calculations).
+    /// \param ae the vector_expression which values will be duplicated into the vector
+        template<class AE>
+        BOOST_UBLAS_INLINE
+        fixed_vector (const vector_expression<AE> &ae):
+            vector_container<self_type> (),
+            data_ ( ) {
+            vector_assign<scalar_assign> (*this, ae);
+        }
+
+        /// \brief Construct a fixed_vector from a list of values
+        /// This constructor enables initialization by using any of:
+        /// fixed_vector<double, 3> v = { 1, 2, 3 } or fixed_vector<double,3> v( {1, 2, 3} ) or fixed_vector<double,3> v( 1, 2, 3 )
+#if defined(BOOST_MSVC)
+        // This may or may not work. Maybe use this for all instead only for MSVC
+        template <typename... U>
+        fixed_vector(U&&... values) :
+            vector_container<self_type> (),
+            data_{{ std::forward<U>(values)... }} {}
+#else
+        template <typename... Types>
+        fixed_vector(value_type v0, Types... vrest) :
+            vector_container<self_type> (),
+            data_{ { v0, vrest... } } {}
+#endif
+
+    // -----------------------
+    // Random Access Container
+    // -----------------------
+
+    /// \brief Return the maximum size of the data container.
+    /// Return the upper bound (maximum size) on the data container. Depending on the container, it can be bigger than the current size of the vector.
+        BOOST_UBLAS_INLINE
+        size_type max_size () const {
+            return data_.max_size ();
+        }
+
+    /// \brief Return true if the vector is empty (\c size==0)
+    /// \return \c true if empty, \c false otherwise
+        BOOST_UBLAS_INLINE
+        const bool &empty () const {
+            return data_.empty();
+        }
+
+    // ---------
+    // Accessors
+    // ---------
+
+    /// \brief Return the size of the vector
+         BOOST_UBLAS_INLINE
+         BOOST_CONSTEXPR size_type size () const{ // should have a const after C++14
+             return data_.size ();
+         }
+
+    // -----------------
+    // Storage accessors
+    // -----------------
+
+    /// \brief Return a \c const reference to the container. Useful to access data directly for specific type of container.
+         BOOST_UBLAS_INLINE
+         const array_type &data () const {
+             return data_;
+         }
+
+    /// \brief Return a reference to the container. Useful to speed-up write operations to the data in very specific case.
+         BOOST_UBLAS_INLINE
+         array_type &data () {
+             return data_;
+         }
+
+    // ---------------
+         // Element support
+    // ---------------
+
+    /// \brief Return a pointer to the element \f$i\f$
+    /// \param i index of the element
+    // XXX this semantic is not the one expected by the name of this method
+         BOOST_UBLAS_INLINE
+         pointer find_element (size_type i) {
+             return const_cast<pointer> (const_cast<const self_type&>(*this).find_element (i));
+         }
+
+    /// \brief Return a const pointer to the element \f$i\f$
+    /// \param i index of the element
+    // XXX  this semantic is not the one expected by the name of this method
+         BOOST_UBLAS_INLINE
+         const_pointer find_element (size_type i) const {
+             BOOST_UBLAS_CHECK (i < data_.size(), bad_index() ); // Since std:array doesn't check for bounds
+             return & (data () [i]);
+         }
+
+    // --------------
+         // Element access
+    // --------------
+
+    /// \brief Return a const reference to the element \f$i\f$
+    /// Return a const reference to the element \f$i\f$. With some compilers, this notation will be faster than \c[i]
+    /// \param i index of the element
+         BOOST_UBLAS_INLINE
+         const_reference operator () (size_type i) const {
+             BOOST_UBLAS_CHECK (i < data_.size(), bad_index() );
+             return data () [i];
+         }
+
+    /// \brief Return a reference to the element \f$i\f$
+    /// Return a reference to the element \f$i\f$. With some compilers, this notation will be faster than \c[i]
+    /// \param i index of the element
+         BOOST_UBLAS_INLINE
+         reference operator () (size_type i) {
+             BOOST_UBLAS_CHECK (i < data_.size(), bad_index() );
+             return data () [i];
+         }
+
+    /// \brief Return a const reference to the element \f$i\f$
+    /// \param i index of the element
+         BOOST_UBLAS_INLINE
+         const_reference operator [] (size_type i) const {
+             BOOST_UBLAS_CHECK (i < data_.size(), bad_index() );
+             return (*this) (i);
+         }
+
+    /// \brief Return a reference to the element \f$i\f$
+    /// \param i index of the element
+         BOOST_UBLAS_INLINE
+         reference operator [] (size_type i) {
+             BOOST_UBLAS_CHECK (i < data_.size(), bad_index() );
+             return (*this) (i);
+         }
+
+    // ------------------
+         // Element assignment
+    // ------------------
+
+    /// \brief Set element \f$i\f$ to the value \c t
+    /// \param i index of the element
+    /// \param t reference to the value to be set
+    // XXX semantic of this is to insert a new element and therefore size=size+1 ?
+         BOOST_UBLAS_INLINE
+         reference insert_element (size_type i, const_reference t) {
+             BOOST_UBLAS_CHECK (i < data_.size(), bad_index ());
+             return (data () [i] = t);
+         }
+
+    /// \brief Set element \f$i\f$ to the \e zero value
+    /// \param i index of the element
+         BOOST_UBLAS_INLINE
+         void erase_element (size_type i) {
+             BOOST_UBLAS_CHECK (i < data_.size(), bad_index ());
+             data () [i] = value_type/*zero*/();
+         }
+
+    // -------
+         // Zeroing
+    // -------
+
+    /// \brief Clear the vector, i.e. set all values to the \c zero value.
+         BOOST_UBLAS_INLINE
+         void clear () {
+             std::fill (data ().begin (), data ().end (), value_type/*zero*/());
+         }
+
+         // Assignment
+#ifdef BOOST_UBLAS_MOVE_SEMANTICS
+
+    /// \brief Assign a full fixed_vector (\e RHS-vector) to the current fixed_vector (\e LHS-vector)
+    /// \param v is the source vector
+    /// \return a reference to a fixed_vector (i.e. the destination vector)
+         /*! @note "pass by value" the key idea to enable move semantics */
+         BOOST_UBLAS_INLINE
+         fixed_vector &operator = (fixed_vector v) {
+             assign_temporary(v);
+             return *this;
+         }
+#else
+    /// \brief Assign a full fixed_vector (\e RHS-vector) to the current fixed_vector (\e LHS-vector)
+    /// \param v is the source fixed_vector
+    /// \return a reference to a fixed_vector (i.e. the destination vector)
+         BOOST_UBLAS_INLINE
+         fixed_vector &operator = (const fixed_vector &v) {
+             data () = v.data ();
+             return *this;
+         }
+#endif
+
+    /// \brief Assign a full vector (\e RHS-vector) to the current fixed_vector (\e LHS-vector)
+    /// Assign a full vector (\e RHS-vector) to the current fixed_vector (\e LHS-vector). This method does not create any temporary.
+    /// \param v is the source vector container
+    /// \return a reference to a vector (i.e. the destination vector)
+         template<class C>          // Container assignment without temporary
+         BOOST_UBLAS_INLINE
+         fixed_vector &operator = (const vector_container<C> &v) {
+             assign (v);
+             return *this;
+         }
+
+    /// \brief Assign a full fixed_vector (\e RHS-vector) to the current fixed_vector (\e LHS-vector)
+    /// \param v is the source fixed_vector
+    /// \return a reference to a fixed_vector (i.e. the destination fixed_vector)
+         BOOST_UBLAS_INLINE
+         fixed_vector &assign_temporary (fixed_vector &v) {
+             swap ( v );
+             return *this;
+         }
+
+    /// \brief Assign the result of a vector_expression to the fixed_vector
+    /// Assign the result of a vector_expression to the vector. This is lazy-compiled and will be optimized out by the compiler on any type of expression.
+    /// \tparam AE is the type of the vector_expression
+    /// \param ae is a const reference to the vector_expression
+    /// \return a reference to the resulting fixed_vector
+         template<class AE>
+         BOOST_UBLAS_INLINE
+         fixed_vector &operator = (const vector_expression<AE> &ae) {
+             self_type temporary (ae);
+             return assign_temporary (temporary);
+         }
+
+    /// \brief Assign the result of a vector_expression to the fixed_vector
+    /// Assign the result of a vector_expression to the vector. This is lazy-compiled and will be optimized out by the compiler on any type of expression.
+    /// \tparam AE is the type of the vector_expression
+    /// \param ae is a const reference to the vector_expression
+    /// \return a reference to the resulting fixed_vector
+         template<class AE>
+         BOOST_UBLAS_INLINE
+         fixed_vector &assign (const vector_expression<AE> &ae) {
+             vector_assign<scalar_assign> (*this, ae);
+             return *this;
+         }
+
+    // -------------------
+         // Computed assignment
+    // -------------------
+
+    /// \brief Assign the sum of the fixed_vector and a vector_expression to the fixed_vector
+    /// Assign the sum of the fixed_vector and a vector_expression to the fixed_vector. This is lazy-compiled and will be optimized out by the compiler on any type of expression.
+    /// A temporary is created for the computations.
+    /// \tparam AE is the type of the vector_expression
+    /// \param ae is a const reference to the vector_expression
+    /// \return a reference to the resulting fixed_vector
+         template<class AE>
+         BOOST_UBLAS_INLINE
+         fixed_vector &operator += (const vector_expression<AE> &ae) {
+             self_type temporary (*this + ae);
+             return assign_temporary (temporary);
+         }
+
+    /// \brief Assign the sum of the fixed_vector and a vector_expression to the fixed_vector
+    /// Assign the sum of the fixed_vector and a vector_expression to the fixed_vector. This is lazy-compiled and will be optimized out by the compiler on any type of expression.
+    /// No temporary is created. Computations are done and stored directly into the resulting vector.
+    /// \tparam AE is the type of the vector_expression
+    /// \param ae is a const reference to the vector_expression
+    /// \return a reference to the resulting vector
+         template<class C>          // Container assignment without temporary
+         BOOST_UBLAS_INLINE
+         fixed_vector &operator += (const vector_container<C> &v) {
+             plus_assign (v);
+             return *this;
+         }
+
+    /// \brief Assign the sum of the fixed_vector and a vector_expression to the fixed_vector
+    /// Assign the sum of the fixed_vector and a vector_expression to the fixed_vector. This is lazy-compiled and will be optimized out by the compiler on any type of expression.
+    /// No temporary is created. Computations are done and stored directly into the resulting fixed_vector.
+    /// \tparam AE is the type of the vector_expression
+    /// \param ae is a const reference to the vector_expression
+    /// \return a reference to the resulting vector
+         template<class AE>
+         BOOST_UBLAS_INLINE
+         fixed_vector &plus_assign (const vector_expression<AE> &ae) {
+             vector_assign<scalar_plus_assign> (*this, ae);
+             return *this;
+         }
+
+    /// \brief Assign the difference of the fixed_vector and a vector_expression to the fixed_vector
+    /// Assign the difference of the fixed_vector and a vector_expression to the fixed_vector. This is lazy-compiled and will be optimized out by the compiler on any type of expression.
+    /// A temporary is created for the computations.
+    /// \tparam AE is the type of the vector_expression
+    /// \param ae is a const reference to the vector_expression
+         template<class AE>
+         BOOST_UBLAS_INLINE
+         fixed_vector &operator -= (const vector_expression<AE> &ae) {
+             self_type temporary (*this - ae);
+             return assign_temporary (temporary);
+         }
+
+    /// \brief Assign the difference of the fixed_vector and a vector_expression to the fixed_vector
+    /// Assign the difference of the fixed_vector and a vector_expression to the fixed_vector. This is lazy-compiled and will be optimized out by the compiler on any type of expression.
+    /// No temporary is created. Computations are done and stored directly into the resulting fixed_vector.
+    /// \tparam AE is the type of the vector_expression
+    /// \param ae is a const reference to the vector_expression
+    /// \return a reference to the resulting vector
+         template<class C>          // Container assignment without temporary
+         BOOST_UBLAS_INLINE
+         fixed_vector &operator -= (const vector_container<C> &v) {
+             minus_assign (v);
+             return *this;
+         }
+
+    /// \brief Assign the difference of the fixed_vector and a vector_expression to the fixed_vector
+    /// Assign the difference of the fixed_vector and a vector_expression to the fixed_vector. This is lazy-compiled and will be optimized out by the compiler on any type of expression.
+    /// No temporary is created. Computations are done and stored directly into the resulting fixed_vector.
+    /// \tparam AE is the type of the vector_expression
+    /// \param ae is a const reference to the vector_expression
+    /// \return a reference to the resulting fixed_vector
+         template<class AE>
+         BOOST_UBLAS_INLINE
+         fixed_vector &minus_assign (const vector_expression<AE> &ae) {
+             vector_assign<scalar_minus_assign> (*this, ae);
+             return *this;
+         }
+
+    /// \brief Assign the product of the fixed_vector and a scalar to the fixed_vector
+    /// Assign the product of the fixed_vector and a scalar to the fixed_vector. This is lazy-compiled and will be optimized out by the compiler on any type of expression.
+    /// No temporary is created. Computations are done and stored directly into the resulting fixed_vector.
+    /// \tparam AE is the type of the vector_expression
+    /// \param at is a const reference to the scalar
+    /// \return a reference to the resulting fixed_vector
+         template<class AT>
+         BOOST_UBLAS_INLINE
+         fixed_vector &operator *= (const AT &at) {
+             vector_assign_scalar<scalar_multiplies_assign> (*this, at);
+             return *this;
+         }
+
+    /// \brief Assign the division of the fixed_vector by a scalar to the fixed_vector
+    /// Assign the division of the fixed_vector by a scalar to the vector. This is lazy-compiled and will be optimized out by the compiler on any type of expression.
+    /// No temporary is created. Computations are done and stored directly into the resulting vector.
+    /// \tparam AE is the type of the vector_expression
+    /// \param at is a const reference to the scalar
+    /// \return a reference to the resulting fixed_vector
+        template<class AT>
+        BOOST_UBLAS_INLINE
+        fixed_vector &operator /= (const AT &at) {
+            vector_assign_scalar<scalar_divides_assign> (*this, at);
+            return *this;
+        }
+
+    // --------
+        // Swapping
+    // --------
+
+    /// \brief Swap the content of the fixed_vector with another vector
+    /// \param v is the fixed_vector to be swapped with
+        BOOST_UBLAS_INLINE
+        void swap (fixed_vector &v) {
+            if (this != &v) {
+                data ().swap (v.data ());
+            }
+        }
+
+    /// \brief Swap the content of two fixed_vectors
+    /// \param v1 is the first fixed_vector. It takes values from v2
+    /// \param v2 is the second fixed_vector It takes values from v1
+         BOOST_UBLAS_INLINE
+         friend void swap (fixed_vector &v1, fixed_vector &v2) {
+             v1.swap (v2);
+         }
+
+         // Iterator types
+     private:
+         // Use the storage array iterator
+         typedef typename A::const_iterator const_subiterator_type;
+         typedef typename A::iterator subiterator_type;
+
+     public:
+#ifdef BOOST_UBLAS_USE_INDEXED_ITERATOR
+         typedef indexed_iterator<self_type, dense_random_access_iterator_tag> iterator;
+         typedef indexed_const_iterator<self_type, dense_random_access_iterator_tag> const_iterator;
+#else
+         class const_iterator;
+         class iterator;
+#endif
+
+    // --------------
+        // Element lookup
+    // --------------
+
+    /// \brief Return a const iterator to the element \e i
+    /// \param i index of the element
+         BOOST_UBLAS_INLINE
+         const_iterator find (size_type i) const {
+#ifndef BOOST_UBLAS_USE_INDEXED_ITERATOR
+             return const_iterator (*this, data ().begin () + i);
+#else
+             return const_iterator (*this, i);
+#endif
+         }
+
+    /// \brief Return an iterator to the element \e i
+    /// \param i index of the element
+         BOOST_UBLAS_INLINE
+         iterator find (size_type i) {
+#ifndef BOOST_UBLAS_USE_INDEXED_ITERATOR
+             return iterator (*this, data ().begin () + i);
+#else
+             return iterator (*this, i);
+#endif
+         }
+
+#ifndef BOOST_UBLAS_USE_INDEXED_ITERATOR
+         class const_iterator:
+             public container_const_reference<fixed_vector>,
+             public random_access_iterator_base<dense_random_access_iterator_tag,
+                   const_iterator, value_type, difference_type> {
+         public:
+             typedef typename fixed_vector::difference_type difference_type;
+             typedef typename fixed_vector::value_type value_type;
+             typedef typename fixed_vector::const_reference reference;
+             typedef const typename fixed_vector::pointer pointer;
+
+        // ----------------------------
+            // Construction and destruction
+        // ----------------------------
+
+
+            BOOST_UBLAS_INLINE
+            const_iterator ():
+                container_const_reference<self_type> (), it_ () {}
+            BOOST_UBLAS_INLINE
+            const_iterator (const self_type &v, const const_subiterator_type &it):
+                container_const_reference<self_type> (v), it_ (it) {}
+            BOOST_UBLAS_INLINE
+            const_iterator (const typename self_type::iterator &it):  // ISSUE vector:: stops VC8 using std::iterator here
+                container_const_reference<self_type> (it ()), it_ (it.it_) {}
+
+        // ----------
+            // Arithmetic
+        // ----------
+
+        /// \brief Increment by 1 the position of the iterator
+        /// \return a reference to the const iterator
+            BOOST_UBLAS_INLINE
+            const_iterator &operator ++ () {
+                ++ it_;
+                return *this;
+            }
+
+        /// \brief Decrement by 1 the position of the iterator
+        /// \return a reference to the const iterator
+            BOOST_UBLAS_INLINE
+            const_iterator &operator -- () {
+                -- it_;
+                return *this;
+            }
+
+        /// \brief Increment by \e n the position of the iterator
+        /// \return a reference to the const iterator
+            BOOST_UBLAS_INLINE
+            const_iterator &operator += (difference_type n) {
+                it_ += n;
+                return *this;
+            }
+
+        /// \brief Decrement by \e n the position of the iterator
+        /// \return a reference to the const iterator
+            BOOST_UBLAS_INLINE
+            const_iterator &operator -= (difference_type n) {
+                it_ -= n;
+                return *this;
+            }
+
+        /// \brief Return the different in number of positions between 2 iterators
+            BOOST_UBLAS_INLINE
+            difference_type operator - (const const_iterator &it) const {
+                BOOST_UBLAS_CHECK (&(*this) () == &it (), external_logic ());
+                return it_ - it.it_;
+            }
+
+            /// \brief Dereference an iterator
+            /// Dereference an iterator: a bounds' check is done before returning the value. A bad_index() expection is returned if out of bounds.
+        /// \return a const reference to the value pointed by the iterator
+            BOOST_UBLAS_INLINE
+            const_reference operator * () const {
+                BOOST_UBLAS_CHECK (it_ >= (*this) ().begin ().it_ && it_ < (*this) ().end ().it_, bad_index ());
+                return *it_;
+            }
+
+        /// \brief Dereference an iterator at the n-th forward value
+        /// Dereference an iterator at the n-th forward value, that is the value pointed by iterator+n.
+            /// A bounds' check is done before returning the value. A bad_index() expection is returned if out of bounds.
+        /// \return a const reference
+            BOOST_UBLAS_INLINE
+            const_reference operator [] (difference_type n) const {
+                return *(it_ + n);
+            }
+
+            // Index
+        /// \brief return the index of the element referenced by the iterator
+             BOOST_UBLAS_INLINE
+             size_type index () const {
+                 BOOST_UBLAS_CHECK (it_ >= (*this) ().begin ().it_ && it_ < (*this) ().end ().it_, bad_index ());
+                 return it_ - (*this) ().begin ().it_;
+             }
+
+             // Assignment
+             BOOST_UBLAS_INLINE
+        /// \brief assign the value of an iterator to the iterator
+             const_iterator &operator = (const const_iterator &it) {
+                 container_const_reference<self_type>::assign (&it ());
+                 it_ = it.it_;
+                 return *this;
+             }
+
+             // Comparison
+        /// \brief compare the value of two itetarors
+        /// \return true if they reference the same element
+            BOOST_UBLAS_INLINE
+            bool operator == (const const_iterator &it) const {
+                BOOST_UBLAS_CHECK (&(*this) () == &it (), external_logic ());
+                return it_ == it.it_;
+            }
+
+
+        /// \brief compare the value of two iterators
+        /// \return return true if the left-hand-side iterator refers to a value placed before the right-hand-side iterator
+             BOOST_UBLAS_INLINE
+             bool operator < (const const_iterator &it) const {
+                 BOOST_UBLAS_CHECK (&(*this) () == &it (), external_logic ());
+                 return it_ < it.it_;
+             }
+
+         private:
+             const_subiterator_type it_;
+
+             friend class iterator;
+         };
+#endif
+
+    /// \brief return an iterator on the first element of the fixed_vector
+        BOOST_UBLAS_INLINE
+        const_iterator begin () const {
+            return find (0);
+        }
+
+    /// \brief return an iterator on the first element of the fixed_vector
+        BOOST_UBLAS_INLINE
+        const_iterator cbegin () const {
+            return begin ();
+        }
+
+    /// \brief return an iterator after the last element of the fixed_vector
+         BOOST_UBLAS_INLINE
+         const_iterator end () const {
+             return find (data_.size ());
+         }
+
+    /// \brief return an iterator after the last element of the fixed_vector
+         BOOST_UBLAS_INLINE
+         const_iterator cend () const {
+             return end ();
+         }
+
+#ifndef BOOST_UBLAS_USE_INDEXED_ITERATOR
+         class iterator:
+             public container_reference<fixed_vector>,
+             public random_access_iterator_base<dense_random_access_iterator_tag,
+                                                iterator, value_type, difference_type> {
+         public:
+             typedef typename fixed_vector::difference_type difference_type;
+             typedef typename fixed_vector::value_type value_type;
+             typedef typename fixed_vector::reference reference;
+             typedef typename fixed_vector::pointer pointer;
+
+
+             // Construction and destruction
+             BOOST_UBLAS_INLINE
+             iterator ():
+                 container_reference<self_type> (), it_ () {}
+             BOOST_UBLAS_INLINE
+             iterator (self_type &v, const subiterator_type &it):
+                 container_reference<self_type> (v), it_ (it) {}
+
+             // Arithmetic
+             BOOST_UBLAS_INLINE
+             iterator &operator ++ () {
+                 ++ it_;
+                 return *this;
+             }
+             BOOST_UBLAS_INLINE
+             iterator &operator -- () {
+                 -- it_;
+                 return *this;
+             }
+             BOOST_UBLAS_INLINE
+             iterator &operator += (difference_type n) {
+                 it_ += n;
+                 return *this;
+             }
+             BOOST_UBLAS_INLINE
+             iterator &operator -= (difference_type n) {
+                 it_ -= n;
+                 return *this;
+             }
+             BOOST_UBLAS_INLINE
+             difference_type operator - (const iterator &it) const {
+                 BOOST_UBLAS_CHECK (&(*this) () == &it (), external_logic ());
+                 return it_ - it.it_;
+             }
+
+             // Dereference
+             BOOST_UBLAS_INLINE
+             reference operator * () const {
+                 BOOST_UBLAS_CHECK (it_ >= (*this) ().begin ().it_ && it_ < (*this) ().end ().it_ , bad_index ());
+                 return *it_;
+             }
+             BOOST_UBLAS_INLINE
+             reference operator [] (difference_type n) const {
+                 return *(it_ + n);
+             }
+
+             // Index
+             BOOST_UBLAS_INLINE
+             size_type index () const {
+                 BOOST_UBLAS_CHECK (it_ >= (*this) ().begin ().it_ && it_ < (*this) ().end ().it_ , bad_index ());
+                 return it_ - (*this) ().begin ().it_;
+             }
+
+             // Assignment
+             BOOST_UBLAS_INLINE
+             iterator &operator = (const iterator &it) {
+                 container_reference<self_type>::assign (&it ());
+                 it_ = it.it_;
+                 return *this;
+             }
+
+             // Comparison
+             BOOST_UBLAS_INLINE
+             bool operator == (const iterator &it) const {
+                 BOOST_UBLAS_CHECK (&(*this) () == &it (), external_logic ());
+                 return it_ == it.it_;
+             }
+             BOOST_UBLAS_INLINE
+             bool operator < (const iterator &it) const {
+                 BOOST_UBLAS_CHECK (&(*this) () == &it (), external_logic ());
+                 return it_ < it.it_;
+             }
+
+         private:
+             subiterator_type it_;
+
+             friend class const_iterator;
+         };
+#endif
+
+    /// \brief Return an iterator on the first element of the fixed_vector
+        BOOST_UBLAS_INLINE
+        iterator begin () {
+            return find (0);
+        }
+
+    /// \brief Return an iterator at the end of the fixed_vector
+        BOOST_UBLAS_INLINE
+        iterator end () {
+            return find (data_.size ());
+        }
+
+        // Reverse iterator
+        typedef reverse_iterator_base<const_iterator> const_reverse_iterator;
+        typedef reverse_iterator_base<iterator> reverse_iterator;
+
+    /// \brief Return a const reverse iterator before the first element of the reversed fixed_vector (i.e. end() of normal fixed_vector)
+        BOOST_UBLAS_INLINE
+        const_reverse_iterator rbegin () const {
+            return const_reverse_iterator (end ());
+        }
+
+    /// \brief Return a const reverse iterator before the first element of the reversed fixed_vector (i.e. end() of normal fixed_vector)
+        BOOST_UBLAS_INLINE
+        const_reverse_iterator crbegin () const {
+            return rbegin ();
+        }
+
+    /// \brief Return a const reverse iterator on the end of the reverse fixed_vector (i.e. first element of the normal fixed_vector)
+        BOOST_UBLAS_INLINE
+        const_reverse_iterator rend () const {
+            return const_reverse_iterator (begin ());
+        }
+
+    /// \brief Return a const reverse iterator on the end of the reverse fixed_vector (i.e. first element of the normal fixed_vector)
+        BOOST_UBLAS_INLINE
+        const_reverse_iterator crend () const {
+            return rend ();
+        }
+
+    /// \brief Return a const reverse iterator before the first element of the reversed fixed_vector (i.e. end() of normal fixed_vector)
+        BOOST_UBLAS_INLINE
+        reverse_iterator rbegin () {
+            return reverse_iterator (end ());
+        }
+
+    /// \brief Return a const reverse iterator on the end of the reverse fixed_vector (i.e. first element of the normal fixed_vector)
+        BOOST_UBLAS_INLINE
+        reverse_iterator rend () {
+            return reverse_iterator (begin ());
+        }
+
+    // -------------
+        // Serialization
+    // -------------
+
+    /// Serialize a fixed_vector into and archive as defined in Boost
+    /// \param ar Archive object. Can be a flat file, an XML file or any other stream
+    /// \param file_version Optional file version (not yet used)
+         template<class Archive>
+         void serialize(Archive & ar, const unsigned int /* file_version */){
+             ar & serialization::make_nvp("data",data_);
+         }
+
+     private:
+         array_type data_;
+     };
+
+#endif // BOOST_UBLAS_CPP_GE_2011
 
 	 // --------------------
 	 // Bounded vector class
@@ -867,6 +1679,7 @@ namespace boost { namespace numeric { namespace ublas {
 	 };
 
 
+
 	 // -----------------
 	 // Zero vector class
 	 // -----------------
@@ -922,7 +1735,7 @@ namespace boost { namespace numeric { namespace ublas {
 
 	     // Element support
 	     BOOST_UBLAS_INLINE
-	     const_pointer find_element (size_type i) const {
+         const_pointer find_element (size_type /*i*/) const {
 	         return & zero_;
 	     }
 
@@ -1037,10 +1850,18 @@ namespace boost { namespace numeric { namespace ublas {
 	     const_iterator begin () const {
 	         return const_iterator (*this);
 	     }
+         BOOST_UBLAS_INLINE
+         const_iterator cbegin () const {
+             return begin ();
+         }
 	     BOOST_UBLAS_INLINE
 	     const_iterator end () const {
 	         return const_iterator (*this);
 	     }
+         BOOST_UBLAS_INLINE
+         const_iterator cend () const {
+             return end ();
+         }
 
 	     // Reverse iterator
 	     typedef reverse_iterator_base<const_iterator> const_reverse_iterator;
@@ -1049,10 +1870,18 @@ namespace boost { namespace numeric { namespace ublas {
 	     const_reverse_iterator rbegin () const {
 	         return const_reverse_iterator (end ());
 	     }
+         BOOST_UBLAS_INLINE
+         const_reverse_iterator crbegin () const {
+             return rbegin ();
+         }
 	     BOOST_UBLAS_INLINE
 	     const_reverse_iterator rend () const {
 	         return const_reverse_iterator (begin ());
 	     }
+         BOOST_UBLAS_INLINE
+         const_reverse_iterator crend () const {
+             return rend ();
+         }
 
 	      // Serialization
 	     template<class Archive>
@@ -1281,10 +2110,18 @@ namespace boost { namespace numeric { namespace ublas {
 	     const_iterator begin () const {
 	         return const_iterator (*this, true);
 	     }
+         BOOST_UBLAS_INLINE
+         const_iterator cbegin () const {
+             return begin ();
+         }
 	     BOOST_UBLAS_INLINE
 	     const_iterator end () const {
 	         return const_iterator (*this, false);
 	     }
+         BOOST_UBLAS_INLINE
+         const_iterator cend () const {
+             return end ();
+         }
 
 	     // Reverse iterator
 	     typedef reverse_iterator_base<const_iterator> const_reverse_iterator;
@@ -1293,10 +2130,18 @@ namespace boost { namespace numeric { namespace ublas {
 	     const_reverse_iterator rbegin () const {
 	         return const_reverse_iterator (end ());
 	     }
+         BOOST_UBLAS_INLINE
+         const_reverse_iterator crbegin () const {
+             return rbegin ();
+         }
 	     BOOST_UBLAS_INLINE
 	     const_reverse_iterator rend () const {
 	         return const_reverse_iterator (begin ());
 	     }
+         BOOST_UBLAS_INLINE
+         const_reverse_iterator crend () const {
+             return rend ();
+         }
 
 	      // Serialization
 	     template<class Archive>
@@ -1529,10 +2374,18 @@ namespace boost { namespace numeric { namespace ublas {
 	     const_iterator begin () const {
 	         return find (0);
 	     }
+         BOOST_UBLAS_INLINE
+         const_iterator cbegin () const {
+             return begin ();
+         }
 	     BOOST_UBLAS_INLINE
 	     const_iterator end () const {
 	         return find (size_);
 	     }
+         BOOST_UBLAS_INLINE
+         const_iterator cend () const {
+             return end ();
+         }
 
 	     // Reverse iterator
 	     typedef reverse_iterator_base<const_iterator> const_reverse_iterator;
@@ -1541,10 +2394,18 @@ namespace boost { namespace numeric { namespace ublas {
 	     const_reverse_iterator rbegin () const {
 	         return const_reverse_iterator (end ());
 	     }
+         BOOST_UBLAS_INLINE
+         const_reverse_iterator crbegin () const {
+             return rbegin ();
+         }
 	     BOOST_UBLAS_INLINE
 	     const_reverse_iterator rend () const {
 	         return const_reverse_iterator (begin ());
 	     }
+         BOOST_UBLAS_INLINE
+         const_reverse_iterator crend () const {
+             return rend ();
+         }
 
 	      // Serialization
 	     template<class Archive>
@@ -1597,13 +2458,13 @@ namespace boost { namespace numeric { namespace ublas {
 	     c_vector (size_type size):
 	         size_ (size) /* , data_ () */ {
 	         if (size_ > N)
-	             bad_size ().raise ();
+                 bad_size ().raise ();
 	     }
 	     BOOST_UBLAS_INLINE
 	     c_vector (const c_vector &v):
 	         size_ (v.size_) /* , data_ () */ {
 	         if (size_ > N)
-	             bad_size ().raise ();
+                 bad_size ().raise ();
 	         assign(v);
 	     }
 	     template<class AE>
@@ -1611,7 +2472,7 @@ namespace boost { namespace numeric { namespace ublas {
 	     c_vector (const vector_expression<AE> &ae):
 	         size_ (ae ().size ()) /* , data_ () */ {
 	         if (size_ > N)
-	             bad_size ().raise ();
+                 bad_size ().raise ();
 	         vector_assign<scalar_assign> (*this, ae);
 	     }
 
@@ -1631,9 +2492,9 @@ namespace boost { namespace numeric { namespace ublas {
 
 	     // Resizing
 	     BOOST_UBLAS_INLINE
-	     void resize (size_type size, bool preserve = true) {
+         void resize (size_type size, bool /*preserve*/ = true) {
 	         if (size > N)
-	             bad_size ().raise ();
+                 bad_size ().raise ();
 	         size_ = size;
 	     }
 
@@ -1782,7 +2643,7 @@ namespace boost { namespace numeric { namespace ublas {
 	     BOOST_UBLAS_INLINE
 	     void swap (c_vector &v) {
 	         if (this != &v) {
-	             BOOST_UBLAS_CHECK (size_ == v.size_, bad_size ());
+                 BOOST_UBLAS_CHECK (size_ == v.size_, bad_size ());
 	             std::swap (size_, v.size_);
 	             std::swap_ranges (data_, data_ + size_, v.data_);
 	         }
@@ -1924,10 +2785,18 @@ namespace boost { namespace numeric { namespace ublas {
 	     const_iterator begin () const {
 	         return find (0);
 	     }
+         BOOST_UBLAS_INLINE
+         const_iterator cbegin () const {
+             return begin ();
+         }
 	     BOOST_UBLAS_INLINE
 	     const_iterator end () const {
 	         return find (size_);
 	     }
+         BOOST_UBLAS_INLINE
+         const_iterator cend () const {
+             return end ();
+         }
 
 #ifndef BOOST_UBLAS_USE_INDEXED_ITERATOR
 	     class iterator:
@@ -2039,10 +2908,18 @@ namespace boost { namespace numeric { namespace ublas {
 	     const_reverse_iterator rbegin () const {
 	         return const_reverse_iterator (end ());
 	     }
+         BOOST_UBLAS_INLINE
+         const_reverse_iterator crbegin () const {
+             return rbegin ();
+         }
 	     BOOST_UBLAS_INLINE
 	     const_reverse_iterator rend () const {
 	         return const_reverse_iterator (begin ());
 	     }
+         BOOST_UBLAS_INLINE
+         const_reverse_iterator crend () const {
+             return rend ();
+         }
 	     BOOST_UBLAS_INLINE
 	     reverse_iterator rbegin () {
 	         return reverse_iterator (end ());

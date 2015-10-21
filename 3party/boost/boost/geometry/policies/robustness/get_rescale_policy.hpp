@@ -28,6 +28,7 @@
 
 #include <boost/geometry/algorithms/envelope.hpp>
 #include <boost/geometry/algorithms/expand.hpp>
+#include <boost/geometry/algorithms/is_empty.hpp>
 #include <boost/geometry/algorithms/detail/recalculate.hpp>
 #include <boost/geometry/algorithms/detail/get_max_size.hpp>
 #include <boost/geometry/policies/robustness/robust_type.hpp>
@@ -67,11 +68,18 @@ inline void scale_box_to_integer_range(Box const& box,
     num_type const diff = boost::numeric_cast<num_type>(detail::get_max_size(box));
     num_type const range = 10000000.0; // Define a large range to get precise integer coordinates
     num_type const half = 0.5;
-    factor = math::equals(diff, num_type()) || diff >= range ? 1
-        : boost::numeric_cast<num_type>(
+    if (math::equals(diff, num_type())
+        || diff >= range
+        || ! boost::math::isfinite(diff))
+    {
+        factor = 1;
+    }
+    else
+    {
+        factor = boost::numeric_cast<num_type>(
             boost::numeric_cast<boost::long_long_type>(half + range / diff));
-
-    BOOST_GEOMETRY_ASSERT(factor >= 1);
+        BOOST_GEOMETRY_ASSERT(factor >= 1);
+    }
 
     // Assign input/output minimal points
     detail::assign_point_from_index<0>(box, min_point);
@@ -87,6 +95,11 @@ static inline void init_rescale_policy(Geometry const& geometry,
         RobustPoint& min_robust_point,
         Factor& factor)
 {
+    if (geometry::is_empty(geometry))
+    {
+        return;
+    }
+
     // Get bounding boxes
     model::box<Point> env = geometry::return_envelope<model::box<Point> >(geometry);
 
@@ -100,10 +113,36 @@ static inline void init_rescale_policy(Geometry1 const& geometry1,
         RobustPoint& min_robust_point,
         Factor& factor)
 {
-    // Get bounding boxes
-    model::box<Point> env = geometry::return_envelope<model::box<Point> >(geometry1);
-    model::box<Point> env2 = geometry::return_envelope<model::box<Point> >(geometry2);
-    geometry::expand(env, env2);
+    // Get bounding boxes (when at least one of the geometries is not empty)
+    bool const is_empty1 = geometry::is_empty(geometry1);
+    bool const is_empty2 = geometry::is_empty(geometry2);
+    if (is_empty1 && is_empty2)
+    {
+        return;
+    }
+
+    model::box<Point> env;
+    if (is_empty1)
+    {
+        geometry::envelope(geometry2, env);
+    }
+    else if (is_empty2)
+    {
+        geometry::envelope(geometry1, env);
+    }
+    else
+    {
+        // The following approach (envelope + expand) may not give the
+        // optimal MBR when then two geometries are in the spherical
+        // equatorial or geographic coordinate systems.
+        // TODO: implement envelope for two (or possibly more geometries)
+        geometry::envelope(geometry1, env);
+        model::box<Point> env2 = geometry::return_envelope
+            <
+                model::box<Point>
+            >(geometry2);
+        geometry::expand(env, env2);
+    }
 
     scale_box_to_integer_range(env, min_point, min_robust_point, factor);
 }

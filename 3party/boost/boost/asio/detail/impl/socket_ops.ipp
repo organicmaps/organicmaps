@@ -2,7 +2,7 @@
 // detail/impl/socket_ops.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2015 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -525,6 +525,25 @@ void sync_connect(socket_type s, const socket_addr_type* addr,
 
 void complete_iocp_connect(socket_type s, boost::system::error_code& ec)
 {
+  // Map non-portable errors to their portable counterparts.
+  switch (ec.value())
+  {
+  case ERROR_CONNECTION_REFUSED:
+    ec = boost::asio::error::connection_refused;
+    break;
+  case ERROR_NETWORK_UNREACHABLE:
+    ec = boost::asio::error::network_unreachable;
+    break;
+  case ERROR_HOST_UNREACHABLE:
+    ec = boost::asio::error::host_unreachable;
+    break;
+  case ERROR_SEM_TIMEOUT:
+    ec = boost::asio::error::timed_out;
+    break;
+  default:
+    break;
+  }
+
   if (!ec)
   {
     // Need to set the SO_UPDATE_CONNECT_CONTEXT option so that getsockname
@@ -1359,7 +1378,7 @@ socket_type socket(int af, int type, int protocol,
 {
   clear_last_error();
 #if defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
-  socket_type s = error_wrapper(::WSASocket(af, type, protocol, 0, 0,
+  socket_type s = error_wrapper(::WSASocketW(af, type, protocol, 0, 0,
         WSA_FLAG_OVERLAPPED), ec);
   if (s == invalid_socket)
     return s;
@@ -1965,7 +1984,8 @@ const char* inet_ntop(int af, const void* src, char* dest, size_t length,
   LPWSTR string_buffer = (LPWSTR)_alloca(length * sizeof(WCHAR));
   int result = error_wrapper(::WSAAddressToStringW(&address.base,
         address_length, 0, string_buffer, &string_length), ec);
-  ::WideCharToMultiByte(CP_ACP, 0, string_buffer, -1, dest, length, 0, 0);
+  ::WideCharToMultiByte(CP_ACP, 0, string_buffer, -1,
+      dest, static_cast<int>(length), 0, 0);
 #else
   int result = error_wrapper(::WSAAddressToStringA(
         &address.base, address_length, 0, dest, &string_length), ec);
@@ -2169,7 +2189,7 @@ int inet_pton(int af, const char* src, void* dest,
   } address;
   int address_length = sizeof(sockaddr_storage_type);
 #if defined(BOOST_NO_ANSI_APIS) || (defined(_MSC_VER) && (_MSC_VER >= 1800))
-  int num_wide_chars = strlen(src) + 1;
+  int num_wide_chars = static_cast<int>(strlen(src)) + 1;
   LPWSTR wide_buffer = (LPWSTR)_alloca(num_wide_chars * sizeof(WCHAR));
   ::MultiByteToWideChar(CP_ACP, 0, src, -1, wide_buffer, num_wide_chars);
   int result = error_wrapper(::WSAStringToAddressW(
@@ -2212,14 +2232,34 @@ int inet_pton(int af, const char* src, void* dest,
 
   return result == socket_error_retval ? -1 : 1;
 #else // defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
-  int result = error_wrapper(::inet_pton(af, src, dest), ec);
+  using namespace std; // For strchr, memcpy and atoi.
+
+  // On some platforms, inet_pton fails if an address string contains a scope
+  // id. Detect and remove the scope id before passing the string to inet_pton.
+  const bool is_v6 = (af == BOOST_ASIO_OS_DEF(AF_INET6));
+  const char* if_name = is_v6 ? strchr(src, '%') : 0;
+  char src_buf[max_addr_v6_str_len + 1];
+  const char* src_ptr = src;
+  if (if_name != 0)
+  {
+    if (if_name - src > max_addr_v6_str_len)
+    {
+      ec = boost::asio::error::invalid_argument;
+      return 0;
+    }
+    memcpy(src_buf, src, if_name - src);
+    src_buf[if_name - src] = 0;
+    src_ptr = src_buf;
+  }
+
+  int result = error_wrapper(::inet_pton(af, src_ptr, dest), ec);
   if (result <= 0 && !ec)
     ec = boost::asio::error::invalid_argument;
-  if (result > 0 && af == BOOST_ASIO_OS_DEF(AF_INET6) && scope_id)
+  if (result > 0 && is_v6 && scope_id)
   {
     using namespace std; // For strchr and atoi.
     *scope_id = 0;
-    if (const char* if_name = strchr(src, '%'))
+    if (if_name != 0)
     {
       in6_addr_type* ipv6_address = static_cast<in6_addr_type*>(dest);
       bool is_link_local = ((ipv6_address->s6_addr[0] == 0xfe)
@@ -3364,8 +3404,8 @@ u_short_type network_to_host_short(u_short_type value)
 {
 #if defined(BOOST_ASIO_WINDOWS_RUNTIME)
   unsigned char* value_p = reinterpret_cast<unsigned char*>(&value);
-  u_short_type result = (static_cast<u_long_type>(value_p[0]) << 8)
-    | static_cast<u_long_type>(value_p[1]);
+  u_short_type result = (static_cast<u_short_type>(value_p[0]) << 8)
+    | static_cast<u_short_type>(value_p[1]);
   return result;
 #else // defined(BOOST_ASIO_WINDOWS_RUNTIME)
   return ntohs(value);
@@ -3375,7 +3415,7 @@ u_short_type network_to_host_short(u_short_type value)
 u_short_type host_to_network_short(u_short_type value)
 {
 #if defined(BOOST_ASIO_WINDOWS_RUNTIME)
-  u_long_type result;
+  u_short_type result;
   unsigned char* result_p = reinterpret_cast<unsigned char*>(&result);
   result_p[0] = static_cast<unsigned char>((value >> 8) & 0xFF);
   result_p[1] = static_cast<unsigned char>(value & 0xFF);

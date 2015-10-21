@@ -23,6 +23,7 @@
 #include "../util/simple_logger.hpp"
 
 #include <algorithm>
+#include <limits>
 #include <memory>
 #include <unordered_map>
 #include <string>
@@ -175,7 +176,7 @@ public:
             raw_route.segment_end_coordinates.emplace_back(
                 PhantomNodes{first_pair.first, second_pair.first});
         };
-       
+
         osrm::for_each_pair(phantom_node_pair_list, build_phantom_pairs);
 
         vector<bool> uturns;
@@ -202,7 +203,7 @@ public:
                 GetByPoint doGet(m_regions, pt);
                 ForEachCountry(pt, doGet);
 
-                if (doGet.m_res != -1)
+                if (doGet.m_res != std::numeric_limits<size_t>::max())
                     usedMwms.emplace_back(make_pair(m_countries[doGet.m_res].m_name, pt));
             }
         }

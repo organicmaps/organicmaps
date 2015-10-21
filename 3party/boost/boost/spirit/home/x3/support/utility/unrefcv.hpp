@@ -7,10 +7,6 @@
 #ifndef BOOST_SPIRIT_X3_UNREFCV_HPP_INCLUDED
 #define BOOST_SPIRIT_X3_UNREFCV_HPP_INCLUDED
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 

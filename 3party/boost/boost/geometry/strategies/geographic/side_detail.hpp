@@ -46,7 +46,7 @@ namespace detail
 \tparam Model Reference model of coordinate system.
 \tparam CalculationType \tparam_calculation
  */
-template <template<typename> class InverseFormula,
+template <template<typename, bool, bool> class InverseFormula,
           typename Model,
           typename CalculationType = void>
 class by_azimuth
@@ -68,8 +68,10 @@ public:
                     >::type
             >::type calc_t;
 
-        calc_t a1p = azimuth< calc_t, InverseFormula<calc_t> >(p1, p, m_model);
-        calc_t a12 = azimuth< calc_t, InverseFormula<calc_t> >(p1, p2, m_model);
+        typedef InverseFormula<calc_t, false, true> inverse_formula;
+
+        calc_t a1p = azimuth<calc_t, inverse_formula>(p1, p, m_model);
+        calc_t a12 = azimuth<calc_t, inverse_formula>(p1, p2, m_model);
 
         calc_t const pi = math::pi<calc_t>();
 
@@ -115,11 +117,11 @@ private:
               typename ModelT>
     static inline ResultType azimuth(Point1 const& point1, Point2 const& point2, ModelT const& model)
     {
-        return InverseFormulaType(get_as_radian<0>(point1),
-                                  get_as_radian<1>(point1),
-                                  get_as_radian<0>(point2),
-                                  get_as_radian<1>(point2),
-                                  model).azimuth();
+        return InverseFormulaType::apply(get_as_radian<0>(point1),
+                                         get_as_radian<1>(point1),
+                                         get_as_radian<0>(point2),
+                                         get_as_radian<1>(point2),
+                                         model).azimuth;
     }
 
     Model m_model;

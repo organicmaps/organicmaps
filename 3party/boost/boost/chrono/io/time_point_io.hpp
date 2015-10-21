@@ -527,7 +527,9 @@ namespace boost
     {
 
       //! the type of the state to restore
-      typedef std::basic_ostream<CharT, Traits> state_type;
+      //typedef std::basic_ostream<CharT, Traits> state_type;
+      typedef std::ios_base state_type;
+
       //! the type of aspect to save
       typedef std::basic_string<CharT, Traits> aspect_type;
 
@@ -537,7 +539,7 @@ namespace boost
        * Store a reference to the i/o stream and the value of the associated @c time format .
        */
       explicit time_fmt_io_saver(state_type &s) :
-        s_save_(s), a_save_(get_time_fmt(s_save_))
+        s_save_(s), a_save_(get_time_fmt<CharT>(s_save_))
       {
       }
 
@@ -547,8 +549,9 @@ namespace boost
        * Stores a reference to the i/o stream and the value @c new_value to restore given as parameter.
        */
       time_fmt_io_saver(state_type &s, aspect_type new_value) :
-        s_save_(s), a_save_(new_value)
+        s_save_(s), a_save_(get_time_fmt<CharT>(s_save_))
       {
+        set_time_fmt(s_save_, new_value);
       }
 
       /**
@@ -566,7 +569,7 @@ namespace boost
        */
       void restore()
       {
-        set_time_fmt(a_save_, a_save_);
+        set_time_fmt(s_save_, a_save_);
       }
     private:
       state_type& s_save_;
@@ -602,8 +605,9 @@ namespace boost
        * Stores a reference to the i/o stream and the value @c new_value to restore given as parameter.
        */
       timezone_io_saver(state_type &s, aspect_type new_value) :
-        s_save_(s), a_save_(new_value)
+        s_save_(s), a_save_(get_timezone(s_save_))
       {
+        set_timezone(s_save_, new_value);
       }
 
       /**

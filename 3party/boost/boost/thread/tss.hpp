@@ -19,10 +19,10 @@ namespace boost
         {
             virtual ~tss_cleanup_function()
             {}
-            
+
             virtual void operator()(void* data)=0;
         };
-        
+
         BOOST_THREAD_DECL void set_tss_data(void const* key,boost::shared_ptr<tss_cleanup_function> func,void* tss_data,bool cleanup_existing);
         BOOST_THREAD_DECL void* get_tss_data(void const* key);
     }
@@ -42,16 +42,16 @@ namespace boost
                 delete static_cast<T*>(data);
             }
         };
-        
+
         struct run_custom_cleanup_function:
             detail::tss_cleanup_function
         {
             void (*cleanup_function)(T*);
-            
+
             explicit run_custom_cleanup_function(void (*cleanup_function_)(T*)):
                 cleanup_function(cleanup_function_)
             {}
-            
+
             void operator()(void* data)
             {
                 cleanup_function(static_cast<T*>(data));
@@ -60,10 +60,10 @@ namespace boost
 
 
         boost::shared_ptr<detail::tss_cleanup_function> cleanup;
-        
+
     public:
         typedef T element_type;
-        
+
         thread_specific_ptr():
             cleanup(detail::heap_new<delete_data>(),detail::do_heap_delete<delete_data>())
         {}
@@ -87,7 +87,7 @@ namespace boost
         {
             return get();
         }
-        T& operator*() const
+        typename boost::detail::sp_dereference< T >::type operator*() const
         {
             return *get();
         }

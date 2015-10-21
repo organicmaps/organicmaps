@@ -18,6 +18,10 @@
 #include <boost/intrusive/link_mode.hpp>
 #include <boost/intrusive/pointer_traits.hpp>
 
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 namespace boost {
 namespace intrusive {
 

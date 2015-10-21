@@ -44,7 +44,9 @@
 
 #if defined(_MSC_VER) && (defined(_M_AMD64) || (defined(_M_IX86) && defined(_M_IX86_FP) && _M_IX86_FP >= 2))
 extern "C" void _mm_mfence(void);
+#if defined(BOOST_MSVC)
 #pragma intrinsic(_mm_mfence)
+#endif
 #endif
 
 namespace boost {
@@ -247,7 +249,7 @@ struct operations< 1u, Signed > :
     }
 
     static BOOST_FORCEINLINE bool compare_exchange_strong(
-        storage_type volatile& storage, storage_type& expected, storage_type desired, memory_order success_order, memory_order failure_order) BOOST_NOEXCEPT
+        storage_type volatile& storage, storage_type& expected, storage_type desired, memory_order, memory_order) BOOST_NOEXCEPT
     {
         storage_type previous = expected;
         storage_type old_val = static_cast< storage_type >(BOOST_ATOMIC_INTERLOCKED_COMPARE_EXCHANGE8(&storage, desired, previous));

@@ -27,7 +27,7 @@ namespace boost { namespace fusion
             {
                 typedef reverse_view_iterator<typename Sequence::first_type> type;
     
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence const& s)
                 {

@@ -18,7 +18,6 @@
 
 #include <ostream>
 #include <boost/config.hpp>
-#include <boost/serialization/pfto.hpp>
 #include <boost/archive/basic_binary_oprimitive.hpp>
 #include <boost/archive/basic_binary_oarchive.hpp>
 
@@ -55,12 +54,9 @@ protected:
         friend class save_access;
     #endif
 #endif
-    // note: the following should not needed - but one compiler (vc 7.1)
-    // fails to compile one test (test_shared_ptr) without it !!!
-    // make this protected so it can be called from a derived archive
     template<class T>
-    void save_override(T & t, BOOST_PFTO int){
-        this->basic_binary_oarchive<Archive>::save_override(t, 0L);
+    void save_override(T & t){
+        this->basic_binary_oarchive<Archive>::save_override(t);
     }
     void init(unsigned int flags) {
         if(0 != (flags & no_header))

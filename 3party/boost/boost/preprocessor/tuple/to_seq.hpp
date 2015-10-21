@@ -48,6 +48,9 @@
 #    endif
 # endif
 #
+/* An empty array can be passed */
+# define BOOST_PP_TUPLE_TO_SEQ_0() ()
+#
 # define BOOST_PP_TUPLE_TO_SEQ_1(e0) (e0)
 # define BOOST_PP_TUPLE_TO_SEQ_2(e0, e1) (e0)(e1)
 # define BOOST_PP_TUPLE_TO_SEQ_3(e0, e1, e2) (e0)(e1)(e2)

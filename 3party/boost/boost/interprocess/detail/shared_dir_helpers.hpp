@@ -11,6 +11,14 @@
 #ifndef BOOST_INTERPROCESS_DETAIL_SHARED_DIR_HELPERS_HPP
 #define BOOST_INTERPROCESS_DETAIL_SHARED_DIR_HELPERS_HPP
 
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
 #include <boost/interprocess/detail/os_file_functions.hpp>

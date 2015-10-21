@@ -11,7 +11,11 @@
 #ifndef BOOST_INTERPROCESS_BASIC_GLOBAL_MEMORY_HPP
 #define BOOST_INTERPROCESS_BASIC_GLOBAL_MEMORY_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #pragma once
 #endif
 
@@ -62,7 +66,7 @@ class basic_managed_global_memory
       >
    , private intermodule_types::open_or_create<Device, FileBased>::type
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    typedef typename intermodule_types::template open_or_create<Device, FileBased>::type base2_t;
 
    typedef basic_managed_memory_impl
@@ -83,7 +87,7 @@ class basic_managed_global_memory
    private:
    typedef typename base_t::char_ptr_holder_t   char_ptr_holder_t;
    BOOST_MOVABLE_BUT_NOT_COPYABLE(basic_managed_global_memory)
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public: //functions
 

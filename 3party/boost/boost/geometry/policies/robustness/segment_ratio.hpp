@@ -139,14 +139,12 @@ public :
             m_denominator = -m_denominator;
         }
 
-        typedef typename promote_floating_point<Type>::type num_type;
-        static const num_type scale = 1000000.0;
         m_approximation =
             m_denominator == 0 ? 0
             : boost::numeric_cast<double>
                 (
-                    boost::numeric_cast<num_type>(m_numerator) * scale
-                  / boost::numeric_cast<num_type>(m_denominator)
+                    boost::numeric_cast<fp_type>(m_numerator) * scale()
+                  / boost::numeric_cast<fp_type>(m_denominator)
                 );
     }
 
@@ -176,6 +174,18 @@ public :
     {
         // e.g. 5/4
         return m_numerator > m_denominator;
+    }
+
+    inline bool near_end() const
+    {
+        if (left() || right())
+        {
+            return false;
+        }
+
+        static fp_type const small_part_of_scale = scale() / 100.0;
+        return m_approximation < small_part_of_scale
+            || m_approximation > scale() - small_part_of_scale;
     }
 
     inline bool close_to(thistype const& other) const
@@ -222,6 +232,8 @@ public :
 
 
 private :
+    typedef typename promote_floating_point<Type>::type fp_type;
+
     Type m_numerator;
     Type m_denominator;
 
@@ -230,7 +242,13 @@ private :
     // Boost.Rational is used if the approximations are close.
     // Reason: performance, Boost.Rational does a GCD by default and also the
     // comparisons contain while-loops.
-    double m_approximation;
+    fp_type m_approximation;
+
+
+    static inline fp_type scale()
+    {
+        return 1000000.0;
+    }
 };
 
 

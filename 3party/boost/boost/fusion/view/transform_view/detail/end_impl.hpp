@@ -34,7 +34,7 @@ namespace boost { namespace fusion
                 typedef typename Sequence::transform_type transform_type;
                 typedef transform_view_iterator<last_type, transform_type> type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& s)
                 {
@@ -55,7 +55,7 @@ namespace boost { namespace fusion
                 typedef typename Sequence::transform_type transform_type;
                 typedef transform_view_iterator2<last1_type, last2_type, transform_type> type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& s)
                 {

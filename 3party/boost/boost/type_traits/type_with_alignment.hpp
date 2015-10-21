@@ -176,7 +176,7 @@ class type_with_alignment
 {
 };
 
-#if defined(__GNUC__)
+#if defined(__GNUC__) || (defined (__SUNPRO_CC) &&  (__SUNPRO_CC >= 0x5130))
 namespace tt_align_ns {
 struct __attribute__((__aligned__(2))) a2 {};
 struct __attribute__((__aligned__(4))) a4 {};

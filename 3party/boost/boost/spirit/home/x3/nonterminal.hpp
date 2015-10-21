@@ -7,10 +7,6 @@
 #if !defined(BOOST_SPIRIT_X3_NONTERMINAL_FEBRUARY_12_2007_1018AM)
 #define BOOST_SPIRIT_X3_NONTERMINAL_FEBRUARY_12_2007_1018AM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/spirit/home/x3/nonterminal/rule.hpp>
 //~ #include <boost/spirit/home/x3/nonterminal/error_handler.hpp>
 //~ #include <boost/spirit/home/x3/nonterminal/debug_handler.hpp>

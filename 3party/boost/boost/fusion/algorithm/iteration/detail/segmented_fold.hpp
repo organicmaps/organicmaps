@@ -16,7 +16,7 @@ namespace boost { namespace fusion { namespace detail
     template <typename Fun>
     struct segmented_fold_fun
     {
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         explicit segmented_fold_fun(Fun const& f)
           : fun(f)
         {}
@@ -29,7 +29,7 @@ namespace boost { namespace fusion { namespace detail
             typedef typename result_of::fold<Sequence, State, Fun>::type type;
             typedef mpl::true_ continue_type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type call(Sequence& seq, State const& state, Context const&, segmented_fold_fun const& fun)
             {
                 return fusion::fold(seq, state, fun.fun);
@@ -52,7 +52,7 @@ namespace boost { namespace fusion { namespace detail
             >::type
         type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type call(State& state, Sequence& seq, Fun fun)
         {
             return fusion::segmented_fold_until(seq, state, segmented_fold_fun<Fun>(fun));

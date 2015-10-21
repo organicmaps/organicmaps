@@ -466,6 +466,7 @@ public:
     {
         index_t index = tagged_index.get_index();
         T * n = NodeStorage::nodes() + index;
+        (void)n; // silence msvc warning
         n->~T();
         deallocate<ThreadSafe>(index);
     }

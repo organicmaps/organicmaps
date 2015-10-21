@@ -10,7 +10,11 @@
 #ifndef BOOST_INTERPROCESS_WINDOWS_RECURSIVE_NAMED_MUTEX_HPP
 #define BOOST_INTERPROCESS_WINDOWS_RECURSIVE_NAMED_MUTEX_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -27,13 +31,13 @@ class windows_named_recursive_mutex
    //Windows mutexes based on CreateMutex are already recursive...
    : public windows_named_mutex
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
    //Non-copyable
    windows_named_recursive_mutex();
    windows_named_recursive_mutex(const windows_named_mutex &);
    windows_named_recursive_mutex &operator=(const windows_named_mutex &);
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    windows_named_recursive_mutex(create_only_t, const char *name, const permissions &perm = permissions())

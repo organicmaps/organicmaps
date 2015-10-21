@@ -470,7 +470,7 @@ class extended_int {
           ret_val.first *= static_cast<fpt64>(0x100000000LL);
           ret_val.first += static_cast<fpt64>(this->chunks_[sz - i]);
         }
-        ret_val.second = (sz - 3) << 5;
+        ret_val.second = static_cast<int>((sz - 3) << 5);
       }
     }
     if (this->count_ < 0)
@@ -490,7 +490,7 @@ class extended_int {
       add(c2, sz2, c1, sz1);
       return;
     }
-    this->count_ = sz1;
+    this->count_ = static_cast<int32>(sz1);
     uint64 temp = 0;
     for (std::size_t i = 0; i < sz2; ++i) {
       temp += static_cast<uint64>(c1[i]) + static_cast<uint64>(c2[i]);
@@ -534,7 +534,7 @@ class extended_int {
       }
       sz2 = sz1;
     }
-    this->count_ = sz1-1;
+    this->count_ = static_cast<int32>(sz1-1);
     bool flag = false;
     for (std::size_t i = 0; i < sz2; ++i) {
       this->chunks_[i] = c1[i] - c2[i] - (flag?1:0);

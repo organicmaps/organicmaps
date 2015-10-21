@@ -38,7 +38,7 @@ namespace boost { namespace fusion { namespace detail
             typedef cons<range_type, Context> type;
             typedef mpl::false_ continue_type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type call(Sequence& seq, State const&, Context const& context, segmented_begin_fun)
             {
                 return type(range_type(fusion::begin(seq), fusion::end(seq)), context);
@@ -64,7 +64,7 @@ namespace boost { namespace fusion { namespace detail
 
         typedef typename fold_impl::type type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type call(Sequence& seq, Stack const& stack)
         {
             return fold_impl::call(seq, end_impl::call(seq, stack), stack, segmented_begin_fun());
@@ -79,7 +79,7 @@ namespace boost { namespace fusion { namespace detail
         typedef iterator_range<begin_type, end_type>    pair_type;
         typedef cons<pair_type, Stack>                  type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type call(Sequence& seq, Stack stack)
         {
             return type(pair_type(fusion::begin(seq), fusion::end(seq)), stack);

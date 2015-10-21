@@ -11,7 +11,11 @@
 #ifndef BOOST_INTERPROCESS_SHM_NAMED_MUTEX_HPP
 #define BOOST_INTERPROCESS_SHM_NAMED_MUTEX_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -42,14 +46,14 @@ class named_condition;
 //!each process should have it's own named mutex.
 class shm_named_mutex
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
    //Non-copyable
    shm_named_mutex();
    shm_named_mutex(const shm_named_mutex &);
    shm_named_mutex &operator=(const shm_named_mutex &);
    friend class named_condition;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    //!Creates a global interprocess_mutex with a name.
@@ -99,7 +103,7 @@ class shm_named_mutex
    //!Returns false on error. Never throws.
    static bool remove(const char *name);
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    typedef interprocess_mutex internal_mutex_type;
    interprocess_mutex &internal_mutex()
    {  return *static_cast<interprocess_mutex*>(m_shmem.get_user_address()); }
@@ -110,10 +114,10 @@ class shm_named_mutex
    typedef ipcdetail::managed_open_or_create_impl<shared_memory_object, 0, true, false> open_create_impl_t;
    open_create_impl_t m_shmem;
    typedef ipcdetail::named_creation_functor<interprocess_mutex> construct_func_t;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
 inline void shm_named_mutex::dont_close_on_destruction()
 {  ipcdetail::interprocess_tester::dont_close_on_destruction(m_shmem);  }
@@ -166,7 +170,7 @@ inline bool shm_named_mutex::timed_lock(const boost::posix_time::ptime &abs_time
 inline bool shm_named_mutex::remove(const char *name)
 {  return shared_memory_object::remove(name); }
 
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 }  //namespace ipcdetail {
 }  //namespace interprocess {

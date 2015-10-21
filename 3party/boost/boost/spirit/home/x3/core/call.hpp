@@ -19,8 +19,7 @@ namespace boost { namespace spirit { namespace x3
     struct rule_val_context_tag;
 
     template <typename Context>
-    inline auto _val(Context const& context)
-        -> decltype(x3::get<rule_val_context_tag>(context))
+    inline decltype(auto) _val(Context const& context)
     {
         return x3::get<rule_val_context_tag>(context);
     }
@@ -29,8 +28,7 @@ namespace boost { namespace spirit { namespace x3
     struct where_context_tag;
 
     template <typename Context>
-    inline auto _where(Context const& context)
-        -> decltype(x3::get<where_context_tag>(context))
+    inline decltype(auto) _where(Context const& context)
     {
         return x3::get<where_context_tag>(context);
     }
@@ -39,8 +37,7 @@ namespace boost { namespace spirit { namespace x3
     struct attr_context_tag;
 
     template <typename Context>
-    inline auto _attr(Context const& context)
-        -> decltype(x3::get<attr_context_tag>(context))
+    inline decltype(auto) _attr(Context const& context)
     {
         return x3::get<attr_context_tag>(context);
     }

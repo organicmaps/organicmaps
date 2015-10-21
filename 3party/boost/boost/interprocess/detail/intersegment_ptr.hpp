@@ -11,32 +11,36 @@
 #ifndef BOOST_INTERPROCESS_INTERSEGMENT_PTR_HPP
 #define BOOST_INTERPROCESS_INTERSEGMENT_PTR_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
-
+// interprocess
 #include <boost/interprocess/interprocess_fwd.hpp>
-#include <boost/interprocess/detail/utilities.hpp>
-#include <boost/interprocess/detail/math_functions.hpp>
-#include <boost/interprocess/detail/cast_tags.hpp>
-#include <boost/assert.hpp>
 #include <boost/interprocess/sync/scoped_lock.hpp>
 #include <boost/interprocess/sync/interprocess_mutex.hpp>
 #include <boost/interprocess/containers/flat_map.hpp>
 #include <boost/interprocess/containers/vector.hpp>   //vector
 #include <boost/interprocess/containers/set.hpp>      //set
-#include <boost/detail/no_exceptions_support.hpp>
+// interprocess/detail
+#include <boost/interprocess/detail/multi_segment_services.hpp>
+#include <boost/interprocess/detail/utilities.hpp>
+#include <boost/interprocess/detail/math_functions.hpp>
+#include <boost/interprocess/detail/cast_tags.hpp>
 #include <boost/interprocess/detail/mpl.hpp>
-#include <climits>
-#include <iterator>
+// other boost
+#include <boost/core/no_exceptions_support.hpp>
 #include <boost/static_assert.hpp>  //BOOST_STATIC_ASSERT
-#include <climits>   //CHAR_BIT
 #include <boost/integer/static_log2.hpp>
 #include <boost/assert.hpp>   //BOOST_ASSERT
-#include <boost/interprocess/detail/multi_segment_services.hpp>
+// std
+#include <climits>   //CHAR_BIT
 
 //!\file
 //!
@@ -753,7 +757,7 @@ class intersegment_ptr : public flat_map_intersegment<interprocess_mutex>
    bool operator! () const
    {  return base_t::is_null();   }
 
-   //!Swaps two intersegment_ptr-s. More efficient than std::swap.
+   //!Swaps two intersegment_ptr-s. More efficient than standard swap.
    //!Never throws.
    void swap(intersegment_ptr &other)
    {  base_t::swap(other);   }

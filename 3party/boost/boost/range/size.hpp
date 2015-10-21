@@ -54,11 +54,20 @@ namespace boost
     inline typename range_size<const SinglePassRange>::type
     size(const SinglePassRange& rng)
     {
+// Very strange things happen on some compilers that have the range concept
+// asserts disabled. This preprocessor condition is clearly redundant on a
+// working compiler but is vital for at least some compilers such as clang 4.2
+// but only on the Mac!
+#if BOOST_RANGE_ENABLE_CONCEPT_ASSERT == 1
+        BOOST_RANGE_CONCEPT_ASSERT((boost::SinglePassRangeConcept<SinglePassRange>));
+#endif
+
 #if !BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x564)) && \
     !BOOST_WORKAROUND(__GNUC__, < 3) \
     /**/
         using namespace range_detail;
 #endif
+
         return range_calculate_size(rng);
     }
 

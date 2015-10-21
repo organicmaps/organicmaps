@@ -16,8 +16,6 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/less.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/type_traits/detail/ice_and.hpp>
-#include <boost/type_traits/detail/ice_or.hpp>
 
 #include <boost/units/config.hpp>
 #include <boost/units/dimension.hpp>
@@ -110,8 +108,8 @@ struct less_impl<boost::units::scaled_base_unit_tag, Tag>
 {
     template<class T0, class T1>
     struct apply : mpl::bool_<
-        boost::type_traits::ice_or<(mpl::less<typename T0::system_type, T1>::value),
-        (boost::type_traits::ice_and<boost::is_same<typename T0::system_type, T1>::value, (T0::scale_type::exponent::Numerator) < 0>::value)>::value> {};
+        mpl::less<typename T0::system_type, T1>::value ||
+    (boost::is_same<typename T0::system_type, T1>::value && ((T0::scale_type::exponent::Numerator) < 0)) > {};
 };
 
 /// INTERNAL ONLY
@@ -120,8 +118,8 @@ struct less_impl<Tag, boost::units::scaled_base_unit_tag>
 {
     template<class T0, class T1>
     struct apply : mpl::bool_<
-        boost::type_traits::ice_or<(mpl::less<T0, typename T1::system_type>::value),
-        boost::type_traits::ice_and<(boost::is_same<T0, typename T1::system_type>::value), ((T1::scale_type::exponent::Numerator) > 0)>::value>::value> {};
+        mpl::less<T0, typename T1::system_type>::value ||
+    (boost::is_same<T0, typename T1::system_type>::value && ((T1::scale_type::exponent::Numerator) > 0)) > {};
 };
 
 /// INTERNAL ONLY
@@ -130,11 +128,11 @@ struct less_impl<boost::units::scaled_base_unit_tag, boost::units::scaled_base_u
 {
     template<class T0, class T1>
     struct apply : mpl::bool_<
-        boost::type_traits::ice_or<(mpl::less<typename T0::system_type, typename T1::system_type>::value),
-        boost::type_traits::ice_and<(boost::is_same<typename T0::system_type, typename T1::system_type>::value),
-        boost::type_traits::ice_or<((T0::scale_type::base) < (T1::scale_type::base)),
-        boost::type_traits::ice_and<((T0::scale_type::base) == (T1::scale_type::base)),
-        (mpl::less<typename T0::scale_type::exponent,typename T1::scale_type::exponent>::value)>::value>::value>::value>::value> {};
+        mpl::less<typename T0::system_type, typename T1::system_type>::value ||
+    ((boost::is_same<typename T0::system_type, typename T1::system_type>::value) &&
+     ((T0::scale_type::base) < (T1::scale_type::base) ||
+      ((T0::scale_type::base) == (T1::scale_type::base) &&
+       mpl::less<typename T0::scale_type::exponent, typename T1::scale_type::exponent>::value))) > {};
 };
 
 } // namespace mpl

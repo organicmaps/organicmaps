@@ -101,7 +101,7 @@ struct for_each_disjoint_geometry_if<OpId, Geometry, Tag, true>
         std::vector<bool> detected_intersections(count, false);
         for ( TurnIt it = first ; it != last ; ++it )
         {
-            signed_index_type multi_index = it->operations[OpId].seg_id.multi_index;
+            signed_size_type multi_index = it->operations[OpId].seg_id.multi_index;
             BOOST_GEOMETRY_ASSERT(multi_index >= 0);
             std::size_t const index = static_cast<std::size_t>(multi_index);
             BOOST_GEOMETRY_ASSERT(index < count);

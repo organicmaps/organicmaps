@@ -11,7 +11,11 @@
 #ifndef BOOST_INTERPROCESS_DETAIL_MANAGED_MEMORY_IMPL_HPP
 #define BOOST_INTERPROCESS_DETAIL_MANAGED_MEMORY_IMPL_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -25,12 +29,12 @@
 #include <boost/interprocess/exceptions.hpp>
 #include <boost/interprocess/segment_manager.hpp>
 #include <boost/interprocess/sync/scoped_lock.hpp>
+#include <boost/interprocess/detail/nothrow.hpp>
+#include <boost/interprocess/detail/simple_swap.hpp>
 //
-#include <boost/detail/no_exceptions_support.hpp>
+#include <boost/core/no_exceptions_support.hpp>
 //
-#include <utility>
-#include <fstream>
-#include <new>
+#include <boost/intrusive/detail/minimal_pair_header.hpp>
 #include <boost/assert.hpp>
 
 //!\file
@@ -90,7 +94,7 @@ class basic_managed_memory_impl
    typedef typename segment_manager::
       const_unique_iterator                           const_unique_iterator;
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
    typedef typename
            segment_manager::char_ptr_holder_t         char_ptr_holder_t;
@@ -98,7 +102,7 @@ class basic_managed_memory_impl
 
    typedef typename segment_manager::multiallocation_chain  multiallocation_chain;
 
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    static const size_type PayloadPerAllocation = segment_manager::PayloadPerAllocation;
 
@@ -173,7 +177,7 @@ class basic_managed_memory_impl
       //throw if constructor allocates memory. So we must catch it.
       BOOST_TRY{
          //Let's construct the allocator in memory
-         mp_header       = new(addr) segment_manager(size);
+         mp_header       = ::new(addr, boost_container_new_t()) segment_manager(size);
       }
       BOOST_CATCH(...){
          return false;
@@ -278,24 +282,19 @@ class basic_managed_memory_impl
    //!Searches for nbytes of free memory in the segment, marks the
    //!memory as used and return the pointer to the memory. If no memory
    //!is available returns 0. Never throws.
-   void* allocate             (size_type nbytes, std::nothrow_t nothrow)
-   {   return mp_header->allocate(nbytes, nothrow);  }
+   void* allocate             (size_type nbytes, const std::nothrow_t &tag)
+   {   return mp_header->allocate(nbytes, tag);  }
 
    //!Allocates nbytes bytes aligned to "alignment" bytes. "alignment"
    //!must be power of two. If no memory
    //!is available returns 0. Never throws.
-   void * allocate_aligned (size_type nbytes, size_type alignment, std::nothrow_t nothrow)
-   {   return mp_header->allocate_aligned(nbytes, alignment, nothrow);  }
+   void * allocate_aligned (size_type nbytes, size_type alignment, const std::nothrow_t &tag)
+   {   return mp_header->allocate_aligned(nbytes, alignment, tag);  }
 
    template<class T>
-   std::pair<T *, bool>
-      allocation_command  (boost::interprocess::allocation_type command,   size_type limit_size,
-                           size_type preferred_size,size_type &received_size,
-                           T *reuse_ptr = 0)
-   {
-      return mp_header->allocation_command
-         (command, limit_size, preferred_size, received_size, reuse_ptr);
-   }
+   T * allocation_command  (boost::interprocess::allocation_type command,   size_type limit_size,
+                           size_type &prefer_in_recvd_out_size, T *&reuse)
+   {  return mp_header->allocation_command(command, limit_size, prefer_in_recvd_out_size, reuse);  }
 
    //!Allocates nbytes bytes aligned to "alignment" bytes. "alignment"
    //!must be power of two. If no
@@ -303,7 +302,7 @@ class basic_managed_memory_impl
    void * allocate_aligned(size_type nbytes, size_type alignment)
    {   return mp_header->allocate_aligned(nbytes, alignment);  }
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
    //Experimental. Don't use.
 
@@ -319,21 +318,21 @@ class basic_managed_memory_impl
 
    //!Allocates n_elements of elem_bytes bytes.
    //!Non-throwing version. chain.size() is not increased on failure.
-   void allocate_many(std::nothrow_t, size_type elem_bytes, size_type n_elements, multiallocation_chain &chain)
-   {  mp_header->allocate_many(std::nothrow_t(), elem_bytes, n_elements, chain); }
+   void allocate_many(const std::nothrow_t &tag, size_type elem_bytes, size_type n_elements, multiallocation_chain &chain)
+   {  mp_header->allocate_many(tag, elem_bytes, n_elements, chain); }
 
    //!Allocates n_elements, each one of
    //!element_lengths[i]*sizeof_element bytes.
    //!Non-throwing version. chain.size() is not increased on failure.
-   void allocate_many(std::nothrow_t, const size_type *elem_sizes, size_type n_elements, size_type sizeof_element, multiallocation_chain &chain)
-   {  mp_header->allocate_many(std::nothrow_t(), elem_sizes, n_elements, sizeof_element, chain); }
+   void allocate_many(const std::nothrow_t &tag, const size_type *elem_sizes, size_type n_elements, size_type sizeof_element, multiallocation_chain &chain)
+   {  mp_header->allocate_many(tag, elem_sizes, n_elements, sizeof_element, chain); }
 
    //!Deallocates all elements contained in chain.
    //!Never throws.
    void deallocate_many(multiallocation_chain &chain)
    {  mp_header->deallocate_many(chain); }
 
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    //!Marks previously allocated memory as free. Never throws.
    void  deallocate           (void *addr)
@@ -406,8 +405,8 @@ class basic_managed_memory_impl
    //!before freeing the memory.
    template <class T>
    typename segment_manager::template construct_proxy<T>::type
-      construct(char_ptr_holder_t name, std::nothrow_t nothrow)
-   {   return mp_header->template construct<T>(name, nothrow);  }
+      construct(char_ptr_holder_t name, const std::nothrow_t &tag)
+   {   return mp_header->template construct<T>(name, tag);  }
 
    //!Finds or creates a named object or array in memory
    //!
@@ -427,8 +426,8 @@ class basic_managed_memory_impl
    //!before freeing the memory.
    template <class T>
    typename segment_manager::template construct_proxy<T>::type
-      find_or_construct(char_ptr_holder_t name, std::nothrow_t nothrow)
-   {   return mp_header->template find_or_construct<T>(name, nothrow);  }
+      find_or_construct(char_ptr_holder_t name, const std::nothrow_t &tag)
+   {   return mp_header->template find_or_construct<T>(name, tag);  }
 
    //!Creates a named array from iterators in memory
    //!
@@ -492,8 +491,8 @@ class basic_managed_memory_impl
    //!destructors of created objects are called before freeing the memory.*/
    template <class T>
    typename segment_manager::template construct_iter_proxy<T>::type
-      construct_it(char_ptr_holder_t name, std::nothrow_t nothrow)
-   {   return mp_header->template construct_it<T>(name, nothrow);  }
+      construct_it(char_ptr_holder_t name, const std::nothrow_t &tag)
+   {   return mp_header->template construct_it<T>(name, tag);  }
 
    //!Finds or creates a named array from iterators in memory
    //!
@@ -515,8 +514,8 @@ class basic_managed_memory_impl
    //!destructors of created objects are called before freeing the memory.*/
    template <class T>
    typename segment_manager::template construct_iter_proxy<T>::type
-      find_or_construct_it(char_ptr_holder_t name, std::nothrow_t nothrow)
-   {   return mp_header->template find_or_construct_it<T>(name, nothrow);  }
+      find_or_construct_it(char_ptr_holder_t name, const std::nothrow_t &tag)
+   {   return mp_header->template find_or_construct_it<T>(name, tag);  }
 
    //!Calls a functor and guarantees that no new construction, search or
    //!destruction will be executed by any process while executing the object
@@ -703,20 +702,20 @@ class basic_managed_memory_impl
       get_deleter()
    {   return mp_header->template get_deleter<T>(); }
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    //!Tries to find a previous named allocation address. Returns a memory
    //!buffer and the object count. If not found returned pointer is 0.
    //!Never throws.
    template <class T>
    std::pair<T*, size_type> find_no_lock  (char_ptr_holder_t name)
    {   return mp_header->template find_no_lock<T>(name); }
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    protected:
    //!Swaps the segment manager's managed by this managed memory segment.
    //!NOT thread-safe. Never throws.
    void swap(basic_managed_memory_impl &other)
-   {  std::swap(mp_header, other.mp_header); }
+   {  (simple_swap)(mp_header, other.mp_header); }
 
    private:
    segment_manager *mp_header;

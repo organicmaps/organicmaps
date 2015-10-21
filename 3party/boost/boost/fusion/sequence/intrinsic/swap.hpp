@@ -14,19 +14,21 @@
 #include <boost/fusion/support/is_sequence.hpp>
 #include <boost/fusion/view/zip_view.hpp>
 #include <boost/fusion/algorithm/iteration/for_each.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <boost/fusion/sequence/intrinsic/front.hpp>
 #include <boost/fusion/sequence/intrinsic/back.hpp>
+#include <boost/core/enable_if.hpp>
 #include <boost/mpl/and.hpp>
 
 namespace boost { namespace fusion {
+
     namespace result_of
     {
         template<typename Seq1, typename Seq2>
         struct swap
-        {
-            typedef void type;
-        };
+            : enable_if<mpl::and_<
+                  traits::is_sequence<Seq1>,
+                  traits::is_sequence<Seq2>
+              > > {};
     }
 
     namespace detail
@@ -40,7 +42,7 @@ namespace boost { namespace fusion {
             };
 
             template<typename Elem>
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             void operator()(Elem const& e) const
             {
                 using std::swap;
@@ -50,8 +52,8 @@ namespace boost { namespace fusion {
     }
 
     template<typename Seq1, typename Seq2>
-    BOOST_FUSION_GPU_ENABLED
-    typename enable_if<mpl::and_<traits::is_sequence<Seq1>, traits::is_sequence<Seq2> >, void>::type 
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+    inline typename result_of::swap<Seq1, Seq2>::type
     swap(Seq1& lhs, Seq2& rhs)
     {
         typedef vector<Seq1&, Seq2&> references;

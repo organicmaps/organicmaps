@@ -29,7 +29,6 @@ struct back_reference
     T m_value;
 };
 
-# ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 template<typename T>
 class is_back_reference
 {
@@ -44,36 +43,6 @@ class is_back_reference<back_reference<T> >
     BOOST_STATIC_CONSTANT(bool, value = true);
 };
 
-# else // no partial specialization
-
-}} // namespace boost::python
-
-#include <boost/type.hpp>
-
-namespace boost { namespace python {
-
-namespace detail
-{
-  typedef char (&yes_back_reference_t)[1];
-  typedef char (&no_back_reference_t)[2];
-      
-  no_back_reference_t is_back_reference_test(...);
-
-  template<typename T>
-  yes_back_reference_t is_back_reference_test(boost::type< back_reference<T> >);
-}
-
-template<typename T>
-class is_back_reference
-{
- public:
-    BOOST_STATIC_CONSTANT(
-        bool, value = (
-            sizeof(detail::is_back_reference_test(boost::type<T>()))
-            == sizeof(detail::yes_back_reference_t)));
-};
-
-# endif // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 
 //
 // implementations

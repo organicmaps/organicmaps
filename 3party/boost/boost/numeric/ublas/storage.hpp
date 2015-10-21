@@ -128,7 +128,7 @@ namespace boost { namespace numeric { namespace ublas {
                             }
                         }
                         else {
-                            for (pointer si = p_data; si != p_data + size_; ++si) {
+                            for (; si != p_data + size_; ++si) {
                                 alloc_.construct (di, *si);
                                 ++di;
                             }
@@ -229,8 +229,16 @@ namespace boost { namespace numeric { namespace ublas {
             return data_;
         }
         BOOST_UBLAS_INLINE
+        const_iterator cbegin () const {
+            return begin ();
+        }
+        BOOST_UBLAS_INLINE
         const_iterator end () const {
             return data_ + size_;
+        }
+        BOOST_UBLAS_INLINE
+        const_iterator cend () const {
+            return end ();
         }
 
         BOOST_UBLAS_INLINE
@@ -251,8 +259,16 @@ namespace boost { namespace numeric { namespace ublas {
             return const_reverse_iterator (end ());
         }
         BOOST_UBLAS_INLINE
+        const_reverse_iterator crbegin () const {
+            return rbegin ();
+        }
+        BOOST_UBLAS_INLINE
         const_reverse_iterator rend () const {
             return const_reverse_iterator (begin ());
+        }
+        BOOST_UBLAS_INLINE
+        const_reverse_iterator crend () const {
+            return rend ();
         }
         BOOST_UBLAS_INLINE
         reverse_iterator rbegin () {
@@ -273,7 +289,7 @@ namespace boost { namespace numeric { namespace ublas {
 
         // Serialization
         template<class Archive>
-        void serialize(Archive & ar, const unsigned int version)
+        void serialize(Archive & ar, const unsigned int /*version*/)
         { 
             serialization::collection_size_type s(size_);
             ar & serialization::make_nvp("size",s);
@@ -354,7 +370,7 @@ namespace boost { namespace numeric { namespace ublas {
         // Random Access Container
         BOOST_UBLAS_INLINE
         size_type max_size () const {
-            return ALLOC ().max_size();
+            return N;
         }
         
         BOOST_UBLAS_INLINE
@@ -412,8 +428,16 @@ namespace boost { namespace numeric { namespace ublas {
             return data_;
         }
         BOOST_UBLAS_INLINE
+        const_iterator cbegin () const {
+            return begin ();
+        }
+        BOOST_UBLAS_INLINE
         const_iterator end () const {
             return data_ + size_;
+        }
+        BOOST_UBLAS_INLINE
+        const_iterator cend () const {
+            return end ();
         }
 
         BOOST_UBLAS_INLINE
@@ -434,8 +458,16 @@ namespace boost { namespace numeric { namespace ublas {
             return const_reverse_iterator (end ());
         }
         BOOST_UBLAS_INLINE
+        const_reverse_iterator crbegin () const {
+            return rbegin ();
+        }
+        BOOST_UBLAS_INLINE
         const_reverse_iterator rend () const {
             return const_reverse_iterator (begin ());
+        }
+        BOOST_UBLAS_INLINE
+        const_reverse_iterator crend () const {
+            return rend ();
         }
         BOOST_UBLAS_INLINE
         reverse_iterator rbegin () {
@@ -451,7 +483,7 @@ namespace boost { namespace numeric { namespace ublas {
         friend class boost::serialization::access;
 
         template<class Archive>
-        void serialize(Archive & ar, const unsigned int version)
+        void serialize(Archive & ar, const unsigned int /*version*/)
         {
             serialization::collection_size_type s(size_);
             ar & serialization::make_nvp("size", s);
@@ -505,6 +537,10 @@ namespace boost { namespace numeric { namespace ublas {
         BOOST_UBLAS_INLINE
         array_adaptor (size_type size, pointer data):
             size_ (size), own_ (false), data_ (data) {}
+
+        template <size_t N>
+        BOOST_UBLAS_INLINE array_adaptor (T (&data)[N]):
+            size_ (N), own_ (false), data_ (data) {}
         BOOST_UBLAS_INLINE
         array_adaptor (const array_adaptor &a):
             storage_array<self_type> (),
@@ -570,6 +606,16 @@ namespace boost { namespace numeric { namespace ublas {
             resize_internal (size, data, init, true);
         }
 
+        template <size_t N>
+        BOOST_UBLAS_INLINE void resize (T (&data)[N]) {
+            resize_internal (N, data, value_type (), false);
+        }
+
+        template <size_t N>
+        BOOST_UBLAS_INLINE void resize (T (&data)[N], value_type init) {
+            resize_internal (N, data, init, true);
+        }
+
         BOOST_UBLAS_INLINE
         size_type size () const {
             return size_;
@@ -628,8 +674,16 @@ namespace boost { namespace numeric { namespace ublas {
             return data_;
         }
         BOOST_UBLAS_INLINE
+        const_iterator cbegin () const {
+            return begin ();
+        }
+        BOOST_UBLAS_INLINE
         const_iterator end () const {
             return data_ + size_;
+        }
+        BOOST_UBLAS_INLINE
+        const_iterator cend () const {
+            return end ();
         }
 
         typedef pointer iterator;
@@ -652,8 +706,16 @@ namespace boost { namespace numeric { namespace ublas {
             return const_reverse_iterator (end ());
         }
         BOOST_UBLAS_INLINE
+        const_reverse_iterator crbegin () const {
+            return rbegin ();
+        }
+        BOOST_UBLAS_INLINE
         const_reverse_iterator rend () const {
             return const_reverse_iterator (begin ());
+        }
+        BOOST_UBLAS_INLINE
+        const_reverse_iterator crend () const {
+            return rend ();
         }
         BOOST_UBLAS_INLINE
         reverse_iterator rbegin () {
@@ -686,7 +748,7 @@ namespace boost { namespace numeric { namespace ublas {
             typedef TT *argument_type;
 
             BOOST_UBLAS_INLINE
-            result_type operator () (argument_type x) {}
+            result_type operator () (argument_type /* x */) {}
         };
 
     public:
@@ -715,6 +777,10 @@ namespace boost { namespace numeric { namespace ublas {
         BOOST_UBLAS_INLINE
         shallow_array_adaptor (size_type size, pointer data):
             size_ (size), own_ (false), data_ (data, leaker<value_type> ()) {}
+        template <size_t N>
+        BOOST_UBLAS_INLINE
+        shallow_array_adaptor (T (&data)[N]):
+            size_ (N), own_ (false), data_ (data, leaker<value_type> ()) {}
 
         BOOST_UBLAS_INLINE
         shallow_array_adaptor (const shallow_array_adaptor &a):
@@ -736,6 +802,7 @@ namespace boost { namespace numeric { namespace ublas {
                     std::fill (data.get () + (std::min) (size, size_), data.get () + size, init);
                 }
                 size_ = size;
+                own_ = true;
                 data_ = data;
             }
         }
@@ -746,7 +813,8 @@ namespace boost { namespace numeric { namespace ublas {
                 std::fill (data + (std::min) (size, size_), data + size, init);
             }
             size_ = size;
-            data_ = data;
+            own_ = false;
+            data_.reset(data, leaker<value_type> ());
         }
     public:
         BOOST_UBLAS_INLINE
@@ -764,6 +832,16 @@ namespace boost { namespace numeric { namespace ublas {
         BOOST_UBLAS_INLINE
         void resize (size_type size, pointer data, value_type init) {
             resize_internal (size, data, init, true);
+        }
+        template <size_t N>
+        BOOST_UBLAS_INLINE
+        void resize (T (&data)[N]) {
+            resize_internal (N, data, value_type (), false);
+        }
+        template <size_t N>
+        BOOST_UBLAS_INLINE
+        void resize (T (&data)[N], value_type init) {
+            resize_internal (N, data, init, true);
         }
 
         BOOST_UBLAS_INLINE
@@ -824,8 +902,16 @@ namespace boost { namespace numeric { namespace ublas {
             return data_.get ();
         }
         BOOST_UBLAS_INLINE
+        const_iterator cbegin () const {
+            return begin ();
+        }
+        BOOST_UBLAS_INLINE
         const_iterator end () const {
             return data_.get () + size_;
+        }
+        BOOST_UBLAS_INLINE
+        const_iterator cend () const {
+            return end ();
         }
 
         typedef pointer iterator;
@@ -848,8 +934,16 @@ namespace boost { namespace numeric { namespace ublas {
             return const_reverse_iterator (end ());
         }
         BOOST_UBLAS_INLINE
+        const_reverse_iterator crbegin () const {
+            return rbegin ();
+        }
+        BOOST_UBLAS_INLINE
         const_reverse_iterator rend () const {
             return const_reverse_iterator (begin ());
+        }
+        BOOST_UBLAS_INLINE
+        const_reverse_iterator crend () const {
+            return rend ();
         }
         BOOST_UBLAS_INLINE
         reverse_iterator rbegin () {
@@ -1043,8 +1137,16 @@ namespace boost { namespace numeric { namespace ublas {
             return const_iterator (*this, start_);
         }
         BOOST_UBLAS_INLINE
+        const_iterator cbegin () const {
+            return begin ();
+        }
+        BOOST_UBLAS_INLINE
         const_iterator end () const {
             return const_iterator (*this, start_ + size_);
+        }
+        BOOST_UBLAS_INLINE
+        const_iterator cend () const {
+            return end ();
         }
 
         // Reverse iterator
@@ -1055,8 +1157,16 @@ namespace boost { namespace numeric { namespace ublas {
             return const_reverse_iterator (end ());
         }
         BOOST_UBLAS_INLINE
+        const_reverse_iterator crbegin () const {
+            return rbegin ();
+        }
+        BOOST_UBLAS_INLINE
         const_reverse_iterator rend () const {
             return const_reverse_iterator (begin ());
+        }
+        BOOST_UBLAS_INLINE
+        const_reverse_iterator crend () const {
+            return rend ();
         }
 
         BOOST_UBLAS_INLINE
@@ -1262,8 +1372,16 @@ namespace boost { namespace numeric { namespace ublas {
             return const_iterator (*this, 0);
         }
         BOOST_UBLAS_INLINE
+        const_iterator cbegin () const {
+            return begin ();
+        }
+        BOOST_UBLAS_INLINE
         const_iterator end () const {
             return const_iterator (*this, size_);
+        }
+        BOOST_UBLAS_INLINE
+        const_iterator cend () const {
+            return end ();
         }
 
         // Reverse iterator
@@ -1274,8 +1392,16 @@ namespace boost { namespace numeric { namespace ublas {
             return const_reverse_iterator (end ());
         }
         BOOST_UBLAS_INLINE
+        const_reverse_iterator crbegin () const {
+            return rbegin ();
+        }
+        BOOST_UBLAS_INLINE
         const_reverse_iterator rend () const {
             return const_reverse_iterator (begin ());
+        }
+        BOOST_UBLAS_INLINE
+        const_reverse_iterator crend () const {
+            return rend ();
         }
 
         BOOST_UBLAS_INLINE
@@ -1522,8 +1648,16 @@ namespace boost { namespace numeric { namespace ublas {
             return const_iterator (*this, 0);
         }
         BOOST_UBLAS_INLINE
+        const_iterator cbegin () const {
+            return begin ();
+        }
+        BOOST_UBLAS_INLINE
         const_iterator end () const {
             return const_iterator (*this, size_);
+        }
+        BOOST_UBLAS_INLINE
+        const_iterator cend () const {
+            return end ();
         }
 
         // Reverse iterator
@@ -1534,8 +1668,16 @@ namespace boost { namespace numeric { namespace ublas {
             return const_reverse_iterator (end ());
         }
         BOOST_UBLAS_INLINE
+        const_reverse_iterator crbegin () const {
+            return rbegin ();
+        }
+        BOOST_UBLAS_INLINE
         const_reverse_iterator rend () const {
             return const_reverse_iterator (begin ());
+        }
+        BOOST_UBLAS_INLINE
+        const_reverse_iterator crend () const {
+            return rend ();
         }
 
         BOOST_UBLAS_INLINE
@@ -1607,10 +1749,16 @@ namespace boost { namespace numeric { namespace ublas {
             rhs = *this;
             *this = tmp;
         }
+
         BOOST_UBLAS_INLINE
         friend void swap(self_type& lhs, self_type& rhs) {
             lhs.swap(rhs);
         }
+
+        friend void swap(self_type lhs, self_type rhs) { // For gcc 4.8 and c++11
+            lhs.swap(rhs);
+        }
+
 
         BOOST_UBLAS_INLINE
         bool equal(const self_type& rhs) const {
@@ -1704,8 +1852,16 @@ namespace boost { namespace numeric { namespace ublas {
             return const_iterator( (*this), 0);
         }
         BOOST_UBLAS_INLINE
+        const_iterator cbegin () const {
+            return begin ();
+        }
+        BOOST_UBLAS_INLINE
         const_iterator end() const {
             return const_iterator( (*this), size());
+        }
+        BOOST_UBLAS_INLINE
+        const_iterator cend () const {
+            return end ();
         }
 
         // unnecessary function:
@@ -1778,8 +1934,13 @@ namespace boost { namespace numeric { namespace ublas {
             rhs = *this;
             *this = tmp;
         }
+
         BOOST_UBLAS_INLINE
         friend void swap(self_type& lhs, self_type& rhs) {
+            lhs.swap(rhs);
+        }
+
+        friend void swap(self_type lhs, self_type rhs) { // For gcc 4.8 and c++11
             lhs.swap(rhs);
         }
 
@@ -1878,8 +2039,16 @@ namespace boost { namespace numeric { namespace ublas {
             return const_iterator( (*this), 0);
         }
         BOOST_UBLAS_INLINE
+        const_iterator cbegin () const {
+            return begin ();
+        }
+        BOOST_UBLAS_INLINE
         const_iterator end() const {
             return const_iterator( (*this), size());
+        }
+        BOOST_UBLAS_INLINE
+        const_iterator cend () const {
+            return end ();
         }
 
         // unnecessary function:

@@ -440,7 +440,11 @@ namespace boost { namespace spirit { namespace repository { namespace qi
 
             // create Defs map with only one entry: (ID -> def)
             typedef typename
+#ifndef BOOST_FUSION_HAS_VARIADIC_MAP
                 fusion::result_of::make_map<id_type, def_type>::type
+#else
+                fusion::result_of::make_map<id_type>::template apply<def_type>::type
+#endif
             defs_type;
 
             typedef subrule_group<defs_type> type;

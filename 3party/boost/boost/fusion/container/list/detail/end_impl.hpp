@@ -33,13 +33,13 @@ namespace boost { namespace fusion
         struct end_impl<cons_tag>
         {
             template <typename Sequence>
-            struct apply 
+            struct apply
             {
                 typedef cons_iterator<
                     typename mpl::if_<is_const<Sequence>, nil_ const, nil_>::type>
                 type;
-    
-                BOOST_FUSION_GPU_ENABLED
+
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence&)
                 {

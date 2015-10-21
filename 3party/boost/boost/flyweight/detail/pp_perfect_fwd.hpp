@@ -137,38 +137,36 @@ template<typename T0,typename T1,typename T2,typename T3,typename T4> name(const
 #endif
 
 #if   BOOST_FLYWEIGHT_LIMIT_PERFECT_FWD_ARGS==0
-#define BOOST_FLYWEIGHT_PERFECT_FWD(name,body) \
-BOOST_FLYWEIGHT_PERFECT_FWD_0(name,body)
+#define BOOST_FLYWEIGHT_PERFECT_FWD_WITH_ARGS(name,body)
 #elif BOOST_FLYWEIGHT_LIMIT_PERFECT_FWD_ARGS==1
-#define BOOST_FLYWEIGHT_PERFECT_FWD(name,body) \
-BOOST_FLYWEIGHT_PERFECT_FWD_0(name,body)                \
+#define BOOST_FLYWEIGHT_PERFECT_FWD_WITH_ARGS(name,body) \
 BOOST_FLYWEIGHT_PERFECT_FWD_1(name,body)
 #elif BOOST_FLYWEIGHT_LIMIT_PERFECT_FWD_ARGS==2
-#define BOOST_FLYWEIGHT_PERFECT_FWD(name,body) \
-BOOST_FLYWEIGHT_PERFECT_FWD_0(name,body)                \
-BOOST_FLYWEIGHT_PERFECT_FWD_1(name,body)                \
+#define BOOST_FLYWEIGHT_PERFECT_FWD_WITH_ARGS(name,body) \
+BOOST_FLYWEIGHT_PERFECT_FWD_1(name,body)                 \
 BOOST_FLYWEIGHT_PERFECT_FWD_2(name,body)
 #elif BOOST_FLYWEIGHT_LIMIT_PERFECT_FWD_ARGS==3
-#define BOOST_FLYWEIGHT_PERFECT_FWD(name,body) \
-BOOST_FLYWEIGHT_PERFECT_FWD_0(name,body)                \
-BOOST_FLYWEIGHT_PERFECT_FWD_1(name,body)                \
-BOOST_FLYWEIGHT_PERFECT_FWD_2(name,body)                \
+#define BOOST_FLYWEIGHT_PERFECT_FWD_WITH_ARGS(name,body) \
+BOOST_FLYWEIGHT_PERFECT_FWD_1(name,body)                 \
+BOOST_FLYWEIGHT_PERFECT_FWD_2(name,body)                 \
 BOOST_FLYWEIGHT_PERFECT_FWD_3(name,body)
 #elif BOOST_FLYWEIGHT_LIMIT_PERFECT_FWD_ARGS==4
-#define BOOST_FLYWEIGHT_PERFECT_FWD(name,body) \
-BOOST_FLYWEIGHT_PERFECT_FWD_0(name,body)                \
-BOOST_FLYWEIGHT_PERFECT_FWD_1(name,body)                \
-BOOST_FLYWEIGHT_PERFECT_FWD_2(name,body)                \
-BOOST_FLYWEIGHT_PERFECT_FWD_3(name,body)                \
+#define BOOST_FLYWEIGHT_PERFECT_FWD_WITH_ARGS(name,body) \
+BOOST_FLYWEIGHT_PERFECT_FWD_1(name,body)                 \
+BOOST_FLYWEIGHT_PERFECT_FWD_2(name,body)                 \
+BOOST_FLYWEIGHT_PERFECT_FWD_3(name,body)                 \
 BOOST_FLYWEIGHT_PERFECT_FWD_4(name,body)
 #else /* BOOST_FLYWEIGHT_LIMIT_PERFECT_FWD_ARGS==5 */
-#define BOOST_FLYWEIGHT_PERFECT_FWD(name,body) \
-BOOST_FLYWEIGHT_PERFECT_FWD_0(name,body)                \
-BOOST_FLYWEIGHT_PERFECT_FWD_1(name,body)                \
-BOOST_FLYWEIGHT_PERFECT_FWD_2(name,body)                \
-BOOST_FLYWEIGHT_PERFECT_FWD_3(name,body)                \
-BOOST_FLYWEIGHT_PERFECT_FWD_4(name,body)                \
+#define BOOST_FLYWEIGHT_PERFECT_FWD_WITH_ARGS(name,body) \
+BOOST_FLYWEIGHT_PERFECT_FWD_1(name,body)                 \
+BOOST_FLYWEIGHT_PERFECT_FWD_2(name,body)                 \
+BOOST_FLYWEIGHT_PERFECT_FWD_3(name,body)                 \
+BOOST_FLYWEIGHT_PERFECT_FWD_4(name,body)                 \
 BOOST_FLYWEIGHT_PERFECT_FWD_5(name,body)
 #endif
+
+#define BOOST_FLYWEIGHT_PERFECT_FWD(name,body)           \
+BOOST_FLYWEIGHT_PERFECT_FWD_0(name,body)                 \
+BOOST_FLYWEIGHT_PERFECT_FWD_WITH_ARGS(name,body)
 
 #endif

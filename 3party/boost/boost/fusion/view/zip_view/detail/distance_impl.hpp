@@ -70,7 +70,7 @@ namespace boost { namespace fusion {
             struct apply
                 : detail::zip_view_iterator_distance<It1, It2>::type
             {
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static typename detail::zip_view_iterator_distance<It1, It2>::type
                 call(It1 const& /*it1*/, It2 const& /*it2*/)
                 {

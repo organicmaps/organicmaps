@@ -94,7 +94,11 @@ namespace boost { namespace property_tree
     >
     {
         static void insert(std::basic_ostream<Ch, Traits>& s, const F& e) {
-            s.precision(std::numeric_limits<F>::digits10 + 1);
+#ifndef BOOST_NO_CXX11_NUMERIC_LIMITS
+            s.precision(std::numeric_limits<F>::max_digits10);
+#else
+            s.precision(std::numeric_limits<F>::digits10 + 2);
+#endif
             s << e;
         }
         static void extract(std::basic_istream<Ch, Traits>& s, F& e) {
@@ -141,6 +145,7 @@ namespace boost { namespace property_tree
             {
                 s.clear(); // guarantees eof to be unset
                 e = 0;
+                s.setstate(std::ios_base::badbit);
                 return;
             }
             e = (signed char)i;
@@ -163,6 +168,7 @@ namespace boost { namespace property_tree
             if(i > (std::numeric_limits<unsigned char>::max)()) {
                 s.clear(); // guarantees eof to be unset
                 e = 0;
+                s.setstate(std::ios_base::badbit);
                 return;
             }
             e = (unsigned char)i;

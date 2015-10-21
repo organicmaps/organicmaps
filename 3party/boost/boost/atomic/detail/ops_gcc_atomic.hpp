@@ -24,6 +24,15 @@
 #include <boost/atomic/detail/ops_cas_based.hpp>
 #endif
 
+#if __GCC_ATOMIC_LLONG_LOCK_FREE != BOOST_ATOMIC_LLONG_LOCK_FREE || __GCC_ATOMIC_LONG_LOCK_FREE != BOOST_ATOMIC_LONG_LOCK_FREE ||\
+    __GCC_ATOMIC_INT_LOCK_FREE != BOOST_ATOMIC_INT_LOCK_FREE || __GCC_ATOMIC_SHORT_LOCK_FREE != BOOST_ATOMIC_SHORT_LOCK_FREE ||\
+    __GCC_ATOMIC_CHAR_LOCK_FREE != BOOST_ATOMIC_CHAR_LOCK_FREE || __GCC_ATOMIC_BOOL_LOCK_FREE != BOOST_ATOMIC_BOOL_LOCK_FREE ||\
+    __GCC_ATOMIC_WCHAR_T_LOCK_FREE != BOOST_ATOMIC_WCHAR_T_LOCK_FREE
+// There are platforms where we need to use larger storage types
+#include <boost/atomic/detail/int_sizes.hpp>
+#include <boost/atomic/detail/ops_extending_cas_based.hpp>
+#endif
+
 #ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
@@ -154,51 +163,6 @@ struct gcc_atomic_operations
     }
 };
 
-#if BOOST_ATOMIC_INT8_LOCK_FREE > 0
-template< bool Signed >
-struct operations< 1u, Signed > :
-    public gcc_atomic_operations< typename make_storage_type< 1u, Signed >::type >
-{
-};
-#endif
-
-#if BOOST_ATOMIC_INT16_LOCK_FREE > 0
-template< bool Signed >
-struct operations< 2u, Signed > :
-    public gcc_atomic_operations< typename make_storage_type< 2u, Signed >::type >
-{
-};
-#endif
-
-#if BOOST_ATOMIC_INT32_LOCK_FREE > 0
-template< bool Signed >
-struct operations< 4u, Signed > :
-    public gcc_atomic_operations< typename make_storage_type< 4u, Signed >::type >
-{
-};
-#endif
-
-#if BOOST_ATOMIC_INT64_LOCK_FREE > 0
-#if defined(__clang__) && defined(BOOST_ATOMIC_DETAIL_X86_HAS_CMPXCHG8B)
-
-// Workaround for clang bug http://llvm.org/bugs/show_bug.cgi?id=19355
-template< bool Signed >
-struct operations< 8u, Signed > :
-    public cas_based_operations< gcc_dcas_x86< Signed > >
-{
-};
-
-#else
-
-template< bool Signed >
-struct operations< 8u, Signed > :
-    public gcc_atomic_operations< typename make_storage_type< 8u, Signed >::type >
-{
-};
-
-#endif
-#endif
-
 #if BOOST_ATOMIC_INT128_LOCK_FREE > 0
 #if defined(__clang__) && defined(BOOST_ATOMIC_DETAIL_X86_HAS_CMPXCHG16B)
 
@@ -220,6 +184,184 @@ struct operations< 16u, Signed > :
 
 #endif
 #endif
+
+
+#if BOOST_ATOMIC_INT64_LOCK_FREE > 0
+#if defined(__clang__) && defined(BOOST_ATOMIC_DETAIL_X86_HAS_CMPXCHG8B)
+
+// Workaround for clang bug http://llvm.org/bugs/show_bug.cgi?id=19355
+template< bool Signed >
+struct operations< 8u, Signed > :
+    public cas_based_operations< gcc_dcas_x86< Signed > >
+{
+};
+
+#elif (BOOST_ATOMIC_DETAIL_SIZEOF_LLONG == 8 && __GCC_ATOMIC_LLONG_LOCK_FREE != BOOST_ATOMIC_LLONG_LOCK_FREE) ||\
+    (BOOST_ATOMIC_DETAIL_SIZEOF_LONG == 8 && __GCC_ATOMIC_LONG_LOCK_FREE != BOOST_ATOMIC_LONG_LOCK_FREE) ||\
+    (BOOST_ATOMIC_DETAIL_SIZEOF_INT == 8 && __GCC_ATOMIC_INT_LOCK_FREE != BOOST_ATOMIC_INT_LOCK_FREE) ||\
+    (BOOST_ATOMIC_DETAIL_SIZEOF_SHORT == 8 && __GCC_ATOMIC_SHORT_LOCK_FREE != BOOST_ATOMIC_SHORT_LOCK_FREE) ||\
+    (BOOST_ATOMIC_DETAIL_SIZEOF_WCHAR_T == 8 && __GCC_ATOMIC_WCHAR_T_LOCK_FREE != BOOST_ATOMIC_WCHAR_T_LOCK_FREE)
+
+#define BOOST_ATOMIC_DETAIL_INT64_EXTENDED
+
+template< bool Signed >
+struct operations< 8u, Signed > :
+    public extending_cas_based_operations< gcc_atomic_operations< typename make_storage_type< 16u, Signed >::type >, 8u, Signed >
+{
+};
+
+#else
+
+template< bool Signed >
+struct operations< 8u, Signed > :
+    public gcc_atomic_operations< typename make_storage_type< 8u, Signed >::type >
+{
+};
+
+#endif
+#endif
+
+#if BOOST_ATOMIC_INT32_LOCK_FREE > 0
+#if (BOOST_ATOMIC_DETAIL_SIZEOF_LLONG == 4 && __GCC_ATOMIC_LLONG_LOCK_FREE != BOOST_ATOMIC_LLONG_LOCK_FREE) ||\
+    (BOOST_ATOMIC_DETAIL_SIZEOF_LONG == 4 && __GCC_ATOMIC_LONG_LOCK_FREE != BOOST_ATOMIC_LONG_LOCK_FREE) ||\
+    (BOOST_ATOMIC_DETAIL_SIZEOF_INT == 4 && __GCC_ATOMIC_INT_LOCK_FREE != BOOST_ATOMIC_INT_LOCK_FREE) ||\
+    (BOOST_ATOMIC_DETAIL_SIZEOF_SHORT == 4 && __GCC_ATOMIC_SHORT_LOCK_FREE != BOOST_ATOMIC_SHORT_LOCK_FREE) ||\
+    (BOOST_ATOMIC_DETAIL_SIZEOF_WCHAR_T == 4 && __GCC_ATOMIC_WCHAR_T_LOCK_FREE != BOOST_ATOMIC_WCHAR_T_LOCK_FREE)
+
+#define BOOST_ATOMIC_DETAIL_INT32_EXTENDED
+
+#if !defined(BOOST_ATOMIC_DETAIL_INT64_EXTENDED)
+
+template< bool Signed >
+struct operations< 4u, Signed > :
+    public extending_cas_based_operations< gcc_atomic_operations< typename make_storage_type< 8u, Signed >::type >, 4u, Signed >
+{
+};
+
+#else // !defined(BOOST_ATOMIC_DETAIL_INT64_EXTENDED)
+
+template< bool Signed >
+struct operations< 4u, Signed > :
+    public extending_cas_based_operations< gcc_atomic_operations< typename make_storage_type< 16u, Signed >::type >, 4u, Signed >
+{
+};
+
+#endif // !defined(BOOST_ATOMIC_DETAIL_INT64_EXTENDED)
+
+#else
+
+template< bool Signed >
+struct operations< 4u, Signed > :
+    public gcc_atomic_operations< typename make_storage_type< 4u, Signed >::type >
+{
+};
+
+#endif
+#endif
+
+#if BOOST_ATOMIC_INT16_LOCK_FREE > 0
+#if (BOOST_ATOMIC_DETAIL_SIZEOF_LLONG == 2 && __GCC_ATOMIC_LLONG_LOCK_FREE != BOOST_ATOMIC_LLONG_LOCK_FREE) ||\
+    (BOOST_ATOMIC_DETAIL_SIZEOF_LONG == 2 && __GCC_ATOMIC_LONG_LOCK_FREE != BOOST_ATOMIC_LONG_LOCK_FREE) ||\
+    (BOOST_ATOMIC_DETAIL_SIZEOF_INT == 2 && __GCC_ATOMIC_INT_LOCK_FREE != BOOST_ATOMIC_INT_LOCK_FREE) ||\
+    (BOOST_ATOMIC_DETAIL_SIZEOF_SHORT == 2 && __GCC_ATOMIC_SHORT_LOCK_FREE != BOOST_ATOMIC_SHORT_LOCK_FREE) ||\
+    (BOOST_ATOMIC_DETAIL_SIZEOF_WCHAR_T == 2 && __GCC_ATOMIC_WCHAR_T_LOCK_FREE != BOOST_ATOMIC_WCHAR_T_LOCK_FREE)
+
+#define BOOST_ATOMIC_DETAIL_INT16_EXTENDED
+
+#if !defined(BOOST_ATOMIC_DETAIL_INT32_EXTENDED)
+
+template< bool Signed >
+struct operations< 2u, Signed > :
+    public extending_cas_based_operations< gcc_atomic_operations< typename make_storage_type< 4u, Signed >::type >, 2u, Signed >
+{
+};
+
+#elif !defined(BOOST_ATOMIC_DETAIL_INT64_EXTENDED)
+
+template< bool Signed >
+struct operations< 2u, Signed > :
+    public extending_cas_based_operations< gcc_atomic_operations< typename make_storage_type< 8u, Signed >::type >, 2u, Signed >
+{
+};
+
+#else
+
+template< bool Signed >
+struct operations< 2u, Signed > :
+    public extending_cas_based_operations< gcc_atomic_operations< typename make_storage_type< 16u, Signed >::type >, 2u, Signed >
+{
+};
+
+#endif
+
+#else
+
+template< bool Signed >
+struct operations< 2u, Signed > :
+    public gcc_atomic_operations< typename make_storage_type< 2u, Signed >::type >
+{
+};
+
+#endif
+#endif
+
+#if BOOST_ATOMIC_INT8_LOCK_FREE > 0
+#if (BOOST_ATOMIC_DETAIL_SIZEOF_LLONG == 1 && __GCC_ATOMIC_LLONG_LOCK_FREE != BOOST_ATOMIC_LLONG_LOCK_FREE) ||\
+    (BOOST_ATOMIC_DETAIL_SIZEOF_LONG == 1 && __GCC_ATOMIC_LONG_LOCK_FREE != BOOST_ATOMIC_LONG_LOCK_FREE) ||\
+    (BOOST_ATOMIC_DETAIL_SIZEOF_INT == 1 && __GCC_ATOMIC_INT_LOCK_FREE != BOOST_ATOMIC_INT_LOCK_FREE) ||\
+    (BOOST_ATOMIC_DETAIL_SIZEOF_SHORT == 1 && __GCC_ATOMIC_SHORT_LOCK_FREE != BOOST_ATOMIC_SHORT_LOCK_FREE) ||\
+    (BOOST_ATOMIC_DETAIL_SIZEOF_WCHAR_T == 1 && __GCC_ATOMIC_WCHAR_T_LOCK_FREE != BOOST_ATOMIC_WCHAR_T_LOCK_FREE) ||\
+    (__GCC_ATOMIC_CHAR_LOCK_FREE != BOOST_ATOMIC_CHAR_LOCK_FREE) ||\
+    (__GCC_ATOMIC_BOOL_LOCK_FREE != BOOST_ATOMIC_BOOL_LOCK_FREE)
+
+#if !defined(BOOST_ATOMIC_DETAIL_INT16_EXTENDED)
+
+template< bool Signed >
+struct operations< 1u, Signed > :
+    public extending_cas_based_operations< gcc_atomic_operations< typename make_storage_type< 2u, Signed >::type >, 1u, Signed >
+{
+};
+
+#elif !defined(BOOST_ATOMIC_DETAIL_INT32_EXTENDED)
+
+template< bool Signed >
+struct operations< 1u, Signed > :
+    public extending_cas_based_operations< gcc_atomic_operations< typename make_storage_type< 4u, Signed >::type >, 1u, Signed >
+{
+};
+
+#elif !defined(BOOST_ATOMIC_DETAIL_INT64_EXTENDED)
+
+template< bool Signed >
+struct operations< 1u, Signed > :
+    public extending_cas_based_operations< gcc_atomic_operations< typename make_storage_type< 8u, Signed >::type >, 1u, Signed >
+{
+};
+
+#else
+
+template< bool Signed >
+struct operations< 1u, Signed > :
+    public extending_cas_based_operations< gcc_atomic_operations< typename make_storage_type< 16u, Signed >::type >, 1u, Signed >
+{
+};
+
+#endif
+
+#else
+
+template< bool Signed >
+struct operations< 1u, Signed > :
+    public gcc_atomic_operations< typename make_storage_type< 1u, Signed >::type >
+{
+};
+
+#endif
+#endif
+
+#undef BOOST_ATOMIC_DETAIL_INT16_EXTENDED
+#undef BOOST_ATOMIC_DETAIL_INT32_EXTENDED
+#undef BOOST_ATOMIC_DETAIL_INT64_EXTENDED
 
 BOOST_FORCEINLINE void thread_fence(memory_order order) BOOST_NOEXCEPT
 {

@@ -170,9 +170,9 @@ void generate_from_int(Engine& eng, Iter begin, Iter end)
         } else if(available_bits % 32 == 0) {
             for(int i = 0; i < available_bits / 32; ++i) {
                 boost::uint_least32_t word = boost::uint_least32_t(val) & 0xFFFFFFFFu;
-                int supress_warning = (bits >= 32);
-                BOOST_ASSERT(supress_warning == 1);
-                val >>= (32 * supress_warning);
+                int suppress_warning = (bits >= 32);
+                BOOST_ASSERT(suppress_warning == 1);
+                val >>= (32 * suppress_warning);
                 *begin++ = word;
                 if(begin == end) return;
             }
@@ -191,9 +191,9 @@ void generate_from_int(Engine& eng, Iter begin, Iter end)
             if(bits >= 32) {
                 for(; available_bits >= 32; available_bits -= 32) {
                     boost::uint_least32_t word = boost::uint_least32_t(val) & 0xFFFFFFFFu;
-                    int supress_warning = (bits >= 32);
-                    BOOST_ASSERT(supress_warning == 1);
-                    val >>= (32 * supress_warning);
+                    int suppress_warning = (bits >= 32);
+                    BOOST_ASSERT(suppress_warning == 1);
+                    val >>= (32 * suppress_warning);
                     *begin++ = word;
                     if(begin == end) return;
                 }

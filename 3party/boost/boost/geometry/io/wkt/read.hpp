@@ -4,8 +4,8 @@
 // Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
-// This file was modified by Oracle on 2014.
-// Modifications copyright (c) 2014 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2014, 2015.
+// Modifications copyright (c) 2014-2015 Oracle and/or its affiliates.
 
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
@@ -64,7 +64,9 @@ struct read_wkt_exception : public geometry::exception
 {
     template <typename Iterator>
     read_wkt_exception(std::string const& msg,
-            Iterator const& it, Iterator const& end, std::string const& wkt)
+                       Iterator const& it,
+                       Iterator const& end,
+                       std::string const& wkt)
         : message(msg)
         , wkt(wkt)
     {
@@ -110,8 +112,10 @@ template <typename Point,
           std::size_t DimensionCount = geometry::dimension<Point>::value>
 struct parsing_assigner
 {
-    static inline void apply(tokenizer::iterator& it, tokenizer::iterator end,
-            Point& point, std::string const& wkt)
+    static inline void apply(tokenizer::iterator& it,
+                             tokenizer::iterator const& end,
+                             Point& point,
+                             std::string const& wkt)
     {
         typedef typename coordinate_type<Point>::type coordinate_type;
 
@@ -151,8 +155,10 @@ struct parsing_assigner
 template <typename Point, std::size_t DimensionCount>
 struct parsing_assigner<Point, DimensionCount, DimensionCount>
 {
-    static inline void apply(tokenizer::iterator&, tokenizer::iterator, Point&,
-                std::string const&)
+    static inline void apply(tokenizer::iterator&,
+                             tokenizer::iterator const&,
+                             Point&,
+                             std::string const&)
     {
     }
 };
@@ -161,7 +167,8 @@ struct parsing_assigner<Point, DimensionCount, DimensionCount>
 
 template <typename Iterator>
 inline void handle_open_parenthesis(Iterator& it,
-            Iterator const& end, std::string const& wkt)
+                                    Iterator const& end,
+                                    std::string const& wkt)
 {
     if (it == end || *it != "(")
     {
@@ -173,7 +180,8 @@ inline void handle_open_parenthesis(Iterator& it,
 
 template <typename Iterator>
 inline void handle_close_parenthesis(Iterator& it,
-            Iterator const& end, std::string const& wkt)
+                                     Iterator const& end,
+                                     std::string const& wkt)
 {
     if (it != end && *it == ")")
     {
@@ -187,7 +195,8 @@ inline void handle_close_parenthesis(Iterator& it,
 
 template <typename Iterator>
 inline void check_end(Iterator& it,
-            Iterator const& end, std::string const& wkt)
+                      Iterator const& end,
+                      std::string const& wkt)
 {
     if (it != end)
     {
@@ -206,8 +215,10 @@ struct container_inserter
 {
     // Version with output iterator
     template <typename OutputIterator>
-    static inline void apply(tokenizer::iterator& it, tokenizer::iterator end,
-        std::string const& wkt, OutputIterator out)
+    static inline void apply(tokenizer::iterator& it,
+                             tokenizer::iterator const& end,
+                             std::string const& wkt,
+                             OutputIterator out)
     {
         handle_open_parenthesis(it, end, wkt);
 
@@ -300,8 +311,10 @@ struct container_appender
 {
     typedef typename geometry::point_type<Geometry>::type point_type;
 
-    static inline void apply(tokenizer::iterator& it, tokenizer::iterator end,
-                             std::string const& wkt, Geometry out)
+    static inline void apply(tokenizer::iterator& it,
+                             tokenizer::iterator const& end,
+                             std::string const& wkt,
+                             Geometry out)
     {
         handle_open_parenthesis(it, end, wkt);
 
@@ -335,8 +348,10 @@ struct container_appender
 template <typename P>
 struct point_parser
 {
-    static inline void apply(tokenizer::iterator& it, tokenizer::iterator end,
-        std::string const& wkt, P& point)
+    static inline void apply(tokenizer::iterator& it,
+                             tokenizer::iterator const& end,
+                             std::string const& wkt,
+                             P& point)
     {
         handle_open_parenthesis(it, end, wkt);
         parsing_assigner<P>::apply(it, end, point, wkt);
@@ -348,8 +363,10 @@ struct point_parser
 template <typename Geometry>
 struct linestring_parser
 {
-    static inline void apply(tokenizer::iterator& it, tokenizer::iterator end,
-                std::string const& wkt, Geometry& geometry)
+    static inline void apply(tokenizer::iterator& it,
+                             tokenizer::iterator const& end,
+                             std::string const& wkt,
+                             Geometry& geometry)
     {
         container_appender<Geometry&>::apply(it, end, wkt, geometry);
     }
@@ -359,8 +376,10 @@ struct linestring_parser
 template <typename Ring>
 struct ring_parser
 {
-    static inline void apply(tokenizer::iterator& it, tokenizer::iterator end,
-                std::string const& wkt, Ring& ring)
+    static inline void apply(tokenizer::iterator& it,
+                             tokenizer::iterator const& end,
+                             std::string const& wkt,
+                             Ring& ring)
     {
         // A ring should look like polygon((x y,x y,x y...))
         // So handle the extra opening/closing parentheses
@@ -382,8 +401,10 @@ struct polygon_parser
     typedef typename ring_return_type<Polygon>::type ring_return_type;
     typedef container_appender<ring_return_type> appender;
 
-    static inline void apply(tokenizer::iterator& it, tokenizer::iterator end,
-                std::string const& wkt, Polygon& poly)
+    static inline void apply(tokenizer::iterator& it,
+                             tokenizer::iterator const& end,
+                             std::string const& wkt,
+                             Polygon& poly)
     {
 
         handle_open_parenthesis(it, end, wkt);
@@ -423,8 +444,9 @@ struct polygon_parser
 };
 
 
-inline bool one_of(tokenizer::iterator const& it, std::string const& value,
-            bool& is_present)
+inline bool one_of(tokenizer::iterator const& it,
+                   std::string const& value,
+                   bool& is_present)
 {
     if (boost::iequals(*it, value))
     {
@@ -434,8 +456,10 @@ inline bool one_of(tokenizer::iterator const& it, std::string const& value,
     return false;
 }
 
-inline bool one_of(tokenizer::iterator const& it, std::string const& value,
-            bool& present1, bool& present2)
+inline bool one_of(tokenizer::iterator const& it,
+                   std::string const& value,
+                   bool& present1,
+                   bool& present2)
 {
     if (boost::iequals(*it, value))
     {
@@ -447,8 +471,11 @@ inline bool one_of(tokenizer::iterator const& it, std::string const& value,
 }
 
 
-inline void handle_empty_z_m(tokenizer::iterator& it, tokenizer::iterator end,
-            bool& has_empty, bool& has_z, bool& has_m)
+inline void handle_empty_z_m(tokenizer::iterator& it,
+                             tokenizer::iterator const& end,
+                             bool& has_empty,
+                             bool& has_z,
+                             bool& has_m)
 {
     has_empty = false;
     has_z = false;
@@ -478,15 +505,18 @@ inline void handle_empty_z_m(tokenizer::iterator& it, tokenizer::iterator end,
 */
 template <typename Geometry>
 inline bool initialize(tokenizer const& tokens,
-            std::string const& geometry_name, std::string const& wkt,
-            tokenizer::iterator& it)
+                       std::string const& geometry_name,
+                       std::string const& wkt,
+                       tokenizer::iterator& it,
+                       tokenizer::iterator& end)
 {
     it = tokens.begin();
-    if (it != tokens.end() && boost::iequals(*it++, geometry_name))
+    end = tokens.end();
+    if (it != end && boost::iequals(*it++, geometry_name))
     {
         bool has_empty, has_z, has_m;
 
-        handle_empty_z_m(it, tokens.end(), has_empty, has_z, has_m);
+        handle_empty_z_m(it, end, has_empty, has_z, has_m);
 
 // Silence warning C4127: conditional expression is constant
 #if defined(_MSC_VER)
@@ -505,7 +535,7 @@ inline bool initialize(tokenizer const& tokens,
 
         if (has_empty)
         {
-            check_end(it, tokens.end(), wkt);
+            check_end(it, end, wkt);
             return false;
         }
         // M is ignored at all.
@@ -524,11 +554,11 @@ struct geometry_parser
         geometry::clear(geometry);
 
         tokenizer tokens(wkt, boost::char_separator<char>(" ", ",()"));
-        tokenizer::iterator it;
-        if (initialize<Geometry>(tokens, PrefixPolicy::apply(), wkt, it))
+        tokenizer::iterator it, end;
+        if (initialize<Geometry>(tokens, PrefixPolicy::apply(), wkt, it, end))
         {
-            Parser<Geometry>::apply(it, tokens.end(), wkt, geometry);
-            check_end(it, tokens.end(), wkt);
+            Parser<Geometry>::apply(it, end, wkt, geometry);
+            check_end(it, end, wkt);
         }
     }
 };
@@ -542,38 +572,40 @@ struct multi_parser
         traits::clear<MultiGeometry>::apply(geometry);
 
         tokenizer tokens(wkt, boost::char_separator<char>(" ", ",()"));
-        tokenizer::iterator it;
-        if (initialize<MultiGeometry>(tokens, PrefixPolicy::apply(), wkt, it))
+        tokenizer::iterator it, end;
+        if (initialize<MultiGeometry>(tokens, PrefixPolicy::apply(), wkt, it, end))
         {
-            handle_open_parenthesis(it, tokens.end(), wkt);
+            handle_open_parenthesis(it, end, wkt);
 
             // Parse sub-geometries
-            while(it != tokens.end() && *it != ")")
+            while(it != end && *it != ")")
             {
                 traits::resize<MultiGeometry>::apply(geometry, boost::size(geometry) + 1);
                 Parser
                     <
                         typename boost::range_value<MultiGeometry>::type
-                    >::apply(it, tokens.end(), wkt, *(boost::end(geometry) - 1));
-                if (it != tokens.end() && *it == ",")
+                    >::apply(it, end, wkt, *(boost::end(geometry) - 1));
+                if (it != end && *it == ",")
                 {
                     // Skip "," after multi-element is parsed
                     ++it;
                 }
             }
 
-            handle_close_parenthesis(it, tokens.end(), wkt);
+            handle_close_parenthesis(it, end, wkt);
         }
 
-        check_end(it, tokens.end(), wkt);
+        check_end(it, end, wkt);
     }
 };
 
 template <typename P>
 struct noparenthesis_point_parser
 {
-    static inline void apply(tokenizer::iterator& it, tokenizer::iterator end,
-        std::string const& wkt, P& point)
+    static inline void apply(tokenizer::iterator& it,
+                             tokenizer::iterator const& end,
+                             std::string const& wkt,
+                             P& point)
     {
         parsing_assigner<P>::apply(it, end, point, wkt);
     }
@@ -587,17 +619,17 @@ struct multi_point_parser
         traits::clear<MultiGeometry>::apply(geometry);
 
         tokenizer tokens(wkt, boost::char_separator<char>(" ", ",()"));
-        tokenizer::iterator it;
+        tokenizer::iterator it, end;
 
-        if (initialize<MultiGeometry>(tokens, PrefixPolicy::apply(), wkt, it))
+        if (initialize<MultiGeometry>(tokens, PrefixPolicy::apply(), wkt, it, end))
         {
-            handle_open_parenthesis(it, tokens.end(), wkt);
+            handle_open_parenthesis(it, end, wkt);
 
             // If first point definition starts with "(" then parse points as (x y)
             // otherwise as "x y"
-            bool using_brackets = (it != tokens.end() && *it == "(");
+            bool using_brackets = (it != end && *it == "(");
 
-            while(it != tokens.end() && *it != ")")
+            while(it != end && *it != ")")
             {
                 traits::resize<MultiGeometry>::apply(geometry, boost::size(geometry) + 1);
 
@@ -606,27 +638,27 @@ struct multi_point_parser
                     point_parser
                         <
                             typename boost::range_value<MultiGeometry>::type
-                        >::apply(it, tokens.end(), wkt, *(boost::end(geometry) - 1));
+                        >::apply(it, end, wkt, *(boost::end(geometry) - 1));
                 }
                 else
                 {
                     noparenthesis_point_parser
                         <
                             typename boost::range_value<MultiGeometry>::type
-                        >::apply(it, tokens.end(), wkt, *(boost::end(geometry) - 1));
+                        >::apply(it, end, wkt, *(boost::end(geometry) - 1));
                 }
 
-                if (it != tokens.end() && *it == ",")
+                if (it != end && *it == ",")
                 {
                     // Skip "," after point is parsed
                     ++it;
                 }
             }
 
-            handle_close_parenthesis(it, tokens.end(), wkt);
+            handle_close_parenthesis(it, end, wkt);
         }
 
-        check_end(it, tokens.end(), wkt);
+        check_end(it, end, wkt);
     }
 };
 

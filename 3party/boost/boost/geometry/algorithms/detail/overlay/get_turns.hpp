@@ -143,7 +143,7 @@ class get_turns_in_sections
 
     template <typename Geometry, typename Section>
     static inline bool neighbouring(Section const& section,
-            int index1, int index2)
+            signed_size_type index1, signed_size_type index2)
     {
         // About n-2:
         //   (square: range_count=5, indices 0,1,2,3
@@ -151,7 +151,7 @@ class get_turns_in_sections
         // Also tested for open polygons, and/or duplicates
         // About first condition: will be optimized by compiler (static)
         // It checks if it is areal (box,ring,(multi)polygon
-        int const n = int(section.range_count);
+        signed_size_type const n = static_cast<signed_size_type>(section.range_count);
 
         boost::ignore_unused_variable_warning(n);
         boost::ignore_unused_variable_warning(index1);
@@ -208,8 +208,8 @@ public :
 
         int const dir1 = sec1.directions[0];
         int const dir2 = sec2.directions[0];
-        int index1 = sec1.begin_index;
-        int ndi1 = sec1.non_duplicate_index;
+        signed_size_type index1 = sec1.begin_index;
+        signed_size_type ndi1 = sec1.non_duplicate_index;
 
         bool const same_source =
             source_id1 == source_id2
@@ -237,8 +237,8 @@ public :
                     begin_range_1, end_range_1, next1, true);
             advance_to_non_duplicate_next(nd_next1, it1, sec1, robust_policy);
 
-            int index2 = sec2.begin_index;
-            int ndi2 = sec2.non_duplicate_index;
+            signed_size_type index2 = sec2.begin_index;
+            signed_size_type ndi2 = sec2.non_duplicate_index;
 
             range2_iterator prev2, it2, end2;
 
@@ -360,7 +360,7 @@ private :
             typename boost::range_iterator<Range const>::type& it,
             typename boost::range_iterator<Range const>::type& prev,
             typename boost::range_iterator<Range const>::type& end,
-            int& index, int& ndi,
+            signed_size_type& index, signed_size_type& ndi,
             int dir, Box const& other_bounding_box, RobustPolicy const& robust_policy)
     {
         it = boost::begin(range) + section.begin_index;
@@ -525,8 +525,8 @@ struct get_turns_cs
                 RobustPolicy const& robust_policy,
                 Turns& turns,
                 InterruptPolicy& interrupt_policy,
-                signed_index_type multi_index = -1,
-                signed_index_type ring_index = -1)
+                signed_size_type multi_index = -1,
+                signed_size_type ring_index = -1)
     {
         if ( boost::size(range) <= 1)
         {
@@ -553,7 +553,7 @@ struct get_turns_cs
 
         //char previous_side[2] = {0, 0};
 
-        signed_index_type index = 0;
+        signed_size_type index = 0;
 
         for (iterator_type prev = it++;
             it != boost::end(view);
@@ -697,7 +697,7 @@ struct get_turns_polygon_cs
             int source_id2, Box const& box,
             RobustPolicy const& robust_policy,
             Turns& turns, InterruptPolicy& interrupt_policy,
-            signed_index_type multi_index = -1)
+            signed_size_type multi_index = -1)
     {
         typedef typename geometry::ring_type<Polygon>::type ring_type;
 
@@ -715,7 +715,7 @@ struct get_turns_polygon_cs
                 turns, interrupt_policy,
                 multi_index, -1);
 
-        signed_index_type i = 0;
+        signed_size_type i = 0;
 
         typename interior_return_type<Polygon const>::type
             rings = interior_rings(polygon);
@@ -754,7 +754,7 @@ struct get_turns_multi_polygon_cs
                 Multi const
             >::type iterator_type;
 
-        signed_index_type i = 0;
+        signed_size_type i = 0;
         for (iterator_type it = boost::begin(multi);
              it != boost::end(multi);
              ++it, ++i)

@@ -14,6 +14,7 @@
 #include <iterator>
 
 namespace boost {
+namespace iterators {
 
   template <class UnaryFunction>
   class function_output_iterator {
@@ -33,13 +34,13 @@ namespace boost {
     struct output_proxy {
       output_proxy(UnaryFunction& f) : m_f(f) { }
       template <class T> output_proxy& operator=(const T& value) {
-        m_f(value); 
-        return *this; 
+        m_f(value);
+        return *this;
       }
       UnaryFunction& m_f;
     };
     output_proxy operator*() { return output_proxy(m_f); }
-    self& operator++() { return *this; } 
+    self& operator++() { return *this; }
     self& operator++(int) { return *this; }
   private:
     UnaryFunction m_f;
@@ -50,6 +51,11 @@ namespace boost {
   make_function_output_iterator(const UnaryFunction& f = UnaryFunction()) {
     return function_output_iterator<UnaryFunction>(f);
   }
+
+} // namespace iterators
+
+using iterators::function_output_iterator;
+using iterators::make_function_output_iterator;
 
 } // namespace boost
 

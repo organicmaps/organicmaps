@@ -36,7 +36,7 @@ namespace boost { namespace fusion
             {
                 typedef typename Iterator::cons_type cons_type;
                 typedef typename cons_type::cdr_type cdr_type;
-    
+
                 typedef cons_iterator<
                     typename mpl::eval_if<
                         is_const<cons_type>
@@ -44,8 +44,8 @@ namespace boost { namespace fusion
                       , mpl::identity<cdr_type>
                     >::type>
                 type;
-    
-                BOOST_FUSION_GPU_ENABLED
+
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Iterator const& i)
                 {

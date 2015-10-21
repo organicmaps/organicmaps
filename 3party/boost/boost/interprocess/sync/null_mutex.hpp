@@ -11,7 +11,11 @@
 #ifndef BOOST_INTERPROCESS_NULL_MUTEX_HPP
 #define BOOST_INTERPROCESS_NULL_MUTEX_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -24,8 +28,12 @@
 
 namespace boost {
 
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
+
 namespace posix_time
 {  class ptime;   }
+
+#endif   //#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
 namespace interprocess {
 
@@ -33,10 +41,10 @@ namespace interprocess {
 //!simulates a successful operation.
 class null_mutex
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    null_mutex(const null_mutex&);
    null_mutex &operator= (const null_mutex&);
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
    public:
 
    //!Constructor.

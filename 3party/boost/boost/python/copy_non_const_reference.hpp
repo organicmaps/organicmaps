@@ -16,7 +16,7 @@ namespace detail
 {
   template <class R>
   struct copy_non_const_reference_expects_a_non_const_reference_return_type
-# if defined(__GNUC__) && __GNUC__ >= 3 || defined(__EDG__)
+# if defined(__GNUC__) || defined(__EDG__)
   {}
 # endif
   ;

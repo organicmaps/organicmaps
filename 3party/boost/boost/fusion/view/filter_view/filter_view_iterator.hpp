@@ -55,7 +55,7 @@ namespace boost { namespace fusion
         typedef last_iter last_type;
         typedef Pred pred_type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         filter_iterator(First const& in_first)
             : first(filter::iter_call(first_converter::call(in_first))) {}
 
@@ -66,6 +66,15 @@ namespace boost { namespace fusion
         filter_iterator& operator= (filter_iterator const&);
     };
 }}
+
+#ifdef BOOST_FUSION_WORKAROUND_FOR_LWG_2408
+namespace std
+{
+    template <typename Category, typename First, typename Last, typename Pred>
+    struct iterator_traits< ::boost::fusion::filter_iterator<Category, First, Last, Pred> >
+    { };
+}
+#endif
 
 #endif
 

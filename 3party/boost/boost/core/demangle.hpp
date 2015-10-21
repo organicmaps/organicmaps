@@ -17,10 +17,6 @@
 # pragma once
 #endif
 
-#if defined(ANDROID) && (defined(__i386__) || defined(mips))
-// do not define anything to avoid compilation issue with libc++ in Android SDK
-// it uses gabi for libc++ on mips and x86
-#else
 #if defined( __clang__ ) && defined( __has_include )
 # if __has_include(<cxxabi.h>)
 #  define BOOST_CORE_HAS_CXXABI_H
@@ -28,12 +24,19 @@
 #elif defined( __GLIBCXX__ ) || defined( __GLIBCPP__ )
 # define BOOST_CORE_HAS_CXXABI_H
 #endif
-#endif
 
 #if defined( BOOST_CORE_HAS_CXXABI_H )
 # include <cxxabi.h>
 # include <cstdlib>
 # include <cstddef>
+#endif
+
+// Android compilation error workaround: gabi++ does not define __cxa_demangle()
+// 3party/boost/boost/core/demangle.hpp:75:17: error: no member named '__cxa_demangle' in namespace '__cxxabiv1'
+//    return abi::__cxa_demangle( name, NULL, &size, &status );
+//           ~~~~~^
+#ifdef __GABIXX_CXXABI_H__
+# undef BOOST_CORE_HAS_CXXABI_H
 #endif
 
 namespace boost
@@ -121,6 +124,9 @@ inline std::string demangle( char const * name )
 
 } // namespace boost
 
-#undef BOOST_CORE_HAS_CXXABI_H
+// Second part of work-around for Android, see above.
+#ifdef BOOST_CORE_HAS_CXXABI_H
+# undef BOOST_CORE_HAS_CXXABI_H
+#endif
 
 #endif // #ifndef BOOST_CORE_DEMANGLE_HPP_INCLUDED

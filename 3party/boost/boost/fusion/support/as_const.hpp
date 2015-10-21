@@ -7,6 +7,9 @@
 #ifndef BOOST_FUSION_SUPPORT_AS_CONST_HPP
 #define BOOST_FUSION_SUPPORT_AS_CONST_HPP
 
+#include <boost/config.hpp>
+#include <boost/fusion/support/config.hpp>
+
 namespace boost { namespace fusion { namespace extension
 {
     // A customization point that allows certain wrappers around
@@ -16,8 +19,8 @@ namespace boost { namespace fusion { namespace extension
     // such contexts with calls to this function. Users can
     // specialize this function for their own wrappers.
     template <typename T>
-    BOOST_FUSION_GPU_ENABLED
-    const T& as_const(const T& obj)
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+    inline const T& as_const(const T& obj) BOOST_NOEXCEPT
     {
         return obj;
     }

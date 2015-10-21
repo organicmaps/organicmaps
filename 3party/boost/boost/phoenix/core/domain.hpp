@@ -33,6 +33,20 @@ namespace boost { namespace phoenix
         {};
     };
 
+    struct phoenix_default_domain
+        : proto::domain<
+           proto::basic_default_generator
+         , proto::_
+         , proto::basic_default_domain
+        >
+    {
+        template <typename T>
+        struct as_child
+        //: proto_base_domain::as_expr<T> // proto lambda example.
+          : as_expr<T>
+        {};
+    };
+
     struct phoenix_domain
         : proto::domain<
             phoenix_generator
@@ -42,8 +56,8 @@ namespace boost { namespace phoenix
     {
         template <typename T>
         struct as_child
-        : proto_base_domain::as_expr<T> // proto lambda example.
-        // : as_expr<T>
+        //: proto_base_domain::as_expr<T> // proto lambda example.
+          : as_expr<T>
         {};
     };
 }}

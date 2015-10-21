@@ -99,7 +99,7 @@ object_operators<U>::slice(object_cref start, slice_nil) const
     object_cref2 x = *static_cast<U const*>(this);
     return const_object_slice(x, api::slice_key(borrowed(start.ptr()), allow_null((PyObject*)0)));
 }
-# if !defined(BOOST_MSVC) || BOOST_MSVC > 1300
+
 template <class U>
 template <class T, class V>
 inline const_object_slice
@@ -119,8 +119,6 @@ object_operators<U>::slice(T const& start, V const& end)
         typename slice_bound<T>::type(start)
         , typename slice_bound<V>::type(end));
 }
-# endif 
-
 
 inline object const_slice_policies::get(object const& target, key_type const& key)
 {

@@ -45,7 +45,7 @@ namespace detail {
   // datatype and operation, so we'll use MPI_Reduce directly.
   template<typename T, typename Op>
   void
-  reduce_impl(const communicator& comm, const T* in_values, int n, 
+  reduce_impl(const communicator& comm, const T* in_values, int n,
               T* out_values, Op op, int root, mpl::true_ /*is_mpi_op*/,
               mpl::true_/*is_mpi_datatype*/)
   {
@@ -59,7 +59,7 @@ namespace detail {
   // datatype and operation, so we'll use MPI_Reduce directly.
   template<typename T, typename Op>
   void
-  reduce_impl(const communicator& comm, const T* in_values, int n, Op op, 
+  reduce_impl(const communicator& comm, const T* in_values, int n, Op op,
               int root, mpl::true_ /*is_mpi_op*/, mpl::true_/*is_mpi_datatype*/)
   {
     BOOST_MPI_CHECK_RESULT(MPI_Reduce,
@@ -77,7 +77,7 @@ namespace detail {
   // directly, but we'll need to create an MPI_Op manually.
   template<typename T, typename Op>
   void
-  reduce_impl(const communicator& comm, const T* in_values, int n, 
+  reduce_impl(const communicator& comm, const T* in_values, int n,
               T* out_values, Op op, int root, mpl::false_ /*is_mpi_op*/,
               mpl::true_/*is_mpi_datatype*/)
   {
@@ -93,7 +93,7 @@ namespace detail {
   // directly, but we'll need to create an MPI_Op manually.
   template<typename T, typename Op>
   void
-  reduce_impl(const communicator& comm, const T* in_values, int n, Op op, 
+  reduce_impl(const communicator& comm, const T* in_values, int n, Op op,
               int root, mpl::false_/*is_mpi_op*/, mpl::true_/*is_mpi_datatype*/)
   {
     user_op<Op, T> mpi_op(op);
@@ -111,7 +111,7 @@ namespace detail {
   template<typename T, typename Op>
   void
   tree_reduce_impl(const communicator& comm, const T* in_values, int n,
-                   T* out_values, Op op, int root, 
+                   T* out_values, Op op, int root,
                    mpl::true_ /*is_commutative*/)
   {
     std::copy(in_values, in_values + n, out_values);
@@ -156,7 +156,7 @@ namespace detail {
                    int root, mpl::true_ /*is_commutative*/)
   {
     scoped_array<T> results(new T[n]);
-    detail::tree_reduce_impl(comm, in_values, n, results.get(), op, root, 
+    detail::tree_reduce_impl(comm, in_values, n, results.get(), op, root,
                              mpl::true_());
   }
 
@@ -164,7 +164,7 @@ namespace detail {
   template<typename T, typename Op>
   void
   tree_reduce_impl(const communicator& comm, const T* in_values, int n,
-                   T* out_values, Op op, int root, 
+                   T* out_values, Op op, int root,
                    mpl::false_ /*is_commutative*/)
   {
     int tag = environment::collectives_tag();
@@ -285,7 +285,7 @@ namespace detail {
   // algorithm.
   template<typename T, typename Op>
   void
-  reduce_impl(const communicator& comm, const T* in_values, int n, 
+  reduce_impl(const communicator& comm, const T* in_values, int n,
               T* out_values, Op op, int root, mpl::false_ /*is_mpi_op*/,
               mpl::false_ /*is_mpi_datatype*/)
   {
@@ -298,8 +298,8 @@ namespace detail {
   // algorithm.
   template<typename T, typename Op>
   void
-  reduce_impl(const communicator& comm, const T* in_values, int n, Op op, 
-              int root, mpl::false_ /*is_mpi_op*/, 
+  reduce_impl(const communicator& comm, const T* in_values, int n, Op op,
+              int root, mpl::false_ /*is_mpi_op*/,
               mpl::false_ /*is_mpi_datatype*/)
   {
     detail::tree_reduce_impl(comm, in_values, n, op, root,
@@ -309,7 +309,7 @@ namespace detail {
 
 template<typename T, typename Op>
 void
-reduce(const communicator& comm, const T* in_values, int n, T* out_values, 
+reduce(const communicator& comm, const T* in_values, int n, T* out_values,
        Op op, int root)
 {
   if (comm.rank() == root)
@@ -321,7 +321,7 @@ reduce(const communicator& comm, const T* in_values, int n, T* out_values,
 }
 
 template<typename T, typename Op>
-void 
+void
 reduce(const communicator& comm, const T* in_values, int n, Op op, int root)
 {
   BOOST_ASSERT(comm.rank() != root);
@@ -330,21 +330,21 @@ reduce(const communicator& comm, const T* in_values, int n, Op op, int root)
                       is_mpi_op<Op, T>(), is_mpi_datatype<T>());
 }
 
-template<typename T, typename Op> 
-void 
-reduce(const communicator & comm, std::vector<T> const & in_values, Op op, 
-       int root) 
+template<typename T, typename Op>
+void
+reduce(const communicator & comm, std::vector<T> const & in_values, Op op,
+       int root)
 {
   reduce(comm, &in_values.front(), in_values.size(), op, root);
 }
 
-template<typename T, typename Op> 
-void 
-reduce(const communicator & comm, std::vector<T> const & in_values, 
-       std::vector<T> & out_values, Op op, int root) 
+template<typename T, typename Op>
+void
+reduce(const communicator & comm, std::vector<T> const & in_values,
+       std::vector<T> & out_values, Op op, int root)
 {
-  out_values.resize(in_values.size());
-  reduce(comm, &in_values.front(), in_values.size(), &out_values.front(), op, 
+  if (root == comm.rank()) out_values.resize(in_values.size());
+  reduce(comm, &in_values.front(), in_values.size(), &out_values.front(), op,
          root);
 }
 

@@ -16,21 +16,33 @@
 #include <ostream>
 
 #include <boost/none.hpp>
-#include <boost/assert.hpp>
 #include "boost/optional/optional.hpp"
-#include "boost/utility/value_init.hpp"
+
 
 namespace boost
 {
+
+template<class CharType, class CharTrait>
+inline
+std::basic_ostream<CharType, CharTrait>&
+operator<<(std::basic_ostream<CharType, CharTrait>& out, none_t const&)
+{
+  if (out.good())
+  {
+    out << "--";
+  }
+
+  return out;
+}
 
 template<class CharType, class CharTrait, class T>
 inline
 std::basic_ostream<CharType, CharTrait>&
 operator<<(std::basic_ostream<CharType, CharTrait>& out, optional<T> const& v)
 {
-  if ( out.good() )
+  if (out.good())
   {
-    if ( !v )
+    if (!v)
          out << "--" ;
     else out << ' ' << *v ;
   }
@@ -50,7 +62,11 @@ operator>>(std::basic_istream<CharType, CharTrait>& in, optional<T>& v)
     {
       T x;
       in >> x;
+#ifndef  BOOST_OPTIONAL_DETAIL_NO_RVALUE_REFERENCES
+      v = boost::move(x);
+#else
       v = x;
+#endif
     }
     else
     {

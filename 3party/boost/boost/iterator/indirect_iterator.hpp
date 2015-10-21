@@ -30,12 +30,13 @@
 # include <boost/scoped_ptr.hpp>
 # include <boost/mpl/bool.hpp>
 # include <memory>
-#endif 
+#endif
 
 #include <boost/iterator/detail/config_def.hpp> // must be last #include
 
-namespace boost
-{
+namespace boost {
+namespace iterators {
+
   template <class Iter, class Value, class Category, class Reference, class Difference>
   class indirect_iterator;
 
@@ -44,8 +45,8 @@ namespace boost
     template <class Iter, class Value, class Category, class Reference, class Difference>
     struct indirect_base
     {
-        typedef typename iterator_traits<Iter>::value_type dereferenceable;
-        
+        typedef typename boost::detail::iterator_traits<Iter>::value_type dereferenceable;
+
         typedef iterator_adaptor<
             indirect_iterator<Iter, Value, Category, Reference, Difference>
           , Iter
@@ -69,7 +70,7 @@ namespace boost
     struct indirect_base<int, int, int, int, int> {};
   } // namespace detail
 
-    
+
   template <
       class Iterator
     , class Value = use_default
@@ -107,14 +108,14 @@ namespace boost
         : super_t(y.base())
       {}
 
-  private:    
+  private:
       typename super_t::reference dereference() const
       {
 # if BOOST_WORKAROUND(__BORLANDC__, < 0x5A0 )
           return const_cast<super_t::reference>(**this->base());
 # else
           return **this->base();
-# endif 
+# endif
       }
   };
 
@@ -131,6 +132,11 @@ namespace boost
   {
     return indirect_iterator<Iter, Traits>(x);
   }
+
+} // namespace iterators
+
+using iterators::indirect_iterator;
+using iterators::make_indirect_iterator;
 
 } // namespace boost
 

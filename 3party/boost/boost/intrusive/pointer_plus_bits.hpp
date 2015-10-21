@@ -18,6 +18,10 @@
 #include <boost/intrusive/detail/mpl.hpp> //ls_zeros
 #include <boost/intrusive/detail/assert.hpp> //BOOST_INTRUSIVE_INVARIANT_ASSERT
 
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 namespace boost {
 namespace intrusive {
 

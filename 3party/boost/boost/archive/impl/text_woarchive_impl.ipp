@@ -31,7 +31,7 @@ namespace archive {
 // implementation of woarchive functions
 //
 template<class Archive>
-BOOST_WARCHIVE_DECL(void)
+BOOST_WARCHIVE_DECL void
 text_woarchive_impl<Archive>::save(const char *s)
 {
     // note: superfluous local variable fixes borland warning
@@ -43,7 +43,7 @@ text_woarchive_impl<Archive>::save(const char *s)
 }
 
 template<class Archive>
-BOOST_WARCHIVE_DECL(void)
+BOOST_WARCHIVE_DECL void
 text_woarchive_impl<Archive>::save(const std::string &s)
 {
     const std::size_t size = s.size();
@@ -56,7 +56,7 @@ text_woarchive_impl<Archive>::save(const std::string &s)
 
 #ifndef BOOST_NO_INTRINSIC_WCHAR_T
 template<class Archive>
-BOOST_WARCHIVE_DECL(void)
+BOOST_WARCHIVE_DECL void
 text_woarchive_impl<Archive>::save(const wchar_t *ws)
 {
     const std::size_t size = std::wostream::traits_type::length(ws);
@@ -68,7 +68,7 @@ text_woarchive_impl<Archive>::save(const wchar_t *ws)
 
 #ifndef BOOST_NO_STD_WSTRING
 template<class Archive>
-BOOST_WARCHIVE_DECL(void)
+BOOST_WARCHIVE_DECL void
 text_woarchive_impl<Archive>::save(const std::wstring &ws)
 {
     const std::size_t size = ws.length();

@@ -50,7 +50,7 @@ namespace detail {
 # else
         (void) fac;     // remove "unused parameter" warning
         using namespace std;
-        return isdigit(c); 
+        return isdigit(c) != 0;
 #endif 
     }
  
@@ -471,7 +471,8 @@ namespace detail {
         if( !ordered_args) {
             if(max_argN >= 0 ) {  // dont mix positional with non-positionnal directives
                 if(exceptions() & io::bad_format_string_bit)
-                    boost::throw_exception(io::bad_format_string(max_argN, 0));
+                    boost::throw_exception(
+                        io::bad_format_string(static_cast<std::size_t>(max_argN), 0));
                 // else do nothing. => positionnal arguments are processed as non-positionnal
             }
             // set things like it would have been with positional directives :

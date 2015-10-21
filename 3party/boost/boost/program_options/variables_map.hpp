@@ -31,35 +31,35 @@ namespace boost { namespace program_options {
 
     // forward declaration
 
-    /** Stores in 'm' all options that are defined in 'options'. 
+    /** Stores in 'm' all options that are defined in 'options'.
         If 'm' already has a non-defaulted value of an option, that value
-        is not changed, even if 'options' specify some value.        
+        is not changed, even if 'options' specify some value.
     */
-    BOOST_PROGRAM_OPTIONS_DECL 
+    BOOST_PROGRAM_OPTIONS_DECL
     void store(const basic_parsed_options<char>& options, variables_map& m,
                     bool utf8 = false);
 
-    /** Stores in 'm' all options that are defined in 'options'. 
+    /** Stores in 'm' all options that are defined in 'options'.
         If 'm' already has a non-defaulted value of an option, that value
-        is not changed, even if 'options' specify some value.        
+        is not changed, even if 'options' specify some value.
         This is wide character variant.
     */
-    BOOST_PROGRAM_OPTIONS_DECL 
-    void store(const basic_parsed_options<wchar_t>& options, 
+    BOOST_PROGRAM_OPTIONS_DECL
+    void store(const basic_parsed_options<wchar_t>& options,
                     variables_map& m);
 
 
     /** Runs all 'notify' function for options in 'm'. */
     BOOST_PROGRAM_OPTIONS_DECL void notify(variables_map& m);
 
-    /** Class holding value of option. Contains details about how the 
+    /** Class holding value of option. Contains details about how the
         value is set and allows to conveniently obtain the value.
     */
     class BOOST_PROGRAM_OPTIONS_DECL variable_value {
     public:
         variable_value() : m_defaulted(false) {}
-        variable_value(const boost::any& xv, bool xdefaulted) 
-        : v(xv), m_defaulted(xdefaulted) 
+        variable_value(const boost::any& xv, bool xdefaulted)
+        : v(xv), m_defaulted(xdefaulted)
         {}
 
         /** If stored value if of type T, returns that value. Otherwise,
@@ -95,7 +95,7 @@ namespace boost { namespace program_options {
         shared_ptr<const value_semantic> m_value_semantic;
 
         friend BOOST_PROGRAM_OPTIONS_DECL
-        void store(const basic_parsed_options<char>& options, 
+        void store(const basic_parsed_options<char>& options,
               variables_map& m, bool);
 
         friend class BOOST_PROGRAM_OPTIONS_DECL variables_map;
@@ -118,11 +118,11 @@ namespace boost { namespace program_options {
                 - otherwise, returns empty value
 
             - if there's defaulted value
-                - if there's next varaible map, which has a non-defauled
+                - if there's next variable map, which has a non-defaulted
                   value, return that
                 - otherwise, return value from *this
 
-            - if there's a non-defauled value, returns it.
+            - if there's a non-defaulted value, returns it.
         */
         const variable_value& operator[](const std::string& name) const;
 
@@ -138,8 +138,8 @@ namespace boost { namespace program_options {
         const abstract_variables_map* m_next;
     };
 
-    /** Concrete variables map which store variables in real map. 
-        
+    /** Concrete variables map which store variables in real map.
+
         This class is derived from std::map<std::string, variable_value>,
         so you can use all map operators to examine its content.
     */
@@ -155,8 +155,8 @@ namespace boost { namespace program_options {
         { return abstract_variables_map::operator[](name); }
 
         // Override to clear some extra fields.
-        void clear(); 
-        
+        void clear();
+
         void notify();
 
     private:
@@ -164,15 +164,15 @@ namespace boost { namespace program_options {
             which does 'find' in *this. */
         const variable_value& get(const std::string& name) const;
 
-        /** Names of option with 'final' values -- which should not
+        /** Names of option with 'final' values \-- which should not
             be changed by subsequence assignments. */
         std::set<std::string> m_final;
 
         friend BOOST_PROGRAM_OPTIONS_DECL
-        void store(const basic_parsed_options<char>& options, 
+        void store(const basic_parsed_options<char>& options,
                           variables_map& xm,
                           bool utf8);
-        
+
         /** Names of required options, filled by parser which has
             access to options_description.
             The map values are the "canonical" names for each corresponding option.

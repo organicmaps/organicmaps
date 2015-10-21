@@ -23,12 +23,12 @@ namespace boost { namespace fusion
         struct end_impl<vector_tag>
         {
             template <typename Sequence>
-            struct apply 
+            struct apply
             {
                 typedef typename Sequence::size size;
                 typedef vector_iterator<Sequence, size::value> type;
-    
-                BOOST_FUSION_GPU_ENABLED
+
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& v)
                 {

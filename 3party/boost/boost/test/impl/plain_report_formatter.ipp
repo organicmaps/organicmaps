@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2005-2008.
+//  (C) Copyright Gennadiy Rozental 2005-2014.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -19,9 +19,13 @@
 #include <boost/test/output/plain_report_formatter.hpp>
 #include <boost/test/utils/custom_manip.hpp>
 #include <boost/test/results_collector.hpp>
-#include <boost/test/unit_test_suite_impl.hpp>
+
+#include <boost/test/tree/test_unit.hpp>
 
 #include <boost/test/utils/basic_cstring/io.hpp>
+#include <boost/test/utils/setcolor.hpp>
+
+#include <boost/test/unit_test_parameters.hpp>
 
 // STL
 #include <iomanip>
@@ -37,9 +41,7 @@ namespace std { using ::log10; }
 //____________________________________________________________________________//
 
 namespace boost {
-
 namespace unit_test {
-
 namespace output {
 
 namespace {
@@ -58,17 +60,16 @@ operator<<( custom_printer<quote> const& p, T const& value )
 //____________________________________________________________________________//
 
 void
-print_stat_value( std::ostream& ostr, counter_t v, counter_t indent, counter_t total,
-                  const_string name, const_string res )
+print_stat_value( std::ostream& ostr, counter_t v, counter_t indent, counter_t total, const_string name, const_string res )
 {
-    if( v > 0 ) {
-        ostr << std::setw( indent ) << ""
-             << v << ' ' << name << ( v != 1 ? "s" : "" );
-        if( total > 0 )
-            ostr << " out of " << total;
+    if( v == 0 )
+        return;
 
-        ostr << ' ' << res << '\n';
-    }
+    if( total > 0 )
+        ostr << std::setw( static_cast<int>(indent) ) << "" << v << ' ' << name << ( v != 1 ? "s" : "" )
+             << " out of " << total << ' ' << res << '\n';
+    else
+        ostr << std::setw( static_cast<int>(indent) ) << "" << v << ' ' << res << ' ' << name << ( v != 1 ? "s" : "" ) << '\n';
 }
 
 //____________________________________________________________________________//
@@ -104,40 +105,42 @@ plain_report_formatter::test_unit_report_start( test_unit const& tu, std::ostrea
     const_string descr;
 
     if( tr.passed() )
-        descr = "passed";
+        descr = "has passed";
     else if( tr.p_skipped )
-        descr = "skipped";
+        descr = "was skipped";
     else if( tr.p_aborted )
-        descr = "aborted";
+        descr = "was aborted";
     else
-        descr = "failed";
+        descr = "has failed";
 
-    ostr << std::setw( m_indent ) << ""
-         << "Test " << (tu.p_type == tut_case ? "case " : "suite " ) << quote() << tu.p_name << ' ' << descr;
+    ostr << std::setw( static_cast<int>(m_indent) ) << ""
+         << "Test " << tu.p_type_name << ' ' << quote() << tu.full_name() << ' ' << descr;
 
     if( tr.p_skipped ) {
-        ostr << " due to " << (tu.check_dependencies() ? "test aborting\n" : "failed dependancy\n" );
+        ostr  << "\n";
         m_indent += 2;
         return;
     }
-    
-    counter_t total_assertions  = tr.p_assertions_passed + tr.p_assertions_failed;
-    counter_t total_tc          = tr.p_test_cases_passed + tr.p_test_cases_failed + tr.p_test_cases_skipped;
 
-    if( total_assertions > 0 || total_tc > 0 )
+    counter_t total_assertions  = tr.p_assertions_passed + tr.p_assertions_failed;
+    counter_t total_tc          = tr.p_test_cases_passed + tr.p_test_cases_warned + tr.p_test_cases_failed + tr.p_test_cases_skipped;
+
+    if( total_assertions > 0 || total_tc > 0 || tr.p_warnings_failed > 0)
         ostr << " with:";
 
     ostr << '\n';
     m_indent += 2;
 
-    print_stat_value( ostr, tr.p_assertions_passed, m_indent, total_assertions, "assertion", "passed" );
-    print_stat_value( ostr, tr.p_assertions_failed, m_indent, total_assertions, "assertion", "failed" );
-    print_stat_value( ostr, tr.p_expected_failures, m_indent, 0               , "failure"  , "expected" );
-    print_stat_value( ostr, tr.p_test_cases_passed, m_indent, total_tc        , "test case", "passed" );
-    print_stat_value( ostr, tr.p_test_cases_failed, m_indent, total_tc        , "test case", "failed" );
-    print_stat_value( ostr, tr.p_test_cases_skipped, m_indent, total_tc       , "test case", "skipped" );
-    print_stat_value( ostr, tr.p_test_cases_aborted, m_indent, total_tc       , "test case", "aborted" );
-    
+    print_stat_value( ostr, tr.p_test_cases_passed , m_indent, total_tc        , "test case", "passed" );
+    print_stat_value( ostr, tr.p_test_cases_warned , m_indent, total_tc        , "test case", "passed with warnings" );
+    print_stat_value( ostr, tr.p_test_cases_failed , m_indent, total_tc        , "test case", "failed" );
+    print_stat_value( ostr, tr.p_test_cases_skipped, m_indent, total_tc        , "test case", "skipped" );
+    print_stat_value( ostr, tr.p_test_cases_aborted, m_indent, total_tc        , "test case", "aborted" );
+    print_stat_value( ostr, tr.p_assertions_passed , m_indent, total_assertions, "assertion", "passed" );
+    print_stat_value( ostr, tr.p_assertions_failed , m_indent, total_assertions, "assertion", "failed" );
+    print_stat_value( ostr, tr.p_warnings_failed   , m_indent, 0               , "warning"  , "failed" );
+    print_stat_value( ostr, tr.p_expected_failures , m_indent, 0               , "failure"  , "expected" );
+
     ostr << '\n';
 }
 
@@ -155,43 +158,49 @@ void
 plain_report_formatter::do_confirmation_report( test_unit const& tu, std::ostream& ostr )
 {
     test_results const& tr = results_collector.results( tu.p_id );
-    
+
     if( tr.passed() ) {
+        BOOST_TEST_SCOPE_SETCOLOR( ostr, term_attr::BRIGHT, term_color::GREEN );
+
         ostr << "*** No errors detected\n";
         return;
     }
-        
-    if( tr.p_skipped ) {
-        ostr << "*** Test " << tu.p_type_name << " skipped due to " 
-             << (tu.check_dependencies() ? "test aborting\n" : "failed dependancy\n" );
-        return;
-    }
 
-    if( tr.p_assertions_failed == 0 ) {
-        ostr << "*** errors detected in test " << tu.p_type_name << " " << quote() << tu.p_name
+    BOOST_TEST_SCOPE_SETCOLOR( ostr, term_attr::BRIGHT, term_color::RED );
+
+    if( tr.p_skipped ) {
+        ostr << "*** The test " << tu.p_type_name << ' ' << quote() << tu.full_name() << " was skipped"
              << "; see standard output for details\n";
         return;
     }
 
+    if( tr.p_aborted ) {
+        ostr << "*** The test " << tu.p_type_name << ' ' << quote() << tu.full_name() << " was aborted"
+             << "; see standard output for details\n";
+    }
+
+    if( tr.p_assertions_failed == 0 ) {
+        if( !tr.p_aborted )
+            ostr << "*** Errors were detected in the test " << tu.p_type_name << ' ' << quote() << tu.full_name()
+                 << "; see standard output for details\n";
+        return;
+    }
+
     counter_t num_failures = tr.p_assertions_failed;
-    
-    ostr << "*** " << num_failures << " failure" << ( num_failures != 1 ? "s" : "" ) << " detected";
-    
+
+    ostr << "*** " << num_failures << " failure" << ( num_failures != 1 ? "s are" : " is" ) << " detected";
+
     if( tr.p_expected_failures > 0 )
-        ostr << " (" << tr.p_expected_failures << " failure" << ( tr.p_expected_failures != 1 ? "s" : "" ) << " expected)";
-    
-    ostr << " in test " << tu.p_type_name << " " << quote() << tu.p_name << "\n";
+        ostr << " (" << tr.p_expected_failures << " failure" << ( tr.p_expected_failures != 1 ? "s are" : " is" ) << " expected)";
+
+    ostr << " in the test " << tu.p_type_name << " " << quote() << tu.full_name() << "\n";
 }
 
 //____________________________________________________________________________//
 
 } // namespace output
-
 } // namespace unit_test
-
 } // namespace boost
-
-//____________________________________________________________________________//
 
 #include <boost/test/detail/enable_warnings.hpp>
 

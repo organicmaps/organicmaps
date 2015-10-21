@@ -37,11 +37,14 @@ BOOST_FLYWEIGHT_PERFECT_FWD_N_AUX(                                 \
   n,BOOST_PP_SEQ_HEAD(data),                                       \
   BOOST_PP_SEQ_HEAD(BOOST_PP_SEQ_TAIL(data)))
 
-#define BOOST_FLYWEIGHT_PERFECT_FWD(name,body)                     \
-name()body((ENUM)(0))                                              \
+#define BOOST_FLYWEIGHT_PERFECT_FWD_WITH_ARGS(name,body)           \
 BOOST_PP_REPEAT_FROM_TO(                                           \
   1,BOOST_PP_ADD(BOOST_FLYWEIGHT_LIMIT_PERFECT_FWD_ARGS,1),        \
   BOOST_FLYWEIGHT_PERFECT_FWD_N,(name)(body))
+
+#define BOOST_FLYWEIGHT_PERFECT_FWD(name,body)                     \
+name()body((ENUM)(0))                                              \
+BOOST_FLYWEIGHT_PERFECT_FWD_WITH_ARGS(name,body)
 
 #else
 
@@ -98,11 +101,14 @@ BOOST_PP_SEQ_FOR_EACH_PRODUCT(                                     \
   ((data))                                                         \
   BOOST_PP_REPEAT(n,BOOST_FLYWEIGHT_01,~))
 
-#define BOOST_FLYWEIGHT_PERFECT_FWD(name,body)                     \
-name()body((ENUM)(0))                                              \
+#define BOOST_FLYWEIGHT_PERFECT_FWD_WITH_ARGS(name,body)           \
 BOOST_PP_REPEAT_FROM_TO(                                           \
   1,BOOST_PP_ADD(BOOST_FLYWEIGHT_LIMIT_PERFECT_FWD_ARGS,1),        \
   BOOST_FLYWEIGHT_PERFECT_FWD_N,(name)(body))
+
+#define BOOST_FLYWEIGHT_PERFECT_FWD(name,body)                     \
+name()body((ENUM)(0))                                              \
+BOOST_FLYWEIGHT_PERFECT_FWD_WITH_ARGS(name,body)
 
 #endif
 #endif

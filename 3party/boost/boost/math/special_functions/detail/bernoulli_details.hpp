@@ -9,6 +9,7 @@
 
 #include <boost/config.hpp>
 #include <boost/detail/lightweight_mutex.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <boost/math/tools/toms748_solve.hpp>
 
 #ifdef BOOST_HAS_THREADS
@@ -624,7 +625,7 @@ private:
    //
    fixed_vector<T> bn, tn;
    std::vector<T> m_intermediates;
-   // The value at which we know overflow has already occured for the Bn:
+   // The value at which we know overflow has already occurred for the Bn:
    std::size_t m_overflow_limit;
 #if !defined(BOOST_HAS_THREADS)
 #elif defined(BOOST_MATH_NO_ATOMIC_INT)

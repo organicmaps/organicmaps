@@ -9,10 +9,6 @@
 #if !defined(BOOST_SPIRIT_X3_STRING_TRAITS_OCTOBER_2008_1252PM)
 #define BOOST_SPIRIT_X3_STRING_TRAITS_OCTOBER_2008_1252PM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <string>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/identity.hpp>

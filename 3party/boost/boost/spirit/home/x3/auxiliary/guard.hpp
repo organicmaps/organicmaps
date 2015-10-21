@@ -7,10 +7,6 @@
 #if !defined(BOOST_SPIRIT_X3_GUARD_FERBRUARY_02_2013_0649PM)
 #define BOOST_SPIRIT_X3_GUARD_FERBRUARY_02_2013_0649PM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/spirit/home/x3/support/context.hpp>
 #include <boost/spirit/home/x3/directive/expect.hpp>
 

@@ -36,7 +36,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Sequence, typename Position, typename Range>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::insert_range<Sequence const, Position, Range const>::type
     insert_range(Sequence const& seq, Position const& pos, Range const& range)
     {

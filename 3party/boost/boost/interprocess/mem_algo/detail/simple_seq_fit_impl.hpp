@@ -11,7 +11,11 @@
 #ifndef BOOST_INTERPROCESS_MEM_ALGO_DETAIL_SIMPLE_SEQ_FIT_IMPL_HPP
 #define BOOST_INTERPROCESS_MEM_ALGO_DETAIL_SIMPLE_SEQ_FIT_IMPL_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -32,13 +36,10 @@
 #include <boost/interprocess/sync/scoped_lock.hpp>
 #include <boost/intrusive/pointer_traits.hpp>
 #include <boost/interprocess/mem_algo/detail/mem_algo_common.hpp>
-#include <boost/type_traits/alignment_of.hpp>
-#include <boost/type_traits/type_with_alignment.hpp>
-#include <algorithm>
-#include <utility>
+#include <boost/move/detail/type_traits.hpp> //make_unsigned, alignment_of
+#include <boost/intrusive/detail/minimal_pair_header.hpp>
 #include <cstring>
 #include <boost/assert.hpp>
-#include <new>
 
 //!\file
 //!Describes sequential fit algorithm used to allocate objects in shared memory.
@@ -75,7 +76,7 @@ class simple_seq_fit_impl
       basic_multiallocation_chain<VoidPointer>     multiallocation_chain;
 
    typedef typename boost::intrusive::pointer_traits<char_ptr>::difference_type difference_type;
-   typedef typename boost::make_unsigned<difference_type>::type size_type;
+   typedef typename boost::container::container_detail::make_unsigned<difference_type>::type size_type;
 
 
    private:
@@ -141,7 +142,7 @@ class simple_seq_fit_impl
    //!Allocates bytes, returns 0 if there is not more memory
    void* allocate             (size_type nbytes);
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
    //!Multiple element allocation, same size
    void allocate_many(size_type elem_bytes, size_type num_elements, multiallocation_chain &chain)
@@ -164,7 +165,7 @@ class simple_seq_fit_impl
    //!Multiple element deallocation
    void deallocate_many(multiallocation_chain &chain);
 
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    //!Deallocates previously allocated bytes
    void   deallocate          (void *addr);
@@ -192,15 +193,11 @@ class simple_seq_fit_impl
    void zero_free_memory();
 
    template<class T>
-   std::pair<T *, bool>
-      allocation_command  (boost::interprocess::allocation_type command,   size_type limit_size,
-                           size_type preferred_size,size_type &received_size,
-                           T *reuse_ptr = 0);
+   T *allocation_command  (boost::interprocess::allocation_type command,   size_type limit_size,
+                           size_type &prefer_in_recvd_out_size, T *&reuse);
 
-   std::pair<void *, bool>
-      raw_allocation_command  (boost::interprocess::allocation_type command,   size_type limit_size,
-                               size_type preferred_size,size_type &received_size,
-                               void *reuse_ptr = 0, size_type sizeof_object = 1);
+   void * raw_allocation_command  (boost::interprocess::allocation_type command,   size_type limit_size,
+                               size_type &prefer_in_recvd_out_size, void *&reuse_ptr, size_type sizeof_object = 1);
 
    //!Returns the size of the buffer previously allocated pointed by ptr
    size_type size(const void *ptr) const;
@@ -218,18 +215,15 @@ class simple_seq_fit_impl
    static block_ctrl *priv_get_block(const void *ptr);
 
    //!Real allocation algorithm with min allocation option
-   std::pair<void *, bool> priv_allocate(boost::interprocess::allocation_type command
-                                        ,size_type min_size
-                                        ,size_type preferred_size
-                                        ,size_type &received_size
-                                        ,void *reuse_ptr = 0);
+   void * priv_allocate(boost::interprocess::allocation_type command
+                        ,size_type min_size
+                        ,size_type &prefer_in_recvd_out_size, void *&reuse_ptr);
 
-   std::pair<void *, bool> priv_allocation_command(boost::interprocess::allocation_type command
-                                        ,size_type min_size
-                                        ,size_type preferred_size
-                                        ,size_type &received_size
-                                        ,void *reuse_ptr
-                                        ,size_type sizeof_object);
+   void * priv_allocation_command(boost::interprocess::allocation_type command
+                                 ,size_type min_size
+                                 ,size_type &prefer_in_recvd_out_size
+                                 ,void *&reuse_ptr
+                                 ,size_type sizeof_object);
 
    //!Returns the number of total units that a user buffer
    //!of "userbytes" bytes really occupies (including header)
@@ -247,18 +241,14 @@ class simple_seq_fit_impl
 
    //!Returns previous block's if it's free.
    //!Returns 0 if previous block is not free.
-   std::pair<block_ctrl*, block_ctrl*>priv_prev_block_if_free(block_ctrl *ptr);
+   std::pair<block_ctrl*, block_ctrl*> priv_prev_block_if_free(block_ctrl *ptr);
 
    //!Real expand function implementation
-   bool priv_expand(void *ptr
-                   ,size_type min_size, size_type preferred_size
-                   ,size_type &received_size);
+   bool priv_expand(void *ptr, size_type min_size, size_type &prefer_in_recvd_out_size);
 
    //!Real expand to both sides implementation
    void* priv_expand_both_sides(boost::interprocess::allocation_type command
-                               ,size_type min_size
-                               ,size_type preferred_size
-                               ,size_type &received_size
+                               ,size_type min_size, size_type &prefer_in_recvd_out_size
                                ,void *reuse_ptr
                                ,bool only_preferred_backwards);
 
@@ -280,7 +270,8 @@ class simple_seq_fit_impl
    void priv_mark_new_allocated_block(block_ctrl *block);
 
    public:
-	static const size_type Alignment      = ::boost::alignment_of< ::boost::detail::max_align>::value;
+   static const size_type Alignment      = ::boost::container::container_detail::alignment_of
+      < ::boost::container::container_detail::max_align_t>::value;
    private:
    static const size_type BlockCtrlBytes = ipcdetail::ct_rounded_size<sizeof(block_ctrl), Alignment>::value;
    static const size_type BlockCtrlUnits = BlockCtrlBytes/Alignment;
@@ -409,8 +400,9 @@ void simple_seq_fit_impl<MutexFamily, VoidPointer>::shrink_to_fit()
    void *unique_block = 0;
    if(!m_header.m_allocated){
       BOOST_ASSERT(prev == root);
-      size_type ignore;
-      unique_block = priv_allocate(boost::interprocess::allocate_new, 0, 0, ignore).first;
+      size_type ignore_recvd = 0;
+      void *ignore_reuse = 0;
+      unique_block = priv_allocate(boost::interprocess::allocate_new, 0, ignore_recvd, ignore_reuse);
       if(!unique_block)
          return;
       last = ipcdetail::to_raw_pointer(m_header.m_root.m_next);
@@ -573,8 +565,9 @@ inline void* simple_seq_fit_impl<MutexFamily, VoidPointer>::
    //-----------------------
    boost::interprocess::scoped_lock<interprocess_mutex> guard(m_header);
    //-----------------------
-   size_type ignore;
-   return priv_allocate(boost::interprocess::allocate_new, nbytes, nbytes, ignore).first;
+   size_type ignore_recvd = nbytes;
+   void *ignore_reuse = 0;
+   return priv_allocate(boost::interprocess::allocate_new, nbytes, ignore_recvd, ignore_reuse);
 }
 
 template<class MutexFamily, class VoidPointer>
@@ -590,61 +583,66 @@ inline void* simple_seq_fit_impl<MutexFamily, VoidPointer>::
 
 template<class MutexFamily, class VoidPointer>
 template<class T>
-inline std::pair<T*, bool> simple_seq_fit_impl<MutexFamily, VoidPointer>::
+inline T* simple_seq_fit_impl<MutexFamily, VoidPointer>::
    allocation_command  (boost::interprocess::allocation_type command,   size_type limit_size,
-                        size_type preferred_size,size_type &received_size,
-                        T *reuse_ptr)
+                        size_type &prefer_in_recvd_out_size, T *&reuse_ptr)
 {
-   std::pair<void*, bool> ret = priv_allocation_command
-      (command, limit_size, preferred_size, received_size, static_cast<void*>(reuse_ptr), sizeof(T));
-
-   BOOST_ASSERT(0 == ((std::size_t)ret.first % ::boost::alignment_of<T>::value));
-   return std::pair<T *, bool>(static_cast<T*>(ret.first), ret.second);
+   void *raw_reuse = reuse_ptr;
+   void * const ret = priv_allocation_command
+      (command, limit_size, prefer_in_recvd_out_size, raw_reuse, sizeof(T));
+   BOOST_ASSERT(0 == ((std::size_t)ret % ::boost::container::container_detail::alignment_of<T>::value));
+   reuse_ptr = static_cast<T*>(raw_reuse);
+   return static_cast<T*>(ret);
 }
 
 template<class MutexFamily, class VoidPointer>
-inline std::pair<void*, bool> simple_seq_fit_impl<MutexFamily, VoidPointer>::
-   raw_allocation_command  (boost::interprocess::allocation_type command,   size_type limit_objects,
-                        size_type preferred_objects,size_type &received_objects,
-                        void *reuse_ptr, size_type sizeof_object)
+inline void* simple_seq_fit_impl<MutexFamily, VoidPointer>::
+   raw_allocation_command  (boost::interprocess::allocation_type command, size_type limit_objects,
+                        size_type &prefer_in_recvd_out_size, void *&reuse_ptr, size_type sizeof_object)
 {
-   if(!sizeof_object)
-      return std::pair<void *, bool>(static_cast<void*>(0), false);
+   size_type const preferred_objects = prefer_in_recvd_out_size;
+   if(!sizeof_object){
+      return reuse_ptr = 0, static_cast<void*>(0);
+  }
    if(command & boost::interprocess::try_shrink_in_place){
+      if(!reuse_ptr) return static_cast<void*>(0);
+      prefer_in_recvd_out_size = preferred_objects*sizeof_object;
       bool success = algo_impl_t::try_shrink
-         ( this, reuse_ptr, limit_objects*sizeof_object
-         , preferred_objects*sizeof_object, received_objects);
-      received_objects /= sizeof_object;
-      return std::pair<void *, bool> ((success ? reuse_ptr : 0), true);
+         ( this, reuse_ptr, limit_objects*sizeof_object, prefer_in_recvd_out_size);
+      prefer_in_recvd_out_size /= sizeof_object;
+      return success ? reuse_ptr : 0;
    }
-   return priv_allocation_command
-      (command, limit_objects, preferred_objects, received_objects, reuse_ptr, sizeof_object);
+   else{
+      return priv_allocation_command
+         (command, limit_objects, prefer_in_recvd_out_size, reuse_ptr, sizeof_object);
+   }
 }
 
 template<class MutexFamily, class VoidPointer>
-inline std::pair<void*, bool> simple_seq_fit_impl<MutexFamily, VoidPointer>::
+inline void* simple_seq_fit_impl<MutexFamily, VoidPointer>::
    priv_allocation_command (boost::interprocess::allocation_type command,   size_type limit_size,
-                       size_type preferred_size, size_type &received_size,
-                       void *reuse_ptr, size_type sizeof_object)
+                       size_type &prefer_in_recvd_out_size, void *&reuse_ptr, size_type sizeof_object)
 {
+   size_type const preferred_size = prefer_in_recvd_out_size;
    command &= ~boost::interprocess::expand_bwd;
-   if(!command)   return std::pair<void *, bool>(static_cast<void*>(0), false);
+   if(!command){
+      return reuse_ptr = 0, static_cast<void*>(0);
+   }
 
-   std::pair<void*, bool> ret;
    size_type max_count = m_header.m_size/sizeof_object;
    if(limit_size > max_count || preferred_size > max_count){
-      ret.first = 0; return ret;
+      return reuse_ptr = 0, static_cast<void*>(0);
    }
    size_type l_size = limit_size*sizeof_object;
-   size_type p_size = preferred_size*sizeof_object;
-   size_type r_size;
+   size_type r_size = preferred_size*sizeof_object;
+   void *ret = 0;
    {
       //-----------------------
       boost::interprocess::scoped_lock<interprocess_mutex> guard(m_header);
       //-----------------------
-      ret = priv_allocate(command, l_size, p_size, r_size, reuse_ptr);
+      ret = priv_allocate(command, l_size, r_size, reuse_ptr);
    }
-   received_size = r_size/sizeof_object;
+   prefer_in_recvd_out_size = r_size/sizeof_object;
    return ret;
 }
 
@@ -663,29 +661,29 @@ template<class MutexFamily, class VoidPointer>
 void* simple_seq_fit_impl<MutexFamily, VoidPointer>::
    priv_expand_both_sides(boost::interprocess::allocation_type command
                          ,size_type min_size
-                         ,size_type preferred_size
-                         ,size_type &received_size
+                         ,size_type &prefer_in_recvd_out_size
                          ,void *reuse_ptr
                          ,bool only_preferred_backwards)
 {
+   size_type const preferred_size = prefer_in_recvd_out_size;
    typedef std::pair<block_ctrl *, block_ctrl *> prev_block_t;
    block_ctrl *reuse = priv_get_block(reuse_ptr);
-   received_size = 0;
+   prefer_in_recvd_out_size = 0;
 
    if(this->size(reuse_ptr) > min_size){
-      received_size = this->size(reuse_ptr);
+      prefer_in_recvd_out_size = this->size(reuse_ptr);
       return reuse_ptr;
    }
 
    if(command & boost::interprocess::expand_fwd){
-      if(priv_expand(reuse_ptr, min_size, preferred_size, received_size))
+      if(priv_expand(reuse_ptr, min_size, prefer_in_recvd_out_size = preferred_size))
          return reuse_ptr;
    }
    else{
-      received_size = this->size(reuse_ptr);
+      prefer_in_recvd_out_size = this->size(reuse_ptr);
    }
    if(command & boost::interprocess::expand_bwd){
-      size_type extra_forward = !received_size ? 0 : received_size + BlockCtrlBytes;
+      size_type extra_forward = !prefer_in_recvd_out_size ? 0 : prefer_in_recvd_out_size + BlockCtrlBytes;
       prev_block_t prev_pair = priv_prev_block_if_free(reuse);
       block_ctrl *prev = prev_pair.second;
       if(!prev){
@@ -703,7 +701,7 @@ void* simple_seq_fit_impl<MutexFamily, VoidPointer>::
       //Check if previous block has enough size
       if((prev->get_user_bytes()) >=  needs_backwards){
          //Now take all next space. This will succeed
-         if(!priv_expand(reuse_ptr, received_size, received_size, received_size)){
+         if(!priv_expand(reuse_ptr, prefer_in_recvd_out_size, prefer_in_recvd_out_size)){
             BOOST_ASSERT(0);
          }
 
@@ -717,7 +715,7 @@ void* simple_seq_fit_impl<MutexFamily, VoidPointer>::
                BlockCtrlUnits + (needs_backwards + extra_forward)/Alignment;
             prev->m_size =
                (prev->get_total_bytes() - needs_backwards)/Alignment - BlockCtrlUnits;
-            received_size = needs_backwards + extra_forward;
+            prefer_in_recvd_out_size = needs_backwards + extra_forward;
             m_header.m_allocated += needs_backwards + BlockCtrlBytes;
             return priv_get_user_buffer(new_block);
          }
@@ -725,7 +723,7 @@ void* simple_seq_fit_impl<MutexFamily, VoidPointer>::
             //Just merge the whole previous block
             block_ctrl *prev_2_block = prev_pair.first;
             //Update received size and allocation
-            received_size = extra_forward + prev->get_user_bytes();
+            prefer_in_recvd_out_size = extra_forward + prev->get_user_bytes();
             m_header.m_allocated += prev->get_total_bytes();
             //Now unlink it from previous block
             prev_2_block->m_next = prev->m_next;
@@ -761,23 +759,21 @@ simple_seq_fit_impl<MutexFamily, VoidPointer>::
 }
 
 template<class MutexFamily, class VoidPointer>
-std::pair<void *, bool> simple_seq_fit_impl<MutexFamily, VoidPointer>::
+void * simple_seq_fit_impl<MutexFamily, VoidPointer>::
    priv_allocate(boost::interprocess::allocation_type command
-                ,size_type limit_size
-                ,size_type preferred_size
-                ,size_type &received_size
-                ,void *reuse_ptr)
+                ,size_type limit_size, size_type &prefer_in_recvd_out_size, void *&reuse_ptr)
 {
+   size_type const preferred_size = prefer_in_recvd_out_size;
    if(command & boost::interprocess::shrink_in_place){
-      bool success =
-         algo_impl_t::shrink(this, reuse_ptr, limit_size, preferred_size, received_size);
-      return std::pair<void *, bool> ((success ? reuse_ptr : 0), true);
+      if(!reuse_ptr)  return static_cast<void*>(0);
+      bool success = algo_impl_t::shrink(this, reuse_ptr, limit_size, prefer_in_recvd_out_size);
+      return success ? reuse_ptr : 0;
    }
-   typedef std::pair<void *, bool> return_type;
-   received_size = 0;
+   prefer_in_recvd_out_size = 0;
 
-   if(limit_size > preferred_size)
-      return return_type(static_cast<void*>(0), false);
+   if(limit_size > preferred_size){
+      return reuse_ptr = 0, static_cast<void*>(0);
+   }
 
    //Number of units to request (including block_ctrl header)
    size_type nunits = ipcdetail::get_rounded_size(preferred_size, Alignment)/Alignment + BlockCtrlUnits;
@@ -791,19 +787,16 @@ std::pair<void *, bool> simple_seq_fit_impl<MutexFamily, VoidPointer>::
    size_type biggest_size         = 0;
 
    //Expand in place
-   //reuse_ptr, limit_size, preferred_size, received_size
-   //
    if(reuse_ptr && (command & (boost::interprocess::expand_fwd | boost::interprocess::expand_bwd))){
-      void *ret = priv_expand_both_sides
-         (command, limit_size, preferred_size, received_size, reuse_ptr, true);
+      void *ret = priv_expand_both_sides(command, limit_size, prefer_in_recvd_out_size = preferred_size, reuse_ptr, true);
       if(ret){
          algo_impl_t::assert_alignment(ret);
-         return return_type(ret, true);
+         return ret;
       }
    }
 
    if(command & boost::interprocess::allocate_new){
-      received_size = 0;
+      prefer_in_recvd_out_size = 0;
       while(block != root){
          //Update biggest block pointers
          if(block->m_size > biggest_size){
@@ -812,10 +805,10 @@ std::pair<void *, bool> simple_seq_fit_impl<MutexFamily, VoidPointer>::
             biggest_block = block;
          }
          algo_impl_t::assert_alignment(block);
-         void *addr = this->priv_check_and_allocate(nunits, prev, block, received_size);
+         void *addr = this->priv_check_and_allocate(nunits, prev, block, prefer_in_recvd_out_size);
          if(addr){
             algo_impl_t::assert_alignment(addr);
-            return return_type(addr, false);
+            return reuse_ptr = 0, addr;
          }
          //Bad luck, let's check next block
          prev  = block;
@@ -826,25 +819,23 @@ std::pair<void *, bool> simple_seq_fit_impl<MutexFamily, VoidPointer>::
       //try with this block
       if(biggest_block){
          size_type limit_units = ipcdetail::get_rounded_size(limit_size, Alignment)/Alignment + BlockCtrlUnits;
-         if(biggest_block->m_size < limit_units)
-            return return_type(static_cast<void*>(0), false);
-
-         received_size = biggest_block->m_size*Alignment - BlockCtrlUnits;
+         if(biggest_block->m_size < limit_units){
+            return reuse_ptr = 0, static_cast<void*>(0);
+         }
          void *ret = this->priv_check_and_allocate
-            (biggest_block->m_size, prev_biggest_block, biggest_block, received_size);
+            (biggest_block->m_size, prev_biggest_block, biggest_block, prefer_in_recvd_out_size = biggest_block->m_size*Alignment - BlockCtrlUnits);
          BOOST_ASSERT(ret != 0);
          algo_impl_t::assert_alignment(ret);
-         return return_type(ret, false);
+         return reuse_ptr = 0, ret;
       }
    }
    //Now try to expand both sides with min size
    if(reuse_ptr && (command & (boost::interprocess::expand_fwd | boost::interprocess::expand_bwd))){
-      return_type ret (priv_expand_both_sides
-         (command, limit_size, preferred_size, received_size, reuse_ptr, false), true);
-      algo_impl_t::assert_alignment(ret.first);
+      void *ret = priv_expand_both_sides (command, limit_size, prefer_in_recvd_out_size = preferred_size, reuse_ptr, false);
+      algo_impl_t::assert_alignment(ret);
       return ret;
    }
-   return return_type(static_cast<void*>(0), false);
+   return reuse_ptr = 0, static_cast<void*>(0);
 }
 
 template<class MutexFamily, class VoidPointer> inline
@@ -917,11 +908,9 @@ inline
 
 template<class MutexFamily, class VoidPointer>
 inline bool simple_seq_fit_impl<MutexFamily, VoidPointer>::
-   priv_expand (void *ptr
-               ,size_type min_size
-               ,size_type preferred_size
-               ,size_type &received_size)
+   priv_expand (void *ptr, size_type min_size, size_type &received_size)
 {
+   size_type preferred_size = received_size;
    //Obtain the real size of the block
    block_ctrl *block = reinterpret_cast<block_ctrl*>(priv_get_block(ptr));
    size_type old_block_size = block->m_size;

@@ -15,11 +15,7 @@ class proxy : public object_operators<proxy<Policies> >
 {
     typedef typename Policies::key_type key_type;
     
-# if !defined(BOOST_MSVC) || BOOST_MSVC >= 1300
     typedef proxy const& assignment_self;
-# else
-    typedef proxy assignment_self;
-# endif
  public:
     proxy(object const& target, key_type const& key);
     operator object() const;

@@ -2,6 +2,7 @@
     Copyright (c) 2001-2010 Joel de Guzman
     Copyright (c) 2004 Daniel Wallin
     Copyright (c) 2010 Thomas Heller
+    Copyright (c) 2015 John Fletcher
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -9,6 +10,8 @@
 #ifndef BOOST_PHOENIX_SCOPE_LET_HPP
 #define BOOST_PHOENIX_SCOPE_LET_HPP
 
+//#include <boost/assert.hpp>
+//#include <sstream>
 #include <boost/phoenix/core/limits.hpp>
 #include <boost/fusion/include/transform.hpp>
 #include <boost/fusion/include/as_vector.hpp>
@@ -57,8 +60,12 @@ namespace boost { namespace phoenix
                     typename proto::result_of::value<Map>::type
                      >::type
                      map_type;
+
+            typedef
+                typename proto::detail::uncvref<Expr>::type
+                     expr_type;
             
-            typedef typename 
+            typedef typename
                 detail::result_of::initialize_locals<
                     vars_type
                   , Context
@@ -67,7 +74,7 @@ namespace boost { namespace phoenix
 
             typedef typename
                 result_of::eval<
-                    Expr
+                    expr_type
                   , typename result_of::context<
                         scoped_environment<
                             env_type
@@ -85,6 +92,8 @@ namespace boost { namespace phoenix
         typename result<let_eval(Vars const&, Map const&, Expr const &, Context const &)>::type const
         operator()(Vars const & vars, Map, Expr const & expr, Context const & ctx) const
         {
+            Vars vars_(vars);
+
             typedef
                 typename proto::detail::uncvref<
                     typename result_of::env<Context>::type
@@ -108,7 +117,9 @@ namespace boost { namespace phoenix
                 >::type
             locals_type;
 
-            locals_type locals = initialize_locals(proto::value(vars), ctx);
+            locals_type locals = initialize_locals(proto::value(vars_), ctx);
+
+            //typedef typename result<let_eval(Vars const&, Map const&, Expr const &, Context const &)>::type result_type;
 
             scoped_environment<
                 env_type
@@ -118,7 +129,22 @@ namespace boost { namespace phoenix
             >
             env(phoenix::env(ctx), phoenix::env(ctx), locals);
 
+            // Fix for bugs (trial)
+            // The idea is to do something which will not be optimised away.
+            //int vsize = boost::fusion::size(vars);
+            //std::stringstream strm;
+            //strm << vsize << std::endl;
+            //int size = strm.str().length();
+            //BOOST_ASSERT(size >= 0);
             return eval(expr, phoenix::context(env, phoenix::actions(ctx)));
+            // typedef is_value<result_type> is_val;
+            //if(is_val::value) This seems always to be true
+            //{
+            //   std::cout << "let result has value type" << std::endl;
+            // }
+            //if (is_val(r) ) std::cout << "let returns val" << std::endl;
+            //std::cout << "result is " << r << std::endl;
+            //return r;
         }
     };
 
@@ -146,7 +172,19 @@ namespace boost { namespace phoenix
         >::type const
         operator[](Expr const & expr) const
         {
-            return expression::let_<Locals, Map, Expr>::make(locals, Map(), expr);
+           typedef typename expression::let_<
+              Locals
+            , Map
+            , Expr
+           >::type let_type;
+           //typedef is_value<let_type> is_val;
+
+           let_type let_exp = expression::let_<Locals, Map, Expr>::make(locals, Map(), expr);
+           //if(is_val::value) //This seems always to be true
+           //{
+           //  std::cout << "let has value type" << std::endl;
+           //}
+           return let_exp;
         }
 
         Locals locals;

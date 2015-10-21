@@ -7,10 +7,6 @@
 #if !defined(SPIRIT_NOT_PREDICATE_MARCH_23_2007_0618PM)
 #define SPIRIT_NOT_PREDICATE_MARCH_23_2007_0618PM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/spirit/home/x3/core/parser.hpp>
 
 namespace boost { namespace spirit { namespace x3
@@ -40,7 +36,7 @@ namespace boost { namespace spirit { namespace x3
     inline not_predicate<typename extension::as_parser<Subject>::value_type>
     operator!(Subject const& subject)
     {
-        return {as_parser(subject)};
+        return { as_parser(subject) };
     }
 }}}
 

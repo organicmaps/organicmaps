@@ -11,19 +11,24 @@
 #ifndef BOOST_INTERPROCESS_SEGMENT_MANAGER_HPP
 #define BOOST_INTERPROCESS_SEGMENT_MANAGER_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
 
-#include <boost/detail/no_exceptions_support.hpp>
+#include <boost/core/no_exceptions_support.hpp>
 #include <boost/interprocess/detail/type_traits.hpp>
 
 #include <boost/interprocess/detail/transform_iterator.hpp>
 
 #include <boost/interprocess/detail/mpl.hpp>
+#include <boost/interprocess/detail/nothrow.hpp>
 #include <boost/interprocess/detail/segment_manager_helper.hpp>
 #include <boost/interprocess/detail/named_proxy.hpp>
 #include <boost/interprocess/detail/utilities.hpp>
@@ -32,12 +37,14 @@
 #include <boost/interprocess/exceptions.hpp>
 #include <boost/interprocess/allocators/allocator.hpp>
 #include <boost/interprocess/smart_ptr/deleter.hpp>
-#include <boost/move/move.hpp>
+#include <boost/move/utility_core.hpp>
 #include <boost/interprocess/sync/scoped_lock.hpp>
+// container/detail
+#include <boost/container/detail/minimal_char_traits_header.hpp>
+#include <boost/container/detail/placement_new.hpp>
+// std
 #include <cstddef>   //std::size_t
-#include <string>    //char_traits
-#include <new>       //std::nothrow
-#include <utility>   //std::pair
+#include <boost/intrusive/detail/minimal_pair_header.hpp>
 #include <boost/assert.hpp>
 #ifndef BOOST_NO_EXCEPTIONS
 #include <exception>
@@ -70,14 +77,14 @@ class segment_manager_base
    typedef typename MemoryAlgorithm::mutex_family  mutex_family;
    typedef MemoryAlgorithm memory_algorithm;
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
    //Experimental. Don't use
    typedef typename MemoryAlgorithm::multiallocation_chain    multiallocation_chain;
    typedef typename MemoryAlgorithm::difference_type  difference_type;
    typedef typename MemoryAlgorithm::size_type        size_type;
 
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    //!This constant indicates the payload size
    //!associated with each allocation of the memory algorithm
@@ -117,10 +124,10 @@ class segment_manager_base
 
    //!Allocates nbytes bytes. This function is only used in
    //!single-segment management. Never throws
-   void * allocate (size_type nbytes, std::nothrow_t)
+   void * allocate (size_type nbytes, const std::nothrow_t &)
    {  return MemoryAlgorithm::allocate(nbytes);   }
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
    //Experimental. Dont' use.
    //!Allocates n_elements of elem_bytes bytes.
@@ -147,13 +154,13 @@ class segment_manager_base
 
    //!Allocates n_elements of elem_bytes bytes.
    //!Non-throwing version. chain.size() is not increased on failure.
-   void allocate_many(std::nothrow_t, size_type elem_bytes, size_type n_elements, multiallocation_chain &chain)
+   void allocate_many(const std::nothrow_t &, size_type elem_bytes, size_type n_elements, multiallocation_chain &chain)
    {  MemoryAlgorithm::allocate_many(elem_bytes, n_elements, chain); }
 
    //!Allocates n_elements, each one of
    //!element_lengths[i]*sizeof_element bytes.
    //!Non-throwing version. chain.size() is not increased on failure.
-   void allocate_many(std::nothrow_t, const size_type *elem_sizes, size_type n_elements, size_type sizeof_element, multiallocation_chain &chain)
+   void allocate_many(const std::nothrow_t &, const size_type *elem_sizes, size_type n_elements, size_type sizeof_element, multiallocation_chain &chain)
    {  MemoryAlgorithm::allocate_many(elem_sizes, n_elements, sizeof_element, chain); }
 
    //!Deallocates all elements contained in chain.
@@ -161,7 +168,7 @@ class segment_manager_base
    void deallocate_many(multiallocation_chain &chain)
    {  MemoryAlgorithm::deallocate_many(chain); }
 
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    //!Allocates nbytes bytes. Throws boost::interprocess::bad_alloc
    //!on failure
@@ -175,7 +182,7 @@ class segment_manager_base
 
    //!Allocates nbytes bytes. This function is only used in
    //!single-segment management. Never throws
-   void * allocate_aligned (size_type nbytes, size_type alignment, std::nothrow_t)
+   void * allocate_aligned (size_type nbytes, size_type alignment, const std::nothrow_t &)
    {  return MemoryAlgorithm::allocate_aligned(nbytes, alignment);   }
 
    //!Allocates nbytes bytes. This function is only used in
@@ -188,36 +195,31 @@ class segment_manager_base
       return ret;
    }
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
    template<class T>
-   std::pair<T *, bool>
-      allocation_command  (boost::interprocess::allocation_type command,   size_type limit_size,
-                           size_type preferred_size,size_type &received_size,
-                           T *reuse_ptr = 0)
+   T *allocation_command  (boost::interprocess::allocation_type command, size_type limit_size,
+                           size_type &prefer_in_recvd_out_size, T *&reuse)
    {
-      std::pair<T *, bool> ret = MemoryAlgorithm::allocation_command
-         ( command | boost::interprocess::nothrow_allocation, limit_size, preferred_size, received_size
-         , reuse_ptr);
-      if(!(command & boost::interprocess::nothrow_allocation) && !ret.first)
+      T *ret = MemoryAlgorithm::allocation_command
+         (command | boost::interprocess::nothrow_allocation, limit_size, prefer_in_recvd_out_size, reuse);
+      if(!(command & boost::interprocess::nothrow_allocation) && !ret)
          throw bad_alloc();
       return ret;
    }
 
-   std::pair<void *, bool>
-      raw_allocation_command  (boost::interprocess::allocation_type command,   size_type limit_objects,
-                           size_type preferred_objects,size_type &received_objects,
-                           void *reuse_ptr = 0, size_type sizeof_object = 1)
+   void *raw_allocation_command  (boost::interprocess::allocation_type command,   size_type limit_objects,
+                           size_type &prefer_in_recvd_out_size, void *&reuse, size_type sizeof_object = 1)
    {
-      std::pair<void *, bool> ret = MemoryAlgorithm::raw_allocation_command
-         ( command | boost::interprocess::nothrow_allocation, limit_objects, preferred_objects, received_objects
-         , reuse_ptr, sizeof_object);
-      if(!(command & boost::interprocess::nothrow_allocation) && !ret.first)
+      void *ret = MemoryAlgorithm::raw_allocation_command
+         ( command | boost::interprocess::nothrow_allocation, limit_objects,
+           prefer_in_recvd_out_size, reuse, sizeof_object);
+      if(!(command & boost::interprocess::nothrow_allocation) && !ret)
          throw bad_alloc();
       return ret;
    }
 
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    //!Deallocates the bytes allocated with allocate/allocate_many()
    //!pointed by addr
@@ -253,7 +255,7 @@ class segment_manager_base
    size_type size(const void *ptr) const
    {   return MemoryAlgorithm::size(ptr); }
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    protected:
    void * prot_anonymous_construct
       (size_type num, bool dothrow, ipcdetail::in_place_interface &table)
@@ -266,7 +268,7 @@ class segment_manager_base
                                  , 0);
 
       //Allocate memory
-      void *ptr_struct = this->allocate(block_info.total_size(), std::nothrow_t());
+      void *ptr_struct = this->allocate(block_info.total_size(), nothrow<>::get());
 
       //Check if there is enough memory
       if(!ptr_struct){
@@ -282,7 +284,7 @@ class segment_manager_base
       ipcdetail::mem_algo_deallocator<MemoryAlgorithm> mem(ptr_struct, *this);
 
       //Now construct the header
-      block_header_t * hdr = new(ptr_struct) block_header_t(block_info);
+      block_header_t * hdr = ::new(ptr_struct, boost_container_new_t()) block_header_t(block_info);
       void *ptr = 0; //avoid gcc warning
       ptr = hdr->value();
 
@@ -317,7 +319,7 @@ class segment_manager_base
      table.destroy_n(const_cast<void*>(object), ctrl_data->m_value_bytes/table.size, destroyed);
       this->deallocate(ctrl_data);
    }
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
 
 //!This object is placed in the beginning of memory segment and
@@ -342,13 +344,13 @@ template<class CharType
 class segment_manager
    :  public segment_manager_base<MemoryAlgorithm>
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    //Non-copyable
    segment_manager();
    segment_manager(const segment_manager &);
    segment_manager &operator=(const segment_manager &);
    typedef segment_manager_base<MemoryAlgorithm> segment_manager_base_t;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    typedef MemoryAlgorithm                                  memory_algorithm;
@@ -361,7 +363,7 @@ class segment_manager
 
    static const size_type PayloadPerAllocation = segment_manager_base_t::PayloadPerAllocation;
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    typedef ipcdetail::block_header<size_type> block_header_t;
    typedef ipcdetail::index_config<CharType, MemoryAlgorithm>  index_config_named;
@@ -381,7 +383,7 @@ class segment_manager
    typedef ipcdetail::segment_manager_iterator_transform
       <typename unique_index_t::const_iterator
       ,is_intrusive_index<index_type>::value>   unique_transform;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    typedef typename segment_manager_base_t::mutex_family       mutex_family;
 
@@ -390,7 +392,7 @@ class segment_manager
    typedef transform_iterator
       <typename unique_index_t::const_iterator, unique_transform> const_unique_iterator;
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
    //!Constructor proxy object definition helper class
    template<class T>
@@ -406,7 +408,7 @@ class segment_manager
       typedef ipcdetail::named_proxy<segment_manager, T, true>   type;
    };
 
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    //!Constructor of the segment manager
    //!"size" is the size of the memory segment where
@@ -457,14 +459,14 @@ class segment_manager
    //!object
    template <class T>
    typename construct_proxy<T>::type
-      construct(char_ptr_holder_t name, std::nothrow_t)
+      construct(char_ptr_holder_t name, const std::nothrow_t &)
    {  return typename construct_proxy<T>::type (this, name, false, false);  }
 
    //!Returns no throwing "search or construct"
    //!proxy object
    template <class T>
    typename construct_proxy<T>::type
-      find_or_construct(char_ptr_holder_t name, std::nothrow_t)
+      find_or_construct(char_ptr_holder_t name, const std::nothrow_t &)
    {  return typename construct_proxy<T>::type (this, name, true, false);  }
 
    //!Returns throwing "construct from iterators" proxy object
@@ -484,14 +486,14 @@ class segment_manager
    //!proxy object
    template <class T>
    typename construct_iter_proxy<T>::type
-      construct_it(char_ptr_holder_t name, std::nothrow_t)
+      construct_it(char_ptr_holder_t name, const std::nothrow_t &)
    {  return typename construct_iter_proxy<T>::type (this, name, false, false);  }
 
    //!Returns no throwing "search or construct from iterators"
    //!proxy object
    template <class T>
    typename construct_iter_proxy<T>::type
-      find_or_construct_it(char_ptr_holder_t name, std::nothrow_t)
+      find_or_construct_it(char_ptr_holder_t name, const std::nothrow_t &)
    {  return typename construct_iter_proxy<T>::type (this, name, true, false);  }
 
    //!Calls object function blocking recursive interprocess_mutex and guarantees that
@@ -686,7 +688,7 @@ class segment_manager
       get_deleter()
    {   return typename deleter<T>::type(this); }
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
    //!Generic named/anonymous new function. Offers all the possibilities,
    //!such as throwing, search before creating, and the constructor is
@@ -728,7 +730,7 @@ class segment_manager
    //!and the object count. On failure the first member of the
    //!returned pair is 0.
    template <class T>
-   std::pair<T*, size_type> priv_find__impl (const ipcdetail::unique_instance_t* name, bool lock)
+   std::pair<T*, size_type> priv_find_impl (const ipcdetail::unique_instance_t* name, bool lock)
    {
       ipcdetail::placement_destroy<T> table;
       size_type size;
@@ -741,7 +743,7 @@ class segment_manager
    {
       void *ret;
       //Security overflow check
-     if(num > ((std::size_t)-1)/table.size){
+      if(num > ((std::size_t)-1)/table.size){
          if(dothrow)
             throw bad_alloc();
          else
@@ -1019,7 +1021,7 @@ class segment_manager
 
       //Check if the distance between the name pointer and the memory pointer
       //is correct (this can detect incorrect type in destruction)
-     std::size_t num = ctrl_data->m_value_bytes/table.size;
+      std::size_t num = ctrl_data->m_value_bytes/table.size;
       void *values = ctrl_data->value();
 
       //Sanity check
@@ -1127,14 +1129,14 @@ class segment_manager
       }
       else{
          buffer_ptr = this->allocate
-            (block_info.template total_size_with_header<intrusive_value_type>(), std::nothrow_t());
+            (block_info.template total_size_with_header<intrusive_value_type>(), nothrow<>::get());
          if(!buffer_ptr)
             return 0;
       }
 
       //Now construct the intrusive hook plus the header
-      intrusive_value_type * intrusive_hdr = new(buffer_ptr) intrusive_value_type();
-      block_header_t * hdr = new(intrusive_hdr->get_block_header())block_header_t(block_info);
+      intrusive_value_type * intrusive_hdr = ::new(buffer_ptr, boost_container_new_t()) intrusive_value_type();
+      block_header_t * hdr = ::new(intrusive_hdr->get_block_header(), boost_container_new_t())block_header_t(block_info);
       void *ptr = 0; //avoid gcc warning
       ptr = hdr->value();
 
@@ -1251,11 +1253,11 @@ class segment_manager
             buffer_ptr = this->allocate(total_size);
          }
          else{
-            buffer_ptr = this->allocate(total_size, std::nothrow_t());
+            buffer_ptr = this->allocate(total_size, nothrow<>::get());
             if(!buffer_ptr)
                return 0;
          }
-         index_it *idr = new(buffer_ptr) index_it(it);
+         index_it *idr = ::new(buffer_ptr, boost_container_new_t()) index_it(it);
          hdr = block_header_t::template from_first_header<index_it>(idr);
       }
       else{
@@ -1263,14 +1265,14 @@ class segment_manager
             buffer_ptr = this->allocate(block_info.total_size());
          }
          else{
-            buffer_ptr = this->allocate(block_info.total_size(), std::nothrow_t());
+            buffer_ptr = this->allocate(block_info.total_size(), nothrow<>::get());
             if(!buffer_ptr)
                return 0;
          }
          hdr = static_cast<block_header_t*>(buffer_ptr);
       }
 
-      hdr = new(hdr)block_header_t(block_info);
+      hdr = ::new(hdr, boost_container_new_t())block_header_t(block_info);
       void *ptr = 0; //avoid gcc warning
       ptr = hdr->value();
 
@@ -1329,7 +1331,7 @@ class segment_manager
       {}
    }  m_header;
 
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
 
 

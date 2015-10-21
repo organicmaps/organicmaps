@@ -123,7 +123,7 @@ struct operations< 1u, Signed > :
             "lock; xaddb %0, %1"
             : "+q" (v), "+m" (storage)
             :
-            : "cc", "memory"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC_COMMA "memory"
         );
         return v;
     }
@@ -151,7 +151,7 @@ struct operations< 1u, Signed > :
             "sete %2"
             : "+a" (previous), "+m" (storage), "=q" (success)
             : "q" (desired)
-            : "cc", "memory"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC_COMMA "memory"
         );
         expected = previous;
         return success;
@@ -168,7 +168,7 @@ struct operations< 1u, Signed > :
         "jne 1b"\
         : [res] "+a" (result), [storage] "+m" (storage)\
         : [arg] "q" (argument)\
-        : "cc", BOOST_ATOMIC_DETAIL_TEMP_CAS_REGISTER, "memory"\
+        : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC_COMMA BOOST_ATOMIC_DETAIL_TEMP_CAS_REGISTER, "memory"\
     )
 
     static BOOST_FORCEINLINE storage_type fetch_and(storage_type volatile& storage, storage_type v, memory_order) BOOST_NOEXCEPT
@@ -209,7 +209,7 @@ struct operations< 2u, Signed > :
             "lock; xaddw %0, %1"
             : "+q" (v), "+m" (storage)
             :
-            : "cc", "memory"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC_COMMA "memory"
         );
         return v;
     }
@@ -237,7 +237,7 @@ struct operations< 2u, Signed > :
             "sete %2"
             : "+a" (previous), "+m" (storage), "=q" (success)
             : "q" (desired)
-            : "cc", "memory"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC_COMMA "memory"
         );
         expected = previous;
         return success;
@@ -254,7 +254,7 @@ struct operations< 2u, Signed > :
         "jne 1b"\
         : [res] "+a" (result), [storage] "+m" (storage)\
         : [arg] "q" (argument)\
-        : "cc", BOOST_ATOMIC_DETAIL_TEMP_CAS_REGISTER, "memory"\
+        : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC_COMMA BOOST_ATOMIC_DETAIL_TEMP_CAS_REGISTER, "memory"\
     )
 
     static BOOST_FORCEINLINE storage_type fetch_and(storage_type volatile& storage, storage_type v, memory_order) BOOST_NOEXCEPT
@@ -295,7 +295,7 @@ struct operations< 4u, Signed > :
             "lock; xaddl %0, %1"
             : "+r" (v), "+m" (storage)
             :
-            : "cc", "memory"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC_COMMA "memory"
         );
         return v;
     }
@@ -323,7 +323,7 @@ struct operations< 4u, Signed > :
             "sete %2"
             : "+a" (previous), "+m" (storage), "=q" (success)
             : "r" (desired)
-            : "cc", "memory"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC_COMMA "memory"
         );
         expected = previous;
         return success;
@@ -340,7 +340,7 @@ struct operations< 4u, Signed > :
         "jne 1b"\
         : [res] "+a" (result), [storage] "+m" (storage)\
         : [arg] "r" (argument)\
-        : "cc", BOOST_ATOMIC_DETAIL_TEMP_CAS_REGISTER, "memory"\
+        : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC_COMMA BOOST_ATOMIC_DETAIL_TEMP_CAS_REGISTER, "memory"\
     )
 
     static BOOST_FORCEINLINE storage_type fetch_and(storage_type volatile& storage, storage_type v, memory_order) BOOST_NOEXCEPT
@@ -391,7 +391,7 @@ struct operations< 8u, Signed > :
             "lock; xaddq %0, %1"
             : "+r" (v), "+m" (storage)
             :
-            : "cc", "memory"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC_COMMA "memory"
         );
         return v;
     }
@@ -419,7 +419,7 @@ struct operations< 8u, Signed > :
             "sete %2"
             : "+a" (previous), "+m" (storage), "=q" (success)
             : "r" (desired)
-            : "cc", "memory"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC_COMMA "memory"
         );
         expected = previous;
         return success;
@@ -436,7 +436,7 @@ struct operations< 8u, Signed > :
         "jne 1b"\
         : [res] "+a" (result), [storage] "+m" (storage)\
         : [arg] "r" (argument)\
-        : "cc", BOOST_ATOMIC_DETAIL_TEMP_CAS_REGISTER, "memory"\
+        : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC_COMMA BOOST_ATOMIC_DETAIL_TEMP_CAS_REGISTER, "memory"\
     )
 
     static BOOST_FORCEINLINE storage_type fetch_and(storage_type volatile& storage, storage_type v, memory_order) BOOST_NOEXCEPT

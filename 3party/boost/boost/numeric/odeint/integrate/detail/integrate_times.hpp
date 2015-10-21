@@ -130,7 +130,9 @@ size_t integrate_times(
     if( start_time == end_time )
         return 0;
 
-    Time last_time_point = static_cast<time_type>(*(end_time-1));
+    TimeIterator last_time_iterator = end_time;
+    --last_time_iterator;
+    Time last_time_point = static_cast<time_type>(*last_time_iterator);
 
     st.initialize( start_state , *start_time , dt );
     obs( start_state , *start_time++ );

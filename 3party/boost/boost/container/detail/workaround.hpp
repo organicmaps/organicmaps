@@ -11,23 +11,19 @@
 #ifndef BOOST_CONTAINER_DETAIL_WORKAROUND_HPP
 #define BOOST_CONTAINER_DETAIL_WORKAROUND_HPP
 
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 #include <boost/container/detail/config_begin.hpp>
 
 #if    !defined(BOOST_NO_CXX11_RVALUE_REFERENCES) && !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)\
     && !defined(BOOST_INTERPROCESS_DISABLE_VARIADIC_TMPL)
    #define BOOST_CONTAINER_PERFECT_FORWARDING
-#endif
-
-#if defined(BOOST_NO_CXX11_NOEXCEPT)
-   #if defined(BOOST_MSVC)
-      #define BOOST_CONTAINER_NOEXCEPT throw()
-   #else
-      #define BOOST_CONTAINER_NOEXCEPT
-   #endif
-   #define BOOST_CONTAINER_NOEXCEPT_IF(x)
-#else
-   #define BOOST_CONTAINER_NOEXCEPT    noexcept
-   #define BOOST_CONTAINER_NOEXCEPT_IF(x) noexcept(x)
 #endif
 
 #if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) && defined(__GXX_EXPERIMENTAL_CXX0X__)\
@@ -57,6 +53,11 @@
 #ifndef BOOST_CONTAINER_MEMZEROED_POINTER_IS_NOT_NULL
 #define BOOST_CONTAINER_MEMZEROED_POINTER_IS_NULL
 #endif
+
+#define BOOST_CONTAINER_DOC1ST(TYPE1, TYPE2) TYPE2
+#define BOOST_CONTAINER_I ,
+#define BOOST_CONTAINER_DOCIGN(T) T
+#define BOOST_CONTAINER_DOCONLY(T)
 
 #include <boost/container/detail/config_end.hpp>
 

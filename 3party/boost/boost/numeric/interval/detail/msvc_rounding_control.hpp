@@ -88,7 +88,20 @@ struct x86_rounding
   static void get_rounding_mode(rounding_mode& mode)
   { mode = msvc2hard(_control87(0, 0)); }
   static void set_rounding_mode(const rounding_mode mode)
-  { _control87(hard2msvc(mode), _MCW_EM | _MCW_RC | _MCW_PC | _MCW_IC); }
+  {
+    _control87(hard2msvc(mode),
+      _MCW_EM | _MCW_RC
+#if !defined(_M_AMD64) && !defined(_M_ARM)
+      // x64 ignores _MCW_PC and _MCW_IC, and the Debug CRT library actually
+      // asserts when these are passed to _control87.
+      // MSDN says on '_control87' that changing precision (_MCW_PC) or
+      // infinity (_MCW_IC) handling is not supported on the ARM and x64
+      // architectures and that _control87 raises an assertion
+      // and the invalid parameter handler is invoked.
+      | _MCW_PC | _MCW_IC
+#endif
+    );
+  }
   static double to_int(const double& x) { return rint(x); }
 };
 

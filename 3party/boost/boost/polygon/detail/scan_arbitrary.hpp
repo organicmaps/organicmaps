@@ -171,8 +171,9 @@ namespace boost { namespace polygon{
         pts.push_back(he1.second);
         std::set<Point>& segmentpts = intersection_points[(*outer).second];
         for(typename std::set<Point>::iterator itr = segmentpts.begin(); itr != segmentpts.end(); ++itr) {
-          if((*itr).y() > min_y - 1)
+          if ((*itr).y() >= min_y) {
             pts.push_back(*itr);
+          }
         }
         bool have_first_y = he1.first.y() >= min_y && he1.second.y() >= min_y;
         for(typename std::vector<std::pair<half_edge, segment_id> >::iterator inner = outer;

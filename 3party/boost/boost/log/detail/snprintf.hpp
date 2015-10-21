@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2014.
+ *          Copyright Andrey Semashev 2007 - 2015.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -48,41 +48,30 @@ using ::vswprintf;
 
 #else // !defined(_MSC_VER)
 
-#   if _MSC_VER >= 1400
-
-// MSVC 2005 and later provide the safe-CRT implementation of the conforming snprintf
+// MSVC snprintfs are not conforming but they are good enough for our cases
 inline int vsnprintf(char* buf, std::size_t size, const char* format, std::va_list args)
 {
-    return ::vsprintf_s(buf, size, format, args);
-}
-
-#       ifdef BOOST_LOG_USE_WCHAR_T
-inline int vswprintf(wchar_t* buf, std::size_t size, const wchar_t* format, std::va_list args)
-{
-    return ::vswprintf_s(buf, size, format, args);
-}
-#       endif // BOOST_LOG_USE_WCHAR_T
-
-#   else // _MSC_VER >= 1400
-
-// MSVC prior to 2005 had a non-conforming extension _vsnprintf, that sometimes did not put a terminating '\0'
-inline int vsnprintf(char* buf, std::size_t size, const char* format, std::va_list args)
-{
-    int n = _vsnprintf(buf, size - 1, format, args);
-    buf[size - 1] = '\0';
+    int n = _vsnprintf(buf, size, format, args);
+    if (static_cast< unsigned int >(n) >= size)
+    {
+        n = static_cast< int >(size);
+        buf[size - 1] = '\0';
+    }
     return n;
 }
 
-#       ifdef BOOST_LOG_USE_WCHAR_T
+#   ifdef BOOST_LOG_USE_WCHAR_T
 inline int vswprintf(wchar_t* buf, std::size_t size, const wchar_t* format, std::va_list args)
 {
-    int n = _vsnwprintf(buf, size - 1, format, args);
-    buf[size - 1] = L'\0';
+    int n = _vsnwprintf(buf, size, format, args);
+    if (static_cast< unsigned int >(n) >= size)
+    {
+        n = static_cast< int >(size);
+        buf[size - 1] = L'\0';
+    }
     return n;
 }
-#       endif // BOOST_LOG_USE_WCHAR_T
-
-#   endif // _MSC_VER >= 1400
+#   endif // BOOST_LOG_USE_WCHAR_T
 
 inline int snprintf(char* buf, std::size_t size, const char* format, ...)
 {

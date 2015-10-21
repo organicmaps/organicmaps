@@ -121,7 +121,6 @@ struct is_object_manager
 {
 };
 
-# ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 template <class T>
 struct is_reference_to_object_manager
     : mpl::false_
@@ -151,79 +150,6 @@ struct is_reference_to_object_manager<T const volatile&>
     : is_object_manager<T>
 {
 };
-# else
-
-namespace detail
-{
-  typedef char (&yes_reference_to_object_manager)[1];
-  typedef char (&no_reference_to_object_manager)[2];
-
-  // A number of nastinesses go on here in order to work around MSVC6
-  // bugs.
-  template <class T>
-  struct is_object_manager_help
-  {
-      typedef typename mpl::if_<
-          is_object_manager<T>
-          , yes_reference_to_object_manager
-          , no_reference_to_object_manager
-          >::type type;
-
-      // If we just use the type instead of the result of calling this
-      // function, VC6 will ICE.
-      static type call();
-  };
-
-  // A set of overloads for each cv-qualification. The same argument
-  // is passed twice: the first one is used to unwind the cv*, and the
-  // second one is used to avoid relying on partial ordering for
-  // overload resolution.
-  template <class U>
-  typename is_object_manager_help<U>
-  is_object_manager_helper(U*, void*);
-  
-  template <class U>
-  typename is_object_manager_help<U>
-  is_object_manager_helper(U const*, void const*);
-  
-  template <class U>
-  typename is_object_manager_help<U>
-  is_object_manager_helper(U volatile*, void volatile*);
-  
-  template <class U>
-  typename is_object_manager_help<U>
-  is_object_manager_helper(U const volatile*, void const volatile*);
-  
-  template <class T>
-  struct is_reference_to_object_manager_nonref
-      : mpl::false_
-  {
-  };
-
-  template <class T>
-  struct is_reference_to_object_manager_ref
-  {
-      static T sample_object;
-      BOOST_STATIC_CONSTANT(
-        bool, value
-        = (sizeof(is_object_manager_helper(&sample_object, &sample_object).call())
-            == sizeof(detail::yes_reference_to_object_manager)
-          )
-        );
-      typedef mpl::bool_<value> type;
-  };
-}
-
-template <class T>
-struct is_reference_to_object_manager
-    : mpl::if_<
-        is_reference<T>
-        , detail::is_reference_to_object_manager_ref<T>
-        , detail::is_reference_to_object_manager_nonref<T>
-    >::type
-{
-};
-# endif 
 
 }}} // namespace boost::python::converter
 

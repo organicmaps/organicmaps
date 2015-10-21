@@ -7,40 +7,7 @@
 # include <boost/python/detail/sfinae.hpp>
 # include <boost/detail/workaround.hpp>
 
-# if BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
-#  include <boost/mpl/if.hpp>
-
-namespace boost { namespace python { namespace detail { 
-
-template <class T> struct always_void { typedef void type; };
-
-template <class C, class T = int>
-struct enable_if_arg
-{
-    typedef typename mpl::if_<C,T,int&>::type type;
-};
-             
-template <class C, class T = int>
-struct disable_if_arg
-{
-    typedef typename mpl::if_<C,int&,T>::type type;
-};
-             
-template <class C, class T = typename always_void<C>::type>
-struct enable_if_ret
-{
-    typedef typename mpl::if_<C,T,int[2]>::type type;
-};
-             
-template <class C, class T = typename always_void<C>::type>
-struct disable_if_ret
-{
-    typedef typename mpl::if_<C,int[2],T>::type type;
-};
-             
-}}} // namespace boost::python::detail
-
-# elif !defined(BOOST_NO_SFINAE)
+#if !defined(BOOST_NO_SFINAE)
 #  include <boost/utility/enable_if.hpp>
 
 namespace boost { namespace python { namespace detail { 

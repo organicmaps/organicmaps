@@ -48,8 +48,8 @@ namespace boost { namespace fusion
     }
 
     template <typename Sequence, typename T>
-    BOOST_FUSION_GPU_ENABLED
-    typename
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+    inline typename
         lazy_enable_if<
             traits::is_sequence<Sequence>
           , result_of::push_back<Sequence const, T>
@@ -57,8 +57,8 @@ namespace boost { namespace fusion
     push_back(Sequence const& seq, T const& x);
 
     template <typename Sequence, typename T>
-    BOOST_FUSION_GPU_ENABLED
-    typename
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+    inline typename
         lazy_enable_if<
             traits::is_sequence<Sequence>
           , result_of::push_front<Sequence const, T>
@@ -152,7 +152,7 @@ namespace boost { namespace fusion { namespace detail
             >
         type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type call(Stack const& stack)
         {
             //return segment_sequence(
@@ -199,7 +199,7 @@ namespace boost { namespace fusion { namespace detail
             >
         type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type call(Stack const& stack)
         {
             // return iterator_range(begin(car(cdr(stack_begin))), end(front(car(stack_begin))));
@@ -212,7 +212,7 @@ namespace boost { namespace fusion { namespace detail
     {
         typedef typename Stack::cdr_type type; // nil_
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type call(Stack const &stack)
         {
             return stack.cdr;
@@ -298,7 +298,7 @@ namespace boost { namespace fusion { namespace detail
             >
         type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type call(Stack const& stack)
         {
             //  return segment_sequence(
@@ -345,7 +345,7 @@ namespace boost { namespace fusion { namespace detail
             >
         type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type call(Stack const& stack)
         {
             // return iterator_range(begin(front(car(stack_end))), begin(car(cdr(stack_end))));
@@ -358,7 +358,7 @@ namespace boost { namespace fusion { namespace detail
     {
         typedef typename Stack::cdr_type type; // nil_
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type call(Stack const& stack)
         {
             return stack.cdr;
@@ -437,7 +437,7 @@ namespace boost { namespace fusion { namespace detail
             >
         type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type call(StackBegin stack_begin, StackEnd stack_end)
         {
             //return segment_sequence(
@@ -471,7 +471,7 @@ namespace boost { namespace fusion { namespace detail
             typename impl::type
         type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type call(StackBegin stack_begin, StackEnd stack_end)
         {
             return impl::call(stack_begin.cdr, stack_end.cdr);
@@ -501,7 +501,7 @@ namespace boost { namespace fusion { namespace detail
             segment_sequence<segment_type>
         type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type call(StackBegin stack_begin, StackEnd stack_end)
         {
             //return segment_sequence(
@@ -531,7 +531,7 @@ namespace boost { namespace fusion { namespace detail
 
         typedef typename impl::type type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type call(Begin const& begin, End const& end)
         {
             return impl::call(

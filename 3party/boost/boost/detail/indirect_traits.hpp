@@ -16,7 +16,6 @@
 # include <boost/type_traits/remove_reference.hpp>
 # include <boost/type_traits/remove_pointer.hpp>
 
-# include <boost/type_traits/detail/ice_and.hpp>
 # include <boost/detail/workaround.hpp>
 
 # include <boost/mpl/eval_if.hpp>

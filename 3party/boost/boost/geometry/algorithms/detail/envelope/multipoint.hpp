@@ -4,12 +4,14 @@
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
-// Licensed under the Boost Software License version 1.0.
-// http://www.boost.org/users/license.html
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
 
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_ENVELOPE_MULTIPOINT_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_ENVELOPE_MULTIPOINT_HPP
 
+#include <cstddef>
 #include <algorithm>
 #include <utility>
 #include <vector>
@@ -28,14 +30,13 @@
 
 #include <boost/geometry/geometries/helper_geometry.hpp>
 
-#include <boost/geometry/strategies/strategy_transform.hpp>
-
-#include <boost/geometry/algorithms/assign.hpp>
-#include <boost/geometry/algorithms/transform.hpp>
-
 #include <boost/geometry/algorithms/detail/normalize.hpp>
 
+#include <boost/geometry/algorithms/detail/envelope/box.hpp>
+#include <boost/geometry/algorithms/detail/envelope/initialize.hpp>
 #include <boost/geometry/algorithms/detail/envelope/range.hpp>
+#include <boost/geometry/algorithms/detail/expand/point.hpp>
+
 #include <boost/geometry/algorithms/dispatch/envelope.hpp>
 
 
@@ -50,14 +51,14 @@ namespace detail { namespace envelope
 class envelope_multipoint_on_spheroid
 {
 private:
-    template <std::size_t Dimension>
+    template <std::size_t Dim>
     struct coordinate_less
     {
         template <typename Point>
         inline bool operator()(Point const& point1, Point const& point2) const
         {
-            return math::smaller(geometry::get<Dimension>(point1),
-                                 geometry::get<Dimension>(point2));
+            return math::smaller(geometry::get<Dim>(point1),
+                                 geometry::get<Dim>(point2));
         }
     };
 
@@ -230,6 +231,10 @@ public:
     {
         typedef typename point_type<MultiPoint>::type point_type;
         typedef typename coordinate_type<MultiPoint>::type coordinate_type;
+        typedef typename boost::range_iterator
+            <
+                MultiPoint const
+            >::type iterator_type;
 
         typedef math::detail::constants_on_spheroid
             <
@@ -237,11 +242,13 @@ public:
                 typename coordinate_system<MultiPoint>::type::units
             > constants;
 
-
         if (boost::empty(multipoint))
         {
+            initialize<Box, 0, dimension<Box>::value>::apply(mbr);
             return;
         }
+
+        initialize<Box, 0, 2>::apply(mbr);
 
         if (boost::size(multipoint) == 1)
         {
@@ -302,22 +309,45 @@ public:
                                              lat_max);
         }
 
-        typename helper_geometry
+        typedef typename helper_geometry
             <
                 Box,
                 coordinate_type,
                 typename coordinate_system<MultiPoint>::type::units
-            >::type helper_mbr;
+            >::type helper_box_type;
 
-        assign_values(helper_mbr, lon_min, lat_min, lon_max, lat_max);
+        helper_box_type helper_mbr;
 
-        geometry::transform(helper_mbr, mbr);
+        geometry::set<min_corner, 0>(helper_mbr, lon_min);
+        geometry::set<min_corner, 1>(helper_mbr, lat_min);
+        geometry::set<max_corner, 0>(helper_mbr, lon_max);
+        geometry::set<max_corner, 1>(helper_mbr, lat_max);
+
+        // now transform to output MBR (per index)
+        envelope_indexed_box_on_spheroid<min_corner, 2>::apply(helper_mbr, mbr);
+        envelope_indexed_box_on_spheroid<max_corner, 2>::apply(helper_mbr, mbr);
+
+        // compute envelope for higher coordinates
+        iterator_type it = boost::begin(multipoint);
+        envelope_one_point<2, dimension<Box>::value>::apply(*it, mbr);
+
+        for (++it; it != boost::end(multipoint); ++it)
+        {
+            detail::expand::point_loop
+                <
+                    strategy::compare::default_strategy,
+                    strategy::compare::default_strategy,
+                    2, dimension<Box>::value
+                >::apply(mbr, *it);
+        }
     }
 };
 
 
 }} // namespace detail::envelope
 #endif // DOXYGEN_NO_DETAIL
+
+
 
 #ifndef DOXYGEN_NO_DISPATCH
 namespace dispatch
@@ -326,7 +356,7 @@ namespace dispatch
 
 template <typename MultiPoint, typename CSTag>
 struct envelope<MultiPoint, multi_point_tag, CSTag>
-    : detail::envelope::envelope_range<>
+    : detail::envelope::envelope_range
 {};
 
 template <typename MultiPoint>
@@ -341,7 +371,7 @@ struct envelope<MultiPoint, multi_point_tag, geographic_tag>
 
 
 } // namespace dispatch
-#endif
+#endif // DOXYGEN_NO_DISPATCH
 
 }} // namespace boost::geometry
 

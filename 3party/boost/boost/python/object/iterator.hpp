@@ -71,35 +71,7 @@ struct iterator_range
 # endif 
     };
     
-# ifdef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
-    // for compilers which can't deduce the value_type of pointers, we
-    // have a special implementation of next.  This takes advantage of
-    // the fact that T* results are treated like T& results by
-    // Boost.Python's function wrappers.
-    struct next_ptr
-    {
-        typedef Iterator result_type;
-        
-        result_type
-        operator()(iterator_range<NextPolicies,Iterator>& self)
-        {
-            if (self.m_start == self.m_finish)
-                stop_iteration_error();
-            return self.m_start++;
-        }
-    };
-    
-    typedef mpl::if_<
-        is_same<
-            boost::detail::please_invoke_BOOST_TT_BROKEN_COMPILER_SPEC_on_cv_unqualified_pointee<Iterator>
-          , typename traits_t::value_type
-        >
-      , next_ptr
-      , next
-    >::type next_fn;
-# else
     typedef next next_fn;
-# endif
     
     object m_sequence; // Keeps the sequence alive while iterating.
     Iterator m_start;

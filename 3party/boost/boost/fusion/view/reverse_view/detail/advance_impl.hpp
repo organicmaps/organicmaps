@@ -35,7 +35,7 @@ namespace boost { namespace fusion {
                 typedef typename result_of::advance<first_type, negative_dist>::type advanced_type;
                 typedef reverse_view_iterator<advanced_type> type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Iterator const& i)
                 {

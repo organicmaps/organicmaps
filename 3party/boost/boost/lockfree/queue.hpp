@@ -249,7 +249,7 @@ public:
      * \note The result is only accurate, if no other thread modifies the queue. Therefore it is rarely practical to use this
      *       value in program logic.
      * */
-    bool empty(void)
+    bool empty(void) const
     {
         return pool.get_handle(head_.load()) == pool.get_handle(tail_.load());
     }

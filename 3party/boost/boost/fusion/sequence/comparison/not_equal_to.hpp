@@ -23,7 +23,7 @@
 namespace boost { namespace fusion
 {
     template <typename Seq1, typename Seq2>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline bool
     not_equal_to(Seq1 const& a, Seq2 const& b)
     {
@@ -41,7 +41,7 @@ namespace boost { namespace fusion
     namespace operators
     {
         template <typename Seq1, typename Seq2>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         inline typename
             boost::enable_if<
                 traits::enable_equality<Seq1, Seq2>

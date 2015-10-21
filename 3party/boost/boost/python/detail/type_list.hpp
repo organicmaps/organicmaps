@@ -30,10 +30,6 @@
 #  include <boost/mpl/vector/vector10.hpp>
 # endif
 
-# ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 #  include <boost/python/detail/type_list_impl.hpp>
-# else
-#  include <boost/python/detail/type_list_impl_no_pts.hpp>
-# endif
 
 #endif // TYPE_LIST_DWA2002913_HPP

@@ -91,7 +91,7 @@ namespace boost { namespace phoenix
         typedef
             typename proto::result_of::make_expr<
                 Tag
-              , proto::basic_default_domain
+              , phoenix_default_domain //proto::basic_default_domain
               , BOOST_PP_REPEAT(BOOST_PHOENIX_ITERATION, M0, _)
             >::type
             base_type;
@@ -109,7 +109,7 @@ namespace boost { namespace phoenix
                 {
                     proto::make_expr<
                         Tag
-                      , proto::basic_default_domain
+                      , phoenix_default_domain // proto::basic_default_domain
                     >(BOOST_PHOENIX_a)
                 };
             return e;

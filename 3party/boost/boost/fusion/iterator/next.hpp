@@ -54,8 +54,8 @@ namespace boost { namespace fusion
     }
 
     template <typename Iterator>
-    BOOST_FUSION_GPU_ENABLED
-    typename result_of::next<Iterator>::type const
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+    inline typename result_of::next<Iterator>::type const
     next(Iterator const& i)
     {
         return result_of::next<Iterator>::call(i);

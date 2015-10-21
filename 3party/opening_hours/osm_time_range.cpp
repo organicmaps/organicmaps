@@ -33,7 +33,6 @@
 //#define BOOST_SPIRIT_DEBUG 1
 #define BOOST_SPIRIT_USE_PHOENIX_V3
 #include <boost/spirit/include/qi.hpp>
-#include <boost/spirit/repository/include/qi_subrule.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
 #include <boost/spirit/include/phoenix_fusion.hpp>
 #include <boost/spirit/include/phoenix_stl.hpp>
@@ -241,7 +240,6 @@ namespace
 
   namespace qi = boost::spirit::qi;
   namespace phx = boost::phoenix;
-  namespace repo = boost::spirit::repository;
 
   namespace charset = boost::spirit::standard_wide;
   using space_type = charset::space_type;

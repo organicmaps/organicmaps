@@ -24,7 +24,7 @@ namespace boost { namespace fusion {
 namespace detail
 {
     template <typename First, typename Last, typename F>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline int
     linear_count_if(First const&, Last const&, F const&, mpl::true_)
     {
@@ -32,11 +32,11 @@ namespace detail
     }
 
     template <typename First, typename Last, typename F>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline int
     linear_count_if(First const& first, Last const& last, F& f, mpl::false_)
     {
-        int n =  
+        int n =
             detail::linear_count_if(
                 fusion::next(first)
               , last
@@ -48,7 +48,7 @@ namespace detail
     }
 
     template <typename Sequence, typename F, typename Tag>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline int
     count_if(Sequence const& seq, F f, Tag)
     {
@@ -65,7 +65,7 @@ namespace detail
     struct unrolled_count_if
     {
         template<typename I0, typename F>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static int call(I0 const& i0, F f)
         {
             int ct = unrolled_count_if<n-4>::
@@ -96,7 +96,7 @@ namespace detail
     struct unrolled_count_if<3>
     {
         template<typename I0, typename F>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static int call(I0 const& i0, F f)
         {
             int ct = 0;
@@ -121,7 +121,7 @@ namespace detail
     struct unrolled_count_if<2>
     {
         template<typename I0, typename F>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static int call(I0 const& i0, F f)
         {
             int ct = 0;
@@ -142,7 +142,7 @@ namespace detail
     struct unrolled_count_if<1>
     {
         template<typename I0, typename F>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static int call(I0 const& i0, F f)
         {
             int ct = 0;
@@ -157,7 +157,7 @@ namespace detail
     struct unrolled_count_if<0>
     {
         template<typename I0, typename F>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static int call(I0 const&, F)
         {
             return 0;
@@ -165,7 +165,7 @@ namespace detail
     };
 
     template <typename Sequence, typename F>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline int
     count_if(Sequence const& seq, F f, random_access_traversal_tag)
     {

@@ -69,7 +69,7 @@ namespace boost { namespace fusion
     }
         
     template <typename First, typename Last>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::distance<First, Last>::type
     distance(First const& a, Last const& b)
     {

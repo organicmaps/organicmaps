@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2005-2008.
-//  Use, modification, and distribution are subject to the 
-//  Boost Software License, Version 1.0. (See accompanying file 
+//  (C) Copyright Gennadiy Rozental 2005-2014.
+//  Use, modification, and distribution are subject to the
+//  Boost Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -12,5 +12,5 @@
 //  Description : offline implementation of generic parameter with dual naming
 // ***************************************************************************
 
-#define BOOST_RT_PARAM_INLINE
+#define BOOST_TEST_UTILS_RUNTIME_PARAM_INLINE
 #include <boost/test/utils/runtime/cla/dual_name_parameter.ipp>

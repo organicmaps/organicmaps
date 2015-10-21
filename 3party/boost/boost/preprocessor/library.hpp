@@ -32,5 +32,6 @@
 # include <boost/preprocessor/stringize.hpp>
 # include <boost/preprocessor/tuple.hpp>
 # include <boost/preprocessor/variadic.hpp>
+# include <boost/preprocessor/wstringize.hpp>
 #
 # endif

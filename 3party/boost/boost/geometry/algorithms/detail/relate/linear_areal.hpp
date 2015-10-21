@@ -325,7 +325,7 @@ struct linear_areal
                     // if there was some previous ring
                     if ( prev_seg_id_ptr != NULL )
                     {
-                        signed_index_type const next_ring_index = prev_seg_id_ptr->ring_index + 1;
+                        signed_size_type const next_ring_index = prev_seg_id_ptr->ring_index + 1;
                         BOOST_GEOMETRY_ASSERT(next_ring_index >= 0);
                         
                         // if one of the last rings of previous single geometry was ommited
@@ -396,7 +396,7 @@ struct linear_areal
             // if there was some previous ring
             if ( prev_seg_id_ptr != NULL )
             {
-                signed_index_type const next_ring_index = prev_seg_id_ptr->ring_index + 1;
+                signed_size_type const next_ring_index = prev_seg_id_ptr->ring_index + 1;
                 BOOST_GEOMETRY_ASSERT(next_ring_index >= 0);
 
                 // if one of the last rings of previous single geometry was ommited
@@ -738,6 +738,8 @@ struct linear_areal
             // handle the interior overlap
             if ( m_interior_detected )
             {
+                BOOST_GEOMETRY_ASSERT_MSG(m_previous_turn_ptr, "non-NULL ptr expected");
+
                 // real interior overlap
                 if ( ! turn_on_the_same_ip<op_id>(*m_previous_turn_ptr, *it) )
                 {
@@ -747,21 +749,16 @@ struct linear_areal
                     // new range detected - reset previous state and check the boundary
                     if ( first_in_range )
                     {
-                        // actually it should be != NULL if m_interior_detected
-                        // so an assert could be checked here
-                        if ( m_previous_turn_ptr )
+                        segment_identifier const& prev_seg_id = m_previous_turn_ptr->operations[op_id].seg_id;
+
+                        bool const prev_back_b = is_endpoint_on_boundary<boundary_back>(
+                                                    range::back(sub_range(geometry, prev_seg_id)),
+                                                    boundary_checker);
+
+                        // if there is a boundary on the last point
+                        if ( prev_back_b )
                         {
-                            segment_identifier const& prev_seg_id = m_previous_turn_ptr->operations[op_id].seg_id;
-
-                            bool const prev_back_b = is_endpoint_on_boundary<boundary_back>(
-                                                        range::back(sub_range(geometry, prev_seg_id)),
-                                                        boundary_checker);
-
-                            // if there is a boundary on the last point
-                            if ( prev_back_b )
-                            {
-                                update<boundary, interior, '0', TransposeResult>(res);
-                            }
+                            update<boundary, interior, '0', TransposeResult>(res);
                         }
 
                         // The exit_watcher is reset below
@@ -1334,8 +1331,8 @@ struct linear_areal
         if ( first == last )
             return last;
 
-        signed_index_type const multi_index = first->operations[1].seg_id.multi_index;
-        signed_index_type const ring_index = first->operations[1].seg_id.ring_index;
+        signed_size_type const multi_index = first->operations[1].seg_id.multi_index;
+        signed_size_type const ring_index = first->operations[1].seg_id.ring_index;
 
         fun(*first);
         ++first;

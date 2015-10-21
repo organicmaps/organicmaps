@@ -22,6 +22,14 @@
 #ifndef BOOST_CONTAINER_DETAIL_FUNCTION_DETECTOR_HPP
 #define BOOST_CONTAINER_DETAIL_FUNCTION_DETECTOR_HPP
 
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 #include <boost/container/detail/config_begin.hpp>
 
 namespace boost {

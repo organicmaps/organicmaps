@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2006-2013.
+// (C) Copyright Ion Gaztanaga  2006-2014.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -19,14 +19,53 @@
 #include <cstddef>
 
 #include <boost/intrusive/detail/assert.hpp>
-#include <boost/intrusive/pointer_traits.hpp>
-#include <boost/intrusive/detail/utilities.hpp>
+#include <boost/intrusive/detail/algo_type.hpp>
 #include <boost/intrusive/bstree_algorithms.hpp>
-#include <algorithm>
 
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
 
 namespace boost {
 namespace intrusive {
+
+#ifndef BOOST_INTRUSIVE_DOXYGEN_INVOKED
+
+namespace detail
+{
+
+template<class ValueTraits, class NodePtrPrioCompare, class ExtraChecker>
+struct treap_node_extra_checker
+      : public ExtraChecker
+{
+   typedef ExtraChecker                            base_checker_t;
+   typedef ValueTraits                             value_traits;
+   typedef typename value_traits::node_traits      node_traits;
+   typedef typename node_traits::const_node_ptr    const_node_ptr;
+
+   typedef typename base_checker_t::return_type    return_type;
+
+   treap_node_extra_checker(const NodePtrPrioCompare& prio_comp, ExtraChecker extra_checker)
+      : base_checker_t(extra_checker), prio_comp_(prio_comp)
+   {}
+
+   void operator () (const const_node_ptr& p,
+                     const return_type& check_return_left, const return_type& check_return_right,
+                     return_type& check_return)
+   {
+      if (node_traits::get_left(p))
+         BOOST_INTRUSIVE_INVARIANT_ASSERT(!prio_comp_(node_traits::get_left(p), p));
+      if (node_traits::get_right(p))
+         BOOST_INTRUSIVE_INVARIANT_ASSERT(!prio_comp_(node_traits::get_right(p), p));
+      base_checker_t::operator()(p, check_return_left, check_return_right, check_return);
+   }
+
+   const NodePtrPrioCompare prio_comp_;
+};
+
+} // namespace detail
+
+#endif   //#ifndef BOOST_INTRUSIVE_DOXYGEN_INVOKED
 
 //! treap_algorithms provides basic algorithms to manipulate
 //! nodes forming a treap.
@@ -614,6 +653,12 @@ template<class NodeTraits>
 struct get_algo<TreapAlgorithms, NodeTraits>
 {
    typedef treap_algorithms<NodeTraits> type;
+};
+
+template <class ValueTraits, class NodePtrCompare, class ExtraChecker>
+struct get_node_checker<TreapAlgorithms, ValueTraits, NodePtrCompare, ExtraChecker>
+{
+   typedef detail::bstree_node_checker<ValueTraits, NodePtrCompare, ExtraChecker> type;
 };
 
 /// @endcond

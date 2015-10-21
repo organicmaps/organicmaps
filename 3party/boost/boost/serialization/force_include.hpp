@@ -31,11 +31,7 @@
 // release mode.
 
 #if defined(BOOST_HAS_DECLSPEC) && !defined(__COMO__)
-#   if defined(__BORLANDC__)
-#       define BOOST_DLLEXPORT __export
-#   else
-#       define BOOST_DLLEXPORT __declspec(dllexport)
-#   endif
+#   define BOOST_DLLEXPORT __declspec(dllexport)
 #elif ! defined(_WIN32) && ! defined(_WIN64)
 #   if defined(__MWERKS__)
 #       define BOOST_DLLEXPORT __declspec(dllexport)

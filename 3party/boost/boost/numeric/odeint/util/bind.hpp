@@ -41,9 +41,12 @@ using namespace ::std::placeholders;
 
 #else
 
+// unnamed namespace to avoid multiple declarations (#138)
+namespace {
 using ::boost::bind;
 boost::arg<1> _1;
 boost::arg<2> _2;
+}
 // using ::boost::bind;
 // using ::_1;
 // using ::_2;

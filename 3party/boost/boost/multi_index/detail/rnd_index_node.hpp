@@ -1,4 +1,4 @@
-/* Copyright 2003-2013 Joaquin M Lopez Munoz.
+/* Copyright 2003-2015 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -16,7 +16,8 @@
 #include <boost/config.hpp> /* keep it first to prevent nasty warns in MSVC */
 #include <algorithm>
 #include <boost/detail/allocator_utilities.hpp>
-#include <boost/math/common_factor_rt.hpp>
+#include <boost/integer/common_factor_rt.hpp>
+#include <boost/multi_index/detail/raw_ptr.hpp>
 #include <cstddef>
 #include <functional>
 
@@ -105,7 +106,7 @@ struct random_access_index_node_impl
     std::ptrdiff_t n=end-begin;
     std::ptrdiff_t m=middle-begin;
     std::ptrdiff_t n_m=n-m;
-    std::ptrdiff_t p=math::gcd(n,m);
+    std::ptrdiff_t p=integer::gcd(n,m);
 
     for(std::ptrdiff_t i=0;i<p;++i){
       pointer tmp=begin[i];
@@ -219,14 +220,18 @@ public:
 
   static random_access_index_node* from_impl(impl_pointer x)
   {
-    return static_cast<random_access_index_node*>(
-      static_cast<trampoline*>(&*x));
+    return
+      static_cast<random_access_index_node*>(
+        static_cast<trampoline*>(
+          raw_ptr<impl_type*>(x)));
   }
 
   static const random_access_index_node* from_impl(const_impl_pointer x)
   {
-    return static_cast<const random_access_index_node*>(
-      static_cast<const trampoline*>(&*x));
+    return
+      static_cast<const random_access_index_node*>(
+        static_cast<const trampoline*>(
+          raw_ptr<const impl_type*>(x)));
   }
 
   /* interoperability with rnd_node_iterator */

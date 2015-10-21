@@ -8,10 +8,6 @@
 #if !defined(BOOST_SPIRIT_X3_CAST_CHAR_NOVEMBER_10_2006_0907AM)
 #define BOOST_SPIRIT_X3_CAST_CHAR_NOVEMBER_10_2006_0907AM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/type_traits/is_signed.hpp>
 #include <boost/type_traits/make_unsigned.hpp>
 #include <boost/type_traits/make_signed.hpp>

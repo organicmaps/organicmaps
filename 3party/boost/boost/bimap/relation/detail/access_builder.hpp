@@ -12,7 +12,7 @@
 #ifndef BOOST_BIMAP_RELATION_ACCESS_BUILDER_HPP
 #define BOOST_BIMAP_RELATION_ACCESS_BUILDER_HPP
 
-#if defined(_MSC_VER) && (_MSC_VER>=1200)
+#if defined(_MSC_VER)
 #pragma once
 #endif
 

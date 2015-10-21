@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2001-2008.
+//  (C) Copyright Gennadiy Rozental 2001-2014.
 //  Distributed under the Boost Software License, Version 1.0.
-//  (See accompanying file LICENSE_1_0.txt or copy at 
+//  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -12,8 +12,8 @@
 //  Description : fixed sized mapping with specified invalid value
 // ***************************************************************************
 
-#ifndef BOOST_TEST_FIXED_MAPPING_HPP_071894GER
-#define BOOST_TEST_FIXED_MAPPING_HPP_071894GER
+#ifndef BOOST_TEST_UTILS_FIXED_MAPPING_HPP
+#define BOOST_TEST_UTILS_FIXED_MAPPING_HPP
 
 // Boost
 #include <boost/preprocessor/repetition/repeat.hpp>
@@ -32,7 +32,6 @@
 //____________________________________________________________________________//
 
 namespace boost {
-
 namespace unit_test {
 
 // configurable maximum fixed sized mapping size supported by this header.
@@ -107,10 +106,7 @@ private:
 };
 
 } // namespace unit_test
-
 } // namespace boost
-
-//____________________________________________________________________________//
 
 #include <boost/test/detail/enable_warnings.hpp>
 
@@ -120,5 +116,5 @@ private:
 #undef CONSTR_DECL
 #undef CONTRUCTORS
 
-#endif // BOOST_TEST_FIXED_MAPPING_HPP_071894GER
+#endif // BOOST_TEST_UTILS_FIXED_MAPPING_HPP
 

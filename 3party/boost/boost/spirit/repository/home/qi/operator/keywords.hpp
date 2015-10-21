@@ -254,7 +254,7 @@ namespace boost { namespace spirit { namespace repository { namespace qi
 
             // We have a bool array 'flags' with one flag for each parser as well as a 'counter'
             // array.
-            // The kwd directive sets and increments the counter when a successeful parse occured
+            // The kwd directive sets and increments the counter when a successeful parse occurred
             // as well as the slot of the corresponding parser to true in the flags array as soon
             // the minimum repetition requirement is met and keeps that value to true as long as
             // the maximum repetition requirement is met.
@@ -335,7 +335,7 @@ namespace boost { namespace spirit { namespace repository { namespace qi
 
             // We have a bool array 'flags' with one flag for each parser as well as a 'counter'
             // array.
-            // The kwd directive sets and increments the counter when a successeful parse occured
+            // The kwd directive sets and increments the counter when a successeful parse occurred
             // as well as the slot of the corresponding parser to true in the flags array as soon
             // the minimum repetition requirement is met and keeps that value to true as long as
             // the maximum repetition requirement is met.

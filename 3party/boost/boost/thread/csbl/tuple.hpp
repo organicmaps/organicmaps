@@ -28,10 +28,14 @@ namespace boost
 #if defined BOOST_THREAD_USES_BOOST_TUPLE
     using ::boost::tuple;
     using ::boost::get;
+    using ::boost::make_tuple;
+    //using ::boost::tuple_size;
 #else
     // 20.4.2, class template tuple:
     using ::std::tuple;
     using ::std::get;
+    using ::std::make_tuple;
+    using ::std::tuple_size;
     // 20.4.2.4, tuple creation functions:
     // 20.4.2.5, tuple helper classes:
     // 20.4.2.6, element access:

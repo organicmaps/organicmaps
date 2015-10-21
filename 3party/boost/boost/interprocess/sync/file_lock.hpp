@@ -11,7 +11,11 @@
 #ifndef BOOST_INTERPROCESS_FILE_LOCK_HPP
 #define BOOST_INTERPROCESS_FILE_LOCK_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -23,7 +27,7 @@
 #include <boost/interprocess/detail/posix_time_types_wrk.hpp>
 #include <boost/interprocess/sync/detail/common_algorithms.hpp>
 #include <boost/interprocess/sync/detail/locks.hpp>
-#include <boost/move/move.hpp>
+#include <boost/move/utility_core.hpp>
 
 //!\file
 //!Describes a class that wraps file locking capabilities.
@@ -39,10 +43,10 @@ namespace interprocess {
 //!process so just use file locks to synchronize threads from different processes.
 class file_lock
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    //Non-copyable
    BOOST_MOVABLE_BUT_NOT_COPYABLE(file_lock)
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    //!Constructs an empty file mapping.
@@ -139,11 +143,11 @@ class file_lock
    //!Effects: The calling thread releases the sharable ownership of the mutex.
    //!Throws: An exception derived from interprocess_exception on error.
    void unlock_sharable();
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    file_handle_t m_file_hnd;
 
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
 
 inline file_lock::file_lock(const char *name)

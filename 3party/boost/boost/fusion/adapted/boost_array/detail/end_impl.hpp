@@ -24,11 +24,11 @@ namespace boost { namespace fusion {
         struct end_impl<boost_array_tag>
         {
             template <typename Sequence>
-            struct apply 
+            struct apply
             {
                 typedef array_iterator<Sequence, Sequence::static_size> type;
-    
-                BOOST_FUSION_GPU_ENABLED
+
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& v)
                 {

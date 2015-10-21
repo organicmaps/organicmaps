@@ -31,7 +31,7 @@ namespace std{
 #include <boost/archive/dinkumware.hpp>
 #endif
 
-#include <boost/detail/no_exceptions_support.hpp>
+#include <boost/core/no_exceptions_support.hpp>
 
 #include <boost/archive/xml_archive_exception.hpp>
 #include <boost/archive/iterators/dataflow_exception.hpp>
@@ -51,7 +51,7 @@ namespace archive {
 #ifndef BOOST_NO_CWCHAR
 #ifndef BOOST_NO_STD_WSTRING
 template<class Archive>
-BOOST_ARCHIVE_DECL(void)
+BOOST_ARCHIVE_DECL void
 xml_iarchive_impl<Archive>::load(std::wstring &ws){
     std::string s;
     bool result = gimpl->parse_string(is, s);
@@ -85,7 +85,7 @@ xml_iarchive_impl<Archive>::load(std::wstring &ws){
 
 #ifndef BOOST_NO_INTRINSIC_WCHAR_T
 template<class Archive>
-BOOST_ARCHIVE_DECL(void)
+BOOST_ARCHIVE_DECL void
 xml_iarchive_impl<Archive>::load(wchar_t * ws){
     std::string s;
     bool result = gimpl->parse_string(is, s);
@@ -117,7 +117,7 @@ xml_iarchive_impl<Archive>::load(wchar_t * ws){
 #endif // BOOST_NO_CWCHAR
 
 template<class Archive>
-BOOST_ARCHIVE_DECL(void)
+BOOST_ARCHIVE_DECL void
 xml_iarchive_impl<Archive>::load(std::string &s){
     bool result = gimpl->parse_string(is, s);
     if(! result)
@@ -127,7 +127,7 @@ xml_iarchive_impl<Archive>::load(std::string &s){
 }
 
 template<class Archive>
-BOOST_ARCHIVE_DECL(void)
+BOOST_ARCHIVE_DECL void
 xml_iarchive_impl<Archive>::load(char * s){
     std::string tstring;
     bool result = gimpl->parse_string(is, tstring);
@@ -140,8 +140,8 @@ xml_iarchive_impl<Archive>::load(char * s){
 }
 
 template<class Archive>
-BOOST_ARCHIVE_DECL(void)
-xml_iarchive_impl<Archive>::load_override(class_name_type & t, int){
+BOOST_ARCHIVE_DECL void
+xml_iarchive_impl<Archive>::load_override(class_name_type & t){
     const std::string & s = gimpl->rv.class_name;
     if(s.size() > BOOST_SERIALIZATION_MAX_KEY_SIZE - 1)
         boost::serialization::throw_exception(
@@ -153,7 +153,7 @@ xml_iarchive_impl<Archive>::load_override(class_name_type & t, int){
 }
 
 template<class Archive>
-BOOST_ARCHIVE_DECL(void)
+BOOST_ARCHIVE_DECL void
 xml_iarchive_impl<Archive>::init(){
     gimpl->init(is);
     this->set_library_version(
@@ -162,7 +162,7 @@ xml_iarchive_impl<Archive>::init(){
 }
 
 template<class Archive>
-BOOST_ARCHIVE_DECL(BOOST_PP_EMPTY())
+BOOST_ARCHIVE_DECL
 xml_iarchive_impl<Archive>::xml_iarchive_impl(
     std::istream &is_,
     unsigned int flags
@@ -174,22 +174,12 @@ xml_iarchive_impl<Archive>::xml_iarchive_impl(
     basic_xml_iarchive<Archive>(flags),
     gimpl(new xml_grammar())
 {
-    if(0 == (flags & no_header)){
-        BOOST_TRY{
-            init();
-        }
-        BOOST_CATCH(...){
-            delete gimpl;
-            #ifndef BOOST_NO_EXCEPTIONS
-                throw; // re-throw
-            #endif
-        }
-        BOOST_CATCH_END
-    }
+    if(0 == (flags & no_header))
+        init();
 }
 
 template<class Archive>
-BOOST_ARCHIVE_DECL(BOOST_PP_EMPTY())
+BOOST_ARCHIVE_DECL
 xml_iarchive_impl<Archive>::~xml_iarchive_impl(){
     if(0 == (this->get_flags() & no_header)){
         BOOST_TRY{
@@ -198,7 +188,6 @@ xml_iarchive_impl<Archive>::~xml_iarchive_impl(){
         BOOST_CATCH(...){}
         BOOST_CATCH_END
     }
-    delete gimpl;
 }
 } // namespace archive
 } // namespace boost

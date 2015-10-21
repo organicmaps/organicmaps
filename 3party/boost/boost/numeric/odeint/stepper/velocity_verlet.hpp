@@ -114,7 +114,7 @@ public:
 
         algebra_stepper_base_type::m_algebra.for_each4(
             qout , qin , pin , ain ,
-            typename operations_type::template scale_sum3< value_type , time_type , time_square_type >( one , one_half * dt , one * dt * dt ) );
+            typename operations_type::template scale_sum3< value_type , time_type , time_square_type >( one , one * dt , one_half * dt * dt ) );
 
         typename odeint::unwrap_reference< System >::type & sys = system;
 

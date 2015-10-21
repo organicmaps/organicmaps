@@ -259,7 +259,7 @@ BOOST_ODEINT_GEN_FOR_EACH(BOOST_ODEINT_GEN_BODY)
         typedef typename norm_result_type< S >::type result_type;
         result_type init = static_cast< result_type >( 0 );
         const size_t len = boost::size(s);
-        typename boost::range_iterator<S>::type beg = boost::begin(s);
+        typename boost::range_iterator<const S>::type beg = boost::begin(s);
 #       pragma omp parallel for reduction(max: init) schedule(dynamic)
         for( size_t i = 0 ; i < len ; ++i )
             init = max( init , abs( beg[i] ) );

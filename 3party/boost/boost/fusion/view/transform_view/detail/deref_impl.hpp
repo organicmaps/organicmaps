@@ -37,7 +37,7 @@ namespace boost { namespace fusion
                 typedef detail::apply_transform_result<typename Iterator::transform_type> transform_type;
                 typedef typename mpl::apply<transform_type, value_type>::type type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Iterator const& i)
                 {
@@ -63,7 +63,7 @@ namespace boost { namespace fusion
                 typedef detail::apply_transform_result<typename Iterator::transform_type> transform_type;
                 typedef typename mpl::apply<transform_type, value1_type, value2_type>::type type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Iterator const& i)
                 {

@@ -16,10 +16,6 @@
 
 namespace boost { namespace algorithm {
 
-#if __cplusplus >= 201103L
-//  Use the C++11 versions of copy_n if it is available
-using std::copy_n;          // Section 25.3.1
-#else
 /// \fn copy_n ( InputIterator first, Size n, OutputIterator result )
 /// \brief Copies exactly n (n > 0) elements from the range starting at first to
 ///     the range starting at result.
@@ -38,7 +34,6 @@ OutputIterator copy_n ( InputIterator first, Size n, OutputIterator result )
         *result = *first;
     return result;
 }
-#endif
 }} // namespace boost and algorithm
 
 #endif  // BOOST_ALGORITHM_COPY_IF_HPP

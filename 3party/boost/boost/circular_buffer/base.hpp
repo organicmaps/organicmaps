@@ -175,23 +175,6 @@ public:
     typedef BOOST_RV_REF(value_type) rvalue_type;
 
 private:
-
-    // TODO: move to Boost.Move
-    /*! \cond */
-    template <class ValT> 
-    static inline typename boost::conditional<
-        ((boost::is_nothrow_move_constructible<ValT>::value && boost::is_nothrow_move_assignable<ValT>::value) || !boost::is_copy_constructible<ValT>::value)
-#if defined(BOOST_NO_CXX11_DELETED_FUNCTIONS) && defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
-            && has_move_emulation_enabled<ValT>::value
-#endif
-        ,
-        rvalue_type,
-        param_value_type
-    >::type move_if_noexcept(ValT& value) BOOST_NOEXCEPT {
-        return boost::move(value);
-    }
-    /*! \endcond */
-
 // Member variables
 
     //! The internal buffer used for storing elements in the circular buffer.
@@ -682,11 +665,11 @@ public:
                         break;
                     }
                     if (is_uninitialized(dest)) {
-                        boost::container::allocator_traits<Alloc>::construct(m_alloc, boost::addressof(*dest), this_type::move_if_noexcept(*src));
+                        boost::container::allocator_traits<Alloc>::construct(m_alloc, boost::addressof(*dest), boost::move_if_noexcept(*src));
                         ++constructed;
                     } else {
-                        value_type tmp = this_type::move_if_noexcept(*src); 
-                        replace(src, this_type::move_if_noexcept(*dest));
+                        value_type tmp = boost::move_if_noexcept(*src);
+                        replace(src, boost::move_if_noexcept(*dest));
                         replace(dest, boost::move(tmp));
                     }
                 }
@@ -761,12 +744,12 @@ public:
             difference_type n = new_begin - begin();
             if (m < n) {
                 for (; m > 0; --m) {
-                    push_front(this_type::move_if_noexcept(back()));
+                    push_front(boost::move_if_noexcept(back()));
                     pop_back();
                 }
             } else {
                 for (; n > 0; --n) {
-                    push_back(this_type::move_if_noexcept(front()));
+                    push_back(boost::move_if_noexcept(front()));
                     pop_front();
                 }
             }
@@ -1878,7 +1861,7 @@ private:
             bool construct = !full();
             BOOST_TRY {
                 while (src != pos.m_it) {
-                    construct_or_replace(construct, dest, this_type::move_if_noexcept(*src));
+                    construct_or_replace(construct, dest, boost::move_if_noexcept(*src));
                     increment(src);
                     increment(dest);
                     construct = false;
@@ -2125,7 +2108,7 @@ public:
         pointer next = pos.m_it;
         increment(next);
         for (pointer p = pos.m_it; next != m_last; p = next, increment(next))
-            replace(p, this_type::move_if_noexcept(*next));
+            replace(p, boost::move_if_noexcept(*next));
         decrement(m_last);
         destroy_item(m_last);
         --m_size;
@@ -2164,7 +2147,7 @@ public:
             return first;
         pointer p = first.m_it;
         while (last.m_it != 0)
-            replace((first++).m_it, this_type::move_if_noexcept(*last++));
+            replace((first++).m_it, boost::move_if_noexcept(*last++));
         do {
             decrement(m_last);
             destroy_item(m_last);
@@ -2202,7 +2185,7 @@ public:
         pointer prev = pos.m_it;
         pointer p = prev;
         for (decrement(prev); p != m_first; p = prev, decrement(prev))
-            replace(p, this_type::move_if_noexcept(*prev));
+            replace(p, boost::move_if_noexcept(*prev));
         destroy_item(m_first);
         increment(m_first);
         --m_size;
@@ -2247,7 +2230,7 @@ public:
         while (first.m_it != m_first) {
             decrement(first.m_it);
             decrement(p);
-            replace(p, this_type::move_if_noexcept(*first.m_it));
+            replace(p, boost::move_if_noexcept(*first.m_it));
         }
         do {
             destroy_item(m_first);
@@ -2771,7 +2754,7 @@ private:
             BOOST_TRY {
                 while (src != p) {
                     decrement(src);
-                    construct_or_replace(construct, dest, this_type::move_if_noexcept(*src));
+                    construct_or_replace(construct, dest, boost::move_if_noexcept(*src));
                     decrement(dest);
                     construct = false;
                 }

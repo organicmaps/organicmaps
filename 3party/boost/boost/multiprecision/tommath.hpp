@@ -38,8 +38,8 @@ void eval_add(tommath_int& t, const tommath_int& o);
 
 struct tommath_int
 {
-   typedef mpl::list<boost::int32_t, long long>             signed_types;
-   typedef mpl::list<boost::uint32_t, unsigned long long>   unsigned_types;
+   typedef mpl::list<boost::int32_t, boost::long_long_type>             signed_types;
+   typedef mpl::list<boost::uint32_t, boost::ulong_long_type>   unsigned_types;
    typedef mpl::list<long double>                           float_types;
 
    tommath_int()
@@ -70,11 +70,11 @@ struct tommath_int
          detail::check_tommath_result(mp_copy(const_cast< ::mp_int*>(&o.m_data), &m_data));
       return *this;
    }
-   tommath_int& operator = (unsigned long long i)
+   tommath_int& operator = (boost::ulong_long_type i)
    {
       if(m_data.dp == 0)
          detail::check_tommath_result(mp_init(&m_data));
-      unsigned long long mask = ((1uLL << std::numeric_limits<unsigned>::digits) - 1);
+      boost::ulong_long_type mask = ((1uLL << std::numeric_limits<unsigned>::digits) - 1);
       unsigned shift = 0;
       ::mp_int t;
       detail::check_tommath_result(mp_init(&t));
@@ -91,7 +91,7 @@ struct tommath_int
       mp_clear(&t);
       return *this;
    }
-   tommath_int& operator = (long long i)
+   tommath_int& operator = (boost::long_long_type i)
    {
       if(m_data.dp == 0)
          detail::check_tommath_result(mp_init(&m_data));
@@ -118,7 +118,7 @@ struct tommath_int
       if(m_data.dp == 0)
          detail::check_tommath_result(mp_init(&m_data));
       bool neg = i < 0;
-      *this = static_cast<boost::uint32_t>(std::abs(i));
+      *this = boost::multiprecision::detail::unsigned_abs(i);
       if(neg)
          detail::check_tommath_result(mp_neg(&m_data, &m_data));
       return *this;
@@ -222,7 +222,7 @@ struct tommath_int
             unsigned shift = radix == 8 ? 3 : 4;
             unsigned block_count = DIGIT_BIT / shift;
             unsigned block_shift = shift * block_count;
-            unsigned long long val, block;
+            boost::ulong_long_type val, block;
             while(*s)
             {
                block = 0;
@@ -314,10 +314,10 @@ struct tommath_int
       {
          int pos = result[0] == '-' ? 1 : 0;
          const char* pp = base == 8 ? "0" : "0x";
-         result.insert(pos, pp);
+         result.insert(static_cast<std::string::size_type>(pos), pp);
       }
       if((f & std::ios_base::showpos) && (result[0] != '-'))
-         result.insert(0, 1, '+');
+         result.insert(static_cast<std::string::size_type>(0), 1, '+');
       return result;
    }
    ~tommath_int()
@@ -536,7 +536,7 @@ inline void eval_complement(tommath_int& result, const tommath_int& u)
 
    // Create a mask providing the extra bits we need and add to result:
    tommath_int mask;
-   mask = static_cast<long long>((1u << padding) - 1);
+   mask = static_cast<boost::long_long_type>((1u << padding) - 1);
    eval_left_shift(mask, shift);
    add(result, mask);
 }
@@ -640,8 +640,7 @@ inline typename enable_if<is_unsigned<Integer>, Integer>::type eval_integer_modu
 template <class Integer>
 inline typename enable_if<is_signed<Integer>, Integer>::type eval_integer_modulus(const tommath_int& x, Integer val)
 {
-   typedef typename make_unsigned<Integer>::type unsigned_type;
-   return eval_integer_modulus(x, static_cast<unsigned_type>(std::abs(val)));
+   return eval_integer_modulus(x, boost::multiprecision::detail::unsigned_abs(val));
 }
 
 } // namespace backends

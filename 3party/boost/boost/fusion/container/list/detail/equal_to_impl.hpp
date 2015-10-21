@@ -25,7 +25,7 @@ namespace boost { namespace fusion
         struct equal_to_impl<cons_iterator_tag>
         {
             template <typename I1, typename I2>
-            struct apply             
+            struct apply
                 : is_same<
                     typename I1::identity
                   , typename I2::identity

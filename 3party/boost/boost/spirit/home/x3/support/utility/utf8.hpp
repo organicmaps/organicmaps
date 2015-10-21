@@ -7,12 +7,7 @@
 #if !defined(BOOST_SPIRIT_X3_UC_TYPES_NOVEMBER_23_2008_0840PM)
 #define BOOST_SPIRIT_X3_UC_TYPES_NOVEMBER_23_2008_0840PM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/cstdint.hpp>
-#include <boost/foreach.hpp>
 #include <boost/regex/pending/unicode_iterator.hpp>
 #include <boost/type_traits/make_unsigned.hpp>
 #include <string>
@@ -61,7 +56,7 @@ namespace boost { namespace spirit { namespace x3
         insert_iter out_iter(result);
         utf8_output_iterator<insert_iter> utf8_iter(out_iter);
         typedef typename make_unsigned<Char>::type UChar;
-        BOOST_FOREACH(Char ch, str)
+        for (Char ch : str)
         {
             *utf8_iter++ = (UChar)ch;
         }

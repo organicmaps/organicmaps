@@ -11,13 +11,22 @@
 #ifndef BOOST_INTERPROCESS_MAP_INDEX_HPP
 #define BOOST_INTERPROCESS_MAP_INDEX_HPP
 
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
 
-#include <functional>
-#include <utility>
+#include <boost/intrusive/detail/minimal_pair_header.hpp>
 #include <boost/interprocess/containers/map.hpp>
 #include <boost/interprocess/allocators/private_adaptive_pool.hpp>
+#include <boost/intrusive/detail/minimal_pair_header.hpp>         //std::pair
+#include <boost/intrusive/detail/minimal_less_equal_header.hpp>   //std::less
 
 //!\file
 //!Describes index adaptor of boost::map container, to use it
@@ -55,12 +64,12 @@ class map_index
    //Derive class from map specialization
    : public ipcdetail::map_index_aux<MapConfig>::index_t
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    typedef ipcdetail::map_index_aux<MapConfig>  index_aux;
    typedef typename index_aux::index_t       base_type;
    typedef typename MapConfig::
       segment_manager_base          segment_manager_base;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    //!Constructor. Takes a pointer to the
@@ -80,7 +89,7 @@ class map_index
    {  base_type::get_stored_allocator().deallocate_free_blocks(); }
 };
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
 //!Trait class to detect if an index is a node
 //!index. This allows more efficient operations
@@ -91,7 +100,7 @@ struct is_node_index
 {
    static const bool value = true;
 };
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 }}   //namespace boost { namespace interprocess {
 

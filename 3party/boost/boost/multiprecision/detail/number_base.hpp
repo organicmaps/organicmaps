@@ -25,7 +25,19 @@
 #  define BOOST_MP_FORCEINLINE inline
 #endif
 
-namespace boost{ namespace multiprecision{
+#if defined(BOOST_GCC) && (BOOST_GCC <= 40700)
+#  define BOOST_MP_NOEXCEPT_IF(x)
+#else
+#  define BOOST_MP_NOEXCEPT_IF(x) BOOST_NOEXCEPT_IF(x)
+#endif
+
+#ifdef BOOST_MSVC
+#  pragma warning(push)
+#  pragma warning(disable:6326)
+#endif
+
+namespace boost{
+   namespace multiprecision{
 
 enum expression_template_option
 {
@@ -72,13 +84,13 @@ struct is_compatible_arithmetic_type
 
 namespace detail{
 //
-// Workaround for missing abs(long long) and abs(__int128) on some compilers:
+// Workaround for missing abs(boost::long_long_type) and abs(__int128) on some compilers:
 //
 template <class T>
 BOOST_CONSTEXPR typename enable_if_c<(is_signed<T>::value || is_floating_point<T>::value), T>::type abs(T t) BOOST_NOEXCEPT
 {
    // This strange expression avoids a hardware trap in the corner case
-   // that val is the most negative value permitted in long long.
+   // that val is the most negative value permitted in boost::long_long_type.
    // See https://svn.boost.org/trac/boost/ticket/9740.
    return t < 0 ? T(1u) + T(-(t + 1)) : t;
 }
@@ -94,7 +106,7 @@ template <class T>
 BOOST_CONSTEXPR typename enable_if_c<(is_signed<T>::value || is_floating_point<T>::value), typename make_unsigned<T>::type>::type unsigned_abs(T t) BOOST_NOEXCEPT
 {
    // This strange expression avoids a hardware trap in the corner case
-   // that val is the most negative value permitted in long long.
+   // that val is the most negative value permitted in boost::long_long_type.
    // See https://svn.boost.org/trac/boost/ticket/9740.
    return t < 0 ? static_cast<typename make_unsigned<T>::type>(1u) + static_cast<typename make_unsigned<T>::type>(-(t + 1)) : static_cast<typename make_unsigned<T>::type>(t);
 }
@@ -145,6 +157,18 @@ struct canonical_imp<number<B, et_off>, Backend, Tag>
 {
    typedef B type;
 };
+#ifdef __SUNPRO_CC
+template <class B, class Backend>
+struct canonical_imp<number<B, et_on>, Backend, mpl::int_<3> >
+{
+   typedef B type;
+};
+template <class B, class Backend>
+struct canonical_imp<number<B, et_off>, Backend, mpl::int_<3> >
+{
+   typedef B type;
+};
+#endif
 template <class Val, class Backend>
 struct canonical_imp<Val, Backend, mpl::int_<0> >
 {
@@ -606,9 +630,9 @@ void format_float_string(S& str, boost::intmax_t my_exp, boost::intmax_t digits,
          }
       }
       if(neg)
-         str.insert(0, 1, '-');
+         str.insert(static_cast<std::string::size_type>(0), 1, '-');
       else if(showpos)
-         str.insert(0, 1, '+');
+         str.insert(static_cast<std::string::size_type>(0), 1, '+');
       return;
    }
 
@@ -653,8 +677,8 @@ void format_float_string(S& str, boost::intmax_t my_exp, boost::intmax_t digits,
       {
          if(my_exp < 0)
          {
-            str.insert(0, static_cast<std::string::size_type>(-1 - my_exp), '0');
-            str.insert(0, "0.");
+            str.insert(static_cast<std::string::size_type>(0), static_cast<std::string::size_type>(-1 - my_exp), '0');
+            str.insert(static_cast<std::string::size_type>(0), "0.");
          }
          else
          {
@@ -679,21 +703,21 @@ void format_float_string(S& str, boost::intmax_t my_exp, boost::intmax_t digits,
       BOOST_MP_USING_ABS
       // Scientific format:
       if(showpoint || (str.size() > 1))
-         str.insert(1, 1, '.');
-      str.append(1, 'e');
+         str.insert(static_cast<std::string::size_type>(1u), 1, '.');
+      str.append(static_cast<std::string::size_type>(1u), 'e');
       S e = boost::lexical_cast<S>(abs(my_exp));
       if(e.size() < BOOST_MP_MIN_EXPONENT_DIGITS)
-         e.insert(0, BOOST_MP_MIN_EXPONENT_DIGITS-e.size(), '0');
+         e.insert(static_cast<std::string::size_type>(0), BOOST_MP_MIN_EXPONENT_DIGITS - e.size(), '0');
       if(my_exp < 0)
-         e.insert(0, 1, '-');
+         e.insert(static_cast<std::string::size_type>(0), 1, '-');
       else
-         e.insert(0, 1, '+');
+         e.insert(static_cast<std::string::size_type>(0), 1, '+');
       str.append(e);
    }
    if(neg)
-      str.insert(0, 1, '-');
+      str.insert(static_cast<std::string::size_type>(0), 1, '-');
    else if(showpos)
-      str.insert(0, 1, '+');
+      str.insert(static_cast<std::string::size_type>(0), 1, '+');
 }
 
 template <class V>
@@ -801,6 +825,10 @@ namespace constants{
 }
 
 }}
+
+#ifdef BOOST_MSVC
+#  pragma warning(pop)
+#endif
 
 #endif // BOOST_MATH_BIG_NUM_BASE_HPP
 

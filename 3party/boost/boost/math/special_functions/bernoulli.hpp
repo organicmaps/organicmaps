@@ -63,7 +63,7 @@ inline T bernoulli_b2n(const int i, const Policy &pol)
    if(i < 0)
       return policies::raise_domain_error<T>("boost::math::bernoulli_b2n<%1%>", "Index should be >= 0 but got %1%", T(i), pol);
 
-   T result;
+   T result = 0; // The = 0 is just to silence compiler warings :-(
    boost::math::detail::bernoulli_number_imp<T>(&result, static_cast<std::size_t>(i), 1u, pol, tag_type());
    return result;
 }

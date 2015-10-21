@@ -11,7 +11,11 @@
 #ifndef BOOST_INTERPROCESS_ROBUST_EMULATION_HPP
 #define BOOST_INTERPROCESS_ROBUST_EMULATION_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #pragma once
 #endif
 
@@ -346,7 +350,7 @@ inline bool robust_spin_mutex<Mutex>::previous_owner_dead()
 {
    //Notifies if a owner recovery has been performed in the last lock()
    return atomic_read32(&this->state) == fixing_state;
-};
+}
 
 template<class Mutex>
 inline void robust_spin_mutex<Mutex>::unlock()

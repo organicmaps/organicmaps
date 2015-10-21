@@ -152,14 +152,11 @@ namespace boost
             {
                 name_once_mutex(mutex_name,flag_address);
             }
-#ifdef BOOST_NO_ANSI_APIS
-            return ::boost::detail::win32::CreateEventW(
-#else
-            return ::boost::detail::win32::CreateEventA(
-#endif
-                0,::boost::detail::win32::manual_reset_event,
-                ::boost::detail::win32::event_initially_reset,
-                mutex_name);
+
+            return ::boost::detail::win32::create_event(
+                mutex_name,
+                ::boost::detail::win32::manual_reset_event,
+                ::boost::detail::win32::event_initially_reset);
         }
 
         struct once_context {
@@ -267,8 +264,8 @@ namespace boost
                     continue;
                 }
             }
-            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObject(
-                             ctx.event_handle,::boost::detail::win32::infinite));
+            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObjectEx(
+                             ctx.event_handle,::boost::detail::win32::infinite, 0));
         }
     }
 //#endif
@@ -311,8 +308,8 @@ namespace boost
                     continue;
                 }
             }
-            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObject(
-                             ctx.event_handle,::boost::detail::win32::infinite));
+            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObjectEx(
+                             ctx.event_handle,::boost::detail::win32::infinite,0));
         }
     }
     template<typename Function, class A, class ...ArgTypes>
@@ -358,8 +355,8 @@ namespace boost
                     continue;
                 }
             }
-            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObject(
-                             ctx.event_handle,::boost::detail::win32::infinite));
+            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObjectEx(
+                             ctx.event_handle,::boost::detail::win32::infinite,0));
         }
     }
 #else
@@ -403,8 +400,8 @@ namespace boost
                     continue;
                 }
             }
-            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObject(
-                             ctx.event_handle,::boost::detail::win32::infinite));
+            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObjectEx(
+                             ctx.event_handle,::boost::detail::win32::infinite,0));
         }
     }
     template<typename Function, typename T1>
@@ -446,8 +443,8 @@ namespace boost
                     continue;
                 }
             }
-            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObject(
-                             ctx.event_handle,::boost::detail::win32::infinite));
+            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObjectEx(
+                             ctx.event_handle,::boost::detail::win32::infinite,0));
         }
     }
     template<typename Function, typename T1, typename T2>
@@ -489,8 +486,8 @@ namespace boost
                     continue;
                 }
             }
-            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObject(
-                             ctx.event_handle,::boost::detail::win32::infinite));
+            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObjectEx(
+                             ctx.event_handle,::boost::detail::win32::infinite,0));
         }
     }
     template<typename Function, typename T1, typename T2, typename T3>
@@ -532,8 +529,8 @@ namespace boost
                     continue;
                 }
             }
-            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObject(
-                             ctx.event_handle,::boost::detail::win32::infinite));
+            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObjectEx(
+                             ctx.event_handle,::boost::detail::win32::infinite,0));
         }
     }
 #elif defined BOOST_NO_CXX11_RVALUE_REFERENCES
@@ -577,8 +574,8 @@ namespace boost
                     continue;
                 }
             }
-            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObject(
-                             ctx.event_handle,::boost::detail::win32::infinite));
+            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObjectEx(
+                             ctx.event_handle,::boost::detail::win32::infinite,0));
         }
     }
     template<typename Function, typename T1>
@@ -620,8 +617,8 @@ namespace boost
                     continue;
                 }
             }
-            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObject(
-                             ctx.event_handle,::boost::detail::win32::infinite));
+            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObjectEx(
+                             ctx.event_handle,::boost::detail::win32::infinite,0));
         }
     }
     template<typename Function, typename T1, typename T2>
@@ -663,8 +660,8 @@ namespace boost
                     continue;
                 }
             }
-            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObject(
-                             ctx.event_handle,::boost::detail::win32::infinite));
+            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObjectEx(
+                             ctx.event_handle,::boost::detail::win32::infinite,0));
         }
     }
     template<typename Function, typename T1, typename T2, typename T3>
@@ -706,8 +703,8 @@ namespace boost
                     continue;
                 }
             }
-            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObject(
-                             ctx.event_handle,::boost::detail::win32::infinite));
+            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObjectEx(
+                             ctx.event_handle,::boost::detail::win32::infinite,0));
         }
     }
 #endif
@@ -751,8 +748,8 @@ namespace boost
                         continue;
                     }
                 }
-                BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObject(
-                                 ctx.event_handle,::boost::detail::win32::infinite));
+                BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObjectEx(
+                                 ctx.event_handle,::boost::detail::win32::infinite,0));
             }
         }
         template<typename T1>
@@ -796,8 +793,8 @@ namespace boost
                         continue;
                     }
                 }
-                BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObject(
-                                 ctx.event_handle,::boost::detail::win32::infinite));
+                BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObjectEx(
+                                 ctx.event_handle,::boost::detail::win32::infinite,0));
             }
         }
         template<typename Function, typename T1, typename T2>
@@ -842,8 +839,8 @@ namespace boost
                         continue;
                     }
                 }
-                BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObject(
-                                 ctx.event_handle,::boost::detail::win32::infinite));
+                BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObjectEx(
+                                 ctx.event_handle,::boost::detail::win32::infinite,0));
             }
         }
         template<typename Function, typename T1, typename T2, typename T3>
@@ -889,8 +886,8 @@ namespace boost
                         continue;
                     }
                 }
-                BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObject(
-                                 ctx.event_handle,::boost::detail::win32::infinite));
+                BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObjectEx(
+                                 ctx.event_handle,::boost::detail::win32::infinite,0));
             }
         }
 #endif
@@ -933,8 +930,8 @@ namespace boost
                     continue;
                 }
             }
-            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObject(
-                             ctx.event_handle,::boost::detail::win32::infinite));
+            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObjectEx(
+                             ctx.event_handle,::boost::detail::win32::infinite,0));
         }
     }
 
@@ -980,8 +977,8 @@ namespace boost
                     continue;
                 }
             }
-            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObject(
-                             ctx.event_handle,::boost::detail::win32::infinite));
+            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObjectEx(
+                             ctx.event_handle,::boost::detail::win32::infinite,0));
         }
     }
     template<typename Function, typename T1, typename T2>
@@ -1027,8 +1024,8 @@ namespace boost
                     continue;
                 }
             }
-            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObject(
-                             ctx.event_handle,::boost::detail::win32::infinite));
+            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObjectEx(
+                             ctx.event_handle,::boost::detail::win32::infinite,0));
         }
     }
     template<typename Function, typename T1, typename T2, typename T3>
@@ -1076,8 +1073,8 @@ namespace boost
                     continue;
                 }
             }
-            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObject(
-                             ctx.event_handle,::boost::detail::win32::infinite));
+            BOOST_VERIFY(!::boost::detail::win32::WaitForSingleObjectEx(
+                             ctx.event_handle,::boost::detail::win32::infinite,0));
         }
     }
 

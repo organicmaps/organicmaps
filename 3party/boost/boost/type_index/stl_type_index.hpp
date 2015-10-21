@@ -27,8 +27,11 @@
 #endif
 
 #include <typeinfo>
-#include <cstring>                                  // std::strcmp, std::strlen
+#include <cstring>                                  // std::strcmp, std::strlen, std::strstr
+#include <stdexcept>
 #include <boost/static_assert.hpp>
+#include <boost/throw_exception.hpp>
+#include <boost/core/demangle.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/is_reference.hpp>
 #include <boost/type_traits/is_volatile.hpp>
@@ -36,18 +39,6 @@
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/or.hpp>
-#include <boost/functional/hash_fwd.hpp>
-
-
-#ifdef __GNUC__
-#   include <cxxabi.h>                              // abi::__cxa_demangle
-#endif
-
-#if !defined(BOOST_MSVC)
-#   include <boost/assert.hpp>
-#   include <cstdlib>                           // std::free
-#   include <algorithm>                         // std::find, std::search
-#endif
 
 #if (defined(__EDG_VERSION__) && __EDG_VERSION__ < 245) \
         || (defined(__sgi) && defined(_COMPILER_VERSION) && _COMPILER_VERSION <= 744)
@@ -133,66 +124,49 @@ inline const char* stl_type_index::name() const BOOST_NOEXCEPT {
     return data_->name();
 }
 
-namespace detail {
-    class free_at_scope_exit {
-        char* to_free_;
-
-    public:
-        explicit free_at_scope_exit(char* to_free) BOOST_NOEXCEPT
-            : to_free_(to_free)
-        {}
-
-        ~free_at_scope_exit() BOOST_NOEXCEPT {
-            std::free(to_free_);
-        }
-    };
-}
-
 inline std::string stl_type_index::pretty_name() const {
     static const char cvr_saver_name[] = "boost::typeindex::detail::cvr_saver<";
+    static BOOST_CONSTEXPR_OR_CONST std::string::size_type cvr_saver_name_len = sizeof(cvr_saver_name) - 1;
 
-#if defined(_MSC_VER)
-    std::string ret = data_->name();
-    std::string::size_type pos_beg = ret.find(cvr_saver_name);
-    if (pos_beg == std::string::npos) {
-        return ret;
+    // In case of MSVC demangle() is a no-op, and name() already returns demangled name.
+    // In case of GCC and Clang (on non-Windows systems) name() returns mangled name and demangle() undecorates it.
+    const boost::core::scoped_demangled_name demangled_name(data_->name());
+
+    const char* begin = demangled_name.get();
+    if (!begin) {
+        boost::throw_exception(std::runtime_error("Type name demangling failed"));
     }
 
-    const char* begin = ret.c_str() + pos_beg + sizeof(cvr_saver_name) - 1;
-    const char* end = ret.c_str() + ret.size() - 1;
-#else
-    int status = 0;
-    char* demang = abi::__cxa_demangle(raw_name(), NULL, 0, &status);
-    detail::free_at_scope_exit scope(demang);
-    BOOST_ASSERT(!status);
-    const std::size_t length = std::strlen(demang);
-    const char* begin = std::search(
-        demang, demang + length,
-        cvr_saver_name, cvr_saver_name + sizeof(cvr_saver_name) - 1
-    );
+    const std::string::size_type len = std::strlen(begin);
+    const char* end = begin + len;
 
-    if (begin == demang + length) {
-        return std::string(demang, demang + length);
-    }
-    begin += sizeof(cvr_saver_name) - 1;
-    const char* end = demang + length - 1;
-#endif
-    while (*begin == ' ') {         // begin is zero terminated
-        ++ begin;
-    }
+    if (len > cvr_saver_name_len) {
+        const char* b = std::strstr(begin, cvr_saver_name);
+        if (b) {
+            b += cvr_saver_name_len;
 
-    while (end != begin && *end != '>') {
-        -- end;
-    }
+            // Trim leading spaces
+            while (*b == ' ') {         // the string is zero terminated, we won't exceed the buffer size
+                ++ b;
+            }
 
-    // we have cvr_saver_name somewhere at the start of the end
-    while (end != begin && *(end - 1) == ' ') {
-        -- end;
-    }
+            // Skip the closing angle bracket
+            const char* e = end - 1;
+            while (e > b && *e != '>') {
+                -- e;
+            }
 
-    if (begin >= end) {
-        // Some strange error in demangled name parsing
-        return begin;
+            // Trim trailing spaces
+            while (e > b && *(e - 1) == ' ') {
+                -- e;
+            }
+
+            if (b < e) {
+                // Parsing seems to have succeeded, the type name is not empty
+                begin = b;
+                end = e;
+            }
+        }
     }
 
     return std::string(begin, end);
@@ -202,9 +176,9 @@ inline std::string stl_type_index::pretty_name() const {
 inline std::size_t stl_type_index::hash_code() const BOOST_NOEXCEPT {
 #if _MSC_VER > 1600 || (__GNUC__ == 4 && __GNUC_MINOR__ > 5 && defined(__GXX_EXPERIMENTAL_CXX0X__))
     return data_->hash_code();
-#else 
+#else
     return boost::hash_range(raw_name(), raw_name() + std::strlen(raw_name()));
-#endif 
+#endif
 }
 
 
@@ -253,7 +227,7 @@ inline stl_type_index stl_type_index::type_id() BOOST_NOEXCEPT {
         || (defined(__sgi) && defined(_COMPILER_VERSION) && _COMPILER_VERSION <= 744)
 
         // Old EDG-based compilers seem to mistakenly distinguish 'integral' from 'signed integral'
-        // in typeid() expressions. Full temaplte specialization for 'integral' fixes that issue:
+        // in typeid() expressions. Full template specialization for 'integral' fixes that issue:
         typedef BOOST_DEDUCED_TYPENAME boost::mpl::if_<
             boost::is_signed<no_cvr_prefinal_t>,
             boost::make_signed<no_cvr_prefinal_t>,
@@ -286,7 +260,7 @@ inline stl_type_index stl_type_index::type_id_with_cvr() BOOST_NOEXCEPT {
 
 template <class T>
 inline stl_type_index stl_type_index::type_id_runtime(const T& value) BOOST_NOEXCEPT {
-#ifdef BOOST_NO_RTTI 
+#ifdef BOOST_NO_RTTI
     return value.boost_type_index_type_id_runtime_();
 #else
     return typeid(value);
@@ -295,6 +269,4 @@ inline stl_type_index stl_type_index::type_id_runtime(const T& value) BOOST_NOEX
 
 }} // namespace boost::typeindex
 
-
 #endif // BOOST_TYPE_INDEX_STL_TYPE_INDEX_HPP
-

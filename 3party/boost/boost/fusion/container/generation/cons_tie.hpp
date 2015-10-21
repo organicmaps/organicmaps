@@ -25,7 +25,7 @@ namespace boost { namespace fusion
 
     // $$$ do we really want a cons_tie? $$$
     template <typename Car>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline cons<Car&>
     cons_tie(Car& car)
     {
@@ -34,7 +34,7 @@ namespace boost { namespace fusion
 
     // $$$ do we really want a cons_tie? $$$
     template <typename Car, typename Cdr>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline cons<Car&, Cdr>
     cons_tie(Car& car, Cdr const& cdr)
     {

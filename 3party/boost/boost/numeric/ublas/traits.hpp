@@ -20,6 +20,9 @@
 #include <boost/numeric/ublas/detail/config.hpp>
 #include <boost/numeric/ublas/detail/iterator.hpp>
 #include <boost/numeric/ublas/detail/returntype_deduction.hpp>
+#ifdef BOOST_UBLAS_USE_INTERVAL
+#include <boost/numeric/interval.hpp>
+#endif
 
 #include <boost/type_traits.hpp>
 #include <complex>
@@ -27,6 +30,7 @@
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_float.hpp>
 #include <boost/type_traits/is_integral.hpp>
+#include <boost/type_traits/is_unsigned.hpp>
 #include <boost/mpl/and.hpp>
 
 // anonymous namespace to avoid ADL issues
@@ -36,22 +40,105 @@ namespace {
     // we'll find either std::sqrt or else another version via ADL:
     return sqrt (t);
   }
-  template<class T> T boost_numeric_ublas_abs (const T& t) {
-    using namespace std;
-    // we'll find either std::abs or else another version via ADL:
-    return abs (t);
-  }
-  // unsigned types are always non-negative
-  template<> unsigned int boost_numeric_ublas_abs (const unsigned int& t) {
-    return t;
-  }
-  // unsigned types are always non-negative
-  template<> unsigned long boost_numeric_ublas_abs (const unsigned long& t) {
-    return t;
-  }
+
+template<typename T>
+inline typename boost::disable_if<
+    boost::is_unsigned<T>, T >::type
+    boost_numeric_ublas_abs (const T &t ) {
+        using namespace std;
+        return abs( t );
+    }
+
+template<typename T>
+inline typename boost::enable_if<
+    boost::is_unsigned<T>, T >::type
+    boost_numeric_ublas_abs (const T &t ) {
+        return t;
+    }
 }
 
 namespace boost { namespace numeric { namespace ublas {
+
+
+    template<typename R, typename I>
+    typename boost::enable_if<
+      mpl::and_<
+        boost::is_float<R>,
+        boost::is_integral<I>
+        >,
+      std::complex<R> >::type inline operator+ (I in1, std::complex<R> const& in2 ) {
+      return R (in1) + in2;
+    }
+
+    template<typename R, typename I>
+    typename boost::enable_if<
+      mpl::and_<
+        boost::is_float<R>,
+        boost::is_integral<I>
+        >,
+      std::complex<R> >::type inline operator+ (std::complex<R> const& in1, I in2) {
+      return in1 + R (in2);
+    }
+
+    template<typename R, typename I>
+    typename boost::enable_if<
+      mpl::and_<
+        boost::is_float<R>,
+        boost::is_integral<I>
+        >,
+      std::complex<R> >::type inline operator- (I in1, std::complex<R> const& in2) {
+      return R (in1) - in2;
+    }
+
+    template<typename R, typename I>
+    typename boost::enable_if<
+      mpl::and_<
+        boost::is_float<R>,
+        boost::is_integral<I>
+        >,
+      std::complex<R> >::type inline operator- (std::complex<R> const& in1, I in2) {
+      return in1 - R (in2);
+    }
+
+    template<typename R, typename I>
+    typename boost::enable_if<
+      mpl::and_<
+        boost::is_float<R>,
+        boost::is_integral<I>
+        >,
+      std::complex<R> >::type inline operator* (I in1, std::complex<R> const& in2) {
+      return R (in1) * in2;
+    }
+
+    template<typename R, typename I>
+    typename boost::enable_if<
+      mpl::and_<
+        boost::is_float<R>,
+        boost::is_integral<I>
+        >,
+      std::complex<R> >::type inline operator* (std::complex<R> const& in1, I in2) {
+      return in1 * R(in2);
+    }
+
+    template<typename R, typename I>
+    typename boost::enable_if<
+      mpl::and_<
+        boost::is_float<R>,
+        boost::is_integral<I>
+        >,
+      std::complex<R> >::type inline operator/ (I in1, std::complex<R> const& in2) {
+      return R(in1) / in2;
+    }
+
+    template<typename R, typename I>
+    typename boost::enable_if<
+      mpl::and_<
+        boost::is_float<R>,
+        boost::is_integral<I>
+        >,
+      std::complex<R> >::type inline operator/ (std::complex<R> const& in1, I in2) {
+      return in1 / R (in2);
+    }
 
     // Use Joel de Guzman's return type deduction
     // uBLAS assumes a common return type for all binary arithmetic operators
@@ -72,86 +159,6 @@ namespace boost { namespace numeric { namespace ublas {
             typename base_type::types, index>::type id;
         typedef typename id::type promote_type;
     };
-
-      template<typename R, typename I> 
-      typename boost::enable_if<
-        mpl::and_<
-          boost::is_float<R>,
-          boost::is_integral<I>
-          >,
-        std::complex<R> >::type inline operator+ (I in1, std::complex<R> const& in2 ) {
-        return R (in1) + in2;
-      }
-
-      template<typename R, typename I> 
-      typename boost::enable_if<
-        mpl::and_<
-          boost::is_float<R>,
-          boost::is_integral<I>
-          >,
-        std::complex<R> >::type inline operator+ (std::complex<R> const& in1, I in2) {
-        return in1 + R (in2);
-      }
-
-      template<typename R, typename I> 
-      typename boost::enable_if<
-        mpl::and_<
-          boost::is_float<R>,
-          boost::is_integral<I>
-          >,
-        std::complex<R> >::type inline operator- (I in1, std::complex<R> const& in2) {
-        return R (in1) - in2;
-      }
-
-      template<typename R, typename I> 
-      typename boost::enable_if<
-        mpl::and_<
-          boost::is_float<R>,
-          boost::is_integral<I>
-          >,
-        std::complex<R> >::type inline operator- (std::complex<R> const& in1, I in2) {
-        return in1 - R (in2);
-      }
-
-      template<typename R, typename I> 
-      typename boost::enable_if<
-        mpl::and_<
-          boost::is_float<R>,
-          boost::is_integral<I>
-          >,
-        std::complex<R> >::type inline operator* (I in1, std::complex<R> const& in2) {
-        return R (in1) * in2;
-      }
-
-      template<typename R, typename I> 
-      typename boost::enable_if<
-        mpl::and_<
-          boost::is_float<R>,
-          boost::is_integral<I>
-          >,
-        std::complex<R> >::type inline operator* (std::complex<R> const& in1, I in2) {
-        return in1 * R(in2);
-      }
-
-      template<typename R, typename I> 
-      typename boost::enable_if<
-        mpl::and_<
-          boost::is_float<R>,
-          boost::is_integral<I>
-          >,
-        std::complex<R> >::type inline operator/ (I in1, std::complex<R> const& in2) {
-        return R(in1) / in2;
-      }
-
-      template<typename R, typename I> 
-      typename boost::enable_if<
-        mpl::and_<
-          boost::is_float<R>,
-          boost::is_integral<I>
-          >,
-        std::complex<R> >::type inline operator/ (std::complex<R> const& in1, I in2) {
-        return in1 / R (in2);
-      }
 
 
 

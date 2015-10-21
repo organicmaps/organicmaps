@@ -10,6 +10,7 @@
 #define BOOST_FUSION_ALGORITHM_ITERATION_REVERSE_FOLD_HPP
 
 #include <boost/fusion/support/config.hpp>
+#include <boost/fusion/support/detail/result_of.hpp>
 #include <boost/fusion/algorithm/iteration/reverse_fold_fwd.hpp>
 #include <boost/config.hpp>
 #include <boost/fusion/sequence/intrinsic/begin.hpp>

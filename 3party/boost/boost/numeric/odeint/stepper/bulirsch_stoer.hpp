@@ -194,7 +194,6 @@ public:
 
         static const value_type val1( 1.0 );
 
-        typename odeint::unwrap_reference< System >::type &sys = system;
         if( m_resizer.adjust_size( in , detail::bind( &controlled_error_bs_type::template resize_impl< StateIn > , detail::ref( *this ) , detail::_1 ) ) )
         {
             reset(); // system resized -> reset
@@ -219,12 +218,12 @@ public:
             m_midpoint.set_steps( m_interval_sequence[k] );
             if( k == 0 )
             {
-                m_midpoint.do_step( sys , in , dxdt , t , out , dt );
+                m_midpoint.do_step( system , in , dxdt , t , out , dt );
                 /* the first step, nothing more to do */
             }
             else
             {
-                m_midpoint.do_step( sys , in , dxdt , t , m_table[k-1].m_v , dt );
+                m_midpoint.do_step( system , in , dxdt , t , m_table[k-1].m_v , dt );
                 extrapolate( k , m_table , m_coeff , out );
                 // get error estimate
                 m_algebra.for_each3( m_err.m_v , out , m_table[0].m_v ,
@@ -341,7 +340,7 @@ public:
         resize_m_dxdt( x );
         resize_m_xnew( x );
         resize_impl( x );
-        m_midpoint.adjust_size();
+        m_midpoint.adjust_size( x );
     }
 
 

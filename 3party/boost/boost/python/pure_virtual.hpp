@@ -47,7 +47,7 @@ namespace detail
   // replaced by void, and whose first argument is replaced by C&.
   template <class C, class S>
   typename replace_front2<S,void,C&>::type
-  error_signature(S BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(C))
+  error_signature(S)
   {
       typedef typename replace_front2<S,void,C&>::type r;
       return r();

@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2014.
+ *          Copyright Andrey Semashev 2007 - 2015.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -79,7 +79,7 @@ protected:
             return new detached_value(boost::log::aux::this_thread::get_id());
         }
 
-        type_info_wrapper get_type() const { return type_info_wrapper(typeid(value_type)); }
+        typeindex::type_index get_type() const { return typeindex::type_id< value_type >(); }
     };
 
 public:

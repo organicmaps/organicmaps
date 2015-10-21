@@ -44,12 +44,6 @@ struct is_cv_reference_wrapper
     value> type;
 };
 
-#if BOOST_WORKAROUND(MSVC, == 1200)
-template <>
-struct is_cv_reference_wrapper<int>
-  : mpl::false_ {};
-#endif
-
 // Needed for unwrap_cv_reference below. T might be const, so
 // eval_if might fail because of deriving from T const on EDG.
 template <class T>

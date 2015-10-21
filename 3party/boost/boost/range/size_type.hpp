@@ -18,6 +18,7 @@
 #include <boost/range/config.hpp>
 #include <boost/range/difference_type.hpp>
 #include <boost/range/concepts.hpp>
+#include <boost/range/has_range_iterator.hpp>
 
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/make_unsigned.hpp>
@@ -51,7 +52,7 @@ namespace boost
         };
 
         template<typename C, typename Enabler=void>
-        struct range_size
+        struct range_size_
         {
             typedef BOOST_DEDUCED_TYPENAME make_unsigned<
                 BOOST_DEDUCED_TYPENAME range_difference<C>::type
@@ -59,7 +60,7 @@ namespace boost
         };
 
         template<typename C>
-        struct range_size<
+        struct range_size_<
             C,
             BOOST_DEDUCED_TYPENAME ::boost::enable_if<has_size_type<C>, void>::type
         >
@@ -67,29 +68,25 @@ namespace boost
             typedef BOOST_DEDUCED_TYPENAME C::size_type type;
         };
 
+        template<typename C, bool B = range_detail::has_type< range_iterator<C> >::value>
+        struct range_size
+        { };
+
+        template<typename C>
+        struct range_size<C, true>
+          : range_size_<C>
+        { };
     }
 
     template< class T >
     struct range_size :
         detail::range_size<T>
-    {
-// Very strange things happen on some compilers that have the range concept
-// asserts disabled. This preprocessor condition is clearly redundant on a
-// working compiler but is vital for at least some compilers such as clang 4.2
-// but only on the Mac!
-#if BOOST_RANGE_ENABLE_CONCEPT_ASSERT == 1
-        BOOST_RANGE_CONCEPT_ASSERT((boost::SinglePassRangeConcept<T>));
-#endif
-    };
+    { };
 
     template< class T >
-    struct range_size<const T >
-        : detail::range_size<T>
-    {
-#if BOOST_RANGE_ENABLE_CONCEPT_ASSERT == 1        
-        BOOST_RANGE_CONCEPT_ASSERT((boost::SinglePassRangeConcept<T>));
-#endif
-    };
+    struct range_size<const T > :
+        detail::range_size<T>
+    { };
 
 } // namespace boost
 

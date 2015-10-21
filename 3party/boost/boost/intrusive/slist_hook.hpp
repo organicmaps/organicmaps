@@ -16,24 +16,19 @@
 
 #include <boost/intrusive/detail/config_begin.hpp>
 #include <boost/intrusive/intrusive_fwd.hpp>
-#include <boost/intrusive/detail/utilities.hpp>
+
 #include <boost/intrusive/detail/slist_node.hpp>
 #include <boost/intrusive/circular_slist_algorithms.hpp>
 #include <boost/intrusive/link_mode.hpp>
 #include <boost/intrusive/options.hpp>
 #include <boost/intrusive/detail/generic_hook.hpp>
 
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 namespace boost {
 namespace intrusive {
-
-/// @cond
-template<class VoidPointer>
-struct get_slist_node_algo
-{
-   typedef circular_slist_algorithms<slist_node_traits<VoidPointer> > type;
-};
-
-/// @endcond
 
 //! Helper metafunction to define a \c slist_base_hook that yields to the same
 //! type when the same options (either explicitly or implicitly) are used.
@@ -55,7 +50,7 @@ struct make_slist_base_hook
       >::type packed_options;
 
    typedef generic_hook
-   < get_slist_node_algo<typename packed_options::void_pointer>
+   < circular_slist_algorithms<slist_node_traits<typename packed_options::void_pointer> >
    , typename packed_options::tag
    , packed_options::link_mode
    , SlistBaseHookId
@@ -183,7 +178,7 @@ struct make_slist_member_hook
       >::type packed_options;
 
    typedef generic_hook
-   < get_slist_node_algo<typename packed_options::void_pointer>
+   < circular_slist_algorithms<slist_node_traits<typename packed_options::void_pointer> >
    , member_tag
    , packed_options::link_mode
    , NoBaseHookId

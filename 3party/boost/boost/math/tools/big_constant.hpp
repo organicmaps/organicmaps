@@ -12,31 +12,49 @@
 #include <boost/lexical_cast.hpp>
 #endif
 #include <boost/type_traits/is_convertible.hpp>
-#include <boost/math/cstdfloat/cstdfloat_types.hpp>
 
 namespace boost{ namespace math{ 
 
 namespace tools{
 
 template <class T>
-inline BOOST_CONSTEXPR_OR_CONST T make_big_value(boost::floatmax_t v, const char*, mpl::true_ const&, mpl::false_ const&)
+struct numeric_traits : public std::numeric_limits< T > {};
+
+#ifdef BOOST_MATH_USE_FLOAT128
+typedef __float128 largest_float;
+#define BOOST_MATH_LARGEST_FLOAT_C(x) x##Q
+template <>
+struct numeric_traits<__float128>
+{
+   static const int digits = 113;
+   static const int digits10 = 33;
+   static const int max_exponent = 16384;
+   static const bool is_specialized = true;
+};
+#else
+typedef long double largest_float;
+#define BOOST_MATH_LARGEST_FLOAT_C(x) x##L
+#endif
+
+template <class T>
+inline BOOST_CONSTEXPR_OR_CONST T make_big_value(largest_float v, const char*, mpl::true_ const&, mpl::false_ const&)
 {
    return static_cast<T>(v);
 }
 template <class T>
-inline BOOST_CONSTEXPR_OR_CONST T make_big_value(boost::floatmax_t v, const char*, mpl::true_ const&, mpl::true_ const&)
+inline BOOST_CONSTEXPR_OR_CONST T make_big_value(largest_float v, const char*, mpl::true_ const&, mpl::true_ const&)
 {
    return static_cast<T>(v);
 }
 #ifndef BOOST_MATH_NO_LEXICAL_CAST
 template <class T>
-inline T make_big_value(boost::floatmax_t, const char* s, mpl::false_ const&, mpl::false_ const&)
+inline T make_big_value(largest_float, const char* s, mpl::false_ const&, mpl::false_ const&)
 {
    return boost::lexical_cast<T>(s);
 }
 #endif
 template <class T>
-inline BOOST_CONSTEXPR const char* make_big_value(boost::floatmax_t, const char* s, mpl::false_ const&, mpl::true_ const&)
+inline BOOST_CONSTEXPR const char* make_big_value(largest_float, const char* s, mpl::false_ const&, mpl::true_ const&)
 {
    return s;
 }
@@ -46,20 +64,20 @@ inline BOOST_CONSTEXPR const char* make_big_value(boost::floatmax_t, const char*
 //
 #define BOOST_MATH_BIG_CONSTANT(T, D, x)\
    boost::math::tools::make_big_value<T>(\
-      BOOST_FLOATMAX_C(x), \
+      BOOST_MATH_LARGEST_FLOAT_C(x), \
       BOOST_STRINGIZE(x), \
-      mpl::bool_< (is_convertible<boost::floatmax_t, T>::value) && \
-      ((D <= std::numeric_limits<boost::floatmax_t>::digits) \
+      mpl::bool_< (is_convertible<boost::math::tools::largest_float, T>::value) && \
+      ((D <= boost::math::tools::numeric_traits<boost::math::tools::largest_float>::digits) \
           || is_floating_point<T>::value \
-          || (std::numeric_limits<T>::is_specialized && \
-          (std::numeric_limits<T>::digits10 <= std::numeric_limits<boost::floatmax_t>::digits10))) >(), \
+          || (boost::math::tools::numeric_traits<T>::is_specialized && \
+          (boost::math::tools::numeric_traits<T>::digits10 <= boost::math::tools::numeric_traits<boost::math::tools::largest_float>::digits10))) >(), \
       boost::is_convertible<const char*, T>())
 //
 // For constants too huge for any conceivable long double (and which generate compiler errors if we try and declare them as such):
 //
 #define BOOST_MATH_HUGE_CONSTANT(T, D, x)\
    boost::math::tools::make_big_value<T>(0.0L, BOOST_STRINGIZE(x), \
-   mpl::bool_<is_floating_point<T>::value || (std::numeric_limits<T>::is_specialized && std::numeric_limits<T>::max_exponent <= std::numeric_limits<long double>::max_exponent && std::numeric_limits<T>::digits <= std::numeric_limits<long double>::digits)>(), \
+   mpl::bool_<is_floating_point<T>::value || (boost::math::tools::numeric_traits<T>::is_specialized && boost::math::tools::numeric_traits<T>::max_exponent <= boost::math::tools::numeric_traits<boost::math::tools::largest_float>::max_exponent && boost::math::tools::numeric_traits<T>::digits <= boost::math::tools::numeric_traits<boost::math::tools::largest_float>::digits)>(), \
    boost::is_convertible<const char*, T>())
 
 }}} // namespaces

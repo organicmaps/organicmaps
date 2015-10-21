@@ -151,11 +151,27 @@ public:
 
 
     /*
+     * named Version 2: do_step_dxdt_impl( sys , in , dxdt , t , dt )
+     *
+     * this version is needed when this stepper is used for initializing
+     * multistep stepper like adams-bashforth. Hence we provide an explicitely
+     * named version that is not disabled. Meant for internal use only.
+     */
+    template< class System , class StateInOut , class DerivInOut >
+    void do_step_dxdt_impl( System system , StateInOut &x , DerivInOut &dxdt , time_type t , time_type dt )
+    {
+        m_first_call = true;
+        this->stepper().do_step_impl( system , x , dxdt , t , x , dxdt , dt );
+    }
+
+    /*
      * version 3 : do_step( sys , in , t , out , dt )
      *
-     * this version does not solve the forwarding problem, boost.range can not be used
+     * this version does not solve the forwarding problem, boost.range can not
+     * be used.
      *
-     * the disable is needed to avoid ambiguous overloads if state_type = time_type
+     * the disable is needed to avoid ambiguous overloads if
+     * state_type = time_type
      */
     template< class System , class StateIn , class StateOut >
     typename boost::disable_if< boost::is_same< StateIn , time_type > , void >::type
@@ -174,12 +190,14 @@ public:
      *
      * this version does not solve the forwarding problem, boost.range can not be used
      */
-    template< class System , class StateIn , class DerivIn , class StateOut , class DerivOut >
-    void do_step( System system , const StateIn &in , const DerivIn &dxdt_in , time_type t ,
-            StateOut &out , DerivOut &dxdt_out , time_type dt )
+    template< class System, class StateIn, class DerivIn, class StateOut,
+               class DerivOut >
+    void do_step( System system, const StateIn &in, const DerivIn &dxdt_in,
+                  time_type t, StateOut &out, DerivOut &dxdt_out, time_type dt )
     {
         m_first_call = true;
-        this->stepper().do_step_impl( system , in , dxdt_in , t , out , dxdt_out , dt );
+        this->stepper().do_step_impl( system, in, dxdt_in, t, out, dxdt_out,
+                                      dt );
     }
 
 

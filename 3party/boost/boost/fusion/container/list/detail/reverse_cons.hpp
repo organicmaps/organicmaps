@@ -22,7 +22,7 @@ namespace boost { namespace fusion { namespace detail
         typedef reverse_cons<Cdr, cons<Car, State> > impl;
         typedef typename impl::type type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type call(cons<Car, Cdr> const &cons, State const &state = State())
         {
             typedef fusion::cons<Car, State> cdr_type;
@@ -35,7 +35,7 @@ namespace boost { namespace fusion { namespace detail
     {
         typedef State type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static State const &call(nil_ const &, State const &state = State())
         {
             return state;

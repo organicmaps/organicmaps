@@ -35,7 +35,7 @@ namespace boost { namespace fusion
                 typedef repetitive_view_iterator<sequence_type,
                     typename result_of::end<sequence_type>::type > type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type call(View const& v)
                 {
                     return type(v.seq,end(v.seq));

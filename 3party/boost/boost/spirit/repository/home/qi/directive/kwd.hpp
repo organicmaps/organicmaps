@@ -255,7 +255,7 @@ template <typename T>
     };
 
     // This class enables the transportation of parameters needed to call
-    // the occurence constraint checker from higher level calls
+    // the occurrence constraint checker from higher level calls
     // It also serves to select the correct parse function call
     // of the keyword parser. The implementation changes depending if it is
     // called form a keyword parsing loop or not.

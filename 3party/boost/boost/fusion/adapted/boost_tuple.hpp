@@ -17,5 +17,7 @@
 #include <boost/fusion/adapted/boost_tuple/detail/size_impl.hpp>
 #include <boost/fusion/adapted/boost_tuple/detail/at_impl.hpp>
 #include <boost/fusion/adapted/boost_tuple/detail/value_at_impl.hpp>
+#include <boost/fusion/adapted/boost_tuple/detail/convert_impl.hpp>
+#include <boost/fusion/adapted/boost_tuple/mpl/clear.hpp>
 
 #endif

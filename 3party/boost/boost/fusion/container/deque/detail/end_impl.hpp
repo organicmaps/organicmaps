@@ -11,9 +11,6 @@
 #include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/deque/deque_iterator.hpp>
 
-#include <boost/mpl/equal_to.hpp>
-#include <boost/mpl/if.hpp>
-
 namespace boost { namespace fusion
 {
     struct deque_tag;
@@ -29,15 +26,11 @@ namespace boost { namespace fusion
             template<typename Sequence>
             struct apply
             {
-                typedef typename
-                    mpl::if_c<
-                        (Sequence::next_down::value == Sequence::next_up::value)
-                      , deque_iterator<Sequence, 0>
-                      , deque_iterator<Sequence, Sequence::next_up::value>
-                    >::type
+                typedef
+                    deque_iterator<Sequence, Sequence::next_up::value>
                 type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type call(Sequence& seq)
                 {
                     return type(seq);

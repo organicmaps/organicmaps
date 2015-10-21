@@ -82,7 +82,7 @@ namespace boost
         void add_if_trackable(const trackable *trackable) const
         {
           if(trackable)
-            slot_->_tracked_objects.push_back(trackable->get_shared_ptr());
+            slot_->_tracked_objects.push_back(trackable->get_weak_ptr());
         }
         void add_if_trackable(const void *) const {}
 

@@ -165,7 +165,7 @@ class ConstPoint
         {
             const P* p = 0;
             ctype coord(geometry::get<Dimension>(*p));
-            boost::ignore_unused(coord);
+            boost::ignore_unused(p, coord);
             dimension_checker<P, Dimension+1, DimensionCount>::apply();
         }
     };

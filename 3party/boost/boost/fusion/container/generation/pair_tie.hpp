@@ -27,7 +27,7 @@ namespace boost { namespace fusion {
     }
 
     template<typename Key, typename T>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     typename disable_if<is_const<T>, typename result_of::pair_tie<Key, T>::type>::type
     pair_tie(T& t)
     {
@@ -35,7 +35,7 @@ namespace boost { namespace fusion {
     }
 
     template<typename Key, typename T>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     typename result_of::pair_tie<Key, T const>::type
     pair_tie(T const& t)
     {

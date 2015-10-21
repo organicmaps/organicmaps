@@ -1,12 +1,12 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
-// Copyright (c) 2014 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2007-2015 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2015 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2015 Mateusz Loskot, London, UK.
+// Copyright (c) 2014-2015 Adam Wulkiewicz, Lodz, Poland.
 
-// This file was modified by Oracle on 2013, 2014.
-// Modifications copyright (c) 2013, 2014 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2013, 2014, 2015.
+// Modifications copyright (c) 2013-2015 Oracle and/or its affiliates.
 
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
@@ -36,6 +36,7 @@
 #include <boost/geometry/algorithms/detail/interior_iterator.hpp>
 #include <boost/geometry/algorithms/detail/recalculate.hpp>
 #include <boost/geometry/algorithms/detail/ring_identifier.hpp>
+#include <boost/geometry/algorithms/detail/signed_size_type.hpp>
 
 #include <boost/geometry/core/access.hpp>
 #include <boost/geometry/core/closure.hpp>
@@ -80,12 +81,14 @@ struct section
     ring_identifier ring_id;
     Box bounding_box;
 
-    int begin_index;
-    int end_index;
+    // NOTE: size_type could be passed as template parameter
+    // NOTE: these probably also could be of type std::size_t
+    signed_size_type begin_index;
+    signed_size_type end_index;
     std::size_t count;
     std::size_t range_count;
     bool duplicate;
-    int non_duplicate_index;
+    signed_size_type non_duplicate_index;
 
     bool is_non_duplicate_first;
     bool is_non_duplicate_last;
@@ -248,7 +251,7 @@ struct check_duplicate_loop<DimensionCount, DimensionCount>
 template <typename T, std::size_t Index, std::size_t Count>
 struct assign_loop
 {
-    static inline void apply(T dims[Count], int const value)
+    static inline void apply(T dims[Count], T const value)
     {
         dims[Index] = value;
         assign_loop<T, Index + 1, Count>::apply(dims, value);
@@ -258,7 +261,7 @@ struct assign_loop
 template <typename T, std::size_t Count>
 struct assign_loop<T, Count, Count>
 {
-    static inline void apply(T [Count], int const)
+    static inline void apply(T [Count], T const)
     {
     }
 };
@@ -291,8 +294,8 @@ struct sectionalize_part
         typedef typename boost::range_value<Sections>::type section_type;
         BOOST_STATIC_ASSERT
             (
-                (static_cast<int>(section_type::dimension_count)
-                 == static_cast<int>(boost::mpl::size<DimensionVector>::value))
+                (static_cast<std::size_t>(section_type::dimension_count)
+                 == static_cast<std::size_t>(boost::mpl::size<DimensionVector>::value))
             );
 
         typedef typename geometry::robust_point_type
@@ -307,8 +310,8 @@ struct sectionalize_part
             return;
         }
 
-        int index = 0;
-        int ndi = 0; // non duplicate index
+        signed_size_type index = 0;
+        signed_size_type ndi = 0; // non duplicate index
         section_type section;
 
         bool mark_first_non_duplicated = true;

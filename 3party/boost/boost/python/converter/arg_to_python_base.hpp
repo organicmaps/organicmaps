@@ -13,17 +13,9 @@ struct registration;
 namespace detail
 {
   struct BOOST_PYTHON_DECL arg_to_python_base
-# if !defined(BOOST_MSVC) || BOOST_MSVC <= 1300 || _MSC_FULL_VER > 13102179
       : handle<>
-# endif 
   {
       arg_to_python_base(void const volatile* source, registration const&);
-# if defined(BOOST_MSVC) && BOOST_MSVC > 1300 && _MSC_FULL_VER <= 13102179
-      PyObject* get() const { return m_ptr.get(); }
-      PyObject* release() { return m_ptr.release(); }
-   private:
-      handle<> m_ptr;
-# endif 
   };
 }
 

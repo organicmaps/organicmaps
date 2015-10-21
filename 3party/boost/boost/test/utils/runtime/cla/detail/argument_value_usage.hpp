@@ -1,10 +1,9 @@
-//  (C) Copyright Gennadiy Rozental 2005-2008.
-//  Permission to copy, use, modify, sell and distribute this software
-//  is granted provided this copyright notice appears in all copies.
-//  This software is provided "as is" without express or implied warranty,
-//  and with no claim as to its suitability for any purpose.
-  
-//  See http://www.boost.org for updates, documentation, and revision history.
+//  (C) Copyright Gennadiy Rozental 2005-2014.
+//  Distributed under the Boost Software License, Version 1.0.
+//  (See accompanying file LICENSE_1_0.txt or copy at
+//  http://www.boost.org/LICENSE_1_0.txt)
+
+//  See http://www.boost.org/libs/test for the library home page.
 //
 //  File        : $RCSfile$
 //
@@ -13,8 +12,8 @@
 //  Description : argument usage printing helpers
 // ***************************************************************************
 
-#ifndef BOOST_RT_CLA_ARGUMENT_VALUE_USAGE_HPP_062604GER
-#define BOOST_RT_CLA_ARGUMENT_VALUE_USAGE_HPP_062604GER
+#ifndef BOOST_TEST_UTILS_RUNTIME_CLA_ARGUMENT_VALUE_USAGE_HPP
+#define BOOST_TEST_UTILS_RUNTIME_CLA_ARGUMENT_VALUE_USAGE_HPP
 
 // Boost.Runtime.Parameter
 #include <boost/test/utils/runtime/config.hpp>
@@ -32,7 +31,7 @@
 
 namespace boost {
 
-namespace BOOST_RT_PARAM_NAMESPACE {
+namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE {
 
 namespace cla {
 
@@ -47,7 +46,7 @@ template<typename T>
 inline void
 argument_value_usage( format_stream& fs, long, T* = 0 )
 {
-    fs << BOOST_RT_PARAM_CSTRING_LITERAL( "<value>" );
+    fs << BOOST_TEST_UTILS_RUNTIME_PARAM_CSTRING_LITERAL( "<value>" );
 }
 
 //____________________________________________________________________________//
@@ -57,7 +56,7 @@ template<typename T>
 inline void
 argument_value_usage( format_stream& fs, int, std::list<T>* = 0 )
 {
-    fs << BOOST_RT_PARAM_CSTRING_LITERAL( "(<value1>, ..., <valueN>)" );
+    fs << BOOST_TEST_UTILS_RUNTIME_PARAM_CSTRING_LITERAL( "(<value1>, ..., <valueN>)" );
 }
 
 //____________________________________________________________________________//
@@ -66,7 +65,7 @@ argument_value_usage( format_stream& fs, int, std::list<T>* = 0 )
 inline void
 argument_value_usage( format_stream& fs,  int, bool* = 0 )
 {
-    fs << BOOST_RT_PARAM_CSTRING_LITERAL( "yes|y|no|n" );
+    fs << BOOST_TEST_UTILS_RUNTIME_PARAM_CSTRING_LITERAL( "yes|y|no|n" );
 }
 
 //____________________________________________________________________________//
@@ -75,8 +74,8 @@ argument_value_usage( format_stream& fs,  int, bool* = 0 )
 
 } // namespace cla
 
-} // namespace BOOST_RT_PARAM_NAMESPACE
+} // namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE
 
 } // namespace boost
 
-#endif // BOOST_RT_CLA_ARGUMENT_VALUE_USAGE_HPP_062604GER
+#endif // BOOST_TEST_UTILS_RUNTIME_CLA_ARGUMENT_VALUE_USAGE_HPP

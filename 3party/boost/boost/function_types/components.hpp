@@ -15,7 +15,6 @@
 
 #include <boost/detail/workaround.hpp>
 #include <boost/mpl/aux_/lambda_support.hpp>
-#include <boost/type_traits/detail/template_arity_spec.hpp>
 
 #include <boost/type_traits/integral_constant.hpp>
 
@@ -47,7 +46,6 @@
 
 #include <boost/function_types/config/config.hpp>
 
-#ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 #   if   BOOST_FT_MAX_ARITY < 10
 #     include <boost/mpl/vector/vector10.hpp>
 #   elif BOOST_FT_MAX_ARITY < 20
@@ -59,9 +57,6 @@
 #   elif BOOST_FT_MAX_ARITY < 50
 #     include <boost/mpl/vector/vector50.hpp>
 #   endif
-#else
-#   include <boost/function_types/detail/classifier.hpp>
-#endif
 
 #include <boost/function_types/detail/class_transform.hpp>
 #include <boost/function_types/property_tags.hpp>
@@ -419,8 +414,6 @@ namespace boost
 #include <boost/function_types/detail/pp_loop.hpp>
 
   } } // namespace function_types::detail
-
-  BOOST_TT_AUX_TEMPLATE_ARITY_SPEC(2,function_types::components)
 
 } // namespace ::boost
 

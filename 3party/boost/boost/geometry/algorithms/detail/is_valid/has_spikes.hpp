@@ -12,9 +12,11 @@
 
 #include <algorithm>
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/range.hpp>
 #include <boost/type_traits/is_same.hpp>
 
+#include <boost/geometry/core/assert.hpp>
 #include <boost/geometry/core/point_type.hpp>
 #include <boost/geometry/core/tag.hpp>
 #include <boost/geometry/core/tags.hpp>
@@ -76,10 +78,23 @@ struct not_equal_to
 template <typename Range, closure_selector Closure>
 struct has_spikes
 {
+    template <typename Iterator>
+    static inline Iterator find_different_from_first(Iterator first,
+                                                     Iterator last)
+    {
+        typedef not_equal_to<typename point_type<Range>::type> not_equal;
+
+        BOOST_GEOMETRY_ASSERT(first != last);
+
+        Iterator second = first;
+        ++second;
+        return std::find_if(second, last, not_equal(*first));
+    }
+
     template <typename VisitPolicy>
     static inline bool apply(Range const& range, VisitPolicy& visitor)
     {
-        typedef not_equal_to<typename point_type<Range>::type> not_equal;
+        boost::ignore_unused(visitor);
 
         typedef typename closeable_view<Range const, Closure>::type view_type;
         typedef typename boost::range_iterator<view_type const>::type iterator; 
@@ -91,23 +106,23 @@ struct has_spikes
 
         iterator prev = boost::begin(view);
 
-        iterator cur = std::find_if(prev, boost::end(view), not_equal(*prev));
-        if ( cur == boost::end(view) )
+        iterator cur = find_different_from_first(prev, boost::end(view));
+        if (cur == boost::end(view))
         {
             // the range has only one distinct point, so it
             // cannot have a spike
             return ! visitor.template apply<no_failure>();
         }
 
-        iterator next = std::find_if(cur, boost::end(view), not_equal(*cur));
-        if ( next == boost::end(view) )
+        iterator next = find_different_from_first(cur, boost::end(view));
+        if (next == boost::end(view))
         {
             // the range has only two distinct points, so it
             // cannot have a spike
             return ! visitor.template apply<no_failure>();
         }
 
-        while ( next != boost::end(view) )
+        while (next != boost::end(view))
         {
             if ( geometry::detail::point_is_spike_or_equal(*prev,
                                                            *next,
@@ -118,20 +133,19 @@ struct has_spikes
             }
             prev = cur;
             cur = next;
-            next = std::find_if(cur, boost::end(view), not_equal(*cur));
+            next = find_different_from_first(cur, boost::end(view));
         }
 
-        if ( geometry::equals(range::front(view), range::back(view)) )
+        if (geometry::equals(range::front(view), range::back(view)))
         {
             iterator cur = boost::begin(view);
             typename boost::range_reverse_iterator
                 <
                     view_type const
-                >::type prev = std::find_if(boost::rbegin(view),
-                                            boost::rend(view),
-                                            not_equal(range::back(view)));
-            iterator next =
-                std::find_if(cur, boost::end(view), not_equal(*cur));
+                >::type prev = find_different_from_first(boost::rbegin(view),
+                                                         boost::rend(view));
+
+            iterator next = find_different_from_first(cur, boost::end(view));
             if (detail::point_is_spike_or_equal(*prev, *next, *cur))
             {
                 return

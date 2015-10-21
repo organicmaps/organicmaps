@@ -23,7 +23,7 @@ namespace boost { namespace fusion
         struct value_of_impl<vector_iterator_tag>
         {
             template <typename Iterator>
-            struct apply 
+            struct apply
             {
                 typedef typename Iterator::vector vector;
                 typedef typename Iterator::index index;

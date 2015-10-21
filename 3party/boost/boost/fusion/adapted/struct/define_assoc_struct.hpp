@@ -12,6 +12,13 @@
 #include <boost/fusion/adapted/struct/adapt_assoc_struct.hpp>
 #include <boost/fusion/adapted/struct/detail/define_struct.hpp>
 
+#define BOOST_FUSION_DEFINE_ASSOC_STRUCT_FILLER_0(X, Y, Z)                      \
+    ((X, Y, Z)) BOOST_FUSION_DEFINE_ASSOC_STRUCT_FILLER_1
+#define BOOST_FUSION_DEFINE_ASSOC_STRUCT_FILLER_1(X, Y, Z)                      \
+    ((X, Y, Z)) BOOST_FUSION_DEFINE_ASSOC_STRUCT_FILLER_0
+#define BOOST_FUSION_DEFINE_ASSOC_STRUCT_FILLER_0_END
+#define BOOST_FUSION_DEFINE_ASSOC_STRUCT_FILLER_1_END
+
 #define BOOST_FUSION_DEFINE_ASSOC_TPL_STRUCT(                                   \
     TEMPLATE_PARAMS_SEQ, NAMESPACE_SEQ, NAME, ATTRIBUTES)                       \
                                                                                 \
@@ -20,7 +27,7 @@
         (0)NAMESPACE_SEQ,                                                       \
         NAME,                                                                   \
         BOOST_PP_CAT(                                                           \
-            BOOST_FUSION_ADAPT_ASSOC_STRUCT_FILLER_0(0,0,0)ATTRIBUTES,_END),    \
+            BOOST_FUSION_DEFINE_ASSOC_STRUCT_FILLER_0(0,0,0)ATTRIBUTES,_END),   \
         3)                                                                      \
                                                                                 \
     BOOST_FUSION_ADAPT_ASSOC_TPL_STRUCT(                                        \
@@ -34,7 +41,7 @@
         (0)NAMESPACE_SEQ,                                                       \
         NAME,                                                                   \
         BOOST_PP_CAT(                                                           \
-            BOOST_FUSION_ADAPT_ASSOC_STRUCT_FILLER_0(0,0,0)ATTRIBUTES,_END),    \
+            BOOST_FUSION_DEFINE_ASSOC_STRUCT_FILLER_0(0,0,0)ATTRIBUTES,_END),   \
         3)                                                                      \
                                                                                 \
     BOOST_FUSION_ADAPT_ASSOC_STRUCT(                                            \

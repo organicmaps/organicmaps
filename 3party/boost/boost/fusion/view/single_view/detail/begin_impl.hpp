@@ -31,7 +31,7 @@ namespace boost { namespace fusion
             {
                 typedef single_view_iterator<Sequence, mpl::int_<0> > type;
     
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& seq)
                 {

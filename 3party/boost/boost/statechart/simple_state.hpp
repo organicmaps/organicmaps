@@ -527,7 +527,7 @@ class simple_state : public detail::simple_state_base_type< MostDerived,
           {
             pContext_->set_outermost_unstable_state(
               pOutermostUnstableState );
-            // fall through to next case intended
+            BOOST_FALLTHROUGH;
           }
           else
           {

@@ -32,6 +32,7 @@ namespace std{ using ::wcslen; }
 #include <boost/archive/add_facet.hpp>
 #include <boost/archive/codecvt_null.hpp>
 #include <boost/archive/basic_binary_oprimitive.hpp>
+#include <boost/core/no_exceptions_support.hpp>
 
 namespace boost {
 namespace archive {
@@ -40,7 +41,7 @@ namespace archive {
 // implementation of basic_binary_oprimitive
 
 template<class Archive, class Elem, class Tr>
-BOOST_ARCHIVE_OR_WARCHIVE_DECL(void)
+BOOST_ARCHIVE_OR_WARCHIVE_DECL void
 basic_binary_oprimitive<Archive, Elem, Tr>::init()
 {
     // record native sizes of fundamental types
@@ -56,7 +57,7 @@ basic_binary_oprimitive<Archive, Elem, Tr>::init()
 }
 
 template<class Archive, class Elem, class Tr>
-BOOST_ARCHIVE_OR_WARCHIVE_DECL(void)
+BOOST_ARCHIVE_OR_WARCHIVE_DECL void
 basic_binary_oprimitive<Archive, Elem, Tr>::save(const char * s)
 {
     std::size_t l = std::strlen(s);
@@ -65,7 +66,7 @@ basic_binary_oprimitive<Archive, Elem, Tr>::save(const char * s)
 }
 
 template<class Archive, class Elem, class Tr>
-BOOST_ARCHIVE_OR_WARCHIVE_DECL(void)
+BOOST_ARCHIVE_OR_WARCHIVE_DECL void
 basic_binary_oprimitive<Archive, Elem, Tr>::save(const std::string &s)
 {
     std::size_t l = static_cast<std::size_t>(s.size());
@@ -75,7 +76,7 @@ basic_binary_oprimitive<Archive, Elem, Tr>::save(const std::string &s)
 
 #ifndef BOOST_NO_CWCHAR
 template<class Archive, class Elem, class Tr>
-BOOST_ARCHIVE_OR_WARCHIVE_DECL(void)
+BOOST_ARCHIVE_OR_WARCHIVE_DECL void
 basic_binary_oprimitive<Archive, Elem, Tr>::save(const wchar_t * ws)
 {
     std::size_t l = std::wcslen(ws);
@@ -86,7 +87,7 @@ basic_binary_oprimitive<Archive, Elem, Tr>::save(const wchar_t * ws)
 
 #ifndef BOOST_NO_STD_WSTRING
 template<class Archive, class Elem, class Tr>
-BOOST_ARCHIVE_OR_WARCHIVE_DECL(void)
+BOOST_ARCHIVE_OR_WARCHIVE_DECL void
 basic_binary_oprimitive<Archive, Elem, Tr>::save(const std::wstring &ws)
 {
     std::size_t l = ws.size();
@@ -96,24 +97,23 @@ basic_binary_oprimitive<Archive, Elem, Tr>::save(const std::wstring &ws)
 #endif
 
 template<class Archive, class Elem, class Tr>
-BOOST_ARCHIVE_OR_WARCHIVE_DECL(BOOST_PP_EMPTY())
+BOOST_ARCHIVE_OR_WARCHIVE_DECL
 basic_binary_oprimitive<Archive, Elem, Tr>::basic_binary_oprimitive(
     std::basic_streambuf<Elem, Tr> & sb, 
     bool no_codecvt
 ) : 
 #ifndef BOOST_NO_STD_LOCALE
     m_sb(sb),
-    archive_locale(NULL),
     locale_saver(m_sb)
 {
     if(! no_codecvt){
         archive_locale.reset(
             add_facet(
-                std::locale::classic(), 
+                std::locale::classic(),
                 new codecvt_null<Elem>
             )
         );
-        m_sb.pubimbue(* archive_locale);
+        //m_sb.pubimbue(* archive_locale);
     }
 }
 #else
@@ -146,15 +146,16 @@ class output_streambuf_access : public std::basic_streambuf<Elem, Tr> {
 // scoped_ptr requires that g be a complete type at time of
 // destruction so define destructor here rather than in the header
 template<class Archive, class Elem, class Tr>
-BOOST_ARCHIVE_OR_WARCHIVE_DECL(BOOST_PP_EMPTY())
+BOOST_ARCHIVE_OR_WARCHIVE_DECL
 basic_binary_oprimitive<Archive, Elem, Tr>::~basic_binary_oprimitive(){
     // flush buffer
     //destructor can't throw
-    try{
+    BOOST_TRY{
         static_cast<detail::output_streambuf_access<Elem, Tr> &>(m_sb).sync();
     }
-    catch(...){
+    BOOST_CATCH(...){
     }
+    BOOST_CATCH_END
 }
 
 } // namespace archive

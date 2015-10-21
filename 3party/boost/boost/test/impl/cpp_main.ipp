@@ -1,7 +1,7 @@
-//  (C) Copyright Gennadiy Rozental 2001-2008.
+//  (C) Copyright Gennadiy Rozental 2001-2014.
 //  (C) Copyright Beman Dawes 1995-2001.
 //  Distributed under the Boost Software License, Version 1.0.
-//  (See accompanying file LICENSE_1_0.txt or copy at 
+//  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -41,18 +41,18 @@ namespace std { using ::getenv; using ::strerror; }
 namespace {
 
 struct cpp_main_caller {
-    cpp_main_caller( int (*cpp_main_func)( int argc, char* argv[] ), int argc, char** argv ) 
+    cpp_main_caller( int (*cpp_main_func)( int argc, char* argv[] ), int argc, char** argv )
     : m_cpp_main_func( cpp_main_func )
     , m_argc( argc )
     , m_argv( argv ) {}
-    
-    int operator()() { return (*m_cpp_main_func)( m_argc, m_argv ); }
-  
+
+    int     operator()() { return (*m_cpp_main_func)( m_argc, m_argv ); }
+
 private:
-    // Data members    
-    int (*m_cpp_main_func)( int argc, char* argv[] );
-    int      m_argc;
-    char**   m_argv;
+    // Data members
+    int     (*m_cpp_main_func)( int argc, char* argv[] );
+    int     m_argc;
+    char**  m_argv;
 };
 
 } // local namespace
@@ -68,15 +68,14 @@ prg_exec_monitor_main( int (*cpp_main)( int argc, char* argv[] ), int argc, char
 {
     int result = 0;
 
-    try {
+    BOOST_TEST_IMPL_TRY {
         boost::unit_test::const_string p( std::getenv( "BOOST_TEST_CATCH_SYSTEM_ERRORS" ) );
         ::boost::execution_monitor ex_mon;
 
         ex_mon.p_catch_system_errors.value = p != "no";
-        
-        result = ex_mon.execute( 
-            ::boost::unit_test::callback0<int>( cpp_main_caller( cpp_main, argc, argv ) ) );
-        
+
+        result = ex_mon.execute( cpp_main_caller( cpp_main, argc, argv ) );
+
         if( result == 0 )
             result = ::boost::exit_success;
         else if( result != ::boost::exit_success ) {
@@ -84,13 +83,13 @@ prg_exec_monitor_main( int (*cpp_main)( int argc, char* argv[] ), int argc, char
             result = ::boost::exit_failure;
         }
     }
-    catch( ::boost::execution_exception const& exex ) {
+    BOOST_TEST_IMPL_CATCH( ::boost::execution_exception, exex ) {
         std::cout << "\n**** exception(" << exex.code() << "): " << exex.what() << std::endl;
         result = ::boost::exit_exception_failure;
     }
-    catch( ::boost::system_error const& ex ) {
+    BOOST_TEST_IMPL_CATCH( ::boost::system_error, ex ) {
         std::cout << "\n**** failed to initialize execution monitor."
-                  << "\n**** expression at fault: " << ex.p_failed_exp 
+                  << "\n**** expression at fault: " << ex.p_failed_exp
                   << "\n**** error(" << ex.p_errno << "): " << std::strerror( ex.p_errno ) << std::endl;
         result = ::boost::exit_exception_failure;
     }
@@ -104,8 +103,8 @@ prg_exec_monitor_main( int (*cpp_main)( int argc, char* argv[] ), int argc, char
         //  line argument modifications; for use in production programs
         //  that's a no-no in some organizations.
         ::boost::unit_test::const_string p( std::getenv( "BOOST_PRG_MON_CONFIRM" ) );
-        if( p != "no" ) { 
-            std::cerr << std::flush << "no errors detected" << std::endl; 
+        if( p != "no" ) {
+            std::cerr << std::flush << "no errors detected" << std::endl;
         }
     }
 
@@ -131,8 +130,6 @@ main( int argc, char* argv[] )
 //____________________________________________________________________________//
 
 #endif // !BOOST_TEST_DYN_LINK && !BOOST_TEST_NO_MAIN
-
-//____________________________________________________________________________//
 
 #include <boost/test/detail/enable_warnings.hpp>
 

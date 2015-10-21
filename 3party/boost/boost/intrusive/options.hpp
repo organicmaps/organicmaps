@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2007-2013
+// (C) Copyright Ion Gaztanaga  2007-2014
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -18,164 +18,32 @@
 #include <boost/intrusive/link_mode.hpp>
 #include <boost/intrusive/pack_options.hpp>
 #include <boost/intrusive/detail/mpl.hpp>
-#include <boost/intrusive/detail/utilities.hpp>
-#include <boost/static_assert.hpp>
+
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
 
 namespace boost {
 namespace intrusive {
 
 #ifndef BOOST_INTRUSIVE_DOXYGEN_INVOKED
 
-//typedef void default_tag;
-struct default_tag;
+struct empty
+{};
+
+template<class Functor>
+struct fhtraits;
+
+template<class T, class Hook, Hook T::* P>
+struct mhtraits;
+
+struct dft_tag;
 struct member_tag;
 
-namespace detail{
-
-struct default_hook_tag{};
-
-#define BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER_DEFINITION(BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER) \
-struct BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER : public default_hook_tag\
-{\
-   template <class T>\
-   struct apply\
-   {  typedef typename T::BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER type;  };\
-}\
-
-BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER_DEFINITION(default_list_hook);
-BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER_DEFINITION(default_slist_hook);
-BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER_DEFINITION(default_rbtree_hook);
-BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER_DEFINITION(default_hashtable_hook);
-BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER_DEFINITION(default_avltree_hook);
-BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER_DEFINITION(default_bstree_hook);
-
-#undef BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER_DEFINITION
-
-template <class T, class BaseHook>
-struct concrete_hook_base_value_traits
-{
-   typedef typename BaseHook::hooktags tags;
-   typedef bhtraits
-      < T
-      , typename tags::node_traits
-      , tags::link_mode
-      , typename tags::tag
-      , tags::type> type;
-};
-
-template <class BaseHook>
-struct concrete_hook_base_node_traits
-{  typedef typename BaseHook::hooktags::node_traits type;  };
-
-template <class T, class AnyToSomeHook_ProtoValueTraits>
-struct any_hook_base_value_traits
-{
-   //AnyToSomeHook value_traits derive from a generic_hook
-   //The generic_hook is configured with any_node_traits
-   //and AnyToSomeHook::value_traits with the correct
-   //node traits for the container, so use node_traits
-   //from AnyToSomeHook_ProtoValueTraits and the rest of
-   //elements from the hooktags member of the generic_hook
-   typedef AnyToSomeHook_ProtoValueTraits proto_value_traits;
-   typedef bhtraits
-      < T
-      , typename proto_value_traits::node_traits
-      , proto_value_traits::hooktags::link_mode
-      , typename proto_value_traits::hooktags::tag
-      , proto_value_traits::hooktags::type
-      > type;
-};
-
-template <class BaseHook>
-struct any_hook_base_node_traits
-{  typedef typename BaseHook::node_traits type; };
-
-template<class T, class BaseHook>
-struct get_base_value_traits
-{
-   typedef typename detail::eval_if_c
-      < internal_any_hook_bool_is_true<BaseHook>::value
-      , any_hook_base_value_traits<T, BaseHook>
-      , concrete_hook_base_value_traits<T, BaseHook>
-      >::type type;
-};
-
-template<class BaseHook>
-struct get_base_node_traits
-{
-   typedef typename detail::eval_if_c
-      < internal_any_hook_bool_is_true<BaseHook>::value
-      , any_hook_base_node_traits<BaseHook>
-      , concrete_hook_base_node_traits<BaseHook>
-      >::type type;
-};
-
-template<class T, class MemberHook>
-struct get_member_value_traits
-{
-   typedef typename MemberHook::member_value_traits type;
-};
-
-template<class MemberHook>
-struct get_member_node_traits
-{
-   typedef typename MemberHook::member_value_traits::node_traits type;
-};
-
-template<class T, class SupposedValueTraits>
-struct get_value_traits
-{
-   typedef typename detail::eval_if_c
-      <detail::is_convertible<SupposedValueTraits*, detail::default_hook_tag*>::value
-      ,detail::apply<SupposedValueTraits, T>
-      ,detail::identity<SupposedValueTraits>
-   >::type supposed_value_traits;
-
-   //...if it's a default hook
-   typedef typename detail::eval_if_c
-      < internal_base_hook_bool_is_true<supposed_value_traits>::value
-      //...get it's internal value traits using
-      //the provided T value type.
-      , get_base_value_traits<T, supposed_value_traits>
-      //...else use its internal value traits tag
-      //(member hooks and custom value traits are in this group)
-      , detail::eval_if_c
-         < internal_member_value_traits<supposed_value_traits>::value
-         , get_member_value_traits<T, supposed_value_traits>
-         , detail::identity<supposed_value_traits>
-         >
-      >::type type;
-};
-
-template<class ValueTraits>
-struct get_explicit_node_traits
-{
-   typedef typename ValueTraits::node_traits type;
-};
-
 template<class SupposedValueTraits>
-struct get_node_traits
-{
-   typedef SupposedValueTraits supposed_value_traits;
-   //...if it's a base hook
-   typedef typename detail::eval_if_c
-      < internal_base_hook_bool_is_true<supposed_value_traits>::value
-      //...get it's internal value traits using
-      //the provided T value type.
-      , get_base_node_traits<supposed_value_traits>
-      //...else use its internal value traits tag
-      //(member hooks and custom value traits are in this group)
-      , detail::eval_if_c
-         < internal_member_value_traits<supposed_value_traits>::value
-         , get_member_node_traits<supposed_value_traits>
-         , get_explicit_node_traits<supposed_value_traits>
-         >
-      >::type type;
-};
+struct is_default_hook_tag;
 
-}  //namespace detail{
-
-#endif   //BOOST_INTRUSIVE_DOXYGEN_INVOKED
+#endif   //#ifndef BOOST_INTRUSIVE_DOXYGEN_INVOKED
 
 //!This option setter specifies if the intrusive
 //!container stores its size as a member to
@@ -192,6 +60,15 @@ BOOST_INTRUSIVE_OPTION_TYPE(size_type, SizeType, SizeType, size_type)
 //!This option setter specifies the strict weak ordering
 //!comparison functor for the value type
 BOOST_INTRUSIVE_OPTION_TYPE(compare, Compare, Compare, compare)
+
+//!This option setter specifies the a function object
+//!that specifies the type of the key of an associative
+//!container and an operator to obtain it from a value type.
+//!
+//!This function object must the define a `key_type` and
+//!a member with signature `const key_type & operator()(const value_type &) const`
+//!that will return the key from a value_type of an associative container
+BOOST_INTRUSIVE_OPTION_TYPE(key_of_value, KeyOfValue, KeyOfValue, key_of_value)
 
 //!This option setter for scapegoat containers specifies if
 //!the intrusive scapegoat container should use a non-variable
@@ -258,7 +135,7 @@ struct member_hook
 //      //always single inheritance, the offset of the node is exactly the offset of
 //      //the hook. Since the node type is shared between all member hooks, this saves
 //      //quite a lot of symbol stuff.
-//      , (Ptr2MemNode)PtrToMember 
+//      , (Ptr2MemNode)PtrToMember
 //      , MemberHook::hooktags::link_mode> member_value_traits;
    typedef mhtraits <Parent, MemberHook, PtrToMember> member_value_traits;
    template<class Base>
@@ -331,7 +208,7 @@ BOOST_INTRUSIVE_OPTION_CONSTANT(optimize_multikey, bool, Enabled, optimize_multi
 //!This allows using masks instead of the default modulo operation to determine
 //!the bucket number from the hash value, leading to better performance.
 //!In debug mode, if power of two buckets mode is activated, the bucket length
-//!will be checked to through assertions to assure the bucket length is power of two.
+//!will be checked with assertions.
 BOOST_INTRUSIVE_OPTION_CONSTANT(power_2_buckets, bool, Enabled, power_2_buckets)
 
 //!This option setter specifies if the container will cache a pointer to the first
@@ -358,18 +235,11 @@ BOOST_INTRUSIVE_OPTION_CONSTANT(incremental, bool, Enabled, incremental)
 
 /// @cond
 
-struct none
-{
-   template<class Base>
-   struct pack : Base
-   {};
-};
-
 struct hook_defaults
 {
    typedef void* void_pointer;
    static const link_mode_type link_mode = safe_link;
-   typedef default_tag tag;
+   typedef dft_tag tag;
    static const bool optimize_size = false;
    static const bool store_hash = false;
    static const bool linear = false;

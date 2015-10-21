@@ -69,7 +69,7 @@ public:
     }   
 };
 
-BOOST_ARCHIVE_DECL(library_version_type)
+BOOST_ARCHIVE_DECL library_version_type
 BOOST_ARCHIVE_VERSION();
 
 class version_type {
@@ -242,7 +242,7 @@ enum archive_flags {
     flags_last = 8
 };
 
-BOOST_ARCHIVE_DECL(const char *)
+BOOST_ARCHIVE_DECL const char *
 BOOST_ARCHIVE_SIGNATURE();
 
 /* NOTE : Warning  : Warning : Warning : Warning : Warning

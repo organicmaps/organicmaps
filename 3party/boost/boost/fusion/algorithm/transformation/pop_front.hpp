@@ -20,19 +20,19 @@ namespace boost { namespace fusion
         template <typename Sequence>
         struct pop_front
         {
-            typedef 
+            typedef
                 iterator_range<
                     typename next<
                         typename begin<Sequence>::type
                     >::type
                   , typename end<Sequence>::type
-                > 
+                >
             type;
         };
     }
 
     template <typename Sequence>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::pop_front<Sequence const>::type
     pop_front(Sequence const& seq)
     {

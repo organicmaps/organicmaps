@@ -139,6 +139,21 @@ public:
 
 
     /*
+     * named Version 2: do_step_dxdt_impl( sys , in , dxdt , t , dt )
+     *
+     * this version is needed when this stepper is used for initializing
+     * multistep stepper like adams-bashforth. Hence we provide an explicitely
+     * named version that is not disabled. Meant for internal use only.
+     */
+    template < class System, class StateInOut, class DerivIn >
+    void do_step_dxdt_impl( System system, StateInOut &x, const DerivIn &dxdt,
+                            time_type t, time_type dt )
+    {
+        this->stepper().do_step_impl( system , x , dxdt , t , x , dt );
+    }
+
+
+    /*
      * Version 3 : do_step( sys , in , t , out , dt )
      *
      * this version does not solve the forwarding problem, boost.range can not be used
@@ -160,6 +175,22 @@ public:
      */
     template< class System , class StateIn , class DerivIn , class StateOut >
     void do_step( System system , const StateIn &in , const DerivIn &dxdt , time_type t , StateOut &out , time_type dt )
+    {
+        this->stepper().do_step_impl( system , in , dxdt , t , out , dt );
+    }
+
+
+    /*
+     * named Version 4: do_step_dxdt_impl( sys , in , dxdt , t , out, dt )
+     *
+     * this version is needed when this stepper is used for initializing
+     * multistep stepper like adams-bashforth. Hence we provide an explicitely
+     * named version. Meant for internal use only.
+     */
+    template < class System, class StateIn, class DerivIn, class StateOut >
+    void do_step_dxdt_impl( System system, const StateIn &in,
+                            const DerivIn &dxdt, time_type t, StateOut &out,
+                            time_type dt )
     {
         this->stepper().do_step_impl( system , in , dxdt , t , out , dt );
     }

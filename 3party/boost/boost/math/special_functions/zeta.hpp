@@ -1,4 +1,4 @@
-//  Copyright John Maddock 2007.
+//  Copyright John Maddock 2007, 2014.
 //  Use, modification and distribution are subject to the
 //  Boost Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -16,6 +16,7 @@
 #include <boost/math/tools/big_constant.hpp>
 #include <boost/math/policies/error_handling.hpp>
 #include <boost/math/special_functions/gamma.hpp>
+#include <boost/math/special_functions/factorials.hpp>
 #include <boost/math/special_functions/sin_pi.hpp>
 
 namespace boost{ namespace math{ namespace detail{
@@ -167,6 +168,8 @@ T zeta_imp_prec(T s, T sc, const Policy& pol, const mpl::int_<0>&)
 {
    BOOST_MATH_STD_USING
    T result;
+   if(s >= policies::digits<T, Policy>())
+      return 1;
    result = zeta_polynomial_series(s, sc, pol); 
 #if 0
    // Old code archived for future reference:
@@ -863,6 +866,34 @@ T zeta_imp_prec(T s, T sc, const Policy&, const mpl::int_<113>&)
    return result;
 }
 
+template <class T, class Policy>
+T zeta_imp_odd_integer(int s, const T&, const Policy&, const mpl::true_&)
+{
+   static const T results[] = {
+      BOOST_MATH_BIG_CONSTANT(T, 113, 1.2020569031595942853997381615114500), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0369277551433699263313654864570342), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0083492773819228268397975498497968), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0020083928260822144178527692324121), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0004941886041194645587022825264699), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0001227133475784891467518365263574), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000305882363070204935517285106451), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000076371976378997622736002935630), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000019082127165539389256569577951), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000004769329867878064631167196044), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000001192199259653110730677887189), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000298035035146522801860637051), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000074507117898354294919810042), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000018626597235130490064039099), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000004656629065033784072989233), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000001164155017270051977592974), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000291038504449709968692943), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000072759598350574810145209), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000018189896503070659475848), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000004547473783042154026799), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000001136868407680227849349), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000284217097688930185546), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000071054273952108527129), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000017763568435791203275), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000004440892103143813364), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000001110223025141066134), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000277555756213612417), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000069388939045441537), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000017347234760475766), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000004336808690020650), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000001084202172494241), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000271050543122347), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000067762635780452), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000016940658945098), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000004235164736273), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000001058791184068), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000000264697796017), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000000066174449004), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000000016543612251), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000000004135903063), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000000001033975766), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000000000258493941), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000000000064623485), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000000000016155871), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000000000004038968), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000000000001009742), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000000000000252435), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000000000000063109), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000000000000015777), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000000000000003944), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000000000000000986), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000000000000000247), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000000000000000062), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000000000000000015), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000000000000000004), BOOST_MATH_BIG_CONSTANT(T, 113, 1.0000000000000000000000000000000001),
+   };
+   return s > 113 ? 1 : results[(s - 3) / 2];
+}
+
+template <class T, class Policy>
+T zeta_imp_odd_integer(int s, const T& sc, const Policy& pol, const mpl::false_&)
+{
+   static bool is_init = false;
+   static T results[50] = {};
+   if(!is_init)
+   {
+      is_init = true;
+      for(int k = 0; k < sizeof(results) / sizeof(results[0]); ++k)
+      {
+         T arg = k * 2 + 3;
+         T c_arg = 1 - arg;
+         results[k] = zeta_polynomial_series(arg, c_arg, pol);
+      }
+   }
+   int index = (s - 3) / 2;
+   return index >= sizeof(results) / sizeof(results[0]) ? zeta_polynomial_series(T(s), sc, pol): results[index];
+}
+
 template <class T, class Policy, class Tag>
 T zeta_imp(T s, T sc, const Policy& pol, const Tag& tag)
 {
@@ -874,6 +905,45 @@ T zeta_imp(T s, T sc, const Policy& pol, const Tag& tag)
          "Evaluation of zeta function at pole %1%", 
          s, pol);
    T result;
+   //
+   // Trivial case:
+   //
+   if(s > policies::digits<T, Policy>())
+      return 1;
+   //
+   // Start by seeing if we have a simple closed form:
+   //
+   if(floor(s) == s)
+   {
+      try
+      {
+         int v = itrunc(s);
+         if(v == s)
+         {
+            if(v < 0)
+            {
+               if(((-v) & 1) == 0)
+                  return 0;
+               int n = (-v + 1) / 2;
+               if(n <= boost::math::max_bernoulli_b2n<T>::value)
+                  return T((-v & 1) ? -1 : 1) * boost::math::unchecked_bernoulli_b2n<T>(n) / (1 - v);
+            }
+            else if((v & 1) == 0)
+            {
+               if(((v / 2) <= boost::math::max_bernoulli_b2n<T>::value) && (v <= boost::math::max_factorial<T>::value))
+                  return T(((v / 2 - 1) & 1) ? -1 : 1) * ldexp(T(1), v - 1) * pow(constants::pi<T, Policy>(), v) *
+                     boost::math::unchecked_bernoulli_b2n<T>(v / 2) / boost::math::unchecked_factorial<T>(v);
+               return T(((v / 2 - 1) & 1) ? -1 : 1) * ldexp(T(1), v - 1) * pow(constants::pi<T, Policy>(), v) *
+                  boost::math::bernoulli_b2n<T>(v / 2) / boost::math::factorial<T>(v);
+            }
+            else
+               return zeta_imp_odd_integer(v, sc, pol, mpl::bool_<(Tag::value <= 113) && Tag::value>());
+         }
+      }
+      catch(const boost::math::rounding_error&){} // Just fall through, s is too large to round
+      catch(const std::overflow_error&){}
+   }
+
    if(fabs(s) < tools::root_epsilon<T>())
    {
       result = -0.5f - constants::log_root_two_pi<T, Policy>() * s;
@@ -922,8 +992,8 @@ struct zeta_initializer
       {
          do_init(tag());
       }
-      static void do_init(const mpl::int_<0>&){}
-      static void do_init(const mpl::int_<53>&){}
+      static void do_init(const mpl::int_<0>&){ boost::math::zeta(static_cast<T>(5), Policy()); }
+      static void do_init(const mpl::int_<53>&){ boost::math::zeta(static_cast<T>(5), Policy()); }
       static void do_init(const mpl::int_<64>&)
       {
          boost::math::zeta(static_cast<T>(0.5), Policy());
@@ -932,6 +1002,8 @@ struct zeta_initializer
          boost::math::zeta(static_cast<T>(6.5), Policy());
          boost::math::zeta(static_cast<T>(14.5), Policy());
          boost::math::zeta(static_cast<T>(40.5), Policy());
+
+         boost::math::zeta(static_cast<T>(5), Policy());
       }
       static void do_init(const mpl::int_<113>&)
       {
@@ -941,8 +1013,10 @@ struct zeta_initializer
          boost::math::zeta(static_cast<T>(5.5), Policy());
          boost::math::zeta(static_cast<T>(9.5), Policy());
          boost::math::zeta(static_cast<T>(16.5), Policy());
-         boost::math::zeta(static_cast<T>(25), Policy());
-         boost::math::zeta(static_cast<T>(70), Policy());
+         boost::math::zeta(static_cast<T>(25.5), Policy());
+         boost::math::zeta(static_cast<T>(70.5), Policy());
+
+         boost::math::zeta(static_cast<T>(5), Policy());
       }
       void force_instantiate()const{}
    };

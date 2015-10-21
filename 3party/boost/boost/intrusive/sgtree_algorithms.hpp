@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2007-2013
+// (C) Copyright Ion Gaztanaga 2007-2014
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -21,11 +21,12 @@
 #include <boost/intrusive/intrusive_fwd.hpp>
 
 #include <cstddef>
-#include <boost/intrusive/detail/assert.hpp>
-#include <boost/intrusive/detail/utilities.hpp>
+#include <boost/intrusive/detail/algo_type.hpp>
 #include <boost/intrusive/bstree_algorithms.hpp>
-#include <boost/intrusive/pointer_traits.hpp>
 
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
 
 namespace boost {
 namespace intrusive {
@@ -317,12 +318,12 @@ class sgtree_algorithms
       if(tree_size > max_tree_size)
          max_tree_size = tree_size;
 
-      if(tree_size > 2 && //Nothing to do with only the root 
+      if(tree_size > 2 && //Nothing to do with only the root
          //Check if the root node is unbalanced
          //Scapegoat paper depth counts root depth as zero and "depth" counts root as 1,
          //but since "depth" is the depth of the ancestor of x, i == depth
          depth > h_alpha(tree_size)){
-                                          
+
          //Find the first non height-balanced node
          //as described in the section 4.2 of the paper.
          //This method is the alternative method described
@@ -357,6 +358,12 @@ template<class NodeTraits>
 struct get_algo<SgTreeAlgorithms, NodeTraits>
 {
    typedef sgtree_algorithms<NodeTraits> type;
+};
+
+template <class ValueTraits, class NodePtrCompare, class ExtraChecker>
+struct get_node_checker<SgTreeAlgorithms, ValueTraits, NodePtrCompare, ExtraChecker>
+{
+   typedef detail::bstree_node_checker<ValueTraits, NodePtrCompare, ExtraChecker> type;
 };
 
 /// @endcond

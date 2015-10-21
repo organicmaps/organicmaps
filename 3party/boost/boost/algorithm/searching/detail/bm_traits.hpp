@@ -21,7 +21,7 @@
 
 #include <boost/array.hpp>
 #ifdef BOOST_NO_CXX11_HDR_UNORDERED_MAP
-#include <boost/tr1/tr1/unordered_map>
+#include <boost/unordered_map.hpp>
 #else
 #include <unordered_map>
 #endif
@@ -40,7 +40,7 @@ namespace boost { namespace algorithm { namespace detail {
     class skip_table<key_type, value_type, false> {
     private:
 #ifdef BOOST_NO_CXX11_HDR_UNORDERED_MAP
-        typedef std::tr1::unordered_map<key_type, value_type> skip_map;
+        typedef boost::unordered_map<key_type, value_type> skip_map;
 #else
         typedef std::unordered_map<key_type, value_type> skip_map;
 #endif

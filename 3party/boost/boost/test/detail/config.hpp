@@ -1,15 +1,12 @@
-//  (C) Copyright Gennadiy Rozental 2001-2008.
+//  (C) Copyright Gennadiy Rozental 2001-2014.
 //  Distributed under the Boost Software License, Version 1.0.
-//  (See accompanying file LICENSE_1_0.txt or copy at 
+//  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
 //
-//  File        : $RCSfile$
-//
-//  Version     : $Revision$
-//
-//  Description : as a central place for global configuration switches
+//!@file
+//!@brief a central place for global configuration switches
 // ***************************************************************************
 
 #ifndef BOOST_TEST_CONFIG_HPP_071894GER
@@ -18,6 +15,18 @@
 // Boost
 #include <boost/config.hpp> // compilers workarounds
 #include <boost/detail/workaround.hpp>
+
+#if defined(_WIN32) && !defined(BOOST_DISABLE_WIN32) &&                  \
+    (!defined(__COMO__) && !defined(__MWERKS__) && !defined(__GNUC__) || \
+    BOOST_WORKAROUND(__MWERKS__, >= 0x3000))
+#  define BOOST_SEH_BASED_SIGNAL_HANDLING
+#endif
+
+#if defined(__COMO__) && defined(_MSC_VER)
+// eh.h uses type_info without declaring it.
+class type_info;
+#  define BOOST_SEH_BASED_SIGNAL_HANDLING
+#endif
 
 //____________________________________________________________________________//
 
@@ -37,9 +46,7 @@
 
 //____________________________________________________________________________//
 
-#if !defined(BOOST_NO_STD_LOCALE) &&            \
-    !BOOST_WORKAROUND(BOOST_MSVC, < 1310)  &&   \
-    !defined(__MWERKS__) 
+#if !defined(BOOST_NO_STD_LOCALE) && !defined(__MWERKS__)
 #  define BOOST_TEST_USE_STD_LOCALE 1
 #endif
 
@@ -65,10 +72,8 @@
 
 //____________________________________________________________________________//
 
-#if !BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x564)) && \
-    !BOOST_WORKAROUND(BOOST_MSVC, <1310) && \
-    !BOOST_WORKAROUND(__SUNPRO_CC, BOOST_TESTED_AT(0x530))
-#  define BOOST_TEST_SUPPORT_INTERACTION_TESTING 1
+#if !defined(__BORLANDC__) && !BOOST_WORKAROUND( __SUNPRO_CC, < 0x5100 )
+#define BOOST_TEST_SUPPORT_TOKEN_ITERATOR 1
 #endif
 
 //____________________________________________________________________________//
@@ -100,5 +105,11 @@
 #if !defined(BOOST_TEST_MAIN) && defined(BOOST_TEST_MODULE)
 #define BOOST_TEST_MAIN BOOST_TEST_MODULE
 #endif
+
+#ifdef __PGI
+#define BOOST_PP_VARIADICS 1
+#endif
+
+
 
 #endif // BOOST_TEST_CONFIG_HPP_071894GER

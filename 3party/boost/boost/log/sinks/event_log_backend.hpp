@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2014.
+ *          Copyright Andrey Semashev 2007 - 2015.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -562,7 +562,7 @@ public:
      * The following named parameters are supported:
      *
      * \li \c message_file - Specifies the file name that contains resources that
-     *     describe events and categories.
+     *     describe events and categories. This parameter is mandatory unless \c registration is \c never.
      * \li \c target - Specifies an UNC path to the remote server to which log records should be sent to.
      *     The local machine will be used to process log records, if not specified.
      * \li \c log_name - Specifies the log in which the source should be registered.
@@ -625,7 +625,7 @@ private:
     void construct(ArgsT const& args)
     {
         construct(
-            filesystem::path(args[keywords::message_file]),
+            filesystem::path(args[keywords::message_file | filesystem::path()]),
             args[keywords::target | string_type()],
             args[keywords::log_name || &basic_event_log_backend::get_default_log_name],
             args[keywords::log_source || &basic_event_log_backend::get_default_source_name],

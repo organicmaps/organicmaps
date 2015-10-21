@@ -7,15 +7,24 @@
 #ifndef BOOST_THREAD_EXECUTORS_WORK_HPP
 #define BOOST_THREAD_EXECUTORS_WORK_HPP
 
-
+#include <boost/thread/detail/config.hpp>
 #include <boost/thread/detail/nullary_function.hpp>
+#include <boost/thread/csbl/functional.hpp>
 
 namespace boost
 {
   namespace executors
   {
     typedef detail::nullary_function<void()> work;
+
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
+    typedef detail::nullary_function<void()> work_pq;
+    //typedef csbl::function<void()> work_pq;
+#else
+    typedef csbl::function<void()> work_pq;
+#endif
   }
 } // namespace boost
+
 
 #endif //  BOOST_THREAD_EXECUTORS_WORK_HPP

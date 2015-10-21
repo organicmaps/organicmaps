@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2005-2008.
+//  (C) Copyright Gennadiy Rozental 2005-2014.
 //  Distributed under the Boost Software License, Version 1.0.
-//  (See accompanying file LICENSE_1_0.txt or copy at 
+//  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -12,8 +12,8 @@
 //  Description : environment subsystem forward declarations
 // ***************************************************************************
 
-#ifndef BOOST_RT_ENV_FWD_HPP_062604GER
-#define BOOST_RT_ENV_FWD_HPP_062604GER
+#ifndef BOOST_TEST_UTILS_RUNTIME_ENV_FWD_HPP
+#define BOOST_TEST_UTILS_RUNTIME_ENV_FWD_HPP
 
 #ifdef UNDER_CE
 #error Windows CE does not support environment variables.
@@ -24,12 +24,19 @@
 
 namespace boost {
 
-namespace BOOST_RT_PARAM_NAMESPACE {
+namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE {
 
 namespace environment {
 
+template<typename T>
+class variable;
+
 class variable_base;
 variable_base var( cstring var_name );
+
+template<typename T>
+inline variable<T>
+  var( cstring var_name );
 
 namespace rt_env_detail {
 
@@ -47,8 +54,8 @@ template <typename T> class variable;
 
 } // namespace environment
 
-} // namespace BOOST_RT_PARAM_NAMESPACE
+} // namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE
 
 } // namespace boost
 
-#endif // BOOST_RT_ENV_FWD_HPP_062604GER
+#endif // BOOST_TEST_UTILS_RUNTIME_ENV_FWD_HPP

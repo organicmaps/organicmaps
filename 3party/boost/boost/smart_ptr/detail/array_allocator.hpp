@@ -213,7 +213,7 @@ namespace boost {
             typedef Y* pointer;
             typedef const Y* const_pointer;
             typedef std::size_t size_type;
-            typedef ptrdiff_t difference_type;
+            typedef std::ptrdiff_t difference_type;
             typedef Y& reference;
             typedef const Y& const_reference;
 

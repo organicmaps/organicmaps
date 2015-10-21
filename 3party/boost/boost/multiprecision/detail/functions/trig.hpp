@@ -12,6 +12,11 @@
 // This file has no include guards or namespaces - it's expanded inline inside default_ops.hpp
 // 
 
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable:6326)  // comparison of two constants
+#endif
+
 template <class T>
 void hyp0F1(T& result, const T& b, const T& x)
 {
@@ -494,12 +499,12 @@ void eval_asin(T& result, const T& x)
    // Newton-Raphson iteration
    while(current_digits < target_precision)
    {
-      T s, c;
-      eval_sin(s, result);
-      eval_cos(c, result);
-      eval_subtract(s, xx);
-      eval_divide(s, c);
-      eval_subtract(result, s);
+      T sine, cosine;
+      eval_sin(sine, result);
+      eval_cos(cosine, result);
+      eval_subtract(sine, xx);
+      eval_divide(sine, cosine);
+      eval_subtract(result, sine);
 
       current_digits *= 2;
       /*
@@ -770,3 +775,6 @@ inline typename enable_if<is_arithmetic<A>, void>::type eval_atan2(T& result, co
    eval_atan2(result, c, a);
 }
 
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif

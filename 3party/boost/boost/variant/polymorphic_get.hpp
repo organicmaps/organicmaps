@@ -3,7 +3,7 @@
 // See http://www.boost.org for updates, documentation, and revision history.
 //-----------------------------------------------------------------------------
 //
-// Copyright (c) 2013 Antony Polukhin
+// Copyright (c) 2013-2015 Antony Polukhin
 //
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
@@ -16,6 +16,7 @@
 
 #include "boost/config.hpp"
 #include "boost/detail/workaround.hpp"
+#include "boost/static_assert.hpp"
 #include "boost/throw_exception.hpp"
 #include "boost/utility/addressof.hpp"
 #include "boost/variant/variant_fwd.hpp"
@@ -54,6 +55,33 @@ public: // std::exception implementation
 
 namespace detail { namespace variant {
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// polymorphic metafunctions to detect index of a value
+//
+
+template <class Types, class T>
+struct element_polymorphic_iterator_impl :
+    boost::mpl::find_if<
+        Types,
+        boost::mpl::or_<
+            variant_element_functor<boost::mpl::_1, T>,
+            variant_element_functor<boost::mpl::_1, typename boost::remove_cv<T>::type >,
+            boost::is_base_of<T, boost::mpl::_1>
+        >
+    >
+{};
+
+template <class Variant, class T>
+struct holds_element_polymorphic :
+    boost::mpl::not_<
+        boost::is_same<
+            typename boost::mpl::end<typename Variant::types>::type,
+            typename element_polymorphic_iterator_impl<typename Variant::types, typename boost::remove_reference<T>::type >::type
+        >
+    >
+{};
+
 // (detail) class template get_polymorphic_visitor
 //
 // Generic static visitor that: if the value is of the specified
@@ -64,8 +92,9 @@ template <typename Base>
 struct get_polymorphic_visitor
 {
 private: // private typedefs
-    typedef typename add_pointer<Base>::type pointer;
-    typedef typename add_reference<Base>::type reference;
+    typedef get_polymorphic_visitor<Base>       this_type;
+    typedef typename add_pointer<Base>::type    pointer;
+    typedef typename add_reference<Base>::type  reference;
 
     pointer get(reference operand, boost::true_type) const BOOST_NOEXCEPT
     {
@@ -86,9 +115,14 @@ public: // visitor interfaces
     {
         typedef boost::integral_constant<
             bool,
-            boost::is_base_of<Base, U>::value || boost::is_same<Base, U>::value
+            boost::mpl::or_<
+                boost::is_base_of<Base, U>,
+                boost::is_same<Base, U>,
+                boost::is_same<typename boost::remove_cv<Base>::type, U >
+            >::value
         > tag_t;
-        return get(operand, tag_t());
+
+        return this_type::get(operand, tag_t());
     }
 };
 
@@ -103,10 +137,14 @@ public: // visitor interfaces
 #   endif
 #endif
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// polymorphic_relaxed_get
+//
+
 template <typename U, BOOST_VARIANT_ENUM_PARAMS(typename T) >
 inline
     typename add_pointer<U>::type
-polymorphic_get(
+polymorphic_relaxed_get(
       boost::variant< BOOST_VARIANT_ENUM_PARAMS(T) >* operand
       BOOST_VARIANT_AUX_GET_EXPLICIT_TEMPLATE_TYPE(U)
     ) BOOST_NOEXCEPT
@@ -121,7 +159,7 @@ polymorphic_get(
 template <typename U, BOOST_VARIANT_ENUM_PARAMS(typename T) >
 inline
     typename add_pointer<const U>::type
-polymorphic_get(
+polymorphic_relaxed_get(
       const boost::variant< BOOST_VARIANT_ENUM_PARAMS(T) >* operand
       BOOST_VARIANT_AUX_GET_EXPLICIT_TEMPLATE_TYPE(U)
     ) BOOST_NOEXCEPT
@@ -136,17 +174,155 @@ polymorphic_get(
 template <typename U, BOOST_VARIANT_ENUM_PARAMS(typename T) >
 inline
     typename add_reference<U>::type
-polymorphic_get(
+polymorphic_relaxed_get(
       boost::variant< BOOST_VARIANT_ENUM_PARAMS(T) >& operand
       BOOST_VARIANT_AUX_GET_EXPLICIT_TEMPLATE_TYPE(U)
     )
 {
     typedef typename add_pointer<U>::type U_ptr;
-    U_ptr result = polymorphic_get<U>(&operand);
+    U_ptr result = polymorphic_relaxed_get<U>(&operand);
 
     if (!result)
         boost::throw_exception(bad_polymorphic_get());
     return *result;
+}
+
+template <typename U, BOOST_VARIANT_ENUM_PARAMS(typename T) >
+inline
+    typename add_reference<const U>::type
+polymorphic_relaxed_get(
+      const boost::variant< BOOST_VARIANT_ENUM_PARAMS(T) >& operand
+      BOOST_VARIANT_AUX_GET_EXPLICIT_TEMPLATE_TYPE(U)
+    )
+{
+    typedef typename add_pointer<const U>::type U_ptr;
+    U_ptr result = polymorphic_relaxed_get<const U>(&operand);
+
+    if (!result)
+        boost::throw_exception(bad_polymorphic_get());
+    return *result;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// polymorphic_strict_get
+//
+
+template <typename U, BOOST_VARIANT_ENUM_PARAMS(typename T) >
+inline
+    typename add_pointer<U>::type
+polymorphic_strict_get(
+      boost::variant< BOOST_VARIANT_ENUM_PARAMS(T) >* operand
+      BOOST_VARIANT_AUX_GET_EXPLICIT_TEMPLATE_TYPE(U)
+    ) BOOST_NOEXCEPT
+{
+    BOOST_STATIC_ASSERT_MSG(
+        (boost::detail::variant::holds_element_polymorphic<boost::variant< BOOST_VARIANT_ENUM_PARAMS(T) >, U >::value),
+        "boost::variant does not contain specified type U, "
+        "call to boost::polymorphic_get<U>(boost::variant<T...>*) will always return NULL"
+    );
+
+    return polymorphic_relaxed_get<U>(operand);
+}
+
+template <typename U, BOOST_VARIANT_ENUM_PARAMS(typename T) >
+inline
+    typename add_pointer<const U>::type
+polymorphic_strict_get(
+      const boost::variant< BOOST_VARIANT_ENUM_PARAMS(T) >* operand
+      BOOST_VARIANT_AUX_GET_EXPLICIT_TEMPLATE_TYPE(U)
+    ) BOOST_NOEXCEPT
+{
+    BOOST_STATIC_ASSERT_MSG(
+        (boost::detail::variant::holds_element_polymorphic<boost::variant< BOOST_VARIANT_ENUM_PARAMS(T) >, U >::value),
+        "boost::variant does not contain specified type U, "
+        "call to boost::polymorphic_get<U>(const boost::variant<T...>*) will always return NULL"
+    );
+
+    return polymorphic_relaxed_get<U>(operand);
+}
+
+template <typename U, BOOST_VARIANT_ENUM_PARAMS(typename T) >
+inline
+    typename add_reference<U>::type
+polymorphic_strict_get(
+      boost::variant< BOOST_VARIANT_ENUM_PARAMS(T) >& operand
+      BOOST_VARIANT_AUX_GET_EXPLICIT_TEMPLATE_TYPE(U)
+    )
+{
+    BOOST_STATIC_ASSERT_MSG(
+        (boost::detail::variant::holds_element_polymorphic<boost::variant< BOOST_VARIANT_ENUM_PARAMS(T) >, U >::value),
+        "boost::variant does not contain specified type U, "
+        "call to boost::polymorphic_get<U>(boost::variant<T...>&) will always throw boost::bad_polymorphic_get exception"
+    );
+
+    return polymorphic_relaxed_get<U>(operand);
+}
+
+template <typename U, BOOST_VARIANT_ENUM_PARAMS(typename T) >
+inline
+    typename add_reference<const U>::type
+polymorphic_strict_get(
+      const boost::variant< BOOST_VARIANT_ENUM_PARAMS(T) >& operand
+      BOOST_VARIANT_AUX_GET_EXPLICIT_TEMPLATE_TYPE(U)
+    )
+{
+    BOOST_STATIC_ASSERT_MSG(
+        (boost::detail::variant::holds_element_polymorphic<boost::variant< BOOST_VARIANT_ENUM_PARAMS(T) >, U >::value),
+        "boost::variant does not contain specified type U, "
+        "call to boost::polymorphic_get<U>(const boost::variant<T...>&) will always throw boost::bad_polymorphic_get exception"
+    );
+
+    return polymorphic_relaxed_get<U>(operand);
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// polymorphic_get<U>(variant) methods
+//
+
+template <typename U, BOOST_VARIANT_ENUM_PARAMS(typename T) >
+inline
+    typename add_pointer<U>::type
+polymorphic_get(
+      boost::variant< BOOST_VARIANT_ENUM_PARAMS(T) >* operand
+      BOOST_VARIANT_AUX_GET_EXPLICIT_TEMPLATE_TYPE(U)
+    ) BOOST_NOEXCEPT
+{
+#ifdef BOOST_VARIANT_USE_RELAXED_GET_BY_DEFAULT
+    return polymorphic_relaxed_get<U>(operand);
+#else
+    return polymorphic_strict_get<U>(operand);
+#endif
+
+}
+
+template <typename U, BOOST_VARIANT_ENUM_PARAMS(typename T) >
+inline
+    typename add_pointer<const U>::type
+polymorphic_get(
+      const boost::variant< BOOST_VARIANT_ENUM_PARAMS(T) >* operand
+      BOOST_VARIANT_AUX_GET_EXPLICIT_TEMPLATE_TYPE(U)
+    ) BOOST_NOEXCEPT
+{
+#ifdef BOOST_VARIANT_USE_RELAXED_GET_BY_DEFAULT
+    return polymorphic_relaxed_get<U>(operand);
+#else
+    return polymorphic_strict_get<U>(operand);
+#endif
+}
+
+template <typename U, BOOST_VARIANT_ENUM_PARAMS(typename T) >
+inline
+    typename add_reference<U>::type
+polymorphic_get(
+      boost::variant< BOOST_VARIANT_ENUM_PARAMS(T) >& operand
+      BOOST_VARIANT_AUX_GET_EXPLICIT_TEMPLATE_TYPE(U)
+    )
+{
+#ifdef BOOST_VARIANT_USE_RELAXED_GET_BY_DEFAULT
+    return polymorphic_relaxed_get<U>(operand);
+#else
+    return polymorphic_strict_get<U>(operand);
+#endif
 }
 
 template <typename U, BOOST_VARIANT_ENUM_PARAMS(typename T) >
@@ -157,14 +333,12 @@ polymorphic_get(
       BOOST_VARIANT_AUX_GET_EXPLICIT_TEMPLATE_TYPE(U)
     )
 {
-    typedef typename add_pointer<const U>::type U_ptr;
-    U_ptr result = polymorphic_get<const U>(&operand);
-
-    if (!result)
-        boost::throw_exception(bad_polymorphic_get());
-    return *result;
+#ifdef BOOST_VARIANT_USE_RELAXED_GET_BY_DEFAULT
+    return polymorphic_relaxed_get<U>(operand);
+#else
+    return polymorphic_strict_get<U>(operand);
+#endif
 }
-
 } // namespace boost
 
 #endif // BOOST_VARIANT_POLYMORPHIC_GET_HPP

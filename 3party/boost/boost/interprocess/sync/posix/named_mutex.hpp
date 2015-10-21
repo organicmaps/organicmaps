@@ -11,7 +11,11 @@
 #ifndef BOOST_INTERPROCESS_POSIX_NAMED_MUTEX_HPP
 #define BOOST_INTERPROCESS_POSIX_NAMED_MUTEX_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -32,13 +36,13 @@ class named_condition;
 
 class posix_named_mutex
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
    posix_named_mutex();
    posix_named_mutex(const posix_named_mutex &);
    posix_named_mutex &operator=(const posix_named_mutex &);
    friend class named_condition;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    posix_named_mutex(create_only_t create_only, const char *name, const permissions &perm = permissions());
@@ -55,16 +59,16 @@ class posix_named_mutex
    bool timed_lock(const boost::posix_time::ptime &abs_time);
    static bool remove(const char *name);
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    friend class interprocess_tester;
    void dont_close_on_destruction();
 
    posix_named_semaphore m_sem;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
 inline posix_named_mutex::posix_named_mutex(create_only_t, const char *name, const permissions &perm)
    :  m_sem(create_only, name, 1, perm)
@@ -99,7 +103,7 @@ inline bool posix_named_mutex::timed_lock(const boost::posix_time::ptime &abs_ti
 inline bool posix_named_mutex::remove(const char *name)
 {  return posix_named_semaphore::remove(name);   }
 
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 }  //namespace ipcdetail {
 }  //namespace interprocess {

@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2005-2008.
-//  Use, modification, and distribution are subject to the 
-//  Boost Software License, Version 1.0. (See accompanying file 
+//  (C) Copyright Gennadiy Rozental 2005-2014.
+//  Use, modification, and distribution are subject to the
+//  Boost Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -12,8 +12,8 @@
 //  Description : some generic identification policies implementation
 // ***************************************************************************
 
-#ifndef BOOST_RT_CLA_ID_POLICY_IPP_062904GER
-#define BOOST_RT_CLA_ID_POLICY_IPP_062904GER
+#ifndef BOOST_TEST_UTILS_RUNTIME_CLA_ID_POLICY_IPP
+#define BOOST_TEST_UTILS_RUNTIME_CLA_ID_POLICY_IPP
 
 // Boost.Runtime.Parameter
 #include <boost/test/utils/runtime/config.hpp>
@@ -23,7 +23,7 @@
 
 namespace boost {
 
-namespace BOOST_RT_PARAM_NAMESPACE {
+namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE {
 
 namespace cla {
 
@@ -31,18 +31,18 @@ namespace cla {
 // **************              basic_naming_policy             ************** //
 // ************************************************************************** //
 
-BOOST_RT_PARAM_INLINE void
+BOOST_TEST_UTILS_RUNTIME_PARAM_INLINE void
 basic_naming_policy::usage_info( format_stream& fs ) const
 {
     fs << p_prefix << p_name << p_separator;
 
     if( p_separator->empty() )
-        fs << BOOST_RT_PARAM_LITERAL( ' ' );
+        fs << BOOST_TEST_UTILS_RUNTIME_PARAM_LITERAL( ' ' );
 }
 
 //____________________________________________________________________________//
 
-BOOST_RT_PARAM_INLINE bool
+BOOST_TEST_UTILS_RUNTIME_PARAM_INLINE bool
 basic_naming_policy::match_prefix( argv_traverser& tr ) const
 {
     if( !tr.match_front( p_prefix.get() ) )
@@ -53,8 +53,8 @@ basic_naming_policy::match_prefix( argv_traverser& tr ) const
 }
 
 //____________________________________________________________________________//
-    
-BOOST_RT_PARAM_INLINE bool
+
+BOOST_TEST_UTILS_RUNTIME_PARAM_INLINE bool
 basic_naming_policy::match_name( argv_traverser& tr ) const
 {
     if( !tr.match_front( p_name.get() ) )
@@ -65,8 +65,8 @@ basic_naming_policy::match_name( argv_traverser& tr ) const
 }
 
 //____________________________________________________________________________//
-    
-BOOST_RT_PARAM_INLINE bool
+
+BOOST_TEST_UTILS_RUNTIME_PARAM_INLINE bool
 basic_naming_policy::match_separator( argv_traverser& tr, bool optional_value ) const
 {
     if( p_separator->empty() ) {
@@ -92,12 +92,12 @@ basic_naming_policy::match_separator( argv_traverser& tr, bool optional_value ) 
 
 //____________________________________________________________________________//
 
-BOOST_RT_PARAM_INLINE bool
+BOOST_TEST_UTILS_RUNTIME_PARAM_INLINE bool
 basic_naming_policy::matching( parameter const& p, argv_traverser& tr, bool ) const
 {
     if( !match_prefix( tr ) )
         return false;
-        
+
     if( !match_name( tr ) )
         return false;
 
@@ -111,8 +111,8 @@ basic_naming_policy::matching( parameter const& p, argv_traverser& tr, bool ) co
 
 } // namespace cla
 
-} // namespace BOOST_RT_PARAM_NAMESPACE
+} // namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE
 
 } // namespace boost
 
-#endif // BOOST_RT_CLA_ID_POLICY_IPP_062904GER
+#endif // BOOST_TEST_UTILS_RUNTIME_CLA_ID_POLICY_IPP

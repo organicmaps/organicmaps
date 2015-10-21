@@ -1,6 +1,7 @@
 //  boost polymorphic_cast.hpp header file  ----------------------------------------------//
 
 //  (C) Copyright Kevlin Henney and Dave Abrahams 1999.
+//  (C) Copyright Boris Rasin 2014.
 //  Distributed under the Boost
 //  Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -8,6 +9,9 @@
 //  See http://www.boost.org/libs/conversion for Documentation.
 
 //  Revision History
+//  10 Nov 14  polymorphic_pointer_downcast moved to a separate header,
+//             minor improvements to stisfy latest Boost coding style
+//  08 Nov 14  Add polymorphic_pointer_downcast (Boris Rasin)
 //  09 Jun 14  "cast.hpp" was renamed to "polymorphic_cast.hpp" and
 //             inclusion of numeric_cast was removed (Antony Polukhin)
 //  23 Jun 05  numeric_cast removed and redirected to the new verion (Fernando Cacciola)
@@ -47,7 +51,12 @@
 
 # include <boost/config.hpp>
 # include <boost/assert.hpp>
+# include <boost/throw_exception.hpp>
 # include <typeinfo>
+
+#ifdef BOOST_HAS_PRAGMA_ONCE
+#   pragma once
+#endif
 
 namespace boost
 {
@@ -64,7 +73,7 @@ namespace boost
     inline Target polymorphic_cast(Source* x)
     {
         Target tmp = dynamic_cast<Target>(x);
-        if ( tmp == 0 ) throw std::bad_cast();
+        if ( tmp == 0 ) boost::throw_exception( std::bad_cast() );
         return tmp;
     }
 

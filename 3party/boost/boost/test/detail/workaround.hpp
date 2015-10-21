@@ -1,15 +1,12 @@
-//  (C) Copyright Gennadiy Rozental 2005-2008.
+//  (C) Copyright Gennadiy Rozental 2005-2014.
 //  Distributed under the Boost Software License, Version 1.0.
-//  (See accompanying file LICENSE_1_0.txt or copy at 
+//  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
 //
-//  File        : $RCSfile$
-//
-//  Version     : $Revision$
-//
-//  Description : contains mics. workarounds 
+//!@file
+//!@brief contains mics. workarounds
 // ***************************************************************************
 
 #ifndef BOOST_TEST_WORKAROUND_HPP_021005GER
@@ -26,15 +23,13 @@
 //____________________________________________________________________________//
 
 namespace boost {
-
 namespace unit_test {
-
 namespace ut_detail {
 
 #ifdef BOOST_NO_STD_DISTANCE
 template <class T>
 std::ptrdiff_t distance( T const& x_, T const& y_ )
-{ 
+{
     std::ptrdiff_t res = 0;
 
     std::distance( x_, y_, res );
@@ -51,11 +46,7 @@ using std::distance;
 template <class T> inline void ignore_unused_variable_warning(const T&) {}
 
 } // namespace ut_detail
-
 } // namespace unit_test
-
-namespace unit_test_framework = unit_test;
-
 } // namespace boost
 
 //____________________________________________________________________________//

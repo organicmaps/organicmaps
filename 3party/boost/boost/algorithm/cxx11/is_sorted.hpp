@@ -26,11 +26,6 @@
 
 namespace boost { namespace algorithm {
 
-#if __cplusplus >= 201103L
-//  Use the C++11 versions of is_sorted/is_sorted_until if they are available
-using std::is_sorted_until; // Section 25.4.1.5
-using std::is_sorted;       // Section 25.4.1.5
-#else
 /// \fn is_sorted_until ( ForwardIterator first, ForwardIterator last, Pred p )
 /// \return the point in the sequence [first, last) where the elements are unordered
 ///     (according to the comparison predicate 'p').
@@ -91,7 +86,6 @@ using std::is_sorted;       // Section 25.4.1.5
     {
         return boost::algorithm::is_sorted_until (first, last) == last;
     }
-#endif
 
 ///
 /// -- Range based versions of the C++11 functions

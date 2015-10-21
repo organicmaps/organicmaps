@@ -27,22 +27,22 @@ namespace boost { namespace fusion
         typedef mpl::int_<(result_of::size<Deque>::value + 1)> size;
 
         template <typename Arg>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         front_extended_deque(Deque const& deque, Arg const& val)
           : base(val, deque)
         {}
 
 #if defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
         template <typename Arg>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         front_extended_deque(Deque const& deque, Arg& val)
           : base(val, deque)
         {}
 #else
         template <typename Arg>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         front_extended_deque(Deque const& deque, Arg&& val)
-          : base(std::forward<Arg>(val), deque)
+          : base(BOOST_FUSION_FWD_ELEM(Arg, val), deque)
         {}
 #endif
     };

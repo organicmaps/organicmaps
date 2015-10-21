@@ -1,6 +1,6 @@
 // fwd.hpp Forward declarations of Boost.Math distributions.
 
-// Copyright Paul A. Bristow 2007, 2010, 2012.
+// Copyright Paul A. Bristow 2007, 2010, 2012, 2014.
 // Copyright John Maddock 2007.
 
 // Use, modification and distribution are subject to the
@@ -11,9 +11,12 @@
 #ifndef BOOST_MATH_DISTRIBUTIONS_FWD_HPP
 #define BOOST_MATH_DISTRIBUTIONS_FWD_HPP
 
-// 31 distributions at Boost 1.52
+// 33 distributions at Boost 1.9.1 after adding hyperexpon and arcsine
 
 namespace boost{ namespace math{
+
+template <class RealType, class Policy>
+class arcsine_distribution;
 
 template <class RealType, class Policy>
 class bernoulli_distribution;
@@ -44,6 +47,9 @@ class gamma_distribution;
 
 template <class RealType, class Policy>
 class geometric_distribution;
+
+template <class RealType, class Policy>
+class hyperexponential_distribution;
 
 template <class RealType, class Policy>
 class hypergeometric_distribution;
@@ -111,6 +117,7 @@ class weibull_distribution;
 }} // namespaces
 
 #define BOOST_MATH_DECLARE_DISTRIBUTIONS(Type, Policy)\
+   typedef boost::math::arcsine_distribution<Type, Policy> arcsine;\
    typedef boost::math::bernoulli_distribution<Type, Policy> bernoulli;\
    typedef boost::math::beta_distribution<Type, Policy> beta;\
    typedef boost::math::binomial_distribution<Type, Policy> binomial;\

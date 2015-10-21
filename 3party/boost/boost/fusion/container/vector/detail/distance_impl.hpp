@@ -24,8 +24,8 @@ namespace boost { namespace fusion
         {
             template <typename First, typename Last>
             struct apply : mpl::minus<typename Last::index, typename First::index>
-            {    
-                BOOST_FUSION_GPU_ENABLED
+            {
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static typename mpl::minus<
                     typename Last::index, typename First::index>::type
                 call(First const&, Last const&)

@@ -39,7 +39,7 @@ namespace boost { namespace fusion
 
                 typedef typename build_cons::type type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& seq)
                 {

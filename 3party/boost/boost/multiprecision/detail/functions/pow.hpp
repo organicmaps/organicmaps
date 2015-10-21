@@ -12,6 +12,11 @@
 // This file has no include guards or namespaces - it's expanded inline inside default_ops.hpp
 // 
 
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable:6326)  // comparison of two constants
+#endif
+
 namespace detail{
 
 template<typename T, typename U> 
@@ -160,7 +165,7 @@ void hyp1F0(T& H1F0, const T& a, const T& x)
    si_type n;
    T term, part;
 
-   static const unsigned series_limit = 
+   static const si_type series_limit =
       boost::multiprecision::detail::digits2<number<T, et_on> >::value < 100
       ? 100 : boost::multiprecision::detail::digits2<number<T, et_on> >::value;
    // Series expansion of hyperg_1f0(a; ; x).
@@ -692,3 +697,6 @@ inline void eval_tanh(T& result, const T& x)
   eval_divide(result, c);
 }
 
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif

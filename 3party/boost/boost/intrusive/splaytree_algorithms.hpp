@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2007-2013
+// (C) Copyright Ion Gaztanaga  2007-2014
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -33,10 +33,15 @@
 #include <boost/intrusive/detail/config_begin.hpp>
 #include <boost/intrusive/intrusive_fwd.hpp>
 #include <boost/intrusive/detail/assert.hpp>
-#include <boost/intrusive/pointer_traits.hpp>
-#include <cstddef>
-#include <boost/intrusive/detail/utilities.hpp>
+#include <boost/intrusive/detail/algo_type.hpp>
+#include <boost/intrusive/detail/uncast.hpp>
 #include <boost/intrusive/bstree_algorithms.hpp>
+
+#include <cstddef>
+
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
 
 namespace boost {
 namespace intrusive {
@@ -81,7 +86,7 @@ struct splaydown_assemble_and_fix_header
       //    left(t), right(t) := right(null), left(null);
       //end assemble;
       {  //    left(r), right(l) := right(t), left(t);
-         
+
          node_ptr const old_t_left  = NodeTraits::get_left(t_);
          node_ptr const old_t_right = NodeTraits::get_right(t_);
          NodeTraits::set_right(l_, old_t_left);
@@ -217,7 +222,7 @@ class splaytree_algorithms
 
    //! @copydoc ::boost::intrusive::bstree_algorithms::init_header(const node_ptr&)
    static void init_header(const node_ptr & header);
-   
+
    #endif   //#ifdef BOOST_INTRUSIVE_DOXYGEN_INVOKED
 
    //! @copydoc ::boost::intrusive::bstree_algorithms::erase(const node_ptr&,const node_ptr&)
@@ -228,21 +233,21 @@ class splaytree_algorithms
       if(NodeTraits::get_left(z)){
          splay_up(bstree_algo::prev_node(z), header);
       }
-      /*
+
       //possibility 2
-      if(NodeTraits::get_left(z)){
-         node_ptr l = NodeTraits::get_left(z);
-         splay_up(l, header);
-      }*/
-      /*
-      if(NodeTraits::get_left(z)){
-         node_ptr l = bstree_algo::prev_node(z);
-         splay_up_impl(l, z);
-      }*/
-      /*
+      //if(NodeTraits::get_left(z)){
+      //   node_ptr l = NodeTraits::get_left(z);
+      //   splay_up(l, header);
+      //}
+
+      //if(NodeTraits::get_left(z)){
+      //   node_ptr l = bstree_algo::prev_node(z);
+      //   splay_up_impl(l, z);
+      //}
+
       //possibility 4
-      splay_up(z, header);
-      */
+      //splay_up(z, header);
+
       bstree_algo::erase(header, z);
    }
 
@@ -704,6 +709,12 @@ template<class NodeTraits>
 struct get_algo<SplayTreeAlgorithms, NodeTraits>
 {
    typedef splaytree_algorithms<NodeTraits> type;
+};
+
+template <class ValueTraits, class NodePtrCompare, class ExtraChecker>
+struct get_node_checker<SplayTreeAlgorithms, ValueTraits, NodePtrCompare, ExtraChecker>
+{
+   typedef detail::bstree_node_checker<ValueTraits, NodePtrCompare, ExtraChecker> type;
 };
 
 /// @endcond

@@ -30,7 +30,7 @@ namespace boost { namespace fusion
                     result_of::deref<typename Iterator::pos_type>::type
                 type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type call(Iterator const& i)
                 {
                     return *i.pos;

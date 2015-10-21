@@ -8,10 +8,6 @@
 #if !defined(BOOST_SPIRIT_X3_ATTRIBUTE_TYPE_JAN_5_2012_0358PM)
 #define BOOST_SPIRIT_X3_ATTRIBUTE_TYPE_JAN_5_2012_0358PM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/mpl/identity.hpp>
 
 namespace boost { namespace spirit { namespace x3 { namespace traits

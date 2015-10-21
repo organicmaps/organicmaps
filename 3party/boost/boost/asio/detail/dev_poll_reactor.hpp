@@ -2,7 +2,7 @@
 // detail/dev_poll_reactor.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2015 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -160,10 +160,6 @@ private:
   // acquire the dev_poll_reactor's mutex.
   BOOST_ASIO_DECL void cancel_ops_unlocked(socket_type descriptor,
       const boost::system::error_code& ec);
-
-  // Helper class used to reregister descriptors after a fork.
-  class fork_helper;
-  friend class fork_helper;
 
   // Add a pending event entry for the given descriptor.
   BOOST_ASIO_DECL ::pollfd& add_pending_event_change(int descriptor);

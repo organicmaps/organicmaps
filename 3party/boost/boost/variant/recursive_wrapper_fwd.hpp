@@ -16,11 +16,8 @@
 #define BOOST_VARIANT_RECURSIVE_WRAPPER_FWD_HPP
 
 #include "boost/mpl/aux_/config/ctps.hpp"
-
 #include "boost/mpl/aux_/lambda_support.hpp"
-
-// should be the last #include
-#include "boost/type_traits/detail/bool_trait_def.hpp"
+#include <boost/type_traits/integral_constant.hpp>
 
 namespace boost {
 
@@ -66,11 +63,12 @@ struct is_recursive_wrapper_impl< recursive_wrapper<T> >
 
 } // namespace detail
 
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(
-      is_recursive_wrapper
-    , T
-    , (::boost::detail::is_recursive_wrapper_impl<T>::value)
-    )
+template< typename T > struct is_recursive_wrapper
+    : public ::boost::integral_constant<bool,(::boost::detail::is_recursive_wrapper_impl<T>::value)>
+{
+public:
+    BOOST_MPL_AUX_LAMBDA_SUPPORT(1,is_recursive_wrapper,(T))
+};
 
 ///////////////////////////////////////////////////////////////////////////////
 // metafunction unwrap_recursive
@@ -97,7 +95,5 @@ struct unwrap_recursive< recursive_wrapper<T> >
 
 
 } // namespace boost
-
-#include "boost/type_traits/detail/bool_trait_undef.hpp"
 
 #endif // BOOST_VARIANT_RECURSIVE_WRAPPER_FWD_HPP

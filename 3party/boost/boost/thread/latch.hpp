@@ -27,14 +27,14 @@ namespace boost
     /// Effect: Decrement the count. Unlocks the lock and notify anyone waiting if we reached zero.
     /// Returns: true if count_ reached the value 0.
     /// @ThreadSafe ensured by the @c lk parameter
-    bool count_down(unique_lock<mutex> &lk)
+    bool count_down(unique_lock<mutex> &)
     /// pre_condition (count_ > 0)
     {
       BOOST_ASSERT(count_ > 0);
       if (--count_ == 0)
       {
         ++generation_;
-        lk.unlock();
+        //lk.unlock();
         cond_.notify_all();
         return true;
       }

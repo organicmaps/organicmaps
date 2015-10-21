@@ -78,7 +78,7 @@ public:
         boost::checked_delete( px_ );
     }
 
-    virtual void * get_deleter( detail::sp_typeinfo const & )
+    virtual void * get_deleter( sp_typeinfo const & )
     {
         return 0;
     }
@@ -153,7 +153,7 @@ public:
         del( ptr );
     }
 
-    virtual void * get_deleter( detail::sp_typeinfo const & ti )
+    virtual void * get_deleter( sp_typeinfo const & ti )
     {
         return ti == BOOST_SP_TYPEID(D)? &reinterpret_cast<char&>( del ): 0;
     }
@@ -249,7 +249,7 @@ public:
         a2.deallocate( this, 1 );
     }
 
-    virtual void * get_deleter( detail::sp_typeinfo const & ti )
+    virtual void * get_deleter( sp_typeinfo const & ti )
     {
         return ti == BOOST_SP_TYPEID( D )? &reinterpret_cast<char&>( d_ ): 0;
     }

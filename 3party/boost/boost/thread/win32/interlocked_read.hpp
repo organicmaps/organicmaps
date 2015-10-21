@@ -17,34 +17,29 @@
 
 #ifdef BOOST_MSVC
 
-extern "C" void _ReadWriteBarrier(void);
-#pragma intrinsic(_ReadWriteBarrier)
-
 namespace boost
 {
     namespace detail
     {
+        // Since VS2005 volatile reads always acquire
         inline long interlocked_read_acquire(long volatile* x) BOOST_NOEXCEPT
         {
             long const res=*x;
-            _ReadWriteBarrier();
             return res;
         }
         inline void* interlocked_read_acquire(void* volatile* x) BOOST_NOEXCEPT
         {
             void* const res=*x;
-            _ReadWriteBarrier();
             return res;
         }
 
+        // Since VS2005 volatile writes always release
         inline void interlocked_write_release(long volatile* x,long value) BOOST_NOEXCEPT
         {
-            _ReadWriteBarrier();
             *x=value;
         }
         inline void interlocked_write_release(void* volatile* x,void* value) BOOST_NOEXCEPT
         {
-            _ReadWriteBarrier();
             *x=value;
         }
     }

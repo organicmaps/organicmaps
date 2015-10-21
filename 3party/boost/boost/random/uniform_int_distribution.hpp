@@ -30,6 +30,7 @@
 #include <boost/random/detail/signed_unsigned_tools.hpp>
 #include <boost/type_traits/make_unsigned.hpp>
 #include <boost/type_traits/is_integral.hpp>
+#include <boost/mpl/bool.hpp>
 
 namespace boost {
 namespace random {

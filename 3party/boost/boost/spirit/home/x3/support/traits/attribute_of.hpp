@@ -9,10 +9,6 @@
 #if !defined(BOOST_SPIRIT_X3_ATTRIBUTE_OF_JAN_7_2012_0914AM)
 #define BOOST_SPIRIT_X3_ATTRIBUTE_OF_JAN_7_2012_0914AM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/spirit/home/x3/support/utility/sfinae.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/utility/enable_if.hpp>

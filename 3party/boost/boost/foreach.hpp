@@ -398,10 +398,16 @@ struct foreach_reference
 // encode_type
 //
 template<typename T>
-inline type2type<T> *encode_type(T &, boost::mpl::false_ *) { return 0; }
+inline type2type<T> *encode_type(T &, boost::false_type*) { return 0; }
 
 template<typename T>
-inline type2type<T, const_> *encode_type(T const &, boost::mpl::true_ *) { return 0; }
+inline type2type<T, const_> *encode_type(T const &, boost::true_type*) { return 0; }
+
+template<typename T>
+inline type2type<T> *encode_type(T &, boost::mpl::false_*) { return 0; }
+
+template<typename T>
+inline type2type<T, const_> *encode_type(T const &, boost::mpl::true_*) { return 0; }
 
 ///////////////////////////////////////////////////////////////////////////////
 // set_false

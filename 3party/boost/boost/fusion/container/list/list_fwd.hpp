@@ -1,51 +1,43 @@
 /*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
+    Copyright (c) 2014 Kohei Takahashi
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 ==============================================================================*/
-#if !defined(FUSION_LIST_FORWARD_07172005_0224)
-#define FUSION_LIST_FORWARD_07172005_0224
+#ifndef FUSION_LIST_FORWARD_10262014_0528
+#define FUSION_LIST_FORWARD_10262014_0528
 
 #include <boost/fusion/support/config.hpp>
-#include <boost/fusion/container/list/limits.hpp>
-#include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
+#include <boost/config.hpp>
 
-#if !defined(BOOST_FUSION_DONT_USE_PREPROCESSED_FILES)
-#include <boost/fusion/container/list/detail/preprocessed/list_fwd.hpp>
+#if  defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) \
+  || (defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES))
+# if defined(BOOST_FUSION_HAS_VARIADIC_LIST)
+#   undef BOOST_FUSION_HAS_VARIADIC_LIST
+# endif
 #else
-#if defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES)
-#pragma wave option(preserve: 2, line: 0, output: "detail/preprocessed/list" FUSION_MAX_LIST_SIZE_STR "_fwd.hpp")
+# if !defined(BOOST_FUSION_HAS_VARIADIC_LIST)
+#   define BOOST_FUSION_HAS_VARIADIC_LIST
+# endif
 #endif
 
-/*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
+///////////////////////////////////////////////////////////////////////////////
+// With no variadics, we will use the C++03 version
+///////////////////////////////////////////////////////////////////////////////
+#if !defined(BOOST_FUSION_HAS_VARIADIC_LIST)
+# include <boost/fusion/container/list/detail/cpp03/list_fwd.hpp>
+#else
 
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-
-    This is an auto-generated file. Do not edit!
-==============================================================================*/
-
-#if defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES)
-#pragma wave option(preserve: 1)
-#endif
-
+///////////////////////////////////////////////////////////////////////////////
+// C++11 interface
+///////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace fusion
 {
     struct void_;
 
-    template <
-        BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(
-            FUSION_MAX_LIST_SIZE, typename T, void_)
-    >
+    template <typename ...T>
     struct list;
 }}
 
-#if defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES)
-#pragma wave option(output: null)
 #endif
-
-#endif // BOOST_FUSION_DONT_USE_PREPROCESSED_FILES
-
 #endif

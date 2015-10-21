@@ -147,11 +147,6 @@ namespace detail
   template <class T>
   inline PyObject* registry_to_python_value<T>::operator()(argument_type x) const
   {
-      typedef converter::registered<argument_type> r;
-# if BOOST_WORKAROUND(__GNUC__, < 3)
-      // suppresses an ICE, somehow
-      (void)r::converters;
-# endif 
       return converter::registered<argument_type>::converters.to_python(&x);
   }
 

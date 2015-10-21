@@ -97,39 +97,28 @@ namespace executors
      */
     void submit(BOOST_THREAD_RV_REF(work) closure)  {
       return ex.submit(boost::move(closure));
-      //return ex.submit(boost::forward<work>(closure));
     }
+//    void submit(work & closure)  {
+//      return ex.submit(closure);
+//    }
 
 #if defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename Closure>
     void submit(Closure & closure)
     {
-      work w ((closure));
-      submit(boost::move(w));
-      //submit(work(closure));
+      submit(work(closure));
     }
 #endif
     void submit(void (*closure)())
     {
-      work w ((closure));
-      submit(boost::move(w));
-      //submit(work(closure));
+      submit(work(closure));
     }
 
-#if 0
     template <typename Closure>
     void submit(BOOST_THREAD_RV_REF(Closure) closure)
     {
-      work w =boost::move(closure);
-      submit(boost::move(w));
-    }
-#else
-    template <typename Closure>
-    void submit(BOOST_THREAD_FWD_REF(Closure) closure)
-    {
       submit(work(boost::forward<Closure>(closure)));
     }
-#endif
 
     /**
      * Effects: try to execute one task.

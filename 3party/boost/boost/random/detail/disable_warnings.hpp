@@ -20,6 +20,7 @@
 #pragma warning(disable:4512)
 #pragma warning(disable:4127)
 #pragma warning(disable:4724)
+#pragma warning(disable:4800) // 'int' : forcing value to bool 'true' or 'false' (performance warning)
 #endif
 
 #if defined(BOOST_GCC) && BOOST_GCC >= 40600

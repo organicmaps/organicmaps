@@ -29,19 +29,24 @@
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace spirit
 {
+#if defined(BOOST_VARIANT_DO_NOT_USE_VARIADIC_TEMPLATES)
     template <
         BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(
-            BOOST_VARIANT_LIMIT_TYPES,
+            BOOST_SPIRIT_EXTENDED_VARIANT_LIMIT_TYPES,
             typename T, boost::detail::variant::void_)
             // We should not be depending on detail::variant::void_
             // but I'm not sure if this can fixed. Any other way is
             // clumsy at best.
         >
+#else
+    template <typename... Types>
+#endif
     struct extended_variant
     {
         // tell spirit that this is an adapted variant
         struct adapted_variant_tag;
 
+#if defined(BOOST_VARIANT_DO_NOT_USE_VARIADIC_TEMPLATES)
         typedef boost::variant<
             BOOST_SPIRIT_EXTENDED_VARIANT_ENUM_PARAMS(T)>
         variant_type;
@@ -50,6 +55,11 @@ namespace boost { namespace spirit
         typedef extended_variant<
             BOOST_SPIRIT_EXTENDED_VARIANT_ENUM_PARAMS(T)
         > base_type;
+#else
+        typedef boost::variant<Types...> variant_type;
+        typedef typename variant_type::types types;
+        typedef extended_variant<Types...> base_type;
+#endif
 
         extended_variant() : var() {}
 
@@ -101,6 +111,7 @@ namespace boost { namespace spirit
 
 namespace boost
 {
+#if defined(BOOST_VARIANT_DO_NOT_USE_VARIADIC_TEMPLATES)
     template <typename T, BOOST_SPIRIT_EXTENDED_VARIANT_ENUM_PARAMS(typename T)>
     inline T const&
     get(boost::spirit::extended_variant<
@@ -132,6 +143,35 @@ namespace boost
     {
         return boost::get<T>(&x->get());
     }
+#else
+    template <typename T, typename... Types>
+    inline T const&
+    get(boost::spirit::extended_variant<Types...> const& x)
+    {
+        return boost::get<T>(x.get());
+    }
+
+    template <typename T, typename... Types>
+    inline T&
+    get(boost::spirit::extended_variant<Types...>& x)
+    {
+        return boost::get<T>(x.get());
+    }
+
+    template <typename T, typename... Types>
+    inline T const*
+    get(boost::spirit::extended_variant<Types...> const* x)
+    {
+        return boost::get<T>(&x->get());
+    }
+
+    template <typename T, typename... Types>
+    inline T*
+    get(boost::spirit::extended_variant<Types...>* x)
+    {
+        return boost::get<T>(&x->get());
+    }
+#endif
 }
 
 #undef BOOST_SPIRIT_EXTENDED_VARIANT_ENUM_PARAMS

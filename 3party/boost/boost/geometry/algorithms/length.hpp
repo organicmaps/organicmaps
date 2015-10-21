@@ -229,7 +229,7 @@ struct length<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
         Strategy const& strategy
     )
     {
-        return apply_visitor(visitor<Strategy>(strategy), geometry);
+        return boost::apply_visitor(visitor<Strategy>(strategy), geometry);
     }
 };
 

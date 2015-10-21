@@ -37,10 +37,6 @@
 # include <boost/mpl/always.hpp>
 # include <boost/mpl/apply_wrap.hpp>
 
-# if BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
-#  include <boost/type.hpp>
-# endif
-
 namespace boost { namespace parameter { namespace aux {
 
 #  if ! defined(BOOST_NO_SFINAE) && ! BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x592))
@@ -102,41 +98,6 @@ struct match
 {};
 # endif 
 
-# if BOOST_WORKAROUND(BOOST_MSVC, == 1300)
-
-// Function template argument deduction does many of the same things
-// as type matching during partial specialization, so we call a
-// function template to "store" T into the type memory addressed by
-// void(*)(T).
-template <class T>
-msvc_store_type<T,void*(*)(void**(T))>
-msvc_store_predicate_type(void*(*)(void**(T)));
-
-template <class T>
-msvc_store_type<boost::is_convertible<mpl::_,T>,void*(*)(void*(T))>
-msvc_store_predicate_type(void*(*)(void*(T)));
-
-template <class FunctionType>
-struct unwrap_predicate
-{
-    static FunctionType f;
-
-    // We don't want the function to be evaluated, just instantiated,
-    // so protect it inside of sizeof.
-    enum { dummy = sizeof(msvc_store_predicate_type(f)) };
-
-    // Now pull the type out of the instantiated base class
-    typedef typename msvc_type_memory<FunctionType>::storage::type type;
-};
-
-template <>
-struct unwrap_predicate<void*(*)(void**)>
-{
-    typedef mpl::always<mpl::true_> type;
-};
-
-# endif
-
 # undef false_
 
 template <
@@ -158,7 +119,6 @@ struct argument_pack
     typedef typename mpl::first<result>::type type;
 };
 
-# if 1 //BOOST_WORKAROUND(BOOST_MSVC, < 1300)
 // Works around VC6 problem where it won't accept rvalues.
 template <class T>
 T& as_lvalue(T& value, long)
@@ -171,11 +131,9 @@ T const& as_lvalue(T const& value, int)
 {
     return value;
 }
-# endif
 
 
-# if BOOST_WORKAROUND(BOOST_MSVC, < 1300) \
-  || BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x564))
+# if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x564))
 
 template <class Predicate, class T, class Args>
 struct apply_predicate
@@ -502,13 +460,7 @@ struct funptr_predicate<void**>
 #  define BOOST_PARAMETER_FUNCTION_PARAMETERS_QUALIFIER_deduced_required(tag) \
     required<boost::parameter::deduced<tag>
 
-# if !BOOST_WORKAROUND(BOOST_MSVC, < 1300) && !BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x564))
-
-#  if BOOST_WORKAROUND(BOOST_MSVC, == 1300)
-#   define BOOST_PARAMETER_PREDICATE_TYPE(p) void*(*) (void* p)
-#  else
-#   define BOOST_PARAMETER_PREDICATE_TYPE(p) void p
-#  endif
+# if !BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x564))
 
 #  define BOOST_PARAMETER_FUNCTION_PARAMETERS_M(r,tag_namespace,i,elem) \
     BOOST_PP_COMMA_IF(i) \
@@ -521,23 +473,8 @@ struct funptr_predicate<void**>
         ) \
     ) \
       , typename boost::parameter::aux::unwrap_predicate< \
-            BOOST_PARAMETER_PREDICATE_TYPE(BOOST_PARAMETER_FN_ARG_PRED(elem)) \
+            void BOOST_PARAMETER_FN_ARG_PRED(elem) \
         >::type \
-    >
-# elif BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-#  define BOOST_PARAMETER_FUNCTION_PARAMETERS_M(r,tag_namespace,i,elem) \
-    BOOST_PP_COMMA_IF(i) \
-    boost::parameter::BOOST_PP_CAT( \
-        BOOST_PARAMETER_FUNCTION_PARAMETERS_QUALIFIER_ \
-      , BOOST_PARAMETER_FN_ARG_QUALIFIER(elem) \
-    )( \
-        tag_namespace::BOOST_PARAMETER_FUNCTION_KEYWORD( \
-            BOOST_PARAMETER_FN_ARG_KEYWORD(elem) \
-        ) \
-    ) \
-      , boost::parameter::aux::funptr_predicate< \
-            void* BOOST_PARAMETER_FN_ARG_PRED(elem) \
-        > \
     >
 # elif BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x564))
 #  define BOOST_PARAMETER_FUNCTION_PARAMETERS_M(r,tag_namespace,i,elem) \
@@ -582,21 +519,6 @@ struct funptr_predicate<void**>
     {                                                                                           \
         typedef typename BOOST_PARAMETER_PARENTHESIZED_TYPE(result) type;                       \
     };
-
-# if BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
-
-#  define BOOST_PARAMETER_FUNCTION_RESULT(result, name, args)  \
-    BOOST_PARAMETER_FUNCTION_RESULT_(result, name, args)        \
-    template <>                                                 \
-    struct BOOST_PARAMETER_FUNCTION_RESULT_NAME(name)<int>      \
-    { typedef int type; };
-
-# else
-
-#  define BOOST_PARAMETER_FUNCTION_RESULT(result, name, args)  \
-    BOOST_PARAMETER_FUNCTION_RESULT_(result, name, args)
-
-# endif
 
 // Defines implementation function
 # define BOOST_PARAMETER_FUNCTION_IMPL_HEAD(name)           \
@@ -896,7 +818,7 @@ struct funptr_predicate<void**>
     BOOST_PARAMETER_MEMBER_FUNCTION_STATIC(name) \
     ResultType BOOST_PARAMETER_FUNCTION_DEFAULT_NAME(name)( \
         ResultType(*)() \
-      , Args const& args \
+      , Args const& \
       , int \
         BOOST_PARAMETER_FUNCTION_DEFAULT_ARGUMENTS( \
             BOOST_PARAMETER_FUNCTION_DEFAULT_FUNCTION_ARG \
@@ -915,7 +837,7 @@ struct funptr_predicate<void**>
 
 // Defines the result metafunction and the parameters specialization.
 # define BOOST_PARAMETER_FUNCTION_HEAD(result, name, tag_namespace, args)   \
-      BOOST_PARAMETER_FUNCTION_RESULT(result, name, args)                   \
+      BOOST_PARAMETER_FUNCTION_RESULT_(result, name, args)                   \
                                                                             \
           BOOST_PARAMETER_FUNCTION_PARAMETERS(tag_namespace, name, args)    \
           BOOST_PARAMETER_FUNCTION_PARAMETERS_NAME(name);                   \
@@ -1021,18 +943,6 @@ struct funptr_predicate<void**>
     BOOST_PP_COMMA_IF(i) elem& BOOST_PP_CAT(a, i)
 /**/
 
-# if BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
-
-// Older MSVC can't do what's necessary to handle commas in base names; just
-// use a typedef instead if you have a base name that contains commas.
-#  define BOOST_PARAMETER_PARENTHESIZED_BASE(x) BOOST_PP_SEQ_HEAD(x)
-
-# else
-
-#  define BOOST_PARAMETER_PARENTHESIZED_BASE(x) BOOST_PARAMETER_PARENTHESIZED_TYPE(x)
-
-# endif
-
 # define BOOST_PARAMETER_FUNCTION_FWD_CONSTRUCTOR00(z, n, r, data, elem) \
     BOOST_PP_IF( \
         n \
@@ -1057,7 +967,7 @@ struct funptr_predicate<void**>
           , n \
         ) \
     ) \
-      : BOOST_PARAMETER_PARENTHESIZED_BASE(BOOST_PP_TUPLE_ELEM(6,3,data)) ( \
+      : BOOST_PARAMETER_PARENTHESIZED_TYPE(BOOST_PP_TUPLE_ELEM(6,3,data)) ( \
             BOOST_PP_CAT(constructor_parameters, __LINE__)()( \
                 BOOST_PP_ENUM_PARAMS_Z(z, n, a) \
             ) \
@@ -1148,18 +1058,7 @@ struct funptr_predicate<void**>
       , (const ParameterArgumentType ## i)(ParameterArgumentType ## i) \
       , (const ParameterArgumentType ## i) \
     ))
-// MSVC6.5 lets us bind rvalues to T&.
-# elif BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-#  define BOOST_PARAMETER_FUNCTION_FWD_COMBINATION(r, _, i, elem) \
-    (BOOST_PP_IF( \
-        BOOST_PARAMETER_FUNCTION_IS_KEYWORD_QUALIFIER( \
-            BOOST_PARAMETER_FN_ARG_NAME(elem) \
-        ) \
-      , (ParameterArgumentType ## i) \
-      , (const ParameterArgumentType ## i) \
-    ))
 // No partial ordering. This feature doesn't work.
-// This is exactly the same as for VC6.5, but we might change it later.
 # else
 #  define BOOST_PARAMETER_FUNCTION_FWD_COMBINATION(r, _, i, elem) \
     (BOOST_PP_IF( \

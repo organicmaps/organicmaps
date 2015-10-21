@@ -14,6 +14,7 @@
 #include <boost/context/fcontext.hpp>
 
 #include <boost/coroutine/detail/config.hpp>
+#include <boost/coroutine/detail/preallocated.hpp>
 #include <boost/coroutine/stack_context.hpp>
 
 #ifdef BOOST_HAS_ABI_HEADERS
@@ -26,10 +27,9 @@ namespace detail {
 
 // class hold stack-context and coroutines execution-context
 class BOOST_COROUTINES_DECL coroutine_context
-                    
 {
 private:
-    stack_context           stack_ctx_;
+    preallocated            palloc_;
     context::fcontext_t     ctx_;
 
 public:
@@ -41,7 +41,7 @@ public:
     // ctor creates a new execution-context running coroutine-fn `fn`
     // `ctx_` will be allocated on top of the stack managed by parameter
     // `stack_ctx`
-    coroutine_context( ctx_fn fn, stack_context const& stack_ctx);
+    coroutine_context( ctx_fn fn, preallocated const& palloc);
 
     coroutine_context( coroutine_context const&);
 
@@ -50,7 +50,7 @@ public:
     intptr_t jump( coroutine_context &, intptr_t = 0, bool = true);
 
     stack_context & stack_ctx()
-    { return stack_ctx_; }
+    { return palloc_.sctx; }
 };
 
 }}}

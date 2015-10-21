@@ -12,12 +12,10 @@
 #pragma warning(push,1)
 #endif
 
-#include <boost/detail/sp_typeinfo.hpp>
+#include <boost/core/typeinfo.hpp>
+#include <boost/core/demangle.hpp>
 #include <boost/current_function.hpp>
 #include <boost/config.hpp>
-//#ifndef BOOST_NO_TYPEID
-//#include <boost/units/detail/utility.hpp>
-//#endif
 #include <string>
 
 namespace
@@ -31,7 +29,7 @@ boost
 #ifdef BOOST_NO_TYPEID
         return BOOST_CURRENT_FUNCTION;
 #else
-        return /*units::detail::demangle*/(typeid(T*).name());
+        return core::demangle(typeid(T*).name());
 #endif
         }
 
@@ -43,7 +41,7 @@ boost
 #ifdef BOOST_NO_TYPEID
         return BOOST_CURRENT_FUNCTION;
 #else
-        return /*units::detail::demangle*/(typeid(T).name());
+        return core::demangle(typeid(T).name());
 #endif
         }
 
@@ -53,10 +51,10 @@ boost
         struct
         type_info_
             {
-            detail::sp_typeinfo const * type_;
+            core::typeinfo const * type_;
 
             explicit
-            type_info_( detail::sp_typeinfo const & type ):
+            type_info_( core::typeinfo const & type ):
                 type_(&type)
                 {
                 }
@@ -71,7 +69,7 @@ boost
         }
     }
 
-#define BOOST_EXCEPTION_STATIC_TYPEID(T) ::boost::exception_detail::type_info_(BOOST_SP_TYPEID(T))
+#define BOOST_EXCEPTION_STATIC_TYPEID(T) ::boost::exception_detail::type_info_(BOOST_CORE_TYPEID(T))
 
 #ifndef BOOST_NO_RTTI
 #define BOOST_EXCEPTION_DYNAMIC_TYPEID(x) ::boost::exception_detail::type_info_(typeid(x))

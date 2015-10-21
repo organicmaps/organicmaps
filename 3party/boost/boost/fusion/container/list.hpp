@@ -10,7 +10,6 @@
 #include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/list/cons.hpp>
 #include <boost/fusion/container/list/cons_iterator.hpp>
-#include <boost/fusion/container/list/limits.hpp>
 #include <boost/fusion/container/list/list.hpp>
 #include <boost/fusion/container/list/list_fwd.hpp>
 #include <boost/fusion/container/list/convert.hpp>

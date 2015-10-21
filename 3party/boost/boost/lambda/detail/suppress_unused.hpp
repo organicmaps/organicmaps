@@ -10,8 +10,8 @@
 
 // ------------------------------------------------------------
 
-#ifndef BOOST_LAMBDA_SUPRESS_UNUSED_HPP
-#define BOOST_LAMBDA_SUPRESS_UNUSED_HPP
+#ifndef BOOST_LAMBDA_SUPPRESS_UNUSED_HPP
+#define BOOST_LAMBDA_SUPPRESS_UNUSED_HPP
 
 namespace boost { 
 namespace lambda {

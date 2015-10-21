@@ -82,7 +82,6 @@ struct segments_intersection_points
             >(numerator * dy_promoted / denominator));
     }
 
-
     template
     <
         typename Segment1,
@@ -96,7 +95,33 @@ struct segments_intersection_points
         return_type result;
         result.count = 1;
 
-        if (sinfo.robust_ra < sinfo.robust_rb)
+        bool use_a = true;
+
+        // Prefer one segment if one is on or near an endpoint
+        bool const a_near_end = sinfo.robust_ra.near_end();
+        bool const b_near_end = sinfo.robust_rb.near_end();
+        if (a_near_end && ! b_near_end)
+        {
+            use_a = true;
+        }
+        else if (b_near_end && ! a_near_end)
+        {
+            use_a = false;
+        }
+        else
+        {
+            // Prefer shorter segment
+            typedef typename SegmentIntersectionInfo::promoted_type ptype;
+            ptype const len_a = sinfo.dx_a * sinfo.dx_a + sinfo.dy_a * sinfo.dy_a;
+            ptype const len_b = sinfo.dx_b * sinfo.dx_b + sinfo.dy_b * sinfo.dy_b;
+            if (len_b < len_a)
+            {
+                use_a = false;
+            }
+            // else use_a is true but was already assigned like that
+        }
+
+        if (use_a)
         {
             assign(result.intersections[0], s1, sinfo.robust_ra,
                 sinfo.dx_a, sinfo.dy_a);

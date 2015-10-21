@@ -11,7 +11,11 @@
 #ifndef BOOST_INTERPROCESS_CACHED_NODE_ALLOCATOR_HPP
 #define BOOST_INTERPROCESS_CACHED_NODE_ALLOCATOR_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -34,7 +38,7 @@ namespace boost {
 namespace interprocess {
 
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
 namespace ipcdetail {
 
@@ -86,14 +90,14 @@ class cached_node_allocator_v1
 
 }  //namespace ipcdetail{
 
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 template < class T
          , class SegmentManager
          , std::size_t NodesPerBlock
          >
 class cached_node_allocator
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    :  public ipcdetail::cached_allocator_impl
          < T
          , ipcdetail::shared_node_pool
@@ -102,7 +106,7 @@ class cached_node_allocator
             , NodesPerBlock
             >
          , 2>
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 {
 
    #ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
@@ -240,11 +244,8 @@ class cached_node_allocator
    //!allocate, allocation_command and allocate_many.
    size_type size(const pointer &p) const;
 
-   std::pair<pointer, bool>
-      allocation_command(boost::interprocess::allocation_type command,
-                         size_type limit_size,
-                         size_type preferred_size,
-                         size_type &received_size, const pointer &reuse = 0);
+   pointer allocation_command(boost::interprocess::allocation_type command,
+                           size_type limit_size, size_type &prefer_in_recvd_out_size, pointer &reuse);
 
    //!Allocates many elements of size elem_size in a contiguous block
    //!of memory. The minimum number to be allocated is min_elements,

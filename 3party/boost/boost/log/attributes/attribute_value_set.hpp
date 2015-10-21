@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2014.
+ *          Copyright Andrey Semashev 2007 - 2015.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -330,7 +330,7 @@ public:
      */
     BOOST_LOG_API size_type size() const;
     /*!
-     * \return true if there are no elements in the container, false otherwise.
+     * \return \c true if there are no elements in the container, \c false otherwise.
      */
     bool empty() const { return (this->size() == 0); }
 

@@ -1,4 +1,4 @@
-// (C) Copyright 2013 Vicente J. Botet Escriba
+// (C) Copyright 2013,2015 Vicente J. Botet Escriba
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -12,6 +12,7 @@
 #include <boost/thread/thread.hpp>
 #endif
 #include <boost/current_function.hpp>
+#include <boost/io/ios_state.hpp>
 #include <iomanip>
 
 #include <boost/config/abi_prefix.hpp>
@@ -43,9 +44,11 @@ namespace boost
 #endif
     {
       io::ios_flags_saver ifs(os);
-      os << ctx.filename << "["
+      os << std::setw(50) << ctx.filename << "["
          << std::setw(4) << std::right << std::dec<< ctx.lineno << "] ";
+#if defined BOOST_THREAD_USES_LOG_CURRENT_FUNCTION
       os << ctx.func << " " ;
+#endif
     }
     return os;
   }

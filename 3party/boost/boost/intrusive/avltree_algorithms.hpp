@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 //
 // (C) Copyright Daniel K. O. 2005.
-// (C) Copyright Ion Gaztanaga 2007-2013
+// (C) Copyright Ion Gaztanaga 2007-2014
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -20,9 +20,13 @@
 #include <cstddef>
 
 #include <boost/intrusive/detail/assert.hpp>
-#include <boost/intrusive/detail/utilities.hpp>
+#include <boost/intrusive/detail/algo_type.hpp>
+#include <boost/intrusive/detail/ebo_functor_holder.hpp>
 #include <boost/intrusive/bstree_algorithms.hpp>
-#include <boost/intrusive/pointer_traits.hpp>
+
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
 
 
 namespace boost {
@@ -32,7 +36,8 @@ namespace intrusive {
 
 template<class NodeTraits, class F>
 struct avltree_node_cloner
-   :  private detail::ebo_functor_holder<F>
+   //Use public inheritance to avoid MSVC bugs with closures
+   :  public detail::ebo_functor_holder<F>
 {
    typedef typename NodeTraits::node_ptr  node_ptr;
    typedef detail::ebo_functor_holder<F>  base_t;
@@ -47,7 +52,54 @@ struct avltree_node_cloner
       NodeTraits::set_balance(n, NodeTraits::get_balance(p));
       return n;
    }
+
+   node_ptr operator()(const node_ptr & p) const
+   {
+      node_ptr n = base_t::get()(p);
+      NodeTraits::set_balance(n, NodeTraits::get_balance(p));
+      return n;
+   }
 };
+
+namespace detail {
+
+template<class ValueTraits, class NodePtrCompare, class ExtraChecker>
+struct avltree_node_checker
+      : public bstree_node_checker<ValueTraits, NodePtrCompare, ExtraChecker>
+{
+   typedef bstree_node_checker<ValueTraits, NodePtrCompare, ExtraChecker> base_checker_t;
+   typedef ValueTraits                             value_traits;
+   typedef typename value_traits::node_traits      node_traits;
+   typedef typename node_traits::const_node_ptr    const_node_ptr;
+
+   struct return_type
+         : public base_checker_t::return_type
+   {
+      return_type() : height(0) {}
+      int height;
+   };
+
+   avltree_node_checker(const NodePtrCompare& comp, ExtraChecker extra_checker)
+      : base_checker_t(comp, extra_checker)
+   {}
+
+   void operator () (const const_node_ptr& p,
+                     const return_type& check_return_left, const return_type& check_return_right,
+                     return_type& check_return)
+   {
+      const int height_diff = check_return_right.height - check_return_left.height; (void)height_diff;
+      BOOST_INTRUSIVE_INVARIANT_ASSERT(
+         (height_diff == -1 && node_traits::get_balance(p) == node_traits::negative()) ||
+         (height_diff ==  0 && node_traits::get_balance(p) == node_traits::zero()) ||
+         (height_diff ==  1 && node_traits::get_balance(p) == node_traits::positive())
+      );
+      check_return.height = 1 +
+         (check_return_left.height > check_return_right.height ? check_return_left.height : check_return_right.height);
+      base_checker_t::operator()(p, check_return_left, check_return_right, check_return);
+   }
+};
+
+} // namespace detail
 
 /// @endcond
 
@@ -125,7 +177,7 @@ class avltree_algorithms
 
    //! @copydoc ::boost::intrusive::bstree_algorithms::swap_tree
    static void swap_tree(const node_ptr & header1, const node_ptr & header2);
-   
+
    #endif   //#ifdef BOOST_INTRUSIVE_DOXYGEN_INVOKED
 
    //! @copydoc ::boost::intrusive::bstree_algorithms::swap_nodes(const node_ptr&,const node_ptr&)
@@ -411,7 +463,9 @@ class avltree_algorithms
 
    static void rebalance_after_erasure(const node_ptr & header, node_ptr x, node_ptr x_parent)
    {
-      for (node_ptr root = NodeTraits::get_parent(header); x != root; root = NodeTraits::get_parent(header)) {
+      for ( node_ptr root = NodeTraits::get_parent(header)
+          ; x != root
+          ; root = NodeTraits::get_parent(header), x_parent = NodeTraits::get_parent(x)) {
          const balance x_parent_balance = NodeTraits::get_balance(x_parent);
          //Don't cache x_is_leftchild or similar because x can be null and
          //equal to both x_parent_left and x_parent_right
@@ -453,7 +507,6 @@ class avltree_algorithms
             }
             else {
                // x is left child (x_parent_right is the right child)
-               const node_ptr x_parent_right(NodeTraits::get_right(x_parent));
                BOOST_INTRUSIVE_INVARIANT_ASSERT(x_parent_right);
                if (NodeTraits::get_balance(x_parent_right) == NodeTraits::negative()) {
                   // x_parent_right MUST have then a left child
@@ -473,7 +526,6 @@ class avltree_algorithms
          else{
             BOOST_INTRUSIVE_INVARIANT_ASSERT(false);  // never reached
          }
-         x_parent = NodeTraits::get_parent(x);
       }
    }
 
@@ -561,7 +613,7 @@ class avltree_algorithms
       const node_ptr c = NodeTraits::get_right(a_oldleft);
       bstree_algo::rotate_left_no_parent_fix(a_oldleft, c);
       //No need to link c with a [NodeTraits::set_parent(c, a) + NodeTraits::set_left(a, c)]
-      //as c is not root and another rotation is coming 
+      //as c is not root and another rotation is coming
       bstree_algo::rotate_right(a, c, NodeTraits::get_parent(a), hdr);
       left_right_balancing(a, a_oldleft, c);
       return c;
@@ -626,6 +678,12 @@ template<class NodeTraits>
 struct get_algo<AvlTreeAlgorithms, NodeTraits>
 {
    typedef avltree_algorithms<NodeTraits> type;
+};
+
+template <class ValueTraits, class NodePtrCompare, class ExtraChecker>
+struct get_node_checker<AvlTreeAlgorithms, ValueTraits, NodePtrCompare, ExtraChecker>
+{
+   typedef detail::avltree_node_checker<ValueTraits, NodePtrCompare, ExtraChecker> type;
 };
 
 /// @endcond

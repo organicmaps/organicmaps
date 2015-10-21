@@ -24,7 +24,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Sequence, typename F>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline bool
     all(Sequence const& seq, F f)
     {

@@ -1,100 +1,127 @@
 /*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
+    Copyright (c) 2014-2015 Kohei Takahashi
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 ==============================================================================*/
-#if !defined(FUSION_LIST_07172005_1153)
-#define FUSION_LIST_07172005_1153
+#ifndef FUSION_LIST_10262014_0537
+#define FUSION_LIST_10262014_0537
 
 #include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/list/list_fwd.hpp>
-#include <boost/fusion/container/list/detail/list_to_cons.hpp>
 
-#if !defined(BOOST_FUSION_DONT_USE_PREPROCESSED_FILES)
-#include <boost/fusion/container/list/detail/preprocessed/list.hpp>
+///////////////////////////////////////////////////////////////////////////////
+// Without variadics, we will use the PP version
+///////////////////////////////////////////////////////////////////////////////
+#if !defined(BOOST_FUSION_HAS_VARIADIC_LIST)
+# include <boost/fusion/container/list/detail/cpp03/list.hpp>
 #else
-#if defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES)
-#pragma wave option(preserve: 2, line: 0, output: "detail/preprocessed/list" FUSION_MAX_LIST_SIZE_STR ".hpp")
-#endif
 
-/*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-
-    This is an auto-generated file. Do not edit!
-==============================================================================*/
-
-#if defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES)
-#pragma wave option(preserve: 1)
-#endif
+///////////////////////////////////////////////////////////////////////////////
+// C++11 interface
+///////////////////////////////////////////////////////////////////////////////
+#include <utility>
+#include <boost/fusion/container/list/detail/list_to_cons.hpp>
 
 namespace boost { namespace fusion
 {
     struct nil_;
-    struct void_;
 
-    template <BOOST_PP_ENUM_PARAMS(FUSION_MAX_LIST_SIZE, typename T)>
-    struct list
-        : detail::list_to_cons<BOOST_PP_ENUM_PARAMS(FUSION_MAX_LIST_SIZE, T)>::type
+    template <>
+    struct list<>
+        : detail::list_to_cons<>::type
     {
     private:
-        typedef
-            detail::list_to_cons<BOOST_PP_ENUM_PARAMS(FUSION_MAX_LIST_SIZE, T)>
-        list_to_cons;
+        typedef detail::list_to_cons<> list_to_cons;
+        typedef list_to_cons::type inherited_type;
 
     public:
-        typedef typename list_to_cons::type inherited_type;
-
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         list()
             : inherited_type() {}
 
-        template <BOOST_PP_ENUM_PARAMS(FUSION_MAX_LIST_SIZE, typename U)>
-        BOOST_FUSION_GPU_ENABLED
-        list(list<BOOST_PP_ENUM_PARAMS(FUSION_MAX_LIST_SIZE, U)> const& rhs)
-            : inherited_type(rhs) {}
-
+#if defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
         template <typename Sequence>
         BOOST_FUSION_GPU_ENABLED
         list(Sequence const& rhs)
             : inherited_type(rhs) {}
 
-        //  Expand a couple of forwarding constructors for arguments
-        //  of type (T0), (T0, T1), (T0, T1, T2) etc. Exanple:
-        //
-        //  list(
-        //      typename detail::call_param<T0>::type _0
-        //    , typename detail::call_param<T1>::type _1)
-        //    : inherited_type(list_to_cons::call(_0, _1)) {}
-        #include <boost/fusion/container/list/detail/list_forward_ctor.hpp>
-
-        template <BOOST_PP_ENUM_PARAMS(FUSION_MAX_LIST_SIZE, typename U)>
-        BOOST_FUSION_GPU_ENABLED
+        template <typename Sequence>
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         list&
-        operator=(list<BOOST_PP_ENUM_PARAMS(FUSION_MAX_LIST_SIZE, U)> const& rhs)
+        operator=(Sequence const& rhs)
         {
             inherited_type::operator=(rhs);
             return *this;
         }
-
-        template <typename T>
+#else
+        template <typename Sequence>
         BOOST_FUSION_GPU_ENABLED
+        list(Sequence&& rhs)
+            : inherited_type(std::forward<Sequence>(rhs)) {}
+
+        template <typename Sequence>
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         list&
-        operator=(T const& rhs)
+        operator=(Sequence&& rhs)
+        {
+            inherited_type::operator=(std::forward<Sequence>(rhs));
+            return *this;
+        }
+#endif
+    };
+
+    template <typename ...T>
+    struct list
+        : detail::list_to_cons<T...>::type
+    {
+    private:
+        typedef detail::list_to_cons<T...> list_to_cons;
+        typedef typename list_to_cons::type inherited_type;
+
+    public:
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+        list()
+            : inherited_type() {}
+
+#if defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
+        template <typename Sequence>
+        BOOST_FUSION_GPU_ENABLED
+        list(Sequence const& rhs)
+            : inherited_type(rhs) {}
+#else
+        template <typename Sequence>
+        BOOST_FUSION_GPU_ENABLED
+        list(Sequence&& rhs)
+            : inherited_type(std::forward<Sequence>(rhs)) {}
+#endif
+
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+        explicit
+        list(typename detail::call_param<T>::type ...args)
+            : inherited_type(list_to_cons::call(args...)) {}
+
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
+        template <typename Sequence>
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+        list&
+        operator=(Sequence const& rhs)
         {
             inherited_type::operator=(rhs);
             return *this;
         }
+#else
+        template <typename Sequence>
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+        list&
+        operator=(Sequence&& rhs)
+        {
+            inherited_type::operator=(std::forward<Sequence>(rhs));
+            return *this;
+        }
+#endif
     };
 }}
 
-#if defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES)
-#pragma wave option(output: null)
 #endif
-
-#endif // BOOST_FUSION_DONT_USE_PREPROCESSED_FILES
-
 #endif
