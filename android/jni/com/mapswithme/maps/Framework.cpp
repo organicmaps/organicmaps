@@ -148,6 +148,7 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   p.m_surfaceWidth = factory->GetWidth();
   p.m_surfaceHeight = factory->GetHeight();
   p.m_visualScale = visualScale;
+  p.m_initialMyPositionState = m_currentMode;
 
   ASSERT(!m_guiPositions.empty(), ("GUI elements must be set-up before engine is created"));
   p.m_widgetsInitInfo = m_guiPositions;

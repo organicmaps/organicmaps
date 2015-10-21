@@ -186,6 +186,7 @@ bool IsLocationEmulation(QMouseEvent * e)
     p.m_surfaceWidth = m_ratio * width();
     p.m_surfaceHeight = m_ratio * height();
     p.m_visualScale = m_ratio;
+    p.m_initialMyPositionState = location::MODE_UNKNOWN_POSITION;
 
     m_skin.reset(new gui::Skin(gui::ResolveGuiSkinFile("default"), m_ratio));
     m_skin->Resize(p.m_surfaceWidth, p.m_surfaceHeight);

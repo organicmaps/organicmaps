@@ -537,57 +537,74 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
     f.SetRouteBuildingListener([self, &f](routing::IRouter::ResultCode code, vector<storage::TIndex> const & absentCountries, vector<storage::TIndex> const & absentRoutes)
     {
-      switch (code)
+      vector<storage::TIndex> countries = absentCountries;
+      vector<storage::TIndex> routes = absentRoutes;
+      dispatch_async(dispatch_get_main_queue(), ^
       {
-        case routing::IRouter::ResultCode::NoError:
-        {
-          if (f.GetRouter() == routing::RouterType::Pedestrian)
-            [self countPedestrianRoute];
-          self.controlsManager.routeBuildingProgress = 100.;
-          f.ActivateUserMark(nullptr, true);
-          [self.searchView setState:SearchViewStateHidden animated:YES];
-          if (self.forceRoutingStateChange == ForceRoutingStateChangeStartFollowing)
-            [self.controlsManager routingNavigation];
-          else
-            [self.controlsManager routingReady];
-          [self updateRoutingInfo];
-          self.forceRoutingStateChange = ForceRoutingStateChangeNone;
-          bool isDisclaimerApproved = false;
-          (void)Settings::Get("IsDisclaimerApproved", isDisclaimerApproved);
-          if (!isDisclaimerApproved)
-          {
-            [self presentRoutingDisclaimerAlert];
-            Settings::Set("IsDisclaimerApproved", true);
-          }
-          break;
-        }
-        case routing::IRouter::RouteFileNotExist:
-        case routing::IRouter::InconsistentMWMandRoute:
-        case routing::IRouter::NeedMoreMaps:
-        case routing::IRouter::FileTooOld:
-        case routing::IRouter::RouteNotFound:
-          [self.controlsManager handleRoutingError];
-          [self presentDownloaderAlert:code countries:absentCountries routes:absentRoutes];
-          self.forceRoutingStateChange = ForceRoutingStateChangeNone;
-          break;
-        case routing::IRouter::Cancelled:
-          self.forceRoutingStateChange = ForceRoutingStateChangeNone;
-          break;
-        default:
-          [self.controlsManager handleRoutingError];
-          [self presentDefaultAlert:code];
-          self.forceRoutingStateChange = ForceRoutingStateChangeNone;
-          break;
-      }
+        [self processRoutingBuildingEvent:code countries:countries routes:routes];
+      });
     });
+    
     f.SetRouteProgressListener([self](float progress)
     {
-      self.controlsManager.routeBuildingProgress = progress;
+      dispatch_async(dispatch_get_main_queue(), ^
+      {
+        self.controlsManager.routeBuildingProgress = progress;
+      });
     });
   }
 
   NSLog(@"MapViewController initWithCoder Ended");
   return self;
+}
+
+- (void)processRoutingBuildingEvent:(routing::IRouter::ResultCode)code
+                          countries:(vector<storage::TIndex> const &)absentCountries
+                             routes:(vector<storage::TIndex> const &)absentRoutes
+{
+  Framework & f = GetFramework();
+  switch (code)
+  {
+    case routing::IRouter::ResultCode::NoError:
+    {
+      if (f.GetRouter() == routing::RouterType::Pedestrian)
+        [self countPedestrianRoute];
+      self.controlsManager.routeBuildingProgress = 100.;
+      f.ActivateUserMark(nullptr, true);
+      [self.searchView setState:SearchViewStateHidden animated:YES];
+      if (self.forceRoutingStateChange == ForceRoutingStateChangeStartFollowing)
+        [self.controlsManager routingNavigation];
+      else
+        [self.controlsManager routingReady];
+      [self updateRoutingInfo];
+      self.forceRoutingStateChange = ForceRoutingStateChangeNone;
+      bool isDisclaimerApproved = false;
+      (void)Settings::Get("IsDisclaimerApproved", isDisclaimerApproved);
+      if (!isDisclaimerApproved)
+      {
+        [self presentRoutingDisclaimerAlert];
+        Settings::Set("IsDisclaimerApproved", true);
+      }
+      break;
+    }
+    case routing::IRouter::RouteFileNotExist:
+    case routing::IRouter::InconsistentMWMandRoute:
+    case routing::IRouter::NeedMoreMaps:
+    case routing::IRouter::FileTooOld:
+    case routing::IRouter::RouteNotFound:
+      [self.controlsManager handleRoutingError];
+      [self presentDownloaderAlert:code countries:absentCountries routes:absentRoutes];
+      self.forceRoutingStateChange = ForceRoutingStateChangeNone;
+      break;
+    case routing::IRouter::Cancelled:
+      self.forceRoutingStateChange = ForceRoutingStateChangeNone;
+      break;
+    default:
+      [self.controlsManager handleRoutingError];
+      [self presentDefaultAlert:code];
+      self.forceRoutingStateChange = ForceRoutingStateChangeNone;
+      break;
+  }
 }
 
 - (void)openBookmarks

@@ -1259,7 +1259,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   OnSize(params.m_surfaceWidth, params.m_surfaceHeight);
 
   m_drapeEngine->SetMyPositionModeListener(m_myPositionListener);
-  InvalidateMyPosition();
+  m_drapeEngine->SetupMyPositionMode(params.m_initialMyPositionState);
 
   m_bmManager.InitBookmarks();
 
@@ -1781,8 +1781,6 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
 
   auto readyCallback = [this] (Route const & route, IRouter::ResultCode code)
   {
-    ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute_ReadyCallback"));
-
     vector<storage::TIndex> absentCountries;
     vector<storage::TIndex> absentRoutingIndexes;
     if (code == IRouter::NoError)
@@ -1792,7 +1790,7 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
       InsertRoute(route);
       m2::RectD routeRect = route.GetPoly().GetLimitRect();
       routeRect.Scale(kRouteScaleMultiplier);
-      m_drapeEngine->SetModelViewRect(routeRect, true, -1, true);
+      ShowRect(routeRect, -1);
     }
     else
     {
@@ -1811,12 +1809,7 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
     CallRouteBuilded(code, absentCountries, absentRoutingIndexes);
   };
 
-  m_routingSession.BuildRoute(start, finish,
-                              [readyCallback](Route const & route, IRouter::ResultCode code)
-                              {
-                                GetPlatform().RunOnGuiThread(bind(readyCallback, route, code));
-                              },
-                              m_progressCallback, timeoutSec);
+  m_routingSession.BuildRoute(start, finish, readyCallback, m_progressCallback, timeoutSec);
 }
 
 void Framework::FollowRoute()
@@ -1879,21 +1872,18 @@ void Framework::SetRouterImpl(RouterType type)
 
 void Framework::RemoveRoute(bool deactivateFollowing)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ("RemoveRoute"));
   if (m_drapeEngine != nullptr)
     m_drapeEngine->RemoveRoute(deactivateFollowing);
 }
 
 void Framework::CloseRouting()
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ("CloseRouting"));
   m_routingSession.Reset();
   RemoveRoute(true /* deactivateFollowing */);
 }
 
 void Framework::InsertRoute(Route const & route)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ("InsertRoute"));
   if (m_drapeEngine == nullptr)
     return;
 
@@ -1934,10 +1924,7 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
     };
 
     m2::PointD const & position = m_routingSession.GetUserCurrentPosition();
-    m_routingSession.RebuildRoute(position, [readyCallback](Route const & route, IRouter::ResultCode code)
-    {
-      GetPlatform().RunOnGuiThread(bind(readyCallback, route, code));
-    }, m_progressCallback, 0 /* timeoutSec */);
+    m_routingSession.RebuildRoute(position, readyCallback, m_progressCallback, 0 /* timeoutSec */);
   }
   else if (state == RoutingSession::RouteFinished)
   {

@@ -74,6 +74,7 @@ public:
   void NextMode(int preferredZoomLevel = -1);
   void TurnOff();
   void Invalidate();
+  void Setup(location::EMyPositionMode mode);
 
   void OnLocationUpdate(location::GpsInfo const & info, bool isNavigable, ScreenBase const & screen);
   void OnCompassUpdate(location::CompassInfo const & info, ScreenBase const & screen);

@@ -231,6 +231,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<ChangeMyPositionModeMessage> msg = message;
       switch (msg->GetChangeType())
       {
+      case ChangeMyPositionModeMessage::TYPE_SETUP:
+        m_myPositionController->Setup(msg->GetMode());
+        break;
       case ChangeMyPositionModeMessage::TYPE_NEXT:
         m_myPositionController->NextMode(msg->GetPreferredZoomLevel());
         break;

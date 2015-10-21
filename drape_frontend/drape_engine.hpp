@@ -88,6 +88,7 @@ public:
   void CancelMyPosition();
   void StopLocationFollow();
   void InvalidateMyPosition();
+  void SetupMyPositionMode(location::EMyPositionMode mode);
   void SetMyPositionModeListener(location::TMyPositionModeChanged const & fn);
 
   using TTapEventInfoFn = FrontendRenderer::TTapEventInfoFn;

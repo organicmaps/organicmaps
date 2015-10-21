@@ -251,7 +251,6 @@ public class MwmApplication extends Application
 
   public void runNativeFunctorOnUiThread(final long functorPointer)
   {
-    //TODO(android developer) implement categories of messages
     Message m = Message.obtain(mMainLoopHandler, new Runnable()
     {
       @Override

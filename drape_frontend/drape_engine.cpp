@@ -290,6 +290,13 @@ void DrapeEngine::InvalidateMyPosition()
                                   MessagePriority::High);
 }
 
+void DrapeEngine::SetupMyPositionMode(location::EMyPositionMode mode)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<ChangeMyPositionModeMessage>(ChangeMyPositionModeMessage::TYPE_SETUP, -1, mode),
+                                  MessagePriority::High);
+}
+
 void DrapeEngine::SetMyPositionModeListener(location::TMyPositionModeChanged const & fn)
 {
   m_myPositionModeChanged = fn;

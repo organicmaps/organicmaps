@@ -250,7 +250,7 @@ void MyPositionController::NextMode(int preferredZoomLevel)
     newMode = IsRotationActive() ? location::MODE_ROTATE_AND_FOLLOW : location::MODE_FOLLOW;
   }
 
-  SetModeInfo(ChangeMode(m_modeInfo, newMode));
+  SetModeInfo(ChangeMode(m_modeInfo, newMode), IsInRouting());
   Follow(preferredZoomLevel);
 }
 
@@ -276,6 +276,12 @@ void MyPositionController::Invalidate()
     m_afterPendingMode = location::MODE_FOLLOW;
     SetIsVisible(false);
   }
+}
+
+void MyPositionController::Setup(location::EMyPositionMode mode)
+{
+  SetModeInfo(ChangeMode(m_modeInfo, mode));
+  Invalidate();
 }
 
 void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool isNavigable,
@@ -540,8 +546,11 @@ void MyPositionController::ActivateRouting()
 {
   if (!IsInRouting())
   {
-    ASSERT(IsModeHasPosition(), ());
-    SetModeInfo(ChangeMode(SetModeBit(m_modeInfo, RoutingSessionBit), location::MODE_NOT_FOLLOW));
+    location::EMyPositionMode newMode = GetMode();
+    if (IsModeHasPosition())
+      newMode = location::MODE_NOT_FOLLOW;
+
+    SetModeInfo(ChangeMode(SetModeBit(m_modeInfo, RoutingSessionBit), newMode));
   }
 }
 

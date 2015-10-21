@@ -301,6 +301,7 @@ public:
     int m_surfaceHeight;
 
     gui::TWidgetsInitInfo m_widgetsInitInfo;
+    location::EMyPositionMode m_initialMyPositionState;
   };
 
   void CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory, DrapeCreationParams && params);
