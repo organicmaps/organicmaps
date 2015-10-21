@@ -106,7 +106,7 @@ void RoutingSession::RemoveRouteImpl()
   m_state = RoutingNotActive;
   m_lastDistance = 0.0;
   m_moveAwayCounter = 0;
-  m_turnsSound.Reset();
+  m_turnNotificationsMgr.Reset();
 
   Route(string()).Swap(m_route);
 }
@@ -150,7 +150,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
   UNUSED_VALUE(guard);
   ASSERT(m_route.IsValid(), ());
 
-  m_turnsSound.SetSpeedMetersPerSecond(info.m_speed);
+  m_turnNotificationsMgr.SetSpeedMetersPerSecond(info.m_speed);
 
   if (m_route.MoveIterator(info))
   {
@@ -248,7 +248,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
   // The turn after the next one.
   if (m_routingSettings.m_showTurnAfterNext)
-    info.m_nextTurn = m_turnsSound.GetSecondTurnNotification();
+    info.m_nextTurn = m_turnNotificationsMgr.GetSecondTurnNotification();
   else
     info.m_nextTurn = routing::turns::TurnDirection::NoTurn;
 
@@ -289,7 +289,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
       (distanceToTurnMeters < kShowPedestrianTurnInMeters) ? turn.m_pedestrianTurn : turns::PedestrianDirection::None;
 }
 
-void RoutingSession::GenerateTurnSound(vector<string> & turnNotifications)
+void RoutingSession::GenerateTurnNotifications(vector<string> & turnNotifications)
 {
   turnNotifications.clear();
 
@@ -304,7 +304,7 @@ void RoutingSession::GenerateTurnSound(vector<string> & turnNotifications)
 
   vector<turns::TurnItemDist> turns;
   if (m_route.GetNextTurns(turns))
-    m_turnsSound.GenerateTurnSound(turns, turnNotifications);
+    m_turnNotificationsMgr.GenerateTurnNotifications(turns, turnNotifications);
 }
 
 void RoutingSession::AssignRoute(Route & route, IRouter::ResultCode e)
@@ -373,21 +373,21 @@ void RoutingSession::EnableTurnNotifications(bool enable)
 {
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
-  m_turnsSound.Enable(enable);
+  m_turnNotificationsMgr.Enable(enable);
 }
 
 bool RoutingSession::AreTurnNotificationsEnabled() const
 {
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
-  return m_turnsSound.IsEnabled();
+  return m_turnNotificationsMgr.IsEnabled();
 }
 
 void RoutingSession::SetTurnNotificationsUnits(Settings::Units const units)
 {
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
-  m_turnsSound.SetLengthUnits(units);
+  m_turnNotificationsMgr.SetLengthUnits(units);
 }
 
 void RoutingSession::SetTurnNotificationsLocale(string const & locale)
@@ -395,14 +395,14 @@ void RoutingSession::SetTurnNotificationsLocale(string const & locale)
   LOG(LINFO, ("The language for turn notifications is", locale));
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
-  m_turnsSound.SetLocale(locale);
+  m_turnNotificationsMgr.SetLocale(locale);
 }
 
 string RoutingSession::GetTurnNotificationsLocale() const
 {
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
-  return m_turnsSound.GetLocale();
+  return m_turnNotificationsMgr.GetLocale();
 }
 
 double RoutingSession::GetDistanceToCurrentCamM(SpeedCameraRestriction & camera, Index const & index)

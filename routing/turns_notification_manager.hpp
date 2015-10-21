@@ -32,7 +32,7 @@ string DebugPrint(PronouncedNotification const notificationProgress);
 /// \brief The TurnsSound class is responsible for all route turn sound notifications functionality.
 /// To be able to generate turn sound notification the class needs to have correct Settings
 /// and relevant speed.
-class TurnsSound
+class NotificationManager
 {
   friend void UnitTest_TurnsSoundMetersTest();
   friend void UnitTest_TurnsSoundMetersTwoTurnsTest();
@@ -41,7 +41,7 @@ class TurnsSound
   friend void UnitTest_TurnsSoundRoundaboutTurnTest();
 
   /// \brief The private contructor is used only for testing.
-  TurnsSound(uint32_t startBeforeSeconds, uint32_t minStartBeforeMeters,
+  NotificationManager(uint32_t startBeforeSeconds, uint32_t minStartBeforeMeters,
              uint32_t maxStartBeforeMeters, uint32_t minDistToSayNotificationMeters)
     : m_enabled(false), m_speedMetersPerSecond(0.),
       m_settings(startBeforeSeconds, minStartBeforeMeters, maxStartBeforeMeters, minDistToSayNotificationMeters),
@@ -71,7 +71,7 @@ class TurnsSound
   /// The flag is set to true if notification about the second turn was pronounced.
   /// It could happen in expressions like "Turn right. Then turn left."
   /// This flag is used to pass the information if second turn notification was pronounced
-  /// between two calls of GenerateTurnSound() method.
+  /// between two calls of GenerateTurnNotifications() method.
   bool m_turnNotificationWithThen;
   uint32_t m_nextTurnIndex;
   /// getTtsText is a convector form turn notification information and locale to
@@ -108,7 +108,7 @@ class TurnsSound
   TurnDirection GenerateSecondTurnNotification(vector<TurnItemDist> const & turns);
 
 public:
-  TurnsSound() : m_enabled(false), m_speedMetersPerSecond(0.),
+  NotificationManager() : m_enabled(false), m_speedMetersPerSecond(0.),
       m_settings(5 /* m_startBeforeSeconds */, 25 /* m_minStartBeforeMeters */,
                  150 /* m_maxStartBeforeMeters */, 170 /* m_minDistToSayNotificationMeters */),
       m_nextTurnNotificationProgress(PronouncedNotification::Nothing),
@@ -123,15 +123,15 @@ public:
   inline string GetLocale() const { return m_getTtsText.GetLocale(); }
   void SetSpeedMetersPerSecond(double speed);
 
-   /// \brief GenerateTurnSound updates information about the next turn notification.
+   /// \brief GenerateTurnNotifications updates information about the next turn notification.
    /// It also fills turnNotifications when it's necessary.
    /// If this TurnsSound wants to play a sound message once it should push one item to
-   /// the vector turnNotifications once when GenerateTurnSound is called.
+   /// the vector turnNotifications once when GenerateTurnNotifications is called.
    /// \param turns contains information about the next turns starting from the closest one.
    /// \param distanceToTurnMeters is distance to the next turn in meters.
    /// \param turnNotifications is a parameter to fill it if it's necessary.
    /// \note The client implies turnNotifications does not contain empty strings.
-  void GenerateTurnSound(vector<TurnItemDist> const & turns, vector<string> & turnNotifications);
+  void GenerateTurnNotifications(vector<TurnItemDist> const & turns, vector<string> & turnNotifications);
   /// Reset states which reflects current route position.
   /// The method shall be called after creating a new route or after rerouting.
   void Reset();

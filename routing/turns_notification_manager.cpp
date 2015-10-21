@@ -1,4 +1,4 @@
-#include "routing/turns_sound.hpp"
+#include "routing/turns_notification_manager.hpp"
 
 #include "platform/location.hpp"
 
@@ -28,14 +28,14 @@ namespace turns
 {
 namespace sound
 {
-string TurnsSound::GenerateTurnText(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
+string NotificationManager::GenerateTurnText(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
                                     TurnDirection turnDir, ::Settings::Units lengthUnits) const
 {
   Notification const notification(distanceUnits, exitNum, useThenInsteadOfDistance, turnDir, lengthUnits);
   return m_getTtsText(notification);
 }
 
-void TurnsSound::GenerateTurnSound(vector<TurnItemDist> const & turns, vector<string> & turnNotifications)
+void NotificationManager::GenerateTurnNotifications(vector<TurnItemDist> const & turns, vector<string> & turnNotifications)
 {
   m_secondTurnNotification = GenerateSecondTurnNotification(turns);
 
@@ -74,7 +74,7 @@ void TurnsSound::GenerateTurnSound(vector<TurnItemDist> const & turns, vector<st
   m_turnNotificationWithThen = true;
 }
 
-string TurnsSound::GenerateFirstTurnSound(TurnItem const & turn, double distanceToTurnMeters)
+string NotificationManager::GenerateFirstTurnSound(TurnItem const & turn, double distanceToTurnMeters)
 {
   if (m_nextTurnIndex != turn.m_index)
   {
@@ -136,14 +136,14 @@ string TurnsSound::GenerateFirstTurnSound(TurnItem const & turn, double distance
   return string();
 }
 
-void TurnsSound::Enable(bool enable)
+void NotificationManager::Enable(bool enable)
 {
   if (enable && !m_enabled)
     Reset();
   m_enabled = enable;
 }
 
-void TurnsSound::SetLengthUnits(::Settings::Units units)
+void NotificationManager::SetLengthUnits(::Settings::Units units)
 {
   m_settings.SetLengthUnits(units);
   switch(units)
@@ -163,7 +163,7 @@ void TurnsSound::SetLengthUnits(::Settings::Units units)
   }
 }
 
-void TurnsSound::SetSpeedMetersPerSecond(double speed)
+void NotificationManager::SetSpeedMetersPerSecond(double speed)
 {
   // When the quality of GPS data is bad the current speed may be less then zero.
   // It's easy to reproduce at an office with Nexus 5.
@@ -171,7 +171,7 @@ void TurnsSound::SetSpeedMetersPerSecond(double speed)
   m_speedMetersPerSecond = max(0., speed);
 }
 
-void TurnsSound::Reset()
+void NotificationManager::Reset()
 {
   m_nextTurnNotificationProgress = PronouncedNotification::Nothing;
   m_nextTurnIndex = 0;
@@ -180,14 +180,14 @@ void TurnsSound::Reset()
   m_secondTurnNotificationIndex = 0;
 }
 
-void TurnsSound::FastForwardFirstTurnNotification()
+void NotificationManager::FastForwardFirstTurnNotification()
 {
   m_turnNotificationWithThen = false;
   if (m_nextTurnNotificationProgress == PronouncedNotification::Nothing)
     m_nextTurnNotificationProgress = PronouncedNotification::First;
 }
 
-TurnDirection TurnsSound::GenerateSecondTurnNotification(vector<TurnItemDist> const & turns)
+TurnDirection NotificationManager::GenerateSecondTurnNotification(vector<TurnItemDist> const & turns)
 {
   if (turns.size() < 2)
   {

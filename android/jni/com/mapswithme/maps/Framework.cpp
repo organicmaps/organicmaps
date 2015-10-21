@@ -1262,14 +1262,14 @@ extern "C"
   }
 
   JNIEXPORT jobjectArray JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGenerateTurnSound(JNIEnv * env, jclass thiz)
+  Java_com_mapswithme_maps_Framework_nativeGenerateTurnNotifications(JNIEnv * env, jclass thiz)
   {
     ::Framework * fr = frm();
     if (!fr->IsRoutingActive())
       return nullptr;
 
     vector<string> turnNotifications;
-    fr->GenerateTurnSound(turnNotifications);
+    fr->GenerateTurnNotifications(turnNotifications);
     if (turnNotifications.empty())
       return nullptr;
 

@@ -613,13 +613,13 @@ public:
   /// If not, it returns an empty string.
   inline string GetTurnNotificationsLocale() const { return m_routingSession.GetTurnNotificationsLocale(); }
   /// \brief When an end user is going to a turn he gets sound turn instructions.
-  /// If C++ part wants the client to pronounce an instruction GenerateTurnSound (in turnNotifications) returns
+  /// If C++ part wants the client to pronounce an instruction GenerateTurnNotifications (in turnNotifications) returns
   /// an array of one of more strings. C++ part assumes that all these strings shall be pronounced by the client's TTS.
   /// For example if C++ part wants the client to pronounce "Make a right turn." this method returns
   /// an array with one string "Make a right turn.". The next call of the method returns nothing.
-  /// GenerateTurnSound shall be called by the client when a new position is available.
-  inline void GenerateTurnSound(vector<string> & turnNotifications)
-      { return m_routingSession.GenerateTurnSound(turnNotifications); }
+  /// GenerateTurnNotifications shall be called by the client when a new position is available.
+  inline void GenerateTurnNotifications(vector<string> & turnNotifications)
+      { return m_routingSession.GenerateTurnNotifications(turnNotifications); }
 
 private:
   void SetRouterImpl(routing::RouterType type);

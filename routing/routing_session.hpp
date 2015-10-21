@@ -4,7 +4,7 @@
 #include "routing/route.hpp"
 #include "routing/router.hpp"
 #include "routing/turns.hpp"
-#include "routing/turns_sound.hpp"
+#include "routing/turns_notification_manager.hpp"
 
 #include "platform/location.hpp"
 
@@ -106,7 +106,7 @@ public:
   void SetTurnNotificationsUnits(Settings::Units const units);
   void SetTurnNotificationsLocale(string const & locale);
   string GetTurnNotificationsLocale() const;
-  void GenerateTurnSound(vector<string> & turnNotifications);
+  void GenerateTurnNotifications(vector<string> & turnNotifications);
 
 private:
   struct DoReadyCallback
@@ -154,7 +154,7 @@ private:
   m2::PointD m_lastGoodPosition;
 
   // Sound turn notification parameters.
-  turns::sound::TurnsSound m_turnsSound;
+  turns::sound::NotificationManager m_turnNotificationsMgr;
 
   RoutingSettings m_routingSettings;
 
