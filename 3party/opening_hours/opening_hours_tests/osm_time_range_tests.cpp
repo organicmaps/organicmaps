@@ -82,7 +82,7 @@ std::basic_string<Char> ParseAndUnparse(Char const * input)
       parseResult);
 
   if (!parsed || first != last)
-    return {};
+    return ":CAN'T PARSE:";
 
   std::basic_stringstream<Char> sstr;
   sstr << parseResult;
@@ -214,7 +214,80 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestTimespan)
   }
 }
 
-BOOST_AUTO_TEST_CASE(OpeningHours_TestParseUnparse)
+BOOST_AUTO_TEST_CASE(OpeningHours_TestNthEntry)
+{
+  using namespace osmoh;
+
+  {
+    NthEntry entry;
+    BOOST_CHECK(entry.IsEmpty());
+    BOOST_CHECK(!entry.HasStart());
+    BOOST_CHECK(!entry.HasEnd());
+
+    entry.SetStart(NthEntry::ENth::Fifth);
+    BOOST_CHECK(!entry.IsEmpty());
+    BOOST_CHECK(entry.HasStart());
+    BOOST_CHECK(!entry.HasEnd());
+
+    entry.SetEnd(NthEntry::ENth::Third);
+    BOOST_CHECK(!entry.IsEmpty());
+    BOOST_CHECK(entry.HasStart());
+    BOOST_CHECK(entry.HasEnd());
+
+    entry.SetStart(NthEntry::ENth::None);
+    BOOST_CHECK(!entry.IsEmpty());
+    BOOST_CHECK(!entry.HasStart());
+    BOOST_CHECK(entry.HasEnd());
+  }
+}
+
+BOOST_AUTO_TEST_CASE(OpeningHours_TestWeekdayRange)
+{
+  using namespace osmoh;
+
+  {
+    WeekdayRange range;
+    BOOST_CHECK(range.IsEmpty());
+    BOOST_CHECK(!range.HasEnd());
+    BOOST_CHECK(!range.HasSu());
+    BOOST_CHECK(!range.HasWe());
+    BOOST_CHECK(!range.HasSa());
+    BOOST_CHECK(!range.HasNth());
+  }
+  {
+    WeekdayRange range;
+    BOOST_CHECK(!range.HasNth());
+
+    range.SetStart(WeekdayRange::EWeekday::Tu);
+    BOOST_CHECK(!range.IsEmpty());
+    BOOST_CHECK(!range.HasEnd());
+    BOOST_CHECK(!range.HasSu());
+    BOOST_CHECK(!range.HasWe());
+    BOOST_CHECK(range.HasTu());
+    BOOST_CHECK(!range.HasSa());
+
+    range.SetEnd(WeekdayRange::EWeekday::Sa);
+    BOOST_CHECK(!range.IsEmpty());
+    BOOST_CHECK(range.HasStart());
+    BOOST_CHECK(range.HasEnd());
+    BOOST_CHECK(!range.HasSu());
+    BOOST_CHECK(range.HasWe());
+    BOOST_CHECK(range.HasTu());
+    BOOST_CHECK(range.HasSa());
+  }
+  {
+    WeekdayRange range;
+    BOOST_CHECK(!range.HasNth());
+
+    NthEntry entry;
+    entry.SetStart(NthEntry::NthEntry::ENth::First);
+    range.AddNth(entry);
+    BOOST_CHECK(range.HasNth());
+  }
+
+}
+
+BOOST_AUTO_TEST_CASE(OpeningHoursTimerange_TestParseUnparse)
 {
   {
     auto const rule = "06:00";
@@ -282,6 +355,59 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestParseUnparse)
     auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::time_selector,
                                                 osmoh::TTimespans>(rule);
   }
+}
+
+BOOST_AUTO_TEST_CASE(OpeningHoursWeekdays_TestParseUnparse)
+{
+  {
+    auto const rule = "SH -2 days";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::weekday_selector,
+                                                osmoh::Weekdays>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "SH +2 days";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::weekday_selector,
+                                                osmoh::Weekdays>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "SH +1 day";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::weekday_selector,
+                                                osmoh::Weekdays>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "PH";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::weekday_selector,
+                                                osmoh::Weekdays>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "SH";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::weekday_selector,
+                                                osmoh::Weekdays>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "Mo,We,Th,Fr";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::weekday_selector,
+                                                osmoh::Weekdays>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "Fr-Sa";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::weekday_selector,
+                                                osmoh::Weekdays>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "PH,Sa,Su";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::weekday_selector,
+                                                osmoh::Weekdays>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+
 }
 
 

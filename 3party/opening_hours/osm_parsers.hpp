@@ -1,6 +1,6 @@
 #pragma once
 
-#include "adapted_structs.hpp"
+#include "osm_time_range.hpp"
 
 //#define BOOST_SPIRIT_DEBUG 1
 #define BOOST_SPIRIT_USE_PHOENIX_V3
@@ -115,12 +115,12 @@ class event_ : public qi::symbols<char,  osmoh::Time::EEvent>
   }
 } event;
 
-struct wdays_ : qi::symbols<wchar_t, unsigned>
+struct wdays_ : qi::symbols<char, osmoh::WeekdayRange::EWeekday>
 {
   wdays_()
   {
     add
-        (L"mo", 0)(L"tu", 1)(L"we", 2)(L"th", 3)(L"fr", 4)(L"sa", 5)(L"su", 6) // en
+        ("su", 1_day)("mo", 2_day)("tu", 3_day)("we", 4_day)("th", 5_day)("fr", 6_day)("sa", 7_day) // en
         // (L"mon", 0)(L"tue", 1)(L"wed", 2)(L"thu", 3)(L"fri", 4)(L"sat", 5)(L"sun", 6) // en
         // (L"пн", 0)(L"вт", 1)(L"ср", 2)(L"чт", 3)(L"пт", 4)(L"сб", 5)(L"вс", 6) // ru
         // (L"пн.", 0)(L"вт.", 1)(L"ср.", 2)(L"чт.", 3)(L"пт.", 4)(L"сб.", 5)(L"вс.", 6) // ru
@@ -325,61 +325,85 @@ struct daynum_ : qi::symbols<char, unsigned>
 // };
 
 
-// template <typename Iterator>
-// class weekday_selector : public qi::grammar<Iterator, osmoh::TWeekdays(), space_type>
-// {
-//  protected:
-//   qi::rule<Iterator, uint8_t(), space_type> nth;
-//   qi::rule<Iterator, uint16_t(), space_type> nth_entry;
-//   qi::rule<Iterator, int32_t(), space_type, qi::locals<int8_t>> day_offset;
-//   qi::rule<Iterator, space_type> holyday;
-//   qi::rule<Iterator, space_type> holiday_sequence;
-//   qi::rule<Iterator, osmoh::Weekday(), space_type> weekday_range;
-//   qi::rule<Iterator, osmoh::TWeekdays(), space_type> weekday_sequence;
-//   qi::rule<Iterator, osmoh::TWeekdays(), space_type> main;
-//  public:
-//   weekday_selector() : weekday_selector::base_type(main)
-//   {
-//     using qi::_a;
-//     using qi::_1;
-//     using qi::_2;
-//     using qi::_val;
-//     using qi::lit;
-//     using qi::ushort_;
-//     using boost::phoenix::at_c;
+template <typename Iterator>
+//class weekday_selector : public qi::grammar<Iterator, osmoh::TWeekdayss(), space_type>
+//class weekday_selector : public qi::grammar<Iterator, osmoh::THolidays(), space_type>
+class weekday_selector : public qi::grammar<Iterator, osmoh::Weekdays(), space_type>
+{
+ protected:
+  qi::rule<Iterator, osmoh::NthEntry::ENth(), space_type> nth;
+  qi::rule<Iterator, osmoh::NthEntry(), space_type> nth_entry;
+  qi::rule<Iterator, int32_t(), space_type, qi::locals<int8_t>> day_offset;
+  qi::rule<Iterator, osmoh::WeekdayRange(), space_type> weekday_range;
+  qi::rule<Iterator, osmoh::TWeekdayRanges(), space_type> weekday_sequence;
+  qi::rule<Iterator, osmoh::Holiday(), space_type> holiday;
+  qi::rule<Iterator, osmoh::THolidays(), space_type> holiday_sequence;
+  qi::rule<Iterator, osmoh::Weekdays(), space_type> main;
 
-//     nth %= ushort_(1) | ushort_(2) | ushort_(3) | ushort_(4) | ushort_(5);
+ public:
+  weekday_selector() : weekday_selector::base_type(main)
+  {
+    using qi::_a;
+    using qi::_1;
+    using qi::_2;
+    using qi::_val;
+    using qi::lit;
+    using qi::ushort_;
+    using boost::phoenix::bind;
 
-//     nth_entry = (nth >> dash >> nth) [_val |= ((2 << ((_2-1)-(_1-1))) - 1) << (_1-1)]
-//         | (lit('-') >> nth) [_val |= (0x0100 << (_1 - 1))]
-//         | nth [_val |= (1 << (_1 - 1))]
-//         ;
+    nth = ushort_(1)[_val = osmoh::NthEntry::ENth::First]
+        | ushort_(2) [_val = osmoh::NthEntry::ENth::Second]
+        | ushort_(3) [_val = osmoh::NthEntry::ENth::Third]
+        | ushort_(4) [_val = osmoh::NthEntry::ENth::Fourth]
+        | ushort_(5) [_val = osmoh::NthEntry::ENth::Fifth];
 
-//     day_offset = (lit('+')[_a = 1] | lit('-') [_a = -1]) >> ushort_[_val = _1*_a] >> charset::no_case[(lit(L"days") | lit(L"day"))];
-//     holyday %= (charset::no_case[lit(L"SH")] >> -day_offset) | charset::no_case[lit(L"PH")];
-//     holiday_sequence %= holyday % ',';
-//     weekday_range = (charset::no_case[wdays][at_c<0>(_val) |= (1<<_1)]
-//                      >> L'[' >> nth_entry[at_c<1>(_val) |= _1] % L','
-//                      >> L']' >> day_offset[at_c<2>(_val) = _1])
-//         | (charset::no_case[wdays][at_c<0>(_val) |= (1<<_1)] >> L'[' >> nth_entry[at_c<1>(_val) |= _1] % L',' >> L']')
-//         | charset::no_case[(wdays >> dash >> wdays)] [at_c<0>(_val) |= ((2 << ((_2)-(_1))) - 1) << (_1)]
-//         | charset::no_case[wdays][at_c<0>(_val) |= (1<<_1)]
-//         ;
+    nth_entry = (nth >> dash >> nth) [bind(&osmoh::NthEntry::SetStart, _val, _1),
+                                      bind(&osmoh::NthEntry::SetEnd, _val, _2)]
+        | (lit('-') >> nth) [bind(&osmoh::NthEntry::SetEnd, _val, _1)]
+        | nth [bind(&osmoh::NthEntry::SetStart, _val, _1)]
+        ;
 
-//     weekday_sequence %= (weekday_range % L',') >> !qi::no_skip[charset::alpha] >> -lit(L':');
+    day_offset =
+        (lit('+')[_a = 1] | lit('-') [_a = -1]) >>
+        ushort_[_val = _1 * _a] >>
+        charset::no_case[(lit(L"days") | lit(L"day"))];
 
-//     main = (holiday_sequence >> -lit(L',') >> weekday_sequence[_val = _1])
-//         | weekday_sequence[_val = _1] >> -(-lit(L',') >> holiday_sequence)
-//         | holiday_sequence
-//         ;
+    holiday = (charset::no_case[lit(L"SH")] [bind(&osmoh::Holiday::SetPlural, _val, false)]
+               >> -day_offset               [bind(&osmoh::Holiday::SetOffset, _val, _1)])
+        | charset::no_case[lit(L"PH")] [bind(&osmoh::Holiday::SetPlural, _val, true)]
+        ;
 
-//     BOOST_SPIRIT_DEBUG_NODE(main);
-//     BOOST_SPIRIT_DEBUG_NODE(weekday_sequence);
-//     BOOST_SPIRIT_DEBUG_NODE(weekday_range);
-//     BOOST_SPIRIT_DEBUG_NODE(holiday_sequence);
+    holiday_sequence %= (holiday % ',');
 
-//   }
-// };
+    weekday_range = (charset::no_case[wdays][bind(&osmoh::WeekdayRange::SetStart, _val, _1)]
+                     >> L'[' >> nth_entry[bind(&osmoh::WeekdayRange::AddNth, _val, _1)] % L','
+                     >> L']' >> day_offset[bind(&osmoh::WeekdayRange::SetOffset, _val, _1)])
+
+        | (charset::no_case[wdays][bind(&osmoh::WeekdayRange::SetStart, _val, _1)]
+           >> L'[' >> nth_entry[bind(&osmoh::WeekdayRange::AddNth, _val, _1)] % L','
+           >> L']')
+
+        | charset::no_case[(wdays >> dash >> wdays)][bind(&osmoh::WeekdayRange::SetStart, _val, _1),
+                                                     bind(&osmoh::WeekdayRange::SetEnd, _val, _2)]
+
+        | charset::no_case[wdays][bind(&osmoh::WeekdayRange::SetStart, _val, _1)]
+        ;
+
+    weekday_sequence %= (weekday_range % L',') >> !qi::no_skip[charset::alpha] >> -lit(L':');
+
+    main = (holiday_sequence >> -lit(L',') >> weekday_sequence)
+           [bind(&osmoh::Weekdays::SetHolidays, _val, _1),
+            bind(&osmoh::Weekdays::SetWeekdayRanges, _val, _2)]
+        | holiday_sequence [bind(&osmoh::Weekdays::SetHolidays, _val, _1)]
+        | weekday_sequence [bind(&osmoh::Weekdays::SetWeekdayRanges, _val, _1)]
+        ;
+
+    BOOST_SPIRIT_DEBUG_NODE(main);
+    BOOST_SPIRIT_DEBUG_NODE(weekday_sequence);
+    BOOST_SPIRIT_DEBUG_NODE(weekday_range);
+    BOOST_SPIRIT_DEBUG_NODE(holiday_sequence);
+  }
+};
 
 template <typename Iterator>
 class time_selector : public qi::grammar<Iterator, osmoh::TTimespans(), space_type>
@@ -467,7 +491,6 @@ class time_selector : public qi::grammar<Iterator, osmoh::TTimespans(), space_ty
           [bind(&osmoh::Timespan::SetStart, _val, _1),
            bind(&osmoh::Timespan::SetEnd, _val, _2),
            bind(&osmoh::Timespan::SetPeriod, _val, _3)]
-           // bind(&osmoh::Timespan::SetPeriod, _val, construct<osmoh::Time::TMinutes>(_3))]
 
         | (time >> dash >> extended_time >> char_(L'+'))
           [bind(&osmoh::Timespan::SetStart, _val, _1),
