@@ -1607,12 +1607,13 @@ void Query::SearchLocality(MwmValue const * pMwm, Locality & res1, Region & res2
   SearchQueryParams params;
   InitParams(true /* localitySearch */, params);
 
-  serial::CodingParams cp(trie::GetCodingParams(pMwm->GetHeader().GetDefCodingParams()));
+  auto codingParams = trie::GetCodingParams(pMwm->GetHeader().GetDefCodingParams());
 
   ModelReaderPtr searchReader = pMwm->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
 
-  auto const trieRoot = trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<FeatureIndexValue>>(
-      SubReaderWrapper<Reader>(searchReader.GetPtr()), cp);
+  using TValue = FeatureIndexValue;
+  auto const trieRoot = trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<TValue>>(
+      SubReaderWrapper<Reader>(searchReader.GetPtr()), SingleValueSerializer<TValue>(codingParams));
 
   ForEachLangPrefix(params, *trieRoot, [&](TrieRootPrefix & langRoot, int8_t lang)
   {

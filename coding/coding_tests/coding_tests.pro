@@ -6,7 +6,7 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 
-DEPENDENCIES = coding base indexer minizip tomcrypt succinct
+DEPENDENCIES = coding base minizip tomcrypt succinct
 
 include($$ROOT_DIR/common.pri)
 

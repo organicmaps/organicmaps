@@ -6,9 +6,6 @@
 #include "coding/trie_reader.hpp"
 #include "coding/write_to_sink.hpp"
 
-#include "indexer/coding_params.hpp"
-#include "indexer/string_file_values.hpp"
-
 #include "base/logging.hpp"
 
 #include "std/algorithm.hpp"
@@ -109,21 +106,44 @@ struct MaxValueCalc
   }
 };
 
-class CharValueList
+// The ValueList and SingleValueSerializer classes are similar to
+// those in indexer/string_file_values.hpp but that file
+// is not included to avoid coding_tests's dependency from indexer.
+class SingleValueSerializerChar
+{
+public:
+  template <typename TWriter>
+  void Serialize(TWriter & writer, char & v) const
+  {
+    WriteToSink(writer, v);
+  }
+};
+
+class SingleValueSerializerUint32
+{
+public:
+  template <typename TWriter>
+  void Serialize(TWriter & writer, uint32_t & v) const
+  {
+    WriteToSink(writer, v);
+  }
+};
+
+class ValueListChar
 {
 public:
   using TValue = char;
 
   void Init(vector<TValue> const &) {}
 
-  CharValueList(const string & s) : m_string(s) {}
+  ValueListChar(const string & s) : m_string(s) {}
 
   size_t Size() const { return m_string.size(); }
 
   bool IsEmpty() const { return m_string.empty(); }
 
-  template <typename TSink>
-  void Serialize(TSink & sink) const
+  template <typename TSink, typename TSerializer>
+  void Serialize(TSink & sink, TSerializer const & /* serializer */) const
   {
     sink.Write(m_string.data(), m_string.size());
   }
@@ -132,16 +152,13 @@ private:
   string m_string;
 };
 
-}  //  namespace
-
-template <>
-class ValueList<uint32_t>
+class ValueListUint32
 {
 public:
   using TValue = uint32_t;
+  using TSerializer = SingleValueSerializerUint32;
 
-  ValueList() = default;
-  ValueList(serial::CodingParams const & codingParams) : m_codingParams(codingParams) {}
+  ValueListUint32() = default;
 
   void Init(vector<TValue> const & values) { m_values = values; }
 
@@ -150,14 +167,14 @@ public:
   bool IsEmpty() const { return m_values.empty(); }
 
   template <typename TSink>
-  void Serialize(TSink & sink) const
+  void Serialize(TSink & sink, TSerializer const & /* serializer */) const
   {
     for (auto const & value : m_values)
       WriteToSink(sink, value);
   }
 
   template <typename TSource>
-  void Deserialize(TSource & src, uint32_t valueCount)
+  void Deserialize(TSource & src, uint32_t valueCount, TSerializer const & /* serializer */)
   {
     m_values.resize(valueCount);
     for (size_t i = 0; i < valueCount; ++i)
@@ -165,7 +182,7 @@ public:
   }
 
   template <typename TSource>
-  void Deserialize(TSource & src)
+  void Deserialize(TSource & src, TSerializer const & /* serializer */)
   {
     m_values.clear();
     while (src.Size() > 0)
@@ -179,12 +196,10 @@ public:
       f(value);
   }
 
-  void SetCodingParams(serial::CodingParams const & codingParams) { m_codingParams = codingParams; }
-
 private:
   vector<TValue> m_values;
-  serial::CodingParams m_codingParams;
 };
+}  //  namespace
 
 #define ZENC bits::ZigZagEncode
 #define MKSC(x) static_cast<signed char>(x)
@@ -200,8 +215,9 @@ UNIT_TEST(TrieBuilder_WriteNode_Smoke)
                     "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij"),
       ChildNodeInfo(true, 5, "a")};
 
-  CharValueList valueList("123");
-  trie::WriteNode(sink, 0, valueList, &children[0], &children[0] + ARRAY_SIZE(children));
+  ValueListChar valueList("123");
+  trie::WriteNode(sink, SingleValueSerializerChar(), 0, valueList, &children[0],
+                  &children[0] + ARRAY_SIZE(children));
   uint8_t const expected [] =
   {
     BOOST_BINARY(11000101),                                                 // Header: [0b11] [0b000101]
@@ -266,13 +282,13 @@ UNIT_TEST(TrieBuilder_Build)
 
     vector<uint8_t> buf;
     PushBackByteSink<vector<uint8_t>> sink(buf);
+    SingleValueSerializerUint32 serializer;
     trie::Build<PushBackByteSink<vector<uint8_t>>, typename vector<KeyValuePair>::iterator,
-                ValueList<uint32_t>>(sink, v.begin(), v.end());
+                ValueListUint32>(sink, serializer, v.begin(), v.end());
     reverse(buf.begin(), buf.end());
 
     MemReader memReader = MemReader(&buf[0], buf.size());
-    auto const root =
-        trie::ReadTrie<MemReader, ValueList<uint32_t>>(memReader, serial::CodingParams());
+    auto const root = trie::ReadTrie<MemReader, ValueListUint32>(memReader, serializer);
     vector<KeyValuePair> res;
     KeyValuePairBackInserter f;
     trie::ForEachRefWithValues(*root, f, vector<trie::TrieChar>());

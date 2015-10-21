@@ -196,12 +196,14 @@ namespace feature
 
   void DumpSearchTokens(string const & fPath)
   {
+    using TValue = FeatureIndexValue;
+
     FilesContainerR container(new FileReader(fPath));
     feature::DataHeader header(container);
     serial::CodingParams codingParams(trie::GetCodingParams(header.GetDefCodingParams()));
 
-    auto const trieRoot = trie::ReadTrie<ModelReaderPtr, ValueList<FeatureIndexValue>>(
-        container.GetReader(SEARCH_INDEX_FILE_TAG), codingParams);
+    auto const trieRoot = trie::ReadTrie<ModelReaderPtr, ValueList<TValue>>(
+        container.GetReader(SEARCH_INDEX_FILE_TAG), SingleValueSerializer<TValue>(codingParams));
 
     SearchTokensCollector f;
     trie::ForEachRef(*trieRoot, f, strings::UniString());

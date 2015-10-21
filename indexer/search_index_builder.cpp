@@ -157,35 +157,29 @@ struct ValueBuilder;
 template <>
 struct ValueBuilder<FeatureWithRankAndCenter>
 {
-  ValueBuilder(serial::CodingParams const & cp) : m_cp(cp) {}
+  ValueBuilder() = default;
 
   void MakeValue(FeatureType const & ft, feature::TypesHolder const & types, uint32_t index,
                  FeatureWithRankAndCenter & v) const
   {
-    v.SetCodingParams(m_cp);
-
     v.m_featureId = index;
 
     // get BEST geometry rect of feature
     v.m_pt = feature::GetCenter(ft);
     v.m_rank = feature::GetSearchRank(types, v.m_pt, ft.GetPopulation());
   }
-
-  serial::CodingParams m_cp;
 };
 
 template <>
 struct ValueBuilder<FeatureIndexValue>
 {
-  ValueBuilder(serial::CodingParams const & cp) : m_cp(cp) {}
+  ValueBuilder() = default;
 
   void MakeValue(FeatureType const & /* f */, feature::TypesHolder const & /* types */,
                  uint32_t index, FeatureIndexValue & value) const
   {
     value.m_featureId = index;
   }
-
-  serial::CodingParams m_cp;
 };
 
 template <typename TStringsFile>
@@ -263,16 +257,13 @@ public:
 };
 
 template <typename TValue>
-void AddFeatureNameIndexPairs(FilesContainerR const & container,
-                              CategoriesHolder & categoriesHolder,
-                              StringsFile<TValue> & stringsFile)
+void AddFeatureNameIndexPairs(FeaturesVectorTest & features, CategoriesHolder & categoriesHolder,
+                              StringsFile<TValue> & stringsFile,
+                              SingleValueSerializer<TValue> const & serializer)
 {
-  FeaturesVectorTest features(container);
   feature::DataHeader const & header = features.GetHeader();
 
-  serial::CodingParams codingParams(trie::GetCodingParams(header.GetDefCodingParams()));
-
-  ValueBuilder<TValue> valueBuilder(codingParams);
+  ValueBuilder<TValue> valueBuilder;
 
   unique_ptr<SynonymsHolder> synonyms;
   if (header.GetType() == feature::DataHeader::world)
@@ -338,18 +329,22 @@ void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter,
   LOG(LINFO, ("Start building search index for", container.GetFileName()));
   my::Timer timer;
 
-  StringsFile<TValue> stringsFile(stringsFilePath);
-
   CategoriesHolder categoriesHolder(platform.GetReader(SEARCH_CATEGORIES_FILE_NAME));
 
-  AddFeatureNameIndexPairs(container, categoriesHolder, stringsFile);
+  FeaturesVectorTest features(container);
+  auto codingParams = trie::GetCodingParams(features.GetHeader().GetDefCodingParams());
+  SingleValueSerializer<TValue> serializer(codingParams);
+
+  StringsFile<TValue> stringsFile(stringsFilePath, serializer);
+  AddFeatureNameIndexPairs(features, categoriesHolder, stringsFile, serializer);
 
   stringsFile.EndAdding();
   LOG(LINFO, ("End sorting strings:", timer.ElapsedSeconds()));
 
   stringsFile.OpenForRead();
+
   trie::Build<Writer, typename StringsFile<TValue>::IteratorT, ValueList<TValue>>(
-      indexWriter, stringsFile.Begin(), stringsFile.End());
+      indexWriter, serializer, stringsFile.Begin(), stringsFile.End());
 
   LOG(LINFO, ("End building search index, elapsed seconds:", timer.ElapsedSeconds()));
 }

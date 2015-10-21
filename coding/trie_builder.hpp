@@ -40,16 +40,16 @@
 
 namespace trie
 {
-template <typename TSink, typename TChildIter, typename TValueList>
-void WriteNode(TSink & sink, TrieChar baseChar, TValueList const & valueList,
-               TChildIter const begChild, TChildIter const endChild, bool isRoot = false)
+template <typename TSink, typename TChildIter, typename TValueList, typename TSerializer>
+void WriteNode(TSink & sink, TSerializer const & serializer, TrieChar baseChar,
+               TValueList const & valueList, TChildIter const begChild, TChildIter const endChild,
+               bool isRoot = false)
 {
   uint32_t const valueCount = valueList.Size();
   if (begChild == endChild && !isRoot)
   {
     // Leaf node.
-    WriteVarUint(sink, valueCount);
-    valueList.Serialize(sink);
+    valueList.Serialize(sink, serializer);
     return;
   }
   uint32_t const childCount = endChild - begChild;
@@ -59,7 +59,7 @@ void WriteNode(TSink & sink, TrieChar baseChar, TValueList const & valueList,
     WriteVarUint(sink, valueCount);
   if (childCount >= 63)
     WriteVarUint(sink, childCount);
-  valueList.Serialize(sink);
+  valueList.Serialize(sink, serializer);
   for (TChildIter it = begChild; it != endChild; /*++it*/)
   {
     uint8_t header = (it->IsLeaf() ? 128 : 0);
@@ -156,22 +156,22 @@ struct NodeInfo
   }
 };
 
-template <typename TSink, typename TValueList>
-void WriteNodeReverse(TSink & sink, TrieChar baseChar, NodeInfo<TValueList> & node,
-                      bool isRoot = false)
+template <typename TSink, typename TValueList, typename TSerializer>
+void WriteNodeReverse(TSink & sink, TSerializer const & serializer, TrieChar baseChar,
+                      NodeInfo<TValueList> & node, bool isRoot = false)
 {
   using TOutStorage = buffer_vector<uint8_t, 64>;
   TOutStorage out;
   PushBackByteSink<TOutStorage> outSink(out);
   node.FinalizeValueList();
-  WriteNode(outSink, baseChar, node.m_valueList, node.m_children.rbegin(), node.m_children.rend(),
-            isRoot);
+  WriteNode(outSink, serializer, baseChar, node.m_valueList, node.m_children.rbegin(),
+            node.m_children.rend(), isRoot);
   reverse(out.begin(), out.end());
   sink.Write(out.data(), out.size());
 }
 
-template <typename TSink, class TNodes>
-void PopNodes(TSink & sink, TNodes & nodes, int nodesToPop)
+template <typename TSink, typename TNodes, typename TSerializer>
+void PopNodes(TSink & sink, TSerializer const & serializer, TNodes & nodes, int nodesToPop)
 {
   using TNodeInfo = typename TNodes::value_type;
   ASSERT_GREATER(nodes.size(), nodesToPop, ());
@@ -190,7 +190,7 @@ void PopNodes(TSink & sink, TNodes & nodes, int nodesToPop)
     }
     else
     {
-      WriteNodeReverse(sink, node.m_char, node);
+      WriteNodeReverse(sink, serializer, node.m_char, node);
       prevNode.m_children.emplace_back(
           node.m_children.empty(), static_cast<uint32_t>(sink.Pos() - node.m_begPos), node.m_char);
     }
@@ -214,8 +214,8 @@ void AppendValue(TNodeInfo & node, TValue const & value)
   node.m_temporaryValueList.push_back(value);
 }
 
-template <typename TSink, typename TIter, typename TValueList>
-void Build(TSink & sink, TIter const beg, TIter const end)
+template <typename TSink, typename TIter, typename TValueList, typename TSerializer>
+void Build(TSink & sink, TSerializer const & serializer, TIter const beg, TIter const end)
 {
   using TTrieString = buffer_vector<TrieChar, 32>;
   using TNodeInfo = NodeInfo<TValueList>;
@@ -241,7 +241,7 @@ void Build(TSink & sink, TIter const beg, TIter const end)
     while (nCommon < min(key.size(), prevKey.size()) && prevKey[nCommon] == key[nCommon])
       ++nCommon;
 
-    PopNodes(sink, nodes, nodes.size() - nCommon - 1);  // Root is also a common node.
+    PopNodes(sink, serializer, nodes, nodes.size() - nCommon - 1);  // Root is also a common node.
 
     uint64_t const pos = sink.Pos();
     for (size_t i = nCommon; i < key.size(); ++i)
@@ -253,10 +253,10 @@ void Build(TSink & sink, TIter const beg, TIter const end)
   }
 
   // Pop all the nodes from the stack.
-  PopNodes(sink, nodes, nodes.size() - 1);
+  PopNodes(sink, serializer, nodes, nodes.size() - 1);
 
   // Write the root.
-  WriteNodeReverse(sink, DEFAULT_CHAR /* baseChar */, nodes.back(), true /* isRoot */);
+  WriteNodeReverse(sink, serializer, DEFAULT_CHAR /* baseChar */, nodes.back(), true /* isRoot */);
 }
 
 }  // namespace trie

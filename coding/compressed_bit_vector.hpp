@@ -68,6 +68,7 @@ string DebugPrint(CompressedBitVector::StorageStrategy strat);
 class DenseCBV : public CompressedBitVector
 {
 public:
+  friend class CompressedBitVectorBuilder;
   static uint64_t const kBlockSize = 64;
 
   DenseCBV() = default;
@@ -111,6 +112,7 @@ private:
 class SparseCBV : public CompressedBitVector
 {
 public:
+  friend class CompressedBitVectorBuilder;
   using TIterator = vector<uint64_t>::const_iterator;
 
   SparseCBV(vector<uint64_t> const & setBits);

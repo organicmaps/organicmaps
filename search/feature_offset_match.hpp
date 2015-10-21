@@ -378,7 +378,7 @@ void MatchFeaturesInTrie(SearchQueryParams const & params, trie::DefaultIterator
                          TFilter const & filter, ToDo && toDo)
 {
   using TValue = trie::DefaultIterator::TValue;
-  TrieValuesHolder<TFilter> categoriesHolder(filter);
+  TrieValuesHolder<TFilter, TValue> categoriesHolder(filter);
   bool const categoriesMatched = MatchCategoriesInTrie(params, trieRoot, categoriesHolder);
 
   impl::OffsetIntersecter<TFilter, TValue> intersecter(filter);

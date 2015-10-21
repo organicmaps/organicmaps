@@ -2,13 +2,13 @@
 
 #include "coding/file_writer.hpp"
 #include "coding/file_reader.hpp"
+#include "coding/read_write_utils.hpp"
 
 #include "base/macros.hpp"
 #include "base/mem_trie.hpp"
 #include "base/string_utils.hpp"
 #include "base/worker_thread.hpp"
 
-#include "coding/read_write_utils.hpp"
 #include "std/iterator_facade.hpp"
 #include "std/queue.hpp"
 #include "std/functional.hpp"
@@ -58,28 +58,26 @@ public:
       return m_name == name.m_name && m_val == name.m_val;
     }
 
+    /*
     template <class TWriter>
-    IdT Write(TWriter & writer) const
+    IdT Write(TWriter & writer, SingleValueSerializer<TValue> const & serializer) const
     {
       IdT const pos = static_cast<IdT>(writer.Pos());
       CHECK_EQUAL(static_cast<uint64_t>(pos), writer.Pos(), ());
 
       rw::Write(writer, m_name);
-      m_val.Write(writer);
+      serializer.Serialize(writer, m_val);
 
       return pos;
     }
+    */
 
     template <class TReader>
-    void Read(TReader & src)
+    void Read(TReader & src, SingleValueSerializer<TValue> const & serializer)
     {
       rw::Read(src, m_name);
-      m_val.DeserializeFromSource(src);
+      serializer.DeserializeFromSource(src, m_val);
     }
-
-    inline void const * value_data() const { return m_val.data(); }
-
-    inline size_t value_size() const { return m_val.size(); }
 
     void Swap(TString & r)
     {
@@ -107,8 +105,9 @@ public:
     ///                to the list.
     /// \param strings Vector of strings that should be sorted. Internal data is moved out from
     ///                strings, so it'll become empty after ctor.
-    SortAndDumpStringsTask(FileWriter & writer, OffsetsListT & offsets, StringsListT & strings)
-        : m_writer(writer), m_offsets(offsets)
+    SortAndDumpStringsTask(FileWriter & writer, OffsetsListT & offsets, StringsListT & strings,
+                           SingleValueSerializer<TValue> const & serializer)
+      : m_writer(writer), m_offsets(offsets), m_serializer(serializer)
     {
       strings.swap(m_strings);
     }
@@ -122,10 +121,10 @@ public:
         for (auto const & s : m_strings)
           trie.Add(s.GetString(), s.GetValue());
         MemWriter<vector<uint8_t>> memWriter(memBuffer);
-        trie.ForEach([&memWriter](const strings::UniString & s, const ValueT & v)
+        trie.ForEach([&memWriter, this](const strings::UniString & s, const ValueT & v)
                      {
                        rw::Write(memWriter, s);
-                       v.Serialize(memWriter);
+                       m_serializer.Serialize(memWriter, v);
                      });
       }
 
@@ -140,6 +139,7 @@ public:
     FileWriter & m_writer;
     OffsetsListT & m_offsets;
     StringsListT m_strings;
+    SingleValueSerializer<TValue> m_serializer;
 
     DISALLOW_COPY_AND_MOVE(SortAndDumpStringsTask);
   };
@@ -165,7 +165,7 @@ public:
     void increment();
   };
 
-  StringsFile(string const & fPath);
+  StringsFile(string const & fPath, SingleValueSerializer<ValueT> const & serializer);
 
   void EndAdding();
   void OpenForRead();
@@ -177,20 +177,8 @@ public:
   IteratorT End() { return IteratorT(*this, true); }
 
 private:
-  unique_ptr<FileWriter> m_writer;
-  unique_ptr<FileReader> m_reader;
-
   void Flush();
   bool PushNextValue(size_t i);
-
-  StringsListT m_strings;
-  OffsetsListT m_offsets;
-
-  // A worker thread that sorts and writes groups of strings.  The
-  // whole process looks like a pipeline, i.e. main thread accumulates
-  // strings while worker thread sequentially sorts and stores groups
-  // of strings on a disk.
-  my::WorkerThread<SortAndDumpStringsTask> m_workerThread;
 
   struct QValue
   {
@@ -199,10 +187,27 @@ private:
 
     QValue(TString const & s, size_t i) : m_string(s), m_index(i) {}
 
-    inline bool operator>(QValue const & rhs) const { return !(m_string < rhs.m_string) && !(m_string == rhs.m_string); }
+    inline bool operator>(QValue const & rhs) const
+    {
+      return !(m_string < rhs.m_string) && !(m_string == rhs.m_string);
+    }
   };
 
   priority_queue<QValue, vector<QValue>, greater<QValue>> m_queue;
+
+  // A worker thread that sorts and writes groups of strings.  The
+  // whole process looks like a pipeline, i.e. main thread accumulates
+  // strings while worker thread sequentially sorts and stores groups
+  // of strings on a disk.
+  my::WorkerThread<SortAndDumpStringsTask> m_workerThread;
+
+  unique_ptr<FileWriter> m_writer;
+  unique_ptr<FileReader> m_reader;
+
+  StringsListT m_strings;
+  OffsetsListT m_offsets;
+
+  SingleValueSerializer<TValue> m_serializer;
 };
 
 template <typename ValueT>
@@ -242,8 +247,9 @@ void StringsFile<ValueT>::IteratorT::increment()
 }
 
 template <typename ValueT>
-StringsFile<ValueT>::StringsFile(string const & fPath)
-    : m_workerThread(1 /* maxTasks */)
+StringsFile<ValueT>::StringsFile(string const & fPath,
+                                 SingleValueSerializer<ValueT> const & serializer)
+  : m_workerThread(1 /* maxTasks */), m_serializer(serializer)
 {
   m_writer.reset(new FileWriter(fPath));
 }
@@ -252,7 +258,7 @@ template <typename ValueT>
 void StringsFile<ValueT>::Flush()
 {
   shared_ptr<SortAndDumpStringsTask> task(
-      new SortAndDumpStringsTask(*m_writer, m_offsets, m_strings));
+      new SortAndDumpStringsTask(*m_writer, m_offsets, m_strings, m_serializer));
   m_workerThread.Push(task);
 }
 
@@ -269,7 +275,7 @@ bool StringsFile<ValueT>::PushNextValue(size_t i)
 
   // read string
   TString s;
-  s.Read(src);
+  s.Read(src, m_serializer);
 
   // update offset
   m_offsets[i].first = src.Pos();

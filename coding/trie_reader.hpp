@@ -3,36 +3,32 @@
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
 
-#include "indexer/coding_params.hpp"
-#include "indexer/string_file_values.hpp"
-
 #include "base/assert.hpp"
 #include "base/bits.hpp"
 #include "base/macros.hpp"
 
 namespace trie
 {
-template <class TValueList>
+template <class TValueList, typename TSerializer>
 class LeafIterator0 : public Iterator<TValueList>
 {
 public:
+  using TValue = typename TValueList::TValue;
   using Iterator<TValueList>::m_valueList;
 
   template <class TReader>
-  LeafIterator0(TReader const & reader, serial::CodingParams const & codingParams)
+  LeafIterator0(TReader const & reader, TSerializer const & serializer)
   {
     ReaderSource<TReader> src(reader);
-    uint32_t valueCount = ReadVarUint<uint32_t>(src);
-    m_valueList.SetCodingParams(codingParams);
-    m_valueList.Deserialize(src, valueCount);
-    // todo(@mpimenov) There used to be an assert here
-    // that src is completely exhausted by this time.
+    if (src.Size() > 0)
+      m_valueList.Deserialize(src, 1 /* valueCount */, serializer);
+    ASSERT_EQUAL(src.Size(), 0, ());
   }
 
   // trie::Iterator overrides:
   unique_ptr<Iterator<TValueList>> Clone() const override
   {
-    return make_unique<LeafIterator0<TValueList>>(*this);
+    return make_unique<LeafIterator0<TValueList, TSerializer>>(*this);
   }
 
   unique_ptr<Iterator<TValueList>> GoToEdge(size_t i) const override
@@ -43,24 +39,24 @@ public:
   }
 };
 
-template <class TReader, class TValueList>
+template <typename TReader, typename TValueList, typename TSerializer>
 class Iterator0 : public Iterator<TValueList>
 {
 public:
+  using TValue = typename TValueList::TValue;
   using Iterator<TValueList>::m_valueList;
   using Iterator<TValueList>::m_edge;
 
-  Iterator0(TReader const & reader, TrieChar baseChar, serial::CodingParams const & codingParams)
-    : m_reader(reader), m_codingParams(codingParams)
+  Iterator0(TReader const & reader, TrieChar baseChar, TSerializer const & serializer)
+    : m_reader(reader), m_serializer(serializer)
   {
-    m_valueList.SetCodingParams(m_codingParams);
     ParseNode(baseChar);
   }
 
   // trie::Iterator overrides:
   unique_ptr<Iterator<TValueList>> Clone() const override
   {
-    return make_unique<Iterator0<TReader, TValueList>>(*this);
+    return make_unique<Iterator0<TReader, TValueList, TSerializer>>(*this);
   }
 
   unique_ptr<Iterator<TValueList>> GoToEdge(size_t i) const override
@@ -71,12 +67,12 @@ public:
 
     if (m_edgeInfo[i].m_isLeaf)
     {
-      return make_unique<LeafIterator0<TValueList>>(m_reader.SubReader(offset, size),
-                                                    m_codingParams);
+      return make_unique<LeafIterator0<TValueList, TSerializer>>(m_reader.SubReader(offset, size),
+                                                                 m_serializer);
     }
 
-    return make_unique<Iterator0<TReader, TValueList>>(
-        m_reader.SubReader(offset, size), this->m_edge[i].m_str.back(), m_codingParams);
+    return make_unique<Iterator0<TReader, TValueList, TSerializer>>(
+        m_reader.SubReader(offset, size), this->m_edge[i].m_str.back(), m_serializer);
   }
 
 private:
@@ -98,7 +94,7 @@ private:
       childCount = ReadVarUint<uint32_t>(src);
 
     // [valueList]
-    m_valueList.Deserialize(src, valueCount);
+    m_valueList.Deserialize(src, valueCount, m_serializer);
 
     // [childInfo] ... [childInfo]
     this->m_edge.resize(childCount);
@@ -150,15 +146,14 @@ private:
   buffer_vector<EdgeInfo, 9> m_edgeInfo;
 
   TReader m_reader;
-  serial::CodingParams m_codingParams;
+  TSerializer m_serializer;
 };
 
 // Returns iterator to the root of the trie.
-template <class TReader, class TValueList>
-unique_ptr<Iterator<TValueList>> ReadTrie(TReader const & reader,
-                                          serial::CodingParams const & codingParams)
+template <class TReader, class TValueList, class TSerializer>
+unique_ptr<Iterator<TValueList>> ReadTrie(TReader const & reader, TSerializer const & serializer)
 {
-  return make_unique<Iterator0<TReader, TValueList>>(reader, DEFAULT_CHAR, codingParams);
+  return make_unique<Iterator0<TReader, TValueList, TSerializer>>(reader, DEFAULT_CHAR, serializer);
 }
 
 }  // namespace trie
