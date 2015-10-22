@@ -13,6 +13,7 @@
 #include "coding/reader_wrapper.hpp"
 
 #include "base/assert.hpp"
+#include "base/vector_operations.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/cmath.hpp"
@@ -43,16 +44,9 @@ struct CancelException : public exception
 {
 };
 
-template<typename T>
-void SortUnique(std::vector<T> & v)
-{
-  sort(v.begin(), v.end());
-  v.erase(unique(v.begin(), v.end()), v.end());
-}
-
 unique_ptr<coding::CompressedBitVector> SortFeaturesAndBuildCBV(vector<uint64_t> && features)
 {
-  SortUnique(features);
+  my::SortUnique(features);
   return coding::CompressedBitVectorBuilder::FromBitPositions(move(features));
 }
 
@@ -81,8 +75,8 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(MwmSet::MwmHandl
     return true;
   };
 
-  // TODO (@y, @m): remove this code as soon as search index will have native support for bit
-  // vectors.
+  // TODO (@y, @m): remove this code as soon as search index will have
+  // native support for bit vectors.
   vector<uint64_t> features;
   auto collector = [&](trie::ValueReader::ValueType const & value)
   {
@@ -95,17 +89,17 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(MwmSet::MwmHandl
   return SortFeaturesAndBuildCBV(move(features));
 }
 
-// Retrieves from the geomery index corresponding to handle all
-// features in (and, possibly, around) viewport.
+// Retrieves from the geometry index corresponding to handle all
+// features from |coverage|.
 unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeatures(
     MwmSet::MwmHandle const & handle, my::Cancellable const & cancellable,
-    covering::IntervalsT const & covering, int scale)
+    covering::IntervalsT const & coverage, int scale)
 {
   auto * value = handle.GetValue<MwmValue>();
   ASSERT(value, ());
 
-  // TODO (@y, @m): remove this code as soon as search index will have native support for bit
-  // vectors.
+  // TODO (@y, @m): remove this code as soon as geometry index will
+  // have native support for bit vectors.
   vector<uint64_t> features;
   auto collector = [&](uint64_t featureId)
   {
@@ -115,7 +109,7 @@ unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeatures(
   };
 
   ScaleIndex<ModelReaderPtr> index(value->m_cont.GetReader(INDEX_FILE_TAG), value->m_factory);
-  for (auto const & interval : covering)
+  for (auto const & interval : coverage)
     index.ForEachInIntervalAndScale(collector, interval.first, interval.second, scale);
   return SortFeaturesAndBuildCBV(move(features));
 }
@@ -200,7 +194,7 @@ public:
   {
     ASSERT(m_nonReported.get(), ("Strategy must be initialized with valid address features set."));
 
-    // No need to initialize slow path strategy when there're no
+    // No need to initialize slow path strategy when there are no
     // features at all.
     if (m_nonReported->PopCount() == 0)
       return;
@@ -266,7 +260,7 @@ public:
         CoverRect(c, m_coverageScale, coverage);
         CoverRect(d, m_coverageScale, coverage);
 
-        SortUnique(coverage);
+        my::SortUnique(coverage);
         coverage = covering::SortAndMergeIntervals(coverage);
         coverage.erase(remove_if(coverage.begin(), coverage.end(),
                                  [this](covering::IntervalT const & interval)

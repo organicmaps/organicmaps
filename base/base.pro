@@ -74,4 +74,5 @@ HEADERS += \
     threaded_priority_queue.hpp \
     timegm.hpp \
     timer.hpp \
+    vector_operations.hpp \
     worker_thread.hpp \

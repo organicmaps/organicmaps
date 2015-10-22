@@ -113,8 +113,8 @@ UNIT_TEST(PopCount64)
 {
   TEST_EQUAL(0, bits::PopCount(static_cast<uint64_t>(0x0)), ());
   TEST_EQUAL(1, bits::PopCount(static_cast<uint64_t>(0x1)), ());
-  TEST_EQUAL(32, bits::PopCount(0xAAAAAAAA55555555), ());
-  TEST_EQUAL(64, bits::PopCount(0xFFFFFFFFFFFFFFFF), ());
+  TEST_EQUAL(32, bits::PopCount(static_cast<uint64_t>(0xAAAAAAAA55555555)), ());
+  TEST_EQUAL(64, bits::PopCount(static_cast<uint64_t>(0xFFFFFFFFFFFFFFFF)), ());
 }
 
 UNIT_TEST(CeilLog)

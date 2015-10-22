@@ -233,6 +233,9 @@ unique_ptr<RankTable> LoadRankTable(unique_ptr<TRegion> && region)
   {
   case RankTable::V0:
     return RankTableV0::Load(move(region));
+  case RankTable::VERSION_COUNT:
+    ASSERT(false, ("Wrong rank table version."));
+    return unique_ptr<RankTable>();
   }
   return unique_ptr<RankTable>();
 }

@@ -33,6 +33,7 @@ namespace m2
       return ((fabs(x - p.x) < eps) && (fabs(y - p.y) < eps));
     }
 
+    // TODO (@y, @m): rename to SquaredLength.
     T SquareLength(Point<T> const & p) const
     {
       return math::sqr(x - p.x) + math::sqr(y - p.y);
