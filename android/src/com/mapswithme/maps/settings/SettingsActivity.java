@@ -2,6 +2,7 @@ package com.mapswithme.maps.settings;
 
 import android.app.Fragment;
 import android.content.res.Configuration;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.annotation.NonNull;
@@ -77,6 +78,7 @@ public class SettingsActivity extends PreferenceActivity
     getDelegate().onCreate(savedInstanceState);
 
     super.onCreate(savedInstanceState);
+    setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
     // Hack to attach Toolbar and make it work on native PreferenceActivity
     ViewGroup root = (ViewGroup)findViewById(android.R.id.list).getParent().getParent().getParent();
