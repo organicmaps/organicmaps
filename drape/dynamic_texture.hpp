@@ -38,8 +38,7 @@ protected:
   {
     m2::PointU m_size;
     dp::TextureFormat m_format;
-    glConst m_minFilter;
-    glConst m_magFilter;
+    glConst m_filter;
   };
 
   void Init(ref_ptr<HWTextureAllocator> allocator, ref_ptr<TIndexer> indexer, TextureParams const & params)
@@ -56,8 +55,7 @@ protected:
     p.m_width = params.m_size.x;
     p.m_height = params.m_size.y;
     p.m_format = params.m_format;
-    p.m_magFilter = params.m_magFilter;
-    p.m_minFilter = params.m_minFilter;
+    p.m_filter = params.m_filter;
 
     Create(p, data);
   }

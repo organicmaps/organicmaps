@@ -1,6 +1,6 @@
 varying vec2 v_colorTexCoord;
 varying vec2 v_halfLength;
-varying highp vec2 v_maskTexCoord;
+varying vec2 v_maskTexCoord;
 
 uniform sampler2D u_colorTex;
 uniform sampler2D u_maskTex;

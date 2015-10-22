@@ -19,8 +19,7 @@ public:
   struct Params
   {
     Params()
-      : m_minFilter(gl_const::GLLinear)
-      , m_magFilter(gl_const::GLLinear)
+      : m_filter(gl_const::GLLinear)
       , m_wrapSMode(gl_const::GLClampToEdge)
       , m_wrapTMode(gl_const::GLClampToEdge)
       , m_format(UNSPECIFIED)
@@ -29,8 +28,7 @@ public:
 
     uint32_t m_width;
     uint32_t m_height;
-    glConst m_minFilter;
-    glConst m_magFilter;
+    glConst m_filter;
     glConst m_wrapSMode;
     glConst m_wrapTMode;
     TextureFormat m_format;
@@ -43,6 +41,9 @@ public:
   virtual void UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height, ref_ptr<void> data) = 0;
 
   void Bind() const;
+
+  // Texture must be bound before calling this method.
+  void SetFilter(glConst filter);
 
   TextureFormat GetFormat() const;
   uint32_t GetWidth() const;
@@ -58,6 +59,7 @@ protected:
   uint32_t m_height;
   TextureFormat m_format;
   int32_t m_textureID;
+  glConst m_filter;
 };
 
 class HWTextureAllocator

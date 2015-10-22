@@ -109,6 +109,7 @@ void ForEachShader(vector<string> const & shaders,
   {
     QTemporaryFile srcFile;
     TEST(srcFile.open(), ("Temporary File can't be created!"));
+    //srcFile.setAutoRemove(false);
     WriteShaderToFile(srcFile, src);
     RunShaderTest(glslCompiler, srcFile.fileName(),
                   procPrepare, argsPrepare, successComparator, errorLog);
@@ -188,7 +189,7 @@ void TestMaliShaders(QString const & driver,
   shaderType = "-f";
   ForEachShader(gpu::FragmentEnum, compilerPath, procPrepare, argForming, succesComparator, ss);
 
-  TEST(errorLog.isEmpty(), (errorLog));
+  TEST(errorLog.isEmpty(), (shaderType,release, hardware, driver, errorLog));
 }
 
 UNIT_TEST(MALI_CompileShaders_Test)

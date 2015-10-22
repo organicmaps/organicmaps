@@ -72,8 +72,7 @@ public:
     TBase::TextureParams params;
     params.m_size = size;
     params.m_format = TextureFormat::RGBA8;
-    params.m_minFilter = gl_const::GLNearest;
-    params.m_magFilter = gl_const::GLNearest;
+    params.m_filter = gl_const::GLNearest;
 
     TBase::Init(allocator, make_ref(&m_pallete), params);
   }

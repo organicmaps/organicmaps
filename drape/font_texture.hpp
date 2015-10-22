@@ -139,8 +139,7 @@ public:
     TBase::TextureParams params;
     params.m_size = size;
     params.m_format = TextureFormat::ALPHA;
-    params.m_minFilter = gl_const::GLLinear;
-    params.m_magFilter = gl_const::GLLinear;
+    params.m_filter = gl_const::GLLinear;
 
     vector<uint8_t> initData(params.m_size.x * params.m_size.y, 0);
     TBase::Init(allocator, make_ref(&m_index), params, make_ref(initData.data()));

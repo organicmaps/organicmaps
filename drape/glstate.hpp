@@ -62,6 +62,9 @@ public:
   glConst GetDepthFunction() const;
   void SetDepthFunction(glConst functionName);
 
+  glConst GetTextureFilter() const;
+  void SetTextureFilter(glConst filter);
+
   bool operator<(GLState const & other) const;
   bool operator==(GLState const & other) const;
 
@@ -70,6 +73,7 @@ private:
   DepthLayer m_depthLayer;
   Blending m_blending;
   glConst m_depthFunction;
+  glConst m_textureFilter;
 
   ref_ptr<Texture> m_colorTexture;
   ref_ptr<Texture> m_maskTexture;

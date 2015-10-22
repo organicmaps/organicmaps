@@ -67,6 +67,9 @@ public:
 
   void Bind() const;
 
+  // Texture must be bound before calling this method.
+  void SetFilter(glConst filter);
+
   static uint32_t GetMaxTextureSize();
 
 protected:

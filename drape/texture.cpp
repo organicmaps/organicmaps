@@ -84,6 +84,12 @@ void Texture::Bind() const
   m_hwTexture->Bind();
 }
 
+void Texture::SetFilter(glConst filter)
+{
+  ASSERT(m_hwTexture != nullptr, ());
+  m_hwTexture->SetFilter(filter);
+}
+
 uint32_t Texture::GetMaxTextureSize()
 {
   return GLFunctions::glGetInteger(gl_const::GLMaxTextureSize);

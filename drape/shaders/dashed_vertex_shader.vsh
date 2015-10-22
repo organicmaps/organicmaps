@@ -1,13 +1,13 @@
 attribute vec3 a_position;
 attribute vec3 a_normal;
 attribute vec2 a_colorTexCoord;
-attribute highp vec2 a_maskTexCoord;
+attribute vec2 a_maskTexCoord;
 
 uniform mat4 modelView;
 uniform mat4 projection;
 
 varying vec2 v_colorTexCoord;
-varying highp vec2 v_maskTexCoord;
+varying vec2 v_maskTexCoord;
 varying vec2 v_halfLength;
 
 void main(void)

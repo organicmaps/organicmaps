@@ -19,6 +19,7 @@ HWTexture::HWTexture()
   , m_height(0)
   , m_format(UNSPECIFIED)
   , m_textureID(-1)
+  , m_filter(gl_const::GLLinear)
 {
 }
 
@@ -32,6 +33,7 @@ void HWTexture::Create(Params const & params, ref_ptr<void> /*data*/)
   m_width = params.m_width;
   m_height = params.m_height;
   m_format = params.m_format;
+  m_filter = params.m_filter;
 
 #if defined(TRACK_GPU_MEM)
   glConst layout;
@@ -106,6 +108,16 @@ void HWTexture::Bind() const
   GLFunctions::glBindTexture(GetID());
 }
 
+void HWTexture::SetFilter(glConst filter)
+{
+  if (m_filter != filter)
+  {
+    m_filter = filter;
+    GLFunctions::glTexParameter(gl_const::GLMinFilter, m_filter);
+    GLFunctions::glTexParameter(gl_const::GLMagFilter, m_filter);
+  }
+}
+
 int32_t HWTexture::GetID() const
 {
   return m_textureID;
@@ -135,8 +147,8 @@ void OpenGLHWTexture::Create(Params const & params, ref_ptr<void> data)
   UnpackFormat(m_format, layout, pixelType);
 
   GLFunctions::glTexImage2D(m_width, m_height, layout, pixelType, data.get());
-  GLFunctions::glTexParameter(gl_const::GLMinFilter, params.m_minFilter);
-  GLFunctions::glTexParameter(gl_const::GLMagFilter, params.m_magFilter);
+  GLFunctions::glTexParameter(gl_const::GLMinFilter, params.m_filter);
+  GLFunctions::glTexParameter(gl_const::GLMagFilter, params.m_filter);
   GLFunctions::glTexParameter(gl_const::GLWrapS, params.m_wrapSMode);
   GLFunctions::glTexParameter(gl_const::GLWrapT, params.m_wrapTMode);
 

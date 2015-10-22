@@ -145,8 +145,8 @@ void HWTextureApple::Create(Params const & params, ref_ptr<void> data)
 
   m_textureID = CVOpenGLESTextureGetName(m_texture);
   GLFunctions::glBindTexture(m_textureID);
-  GLFunctions::glTexParameter(gl_const::GLMinFilter, params.m_minFilter);
-  GLFunctions::glTexParameter(gl_const::GLMagFilter, params.m_magFilter);
+  GLFunctions::glTexParameter(gl_const::GLMinFilter, params.m_filter);
+  GLFunctions::glTexParameter(gl_const::GLMagFilter, params.m_filter);
   GLFunctions::glTexParameter(gl_const::GLWrapS, params.m_wrapSMode);
   GLFunctions::glTexParameter(gl_const::GLWrapT, params.m_wrapTMode);
 

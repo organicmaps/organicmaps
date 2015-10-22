@@ -48,6 +48,7 @@ GLState::GLState(uint32_t gpuProgramIndex, DepthLayer depthLayer)
   : m_gpuProgramIndex(gpuProgramIndex)
   , m_depthLayer(depthLayer)
   , m_depthFunction(gl_const::GLLessOrEqual)
+  , m_textureFilter(gl_const::GLLinear)
   , m_colorTexture(nullptr)
   , m_maskTexture(nullptr)
 {
@@ -61,6 +62,16 @@ glConst GLState::GetDepthFunction() const
 void GLState::SetDepthFunction(glConst functionName)
 {
   m_depthFunction = functionName;
+}
+
+glConst GLState::GetTextureFilter() const
+{
+  return m_textureFilter;
+}
+
+void GLState::SetTextureFilter(glConst filter)
+{
+  m_textureFilter = filter;
 }
 
 bool GLState::operator<(GLState const & other) const
@@ -108,6 +119,7 @@ void ApplyTextures(GLState state, ref_ptr<GpuProgram> program)
     GLFunctions::glActiveTexture(gl_const::GLTexture0);
     tex->Bind();
     GLFunctions::glUniformValuei(colorTexLoc, 0);
+    tex->SetFilter(state.GetTextureFilter());
   }
   else
   {
@@ -130,6 +142,7 @@ void ApplyTextures(GLState state, ref_ptr<GpuProgram> program)
     GLFunctions::glActiveTexture(gl_const::GLTexture0 + 1);
     tex->Bind();
     GLFunctions::glUniformValuei(maskTexLoc, 1);
+    tex->SetFilter(state.GetTextureFilter());
   }
   else
   {
