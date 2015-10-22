@@ -27,7 +27,6 @@ win32:CONFIG(drape) {
 }
 
 SUBDIRS = 3party base geometry coding
-
 SUBDIRS += indexer
 SUBDIRS += routing
 
@@ -78,6 +77,7 @@ SUBDIRS += routing
     SUBDIRS += platform/platform_tests_support
     SUBDIRS += geometry/geometry_tests
     SUBDIRS += platform/platform_tests
+    SUBDIRS += platform/downloader_tests
     SUBDIRS += qt_tstfrm
     SUBDIRS += render/render_tests
     SUBDIRS += storage/storage_tests
