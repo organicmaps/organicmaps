@@ -15,6 +15,11 @@
 
 class Index;
 
+namespace coding
+{
+class CompressedBitVector;
+}
+
 namespace search
 {
 class Retrieval : public my::Cancellable
@@ -29,7 +34,7 @@ public:
     // This method may be called several times for the same mwm,
     // reporting disjoint sets of features.
     virtual void OnFeaturesRetrieved(MwmSet::MwmId const & id, double scale,
-                                     vector<uint32_t> const & featureIds) = 0;
+                                     coding::CompressedBitVector const & features) = 0;
 
     // Called when all matching features for an mwm were retrieved and
     // reported.  Cliens may assume that this method is called no more
@@ -73,7 +78,7 @@ public:
   class Strategy
   {
   public:
-    using TCallback = function<void(vector<uint32_t> &)>;
+    using TCallback = function<void(coding::CompressedBitVector const &)>;
 
     Strategy(MwmSet::MwmHandle & handle, m2::RectD const & viewport);
 
@@ -130,7 +135,7 @@ private:
     unique_ptr<Strategy> m_strategy;
 
     size_t m_featuresReported;
-    size_t m_numAddressFeatures;
+    uint32_t m_numAddressFeatures;
     bool m_intersectsWithViewport : 1;
     bool m_finished : 1;
   };
@@ -152,7 +157,7 @@ private:
   bool Finished() const;
 
   // Reports features, updates bucket's stats.
-  void ReportFeatures(Bucket & bucket, vector<uint32_t> & featureIds, double scale,
+  void ReportFeatures(Bucket & bucket, coding::CompressedBitVector const & features, double scale,
                       Callback & callback);
 
   Index * m_index;

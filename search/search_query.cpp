@@ -27,10 +27,12 @@
 
 #include "platform/preferred_languages.hpp"
 
+#include "coding/compressed_bit_vector.hpp"
 #include "coding/multilang_utf8_string.hpp"
 #include "coding/reader_wrapper.hpp"
 
 #include "base/logging.hpp"
+#include "base/macros.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
@@ -38,6 +40,7 @@
 #include "std/algorithm.hpp"
 #include "std/function.hpp"
 #include "std/iterator.hpp"
+#include "std/limits.hpp"
 
 #define LONG_OP(op)    \
   {                    \
@@ -130,6 +133,33 @@ public:
   impl::PreResult2 const & operator*() const { return *m_val; }
 };
 
+// This dummy rank table is used instead of a normal rank table when
+// the latter can't be loaded. It should not be serialized and can't
+// be loaded.
+class DummyRankTable : public RankTable
+{
+public:
+  // RankTable overrides:
+  uint8_t Get(uint64_t i) const override { return 0; }
+
+  uint64_t Size() const override
+  {
+    NOTIMPLEMENTED();
+    return numeric_limits<uint64_t>::max();
+  }
+
+  Version GetVersion() const override
+  {
+    NOTIMPLEMENTED();
+    return RankTable::VERSION_COUNT;
+  }
+
+  void Serialize(Writer & /* writer */, bool /* preserveHostEndianness */) override
+  {
+    NOTIMPLEMENTED();
+  }
+};
+
 string DebugPrint(IndexedValue const & value)
 {
   string index;
@@ -164,20 +194,24 @@ Query::RetrievalCallback::RetrievalCallback(Index & index, Query & query, Viewpo
 }
 
 void Query::RetrievalCallback::OnFeaturesRetrieved(MwmSet::MwmId const & id, double scale,
-                                                   vector<uint32_t> const & featureIds)
+                                                   coding::CompressedBitVector const & features)
 {
-  auto const * table = LoadTable(id);
+  static DummyRankTable dummyTable;
 
+  auto const * table = LoadTable(id);
   if (!table)
   {
     LOG(LWARNING, ("Can't get rank table for:", id));
-    for (auto const & featureId : featureIds)
-      m_query.AddPreResult1(id, featureId, 0 /* rank */, scale, m_viewportId);
-    return;
+    table = &dummyTable;
   }
 
-  for (auto const & featureId : featureIds)
-    m_query.AddPreResult1(id, featureId, table->Get(featureId), scale, m_viewportId);
+  coding::CompressedBitVectorEnumerator::ForEach(
+      features, [&](uint64_t featureId)
+      {
+        ASSERT_LESS_OR_EQUAL(featureId, numeric_limits<uint32_t>::max(), ());
+        m_query.AddPreResult1(id, static_cast<uint32_t>(featureId), table->Get(featureId), scale,
+                              m_viewportId);
+      });
 }
 
 void Query::RetrievalCallback::OnMwmProcessed(MwmSet::MwmId const & id) { UnloadTable(id); }

@@ -21,11 +21,14 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
+#include "coding/compressed_bit_vector.hpp"
+
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/initializer_list.hpp"
+#include "std/limits.hpp"
 #include "std/sstream.hpp"
 #include "std/shared_ptr.hpp"
 
@@ -189,11 +192,16 @@ public:
 
   // search::Retrieval::Callback overrides:
   void OnFeaturesRetrieved(MwmSet::MwmId const & id, double scale,
-                           vector<uint32_t> const & offsets) override
+                           coding::CompressedBitVector const & features) override
   {
     TEST_EQUAL(m_id, id, ());
     m_triggered = true;
-    m_offsets.insert(m_offsets.end(), offsets.begin(), offsets.end());
+    coding::CompressedBitVectorEnumerator::ForEach(
+        features, [&](uint64_t featureId)
+        {
+          CHECK_LESS(featureId, numeric_limits<uint32_t>::max(), ());
+          m_offsets.push_back(static_cast<uint32_t>(featureId));
+        });
   }
 
   void OnMwmProcessed(MwmSet::MwmId const & /* id */) override {}
@@ -216,13 +224,13 @@ public:
 
   // search::Retrieval::Callback overrides:
   void OnFeaturesRetrieved(MwmSet::MwmId const & id, double /* scale */,
-                           vector<uint32_t> const & offsets) override
+                           coding::CompressedBitVector const & features) override
   {
     auto const it = find(m_ids.cbegin(), m_ids.cend(), id);
     TEST(it != m_ids.cend(), ("Unknown mwm:", id));
 
     m_retrieved.insert(id);
-    m_numFeatures += offsets.size();
+    m_numFeatures += features.PopCount();
   }
 
   void OnMwmProcessed(MwmSet::MwmId const & /* id */) override {}

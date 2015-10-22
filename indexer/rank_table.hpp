@@ -42,7 +42,8 @@ class RankTable
 public:
   enum Version
   {
-    V0 = 0
+    V0 = 0,
+    VERSION_COUNT
   };
 
   virtual ~RankTable() = default;

@@ -37,7 +37,15 @@
 class FeatureType;
 class CategoriesHolder;
 
-namespace storage { class CountryInfoGetter; }
+namespace coding
+{
+class CompressedBitVector;
+}
+
+namespace storage
+{
+class CountryInfoGetter;
+}
 
 namespace search
 {
@@ -124,7 +132,7 @@ private:
 
     // Retrieval::Callback overrides:
     void OnFeaturesRetrieved(MwmSet::MwmId const & id, double scale,
-                             vector<uint32_t> const & featureIds) override;
+                             coding::CompressedBitVector const & features) override;
 
     void OnMwmProcessed(MwmSet::MwmId const & id) override;
 
