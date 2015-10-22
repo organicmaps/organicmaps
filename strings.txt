@@ -5224,6 +5224,30 @@
      en = Modern light
      ru = Современная светлая
 
+  [pref_tts_enable_title]
+     tags = android,ios
+     comment = Settings «Route» category: «Tts enabled» title
+     en = Voice instructions
+     ru = Голосовые инструкции
+
+  [pref_tts_enable_summary]
+     tags = android,ios
+     comment = Settings «Route» category: «Tts enabled» summary
+     en = Turn instructions
+     ru = Подсказки о поворотах и прочих манёврах
+
+  [pref_tts_language_title]
+     tags = android,ios
+     comment = Settings «Route» category: «Tts language» title
+     en = Voice language
+     ru = Язык подсказок
+
+  [pref_tts_unavailable]
+     tags = android,ios
+     comment = Settings «Route» category: «Tts unavailable» subtitle
+     en = TTS unavailable
+     ru = Голосовые подсказки недоступны
+
   [placepage_distance]
     en = Distance
     fr = Distance
