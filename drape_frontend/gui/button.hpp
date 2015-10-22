@@ -55,8 +55,7 @@ public:
     dp::FontDecl m_labelFont;
     dp::Anchor m_anchor;
 
-    float m_minWidth = 0.0f;
-    float m_maxWidth = 0.0f;
+    float m_width = 0.0f;
     float m_margin = 0.0f;
     float m_facet = 0.0f;
 
@@ -64,6 +63,7 @@ public:
     TLabelHandleCreator m_labelHandleCreator;
   };
 
-  static void Draw(Params const & params, ShapeControl & control, ref_ptr<dp::TextureManager> texMgr);
+  static gui::StaticLabel::LabelResult PreprocessLabel(Params const & params, ref_ptr<dp::TextureManager> texMgr);
+  static void Draw(Params const & params, ShapeControl & control, gui::StaticLabel::LabelResult & label);
 };
 }

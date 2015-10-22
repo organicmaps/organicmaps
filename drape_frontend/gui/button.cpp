@@ -99,17 +99,20 @@ bool ButtonHandle::Update(ScreenBase const & screen)
   return TBase::Update(screen);
 }
 
-void Button::Draw(Params const & params, ShapeControl & control, ref_ptr<dp::TextureManager> texMgr)
+StaticLabel::LabelResult Button::PreprocessLabel(Params const & params, ref_ptr<dp::TextureManager> texMgr)
 {
   StaticLabel::LabelResult result;
   StaticLabel::CacheStaticText(params.m_label, StaticLabel::DefaultDelim, params.m_anchor,
                                params.m_labelFont, texMgr, result);
+  return result;
+}
 
-  float textWidth = result.m_boundRect.SizeX();
-  float halfWidth = my::clamp(textWidth, params.m_minWidth, params.m_maxWidth) * 0.5f;
-  float halfHeight = result.m_boundRect.SizeY() * 0.5f;
-  float halfWM = halfWidth + params.m_margin;
-  float halfHM = halfHeight + params.m_margin;
+void Button::Draw(Params const & params, ShapeControl & control, gui::StaticLabel::LabelResult & label)
+{
+  float const halfWidth = params.m_width * 0.5f;
+  float const halfHeight = label.m_boundRect.SizeY() * 0.5f;
+  float const halfWM = halfWidth + params.m_margin;
+  float const halfHM = halfHeight + params.m_margin;
 
   // Cache button
   {
@@ -161,21 +164,21 @@ void Button::Draw(Params const & params, ShapeControl & control, ref_ptr<dp::Tex
 
   // Cache text
   {
-    size_t vertexCount = result.m_buffer.size();
+    size_t vertexCount = label.m_buffer.size();
     ASSERT(vertexCount % dp::Batcher::VertexPerQuad == 0, ());
     size_t indexCount = dp::Batcher::IndexPerQuad * vertexCount / dp::Batcher::VertexPerQuad;
 
     dp::AttributeProvider provider(1 /*stream count*/, vertexCount);
     provider.InitStream(0 /*stream index*/, StaticLabel::Vertex::GetBindingInfo(),
-                        make_ref(result.m_buffer.data()));
+                        make_ref(label.m_buffer.data()));
 
     ASSERT(params.m_labelHandleCreator, ());
-    m2::PointF textSize(result.m_boundRect.SizeX(), result.m_boundRect.SizeY());
+    m2::PointF textSize(label.m_boundRect.SizeX(), label.m_boundRect.SizeY());
 
     dp::Batcher batcher(indexCount, vertexCount);
     dp::SessionGuard guard(batcher, bind(&ShapeControl::AddShape, &control, _1, _2));
-    batcher.InsertListOfStrip(result.m_state, make_ref(&provider),
-                              params.m_labelHandleCreator(params.m_anchor, textSize, result.m_alphabet),
+    batcher.InsertListOfStrip(label.m_state, make_ref(&provider),
+                              params.m_labelHandleCreator(params.m_anchor, textSize, label.m_alphabet),
                               dp::Batcher::VertexPerQuad);
   }
 }

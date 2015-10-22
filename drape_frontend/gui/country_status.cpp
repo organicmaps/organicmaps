@@ -150,6 +150,17 @@ void DrawProgressControl(dp::Anchor anchor, dp::Batcher::TFlushFn const & flushF
   MutableLabelDrawer::Draw(params, mng, flushFn);
 }
 
+void ForEachComponent(CountryStatusHelper & helper, CountryStatusHelper::EControlType type,
+                      function<void(CountryStatusHelper::Control const &)> const & callback)
+{
+  for (size_t i = 0; i < helper.GetComponentCount(); ++i)
+  {
+    CountryStatusHelper::Control const & control = helper.GetControl(i);
+    if (callback != nullptr && control.m_type == type)
+      callback(control);
+  }
+}
+
 }
 
 drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex,
@@ -165,53 +176,67 @@ drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex,
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher::TFlushFn flushFn = bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2);
 
-  for (size_t i = 0; i < helper.GetComponentCount(); ++i)
+  // Create labels.
+  ForEachComponent(helper, CountryStatusHelper::CONTROL_TYPE_LABEL,
+                   [this, &tex, &flushFn, &state](CountryStatusHelper::Control const & control)
   {
-    CountryStatusHelper::Control const & control = helper.GetControl(i);
-    switch (control.m_type)
+    DrawLabelControl(control.m_label, m_position.m_anchor, flushFn, tex, state);
+  });
+
+  // Preprocess buttons.
+  vector<pair<Button::Params, StaticLabel::LabelResult>> buttons;
+  float const kMinButtonWidth = 400;
+  float maxButtonWidth = kMinButtonWidth;
+  buttons.reserve(2);
+  ForEachComponent(helper, CountryStatusHelper::CONTROL_TYPE_BUTTON,
+                   [this, &buttons, &state, &tex, &buttonHandlers,
+                   &maxButtonWidth](CountryStatusHelper::Control const & control)
+  {
+    float const visualScale = df::VisualParams::Instance().GetVisualScale();
+
+    Button::Params params;
+    params.m_anchor = m_position.m_anchor;
+    params.m_label = control.m_label;
+    params.m_labelFont = dp::FontDecl(dp::Color::White(), 18);
+    params.m_margin = 5.0f * visualScale;
+    params.m_facet = 8.0f * visualScale;
+
+    auto color = dp::Color(0, 0, 0, 0.44 * 255);
+    auto pressedColor = dp::Color(0, 0, 0, 0.72 * 255);
+    if (control.m_buttonType == CountryStatusHelper::BUTTON_TYPE_MAP_ROUTING)
     {
-    case CountryStatusHelper::CONTROL_TYPE_BUTTON:
-      {
-        float const visualScale = df::VisualParams::Instance().GetVisualScale();
-
-        ShapeControl shapeControl;
-        Button::Params params;
-        params.m_anchor = m_position.m_anchor;
-        params.m_label = control.m_label;
-        params.m_labelFont = dp::FontDecl(dp::Color::White(), 18);
-        params.m_minWidth = 400;
-        params.m_maxWidth = 600;
-        params.m_margin = 5.0f * visualScale;
-        params.m_facet = 8.0f * visualScale;
-
-        auto color = dp::Color(0, 0, 0, 0.44 * 255);
-        auto pressedColor = dp::Color(0, 0, 0, 0.72 * 255);
-        if (control.m_buttonType == CountryStatusHelper::BUTTON_TYPE_MAP_ROUTING)
-        {
-          color = dp::Color(32, 152, 82, 255);
-          pressedColor = dp::Color(24, 128, 68, 255);
-        }
-
-        auto const buttonHandlerIt = buttonHandlers.find(control.m_buttonType);
-        Shape::TTapHandler buttonHandler = (buttonHandlerIt != buttonHandlers.end() ? buttonHandlerIt->second : nullptr);
-        params.m_bodyHandleCreator = bind(&CreateButtonHandle, state, buttonHandler, color, pressedColor, _1, _2);
-        params.m_labelHandleCreator = bind(&CreateLabelHandle, state, tex, _1, _2, _3);
-
-        Button::Draw(params, shapeControl, tex);
-        renderer->AddShapeControl(move(shapeControl));
-      }
-      break;
-    case CountryStatusHelper::CONTROL_TYPE_LABEL:
-      DrawLabelControl(control.m_label, m_position.m_anchor, flushFn, tex, state);
-      break;
-    case CountryStatusHelper::CONTROL_TYPE_PROGRESS:
-      DrawProgressControl(m_position.m_anchor, flushFn, tex, state);
-      break;
-    default:
-      ASSERT(false, ());
-      break;
+      color = dp::Color(32, 152, 82, 255);
+      pressedColor = dp::Color(24, 128, 68, 255);
     }
+
+    auto const buttonHandlerIt = buttonHandlers.find(control.m_buttonType);
+    Shape::TTapHandler buttonHandler = (buttonHandlerIt != buttonHandlers.end() ? buttonHandlerIt->second : nullptr);
+    params.m_bodyHandleCreator = bind(&CreateButtonHandle, state, buttonHandler, color, pressedColor, _1, _2);
+    params.m_labelHandleCreator = bind(&CreateLabelHandle, state, tex, _1, _2, _3);
+
+    auto label = Button::PreprocessLabel(params, tex);
+    float const buttonWidth = label.m_boundRect.SizeX();
+    if (buttonWidth > maxButtonWidth)
+      maxButtonWidth = buttonWidth;
+
+    buttons.emplace_back(make_pair(move(params), move(label)));
+  });
+
+  // Create buttons.
+  for (size_t i = 0; i < buttons.size(); i++)
+  {
+    buttons[i].first.m_width = maxButtonWidth;
+    ShapeControl shapeControl;
+    Button::Draw(buttons[i].first, shapeControl, buttons[i].second);
+    renderer->AddShapeControl(move(shapeControl));
   }
+
+  // Create progress bars.
+  ForEachComponent(helper, CountryStatusHelper::CONTROL_TYPE_PROGRESS,
+                   [this, &tex, &flushFn, &state](CountryStatusHelper::Control const &)
+  {
+    DrawProgressControl(m_position.m_anchor, flushFn, tex, state);
+  });
 
   buffer_vector<float, 4> heights;
   float totalHeight = 0.0f;
