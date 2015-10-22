@@ -225,10 +225,10 @@ void Framework::ShowCountry(TIndex const & idx, bool zoomToDownloadButton)
 {
   if (zoomToDownloadButton)
   {
-      m2::RectD const rect = m_work.GetCountryBounds(idx);
-      double const lon = MercatorBounds::XToLon(rect.Center().x);
-      double const lat = MercatorBounds::YToLat(rect.Center().y);
-      m_work.ShowRect(lat, lon, 10);
+    m2::RectD const rect = m_work.GetCountryBounds(idx);
+    double const lon = MercatorBounds::XToLon(rect.Center().x);
+    double const lat = MercatorBounds::YToLat(rect.Center().y);
+    m_work.ShowRect(lat, lon, 10);
   }
   else
     m_work.ShowCountry(idx);
@@ -345,43 +345,6 @@ void Framework::AddLocalMaps()
 void Framework::RemoveLocalMaps()
 {
   m_work.DeregisterAllMaps();
-}
-
-void Framework::GetMapsWithoutSearch(vector<string> & out) const
-{
-  // Actually, this routing is obsolete and comes from ancient times
-  // when mwm was without search index.
-  if (!Settings::IsFirstLaunchForDate(150101))
-    return;
-
-  ASSERT(out.empty(), ());
-
-  ::Platform const & pl = GetPlatform();
-
-  vector<LocalCountryFile> localFiles;
-  platform::FindAllLocalMaps(localFiles);
-
-  for (LocalCountryFile const & localFile : localFiles)
-  {
-    CountryFile const countryFile = localFile.GetCountryFile();
-    // skip World and WorldCoast
-    if (countryFile.GetNameWithoutExt() == WORLD_FILE_NAME ||
-        countryFile.GetNameWithoutExt() == WORLD_COASTS_FILE_NAME)
-    {
-      continue;
-    }
-    try
-    {
-      FilesContainerR cont(platform::GetCountryReader(localFile, MapOptions::Map));
-      if (!cont.IsExist(SEARCH_INDEX_FILE_TAG))
-        out.push_back(countryFile.GetNameWithoutExt());
-    }
-    catch (RootException const & ex)
-    {
-      // sdcard can contain dummy _*.mwm files. Suppress these errors.
-      LOG(LWARNING, ("Bad mwm file:", countryFile.GetNameWithoutExt(), "Error:", ex.Msg()));
-    }
-  }
 }
 
 BookmarkAndCategory Framework::AddBookmark(size_t cat, m2::PointD const & pt, BookmarkData & bm)

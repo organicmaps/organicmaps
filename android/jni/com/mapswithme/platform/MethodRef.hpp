@@ -12,7 +12,7 @@ public:
   void CallVoid(jlong arg);
 
 private:
-  char const* m_name;
+  char const * m_name;
   char const * m_signature;
   jmethodID m_methodID;
   jobject m_object;

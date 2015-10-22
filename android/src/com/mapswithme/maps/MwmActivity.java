@@ -943,7 +943,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return true;
   }
 
-  // Callbacks from native map objects touch event.
+  // Callbacks from native touch events on map objects.
   @Override
   public void onApiPointActivated(final double lat, final double lon, final String name, final String id)
   {
@@ -970,28 +970,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     final MapObject poi = new MapObject.Poi(name, lat, lon, type);
     poi.addMetadata(metaTypes, metaValues);
-
-    runOnUiThread(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        activateMapObject(poi);
-      }
-    });
+    activateMapObject(poi);
   }
 
   @Override
   public void onBookmarkActivated(final int category, final int bookmarkIndex)
   {
-    runOnUiThread(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        activateMapObject(BookmarkManager.INSTANCE.getBookmark(category, bookmarkIndex));
-      }
-    });
+    activateMapObject(BookmarkManager.INSTANCE.getBookmark(category, bookmarkIndex));
   }
 
   @Override
@@ -1015,16 +1000,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onAdditionalLayerActivated(final String name, final String type, final double lat, final double lon, final int[] metaTypes, final String[] metaValues)
   {
-    runOnUiThread(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        final MapObject sr = new MapObject.SearchResult(name, type, lat, lon);
-        sr.addMetadata(metaTypes, metaValues);
-        activateMapObject(sr);
-      }
-    });
+    final MapObject sr = new MapObject.SearchResult(name, type, lat, lon);
+    sr.addMetadata(metaTypes, metaValues);
+    activateMapObject(sr);
   }
 
   private void activateMapObject(MapObject object)
@@ -1043,16 +1021,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onDismiss()
   {
     if (!mPlacePage.hasMapObject(null))
-    {
-      runOnUiThread(new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          mPlacePage.hide();
-        }
-      });
-    }
+      mPlacePage.hide();
   }
 
   @Override

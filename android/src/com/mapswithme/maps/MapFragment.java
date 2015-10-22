@@ -202,7 +202,7 @@ public class MapFragment extends BaseMwmFragment
       return false;
 
     int action = event.getActionMasked();
-    int maskedPointer = event.getActionIndex();
+    int pointerIndex = event.getActionIndex();
     switch (action)
     {
       case MotionEvent.ACTION_POINTER_UP:
@@ -210,18 +210,18 @@ public class MapFragment extends BaseMwmFragment
         break;
       case MotionEvent.ACTION_UP:
         action = NATIVE_ACTION_UP;
-        maskedPointer = 0;
+        pointerIndex = 0;
         break;
       case MotionEvent.ACTION_POINTER_DOWN:
         action = NATIVE_ACTION_DOWN;
         break;
       case MotionEvent.ACTION_DOWN:
         action = NATIVE_ACTION_DOWN;
-        maskedPointer = 0;
+        pointerIndex = 0;
         break;
       case MotionEvent.ACTION_MOVE:
         action = NATIVE_ACTION_MOVE;
-        maskedPointer = INVALID_POINTER_MASK;
+        pointerIndex = INVALID_POINTER_MASK;
         break;
       case MotionEvent.ACTION_CANCEL:
         action = NATIVE_ACTION_CANCEL;
@@ -231,26 +231,18 @@ public class MapFragment extends BaseMwmFragment
     switch (count)
     {
       case 1:
-        final float x = event.getX();
-        final float y = event.getY();
-
-        nativeOnTouch(action, event.getPointerId(0), x, y, INVALID_TOUCH_ID, 0, 0, 0);
+        nativeOnTouch(action, event.getPointerId(0), event.getX(), event.getY(), INVALID_TOUCH_ID, 0, 0, 0);
         return true;
-
       default:
-        final float x0 = event.getX(0);
-        final float y0 = event.getY(0);
-
-        final float x1 = event.getX(1);
-        final float y1 = event.getY(1);
-
-        nativeOnTouch(action, event.getPointerId(0), x0, y0, event.getPointerId(1), x1, y1, maskedPointer);
+        nativeOnTouch(action,
+                      event.getPointerId(0), event.getX(0), event.getY(0),
+                      event.getPointerId(1), event.getX(1), event.getY(1), pointerIndex);
         return true;
     }
   }
 
   @SuppressWarnings("UnusedDeclaration")
-  public void OnDownloadCountryClicked(final int group, final int country, final int region, final int options)
+  public void onDownloadCountryClicked(final int group, final int country, final int region, final int options)
   {
     UiThread.run(new Runnable()
     {

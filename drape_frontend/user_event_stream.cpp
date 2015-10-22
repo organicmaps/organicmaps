@@ -53,11 +53,11 @@ char const * UserEventStream::CANCEL_FILTER = "CancelFilter";
 
 uint8_t const TouchEvent::INVALID_MASKED_POINTER = 0xFF;
 
-void TouchEvent::PrepareTouches(array<Touch, 2> const & previousToches)
+void TouchEvent::PrepareTouches(array<Touch, 2> const & previousTouches)
 {
-  if (GetValidTouchesCount(m_touches) == 2 && GetValidTouchesCount(previousToches) > 0)
+  if (GetValidTouchesCount(m_touches) == 2 && GetValidTouchesCount(previousTouches) > 0)
   {
-    if (previousToches[0].m_id == m_touches[1].m_id)
+    if (previousTouches[0].m_id == m_touches[1].m_id)
       Swap();
   }
 }

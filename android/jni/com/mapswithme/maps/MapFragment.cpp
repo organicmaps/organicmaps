@@ -94,7 +94,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MapFragment_nativeConnectDownloadButton(JNIEnv * env, jobject thiz)
   {
-    jmethodID methodID = jni::GetJavaMethodID(env, thiz, "OnDownloadCountryClicked", "(IIII)V");
+    jmethodID methodID = jni::GetJavaMethodID(env, thiz, "onDownloadCountryClicked", "(IIII)V");
     g_framework->NativeFramework()->SetDownloadCountryListener(bind(&CallOnDownloadCountryClicked,
                                                                jni::make_global_ref(thiz), _1, _2, methodID));
   }
@@ -184,7 +184,8 @@ extern "C"
                                                      jint id2, jfloat x2, jfloat y2,
                                                      jint maskedPointer)
   {
-    g_framework->Touch(static_cast<int>(action), android::Framework::Finger(id1, x1, y1),
+    g_framework->Touch(static_cast<int>(action),
+                       android::Framework::Finger(id1, x1, y1),
                        android::Framework::Finger(id2, x2, y2), maskedPointer);
   }
 

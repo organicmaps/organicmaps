@@ -24,7 +24,7 @@ namespace df
 struct Touch
 {
   m2::PointF m_location = m2::PointF::Zero();
-  int64_t m_id = -1; // if id == -1 then touch invalid
+  int64_t m_id = -1; // if id == -1 then touch is invalid
 };
 
 struct TouchEvent
@@ -54,8 +54,8 @@ struct TouchEvent
 
   /// Methods for work with current touches
   /// For example : user put down one finger. We will have one touch in m_touches
-  /// and GetFirstMaskedPointer return index of this pointer in m_touces (0 in this case)
-  /// Than user put down second finger. m_touches will have 2 valid elements, but new finger only one.
+  /// and GetFirstMaskedPointer return index of this pointer in m_touches (0 in this case)
+  /// Then user puts down the second finger. m_touches will have 2 valid elements, but new finger only one.
   /// In this case GetFirstMaskedPointer returns index of new pointer.
   /// If user put down both fingers simultaneously, then GetFirst and GetSecond
   /// will return valid not equal INVALID_MASKED_POINTER
