@@ -212,7 +212,8 @@ extern "C"
   Java_com_mapswithme_maps_search_SearchEngine_nativeShowAllResults(JNIEnv * env, jclass clazz)
   {
     lock_guard<mutex> guard(g_resultsMutex);
-    g_framework->PostDrapeTask([results = g_results]()
+    auto results = g_results;
+    g_framework->PostDrapeTask([results]()
     {
       g_framework->NativeFramework()->ShowAllSearchResults(results);
     });
@@ -221,7 +222,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_search_SearchEngine_nativeCancelInteractiveSearch(JNIEnv * env, jclass clazz)
   {
-    android::Platform::RunOnGuiThreadImpl([]()
+    GetPlatform().RunOnGuiThread([]()
     {
       g_framework->NativeFramework()->CancelInteractiveSearch();
     });

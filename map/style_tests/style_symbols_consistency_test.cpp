@@ -5,8 +5,6 @@
 #include "indexer/drules_include.hpp"
 #include "indexer/map_style_reader.hpp"
 
-#include "graphics/defines.hpp"
-
 #include "base/logging.hpp"
 
 #include "coding/parse_xml.hpp"
@@ -15,6 +13,7 @@
 #include "std/algorithm.hpp"
 #include "std/set.hpp"
 #include "std/string.hpp"
+#include "std/vector.hpp"
 
 namespace
 {
@@ -69,6 +68,8 @@ UNIT_TEST(Test_SymbolsConsistency)
 
   bool res = true;
 
+  vector<string> densities = { "ldpi", "mdpi", "hdpi", "xhdpi", "xxhdpi", "6plus" };
+
   for (size_t s = 0; s < MapStyleCount; ++s)
   {
     MapStyle const mapStyle = static_cast<MapStyle>(s);
@@ -78,11 +79,9 @@ UNIT_TEST(Test_SymbolsConsistency)
 
     set<string> const drawingRuleSymbols = GetSymbolsSetFromDrawingRule();
 
-    for (size_t d = 0; d < graphics::EDensityCount; ++d)
+    for (size_t d = 0; d < densities.size(); ++d)
     {
-      string const density = graphics::convert(static_cast<graphics::EDensity>(d));
-
-      set<string> const resourceStyles = GetSymbolsSetFromResourcesFile(density);
+      set<string> const resourceStyles = GetSymbolsSetFromResourcesFile(densities[d]);
 
       vector<string> missed;
       set_difference(drawingRuleSymbols.begin(), drawingRuleSymbols.end(),
@@ -93,7 +92,7 @@ UNIT_TEST(Test_SymbolsConsistency)
       {
         // We are interested in all set of bugs, therefore we do not stop test here but
         // continue it just keeping in res that test failed.
-        LOG(LINFO, ("Symbols mismatch: style", mapStyle, ", density", density, ", missed", missed));
+        LOG(LINFO, ("Symbols mismatch: style", mapStyle, ", density", densities[d], ", missed", missed));
         res = false;
       }
     }

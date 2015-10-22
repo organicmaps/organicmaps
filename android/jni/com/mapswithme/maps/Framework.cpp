@@ -211,6 +211,11 @@ void Framework::SetMapStyle(MapStyle mapStyle)
   m_work.SetMapStyle(mapStyle);
 }
 
+MapStyle Framework::GetMapStyle() const
+{
+  return m_work.GetMapStyle();
+}
+
 Storage & Framework::Storage()
 {
   return m_work.Storage();

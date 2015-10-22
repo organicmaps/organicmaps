@@ -257,8 +257,9 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)changeBookmarkCategory:(BookmarkAndCategory)bac;
 {
-  BookmarkCategory const * category = GetFramework().GetBmCategory(bac.first);
-  Bookmark const * bookmark = category->GetBookmark(bac.second);
+  BookmarkCategory * category = GetFramework().GetBmCategory(bac.first);
+  BookmarkCategory::Guard guard(*category);
+  UserMark const * bookmark = guard.m_controller.GetUserMark(bac.second);
   m_userMark.reset(new UserMarkCopy(bookmark, false));
 }
 
@@ -344,7 +345,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
     return @"";
   string distance;
   CLLocationCoordinate2D const coord = location.coordinate;
-  ms::LatLon const target = MercatorBounds::ToLatLon(m_userMark->GetUserMark()->GetOrg());
+  ms::LatLon const target = MercatorBounds::ToLatLon(m_userMark->GetUserMark()->GetPivot());
   MeasurementUtils::FormatDistance(ms::DistanceOnEarth(coord.latitude, coord.longitude,
                                                        target.lat, target.lon), distance);
   return @(distance.c_str());

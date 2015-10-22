@@ -9,6 +9,7 @@
 #import <Foundation/NSDictionary.h>
 #import <Foundation/NSValue.h>
 
+#include <boost/integer_traits.hpp>
 #include <boost/gil/algorithm.hpp>
 #include <boost/gil/typedefs.hpp>
 
