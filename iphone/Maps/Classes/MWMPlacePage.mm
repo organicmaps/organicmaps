@@ -37,8 +37,8 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
                                       context:nullptr];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillChangeFrame:)
-                                                 name:UIKeyboardWillChangeFrameNotification
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -58,7 +58,7 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)keyboardWillChangeFrame:(NSNotification *)aNotification
+- (void)keyboardWillShow:(NSNotification *)aNotification
 {
   NSDictionary * info = [aNotification userInfo];
   self.keyboardHeight = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
@@ -183,6 +183,11 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
 - (void)reloadBookmark
 {
   [self.basePlacePageView reloadBookmarkCell];
+}
+
+- (void)willStartEditingBookmarkTitle
+{
+// This method should be ovverriden.
 }
 
 - (void)willFinishEditingBookmarkTitle:(NSString *)title

@@ -41,7 +41,8 @@
 - (void)setDistance:(NSString *)distance;
 - (void)updateMyPositionStatus:(NSString *)status;
 
-- (void)keyboardWillChangeFrame:(NSNotification *)aNotification;
+- (void)keyboardWillShow:(NSNotification *)aNotification;
+- (void)keyboardWillHide;
 
 - (instancetype)init __attribute__((unavailable("call initWithManager: instead")));
 
