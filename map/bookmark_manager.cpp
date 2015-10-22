@@ -310,8 +310,10 @@ void BookmarkManager::DrawItems(Drawer * drawer) const
   pScreen->beginFrame();
 
   PaintOverlayEvent event(drawer, screen);
-  for_each(m_userMarkLayers.begin(), m_userMarkLayers.end(), bind(&UserMarkContainer::Draw, _1, event, m_cache));
-  for_each(m_categories.begin(), m_categories.end(), bind(&BookmarkManager::DrawCategory, this, _1, event));
+  for (auto const & layer : m_userMarkLayers)
+    layer->Draw(event, m_cache);
+  for (auto const & category : m_categories)
+    DrawCategory(category, event);
   m_routeRenderer->Render(pScreen, screen);
   m_selection.Draw(event, m_cache);
 
