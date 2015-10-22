@@ -22,7 +22,7 @@
 		341C2A5B1B720B8A00AD41A1 /* MWMAPIBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 341C2A5A1B720B8A00AD41A1 /* MWMAPIBarView.xib */; };
 		342AD76F1B53D30C00E0B997 /* UIButton+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 342AD76E1B53D30C00E0B997 /* UIButton+RuntimeAttributes.m */; };
 		342AD7721B53D32F00E0B997 /* UIView+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 342AD7711B53D32F00E0B997 /* UIView+RuntimeAttributes.m */; };
-		342BB7AB1BC7CC5C00DF6443 /* PlacePageBookmarkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 342BB7AA1BC7CC5C00DF6443 /* PlacePageBookmarkCell.xib */; settings = {ASSET_TAGS = (); }; };
+		342BB7AB1BC7CC5C00DF6443 /* PlacePageBookmarkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 342BB7AA1BC7CC5C00DF6443 /* PlacePageBookmarkCell.xib */; };
 		3438CDF41B85F1170051AA78 /* MWMConsole.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3438CDF31B85F1170051AA78 /* MWMConsole.mm */; };
 		3438CDF81B8616760051AA78 /* MWMSearchShowOnMapCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3438CDF61B8616760051AA78 /* MWMSearchShowOnMapCell.mm */; };
 		3438CDF91B8616760051AA78 /* MWMSearchShowOnMapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3438CDF71B8616760051AA78 /* MWMSearchShowOnMapCell.xib */; };
@@ -45,7 +45,7 @@
 		345C31721AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345C31701AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.mm */; };
 		345C31781AE799B600EA0CC2 /* MWMSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 345C31751AE799B600EA0CC2 /* MWMSearchResultCell.m */; };
 		345C31791AE799B600EA0CC2 /* MWMSearchResultController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345C31771AE799B600EA0CC2 /* MWMSearchResultController.mm */; };
-		34634B1B1BB42D270013573C /* MWMBottomMenuCollectionViewLandscapeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34634B1A1BB42D270013573C /* MWMBottomMenuCollectionViewLandscapeCell.xib */; settings = {ASSET_TAGS = (); }; };
+		34634B1B1BB42D270013573C /* MWMBottomMenuCollectionViewLandscapeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34634B1A1BB42D270013573C /* MWMBottomMenuCollectionViewLandscapeCell.xib */; };
 		3465E7D81B6658C000854C4D /* MWMAPIBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3465E7D71B6658C000854C4D /* MWMAPIBar.mm */; };
 		346EDADB1B9F0E35004F8DB5 /* MWMMultilineLabel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 346EDADA1B9F0E35004F8DB5 /* MWMMultilineLabel.mm */; };
 		347274731B0F4EE000756B37 /* me.maps.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 347274721B0F4EE000756B37 /* me.maps.entitlements */; };
@@ -55,7 +55,7 @@
 		3472EC051B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3472EC041B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm */; };
 		347BAC691B733D540010FF78 /* MWMPedestrianShareAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347BAC681B733D540010FF78 /* MWMPedestrianShareAlert.xib */; };
 		347BAC6E1B736BA70010FF78 /* MWMSharePedestrianRoutesToastActivityItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 347BAC6D1B736BA70010FF78 /* MWMSharePedestrianRoutesToastActivityItem.mm */; };
-		347FDDA11BB59B4E00871410 /* Mapsme.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 347FDDA01BB59B4E00871410 /* Mapsme.storyboard */; settings = {ASSET_TAGS = (); }; };
+		347FDDA11BB59B4E00871410 /* Mapsme.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 347FDDA01BB59B4E00871410 /* Mapsme.storyboard */; };
 		3485C0121B85C20E00F7712D /* MWMSearchTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3485C0101B85C20E00F7712D /* MWMSearchTableViewController.mm */; };
 		3485C0131B85C20E00F7712D /* MWMSearchTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3485C0111B85C20E00F7712D /* MWMSearchTableViewController.xib */; };
 		348E578E1B0F3752000FA02A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB7E22111E9079400080A68 /* CoreLocation.framework */; };
@@ -69,13 +69,13 @@
 		349A358C1B53EABC009677EE /* MWMSearchDownloadMapRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 349A35881B53EABC009677EE /* MWMSearchDownloadMapRequest.m */; };
 		349A358D1B53EABC009677EE /* MWMSearchDownloadMapRequest.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349A35891B53EABC009677EE /* MWMSearchDownloadMapRequest.xib */; };
 		349A358E1B53EABC009677EE /* MWMSearchDownloadMapRequestView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349A358B1B53EABC009677EE /* MWMSearchDownloadMapRequestView.mm */; };
-		349C26B51BB02C6F0005DF2F /* MWMBottomMenuViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349C26B31BB02C6F0005DF2F /* MWMBottomMenuViewController.mm */; settings = {ASSET_TAGS = (); }; };
-		349C26B61BB02C6F0005DF2F /* MWMBottomMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349C26B41BB02C6F0005DF2F /* MWMBottomMenuViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		349C26B91BB04ED30005DF2F /* MWMBottomMenuView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349C26B81BB04ED30005DF2F /* MWMBottomMenuView.mm */; settings = {ASSET_TAGS = (); }; };
+		349C26B51BB02C6F0005DF2F /* MWMBottomMenuViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349C26B31BB02C6F0005DF2F /* MWMBottomMenuViewController.mm */; };
+		349C26B61BB02C6F0005DF2F /* MWMBottomMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349C26B41BB02C6F0005DF2F /* MWMBottomMenuViewController.xib */; };
+		349C26B91BB04ED30005DF2F /* MWMBottomMenuView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349C26B81BB04ED30005DF2F /* MWMBottomMenuView.mm */; };
 		34A742FE1AE5461A00CE15EB /* index.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34A742FD1AE5461A00CE15EB /* index.cpp */; };
 		34A743001AE5468200CE15EB /* storage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34A742FF1AE5468200CE15EB /* storage.cpp */; };
 		34B16C451B72655D000D3A0D /* MWMPedestrianShareAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B16C441B72655D000D3A0D /* MWMPedestrianShareAlert.mm */; };
-		34B6CF5D1BBBFC6B009203C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34B6CF5C1BBBFC6B009203C6 /* LaunchScreen.storyboard */; settings = {ASSET_TAGS = (); }; };
+		34B6CF5D1BBBFC6B009203C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34B6CF5C1BBBFC6B009203C6 /* LaunchScreen.storyboard */; };
 		34B82AB21B8344E300180497 /* MWMSearchTextField.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B82AB11B8344E300180497 /* MWMSearchTextField.mm */; };
 		34B82ABA1B837FFD00180497 /* MWMSearchHistoryRequestCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B82AB81B837FFD00180497 /* MWMSearchHistoryRequestCell.mm */; };
 		34B82ABB1B837FFD00180497 /* MWMSearchHistoryRequestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B82AB91B837FFD00180497 /* MWMSearchHistoryRequestCell.xib */; };
@@ -91,9 +91,9 @@
 		34B82ADE1B84A4A000180497 /* MWMSearchCommonCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B82ADC1B84A4A000180497 /* MWMSearchCommonCell.mm */; };
 		34B82ADF1B84A4A000180497 /* MWMSearchCommonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B82ADD1B84A4A000180497 /* MWMSearchCommonCell.xib */; };
 		34B82AE21B84AC5E00180497 /* MWMSearchCategoriesManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B82AE11B84AC5E00180497 /* MWMSearchCategoriesManager.mm */; };
-		34BAB6E91BB2DA0C00DB941B /* MWMBottomMenuLayout.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BAB6E81BB2DA0C00DB941B /* MWMBottomMenuLayout.mm */; settings = {ASSET_TAGS = (); }; };
-		34BAB6ED1BB2DFCE00DB941B /* MWMBottomMenuCollectionViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BAB6EB1BB2DFCE00DB941B /* MWMBottomMenuCollectionViewCell.mm */; settings = {ASSET_TAGS = (); }; };
-		34BAB6EE1BB2DFCE00DB941B /* MWMBottomMenuCollectionViewPortraitCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34BAB6EC1BB2DFCE00DB941B /* MWMBottomMenuCollectionViewPortraitCell.xib */; settings = {ASSET_TAGS = (); }; };
+		34BAB6E91BB2DA0C00DB941B /* MWMBottomMenuLayout.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BAB6E81BB2DA0C00DB941B /* MWMBottomMenuLayout.mm */; };
+		34BAB6ED1BB2DFCE00DB941B /* MWMBottomMenuCollectionViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BAB6EB1BB2DFCE00DB941B /* MWMBottomMenuCollectionViewCell.mm */; };
+		34BAB6EE1BB2DFCE00DB941B /* MWMBottomMenuCollectionViewPortraitCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34BAB6EC1BB2DFCE00DB941B /* MWMBottomMenuCollectionViewPortraitCell.xib */; };
 		34BC72241B0DECAE0012A34B /* MWMMapViewControlsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BC72111B0DECAE0012A34B /* MWMMapViewControlsManager.mm */; };
 		34BC72291B0DECAE0012A34B /* MWMZoomButtons.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BC721D1B0DECAE0012A34B /* MWMZoomButtons.mm */; };
 		34BC722A1B0DECAE0012A34B /* MWMZoomButtonsView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BC721F1B0DECAE0012A34B /* MWMZoomButtonsView.mm */; };
@@ -109,6 +109,8 @@
 		34CFFE8B1B7DE6FD009D0C9F /* MWMSearchManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34CFFE8A1B7DE6FD009D0C9F /* MWMSearchManager.mm */; };
 		34CFFE8D1B7DE71C009D0C9F /* MWMSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34CFFE8C1B7DE71C009D0C9F /* MWMSearchView.xib */; };
 		34CFFE901B7DE83D009D0C9F /* MWMSearchView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34CFFE8F1B7DE83D009D0C9F /* MWMSearchView.mm */; };
+		34D15BA81BD8F93C00C8BCBE /* AddSetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D15BA61BD8F93C00C8BCBE /* AddSetTableViewCell.m */; };
+		34D15BA91BD8F93C00C8BCBE /* AddSetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34D15BA71BD8F93C00C8BCBE /* AddSetTableViewCell.xib */; };
 		34DF4D111AE77B9F0012702D /* MWMWKInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34DF4D101AE77B9F0012702D /* MWMWKInterfaceController.mm */; };
 		34F45E8E1B96E88100AC93F8 /* MWMSearchTabButtonsView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F45E8D1B96E88100AC93F8 /* MWMSearchTabButtonsView.mm */; };
 		34F45E901B96E8B100AC93F8 /* MWMSearchTabButtonsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34F45E8F1B96E8B100AC93F8 /* MWMSearchTabButtonsView.xib */; };
@@ -554,6 +556,9 @@
 		34CFFE8C1B7DE71C009D0C9F /* MWMSearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMSearchView.xib; sourceTree = "<group>"; };
 		34CFFE8E1B7DE83D009D0C9F /* MWMSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchView.h; sourceTree = "<group>"; };
 		34CFFE8F1B7DE83D009D0C9F /* MWMSearchView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchView.mm; sourceTree = "<group>"; };
+		34D15BA51BD8F93C00C8BCBE /* AddSetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSetTableViewCell.h; sourceTree = "<group>"; };
+		34D15BA61BD8F93C00C8BCBE /* AddSetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSetTableViewCell.m; sourceTree = "<group>"; };
+		34D15BA71BD8F93C00C8BCBE /* AddSetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddSetTableViewCell.xib; sourceTree = "<group>"; };
 		34DF4D0F1AE77B9F0012702D /* MWMWKInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMWKInterfaceController.h; sourceTree = "<group>"; };
 		34DF4D101AE77B9F0012702D /* MWMWKInterfaceController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMWKInterfaceController.mm; sourceTree = "<group>"; };
 		34F45E8C1B96E88100AC93F8 /* MWMSearchTabButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchTabButtonsView.h; sourceTree = "<group>"; };
@@ -2086,6 +2091,9 @@
 				FA36B80615403A4F004560CC /* BookmarksVC.mm */,
 				FAAEA7D4161D8D3100CCD661 /* BookmarksRootVC.h */,
 				FAAEA7D3161D8D3100CCD661 /* BookmarksRootVC.mm */,
+				34D15BA51BD8F93C00C8BCBE /* AddSetTableViewCell.h */,
+				34D15BA61BD8F93C00C8BCBE /* AddSetTableViewCell.m */,
+				34D15BA71BD8F93C00C8BCBE /* AddSetTableViewCell.xib */,
 			);
 			name = Bookmarks;
 			path = Classes;
@@ -2320,6 +2328,7 @@
 				FA459EB414327AF700B5BB3C /* WorldCoasts.mwm in Resources */,
 				FA85F633145DDDC20090E1A0 /* packed_polygons.bin in Resources */,
 				F6ED13561B16439E0095C6DE /* MWMDirectionView.xib in Resources */,
+				34D15BA91BD8F93C00C8BCBE /* AddSetTableViewCell.xib in Resources */,
 				FA99CB73147089B100689A9A /* Localizable.strings in Resources */,
 				34CFFE8D1B7DE71C009D0C9F /* MWMSearchView.xib in Resources */,
 				F7FDD823147F30CC005900FA /* drules_proto.bin in Resources */,
@@ -2582,6 +2591,7 @@
 				6C24A3B21AD7D65500A47B99 /* MWMWatchEventInfo.mm in Sources */,
 				ED48BBBA17C2B1E2003E7E92 /* CircleView.mm in Sources */,
 				340E10631B949D1900D975D5 /* MWMSearchBookmarksManager.mm in Sources */,
+				34D15BA81BD8F93C00C8BCBE /* AddSetTableViewCell.m in Sources */,
 				34CFFE901B7DE83D009D0C9F /* MWMSearchView.mm in Sources */,
 				F6FE2C151B04A44E009814AA /* MWMPlacePageEntity.mm in Sources */,
 				34B82AB21B8344E300180497 /* MWMSearchTextField.mm in Sources */,
