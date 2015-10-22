@@ -595,6 +595,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestJS)
   std::string value_suffix("; 00:23-00:42 unknown \"warning at correct position?\"");
   // This suffix value is there to test if the warning marks the correct position of the problem.
   std::string value_suffix_to_disable_time_not_used = " 12:00-15:00";
+  std::string open_end_comment = "Specified as open end. Closing time was guessed.";
   
   // time ranges {{{
   TestRanges("Time intervals", {
@@ -810,7 +811,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestJS)
     // "Tu 23:59-00:00 open, 24:00-40:00 open, 40:00+ open, 40:00+",
   }, "2012.10.01 0:00", "2012.10.08 0:00", {
     { "2012.10.02 23:59", "2012.10.03 16:00" },
-    { "2012.10.03 16:00", "2012.10.04 00:00", "Specified as open end. Closing time was guessed.", "true" },
+    { "2012.10.03 16:00", "2012.10.04 00:00", open_end_comment, "true" },
   });
   // }}}
   
@@ -836,20 +837,20 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestJS)
     "17:00+; 15:00-16:00 off",
     "15:00-16:00 off; 17:00+",
   }, "2012.10.01 0:00", "2012.10.02 0:00", {
-    { "2012.10.01 00:00", "2012.10.01 03:00", "Specified as open end. Closing time was guessed.", "true" },
-    { "2012.10.01 17:00", "2012.10.02 00:00", "Specified as open end. Closing time was guessed.", "true" },
+    { "2012.10.01 00:00", "2012.10.01 03:00", open_end_comment, "true" },
+    { "2012.10.01 17:00", "2012.10.02 00:00", open_end_comment, "true" },
   });
   
   TestRanges("Open end, variable time", {
     "sunrise+",
   }, "2012.10.01 0:00", "2012.10.02 0:00", {
-    { "2012.10.01 07:22", "2012.10.02 00:00", "Specified as open end. Closing time was guessed.", "true" },
+    { "2012.10.01 07:22", "2012.10.02 00:00", open_end_comment, "true" },
   });
   
   TestRanges("Open end, variable time", {
     "(sunrise+01:00)+",
   }, "2012.10.01 0:00", "2012.10.02 0:00", {
-    { "2012.10.01 08:22", "2012.10.02 00:00", "Specified as open end. Closing time was guessed.", "true" },
+    { "2012.10.01 08:22", "2012.10.02 00:00", open_end_comment, "true" },
   });
   
   TestRanges("Open end", {
@@ -865,7 +866,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestJS)
     "07:00+,12:00-13:00,13:00-16:00",
     "07:00+,12:00-16:00; 16:00-24:00 closed \"needed because of open end\"", // Now obsolete: https://github.com/ypid/opening_hours.js/issues/48
   }, "2012.10.01 0:00", "2012.10.02 5:00", {
-    { "2012.10.01 07:00", "2012.10.01 12:00", "Specified as open end. Closing time was guessed.", "true" },
+    { "2012.10.01 07:00", "2012.10.01 12:00", open_end_comment, "true" },
     { "2012.10.01 12:00", "2012.10.01 16:00" },
   });
   
@@ -876,7 +877,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestJS)
   }, "2012.10.01 0:00", "2012.10.02 5:00", {
     { "2012.10.01 05:00", "2012.10.01 06:00" },
     { "2012.10.01 06:45", "2012.10.01 07:00" },
-    { "2012.10.01 07:00", "2012.10.01 13:00", "Specified as open end. Closing time was guessed.", "true" },
+    { "2012.10.01 07:00", "2012.10.01 13:00", open_end_comment, "true" },
     { "2012.10.01 13:00", "2012.10.01 16:00" },
   });
   
@@ -884,7 +885,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestJS)
   TestRanges("Open end", {
     "17:00+,13:00-02:00; 02:00-03:00 closed \"needed because of open end\"",
     "17:00+,13:00-02:00; 02:00-03:00 closed \"needed because of open end\"",
-    // "17:00-00:00 unknown "Specified as open end. Closing time was guessed.", "true", 13:00-00:00 open" // First internal rule.
+    // "17:00-00:00 unknown open_end_comment, "true", 13:00-00:00 open" // First internal rule.
     // + ", " {> overwritten part: 00:00-03:00 open" <} + "00:00-02:00 open", // Second internal rule.
   }, "2012.10.01 0:00", "2012.10.02 5:00", {
     { "2012.10.01 00:00", "2012.10.01 02:00" },
@@ -897,9 +898,9 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestJS)
     "13:00-02:00,17:00+", // Do not use.
     "13:00-17:00 open, 17:00+"
   }, "2012.10.01 0:00", "2012.10.02 5:00", {
-    { "2012.10.01 00:00", "2012.10.01 03:00", "Specified as open end. Closing time was guessed.", "true" },
+    { "2012.10.01 00:00", "2012.10.01 03:00", open_end_comment, "true" },
     { "2012.10.01 13:00", "2012.10.01 17:00" },
-    { "2012.10.01 17:00", "2012.10.02 03:00", "Specified as open end. Closing time was guessed.", "true" },
+    { "2012.10.01 17:00", "2012.10.02 03:00", open_end_comment, "true" },
   });
   
   TestRanges("Open end", {
@@ -918,9 +919,9 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestJS)
   TestRanges("Fixed time followed by open end", {
     "14:00-17:00+",
   }, "2012.10.01 0:00", "2012.10.02 0:00", {
-    { "2012.10.01 00:00", "2012.10.01 03:00", "Specified as open end. Closing time was guessed.", "true" },
+    { "2012.10.01 00:00", "2012.10.01 03:00", open_end_comment, "true" },
     { "2012.10.01 14:00", "2012.10.01 17:00" },
-    { "2012.10.01 17:00", "2012.10.02 00:00", "Specified as open end. Closing time was guessed.", "true" },
+    { "2012.10.01 17:00", "2012.10.02 00:00", open_end_comment, "true" },
   });
   
   TestRanges("Fixed time followed by open end, wrapping over midnight", {
@@ -928,15 +929,15 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestJS)
     "Mo 22:00-28:00+",
   }, "2012.10.01 0:00", "2012.10.03 0:00", {
     { "2012.10.01 22:00", "2012.10.02 04:00" },
-    { "2012.10.02 04:00", "2012.10.02 12:00", "Specified as open end. Closing time was guessed.", "true" },
+    { "2012.10.02 04:00", "2012.10.02 12:00", open_end_comment, "true" },
   });
   
   TestRanges("variable time range followed by open end", {
     "14:00-sunset+",
   }, "2012.10.01 0:00", "2012.10.02 0:00", {
-    { "2012.10.01 00:00", "2012.10.01 04:00", "Specified as open end. Closing time was guessed.", "true" },
+    { "2012.10.01 00:00", "2012.10.01 04:00", open_end_comment, "true" },
     { "2012.10.01 14:00", "2012.10.01 19:00" },
-    { "2012.10.01 19:00", "2012.10.02 00:00", "Specified as open end. Closing time was guessed.", "true" },
+    { "2012.10.01 19:00", "2012.10.02 00:00", open_end_comment, "true" },
   });
   
   TestRanges("variable time range followed by open end", {
@@ -945,16 +946,16 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestJS)
     "sunrise-14:00 open, 14:00+",
   }, "2012.10.01 0:00", "2012.10.02 5:00", {
     { "2012.10.01 07:22", "2012.10.01 14:00" },
-    { "2012.10.01 14:00", "2012.10.02 00:00", "Specified as open end. Closing time was guessed.", "true" },
+    { "2012.10.01 14:00", "2012.10.02 00:00", open_end_comment, "true" },
   });
   
   TestRanges("variable time range followed by open end", {
     "sunrise-(sunset+01:00)+",
     "sunrise-(sunset+01:00)+; Su off",
   }, "2012.10.06 0:00", "2012.10.07 0:00", {
-    { "2012.10.06 00:00", "2012.10.06 05:00", "Specified as open end. Closing time was guessed.", "true" },
+    { "2012.10.06 00:00", "2012.10.06 05:00", open_end_comment, "true" },
     { "2012.10.06 07:29", "2012.10.06 19:50" },
-    { "2012.10.06 19:50", "2012.10.07 00:00", "Specified as open end. Closing time was guessed.", "true" },
+    { "2012.10.06 19:50", "2012.10.07 00:00", open_end_comment, "true" },
   });
   
   TestRanges("variable time range followed by open end, day wrap and different states", {
@@ -2150,30 +2151,30 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestJS)
     "Jan Su[-2]-Jan Su[-1],Feb Su[-2]-Feb Su[-1]: Fr-Su 12:00+; Mar 1-Dec 31: Tu-Su 12:00+; Dec 24-26,Dec 31: off"
     // Optimized value. Should mean the same.
   }, "2014.11.29 0:00", "2015.01.11 0:00", {
-    { "2014.11.29 12:00", "2014.11.30 00:00", "Specified as open end. Closing time was guessed.", "true" },
-    { "2014.11.30 12:00", "2014.12.01 00:00", "Specified as open end. Closing time was guessed.", "true" },
-    { "2014.12.02 12:00", "2014.12.03 00:00", "Specified as open end. Closing time was guessed.", "true" },
-    { "2014.12.03 12:00", "2014.12.04 00:00", "Specified as open end. Closing time was guessed.", "true" },
-    { "2014.12.04 12:00", "2014.12.05 00:00", "Specified as open end. Closing time was guessed.", "true" },
-    { "2014.12.05 12:00", "2014.12.06 00:00", "Specified as open end. Closing time was guessed.", "true" },
-    { "2014.12.06 12:00", "2014.12.07 00:00", "Specified as open end. Closing time was guessed.", "true" },
-    { "2014.12.07 12:00", "2014.12.08 00:00", "Specified as open end. Closing time was guessed.", "true" },
-    { "2014.12.09 12:00", "2014.12.10 00:00", "Specified as open end. Closing time was guessed.", "true" },
-    { "2014.12.10 12:00", "2014.12.11 00:00", "Specified as open end. Closing time was guessed.", "true" },
-    { "2014.12.11 12:00", "2014.12.12 00:00", "Specified as open end. Closing time was guessed.", "true" },
-    { "2014.12.12 12:00", "2014.12.13 00:00", "Specified as open end. Closing time was guessed.", "true" },
-    { "2014.12.13 12:00", "2014.12.14 00:00", "Specified as open end. Closing time was guessed.", "true" },
-    { "2014.12.14 12:00", "2014.12.15 00:00", "Specified as open end. Closing time was guessed.", "true" },
-    { "2014.12.16 12:00", "2014.12.17 00:00", "Specified as open end. Closing time was guessed.", "true" },
-    { "2014.12.17 12:00", "2014.12.18 00:00", "Specified as open end. Closing time was guessed.", "true" },
-    { "2014.12.18 12:00", "2014.12.19 00:00", "Specified as open end. Closing time was guessed.", "true" },
-    { "2014.12.19 12:00", "2014.12.20 00:00", "Specified as open end. Closing time was guessed.", "true" },
-    { "2014.12.20 12:00", "2014.12.21 00:00", "Specified as open end. Closing time was guessed.", "true" },
-    { "2014.12.21 12:00", "2014.12.22 00:00", "Specified as open end. Closing time was guessed.", "true" },
-    { "2014.12.23 12:00", "2014.12.24 00:00", "Specified as open end. Closing time was guessed.", "true" },
-    { "2014.12.27 12:00", "2014.12.28 00:00", "Specified as open end. Closing time was guessed.", "true" },
-    { "2014.12.28 12:00", "2014.12.29 00:00", "Specified as open end. Closing time was guessed.", "true" },
-    { "2014.12.30 12:00", "2014.12.31 00:00", "Specified as open end. Closing time was guessed.", "true" },
+    { "2014.11.29 12:00", "2014.11.30 00:00", open_end_comment, "true" },
+    { "2014.11.30 12:00", "2014.12.01 00:00", open_end_comment, "true" },
+    { "2014.12.02 12:00", "2014.12.03 00:00", open_end_comment, "true" },
+    { "2014.12.03 12:00", "2014.12.04 00:00", open_end_comment, "true" },
+    { "2014.12.04 12:00", "2014.12.05 00:00", open_end_comment, "true" },
+    { "2014.12.05 12:00", "2014.12.06 00:00", open_end_comment, "true" },
+    { "2014.12.06 12:00", "2014.12.07 00:00", open_end_comment, "true" },
+    { "2014.12.07 12:00", "2014.12.08 00:00", open_end_comment, "true" },
+    { "2014.12.09 12:00", "2014.12.10 00:00", open_end_comment, "true" },
+    { "2014.12.10 12:00", "2014.12.11 00:00", open_end_comment, "true" },
+    { "2014.12.11 12:00", "2014.12.12 00:00", open_end_comment, "true" },
+    { "2014.12.12 12:00", "2014.12.13 00:00", open_end_comment, "true" },
+    { "2014.12.13 12:00", "2014.12.14 00:00", open_end_comment, "true" },
+    { "2014.12.14 12:00", "2014.12.15 00:00", open_end_comment, "true" },
+    { "2014.12.16 12:00", "2014.12.17 00:00", open_end_comment, "true" },
+    { "2014.12.17 12:00", "2014.12.18 00:00", open_end_comment, "true" },
+    { "2014.12.18 12:00", "2014.12.19 00:00", open_end_comment, "true" },
+    { "2014.12.19 12:00", "2014.12.20 00:00", open_end_comment, "true" },
+    { "2014.12.20 12:00", "2014.12.21 00:00", open_end_comment, "true" },
+    { "2014.12.21 12:00", "2014.12.22 00:00", open_end_comment, "true" },
+    { "2014.12.23 12:00", "2014.12.24 00:00", open_end_comment, "true" },
+    { "2014.12.27 12:00", "2014.12.28 00:00", open_end_comment, "true" },
+    { "2014.12.28 12:00", "2014.12.29 00:00", open_end_comment, "true" },
+    { "2014.12.30 12:00", "2014.12.31 00:00", open_end_comment, "true" },
   });
   
   TestRanges("Simplifed real world example: Was not processed right.", {
@@ -2190,11 +2191,11 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestJS)
     "Mo 19:00+; We 14:00+; Su 10:00+ || \"Führung, Sonderführungen nach Vereinbarung.\"",
   }, "2014.01.06 0:00", "2014.01.13 0:00", {
     { "2014.01.06 00:00", "2014.01.06 19:00", "Führung, Sonderführungen nach Vereinbarung.", "true" },
-    { "2014.01.06 19:00", "2014.01.07 05:00", "Specified as open end. Closing time was guessed.", "true" },
+    { "2014.01.06 19:00", "2014.01.07 05:00", open_end_comment, "true" },
     { "2014.01.07 05:00", "2014.01.08 14:00", "Führung, Sonderführungen nach Vereinbarung.", "true" },
-    { "2014.01.08 14:00", "2014.01.09 00:00", "Specified as open end. Closing time was guessed.", "true" },
+    { "2014.01.08 14:00", "2014.01.09 00:00", open_end_comment, "true" },
     { "2014.01.09 00:00", "2014.01.12 10:00", "Führung, Sonderführungen nach Vereinbarung.", "true" },
-    { "2014.01.12 10:00", "2014.01.13 00:00", "Specified as open end. Closing time was guessed.", "true" },
+    { "2014.01.12 10:00", "2014.01.13 00:00", open_end_comment, "true" },
   });
   
   TestRanges("Real world example: Was processed right form library.", {
@@ -2208,7 +2209,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestJS)
   TestRanges("Real world example: Was processed right form library.", {
     "Mo 19:00+ || \"Sonderführungen nach Vereinbarung.\"",
   }, "2014.01.07 1:00", "2014.01.13 0:00", {
-    { "2014.01.07 01:00", "2014.01.07 05:00", "Specified as open end. Closing time was guessed.", "true" },
+    { "2014.01.07 01:00", "2014.01.07 05:00", open_end_comment, "true" },
     { "2014.01.07 05:00", "2014.01.13 00:00", "Sonderführungen nach Vereinbarung.", "true" },
   });
   // }}}
