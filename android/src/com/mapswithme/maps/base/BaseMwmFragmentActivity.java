@@ -1,5 +1,6 @@
 package com.mapswithme.maps.base;
 
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -18,6 +19,7 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
   protected void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
+    setVolumeControlStream(AudioManager.STREAM_MUSIC);
     final int layoutId = getContentLayoutResId();
     if (layoutId != 0)
       setContentView(layoutId);
