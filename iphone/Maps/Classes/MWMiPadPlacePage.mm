@@ -219,9 +219,7 @@ static CGFloat const kKeyboardOffset = 12.;
 {
   [UIView animateWithDuration:animated ? kDefaultAnimationDuration : 0.0 animations:^
   {
-    CGFloat const actionBarHeight = self.actionBar.height;
-    self.height = self.basePlacePageView.height + self.anchorImageView.height + actionBarHeight - 1;
-    self.actionBar.origin = CGPointMake(0., self.height - actionBarHeight);
+    self.height = self.basePlacePageView.height + self.anchorImageView.height + self.actionBar.height - 1;
     [self updatePlacePagePosition];
   }];
 }
@@ -255,9 +253,15 @@ static CGFloat const kKeyboardOffset = 12.;
   }
 }
 
-- (void)keyboardWillChangeFrame:(NSNotification *)aNotification
+- (void)keyboardWillShow:(NSNotification *)aNotification
 {
-  [super keyboardWillChangeFrame:aNotification];
+  [super keyboardWillShow:aNotification];
+  [self updateHeight];
+}
+
+- (void)keyboardWillHide
+{
+  [super keyboardWillHide];
   [self updateHeight];
 }
 
@@ -281,6 +285,7 @@ static CGFloat const kKeyboardOffset = 12.;
   _height = MIN(_height, [self getAvailableHeight]);
   self.navigationController.view.height = _height;
   self.extendedPlacePageView.height = _height;
+  self.actionBar.origin = CGPointMake(0., _height - self.actionBar.height);
 }
 
 - (MWMiPadNavigationController *)navigationController

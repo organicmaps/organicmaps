@@ -47,6 +47,11 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
   self.navigationItem.title = L(@"description");
   MWMPlacePageEntity const * entity = self.manager.entity;
 
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(keyboardWillChangeFrame:)
+                                               name:UIKeyboardWillChangeFrameNotification
+                                             object:nil];
+
   if (entity.isHTMLDescription)
     self.state = BookmarkDescriptionStateViewHTML;
   else
@@ -58,14 +63,6 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
     UIBarButtonItem * leftButton = [[UIBarButtonItem alloc] initWithCustomView:self.backButton];
     [self.navigationItem setLeftBarButtonItem:leftButton];
     return;
-  }
-
-  if (!IPAD)
-  {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillChangeFrame:)
-                                                 name:UIKeyboardWillChangeFrameNotification
-                                               object:nil];
   }
 }
 
@@ -106,7 +103,6 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 {
   self.textView.hidden = NO;
   self.textView.text = text;
-  [self.textView becomeFirstResponder];
   [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
     self.webView.alpha = 0.;
@@ -115,6 +111,7 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
   completion:^(BOOL finished)
   {
     self.webView.hidden = YES;
+    [self.textView becomeFirstResponder];
   }];
   [self configureNavigationBarForEditing];
 }
@@ -174,6 +171,7 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 
 - (void)backTap
 {
+  [self.textView resignFirstResponder];
   [self popViewController];
 }
 
@@ -207,13 +205,13 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
   NSDictionary * info = [aNotification userInfo];
   CGSize const kbSize = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
   CGFloat const offsetToKeyboard = 8.0;
-  self.textViewBottomOffset.constant = kbSize.height + offsetToKeyboard;
+  CGFloat const navBarHeight = IPAD ? self.navigationController.navigationBar.height : 0.0;
+  self.textViewBottomOffset.constant = kbSize.height + offsetToKeyboard - navBarHeight;
 }
 
 - (void)dealloc
 {
-  if (!IPAD)
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - UIWebViewDelegate

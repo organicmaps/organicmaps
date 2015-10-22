@@ -9,25 +9,7 @@
 
 @implementation MWMTextView
 
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-  self = [super initWithCoder:coder];
-  if (self)
-    [self prepare];
-
-  return self;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame textContainer:(NSTextContainer *)textContainer
-{
-  self = [super initWithFrame:frame textContainer:textContainer];
-  if (self)
-    [self prepare];
-
-  return self;
-}
-
-- (void)prepare
+- (void)awakeFromNib
 {
   [self setTextContainerInset:UIEdgeInsetsZero];
 
