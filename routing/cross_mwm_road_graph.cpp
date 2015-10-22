@@ -131,22 +131,19 @@ BorderCross CrossMwmGraph::FindNextMwmNode(OutgoingCrossNode const & startNode,
     return BorderCross();
   nextMapping->LoadCrossContext();
 
-  auto incomeIters = nextMapping->m_crossContext.GetIngoingIterators();
-  for (auto i = incomeIters.first; i < incomeIters.second; ++i)
+  IngoingCrossNode ingoingNode;
+  if (nextMapping->m_crossContext.FindIngoingNodeByPoint(startPoint, ingoingNode))
   {
-    m2::PointD const & targetPoint = i->m_point;
-    if (ms::DistanceOnEarth(startPoint.y, startPoint.x, targetPoint.y, targetPoint.x) <
-        kMwmCrossingNodeEqualityRadiusMeters)
-    {
-      BorderCross const cross(
-          CrossNode(startNode.m_nodeId, currentMapping->GetCountryName(),
-                    MercatorBounds::FromLatLon(targetPoint.y, targetPoint.x)),
-          CrossNode(i->m_nodeId, nextMwm,
-                    MercatorBounds::FromLatLon(targetPoint.y, targetPoint.x)));
-      m_cachedNextNodes.insert(make_pair(startPoint, cross));
-      return cross;
-    }
+    auto const & targetPoint = ingoingNode.m_point;
+    BorderCross const cross(
+        CrossNode(startNode.m_nodeId, currentMapping->GetCountryName(),
+                  MercatorBounds::FromLatLon(targetPoint.y, targetPoint.x)),
+        CrossNode(ingoingNode.m_nodeId, nextMwm,
+                  MercatorBounds::FromLatLon(targetPoint.y, targetPoint.x)));
+    m_cachedNextNodes.insert(make_pair(startPoint, cross));
+    return cross;
   }
+
   return BorderCross();
 }
 

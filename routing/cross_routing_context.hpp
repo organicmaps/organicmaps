@@ -3,6 +3,8 @@
 #include "coding/file_container.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
+#include "geometry/tree4d.hpp"
 
 #include "std/string.hpp"
 #include "std/vector.hpp"
@@ -25,6 +27,8 @@ struct IngoingCrossNode
   void Save(Writer & w) const;
 
   size_t Load(Reader const & r, size_t pos);
+
+  m2::RectD const GetLimitRect() const { return m2::RectD(m_point, m_point); }
 };
 
 struct OutgoingCrossNode
@@ -53,6 +57,7 @@ class CrossRoutingContextReader
   vector<OutgoingCrossNode> m_outgoingNodes;
   vector<string> m_neighborMwmList;
   unique_ptr<Reader> mp_reader = nullptr;
+  m4::Tree<IngoingCrossNode> m_ingoingIndex;
 
   size_t GetIndexInAdjMatrix(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoing) const;
 
@@ -62,6 +67,8 @@ public:
   const string & GetOutgoingMwmName(OutgoingCrossNode const & mwmIndex) const;
 
   pair<IngoingEdgeIteratorT, IngoingEdgeIteratorT> GetIngoingIterators() const;
+
+  bool FindIngoingNodeByPoint(m2::PointD const & point, IngoingCrossNode & node) const; 
 
   pair<OutgoingEdgeIteratorT, OutgoingEdgeIteratorT> GetOutgoingIterators() const;
 

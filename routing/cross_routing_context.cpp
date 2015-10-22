@@ -1,5 +1,6 @@
 #include "routing/cross_routing_context.hpp"
 
+#include "indexer/mercator.hpp"
 #include "indexer/point_to_int64.hpp"
 
 namespace routing
@@ -65,7 +66,10 @@ void CrossRoutingContextReader::Load(Reader const & r)
   m_ingoingNodes.resize(size);
 
   for (auto & node : m_ingoingNodes)
+  {
     pos = node.Load(r, pos);
+    m_ingoingIndex.Add(node);
+  }
 
   r.Read(pos, &size, sizeof(size));
   pos += sizeof(size);
@@ -90,6 +94,18 @@ void CrossRoutingContextReader::Load(Reader const & r)
     m_neighborMwmList.push_back(string(&buffer[0], size));
     pos += size;
   }
+}
+
+bool CrossRoutingContextReader::FindIngoingNodeByPoint(m2::PointD const & point, IngoingCrossNode & node) const
+{
+  bool found = false;
+  m_ingoingIndex.ForEachInRect(MercatorBounds::RectByCenterXYAndSizeInMeters(point,  5),
+                               [&found, &node](IngoingCrossNode const & nd)
+                               {
+                                 node = nd;
+                                 found = true;
+                              });
+  return found;
 }
 
 const string & CrossRoutingContextReader::GetOutgoingMwmName(
