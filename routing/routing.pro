@@ -39,7 +39,7 @@ SOURCES += \
     speed_camera.cpp \
     turns.cpp \
     turns_generator.cpp \
-    turns_sound.cpp \
+    turns_notification_manager.cpp \
     turns_sound_settings.cpp \
     turns_tts_text.cpp \
     vehicle_model.cpp \
@@ -75,7 +75,7 @@ HEADERS += \
     speed_camera.hpp \
     turns.hpp \
     turns_generator.hpp \
-    turns_sound.hpp \
+    turns_notification_manager.hpp \
     turns_sound_settings.hpp \
     turns_tts_text.hpp \
     vehicle_model.hpp \

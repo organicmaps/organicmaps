@@ -14,47 +14,95 @@ namespace sound
 {
 /// \brief The Settings struct is a structure for gathering information about turn sound
 /// notifications settings.
-/// All distance parameters shall be set in m_lengthUnits. (Meters of feet for the time being.)
+/// Part distance parameters shall be set in m_lengthUnits. (Meters of feet for the time being.)
+/// Another part in meters. See the suffix to understand which units are used.
 class Settings
 {
+  friend void UnitTest_TurnNotificationSettingsMetersTest();
+  friend void UnitTest_TurnNotificationSettingsFeetTest();
+  friend void UnitTest_TurnNotificationSettingsNotValidTest();
+
   uint32_t m_timeSeconds;
   uint32_t m_minDistanceUnits;
   uint32_t m_maxDistanceUnits;
+
+  /// To inform an end user about the next turn with the help of an voice information message
+  /// an operation system needs:
+  /// - to launch TTS subsystem;
+  /// - to pronounce the message.
+  /// So to inform the user in time it's necessary to start
+  /// m_startBeforeSeconds before the time. It is used in the following way:
+  /// we start playing voice notice in m_startBeforeSeconds * TurnsSound::m_speedMetersPerSecond
+  /// meters before the turn (for the second voice notification).
+  /// When m_startBeforeSeconds * TurnsSound::m_speedMetersPerSecond is too small or too large
+  /// we use m_{min|max}StartBeforeMeters to clamp the value.
+  uint32_t m_startBeforeSeconds;
+  uint32_t m_minStartBeforeMeters;
+  uint32_t m_maxStartBeforeMeters;
+
+  /// m_minDistToSayNotificationMeters is minimum distance between two turns
+  /// when pronouncing the first notification about the second turn makes sense.
+  uint32_t m_minDistToSayNotificationMeters;
 
   /// \brief m_distancesToPronounce is a list of distances in m_lengthUnits
   ///  which are ready to be pronounced.
   vector<uint32_t> m_soundedDistancesUnits;
   ::Settings::Units m_lengthUnits;
 
-public:
-  Settings()
-      : m_minDistanceUnits(0),
-        m_maxDistanceUnits(0),
-        m_soundedDistancesUnits(),
-        m_lengthUnits(::Settings::Metric) {}
+  // This constructor is for testing only.
   Settings(uint32_t notificationTimeSeconds, uint32_t minNotificationDistanceUnits,
-           uint32_t maxNotificationDistanceUnits, vector<uint32_t> const & soundedDistancesUnits,
+           uint32_t maxNotificationDistanceUnits, uint32_t startBeforeSeconds,
+           uint32_t minStartBeforeMeters, uint32_t maxStartBeforeMeters,
+           uint32_t minDistToSayNotificationMeters, vector<uint32_t> const & soundedDistancesUnits,
            ::Settings::Units lengthUnits)
-      : m_timeSeconds(notificationTimeSeconds),
-        m_minDistanceUnits(minNotificationDistanceUnits),
-        m_maxDistanceUnits(maxNotificationDistanceUnits),
-        m_soundedDistancesUnits(soundedDistancesUnits),
-        m_lengthUnits(lengthUnits)
+    : m_timeSeconds(notificationTimeSeconds)
+    , m_minDistanceUnits(minNotificationDistanceUnits)
+    , m_maxDistanceUnits(maxNotificationDistanceUnits)
+    , m_startBeforeSeconds(startBeforeSeconds)
+    , m_minStartBeforeMeters(minStartBeforeMeters)
+    , m_maxStartBeforeMeters(maxStartBeforeMeters)
+    , m_minDistToSayNotificationMeters(minDistToSayNotificationMeters)
+    , m_soundedDistancesUnits(soundedDistancesUnits)
+    , m_lengthUnits(lengthUnits)
   {
     ASSERT(!m_soundedDistancesUnits.empty(), ());
   }
+
+public:
+  Settings(uint32_t startBeforeSeconds, uint32_t minStartBeforeMeters,
+           uint32_t maxStartBeforeMeters, uint32_t minDistToSayNotificationMeters)
+    : m_timeSeconds(0)
+    , m_minDistanceUnits(0)
+    , m_maxDistanceUnits(0)
+    , m_startBeforeSeconds(startBeforeSeconds)
+    , m_minStartBeforeMeters(minStartBeforeMeters)
+    , m_maxStartBeforeMeters(maxStartBeforeMeters)
+    , m_minDistToSayNotificationMeters(minDistToSayNotificationMeters)
+    , m_lengthUnits(::Settings::Metric)
+  {
+  }
+
+  void SetState(uint32_t notificationTimeSeconds, uint32_t minNotificationDistanceUnits,
+                uint32_t maxNotificationDistanceUnits,
+                vector<uint32_t> const & soundedDistancesUnits, ::Settings::Units lengthUnits);
 
   /// \brief IsValid checks if Settings data is consistent.
   /// \warning The complexity is up to linear in size of m_soundedDistancesUnits.
   /// \note For any instance created by default constructor IsValid() returns false.
   bool IsValid() const;
 
-  /// \brief computes the distance an end user shall be informed about the future turn
-  /// before it, taking into account speedMetersPerSecond and fields of the structure.
+  /// \brief computes the distance an end user shall be informed about the future turn.
   /// \param speedMetersPerSecond is a speed. For example it could be a current speed of an end
   /// user.
-  /// \return distance in units which are set in m_lengthUnits. (Meters of feet for the time being.)
-  double ComputeTurnDistance(double speedUnitsPerSecond) const;
+  /// \return distance in meters.
+  uint32_t ComputeTurnDistanceM(double speedMetersPerSecond) const;
+
+  /// \brief computes the distance which will be passed at the |speedMetersPerSecond|
+  /// while pronouncing turn sound notification.
+  uint32_t ComputeDistToPronounceDistM(double speedMetersPerSecond) const;
+
+  /// @return true if distToTurnMeters is too short to start pronouncing first turn notification.
+  bool TooCloseForFisrtNotification(double distToTurnMeters) const;
 
   /// \brief RoundByPresetSoundedDistancesUnits rounds off its parameter by
   /// m_soundedDistancesUnits.

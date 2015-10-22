@@ -128,16 +128,16 @@ extern NSString * const kMwmTextToSpeechDisable = @"MWMTEXTTOSPEECH_DISABLE";
 
 - (void)playTurnNotifications
 {
-  if (![self isValid])
-    return;
-  
   Framework & frm = GetFramework();
   if (!frm.IsRoutingActive())
     return;
   
   vector<string> notifications;
-  frm.GenerateTurnSound(notifications);
-  
+  frm.GenerateTurnNotifications(notifications);
+
+  if (![self isValid])
+    return;
+
   for (auto const & text : notifications)
     [self speakOneString:@(text.c_str())];
 }
