@@ -582,9 +582,62 @@ std::ostream & operator<<(std::ostream & ost, Weekdays const & weekday)
 }
 
 
+bool DateOffset::IsEmpty() const
+{
+  return !HasOffset() && ! HasWDayOffset();
+}
+
+bool DateOffset::HasWDayOffset() const
+{
+  return m_wday_offset != EWeekday::None;
+}
+
+bool DateOffset::HasOffset() const
+{
+  return m_offset != 0;
+}
+
+bool DateOffset::IsWDayOffsetPositive() const
+{
+  return m_positive;
+}
+
+EWeekday DateOffset::GetWDayOffset() const
+{
+  return m_wday_offset;
+}
+
+int32_t DateOffset::GetOffset() const
+{
+  return m_offset;
+}
+
+void DateOffset::SetWDayOffset(EWeekday const wday)
+{
+  m_wday_offset = wday;
+}
+
+void DateOffset::SetOffset(int32_t const offset)
+{
+  m_offset = offset;
+}
+
+void DateOffset::SetWDayOffsetPositive(bool const on)
+{
+  m_positive = on;
+}
+
+std::ostream operator<<(std::ostream & ost, DateOffset const & dateOffset);
+
+
 bool MonthDay::IsEmpty() const
 {
   return !HasYear() && !HasMonth() && !HasDayNum();
+}
+
+bool MonthDay::IsVariable() const
+{
+  return m_variable_date != EVariableDate::None;
 }
 
 bool MonthDay::HasYear() const
@@ -602,19 +655,9 @@ bool MonthDay::HasDayNum() const
   return m_daynum != 0;
 }
 
-bool MonthDay::HasWDayOffset() const
-{
-  return m_offset.m_wday_offset != EWeekday::None;
-}
-
-bool MonthDay::IsWDayOffsetPositive() const
-{
-  return m_offset.m_positive;
-}
-
 bool MonthDay::HasOffset() const
 {
-  return m_offset.m_offset != 0;
+  return !m_offset.IsEmpty();
 }
 
 MonthDay::TYear MonthDay::GetYear() const
@@ -632,14 +675,14 @@ MonthDay::TDayNum MonthDay::GetDayNum() const
   return m_daynum;
 }
 
-EWeekday MonthDay::GetWDayOffset() const
+DateOffset const & MonthDay::GetOffset() const
 {
-  return m_offset.m_wday_offset;
+  return m_offset;
 }
 
-int32_t MonthDay::GetOffset() const
+MonthDay::EVariableDate MonthDay::GetVariableDate() const
 {
-  return m_offset.m_offset;
+  return m_variable_date;
 }
 
 void MonthDay::SetYear(TYear const year)
@@ -657,22 +700,16 @@ void MonthDay::SetDayNum(TDayNum const daynum)
   m_daynum = daynum;
 }
 
-void MonthDay::SetWDayOffset(EWeekday const wday)
+void MonthDay::SetOffset(DateOffset const & offset)
 {
-  m_offset.m_wday_offset = wday;
+  m_offset = offset;
 }
 
-void MonthDay::SetWDayOffsetPositive(bool const on)
+void MonthDay::SetVariableDate(EVariableDate const date)
 {
-  m_offset.m_positive = on;
+  m_variable_date = date;
 }
 
-void MonthDay::SetOffset(uint32_t const offset)
-{
-  m_offset.m_offset = offset;
-}
-
-std::ostream & operator<<(std::ostream & ost, MonthDay::DateOffset const dateOffset);
 std::ostream & operator<<(std::ostream & ost, MonthDay const md);
 
 

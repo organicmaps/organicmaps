@@ -290,6 +290,30 @@ class Weekdays // Correspond to weekday_selector in osm opening hours
 
 std::ostream & operator<<(std::ostream & ost, Weekdays const & weekday);
 
+class DateOffset
+{
+ public:
+  bool IsEmpty() const;
+  bool HasWDayOffset() const;
+  bool HasOffset() const;
+
+  bool IsWDayOffsetPositive() const;
+
+  EWeekday GetWDayOffset() const;
+  int32_t GetOffset() const;
+
+  void SetWDayOffset(EWeekday const wday);
+  void SetOffset(int32_t const offset);
+  void SetWDayOffsetPositive(bool const on);
+
+ private:
+  EWeekday m_wday_offset{EWeekday::None};
+  bool m_positive{true};
+  int32_t m_offset{};
+};
+
+std::ostream operator<<(std::ostream & ost, DateOffset const & dateOffset);
+
 class MonthDay
 {
  public:
@@ -316,13 +340,6 @@ class MonthDay
     Easter
   };
 
-  struct DateOffset
-  {
-    EWeekday m_wday_offset{EWeekday::None};
-    bool m_positive{true};
-    int32_t m_offset{};
-  };
-
   using TYear = uint8_t;
   using TDayNum = uint8_t;
 
@@ -333,34 +350,37 @@ class MonthDay
   bool HasYear() const;
   bool HasMonth() const;
   bool HasDayNum() const;
-
-  bool HasWDayOffset() const;
-  bool IsWDayOffsetPositive() const;
   bool HasOffset() const;
 
   TYear GetYear() const;
   EMonth GetMonth() const;
   TDayNum GetDayNum() const;
-
-  EWeekday GetWDayOffset() const;
-  int32_t GetOffset() const;
+  DateOffset const & GetOffset() const;
+  EVariableDate GetVariableDate() const;
 
   void SetYear(TYear const year);
   void SetMonth(EMonth const month);
   void SetDayNum(TDayNum const daynum);
-
-  void SetWDayOffset(EWeekday const wday);
-  void SetWDayOffsetPositive(bool const on);
-  void SetOffset(uint32_t const offset);
+  void SetOffset(DateOffset const & offset);
+  void SetVariableDate(EVariableDate const date);
 
  private:
   TYear m_year{};
   EMonth m_month{EMonth::None};
   TDayNum m_daynum{};
+  EVariableDate m_variable_date{EVariableDate::None};
   DateOffset m_offset{};
 };
 
-std::ostream & operator<<(std::ostream & ost, MonthDay::DateOffset const dateOffset);
+inline constexpr MonthDay::EMonth operator ""_M(unsigned long long month)
+{
+  using TMonth = decltype(month);
+  return ((month <= static_cast<TMonth>(MonthDay::EMonth::None) ||
+           month > static_cast<TMonth>(MonthDay::EMonth::Dec))
+          ? MonthDay::EMonth::None
+          : static_cast<osmoh::MonthDay::EMonth>(month));
+}
+
 std::ostream & operator<<(std::ostream & ost, MonthDay const md);
 
 class MonthdayRange

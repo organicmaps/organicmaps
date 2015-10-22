@@ -137,64 +137,118 @@ using space_type = charset::space_type;
 //   }
 // };
 
-// template <typename Iterator>
-// class month_selector : public qi::grammar<Iterator, space_type>
-// {
-//  protected:
-//   qi::rule<Iterator, space_type> date;
-//   qi::rule<Iterator, space_type> day_offset;
-//   qi::rule<Iterator, space_type> date_with_offsets;
-//   qi::rule<Iterator, space_type> monthday_range;
-//   qi::rule<Iterator, space_type> month_range;
-//   qi::rule<Iterator, space_type> main;
-//  public:
-//   month_selector() : month_selector::base_type(main)
-//   {
-//     using qi::int_;
-//     using qi::lit;
-//     using qi::double_;
-//     using qi::lexeme;
-//     using charset::char_;
+template <typename Iterator>
+class month_selector : public qi::grammar<Iterator, TMonthdayRanges(), space_type>
+{
+ protected:
+  qi::rule<Iterator, int32_t(), space_type, qi::locals<int32_t>> day_offset;
+  qi::rule<Iterator, DateOffset(), space_type, qi::locals<bool>> date_offset;
 
-//     static const qi::int_parser<unsigned, 10, 4, 4> year = {};
+  qi::rule<Iterator, MonthDay(), space_type> date_left;
+  qi::rule<Iterator, MonthDay(), space_type> date_right;
+  qi::rule<Iterator, MonthDay(), space_type> date_from;
+  qi::rule<Iterator, MonthDay(), space_type> date_to;
+  qi::rule<Iterator, MonthDay(), space_type> date_from_with_offset;
+  qi::rule<Iterator, MonthDay(), space_type> date_to_with_offset;
 
-//     day_offset %= (char_('+') | char_('-')) >> int_ >> charset::no_case[(lit("days") | lit("day"))];
+  qi::rule<Iterator, MonthdayRange(), space_type> monthday_range;
+  qi::rule<Iterator, TMonthdayRanges(), space_type> main;
 
-//     date %= charset::no_case[(-year >> month >> daynum)]
-//         | (-year >> charset::no_case[lit("easter")])
-//         | daynum >> !(lit(':') >> qi::digit)
-//         ;
+ public:
+  month_selector() : month_selector::base_type(main)
+  {
+    using qi::_1;
+    using qi::_2;
+    using qi::_3;
+    using qi::_a;
+    using qi::_val;
+    using qi::int_;
+    using qi::uint_;
+    using qi::lit;
+    using qi::double_;
+    using qi::lexeme;
+    using charset::char_;
 
-//     date_with_offsets %= date >> -((char_('+') | char_('-')) >> charset::no_case[wdays] >> qi::no_skip[qi::space]) >> -day_offset;
+    static const qi::int_parser<unsigned, 10, 4, 4> year = {};
 
-//     monthday_range %= (date_with_offsets >> dash >> date_with_offsets)
-//         | (date_with_offsets >> '+')
-//         | date_with_offsets
-//         | charset::no_case[(-year >> month >> dash >> month >> '/' >> int_)]
-//         | charset::no_case[(-year >> month >> dash >> month)]
-//         | charset::no_case[(-year >> month)]
-//         ;
+    day_offset = ((lit('+')[_a = 1] | lit('-')[_a = -1]) >>
+                  int_ >> charset::no_case[(lit("days") | lit("day"))]) [_val = _a * _1];
 
-//     month_range %= charset::no_case[(month >> dash >> month)]
-//         | charset::no_case[month]
-//         ;
+    date_offset = ((lit('+')[_a = true] | lit('-')[_a = false]) >> wdays >> day_offset)
+                  [bind(&osmoh::DateOffset::SetWDayOffset, _val, _1),
+                   bind(&osmoh::DateOffset::SetOffset, _val, _2),
+                   bind(&osmoh::DateOffset::SetWDayOffsetPositive, _val, _a)]
+        | ((lit('+')[_a = true] | lit('-') [_a = false]) >> wdays)
+          [bind(&osmoh::DateOffset::SetWDayOffset, _val, _1),
+           bind(&osmoh::DateOffset::SetWDayOffsetPositive, _val, _a)]
+        | day_offset [bind(&osmoh::DateOffset::SetOffset, _val, _1)]
+        ;
 
-//     main %= (monthday_range % ',') | (month_range % ',');
+    date_left = (year >> charset::no_case[month]) [bind(&osmoh::MonthDay::SetYear, _val, _1),
+                                                   bind(&osmoh::MonthDay::SetMonth, _val, _2)]
 
-//     BOOST_SPIRIT_DEBUG_NODE(main);
-//     BOOST_SPIRIT_DEBUG_NODE(month_range);
-//     BOOST_SPIRIT_DEBUG_NODE(monthday_range);
-//     BOOST_SPIRIT_DEBUG_NODE(date_with_offsets);
-//     BOOST_SPIRIT_DEBUG_NODE(date);
-//     BOOST_SPIRIT_DEBUG_NODE(day_offset);
+        | charset::no_case[month]                 [bind(&osmoh::MonthDay::SetMonth, _val, _1)]
+        ;
 
-//   }
-// };
+    date_right = charset::no_case[month]          [bind(&osmoh::MonthDay::SetMonth, _val, _1)]
+        ;
+
+    date_from = (date_left >> (daynum >> !(lit(':') >> qi::digit)))
+                [_val = _1, bind(&osmoh::MonthDay::SetDayNum, _val, _2)]
+        | (year >> charset::no_case[lit("easter")]) [bind(&osmoh::MonthDay::SetYear, _val, _1),
+                                                     bind(&osmoh::MonthDay::SetVariableDate, _val,
+                                                          MonthDay::EVariableDate::Easter)]
+        | charset::no_case[lit("easter")]           [bind(&osmoh::MonthDay::SetVariableDate, _val,
+                                                          MonthDay::EVariableDate::Easter)]
+        ;
+
+    date_to = date_from                        [_val = _1]
+        | (daynum >> !(lit(':') >> qi::digit)) [bind(&osmoh::MonthDay::SetDayNum, _val, _1)]
+        ;
+
+    date_from_with_offset = (date_from >> date_offset)
+                            [_val = _1, bind(&osmoh::MonthDay::SetOffset, _val, _2)]
+        | date_from         [_val = _1]
+        ;
+
+    date_to_with_offset = (date_to >> date_offset)
+                          [_val = _1, bind(&osmoh::MonthDay::SetOffset, _val, _2)]
+        | date_to         [_val = _1]
+        ;
+
+    monthday_range = (date_from_with_offset >> dash >> date_to_with_offset)
+                     [bind(&osmoh::MonthdayRange::SetStart, _val, _1),
+                      bind(&osmoh::MonthdayRange::SetEnd, _val, _2)]
+        | (date_from_with_offset >> '+') [bind(&osmoh::MonthdayRange::SetStart, _val, _1),
+                                          bind(&osmoh::MonthdayRange::SetPlus, _val, true)]
+        | (date_right >> dash >> date_left >> '/' >> uint_)
+          [bind(&osmoh::MonthdayRange::SetStart, _val, _1),
+           bind(&osmoh::MonthdayRange::SetEnd, _val, _2),
+           bind(&osmoh::MonthdayRange::SetPeriod, _val, _3)]
+        | (date_right >> dash >> date_left) [bind(&osmoh::MonthdayRange::SetStart, _val, _1),
+                                             bind(&osmoh::MonthdayRange::SetEnd, _val, _2)]
+
+        | date_from [bind(&osmoh::MonthdayRange::SetStart, _val, _1)]
+        | date_left [bind(&osmoh::MonthdayRange::SetStart, _val, _1)]
+        ;
+
+    main %= (monthday_range % ',');
+
+    BOOST_SPIRIT_DEBUG_NODE(main);
+    BOOST_SPIRIT_DEBUG_NODE(monthday_range);
+    BOOST_SPIRIT_DEBUG_NODE(day_offset);
+    BOOST_SPIRIT_DEBUG_NODE(date_offset);
+    BOOST_SPIRIT_DEBUG_NODE(date_left);
+    BOOST_SPIRIT_DEBUG_NODE(date_right);
+    BOOST_SPIRIT_DEBUG_NODE(date_from);
+    BOOST_SPIRIT_DEBUG_NODE(date_to);
+    BOOST_SPIRIT_DEBUG_NODE(date_from_with_offset);
+    BOOST_SPIRIT_DEBUG_NODE(date_to_with_offset);
+  }
+};
 
 
 template <typename Iterator>
-//class weekday_selector : public qi::grammar<Iterator, osmoh::TWeekdayss(), space_type>
-//class weekday_selector : public qi::grammar<Iterator, osmoh::THolidays(), space_type>
 class weekday_selector : public qi::grammar<Iterator, osmoh::Weekdays(), space_type>
 {
  protected:
