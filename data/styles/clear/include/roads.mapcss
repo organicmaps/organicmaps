@@ -453,7 +453,7 @@ line|z14[highway=bridleway]
   color: @bridleway;
   opacity: 1;
   width: 0.1;
-  dashes: 0.1,0.1;
+  dashes: 0.1,2;
 }
 
 line|z14[highway=pedestrian]
@@ -486,7 +486,7 @@ line|z14[highway=cycleway]
   color: @cycleway;
   width: 0.4;
   opacity: 0.8;
-  z-index: 1000;
+  z-index: 2000;
 
 }
 /* ZOOM 15 */
@@ -578,7 +578,6 @@ line|z15[highway=tertiary],
   color: @residential;
   width: 3;
   opacity: 1;
-  z-index: 750;
 }
 
 line|z15[highway=tertiary_link] {
@@ -631,8 +630,8 @@ line|z15[highway=bridleway]
 {
   color: @bridleway;
   opacity: 1;
-  dashes: 2,0.5;
-  width: 0.8;
+  dashes: 0.5,3.5;
+  width: 1;
   z-index: 600;
 }
 
@@ -658,7 +657,7 @@ line|z15[highway=cycleway]
   color: @cycleway;
   width: 0.6;
   opacity: 0.9;
-  z-index: 1000;
+  z-index: 2000;
 
 }
 line|z15[highway=construction]
@@ -820,7 +819,7 @@ line|z16[highway=bridleway]
 {
   color: @bridleway;
   opacity: 1;
-  dashes: 3,1.5;
+  dashes: 1,4;
   width: 1.2;
 }
 
@@ -870,7 +869,7 @@ line|z16[highway=cycleway]
   color: @cycleway;
   width: 1;
   opacity: 1;
-  z-index: 1000;
+  z-index: 2000;
 }
 
 
@@ -1061,8 +1060,8 @@ line|z17[highway=bridleway]
 {
   color: @bridleway;
   opacity: 1;
-  dashes: 3.5,2;
-  width: 2;
+  dashes: 1,4;
+  width: 1.6;
 }
 
 line|z17[highway=steps]
@@ -1085,7 +1084,7 @@ line|z17[highway=cycleway]
   color: @cycleway;
   width: 1.2;
   opacity: 1;
-  z-index: 700;
+  z-index: 2000;
 }
 
 
@@ -1282,8 +1281,8 @@ line|z18[highway=bridleway]
 {
   color: @bridleway;
   opacity: 1;
-  dashes: 5,3;
-  width: 3;
+  dashes: 2,5;
+  width: 2;
   z-index: 600;
 }
 
@@ -1307,7 +1306,7 @@ line|z18[highway=cycleway]
   color: @cycleway;
   width: 2;
   opacity: 1;
-  z-index: 700;
+  z-index: 2000;
 }
 
 /* ZOOM 19+ */
@@ -1501,8 +1500,8 @@ line|z19-[highway=bridleway]
 {
   color: @bridleway;
   opacity: 1;
-  dashes: 5,3;
-  width: 3.8;
+  dashes: 3,6;
+  width: 3;
 }
 
 line|z19-[highway=steps]
@@ -1525,7 +1524,7 @@ line|z19-[highway=cycleway]
   color: @cycleway;
   width: 2;
   opacity: 1;
-  z-index: 700;
+  z-index: 2000;
 }
 
 
