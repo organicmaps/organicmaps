@@ -1,0 +1,7 @@
+website <http://pugixml.org>; repository <http://github.com/zeux/pugixml>
+:toc: right
+:source-highlighter: pygments
+:source-language: c++
+:sectanchors:
+:sectlinks:
+:imagesdir: images

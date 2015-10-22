@@ -2,6 +2,11 @@
 
 #include "defines.hpp"
 
+// TODO(AlexZ): Review and replace invalid languages which does not map correctly to
+// iOS/Android locales/UI by valid and more popular ones.
+// Languages below were choosen after sorting name:<lang> tags in 2011.
+// Note, that it's not feasible to increase languages number here due to
+// our current encoding (6 bit to store language code).
 static char const * gLangs[] = {
     "default",
     "en", "ja", "fr", "ko_rm", "ar", "de", "int_name", "ru", "sv", "zh", "fi", "be", "ka", "ko",
