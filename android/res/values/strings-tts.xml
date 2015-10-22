@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!--
+    Supported voices. Should have language2[-country2][:code] format.
+    Where:
+      language2 - two-letter ISO 639-1 language code.
+      country2 - two-letter ISO 3166-1 (alpha-2) country code.
+      code - internal language code to be set in the core.
+             If not specified, language2 is used.
+
+    Chinese is an exception. Matching is based on ISO 3166-1 (alpha-3) country code:
+    zho_TWN, zho_MAC and zho_HKG correspond to zh-Hant.
+    Otherwise we consider that this is zh-Hans.
+
+    TODO: Move language list to core.
+  -->
+  <string-array name="tts_languages_supported"
+                translatable="false">
+    <item>en</item>
+    <item>ru</item>
+    <item>pl</item>
+    <item>sv</item>
+    <item>tr</item>
+    <item>fr</item>
+    <item>nl</item>
+    <item>de</item>
+    <item>ar</item>
+    <item>el</item>
+    <item>it</item>
+    <item>cs</item>
+    <item>hu</item>
+    <item>ro</item>
+    <item>ja</item>
+    <item>da</item>
+    <item>es</item>
+    <item>fi</item>
+    <item>hi</item>
+    <item>hr</item>
+    <item>id</item>
+    <item>ko</item>
+    <item>pt</item>
+    <item>sk</item>
+    <item>sw</item>
+    <item>th</item>
+    <item>zh-tw:zh-Hant</item>
+    <item>zh-cn:zh-Hans</item>
+  </string-array>
+
+  <string-array name="tts_language_names"
+                translatable="false">
+    <item>English</item>
+    <item>Русский</item>
+    <item>Polski</item>
+    <item>Svenska</item>
+    <item>Türkçe</item>
+    <item>Français</item>
+    <item>Nederlands</item>
+    <item>Deutsch</item>
+    <item>العربية</item>
+    <item>Ελληνικά</item>
+    <item>Italiano</item>
+    <item>Čeština</item>
+    <item>Magyar</item>
+    <item>Română</item>
+    <item>日本語</item>
+    <item>Dansk</item>
+    <item>Español</item>
+    <item>Suomi</item>
+    <item>हिन्दी</item>
+    <item>Hrvatski</item>
+    <item>TODO: Indonesian</item>
+    <item>한국어</item>
+    <item>Português</item>
+    <item>Slovenčina</item>
+    <item>Kiswahili</item>
+    <item>ไทย</item>
+    <item>TODO: Chinese Traditional</item>
+    <item>TODO: Chinese Simplified</item>
+  </string-array>
+</resources>

@@ -87,7 +87,7 @@ public class MapPrefsFragment extends BaseXmlSettingsFragment
     });
 
     pref = findPreference(getString(R.string.pref_show_zoom_buttons));
-    ((SwitchPreference)pref).setChecked(Config.getShowZoomButtons());
+    ((SwitchPreference)pref).setChecked(Config.showZoomButtons());
     pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
     {
       @Override
