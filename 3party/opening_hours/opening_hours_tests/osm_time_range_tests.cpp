@@ -258,7 +258,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestWeekdayRange)
     WeekdayRange range;
     BOOST_CHECK(!range.HasNth());
 
-    range.SetStart(WeekdayRange::EWeekday::Tu);
+    range.SetStart(EWeekday::Tu);
     BOOST_CHECK(!range.IsEmpty());
     BOOST_CHECK(!range.HasEnd());
     BOOST_CHECK(!range.HasSu());
@@ -266,7 +266,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestWeekdayRange)
     BOOST_CHECK(range.HasTu());
     BOOST_CHECK(!range.HasSa());
 
-    range.SetEnd(WeekdayRange::EWeekday::Sa);
+    range.SetEnd(EWeekday::Sa);
     BOOST_CHECK(!range.IsEmpty());
     BOOST_CHECK(range.HasStart());
     BOOST_CHECK(range.HasEnd());

@@ -364,13 +364,13 @@ bool WeekdayRange::HasWday(EWeekday const & wday) const
   return GetStart() <= wday && wday <= GetEnd();
 }
 
-bool WeekdayRange::HasSu() const { return HasWday(Su); }
-bool WeekdayRange::HasMo() const { return HasWday(Mo); }
-bool WeekdayRange::HasTu() const { return HasWday(Tu); }
-bool WeekdayRange::HasWe() const { return HasWday(We); }
-bool WeekdayRange::HasTh() const { return HasWday(Th); }
-bool WeekdayRange::HasFr() const { return HasWday(Fr); }
-bool WeekdayRange::HasSa() const { return HasWday(Sa); }
+bool WeekdayRange::HasSu() const { return HasWday(EWeekday::Su); }
+bool WeekdayRange::HasMo() const { return HasWday(EWeekday::Mo); }
+bool WeekdayRange::HasTu() const { return HasWday(EWeekday::Tu); }
+bool WeekdayRange::HasWe() const { return HasWday(EWeekday::We); }
+bool WeekdayRange::HasTh() const { return HasWday(EWeekday::Th); }
+bool WeekdayRange::HasFr() const { return HasWday(EWeekday::Fr); }
+bool WeekdayRange::HasSa() const { return HasWday(EWeekday::Sa); }
 
 bool WeekdayRange::HasStart() const
 {
@@ -387,12 +387,12 @@ bool WeekdayRange::IsEmpty() const
   return GetStart() == EWeekday::None && GetEnd() == EWeekday::None;
 }
 
-WeekdayRange::EWeekday WeekdayRange::GetStart() const
+EWeekday WeekdayRange::GetStart() const
 {
   return m_start;
 }
 
-WeekdayRange::EWeekday WeekdayRange::GetEnd() const
+EWeekday WeekdayRange::GetEnd() const
 {
   return m_end;
 }
@@ -401,7 +401,7 @@ size_t WeekdayRange::GetDaysCount() const
 {
   if (IsEmpty())
     return 0;
-  return m_start - m_end + 1;
+  return static_cast<uint32_t>(m_start) - static_cast<uint32_t>(m_end) + 1;
 }
 
 void WeekdayRange::SetStart(EWeekday const & wday)
@@ -439,32 +439,32 @@ void WeekdayRange::AddNth(NthEntry const & entry)
   m_nths.push_back(entry);
 }
 
-std::ostream & operator<<(std::ostream & ost, WeekdayRange::EWeekday const wday)
+std::ostream & operator<<(std::ostream & ost, EWeekday const wday)
 {
   switch(wday)
   {
-    case WeekdayRange::EWeekday::Su:
+    case EWeekday::Su:
       ost << "Su";
       break;
-    case WeekdayRange::EWeekday::Mo:
+    case EWeekday::Mo:
       ost << "Mo";
       break;
-    case WeekdayRange::EWeekday::Tu:
+    case EWeekday::Tu:
       ost << "Tu";
       break;
-    case WeekdayRange::EWeekday::We:
+    case EWeekday::We:
       ost << "We";
       break;
-    case WeekdayRange::EWeekday::Th:
+    case EWeekday::Th:
       ost << "Th";
       break;
-    case WeekdayRange::EWeekday::Fr:
+    case EWeekday::Fr:
       ost << "Fr";
       break;
-    case WeekdayRange::EWeekday::Sa:
+    case EWeekday::Sa:
       ost << "Sa";
       break;
-    case WeekdayRange::EWeekday::None:
+    case EWeekday::None:
       ost << "not-a-day";
   }
   return ost;
@@ -581,63 +581,159 @@ std::ostream & operator<<(std::ostream & ost, Weekdays const & weekday)
   return ost;
 }
 
-std::ostream & operator<<(std::ostream & ost, TWeekdayss const & weekdays)
+
+bool MonthDay::IsEmpty() const
 {
-  print_vector(ost, weekdays);
-  return ost;
+  return !HasYear() && !HasMonth() && !HasDayNum();
 }
 
+bool MonthDay::HasYear() const
+{
+  return m_year != 0;
+}
+
+bool MonthDay::HasMonth() const
+{
+  return m_month != EMonth::None;
+}
+
+bool MonthDay::HasDayNum() const
+{
+  return m_daynum != 0;
+}
+
+bool MonthDay::HasWDayOffset() const
+{
+  return m_offset.m_wday_offset != EWeekday::None;
+}
+
+bool MonthDay::IsWDayOffsetPositive() const
+{
+  return m_offset.m_positive;
+}
+
+bool MonthDay::HasOffset() const
+{
+  return m_offset.m_offset != 0;
+}
+
+MonthDay::TYear MonthDay::GetYear() const
+{
+  return m_year;
+}
+
+MonthDay::EMonth MonthDay::GetMonth() const
+{
+  return m_month;
+}
+
+MonthDay::TDayNum MonthDay::GetDayNum() const
+{
+  return m_daynum;
+}
+
+EWeekday MonthDay::GetWDayOffset() const
+{
+  return m_offset.m_wday_offset;
+}
+
+int32_t MonthDay::GetOffset() const
+{
+  return m_offset.m_offset;
+}
+
+void MonthDay::SetYear(TYear const year)
+{
+  m_year = year;
+}
+
+void MonthDay::SetMonth(EMonth const month)
+{
+  m_month = month;
+}
+
+void MonthDay::SetDayNum(TDayNum const daynum)
+{
+  m_daynum = daynum;
+}
+
+void MonthDay::SetWDayOffset(EWeekday const wday)
+{
+  m_offset.m_wday_offset = wday;
+}
+
+void MonthDay::SetWDayOffsetPositive(bool const on)
+{
+  m_offset.m_positive = on;
+}
+
+void MonthDay::SetOffset(uint32_t const offset)
+{
+  m_offset.m_offset = offset;
+}
+
+std::ostream & operator<<(std::ostream & ost, MonthDay::DateOffset const dateOffset);
+std::ostream & operator<<(std::ostream & ost, MonthDay const md);
 
 
-// std::ostream & operator << (std::ostream & s, Weekday const & w)
-// {
-//   static char const * wdays[] = {"Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"};
-//   static uint8_t const kDaysInWeek = 7;
-//   static uint8_t const kWeeksInMonth = 5;
+bool MonthdayRange::HasStart() const
+{
+  return !m_start.IsEmpty();
+}
 
-//   for (size_t i = 0; i < kDaysInWeek; ++i)
-//   {
-//     if (w.weekdays & (1 << i))
-//     {
-//       if (w.weekdays & ((1 << i) - 1))
-//         s << ',';
-//       s << wdays[i];
-//     }
-//   }
+bool MonthdayRange::HasEnd() const
+{
+  return m_end.IsEmpty();
+}
 
-//   if (w.nth)
-//   {
-//     s << "[";
+bool MonthdayRange::HasPeriod() const
+{
+  return m_period != 0;
+}
 
-//     uint8_t a = w.nth & 0xFF;
-//     for (size_t i = 0; i < kWeeksInMonth; ++i)
-//     {
-//       if (a & (1 << i))
-//       {
-//         if (a & ((1 << i) - 1))
-//           s << ',';
-//         s << (i + 1);
-//       }
-//     }
+bool MonthdayRange::HasPlus() const
+{
+  return m_plus;
+}
 
-//     a = (w.nth >> 8) & 0xFF;
-//     for (size_t i = 0; i < kWeeksInMonth; ++i)
-//     {
-//       if (a & (1 << i))
-//       {
-//         if (a & ((1 << i) - 1))
-//           s << ',';
-//         s << '-' << (i + 1);
-//       }
-//     }
+MonthDay const & MonthdayRange::GetStart() const
+{
+  return m_start;
+}
 
-//     s << "]";
-//   }
+MonthDay const & MonthdayRange::GetEnd() const
+{
+  return m_end;
+}
 
-//   if (w.offset)
-//     s << ' ' << w.offset << " day(s)";
-//   return s;
-// }
+uint32_t MonthdayRange::GetPeriod() const
+{
+  return m_period;
+}
+
+void MonthdayRange::SetStart(MonthDay const & start)
+{
+  m_start = start;
+}
+
+void MonthdayRange::SetEnd(MonthDay const & end)
+{
+  m_end = end;
+}
+
+void MonthdayRange::SetPeriod(uint32_t const period)
+{
+  m_period = period;
+}
+
+void MonthdayRange::SetPlus(bool const plus)
+{
+  m_plus = plus;
+}
+
+std::ostream operator<<(std::ostream & ost, MonthdayRange const & range);
+std::ostream operator<<(std::ostream & ost, TMonthdayRanges const & ranges);
+
 
 // std::ostream & operator << (std::ostream & s, State const & w)
 // {

@@ -178,22 +178,34 @@ class NthEntry
 
 std::ostream & operator<<(std::ostream & ost, NthEntry const entry);
 
+enum class EWeekday
+{
+  None,
+  Su,
+  Mo,
+  Tu,
+  We,
+  Th,
+  Fr,
+  Sa
+};
+
+inline constexpr EWeekday operator ""_day(unsigned long long day)
+{
+  using TDay = decltype(day);
+  return ((day <= static_cast<TDay>(EWeekday::None) ||
+           day > static_cast<TDay>(EWeekday::Sa))
+          ? EWeekday::None
+          : static_cast<EWeekday>(day));
+}
+
+std::ostream & operator<<(std::ostream & ost, EWeekday const wday);
+
 class WeekdayRange
 {
   using TNths = std::vector<NthEntry>;
 
  public:
-  enum EWeekday
-  {
-    None,
-    Su,
-    Mo,
-    Tu,
-    We,
-    Th,
-    Fr,
-    Sa
-  };
 
  public:
   bool HasWday(EWeekday const & wday) const;
@@ -232,16 +244,8 @@ class WeekdayRange
   TNths m_nths;
 };
 
-inline constexpr WeekdayRange::EWeekday operator ""_day(unsigned long long day)
-{
-  return ((day <= WeekdayRange::EWeekday::None || day > WeekdayRange::EWeekday::Sa)
-          ? WeekdayRange::EWeekday::None
-          : static_cast<WeekdayRange::EWeekday>(day));
-}
-
 using TWeekdayRanges = std::vector<WeekdayRange>;
 
-std::ostream & operator<<(std::ostream & ost, WeekdayRange::EWeekday const wday);
 std::ostream & operator<<(std::ostream & ost, WeekdayRange const & range);
 std::ostream & operator<<(std::ostream & ost, TWeekdayRanges const & ranges);
 
@@ -284,10 +288,111 @@ class Weekdays // Correspond to weekday_selector in osm opening hours
   THolidays m_holidays;
 };
 
-using TWeekdayss = std::vector<Weekdays>; // TODO(mgsergio): make up a better name
-
 std::ostream & operator<<(std::ostream & ost, Weekdays const & weekday);
+
+class MonthDay
+{
+ public:
+  enum class EMonth
+  {
+    None,
+    Jan,
+    Feb,
+    Mar,
+    Apr,
+    May,
+    Jun,
+    Jul,
+    Aug,
+    Sep,
+    Oct,
+    Nov,
+    Dec
+  };
+
+  enum class EVariableDate
+  {
+    None,
+    Easter
+  };
+
+  struct DateOffset
+  {
+    EWeekday m_wday_offset{EWeekday::None};
+    bool m_positive{true};
+    int32_t m_offset{};
+  };
+
+  using TYear = uint8_t;
+  using TDayNum = uint8_t;
+
+ public:
+  bool IsEmpty() const;
+  bool IsVariable() const;
+
+  bool HasYear() const;
+  bool HasMonth() const;
+  bool HasDayNum() const;
+
+  bool HasWDayOffset() const;
+  bool IsWDayOffsetPositive() const;
+  bool HasOffset() const;
+
+  TYear GetYear() const;
+  EMonth GetMonth() const;
+  TDayNum GetDayNum() const;
+
+  EWeekday GetWDayOffset() const;
+  int32_t GetOffset() const;
+
+  void SetYear(TYear const year);
+  void SetMonth(EMonth const month);
+  void SetDayNum(TDayNum const daynum);
+
+  void SetWDayOffset(EWeekday const wday);
+  void SetWDayOffsetPositive(bool const on);
+  void SetOffset(uint32_t const offset);
+
+ private:
+  TYear m_year{};
+  EMonth m_month{EMonth::None};
+  TDayNum m_daynum{};
+  DateOffset m_offset{};
+};
+
+std::ostream & operator<<(std::ostream & ost, MonthDay::DateOffset const dateOffset);
+std::ostream & operator<<(std::ostream & ost, MonthDay const md);
+
+class MonthdayRange
+{
+ public:
+  bool HasStart() const;
+  bool HasEnd() const;
+  bool HasPeriod() const;
+  bool HasPlus() const;
+
+  MonthDay const & GetStart() const;
+  MonthDay const & GetEnd() const;
+  uint32_t GetPeriod() const;
+
+  void SetStart(MonthDay const & start);
+  void SetEnd(MonthDay const & end);
+  void SetPeriod(uint32_t const period);
+  void SetPlus(bool const plus);
+
+ private:
+  MonthDay m_start;
+  MonthDay m_end;
+  uint32_t m_period{};
+  bool m_plus{false};
+};
+
+using TMonthdayRanges = std::vector<MonthdayRange>;
+
+std::ostream operator<<(std::ostream & ost, MonthdayRange const & range);
+std::ostream operator<<(std::ostream & ost, TMonthdayRanges const & ranges);
 } // namespace osmoh
+
 
 // class State
 // {

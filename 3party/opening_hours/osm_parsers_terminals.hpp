@@ -36,7 +36,7 @@ class event_ : public qi::symbols<char, osmoh::Time::EEvent>
   }
 } event;
 
-struct wdays_ : qi::symbols<char, osmoh::WeekdayRange::EWeekday>
+struct wdays_ : qi::symbols<char, osmoh::EWeekday>
 {
   wdays_()
   {
