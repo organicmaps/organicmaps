@@ -14,7 +14,7 @@ namespace
     integration::CalculateRouteAndTestRouteLength(
           integration::GetOsrmComponents(),
           MercatorBounds::FromLatLon(55.77399, 37.68468), {0., 0.},
-          MercatorBounds::FromLatLon(55.77198, 37.68782), 900.);
+          MercatorBounds::FromLatLon(55.77198, 37.68782), 700.);
   }
 
   UNIT_TEST(RestrictionTestNearMetroShodnenskaya)
