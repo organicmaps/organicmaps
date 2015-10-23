@@ -11,8 +11,8 @@ namespace  dp
 
 namespace
 {
-  int const RESOURCE_SIZE = 1;
-  int const BYTES_PER_PIXEL = 4;
+  int const kResourceSize = 2;
+  int const kBytesPerPixel = 4;
 }
 
 ColorPalette::ColorPalette(m2::PointU const & canvasSize)
@@ -32,16 +32,16 @@ ref_ptr<Texture::ResourceInfo> ColorPalette::ReserveResource(bool predefined, Co
     PendingColor pendingColor;
     pendingColor.m_color = key.m_color;
     pendingColor.m_rect = m2::RectU(m_cursor.x, m_cursor.y,
-                                    m_cursor.x + RESOURCE_SIZE, m_cursor.y + RESOURCE_SIZE);
+                                    m_cursor.x + kResourceSize, m_cursor.y + kResourceSize);
     {
       lock_guard<mutex> g(m_lock);
       m_pendingNodes.push_back(pendingColor);
     }
 
-    m_cursor.x += RESOURCE_SIZE;
+    m_cursor.x += kResourceSize;
     if (m_cursor.x >= m_textureSize.x)
     {
-      m_cursor.y += RESOURCE_SIZE;
+      m_cursor.y += kResourceSize;
       m_cursor.x = 0;
 
       ASSERT(m_cursor.y < m_textureSize.y, ());
@@ -119,24 +119,44 @@ void ColorPalette::UploadResources(ref_ptr<Texture> texture)
       uploadRect = m2::RectU(0, startRect.minY(), m_textureSize.x, endRect.maxY());
     }
 
-    size_t byteCount = BYTES_PER_PIXEL * uploadRect.SizeX() * uploadRect.SizeY();
-    size_t bufferSize = my::NextPowOf2(byteCount);
+    size_t const pixelStride = uploadRect.SizeX();
+    size_t const byteCount = kBytesPerPixel * uploadRect.SizeX() * uploadRect.SizeY();
+    size_t const bufferSize = my::NextPowOf2(byteCount);
 
     SharedBufferManager::shared_buffer_ptr_t buffer = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
     uint8_t * pointer = SharedBufferManager::GetRawPointer(buffer);
     if (m_isDebug)
       memset(pointer, 0, bufferSize);
 
+    uint32_t currentY = startRect.minY();
     for (size_t j = startRange; j < endRange; ++j)
     {
       ASSERT(pointer < SharedBufferManager::GetRawPointer(buffer) + byteCount, ());
       PendingColor const & c = pendingNodes[j];
-      pointer[0] = c.m_color.GetRed();
-      pointer[1] = c.m_color.GetGreen();
-      pointer[2] = c.m_color.GetBlue();
-      pointer[3] = c.m_color.GetAlfa();
+      if (c.m_rect.minY() > currentY)
+      {
+        pointer += kBytesPerPixel * pixelStride;
+        currentY = c.m_rect.minY();
+      }
 
-      pointer += BYTES_PER_PIXEL;
+      uint32_t const byteStride = pixelStride * kBytesPerPixel;
+      uint8_t const red = c.m_color.GetRed();
+      uint8_t const green = c.m_color.GetGreen();
+      uint8_t const blue = c.m_color.GetBlue();
+      uint8_t const alpha = c.m_color.GetAlfa();
+
+      for (size_t row = 0; row < kResourceSize; row++)
+      {
+        for (size_t colomn = 0; colomn < kResourceSize; colomn++)
+        {
+          pointer[row * byteStride + colomn * kBytesPerPixel] = red;
+          pointer[row * byteStride + colomn * kBytesPerPixel + 1] = green;
+          pointer[row * byteStride + colomn * kBytesPerPixel + 2] = blue;
+          pointer[row * byteStride + colomn * kBytesPerPixel + 3] = alpha;
+        }
+      }
+
+      pointer += kResourceSize * kBytesPerPixel;
       ASSERT(pointer <= SharedBufferManager::GetRawPointer(buffer) + byteCount, ());
     }
 
@@ -146,32 +166,15 @@ void ColorPalette::UploadResources(ref_ptr<Texture> texture)
   }
 }
 
-glConst ColorPalette::GetMinFilter() const
-{
-  return gl_const::GLNearest;
-}
-
-glConst ColorPalette::GetMagFilter() const
-{
-  return gl_const::GLNearest;
-}
-
-void ColorPalette::MoveCursor()
-{
-  m_cursor.x += RESOURCE_SIZE;
-  if (m_cursor.x >= m_textureSize.x)
-  {
-    m_cursor.y += RESOURCE_SIZE;
-    m_cursor.x = 0;
-  }
-
-  ASSERT(m_cursor.y + RESOURCE_SIZE <= m_textureSize.y, ());
-}
-
 void ColorTexture::ReserveColor(dp::Color const & color)
 {
   bool newResource = false;
   m_indexer->ReserveResource(true /* predefined */, ColorKey(color), newResource);
+}
+
+int ColorTexture::GetColorSizeInPixels()
+{
+  return kResourceSize;
 }
 
 }

@@ -101,8 +101,6 @@ public:
   ref_ptr<Texture::ResourceInfo> ReserveResource(bool predefined, StipplePenKey const & key, bool & newResource);
   ref_ptr<Texture::ResourceInfo> MapResource(StipplePenKey const & key, bool & newResource);
   void UploadResources(ref_ptr<Texture> texture);
-  glConst GetMinFilter() const;
-  glConst GetMagFilter() const;
 
 private:
   typedef map<StipplePenHandle, StipplePenResourceInfo> TResourceMapping;

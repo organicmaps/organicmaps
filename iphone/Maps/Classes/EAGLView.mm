@@ -35,9 +35,8 @@
     CAEAGLLayer * eaglLayer = (CAEAGLLayer *)self.layer;
 
     eaglLayer.opaque = YES;
-    // ColorFormat : RGB565
-    // Backbuffer : YES, (to prevent from loosing content when mixing with ordinary layers).
-    eaglLayer.drawableProperties = @{kEAGLDrawablePropertyRetainedBacking : @NO, kEAGLDrawablePropertyColorFormat : kEAGLColorFormatRGB565};
+    eaglLayer.drawableProperties = @{kEAGLDrawablePropertyRetainedBacking : @NO,
+                                     kEAGLDrawablePropertyColorFormat : kEAGLColorFormatRGBA8};
     
     // Correct retina display support in opengl renderbuffer
     self.contentScaleFactor = [self correctContentScale];

@@ -13,7 +13,22 @@
 namespace android
 {
 
-static EGLint * getConfigAttributesList()
+static EGLint * getConfigAttributesListRGB8()
+{
+  static EGLint attr_list[] = {
+    EGL_RED_SIZE, 8,
+    EGL_GREEN_SIZE, 8,
+    EGL_BLUE_SIZE, 8,
+    EGL_STENCIL_SIZE, 0,
+    EGL_DEPTH_SIZE, 16,
+    EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
+    EGL_SURFACE_TYPE, EGL_PBUFFER_BIT | EGL_WINDOW_BIT,
+    EGL_NONE
+  };
+  return attr_list;
+}
+
+static EGLint * getConfigAttributesListR5G6B5()
 {
   static EGLint attr_list[] = {
     EGL_RED_SIZE, 5,
@@ -211,9 +226,18 @@ bool AndroidOGLContextFactory::isUploadContextCreated() const
 
 bool AndroidOGLContextFactory::createWindowSurface()
 {
-  EGLConfig configs[40];
+  int const kMaxConfigCount = 40;
+  EGLConfig configs[kMaxConfigCount];
   int count = 0;
-  VERIFY(eglChooseConfig(m_display, getConfigAttributesList(), configs, 40, &count) == EGL_TRUE, ());
+  if (eglChooseConfig(m_display, getConfigAttributesListRGB8(), configs, kMaxConfigCount, &count) != EGL_TRUE)
+  {
+    VERIFY(eglChooseConfig(m_display, getConfigAttributesListR5G6B5(), configs, kMaxConfigCount, &count) == EGL_TRUE, ());
+    LOG(LDEBUG, ("Backbuffer format: R5G6B5"));
+  }
+  else
+  {
+    LOG(LDEBUG, ("Backbuffer format: RGB8"));
+  }
   ASSERT(count > 0, ("Didn't find any configs."));
 
   sort(&configs[0], &configs[count], ConfigComparator(m_display));

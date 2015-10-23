@@ -194,16 +194,6 @@ void StipplePenIndex::UploadResources(ref_ptr<Texture> texture)
   mng.freeSharedBuffer(reserveBufferSize, ptr);
 }
 
-glConst StipplePenIndex::GetMinFilter() const
-{
-  return gl_const::GLNearest;
-}
-
-glConst StipplePenIndex::GetMagFilter() const
-{
-  return gl_const::GLNearest;
-}
-
 void StipplePenTexture::ReservePattern(buffer_vector<uint8_t, 8> const & pattern)
 {
   bool newResource = false;

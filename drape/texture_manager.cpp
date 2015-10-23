@@ -400,6 +400,7 @@ void TextureManager::Init(Params const & params)
   });
 
   uint32_t colorTextureSize = max(my::NextPowOf2(floor(sqrt(colors.size() + kReservedColors))), kMinColorTextureSize);
+  colorTextureSize *= ColorTexture::GetColorSizeInPixels();
   colorTextureSize = min(m_maxTextureSize, colorTextureSize);
   m_colorTexture = make_unique_dp<ColorTexture>(m2::PointU(colorTextureSize, colorTextureSize),
                                                 make_ref(m_textureAllocator));

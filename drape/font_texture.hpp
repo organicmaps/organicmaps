@@ -108,9 +108,6 @@ public:
   ref_ptr<Texture::ResourceInfo> MapResource(GlyphKey const & key, bool & newResource);
   void UploadResources(ref_ptr<Texture> texture);
 
-  glConst GetMinFilter() const { return gl_const::GLLinear; }
-  glConst GetMagFilter() const { return gl_const::GLLinear; }
-
   bool HasAsyncRoutines() const;
 
 private:

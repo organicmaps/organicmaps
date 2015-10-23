@@ -35,13 +35,8 @@ public:
   ref_ptr<Texture::ResourceInfo> ReserveResource(bool predefined, ColorKey const & key, bool & newResource);
   ref_ptr<Texture::ResourceInfo> MapResource(ColorKey const & key, bool & newResource);
   void UploadResources(ref_ptr<Texture> texture);
-  glConst GetMinFilter() const;
-  glConst GetMagFilter() const;
 
   void SetIsDebug(bool isDebug) { m_isDebug = isDebug; }
-
-private:
-  void MoveCursor();
 
 private:
   typedef map<Color, ColorResourceInfo> TPalette;
@@ -80,6 +75,8 @@ public:
   void ReserveColor(dp::Color const & color);
 
   ~ColorTexture() { TBase::Reset(); }
+
+  static int GetColorSizeInPixels();
 
 private:
   ColorPalette m_pallete;
