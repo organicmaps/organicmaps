@@ -68,6 +68,7 @@
 @tertiary_tunnel_casing:  #808080;
 @unclassified_tunnel: #FFFFFF;
 @unclassified_tunnel_casing: #808080;
+
 /*roads_links */
 @trunk_link: #FFFFFF;
 @primary_link: #FFFFFF;
@@ -112,9 +113,9 @@
 /* LABELS COLORS */
 @label_extra_dark: #000000;
 @label_dark: #222222;
-@label_medium: #333333;
-@label_light: #444444;
-@label_extra_light: #7F7F7F;
+@label_medium: #000;
+@label_light: #222;
+@label_extra_light: #111;
 
 @label_halo_bg: #DDDDCC;
 @label_halo_dark: #DDDDCC;
@@ -123,17 +124,17 @@
 
 
 /* PLACE LABELS */
-@city_label: #595959;
-@city_label_light: #7F7F7F;
+@city_label: #000;
+@city_label_light: #000;
 @city_halo: #DDDDCC;
 @city_halo_light: #DDDDCC;
-@country_label: #8C8C8C;
-@state_name: #8C8C8C;
-@district_label: #7F7F7F;
+@country_label: #111;
+@state_name: #333;
+@district_label: #333;
 
-@poi_label: #444444;
-@subway_label: #333333;
-@railway_label: #333333;
+@poi_label: #222;
+@subway_label: #111;
+@railway_label: #111;
 
 /* ROADS LABELS */
 @primary_road_label: #2E2E2E;
@@ -143,8 +144,8 @@
 @shield_halo: #498F46;
 /* blue - #2E89B0; #498F46; #598DBE; */
 
-@label_dark: #333333;
-@label_light: #444444;
+@label_dark: #111;
+@label_light: #444;
 @dark:  #333333;
 
 /* NATURAL LABELS */
@@ -157,7 +158,7 @@
 @label_halo: #FFFFFF;
 
 /* OTHER LABELS */
-@building_label: #7F7F7F;
+@building_label: #333;
 
 /* PISTE */
 @piste: #7766ff;

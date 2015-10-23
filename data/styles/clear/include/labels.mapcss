@@ -1467,7 +1467,7 @@ area|z14[leisure=park][name] {
   font-size: 11;
   text-color: @park_label;
   text-halo-color: @label_halo_light;
-  text-halo-radius: 0.4;
+  text-halo-radius: 0.8;
   text-halo-opacity: 0.4;
 }
 area|z14[leisure=park][!name] {
