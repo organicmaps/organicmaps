@@ -22,8 +22,8 @@
  THE SOFTWARE.
 */
 
-#include <osm_time_range.hpp>
-#include <osm_parsers.hpp>
+#include "osm_time_range.hpp"
+#include "osm_parsers.hpp"
 
 #include <iostream>
 #include <sstream>
@@ -287,6 +287,123 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestWeekdayRange)
 
 }
 
+BOOST_AUTO_TEST_CASE(OpeningHoursTimerange_DayOffset)
+{
+  using namespace osmoh;
+
+  {
+    DateOffset offset;
+    BOOST_CHECK(offset.IsEmpty());
+    BOOST_CHECK(!offset.HasWDayOffset());
+    BOOST_CHECK(!offset.HasOffset());
+
+    offset.SetWDayOffset(EWeekday::Mo);
+    BOOST_CHECK(!offset.IsEmpty());
+    BOOST_CHECK(offset.HasWDayOffset());
+
+    offset.SetOffset(11);
+    BOOST_CHECK(offset.HasOffset());
+
+    BOOST_CHECK(offset.IsWDayOffsetPositive());
+    offset.SetWDayOffsetPositive(false);
+    BOOST_CHECK(!offset.IsWDayOffsetPositive());
+  }
+}
+
+BOOST_AUTO_TEST_CASE(OpeningHoursTimerange_TestMonthDay)
+{
+  using namespace osmoh;
+
+  {
+    MonthDay md;
+    BOOST_CHECK(md.IsEmpty());
+    BOOST_CHECK(!md.HasYear());
+    BOOST_CHECK(!md.HasMonth());
+    BOOST_CHECK(!md.HasDayNum());
+    BOOST_CHECK(!md.HasOffset());
+    BOOST_CHECK(!md.IsVariable());
+  }
+  {
+    MonthDay md;
+    md.SetYear(1990);
+    BOOST_CHECK(!md.IsEmpty());
+    BOOST_CHECK(md.HasYear());
+
+    md.SetMonth(MonthDay::EMonth::Jul);
+    BOOST_CHECK(!md.IsEmpty());
+    BOOST_CHECK(md.HasYear());
+    BOOST_CHECK(md.HasMonth());
+
+    md.SetDayNum(17);
+    BOOST_CHECK(!md.IsEmpty());
+    BOOST_CHECK(md.HasYear());
+    BOOST_CHECK(md.HasMonth());
+    BOOST_CHECK(md.HasDayNum());
+
+    DateOffset offset;
+    offset.SetWDayOffset(EWeekday::Mo);
+    md.SetOffset(offset);
+    BOOST_CHECK(md.HasOffset());
+  }
+}
+
+BOOST_AUTO_TEST_CASE(OpeningHoursTimerange_TestMonthdayRange)
+{
+  using namespace osmoh;
+
+  {
+    MonthdayRange range;
+    BOOST_CHECK(range.IsEmpty());
+    BOOST_CHECK(!range.HasStart());
+    BOOST_CHECK(!range.HasEnd());
+    BOOST_CHECK(!range.HasPeriod());
+    BOOST_CHECK(!range.HasPlus());
+  }
+  {
+    MonthdayRange range;
+    MonthDay md;
+
+    md.SetYear(1990);
+    range.SetStart(md);
+
+    BOOST_CHECK(!range.IsEmpty());
+    BOOST_CHECK(range.HasStart());
+    BOOST_CHECK(!range.HasEnd());
+    BOOST_CHECK(!range.HasPeriod());
+    BOOST_CHECK(!range.HasPlus());
+  }
+  {
+    MonthdayRange range;
+    MonthDay md;
+
+    md.SetYear(1990);
+    range.SetEnd(md);
+
+    BOOST_CHECK(!range.IsEmpty());
+    BOOST_CHECK(!range.HasStart());
+    BOOST_CHECK(range.HasEnd());
+    BOOST_CHECK(!range.HasPeriod());
+    BOOST_CHECK(!range.HasPlus());
+  }
+  {
+    MonthdayRange range;
+
+    range.SetPlus(true);
+    BOOST_CHECK(range.IsEmpty());
+    BOOST_CHECK(!range.HasStart());
+    BOOST_CHECK(!range.HasEnd());
+    BOOST_CHECK(!range.HasPeriod());
+    BOOST_CHECK(range.HasPlus());
+
+    range.SetPeriod(7);
+    BOOST_CHECK(range.IsEmpty());
+    BOOST_CHECK(!range.HasStart());
+    BOOST_CHECK(!range.HasEnd());
+    BOOST_CHECK(range.HasPeriod());
+    BOOST_CHECK(range.HasPlus());
+  }
+}
+
 BOOST_AUTO_TEST_CASE(OpeningHoursTimerange_TestParseUnparse)
 {
   {
@@ -407,7 +524,34 @@ BOOST_AUTO_TEST_CASE(OpeningHoursWeekdays_TestParseUnparse)
                                                 osmoh::Weekdays>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
+}
 
+BOOST_AUTO_TEST_CASE(OpeningHoursMonthdayRanges_TestParseUnparse)
+{
+  {
+    auto const rule = "Jan";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::month_selector,
+                                                osmoh::TMonthdayRanges>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "Mar 10+";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::month_selector,
+                                                osmoh::TMonthdayRanges>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "Jan-Feb";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::month_selector,
+                                                osmoh::TMonthdayRanges>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "Jan-Feb/10";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::month_selector,
+                                                osmoh::TMonthdayRanges>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
 }
 
 

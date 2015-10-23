@@ -1,9 +1,6 @@
 #pragma once
 
-#include "osm_time_range.hpp"
-#include "osm_parsers_terminals.hpp"
-
-//#define BOOST_SPIRIT_DEBUG 1
+// #define BOOST_SPIRIT_DEBUG 1
 #define BOOST_SPIRIT_USE_PHOENIX_V3
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/repository/include/qi_subrule.hpp>
@@ -13,7 +10,6 @@
 #include <boost/spirit/include/phoenix_statement.hpp>
 #include <boost/spirit/include/phoenix_bind.hpp>
 #include <boost/spirit/include/phoenix_object.hpp>
-
 
 #if defined(__clang__)
 #pragma clang diagnostic push
@@ -25,6 +21,9 @@
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/date_time/gregorian/gregorian.hpp>
 #endif
+
+#include "osm_time_range.hpp"
+#include "osm_parsers_terminals.hpp"
 
 namespace osmoh
 {
@@ -221,13 +220,12 @@ class month_selector : public qi::grammar<Iterator, TMonthdayRanges(), space_typ
                       bind(&osmoh::MonthdayRange::SetEnd, _val, _2)]
         | (date_from_with_offset >> '+') [bind(&osmoh::MonthdayRange::SetStart, _val, _1),
                                           bind(&osmoh::MonthdayRange::SetPlus, _val, true)]
-        | (date_right >> dash >> date_left >> '/' >> uint_)
+        | (date_left >> dash >> date_right >> '/' >> uint_)
           [bind(&osmoh::MonthdayRange::SetStart, _val, _1),
            bind(&osmoh::MonthdayRange::SetEnd, _val, _2),
            bind(&osmoh::MonthdayRange::SetPeriod, _val, _3)]
-        | (date_right >> dash >> date_left) [bind(&osmoh::MonthdayRange::SetStart, _val, _1),
-                                             bind(&osmoh::MonthdayRange::SetEnd, _val, _2)]
-
+        | (date_left >> lit("-") >> date_right) [bind(&osmoh::MonthdayRange::SetStart, _val, _1),
+                                                 bind(&osmoh::MonthdayRange::SetEnd, _val, _2)]
         | date_from [bind(&osmoh::MonthdayRange::SetStart, _val, _1)]
         | date_left [bind(&osmoh::MonthdayRange::SetStart, _val, _1)]
         ;

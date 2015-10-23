@@ -22,12 +22,14 @@
   THE SOFTWARE.
 */
 
-#include "osm_parsers.hpp"
+#include "osm_time_range.hpp"
 
 #include <iomanip>
 #include <ios>
 #include <cstdlib>
 #include <codecvt>
+#include <vector>
+#include <ostream>
 
 namespace
 {
@@ -168,7 +170,7 @@ Time Time::GetEventTime() const {return {};}; // TODO(mgsergio): get real time
 
 std::ostream & operator<<(std::ostream & ost, Time::EEvent const event)
 {
-  switch(event)
+  switch (event)
   {
     case Time::EEvent::eNotEvent:
       ost << "NotEvent";
@@ -441,7 +443,7 @@ void WeekdayRange::AddNth(NthEntry const & entry)
 
 std::ostream & operator<<(std::ostream & ost, EWeekday const wday)
 {
-  switch(wday)
+  switch (wday)
   {
     case EWeekday::Su:
       ost << "Su";
@@ -584,7 +586,7 @@ std::ostream & operator<<(std::ostream & ost, Weekdays const & weekday)
 
 bool DateOffset::IsEmpty() const
 {
-  return !HasOffset() && ! HasWDayOffset();
+  return !HasOffset() && !HasWDayOffset();
 }
 
 bool DateOffset::HasWDayOffset() const
@@ -627,7 +629,14 @@ void DateOffset::SetWDayOffsetPositive(bool const on)
   m_positive = on;
 }
 
-std::ostream operator<<(std::ostream & ost, DateOffset const & dateOffset);
+std::ostream & operator<<(std::ostream & ost, DateOffset const & offset)
+{
+  if (offset.HasWDayOffset())
+    ost << (offset.IsWDayOffsetPositive() ? '+' : '-')
+        << offset.GetWDayOffset();
+  print_offset(ost, offset.GetOffset());
+  return ost;
+}
 
 
 bool MonthDay::IsEmpty() const
@@ -710,8 +719,91 @@ void MonthDay::SetVariableDate(EVariableDate const date)
   m_variable_date = date;
 }
 
-std::ostream & operator<<(std::ostream & ost, MonthDay const md);
+std::ostream & operator<<(std::ostream & ost, MonthDay::EMonth const month)
+{
+  switch (month)
+  {
+    case MonthDay::EMonth::None:
+      ost << "None";
+      break;
+    case MonthDay::EMonth::Jan:
+      ost << "Jan";
+      break;
+    case MonthDay::EMonth::Feb:
+      ost << "Feb";
+      break;
+    case MonthDay::EMonth::Mar:
+      ost << "Mar";
+      break;
+    case MonthDay::EMonth::Apr:
+      ost << "Apr";
+      break;
+    case MonthDay::EMonth::May:
+      ost << "May";
+      break;
+    case MonthDay::EMonth::Jun:
+      ost << "Jun";
+      break;
+    case MonthDay::EMonth::Jul:
+      ost << "Jul";
+      break;
+    case MonthDay::EMonth::Aug:
+      ost << "Aug";
+      break;
+    case MonthDay::EMonth::Sep:
+      ost << "Sep";
+      break;
+    case MonthDay::EMonth::Oct:
+      ost << "Oct";
+      break;
+    case MonthDay::EMonth::Nov:
+      ost << "Nov";
+      break;
+    case MonthDay::EMonth::Dec:
+      ost << "Dec";
+      break;
+  }
+  return ost;
+}
 
+std::ostream & operator<<(std::ostream & ost, MonthDay::EVariableDate const date)
+{
+  switch (date)
+  {
+    case MonthDay::EVariableDate::None:
+      break;
+      ost << "none";
+    case MonthDay::EVariableDate::Easter:
+      break;
+      ost << "easter";
+  }
+  return ost;
+}
+
+std::ostream & operator<<(std::ostream & ost, MonthDay const md)
+{
+  if (md.HasYear())
+    ost << md.GetYear();
+
+  if (md.IsVariable())
+    ost << md.GetVariableDate();
+  else
+  {
+    if (md.HasMonth())
+      ost << md.GetMonth();
+    if (md.HasDayNum())
+      ost << ' ' << md.GetDayNum();
+    if (md.HasOffset())
+      ost << md.GetOffset();
+  }
+  return ost;
+}
+
+
+bool MonthdayRange::IsEmpty() const
+{
+  return !HasStart() && !HasEnd();
+}
 
 bool MonthdayRange::HasStart() const
 {
@@ -720,7 +812,7 @@ bool MonthdayRange::HasStart() const
 
 bool MonthdayRange::HasEnd() const
 {
-  return m_end.IsEmpty();
+  return !m_end.IsEmpty();
 }
 
 bool MonthdayRange::HasPeriod() const
@@ -768,8 +860,26 @@ void MonthdayRange::SetPlus(bool const plus)
   m_plus = plus;
 }
 
-std::ostream operator<<(std::ostream & ost, MonthdayRange const & range);
-std::ostream operator<<(std::ostream & ost, TMonthdayRanges const & ranges);
+std::ostream & operator<<(std::ostream & ost, MonthdayRange const & range)
+{
+  if (range.HasStart())
+    ost << range.GetStart();
+  if (range.HasEnd())
+  {
+    ost << '-' << range.GetEnd();
+    if (range.HasPeriod())
+      ost << '/' << range.GetPeriod();
+  }
+  else if (range.HasPlus())
+    ost << '+';
+  return ost;
+}
+
+std::ostream & operator<<(std::ostream & ost, TMonthdayRanges const & ranges)
+{
+  print_vector(ost, ranges);
+  return ost;
+}
 
 
 // std::ostream & operator << (std::ostream & s, State const & w)

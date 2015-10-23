@@ -312,7 +312,7 @@ class DateOffset
   int32_t m_offset{};
 };
 
-std::ostream operator<<(std::ostream & ost, DateOffset const & dateOffset);
+std::ostream & operator<<(std::ostream & ost, DateOffset const & offset);
 
 class MonthDay
 {
@@ -340,7 +340,7 @@ class MonthDay
     Easter
   };
 
-  using TYear = uint8_t;
+  using TYear = uint16_t;
   using TDayNum = uint8_t;
 
  public:
@@ -381,11 +381,14 @@ inline constexpr MonthDay::EMonth operator ""_M(unsigned long long month)
           : static_cast<osmoh::MonthDay::EMonth>(month));
 }
 
+std::ostream & operator<<(std::ostream & ost, MonthDay::EMonth const month);
+std::ostream & operator<<(std::ostream & ost, MonthDay::EVariableDate const date);
 std::ostream & operator<<(std::ostream & ost, MonthDay const md);
 
 class MonthdayRange
 {
  public:
+  bool IsEmpty() const;
   bool HasStart() const;
   bool HasEnd() const;
   bool HasPeriod() const;
@@ -409,8 +412,8 @@ class MonthdayRange
 
 using TMonthdayRanges = std::vector<MonthdayRange>;
 
-std::ostream operator<<(std::ostream & ost, MonthdayRange const & range);
-std::ostream operator<<(std::ostream & ost, TMonthdayRanges const & ranges);
+std::ostream & operator<<(std::ostream & ost, MonthdayRange const & range);
+std::ostream & operator<<(std::ostream & ost, TMonthdayRanges const & ranges);
 } // namespace osmoh
 
 
