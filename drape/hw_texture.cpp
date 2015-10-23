@@ -173,7 +173,7 @@ drape_ptr<HWTexture> OpenGLHWTextureAllocator::CreateTexture()
 
 drape_ptr<HWTextureAllocator> CreateAllocator()
 {
-#if defined(OMIM_OS_IPHONE)
+#if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR)
   return make_unique_dp<HWTextureAllocatorApple>();
 #else
   return make_unique_dp<OpenGLHWTextureAllocator>();
