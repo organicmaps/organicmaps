@@ -45,12 +45,13 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
   [super viewDidLoad];
   self.navigationItem.title = L(@"description");
   MWMPlacePageEntity const * entity = self.manager.entity;
-
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(keyboardWillChangeFrame:)
-                                               name:UIKeyboardWillChangeFrameNotification
-                                             object:nil];
-
+  if (!IPAD)
+  {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillChangeFrame:)
+                                                 name:UIKeyboardWillChangeFrameNotification
+                                               object:nil];
+  }
   if (entity.isHTMLDescription)
     self.state = BookmarkDescriptionStateViewHTML;
   else
@@ -60,7 +61,6 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
   {
     UIBarButtonItem * leftButton = [[UIBarButtonItem alloc] initWithCustomView:self.backButton];
     [self.navigationItem setLeftBarButtonItem:leftButton];
-    return;
   }
 }
 
@@ -74,6 +74,14 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 {
   [super viewWillDisappear:animated];
   [self.manager reloadBookmark];
+}
+
+- (void)viewDidLayoutSubviews
+{
+  [super viewDidLayoutSubviews];
+  if (!IPAD)
+    return;
+  self.view.height = self.iPadOwnerNavigationController.view.height - self.iPadOwnerNavigationController.navigationBar.height;
 }
 
 - (void)setState:(BookmarkDescriptionState)state
