@@ -72,7 +72,7 @@ public:
     }
 
     return make_unique<Iterator0<TReader, TValueList, TSerializer>>(
-        m_reader.SubReader(offset, size), this->m_edge[i].m_str.back(), m_serializer);
+        m_reader.SubReader(offset, size), this->m_edge[i].m_label.back(), m_serializer);
   }
 
 private:
@@ -108,7 +108,7 @@ private:
       uint8_t const header = ReadPrimitiveFromSource<uint8_t>(src);
       m_edgeInfo[i].m_isLeaf = ((header & 128) != 0);
       if (header & 64)
-        e.m_str.push_back(baseChar + bits::ZigZagDecode(header & 63U));
+        e.m_label.push_back(baseChar + bits::ZigZagDecode(header & 63U));
       else
       {
         // [vu edgeLen-1]: if edgeLen-1 in header == 63
@@ -118,9 +118,9 @@ private:
         edgeLen += 1;
 
         // [vi edgeChar0 - baseChar] [vi edgeChar1 - edgeChar0] ... [vi edgeCharN - edgeCharN-1]
-        e.m_str.reserve(edgeLen);
+        e.m_label.reserve(edgeLen);
         for (uint32_t i = 0; i < edgeLen; ++i)
-          e.m_str.push_back(baseChar += ReadVarInt<int32_t>(src));
+          e.m_label.push_back(baseChar += ReadVarInt<int32_t>(src));
       }
 
       // [child size]: if the child is not the last one
@@ -128,7 +128,7 @@ private:
       if (i != childCount - 1)
         m_edgeInfo[i + 1].m_offset += ReadVarUint<uint32_t>(src);
 
-      baseChar = e.m_str[0];
+      baseChar = e.m_label[0];
     }
 
     uint32_t const currentOffset = static_cast<uint32_t>(src.Pos());

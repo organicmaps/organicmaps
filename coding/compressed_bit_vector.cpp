@@ -185,7 +185,6 @@ DenseCBV::DenseCBV(vector<uint64_t> const & setBits)
 {
   if (setBits.empty())
   {
-    m_popCount = 0;
     return;
   }
   uint64_t const maxBit = *max_element(setBits.begin(), setBits.end());
@@ -331,6 +330,7 @@ unique_ptr<CompressedBitVector> CompressedBitVectorBuilder::FromCBV(CompressedBi
     return CompressedBitVectorBuilder::FromBitPositions(sparse.m_positions);
   }
   }
+  CHECK(false, ("Unknown strategy when building a compressed bit vector."));
   return unique_ptr<CompressedBitVector>();
 }
 

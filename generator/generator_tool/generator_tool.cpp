@@ -191,7 +191,7 @@ int main(int argc, char ** argv)
     {
       LOG(LINFO, ("Generating index for", datFile));
 
-      if (!indexer::BuildIndexFromDatFile(datFile, FLAGS_intermediate_data_path + country))
+      if (!indexer::BuildIndexFromDataFile(datFile, FLAGS_intermediate_data_path + country))
         LOG(LCRITICAL, ("Error generating index."));
     }
 
@@ -199,7 +199,7 @@ int main(int argc, char ** argv)
     {
       LOG(LINFO, ("Generating search index for ", datFile));
 
-      if (!indexer::BuildSearchIndexFromDatFile(datFile, true))
+      if (!indexer::BuildSearchIndexFromDataFile(datFile, true))
         LOG(LCRITICAL, ("Error generating search index."));
 
       LOG(LINFO, ("Generating rank table for ", datFile));

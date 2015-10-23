@@ -17,6 +17,48 @@
 #include "std/queue.hpp"
 #include "std/vector.hpp"
 
+namespace
+{
+template <typename TValue>
+struct SearchTokensCollector
+{
+  priority_queue<pair<uint32_t, strings::UniString>> tokens;
+  strings::UniString m_currentS;
+  uint32_t m_currentCount;
+
+  SearchTokensCollector() : m_currentS(), m_currentCount(0) {}
+
+  void operator()(strings::UniString const & s, TValue const & /* value */)
+  {
+    if (m_currentS == s)
+    {
+      ++m_currentCount;
+    }
+    else
+    {
+      if (m_currentCount > 0)
+      {
+        tokens.push(make_pair(m_currentCount, m_currentS));
+        if (tokens.size() > 100)
+          tokens.pop();
+      }
+      m_currentS = s;
+      m_currentCount = 0;
+    }
+  }
+
+  void Finish()
+  {
+    if (m_currentCount > 0)
+    {
+      tokens.push(make_pair(m_currentCount, m_currentS));
+      if (tokens.size() > 100)
+        tokens.pop();
+    }
+  }
+};
+}  // namespace
+
 namespace feature
 {
   class TypesCollector
@@ -156,44 +198,6 @@ namespace feature
     }
   }
 
-  struct SearchTokensCollector
-  {
-    priority_queue<pair<uint32_t, strings::UniString> > tokens;
-    strings::UniString m_currentS;
-    uint32_t m_currentCount;
-
-    SearchTokensCollector() : m_currentS(), m_currentCount(0) {}
-
-    void operator()(strings::UniString const & s)
-    {
-      if (m_currentS == s)
-      {
-        ++m_currentCount;
-      }
-      else
-      {
-        if (m_currentCount > 0)
-        {
-          tokens.push(make_pair(m_currentCount, m_currentS));
-          if (tokens.size() > 100)
-            tokens.pop();
-        }
-        m_currentS = s;
-        m_currentCount = 0;
-      }
-    }
-
-    void Finish()
-    {
-      if (m_currentCount > 0)
-      {
-        tokens.push(make_pair(m_currentCount, m_currentS));
-        if (tokens.size() > 100)
-          tokens.pop();
-      }
-    }
-  };
-
   void DumpSearchTokens(string const & fPath)
   {
     using TValue = FeatureIndexValue;
@@ -205,7 +209,7 @@ namespace feature
     auto const trieRoot = trie::ReadTrie<ModelReaderPtr, ValueList<TValue>>(
         container.GetReader(SEARCH_INDEX_FILE_TAG), SingleValueSerializer<TValue>(codingParams));
 
-    SearchTokensCollector f;
+    SearchTokensCollector<TValue> f;
     trie::ForEachRef(*trieRoot, f, strings::UniString());
     f.Finish();
 

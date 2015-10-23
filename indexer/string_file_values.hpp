@@ -145,14 +145,12 @@ class ValueList<FeatureIndexValue>
 public:
   using TValue = FeatureIndexValue;
 
-  ValueList() : m_cbv(unique_ptr<coding::CompressedBitVector>()) {}
+  ValueList() = default;
 
   ValueList(ValueList<FeatureIndexValue> const & o)
   {
     if (o.m_cbv)
       m_cbv = coding::CompressedBitVectorBuilder::FromCBV(*o.m_cbv);
-    else
-      m_cbv = unique_ptr<coding::CompressedBitVector>();
   }
 
   void Init(vector<FeatureIndexValue> const & values)
@@ -171,9 +169,7 @@ public:
   // vector will be built and serialized - and 0 otherwise.
   size_t Size() const
   {
-    if (!m_cbv)
-      return 0;
-    return m_cbv->PopCount() == 0 ? 0 : 1;
+    return (m_cbv && m_cbv->PopCount() != 0) ? 1 : 0;
   }
 
   bool IsEmpty() const { return !m_cbv || m_cbv->PopCount() == 0; }
@@ -184,7 +180,7 @@ public:
     if (IsEmpty())
       return;
     vector<uint8_t> buf;
-    MemWriter<vector<uint8_t>> writer(buf);
+    MemWriter<decltype(buf)> writer(buf);
     m_cbv->Serialize(writer);
     sink.Write(buf.data(), buf.size());
   }
@@ -204,7 +200,7 @@ public:
     if (valueCount > 0)
       m_cbv = coding::CompressedBitVectorBuilder::DeserializeFromSource(src);
     else
-      m_cbv = unique_ptr<coding::CompressedBitVector>();
+      m_cbv.reset();
   }
 
   template <typename TF>
@@ -230,8 +226,6 @@ class ValueList<FeatureWithRankAndCenter>
 public:
   using TValue = FeatureWithRankAndCenter;
   using TSerializer = SingleValueSerializer<TValue>;
-
-  ValueList() = default;
 
   void Init(vector<TValue> const & values) { m_values = values; }
 

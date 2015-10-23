@@ -276,15 +276,15 @@ void AddFeatureNameIndexPairs(FeaturesVectorTest & features, CategoriesHolder & 
 
 namespace indexer
 {
-bool BuildSearchIndexFromDatFile(string const & datFile, bool forceRebuild)
+bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild)
 {
   Platform & platform = GetPlatform();
 
-  FilesContainerR readContainer(platform.GetReader(datFile));
+  FilesContainerR readContainer(platform.GetReader(filename));
   if (readContainer.IsExist(SEARCH_INDEX_FILE_TAG) && !forceRebuild)
     return true;
 
-  string mwmName = datFile;
+  string mwmName = filename;
   my::GetNameFromFullPath(mwmName);
   my::GetNameWithoutExt(mwmName);
   string const indexFilePath = platform.WritablePathForFile(mwmName + ".sdx.tmp");

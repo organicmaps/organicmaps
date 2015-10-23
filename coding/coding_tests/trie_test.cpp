@@ -113,7 +113,7 @@ class SingleValueSerializerChar
 {
 public:
   template <typename TWriter>
-  void Serialize(TWriter & writer, char & v) const
+  void Serialize(TWriter & writer, char const & v) const
   {
     WriteToSink(writer, v);
   }
@@ -123,7 +123,7 @@ class SingleValueSerializerUint32
 {
 public:
   template <typename TWriter>
-  void Serialize(TWriter & writer, uint32_t & v) const
+  void Serialize(TWriter & writer, uint32_t const & v) const
   {
     WriteToSink(writer, v);
   }
@@ -134,9 +134,9 @@ class ValueListChar
 public:
   using TValue = char;
 
-  void Init(vector<TValue> const &) {}
-
   ValueListChar(const string & s) : m_string(s) {}
+
+  void Init(vector<TValue> const &) {}
 
   size_t Size() const { return m_string.size(); }
 
@@ -291,7 +291,7 @@ UNIT_TEST(TrieBuilder_Build)
     auto const root = trie::ReadTrie<MemReader, ValueListUint32>(memReader, serializer);
     vector<KeyValuePair> res;
     KeyValuePairBackInserter f;
-    trie::ForEachRefWithValues(*root, f, vector<trie::TrieChar>());
+    trie::ForEachRef(*root, f, vector<trie::TrieChar>());
     sort(f.m_v.begin(), f.m_v.end());
     TEST_EQUAL(v, f.m_v, ());
   }

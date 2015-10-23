@@ -26,8 +26,8 @@ public:
 
   struct Edge
   {
-    typedef buffer_vector<TrieChar, 8> EdgeStrT;
-    EdgeStrT m_str;
+    using TEdgeLabel = buffer_vector<TrieChar, 8>;
+    TEdgeLabel m_label;
   };
 
   buffer_vector<Edge, 8> m_edge;
@@ -68,34 +68,18 @@ struct FixedSizeValueReader
 };
 
 template <typename TValueList, typename TF, typename TString>
-void ForEachRef(Iterator<TValueList> const & iter, TF && f, TString const & s)
+void ForEachRef(Iterator<TValueList> const & it, TF && f, TString const & s)
 {
-  iter.m_valueList.ForEach([&f, &s](typename TValueList::TValue const & /* value */)
-                           {
-                             f(s);
-                           });
-  for (size_t i = 0; i < iter.m_edge.size(); ++i)
+  it.m_valueList.ForEach([&f, &s](typename TValueList::TValue const & value)
+                         {
+                           f(s, value);
+                         });
+  for (size_t i = 0; i < it.m_edge.size(); ++i)
   {
     TString s1(s);
-    s1.insert(s1.end(), iter.m_edge[i].m_str.begin(), iter.m_edge[i].m_str.end());
-    auto it = iter.GoToEdge(i);
-    ForEachRef(*it, f, s1);
-  }
-}
-
-template <typename TValueList, typename TF, typename TString>
-void ForEachRefWithValues(Iterator<TValueList> const & iter, TF && f, TString const & s)
-{
-  iter.m_valueList.ForEach([&f, &s](typename TValueList::TValue const & value)
-                           {
-                             f(s, value);
-                           });
-  for (size_t i = 0; i < iter.m_edge.size(); ++i)
-  {
-    TString s1(s);
-    s1.insert(s1.end(), iter.m_edge[i].m_str.begin(), iter.m_edge[i].m_str.end());
-    auto it = iter.GoToEdge(i);
-    ForEachRefWithValues(*it, f, s1);
+    s1.insert(s1.end(), it.m_edge[i].m_label.begin(), it.m_edge[i].m_label.end());
+    auto nextIt = it.GoToEdge(i);
+    ForEachRef(*nextIt, f, s1);
   }
 }
 }  // namespace trie

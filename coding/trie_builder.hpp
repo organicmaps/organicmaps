@@ -4,6 +4,7 @@
 #include "coding/varint.hpp"
 
 #include "base/buffer_vector.hpp"
+#include "base/logging.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/vector.hpp"
@@ -210,8 +211,10 @@ void AppendValue(TNodeInfo & node, TValue const & value)
   ASSERT(node.m_temporaryValueList.empty() || node.m_temporaryValueList.back() <= value, ());
   if (!node.m_temporaryValueList.empty() && node.m_temporaryValueList.back() == value)
     return;
-  ASSERT(node.m_mayAppend, ());
-  node.m_temporaryValueList.push_back(value);
+  if (node.m_mayAppend)
+    node.m_temporaryValueList.push_back(value);
+  else
+    LOG(LERROR, ("Cannot append to a finalized value list."));
 }
 
 template <typename TSink, typename TIter, typename TValueList, typename TSerializer>
@@ -241,8 +244,8 @@ void Build(TSink & sink, TSerializer const & serializer, TIter const beg, TIter 
     while (nCommon < min(key.size(), prevKey.size()) && prevKey[nCommon] == key[nCommon])
       ++nCommon;
 
-    PopNodes(sink, serializer, nodes, nodes.size() - nCommon - 1);  // Root is also a common node.
-
+    // Root is also a common node.
+    PopNodes(sink, serializer, nodes, nodes.size() - nCommon - 1);
     uint64_t const pos = sink.Pos();
     for (size_t i = nCommon; i < key.size(); ++i)
       nodes.emplace_back(pos, key[i]);

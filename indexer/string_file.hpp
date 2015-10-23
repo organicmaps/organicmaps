@@ -58,20 +58,6 @@ public:
       return m_name == name.m_name && m_val == name.m_val;
     }
 
-    /*
-    template <class TWriter>
-    IdT Write(TWriter & writer, SingleValueSerializer<TValue> const & serializer) const
-    {
-      IdT const pos = static_cast<IdT>(writer.Pos());
-      CHECK_EQUAL(static_cast<uint64_t>(pos), writer.Pos(), ());
-
-      rw::Write(writer, m_name);
-      serializer.Serialize(writer, m_val);
-
-      return pos;
-    }
-    */
-
     template <class TReader>
     void Read(TReader & src, SingleValueSerializer<TValue> const & serializer)
     {
@@ -165,7 +151,7 @@ public:
     void increment();
   };
 
-  StringsFile(string const & fPath, SingleValueSerializer<ValueT> const & serializer);
+  StringsFile(string const & filename, SingleValueSerializer<ValueT> const & serializer);
 
   void EndAdding();
   void OpenForRead();
@@ -187,10 +173,7 @@ private:
 
     QValue(TString const & s, size_t i) : m_string(s), m_index(i) {}
 
-    inline bool operator>(QValue const & rhs) const
-    {
-      return !(m_string < rhs.m_string) && !(m_string == rhs.m_string);
-    }
+    inline bool operator>(QValue const & rhs) const { return rhs.m_string < m_string; }
   };
 
   priority_queue<QValue, vector<QValue>, greater<QValue>> m_queue;
@@ -247,11 +230,11 @@ void StringsFile<ValueT>::IteratorT::increment()
 }
 
 template <typename ValueT>
-StringsFile<ValueT>::StringsFile(string const & fPath,
+StringsFile<ValueT>::StringsFile(string const & filename,
                                  SingleValueSerializer<ValueT> const & serializer)
   : m_workerThread(1 /* maxTasks */), m_serializer(serializer)
 {
-  m_writer.reset(new FileWriter(fPath));
+  m_writer.reset(new FileWriter(filename));
 }
 
 template <typename ValueT>
@@ -298,10 +281,10 @@ void StringsFile<ValueT>::EndAdding()
 template <typename ValueT>
 void StringsFile<ValueT>::OpenForRead()
 {
-  string const fPath = m_writer->GetName();
+  string const filename = m_writer->GetName();
   m_writer.reset();
 
-  m_reader.reset(new FileReader(fPath));
+  m_reader.reset(new FileReader(filename));
 
   for (size_t i = 0; i < m_offsets.size(); ++i)
     PushNextValue(i);

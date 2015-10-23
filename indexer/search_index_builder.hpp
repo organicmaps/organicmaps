@@ -7,7 +7,7 @@ class Writer;
 
 namespace indexer
 {
-bool BuildSearchIndexFromDatFile(string const & filename, bool forceRebuild = false);
+bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild = false);
 
 void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter,
                       string const & stringsFilePath);

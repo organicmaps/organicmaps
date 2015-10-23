@@ -60,9 +60,8 @@ void TestMwmBuilder::Finish()
 
   string const path = m_file.GetPath(MapOptions::Map);
   CHECK(feature::BuildOffsetsTable(path), ("Can't build feature offsets table."));
-  CHECK(indexer::BuildIndexFromDatFile(path, path),
-        ("Can't build geometry index."));
-  CHECK(indexer::BuildSearchIndexFromDatFile(path, true /* forceRebuild */),
+  CHECK(indexer::BuildIndexFromDataFile(path, path), ("Can't build geometry index."));
+  CHECK(indexer::BuildSearchIndexFromDataFile(path, true /* forceRebuild */),
         ("Can't build search index."));
 
   m_file.SyncWithDisk();

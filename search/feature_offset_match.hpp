@@ -50,10 +50,11 @@ inline shared_ptr<trie::DefaultIterator> MoveTrieIteratorToString(
 
     for (uint32_t i = 0; i < edgeCount; ++i)
     {
-      size_t const szEdge = it->m_edge[i].m_str.size();
+      size_t const szEdge = it->m_edge[i].m_label.size();
 
-      size_t const count = CalcEqualLength(it->m_edge[i].m_str.begin(), it->m_edge[i].m_str.end(),
-                                           queryS.begin() + symbolsMatched, queryS.end());
+      size_t const count =
+          CalcEqualLength(it->m_edge[i].m_label.begin(), it->m_edge[i].m_label.end(),
+                          queryS.begin() + symbolsMatched, queryS.end());
 
       if ((count > 0) && (count == szEdge || szQuery == count + symbolsMatched))
       {
@@ -213,7 +214,7 @@ struct TrieRootPrefix
   size_t m_prefixSize;
 
   TrieRootPrefix(trie::DefaultIterator const & root,
-                 trie::DefaultIterator::Edge::EdgeStrT const & edge)
+                 trie::DefaultIterator::Edge::TEdgeLabel const & edge)
     : m_root(root)
   {
     if (edge.size() == 1)
@@ -330,7 +331,7 @@ bool MatchCategoriesInTrie(SearchQueryParams const & params, trie::DefaultIterat
   uint32_t const numLangs = static_cast<uint32_t>(trieRoot.m_edge.size());
   for (uint32_t langIx = 0; langIx < numLangs; ++langIx)
   {
-    auto const & edge = trieRoot.m_edge[langIx].m_str;
+    auto const & edge = trieRoot.m_edge[langIx].m_label;
     ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
     if (edge[0] == search::kCategoriesLang)
     {
@@ -359,7 +360,7 @@ void ForEachLangPrefix(SearchQueryParams const & params, trie::DefaultIterator c
   uint32_t const numLangs = static_cast<uint32_t>(trieRoot.m_edge.size());
   for (uint32_t langIx = 0; langIx < numLangs; ++langIx)
   {
-    auto const & edge = trieRoot.m_edge[langIx].m_str;
+    auto const & edge = trieRoot.m_edge[langIx].m_label;
     ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
     int8_t const lang = static_cast<int8_t>(edge[0]);
     if (edge[0] < search::kCategoriesLang && params.IsLangExist(lang))

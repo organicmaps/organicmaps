@@ -1,3 +1,5 @@
+#pragma once
+
 #include "coding/read_write_utils.hpp"
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
@@ -74,7 +76,7 @@ public:
   DenseCBV() = default;
 
   // Builds a dense CBV from a list of positions of set bits.
-  DenseCBV(vector<uint64_t> const & setBits);
+  explicit DenseCBV(vector<uint64_t> const & setBits);
 
   // Not to be confused with the constructor: the semantics
   // of the array of integers is completely different.
@@ -115,9 +117,9 @@ public:
   friend class CompressedBitVectorBuilder;
   using TIterator = vector<uint64_t>::const_iterator;
 
-  SparseCBV(vector<uint64_t> const & setBits);
+  explicit SparseCBV(vector<uint64_t> const & setBits);
 
-  SparseCBV(vector<uint64_t> && setBits);
+  explicit SparseCBV(vector<uint64_t> && setBits);
 
   // Returns the position of the i'th set bit.
   uint64_t Select(size_t i) const;
