@@ -32,6 +32,7 @@
 - (void)showDirectionViewWithTitle:(NSString *)title type:(NSString *)type;
 - (void)hideDirectionView;
 - (void)addSubviews:(NSArray *)views withNavigationController:(UINavigationController *)controller;
+- (void)changeHeight:(CGFloat)height;
 
 - (instancetype)init __attribute__((unavailable("call initWithViewController: instead")));
 

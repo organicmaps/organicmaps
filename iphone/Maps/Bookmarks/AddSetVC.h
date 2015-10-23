@@ -8,8 +8,8 @@
 
 @end
 
-@interface AddSetVC : TableViewController <UITextFieldDelegate>
+@interface AddSetVC : TableViewController
 
-@property (nonatomic, weak) id <AddSetVCDelegate> delegate;
+@property (weak, nonatomic) id<AddSetVCDelegate> delegate;
 
 @end

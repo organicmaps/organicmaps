@@ -334,6 +334,13 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   [(MapsAppDelegate *)[UIApplication sharedApplication].delegate enableStandby];
 }
 
+- (void)changeHeight:(CGFloat)height
+{
+  if (!IPAD)
+    return;
+  ((MWMiPadPlacePage *)self.placePage).height = height;
+}
+
 #pragma mark - Properties
 
 - (MWMDirectionView *)directionView
