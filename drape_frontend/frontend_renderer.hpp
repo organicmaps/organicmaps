@@ -140,7 +140,7 @@ private:
   void RenderSingleGroup(ScreenBase const & modelView, ref_ptr<BaseRenderGroup> group);
   void RefreshProjection();
   void RefreshModelView(ScreenBase const & screen);
-  void RefreshPivotTransform();
+  void RefreshPivotTransform(ScreenBase const & screen);
   void RefreshBgColor();
 
   ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged);
@@ -234,7 +234,6 @@ private:
   bool m_3dModeChanged;
   drape_ptr<Framebuffer> m_framebuffer;
   drape_ptr<Renderer3d> m_renderer3d;
-  m2::RectD m_pixelRect;
 
   Viewport m_viewport;
   UserEventStream m_userEventStream;

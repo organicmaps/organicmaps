@@ -179,7 +179,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       TouchCancel(m_touches);
       break;
     case UserEvent::EVENT_ENABLE_3D_MODE:
-      Enable3dMode(e.m_enable3dMode.m_scale);
+      Enable3dMode(e.m_enable3dMode.m_angleX, e.m_enable3dMode.m_FOV);
       break;
     case UserEvent::EVENT_DISABLE_3D_MODE:
       Disable3dMode();
@@ -357,9 +357,9 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
   return true;
 }
 
-void UserEventStream::Enable3dMode(double scale)
+void UserEventStream::Enable3dMode(double angleX, double FOV)
 {
-  m_navigator.Enable3dMode(scale);
+  m_navigator.Enable3dMode(angleX, FOV);
 }
 
 void UserEventStream::Disable3dMode()

@@ -27,8 +27,9 @@ public:
                      dp::Anchor anchor, glsl::vec2 const & pivot,
                      glsl::vec2 const & pxSize, glsl::vec2 const & offset,
                      uint64_t priority, ref_ptr<dp::TextureManager> textureManager,
-                     bool isOptional, gpu::TTextDynamicVertexBuffer && normals)
-    : TextHandle(id, text, anchor, priority, textureManager, move(normals))
+                     bool isOptional, gpu::TTextDynamicVertexBuffer && normals,
+                     bool isBillboard = false)
+    : TextHandle(id, text, anchor, priority, textureManager, move(normals), isBillboard)
     , m_pivot(glsl::ToPoint(pivot))
     , m_offset(glsl::ToPoint(offset))
     , m_size(glsl::ToPoint(pxSize))
@@ -69,6 +70,11 @@ public:
   void GetPixelShape(ScreenBase const & screen, Rects & rects) const override
   {
     rects.push_back(m2::RectF(GetPixelRect(screen)));
+  }
+
+  void GetPixelShapePerspective(const ScreenBase &screen, Rects &rects) const override
+  {
+    rects.push_back(m2::RectF(TextHandle::GetPixelRectPerspective(screen)));
   }
 
   bool IsBound() const override
@@ -175,7 +181,8 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
                                                                            GetOverlayPriority(),
                                                                            textures,
                                                                            isOptional,
-                                                                           move(dynamicBuffer));
+                                                                           move(dynamicBuffer),
+                                                                           true);
   handle->SetOverlayRank(m_hasPOI ? (isPrimary ? dp::OverlayRank1 : dp::OverlayRank2) : dp::OverlayRank0);
   handle->SetExtendingSize(m_params.m_extendingSize);
 

@@ -469,11 +469,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       if (!m_useFramebuffer)
       {
         ref_ptr<Enable3dModeMessage> msg = message;
-        m_renderer3d->SetVerticalFOV(msg->GetAngleFOV());
-        m_renderer3d->SetPlaneAngleX(msg->GetAngleX());
+        AddUserEvent(Enable3dModeEvent(msg->GetAngleX(), msg->GetAngleFOV()));
         m_useFramebuffer = true;
         m_3dModeChanged = true;
-        AddUserEvent(Enable3dModeEvent(max(m_renderer3d->GetScaleX(), m_renderer3d->GetScaleY())));
       }
       break;
     }
@@ -507,10 +505,12 @@ unique_ptr<threads::IRoutine> FrontendRenderer::CreateRoutine()
 
 void FrontendRenderer::OnResize(ScreenBase const & screen)
 {
+  m2::RectD viewportRect = screen.isPerspective() ? screen.PixelRect3d() : screen.PixelRect();
+
   m_myPositionController->SetPixelRect(screen.PixelRect());
 
   m_viewport.SetViewport(0, 0, screen.GetWidth(), screen.GetHeight());
-  m_contextFactory->getDrawContext()->resize(m_pixelRect.SizeX(), m_pixelRect.SizeY());
+  m_contextFactory->getDrawContext()->resize(viewportRect.SizeX(), viewportRect.SizeY());
   RefreshProjection();
 
   if (m_useFramebuffer)
@@ -522,16 +522,16 @@ void FrontendRenderer::OnResize(ScreenBase const & screen)
     {
       width = width * m_framebuffer->GetMaxSize() / maxSide;
       height = height * m_framebuffer->GetMaxSize() / maxSide;
+      LOG(LINFO, ("Max texture size: ", m_framebuffer->GetMaxSize(), ", expanded screen size: ", maxSide, ", scale: ", m_framebuffer->GetMaxSize() / (double)maxSide));
     }
-    LOG(LINFO, ("Max texture size: ", m_framebuffer->GetMaxSize(), ", max side: ", maxSide, ", scale: ", m_framebuffer->GetMaxSize() / (double)maxSide));
 
     m_viewport.SetViewport(0, 0, width, height);
 
-    m_renderer3d->SetSize(m_pixelRect.SizeX(), m_pixelRect.SizeY());
+    m_renderer3d->SetSize(viewportRect.SizeX(), viewportRect.SizeY());
     m_framebuffer->SetDefaultContext(m_contextFactory->getDrawContext());
     m_framebuffer->SetSize(width, height);
 
-    RefreshPivotTransform();
+    RefreshPivotTransform(screen);
   }
 }
 
@@ -793,7 +793,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   if (m_useFramebuffer)
   {
     m_framebuffer->Disable();
-    m_renderer3d->Render(m_framebuffer->GetTextureId(), make_ref(m_gpuProgramManager));
+    m_renderer3d->Render(modelView, m_framebuffer->GetTextureId(), make_ref(m_gpuProgramManager));
 // Test code to check ortho overlays in 3d mode
     m_isSpriteRenderPass = true;
     GLFunctions::glDisable(gl_const::GLDepthTest);
@@ -834,8 +834,7 @@ void FrontendRenderer::RenderSingleGroup(ScreenBase const & modelView, ref_ptr<B
   dp::GLState const & state = group->GetState();
   bool isSpriteProgram = IsSpriteProgram(state.GetProgramIndex());
 
-  if ((m_isSpriteRenderPass && !isSpriteProgram) ||
-      (m_useFramebuffer && !m_isSpriteRenderPass && isSpriteProgram))
+  if (m_useFramebuffer && (m_isSpriteRenderPass != isSpriteProgram))
     return;
 
   group->UpdateAnimation();
@@ -865,10 +864,14 @@ void FrontendRenderer::RefreshModelView(ScreenBase const & screen)
   m_generalUniforms.SetMatrix4x4Value("modelView", mv.m_data);
 }
 
-void FrontendRenderer::RefreshPivotTransform()
+void FrontendRenderer::RefreshPivotTransform(ScreenBase const & screen)
 {
   if (m_useFramebuffer)
-    m_generalUniforms.SetMatrix4x4Value("pivotTransform", m_renderer3d->GetTransform().m_data);
+  {
+    float transform[16];
+    copy(begin(screen.PTo3dMatrix().m_data), end(screen.PTo3dMatrix().m_data), transform);
+    m_generalUniforms.SetMatrix4x4Value("pivotTransform", transform);
+  }
   else
     m_generalUniforms.SetMatrix4x4Value("pivotTransform", math::Identity<float, 4>().m_data);
 }
@@ -1207,17 +1210,8 @@ ScreenBase const & FrontendRenderer::ProcessEvents(bool & modelViewChanged, bool
   ScreenBase const & modelView = m_userEventStream.ProcessEvents(modelViewChanged, viewportChanged);
   gui::DrapeGui::Instance().SetInUserAction(m_userEventStream.IsInUserAction());
 
-  m_pixelRect = modelView.PixelRect();
-
   viewportChanged = viewportChanged || m_3dModeChanged;
   m_3dModeChanged = false;
-
-  if (m_useFramebuffer)
-  {
-    double scale = max(m_renderer3d->GetScaleX(), m_renderer3d->GetScaleY());
-    m_pixelRect.setMaxX(m_pixelRect.maxX() / scale);
-    m_pixelRect.setMaxY(m_pixelRect.maxY() / scale);
-  }
 
   return modelView;
 }
@@ -1226,7 +1220,7 @@ void FrontendRenderer::PrepareScene(ScreenBase const & modelView)
 {
   RefreshModelView(modelView);
   RefreshBgColor();
-  RefreshPivotTransform();
+  RefreshPivotTransform(modelView);
 }
 
 void FrontendRenderer::UpdateScene(ScreenBase const & modelView)

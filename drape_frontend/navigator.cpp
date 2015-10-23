@@ -32,7 +32,6 @@ namespace df
 
 Navigator::Navigator()
   : m_is3dMode(false)
-  , m_scale3d(1.0)
   , m_InAction(false)
 {
 }
@@ -512,37 +511,18 @@ bool Navigator::IsRotatingDuringScale() const
   return m_IsRotatingDuringScale;
 }
 
-void Navigator::Enable3dMode(double scale)
+void Navigator::Enable3dMode(double angleX, double fov)
 {
   ASSERT(!m_is3dMode, ());
-
-  m2::RectD const & pxRect = m_Screen.PixelRect();
-  m2::RectI iRect(0, 0, (int)(pxRect.maxX() * scale + 0.5), (int)(pxRect.maxY() * scale + 0.5));
-
-  m2::AnyRectD const & gRect = m_Screen.GlobalRect();
-  double dyG = gRect.GetLocalRect().SizeY() * (scale - 1.0);
-  m_Screen.Scale(1.0 / scale);
-  m_Screen.MoveG(m2::PointD(0, -dyG / 2.0));
-
-  m_Screen = ScreenBase(iRect, m_Screen.GlobalRect());
+  m_Screen.ApplyPerspective(angleX, fov);
   m_is3dMode = true;
-  m_scale3d = scale;
+
 }
 
 void Navigator::Disable3dMode()
 {
   ASSERT(m_is3dMode, ());
-
-  m2::RectD const & pxRect = m_Screen.PixelRect();
-  m2::RectI iRect(0, 0, (int)(pxRect.maxX() / m_scale3d + 0.5), (int)(pxRect.maxY() / m_scale3d + 0.5));
-
-  m2::AnyRectD const & gRect = m_Screen.GlobalRect();
-  double dyG = gRect.GetLocalRect().SizeY() * (1.0 - 1.0 / m_scale3d);
-  m_Screen.MoveG(m2::PointD(0, dyG / 2.0));
-  m_Screen.Scale(m_scale3d);
-
-
-  m_Screen = ScreenBase(iRect, m_Screen.GlobalRect());
+  m_Screen.ResetPerspective();
   m_is3dMode = false;
 }
 

@@ -53,7 +53,8 @@ void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManag
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<dp::SquareHandle>(m_params.m_id,
                                                                          dp::Center,
                                                                          m_pt, pixelSize,
-                                                                         GetOverlayPriority());
+                                                                         GetOverlayPriority(),
+                                                                         true);
   handle->SetExtendingSize(m_params.m_extendingSize);
   batcher->InsertTriangleStrip(state, make_ref(&provider), move(handle));
 }

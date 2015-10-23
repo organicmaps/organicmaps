@@ -12,6 +12,11 @@ ScreenBase::ScreenBase() :
     m_Scale(0.1),
     m_Angle(0.0),
     m_Org(320, 240),
+    m_3dFOV(M_PI / 3.0),
+    m_3dAngleX(M_PI_4),
+    m_3dScaleX(1.0),
+    m_3dScaleY(1.0),
+    m_isPerspective(false),
     m_GlobalRect(m_Org, ang::AngleD(0), m2::RectD(-320, -240, 320, 240)),
     m_ClipRect(m2::RectD(0, 0, 640, 480))
 {
@@ -243,4 +248,70 @@ void ScreenBase::ExtractGtoPParams(MatrixT const & m,
 
   dx = m(2, 0);
   dy = m(2, 1);
+}
+
+void ScreenBase::ApplyPerspective(double angleX, double fov)
+{
+  m_isPerspective = true;
+
+  m_3dAngleX = -angleX;
+  m_3dFOV = fov;
+
+  double halfFOV = m_3dFOV / 2.0;
+  double cameraZ = 1.0 / tan(halfFOV);
+
+  m_3dScaleY = cos(m_3dAngleX) + sin(m_3dAngleX) * tan(halfFOV + m_3dAngleX);
+  m_3dScaleX = 1.0 + 2 * sin(m_3dAngleX) * cos(halfFOV) / (cameraZ * cos(halfFOV + m_3dAngleX));
+
+  m_3dScaleX = m_3dScaleY = max(m_3dScaleX, m_3dScaleY);
+
+  double offsetZ = cameraZ + sin(m_3dAngleX) * m_3dScaleY;
+  double offsetY = cos(m_3dAngleX) * m_3dScaleX - 1.0;
+
+  Matrix3dT scaleM = math::Identity<double, 4>();
+  scaleM(0, 0) = m_3dScaleX;
+  scaleM(1, 1) = m_3dScaleY;
+
+  Matrix3dT rotateM = math::Identity<double, 4>();
+  rotateM(1, 1) = cos(angleX);
+  rotateM(1, 2) = -sin(angleX);
+  rotateM(2, 1) = sin(angleX);
+  rotateM(2, 2) = cos(angleX);
+
+  Matrix3dT translateM = math::Identity<double, 4>();
+  translateM(3, 1) = offsetY;
+  translateM(3, 2) = offsetZ;
+
+  Matrix3dT projectionM = math::Zero<double, 4>();
+  double near = 0.1;
+  double far = 100.0;
+  projectionM(0, 0) = projectionM(1, 1) = cameraZ;
+  projectionM(2, 2) = (far + near) / (far - near);
+  projectionM(2, 3) = 1.0;
+  projectionM(3, 2) = -2.0 * far * near / (far - near);
+
+  m_Pto3d = scaleM * rotateM * translateM * projectionM;
+
+  double dyG = m_GlobalRect.GetLocalRect().SizeY() * (m_3dScaleX - 1.0);
+  Scale(1.0 / m_3dScaleX);
+
+  MoveG(m2::PointD(0, -dyG / 2.0));
+  m_PixelRect.setMaxX(m_PixelRect.maxX() * m_3dScaleX);
+  m_PixelRect.setMaxY(m_PixelRect.maxY() * m_3dScaleY);
+
+  Scale(m_3dScaleX);
+}
+
+void ScreenBase::ResetPerspective()
+{
+  m_isPerspective = false;
+
+  double dyG = m_GlobalRect.GetLocalRect().SizeY() * (1.0 - 1.0 / m_3dScaleX);
+  Scale(m_3dScaleX);
+
+  MoveG(m2::PointD(0, dyG / 2.0));
+  m_PixelRect.setMaxX(m_PixelRect.maxX() / m_3dScaleX);
+  m_PixelRect.setMaxY(m_PixelRect.maxY() / m_3dScaleY);
+
+  Scale(1.0 / m_3dScaleX);
 }

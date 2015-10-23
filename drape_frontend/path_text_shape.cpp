@@ -78,6 +78,15 @@ public:
     }
   }
 
+  void GetPixelShapePerspective(const ScreenBase &screen, Rects &rects) const override
+  {
+    GetPixelShape(screen, rects);
+    for (auto & rect : rects)
+    {
+      rect = m2::RectF(GetPerspectiveRect(m2::RectD(rect), screen));
+    }
+  }
+
   void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator,
                             ScreenBase const & screen) const override
   {

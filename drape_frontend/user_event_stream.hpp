@@ -146,11 +146,13 @@ struct FollowAndRotateEvent
 
 struct Enable3dModeEvent
 {
-  Enable3dModeEvent(double scale)
-    : m_scale(scale)
+  Enable3dModeEvent(double angleX, double FOV)
+    : m_angleX(angleX)
+    , m_FOV(FOV)
   {}
 
-  double m_scale;
+  double m_angleX;
+  double m_FOV;
 };
 
 struct Disable3dMode
@@ -286,7 +288,7 @@ private:
   bool SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos,
                           double azimuth, int preferredZoomLevel, bool isAnim);
 
-  void Enable3dMode(double scale);
+  void Enable3dMode(double angleX, double FOV);
   void Disable3dMode();
 
   m2::AnyRectD GetCurrentRect() const;

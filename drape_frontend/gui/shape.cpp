@@ -43,7 +43,18 @@ m2::RectD Handle::GetPixelRect(const ScreenBase & screen) const
   return m2::RectD();
 }
 
+m2::RectD Handle::GetPixelRectPerspective(ScreenBase const & screen) const
+{
+  return m2::RectD();
+}
+
 void Handle::GetPixelShape(const ScreenBase & screen, dp::OverlayHandle::Rects & rects) const
+{
+  UNUSED_VALUE(screen);
+  UNUSED_VALUE(rects);
+}
+
+void Handle::GetPixelShapePerspective(ScreenBase const & screen, Rects & rects) const
 {
   UNUSED_VALUE(screen);
   UNUSED_VALUE(rects);

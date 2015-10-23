@@ -47,7 +47,7 @@ public:
   void CalculateScale(m2::PointD const & pt, double factor, ScreenBase & screen);
   bool InAction() const;
 
-  void Enable3dMode(double scale);
+  void Enable3dMode(double angleX, double fov);
   void Disable3dMode();
 
 private:
@@ -68,7 +68,6 @@ private:
   ScreenBase m_Screen;
 
   bool m_is3dMode;
-  double m_scale3d;
 
   // Intial point for dragging and scaling.
   m2::PointD m_StartPt1;

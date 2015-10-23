@@ -19,8 +19,9 @@ TextHandle::TextHandle(FeatureID const & id, strings::UniString const & text,
 TextHandle::TextHandle(FeatureID const & id, strings::UniString const & text,
                        dp::Anchor anchor, uint64_t priority,
                        ref_ptr<dp::TextureManager> textureManager,
-                       gpu::TTextDynamicVertexBuffer && normals)
-  : OverlayHandle(id, anchor, priority)
+                       gpu::TTextDynamicVertexBuffer && normals,
+                       bool isBillboard)
+  : OverlayHandle(id, anchor, priority, isBillboard)
   , m_normals(move(normals))
   , m_forceUpdateNormals(false)
   , m_isLastVisible(false)

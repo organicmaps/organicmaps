@@ -24,7 +24,8 @@ public:
   TextHandle(FeatureID const & id, strings::UniString const & text,
              dp::Anchor anchor, uint64_t priority,
              ref_ptr<dp::TextureManager> textureManager,
-             gpu::TTextDynamicVertexBuffer && normals);
+             gpu::TTextDynamicVertexBuffer && normals,
+             bool IsBillboard = false);
 
   bool Update(ScreenBase const & screen) override;
 
