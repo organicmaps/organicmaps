@@ -1,5 +1,7 @@
 #pragma once
 
+#include "osm_time_range.hpp"
+
 // #define BOOST_SPIRIT_DEBUG 1
 #define BOOST_SPIRIT_USE_PHOENIX_V3
 #include <boost/spirit/include/qi.hpp>
@@ -22,7 +24,6 @@
 #include <boost/date_time/gregorian/gregorian.hpp>
 #endif
 
-#include "osm_time_range.hpp"
 #include "osm_parsers_terminals.hpp"
 
 namespace osmoh

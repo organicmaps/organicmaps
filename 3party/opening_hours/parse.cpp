@@ -1,0 +1,70 @@
+#include "parse.hpp"
+#include "osm_parsers.hpp"
+
+namespace
+{
+template <typename Context, typename Iterator>
+struct context_parser;
+
+template<typename Iterator> struct context_parser<osmoh::TTimespans, Iterator>
+{
+  using type = osmoh::parsing::time_selector<Iterator>;
+};
+
+template<typename Iterator> struct context_parser<osmoh::Weekdays, Iterator>
+{
+  using type = osmoh::parsing::weekday_selector<Iterator>;
+};
+
+template<typename Iterator> struct context_parser<osmoh::TMonthdayRanges, Iterator>
+{
+  using type = osmoh::parsing::month_selector<Iterator>;
+};
+
+template <typename Context, typename Iterator>
+using context_parser_t = typename context_parser<Context, Iterator>::type;
+
+template <typename Context>
+bool ParseImp(std::string const & str, Context & context)
+{
+  using boost::spirit::qi::phrase_parse;
+  using boost::spirit::standard_wide::space;
+
+  context_parser_t<Context, decltype(begin(str))> parser;
+#ifndef NDEBUG
+  boost::spirit::qi::what(parser);
+#endif
+
+  auto first = begin(str);
+  auto const last = end(str);
+  auto parsed = phrase_parse(
+      first,
+      last,
+      parser,
+      space,
+      context);
+
+  if (!parsed || first != last)
+    return false;
+
+  return true;
+}
+} // namespace
+
+namespace osmoh
+{
+bool Parse(std::string const & str, osmoh::TTimespans & s)
+{
+  return ParseImp(str, s);
+}
+
+bool Parse(std::string const & str, osmoh::Weekdays & w)
+{
+  return ParseImp(str, w);
+}
+
+bool Parse(std::string const & str, osmoh::TMonthdayRanges & m)
+{
+  return ParseImp(str, m);
+}
+} // namespace osmoh

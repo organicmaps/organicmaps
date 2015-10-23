@@ -13,5 +13,4 @@ INCLUDEPATH += $$OPENING_HOURS_INCLUDE
 
 SOURCES += osm_time_range_tests.cpp
 HEADERS += $$OPENING_HOURS_INCLUDE/osm_time_range.hpp \
-           $$OPENING_HOURS_INCLUDE/osm_parsers.hpp
-           $$OPENING_HOURS_INCLUDE/osm_parsers_terminals.hpp
+           $$OPENING_HOURS_INCLUDE/parse.hpp \

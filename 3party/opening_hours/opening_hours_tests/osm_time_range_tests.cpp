@@ -23,7 +23,7 @@
 */
 
 #include "osm_time_range.hpp"
-#include "osm_parsers.hpp"
+#include "parse.hpp"
 
 #include <iostream>
 #include <sstream>
@@ -57,31 +57,13 @@ bool test(Char const * in, Parser const & p, bool full_match = true)
   return boost::spirit::qi::parse(in, last, p) && (!full_match || (in == last));
 }
 
-template <template <typename> class Parser, typename ParseResult, typename Char>
+template <typename ParseResult, typename Char>
 std::basic_string<Char> ParseAndUnparse(Char const * input)
 {
-  // we don't care about the result of the "what" function.
-  // we only care that all parsers have it:
 
-  using boost::spirit::qi::phrase_parse;
-  using boost::spirit::standard_wide::space;
-
-  ParseResult parseResult;
   std::basic_string<Char> const str(input);
-
-  Parser<decltype(begin(str))> p;
-  boost::spirit::qi::what(p);
-
-  auto first = begin(str);
-  auto const last = end(str);
-  auto parsed = boost::spirit::qi::phrase_parse(
-      first,
-      last,
-      p,
-      space,
-      parseResult);
-
-  if (!parsed || first != last)
+  ParseResult parseResult;
+  if (!osmoh::Parse(str, parseResult))
     return ":CAN'T PARSE:";
 
   std::basic_stringstream<Char> sstr;
@@ -408,69 +390,57 @@ BOOST_AUTO_TEST_CASE(OpeningHoursTimerange_TestParseUnparse)
 {
   {
     auto const rule = "06:00";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::time_selector,
-                                                osmoh::TTimespans>(rule);
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TTimespans>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
     auto const rule = "06:00+";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::time_selector,
-                                                osmoh::TTimespans>(rule);
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TTimespans>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
     auto const rule = "06:00-02:00";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::time_selector,
-                                                osmoh::TTimespans>(rule);
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TTimespans>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
     auto const rule = "06:00-02:00+";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::time_selector,
-                                                osmoh::TTimespans>(rule);
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TTimespans>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
     auto const rule = "06:00-02:00/03";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::time_selector,
-                                                osmoh::TTimespans>(rule);
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TTimespans>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
     auto const rule = "06:00-02:00/21:03";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::time_selector,
-                                                osmoh::TTimespans>(rule);
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TTimespans>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
     auto const rule = "dusk";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::time_selector,
-                                                osmoh::TTimespans>(rule);
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TTimespans>(rule);
   }
   {
     auto const rule = "dawn+";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::time_selector,
-                                                osmoh::TTimespans>(rule);
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TTimespans>(rule);
   }
   {
     auto const rule = "sunrise-sunset";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::time_selector,
-                                                osmoh::TTimespans>(rule);
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TTimespans>(rule);
   }
   {
     auto const rule = "(dusk-12:12)";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::time_selector,
-                                                osmoh::TTimespans>(rule);
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TTimespans>(rule);
   }
   {
     auto const rule = "(dusk-12:12)+";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::time_selector,
-                                                osmoh::TTimespans>(rule);
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TTimespans>(rule);
   }
   {
     auto const rule = "(dusk-12:12)-sunset";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::time_selector,
-                                                osmoh::TTimespans>(rule);
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TTimespans>(rule);
   }
 }
 
@@ -478,50 +448,42 @@ BOOST_AUTO_TEST_CASE(OpeningHoursWeekdays_TestParseUnparse)
 {
   {
     auto const rule = "SH -2 days";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::weekday_selector,
-                                                osmoh::Weekdays>(rule);
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::Weekdays>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
     auto const rule = "SH +2 days";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::weekday_selector,
-                                                osmoh::Weekdays>(rule);
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::Weekdays>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
     auto const rule = "SH +1 day";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::weekday_selector,
-                                                osmoh::Weekdays>(rule);
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::Weekdays>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
     auto const rule = "PH";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::weekday_selector,
-                                                osmoh::Weekdays>(rule);
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::Weekdays>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
     auto const rule = "SH";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::weekday_selector,
-                                                osmoh::Weekdays>(rule);
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::Weekdays>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
     auto const rule = "Mo,We,Th,Fr";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::weekday_selector,
-                                                osmoh::Weekdays>(rule);
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::Weekdays>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
     auto const rule = "Fr-Sa";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::weekday_selector,
-                                                osmoh::Weekdays>(rule);
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::Weekdays>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
     auto const rule = "PH,Sa,Su";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::weekday_selector,
-                                                osmoh::Weekdays>(rule);
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::Weekdays>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
 }
@@ -530,26 +492,22 @@ BOOST_AUTO_TEST_CASE(OpeningHoursMonthdayRanges_TestParseUnparse)
 {
   {
     auto const rule = "Jan";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::month_selector,
-                                                osmoh::TMonthdayRanges>(rule);
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TMonthdayRanges>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
     auto const rule = "Mar 10+";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::month_selector,
-                                                osmoh::TMonthdayRanges>(rule);
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TMonthdayRanges>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
     auto const rule = "Jan-Feb";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::month_selector,
-                                                osmoh::TMonthdayRanges>(rule);
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TMonthdayRanges>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
     auto const rule = "Jan-Feb/10";
-    auto const parsedUnparsed = ParseAndUnparse<osmoh::parsing::month_selector,
-                                                osmoh::TMonthdayRanges>(rule);
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TMonthdayRanges>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
 }

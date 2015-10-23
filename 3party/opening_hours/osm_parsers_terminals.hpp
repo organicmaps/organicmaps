@@ -1,8 +1,3 @@
-#pragma once
-
-#include "osm_time_range.hpp"
-#include <boost/spirit/include/qi.hpp>
-
 namespace osmoh
 {
 namespace parsing
