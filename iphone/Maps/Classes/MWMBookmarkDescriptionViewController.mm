@@ -26,7 +26,6 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 
 @property (weak, nonatomic) MWMPlacePageViewManager * manager;
 @property (nonatomic) BookmarkDescriptionState state;
-@property (nonatomic) CGFloat realPlacePageHeight;
 
 @end
 
@@ -59,7 +58,6 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 
   if (self.iPadOwnerNavigationController)
   {
-    self.realPlacePageHeight = self.iPadOwnerNavigationController.view.height;
     UIBarButtonItem * leftButton = [[UIBarButtonItem alloc] initWithCustomView:self.backButton];
     [self.navigationItem setLeftBarButtonItem:leftButton];
     return;
@@ -69,9 +67,6 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  if (!self.iPadOwnerNavigationController)
-    return;
-
   [self.iPadOwnerNavigationController setNavigationBarHidden:NO];
 }
 
@@ -182,20 +177,8 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 
 - (void)popViewController
 {
-  if (!self.iPadOwnerNavigationController)
-  {
-    [self.navigationController popViewControllerAnimated:YES];
-    return;
-  }
   [self.iPadOwnerNavigationController setNavigationBarHidden:YES];
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-  {
-    self.iPadOwnerNavigationController.view.height = self.realPlacePageHeight;
-  }
-  completion:^(BOOL finished)
-  {
-    [self.navigationController popViewControllerAnimated:YES];
-  }];
+  [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Notifications

@@ -18,7 +18,6 @@
   if (textField.text.length == 0)
     return YES;
 
-  [textField resignFirstResponder];
   [self.delegate onDone:textField.text];
   return NO;
 }
