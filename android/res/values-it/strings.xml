@@ -87,7 +87,7 @@
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\naggiunto alla coda di download</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">Sto scaricando\n^\n^%</string>
+	<string name="country_status_downloading">Sto scaricando\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Scarica Map\n(^ ^)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->

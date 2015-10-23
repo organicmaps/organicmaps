@@ -92,7 +92,7 @@
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">มีการเพิ่ม ^\nไปยังลำดับการดาวน์โหลดแล้ว</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">กำลังดาวน์โหลด\n^\n^%</string>
+	<string name="country_status_downloading">กำลังดาวน์โหลด\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">ดาวน์โหลดแผนที่\n(^ ^)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
@@ -456,8 +456,7 @@
 	<!-- Toolbar title -->
 	<string name="toolbar_application_menu">เมนูของแอปพลิเคชัน</string>
 	<!-- Preference text -->
-	<string name="pref_use_google_play">ใช้บริการ Google Play เพื่อรับตำแหน่งปัจจุบันของคุณ
-</string>
+	<string name="pref_use_google_play">ใช้บริการ Google Play เพื่อรับตำแหน่งปัจจุบันของคุณ </string>
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">ฉันเพิ่งให้คะแนนแอปของคุณ</string>
 	<!-- Text for rating dialog -->

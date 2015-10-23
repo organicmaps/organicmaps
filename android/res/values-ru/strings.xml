@@ -93,7 +93,7 @@
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\nдобавлено в очередь загрузки</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">Загружается\n^\n^%</string>
+	<string name="country_status_downloading">Загружается\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Загрузить карту\n(^ ^)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
@@ -790,8 +790,7 @@
 
 	<!-- SECTION: Strings for downloading map from search -->
 	<string name="search_without_internet_advertisement">Для поиска мест и построения маршрутов скачайте карту, и интернет вам больше не понадобится.</string>
-	<string name="search_select_map">Выбрать карту
-</string>
+	<string name="search_select_map">Выбрать карту </string>
 	<string name="search_select_other_map">Выбрать другую карту</string>
 	<string name="search_vehicle_routes">Автомобильные маршруты</string>
 	<!-- «Show» context menu -->

@@ -88,7 +88,7 @@
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\n添加至下载序列</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">下载 \n^\n^%中</string>
+	<string name="country_status_downloading">下载 \n^\n^中</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">下载地图\n(^ ^)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->

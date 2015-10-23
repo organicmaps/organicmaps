@@ -92,7 +92,7 @@
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\nقد تم إضافته الى صف الانتظار لعملية التنزيل</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">جاري التنزيل\n^\n^%</string>
+	<string name="country_status_downloading">جاري التنزيل\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">(^ ^)\nتحميل الخريطة</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
