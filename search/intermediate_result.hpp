@@ -87,9 +87,8 @@ public:
                              CategoriesHolder const * pCat, set<uint32_t> const * pTypes,
                              int8_t locale) const;
 
-  Result GeneratePointResult(storage::CountryInfoGetter const & infoGetter,
-                             CategoriesHolder const * pCat,
-                             set<uint32_t> const * pTypes, int8_t locale) const;
+  Result GeneratePointResult(CategoriesHolder const * pCat, set<uint32_t> const * pTypes,
+                             int8_t locale) const;
 
   static bool LessRank(PreResult2 const & r1, PreResult2 const & r2);
   static bool LessDistance(PreResult2 const & r1, PreResult2 const & r2);

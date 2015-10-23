@@ -239,8 +239,7 @@ void Engine::SearchAsync()
       if (res.GetCount() > 0)
         EmitResults(params, res);
     }
-
-    if (res.GetCount() < RESULTS_COUNT)
+    else
     {
       while (!m_query->IsCancelled())
       {
@@ -267,7 +266,7 @@ void Engine::SearchAsync()
 
   // Make additional search in whole mwm when not enough results (only for non-empty query).
   size_t const count = res.GetCount();
-  if (!m_query->IsCancelled() && count < RESULTS_COUNT)
+  if (!viewportSearch && !m_query->IsCancelled() && count < RESULTS_COUNT)
   {
     try
     {

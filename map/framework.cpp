@@ -993,9 +993,7 @@ void Framework::UpdateUserViewportChanged()
   if (IsISActive())
   {
     (void)GetCurrentPosition(m_lastSearch.m_lat, m_lastSearch.m_lon);
-    m_lastSearch.SetSearchMode(search::SearchParams::IN_VIEWPORT_ONLY);
     m_lastSearch.SetForceSearch(false);
-
     m_searchEngine->Search(m_lastSearch, GetCurrentViewport());
   }
 }

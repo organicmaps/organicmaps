@@ -787,7 +787,7 @@ void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
   SortByIndexedValue(indV, CompFactory2());
 
   // Do not process suggestions in additional search.
-  if (!allMWMs)
+  if (!allMWMs || res.GetCount() == 0)
     ProcessSuggestions(indV, res);
 
 #ifdef HOUSE_SEARCH_TEST
@@ -837,10 +837,8 @@ void Query::SearchViewportPoints(Results & res)
     if (IsCancelled())
       break;
 
-    Result r = indV[i]->GeneratePointResult(m_infoGetter, &m_categories,
-                                            &m_prefferedTypes, m_currentLocaleCode);
-    MakeResultHighlight(r);
-    res.AddResultNoChecks(move(r));
+    res.AddResultNoChecks(
+          indV[i]->GeneratePointResult(&m_categories, &m_prefferedTypes, m_currentLocaleCode));
   }
 }
 
@@ -956,8 +954,9 @@ void Query::ProcessSuggestions(vector<T> & vec, Results & res) const
 void Query::AddResultFromTrie(TTrieValue const & val, MwmSet::MwmId const & mwmID,
                               ViewportID vID /*= DEFAULT_V*/)
 {
-  // If we are in viewport search mode, check actual "point-in-viewport" criteria.
-  if (m_queuesCount == 1 && !m_viewport[CURRENT_V].IsPointInside(val.m_pt))
+  /// If we are in viewport search mode, check actual "point-in-viewport" criteria.
+  /// @todo Actually, this checks are more-like hack, but not a suitable place to do ...
+  if (m_queuesCount == 1 && vID == CURRENT_V && !m_viewport[CURRENT_V].IsPointInside(val.m_pt))
     return;
 
   impl::PreResult1 res(FeatureID(mwmID, val.m_featureId), val.m_rank,
@@ -1876,9 +1875,10 @@ void Query::SearchInMWM(Index::MwmHandle const & mwmHandle, SearchQueryParams co
   unique_ptr<trie::DefaultIterator> const trieRoot(
       trie::ReadTrie(SubReaderWrapper<Reader>(searchReader.GetPtr()), trie::ValueReader(cp),
                      trie::TEdgeValueReader()));
+
   MwmSet::MwmId const mwmId = mwmHandle.GetId();
-  FeaturesFilter filter(
-      (viewportId == DEFAULT_V || isWorld) ? 0 : &m_offsetsInViewport[viewportId][mwmId], *this);
+  FeaturesFilter filter(viewportId == DEFAULT_V || isWorld ?
+                          0 : &m_offsetsInViewport[viewportId][mwmId], *this);
   MatchFeaturesInTrie(params, *trieRoot, filter, [&](TTrieValue const & value)
   {
     AddResultFromTrie(value, mwmId, viewportId);

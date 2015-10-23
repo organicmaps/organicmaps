@@ -181,12 +181,16 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_search_SearchEngine_nativeRunInteractiveSearch(JNIEnv * env, jclass clazz, jbyteArray bytes, jstring lang, jlong timestamp)
+  Java_com_mapswithme_maps_search_SearchEngine_nativeRunInteractiveSearch(JNIEnv * env, jclass clazz, jbyteArray bytes,
+                                                                          jstring lang, jlong timestamp, jboolean viewportOnly)
   {
     search::SearchParams params;
     params.m_query = jni::ToNativeString(env, bytes);
     params.SetInputLocale(ReplaceDeprecatedLanguageCode(jni::ToNativeString(env, lang)));
     params.m_callback = bind(&OnResults, _1, timestamp, true, false, 0, 0);
+    if (viewportOnly)
+      params.SetSearchMode(search::SearchParams::IN_VIEWPORT_ONLY | search::SearchParams::SEARCH_WORLD);
+
     g_framework->NativeFramework()->StartInteractiveSearch(params);
     g_framework->NativeFramework()->UpdateUserViewportChanged();
     g_queryTimestamp = timestamp;
