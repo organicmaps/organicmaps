@@ -345,7 +345,7 @@
   [download_has_failed]
     en = Download has failed, touch again for one more try
     comment = Settings/Downloader - info for country when download fails
-    cs = Stahování selhalo, zkus to znovu.
+    cs = Stahování selhalo, zkuste to znovu.
     sk = Sťahovanie zlyhalo, skúste to znova.
     de = Download fehlgeschlagen. Bitte versuchen Sie es erneut.
     es = Error durante la descarga, iniciar otra vez
@@ -376,7 +376,7 @@
   [downloaded_x_y_touch_to_delete]
     en = Downloaded (%1$qu %2$@), touch to delete
     comment = Settings/Downloader - info for downloaded country
-    cs = Staženo (%1$qu %2$@), klepni pro smazání.
+    cs = Staženo (%1$qu %2$@), klepněte pro smazání.
     sk = Stiahnuté (%1$qu %2$@), stlačte pre vymazanie.
     de = Heruntergeladen (%1$qu %2$@). Drücken, um zu löschen
     es = Descargado (%1$qu %2$@), apreté para eliminar
@@ -407,7 +407,7 @@
   [downloading_x_touch_to_cancel]
     en = Downloading %qu%%, touch to cancel
     comment = Settings/Downloader - country info current download progress
-    cs = Stahování %qu%%, klepni pro zrušení.
+    cs = Stahování %qu%%, klepněte pro zrušení.
     sk = Sťahovanie %qu%%, stlačte pre zrušenie.
     de = Heruntergeladen %qu%%. Drücken, um abzubrechen
     es = Descarga %qu%%, presionar para cancelar
@@ -640,7 +640,7 @@
   [marked_for_downloading]
     en = Marked for downloading, touch to cancel
     comment = Settings/Downloader - info for country in the download queue
-    cs = Připraveno pro stažení, klepni pro zrušení.
+    cs = Připraveno pro stažení, klepněte pro zrušení.
     sk = Pripravené k stiahnutiu, stlačte pre zrušenie.
     de = Wartet auf Download. Drücken, um abzubrechen
     es = Marcado para descarga, presionar para cancelar
@@ -784,7 +784,7 @@
     tags = tizen
     en = No WiFi connection detected. Would you like to use cellular data (GPRS, EDGE or 3G) to download %@?
     comment = Settings/Downloader - 3G download warning dialog title
-    cs = Připojení k WiFi nenalezeno. Chceš použít mobilní sítě (GPRS, EDGE nebo 3G) pro stažení %@?
+    cs = Připojení k WiFi nenalezeno. Chcete použít mobilní sítě (GPRS, EDGE nebo 3G) pro stažení %@?
     sk = Nenájdené pripojenie k WiFi. Chcete použiť mobilnú sieť (GPRS, EDGE alebo 3G) k stiahnutiu %@?
     de = Keine WLAN-Verbindung. Möchten Sie %@ über das Mobilnetz (GPRS, EDGE oder 3G) herunterladen?
     es = No hay conexión Wifi. ¿Quieres descargar el mapa con tu plan de datos móviles?
@@ -832,7 +832,7 @@
   [enable_location_services]
     en = Please enable Location Services
     comment = not used? Search View - Location is disabled by user warning text
-    cs = Prosím, povol Služby určování polohy
+    cs = Prosím, povolte Služby určování polohy
     sk = Prosím, povoľte Služby určovania polohy
     de = Aktivieren Sie bitte Ortungsdienste in den Einstellungen Ihres Geräts
     es = Por favor, permite los servicios de localización
@@ -863,7 +863,7 @@
   [free_disk_space_for_country_x]
     en = Please free some space on your device first in order to download %@
     comment = Settings/Downloader - No free space dialog message
-    cs = Prosím, uvolni nějaké místo ve svém zařízení, než začneš stahovat %@
+    cs = Prosím, uvolněte nějaké místo ve svém zařízení, než začnete stahovat %@
     sk = Prosím, uvoľnite nejaké miesto vo svojom zariadení, kým začnete sťahovať %@
     de = Kein Speicherplatz vorhanden. Löschen Sie bitte unnötige Karten oder Apps, um den Download %@ durchführen zu können.
     es = No hay espacio suficiente para realizar la descarga %@
@@ -1107,7 +1107,7 @@
   [touch_to_download]
     en = Touch to download
     comment = Settings/Downloader - info for not downloaded country
-    cs = Klepni pro stažení
+    cs = Klepněte pro stažení
     sk = Stlačte pre stiahnutie
     de = Berühren, um herunterzuladen
     es = Presionar para descargar
@@ -1201,7 +1201,7 @@
   [new_map_data_format_upgrade_dialog]
     en = We've updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.
     comment = NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2
-    cs = Aktualizovali jsme mapovou databázi a zmenšili objem map. U větších zemí si nyní můžeš vybrat ke stažení pouze region/stát, který potřebuješ. Pokud však chceš používat nové mapy, bude třeba odstranit všechny staré mapové podklady, které již byly staženy.
+    cs = Aktualizovali jsme mapovou databázi a zmenšili objem map. U větších zemí si nyní můžete vybrat ke stažení pouze region/stát, který potřebujete. Pokud však chcete používat nové mapy, bude třeba odstranit všechny staré mapové podklady, které již byly staženy.
     sk = Aktualizovali sme mapovú databázu a zmenšili objem máp. U väčších krajín si teraz môžete vybrať na stiahnutie iba región, ktorý potrebujete. Keď však chcete používať nové mapy, bude treba odstrániť všetky staré mapové podklady, ktoré už boli stiahnuté.
     de = Wir haben die Karten aktualisiert und kleiner gemacht. Für grosse Länder können Sie ausgewälte Regionen einzeln herunterladen. Um die neuen Karten zu benutzen, löschen Sie bitte die alten.
     es = Hemos actualizado los datos de los mapas. Ahora puede seleccionar descargarse solo las regiones que necesites, pero para utilizar los nuevos mapas deberías antes borrar los anteriormente descargados.
@@ -1221,7 +1221,7 @@
   [which_measurement_system]
     en = Which measurement system do you prefer?
     comment = Choose measurement on first launch alert - title
-    cs = Jaký systém pro měření preferuješ?
+    cs = Jaký systém pro měření preferujete?
     sk = Aký systém pre meranie preferujete?
     de = Welches Maßsystem ziehen Sie vor?
     es = ¿Cual sistema de medición prefieres?
@@ -1252,7 +1252,7 @@
   [location_is_disabled_long_text]
     en = You currently have all Location Services for this device or application disabled. Please enable them in Settings.
     comment = Location services are disabled by user alert - message
-    cs = Aktuálně máš všechny možnosti pro určování polohy vypnuté. Prosím, povol je v Nastavení.
+    cs = Aktuálně máte všechny možnosti pro určování polohy vypnuté. Prosím, povolte je v Nastavení.
     sk = Aktuálne máte všetky možnosti pre určovanie polohy vypnuté. Prosím, povoľte ich v Nastaveniach.
     de = Ortungsdienste sind inaktiv. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.
     es = No se puede acceder a los servicios de localización. Por favor, activelo en los ajustes.
@@ -1283,7 +1283,7 @@
   [device_doesnot_support_location_services]
     en = Your device doesn't support Location Services
     comment = Location Services are not available on the device alert - message
-    cs = Tvé zařízení nepodporuje služby pro určování polohy
+    cs = Vaše zařízení nepodporuje služby pro určování polohy
     sk = Vaše zariadenie nepodporuje služby pre určovanie polohy
     de = Ihr Gerät unterstützt keine Ortungsdienste
     es = Su dispositivo no es compatible con los servicios de localización
@@ -1455,7 +1455,7 @@
     nl = Download kaart\nzonder routeplanning (^ ^)
     zh-Hans = 下载不带路线的地图\n(^ ^)
     zh-Hant = 下載不帶路線的地圖\n(^ ^)
-    cs = Stáhnout mapy\nbez směrování (^ ^)
+    cs = Stáhnout mapy\nbez tras (^ ^)
     ar = (^ ^)\nتنزيل خريطة بدون تحديد خط السير
     hu = Térkép letöltése\nútvonal nélkül (^ ^)
     ru = Загрузить карту\nбез маршрутов (^ ^)
@@ -1563,7 +1563,7 @@
 
   [downloading_touch_to_cancel]
     en = Downloading %d%%, touch to cancel
-    cs = Stahování %d%%, klepni pro zrušení
+    cs = Stahování %d%%, klepněte pro zrušení
     sk = Sťahovanie %d%%,stlačte pre zrušenie
     de = Heruntergeladen %d%%. Berühren, um abzubrechen
     es = Descargando %d%%, presionar para cancelar
@@ -1593,7 +1593,7 @@
 
   [downloaded_touch_to_delete]
     en = Downloaded (%@), touch to delete
-    cs = Staženo (%@), klepni pro smazání
+    cs = Staženo (%@), klepněte pro smazání
     sk = Stiahnuté (%@), stlačte pre zmazanie
     de = Heruntergeladen (%@). Berühren, um zu löschen
     es = Descargado (%@), presionar para eliminar
@@ -1712,7 +1712,7 @@
 
   [unsupported_phone]
     en = A hardware accelerated OpenGL is required. Unfortunately, your device is not supported.
-    cs = Je vyžadována hardwarová akcelerace OpenGL. Bohužel, tvé zařízení není podporováno.
+    cs = Je vyžadována hardwarová akcelerace OpenGL. Bohužel, vaše zařízení není podporováno.
     sk = Je vyžadovaná hardwarová akcelerácia OpenGL. Bohužial, vaše zariadenie nie je podporované.
     de = Das Programm braucht OpenGL um zu funktionieren. Leider wird ihr Gerät nicht unterschtüzt.
     es = Un acelerador de hardware OpenGL se requiere. Desafortunadamente, su dispositivo móvil no es compatible.
@@ -1802,7 +1802,7 @@
 
   [disconnect_usb_cable]
     en = Please disconnect USB cable or insert memory card to use MAPS.ME
-    cs = Prosím, odpoj USB kabel nebo vlož paměťovou kartu pro použití s MAPS.ME
+    cs = Prosím, odpojte USB kabel nebo vložte paměťovou kartu pro použití s MAPS.ME
     sk = Prosím, odpojte USB kábel alebo vložte pamäťovú kartu pre použitie s MAPS.ME
     de = Bitte USB Kabel entfernen oder Speicherkarte einsetzen um MAPS.ME zu verwenden
     es = Por favor desconectar el cable USB o insertar la memoria SD para usar MAPS.ME
@@ -1832,7 +1832,7 @@
 
   [not_enough_free_space_on_sdcard]
     en = Please free some space on SD card/USB storage first in order to use the app
-    cs = Prosím, uvolni nejprve nějaký prostor na SD kartě/USB uložišti
+    cs = Prosím, uvolněte nejprve místo na SD kartě/USB uložišti
     sk = Prosím, uvoľnite najprv miesto na SD karte/USB úložisku
     de = Bitte zuerst Speicherplatz auf SD Karte/USB Speicher freigeben um die Anwendung zu nutzen
     es = Por favor liberar espacio en la memoria SD/almacenamiento USB para usar la aplicación
@@ -1892,7 +1892,7 @@
 
   [free_space_for_country]
     en = Please free %1$@ on your device first in order to download %2$@
-    cs = Prosím, uvolni nejprve %1$@ ve svém zařízení, aby bylo možné stáhnout %2$@
+    cs = Prosím, uvolněte nejprve %1$@ ve svém zařízení, aby bylo možné stáhnout %2$@
     sk = Prosím, uvoľnite najprv %1$@ vo vašom zariadení, abyste mohol/a stiahnuť %2$@
     de = Bitte zuerst %1$@ Platz schaffen um %2$@ herunterzuladen
     es = Por favor liberar %1$@ primero para descargar %2$@
@@ -1923,7 +1923,7 @@
   [download_resources]
     en = Before you start let us download general world map into your device.\nIt needs %.1f%@ of data.
     comment = REMOVE THIS STRING AFTER REFACTORING
-    cs = Ještě než začneš, bude třeba stáhnout obecnou mapu světa.\nZabere to %.1f%@.
+    cs = Ještě než začnete, bude třeba stáhnout obecnou mapu světa.\nZabere to %.1f%@.
     sk = Skôr ako začnete, bude treba stiahnuť základnú mapu sveta.\nZaberie to %.1f%@.
     de = Bevor Sie starten, laden Sie die allgemeine Weltkarte auf Ihr Gerät herunter.\nEs wird %.1f%@ Speicherplatz benötigt.
     es = Antes de comenzar, permite que descarguemos en tu dispositivo un mapamundi general.\nSe requieren %.1f%@ de datos.
@@ -2013,7 +2013,7 @@
 
   [downloading_country_can_proceed]
     en = Downloading %@. You can now\nproceed to the map.
-    cs = Stahování %@. Nyní můžeš\npřejít na mapu.
+    cs = Stahování %@. Nyní můžete\npřejít na mapu.
     sk = Sťahovanie %@. Teraz môžete\nprejsť na mapu.
     de = Lade %@ herunter. Sie können jetzt\nzur Karte weitergehen.
     es = Descargando %@. Puede ahora\nproceder al mapa
@@ -2104,7 +2104,7 @@
   [download_location_map_proposal]
     en = You can download the map\nof your current location.
     comment = REMOVE THIS STRING AFTER REFACTORING
-    cs = Můžeš stáhnout mapu\npro svou aktuální polohu.
+    cs = Můžete stáhnout mapu\npro svou aktuální polohu.
     sk = Môžete stiahnuť mapu\npre svoju aktuálnu polohu.
     de = Sie können die Karte von\nihrem aktuellen Ort herunterladen.
     es = Puede descargar el mapa de su ubicación actual
@@ -2135,7 +2135,7 @@
   [download_location_update_map_proposal]
     en = You can update the map\nof your current location.
     comment = REMOVE THIS_STRING AFTER REFACTORING
-    cs = Můžeš aktualizovat mapu\nsvé aktuální polohy.
+    cs = Můžete aktualizovat mapu\nsvé aktuální polohy.
     sk = Môžete aktualizovať mapu\nsvojej aktuálnej polohy.
     de = Sie können die Karte von\nihrem aktuellen Ort aktualisieren.
     es = Puede actualizar el mapa de su ubicación actual
@@ -2166,7 +2166,7 @@
   [download_location_map_up_to_date]
     en = The map of your current\nlocation (%@) is up-to-date
     comment = REMOVE THIS STRING AFTER REFACTORING
-    cs = Mapa tvé aktuální\npolohy (%@) je aktuální.
+    cs = Mapa vaší současné\npolohy (%@) je aktuální.
     sk = Mapa vašej aktuálnej\npolohy (%@) je aktuálna.
     de = Die Karte von ihrem aktuellen\nOrt (%@) ist aktuell
     es = El mapa de su ubicación\nactual (%@) está actualizado
@@ -2257,7 +2257,7 @@
 
   [downloaded_touch_to_update]
     en = Downloaded (%@), touch to update or delete
-    cs = Staženo (%@), klepni pro smazání/aktualizaci
+    cs = Staženo (%@), klepněte pro smazání/aktualizaci
     sk = Stiahnuté (%@), stlačte pre zmazanie/aktualizáciu
     de = Heruntergeladen (%@), berühren zum aktualisieren oder löschen
     es = Descargado (%@), presionar para actualizar o borrar
@@ -2318,7 +2318,7 @@
     en = You need updated maps for search function:
     tags = android
     comment = Show popup notification when we have downloaded countries without search (from Lite version)
-    cs = Pro funkci vyhledávání musíš aktualizovat mapy:
+    cs = Pro funkci vyhledávání musíte aktualizovat mapy:
     sk = Pre funkciu vyhladávania musíte aktualizovať mapy:
     de = Sie benötigen aktualisierte Karten für die Suchfunktion
     es = Necesita los mapas actualizados para la función de búsqueda
@@ -2382,7 +2382,7 @@
     en = You don't need MAPS.ME Lite any more, so you can uninstall it.
     tags = android
     comment = Show popup notification in Pro version that Lite can be deleted
-    cs = Aplikaci MAPS.ME Lite už nyní nepotřebuješ, takže si ji můžeš klidně odinstalovat.
+    cs = Aplikaci MAPS.ME Lite už nyní nepotřebujete, takže si ji můžete klidně odinstalovat.
     sk = Aplikáciu MAPS.ME Lite uz teraz nepotrebujete, takže si ju môžete kľudne odinštalovať.
     de = Sie benötigen MAPS.ME Lite nicht mehr, sie können es deinstallieren.
     es = Ahora no necesita MAPS.ME Lite, la puede desinstalar.
@@ -2891,7 +2891,7 @@
     en = You have no bookmarks yet.\nTap on any place on the map to add a bookmark.\nBookmarks from other sources can also be imported and displayed in MAPS.ME. Open KML/KMZ file with saved bookmarks from e-mail, Dropbox or weblink.
     tags = ios,android
     comment = Text hint in Bookmarks dialog when no any bookmarks are added
-    cs = Zatím nemáš žádné záložky.\nZáložku můžeš přidat přidržením libovolného místa na mapě.\nV MAPS.ME mohou být také zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami lze otevřít např. z emailu, Dropboxu nebo webového odkazu.
+    cs = Zatím nemáte žádné záložky.\nZáložku můžete přidat přidržením libovolného místa na mapě.\nV MAPS.ME mohou být také zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami lze otevřít např. z e-mailu, Dropboxu nebo webového odkazu.
     sk = Zatiaľ nemáte žiadne záložky.\nZáložku môžete pridať pridržaním ľubovolného miesta na mape.\nV MAPS.ME môžu byť tiež zobrazené importované záložky z iných zdrojov. Súbor vo formáte KML/KMZ s uloženými záložkami môžete otvoriť napr. z emailu, Dropboxu alebo z webového odkazu.
     de = Sie haben bislang noch keine Lesezeichen gesetzt.\nTippen Sie auf der Karte auf irgendeinen Punkt, um ein Lesezeichen hinzuzufügen.\nLesezeichen von anderen Quellen können ebenfalls importiert und in der MAPS.ME-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Pins aus einer E-Mail, Dropbox oder einem Weblink öffnen.
     es = Todavía no tienes favoritos.\nToca en cualquier lugar del mapa y añade favoritos.\nTambién se pueden importar y mostrar marcadores de otras fuentes en la aplicación MAPS.ME. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.
@@ -2923,7 +2923,7 @@
     en = Bookmarks from other sources can be imported and displayed in MAPS.ME. Open KML/KMZ file with saved bookmarks from mail, Dropbox or weblink.
     tags = ios,android
     comment = Text hint in Bookmarks dialog when at least one bookmark is added
-    cs = V MAPS.ME mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami lze otevřít např. z emailu, Dropboxu nebo webového odkazu.
+    cs = V MAPS.ME mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami lze otevřít např. z e-mailu, Dropboxu nebo webového odkazu.
     sk = V MAPS.ME môžu byť tiež zobrazené importované záložky z iných zdrojov. Súbor vo formáte KML/KMZ s uloženými záložkami môžete otvoriť napr. z emailu, Dropboxu alebo z webového odkazu.
     de = Lesezeichen von anderen Quellen können importiert und in der MAPS.ME-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Pins aus einer E-Mail, Dropbox oder einem Weblink öffnen.
     es = Se pueden importar y mostrar marcadores de otras fuentes en la aplicación MAPS.ME. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.
@@ -3019,7 +3019,7 @@
     en = Select the place where maps should be downloaded to
     tags = android
     comment = Detailed description of Maps Storage settings button
-    cs = Vyber místo, kam by měly být mapy stahovány
+    cs = Vyberte místo, kam by měly být mapy stahovány
     sk = Vyberte miesto, kam by mali byť mapy sťahované
     de = Wählen Sie den Ort, wohin die Karten heruntergeladen werden sollen
     es = Seleccione el lugar donde deben descargarse los mapas
@@ -3083,7 +3083,7 @@
     en = This can take several minutes.\nPlease wait…
     tags = android
     comment = Ask to wait user several minutes (some long process in modal dialog).
-    cs = Tato akce může trvat několik minut.\nProsím čekej…
+    cs = Tato akce může trvat několik minut.\nProsím čekejte…
     sk = Táto akcia môže trvať niekoľko minút.\nProsím čakajte…
     de = Dies kann einige Minuten in Anspruch nehmen.\nBitte warten…
     es = Esto podría tardar varios minutos.\nPor favor, espera…
@@ -3146,7 +3146,7 @@
     en = GPS is disabled. Please enable it in Settings.
     tags = android
     comment = Toast which is displayed when GPS has been deactivated
-    cs = Navigace GPS deaktivována. Prosím, povol ji v Nastavení.
+    cs = Navigace GPS deaktivována. Prosím, povolte ji v Nastavení.
     sk = Navigácia GPS deaktivovaná. Prosím, povoľte ju v Nastaveniach.
     de = GPS ist deaktiviert. Schalten Sie es bitte ein, um das Programm bequem nutzen zu können.
     es = El GPS está inhabilitado. Por favor, activelo en los ajustes.
@@ -3210,7 +3210,7 @@
     tags = ios,android,tizen
     en = Choose between miles and kilometres
     comment = Detailed description of Measurement Units settings button
-    cs = Vyber si míle nebo kilometry
+    cs = Vyberte si míle nebo kilometry
     sk = Vyberte si míle alebo kilometre
     de = Auswahl zwischen Meilen und Kilometern
     es = Elija entre millas y kilómetros
@@ -3866,7 +3866,7 @@
     en = Share by email
     tags = ios,android
     comment = Button text
-    cs = Sdílet emailem
+    cs = Sdílet e-mailem
     de = Per E-Mail teilen
     es = Enviar por e-mail
     fr = Partager par courriel
@@ -3929,7 +3929,7 @@
     en = Greetings,\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open it if you have MAPS.ME installed. If not, download the app for your iOS or Android device following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!
     tags = ios,android
     comment = Email text when sharing bookmarks category
-    cs = Ahoj!\n\nZde jsou mé záložky z offline map aplikace MAPS.ME v přiloženém souboru "%@.kmz". Pokud máš již aplikaci MAPS.ME nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro své iOS nebo Android zařízení z tohoto odkazu http://maps.me/get?kmz\n\nSkvěle se bav s MAPS.ME!
+    cs = Ahoj!\n\nZde jsou mé záložky z offline map aplikace MAPS.ME v přiloženém souboru „%@.kmz“. Pokud máš již aplikaci MAPS.ME nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro své iOS nebo Android zařízení z tohoto odkazu http://maps.me/get?kmz\n\nSkvěle se bav s MAPS.ME!
     sk = Ahoj!\n\nTu sú moje záložky z offline map aplikácie MAPS.ME v priloženom súbore "%@.kmz". Pokiaľ máte už podobnú aplikáciu MAPS.ME nainštalovanú, otvorte si, prosím tento súbor. V opačnom prípade si najprv nainštalujte aplikáciu pre svoje iOS alebo Android zariadenie z tohto odkazu http://maps.me/get?kmz\n\nPríjemnú zábavu s MAPS.ME!
     de = Hallo,\n\nIn der angefügten „%@.kmz“-Datei befinden sich die Lesezeichen meiner Offline-Karten von MAPS.ME. Falls Sie MAPS.ME bereits installiert haben, müssen Sie diese nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://maps.me/get?kmz herunterladen.\n\nIch wünsche viel Vergnügen mit MAPS.ME!
     es = ¡Hola!\n\nEn el archivo adjunto "%@.kmz", están mis marcadores de los mapas offline MAPS.ME. Por favor, ábrelo con MAPS.ME si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://maps.me/get?kmz\n\n¡Que disfrutes de MAPS.ME!
@@ -3993,7 +3993,7 @@
     en = Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.
     tags = ios,android
     comment = Kmz file successful loading
-    cs = Záložky byly úspěšně nahrány! Můžeš je najít na mapě nebo ve správci záložek.
+    cs = Záložky byly úspěšně nahrány! Naleznete je na mapě nebo ve správci záložek.
     sk = Záložky boli úspešne načítané! Môžete ich nájst na mape alebo na obrazovke Správca záložiek.
     de = Lesezeichen erfolgreich geladen! Sie können diese nun auf Ihrer Karte oder im Lesezeichen-Manager sehen.
     es = ¡Los favoritos se han cargado con éxito! Puedes encontrarlos en el mapa o en la pantalla de Gestión de favoritos.
@@ -4084,7 +4084,7 @@
     en = Your location hasn't been determined yet
     tags = ios,android,tizen
     comment = Warning message when doing search around current position
-    cs = Tvá poloha zatím nebyla určena
+    cs = Vaše poloha zatím nebyla určena
     sk = Vaša poloha zatiaľ nebola určená
     de = Ihr Standort wurde bisher noch nicht bestimmt
     es = Tu ubicación aún no ha sido determinada
@@ -4116,7 +4116,7 @@
     en = Download the country of your current location (%@)
     tags = ios,android
     comment = Warning message when location country isn't downloaded during search (see also download_location_map_proposal).
-    cs = Stahování země tvé aktuální polohy (%@)
+    cs = Stahování země vaší aktuální polohy (%@)
     sk = Sťahovanie krajiny vašej aktuálnej polohy (%@)
     de = Land Ihres derzeitigen Standorts herunterladen (%@)
     es = Descargar país de tu ubicación actual (%@)
@@ -4148,7 +4148,7 @@
     en = Download the country you are searching on (%@)
     tags = ios,android
     comment = Warning message when viewport country isn't downloaded during search
-    cs = Stahování země, v níž hledáš (%@)
+    cs = Stahování země, v níž hledáte (%@)
     sk = Sťahovanie krajiny, v ktorej hľadáte (%@)
     de = Land herunterladen, von dem aus Sie suchen (%@)
     es = Descargar país en el que estás buscando (%@)
@@ -4244,7 +4244,7 @@
     en = Hope you enjoy using MAPS.ME! If so, please rate or review the app at the App Store. It takes less than a minute but can really help us. Thanks for your support!
     tags = ios
     comment = Message that will be shown in alert view, when we ask user to leave review on App Store
-    cs = Doufáme, že se Ti používání MAPS.ME líbí! Je-li tomu tak, ohodnoť, prosím, naši aplikaci nebo na ni napiš recenzi v Obchodu s aplikacemi. Nezabere ti to ani minutu, ale opravdu nám tím můžeš pomoci. Děkujeme ti za tvou podporu!
+    cs = Doufáme, že se vám používání MAPS.ME líbí! Je-li tomu tak, ohodnoťte, prosím, naši aplikaci nebo na ni napište recenzi v obchodu s aplikacemi. Nezabere to ani minutu, ale opravdu nám tím pomůžete. Děkujeme za vaši podporu!
     sk = Dúfame, že sa vám používánie MAPS.ME páči! Ak to je tak, ohodnoťte prosím našu aplikáciu alebo napíšte na ňu recenziu v Obchode s aplikáciami. Nezaberie vám to ani minútu času, ale nám s tým môžete veľmi pomôoť. Ďakujeme vám za vašu podporu!
     de = Wir hoffen, dass Ihnen die Verwendung von MAPS.ME Freude bereitet! Wenn ja, geben Sie bitte eine Bewertung oder einen Bericht für die App im App Store ab. Es dauert weniger als eine Minute, kann uns aber wirklich helfen. Danke für Ihre Unterstützung!
     es = ¡Ojalá disfrute mucho con MAPS.ME! Si le gusta, le agradeceremos que puntúe nuestra aplicación en el App Store. Es menos de un minuto y nos sería de gran ayuda. ¡Gracias por su apoyo!
@@ -4407,7 +4407,7 @@
     es = ¡Hola!\n\nMarqué con un alfiler: %1$@ en MAPS.ME, mapas del mundo sin conexión. Haz clic en este enlace %2$@ o este %3$@ para ver el sitio en el mapa.\n\nGracias.
     nl = Hoi,\n\nIk heb: %1$@ geprikt bij MAPS.ME, offline wereldkaarten. Klik op deze %2$@ of deze %3$@ om de plaats op de kaart te zien.\n\nBedankt.
     fr = Bonjour,\n\nJ'ai épinglé %1$@ sur MAPS.ME, les cartes du monde hors ligne. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.
-    cs = Ahoj,\n\noznačil/a jsem: %1$@ v MAPS.ME, offline mapách celého světa. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.
+    cs = Ahoj,\n\noznačil/a jsem %1$@ v MAPS.ME, offline mapách celého světa. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.
     sk = Ahoj,\n\nOznačil/a som: %1$@ v MAPS.ME, offline mapách celého sveta. Stlačte jeden z týchto odkazov %2$@, %3$@ a uvidíte toto miesto na mape.\n\nVďaka
     de = Hi,\n\nIch habe gepinnt: %1$@ auf MAPS.ME, Offline-Weltkarten. Klicke auf diesen Link %2$@ oder diesen %3$@, um den Ort auf der Karte zu sehen.\n\nVielen Dank.
     pl = Cześć,\n\nDodałem znacznik w: %1$@ w aplikacji MAPS.ME, mapach offline całego świata. Naciśnij ten link %2$@ lub ten %3$@ by zobaczyć to miejsce na mapie.\n\nDziękuję.
@@ -4584,12 +4584,12 @@
     fi = Viesti
 
   [email]
-    en = E-Mail
+    en = E-mail
     tags = ios,android,tizen
     comment = Share by email button text
-    cs = E-Mail
-    sk = E-Mail
-    de = E-Mail
+    cs = E-mail
+    sk = E-mail
+    de = E-mail
     es = Correo electrónico
     fr = Courriel
     it = E-mail
@@ -4598,19 +4598,19 @@
     zh-Hant = 電子郵件
     uk = Електронна пошта
     ko = 이메일
-    ru = E-Mail
+    ru = E-mail
     pl = E-mail
-    pt = E-Mail
+    pt = E-mail
     hu = Email
     th = อีเมล
     zh-Hans = 邮件
     ar = البريد الالكتروني
-    da = E-Mail
+    da = E-mail
     tr = E-Posta
-    sv = E-Mail
+    sv = E-mail
     id = Surel
-    vi = E-Mail
-    ro = E-Mail
+    vi = E-mail
+    ro = E-mail
     nb = E-post
     fi = Sähköposti
 
@@ -4850,7 +4850,7 @@
     it = Selezionate le impostazioni Sfondo
     nl = Kies instellingen voor achtergrondscherm
     de = Wählen Sie die rückseitigen Bildschirm-Einstellungen
-    cs = Zvolit nastavení Zadní obrazovky
+    cs = Zvolit nastavení zadní obrazovky
     sk = Zvoliť nastavenie Zadnej obrazovky
     fr = Choisir les réglages de l'arrière-plan
     hu = Válassza ki a hátoldali képernyő-beállításokat
@@ -4879,7 +4879,7 @@
     it = Impostazioni Sfondo
     nl = Instellingen voor achtergrondscherm
     de = Rückseitige Bildschirm-Einstellungen
-    cs = Nastavení Zadní obrazovky
+    cs = Nastavení zadní obrazovky
     sk = Nastavenie Zadnej obrazovky
     fr = Paramètres de l'arrière-plan
     hu = Hátoldali képernyő-beállítások
@@ -4905,7 +4905,7 @@
     de = Auf dem rückseitigen Bildschirm anzeigen
     es = Mostrar en la pantalla trasera
     it = Mostra Sfondo
-    cs = Zobrazit na Zadní obrazovce
+    cs = Zobrazit na zadní obrazovce
     sk = Zobraziť na Zadnej obrazovke
     nl = Toon op achtergrondscherm
     pl = Pokaż na tylnym ekranie
@@ -4961,7 +4961,7 @@
     tags = android,tizen
     comment = Confirmation in downloading countries dialog
     en = Are you sure you want to continue?
-    cs = Opravdu chceš pokračovat?
+    cs = Opravdu chcete pokračovat?
     sk = Naozaj chcete pokračovať?
     de = Möchten Sie wirklich fortfahren?
     es = ¿Seguro que desea continuar?
@@ -5358,7 +5358,7 @@
     pt = O armazenamento de dados do mapa foi otimizado. Por favor, reinicie a app.\n\nA pasta MapsWithMe na raiz do cartão SD já não é necessária, pode excluí-la.
     nl = Opslag van kaartgegevens is geoptimaliseerd. Herstart de app.\n\nMapsWithMe map is niet langer nodig in de root van de SD-kaart, u kunt het verwijderen.
     hu = A tárolt térképadatokat optimalizáltuk. Kérjük, indítsa újra az alkalmazást.\n\nA MapsWithMe mappa az SD-kártya gyökérkönyvtárában már nem szükséges, törölhető.
-    cs = Uložiště map bylo optimalizováno. Prosím, restartuj aplikaci.\n\nAdresář MapsWithMe v kořenové složce SD karty již není potřeba, můžeš ho smazat.
+    cs = Uložiště map bylo optimalizováno. Prosím, restartujte aplikaci.\n\nAdresář MapsWithMe v kořenové složce SD karty již není potřeba, můžete ho smazat.
     sk = Úložisko máp bolo optimalizované. Prosím, reštartujte aplikáciu.\n\nAdresár MapsWithMe v koreňovej zložke SD karty už nie je potrebný, môžete ho zmazať.
     pl = Przechowywanie danych mapy zostało zoptymalizowane. Prosimy zrestartować aplikację.\n\nFolder MapsWithMe w katalogu głównym karty SD nie jest już potrzebny, można go usunąć.
     es = Se ha optimizado el almacenamiento de datos de mapas. Por favor, reinicia la aplicación.\n\nLa carpeta MapsWithMe en el directorio raíz de la tarjeta SD ya no es necesaria, puedes borrarla.
@@ -5388,7 +5388,7 @@
     pt = Devido às alterações no Android 4.4, é necessário otimizar o armazenamento de dados do mapa, mas não há espaço suficiente para copiar os dados do mapa.\n\nPor favor, liberte a memória, caso contrário, os mapas estarão disponíveis no modo somente de leitura.
     nl = Door veranderingen in Android 4.4 moeten we de opslag van kaartgegevens optimaliseren, maar er is niet genoeg ruimte om kaartgegevens te kopiëren.\n\nMaak alstublieft geheugen vrij, anders zullen kaarten alleen in de leesmodus beschikbaar zijn.
     hu = Az Android 4.4 változásai miatt optimalizálnunk kell a térképadatok tárolását, azonban ehhez nincs elegendő szabad tárhely.\n\nKérjük, szabadítson fel lemezterületet, ellenkező esetben a térképei csak írásvédett módban lesznek elérhetőek.
-    cs = Kvůli změnám v Androidu 4.4 musíme optimalizovat uložiště map, ale není dostatek prostoru pro jejich zkopírování.\n\nProsím, uvolni paměť, jinak budou mapy dostupné pouze v režimu pro čtení.
+    cs = Kvůli změnám v Androidu 4.4 musíme optimalizovat uložiště map, ale není dostatek prostoru pro jejich zkopírování.\n\nProsím, uvolněte paměť, jinak budou mapy dostupné pouze v režimu pro čtení.
     sk = Kvôli zmenám v Androide 4.4 musíme optimalizovať úložisko máp, lenže nie je dostatok priestoru pre ich skopírovanie.\n\nProsím, uvoľnite pamäť, inak budú mapy dostupné iba v režime na čítanie.
     pl = Ze względu na zmiany w Android 4.4, musimy zoptymalizować przechowywanie danych mapy, ale nie ma wystarczająco dużo miejsca, aby skopiować dane mapy.\n\nProsimy zwolnić pamięć, inaczej mapy będą dostępne tylko w trybie do odczytu.
     es = Debido a cambios en Android 4.4, tenemos que optimizar el almacenamiento de datos de mapas, pero no hay espacio suficiente para copiar los datos de los mapas.\n\nPor favor, libera la memoria, en caso contrario los mapas solo estarán disponibles en modo de solo lectura.
@@ -5420,7 +5420,7 @@
     pt = É necessário mover os seus marcadores para a memória interna, mas não há espaço disponível para eles. Por favor, liberte a memória, caso contrário, os marcadores não estarão disponíveis.
     nl = We moeten uw bladwijzers naar het interne geheugen verplaatsen, maar er is geen ruimte beschikbaar voor ze. Maak alstublieft geheugen vrij, anders zullen de bladwijzers niet beschikbaar zijn.
     hu = A könyvjelzőit át kell helyeznünk a belső memóriába, azonban ehhez nincs elegendő szabad tárhely. Kérjük, szabadítson fel lemezterületet, ellenkező esetben a könyvjelzői nem lesznek elérhetőek.
-    cs = Potřebujeme přesunout tvé záložky do vnitřní paměti zařízení, ale není pro ně volné místo. Prosím, uvolni paměť, jinak nebudou záložky dostupné.
+    cs = Potřebujeme přesunout tvé záložky do vnitřní paměti zařízení, ale není pro ně volné místo. Prosím, uvolněte paměť, jinak nebudou záložky dostupné.
     sk = Potrebujeme presunúť vaše záložky do internej pamäti zariadenia, ale nie je pre ne voľné miesto. Prosím, uvoľnite pamäť, inak nebudú záložky dostupné.
     pl = Musimy przenieść Twoje zakładki do pamięci wewnętrznej, ale nie ma tam dla nich wolnego miejsca. Prosimy zwolnić pamięć, inaczej zakładki nie będą dostępne.
     es = Tenemos que mover tus marcadores a la memoria interna, pero no hay espacio disponible para ellos. Por favor, libera memoria, en caso contrario, los marcadores no estarán disponibles.
@@ -5451,7 +5451,7 @@
     pt = O seu armazenamento de mapa está agora a ser otimizado. Por favor, aguarde. Este processo pode demorar alguns minutos.
     nl = De kaartopslag wordt nu geoptimaliseerd. Een moment geduld alstublieft, dit kan een paar minuten duren.
     hu = A térképadatai optimalizálás alatt állnak. Kérjük, várjon, ez néhány percet igénybe vesz.
-    cs = Uložiště map se právě optimalizuje. Může to trvat i pár minut. Prosíme o chvilku strpení.
+    cs = Úložiště map se právě optimalizuje. Může to trvat i pár minut. Prosíme o chvilku strpení.
     sk = Úložisko máp sa práve optimalizuje. Môže to trvať aj pár minút. Prosíme o chvíľku strpenia.
     pl = Twoje przechowywanie map jest teraz optymalizowane. Prosimy czekać, może to zająć kilka minut.
     es = Tu almacenamiento de mapas se está optimizando ahora. Por favor, espera, podría tardar unos minutos.
@@ -5692,7 +5692,7 @@
     ar = اختيار نقطة البداية…
     bg = Изберете начална точка…
     ca = Trieu un punt de partida…
-    cs = Zvol začátek…
+    cs = Zvolte začátek…
     sk = Zvoliť východisko…
     da = Vælg dit startpunkt…
     de = Start auswählen…
@@ -5736,7 +5736,7 @@
     ar = اختيار الوجهة…
     bg = Изберете направление…
     ca = Trieu una destinació…
-    cs = Zvol cíl…
+    cs = Zvolte cíl…
     sk = Zvoliť cieľ…
     da = Vælg din destination…
     de = Ziel auswählen…
@@ -5833,7 +5833,7 @@
     comment = text of notification
     en = Download the map of the place where you are
     ar = تنزيل خريطة المكان الذي توجد فيه
-    cs = Stáhni si mapu místa, kde právě jsi
+    cs = Stáhněte si mapu místa, kde právě jste
     sk = Stiahnite si mapu miesta, kde sa práve nachádzate
     de = Laden Sie die Karte des Ortes herunter, in dem Sie sich befinden
     es = Descarga el mapa del lugar en que te encuentras
@@ -5865,7 +5865,7 @@
     comment = text of notification
     en = Full version of MAPS.ME is free today! Download now and tell your friends.
     ar = تطبيق MAPS.ME مجاني اليوم! قم بتنزيله الآن وأخبر أصدقائك.
-    cs = Plná verze MAPS.ME dnes zdarma! Stáhni si ji nyní a dej vědět kamarádům.
+    cs = Plná verze MAPS.ME je dnes zdarma! Stáhněte si ji nyní a dejte vědět přátelům.
     sk = Plná verzia MAPS.ME dnes zadarmo! Stiahnite si teraz a povedzte to svojim priateľom.
     de = MAPS.ME heute gratis! Jetzt runterladen & Freunde informieren
     es = ¡Versión completa de MAPS.ME gratis hoy! Descárgalo ahora y dilo a tus amigos.
@@ -5891,7 +5891,7 @@
     tags = android
     comment = Dialog for transferring maps from lite to pro.
     en = We are transferring your downloaded maps from MAPS.ME Lite to MAPS.ME. It may take a few minutes.
-    cs = Právě přenášíme tvé stažené mapy z MAPS.ME Lite do MAPS.ME. Může to několik minut trvat.
+    cs = Právě přenášíme vaše stažené mapy z MAPS.ME Lite do MAPS.ME. Může to několik minut trvat.
     sk = Práve prenášame Vaše stiahnuté mapy z MAPS.ME lite na MAPS.ME. Môže to trvať niekoľko minút.
     de = Wir übertragen Ihre heruntergeladenen Karten von MAPS.ME Lite zu MAPS.ME. Der Vorgang kann einige Minuten in Anspruch nehmen.
     es = Estamos transfiriendo tus mapas descargados de MAPS.ME Lite a MAPS.ME, lo cual puede llevar unos minutos.
@@ -5923,7 +5923,7 @@
     tags = android
     comment = Message to display when maps moved.
     en = Your downloaded maps are successfully transferred to MAPS.ME.
-    cs = Tvé stažené mapy jsou úspěšně přeneseny do MAPS.ME.
+    cs = Vaše stažené mapy byly úspěšně přeneseny do MAPS.ME.
     sk = Vaše stiahnuté mapy sú úspešne prenesené na MAPS.ME.
     de = Ihre heruntergeladenen Karten wurden erfolgreich zu MAPS.ME übertragen.
     es = Tus mapas descargados se han transferido correctamente a MAPS.ME.
@@ -5955,7 +5955,7 @@
     tags = android
     comment = Message to display when maps move failed.
     en = Your maps failed to transfer. Please delete MAPS.ME Lite and download the maps again.
-    cs = Tvé mapy se nepodařilo přenést. Prosím, odstraň MAPS.ME Lite a stáhni si mapy znovu.
+    cs = Vaše mapy se nepodařilo přenést. Prosím, odstraňte MAPS.ME Lite a stáhněte si mapy znovu.
     sk = Vaše mapy sa nepodarilo preniesť. Vymažte prosím MAPS.ME Lite a stiahnite si mapy znova.
     de = Ihre Karten konnten nicht übertragen werden. Bitte löschen Sie MAPS.ME Lite und laden Sie die Karten erneut herunter.
     es = No se han podido transferir tus mapas. Por favor, elimina MAPS.ME Lite y descarga los mapas de nuevo.
@@ -6418,7 +6418,7 @@
     tags = ios, android
     comment = About text
     en = MAPS.ME offers the fastest offline maps of all the cities, all countries of the world. Travel with full confidence: wherever you are, MAPS.ME helps to locate yourself on the map, find the nearest restaurant, hotel, bank, gas station etc. It doesn’t require internet connection.\n\nWe are always working on new features and would love to hear from you on how you think we could improve MAPS.ME. If you have any problems with the app, don't hesitate to contact us at support@maps.me. We respond to every request!\n\nDo you like MAPS.ME and want to support us? There are some simple and absolutely free ways:\n\n- post a review at your App Market\n- like our Facebook page http://www.facebook.com/mapswithme\n- or just tell about MAPS.ME to your mom, friends and colleagues :)\n\nThank you for being with us. We appreciate your support very much!\n\nP.S. We take map data from OpenStreetMap, a mapping project similar to Wikipedia, which allows users to create and edit maps. If you see something is missing or wrong on the map, you can correct the maps directly at http://openstreetmap.org, and your changes will appear in MAPS.ME app with the next version release.
-    cs = MAPS.ME nabízí nejrychlejší offline mapy všech měst a zemí po celém světě. Cestuj s naprostou důvěrou: kdekoliv jsi, MAPS.ME ti pomůže se najít na mapě, vyhledat nejbližší restauraci, hotel, banku, benzínovou pumpu atd. Nevyžaduje připojení k Internetu.\n\nNeustále pracujeme na nových funkcích a rádi bychom slyšeli také Tvůj názor, jak můžeme MAPS.ME vylepšit. Pokud máš s touto aplikací jakékoliv problémy, pak nás neváhej kontaktovat na support@maps.me. Odpovídáme na každý požadavek!\n\nLíbí se ti MAPS.ME a chceš nás podpořit? Existuje několik snadných způsobů zcela zdarma:\n\n- napiš recenzi ve svém obchodu s aplikacemi\n- označ naši facebookovou stránku http://www.facebook.com/mapswithme pomocí To se mi líbí\n- nebo jen řekni o MAPS.ME své mámě, kamarádům a kolegům :)\n\nDěkujeme, že jsi s námi. Velmi si ceníme tvé podpory!\n\nP.S. Mapové podklady získáváme z OpenStreetMap, což je mapový projekt podobný Wikipedii, který umožňuje uživatelům vytvářet a upravovat mapy. Pokud zjistíš, že na mapě něco chybí nebo je špatně, pak můžeš mapy opravit přímo na http://openstreetmap.org, a tvé změny se objeví v příští verzi MAPS.ME. Díky!
+    cs = MAPS.ME nabízí nejrychlejší offline mapy všech měst a zemí po celém světě. Cestujte s naprostou důvěrou: kdekoliv jste, MAPS.ME vám pomůže se najít na mapě, vyhledat nejbližší restauraci, hotel, banku, benzínovou pumpu atd. Nevyžaduje připojení k Internetu.\n\nNeustále pracujeme na nových funkcích a rádi bychom slyšeli také váš názor, jak můžeme MAPS.ME vylepšit. Pokud máte s touto aplikací jakékoliv problémy, pak nás neváhejte kontaktovat na support@maps.me. Odpovídáme na každý požadavek!\n\nLíbí se vám MAPS.ME a chcete nás podpořit? Existuje několik snadných způsobů zcela zdarma:\n\n• napište recenzi ve svém obchodu s aplikacemi\n• označte naši facebookovou stránku http://www.facebook.com/mapswithme pomocí To se mi líbí\n• nebo jen řekněte o MAPS.ME své mámě, kamarádům a kolegům :)\n\nDěkujeme, že jste s námi. Velmi si ceníme vaší podpory!\n\nP.S. Mapové podklady získáváme z OpenStreetMap, což je mapový projekt podobný Wikipedii, který umožňuje uživatelům vytvářet a upravovat mapy. Pokud zjistíte, že na mapě něco chybí nebo je špatně, pak můžete mapy opravit přímo na http://openstreetmap.org, a vaše změny se objeví v příští verzi MAPS.ME. Díky!
     sk = MAPS.ME ponúka najrýchlejšie offline mapy všetkých miest a krajín po celom svete. Cestujte s úplnou dôverou: kdekoľvek ste, MAPS.ME vám pomôže sa nájsť na mape, nájsť najbližšiu reštauráciu, hotel, banku, benzínovú pumpu atď. Nevyžaduje pripojenie k internetu.\n\nNeustále pracujeme na nových funkciách a radi by sme počuli váš názor, ako môžeme vylepšiť MAPS.ME. Pokiaľ máte s touto aplikáciou akékoľvek problémy, tak nás neváhajte kontaktovať na support@maps.me. Odpovedáme na každú požiadavku!\n\nPáči sa vám MAPS.ME a chceli by ste nás podporiť? Existuje niekoľko ľahkých spôsobov celkom zadarmo:\n\n-napíšte recenziu vo svojom obchode s aplikáciami\n-označte našu stránku http://www.facebook.com/mapswithme pomocou Páči sa mi to\n- alebo len povedzte o MAPS.ME svojej mame, priateľom a kolegom :)\n\nĎakujeme, že ste s nami. Veľmi oceňujeme vašu podporu!\n\nP.S. Mapové dáta získavame z OpenStreetMaps, čo je mapový projekt podobný Wikipédii, ktorý umožňuje užívateľom vytvárať a upravovať mapy. Pokiaľ zistíte, že na mape niečo chýba alebo je nesprávné, môžete to opraviť priamo na http://openstreetmap.org, a vaše zmeny sa objavia v budúcej verzii MAPS.ME.
     de = MAPS.ME bietet die schnellsten Offline-Karten aller Städte in allen Ländern der Welt. Reisen Sie mit Vertrauen: wo immer Sie sind, MAPS.ME hilft Ihnen, sich selbst auf der Karte zu finden. Finden Sie das nächste Restaurant, ein Hotel, eine Bank, eine Tankstelle usw. Es ist keine Internet-Verbindung erforderlich.\n\nWir arbeiten ständig an neuen Funktionen und freuen uns, von Ihnen zu hören, wie wir MAPS.ME verbessern können. Wenn Sie Probleme mit der App haben, zögern Sie nicht, mit uns über support@maps.me in Verbindung zu treten. Wir reagieren auf jede Anfrage!\n\nMögen Sie MAPS.ME und wollen Sie uns unterstützen? Es gibt einige einfache und absolut kostenlose Möglichkeiten:\n\n- Veröffentlichen Sie eine Bewertung auf Ihrem App-Markt\n- Liken Sie unsere Facebook-Seite http://www.facebook.com/mapswithme\n- Oder erzählen einfach nur Ihrer Mutter, Freunden und Kollegen von MAPS.ME:)\n\nDanke, dass Sie bei uns sind. Wir freuen uns sehr über Ihre Unterstützung!\n\nP. S. Wir nehmen die Kartendaten von OpenStreetMap, einem Mapping-Projekt ähnlich Wikipedia, bei welchem Benutzer Karten erstellen und bearbeiten können. Wenn Sie sehen, dass auf der Karte etwas fehlt oder falsch ist, können Sie die Karten direkt auf http://openstreetmap.org korrigieren und die Änderungen erscheinen in der nächsten MAPS.ME App Version.
     es = MAPS.ME ofrece los mapas sin conexión más rápidos de todas las ciudades y todos los países del mundo. Viaja con plena confianza: estés donde estés, MAPS.ME te ayuda a ubicarte en el mapa, encontrar el restaurante, hotel, banco o gasolinera más próximo, etc. No requiere conexión a Internet.\n\nTrabajamos continuamente en el desarrollo de nuevas funcionalidades y nos encantaría conocer tu opinión sobre cómo podríamos mejorar MAPS.ME. Si tienes cualquier problema con la aplicación, no dudes en contactar con nosotros en support@maps.me. ¡Respondemos a todas las solicitudes!\n\n¿Te gusta MAPS.ME y quieres apoyarnos? Estas son algunas formas simples y totalmente gratis:\n\n- Publica una opinión en tu App Market\n- Dale a me gusta a nuestra página de Facebook http://www.facebook.com/mapswithme\n- O simplemente habla sobre MAPS.ME a tu madre, amigos y colegas :)\n\nGracias por estar a nuestro lado. ¡Agradecemos mucho tu apoyo!\n\nPD: obtenemos datos de los mapas de OpenStreetMap, un proyecto de mapeo similar a Wikipedia, que permite a los usuarios crear y editar mapas. Si crees que falta algo o hay cualquier error en el mapa, puedes corregir los mapas directamente en http://openstreetmap.org y los cambios aparecerán en la aplicación MAPS.ME en el próximo lanzamiento de la versión.
@@ -6450,7 +6450,7 @@
     tags = ios
     comment = Alert text
     en = The email client has not been set up. Please configure it or use any other way to contact us at %@
-    cs = E-mailový klient nebyl ještě nakonfigurován. Nastav ho, prosím, nebo použij jiný způsob k našemu kontaktování na %@
+    cs = E-mailový klient nebyl ještě nakonfigurován. Nastavte ho, prosím, nebo použijte jiný způsob k našemu kontaktování na %@
     sk = Emailový klient nebol nastavený. Nakonfigurujte ho prosím alebo použite iný spôsob k tomu, abyste nás kontaktovali na %@
     de = Der E-Mail-Client ist noch nicht eingerichtet worden. Konfigurieren Sie ihn bitte oder nutzen Sie eine andere Möglichkeit, uns unter %@ zu erreichen.
     es = No se ha configurado el cliente de correo electrónico. Por favor, configúralo o utiliza alguna otra forma de ponerte en contacto con nosotros en %@
@@ -6625,7 +6625,7 @@
     da = Den nye version af MAPS.ME gør det muligt at oprette ruter fra din nuværende position til et destinationspunkt. Venligst opdatér kortene for at bruge denne funktion.
     nl = Met de nieuwe versie van MAPS.ME kunt u routes maken vanaf uw huidige positie naar een punt van bestemming. Werk kaarten bij om deze functie te gebruiken.
     zh-Hant = 使用新版本的MAPS.ME可以創建從您的當前位置至一個目的地的路線。請更新地圖以使用該功能。
-    cs = Nová verze MAPS.ME umožňuje vytvářet trasy z tvé aktuální polohy do cílového bodu. Chceš-li tuto funkci používat, aktualizuj mapy.
+    cs = Nová verze MAPS.ME umožňuje vytvářet trasy z vaší aktuální polohy do cílového bodu. Chcete-li tuto funkci používat, aktualizujte mapy.
     ar = إصدار MAPS.ME الجديد يسمح بإنشاء مسارات انطلاقاً من موقعك الحالي نحو المكان الذي تتجه إليه. يرجى تحديث الخرائط لاستخدام هذه الميزة.
     zh-Hans = 使用新版本的MAPS.ME可以创建从您的当前位置至一个目的地的路线。请更新地图以使用该功能。
     uk = В новій версії MAPS.ME ви зможете прокладати маршрут від поточного місця перебування до точки призначення. Щоб скористатися цією функцією, будь ласка, оновіть карти.
@@ -6848,7 +6848,7 @@
     de = Beim Erstellen von Routen mit der MAPS.ME-App sollten Sie Folgendes beachten:\n\n  - Vorgeschlagenen Routen können nur als Empfehlungen angesehen werden.\n - Straßenbedingungen, Verkehrsregeln und Schilder haben höhere Priorität als Navigationsratschläge.\n - Die Karte kann falsch oder veraltet sein und Routen könnten somit nicht auf die bestmögliche Weise erstellt worden sein.\n\n  Bleiben Sie auf der Straße sicher und achten Sie auf sich selbst!
     he = כשאתם בונים מסלולים באמצעות אפליקציית MAPS.ME, שימו לב:\n\n  יש להתייחס למסלולים מוצעים כהמלצות בלבד.\n תנאי הדרך, חוקי התנועה והתמרורים נמצאים בעדיפות גבוהה יותר מאשר עצת הניווט.\n יתכן שהמפה אינה נכונה או\n    אינה מעודכנת, וקיימת אפשרות שהמסלולים לא ייבנו באופן הטוב ביותר.\n\n  נסיעה בטוחה ושמרו על עצמכם!\n\n
     zh-Hant = 在MAPS.ME應用中制定路線時請謹記以下幾點：\n\n  - 建議路線僅可當作推薦路線。\n - 路況、交通規則以及標誌應優先於導航建議。\n - 地圖可能會不正確或者過時，路線也可能不是以最佳可能方式制定的。\n\n  行車安全，請照顧好您自己！
-    cs = Při vytváření tras v aplikaci MAPS.ME měj, prosím, na paměti následující:\n\n - Navrhované trasy lze brát jen jako doporučení.\n - Pravidla silničního provozu, aktuální podmínky na silnici a dopravní značení mají přednost před údaji z navigace.\n - Mapa může být nepřesná nebo zastaralá a navržené cesty nemusí být ideální.\n\n  Cestuj bezpečně a ohleduplně. Šťastnou cestu!
+    cs = Při vytváření tras v aplikaci MAPS.ME mějte, prosím, na paměti následující:\n\n • Navrhované trasy lze brát jen jako doporučení.\n • Pravidla silničního provozu, aktuální podmínky na silnici a dopravní značení mají přednost před údaji z navigace.\n • Mapa může být nepřesná nebo zastaralá a navržené cesty nemusí být ideální.\n\nCestujte bezpečně a ohleduplně. Šťastnou cestu!
     ar = عند إنشاء مسارات الطرق في تطبيق MAPS.ME، يرجى أخذ التالي في الحسبان:\n\n  - المسارات المقترحة تعتبر مجرد اقتراحات فقط.\n - حالة الطريق وقوانينه والإشارات الموجودة فيه لها الأولولية أثناء تقديم نصائح الملاحة.\n - قد تكون الخريطة خاطئة أو قديمة، لذا فإنه يمكن ألا تُرسم المسارات بالشكل الأمثل.\n\n  كن آمنا على الطريق وانتبه لتفسك!
     zh-Hans = 在MAPS.ME应用中制定路线时请谨记以下 几点：\n\n  - 建议路线仅可当作推荐路线。\n - 路况、交通规则以及标志应优先于导航建议。\n - 地图可能会不正确或者过时，路线也可能不是以最佳可能方式制定的。\n\n  行车安全，请照顾好您自己！
     uk = Використовуючи маршрути в програмі MAPS.ME, будь ласка, враховуйте наступне:\n\n  - Пропоновані маршрути можуть розглядатися тільки в якості рекомендації.\n - Дорожні умови, правила дорожнього руху, знаки являються більш пріоритетними в порівнянні з порадами навігаційної програми.\n - Карта може бути неточною або неактуальною , а запропонований маршрут не найоптимальнішим.\n\n  Будьте уважні на дорозі та бережіть себе!
@@ -7008,7 +7008,7 @@
     fr = L'emplacement actuel n'est pas défini. Veuillez préciser l'emplacement pour créer l'itinéraire.
     zh-Hans = 当前地点未定。请明确地点以创建路线。
     zh-Hant = 當前地點未定。請明確地點以創建路線。
-    cs = Aktuální poloha nebyla zatím zjištěna. Chceš-li naplánovat trasu, zadej prosím umístění.
+    cs = Aktuální poloha nebyla zatím zjištěna. Chcete-li naplánovat trasu, zadejte prosím umístění.
     ar = الموقع الحالي غير مُعَرّف. يرجى تحديد موقع لإنشاء مسار.
     de = Der aktuelle Standort ist nicht definiert. Bitte geben Sie den Standort ein, um eine Route zu erstellen.
     da = Den nuværende placering er ikke defineret. Venligst angiv placering for at oprette en rute.
@@ -7031,7 +7031,7 @@
     pl = Aby stworzyć trasę, potrzebne są dodatkowe dane. Rozpocząć pobieranie?
     hu = Útvonaltervezéshez további adatok is szükségesek. Elkezded a letöltést?
     it = Ulteriori dati sono necessari per creare un percorso. Inizio a scaricarli?
-    cs = K vytvoření trasy jsou zapotřebí další data. Chceš je stáhnout nyní?
+    cs = K vytvoření trasy jsou zapotřebí další data. Chcete je stáhnout nyní?
     ru = Для построения маршрута необходимы дополнительные данные. Перейти к загрузке?
     sk = Na vytvorenie trasy sú potrebné ďalšie dáta. Začať sťahovanie?
     fr = Des données supplémentaires sont nécessaires pour créer un itinéraire. Vous désirez lancer le téléchargement ?
@@ -7168,7 +7168,7 @@
     fr = Il n'existe aucun itinéraire entre l'origine et la destination choisies. Veuillez sélectionner un point de départ ou d'arrivée différent.
     zh-Hans = 找不到所选起点和终点间的路程。请选择不同的起点或终点。
     zh-Hant = 找不到所選起點和終點間的路程。請選擇不同的起點或終點。
-    cs = Mezi zvoleným počátkem a cílem nebyla nalezena žádná trasa. Vyber, prosím, jiný počáteční nebo koncový bod.
+    cs = Mezi zvoleným počátkem a cílem nebyla nalezena žádná trasa. Vyberte jiný počáteční nebo koncový bod.
     ar = لم يتم العثور على مسار بين المنشأ والوُجْهَة المحددة. الرجاء تحديد نقطة بداية أو نهاية مختلفة.
     de = Es wurde keine Route zwischen dem ausgewählten Ausgangspunkt und Ziel gefunden. Bitte wählen Sie einen anderen Start- oder Endpunkt.
     da = Der blev ikke fundet en rute mellem det valgte begyndelsespunkt og destinationen. Venligst vælg et andet start- eller slutpunkt.
@@ -7200,7 +7200,7 @@
     fr = Une erreur interne s'est produite. Veuillez essayer de supprimer la carte et téléchargez la à nouveau. Si le problème persiste, veuillez contacter support@maps.me.
     zh-Hans = 出现内部错误。请尝试删除并再次下载地图。如果还有问题请联系我们：support@maps.me。
     zh-Hant = 出現內部錯誤。請嘗試刪除并再次下載地圖。如果還有問題請聯系我們：support@maps.me。
-    cs = Došlo k vnitřní chybě. Zkus prosím mapu smazat a znovu stáhnout. Jestliže problém přetrvává, kontaktuj nás na support@maps.me.
+    cs = Došlo k vnitřní chybě. Zkuste, prosím, mapu smazat a znovu stáhnout. Jestliže problém přetrvává, kontaktujte nás na support@maps.me.
     ar = حدث خطأ داخلي. يرجى محاولة حذف الخريطة وإعادة تنزيلها مرة أخرى. إذا استمرت المشكلة يرجى الاتصال بنا على support@maps.me.
     de = Es ist ein interner Fehler aufgetreten. Bitte versuchen Sie, die Karte zu löschen und erneut herunterzuladen.
     da = Intern fejl opstod. Venligt prøv at slette og downloade kortet igen. Hvis problemet vare ved, venligst kontakt os på support@maps.me.
@@ -7354,7 +7354,7 @@
     hu = Térkép letöltése útvonal nélkül
     de = Karte ohne Routenplanung herunterladen
     fi = Lataa kartta ilman reititystä
-    cs = Stáhnout mapy bez směrování
+    cs = Stáhnout mapy bez tras
     it = Scarica mappa senza percorsi
     nb = Last ned kart uten veiviserfunksjon
     zh-Hant = 下載不帶路線的地圖
@@ -7649,7 +7649,7 @@
     th = ใช้บริการ Google Play เพื่อรับตำแหน่งปัจจุบันของคุณ 
     ru = Использовать Google Play Services для определения позиции
     sk = Pomocou Google Play služieb získajte svoju aktuálnu polohu
-    cs = Použijte služby Google Play, abyste získali svou aktuální polohu
+    cs = Používat služby Google Play pro získání aktuální polohy
     pt = Use o Google Play Serviços para determinar a sua localização actual
     sv = Använd Google Play Services för att bestämma din aktuella position
     id = Gunakan Layanan Google Play untuk mendapatkan lokasi Anda saat ini
@@ -7849,7 +7849,7 @@
     nl = Deel alle ideeën of problemen zodat we de app voor je kunnen verbeteren.
     fi = Jaathan ideasi ja kohtaamasi ongelmat, jotta voimme parantaa sovellusta sinua varten.
     da = Del dine ideer eller problemer med os, så vi kan forbedre appen for dig.
-    cs = Podělte se o jakékoli nápady nebo problémy, abychom mohli naši aplikaci pro vás neustále zlepšovat.
+    cs = Podělte se s námi o své nápady nebo problémy, abychom mohli aplikaci vylepšit.
     zh-Hans = 分享任何主意或问题，这样我们可以为您改善应用。
     zh-Hant = 分享任何主意或問題，這樣我們可以為您改善應用。
     it = Condividi le tue idee o problemi così che possiamo migliorare l'app per te.
@@ -8014,7 +8014,7 @@
     nl = Download bijgewerkte kaart en routegegevens om alle functies van MAPS.ME te krijgen.
     fi = Lataa päivitetty kartta ja reititysdata saadaksesi kaikki MAPS.ME -ominaisuudet.
     da = Download opdaterede kort og routing data for at få alle MAPS.ME funktioner.
-    cs = Stáhněte si aktualizovanou mapu a data tras, abyste získali všechny funkce MAPS.ME.
+    cs = Stáhněte si aktualizovanou mapu a data tras, ať můžete využít všechny funkce MAPS.ME.
     zh-Hans = 下载更新的地图和路线数据，获取所有MAPS.ME的特色功能。
     zh-Hant = 下載更新的地圖和路線數據，獲取所有MAPS.ME的特色功能。
     it = Scarica la mappa aggiornata e i dati del percorso per ottenere tutte le funzionalità MAPS.ME.
@@ -8080,7 +8080,7 @@
     nl = Aanvullende gegevens die nodig zijn om routes te maken vanaf uw locatie.
     fi = Lisädata, jotka vaaditaan reittien luomiseen sijainnistasi.
     da = Yderligere data er påkrævet for at oprette ruter fra din placering.
-    cs = další data potřebná k vytvoření tras z vašeho umístění.
+    cs = Další data potřebná k plánování tras z vašeho umístění.
     zh-Hans = 更多数据，从您的位置创建路线。
     zh-Hant = 更多數據，從您的位置創建路線。
     it = dati aggiuntivi richiesti per creare i percorsi dalla tua posizione.
@@ -8113,7 +8113,7 @@
     nl = Voor het creëren van een route is het nodig dat alle kaarten van uw locatie naar uw bestemming gedownload en bijgewerkt zijn.
     fi = Reittien luonti vaatii omasta sijainnistasi päämääriin johtavien karttojen lataamiseen ja päivitykseen.
     da = Ved at oprette en rute kræver det, at alle kort fra din placering til destination er downloadede og opdaterede.
-    cs = Vytvoření trasy vyžaduje stažení a aktualizaci všech map z vašeho umístění do cílového umístění.
+    cs = Naplánování trasy vyžaduje stažení a aktualizaci všech map z vašeho umístění do cílového umístění.
     zh-Hans = 创建路线需要下载并更新好所有从您的位置到目的地的地图。
     zh-Hant = 創建路線需要下載並更新好所有從您的位置到目的地的地圖。
     it = Creare un percorso necessita la presenza di tutte le mappe scaricate e aggiornate dalla tua posizione alla destinazione.
@@ -8179,7 +8179,7 @@
     nl = U dient %@ MB te downloaden, maar er is slechts %@ MB beschikbaar.
     fi = Sinun täytyy ladata %@ MB, mutta saatavilla on vain %@ MB.
     da = Du skal downloade %@ MB, men kun %@ MB er tilgængeligt.
-    cs = Potřebujete stáhnout %@ MB, ale je dostupných pouhých %@ MB.
+    cs = Je třeba stáhnout %@ MB, ale dostupných je pouze %@ MB.
     zh-Hans = 您需要下载%@ MB，但只有%@ MB空间。
     zh-Hant = 您需要下載%@ MB，但只有%@ MB空間。
     it = Devi scaricare %@ MB, ma lo spazio disponibile è di soli %@ MB.
@@ -8212,7 +8212,7 @@
     nl = U gaat %@ MB downloaden met behulp van mobiele data (roaming). Dit kan leiden tot extra kosten, afhankelijk van het mobiele data-abonnement van uw aanbieder.
     fi = Olet lataamassa %@ MB Mobiilidatan (roaming-lataus) avulla. Tämä voi johtaa lisämaksuihin, riippuen matkapuhelinliittymäsi palveluntarjoajasta.
     da = Du kommer til at downloade %@ MB ved at bruge mobilt data (i roaming). Dette kan resultere i yderligere omkostninger alt afhængigt din operatørs mobile dataplan.
-    cs = Stáhnete přes mobilní data (v roamingu) %@ MB. To může mít za následek další poplatky v závislosti na vašem mobilním datovém tarifu.
+    cs = Chystáte se stáhnout %@ MB pomocí mobilních dat (v roamingu). To může mít za následek další poplatky v závislosti na vašem mobilním datovém tarifu.
     zh-Hans = 您将使用移动数据下载%@ MB（漫游）。这取决于您的移动数据方案运营商，可能会产生额外的费用。
     zh-Hant = 您將使用移動數據下載%@ MB（漫遊）。這取決於您的移動數據方案運營商，可能會產生額外的費用。
     it = Stai per scaricare 2840MB tramite la rete cellulare (in roaming). Questo potrebbe comportare costi aggiuntivi, in base al piano dati del tuo operatore mobile.
@@ -8933,7 +8933,7 @@
     nl = fish and chips
     fi = fish & chips
     da = fish and chips
-    cs = fish and chips
+    cs = ryba a hranolky
     it = fish and chips
     nb = fisk og pommes frites
     zh-Hant = 炸魚 和 薯條
@@ -11260,7 +11260,7 @@
     tags = android, ios
     comment = location service disabled
     en = Please enable Location Services
-    cs = Prosím, povol Služby určování polohy
+    cs = Prosím, povolte Služby určování polohy
     sk = Prosím, povoľte Služby určovania polohy
     de = Aktivieren Sie bitte Ortungsdienste in den Einstellungen
     es = Por favor, permite los servicios de localización
@@ -11384,7 +11384,7 @@
     tags = android, ios
     comment = clear pin
     en = Clear Pin
-    cs = Vyčistit připínáček
+    cs = Odebrat špendlík
     sk = Vymazať špendlík
     de = Pin löschen
     es = Borrar alfiler
@@ -11433,7 +11433,7 @@
     fr = L'emplacement actuel n'est pas défini.
     zh-Hans = 当前地点未定。
     zh-Hant = 當前地點未定。
-    cs = Aktuální poloha nebyla zatím zjištěna.
+    cs = Aktuální poloha zatím nebyla zjištěna.
     ar = الموقع الحالي غير مُعَرّف
     de = Der aktuelle Standort ist nicht definiert.
     da = Den nuværende placering er ikke defineret.
@@ -11447,7 +11447,7 @@
     tags = android, ios
     comment = download country of your location
     en = Download the country of your current location
-    cs = Stahování země tvé aktuální polohy
+    cs = Stahování země vyší aktuální polohy
     sk = Sťahovanie krajiny vašej aktuálnej polohy
     de = Land Ihres derzeitigen Standorts herunterladen
     es = Descargar país de tu ubicación actual
@@ -11590,7 +11590,7 @@
     nl = Uw omschrijvingen (tekst of html)
     fi = Kuvauksesi (teksti tai html)
     da = Dine beskrivelser (tekst eller html)
-    cs = Váš popis (HTML nebo text)
+    cs = Popis (HTML nebo text)
     zh-Hans = 您的描述（文本或html）
     zh-Hant = 您的描述（文本或html）
     it = Le tue descrizioni (formato testo o html)
@@ -11995,7 +11995,7 @@
     hu = — Az útviszonyok, forgalmi törvények és jelzőtáblák mindig elsőbbséget élveznek a navigációs útmutatásokkal szemben;
     de = – Straßenverhältnisse, die Verkehrsordnung und Straßenschilder haben stets Vorrang vor Navigationsanweisungen;
     fi = — Tien kunto, liikennesäännöt ja tiekyltit ovat aina tärkeämpiä kuin navigointilaitteen ohjeet;
-    cs = — Situace na silnici, dopravní předpisy a dopravní značení mají vždy prioritu před pokyny navigace;
+    cs = • Situace na silnici, dopravní předpisy a dopravní značení mají vždy prioritu před pokyny navigace.
     it = — Le condizioni stradali, il codice della strada e la segnaletica stradale hanno sempre precedenza sui consigli di navigazione;
     nb = – Veiforhold, trafikkregler og skilt skal alltid prioriteres fremfor navigasjonsråd;
     zh-Hant = — 道路情形、交通規則及號誌較導航意見更為優先；
@@ -12150,7 +12150,7 @@
     hu = Nem sikerült létrehozni az útvonalat. A jelenlegi GPS koordináták nem azonosíthatók.
     de = Route kann nicht erstellt werden. Aktuelle GPS-Koordinaten konnten nicht identifiziert werden.
     fi = Reittiä ei voi luoda. Tämänhetkisiä GPS-koordinaatteja ei löydy.
-    cs = Nepodařilo se vytvořit trasu. Nelze zjistit aktuální souřadnice GPS.
+    cs = Trasu se nepodařilo vytvořit. Nelze zjistit aktuální souřadnice GPS.
     it = Impossibile creare il percorso. Impossibile individuare le coordinate GPS attuali.
     nb = Ingen rute ble opprettet. Nåværende GPS-koordinater ble ikke funnet.
     zh-Hant = 未產生路線。 目前位置尚未定義。
@@ -12181,7 +12181,7 @@
     hu = Kérjük, ellenőrizze a GPS jelet. A Wi-Fi engedélyezése javítja a helyszín meghatározásának pontosságát.
     de = Bitte prüfen Sie Ihr GPS-Signal. WLAN verbessert Ihre Standortgenauigkeit.
     fi = Tarkista GPS-signaali. Wi-Fi-signaalin käyttöönotto parantaa sijainnin tarkkuutta.
-    cs = Zkontrolujte signál GPS. Povolením připojení Wi-Fi zpřesníte určení vaší polohy.
+    cs = Zkontrolujte signál GPS. Povolením připojení WiFi zpřesníte určení vaší polohy.
     it = Controlla il segnale GPS. Se abiliti il Wi-Fi, migliorerà la precisione della posizione.
     nb = Sjekk GPS-signalet. Resultatet blir mer nøyaktig når du bruker wi-fi.
     zh-Hant = 請查看 GPS。 為提升地理位置定位品質，請啟用 Wi-Fi。
@@ -12243,7 +12243,7 @@
     hu = Nem sikerült lokalizálni a jelenlegi GPS koordinátákat. Az útvonaltervezéshez engedélyezze a helyszíni szolgáltatásokat.
     de = Aktuelle GPS-Koordinaten können nicht gefunden werden. Aktivieren Sie Ortungsdienste, um die Route zu berechnen.
     fi = Tämänhetkisiä GPS-koordinaatteja ei löydy. Ota sijaintipalvelut käyttöön reitin laskemista varten.
-    cs = Nepodařilo se zjistit aktuální souřadnice GPS. Pro výpočet trasy povolte služby určování polohy.
+    cs = Aktuální souřadnice GPS se nepodařilo zjistit. Pro výpočet trasy povolte služby určování polohy.
     it = Impossibile individuare le coordinate GPS attuali. Per calcolare il percorso, abilita i servizi di localizzazione.
     nb = Nåværende GPS-koordinater ble ikke funnet. Aktiver stedstjenester for å beregne en rute.
     zh-Hant = 目前位置尚未定義。 若要產生路線，請啟用位置定位。
@@ -12274,7 +12274,7 @@
     hu = Nem sikerült lokalizálni a jelenlegi GPS koordinátákat.
     de = Aktuelle GPS-Koordinaten können nicht gefunden werden.
     fi = Tämänhetkisiä GPS-koordinaatteja ei löydy.
-    cs = Nepodařilo se zjistit aktuální souřadnice GPS.
+    cs = Aktuální souřadnice GPS se nepodařilo zjistit.
     it = Impossibile individuare le coordinate GPS attuali.
     nb = Nåværende GPS-koordinater ble ikke funnet.
     zh-Hant = 目前位置尚未定義。
@@ -12336,7 +12336,7 @@
     hu = Útvonaltervezéshez töltse le és frissítse az összes térkép- és útvonal-információt a tervezett út mentén.
     de = Laden Sie alle Karten- und Routeninformationen für den geplanten Weg herunter und aktualisieren Sie sie, um die Route zu berechnen.
     fi = Lataa ja päivitä kaikki suunnitellun reitin kartta- ja reititystiedot, jotta reitin voi laskea.
-    cs = Stáhnout a aktualizovat veškeré informace o mapách a trasách spolu s navrhovanou cestou pro výpočet trasy.
+    cs = Stáhnout a aktualizovat všechny mapy a data tras pro výpočet trasy podél navrhované cesty.
     it = Per calcolare il percorso, scarica e aggiorna tutte le mappe e le informazioni di itinerario lungo la strada prevista.
     nb = Last ned og oppdater all kart- og ruteinformasjon langs den foreslåtte veien for å beregne ruten.
     zh-Hant = 若要產生路線，請下載並更新所有地圖及沿路線的路線檔案。
@@ -12398,7 +12398,7 @@
     hu = Nem sikerült meghatározni az útvonalat
     de = Route kann nicht gefunden werden
     fi = Reitin paikannus ei onnistu
-    cs = Nepodařilo se zjistit trasu
+    cs = Trasu se nepodařilo zjistit
     it = Impossibile individuare il percorso
     nb = Kunne ikke finne rute
     zh-Hant = 路線未找到
@@ -12429,7 +12429,7 @@
     hu = Nem sikerült létrehozni az útvonalat.
     de = Route kann nicht erstellt werden.
     fi = Reitin luonti ei onnistu.
-    cs = Nepodařilo se vytvořit trasu.
+    cs = Trasu se nepodařilo vytvořit.
     it = Impossibile creare il percorso.
     nb = Kunne ikke finne rute.
     zh-Hant = 此路線尚未產生。
@@ -12460,7 +12460,7 @@
     hu = Kérjük, pontosítsa indulási helyét, vagy célállomását.
     de = Bitte passen Sie Ihren Startpunkt oder Ihr Ziel an.
     fi = Muuta aloituskohtaa tai määränpäätä.
-    cs = Upravte místo startu nebo cíle.
+    cs = Upravte výchozí nebo cílový bod.
     it = Modifica il punto di partenza o la destinazione.
     nb = Endre startpunkt eller bestemmelsessted.
     zh-Hant = 請變更起點或最終目的地。
@@ -12491,7 +12491,7 @@
     hu = Pontosítsa indulási helyét
     de = Startpunkt anpassen
     fi = Muuta aloituskohtaa
-    cs = Upravit místo startu
+    cs = Upravte výchozí bod
     it = Modifica il punto di partenza
     nb = Endre startpunkt
     zh-Hant = 變更起點
@@ -12522,7 +12522,7 @@
     hu = Az útvonal nem lett létrehozva. Nem sikerült meghatározni az indulási helyet.
     de = Route wurde nicht erstellt. Startpunkt kann nicht gefunden werden.
     fi = Reittiä ei luotu. Aloituskohdan paikannus ei onnistu.
-    cs = Trasa nebyla vytvořena. Nepodařilo se najít místo startu.
+    cs = Trasa nebyla vytvořena. Výchozí bod se nepodařilo najít.
     it = Percorso non creato. Impossibile individuare il punto di partenza.
     nb = Ingen rute ble opprettet. Startpunktet ble ikke funnet.
     zh-Hant = 此路線尚未產生。 未定義起點。
@@ -12553,7 +12553,7 @@
     hu = Kérjük, válasszon egy úthoz közelebb eső indulási helyet.
     de = Bitte wählen Sie einen Startpunkt in der Nähe einer Straße aus.
     fi = Valitse lähempänä tietä oleva aloituskohta.
-    cs = Vyberte místo startu blíže k silnici.
+    cs = Zvolte výchozí bod blíže k silnici.
     it = Seleziona un punto di partenza più vicino a una strada.
     nb = Velg et startpunkt som er i nærheten av en vei.
     zh-Hant = 請選擇更接近道路的起點。
@@ -12615,7 +12615,7 @@
     hu = Az útvonal nem lett létrehozva. Nem sikerült meghatározni a célállomást.
     de = Route wurde nicht erstellt. Ziel kann nicht gefunden werden.
     fi = Reittiä ei luotu. Määränpään paikannus ei onnistu.
-    cs = Trasa nebyla vytvořena. Nepodařilo se najít cíl.
+    cs = Trasa nebyla vytvořena. Cíl se nepodařilo najít.
     it = Percorso non creato. Impossibile individuare la destinazione.
     nb = Ingen rute ble opprettet. Bestemmelsesstedet ble ikke funnet.
     zh-Hant = 未產生路線。 未定義最終目的地。
@@ -12646,7 +12646,7 @@
     hu = Kérjük, válasszon egy úthoz közelebb eső célállomást.
     de = Bitte wählen Sie einen Zielort in der Nähe einer Straße aus.
     fi = Valitse lähempänä tietä oleva määränpää.
-    cs = Vyberte místo cíle blíže k silnici.
+    cs = Vyberte cílový bod blíže k silnici.
     it = Seleziona un punto di destinazione più vicino a una strada.
     nb = Velg et bestemmelsessted som er i nærheten av en vei.
     zh-Hant = 請選擇更接近道路的最終目的地。
@@ -12708,7 +12708,7 @@
     hu = Egy alkalmazáshiba miatt nem sikerült az útvonal létrehozása.
     de = Route kann wegen eines Anwendungsfehlers nicht erstellt werden.
     fi = Reittiä ei voi luoda sovellusvirheen vuoksi.
-    cs = Nepodařilo se vytvořit trasu z důvodu chyby aplikace.
+    cs = Trasu se nepodařilo vytvořit z důvodu chyby aplikace.
     it = Impossibile creare il percorso a causa di un errore dell'applicazione.
     nb = En applikasjonsfeil førte til at ruten ikke kunne opprettes.
     zh-Hant = 由於此錯誤，尚未建立路線。
@@ -12739,7 +12739,7 @@
     hu = Kérjük, próbálja újra
     de = Bitte versuchen Sie es erneut
     fi = Yritä uudelleen
-    cs = Zkuste to prosím znovu
+    cs = Prosím, zkuste to znovu
     it = Riprova
     nb = Vennligst prøv igjen
     zh-Hant = 請再試一次
@@ -13301,7 +13301,7 @@
     hu = Sikertelen útvonaltervezés
     de = Routenplanung fehlgeschlagen
     fi = Reitin suunnittelu epäonnistui
-    cs = Selhalo plánování trasy
+    cs = Naplánování trasy se nezdařilo
     it = Pianificazione del percorso fallito
     nb = Mislykket ruteplanlegging
     zh-Hant = 路線計劃失敗
@@ -13425,7 +13425,7 @@
     hu = Útvonal létrehozásához kérjük, töltse le és frissítse az összes térképet az útvonal mentén.
     de = Zum Erstellen einer Route müssen Sie alle Karten herunterladen und aktualisieren, die zur Route gehören.
     fi = Lataa ja päivitä kaikki kartat reitin varrella luodaksesi reitin.
-    cs = Abyste vytvořili trasu stáhněte si prosím a aktualizuje všechny mapy na cestě.
+    cs = Pro vytvoření trasy si prosím stáhněte a aktualizujte všechny mapy podél očekávané cesty.
     it = Per creare un percorso, scaricare e aggiornare tutte le mappe interessate dal percorso.
     nb = Hvis du vil oppprette en rute, last ned og oppdater alle kartene langs ruten.
     zh-Hant = 要創建路線，請下載並更新所有沿路線的地圖。
@@ -13456,7 +13456,7 @@
     hu = A MAPS.ME segít a séta menetidő spórolásában. Több mint kétmillió km gyalogos szakasz, táv és ösvény érhető el a séta útszakaszokhoz.
     de = MAPS.ME erspart Ihnen Gehzeit. Mehr als 2 Millionen km Fußgängerwege, Pfade und Wanderwege sind jetzt für Wegbeschreibungen zu Fuß verfügbar.
     fi = MAPS.ME lyhentää matkustusaikaasi. Yli 2 miljoonaa kilometriä jalankulkureitteinä, polkuina ja teinä kävelyohjeissa nyt.
-    cs = MAPS.ME vám ušetří čas chůze. Nyní jsou dostupné pokyny pro chodce pro více než 2 milióny km tratí pro chodce, stezek a pěšin.
+    cs = MAPS.ME vám ušetří čas chůze. Nyní jsou dostupné pokyny pro chodce pro více než 2 milióny km chodníků, stezek a pěšin.
     it = MAPS.ME ti fa risparmiare tempo anche a piedi. Disponibili oltre 2 milioni di km di percorsi pedonali, itinerari e sentieri pedonali.
     nb = MAPS.ME sparer deg gangetid. Mer enn 2 kilometer av gå-ruter, spor og stier er tilgjengelige for beskrivelser nå.
     zh-Hant = MAPS.ME為您節省步行時間。現在，《步行路線》提供超過2百萬公里的步行路線、路徑，以及游徑。
@@ -13642,7 +13642,7 @@
     hu = A legrövidebb útvonalat adják meg bármely megadott úti célhoz. Próbálja ki saját maga, és segítsen a barátainak is időt spórolni!
     de = Sie zeigt die kürzeste Strecke zu einem beliebigen Zielort an. Helfen Sie Ihren Freunden, auch Gehzeit zu sparen!
     fi = Ne antavat lyhyimmän reitin mihin tahansa päämäärään. Auta ystäviäsikin lyhentämään matkustusaikaansa!
-    cs = Ukážou vám nejkratší trasu do jakékoliv destinace. Pomozte svým kamarádům také ušetřit čas chůze!
+    cs = Ukážou vám nejkratší trasu do jakékoliv destinace. Pomozte svým přátelům také ušetřit čas chůze!
     it = Indicano il percorso più veloce verso la tua destinazione. Aiuta i tuoi amici a risparmiare tempo!
     nb = De gir den korteste ruten til enhver destinasjon. Hjelp vennene dine å spare tid også!
     zh-Hant = 它們會給出至任何目的地的最短路線。幫助您的朋友也節省步行時間！
@@ -13704,7 +13704,7 @@
     hu = Elsajátította a séta útvonalak funkciót. Segítsen a barátainak is séta menetidőt spórolni. Számoljon be nekik a MAPS.ME-ről.
     de = Sie beherrschen die Funktion der Wegbeschreibungen zu Fuß. Helfen Sie Ihren Freunden, auch Gehzeit zu sparen. Erzählen Sie ihnen von MAPS.ME.
     fi = Hallitset nyt Kävelyohje-toiminnon. Auta ystäviäsikin lyhentämään kävelyaikaansa. Kerro heille MAPS.ME:sta.
-    cs = Zvládli jste funkci Pokyny pro chodce. Pomozte svým kamarádům také ušetřit čas chůze. Řekněte jim o MAPS.ME.
+    cs = Zvládli jste funkci Pokyny pro chodce. Pomozte svým přátelům také ušetřit čas chůze. Řekněte jim o MAPS.ME.
     it = Hai usufruito della funzione percorsi pedonali. Aiuta i tuoi amici a risparmiare tempo. Invitali a scoprire MAPS.ME.
     nb = Du mestret Gå-ruter funksjonen. Hjelp vennene dine å spare tid, også. Fortell dem om MAPS.ME.
     zh-Hant = 您已經掌握了步行路線的功能了。幫助您的朋友也節省步行時間。告訴他們關於MAPS.ME的信息。
@@ -13766,7 +13766,7 @@
     hu = A legrövidebb útvonalat adják meg bármely megszabott úti célhoz. Próbálja ki saját maga, és segítsen a barátainak időt spórolni.
     de = Sie zeigt die kürzeste Strecke zu einem beliebigen Zielort an. Probieren Sie sie selber aus  und helfen Sie Ihren Freunden, Reisezeit zu sparen.
     fi = Ne antavat lyhyimmän reitin mihin tahansa päämäärään. Kokeile itse, ja auta ystäviäsi lyhentämään matkustusaikaansa.
-    cs = Ukážou vám nejkratší trasu do cílového bodu. Vyzkoušejte si to sami a pomozte svým kamarádům ušetřit čas cestování.
+    cs = Ukážou vám nejkratší trasu do cílového bodu. Vyzkoušejte si to sami a pomozte svým přátelům ušetřit čas cestování.
     it = Indicano il percorso più veloce verso la tua destinazione. Provali tu stesso e aiuta i tuoi amici a risparmiare tempo.
     nb = De gir den korteste ruten til enhver destinasjon. Prøv dem selv og hjelp vennene dine å spare reisetid.
     zh-Hant = 它們提供至任何目的地的最短路線。您自己來嘗試一下，並且幫助您的朋友節省旅行時間。
@@ -13796,7 +13796,7 @@
     hu = Tetszik az app?
     de = Gefällt Ihnen die App? 
     fi = Pidätkö sovelluksesta?
-    cs = Líbí se Vám aplikace? 
+    cs = Líbí se vám aplikace? 
     it = Ti piace l’app? 
     nb = Liker du appen? 
     zh-Hant = 喜歡這個應用嗎？
@@ -13826,7 +13826,7 @@
     hu = Köszönjük, hogy a MAPS.ME-t használta. Kérjük, értékelje az appot. A visszajelzéseik segítenek bennünket abban, hogy jobbá váljunk. 
     de = Danke, dass Sie MAPS.ME nutzen. Bitte bewerten Sie die App. Ihr Feedback hilft uns besser zu werden.
     fi = Kiitos kun käytät MAPS.ME:tä. Voisitko myös arvostella sovelluksen? Palautteesi avulla tulemme vielä paremmiksi.
-    cs = Děkujeme, že používáte MAPS.ME. Ohodnoťte, prosím, tuto aplikaci. Váš komentář nám pomůže zlepšovat se.
+    cs = Děkujeme, že používáte MAPS.ME. Ohodnoťte, prosím, tuto aplikaci. Váš komentář nám pomůže ji ještě zlepšit.
     it = Grazie per aver utilizzato MAPS.ME. Valuta l’app. Il tuo feedback ci permette di migliorare.
     nb = Takk for at du bruker MAPS.ME. Vi setter stor pris på om du rangerer appen. Tilbakemeldinger hjelper oss med å bli bedre.
     zh-Hant = 感謝您使用 MAPS.ME。請，評價該應用。您的反饋幫助我們變得更好。
@@ -13856,7 +13856,7 @@
     hu = Hurrá! Mi is szeretjük magát!
     de = Hurra! Wir lieben Sie auch!
     fi = Hurraa! Mekin rakastamme sinua!
-    cs = Hurá! Také Vás zbožňujeme!
+    cs = Hurá! Také vás zbožňujeme!
     it = Hooray! Anche noi amiamo i nostri utenti!
     nb = Hurra! Vi elsker deg også!
     zh-Hant = 太棒了！我們也愛您！
@@ -13916,7 +13916,7 @@
     hu = Van valami ötlete, amivel jobbá tehetnénk?
     de = Haben Sie eine Idee, wie wir besser werden können?
     fi = Kertoisitko missä voisimme parantaa?
-    cs = Nějaké nápady, jak to můžeme dělat lépe?
+    cs = Nějaké nápady, co můžeme udělat lépe?
     it = Hai qualche idea su come migliorarla?
     nb = Noen tanker om hvordan vi kan forbedre den?
     zh-Hant = 有沒有想法我們能怎麽把它變得更好？
@@ -14097,7 +14097,7 @@
     hu = Sajnos, semmit nem találtam.
     de = Bedaure, ich habe nichts gefunden.
     fi = Pahoittelut, hakutuloksia ei ole.
-    cs = Omlouvám se, nic jsem nenalezl.
+    cs = Omlouvám se, nic nenalezeno.
     it = Spiacente, non ho trovato nulla.
     nb = Beklager, jeg fant ingenting.
     zh-Hant = 很抱歉，我找不到任何東西。
@@ -14127,7 +14127,7 @@
     hu = Próbáljon másik lekérdezést.
     de = Versuchen Sie bitte eine andere Suchanfrage.
     fi = Yritä jotain toista hakusanaa.
-    cs = Zkuste, prosím, jiný dotaz.
+    cs = Zkuste zadat jiný hledaný výraz.
     it = Prova con un'altra ricerca.
     nb = Vennligst prøv et annet søk.
     zh-Hant = 請試另一條問題。
@@ -14157,7 +14157,7 @@
     hu = Töltse le azt a térképet, amelyen keres.
     de = Laden Sie die Karte, in der Sie suchen, bitte herunter.
     fi = Lataa kartat sille alueelle jolta haet.
-    cs = Stáhněte si, prosím, mapu, ve které hledáte.
+    cs = Stáhněte si mapu, ve které hledáte.
     it = Scarica la mappa nella quale stai cercando.
     nb = Vennligst last ned kartet du søker i.
     zh-Hant = 請下載你搜尋的地圖。
@@ -14247,7 +14247,7 @@
     hu = Aktuális keresés gyors elérése.
     de = Schnell auf die letzten Suchanfragen zugreifen.
     fi = Siirry nopeasti aikaisempaan hakuun.
-    cs = Získejte přístup k hledanému dotazu rychle.
+    cs = Získejte rychlý přístup k hledaným výrazům.
     it = Accedi velocemente alle stringhe di ricerca recenti.
     nb = Vis de siste søkene raskt.
     zh-Hant = 快速存取最近搜尋的問題。

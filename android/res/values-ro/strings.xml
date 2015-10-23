@@ -273,7 +273,7 @@
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Tin nhắn</string>
 	<!-- Share by email button text -->
-	<string name="email">E-Mail</string>
+	<string name="email">E-mail</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Copiați link-ul</string>
 	<!-- Text for the button that returns to caller application -->
