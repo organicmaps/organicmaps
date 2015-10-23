@@ -147,12 +147,12 @@ void ColorPalette::UploadResources(ref_ptr<Texture> texture)
 
       for (size_t row = 0; row < kResourceSize; row++)
       {
-        for (size_t colomn = 0; colomn < kResourceSize; colomn++)
+        for (size_t column = 0; column < kResourceSize; column++)
         {
-          pointer[row * byteStride + colomn * kBytesPerPixel] = red;
-          pointer[row * byteStride + colomn * kBytesPerPixel + 1] = green;
-          pointer[row * byteStride + colomn * kBytesPerPixel + 2] = blue;
-          pointer[row * byteStride + colomn * kBytesPerPixel + 3] = alpha;
+          pointer[row * byteStride + column * kBytesPerPixel] = red;
+          pointer[row * byteStride + column * kBytesPerPixel + 1] = green;
+          pointer[row * byteStride + column * kBytesPerPixel + 2] = blue;
+          pointer[row * byteStride + column * kBytesPerPixel + 3] = alpha;
         }
       }
 
