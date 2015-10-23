@@ -121,6 +121,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private ImageButton mBtnZoomOut;
 
   private boolean mIsFragmentContainer;
+  private boolean mIsFullscreen;
 
   private LocationPredictor mLocationPredictor;
   private FloatingSearchToolbarController mSearchController;
@@ -833,14 +834,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     switch (newMode)
     {
-      case LocationState.UNKNOWN_POSITION:
-        pauseLocation();
-        break;
-      case LocationState.PENDING_POSITION:
-        resumeLocation();
-        break;
-      default:
-        break;
+    case LocationState.UNKNOWN_POSITION:
+      pauseLocation();
+      break;
+    case LocationState.PENDING_POSITION:
+      resumeLocation();
+      break;
+    default:
+      break;
     }
   }
 
@@ -1007,6 +1008,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void activateMapObject(MapObject object)
   {
+    setFullscreen(false);
     if (!mPlacePage.hasMapObject(object))
     {
       mPlacePage.setMapObject(object);
@@ -1022,6 +1024,48 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (!mPlacePage.hasMapObject(null))
       mPlacePage.hide();
+    else
+    {
+      if ((mPanelAnimator != null && mPanelAnimator.isVisible()) ||
+          UiUtils.isVisible(mSearchController.getToolbar()))
+        return;
+
+      setFullscreen(!mIsFullscreen);
+    }
+  }
+
+  private void setFullscreen(boolean isFullscreen)
+  {
+    mIsFullscreen = isFullscreen;
+    if (isFullscreen)
+    {
+      Animations.disappearSliding(mMainMenu.getFrame(), Animations.BOTTOM, new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          final int menuHeight = mMainMenu.getFrame().getHeight();
+          adjustCompass(0, menuHeight);
+          adjustRuler(0, menuHeight);
+        }
+      });
+      Animations.disappearSliding(mBtnZoomOut, Animations.RIGHT, null);
+      Animations.disappearSliding(mBtnZoomIn, Animations.RIGHT, null);
+    }
+    else
+    {
+      Animations.appearSliding(mMainMenu.getFrame(), Animations.BOTTOM, new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          adjustCompass(0, 0);
+          adjustRuler(0, 0);
+        }
+      });
+      Animations.appearSliding(mBtnZoomOut, Animations.RIGHT, null);
+      Animations.appearSliding(mBtnZoomIn, Animations.RIGHT, null);
+    }
   }
 
   @Override
@@ -1121,27 +1165,29 @@ public class MwmActivity extends BaseMwmFragmentActivity
     public boolean run(MwmActivity target)
     {
       if (mDoAutoDownload)
-      {
         Framework.downloadCountry(mIndex);
-        // set zoom level so that download process is visible
-        Framework.nativeShowCountry(mIndex, true);
-      }
-      else
-        Framework.nativeShowCountry(mIndex, false);
-
+      Framework.nativeShowCountry(mIndex, mDoAutoDownload);
       return true;
     }
   }
 
-  public void adjustCompass(int offset)
+  public void adjustCompass(int offsetX, int offsetY)
   {
     if (mMapFragment == null || !mMapFragment.isAdded())
       return;
 
-    mMapFragment.setupCompass(mPanelAnimator.isVisible() ? offset : 0, true /* forceRedraw */);
+    mMapFragment.setupCompass((mPanelAnimator != null && mPanelAnimator.isVisible()) ? offsetX : 0, offsetY, true);
 
     if (mLastCompassData != null)
       MapFragment.nativeCompassUpdated(mLastCompassData.magneticNorth, mLastCompassData.trueNorth, true);
+  }
+
+  public void adjustRuler(int offsetX, int offsetY)
+  {
+    if (mMapFragment == null || !mMapFragment.isAdded())
+      return;
+
+    mMapFragment.setupRuler(offsetX, offsetY, true);
   }
 
   @Override

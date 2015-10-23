@@ -18,7 +18,7 @@ public class WebViewShadowController extends BaseShadowController<ObservableWebV
         return (mList.getScrollY() > 0);
 
       case BOTTOM:
-        return (mList.getScrollY() + mList.getHeight() < UiUtils.dp(mList.getContentHeight() - 1));
+        return (mList.getScrollY() + mList.getHeight() < UiUtils.toPx(mList.getContentHeight() - 1));
 
       default:
         throw new IllegalArgumentException("Invalid shadow id: " + id);

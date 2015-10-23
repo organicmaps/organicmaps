@@ -1559,26 +1559,26 @@ PoiMarkPoint * Framework::GetAddressMark(m2::PointD const & globalPoint) const
 
 void Framework::ActivateUserMark(UserMark const * mark, bool needAnim)
 {
-  if (m_activateUserMarkFn)
-  {
-    if (mark)
-    {
-      m_activateUserMarkFn(mark->Copy());
-      m2::PointD pt = mark->GetPivot();
-      df::SelectionShape::ESelectedObject object = df::SelectionShape::OBJECT_USER_MARK;
-      UserMark::Type type = mark->GetMarkType();
-      if (type == UserMark::Type::MY_POSITION)
-        object = df::SelectionShape::OBJECT_MY_POSITION;
-      else if (type == UserMark::Type::POI)
-        object = df::SelectionShape::OBJECT_POI;
+  if (!m_activateUserMarkFn)
+      return;
 
-      CallDrapeFunction(bind(&df::DrapeEngine::SelectObject, _1, object, pt, needAnim));
-    }
-    else
-    {
-      m_activateUserMarkFn(nullptr);
-      CallDrapeFunction(bind(&df::DrapeEngine::DeselectObject, _1));
-    }
+  if (mark)
+  {
+    m_activateUserMarkFn(mark->Copy());
+    m2::PointD pt = mark->GetPivot();
+    df::SelectionShape::ESelectedObject object = df::SelectionShape::OBJECT_USER_MARK;
+    UserMark::Type type = mark->GetMarkType();
+    if (type == UserMark::Type::MY_POSITION)
+      object = df::SelectionShape::OBJECT_MY_POSITION;
+    else if (type == UserMark::Type::POI)
+      object = df::SelectionShape::OBJECT_POI;
+
+    CallDrapeFunction(bind(&df::DrapeEngine::SelectObject, _1, object, pt, needAnim));
+  }
+  else
+  {
+    m_activateUserMarkFn(nullptr);
+    CallDrapeFunction(bind(&df::DrapeEngine::DeselectObject, _1));
   }
 }
 

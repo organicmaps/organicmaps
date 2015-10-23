@@ -45,6 +45,7 @@ public class MapFragment extends BaseMwmFragment
   private static final int INVALID_TOUCH_ID = -1;
 
   private int mHeight;
+  private int mWidth;
   private boolean mRequireResize;
   private boolean mEngineCreated;
 
@@ -58,14 +59,15 @@ public class MapFragment extends BaseMwmFragment
   private void setupWidgets(int width, int height)
   {
     mHeight = height;
+    mWidth = width;
 
     nativeSetupWidget(WIDGET_RULER,
-                      width - UiUtils.dimen(R.dimen.margin_ruler_right),
+                      mWidth - UiUtils.dimen(R.dimen.margin_ruler_right),
                       mHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom),
                       ANCHOR_RIGHT_BOTTOM);
 
     nativeSetupWidget(WIDGET_COPYRIGHT,
-                      width / 2,
+                      mWidth / 2,
                       UiUtils.dimen(R.dimen.margin_base),
                       ANCHOR_TOP);
 
@@ -77,15 +79,25 @@ public class MapFragment extends BaseMwmFragment
                         ANCHOR_LEFT_TOP);
     }
 
-    setupCompass(0, false);
+    setupCompass(0, 0, false);
   }
 
-  void setupCompass(int offset, boolean forceRedraw)
+  void setupCompass(int offsetX, int offsetY, boolean forceRedraw)
   {
     nativeSetupWidget(WIDGET_COMPASS,
-                      UiUtils.dimen(R.dimen.margin_compass_left) + offset,
-                      mHeight - UiUtils.dimen(R.dimen.margin_compass_bottom),
+                      UiUtils.dimen(R.dimen.margin_compass_left) + offsetX,
+                      mHeight - UiUtils.dimen(R.dimen.margin_compass_bottom) + offsetY,
                       ANCHOR_CENTER);
+    if (forceRedraw)
+      nativeApplyWidgets();
+  }
+
+  void setupRuler(int offsetX, int offsetY, boolean forceRedraw)
+  {
+    nativeSetupWidget(WIDGET_RULER,
+                      mWidth - UiUtils.dimen(R.dimen.margin_ruler_right) + offsetX,
+                      mHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom) + offsetY,
+                      ANCHOR_RIGHT_BOTTOM);
     if (forceRedraw)
       nativeApplyWidgets();
   }

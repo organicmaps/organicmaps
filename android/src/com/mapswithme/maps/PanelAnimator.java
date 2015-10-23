@@ -82,7 +82,7 @@ class PanelAnimator
       public void onAnimationEnd(Animator animation)
       {
         mAnimationTrackListener.onTrackFinished(true);
-        mActivity.adjustCompass(WIDTH);
+        mActivity.adjustCompass(WIDTH, 0);
       }
     });
 
@@ -118,7 +118,7 @@ class PanelAnimator
       {
         UiUtils.hide(mPanel);
         mAnimationTrackListener.onTrackFinished(false);
-        mActivity.adjustCompass(0);
+        mActivity.adjustCompass(0, 0);
 
         if (completionListener != null)
           completionListener.run();
