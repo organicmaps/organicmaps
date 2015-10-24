@@ -574,7 +574,30 @@ BOOST_AUTO_TEST_CASE(OpeningHoursYearRanges_TestParseUnparse)
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TYearRanges>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
+}
 
+BOOST_AUTO_TEST_CASE(OpeningHoursWeekRanges_TestParseUnparse)
+{
+  {
+    auto const rule = "week 15";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TWeekRanges>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "week 19-31";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TWeekRanges>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "week 18-36/3";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TWeekRanges>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "week 18-36/3,11";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TWeekRanges>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
 }
 
 // BOOST_AUTO_TEST_CASE(OpeningHours_TimeHit)

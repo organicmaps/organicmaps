@@ -448,6 +448,36 @@ using TYearRanges = std::vector<YearRange>;
 
 std::ostream & operator<<(std::ostream & ost, YearRange const range);
 std::ostream & operator<<(std::ostream & ost, TYearRanges const ranges);
+
+class WeekRange
+{
+ public:
+  using TWeek = uint8_t;
+
+ public:
+  bool IsEmpty() const;
+  bool HasStart() const;
+  bool HasEnd() const;
+  bool HasPeriod() const;
+
+  TWeek GetStart() const;
+  TWeek GetEnd() const;
+  uint32_t GetPeriod() const;
+
+  void SetStart(TWeek const start);
+  void SetEnd(TWeek const end);
+  void SetPeriod(uint32_t const period);
+
+ private:
+  TWeek m_start{};
+  TWeek m_end{};
+  uint32_t m_period{0};
+};
+
+using TWeekRanges = std::vector<WeekRange>;
+
+std::ostream & operator<<(std::ostream & ost, WeekRange const range);
+std::ostream & operator<<(std::ostream & ost, TWeekRanges const ranges);
 } // namespace osmoh
 
 

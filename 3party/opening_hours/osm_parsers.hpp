@@ -122,28 +122,35 @@ class year_selector : public qi::grammar<Iterator, osmoh::TYearRanges(), space_t
   }
 };
 
- // template <typename Iterator>
-// class week_selector : public qi::grammar<Iterator, space_type>
-// {
-//  protected:
-//   qi::rule<Iterator, space_type> week;
-//   qi::rule<Iterator, space_type> year_range;
-//   qi::rule<Iterator, space_type> main;
-//  public:
-//   week_selector() : week_selector::base_type(main)
-//   {
-//     using qi::uint_;
-//     using qi::lit;
-//     using charset::char_;
+template <typename Iterator>
+class week_selector : public qi::grammar<Iterator, osmoh::TWeekRanges(), space_type>
+{
+ protected:
+  qi::rule<Iterator, osmoh::WeekRange(), space_type> week;
+  qi::rule<Iterator, osmoh::TWeekRanges(), space_type> main;
 
-//     week %= (weeknum >> dash >> weeknum >> '/' >> uint_)
-//         | (weeknum >> dash >> weeknum)
-//         | weeknum
-//         ;
+ public:
+  week_selector() : week_selector::base_type(main)
+  {
+    using qi::uint_;
+    using qi::lit;
+    using qi::_1;
+    using qi::_2;
+    using qi::_3;
+    using qi::_val;
 
-//     main %= charset::no_case[lit("week")] >> week % ',';
-//   }
-// };
+    week = (weeknum >> dash >> weeknum >> '/' >> uint_)
+           [bind(&osmoh::WeekRange::SetStart, _val, _1),
+            bind(&osmoh::WeekRange::SetEnd, _val, _2),
+            bind(&osmoh::WeekRange::SetPeriod, _val, _3)]
+        | (weeknum >> dash >> weeknum) [bind(&osmoh::WeekRange::SetStart, _val, _1),
+                                        bind(&osmoh::WeekRange::SetEnd, _val, _2)]
+        | weeknum                      [bind(&osmoh::WeekRange::SetStart, _val, _1)]
+        ;
+
+    main %= charset::no_case[lit("week")] >> (week % ',');
+  }
+};
 
 template <typename Iterator>
 class month_selector : public qi::grammar<Iterator, TMonthdayRanges(), space_type>

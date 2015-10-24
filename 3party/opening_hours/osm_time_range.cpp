@@ -987,6 +987,77 @@ std::ostream & operator<<(std::ostream & ost, TYearRanges const ranges)
   return ost;
 }
 
+
+bool WeekRange::IsEmpty() const
+{
+  return !HasStart() && !HasEnd();
+}
+
+bool WeekRange::HasStart() const
+{
+  return GetStart() != 0;
+}
+
+bool WeekRange::HasEnd() const
+{
+  return GetEnd() != 0;
+}
+
+bool WeekRange::HasPeriod() const
+{
+  return GetPeriod() != 0;
+}
+
+WeekRange::TWeek WeekRange::GetStart() const
+{
+  return m_start;
+}
+
+WeekRange::TWeek WeekRange::GetEnd() const
+{
+  return m_end;
+}
+
+uint32_t WeekRange::GetPeriod() const
+{
+  return m_period;
+}
+
+void WeekRange::SetStart(TWeek const start)
+{
+  m_start = start;
+}
+
+void WeekRange::SetEnd(TWeek const end)
+{
+  m_end = end;
+}
+
+void WeekRange::SetPeriod(uint32_t const period)
+{
+  m_period = period;
+}
+
+std::ostream & operator<<(std::ostream & ost, WeekRange const range)
+{
+  PrintPaddedNumber(ost, range.GetStart(), 2);
+  if (range.HasEnd())
+  {
+    ost << '-';
+    PrintPaddedNumber(ost, range.GetEnd(), 2);
+    if (range.HasPeriod())
+      ost << '/' << range.GetPeriod();
+  }
+  return ost;
+}
+
+std::ostream & operator<<(std::ostream & ost, TWeekRanges const ranges)
+{
+  ost << "week ";
+  PrintVector(ost, ranges);
+  return ost;
+}
+
 // std::ostream & operator << (std::ostream & s, State const & w)
 // {
 //   static char const * st[] = {"unknown", "closed", "open"};

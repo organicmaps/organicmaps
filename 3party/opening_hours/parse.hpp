@@ -9,4 +9,5 @@ bool Parse(std::string const &, TTimespans &);
 bool Parse(std::string const &, Weekdays &);
 bool Parse(std::string const &, TMonthdayRanges &);
 bool Parse(std::string const &, TYearRanges &);
+bool Parse(std::string const &, TWeekRanges &);
 } // namespace osmoh
