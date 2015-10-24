@@ -414,6 +414,40 @@ using TMonthdayRanges = std::vector<MonthdayRange>;
 
 std::ostream & operator<<(std::ostream & ost, MonthdayRange const & range);
 std::ostream & operator<<(std::ostream & ost, TMonthdayRanges const & ranges);
+
+
+class YearRange
+{
+ public:
+  using TYear = uint16_t;
+
+ public:
+  bool IsEmpty() const;
+  bool HasStart() const;
+  bool HasEnd() const;
+  bool HasPlus() const;
+  bool HasPeriod() const;
+
+  TYear GetStart() const;
+  TYear GetEnd() const;
+  uint32_t GetPeriod() const;
+
+  void SetStart(TYear const start);
+  void SetEnd(TYear const end);
+  void SetPlus(bool const plus);
+  void SetPeriod(uint32_t const period);
+
+ private:
+  TYear m_start{};
+  TYear m_end{};
+  bool m_plus{false};
+  uint32_t m_period{0};
+};
+
+using TYearRanges = std::vector<YearRange>;
+
+std::ostream & operator<<(std::ostream & ost, YearRange const range);
+std::ostream & operator<<(std::ostream & ost, TYearRanges const ranges);
 } // namespace osmoh
 
 
@@ -469,52 +503,4 @@ std::ostream & operator<<(std::ostream & ost, TMonthdayRanges const & ranges);
 
 //   osmoh::TTimeRules m_rules;
 //   std::string m_comment;
-// };
-
-
-
-
-/// Trash
-
-// class TimeEx
-// {
-//  public:
-//   enum EFlags
-//   {
-//     eNone = 0,
-//     eHours = 1,
-//     eMinutes = 2,
-//     ePlus = 4,
-//     eMinus = 8,
-//     eExt = 16,
-//     eSunrise = 32,
-//     eSunset = 64
-//   };
-
-//   uint8_t hours;
-//   uint8_t minutes;
-//   uint8_t flags;
-
-//   Time() : hours(0), minutes(0), flags(eNone) {}
-//   Time & Hours(uint8_t h) { hours = h; flags |= eHours; return *this; }
-//   Time & Minutes(uint8_t m) { minutes = m; flags |= eMinutes; return *this; }
-//   Time & Sunset() { flags = eSunset; return *this; }
-//   Time & Sunrise() { flags = eSunrise; return *this; }
-
-//   std::string ToString() const;
-//   friend std::ostream & operator << (std::ostream & s, Time const & t);
-// };
-
-// class TimeSpanEx
-// {
-//  public:
-//   Time from;
-//   Time to;
-//   uint8_t flags;
-//   Time period;
-
-//   TimeSpan() : flags(Time::eNone) {}
-
-//   std::string ToString() const;
-//   friend std::ostream & operator << (std::ostream & s, TimeSpan const & span);
 // };

@@ -907,6 +907,86 @@ std::ostream & operator<<(std::ostream & ost, TMonthdayRanges const & ranges)
 }
 
 
+bool YearRange::IsEmpty() const
+{
+  return !HasStart() && !HasEnd();
+}
+
+bool YearRange::HasStart() const
+{
+  return GetStart() != 0;
+}
+
+bool YearRange::HasEnd() const
+{
+  return GetEnd() != 0;
+}
+
+bool YearRange::HasPlus() const
+{
+  return m_plus;
+}
+
+bool YearRange::HasPeriod() const
+{
+  return GetPeriod() != 0;
+}
+
+YearRange::TYear YearRange::GetStart() const
+{
+  return m_start;
+}
+
+YearRange::TYear YearRange::GetEnd() const
+{
+  return m_end;
+}
+
+uint32_t YearRange::GetPeriod() const
+{
+  return m_period;
+}
+
+void YearRange::SetStart(TYear const start)
+{
+  m_start = start;
+}
+
+void YearRange::SetEnd(TYear const end)
+{
+  m_end = end;
+}
+
+void YearRange::SetPlus(bool const plus)
+{
+  m_plus = plus;
+}
+
+void YearRange::SetPeriod(uint32_t const period)
+{
+  m_period = period;
+}
+
+std::ostream & operator<<(std::ostream & ost, YearRange const range)
+{
+  ost << range.GetStart();
+  if (range.HasEnd())
+  {
+    ost << '-' << range.GetEnd();
+    if (range.HasPeriod())
+      ost << '/' << range.GetPeriod();
+  }
+  else if (range.HasPlus())
+    ost << '+';
+  return ost;
+}
+
+std::ostream & operator<<(std::ostream & ost, TYearRanges const ranges)
+{
+  PrintVector(ost, ranges);
+  return ost;
+}
+
 // std::ostream & operator << (std::ostream & s, State const & w)
 // {
 //   static char const * st[] = {"unknown", "closed", "open"};

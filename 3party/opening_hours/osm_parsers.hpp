@@ -88,33 +88,41 @@ namespace charset = boost::spirit::standard_wide;
 
 using space_type = charset::space_type;
 
-// template <class Iterator>
-// class year_selector : public qi::grammar<Iterator, space_type>
-// {
-//  protected:
-//   qi::rule<Iterator, space_type> year;
-//   qi::rule<Iterator, space_type> year_range;
-//   qi::rule<Iterator, space_type> main;
-//  public:
-//   year_selector() : year_selector::base_type(main)
-//   {
-//     using qi::uint_;
-//     using qi::lit;
-//     using charset::char_;
+template <class Iterator>
+class year_selector : public qi::grammar<Iterator, osmoh::TYearRanges(), space_type>
+{
+ protected:
+  qi::rule<Iterator, osmoh::YearRange(), space_type> year_range;
+  qi::rule<Iterator, osmoh::TYearRanges(), space_type> main;
 
-//     static const qi::int_parser<unsigned, 10, 4, 4> _4digit = {};
+ public:
+  year_selector() : year_selector::base_type(main)
+  {
+    using qi::uint_;
+    using qi::lit;
+    using qi::_1;
+    using qi::_2;
+    using qi::_3;
+    using qi::_val;
 
-//     year %= _4digit;
-//     year_range %= (year >> dash >> year >> '/' >> uint_)
-//         | (year >> dash >> year)
-//         | year >> char_('+')
-//         | year
-//         ;
-//     main %= year_range % ',';
-//   }
-// };
+    static const qi::int_parser<unsigned, 10, 4, 4> year = {};
 
-// template <typename Iterator>
+    year_range = (year >> dash >> year >> '/' >> uint_)
+                  [bind(&osmoh::YearRange::SetStart, _val, _1),
+                   bind(&osmoh::YearRange::SetEnd, _val, _2),
+                   bind(&osmoh::YearRange::SetPeriod, _val, _3)]
+        | (year >> dash >> year) [bind(&osmoh::YearRange::SetStart, _val, _1),
+                                  bind(&osmoh::YearRange::SetEnd, _val, _2)]
+        | (year >> lit('+'))     [bind(&osmoh::YearRange::SetStart, _val, _1),
+                                  bind(&osmoh::YearRange::SetPlus, _val, true)]
+        | year                   [bind(&osmoh::YearRange::SetStart, _val, _1)]
+        ;
+
+    main %= (year_range % ',');
+  }
+};
+
+ // template <typename Iterator>
 // class week_selector : public qi::grammar<Iterator, space_type>
 // {
 //  protected:

@@ -21,6 +21,11 @@ template<typename Iterator> struct context_parser<osmoh::TMonthdayRanges, Iterat
   using type = osmoh::parsing::month_selector<Iterator>;
 };
 
+template<typename Iterator> struct context_parser<osmoh::TYearRanges, Iterator>
+{
+  using type = osmoh::parsing::year_selector<Iterator>;
+};
+
 template <typename Context, typename Iterator>
 using context_parser_t = typename context_parser<Context, Iterator>::type;
 
@@ -66,5 +71,10 @@ bool Parse(std::string const & str, Weekdays & w)
 bool Parse(std::string const & str, TMonthdayRanges & m)
 {
   return ParseImp(str, m);
+}
+
+bool Parse(std::string const & str, TYearRanges & y)
+{
+  return ParseImp(str, y);
 }
 } // namespace osmoh

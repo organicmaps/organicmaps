@@ -552,6 +552,30 @@ BOOST_AUTO_TEST_CASE(OpeningHoursMonthdayRanges_TestParseUnparse)
   }
 }
 
+BOOST_AUTO_TEST_CASE(OpeningHoursYearRanges_TestParseUnparse)
+{
+  {
+    auto const rule = "1995";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TYearRanges>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "1997+";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TYearRanges>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "2018-2019";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TYearRanges>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "2018-2036/11";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TYearRanges>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+
+}
 
 // BOOST_AUTO_TEST_CASE(OpeningHours_TimeHit)
 // {
