@@ -11,6 +11,7 @@ include($$ROOT_DIR/common.pri)
 OPENING_HOURS_INCLUDE = $$ROOT_DIR/3party/opening_hours
 INCLUDEPATH += $$OPENING_HOURS_INCLUDE
 
-SOURCES += osm_time_range_tests.cpp
 HEADERS += $$OPENING_HOURS_INCLUDE/osm_time_range.hpp \
            $$OPENING_HOURS_INCLUDE/parse.hpp \
+
+SOURCES += osm_time_range_tests.cpp

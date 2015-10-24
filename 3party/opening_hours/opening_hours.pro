@@ -13,8 +13,9 @@ ROOT_DIR = ../..
 
 include($$ROOT_DIR/common.pri)
 
-SOURCES += osm_time_range.cpp parse.cpp
 HEADERS += osm_time_range.hpp \
            osm_parsers.hpp \
            osm_parsers_terminals.hpp \
            parse.hpp \
+
+SOURCES += osm_time_range.cpp parse.cpp
