@@ -123,7 +123,7 @@ struct weeknum_ : qi::symbols<char, unsigned>
   }
 } weeknum;
 
-struct daynum_ : qi::symbols<char, unsigned>
+struct daynum_ : qi::symbols<char, MonthDay::TDayNum>
 {
   daynum_()
   {

@@ -34,7 +34,7 @@
 namespace
 {
 template <typename T>
-void print_vector(std::ostream & ost, std::vector<T> const & v)
+void PrintVector(std::ostream & ost, std::vector<T> const & v)
 {
   auto it = begin(v);
   if (it == end(v))
@@ -46,7 +46,7 @@ void print_vector(std::ostream & ost, std::vector<T> const & v)
   }
 }
 
-void print_offset(std::ostream & ost, int32_t const offset)
+void PrintOffset(std::ostream & ost, int32_t const offset)
 {
   if (offset == 0)
     return;
@@ -59,6 +59,32 @@ void print_offset(std::ostream & ost, int32_t const offset)
   if (std::abs(offset) > 1)
     ost << 's';
 }
+
+class StreamFlagsKeeper
+{
+ public:
+  StreamFlagsKeeper(std::ostream & ost):
+      m_ost(ost),
+      m_flags(m_ost.flags())
+  {
+  }
+
+  ~StreamFlagsKeeper()
+  {
+    m_ost.flags(m_flags);
+  }
+
+ private:
+  std::ostream & m_ost;
+  std::ios_base::fmtflags m_flags;
+};
+
+void PrintPaddedNumber(std::ostream & ost, uint32_t const number, uint32_t const padding = 1)
+{
+  StreamFlagsKeeper keeper{ost};
+  ost << std::setw(padding) << std::setfill('0') << number;
+}
+
 } // namespace
 
 namespace osmoh
@@ -193,7 +219,6 @@ std::ostream & operator<<(std::ostream & ost, Time::EEvent const event)
 
 std::ostream & operator<<(std::ostream & ost, Time const & time)
 {
-  std::ios_base::fmtflags backupFlags = ost.flags();
   if (!time.HasValue())
   {
     ost << "hh:mm";
@@ -211,26 +236,22 @@ std::ostream & operator<<(std::ostream & ost, Time const & time)
         ost << '-';
       else
         ost << '+';
-      ost << std::setw(2) << std::setfill('0')
-          << std::abs(hours)
-          << ':' <<  std::setw(2)
-          << std::abs(minutes) << ')';
+      PrintPaddedNumber(ost, std::abs(hours), 2);
+      ost << ':';
+      PrintPaddedNumber(ost, std::abs(minutes), 2);
+      ost << ')';
     }
     ost << time.GetEvent();
   }
   if (time.IsMinutes())
-  {
-    ost << std::setw(2) << std::setfill('0')
-        << std::abs(minutes);
-  }
+    PrintPaddedNumber(ost, std::abs(minutes), 2);
   else
   {
-    ost << std::setw(2) << std::setfill('0')
-        << std::abs(hours)
-        << ':' << std::setw(2)
-        << std::abs(minutes);
+    PrintPaddedNumber(ost, std::abs(hours), 2);
+    ost << ':';
+    PrintPaddedNumber(ost, std::abs(minutes), 2);
   }
-  ost.flags(backupFlags);
+
   return ost;
 }
 
@@ -306,7 +327,7 @@ std::ostream & operator<<(std::ostream & ost, Timespan const & span)
 
 std::ostream & operator<<(std::ostream & ost, osmoh::TTimespans const & timespans)
 {
-  print_vector(ost, timespans);
+  PrintVector(ost, timespans);
   return ost;
 }
 
@@ -481,16 +502,16 @@ std::ostream & operator<<(std::ostream & ost, WeekdayRange const & range)
   {
     if (range.HasNth())
     {
-      print_vector(ost, range.GetNths());
+      PrintVector(ost, range.GetNths());
     }
-    print_offset(ost, range.GetOffset());
+    PrintOffset(ost, range.GetOffset());
   }
   return ost;
 }
 
 std::ostream & operator<<(std::ostream & ost, TWeekdayRanges const & ranges)
 {
-  print_vector(ost, ranges);
+  PrintVector(ost, ranges);
   return ost;
 }
 
@@ -522,14 +543,14 @@ std::ostream & operator<<(std::ostream & ost, Holiday const & holiday)
   else
   {
     ost << "SH";
-    print_offset(ost, holiday.GetOffset());
+    PrintOffset(ost, holiday.GetOffset());
   }
   return ost;
 }
 
 std::ostream & operator<<(std::ostream & ost, THolidays const & holidays)
 {
-  print_vector(ost, holidays);
+  PrintVector(ost, holidays);
   return ost;
 }
 
@@ -634,7 +655,7 @@ std::ostream & operator<<(std::ostream & ost, DateOffset const & offset)
   if (offset.HasWDayOffset())
     ost << (offset.IsWDayOffsetPositive() ? '+' : '-')
         << offset.GetWDayOffset();
-  print_offset(ost, offset.GetOffset());
+  PrintOffset(ost, offset.GetOffset());
   return ost;
 }
 
@@ -792,7 +813,10 @@ std::ostream & operator<<(std::ostream & ost, MonthDay const md)
     if (md.HasMonth())
       ost << md.GetMonth();
     if (md.HasDayNum())
-      ost << ' ' << md.GetDayNum();
+    {
+      ost << ' ';
+      PrintPaddedNumber(ost, md.GetDayNum(), 0);
+    }
     if (md.HasOffset())
       ost << md.GetOffset();
   }
@@ -877,7 +901,7 @@ std::ostream & operator<<(std::ostream & ost, MonthdayRange const & range)
 
 std::ostream & operator<<(std::ostream & ost, TMonthdayRanges const & ranges)
 {
-  print_vector(ost, ranges);
+  PrintVector(ost, ranges);
   return ost;
 }
 
