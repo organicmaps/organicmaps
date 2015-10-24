@@ -2,7 +2,6 @@ package com.mapswithme.maps.settings;
 
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -11,13 +10,18 @@ import com.mapswithme.maps.R;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.statistics.Statistics;
 
-public class MiscPrefsFragment extends PreferenceFragment
+public class MiscPrefsFragment extends BaseXmlSettingsFragment
 {
+  @Override
+  protected int getXmlResources()
+  {
+    return R.xml.prefs_misc;
+  }
+
   @Override
   public void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    addPreferencesFromResource(R.xml.prefs_misc);
 
     Preference pref = findPreference(getString(R.string.pref_send_statistics));
     ((SwitchPreference)pref).setChecked(Config.isStatisticsEnabled());

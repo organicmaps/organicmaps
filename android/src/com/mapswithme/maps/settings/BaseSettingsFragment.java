@@ -1,6 +1,7 @@
 package com.mapswithme.maps.settings;
 
 import android.app.Fragment;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.annotation.LayoutRes;
@@ -17,8 +18,26 @@ abstract class BaseSettingsFragment extends Fragment
   protected View mFrame;
   private BaseShadowController mShadowController;
 
+  private final Rect mSavedPaddings = new Rect();
+
   protected abstract @LayoutRes int getLayoutRes();
   protected abstract BaseShadowController createShadowController();
+
+  private void savePaddings()
+  {
+    View parent = (View)mFrame.getParent();
+    mSavedPaddings.set(parent.getPaddingLeft(), parent.getPaddingTop(), parent.getPaddingRight(), parent.getPaddingBottom());
+  }
+
+  protected void clearPaddings()
+  {
+    ((View)mFrame.getParent()).setPadding(0, 0, 0, 0);
+  }
+
+  protected void restorePaddings()
+  {
+    ((View)mFrame.getParent()).setPadding(mSavedPaddings.left, mSavedPaddings.top, mSavedPaddings.right, mSavedPaddings.bottom);
+  }
 
   @Nullable
   @Override
@@ -33,8 +52,13 @@ abstract class BaseSettingsFragment extends Fragment
   {
     super.onActivityCreated(savedInstanceState);
 
+    savePaddings();
     if (((PreferenceActivity)getActivity()).onIsMultiPane())
-      mShadowController = createShadowController().attach();
+    {
+      mShadowController = createShadowController();
+      if (mShadowController != null)
+        mShadowController.attach();
+    }
   }
 
   @Override
@@ -42,8 +66,25 @@ abstract class BaseSettingsFragment extends Fragment
   {
     super.onDestroyView();
 
+    restorePaddings();
     if (mShadowController != null)
       mShadowController.detach();
+  }
+
+  @Override
+  public void onResume()
+  {
+    super.onResume();
+    org.alohalytics.Statistics.logEvent("$onResume", getClass().getSimpleName() + ":" +
+                                                     UiUtils.deviceOrientationAsString(getActivity()));
+  }
+
+  @Override
+  public void onPause()
+  {
+    super.onPause();
+    org.alohalytics.Statistics.logEvent("$onPause", getClass().getSimpleName() + ":" +
+                                                    UiUtils.deviceOrientationAsString(getActivity()));
   }
 
   protected static void adjustMargins(View view)

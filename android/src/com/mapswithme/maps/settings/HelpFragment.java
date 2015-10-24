@@ -32,7 +32,7 @@ public class HelpFragment extends BaseSettingsFragment
   @Override
   protected BaseShadowController createShadowController()
   {
-    ((View)mFrame.getParent()).setPadding(0, 0, 0, 0);
+    clearPaddings();
     adjustMargins(mDelegate.getWebView());
     return new WebViewShadowController((ObservableWebView)mDelegate.getWebView())
                .addBottomShadow();

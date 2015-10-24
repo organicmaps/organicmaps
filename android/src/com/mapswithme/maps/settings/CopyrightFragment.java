@@ -28,6 +28,7 @@ public class CopyrightFragment extends BaseSettingsFragment
   @Override
   protected BaseShadowController createShadowController()
   {
+    clearPaddings();
     adjustMargins(mDelegate.getWebView());
     return new WebViewShadowController((ObservableWebView)mDelegate.getWebView());
   }

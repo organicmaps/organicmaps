@@ -209,17 +209,6 @@
     </activity>
 
     <activity
-        android:name="com.mapswithme.maps.settings.StoragePathActivity"
-        android:configChanges="orientation|screenLayout|screenSize"
-        android:label="@string/maps_storage"
-        android:parentActivityName="com.mapswithme.maps.MwmActivity">
-      <!-- The meta-data element is needed for versions lower than 4.1 -->
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value="com.mapswithme.maps.MwmActivity"/>
-    </activity>
-
-    <activity
         android:name="com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/bookmark_sets"

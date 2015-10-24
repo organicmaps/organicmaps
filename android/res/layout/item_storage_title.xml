@@ -1,3 +1,0 @@
-<TextView xmlns:tools="http://schemas.android.com/tools"
-          style="@style/MwmWidget.TextView.Item"
-          tools:text="/storage/mnt/"/>
