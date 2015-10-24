@@ -3,6 +3,7 @@ package com.mapswithme.maps.sound;
 import android.content.Context;
 import android.content.res.Resources;
 import android.speech.tts.TextToSpeech;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -32,7 +33,7 @@ public enum TtsPlayer
 
   TtsPlayer() {}
 
-  private @Nullable LanguageData findSupportedLanguage(String internalCode, List<LanguageData> langs)
+  private static @Nullable LanguageData findSupportedLanguage(String internalCode, List<LanguageData> langs)
   {
     if (TextUtils.isEmpty(internalCode))
       return null;
@@ -44,7 +45,7 @@ public enum TtsPlayer
     return null;
   }
 
-  private @Nullable LanguageData findSupportedLanguage(Locale locale, List<LanguageData> langs)
+  private static @Nullable LanguageData findSupportedLanguage(Locale locale, List<LanguageData> langs)
   {
     if (locale == null)
       return null;
@@ -69,7 +70,7 @@ public enum TtsPlayer
       setLanguageInternal(lang);
   }
 
-  private LanguageData getDefaultLanguage(List<LanguageData> langs)
+  private @Nullable LanguageData getDefaultLanguage(List<LanguageData> langs)
   {
     Locale defLocale = Locale.getDefault();
     if (defLocale == null)
@@ -86,7 +87,7 @@ public enum TtsPlayer
     return lang;
   }
 
-  public LanguageData getSelectedLanguage(List<LanguageData> langs)
+  public static @Nullable LanguageData getSelectedLanguage(List<LanguageData> langs)
   {
     return findSupportedLanguage(Config.getTtsLanguage(), langs);
   }
@@ -165,17 +166,17 @@ public enum TtsPlayer
       mTts.stop();
   }
 
-  public boolean isEnabled()
+  public static boolean isEnabled()
   {
     return nativeAreTurnNotificationsEnabled();
   }
 
-  public void setEnabled(boolean enabled)
+  public static void setEnabled(boolean enabled)
   {
     nativeEnableTurnNotifications(enabled);
   }
 
-  public List<LanguageData> getAvailableLanguages(boolean includeDownloadable)
+  public @NonNull List<LanguageData> getAvailableLanguages(boolean includeDownloadable)
   {
     List<LanguageData> res = new ArrayList<>();
     if (mUnavailable || mTts == null)

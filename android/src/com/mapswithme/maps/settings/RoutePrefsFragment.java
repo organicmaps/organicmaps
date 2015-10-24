@@ -49,7 +49,7 @@ public class RoutePrefsFragment extends PreferenceFragment
       return;
     }
 
-    mPrefEnabled.setChecked(TtsPlayer.INSTANCE.isEnabled());
+    mPrefEnabled.setChecked(TtsPlayer.isEnabled());
 
     final CharSequence[] entries = new CharSequence[languages.size()];
     final CharSequence[] values = new CharSequence[languages.size()];
@@ -65,7 +65,7 @@ public class RoutePrefsFragment extends PreferenceFragment
     mPrefLanguages.setEntries(entries);
     mPrefLanguages.setEntryValues(values);
 
-    LanguageData curLang = TtsPlayer.INSTANCE.getSelectedLanguage(languages);
+    LanguageData curLang = TtsPlayer.getSelectedLanguage(languages);
     if (curLang != null)
     {
       mPrefLanguages.setSummary(curLang.name);
@@ -92,7 +92,7 @@ public class RoutePrefsFragment extends PreferenceFragment
         boolean set = (Boolean)newValue;
         mPrefLanguages.setEnabled(set);
         Config.setTtsEnabled(set);
-        TtsPlayer.INSTANCE.setEnabled(set);
+        TtsPlayer.setEnabled(set);
         return true;
       }
     });
