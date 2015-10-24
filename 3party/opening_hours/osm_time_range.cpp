@@ -46,12 +46,13 @@ void PrintVector(std::ostream & ost, std::vector<T> const & v)
   }
 }
 
-void PrintOffset(std::ostream & ost, int32_t const offset)
+void PrintOffset(std::ostream & ost, int32_t const offset, bool const space)
 {
   if (offset == 0)
     return;
 
-  ost << ' ';
+  if (space)
+    ost << ' ';
   if (offset > 0)
     ost << '+';
   ost << offset;
@@ -504,7 +505,7 @@ std::ostream & operator<<(std::ostream & ost, WeekdayRange const & range)
     {
       PrintVector(ost, range.GetNths());
     }
-    PrintOffset(ost, range.GetOffset());
+    PrintOffset(ost, range.GetOffset(), true);
   }
   return ost;
 }
@@ -543,7 +544,7 @@ std::ostream & operator<<(std::ostream & ost, Holiday const & holiday)
   else
   {
     ost << "SH";
-    PrintOffset(ost, holiday.GetOffset());
+    PrintOffset(ost, holiday.GetOffset(), true);
   }
   return ost;
 }
@@ -655,7 +656,7 @@ std::ostream & operator<<(std::ostream & ost, DateOffset const & offset)
   if (offset.HasWDayOffset())
     ost << (offset.IsWDayOffsetPositive() ? '+' : '-')
         << offset.GetWDayOffset();
-  PrintOffset(ost, offset.GetOffset());
+  PrintOffset(ost, offset.GetOffset(), offset.HasWDayOffset());
   return ost;
 }
 
@@ -804,7 +805,7 @@ std::ostream & operator<<(std::ostream & ost, MonthDay::EVariableDate const date
 std::ostream & operator<<(std::ostream & ost, MonthDay const md)
 {
   if (md.HasYear())
-    ost << md.GetYear();
+    ost << md.GetYear() << ' ';
 
   if (md.IsVariable())
     ost << md.GetVariableDate();
@@ -815,10 +816,10 @@ std::ostream & operator<<(std::ostream & ost, MonthDay const md)
     if (md.HasDayNum())
     {
       ost << ' ';
-      PrintPaddedNumber(ost, md.GetDayNum(), 0);
+      PrintPaddedNumber(ost, md.GetDayNum(), 2);
     }
     if (md.HasOffset())
-      ost << md.GetOffset();
+      ost << ' ' << md.GetOffset();
   }
   return ost;
 }

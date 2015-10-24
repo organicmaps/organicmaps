@@ -53,17 +53,17 @@ bool ParseImp(std::string const & str, Context & context)
 
 namespace osmoh
 {
-bool Parse(std::string const & str, osmoh::TTimespans & s)
+bool Parse(std::string const & str, TTimespans & s)
 {
   return ParseImp(str, s);
 }
 
-bool Parse(std::string const & str, osmoh::Weekdays & w)
+bool Parse(std::string const & str, Weekdays & w)
 {
   return ParseImp(str, w);
 }
 
-bool Parse(std::string const & str, osmoh::TMonthdayRanges & m)
+bool Parse(std::string const & str, TMonthdayRanges & m)
 {
   return ParseImp(str, m);
 }

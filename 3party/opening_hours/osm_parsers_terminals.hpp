@@ -52,13 +52,13 @@ struct wdays_ : qi::symbols<char, osmoh::EWeekday>
   }
 } wdays;
 
-struct month_ : qi::symbols<wchar_t, osmoh::MonthDay::EMonth>
+struct month_ : qi::symbols<char, osmoh::MonthDay::EMonth>
 {
   month_()
   {
     add
-        (L"jan", 1_M)(L"feb", 2_M)(L"mar", 3_M)(L"apr",  4_M)(L"may",  5_M)(L"jun",  6_M)
-        (L"jul", 7_M)(L"aug", 8_M)(L"sep", 9_M)(L"oct", 10_M)(L"nov", 11_M)(L"dec", 12_M)
+        ("jan", 1_M)("feb", 2_M)("mar", 3_M)("apr",  4_M)("may",  5_M)("jun",  6_M)
+        ("jul", 7_M)("aug", 8_M)("sep", 9_M)("oct", 10_M)("nov", 11_M)("dec", 12_M)
         ;
   }
 } month;

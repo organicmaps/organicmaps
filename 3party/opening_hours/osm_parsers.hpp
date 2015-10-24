@@ -162,23 +162,23 @@ class month_selector : public qi::grammar<Iterator, TMonthdayRanges(), space_typ
     using qi::_3;
     using qi::_a;
     using qi::_val;
-    using qi::int_;
     using qi::uint_;
+    using qi::ushort_;
     using qi::lit;
     using qi::double_;
     using qi::lexeme;
-    using charset::char_;
 
     static const qi::int_parser<unsigned, 10, 4, 4> year = {};
 
     day_offset = ((lit('+')[_a = 1] | lit('-')[_a = -1]) >>
-                  int_ >> charset::no_case[(lit("days") | lit("day"))]) [_val = _a * _1];
+                  ushort_ >> charset::no_case[(lit("days") | lit("day"))]) [_val = _a * _1];
 
-    date_offset = ((lit('+')[_a = true] | lit('-')[_a = false]) >> wdays >> day_offset)
+    date_offset = ((lit('+')[_a = true] | lit('-')[_a = false])
+                   >> charset::no_case[wdays] >> day_offset)
                   [bind(&osmoh::DateOffset::SetWDayOffset, _val, _1),
                    bind(&osmoh::DateOffset::SetOffset, _val, _2),
                    bind(&osmoh::DateOffset::SetWDayOffsetPositive, _val, _a)]
-        | ((lit('+')[_a = true] | lit('-') [_a = false]) >> wdays)
+        | ((lit('+')[_a = true] | lit('-') [_a = false]) >> charset::no_case[wdays])
           [bind(&osmoh::DateOffset::SetWDayOffset, _val, _1),
            bind(&osmoh::DateOffset::SetWDayOffsetPositive, _val, _a)]
         | day_offset [bind(&osmoh::DateOffset::SetOffset, _val, _1)]

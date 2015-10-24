@@ -510,6 +510,46 @@ BOOST_AUTO_TEST_CASE(OpeningHoursMonthdayRanges_TestParseUnparse)
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TMonthdayRanges>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
+  {
+    auto const rule = "Jan 11-Dec 10,Apr 01-Jun 02";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TMonthdayRanges>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "2011 Jan";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TMonthdayRanges>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "1989 Mar 10+";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TMonthdayRanges>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "Jan 11 +Mo+";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TMonthdayRanges>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "Jan 11 +3 days+";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TMonthdayRanges>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "Feb 03 -Mo -2 days+";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TMonthdayRanges>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "Feb 03 -Mo -2 days-Jan 11 +3 days";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TMonthdayRanges>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "Feb 03 -Mo -2 days-Jan 11 +3 days,Mar,Apr";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TMonthdayRanges>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
 }
 
 
