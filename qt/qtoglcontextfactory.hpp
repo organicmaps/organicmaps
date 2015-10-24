@@ -3,19 +3,19 @@
 #include "drape/oglcontextfactory.hpp"
 #include "qt/qtoglcontext.hpp"
 
-#include <QtGui/QOffscreenSurface>
+#include <QtGui/QOpenGLContext>
+#include <QtGui/QOpenGLFramebufferObject>
 
 class QtOGLContextFactory : public dp::OGLContextFactory
 {
 public:
-  using TRegisterThreadFn = QtRenderOGLContext::TRegisterThreadFn;
-  using TSwapFn = QtRenderOGLContext::TSwapFn;
-
-  QtOGLContextFactory(QOpenGLContext * renderContext, QThread * thread,
-                      TRegisterThreadFn const & regFn, TSwapFn const & swapFn);
+  QtOGLContextFactory(QOpenGLContext * rootContext);
   ~QtOGLContextFactory();
 
-  void shutDown() { m_drawContext->shutDown(); }
+  bool LockFrame();
+  GLuint GetTextureHandle() const;
+  QRectF const & GetTexRect() const;
+  void UnlockFrame();
 
   virtual dp::OGLContext * getDrawContext();
   virtual dp::OGLContext * getResourcesUploadContext();
@@ -24,8 +24,12 @@ protected:
   virtual bool isDrawContextCreated() const { return m_drawContext != nullptr; }
   virtual bool isUploadContextCreated() const { return m_uploadContext != nullptr; }
 
+  QOffscreenSurface * createSurface();
+
 private:
+  QOpenGLContext * m_rootContext;
   QtRenderOGLContext * m_drawContext;
+  QOffscreenSurface * m_drawSurface;
   QtUploadOGLContext * m_uploadContext;
-  QOffscreenSurface * m_uploadThreadSurface;
+  QOffscreenSurface * m_uploadSurface;
 };

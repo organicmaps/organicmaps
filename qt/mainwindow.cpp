@@ -55,11 +55,11 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
   QDesktopWidget const * desktop(QApplication::desktop());
   setGeometry(desktop->screenGeometry(desktop->primaryScreen()));
 
-  m_pDrawWidget = new DrawWidget();
-  QSurfaceFormat format = m_pDrawWidget->requestedFormat();
+  m_pDrawWidget = new DrawWidget(this);
+  QSurfaceFormat format = m_pDrawWidget->format();
 
-  format.setMajorVersion(3);
-  format.setMinorVersion(2);
+  format.setMajorVersion(2);
+  format.setMinorVersion(1);
 
   format.setAlphaBufferSize(0);
   format.setBlueBufferSize(8);
@@ -74,9 +74,8 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
   format.setProfile(QSurfaceFormat::CompatibilityProfile);
   //format.setOption(QSurfaceFormat::DebugContext);
   m_pDrawWidget->setFormat(format);
-  QWidget * w = QWidget::createWindowContainer(m_pDrawWidget, this);
-  w->setMouseTracking(true);
-  setCentralWidget(w);
+  m_pDrawWidget->setMouseTracking(true);
+  setCentralWidget(m_pDrawWidget);
 
   QObject::connect(m_pDrawWidget, SIGNAL(EngineCreated()), this, SLOT(OnEngineCreated()));
 

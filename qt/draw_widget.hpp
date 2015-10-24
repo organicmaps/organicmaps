@@ -12,15 +12,17 @@
 #include "std/mutex.hpp"
 #include "std/condition_variable.hpp"
 
-#include <QtGui/QOpenGLWindow>
+#include <QtWidgets/QOpenGLWidget>
+
+class QQuickWindow;
 
 namespace qt
 {
   class QScaleSlider;
 
-  class DrawWidget : public QOpenGLWindow
+  class DrawWidget : public QOpenGLWidget
   {
-    using TBase = QOpenGLWindow;
+    using TBase = QOpenGLWidget;
 
     drape_ptr<QtOGLContextFactory> m_contextFactory;
     unique_ptr<Framework> m_framework;
@@ -41,7 +43,7 @@ namespace qt
     void SliderReleased();
 
   public:
-    DrawWidget();
+    DrawWidget(QWidget * parent);
     ~DrawWidget();
 
     void SetScaleControl(QScaleSlider * pScale);
@@ -69,13 +71,11 @@ namespace qt
     void CreateEngine();
 
   protected:
+    void initializeGL() override;
+    void paintGL() override;
+    void resizeGL(int width, int height) override;
     /// @name Overriden from QOpenGLWindow.
     //@{
-    void initializeGL() override;
-    void resizeGL(int width, int height) override;
-    void paintGL() override;
-
-    void exposeEvent(QExposeEvent * event) override;
     void mousePressEvent(QMouseEvent * e) override;
     void mouseDoubleClickEvent(QMouseEvent * e) override;
     void mouseMoveEvent(QMouseEvent * e) override;
@@ -83,35 +83,7 @@ namespace qt
     void wheelEvent(QWheelEvent * e) override;
     void keyPressEvent(QKeyEvent * e) override;
     void keyReleaseEvent(QKeyEvent * e) override;
-    //@}a
-
-  private:
-    enum RenderingState
-    {
-      NotInitialized,
-      WaitContext,
-      WaitSwap,
-      Render,
-    };
-
-    void CallSwap();
-    void CallRegisterThread(QThread * thread);
-    Q_SIGNAL void Swap();
-    Q_SIGNAL void RegRenderingThread(QThread * thread);
-    Q_SLOT void OnSwap();
-    Q_SLOT void OnRegRenderingThread(QThread * thread);
-    Q_SLOT void frameSwappedSlot(RenderingState state = Render);
-
-    void MoveContextToRenderThread();
-    QThread * m_rendererThread;
-
-    mutex m_swapMutex;
-    condition_variable m_swapCond;
-
-    mutex m_waitContextMutex;
-    condition_variable m_waitContextCond;
-
-    RenderingState m_state;
+    //@}
 
   private:
     void SubmitFakeLocationPoint(m2::PointD const & pt);

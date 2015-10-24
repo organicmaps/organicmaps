@@ -13,6 +13,10 @@
 
 #include <QtGui/QMouseEvent>
 #include <QtGui/QGuiApplication>
+#include <QtGui/QOpenGLShaderProgram>
+#include <QtGui/QOpenGLContextGroup>
+#include <QtGui/QOpenGLFunctions>
+#include <QtGui/QVector2D>
 
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QApplication>
@@ -21,6 +25,7 @@
 #include <QtCore/QLocale>
 #include <QtCore/QDateTime>
 #include <QtCore/QThread>
+#include <QtCore/QTimer>
 
 namespace qt
 {
@@ -67,18 +72,15 @@ bool IsLocationEmulation(QMouseEvent * e)
 
   void DummyDismiss() {}
 
-  DrawWidget::DrawWidget()
-    : m_contextFactory(nullptr),
+  DrawWidget::DrawWidget(QWidget * parent)
+    : TBase(parent),
+      m_contextFactory(nullptr),
       m_framework(new Framework()),
       m_ratio(1.0),
-      m_rendererThread(nullptr),
-      m_state(NotInitialized),
       m_pScale(nullptr),
       m_enableScaleUpdate(true),
       m_emulatingLocation(false)
   {
-    setSurfaceType(QSurface::OpenGLSurface);
-
     m_framework->SetUserMarkActivationListener([](unique_ptr<UserMarkCopy> mark)
     {
     });
@@ -88,6 +90,11 @@ bool IsLocationEmulation(QMouseEvent * e)
                                              vector<storage::TIndex> const &)
     {
     });
+
+    QTimer * timer = new QTimer(this);
+    VERIFY(connect(timer, SIGNAL(timeout()), this, SLOT(update())), ());
+    timer->setSingleShot(false);
+    timer->start(30);
   }
 
   DrawWidget::~DrawWidget()
@@ -106,17 +113,6 @@ bool IsLocationEmulation(QMouseEvent * e)
 
   void DrawWidget::PrepareShutdown()
   {
-    if (!m_contextFactory)
-      return;
-
-    // Discard current and all future Swap requests
-    m_contextFactory->shutDown();
-    frameSwappedSlot(NotInitialized);
-
-    // Shutdown engine. FR have ogl context in this moment and can delete OGL resources
-    // PrepareToShutdown make FR::join and after this call we can bind OGL context to gui thread
-    m_framework->PrepareToShutdown();
-    m_contextFactory.reset();
   }
 
   void DrawWidget::UpdateAfterSettingsChanged()
@@ -197,27 +193,98 @@ bool IsLocationEmulation(QMouseEvent * e)
 
     p.m_widgetsInitInfo[gui::WIDGET_SCALE_LABEL] = gui::Position(dp::LeftBottom);
 
-    m_framework->CreateDrapeEngine(make_ref(m_contextFactory), move(p));
+    m_framework->CreateDrapeEngine(make_ref(m_contextFactory), std::move(p));
     m_framework->AddViewportListener(bind(&DrawWidget::OnViewportChanged, this, _1));
   }
 
   void DrawWidget::initializeGL()
   {
-    Qt::ConnectionType swapType = Qt::QueuedConnection;
-    Qt::ConnectionType regType = Qt::BlockingQueuedConnection;
-    VERIFY(connect(this, SIGNAL(Swap()), SLOT(OnSwap()), swapType), ());
-    VERIFY(connect(this, SIGNAL(RegRenderingThread(QThread *)), SLOT(OnRegRenderingThread(QThread *)), regType), ());
-    VERIFY(connect(this, SIGNAL(frameSwapped()), SLOT(frameSwappedSlot())), ());
-
-    ASSERT(m_contextFactory == nullptr, ());
-    m_ratio = devicePixelRatio();
-    QtOGLContextFactory::TRegisterThreadFn regFn = bind(&DrawWidget::CallRegisterThread, this, _1);
-    QtOGLContextFactory::TSwapFn swapFn = bind(&DrawWidget::CallSwap, this);
-    m_contextFactory = make_unique_dp<QtOGLContextFactory>(context(), QThread::currentThread(), regFn, swapFn);
+    m_contextFactory.reset(new QtOGLContextFactory(context()));
     CreateEngine();
     LoadState();
+  }
 
-    emit EngineCreated();
+  void DrawWidget::paintGL()
+  {
+    static QOpenGLShaderProgram * program = nullptr;
+    if (program == nullptr)
+    {
+      const char * vertexSrc = "\
+        attribute vec2 a_position; \
+        attribute vec2 a_texCoord; \
+        uniform mat4 u_projection; \
+        varying vec2 v_texCoord; \
+        \
+        void main(void) \
+        { \
+          gl_Position = u_projection * vec4(a_position, 0.0, 1.0);\
+          v_texCoord = a_texCoord; \
+        }";
+
+      const char * fragmentSrc = "\
+        uniform sampler2D u_sampler; \
+        varying vec2 v_texCoord; \
+        \
+        void main(void) \
+        { \
+          gl_FragColor = texture2D(u_sampler, v_texCoord); \
+        }";
+
+      program = new QOpenGLShaderProgram(this);
+      program->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexSrc);
+      program->addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentSrc);
+      program->link();
+    }
+
+    if (m_contextFactory->LockFrame())
+    {
+      QOpenGLFunctions * funcs = context()->functions();
+      funcs->glActiveTexture(GL_TEXTURE0);
+      GLuint image = m_contextFactory->GetTextureHandle();
+      funcs->glBindTexture(GL_TEXTURE_2D, image);
+
+      int projectionLocation = program->uniformLocation("u_projection");
+      int samplerLocation = program->uniformLocation("u_sampler");
+
+      QMatrix4x4 projection;
+      projection.ortho(rect());
+
+      program->bind();
+      program->setUniformValue(projectionLocation, projection);
+      program->setUniformValue(samplerLocation, 0);
+
+      float w = width();
+      float h = height();
+
+      QVector2D positions[4] =
+      {
+        QVector2D(0.0, 0.0),
+        QVector2D(w, 0.0),
+        QVector2D(0.0, h),
+        QVector2D(w, h)
+      };
+
+      QRectF const & texRect = m_contextFactory->GetTexRect();
+      QVector2D texCoords[4] =
+      {
+        QVector2D(texRect.bottomLeft()),
+        QVector2D(texRect.bottomRight()),
+        QVector2D(texRect.topLeft()),
+        QVector2D(texRect.topRight())
+      };
+
+      program->enableAttributeArray("a_position");
+      program->enableAttributeArray("a_texCoord");
+      program->setAttributeArray("a_position", positions, 0);
+      program->setAttributeArray("a_texCoord", texCoords, 0);
+
+      funcs->glClearColor(0.65, 0.65, 0.65, 1.0);
+      funcs->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+      funcs->glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+      m_contextFactory->UnlockFrame();
+    }
+
   }
 
   void DrawWidget::resizeGL(int width, int height)
@@ -235,30 +302,8 @@ bool IsLocationEmulation(QMouseEvent * e)
         layout[w] = pos.m_pixelPivot;
       });
 
-      m_framework->SetWidgetLayout(move(layout));
+      m_framework->SetWidgetLayout(std::move(layout));
     }
-  }
-
-  void DrawWidget::paintGL() { /*Must be empty*/ }
-
-  void DrawWidget::exposeEvent(QExposeEvent * event)
-  {
-    if (isExposed())
-    {
-      m_swapMutex.lock();
-      if (m_state == Render)
-      {
-        unique_lock<mutex> waitContextLock(m_waitContextMutex);
-        m_state = WaitContext;
-        m_swapMutex.unlock();
-
-        m_waitContextCond.wait(waitContextLock, [this](){ return m_state != WaitContext; });
-      }
-      else
-        m_swapMutex.unlock();
-    }
-
-    TBase::exposeEvent(event);
   }
 
   void DrawWidget::mousePressEvent(QMouseEvent * e)
@@ -337,87 +382,6 @@ bool IsLocationEmulation(QMouseEvent * e)
     }
     else if (e->key() == Qt::Key_Alt)
       m_emulatingLocation = false;
-  }
-
-  void DrawWidget::CallSwap()
-  {
-    // Called on FR thread. In this point OGL context have already moved into GUI thread.
-    unique_lock<mutex> lock(m_swapMutex);
-    if (m_state == NotInitialized)
-    {
-      // This can be in two cases if GUI thread in PrepareToShutDown
-      return;
-    }
-
-    ASSERT(m_state != WaitSwap, ());
-    if (m_state == WaitContext)
-    {
-      lock_guard<mutex> waitContextLock(m_waitContextMutex);
-      m_state = Render;
-      m_waitContextCond.notify_one();
-    }
-
-    if (m_state == Render)
-    {
-      // We have to wait, while Qt on GUI thread finish composing widgets and make SwapBuffers
-      // After SwapBuffers Qt will call our SLOT(frameSwappedSlot)
-      m_state = WaitSwap;
-      emit Swap();
-      m_swapCond.wait(lock, [this]() { return m_state != WaitSwap; });
-    }
-  }
-
-  void DrawWidget::CallRegisterThread(QThread * thread)
-  {
-    // Called on FR thread. SIGNAL(RegRenderingThread) and SLOT(OnRegRenderingThread)
-    // connected by through Qt::BlockingQueuedConnection and we don't need any synchronization
-    ASSERT(m_state == NotInitialized, ());
-    emit RegRenderingThread(thread);
-  }
-
-  void DrawWidget::OnSwap()
-  {
-    // Called on GUI thread. In this point FR thread must wait SwapBuffers signal
-    lock_guard<mutex> lock(m_swapMutex);
-    if (m_state == WaitSwap)
-    {
-      context()->makeCurrent(this);
-      update();
-    }
-  }
-
-  void DrawWidget::OnRegRenderingThread(QThread * thread)
-  {
-    // Called on GUI thread.
-    // Here we register thread of FR, to return OGL context into it after SwapBuffers
-    // After this operation we can start rendering into back buffer on FR thread
-    lock_guard<mutex> lock(m_swapMutex);
-
-    ASSERT(m_state == NotInitialized, ());
-    m_state = Render;
-    m_rendererThread = thread;
-    MoveContextToRenderThread();
-  }
-
-  void DrawWidget::frameSwappedSlot(RenderingState state)
-  {
-    // Qt call this slot on GUI thread after glSwapBuffers perfomed
-    // Here we move OGL context into FR thread and wake up FR
-    lock_guard<mutex> lock(m_swapMutex);
-
-    if (m_state == WaitSwap)
-    {
-      MoveContextToRenderThread();
-      m_state = state;
-      m_swapCond.notify_all();
-    }
-  }
-
-  void DrawWidget::MoveContextToRenderThread()
-  {
-    QOpenGLContext * ctx = context();
-    ctx->doneCurrent();
-    ctx->moveToThread(m_rendererThread);
   }
 
   void DrawWidget::wheelEvent(QWheelEvent * e)
@@ -529,7 +493,7 @@ bool IsLocationEmulation(QMouseEvent * e)
 
   void DrawWidget::UpdateScaleControl()
   {
-    if (m_pScale && isExposed() && m_enableScaleUpdate)
+    if (m_pScale && m_enableScaleUpdate)
     {
       // don't send ScaleChanged
       m_pScale->SetPosWithBlockedSignals(m_framework->GetDrawScale());
