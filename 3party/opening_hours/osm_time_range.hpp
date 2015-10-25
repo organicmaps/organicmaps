@@ -86,7 +86,8 @@ class Time
   bool IsTime() const;
   bool HasValue() const;
 
-  Time & operator-(Time const & time);
+  Time operator+(Time const & t);
+  Time operator-(Time const & t);
   Time & operator-();
 
  private:

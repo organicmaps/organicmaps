@@ -146,15 +146,15 @@ Time::TMinutes Time::GetMinutes() const
 void Time::SetHours(THours const hours)
 {
   m_state |= eHaveHours | eHaveMinutes;
-  m_duration += hours;
+  m_duration = hours;
 }
 
 void Time::SetMinutes(TMinutes const minutes)
 {
   m_state |= eHaveMinutes;
-  if (minutes > THours(1))
+  m_duration = minutes;
+  if (m_duration > 1_h || m_duration < -1_h)
     m_state |= eHaveHours;
-  m_duration += minutes;
 }
 
 void Time::SetEvent(EEvent const event)
@@ -164,7 +164,7 @@ void Time::SetEvent(EEvent const event)
 
 bool Time::IsEvent() const
 {
-  return m_event != EEvent::eNotEvent;
+  return GetEvent() != EEvent::eNotEvent;
 }
 
 bool Time::IsEventOffset() const
@@ -192,10 +192,18 @@ bool Time::HasValue() const
   return IsEvent() || IsTime() || IsMinutes();
 }
 
-Time & Time::operator-(Time const & time)
+Time Time::operator+(Time const & t)
 {
-  m_duration -= time.m_duration;
-  return *this;
+  Time result = *this;
+  result.SetMinutes(m_duration + t.m_duration);
+  return result;
+}
+
+Time Time::operator-(Time const & t)
+{
+  Time result = *this;
+  result.SetMinutes(m_duration - t.m_duration);
+  return result;
 }
 
 Time & Time::operator-()
@@ -243,7 +251,7 @@ std::ostream & operator<<(std::ostream & ost, Time const & time)
   {
     if (time.IsEventOffset())
     {
-      ost << '(' << hours;
+      ost << '(' << time.GetEvent();
       if (hours < 0)
         ost << '-';
       else
@@ -253,7 +261,8 @@ std::ostream & operator<<(std::ostream & ost, Time const & time)
       PrintPaddedNumber(ost, std::abs(minutes), 2);
       ost << ')';
     }
-    ost << time.GetEvent();
+    else
+      ost << time.GetEvent();
   }
   else if (time.IsMinutes())
     PrintPaddedNumber(ost, std::abs(minutes), 2);
@@ -696,32 +705,32 @@ std::ostream & operator<<(std::ostream & ost, DateOffset const & offset)
 
 bool MonthDay::IsEmpty() const
 {
-  return !HasYear() && !HasMonth() && !HasDayNum();
+  return !HasYear() && !HasMonth() && !HasDayNum() && !IsVariable();
 }
 
 bool MonthDay::IsVariable() const
 {
-  return m_variable_date != EVariableDate::None;
+  return GetVariableDate() != EVariableDate::None;
 }
 
 bool MonthDay::HasYear() const
 {
-  return m_year != 0;
+  return GetYear() != 0;
 }
 
 bool MonthDay::HasMonth() const
 {
-  return m_month != EMonth::None;
+  return GetMonth() != EMonth::None;
 }
 
 bool MonthDay::HasDayNum() const
 {
-  return m_daynum != 0;
+  return GetDayNum() != 0;
 }
 
 bool MonthDay::HasOffset() const
 {
-  return !m_offset.IsEmpty();
+  return !GetOffset().IsEmpty();
 }
 
 MonthDay::TYear MonthDay::GetYear() const
@@ -826,11 +835,11 @@ std::ostream & operator<<(std::ostream & ost, MonthDay::EVariableDate const date
   switch (date)
   {
     case MonthDay::EVariableDate::None:
-      break;
       ost << "none";
-    case MonthDay::EVariableDate::Easter:
       break;
+    case MonthDay::EVariableDate::Easter:
       ost << "easter";
+      break;
   }
   return ost;
 }
@@ -851,9 +860,10 @@ std::ostream & operator<<(std::ostream & ost, MonthDay const md)
       ost << ' ';
       PrintPaddedNumber(ost, md.GetDayNum(), 2);
     }
-    if (md.HasOffset())
-      ost << ' ' << md.GetOffset();
+
   }
+  if (md.HasOffset())
+    ost << ' ' << md.GetOffset();
   return ost;
 }
 
@@ -1315,6 +1325,7 @@ std::ostream & operator<<(std::ostream & ost, RuleSequence::Modifier const modif
 
 std::ostream & operator<<(std::ostream & ost, RuleSequence const & s)
 {
+
   if (s.Is24Per7())
     ost << "24/7";
   else
@@ -1323,20 +1334,45 @@ std::ostream & operator<<(std::ostream & ost, RuleSequence const & s)
       ost << s.GetComment() << ':';
     else
     {
+      bool space = false;
+      auto const putSpace = [&space, &ost] {
+        if (space)
+          ost << ' ';
+        space = true;
+      };
+
       if (s.HasYears())
+      {
+        putSpace();
         ost << s.GetYears();
+      }
       if (s.HasMonth())
+      {
+        putSpace();
         ost << s.GetMonths();
+      }
       if (s.HasWeeks())
+      {
+        putSpace();
         ost << s.GetWeeks();
+      }
 
       if (s.HasSeparatorForReadability())
+      {
+        space = false;
         ost << ':';
+      }
 
       if (s.HasWeekdays())
+      {
+        putSpace();
         ost << s.GetWeekdays();
+      }
       if (s.HasTimes())
+      {
+        putSpace();
         ost << s.GetTimes();
+      }
     }
   }
   if (s.GetModifier() != RuleSequence::Modifier::DefaultOpen)

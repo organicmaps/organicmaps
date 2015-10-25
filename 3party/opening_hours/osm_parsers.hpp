@@ -382,6 +382,7 @@ class time_selector : public qi::grammar<Iterator, osmoh::TTimespans(), space_ty
     using qi::_3;
     using qi::_a;
     using qi::_val;
+    using qi::eps;
     using qi::lit;
     // using qi::_pass;
     using charset::char_;
@@ -390,19 +391,21 @@ class time_selector : public qi::grammar<Iterator, osmoh::TTimespans(), space_ty
 
     // phx::function<validate_timespan_impl> const validate_timespan = validate_timespan_impl();
 
-    hour_minutes = (hours >> lit(':') >> minutes)[bind(&osmoh::Time::SetHours, _val, _1),
-                                                  bind(&osmoh::Time::SetMinutes, _val, _2)]
+    hour_minutes =
+        (hours >> lit(':') >> minutes) [bind(&osmoh::Time::SetHours, _val, _1),
+                                        _val = _val + _2]
         ;
 
-    extended_hour_minutes = (exthours >> lit(':') >> minutes)[bind(&osmoh::Time::SetHours, _val, _1),
-                                                              bind(&osmoh::Time::SetMinutes, _val, _2)]
+    extended_hour_minutes =
+        (exthours >> lit(':') >> minutes)[bind(&osmoh::Time::SetHours, _val, _1),
+                                          _val = _val + _2]
         ;
 
-    variable_time =
+    variable_time = eps [phx::bind(&osmoh::Time::SetHours, _val, 0_h)] >>
         (lit('(')
          >> charset::no_case[event][bind(&osmoh::Time::SetEvent, _val, _1)]
-         >> (char_('+') | char_('-')[_val = -_val])
-         >> hour_minutes
+         >> ( (lit('+') >> hour_minutes)    [_val = _val + _1]
+              | (lit('-') >> hour_minutes)  [_val = _val - _1] )
          >> lit(')')
          )
          | charset::no_case[event][bind(&osmoh::Time::SetEvent, _val, _1)]

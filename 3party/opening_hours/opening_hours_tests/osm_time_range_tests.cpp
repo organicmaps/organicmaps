@@ -149,7 +149,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestTime)
   {
     Time time{};
     time.SetHours(22_h);
-    time.SetMinutes(15_min);
+    time = time + 15_min;
     BOOST_CHECK(time.HasValue());
     BOOST_CHECK(time.IsHoursMinutes());
     BOOST_CHECK(time.IsTime());
@@ -173,6 +173,10 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestTime)
     BOOST_CHECK(!time.IsEventOffset());
 
     BOOST_CHECK_EQUAL(ToString(time), "sunrise");
+
+    time = time - 90_min;
+    BOOST_CHECK(time.IsEventOffset());
+    BOOST_CHECK_EQUAL(ToString(time), "(sunrise-01:30)");
   }
   {
     Time time{};
@@ -391,6 +395,12 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestMonthDay)
     BOOST_CHECK(!md.HasOffset());
     BOOST_CHECK(!md.IsVariable());
     BOOST_CHECK_EQUAL(ToString(md), "");
+  }
+  {
+    MonthDay md;
+    md.SetVariableDate(MonthDay::EVariableDate::Easter);
+    BOOST_CHECK(!md.IsEmpty());
+    BOOST_CHECK_EQUAL(ToString(md), "easter");
   }
   {
     MonthDay md;
@@ -695,6 +705,11 @@ BOOST_AUTO_TEST_CASE(OpeningHoursMonthdayRanges_TestParseUnparse)
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
+    auto const rule = "easter -2 days+";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TMonthdayRanges>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
     auto const rule = "Jan-Feb/10";
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TMonthdayRanges>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
@@ -832,14 +847,30 @@ BOOST_AUTO_TEST_CASE(OpeningHoursRuleSequence_TestParseUnparse)
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
+  {
+    auto const rule = "easter -2 days+: closed";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "easter: open";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+
+  {
+    auto const rule = ( "PH, Tu-Su 10:00-18:00; Sa[1] 10:00-18:00 open; "
+                        //"\"Eintritt ins gesamte Haus frei\"; "
+                        "Jan 01, Dec 24, Dec 25, easter -2 days+: closed" );
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "Su-Th (sunset-24:00); Fr-Sa (sunrise+12:12)";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
 }
-  // {
-  //   auto const rule = ( "PH,Tu-Su 10:00-18:00; Sa[1] 10:00-18:00 open "
-  //                       "\"Eintritt ins gesamte Haus frei\"; "
-  //                       "Jan 1,Dec 24,Dec 25,easter -2 days: closed" );
-  //   auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
-  //   BOOST_CHECK_EQUAL(parsedUnparsed, rule);
-  // }
 
 // BOOST_AUTO_TEST_CASE(OpeningHours_TimeHit)
 // {
