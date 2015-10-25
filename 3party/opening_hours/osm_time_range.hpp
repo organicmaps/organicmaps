@@ -120,7 +120,10 @@ class Timespan
   Timespan(Time const & start, Time const & end, bool plus = false);
   Timespan(Time const & start, Time const & end, Time const & period);
 
+  bool IsEmpty() const;
   bool IsOpen() const;
+  bool HasStart() const;
+  bool HasEnd() const;
   bool HasPlus() const;
   bool HasPeriod() const;
 
@@ -271,6 +274,7 @@ std::ostream & operator<<(std::ostream & ost, THolidays const & holidys);
 class Weekdays // Correspond to weekday_selector in osm opening hours
 {
  public:
+  bool IsEmpty() const;
   bool HasWeekday() const;
   bool HasHolidays() const;
 
@@ -423,6 +427,7 @@ class YearRange
 
  public:
   bool IsEmpty() const;
+  bool IsOpen() const;
   bool HasStart() const;
   bool HasEnd() const;
   bool HasPlus() const;
@@ -456,6 +461,7 @@ class WeekRange
 
  public:
   bool IsEmpty() const;
+  bool IsOpen() const;
   bool HasStart() const;
   bool HasEnd() const;
   bool HasPeriod() const;
@@ -478,35 +484,97 @@ using TWeekRanges = std::vector<WeekRange>;
 
 std::ostream & operator<<(std::ostream & ost, WeekRange const range);
 std::ostream & operator<<(std::ostream & ost, TWeekRanges const ranges);
+
+class RuleSequence
+{
+  // static uint32_t id;
+  // uint32_t my_id;
+ public:
+  enum class Modifier {
+    Unknown,
+    Closed,
+    Open
+  };
+
+ public:
+  // RuleSequence()
+  // {
+  //   ++id;
+  //   my_id = id;
+  //   std::cout << "RuleSequence(" << my_id << ")" << std::endl;
+  // }
+
+  // ~RuleSequence()
+  // {
+  //   std::cout << "~RuleSequence(" << my_id << ")" << std::endl;
+  // }
+
+  bool IsEmpty() const;
+  bool Is24Per7() const;
+
+  bool HasYears() const;
+  bool HasMonth() const;
+  bool HasWeeks() const;
+  bool HasWeekdays() const;
+  bool HasTimes() const;
+  bool HasComment() const;
+  bool HasModifierComment() const;
+  bool HasSeparatorForReadability() const;
+
+  TYearRanges const & GetYears() const;
+  TMonthdayRanges const & GetMonths() const;
+  TWeekRanges const & GetWeeks() const;
+  Weekdays const & GetWeekdays() const;
+  TTimespans const & GetTimes() const;
+
+  std::string const & GetComment() const;
+  std::string const & GetModifierComment() const;
+  std::string const & GetAnySeparator() const;
+
+  Modifier GetModifier() const;
+
+  void Set24Per7(bool const on);
+  void SetYears(TYearRanges const & years);
+  void SetMonths(TMonthdayRanges const & months);
+  void SetWeeks(TWeekRanges const & weeks);
+
+  void SetWeekdays(Weekdays const & weekdays);
+  void SetTimes(TTimespans const & times);
+
+  void SetComment(std::string const & comment);
+  void SetModifierComment(std::string & comment);
+  void SetAnySeparator(std::string const & separator);
+  void SetSeparatorForReadability(bool const on);
+
+  void SetModifier(Modifier const modifier);
+
+ private:
+  void dump() const;
+
+ private:
+  bool m_24_per_7{false};
+
+  TYearRanges m_years;
+  TMonthdayRanges m_months;
+  TWeekRanges m_weeks;
+
+  Weekdays m_weekdays;
+  TTimespans m_times;
+
+  std::string m_comment;
+  std::string m_any_separator{";"};
+  bool m_separator_for_readablility{false};
+
+  Modifier m_modifier{Modifier::Unknown};
+  std::string m_modifier_comment;
+};
+
+using TRuleSequences = std::vector<RuleSequence>;
+
+std::ostream & operator<<(std::ostream & ost, RuleSequence const & sequence);
+std::ostream & operator<<(std::ostream & ost, TRuleSequences const & sequences);
 } // namespace osmoh
 
-
-// class State
-// {
-//  public:
-//   enum EState {
-//     eUnknown = 0,
-//     eClosed = 1,
-//     eOpen = 2
-//   };
-
-//   uint8_t state;
-//   std::string comment;
-
-//   State() : state(eUnknown) {}
-// };
-
-// class TimeRule
-// {
-//  public:
-//   TWeekdays weekdays;
-//   TTimeSpans timespan; // TODO(mgsergio) rename to timespans
-//   State state;
-//   uint8_t int_flags = 0;
-
-//   friend std::ostream & operator <<(std::ostream & s, TimeRule const & r);
-// };
-// } // namespace osmoh
 
 // class OSMTimeRange
 // {

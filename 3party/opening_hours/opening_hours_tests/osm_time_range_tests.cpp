@@ -44,6 +44,16 @@
 
 #include <boost/spirit/include/qi.hpp>
 
+namespace
+{
+template <typename T>
+std::string ToString(T const & t)
+{
+  std::stringstream sstr;
+  sstr << t;
+  return sstr.str();
+}
+
 template <typename Char, typename Parser>
 bool test(Char const * in, Parser const & p, bool full_match = true)
 {
@@ -71,6 +81,8 @@ std::basic_string<Char> ParseAndUnparse(Char const * input)
 
   return sstr.str();
 }
+} // namespace
+
 
 BOOST_AUTO_TEST_CASE(OpeningHours_Locale)
 {
@@ -107,6 +119,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestTime)
 
   {
     BOOST_CHECK(!Time{}.HasValue());
+    BOOST_CHECK_EQUAL(ToString(Time{}), "hh:mm");
   }
   {
     Time time{10_min};
@@ -116,6 +129,8 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestTime)
     BOOST_CHECK(time.IsMinutes());
     BOOST_CHECK(!time.IsEvent());
     BOOST_CHECK(!time.IsEventOffset());
+
+    BOOST_CHECK_EQUAL(ToString(time), "10");
   }
   {
     Time time{100_min};
@@ -128,6 +143,8 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestTime)
 
     BOOST_CHECK_EQUAL(time.GetHoursCount(), 1);
     BOOST_CHECK_EQUAL(time.GetMinutesCount(), 40);
+
+    BOOST_CHECK_EQUAL(ToString(time), "01:40");
   }
   {
     Time time{};
@@ -142,6 +159,8 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestTime)
 
     BOOST_CHECK_EQUAL(time.GetHoursCount(), 22);
     BOOST_CHECK_EQUAL(time.GetMinutesCount(), 15);
+
+    BOOST_CHECK_EQUAL(ToString(time), "22:15");
   }
   {
     Time time{};
@@ -152,6 +171,8 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestTime)
     BOOST_CHECK(!time.IsMinutes());
     BOOST_CHECK(time.IsEvent());
     BOOST_CHECK(!time.IsEventOffset());
+
+    BOOST_CHECK_EQUAL(ToString(time), "sunrise");
   }
   {
     Time time{};
@@ -168,6 +189,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestTime)
   {
     Time time{10_min};
     BOOST_CHECK_EQUAL((-time).GetMinutesCount(), -10);
+    BOOST_CHECK_EQUAL(ToString(-time), "10");
   }
   {
     Time t1{2_h};
@@ -185,14 +207,25 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestTimespan)
 
   {
     Timespan span;
+    BOOST_CHECK(span.IsEmpty());
+    BOOST_CHECK(!span.HasStart());
+    BOOST_CHECK(!span.HasEnd());
+    BOOST_CHECK_EQUAL(ToString(span), "hh:mm-hh:mm");
+
     span.SetStart(10_h);
+    BOOST_CHECK(span.HasStart());
     BOOST_CHECK(span.IsOpen());
+    BOOST_CHECK_EQUAL(ToString(span), "10:00");
+
     span.SetEnd(12_h);
+    BOOST_CHECK(span.HasEnd());
     BOOST_CHECK(!span.IsOpen());
+    BOOST_CHECK_EQUAL(ToString(span), "10:00-12:00");
 
     BOOST_CHECK(!span.HasPeriod());
     span.SetPeriod(10_min);
     BOOST_CHECK(span.HasPeriod());
+    BOOST_CHECK_EQUAL(ToString(span), "10:00-12:00/10");
   }
 }
 
@@ -205,21 +238,25 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestNthEntry)
     BOOST_CHECK(entry.IsEmpty());
     BOOST_CHECK(!entry.HasStart());
     BOOST_CHECK(!entry.HasEnd());
+    BOOST_CHECK_EQUAL(ToString(entry), "");
 
-    entry.SetStart(NthEntry::ENth::Fifth);
+    entry.SetStart(NthEntry::ENth::Third);
     BOOST_CHECK(!entry.IsEmpty());
     BOOST_CHECK(entry.HasStart());
     BOOST_CHECK(!entry.HasEnd());
+    BOOST_CHECK_EQUAL(ToString(entry), "3");
 
-    entry.SetEnd(NthEntry::ENth::Third);
+    entry.SetEnd(NthEntry::ENth::Fifth);
     BOOST_CHECK(!entry.IsEmpty());
     BOOST_CHECK(entry.HasStart());
     BOOST_CHECK(entry.HasEnd());
+    BOOST_CHECK_EQUAL(ToString(entry), "3-5");
 
     entry.SetStart(NthEntry::ENth::None);
     BOOST_CHECK(!entry.IsEmpty());
     BOOST_CHECK(!entry.HasStart());
     BOOST_CHECK(entry.HasEnd());
+    BOOST_CHECK_EQUAL(ToString(entry), "-5");
   }
 }
 
@@ -269,7 +306,52 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestWeekdayRange)
 
 }
 
-BOOST_AUTO_TEST_CASE(OpeningHoursTimerange_DayOffset)
+BOOST_AUTO_TEST_CASE(OpeningHours_Holidays)
+{
+  using namespace osmoh;
+
+  {
+    Holiday h;
+    BOOST_CHECK(!h.IsPlural());
+    BOOST_CHECK_EQUAL(h.GetOffset(), 0);
+    BOOST_CHECK_EQUAL(ToString(h), "SH");
+
+    h.SetOffset(11);
+
+    BOOST_CHECK_EQUAL(h.GetOffset(), 11);
+    BOOST_CHECK_EQUAL(ToString(h), "SH +11 days");
+
+    h.SetOffset(-1);
+    BOOST_CHECK_EQUAL(ToString(h), "SH -1 day");
+
+    h.SetPlural(true);
+    BOOST_CHECK(h.IsPlural());
+    BOOST_CHECK_EQUAL(ToString(h), "PH");
+  }
+}
+
+BOOST_AUTO_TEST_CASE(OpeningHours_Weekdays)
+{
+  using namespace osmoh;
+
+  {
+    Weekdays w;
+    BOOST_CHECK(w.IsEmpty());
+    BOOST_CHECK(!w.HasWeekday());
+    BOOST_CHECK(!w.HasHolidays());
+
+    BOOST_CHECK_EQUAL(ToString(w), "");
+
+    WeekdayRange r;
+    r.SetStart(EWeekday::Su);
+    w.AddHoliday(Holiday{});
+    w.AddWeekdayRange(r);
+
+    BOOST_CHECK_EQUAL(ToString(w), "SH,Su");
+  }
+}
+
+BOOST_AUTO_TEST_CASE(OpeningHours_DayOffset)
 {
   using namespace osmoh;
 
@@ -278,21 +360,25 @@ BOOST_AUTO_TEST_CASE(OpeningHoursTimerange_DayOffset)
     BOOST_CHECK(offset.IsEmpty());
     BOOST_CHECK(!offset.HasWDayOffset());
     BOOST_CHECK(!offset.HasOffset());
+    BOOST_CHECK_EQUAL(ToString(offset), "");
 
     offset.SetWDayOffset(EWeekday::Mo);
     BOOST_CHECK(!offset.IsEmpty());
     BOOST_CHECK(offset.HasWDayOffset());
+    BOOST_CHECK_EQUAL(ToString(offset), "+Mo");
 
     offset.SetOffset(11);
     BOOST_CHECK(offset.HasOffset());
+    BOOST_CHECK_EQUAL(ToString(offset), "+Mo +11 days");
 
     BOOST_CHECK(offset.IsWDayOffsetPositive());
     offset.SetWDayOffsetPositive(false);
     BOOST_CHECK(!offset.IsWDayOffsetPositive());
+    BOOST_CHECK_EQUAL(ToString(offset), "-Mo +11 days");
   }
 }
 
-BOOST_AUTO_TEST_CASE(OpeningHoursTimerange_TestMonthDay)
+BOOST_AUTO_TEST_CASE(OpeningHours_TestMonthDay)
 {
   using namespace osmoh;
 
@@ -304,32 +390,37 @@ BOOST_AUTO_TEST_CASE(OpeningHoursTimerange_TestMonthDay)
     BOOST_CHECK(!md.HasDayNum());
     BOOST_CHECK(!md.HasOffset());
     BOOST_CHECK(!md.IsVariable());
+    BOOST_CHECK_EQUAL(ToString(md), "");
   }
   {
     MonthDay md;
+    md.SetMonth(MonthDay::EMonth::Jul);
+    BOOST_CHECK(!md.IsEmpty());
+    BOOST_CHECK(md.HasMonth());
+    BOOST_CHECK_EQUAL(ToString(md), "Jul");
+
     md.SetYear(1990);
     BOOST_CHECK(!md.IsEmpty());
     BOOST_CHECK(md.HasYear());
-
-    md.SetMonth(MonthDay::EMonth::Jul);
-    BOOST_CHECK(!md.IsEmpty());
     BOOST_CHECK(md.HasYear());
-    BOOST_CHECK(md.HasMonth());
+    BOOST_CHECK_EQUAL(ToString(md), "1990 Jul");
 
     md.SetDayNum(17);
     BOOST_CHECK(!md.IsEmpty());
     BOOST_CHECK(md.HasYear());
     BOOST_CHECK(md.HasMonth());
     BOOST_CHECK(md.HasDayNum());
+    BOOST_CHECK_EQUAL(ToString(md), "1990 Jul 17");
 
     DateOffset offset;
     offset.SetWDayOffset(EWeekday::Mo);
     md.SetOffset(offset);
     BOOST_CHECK(md.HasOffset());
+    BOOST_CHECK_EQUAL(ToString(md), "1990 Jul 17 +Mo");
   }
 }
 
-BOOST_AUTO_TEST_CASE(OpeningHoursTimerange_TestMonthdayRange)
+BOOST_AUTO_TEST_CASE(OpeningHours_TestMonthdayRange)
 {
   using namespace osmoh;
 
@@ -340,12 +431,14 @@ BOOST_AUTO_TEST_CASE(OpeningHoursTimerange_TestMonthdayRange)
     BOOST_CHECK(!range.HasEnd());
     BOOST_CHECK(!range.HasPeriod());
     BOOST_CHECK(!range.HasPlus());
+    BOOST_CHECK_EQUAL(ToString(range), "");
   }
   {
     MonthdayRange range;
     MonthDay md;
 
     md.SetYear(1990);
+    md.SetMonth(MonthDay::EMonth::Sep);
     range.SetStart(md);
 
     BOOST_CHECK(!range.IsEmpty());
@@ -353,6 +446,7 @@ BOOST_AUTO_TEST_CASE(OpeningHoursTimerange_TestMonthdayRange)
     BOOST_CHECK(!range.HasEnd());
     BOOST_CHECK(!range.HasPeriod());
     BOOST_CHECK(!range.HasPlus());
+    BOOST_CHECK_EQUAL(ToString(range), "1990 Sep");
   }
   {
     MonthdayRange range;
@@ -383,6 +477,81 @@ BOOST_AUTO_TEST_CASE(OpeningHoursTimerange_TestMonthdayRange)
     BOOST_CHECK(!range.HasEnd());
     BOOST_CHECK(range.HasPeriod());
     BOOST_CHECK(range.HasPlus());
+  }
+}
+
+BOOST_AUTO_TEST_CASE(OpeningHours_YearRange)
+{
+  using namespace osmoh;
+
+  {
+    YearRange range;
+    BOOST_CHECK(range.IsEmpty());
+    BOOST_CHECK(!range.HasStart());
+    BOOST_CHECK(!range.HasEnd());
+    BOOST_CHECK(!range.HasPlus());
+    BOOST_CHECK_EQUAL(ToString(range), "");
+
+    range.SetStart(1812);
+    BOOST_CHECK(range.HasStart());
+    BOOST_CHECK(range.IsOpen());
+    BOOST_CHECK_EQUAL(ToString(range), "1812");
+
+    range.SetEnd(1815);
+    BOOST_CHECK(range.HasEnd());
+    BOOST_CHECK(!range.IsOpen());
+    BOOST_CHECK_EQUAL(ToString(range), "1812-1815");
+
+    BOOST_CHECK(!range.HasPeriod());
+    range.SetPeriod(10);
+    BOOST_CHECK(range.HasPeriod());
+    BOOST_CHECK_EQUAL(ToString(range), "1812-1815/10");
+  }
+  {
+    YearRange range;
+    range.SetStart(1812);
+    range.SetPlus(true);
+    BOOST_CHECK(range.HasStart());
+    BOOST_CHECK(range.IsOpen());
+    BOOST_CHECK(range.HasPlus());
+    BOOST_CHECK_EQUAL(ToString(range), "1812+");
+  }
+}
+
+BOOST_AUTO_TEST_CASE(OpeningHours_WeekRange)
+{
+  using namespace osmoh;
+
+  {
+    WeekRange range;
+    BOOST_CHECK(range.IsEmpty());
+    BOOST_CHECK(!range.HasStart());
+    BOOST_CHECK(!range.HasEnd());
+    BOOST_CHECK_EQUAL(ToString(range), "");
+
+    range.SetStart(18);
+    BOOST_CHECK(range.HasStart());
+    BOOST_CHECK(range.IsOpen());
+    BOOST_CHECK_EQUAL(ToString(range), "18");
+
+    range.SetEnd(42);
+    BOOST_CHECK(range.HasEnd());
+    BOOST_CHECK(!range.IsOpen());
+    BOOST_CHECK_EQUAL(ToString(range), "18-42");
+
+    BOOST_CHECK(!range.HasPeriod());
+    range.SetPeriod(10);
+    BOOST_CHECK(range.HasPeriod());
+    BOOST_CHECK_EQUAL(ToString(range), "18-42/10");
+  }
+}
+
+BOOST_AUTO_TEST_CASE(OpeningHours_RuleSequence)
+{
+  using namespace osmoh;
+
+  {
+    RuleSequence s;
   }
 }
 
@@ -446,6 +615,26 @@ BOOST_AUTO_TEST_CASE(OpeningHoursTimerange_TestParseUnparse)
 
 BOOST_AUTO_TEST_CASE(OpeningHoursWeekdays_TestParseUnparse)
 {
+  {
+    auto const rule = "We[4] -2 days";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::Weekdays>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "Sa[4,5]";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::Weekdays>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "Mo[1,3]";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::Weekdays>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "Tu[4,5] +1 day";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::Weekdays>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
   {
     auto const rule = "SH -2 days";
     auto const parsedUnparsed = ParseAndUnparse<osmoh::Weekdays>(rule);
@@ -600,6 +789,58 @@ BOOST_AUTO_TEST_CASE(OpeningHoursWeekRanges_TestParseUnparse)
   }
 }
 
+BOOST_AUTO_TEST_CASE(OpeningHoursRuleSequence_TestParseUnparse)
+{
+  {
+    auto const rule = "24/7";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "2016-2025";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "Feb 03 -Mo -2 days-Jan 11 +3 days";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TMonthdayRanges>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "week 19-31";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "06:00-02:00/21:03,18:15";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "06:13-15:00; 16:30+";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = "We-Sa; Mo[1,3] closed";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
+    auto const rule = ( "We-Sa; Mo[1,3] closed; Su[-1,-2] closed; "
+                        "Fr[2] open; Fr[-2], Fr open; Su[-2] -2 days" );
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+}
+  // {
+  //   auto const rule = ( "PH,Tu-Su 10:00-18:00; Sa[1] 10:00-18:00 open "
+  //                       "\"Eintritt ins gesamte Haus frei\"; "
+  //                       "Jan 1,Dec 24,Dec 25,easter -2 days: closed" );
+  //   auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
+  //   BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  // }
+
 // BOOST_AUTO_TEST_CASE(OpeningHours_TimeHit)
 // {
 //   {
@@ -609,13 +850,6 @@ BOOST_AUTO_TEST_CASE(OpeningHoursWeekRanges_TestParseUnparse)
 //     BOOST_CHECK(oh.UpdateState("12-12-2013 16:00").IsClosed());
 //     BOOST_CHECK(oh.UpdateState("12-12-2013 20:00").IsOpen());
 //   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("We-Sa; Mo[1,3] closed; Su[-1,-2] closed; Fr[2] open; Fr[-2], Fr open; Su[-2] -2 days");
-//     BOOST_CHECK(oh.IsValid());
-//     BOOST_CHECK(oh.UpdateState("20-03-2015 18:00").IsOpen());
-//     BOOST_CHECK(oh.UpdateState("17-03-2015 18:00").IsClosed());
-//   }
-
 //   {
 //     OSMTimeRange oh = OSMTimeRange::FromString("We-Fr; Mo[1,3] closed; Su[-1,-2] closed");
 //     BOOST_CHECK(oh.IsValid());

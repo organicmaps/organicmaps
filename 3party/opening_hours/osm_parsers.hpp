@@ -299,9 +299,10 @@ class weekday_selector : public qi::grammar<Iterator, osmoh::Weekdays(), space_t
         ;
 
     day_offset =
-        (lit('+')[_a = 1] | lit('-') [_a = -1]) >>
-        ushort_[_val = _1 * _a] >>
-        charset::no_case[(lit(L"days") | lit(L"day"))];
+        ( (lit('+')[_a = 1] | lit('-') [_a = -1]) >>
+          ushort_  [_val = _1 * _a] >>
+          charset::no_case[(lit(L"days") | lit(L"day"))] )
+        ;
 
     holiday = (charset::no_case[lit(L"SH")] [bind(&osmoh::Holiday::SetPlural, _val, false)]
                >> -day_offset               [bind(&osmoh::Holiday::SetOffset, _val, _1)])
@@ -310,18 +311,13 @@ class weekday_selector : public qi::grammar<Iterator, osmoh::Weekdays(), space_t
 
     holiday_sequence %= (holiday % ',');
 
-    weekday_range = (charset::no_case[wdays][bind(&osmoh::WeekdayRange::SetStart, _val, _1)]
-                     >> L'[' >> nth_entry[bind(&osmoh::WeekdayRange::AddNth, _val, _1)] % L','
-                     >> L']' >> day_offset[bind(&osmoh::WeekdayRange::SetOffset, _val, _1)])
-
-        | (charset::no_case[wdays][bind(&osmoh::WeekdayRange::SetStart, _val, _1)]
-           >> L'[' >> nth_entry[bind(&osmoh::WeekdayRange::AddNth, _val, _1)] % L','
-           >> L']')
-
-        | charset::no_case[(wdays >> dash >> wdays)][bind(&osmoh::WeekdayRange::SetStart, _val, _1),
-                                                     bind(&osmoh::WeekdayRange::SetEnd, _val, _2)]
-
-        | charset::no_case[wdays][bind(&osmoh::WeekdayRange::SetStart, _val, _1)]
+    weekday_range =
+        ( charset::no_case[wdays]  [bind(&osmoh::WeekdayRange::SetStart, _val, _1)] >>
+          '[' >> (nth_entry        [bind(&osmoh::WeekdayRange::AddNth, _val, _1)]) % ',') >> ']' >>
+          -(day_offset             [bind(&osmoh::WeekdayRange::SetOffset, _val, _1)])
+        | charset::no_case[(wdays >> dash >> wdays)]  [bind(&osmoh::WeekdayRange::SetStart, _val, _1),
+                                                       bind(&osmoh::WeekdayRange::SetEnd, _val, _2)]
+        | charset::no_case[wdays]  [bind(&osmoh::WeekdayRange::SetStart, _val, _1)]
         ;
 
     weekday_sequence %= (weekday_range % L',') >> !qi::no_skip[charset::alpha] >> -lit(L':');
@@ -456,7 +452,7 @@ class time_selector : public qi::grammar<Iterator, osmoh::TTimespans(), space_ty
 };
 
 // template <typename Iterator>
-// class selectors : public qi::grammar<Iterator, osmoh::TimeRule(), space_type>
+// class selectors : public qi::grammar<Iterator, osmoh::TRuleSequences(), space_type>
 // {
 //  protected:
 //   weekday_selector<Iterator> weekday_selector;
@@ -466,9 +462,8 @@ class time_selector : public qi::grammar<Iterator, osmoh::TTimespans(), space_ty
 //   week_selector<Iterator> week_selector;
 
 //   qi::rule<Iterator, std::string(), space_type> comment;
-//   qi::rule<Iterator, osmoh::TimeRule(), space_type> small_range_selectors;
-//   qi::rule<Iterator, space_type> wide_range_selectors;
-//   qi::rule<Iterator, osmoh::TimeRule(), space_type> main;
+//   qi::rule<Iterator, osmoh::TRuleSequences(), space_type> main;
+
 //  public:
 //   selectors() : selectors::base_type(main)
 //   {
@@ -478,107 +473,156 @@ class time_selector : public qi::grammar<Iterator, osmoh::TTimespans(), space_ty
 //     using qi::lexeme;
 //     using charset::char_;
 //     using boost::phoenix::at_c;
-//     using osmoh::State;
 
-//     comment %= lexeme['"' >> +(char_ - '"') >> '"'];
-//     wide_range_selectors = -year_selector >> -month_selector >> -week_selector >> -lit(':') | (comment >> ':');
-//     small_range_selectors = -weekday_selector[at_c<0>(_val) = _1] >> -( lit("24/7") | time_selector[at_c<1>(_val) = _1]);
+//     // comment %= lexeme['"' >> +(char_ - '"') >> '"'];
+//     // wide_range_selectors = -year_selector >> -month_selector >> -week_selector >> -lit(':') | (comment >> ':');
+//     // small_range_selectors = -weekday_selector[at_c<0>(_val) = _1] >> -( lit("24/7") | time_selector[at_c<1>(_val) = _1]);
 
-//     main =
-//         (
-//             lit(L"24/7")
-//             | lit(L"24時間営業")
-//             | lit(L"7/24")
-//             | lit(L"24時間")
-//             | charset::no_case[lit(L"daily 24/7")]
-//             | charset::no_case[lit(L"24 hours")]
-//             | charset::no_case[lit(L"24 horas")]
-//             | charset::no_case[lit(L"круглосуточно")]
-//             | charset::no_case[lit(L"24 часа")]
-//             | charset::no_case[lit(L"24 hrs")]
-//             | charset::no_case[lit(L"nonstop")]
-//             | charset::no_case[lit(L"24hrs")]
-//             | charset::no_case[lit(L"open 24 hours")]
-//             | charset::no_case[lit(L"24 stunden")]
-//          )[at_c<0>(at_c<2>(_val)) = State::eOpen]
-//         | (-wide_range_selectors >> small_range_selectors[_val = _1, at_c<0>(at_c<2>(_val)) = State::eOpen])
-//         ;
+//     // main =
+//     //     (
+//     //         lit(L"24/7")
+//     //         | lit(L"24時間営業")
+//     //         | lit(L"7/24")
+//     //         | lit(L"24時間")
+//     //         | charset::no_case[lit(L"daily 24/7")]
+//     //         | charset::no_case[lit(L"24 hours")]
+//     //         | charset::no_case[lit(L"24 horas")]
+//     //         | charset::no_case[lit(L"круглосуточно")]
+//     //         | charset::no_case[lit(L"24 часа")]
+//     //         | charset::no_case[lit(L"24 hrs")]
+//     //         | charset::no_case[lit(L"nonstop")]
+//     //         | charset::no_case[lit(L"24hrs")]
+//     //         | charset::no_case[lit(L"open 24 hours")]
+//     //         | charset::no_case[lit(L"24 stunden")]
+//     //      )[at_c<0>(at_c<2>(_val)) = State::eOpen]
+//     //     | (-wide_range_selectors >> small_range_selectors[_val = _1, at_c<0>(at_c<2>(_val)) = State::eOpen])
+//     //     ;
+
 //     BOOST_SPIRIT_DEBUG_NODE(main);
 //     BOOST_SPIRIT_DEBUG_NODE(small_range_selectors);
 //     BOOST_SPIRIT_DEBUG_NODE(wide_range_selectors);
 //   }
 // };
 
-// template <typename Iterator>
-// class time_domain : public qi::grammar<Iterator, osmoh::TTimeRules(), space_type, qi::locals<qi::rule<Iterator, space_type>*>>
-// {
-// protected:
-//   selectors<Iterator> selector_sequence;
+template <typename Iterator>
+class time_domain : public qi::grammar<Iterator, osmoh::TRuleSequences(), space_type>
+{
+protected:
+  weekday_selector<Iterator> weekday_selector;
+  time_selector<Iterator> time_selector;
+  year_selector<Iterator> year_selector;
+  month_selector<Iterator> month_selector;
+  week_selector<Iterator> week_selector;
 
-//   qi::rule<Iterator, std::string(), space_type> comment;
-//   qi::rule<Iterator, space_type> separator;
-//   qi::rule<Iterator, space_type> base_separator;
-//   qi::rule<Iterator, osmoh::TimeRule(), space_type> rule_sequence;
-//   qi::rule<Iterator, osmoh::State(), space_type> rule_modifier;
-//   qi::rule<Iterator, osmoh::TTimeRules(), space_type, qi::locals<qi::rule<Iterator, space_type>*>> main;
+  qi::rule<Iterator, std::string(), space_type> comment;
+  qi::rule<Iterator, std::string(), space_type> separator;
 
-// public:
-//   time_domain() : time_domain::base_type(main)
-//   {
-//     using qi::lit;
-//     using qi::lexeme;
-//     using qi::_1;
-//     using qi::_a;
-//     using qi::_val;
-//     using charset::char_;
-//     using boost::phoenix::at_c;
-//     using qi::lazy;
-//     using qi::eps;
-//     using osmoh::State;
+  qi::rule<Iterator, qi::unused_type(osmoh::RuleSequence &), space_type> small_range_selectors;
+  qi::rule<Iterator, qi::unused_type(osmoh::RuleSequence &), space_type> wide_range_selectors;
+  qi::rule<Iterator, qi::unused_type(osmoh::RuleSequence &), space_type> rule_modifier;
 
-//     comment %= lexeme['"' >> +(char_ - '"') >> '"'] | lexeme['(' >> +(char_ - ')') >> ')'];
-//     base_separator = lit(';') | lit("||");
-//     separator = lit(';') | lit("||") | lit(',');
+  qi::rule<Iterator, osmoh::RuleSequence(), space_type> rule_sequence;
+  qi::rule<Iterator, osmoh::TRuleSequences(), space_type> main;
 
-//     rule_modifier =
-//         (charset::no_case[lit("open")][at_c<0>(_val) = State::eOpen] >> -comment[at_c<1>(_val) = _1])
-//         | ((charset::no_case[lit("closed") | lit("off")])[at_c<0>(_val) = State::eClosed] >> -comment[at_c<1>(_val) = _1])
-//         | (charset::no_case[lit("unknown")][at_c<0>(_val) = State::eUnknown] >> -comment[at_c<1>(_val) = _1])
-//         | comment[at_c<0>(_val) = State::eUnknown, at_c<1>(_val) = _1]
-//         ;
+public:
+  time_domain() : time_domain::base_type(main)
+  {
+    using qi::lit;
+    using qi::lexeme;
+    using qi::_1;
+    using qi::_a;
+    using qi::_r1;
+    using qi::_val;
+    using charset::char_;
+    using qi::eps;
+    using qi::lazy;
+    using phx::back;
+    using phx::push_back;
+    using phx::construct;
 
-//     rule_sequence = selector_sequence[_val = _1]
-//         >> -rule_modifier[at_c<2>(_val) = _1, at_c<3>(_val) = 1];
+    using Modifier = osmoh::RuleSequence::Modifier;
 
-//     main %= -(lit("opening_hours") >> lit('='))
-//         >> rule_sequence[_a = phx::val(&base_separator),
-//                          phx::if_(at_c<3>(_1) || phx::size(at_c<1>(_1)))[_a = phx::val(&separator)]] % lazy(*_a);
+    comment %= '"' >> +(char_ - '"') >> '"'
+        // | lexeme['(' >> +(char_ - ')') >> ')']
+        ;
 
-//     BOOST_SPIRIT_DEBUG_NODE(main);
-//     BOOST_SPIRIT_DEBUG_NODE(rule_sequence);
-//     BOOST_SPIRIT_DEBUG_NODE(rule_modifier);
-//   }
-// };
+    separator %= charset::string(";")
+        | charset::string("||")
+        | charset::string(",")
+        ;
 
-// template <typename Iterator>
-// inline bool parse_timerange(Iterator first, Iterator last, osmoh::TTimeRules & context)
-// {
-//   using qi::phrase_parse;
-//   using charset::space;
+    wide_range_selectors =
+        ( -(year_selector    [bind(&osmoh::RuleSequence::SetYears, _r1, _1)]) >>
+          -(month_selector   [bind(&osmoh::RuleSequence::SetMonths, _r1, _1)]) >>
+          -(week_selector    [bind(&osmoh::RuleSequence::SetWeeks, _r1, _1)]) >>
+          -(lit(':')         [bind(&osmoh::RuleSequence::SetSeparatorForReadability, _r1, true)]))
+        | (comment >> ':')   [bind(&osmoh::RuleSequence::SetComment, _r1, _1)]
+        ;
 
-//   time_domain<Iterator> time_domain;
+    small_range_selectors =
+        ( -(weekday_selector [bind(&osmoh::RuleSequence::SetWeekdays, _r1, _1)]) >>
+          -(time_selector    [bind(&osmoh::RuleSequence::SetTimes, _r1, _1)]))
+        ;
 
-//   bool r = phrase_parse(
-//       first,       /* start iterator */
-//       last,        /* end iterator */
-//       time_domain, /* the parser */
-//       space,       /* the skip-parser */
-//       context      /* result storage */
-//                         );
+    rule_modifier =
+        (charset::no_case[lit("open")]
+           [bind(&osmoh::RuleSequence::SetModifier, _r1, Modifier::Open)] >>
+           -(comment [bind(&osmoh::RuleSequence::SetModifierComment, _r1, _1)]))
 
-//   if (first != last) // fail if we did not get a full match
-//     return false;
-//   return r;
-// }
+        | ((charset::no_case[lit("closed") | lit("off")])
+           [bind(&osmoh::RuleSequence::SetModifier, _r1, Modifier::Closed)] >>
+           -(comment [bind(&osmoh::RuleSequence::SetModifierComment, _r1, _1)]))
+
+        | (charset::no_case[lit("unknown")]
+           [bind(&osmoh::RuleSequence::SetModifier, _r1, Modifier::Unknown)] >>
+           -(comment [bind(&osmoh::RuleSequence::SetModifierComment, _r1, _1)]))
+
+        | comment    [bind(&osmoh::RuleSequence::SetModifier, _r1, Modifier::Unknown),
+                      bind(&osmoh::RuleSequence::SetModifierComment, _r1, _1)]
+
+        //        | eps [bind(&osmoh::RuleSequence::SetModifier, _val, Modifier::Open)]
+        ;
+
+    rule_sequence =
+        lit("24/7") [bind(&osmoh::RuleSequence::Set24Per7, _val, true)]
+        | ( -wide_range_selectors(_val) >>
+            -small_range_selectors(_val) >>
+            -rule_modifier(_val) )
+        ;
+
+    main %=
+        ( -(lit("opening_hours") >> lit('=')) >>
+          (rule_sequence % (separator
+                            [phx::bind(&osmoh::RuleSequence::SetAnySeparator, &back(_val), _1)])))
+        ;
+    //
+
+    // main =
+    //     (
+    //         lit(L"24/7")
+    //         | lit(L"24時間営業")
+    //         | lit(L"7/24")
+    //         | lit(L"24時間")
+    //         | charset::no_case[lit(L"daily 24/7")]
+    //         | charset::no_case[lit(L"24 hours")]
+    //         | charset::no_case[lit(L"24 horas")]
+    //         | charset::no_case[lit(L"круглосуточно")]
+    //         | charset::no_case[lit(L"24 часа")]
+    //         | charset::no_case[lit(L"24 hrs")]
+    //         | charset::no_case[lit(L"nonstop")]
+    //         | charset::no_case[lit(L"24hrs")]
+    //         | charset::no_case[lit(L"open 24 hours")]
+    //         | charset::no_case[lit(L"24 stunden")]
+    //      )[at_c<0>(at_c<2>(_val)) = State::eOpen]
+    //     | (-wide_range_selectors >> small_range_selectors[_val = _1, at_c<0>(at_c<2>(_val)) = State::eOpen])
+    //     ;
+
+    BOOST_SPIRIT_DEBUG_NODE(main);
+    BOOST_SPIRIT_DEBUG_NODE(rule_sequence);
+    BOOST_SPIRIT_DEBUG_NODE(rule_modifier);
+    BOOST_SPIRIT_DEBUG_NODE(small_range_selectors);
+    BOOST_SPIRIT_DEBUG_NODE(wide_range_selectors);
+  }
+};
 } // namespace parsing
 } // namespace osmoh

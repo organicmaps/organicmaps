@@ -244,7 +244,7 @@ std::ostream & operator<<(std::ostream & ost, Time const & time)
     }
     ost << time.GetEvent();
   }
-  if (time.IsMinutes())
+  else if (time.IsMinutes())
     PrintPaddedNumber(ost, std::abs(minutes), 2);
   else
   {
@@ -257,9 +257,24 @@ std::ostream & operator<<(std::ostream & ost, Time const & time)
 }
 
 
+bool Timespan::IsEmpty() const
+{
+  return !HasStart() && !HasEnd();
+}
+
 bool Timespan::IsOpen() const
 {
-  return !m_end.HasValue();
+  return GetStart().HasValue() && !GetEnd().HasValue();
+}
+
+bool Timespan::HasStart() const
+{
+  return GetStart().HasValue();
+}
+
+bool Timespan::HasEnd() const
+{
+  return GetEnd().HasValue();
 }
 
 bool Timespan::HasPlus() const
@@ -503,7 +518,9 @@ std::ostream & operator<<(std::ostream & ost, WeekdayRange const & range)
   {
     if (range.HasNth())
     {
+      ost << '[';
       PrintVector(ost, range.GetNths());
+      ost << ']';
     }
     PrintOffset(ost, range.GetOffset(), true);
   }
@@ -555,6 +572,11 @@ std::ostream & operator<<(std::ostream & ost, THolidays const & holidays)
   return ost;
 }
 
+
+bool Weekdays::IsEmpty() const
+{
+  return GetWeekdayRanges().empty() && GetHolidays().empty();
+}
 
 bool Weekdays::HasWeekday() const
 {
@@ -912,6 +934,11 @@ bool YearRange::IsEmpty() const
   return !HasStart() && !HasEnd();
 }
 
+bool YearRange::IsOpen() const
+{
+  return HasStart() && !HasEnd();
+}
+
 bool YearRange::HasStart() const
 {
   return GetStart() != 0;
@@ -969,6 +996,9 @@ void YearRange::SetPeriod(uint32_t const period)
 
 std::ostream & operator<<(std::ostream & ost, YearRange const range)
 {
+  if (range.IsEmpty())
+    return ost;
+
   ost << range.GetStart();
   if (range.HasEnd())
   {
@@ -991,6 +1021,11 @@ std::ostream & operator<<(std::ostream & ost, TYearRanges const ranges)
 bool WeekRange::IsEmpty() const
 {
   return !HasStart() && !HasEnd();
+}
+
+bool WeekRange::IsOpen() const
+{
+  return HasStart() && !HasEnd();
 }
 
 bool WeekRange::HasStart() const
@@ -1040,6 +1075,9 @@ void WeekRange::SetPeriod(uint32_t const period)
 
 std::ostream & operator<<(std::ostream & ost, WeekRange const range)
 {
+  if (range.IsEmpty())
+    return ost;
+
   PrintPaddedNumber(ost, range.GetStart(), 2);
   if (range.HasEnd())
   {
@@ -1055,6 +1093,229 @@ std::ostream & operator<<(std::ostream & ost, TWeekRanges const ranges)
 {
   ost << "week ";
   PrintVector(ost, ranges);
+  return ost;
+}
+
+
+bool RuleSequence::IsEmpty() const
+{
+  return (!HasYears() && !HasMonth() &&
+          !HasWeeks() && !HasWeekdays() &&
+          !HasTimes());
+}
+
+bool RuleSequence::Is24Per7() const
+{
+  return m_24_per_7;
+}
+
+bool RuleSequence::HasYears() const
+{
+  return !GetYears().empty();
+}
+
+bool RuleSequence::HasMonth() const
+{
+  return !GetMonths().empty();
+}
+
+bool RuleSequence::HasWeeks() const
+{
+  return !GetWeeks().empty();
+}
+
+bool RuleSequence::HasWeekdays() const
+{
+  return !GetWeekdays().IsEmpty();
+}
+
+bool RuleSequence::HasTimes() const
+{
+  return !GetTimes().empty();
+}
+
+bool RuleSequence::HasComment() const
+{
+  return !GetComment().empty();
+}
+
+bool RuleSequence::HasModifierComment() const
+{
+  return !GetModifierComment().empty();
+}
+
+bool RuleSequence::HasSeparatorForReadability() const
+{
+  return m_separator_for_readablility;
+}
+
+TYearRanges const & RuleSequence::GetYears() const
+{
+  return m_years;
+}
+
+TMonthdayRanges const & RuleSequence::GetMonths() const
+{
+  return m_months;
+}
+
+TWeekRanges const & RuleSequence::GetWeeks() const
+{
+  return m_weeks;
+}
+
+Weekdays const & RuleSequence::GetWeekdays() const
+{
+  return m_weekdays;
+}
+
+TTimespans const & RuleSequence::GetTimes() const
+{
+  return m_times;
+}
+
+std::string const & RuleSequence::GetComment() const
+{
+  return m_comment;
+}
+
+std::string const & RuleSequence::GetModifierComment() const
+{
+  return m_modifier_comment;
+}
+
+std::string const & RuleSequence::GetAnySeparator() const
+{
+  return m_any_separator;
+}
+
+RuleSequence::Modifier RuleSequence::GetModifier() const
+{
+  return m_modifier;
+}
+
+void RuleSequence::Set24Per7(bool const on)
+{
+  // std::cout << "Set24Per7: " << on << '\n';
+  m_24_per_7 = on;
+  // dump();
+}
+
+void RuleSequence::SetYears(TYearRanges const & years)
+{
+  // std::cout << "SetYears: " << years << '\n';
+  m_years = years;
+  // dump();
+}
+
+void RuleSequence::SetMonths(TMonthdayRanges const & months)
+{
+  // std::cout << "SetMonths: " << months << '\n';
+  m_months = months;
+  // dump();
+}
+
+void RuleSequence::SetWeeks(TWeekRanges const & weeks)
+{
+  // std::cout << "SetWeeks: " << weeks << '\n';
+  m_weeks = weeks;
+  // dump();
+}
+
+void RuleSequence::SetWeekdays(Weekdays const & weekdays)
+{
+  // std::cout << "SetWeekdays: " << weekdays << '\n';
+  m_weekdays = weekdays;
+  // dump();
+}
+
+void RuleSequence::SetTimes(TTimespans const & times)
+{
+  // std::cout << "SetTimes: " << times << '\n';
+  m_times = times;
+  // dump();
+}
+
+void RuleSequence::SetComment(std::string const & comment)
+{
+  // std::cout << "SetComment: " << comment << '\n';
+  m_comment = comment;
+  // dump();
+}
+
+void RuleSequence::SetModifierComment(std::string & comment)
+{
+  // std::cout << "SetModifierComment: " << comment << '\n';
+  m_modifier_comment = comment;
+  // dump();
+}
+
+void RuleSequence::SetAnySeparator(std::string const & separator)
+{
+  // std::cout << "SetAnySeparator: " << separator << '\n';
+  m_any_separator = separator;
+  // dump();
+}
+
+void RuleSequence::SetSeparatorForReadability(bool const on)
+{
+  // std::cout << "SetSeparatorForReadability: " << on << '\n';
+  m_separator_for_readablility = on;
+  // dump();
+}
+
+void RuleSequence::SetModifier(Modifier const modifier)
+{
+  // std::cout << "SetModifier " ;//<< modifier << '\n';
+  m_modifier = modifier;
+  // dump();
+}
+
+// uint32_t RuleSequence::id{};
+// void RuleSequence::dump() const
+// {
+//   std::cout << "My id: " << my_id << '\n'
+//             << "Years " << GetYears().size() << '\n'
+//             << "Months " << GetMonths().size() << '\n'
+//             << "Weeks " << GetWeeks().size() << '\n'
+//             << "Holidays " << GetWeekdays().GetHolidays().size() << '\n'
+//             << "Weekdays " << GetWeekdays().GetWeekdayRanges().size() << '\n'
+//             << "Times " << GetTimes().size() << std::endl;
+// }
+
+std::ostream & operator<<(std::ostream & ost, RuleSequence const & s)
+{
+  if (s.Is24Per7())
+    ost << "24/7";
+  else
+  {
+    if (s.HasComment())
+      ost << s.GetComment() << ':';
+    else
+    {
+      if (s.HasYears())
+        ost << s.GetYears();
+      if (s.HasMonth())
+        ost << s.GetMonths();
+      if (s.HasWeeks())
+        ost << s.GetWeeks();
+
+      if (s.HasSeparatorForReadability())
+        ost << ':';
+
+      if (s.HasWeekdays())
+        ost << s.GetWeekdays();
+      if (s.HasTimes())
+        ost << s.GetTimes();
+    }
+  }
+
+  return ost;
+}
+
+std::ostream & operator<<(std::ostream & ost, TRuleSequences const & s)
+{
+  PrintVector(ost, s);
   return ost;
 }
 
