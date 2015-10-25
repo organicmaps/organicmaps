@@ -347,7 +347,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_Weekdays)
     w.AddHoliday(Holiday{});
     w.AddWeekdayRange(r);
 
-    BOOST_CHECK_EQUAL(ToString(w), "SH,Su");
+    BOOST_CHECK_EQUAL(ToString(w), "SH, Su");
   }
 }
 
@@ -661,7 +661,7 @@ BOOST_AUTO_TEST_CASE(OpeningHoursWeekdays_TestParseUnparse)
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
-    auto const rule = "Mo,We,Th,Fr";
+    auto const rule = "Mo, We, Th, Fr";
     auto const parsedUnparsed = ParseAndUnparse<osmoh::Weekdays>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
@@ -671,7 +671,7 @@ BOOST_AUTO_TEST_CASE(OpeningHoursWeekdays_TestParseUnparse)
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
-    auto const rule = "PH,Sa,Su";
+    auto const rule = "PH, Sa, Su";
     auto const parsedUnparsed = ParseAndUnparse<osmoh::Weekdays>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
@@ -700,7 +700,7 @@ BOOST_AUTO_TEST_CASE(OpeningHoursMonthdayRanges_TestParseUnparse)
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
-    auto const rule = "Jan 11-Dec 10,Apr 01-Jun 02";
+    auto const rule = "Jan 11-Dec 10, Apr 01-Jun 02";
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TMonthdayRanges>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
@@ -735,7 +735,7 @@ BOOST_AUTO_TEST_CASE(OpeningHoursMonthdayRanges_TestParseUnparse)
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
-    auto const rule = "Feb 03 -Mo -2 days-Jan 11 +3 days,Mar,Apr";
+    auto const rule = "Feb 03 -Mo -2 days-Jan 11 +3 days, Mar, Apr";
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TMonthdayRanges>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
@@ -783,7 +783,7 @@ BOOST_AUTO_TEST_CASE(OpeningHoursWeekRanges_TestParseUnparse)
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
-    auto const rule = "week 18-36/3,11";
+    auto const rule = "week 18-36/3, 11";
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TWeekRanges>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
@@ -812,7 +812,7 @@ BOOST_AUTO_TEST_CASE(OpeningHoursRuleSequence_TestParseUnparse)
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
-    auto const rule = "06:00-02:00/21:03,18:15";
+    auto const rule = "06:00-02:00/21:03, 18:15";
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }

@@ -30,21 +30,32 @@
 #include <codecvt>
 #include <vector>
 #include <ostream>
+#include <functional>
 
 namespace
 {
-template <typename T>
-void PrintVector(std::ostream & ost, std::vector<T> const & v)
+
+template <typename T, typename SeparatorExtrauctor>
+void PrintVector(std::ostream & ost, std::vector<T> const & v,
+                 SeparatorExtrauctor && sep)
 {
   auto it = begin(v);
   if (it == end(v))
     return;
+
   ost << *it++;
   while(it != end(v))
   {
-    ost << ',' << *it++;
+    ost << sep(*it) << *it++;
   }
 }
+
+template <typename T>
+void PrintVector(std::ostream & ost, std::vector<T> const & v, char const * const sep = ", ")
+{
+  PrintVector(ost, v, [&sep](T const &) { return sep; });
+}
+
 
 void PrintOffset(std::ostream & ost, int32_t const offset, bool const space)
 {
@@ -519,7 +530,7 @@ std::ostream & operator<<(std::ostream & ost, WeekdayRange const & range)
     if (range.HasNth())
     {
       ost << '[';
-      PrintVector(ost, range.GetNths());
+      PrintVector(ost, range.GetNths(), ",");
       ost << ']';
     }
     PrintOffset(ost, range.GetOffset(), true);
@@ -622,7 +633,7 @@ std::ostream & operator<<(std::ostream & ost, Weekdays const & weekday)
 {
   ost << weekday.GetHolidays();
   if (weekday.HasWeekday() && weekday.HasHolidays())
-    ost << ',';
+    ost << ", ";
   ost << weekday.GetWeekdayRanges();
   return ost;
 }
@@ -1283,6 +1294,25 @@ void RuleSequence::SetModifier(Modifier const modifier)
 //             << "Times " << GetTimes().size() << std::endl;
 // }
 
+std::ostream & operator<<(std::ostream & ost, RuleSequence::Modifier const modifier)
+{
+  switch (modifier)
+  {
+    case RuleSequence::Modifier::DefaultOpen:
+      break;
+    case RuleSequence::Modifier::Unknown:
+      ost << "unknown";
+      break;
+    case RuleSequence::Modifier::Closed:
+      ost << "closed";
+      break;
+    case RuleSequence::Modifier::Open:
+      ost << "open";
+      break;
+  }
+  return ost;
+}
+
 std::ostream & operator<<(std::ostream & ost, RuleSequence const & s)
 {
   if (s.Is24Per7())
@@ -1309,13 +1339,18 @@ std::ostream & operator<<(std::ostream & ost, RuleSequence const & s)
         ost << s.GetTimes();
     }
   }
+  if (s.GetModifier() != RuleSequence::Modifier::DefaultOpen)
+    ost << ' ' << s.GetModifier();
 
   return ost;
 }
 
 std::ostream & operator<<(std::ostream & ost, TRuleSequences const & s)
 {
-  PrintVector(ost, s);
+  PrintVector(ost, s, [](RuleSequence const & r) {
+      auto const sep = r.GetAnySeparator();
+      return (sep == "||" ? ' ' + sep + ' ' : sep + ' ');
+    });
   return ost;
 }
 

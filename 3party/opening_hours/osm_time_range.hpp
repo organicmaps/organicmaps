@@ -491,6 +491,7 @@ class RuleSequence
   // uint32_t my_id;
  public:
   enum class Modifier {
+    DefaultOpen,
     Unknown,
     Closed,
     Open
@@ -565,12 +566,13 @@ class RuleSequence
   std::string m_any_separator{";"};
   bool m_separator_for_readablility{false};
 
-  Modifier m_modifier{Modifier::Unknown};
+  Modifier m_modifier{Modifier::DefaultOpen};
   std::string m_modifier_comment;
 };
 
 using TRuleSequences = std::vector<RuleSequence>;
 
+std::ostream & operator<<(std::ostream & ost, RuleSequence::Modifier const modifier);
 std::ostream & operator<<(std::ostream & ost, RuleSequence const & sequence);
 std::ostream & operator<<(std::ostream & ost, TRuleSequences const & sequences);
 } // namespace osmoh
