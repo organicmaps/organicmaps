@@ -1204,7 +1204,7 @@ node|z17-[landuse=cemetery] {
 }
 area|z17-[amenity=grave_yard]
 node|z17-[amenity=grave_yard]{
-  icon-image: cemetry-l.svg;
+  icon-image: cemetery-l.svg;
   text-offset: 10;
   text: name;
   font-size: 10;
