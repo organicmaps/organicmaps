@@ -15,11 +15,6 @@ public class StringUtils
 {
   /**
    * Set span for the FIRST occurrence of EACH token.
-   *
-   * @param input
-   * @param spanStyle
-   * @param tokens
-   * @return
    */
   public static CharSequence setSpansForTokens(String input, CharacterStyle spanStyle, String... tokens)
   {
