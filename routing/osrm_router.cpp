@@ -149,38 +149,7 @@ void CalculatePhantomNodeForCross(TRoutingMappingPtr & mapping, FeatureGraphNode
 
   CHECK_NOT_EQUAL(nodeId, INVALID_NODE_ID, ());
 
-  mapping->LoadCrossContext();
-  MappingGuard guard(mapping);
-  UNUSED_VALUE(guard);
-
-  m2::PointD point = m2::PointD::Zero();
-  if (forward)
-  {
-    auto inIters = mapping->m_crossContext.GetIngoingIterators();
-    for (auto iter = inIters.first; iter != inIters.second; ++iter)
-    {
-      if (iter->m_nodeId != nodeId)
-        continue;
-      point = iter->m_point;
-      break;
-    }
-  }
-  else
-  {
-    auto outIters = mapping->m_crossContext.GetOutgoingIterators();
-    for (auto iter = outIters.first; iter != outIters.second; ++iter)
-    {
-      if (iter->m_nodeId != nodeId)
-        continue;
-      point = iter->m_point;
-      break;
-    }
-  }
-
-  CHECK(!point.IsAlmostZero(), ());
-
-  FindGraphNodeOffsets(nodeId, MercatorBounds::FromLatLon(point.y, point.x),
-                       pIndex, mapping, graphNode);
+  FindGraphNodeOffsets(nodeId, graphNode.segmentPoint, pIndex, mapping, graphNode);
 }
 
 // TODO (ldragunov) move this function to cross mwm router

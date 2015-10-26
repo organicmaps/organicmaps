@@ -38,15 +38,18 @@ UNIT_TEST(CheckCrossSections)
     }
     FilesMappingContainer container(file.GetPath(MapOptions::CarRouting));
     crossReader.Load(container.GetReader(ROUTING_CROSS_CONTEXT_TAG));
-    auto ingoing = crossReader.GetIngoingIterators();
-    for (auto i = ingoing.first; i != ingoing.second; ++i)
+
+    vector<IngoingCrossNode> ingoingNodes;
+    crossReader.GetAllIngoingNodes(ingoingNodes);
+    for (auto const & node : ingoingNodes)
     {
-      if (i->m_point.EqualDxDy(kZeroPoint, kPointEquality))
+      if (node.m_point.EqualDxDy(kZeroPoint, kPointEquality))
       {
         ingoingErrors++;
         break;
       }
     }
+
     auto outgoing = crossReader.GetOutgoingIterators();
     for (auto i = outgoing.first; i != outgoing.second; ++i)
     {

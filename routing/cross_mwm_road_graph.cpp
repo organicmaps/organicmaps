@@ -72,25 +72,26 @@ IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
   finalMapping->LoadCrossContext();
 
   // Load source data.
-  auto const mwmIngoingIter = finalMapping->m_crossContext.GetIngoingIterators();
-  // Generate routing task from one source to several targets.
-  TRoutingNodes sources, targets(1);
-  size_t const ingoingSize = distance(mwmIngoingIter.first, mwmIngoingIter.second);
-  sources.reserve(ingoingSize);
-
+  vector<IngoingCrossNode> ingoingNodes;
+  finalMapping->m_crossContext.GetAllIngoingNodes(ingoingNodes);
+  size_t const ingoingSize = ingoingNodes.size();
   // If there is no routes inside target map.
-  if (!ingoingSize)
+  if (ingoingSize == 0)
     return IRouter::RouteNotFound;
 
-  for (auto j = mwmIngoingIter.first; j != mwmIngoingIter.second; ++j)
+  // Generate routing task from one source to several targets.
+  TRoutingNodes sources, targets(1);
+  sources.reserve(ingoingSize);
+
+  for (auto const & node : ingoingNodes)
   {
     // Case with a target node at the income mwm node.
-    if (j->m_nodeId == finalNode.node)
+    if (node.m_nodeId == finalNode.node)
     {
-      AddVirtualEdge(*j, finalNode, 0 /* no weight */);
+      AddVirtualEdge(node, finalNode, 0 /* no weight */);
       return IRouter::NoError;
     }
-    sources.emplace_back(j->m_nodeId, true /* isStartNode */, finalNode.mwmName);
+    sources.emplace_back(node.m_nodeId, true /* isStartNode */, finalNode.mwmName);
   }
   vector<EdgeWeight> weights;
 
@@ -103,7 +104,7 @@ IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
   {
     if (IsValidEdgeWeight(weights[i]))
     {
-      AddVirtualEdge(*(mwmIngoingIter.first + i), finalNode, weights[i]);
+      AddVirtualEdge(ingoingNodes[i], finalNode, weights[i]);
     }
   }
   return IRouter::NoError;
@@ -164,22 +165,31 @@ void CrossMwmGraph::GetOutgoingEdgesList(BorderCross const & v,
   currentMapping->FreeFileIfPossible();
 
   CrossRoutingContextReader const & currentContext = currentMapping->m_crossContext;
-  auto inRange = currentContext.GetIngoingIterators();
   auto outRange = currentContext.GetOutgoingIterators();
 
   // Find income node.
-  auto inIt = inRange.first;
-  while (inIt != inRange.second)
+  IngoingCrossNode ingoingNode;
+  bool found = currentContext.FindIngoingNodeByPoint({MercatorBounds::XToLon(v.toNode.point.x), MercatorBounds::YToLat(v.toNode.point.y)}, ingoingNode);
+  CHECK(found, (m2::PointD(MercatorBounds::XToLon(v.toNode.point.x), MercatorBounds::YToLat(v.toNode.point.y))));
+  if (ingoingNode.m_nodeId != v.toNode.node)
   {
-    if (inIt->m_nodeId == v.toNode.node)
-      break;
-    ++inIt;
+    LOG(LDEBUG, ("Several nodes stores in one border point.", m2::PointD(MercatorBounds::XToLon(v.toNode.point.x), MercatorBounds::YToLat(v.toNode.point.y))));
+    vector<IngoingCrossNode> ingoingNodes;
+    currentContext.GetAllIngoingNodes(ingoingNodes);
+    for(auto const & node : ingoingNodes)
+    {
+      if (node.m_nodeId == v.toNode.node)
+      {
+        ingoingNode = node;
+        break;
+      }
+    }
   }
-  CHECK(inIt != inRange.second, ());
+
   // Find outs. Generate adjacency list.
   for (auto outIt = outRange.first; outIt != outRange.second; ++outIt)
   {
-    EdgeWeight const outWeight = currentContext.GetAdjacencyCost(*inIt, *outIt);
+    EdgeWeight const outWeight = currentContext.GetAdjacencyCost(ingoingNode, *outIt);
     if (outWeight != INVALID_CONTEXT_EDGE_WEIGHT && outWeight != 0)
     {
       BorderCross target = FindNextMwmNode(*outIt, currentMapping);
@@ -204,7 +214,8 @@ void ConvertToSingleRouterTasks(vector<BorderCross> const & graphCrosses,
   for (size_t i = 0; i + 1 < graphCrosses.size(); ++i)
   {
     ASSERT_EQUAL(graphCrosses[i].toNode.mwmName, graphCrosses[i + 1].fromNode.mwmName, ());
-    route.emplace_back(graphCrosses[i].toNode.node, graphCrosses[i + 1].fromNode.node,
+    route.emplace_back(graphCrosses[i].toNode.node, graphCrosses[i].toNode.point,
+                       graphCrosses[i + 1].fromNode.node, graphCrosses[i + 1].fromNode.point,
                        graphCrosses[i].toNode.mwmName);
   }
 

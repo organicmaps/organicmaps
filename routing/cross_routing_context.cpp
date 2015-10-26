@@ -60,7 +60,6 @@ void CrossRoutingContextReader::Load(Reader const & r)
     IngoingCrossNode node;
     pos = node.Load(r, pos, i);
     m_ingoingIndex.Add(node);
-    m_ingoingNodes.emplace_back(node);
   }
 
   r.Read(pos, &size, sizeof(size));
@@ -112,12 +111,6 @@ const string & CrossRoutingContextReader::GetOutgoingMwmName(
   return m_neighborMwmList[outgoingNode.m_outgoingIndex];
 }
 
-pair<IngoingEdgeIteratorT, IngoingEdgeIteratorT> CrossRoutingContextReader::GetIngoingIterators()
-    const
-{
-  return make_pair(m_ingoingNodes.cbegin(), m_ingoingNodes.cend());
-}
-
 pair<OutgoingEdgeIteratorT, OutgoingEdgeIteratorT> CrossRoutingContextReader::GetOutgoingIterators()
     const
 {
@@ -133,6 +126,14 @@ WritedEdgeWeightT CrossRoutingContextReader::GetAdjacencyCost(IngoingCrossNode c
 
   size_t cost_index = m_outgoingNodes.size() * ingoing.m_adjacencyIndex + outgoing.m_adjacencyIndex;
   return cost_index < m_adjacencyMatrix.size() ? m_adjacencyMatrix[cost_index] : INVALID_CONTEXT_EDGE_WEIGHT;
+}
+
+void CrossRoutingContextReader::GetAllIngoingNodes(vector<IngoingCrossNode> & nodes) const
+{
+  m_ingoingIndex.ForEach([&nodes](IngoingCrossNode const & node)
+                         {
+                           nodes.push_back(node);
+                         });
 }
 
 void CrossRoutingContextWriter::Save(Writer & w) const
