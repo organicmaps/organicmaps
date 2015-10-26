@@ -163,7 +163,7 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
   layout.Cache(glsl::vec3(glsl::ToVec2(m_basePoint), m_params.m_depth),
                baseOffset, color, staticBuffer, dynamicBuffer);
 
-  dp::GLState state(gpu::TEXT_SPRITE_PROGRAM, dp::GLState::OverlayLayer);
+  dp::GLState state(gpu::TEXT_BILLBOARD_PROGRAM, dp::GLState::OverlayLayer);
   ASSERT(color.GetTexture() == outline.GetTexture(), ());
   state.SetColorTexture(color.GetTexture());
   state.SetMaskTexture(layout.GetMaskTexture());
@@ -206,7 +206,7 @@ void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::Fon
   layout.Cache(glsl::vec3(glsl::ToVec2(m_basePoint), m_params.m_depth),
                baseOffset, color, outline, staticBuffer, dynamicBuffer);
 
-  dp::GLState state(gpu::TEXT_OUTLINED_SPRITE_PROGRAM, dp::GLState::OverlayLayer);
+  dp::GLState state(gpu::TEXT_OUTLINED_BILLBOARD_PROGRAM, dp::GLState::OverlayLayer);
   ASSERT(color.GetTexture() == outline.GetTexture(), ());
   state.SetColorTexture(color.GetTexture());
   state.SetMaskTexture(layout.GetMaskTexture());
@@ -224,7 +224,8 @@ void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::Fon
                                                                            GetOverlayPriority(),
                                                                            textures,
                                                                            isOptional,
-                                                                           move(dynamicBuffer));
+                                                                           move(dynamicBuffer),
+                                                                           true);
   handle->SetOverlayRank(m_hasPOI ? (isPrimary ? dp::OverlayRank1 : dp::OverlayRank2) : dp::OverlayRank0);
   handle->SetExtendingSize(m_params.m_extendingSize);
 

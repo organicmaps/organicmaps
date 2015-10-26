@@ -210,7 +210,7 @@ private:
   FeatureID GetVisiblePOI(m2::PointD const & pixelPoint) const;
   FeatureID GetVisiblePOI(m2::RectD const & pixelRect) const;
 
-  bool IsSpriteProgram(int programIndex) const;
+  bool IsBillboardProgram(int programIndex) const;
 
 private:
   drape_ptr<dp::GpuProgramManager> m_gpuProgramManager;
@@ -230,7 +230,7 @@ private:
   dp::UniformValuesStorage m_generalUniforms;
 
   bool m_useFramebuffer;
-  bool m_isSpriteRenderPass;
+  bool m_isBillboardRenderPass;
   bool m_3dModeChanged;
   drape_ptr<Framebuffer> m_framebuffer;
   drape_ptr<Renderer3d> m_renderer3d;

@@ -46,7 +46,7 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_routeRenderer(new RouteRenderer())
   , m_overlayTree(new dp::OverlayTree())
   , m_useFramebuffer(false)
-  , m_isSpriteRenderPass(false)
+  , m_isBillboardRenderPass(false)
   , m_3dModeChanged(true)
   , m_framebuffer(new Framebuffer())
   , m_renderer3d(new Renderer3d())
@@ -795,7 +795,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     m_framebuffer->Disable();
     m_renderer3d->Render(modelView, m_framebuffer->GetTextureId(), make_ref(m_gpuProgramManager));
 // Test code to check ortho overlays in 3d mode
-    m_isSpriteRenderPass = true;
+    m_isBillboardRenderPass = true;
     GLFunctions::glDisable(gl_const::GLDepthTest);
     for (currentRenderGroup = 0; currentRenderGroup < m_renderGroups.size(); ++currentRenderGroup)
     {
@@ -810,7 +810,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
       if (m_userMarkVisibility.find(group->GetTileKey()) != m_userMarkVisibility.end())
         RenderSingleGroup(modelView, make_ref(group));
     }
-    m_isSpriteRenderPass = false;
+    m_isBillboardRenderPass = false;
 // End of test code
   }
 
@@ -821,20 +821,20 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 #endif
 }
 
-bool FrontendRenderer::IsSpriteProgram(int programIndex) const
+bool FrontendRenderer::IsBillboardProgram(int programIndex) const
 {
-  return programIndex == gpu::TEXTURING_SPRITE_PROGRAM
-      || programIndex == gpu::TEXT_SPRITE_PROGRAM
-      || programIndex == gpu::TEXT_OUTLINED_SPRITE_PROGRAM
-      || programIndex == gpu::BOOKMARK_SPRITE_PROGRAM;
+  return programIndex == gpu::TEXTURING_BILLBOARD_PROGRAM
+      || programIndex == gpu::TEXT_BILLBOARD_PROGRAM
+      || programIndex == gpu::TEXT_OUTLINED_BILLBOARD_PROGRAM
+      || programIndex == gpu::BOOKMARK_BILLBOARD_PROGRAM;
 }
 
 void FrontendRenderer::RenderSingleGroup(ScreenBase const & modelView, ref_ptr<BaseRenderGroup> group)
 {
   dp::GLState const & state = group->GetState();
-  bool isSpriteProgram = IsSpriteProgram(state.GetProgramIndex());
+  bool isBillboardProgram = IsBillboardProgram(state.GetProgramIndex());
 
-  if (m_useFramebuffer && (m_isSpriteRenderPass != isSpriteProgram))
+  if (m_useFramebuffer && (m_isBillboardRenderPass != isBillboardProgram))
     return;
 
   group->UpdateAnimation();
