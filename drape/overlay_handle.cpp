@@ -177,16 +177,16 @@ m2::PointD OverlayHandle::GetPerspectivePoint(m2::PointD const & pixelPoint, Scr
     1.0
   };
 
-  math::Matrix<double, 1, 4> perspectivePivot = normalizedPoint * screen.PTo3dMatrix();
-  perspectivePivot(0, 0) /= perspectivePivot(0, 3);
-  perspectivePivot(0, 1) /= perspectivePivot(0, 3);
-  perspectivePivot(0, 2) /= perspectivePivot(0, 3);
-  perspectivePivot(0, 3) = 1.0;
+  math::Matrix<double, 1, 4> perspectivePoint = normalizedPoint * screen.PTo3dMatrix();
+  perspectivePoint(0, 0) /= perspectivePoint(0, 3);
+  perspectivePoint(0, 1) /= perspectivePoint(0, 3);
+  perspectivePoint(0, 2) /= perspectivePoint(0, 3);
+  perspectivePoint(0, 3) = 1.0;
 
   m2::RectD viewport = screen.PixelRect3d();
   m2::PointD pixelPointPerspective(
-        (perspectivePivot(0, 0) + 1.0) * viewport.SizeX() / 2.0,
-        (perspectivePivot(0, 1) + 1.0) * viewport.SizeY() / 2.0);
+        (perspectivePoint(0, 0) + 1.0) * viewport.SizeX() / 2.0,
+        (perspectivePoint(0, 1) + 1.0) * viewport.SizeY() / 2.0);
 
   return pixelPointPerspective;
 }
