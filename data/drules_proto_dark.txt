@@ -2493,7 +2493,7 @@ cont {
       priority: 1747
     }
     symbol {
-      name: "cemetry-l"
+      name: "cemetery-l"
       priority: 16746
     }
     caption {
@@ -2512,7 +2512,7 @@ cont {
       priority: 1747
     }
     symbol {
-      name: "cemetry-l"
+      name: "cemetery-l"
       priority: 16746
     }
     caption {
@@ -2574,7 +2574,7 @@ cont {
       priority: 1747
     }
     symbol {
-      name: "cemetry-l"
+      name: "cemetery-l"
       priority: 16746
     }
     caption {
@@ -2593,7 +2593,7 @@ cont {
       priority: 1747
     }
     symbol {
-      name: "cemetry-l"
+      name: "cemetery-l"
       priority: 16746
     }
     caption {
