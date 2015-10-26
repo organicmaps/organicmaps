@@ -31,6 +31,9 @@
 #include <map>
 #include <locale>
 
+#include <boost/algorithm/string/case_conv.hpp>
+#include <boost/algorithm/string/replace.hpp>
+
 #define BOOST_TEST_MODULE OpeningHours
 
 #if defined(__clang__)
@@ -83,6 +86,20 @@ std::basic_string<Char> ParseAndUnparse(Char const * input)
 }
 } // namespace
 
+template <typename ParserResult>
+bool CompareNormalized(std::string const & original, ParserResult const & pretendent)
+{
+  auto original_copy = original;
+  auto pretendent_copy = ToString(pretendent);
+
+  boost::to_lower(original_copy);
+  boost::to_lower(pretendent_copy);
+
+  boost::replace_all(original_copy, " ", "");
+  boost::replace_all(pretendent_copy, " ", "");
+
+  return pretendent_copy == original_copy;
+}
 
 BOOST_AUTO_TEST_CASE(OpeningHours_Locale)
 {
@@ -872,6 +889,73 @@ BOOST_AUTO_TEST_CASE(OpeningHoursRuleSequence_TestParseUnparse)
   }
 }
 
+/// How to run:
+/// 1. copy opening-count.lst to where the binary is
+/// 2. run with --log_level=message
+BOOST_AUTO_TEST_CASE(OpeningHours_CountFailed)
+{
+  std::ifstream datalist("opening-count.lst");
+  BOOST_REQUIRE_MESSAGE(datalist.is_open(),
+                        "Can't open ./opening-count.lst: " << std::strerror(errno));
+
+  std::string line;
+
+  size_t line_num = 0;
+  size_t num_failed = 0;
+  size_t num_total = 0;
+
+  std::map<size_t, size_t> desc;
+
+  while (std::getline(datalist, line))
+  {
+    size_t count = 1;
+    std::string datastr;
+
+    auto d = line.find('|');
+    if (d == std::string::npos)
+    {
+      BOOST_WARN_MESSAGE((d != std::string::npos),
+                         "Incorrect line " << line_num << " format: " << line);
+      datastr = line;
+    }
+    else
+    {
+      count = std::stol(line.substr(0,d));
+      datastr = line.substr(d+1);
+    }
+
+    line_num++;
+
+    osmoh::TRuleSequences rules;
+    auto const isParsed = Parse(datastr, rules);
+    if (!isParsed) {
+      num_failed += count;
+      desc[count]++;
+      BOOST_TEST_MESSAGE("-- " << count << " :[" << datastr << "]");
+    }
+    else if (!CompareNormalized(datastr, rules))
+    {
+      num_failed += count;
+      desc[count]++;
+      BOOST_TEST_MESSAGE("- " << count << " :[" << datastr << "]");
+      BOOST_TEST_MESSAGE("+ " << count << " :[" << ToString(rules) << "]");
+    }
+    num_total += count;
+  }
+
+  BOOST_CHECK_MESSAGE((num_failed == 0),
+                      "Failed " << num_failed <<
+                      " of " << num_total <<
+                      " (" << double(num_failed)/(double(num_total)/100) << "%)");
+
+  std::stringstream desc_message;
+  for (auto const & e : desc)
+    desc_message << "Weight: " << e.first << " Count: " << e.second << std::endl;
+
+  BOOST_TEST_MESSAGE(desc_message.str());
+}
+
+
 // BOOST_AUTO_TEST_CASE(OpeningHours_TimeHit)
 // {
 //   {
@@ -1243,51 +1327,4 @@ BOOST_AUTO_TEST_CASE(OpeningHoursRuleSequence_TestParseUnparse)
 //     OSMTimeRange oh = OSMTimeRange::FromString("Mo 08:00-11:00,14:00-17:00; Tu 08:00-11:00, 14:00-17:00; We 08:00-11:00; Th 08:00-11:00, 14:00-16:00; Fr 08:00-11:00");
 //     BOOST_CHECK(oh.IsValid());
 //   }
-// }
-
-
-// BOOST_AUTO_TEST_CASE( OpeningHours_CountFailed )
-// {
-//   std::ifstream datalist("opening-count.lst");
-//   BOOST_REQUIRE_MESSAGE(datalist.is_open(), "Can't open ./opening-count.lst: " << std::strerror(errno));
-
-//   std::string line;
-//   size_t line_num = 0;
-//   size_t num_failed = 0;
-//   size_t num_total = 0;
-//   std::map<size_t, size_t> desc;
-
-//   while (std::getline(datalist, line))
-//   {
-//     size_t count = 1;
-//     std::string datastr;
-
-//     auto d = line.find('|');
-//     if (d == std::string::npos)
-//     {
-//       BOOST_WARN_MESSAGE((d != std::string::npos), "Incorrect line " << line_num << " format: " << line);
-//       datastr = line;
-//     }
-//     else
-//     {
-//       count = std::stol(line.substr(0,d));
-//       datastr = line.substr(d+1);
-//     }
-
-//     line_num++;
-
-//     OSMTimeRange oh = OSMTimeRange::FromString(datastr);
-//     if (!oh.IsValid()) {
-//       num_failed += count;
-//       desc[count]++;
-//       BOOST_TEST_MESSAGE("-- " << count << " :[" << datastr << "]");
-//     }
-//     num_total += count;
-//   }
-//   BOOST_CHECK_MESSAGE((num_failed == 0), "Failed " << num_failed << " of " << num_total << " (" << double(num_failed)/(double(num_total)/100) << "%)");
-//   std::stringstream desc_message;
-//   for (auto const & e : desc) {
-//     desc_message << "Weight: " << e.first << " Count: " << e.second << std::endl;
-//   }
-//   BOOST_TEST_MESSAGE(desc_message.str());
 // }
