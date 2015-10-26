@@ -102,6 +102,7 @@ namespace
   static const int BM_TOUCH_PIXEL_INCREASE = 20;
   static const int kKeepPedestrianDistanceMeters = 10000;
   char const kRouterTypeKey[] = "router";
+  char const kMapStyleKey[] = "MapStyleKeyV1";
 }
 
 pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(
@@ -204,6 +205,12 @@ Framework::Framework()
     m_fixedSearchResults(0),
     m_locationChangedSlotID(-1)
 {
+  // Restore map style before classificator loading
+  int mapStyle = MapStyleLight;
+  if (!Settings::Get(kMapStyleKey, mapStyle))
+    mapStyle = MapStyleClear;
+  GetStyleReader().SetCurrentStyle(static_cast<MapStyle>(mapStyle));
+
   // Checking whether we should enable benchmark.
   bool isBenchmarkingEnabled = false;
   (void)Settings::Get("IsBenchmarking", isBenchmarkingEnabled);
@@ -1618,7 +1625,10 @@ void Framework::CreateDrapeEngine(dp::RefPointer<dp::OGLContextFactory> contextF
 
 void Framework::SetMapStyle(MapStyle mapStyle)
 {
+  // Store current map style before classificator reloading
+  Settings::Set(kMapStyleKey, static_cast<int>(mapStyle));
   GetStyleReader().SetCurrentStyle(mapStyle);
+
   classificator::Load();
 
   alohalytics::TStringMap details {{"mapStyle", strings::to_string(static_cast<int>(mapStyle))}};
