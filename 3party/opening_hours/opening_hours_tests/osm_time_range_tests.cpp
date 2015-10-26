@@ -95,6 +95,8 @@ bool CompareNormalized(std::string const & original, ParserResult const & preten
   boost::to_lower(original_copy);
   boost::to_lower(pretendent_copy);
 
+  boost::replace_all(original_copy, "off", "closed");
+
   boost::replace_all(original_copy, " ", "");
   boost::replace_all(pretendent_copy, " ", "");
 
@@ -858,6 +860,11 @@ BOOST_AUTO_TEST_CASE(OpeningHoursRuleSequence_TestParseUnparse)
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
+  {
+    auto const rule = "Mo-Fr 10:00-18:00, Sa 10:00-13:00";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+   }
   {
     auto const rule = ( "We-Sa; Mo[1,3] closed; Su[-1,-2] closed; "
                         "Fr[2] open; Fr[-2], Fr open; Su[-2] -2 days" );

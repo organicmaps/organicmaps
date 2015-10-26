@@ -2,7 +2,7 @@
 
 #include "osm_time_range.hpp"
 
-// #define BOOST_SPIRIT_DEBUG 1
+// #define BOOST_SPIRIT_DEBUG
 #define BOOST_SPIRIT_USE_PHOENIX_V3
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/repository/include/qi_subrule.hpp>
@@ -301,12 +301,12 @@ class weekday_selector : public qi::grammar<Iterator, osmoh::Weekdays(), space_t
     day_offset =
         ( (lit('+')[_a = 1] | lit('-') [_a = -1]) >>
           ushort_  [_val = _1 * _a] >>
-          charset::no_case[(lit(L"days") | lit(L"day"))] )
+          charset::no_case[(lit("days") | lit("day"))] )
         ;
 
-    holiday = (charset::no_case[lit(L"SH")] [bind(&osmoh::Holiday::SetPlural, _val, false)]
-               >> -day_offset               [bind(&osmoh::Holiday::SetOffset, _val, _1)])
-        | charset::no_case[lit(L"PH")] [bind(&osmoh::Holiday::SetPlural, _val, true)]
+    holiday = (charset::no_case[lit("SH")] [bind(&osmoh::Holiday::SetPlural, _val, false)]
+               >> -day_offset              [bind(&osmoh::Holiday::SetOffset, _val, _1)])
+        | charset::no_case[lit("PH")] [bind(&osmoh::Holiday::SetPlural, _val, true)]
         ;
 
     holiday_sequence %= (holiday % ',');
@@ -320,9 +320,10 @@ class weekday_selector : public qi::grammar<Iterator, osmoh::Weekdays(), space_t
         | charset::no_case[wdays]  [bind(&osmoh::WeekdayRange::SetStart, _val, _1)]
         ;
 
-    weekday_sequence %= (weekday_range % L',') >> !qi::no_skip[charset::alpha] >> -lit(L':');
+    weekday_sequence %= (weekday_range % ',') >> !qi::no_skip[charset::alpha]
+        ;
 
-    main = (holiday_sequence >> -lit(L',') >> weekday_sequence)
+    main = (holiday_sequence >> -lit(',') >> weekday_sequence)
            [bind(&osmoh::Weekdays::SetHolidays, _val, _1),
             bind(&osmoh::Weekdays::SetWeekdayRanges, _val, _2)]
         | holiday_sequence [bind(&osmoh::Weekdays::SetHolidays, _val, _1)]
@@ -416,17 +417,17 @@ class time_selector : public qi::grammar<Iterator, osmoh::TTimespans(), space_ty
     time %= hour_minutes | variable_time;
 
     timespan =
-        (time >> dash >> extended_time >> L'/' >> hour_minutes)
+        (time >> dash >> extended_time >> '/' >> hour_minutes)
         [bind(&osmoh::Timespan::SetStart, _val, _1),
          bind(&osmoh::Timespan::SetEnd, _val, _2),
          bind(&osmoh::Timespan::SetPeriod, _val, _3)]
 
-        | (time >> dash >> extended_time >> L'/' >> minutes)
+        | (time >> dash >> extended_time >> '/' >> minutes)
           [bind(&osmoh::Timespan::SetStart, _val, _1),
            bind(&osmoh::Timespan::SetEnd, _val, _2),
            bind(&osmoh::Timespan::SetPeriod, _val, _3)]
 
-        | (time >> dash >> extended_time >> char_(L'+'))
+        | (time >> dash >> extended_time >> '+')
           [bind(&osmoh::Timespan::SetStart, _val, _1),
            bind(&osmoh::Timespan::SetEnd, _val, _2),
            bind(&osmoh::Timespan::SetPlus, _val, true)]
@@ -435,7 +436,7 @@ class time_selector : public qi::grammar<Iterator, osmoh::TTimespans(), space_ty
           [bind(&osmoh::Timespan::SetStart, _val, _1),
            bind(&osmoh::Timespan::SetEnd, _val, _2)]
 
-        | (time >> char_(L'+'))
+        | (time >> '+')
           [bind(&osmoh::Timespan::SetStart, _val, _1),
            bind(&osmoh::Timespan::SetPlus, _val, true)]
 
@@ -593,10 +594,9 @@ public:
             -rule_modifier(_val) )
         ;
 
-    main %=
-        ( -(lit("opening_hours") >> lit('=')) >>
-          (rule_sequence % (separator
-                            [phx::bind(&osmoh::RuleSequence::SetAnySeparator, &back(_val), _1)])))
+    main = ( -(lit("opening_hours") >> lit('=')) >>
+             (rule_sequence [push_back(_val, _1)] %
+              (separator    [phx::bind(&osmoh::RuleSequence::SetAnySeparator, back(_val), _1)])))
         ;
     //
 

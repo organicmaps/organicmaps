@@ -37,16 +37,19 @@ namespace
 
 template <typename T, typename SeparatorExtrauctor>
 void PrintVector(std::ostream & ost, std::vector<T> const & v,
-                 SeparatorExtrauctor && sep)
+                 SeparatorExtrauctor && sepFunc)
 {
   auto it = begin(v);
   if (it == end(v))
     return;
 
+  auto sep = sepFunc(*it);
   ost << *it++;
-  while(it != end(v))
+  while (it != end(v))
   {
-    ost << sep(*it) << *it++;
+    ost << sep << *it;
+    sep = sepFunc(*it);
+    ++it;
   }
 }
 
