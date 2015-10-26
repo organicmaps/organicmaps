@@ -24,6 +24,7 @@ size_t OutgoingCrossNode::Load(const Reader & r, size_t pos, size_t adjacencyInd
   m_nodeId = *reinterpret_cast<decltype(m_nodeId) *>(&buff[0]);
   m_point = Int64ToPoint(*reinterpret_cast<uint64_t *>(&(buff[sizeof(m_nodeId)])), g_coordBits);
   m_outgoingIndex = *reinterpret_cast<decltype(m_outgoingIndex) *>(&(buff[sizeof(m_nodeId) + sizeof(uint64_t)]));
+  m_adjacencyIndex = adjacencyIndex;
   return pos + sizeof(buff);
 }
 
@@ -46,29 +47,20 @@ size_t IngoingCrossNode::Load(const Reader & r, size_t pos, size_t adjacencyInde
   return pos + sizeof(buff);
 }
 
-size_t CrossRoutingContextReader::GetIndexInAdjMatrix(IngoingEdgeIteratorT ingoing,
-                                                      OutgoingEdgeIteratorT outgoing) const
-{
-  size_t ingoing_index = distance(m_ingoingNodes.cbegin(), ingoing);
-  size_t outgoing_index = distance(m_outgoingNodes.cbegin(), outgoing);
-  ASSERT_LESS(ingoing_index, m_ingoingNodes.size(), ("ingoing index out of range"));
-  ASSERT_LESS(outgoing_index, m_outgoingNodes.size(), ("outgoing index out of range"));
-  return m_outgoingNodes.size() * ingoing_index + outgoing_index;
-}
-
 void CrossRoutingContextReader::Load(Reader const & r)
 {
   size_t pos = 0;
 
-  uint32_t size;
-  r.Read(pos, &size, sizeof(size));
-  pos += sizeof(size);
+  uint32_t size, ingoingSize;
+  r.Read(pos, &ingoingSize, sizeof(ingoingSize));
+  pos += sizeof(ingoingSize);
 
-  for (size_t i = 0; i < size; ++i)
+  for (size_t i = 0; i < ingoingSize; ++i)
   {
     IngoingCrossNode node;
     pos = node.Load(r, pos, i);
     m_ingoingIndex.Add(node);
+    m_ingoingNodes.emplace_back(node);
   }
 
   r.Read(pos, &size, sizeof(size));
@@ -78,8 +70,10 @@ void CrossRoutingContextReader::Load(Reader const & r)
   for (size_t i = 0; i < size; ++i)
     pos = m_outgoingNodes[i].Load(r, pos, i);
 
-  size_t const adjMatrixSize = sizeof(WritedEdgeWeightT) * m_ingoingNodes.size() * m_outgoingNodes.size();
-  mp_reader = unique_ptr<Reader>(r.CreateSubReader(pos, adjMatrixSize));
+  size_t adjacencySize = ingoingSize * m_outgoingNodes.size();
+  size_t const adjMatrixSize = sizeof(WritedEdgeWeightT) * adjacencySize;
+  m_adjacencyMatrix.resize(adjacencySize);
+  r.Read(pos, &m_adjacencyMatrix[0], adjMatrixSize);
   pos += adjMatrixSize;
 
   uint32_t strsize;
@@ -130,25 +124,15 @@ pair<OutgoingEdgeIteratorT, OutgoingEdgeIteratorT> CrossRoutingContextReader::Ge
   return make_pair(m_outgoingNodes.cbegin(), m_outgoingNodes.cend());
 }
 
-WritedEdgeWeightT CrossRoutingContextReader::GetAdjacencyCost(IngoingEdgeIteratorT ingoing,
-                                                              OutgoingEdgeIteratorT outgoing) const
+WritedEdgeWeightT CrossRoutingContextReader::GetAdjacencyCost(IngoingCrossNode const & ingoing,
+                                                              OutgoingCrossNode const & outgoing) const
 {
-  if (!mp_reader)
+  if (ingoing.m_adjacencyIndex == kInvalidAdjacencyIndex ||
+      outgoing.m_adjacencyIndex == kInvalidAdjacencyIndex)
     return INVALID_CONTEXT_EDGE_WEIGHT;
-  WritedEdgeWeightT result;
-  mp_reader->Read(GetIndexInAdjMatrix(ingoing, outgoing) * sizeof(WritedEdgeWeightT), &result,
-                  sizeof(WritedEdgeWeightT));
-  return result;
-}
 
-size_t CrossRoutingContextWriter::GetIndexInAdjMatrix(IngoingEdgeIteratorT ingoing,
-                                                      OutgoingEdgeIteratorT outgoing) const
-{
-  size_t ingoing_index = distance(m_ingoingNodes.cbegin(), ingoing);
-  size_t outgoing_index = distance(m_outgoingNodes.cbegin(), outgoing);
-  ASSERT_LESS(ingoing_index, m_ingoingNodes.size(), ("ingoing index out of range"));
-  ASSERT_LESS(outgoing_index, m_outgoingNodes.size(), ("outgoing index out of range"));
-  return m_outgoingNodes.size() * ingoing_index + outgoing_index;
+  size_t cost_index = m_outgoingNodes.size() * ingoing.m_adjacencyIndex + outgoing.m_adjacencyIndex;
+  return cost_index < m_adjacencyMatrix.size() ? m_adjacencyMatrix[cost_index] : INVALID_CONTEXT_EDGE_WEIGHT;
 }
 
 void CrossRoutingContextWriter::Save(Writer & w) const
@@ -179,17 +163,18 @@ void CrossRoutingContextWriter::Save(Writer & w) const
 
 void CrossRoutingContextWriter::AddIngoingNode(WritedNodeID const nodeId, m2::PointD const & point)
 {
-  m_ingoingNodes.push_back(IngoingCrossNode(nodeId, point, kInvalidAdjacencyIndex));
+  size_t const adjIndex = m_ingoingNodes.size();
+  m_ingoingNodes.emplace_back(nodeId, point, adjIndex);
 }
 
 void CrossRoutingContextWriter::AddOutgoingNode(WritedNodeID const nodeId, string const & targetMwm,
                                                 m2::PointD const & point)
 {
+  size_t const adjIndex = m_outgoingNodes.size();
   auto it = find(m_neighborMwmList.begin(), m_neighborMwmList.end(), targetMwm);
   if (it == m_neighborMwmList.end())
     it = m_neighborMwmList.insert(m_neighborMwmList.end(), targetMwm);
-  m_outgoingNodes.push_back(OutgoingCrossNode(nodeId, distance(m_neighborMwmList.begin(), it),
-                                              point, kInvalidAdjacencyIndex));
+  m_outgoingNodes.emplace_back(nodeId, distance(m_neighborMwmList.begin(), it), point, adjIndex);
 }
 
 void CrossRoutingContextWriter::ReserveAdjacencyMatrix()
@@ -199,10 +184,12 @@ void CrossRoutingContextWriter::ReserveAdjacencyMatrix()
 }
 
 void CrossRoutingContextWriter::SetAdjacencyCost(IngoingEdgeIteratorT ingoing,
-                                                 OutgoingEdgeIteratorT outgoin,
+                                                 OutgoingEdgeIteratorT outgoing,
                                                  WritedEdgeWeightT value)
 {
-  m_adjacencyMatrix[GetIndexInAdjMatrix(ingoing, outgoin)] = value;
+  size_t const index = m_outgoingNodes.size() * ingoing->m_adjacencyIndex + outgoing->m_adjacencyIndex;
+  ASSERT_LESS(index, m_adjacencyMatrix.size(), ());
+  m_adjacencyMatrix[index] = value;
 }
 
 pair<IngoingEdgeIteratorT, IngoingEdgeIteratorT> CrossRoutingContextWriter::GetIngoingIterators()

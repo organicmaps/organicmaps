@@ -79,10 +79,8 @@ class CrossRoutingContextReader
   vector<OutgoingCrossNode> m_outgoingNodes;
   vector<IngoingCrossNode> m_ingoingNodes;
   vector<string> m_neighborMwmList;
-  unique_ptr<Reader> mp_reader = nullptr;
+  vector<WritedEdgeWeightT> m_adjacencyMatrix;
   m4::Tree<IngoingCrossNode> m_ingoingIndex;
-
-  size_t GetIndexInAdjMatrix(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoing) const;
 
 public:
   void Load(Reader const & r);
@@ -95,8 +93,8 @@ public:
 
   pair<OutgoingEdgeIteratorT, OutgoingEdgeIteratorT> GetOutgoingIterators() const;
 
-  WritedEdgeWeightT GetAdjacencyCost(IngoingEdgeIteratorT ingoing,
-                                     OutgoingEdgeIteratorT outgoing) const;
+  WritedEdgeWeightT GetAdjacencyCost(IngoingCrossNode const & ingoing,
+                                     OutgoingCrossNode const & outgoing) const;
 };
 
 /// Helper class to generate cross context section in mwm.routing file

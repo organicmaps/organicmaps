@@ -96,9 +96,9 @@ UNIT_TEST(TestAdjacencyMatrix)
   newContext.Load(reader);
   auto ins = newContext.GetIngoingIterators();
   auto outs = newContext.GetOutgoingIterators();
-  TEST_EQUAL(newContext.GetAdjacencyCost(ins.first, outs.first), 5, ());
-  TEST_EQUAL(newContext.GetAdjacencyCost(ins.first + 1, outs.first), 9, ());
-  TEST_EQUAL(newContext.GetAdjacencyCost(ins.first + 2, outs.first),
+  TEST_EQUAL(newContext.GetAdjacencyCost(*ins.first, *outs.first), 5, ());
+  TEST_EQUAL(newContext.GetAdjacencyCost(*(ins.first + 1), *outs.first), 9, ());
+  TEST_EQUAL(newContext.GetAdjacencyCost(*(ins.first + 2), *outs.first),
              routing::INVALID_CONTEXT_EDGE_WEIGHT, ("Default cost"));
 }
 

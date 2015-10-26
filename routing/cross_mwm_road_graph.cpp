@@ -6,8 +6,6 @@
 namespace
 {
 inline bool IsValidEdgeWeight(EdgeWeight const & w) { return w != INVALID_EDGE_WEIGHT; }
-
-double constexpr kMwmCrossingNodeEqualityRadiusMeters = 5.0;
 }
 
 namespace routing
@@ -181,7 +179,7 @@ void CrossMwmGraph::GetOutgoingEdgesList(BorderCross const & v,
   // Find outs. Generate adjacency list.
   for (auto outIt = outRange.first; outIt != outRange.second; ++outIt)
   {
-    EdgeWeight const outWeight = currentContext.GetAdjacencyCost(inIt, outIt);
+    EdgeWeight const outWeight = currentContext.GetAdjacencyCost(*inIt, *outIt);
     if (outWeight != INVALID_CONTEXT_EDGE_WEIGHT && outWeight != 0)
     {
       BorderCross target = FindNextMwmNode(*outIt, currentMapping);

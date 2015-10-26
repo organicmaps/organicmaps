@@ -19,6 +19,7 @@ struct CrossNode
 {
   NodeID node;
   NodeID reverseNode;
+  // TODO switch to mwmID
   string mwmName;
   m2::PointD point;
   bool isVirtual;
