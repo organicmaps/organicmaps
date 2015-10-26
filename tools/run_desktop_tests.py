@@ -20,11 +20,10 @@ from __future__ import print_function
 
 from optparse import OptionParser
 from os import listdir, remove
-from os.path import isfile, join
 from random import shuffle
+import random
 import socket
 import subprocess
-import sys
 import testserver
 import urllib2
 
@@ -35,10 +34,11 @@ SKIP = "skip"
 NOT_FOUND = "not_found"
 FAILED = "failed"
 PASSED = "passed"
+WITH_SERVER = "with_server"
 
 PORT = 34568
 
-TESTS_REQUIRING_SERVER = ["platform_tests", "storage_tests"]
+TESTS_REQUIRING_SERVER = ["downloader_tests", "storage_tests"]
 
 class TestRunner:
 
@@ -97,9 +97,9 @@ class TestRunner:
 
     def categorize_tests(self):
             
-        tests_to_run = []
-        local_skiplist = []
-        not_found = []
+        tests_to_run = list()
+        local_skiplist = list()
+        not_found = list()
     
         test_files_in_dir = filter(lambda x: x.endswith("_tests"), listdir(self.workspace_path))
 
@@ -116,21 +116,27 @@ class TestRunner:
             
             not_found = filter(not_on_disk, self.runlist)
 
-        return {TO_RUN:tests_to_run, SKIP:local_skiplist, NOT_FOUND:not_found}        
+
+        # now let's move the tests that need a server either to the beginning or the end of the tests_to_run list
+
+        tests_with_server = TESTS_REQUIRING_SERVER
+        for test in tests_with_server:
+            if test in tests_to_run:
+                tests_to_run.remove(test)
+            else:
+                tests_with_server.remove(test)
+
+        return {TO_RUN:tests_to_run, SKIP:local_skiplist, NOT_FOUND:not_found, WITH_SERVER:tests_with_server}
         
 
     def run_tests(self, tests_to_run):
-        failed = []
-        passed = []
-        self.start_server()
+        failed = list()
+        passed = list()
 
         for test_file in tests_to_run:
             
             self.log_exec_file(test_file)
 
-            # if test_file in TESTS_REQUIRING_SERVER:
-            #     self.start_server()
-        
             test_file_with_keys = "{test_file}{data}{resources}".format(test_file=test_file, data=self.data_path, resources=self.user_resource_path)
         
             logging.info(test_file_with_keys)
@@ -141,9 +147,6 @@ class TestRunner:
 
             process.wait()
 
-            # if test_file in TESTS_REQUIRING_SERVER:
-            #     self.stop_server()
-
             if process.returncode > 0:
                 failed.append(test_file)
             else:
@@ -151,7 +154,6 @@ class TestRunner:
             
             self.log_exec_file(test_file, result=process.returncode)
 
-        self.stop_server()
         return {FAILED: failed, PASSED: passed}
 
 
@@ -174,10 +176,39 @@ class TestRunner:
         self.rm_log_file()
 
 
+    def merge_dicts_of_lists(self, one, two):
+        if not one:
+            return two
+        if not two:
+            return one
+
+        ret = one.copy()
+
+        for key, value in two.iteritems():
+            if key in one:
+                ret[key] = ret[key].append(two[key])
+            else:
+                ret[key] = two[key]
+
+        return ret
+
+
     def execute(self):
+
         categorized_tests = self.categorize_tests()
 
-        results = self.run_tests(categorized_tests[TO_RUN])
+
+        to_run_and_with_server_keys = [TO_RUN, WITH_SERVER]
+        random.shuffle(to_run_and_with_server_keys)
+
+        results = dict()
+
+        for key in to_run_and_with_server_keys:
+            if key == WITH_SERVER:
+                self.start_server()
+            results = self.merge_dicts_of_lists(results, self.run_tests(categorized_tests[key]))
+            if key == WITH_SERVER:
+                self.stop_server()
 
         self.print_pretty("failed", results[FAILED])
         self.print_pretty("skipped", categorized_tests[SKIP])

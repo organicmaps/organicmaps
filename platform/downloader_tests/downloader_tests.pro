@@ -1,4 +1,4 @@
-TARGET = platform_tests
+TARGET = downloader_tests
 CONFIG += console warn_on
 CONFIG -= app_bundle
 TEMPLATE = app
@@ -24,13 +24,4 @@ win32*|linux* {
 
 SOURCES += \
     ../../testing/testingmain.cpp \
-    apk_test.cpp \
-    country_file_tests.cpp \
-    get_text_by_id_tests.cpp \
-    jansson_test.cpp \
-    language_test.cpp \
-    local_country_file_tests.cpp \
-    location_test.cpp \
-    measurement_tests.cpp \
-    platform_test.cpp \
-    video_timer_test.cpp \
+    downloader_test.cpp \
