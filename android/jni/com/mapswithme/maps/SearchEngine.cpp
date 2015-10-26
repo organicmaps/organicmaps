@@ -110,7 +110,8 @@ jobjectArray BuildJavaResults(Results const & results, bool hasPosition, double 
   return jResults;
 }
 
-void OnResults(Results const & results, long long timestamp, bool interactive, bool hasPosition, double lat, double lon)
+void OnResults(Results const & results, long long timestamp, bool isMapAndTable,
+               bool hasPosition, double lat, double lon)
 {
   // Ignore results from obsolete searches.
   if (g_queryTimestamp > timestamp)
@@ -121,15 +122,9 @@ void OnResults(Results const & results, long long timestamp, bool interactive, b
   if (results.IsEndMarker())
   {
     env->CallVoidMethod(g_javaListener, g_endResultsId, static_cast<jlong>(timestamp));
+    if (isMapAndTable && results.IsEndedNormal())
+      g_framework->NativeFramework()->UpdateUserViewportChanged();
     return;
-  }
-
-  if (interactive)
-  {
-    android::Platform::RunOnGuiThreadImpl([results]()
-    {
-      g_framework->NativeFramework()->UpdateSearchResults(results);
-    });
   }
 
   jobjectArray const & jResults = BuildJavaResults(results, hasPosition, lat, lon);
@@ -182,18 +177,21 @@ extern "C"
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_search_SearchEngine_nativeRunInteractiveSearch(JNIEnv * env, jclass clazz, jbyteArray bytes,
-                                                                          jstring lang, jlong timestamp, jboolean viewportOnly)
+                                                                          jstring lang, jlong timestamp, jboolean isMapAndTable)
   {
     search::SearchParams params;
     params.m_query = jni::ToNativeString(env, bytes);
     params.SetInputLocale(ReplaceDeprecatedLanguageCode(jni::ToNativeString(env, lang)));
-    params.m_callback = bind(&OnResults, _1, timestamp, true, false, 0, 0);
-    if (viewportOnly)
-      params.SetSearchMode(search::SearchParams::IN_VIEWPORT_ONLY | search::SearchParams::SEARCH_WORLD);
 
     g_framework->NativeFramework()->StartInteractiveSearch(params);
-    g_framework->NativeFramework()->UpdateUserViewportChanged();
-    g_queryTimestamp = timestamp;
+
+    if (isMapAndTable)
+    {
+      params.m_callback = bind(&OnResults, _1, timestamp, isMapAndTable,
+                               false /* hasPosition */, 0, 0);
+      if (g_framework->NativeFramework()->Search(params))
+        g_queryTimestamp = timestamp;
+    }
   }
 
   JNIEXPORT void JNICALL

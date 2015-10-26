@@ -364,7 +364,8 @@ public class SearchFragment extends BaseMwmFragment
   {
     final String query = getQuery();
     mLastQueryTimestamp = System.nanoTime();
-    SearchEngine.runInteractiveSearch(query, Language.getKeyboardLocale(), mLastQueryTimestamp, true);
+    SearchEngine.runInteractiveSearch(query, Language.getKeyboardLocale(),
+            mLastQueryTimestamp, false /* isMapAndTable */);
     SearchEngine.showAllResults(query);
     Utils.navigateToParent(getActivity());
 
@@ -406,7 +407,10 @@ public class SearchFragment extends BaseMwmFragment
     mLastQueryTimestamp = System.nanoTime();
     // TODO @yunitsky Implement more elegant solution.
     if (getActivity() instanceof MwmActivity)
-      SearchEngine.runInteractiveSearch(getQuery(), Language.getKeyboardLocale(), mLastQueryTimestamp, false);
+    {
+      SearchEngine.runInteractiveSearch(getQuery(), Language.getKeyboardLocale(),
+              mLastQueryTimestamp, true /* isMapAndTable */);
+    }
     else
     {
       final boolean searchStarted = SearchEngine.runSearch(getQuery(), Language.getKeyboardLocale(), mLastQueryTimestamp, true,
