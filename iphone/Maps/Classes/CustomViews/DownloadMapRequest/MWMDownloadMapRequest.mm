@@ -8,7 +8,7 @@
 #include "Framework.h"
 #include "storage/index.hpp"
 
-@interface MWMDownloadMapRequest () <MWMCircularProgressDelegate>
+@interface MWMDownloadMapRequest () <MWMCircularProgressProtocol>
 
 @property (nonatomic) IBOutlet MWMDownloadMapRequestView * rootView;
 @property (nonatomic) IBOutlet UILabel * mapTitleLabel;
@@ -57,7 +57,8 @@
   if (activeMapLayout.IsDownloadingActive())
   {
     self.currentCountryIndex = activeMapLayout.GetCurrentDownloadingCountryIndex();
-    self.progressView.failed = NO;
+    self.progressView.state = MWMCircularProgressStateProgress;
+    [self.progressView startSpinner];
     [self updateState:MWMDownloadMapRequestStateDownload];
   }
   else
@@ -97,7 +98,8 @@
 
 - (void)setDownloadFailed
 {
-  self.progressView.failed = YES;
+  self.progressView.state = MWMCircularProgressStateFailed;
+  [self.progressView stopSpinner];
 }
 
 #pragma mark - MWMCircularProgressDelegate
@@ -105,7 +107,7 @@
 - (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
 {
   auto & activeMapLayout = GetFramework().GetCountryTree().GetActiveMapLayout();
-  if (progress.failed)
+  if (progress.state == MWMCircularProgressStateFailed)
     activeMapLayout.RetryDownloading(self.currentCountryIndex);
   else
     activeMapLayout.CancelDownloading(self.currentCountryIndex);

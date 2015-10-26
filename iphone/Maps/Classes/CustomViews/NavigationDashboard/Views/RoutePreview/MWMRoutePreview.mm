@@ -52,13 +52,13 @@ static CGFloat const kAdditionalHeight = 20.;
         forCellWithReuseIdentifier:[MWMRoutePointCell className]];
 
   self.pedestrianProgressView = [[MWMCircularProgress alloc] initWithParentView:self.pedestrian];
-  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk_off"] forState:UIControlStateNormal];
-  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk_press"] forState:UIControlStateHighlighted];
-  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk_on"] forState:UIControlStateSelected];
+  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk_off"] forState:MWMCircularProgressStateNormal];
+  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk_press"] forState:MWMCircularProgressStateHighlighted];
+  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk_on"] forState:MWMCircularProgressStateSelected];
   self.vehicleProgressView = [[MWMCircularProgress alloc] initWithParentView:self.vehicle];
-  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive_off"] forState:UIControlStateNormal];
-  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive_press"] forState:UIControlStateHighlighted];
-  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive_on"] forState:UIControlStateSelected];
+  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive_off"] forState:MWMCircularProgressStateNormal];
+  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive_press"] forState:MWMCircularProgressStateHighlighted];
+  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive_on"] forState:MWMCircularProgressStateSelected];
 }
 
 - (void)didMoveToSuperview

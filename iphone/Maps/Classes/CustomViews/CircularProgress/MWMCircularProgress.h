@@ -1,8 +1,20 @@
-#import <Foundation/Foundation.h>
+
+typedef NS_ENUM(NSInteger, MWMCircularProgressState)
+{
+  MWMCircularProgressStateNormal,
+  MWMCircularProgressStateHighlighted,
+  MWMCircularProgressStateSelected,
+  MWMCircularProgressStateSelectedHighlighted,
+  MWMCircularProgressStateProgress,
+  MWMCircularProgressStateProgressHighlighted,
+  MWMCircularProgressStateFailed,
+  MWMCircularProgressStateFailedHighlighted,
+  MWMCircularProgressStateCompleted
+};
 
 @class MWMCircularProgress;
 
-@protocol MWMCircularProgressDelegate <NSObject>
+@protocol MWMCircularProgressProtocol <NSObject>
 
 - (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress;
 
@@ -11,11 +23,11 @@
 @interface MWMCircularProgress : NSObject
 
 @property (nonatomic) CGFloat progress;
-@property (nonatomic) BOOL failed;
-@property (nonatomic) BOOL selected;
-@property (weak, nonatomic) id <MWMCircularProgressDelegate> delegate;
+@property (nonatomic) MWMCircularProgressState state;
+@property (weak, nonatomic) id<MWMCircularProgressProtocol> delegate;
 
-- (void)setImage:(nullable UIImage *)image forState:(UIControlState)state;
+- (void)setImage:(nonnull UIImage *)image forState:(MWMCircularProgressState)state;
+- (void)setColor:(nonnull UIColor *)color forState:(MWMCircularProgressState)state;
 
 - (nonnull instancetype)init __attribute__((unavailable("init is not available")));
 - (nonnull instancetype)initWithParentView:(nonnull UIView *)parentView;

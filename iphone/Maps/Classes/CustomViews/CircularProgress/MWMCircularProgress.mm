@@ -4,7 +4,6 @@
 @interface MWMCircularProgress ()
 
 @property (nonatomic) IBOutlet MWMCircularProgressView * rootView;
-@property (nonatomic) IBOutlet UIButton * button;
 @property (nonatomic) NSNumber * nextProgressToAnimate;
 
 @end
@@ -29,9 +28,14 @@
   self.nextProgressToAnimate = nil;
 }
 
-- (void)setImage:(nullable UIImage *)image forState:(UIControlState)state
+- (void)setImage:(nonnull UIImage *)image forState:(MWMCircularProgressState)state
 {
-  [self.button setImage:image forState:state];
+  [self.rootView setImage:image forState:state];
+}
+
+- (void)setColor:(nonnull UIColor *)color forState:(MWMCircularProgressState)state
+{
+  [self.rootView setColor:color forState:state];
 }
 
 #pragma mark - Spinner
@@ -79,28 +83,14 @@
   }
 }
 
-- (void)setFailed:(BOOL)failed
+- (void)setState:(MWMCircularProgressState)state
 {
-  if (self.button.selected == failed)
-    return;
-  self.button.selected = failed;
-  [self.rootView refreshProgress];
-  [self.rootView updatePath:self.progress];
+  self.rootView.state = state;
 }
 
-- (BOOL)failed
+- (MWMCircularProgressState)state
 {
-  return self.button.selected;
-}
-
-- (void)setSelected:(BOOL)selected
-{
-  self.button.selected = selected;
-}
-
-- (BOOL)selected
-{
-  return self.button.selected;
+  return self.rootView.state;
 }
 
 @end

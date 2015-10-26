@@ -12,7 +12,7 @@
 #import "MWMTextToSpeech.h"
 #import "MWMRouteTypeButton.h"
 
-@interface MWMNavigationDashboardManager () <MWMCircularProgressDelegate>
+@interface MWMNavigationDashboardManager () <MWMCircularProgressProtocol>
 
 @property (nonatomic) IBOutlet MWMRoutePreview * iPhoneRoutePreview;
 @property (nonatomic) IBOutlet MWMRoutePreview * iPadRoutePreview;
@@ -225,20 +225,20 @@
 
 - (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
 {
-  if (progress.selected)
+  if (progress.state == MWMCircularProgressStateSelected || progress.state == MWMCircularProgressStateCompleted)
     return;
-  progress.selected = YES;
+  progress.state = MWMCircularProgressStateSelected;
   self.activeRouteTypeButton = progress;
   auto & f = GetFramework();
   routing::RouterType type;
   if ([progress isEqual:self.routePreview.pedestrianProgressView])
   {
-    self.routePreview.vehicleProgressView.selected = NO;
+    self.routePreview.vehicleProgressView.state = MWMCircularProgressStateNormal;
     type = routing::RouterType::Pedestrian;
   }
   else
   {
-    self.routePreview.pedestrianProgressView.selected = NO;
+    self.routePreview.pedestrianProgressView.state = MWMCircularProgressStateNormal;
     type = routing::RouterType::Vehicle;
   }
   f.CloseRouting();
@@ -254,13 +254,7 @@
 
 - (void)setRouteBuildingProgress:(CGFloat)progress
 {
-  dispatch_async(dispatch_get_main_queue(), ^
-  {
-    if (progress < 5.)
-      [self.activeRouteTypeButton startSpinner];
-    else
-      [self.activeRouteTypeButton setProgress:progress / 100.];
-  });
+  [self.activeRouteTypeButton setProgress:progress / 100.];
 }
 
 #pragma mark - MWMNavigationDashboard
@@ -327,13 +321,13 @@
   switch (GetFramework().GetRouter())
   {
   case routing::RouterType::Pedestrian:
-    self.routePreview.pedestrianProgressView.selected = YES;
-    self.routePreview.vehicleProgressView.selected = NO;
+    self.routePreview.pedestrianProgressView.state = MWMCircularProgressStateSelected;
+    self.routePreview.vehicleProgressView.state = MWMCircularProgressStateNormal;
     self.activeRouteTypeButton = self.routePreview.pedestrianProgressView;
     break;
   case routing::RouterType::Vehicle:
-    self.routePreview.vehicleProgressView.selected = YES;
-    self.routePreview.pedestrianProgressView.selected = NO;
+    self.routePreview.vehicleProgressView.state = MWMCircularProgressStateSelected;
+    self.routePreview.pedestrianProgressView.state = MWMCircularProgressStateNormal;
     self.activeRouteTypeButton = self.routePreview.vehicleProgressView;
     break;
   }
