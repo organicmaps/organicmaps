@@ -396,11 +396,9 @@ namespace di
 
   string const FeatureStyler::GetPathName() const
   {
-    // Always concat names for linear features because we process only one draw rule now.
-    if (m_secondaryText.empty())
+    if (!m_primaryText.empty())
       return m_primaryText;
-    else
-      return m_primaryText + "   " + m_secondaryText;
+    return m_secondaryText;
   }
 
   bool FeatureStyler::IsEmpty() const
