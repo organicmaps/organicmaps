@@ -157,11 +157,8 @@ struct Enable3dModeEvent
 
 struct Disable3dMode
 {
-  Disable3dMode(bool isAnim)
-    : m_isAnim(isAnim)
+  Disable3dMode()
   {}
-
-  bool m_isAnim;
 };
 
 struct RotateEvent

@@ -8,8 +8,6 @@
 
 #include "math.h"
 
-#include "assert.h"
-
 namespace df
 {
 
@@ -58,8 +56,7 @@ int32_t Framebuffer::GetMaxSize() const
 
 void Framebuffer::SetSize(uint32_t width, uint32_t height)
 {
-  assert(width > 0 && height > 0);
-  assert(m_defaultContext);
+  ASSERT(m_defaultContext, ());
 
   if (m_width == width && m_height == height)
     return;
@@ -92,9 +89,8 @@ void Framebuffer::SetSize(uint32_t width, uint32_t height)
 
   uint32_t status = GLFunctions::glCheckFramebufferStatus();
   if (status != gl_const::GlFramebufferComplete)
-    LOG(LWARNING, ("INCOMPLETE FRAMEBUFFER: ", strings::to_string(status)));
+    LOG(LWARNING, ("Incomplete framebuffer: ", strings::to_string(status)));
 
-  //GLFunctions::glFlush();
   m_defaultContext->setDefaultFramebuffer();
 }
 
@@ -105,7 +101,7 @@ void Framebuffer::Enable()
 
 void Framebuffer::Disable()
 {
-  assert(m_defaultContext);
+  ASSERT(m_defaultContext, ());
   m_defaultContext->setDefaultFramebuffer();
 }
 

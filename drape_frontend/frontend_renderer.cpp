@@ -73,6 +73,7 @@ FrontendRenderer::FrontendRenderer(Params const & params)
 
   m_myPositionController.reset(new MyPositionController(params.m_initMyPositionMode));
   m_myPositionController->SetModeListener(params.m_myPositionModeCallback);
+
   StartThread();
 }
 
@@ -482,7 +483,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       {
         m_useFramebuffer = false;
         m_3dModeChanged = true;
-        AddUserEvent(Disable3dMode(false));
+        AddUserEvent(Disable3dMode());
       }
       break;
     }
@@ -508,7 +509,6 @@ void FrontendRenderer::OnResize(ScreenBase const & screen)
   m2::RectD viewportRect = screen.isPerspective() ? screen.PixelRect3d() : screen.PixelRect();
 
   m_myPositionController->SetPixelRect(screen.PixelRect());
-
   m_viewport.SetViewport(0, 0, screen.GetWidth(), screen.GetHeight());
   m_contextFactory->getDrawContext()->resize(viewportRect.SizeX(), viewportRect.SizeY());
   RefreshProjection();
@@ -729,15 +729,18 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   GLFunctions::glClear();
 
   dp::GLState::DepthLayer prevLayer = dp::GLState::GeometryLayer;
-  size_t currentRenderGroup = 0;
-  for (; currentRenderGroup < m_renderGroups.size(); ++currentRenderGroup)
+  size_t overlayRenderGroup = 0;
+  for (size_t currentRenderGroup = 0; currentRenderGroup < m_renderGroups.size(); ++currentRenderGroup)
   {
     drape_ptr<RenderGroup> const & group = m_renderGroups[currentRenderGroup];
 
     dp::GLState const & state = group->GetState();
     dp::GLState::DepthLayer layer = state.GetDepthLayer();
     if (prevLayer != layer && layer == dp::GLState::OverlayLayer)
+    {
+      overlayRenderGroup = currentRenderGroup;
       break;
+    }
 
     prevLayer = layer;
     RenderSingleGroup(modelView, make_ref(group));
@@ -761,11 +764,12 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   m_myPositionController->Render(MyPositionController::RenderAccuracy,
                                  modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
-  for (; currentRenderGroup < m_renderGroups.size(); ++currentRenderGroup)
-  {
-    drape_ptr<RenderGroup> const & group = m_renderGroups[currentRenderGroup];
-    RenderSingleGroup(modelView, make_ref(group));
-  }
+  if (!m_useFramebuffer)
+    for (size_t currentRenderGroup = overlayRenderGroup; currentRenderGroup < m_renderGroups.size(); ++currentRenderGroup)
+    {
+      drape_ptr<RenderGroup> const & group = m_renderGroups[currentRenderGroup];
+      RenderSingleGroup(modelView, make_ref(group));
+    }
 
   GLFunctions::glClearDepth();
   if (m_selectionShape != nullptr && m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_USER_MARK)
@@ -775,12 +779,13 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
   m_routeRenderer->RenderRoute(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
-  for (drape_ptr<UserMarkRenderGroup> const & group : m_userMarkRenderGroups)
-  {
-    ASSERT(group.get() != nullptr, ());
-    if (m_userMarkVisibility.find(group->GetTileKey()) != m_userMarkVisibility.end())
-      RenderSingleGroup(modelView, make_ref(group));
-  }
+  if (!m_useFramebuffer)
+    for (drape_ptr<UserMarkRenderGroup> const & group : m_userMarkRenderGroups)
+    {
+      ASSERT(group.get() != nullptr, ());
+      if (m_userMarkVisibility.find(group->GetTileKey()) != m_userMarkVisibility.end())
+        RenderSingleGroup(modelView, make_ref(group));
+    }
 
   m_routeRenderer->RenderRouteSigns(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
@@ -794,10 +799,12 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   {
     m_framebuffer->Disable();
     m_renderer3d->Render(modelView, m_framebuffer->GetTextureId(), make_ref(m_gpuProgramManager));
-// Test code to check ortho overlays in 3d mode
+
     m_isBillboardRenderPass = true;
+
+    // Test code to check ortho overlays in 3d mode
     GLFunctions::glDisable(gl_const::GLDepthTest);
-    for (currentRenderGroup = 0; currentRenderGroup < m_renderGroups.size(); ++currentRenderGroup)
+    for (size_t currentRenderGroup = overlayRenderGroup; currentRenderGroup < m_renderGroups.size(); ++currentRenderGroup)
     {
       drape_ptr<RenderGroup> const & group = m_renderGroups[currentRenderGroup];
       RenderSingleGroup(modelView, make_ref(group));
@@ -810,8 +817,9 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
       if (m_userMarkVisibility.find(group->GetTileKey()) != m_userMarkVisibility.end())
         RenderSingleGroup(modelView, make_ref(group));
     }
+    // End of test code
+
     m_isBillboardRenderPass = false;
-// End of test code
   }
 
   GLFunctions::glEnable(gl_const::GLDepthTest);
