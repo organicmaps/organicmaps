@@ -394,14 +394,14 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 
 - (IBAction)searchButtonTouchUpInside:(UIButton *)sender
 {
-  self.state = MWMBottomMenuStateInactive;
+  self.state = self.restoreState;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"search"];
   self.controller.controlsManager.searchHidden = self.searchIsActive;
 }
 
 - (IBAction)bookmarksButtonTouchUpInside:(UIButton *)sender
 {
-  self.state = MWMBottomMenuStateInactive;
+  self.state = self.restoreState;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"bookmarks"];
   BookmarksRootVC * const vc = [[BookmarksRootVC alloc] init];
   [self.controller.navigationController pushViewController:vc animated:YES];
