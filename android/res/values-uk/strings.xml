@@ -433,7 +433,7 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Завантажити карту</string>
 	<string name="downloader_download_map_no_routing">Завантажити карту без маршрутів</string>
-	<!-- Button for routing PP. -->
+	<!-- Button for routing. -->
 	<string name="routing_go">Поїхали!</string>
 	<!-- Item status in downloader. -->
 	<string name="downloader_retry">Спробуйте знову</string>
@@ -770,28 +770,6 @@
 	<string name="routing_planning">Планування маршруту</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Для створення маршруту, будь ласка, скачайте та обновіть всі карти за ним.</string>
-	<!-- Text for facebook sharing news about walking routes -->
-	<string name="share_walking_routes_facebook">MAPS.ME економить час при ходьбі. Більше 2 мільйонів кілометрів пішохідних маршрутів, доріг і стежок доступні для пішохідних маршрутів зараз.</string>
-	<!-- Text for messenger sharing news about walking routes -->
-	<string name="share_walking_routes_messenger">MAPS.ME пропонує найкоротші пішохідні маршрути по всьому світу! Зацініть out: http://maps.me/get?walk_im</string>
-	<!-- Text for sms sharing news about walking routes -->
-	<string name="share_walking_routes_sms">MAPS.ME - найкоротші пішохідні маршрути: http://maps.me/get?walk</string>
-	<!-- Subject for email sharing news about walking routes -->
-	<string name="share_walking_routes_email_subject">Доступні найкоротші пішохідні маршрути</string>
-	<!-- Text for email sharing news about walking routes -->
-	<string name="share_walking_routes_email_body">MAPS.ME щойно випустили пішохідні маршрути в основі яких лежить найбільш детальна карта світу! Вони пропонують найкоротші маршрути до будь-якого місця призначення. Спробуйте: http://maps.me/get?walk_em</string>
-	<!-- Title for walking routes dialog, notifications etc. -->
-	<string name="title_walking_available">Пішохідні маршрути доступні в MAPS.ME!</string>
-	<!-- Text for walking routes dialog -->
-	<string name="share_walking_routes_first_launch">Вони пропонують найкоротший шлях до точки призначення. Допоможіть друзям зекономити час при ходьбі також!</string>
-	<!-- Title for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_congratulations">Вітання!</string>
-	<!-- Text for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_mastering">Ви освоїли функцію пішохідні маршрути. Допоможіть друзям зекономити час при ходьбі також. Розкажіть їм про MAPS.ME.</string>
-	<!-- Android notification about walking directions for update users -->
-	<string name="walking_notification_text">Хочете спробувати їх?</string>
-	<!-- Android notification with picture (rich) about walking directions for update users -->
-	<string name="walking_rich_notification_text">Вони пропонують найкоротший шлях до точки призначення. Спробуйте самі і допоможіть друзям зекономити час у подорожі.</string>
 	<string name="rate_alert_title">Подобається програма?</string>
 	<string name="rate_alert_default_message">Дякуємо за використання MAPS.ME. Будь ласка, дайте їй оцінку. Ваш відгук допоможе нам стати краще.</string>
 	<string name="rate_alert_five_star_message">Ура! Ми теж вас любимо!</string>

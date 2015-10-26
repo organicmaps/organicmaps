@@ -742,8 +742,14 @@
 
 "downloader_download_map_no_routing" = "Descargar mapa sin ruta";
 
-/* Button for routing PP. */
+/* Button for routing. */
 "routing_go" = "¡Listo!";
+
+/* Routing planning: button "Route from" in PP. */
+"routing_from" = "Route from";
+
+/* Routing planning: button "Route to" in PP. */
+"routing_to" = "Route to";
 
 /* Item status in downloader. */
 "downloader_retry" = "Reintentar";
@@ -1266,39 +1272,6 @@
 
 /* Text for routing::IRouter::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Para crear una ruta, por favor, descarga y actualiza todos los mapas a lo largo de la ruta.";
-
-/* Text for facebook sharing news about walking routes */
-"share_walking_routes_facebook" = "MAPS.ME te ahorra tiempo de camino. Más de 2 millones de kilómetros de rutas peatonales, vías y senderos están disponibles ahora para Direcciones a pie.";
-
-/* Text for messenger sharing news about walking routes */
-"share_walking_routes_messenger" = "¡MAPS.ME te ofrece las rutas a pie más cortas en todo el mundo! Echa un vistazo: http://maps.me/get?walk_im";
-
-/* Text for sms sharing news about walking routes */
-"share_walking_routes_sms" = "MAPS.ME te ofrece las rutas a pie más cortas: http://maps.me/get?walk";
-
-/* Subject for email sharing news about walking routes */
-"share_walking_routes_email_subject" = "Las rutas a pie más cortas ya están dispones";
-
-/* Text for email sharing news about walking routes */
-"share_walking_routes_email_body" = "¡MAPS.ME acaba de lanzar Indicaciones a pie, que se basa en el mapa más completo del mundo! Ofrecen la ruta más corta a cualquier destino. Pruébalas: http://maps.me/get?walk_em";
-
-/* Title for walking routes dialog, notifications etc. */
-"title_walking_available" = "¡Indicaciones a pie está disponible en MAPS.ME!";
-
-/* Text for walking routes dialog */
-"share_walking_routes_first_launch" = "Ofrecen la ruta más corta a cualquier destino. ¡Ayuda a tus amigos a que ahorren tiempo de camino también!";
-
-/* Title for walking routes dialog after 3 built routes */
-"share_walking_routes_congratulations" = "¡Enhorabuena!";
-
-/* Text for walking routes dialog after 3 built routes */
-"share_walking_routes_mastering" = "Dominas la función Indicaciones a pie. ¡Ayuda a tus amigos a que ahorren tiempo de camino también. ¡Háblales de MAPS.ME.";
-
-/* Android notification about walking directions for update users */
-"walking_notification_text" = "¿Quieres probarlas?";
-
-/* Android notification with picture (rich) about walking directions for update users */
-"walking_rich_notification_text" = "Ofrecen la ruta más corta a cualquier lugar de destino. Pruébalas y ayuda a tus amigos a ahorrar tiempo de viaje.";
 
 "rate_alert_title" = "¿Te gusta la aplicación?";
 

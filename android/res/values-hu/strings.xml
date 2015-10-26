@@ -431,7 +431,7 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Töltsd le a térképet</string>
 	<string name="downloader_download_map_no_routing">Térkép letöltése útvonal nélkül</string>
-	<!-- Button for routing PP. -->
+	<!-- Button for routing. -->
 	<string name="routing_go">Indulás!</string>
 	<!-- Item status in downloader. -->
 	<string name="downloader_retry">Újra próbál</string>
@@ -768,28 +768,6 @@
 	<string name="routing_planning">Útvonal tervezése</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Útvonal létrehozásához kérjük, töltse le és frissítse az összes térképet az útvonal mentén.</string>
-	<!-- Text for facebook sharing news about walking routes -->
-	<string name="share_walking_routes_facebook">A MAPS.ME segít a séta menetidő spórolásában. Több mint kétmillió km gyalogos szakasz, táv és ösvény érhető el a séta útszakaszokhoz.</string>
-	<!-- Text for messenger sharing news about walking routes -->
-	<string name="share_walking_routes_messenger">A MAPS.ME világszerte a lehető legrövidebb séta szakaszt adja meg! Nézze meg itt: http://maps.me/get?walk_im</string>
-	<!-- Text for sms sharing news about walking routes -->
-	<string name="share_walking_routes_sms">A MAPS.ME a legrövidebb séta szakaszt adja meg: http://maps.me/get?walk</string>
-	<!-- Subject for email sharing news about walking routes -->
-	<string name="share_walking_routes_email_subject">A lehető legrövidebb útszakaszok érhetők el</string>
-	<!-- Text for email sharing news about walking routes -->
-	<string name="share_walking_routes_email_body">A MAPS.ME épp most adta ki a séta útvonalakat, méghozzá a világ legrészletesebb térképe alapján! Bármely úti célhoz a legrövidebb útvonalat adják meg. Próbálja ki őket: http://maps.me/get?walk_em</string>
-	<!-- Title for walking routes dialog, notifications etc. -->
-	<string name="title_walking_available">A séta útvonalak elérhetők a MAPS.ME-n!</string>
-	<!-- Text for walking routes dialog -->
-	<string name="share_walking_routes_first_launch">A legrövidebb útvonalat adják meg bármely megadott úti célhoz. Próbálja ki saját maga, és segítsen a barátainak is időt spórolni!</string>
-	<!-- Title for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_congratulations">Gratulálunk!</string>
-	<!-- Text for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_mastering">Elsajátította a séta útvonalak funkciót. Segítsen a barátainak is séta menetidőt spórolni. Számoljon be nekik a MAPS.ME-ről.</string>
-	<!-- Android notification about walking directions for update users -->
-	<string name="walking_notification_text">Ki akarja próbálni őket?</string>
-	<!-- Android notification with picture (rich) about walking directions for update users -->
-	<string name="walking_rich_notification_text">A legrövidebb útvonalat adják meg bármely megszabott úti célhoz. Próbálja ki saját maga, és segítsen a barátainak időt spórolni.</string>
 	<string name="rate_alert_title">Tetszik az app?</string>
 	<string name="rate_alert_default_message">Köszönjük, hogy a MAPS.ME-t használta. Kérjük, értékelje az appot. A visszajelzéseik segítenek bennünket abban, hogy jobbá váljunk.</string>
 	<string name="rate_alert_five_star_message">Hurrá! Mi is szeretjük magát!</string>

@@ -148,7 +148,7 @@
 	<text id="IDS_DOWNLOADER_DELETE_ROUTING">Удалить маршруты</text>
 	<!-- Context menu item for downloader. -->
 	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP">Загрузить карту</text>
-	<!-- Button for routing PP. -->
+	<!-- Button for routing. -->
 	<text id="IDS_ROUTING_GO">Поехали!</text>
 	<!-- Item status in downloader. -->
 	<text id="IDS_DOWNLOADER_RETRY">Повторите попытку</text>

@@ -138,7 +138,7 @@
 	<text id="IDS_DOWNLOADER_DELETE_ROUTING">Streckenführung löschen</text>
 	<!-- Context menu item for downloader. -->
 	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP">Karte herunterladen</text>
-	<!-- Button for routing PP. -->
+	<!-- Button for routing. -->
 	<text id="IDS_ROUTING_GO">Los!</text>
 	<!-- Item status in downloader. -->
 	<text id="IDS_DOWNLOADER_RETRY">Wiederholen</text>

@@ -742,8 +742,14 @@
 
 "downloader_download_map_no_routing" = "Last ned kart uten veiviserfunksjon";
 
-/* Button for routing PP. */
+/* Button for routing. */
 "routing_go" = "Kjør!";
+
+/* Routing planning: button "Route from" in PP. */
+"routing_from" = "Route from";
+
+/* Routing planning: button "Route to" in PP. */
+"routing_to" = "Route to";
 
 /* Item status in downloader. */
 "downloader_retry" = "Prøv på nytt";
@@ -1266,39 +1272,6 @@
 
 /* Text for routing::IRouter::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Hvis du vil oppprette en rute, last ned og oppdater alle kartene langs ruten.";
-
-/* Text for facebook sharing news about walking routes */
-"share_walking_routes_facebook" = "MAPS.ME sparer deg gangetid. Mer enn 2 kilometer av gå-ruter, spor og stier er tilgjengelige for beskrivelser nå.";
-
-/* Text for messenger sharing news about walking routes */
-"share_walking_routes_messenger" = "MAPS.ME gir de korteste gå-rutene i hele verden! Sjekk dem ut: http://maps.me/get?walk_im";
-
-/* Text for sms sharing news about walking routes */
-"share_walking_routes_sms" = "MAPS.ME gir de korteste gå-rutene: http://maps.me/get?walk";
-
-/* Subject for email sharing news about walking routes */
-"share_walking_routes_email_subject" = "De korteste gå-rutene er tilgjengelige";
-
-/* Text for email sharing news about walking routes */
-"share_walking_routes_email_body" = "MAPS.ME har nettopp lansert gå-ruter basert på de mest detaljerte kartene i verden! De gir de korteste rutene til enhver destinasjon. Prøv dem: http://maps.me/get?walk_em";
-
-/* Title for walking routes dialog, notifications etc. */
-"title_walking_available" = "Gå-ruter er tilgjengelig i MAPS.ME!";
-
-/* Text for walking routes dialog */
-"share_walking_routes_first_launch" = "De gir den korteste ruten til enhver destinasjon. Hjelp vennene dine å spare tid også!";
-
-/* Title for walking routes dialog after 3 built routes */
-"share_walking_routes_congratulations" = "Gratulerer!";
-
-/* Text for walking routes dialog after 3 built routes */
-"share_walking_routes_mastering" = "Du mestret Gå-ruter funksjonen. Hjelp vennene dine å spare tid, også. Fortell dem om MAPS.ME.";
-
-/* Android notification about walking directions for update users */
-"walking_notification_text" = "Vil du prøve dem?";
-
-/* Android notification with picture (rich) about walking directions for update users */
-"walking_rich_notification_text" = "De gir den korteste ruten til enhver destinasjon. Prøv dem selv og hjelp vennene dine å spare reisetid.";
 
 "rate_alert_title" = "Liker du appen?";
 

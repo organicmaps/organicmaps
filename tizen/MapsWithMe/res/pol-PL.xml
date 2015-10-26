@@ -140,7 +140,7 @@
 	<text id="IDS_DOWNLOADER_DELETE_ROUTING">Skasuj wyznaczanie tras</text>
 	<!-- Context menu item for downloader. -->
 	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP">Pobierz mapę</text>
-	<!-- Button for routing PP. -->
+	<!-- Button for routing. -->
 	<text id="IDS_ROUTING_GO">Przejdź!</text>
 	<!-- Item status in downloader. -->
 	<text id="IDS_DOWNLOADER_RETRY">Spróbuj ponownie</text>

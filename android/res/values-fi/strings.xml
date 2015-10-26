@@ -430,7 +430,7 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Lataa kartta</string>
 	<string name="downloader_download_map_no_routing">Lataa kartta ilman reititystä</string>
-	<!-- Button for routing PP. -->
+	<!-- Button for routing. -->
 	<string name="routing_go">Lähde!</string>
 	<!-- Item status in downloader. -->
 	<string name="downloader_retry">Yritä uudelleen</string>
@@ -767,28 +767,6 @@
 	<string name="routing_planning">Reittiä suunnitellaan</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Lataa ja päivitä kaikki kartat reitin varrella luodaksesi reitin.</string>
-	<!-- Text for facebook sharing news about walking routes -->
-	<string name="share_walking_routes_facebook">MAPS.ME lyhentää matkustusaikaasi. Yli 2 miljoonaa kilometriä jalankulkureitteinä, polkuina ja teinä kävelyohjeissa nyt.</string>
-	<!-- Text for messenger sharing news about walking routes -->
-	<string name="share_walking_routes_messenger">MAPS.ME antaa lyhyimmät kävelyreitit ympäri maailmaa! Katso ne täältä: http://maps.me/get?walk_im</string>
-	<!-- Text for sms sharing news about walking routes -->
-	<string name="share_walking_routes_sms">MAPS.ME antaa lyhyimmät kävelyreitit: http://maps.me/get?walk</string>
-	<!-- Subject for email sharing news about walking routes -->
-	<string name="share_walking_routes_email_subject">Lyhyimmät kävelyreitit ovat saatavilla</string>
-	<!-- Text for email sharing news about walking routes -->
-	<string name="share_walking_routes_email_body">MAPS.ME julkaisi juuri Kävelyohjeet, jotka perustuvat maailman yksityiskohtaisimpaan karttaan! Ne antavat lyhyimmät reitit mihin tahansa päämäärään. Kokeile niitä täältä: http://maps.me/get?walk_em</string>
-	<!-- Title for walking routes dialog, notifications etc. -->
-	<string name="title_walking_available">Kävelyohjeet ovat saatavilla MAPS.ME:ssa!</string>
-	<!-- Text for walking routes dialog -->
-	<string name="share_walking_routes_first_launch">Ne antavat lyhyimmän reitin mihin tahansa päämäärään. Auta ystäviäsikin lyhentämään matkustusaikaansa!</string>
-	<!-- Title for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_congratulations">Onnittelut!</string>
-	<!-- Text for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_mastering">Hallitset nyt Kävelyohje-toiminnon. Auta ystäviäsikin lyhentämään kävelyaikaansa. Kerro heille MAPS.ME:sta.</string>
-	<!-- Android notification about walking directions for update users -->
-	<string name="walking_notification_text">Haluatko kokeilla niitä?</string>
-	<!-- Android notification with picture (rich) about walking directions for update users -->
-	<string name="walking_rich_notification_text">Ne antavat lyhyimmän reitin mihin tahansa päämäärään. Kokeile itse, ja auta ystäviäsi lyhentämään matkustusaikaansa.</string>
 	<string name="rate_alert_title">Pidätkö sovelluksesta?</string>
 	<string name="rate_alert_default_message">Kiitos kun käytät MAPS.ME:tä. Voisitko myös arvostella sovelluksen? Palautteesi avulla tulemme vielä paremmiksi.</string>
 	<string name="rate_alert_five_star_message">Hurraa! Mekin rakastamme sinua!</string>

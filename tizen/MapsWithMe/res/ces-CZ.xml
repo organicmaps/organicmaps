@@ -146,7 +146,7 @@
 	<text id="IDS_DOWNLOADER_DELETE_ROUTING">Smazat trasy</text>
 	<!-- Context menu item for downloader. -->
 	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP">Stáhnout mapu</text>
-	<!-- Button for routing PP. -->
+	<!-- Button for routing. -->
 	<text id="IDS_ROUTING_GO">Jet!</text>
 	<!-- Item status in downloader. -->
 	<text id="IDS_DOWNLOADER_RETRY">Zkusit znovu</text>

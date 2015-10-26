@@ -434,7 +434,7 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Haritayı indir</string>
 	<string name="downloader_download_map_no_routing">Haritayı rota olmadan indirin</string>
-	<!-- Button for routing PP. -->
+	<!-- Button for routing. -->
 	<string name="routing_go">Git!</string>
 	<!-- Item status in downloader. -->
 	<string name="downloader_retry">Tekrar Dene</string>
@@ -771,28 +771,6 @@
 	<string name="routing_planning">Rota Planlanıyor</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Bir rota oluşturmak için lütfen rota üzerindeki tüm haritaları indirin ve güncelleyin.</string>
-	<!-- Text for facebook sharing news about walking routes -->
-	<string name="share_walking_routes_facebook">MAPS.ME size yürüyüş zamanınızdan tasarruf ettirir. Artık 2 milyon kilometreden fazla yaya yolu, parkur ve asfaltsız yol yürüyüş rotaları için mevcuttur.</string>
-	<!-- Text for messenger sharing news about walking routes -->
-	<string name="share_walking_routes_messenger">MAPS.ME dünya çapında en kısa yürüyüş rotalarını gösteriyor! Gözatın: http://maps.me/get?walk_im</string>
-	<!-- Text for sms sharing news about walking routes -->
-	<string name="share_walking_routes_sms">MAPS.ME en kısa yürüyüş rotalarını gösterir: http://maps.me/get?walk</string>
-	<!-- Subject for email sharing news about walking routes -->
-	<string name="share_walking_routes_email_subject">En kısa yürüyüş rotaları mevcuttur</string>
-	<!-- Text for email sharing news about walking routes -->
-	<string name="share_walking_routes_email_body">MAPS.ME kısa bir süre önce, dünyanın en detaylı haritalarını baz alarak yürüyüş rotalarını piyasaya sürdü! Onlar herhangi bir hedefe en kısa rotayı gösteriyorlar. Onları deneyin: http://maps.me/get?walk_em</string>
-	<!-- Title for walking routes dialog, notifications etc. -->
-	<string name="title_walking_available">Yürüyüş rotaları MAPS.ME\&#39;de mevcuttur!</string>
-	<!-- Text for walking routes dialog -->
-	<string name="share_walking_routes_first_launch">Onlar herhangi bir hedef noktasına ulaşmanız için en kısa yolu gösterirler. Arkadaşlarınızında yürüyüş zamanınından tasarruf etmelerine yardımcı olun!</string>
-	<!-- Title for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_congratulations">Tebrikler!</string>
-	<!-- Text for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_mastering">Yürüyüş rotalarını fonksiyonlarını hakim oldunuz. Arkadaşlarınızında yürüyüş zamanınından tasarruf etmelerine yardımcı olun. Onlara MAPS.ME\&#39;den bahsedin.</string>
-	<!-- Android notification about walking directions for update users -->
-	<string name="walking_notification_text">Onları denemek ister misiniz?</string>
-	<!-- Android notification with picture (rich) about walking directions for update users -->
-	<string name="walking_rich_notification_text">Onlar herhangi bir hedef noktasına ulaşmanız için en kısa yolu gösterirler. Onları deneyin ve arkadaşlarınızın seyahat zamanınından tasarruf etmelerine yardımcı olun.</string>
 	<string name="rate_alert_title">Uygulamayı beğendiniz mi?</string>
 	<string name="rate_alert_default_message">MAPS.ME’yi kullandığınız için teşekkür ederiz. Lütfen uygulamaya puan verin. Geri bildiriminiz daha iyi hale gelebilmemize yardımcı olur.</string>
 	<string name="rate_alert_five_star_message">Yaşasın! Biz de sizi seviyoruz!</string>

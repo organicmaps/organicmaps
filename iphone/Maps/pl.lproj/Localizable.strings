@@ -742,8 +742,14 @@
 
 "downloader_download_map_no_routing" = "Pobierz mapę bez oznaczania tras";
 
-/* Button for routing PP. */
+/* Button for routing. */
 "routing_go" = "Przejdź!";
+
+/* Routing planning: button "Route from" in PP. */
+"routing_from" = "Route from";
+
+/* Routing planning: button "Route to" in PP. */
+"routing_to" = "Route to";
 
 /* Item status in downloader. */
 "downloader_retry" = "Spróbuj ponownie";
@@ -1266,39 +1272,6 @@
 
 /* Text for routing::IRouter::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Aby utworzyć trasę, pobierz i zaktualizuj wszystkie właściwe dla niej mapy.";
-
-/* Text for facebook sharing news about walking routes */
-"share_walking_routes_facebook" = "MAPS.ME pozwala oszczędzić czas potrzebny na dojście do celu. Wskazówki dojścia dla ponad 2 milionów km tras pieszych, dróg i ścieżek są już dostępne.";
-
-/* Text for messenger sharing news about walking routes */
-"share_walking_routes_messenger" = "MAPS.ME wytycza najkrótsze trasy piesze na całym świecie! Sprawdź sam: http://maps.me/get?walk_im";
-
-/* Text for sms sharing news about walking routes */
-"share_walking_routes_sms" = "MAPS.ME wytycza najkrótsze trasy piesze: http://maps.me/get?walk";
-
-/* Subject for email sharing news about walking routes */
-"share_walking_routes_email_subject" = "Najkrótsze trasy piesze są już dostępne";
-
-/* Text for email sharing news about walking routes */
-"share_walking_routes_email_body" = "MAPS.ME opublikowało właśnie Wskazówki dojścia w oparciu o najbardziej szczegółową mapę na świecie! Określają one najkrótszą trasę do dowolnego celu. Wypróbuj je: http://maps.me/get?walk_em";
-
-/* Title for walking routes dialog, notifications etc. */
-"title_walking_available" = "Wskazówki dojścia są dostępne w MAPS.ME!";
-
-/* Text for walking routes dialog */
-"share_walking_routes_first_launch" = "Określają najkrótszą trasę do dowolnego celu. Pomóż również swoim znajomym oszczędzić czas potrzebny na dojście do celu!";
-
-/* Title for walking routes dialog after 3 built routes */
-"share_walking_routes_congratulations" = "Gratulacje!";
-
-/* Text for walking routes dialog after 3 built routes */
-"share_walking_routes_mastering" = "Opanowałeś funkcję wskazówki dojścia. Możesz pomóc również swoim znajomym oszczędzić czas potrzebny na dojście do celu. Opowiedz im o MAPS.ME.";
-
-/* Android notification about walking directions for update users */
-"walking_notification_text" = "Czy chcesz je wypróbować?";
-
-/* Android notification with picture (rich) about walking directions for update users */
-"walking_rich_notification_text" = "Określają najkrótszą trasę do dowolnego celu. Wypróbuj je sam i pomóż znajomym oszczędzić czas w podróży.";
 
 "rate_alert_title" = "Lubisz tę aplikację?";
 

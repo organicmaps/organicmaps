@@ -136,7 +136,7 @@
 	<text id="IDS_DOWNLOADER_DELETE_ROUTING">Eliminar itinerario</text>
 	<!-- Context menu item for downloader. -->
 	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP">Descargar el mapa</text>
-	<!-- Button for routing PP. -->
+	<!-- Button for routing. -->
 	<text id="IDS_ROUTING_GO">¡Listo!</text>
 	<!-- Item status in downloader. -->
 	<text id="IDS_DOWNLOADER_RETRY">Reintentar</text>
