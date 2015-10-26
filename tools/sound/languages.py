@@ -54,6 +54,7 @@ def make_languages_hpp(langs_name, hpp_name):
   print ("Creating {fine_name}".format(fine_name = hpp_name))
   with open(langs_name, 'r') as langs_file:
     languages_list = langs_file.read().split()
+    languages_list.sort()
     lang_str = ",\n".join(["  \"{}\"".format(language) for language in languages_list])
     with open(hpp_name, "w") as hpp_file:
       hpp_file.write(languages_hpp_template.format(lang_list_size = len(languages_list), lang_list = lang_str))
