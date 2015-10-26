@@ -25,6 +25,7 @@ public:
 
   void OnTap(m2::PointD const & pt, bool isLong) override {}
   void OnDoubleTap(m2::PointD const & pt) override {}
+  void OnTwoFingersTap() override {}
   bool OnSingleTouchFiltrate(m2::PointD const & pt, df::TouchEvent::ETouchType type) override { return m_filtrate; }
   void OnDragStarted() override {}
   void OnDragEnded(m2::PointD const & /*distance*/) override {}

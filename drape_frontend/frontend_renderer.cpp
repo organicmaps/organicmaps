@@ -681,7 +681,13 @@ void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
 
 void FrontendRenderer::OnDoubleTap(m2::PointD const & pt)
 {
-  m_userEventStream.AddEvent(ScaleEvent(2.0 /*scale factor*/, pt, true /*animated*/));
+  m_userEventStream.AddEvent(ScaleEvent(2.0 /* scale factor */, pt, true /* animated */));
+}
+
+void FrontendRenderer::OnTwoFingersTap()
+{
+  ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
+  m_userEventStream.AddEvent(ScaleEvent(0.5 /* scale factor */, screen.PixelRect().Center(), true /* animated */));
 }
 
 bool FrontendRenderer::OnSingleTouchFiltrate(m2::PointD const & pt, TouchEvent::ETouchType type)

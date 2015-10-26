@@ -205,6 +205,7 @@ public:
 
     virtual void OnTap(m2::PointD const & pt, bool isLong) = 0;
     virtual void OnDoubleTap(m2::PointD const & pt) = 0;
+    virtual void OnTwoFingersTap() = 0;
     virtual bool OnSingleTouchFiltrate(m2::PointD const & pt, TouchEvent::ETouchType type) = 0;
     virtual void OnDragStarted() = 0;
     virtual void OnDragEnded(m2::PointD const & distance) = 0;
@@ -284,6 +285,9 @@ private:
   void EndTapDetector(Touch const & touch);
   void CancelTapDetector();
 
+  void BeginTwoFingersTap(Touch const & t1, Touch const & t2);
+  void EndTwoFingersTap();
+
   bool TryBeginFilter(Touch const & t);
   void EndFilter(Touch const & t);
   void CancelFilter(Touch const & t);
@@ -297,13 +301,14 @@ private:
   mutable mutex m_lock;
 
   Navigator m_navigator;
-  my::HighResTimer m_touchTimer;
+  my::Timer m_touchTimer;
   enum ERecognitionState
   {
     STATE_EMPTY,
     STATE_FILTER,
     STATE_TAP_DETECTION,
     STATE_WAIT_DOUBLE_TAP,
+    STATE_TAP_TWO_FINGERS,
     STATE_DRAG,
     STATE_SCALE
   } m_state;
@@ -317,6 +322,7 @@ private:
   TTestBridge m_testFn;
 #endif
   m2::PointD m_startDragOrg;
+  array<m2::PointF, 2> m_twoFingersTouches;
 
   KineticScroller m_scroller;
   my::Timer m_kineticTimer;
