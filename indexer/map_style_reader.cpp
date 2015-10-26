@@ -5,14 +5,11 @@
 #include "coding/file_name_utils.hpp"
 
 #include "platform/platform.hpp"
-#include "platform/settings.hpp"
 
 #include "std/string.hpp"
 
 namespace
 {
-
-char const * const kMapStyleKey = "MapStyleKeyV1";
 
 const char * const kSuffixLegacyLight = "";
 const char * const kSuffixLegacyDark = "_dark";
@@ -38,22 +35,19 @@ string GetStyleSuffix(MapStyle mapStyle)
 
 }  // namespace
 
+StyleReader::StyleReader()
+  : m_mapStyle(MapStyleLight)
+{
+}
+
 void StyleReader::SetCurrentStyle(MapStyle mapStyle)
 {
-  Settings::Set(kMapStyleKey, static_cast<int>(mapStyle));
+  m_mapStyle = mapStyle;
 }
 
 MapStyle StyleReader::GetCurrentStyle()
 {
-  int mapStyle = MapStyleLight;
-// @TODO(shalnev) It's a hotfix to fix tests generator_tests and map_tests.
-// Tests should work with any styles.
-#if defined(OMIM_OS_ANDROID) || defined(OMIM_OS_IPHONE)
-  if (!Settings::Get(kMapStyleKey, mapStyle))
-    mapStyle = MapStyleClear;
-#endif
-
-  return static_cast<MapStyle>(mapStyle);
+  return m_mapStyle;
 }
 
 ReaderPtr<Reader> StyleReader::GetDrawingRulesReader()
