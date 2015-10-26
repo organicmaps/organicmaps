@@ -1,63 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_base"
-    android:background="@color/bg_place_page_buttons"
-    android:orientation="vertical"
     android:paddingLeft="@dimen/margin_half_plus"
     android:paddingRight="@dimen/margin_half_plus"
-    android:clickable="true"
-    tools:ignore="UseCompoundDrawables">
-
+    android:background="@color/bg_place_page_buttons"
+    android:clickable="true">
   <LinearLayout
+      android:id="@+id/general"
       android:layout_width="match_parent"
       android:layout_height="@dimen/place_page_buttons_height"
-      android:baselineAligned="false"
       android:orientation="horizontal"
-      android:paddingLeft="@dimen/margin_half_plus"
-      android:paddingRight="@dimen/margin_half_plus">
-
+      tools:ignore="UseCompoundDrawables">
     <LinearLayout
         android:id="@+id/ll__api_back"
         style="@style/PlacePageButton">
 
       <ImageView
-          android:id="@+id/iv__api_back"
           style="@style/PlacePageButtonImage"
           android:contentDescription="@string/back"
           android:src="@drawable/ic_back_api"/>
 
       <TextView
-          android:id="@+id/tv__api_back"
           style="@style/PlacePageButtonText"
           android:text="@string/back"/>
-
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll__share"
         style="@style/PlacePageButton">
-
       <ImageView
-          android:id="@+id/iv__share"
           style="@style/PlacePageButtonImage"
           android:contentDescription="@string/share"
           android:src="@drawable/ic_share"/>
 
       <TextView
-          android:id="@+id/tv__share"
           style="@style/PlacePageButtonText"
           android:text="@string/share"/>
-
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll__bookmark"
         style="@style/PlacePageButton">
-
       <ImageView
           android:id="@+id/iv__bookmark"
           style="@style/PlacePageButtonImage"
@@ -65,29 +52,45 @@
           android:src="@drawable/ic_bookmarks_off"/>
 
       <TextView
-          android:id="@+id/tv__bookmark"
           style="@style/PlacePageButtonText"
           android:text="@string/bookmark"/>
-
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll__route"
         style="@style/PlacePageButton">
-
       <ImageView
-          android:id="@+id/iv__route"
           style="@style/PlacePageButtonImage"
           android:contentDescription="@string/route"
           android:src="@drawable/ic_route"/>
 
       <TextView
-          android:id="@+id/tv__route"
           style="@style/PlacePageButtonText"
           android:text="@string/route"/>
-
     </LinearLayout>
-
   </LinearLayout>
 
-</LinearLayout>
+  <LinearLayout
+      android:id="@+id/routing"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/place_page_buttons_height"
+      android:orientation="horizontal"
+      android:visibility="gone"
+      tools:visibility="visible"
+      tools:layout_marginTop="60dp">
+    <TextView
+        android:id="@+id/from"
+        style="@style/PlacePageButtonText.Route"
+        android:text="@string/routing_from"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/divider_standard"/>
+
+    <TextView
+        android:id="@+id/to"
+        style="@style/PlacePageButtonText.Route"
+        android:text="@string/routing_to"/>
+  </LinearLayout>
+</FrameLayout>

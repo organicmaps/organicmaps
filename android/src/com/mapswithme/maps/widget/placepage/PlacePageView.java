@@ -16,48 +16,21 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.webkit.WebView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupMenu;
-import android.widget.RatingBar;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
-
-import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MwmActivity;
-import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.R;
+import android.widget.*;
+import com.mapswithme.maps.*;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryFragment;
-import com.mapswithme.maps.bookmarks.data.Bookmark;
-import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
-import com.mapswithme.maps.bookmarks.data.Icon;
-import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.bookmarks.data.*;
 import com.mapswithme.maps.bookmarks.data.MapObject.MapObjectType;
 import com.mapswithme.maps.bookmarks.data.MapObject.Poi;
-import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.maps.widget.BaseShadowController;
 import com.mapswithme.maps.widget.ObservableScrollView;
 import com.mapswithme.maps.widget.ScrollViewShadowController;
-import com.mapswithme.util.InputUtils;
-import com.mapswithme.util.LocationUtils;
-import com.mapswithme.util.StringUtils;
-import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.Utils;
+import com.mapswithme.util.*;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -115,11 +88,15 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private Button mBtnEditHtmlDescription;
   private TextView mTvBookmarkGroup;
   // Place page buttons
-  private BaseShadowController mShadowController;
-  private LinearLayout mApiBack;
+  private View mGeneralButtonsFrame;
+  private View mRouteButtonsFrame;
+  private View mApiBack;
   private ImageView mIvBookmark;
   private View mRoutingButton;
+  private View mRouteButtonFrom;
+  private View mRouteButtonTo;
   // Animations
+  private BaseShadowController mShadowController;
   private BasePlacePageAnimationController mAnimationController;
   private MwmActivity.LeftAnimationTrackListener mLeftAnimationTrackListener;
   // Data
@@ -225,13 +202,19 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mBtnEditHtmlDescription.setOnClickListener(this);
 
     ViewGroup ppButtons = (ViewGroup) findViewById(R.id.pp__buttons);
-    mApiBack = (LinearLayout) ppButtons.findViewById(R.id.ll__api_back);
+
+    mGeneralButtonsFrame = ppButtons.findViewById(R.id.general);
+    mApiBack = mGeneralButtonsFrame.findViewById(R.id.ll__api_back);
     mApiBack.setOnClickListener(this);
-    final ViewGroup bookmarkGroup = (ViewGroup) ppButtons.findViewById(R.id.ll__bookmark);
+    final View bookmarkGroup = mGeneralButtonsFrame.findViewById(R.id.ll__bookmark);
     bookmarkGroup.setOnClickListener(this);
     mIvBookmark = (ImageView) bookmarkGroup.findViewById(R.id.iv__bookmark);
-    ppButtons.findViewById(R.id.ll__share).setOnClickListener(this);
-    mRoutingButton = ppButtons.findViewById(R.id.ll__route);
+    mGeneralButtonsFrame.findViewById(R.id.ll__share).setOnClickListener(this);
+    mRoutingButton = mGeneralButtonsFrame.findViewById(R.id.ll__route);
+
+    mRouteButtonsFrame = ppButtons.findViewById(R.id.routing);
+    mRouteButtonFrom = mRouteButtonsFrame.findViewById(R.id.from);
+    mRouteButtonTo = mRouteButtonsFrame.findViewById(R.id.to);
 
     mShadowController = new ScrollViewShadowController((ObservableScrollView) mPpDetails)
         .addBottomShadow()
@@ -465,6 +448,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   private void refreshButtons(boolean showBackButton, boolean showRoutingButton)
   {
+    // TODO: Select button layout
+
     UiUtils.showIf(showBackButton || ParsedMwmRequest.isPickPointMode(), mApiBack);
     UiUtils.showIf(showRoutingButton, mRoutingButton);
   }
@@ -555,21 +540,20 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   public void refreshAzimuth(double northAzimuth)
   {
-    if (mMapObject != null && mMapObject.getType() != MapObjectType.MY_POSITION)
-    {
-      final Location l = LocationHelper.INSTANCE.getLastLocation();
-      if (l != null)
-      {
-        final DistanceAndAzimut da = Framework.nativeGetDistanceAndAzimutFromLatLon(
-            mMapObject.getLat(), mMapObject.getLon(),
-            l.getLatitude(), l.getLongitude(), northAzimuth);
+    if (getState() == State.HIDDEN || mMapObject == null || mMapObject.getType() == MapObjectType.MY_POSITION)
+      return;
 
-        if (da.getAzimuth() >= 0)
-        {
-          mAvDirection.setVisibility(View.VISIBLE);
-          mAvDirection.setAzimuth(da.getAzimuth());
-        }
-      }
+    final Location l = LocationHelper.INSTANCE.getLastLocation();
+    if (l == null)
+      return;
+
+    double azimuth = Framework.nativeGetDistanceAndAzimutFromLatLon(mMapObject.getLat(), mMapObject.getLon(),
+                                                                    l.getLatitude(), l.getLongitude(), northAzimuth)
+                              .getAzimuth();
+    if (azimuth >= 0)
+    {
+      UiUtils.show(mAvDirection);
+      mAvDirection.setAzimuth(azimuth);
     }
   }
 
