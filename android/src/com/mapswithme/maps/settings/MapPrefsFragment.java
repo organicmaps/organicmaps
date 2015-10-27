@@ -15,7 +15,7 @@ import com.mapswithme.util.statistics.AlohaHelper;
 
 import java.util.List;
 
-public class MapPrefsFragment extends PreferenceFragment
+public class MapPrefsFragment extends BaseXmlSettingsFragment
 {
   private final StoragePathManager mPathManager = new StoragePathManager();
   private Preference mStoragePref;
@@ -42,10 +42,15 @@ public class MapPrefsFragment extends PreferenceFragment
   }
 
   @Override
+  protected int getXmlResources()
+  {
+    return R.xml.prefs_map;
+  }
+
+  @Override
   public void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    addPreferencesFromResource(R.xml.prefs_map);
 
     mStoragePref = findPreference(getString(R.string.pref_storage));
     updateStoragePrefs();
@@ -62,7 +67,7 @@ public class MapPrefsFragment extends PreferenceFragment
               .setPositiveButton(getString(R.string.ok), null)
               .show();
         else
-          startActivity(new Intent(getActivity(), StoragePathActivity.class));
+          ((SettingsActivity)getActivity()).switchToFragment(StoragePathFragment.class, R.string.maps_storage);
 
         return true;
       }

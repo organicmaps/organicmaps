@@ -34,7 +34,7 @@ public class AboutFragment extends BaseSettingsFragment
   @Override
   protected BaseShadowController createShadowController()
   {
-    ((View)mFrame.getParent()).setPadding(0, 0, 0, 0);
+    clearPaddings();
     return new ScrollViewShadowController((ObservableScrollView)mFrame.findViewById(R.id.content_frame));
   }
 

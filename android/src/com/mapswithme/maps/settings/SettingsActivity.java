@@ -22,13 +22,16 @@ import com.mapswithme.util.ViewServer;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SettingsActivity extends PreferenceActivity
 {
   private final FragmentListHelper mFragmentListHelper = new FragmentListHelper();
   private AppCompatDelegate mDelegate;
   private CharSequence mNextBreadcrumb;
+  private final Map<Long, Header> mHeaders = new HashMap<>();
 
   private AppCompatDelegate getDelegate()
   {
@@ -48,6 +51,10 @@ public class SettingsActivity extends PreferenceActivity
   public void onBuildHeaders(List<Header> target)
   {
     loadHeadersFromResource(R.xml.prefs_headers, target);
+
+    mHeaders.clear();
+    for (Header h : target)
+      mHeaders.put(h.id, h);
   }
 
   @Override
@@ -182,7 +189,7 @@ public class SettingsActivity extends PreferenceActivity
   {
     super.onResume();
 
-    org.alohalytics.Statistics.logEvent("$onResume", this.getClass().getSimpleName());
+    org.alohalytics.Statistics.logEvent("$onResume", getClass().getSimpleName());
     ViewServer.get(this).setFocusedWindow(this);
   }
 
@@ -198,7 +205,7 @@ public class SettingsActivity extends PreferenceActivity
   {
     super.onPause();
 
-    org.alohalytics.Statistics.logEvent("$onPause", this.getClass().getSimpleName());
+    org.alohalytics.Statistics.logEvent("$onPause", getClass().getSimpleName());
   }
 
   @Override
@@ -235,7 +242,14 @@ public class SettingsActivity extends PreferenceActivity
     super.showBreadCrumbs(title, shortTitle);
   }
 
-  public void switchToFragment(Class<? extends Fragment> fragmentClass, @StringRes int breadcrumb)
+  public void switchToHeader(long id)
+  {
+    Header h = mHeaders.get(id);
+    if (h != null)
+      switchToHeader(h);
+  }
+
+  public void switchToFragment(Class<? extends BaseSettingsFragment> fragmentClass, @StringRes int breadcrumb)
   {
     mNextBreadcrumb = getString(breadcrumb);
     switchToHeader(fragmentClass.getName(), null);
