@@ -156,12 +156,12 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 
 - (void)startSpinner
 {
+  if (!self.spinner.hidden)
+    return;
+  self.spinner.hidden = NO;
   dispatch_async(dispatch_get_main_queue(), ^
   {
-    if (!self.spinner.hidden)
-      return;
     self.backgroundLayer.hidden = self.progressLayer.hidden = YES;
-    self.spinner.hidden = NO;
     NSUInteger const animationImagesCount = 12;
     NSMutableArray * animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];
     for (NSUInteger i = 0; i < animationImagesCount; ++i)
@@ -174,12 +174,12 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 
 - (void)stopSpinner
 {
+  if (self.spinner.hidden)
+    return;
+  self.spinner.hidden = YES;
   dispatch_async(dispatch_get_main_queue(), ^
   {
-    if (self.spinner.hidden)
-      return;
     self.backgroundLayer.hidden = self.progressLayer.hidden = NO;
-    self.spinner.hidden = YES;
     [self.spinner.layer removeAllAnimations];
   });
 }

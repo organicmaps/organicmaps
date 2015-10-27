@@ -58,7 +58,6 @@
   {
     self.currentCountryIndex = activeMapLayout.GetCurrentDownloadingCountryIndex();
     self.progressView.state = MWMCircularProgressStateProgress;
-    [self.progressView startSpinner];
     [self updateState:MWMDownloadMapRequestStateDownload];
   }
   else
@@ -108,9 +107,14 @@
 {
   auto & activeMapLayout = GetFramework().GetCountryTree().GetActiveMapLayout();
   if (progress.state == MWMCircularProgressStateFailed)
+  {
     activeMapLayout.RetryDownloading(self.currentCountryIndex);
+    [self.progressView startSpinner];
+  }
   else
+  {
     activeMapLayout.CancelDownloading(self.currentCountryIndex);
+  }
   [self showRequest];
 }
 
@@ -122,6 +126,7 @@
   GetFramework().GetCountryTree().GetActiveMapLayout().DownloadMap(self.currentCountryIndex, mapType);
   self.progressView.progress = 0.0;
   [self showRequest];
+  [self.progressView startSpinner];
 }
 
 - (IBAction)downloadRoutesTouchUpInside:(nonnull UIButton *)sender
