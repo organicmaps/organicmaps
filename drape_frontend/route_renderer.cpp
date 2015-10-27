@@ -385,7 +385,7 @@ void RouteRenderer::CalculateArrowBorders(drape_ptr<ArrowRenderProperty> const &
     arrowBorders.m_startDistance = max(0.0, property->m_turns[i] - halfLen * 0.8);
     arrowBorders.m_endDistance = min(property->m_end - property->m_start, property->m_turns[i] + halfLen * 1.2);
 
-    if (arrowBorders.m_startDistance < m_distanceFromBegin)
+    if (arrowBorders.m_startDistance + property->m_start < m_distanceFromBegin)
       continue;
 
     m_arrowBorders.push_back(arrowBorders);
