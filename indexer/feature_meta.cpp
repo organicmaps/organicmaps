@@ -11,12 +11,14 @@ string Metadata::GetWikiURL() const
   return "https://" + value.substr(0, i) + ".wikipedia.org/wiki/" + value.substr(i + 1);
 }
 
-char hex_to_dec(char ch)
+namespace
+{
+char HexToDec(char ch)
 {
   if (ch >= '0' && ch <= '9')
     return ch - '0';
   if (ch >= 'a')
-    ch -= 32;
+    ch -= 'a' - 'A';
   if (ch >= 'A' && ch <= 'F')
     return ch - 'A' + 10;
   return -1;
@@ -31,41 +33,43 @@ string UriDecode(string const & sSrc)
   // sign but are not followed by two hexadecimal characters
   // (0-9, A-F) are reserved for future extension"
 
-  const unsigned char * pSrc = (const unsigned char *)sSrc.c_str();
-  const string::size_type SRC_LEN = sSrc.length();
-  const unsigned char * const SRC_END = pSrc + SRC_LEN;
+  unsigned char const * pSrc = (unsigned char const *)sSrc.c_str();
+  string::size_type const srcLen = sSrc.length();
+  unsigned char const * const srcEnd = pSrc + srcLen;
   // last decodable '%'
-  const unsigned char * const SRC_LAST_DEC = SRC_END - 2;
+  unsigned char const * const srcLastDec = srcEnd - 2;
 
-  char * const pStart = new char[SRC_LEN];
+  char * const pStart = new char[srcLen];
   char * pEnd = pStart;
 
-  while (pSrc < SRC_LAST_DEC)
+  while (pSrc < srcEnd)
   {
     if (*pSrc == '%')
     {
-      char dec1 = hex_to_dec(*(pSrc + 1));
-      char dec2 = hex_to_dec(*(pSrc + 2));
-      if (-1 != dec1 && -1 != dec2)
+      if (pSrc < srcLastDec)
       {
-        *pEnd++ = (dec1 << 4) + dec2;
-        pSrc += 2;
+        char dec1 = HexToDec(*(pSrc + 1));
+        char dec2 = HexToDec(*(pSrc + 2));
+        if (-1 != dec1 && -1 != dec2)
+        {
+          *pEnd++ = (dec1 << 4) + dec2;
+          pSrc += 3;
+          continue;
+        }
       }
     }
-    else if (*pSrc == '_')
+
+    if (*pSrc == '_')
       *pEnd++ = ' ';
     else
       *pEnd++ = *pSrc;
     pSrc++;
   }
 
-  // the last 2- chars
-  while (pSrc < SRC_END)
-    *pEnd++ = *pSrc++;
-
   string sResult(pStart, pEnd);
   delete [] pStart;
   return sResult;
+}
 }
 
 string Metadata::GetWikiTitle() const
