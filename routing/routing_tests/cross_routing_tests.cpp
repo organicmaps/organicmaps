@@ -104,4 +104,31 @@ UNIT_TEST(TestAdjacencyMatrix)
              routing::kInvalidContextEdgeWeight, ("Default cost"));
 }
 
+UNIT_TEST(TestFindingByPoint)
+{
+  routing::CrossRoutingContextWriter context;
+  routing::CrossRoutingContextReader newContext;
+
+  ms::LatLon p1(1., 1.), p2(5., 5.), p3(10.,1.);
+
+  context.AddIngoingNode(1, ms::LatLon::Zero());
+  context.AddIngoingNode(2, p1);
+  context.AddIngoingNode(3, p2);
+  context.AddOutgoingNode(4, "foo", ms::LatLon::Zero());
+  context.ReserveAdjacencyMatrix();
+
+  vector<char> buffer;
+  MemWriter<vector<char> > writer(buffer);
+  context.Save(writer);
+  TEST_GREATER(buffer.size(), 5, ("Context serializer make some data"));
+
+  MemReader reader(buffer.data(), buffer.size());
+  newContext.Load(reader);
+  IngoingCrossNode node;
+  TEST(newContext.FindIngoingNodeByPoint(p1, node), ());
+  TEST_EQUAL(node.m_nodeId, 2, ());
+  TEST(newContext.FindIngoingNodeByPoint(p2, node), ());
+  TEST_EQUAL(node.m_nodeId, 3, ());
+  TEST(!newContext.FindIngoingNodeByPoint(p3, node), ());
 }
+}  // namespace
