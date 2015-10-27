@@ -4,6 +4,10 @@ import android.speech.tts.TextToSpeech;
 
 import java.util.Locale;
 
+/**
+ * {@code LanguageData} describes single voice language managed by {@link TtsPlayer}.
+ * Supported languages are listed in {@code strings-tts.xml} file, for details see comments there.
+ */
 public class LanguageData
 {
   public static class NotAvailableException extends Exception {

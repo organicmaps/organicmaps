@@ -16,6 +16,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * {@code TtsPlayer} class manages available TTS voice languages.
+ * Single TTS language is described by {@link LanguageData} item.
+ * <p>
+ * We support a set of languages listed in {@code strings-tts.xml} file.
+ * During loading each item in this list is marked as {@code downloaded} or {@code not downloaded},
+ * unsupported voices are excluded.
+ * <p>
+ * At startup we check whether currently selected language is in our list of supported voices and its data is downloaded.
+ * If not, we check system default locale. If failed, the same check is made for English language.
+ * Finally, if mentioned checks fail we manually disable TTS, so the user must go to the settings and select
+ * preferred voice language by hand.
+ * <p>
+ * If no core supported languages can be used by the system, TTS is locked down and can not be enabled and used.
+ */
 public enum TtsPlayer
 {
   INSTANCE;
