@@ -143,7 +143,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
   ASSERT(m_router != nullptr, ());
 
   if (m_state == RouteNeedRebuild || m_state == RouteFinished || m_state == RouteBuilding ||
-      m_state == RouteNotReady || m_state == RouteNoFollow)
+      m_state == RouteNotReady || m_state == RouteNoFollowing)
     return m_state;
 
   threads::MutexGuard guard(m_routeSessionMutex);
@@ -366,7 +366,7 @@ bool RoutingSession::DisableFollowMode()
 {
   if (m_state == RouteNotStarted || m_state == OnRoute)
   {
-    m_state = RouteNoFollow;
+    m_state = RouteNoFollowing;
     return true;
   }
   return false;

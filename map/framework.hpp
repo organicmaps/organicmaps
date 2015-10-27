@@ -591,9 +591,8 @@ public:
   bool IsOnRoute() const { return m_routingSession.IsOnRoute(); }
   bool IsRouteNavigable() const { return m_routingSession.IsNavigable(); }
   void BuildRoute(m2::PointD const & start, m2::PointD const & finish, uint32_t timeoutSec);
-  /// There were a bug inside FollowRoute method. Router follows route even it wasn't call.
-  /// So we deside to add special method to disable following mode, because we dont want to break
-  /// behavior users familiar to.
+  // FollowRoute has a bug where the router follows the route even if the method hads't been called.
+  // This method was added because we do not want to break the behaviour that is familiar to our users.
   bool DisableFollowMode() { return m_routingSession.DisableFollowMode(); }
   void SetRouteBuildingListener(TRouteBuildingCallback const & buildingCallback) { m_routingCallback = buildingCallback; }
   void SetRouteProgressListener(TRouteProgressCallback const & progressCallback) { m_progressCallback = progressCallback; }
