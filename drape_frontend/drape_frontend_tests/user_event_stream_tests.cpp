@@ -161,20 +161,21 @@ UNIT_TEST(SimpleScale)
 {
   size_t const moveEventCount = 5;
   UserEventStreamTest test(false);
-  test.SetRect(m2::RectD(-10, -10, 10, 10));
+  test.SetRect(m2::RectD(-250, -250, 250, 250));
 
+  test.AddExpectation(df::UserEventStream::TWO_FINGERS_TAP);
   test.AddExpectation(df::UserEventStream::BEGIN_SCALE);
-  for (size_t i = 0; i < moveEventCount; ++i)
+  for (size_t i = 0; i < moveEventCount - 1; ++i)
     test.AddExpectation(df::UserEventStream::SCALE);
   test.AddExpectation(df::UserEventStream::END_SCALE);
 
-  m2::PointD pointer1 = m2::PointD::Zero() + m2::PointD(0.1, 0.1);
-  m2::PointD pointer2 = m2::PointD::Zero() - m2::PointD(0.1, 0.1);
+  m2::PointD pointer1 = m2::PointD::Zero() + m2::PointD(10.0, 10.0);
+  m2::PointD pointer2 = m2::PointD::Zero() - m2::PointD(10.0, 10.0);
   test.AddUserEvent(MakeTouchEvent(pointer1, pointer2, df::TouchEvent::TOUCH_DOWN));
-  for (size_t i = 0; i < 5; ++i)
+  for (size_t i = 0; i < moveEventCount; ++i)
   {
-    pointer1 += m2::PointD(0.1, 0.0);
-    pointer2 -= m2::PointD(0.1, 0.0);
+    pointer1 += m2::PointD(20.0, 0.0);
+    pointer2 -= m2::PointD(20.0, 0.0);
     test.AddUserEvent(MakeTouchEvent(pointer1, pointer2, df::TouchEvent::TOUCH_MOVE));
   }
   test.AddUserEvent(MakeTouchEvent(pointer1, pointer2, df::TouchEvent::TOUCH_UP));

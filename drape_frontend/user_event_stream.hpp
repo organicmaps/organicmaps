@@ -244,6 +244,7 @@ public:
   static char const * TRY_FILTER;
   static char const * END_FILTER;
   static char const * CANCEL_FILTER;
+  static char const * TWO_FINGERS_TAP;
 
   using TTestBridge = function<void (char const * action)>;
   void SetTestBridge(TTestBridge const & fn) { m_testFn = fn; }

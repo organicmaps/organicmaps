@@ -49,6 +49,7 @@ char const * UserEventStream::CANCEL_TAP_DETECTOR = "CancelTap";
 char const * UserEventStream::TRY_FILTER = "TryFilter";
 char const * UserEventStream::END_FILTER = "EndFilter";
 char const * UserEventStream::CANCEL_FILTER = "CancelFilter";
+char const * UserEventStream::TWO_FINGERS_TAP = "TwoFingersTap";
 #endif
 
 uint8_t const TouchEvent::INVALID_MASKED_POINTER = 0xFF;
@@ -601,6 +602,7 @@ void UserEventStream::UpdateTouches(array<Touch, 2> const & touches)
 
 void UserEventStream::BeginTwoFingersTap(Touch const & t1, Touch const & t2)
 {
+  TEST_CALL(TWO_FINGERS_TAP);
   ASSERT_EQUAL(m_state, STATE_EMPTY, ());
   m_state = STATE_TAP_TWO_FINGERS;
   m_twoFingersTouches[0] = t1.m_location;
