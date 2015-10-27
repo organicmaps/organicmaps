@@ -35,35 +35,35 @@ namespace osmoh
 
 class Time
 {
-  enum EState
+  enum State
   {
-    eIsNotTime = 0,
-    eHaveHours = 1,
-    eHaveMinutes = 2,
+    IsNotTime = 0,
+    HaveHours = 1,
+    HaveMinutes = 2,
   };
 
-  using TEStateRep = std::underlying_type<EState>::type;
+  using TStateRep = std::underlying_type<State>::type;
 
  public:
-  enum class EEvent
+  enum class Event
   {
-    eNotEvent,
-    eDawn,
-    eSunrise,
-    eSunset,
-    eDusk
+    NotEvent,
+    Dawn,
+    Sunrise,
+    Sunset,
+    Dusk
   };
 
   using THours = std::chrono::hours;
   using TMinutes = std::chrono::minutes;
 
- public:
+
   Time() = default;
   Time(Time const &) = default;
   Time(THours const hours);
   Time(TMinutes const minutes);
   Time(THours const hours, TMinutes const minutes);
-  Time(EEvent const event);
+  Time(Event const event);
 
   Time & operator=(Time const &) = default;
 
@@ -76,8 +76,8 @@ class Time
   void SetHours(THours const hours);
   void SetMinutes(TMinutes const minutes);
 
-  EEvent GetEvent() const {return m_event;}
-  void SetEvent(EEvent const event);
+  Event GetEvent() const {return m_event;}
+  void SetEvent(Event const event);
 
   bool IsEvent() const;
   bool IsEventOffset() const;
@@ -93,23 +93,23 @@ class Time
  private:
   Time GetEventTime() const;
 
- private:
-  EEvent m_event{EEvent::eNotEvent};
+
+  Event m_event{Event::NotEvent};
   TMinutes m_duration{TMinutes::zero()};
-  TEStateRep m_state{EState::eIsNotTime};
+  TStateRep m_state{State::IsNotTime};
 };
 
-inline constexpr Time::THours operator ""_h(unsigned long long h)
+inline constexpr Time::THours operator ""_h(uint64_t h)
 {
   return Time::THours(h);
 }
 
-inline constexpr Time::TMinutes operator ""_min(unsigned long long m)
+inline constexpr Time::TMinutes operator ""_min(uint64_t m)
 {
   return Time::TMinutes(m);
 }
 
-std::ostream & operator<<(std::ostream & ost, Time::EEvent const event);
+std::ostream & operator<<(std::ostream & ost, Time::Event const event);
 std::ostream & operator<<(std::ostream & ost, Time const & time);
 
 class Timespan
@@ -154,7 +154,7 @@ std::ostream & operator<<(std::ostream & ost, osmoh::TTimespans const & timespan
 class NthEntry
 {
  public:
-  enum class ENth
+  enum class Nth
   {
     None,
     First,
@@ -164,74 +164,72 @@ class NthEntry
     Fifth
   };
 
- public:
+
   bool IsEmpty() const;
   bool HasStart() const;
   bool HasEnd() const;
 
-  ENth GetStart() const;
-  ENth GetEnd() const;
+  Nth GetStart() const;
+  Nth GetEnd() const;
 
-  void SetStart(ENth const s);
-  void SetEnd(ENth const e);
+  void SetStart(Nth const s);
+  void SetEnd(Nth const e);
 
  private:
-  ENth m_start{};
-  ENth m_end{};
+  Nth m_start{};
+  Nth m_end{};
 };
 
 std::ostream & operator<<(std::ostream & ost, NthEntry const entry);
 
-enum class EWeekday
+enum class Weekday
 {
   None,
-  Su,
-  Mo,
-  Tu,
-  We,
-  Th,
-  Fr,
-  Sa
+  Sunday,
+  Monday,
+  Tuesday,
+  Wednesday,
+  Thursday,
+  Friday,
+  Saturday
 };
 
-inline constexpr EWeekday operator ""_day(unsigned long long day)
+inline constexpr Weekday operator ""_day(uint64_t day)
 {
   using TDay = decltype(day);
-  return ((day <= static_cast<TDay>(EWeekday::None) ||
-           day > static_cast<TDay>(EWeekday::Sa))
-          ? EWeekday::None
-          : static_cast<EWeekday>(day));
+  return ((day <= static_cast<TDay>(Weekday::None) ||
+           day > static_cast<TDay>(Weekday::Saturday))
+          ? Weekday::None
+          : static_cast<Weekday>(day));
 }
 
-std::ostream & operator<<(std::ostream & ost, EWeekday const wday);
+std::ostream & operator<<(std::ostream & ost, Weekday const wday);
 
 class WeekdayRange
 {
   using TNths = std::vector<NthEntry>;
 
  public:
+  bool HasWday(Weekday const & wday) const;
 
- public:
-  bool HasWday(EWeekday const & wday) const;
-
-  bool HasSu() const;
-  bool HasMo() const;
-  bool HasTu() const;
-  bool HasWe() const;
-  bool HasTh() const;
-  bool HasFr() const;
-  bool HasSa() const;
+  bool HasSunday() const;
+  bool HasMonday() const;
+  bool HasTuesday() const;
+  bool HasWednesday() const;
+  bool HasThursday() const;
+  bool HasFriday() const;
+  bool HasSaturday() const;
 
   bool HasStart() const;
   bool HasEnd() const;
   bool IsEmpty() const;
 
-  EWeekday GetStart() const;
-  EWeekday GetEnd() const;
+  Weekday GetStart() const;
+  Weekday GetEnd() const;
   size_t GetDaysCount() const;
 
-  void SetStart(EWeekday const & wday);
-  void SetEnd(EWeekday const & wday);
+  void SetStart(Weekday const & wday);
+  void SetEnd(Weekday const & wday);
 
   int32_t GetOffset() const;
   void SetOffset(int32_t const offset);
@@ -242,8 +240,8 @@ class WeekdayRange
   void AddNth(NthEntry const & entry);
 
  private:
-  EWeekday m_start{};
-  EWeekday m_end{};
+  Weekday m_start{};
+  Weekday m_end{};
   int32_t m_offset{};
   TNths m_nths;
 };
@@ -272,7 +270,8 @@ using THolidays = std::vector<Holiday>;
 std::ostream & operator<<(std::ostream & ost, Holiday const & holiday);
 std::ostream & operator<<(std::ostream & ost, THolidays const & holidys);
 
-class Weekdays // Correspond to weekday_selector in osm opening hours
+/// Correspond to weekday_selector in osm opening hours
+class Weekdays
 {
  public:
   bool IsEmpty() const;
@@ -304,15 +303,15 @@ class DateOffset
 
   bool IsWDayOffsetPositive() const;
 
-  EWeekday GetWDayOffset() const;
+  Weekday GetWDayOffset() const;
   int32_t GetOffset() const;
 
-  void SetWDayOffset(EWeekday const wday);
+  void SetWDayOffset(Weekday const wday);
   void SetOffset(int32_t const offset);
   void SetWDayOffsetPositive(bool const on);
 
  private:
-  EWeekday m_wday_offset{EWeekday::None};
+  Weekday m_wday_offset{Weekday::None};
   bool m_positive{true};
   int32_t m_offset{};
 };
@@ -322,7 +321,7 @@ std::ostream & operator<<(std::ostream & ost, DateOffset const & offset);
 class MonthDay
 {
  public:
-  enum class EMonth
+  enum class Month
   {
     None,
     Jan,
@@ -339,7 +338,7 @@ class MonthDay
     Dec
   };
 
-  enum class EVariableDate
+  enum class VariableDate
   {
     None,
     Easter
@@ -348,7 +347,7 @@ class MonthDay
   using TYear = uint16_t;
   using TDayNum = uint8_t;
 
- public:
+
   bool IsEmpty() const;
   bool IsVariable() const;
 
@@ -358,36 +357,36 @@ class MonthDay
   bool HasOffset() const;
 
   TYear GetYear() const;
-  EMonth GetMonth() const;
+  Month GetMonth() const;
   TDayNum GetDayNum() const;
   DateOffset const & GetOffset() const;
-  EVariableDate GetVariableDate() const;
+  VariableDate GetVariableDate() const;
 
   void SetYear(TYear const year);
-  void SetMonth(EMonth const month);
+  void SetMonth(Month const month);
   void SetDayNum(TDayNum const daynum);
   void SetOffset(DateOffset const & offset);
-  void SetVariableDate(EVariableDate const date);
+  void SetVariableDate(VariableDate const date);
 
  private:
   TYear m_year{};
-  EMonth m_month{EMonth::None};
+  Month m_month{Month::None};
   TDayNum m_daynum{};
-  EVariableDate m_variable_date{EVariableDate::None};
+  VariableDate m_variable_date{VariableDate::None};
   DateOffset m_offset{};
 };
 
-inline constexpr MonthDay::EMonth operator ""_M(unsigned long long month)
+inline constexpr MonthDay::Month operator ""_M(uint64_t month)
 {
   using TMonth = decltype(month);
-  return ((month <= static_cast<TMonth>(MonthDay::EMonth::None) ||
-           month > static_cast<TMonth>(MonthDay::EMonth::Dec))
-          ? MonthDay::EMonth::None
-          : static_cast<osmoh::MonthDay::EMonth>(month));
+  return ((month <= static_cast<TMonth>(MonthDay::Month::None) ||
+           month > static_cast<TMonth>(MonthDay::Month::Dec))
+          ? MonthDay::Month::None
+          : static_cast<osmoh::MonthDay::Month>(month));
 }
 
-std::ostream & operator<<(std::ostream & ost, MonthDay::EMonth const month);
-std::ostream & operator<<(std::ostream & ost, MonthDay::EVariableDate const date);
+std::ostream & operator<<(std::ostream & ost, MonthDay::Month const month);
+std::ostream & operator<<(std::ostream & ost, MonthDay::VariableDate const date);
 std::ostream & operator<<(std::ostream & ost, MonthDay const md);
 
 class MonthdayRange
@@ -426,7 +425,7 @@ class YearRange
  public:
   using TYear = uint16_t;
 
- public:
+
   bool IsEmpty() const;
   bool IsOpen() const;
   bool HasStart() const;
@@ -460,7 +459,7 @@ class WeekRange
  public:
   using TWeek = uint8_t;
 
- public:
+
   bool IsEmpty() const;
   bool IsOpen() const;
   bool HasStart() const;
@@ -488,34 +487,20 @@ std::ostream & operator<<(std::ostream & ost, TWeekRanges const ranges);
 
 class RuleSequence
 {
-  // static uint32_t id;
-  // uint32_t my_id;
  public:
   enum class Modifier {
     DefaultOpen,
-    Unknown,
+    Open,
     Closed,
-    Open
+    Unknown
   };
 
- public:
-  // RuleSequence()
-  // {
-  //   ++id;
-  //   my_id = id;
-  //   std::cout << "RuleSequence(" << my_id << ")" << std::endl;
-  // }
-
-  // ~RuleSequence()
-  // {
-  //   std::cout << "~RuleSequence(" << my_id << ")" << std::endl;
-  // }
 
   bool IsEmpty() const;
   bool Is24Per7() const;
 
   bool HasYears() const;
-  bool HasMonth() const;
+  bool HasMonths() const;
   bool HasWeeks() const;
   bool HasWeekdays() const;
   bool HasTimes() const;
@@ -577,31 +562,3 @@ std::ostream & operator<<(std::ostream & ost, RuleSequence::Modifier const modif
 std::ostream & operator<<(std::ostream & ost, RuleSequence const & sequence);
 std::ostream & operator<<(std::ostream & ost, TRuleSequences const & sequences);
 } // namespace osmoh
-
-
-// class OSMTimeRange
-// {
-//  public:
-//   OSMTimeRange() = default;
-
-//   bool IsValid() const { return m_valid; }
-//   bool IsOpen() const { return m_state == osmoh::State::eOpen; }
-//   bool IsClosed() const { return m_state == osmoh::State::eClosed; }
-//   bool IsUnknown() const { return m_state == osmoh::State::eUnknown; }
-//   std::string const & Comment() const { return m_comment; }
-
-//   OSMTimeRange & UpdateState(time_t timestamp);
-//   OSMTimeRange & UpdateState(std::string const & timestr,
-//                              char const * timefmt="%d-%m-%Y %R");
-
-//   std::string ToString() const;
-
-//   static OSMTimeRange FromString(std::string const & rules);
-
-//  private:
-//   bool m_valid{false};
-//   osmoh::State::EState m_state{osmoh::State::eUnknown};
-
-//   osmoh::TTimeRules m_rules;
-//   std::string m_comment;
-// };

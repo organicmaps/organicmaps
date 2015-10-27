@@ -25,11 +25,11 @@
 #include "osm_time_range.hpp"
 #include "parse.hpp"
 
-#include <iostream>
-#include <sstream>
 #include <fstream>
-#include <map>
+#include <iostream>
 #include <locale>
+#include <map>
+#include <sstream>
 
 #include <boost/algorithm/string/case_conv.hpp>
 #include <boost/algorithm/string/replace.hpp>
@@ -57,29 +57,27 @@ std::string ToString(T const & t)
   return sstr.str();
 }
 
-template <typename Char, typename Parser>
-bool test(Char const * in, Parser const & p, bool full_match = true)
+template <typename Parser>
+bool Test(std::string const & str, Parser const & p, bool full_match = true)
 {
-  // we don't care about the result of the "what" function.
-  // we only care that all parsers have it:
+  // We don't care about the result of the "what" function.
+  // We only care that all parsers have it:
   boost::spirit::qi::what(p);
 
-  Char const * last = in;
-  while (*last)
-    last++;
-  return boost::spirit::qi::parse(in, last, p) && (!full_match || (in == last));
+  auto first = begin(str);
+  auto last = end(str);
+  return boost::spirit::qi::parse(first, last, p) && (!full_match || (first == last));
 }
 
-template <typename ParseResult, typename Char>
-std::basic_string<Char> ParseAndUnparse(Char const * input)
+template <typename ParseResult>
+std::string ParseAndUnparse(std::string const & str)
 {
 
-  std::basic_string<Char> const str(input);
   ParseResult parseResult;
   if (!osmoh::Parse(str, parseResult))
     return ":CAN'T PARSE:";
 
-  std::basic_stringstream<Char> sstr;
+  std::stringstream sstr;
   sstr << parseResult;
 
   return sstr.str();
@@ -108,13 +106,13 @@ BOOST_AUTO_TEST_CASE(OpeningHours_Locale)
   namespace charset = boost::spirit::standard_wide;
   namespace qi = boost::spirit::qi;
 
-  class alltime_ : public qi::symbols<wchar_t>
+  class Alltime : public qi::symbols<wchar_t>
   {
   public:
-    alltime_()
+    Alltime()
     {
       add
-      (L"пн")(L"uu")(L"œæ")
+          (L"пн")(L"uu")(L"œæ")
       ;
     }
   } alltime;
@@ -122,12 +120,8 @@ BOOST_AUTO_TEST_CASE(OpeningHours_Locale)
   std::locale loc("en_US");
   std::locale prev = std::locale::global(loc);
 
-  BOOST_CHECK(test(L"TeSt", charset::no_case[qi::lit("test")]));
-  BOOST_CHECK(test(L"Пн", charset::no_case[alltime]));
-  BOOST_CHECK(test(L"UU", charset::no_case[alltime]));
-  BOOST_CHECK(test(L"ŒÆ", charset::no_case[alltime]));
-  BOOST_CHECK(test(L"КАР", charset::no_case[charset::string(L"кар")]));
-  BOOST_CHECK(test(L"КрУглосуточно", charset::no_case[qi::lit(L"круглосуточно")]));
+  BOOST_CHECK(Test("TeSt", charset::no_case[qi::lit("test")]));
+  BOOST_CHECK(Test("UU", charset::no_case[alltime]));
 
   std::locale::global(prev);
 }
@@ -183,7 +177,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestTime)
   }
   {
     Time time{};
-    time.SetEvent(Time::EEvent::eSunrise);
+    time.SetEvent(Time::Event::Sunrise);
     BOOST_CHECK(time.HasValue());
     BOOST_CHECK(!time.IsHoursMinutes());
     BOOST_CHECK(time.IsTime());
@@ -199,7 +193,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestTime)
   }
   {
     Time time{};
-    time.SetEvent(Time::EEvent::eSunrise);
+    time.SetEvent(Time::Event::Sunrise);
     time.SetHours(22_h);
     time.SetMinutes(15_min);
     BOOST_CHECK(time.HasValue());
@@ -263,19 +257,19 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestNthEntry)
     BOOST_CHECK(!entry.HasEnd());
     BOOST_CHECK_EQUAL(ToString(entry), "");
 
-    entry.SetStart(NthEntry::ENth::Third);
+    entry.SetStart(NthEntry::Nth::Third);
     BOOST_CHECK(!entry.IsEmpty());
     BOOST_CHECK(entry.HasStart());
     BOOST_CHECK(!entry.HasEnd());
     BOOST_CHECK_EQUAL(ToString(entry), "3");
 
-    entry.SetEnd(NthEntry::ENth::Fifth);
+    entry.SetEnd(NthEntry::Nth::Fifth);
     BOOST_CHECK(!entry.IsEmpty());
     BOOST_CHECK(entry.HasStart());
     BOOST_CHECK(entry.HasEnd());
     BOOST_CHECK_EQUAL(ToString(entry), "3-5");
 
-    entry.SetStart(NthEntry::ENth::None);
+    entry.SetStart(NthEntry::Nth::None);
     BOOST_CHECK(!entry.IsEmpty());
     BOOST_CHECK(!entry.HasStart());
     BOOST_CHECK(entry.HasEnd());
@@ -291,38 +285,38 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestWeekdayRange)
     WeekdayRange range;
     BOOST_CHECK(range.IsEmpty());
     BOOST_CHECK(!range.HasEnd());
-    BOOST_CHECK(!range.HasSu());
-    BOOST_CHECK(!range.HasWe());
-    BOOST_CHECK(!range.HasSa());
+    BOOST_CHECK(!range.HasSunday());
+    BOOST_CHECK(!range.HasWednesday());
+    BOOST_CHECK(!range.HasSaturday());
     BOOST_CHECK(!range.HasNth());
   }
   {
     WeekdayRange range;
     BOOST_CHECK(!range.HasNth());
 
-    range.SetStart(EWeekday::Tu);
+    range.SetStart(Weekday::Tuesday);
     BOOST_CHECK(!range.IsEmpty());
     BOOST_CHECK(!range.HasEnd());
-    BOOST_CHECK(!range.HasSu());
-    BOOST_CHECK(!range.HasWe());
-    BOOST_CHECK(range.HasTu());
-    BOOST_CHECK(!range.HasSa());
+    BOOST_CHECK(!range.HasSunday());
+    BOOST_CHECK(!range.HasWednesday());
+    BOOST_CHECK(range.HasTuesday());
+    BOOST_CHECK(!range.HasSaturday());
 
-    range.SetEnd(EWeekday::Sa);
+    range.SetEnd(Weekday::Saturday);
     BOOST_CHECK(!range.IsEmpty());
     BOOST_CHECK(range.HasStart());
     BOOST_CHECK(range.HasEnd());
-    BOOST_CHECK(!range.HasSu());
-    BOOST_CHECK(range.HasWe());
-    BOOST_CHECK(range.HasTu());
-    BOOST_CHECK(range.HasSa());
+    BOOST_CHECK(!range.HasSunday());
+    BOOST_CHECK(range.HasWednesday());
+    BOOST_CHECK(range.HasTuesday());
+    BOOST_CHECK(range.HasSaturday());
   }
   {
     WeekdayRange range;
     BOOST_CHECK(!range.HasNth());
 
     NthEntry entry;
-    entry.SetStart(NthEntry::NthEntry::ENth::First);
+    entry.SetStart(NthEntry::NthEntry::Nth::First);
     range.AddNth(entry);
     BOOST_CHECK(range.HasNth());
   }
@@ -366,7 +360,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_Weekdays)
     BOOST_CHECK_EQUAL(ToString(w), "");
 
     WeekdayRange r;
-    r.SetStart(EWeekday::Su);
+    r.SetStart(Weekday::Sunday);
     w.AddHoliday(Holiday{});
     w.AddWeekdayRange(r);
 
@@ -385,7 +379,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_DayOffset)
     BOOST_CHECK(!offset.HasOffset());
     BOOST_CHECK_EQUAL(ToString(offset), "");
 
-    offset.SetWDayOffset(EWeekday::Mo);
+    offset.SetWDayOffset(Weekday::Monday);
     BOOST_CHECK(!offset.IsEmpty());
     BOOST_CHECK(offset.HasWDayOffset());
     BOOST_CHECK_EQUAL(ToString(offset), "+Mo");
@@ -417,13 +411,13 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestMonthDay)
   }
   {
     MonthDay md;
-    md.SetVariableDate(MonthDay::EVariableDate::Easter);
+    md.SetVariableDate(MonthDay::VariableDate::Easter);
     BOOST_CHECK(!md.IsEmpty());
     BOOST_CHECK_EQUAL(ToString(md), "easter");
   }
   {
     MonthDay md;
-    md.SetMonth(MonthDay::EMonth::Jul);
+    md.SetMonth(MonthDay::Month::Jul);
     BOOST_CHECK(!md.IsEmpty());
     BOOST_CHECK(md.HasMonth());
     BOOST_CHECK_EQUAL(ToString(md), "Jul");
@@ -442,7 +436,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestMonthDay)
     BOOST_CHECK_EQUAL(ToString(md), "1990 Jul 17");
 
     DateOffset offset;
-    offset.SetWDayOffset(EWeekday::Mo);
+    offset.SetWDayOffset(Weekday::Monday);
     md.SetOffset(offset);
     BOOST_CHECK(md.HasOffset());
     BOOST_CHECK_EQUAL(ToString(md), "1990 Jul 17 +Mo");
@@ -467,7 +461,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestMonthdayRange)
     MonthDay md;
 
     md.SetYear(1990);
-    md.SetMonth(MonthDay::EMonth::Sep);
+    md.SetMonth(MonthDay::Month::Sep);
     range.SetStart(md);
 
     BOOST_CHECK(!range.IsEmpty());
@@ -911,7 +905,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_CountFailed)
   size_t num_failed = 0;
   size_t num_total = 0;
 
-  std::map<size_t, size_t> desc;
+  std::map<size_t, size_t> hist;
 
   while (std::getline(datalist, line))
   {
@@ -937,13 +931,13 @@ BOOST_AUTO_TEST_CASE(OpeningHours_CountFailed)
     auto const isParsed = Parse(datastr, rules);
     if (!isParsed) {
       num_failed += count;
-      desc[count]++;
+      hist[count]++;
       BOOST_TEST_MESSAGE("-- " << count << " :[" << datastr << "]");
     }
     else if (!CompareNormalized(datastr, rules))
     {
       num_failed += count;
-      desc[count]++;
+      hist[count]++;
       BOOST_TEST_MESSAGE("- " << count << " :[" << datastr << "]");
       BOOST_TEST_MESSAGE("+ " << count << " :[" << ToString(rules) << "]");
     }
@@ -956,7 +950,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_CountFailed)
                       " (" << double(num_failed)/(double(num_total)/100) << "%)");
 
   std::stringstream desc_message;
-  for (auto const & e : desc)
+  for (auto const & e : hist)
     desc_message << "Weight: " << e.first << " Count: " << e.second << std::endl;
 
   BOOST_TEST_MESSAGE(desc_message.str());

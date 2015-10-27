@@ -30,7 +30,7 @@
 #include <codecvt>
 #include <vector>
 #include <ostream>
-#include <functional>
+#include <functional>\
 
 namespace
 {
@@ -116,7 +116,7 @@ Time::Time(TMinutes const minutes)
 }
 
 // Time::Time(THours const hours, TMinutes const minutes) { }
-// Time::Time(EEvent const event, THours const hours = 0, TMinutes const minutes = 0) { }
+// Time::Time(Event const event, THours const hours = 0, TMinutes const minutes = 0) { }
 
 Time::THours::rep Time::GetHoursCount() const
 {
@@ -148,41 +148,41 @@ Time::TMinutes Time::GetMinutes() const
 
 void Time::SetHours(THours const hours)
 {
-  m_state |= eHaveHours | eHaveMinutes;
+  m_state |= HaveHours | HaveMinutes;
   m_duration = hours;
 }
 
 void Time::SetMinutes(TMinutes const minutes)
 {
-  m_state |= eHaveMinutes;
+  m_state |= HaveMinutes;
   m_duration = minutes;
   if (m_duration > 1_h || m_duration < -1_h)
-    m_state |= eHaveHours;
+    m_state |= HaveHours;
 }
 
-void Time::SetEvent(EEvent const event)
+void Time::SetEvent(Event const event)
 {
   m_event = event;
 }
 
 bool Time::IsEvent() const
 {
-  return GetEvent() != EEvent::eNotEvent;
+  return GetEvent() != Event::NotEvent;
 }
 
 bool Time::IsEventOffset() const
 {
-  return IsEvent() && m_state != eIsNotTime;
+  return IsEvent() && m_state != IsNotTime;
 }
 
 bool Time::IsHoursMinutes() const
 {
-  return !IsEvent() && ((m_state & eHaveHours) && (m_state & eHaveMinutes));
+  return !IsEvent() && ((m_state & HaveHours) && (m_state & HaveMinutes));
 }
 
 bool Time::IsMinutes() const
 {
-  return !IsEvent() && ((m_state & eHaveMinutes) && !(m_state & eHaveHours));
+  return !IsEvent() && ((m_state & HaveMinutes) && !(m_state & HaveHours));
 }
 
 bool Time::IsTime() const
@@ -217,23 +217,23 @@ Time & Time::operator-()
 
 Time Time::GetEventTime() const {return {};}; // TODO(mgsergio): get real time
 
-std::ostream & operator<<(std::ostream & ost, Time::EEvent const event)
+std::ostream & operator<<(std::ostream & ost, Time::Event const event)
 {
   switch (event)
   {
-    case Time::EEvent::eNotEvent:
+    case Time::Event::NotEvent:
       ost << "NotEvent";
       break;
-    case Time::EEvent::eSunrise:
+    case Time::Event::Sunrise:
       ost << "sunrise";
       break;
-    case Time::EEvent::eSunset:
+    case Time::Event::Sunset:
       ost << "sunset";
       break;
-    case Time::EEvent::eDawn:
+    case Time::Event::Dawn:
       ost << "dawn";
       break;
-    case Time::EEvent::eDusk:
+    case Time::Event::Dusk:
       ost << "dusk";
       break;
   }
@@ -378,30 +378,30 @@ bool NthEntry::IsEmpty() const
 
 bool NthEntry::HasStart() const
 {
-  return GetStart() != ENth::None;
+  return GetStart() != Nth::None;
 }
 
 bool NthEntry::HasEnd() const
 {
-  return GetEnd() != ENth::None;
+  return GetEnd() != Nth::None;
 }
 
-NthEntry::ENth NthEntry::GetStart() const
+NthEntry::Nth NthEntry::GetStart() const
 {
   return m_start;
 }
 
-NthEntry::ENth NthEntry::GetEnd() const
+NthEntry::Nth NthEntry::GetEnd() const
 {
   return m_end;
 }
 
-void NthEntry::SetStart(ENth const s)
+void NthEntry::SetStart(Nth const s)
 {
   m_start = s;
 }
 
-void NthEntry::SetEnd(ENth const e)
+void NthEntry::SetEnd(Nth const e)
 {
   m_end = e;
 }
@@ -415,9 +415,9 @@ std::ostream & operator<<(std::ostream & ost, NthEntry const entry)
   return ost;
 }
 
-bool WeekdayRange::HasWday(EWeekday const & wday) const
+bool WeekdayRange::HasWday(Weekday const & wday) const
 {
-  if (IsEmpty() || wday == EWeekday::None)
+  if (IsEmpty() || wday == Weekday::None)
     return false;
 
   if (!HasEnd())
@@ -426,35 +426,35 @@ bool WeekdayRange::HasWday(EWeekday const & wday) const
   return GetStart() <= wday && wday <= GetEnd();
 }
 
-bool WeekdayRange::HasSu() const { return HasWday(EWeekday::Su); }
-bool WeekdayRange::HasMo() const { return HasWday(EWeekday::Mo); }
-bool WeekdayRange::HasTu() const { return HasWday(EWeekday::Tu); }
-bool WeekdayRange::HasWe() const { return HasWday(EWeekday::We); }
-bool WeekdayRange::HasTh() const { return HasWday(EWeekday::Th); }
-bool WeekdayRange::HasFr() const { return HasWday(EWeekday::Fr); }
-bool WeekdayRange::HasSa() const { return HasWday(EWeekday::Sa); }
+bool WeekdayRange::HasSunday() const { return HasWday(Weekday::Sunday); }
+bool WeekdayRange::HasMonday() const { return HasWday(Weekday::Monday); }
+bool WeekdayRange::HasTuesday() const { return HasWday(Weekday::Tuesday); }
+bool WeekdayRange::HasWednesday() const { return HasWday(Weekday::Wednesday); }
+bool WeekdayRange::HasThursday() const { return HasWday(Weekday::Thursday); }
+bool WeekdayRange::HasFriday() const { return HasWday(Weekday::Friday); }
+bool WeekdayRange::HasSaturday() const { return HasWday(Weekday::Saturday); }
 
 bool WeekdayRange::HasStart() const
 {
-  return GetStart() != EWeekday::None;
+  return GetStart() != Weekday::None;
 }
 
 bool WeekdayRange::HasEnd() const
 {
-  return GetEnd() != EWeekday::None;;
+  return GetEnd() != Weekday::None;;
 }
 
 bool WeekdayRange::IsEmpty() const
 {
-  return GetStart() == EWeekday::None && GetEnd() == EWeekday::None;
+  return GetStart() == Weekday::None && GetEnd() == Weekday::None;
 }
 
-EWeekday WeekdayRange::GetStart() const
+Weekday WeekdayRange::GetStart() const
 {
   return m_start;
 }
 
-EWeekday WeekdayRange::GetEnd() const
+Weekday WeekdayRange::GetEnd() const
 {
   return m_end;
 }
@@ -466,12 +466,12 @@ size_t WeekdayRange::GetDaysCount() const
   return static_cast<uint32_t>(m_start) - static_cast<uint32_t>(m_end) + 1;
 }
 
-void WeekdayRange::SetStart(EWeekday const & wday)
+void WeekdayRange::SetStart(Weekday const & wday)
 {
   m_start = wday;
 }
 
-void WeekdayRange::SetEnd(EWeekday const & wday)
+void WeekdayRange::SetEnd(Weekday const & wday)
 {
   m_end = wday;
 }
@@ -501,32 +501,32 @@ void WeekdayRange::AddNth(NthEntry const & entry)
   m_nths.push_back(entry);
 }
 
-std::ostream & operator<<(std::ostream & ost, EWeekday const wday)
+std::ostream & operator<<(std::ostream & ost, Weekday const wday)
 {
   switch (wday)
   {
-    case EWeekday::Su:
+    case Weekday::Sunday:
       ost << "Su";
       break;
-    case EWeekday::Mo:
+    case Weekday::Monday:
       ost << "Mo";
       break;
-    case EWeekday::Tu:
+    case Weekday::Tuesday:
       ost << "Tu";
       break;
-    case EWeekday::We:
+    case Weekday::Wednesday:
       ost << "We";
       break;
-    case EWeekday::Th:
+    case Weekday::Thursday:
       ost << "Th";
       break;
-    case EWeekday::Fr:
+    case Weekday::Friday:
       ost << "Fr";
       break;
-    case EWeekday::Sa:
+    case Weekday::Saturday:
       ost << "Sa";
       break;
-    case EWeekday::None:
+    case Weekday::None:
       ost << "not-a-day";
   }
   return ost;
@@ -658,7 +658,7 @@ bool DateOffset::IsEmpty() const
 
 bool DateOffset::HasWDayOffset() const
 {
-  return m_wday_offset != EWeekday::None;
+  return m_wday_offset != Weekday::None;
 }
 
 bool DateOffset::HasOffset() const
@@ -671,7 +671,7 @@ bool DateOffset::IsWDayOffsetPositive() const
   return m_positive;
 }
 
-EWeekday DateOffset::GetWDayOffset() const
+Weekday DateOffset::GetWDayOffset() const
 {
   return m_wday_offset;
 }
@@ -681,7 +681,7 @@ int32_t DateOffset::GetOffset() const
   return m_offset;
 }
 
-void DateOffset::SetWDayOffset(EWeekday const wday)
+void DateOffset::SetWDayOffset(Weekday const wday)
 {
   m_wday_offset = wday;
 }
@@ -713,7 +713,7 @@ bool MonthDay::IsEmpty() const
 
 bool MonthDay::IsVariable() const
 {
-  return GetVariableDate() != EVariableDate::None;
+  return GetVariableDate() != VariableDate::None;
 }
 
 bool MonthDay::HasYear() const
@@ -723,7 +723,7 @@ bool MonthDay::HasYear() const
 
 bool MonthDay::HasMonth() const
 {
-  return GetMonth() != EMonth::None;
+  return GetMonth() != Month::None;
 }
 
 bool MonthDay::HasDayNum() const
@@ -741,7 +741,7 @@ MonthDay::TYear MonthDay::GetYear() const
   return m_year;
 }
 
-MonthDay::EMonth MonthDay::GetMonth() const
+MonthDay::Month MonthDay::GetMonth() const
 {
   return m_month;
 }
@@ -756,7 +756,7 @@ DateOffset const & MonthDay::GetOffset() const
   return m_offset;
 }
 
-MonthDay::EVariableDate MonthDay::GetVariableDate() const
+MonthDay::VariableDate MonthDay::GetVariableDate() const
 {
   return m_variable_date;
 }
@@ -766,7 +766,7 @@ void MonthDay::SetYear(TYear const year)
   m_year = year;
 }
 
-void MonthDay::SetMonth(EMonth const month)
+void MonthDay::SetMonth(Month const month)
 {
   m_month = month;
 }
@@ -781,66 +781,66 @@ void MonthDay::SetOffset(DateOffset const & offset)
   m_offset = offset;
 }
 
-void MonthDay::SetVariableDate(EVariableDate const date)
+void MonthDay::SetVariableDate(VariableDate const date)
 {
   m_variable_date = date;
 }
 
-std::ostream & operator<<(std::ostream & ost, MonthDay::EMonth const month)
+std::ostream & operator<<(std::ostream & ost, MonthDay::Month const month)
 {
   switch (month)
   {
-    case MonthDay::EMonth::None:
+    case MonthDay::Month::None:
       ost << "None";
       break;
-    case MonthDay::EMonth::Jan:
+    case MonthDay::Month::Jan:
       ost << "Jan";
       break;
-    case MonthDay::EMonth::Feb:
+    case MonthDay::Month::Feb:
       ost << "Feb";
       break;
-    case MonthDay::EMonth::Mar:
+    case MonthDay::Month::Mar:
       ost << "Mar";
       break;
-    case MonthDay::EMonth::Apr:
+    case MonthDay::Month::Apr:
       ost << "Apr";
       break;
-    case MonthDay::EMonth::May:
+    case MonthDay::Month::May:
       ost << "May";
       break;
-    case MonthDay::EMonth::Jun:
+    case MonthDay::Month::Jun:
       ost << "Jun";
       break;
-    case MonthDay::EMonth::Jul:
+    case MonthDay::Month::Jul:
       ost << "Jul";
       break;
-    case MonthDay::EMonth::Aug:
+    case MonthDay::Month::Aug:
       ost << "Aug";
       break;
-    case MonthDay::EMonth::Sep:
+    case MonthDay::Month::Sep:
       ost << "Sep";
       break;
-    case MonthDay::EMonth::Oct:
+    case MonthDay::Month::Oct:
       ost << "Oct";
       break;
-    case MonthDay::EMonth::Nov:
+    case MonthDay::Month::Nov:
       ost << "Nov";
       break;
-    case MonthDay::EMonth::Dec:
+    case MonthDay::Month::Dec:
       ost << "Dec";
       break;
   }
   return ost;
 }
 
-std::ostream & operator<<(std::ostream & ost, MonthDay::EVariableDate const date)
+std::ostream & operator<<(std::ostream & ost, MonthDay::VariableDate const date)
 {
   switch (date)
   {
-    case MonthDay::EVariableDate::None:
+    case MonthDay::VariableDate::None:
       ost << "none";
       break;
-    case MonthDay::EVariableDate::Easter:
+    case MonthDay::VariableDate::Easter:
       ost << "easter";
       break;
   }
@@ -1123,7 +1123,7 @@ std::ostream & operator<<(std::ostream & ost, TWeekRanges const ranges)
 
 bool RuleSequence::IsEmpty() const
 {
-  return (!HasYears() && !HasMonth() &&
+  return (!HasYears() && !HasMonths() &&
           !HasWeeks() && !HasWeekdays() &&
           !HasTimes());
 }
@@ -1138,7 +1138,7 @@ bool RuleSequence::HasYears() const
   return !GetYears().empty();
 }
 
-bool RuleSequence::HasMonth() const
+bool RuleSequence::HasMonths() const
 {
   return !GetMonths().empty();
 }
@@ -1220,79 +1220,57 @@ RuleSequence::Modifier RuleSequence::GetModifier() const
 
 void RuleSequence::Set24Per7(bool const on)
 {
-  // std::cout << "Set24Per7: " << on << '\n';
   m_24_per_7 = on;
-  // dump();
 }
 
 void RuleSequence::SetYears(TYearRanges const & years)
 {
-  // std::cout << "SetYears: " << years << '\n';
   m_years = years;
-  // dump();
 }
 
 void RuleSequence::SetMonths(TMonthdayRanges const & months)
 {
-  // std::cout << "SetMonths: " << months << '\n';
   m_months = months;
-  // dump();
 }
 
 void RuleSequence::SetWeeks(TWeekRanges const & weeks)
 {
-  // std::cout << "SetWeeks: " << weeks << '\n';
   m_weeks = weeks;
-  // dump();
 }
 
 void RuleSequence::SetWeekdays(Weekdays const & weekdays)
 {
-  // std::cout << "SetWeekdays: " << weekdays << '\n';
   m_weekdays = weekdays;
-  // dump();
 }
 
 void RuleSequence::SetTimes(TTimespans const & times)
 {
-  // std::cout << "SetTimes: " << times << '\n';
   m_times = times;
-  // dump();
 }
 
 void RuleSequence::SetComment(std::string const & comment)
 {
-  // std::cout << "SetComment: " << comment << '\n';
   m_comment = comment;
-  // dump();
 }
 
 void RuleSequence::SetModifierComment(std::string & comment)
 {
-  // std::cout << "SetModifierComment: " << comment << '\n';
   m_modifier_comment = comment;
-  // dump();
 }
 
 void RuleSequence::SetAnySeparator(std::string const & separator)
 {
-  // std::cout << "SetAnySeparator: " << separator << '\n';
   m_any_separator = separator;
-  // dump();
 }
 
 void RuleSequence::SetSeparatorForReadability(bool const on)
 {
-  // std::cout << "SetSeparatorForReadability: " << on << '\n';
   m_separator_for_readablility = on;
-  // dump();
 }
 
 void RuleSequence::SetModifier(Modifier const modifier)
 {
-  // std::cout << "SetModifier " ;//<< modifier << '\n';
   m_modifier = modifier;
-  // dump();
 }
 
 // uint32_t RuleSequence::id{};
@@ -1349,7 +1327,7 @@ std::ostream & operator<<(std::ostream & ost, RuleSequence const & s)
         putSpace();
         ost << s.GetYears();
       }
-      if (s.HasMonth())
+      if (s.HasMonths())
       {
         putSpace();
         ost << s.GetMonths();
@@ -1487,7 +1465,7 @@ std::ostream & operator<<(std::ostream & ost, TRuleSequences const & s)
 //   bool next = false;
 
 //   // check 24/7
-//   if (r.weekdays.empty() && r.timespan.empty() && r.state.state == osmoh::State::eOpen)
+//   if (r.weekdays.empty() && r.timespan.empty() && r.state.state == osmoh::State::Open)
 //     return true;
 
 //   boost::gregorian::date date = boost::gregorian::date_from_tm(stm);
@@ -1533,19 +1511,19 @@ std::ostream & operator<<(std::ostream & ost, TRuleSequences const & s)
 // {
 //   std::tm stm = *localtime(&timestamp);
 
-//   osmoh::State::EState true_state[3][3] = {
-//     {osmoh::State::eUnknown, osmoh::State::eClosed, osmoh::State::eOpen},
-//     {osmoh::State::eClosed , osmoh::State::eClosed, osmoh::State::eOpen},
-//     {osmoh::State::eOpen   , osmoh::State::eClosed, osmoh::State::eOpen}
+//   osmoh::State::State true_state[3][3] = {
+//     {osmoh::State::Unknown, osmoh::State::Closed, osmoh::State::Open},
+//     {osmoh::State::Closed , osmoh::State::Closed, osmoh::State::Open},
+//     {osmoh::State::Open   , osmoh::State::Closed, osmoh::State::Open}
 //   };
 
-//   osmoh::State::EState false_state[3][3] = {
-//     {osmoh::State::eUnknown, osmoh::State::eOpen   , osmoh::State::eClosed},
-//     {osmoh::State::eClosed , osmoh::State::eClosed , osmoh::State::eClosed},
-//     {osmoh::State::eOpen   , osmoh::State::eOpen   , osmoh::State::eOpen}
+//   osmoh::State::State false_state[3][3] = {
+//     {osmoh::State::Unknown, osmoh::State::eOpen   , osmoh::State::Closed},
+//     {osmoh::State::Closed , osmoh::State::eClosed , osmoh::State::Closed},
+//     {osmoh::State::Open   , osmoh::State::eOpen   , osmoh::State::Open}
 //   };
 
-//   m_state = osmoh::State::eUnknown;
+//   m_state = osmoh::State::Unknown;
 //   m_comment = std::string();
 
 //   for (auto const & el : m_rules)

@@ -17,21 +17,21 @@ class dash_ : public qi::symbols<wchar_t>
   }
 } dash;
 
-class event_ : public qi::symbols<char, osmoh::Time::EEvent>
+class event_ : public qi::symbols<char, osmoh::Time::Event>
 {
  public:
   event_()
   {
     add
-        ("dawn", osmoh::Time::EEvent::eSunrise)
-        ("sunrise", osmoh::Time::EEvent::eSunrise)
-        ("sunset", osmoh::Time::EEvent::eSunset)
-        ("dusk", osmoh::Time::EEvent::eSunset)
+        ("dawn", osmoh::Time::Event::Sunrise)
+        ("sunrise", osmoh::Time::Event::Sunrise)
+        ("sunset", osmoh::Time::Event::Sunset)
+        ("dusk", osmoh::Time::Event::Sunset)
         ;
   }
 } event;
 
-struct wdays_ : qi::symbols<char, osmoh::EWeekday>
+struct wdays_ : qi::symbols<char, osmoh::Weekday>
 {
   wdays_()
   {
@@ -52,7 +52,7 @@ struct wdays_ : qi::symbols<char, osmoh::EWeekday>
   }
 } wdays;
 
-struct month_ : qi::symbols<char, osmoh::MonthDay::EMonth>
+struct month_ : qi::symbols<char, osmoh::MonthDay::Month>
 {
   month_()
   {

@@ -58,22 +58,22 @@ phx::function<test_impl> const test = test_impl();
 
 //   ptime t1, t2;
 
-//   if (ts.from.flags & osmoh::Time::eSunrise)
+//   if (ts.from.flags & osmoh::Time::Sunrise)
 //     t1 = sunrise;
-//   else if (ts.from.flags & osmoh::Time::eSunset)
+//   else if (ts.from.flags & osmoh::Time::Sunset)
 //     t1 = sunset;
 //   else
-//     t1 = ptime(d, hours((ts.from.flags & osmoh::Time::eHours) ? ts.from.hours : 0) + minutes((ts.from.flags & osmoh::Time::eMinutes) ? ts.from.minutes : 0));
+//     t1 = ptime(d, hours((ts.from.flags & osmoh::Time::Hours) ? ts.from.hours : 0) + minutes((ts.from.flags & osmoh::Time::Minutes) ? ts.from.minutes : 0));
 
 //   t2 = t1;
 
-//   if (ts.to.flags & osmoh::Time::eSunrise)
+//   if (ts.to.flags & osmoh::Time::Sunrise)
 //     t2 = sunrise;
-//   else if (ts.to.flags & osmoh::Time::eSunset)
+//   else if (ts.to.flags & osmoh::Time::Sunset)
 //     t2 = sunset;
 //   else
 //   {
-//     t2 = ptime(d, hours((ts.to.flags & osmoh::Time::eHours) ? ts.to.hours : 24) + minutes((ts.to.flags & osmoh::Time::eMinutes) ? ts.to.minutes : 0));
+//     t2 = ptime(d, hours((ts.to.flags & osmoh::Time::Hours) ? ts.to.hours : 24) + minutes((ts.to.flags & osmoh::Time::Minutes) ? ts.to.minutes : 0));
 //     if (t2 < t1)
 //       t2 += hours(24);
 //   }
@@ -212,9 +212,9 @@ class month_selector : public qi::grammar<Iterator, TMonthdayRanges(), space_typ
                 [_val = _1, bind(&osmoh::MonthDay::SetDayNum, _val, _2)]
         | (year >> charset::no_case[lit("easter")]) [bind(&osmoh::MonthDay::SetYear, _val, _1),
                                                      bind(&osmoh::MonthDay::SetVariableDate, _val,
-                                                          MonthDay::EVariableDate::Easter)]
+                                                          MonthDay::VariableDate::Easter)]
         | charset::no_case[lit("easter")]           [bind(&osmoh::MonthDay::SetVariableDate, _val,
-                                                          MonthDay::EVariableDate::Easter)]
+                                                          MonthDay::VariableDate::Easter)]
         ;
 
     date_to = date_from                        [_val = _1]
@@ -266,7 +266,7 @@ template <typename Iterator>
 class weekday_selector : public qi::grammar<Iterator, osmoh::Weekdays(), space_type>
 {
  protected:
-  qi::rule<Iterator, osmoh::NthEntry::ENth(), space_type> nth;
+  qi::rule<Iterator, osmoh::NthEntry::Nth(), space_type> nth;
   qi::rule<Iterator, osmoh::NthEntry(), space_type> nth_entry;
   qi::rule<Iterator, int32_t(), space_type, qi::locals<int8_t>> day_offset;
   qi::rule<Iterator, osmoh::WeekdayRange(), space_type> weekday_range;
@@ -286,11 +286,11 @@ class weekday_selector : public qi::grammar<Iterator, osmoh::Weekdays(), space_t
     using qi::ushort_;
     using boost::phoenix::bind;
 
-    nth = ushort_(1)[_val = osmoh::NthEntry::ENth::First]
-        | ushort_(2) [_val = osmoh::NthEntry::ENth::Second]
-        | ushort_(3) [_val = osmoh::NthEntry::ENth::Third]
-        | ushort_(4) [_val = osmoh::NthEntry::ENth::Fourth]
-        | ushort_(5) [_val = osmoh::NthEntry::ENth::Fifth];
+    nth = ushort_(1)[_val = osmoh::NthEntry::Nth::First]
+        | ushort_(2) [_val = osmoh::NthEntry::Nth::Second]
+        | ushort_(3) [_val = osmoh::NthEntry::Nth::Third]
+        | ushort_(4) [_val = osmoh::NthEntry::Nth::Fourth]
+        | ushort_(5) [_val = osmoh::NthEntry::Nth::Fifth];
 
     nth_entry = (nth >> dash >> nth) [bind(&osmoh::NthEntry::SetStart, _val, _1),
                                       bind(&osmoh::NthEntry::SetEnd, _val, _2)]
@@ -455,59 +455,6 @@ class time_selector : public qi::grammar<Iterator, osmoh::TTimespans(), space_ty
   }
 };
 
-// template <typename Iterator>
-// class selectors : public qi::grammar<Iterator, osmoh::TRuleSequences(), space_type>
-// {
-//  protected:
-//   weekday_selector<Iterator> weekday_selector;
-//   time_selector<Iterator> time_selector;
-//   year_selector<Iterator> year_selector;
-//   month_selector<Iterator> month_selector;
-//   week_selector<Iterator> week_selector;
-
-//   qi::rule<Iterator, std::string(), space_type> comment;
-//   qi::rule<Iterator, osmoh::TRuleSequences(), space_type> main;
-
-//  public:
-//   selectors() : selectors::base_type(main)
-//   {
-//     using qi::_1;
-//     using qi::_val;
-//     using qi::lit;
-//     using qi::lexeme;
-//     using charset::char_;
-//     using boost::phoenix::at_c;
-
-//     // comment %= lexeme['"' >> +(char_ - '"') >> '"'];
-//     // wide_range_selectors = -year_selector >> -month_selector >> -week_selector >> -lit(':') | (comment >> ':');
-//     // small_range_selectors = -weekday_selector[at_c<0>(_val) = _1] >> -( lit("24/7") | time_selector[at_c<1>(_val) = _1]);
-
-//     // main =
-//     //     (
-//     //         lit(L"24/7")
-//     //         | lit(L"24時間営業")
-//     //         | lit(L"7/24")
-//     //         | lit(L"24時間")
-//     //         | charset::no_case[lit(L"daily 24/7")]
-//     //         | charset::no_case[lit(L"24 hours")]
-//     //         | charset::no_case[lit(L"24 horas")]
-//     //         | charset::no_case[lit(L"круглосуточно")]
-//     //         | charset::no_case[lit(L"24 часа")]
-//     //         | charset::no_case[lit(L"24 hrs")]
-//     //         | charset::no_case[lit(L"nonstop")]
-//     //         | charset::no_case[lit(L"24hrs")]
-//     //         | charset::no_case[lit(L"open 24 hours")]
-//     //         | charset::no_case[lit(L"24 stunden")]
-//     //      )[at_c<0>(at_c<2>(_val)) = State::eOpen]
-//     //     | (-wide_range_selectors >> small_range_selectors[_val = _1, at_c<0>(at_c<2>(_val)) = State::eOpen])
-//     //     ;
-
-//     BOOST_SPIRIT_DEBUG_NODE(main);
-//     BOOST_SPIRIT_DEBUG_NODE(small_range_selectors);
-//     BOOST_SPIRIT_DEBUG_NODE(wide_range_selectors);
-//   }
-// };
-
 template <typename Iterator>
 class time_domain : public qi::grammar<Iterator, osmoh::TRuleSequences(), space_type>
 {
@@ -598,27 +545,6 @@ public:
              (rule_sequence [push_back(_val, _1)] %
               (separator    [phx::bind(&osmoh::RuleSequence::SetAnySeparator, back(_val), _1)])))
         ;
-    //
-
-    // main =
-    //     (
-    //         lit(L"24/7")
-    //         | lit(L"24時間営業")
-    //         | lit(L"7/24")
-    //         | lit(L"24時間")
-    //         | charset::no_case[lit(L"daily 24/7")]
-    //         | charset::no_case[lit(L"24 hours")]
-    //         | charset::no_case[lit(L"24 horas")]
-    //         | charset::no_case[lit(L"круглосуточно")]
-    //         | charset::no_case[lit(L"24 часа")]
-    //         | charset::no_case[lit(L"24 hrs")]
-    //         | charset::no_case[lit(L"nonstop")]
-    //         | charset::no_case[lit(L"24hrs")]
-    //         | charset::no_case[lit(L"open 24 hours")]
-    //         | charset::no_case[lit(L"24 stunden")]
-    //      )[at_c<0>(at_c<2>(_val)) = State::eOpen]
-    //     | (-wide_range_selectors >> small_range_selectors[_val = _1, at_c<0>(at_c<2>(_val)) = State::eOpen])
-    //     ;
 
     BOOST_SPIRIT_DEBUG_NODE(main);
     BOOST_SPIRIT_DEBUG_NODE(rule_sequence);
