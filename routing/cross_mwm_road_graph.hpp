@@ -20,18 +20,17 @@ struct CrossNode
 {
   NodeID node;
   NodeID reverseNode;
-  // TODO switch to mwmID
-  string mwmName;
+  Index::MwmId mwmId;
   ms::LatLon point;
   bool isVirtual;
 
-  CrossNode(NodeID node, NodeID reverse, string const & mwmName, ms::LatLon const & point)
-      : node(node), reverseNode(reverse), mwmName(mwmName), point(point), isVirtual(false)
+  CrossNode(NodeID node, NodeID reverse, Index::MwmId const & id, ms::LatLon const & point)
+      : node(node), reverseNode(reverse), mwmId(id), point(point), isVirtual(false)
   {
   }
 
-  CrossNode(NodeID node, string const & mwmName, ms::LatLon const & point)
-      : node(node), reverseNode(INVALID_NODE_ID), mwmName(mwmName), point(point), isVirtual(false)
+  CrossNode(NodeID node, Index::MwmId const & id, ms::LatLon const & point)
+      : node(node), reverseNode(INVALID_NODE_ID), mwmId(id), point(point), isVirtual(false)
   {
   }
 
@@ -41,7 +40,7 @@ struct CrossNode
 
   inline bool operator==(CrossNode const & a) const
   {
-    return node == a.node && mwmName == a.mwmName && isVirtual == a.isVirtual;
+    return node == a.node && mwmId == a.mwmId && isVirtual == a.isVirtual;
   }
 
   inline bool operator<(CrossNode const & a) const
@@ -52,14 +51,14 @@ struct CrossNode
     if (isVirtual != a.isVirtual)
       return isVirtual < a.isVirtual;
 
-    return mwmName < a.mwmName;
+    return mwmId < a.mwmId;
   }
 };
 
 inline string DebugPrint(CrossNode const & t)
 {
   ostringstream out;
-  out << "CrossNode [ node: " << t.node << ", map: " << t.mwmName << " ]";
+  out << "CrossNode [ node: " << t.node << ", map: " << t.mwmId.GetInfo()->GetCountryName()<< " ]";
   return out.str();
 }
 

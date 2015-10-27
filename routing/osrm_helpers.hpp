@@ -49,7 +49,7 @@ public:
   void operator()(FeatureType const & ft);
 
   /// Makes OSRM tasks result vector.
-  void MakeResult(vector<FeatureGraphNode> & res, size_t maxCount, string const & mwmName);
+  void MakeResult(vector<FeatureGraphNode> & res, size_t maxCount);
 
 private:
   // Calculates distance in meters on the feature from startPoint to endPoint.

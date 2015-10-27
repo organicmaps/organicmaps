@@ -118,10 +118,10 @@ WritedEdgeWeightT CrossRoutingContextReader::GetAdjacencyCost(IngoingCrossNode c
 {
   if (ingoing.m_adjacencyIndex == kInvalidAdjacencyIndex ||
       outgoing.m_adjacencyIndex == kInvalidAdjacencyIndex)
-    return INVALID_CONTEXT_EDGE_WEIGHT;
+    return kInvalidContextEdgeWeight;
 
   size_t cost_index = m_outgoingNodes.size() * ingoing.m_adjacencyIndex + outgoing.m_adjacencyIndex;
-  return cost_index < m_adjacencyMatrix.size() ? m_adjacencyMatrix[cost_index] : INVALID_CONTEXT_EDGE_WEIGHT;
+  return cost_index < m_adjacencyMatrix.size() ? m_adjacencyMatrix[cost_index] : kInvalidContextEdgeWeight;
 }
 
 void CrossRoutingContextReader::GetAllIngoingNodes(vector<IngoingCrossNode> & nodes) const
@@ -184,7 +184,7 @@ void CrossRoutingContextWriter::AddOutgoingNode(WritedNodeID const nodeId, strin
 void CrossRoutingContextWriter::ReserveAdjacencyMatrix()
 {
   m_adjacencyMatrix.resize(m_ingoingNodes.size() * m_outgoingNodes.size(),
-                           INVALID_CONTEXT_EDGE_WEIGHT);
+                           kInvalidContextEdgeWeight);
 }
 
 void CrossRoutingContextWriter::SetAdjacencyCost(IngoingEdgeIteratorT ingoing,

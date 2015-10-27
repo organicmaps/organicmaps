@@ -163,9 +163,9 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
   vector<m2::PointD> Points;
   for (RoutePathCross cross : path)
   {
-    ASSERT_EQUAL(cross.startNode.mwmName, cross.finalNode.mwmName, ());
+    ASSERT_EQUAL(cross.startNode.mwmId, cross.finalNode.mwmId, ());
     RawRoutingResult routingResult;
-    TRoutingMappingPtr mwmMapping = m_indexManager.GetMappingByName(cross.startNode.mwmName);
+    TRoutingMappingPtr mwmMapping = m_indexManager.GetMappingById(cross.startNode.mwmId);
     ASSERT(mwmMapping->IsValid(), ());
     MappingGuard mwmMappingGuard(mwmMapping);
     UNUSED_VALUE(mwmMappingGuard);
@@ -359,7 +359,7 @@ IRouter::ResultCode OsrmRouter::FindPhantomNodes(m2::PointD const & point,
   if (!getter.HasCandidates())
     return RouteNotFound;
 
-  getter.MakeResult(res, maxCount, mapping->GetCountryName());
+  getter.MakeResult(res, maxCount);
   return NoError;
 }
 

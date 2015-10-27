@@ -196,4 +196,11 @@ TRoutingMappingPtr RoutingIndexManager::GetMappingByName(string const & mapName)
   return newMapping;
 }
 
+TRoutingMappingPtr RoutingIndexManager::GetMappingById(Index::MwmId const & id)
+{
+  if (!id.IsAlive())
+    return TRoutingMappingPtr(new RoutingMapping());
+  return GetMappingByName(id.GetInfo()->GetCountryName());
+}
+
 }  // namespace routing

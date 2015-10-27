@@ -3,6 +3,8 @@
 #include "routing/osrm2feature_map.hpp"
 #include "routing/osrm_data_facade.hpp"
 
+#include "indexer/index.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include "std/vector.hpp"
@@ -17,7 +19,7 @@ struct FeatureGraphNode
   PhantomNode node;
   OsrmMappingTypes::FtSeg segment;
   m2::PointD segmentPoint;
-  string mwmName;
+  Index::MwmId mwmId;
 
   /*!
   * \brief fill FeatureGraphNode with values.
@@ -25,10 +27,10 @@ struct FeatureGraphNode
   * \param isStartNode true if this node will first in the path.
   * \param mwmName @nodeId refers node on the graph of this map.
   */
-  FeatureGraphNode(NodeID const nodeId, bool const isStartNode, string const & mwmName);
+  FeatureGraphNode(NodeID const nodeId, bool const isStartNode, Index::MwmId const & id);
 
   FeatureGraphNode(NodeID const nodeId, NodeID const reverseNodeId, bool const isStartNode,
-                   string const & mwmName);
+                   Index::MwmId const & id);
 
   /// \brief Invalid graph node constructor
   FeatureGraphNode();

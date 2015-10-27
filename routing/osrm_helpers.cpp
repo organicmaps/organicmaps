@@ -189,8 +189,7 @@ EdgeWeight Point2PhantomNode::GetMinNodeWeight(NodeID node, m2::PointD const & p
   return minWeight;
 }
 
-void Point2PhantomNode::MakeResult(vector<FeatureGraphNode> & res, size_t maxCount,
-                                   string const & mwmName)
+void Point2PhantomNode::MakeResult(vector<FeatureGraphNode> & res, size_t maxCount)
 {
   vector<OsrmMappingTypes::FtSeg> segments;
 
@@ -258,14 +257,14 @@ void Point2PhantomNode::MakeResult(vector<FeatureGraphNode> & res, size_t maxCou
 
     node.segment = segments[j];
     node.segmentPoint = m_candidates[j].m_point;
-    node.mwmName = mwmName;
+    node.mwmId = m_routingMapping.GetMwmId();
 
     CalculateWeights(node);
   }
   res.erase(remove_if(res.begin(), res.end(),
                       [](FeatureGraphNode const & f)
                       {
-                        return f.mwmName.empty();
+                        return !f.mwmId.IsAlive();
                       }),
             res.end());
 }

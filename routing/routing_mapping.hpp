@@ -106,6 +106,8 @@ public:
 
   TRoutingMappingPtr GetMappingByName(string const & mapName);
 
+  TRoutingMappingPtr GetMappingById(Index::MwmId const & id);
+
   template <class TFunctor>
   void ForEachMapping(TFunctor toDo)
   {
@@ -116,6 +118,7 @@ public:
 
 private:
   TCountryFileFn m_countryFileFn;
+  // TODO (ldragunov) Rewrite to mwmId.
   unordered_map<string, TRoutingMappingPtr> m_mapping;
   MwmSet & m_index;
 };

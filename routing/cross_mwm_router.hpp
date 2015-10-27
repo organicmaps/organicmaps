@@ -17,9 +17,9 @@ struct RoutePathCross
   FeatureGraphNode startNode; /**< start graph node representation */
   FeatureGraphNode finalNode; /**< end graph node representation */
 
-  RoutePathCross(NodeID const startNodeId, m2::PointD const & startPoint, NodeID const finalNodeId, m2::PointD const & finalPoint, string const & name)
-      : startNode(startNodeId, true /* isStartNode */, name),
-        finalNode(finalNodeId, false /* isStartNode*/, name)
+  RoutePathCross(NodeID const startNodeId, m2::PointD const & startPoint, NodeID const finalNodeId, m2::PointD const & finalPoint, Index::MwmId const & id)
+      : startNode(startNodeId, true /* isStartNode */, id),
+        finalNode(finalNodeId, false /* isStartNode*/, id)
   {
     startNode.segmentPoint = startPoint;
     finalNode.segmentPoint = finalPoint;

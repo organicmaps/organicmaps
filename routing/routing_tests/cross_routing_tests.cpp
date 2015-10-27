@@ -14,23 +14,22 @@ namespace
 // Graph to convertions.
 UNIT_TEST(TestCrossRouteConverter)
 {
+  Index::MwmId aMap, bMap;
   vector<BorderCross> graphCrosses;
-  CrossNode const a(1, "aMap", {0, 0}), b(2, "aMap", {2, 2});
-  CrossNode const c(3, "bMap", {3, 3}), d(3, "bMap", {4, 4});
+  CrossNode const a(1, aMap, {0, 0}), b(2, aMap, {2, 2});
+  CrossNode const c(3, bMap, {3, 3}), d(3, bMap, {4, 4});
   graphCrosses.emplace_back(a, b);
   graphCrosses.emplace_back(b, c);
   graphCrosses.emplace_back(c, d);
   FeatureGraphNode startGraphNode;
   startGraphNode.node.forward_node_id = 5;
-  startGraphNode.mwmName = "aMap";
+  startGraphNode.mwmId = aMap;
   FeatureGraphNode finalGraphNode;
   finalGraphNode.node.reverse_node_id = 6;
-  finalGraphNode.mwmName = "bMap";
+  finalGraphNode.mwmId = bMap;
   TCheckedPath route;
   ConvertToSingleRouterTasks(graphCrosses, startGraphNode, finalGraphNode, route);
   TEST_EQUAL(route.size(), 2, ("We have 2 maps aMap and bMap."));
-  for (auto const & r : route)
-    TEST_EQUAL(r.startNode.mwmName, r.finalNode.mwmName, ());
   TEST_EQUAL(route.front().startNode.node, startGraphNode.node,
              ("Start node must be replaced by origin."));
   TEST_EQUAL(route.back().finalNode.node, finalGraphNode.node,
@@ -102,7 +101,7 @@ UNIT_TEST(TestAdjacencyMatrix)
   TEST_EQUAL(newContext.GetAdjacencyCost(ingoingNodes[0], outgoingNodes[0]), 5, ());
   TEST_EQUAL(newContext.GetAdjacencyCost(ingoingNodes[1], outgoingNodes[0]), 9, ());
   TEST_EQUAL(newContext.GetAdjacencyCost(ingoingNodes[2], outgoingNodes[0]),
-             routing::INVALID_CONTEXT_EDGE_WEIGHT, ("Default cost"));
+             routing::kInvalidContextEdgeWeight, ("Default cost"));
 }
 
 }

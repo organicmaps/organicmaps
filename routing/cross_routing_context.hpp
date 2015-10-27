@@ -12,12 +12,12 @@
 
 namespace routing
 {
-// TODO (ldragunov) Fix this!!!!
 using WritedNodeID = uint32_t;
 using WritedEdgeWeightT = uint32_t;
-static WritedEdgeWeightT const INVALID_CONTEXT_EDGE_WEIGHT = std::numeric_limits<WritedEdgeWeightT>::max();
-static WritedEdgeWeightT const INVALID_CONTEXT_EDGE_NODE_ID = std::numeric_limits<uint32_t>::max();
-static size_t constexpr kInvalidAdjacencyIndex = numeric_limits<size_t>::max();
+
+WritedEdgeWeightT constexpr kInvalidContextEdgeNodeId = std::numeric_limits<uint32_t>::max();
+WritedEdgeWeightT constexpr kInvalidContextEdgeWeight = std::numeric_limits<WritedEdgeWeightT>::max();
+size_t constexpr kInvalidAdjacencyIndex = numeric_limits<size_t>::max();
 
 struct IngoingCrossNode
 {
@@ -27,7 +27,7 @@ struct IngoingCrossNode
 
   IngoingCrossNode()
     : m_point(ms::LatLon::Zero())
-    , m_nodeId(INVALID_CONTEXT_EDGE_NODE_ID)
+    , m_nodeId(kInvalidContextEdgeNodeId)
     , m_adjacencyIndex(kInvalidAdjacencyIndex)
   {
   }
@@ -52,7 +52,7 @@ struct OutgoingCrossNode
 
   OutgoingCrossNode()
     : m_point(ms::LatLon::Zero())
-    , m_nodeId(INVALID_CONTEXT_EDGE_NODE_ID)
+    , m_nodeId(kInvalidContextEdgeNodeId)
     , m_outgoingIndex(0)
     , m_adjacencyIndex(kInvalidAdjacencyIndex)
   {
