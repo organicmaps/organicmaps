@@ -824,7 +824,7 @@ void FrontendRenderer::Routine::Do()
 
   int const kMaxInactiveFrames = 60;
 
-  my::HighResTimer timer;
+  my::Timer timer;
   timer.Reset();
 
   double frameTime = 0.0;
@@ -879,7 +879,8 @@ void FrontendRenderer::Routine::Do()
 
       while (availableTime > 0)
       {
-        m_renderer.ProcessSingleMessage(availableTime * 1000.0);
+        if (m_renderer.ProcessSingleMessage(availableTime * 1000.0))
+          inactiveFrameCount = 0;
         availableTime = VSyncInterval - timer.ElapsedSeconds();
       }
     }

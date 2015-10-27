@@ -555,7 +555,6 @@ bool UserEventStream::TouchUp(array<Touch, 2> const & touches)
 {
   size_t touchCount = GetValidTouchesCount(touches);
   bool isMapTouch = true;
-  LOG(LINFO, (m_state, touchCount));
   switch (m_state)
   {
   case STATE_EMPTY:

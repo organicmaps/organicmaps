@@ -213,9 +213,6 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   }
 }
 
-/////////////////////////////////////////
-//             ThreadPart              //
-/////////////////////////////////////////
 void BackendRenderer::ReleaseResources()
 {
   m_readManager->Stop();

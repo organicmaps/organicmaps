@@ -10,16 +10,17 @@ MessageAcceptor::MessageAcceptor()
 {
 }
 
-void MessageAcceptor::ProcessSingleMessage(unsigned maxTimeWait)
+bool MessageAcceptor::ProcessSingleMessage(unsigned maxTimeWait)
 {
   m_infinityWaiting = (maxTimeWait == -1);
   drape_ptr<Message> message = m_messageQueue.PopMessage(maxTimeWait);
   m_infinityWaiting = false;
 
   if (message == nullptr)
-    return;
+    return false;
 
   AcceptMessage(make_ref(message));
+  return true;
 }
 
 void MessageAcceptor::PostMessage(drape_ptr<Message> && message, MessagePriority priority)

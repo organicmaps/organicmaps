@@ -21,7 +21,7 @@ protected:
   virtual bool CanReceiveMessage() = 0;
 
   /// Must be called by subclass on message target thread
-  void ProcessSingleMessage(unsigned maxTimeWait = -1);
+  bool ProcessSingleMessage(unsigned maxTimeWait = -1);
 
   void CancelMessageWaiting();
 

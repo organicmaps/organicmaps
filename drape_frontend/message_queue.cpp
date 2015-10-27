@@ -3,8 +3,15 @@
 #include "base/assert.hpp"
 #include "base/stl_add.hpp"
 
+#include "std/chrono.hpp"
+
 namespace df
 {
+
+MessageQueue::MessageQueue()
+  : m_isWaiting(false)
+{
+}
 
 MessageQueue::~MessageQueue()
 {
@@ -14,12 +21,18 @@ MessageQueue::~MessageQueue()
 
 drape_ptr<Message> MessageQueue::PopMessage(unsigned maxTimeWait)
 {
-  threads::ConditionGuard guard(m_condition);
+  unique_lock<mutex> lock(m_mutex);
+  if (m_messages.empty())
+  {
+    m_isWaiting = true;
+    if (maxTimeWait == -1)
+      m_condition.wait(lock, [this]() { return !m_isWaiting; });
+    else
+      m_condition.wait_for(lock, milliseconds(maxTimeWait), [this]() { return !m_isWaiting; });
+    m_isWaiting = false;
+  }
 
-  WaitMessage(maxTimeWait);
-
-  /// even waitNonEmpty == true m_messages can be empty after WaitMessage call
-  /// if application preparing to close and CancelWait been called
+  // m_messages can be empty if application preparing to close and CancelWait been called.
   if (m_messages.empty())
     return nullptr;
 
@@ -30,9 +43,8 @@ drape_ptr<Message> MessageQueue::PopMessage(unsigned maxTimeWait)
 
 void MessageQueue::PushMessage(drape_ptr<Message> && message, MessagePriority priority)
 {
-  threads::ConditionGuard guard(m_condition);
+  lock_guard<mutex> lock(m_mutex);
 
-  bool wasEmpty = m_messages.empty();
   switch (priority)
   {
   case MessagePriority::Normal:
@@ -49,25 +61,22 @@ void MessageQueue::PushMessage(drape_ptr<Message> && message, MessagePriority pr
     ASSERT(false, ("Unknown message priority type"));
   }
 
-  if (wasEmpty)
-    guard.Signal();
+  CancelWait();
 }
 
 bool MessageQueue::IsEmpty()
 {
-  threads::ConditionGuard guard(m_condition);
+  lock_guard<mutex> lock(m_mutex);
   return m_messages.empty();
-}
-
-void MessageQueue::WaitMessage(unsigned maxTimeWait)
-{
-  if (m_messages.empty())
-    m_condition.Wait(maxTimeWait);
 }
 
 void MessageQueue::CancelWait()
 {
-  m_condition.Signal();
+  if (m_isWaiting)
+  {
+    m_isWaiting = false;
+    m_condition.notify_all();
+  }
 }
 
 void MessageQueue::ClearQuery()
