@@ -61,7 +61,7 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
   format.setMajorVersion(2);
   format.setMinorVersion(1);
 
-  format.setAlphaBufferSize(0);
+  format.setAlphaBufferSize(8);
   format.setBlueBufferSize(8);
   format.setGreenBufferSize(8);
   format.setRedBufferSize(8);
@@ -77,7 +77,7 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
   m_pDrawWidget->setMouseTracking(true);
   setCentralWidget(m_pDrawWidget);
 
-  QObject::connect(m_pDrawWidget, SIGNAL(EngineCreated()), this, SLOT(OnEngineCreated()));
+  QObject::connect(m_pDrawWidget, SIGNAL(BeforeEngineCreation()), this, SLOT(OnBeforeEngineCreation()));
 
   CreateNavigationBar();
   CreateSearchBarAndPanel();
@@ -370,14 +370,12 @@ void MainWindow::OnSearchButtonClicked()
   }
 }
 
-void MainWindow::OnEngineCreated()
+void MainWindow::OnBeforeEngineCreation()
 {
   m_pDrawWidget->GetFramework().SetMyPositionModeListener([this](location::EMyPositionMode mode)
   {
     LocationStateModeChanged(mode);
   });
-
-  m_pDrawWidget->GetFramework().InvalidateMyPosition();
 }
 
 void MainWindow::OnPreferences()

@@ -69,6 +69,6 @@ namespace qt
     void OnMyPosition();
     void OnSearchButtonClicked();
 
-    void OnEngineCreated();
+    void OnBeforeEngineCreation();
   };
 }

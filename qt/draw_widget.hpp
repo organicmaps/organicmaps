@@ -66,7 +66,7 @@ namespace qt
     void SetMapStyle(MapStyle mapStyle);
 
     void SetRouter(routing::RouterType routerType);
-    Q_SIGNAL void EngineCreated();
+    Q_SIGNAL void BeforeEngineCreation();
 
     void CreateEngine();
 
