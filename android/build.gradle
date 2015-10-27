@@ -136,30 +136,25 @@ android {
     mobogenie {
       versionName = android.defaultConfig.versionName + '-Mobogenie'
       android.sourceSets.mobogenie.assets.srcDirs = ['flavors/mwm-ttf-assets']
+      buildConfigField 'String', 'REVIEW_URL', '"http://www.mobogenie.com/download-maps-me-4240212.html"'
     }
 
     tencent {
       versionName = android.defaultConfig.versionName + '-Tencent'
       android.sourceSets.tencent.assets.srcDirs = ['flavors/mwm-ttf-assets']
-      // TODO While store url is unknown, force all rating reviews to be sent to our email.
-      // Change it in the next version after publishing app to the store.
-      buildConfigField 'int', 'RATING_THRESHOLD', '6'
+      buildConfigField 'String', 'REVIEW_URL', '"http://android.myapp.com/myapp/detail.htm?apkName=com.mapswithme.maps.pro"'
     }
 
     baidu {
       versionName = android.defaultConfig.versionName + '-Baidu'
       android.sourceSets.baidu.assets.srcDirs = ['flavors/mwm-ttf-assets']
-      // TODO While store url is unknown, force all rating reviews to be sent to our email.
-      // Change it in the next version after publishing app to the store.
-      buildConfigField 'int', 'RATING_THRESHOLD', '6'
+      buildConfigField 'String', 'REVIEW_URL', '"http://shouji.baidu.com/software/item?docid=7999892&f=sug@software"'
     }
 
     appChina {
       versionName = android.defaultConfig.versionName + '-AppChina'
       android.sourceSets.appChina.assets.srcDirs = ['flavors/mwm-ttf-assets']
-      // TODO While store url is unknown, force all rating reviews to be sent to our email.
-      // Change it in the next version after publishing app to the store.
-      buildConfigField 'int', 'RATING_THRESHOLD', '6'
+      buildConfigField 'String', 'REVIEW_URL', '"http://www.appchina.com/app/com.mapswithme.maps.pro"'
     }
 
     moboMarket {
@@ -168,6 +163,12 @@ android {
       // TODO While store url is unknown, force all rating reviews to be sent to our email.
       // Change it in the next version after publishing app to the store.
       buildConfigField 'int', 'RATING_THRESHOLD', '6'
+    }
+
+    blackberry {
+      versionName = android.defaultConfig.versionName + '-Blackberry'
+      android.sourceSets.blackberry.assets.srcDirs = ['flavors/mwm-ttf-assets']
+      buildConfigField 'String', 'REVIEW_URL', '"https://appworld.blackberry.com/webstore/content/51013892"'
     }
   }
 
