@@ -137,10 +137,14 @@ UNIT_TEST(Metadata_ValidateAndFormat_wikipedia)
 
   p("wikipedia", "ru:Лана Вуд");
   TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_WIKIPEDIA), "ru:" + lanaWoodUrlEncoded, ("ru:"));
+  TEST_EQUAL(params.GetMetadata().GetWikiTitle(), "ru:Лана Вуд", ("ru:"));
+  TEST_EQUAL(params.GetMetadata().GetWikiURL(), "https://ru.wikipedia.org/wiki/" + lanaWoodUrlEncoded, ("ru:"));
   params.GetMetadata().Drop(feature::Metadata::FMD_WIKIPEDIA);
 
   p("wikipedia", "https://ru.wikipedia.org/wiki/" + lanaWoodUrlEncoded);
   TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_WIKIPEDIA), "ru:" + lanaWoodUrlEncoded, ("https:"));
+  TEST_EQUAL(params.GetMetadata().GetWikiTitle(), "ru:Лана Вуд", ("https:"));
+  TEST_EQUAL(params.GetMetadata().GetWikiURL(), "https://ru.wikipedia.org/wiki/" + lanaWoodUrlEncoded, ("https:"));
   params.GetMetadata().Drop(feature::Metadata::FMD_WIKIPEDIA);
 
   p("wikipedia", "Test");
@@ -159,6 +163,12 @@ UNIT_TEST(Metadata_ValidateAndFormat_wikipedia)
 
   p("wikipedia", "http://ru.google.com/wiki/wutlol");
   TEST(params.GetMetadata().Empty(), ("Google"));
+
+  // URL Decoding Test
+  string const badWikiTitle = "%%A";
+  p("wikipedia", "https://bad.wikipedia.org/wiki/" + badWikiTitle);
+  TEST_EQUAL(params.GetMetadata().GetWikiTitle(), "bad:" + badWikiTitle, ("bad title"));
+  params.GetMetadata().Drop(feature::Metadata::FMD_WIKIPEDIA);
 }
 
 UNIT_TEST(Metadata_ReadWrite_Intermediate)
