@@ -503,6 +503,12 @@ void InitLocalizedStrings()
   }
 }
 
+- (void)setRoutingPlaneMode:(MWMRoutingPlaneMode)routingPlaneMode
+{
+  _routingPlaneMode = routingPlaneMode;
+  [self.mapViewController updateStatusBarStyle];
+}
+
 #pragma mark - Properties
 
 - (MapViewController *)mapViewController

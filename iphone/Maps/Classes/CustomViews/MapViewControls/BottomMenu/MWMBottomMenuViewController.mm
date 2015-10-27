@@ -40,7 +40,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 @property(weak, nonatomic) IBOutlet UICollectionView * buttonsCollectionView;
 
 @property(weak, nonatomic) IBOutlet UIButton * locationButton;
-@property(weak, nonatomic) IBOutlet UIButton * p2pButton;
 @property(weak, nonatomic) IBOutlet UICollectionView * additionalButtons;
 @property(weak, nonatomic) IBOutlet UILabel * streetLabel;
 
@@ -385,11 +384,18 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 {
   BOOL const isSelected = !sender.isSelected;
   sender.selected = isSelected;
-  [MapsAppDelegate theApp].routingPlaneMode = isSelected ? MWMRoutingPlaneModePlacePage : MWMRoutingPlaneModeNone;
+  MapsAppDelegate * theApp = [MapsAppDelegate theApp];
   if (isSelected)
+  {
+    theApp.routingPlaneMode = MWMRoutingPlaneModePlacePage;
     [self.controller.controlsManager routingPrepare];
+  }
   else
+  {
+    if (theApp.routingPlaneMode == MWMRoutingPlaneModeSearchDestination || theApp.routingPlaneMode == MWMRoutingPlaneModeSearchSource)
+      self.controller.controlsManager.searchHidden = YES;
     [self.controller.controlsManager routingHidden];
+  }
 }
 
 - (IBAction)searchButtonTouchUpInside:(UIButton *)sender

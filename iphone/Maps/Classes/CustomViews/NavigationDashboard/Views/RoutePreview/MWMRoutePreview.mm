@@ -5,7 +5,6 @@
 #import "MWMRoutePointCell.h"
 #import "MWMRoutePointLayout.h"
 #import "MWMRoutePreview.h"
-#import "MWMRouteTypeButton.h"
 #import "TimeUtils.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
@@ -35,6 +34,9 @@ static CGFloat const kAdditionalHeight = 20.;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * statusBoxHeight;
 @property (nonatomic) UIImageView * movingCellImage;
 
+@property (nonatomic) BOOL isNeedToMove;
+@property (nonatomic) NSIndexPath * indexPathOfMovingCell;
+
 @property (nonatomic, readwrite) MWMCircularProgress * pedestrianProgressView;
 @property (nonatomic, readwrite) MWMCircularProgress * vehicleProgressView;
 
@@ -53,17 +55,29 @@ static CGFloat const kAdditionalHeight = 20.;
 
   self.pedestrianProgressView = [[MWMCircularProgress alloc] initWithParentView:self.pedestrian];
   [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk_off"] forState:MWMCircularProgressStateNormal];
+  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk_on"] forState:MWMCircularProgressStateFailed];
   [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk_press"] forState:MWMCircularProgressStateHighlighted];
   [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk_on"] forState:MWMCircularProgressStateSelected];
+  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk_on"] forState:MWMCircularProgressStateProgress];
+  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk_on"] forState:MWMCircularProgressStateCompleted];
   self.vehicleProgressView = [[MWMCircularProgress alloc] initWithParentView:self.vehicle];
   [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive_off"] forState:MWMCircularProgressStateNormal];
+  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive_on"] forState:MWMCircularProgressStateFailed];
   [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive_press"] forState:MWMCircularProgressStateHighlighted];
   [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive_on"] forState:MWMCircularProgressStateSelected];
+  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive_on"] forState:MWMCircularProgressStateProgress];
+  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive_on"] forState:MWMCircularProgressStateCompleted];
 }
 
 - (void)didMoveToSuperview
 {
   [self setupActualHeight];
+}
+
+- (void)addToView:(UIView *)superview
+{
+  [super addToView:superview];
+  [superview bringSubviewToFront:superview];
 }
 
 - (void)configureWithEntity:(MWMNavigationDashboardEntity *)entity
@@ -88,6 +102,9 @@ static CGFloat const kAdditionalHeight = 20.;
 
 - (void)statePrepare
 {
+  [self.pedestrianProgressView stopSpinner];
+  [self.vehicleProgressView stopSpinner];
+  self.arrowImageView.transform = CGAffineTransformMakeRotation(M_PI);
   self.goButton.hidden = NO;
   self.goButton.enabled = NO;
   self.extendButton.selected = YES;
@@ -110,9 +127,8 @@ static CGFloat const kAdditionalHeight = 20.;
   self.errorBox.hidden = YES;
   self.planningBox.hidden = NO;
   [self.collectionView reloadData];
-  if (!IPAD)
-    return;
-  [self iPadNotReady];
+  if (IPAD)
+    [self iPadNotReady];
 }
 
 - (void)stateError
@@ -123,9 +139,8 @@ static CGFloat const kAdditionalHeight = 20.;
   self.planningBox.hidden = YES;
   self.resultsBox.hidden = YES;
   self.errorBox.hidden = NO;
-  if (!IPAD)
-    return;
-  [self iPadNotReady];
+  if (IPAD)
+    [self iPadNotReady];
 }
 
 - (void)stateReady
@@ -136,9 +151,8 @@ static CGFloat const kAdditionalHeight = 20.;
   self.planningBox.hidden = YES;
   self.errorBox.hidden = YES;
   self.resultsBox.hidden = NO;
-  if (!IPAD)
-    return;
-  [self iPadReady];
+  if (IPAD)
+    [self iPadReady];
 }
 
 - (void)iPadReady
@@ -157,14 +171,14 @@ static CGFloat const kAdditionalHeight = 20.;
     }
     completion:^(BOOL finished)
     {
-      self.completeImageView.alpha = 1.;
+      self.completeImageView.hidden = NO;
     }];
   }];
 }
 
 - (void)iPadNotReady
 {
-  self.completeImageView.alpha = 0.;
+  self.completeImageView.hidden = YES;
   self.arriveLabel.alpha = 0.;
   [self layoutIfNeeded];
   self.statusBoxHeight.constant = 56.;
@@ -177,6 +191,32 @@ static CGFloat const kAdditionalHeight = 20.;
 - (void)reloadData
 {
   [self.collectionView reloadData];
+}
+
+- (void)deselectPedestrian
+{
+  self.pedestrianProgressView.state = MWMCircularProgressStateNormal;
+  [self.pedestrianProgressView stopSpinner];
+}
+
+- (void)selectProgress:(MWMCircularProgress *)progress;
+{
+  if ([progress isEqual:self.pedestrianProgressView])
+  {
+    self.vehicleProgressView.state = MWMCircularProgressStateNormal;
+    self.pedestrianProgressView.state = MWMCircularProgressStateSelected;
+  }
+  else
+  {
+    self.pedestrianProgressView.state = MWMCircularProgressStateNormal;
+    self.vehicleProgressView.state = MWMCircularProgressStateSelected;
+  }
+}
+
+- (void)deselectVehicle
+{
+  self.vehicleProgressView.state = MWMCircularProgressStateNormal;
+  [self.vehicleProgressView stopSpinner];
 }
 
 - (void)layoutSubviews
@@ -242,6 +282,7 @@ static CGFloat const kAdditionalHeight = 20.;
   UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
   self.movingCellImage = [[UIImageView alloc] initWithImage:image];
+  self.movingCellImage.alpha = 0.8;
   [self.collectionView addSubview:self.movingCellImage];
   CALayer * l = self.movingCellImage.layer;
   l.masksToBounds = NO;
@@ -258,7 +299,7 @@ static CGFloat const kAdditionalHeight = 20.;
 - (void)startEditingCell:(MWMRoutePointCell *)cell
 {
   NSUInteger const index = [self.collectionView indexPathForCell:cell].row;
-  [self.dashboardManager.delegate didStartEditingRoutePoint:index == 0 ? YES : NO];
+  [self.dashboardManager.delegate didStartEditingRoutePoint:index == 0];
 }
 
 - (void)swapPoints
@@ -271,21 +312,17 @@ static CGFloat const kAdditionalHeight = 20.;
 - (void)didPan:(UIPanGestureRecognizer *)pan cell:(MWMRoutePointCell *)cell
 {
   CGPoint const locationPoint = [pan locationInView:self.collectionView];
-  static BOOL isNeedToMove;
-  static NSIndexPath * indexPathOfMovingCell;
-
   if (pan.state == UIGestureRecognizerStateBegan)
   {
     self.layout.isNeedToInitialLayout = NO;
-    isNeedToMove = NO;
-    indexPathOfMovingCell = [self.collectionView indexPathForCell:cell];
+    self.isNeedToMove = NO;
+    self.indexPathOfMovingCell = [self.collectionView indexPathForCell:cell];
     [self snapshotCell:cell];
-    self.movingCellImage.center = {locationPoint.x - cell.width / 2 + 30, locationPoint.y};
     [UIView animateWithDuration:kDefaultAnimationDuration animations:^
     {
       cell.contentView.alpha = 0.;
-      CGFloat const scale = 1.05;
-      self.movingCellImage.transform = CGAffineTransformMakeScale(1., scale);
+      CGFloat const scaleY = 1.05;
+      self.movingCellImage.transform = CGAffineTransformMakeScale(1., scaleY);
     }];
   }
 
@@ -293,20 +330,20 @@ static CGFloat const kAdditionalHeight = 20.;
   {
     self.movingCellImage.center = {locationPoint.x - cell.width / 2 + 30, locationPoint.y};
     NSIndexPath * finalIndexPath = [self.collectionView indexPathForItemAtPoint:locationPoint];
-    if (finalIndexPath && ![finalIndexPath isEqual:indexPathOfMovingCell])
+    if (finalIndexPath && ![finalIndexPath isEqual:self.indexPathOfMovingCell])
     {
-      if (isNeedToMove)
+      if (self.isNeedToMove)
         return;
-      isNeedToMove = YES;
+      self.isNeedToMove = YES;
       [self.collectionView performBatchUpdates:^
       {
-        [self.collectionView moveItemAtIndexPath:finalIndexPath toIndexPath:indexPathOfMovingCell];
-        indexPathOfMovingCell = finalIndexPath;
+        [self.collectionView moveItemAtIndexPath:finalIndexPath toIndexPath:self.indexPathOfMovingCell];
+        self.indexPathOfMovingCell = finalIndexPath;
       } completion:nil];
     }
     else
     {
-      isNeedToMove = NO;
+      self.isNeedToMove = NO;
     }
   }
 
@@ -314,13 +351,13 @@ static CGFloat const kAdditionalHeight = 20.;
   {
     self.layout.isNeedToInitialLayout = YES;
     NSIndexPath * finalIndexPath = [self.collectionView indexPathForItemAtPoint:locationPoint];
-    if (finalIndexPath && ![finalIndexPath isEqual:indexPathOfMovingCell])
+    self.isNeedToMove = finalIndexPath && ![finalIndexPath isEqual:self.indexPathOfMovingCell];
+    if (self.isNeedToMove)
     {
-      isNeedToMove = YES;
       cell.contentView.alpha = 1.;
       [self.collectionView performBatchUpdates:^
       {
-        [self.collectionView moveItemAtIndexPath:indexPathOfMovingCell toIndexPath:finalIndexPath];
+        [self.collectionView moveItemAtIndexPath:self.indexPathOfMovingCell toIndexPath:finalIndexPath];
       }
       completion:^(BOOL finished)
       {
@@ -330,9 +367,10 @@ static CGFloat const kAdditionalHeight = 20.;
     }
     else
     {
-      isNeedToMove = NO;
       cell.contentView.alpha = 1.;
       [self.movingCellImage removeFromSuperview];
+      [self swapPoints];
+      [self reloadData];
     }
   }
 }
@@ -356,7 +394,16 @@ static CGFloat const kAdditionalHeight = 20.;
 {
   MWMRoutePointCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:[MWMRoutePointCell className] forIndexPath:indexPath];
   cell.number.text = @(indexPath.row + 1).stringValue;
-  cell.title.text = !indexPath.row ? self.dataSource.source : self.dataSource.destination;
+  if (indexPath.row == 0)
+  {
+    cell.title.text = self.dataSource.source;
+    cell.title.placeholder = L(@"choose_from");
+  }
+  else
+  {
+    cell.title.text = self.dataSource.destination;
+    cell.title.placeholder = L(@"choose_to");
+  }
   cell.delegate = self;
   return cell;
 }

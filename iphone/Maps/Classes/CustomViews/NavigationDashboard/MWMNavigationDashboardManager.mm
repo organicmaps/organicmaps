@@ -10,7 +10,6 @@
 #import "MWMRouteHelperPanelsDrawer.h"
 #import "MWMRoutePreview.h"
 #import "MWMTextToSpeech.h"
-#import "MWMRouteTypeButton.h"
 
 @interface MWMNavigationDashboardManager () <MWMCircularProgressProtocol>
 
@@ -41,39 +40,39 @@
   self = [super init];
   if (self)
   {
-    self.ownerView = view;
+    _ownerView = view;
     _delegate = delegate;
-    BOOL const isPortrait = self.ownerView.width < self.ownerView.height;
+    BOOL const isPortrait = _ownerView.width < _ownerView.height;
     if (IPAD)
     {
       [NSBundle.mainBundle loadNibNamed:@"MWMiPadRoutePreview" owner:self options:nil];
-      self.routePreview = self.iPadRoutePreview;
+      _routePreview = _iPadRoutePreview;
     }
     else
     {
       [NSBundle.mainBundle loadNibNamed:[MWMRoutePreview className] owner:self options:nil];
-      self.routePreview = self.iPhoneRoutePreview;
+      _routePreview = _iPhoneRoutePreview;
     }
 
-    self.routePreview.dashboardManager = self;
-    self.routePreview.pedestrianProgressView.delegate = self.routePreview.vehicleProgressView.delegate = self;
-    self.routePreview.delegate = delegate;
-    self.routePreview.dataSource = delegate;
+    _routePreview.dashboardManager = self;
+    _routePreview.pedestrianProgressView.delegate = _routePreview.vehicleProgressView.delegate = self;
+    _routePreview.delegate = delegate;
+    _routePreview.dataSource = delegate;
     if (IPAD)
     {
       [NSBundle.mainBundle loadNibNamed:@"MWMNiPadNavigationDashboard" owner:self options:nil];
-      self.navigationDashboard = self.navigationDashboardPortrait;
-      self.navigationDashboard.delegate = delegate;
+      _navigationDashboard = _navigationDashboardPortrait;
+      _navigationDashboard.delegate = delegate;
     }
     else
     {
       [NSBundle.mainBundle loadNibNamed:@"MWMPortraitNavigationDashboard" owner:self options:nil];
       [NSBundle.mainBundle loadNibNamed:@"MWMLandscapeNavigationDashboard" owner:self options:nil];
-      self.navigationDashboard = isPortrait ? self.navigationDashboardPortrait : self.navigationDashboardLandscape;
-      self.navigationDashboardPortrait.delegate = self.navigationDashboardLandscape.delegate = delegate;
+      _navigationDashboard = isPortrait ? _navigationDashboardPortrait : _navigationDashboardLandscape;
+      _navigationDashboardPortrait.delegate = _navigationDashboardLandscape.delegate = delegate;
     }
-    self.tts = [[MWMTextToSpeech alloc] init];
-    self.helperPanels = [NSMutableArray array];
+    _tts = [[MWMTextToSpeech alloc] init];
+    _helperPanels = [NSMutableArray array];
   }
   return self;
 }
@@ -145,13 +144,16 @@
 - (void)handleError
 {
   [self.routePreview stateError];
+  self.activeRouteTypeButton.state = MWMCircularProgressStateFailed;
+  [self.activeRouteTypeButton stopSpinner];
 }
 
 - (void)updateDashboard
 {
-  BOOL const isPrepareState = self.state == MWMNavigationDashboardStateHidden &&
-                              self.state == MWMNavigationDashboardStateError &&
-                              self.state == MWMNavigationDashboardStatePlanning;
+  MWMNavigationDashboardState const s = self.state;
+  BOOL const isPrepareState = s == MWMNavigationDashboardStateHidden &&
+                              s == MWMNavigationDashboardStateError &&
+                              s == MWMNavigationDashboardStatePlanning;
   if (isPrepareState)
     return;
 
@@ -225,25 +227,27 @@
 
 - (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
 {
-  if (progress.state == MWMCircularProgressStateSelected || progress.state == MWMCircularProgressStateCompleted)
+  MWMCircularProgressState const s = progress.state;
+  if (s == MWMCircularProgressStateSelected || s == MWMCircularProgressStateCompleted)
     return;
-  progress.state = MWMCircularProgressStateSelected;
   self.activeRouteTypeButton = progress;
   auto & f = GetFramework();
   routing::RouterType type;
   if ([progress isEqual:self.routePreview.pedestrianProgressView])
   {
-    self.routePreview.vehicleProgressView.state = MWMCircularProgressStateNormal;
+    [self.routePreview.vehicleProgressView stopSpinner];
     type = routing::RouterType::Pedestrian;
   }
   else
   {
-    self.routePreview.pedestrianProgressView.state = MWMCircularProgressStateNormal;
+    [self.routePreview.pedestrianProgressView stopSpinner];
     type = routing::RouterType::Vehicle;
   }
   f.CloseRouting();
   f.SetRouter(type);
   f.SetLastUsedRouter(type);
+  [self.routePreview selectProgress:progress];
+//  progress.state = MWMCircularProgressStateSelected;
   if (!self.delegate.isPossibleToBuildRoute)
     return;
   [progress startSpinner];
@@ -263,7 +267,6 @@
 {
   if (IPAD && self.state != MWMNavigationDashboardStateNavigation)
     [self.delegate routePreviewDidChangeFrame:{}];
-  self.state = MWMNavigationDashboardStateHidden;
   [self removePanel:self.nextTurnPanel];
 //  [self removePanel:self.lanesPanel];
   self.helperPanels = [NSMutableArray array];
@@ -303,6 +306,7 @@
   [self removePanel:self.nextTurnPanel];
 //  [self removePanel:self.lanesPanel];
   [self setupActualRoute];
+  [self.activeRouteTypeButton startSpinner];
 }
 
 - (void)showStateReady
@@ -321,16 +325,17 @@
   switch (GetFramework().GetRouter())
   {
   case routing::RouterType::Pedestrian:
-    self.routePreview.pedestrianProgressView.state = MWMCircularProgressStateSelected;
-    self.routePreview.vehicleProgressView.state = MWMCircularProgressStateNormal;
+//    self.routePreview.pedestrianProgressView.state = MWMCircularProgressStateSelected;
+//    self.routePreview.vehicleProgressView.state = MWMCircularProgressStateNormal;
     self.activeRouteTypeButton = self.routePreview.pedestrianProgressView;
     break;
   case routing::RouterType::Vehicle:
-    self.routePreview.vehicleProgressView.state = MWMCircularProgressStateSelected;
-    self.routePreview.pedestrianProgressView.state = MWMCircularProgressStateNormal;
+//    self.routePreview.vehicleProgressView.state = MWMCircularProgressStateSelected;
+//    self.routePreview.pedestrianProgressView.state = MWMCircularProgressStateNormal;
     self.activeRouteTypeButton = self.routePreview.vehicleProgressView;
     break;
   }
+  [self.routePreview selectProgress:self.activeRouteTypeButton];
 }
 
 #pragma mark - Properties

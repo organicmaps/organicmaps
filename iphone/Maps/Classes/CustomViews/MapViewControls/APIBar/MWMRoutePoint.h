@@ -2,15 +2,15 @@
 
 typedef struct MWMRoutePoint
 {
-  MWMRoutePoint() {};
+  MWMRoutePoint() {}
 
-  MWMRoutePoint(m2::PointD const & p, NSString * n) : point(p), name(n), isMyPosition(false) {};
+  MWMRoutePoint(m2::PointD const & p, NSString * n) : point(p), name(n), isMyPosition(false) {}
 
-  explicit MWMRoutePoint(m2::PointD const & p) : point(p), name(L(@"my_position")), isMyPosition(true) {};
+  explicit MWMRoutePoint(m2::PointD const & p) : point(p), name(L(@"my_position")), isMyPosition(true) {}
 
   bool operator ==(MWMRoutePoint const & p) const
   {
-    return point == p.point && [name isEqualToString:p.name];
+    return point.EqualDxDy(p.point, 0.00000001) && [name isEqualToString:p.name] && isMyPosition == p.isMyPosition;
   }
 
   bool operator !=(MWMRoutePoint const & p) const
@@ -21,14 +21,6 @@ typedef struct MWMRoutePoint
   static MWMRoutePoint MWMRoutePointZero()
   {
     return MWMRoutePoint(m2::PointD::Zero(), @"");
-  }
-
-  static void Swap(MWMRoutePoint & f, MWMRoutePoint & s)
-  {
-    swap(f.point, s.point);
-    NSString * temp = f.name;
-    f.name = s.name;
-    s.name = temp;
   }
 
   m2::PointD point;

@@ -193,20 +193,23 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)routeFrom
 {
-  UserMark const * m = m_userMark->GetUserMark();
-  if (m->GetMarkType() == UserMark::Type::MY_POSITION)
-    [self.delegate buildRouteFrom:MWMRoutePoint(m->GetOrg())];
-  else
-    [self.delegate buildRouteFrom:{m->GetOrg(), self.placePage.basePlacePageView.titleLabel.text}];
+  [self.delegate buildRouteFrom:self.target];
+  [self dismissPlacePage];
 }
 
 - (void)routeTo
 {
+  [self.delegate buildRouteTo:self.target];
+  [self dismissPlacePage];
+}
+
+- (MWMRoutePoint)target
+{
   UserMark const * m = m_userMark->GetUserMark();
-  if (m->GetMarkType() == UserMark::Type::MY_POSITION)
-    [self.delegate buildRouteTo:MWMRoutePoint(m->GetOrg())];
-  else
-    [self.delegate buildRouteTo:{m->GetOrg(), self.placePage.basePlacePageView.titleLabel.text}];
+  m2::PointD const & org = m->GetOrg();
+  return m->GetMarkType() == UserMark::Type::MY_POSITION ?
+                          MWMRoutePoint(org) :
+                          MWMRoutePoint(org, self.placePage.basePlacePageView.titleLabel.text);
 }
 
 - (void)share

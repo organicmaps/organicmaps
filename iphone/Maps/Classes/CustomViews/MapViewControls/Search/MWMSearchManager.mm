@@ -1,6 +1,7 @@
 #import "MapsAppDelegate.h"
 #import "MapsObservers.h"
 #import "MWMConsole.h"
+#import "MWMRoutingProtocol.h"
 #import "MWMSearchDownloadViewController.h"
 #import "MWMSearchManager.h"
 #import "MWMSearchTabbedViewController.h"
@@ -42,7 +43,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 }
 
 - (nullable instancetype)initWithParentView:(nonnull UIView *)view
-                                   delegate:(nonnull id<MWMSearchManagerProtocol, MWMSearchViewProtocol>)delegate
+                                   delegate:(nonnull id<MWMSearchManagerProtocol, MWMSearchViewProtocol, MWMRoutingProtocol>)delegate
 {
   self = [super init];
   if (self)
@@ -155,6 +156,28 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   [self.tableViewController searchText:text forInputLocale:inputLocale];
 }
 
+- (void)processSearchWithResult:(search::Result const &)result query:(search::QuerySaver::TSearchRequest const &)query
+{
+  auto & f = GetFramework();
+  f.SaveSearchQuery(query);
+  MapsAppDelegate * a = MapsAppDelegate.theApp;
+  if (a.routingPlaneMode != MWMRoutingPlaneModeNone)
+  {
+    MWMRoutePoint const p = {result.GetFeatureCenter(), @(result.GetString())};
+    if (a.routingPlaneMode == MWMRoutingPlaneModeSearchSource)
+      [self.delegate buildRouteFrom:p];
+    else
+      [self.delegate buildRouteTo:p];
+    if (!IPAD)
+      a.routingPlaneMode = MWMRoutingPlaneModePlacePage;
+  }
+  else
+  {
+    f.ShowSearchResult(result);
+  }
+  self.state = MWMSearchManagerStateHidden;
+}
+
 #pragma mark - MWMSearchDownloadMapRequest
 
 - (void)selectMapsAction
@@ -226,6 +249,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 
 - (void)changeToDefaultState
 {
+  self.view.alpha = 1.;
   GetFramework().PrepareSearch();
   [self updateTopController];
   [self.navigationController popToRootViewControllerAnimated:NO];

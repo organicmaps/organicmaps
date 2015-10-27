@@ -29,9 +29,12 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 
 + (MWMPlacePageActionBar *)actionBarForPlacePage:(MWMPlacePage *)placePage
 {
-  BOOL const isPrepareRouteMode = MapsAppDelegate.theApp.routingPlaneMode == MWMRoutingPlaneModePlacePage;
+  BOOL const isPrepareRouteMode = MapsAppDelegate.theApp.routingPlaneMode != MWMRoutingPlaneModeNone;
+  NSUInteger const i = isPrepareRouteMode ? 1 : 0;
   MWMPlacePageActionBar * bar = [NSBundle.mainBundle
-                                 loadNibNamed:kPlacePageActionBarNibName owner:nil options:nil][isPrepareRouteMode ? 1 : 0];
+                                 loadNibNamed:kPlacePageActionBarNibName owner:nil options:nil][i];
+  NSAssert(i == bar.tag, @"Incorrect view!");
+  bar.isPrepareRouteMode = isPrepareRouteMode;
   if (isPrepareRouteMode)
     return bar;
 

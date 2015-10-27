@@ -1,5 +1,3 @@
-#import <UIKit/UIKit.h>
-
 @class MWMRoutePointCell;
 
 @protocol MWMRoutePointCellDelegate <NSObject>

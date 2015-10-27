@@ -13,7 +13,7 @@
 @interface MWMBottomMenuViewController : UIViewController
 
 @property(nonatomic) MWMBottomMenuState state;
-
+@property(weak, nonatomic) IBOutlet UIButton * p2pButton;
 @property(nonatomic) CGFloat leftBound;
 
 - (instancetype)initWithParentController:(MapViewController *)controller

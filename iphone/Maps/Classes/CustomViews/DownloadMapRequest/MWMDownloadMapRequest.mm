@@ -39,10 +39,24 @@
     [parentView addSubview:self.rootView];
     self.progressView = [[MWMCircularProgress alloc] initWithParentView:self.progressViewWrapper];
     self.progressView.delegate = self;
+    [self setupProgressImages];
     self.delegate = delegate;
     [self showRequest];
   }
   return self;
+}
+
+- (void)setupProgressImages
+{
+  [self.progressView setImage:[UIImage imageNamed:@"ic_download"] forState:MWMCircularProgressStateNormal];
+  [self.progressView setImage:[UIImage imageNamed:@"ic_download_press"] forState:MWMCircularProgressStateHighlighted];
+  [self.progressView setImage:[UIImage imageNamed:@"ic_download"] forState:MWMCircularProgressStateSelected];
+  [self.progressView setImage:[UIImage imageNamed:@"ic_download_press"] forState:MWMCircularProgressStateSelectedHighlighted];
+  [self.progressView setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateProgress];
+  [self.progressView setImage:[UIImage imageNamed:@"ic_close_spinner_press"] forState:MWMCircularProgressStateProgressHighlighted];
+  [self.progressView setImage:[UIImage imageNamed:@"ic_download_error"] forState:MWMCircularProgressStateFailed];
+  [self.progressView setImage:[UIImage imageNamed:@"ic_download_error_press"] forState:MWMCircularProgressStateFailedHighlighted];
+  [self.progressView setImage:[UIImage imageNamed:@"ic_check"] forState:MWMCircularProgressStateCompleted];
 }
 
 - (void)dealloc

@@ -8,6 +8,9 @@
 
 @property (nonatomic) MWMSearchManagerState state;
 
+- (void)processSearchWithResult:(search::Result const &)result
+                          query:(search::QuerySaver::TSearchRequest const &)query;
+
 @end
 
 @interface MWMSearchTableViewController : UIViewController

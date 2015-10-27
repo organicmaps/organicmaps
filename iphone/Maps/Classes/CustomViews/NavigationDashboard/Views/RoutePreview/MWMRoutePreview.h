@@ -27,5 +27,6 @@
 - (void)stateError;
 - (void)stateReady;
 - (void)reloadData;
+- (void)selectProgress:(MWMCircularProgress *)progress;
 
 @end

@@ -32,27 +32,18 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 
 - (void)awakeFromNib
 {
-  self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  [self setupImages];
+  self.images = [NSMutableDictionary dictionary];
   [self setupColors];
   [self setupAnimationLayers];
 }
 
-#pragma mark - Setup
-
-- (void)setupImages
+- (void)layoutSubviews
 {
-  self.images = [NSMutableDictionary dictionary];
-  [self setImage:[UIImage imageNamed:@"ic_download"] forState:MWMCircularProgressStateNormal];
-  [self setImage:[UIImage imageNamed:@"ic_download_press"] forState:MWMCircularProgressStateHighlighted];
-  [self setImage:[UIImage imageNamed:@"ic_download"] forState:MWMCircularProgressStateSelected];
-  [self setImage:[UIImage imageNamed:@"ic_download_press"] forState:MWMCircularProgressStateSelectedHighlighted];
-  [self setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateProgress];
-  [self setImage:[UIImage imageNamed:@"ic_close_spinner_press"] forState:MWMCircularProgressStateProgressHighlighted];
-  [self setImage:[UIImage imageNamed:@"ic_download_error"] forState:MWMCircularProgressStateFailed];
-  [self setImage:[UIImage imageNamed:@"ic_download_error_press"] forState:MWMCircularProgressStateFailedHighlighted];
-  [self setImage:[UIImage imageNamed:@"ic_check"] forState:MWMCircularProgressStateCompleted];
+  self.frame = self.superview.bounds;
+  [super layoutSubviews];
 }
+
+#pragma mark - Setup
 
 - (void)setupColors
 {

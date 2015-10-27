@@ -31,7 +31,10 @@ static CGFloat const kStatusbarHeight = 20.0;
     return;
   dispatch_async(dispatch_get_main_queue(), ^
   {
-    [superview insertSubview:self atIndex:0];
+    if (IPAD)
+      [superview addSubview:self];
+    else
+      [superview insertSubview:self atIndex:0];
     self.frame = self.defaultFrame;
     self.isVisible = YES;
   });
