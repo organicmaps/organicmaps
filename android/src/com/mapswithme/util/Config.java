@@ -15,7 +15,6 @@ public final class Config
 
   private static final String KEY_TTS_ENABLED = "TtsEnabled";
   private static final String KEY_TTS_LANGUAGE = "TtsLanguage";
-  private static final String KEY_TTS_LANGUAGE_SET_BY_USER = "TtsLanguageSetByUser";
 
   private static final String KEY_PREF_ZOOM_BUTTONS = "ZoomButtonsEnabled";
   private static final String KEY_PREF_STATISTICS = "StatisticsEnabled";
@@ -179,16 +178,6 @@ public final class Config
   public static void setTtsEnabled(boolean enabled)
   {
     setBool(KEY_TTS_ENABLED, enabled);
-  }
-
-  public static boolean isTtsLanguageSetByUser()
-  {
-    return getBool(KEY_TTS_LANGUAGE_SET_BY_USER);
-  }
-
-  public static void setTtsLanguageSetByUser()
-  {
-    setBool(KEY_TTS_LANGUAGE_SET_BY_USER, true);
   }
 
   public static String getTtsLanguage()

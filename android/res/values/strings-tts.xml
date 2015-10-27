@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <!--
-    Supported voices. Should have language2[-country2][:code] format.
+    Supported voice languages. Should have language[-country][:code] format.
     Where:
-      language2 - two-letter ISO 639-1 language code.
-      country2 - two-letter ISO 3166-1 (alpha-2) country code.
+      language - two-letter ISO 639-1 language code.
+      country - two-letter ISO 3166-1 (alpha-2) country code.
       code - internal language code to be set in the core.
              If not specified, language2 is used.
 
-    Chinese is an exception. Matching is based on ISO 3166-1 (alpha-3) country code:
-    zho_TWN, zho_MAC and zho_HKG correspond to zh-Hant.
+    Chinese is an exception. Matching is based on country code:
+    zho_TW, zho_MO and zho_HK correspond to zh-Hant.
     Otherwise we consider that this is zh-Hans.
 
     TODO: Move language list to core.
@@ -42,8 +42,8 @@
     <item>sk</item>
     <item>sw</item>
     <item>th</item>
-    <item>zh-tw:zh-Hant</item>
-    <item>zh-cn:zh-Hans</item>
+    <item>zh-TW:zh-Hant</item>
+    <item>zh-CN:zh-Hans</item>
   </string-array>
 
   <string-array name="tts_language_names"
@@ -66,15 +66,15 @@
     <item>Dansk</item>
     <item>Español</item>
     <item>Suomi</item>
-    <item>हिन्दी</item>
+    <item>हिंदी</item>
     <item>Hrvatski</item>
-    <item>TODO: Indonesian</item>
+    <item>Indonesia</item>
     <item>한국어</item>
     <item>Português</item>
     <item>Slovenčina</item>
     <item>Kiswahili</item>
-    <item>ไทย</item>
-    <item>TODO: Chinese Traditional</item>
-    <item>TODO: Chinese Simplified</item>
+    <item>ภาษาไทย</item>
+    <item>中文繁體</item>
+    <item>中文简体</item>
   </string-array>
 </resources>

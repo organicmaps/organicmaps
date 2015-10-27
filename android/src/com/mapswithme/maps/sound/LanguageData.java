@@ -1,43 +1,42 @@
 package com.mapswithme.maps.sound;
 
+import android.speech.tts.TextToSpeech;
+
 import java.util.Locale;
 
 public class LanguageData
 {
+  public static class NotAvailableException extends Exception {
+    public NotAvailableException(Locale locale)
+    {
+      super("Locale \"" + locale + "\" is not supported by current TTS engine");
+    }
+  }
+
   public final Locale locale;
   public final String name;
   public final String internalCode;
+  public final boolean downloaded;
 
-  private int mStatus;
-
-  private LanguageData(String name, Locale locale, String internalCode)
+  public LanguageData(String line, String name, TextToSpeech tts) throws NotAvailableException
   {
-    this.locale = locale;
     this.name = name;
-    this.internalCode = internalCode;
-  }
 
-  static LanguageData parse(String line, String name)
-  {
     String[] parts = line.split(":");
-    String internalCode = (parts.length > 1 ? parts[1] : null);
+    String code = (parts.length > 1 ? parts[1] : null);
 
     parts = parts[0].split("-");
     String language = parts[0];
+    internalCode = (code == null ? language : code);
+
     String country = (parts.length > 1 ? parts[1] : "");
-    Locale locale = new Locale(language, country.toUpperCase());
+    locale = new Locale(language, country);
 
-    return new LanguageData(name, locale, (internalCode == null ? language : internalCode));
-  }
+    int status = tts.isLanguageAvailable(locale);
+    if (status < TextToSpeech.LANG_MISSING_DATA)
+      throw new NotAvailableException(locale);
 
-  void setStatus(int status)
-  {
-    mStatus = status;
-  }
-
-  public int getStatus()
-  {
-    return mStatus;
+    downloaded = (status >= TextToSpeech.LANG_AVAILABLE);
   }
 
   public boolean matchesLocale(Locale locale)
@@ -66,6 +65,6 @@ public class LanguageData
   @Override
   public String toString()
   {
-    return "(" + mStatus + ") " + name + ": " + locale + ", internal: " + internalCode;
+    return name + ": " + locale + ", internal: " + internalCode + (downloaded ? " - " : " - NOT ") + "downloaded";
   }
 }

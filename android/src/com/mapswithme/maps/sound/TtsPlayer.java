@@ -16,19 +16,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-
 public enum TtsPlayer
 {
   INSTANCE;
 
-  private static final String TAG = "TtsPlayer";
   private static final Locale DEFAULT_LOCALE = Locale.US;
   private static final float SPEECH_RATE = 1.2f;
 
   private TextToSpeech mTts;
   private boolean mInitializing;
 
-  // TTS is locked down due to lack of supported languages
+  // TTS is locked down due to absence of supported languages
   private boolean mUnavailable;
 
   TtsPlayer() {}
@@ -70,26 +68,34 @@ public enum TtsPlayer
       setLanguageInternal(lang);
   }
 
-  private @Nullable LanguageData getDefaultLanguage(List<LanguageData> langs)
+  private static @Nullable LanguageData getDefaultLanguage(List<LanguageData> langs)
   {
-    Locale defLocale = Locale.getDefault();
-    if (defLocale == null)
-      defLocale = DEFAULT_LOCALE;
+    LanguageData res;
 
-    LanguageData lang = findSupportedLanguage(defLocale, langs);
-    if (lang == null)
+    Locale defLocale = Locale.getDefault();
+    if (defLocale != null)
     {
-      // No supported languages found, lock down TTS :(
-      mUnavailable = true;
-      Config.setTtsEnabled(false);
+      res = findSupportedLanguage(defLocale, langs);
+      if (res != null && res.downloaded)
+        return res;
     }
 
-    return lang;
+    res = findSupportedLanguage(DEFAULT_LOCALE, langs);
+    if (res != null && res.downloaded)
+      return res;
+
+    return null;
   }
 
   public static @Nullable LanguageData getSelectedLanguage(List<LanguageData> langs)
   {
     return findSupportedLanguage(Config.getTtsLanguage(), langs);
+  }
+
+  private void lockDown()
+  {
+    mUnavailable = true;
+    setEnabled(false);
   }
 
   public void init(Context context)
@@ -105,35 +111,14 @@ public enum TtsPlayer
       {
         if (status == TextToSpeech.ERROR)
         {
-          Log.e(TAG, "Failed to initialize TextToSpeach");
-          mUnavailable = true;
+          Log.e("TtsPlayer", "Failed to initialize TextToSpeach");
+          lockDown();
           mInitializing = false;
           return;
         }
 
-        List<LanguageData> langs = getAvailableLanguages(false);
-        LanguageData defLang = getDefaultLanguage(langs);
-        LanguageData lang = getSelectedLanguage(langs);
-        if (lang == null)
-          lang = defLang;
-
-        if (lang != null)
-        {
-          String curLangCode = Config.getTtsLanguage();
-          if (defLang != null && !defLang.matchesInternalCode(curLangCode))
-          {
-            // Selected TTS locale does not match current defaults. And it was NOT set by user.
-            // Assume that the current locale was equal to old default one.
-            // So, let the new default locale be current.
-            if (!Config.isTtsLanguageSetByUser())
-              lang = findSupportedLanguage(defLang.internalCode, langs);
-          }
-
-          setLanguage(lang);
-        }
-
+        refreshLanguages();
         mTts.setSpeechRate(SPEECH_RATE);
-        setEnabled(Config.isTtsEnabled());
         mInitializing = false;
       }
     });
@@ -146,8 +131,9 @@ public enum TtsPlayer
 
   private void speak(String textToSpeak)
   {
-    //noinspection deprecation
-    mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null);
+    if (Config.isTtsEnabled())
+      //noinspection deprecation
+      mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null);
   }
 
   public void playTurnNotifications()
@@ -166,40 +152,69 @@ public enum TtsPlayer
       mTts.stop();
   }
 
-  public static boolean isEnabled()
+  public boolean isEnabled()
   {
-    return nativeAreTurnNotificationsEnabled();
+    return (isReady() && nativeAreTurnNotificationsEnabled());
   }
 
   public static void setEnabled(boolean enabled)
   {
+    Config.setTtsEnabled(enabled);
     nativeEnableTurnNotifications(enabled);
   }
 
-  public @NonNull List<LanguageData> getAvailableLanguages(boolean includeDownloadable)
+  private void getUsableLanguages(List<LanguageData> outList)
   {
-    List<LanguageData> res = new ArrayList<>();
-    if (mUnavailable || mTts == null)
-      return res;
-
     Resources resources = MwmApplication.get().getResources();
     String[] codes = resources.getStringArray(R.array.tts_languages_supported);
     String[] names = resources.getStringArray(R.array.tts_language_names);
 
     for (int i = 0; i < codes.length; i++)
     {
-      LanguageData lang = LanguageData.parse(codes[i], names[i]);
-      int status = mTts.isLanguageAvailable(lang.locale);
-
-      int requiredStatus = (includeDownloadable ? TextToSpeech.LANG_MISSING_DATA
-                                                : TextToSpeech.LANG_AVAILABLE);
-      if (status >= requiredStatus)
+      try
       {
-        lang.setStatus(status);
-        res.add(lang);
-      }
+        outList.add(new LanguageData(codes[i], names[i], mTts));
+      } catch (LanguageData.NotAvailableException ignored)
+      {}
+    }
+  }
+
+  private @Nullable LanguageData refreshLanguagesInternal(List<LanguageData> outList)
+  {
+    getUsableLanguages(outList);
+
+    if (outList.isEmpty())
+    {
+      // No supported languages found, lock down TTS :(
+      lockDown();
+      return null;
     }
 
+    LanguageData res = getSelectedLanguage(outList);
+    if (res == null || !res.downloaded)
+      // Selected locale is not available or not downloaded
+      res = getDefaultLanguage(outList);
+
+    if (res == null || !res.downloaded)
+    {
+      // Default locale can not be used too
+      Config.setTtsEnabled(false);
+      return null;
+    }
+
+    return res;
+  }
+
+  public @NonNull List<LanguageData> refreshLanguages()
+  {
+    List<LanguageData> res = new ArrayList<>();
+    if (mUnavailable || mTts == null)
+      return res;
+
+    LanguageData lang = refreshLanguagesInternal(res);
+    setLanguage(lang);
+
+    setEnabled(Config.isTtsEnabled());
     return res;
   }
 

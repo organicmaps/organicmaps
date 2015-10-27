@@ -25,31 +25,93 @@ public class RoutePrefsFragment extends PreferenceFragment
   private ListPreference mPrefLanguages;
 
   private final Map<String, LanguageData> mLanguages = new HashMap<>();
+  private LanguageData mCurrentLanguage;
   private String mSelectedLanguage;
+
+  private final Preference.OnPreferenceChangeListener mEnabledListener = new Preference.OnPreferenceChangeListener()
+  {
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue)
+    {
+      boolean set = (Boolean)newValue;
+      if (!set)
+      {
+        TtsPlayer.setEnabled(false);
+        mPrefLanguages.setEnabled(false);
+        return true;
+      }
+
+      if (mCurrentLanguage != null && mCurrentLanguage.downloaded)
+      {
+        setLanguage(mCurrentLanguage);
+        return true;
+      }
+
+      mPrefLanguages.setEnabled(true);
+      getPreferenceScreen().onItemClick(null, null, mPrefLanguages.getOrder(), 0);
+      mPrefLanguages.setEnabled(false);
+      return false;
+    }
+  };
+
+  private final Preference.OnPreferenceChangeListener mLangListener = new Preference.OnPreferenceChangeListener()
+  {
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue)
+    {
+      if (newValue == null)
+        return false;
+
+      mSelectedLanguage = (String)newValue;
+      LanguageData lang = mLanguages.get(mSelectedLanguage);
+      if (lang == null)
+        return false;
+
+      if (lang.downloaded)
+        setLanguage(lang);
+      else
+        startActivityForResult(new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA), REQUEST_INSTALL_DATA);
+
+      return false;
+    }
+  };
+
+  private void enableListeners(boolean enable)
+  {
+    mPrefEnabled.setOnPreferenceChangeListener(enable ? mEnabledListener : null);
+    mPrefLanguages.setOnPreferenceChangeListener(enable ? mLangListener : null);
+  }
 
   private void setLanguage(@NonNull LanguageData lang)
   {
+    Config.setTtsEnabled(true);
     TtsPlayer.INSTANCE.setLanguage(lang);
     mPrefLanguages.setSummary(lang.name);
 
-    Config.setTtsLanguageSetByUser();
     update();
   }
 
   private void update()
   {
-    List<LanguageData> languages = TtsPlayer.INSTANCE.getAvailableLanguages(true);
+    enableListeners(false);
+
+    List<LanguageData> languages = TtsPlayer.INSTANCE.refreshLanguages();
     mLanguages.clear();
+    mCurrentLanguage = null;
 
     if (languages.isEmpty())
     {
+      mPrefEnabled.setChecked(false);
       mPrefEnabled.setEnabled(false);
       mPrefEnabled.setSummary(R.string.pref_tts_unavailable);
       mPrefLanguages.setEnabled(false);
+      mPrefLanguages.setSummary(null);
+
+      enableListeners(true);
       return;
     }
 
-    mPrefEnabled.setChecked(TtsPlayer.isEnabled());
+    mPrefEnabled.setChecked(TtsPlayer.INSTANCE.isEnabled());
 
     final CharSequence[] entries = new CharSequence[languages.size()];
     final CharSequence[] values = new CharSequence[languages.size()];
@@ -65,12 +127,14 @@ public class RoutePrefsFragment extends PreferenceFragment
     mPrefLanguages.setEntries(entries);
     mPrefLanguages.setEntryValues(values);
 
-    LanguageData curLang = TtsPlayer.getSelectedLanguage(languages);
-    if (curLang != null)
-    {
-      mPrefLanguages.setSummary(curLang.name);
-      mPrefLanguages.setValueIndex(languages.indexOf(curLang));
-    }
+    mCurrentLanguage = TtsPlayer.getSelectedLanguage(languages);
+    boolean available = (mCurrentLanguage != null && mCurrentLanguage.downloaded);
+    mPrefLanguages.setEnabled(available && TtsPlayer.INSTANCE.isEnabled());
+    mPrefLanguages.setSummary(available ? mCurrentLanguage.name : null);
+    mPrefLanguages.setValue(available ? mCurrentLanguage.internalCode : null);
+    mPrefEnabled.setChecked(available && TtsPlayer.INSTANCE.isEnabled());
+
+    enableListeners(true);
   }
 
   @Override
@@ -81,36 +145,7 @@ public class RoutePrefsFragment extends PreferenceFragment
 
     mPrefEnabled = (SwitchPreference) findPreference(getString(R.string.pref_tts_enabled));
     mPrefLanguages = (ListPreference) findPreference(getString(R.string.pref_tts_language));
-
     update();
-
-    mPrefEnabled.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
-    {
-      @Override
-      public boolean onPreferenceChange(Preference preference, Object newValue)
-      {
-        boolean set = (Boolean)newValue;
-        mPrefLanguages.setEnabled(set);
-        Config.setTtsEnabled(set);
-        TtsPlayer.setEnabled(set);
-        return true;
-      }
-    });
-
-    mPrefLanguages.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
-    {
-      @Override
-      public boolean onPreferenceChange(Preference preference, Object newValue)
-      {
-        mSelectedLanguage = (String)newValue;
-        LanguageData lang = mLanguages.get(mSelectedLanguage);
-        if (lang.getStatus() == TextToSpeech.LANG_MISSING_DATA)
-          startActivityForResult(new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA), REQUEST_INSTALL_DATA);
-        else
-          setLanguage(lang);
-        return false;
-      }
-    });
   }
 
   @Override
@@ -124,7 +159,7 @@ public class RoutePrefsFragment extends PreferenceFragment
       update();
 
       LanguageData lang = mLanguages.get(mSelectedLanguage);
-      if (lang != null && lang.getStatus() == TextToSpeech.LANG_AVAILABLE)
+      if (lang != null && lang.downloaded)
         setLanguage(lang);
     }
   }
