@@ -15,15 +15,15 @@ char HexToDec(char ch)
 
 string UriDecode(string const & sSrc)
 {
-  // This code was slightly modified from
+  // This code is based on
   // http://www.codeguru.com/cpp/cpp/string/conversions/article.php/c12759
   //
   // Note from RFC1630: "Sequences which start with a percent
   // sign but are not followed by two hexadecimal characters
   // (0-9, A-F) are reserved for future extension"
 
-  char * const pStart = new char[sSrc.length()];
-  char * pEnd = pStart;
+  string result(sSrc.length(), 0);
+  auto itResult = result.begin();
 
   for (auto it = sSrc.begin(); it != sSrc.end(); ++it)
   {
@@ -35,7 +35,7 @@ string UriDecode(string const & sSrc)
         char dec2 = HexToDec(*(it + 2));
         if (-1 != dec1 && -1 != dec2)
         {
-          *pEnd++ = (dec1 << 4) + dec2;
+          *itResult++ = (dec1 << 4) + dec2;
           it += 2;
           continue;
         }
@@ -43,14 +43,13 @@ string UriDecode(string const & sSrc)
     }
 
     if (*it == '_')
-      *pEnd++ = ' ';
+      *itResult++ = ' ';
     else
-      *pEnd++ = *it;
+      *itResult++ = *it;
   }
 
-  string sResult(pStart, pEnd);
-  delete[] pStart;
-  return sResult;
+  result.resize(distance(result.begin(), itResult));
+  return result;
 }
 }  // namespace
 
