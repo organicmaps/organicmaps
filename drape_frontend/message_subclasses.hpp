@@ -633,19 +633,19 @@ public:
 class Enable3dModeMessage : public Message
 {
 public:
-  Enable3dModeMessage(float angleFOV, float angleX)
+  Enable3dModeMessage(float rotationAngle, float angleFOV)
     : m_angleFOV(angleFOV)
-    , m_angleX(angleX)
+    , m_rotationAngle(rotationAngle)
   {}
 
   Type GetType() const override { return Message::Enable3dMode; }
 
   float GetAngleFOV() const { return m_angleFOV; }
-  float GetAngleX() const { return m_angleX; }
+  float GetRotationAngle() const { return m_rotationAngle; }
 
 private:
   float m_angleFOV;
-  float m_angleX;
+  float m_rotationAngle;
 };
 
 class Disable3dModeMessage : public Message

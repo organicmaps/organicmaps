@@ -10,8 +10,9 @@
 class ScreenBase
 {
 public:
-  typedef math::Matrix<double, 3, 3> MatrixT;
-  typedef math::Matrix<double, 4, 4> Matrix3dT;
+  using MatrixT = math::Matrix<double, 3, 3>;
+  using Matrix3dT = math::Matrix<double, 4, 4>;
+  using Vector3dT = math::Matrix<double, 1, 4>;
 
 private:
   m2::RectD m_PixelRect;
@@ -121,14 +122,15 @@ public:
   m2::AnyRectD const & GlobalRect() const { return m_GlobalRect; }
   m2::RectD const & ClipRect() const { return m_ClipRect; }
 
-  void ApplyPerspective(double angleX, double fov);
+  void ApplyPerspective(double rotationAngle, double angleFOV);
   void ResetPerspective();
 
   Matrix3dT const & PTo3dMatrix() const { return m_Pto3d; }
   bool isPerspective() const { return m_isPerspective; }
 
-  // TODO: temporary function
-  m2::RectD PixelRect3d() const
+  m2::PointD PtoP3d(m2::PointD const & pt) const;
+
+  m2::RectD PixelRectIn3d() const
   {
     return m2::RectD(0.0, 0.0, m_PixelRect.maxX() / m_3dScaleX, m_PixelRect.maxY() / m_3dScaleY);
   }

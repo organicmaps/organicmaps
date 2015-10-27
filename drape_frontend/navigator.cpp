@@ -511,12 +511,11 @@ bool Navigator::IsRotatingDuringScale() const
   return m_IsRotatingDuringScale;
 }
 
-void Navigator::Enable3dMode(double angleX, double fov)
+void Navigator::Enable3dMode(double rotationAngle, double angleFOV)
 {
   ASSERT(!m_is3dMode, ());
-  m_Screen.ApplyPerspective(angleX, fov);
+  m_Screen.ApplyPerspective(rotationAngle, angleFOV);
   m_is3dMode = true;
-
 }
 
 void Navigator::Disable3dMode()

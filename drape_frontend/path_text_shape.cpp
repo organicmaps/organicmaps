@@ -53,8 +53,11 @@ public:
     return m_layout->CacheDynamicGeometry(m_centerPointIter, screen, m_normals);
   }
 
-  m2::RectD GetPixelRect(ScreenBase const & screen) const override
+  m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override
   {
+    if (perspective)
+      return GetPixelRectPerspective(screen);
+
     m2::PointD const pixelPivot(screen.GtoP(m_centerPointIter.m_pos));
     m2::RectD result;
     for (gpu::TextDynamicVertex const & v : m_normals)
@@ -63,7 +66,7 @@ public:
     return result;
   }
 
-  void GetPixelShape(ScreenBase const & screen, Rects & rects) const override
+  void GetPixelShape(ScreenBase const & screen, Rects & rects, bool perspective) const override
   {
     m2::PointD const pixelPivot(screen.GtoP(m_centerPointIter.m_pos));
     for (size_t quadIndex = 0; quadIndex < m_normals.size(); quadIndex += 4)
@@ -73,17 +76,13 @@ public:
       r.Add(pixelPivot + glsl::ToPoint(m_normals[quadIndex + 1].m_normal));
       r.Add(pixelPivot + glsl::ToPoint(m_normals[quadIndex + 2].m_normal));
       r.Add(pixelPivot + glsl::ToPoint(m_normals[quadIndex + 3].m_normal));
-      if (screen.PixelRect().IsIntersect(m2::RectD(r)))
-        rects.push_back(r);
-    }
-  }
 
-  void GetPixelShapePerspective(const ScreenBase &screen, Rects &rects) const override
-  {
-    GetPixelShape(screen, rects);
-    for (auto & rect : rects)
-    {
-      rect = m2::RectF(GetPerspectiveRect(m2::RectD(rect), screen));
+      m2::RectD const screenRect = perspective ? screen.PixelRectIn3d() : screen.PixelRect();
+      if (perspective)
+        r = m2::RectF(GetPerspectiveRect(m2::RectD(r), screen));
+
+      if (screenRect.IsIntersect(m2::RectD(r)))
+        rects.emplace_back(move(r));
     }
   }
 

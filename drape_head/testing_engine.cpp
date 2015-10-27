@@ -657,9 +657,9 @@ void TestingEngine::OnFlushData(dp::GLState const & state, drape_ptr<dp::RenderB
     ref_ptr<dp::OverlayHandle> handle = m_scene[state].back()->GetOverlayHandle(i);
     if (handle->Update(m_modelView))
     {
-      m_boundRects.push_back(handle->GetPixelRect(m_modelView));
+      m_boundRects.push_back(handle->GetPixelRect(m_modelView, false));
       m_rects.resize(m_rects.size() + 1);
-      handle->GetPixelShape(m_modelView, m_rects.back());
+      handle->GetPixelShape(m_modelView, m_rects.back(), false);
     }
   };
 }

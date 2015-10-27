@@ -1001,7 +1001,7 @@ void GLFunctions::glBindFramebuffer(uint32_t fbo)
 uint32_t GLFunctions::glCheckFramebufferStatus()
 {
   ASSERT(glCheckFramebufferStatusFn != nullptr, ());
-  uint32_t result = glCheckFramebufferStatusFn(GL_FRAMEBUFFER);
+  uint32_t const result = glCheckFramebufferStatusFn(GL_FRAMEBUFFER);
   GLCHECKCALL();
   return result;
 }

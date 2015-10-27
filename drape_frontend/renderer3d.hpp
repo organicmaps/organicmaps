@@ -1,8 +1,16 @@
 #pragma once
 
-#include "drape/gpu_program_manager.hpp"
+#include "drape/pointers.hpp"
 
-#include "geometry/screenbase.hpp"
+#include "std/vector.hpp"
+
+namespace dp
+{
+class GpuProgram;
+class GpuProgramManager;
+}
+
+class ScreenBase;
 
 namespace df
 {
@@ -19,13 +27,13 @@ public:
 private:
   void Build(ref_ptr<dp::GpuProgram> prg);
 
-  uint32_t m_width;
-  uint32_t m_height;
+  uint32_t m_width = 0;
+  uint32_t m_height = 0;
 
-  uint32_t m_VAO;
-  uint32_t m_bufferId;
+  uint32_t m_VAO = 0;
+  uint32_t m_bufferId = 0;
 
-  array<float, 16> m_vertices;
+  vector<float> m_vertices;
 };
 
-}
+}  // namespace df

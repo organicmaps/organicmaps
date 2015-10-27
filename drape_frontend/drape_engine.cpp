@@ -429,10 +429,10 @@ gui::TWidgetsSizeInfo const & DrapeEngine::GetWidgetSizes()
   return m_widgetSizes;
 }
 
-void DrapeEngine::Enable3dMode(float angleFOV, float angleX)
+void DrapeEngine::Enable3dMode(float rotationAngle, float angleFOV)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<Enable3dModeMessage>(angleFOV, angleX),
+                                  make_unique_dp<Enable3dModeMessage>(rotationAngle, angleFOV),
                                   MessagePriority::Normal);
 }
 

@@ -47,7 +47,7 @@ public:
   void CalculateScale(m2::PointD const & pt, double factor, ScreenBase & screen);
   bool InAction() const;
 
-  void Enable3dMode(double angleX, double fov);
+  void Enable3dMode(double rotationAngle, double angleFOV);
   void Disable3dMode();
 
 private:

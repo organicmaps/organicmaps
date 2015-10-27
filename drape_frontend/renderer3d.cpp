@@ -4,46 +4,30 @@
 #include "drape/glconstants.hpp"
 #include "drape/glfunctions.hpp"
 #include "drape/glstate.hpp"
+#include "drape/gpu_program_manager.hpp"
 #include "drape/shader_def.hpp"
 #include "drape/uniform_values_storage.hpp"
 
-#include "math.h"
+#include "geometry/screenbase.hpp"
+
+#include "std/cmath.hpp"
 
 namespace df
 {
 
 Renderer3d::Renderer3d()
-  : m_width(0)
-  , m_height(0)
-  , m_VAO(0)
-  , m_bufferId(0)
 {
-  m_vertices[0] = -1.0f;
-  m_vertices[1] = 1.0;
-  m_vertices[2] = 0.0f;
-  m_vertices[3] = 1.0f;
-
-  m_vertices[4] = 1.0f;
-  m_vertices[5] = 1.0f;
-  m_vertices[6] = 1.0f;
-  m_vertices[7] = 1.0f;
-
-  m_vertices[8] = -1.0f;
-  m_vertices[9] = -1.0f;
-  m_vertices[10] = 0.0f;
-  m_vertices[11] = 0.0f;
-
-  m_vertices[12] = 1.0f;
-  m_vertices[13] = -1.0f;
-  m_vertices[14] = 1.0f;
-  m_vertices[15] = 0.0f;
+  m_vertices = { -1.0f,  1.0f, 0.0f, 1.0f,
+                  1.0f,  1.0f, 1.0f, 1.0f,
+                 -1.0f, -1.0f, 0.0f, 0.0f,
+                  1.0f, -1.0f, 1.0f, 0.0f };
 }
 
 Renderer3d::~Renderer3d()
 {
-  if (m_bufferId)
+  if (m_bufferId != 0)
     GLFunctions::glDeleteBuffer(m_bufferId);
-  if (m_VAO)
+  if (m_VAO != 0)
     GLFunctions::glDeleteVertexArray(m_VAO);
 }
 
@@ -78,17 +62,15 @@ void Renderer3d::Render(ScreenBase const & screen, uint32_t textureId, ref_ptr<d
 {
   ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::TEXTURING_3D_PROGRAM);
   prg->Bind();
-  
-  if (!m_VAO)
+
+  if (m_VAO == 0)
     Build(prg);
 
-  ScreenBase::Matrix3dT const & PTo3d = screen.PTo3dMatrix();
-  float transform[16];
-  copy(begin(PTo3d.m_data), end(PTo3d.m_data), transform);
+  math::Matrix<float, 4, 4> const transform(screen.PTo3dMatrix());
 
   dp::UniformValuesStorage uniforms;
   uniforms.SetIntValue("tex", 0);
-  uniforms.SetMatrix4x4Value("m_transform", transform);
+  uniforms.SetMatrix4x4Value("m_transform", transform.m_data);
 
   dp::ApplyUniforms(uniforms, prg);
 
@@ -113,4 +95,4 @@ void Renderer3d::Render(ScreenBase const & screen, uint32_t textureId, ref_ptr<d
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
 }
 
-}
+}  // namespace df

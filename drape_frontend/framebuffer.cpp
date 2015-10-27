@@ -1,6 +1,7 @@
 #include "framebuffer.hpp"
 
 #include "drape/glfunctions.hpp"
+#include "drape/oglcontext.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -10,13 +11,7 @@
 
 namespace df
 {
-
-Framebuffer::Framebuffer()
-  : m_colorTextureId(0)
-  , m_depthTextureId(0)
-  , m_framebufferId(0)
-  , m_maxTextureSize(GLFunctions::glGetInteger(gl_const::GLMaxTextureSize))
-  , m_defaultContext(0)
+Framebuffer::Framebuffer() : m_maxTextureSize(GLFunctions::glGetInteger(gl_const::GLMaxTextureSize))
 {
 }
 
@@ -27,17 +22,17 @@ Framebuffer::~Framebuffer()
 
 void Framebuffer::Destroy()
 {
-  if (m_colorTextureId)
+  if (m_colorTextureId != 0)
   {
     GLFunctions::glDeleteTexture(m_colorTextureId);
     m_colorTextureId = 0;
   }
-  if (m_depthTextureId)
+  if (m_depthTextureId != 0)
   {
     GLFunctions::glDeleteTexture(m_depthTextureId);
     m_depthTextureId = 0;
   }
-  if (m_framebufferId)
+  if (m_framebufferId != 0)
   {
     GLFunctions::glDeleteFramebuffer(&m_framebufferId);
     m_framebufferId = 0;
@@ -85,11 +80,11 @@ void Framebuffer::SetSize(uint32_t width, uint32_t height)
 
   GLFunctions::glFramebufferTexture2D(gl_const::GLColorAttachment, m_colorTextureId);
   GLFunctions::glFramebufferTexture2D(gl_const::GLDepthAttachment, m_depthTextureId);
-  GLFunctions::glFramebufferTexture2D(gl_const::GlStencilAttachment, 0);
+  GLFunctions::glFramebufferTexture2D(gl_const::GLStencilAttachment, 0);
 
-  uint32_t status = GLFunctions::glCheckFramebufferStatus();
-  if (status != gl_const::GlFramebufferComplete)
-    LOG(LWARNING, ("Incomplete framebuffer: ", strings::to_string(status)));
+  uint32_t const status = GLFunctions::glCheckFramebufferStatus();
+  if (status != gl_const::GLFramebufferComplete)
+    LOG(LWARNING, ("Incomplete framebuffer:", strings::to_string(status)));
 
   m_defaultContext->setDefaultFramebuffer();
 }
@@ -109,5 +104,4 @@ uint32_t Framebuffer::GetTextureId() const
 {
   return m_colorTextureId;
 }
-
-}
+}  // namespace df

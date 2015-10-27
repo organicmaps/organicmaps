@@ -1,8 +1,11 @@
 #pragma once
 
-#include "drape/oglcontext.hpp"
-
 #include "stdint.h"
+
+namespace dp
+{
+class OGLContext;
+}
 
 namespace df
 {
@@ -26,16 +29,16 @@ public:
 private:
   void Destroy();
 
-  uint32_t m_width;
-  uint32_t m_height;
+  uint32_t m_width = 0;
+  uint32_t m_height = 0;
 
-  uint32_t m_colorTextureId;
-  uint32_t m_depthTextureId;
-  uint32_t m_framebufferId;
+  uint32_t m_colorTextureId = 0;
+  uint32_t m_depthTextureId = 0;
+  uint32_t m_framebufferId = 0;
 
-  const int32_t m_maxTextureSize;
+  dp::OGLContext * m_defaultContext = 0;
 
-  dp::OGLContext * m_defaultContext;
+  int32_t const m_maxTextureSize;
 };
 
-}
+}  // namespace df

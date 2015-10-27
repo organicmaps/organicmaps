@@ -8,7 +8,7 @@ namespace df
 TextHandle::TextHandle(FeatureID const & id, strings::UniString const & text,
                        dp::Anchor anchor, uint64_t priority,
                        ref_ptr<dp::TextureManager> textureManager)
-  : OverlayHandle(id, anchor, priority)
+  : OverlayHandle(id, anchor, priority, false)
   , m_forceUpdateNormals(false)
   , m_isLastVisible(false)
   , m_text(text)

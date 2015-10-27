@@ -36,8 +36,11 @@ public:
     , m_isOptional(isOptional)
   {}
 
-  m2::RectD GetPixelRect(ScreenBase const & screen) const override
+  m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override
   {
+    if (perspective)
+      return GetPixelRectPerspective(screen);
+
     m2::PointD pivot = screen.GtoP(m_pivot) + m_offset;
     double x = pivot.x;
     double y = pivot.y;
@@ -67,14 +70,9 @@ public:
                      max(x, pivot.x), max(y, pivot.y));
   }
 
-  void GetPixelShape(ScreenBase const & screen, Rects & rects) const override
+  void GetPixelShape(ScreenBase const & screen, Rects & rects, bool perspective) const override
   {
-    rects.push_back(m2::RectF(GetPixelRect(screen)));
-  }
-
-  void GetPixelShapePerspective(const ScreenBase &screen, Rects &rects) const override
-  {
-    rects.push_back(m2::RectF(TextHandle::GetPixelRectPerspective(screen)));
+    rects.emplace_back(GetPixelRect(screen, perspective));
   }
 
   bool IsBound() const override

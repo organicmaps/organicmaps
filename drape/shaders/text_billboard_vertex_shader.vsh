@@ -25,15 +25,13 @@ void main()
   // Here we intentionally decrease precision of 'pivot' calculation
   // to eliminate jittering effect in process of billboard reconstruction.
   lowp vec4 pivot = a_position * modelView;
-  vec4 offset = vec4(a_normal, Zero, Zero);
+  vec4 offset = vec4(a_normal, Zero, Zero) * projection;
     
-  pivot = pivot * projection;
-  offset = offset * projection;
-
-  gl_Position = pivotTransform * vec4(pivot.xy, Zero, One);
+  vec4 projectedPivot = pivot * projection;
+  vec4 transformedPivot = pivotTransform * vec4(projectedPivot.xy, Zero, One);
     
   vec4 scale = pivotTransform * vec4(One, -One, Zero, One);
-  gl_Position = gl_Position + vec4(offset.xy * gl_Position.w / scale.w * scale.x, Zero, Zero);
+  gl_Position = transformedPivot + vec4(offset.xy * transformedPivot.w / scale.w * scale.x, Zero, Zero);
 
 #ifdef ENABLE_VTF
   v_color = texture2D(u_colorTex, a_colorTexCoord);
