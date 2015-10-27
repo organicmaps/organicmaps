@@ -1,16 +1,5 @@
 #include "indexer/feature_meta.hpp"
 
-namespace feature
-{
-string Metadata::GetWikiURL() const
-{
-  string value = this->Get(FMD_WIKIPEDIA);
-  string::size_type i = value.find(':');
-  if (i == string::npos)
-    return string();
-  return "https://" + value.substr(0, i) + ".wikipedia.org/wiki/" + value.substr(i + 1);
-}
-
 namespace
 {
 char HexToDec(char ch)
@@ -33,43 +22,47 @@ string UriDecode(string const & sSrc)
   // sign but are not followed by two hexadecimal characters
   // (0-9, A-F) are reserved for future extension"
 
-  unsigned char const * pSrc = (unsigned char const *)sSrc.c_str();
-  string::size_type const srcLen = sSrc.length();
-  unsigned char const * const srcEnd = pSrc + srcLen;
-  // last decodable '%'
-  unsigned char const * const srcLastDec = srcEnd - 2;
-
-  char * const pStart = new char[srcLen];
+  char * const pStart = new char[sSrc.length()];
   char * pEnd = pStart;
 
-  while (pSrc < srcEnd)
+  for (auto it = sSrc.begin(); it != sSrc.end(); ++it)
   {
-    if (*pSrc == '%')
+    if (*it == '%')
     {
-      if (pSrc < srcLastDec)
+      if (distance(it, sSrc.end()) > 2)
       {
-        char dec1 = HexToDec(*(pSrc + 1));
-        char dec2 = HexToDec(*(pSrc + 2));
+        char dec1 = HexToDec(*(it + 1));
+        char dec2 = HexToDec(*(it + 2));
         if (-1 != dec1 && -1 != dec2)
         {
           *pEnd++ = (dec1 << 4) + dec2;
-          pSrc += 3;
+          it += 2;
           continue;
         }
       }
     }
 
-    if (*pSrc == '_')
+    if (*it == '_')
       *pEnd++ = ' ';
     else
-      *pEnd++ = *pSrc;
-    pSrc++;
+      *pEnd++ = *it;
   }
 
   string sResult(pStart, pEnd);
-  delete [] pStart;
+  delete[] pStart;
   return sResult;
 }
+}  // namespace
+
+namespace feature
+{
+string Metadata::GetWikiURL() const
+{
+  string value = this->Get(FMD_WIKIPEDIA);
+  string::size_type i = value.find(':');
+  if (i == string::npos)
+    return string();
+  return "https://" + value.substr(0, i) + ".wikipedia.org/wiki/" + value.substr(i + 1);
 }
 
 string Metadata::GetWikiTitle() const

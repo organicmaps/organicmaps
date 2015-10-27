@@ -163,6 +163,12 @@ UNIT_TEST(Metadata_ValidateAndFormat_wikipedia)
 
   p("wikipedia", "http://ru.google.com/wiki/wutlol");
   TEST(params.GetMetadata().Empty(), ("Google"));
+
+  // URL Decoding Test
+  string const badWikiTitle = "%%A";
+  p("wikipedia", "https://bad.wikipedia.org/wiki/" + badWikiTitle);
+  TEST_EQUAL(params.GetMetadata().GetWikiTitle(), "bad:" + badWikiTitle, ("bad title"));
+  params.GetMetadata().Drop(feature::Metadata::FMD_WIKIPEDIA);
 }
 
 UNIT_TEST(Metadata_ReadWrite_Intermediate)
