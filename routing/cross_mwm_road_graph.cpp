@@ -20,8 +20,9 @@ IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
   startMapping->LoadCrossContext();
 
   // Load source data.
-  auto const mwmOutsIter = startMapping->m_crossContext.GetOutgoingIterators();
-  size_t const outSize = distance(mwmOutsIter.first, mwmOutsIter.second);
+  vector<OutgoingCrossNode> outgoingNodes;
+  startMapping->m_crossContext.GetAllOutgoingNodes(outgoingNodes);
+  size_t const outSize = outgoingNodes.size();
   // Can't find the route if there are no routes outside source map.
   if (!outSize)
     return IRouter::RouteNotFound;
@@ -29,8 +30,11 @@ IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
   // Generate routing task from one source to several targets.
   TRoutingNodes sources(1), targets;
   targets.reserve(outSize);
-  for (auto j = mwmOutsIter.first; j < mwmOutsIter.second; ++j)
-    targets.emplace_back(j->m_nodeId, false /* isStartNode */, startNode.mwmName);
+  for (auto const & node : outgoingNodes)
+  {
+    targets.emplace_back(node.m_nodeId, false /* isStartNode */, startNode.mwmName);
+    targets.back().segmentPoint = node.m_point;
+  }
   sources[0] = FeatureGraphNode(startNode.node, startNode.reverseNode, true /* isStartNode */,
                                 startNode.mwmName);
 
@@ -43,7 +47,7 @@ IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
   {
     if (IsValidEdgeWeight(weights[i]))
     {
-      BorderCross nextNode = FindNextMwmNode(*(mwmOutsIter.first + i), startMapping);
+      BorderCross nextNode = FindNextMwmNode(outgoingNodes[i], startMapping);
       if (nextNode.toNode.IsValid())
         dummyEdges.emplace_back(nextNode, weights[i]);
     }
@@ -92,6 +96,7 @@ IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
       return IRouter::NoError;
     }
     sources.emplace_back(node.m_nodeId, true /* isStartNode */, finalNode.mwmName);
+    sources.back().segmentPoint = node.m_point;
   }
   vector<EdgeWeight> weights;
 
@@ -165,7 +170,6 @@ void CrossMwmGraph::GetOutgoingEdgesList(BorderCross const & v,
   currentMapping->FreeFileIfPossible();
 
   CrossRoutingContextReader const & currentContext = currentMapping->m_crossContext;
-  auto outRange = currentContext.GetOutgoingIterators();
 
   // Find income node.
   IngoingCrossNode ingoingNode;
@@ -186,13 +190,16 @@ void CrossMwmGraph::GetOutgoingEdgesList(BorderCross const & v,
     }
   }
 
+  vector<OutgoingCrossNode> outgoingNodes;
+  currentContext.GetAllOutgoingNodes(outgoingNodes);
+
   // Find outs. Generate adjacency list.
-  for (auto outIt = outRange.first; outIt != outRange.second; ++outIt)
+  for (auto const & node : outgoingNodes)
   {
-    EdgeWeight const outWeight = currentContext.GetAdjacencyCost(ingoingNode, *outIt);
+    EdgeWeight const outWeight = currentContext.GetAdjacencyCost(ingoingNode, node);
     if (outWeight != INVALID_CONTEXT_EDGE_WEIGHT && outWeight != 0)
     {
-      BorderCross target = FindNextMwmNode(*outIt, currentMapping);
+      BorderCross target = FindNextMwmNode(node, currentMapping);
       if (target.toNode.IsValid())
         adj.emplace_back(target, outWeight);
     }

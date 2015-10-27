@@ -50,10 +50,10 @@ UNIT_TEST(CheckCrossSections)
       }
     }
 
-    auto outgoing = crossReader.GetOutgoingIterators();
-    for (auto i = outgoing.first; i != outgoing.second; ++i)
+    vector<OutgoingCrossNode> outgoingNodes;
+    for (auto const & node : outgoingNodes)
     {
-      if (i->m_point.EqualDxDy(kZeroPoint, kPointEquality))
+      if (node.m_point.EqualDxDy(kZeroPoint, kPointEquality))
       {
         outgoingErrors++;
         break;

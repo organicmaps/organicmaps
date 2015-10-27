@@ -111,12 +111,6 @@ const string & CrossRoutingContextReader::GetOutgoingMwmName(
   return m_neighborMwmList[outgoingNode.m_outgoingIndex];
 }
 
-pair<OutgoingEdgeIteratorT, OutgoingEdgeIteratorT> CrossRoutingContextReader::GetOutgoingIterators()
-    const
-{
-  return make_pair(m_outgoingNodes.cbegin(), m_outgoingNodes.cend());
-}
-
 WritedEdgeWeightT CrossRoutingContextReader::GetAdjacencyCost(IngoingCrossNode const & ingoing,
                                                               OutgoingCrossNode const & outgoing) const
 {
@@ -134,6 +128,13 @@ void CrossRoutingContextReader::GetAllIngoingNodes(vector<IngoingCrossNode> & no
                          {
                            nodes.push_back(node);
                          });
+}
+
+// It is not absolutelty effective, because we plan to change internal storage to avoid backward A*
+// So we can't just return a reference.
+void CrossRoutingContextReader::GetAllOutgoingNodes(vector<OutgoingCrossNode> & nodes) const
+{
+  nodes = m_outgoingNodes;
 }
 
 void CrossRoutingContextWriter::Save(Writer & w) const

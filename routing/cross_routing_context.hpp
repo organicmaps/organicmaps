@@ -88,12 +88,11 @@ public:
 
   bool FindIngoingNodeByPoint(m2::PointD const & point, IngoingCrossNode & node) const;
 
-  pair<OutgoingEdgeIteratorT, OutgoingEdgeIteratorT> GetOutgoingIterators() const;
-
   WritedEdgeWeightT GetAdjacencyCost(IngoingCrossNode const & ingoing,
                                      OutgoingCrossNode const & outgoing) const;
 
   void GetAllIngoingNodes(vector<IngoingCrossNode> & nodes) const;
+  void GetAllOutgoingNodes(vector<OutgoingCrossNode> & nodes) const;
 };
 
 /// Helper class to generate cross context section in mwm.routing file

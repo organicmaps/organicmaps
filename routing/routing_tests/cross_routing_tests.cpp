@@ -62,13 +62,13 @@ UNIT_TEST(TestContextSerialization)
   TEST_EQUAL(ingoingNodes[0].m_nodeId, 1, ());
   TEST_EQUAL(ingoingNodes[1].m_nodeId, 2, ());
 
-  auto outs = newContext.GetOutgoingIterators();
-  TEST_EQUAL(distance(outs.first,outs.second), 2, ());
-  TEST_EQUAL(outs.first->m_nodeId, 3, ());
-  TEST_EQUAL(newContext.GetOutgoingMwmName(*outs.first), string("foo"), ());
-  ++outs.first;
-  TEST_EQUAL(outs.first->m_nodeId, 4, ());
-  TEST_EQUAL(newContext.GetOutgoingMwmName(*outs.first), string("bar"), ());
+  vector<OutgoingCrossNode> outgoingNodes;
+  newContext.GetAllOutgoingNodes(outgoingNodes);
+  TEST_EQUAL(outgoingNodes.size(), 2, ());
+  TEST_EQUAL(outgoingNodes[0].m_nodeId, 3, ());
+  TEST_EQUAL(newContext.GetOutgoingMwmName(outgoingNodes[0]), string("foo"), ());
+  TEST_EQUAL(outgoingNodes[1].m_nodeId, 4, ());
+  TEST_EQUAL(newContext.GetOutgoingMwmName(outgoingNodes[1]), string("bar"), ());
 }
 
 UNIT_TEST(TestAdjacencyMatrix)
@@ -97,10 +97,11 @@ UNIT_TEST(TestAdjacencyMatrix)
   newContext.Load(reader);
   vector<IngoingCrossNode> ingoingNodes;
   newContext.GetAllIngoingNodes(ingoingNodes);
-  auto outs = newContext.GetOutgoingIterators();
-  TEST_EQUAL(newContext.GetAdjacencyCost(ingoingNodes[0], *outs.first), 5, ());
-  TEST_EQUAL(newContext.GetAdjacencyCost(ingoingNodes[1], *outs.first), 9, ());
-  TEST_EQUAL(newContext.GetAdjacencyCost(ingoingNodes[2], *outs.first),
+  vector<OutgoingCrossNode> outgoingNodes;
+  newContext.GetAllOutgoingNodes(outgoingNodes);
+  TEST_EQUAL(newContext.GetAdjacencyCost(ingoingNodes[0], outgoingNodes[0]), 5, ());
+  TEST_EQUAL(newContext.GetAdjacencyCost(ingoingNodes[1], outgoingNodes[0]), 9, ());
+  TEST_EQUAL(newContext.GetAdjacencyCost(ingoingNodes[2], outgoingNodes[0]),
              routing::INVALID_CONTEXT_EDGE_WEIGHT, ("Default cost"));
 }
 
