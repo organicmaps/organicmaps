@@ -6,6 +6,7 @@
 
 #include "indexer/index.hpp"
 
+#include "geometry/latlon.hpp"
 #include "geometry/point2d.hpp"
 
 #include "base/macros.hpp"
@@ -21,20 +22,20 @@ struct CrossNode
   NodeID reverseNode;
   // TODO switch to mwmID
   string mwmName;
-  m2::PointD point;
+  ms::LatLon point;
   bool isVirtual;
 
-  CrossNode(NodeID node, NodeID reverse, string const & mwmName, m2::PointD const & point)
+  CrossNode(NodeID node, NodeID reverse, string const & mwmName, ms::LatLon const & point)
       : node(node), reverseNode(reverse), mwmName(mwmName), point(point), isVirtual(false)
   {
   }
 
-  CrossNode(NodeID node, string const & mwmName, m2::PointD const & point)
+  CrossNode(NodeID node, string const & mwmName, ms::LatLon const & point)
       : node(node), reverseNode(INVALID_NODE_ID), mwmName(mwmName), point(point), isVirtual(false)
   {
   }
 
-  CrossNode() : node(INVALID_NODE_ID), reverseNode(INVALID_NODE_ID), point(m2::PointD::Zero()) {}
+  CrossNode() : node(INVALID_NODE_ID), reverseNode(INVALID_NODE_ID), point(ms::LatLon::Zero()) {}
 
   inline bool IsValid() const { return node != INVALID_NODE_ID; }
 
@@ -131,7 +132,7 @@ private:
 
   map<CrossNode, vector<CrossWeightedEdge> > m_virtualEdges;
   mutable RoutingIndexManager m_indexManager;
-  mutable unordered_map<m2::PointD, BorderCross, m2::PointD::Hash> m_cachedNextNodes;
+  mutable unordered_map<ms::LatLon, BorderCross, ms::LatLon::Hash> m_cachedNextNodes;
 };
 
 //--------------------------------------------------------------------------------------------------

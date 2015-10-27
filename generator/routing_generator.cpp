@@ -128,9 +128,9 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
                 continue;
             }
             // for old format compatibility
-            intersection = m2::PointD(MercatorBounds::XToLon(intersection.x), MercatorBounds::YToLat(intersection.y));
+            ms::LatLon wgsIntersection = ms::LatLon(MercatorBounds::ToLatLon(intersection));
             if (!outStart && outEnd)
-              crossContext.AddIngoingNode(nodeId, intersection);
+              crossContext.AddIngoingNode(nodeId, wgsIntersection);
             else if (outStart && !outEnd)
             {
               string mwmName;
@@ -147,7 +147,7 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
                 });
               });
               if (!mwmName.empty())
-                crossContext.AddOutgoingNode(nodeId, mwmName, intersection);
+                crossContext.AddOutgoingNode(nodeId, mwmName, wgsIntersection);
               else
                 LOG(LINFO, ("Unknowing outgoing edge", endSeg.lat2, endSeg.lon2, startSeg.lat1, startSeg.lon1));
             }

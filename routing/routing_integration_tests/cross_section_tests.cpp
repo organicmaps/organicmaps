@@ -17,7 +17,6 @@ namespace
 UNIT_TEST(CheckCrossSections)
 {
   static double constexpr kPointEquality = 0.01;
-  static m2::PointD const kZeroPoint = m2::PointD(0., 0.);
   vector<platform::LocalCountryFile> localFiles;
   platform::FindAllLocalMaps(localFiles);
 
@@ -43,7 +42,7 @@ UNIT_TEST(CheckCrossSections)
     crossReader.GetAllIngoingNodes(ingoingNodes);
     for (auto const & node : ingoingNodes)
     {
-      if (node.m_point.EqualDxDy(kZeroPoint, kPointEquality))
+      if (node.m_point.EqualDxDy(ms::LatLon::Zero(), kPointEquality))
       {
         ingoingErrors++;
         break;
@@ -53,7 +52,7 @@ UNIT_TEST(CheckCrossSections)
     vector<OutgoingCrossNode> outgoingNodes;
     for (auto const & node : outgoingNodes)
     {
-      if (node.m_point.EqualDxDy(kZeroPoint, kPointEquality))
+      if (node.m_point.EqualDxDy(ms::LatLon::Zero(), kPointEquality))
       {
         outgoingErrors++;
         break;

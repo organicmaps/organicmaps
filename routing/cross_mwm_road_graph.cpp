@@ -33,7 +33,7 @@ IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
   for (auto const & node : outgoingNodes)
   {
     targets.emplace_back(node.m_nodeId, false /* isStartNode */, startNode.mwmName);
-    targets.back().segmentPoint = node.m_point;
+    targets.back().segmentPoint = MercatorBounds::FromLatLon(node.m_point);
   }
   sources[0] = FeatureGraphNode(startNode.node, startNode.reverseNode, true /* isStartNode */,
                                 startNode.mwmName);
@@ -60,8 +60,7 @@ IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
 void CrossMwmGraph::AddVirtualEdge(IngoingCrossNode const & node, CrossNode const & finalNode,
                                    EdgeWeight weight)
 {
-  CrossNode start(node.m_nodeId, finalNode.mwmName,
-                  MercatorBounds::FromLatLon(node.m_point.y, node.m_point.x));
+  CrossNode start(node.m_nodeId, finalNode.mwmName, node.m_point);
   vector<CrossWeightedEdge> dummyEdges;
   dummyEdges.emplace_back(BorderCross(finalNode, finalNode), weight);
   m_virtualEdges.insert(make_pair(start, dummyEdges));
@@ -96,7 +95,7 @@ IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
       return IRouter::NoError;
     }
     sources.emplace_back(node.m_nodeId, true /* isStartNode */, finalNode.mwmName);
-    sources.back().segmentPoint = node.m_point;
+    sources.back().segmentPoint = MercatorBounds::FromLatLon(node.m_point);
   }
   vector<EdgeWeight> weights;
 
@@ -118,7 +117,7 @@ IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
 BorderCross CrossMwmGraph::FindNextMwmNode(OutgoingCrossNode const & startNode,
                                            TRoutingMappingPtr const & currentMapping) const
 {
-  m2::PointD const & startPoint = startNode.m_point;
+  ms::LatLon const & startPoint = startNode.m_point;
 
   // Check cached crosses.
   auto const it = m_cachedNextNodes.find(startPoint);
@@ -140,10 +139,8 @@ BorderCross CrossMwmGraph::FindNextMwmNode(OutgoingCrossNode const & startNode,
   {
     auto const & targetPoint = ingoingNode.m_point;
     BorderCross const cross(
-        CrossNode(startNode.m_nodeId, currentMapping->GetCountryName(),
-                  MercatorBounds::FromLatLon(targetPoint.y, targetPoint.x)),
-        CrossNode(ingoingNode.m_nodeId, nextMwm,
-                  MercatorBounds::FromLatLon(targetPoint.y, targetPoint.x)));
+        CrossNode(startNode.m_nodeId, currentMapping->GetCountryName(), targetPoint),
+        CrossNode(ingoingNode.m_nodeId, nextMwm, targetPoint));
     m_cachedNextNodes.insert(make_pair(startPoint, cross));
     return cross;
   }
@@ -173,11 +170,11 @@ void CrossMwmGraph::GetOutgoingEdgesList(BorderCross const & v,
 
   // Find income node.
   IngoingCrossNode ingoingNode;
-  bool found = currentContext.FindIngoingNodeByPoint({MercatorBounds::XToLon(v.toNode.point.x), MercatorBounds::YToLat(v.toNode.point.y)}, ingoingNode);
-  CHECK(found, (m2::PointD(MercatorBounds::XToLon(v.toNode.point.x), MercatorBounds::YToLat(v.toNode.point.y))));
+  bool found = currentContext.FindIngoingNodeByPoint(v.toNode.point, ingoingNode);
+  CHECK(found, ());
   if (ingoingNode.m_nodeId != v.toNode.node)
   {
-    LOG(LDEBUG, ("Several nodes stores in one border point.", m2::PointD(MercatorBounds::XToLon(v.toNode.point.x), MercatorBounds::YToLat(v.toNode.point.y))));
+    LOG(LDEBUG, ("Several nodes stores in one border point.", v.toNode.point));
     vector<IngoingCrossNode> ingoingNodes;
     currentContext.GetAllIngoingNodes(ingoingNodes);
     for(auto const & node : ingoingNodes)
@@ -221,8 +218,10 @@ void ConvertToSingleRouterTasks(vector<BorderCross> const & graphCrosses,
   for (size_t i = 0; i + 1 < graphCrosses.size(); ++i)
   {
     ASSERT_EQUAL(graphCrosses[i].toNode.mwmName, graphCrosses[i + 1].fromNode.mwmName, ());
-    route.emplace_back(graphCrosses[i].toNode.node, graphCrosses[i].toNode.point,
-                       graphCrosses[i + 1].fromNode.node, graphCrosses[i + 1].fromNode.point,
+    route.emplace_back(graphCrosses[i].toNode.node,
+                       MercatorBounds::FromLatLon(graphCrosses[i].toNode.point),
+                       graphCrosses[i + 1].fromNode.node,
+                       MercatorBounds::FromLatLon(graphCrosses[i + 1].fromNode.point),
                        graphCrosses[i].toNode.mwmName);
   }
 

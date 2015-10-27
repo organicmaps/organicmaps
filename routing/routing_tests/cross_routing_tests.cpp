@@ -43,10 +43,10 @@ UNIT_TEST(TestContextSerialization)
   routing::CrossRoutingContextWriter context;
   routing::CrossRoutingContextReader newContext;
 
-  context.AddIngoingNode(1, m2::PointD::Zero());
-  context.AddIngoingNode(2, m2::PointD::Zero());
-  context.AddOutgoingNode(3, "foo", m2::PointD::Zero());
-  context.AddOutgoingNode(4, "bar", m2::PointD::Zero());
+  context.AddIngoingNode(1, ms::LatLon::Zero());
+  context.AddIngoingNode(2, ms::LatLon::Zero());
+  context.AddOutgoingNode(3, "foo", ms::LatLon::Zero());
+  context.AddOutgoingNode(4, "bar", ms::LatLon::Zero());
   context.ReserveAdjacencyMatrix();
 
   vector<char> buffer;
@@ -76,10 +76,10 @@ UNIT_TEST(TestAdjacencyMatrix)
   routing::CrossRoutingContextWriter context;
   routing::CrossRoutingContextReader newContext;
 
-  context.AddIngoingNode(1, m2::PointD::Zero());
-  context.AddIngoingNode(2, m2::PointD::Zero());
-  context.AddIngoingNode(3, m2::PointD::Zero());
-  context.AddOutgoingNode(4, "foo", m2::PointD::Zero());
+  context.AddIngoingNode(1, ms::LatLon::Zero());
+  context.AddIngoingNode(2, ms::LatLon::Zero());
+  context.AddIngoingNode(3, ms::LatLon::Zero());
+  context.AddOutgoingNode(4, "foo", ms::LatLon::Zero());
   context.ReserveAdjacencyMatrix();
   {
     auto ins = context.GetIngoingIterators();
