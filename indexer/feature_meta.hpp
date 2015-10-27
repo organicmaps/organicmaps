@@ -76,6 +76,9 @@ namespace feature
     inline bool Empty() const { return m_metadata.empty(); }
     inline size_t Size() const { return m_metadata.size(); }
 
+    string GetWikiURL() const;
+    string GetWikiTitle() const;
+
     template <class ArchiveT> void SerializeToMWM(ArchiveT & ar) const
     {
       for (auto const & e : m_metadata)

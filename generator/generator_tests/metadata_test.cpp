@@ -137,10 +137,14 @@ UNIT_TEST(Metadata_ValidateAndFormat_wikipedia)
 
   p("wikipedia", "ru:Лана Вуд");
   TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_WIKIPEDIA), "ru:" + lanaWoodUrlEncoded, ("ru:"));
+  TEST_EQUAL(params.GetMetadata().GetWikiTitle(), "ru:Лана Вуд", ("ru:"));
+  TEST_EQUAL(params.GetMetadata().GetWikiURL(), "https://ru.wikipedia.org/wiki/" + lanaWoodUrlEncoded, ("ru:"));
   params.GetMetadata().Drop(feature::Metadata::FMD_WIKIPEDIA);
 
   p("wikipedia", "https://ru.wikipedia.org/wiki/" + lanaWoodUrlEncoded);
   TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_WIKIPEDIA), "ru:" + lanaWoodUrlEncoded, ("https:"));
+  TEST_EQUAL(params.GetMetadata().GetWikiTitle(), "ru:Лана Вуд", ("https:"));
+  TEST_EQUAL(params.GetMetadata().GetWikiURL(), "https://ru.wikipedia.org/wiki/" + lanaWoodUrlEncoded, ("https:"));
   params.GetMetadata().Drop(feature::Metadata::FMD_WIKIPEDIA);
 
   p("wikipedia", "Test");
