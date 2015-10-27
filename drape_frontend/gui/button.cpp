@@ -23,9 +23,9 @@ void ApplyAnchor(dp::Anchor anchor, vector<Button::ButtonVertex> & vertices, flo
     normalOffset.x = -halfWidth;
 
   if (anchor & dp::Top)
-    normalOffset.x = halfHeight;
+    normalOffset.y = halfHeight;
   else if (anchor & dp::Bottom)
-    normalOffset.x = -halfHeight;
+    normalOffset.y = -halfHeight;
 
   for (Button::ButtonVertex & v : vertices)
     v.m_normal = v.m_normal + normalOffset;

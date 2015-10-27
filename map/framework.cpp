@@ -1247,7 +1247,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
                             df::MapDataProvider(idReadFn, featureReadFn, updateCountryIndex, isCountryLoadedFn,
                                                 downloadMapFn, downloadMapWithoutRoutingFn, downloadRetryFn),
                             params.m_visualScale,
-                            move(params.m_widgetsInitInfo));
+                            move(params.m_widgetsInitInfo),
+                            make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState));
 
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(move(p));
   AddViewportListener([this](ScreenBase const & screen)
@@ -1259,7 +1260,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   OnSize(params.m_surfaceWidth, params.m_surfaceHeight);
 
   m_drapeEngine->SetMyPositionModeListener(m_myPositionListener);
-  m_drapeEngine->SetupMyPositionMode(params.m_initialMyPositionState);
+  m_drapeEngine->InvalidateMyPosition();
 
   m_bmManager.InitBookmarks();
 
@@ -1275,7 +1276,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   {
     UserMark const * mark = OnTapEventImpl(m_lastTapEvent->m_pxPoint, m_lastTapEvent->m_isLong,
                                            m_lastTapEvent->m_isMyPosition, m_lastTapEvent->m_feature);
-    ActivateUserMark(mark, true);
+    if (mark != nullptr)
+      ActivateUserMark(mark, true);
   }
 
   // In case of the engine reinitialization recover route.

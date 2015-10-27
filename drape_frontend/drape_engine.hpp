@@ -38,13 +38,15 @@ public:
            Viewport const & viewport,
            MapDataProvider const & model,
            double vs,
-           gui::TWidgetsInitInfo && info)
+           gui::TWidgetsInitInfo && info,
+           pair<location::EMyPositionMode, bool> const & initialMyPositionMode)
       : m_factory(factory)
       , m_stringsBundle(stringBundle)
       , m_viewport(viewport)
       , m_model(model)
       , m_vs(vs)
       , m_info(move(info))
+      , m_initialMyPositionMode(initialMyPositionMode)
     {}
 
     ref_ptr<dp::OGLContextFactory> m_factory;
@@ -53,6 +55,7 @@ public:
     MapDataProvider m_model;
     double m_vs;
     gui::TWidgetsInitInfo m_info;
+    pair<location::EMyPositionMode, bool> m_initialMyPositionMode;
   };
 
   DrapeEngine(Params && params);
@@ -88,7 +91,6 @@ public:
   void CancelMyPosition();
   void StopLocationFollow();
   void InvalidateMyPosition();
-  void SetupMyPositionMode(location::EMyPositionMode mode);
   void SetMyPositionModeListener(location::TMyPositionModeChanged const & fn);
 
   using TTapEventInfoFn = FrontendRenderer::TTapEventInfoFn;

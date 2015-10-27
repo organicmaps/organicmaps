@@ -278,12 +278,6 @@ void MyPositionController::Invalidate()
   }
 }
 
-void MyPositionController::Setup(location::EMyPositionMode mode)
-{
-  SetModeInfo(ChangeMode(m_modeInfo, mode));
-  Invalidate();
-}
-
 void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool isNavigable,
                                             ScreenBase const & screen)
 {

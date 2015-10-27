@@ -60,8 +60,9 @@ enum MultiTouchAction
 };
 
 Framework::Framework()
- : m_lastCompass(0.0)
- , m_currentMode(location::MODE_UNKNOWN_POSITION)
+  : m_lastCompass(0.0)
+  , m_currentMode(location::MODE_UNKNOWN_POSITION)
+  , m_isCurrentModeInitialized(false)
 {
   ASSERT_EQUAL ( g_framework, 0, () );
   g_framework = this;
@@ -148,8 +149,8 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   p.m_surfaceWidth = factory->GetWidth();
   p.m_surfaceHeight = factory->GetHeight();
   p.m_visualScale = visualScale;
+  p.m_hasMyPositionState = m_isCurrentModeInitialized;
   p.m_initialMyPositionState = m_currentMode;
-
   ASSERT(!m_guiPositions.empty(), ("GUI elements must be set-up before engine is created"));
   p.m_widgetsInitInfo = m_guiPositions;
 
@@ -424,12 +425,16 @@ void Framework::SetMyPositionModeListener(location::TMyPositionModeChanged const
 
 location::EMyPositionMode Framework::GetMyPositionMode() const
 {
+  if (!m_isCurrentModeInitialized)
+    return location::MODE_UNKNOWN_POSITION;
+
   return m_currentMode;
 }
 
 void Framework::SetMyPositionMode(location::EMyPositionMode mode)
 {
   m_currentMode = mode;
+  m_isCurrentModeInitialized = true;
 }
 
 void Framework::SetupWidget(gui::EWidget widget, float x, float y, dp::Anchor anchor)

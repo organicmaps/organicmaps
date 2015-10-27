@@ -56,7 +56,6 @@
   p.m_surfaceWidth = width;
   p.m_surfaceHeight = height;
   p.m_visualScale = self.contentScaleFactor;
-  p.m_initialMyPositionState = location::MODE_UNKNOWN_POSITION;
 
   [self.widgetsManager setupWidgets:p];
   GetFramework().CreateDrapeEngine(make_ref<dp::OGLContextFactory>(m_factory), move(p));

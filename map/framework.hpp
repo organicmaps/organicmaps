@@ -296,12 +296,13 @@ private:
 public:
   struct DrapeCreationParams
   {
-    float m_visualScale;
-    int m_surfaceWidth;
-    int m_surfaceHeight;
-
+    float m_visualScale = 1.0f;
+    int m_surfaceWidth = 0;
+    int m_surfaceHeight = 0;
     gui::TWidgetsInitInfo m_widgetsInitInfo;
-    location::EMyPositionMode m_initialMyPositionState;
+
+    bool m_hasMyPositionState = false;
+    location::EMyPositionMode m_initialMyPositionState = location::MODE_UNKNOWN_POSITION;
   };
 
   void CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory, DrapeCreationParams && params);

@@ -362,7 +362,6 @@ class ChangeMyPositionModeMessage : public Message
 public:
   enum EChangeType
   {
-    TYPE_SETUP,
     TYPE_NEXT,
     TYPE_CANCEL,
     TYPE_STOP_FOLLOW,
@@ -379,23 +378,14 @@ public:
     , m_preferredZoomLevel(zoomLevel)
   {}
 
-  explicit ChangeMyPositionModeMessage(EChangeType changeType, int zoomLevel,
-                                       location::EMyPositionMode mode)
-    : m_changeType(changeType)
-    , m_preferredZoomLevel(zoomLevel)
-    , m_mode(mode)
-  {}
-
   EChangeType GetChangeType() const { return m_changeType; }
   Type GetType() const override { return Message::ChangeMyPostitionMode; }
 
   int GetPreferredZoomLevel() const { return m_preferredZoomLevel; }
-  location::EMyPositionMode GetMode() const { return m_mode; }
 
 private:
   EChangeType const m_changeType;
   int m_preferredZoomLevel;
-  location::EMyPositionMode m_mode;
 };
 
 class CompassInfoMessage : public Message

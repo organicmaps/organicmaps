@@ -56,6 +56,7 @@ namespace android
 
     location::TMyPositionModeChanged m_myPositionModeSignal;
     location::EMyPositionMode m_currentMode;
+    bool m_isCurrentModeInitialized;
 
   public:
     Framework();

@@ -50,9 +50,9 @@ DrapeEngine::DrapeEngine(Params && params)
   m_textureManager = make_unique_dp<dp::TextureManager>();
   m_threadCommutator = make_unique_dp<ThreadsCommutator>();
 
-  int modeValue = 0;
-  if (!Settings::Get(LocationStateMode, modeValue))
-    modeValue = location::MODE_FOLLOW;
+  location::EMyPositionMode mode = params.m_initialMyPositionMode.first;
+  if (!params.m_initialMyPositionMode.second && !Settings::Get(LocationStateMode, mode))
+    mode = location::MODE_FOLLOW;
 
   FrontendRenderer::Params frParams(make_ref(m_threadCommutator), params.m_factory,
                                     make_ref(m_textureManager), m_viewport,
@@ -61,7 +61,7 @@ DrapeEngine::DrapeEngine(Params && params)
                                     bind(&DrapeEngine::TapEvent, this, _1, _2, _3, _4),
                                     bind(&DrapeEngine::UserPositionChanged, this, _1),
                                     bind(&DrapeEngine::MyPositionModeChanged, this, _1),
-                                    static_cast<location::EMyPositionMode>(modeValue));
+                                    mode);
 
   m_frontend = make_unique_dp<FrontendRenderer>(frParams);
 
@@ -193,9 +193,9 @@ void DrapeEngine::ModelViewChangedGuiThread(ScreenBase const & screen)
 
 void DrapeEngine::MyPositionModeChanged(location::EMyPositionMode mode)
 {
+  Settings::Set(LocationStateMode, mode);
   GetPlatform().RunOnGuiThread([this, mode]()
   {
-    Settings::Set(LocationStateMode, static_cast<int>(mode));
     if (m_myPositionModeChanged != nullptr)
       m_myPositionModeChanged(mode);
   });
@@ -287,13 +287,6 @@ void DrapeEngine::InvalidateMyPosition()
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<ChangeMyPositionModeMessage>(ChangeMyPositionModeMessage::TYPE_INVALIDATE),
-                                  MessagePriority::High);
-}
-
-void DrapeEngine::SetupMyPositionMode(location::EMyPositionMode mode)
-{
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<ChangeMyPositionModeMessage>(ChangeMyPositionModeMessage::TYPE_SETUP, -1, mode),
                                   MessagePriority::High);
 }
 
