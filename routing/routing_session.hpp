@@ -44,7 +44,8 @@ public:
     RouteNotStarted,   // route is builded but the user isn't on it
     OnRoute,           // user follows the route
     RouteNeedRebuild,  // user left the route
-    RouteFinished      // destination point is reached but the session isn't closed
+    RouteFinished,     // destination point is reached but the session isn't closed
+    RouteNoFollow      // route is builded but following mode were disabled
   };
 
   /*
@@ -54,6 +55,7 @@ public:
    * RouteNotStarted -> OnRoute           // user started following the route
    * RouteNotStarted -> RouteNeedRebuild  // user doesn't like the route.
    * OnRoute -> RouteNeedRebuild          // user moves away from route - need to rebuild
+   * OnRoute -> RouteNoFollow             // following mode was disabled. Router don't track position.
    * OnRoute -> RouteFinished             // user reached the end of route
    * RouteNeedRebuild -> RouteNotReady    // start rebuild route
    * RouteFinished -> RouteNotReady       // start new route
@@ -97,6 +99,11 @@ public:
   bool GetMercatorDistanceFromBegin(double & distance) const;
 
   void ActivateAdditionalFeatures() {}
+
+  /// Disable following mode on GPS updates. Following mode disables only for the current route.
+  /// If routed will be rebuilt you must call DisableFollowMode again.
+  /// Returns truw if following were disabled, false if route not ready yet.
+  bool DisableFollowMode();
 
   void SetRoutingSettings(RoutingSettings const & routingSettings);
 
