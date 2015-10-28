@@ -17,5 +17,8 @@ HEADERS += osm_time_range.hpp \
            osm_parsers.hpp \
            osm_parsers_terminals.hpp \
            parse.hpp \
+           rules_evalustion.hpp
 
-SOURCES += osm_time_range.cpp parse.cpp
+SOURCES += osm_time_range.cpp \
+           parse.cpp \
+           rules_evaluation.cpp \

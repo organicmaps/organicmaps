@@ -24,8 +24,11 @@
 
 #include "osm_time_range.hpp"
 #include "parse.hpp"
+#include "rules_evaluation.hpp"
 
+#include <ctime>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <locale>
 #include <map>
@@ -81,6 +84,13 @@ std::string ParseAndUnparse(std::string const & str)
   sstr << parseResult;
 
   return sstr.str();
+}
+
+bool GetTimeTuple(std::string const & strTime, std::tm & tm)
+{
+  std::stringstream sstr(strTime);
+  sstr >> std::get_time(&tm, "%H:%M");
+  return !sstr.fail();
 }
 } // namespace
 
@@ -889,6 +899,34 @@ BOOST_AUTO_TEST_CASE(OpeningHoursRuleSequence_TestParseUnparse)
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
 }
+
+BOOST_AUTO_TEST_CASE(OpenigHours_TestIsActiveTime)
+{
+  using namespace osmoh;
+
+  {
+    Timespan span;
+    span.SetStart(10_h + 15_min);
+    span.SetEnd(13_h + 49_min);
+
+    std::tm time;
+    BOOST_CHECK(GetTimeTuple("12:41", time));
+    BOOST_CHECK(IsActive(span, time));
+
+    BOOST_CHECK(GetTimeTuple("10:15", time));
+    BOOST_CHECK(IsActive(span, time));
+
+    BOOST_CHECK(GetTimeTuple("10:14", time));
+    BOOST_CHECK(!IsActive(span, time));
+
+    BOOST_CHECK(GetTimeTuple("13:49", time));
+    BOOST_CHECK(IsActive(span, time));
+
+    BOOST_CHECK(GetTimeTuple("13:50", time));
+    BOOST_CHECK(!IsActive(span, time));
+  }
+}
+
 
 /// How to run:
 /// 1. copy opening-count.lst to where the binary is

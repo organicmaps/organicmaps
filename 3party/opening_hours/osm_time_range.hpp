@@ -488,7 +488,8 @@ std::ostream & operator<<(std::ostream & ost, TWeekRanges const ranges);
 class RuleSequence
 {
  public:
-  enum class Modifier {
+  enum class Modifier
+  {
     DefaultOpen,
     Open,
     Closed,

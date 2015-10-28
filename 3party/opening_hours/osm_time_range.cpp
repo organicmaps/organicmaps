@@ -287,7 +287,7 @@ bool Timespan::IsEmpty() const
 
 bool Timespan::IsOpen() const
 {
-  return GetStart().HasValue() && !GetEnd().HasValue();
+  return HasStart() && !HasEnd();
 }
 
 bool Timespan::HasStart() const
@@ -1370,27 +1370,6 @@ std::ostream & operator<<(std::ostream & ost, TRuleSequences const & s)
     });
   return ost;
 }
-
-// std::ostream & operator << (std::ostream & s, State const & w)
-// {
-//   static char const * st[] = {"unknown", "closed", "open"};
-//   s << ' ' << st[w.state] << " " << w.comment;
-//   return s;
-// }
-
-// std::ostream & operator << (std::ostream & s, TimeRule const & w)
-// {
-//   for (auto const & e : w.weekdays)
-//     s << e;
-//   if (!w.weekdays.empty() && !w.timespan.empty())
-//     s << ' ';
-//   for (auto const & e : w.timespan)
-//     s << e;
-
-//   std::cout << "Weekdays size " << w.weekdays.size() <<
-//       " Timespan size " << w.timespan.size() << std::endl;
-//   return s << w.state;
-// }
 } // namespace osmoh
 
 
@@ -1518,9 +1497,9 @@ std::ostream & operator<<(std::ostream & ost, TRuleSequences const & s)
 //   };
 
 //   osmoh::State::State false_state[3][3] = {
-//     {osmoh::State::Unknown, osmoh::State::eOpen   , osmoh::State::Closed},
-//     {osmoh::State::Closed , osmoh::State::eClosed , osmoh::State::Closed},
-//     {osmoh::State::Open   , osmoh::State::eOpen   , osmoh::State::Open}
+//     {osmoh::State::Unknown, osmoh::State::Open  , osmoh::State::Closed},
+//     {osmoh::State::Closed , osmoh::State::Closed, osmoh::State::Closed},
+//     {osmoh::State::Open   , osmoh::State::Open  , osmoh::State::Open}
 //   };
 
 //   m_state = osmoh::State::Unknown;
