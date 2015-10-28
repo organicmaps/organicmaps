@@ -283,6 +283,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     setContentView(R.layout.activity_map);
     initViews();
 
+    Statistics.INSTANCE.trackConnectionState();
+
     if (MwmApplication.get().nativeIsBenchmarking())
       Utils.keepScreenOn(true, getWindow());
 
