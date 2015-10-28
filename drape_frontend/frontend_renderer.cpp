@@ -649,7 +649,7 @@ FeatureID FrontendRenderer::GetVisiblePOI(m2::RectD const & pixelRect) const
   ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
   for (ref_ptr<dp::OverlayHandle> handle : selectResult)
   {
-    double const curDist = pt.SquareLength(handle->GetPivot(screen, false));
+    double const curDist = pt.SquareLength(handle->GetPivot(screen, screen.isPerspective()));
     if (curDist < dist)
     {
       dist = curDist;
@@ -911,10 +911,12 @@ void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
 {
   double halfSize = VisualParams::Instance().GetTouchRectRadius();
   m2::PointD sizePoint(halfSize, halfSize);
-  m2::RectD selectRect(pt - sizePoint, pt + sizePoint);
 
   ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
   bool isMyPosition = false;
+
+  m2::RectD selectRect(pt - sizePoint, pt + sizePoint);
+
   if (m_myPositionController->IsModeHasPosition())
     isMyPosition = selectRect.IsPointInside(screen.GtoP(m_myPositionController->Position()));
 

@@ -48,6 +48,7 @@ protected:
   /// @}
 
   Matrix3dT m_Pto3d;
+  Matrix3dT m_3dtoP;
 
   // Update dependent parameters from base parameters.
   // Must be called when base parameters changed.
@@ -124,6 +125,8 @@ public:
 
   void ApplyPerspective(double rotationAngle, double angleFOV);
   void ResetPerspective();
+
+  m2::PointD P3dToP(m2::PointD const & pt) const;
 
   Matrix3dT const & PTo3dMatrix() const { return m_Pto3d; }
   bool isPerspective() const { return m_isPerspective; }

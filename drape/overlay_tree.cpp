@@ -249,7 +249,7 @@ void OverlayTree::Select(m2::RectD const & rect, TSelectResult & result) const
     if (info.m_handle->IsVisible() && info.m_handle->GetFeatureID().IsValid())
     {
       OverlayHandle::Rects shape;
-      info.m_handle->GetPixelShape(screen, shape, false);
+      info.m_handle->GetPixelShape(screen, shape, screen.isPerspective());
       for (m2::RectF const & rShape : shape)
       {
         if (rShape.IsIntersect(m2::RectF(rect)))

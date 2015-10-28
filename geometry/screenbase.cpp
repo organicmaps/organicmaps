@@ -287,15 +287,15 @@ void ScreenBase::ApplyPerspective(double rotationAngle, double angleFOV)
   translateM(3, 2) = offsetZ;
 
   Matrix3dT projectionM = math::Zero<double, 4>();
-  // TODO: Calculate near and far values.
-  double const near = 0.1;
-  double const far = 100.0;
+  double const near = cameraZ;
+  double const far = cameraZ + 2.0 * m_3dScaleY * cos(m_3dAngleX);
   projectionM(0, 0) = projectionM(1, 1) = cameraZ;
   projectionM(2, 2) = (far + near) / (far - near);
   projectionM(2, 3) = 1.0;
   projectionM(3, 2) = -2.0 * far * near / (far - near);
 
   m_Pto3d = scaleM * rotateM * translateM * projectionM;
+  m_3dtoP = math::Inverse(m_Pto3d);
 
   double const dyG = m_GlobalRect.GetLocalRect().SizeY() * (m_3dScaleX - 1.0);
   Scale(1.0 / m_3dScaleX);
@@ -333,4 +333,20 @@ m2::PointD ScreenBase::PtoP3d(m2::PointD const & pt) const
       (perspectivePoint(0, 1) / perspectivePoint(0, 3) + 1.0) * viewport.SizeY() / 2.0);
 
   return pixelPointPerspective;
+}
+
+m2::PointD ScreenBase::P3dToP(m2::PointD const & pt) const
+{
+  if (!m_isPerspective)
+    return pt;
+
+  m2::PointD nPt(pt.x * 2.0 / PixelRectIn3d().SizeX() - 1.0, - pt.y * 2.0 / PixelRectIn3d().SizeY() + 1.0);
+  math::Matrix<double, 1, 4> pt3d{ nPt.x, nPt.y, nPt.y * tan(m_3dAngleX), 1.0 };
+  math::Matrix<double, 1, 4> ptScreen = pt3d * m_3dtoP;
+  ptScreen(0, 0) /= ptScreen(0, 3);
+  ptScreen(0, 1) /= ptScreen(0, 3);
+
+  m2::PointD res = m2::PointD((ptScreen(0, 0) / 2.0 + 0.5) * PixelRect().SizeX(),
+                    (0.5 - ptScreen(0, 1) / 2.0) * PixelRect().SizeY());
+  return res;
 }
