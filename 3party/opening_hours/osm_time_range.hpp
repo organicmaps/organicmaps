@@ -194,13 +194,18 @@ enum class Weekday
   Saturday
 };
 
-inline constexpr Weekday operator ""_day(uint64_t day)
+inline constexpr Weekday ToWeekday(uint64_t const day)
 {
   using TDay = decltype(day);
   return ((day <= static_cast<TDay>(Weekday::None) ||
            day > static_cast<TDay>(Weekday::Saturday))
           ? Weekday::None
           : static_cast<Weekday>(day));
+}
+
+inline constexpr Weekday operator ""_day(uint64_t day)
+{
+  return ToWeekday(day);
 }
 
 std::ostream & operator<<(std::ostream & ost, Weekday const wday);

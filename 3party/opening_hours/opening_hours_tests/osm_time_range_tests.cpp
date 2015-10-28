@@ -86,10 +86,10 @@ std::string ParseAndUnparse(std::string const & str)
   return sstr.str();
 }
 
-bool GetTimeTuple(std::string const & strTime, std::tm & tm)
+bool GetTimeTuple(std::string const & strTime, std::string const & fmt, std::tm & tm)
 {
   std::stringstream sstr(strTime);
-  sstr >> std::get_time(&tm, "%H:%M");
+  sstr >> std::get_time(&tm, fmt.data());
   return !sstr.fail();
 }
 } // namespace
@@ -900,30 +900,61 @@ BOOST_AUTO_TEST_CASE(OpeningHoursRuleSequence_TestParseUnparse)
   }
 }
 
-BOOST_AUTO_TEST_CASE(OpenigHours_TestIsActiveTime)
+BOOST_AUTO_TEST_CASE(OpenigHours_TestIsActive)
 {
   using namespace osmoh;
 
   {
-    Timespan span;
-    span.SetStart(10_h + 15_min);
-    span.SetEnd(13_h + 49_min);
+    TTimespans spans;
+    BOOST_CHECK(Parse("10:15-13:49", spans));
 
     std::tm time;
-    BOOST_CHECK(GetTimeTuple("12:41", time));
-    BOOST_CHECK(IsActive(span, time));
+    auto const fmt = "%H:%M";
+    BOOST_CHECK(GetTimeTuple("12:41", fmt, time));
+    BOOST_CHECK(IsActive(spans[0], time));
 
-    BOOST_CHECK(GetTimeTuple("10:15", time));
-    BOOST_CHECK(IsActive(span, time));
+    BOOST_CHECK(GetTimeTuple("10:15", fmt, time));
+    BOOST_CHECK(IsActive(spans[0], time));
 
-    BOOST_CHECK(GetTimeTuple("10:14", time));
-    BOOST_CHECK(!IsActive(span, time));
+    BOOST_CHECK(GetTimeTuple("10:14", fmt, time));
+    BOOST_CHECK(!IsActive(spans[0], time));
 
-    BOOST_CHECK(GetTimeTuple("13:49", time));
-    BOOST_CHECK(IsActive(span, time));
+    BOOST_CHECK(GetTimeTuple("13:49", fmt, time));
+    BOOST_CHECK(IsActive(spans[0], time));
 
-    BOOST_CHECK(GetTimeTuple("13:50", time));
-    BOOST_CHECK(!IsActive(span, time));
+    BOOST_CHECK(GetTimeTuple("13:50", fmt, time));
+    BOOST_CHECK(!IsActive(spans[0], time));
+  }
+  {
+    Weekdays range;
+    BOOST_CHECK(Parse("Su-Sa", range));
+
+    std::tm time;
+    auto const fmt = "%w";
+    BOOST_CHECK(GetTimeTuple("4", fmt, time));
+    BOOST_CHECK(IsActive(range, time));
+
+    BOOST_CHECK(GetTimeTuple("0", fmt, time));
+    BOOST_CHECK(IsActive(range, time));
+
+    BOOST_CHECK(GetTimeTuple("6", fmt, time));
+    BOOST_CHECK(IsActive(range, time));
+
+
+    BOOST_CHECK(Parse("Mo-Tu", range));
+    BOOST_CHECK(GetTimeTuple("0", fmt, time));
+    BOOST_CHECK(!IsActive(range, time));
+
+    BOOST_CHECK(GetTimeTuple("5", fmt, time));
+    BOOST_CHECK(!IsActive(range, time));
+
+
+    BOOST_CHECK(Parse("Mo", range));
+    BOOST_CHECK(GetTimeTuple("1", fmt, time));
+    BOOST_CHECK(IsActive(range, time));
+
+    BOOST_CHECK(GetTimeTuple("5", fmt, time));
+    BOOST_CHECK(!IsActive(range, time));
   }
 }
 
