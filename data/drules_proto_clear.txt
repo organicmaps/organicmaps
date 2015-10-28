@@ -23356,6 +23356,52 @@ cont {
   }
 }
 cont {
+  name: "leisure-common"
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "leisure-dog_park"
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
   name: "leisure-dog_park-tennis"
   element {
     scale: 17
@@ -23504,19 +23550,15 @@ cont {
       name: "garden-l"
       priority: 16142
     }
-    apply_if: "name"
-  }
-  element {
-    scale: 18
-    area {
-      color: 11189094
-      priority: 1143
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 2583691263
+        offset_y: 10
+      }
+      priority: 15142
     }
-    symbol {
-      name: "garden-l"
-      priority: 16142
-    }
-    apply_if: "!name"
   }
   element {
     scale: 19
@@ -23528,19 +23570,15 @@ cont {
       name: "garden-l"
       priority: 16142
     }
-    apply_if: "name"
-  }
-  element {
-    scale: 19
-    area {
-      color: 11189094
-      priority: 1143
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 2583691263
+        offset_y: 10
+      }
+      priority: 15142
     }
-    symbol {
-      name: "garden-l"
-      priority: 16142
-    }
-    apply_if: "!name"
   }
 }
 cont {
@@ -23551,12 +23589,49 @@ cont {
       name: "golf-l"
       priority: 16000
     }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15000
+    }
   }
   element {
     scale: 19
     symbol {
       name: "golf-l"
       priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "leisure-landscape_reserve"
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15000
     }
   }
 }
@@ -23706,6 +23781,15 @@ cont {
       name: "nparkf-l"
       priority: 16603
     }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 2583691263
+        offset_y: 12
+      }
+      priority: 15603
+    }
   }
   element {
     scale: 19
@@ -23716,6 +23800,15 @@ cont {
     symbol {
       name: "nparkf-l"
       priority: 16603
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 2583691263
+        offset_y: 12
+      }
+      priority: 15603
     }
   }
 }
@@ -23875,19 +23968,15 @@ cont {
       name: "park-l"
       priority: 16142
     }
-    apply_if: "name"
-  }
-  element {
-    scale: 18
-    area {
-      color: 11189094
-      priority: 1143
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 2583691263
+        offset_y: 10
+      }
+      priority: 15142
     }
-    symbol {
-      name: "park-l"
-      priority: 16142
-    }
-    apply_if: "!name"
   }
   element {
     scale: 19
@@ -23899,19 +23988,15 @@ cont {
       name: "park-l"
       priority: 16142
     }
-    apply_if: "name"
-  }
-  element {
-    scale: 19
-    area {
-      color: 11189094
-      priority: 1143
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 2583691263
+        offset_y: 10
+      }
+      priority: 15142
     }
-    symbol {
-      name: "park-l"
-      priority: 16142
-    }
-    apply_if: "!name"
   }
 }
 cont {
@@ -24070,19 +24155,15 @@ cont {
       name: "park-l"
       priority: 16142
     }
-    apply_if: "name"
-  }
-  element {
-    scale: 18
-    area {
-      color: 11189094
-      priority: 1143
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 2583691263
+        offset_y: 10
+      }
+      priority: 15142
     }
-    symbol {
-      name: "park-l"
-      priority: 16142
-    }
-    apply_if: "!name"
   }
   element {
     scale: 19
@@ -24094,19 +24175,15 @@ cont {
       name: "park-l"
       priority: 16142
     }
-    apply_if: "name"
-  }
-  element {
-    scale: 19
-    area {
-      color: 11189094
-      priority: 1143
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 2583691263
+        offset_y: 10
+      }
+      priority: 15142
     }
-    symbol {
-      name: "park-l"
-      priority: 16142
-    }
-    apply_if: "!name"
   }
 }
 cont {
@@ -24265,19 +24342,15 @@ cont {
       name: "park-l"
       priority: 16142
     }
-    apply_if: "name"
-  }
-  element {
-    scale: 18
-    area {
-      color: 11189094
-      priority: 1143
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 2583691263
+        offset_y: 10
+      }
+      priority: 15142
     }
-    symbol {
-      name: "park-l"
-      priority: 16142
-    }
-    apply_if: "!name"
   }
   element {
     scale: 19
@@ -24289,19 +24362,15 @@ cont {
       name: "park-l"
       priority: 16142
     }
-    apply_if: "name"
-  }
-  element {
-    scale: 19
-    area {
-      color: 11189094
-      priority: 1143
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 2583691263
+        offset_y: 10
+      }
+      priority: 15142
     }
-    symbol {
-      name: "park-l"
-      priority: 16142
-    }
-    apply_if: "!name"
   }
 }
 cont {
@@ -24460,19 +24529,15 @@ cont {
       name: "park-l"
       priority: 16142
     }
-    apply_if: "name"
-  }
-  element {
-    scale: 18
-    area {
-      color: 11189094
-      priority: 1143
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 2583691263
+        offset_y: 10
+      }
+      priority: 15142
     }
-    symbol {
-      name: "park-l"
-      priority: 16142
-    }
-    apply_if: "!name"
   }
   element {
     scale: 19
@@ -24484,19 +24549,15 @@ cont {
       name: "park-l"
       priority: 16142
     }
-    apply_if: "name"
-  }
-  element {
-    scale: 19
-    area {
-      color: 11189094
-      priority: 1143
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 2583691263
+        offset_y: 10
+      }
+      priority: 15142
     }
-    symbol {
-      name: "park-l"
-      priority: 16142
-    }
-    apply_if: "!name"
   }
 }
 cont {
@@ -24526,6 +24587,13 @@ cont {
       apply_for_type: 1
       priority: 16222
     }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15222
+    }
   }
   element {
     scale: 19
@@ -24537,6 +24605,13 @@ cont {
       name: "pitch-l"
       apply_for_type: 1
       priority: 16222
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15222
     }
   }
 }
@@ -24630,6 +24705,13 @@ cont {
       apply_for_type: 1
       priority: 16222
     }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15222
+    }
   }
   element {
     scale: 19
@@ -24641,6 +24723,13 @@ cont {
       name: "pitch-l"
       apply_for_type: 1
       priority: 16222
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15222
     }
   }
 }
@@ -24753,6 +24842,52 @@ cont {
         height: 10
         color: 4473924
         offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "leisure-recreation_ground"
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "leisure-slipway"
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 10
+        color: 4473924
       }
       priority: 15000
     }
@@ -24930,6 +25065,13 @@ cont {
       name: "swimming-l"
       priority: 16269
     }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15269
+    }
   }
   element {
     scale: 19
@@ -24940,6 +25082,59 @@ cont {
     symbol {
       name: "swimming-l"
       priority: 16269
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15269
+    }
+  }
+}
+cont {
+  name: "leisure-track"
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "leisure-water_park"
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15000
     }
   }
 }
