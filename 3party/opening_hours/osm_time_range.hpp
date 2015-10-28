@@ -381,13 +381,18 @@ class MonthDay
   DateOffset m_offset{};
 };
 
-inline constexpr MonthDay::Month operator ""_M(uint64_t month)
+inline constexpr MonthDay::Month ToMonth(uint64_t const month)
 {
   using TMonth = decltype(month);
   return ((month <= static_cast<TMonth>(MonthDay::Month::None) ||
            month > static_cast<TMonth>(MonthDay::Month::Dec))
           ? MonthDay::Month::None
           : static_cast<osmoh::MonthDay::Month>(month));
+}
+
+inline constexpr MonthDay::Month operator ""_M(uint64_t month)
+{
+  return ToMonth(month);
 }
 
 std::ostream & operator<<(std::ostream & ost, MonthDay::Month const month);

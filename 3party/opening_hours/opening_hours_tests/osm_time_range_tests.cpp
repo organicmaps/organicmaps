@@ -777,6 +777,12 @@ BOOST_AUTO_TEST_CASE(OpeningHoursMonthdayRanges_TestParseUnparse)
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TMonthdayRanges>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
+  {
+    auto const rule = "1941 Feb 03 -Mo -2 days-1945 Jan 11 +3 days, Mar, Apr";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TMonthdayRanges>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+
 }
 
 BOOST_AUTO_TEST_CASE(OpeningHoursYearRanges_TestParseUnparse)
@@ -955,6 +961,87 @@ BOOST_AUTO_TEST_CASE(OpenigHours_TestIsActive)
 
     BOOST_CHECK(GetTimeTuple("5", fmt, time));
     BOOST_CHECK(!IsActive(range, time));
+  }
+  {
+    TMonthdayRanges ranges;
+    BOOST_CHECK(Parse("2015 Sep-Oct", ranges));
+
+    std::tm time;
+    auto const fmt = "%Y-%m";
+    BOOST_CHECK(GetTimeTuple("2015-10", fmt, time));
+    BOOST_CHECK(IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015-09", fmt, time));
+    BOOST_CHECK(IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015-08", fmt, time));
+    BOOST_CHECK(!IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2014-10", fmt, time));
+    BOOST_CHECK(!IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2016-10", fmt, time));
+    BOOST_CHECK(!IsActive(ranges[0], time));
+  }
+  {
+    TMonthdayRanges ranges;
+    BOOST_CHECK(Parse("2015 Sep", ranges));
+
+    std::tm time;
+    auto const fmt = "%Y-%m";
+    BOOST_CHECK(GetTimeTuple("2015-10", fmt, time));
+    BOOST_CHECK(!IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015-09", fmt, time));
+    BOOST_CHECK(IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015-08", fmt, time));
+    BOOST_CHECK(!IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2014-10", fmt, time));
+    BOOST_CHECK(!IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2016-10", fmt, time));
+    BOOST_CHECK(!IsActive(ranges[0], time));
+  }
+  {
+    TMonthdayRanges ranges;
+    BOOST_CHECK(Parse("Sep-Nov", ranges));
+
+    std::tm time;
+    auto const fmt = "%Y-%m";
+    BOOST_CHECK(GetTimeTuple("2015-10", fmt, time));
+    BOOST_CHECK(IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015-09", fmt, time));
+    BOOST_CHECK(IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2014-11", fmt, time));
+    BOOST_CHECK(IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2016-10", fmt, time));
+    BOOST_CHECK(IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015-08", fmt, time));
+    BOOST_CHECK(!IsActive(ranges[0], time));
+  }
+  {
+    TMonthdayRanges ranges;
+    BOOST_CHECK(Parse("Sep", ranges));
+
+    std::tm time;
+    auto const fmt = "%Y-%m";
+    BOOST_CHECK(GetTimeTuple("2015-09", fmt, time));
+    BOOST_CHECK(IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2014-11", fmt, time));
+    BOOST_CHECK(!IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2016-10", fmt, time));
+    BOOST_CHECK(!IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015-08", fmt, time));
+    BOOST_CHECK(!IsActive(ranges[0], time));
   }
 }
 
