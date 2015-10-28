@@ -3,7 +3,7 @@
 #include "area_info.hpp"
 #include "path_info.hpp"
 
-#include "../indexer/cell_id.hpp" // CoordPointT
+#include "indexer/cell_id.hpp" // CoordPointT
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
