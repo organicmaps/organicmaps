@@ -17,15 +17,9 @@ public:
 
   static LatLon Zero() { return LatLon(0., 0.); }
 
-  bool operator == (ms::LatLon const & p) const
-  {
-    return lat == p.lat && lon == p.lon;
-  }
+  bool operator == (ms::LatLon const & p) const;
 
-  bool EqualDxDy(LatLon const & p, double eps) const
-  {
-    return ((fabs(lat - p.lat) < eps) && (fabs(lon - p.lon) < eps));
-  }
+  bool EqualDxDy(LatLon const & p, double eps) const;
 
   struct Hash
   {

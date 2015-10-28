@@ -12,17 +12,17 @@
 
 namespace routing
 {
-using WritedNodeID = uint32_t;
-using WritedEdgeWeightT = uint32_t;
+using TWrittenNodeId = uint32_t;
+using TWrittenEdgeWeight = uint32_t;
 
-WritedEdgeWeightT constexpr kInvalidContextEdgeNodeId = std::numeric_limits<uint32_t>::max();
-WritedEdgeWeightT constexpr kInvalidContextEdgeWeight = std::numeric_limits<WritedEdgeWeightT>::max();
+TWrittenEdgeWeight constexpr kInvalidContextEdgeNodeId = std::numeric_limits<uint32_t>::max();
+TWrittenEdgeWeight constexpr kInvalidContextEdgeWeight = std::numeric_limits<TWrittenEdgeWeight>::max();
 size_t constexpr kInvalidAdjacencyIndex = numeric_limits<size_t>::max();
 
 struct IngoingCrossNode
 {
   ms::LatLon m_point;
-  WritedNodeID m_nodeId;
+  TWrittenNodeId m_nodeId;
   size_t m_adjacencyIndex;
 
   IngoingCrossNode()
@@ -31,7 +31,7 @@ struct IngoingCrossNode
     , m_adjacencyIndex(kInvalidAdjacencyIndex)
   {
   }
-  IngoingCrossNode(WritedNodeID nodeId, ms::LatLon const & point, size_t const adjacencyIndex)
+  IngoingCrossNode(TWrittenNodeId nodeId, ms::LatLon const & point, size_t const adjacencyIndex)
     : m_point(point), m_nodeId(nodeId), m_adjacencyIndex(adjacencyIndex)
   {
   }
@@ -46,7 +46,7 @@ struct IngoingCrossNode
 struct OutgoingCrossNode
 {
   ms::LatLon m_point;
-  WritedNodeID m_nodeId;
+  TWrittenNodeId m_nodeId;
   unsigned char m_outgoingIndex;
   size_t m_adjacencyIndex;
 
@@ -57,7 +57,7 @@ struct OutgoingCrossNode
     , m_adjacencyIndex(kInvalidAdjacencyIndex)
   {
   }
-  OutgoingCrossNode(WritedNodeID nodeId, size_t const index, ms::LatLon const & point,
+  OutgoingCrossNode(TWrittenNodeId nodeId, size_t const index, ms::LatLon const & point,
                     size_t const adjacencyIndex)
     : m_point(point)
     , m_nodeId(nodeId)
@@ -79,7 +79,7 @@ class CrossRoutingContextReader
 {
   vector<OutgoingCrossNode> m_outgoingNodes;
   vector<string> m_neighborMwmList;
-  vector<WritedEdgeWeightT> m_adjacencyMatrix;
+  vector<TWrittenEdgeWeight> m_adjacencyMatrix;
   m4::Tree<IngoingCrossNode> m_ingoingIndex;
 
 public:
@@ -89,7 +89,7 @@ public:
 
   bool FindIngoingNodeByPoint(ms::LatLon const & point, IngoingCrossNode & node) const;
 
-  WritedEdgeWeightT GetAdjacencyCost(IngoingCrossNode const & ingoing,
+  TWrittenEdgeWeight GetAdjacencyCost(IngoingCrossNode const & ingoing,
                                      OutgoingCrossNode const & outgoing) const;
 
   void GetAllIngoingNodes(vector<IngoingCrossNode> & nodes) const;
@@ -101,7 +101,7 @@ class CrossRoutingContextWriter
 {
   vector<IngoingCrossNode> m_ingoingNodes;
   vector<OutgoingCrossNode> m_outgoingNodes;
-  vector<WritedEdgeWeightT> m_adjacencyMatrix;
+  vector<TWrittenEdgeWeight> m_adjacencyMatrix;
   vector<string> m_neighborMwmList;
 
   size_t GetIndexInAdjMatrix(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoing) const;
@@ -109,15 +109,15 @@ class CrossRoutingContextWriter
 public:
   void Save(Writer & w) const;
 
-  void AddIngoingNode(WritedNodeID const nodeId, ms::LatLon const & point);
+  void AddIngoingNode(TWrittenNodeId const nodeId, ms::LatLon const & point);
 
-  void AddOutgoingNode(WritedNodeID const nodeId, string const & targetMwm,
+  void AddOutgoingNode(TWrittenNodeId const nodeId, string const & targetMwm,
                        ms::LatLon const & point);
 
   void ReserveAdjacencyMatrix();
 
   void SetAdjacencyCost(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoin,
-                        WritedEdgeWeightT value);
+                        TWrittenEdgeWeight value);
 
   pair<IngoingEdgeIteratorT, IngoingEdgeIteratorT> GetIngoingIterators() const;
 

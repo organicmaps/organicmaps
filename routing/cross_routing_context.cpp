@@ -72,7 +72,7 @@ void CrossRoutingContextReader::Load(Reader const & r)
     pos = m_outgoingNodes[i].Load(r, pos, i);
 
   size_t adjacencySize = ingoingSize * m_outgoingNodes.size();
-  size_t const adjMatrixSize = sizeof(WritedEdgeWeightT) * adjacencySize;
+  size_t const adjMatrixSize = sizeof(TWrittenEdgeWeight) * adjacencySize;
   m_adjacencyMatrix.resize(adjacencySize);
   r.Read(pos, &m_adjacencyMatrix[0], adjMatrixSize);
   pos += adjMatrixSize;
@@ -113,7 +113,7 @@ const string & CrossRoutingContextReader::GetOutgoingMwmName(
   return m_neighborMwmList[outgoingNode.m_outgoingIndex];
 }
 
-WritedEdgeWeightT CrossRoutingContextReader::GetAdjacencyCost(IngoingCrossNode const & ingoing,
+TWrittenEdgeWeight CrossRoutingContextReader::GetAdjacencyCost(IngoingCrossNode const & ingoing,
                                                               OutgoingCrossNode const & outgoing) const
 {
   if (ingoing.m_adjacencyIndex == kInvalidAdjacencyIndex ||
@@ -165,13 +165,13 @@ void CrossRoutingContextWriter::Save(Writer & w) const
   }
 }
 
-void CrossRoutingContextWriter::AddIngoingNode(WritedNodeID const nodeId, ms::LatLon const & point)
+void CrossRoutingContextWriter::AddIngoingNode(TWrittenNodeId const nodeId, ms::LatLon const & point)
 {
   size_t const adjIndex = m_ingoingNodes.size();
   m_ingoingNodes.emplace_back(nodeId, point, adjIndex);
 }
 
-void CrossRoutingContextWriter::AddOutgoingNode(WritedNodeID const nodeId, string const & targetMwm,
+void CrossRoutingContextWriter::AddOutgoingNode(TWrittenNodeId const nodeId, string const & targetMwm,
                                                 ms::LatLon const & point)
 {
   size_t const adjIndex = m_outgoingNodes.size();
@@ -189,7 +189,7 @@ void CrossRoutingContextWriter::ReserveAdjacencyMatrix()
 
 void CrossRoutingContextWriter::SetAdjacencyCost(IngoingEdgeIteratorT ingoing,
                                                  OutgoingEdgeIteratorT outgoing,
-                                                 WritedEdgeWeightT value)
+                                                 TWrittenEdgeWeight value)
 {
   size_t const index = m_outgoingNodes.size() * ingoing->m_adjacencyIndex + outgoing->m_adjacencyIndex;
   ASSERT_LESS(index, m_adjacencyMatrix.size(), ());

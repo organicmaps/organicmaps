@@ -91,7 +91,7 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
       });
   });
 
-  for (WritedNodeID nodeId = 0; nodeId < nodeData.size(); ++nodeId)
+  for (TWrittenNodeId nodeId = 0; nodeId < nodeData.size(); ++nodeId)
   {
     auto const & data = nodeData[nodeId];
 
@@ -128,7 +128,7 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
                 continue;
             }
             // for old format compatibility
-            ms::LatLon wgsIntersection = ms::LatLon(MercatorBounds::ToLatLon(intersection));
+            ms::LatLon wgsIntersection = MercatorBounds::ToLatLon(intersection);
             if (!outStart && outEnd)
               crossContext.AddIngoingNode(nodeId, wgsIntersection);
             else if (outStart && !outEnd)
@@ -259,7 +259,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
 
   uint32_t found = 0, all = 0, multiple = 0, equal = 0, moreThan1Seg = 0, stored = 0;
 
-  for (WritedNodeID nodeId = 0; nodeId < nodeData.size(); ++nodeId)
+  for (TWrittenNodeId nodeId = 0; nodeId < nodeData.size(); ++nodeId)
   {
     auto const & data = nodeData[nodeId];
 

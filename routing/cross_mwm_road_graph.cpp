@@ -174,11 +174,10 @@ void CrossMwmGraph::GetOutgoingEdgesList(BorderCross const & v,
 
   // Find income node.
   IngoingCrossNode ingoingNode;
-  bool found = currentContext.FindIngoingNodeByPoint(v.toNode.point, ingoingNode);
-  CHECK(found, ());
+  CHECK(currentContext.FindIngoingNodeByPoint(v.toNode.point, ingoingNode), ());
   if (ingoingNode.m_nodeId != v.toNode.node)
   {
-    LOG(LDEBUG, ("Several nodes stores in a one border point.", v.toNode.point));
+    LOG(LDEBUG, ("Several nodes stores in one border point.", v.toNode.point));
     vector<IngoingCrossNode> ingoingNodes;
     currentContext.GetAllIngoingNodes(ingoingNodes);
     for(auto const & node : ingoingNodes)
