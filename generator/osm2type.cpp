@@ -524,7 +524,6 @@ namespace ftype
       { "building", "entrance", [](string & k, string & v) { k.swap(v); v = "yes"; }},
       { "addr:housename", "*", [&params](string & k, string & v) { params.AddHouseName(v); k.clear(); v.clear(); }},
       { "addr:street", "*", [&params](string & k, string & v) { params.AddStreetAddress(v); k.clear(); v.clear(); }},
-      { "addr:flats", "*", [&params](string & k, string & v) { params.flats = v; k.clear(); v.clear(); }},
       { "addr:housenumber", "*", [&params](string & k, string & v)
         {
           // Treat "numbers" like names if it's not an actual number.

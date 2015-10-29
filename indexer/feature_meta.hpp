@@ -36,6 +36,7 @@ namespace feature
       FMD_POSTCODE = 15,
       FMD_WIKIPEDIA = 16,
       FMD_MAXSPEED = 17,
+      FMD_FLATS = 18,
       FMD_COUNT
     };
 

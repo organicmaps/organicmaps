@@ -43,7 +43,6 @@ void OsmElement::AddTag(string const & k, string const & v)
 
   // Skip tags for speedup, now we don't use it
   SKIP_KEY("not:");
-  SKIP_KEY("seamark"); // http://wiki.openstreetmap.org/wiki/OpenSeaMap/Seamark_Tag_Values
   SKIP_KEY("artist_name");
   SKIP_KEY("whitewater"); // http://wiki.openstreetmap.org/wiki/Whitewater_sports
 
