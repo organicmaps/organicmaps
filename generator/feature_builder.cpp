@@ -207,9 +207,6 @@ bool FeatureBuilder1::PreSerialize()
   if (!m_params.IsValid())
     return false;
 
-  /// @todo Do not use flats info. Maybe in future.
-  m_params.flats.clear();
-
   switch (m_params.GetGeomType())
   {
   case GEOM_POINT:

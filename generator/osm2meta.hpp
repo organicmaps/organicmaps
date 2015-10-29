@@ -117,6 +117,12 @@ public:
       if (!value.empty())
         md.Add(Metadata::FMD_WIKIPEDIA, value);
     }
+    else if (k == "addr:flats")
+    {
+      string const & value = ValidateAndFormat_flats(v);
+      if (!value.empty())
+        md.Add(Metadata::FMD_FLATS, value);
+    }
     return false;
   }
 
@@ -200,6 +206,10 @@ protected:
     return v;
   }
   string ValidateAndFormat_postcode(string const & v) const
+  {
+    return v;
+  }
+  string ValidateAndFormat_flats(string const & v) const
   {
     return v;
   }
