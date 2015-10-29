@@ -8,6 +8,19 @@ using namespace routing;
 
 namespace
 {
+  // Node filtering test. SVO has many restricted service roads that absent in a OSRM index.
+  UNIT_TEST(MoscowToSVOAirport)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+          integration::GetOsrmComponents(),
+          MercatorBounds::FromLatLon(55.75100, 37.61790), {0., 0.},
+          MercatorBounds::FromLatLon(55.97310, 37.41460), 30470.);
+    integration::CalculateRouteAndTestRouteLength(
+          integration::GetOsrmComponents(),
+          MercatorBounds::FromLatLon(55.97310, 37.41460), {0., 0.},
+          MercatorBounds::FromLatLon(55.75100, 37.61790), 30470.);
+  }
+
   // Restrictions tests. Check restrictions generation, if there are any errors.
   UNIT_TEST(RestrictionTestNeatBaumanAndTTK)
   {
