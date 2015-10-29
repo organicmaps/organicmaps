@@ -44,7 +44,7 @@ void Point2PhantomNode::operator()(FeatureType const & ft)
 
   FindNearestSegment(ft, m_point, res);
 
-  if (res.m_fid != kInvalidFid)
+  if (res.m_fid != kInvalidFid && !m_routingMapping.m_segMapping.GetNodeIdByFid(res.m_fid).empty())
     m_candidates.push_back(res);
 }
 
