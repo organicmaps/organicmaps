@@ -191,9 +191,10 @@ bool UserMarkContainer::IsDrawable() const
 
 UserMark * UserMarkContainer::CreateUserMark(m2::PointD const & ptOrg)
 {
+  // Push front an user mark.
   SetDirty();
-  m_userMarks.push_back(unique_ptr<UserMark>(AllocateUserMark(ptOrg)));
-  return m_userMarks.back().get();
+  m_userMarks.push_front(unique_ptr<UserMark>(AllocateUserMark(ptOrg)));
+  return m_userMarks.front().get();
 }
 
 size_t UserMarkContainer::GetUserMarkCount() const

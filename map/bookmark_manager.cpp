@@ -103,7 +103,8 @@ size_t BookmarkManager::AddBookmark(size_t categoryIndex, m2::PointD const & ptO
   m_lastType = bm.GetType();
   SaveState();
 
-  return (pCat->GetUserMarkCount() - 1);
+  // Bookmark always is pushed front.
+  return 0;
 }
 
 size_t BookmarkManager::MoveBookmark(size_t bmIndex, size_t curCatIndex, size_t newCatIndex)

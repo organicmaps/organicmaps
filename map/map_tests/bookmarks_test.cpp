@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "drape_frontend/visual_params.hpp"
+
 #include "indexer/data_header.hpp"
 
 #include "map/framework.hpp"
@@ -154,6 +156,8 @@ char const * kmlString =
 UNIT_TEST(Bookmarks_ImportKML)
 {
   Framework framework;
+  df::VisualParams::Init(1.0, 1024);
+
   BookmarkCategory cat("Default", framework);
   TEST(cat.LoadFromKML(new MemReader(kmlString, strlen(kmlString))), ());
 
@@ -169,23 +173,30 @@ UNIT_TEST(Bookmarks_ExportKML)
   char const * BOOKMARKS_FILE_NAME = "UnitTestBookmarks.kml";
 
   Framework framework;
+  df::VisualParams::Init(1.0, 1024);
+
   BookmarkCategory cat("Default", framework);
-  BookmarkCategory::Guard guard(cat);
   TEST(cat.LoadFromKML(new MemReader(kmlString, strlen(kmlString))), ());
   CheckBookmarks(cat);
 
-  TEST_EQUAL(cat.IsVisible(), false, ());
-  // Change visibility
-  guard.m_controller.SetIsVisible(true);
-  TEST_EQUAL(cat.IsVisible(), true, ());
+  {
+    BookmarkCategory::Guard guard(cat);
+    TEST_EQUAL(cat.IsVisible(), false, ());
+    // Change visibility
+    guard.m_controller.SetIsVisible(true);
+    TEST_EQUAL(cat.IsVisible(), true, ());
+  }
 
   {
     ofstream of(BOOKMARKS_FILE_NAME);
     cat.SaveToKML(of);
   }
 
-  guard.m_controller.Clear();
-  TEST_EQUAL(guard.m_controller.GetUserMarkCount(), 0, ());
+  {
+    BookmarkCategory::Guard guard(cat);
+    guard.m_controller.Clear();
+    TEST_EQUAL(guard.m_controller.GetUserMarkCount(), 0, ());
+  }
 
   TEST(cat.LoadFromKML(new FileReader(BOOKMARKS_FILE_NAME)), ());
   CheckBookmarks(cat);
@@ -260,6 +271,8 @@ namespace
 UNIT_TEST(Bookmarks_Timestamp)
 {
   Framework fm;
+  df::VisualParams::Init(1.0, 1024);
+
   m2::PointD const orgPoint(10, 10);
 
   char const * arrCat[] = { "cat", "cat1" };
@@ -304,6 +317,7 @@ UNIT_TEST(Bookmarks_Timestamp)
 UNIT_TEST(Bookmarks_Getting)
 {
   Framework fm;
+  df::VisualParams::Init(1.0, 1024);
   fm.OnSize(800, 400);
   fm.ShowRect(m2::RectD(0, 0, 80, 40));
 
