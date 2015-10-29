@@ -205,7 +205,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mTvWiki = (TextView) mWiki.findViewById(R.id.tv__place_wiki);
     mEntrance = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_entrance);
     mEntrance.setOnClickListener(this);
-    mTvEntrance = (TextView) mCuisine.findViewById(R.id.tv__place_entrance);
+    mTvEntrance = (TextView) mEntrance.findViewById(R.id.tv__place_entrance);
     mLatlon.setOnLongClickListener(this);
     mAddress.setOnLongClickListener(this);
     mPhone.setOnLongClickListener(this);
@@ -422,36 +422,25 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   {
     refreshLatLon();
     final String website = mMapObject.getMetadata(Metadata.MetadataType.FMD_WEBSITE);
-    if (website != null)
-      refreshMetadataOrHide(website, mWebsite, mTvWebsite);
-    else
-      refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_URL), mWebsite, mTvWebsite);
+    refreshMetadataOrHide(TextUtils.isEmpty(website) ? mMapObject.getMetadata(Metadata.MetadataType.FMD_URL) : website, mWebsite, mTvWebsite);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER), mPhone, mTvPhone);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_EMAIL), mEmail, mTvEmail);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mOperator, mTvOperator);
     refreshMetadataOrHide(translateCuisine(mMapObject.getMetadata(Metadata.MetadataType.FMD_CUISINE)), mCuisine, mTvCuisine);
     try
     {
-      refreshMetadataOrHide(URLDecoder.decode(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA), "UTF-8"), mWiki, mTvWiki);
+      final String wikipedia = mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA);
+      refreshMetadataOrHide(TextUtils.isEmpty(wikipedia) ? null : URLDecoder.decode(wikipedia, "UTF-8"), mWiki, mTvWiki);
     } catch (UnsupportedEncodingException e)
     {
     }
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_INTERNET), mWifi, null);
-
+    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
     // TODO throw away parsing hack when data will be parsed correctly in core
     final String rawSchedule = mMapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
-    if (!TextUtils.isEmpty(rawSchedule))
-      refreshMetadataOrHide(rawSchedule.replace("; ", "\n").replace(';', '\n'), mSchedule, mTvSchedule);
-    else
-      refreshMetadataOrHide(null, mSchedule, mTvSchedule);
-
+    refreshMetadataOrHide(TextUtils.isEmpty(rawSchedule) ? null : rawSchedule.replace("; ", "\n").replace(';', '\n'), mSchedule, mTvSchedule);
     refreshMetadataStars(mMapObject.getMetadata(Metadata.MetadataType.FMD_STARS));
-
-    final String elevation = mMapObject.getMetadata(Metadata.MetadataType.FMD_ELE);
-    if (TextUtils.isEmpty(elevation))
-      UiUtils.hide(mTvElevation);
-    else
-      UiUtils.setTextAndShow(mTvElevation, elevation);
+    UiUtils.setTextAndHideIfEmpty(mTvElevation, mMapObject.getMetadata(Metadata.MetadataType.FMD_ELE));
   }
 
   private void hideBookmarkDetails()

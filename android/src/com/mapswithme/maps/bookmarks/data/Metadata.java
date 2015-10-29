@@ -27,7 +27,8 @@ public class Metadata implements Parcelable
     FMD_EMAIL(14),
     FMD_POSTCODE(15),
     FMD_WIKIPEDIA(16),
-    FMD_MAXSPEED(17);
+    FMD_MAXSPEED(17),
+    FMD_FLATS(18);
 
     private int mMetaType;
 
