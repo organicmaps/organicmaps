@@ -25,6 +25,8 @@ double constexpr kShowLanesDistInMeters = 500.;
 // @todo(kshalnev) The distance may depend on the current speed.
 double constexpr kShowPedestrianTurnInMeters = 5.;
 
+double constexpr kRunawayDistanceSensitivityMeters = 0.01;
+
 // Minimal distance to speed camera to make sound bell on overspeed.
 double constexpr kSpeedCameraMinimalWarningMeters = 200.;
 // Seconds to warning user before speed camera for driving with current speed.
@@ -194,7 +196,9 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
     // Distance from the last known projection on route
     // (check if we are moving far from the last known projection).
     double const dist = m_route.GetCurrentSqDistance(position);
-    if (dist > m_lastDistance || my::AlmostEqualULPs(dist, m_lastDistance, 1 << 16))
+    if (my::AlmostEqualAbs(dist, m_lastDistance, kRunawayDistanceSensitivityMeters))
+        return m_state;
+    if (dist > m_lastDistance)
     {
       ++m_moveAwayCounter;
       m_lastDistance = dist;
