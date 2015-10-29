@@ -88,9 +88,7 @@ std::string ParseAndUnparse(std::string const & str)
 
 bool GetTimeTuple(std::string const & strTime, std::string const & fmt, std::tm & tm)
 {
-  std::stringstream sstr(strTime);
-  sstr >> std::get_time(&tm, fmt.data());
-  return !sstr.fail();
+  return strptime(strTime.data(), fmt.data(), &tm) != nullptr;
 }
 } // namespace
 
@@ -1043,8 +1041,74 @@ BOOST_AUTO_TEST_CASE(OpenigHours_TestIsActive)
     BOOST_CHECK(GetTimeTuple("2015-08", fmt, time));
     BOOST_CHECK(!IsActive(ranges[0], time));
   }
-}
+  {
+    TYearRanges ranges;
+    BOOST_CHECK(Parse("2011-2014", ranges));
 
+    std::tm time;
+    auto const fmt = "%Y";
+    BOOST_CHECK(GetTimeTuple("2011", fmt, time));
+    BOOST_CHECK(IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2012", fmt, time));
+    BOOST_CHECK(IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2014", fmt, time));
+    BOOST_CHECK(IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2010", fmt, time));
+    BOOST_CHECK(!IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015", fmt, time));
+    BOOST_CHECK(!IsActive(ranges[0], time));
+  }
+  {
+    TYearRanges ranges;
+    BOOST_CHECK(Parse("2011", ranges));
+
+    std::tm time;
+    auto const fmt = "%Y";
+    BOOST_CHECK(GetTimeTuple("2011", fmt, time));
+    BOOST_CHECK(IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2012", fmt, time));
+    BOOST_CHECK(!IsActive(ranges[0], time));
+  }
+  /// See https://en.wikipedia.org/wiki/ISO_week_date#First_week
+  {
+    TWeekRanges ranges;
+    BOOST_CHECK(Parse("week 01-02", ranges));
+
+    std::tm time;
+    auto const fmt = "%Y %j %w";
+    BOOST_CHECK(GetTimeTuple("2015 01 4", fmt, time));
+    BOOST_CHECK(IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015 08 4", fmt, time));
+    BOOST_CHECK(IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015 14 3", fmt, time));
+    BOOST_CHECK(!IsActive(ranges[0], time));
+  }
+  {
+    TWeekRanges ranges;
+    BOOST_CHECK(Parse("week 02", ranges));
+
+    std::tm time;
+    auto const fmt = "%Y %j %w";
+    BOOST_CHECK(GetTimeTuple("2015 08 4", fmt, time));
+    BOOST_CHECK(IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015 05 1", fmt, time));
+    BOOST_CHECK(IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015 04 0", fmt, time));
+    BOOST_CHECK(!IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015 14 3", fmt, time));
+    BOOST_CHECK(!IsActive(ranges[0], time));
+  }
+}
 
 /// How to run:
 /// 1. copy opening-count.lst to where the binary is

@@ -1,10 +1,14 @@
 #include "rules_evaluation.hpp"
 // #include "rules_evaluation_private.hpp"
+#include <iomanip>
+#include <sstream>
 #include <tuple>
 
 namespace
 {
 using THourMinutes = std::tuple<int, int>;
+
+constexpr osmoh::MonthDay::TYear kTMYearOrigin = 1900;
 
 bool ToHourMinutes(osmoh::Time const & t, THourMinutes & hm)
 {
@@ -26,7 +30,6 @@ int CompareMonthDayAndTimeTumple(osmoh::MonthDay const & monthDay, std::tm const
     // Not implemented yet
     return false;
 
-  constexpr osmoh::MonthDay::TYear kTMYearOrigin = 1900;
   if (monthDay.HasYear())
     if (monthDay.GetYear() != date.tm_year + kTMYearOrigin)
       return monthDay.GetYear() != date.tm_year + kTMYearOrigin;
@@ -53,7 +56,6 @@ bool operator==(osmoh::MonthDay const & monthDay, std::tm const & date)
   return CompareMonthDayAndTimeTumple(monthDay, date) == 0;
 }
 
-
 osmoh::MonthDay NormalizeEnd(osmoh::MonthDay const & start, osmoh::MonthDay const & end)
 {
   osmoh::MonthDay result = start;
@@ -63,6 +65,19 @@ osmoh::MonthDay NormalizeEnd(osmoh::MonthDay const & start, osmoh::MonthDay cons
     result.SetMonth(end.GetMonth());
   return result;
 }
+
+uint8_t GetWeekNumber(std::tm const & date)
+{
+  char buff[4]{};
+  if (strftime(&buff[0], sizeof(buff), "%V", &date) == 0)
+    return 0;
+
+  uint32_t weekNumber;
+  std::stringstream sstr(buff);
+  sstr >> weekNumber;
+  return weekNumber;
+}
+
 } // namespace
 
 
@@ -130,5 +145,29 @@ bool IsActive(MonthdayRange const & range, std::tm const & date)
         date <= NormalizeEnd(range.GetStart(), range.GetEnd());
 
   return range.GetStart() == date;
+}
+
+bool IsActive(YearRange const & range, std::tm const & date)
+{
+  auto const year = date.tm_year + kTMYearOrigin;
+  if (range.IsEmpty())
+    return false;
+
+  if (range.HasEnd())
+    return range.GetStart() <= year && year <= range.GetEnd();
+
+  return range.GetStart() == year;
+}
+
+bool IsActive(WeekRange const & range, std::tm const & date)
+{
+  auto const weekNumber = GetWeekNumber(date);
+  if (range.IsEmpty())
+    return false;
+
+  if (range.HasEnd())
+    return range.GetStart() <= weekNumber && weekNumber <= range.GetEnd();
+
+  return range.GetStart() == weekNumber;
 }
 } // namespace osmoh
