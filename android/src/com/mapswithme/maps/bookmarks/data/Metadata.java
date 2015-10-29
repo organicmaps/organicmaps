@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Metadata implements Parcelable
 {
-  // values MUST correspond to definitions from feature_meta.hpp
+  // Values must correspond to definitions from feature_meta.hpp.
   public enum MetadataType
   {
     FMD_CUISINE(1),
@@ -24,7 +24,10 @@ public class Metadata implements Parcelable
     FMD_TURN_LANES(11),
     FMD_TURN_LANES_FORWARD(12),
     FMD_TURN_LANES_BACKWARD(13),
-    FMD_EMAIL(14);
+    FMD_EMAIL(14),
+    FMD_POSTCODE(15),
+    FMD_WIKIPEDIA(16),
+    FMD_MAXSPEED(17);
 
     private int mMetaType;
 
@@ -48,8 +51,6 @@ public class Metadata implements Parcelable
   /**
    * Adds metadata with type code and value. Returns false if metaType is wrong or unknown
    *
-   * @param metaType
-   * @param metaValue
    * @return true, if metadata was added, false otherwise
    */
   public boolean addMetadata(int metaType, String metaValue)
@@ -65,8 +66,6 @@ public class Metadata implements Parcelable
   /**
    * Adds metadata with type and value.
    *
-   * @param type
-   * @param value
    * @return true, if metadata was added, false otherwise
    */
   public boolean addMetadata(MetadataType type, String value)
