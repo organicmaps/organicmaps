@@ -1,5 +1,7 @@
 #pragma once
 #include "std/array.hpp"
+#include "std/functional.hpp"
+#include "std/initializer_list.hpp"
 #include "std/iterator.hpp"
 #include "std/list.hpp"
 #include "std/map.hpp"
@@ -9,7 +11,6 @@
 #include "std/unique_ptr.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
-#include "std/initializer_list.hpp"
 
 
 /// @name Declarations.
@@ -20,11 +21,11 @@ string DebugPrint(string const & t);
 inline string DebugPrint(char const * t);
 inline string DebugPrint(char t);
 
-template <typename U, typename V> inline string DebugPrint(pair<U,V> const & p);
+template <typename U, typename V> inline string DebugPrint(pair<U, V> const & p);
 template <typename T> inline string DebugPrint(list<T> const & v);
 template <typename T> inline string DebugPrint(vector<T> const & v);
-template <typename T> inline string DebugPrint(set<T> const & v);
-template <typename U, typename V> inline string DebugPrint(map<U,V> const & v);
+template <typename T, typename C = less<T>> inline string DebugPrint(set<T, C> const & v);
+template <typename U, typename V, typename C = less<U>> inline string DebugPrint(map<U, V, C> const & v);
 template <typename T> inline string DebugPrint(initializer_list<T> const & v);
 template <typename T> inline string DebugPrint(unique_ptr<T> const & v);
 //@}
@@ -96,12 +97,12 @@ template <typename T> inline string DebugPrint(list<T> const & v)
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }
 
-template <typename T> inline string DebugPrint(set<T> const & v)
+template <typename T, typename C> inline string DebugPrint(set<T, C> const & v)
 {
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }
 
-template <typename U, typename V> inline string DebugPrint(map<U,V> const & v)
+template <typename U, typename V, typename C> inline string DebugPrint(map<U, V, C> const & v)
 {
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }
