@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ll__place_email"
+    android:id="@+id/ll__place_wiki"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/clickableBackground"
@@ -10,23 +10,23 @@
     android:orientation="horizontal"
     android:paddingBottom="@dimen/margin_half"
     android:paddingTop="@dimen/margin_half"
-    android:tag="email"
+    android:tag="website"
     android:visibility="gone"
     tools:visibility="visible"
-    tools:background="#F000FF00">
+    tools:background="#20FF0000">
 
   <ImageView
-      android:id="@+id/iv__place_email"
+      android:id="@+id/iv__place_wiki"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginRight="@dimen/margin_base"
-      android:src="@drawable/ic_email"/>
+      android:src="@drawable/ic_wiki"/>
 
   <TextView
-      android:id="@+id/tv__place_email"
+      android:id="@+id/tv__place_wiki"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textColor="@color/text_place_page_blue"
       android:textSize="@dimen/text_size_body_1"
-      tools:text="email@maps.me"/>
+      tools:text="https://en.wikipedia.org/"/>
 </LinearLayout>

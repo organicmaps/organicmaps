@@ -18,8 +18,8 @@
       android:id="@+id/iv__place_wifi"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginRight="@dimen/margin_double"
-      android:src="@drawable/ic_text_wifi"/>
+      android:layout_marginRight="@dimen/margin_base"
+      android:src="@drawable/ic_wifi"/>
 
   <TextView
       android:id="@+id/tv__place_wifi"
@@ -27,5 +27,5 @@
       android:layout_height="wrap_content"
       android:textColor="@color/text_place_page"
       android:textSize="@dimen/text_size_body_1"
-      tools:text="Wi-Fi"/>
+      android:text="@string/WiFi_available"/>
 </LinearLayout>

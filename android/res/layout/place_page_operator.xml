@@ -19,8 +19,8 @@
       android:id="@+id/iv__place_operator"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginRight="@dimen/margin_double"
-      android:src="@drawable/ic_bank_operator"/>
+      android:layout_marginRight="@dimen/margin_base"
+      android:src="@drawable/ic_bank"/>
 
   <TextView
       android:id="@+id/tv__place_operator"

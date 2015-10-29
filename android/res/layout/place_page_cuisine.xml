@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-  android:id="@+id/ll__place_schedule"
+  android:id="@+id/ll__place_cuisine"
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
@@ -15,17 +15,17 @@
   tools:visibility="visible">
 
   <ImageView
-    android:id="@+id/iv__place_schedule"
+    android:id="@+id/iv__place_cuisine"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginRight="@dimen/margin_base"
-    android:src="@drawable/ic_operating_hours"/>
+    android:src="@drawable/ic_cuisine"/>
 
   <TextView
-    android:id="@+id/tv__place_schedule"
+    android:id="@+id/tv__place_cuisine"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:textColor="@color/text_place_page"
     android:textSize="@dimen/text_size_body_1"
-    tools:text="Today 16:00-18.00"/>
+    tools:text="Japan, European"/>
 </LinearLayout>

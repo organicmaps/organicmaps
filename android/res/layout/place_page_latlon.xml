@@ -17,8 +17,8 @@
       android:id="@+id/iv__place_latlon"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginRight="@dimen/margin_double"
-      android:src="@drawable/ic_text_position"/>
+      android:layout_marginRight="@dimen/margin_base"
+      android:src="@drawable/ic_coordinates"/>
 
   <TextView
       android:id="@+id/tv__place_latlon"
