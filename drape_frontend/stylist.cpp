@@ -353,7 +353,8 @@ bool InitStylist(FeatureType const & f,
 
   feature::EGeomType mainGeomType = feature::EGeomType(geomType.first);
 
-  switch (mainGeomType) {
+  switch (mainGeomType)
+  {
   case feature::GEOM_POINT:
     s.RaisePointStyleFlag();
     break;
