@@ -68,12 +68,12 @@ public:
       id2 = id2.Parent();
     }
 #if 0 // DEBUG
-    CoordT minX, minY, maxX, maxY;
+    double minX, minY, maxX, maxY;
     GetCellBounds(id1, minX, minY, maxX, maxY);
-    ASSERT(minX <= x1 && x1 <= maxX, (x1, y1, x2, y2, id1, minX, minY, maxX, maxY));
-    ASSERT(minX <= x2 && x2 <= maxX, (x1, y1, x2, y2, id1, minX, minY, maxX, maxY));
-    ASSERT(minY <= y1 && y1 <= maxY, (x1, y1, x2, y2, id1, minX, minY, maxX, maxY));
-    ASSERT(minY <= y2 && y2 <= maxY, (x1, y1, x2, y2, id1, minX, minY, maxX, maxY));
+    ASSERT(my::between_s(minX, maxX, x1), (x1, minX, maxX));
+    ASSERT(my::between_s(minX, maxX, x2), (x2, minX, maxX));
+    ASSERT(my::between_s(minY, maxY, y1), (y1, minY, maxY));
+    ASSERT(my::between_s(minY, maxY, y2), (y2, minY, maxY));
 #endif
     return id1;
   }
