@@ -309,7 +309,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::FindVisiblePOI:
     {
       ref_ptr<FindVisiblePOIMessage> msg = message;
-      msg->SetFeatureID(GetVisiblePOI(m_userEventStream.GetCurrentScreen().GtoP(msg->GetPoint())));
+      ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
+      msg->SetFeatureID(GetVisiblePOI(screen.isPerspective() ? screen.PtoP3d(screen.GtoP(msg->GetPoint()))
+                                                             : screen.GtoP(msg->GetPoint())));
       break;
     }
 
