@@ -56,13 +56,19 @@ UNIT_TEST(TestContextSerialization)
   MemReader reader(buffer.data(), buffer.size());
   newContext.Load(reader);
   vector<IngoingCrossNode> ingoingNodes;
-  newContext.GetAllIngoingNodes(ingoingNodes);
+  newContext.ForEachIngoingNode([&ingoingNodes](IngoingCrossNode const & node)
+                                {
+                                  ingoingNodes.push_back(node);
+                                });
   TEST_EQUAL(ingoingNodes.size(), 2, ());
   TEST_EQUAL(ingoingNodes[0].m_nodeId, 1, ());
   TEST_EQUAL(ingoingNodes[1].m_nodeId, 2, ());
 
   vector<OutgoingCrossNode> outgoingNodes;
-  newContext.GetAllOutgoingNodes(outgoingNodes);
+  newContext.ForEachOutgoingNode([&outgoingNodes](OutgoingCrossNode const & node)
+                                 {
+                                   outgoingNodes.push_back(node);
+                                 });
   TEST_EQUAL(outgoingNodes.size(), 2, ());
   TEST_EQUAL(outgoingNodes[0].m_nodeId, 3, ());
   TEST_EQUAL(newContext.GetOutgoingMwmName(outgoingNodes[0]), string("foo"), ());
@@ -95,9 +101,15 @@ UNIT_TEST(TestAdjacencyMatrix)
   MemReader reader(buffer.data(), buffer.size());
   newContext.Load(reader);
   vector<IngoingCrossNode> ingoingNodes;
-  newContext.GetAllIngoingNodes(ingoingNodes);
+  newContext.ForEachIngoingNode([&ingoingNodes](IngoingCrossNode const & node)
+                                {
+                                  ingoingNodes.push_back(node);
+                                });
   vector<OutgoingCrossNode> outgoingNodes;
-  newContext.GetAllOutgoingNodes(outgoingNodes);
+  newContext.ForEachOutgoingNode([&outgoingNodes](OutgoingCrossNode const & node)
+                                 {
+                                   outgoingNodes.push_back(node);
+                                 });
   TEST_EQUAL(newContext.GetAdjacencyCost(ingoingNodes[0], outgoingNodes[0]), 5, ());
   TEST_EQUAL(newContext.GetAdjacencyCost(ingoingNodes[1], outgoingNodes[0]), 9, ());
   TEST_EQUAL(newContext.GetAdjacencyCost(ingoingNodes[2], outgoingNodes[0]),

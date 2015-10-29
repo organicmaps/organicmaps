@@ -23,7 +23,12 @@ IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
 
   // Load source data.
   vector<OutgoingCrossNode> outgoingNodes;
-  startMapping->m_crossContext.GetAllOutgoingNodes(outgoingNodes);
+
+  startMapping->m_crossContext.ForEachOutgoingNode([&outgoingNodes](OutgoingCrossNode const & node)
+                                                   {
+                                                     outgoingNodes.push_back(node);
+                                                   });
+
   size_t const outSize = outgoingNodes.size();
   // Can't find the route if there are no routes outside source map.
   if (!outSize)
@@ -80,7 +85,10 @@ IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
 
   // Load source data.
   vector<IngoingCrossNode> ingoingNodes;
-  finalMapping->m_crossContext.GetAllIngoingNodes(ingoingNodes);
+  finalMapping->m_crossContext.ForEachIngoingNode([&ingoingNodes](IngoingCrossNode const & node)
+                                                   {
+                                                     ingoingNodes.push_back(node);
+                                                   });
   size_t const ingoingSize = ingoingNodes.size();
   // If there is no routes inside target map.
   if (ingoingSize == 0)
@@ -179,31 +187,24 @@ void CrossMwmGraph::GetOutgoingEdgesList(BorderCross const & v,
   {
     LOG(LDEBUG, ("Several nodes stores in one border point.", v.toNode.point));
     vector<IngoingCrossNode> ingoingNodes;
-    currentContext.GetAllIngoingNodes(ingoingNodes);
-    for(auto const & node : ingoingNodes)
-    {
-      if (node.m_nodeId == v.toNode.node)
-      {
-        ingoingNode = node;
-        break;
-      }
-    }
+    currentContext.ForEachIngoingNode([&ingoingNode, &v](IngoingCrossNode const & node)
+                                      {
+                                        if (node.m_nodeId == v.toNode.node)
+                                          ingoingNode = node;
+                                      });
   }
-
-  vector<OutgoingCrossNode> outgoingNodes;
-  currentContext.GetAllOutgoingNodes(outgoingNodes);
 
   // Find outs. Generate adjacency list.
-  for (auto const & node : outgoingNodes)
-  {
-    EdgeWeight const outWeight = currentContext.GetAdjacencyCost(ingoingNode, node);
-    if (outWeight != kInvalidContextEdgeWeight && outWeight != 0)
-    {
-      BorderCross target = FindNextMwmNode(node, currentMapping);
-      if (target.toNode.IsValid())
-        adj.emplace_back(target, outWeight);
-    }
-  }
+  currentContext.ForEachOutgoingNode([&, this](OutgoingCrossNode const & node)
+                                     {
+                                       EdgeWeight const outWeight = currentContext.GetAdjacencyCost(ingoingNode, node);
+                                       if (outWeight != kInvalidContextEdgeWeight && outWeight != 0)
+                                       {
+                                         BorderCross target = FindNextMwmNode(node, currentMapping);
+                                         if (target.toNode.IsValid())
+                                           adj.emplace_back(target, outWeight);
+                                       }
+                                     });
 }
 
 double CrossMwmGraph::HeuristicCostEstimate(BorderCross const & v, BorderCross const & w) const

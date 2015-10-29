@@ -38,26 +38,23 @@ UNIT_TEST(CheckCrossSections)
     FilesMappingContainer container(file.GetPath(MapOptions::CarRouting));
     crossReader.Load(container.GetReader(ROUTING_CROSS_CONTEXT_TAG));
 
-    vector<IngoingCrossNode> ingoingNodes;
-    crossReader.GetAllIngoingNodes(ingoingNodes);
-    for (auto const & node : ingoingNodes)
-    {
-      if (node.m_point.EqualDxDy(ms::LatLon::Zero(), kPointEquality))
-      {
-        ingoingErrors++;
-        break;
-      }
-    }
+    bool error = false;
+    crossReader.ForEachIngoingNode([&error](IngoingCrossNode const & node)
+                                   {
+                                   if (node.m_point.EqualDxDy(ms::LatLon::Zero(), kPointEquality))
+                                     error = true;
+                                   });
+    if (error)
+      ingoingErrors++;
 
-    vector<OutgoingCrossNode> outgoingNodes;
-    for (auto const & node : outgoingNodes)
-    {
-      if (node.m_point.EqualDxDy(ms::LatLon::Zero(), kPointEquality))
-      {
-        outgoingErrors++;
-        break;
-      }
-    }
+    error = false;
+    crossReader.ForEachOutgoingNode([&error](OutgoingCrossNode const & node)
+                                    {
+                                    if (node.m_point.EqualDxDy(ms::LatLon::Zero(), kPointEquality))
+                                      error = true;
+                                    });
+    if (error)
+      outgoingErrors++;
   }
   TEST_EQUAL(ingoingErrors, 0, ("Some countries have zero point incomes."));
   TEST_EQUAL(outgoingErrors, 0, ("Some countries have zero point exits."));

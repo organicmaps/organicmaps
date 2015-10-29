@@ -3,13 +3,18 @@
 #include "indexer/mercator.hpp"
 #include "indexer/point_to_int64.hpp"
 
+namespace
+{
+uint32_t constexpr kCoordBits = POINT_COORD_BITS;
+
+double constexpr kMwmCrossingNodeEqualityRadiusMeters = 5.0;
+}  // namespace
+
 namespace routing
 {
-static uint32_t const g_coordBits = POINT_COORD_BITS;
-
 void OutgoingCrossNode::Save(Writer & w) const
 {
-  uint64_t point = PointToInt64(m2::PointD(m_point.lon, m_point.lat), g_coordBits);
+  uint64_t point = PointToInt64(m2::PointD(m_point.lon, m_point.lat), kCoordBits);
   char buff[sizeof(m_nodeId) + sizeof(point) + sizeof(m_outgoingIndex)];
   *reinterpret_cast<decltype(m_nodeId) *>(&buff[0]) = m_nodeId;
   *reinterpret_cast<decltype(point) *>(&(buff[sizeof(m_nodeId)])) = point;
@@ -22,7 +27,7 @@ size_t OutgoingCrossNode::Load(const Reader & r, size_t pos, size_t adjacencyInd
   char buff[sizeof(m_nodeId) + sizeof(uint64_t) + sizeof(m_outgoingIndex)];
   r.Read(pos, buff, sizeof(buff));
   m_nodeId = *reinterpret_cast<decltype(m_nodeId) *>(&buff[0]);
-  m2::PointD bufferPoint = Int64ToPoint(*reinterpret_cast<uint64_t *>(&(buff[sizeof(m_nodeId)])), g_coordBits);
+  m2::PointD bufferPoint = Int64ToPoint(*reinterpret_cast<uint64_t *>(&(buff[sizeof(m_nodeId)])), kCoordBits);
   m_point = ms::LatLon(bufferPoint.y, bufferPoint.x);
   m_outgoingIndex = *reinterpret_cast<decltype(m_outgoingIndex) *>(&(buff[sizeof(m_nodeId) + sizeof(uint64_t)]));
   m_adjacencyIndex = adjacencyIndex;
@@ -31,7 +36,7 @@ size_t OutgoingCrossNode::Load(const Reader & r, size_t pos, size_t adjacencyInd
 
 void IngoingCrossNode::Save(Writer & w) const
 {
-  uint64_t point = PointToInt64(m2::PointD(m_point.lon, m_point.lat), g_coordBits);
+  uint64_t point = PointToInt64(m2::PointD(m_point.lon, m_point.lat), kCoordBits);
   char buff[sizeof(m_nodeId) + sizeof(point)];
   *reinterpret_cast<decltype(m_nodeId) *>(&buff[0]) = m_nodeId;
   *reinterpret_cast<decltype(point) *>(&(buff[sizeof(m_nodeId)])) = point;
@@ -43,7 +48,7 @@ size_t IngoingCrossNode::Load(const Reader & r, size_t pos, size_t adjacencyInde
   char buff[sizeof(m_nodeId) + sizeof(uint64_t)];
   r.Read(pos, buff, sizeof(buff));
   m_nodeId = *reinterpret_cast<decltype(m_nodeId) *>(&buff[0]);
-  m2::PointD bufferPoint = Int64ToPoint(*reinterpret_cast<uint64_t *>(&(buff[sizeof(m_nodeId)])), g_coordBits);
+  m2::PointD bufferPoint = Int64ToPoint(*reinterpret_cast<uint64_t *>(&(buff[sizeof(m_nodeId)])), kCoordBits);
   m_point = ms::LatLon(bufferPoint.y, bufferPoint.x);
   m_adjacencyIndex = adjacencyIndex;
   return pos + sizeof(buff);
@@ -95,7 +100,8 @@ bool CrossRoutingContextReader::FindIngoingNodeByPoint(ms::LatLon const & point,
                                                        IngoingCrossNode & node) const
 {
   bool found = false;
-  m_ingoingIndex.ForEachInRect(MercatorBounds::RectByCenterXYAndSizeInMeters({point.lat, point.lon}, 5),
+  m_ingoingIndex.ForEachInRect(MercatorBounds::RectByCenterXYAndSizeInMeters({point.lat, point.lon},
+                               kMwmCrossingNodeEqualityRadiusMeters),
                                [&found, &node](IngoingCrossNode const & nd)
                                {
                                  node = nd;
@@ -122,21 +128,6 @@ TWrittenEdgeWeight CrossRoutingContextReader::GetAdjacencyCost(IngoingCrossNode 
 
   size_t cost_index = m_outgoingNodes.size() * ingoing.m_adjacencyIndex + outgoing.m_adjacencyIndex;
   return cost_index < m_adjacencyMatrix.size() ? m_adjacencyMatrix[cost_index] : kInvalidContextEdgeWeight;
-}
-
-void CrossRoutingContextReader::GetAllIngoingNodes(vector<IngoingCrossNode> & nodes) const
-{
-  m_ingoingIndex.ForEach([&nodes](IngoingCrossNode const & node)
-                         {
-                           nodes.push_back(node);
-                         });
-}
-
-// It is not absolutelty effective, because we plan to change internal storage to avoid backward A*
-// So we can't just return a reference.
-void CrossRoutingContextReader::GetAllOutgoingNodes(vector<OutgoingCrossNode> & nodes) const
-{
-  nodes = m_outgoingNodes;
 }
 
 void CrossRoutingContextWriter::Save(Writer & w) const

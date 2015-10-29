@@ -92,8 +92,11 @@ public:
   TWrittenEdgeWeight GetAdjacencyCost(IngoingCrossNode const & ingoing,
                                      OutgoingCrossNode const & outgoing) const;
 
-  void GetAllIngoingNodes(vector<IngoingCrossNode> & nodes) const;
-  void GetAllOutgoingNodes(vector<OutgoingCrossNode> & nodes) const;
+  template <class TFunctor>
+  void ForEachIngoingNode(TFunctor f) const {m_ingoingIndex.ForEach(f);}
+
+  template <class TFunctor>
+  void ForEachOutgoingNode(TFunctor f) const {for_each(m_outgoingNodes.cbegin(), m_outgoingNodes.cend(), f);}
 };
 
 /// Helper class to generate cross context section in mwm.routing file
