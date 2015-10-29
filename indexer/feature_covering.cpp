@@ -206,15 +206,15 @@ void CoverViewportAndAppendLowerLevels(m2::RectD const & r, int cellDepth, Inter
 RectId GetRectIdAsIs(m2::RectD const & r)
 {
   double const eps = MercatorBounds::GetCellID2PointAbsEpsilon();
+  using TConverter = CellIdConverter<MercatorBounds, RectId>;
 
-  typedef CellIdConverter<MercatorBounds, RectId> TConverter;
   RectId const id = TConverter::Cover2PointsWithCell(
     MercatorBounds::ClampX(r.minX() + eps),
     MercatorBounds::ClampY(r.minY() + eps),
     MercatorBounds::ClampX(r.maxX() - eps),
     MercatorBounds::ClampY(r.maxY() - eps));
 
-  // Calling this function make sence only for rects that are equal with index cells.
+  // Calling this function makes sence only for rects that are equal with index cells.
   // Check it here ...
 #ifdef DEBUG
   double minX, minY, maxX, maxY;
@@ -253,16 +253,16 @@ IntervalsT const & CoveringGetter::Get(int scale)
       while (id.Level() >= cellDepth)
         id = id.Parent();
       AppendLowerLevels(id, cellDepth, m_res[ind]);
-/*
-#ifdef DEBUG
+
+      // Check for optimal result intervals.
+#if 0
       size_t oldSize = m_res[ind].size();
       IntervalsT res;
       SortAndMergeIntervals(m_res[ind], res);
       if (res.size() != oldSize)
-        LOG(LDEBUG, ("Old =", oldSize, "; New =", res.size()));
+        LOG(LINFO, ("Old =", oldSize, "; New =", res.size()));
       res.swap(m_res[ind]);
 #endif
-*/
       break;
     }
 
