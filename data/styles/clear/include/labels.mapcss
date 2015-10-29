@@ -970,6 +970,11 @@ node|z16-[natural=bay]
 
 /* water LABELS */
 
+line[waterway]
+{
+  text-position: line;
+}
+
 area|z10-[natural=lake][bbox_area>=4000000],
 area|z10-[landuse=reservoir][bbox_area>=4000000],
 area|z10-[natural=water][bbox_area>=4000000]
