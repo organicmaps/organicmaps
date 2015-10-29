@@ -33,7 +33,22 @@ void TileInfo::ReadFeatureIndex(MapDataProvider const & model)
   {
     CheckCanceled();
     model.ReadFeaturesID(bind(&TileInfo::ProcessID, this, _1), GetGlobalRect(), GetZoomLevel());
-    sort(m_featureInfo.begin(), m_featureInfo.end());
+
+    //sort(m_featureInfo.begin(), m_featureInfo.end());
+    // Do debug check instead of useless sorting.
+#ifdef DEBUG
+    set<MwmSet::MwmId> existing;
+    auto i = m_featureInfo.begin();
+    while (i != m_featureInfo.end())
+    {
+      auto const & id = i->m_id.m_mwmId;
+      ASSERT(existing.insert(id).second, ());
+      i = find_if(i+1, m_featureInfo.end(), [&id](FeatureInfo const & info)
+      {
+        return (id != info.m_id.m_mwmId);
+      });
+    }
+#endif
   }
 }
 
