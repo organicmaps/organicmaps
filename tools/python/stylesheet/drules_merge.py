@@ -2,7 +2,7 @@
 # Compares two drules files and produces a merged result.
 # Also prints differences (missing things in drules1) to stdout.
 import sys, re
-import copy
+import copy, collections
 import drules_struct_pb2
 
 def read_drules(drules):
@@ -13,12 +13,12 @@ def read_drules(drules):
   for rule in drules.cont:
     zooms = [None, None]
     for elem in rule.element:
-      zoom = rule.scale
-      if zoom >= 0:
-        if zooms[1] is None or zoom > zooms[1].scale:
+      if elem.scale >= 0:
+        if zooms[1] is None or elem.scale > zooms[1].scale:
           zooms[1] = elem
-        if zooms[0] is None or zoom < zooms[0].scale:
+        if zooms[0] is None or elem.scale < zooms[0].scale:
           zooms[0] = elem
+
     if zooms[0] is not None:
       name = str(rule.name)
       if name in result:
@@ -36,40 +36,38 @@ def zooms_string(z1, z2):
   else:
     return "zoom {}".format(z1)
 
+def add_missing_zooms(dest, typ, source, target, high):
+  """Checks zoom ranges for source and target, and appends as much sources to
+  the dest as needed."""
+  if high:
+    scales = (target.scale + 1, source.scale + 1)
+  else:
+    scales = (source.scale, target.scale)
+
+  if scales[1] < scales[0]:
+    print "{}: missing {} {}".format(typ, 'high' if high else 'low', zooms_string(scales[1], scales[0] - 1))
+    for z in range(scales[1], scales[0]):
+      fix = copy.deepcopy(source)
+      fix.scale = z
+      dest[typ].append(fix)
+  elif scales[1] > scales[0]:
+    print "{}: extra {} {}".format(typ, 'high' if high else 'low', zooms_string(scales[0], scales[1] - 1))
+
 def create_diff(zooms1, zooms2):
   """Calculates difference between zoom dicts, and returns a tuple:
   (add_zooms_low, add_zooms_high, add_types), for missing zoom levels
   and missing types altogether. Zooms are separate to preserve sorting
   order in elements."""
-  add_elements_low = {}
-  add_elements_high = {}
-  seen = set([x for x in zooms2])
+  add_elements_low = collections.defaultdict(list)
+  add_elements_high = collections.defaultdict(list)
+  seen = set(zooms2.keys())
   for typ in zooms1:
-    if typ not in zooms2:
-      print "{}: not found in the alternative style; {}".format(typ, zooms_string(zooms1[typ][0].scale, zooms1[typ][1].scale))
-    else:
+    if typ in zooms2:
       seen.remove(typ)
-      if zooms2[typ][0].scale < zooms1[typ][0].scale:
-        print "{}: missing low {}".format(typ, zooms_string(zooms2[typ][0].scale, zooms1[typ][0].scale - 1))
-        if not typ in add_elements_low:
-          add_elements_low[typ] = []
-        for z in range(zooms2[typ][0].scale, zooms1[typ][0].scale):
-          fix = copy.deepcopy(zooms1[typ][0])
-          fix.scale = z
-          add_elements_low[typ].append(fix)
-      elif zooms2[typ][0].scale > zooms1[typ][0].scale:
-        print "{}: extra low {}".format(typ, zooms_string(zooms1[typ][0].scale, zooms2[typ][0].scale - 1))
-
-      if zooms2[typ][1].scale > zooms1[typ][1].scale:
-        print "{}: missing high {}".format(typ, zooms_string(zooms1[typ][1].scale + 1, zooms2[typ][1].scale))
-        if not typ in add_elements_high:
-          add_elements_high[typ] = []
-        for z in range(zooms1[typ][1].scale, zooms2[typ][1].scale):
-          fix = copy.deepcopy(zooms1[typ][1])
-          fix.scale = z + 1
-          add_elements_high[typ].append(fix)
-      elif zooms2[typ][1].scale < zooms1[typ][1].scale:
-        print "{}: extra high {}".format(typ, zooms_string(zooms2[typ][1].scale + 1, zooms1[typ][1].scale))
+      add_missing_zooms(add_elements_low,  typ, zooms1[typ][0], zooms2[typ][0], False)
+      add_missing_zooms(add_elements_high, typ, zooms1[typ][1], zooms2[typ][1], True)
+    else:
+      print "{}: not found in the alternative style; {}".format(typ, zooms_string(zooms1[typ][0].scale, zooms1[typ][1].scale))
 
   add_types = []
   for typ in seen:
@@ -94,7 +92,7 @@ def apply_diff(drules, diff):
     if typ in diff[0]:
       fix.element.extend(diff[0][typ])
     if rule.element:
-      fix.element.extend([el for el in rule.element])
+      fix.element.extend(rule.element)
     if typ in diff[1]:
       fix.element.extend(diff[1][typ])
     result.cont.extend([fix])
