@@ -25,9 +25,15 @@
 
       <include layout="@layout/place_page_placename"/>
 
+      <include layout="@layout/place_page_entrance"/>
+
       <include layout="@layout/place_page_phone"/>
 
       <include layout="@layout/place_page_website"/>
+
+      <include layout="@layout/place_page_wiki"/>
+
+      <include layout="@layout/place_page_email"/>
 
       <include layout="@layout/place_page_schedule"/>
 
@@ -35,9 +41,9 @@
 
       <include layout="@layout/place_page_wifi"/>
 
-      <include layout="@layout/place_page_email"/>
-
       <include layout="@layout/place_page_operator"/>
+
+      <include layout="@layout/place_page_cuisine"/>
 
       <View
           android:layout_width="match_parent"

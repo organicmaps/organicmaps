@@ -19,8 +19,8 @@
       android:id="@+id/iv__place_website"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginRight="@dimen/margin_double"
-      android:src="@drawable/ic_text_link"/>
+      android:layout_marginRight="@dimen/margin_base"
+      android:src="@drawable/ic_web"/>
 
   <TextView
       android:id="@+id/tv__place_website"
@@ -28,5 +28,5 @@
       android:layout_height="wrap_content"
       android:textColor="@color/text_place_page_blue"
       android:textSize="@dimen/text_size_body_1"
-      tools:text="Sample website"/>
+      tools:text="osm.org"/>
 </LinearLayout>

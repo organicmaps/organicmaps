@@ -16,7 +16,6 @@ import com.mapswithme.maps.widget.BaseShadowController;
 import com.mapswithme.maps.widget.ObservableScrollView;
 import com.mapswithme.maps.widget.ScrollViewShadowController;
 import com.mapswithme.util.Constants;
-import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -83,14 +82,14 @@ public class AboutFragment extends BaseSettingsFragment
           Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.Settings.FACEBOOK);
           AlohaHelper.logClick(AlohaHelper.Settings.FACEBOOK);
 
-          UiUtils.showFacebookPage(getActivity());
+          Utils.showFacebookPage(getActivity());
           break;
 
         case R.id.twitter:
           Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.Settings.TWITTER);
           AlohaHelper.logClick(AlohaHelper.Settings.TWITTER);
 
-          UiUtils.showTwitterPage(getActivity());
+          Utils.showTwitterPage(getActivity());
           break;
 
         case R.id.subscribe:
@@ -107,7 +106,7 @@ public class AboutFragment extends BaseSettingsFragment
           Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.Settings.RATE);
           AlohaHelper.logClick(AlohaHelper.Settings.RATE);
 
-          UiUtils.openAppInMarket(getActivity(), BuildConfig.REVIEW_URL);
+          Utils.openAppInMarket(getActivity(), BuildConfig.REVIEW_URL);
           break;
 
         case R.id.share:
