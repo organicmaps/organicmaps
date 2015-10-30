@@ -457,7 +457,7 @@ bool UserEventStream::TouchDown(array<Touch, 2> const & touches)
 
 bool UserEventStream::TouchMove(array<Touch, 2> const & touches, double timestamp)
 {
-  double const dragThreshold = VisualParams::Instance().GetDragThreshold();
+  double const dragThreshold = my::sq(VisualParams::Instance().GetDragThreshold());
   size_t touchCount = GetValidTouchesCount(touches);
   bool isMapTouch = true;
 
@@ -466,7 +466,7 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches, double timestam
   case STATE_EMPTY:
     if (touchCount == 1)
     {
-      if (m_startDragOrg.Length(touches[0].m_location) > dragThreshold)
+      if (m_startDragOrg.SquareLength(touches[0].m_location) > dragThreshold)
         BeginDrag(touches[0], timestamp);
       else
         isMapTouch = false;
@@ -480,8 +480,8 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches, double timestam
     if (touchCount == 2)
     {
       float const threshold = static_cast<float>(dragThreshold);
-      if (m_twoFingersTouches[0].Length(touches[0].m_location) > threshold ||
-          m_twoFingersTouches[1].Length(touches[1].m_location) > threshold)
+      if (m_twoFingersTouches[0].SquareLength(touches[0].m_location) > threshold ||
+          m_twoFingersTouches[1].SquareLength(touches[1].m_location) > threshold)
         BeginScale(touches[0], touches[1]);
       else
         isMapTouch = false;
@@ -494,7 +494,7 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches, double timestam
   case STATE_TAP_DETECTION:
   case STATE_WAIT_DOUBLE_TAP:
     ASSERT_EQUAL(touchCount, 1, ());
-    if (m_startDragOrg.Length(touches[0].m_location) > dragThreshold)
+    if (m_startDragOrg.SquareLength(touches[0].m_location) > dragThreshold)
       CancelTapDetector();
     else
       isMapTouch = false;
@@ -572,7 +572,7 @@ bool UserEventStream::TouchUp(array<Touch, 2> const & touches)
     EndTapDetector(touches[0]);
     break;
   case STATE_TAP_TWO_FINGERS:
-    if(touchCount == 2)
+    if (touchCount == 2)
     {
       EndTwoFingersTap();
       isMapTouch = true;

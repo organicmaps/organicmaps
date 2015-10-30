@@ -161,7 +161,7 @@ UNIT_TEST(SimpleScale)
 {
   size_t const moveEventCount = 5;
   UserEventStreamTest test(false);
-  test.SetRect(m2::RectD(-250, -250, 250, 250));
+  test.SetRect(m2::RectD(-250.0, -250.0, 250.0, 250.0));
 
   test.AddExpectation(df::UserEventStream::TWO_FINGERS_TAP);
   test.AddExpectation(df::UserEventStream::BEGIN_SCALE);

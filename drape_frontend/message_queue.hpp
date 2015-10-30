@@ -27,7 +27,6 @@ public:
   bool IsEmpty();
 
 private:
-  //threads::Condition m_condition;
   mutex m_mutex;
   condition_variable m_condition;
   bool m_isWaiting;
