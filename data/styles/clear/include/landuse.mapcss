@@ -114,6 +114,14 @@ area|z17-[leisure=playground]  {
   fill-opacity: 1;
   z-index: 150;
 }
+
+/* HOSPITALS */
+area|z14-[amenity=hospital] {
+  fill-color: @hospital;
+  fill-opacity: 1;
+  fill-position: background;
+}
+
 /* PARKINGS*/
 
 
