@@ -7,7 +7,7 @@ namespace
 {
 uint32_t constexpr kCoordBits = POINT_COORD_BITS;
 
-double constexpr kMwmCrossingNodeEqualityRadiusMeters = 5.0;
+double constexpr kMwmCrossingNodeEqualityRadiusDegrees = 0.001;
 }  // namespace
 
 namespace routing
@@ -100,8 +100,10 @@ bool CrossRoutingContextReader::FindIngoingNodeByPoint(ms::LatLon const & point,
                                                        IngoingCrossNode & node) const
 {
   bool found = false;
-  m_ingoingIndex.ForEachInRect(MercatorBounds::RectByCenterXYAndSizeInMeters({point.lat, point.lon},
-                               kMwmCrossingNodeEqualityRadiusMeters),
+  m_ingoingIndex.ForEachInRect(m2::RectD(point.lat - kMwmCrossingNodeEqualityRadiusDegrees,
+                                     point.lon - kMwmCrossingNodeEqualityRadiusDegrees,
+                                     point.lat + kMwmCrossingNodeEqualityRadiusDegrees,
+                                     point.lon + kMwmCrossingNodeEqualityRadiusDegrees),
                                [&found, &node](IngoingCrossNode const & nd)
                                {
                                  node = nd;

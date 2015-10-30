@@ -41,8 +41,8 @@ UNIT_TEST(CheckCrossSections)
     bool error = false;
     crossReader.ForEachIngoingNode([&error](IngoingCrossNode const & node)
                                    {
-                                   if (node.m_point.EqualDxDy(ms::LatLon::Zero(), kPointEquality))
-                                     error = true;
+                                     if (node.m_point.EqualDxDy(ms::LatLon::Zero(), kPointEquality))
+                                       error = true;
                                    });
     if (error)
       ingoingErrors++;
@@ -50,8 +50,8 @@ UNIT_TEST(CheckCrossSections)
     error = false;
     crossReader.ForEachOutgoingNode([&error](OutgoingCrossNode const & node)
                                     {
-                                    if (node.m_point.EqualDxDy(ms::LatLon::Zero(), kPointEquality))
-                                      error = true;
+                                      if (node.m_point.EqualDxDy(ms::LatLon::Zero(), kPointEquality))
+                                        error = true;
                                     });
     if (error)
       outgoingErrors++;
