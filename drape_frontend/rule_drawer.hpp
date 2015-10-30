@@ -1,12 +1,14 @@
 #pragma once
 
 #include "drape_frontend/tile_key.hpp"
+#include "drape_frontend/map_shape.hpp"
 
 #include "drape/pointers.hpp"
 
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
+#include "std/array.hpp"
 #include "std/function.hpp"
 #include "std/set.hpp"
 #include "std/string.hpp"
@@ -18,13 +20,13 @@ namespace df
 
 class EngineContext;
 class Stylist;
-class MapShape;
 
 class RuleDrawer
 {
 public:
   using TDrawerCallback = function<void (FeatureType const &, Stylist &)>;
   RuleDrawer(TDrawerCallback const & fn, ref_ptr<EngineContext> context);
+  ~RuleDrawer();
 
   void operator() (FeatureType const & f);
 
@@ -36,7 +38,7 @@ private:
   double m_currentScaleGtoP;
   set<string> m_coastlines;
 
-  list<drape_ptr<MapShape>> m_mapShapes;
+  array<vector<drape_ptr<MapShape>>, df::PrioritiesCount> m_mapShapes;
 };
 
 } // namespace dfo

@@ -76,6 +76,8 @@ void UpdateNormalBetweenSegments(LineSegment * segment1, LineSegment * segment2)
   }
 }
 
+}
+
 void CalculateTangentAndNormals(glsl::vec2 const & pt0, glsl::vec2 const & pt1,
                                 glsl::vec2 & tangent, glsl::vec2 & leftNormal,
                                 glsl::vec2 & rightNormal)
@@ -83,8 +85,6 @@ void CalculateTangentAndNormals(glsl::vec2 const & pt0, glsl::vec2 const & pt1,
   tangent = glsl::normalize(pt1 - pt0);
   leftNormal = glsl::vec2(-tangent.y, tangent.x);
   rightNormal = -leftNormal;
-}
-
 }
 
 void ConstructLineSegments(vector<m2::PointD> const & path, vector<LineSegment> & segments)

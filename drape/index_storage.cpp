@@ -56,7 +56,7 @@ void const * IndexStorage::GetRawConst() const
 
 bool IndexStorage::IsSupported32bit()
 {
-  static bool const supports32bit = GLExtensionsList::Instance().IsSupported(GLExtensionsList::UintIndices);
+  static bool const supports32bit = false;//GLExtensionsList::Instance().IsSupported(GLExtensionsList::UintIndices);
   return supports32bit;
 }
 

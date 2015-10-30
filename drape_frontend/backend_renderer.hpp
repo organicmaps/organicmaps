@@ -39,7 +39,6 @@ public:
   };
 
   BackendRenderer(Params const & params);
-
   ~BackendRenderer() override;
 
 protected:
@@ -49,32 +48,17 @@ private:
   void RecacheGui(gui::TWidgetsInitInfo const  & initInfo, gui::TWidgetsSizeInfo & sizeInfo);
   void RecacheCountryStatus();
 
-private:
-  MapDataProvider m_model;
-  drape_ptr<BatchersPool> m_batchersPool;
-  drape_ptr<ReadManager> m_readManager;
-  drape_ptr<RouteBuilder> m_routeBuilder;
-  gui::LayerCacher m_guiCacher;
-
-  /////////////////////////////////////////
-  //           MessageAcceptor           //
-  /////////////////////////////////////////
-private:
   void AcceptMessage(ref_ptr<Message> message) override;
 
-  /////////////////////////////////////////
-  //             ThreadPart              //
-  /////////////////////////////////////////
-private:
   class Routine : public threads::IRoutine
   {
-   public:
+  public:
     Routine(BackendRenderer & renderer);
 
     // threads::IRoutine overrides:
     void Do() override;
 
-   private:
+  private:
     BackendRenderer & m_renderer;
   };
 
@@ -82,6 +66,12 @@ private:
 
   void InitGLDependentResource();
   void FlushGeometry(drape_ptr<Message> && message);
+
+  MapDataProvider m_model;
+  drape_ptr<BatchersPool> m_batchersPool;
+  drape_ptr<ReadManager> m_readManager;
+  drape_ptr<RouteBuilder> m_routeBuilder;
+  gui::LayerCacher m_guiCacher;
 };
 
 } // namespace df

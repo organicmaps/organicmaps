@@ -14,18 +14,29 @@ namespace dp
 namespace df
 {
 
+// Priority of shapes' processing (descending order).
+enum MapShapePriority
+{
+  AreaPriority = 0,
+  TextAndPoiPriority,
+  LinePriority,
+
+  PrioritiesCount
+};
+
 class MapShape
 {
 public:
   virtual ~MapShape(){}
   virtual void Prepare(ref_ptr<dp::TextureManager> textures) const {}
   virtual void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const = 0;
+  virtual MapShapePriority GetPriority() const { return MapShapePriority::AreaPriority; }
 };
 
 class MapShapeReadedMessage : public Message
 {
 public:
-  using TMapShapes = list<drape_ptr<MapShape>>;
+  using TMapShapes = vector<drape_ptr<MapShape>>;
 
   MapShapeReadedMessage(TileKey const & key, TMapShapes && shapes)
     : m_key(key), m_shapes(move(shapes))

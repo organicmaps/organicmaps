@@ -40,6 +40,7 @@ public:
 
   void Prepare(ref_ptr<dp::TextureManager> textures) const override;
   void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const override;
+  MapShapePriority GetPriority() const override { return MapShapePriority::LinePriority; }
 
 private:
   template <typename TBuilder>

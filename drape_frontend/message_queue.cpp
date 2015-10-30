@@ -19,20 +19,16 @@ MessageQueue::~MessageQueue()
   ClearQuery();
 }
 
-drape_ptr<Message> MessageQueue::PopMessage(unsigned maxTimeWait)
+drape_ptr<Message> MessageQueue::PopMessage(bool waitForMessage)
 {
   unique_lock<mutex> lock(m_mutex);
-  if (m_messages.empty())
+  if (waitForMessage && m_messages.empty())
   {
     m_isWaiting = true;
-    if (maxTimeWait == -1)
-      m_condition.wait(lock, [this]() { return !m_isWaiting; });
-    else
-      m_condition.wait_for(lock, milliseconds(maxTimeWait), [this]() { return !m_isWaiting; });
+    m_condition.wait(lock, [this]() { return !m_isWaiting; });
     m_isWaiting = false;
   }
 
-  // m_messages can be empty if application preparing to close and CancelWait been called.
   if (m_messages.empty())
     return nullptr;
 

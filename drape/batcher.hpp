@@ -29,11 +29,6 @@ public:
   Batcher(uint32_t indexBufferSize, uint32_t vertexBufferSize);
   ~Batcher();
 
-  uint32_t GetIndexBufferSize() const { return m_indexBufferSize; }
-  uint32_t GetVertexBufferSize() const { return m_vertexBufferSize; }
-  void SetIndexBufferSize(uint32_t indexBufferSize) { m_indexBufferSize = indexBufferSize; }
-  void SetVertexBufferSize(uint32_t vertexBufferSize) { m_vertexBufferSize = vertexBufferSize; }
-
   void InsertTriangleList(GLState const & state, ref_ptr<AttributeProvider> params);
   IndicesRange InsertTriangleList(GLState const & state, ref_ptr<AttributeProvider> params,
                                   drape_ptr<OverlayHandle> && handle);

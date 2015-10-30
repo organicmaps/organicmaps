@@ -16,7 +16,9 @@ class AreaShape : public MapShape
 public:
   AreaShape(vector<m2::PointF> && triangleList, AreaViewParams const & params);
 
-  virtual void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const;
+  void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const override;
+
+  MapShapePriority GetPriority() const override { return MapShapePriority::AreaPriority; }
 
 private:
   vector<m2::PointF> m_vertexes;

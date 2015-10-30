@@ -4,6 +4,7 @@
 #include "drape/glextensions_list.hpp"
 #include "drape/index_storage.hpp"
 #include "drape/vertex_array_buffer.hpp"
+#include "drape/shader_def.hpp"
 
 #include "base/assert.hpp"
 #include "base/stl_add.hpp"
@@ -242,22 +243,16 @@ IndicesRange Batcher::InsertTriangles(GLState const & state, ref_ptr<AttributePr
   }
 
   if (handle != nullptr)
-    bucket->AddOverlayHandle(move(handle));
+    GetBucket(state)->AddOverlayHandle(move(handle));
 
   return range;
 }
 
 Batcher * BatcherFactory::GetNew() const
 {
-  uint32_t indexBufferSize = 65000;
-  uint32_t vertexBufferSize = 65000;
-  if (dp::IndexStorage::IsSupported32bit())
-  {
-    indexBufferSize = 65000 * 2;
-    vertexBufferSize = 65000 * 2;
-  }
-
-  return new Batcher(indexBufferSize, vertexBufferSize);
+  uint32_t const kIndexBufferSize = 5000;
+  uint32_t const kVertexBufferSize = 5000;
+  return new Batcher(kIndexBufferSize, kVertexBufferSize);
 }
 
 SessionGuard::SessionGuard(Batcher & batcher, const Batcher::TFlushFn & flusher)

@@ -117,6 +117,13 @@ void RenderGroup::Disappear()
     m_disappearAnimation = make_unique<OpacityAnimation>(0.2 /* duration */, 0.05 /* delay */,
                                                          1.0 /* startOpacity */, 0.0 /* endOpacity */);
   }
+  else
+  {
+    // Create separate disappearing animation for area objects to eliminate flickering.
+    if (m_state.GetProgramIndex() == gpu::AREA_PROGRAM)
+      m_disappearAnimation = make_unique<OpacityAnimation>(0.01 /* duration */, 0.25 /* delay */,
+                                                           1.0 /* startOpacity */, 1.0 /* endOpacity */);
+  }
 }
 
 bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_ptr<RenderGroup> const & r)

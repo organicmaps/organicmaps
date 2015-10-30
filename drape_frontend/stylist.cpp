@@ -333,11 +333,7 @@ CaptionDescription & Stylist::GetCaptionDescriptionImpl()
   return m_captionDescriptor;
 }
 
-// ==================================== //
-
-bool InitStylist(FeatureType const & f,
-                 int const zoomLevel,
-                 Stylist & s)
+bool InitStylist(FeatureType const & f, int const zoomLevel, Stylist & s)
 {
   drule::KeysT keys;
   pair<int, bool> geomType = feature::GetDrawRule(f, zoomLevel, keys);

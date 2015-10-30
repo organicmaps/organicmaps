@@ -46,6 +46,10 @@ struct LineSegment
   }
 };
 
+void CalculateTangentAndNormals(glsl::vec2 const & pt0, glsl::vec2 const & pt1,
+                                glsl::vec2 & tangent, glsl::vec2 & leftNormal,
+                                glsl::vec2 & rightNormal);
+
 void ConstructLineSegments(vector<m2::PointD> const & path, vector<LineSegment> & segments);
 
 void UpdateNormals(LineSegment * segment, LineSegment * prevSegment, LineSegment * nextSegment);

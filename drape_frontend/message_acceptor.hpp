@@ -21,7 +21,7 @@ protected:
   virtual bool CanReceiveMessage() = 0;
 
   /// Must be called by subclass on message target thread
-  bool ProcessSingleMessage(unsigned maxTimeWait = -1);
+  bool ProcessSingleMessage(bool waitForMessage = true);
 
   void CancelMessageWaiting();
 
@@ -35,7 +35,6 @@ private:
 
   void PostMessage(drape_ptr<Message> && message, MessagePriority priority);
 
-private:
   MessageQueue m_messageQueue;
   atomic<bool> m_infinityWaiting;
 };

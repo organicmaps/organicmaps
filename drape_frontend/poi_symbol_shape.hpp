@@ -11,7 +11,8 @@ class PoiSymbolShape : public MapShape
 public:
   PoiSymbolShape(m2::PointF const & mercatorPt, PoiSymbolViewParams const & params);
 
-  virtual void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const;
+  void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const override;
+  MapShapePriority GetPriority() const override { return MapShapePriority::TextAndPoiPriority; }
 
 private:
   m2::PointF const m_pt;

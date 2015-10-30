@@ -365,7 +365,8 @@ void RouteShape::BatchGeometry(dp::GLState const & state, TGeometryBuffer & geom
   size_t const verticesCount = geometry.size() + joinsGeometry.size();
   if (verticesCount != 0)
   {
-    dp::Batcher batcher(verticesCount, verticesCount);
+    uint32_t const kBatchSize = 5000;
+    dp::Batcher batcher(kBatchSize, kBatchSize);
     dp::SessionGuard guard(batcher, [&property](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
     {
       property.m_buckets.push_back(move(b));

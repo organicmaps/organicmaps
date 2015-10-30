@@ -822,13 +822,12 @@ void FrontendRenderer::Routine::Do()
   dp::BlendingParams blendingParams;
   blendingParams.Apply();
 
-  int const kMaxInactiveFrames = 60;
+  double const kMaxInactiveSeconds = 2.0;
 
   my::Timer timer;
-  timer.Reset();
+  my::Timer activityTimer;
 
   double frameTime = 0.0;
-  int inactiveFrameCount = 0;
   bool modelViewChanged = true;
   bool viewportChanged = true;
 
@@ -843,10 +842,13 @@ void FrontendRenderer::Routine::Do()
     if (modelViewChanged || viewportChanged)
       m_renderer.PrepareScene(modelView);
 
-    bool const hasAsyncRoutines = m_renderer.m_texMng->UpdateDynamicTextures();
+    // Check for a frame is active.
+    bool isActiveFrame = modelViewChanged || viewportChanged;
+
+    isActiveFrame |= m_renderer.m_texMng->UpdateDynamicTextures();
     m_renderer.RenderScene(modelView);
 
-    bool const animActive = InterpolationHolder::Instance().Advance(frameTime);
+    isActiveFrame |= InterpolationHolder::Instance().Advance(frameTime);
 
     if (modelViewChanged)
     {
@@ -854,33 +856,26 @@ void FrontendRenderer::Routine::Do()
       m_renderer.EmitModelViewChanged(modelView);
     }
 
-    bool const waitCompletion = m_renderer.m_userEventStream.IsWaitingForActionCompletion();
+    isActiveFrame |= m_renderer.m_userEventStream.IsWaitingForActionCompletion();
 
-    // Check for a frame is inactive.
-    bool const isInactiveFrame = !modelViewChanged && !viewportChanged &&
-                                 !animActive && !hasAsyncRoutines &&
-                                 !waitCompletion && m_renderer.IsQueueEmpty();
-    if (isInactiveFrame)
-      ++inactiveFrameCount;
-    else
-      inactiveFrameCount = 0;
+    if (isActiveFrame)
+      activityTimer.Reset();
 
-    if (inactiveFrameCount > kMaxInactiveFrames)
+    if (activityTimer.ElapsedSeconds() > kMaxInactiveSeconds)
     {
       // Process a message or wait for a message.
       m_renderer.ProcessSingleMessage();
-      inactiveFrameCount = 0;
+      activityTimer.Reset();
     }
     else
     {
-      double availableTime = VSyncInterval - timer.ElapsedSeconds();
-      if (availableTime < 0.0)
-        availableTime = 0.01;
-
+      double availableTime = max(VSyncInterval - timer.ElapsedSeconds(), 0.01);
       while (availableTime > 0)
       {
-        if (m_renderer.ProcessSingleMessage(availableTime * 1000.0))
-          inactiveFrameCount = 0;
+        if (!m_renderer.ProcessSingleMessage(false /* waitForMessage */))
+          break;
+
+        activityTimer.Reset();
         availableTime = VSyncInterval - timer.ElapsedSeconds();
       }
     }

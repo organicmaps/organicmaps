@@ -343,7 +343,7 @@ TestingEngine::TestingEngine(Viewport const & viewport, double vs)
   m_textures = make_unique_dp<dp::TextureManager>();
   m_textures->Init(params);
 
-  m_batcher = make_unique_dp<dp::Batcher>(65000, 65000);
+  m_batcher = make_unique_dp<dp::Batcher>(5000, 5000);
   m_programManager = make_unique_dp<dp::GpuProgramManager>();
 
   ModelViewInit();

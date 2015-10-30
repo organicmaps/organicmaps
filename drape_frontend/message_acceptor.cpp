@@ -10,10 +10,10 @@ MessageAcceptor::MessageAcceptor()
 {
 }
 
-bool MessageAcceptor::ProcessSingleMessage(unsigned maxTimeWait)
+bool MessageAcceptor::ProcessSingleMessage(bool waitForMessage)
 {
-  m_infinityWaiting = (maxTimeWait == -1);
-  drape_ptr<Message> message = m_messageQueue.PopMessage(maxTimeWait);
+  m_infinityWaiting = waitForMessage;
+  drape_ptr<Message> message = m_messageQueue.PopMessage(waitForMessage);
   m_infinityWaiting = false;
 
   if (message == nullptr)
