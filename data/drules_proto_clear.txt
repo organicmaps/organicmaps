@@ -2628,7 +2628,18 @@ cont {
 cont {
   name: "amenity-hospital"
   element {
+    scale: 14
+    area {
+      color: 16755370
+      priority: -16001
+    }
+  }
+  element {
     scale: 15
+    area {
+      color: 16755370
+      priority: -15254
+    }
     symbol {
       name: "hospital-m"
       apply_for_type: 1
@@ -2645,6 +2656,10 @@ cont {
   }
   element {
     scale: 16
+    area {
+      color: 16755370
+      priority: -15254
+    }
     symbol {
       name: "hospital-m"
       priority: 16746
@@ -2660,6 +2675,10 @@ cont {
   }
   element {
     scale: 17
+    area {
+      color: 16755370
+      priority: -15254
+    }
     symbol {
       name: "hospital-l"
       priority: 16746
@@ -2675,6 +2694,10 @@ cont {
   }
   element {
     scale: 18
+    area {
+      color: 16755370
+      priority: -15254
+    }
     symbol {
       name: "hospital-l"
       priority: 16746
@@ -2690,6 +2713,10 @@ cont {
   }
   element {
     scale: 19
+    area {
+      color: 16755370
+      priority: -15254
+    }
     symbol {
       name: "hospital-l"
       priority: 16746
