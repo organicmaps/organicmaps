@@ -17,7 +17,6 @@ namespace
 UNIT_TEST(CheckCrossSections)
 {
   static double constexpr kPointEquality = 0.01;
-  static m2::PointD const kZeroPoint = m2::PointD(0., 0.);
   vector<platform::LocalCountryFile> localFiles;
   platform::FindAllLocalMaps(localFiles);
 
@@ -38,24 +37,24 @@ UNIT_TEST(CheckCrossSections)
     }
     FilesMappingContainer container(file.GetPath(MapOptions::CarRouting));
     crossReader.Load(container.GetReader(ROUTING_CROSS_CONTEXT_TAG));
-    auto ingoing = crossReader.GetIngoingIterators();
-    for (auto i = ingoing.first; i != ingoing.second; ++i)
-    {
-      if (i->m_point.EqualDxDy(kZeroPoint, kPointEquality))
-      {
-        ingoingErrors++;
-        break;
-      }
-    }
-    auto outgoing = crossReader.GetOutgoingIterators();
-    for (auto i = outgoing.first; i != outgoing.second; ++i)
-    {
-      if (i->m_point.EqualDxDy(kZeroPoint, kPointEquality))
-      {
-        outgoingErrors++;
-        break;
-      }
-    }
+
+    bool error = false;
+    crossReader.ForEachIngoingNode([&error](IngoingCrossNode const & node)
+                                   {
+                                     if (node.m_point.EqualDxDy(ms::LatLon::Zero(), kPointEquality))
+                                       error = true;
+                                   });
+    if (error)
+      ingoingErrors++;
+
+    error = false;
+    crossReader.ForEachOutgoingNode([&error](OutgoingCrossNode const & node)
+                                    {
+                                      if (node.m_point.EqualDxDy(ms::LatLon::Zero(), kPointEquality))
+                                        error = true;
+                                    });
+    if (error)
+      outgoingErrors++;
   }
   TEST_EQUAL(ingoingErrors, 0, ("Some countries have zero point incomes."));
   TEST_EQUAL(outgoingErrors, 0, ("Some countries have zero point exits."));

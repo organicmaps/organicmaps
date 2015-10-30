@@ -149,38 +149,7 @@ void CalculatePhantomNodeForCross(TRoutingMappingPtr & mapping, FeatureGraphNode
 
   CHECK_NOT_EQUAL(nodeId, INVALID_NODE_ID, ());
 
-  mapping->LoadCrossContext();
-  MappingGuard guard(mapping);
-  UNUSED_VALUE(guard);
-
-  m2::PointD point = m2::PointD::Zero();
-  if (forward)
-  {
-    auto inIters = mapping->m_crossContext.GetIngoingIterators();
-    for (auto iter = inIters.first; iter != inIters.second; ++iter)
-    {
-      if (iter->m_nodeId != nodeId)
-        continue;
-      point = iter->m_point;
-      break;
-    }
-  }
-  else
-  {
-    auto outIters = mapping->m_crossContext.GetOutgoingIterators();
-    for (auto iter = outIters.first; iter != outIters.second; ++iter)
-    {
-      if (iter->m_nodeId != nodeId)
-        continue;
-      point = iter->m_point;
-      break;
-    }
-  }
-
-  CHECK(!point.IsAlmostZero(), ());
-
-  FindGraphNodeOffsets(nodeId, MercatorBounds::FromLatLon(point.y, point.x),
-                       pIndex, mapping, graphNode);
+  FindGraphNodeOffsets(nodeId, graphNode.segmentPoint, pIndex, mapping, graphNode);
 }
 
 // TODO (ldragunov) move this function to cross mwm router
@@ -194,9 +163,9 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
   vector<m2::PointD> Points;
   for (RoutePathCross cross : path)
   {
-    ASSERT_EQUAL(cross.startNode.mwmName, cross.finalNode.mwmName, ());
+    ASSERT_EQUAL(cross.startNode.mwmId, cross.finalNode.mwmId, ());
     RawRoutingResult routingResult;
-    TRoutingMappingPtr mwmMapping = m_indexManager.GetMappingByName(cross.startNode.mwmName);
+    TRoutingMappingPtr mwmMapping = m_indexManager.GetMappingById(cross.startNode.mwmId);
     ASSERT(mwmMapping->IsValid(), ());
     MappingGuard mwmMappingGuard(mwmMapping);
     UNUSED_VALUE(mwmMappingGuard);
@@ -390,7 +359,7 @@ IRouter::ResultCode OsrmRouter::FindPhantomNodes(m2::PointD const & point,
   if (!getter.HasCandidates())
     return RouteNotFound;
 
-  getter.MakeResult(res, maxCount, mapping->GetCountryName());
+  getter.MakeResult(res, maxCount);
   return NoError;
 }
 
