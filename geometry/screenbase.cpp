@@ -13,6 +13,8 @@ ScreenBase::ScreenBase() :
     m_Angle(0.0),
     m_Org(320, 240),
     m_3dFOV(M_PI / 3.0),
+    m_3dNearZ(0.0),
+    m_3dFarZ(0.0),
     m_3dAngleX(M_PI_4),
     m_3dScaleX(1.0),
     m_3dScaleY(1.0),
@@ -287,12 +289,12 @@ void ScreenBase::ApplyPerspective(double rotationAngle, double angleFOV)
   translateM(3, 2) = offsetZ;
 
   Matrix3dT projectionM = math::Zero<double, 4>();
-  double const near = cameraZ;
-  double const far = cameraZ + 2.0 * m_3dScaleY * cos(m_3dAngleX);
-  projectionM(0, 0) = projectionM(1, 1) = cameraZ;
-  projectionM(2, 2) = (far + near) / (far - near);
+  m_3dNearZ = cameraZ;
+  m_3dFarZ = cameraZ + 2.0 * sin(m_3dAngleX) * m_3dScaleY;
+  projectionM(0, 0) = projectionM(1, 1) = m_3dNearZ;
+  projectionM(2, 2) = (m_3dFarZ + m_3dNearZ) / (m_3dFarZ - m_3dNearZ);
   projectionM(2, 3) = 1.0;
-  projectionM(3, 2) = -2.0 * far * near / (far - near);
+  projectionM(3, 2) = -2.0 * m_3dFarZ * m_3dNearZ / (m_3dFarZ - m_3dNearZ);
 
   m_Pto3d = scaleM * rotateM * translateM * projectionM;
   m_3dtoP = math::Inverse(m_Pto3d);
@@ -323,14 +325,18 @@ void ScreenBase::ResetPerspective()
 
 m2::PointD ScreenBase::PtoP3d(m2::PointD const & pt) const
 {
+  if (!m_isPerspective)
+    return pt;
+
   Vector3dT const normalizedPoint{float(2.0 * pt.x / m_PixelRect.SizeX() - 1.0),
                                   -float(2.0 * pt.y / m_PixelRect.SizeY() - 1.0), 0.0, 1.0};
+
   Vector3dT const perspectivePoint = normalizedPoint * m_Pto3d;
 
   m2::RectD const viewport = PixelRectIn3d();
   m2::PointD const pixelPointPerspective(
       (perspectivePoint(0, 0) / perspectivePoint(0, 3) + 1.0) * viewport.SizeX() / 2.0,
-      (perspectivePoint(0, 1) / perspectivePoint(0, 3) + 1.0) * viewport.SizeY() / 2.0);
+      (-perspectivePoint(0, 1) / perspectivePoint(0, 3) + 1.0) * viewport.SizeY() / 2.0);
 
   return pixelPointPerspective;
 }
@@ -340,13 +346,24 @@ m2::PointD ScreenBase::P3dToP(m2::PointD const & pt) const
   if (!m_isPerspective)
     return pt;
 
-  m2::PointD nPt(pt.x * 2.0 / PixelRectIn3d().SizeX() - 1.0, - pt.y * 2.0 / PixelRectIn3d().SizeY() + 1.0);
-  math::Matrix<double, 1, 4> pt3d{ nPt.x, nPt.y, nPt.y * tan(m_3dAngleX), 1.0 };
-  math::Matrix<double, 1, 4> ptScreen = pt3d * m_3dtoP;
-  ptScreen(0, 0) /= ptScreen(0, 3);
-  ptScreen(0, 1) /= ptScreen(0, 3);
+  double const normalizedX = 2.0 * pt.x / PixelRectIn3d().SizeX() - 1.0;
+  double const normalizedY = -2.0 * pt.y / PixelRectIn3d().SizeY() + 1.0;
 
-  m2::PointD res = m2::PointD((ptScreen(0, 0) / 2.0 + 0.5) * PixelRect().SizeX(),
-                    (0.5 - ptScreen(0, 1) / 2.0) * PixelRect().SizeY());
-  return res;
+  double const tanX = tan(m_3dAngleX);
+  double const cameraDistanceZ =
+      m_3dNearZ * (1.0 + (normalizedY + 1.0) * tanX / (m_3dNearZ - normalizedY * tanX));
+
+  double const a = (m_3dFarZ + m_3dNearZ) / (m_3dFarZ - m_3dNearZ);
+  double const b = -2.0 * m_3dFarZ * m_3dNearZ / (m_3dFarZ - m_3dNearZ);
+  double const normalizedZ = (a * cameraDistanceZ + b) / cameraDistanceZ;
+
+  Vector3dT const normalizedPoint{normalizedX, normalizedY, normalizedZ, 1.0};
+
+  Vector3dT const originalPoint = normalizedPoint * m_3dtoP;
+
+  m2::PointD const pixelPointOriginal =
+      m2::PointD((originalPoint(0, 0) / originalPoint(0, 3) + 1.0) * PixelRect().SizeX() / 2.0,
+                 (-originalPoint(0, 1) / originalPoint(0, 3) + 1.0) * PixelRect().SizeY() / 2.0);
+
+  return pixelPointOriginal;
 }

@@ -22,6 +22,8 @@ private:
   m2::PointD m_Org;
 
   double m_3dFOV;
+  double m_3dNearZ;
+  double m_3dFarZ;
   double m_3dAngleX;
   double m_3dScaleX;
   double m_3dScaleY;

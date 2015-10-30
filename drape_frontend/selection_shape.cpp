@@ -123,14 +123,22 @@ void SelectionShape::Hide()
 void SelectionShape::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
                             dp::UniformValuesStorage const & commonUniforms)
 {
-  UNUSED_VALUE(screen);
   ShowHideAnimation::EState state = m_animation.GetState();
   if (state == ShowHideAnimation::STATE_VISIBLE ||
       state == ShowHideAnimation::STATE_SHOW_DIRECTION)
   {
     dp::UniformValuesStorage uniforms = commonUniforms;
     uniforms.SetFloatValue("u_position", m_position.x, m_position.y, 0.0);
-    uniforms.SetFloatValue("u_accuracy", m_mapping.GetValue(m_animation.GetT()));
+
+    float accuracy = m_mapping.GetValue(m_animation.GetT());
+    if (screen.isPerspective())
+    {
+      m2::PointD const pt1 = screen.GtoP(m_position);
+      m2::PointD const pt2(pt1.x + 1, pt1.y);
+      float const scale = screen.PtoP3d(pt2).x - screen.PtoP3d(pt1).x;
+      accuracy /= scale;
+    }
+    uniforms.SetFloatValue("u_accuracy", accuracy);
     uniforms.SetFloatValue("u_opacity", 1.0f);
     m_renderNode->Render(mng, uniforms);
   }
