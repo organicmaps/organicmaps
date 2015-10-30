@@ -849,21 +849,36 @@ std::ostream & operator<<(std::ostream & ost, MonthDay::VariableDate const date)
 
 std::ostream & operator<<(std::ostream & ost, MonthDay const md)
 {
+  bool space = false;
+  auto const putSpace = [&space, &ost] {
+    if (space)
+      ost << ' ';
+    space = true;
+  };
+
   if (md.HasYear())
-    ost << md.GetYear() << ' ';
+  {
+    putSpace();
+    ost << md.GetYear();
+  }
 
   if (md.IsVariable())
+  {
+    putSpace();
     ost << md.GetVariableDate();
+  }
   else
   {
     if (md.HasMonth())
+    {
+      putSpace();
       ost << md.GetMonth();
+    }
     if (md.HasDayNum())
     {
-      ost << ' ';
+      putSpace();
       PrintPaddedNumber(ost, md.GetDayNum(), 2);
     }
-
   }
   if (md.HasOffset())
     ost << ' ' << md.GetOffset();
@@ -878,12 +893,12 @@ bool MonthdayRange::IsEmpty() const
 
 bool MonthdayRange::HasStart() const
 {
-  return !m_start.IsEmpty();
+  return !GetStart().IsEmpty();
 }
 
 bool MonthdayRange::HasEnd() const
 {
-  return !m_end.IsEmpty();
+  return !GetEnd().IsEmpty() || GetEnd().HasDayNum();
 }
 
 bool MonthdayRange::HasPeriod() const
@@ -1341,7 +1356,7 @@ std::ostream & operator<<(std::ostream & ost, RuleSequence const & s)
       if (s.HasSeparatorForReadability())
       {
         space = false;
-        ost << ':';
+        ost << ": ";
       }
 
       if (s.HasWeekdays())

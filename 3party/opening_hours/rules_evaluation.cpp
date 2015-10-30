@@ -38,6 +38,10 @@ int CompareMonthDayAndTimeTumple(osmoh::MonthDay const & monthDay, std::tm const
     if (monthDay.GetMonth() != osmoh::ToMonth(date.tm_mon + 1))
       return static_cast<int>(monthDay.GetMonth()) - (date.tm_mon + 1);
 
+  if (monthDay.HasDayNum())
+    if (monthDay.GetDayNum() != date.tm_mday)
+      return monthDay.GetDayNum() - date.tm_mday;
+
   return 0;
 }
 
@@ -56,6 +60,7 @@ bool operator==(osmoh::MonthDay const & monthDay, std::tm const & date)
   return CompareMonthDayAndTimeTumple(monthDay, date) == 0;
 }
 
+/// Fill result with fields that present in start and missing in end.
 osmoh::MonthDay NormalizeEnd(osmoh::MonthDay const & start, osmoh::MonthDay const & end)
 {
   osmoh::MonthDay result = start;
@@ -63,6 +68,8 @@ osmoh::MonthDay NormalizeEnd(osmoh::MonthDay const & start, osmoh::MonthDay cons
     result.SetYear(end.GetYear());
   if (end.HasMonth())
     result.SetMonth(end.GetMonth());
+  if (end.HasDayNum())
+    result.SetDayNum(end.GetDayNum());
   return result;
 }
 
@@ -78,6 +85,13 @@ uint8_t GetWeekNumber(std::tm const & date)
   return weekNumber;
 }
 
+template <typename Bound, typename Point>
+bool IsLoopedBetween(Bound const & start, Bound const & end, Point const & p)
+{
+  if (start <= end)
+    return start <= p && p <= end;
+  return end <= p && p <= start;
+}
 } // namespace
 
 
@@ -98,22 +112,25 @@ bool IsActive(Timespan const & span, std::tm const & time)
       return false;
 
     return start <= toBeChecked && toBeChecked <= end;
-
   }
   return false;
 }
 
 bool IsActive(WeekdayRange const & range, std::tm const & date)
 {
-  if (range.IsEmpty())
+ if (range.IsEmpty())
     return false;
 
   auto const wday = ToWeekday(date.tm_wday + 1);
+  std::cout << "IsActive(" << range << ") in " << wday << std::endl;
   if (wday == Weekday::None)
     return false;
 
+  std::cout << "Not None" << std::endl;
+  std::cout << range.GetStart() << ' ' << wday << ' ' << range.GetEnd() << std::endl;
   if (range.HasEnd())
-    return range.GetStart() <= wday && wday <= range.GetEnd();
+    return IsLoopedBetween(range.GetStart(), range.GetEnd(), wday);
+
   return range.GetStart() == wday;
 }
 
@@ -132,7 +149,9 @@ bool IsActive(Weekdays const & weekdays, std::tm const & date)
     if (IsActive(hd, date))
       return true;
 
-  return false;
+  return
+      weekdays.GetWeekdayRanges().empty() &&
+      weekdays.GetHolidays().empty();
 }
 
 bool IsActive(MonthdayRange const & range, std::tm const & date)
@@ -141,7 +160,8 @@ bool IsActive(MonthdayRange const & range, std::tm const & date)
     return false;
 
   if (range.HasEnd())
-    return range.GetStart() <= date &&
+    return
+        range.GetStart() <= date &&
         date <= NormalizeEnd(range.GetStart(), range.GetEnd());
 
   return range.GetStart() == date;
@@ -149,9 +169,10 @@ bool IsActive(MonthdayRange const & range, std::tm const & date)
 
 bool IsActive(YearRange const & range, std::tm const & date)
 {
-  auto const year = date.tm_year + kTMYearOrigin;
   if (range.IsEmpty())
     return false;
+
+  auto const year = date.tm_year + kTMYearOrigin;
 
   if (range.HasEnd())
     return range.GetStart() <= year && year <= range.GetEnd();
@@ -161,13 +182,42 @@ bool IsActive(YearRange const & range, std::tm const & date)
 
 bool IsActive(WeekRange const & range, std::tm const & date)
 {
-  auto const weekNumber = GetWeekNumber(date);
   if (range.IsEmpty())
     return false;
 
+  auto const weekNumber = GetWeekNumber(date);
+
   if (range.HasEnd())
-    return range.GetStart() <= weekNumber && weekNumber <= range.GetEnd();
+    return IsLoopedBetween(range.GetStart(), range.GetEnd(), weekNumber);
 
   return range.GetStart() == weekNumber;
+}
+
+template <typename T>
+bool IsActiveAny(std::vector<T> const & selectors, std::tm const & date)
+{
+  for (auto const & selector : selectors)
+  {
+    std::cout << selector << " -> " << IsActive(selector, date) << std::endl;
+    if (IsActive(selector, date))
+      return true;
+  }
+
+  return selectors.empty();
+}
+
+bool IsActive(RuleSequence const & rule, std::tm const & date)
+{
+  std::cout << "\n\nIsActive(" << rule << ")" << std::endl;
+
+  if (rule.Is24Per7())
+    return true;
+
+  return
+      IsActiveAny(rule.GetYears(), date) &&
+      IsActiveAny(rule.GetMonths(), date) &&
+      IsActiveAny(rule.GetWeeks(), date) &&
+      IsActive(rule.GetWeekdays(), date) &&
+      IsActiveAny(rule.GetTimes(), date);
 }
 } // namespace osmoh

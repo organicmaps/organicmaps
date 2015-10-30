@@ -88,7 +88,8 @@ std::string ParseAndUnparse(std::string const & str)
 
 bool GetTimeTuple(std::string const & strTime, std::string const & fmt, std::tm & tm)
 {
-  return strptime(strTime.data(), fmt.data(), &tm) != nullptr;
+  auto const rc = strptime(strTime.data(), fmt.data(), &tm);
+  return rc != nullptr;
 }
 } // namespace
 
@@ -222,6 +223,10 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestTime)
     Time t3 = t1 - t2;
     BOOST_CHECK_EQUAL(t3.GetHoursCount(), 0);
     BOOST_CHECK_EQUAL(t3.GetMinutesCount(), 20);
+  }
+  {
+    Time time {27_h + 30_min};
+    BOOST_CHECK_EQUAL(ToString(time), "27:30");
   }
   // TODO(mgsergio): more tests with event and get hours/minutes
 }
@@ -604,6 +609,11 @@ BOOST_AUTO_TEST_CASE(OpeningHoursTimerange_TestParseUnparse)
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
+    auto const rule = "06:00-31:41";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TTimespans>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+  {
     auto const rule = "06:00-02:00+";
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TTimespans>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
@@ -889,10 +899,9 @@ BOOST_AUTO_TEST_CASE(OpeningHoursRuleSequence_TestParseUnparse)
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
-
   {
     auto const rule = ( "PH, Tu-Su 10:00-18:00; Sa[1] 10:00-18:00 open; "
-                        //"\"Eintritt ins gesamte Haus frei\"; "
+                        "\"Eintritt ins gesamte Haus frei\"; "
                         "Jan 01, Dec 24, Dec 25, easter -2 days+: closed" );
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
@@ -902,17 +911,22 @@ BOOST_AUTO_TEST_CASE(OpeningHoursRuleSequence_TestParseUnparse)
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
+  {
+    auto const rule = "2010 Apr 01-30: Mo-Su 17:00-24:00";
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
 }
 
 BOOST_AUTO_TEST_CASE(OpenigHours_TestIsActive)
 {
-  using namespace osmoh;
+   using namespace osmoh;
 
-  {
+   {
     TTimespans spans;
     BOOST_CHECK(Parse("10:15-13:49", spans));
 
-    std::tm time;
+    std::tm time{};
     auto const fmt = "%H:%M";
     BOOST_CHECK(GetTimeTuple("12:41", fmt, time));
     BOOST_CHECK(IsActive(spans[0], time));
@@ -933,7 +947,7 @@ BOOST_AUTO_TEST_CASE(OpenigHours_TestIsActive)
     Weekdays range;
     BOOST_CHECK(Parse("Su-Sa", range));
 
-    std::tm time;
+    std::tm time{};
     auto const fmt = "%w";
     BOOST_CHECK(GetTimeTuple("4", fmt, time));
     BOOST_CHECK(IsActive(range, time));
@@ -964,7 +978,7 @@ BOOST_AUTO_TEST_CASE(OpenigHours_TestIsActive)
     TMonthdayRanges ranges;
     BOOST_CHECK(Parse("2015 Sep-Oct", ranges));
 
-    std::tm time;
+    std::tm time{};
     auto const fmt = "%Y-%m";
     BOOST_CHECK(GetTimeTuple("2015-10", fmt, time));
     BOOST_CHECK(IsActive(ranges[0], time));
@@ -985,7 +999,7 @@ BOOST_AUTO_TEST_CASE(OpenigHours_TestIsActive)
     TMonthdayRanges ranges;
     BOOST_CHECK(Parse("2015 Sep", ranges));
 
-    std::tm time;
+    std::tm time{};
     auto const fmt = "%Y-%m";
     BOOST_CHECK(GetTimeTuple("2015-10", fmt, time));
     BOOST_CHECK(!IsActive(ranges[0], time));
@@ -1006,7 +1020,7 @@ BOOST_AUTO_TEST_CASE(OpenigHours_TestIsActive)
     TMonthdayRanges ranges;
     BOOST_CHECK(Parse("Sep-Nov", ranges));
 
-    std::tm time;
+    std::tm time{};
     auto const fmt = "%Y-%m";
     BOOST_CHECK(GetTimeTuple("2015-10", fmt, time));
     BOOST_CHECK(IsActive(ranges[0], time));
@@ -1027,7 +1041,7 @@ BOOST_AUTO_TEST_CASE(OpenigHours_TestIsActive)
     TMonthdayRanges ranges;
     BOOST_CHECK(Parse("Sep", ranges));
 
-    std::tm time;
+    std::tm time{};
     auto const fmt = "%Y-%m";
     BOOST_CHECK(GetTimeTuple("2015-09", fmt, time));
     BOOST_CHECK(IsActive(ranges[0], time));
@@ -1045,7 +1059,7 @@ BOOST_AUTO_TEST_CASE(OpenigHours_TestIsActive)
     TYearRanges ranges;
     BOOST_CHECK(Parse("2011-2014", ranges));
 
-    std::tm time;
+    std::tm time{};
     auto const fmt = "%Y";
     BOOST_CHECK(GetTimeTuple("2011", fmt, time));
     BOOST_CHECK(IsActive(ranges[0], time));
@@ -1079,7 +1093,7 @@ BOOST_AUTO_TEST_CASE(OpenigHours_TestIsActive)
     TWeekRanges ranges;
     BOOST_CHECK(Parse("week 01-02", ranges));
 
-    std::tm time;
+    std::tm time{};
     auto const fmt = "%Y %j %w";
     BOOST_CHECK(GetTimeTuple("2015 01 4", fmt, time));
     BOOST_CHECK(IsActive(ranges[0], time));
@@ -1094,7 +1108,7 @@ BOOST_AUTO_TEST_CASE(OpenigHours_TestIsActive)
     TWeekRanges ranges;
     BOOST_CHECK(Parse("week 02", ranges));
 
-    std::tm time;
+    std::tm time{};
     auto const fmt = "%Y %j %w";
     BOOST_CHECK(GetTimeTuple("2015 08 4", fmt, time));
     BOOST_CHECK(IsActive(ranges[0], time));
@@ -1107,6 +1121,54 @@ BOOST_AUTO_TEST_CASE(OpenigHours_TestIsActive)
 
     BOOST_CHECK(GetTimeTuple("2015 14 3", fmt, time));
     BOOST_CHECK(!IsActive(ranges[0], time));
+  }
+  {
+    TRuleSequences rules;
+    BOOST_CHECK(Parse("Mo-We 17:00-18:00, Th,Fr 15:00-16:00", rules));
+
+    std::tm time{};
+    auto const fmt = "%w %H:%M";
+    BOOST_CHECK(GetTimeTuple("2 17:35", fmt, time));
+    BOOST_CHECK(IsActive(rules[0], time));
+
+    BOOST_CHECK(GetTimeTuple("4 15:35", fmt, time));
+    BOOST_CHECK(IsActive(rules[1], time));
+  }
+  {
+    TRuleSequences rules;
+    BOOST_CHECK(Parse("09:00-14:00", rules));
+
+    std::tm time{};
+    auto const fmt = "%Y %H:%M";
+    BOOST_CHECK(GetTimeTuple("2088 11:35", fmt, time));
+    BOOST_CHECK(IsActive(rules[0], time));
+
+    BOOST_CHECK(GetTimeTuple("3000 15:35", fmt, time));
+    BOOST_CHECK(!IsActive(rules[0], time));
+  }
+  {
+    TRuleSequences rules;
+    BOOST_CHECK(Parse("Apr-Sep Su 14:30-17:00", rules));
+
+    std::tm time{};
+    auto const fmt = "%m-%w %H:%M";
+    BOOST_CHECK(GetTimeTuple("5-0 15:35", fmt, time));
+    BOOST_CHECK(IsActive(rules[0], time));
+
+    BOOST_CHECK(GetTimeTuple("5-1 15:35", fmt, time));
+    BOOST_CHECK(!IsActive(rules[0], time));
+
+    BOOST_CHECK(GetTimeTuple("10-0 15:35", fmt, time));
+    BOOST_CHECK(!IsActive(rules[0], time));
+  }
+  {
+    TRuleSequences rules;
+    BOOST_CHECK(Parse("2010 Apr 01-30: Mo-Su 17:00-24:00", rules));
+
+    std::tm time{};
+    auto const fmt = "%Y-%m-%d-%w %H:%M";
+    BOOST_CHECK(GetTimeTuple("2010-4-20-0 18:15", fmt, time));
+    BOOST_CHECK(IsActive(rules[0], time));
   }
 }
 
@@ -1175,377 +1237,3 @@ BOOST_AUTO_TEST_CASE(OpeningHours_CountFailed)
 
   BOOST_TEST_MESSAGE(desc_message.str());
 }
-
-
-// BOOST_AUTO_TEST_CASE(OpeningHours_TimeHit)
-// {
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("06:13-15:00; 16:30+");
-//     BOOST_CHECK(oh.IsValid());
-//     BOOST_CHECK(oh.UpdateState("12-12-2013 7:00").IsOpen());
-//     BOOST_CHECK(oh.UpdateState("12-12-2013 16:00").IsClosed());
-//     BOOST_CHECK(oh.UpdateState("12-12-2013 20:00").IsOpen());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("We-Fr; Mo[1,3] closed; Su[-1,-2] closed");
-//     BOOST_CHECK(oh.IsValid());
-//     BOOST_CHECK(oh.UpdateState("20-03-2015 18:00").IsOpen());
-//     BOOST_CHECK(oh.UpdateState("17-03-2015 18:00").IsClosed());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("We-Fr; Mo[1,3] +1 day closed; Su[-1,-2] -3 days closed");
-//     BOOST_CHECK(oh.IsValid());
-//     BOOST_CHECK(oh.UpdateState("20-03-2015 18:00").IsOpen());
-//     BOOST_CHECK(oh.UpdateState("17-03-2015 18:00").IsClosed());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Mo-Su 14:30-17:00; Mo[1] closed; Su[-1] closed");
-//     BOOST_CHECK(oh.IsValid());
-//     BOOST_CHECK(oh.UpdateState("09-03-2015 16:00").IsOpen());
-//     BOOST_CHECK(oh.UpdateState("02-03-2015 16:00").IsClosed());
-//     BOOST_CHECK(oh.UpdateState("22-03-2015 16:00").IsOpen());
-//     BOOST_CHECK(oh.UpdateState("29-03-2015 16:00").IsClosed());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("PH,Tu-Su 10:00-18:00; Sa[1] 10:00-18:00 open \"Eintritt ins gesamte Haus frei\"; Jan 1,Dec 24,Dec 25,easter -2 days: closed");
-//     BOOST_CHECK(oh.IsValid());
-//     BOOST_CHECK(oh.UpdateState("03-03-2015 16:00").IsOpen());
-//     BOOST_CHECK(oh.Comment().empty());
-//     BOOST_CHECK(oh.UpdateState("07-03-2015 16:00").IsOpen());
-//     BOOST_CHECK(oh.Comment().empty() == false);
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Mo-Su 11:00+; Mo [1,3] off");
-//     BOOST_CHECK(oh.IsValid());
-//     BOOST_CHECK(oh.UpdateState("04-03-2015 16:00").IsOpen());
-//     BOOST_CHECK(oh.UpdateState("09-03-2015 16:00").IsOpen());
-//     BOOST_CHECK(oh.UpdateState("02-03-2015 16:00").IsClosed());
-//     BOOST_CHECK(oh.UpdateState("16-03-2015 16:00").IsClosed());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("08:00-16:00 open, 16:00-03:00 open \"public room\"");
-//     BOOST_CHECK(oh.IsValid());
-//     BOOST_CHECK(oh.UpdateState("01-03-2015 20:00").IsOpen());
-//     BOOST_CHECK(oh.UpdateState("01-03-2015 20:00").Comment() == "public room");
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("9:00－02:00");
-//     BOOST_CHECK(oh.IsValid());
-//     BOOST_CHECK(oh.UpdateState("01-01-2000 07:00").IsClosed());
-//     BOOST_CHECK(oh.UpdateState("01-01-2000 09:00").IsOpen());
-//     BOOST_CHECK(oh.UpdateState("01-01-2000 12:00").IsOpen());
-//     BOOST_CHECK(oh.UpdateState("01-01-2000 20:00").IsOpen());
-//     BOOST_CHECK(oh.UpdateState("01-01-2000 24:00").IsOpen());
-//     BOOST_CHECK(oh.UpdateState("01-01-2000 00:00").IsOpen());
-//     BOOST_CHECK(oh.UpdateState("01-01-2000 01:00").IsOpen());
-//     BOOST_CHECK(oh.UpdateState("01-01-2000 01:59").IsOpen());
-//     BOOST_CHECK(oh.UpdateState("01-01-2000 02:00").IsClosed());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("09:00am-19:00pm"); // hours > 12, ignore pm
-//     BOOST_CHECK(oh.IsValid());
-//     BOOST_CHECK(oh.UpdateState("01-01-2000 20:00").IsClosed());
-//     BOOST_CHECK(oh.UpdateState("01-01-2000 8:00").IsClosed());
-//     BOOST_CHECK(oh.UpdateState("01-01-2000 14:00").IsOpen());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("09:00h-7:00 pm"); // symbols case
-//     BOOST_CHECK(oh.IsValid());
-//     BOOST_CHECK(oh.UpdateState("01-01-2000 20:00").IsClosed());
-//     BOOST_CHECK(oh.UpdateState("01-01-2000 8:00").IsClosed());
-//     BOOST_CHECK(oh.UpdateState("01-01-2000 14:00").IsOpen());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Mo-Fr: 11-19 Uhr;Sa: 10-18 Uhr");
-//     BOOST_CHECK(oh.IsValid());
-//     BOOST_CHECK_EQUAL(oh.UpdateState("08-03-2015 20:00").IsClosed(), true);
-//     BOOST_CHECK_EQUAL(oh.UpdateState("18-03-2015 12:00").IsClosed(), false);
-//     BOOST_CHECK_EQUAL(oh.UpdateState("16-03-2015 10:00").IsOpen(), false);
-//     BOOST_CHECK(oh.UpdateState("14-03-2015 10:00").IsOpen());
-//     BOOST_CHECK(oh.UpdateState("16-03-2015 11:00").IsOpen());
-//     BOOST_CHECK(oh.UpdateState("01-01-2000 14:00").IsOpen());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Apr 9-19");
-//     BOOST_CHECK(oh.IsValid());
-//     BOOST_CHECK_EQUAL(oh.UpdateState("01-01-2000 20:00").IsClosed(), false);
-//     BOOST_CHECK_EQUAL(oh.UpdateState("01-01-2000 8:00").IsClosed(), false);
-//     BOOST_CHECK(oh.UpdateState("01-01-2000 14:00").IsOpen());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("9-19"); // it's no time, it's days of month
-//     BOOST_CHECK(oh.IsValid());
-//     BOOST_CHECK_EQUAL(oh.UpdateState("01-01-2000 20:00").IsClosed(), false);
-//     BOOST_CHECK_EQUAL(oh.UpdateState("01-01-2000 8:00").IsClosed(), false);
-//     BOOST_CHECK(oh.UpdateState("01-01-2000 14:00").IsOpen());
-//   }
-// }
-
-// BOOST_AUTO_TEST_CASE(OpeningHours_StaticSet)
-// {
-//   {
-//     // TODO(mgsergio) move validation from parsing
-//     //  OSMTimeRange oh = OSMTimeRange::FromString("06:00-02:00/21:03");
-//     //  BOOST_CHECK(oh.IsValid());
-//     auto const rule = "06:00-02:00/21:03";
-//     BOOST_CHECK_EQUAL(ParseAndUnparse<osmoh::parsing::time_domain>(rule), rule);
-//   }
-
-//   {
-//     // BOOST_CHECK(test_hard<osmoh::parsing::time_domain>("06:00-09:00/03"));
-//     //BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("06:00-07:00/03");
-//     BOOST_CHECK(oh.IsValid() == false);
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("sunrise-sunset");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Su-Th sunset-24:00, 04:00-sunrise; Fr-Sa sunset-sunrise");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Apr-Sep Su [1,3] 14:30-17:00");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("06:00+");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("06:00-07:00+");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("24/7");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("06:13-15:00");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Mo-Su 08:00-23:00");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("(sunrise+02:00)-(sunset-04:12)");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Mo-Sa; PH off");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Jan-Mar 07:00-19:00;Apr-Sep 07:00-22:00;Oct-Dec 07:00-19:00");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Mo closed");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("06:00-23:00 open \"Dining in\"");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("06:00-23:00 open \"Dining in\" || 00:00-24:00 open \"Drive-through\"");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Tu-Th 20:00-03:00 open \"Club and bar\"; Fr-Sa 20:00-04:00 open \"Club and bar\" || Su-Mo 18:00-02:00 open \"bar\" || Tu-Th 18:00-03:00 open \"bar\" || Fr-Sa 18:00-04:00 open \"bar\"");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("09:00-21:00 \"call us\"");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("10:00-13:30,17:00-20:30");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Apr-Sep: Mo-Fr 09:00-13:00,14:00-18:00; Apr-Sep: Sa 10:00-13:00");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Mo,We,Th,Fr 12:00-18:00; Sa-Su 12:00-17:00");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Su-Th 11:00-03:00, Fr-Sa 11:00-05:00");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Mo-We 17:00-01:00, Th,Fr 15:00-01:00; PH off");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Tu-Su 10:00-18:00, Mo 12:00-17:00");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("sunset-sunrise");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("9:00－22:00");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("jun 16-mar 14 sunrise-sunset");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Sa-Su; PH");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Su; PH");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Mo-Sa; PH off");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Mo-Sa; PH off");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     // TODO(mgsergio) Check if we need locale. // пн -> Пн
-//     OSMTimeRange oh = OSMTimeRange::FromString("пн. — пт.: 09:00 — 21:00; сб.: 09:00 — 19:00");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("May 15-Sep 23 10:00-18:00; Sep 24 - May 14 \"by appointment\"");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("May-Aug: Mo-Sa 14:30-Sunset; Su 10:30-Sunset; Sep-Apr off");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("May-Oct; Nov-Apr off");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Fr-Sa");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Apr 01-Oct 03: Mo-Th 07:00-20:00; Apr 01-Oct 03: Fr-Su 07:00-21:00");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Apr 01-Oct 14 07:00-13:00, 15:00-22:00");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("06:00-08:30; 15:30-16:30");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Apr-Sep: sunrise-sunset; Dec 1-20: dusk-dawn off");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Apr-Sep: sunrise-sunset; Jan 1 off; Dec 25-26 off");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Apr-Sep: sunrise-sunset; Jan 1: off; Dec 25-26: off");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Mo-Fr: 09:00-18:00");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Apr-Sep sunrise-sunset; Dec 1-20 dusk-dawn off");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Mo off; Tu-Sa 09:30-19:00; Su 10:00-14:30; Jan 1 off; Dec 25-26 off");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Mo-Th 08:00-19:00, Fr 08:00-17:00, Su[-2] 08:00-15:00");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Lu-Di 10:00-18:00"); // symbols case
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("sunset-sunrise; Sa 09:00-18:00;TU,su,pH OFF"); // symbols case
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("09:00h-19:00 h"); // symbols case
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("09:00h to 19:00 h"); // symbols case
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("09h to 19:00"); // symbols case
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("9h-19h"); // symbols case
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("9am-9pm"); // symbols case
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("09:00H-19:00 h"); // symbols case
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("09:00am-19:00"); // symbols case
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("09:00-19:00;Sa 09:00-18:00;Tu,Su,PH OFF"); // symbols case
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("09:00-19:00;Sa 09:00-18:00;Tu,Su,ph Off"); // symbols case
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("05:00 – 22:00"); // long dash instead minus
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("05:00 - 22:00"); // minus
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("09:00-20:00 open \"Bei schönem Wetter. Falls unklar kann angerufen werden\""); // charset
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("09:00-22:00; Tu off; dec 31 off; Jan 1 off"); // symbols case
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("9:00-22:00"); // leading zeros
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("09:00-9:30"); // leading zeros
-//     BOOST_CHECK(oh.IsValid());
-//   }
-//   {
-//     OSMTimeRange oh = OSMTimeRange::FromString("Mo 08:00-11:00,14:00-17:00; Tu 08:00-11:00, 14:00-17:00; We 08:00-11:00; Th 08:00-11:00, 14:00-16:00; Fr 08:00-11:00");
-//     BOOST_CHECK(oh.IsValid());
-//   }
-// }
