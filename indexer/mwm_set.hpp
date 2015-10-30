@@ -105,7 +105,10 @@ public:
   };
 
 public:
-  explicit MwmSet(size_t cacheSize = 5) : m_cacheSize(cacheSize) {}
+  // Default value 32=2^5 was from the very begining.
+  // Later, we replaced my::Cache with the std::deque, but forgot to change
+  // logarithm constant 5 with actual size 32. Now it's fixed.
+  explicit MwmSet(size_t cacheSize = 32) : m_cacheSize(cacheSize) {}
   virtual ~MwmSet() = default;
 
   class MwmValueBase
