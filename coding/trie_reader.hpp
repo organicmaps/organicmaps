@@ -21,7 +21,7 @@ public:
   {
     ReaderSource<TReader> src(reader);
     if (src.Size() > 0)
-      m_valueList.Deserialize(src, 1 /* valueCount */, serializer);
+      m_valueList.Deserialize(src, 0 /* valueCount */, serializer);
     ASSERT_EQUAL(src.Size(), 0, ());
   }
 

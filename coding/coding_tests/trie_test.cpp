@@ -17,7 +17,6 @@
 
 namespace
 {
-
 struct ChildNodeInfo
 {
   bool m_isLeaf;
@@ -92,73 +91,32 @@ struct KeyValuePairBackInserter
   vector<KeyValuePair> m_v;
 };
 
-struct MaxValueCalc
-{
-  using ValueType = uint8_t;
-
-  ValueType operator() (void const * p, uint32_t size) const
-  {
-    ASSERT_EQUAL(size, 4, ());
-    uint32_t value;
-    memcpy(&value, p, 4);
-    ASSERT_LESS(value, 256, ());
-    return static_cast<uint8_t>(value);
-  }
-};
-
-// The ValueList and SingleValueSerializer classes are similar to
+// The SingleValueSerializer and ValueList classes are similar to
 // those in indexer/string_file_values.hpp but that file
 // is not included to avoid coding_tests's dependency from indexer.
-class SingleValueSerializerChar
+template <typename TPrimitive>
+class SingleValueSerializer
 {
 public:
+  static_assert(is_trivially_copyable<TPrimitive>::value, "");
+
   template <typename TWriter>
-  void Serialize(TWriter & writer, char const & v) const
+  void Serialize(TWriter & writer, TPrimitive const & v) const
   {
     WriteToSink(writer, v);
   }
 };
 
-class SingleValueSerializerUint32
+template <typename TPrimitive>
+class ValueList
 {
 public:
-  template <typename TWriter>
-  void Serialize(TWriter & writer, uint32_t const & v) const
-  {
-    WriteToSink(writer, v);
-  }
-};
+  using TValue = TPrimitive;
+  using TSerializer = SingleValueSerializer<TValue>;
 
-class ValueListChar
-{
-public:
-  using TValue = char;
+  static_assert(is_trivially_copyable<TPrimitive>::value, "");
 
-  ValueListChar(const string & s) : m_string(s) {}
-
-  void Init(vector<TValue> const &) {}
-
-  size_t Size() const { return m_string.size(); }
-
-  bool IsEmpty() const { return m_string.empty(); }
-
-  template <typename TSink, typename TSerializer>
-  void Serialize(TSink & sink, TSerializer const & /* serializer */) const
-  {
-    sink.Write(m_string.data(), m_string.size());
-  }
-
-private:
-  string m_string;
-};
-
-class ValueListUint32
-{
-public:
-  using TValue = uint32_t;
-  using TSerializer = SingleValueSerializerUint32;
-
-  ValueListUint32() = default;
+  ValueList() = default;
 
   void Init(vector<TValue> const & values) { m_values = values; }
 
@@ -176,6 +134,11 @@ public:
   template <typename TSource>
   void Deserialize(TSource & src, uint32_t valueCount, TSerializer const & /* serializer */)
   {
+    if (valueCount == 0)
+    {
+      Deserialize(src, TSerializer());
+      return;
+    }
     m_values.resize(valueCount);
     for (size_t i = 0; i < valueCount; ++i)
       m_values[i] = ReadPrimitiveFromSource<TValue>(src);
@@ -215,8 +178,9 @@ UNIT_TEST(TrieBuilder_WriteNode_Smoke)
                     "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij"),
       ChildNodeInfo(true, 5, "a")};
 
-  ValueListChar valueList("123");
-  trie::WriteNode(sink, SingleValueSerializerChar(), 0, valueList, &children[0],
+  ValueList<char> valueList;
+  valueList.Init({'1', '2', '3'});
+  trie::WriteNode(sink, SingleValueSerializer<char>(), 0, valueList, &children[0],
                   &children[0] + ARRAY_SIZE(children));
   uint8_t const expected [] =
   {
@@ -282,13 +246,13 @@ UNIT_TEST(TrieBuilder_Build)
 
     vector<uint8_t> buf;
     PushBackByteSink<vector<uint8_t>> sink(buf);
-    SingleValueSerializerUint32 serializer;
+    SingleValueSerializer<uint32_t> serializer;
     trie::Build<PushBackByteSink<vector<uint8_t>>, typename vector<KeyValuePair>::iterator,
-                ValueListUint32>(sink, serializer, v.begin(), v.end());
+                ValueList<uint32_t>>(sink, serializer, v.begin(), v.end());
     reverse(buf.begin(), buf.end());
 
     MemReader memReader = MemReader(&buf[0], buf.size());
-    auto const root = trie::ReadTrie<MemReader, ValueListUint32>(memReader, serializer);
+    auto const root = trie::ReadTrie<MemReader, ValueList<uint32_t>>(memReader, serializer);
     vector<KeyValuePair> res;
     KeyValuePairBackInserter f;
     trie::ForEachRef(*root, f, vector<trie::TrieChar>());
