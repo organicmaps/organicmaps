@@ -1,8 +1,9 @@
 #include "generator/routing_generator.hpp"
 
-#include "generator/borders_generator.hpp"
-#include "generator/borders_loader.hpp"
-#include "generator/gen_mwm_info.hpp"
+#include "borders_generator.hpp"
+#include "borders_loader.hpp"
+#include "gen_mwm_info.hpp"
+#include "warnings_writer.hpp"
 
 #include "routing/osrm2feature_map.hpp"
 #include "routing/osrm_data_facade.hpp"
@@ -79,7 +80,9 @@ bool CheckBBoxCrossingBorder(m2::RegionD const & border, osrm::NodeData const & 
   return any && !all;
 }
 
-void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID const & osm2ft, borders::CountriesContainerT const & m_countries, string const & countryName, routing::CrossRoutingContextWriter & crossContext)
+void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID const & osm2ft,
+                    borders::CountriesContainerT const & m_countries, string const & countryName,
+                    string const & warningsFile, routing::CrossRoutingContextWriter & crossContext)
 {
   vector<m2::RegionD> regionBorders;
   m_countries.ForEach([&](borders::CountryPolygons const & c)
@@ -91,6 +94,7 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
       });
   });
 
+  WarningsWriter warnings(warningsFile);
   for (TWrittenNodeId nodeId = 0; nodeId < nodeData.size(); ++nodeId)
   {
     auto const & data = nodeData[nodeId];
@@ -110,6 +114,8 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
             continue;
 
           m2::PointD intersection = m2::PointD::Zero();
+          ms::LatLon wgsIntersection = ms::LatLon::Zero();
+          size_t intersectionCount = 0;
           for (auto const & segment : data.m_segments)
           {
             bool const outStart =
@@ -127,8 +133,8 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
                 ASSERT(false, ("Can't determine a intersection point with a border!"));
                 continue;
             }
-            // for old format compatibility
-            ms::LatLon wgsIntersection = MercatorBounds::ToLatLon(intersection);
+            intersectionCount++;
+            wgsIntersection = MercatorBounds::ToLatLon(intersection);
             if (!outStart && outEnd)
               crossContext.AddIngoingNode(nodeId, wgsIntersection);
             else if (outStart && !outEnd)
@@ -149,13 +155,19 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
               if (!mwmName.empty())
                 crossContext.AddOutgoingNode(nodeId, mwmName, wgsIntersection);
               else
+              {
                 LOG(LINFO, ("Unknowing outgoing edge", endSeg.lat2, endSeg.lon2, startSeg.lat1, startSeg.lon1));
+                warnings.AddPoint({endSeg.lat2, endSeg.lon2}, PointType::EUnconnectedExit);
+              }
             }
           }
+          if (intersectionCount > 1)
+            warnings.AddPoint(wgsIntersection, PointType::EDoubleCross);
         }
       }
     }
   }
+  warnings.Write();
 }
 
 void CalculateCrossAdjacency(string const & mwmRoutingPath, routing::CrossRoutingContextWriter & crossContext)
@@ -204,7 +216,8 @@ void WriteCrossSection(routing::CrossRoutingContextWriter const & crossContext, 
   LOG(LINFO, ("Have written routing info, bytes written:", w.Pos() - start_size, "bytes"));
 }
 
-void BuildCrossRoutingIndex(string const & baseDir, string const & countryName, string const & osrmFile)
+void BuildCrossRoutingIndex(string const & baseDir, string const & countryName,
+                            string const & osrmFile, string const & warningsFile)
 {
   LOG(LINFO, ("Cross mwm routing section builder"));
 
@@ -225,7 +238,7 @@ void BuildCrossRoutingIndex(string const & baseDir, string const & countryName, 
 
   LOG(LINFO, ("Finding cross nodes..."));
   routing::CrossRoutingContextWriter crossContext;
-  FindCrossNodes(nodeData, osm2ft, m_countries, countryName, crossContext);
+  FindCrossNodes(nodeData, osm2ft, m_countries, countryName, warningsFile, crossContext);
 
   string const mwmRoutingPath = localFile.GetPath(MapOptions::CarRouting);
   CalculateCrossAdjacency(mwmRoutingPath, crossContext);

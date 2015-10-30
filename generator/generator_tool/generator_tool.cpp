@@ -70,6 +70,7 @@ DEFINE_bool(generate_addresses_file, false, "Generate .addr file (for '--output'
 DEFINE_string(osrm_file_name, "", "Input osrm file to generate routing info");
 DEFINE_bool(make_routing, false, "Make routing info based on osrm file");
 DEFINE_bool(make_cross_section, false, "Make corss section in routing file for cross mwm routing");
+DEFINE_string(cross_warnings, "", "File path to store border intersection warnings");
 DEFINE_string(osm_file_name, "", "Input osm area file");
 DEFINE_string(osm_file_type, "xml", "Input osm area file type [xml, o5m]");
 DEFINE_string(user_resource_path, "", "User defined resource path for classificator.txt and etc.");
@@ -259,7 +260,7 @@ int main(int argc, char ** argv)
     routing::BuildRoutingIndex(path, FLAGS_output, FLAGS_osrm_file_name);
 
   if (!FLAGS_osrm_file_name.empty() && FLAGS_make_cross_section)
-    routing::BuildCrossRoutingIndex(path, FLAGS_output, FLAGS_osrm_file_name);
+    routing::BuildCrossRoutingIndex(path, FLAGS_output, FLAGS_osrm_file_name, FLAGS_cross_warnings);
 
   return 0;
 }
