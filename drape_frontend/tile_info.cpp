@@ -27,8 +27,6 @@ m2::RectD TileInfo::GetGlobalRect() const
 
 void TileInfo::ReadFeatureIndex(MapDataProvider const & model)
 {
-  lock_guard<mutex> lock(m_mutex);
-
   if (DoNeedReadIndex())
   {
     CheckCanceled();
@@ -63,7 +61,9 @@ void TileInfo::ReadFeatures(MapDataProvider const & model, MemoryFeatureIndex & 
 
   vector<FeatureID> featuresToRead;
   {
-    lock_guard<mutex> g(m_mutex);
+    MemoryFeatureIndex::Lock lock(memIndex);
+    UNUSED_VALUE(lock);
+
     CheckCanceled();
     featuresToRead.reserve(AverageFeaturesCount);
     memIndex.ReadFeaturesRequest(m_featureInfo, featuresToRead);
@@ -79,8 +79,14 @@ void TileInfo::ReadFeatures(MapDataProvider const & model, MemoryFeatureIndex & 
 void TileInfo::Cancel(MemoryFeatureIndex & memIndex)
 {
   m_isCanceled = true;
-  lock_guard<mutex> lock(m_mutex);
+  MemoryFeatureIndex::Lock lock(memIndex);
+  UNUSED_VALUE(lock);
   memIndex.RemoveFeatures(m_featureInfo);
+}
+
+bool TileInfo::IsCancelled() const
+{
+  return m_isCanceled;
 }
 
 void TileInfo::ProcessID(FeatureID const & id)

@@ -23,6 +23,7 @@ public:
 
   void Init(shared_ptr<TileInfo> const & tileInfo);
   void Reset();
+  bool IsCancelled() const override;
   TileKey GetTileKey() const;
 
 private:

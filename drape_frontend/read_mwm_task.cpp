@@ -27,6 +27,14 @@ void ReadMWMTask::Reset()
   m_tileInfo.reset();
 }
 
+bool ReadMWMTask::IsCancelled() const
+{
+  if (m_tileInfo == nullptr)
+    return true;
+
+  return m_tileInfo->IsCancelled() || IRoutine::IsCancelled();
+}
+
 void ReadMWMTask::Do()
 {
 #ifdef DEBUG

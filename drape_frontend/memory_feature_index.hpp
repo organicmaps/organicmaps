@@ -39,10 +39,29 @@ using TFeaturesInfo = buffer_vector<FeatureInfo, AverageFeaturesCount>;
 class MemoryFeatureIndex : private noncopyable
 {
 public:
+  class Lock
+  {
+    threads::MutexGuard lock;
+    MemoryFeatureIndex & m_index;
+  public:
+    Lock(MemoryFeatureIndex & index)
+      : lock(index.m_mutex)
+      , m_index(index)
+    {
+      m_index.m_isLocked = true;
+    }
+
+    ~Lock()
+    {
+      m_index.m_isLocked = false;
+    }
+  };
+
   void ReadFeaturesRequest(TFeaturesInfo & features, vector<FeatureID> & featuresToRead);
   void RemoveFeatures(TFeaturesInfo & features);
 
 private:
+  bool m_isLocked = false;
   threads::Mutex m_mutex;
   set<FeatureID> m_features;
 };

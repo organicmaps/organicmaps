@@ -29,6 +29,7 @@ public:
 
   void ReadFeatures(MapDataProvider const & model, MemoryFeatureIndex & memIndex);
   void Cancel(MemoryFeatureIndex & memIndex);
+  bool IsCancelled() const;
 
   m2::RectD GetGlobalRect() const;
   TileKey const & GetTileKey() const { return m_context->GetTileKey(); }
@@ -48,7 +49,6 @@ private:
   TFeaturesInfo m_featureInfo;
 
   atomic<bool> m_isCanceled;
-  mutex m_mutex;
 };
 
 } // namespace df
