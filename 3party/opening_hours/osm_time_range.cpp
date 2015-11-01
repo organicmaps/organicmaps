@@ -1321,6 +1321,12 @@ std::ostream & operator<<(std::ostream & ost, RuleSequence::Modifier const modif
 
 std::ostream & operator<<(std::ostream & ost, RuleSequence const & s)
 {
+  bool space = false;
+  auto const putSpace = [&space, &ost] {
+    if (space)
+      ost << ' ';
+    space = true;
+  };
 
   if (s.Is24Per7())
     ost << "24/7";
@@ -1330,13 +1336,6 @@ std::ostream & operator<<(std::ostream & ost, RuleSequence const & s)
       ost << s.GetComment() << ':';
     else
     {
-      bool space = false;
-      auto const putSpace = [&space, &ost] {
-        if (space)
-          ost << ' ';
-        space = true;
-      };
-
       if (s.HasYears())
       {
         putSpace();
@@ -1354,10 +1353,7 @@ std::ostream & operator<<(std::ostream & ost, RuleSequence const & s)
       }
 
       if (s.HasSeparatorForReadability())
-      {
-        space = false;
-        ost << ": ";
-      }
+        ost << ':';
 
       if (s.HasWeekdays())
       {
@@ -1372,7 +1368,10 @@ std::ostream & operator<<(std::ostream & ost, RuleSequence const & s)
     }
   }
   if (s.GetModifier() != RuleSequence::Modifier::DefaultOpen)
-    ost << ' ' << s.GetModifier();
+  {
+    putSpace();
+    ost << s.GetModifier();
+  }
 
   return ost;
 }

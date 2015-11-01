@@ -5,14 +5,41 @@
 
 namespace osmoh
 {
-bool IsActive(Timespan const & spsn, std::tm const & date);
-bool IsActive(WeekdayRange const & range, std::tm const & date);
-bool IsActive(Holiday const & holiday, std::tm const & date);
-bool IsActive(Weekdays const & weekdays, std::tm const & date);
-bool IsActive(MonthdayRange const & range, std::tm const & date);
-bool IsActive(YearRange const & range, std::tm const & date);
-bool IsActive(WeekRange const & range, std::tm const & date);
-bool IsActive(RuleSequence const & rule, std::tm const & date);
+class RuleState
+{
+ public:
+  RuleState(RuleSequence::Modifier const & modifier):
+      m_modifier(modifier)
+  {
+  }
+
+  operator bool() const
+  {
+    return IsOpen();
+  }
+
+  bool IsOpen() const
+  {
+    return
+        m_modifier == RuleSequence::Modifier::DefaultOpen ||
+        m_modifier == RuleSequence::Modifier::Open;
+  }
+
+  bool IsClosed() const
+  {
+    return m_modifier == RuleSequence::Modifier::Closed;
+  }
+
+  bool IsUnknon() const
+  {
+    return m_modifier == RuleSequence::Modifier::Unknown;
+  }
+
+ private:
+  RuleSequence::Modifier m_modifier;
+};
+
+RuleState GetState(TRuleSequences const & rules, std::tm const & date);
 } // namespace osmoh
 
 

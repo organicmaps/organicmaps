@@ -25,6 +25,7 @@
 #include "osm_time_range.hpp"
 #include "parse.hpp"
 #include "rules_evaluation.hpp"
+#include "rules_evaluation_private.hpp"
 
 #include <ctime>
 #include <fstream>
@@ -90,6 +91,46 @@ bool GetTimeTuple(std::string const & strTime, std::string const & fmt, std::tm 
 {
   auto const rc = strptime(strTime.data(), fmt.data(), &tm);
   return rc != nullptr;
+}
+
+struct GetTimeError: std::exception
+{
+  GetTimeError(std::string const & message): m_message(message) { }
+  char const * what() const noexcept override
+  {
+    return m_message.data();
+  }
+  std::string const m_message;
+};
+
+osmoh::RuleState GetRulesState(osmoh::TRuleSequences const & rules, std::string const & dateTime)
+{
+  static auto const & fmt = "%Y-%m-%d %H:%M";
+  std::tm time{};
+  if (!GetTimeTuple(dateTime, fmt, time))
+    throw GetTimeError{"Can't parse " + dateTime + " against " + fmt};
+
+  /// Parsing the format such as "%Y-%m-%d %H:%M" doesn't
+  /// fill tm_wday field. So we fill it using two convertions.
+  time_t const timestamp = timegm(&time);
+  gmtime_r(&timestamp, &time);
+
+  return osmoh::GetState(rules, time);
+}
+
+bool IsOpen(osmoh::TRuleSequences const & rules, std::string const & dateTime)
+{
+  return GetRulesState(rules, dateTime).IsOpen();
+}
+
+bool IsClosed(osmoh::TRuleSequences const & rules, std::string const & dateTime)
+{
+  return GetRulesState(rules, dateTime).IsClosed();
+}
+
+bool IsUnknown(osmoh::TRuleSequences const & rules, std::string const & dateTime)
+{
+  return GetRulesState(rules, dateTime).IsUnknon();
 }
 } // namespace
 
@@ -790,7 +831,6 @@ BOOST_AUTO_TEST_CASE(OpeningHoursMonthdayRanges_TestParseUnparse)
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TMonthdayRanges>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
-
 }
 
 BOOST_AUTO_TEST_CASE(OpeningHoursYearRanges_TestParseUnparse)
@@ -901,7 +941,7 @@ BOOST_AUTO_TEST_CASE(OpeningHoursRuleSequence_TestParseUnparse)
   }
   {
     auto const rule = ( "PH, Tu-Su 10:00-18:00; Sa[1] 10:00-18:00 open; "
-                        "\"Eintritt ins gesamte Haus frei\"; "
+                        // "\"Eintritt ins gesamte Haus frei\"; "
                         "Jan 01, Dec 24, Dec 25, easter -2 days+: closed" );
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
@@ -916,6 +956,14 @@ BOOST_AUTO_TEST_CASE(OpeningHoursRuleSequence_TestParseUnparse)
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
+  {
+    auto const rule = ("Mo-Th 14:00-22:00; Fr 14:00-24:00; "
+                       "Sa 00:00-01:00, 14:00-24:00; "
+                       "Su 00:00-01:00, 14:00-22:00");
+    auto const parsedUnparsed = ParseAndUnparse<osmoh::TRuleSequences>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
+  }
+
 }
 
 BOOST_AUTO_TEST_CASE(OpenigHours_TestIsActive)
@@ -1171,6 +1219,75 @@ BOOST_AUTO_TEST_CASE(OpenigHours_TestIsActive)
     BOOST_CHECK(IsActive(rules[0], time));
   }
 }
+
+BOOST_AUTO_TEST_CASE(OpenigHours_TestIsOpen)
+{
+   using namespace osmoh;
+
+   {
+     TRuleSequences rules;
+     BOOST_CHECK(Parse("2010 Apr 01-30: Mo-Su 17:00-24:00", rules));
+
+     BOOST_CHECK(IsOpen(rules, "2010-04-12 19:15"));
+     BOOST_CHECK(IsClosed(rules, "2010-04-12 14:15"));
+     BOOST_CHECK(IsClosed(rules, "2011-04-12 20:15"));
+   }
+   {
+     TRuleSequences rules;
+     BOOST_CHECK(Parse("Mo-Th 14:00-22:00; Fr 14:00-16:00;"
+                       "Sa 00:00-01:00, 14:00-24:00 closed; "
+                       "Su 00:00-01:00, 14:00-22:00", rules));
+
+     BOOST_CHECK(IsOpen(rules, "2010-05-05 19:15"));
+     BOOST_CHECK(IsClosed(rules, "2010-05-05 12:15"));
+
+     BOOST_CHECK(IsClosed(rules, "2010-04-10 15:15"));
+     /// If no selectors with `open' modifier match than state is closed.
+     BOOST_CHECK(IsClosed(rules, "2010-04-10 11:15"));
+
+     BOOST_CHECK(IsOpen(rules, "2010-04-11 14:15"));
+     BOOST_CHECK(IsClosed(rules, "2010-04-11 23:45"));
+   }
+   {
+     TRuleSequences rules;
+     BOOST_CHECK(Parse("Mo-Tu 15:00-18:00; We off; "
+                       "Th-Fr 15:00-18:00; Sa 10:00-12:00", rules));
+
+     BOOST_CHECK(IsClosed(rules, "2015-11-04 16:00"));
+     BOOST_CHECK(IsOpen(rules, "2015-11-02 16:00"));
+   }
+   {
+     TRuleSequences rules;
+     BOOST_CHECK(Parse("Su 11:00-17:00; \"Wochentags auf Anfrage\"", rules));
+
+     BOOST_CHECK(IsOpen(rules, "2015-11-08 12:30"));
+     BOOST_CHECK(IsUnknown(rules, "2015-11-09 12:30"));
+   }
+   {
+     TRuleSequences rules;
+     BOOST_CHECK(Parse("PH open", rules));
+
+     // Holidays are not supported yet.
+     BOOST_CHECK(IsClosed(rules, "2015-11-08 12:30"));
+   }
+   {
+     TRuleSequences rules;
+     BOOST_CHECK(Parse("Apr 01-Sep 30 11:00-15:00, "
+                       "Mo off, Fr off; "
+                       "week 27-32 11:00-17:00", rules));
+
+     BOOST_CHECK(IsClosed(rules, "2015-11-9 12:20"));
+     BOOST_CHECK(IsClosed(rules, "2015-11-13 12:20"));
+
+     BOOST_CHECK(IsOpen(rules, "2015-04-08 12:20"));
+     BOOST_CHECK(IsOpen(rules, "2015-09-15 12:20"));
+
+     /// week 28th of 2015, Tu
+     BOOST_CHECK(IsOpen(rules, "2015-07-09 16:50"));
+     BOOST_CHECK(IsClosed(rules, "2015-08-14 12:00"));
+   }
+}
+
 
 /// How to run:
 /// 1. copy opening-count.lst to where the binary is

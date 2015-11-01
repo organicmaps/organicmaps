@@ -1,5 +1,6 @@
 #include "rules_evaluation.hpp"
-// #include "rules_evaluation_private.hpp"
+#include "rules_evaluation_private.hpp"
+
 #include <iomanip>
 #include <sstream>
 #include <tuple>
@@ -104,10 +105,13 @@ bool IsActive(Timespan const & span, std::tm const & time)
     THourMinutes start;
     THourMinutes end;
     THourMinutes toBeChecked;
+
     if (!ToHourMinutes(span.GetStart(), start))
       return false;
+
     if (!ToHourMinutes(span.GetEnd(), end))
       return false;
+
     if (!ToHourMinutes(time, toBeChecked))
       return false;
 
@@ -122,12 +126,9 @@ bool IsActive(WeekdayRange const & range, std::tm const & date)
     return false;
 
   auto const wday = ToWeekday(date.tm_wday + 1);
-  std::cout << "IsActive(" << range << ") in " << wday << std::endl;
   if (wday == Weekday::None)
     return false;
 
-  std::cout << "Not None" << std::endl;
-  std::cout << range.GetStart() << ' ' << wday << ' ' << range.GetEnd() << std::endl;
   if (range.HasEnd())
     return IsLoopedBetween(range.GetStart(), range.GetEnd(), wday);
 
@@ -197,19 +198,14 @@ template <typename T>
 bool IsActiveAny(std::vector<T> const & selectors, std::tm const & date)
 {
   for (auto const & selector : selectors)
-  {
-    std::cout << selector << " -> " << IsActive(selector, date) << std::endl;
     if (IsActive(selector, date))
       return true;
-  }
 
   return selectors.empty();
 }
 
 bool IsActive(RuleSequence const & rule, std::tm const & date)
 {
-  std::cout << "\n\nIsActive(" << rule << ")" << std::endl;
-
   if (rule.Is24Per7())
     return true;
 
@@ -219,5 +215,32 @@ bool IsActive(RuleSequence const & rule, std::tm const & date)
       IsActiveAny(rule.GetWeeks(), date) &&
       IsActive(rule.GetWeekdays(), date) &&
       IsActiveAny(rule.GetTimes(), date);
+}
+
+RuleState GetState(TRuleSequences const & rules, std::tm const & date)
+{
+  auto emptyRuleIt = rules.rend();
+  for (auto it = rules.rbegin(); it != rules.rend(); ++it)
+  {
+    if (IsActive(*it, date))
+    {
+      if (it->IsEmpty() && emptyRuleIt == rules.rend())
+        emptyRuleIt = it;
+      else
+        return it->GetModifier();
+    }
+  }
+
+  if (emptyRuleIt != rules.rend())
+  {
+    if (emptyRuleIt->HasComment())
+      return RuleSequence::Modifier::Unknown;
+    else
+      return emptyRuleIt->GetModifier();
+  }
+
+  return (rules.empty()
+          ? RuleSequence::Modifier::Unknown
+          : RuleSequence::Modifier::Closed);
 }
 } // namespace osmoh
