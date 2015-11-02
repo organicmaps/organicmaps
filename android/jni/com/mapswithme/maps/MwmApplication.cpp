@@ -34,7 +34,7 @@ extern "C"
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_MwmApplication_hasFreeSpace(JNIEnv * env, jobject thiz, jlong size)
+  Java_com_mapswithme_maps_MwmApplication_nativeHasFreeSpace(JNIEnv * env, jobject thiz, jlong size)
   {
     return android::Platform::Instance().HasAvailableSpaceForWriting(size);
   }

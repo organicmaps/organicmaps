@@ -117,11 +117,8 @@ public class MwmApplication extends Application
   @SuppressWarnings("ResultOfMethodCallIgnored")
   private void initPaths()
   {
-    final String extStoragePath = getDataStoragePath();
-    final String extTmpPath = getTempPath();
-
-    new File(extStoragePath).mkdirs();
-    new File(extTmpPath).mkdirs();
+    new File(getDataStoragePath()).mkdirs();
+    new File(getTempPath()).mkdirs();
   }
 
   private void initNativeStrings()
@@ -196,11 +193,6 @@ public class MwmApplication extends Application
   public native boolean nativeIsBenchmarking();
 
   private native void nativeAddLocalization(String name, String value);
-
-  /**
-   * Check if device have at least {@code size} bytes free.
-   */
-  public native boolean hasFreeSpace(long size);
 
   /*
    * init Parse SDK

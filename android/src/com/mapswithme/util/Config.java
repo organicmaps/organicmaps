@@ -23,7 +23,6 @@ public final class Config
   private static final String KEY_LIKES_LAST_RATED_SESSION = "LastRatedSession";
 
   private static final String KEY_MISC_DISCLAIMER_ACCEPTED = "IsDisclaimerApproved";
-  private static final String KEY_MISC_KML_MOVED = "KmlBeenMoved";
   private static final String KEY_MISC_KITKAT_MIGRATED = "KitKatMigrationCompleted";
   private static final String KEY_MISC_NEWS_LAST_VERSION = "WhatsNewShownVersion";
 
@@ -239,16 +238,6 @@ public final class Config
   public static void acceptRoutingDisclaimer()
   {
     setBool(KEY_MISC_DISCLAIMER_ACCEPTED, true);
-  }
-
-  public static boolean isKmlMoved()
-  {
-    return getBool(KEY_MISC_KML_MOVED);
-  }
-
-  public static void setKmlMoved()
-  {
-    setBool(KEY_MISC_KML_MOVED);
   }
 
   public static boolean isKitKatMigrationComplete()
