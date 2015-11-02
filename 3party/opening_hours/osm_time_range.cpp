@@ -444,6 +444,11 @@ bool WeekdayRange::HasEnd() const
   return GetEnd() != Weekday::None;;
 }
 
+bool WeekdayRange::HasOffset() const
+{
+  return GetOffset() != 0;
+}
+
 bool WeekdayRange::IsEmpty() const
 {
   return GetStart() == Weekday::None && GetEnd() == Weekday::None;

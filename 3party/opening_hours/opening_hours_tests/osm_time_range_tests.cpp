@@ -1288,6 +1288,95 @@ BOOST_AUTO_TEST_CASE(OpenigHours_TestIsOpen)
    }
 }
 
+#include <algorithm>
+
+namespace
+{
+template <typename T>
+bool HasPeriod(std::vector<T> const & v)
+{
+  auto const hasPeriod = [](T const & t) { return t.HasPeriod(); };
+  return std::any_of(begin(v), end(v), hasPeriod);
+}
+
+template <typename T>
+bool HasPlus(std::vector<T> const & v)
+{
+  auto const hasPlus = [](T const & t) { return t.HasPlus(); };
+  return std::any_of(begin(v), end(v), hasPlus);
+}
+
+bool HasEHours(osmoh::TTimespans const & spans)
+{
+  auto const hasEHours = [](osmoh::Timespan const & s) -> bool {
+    if (!s.HasEnd())
+      return false;
+    return s.GetEnd().GetMinutes() + s.GetEnd().GetHours() > 24 * std::chrono::minutes(60);
+  };
+  return std::any_of(begin(spans), end(spans), hasEHours);
+}
+
+bool HasOffset(osmoh::TMonthdayRanges const & mr)
+{
+  auto const hasOffset = [](osmoh::MonthdayRange const & md) {
+    return
+        md.GetStart().HasOffset() ||
+        md.GetEnd().HasOffset();
+  };
+  return std::any_of(begin(mr), end(mr), hasOffset);
+}
+
+bool HasOffset(osmoh::Weekdays const & wd)
+{
+  auto const hasOffset = [](osmoh::WeekdayRange const & w) { return w.HasOffset(); };
+  return std::any_of(begin(wd.GetWeekdayRanges()), end(wd.GetWeekdayRanges()), hasOffset);
+}
+
+enum
+{
+  Parsed,
+  Unparsed,
+  Period,
+  Plus,
+  Ehours,
+  Offset
+};
+using TRuleFeatures = std::array<bool, 6>;
+
+std::ostream & operator<<(std::ostream & ost, TRuleFeatures const & f)
+{
+  ost << f[Parsed] << '\t'
+      << f[Unparsed] << '\t'
+      << f[Period] << '\t'
+      << f[Plus] << '\t'
+      << f[Ehours] << '\t'
+      << f[Offset] << '\t';
+  return ost;
+}
+
+TRuleFeatures DescribeRule(osmoh::TRuleSequences const & rule)
+{
+  TRuleFeatures features{};
+  for (auto const & r : rule)
+  {
+    features[Period] |= HasPeriod(r.GetTimes());
+    features[Period] |= HasPeriod(r.GetMonths());
+    features[Period] |= HasPeriod(r.GetYears());
+    features[Period] |= HasPeriod(r.GetWeeks());
+
+    features[Plus] |= HasPlus(r.GetTimes());
+    features[Plus] |= HasPlus(r.GetMonths());
+    features[Plus] |= HasPlus(r.GetYears());
+
+    features[Offset] |= HasOffset(r.GetMonths());
+    features[Offset] |= HasOffset(r.GetWeekdays());
+
+    features[Ehours] |= HasEHours(r.GetTimes());
+  }
+
+  return features;
+}
+}
 
 /// How to run:
 /// 1. copy opening-count.lst to where the binary is
@@ -1305,6 +1394,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_CountFailed)
   size_t num_total = 0;
 
   std::map<size_t, size_t> hist;
+  std::map<TRuleFeatures, size_t> featuresDistrib;
 
   while (std::getline(datalist, line))
   {
@@ -1326,20 +1416,33 @@ BOOST_AUTO_TEST_CASE(OpeningHours_CountFailed)
 
     line_num++;
 
-    osmoh::TRuleSequences rules;
-    auto const isParsed = Parse(datastr, rules);
-    if (!isParsed) {
-      num_failed += count;
-      hist[count]++;
-      BOOST_TEST_MESSAGE("-- " << count << " :[" << datastr << "]");
-    }
-    else if (!CompareNormalized(datastr, rules))
+    osmoh::TRuleSequences rule;
+    auto const isParsed = Parse(datastr, rule);
+    TRuleFeatures features{};
+
+    if (isParsed)
+      features = DescribeRule(rule);
+    features[Parsed] = true;
+    features[Unparsed] = true;
+
+    if (!isParsed)
     {
       num_failed += count;
-      hist[count]++;
-      BOOST_TEST_MESSAGE("- " << count << " :[" << datastr << "]");
-      BOOST_TEST_MESSAGE("+ " << count << " :[" << ToString(rules) << "]");
+      ++hist[count];
+      features[Parsed] = false;
+      features[Unparsed] = false;
+      BOOST_TEST_MESSAGE("-- " << count << " :[" << datastr << "]");
     }
+    else if (!CompareNormalized(datastr, rule))
+    {
+      num_failed += count;
+      ++hist[count];
+      features[Unparsed] = false;
+      BOOST_TEST_MESSAGE("- " << count << " :[" << datastr << "]");
+      BOOST_TEST_MESSAGE("+ " << count << " :[" << ToString(rule) << "]");
+    }
+
+    featuresDistrib[features] += count;
     num_total += count;
   }
 
@@ -1348,9 +1451,19 @@ BOOST_AUTO_TEST_CASE(OpeningHours_CountFailed)
                       " of " << num_total <<
                       " (" << double(num_failed)/(double(num_total)/100) << "%)");
 
-  std::stringstream desc_message;
-  for (auto const & e : hist)
-    desc_message << "Weight: " << e.first << " Count: " << e.second << std::endl;
+  {
+    std::stringstream message;
+    for (auto const & e : hist)
+      message << "Weight: " << e.first << " Count: " << e.second << std::endl;
 
-  BOOST_TEST_MESSAGE(desc_message.str());
+    BOOST_TEST_MESSAGE(message.str());
+  }
+  {
+    std::stringstream message;
+    message << "Parsed\tUnparsed\tPeriod\tPlus\tEhours\tOffset\tCount\n";
+    for (auto const & e : featuresDistrib)
+      message << e.first  << '\t' << e.second << std::endl;
+
+    BOOST_TEST_MESSAGE(message.str());
+  }
 }

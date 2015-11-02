@@ -227,6 +227,7 @@ class WeekdayRange
 
   bool HasStart() const;
   bool HasEnd() const;
+  bool HasOffset() const;
   bool IsEmpty() const;
 
   Weekday GetStart() const;
