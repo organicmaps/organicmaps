@@ -49,17 +49,15 @@ RuleDrawer::RuleDrawer(TDrawerCallback const & fn, ref_ptr<EngineContext> contex
 
 RuleDrawer::~RuleDrawer()
 {
-  for (size_t i = 0; i < m_mapShapes.size(); i++)
+  for (auto & shapes : m_mapShapes)
   {
-    if (!m_mapShapes[i].empty())
-    {
-      for (auto const & shape : m_mapShapes[i])
-        shape->Prepare(m_context->GetTextureManager());
+    if (shapes.empty())
+      continue;
 
-      vector<drape_ptr<MapShape>> mapShapes;
-      mapShapes.swap(m_mapShapes[i]);
-      m_context->Flush(move(mapShapes));
-    }
+    for (auto const & shape : shapes)
+      shape->Prepare(m_context->GetTextureManager());
+
+    m_context->Flush(move(shapes));
   }
 }
 
@@ -160,15 +158,15 @@ void RuleDrawer::operator()(FeatureType const & f)
 
   for (size_t i = 0; i < m_mapShapes.size(); i++)
   {
-    if (m_mapShapes[i].size() >= kMinFlushSizes[i])
-    {
-      for (auto const & shape : m_mapShapes[i])
-        shape->Prepare(m_context->GetTextureManager());
+    if (m_mapShapes[i].size() < kMinFlushSizes[i])
+      continue;
 
-      vector<drape_ptr<MapShape>> mapShapes;
-      mapShapes.swap(m_mapShapes[i]);
-      m_context->Flush(move(mapShapes));
-    }
+    for (auto const & shape : m_mapShapes[i])
+      shape->Prepare(m_context->GetTextureManager());
+
+    TMapShapes mapShapes;
+    mapShapes.swap(m_mapShapes[i]);
+    m_context->Flush(move(mapShapes));
   }
 }
 

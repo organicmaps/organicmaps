@@ -24,7 +24,7 @@ void EngineContext::BeginReadTile()
   PostMessage(make_unique_dp<TileReadStartMessage>(m_tileKey));
 }
 
-void EngineContext::Flush(vector<drape_ptr<MapShape>> && shapes)
+void EngineContext::Flush(TMapShapes && shapes)
 {
   PostMessage(make_unique_dp<MapShapeReadedMessage>(m_tileKey, move(shapes)));
 }

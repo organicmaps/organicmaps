@@ -33,11 +33,11 @@ public:
   virtual MapShapePriority GetPriority() const { return MapShapePriority::AreaPriority; }
 };
 
+using TMapShapes = vector<drape_ptr<MapShape>>;
+
 class MapShapeReadedMessage : public Message
 {
 public:
-  using TMapShapes = vector<drape_ptr<MapShape>>;
-
   MapShapeReadedMessage(TileKey const & key, TMapShapes && shapes)
     : m_key(key), m_shapes(move(shapes))
   {}

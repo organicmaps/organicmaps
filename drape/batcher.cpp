@@ -4,7 +4,6 @@
 #include "drape/glextensions_list.hpp"
 #include "drape/index_storage.hpp"
 #include "drape/vertex_array_buffer.hpp"
-#include "drape/shader_def.hpp"
 
 #include "base/assert.hpp"
 #include "base/stl_add.hpp"
@@ -216,8 +215,7 @@ template <typename TBatcher>
 IndicesRange Batcher::InsertTriangles(GLState const & state, ref_ptr<AttributeProvider> params,
                                       drape_ptr<OverlayHandle> && transferHandle, uint8_t vertexStride)
 {
-  ref_ptr<RenderBucket> bucket = GetBucket(state);
-  ref_ptr<VertexArrayBuffer> vao = bucket->GetBuffer();
+  ref_ptr<VertexArrayBuffer> vao = GetBucket(state)->GetBuffer();
   IndicesRange range;
 
   drape_ptr<OverlayHandle> handle = move(transferHandle);

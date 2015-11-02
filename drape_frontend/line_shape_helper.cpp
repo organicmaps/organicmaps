@@ -76,7 +76,7 @@ void UpdateNormalBetweenSegments(LineSegment * segment1, LineSegment * segment2)
   }
 }
 
-}
+} // namespace
 
 void CalculateTangentAndNormals(glsl::vec2 const & pt0, glsl::vec2 const & pt1,
                                 glsl::vec2 & tangent, glsl::vec2 & leftNormal,

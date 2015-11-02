@@ -410,7 +410,7 @@ template <typename TBuilder>
 void LineShape::Construct(TBuilder & builder) const
 {
   vector<m2::PointD> const & path = m_spline->GetPath();
-  ASSERT(path.size() > 1, ());
+  ASSERT_GREATER(path.size(), 1, ());
 
   // skip joins generation
   float const kJoinsGenerationThreshold = 2.5f;
@@ -473,7 +473,7 @@ template <>
 void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
 {
   vector<m2::PointD> const & path = m_spline->GetPath();
-  ASSERT(path.size() > 1, ());
+  ASSERT_GREATER(path.size(), 1, ());
 
   // skip joins generation
   float const kJoinsGenerationThreshold = 2.5f;
@@ -524,7 +524,7 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
   textures->GetColorRegion(m_params.m_color, colorRegion);
   float const pxHalfWidth = m_params.m_width / 2.0f;
 
-  auto commonParamsFiller = [&](BaseBuilderParams & p)
+  auto commonParamsBuilder = [&](BaseBuilderParams & p)
   {
     p.m_cap = m_params.m_cap;
     p.m_color = colorRegion;
@@ -536,7 +536,7 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
   if (m_params.m_pattern.empty())
   {
     SolidLineBuilder::BuilderParams p;
-    commonParamsFiller(p);
+    commonParamsBuilder(p);
 
     auto builder = make_unique<SolidLineBuilder>(p, m_spline->GetPath().size());
     Construct<SolidLineBuilder>(*builder);
@@ -548,7 +548,7 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
     textures->GetStippleRegion(m_params.m_pattern, maskRegion);
 
     DashedLineBuilder::BuilderParams p;
-    commonParamsFiller(p);
+    commonParamsBuilder(p);
     p.m_stipple = maskRegion;
     p.m_baseGtoP = m_params.m_baseGtoPScale;
     p.m_glbHalfWidth = pxHalfWidth / m_params.m_baseGtoPScale;

@@ -15,7 +15,7 @@ MessageQueue::MessageQueue()
 
 MessageQueue::~MessageQueue()
 {
-  CancelWait();
+  CancelWaitImpl();
   ClearQuery();
 }
 
@@ -57,7 +57,7 @@ void MessageQueue::PushMessage(drape_ptr<Message> && message, MessagePriority pr
     ASSERT(false, ("Unknown message priority type"));
   }
 
-  CancelWait();
+  CancelWaitImpl();
 }
 
 bool MessageQueue::IsEmpty()
@@ -67,6 +67,12 @@ bool MessageQueue::IsEmpty()
 }
 
 void MessageQueue::CancelWait()
+{
+  lock_guard<mutex> lock(m_mutex);
+  CancelWaitImpl();
+}
+
+void MessageQueue::CancelWaitImpl()
 {
   if (m_isWaiting)
   {

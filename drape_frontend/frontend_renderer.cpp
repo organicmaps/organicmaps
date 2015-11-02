@@ -869,8 +869,8 @@ void FrontendRenderer::Routine::Do()
     }
     else
     {
-      double availableTime = max(VSyncInterval - timer.ElapsedSeconds(), 0.01);
-      while (availableTime > 0)
+      double availableTime = VSyncInterval - timer.ElapsedSeconds();
+      do
       {
         if (!m_renderer.ProcessSingleMessage(false /* waitForMessage */))
           break;
@@ -878,6 +878,7 @@ void FrontendRenderer::Routine::Do()
         activityTimer.Reset();
         availableTime = VSyncInterval - timer.ElapsedSeconds();
       }
+      while (availableTime > 0);
     }
 
     context->present();

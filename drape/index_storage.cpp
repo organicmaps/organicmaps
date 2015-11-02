@@ -56,8 +56,9 @@ void const * IndexStorage::GetRawConst() const
 
 bool IndexStorage::IsSupported32bit()
 {
-  static bool const supports32bit = false;//GLExtensionsList::Instance().IsSupported(GLExtensionsList::UintIndices);
-  return supports32bit;
+  // We do not use 32-bit indices now to reduce size of index buffers.
+  static bool const supports32Bit = false;//GLExtensionsList::Instance().IsSupported(GLExtensionsList::UintIndices);
+  return supports32Bit;
 }
 
 uint32_t IndexStorage::SizeOfIndex()

@@ -27,7 +27,7 @@ public:
   ref_ptr<dp::TextureManager> GetTextureManager() const;
 
   void BeginReadTile();
-  void Flush(vector<drape_ptr<MapShape>> && shapes);
+  void Flush(TMapShapes && shapes);
   void EndReadTile();
 
 private:

@@ -27,6 +27,8 @@ public:
   bool IsEmpty();
 
 private:
+  void CancelWaitImpl();
+
   mutex m_mutex;
   condition_variable m_condition;
   bool m_isWaiting;

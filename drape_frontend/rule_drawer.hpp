@@ -1,7 +1,7 @@
 #pragma once
 
-#include "drape_frontend/tile_key.hpp"
 #include "drape_frontend/map_shape.hpp"
+#include "drape_frontend/tile_key.hpp"
 
 #include "drape/pointers.hpp"
 
@@ -38,7 +38,7 @@ private:
   double m_currentScaleGtoP;
   set<string> m_coastlines;
 
-  array<vector<drape_ptr<MapShape>>, df::PrioritiesCount> m_mapShapes;
+  array<TMapShapes, df::PrioritiesCount> m_mapShapes;
 };
 
 } // namespace dfo
