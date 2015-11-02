@@ -363,6 +363,7 @@ public class SearchFragment extends BaseMwmFragment
   protected void showAllResultsOnMap()
   {
     final String query = getQuery();
+    SearchRecents.add(query);
     mLastQueryTimestamp = System.nanoTime();
     SearchEngine.runInteractiveSearch(query, Language.getKeyboardLocale(), mLastQueryTimestamp, true);
     SearchEngine.showAllResults(query);
