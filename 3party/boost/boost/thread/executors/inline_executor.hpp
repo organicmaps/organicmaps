@@ -26,6 +26,7 @@ namespace executors
     /// type-erasure to store the works to do
     typedef  executors::work work;
     bool closed_;
+    mutable mutex mtx_;
     /**
      * Effects: try to execute one task.
      * Returns: whether a task has been executed.
@@ -66,15 +67,21 @@ namespace executors
      */
     void close()
     {
+      lock_guard<mutex> lk(mtx_);
       closed_ = true;
     }
 
     /**
      * \b Returns: whether the pool is closed for submissions.
      */
-    bool closed()
+    bool closed(lock_guard<mutex>& )
     {
       return closed_;
+    }
+    bool closed()
+    {
+      lock_guard<mutex> lk(mtx_);
+      return closed(lk);
     }
 
     /**
@@ -93,21 +100,54 @@ namespace executors
     template <typename Closure>
     void submit(Closure & closure)
     {
-      if (closed()) return;
-      closure();
+      {
+        lock_guard<mutex> lk(mtx_);
+        if (closed(lk))  BOOST_THROW_EXCEPTION( sync_queue_is_closed() );
+      }
+      try
+      {
+        closure();
+      }
+      catch (...)
+      {
+        std::terminate();
+        return;
+      }
     }
 #endif
     void submit(void (*closure)())
     {
-      if (closed()) return;
-      closure();
+      {
+        lock_guard<mutex> lk(mtx_);
+        if (closed(lk))  BOOST_THROW_EXCEPTION( sync_queue_is_closed() );
+      }
+      try
+      {
+        closure();
+      }
+      catch (...)
+      {
+        std::terminate();
+        return;
+      }
     }
 
     template <typename Closure>
     void submit(BOOST_THREAD_FWD_REF(Closure) closure)
     {
-      if (closed()) return;
-      closure();
+      {
+        lock_guard<mutex> lk(mtx_);
+        if (closed(lk))  BOOST_THROW_EXCEPTION( sync_queue_is_closed() );
+      }
+      try
+      {
+        closure();
+      }
+      catch (...)
+      {
+        std::terminate();
+        return;
+      }
     }
 
     /**

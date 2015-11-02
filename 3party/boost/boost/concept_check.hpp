@@ -818,9 +818,8 @@ namespace boost
       BOOST_CONCEPT_USAGE(Sequence)
       {
           S
-              c(n),
-              c2(n, t),
-              c3(first, last);
+              c(n, t),
+              c2(first, last);
 
           c.insert(p, t);
           c.insert(p, n, t);
@@ -833,7 +832,6 @@ namespace boost
 
           ignore_unused_variable_warning(c);
           ignore_unused_variable_warning(c2);
-          ignore_unused_variable_warning(c3);
           ignore_unused_variable_warning(r);
           const_constraints(c);
       }

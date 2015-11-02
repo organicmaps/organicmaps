@@ -1,16 +1,16 @@
 package com.mapswithme.maps.base;
 
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-
-import com.mapswithme.util.ViewServer;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.ViewServer;
 import com.mapswithme.util.statistics.Statistics;
 
 public class BaseMwmFragmentActivity extends AppCompatActivity
@@ -19,6 +19,7 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
   protected void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
+    setVolumeControlStream(AudioManager.STREAM_MUSIC);
     final int layoutId = getContentLayoutResId();
     if (layoutId != 0)
       setContentView(layoutId);

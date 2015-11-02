@@ -8,10 +8,6 @@
 #if !defined(BOOST_SPIRIT_X3_SIMPLE_TRACE_DECEMBER_06_2008_1102AM)
 #define BOOST_SPIRIT_X3_SIMPLE_TRACE_DECEMBER_06_2008_1102AM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/spirit/home/x3/support/unused.hpp>
 #include <boost/spirit/home/x3/support/traits/print_token.hpp>
 #include <boost/spirit/home/x3/support/traits/print_attribute.hpp>

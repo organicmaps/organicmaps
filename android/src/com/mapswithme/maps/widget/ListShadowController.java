@@ -3,7 +3,7 @@ package com.mapswithme.maps.widget;
 import android.view.View;
 import android.widget.AbsListView;
 
-public class ListShadowController extends BaseShadowController<AbsListView, AbsListView.OnScrollListener>
+public class ListShadowController extends BaseShadowController<AbsListView>
 {
   public ListShadowController(AbsListView list)
   {
@@ -30,9 +30,10 @@ public class ListShadowController extends BaseShadowController<AbsListView, AbsL
 
       child = mList.getChildAt(last - 1);
       return (child.getBottom() > mList.getHeight());
-    }
 
-    return false;
+    default:
+      throw new IllegalArgumentException("Invalid shadow id: " + id);
+    }
   }
 
   @Override
@@ -43,18 +44,12 @@ public class ListShadowController extends BaseShadowController<AbsListView, AbsL
     mList.setOnScrollListener(new AbsListView.OnScrollListener()
     {
       @Override
-      public void onScrollStateChanged(AbsListView view, int scrollState)
-      {
-        if (mScrollListener != null)
-          mScrollListener.onScrollStateChanged(view, scrollState);
-      }
+      public void onScrollStateChanged(AbsListView view, int scrollState) {}
 
       @Override
       public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
       {
         updateShadows();
-        if (mScrollListener != null)
-          mScrollListener.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
       }
     });
 
@@ -67,6 +62,6 @@ public class ListShadowController extends BaseShadowController<AbsListView, AbsL
   public void detach()
   {
     super.detach();
-    mList.setOnScrollListener(mScrollListener);
+    mList.setOnScrollListener(null);
   }
 }

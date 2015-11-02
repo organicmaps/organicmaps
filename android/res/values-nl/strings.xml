@@ -295,7 +295,6 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Lengte</string>
 	<string name="share_my_location">Deel mijn locatie</string>
-	<string name="become_a_pro">Upgrade</string>
 	<string name="menu_search">Zoek</string>
 	<string name="pref_zoom_title">Zoomknoppen</string>
 	<string name="pref_zoom_summary">Weergave op het scherm</string>
@@ -793,8 +792,5 @@
 	<string name="search_not_found_location">Download de kaart van uw huidige locatie.</string>
 	<string name="search_history_title">Zoekgeschiedenis</string>
 	<string name="search_history_text">Snel toegang tot recente zoekopdrachten.</string>
-	<string name="update_maps_alert_title">Het verkennen van de kaart is nu makkelijker</string>
-	<string name="update_maps_alert_message">We hebben de kaartstijlen verbeterd: nu zien alle objecten er vriendelijker en duidelijker uit. Werk de kaarten bij om het beste uit het nieuwe ontwerp te halen.</string>
-	<string name="update_maps_alert_button_title">Kaarten updaten</string>
 	<string name="clear_search">Zoekgeschiedenis wissen</string>
 </resources>

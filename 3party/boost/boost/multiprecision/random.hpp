@@ -575,6 +575,16 @@ inline boost::multiprecision::number<Backend, ExpressionTemplates>
         tag_type());
 }
 
+template<class Engine, class Backend, boost::multiprecision::expression_template_option ExpressionTemplates>
+inline boost::multiprecision::number<Backend, ExpressionTemplates> generate_uniform_real(Engine& eng, const boost::multiprecision::number<Backend, ExpressionTemplates>& min_value, const boost::multiprecision::number<Backend, ExpressionTemplates>& max_value)
+{
+   if(max_value / 2 - min_value / 2 > (std::numeric_limits<boost::multiprecision::number<Backend, ExpressionTemplates> >::max)() / 2)
+      return 2 * generate_uniform_real(eng, boost::multiprecision::number<Backend, ExpressionTemplates>(min_value / 2), boost::multiprecision::number<Backend, ExpressionTemplates>(max_value / 2));
+   typedef typename Engine::result_type base_result;
+   return generate_uniform_real(eng, min_value, max_value,
+      boost::is_integral<base_result>());
+}
+
 } // detail
 
 

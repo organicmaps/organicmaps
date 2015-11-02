@@ -478,13 +478,35 @@
 
 "share_my_location" = "分享我的位置";
 
-"become_a_pro" = "升級";
-
 "menu_search" = "搜尋";
+
+/* Settings screen: "Map" category title */
+"prefs_group_map" = "Map";
+
+/* Settings screen: "Route" category title */
+"prefs_group_route" = "Route";
+
+/* Settings screen: "Miscellaneous" category title */
+"prefs_group_misc" = "Miscellaneous";
 
 "pref_zoom_title" = "縮放按鈕";
 
 "pref_zoom_summary" = "在螢幕上顯示";
+
+/* Settings «Map» category: «Map style» title */
+"pref_map_style_title" = "Map style";
+
+/* Settings «Map» category: «Map style» summary */
+"pref_map_style_summary" = "Change map presentation";
+
+/* «Map style» entry value */
+"pref_map_style_classic_light" = "Classic light";
+
+/* «Map style» entry value */
+"pref_map_style_classic_dark" = "Classic dark";
+
+/* «Map style» entry value */
+"pref_map_style_modern_light" = "Modern light";
 
 "placepage_distance" = "距离";
 
@@ -558,6 +580,12 @@
 "settings_and_more" = "設定及更多";
 
 /* Text in menu */
+"website" = "Website";
+
+/* Text in menu */
+"blog" = "Blog";
+
+/* Text in menu */
 "maps_me_community" = "MAPS.ME社區";
 
 /* Text in menu */
@@ -569,11 +597,26 @@
 /* Text in menu */
 "contact_us" = "聯絡我們";
 
+/* Settings: Send feedback button and dialog title */
+"feedback" = "Feedback";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "General feedback";
+
 /* Text in menu */
 "subscribe_to_news" = "訂閱我們的新聞";
 
 /* Text in menu */
 "rate_the_app" = "為該應用打分";
+
+/* Rate in Google Play (Android only) */
+"rate_gp" = "Rate on Google Play";
+
+/* Share with friends: menu item title */
+"tell_friends" = "Tell a Friend";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "Hi! Install Maps.me!";
 
 /* Text in menu */
 "help" = "幫助";
@@ -589,6 +632,9 @@
 
 /* Email body */
 "subscribe_me_body" = "我想搶先了解最新新聞、更新和促銷活動。我可以隨時取消我的訂閱。";
+
+/* About short text (below logo) */
+"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
 "about_text" = "MAPS.ME提供全球所有國家和所有城市的最快速的離線地圖。充滿自信地出行：無論您在哪， MAPS.ME都能夠幫助您在地圖上找到您自己的位置，找到最近的餐館、酒店、銀行、加油站，等等。無需網路連接。 我們始終在為添加新功能而努力，并希望能夠聽到您對我們應如何改進MAPS.ME的想法。若您在使用本應用時遇到任何問題，請隨時聯繫我們：support@maps.me。我們會回覆每一條請求！\n\n您喜歡MAPS.ME并希望支持我們嗎？以下為一些簡單且完全免費的方法：\n- 在您的App Market上發表評論\n- 在我們的Facebook頁面http://www.facebook.com/mapswithme上贊我們\n- 或者向您的母親、朋友，以及同事介紹 MAPS.ME :)\n\n感謝您與我們在一起。非常感謝您的支持。\n\n附言：我們從OpenStreetMap獲取地圖信息，這是一個類似于Wikipedia的地圖繪製項目，能夠讓用戶創建并編輯地圖。若您看到地圖上缺少了什麽或者有什麽錯誤，可以直接在http://openstreetmap.org上進行糾正。在下一個版本發佈時，您做出的更改便會出現在MAPS.ME應用中。";
@@ -1268,11 +1314,5 @@
 "search_history_title" = "搜尋歷史紀錄";
 
 "search_history_text" = "快速存取最近搜尋的問題。";
-
-"update_maps_alert_title" = "探索地圖現在變得更加容易";
-
-"update_maps_alert_message" = "我們完善了地圖風格：現在，所有物件外觀更好看、更清楚。更新地圖以充分利用全新設計。";
-
-"update_maps_alert_button_title" = "更新地圖";
 
 "clear_search" = "清除搜尋記錄";

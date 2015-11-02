@@ -36,7 +36,8 @@ namespace boost { namespace fusion
             typename add_const<Tuple>::type, Index>
         identity;
 
-        BOOST_FUSION_GPU_ENABLED explicit std_tuple_iterator(Tuple& tuple)
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+        explicit std_tuple_iterator(Tuple& tuple)
           : tuple(tuple) {}
 
         Tuple& tuple;
@@ -58,7 +59,7 @@ namespace boost { namespace fusion
                 >::type
             type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type
             call(Iterator const& iter)
             {
@@ -73,7 +74,7 @@ namespace boost { namespace fusion
             typedef typename Iterator::tuple_type tuple_type;
             typedef std_tuple_iterator<tuple_type, index+N::value> type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type
             call(Iterator const& i)
             {
@@ -96,7 +97,7 @@ namespace boost { namespace fusion
         {
             typedef mpl::int_<Last::index-First::index> type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type
             call(First const&, Last const&)
             {
@@ -105,6 +106,15 @@ namespace boost { namespace fusion
         };
     };
 }}
+
+#ifdef BOOST_FUSION_WORKAROUND_FOR_LWG_2408
+namespace std
+{
+    template <typename Tuple, int Index>
+    struct iterator_traits< ::boost::fusion::std_tuple_iterator<Tuple, Index> >
+    { };
+}
+#endif
 
 #endif
 

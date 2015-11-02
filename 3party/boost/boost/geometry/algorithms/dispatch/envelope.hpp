@@ -12,8 +12,8 @@
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
 
-// Use, modification and distribution is subject to the Boost Software License,
-// Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DISPATCH_ENVELOPE_HPP
@@ -36,7 +36,7 @@ template
 <
     typename Geometry,
     typename Tag = typename tag<Geometry>::type,
-    typename CSTag = typename cs_tag<Geometry>::type
+    typename CS_Tag = typename cs_tag<Geometry>::type
 >
 struct envelope : not_implemented<Tag>
 {};

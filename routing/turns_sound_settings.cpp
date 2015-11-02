@@ -12,6 +12,18 @@ namespace turns
 {
 namespace sound
 {
+void Settings::SetState(uint32_t notificationTimeSeconds, uint32_t minNotificationDistanceUnits,
+                        uint32_t maxNotificationDistanceUnits,
+                        vector<uint32_t> const & soundedDistancesUnits,
+                        ::Settings::Units lengthUnits)
+{
+  m_timeSeconds = notificationTimeSeconds;
+  m_minDistanceUnits = minNotificationDistanceUnits;
+  m_maxDistanceUnits = maxNotificationDistanceUnits;
+  m_soundedDistancesUnits = soundedDistancesUnits;
+  m_lengthUnits = lengthUnits;
+}
+
 bool Settings::IsValid() const
 {
   return m_minDistanceUnits <= m_maxDistanceUnits &&
@@ -19,12 +31,19 @@ bool Settings::IsValid() const
          is_sorted(m_soundedDistancesUnits.cbegin(), m_soundedDistancesUnits.cend());
 }
 
-double Settings::ComputeTurnDistance(double speedUnitsPerSecond) const
+uint32_t Settings::ComputeTurnDistanceM(double speedMetersPerSecond) const
 {
   ASSERT(IsValid(), ());
 
-  double const turnNotificationDistance = m_timeSeconds * speedUnitsPerSecond;
-  return my::clamp(turnNotificationDistance, m_minDistanceUnits, m_maxDistanceUnits);
+  double const turnNotificationDistanceM = m_timeSeconds * speedMetersPerSecond;
+  return static_cast<uint32_t>(my::clamp(turnNotificationDistanceM,
+                                         ConvertUnitsToMeters(m_minDistanceUnits),
+                                         ConvertUnitsToMeters(m_maxDistanceUnits)));
+}
+
+bool Settings::TooCloseForFisrtNotification(double distToTurnMeters) const
+{
+  return m_minDistToSayNotificationMeters >= distToTurnMeters;
 }
 
 uint32_t Settings::RoundByPresetSoundedDistancesUnits(uint32_t turnNotificationUnits) const
@@ -81,6 +100,14 @@ double Settings::ConvertMetersToUnits(double distanceInMeters) const
 
   ASSERT(false, ());
   return 0.;
+}
+
+uint32_t Settings::ComputeDistToPronounceDistM(double speedMetersPerSecond) const
+{
+  ASSERT_LESS_OR_EQUAL(0, speedMetersPerSecond, ());
+  uint32_t const startBeforeMeters =
+      static_cast<uint32_t>(speedMetersPerSecond * m_startBeforeSeconds);
+  return my::clamp(startBeforeMeters, m_minStartBeforeMeters, m_maxStartBeforeMeters);
 }
 
 string DebugPrint(Notification const & notification)

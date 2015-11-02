@@ -10,13 +10,24 @@
 #ifndef BOOST_INTERPROCESS_FLAT_MAP_INDEX_HPP
 #define BOOST_INTERPROCESS_FLAT_MAP_INDEX_HPP
 
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
 
-#include <functional>
-#include <utility>
+// interprocess
 #include <boost/interprocess/containers/flat_map.hpp>
 #include <boost/interprocess/allocators/allocator.hpp>
+// intrusive/detail
+#include <boost/intrusive/detail/minimal_pair_header.hpp>         //std::pair
+#include <boost/intrusive/detail/minimal_less_equal_header.hpp>   //std::less
+
 
 //!\file
 //!Describes index adaptor of boost::map container, to use it
@@ -24,6 +35,8 @@
 
 //[flat_map_index
 namespace boost { namespace interprocess {
+
+#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 //!Helper class to define typedefs from IndexTraits
 template <class MapConfig>
@@ -41,6 +54,8 @@ struct flat_map_index_aux
                     key_less, allocator_type>      index_t;
 };
 
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
+
 //!Index type based in flat_map. Just derives from flat_map and
 //!defines the interface needed by managed memory segments.
 template <class MapConfig>
@@ -48,12 +63,12 @@ class flat_map_index
    //Derive class from flat_map specialization
    : public flat_map_index_aux<MapConfig>::index_t
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    typedef flat_map_index_aux<MapConfig>  index_aux;
    typedef typename index_aux::index_t    base_type;
    typedef typename index_aux::
       segment_manager_base          segment_manager_base;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    //!Constructor. Takes a pointer to the segment manager. Can throw

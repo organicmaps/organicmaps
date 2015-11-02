@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2014. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -11,7 +11,11 @@
 #ifndef BOOST_INTERPROCESS_OFFSET_PTR_HPP
 #define BOOST_INTERPROCESS_OFFSET_PTR_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -22,13 +26,9 @@
 #include <boost/interprocess/detail/utilities.hpp>
 #include <boost/interprocess/detail/cast_tags.hpp>
 #include <boost/interprocess/detail/mpl.hpp>
+#include <boost/container/detail/type_traits.hpp>  //alignment_of, aligned_storage
 #include <boost/assert.hpp>
-#include <ostream>
-#include <istream>
-#include <iterator>
-#include <iostream>
-#include <boost/aligned_storage.hpp>
-#include <boost/type_traits/alignment_of.hpp>
+#include <iosfwd>
 
 //!\file
 //!Describes a smart pointer that stores the offset between this pointer and
@@ -36,16 +36,17 @@
 
 namespace boost {
 
-//Predeclarations
-template <class T>
-struct has_trivial_constructor;
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
+//Predeclarations
 template <class T>
 struct has_trivial_destructor;
 
+#endif   //#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
+
 namespace interprocess {
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 namespace ipcdetail {
 
    template<class OffsetType, std::size_t OffsetAlignment>
@@ -55,10 +56,10 @@ namespace ipcdetail {
          : m_offset(off)
       {}
       OffsetType m_offset; //Distance between this object and pointee address
-      typename ::boost::aligned_storage
+      typename ::boost::container::container_detail::aligned_storage
          < sizeof(OffsetType)
          , (OffsetAlignment == offset_type_alignment) ?
-            ::boost::alignment_of<OffsetType>::value : OffsetAlignment
+            ::boost::container::container_detail::alignment_of<OffsetType>::value : OffsetAlignment
          >::type alignment_helper;
    };
 
@@ -82,7 +83,7 @@ namespace ipcdetail {
    #endif
    template<int Dummy>
    #ifndef BOOST_INTERPROCESS_OFFSET_PTR_INLINE_TO_PTR
-      BOOST_INTERPROCESS_NEVER_INLINE
+      BOOST_NOINLINE
    #elif defined(NDEBUG)
       inline
    #endif
@@ -124,7 +125,7 @@ namespace ipcdetail {
 
    template<int Dummy>
    #ifndef BOOST_INTERPROCESS_OFFSET_PTR_INLINE_TO_OFF
-      BOOST_INTERPROCESS_NEVER_INLINE
+      BOOST_NOINLINE
    #elif defined(NDEBUG)
       inline
    #endif
@@ -173,7 +174,7 @@ namespace ipcdetail {
 
    template<int Dummy>
    #ifndef BOOST_INTERPROCESS_OFFSET_PTR_INLINE_TO_OFF_FROM_OTHER
-      BOOST_INTERPROCESS_NEVER_INLINE
+      BOOST_NOINLINE
    #elif defined(NDEBUG)
       inline
    #endif
@@ -219,7 +220,7 @@ namespace ipcdetail {
    };
 
 }  //namespace ipcdetail {
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 //!A smart pointer that stores the offset between between the pointer and the
 //!the object it points. This allows offset allows special properties, since
@@ -227,14 +228,23 @@ namespace ipcdetail {
 //!pointer and the pointee are still separated by the same offset. This feature
 //!converts offset_ptr in a smart pointer that can be placed in shared memory and
 //!memory mapped files mapped in different addresses in every process.
+//!
+//! \tparam PointedType The type of the pointee.
+//! \tparam DifferenceType A signed integer type that can represent the arithmetic operations on the pointer
+//! \tparam OffsetType An unsigned integer type that can represent the
+//!   distance between two pointers reinterpret_cast-ed as unsigned integers. In general this type
+//!   should be at least of the same size of std::uintptr_t. In some systems it's possible to communicate
+//!   between 32 and 64 bit processes using 64 bit offsets.
+//! \tparam OffsetAlignment Alignment of the OffsetType stored inside. In some systems might be necessary
+//!   to align it to 64 bits in order to communicate 32 and 64 bit processes using 64 bit offsets.
 template <class PointedType, class DifferenceType, class OffsetType, std::size_t OffsetAlignment>
 class offset_ptr
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    typedef offset_ptr<PointedType, DifferenceType, OffsetType, OffsetAlignment>   self_t;
    void unspecified_bool_type_func() const {}
    typedef void (self_t::*unspecified_bool_type)() const;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    typedef PointedType                       element_type;
@@ -564,7 +574,7 @@ class offset_ptr
    }
 
    private:
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    void inc_offset(DifferenceType bytes)
    {  internal.m_offset += bytes;   }
 
@@ -572,7 +582,7 @@ class offset_ptr
    {  internal.m_offset -= bytes;   }
 
    ipcdetail::offset_ptr_internal<OffsetType, OffsetAlignment> internal;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
 
 //!operator<<
@@ -627,22 +637,25 @@ inline boost::interprocess::offset_ptr<T1, P1, O1, A1>
 
 }  //namespace interprocess {
 
-/// @cond
-
-//!has_trivial_constructor<> == true_type specialization for optimizations
-template <class T, class P, class O, std::size_t A>
-struct has_trivial_constructor< boost::interprocess::offset_ptr<T, P, O, A> >
-{
-   static const bool value = true;
-};
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
 ///has_trivial_destructor<> == true_type specialization for optimizations
 template <class T, class P, class O, std::size_t A>
-struct has_trivial_destructor< boost::interprocess::offset_ptr<T, P, O, A> >
+struct has_trivial_destructor< ::boost::interprocess::offset_ptr<T, P, O, A> >
 {
    static const bool value = true;
 };
 
+namespace move_detail {
+
+///has_trivial_destructor<> == true_type specialization for optimizations
+template <class T, class P, class O, std::size_t A>
+struct is_trivially_destructible< ::boost::interprocess::offset_ptr<T, P, O, A> >
+{
+   static const bool value = true;
+};
+
+}  //namespace move_detail {
 
 namespace interprocess {
 
@@ -655,10 +668,10 @@ inline T * to_raw_pointer(boost::interprocess::offset_ptr<T, P, O, A> const & p)
 }  //namespace interprocess
 
 
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 }  //namespace boost {
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
 namespace boost{
 
@@ -731,7 +744,7 @@ struct pointer_to_other
 };
 
 }  //namespace boost{
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 #include <boost/interprocess/detail/config_end.hpp>
 

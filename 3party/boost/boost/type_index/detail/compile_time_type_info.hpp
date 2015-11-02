@@ -42,28 +42,28 @@
 
 #elif defined(_MSC_VER)
     // sizeof("const char *__cdecl boost::detail::ctti<") - 1, sizeof(">::n(void)") - 1
-    BOOST_TYPE_INDEX_REGISTER_CTTI_PARSING_PARAMS(40, 10, false, "");
+    BOOST_TYPE_INDEX_REGISTER_CTTI_PARSING_PARAMS(40, 10, false, "")
 #elif defined(__clang__) && defined(__APPLE__)
     // Someone made __clang_major__ equal to LLVM version rather than compiler version
     // on APPLE platform.
     //
     // Using less efficient solution because there is no good way to detect real version of Clang.
     // sizeof("static const char *boost::detail::ctti<") - 1, sizeof("]") - 1, true, "???????????>::n() [T = int"
-    BOOST_TYPE_INDEX_REGISTER_CTTI_PARSING_PARAMS(39, 1, true, "T = ");
+    BOOST_TYPE_INDEX_REGISTER_CTTI_PARSING_PARAMS(39, 1, true, "T = ")
 #elif defined(__clang__) && (__clang_major__ < 3 || (__clang_major__ == 3 && __clang_minor__ == 0))
     // sizeof("static const char *boost::detail::ctti<") - 1, sizeof(">::n()") - 1
     // note: checked on 3.0
-    BOOST_TYPE_INDEX_REGISTER_CTTI_PARSING_PARAMS(39, 6, false, "");
+    BOOST_TYPE_INDEX_REGISTER_CTTI_PARSING_PARAMS(39, 6, false, "")
 #elif defined(__clang__) && __clang_major__ == 3 && __clang_minor__ > 0
     // sizeof("static const char *boost::detail::ctti<") - 1, sizeof("]") - 1, true, "int>::n() [T = int"
     // note: checked on 3.1, 3.4
-    BOOST_TYPE_INDEX_REGISTER_CTTI_PARSING_PARAMS(39, 1, true, "T = ");
+    BOOST_TYPE_INDEX_REGISTER_CTTI_PARSING_PARAMS(39, 1, true, "T = ")
 #elif defined(__GNUC__)
     // sizeof("static const char* boost::detail::ctti<T>::n() [with T = ") - 1, sizeof("]") - 1
-    BOOST_TYPE_INDEX_REGISTER_CTTI_PARSING_PARAMS(57, 1, false, "");
+    BOOST_TYPE_INDEX_REGISTER_CTTI_PARSING_PARAMS(57, 1, false, "")
 #else
     // Deafult code for other platforms... Just skip nothing!
-    BOOST_TYPE_INDEX_REGISTER_CTTI_PARSING_PARAMS(0, 0, false, "");
+    BOOST_TYPE_INDEX_REGISTER_CTTI_PARSING_PARAMS(0, 0, false, "")
 #endif
 
 #undef BOOST_TYPE_INDEX_REGISTER_CTTI_PARSING_PARAMS
@@ -107,7 +107,7 @@ namespace boost { namespace detail {
 
 /// Noncopyable type_info that does not require RTTI.
 /// CTTI == Compile Time Type Info.
-/// This name must be as short as posible, to avoid code bloat
+/// This name must be as short as possible, to avoid code bloat
 template <class T>
 struct ctti {
 
@@ -119,6 +119,7 @@ struct ctti {
         return boost::typeindex::detail::skip_begining< sizeof(__FUNCSIG__) >(__FUNCSIG__);
     #elif defined(__PRETTY_FUNCTION__) \
                 || defined(__GNUC__) \
+                || (defined(__SUNPRO_CC) && (__SUNPRO_CC >= 0x5130)) \
                 || (defined(__MWERKS__) && (__MWERKS__ >= 0x3000)) \
                 || (defined(__ICC) && (__ICC >= 600)) \
                 || defined(__ghs__) \

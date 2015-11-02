@@ -230,7 +230,7 @@
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Результатів не знайдено</string>
 	<!-- Notes field in Bookmarks view -->
-	<string name="description">Додати примітку</string>
+	<string name="description">Примітка</string>
 	<!-- Button text -->
 	<string name="share_by_email">Подiлитися по електронній пошті</string>
 	<!-- Email Subject when sharing bookmarks category -->
@@ -308,7 +308,6 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Довжина</string>
 	<string name="share_my_location">Поділитися моїм місцезнаходженням</string>
-	<string name="become_a_pro">Купити PRO</string>
 	<string name="menu_search">Пошук</string>
 	<string name="pref_zoom_title">Кнопки трансфокації</string>
 	<string name="pref_zoom_summary">Відображення на екрані</string>
@@ -806,8 +805,5 @@
 	<string name="search_not_found_location">Завантажте карту вашого місцезнаходження.</string>
 	<string name="search_history_title">Історія пошуку</string>
 	<string name="search_history_text">Швидкий доступ до недавніх результатів пошуку.</string>
-	<string name="update_maps_alert_title">Орієнтуватись стало легше</string>
-	<string name="update_maps_alert_message">Ми покращили стилі карт: тепер усі об\&#39;єкти виглядають більш дружніми та зрозумілими. Оновіть карти, щоб використати усі переваги нового дизайну.</string>
-	<string name="update_maps_alert_button_title">Оновити карти</string>
 	<string name="clear_search">Очистити історію пошуку</string>
 </resources>

@@ -40,8 +40,9 @@ namespace boost {
                 assert(n != s.npos);
                 value().first = s.substr(0, n);
                 value().second = s.substr(n+1);
-            }            
-            ++m_environment;
+
+                ++m_environment;
+            }
         }
         
     private:

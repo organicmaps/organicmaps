@@ -11,6 +11,7 @@ buildscript {
 allprojects {
   repositories {
     jcenter()
+    mavenCentral()
   }
 }
 
@@ -31,6 +32,7 @@ dependencies {
   compile 'com.facebook.android:facebook-android-sdk:4.6.0'
   compile 'com.parse.bolts:bolts-android:1.2.1'
   compile 'com.parse:parse-android:1.10.2'
+  compile 'com.google.code.gson:gson:2.4'
   compile fileTree(dir: '3rd_party', include: '*.jar')
   // BottomSheet
   compile project(":3rd_party:BottomSheet")
@@ -60,6 +62,7 @@ android {
     buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
     buildConfigField 'String', 'REVIEW_URL', '"market://details?id=com.mapswithme.maps.pro"'
     buildConfigField 'int', 'RATING_THRESHOLD', '5'
+    buildConfigField 'boolean', 'ALLOW_PREF_MAP_STYLE', 'false'
   }
 
   sourceSets.main {
@@ -121,6 +124,7 @@ android {
 
     web {
       versionName = android.defaultConfig.versionName + '-Web'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@maps.me"'
       android.sourceSets.web.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
@@ -133,30 +137,39 @@ android {
     mobogenie {
       versionName = android.defaultConfig.versionName + '-Mobogenie'
       android.sourceSets.mobogenie.assets.srcDirs = ['flavors/mwm-ttf-assets']
+      buildConfigField 'String', 'REVIEW_URL', '"http://www.mobogenie.com/download-maps-me-4240212.html"'
     }
 
     tencent {
       versionName = android.defaultConfig.versionName + '-Tencent'
       android.sourceSets.tencent.assets.srcDirs = ['flavors/mwm-ttf-assets']
-      // TODO While store url is unknown, force all rating reviews to be sent to our email.
-      // Change it in the next version after publishing app to the store.
-      buildConfigField 'int', 'RATING_THRESHOLD', '6'
+      buildConfigField 'String', 'REVIEW_URL', '"http://android.myapp.com/myapp/detail.htm?apkName=com.mapswithme.maps.pro"'
     }
 
     baidu {
       versionName = android.defaultConfig.versionName + '-Baidu'
       android.sourceSets.baidu.assets.srcDirs = ['flavors/mwm-ttf-assets']
-      // TODO While store url is unknown, force all rating reviews to be sent to our email.
-      // Change it in the next version after publishing app to the store.
-      buildConfigField 'int', 'RATING_THRESHOLD', '6'
+      buildConfigField 'String', 'REVIEW_URL', '"http://shouji.baidu.com/software/item?docid=7999892&f=sug@software"'
     }
 
     appChina {
       versionName = android.defaultConfig.versionName + '-AppChina'
       android.sourceSets.appChina.assets.srcDirs = ['flavors/mwm-ttf-assets']
+      buildConfigField 'String', 'REVIEW_URL', '"http://www.appchina.com/app/com.mapswithme.maps.pro"'
+    }
+
+    moboMarket {
+      versionName = android.defaultConfig.versionName + '-MoboMarket'
+      android.sourceSets.moboMarket.assets.srcDirs = ['flavors/mwm-ttf-assets']
       // TODO While store url is unknown, force all rating reviews to be sent to our email.
       // Change it in the next version after publishing app to the store.
       buildConfigField 'int', 'RATING_THRESHOLD', '6'
+    }
+
+    blackberry {
+      versionName = android.defaultConfig.versionName + '-Blackberry'
+      android.sourceSets.blackberry.assets.srcDirs = ['flavors/mwm-ttf-assets']
+      buildConfigField 'String', 'REVIEW_URL', '"https://appworld.blackberry.com/webstore/content/51013892"'
     }
   }
 
@@ -214,6 +227,7 @@ android {
       zipAlignEnabled true
       signingConfig signingConfigs.mapswithmeDebug
       android.sourceSets.debug.setRoot('flavors/debug')
+      buildConfigField 'boolean', 'ALLOW_PREF_MAP_STYLE', 'true'
     }
 
     release {
@@ -228,6 +242,7 @@ android {
       versionNameSuffix '-beta'
       signingConfig signingConfigs.mapswithme
       android.sourceSets.beta.setRoot('flavors/beta')
+      buildConfigField 'boolean', 'ALLOW_PREF_MAP_STYLE', 'true'
     }
   }
 

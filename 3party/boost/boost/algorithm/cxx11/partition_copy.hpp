@@ -20,10 +20,6 @@
 
 namespace boost { namespace algorithm {
 
-#if __cplusplus >= 201103L
-//  Use the C++11 versions of partition_copy if it is available
-using std::partition_copy;  // Section 25.3.13
-#else
 /// \fn partition_copy ( InputIterator first, InputIterator last,
 ///     OutputIterator1 out_true, OutputIterator2 out_false, UnaryPredicate p )
 /// \brief Copies the elements that satisfy the predicate p from the range [first, last) 
@@ -53,7 +49,6 @@ partition_copy ( InputIterator first, InputIterator last,
             *out_false++ = *first;
     return std::pair<OutputIterator1, OutputIterator2> ( out_true, out_false );
 }
-#endif
 
 /// \fn partition_copy ( const Range &r, 
 ///     OutputIterator1 out_true, OutputIterator2 out_false, UnaryPredicate p )

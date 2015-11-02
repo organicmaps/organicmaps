@@ -1,142 +1,172 @@
 package com.mapswithme.maps.settings;
 
-import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.MailTo;
-import android.net.Uri;
+import android.app.Fragment;
+import android.content.res.Configuration;
+import android.media.AudioManager;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceScreen;
-import android.support.v7.app.AlertDialog;
-import android.util.AttributeSet;
+import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.mapswithme.country.ActiveCountryTree;
-import com.mapswithme.maps.BuildConfig;
+import android.view.ViewGroup;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.util.Constants;
+import com.mapswithme.maps.base.OnBackPressListener;
+import com.mapswithme.util.FragmentListHelper;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.Utils;
 import com.mapswithme.util.ViewServer;
-import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
-public class SettingsActivity extends PreferenceActivity implements OnPreferenceClickListener, Preference.OnPreferenceChangeListener
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class SettingsActivity extends PreferenceActivity
 {
-  public final static String ZOOM_BUTTON_ENABLED = "ZoomButtonsEnabled";
-  private static final String COPYRIGHT_HTML_URL = "file:///android_asset/copyright.html";
-  private static final String FAQ_HTML_URL = "file:///android_asset/faq.html";
+  private final FragmentListHelper mFragmentListHelper = new FragmentListHelper();
+  private AppCompatDelegate mDelegate;
+  private CharSequence mNextBreadcrumb;
+  private final Map<Long, Header> mHeaders = new HashMap<>();
 
-  private Preference mStoragePreference;
-  private StoragePathManager mPathManager = new StoragePathManager();
+  private AppCompatDelegate getDelegate()
+  {
+    if (mDelegate == null)
+      mDelegate = AppCompatDelegate.create(this, null);
 
-  @SuppressWarnings("deprecation")
+    return mDelegate;
+  }
+
+  @Override
+  public void onAttachFragment(Fragment fragment)
+  {
+    mFragmentListHelper.onAttachFragment(fragment);
+  }
+
+  @Override
+  public void onBuildHeaders(List<Header> target)
+  {
+    loadHeadersFromResource(R.xml.prefs_headers, target);
+
+    mHeaders.clear();
+    for (Header h : target)
+      mHeaders.put(h.id, h);
+  }
+
+  @Override
+  public void onHeaderClick(@NonNull Header header, int position)
+  {
+    if (header.id == R.id.group_map)
+      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.Settings.GROUP_MAP);
+    else if (header.id == R.id.group_misc)
+      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.Settings.GROUP_MISC);
+    else if (header.id == R.id.help)
+    {
+      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.Settings.HELP);
+      AlohaHelper.logClick(AlohaHelper.Settings.HELP);
+    }
+    else if (header.id == R.id.about)
+    {
+      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.Settings.ABOUT);
+      AlohaHelper.logClick(AlohaHelper.Settings.ABOUT);
+    }
+
+    super.onHeaderClick(header, position);
+  }
+
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
-    super.onCreate(savedInstanceState);
+    getDelegate().installViewFactory();
+    getDelegate().onCreate(savedInstanceState);
 
-    // TODO remove after refactoring to fragments
-    // this initialisation is necessary hence Activity isn't extended from BaseMwmActivity
-    // try to prevent possible crash if this is the only activity in application
+    super.onCreate(savedInstanceState);
+    setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
+    // Hack to attach Toolbar and make it work on native PreferenceActivity
+    ViewGroup root = (ViewGroup)findViewById(android.R.id.list).getParent().getParent().getParent();
+    View toolbarHolder = LayoutInflater.from(this).inflate(R.layout.toolbar_default, root, false);
+    Toolbar toolbar = (Toolbar) toolbarHolder.findViewById(R.id.toolbar);
+    UiUtils.showHomeUpButton(toolbar);
+
+    // First, add toolbar view to UI.
+    root.addView(toolbarHolder, 0);
+    // Second, attach it as ActionBar (it does not add view, so we need previous step).
+    getDelegate().setSupportActionBar(toolbar);
+
     MwmApplication.get().initNativeCore();
     MwmApplication.get().initCounters();
-    addPreferencesFromResource(R.xml.preferences);
-    initPreferences();
-    yotaSetup();
     ViewServer.get(this).addWindow(this);
+  }
+
+  @Override
+  protected void onPostCreate(Bundle savedInstanceState)
+  {
+    super.onPostCreate(savedInstanceState);
+    getDelegate().onPostCreate(savedInstanceState);
+  }
+
+  @Override
+  public void setContentView(int layoutResID)
+  {
+    getDelegate().setContentView(layoutResID);
+  }
+
+  @Override
+  public void setContentView(View view)
+  {
+    getDelegate().setContentView(view);
+  }
+
+  @Override
+  public void setContentView(View view, ViewGroup.LayoutParams params)
+  {
+    getDelegate().setContentView(view, params);
+  }
+
+  @Override
+  public void addContentView(View view, ViewGroup.LayoutParams params)
+  {
+    getDelegate().addContentView(view, params);
+  }
+
+  @Override
+  protected void onTitleChanged(CharSequence title, int color)
+  {
+    super.onTitleChanged(title, color);
+    getDelegate().setTitle(title);
+  }
+
+  @Override
+  public void invalidateOptionsMenu()
+  {
+    super.invalidateOptionsMenu();
+    getDelegate().invalidateOptionsMenu();
+  }
+
+  @Override
+  public void onConfigurationChanged(Configuration newConfig)
+  {
+    super.onConfigurationChanged(newConfig);
+    getDelegate().onConfigurationChanged(newConfig);
   }
 
   @Override
   protected void onDestroy()
   {
     super.onDestroy();
+    getDelegate().onDestroy();
     ViewServer.get(this).removeWindow(this);
   }
 
-  @SuppressWarnings("deprecation")
-  private void initPreferences()
+  @Override
+  protected boolean isValidFragment(String fragmentName)
   {
-    mStoragePreference = findPreference(getString(R.string.pref_storage_activity));
-    mStoragePreference.setOnPreferenceClickListener(this);
-
-    final ListPreference lPref = (ListPreference) findPreference(getString(R.string.pref_munits));
-    lPref.setValue(String.valueOf(UnitLocale.getUnits()));
-    lPref.setOnPreferenceChangeListener(this);
-
-    final CheckBoxPreference allowStatsPreference = (CheckBoxPreference) findPreference(getString(R.string.pref_allow_stat));
-    allowStatsPreference.setChecked(Statistics.INSTANCE.isStatisticsEnabled());
-    allowStatsPreference.setOnPreferenceChangeListener(this);
-
-    final CheckBoxPreference enableZoomButtons = (CheckBoxPreference) findPreference(getString(R.string.pref_zoom_btns_enabled));
-    enableZoomButtons.setChecked(MwmApplication.get().nativeGetBoolean(ZOOM_BUTTON_ENABLED, true));
-    enableZoomButtons.setOnPreferenceChangeListener(this);
-
-    if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MwmApplication.get()) != ConnectionResult.SUCCESS)
-    {
-      ((PreferenceScreen) findPreference(getString(R.string.pref_settings))).
-          removePreference(findPreference(getString(R.string.pref_play_services)));
-    }
-
-    findPreference(getString(R.string.pref_about)).setOnPreferenceClickListener(this);
-    findPreference(getString(R.string.pref_rate_app)).setOnPreferenceClickListener(this);
-    findPreference(getString(R.string.pref_contact)).setOnPreferenceClickListener(this);
-    findPreference(getString(R.string.pref_copyright)).setOnPreferenceClickListener(this);
-    findPreference(getString(R.string.pref_like_fb)).setOnPreferenceClickListener(this);
-    findPreference(getString(R.string.pref_follow_twitter)).setOnPreferenceClickListener(this);
-    findPreference(getString(R.string.pref_report_bug)).setOnPreferenceClickListener(this);
-    findPreference(getString(R.string.pref_subscribe)).setOnPreferenceClickListener(this);
-    findPreference(getString(R.string.pref_help)).setOnPreferenceClickListener(this);
-  }
-
-  @SuppressWarnings("deprecation")
-  private void storagePathSetup()
-  {
-    PreferenceScreen screen = (PreferenceScreen) findPreference(getString(R.string.pref_settings));
-    if (Yota.isFirstYota())
-      screen.removePreference(mStoragePreference);
-    else if (mPathManager.hasMoreThanOneStorage())
-      screen.addPreference(mStoragePreference);
-    else
-      screen.removePreference(mStoragePreference);
-  }
-
-  @SuppressWarnings("deprecation")
-  private void yotaSetup()
-  {
-    final PreferenceScreen screen = (PreferenceScreen) findPreference(getString(R.string.pref_settings));
-    final Preference yopPreference = findPreference(getString(R.string.pref_yota));
-    if (!Yota.isFirstYota())
-      screen.removePreference(yopPreference);
-    else
-    {
-      yopPreference.setOnPreferenceClickListener(new OnPreferenceClickListener()
-      {
-        @Override
-        public boolean onPreferenceClick(Preference preference)
-        {
-          SettingsActivity.this.startActivity(new Intent(Yota.ACTION_PREFERENCE));
-          return true;
-        }
-      });
-    }
+    return true;
   }
 
   @Override
@@ -150,6 +180,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
   protected void onStop()
   {
     super.onStop();
+    getDelegate().onStop();
     Statistics.INSTANCE.stopActivity(this);
   }
 
@@ -157,28 +188,24 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
   protected void onResume()
   {
     super.onResume();
-    BroadcastReceiver receiver = new BroadcastReceiver()
-    {
-      @Override
-      public void onReceive(Context context, Intent intent)
-      {
-        storagePathSetup();
-      }
-    };
-    mPathManager.startExternalStorageWatching(this, receiver, null);
-    storagePathSetup();
 
-    org.alohalytics.Statistics.logEvent("$onResume", this.getClass().getSimpleName());
+    org.alohalytics.Statistics.logEvent("$onResume", getClass().getSimpleName());
     ViewServer.get(this).setFocusedWindow(this);
+  }
+
+  @Override
+  protected void onPostResume()
+  {
+    super.onPostResume();
+    getDelegate().onPostResume();
   }
 
   @Override
   protected void onPause()
   {
     super.onPause();
-    mPathManager.stopExternalStorageWatching();
 
-    org.alohalytics.Statistics.logEvent("$onPause", this.getClass().getSimpleName());
+    org.alohalytics.Statistics.logEvent("$onPause", getClass().getSimpleName());
   }
 
   @Override
@@ -186,268 +213,45 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
   {
     if (item.getItemId() == android.R.id.home)
     {
-      final InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-      imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-      onBackPressed();
+      super.onBackPressed();
       return true;
     }
-    else
-      return super.onOptionsItemSelected(item);
-  }
 
-  @SuppressWarnings("deprecation")
-  @Override
-  public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference)
-  {
-    super.onPreferenceTreeClick(preferenceScreen, preference);
-    if (preference != null && preference instanceof PreferenceScreen &&
-        ((PreferenceScreen) preference).getDialog() != null)
-      ((PreferenceScreen) preference).getDialog().getWindow().getDecorView().
-          setBackgroundDrawable(getWindow().getDecorView().getBackground().getConstantState().newDrawable());
-    return false;
-  }
-
-  private WebView buildWebViewDialog(String dialogTitle)
-  {
-    final LayoutInflater inflater = LayoutInflater.from(this);
-    final View alertDialogView = inflater.inflate(R.layout.dialog_about, (android.view.ViewGroup) findViewById(android.R.id.content), false);
-    final WebView myWebView = (WebView) alertDialogView.findViewById(R.id.webview_about);
-
-    myWebView.setWebViewClient(new WebViewClient()
-    {
-      @Override
-      public void onPageFinished(WebView view, String url)
-      {
-        super.onPageFinished(view, url);
-        UiUtils.show(myWebView);
-
-        final AlphaAnimation aAnim = new AlphaAnimation(0, 1);
-        aAnim.setDuration(750);
-        myWebView.startAnimation(aAnim);
-      }
-
-      @Override
-      public boolean shouldOverrideUrlLoading(WebView v, String url)
-      {
-        if (MailTo.isMailTo(url))
-        {
-          MailTo parser = MailTo.parse(url);
-          Context ctx = v.getContext();
-          Intent mailIntent = CreateEmailIntent(parser.getTo(),
-              parser.getSubject(),
-              parser.getBody(),
-              parser.getCc());
-          ctx.startActivity(mailIntent);
-          v.reload();
-        }
-        else
-        {
-          Intent intent = new Intent(Intent.ACTION_VIEW);
-          intent.setData(Uri.parse(url));
-          SettingsActivity.this.startActivity(intent);
-        }
-        return true;
-      }
-
-      private Intent CreateEmailIntent(String address,
-                                       String subject,
-                                       String body,
-                                       String cc)
-      {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{address});
-        intent.putExtra(Intent.EXTRA_TEXT, body);
-        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        intent.putExtra(Intent.EXTRA_CC, cc);
-        intent.setType("message/rfc822");
-        return intent;
-      }
-    });
-
-    new AlertDialog.Builder(this)
-        .setView(alertDialogView)
-        .setTitle(dialogTitle)
-        .setPositiveButton(R.string.close, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            dialog.dismiss();
-          }
-        })
-        .create()
-        .show();
-
-    return myWebView;
-  }
-
-  private void showWebViewDialogWithUrl(String url, String dialogTitle)
-  {
-    WebView webView = buildWebViewDialog(dialogTitle);
-    webView.getSettings().setJavaScriptEnabled(true);
-    webView.getSettings().setDefaultTextEncodingName("utf-8");
-    webView.loadUrl(url);
-  }
-
-  private void showDialogWithData(String text, String title)
-  {
-    new AlertDialog.Builder(this)
-        .setTitle(title)
-        .setMessage(text)
-        .setPositiveButton(R.string.close, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            dialog.dismiss();
-          }
-        })
-        .create()
-        .show();
+    return super.onOptionsItemSelected(item);
   }
 
   @Override
-  public boolean onPreferenceClick(Preference preference)
+  public void onBackPressed()
   {
-    final String key = preference.getKey();
-    if (key.equals(getString(R.string.pref_rate_app)))
-    {
-      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_RATE);
-      AlohaHelper.logClick(AlohaHelper.SETTINGS_RATE);
-      UiUtils.openAppInMarket(this, BuildConfig.REVIEW_URL);
-    }
-    else if (key.equals(getString(R.string.pref_contact)))
-    {
-      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_CONTACT_US);
-      AlohaHelper.logClick(AlohaHelper.SETTINGS_CONTACT_US);
-      final Intent intent = new Intent(Intent.ACTION_SENDTO);
-      intent.setData(Utils.buildMailUri(Constants.Url.MAIL_MAPSME_INFO, "", ""));
-      startActivity(intent);
-    }
-    else if (key.equals(getString(R.string.pref_subscribe)))
-    {
-      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_MAIL_SUBSCRIBE);
-      AlohaHelper.logClick(AlohaHelper.SETTINGS_MAIL_SUBSCRIBE);
-      final Intent intent = new Intent(Intent.ACTION_SENDTO);
-      intent.setData(Utils.buildMailUri(Constants.Url.MAIL_MAPSME_SUBSCRIBE, getString(R.string.subscribe_me_subject), getString(R.string.subscribe_me_body)));
-      startActivity(intent);
-    }
-    else if (key.equals(getString(R.string.pref_report_bug)))
-    {
-      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_REPORT_BUG);
-      AlohaHelper.logClick(AlohaHelper.SETTINGS_REPORT_BUG);
-      Utils.sendSupportMail(this, "Bugreport from user");
-    }
-    else if (key.equals(getString(R.string.pref_like_fb)))
-    {
-      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_FB);
-      AlohaHelper.logClick(AlohaHelper.SETTINGS_FB);
-      UiUtils.showFacebookPage(this);
-    }
-    else if (key.equals(getString(R.string.pref_follow_twitter)))
-    {
-      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_TWITTER);
-      AlohaHelper.logClick(AlohaHelper.SETTINGS_TWITTER);
-      UiUtils.showTwitterPage(this);
-    }
-    else if (key.equals(getString(R.string.pref_help)))
-    {
-      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_HELP);
-      AlohaHelper.logClick(AlohaHelper.SETTINGS_HELP);
-      showWebViewDialogWithUrl(FAQ_HTML_URL, getString(R.string.help));
-    }
-    else if (key.equals(getString(R.string.pref_copyright)))
-    {
-      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_COPYRIGHT);
-      AlohaHelper.logClick(AlohaHelper.SETTINGS_COPYRIGHT);
-      showWebViewDialogWithUrl(COPYRIGHT_HTML_URL, getString(R.string.copyright));
-    }
-    else if (key.equals(getString(R.string.pref_about)))
-    {
-      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_ABOUT);
-      AlohaHelper.logClick(AlohaHelper.SETTINGS_ABOUT);
-      showDialogWithData(getString(R.string.about_text),
-          String.format(getString(R.string.version), BuildConfig.VERSION_NAME));
-    }
-    else if (key.equals(getString(R.string.pref_storage_activity)))
-    {
-      if (ActiveCountryTree.isDownloadingActive())
-      {
-        new AlertDialog.Builder(SettingsActivity.this)
-            .setTitle(getString(R.string.downloading_is_active))
-            .setMessage(getString(R.string.cant_change_this_setting))
-            .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener()
-            {
-              @Override
-              public void onClick(DialogInterface dlg, int which)
-              {
-                dlg.dismiss();
-              }
-            })
-            .create()
-            .show();
+    for (Fragment f : mFragmentListHelper.getFragments())
+      if ((f instanceof OnBackPressListener) && ((OnBackPressListener)f).onBackPressed())
+        return;
 
-        return false;
-      }
-      else
-      {
-        startActivity(new Intent(this, StoragePathActivity.class));
-        return true;
-      }
-    }
-    else if (key.equals(getString(R.string.pref_community)))
-    {
-      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_COMMUNITY);
-      AlohaHelper.logClick(AlohaHelper.SETTINGS_COMMUNITY);
-    }
-    else if (key.equals(getString(R.string.pref_settings)))
-      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_CHANGE_SETTING);
-
-    return false;
+    super.onBackPressed();
   }
 
   @Override
-  public boolean onPreferenceChange(Preference preference, Object newValue)
+  public void showBreadCrumbs(CharSequence title, CharSequence shortTitle)
   {
-    final String key = preference.getKey();
-    if (key.equals(getString(R.string.pref_munits)))
+    if (mNextBreadcrumb != null)
     {
-      UnitLocale.setUnits(Integer.parseInt((String) newValue));
-      AlohaHelper.logClick(AlohaHelper.SETTINGS_CHANGE_UNITS);
+      title = mNextBreadcrumb;
+      mNextBreadcrumb = null;
     }
-    else if (key.equals(getString(R.string.pref_allow_stat)))
-      Statistics.INSTANCE.setStatEnabled((Boolean) newValue);
-    else if (key.equals(getString(R.string.pref_zoom_btns_enabled)))
-      MwmApplication.get().nativeSetBoolean(ZOOM_BUTTON_ENABLED, (Boolean) newValue);
 
-    return true;
+    super.showBreadCrumbs(title, shortTitle);
   }
 
-
-  // needed for soft keyboard to appear in alertdialog.
-  // check https://code.google.com/p/android/issues/detail?id=7189 for details
-  public static class MyWebView extends WebView
+  public void switchToHeader(long id)
   {
+    Header h = mHeaders.get(id);
+    if (h != null)
+      switchToHeader(h);
+  }
 
-    public MyWebView(Context context)
-    {
-      super(context);
-    }
-
-    public MyWebView(Context context, AttributeSet attrs)
-    {
-      super(context, attrs);
-    }
-
-    public MyWebView(Context context, AttributeSet attrs, int defStyle)
-    {
-      super(context, attrs, defStyle);
-    }
-
-    @Override
-    public boolean onCheckIsTextEditor()
-    {
-      return true;
-    }
+  public void switchToFragment(Class<? extends BaseSettingsFragment> fragmentClass, @StringRes int breadcrumb)
+  {
+    mNextBreadcrumb = getString(breadcrumb);
+    switchToHeader(fragmentClass.getName(), null);
   }
 }

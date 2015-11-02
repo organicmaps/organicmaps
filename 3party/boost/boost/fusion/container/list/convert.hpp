@@ -31,7 +31,7 @@ namespace boost { namespace fusion
 
             typedef typename build_cons::type type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type
             call(Sequence& seq)
             {
@@ -41,7 +41,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Sequence>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::as_list<Sequence>::type
     as_list(Sequence& seq)
     {
@@ -49,7 +49,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Sequence>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::as_list<Sequence const>::type
     as_list(Sequence const& seq)
     {

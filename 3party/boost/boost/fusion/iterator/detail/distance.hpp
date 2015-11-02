@@ -53,7 +53,7 @@ namespace boost { namespace fusion { namespace distance_detail
             >::type
         type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static type
         call(First const&, Last const&)
         {

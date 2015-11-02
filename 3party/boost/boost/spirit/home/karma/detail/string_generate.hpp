@@ -59,7 +59,7 @@ namespace boost { namespace spirit { namespace karma { namespace detail
         typedef typename traits::container_iterator<Container const>::type 
             iterator;
 
-        iterator end = boost::end(c);
+        const iterator end = boost::end(c);
         for (iterator it = boost::begin(c); it != end; ++it)
         {
             *sink = filter(*it);
@@ -74,14 +74,6 @@ namespace boost { namespace spirit { namespace karma { namespace detail
     inline bool string_generate(OutputIterator& sink, Char const* str)
     {
         return string_generate(sink, str, pass_through_filter());
-    }
-
-    template <typename OutputIterator, typename Char, typename Traits
-      , typename Allocator>
-    inline bool string_generate(OutputIterator& sink
-      , std::basic_string<Char, Traits, Allocator> const& str)
-    {
-        return string_generate(sink, str.c_str(), pass_through_filter());
     }
 
     template <typename OutputIterator, typename Container>
@@ -103,17 +95,6 @@ namespace boost { namespace spirit { namespace karma { namespace detail
         return string_generate(sink, str, encoding_filter<CharEncoding, Tag>());
     }
 
-    template <typename OutputIterator, typename Char
-      , typename CharEncoding, typename Tag
-      , typename Traits, typename Allocator>
-    inline bool string_generate(OutputIterator& sink
-      , std::basic_string<Char, Traits, Allocator> const& str
-      , CharEncoding, Tag)
-    {
-        return string_generate(sink, str.c_str()
-          , encoding_filter<CharEncoding, Tag>());
-    }
-
     template <typename OutputIterator, typename Container
       , typename CharEncoding, typename Tag>
     inline bool 
@@ -130,16 +111,7 @@ namespace boost { namespace spirit { namespace karma { namespace detail
       , Char const* str
       , unused_type, unused_type)
     {
-        return string_generate(sink, str, pass_through_filter());
-    }
-
-    template <typename OutputIterator, typename Char, typename Traits
-      , typename Allocator>
-    inline bool string_generate(OutputIterator& sink
-      , std::basic_string<Char, Traits, Allocator> const& str
-      , unused_type, unused_type)
-    {
-        return string_generate(sink, str.c_str(), pass_through_filter());
+        return string_generate(sink, str);
     }
 
     template <typename OutputIterator, typename Container>
@@ -147,7 +119,7 @@ namespace boost { namespace spirit { namespace karma { namespace detail
       , Container const& c
       , unused_type, unused_type)
     {
-        return string_generate(sink, c, pass_through_filter());
+        return string_generate(sink, c);
     }
 
 }}}}

@@ -101,7 +101,7 @@ namespace boost { namespace fusion
 #define FUSION_REF_PARAM(z, n, data) const T ## n&
 
     template<BOOST_PP_ENUM_PARAMS(ZIP_ITERATION, typename T)>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<BOOST_PP_ENUM_PARAMS(ZIP_ITERATION, const T)>::type
     zip(BOOST_PP_ENUM_BINARY_PARAMS(ZIP_ITERATION, T, const& t))
     {

@@ -4,6 +4,11 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="HelveticaNeue.ttc">
+            <string>HelveticaNeue-Medium</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMBottomMenuViewController">
             <connections>
@@ -168,6 +173,7 @@
                         <constraint firstItem="s0b-7N-YrO" firstAttribute="height" secondItem="kbJ-If-gUR" secondAttribute="height" id="nMi-k1-EhE"/>
                         <constraint firstItem="IzQ-aQ-aPH" firstAttribute="centerY" secondItem="kbJ-If-gUR" secondAttribute="centerY" id="nbW-x7-1M5"/>
                         <constraint firstItem="pLD-sZ-ejH" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="s0b-7N-YrO" secondAttribute="trailing" id="rSG-G7-knr"/>
+                        <constraint firstAttribute="width" constant="320" id="uiw-IQ-xob"/>
                         <constraint firstItem="YLY-C4-SBu" firstAttribute="height" secondItem="kbJ-If-gUR" secondAttribute="height" id="wGb-xV-jeL"/>
                         <constraint firstItem="xQ0-ZK-UXk" firstAttribute="centerY" secondItem="kbJ-If-gUR" secondAttribute="centerY" id="xfg-wf-76Q"/>
                     </constraints>
@@ -178,6 +184,7 @@
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="Kgm-bO-O6Q"/>
+                        <constraint firstAttribute="width" constant="320" id="NXB-hT-LYb"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
@@ -189,6 +196,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="148" id="fsD-HQ-mF9"/>
+                        <constraint firstAttribute="width" constant="320" id="yhv-SG-tuc"/>
                     </constraints>
                     <collectionViewLayout key="collectionViewLayout" id="GUG-1I-oV0" customClass="MWMBottomMenuLayout"/>
                     <connections>
@@ -200,15 +208,12 @@
             <animations/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="nYy-JN-hGA" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="9rT-tV-qJx"/>
-                <constraint firstItem="kbJ-If-gUR" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" identifier="mainButtonsWidth" id="Cwu-cN-pdC"/>
+                <constraint firstItem="hSd-fM-qKd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="2jm-k3-CLB"/>
+                <constraint firstItem="kbJ-If-gUR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="7id-li-IXL"/>
                 <constraint firstItem="kbJ-If-gUR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="EW9-WF-5Ww"/>
                 <constraint firstItem="nYy-JN-hGA" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="48" id="HWc-qR-yAS"/>
-                <constraint firstItem="hSd-fM-qKd" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="OEf-36-YLF"/>
-                <constraint firstItem="kbJ-If-gUR" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="h2V-De-QmU"/>
-                <constraint firstItem="nYy-JN-hGA" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="kOy-M3-G9L"/>
+                <constraint firstItem="nYy-JN-hGA" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="hat-Yn-atq"/>
                 <constraint firstItem="hSd-fM-qKd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="49" id="mSh-nB-1Bt"/>
-                <constraint firstItem="hSd-fM-qKd" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="o5H-dd-U7d"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
@@ -216,15 +221,18 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="additionalButtons" destination="hSd-fM-qKd" id="Rgj-Fo-JK8"/>
+                <outlet property="additionalButtonsWidth" destination="yhv-SG-tuc" id="Wwc-QK-HCa"/>
                 <outlet property="bookmarksButton" destination="qVh-dm-DDH" id="ZaH-0y-b64"/>
                 <outlet property="downloadBadge" destination="WLn-2O-Ivv" id="f9u-k6-l9u"/>
                 <outlet property="goButton" destination="pLD-sZ-ejH" id="Txw-4S-mwR"/>
                 <outlet property="locationButton" destination="s0b-7N-YrO" id="Oc3-yY-DPM"/>
+                <outlet property="mainButtonWidth" destination="uiw-IQ-xob" id="7T4-Xe-VlE"/>
                 <outlet property="mainButtons" destination="kbJ-If-gUR" id="1sk-bi-6xl"/>
                 <outlet property="menuButton" destination="YLY-C4-SBu" id="A5G-Bc-IlQ"/>
                 <outlet property="p2pButton" destination="xQ0-ZK-UXk" id="9m1-MT-C9s"/>
                 <outlet property="searchButton" destination="IzQ-aQ-aPH" id="2dy-QI-T39"/>
                 <outlet property="separator" destination="nYy-JN-hGA" id="z8u-tH-WGu"/>
+                <outlet property="separatorWidth" destination="NXB-hT-LYb" id="C07-fQ-wul"/>
                 <outlet property="streetLabel" destination="xr9-L5-hTa" id="xHt-2V-nZj"/>
             </connections>
         </view>

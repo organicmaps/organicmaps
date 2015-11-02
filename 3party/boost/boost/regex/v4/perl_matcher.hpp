@@ -254,13 +254,8 @@ class repeater_count
    std::size_t count;        // the number of iterations so far
    BidiIterator start_pos;   // where the last repeat started
 public:
-   repeater_count(repeater_count** s)
-   {
-      stack = s;
-      next = 0;
-      state_id = -1;
-      count = 0;
-   }
+   repeater_count(repeater_count** s) : stack(s), next(0), state_id(-1), count(0), start_pos() {}
+
    repeater_count(int i, repeater_count** s, BidiIterator start)
       : start_pos(start)
    {

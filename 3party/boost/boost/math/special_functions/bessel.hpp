@@ -194,7 +194,7 @@ T cyl_bessel_i_imp(T v, T x, const Policy& pol)
    }
    if(x == 0)
    {
-      return (v == 0) ? 1 : 0;
+      return (v == 0) ? static_cast<T>(1) : static_cast<T>(0);
    }
    if(v == 0.5f)
    {
@@ -386,7 +386,7 @@ inline T cyl_bessel_j_zero_imp(T v, int m, const Policy& pol)
    if(m < 0)
    {
       // Zeros of Jv(x) with negative rank are not defined and requesting one raises a domain error.
-      return policies::raise_domain_error<T>(function, "Requested the %1%'th zero, but the rank must be positive !", m, pol);
+      return policies::raise_domain_error<T>(function, "Requested the %1%'th zero, but the rank must be positive !", static_cast<T>(m), pol);
    }
 
    // Get the absolute value of the order.
@@ -402,7 +402,7 @@ inline T cyl_bessel_j_zero_imp(T v, int m, const Policy& pol)
       if(order_is_zero)
       {
          // The zero'th zero of J0(x) is not defined and requesting it raises a domain error.
-         return policies::raise_domain_error<T>(function, "Requested the %1%'th zero of J0, but the rank must be > 0 !", m, pol);
+         return policies::raise_domain_error<T>(function, "Requested the %1%'th zero of J0, but the rank must be > 0 !", static_cast<T>(m), pol);
       }
 
       // The zero'th zero of Jv(x) for v < 0 is not defined
@@ -410,7 +410,7 @@ inline T cyl_bessel_j_zero_imp(T v, int m, const Policy& pol)
       if(order_is_negative && (!order_is_integer))
       {
          // For non-integer, negative order, requesting the zero'th zero raises a domain error.
-         return policies::raise_domain_error<T>(function, "Requested the %1%'th zero of Jv for negative, non-integer order, but the rank must be > 0 !", m, pol);
+         return policies::raise_domain_error<T>(function, "Requested the %1%'th zero of Jv for negative, non-integer order, but the rank must be > 0 !", static_cast<T>(m), pol);
       }
 
       // The zero'th zero does exist and its value is zero.
@@ -462,7 +462,7 @@ inline T cyl_neumann_zero_imp(T v, int m, const Policy& pol)
    // Handle negative rank.
    if(m < 0)
    {
-      return policies::raise_domain_error<T>(function, "Requested the %1%'th zero, but the rank must be positive !", m, pol);
+      return policies::raise_domain_error<T>(function, "Requested the %1%'th zero, but the rank must be positive !", static_cast<T>(m), pol);
    }
 
    const T half_epsilon(boost::math::tools::epsilon<T>() / 2U);
@@ -488,7 +488,7 @@ inline T cyl_neumann_zero_imp(T v, int m, const Policy& pol)
    if((m == 0) && (!order_is_negative_half_integer))
    {
       // For non-integer, negative order, requesting the zero'th zero raises a domain error.
-      return policies::raise_domain_error<T>(function, "Requested the %1%'th zero of Yv for negative, non-half-integer order, but the rank must be > 0 !", m, pol);
+      return policies::raise_domain_error<T>(function, "Requested the %1%'th zero of Yv for negative, non-half-integer order, but the rank must be > 0 !", static_cast<T>(m), pol);
    }
 
    // For negative half-integers, use the corresponding

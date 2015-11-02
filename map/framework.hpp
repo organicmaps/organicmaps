@@ -591,6 +591,9 @@ public:
   bool IsOnRoute() const { return m_routingSession.IsOnRoute(); }
   bool IsRouteNavigable() const { return m_routingSession.IsNavigable(); }
   void BuildRoute(m2::PointD const & start, m2::PointD const & finish, uint32_t timeoutSec);
+  // FollowRoute has a bug where the router follows the route even if the method hads't been called.
+  // This method was added because we do not want to break the behaviour that is familiar to our users.
+  bool DisableFollowMode() { return m_routingSession.DisableFollowMode(); }
   void SetRouteBuildingListener(TRouteBuildingCallback const & buildingCallback) { m_routingCallback = buildingCallback; }
   void SetRouteProgressListener(TRouteProgressCallback const & progressCallback) { m_progressCallback = progressCallback; }
   void FollowRoute();
@@ -613,13 +616,17 @@ public:
   /// If not, it returns an empty string.
   inline string GetTurnNotificationsLocale() const { return m_routingSession.GetTurnNotificationsLocale(); }
   /// \brief When an end user is going to a turn he gets sound turn instructions.
-  /// If C++ part wants the client to pronounce an instruction GenerateTurnSound (in turnNotifications) returns
-  /// an array of one of more strings. C++ part assumes that all these strings shall be pronounced by the client's TTS.
+  /// If C++ part wants the client to pronounce an instruction GenerateTurnNotifications (in
+  /// turnNotifications) returns
+  /// an array of one of more strings. C++ part assumes that all these strings shall be pronounced
+  /// by the client's TTS.
   /// For example if C++ part wants the client to pronounce "Make a right turn." this method returns
   /// an array with one string "Make a right turn.". The next call of the method returns nothing.
-  /// GenerateTurnSound shall be called by the client when a new position is available.
-  inline void GenerateTurnSound(vector<string> & turnNotifications)
-      { return m_routingSession.GenerateTurnSound(turnNotifications); }
+  /// GenerateTurnNotifications shall be called by the client when a new position is available.
+  inline void GenerateTurnNotifications(vector<string> & turnNotifications)
+  {
+    return m_routingSession.GenerateTurnNotifications(turnNotifications);
+  }
 
 private:
   void SetRouterImpl(routing::RouterType type);

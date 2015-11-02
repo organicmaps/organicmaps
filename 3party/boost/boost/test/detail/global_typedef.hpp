@@ -1,31 +1,36 @@
-//  (C) Copyright Gennadiy Rozental 2001-2008.
+//  (C) Copyright Gennadiy Rozental 2001-2014.
 //  Distributed under the Boost Software License, Version 1.0.
-//  (See accompanying file LICENSE_1_0.txt or copy at 
+//  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
 //
-//  File        : $RCSfile$
-//
-//  Version     : $Revision$
-//
-//  Description : some trivial global typedefs
+//!@file
+//!@brief some trivial global typedefs
 // ***************************************************************************
 
 #ifndef BOOST_TEST_GLOBAL_TYPEDEF_HPP_021005GER
 #define BOOST_TEST_GLOBAL_TYPEDEF_HPP_021005GER
 
 #include <boost/test/utils/basic_cstring/basic_cstring.hpp>
-#define BOOST_TEST_L( s )         boost::unit_test::const_string( s, sizeof( s ) - 1 )
+#include <boost/test/detail/workaround.hpp>
+
+#define BOOST_TEST_L( s )         ::boost::unit_test::const_string( s, sizeof( s ) - 1 )
 #define BOOST_TEST_STRINGIZE( s ) BOOST_TEST_L( BOOST_STRINGIZE( s ) )
 #define BOOST_TEST_EMPTY_STRING   BOOST_TEST_L( "" )
+
+#define BOOST_TEST_SCOPE_SETCOLOR( os, attr, color )            \
+    scope_setcolor const& sc = runtime_config::color_output()   \
+           ? scope_setcolor( os, attr, color )                  \
+           : scope_setcolor();                                  \
+    ut_detail::ignore_unused_variable_warning( sc )             \
+/**/
 
 #include <boost/test/detail/suppress_warnings.hpp>
 
 //____________________________________________________________________________//
 
 namespace boost {
-
 namespace unit_test {
 
 typedef unsigned long   counter_t;
@@ -36,11 +41,19 @@ enum report_level  { INV_REPORT_LEVEL, CONFIRMATION_REPORT, SHORT_REPORT, DETAIL
 
 //____________________________________________________________________________//
 
-enum output_format { INV_OF, CLF /* compiler log format */, XML /* XML */ };
+enum output_format { OF_INVALID,
+                     OF_CLF, ///< compiler log format
+                     OF_XML, ///< XML format for report and log,
+                     OF_DOT  ///< dot format for output content
+};
 
 //____________________________________________________________________________//
 
-enum test_unit_type { tut_case = 0x01, tut_suite = 0x10, tut_any = 0x11 };
+enum test_unit_type { TUT_CASE = 0x01, TUT_SUITE = 0x10, TUT_ANY = 0x11 };
+
+//____________________________________________________________________________//
+
+enum assertion_result { AR_FAILED, AR_PASSED, AR_TRIGGERED };
 
 //____________________________________________________________________________//
 
@@ -59,26 +72,25 @@ namespace ut_detail {
 inline test_unit_type
 test_id_2_unit_type( test_unit_id id )
 {
-    return (id & 0xFFFF0000) != 0 ? tut_case : tut_suite;
+    return (id & 0xFFFF0000) != 0 ? TUT_CASE : TUT_SUITE;
 }
 
 //____________________________________________________________________________//
 
-// helper templates to prevent ODR violations 
-template<class T> 
-struct static_constant { 
-    static T value; 
-}; 
+// helper templates to prevent ODR violations
+template<class T>
+struct static_constant {
+    static T value;
+};
 
-template<class T> 
-T static_constant<T>::value; 
+template<class T>
+T static_constant<T>::value;
 
-//____________________________________________________________________________// 
+//____________________________________________________________________________//
 
 } // namespace ut_detail
 
 } // namespace unit_test
-
 } // namespace boost
 
 //____________________________________________________________________________//

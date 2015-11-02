@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2004-2008.
+//  (C) Copyright Gennadiy Rozental 2004-2014.
 //  Distributed under the Boost Software License, Version 1.0.
-//  (See accompanying file LICENSE_1_0.txt or copy at 
+//  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -9,16 +9,19 @@
 //
 //  Version     : $Revision$
 //
-//  Description : class basic_cstring wraps C string and provide std_string like 
+//  Description : class basic_cstring wraps C string and provide std_string like
 //                interface
 // ***************************************************************************
 
-#ifndef BOOST_TEST_BASIC_CSTRING_HPP_071894GER
-#define BOOST_TEST_BASIC_CSTRING_HPP_071894GER
+#ifndef BOOST_TEST_UTILS_BASIC_CSTRING_HPP
+#define BOOST_TEST_UTILS_BASIC_CSTRING_HPP
 
 // Boost.Test
 #include <boost/test/utils/basic_cstring/basic_cstring_fwd.hpp>
 #include <boost/test/utils/basic_cstring/bcs_char_traits.hpp>
+
+// Boost
+#include <boost/type_traits/remove_cv.hpp>
 
 // STL
 #include <string>
@@ -44,6 +47,7 @@ public:
     typedef typename ut_detail::bcs_char_traits<CharT>::std_string  std_string;
 
     typedef CharT                                       value_type;
+    typedef typename remove_cv<value_type>::type        value_ret_type;
     typedef value_type*                                 pointer;
     typedef value_type const*                           const_pointer;
     typedef value_type&                                 reference;
@@ -70,12 +74,13 @@ public:
     basic_cstring();
     basic_cstring( std_string const& s );
     basic_cstring( pointer s );
-    basic_cstring( pointer s, size_type arg_size );
+    template<typename LenType>
+    basic_cstring( pointer s, LenType len ) : m_begin( s ), m_end( m_begin + len ) {}
     basic_cstring( pointer first, pointer last );
 
     // data access methods
-    value_type      operator[]( size_type index ) const;
-    value_type      at( size_type index ) const;
+    value_ret_type  operator[]( size_type index ) const;
+    value_ret_type  at( size_type index ) const;
 
     // size operators
     size_type       size() const;
@@ -84,25 +89,25 @@ public:
     void            resize( size_type new_len );
 
     // !! only for STL container conformance use is_empty instead
-    bool            empty() const; 
+    bool            empty() const;
 
     // Trimming
     self_type&      trim_right( size_type trim_size );
     self_type&      trim_left( size_type trim_size );
     self_type&      trim_right( iterator it );
     self_type&      trim_left( iterator it );
-#ifndef __IBMCPP__
+#if !BOOST_WORKAROUND(__IBMCPP__, BOOST_TESTED_AT(800))
     self_type&      trim_left( self_type exclusions = self_type() ) ;
     self_type&      trim_right( self_type exclusions = self_type() ) ;
     self_type&      trim( self_type exclusions = self_type() ) ;
 #else
-    // VisualAge version 6 has in this case a problem with the default arguments.
-    self_type&      trim_left( self_type exclusions ) ;
-    self_type&      trim_right( self_type exclusions ) ;
-    self_type&      trim( self_type exclusions ) ;
-    self_type&      trim_left() { trim_left( self_type() ) ; }
-    self_type&      trim_right() { trim_right( self_type() ) ; }
-    self_type&      trim() { trim( self_type() ) ; }
+    // VA C++/XL C++ v6 and v8 has in this case a problem with the default arguments.
+    self_type&      trim_left( self_type exclusions );
+    self_type&      trim_right( self_type exclusions );
+    self_type&      trim( self_type exclusions );
+    self_type&      trim_left()     { return trim_left( self_type() ); }
+    self_type&      trim_right()    { return trim_right( self_type() ); }
+    self_type&      trim()          { return trim( self_type() ); }
 #endif
 
     // Assignment operators
@@ -111,12 +116,28 @@ public:
     basic_cstring&  operator=( pointer s );
 
     template<typename CharT2>
-    basic_cstring&  assign( basic_cstring<CharT2> const& s ) { *this = basic_cstring<CharT>( s.begin(), s.end() ); return *this; }
-    basic_cstring&  assign( self_type const& s, size_type pos, size_type len );
+    basic_cstring&  assign( basic_cstring<CharT2> const& s )
+    {
+        return *this = basic_cstring<CharT>( s.begin(), s.end() );
+    }
+    template<typename PosType, typename LenType>
+    basic_cstring&  assign( self_type const& s, PosType pos, LenType len )
+    {
+        return *this = self_type( s.m_begin + pos, len );
+    }
+
     basic_cstring&  assign( std_string const& s );
-    basic_cstring&  assign( std_string const& s, size_type pos, size_type len );
+    template<typename PosType, typename LenType>
+    basic_cstring&  assign( std_string const& s, PosType pos, LenType len )
+    {
+        return *this = self_type( s.c_str() + pos, len );
+    }
     basic_cstring&  assign( pointer s );
-    basic_cstring&  assign( pointer s, size_type len );
+    template<typename LenType>
+    basic_cstring&  assign( pointer s, LenType len )
+    {
+        return *this = self_type( s, len );
+    }
     basic_cstring&  assign( pointer f, pointer l );
 
     // swapping
@@ -187,15 +208,6 @@ basic_cstring<CharT>::basic_cstring( pointer s )
 
 template<typename CharT>
 inline
-basic_cstring<CharT>::basic_cstring( pointer s, size_type arg_size )
-: m_begin( s ), m_end( m_begin + arg_size )
-{
-}
-
-//____________________________________________________________________________//
-
-template<typename CharT>
-inline
 basic_cstring<CharT>::basic_cstring( pointer first, pointer last )
 : m_begin( first )
 , m_end( last )
@@ -205,7 +217,7 @@ basic_cstring<CharT>::basic_cstring( pointer first, pointer last )
 //____________________________________________________________________________//
 
 template<typename CharT>
-inline typename basic_cstring<CharT>::value_type
+inline typename basic_cstring<CharT>::value_ret_type
 basic_cstring<CharT>::operator[]( size_type index ) const
 {
     return m_begin[index];
@@ -214,7 +226,7 @@ basic_cstring<CharT>::operator[]( size_type index ) const
 //____________________________________________________________________________//
 
 template<typename CharT>
-inline typename basic_cstring<CharT>::value_type
+inline typename basic_cstring<CharT>::value_ret_type
 basic_cstring<CharT>::at( size_type index ) const
 {
     if( m_begin + index >= m_end )
@@ -229,7 +241,7 @@ template<typename CharT>
 inline typename basic_cstring<CharT>::size_type
 basic_cstring<CharT>::size() const
 {
-    return m_end - m_begin;
+    return static_cast<size_type>(m_end - m_begin);
 }
 
 //____________________________________________________________________________//
@@ -309,7 +321,7 @@ basic_cstring<CharT>::trim_left( basic_cstring exclusions )
         if( traits_type::find( exclusions.begin(), exclusions.size(), *it ) == reinterpret_cast<pointer>(0) )
             break;
     }
-    
+
     return trim_left( it );
 }
 
@@ -354,7 +366,7 @@ basic_cstring<CharT>::trim_right( basic_cstring exclusions )
         if( self_type::traits_type::find( exclusions.begin(),  exclusions.size(), *it ) == reinterpret_cast<pointer>(0) )
             break;
     }
-    
+
     return trim_right( it+1 );
 }
 
@@ -404,15 +416,6 @@ basic_cstring<CharT>::operator=( pointer s )
 
 template<typename CharT>
 inline basic_cstring<CharT>&
-basic_cstring<CharT>::assign( basic_cstring<CharT> const& s, size_type pos, size_type len )
-{
-    return *this = self_type( s.m_begin + pos, len );
-}
-
-//____________________________________________________________________________//
-
-template<typename CharT>
-inline basic_cstring<CharT>&
 basic_cstring<CharT>::assign( std_string const& s )
 {
     return *this = self_type( s );
@@ -422,27 +425,9 @@ basic_cstring<CharT>::assign( std_string const& s )
 
 template<typename CharT>
 inline basic_cstring<CharT>&
-basic_cstring<CharT>::assign( std_string const& s, size_type pos, size_type len )
-{
-    return *this = self_type( s.c_str() + pos, len );
-}
-
-//____________________________________________________________________________//
-
-template<typename CharT>
-inline basic_cstring<CharT>&
 basic_cstring<CharT>::assign( pointer s )
 {
     return *this = self_type( s );
-}
-
-//____________________________________________________________________________//
-
-template<typename CharT>
-inline basic_cstring<CharT>&
-basic_cstring<CharT>::assign( pointer s, size_type len )
-{
-    return *this = self_type( s, len );
 }
 
 //____________________________________________________________________________//
@@ -526,7 +511,7 @@ basic_cstring<CharT>::find( basic_cstring<CharT> str ) const
         ++it;
     }
 
-    return it == last ? static_cast<size_type>(npos) : it - begin();
+    return it == last ? npos : static_cast<size_type>(it - begin());
 }
 
 //____________________________________________________________________________//
@@ -586,7 +571,7 @@ inline bool
 operator==( basic_cstring<CharT1> const& s1, basic_cstring<CharT2> const& s2 )
 {
     typedef typename basic_cstring<CharT1>::traits_type traits_type;
-    return s1.size() == s2.size() && 
+    return s1.size() == s2.size() &&
                traits_type::compare( s1.begin(), s2.begin(), s1.size() ) == 0;
 }
 
@@ -682,12 +667,12 @@ operator!=( typename basic_cstring<CharT>::std_string const& s2, basic_cstring<C
 // ************************************************************************** //
 
 template<typename CharT>
-inline typename basic_cstring<CharT>::value_type
+inline typename basic_cstring<CharT>::value_ret_type
 first_char( basic_cstring<CharT> source )
 {
-    typedef typename basic_cstring<CharT>::value_type string_value_type;
+    typedef typename basic_cstring<CharT>::value_ret_type res_type;
 
-    return source.is_empty() ? static_cast<string_value_type>(0) : *source.begin();
+    return source.is_empty() ? static_cast<res_type>(0) : *source.begin();
 }
 
 //____________________________________________________________________________//
@@ -697,12 +682,12 @@ first_char( basic_cstring<CharT> source )
 // ************************************************************************** //
 
 template<typename CharT>
-inline typename basic_cstring<CharT>::value_type
+inline typename basic_cstring<CharT>::value_ret_type
 last_char( basic_cstring<CharT> source )
 {
-    typedef typename basic_cstring<CharT>::value_type string_value_type;
+    typedef typename basic_cstring<CharT>::value_ret_type res_type;
 
-    return source.is_empty() ? static_cast<string_value_type>(0) : *(source.end()-1);
+    return source.is_empty() ? static_cast<res_type>(0) : *(source.end()-1);
 }
 
 //____________________________________________________________________________//
@@ -720,6 +705,28 @@ assign_op( std::basic_string<CharT1>& target, basic_cstring<CharT2> src, int )
 
 //____________________________________________________________________________//
 
+template<typename CharT1, typename CharT2>
+inline std::basic_string<CharT1>&
+operator+=( std::basic_string<CharT1>& target, basic_cstring<CharT2> const& str )
+{
+    target.append( str.begin(), str.end() );
+    return target;
+}
+
+//____________________________________________________________________________//
+
+template<typename CharT1, typename CharT2>
+inline std::basic_string<CharT1>
+operator+( std::basic_string<CharT1> const& lhs, basic_cstring<CharT2> const& rhs )
+{
+    std::basic_string<CharT1> res( lhs );
+
+    res.append( rhs.begin(), rhs.end() );
+    return res;
+}
+
+//____________________________________________________________________________//
+
 } // namespace unit_test
 
 } // namespace boost
@@ -728,4 +735,4 @@ assign_op( std::basic_string<CharT1>& target, basic_cstring<CharT2> src, int )
 
 #include <boost/test/detail/enable_warnings.hpp>
 
-#endif // BOOST_TEST_BASIC_CSTRING_HPP_071894GER
+#endif // BOOST_TEST_UTILS_BASIC_CSTRING_HPP

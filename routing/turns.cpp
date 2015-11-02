@@ -11,7 +11,7 @@ using namespace routing::turns;
 
 /// The order is important. Starting with the most frequent tokens according to
 /// taginfo.openstreetmap.org we minimize the number of the comparisons in ParseSingleLane().
-array<pair<LaneWay, string>, static_cast<size_t>(LaneWay::Count)> const g_laneWayNames = {
+array<pair<LaneWay, char const *>, static_cast<size_t>(LaneWay::Count)> const g_laneWayNames = {
     {{LaneWay::Through, "through"},
      {LaneWay::Left, "left"},
      {LaneWay::Right, "right"},
@@ -26,7 +26,7 @@ array<pair<LaneWay, string>, static_cast<size_t>(LaneWay::Count)> const g_laneWa
 static_assert(g_laneWayNames.size() == static_cast<size_t>(LaneWay::Count),
               "Check the size of g_laneWayNames");
 
-array<pair<TurnDirection, string>, static_cast<size_t>(TurnDirection::Count)> const g_turnNames = {
+array<pair<TurnDirection, char const *>, static_cast<size_t>(TurnDirection::Count)> const g_turnNames = {
     {{TurnDirection::NoTurn, "NoTurn"},
      {TurnDirection::GoStraight, "GoStraight"},
      {TurnDirection::TurnRight, "TurnRight"},

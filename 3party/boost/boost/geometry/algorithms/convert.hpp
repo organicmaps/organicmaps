@@ -522,7 +522,7 @@ struct convert<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)>, Geometry2>
         Geometry2& geometry2
     )
     {
-        apply_visitor(visitor(geometry2), geometry1);
+        boost::apply_visitor(visitor(geometry2), geometry1);
     }
 };
 

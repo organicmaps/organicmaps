@@ -48,7 +48,7 @@ Time integrate_n_steps(
         Observer observer , stepper_tag )
 {
     // ToDo: is there a better way to extract the final time?
-    Time t;
+    Time t = start_time; // Assignment is only here to avoid warnings.
     boost::for_each( make_n_step_time_range( stepper , system , start_state ,
                                              start_time , dt , num_of_steps ) ,
                      obs_caller_time< Observer , Time >( t , observer ) );
@@ -91,7 +91,7 @@ Time integrate_n_steps(
         Observer observer , dense_output_stepper_tag )
 {
     // ToDo: is there a better way to extract the final time?
-    Time t;
+    Time t = start_time;  // Assignment is only here to avoid warnings.
     boost::for_each( make_n_step_time_range( stepper , system , start_state ,
                                              start_time , dt , num_of_steps ) ,
                      obs_caller_time< Observer , Time >( t , observer ) );

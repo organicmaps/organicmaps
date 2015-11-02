@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2004-2008.
+//  (C) Copyright Gennadiy Rozental 2004-2014.
 //  Distributed under the Boost Software License, Version 1.0.
-//  (See accompanying file LICENSE_1_0.txt or copy at 
+//  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -9,11 +9,11 @@
 //
 //  Version     : $Revision$
 //
-//  Description : 
+//  Description :
 // ***************************************************************************
 
-#ifndef BOOST_IFSTREAM_LINE_ITERATOR_HPP_071894GER
-#define BOOST_IFSTREAM_LINE_ITERATOR_HPP_071894GER
+#ifndef BOOST_TEST_UTILS_IFSTREAM_LINE_ITERATOR_HPP
+#define BOOST_TEST_UTILS_IFSTREAM_LINE_ITERATOR_HPP
 
 // Boost
 #include <boost/test/utils/iterator/istream_line_iterator.hpp>
@@ -87,6 +87,7 @@ public:
 
 #ifdef BOOST_MSVC
 # pragma warning(default: 4355)
+# pragma warning(pop)
 #endif
 
 typedef basic_ifstream_line_iterator<char>      ifstream_line_iterator;
@@ -100,5 +101,5 @@ typedef basic_ifstream_line_iterator<wchar_t>   wifstream_line_iterator;
 
 #include <boost/test/detail/enable_warnings.hpp>
 
-#endif // BOOST_IFSTREAM_LINE_ITERATOR_HPP_071894GER
+#endif // BOOST_TEST_UTILS_IFSTREAM_LINE_ITERATOR_HPP
 

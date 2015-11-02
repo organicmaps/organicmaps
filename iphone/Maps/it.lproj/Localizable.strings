@@ -478,13 +478,35 @@
 
 "share_my_location" = "Condividi la mia location";
 
-"become_a_pro" = "Aggiorna";
-
 "menu_search" = "Cerca";
+
+/* Settings screen: "Map" category title */
+"prefs_group_map" = "Map";
+
+/* Settings screen: "Route" category title */
+"prefs_group_route" = "Route";
+
+/* Settings screen: "Miscellaneous" category title */
+"prefs_group_misc" = "Miscellaneous";
 
 "pref_zoom_title" = "Pulsanti per lo zoom";
 
 "pref_zoom_summary" = "Condividi la mia location";
+
+/* Settings «Map» category: «Map style» title */
+"pref_map_style_title" = "Map style";
+
+/* Settings «Map» category: «Map style» summary */
+"pref_map_style_summary" = "Change map presentation";
+
+/* «Map style» entry value */
+"pref_map_style_classic_light" = "Classic light";
+
+/* «Map style» entry value */
+"pref_map_style_classic_dark" = "Classic dark";
+
+/* «Map style» entry value */
+"pref_map_style_modern_light" = "Modern light";
 
 "placepage_distance" = "Distanza";
 
@@ -558,6 +580,12 @@
 "settings_and_more" = "Impostazioni e Altro";
 
 /* Text in menu */
+"website" = "Website";
+
+/* Text in menu */
+"blog" = "Blog";
+
+/* Text in menu */
 "maps_me_community" = "Comunità MAPS.ME";
 
 /* Text in menu */
@@ -569,11 +597,26 @@
 /* Text in menu */
 "contact_us" = "Contattaci";
 
+/* Settings: Send feedback button and dialog title */
+"feedback" = "Feedback";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "General feedback";
+
 /* Text in menu */
 "subscribe_to_news" = "Iscriviti alle nostre notizie";
 
 /* Text in menu */
 "rate_the_app" = "Vota l'app";
+
+/* Rate in Google Play (Android only) */
+"rate_gp" = "Rate on Google Play";
+
+/* Share with friends: menu item title */
+"tell_friends" = "Tell a Friend";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "Hi! Install Maps.me!";
 
 /* Text in menu */
 "help" = "Aiuto";
@@ -589,6 +632,9 @@
 
 /* Email body */
 "subscribe_me_body" = "Voglio essere tra i primi a sapere delle ultime novità aggiornamenti e promozioni. Potrò annullare l'iscrizione in ogni momento.";
+
+/* About short text (below logo) */
+"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
 "about_text" = "MAPS.ME offre le più veloci mappe offline di tutte le città, di tutti i paesi del mondo. Viaggia con piena fiducia: ovunque ti trovi, MAPS.ME ti aiuta a localizzarti sulla mappa, trovare ristoranti, hotel, banche, distributori di benzina ecc.., e non richiede la connessione a internet.\n\nLavoriamo sempre su nuove funzionalità e ci piacerebbe sapere da te in cosa potremmo migliorare MAPS.ME. Se avessi problemi con l'app, non esitare a contattarci a support@maps.me. Rispondiamo ad ogni richiesta!\n\nTi piace MAPS.ME e vuoi sostenerci? Ci sono alcuni modi semplici e assolutamente gratuiti:\n\n- Invia una recensione al tuo App Market\n- Metti mi piace sulla nostra pagina di Facebook http://www.facebook.com/mapswithme\n- O semplicemente fai pubblicità a MAPS.ME con la tua mamma, i tuoi amici e colleghi :)\n\nGrazie per essere stato con noi. Apprezziamo molto il tuo supporto!\n\nP.S. Prendiamo i dati delle mappe da OpenStreetMap, un progetto di mappatura simile a Wikipedia, che permette agli utenti di creare e modificare le mappe. Se vedi che manca qualcosa o se c'è qualcosa di sbagliato sulla mappa, puoi correggere le mappe direttamente su http://openstreetmap.org, e le modifiche appariranno nella prossima versione dell'app MAPS.ME.";
@@ -1268,11 +1314,5 @@
 "search_history_title" = "Cerca nella cronologia";
 
 "search_history_text" = "Accedi velocemente alle stringhe di ricerca recenti.";
-
-"update_maps_alert_title" = "Esplorare le mappe è ora più semplice";
-
-"update_maps_alert_message" = "Abbiamo migliorato gli stili delle mappe: ora tutti gli oggetti sono più chiari. Aggiorna le mappe per ricevere il meglio del nuovo design.";
-
-"update_maps_alert_button_title" = "Aggiorna mappe";
 
 "clear_search" = "Cancella сronologia ricerche";

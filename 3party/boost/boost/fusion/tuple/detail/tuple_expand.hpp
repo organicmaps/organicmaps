@@ -32,8 +32,8 @@
     explicit
 #endif
     tuple(BOOST_PP_ENUM_BINARY_PARAMS(
-        N, typename detail::call_param<T, >::type _))
-        : base_type(BOOST_PP_ENUM_PARAMS(N, _)) {}
+        N, typename detail::call_param<T, >::type arg))
+        : base_type(BOOST_PP_ENUM_PARAMS(N, arg)) {}
 
     template <BOOST_PP_ENUM_PARAMS(N, typename U)>
     BOOST_FUSION_GPU_ENABLED

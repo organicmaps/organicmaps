@@ -391,6 +391,25 @@ namespace boost { namespace property_tree
               return lhs.first < rhs.first;
             }
         };
+
+        template <typename C>
+        struct equal_pred
+        {
+            template <typename P>
+            bool operator ()(const P& lhs, const P& rhs) const {
+                C c;
+                return !c(lhs.first, rhs.first) &&
+                       !c(rhs.first, lhs.first) &&
+                       lhs.second == rhs.second;
+            }
+        };
+
+        template <typename C, typename MI>
+        bool equal_children(const MI& ch1, const MI& ch2) {
+            // Assumes ch1.size() == ch2.size()
+            return std::equal(ch1.begin(), ch1.end(),
+                ch2.begin(), equal_pred<C>());
+        }
     }
 
     template<class K, class D, class C> inline
@@ -414,7 +433,7 @@ namespace boost { namespace property_tree
     {
         // The size test is cheap, so add it as an optimization
         return size() == rhs.size() && data() == rhs.data() &&
-            subs::ch(this) == subs::ch(&rhs);
+            impl::equal_children<C>(subs::ch(this), subs::ch(&rhs));
     }
 
     template<class K, class D, class C> inline

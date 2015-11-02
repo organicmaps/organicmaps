@@ -478,13 +478,35 @@
 
 "share_my_location" = "Yerimi paylaş";
 
-"become_a_pro" = "Yükselt";
-
 "menu_search" = "Ara";
+
+/* Settings screen: "Map" category title */
+"prefs_group_map" = "Map";
+
+/* Settings screen: "Route" category title */
+"prefs_group_route" = "Route";
+
+/* Settings screen: "Miscellaneous" category title */
+"prefs_group_misc" = "Miscellaneous";
 
 "pref_zoom_title" = "Yakınlaştırma butonları";
 
 "pref_zoom_summary" = "Ekranda göster";
+
+/* Settings «Map» category: «Map style» title */
+"pref_map_style_title" = "Map style";
+
+/* Settings «Map» category: «Map style» summary */
+"pref_map_style_summary" = "Change map presentation";
+
+/* «Map style» entry value */
+"pref_map_style_classic_light" = "Classic light";
+
+/* «Map style» entry value */
+"pref_map_style_classic_dark" = "Classic dark";
+
+/* «Map style» entry value */
+"pref_map_style_modern_light" = "Modern light";
 
 "placepage_distance" = "Mesafe";
 
@@ -558,6 +580,12 @@
 "settings_and_more" = "Ayarlar & Fazlası";
 
 /* Text in menu */
+"website" = "Website";
+
+/* Text in menu */
+"blog" = "Blog";
+
+/* Text in menu */
 "maps_me_community" = "MAPS.ME Topluluğu";
 
 /* Text in menu */
@@ -569,11 +597,26 @@
 /* Text in menu */
 "contact_us" = "İletişim";
 
+/* Settings: Send feedback button and dialog title */
+"feedback" = "Feedback";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "General feedback";
+
 /* Text in menu */
 "subscribe_to_news" = "Haberlerimize abone ol";
 
 /* Text in menu */
 "rate_the_app" = "Uygulamayı değerlendir";
+
+/* Rate in Google Play (Android only) */
+"rate_gp" = "Rate on Google Play";
+
+/* Share with friends: menu item title */
+"tell_friends" = "Tell a Friend";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "Hi! Install Maps.me!";
 
 /* Text in menu */
 "help" = "Yardım";
@@ -589,6 +632,9 @@
 
 /* Email body */
 "subscribe_me_body" = "En son haberlerden güncellemelerden ve tanıtımlardan ilk önce haberdar olmak istiyorum. Aboneliğimi herhangi bir zaman iptal edebilirim.";
+
+/* About short text (below logo) */
+"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
 "about_text" = "MAPS.ME dünyadaki tüm ülkelerdeki şehirlerin en hızlı çevrimdışı haritalarını sunuyor. Tam güven ile seyahat edin: nerede olursanız olun, MAPS.ME harita üzerinde nerede olduğunuzu belirlemeye, en yakın restoranı, oteli, bankayı, benzin istasyonunu v.b. bulmaya yardımcı olur. İnternet bağlantısı gerektirmez.\n\nHer zaman yeni özellikler üzerinde çalışıyoruz ve sizlerin MAPS.ME'yi nasıl geliştirebileceğimize dair görüşlerinizi almaktan mutluluk duyuyoruz. Eğer uygulama ile ilgili herhangi bir probleminiz varsa, bizimle support@maps.me adresinden temasa geçmekten çekinmeyin. Her talebe cevap veriyoruz!\n\nMAPS.ME'yi beğendiniz ve bize destek olmak ister misiniz? Bunun bazı basit ve tamamıyla ücretsiz yolları var:\n\n- Uygulama Marketinizde bir yorum yazın\n- Facebook sayfamızı beğenin http://www.facebook.com/mapswithme\n- veya sadece annenize, arkadaşlarınıza ve iş arkadaşlarınıza MAPS.ME'den bahsedin :)\n\nBizi tercih ettiğiniz için teşekkür ederiz. Desteğinizden dolayı çok memnuniyet duyarız!\n\nNot: Verileri haritaları kullanıcıların yaratmasına ve düzenlemesine olanak veren Wikipedia benzeri bir proje olan OpenStreetMap'dan almaktayız. Eğer haritada eksik ya da hatalı bir şeyler görürseniz doğrudan haritaları\n\nhttp://openstreetmap.org, adresinden düzeltebilirsiniz ve yaptığınız değişiklikler MAPS.ME'de bir sonraki sürüm yayınlandığında görülebilir olacaktır.";
@@ -1268,11 +1314,5 @@
 "search_history_title" = "Arama Geçmişi";
 
 "search_history_text" = "En son yapılan arama sorgularına hızlı erişim.";
-
-"update_maps_alert_title" = "Navigasyon daha da kolaylaştı";
-
-"update_maps_alert_message" = "Haritaların tarzını geliştirdik: artık bütün nesneler daha arkadaşça ve daha anlaşılır gözüküyor. Yeni tasarımdan yararlanmak için haritaları yükseltin.";
-
-"update_maps_alert_button_title" = "Haritaları güncelle";
 
 "clear_search" = "Arama geçmişini temizle";

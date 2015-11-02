@@ -46,11 +46,7 @@ template <class T> class wrapper;
 
 namespace boost { namespace python { namespace objects {
 
-#  if BOOST_WORKAROUND(__GNUC__, == 2)
-#   define BOOST_PYTHON_UNFORWARD_LOCAL(z, n, _) BOOST_PP_COMMA_IF(n) (typename unforward<A##n>::type)objects::do_unforward(a##n,0)
-#  else
-#   define BOOST_PYTHON_UNFORWARD_LOCAL(z, n, _) BOOST_PP_COMMA_IF(n) objects::do_unforward(a##n,0)
-#  endif 
+#define BOOST_PYTHON_UNFORWARD_LOCAL(z, n, _) BOOST_PP_COMMA_IF(n) objects::do_unforward(a##n,0)
 
 template <class Pointer, class Value>
 struct pointer_holder : instance_holder

@@ -303,7 +303,6 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">长度</string>
 	<string name="share_my_location">共享我的位置</string>
-	<string name="become_a_pro">升级</string>
 	<string name="menu_search">搜索</string>
 	<string name="pref_zoom_title">缩放按钮</string>
 	<string name="pref_zoom_summary">在屏幕上显示</string>
@@ -807,8 +806,5 @@
 	<string name="search_not_found_location">下载您当前位置的地图。</string>
 	<string name="search_history_title">搜索历史。</string>
 	<string name="search_history_text">快速访问最近的搜索查询。</string>
-	<string name="update_maps_alert_title">探索地图现在更容易了</string>
-	<string name="update_maps_alert_message">我们改进了地图风格：现在所有东西看上去更友好和清楚了。更新地图，尽可能地利用新设计。</string>
-	<string name="update_maps_alert_button_title">更新地图</string>
 	<string name="clear_search">清除历史搜索</string>
 </resources>

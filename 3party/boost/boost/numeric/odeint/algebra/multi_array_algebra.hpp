@@ -113,13 +113,13 @@ struct multi_array_algebra
     template< class S1 , class S2 , class S3 , class S4 , class S5 , class S6 ,class S7 , class S8 , class S9 , class S10 , class S11 , class S12 , class S13 , class S14 , class Op >
     static void for_each14( S1 &s1 , S2 &s2 , S3 &s3 , S4 &s4 , S5 &s5 , S6 &s6 , S7 &s7 , S8 &s8 , S9 &s9 , S10 &s10 , S11 &s11 , S12 &s12 , S13 &s13 , S14 &s14 , Op op )
     {
-        detail::for_each14( s1.data() , s1.data() + s1.num_elements() , s2.data() , s3.data() , s4.data() , s5.data() , s6.data() , s7.data() , s8.data() , s9.data() , s10.data() , s11.data() , s12.data() , s14.data() , op );
+        detail::for_each14( s1.data() , s1.data() + s1.num_elements() , s2.data() , s3.data() , s4.data() , s5.data() , s6.data() , s7.data() , s8.data() , s9.data() , s10.data() , s11.data() , s12.data() , s13.data() , s14.data() , op );
     }
 
     template< class S1 , class S2 , class S3 , class S4 , class S5 , class S6 ,class S7 , class S8 , class S9 , class S10 , class S11 , class S12 , class S13 , class S14 , class S15 , class Op >
     static void for_each15( S1 &s1 , S2 &s2 , S3 &s3 , S4 &s4 , S5 &s5 , S6 &s6 , S7 &s7 , S8 &s8 , S9 &s9 , S10 &s10 , S11 &s11 , S12 &s12 , S13 &s13 , S14 &s14 , S15 &s15 , Op op )
     {
-        detail::for_each15( s1.data() , s1.data() + s1.num_elements() , s2.data() , s3.data() , s4.data() , s5.data() , s6.data() , s7.data() , s8.data() , s9.data() , s10.data() , s11.data() , s12.data() , s14.data() , s15.data() , op );
+        detail::for_each15( s1.data() , s1.data() + s1.num_elements() , s2.data() , s3.data() , s4.data() , s5.data() , s6.data() , s7.data() , s8.data() , s9.data() , s10.data() , s11.data() , s12.data() , s13.data() , s14.data() , s15.data() , op );
     }
     
     template< typename S >

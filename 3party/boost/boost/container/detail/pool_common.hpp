@@ -11,7 +11,11 @@
 #ifndef BOOST_CONTAINER_DETAIL_POOL_COMMON_HPP
 #define BOOST_CONTAINER_DETAIL_POOL_COMMON_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -19,7 +23,6 @@
 #include <boost/container/detail/workaround.hpp>
 
 #include <boost/intrusive/slist.hpp>
-#include <new>
 
 namespace boost {
 namespace container {

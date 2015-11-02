@@ -73,7 +73,7 @@ namespace boost {
             std::size_t get_expected() const { return expected_; }
             virtual const char *what() const throw() {
                 return "boost::too_many_args: "
-                    "format-string referred to less arguments than were passed";
+                    "format-string referred to fewer arguments than were passed";
             }
         };
 

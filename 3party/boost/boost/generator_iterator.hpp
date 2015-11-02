@@ -17,6 +17,7 @@
 #include <boost/ref.hpp>
 
 namespace boost {
+namespace iterators {
 
 template<class Generator>
 class generator_iterator
@@ -33,7 +34,7 @@ class generator_iterator
       , single_pass_traversal_tag
       , typename Generator::result_type const&
     > super_t;
-    
+
  public:
     generator_iterator() {}
     generator_iterator(Generator* g) : m_g(g), m_value((*m_g)()) {}
@@ -73,8 +74,12 @@ make_generator_iterator(Generator & gen)
   return result_t(&gen);
 }
 
+} // namespace iterators
+
+using iterators::generator_iterator;
+using iterators::generator_iterator_generator;
+using iterators::make_generator_iterator;
+
 } // namespace boost
 
-
 #endif // BOOST_ITERATOR_ADAPTOR_GENERATOR_ITERATOR_HPP
-

@@ -101,7 +101,6 @@ namespace boost { namespace spirit { namespace lex
 
             token_state_ = state_id;
 
-            typedef typename LexerDef::id_type id_type;
             if (IdType(~0) == id_)
                 id_ = IdType(lexdef.get_next_id());
 

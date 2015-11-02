@@ -227,7 +227,7 @@ struct operations< 4u, Signed > :
             "bne- 1b\n"
             : "=&b" (original), "=&b" (tmp), "+Z" (storage)
             : "b" (v)
-            : "cc"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -246,7 +246,7 @@ struct operations< 4u, Signed > :
             "bne- 1b\n"
             : "=&b" (original), "=&b" (tmp), "+Z" (storage)
             : "b" (v)
-            : "cc"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -265,7 +265,7 @@ struct operations< 4u, Signed > :
             "bne- 1b\n"
             : "=&b" (original), "=&b" (tmp), "+Z" (storage)
             : "b" (v)
-            : "cc"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -284,7 +284,7 @@ struct operations< 4u, Signed > :
             "bne- 1b\n"
             : "=&b" (original), "=&b" (tmp), "+Z" (storage)
             : "b" (v)
-            : "cc"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -303,7 +303,7 @@ struct operations< 4u, Signed > :
             "bne- 1b\n"
             : "=&b" (original), "=&b" (tmp), "+Z" (storage)
             : "b" (v)
-            : "cc"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -347,7 +347,7 @@ struct operations< 1u, false > :
             "bne- 1b\n"
             : "=&b" (original), "=&b" (tmp), "+Z" (storage)
             : "b" (v)
-            : "cc"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -367,7 +367,7 @@ struct operations< 1u, false > :
             "bne- 1b\n"
             : "=&b" (original), "=&b" (tmp), "+Z" (storage)
             : "b" (v)
-            : "cc"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -395,7 +395,7 @@ struct operations< 1u, true > :
             "bne- 1b\n"
             : "=&b" (original), "=&b" (tmp), "+Z" (storage)
             : "b" (v)
-            : "cc"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -415,7 +415,7 @@ struct operations< 1u, true > :
             "bne- 1b\n"
             : "=&b" (original), "=&b" (tmp), "+Z" (storage)
             : "b" (v)
-            : "cc"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -444,7 +444,7 @@ struct operations< 2u, false > :
             "bne- 1b\n"
             : "=&b" (original), "=&b" (tmp), "+Z" (storage)
             : "b" (v)
-            : "cc"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -464,7 +464,7 @@ struct operations< 2u, false > :
             "bne- 1b\n"
             : "=&b" (original), "=&b" (tmp), "+Z" (storage)
             : "b" (v)
-            : "cc"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -492,7 +492,7 @@ struct operations< 2u, true > :
             "bne- 1b\n"
             : "=&b" (original), "=&b" (tmp), "+Z" (storage)
             : "b" (v)
-            : "cc"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -512,7 +512,7 @@ struct operations< 2u, true > :
             "bne- 1b\n"
             : "=&b" (original), "=&b" (tmp), "+Z" (storage)
             : "b" (v)
-            : "cc"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -640,7 +640,7 @@ struct operations< 8u, Signed > :
             "bne- 1b\n"
             : "=&b" (original), "=&b" (tmp), "+Z" (storage)
             : "b" (v)
-            : "cc"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -659,7 +659,7 @@ struct operations< 8u, Signed > :
             "bne- 1b\n"
             : "=&b" (original), "=&b" (tmp), "+Z" (storage)
             : "b" (v)
-            : "cc"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -678,7 +678,7 @@ struct operations< 8u, Signed > :
             "bne- 1b\n"
             : "=&b" (original), "=&b" (tmp), "+Z" (storage)
             : "b" (v)
-            : "cc"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -697,7 +697,7 @@ struct operations< 8u, Signed > :
             "bne- 1b\n"
             : "=&b" (original), "=&b" (tmp), "+Z" (storage)
             : "b" (v)
-            : "cc"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -716,7 +716,7 @@ struct operations< 8u, Signed > :
             "bne- 1b\n"
             : "=&b" (original), "=&b" (tmp), "+Z" (storage)
             : "b" (v)
-            : "cc"
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;

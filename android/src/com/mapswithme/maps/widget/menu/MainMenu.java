@@ -315,7 +315,7 @@ public class MainMenu
   public void updateMarker()
   {
     int count = ActiveCountryTree.getOutOfDateCount();
-    UiUtils.showIf(!mCollapsed && (count > 0) && !isOpen(), mNewsMarker);
+    UiUtils.showIf((!mCollapsed || mCollapseViews.isEmpty()) && (count > 0) && !isOpen(), mNewsMarker);
     UiUtils.showIf(count > 0, mNewsCounter);
 
     if (count > 0)

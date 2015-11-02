@@ -16,7 +16,9 @@
 #include <boost/fusion/adapted/std_tuple/detail/size_impl.hpp>
 #include <boost/fusion/adapted/std_tuple/detail/at_impl.hpp>
 #include <boost/fusion/adapted/std_tuple/detail/value_at_impl.hpp>
+#include <boost/fusion/adapted/std_tuple/detail/convert_impl.hpp>
 #include <boost/fusion/adapted/std_tuple/std_tuple_iterator.hpp>
 #include <boost/fusion/adapted/std_tuple/tag_of.hpp>
+#include <boost/fusion/adapted/std_tuple/mpl/clear.hpp>
 
 #endif

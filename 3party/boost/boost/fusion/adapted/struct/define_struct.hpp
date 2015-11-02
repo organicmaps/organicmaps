@@ -19,7 +19,7 @@
         TEMPLATE_PARAMS_SEQ,                                                    \
         (0)NAMESPACE_SEQ,                                                       \
         NAME,                                                                   \
-        BOOST_PP_CAT(BOOST_FUSION_ADAPT_STRUCT_FILLER_0(0,0)ATTRIBUTES,_END),   \
+        BOOST_PP_CAT(BOOST_FUSION_DEFINE_STRUCT_FILLER_0(0,0)ATTRIBUTES,_END),  \
         2)                                                                      \
                                                                                 \
     BOOST_FUSION_ADAPT_TPL_STRUCT(                                              \
@@ -32,7 +32,7 @@
     BOOST_FUSION_DEFINE_STRUCT_IMPL(                                            \
         (0)NAMESPACE_SEQ,                                                       \
         NAME,                                                                   \
-        BOOST_PP_CAT(BOOST_FUSION_ADAPT_STRUCT_FILLER_0(0,0)ATTRIBUTES,_END),   \
+        BOOST_PP_CAT(BOOST_FUSION_DEFINE_STRUCT_FILLER_0(0,0)ATTRIBUTES,_END),  \
         2)                                                                      \
                                                                                 \
     BOOST_FUSION_ADAPT_STRUCT(                                                  \

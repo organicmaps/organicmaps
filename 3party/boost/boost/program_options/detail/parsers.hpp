@@ -40,7 +40,8 @@ namespace boost { namespace program_options {
     : detail::cmdline(
         // Explicit template arguments are required by gcc 3.3.1 
         // (at least mingw version), and do no harm on other compilers.
-        to_internal(detail::make_vector<charT, const charT* const*>(argv+1, argv+argc+!argc)))
+        to_internal(detail::make_vector<charT, const charT* const*>(argv+1, argv+argc+!argc))),
+        m_desc()
     {}
 
     

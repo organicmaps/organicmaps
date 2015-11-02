@@ -7,29 +7,46 @@
 // See http://www.boost.org/libs/container for documentation.
 //
 //////////////////////////////////////////////////////////////////////////////
-
 #ifndef BOOST_CONTAINER_FLAT_MAP_HPP
 #define BOOST_CONTAINER_FLAT_MAP_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
 #include <boost/container/detail/config_begin.hpp>
 #include <boost/container/detail/workaround.hpp>
-
-#include <boost/container/container_fwd.hpp>
-#include <utility>
-#include <functional>
-#include <memory>
-#include <boost/container/detail/flat_tree.hpp>
-#include <boost/type_traits/has_trivial_destructor.hpp>
-#include <boost/container/detail/mpl.hpp>
+// container
 #include <boost/container/allocator_traits.hpp>
+#include <boost/container/container_fwd.hpp>
+#include <boost/container/new_allocator.hpp> //new_allocator
 #include <boost/container/throw_exception.hpp>
-#include <boost/move/utility.hpp>
+// container/detail
+#include <boost/container/detail/flat_tree.hpp>
+#include <boost/container/detail/type_traits.hpp>
+#include <boost/container/detail/mpl.hpp>
+#include <boost/container/detail/algorithm.hpp> //equal()
+// move
+#include <boost/move/utility_core.hpp>
+#include <boost/move/traits.hpp>
+// move/detail
+#if defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
+#include <boost/move/detail/fwd_macros.hpp>
+#endif
 #include <boost/move/detail/move_helpers.hpp>
-#include <boost/detail/no_exceptions_support.hpp>
+// intrusive
+#include <boost/intrusive/detail/minimal_pair_header.hpp>      //pair
+#include <boost/intrusive/detail/minimal_less_equal_header.hpp>//less, equal
+//others
+#include <boost/core/no_exceptions_support.hpp>
+
+#if !defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST)
+#include <initializer_list>
+#endif
 
 namespace boost {
 namespace container {
@@ -83,7 +100,7 @@ static D force_copy(S s)
 //! \tparam Allocator is the allocator to allocate the <code>value_type</code>s
 //!   (e.g. <i>allocator< std::pair<Key, T> > </i>).
 #ifdef BOOST_CONTAINER_DOXYGEN_INVOKED
-template <class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator< std::pair< Key, T> > >
+template <class Key, class T, class Compare = std::less<Key>, class Allocator = new_allocator< std::pair< Key, T> > >
 #else
 template <class Key, class T, class Compare, class Allocator>
 #endif
@@ -110,6 +127,7 @@ class flat_map
 
    typedef typename impl_tree_t::value_type              impl_value_type;
    typedef typename impl_tree_t::const_iterator          impl_const_iterator;
+   typedef typename impl_tree_t::iterator                impl_iterator;
    typedef typename impl_tree_t::allocator_type          impl_allocator_type;
    typedef container_detail::flat_tree_value_compare
       < Compare
@@ -123,6 +141,9 @@ class flat_map
          <typename allocator_traits<Allocator>::pointer>::reverse_iterator          reverse_iterator_impl;
    typedef typename container_detail::get_flat_tree_iterators
          <typename allocator_traits<Allocator>::pointer>::const_reverse_iterator    const_reverse_iterator_impl;
+   public:
+   typedef typename impl_tree_t::stored_allocator_type   impl_stored_allocator_type;
+   private:
    #endif   //#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
 
    public:
@@ -165,7 +186,7 @@ class flat_map
    flat_map()
       : m_flat_tree()
    {
-      //Allocator type must be std::pair<CONST Key, T>
+      //A type must be std::pair<Key, T>
       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
    }
 
@@ -176,7 +197,7 @@ class flat_map
    explicit flat_map(const Compare& comp, const allocator_type& a = allocator_type())
       : m_flat_tree(comp, container_detail::force<impl_allocator_type>(a))
    {
-      //Allocator type must be std::pair<CONST Key, T>
+      //A type must be std::pair<Key, T>
       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
    }
 
@@ -186,7 +207,7 @@ class flat_map
    explicit flat_map(const allocator_type& a)
       : m_flat_tree(container_detail::force<impl_allocator_type>(a))
    {
-      //Allocator type must be std::pair<CONST Key, T>
+      //A type must be std::pair<Key, T>
       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
    }
 
@@ -200,7 +221,20 @@ class flat_map
          const allocator_type& a = allocator_type())
       : m_flat_tree(true, first, last, comp, container_detail::force<impl_allocator_type>(a))
    {
-      //Allocator type must be std::pair<CONST Key, T>
+      //A type must be std::pair<Key, T>
+      BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
+   }
+
+   //! <b>Effects</b>: Constructs an empty flat_map using the specified
+   //! allocator, and inserts elements from the range [first ,last ).
+   //!
+   //! <b>Complexity</b>: Linear in N if the range [first ,last ) is already sorted using
+   //! comp and otherwise N logN, where N is last - first.
+   template <class InputIterator>
+   flat_map(InputIterator first, InputIterator last, const allocator_type& a)
+      : m_flat_tree(true, first, last, Compare(), container_detail::force<impl_allocator_type>(a))
+   {
+      //A type must be std::pair<Key, T>
       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
    }
 
@@ -219,9 +253,54 @@ class flat_map
            , const Compare& comp = Compare(), const allocator_type& a = allocator_type())
       : m_flat_tree(ordered_range, first, last, comp, a)
    {
-      //Allocator type must be std::pair<CONST Key, T>
+      //A type must be std::pair<Key, T>
       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
    }
+
+#if !defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST)
+   //! <b>Effects</b>: Constructs an empty flat_map using the specified comparison object and
+   //! allocator, and inserts elements from the range [il.begin() ,il.end()).
+   //!
+   //! <b>Complexity</b>: Linear in N if the range [il.begin(), il.end()) is already sorted using
+   //! comp and otherwise N logN, where N is last - first.
+   flat_map(std::initializer_list<value_type> il, const Compare& comp = Compare(),
+          const allocator_type& a = allocator_type())
+     : m_flat_tree(true, il.begin(), il.end(), comp, container_detail::force<impl_allocator_type>(a))
+   {
+       //A type must be std::pair<Key, T>
+       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
+   }
+
+   //! <b>Effects</b>: Constructs an empty flat_map using the specified
+   //! allocator, and inserts elements from the range [il.begin() ,il.end()).
+   //!
+   //! <b>Complexity</b>: Linear in N if the range [il.begin(), il.end()) is already sorted using
+   //! comp and otherwise N logN, where N is last - first.
+   flat_map(std::initializer_list<value_type> il, const allocator_type& a)
+     : m_flat_tree(true, il.begin(), il.end(), Compare(), container_detail::force<impl_allocator_type>(a))
+   {
+       //A type must be std::pair<Key, T>
+       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
+   }
+
+   //! <b>Effects</b>: Constructs an empty flat_map using the specified comparison object and
+   //! allocator, and inserts elements from the ordered unique range [il.begin(), il.end()). This function
+   //! is more efficient than the normal range creation for ordered ranges.
+   //!
+   //! <b>Requires</b>: [il.begin(), il.end()) must be ordered according to the predicate and must be
+   //! unique values.
+   //!
+   //! <b>Complexity</b>: Linear in N.
+   //!
+   //! <b>Note</b>: Non-standard extension.
+   flat_map(ordered_unique_range_t, std::initializer_list<value_type> il, const Compare& comp = Compare(),
+          const allocator_type& a = allocator_type())
+     : m_flat_tree(ordered_range, il.begin(), il.end(), comp, a)
+   {
+       //A type must be std::pair<Key, T>
+       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
+   }
+#endif
 
    //! <b>Effects</b>: Copy constructs a flat_map.
    //!
@@ -229,7 +308,7 @@ class flat_map
    flat_map(const flat_map& x)
       : m_flat_tree(x.m_flat_tree)
    {
-      //Allocator type must be std::pair<CONST Key, T>
+      //A type must be std::pair<Key, T>
       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
    }
 
@@ -242,7 +321,7 @@ class flat_map
    flat_map(BOOST_RV_REF(flat_map) x)
       : m_flat_tree(boost::move(x.m_flat_tree))
    {
-      //Allocator type must be std::pair<CONST Key, T>
+      //A type must be std::pair<Key, T>
       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
    }
 
@@ -252,7 +331,7 @@ class flat_map
    flat_map(const flat_map& x, const allocator_type &a)
       : m_flat_tree(x.m_flat_tree, a)
    {
-      //Allocator type must be std::pair<CONST Key, T>
+      //A type must be std::pair<Key, T>
       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
    }
 
@@ -263,7 +342,7 @@ class flat_map
    flat_map(BOOST_RV_REF(flat_map) x, const allocator_type &a)
       : m_flat_tree(boost::move(x.m_flat_tree), a)
    {
-      //Allocator type must be std::pair<CONST Key, T>
+      //A type must be std::pair<Key, T>
       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
    }
 
@@ -283,14 +362,25 @@ class flat_map
    //!   propagate_on_container_move_assignment is true or
    //!   this->get>allocator() == x.get_allocator(). Linear otherwise.
    flat_map& operator=(BOOST_RV_REF(flat_map) x)
-      BOOST_CONTAINER_NOEXCEPT_IF(allocator_traits_type::propagate_on_container_move_assignment::value)
+      BOOST_NOEXCEPT_IF(  allocator_traits_type::is_always_equal::value
+                                 && boost::container::container_detail::is_nothrow_move_assignable<Compare>::value )
    {  m_flat_tree = boost::move(x.m_flat_tree);   return *this;  }
 
-   //! <b>Effects</b>: Returns a copy of the Allocator that
+#if !defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST)
+   //! <b>Effects</b>: Assign elements from il to *this
+   flat_map& operator=(std::initializer_list<value_type> il)
+   {
+      this->clear();
+      this->insert(il.begin(), il.end());
+      return *this;
+   }
+#endif
+
+   //! <b>Effects</b>: Returns a copy of the allocator that
    //!   was passed to the object's constructor.
    //!
    //! <b>Complexity</b>: Constant.
-   allocator_type get_allocator() const BOOST_CONTAINER_NOEXCEPT
+   allocator_type get_allocator() const BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<allocator_type>(m_flat_tree.get_allocator()); }
 
    //! <b>Effects</b>: Returns a reference to the internal allocator.
@@ -300,7 +390,7 @@ class flat_map
    //! <b>Complexity</b>: Constant.
    //!
    //! <b>Note</b>: Non-standard extension.
-   stored_allocator_type &get_stored_allocator() BOOST_CONTAINER_NOEXCEPT
+   stored_allocator_type &get_stored_allocator() BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force<stored_allocator_type>(m_flat_tree.get_stored_allocator()); }
 
    //! <b>Effects</b>: Returns a reference to the internal allocator.
@@ -310,7 +400,7 @@ class flat_map
    //! <b>Complexity</b>: Constant.
    //!
    //! <b>Note</b>: Non-standard extension.
-   const stored_allocator_type &get_stored_allocator() const BOOST_CONTAINER_NOEXCEPT
+   const stored_allocator_type &get_stored_allocator() const BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force<stored_allocator_type>(m_flat_tree.get_stored_allocator()); }
 
    //////////////////////////////////////////////
@@ -324,7 +414,7 @@ class flat_map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   iterator begin() BOOST_CONTAINER_NOEXCEPT
+   iterator begin() BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<iterator>(m_flat_tree.begin()); }
 
    //! <b>Effects</b>: Returns a const_iterator to the first element contained in the container.
@@ -332,7 +422,7 @@ class flat_map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_iterator begin() const BOOST_CONTAINER_NOEXCEPT
+   const_iterator begin() const BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<const_iterator>(m_flat_tree.begin()); }
 
    //! <b>Effects</b>: Returns an iterator to the end of the container.
@@ -340,7 +430,7 @@ class flat_map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   iterator end() BOOST_CONTAINER_NOEXCEPT
+   iterator end() BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<iterator>(m_flat_tree.end()); }
 
    //! <b>Effects</b>: Returns a const_iterator to the end of the container.
@@ -348,7 +438,7 @@ class flat_map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_iterator end() const BOOST_CONTAINER_NOEXCEPT
+   const_iterator end() const BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<const_iterator>(m_flat_tree.end()); }
 
    //! <b>Effects</b>: Returns a reverse_iterator pointing to the beginning
@@ -357,7 +447,7 @@ class flat_map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   reverse_iterator rbegin() BOOST_CONTAINER_NOEXCEPT
+   reverse_iterator rbegin() BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<reverse_iterator>(m_flat_tree.rbegin()); }
 
    //! <b>Effects</b>: Returns a const_reverse_iterator pointing to the beginning
@@ -366,7 +456,7 @@ class flat_map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reverse_iterator rbegin() const BOOST_CONTAINER_NOEXCEPT
+   const_reverse_iterator rbegin() const BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<const_reverse_iterator>(m_flat_tree.rbegin()); }
 
    //! <b>Effects</b>: Returns a reverse_iterator pointing to the end
@@ -375,7 +465,7 @@ class flat_map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   reverse_iterator rend() BOOST_CONTAINER_NOEXCEPT
+   reverse_iterator rend() BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<reverse_iterator>(m_flat_tree.rend()); }
 
    //! <b>Effects</b>: Returns a const_reverse_iterator pointing to the end
@@ -384,7 +474,7 @@ class flat_map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reverse_iterator rend() const BOOST_CONTAINER_NOEXCEPT
+   const_reverse_iterator rend() const BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<const_reverse_iterator>(m_flat_tree.rend()); }
 
    //! <b>Effects</b>: Returns a const_iterator to the first element contained in the container.
@@ -392,7 +482,7 @@ class flat_map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_iterator cbegin() const BOOST_CONTAINER_NOEXCEPT
+   const_iterator cbegin() const BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<const_iterator>(m_flat_tree.cbegin()); }
 
    //! <b>Effects</b>: Returns a const_iterator to the end of the container.
@@ -400,7 +490,7 @@ class flat_map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_iterator cend() const BOOST_CONTAINER_NOEXCEPT
+   const_iterator cend() const BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<const_iterator>(m_flat_tree.cend()); }
 
    //! <b>Effects</b>: Returns a const_reverse_iterator pointing to the beginning
@@ -409,7 +499,7 @@ class flat_map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reverse_iterator crbegin() const BOOST_CONTAINER_NOEXCEPT
+   const_reverse_iterator crbegin() const BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<const_reverse_iterator>(m_flat_tree.crbegin()); }
 
    //! <b>Effects</b>: Returns a const_reverse_iterator pointing to the end
@@ -418,7 +508,7 @@ class flat_map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reverse_iterator crend() const BOOST_CONTAINER_NOEXCEPT
+   const_reverse_iterator crend() const BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<const_reverse_iterator>(m_flat_tree.crend()); }
 
    //////////////////////////////////////////////
@@ -432,7 +522,7 @@ class flat_map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   bool empty() const BOOST_CONTAINER_NOEXCEPT
+   bool empty() const BOOST_NOEXCEPT_OR_NOTHROW
       { return m_flat_tree.empty(); }
 
    //! <b>Effects</b>: Returns the number of the elements contained in the container.
@@ -440,7 +530,7 @@ class flat_map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   size_type size() const BOOST_CONTAINER_NOEXCEPT
+   size_type size() const BOOST_NOEXCEPT_OR_NOTHROW
       { return m_flat_tree.size(); }
 
    //! <b>Effects</b>: Returns the largest possible size of the container.
@@ -448,7 +538,7 @@ class flat_map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   size_type max_size() const BOOST_CONTAINER_NOEXCEPT
+   size_type max_size() const BOOST_NOEXCEPT_OR_NOTHROW
       { return m_flat_tree.max_size(); }
 
    //! <b>Effects</b>: Number of elements for which memory has been allocated.
@@ -457,7 +547,7 @@ class flat_map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   size_type capacity() const BOOST_CONTAINER_NOEXCEPT
+   size_type capacity() const BOOST_NOEXCEPT_OR_NOTHROW
       { return m_flat_tree.capacity(); }
 
    //! <b>Effects</b>: If n is less than or equal to capacity(), this call has no
@@ -491,7 +581,7 @@ class flat_map
    //! Effects: If there is no key equivalent to x in the flat_map, inserts
    //!   value_type(x, T()) into the flat_map.
    //!
-   //! Returns: Allocator reference to the mapped_type corresponding to x in *this.
+   //! Returns: A reference to the mapped_type corresponding to x in *this.
    //!
    //! Complexity: Logarithmic.
    mapped_type &operator[](const key_type& k);
@@ -499,7 +589,7 @@ class flat_map
    //! Effects: If there is no key equivalent to x in the flat_map, inserts
    //! value_type(move(x), T()) into the flat_map (the key is move-constructed)
    //!
-   //! Returns: Allocator reference to the mapped_type corresponding to x in *this.
+   //! Returns: A reference to the mapped_type corresponding to x in *this.
    //!
    //! Complexity: Logarithmic.
    mapped_type &operator[](key_type &&k) ;
@@ -508,7 +598,23 @@ class flat_map
    BOOST_MOVE_CONVERSION_AWARE_CATCH( operator[] , key_type, mapped_type&, this->priv_subscript)
    #endif
 
-   //! Returns: Allocator reference to the element whose key is equivalent to x.
+   //! @copydoc ::boost::container::flat_set::nth(size_type)
+   iterator nth(size_type n) BOOST_NOEXCEPT_OR_NOTHROW
+   {  return container_detail::force_copy<iterator>(m_flat_tree.nth(n));  }
+
+   //! @copydoc ::boost::container::flat_set::nth(size_type) const
+   const_iterator nth(size_type n) const BOOST_NOEXCEPT_OR_NOTHROW
+   {  return container_detail::force_copy<iterator>(m_flat_tree.nth(n));  }
+
+   //! @copydoc ::boost::container::flat_set::index_of(iterator)
+   size_type index_of(iterator p) BOOST_NOEXCEPT_OR_NOTHROW
+   {  return m_flat_tree.index_of(container_detail::force_copy<impl_iterator>(p));  }
+
+   //! @copydoc ::boost::container::flat_set::index_of(const_iterator) const
+   size_type index_of(const_iterator p) const BOOST_NOEXCEPT_OR_NOTHROW
+   {  return m_flat_tree.index_of(container_detail::force_copy<impl_const_iterator>(p));  }
+
+   //! Returns: A reference to the element whose key is equivalent to x.
    //!
    //! Throws: An exception object of type out_of_range if no such element is present.
    //!
@@ -522,7 +628,7 @@ class flat_map
       return i->second;
    }
 
-   //! Returns: Allocator reference to the element whose key is equivalent to x.
+   //! Returns: A reference to the element whose key is equivalent to x.
    //!
    //! Throws: An exception object of type out_of_range if no such element is present.
    //!
@@ -542,7 +648,7 @@ class flat_map
    //
    //////////////////////////////////////////////
 
-   #if defined(BOOST_CONTAINER_PERFECT_FORWARDING) || defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
+   #if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) || defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
 
    //! <b>Effects</b>: Inserts an object x of type T constructed with
    //!   std::forward<Args>(args)... if and only if there is no element in the container
@@ -557,7 +663,7 @@ class flat_map
    //!
    //! <b>Note</b>: If an element is inserted it might invalidate elements.
    template <class... Args>
-   std::pair<iterator,bool> emplace(Args&&... args)
+   std::pair<iterator,bool> emplace(BOOST_FWD_REF(Args)... args)
    {  return container_detail::force_copy< std::pair<iterator, bool> >(m_flat_tree.emplace_unique(boost::forward<Args>(args)...)); }
 
    //! <b>Effects</b>: Inserts an object of type T constructed with
@@ -573,32 +679,34 @@ class flat_map
    //!
    //! <b>Note</b>: If an element is inserted it might invalidate elements.
    template <class... Args>
-   iterator emplace_hint(const_iterator hint, Args&&... args)
+   iterator emplace_hint(const_iterator hint, BOOST_FWD_REF(Args)... args)
    {
       return container_detail::force_copy<iterator>
          (m_flat_tree.emplace_hint_unique( container_detail::force_copy<impl_const_iterator>(hint)
                                          , boost::forward<Args>(args)...));
    }
 
-   #else //#ifdef BOOST_CONTAINER_PERFECT_FORWARDING
+   #else // !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
 
-   #define BOOST_PP_LOCAL_MACRO(n)                                                                 \
-   BOOST_PP_EXPR_IF(n, template<) BOOST_PP_ENUM_PARAMS(n, class P) BOOST_PP_EXPR_IF(n, >)          \
-   std::pair<iterator,bool> emplace(BOOST_PP_ENUM(n, BOOST_CONTAINER_PP_PARAM_LIST, _))            \
-   {  return container_detail::force_copy< std::pair<iterator, bool> >                             \
-         (m_flat_tree.emplace_unique(BOOST_PP_ENUM(n, BOOST_CONTAINER_PP_PARAM_FORWARD, _))); }    \
-                                                                                                   \
-   BOOST_PP_EXPR_IF(n, template<) BOOST_PP_ENUM_PARAMS(n, class P) BOOST_PP_EXPR_IF(n, >)          \
-   iterator emplace_hint(const_iterator hint                                                       \
-                         BOOST_PP_ENUM_TRAILING(n, BOOST_CONTAINER_PP_PARAM_LIST, _))              \
-   {  return container_detail::force_copy<iterator>(m_flat_tree.emplace_hint_unique                \
-            (container_detail::force_copy<impl_const_iterator>(hint)                               \
-               BOOST_PP_ENUM_TRAILING(n, BOOST_CONTAINER_PP_PARAM_FORWARD, _))); }                 \
-   //!
-   #define BOOST_PP_LOCAL_LIMITS (0, BOOST_CONTAINER_MAX_CONSTRUCTOR_PARAMETERS)
-   #include BOOST_PP_LOCAL_ITERATE()
+   #define BOOST_CONTAINER_FLAT_MAP_EMPLACE_CODE(N) \
+   BOOST_MOVE_TMPL_LT##N BOOST_MOVE_CLASS##N BOOST_MOVE_GT##N \
+   std::pair<iterator,bool> emplace(BOOST_MOVE_UREF##N)\
+   {\
+      return container_detail::force_copy< std::pair<iterator, bool> >\
+         (m_flat_tree.emplace_unique(BOOST_MOVE_FWD##N));\
+   }\
+   \
+   BOOST_MOVE_TMPL_LT##N BOOST_MOVE_CLASS##N BOOST_MOVE_GT##N \
+   iterator emplace_hint(const_iterator hint BOOST_MOVE_I##N BOOST_MOVE_UREF##N)\
+   {\
+      return container_detail::force_copy<iterator>(m_flat_tree.emplace_hint_unique\
+         (container_detail::force_copy<impl_const_iterator>(hint) BOOST_MOVE_I##N BOOST_MOVE_FWD##N));\
+   }\
+   //
+   BOOST_MOVE_ITERATE_0TO9(BOOST_CONTAINER_FLAT_MAP_EMPLACE_CODE)
+   #undef BOOST_CONTAINER_FLAT_MAP_EMPLACE_CODE
 
-   #endif   //#ifdef BOOST_CONTAINER_PERFECT_FORWARDING
+   #endif   // !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
 
    //! <b>Effects</b>: Inserts x if and only if there is no element in the container
    //!   with key equivalent to the key of x.
@@ -612,7 +720,7 @@ class flat_map
    //!
    //! <b>Note</b>: If an element is inserted it might invalidate elements.
    std::pair<iterator,bool> insert(const value_type& x)
-      { return container_detail::force_copy<std::pair<iterator,bool> >(
+   {  return container_detail::force_copy<std::pair<iterator,bool> >(
          m_flat_tree.insert_unique(container_detail::force<impl_value_type>(x))); }
 
    //! <b>Effects</b>: Inserts a new value_type move constructed from the pair if and
@@ -658,10 +766,10 @@ class flat_map
    //!   right before p) plus insertion linear to the elements with bigger keys than x.
    //!
    //! <b>Note</b>: If an element is inserted it might invalidate elements.
-   iterator insert(const_iterator position, const value_type& x)
+   iterator insert(const_iterator p, const value_type& x)
    {
       return container_detail::force_copy<iterator>(
-         m_flat_tree.insert_unique( container_detail::force_copy<impl_const_iterator>(position)
+         m_flat_tree.insert_unique( container_detail::force_copy<impl_const_iterator>(p)
                                   , container_detail::force<impl_value_type>(x)));
    }
 
@@ -674,10 +782,10 @@ class flat_map
    //!   right before p) plus insertion linear to the elements with bigger keys than x.
    //!
    //! <b>Note</b>: If an element is inserted it might invalidate elements.
-   iterator insert(const_iterator position, BOOST_RV_REF(value_type) x)
+   iterator insert(const_iterator p, BOOST_RV_REF(value_type) x)
    {
       return container_detail::force_copy<iterator>
-         (m_flat_tree.insert_unique( container_detail::force_copy<impl_const_iterator>(position)
+         (m_flat_tree.insert_unique( container_detail::force_copy<impl_const_iterator>(p)
                                    , boost::move(container_detail::force<impl_value_type>(x))));
    }
 
@@ -690,10 +798,10 @@ class flat_map
    //!   right before p) plus insertion linear to the elements with bigger keys than x.
    //!
    //! <b>Note</b>: If an element is inserted it might invalidate elements.
-   iterator insert(const_iterator position, BOOST_RV_REF(movable_value_type) x)
+   iterator insert(const_iterator p, BOOST_RV_REF(movable_value_type) x)
    {
       return container_detail::force_copy<iterator>(
-         m_flat_tree.insert_unique(container_detail::force_copy<impl_const_iterator>(position), boost::move(x)));
+         m_flat_tree.insert_unique(container_detail::force_copy<impl_const_iterator>(p), boost::move(x)));
    }
 
    //! <b>Requires</b>: first, last are not iterators into *this.
@@ -728,20 +836,48 @@ class flat_map
    void insert(ordered_unique_range_t, InputIterator first, InputIterator last)
       {  m_flat_tree.insert_unique(ordered_unique_range, first, last); }
 
-   //! <b>Effects</b>: Erases the element pointed to by position.
+#if !defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST)
+   //! <b>Effects</b>: inserts each element from the range [il.begin(), il.end()) if and only
+   //!   if there is no element with key equivalent to the key of that element.
+   //!
+   //! <b>Complexity</b>: At most N log(size()+N) (N is the distance from il.first() to il.end())
+   //!   search time plus N*size() insertion time.
+   //!
+   //! <b>Note</b>: If an element is inserted it might invalidate elements.
+   void insert(std::initializer_list<value_type> il)
+   {  m_flat_tree.insert_unique(il.begin(), il.end());  }
+
+   //! <b>Requires</b>: [il.begin(), il.end()) must be ordered according to the predicate and must be
+   //! unique values.
+   //!
+   //! <b>Effects</b>: inserts each element from the range [il.begin(), il.end()) if and only
+   //!   if there is no element with key equivalent to the key of that element. This
+   //!   function is more efficient than the normal range creation for ordered ranges.
+   //!
+   //! <b>Complexity</b>: At most N log(size()+N) (N is the distance from first to last)
+   //!   search time plus N*size() insertion time.
+   //!
+   //! <b>Note</b>: If an element is inserted it might invalidate elements.
+   //!
+   //! <b>Note</b>: Non-standard extension.
+   void insert(ordered_unique_range_t, std::initializer_list<value_type> il)
+   {  m_flat_tree.insert_unique(ordered_unique_range, il.begin(), il.end()); }
+#endif
+
+   //! <b>Effects</b>: Erases the element pointed to by p.
    //!
    //! <b>Returns</b>: Returns an iterator pointing to the element immediately
    //!   following q prior to the element being erased. If no such element exists,
    //!   returns end().
    //!
-   //! <b>Complexity</b>: Linear to the elements with keys bigger than position
+   //! <b>Complexity</b>: Linear to the elements with keys bigger than p
    //!
    //! <b>Note</b>: Invalidates elements with keys
    //!   not less than the erased element.
-   iterator erase(const_iterator position)
+   iterator erase(const_iterator p)
    {
       return container_detail::force_copy<iterator>
-         (m_flat_tree.erase(container_detail::force_copy<impl_const_iterator>(position)));
+         (m_flat_tree.erase(container_detail::force_copy<impl_const_iterator>(p)));
    }
 
    //! <b>Effects</b>: Erases all elements in the container with key equivalent to x.
@@ -774,6 +910,8 @@ class flat_map
    //!
    //! <b>Complexity</b>: Constant.
    void swap(flat_map& x)
+      BOOST_NOEXCEPT_IF(  allocator_traits_type::is_always_equal::value
+                                 && boost::container::container_detail::is_nothrow_swappable<Compare>::value )
    { m_flat_tree.swap(x.m_flat_tree); }
 
    //! <b>Effects</b>: erase(a.begin(),a.end()).
@@ -781,7 +919,7 @@ class flat_map
    //! <b>Postcondition</b>: size() == 0.
    //!
    //! <b>Complexity</b>: linear in size().
-   void clear() BOOST_CONTAINER_NOEXCEPT
+   void clear() BOOST_NOEXCEPT_OR_NOTHROW
       { m_flat_tree.clear(); }
 
    //////////////////////////////////////////////
@@ -817,7 +955,7 @@ class flat_map
    iterator find(const key_type& x)
       { return container_detail::force_copy<iterator>(m_flat_tree.find(x)); }
 
-   //! <b>Returns</b>: Allocator const_iterator pointing to an element with the key
+   //! <b>Returns</b>: A const_iterator pointing to an element with the key
    //!   equivalent to x, or end() if such an element is not found.
    //!
    //! <b>Complexity</b>: Logarithmic.s
@@ -837,7 +975,7 @@ class flat_map
    iterator lower_bound(const key_type& x)
       {  return container_detail::force_copy<iterator>(m_flat_tree.lower_bound(x)); }
 
-   //! <b>Returns</b>: Allocator const iterator pointing to the first element with key not
+   //! <b>Returns</b>: A const iterator pointing to the first element with key not
    //!   less than k, or a.end() if such an element is not found.
    //!
    //! <b>Complexity</b>: Logarithmic
@@ -851,7 +989,7 @@ class flat_map
    iterator upper_bound(const key_type& x)
       {  return container_detail::force_copy<iterator>(m_flat_tree.upper_bound(x)); }
 
-   //! <b>Returns</b>: Allocator const iterator pointing to the first element with key not
+   //! <b>Returns</b>: A const iterator pointing to the first element with key not
    //!   less than x, or end() if such an element is not found.
    //!
    //! <b>Complexity</b>: Logarithmic
@@ -874,7 +1012,7 @@ class flat_map
    //!
    //! <b>Complexity</b>: Linear to the number of elements in the container.
    friend bool operator==(const flat_map& x, const flat_map& y)
-   {  return x.size() == y.size() && std::equal(x.begin(), x.end(), y.begin());  }
+   {  return x.size() == y.size() && ::boost::container::algo_equal(x.begin(), x.end(), y.begin());  }
 
    //! <b>Effects</b>: Returns true if x and y are unequal
    //!
@@ -886,7 +1024,7 @@ class flat_map
    //!
    //! <b>Complexity</b>: Linear to the number of elements in the container.
    friend bool operator<(const flat_map& x, const flat_map& y)
-   {  return std::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());  }
+   {  return ::boost::container::algo_lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());  }
 
    //! <b>Effects</b>: Returns true if x is greater than y
    //!
@@ -944,10 +1082,13 @@ class flat_map
 
 //!has_trivial_destructor_after_move<> == true_type
 //!specialization for optimizations
-template <class K, class T, class C, class Allocator>
-struct has_trivial_destructor_after_move<boost::container::flat_map<K, T, C, Allocator> >
+template <class Key, class T, class Compare, class Allocator>
+struct has_trivial_destructor_after_move<boost::container::flat_map<Key, T, Compare, Allocator> >
 {
-   static const bool value = has_trivial_destructor_after_move<Allocator>::value && has_trivial_destructor_after_move<C>::value;
+   typedef typename ::boost::container::allocator_traits<Allocator>::pointer pointer;
+   static const bool value = ::boost::has_trivial_destructor_after_move<Allocator>::value &&
+                             ::boost::has_trivial_destructor_after_move<pointer>::value &&
+                             ::boost::has_trivial_destructor_after_move<Compare>::value;
 };
 
 namespace container {
@@ -984,7 +1125,7 @@ namespace container {
 //! \tparam Allocator is the allocator to allocate the <code>value_type</code>s
 //!   (e.g. <i>allocator< std::pair<Key, T> > </i>).
 #ifdef BOOST_CONTAINER_DOXYGEN_INVOKED
-template <class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator< std::pair< Key, T> > >
+template <class Key, class T, class Compare = std::less<Key>, class Allocator = new_allocator< std::pair< Key, T> > >
 #else
 template <class Key, class T, class Compare, class Allocator>
 #endif
@@ -1009,6 +1150,7 @@ class flat_multimap
 
    typedef typename impl_tree_t::value_type              impl_value_type;
    typedef typename impl_tree_t::const_iterator          impl_const_iterator;
+   typedef typename impl_tree_t::iterator                impl_iterator;
    typedef typename impl_tree_t::allocator_type          impl_allocator_type;
    typedef container_detail::flat_tree_value_compare
       < Compare
@@ -1022,6 +1164,9 @@ class flat_multimap
          <typename allocator_traits<Allocator>::pointer>::reverse_iterator          reverse_iterator_impl;
    typedef typename container_detail::get_flat_tree_iterators
          <typename allocator_traits<Allocator>::pointer>::const_reverse_iterator    const_reverse_iterator_impl;
+   public:
+   typedef typename impl_tree_t::stored_allocator_type   impl_stored_allocator_type;
+   private:
    #endif   //#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
 
    public:
@@ -1063,7 +1208,7 @@ class flat_multimap
    flat_multimap()
       : m_flat_tree()
    {
-      //Allocator type must be std::pair<CONST Key, T>
+      //A type must be std::pair<Key, T>
       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
    }
 
@@ -1075,7 +1220,7 @@ class flat_multimap
                           const allocator_type& a = allocator_type())
       : m_flat_tree(comp, container_detail::force<impl_allocator_type>(a))
    {
-      //Allocator type must be std::pair<CONST Key, T>
+      //A type must be std::pair<Key, T>
       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
    }
 
@@ -1085,7 +1230,7 @@ class flat_multimap
    explicit flat_multimap(const allocator_type& a)
       : m_flat_tree(container_detail::force<impl_allocator_type>(a))
    {
-      //Allocator type must be std::pair<CONST Key, T>
+      //A type must be std::pair<Key, T>
       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
    }
 
@@ -1100,7 +1245,20 @@ class flat_multimap
             const allocator_type& a = allocator_type())
       : m_flat_tree(false, first, last, comp, container_detail::force<impl_allocator_type>(a))
    {
-      //Allocator type must be std::pair<CONST Key, T>
+      //A type must be std::pair<Key, T>
+      BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
+   }
+
+   //! <b>Effects</b>: Constructs an empty flat_multimap using the specified
+   //!   allocator, and inserts elements from the range [first ,last ).
+   //!
+   //! <b>Complexity</b>: Linear in N if the range [first ,last ) is already sorted using
+   //! comp and otherwise N logN, where N is last - first.
+   template <class InputIterator>
+   flat_multimap(InputIterator first, InputIterator last, const allocator_type& a)
+      : m_flat_tree(false, first, last, Compare(), container_detail::force<impl_allocator_type>(a))
+   {
+      //A type must be std::pair<Key, T>
       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
    }
 
@@ -1119,9 +1277,52 @@ class flat_multimap
             const allocator_type& a = allocator_type())
       : m_flat_tree(ordered_range, first, last, comp, a)
    {
-      //Allocator type must be std::pair<CONST Key, T>
+      //A type must be std::pair<Key, T>
       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
    }
+
+#if !defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST)
+   //! <b>Effects</b>: Constructs an empty flat_map using the specified comparison object and
+   //! allocator, and inserts elements from the range [il.begin(), il.end()).
+   //!
+   //! <b>Complexity</b>: Linear in N if the range [il.begin(), il.end()) is already sorted using
+   //! comp and otherwise N logN, where N is last - first.
+   flat_multimap(std::initializer_list<value_type> il, const Compare& comp = Compare(), const allocator_type& a = allocator_type())
+      : m_flat_tree(false, il.begin(), il.end(), comp, container_detail::force<impl_allocator_type>(a))
+   {
+       //A type must be std::pair<Key, T>
+       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
+   }
+
+   //! <b>Effects</b>: Constructs an empty flat_map using the specified
+   //! allocator, and inserts elements from the range [il.begin(), il.end()).
+   //!
+   //! <b>Complexity</b>: Linear in N if the range [il.begin(), il.end()) is already sorted using
+   //! comp and otherwise N logN, where N is last - first.
+   flat_multimap(std::initializer_list<value_type> il, const allocator_type& a)
+      : m_flat_tree(false, il.begin(), il.end(), Compare(), container_detail::force<impl_allocator_type>(a))
+   {
+       //A type must be std::pair<Key, T>
+       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
+   }
+
+   //! <b>Effects</b>: Constructs an empty flat_multimap using the specified comparison object and
+   //! allocator, and inserts elements from the ordered range [il.begin(), il.end()). This function
+   //! is more efficient than the normal range creation for ordered ranges.
+   //!
+   //! <b>Requires</b>: [il.begin(), il.end()) must be ordered according to the predicate.
+   //!
+   //! <b>Complexity</b>: Linear in N.
+   //!
+   //! <b>Note</b>: Non-standard extension.
+   flat_multimap(ordered_range_t, std::initializer_list<value_type> il, const Compare& comp = Compare(),
+                 const allocator_type& a = allocator_type())
+      : m_flat_tree(ordered_range, il.begin(), il.end(), comp, a)
+   {
+       //A type must be std::pair<Key, T>
+       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
+   }
+#endif
 
    //! <b>Effects</b>: Copy constructs a flat_multimap.
    //!
@@ -1129,7 +1330,7 @@ class flat_multimap
    flat_multimap(const flat_multimap& x)
       : m_flat_tree(x.m_flat_tree)
    {
-      //Allocator type must be std::pair<CONST Key, T>
+      //A type must be std::pair<Key, T>
       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
    }
 
@@ -1141,7 +1342,7 @@ class flat_multimap
    flat_multimap(BOOST_RV_REF(flat_multimap) x)
       : m_flat_tree(boost::move(x.m_flat_tree))
    {
-      //Allocator type must be std::pair<CONST Key, T>
+      //A type must be std::pair<Key, T>
       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
    }
 
@@ -1151,7 +1352,7 @@ class flat_multimap
    flat_multimap(const flat_multimap& x, const allocator_type &a)
       : m_flat_tree(x.m_flat_tree, a)
    {
-      //Allocator type must be std::pair<CONST Key, T>
+      //A type must be std::pair<Key, T>
       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
    }
 
@@ -1162,7 +1363,7 @@ class flat_multimap
    flat_multimap(BOOST_RV_REF(flat_multimap) x, const allocator_type &a)
       : m_flat_tree(boost::move(x.m_flat_tree), a)
    {
-      //Allocator type must be std::pair<CONST Key, T>
+      //A type must be std::pair<Key, T>
       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<Key, T>, typename Allocator::value_type>::value));
    }
 
@@ -1176,14 +1377,27 @@ class flat_multimap
    //!
    //! <b>Complexity</b>: Constant.
    flat_multimap& operator=(BOOST_RV_REF(flat_multimap) x)
-      BOOST_CONTAINER_NOEXCEPT_IF(allocator_traits_type::propagate_on_container_move_assignment::value)
+      BOOST_NOEXCEPT_IF(  allocator_traits_type::is_always_equal::value
+                                 && boost::container::container_detail::is_nothrow_move_assignable<Compare>::value )
       {  m_flat_tree = boost::move(x.m_flat_tree);   return *this;  }
 
-   //! <b>Effects</b>: Returns a copy of the Allocator that
+#if !defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST)
+   //! <b>Effects</b>: Assign content of il to *this
+   //!
+   //! <b>Complexity</b>: Linear in il.size().
+   flat_multimap& operator=(std::initializer_list<value_type> il)
+   {
+      this->clear();
+      this->insert(il.begin(), il.end());
+      return *this;
+   }
+#endif
+
+   //! <b>Effects</b>: Returns a copy of the allocator that
    //!   was passed to the object's constructor.
    //!
    //! <b>Complexity</b>: Constant.
-   allocator_type get_allocator() const BOOST_CONTAINER_NOEXCEPT
+   allocator_type get_allocator() const BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<allocator_type>(m_flat_tree.get_allocator()); }
 
    //! <b>Effects</b>: Returns a reference to the internal allocator.
@@ -1193,7 +1407,7 @@ class flat_multimap
    //! <b>Complexity</b>: Constant.
    //!
    //! <b>Note</b>: Non-standard extension.
-   stored_allocator_type &get_stored_allocator() BOOST_CONTAINER_NOEXCEPT
+   stored_allocator_type &get_stored_allocator() BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force<stored_allocator_type>(m_flat_tree.get_stored_allocator()); }
 
    //! <b>Effects</b>: Returns a reference to the internal allocator.
@@ -1203,7 +1417,7 @@ class flat_multimap
    //! <b>Complexity</b>: Constant.
    //!
    //! <b>Note</b>: Non-standard extension.
-   const stored_allocator_type &get_stored_allocator() const BOOST_CONTAINER_NOEXCEPT
+   const stored_allocator_type &get_stored_allocator() const BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force<stored_allocator_type>(m_flat_tree.get_stored_allocator()); }
 
    //////////////////////////////////////////////
@@ -1217,7 +1431,7 @@ class flat_multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   iterator begin() BOOST_CONTAINER_NOEXCEPT
+   iterator begin() BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<iterator>(m_flat_tree.begin()); }
 
    //! <b>Effects</b>: Returns a const_iterator to the first element contained in the container.
@@ -1225,7 +1439,7 @@ class flat_multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_iterator begin() const BOOST_CONTAINER_NOEXCEPT
+   const_iterator begin() const BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<const_iterator>(m_flat_tree.begin()); }
 
    //! <b>Effects</b>: Returns an iterator to the end of the container.
@@ -1233,7 +1447,7 @@ class flat_multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   iterator end() BOOST_CONTAINER_NOEXCEPT
+   iterator end() BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<iterator>(m_flat_tree.end()); }
 
    //! <b>Effects</b>: Returns a const_iterator to the end of the container.
@@ -1241,7 +1455,7 @@ class flat_multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_iterator end() const BOOST_CONTAINER_NOEXCEPT
+   const_iterator end() const BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<const_iterator>(m_flat_tree.end()); }
 
    //! <b>Effects</b>: Returns a reverse_iterator pointing to the beginning
@@ -1250,7 +1464,7 @@ class flat_multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   reverse_iterator rbegin() BOOST_CONTAINER_NOEXCEPT
+   reverse_iterator rbegin() BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<reverse_iterator>(m_flat_tree.rbegin()); }
 
    //! <b>Effects</b>: Returns a const_reverse_iterator pointing to the beginning
@@ -1259,7 +1473,7 @@ class flat_multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reverse_iterator rbegin() const BOOST_CONTAINER_NOEXCEPT
+   const_reverse_iterator rbegin() const BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<const_reverse_iterator>(m_flat_tree.rbegin()); }
 
    //! <b>Effects</b>: Returns a reverse_iterator pointing to the end
@@ -1268,7 +1482,7 @@ class flat_multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   reverse_iterator rend() BOOST_CONTAINER_NOEXCEPT
+   reverse_iterator rend() BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<reverse_iterator>(m_flat_tree.rend()); }
 
    //! <b>Effects</b>: Returns a const_reverse_iterator pointing to the end
@@ -1277,7 +1491,7 @@ class flat_multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reverse_iterator rend() const BOOST_CONTAINER_NOEXCEPT
+   const_reverse_iterator rend() const BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<const_reverse_iterator>(m_flat_tree.rend()); }
 
    //! <b>Effects</b>: Returns a const_iterator to the first element contained in the container.
@@ -1285,7 +1499,7 @@ class flat_multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_iterator cbegin() const BOOST_CONTAINER_NOEXCEPT
+   const_iterator cbegin() const BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<const_iterator>(m_flat_tree.cbegin()); }
 
    //! <b>Effects</b>: Returns a const_iterator to the end of the container.
@@ -1293,7 +1507,7 @@ class flat_multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_iterator cend() const BOOST_CONTAINER_NOEXCEPT
+   const_iterator cend() const BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<const_iterator>(m_flat_tree.cend()); }
 
    //! <b>Effects</b>: Returns a const_reverse_iterator pointing to the beginning
@@ -1302,7 +1516,7 @@ class flat_multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reverse_iterator crbegin() const BOOST_CONTAINER_NOEXCEPT
+   const_reverse_iterator crbegin() const BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<const_reverse_iterator>(m_flat_tree.crbegin()); }
 
    //! <b>Effects</b>: Returns a const_reverse_iterator pointing to the end
@@ -1311,7 +1525,7 @@ class flat_multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reverse_iterator crend() const BOOST_CONTAINER_NOEXCEPT
+   const_reverse_iterator crend() const BOOST_NOEXCEPT_OR_NOTHROW
       { return container_detail::force_copy<const_reverse_iterator>(m_flat_tree.crend()); }
 
    //////////////////////////////////////////////
@@ -1325,7 +1539,7 @@ class flat_multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   bool empty() const BOOST_CONTAINER_NOEXCEPT
+   bool empty() const BOOST_NOEXCEPT_OR_NOTHROW
       { return m_flat_tree.empty(); }
 
    //! <b>Effects</b>: Returns the number of the elements contained in the container.
@@ -1333,7 +1547,7 @@ class flat_multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   size_type size() const BOOST_CONTAINER_NOEXCEPT
+   size_type size() const BOOST_NOEXCEPT_OR_NOTHROW
       { return m_flat_tree.size(); }
 
    //! <b>Effects</b>: Returns the largest possible size of the container.
@@ -1341,7 +1555,7 @@ class flat_multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   size_type max_size() const BOOST_CONTAINER_NOEXCEPT
+   size_type max_size() const BOOST_NOEXCEPT_OR_NOTHROW
       { return m_flat_tree.max_size(); }
 
    //! <b>Effects</b>: Number of elements for which memory has been allocated.
@@ -1350,7 +1564,7 @@ class flat_multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   size_type capacity() const BOOST_CONTAINER_NOEXCEPT
+   size_type capacity() const BOOST_NOEXCEPT_OR_NOTHROW
       { return m_flat_tree.capacity(); }
 
    //! <b>Effects</b>: If n is less than or equal to capacity(), this call has no
@@ -1374,13 +1588,23 @@ class flat_multimap
    void shrink_to_fit()
       { m_flat_tree.shrink_to_fit(); }
 
-   //////////////////////////////////////////////
-   //
-   //                modifiers
-   //
-   //////////////////////////////////////////////
+   //! @copydoc ::boost::container::flat_set::nth(size_type)
+   iterator nth(size_type n) BOOST_NOEXCEPT_OR_NOTHROW
+   {  return container_detail::force_copy<iterator>(m_flat_tree.nth(n));  }
 
-   #if defined(BOOST_CONTAINER_PERFECT_FORWARDING) || defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
+   //! @copydoc ::boost::container::flat_set::nth(size_type) const
+   const_iterator nth(size_type n) const BOOST_NOEXCEPT_OR_NOTHROW
+   {  return container_detail::force_copy<iterator>(m_flat_tree.nth(n));  }
+
+   //! @copydoc ::boost::container::flat_set::index_of(iterator)
+   size_type index_of(iterator p) BOOST_NOEXCEPT_OR_NOTHROW
+   {  return m_flat_tree.index_of(container_detail::force_copy<impl_iterator>(p));  }
+
+   //! @copydoc ::boost::container::flat_set::index_of(const_iterator) const
+   size_type index_of(const_iterator p) const BOOST_NOEXCEPT_OR_NOTHROW
+   {  return m_flat_tree.index_of(container_detail::force_copy<impl_const_iterator>(p));  }
+
+   #if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) || defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
 
    //! <b>Effects</b>: Inserts an object of type T constructed with
    //!   std::forward<Args>(args)... and returns the iterator pointing to the
@@ -1391,7 +1615,7 @@ class flat_multimap
    //!
    //! <b>Note</b>: If an element is inserted it might invalidate elements.
    template <class... Args>
-   iterator emplace(Args&&... args)
+   iterator emplace(BOOST_FWD_REF(Args)... args)
    {  return container_detail::force_copy<iterator>(m_flat_tree.emplace_equal(boost::forward<Args>(args)...)); }
 
    //! <b>Effects</b>: Inserts an object of type T constructed with
@@ -1407,31 +1631,30 @@ class flat_multimap
    //!
    //! <b>Note</b>: If an element is inserted it might invalidate elements.
    template <class... Args>
-   iterator emplace_hint(const_iterator hint, Args&&... args)
+   iterator emplace_hint(const_iterator hint, BOOST_FWD_REF(Args)... args)
    {
       return container_detail::force_copy<iterator>(m_flat_tree.emplace_hint_equal
          (container_detail::force_copy<impl_const_iterator>(hint), boost::forward<Args>(args)...));
    }
 
-   #else //#ifdef BOOST_CONTAINER_PERFECT_FORWARDING
+   #else // !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
 
-   #define BOOST_PP_LOCAL_MACRO(n)                                                                 \
-   BOOST_PP_EXPR_IF(n, template<) BOOST_PP_ENUM_PARAMS(n, class P) BOOST_PP_EXPR_IF(n, >)          \
-   iterator emplace(BOOST_PP_ENUM(n, BOOST_CONTAINER_PP_PARAM_LIST, _))                            \
-   {  return container_detail::force_copy<iterator>(m_flat_tree.emplace_equal                      \
-               (BOOST_PP_ENUM(n, BOOST_CONTAINER_PP_PARAM_FORWARD, _))); }                         \
-                                                                                                   \
-   BOOST_PP_EXPR_IF(n, template<) BOOST_PP_ENUM_PARAMS(n, class P) BOOST_PP_EXPR_IF(n, >)          \
-   iterator emplace_hint(const_iterator hint                                                       \
-                         BOOST_PP_ENUM_TRAILING(n, BOOST_CONTAINER_PP_PARAM_LIST, _))              \
-   {  return container_detail::force_copy<iterator>(m_flat_tree.emplace_hint_equal                 \
-            (container_detail::force_copy<impl_const_iterator>(hint)                               \
-               BOOST_PP_ENUM_TRAILING(n, BOOST_CONTAINER_PP_PARAM_FORWARD, _))); }                 \
-   //!
-   #define BOOST_PP_LOCAL_LIMITS (0, BOOST_CONTAINER_MAX_CONSTRUCTOR_PARAMETERS)
-   #include BOOST_PP_LOCAL_ITERATE()
+   #define BOOST_CONTAINER_FLAT_MULTIMAP_EMPLACE_CODE(N) \
+   BOOST_MOVE_TMPL_LT##N BOOST_MOVE_CLASS##N BOOST_MOVE_GT##N \
+   iterator emplace(BOOST_MOVE_UREF##N)\
+   {  return container_detail::force_copy<iterator>(m_flat_tree.emplace_equal(BOOST_MOVE_FWD##N));  }\
+   \
+   BOOST_MOVE_TMPL_LT##N BOOST_MOVE_CLASS##N BOOST_MOVE_GT##N \
+   iterator emplace_hint(const_iterator hint BOOST_MOVE_I##N BOOST_MOVE_UREF##N)\
+   {\
+      return container_detail::force_copy<iterator>(m_flat_tree.emplace_hint_equal\
+         (container_detail::force_copy<impl_const_iterator>(hint) BOOST_MOVE_I##N BOOST_MOVE_FWD##N));\
+   }\
+   //
+   BOOST_MOVE_ITERATE_0TO9(BOOST_CONTAINER_FLAT_MULTIMAP_EMPLACE_CODE)
+   #undef BOOST_CONTAINER_FLAT_MULTIMAP_EMPLACE_CODE
 
-   #endif   //#ifdef BOOST_CONTAINER_PERFECT_FORWARDING
+   #endif   // !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
 
    //! <b>Effects</b>: Inserts x and returns the iterator pointing to the
    //!   newly inserted element.
@@ -1477,10 +1700,10 @@ class flat_multimap
    //!   to the elements with bigger keys than x.
    //!
    //! <b>Note</b>: If an element is inserted it might invalidate elements.
-   iterator insert(const_iterator position, const value_type& x)
+   iterator insert(const_iterator p, const value_type& x)
    {
       return container_detail::force_copy<iterator>
-         (m_flat_tree.insert_equal( container_detail::force_copy<impl_const_iterator>(position)
+         (m_flat_tree.insert_equal( container_detail::force_copy<impl_const_iterator>(p)
                                   , container_detail::force<impl_value_type>(x)));
    }
 
@@ -1495,10 +1718,10 @@ class flat_multimap
    //!   to the elements with bigger keys than x.
    //!
    //! <b>Note</b>: If an element is inserted it might invalidate elements.
-   iterator insert(const_iterator position, BOOST_RV_REF(value_type) x)
+   iterator insert(const_iterator p, BOOST_RV_REF(value_type) x)
    {
       return container_detail::force_copy<iterator>
-         (m_flat_tree.insert_equal(container_detail::force_copy<impl_const_iterator>(position)
+         (m_flat_tree.insert_equal(container_detail::force_copy<impl_const_iterator>(p)
                                   , boost::move(x)));
    }
 
@@ -1513,10 +1736,10 @@ class flat_multimap
    //!   to the elements with bigger keys than x.
    //!
    //! <b>Note</b>: If an element is inserted it might invalidate elements.
-   iterator insert(const_iterator position, BOOST_RV_REF(impl_value_type) x)
+   iterator insert(const_iterator p, BOOST_RV_REF(impl_value_type) x)
    {
       return container_detail::force_copy<iterator>(
-         m_flat_tree.insert_equal(container_detail::force_copy<impl_const_iterator>(position), boost::move(x)));
+         m_flat_tree.insert_equal(container_detail::force_copy<impl_const_iterator>(p), boost::move(x)));
    }
 
    //! <b>Requires</b>: first, last are not iterators into *this.
@@ -1549,20 +1772,46 @@ class flat_multimap
    void insert(ordered_range_t, InputIterator first, InputIterator last)
       {  m_flat_tree.insert_equal(ordered_range, first, last); }
 
-   //! <b>Effects</b>: Erases the element pointed to by position.
+#if !defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST)
+   //! <b>Effects</b>: inserts each element from the range [il.begin(), il.end()) .
+   //!
+   //! <b>Complexity</b>: At most N log(size()+N) (N is the distance from first to last)
+   //!   search time plus N*size() insertion time.
+   //!
+   //! <b>Note</b>: If an element is inserted it might invalidate elements.
+   void insert(std::initializer_list<value_type> il)
+   {  m_flat_tree.insert_equal(il.begin(), il.end()); }
+
+   //! <b>Requires</b>: [il.begin(), il.end()) must be ordered according to the predicate.
+   //!
+   //! <b>Effects</b>: inserts each element from the range [il.begin(), il.end()) if and only
+   //!   if there is no element with key equivalent to the key of that element. This
+   //!   function is more efficient than the normal range creation for ordered ranges.
+   //!
+   //! <b>Complexity</b>: At most N log(size()+N) (N is the distance from first to last)
+   //!   search time plus N*size() insertion time.
+   //!
+   //! <b>Note</b>: If an element is inserted it might invalidate elements.
+   //!
+   //! <b>Note</b>: Non-standard extension.
+   void insert(ordered_range_t, std::initializer_list<value_type> il)
+   {  m_flat_tree.insert_equal(ordered_range, il.begin(), il.end());  }
+#endif
+
+   //! <b>Effects</b>: Erases the element pointed to by p.
    //!
    //! <b>Returns</b>: Returns an iterator pointing to the element immediately
    //!   following q prior to the element being erased. If no such element exists,
    //!   returns end().
    //!
-   //! <b>Complexity</b>: Linear to the elements with keys bigger than position
+   //! <b>Complexity</b>: Linear to the elements with keys bigger than p
    //!
    //! <b>Note</b>: Invalidates elements with keys
    //!   not less than the erased element.
-   iterator erase(const_iterator position)
+   iterator erase(const_iterator p)
    {
       return container_detail::force_copy<iterator>(
-         m_flat_tree.erase(container_detail::force_copy<impl_const_iterator>(position)));
+         m_flat_tree.erase(container_detail::force_copy<impl_const_iterator>(p)));
    }
 
    //! <b>Effects</b>: Erases all elements in the container with key equivalent to x.
@@ -1595,6 +1844,8 @@ class flat_multimap
    //!
    //! <b>Complexity</b>: Constant.
    void swap(flat_multimap& x)
+      BOOST_NOEXCEPT_IF(  allocator_traits_type::is_always_equal::value
+                                 && boost::container::container_detail::is_nothrow_swappable<Compare>::value )
    { m_flat_tree.swap(x.m_flat_tree); }
 
    //! <b>Effects</b>: erase(a.begin(),a.end()).
@@ -1602,7 +1853,7 @@ class flat_multimap
    //! <b>Postcondition</b>: size() == 0.
    //!
    //! <b>Complexity</b>: linear in size().
-   void clear() BOOST_CONTAINER_NOEXCEPT
+   void clear() BOOST_NOEXCEPT_OR_NOTHROW
       { m_flat_tree.clear(); }
 
    //////////////////////////////////////////////
@@ -1658,7 +1909,7 @@ class flat_multimap
    iterator lower_bound(const key_type& x)
       {  return container_detail::force_copy<iterator>(m_flat_tree.lower_bound(x)); }
 
-   //! <b>Returns</b>: Allocator const iterator pointing to the first element with key
+   //! <b>Returns</b>: A const iterator pointing to the first element with key
    //!   not less than k, or a.end() if such an element is not found.
    //!
    //! <b>Complexity</b>: Logarithmic
@@ -1672,7 +1923,7 @@ class flat_multimap
    iterator upper_bound(const key_type& x)
       {return container_detail::force_copy<iterator>(m_flat_tree.upper_bound(x)); }
 
-   //! <b>Returns</b>: Allocator const iterator pointing to the first element with key
+   //! <b>Returns</b>: A const iterator pointing to the first element with key
    //!   not less than x, or end() if such an element is not found.
    //!
    //! <b>Complexity</b>: Logarithmic
@@ -1695,7 +1946,7 @@ class flat_multimap
    //!
    //! <b>Complexity</b>: Linear to the number of elements in the container.
    friend bool operator==(const flat_multimap& x, const flat_multimap& y)
-   {  return x.size() == y.size() && std::equal(x.begin(), x.end(), y.begin());  }
+   {  return x.size() == y.size() && ::boost::container::algo_equal(x.begin(), x.end(), y.begin());  }
 
    //! <b>Effects</b>: Returns true if x and y are unequal
    //!
@@ -1707,7 +1958,7 @@ class flat_multimap
    //!
    //! <b>Complexity</b>: Linear to the number of elements in the container.
    friend bool operator<(const flat_multimap& x, const flat_multimap& y)
-   {  return std::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());  }
+   {  return ::boost::container::algo_lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());  }
 
    //! <b>Effects</b>: Returns true if x is greater than y
    //!
@@ -1742,10 +1993,13 @@ namespace boost {
 
 //!has_trivial_destructor_after_move<> == true_type
 //!specialization for optimizations
-template <class K, class T, class C, class Allocator>
-struct has_trivial_destructor_after_move< boost::container::flat_multimap<K, T, C, Allocator> >
+template <class Key, class T, class Compare, class Allocator>
+struct has_trivial_destructor_after_move< boost::container::flat_multimap<Key, T, Compare, Allocator> >
 {
-   static const bool value = has_trivial_destructor_after_move<Allocator>::value && has_trivial_destructor_after_move<C>::value;
+   typedef typename ::boost::container::allocator_traits<Allocator>::pointer pointer;
+   static const bool value = ::boost::has_trivial_destructor_after_move<Allocator>::value &&
+                             ::boost::has_trivial_destructor_after_move<pointer>::value &&
+                             ::boost::has_trivial_destructor_after_move<Compare>::value;
 };
 
 }  //namespace boost {
@@ -1754,4 +2008,4 @@ struct has_trivial_destructor_after_move< boost::container::flat_multimap<K, T, 
 
 #include <boost/container/detail/config_end.hpp>
 
-#endif /* BOOST_CONTAINER_FLAT_MAP_HPP */
+#endif   // BOOST_CONTAINER_FLAT_MAP_HPP

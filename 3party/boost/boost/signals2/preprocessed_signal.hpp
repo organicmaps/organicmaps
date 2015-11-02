@@ -22,6 +22,8 @@
 #include <boost/preprocessor/repetition.hpp>
 #include <boost/signals2/detail/preprocessed_arg_type.hpp>
 #include <boost/type_traits/add_reference.hpp>
+#include <boost/type_traits/is_void.hpp>
+#include <boost/utility/enable_if.hpp>
 
 #define BOOST_PP_ITERATION_LIMITS (0, BOOST_SIGNALS2_MAX_ARGS)
 #define BOOST_PP_FILENAME_1 <boost/signals2/detail/signal_template.hpp>

@@ -2,7 +2,7 @@
 // detail/impl/win_iocp_socket_service_base.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2015 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -671,6 +671,11 @@ win_iocp_socket_service_base::connect_ex_fn
 win_iocp_socket_service_base::get_connect_ex(
     win_iocp_socket_service_base::base_implementation_type& impl, int type)
 {
+#if defined(BOOST_ASIO_DISABLE_CONNECTEX)
+  (void)impl;
+  (void)type;
+  return 0;
+#else // defined(BOOST_ASIO_DISABLE_CONNECTEX)
   if (type != BOOST_ASIO_OS_DEF(SOCK_STREAM)
       && type != BOOST_ASIO_OS_DEF(SOCK_SEQPACKET))
     return 0;
@@ -694,6 +699,7 @@ win_iocp_socket_service_base::get_connect_ex(
   }
 
   return reinterpret_cast<connect_ex_fn>(ptr == this ? 0 : ptr);
+#endif // defined(BOOST_ASIO_DISABLE_CONNECTEX)
 }
 
 void* win_iocp_socket_service_base::interlocked_compare_exchange_pointer(

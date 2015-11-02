@@ -11,6 +11,14 @@
 #ifndef BOOST_INTERPROCESS_XSI_SHARED_MEMORY_FILE_WRAPPER_HPP
 #define BOOST_INTERPROCESS_XSI_SHARED_MEMORY_FILE_WRAPPER_HPP
 
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
 #include <boost/detail/workaround.hpp>
@@ -38,22 +46,22 @@ namespace interprocess {
 class xsi_shared_memory_file_wrapper
    : public xsi_shared_memory
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    BOOST_MOVABLE_BUT_NOT_COPYABLE(xsi_shared_memory_file_wrapper)
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
    public:
 
    xsi_shared_memory_file_wrapper() : xsi_shared_memory() {}
 
-   xsi_shared_memory_file_wrapper(create_only_t, const xsi_key &key, mode_t mode, std::size_t size, const permissions& perm = permissions())
+   xsi_shared_memory_file_wrapper(create_only_t, const xsi_key &key, mode_t , std::size_t size, const permissions& perm = permissions())
       : xsi_shared_memory(create_only_t(), key, size, perm.get_permissions())
    {}
 
-   xsi_shared_memory_file_wrapper(open_or_create_t, const xsi_key &key, mode_t mode, std::size_t size, const permissions& perm = permissions())
+   xsi_shared_memory_file_wrapper(open_or_create_t, const xsi_key &key, mode_t , std::size_t size, const permissions& perm = permissions())
       : xsi_shared_memory(open_or_create_t(), key, size, perm.get_permissions())
    {}
 
-   xsi_shared_memory_file_wrapper(open_only_t, const xsi_key &key, mode_t mode, const permissions& perm = permissions())
+   xsi_shared_memory_file_wrapper(open_only_t, const xsi_key &key, mode_t, const permissions& = permissions())
       : xsi_shared_memory(open_only_t(), key)
    {}
 

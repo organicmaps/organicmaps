@@ -14,7 +14,6 @@ namespace boost { namespace python { namespace converter {
 
 struct registration;
 
-# ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 template <class T>
 struct registered_pointee
     : registered<
@@ -26,37 +25,6 @@ struct registered_pointee
     >
 {
 };
-# else
-namespace detail
-{
-  template <class T>
-  struct registered_pointee_base
-  {
-      static registration const& converters;
-  };
-}
-
-template <class T>
-struct registered_pointee
-    : detail::registered_pointee_base<
-        typename add_reference<
-           typename add_cv<T>::type
-        >::type
-    >
-{
-};
-
-//
-// implementations
-//
-namespace detail
-{
-  template <class T>
-  registration const& registered_pointee_base<T>::converters
-     = registry::lookup(pointer_type_id<T>());
-}
-
-# endif 
 }}} // namespace boost::python::converter
 
 #endif // REGISTERED_POINTEE_DWA2002710_HPP

@@ -6,7 +6,7 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2011-2013. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2011-2014. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -17,24 +17,53 @@
 #ifndef BOOST_INTRUSIVE_POINTER_TRAITS_HPP
 #define BOOST_INTRUSIVE_POINTER_TRAITS_HPP
 
-#if defined(_MSC_VER)
-#  pragma once
-#endif
-
 #include <boost/intrusive/detail/config_begin.hpp>
-#include <boost/intrusive/intrusive_fwd.hpp>
 #include <boost/intrusive/detail/workaround.hpp>
-#include <boost/intrusive/detail/memory_util.hpp>
+#include <boost/intrusive/pointer_rebind.hpp>
+#include <boost/intrusive/detail/pointer_element.hpp>
 #include <boost/intrusive/detail/mpl.hpp>
 #include <cstddef>
 
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 namespace boost {
 namespace intrusive {
+namespace detail {
+
+#if !defined(BOOST_MSVC) || (BOOST_MSVC > 1310)
+BOOST_INTRUSIVE_HAS_STATIC_MEMBER_FUNC_SIGNATURE(has_member_function_callable_with_pointer_to, pointer_to)
+BOOST_INTRUSIVE_HAS_STATIC_MEMBER_FUNC_SIGNATURE(has_member_function_callable_with_dynamic_cast_from, dynamic_cast_from)
+BOOST_INTRUSIVE_HAS_STATIC_MEMBER_FUNC_SIGNATURE(has_member_function_callable_with_static_cast_from, static_cast_from)
+BOOST_INTRUSIVE_HAS_STATIC_MEMBER_FUNC_SIGNATURE(has_member_function_callable_with_const_cast_from, const_cast_from)
+#else
+BOOST_INTRUSIVE_HAS_MEMBER_FUNC_CALLED_IGNORE_SIGNATURE(has_member_function_callable_with_pointer_to, pointer_to)
+BOOST_INTRUSIVE_HAS_MEMBER_FUNC_CALLED_IGNORE_SIGNATURE(has_member_function_callable_with_dynamic_cast_from, dynamic_cast_from)
+BOOST_INTRUSIVE_HAS_MEMBER_FUNC_CALLED_IGNORE_SIGNATURE(has_member_function_callable_with_static_cast_from, static_cast_from)
+BOOST_INTRUSIVE_HAS_MEMBER_FUNC_CALLED_IGNORE_SIGNATURE(has_member_function_callable_with_const_cast_from, const_cast_from)
+#endif
+
+BOOST_INTRUSIVE_INSTANTIATE_EVAL_DEFAULT_TYPE_TMPLT(element_type)
+BOOST_INTRUSIVE_INSTANTIATE_DEFAULT_TYPE_TMPLT(difference_type)
+BOOST_INTRUSIVE_INSTANTIATE_DEFAULT_TYPE_TMPLT(reference)
+BOOST_INTRUSIVE_INSTANTIATE_DEFAULT_TYPE_TMPLT(value_traits_ptr)
+
+}  //namespace detail {
+
 
 //! pointer_traits is the implementation of C++11 std::pointer_traits class with some
 //! extensions like castings.
 //!
 //! pointer_traits supplies a uniform interface to certain attributes of pointer-like types.
+//!
+//! <b>Note</b>: When defining a custom family of pointers or references to be used with BI
+//! library, make sure the public static conversion functions accessed through
+//! the `pointer_traits` interface (`*_cast_from` and `pointer_to`) can
+//! properly convert between const and nonconst referred member types
+//! <b>without the use of implicit constructor calls</b>. It is suggested these
+//! conversions be implemented as function templates, where the template
+//! argument is the type of the object being converted from.
 template <typename Ptr>
 struct pointer_traits
 {
@@ -62,7 +91,7 @@ struct pointer_traits
 
       //!Ptr::reference if such a type exists (non-standard extension); otherwise, element_type &
       //!
-      typedef element_type &reference;
+      typedef unspecified_type reference;
    #else
       typedef Ptr                                                             pointer;
       //
@@ -78,70 +107,94 @@ struct pointer_traits
       //
       template <class U> struct rebind_pointer
       {
-         typedef typename boost::intrusive::detail::type_rebinder<Ptr, U>::type  type;
+         typedef typename boost::intrusive::pointer_rebind<Ptr, U>::type  type;
       };
 
       #if !defined(BOOST_NO_CXX11_TEMPLATE_ALIASES)
-         template <class U> using rebind = typename boost::intrusive::detail::type_rebinder<Ptr, U>::type;
+         template <class U> using rebind = typename boost::intrusive::pointer_rebind<Ptr, U>::type;
       #endif
    #endif   //#if !defined(BOOST_NO_CXX11_TEMPLATE_ALIASES)
 
    //! <b>Remark</b>: If element_type is (possibly cv-qualified) void, r type is unspecified; otherwise,
    //!   it is element_type &.
    //!
-   //! <b>Returns</b>: A dereferenceable pointer to r obtained by calling Ptr::pointer_to(r).
+   //! <b>Returns</b>: A dereferenceable pointer to r obtained by calling Ptr::pointer_to(reference).
    //!   Non-standard extension: If such function does not exist, returns pointer(addressof(r));
+   //!
+   //! <b>Note</b>: For non-conforming compilers only the existence of a member function called
+   //!   <code>pointer_to</code> is checked.
    static pointer pointer_to(reference r)
    {
       //Non-standard extension, it does not require Ptr::pointer_to. If not present
       //tries to converts &r to pointer.
       const bool value = boost::intrusive::detail::
          has_member_function_callable_with_pointer_to
-            <Ptr, reference>::value;
+            <Ptr, Ptr (*)(reference)>::value;
       boost::intrusive::detail::bool_<value> flag;
       return pointer_traits::priv_pointer_to(flag, r);
    }
 
    //! <b>Remark</b>: Non-standard extension.
    //!
-   //! <b>Returns</b>: A dereferenceable pointer to r obtained by calling Ptr::static_cast_from(r).
+   //! <b>Returns</b>: A dereferenceable pointer to r obtained by calling the static template function
+   //!   Ptr::static_cast_from(UPpr/const UPpr &).
    //!   If such function does not exist, returns pointer_to(static_cast<element_type&>(*uptr))
+   //!
+   //! <b>Note</b>: For non-conforming compilers only the existence of a member function called
+   //!   <code>static_cast_from</code> is checked.
    template<class UPtr>
    static pointer static_cast_from(const UPtr &uptr)
    {
+      typedef const UPtr &RefArg;
       const bool value = boost::intrusive::detail::
          has_member_function_callable_with_static_cast_from
-            <Ptr, const UPtr>::value;
-      boost::intrusive::detail::bool_<value> flag;
-      return pointer_traits::priv_static_cast_from(flag, uptr);
+            <pointer, pointer(*)(RefArg)>::value
+         || boost::intrusive::detail::
+               has_member_function_callable_with_static_cast_from
+                  <pointer, pointer(*)(UPtr)>::value;
+      return pointer_traits::priv_static_cast_from(boost::intrusive::detail::bool_<value>(), uptr);
    }
 
    //! <b>Remark</b>: Non-standard extension.
    //!
-   //! <b>Returns</b>: A dereferenceable pointer to r obtained by calling Ptr::const_cast_from(r).
+   //! <b>Returns</b>: A dereferenceable pointer to r obtained by calling the static template function
+   //!   Ptr::const_cast_from<UPtr>(UPpr/const UPpr &).
    //!   If such function does not exist, returns pointer_to(const_cast<element_type&>(*uptr))
+   //!
+   //! <b>Note</b>: For non-conforming compilers only the existence of a member function called
+   //!   <code>const_cast_from</code> is checked.
    template<class UPtr>
    static pointer const_cast_from(const UPtr &uptr)
    {
+      typedef const UPtr &RefArg;
       const bool value = boost::intrusive::detail::
          has_member_function_callable_with_const_cast_from
-            <Ptr, const UPtr>::value;
-      boost::intrusive::detail::bool_<value> flag;
-      return pointer_traits::priv_const_cast_from(flag, uptr);
+            <pointer, pointer(*)(RefArg)>::value
+         || boost::intrusive::detail::
+               has_member_function_callable_with_const_cast_from
+                  <pointer, pointer(*)(UPtr)>::value;
+      return pointer_traits::priv_const_cast_from(boost::intrusive::detail::bool_<value>(), uptr);
    }
 
    //! <b>Remark</b>: Non-standard extension.
    //!
-   //! <b>Returns</b>: A dereferenceable pointer to r obtained by calling Ptr::dynamic_cast_from(r).
+   //! <b>Returns</b>: A dereferenceable pointer to r obtained by calling the static template function
+   //!   Ptr::dynamic_cast_from<UPtr>(UPpr/const UPpr &).
    //!   If such function does not exist, returns pointer_to(*dynamic_cast<element_type*>(&*uptr))
+   //!
+   //! <b>Note</b>: For non-conforming compilers only the existence of a member function called
+   //!   <code>dynamic_cast_from</code> is checked.
    template<class UPtr>
    static pointer dynamic_cast_from(const UPtr &uptr)
    {
+      typedef const UPtr &RefArg;
       const bool value = boost::intrusive::detail::
          has_member_function_callable_with_dynamic_cast_from
-            <Ptr, const UPtr>::value;
-      boost::intrusive::detail::bool_<value> flag;
-      return pointer_traits::priv_dynamic_cast_from(flag, uptr);
+            <pointer, pointer(*)(RefArg)>::value
+         || boost::intrusive::detail::
+               has_member_function_callable_with_dynamic_cast_from
+                  <pointer, pointer(*)(UPtr)>::value;
+      return pointer_traits::priv_dynamic_cast_from(boost::intrusive::detail::bool_<value>(), uptr);
    }
 
    ///@cond
@@ -190,12 +243,12 @@ struct pointer_traits
    static pointer priv_dynamic_cast_from(boost::intrusive::detail::false_, const UPtr &uptr)
    {
       element_type *p = dynamic_cast<element_type*>(&*uptr);
-	  if(!p){
-		  return pointer();
-	  }
-	  else{
-		  return pointer_to(*p);
-	  }
+     if(!p){
+        return pointer();
+     }
+     else{
+        return pointer_to(*p);
+     }
    }
    ///@endcond
 };

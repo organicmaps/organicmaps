@@ -117,8 +117,7 @@ UIImage * imageFromLane(location::FollowingInfo::SingleLaneInfoClient const & sl
 
 UIImage * concatImages(UIImage * first, UIImage * second)
 {
-  ASSERT((first.size.width == second.size.width && first.size.height == second.size.height),
-         ("Incorrect images input images"));
+  ASSERT(CGSizeEqualToSize(first.size, second.size), ("Incorrect images input images"));
   CGSize const size = first.size;
   UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
   CGRect const frame {{0., 0.}, {size.width, size.height}};

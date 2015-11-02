@@ -11,26 +11,36 @@
 #ifndef BOOST_CONTAINER_DETAIL_ADAPTIVE_NODE_POOL_IMPL_HPP
 #define BOOST_CONTAINER_DETAIL_ADAPTIVE_NODE_POOL_IMPL_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
 #include <boost/container/detail/config_begin.hpp>
 #include <boost/container/detail/workaround.hpp>
 
+// container
 #include <boost/container/container_fwd.hpp>
-#include <boost/container/detail/utilities.hpp>
+#include <boost/container/throw_exception.hpp>
+// container/detail
+#include <boost/container/detail/pool_common.hpp>
+#include <boost/container/detail/iterator.hpp>
+#include <boost/container/detail/iterator_to_raw_pointer.hpp>
+#include <boost/container/detail/math_functions.hpp>
+#include <boost/container/detail/mpl.hpp>
+#include <boost/container/detail/to_raw_pointer.hpp>
+#include <boost/container/detail/type_traits.hpp>
+// intrusive
 #include <boost/intrusive/pointer_traits.hpp>
 #include <boost/intrusive/set.hpp>
 #include <boost/intrusive/list.hpp>
 #include <boost/intrusive/slist.hpp>
-#include <boost/container/detail/type_traits.hpp>
-#include <boost/container/detail/math_functions.hpp>
-#include <boost/container/detail/mpl.hpp>
-#include <boost/container/detail/pool_common.hpp>
-#include <boost/container/throw_exception.hpp>
+// other
 #include <boost/assert.hpp>
-#include <boost/detail/no_exceptions_support.hpp>
+#include <boost/core/no_exceptions_support.hpp>
 #include <cstddef>
 
 namespace boost {
@@ -482,7 +492,7 @@ class private_adaptive_node_pool_impl
          free_nodes_iterator itf(nodes.begin()), itbf(itbb);
          size_type splice_node_count = size_type(-1);
          while(itf != ite){
-            void *pElem = container_detail::to_raw_pointer(container_detail::iterator_to_pointer(itf));
+            void *pElem = container_detail::to_raw_pointer(container_detail::iterator_to_raw_pointer(itf));
             block_info_t &block_info = *this->priv_block_from_node(pElem);
             BOOST_ASSERT(block_info.free_nodes.size() < m_real_num_node);
             ++splice_node_count;

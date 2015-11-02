@@ -127,6 +127,9 @@ namespace boost { namespace phoenix
 
             typedef detail::eval_local<Key> eval_local;
 
+            // Detect if the return_type is for a value.
+            //typedef typename is_value<return_type>::type is_value_type;
+
             return eval_local::template get<return_type, index_value>(
                 phoenix::env(ctx));
         }

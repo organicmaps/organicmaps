@@ -11,7 +11,11 @@
 #ifndef BOOST_INTERPROCESS_MANAGED_XSI_SHARED_MEMORY_HPP
 #define BOOST_INTERPROCESS_MANAGED_XSI_SHARED_MEMORY_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -62,7 +66,7 @@ class basic_managed_xsi_shared_memory
       ,ipcdetail::xsishmem_open_or_create<AllocationAlgorithm>::type::ManagedOpenOrCreateUserOffset>
    , private ipcdetail::xsishmem_open_or_create<AllocationAlgorithm>::type
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    public:
    typedef xsi_shared_memory_file_wrapper device_type;
 
@@ -80,7 +84,7 @@ class basic_managed_xsi_shared_memory
    private:
    typedef typename base_t::char_ptr_holder_t   char_ptr_holder_t;
    BOOST_MOVABLE_BUT_NOT_COPYABLE(basic_managed_xsi_shared_memory)
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public: //functions
    typedef typename base_t::size_type              size_type;
@@ -177,7 +181,7 @@ class basic_managed_xsi_shared_memory
    int get_shmid() const
    {  return base2_t::get_device().get_shmid(); }
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
    //!Tries to find a previous named allocation address. Returns a memory
    //!buffer and the object count. If not found returned pointer is 0.
@@ -193,8 +197,28 @@ class basic_managed_xsi_shared_memory
       }
    }
 
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
+
+#ifdef BOOST_INTERPROCESS_DOXYGEN_INVOKED
+
+//!Typedef for a default basic_managed_xsi_shared_memory
+//!of narrow characters
+typedef basic_managed_xsi_shared_memory
+   <char
+   ,rbtree_best_fit<mutex_family>
+   ,iset_index>
+managed_xsi_shared_memory;
+
+//!Typedef for a default basic_managed_xsi_shared_memory
+//!of wide characters
+typedef basic_managed_xsi_shared_memory
+   <wchar_t
+   ,rbtree_best_fit<mutex_family>
+   ,iset_index>
+wmanaged_xsi_shared_memory;
+
+#endif   //#ifdef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 }  //namespace interprocess {
 }  //namespace boost {

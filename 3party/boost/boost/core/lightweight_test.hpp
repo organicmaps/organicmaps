@@ -123,9 +123,9 @@ template<class T, class U> inline void test_ne_impl( char const * expr1, char co
 
 inline int report_errors()
 {
-    detail::report_errors_remind().called_report_errors_function = true;
+    boost::detail::report_errors_remind().called_report_errors_function = true;
 
-    int errors = detail::test_errors();
+    int errors = boost::detail::test_errors();
 
     if( errors == 0 )
     {

@@ -49,7 +49,8 @@ class Deriv = State ,
 class Time = Value ,
 class Algebra = typename algebra_dispatcher< State >::algebra_type ,
 class Operations = typename operations_dispatcher< State >::operations_type ,
-class Resizer = initially_resizer
+class Resizer = initially_resizer,
+class InitializingStepper = runge_kutta4< State , Value , Deriv , Time , Algebra , Operations, Resizer >
 >
 class adams_bashforth_moulton
 {
@@ -71,12 +72,13 @@ public :
     typedef Operations operations_type;
     typedef Resizer resizer_type;
     typedef stepper_tag stepper_category;
+    typedef InitializingStepper initializing_stepper_type;
 
     static const size_t steps = Steps;
 #ifndef DOXYGEN_SKIP
-    typedef adams_bashforth< steps , state_type , value_type , deriv_type , time_type , algebra_type , operations_type , resizer_type > adams_bashforth_type;
+    typedef adams_bashforth< steps , state_type , value_type , deriv_type , time_type , algebra_type , operations_type , resizer_type, initializing_stepper_type > adams_bashforth_type;
     typedef adams_moulton< steps , state_type , value_type , deriv_type , time_type , algebra_type , operations_type , resizer_type > adams_moulton_type;
-    typedef adams_bashforth_moulton< steps , state_type , value_type , deriv_type , time_type , algebra_type , operations_type , resizer_type > stepper_type;
+    typedef adams_bashforth_moulton< steps , state_type , value_type , deriv_type , time_type , algebra_type , operations_type , resizer_type , initializing_stepper_type> stepper_type;
 #endif //DOXYGEN_SKIP
     typedef unsigned short order_type;
     static const order_type order_value = steps;
@@ -158,7 +160,7 @@ private:
         {
             m_resizer.adjust_size( x , detail::bind( &stepper_type::template resize_impl< StateInOut > , detail::ref( *this ) , detail::_1 ) );
             m_adams_bashforth.do_step( system , x , t , m_x.m_v , dt );
-            m_adams_moulton.do_step( system , x , m_x.m_v , t , x , dt , m_adams_bashforth.step_storage() );
+            m_adams_moulton.do_step( system , x , m_x.m_v , t+dt , x , dt , m_adams_bashforth.step_storage() );
         }
         else
         {

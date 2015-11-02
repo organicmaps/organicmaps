@@ -23,6 +23,10 @@
 namespace boost {
 namespace math {
 
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable:4702) // Unreachable code, only triggered in release mode and /W4
+#endif
 
 namespace detail {
 
@@ -133,6 +137,9 @@ template <int N, typename T>
 inline typename tools::promote_args<T>::type pow(T base)
 { return pow<N>(base, policies::policy<>()); }
 
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 
 }  // namespace math
 }  // namespace boost

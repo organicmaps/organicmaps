@@ -11,14 +11,23 @@
 #ifndef BOOST_CONTAINER_STATIC_VECTOR_HPP
 #define BOOST_CONTAINER_STATIC_VECTOR_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
 #include <boost/container/detail/config_begin.hpp>
-
+#include <boost/container/detail/workaround.hpp>
+#include <boost/container/detail/type_traits.hpp>
 #include <boost/container/vector.hpp>
-#include <boost/aligned_storage.hpp>
+
+#include <cstddef>
+#if !defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST)
+#include <initializer_list>
+#endif
 
 namespace boost { namespace container {
 
@@ -32,34 +41,33 @@ class static_storage_allocator
    public:
    typedef T value_type;
 
-   static_storage_allocator() BOOST_CONTAINER_NOEXCEPT
+   static_storage_allocator() BOOST_NOEXCEPT_OR_NOTHROW
    {}
 
-   static_storage_allocator(const static_storage_allocator &) BOOST_CONTAINER_NOEXCEPT
+   static_storage_allocator(const static_storage_allocator &) BOOST_NOEXCEPT_OR_NOTHROW
    {}
 
-   static_storage_allocator & operator=(const static_storage_allocator &) BOOST_CONTAINER_NOEXCEPT
+   static_storage_allocator & operator=(const static_storage_allocator &) BOOST_NOEXCEPT_OR_NOTHROW
    {}
 
-   T* internal_storage() const BOOST_CONTAINER_NOEXCEPT
+   T* internal_storage() const BOOST_NOEXCEPT_OR_NOTHROW
    {  return const_cast<T*>(static_cast<const T*>(static_cast<const void*>(&storage)));  }
 
-   T* internal_storage() BOOST_CONTAINER_NOEXCEPT
+   T* internal_storage() BOOST_NOEXCEPT_OR_NOTHROW
    {  return static_cast<T*>(static_cast<void*>(&storage));  }
 
    static const std::size_t internal_capacity = N;
 
    typedef boost::container::container_detail::version_type<static_storage_allocator, 0>   version;
 
-   friend bool operator==(const static_storage_allocator &, const static_storage_allocator &) BOOST_CONTAINER_NOEXCEPT
+   friend bool operator==(const static_storage_allocator &, const static_storage_allocator &) BOOST_NOEXCEPT_OR_NOTHROW
    {  return false;  }
 
-   friend bool operator!=(const static_storage_allocator &, const static_storage_allocator &) BOOST_CONTAINER_NOEXCEPT
+   friend bool operator!=(const static_storage_allocator &, const static_storage_allocator &) BOOST_NOEXCEPT_OR_NOTHROW
    {  return true;  }
 
    private:
-   typename boost::aligned_storage
-      <sizeof(T)*N, boost::alignment_of<T>::value>::type storage;
+   typename aligned_storage<sizeof(T)*N, alignment_of<T>::value>::type storage;
 };
 
 }  //namespace container_detail {
@@ -135,7 +143,7 @@ public:
     //!
     //! @par Complexity
     //!   Constant O(1).
-    static_vector() BOOST_CONTAINER_NOEXCEPT
+    static_vector() BOOST_NOEXCEPT_OR_NOTHROW
         : base_t()
     {}
 
@@ -207,6 +215,24 @@ public:
         : base_t(first, last)
     {}
 
+#if !defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST)
+    //! @pre
+    //!  @li <tt>distance(il.begin(), il.end()) <= capacity()</tt>
+    //!
+    //! @brief Constructs a static_vector containing copy of a range <tt>[il.begin(), il.end())</tt>.
+    //!
+    //! @param il       std::initializer_list with values to initialize vector.
+    //!
+    //! @par Throws
+    //!   If Value's constructor taking a dereferenced std::initializer_list throws.
+    //!
+    //! @par Complexity
+    //!   Linear O(N).
+    static_vector(std::initializer_list<value_type> il)
+        : base_t(il)
+    {}
+#endif
+
     //! @brief Constructs a copy of other static_vector.
     //!
     //! @param other    The static_vector which content will be copied to this one.
@@ -241,13 +267,13 @@ public:
     //! @param other    The static_vector which content will be moved to this one.
     //!
     //! @par Throws
-    //!   @li If \c boost::has_nothrow_move<Value>::value is \c true and Value's move constructor throws.
-    //!   @li If \c boost::has_nothrow_move<Value>::value is \c false and Value's copy constructor throws.
+    //!   @li If \c has_nothrow_move<Value>::value is \c true and Value's move constructor throws.
+    //!   @li If \c has_nothrow_move<Value>::value is \c false and Value's copy constructor throws.
     //!
     //! @par Complexity
     //!   Linear O(N).
     static_vector(BOOST_RV_REF(static_vector) other)
-        : base_t(boost::move(static_cast<base_t&>(other)))
+        : base_t(BOOST_MOVE_BASE(base_t, other))
     {}
 
     //! @pre <tt>other.size() <= capacity()</tt>
@@ -257,14 +283,14 @@ public:
     //! @param other    The static_vector which content will be moved to this one.
     //!
     //! @par Throws
-    //!   @li If \c boost::has_nothrow_move<Value>::value is \c true and Value's move constructor throws.
-    //!   @li If \c boost::has_nothrow_move<Value>::value is \c false and Value's copy constructor throws.
+    //!   @li If \c has_nothrow_move<Value>::value is \c true and Value's move constructor throws.
+    //!   @li If \c has_nothrow_move<Value>::value is \c false and Value's copy constructor throws.
     //!
     //! @par Complexity
     //!   Linear O(N).
     template <std::size_t C>
     static_vector(BOOST_RV_REF_BEG static_vector<value_type, C> BOOST_RV_REF_END other)
-        : base_t(boost::move(static_cast<typename static_vector<value_type, C>::base_t&>(other)))
+        : base_t(BOOST_MOVE_BASE(typename static_vector<value_type BOOST_MOVE_I C>::base_t, other))
     {}
 
     //! @brief Copy assigns Values stored in the other static_vector to this one.
@@ -280,6 +306,20 @@ public:
     {
         return static_cast<static_vector&>(base_t::operator=(static_cast<base_t const&>(other)));
     }
+
+#if !defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST)
+    //! @brief Copy assigns Values stored in std::initializer_list to *this.
+    //!
+    //! @param il    The std::initializer_list which content will be copied to this one.
+    //!
+    //! @par Throws
+    //!   If Value's copy constructor or copy assignment throws.
+    //!
+    //! @par Complexity
+    //! Linear O(N).
+    static_vector & operator=(std::initializer_list<value_type> il)
+    { return static_cast<static_vector&>(base_t::operator=(il));  }
+#endif
 
     //! @pre <tt>other.size() <= capacity()</tt>
     //!
@@ -304,14 +344,14 @@ public:
     //! @param other    The static_vector which content will be moved to this one.
     //!
     //! @par Throws
-    //!   @li If \c boost::has_nothrow_move<Value>::value is \c true and Value's move constructor or move assignment throws.
-    //!   @li If \c boost::has_nothrow_move<Value>::value is \c false and Value's copy constructor or copy assignment throws.
+    //!   @li If \c has_nothrow_move<Value>::value is \c true and Value's move constructor or move assignment throws.
+    //!   @li If \c has_nothrow_move<Value>::value is \c false and Value's copy constructor or copy assignment throws.
     //!
     //! @par Complexity
     //!   Linear O(N).
     static_vector & operator=(BOOST_RV_REF(static_vector) other)
     {
-        return static_cast<static_vector&>(base_t::operator=(boost::move(static_cast<base_t&>(other))));
+        return static_cast<static_vector&>(base_t::operator=(BOOST_MOVE_BASE(base_t, other)));
     }
 
     //! @pre <tt>other.size() <= capacity()</tt>
@@ -321,8 +361,8 @@ public:
     //! @param other    The static_vector which content will be moved to this one.
     //!
     //! @par Throws
-    //!   @li If \c boost::has_nothrow_move<Value>::value is \c true and Value's move constructor or move assignment throws.
-    //!   @li If \c boost::has_nothrow_move<Value>::value is \c false and Value's copy constructor or copy assignment throws.
+    //!   @li If \c has_nothrow_move<Value>::value is \c true and Value's move constructor or move assignment throws.
+    //!   @li If \c has_nothrow_move<Value>::value is \c false and Value's copy constructor or copy assignment throws.
     //!
     //! @par Complexity
     //!   Linear O(N).
@@ -330,7 +370,7 @@ public:
     static_vector & operator=(BOOST_RV_REF_BEG static_vector<value_type, C> BOOST_RV_REF_END other)
     {
         return static_cast<static_vector&>(base_t::operator=
-         (boost::move(static_cast<typename static_vector<value_type, C>::base_t&>(other))));
+         (BOOST_MOVE_BASE(typename static_vector<value_type BOOST_MOVE_I C>::base_t, other)));
     }
 
 #ifdef BOOST_CONTAINER_DOXYGEN_INVOKED
@@ -349,8 +389,8 @@ public:
     //! @param other    The static_vector which content will be swapped with this one's content.
     //!
     //! @par Throws
-    //!   @li If \c boost::has_nothrow_move<Value>::value is \c true and Value's move constructor or move assignment throws,
-    //!   @li If \c boost::has_nothrow_move<Value>::value is \c false and Value's copy constructor or copy assignment throws,
+    //!   @li If \c has_nothrow_move<Value>::value is \c true and Value's move constructor or move assignment throws,
+    //!   @li If \c has_nothrow_move<Value>::value is \c false and Value's copy constructor or copy assignment throws,
     //!
     //! @par Complexity
     //!   Linear O(N).
@@ -363,8 +403,8 @@ public:
     //! @param other    The static_vector which content will be swapped with this one's content.
     //!
     //! @par Throws
-    //!   @li If \c boost::has_nothrow_move<Value>::value is \c true and Value's move constructor or move assignment throws,
-    //!   @li If \c boost::has_nothrow_move<Value>::value is \c false and Value's copy constructor or copy assignment throws,
+    //!   @li If \c has_nothrow_move<Value>::value is \c true and Value's move constructor or move assignment throws,
+    //!   @li If \c has_nothrow_move<Value>::value is \c false and Value's copy constructor or copy assignment throws,
     //!
     //! @par Complexity
     //!   Linear O(N).
@@ -428,7 +468,7 @@ public:
     //!
     //! @par Complexity
     //!   Linear O(N).
-    void reserve(size_type count)  BOOST_CONTAINER_NOEXCEPT;
+    void reserve(size_type count)  BOOST_NOEXCEPT_OR_NOTHROW;
 
     //! @pre <tt>size() < capacity()</tt>
     //!
@@ -468,13 +508,13 @@ public:
     void pop_back();
 
     //! @pre
-    //!  @li \c position must be a valid iterator of \c *this in range <tt>[begin(), end()]</tt>.
+    //!  @li \c p must be a valid iterator of \c *this in range <tt>[begin(), end()]</tt>.
     //!  @li <tt>size() < capacity()</tt>
     //!
-    //! @brief Inserts a copy of element at position.
+    //! @brief Inserts a copy of element at p.
     //!
-    //! @param position    The position at which the new value will be inserted.
-    //! @param value       The value used to copy construct the new element.
+    //! @param p     The position at which the new value will be inserted.
+    //! @param value The value used to copy construct the new element.
     //!
     //! @par Throws
     //!   @li If Value's copy constructor or copy assignment throws
@@ -482,33 +522,33 @@ public:
     //!
     //! @par Complexity
     //!   Constant or linear.
-    iterator insert(iterator position, value_type const& value);
+    iterator insert(const_iterator p, value_type const& value);
 
     //! @pre
-    //!  @li \c position must be a valid iterator of \c *this in range <tt>[begin(), end()]</tt>.
+    //!  @li \c p must be a valid iterator of \c *this in range <tt>[begin(), end()]</tt>.
     //!  @li <tt>size() < capacity()</tt>
     //!
-    //! @brief Inserts a move-constructed element at position.
+    //! @brief Inserts a move-constructed element at p.
     //!
-    //! @param position    The position at which the new value will be inserted.
-    //! @param value       The value used to move construct the new element.
+    //! @param p     The position at which the new value will be inserted.
+    //! @param value The value used to move construct the new element.
     //!
     //! @par Throws
     //!   If Value's move constructor or move assignment throws.
     //!
     //! @par Complexity
     //!   Constant or linear.
-    iterator insert(iterator position, BOOST_RV_REF(value_type) value);
+    iterator insert(const_iterator p, BOOST_RV_REF(value_type) value);
 
     //! @pre
-    //!  @li \c position must be a valid iterator of \c *this in range <tt>[begin(), end()]</tt>.
+    //!  @li \c p must be a valid iterator of \c *this in range <tt>[begin(), end()]</tt>.
     //!  @li <tt>size() + count <= capacity()</tt>
     //!
-    //! @brief Inserts a count copies of value at position.
+    //! @brief Inserts a count copies of value at p.
     //!
-    //! @param position    The position at which new elements will be inserted.
-    //! @param count       The number of new elements which will be inserted.
-    //! @param value       The value used to copy construct new elements.
+    //! @param p     The position at which new elements will be inserted.
+    //! @param count The number of new elements which will be inserted.
+    //! @param value The value used to copy construct new elements.
     //!
     //! @par Throws
     //!   @li If Value's copy constructor or copy assignment throws.
@@ -516,18 +556,18 @@ public:
     //!
     //! @par Complexity
     //!   Linear O(N).
-    iterator insert(iterator position, size_type count, value_type const& value);
+    iterator insert(const_iterator p, size_type count, value_type const& value);
 
     //! @pre
-    //!  @li \c position must be a valid iterator of \c *this in range <tt>[begin(), end()]</tt>.
+    //!  @li \c p must be a valid iterator of \c *this in range <tt>[begin(), end()]</tt>.
     //!  @li <tt>distance(first, last) <= capacity()</tt>
     //!  @li \c Iterator must meet the \c ForwardTraversalIterator concept.
     //!
-    //! @brief Inserts a copy of a range <tt>[first, last)</tt> at position.
+    //! @brief Inserts a copy of a range <tt>[first, last)</tt> at p.
     //!
-    //! @param position    The position at which new elements will be inserted.
-    //! @param first       The iterator to the first element of a range used to construct new elements.
-    //! @param last        The iterator to the one after the last element of a range used to construct new elements.
+    //! @param p     The position at which new elements will be inserted.
+    //! @param first The iterator to the first element of a range used to construct new elements.
+    //! @param last  The iterator to the one after the last element of a range used to construct new elements.
     //!
     //! @par Throws
     //!   @li If Value's constructor and assignment taking a dereferenced \c Iterator.
@@ -536,20 +576,38 @@ public:
     //! @par Complexity
     //!   Linear O(N).
     template <typename Iterator>
-    iterator insert(iterator position, Iterator first, Iterator last);
+    iterator insert(const_iterator p, Iterator first, Iterator last);
 
-    //! @pre \c position must be a valid iterator of \c *this in range <tt>[begin(), end())</tt>
+#if !defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST)
+    //! @pre
+    //!  @li \c p must be a valid iterator of \c *this in range <tt>[begin(), end()]</tt>.
+    //!  @li <tt>distance(il.begin(), il.end()) <= capacity()</tt>
     //!
-    //! @brief Erases Value from position.
+    //! @brief Inserts a copy of a range <tt>[il.begin(), il.end())</tt> at p.
     //!
-    //! @param position    The position of the element which will be erased from the container.
+    //! @param p     The position at which new elements will be inserted.
+    //! @param il    The std::initializer_list which contains elements that will be inserted.
+    //!
+    //! @par Throws
+    //!   @li If Value's constructor and assignment taking a dereferenced std::initializer_list iterator.
+    //!
+    //! @par Complexity
+    //!   Linear O(N).
+    iterator insert(const_iterator p, std::initializer_list<value_type> il);
+#endif
+
+    //! @pre \c p must be a valid iterator of \c *this in range <tt>[begin(), end())</tt>
+    //!
+    //! @brief Erases Value from p.
+    //!
+    //! @param p    The position of the element which will be erased from the container.
     //!
     //! @par Throws
     //!   If Value's move assignment throws.
     //!
     //! @par Complexity
     //!   Linear O(N).
-    iterator erase(iterator position);
+    iterator erase(const_iterator p);
 
     //! @pre
     //!  @li \c first and \c last must define a valid range
@@ -565,7 +623,7 @@ public:
     //!
     //! @par Complexity
     //!   Linear O(N).
-    iterator erase(iterator first, iterator last);
+    iterator erase(const_iterator first, const_iterator last);
 
     //! @pre <tt>distance(first, last) <= capacity()</tt>
     //!
@@ -581,6 +639,21 @@ public:
     //!   Linear O(N).
     template <typename Iterator>
     void assign(Iterator first, Iterator last);
+
+#if !defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST)
+    //! @pre <tt>distance(il.begin(), il.end()) <= capacity()</tt>
+    //!
+    //! @brief Assigns a range <tt>[il.begin(), il.end())</tt> of Values to this container.
+    //!
+    //! @param first       std::initializer_list with values used to construct new content of this container.
+    //!
+    //! @par Throws
+    //!   If Value's copy constructor or copy assignment throws,
+    //!
+    //! @par Complexity
+    //!   Linear O(N).
+    void assign(std::initializer_list<value_type> il);
+#endif
 
     //! @pre <tt>count <= capacity()</tt>
     //!
@@ -612,14 +685,14 @@ public:
     void emplace_back(Args &&...args);
 
     //! @pre
-    //!  @li \c position must be a valid iterator of \c *this in range <tt>[begin(), end()]</tt>
+    //!  @li \c p must be a valid iterator of \c *this in range <tt>[begin(), end()]</tt>
     //!  @li <tt>size() < capacity()</tt>
     //!
     //! @brief Inserts a Value constructed with
-    //!   \c std::forward<Args>(args)... before position
+    //!   \c std::forward<Args>(args)... before p
     //!
-    //! @param position The position at which new elements will be inserted.
-    //! @param args     The arguments of the constructor of the new element.
+    //! @param p     The position at which new elements will be inserted.
+    //! @param args  The arguments of the constructor of the new element.
     //!
     //! @par Throws
     //!   If in-place constructor throws or if Value's move constructor or move assignment throws.
@@ -627,7 +700,7 @@ public:
     //! @par Complexity
     //!   Constant or linear.
     template<class ...Args>
-    iterator emplace(iterator position, Args &&...args);
+    iterator emplace(const_iterator p, Args &&...args);
 
     //! @brief Removes all elements from the container.
     //!
@@ -636,7 +709,7 @@ public:
     //!
     //! @par Complexity
     //!   Constant O(1).
-    void clear()  BOOST_CONTAINER_NOEXCEPT;
+    void clear()  BOOST_NOEXCEPT_OR_NOTHROW;
 
     //! @pre <tt>i < size()</tt>
     //!
@@ -702,6 +775,66 @@ public:
     //!   Constant O(1).
     const_reference operator[](size_type i) const;
 
+    //! @pre <tt>i =< size()</tt>
+    //!
+    //! @brief Returns a iterator to the i-th element.
+    //!
+    //! @param i    The element's index.
+    //!
+    //! @return a iterator to the i-th element.
+    //!
+    //! @par Throws
+    //!   Nothing by default.
+    //!
+    //! @par Complexity
+    //!   Constant O(1).
+    iterator nth(size_type i);
+
+    //! @pre <tt>i =< size()</tt>
+    //!
+    //! @brief Returns a const_iterator to the i-th element.
+    //!
+    //! @param i    The element's index.
+    //!
+    //! @return a const_iterator to the i-th element.
+    //!
+    //! @par Throws
+    //!   Nothing by default.
+    //!
+    //! @par Complexity
+    //!   Constant O(1).
+    const_iterator nth(size_type i) const;
+
+    //! @pre <tt>begin() <= p <= end()</tt>
+    //!
+    //! @brief Returns the index of the element pointed by p.
+    //!
+    //! @param i    The element's index.
+    //!
+    //! @return The index of the element pointed by p.
+    //!
+    //! @par Throws
+    //!   Nothing by default.
+    //!
+    //! @par Complexity
+    //!   Constant O(1).
+    size_type index_of(iterator p);
+
+    //! @pre <tt>begin() <= p <= end()</tt>
+    //!
+    //! @brief Returns the index of the element pointed by p.
+    //!
+    //! @param i    The index of the element pointed by p.
+    //!
+    //! @return a const_iterator to the i-th element.
+    //!
+    //! @par Throws
+    //!   Nothing by default.
+    //!
+    //! @par Complexity
+    //!   Constant O(1).
+    size_type index_of(const_iterator p) const;
+
     //! @pre \c !empty()
     //!
     //! @brief Returns reference to the first element.
@@ -766,7 +899,7 @@ public:
     //!
     //! @par Complexity
     //!   Constant O(1).
-    Value * data() BOOST_CONTAINER_NOEXCEPT;
+    Value * data() BOOST_NOEXCEPT_OR_NOTHROW;
 
     //! @brief Const pointer such that <tt>[data(), data() + size())</tt> is a valid range.
     //!   For a non-empty vector <tt>data() == &front()</tt>.
@@ -776,7 +909,7 @@ public:
     //!
     //! @par Complexity
     //!   Constant O(1).
-    const Value * data() const BOOST_CONTAINER_NOEXCEPT;
+    const Value * data() const BOOST_NOEXCEPT_OR_NOTHROW;
 
     //! @brief Returns iterator to the first element.
     //!
@@ -787,7 +920,7 @@ public:
     //!
     //! @par Complexity
     //!   Constant O(1).
-    iterator begin() BOOST_CONTAINER_NOEXCEPT;
+    iterator begin() BOOST_NOEXCEPT_OR_NOTHROW;
 
     //! @brief Returns const iterator to the first element.
     //!
@@ -798,7 +931,7 @@ public:
     //!
     //! @par Complexity
     //!   Constant O(1).
-    const_iterator begin() const BOOST_CONTAINER_NOEXCEPT;
+    const_iterator begin() const BOOST_NOEXCEPT_OR_NOTHROW;
 
     //! @brief Returns const iterator to the first element.
     //!
@@ -809,7 +942,7 @@ public:
     //!
     //! @par Complexity
     //!   Constant O(1).
-    const_iterator cbegin() const BOOST_CONTAINER_NOEXCEPT;
+    const_iterator cbegin() const BOOST_NOEXCEPT_OR_NOTHROW;
 
     //! @brief Returns iterator to the one after the last element.
     //!
@@ -820,7 +953,7 @@ public:
     //!
     //! @par Complexity
     //!   Constant O(1).
-    iterator end() BOOST_CONTAINER_NOEXCEPT;
+    iterator end() BOOST_NOEXCEPT_OR_NOTHROW;
 
     //! @brief Returns const iterator to the one after the last element.
     //!
@@ -831,7 +964,7 @@ public:
     //!
     //! @par Complexity
     //!   Constant O(1).
-    const_iterator end() const BOOST_CONTAINER_NOEXCEPT;
+    const_iterator end() const BOOST_NOEXCEPT_OR_NOTHROW;
 
     //! @brief Returns const iterator to the one after the last element.
     //!
@@ -842,7 +975,7 @@ public:
     //!
     //! @par Complexity
     //!   Constant O(1).
-    const_iterator cend() const BOOST_CONTAINER_NOEXCEPT;
+    const_iterator cend() const BOOST_NOEXCEPT_OR_NOTHROW;
 
     //! @brief Returns reverse iterator to the first element of the reversed container.
     //!
@@ -854,7 +987,7 @@ public:
     //!
     //! @par Complexity
     //!   Constant O(1).
-    reverse_iterator rbegin() BOOST_CONTAINER_NOEXCEPT;
+    reverse_iterator rbegin() BOOST_NOEXCEPT_OR_NOTHROW;
 
     //! @brief Returns const reverse iterator to the first element of the reversed container.
     //!
@@ -866,7 +999,7 @@ public:
     //!
     //! @par Complexity
     //!   Constant O(1).
-    const_reverse_iterator rbegin() const BOOST_CONTAINER_NOEXCEPT;
+    const_reverse_iterator rbegin() const BOOST_NOEXCEPT_OR_NOTHROW;
 
     //! @brief Returns const reverse iterator to the first element of the reversed container.
     //!
@@ -878,7 +1011,7 @@ public:
     //!
     //! @par Complexity
     //!   Constant O(1).
-    const_reverse_iterator crbegin() const BOOST_CONTAINER_NOEXCEPT;
+    const_reverse_iterator crbegin() const BOOST_NOEXCEPT_OR_NOTHROW;
 
     //! @brief Returns reverse iterator to the one after the last element of the reversed container.
     //!
@@ -890,7 +1023,7 @@ public:
     //!
     //! @par Complexity
     //!   Constant O(1).
-    reverse_iterator rend() BOOST_CONTAINER_NOEXCEPT;
+    reverse_iterator rend() BOOST_NOEXCEPT_OR_NOTHROW;
 
     //! @brief Returns const reverse iterator to the one after the last element of the reversed container.
     //!
@@ -902,7 +1035,7 @@ public:
     //!
     //! @par Complexity
     //!   Constant O(1).
-    const_reverse_iterator rend() const BOOST_CONTAINER_NOEXCEPT;
+    const_reverse_iterator rend() const BOOST_NOEXCEPT_OR_NOTHROW;
 
     //! @brief Returns const reverse iterator to the one after the last element of the reversed container.
     //!
@@ -914,7 +1047,7 @@ public:
     //!
     //! @par Complexity
     //!   Constant O(1).
-    const_reverse_iterator crend() const BOOST_CONTAINER_NOEXCEPT;
+    const_reverse_iterator crend() const BOOST_NOEXCEPT_OR_NOTHROW;
 
     //! @brief Returns container's capacity.
     //!
@@ -925,7 +1058,7 @@ public:
     //!
     //! @par Complexity
     //!   Constant O(1).
-    static size_type capacity() BOOST_CONTAINER_NOEXCEPT;
+    static size_type capacity() BOOST_NOEXCEPT_OR_NOTHROW;
 
     //! @brief Returns container's capacity.
     //!
@@ -936,7 +1069,7 @@ public:
     //!
     //! @par Complexity
     //!   Constant O(1).
-    static size_type max_size() BOOST_CONTAINER_NOEXCEPT;
+    static size_type max_size() BOOST_NOEXCEPT_OR_NOTHROW;
 
     //! @brief Returns the number of stored elements.
     //!
@@ -947,7 +1080,7 @@ public:
     //!
     //! @par Complexity
     //!   Constant O(1).
-    size_type size() const BOOST_CONTAINER_NOEXCEPT;
+    size_type size() const BOOST_NOEXCEPT_OR_NOTHROW;
 
     //! @brief Queries if the container contains elements.
     //!
@@ -959,7 +1092,7 @@ public:
     //!
     //! @par Complexity
     //!   Constant O(1).
-    bool empty() const BOOST_CONTAINER_NOEXCEPT;
+    bool empty() const BOOST_NOEXCEPT_OR_NOTHROW;
 #else
 
    friend void swap(static_vector &x, static_vector &y)

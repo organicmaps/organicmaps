@@ -96,14 +96,6 @@ public class SearchFragment extends BaseMwmFragment
     }
 
     @Override
-    protected void onClearClick()
-    {
-      super.onClearClick();
-      FloatingSearchToolbarController.cancelApiCall();
-      FloatingSearchToolbarController.cancelSearch();
-    }
-
-    @Override
     protected void onVoiceInputClick()
     {
       try
@@ -125,8 +117,6 @@ public class SearchFragment extends BaseMwmFragment
       }
 
       clear();
-      FloatingSearchToolbarController.cancelSearch();
-      updateFrames();
     }
   }
 
@@ -363,9 +353,8 @@ public class SearchFragment extends BaseMwmFragment
   {
     final String query = getQuery();
     SearchRecents.add(query);
-    FloatingSearchToolbarController.cancelApiCall();
-    FloatingSearchToolbarController.saveQuery("");
-    SearchEngine.nativeShowResult(resultIndex);
+    SearchEngine.cancelApiCall();
+    SearchEngine.showResult(query, resultIndex);
     Utils.navigateToParent(getActivity());
 
     Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_KEY_CLICKED);
@@ -374,10 +363,10 @@ public class SearchFragment extends BaseMwmFragment
   protected void showAllResultsOnMap()
   {
     final String query = getQuery();
+    SearchRecents.add(query);
     mLastQueryTimestamp = System.nanoTime();
-    SearchEngine.nativeRunInteractiveSearch(query, Language.getKeyboardLocale(), mLastQueryTimestamp);
-    SearchEngine.nativeShowAllResults();
-    FloatingSearchToolbarController.saveQuery(query);
+    SearchEngine.runInteractiveSearch(query, Language.getKeyboardLocale(), mLastQueryTimestamp, true);
+    SearchEngine.showAllResults(query);
     Utils.navigateToParent(getActivity());
 
     Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_ON_MAP_CLICKED);
@@ -398,7 +387,7 @@ public class SearchFragment extends BaseMwmFragment
   @Override
   public void onLocationError(int errorCode) {}
 
-  private void stopSearch()
+  private void onSearchEnd()
   {
     mSearchRunning = false;
     mToolbarController.showProgress(false);
@@ -406,16 +395,23 @@ public class SearchFragment extends BaseMwmFragment
     updateResultsPlaceholder();
   }
 
+  private void stopSearch()
+  {
+    SearchEngine.cancelApiCall();
+    SearchEngine.cancelSearch();
+    onSearchEnd();
+  }
+
   private void runSearch()
   {
     mLastQueryTimestamp = System.nanoTime();
     // TODO @yunitsky Implement more elegant solution.
     if (getActivity() instanceof MwmActivity)
-      SearchEngine.nativeRunInteractiveSearch(getQuery(), Language.getKeyboardLocale(), mLastQueryTimestamp);
+      SearchEngine.runInteractiveSearch(getQuery(), Language.getKeyboardLocale(), mLastQueryTimestamp, false);
     else
     {
-      final boolean searchStarted = SearchEngine.nativeRunSearch(getQuery(), Language.getKeyboardLocale(), mLastQueryTimestamp, true,
-                                                                 mLastPosition.valid, mLastPosition.lat, mLastPosition.lon);
+      final boolean searchStarted = SearchEngine.runSearch(getQuery(), Language.getKeyboardLocale(), mLastQueryTimestamp, true,
+                                                           mLastPosition.valid, mLastPosition.lat, mLastPosition.lon);
       if (!searchStarted)
         return;
     }
@@ -443,7 +439,7 @@ public class SearchFragment extends BaseMwmFragment
   public void onResultsEnd(long timestamp)
   {
     if (mSearchRunning && isAdded())
-      stopSearch();
+      onSearchEnd();
   }
 
   @Override
@@ -468,7 +464,11 @@ public class SearchFragment extends BaseMwmFragment
   @Override
   public boolean onBackPressed()
   {
-    return false;
+    if (!searchActive())
+      return false;
+
+    mToolbarController.clear();
+    return true;
   }
 
   public void setRecyclerScrollListener(RecyclerView recycler)

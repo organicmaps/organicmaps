@@ -46,11 +46,7 @@ inline Box elements_box(FwdIter first, FwdIter last, Translator const& tr)
 {
     Box result;
 
-    if ( first == last )
-    {
-        geometry::assign_inverse(result);
-        return result;
-    }
+    BOOST_GEOMETRY_INDEX_ASSERT(first != last, "non-empty range required");
 
     detail::bounds(element_indexable(*first, tr), result);
     ++first;

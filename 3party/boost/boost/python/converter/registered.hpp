@@ -44,8 +44,7 @@ struct registered
 {
 };
 
-# if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) \
-    && !BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1310))
+# if !BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1310))
 // collapses a few more types to the same static instance.  MSVC7.1
 // fails to strip cv-qualification from array types in typeid.  For
 // some reason we can't use this collapse there or array converters

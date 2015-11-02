@@ -34,16 +34,16 @@ struct rational_adaptor
    typedef typename IntBackend::unsigned_types  unsigned_types;
    typedef typename IntBackend::float_types     float_types;
 
-   rational_adaptor(){}
-   rational_adaptor(const rational_adaptor& o)
+   rational_adaptor() BOOST_MP_NOEXCEPT_IF(noexcept(rational_type())) {}
+   rational_adaptor(const rational_adaptor& o) BOOST_MP_NOEXCEPT_IF(noexcept(std::declval<rational_type&>() = std::declval<const rational_type&>()))
    {
       m_value = o.m_value;
    }
-   rational_adaptor(const IntBackend& o) : m_value(o) {}
+   rational_adaptor(const IntBackend& o) BOOST_MP_NOEXCEPT_IF(noexcept(rational_type(std::declval<const IntBackend&>()))) : m_value(o) {}
 
    template <class U>
    rational_adaptor(const U& u, typename enable_if_c<is_convertible<U, IntBackend>::value>::type* = 0) 
-      : m_value(IntBackend(u)){}
+      : m_value(static_cast<integer_type>(u)){}
    template <class U>
    explicit rational_adaptor(const U& u, 
       typename enable_if_c<
@@ -57,9 +57,9 @@ struct rational_adaptor
    }
 
 #ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
-   rational_adaptor(rational_adaptor&& o) : m_value(o.m_value) {}
-   rational_adaptor(IntBackend&& o) : m_value(o) {}
-   rational_adaptor& operator = (rational_adaptor&& o)
+   rational_adaptor(rational_adaptor&& o) BOOST_MP_NOEXCEPT_IF(noexcept(rational_type(std::declval<rational_type>()))) : m_value(static_cast<rational_type&&>(o.m_value)) {}
+   rational_adaptor(IntBackend&& o) BOOST_MP_NOEXCEPT_IF(noexcept(rational_type(std::declval<IntBackend>()))) : m_value(static_cast<IntBackend&&>(o)) {}
+   rational_adaptor& operator = (rational_adaptor&& o) BOOST_MP_NOEXCEPT_IF(noexcept(std::declval<rational_type&>() = std::declval<rational_type>()))
    {
       m_value = static_cast<rational_type&&>(o.m_value);
       return *this;
@@ -134,7 +134,7 @@ struct rational_adaptor
          v2 = 1;
       if(*s)
       {
-         BOOST_THROW_EXCEPTION(std::runtime_error(std::string("Could parse the string \"") + p + std::string("\" as a valid rational number.")));
+         BOOST_THROW_EXCEPTION(std::runtime_error(std::string("Could not parse the string \"") + p + std::string("\" as a valid rational number.")));
       }
       data().assign(v1, v2);
       return *this;
@@ -233,14 +233,26 @@ inline void eval_divide(rational_adaptor<IntBackend>& result, const rational_ada
 }
 
 template <class R, class IntBackend>
-inline typename disable_if_c<is_integral<R>::value>::type eval_convert_to(R* result, const rational_adaptor<IntBackend>& backend)
+inline typename enable_if_c<number_category<R>::value == number_kind_floating_point>::type eval_convert_to(R* result, const rational_adaptor<IntBackend>& backend)
 {
-   *result = backend.data().numerator().template convert_to<R>();
-   *result /= backend.data().denominator().template convert_to<R>();
+   //
+   // The generic conversion is as good as anything we can write here:
+   //
+   ::boost::multiprecision::detail::generic_convert_rational_to_float(*result, backend);
 }
 
 template <class R, class IntBackend>
-inline typename enable_if_c<is_integral<R>::value>::type eval_convert_to(R* result, const rational_adaptor<IntBackend>& backend)
+inline typename enable_if_c<(number_category<R>::value != number_kind_integer) && (number_category<R>::value != number_kind_floating_point)>::type eval_convert_to(R* result, const rational_adaptor<IntBackend>& backend)
+{
+   typedef typename component_type<number<rational_adaptor<IntBackend> > >::type comp_t;
+   comp_t num(backend.data().numerator());
+   comp_t denom(backend.data().denominator());
+   *result = num.template convert_to<R>();
+   *result /= denom.template convert_to<R>();
+}
+
+template <class R, class IntBackend>
+inline typename enable_if_c<number_category<R>::value == number_kind_integer>::type eval_convert_to(R* result, const rational_adaptor<IntBackend>& backend)
 {
    typedef typename component_type<number<rational_adaptor<IntBackend> > >::type comp_t;
    comp_t t = backend.data().numerator();

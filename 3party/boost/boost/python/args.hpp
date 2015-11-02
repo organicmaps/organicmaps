@@ -102,7 +102,6 @@ namespace detail
       return this->operator,(python::arg(name));
   }
 
-# ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
   template<typename T>
   struct is_keywords
   {
@@ -126,31 +125,6 @@ namespace detail
       typedef mpl::bool_<value> type;
       BOOST_PYTHON_MPL_LAMBDA_SUPPORT(1,is_reference_to_keywords,(T))
   };
-# else 
-  typedef char (&yes_keywords_t)[1];
-  typedef char (&no_keywords_t)[2];
-      
-  no_keywords_t is_keywords_test(...);
-
-  template<std::size_t nkeywords>
-  yes_keywords_t is_keywords_test(void (*)(keywords<nkeywords>&));
-
-  template<std::size_t nkeywords>
-  yes_keywords_t is_keywords_test(void (*)(keywords<nkeywords> const&));
-
-  template<typename T>
-  class is_reference_to_keywords
-  {
-   public:
-      BOOST_STATIC_CONSTANT(
-          bool, value = (
-              sizeof(detail::is_keywords_test( (void (*)(T))0 ))
-              == sizeof(detail::yes_keywords_t)));
-
-      typedef mpl::bool_<value> type;
-      BOOST_PYTHON_MPL_LAMBDA_SUPPORT(1,is_reference_to_keywords,(T))
-  };
-# endif 
 }
 
 inline detail::keywords<1> args(char const* name)

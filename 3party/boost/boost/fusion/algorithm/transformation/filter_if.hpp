@@ -20,9 +20,9 @@ namespace boost { namespace fusion
             typedef filter_view<Sequence, Pred> type;
         };
     }
-    
+
     template <typename Pred, typename Sequence>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::filter_if<Sequence const, Pred>::type
     filter_if(Sequence const& seq)
     {

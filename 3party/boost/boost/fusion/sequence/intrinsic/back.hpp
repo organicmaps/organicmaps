@@ -27,7 +27,7 @@ namespace boost { namespace fusion
     }
     
     template <typename Sequence>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::back<Sequence>::type
     back(Sequence& seq)
     {
@@ -35,7 +35,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Sequence>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::back<Sequence const>::type
     back(Sequence const& seq)
     {

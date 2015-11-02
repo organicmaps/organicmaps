@@ -36,6 +36,7 @@ namespace feature
       FMD_POSTCODE = 15,
       FMD_WIKIPEDIA = 16,
       FMD_MAXSPEED = 17,
+      FMD_FLATS = 18,
       FMD_COUNT
     };
 
@@ -75,6 +76,9 @@ namespace feature
 
     inline bool Empty() const { return m_metadata.empty(); }
     inline size_t Size() const { return m_metadata.size(); }
+
+    string GetWikiURL() const;
+    string GetWikiTitle() const;
 
     template <class ArchiveT> void SerializeToMWM(ArchiveT & ar) const
     {

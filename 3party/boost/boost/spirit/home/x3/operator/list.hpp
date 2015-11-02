@@ -8,10 +8,6 @@
 #if !defined(SPIRIT_LIST_MARCH_24_2007_1031AM)
 #define SPIRIT_LIST_MARCH_24_2007_1031AM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/spirit/home/x3/core/parser.hpp>
 #include <boost/spirit/home/x3/support/traits/container_traits.hpp>
 #include <boost/spirit/home/x3/support/traits/attribute_of.hpp>
@@ -58,7 +54,7 @@ namespace boost { namespace spirit { namespace x3
       , typename extension::as_parser<Right>::value_type>
     operator%(Left const& left, Right const& right)
     {
-        return {as_parser(left), as_parser(right)};
+        return { as_parser(left), as_parser(right) };
     }
 }}}
 

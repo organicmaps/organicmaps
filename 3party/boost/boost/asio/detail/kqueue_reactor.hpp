@@ -2,7 +2,7 @@
 // detail/kqueue_reactor.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2015 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 // Copyright (c) 2005 Stefan Arentz (stefan at soze dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -66,6 +66,7 @@ public:
 
     mutex mutex_;
     int descriptor_;
+    int num_kevents_; // 1 == read only, 2 == read and write
     op_queue<reactor_op> op_queue_[max_ops];
     bool shutdown_;
   };

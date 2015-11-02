@@ -11,6 +11,14 @@
 #ifndef BOOST_INTERPROCESS_DETAIL_SPIN_CONDITION_HPP
 #define BOOST_INTERPROCESS_DETAIL_SPIN_CONDITION_HPP
 
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
 #include <boost/interprocess/sync/spin/mutex.hpp>
@@ -20,7 +28,7 @@
 #include <boost/interprocess/exceptions.hpp>
 #include <boost/interprocess/detail/os_thread_functions.hpp>
 #include <boost/interprocess/sync/spin/wait.hpp>
-#include <boost/move/move.hpp>
+#include <boost/move/utility_core.hpp>
 #include <boost/cstdint.hpp>
 
 namespace boost {

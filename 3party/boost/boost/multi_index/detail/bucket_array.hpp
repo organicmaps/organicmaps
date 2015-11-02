@@ -1,4 +1,4 @@
-/* Copyright 2003-2014 Joaquin M Lopez Munoz.
+/* Copyright 2003-2015 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -77,7 +77,8 @@ template<bool _=true> /* templatized to have in-header static var defs */
 class bucket_array_base:private noncopyable
 {
 protected:
-  static const std::size_t sizes[];
+  static const std::size_t sizes[
+    BOOST_PP_SEQ_SIZE(BOOST_MULTI_INDEX_BA_SIZES)];
 
   static std::size_t size_index(std::size_t n)
   {

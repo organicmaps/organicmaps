@@ -33,8 +33,8 @@
 namespace boost {
 namespace numeric {
 namespace odeint {
-    
-    
+
+
 template< class StateOut , class StateIn , class Enabler = void >
 struct resize_impl_sfinae
 {

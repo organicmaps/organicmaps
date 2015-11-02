@@ -38,21 +38,21 @@ namespace boost { namespace fusion
                 >::type
             type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type
             call(First const& first, mpl::false_)
             {
                 return fusion::next(convert_iterator<First>::call(first));
             }
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type
             call(First const& first, mpl::true_)
             {
                 return convert_iterator<First>::call(first);
             }
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type
             call(First const& first)
             {
@@ -61,7 +61,7 @@ namespace boost { namespace fusion
         };
 
         struct use_default;
-        
+
         template <class T, class Default>
         struct fusion_default_help
           : mpl::if_<
@@ -71,7 +71,7 @@ namespace boost { namespace fusion
             >
         {
         };
-        
+
         template <
             typename Sequence
           , typename First
@@ -89,7 +89,7 @@ namespace boost { namespace fusion
                   , typename compute_erase_last<Sequence, First>::type
                 >::type
             LastType;
-            
+
             typedef typename convert_iterator<FirstType>::type first_type;
             typedef typename convert_iterator<LastType>::type last_type;
             typedef iterator_range<seq_first_type, first_type> left_type;
@@ -99,8 +99,8 @@ namespace boost { namespace fusion
     }
 
     template <typename Sequence, typename First>
-    BOOST_FUSION_GPU_ENABLED
-    typename 
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+    inline typename
         lazy_enable_if<
             traits::is_sequence<Sequence>
           , typename result_of::erase<Sequence const, First> 
@@ -122,8 +122,8 @@ namespace boost { namespace fusion
     }
 
     template <typename Sequence, typename First, typename Last>
-    BOOST_FUSION_GPU_ENABLED
-    typename result_of::erase<Sequence const, First, Last>::type
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+    inline typename result_of::erase<Sequence const, First, Last>::type
     erase(Sequence const& seq, First const& first, Last const& last)
     {
         typedef result_of::erase<Sequence const, First, Last> result_of;

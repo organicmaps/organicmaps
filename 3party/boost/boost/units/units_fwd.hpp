@@ -49,7 +49,7 @@ template<class T> struct is_unit;
 template<class T,class Dim> struct is_unit_of_dimension;
 template<class T,class System> struct is_unit_of_system;
 
-template<class Unit,class Y> class quantity;
+template<class Unit,class Y = double> class quantity;
 
 template<class System,class Y> struct dimensionless_quantity;
 template<class T> struct is_quantity;

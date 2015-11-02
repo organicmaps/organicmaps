@@ -21,13 +21,13 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.LocationState;
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingInfo;
 import com.mapswithme.maps.routing.RoutingResultCodesProcessor;
+import com.mapswithme.util.Config;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
 
@@ -39,8 +39,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class RoutingLayout extends RelativeLayout implements View.OnClickListener
 {
-  private static final String IS_ROUTING_DISCLAIMER_APPROVED = "IsDisclaimerApproved";
-
   private WheelProgressView mWvProgress;
   private TextView mTvPlanning;
   private View mIvCancelRouteBuild;
@@ -48,6 +46,7 @@ public class RoutingLayout extends RelativeLayout implements View.OnClickListene
   private TextView mTvTotalDistance;
   private TextView mTvTotalTime;
   private ImageView mIvTurn;
+  private TextView mTvExitNum;
   private View mNextTurn;
   private ImageView mIvNextTurn;
   private TextView mTvTurnDistance;
@@ -145,6 +144,7 @@ public class RoutingLayout extends RelativeLayout implements View.OnClickListene
     mTvTotalTime = (TextView) mLayoutTurnInstructions.findViewById(R.id.tv__total_time);
     mTvArrivalTime = (TextView) mLayoutTurnInstructions.findViewById(R.id.tv__arrival_time);
     mIvTurn = (ImageView) mLayoutTurnInstructions.findViewById(R.id.iv__turn);
+    mTvExitNum = (TextView) mLayoutTurnInstructions.findViewById(R.id.tv__exit_num);
     mNextTurn = findViewById(R.id.next_turn);
     mIvNextTurn = (ImageView) mNextTurn.findViewById(R.id.iv__next_turn);
     mTvTurnDistance = (TextView) mLayoutTurnInstructions.findViewById(R.id.tv__turn_distance);
@@ -196,7 +196,6 @@ public class RoutingLayout extends RelativeLayout implements View.OnClickListene
 
   public void setState(State state, boolean animated)
   {
-    // TODO show routing progress after its implemented.
     mState = state;
     switch (mState)
     {
@@ -205,7 +204,7 @@ public class RoutingLayout extends RelativeLayout implements View.OnClickListene
         UiUtils.disappearSlidingUp(this, null);
       else
         UiUtils.hide(this);
-      UiUtils.hide(mBtnStart);
+      UiUtils.hide(mBtnStart, mTvExitNum);
       Framework.nativeCloseRouting();
       mEndPoint = null;
       break;
@@ -215,9 +214,7 @@ public class RoutingLayout extends RelativeLayout implements View.OnClickListene
 
       Framework.nativeCloseRouting();
       UiUtils.show(mLayoutSetupRouting, mWvProgress, mTvPlanning);
-      // TODO (marchuk): Uncomment after the second turn notification is fixed.
-//      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mIvCancelRouteBuild, mNextTurn);
-      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mIvCancelRouteBuild);
+      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mIvCancelRouteBuild, mNextTurn);
       mTvPlanning.setText(R.string.routing_planning);
       mWvProgress.setProgress(0);
       if (animated)
@@ -234,22 +231,16 @@ public class RoutingLayout extends RelativeLayout implements View.OnClickListene
       break;
     case ROUTE_BUILT:
       UiUtils.show(this, mLayoutSetupRouting, mTvPrepareDistance, mTvPrepareTime, mIvCancelRouteBuild);
-      // TODO (marchuk): Uncomment after the second turn notification is fixed.
-//      UiUtils.hide(mLayoutTurnInstructions, mWvProgress, mTvPlanning, mNextTurn);
-      UiUtils.hide(mLayoutTurnInstructions, mWvProgress, mTvPlanning);
+      UiUtils.hide(mLayoutTurnInstructions, mWvProgress, mTvPlanning, mNextTurn);
       if (animated)
         UiUtils.appearSlidingDown(mBtnStart, null);
       else
         UiUtils.show(mBtnStart);
-
       refreshRouteSetup();
       break;
     case ROUTE_BUILD_ERROR:
       UiUtils.show(mLayoutSetupRouting, mIvCancelRouteBuild, mTvPlanning);
-      // TODO (marchuk): Uncomment after the second turn notification is fixed.
-//      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mWvProgress, mNextTurn);
-      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mWvProgress);
-
+      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mWvProgress, mNextTurn);
       mTvPlanning.setText(R.string.routing_planning_error);
       break;
     case TURN_INSTRUCTIONS:
@@ -311,14 +302,20 @@ public class RoutingLayout extends RelativeLayout implements View.OnClickListene
     mTvTurnDistance.setText(buildSpannedText(UiUtils.dimen(R.dimen.text_size_display_1), UiUtils.dimen(R.dimen.text_size_toolbar),
                                              routingInfo.distToTurn, routingInfo.turnUnits));
     routingInfo.vehicleTurnDirection.setTurnDrawable(mIvTurn);
-    // TODO (marchuk): Uncomment after the second turn notification is fixed.
-//    if (routingInfo.vehicleNextTurnDirection.containsNextTurn())
-//    {
-//      UiUtils.appearSlidingDown(mNextTurn, null);
-//      routingInfo.vehicleNextTurnDirection.setNextTurnDrawable(mIvNextTurn);
-//    }
-//    else
-//      UiUtils.disappearSlidingUp(mNextTurn, null);
+    if (RoutingInfo.VehicleTurnDirection.isRoundAbout(routingInfo.vehicleTurnDirection))
+      UiUtils.setTextAndShow(mTvExitNum, String.valueOf(routingInfo.exitNum));
+    else
+      UiUtils.hide(mTvExitNum);
+
+    if (routingInfo.vehicleNextTurnDirection.containsNextTurn())
+    {
+      if (mNextTurn.getVisibility() != VISIBLE && mNextTurn.getAnimation() == null)
+        UiUtils.appearSlidingDown(mNextTurn, null);
+
+      routingInfo.vehicleNextTurnDirection.setNextTurnDrawable(mIvNextTurn);
+    }
+    else if (mNextTurn.getVisibility() == VISIBLE && mNextTurn.getAnimation() == null)
+      UiUtils.disappearSlidingUp(mNextTurn, null);
   }
 
   private void refreshPedestrianAzimutAndDistance(RoutingInfo info)
@@ -380,11 +377,12 @@ public class RoutingLayout extends RelativeLayout implements View.OnClickListene
 
   private void buildRoute()
   {
-    if (!MwmApplication.get().nativeGetBoolean(IS_ROUTING_DISCLAIMER_APPROVED, false))
+    if (!Config.isRoutingDisclaimerAccepted())
     {
       showRoutingDisclaimer();
       return;
     }
+
     if (!LocationState.isTurnedOn())
     {
       onMissingLocation();
@@ -428,7 +426,7 @@ public class RoutingLayout extends RelativeLayout implements View.OnClickListene
           @Override
           public void onClick(DialogInterface dlg, int which)
           {
-            MwmApplication.get().nativeSetBoolean(IS_ROUTING_DISCLAIMER_APPROVED, true);
+            Config.acceptRoutingDisclaimer();
             dlg.dismiss();
             buildRoute();
           }

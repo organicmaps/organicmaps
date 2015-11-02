@@ -4,16 +4,14 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.util.Log;
 
-import com.google.gsonaltered.Gson;
+import com.google.gson.Gson;
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.CountryItem;
-import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.util.Config;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Yota;
@@ -29,11 +27,7 @@ import java.io.File;
 public class MwmApplication extends android.app.Application implements ActiveCountryTree.ActiveCountryListener
 {
   private final static String TAG = "MwmApplication";
-  private static final String LAUNCH_NUMBER_SETTING = "LaunchNumber"; // total number of app launches
-  private static final String SESSION_NUMBER_SETTING = "SessionNumber"; // session = number of days, when app was launched
-  private static final String LAST_SESSION_TIMESTAMP_SETTING = "LastSessionTimestamp"; // timestamp of last session
-  private static final String FIRST_INSTALL_VERSION = "FirstInstallVersion";
-  private static final String FIRST_INSTALL_FLAVOR = "FirstInstallFlavor";
+
   // Parse
   private static final String PREF_PARSE_DEVICE_TOKEN = "ParseDeviceToken";
   private static final String PREF_PARSE_INSTALLATION_ID = "ParseInstallationId";
@@ -196,27 +190,6 @@ public class MwmApplication extends android.app.Application implements ActiveCou
 
   private native void nativeAddLocalization(String name, String value);
 
-  // Dealing with Settings
-  public native boolean nativeGetBoolean(String name, boolean defaultValue);
-
-  public native void nativeSetBoolean(String name, boolean value);
-
-  public native int nativeGetInt(String name, int defaultValue);
-
-  public native void nativeSetInt(String name, int value);
-
-  public native long nativeGetLong(String name, long defaultValue);
-
-  public native void nativeSetLong(String name, long value);
-
-  public native double nativeGetDouble(String name, double defaultValue);
-
-  public native void nativeSetDouble(String name, double value);
-
-  public native String nativeGetString(String name, String defaultValue);
-
-  public native void nativeSetString(String name, String value);
-
   /**
    * Check if device have at least {@code size} bytes free.
    */
@@ -256,74 +229,13 @@ public class MwmApplication extends android.app.Application implements ActiveCou
     if (!mAreCountersInitialised)
     {
       mAreCountersInitialised = true;
-      updateLaunchNumbers();
-      updateSessionsNumber();
-      PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+      Config.updateLaunchCounter();
+      PreferenceManager.setDefaultValues(this, R.xml.prefs_misc, false);
     }
   }
 
   public void onUpgrade()
   {
-    nativeSetInt(LAUNCH_NUMBER_SETTING, 0);
-    nativeSetInt(SESSION_NUMBER_SETTING, 0);
-    nativeSetLong(LAST_SESSION_TIMESTAMP_SETTING, 0);
-    nativeSetInt(LikesManager.LAST_RATED_SESSION, 0);
-    updateSessionsNumber();
-  }
-
-  private void updateLaunchNumbers()
-  {
-    final int currentLaunches = nativeGetInt(LAUNCH_NUMBER_SETTING, 0);
-    if (currentLaunches == 0)
-    {
-      final int installedVersion = getFirstInstallVersion();
-      if (installedVersion == 0)
-        nativeSetInt(FIRST_INSTALL_VERSION, BuildConfig.VERSION_CODE);
-
-      final String installedFlavor = getFirstInstallFlavor();
-      if (TextUtils.isEmpty(installedFlavor))
-        nativeSetString(FIRST_INSTALL_FLAVOR, BuildConfig.FLAVOR);
-    }
-
-    nativeSetInt(LAUNCH_NUMBER_SETTING, currentLaunches + 1);
-  }
-
-  private void updateSessionsNumber()
-  {
-    final int sessionNum = nativeGetInt(SESSION_NUMBER_SETTING, 0);
-    final long lastSessionTimestamp = nativeGetLong(LAST_SESSION_TIMESTAMP_SETTING, 0);
-    if (!DateUtils.isToday(lastSessionTimestamp))
-    {
-      nativeSetInt(SESSION_NUMBER_SETTING, sessionNum + 1);
-      nativeSetLong(LAST_SESSION_TIMESTAMP_SETTING, System.currentTimeMillis());
-    }
-  }
-
-  /**
-   * @return total number of application launches
-   */
-  public int getLaunchesNumber()
-  {
-    return nativeGetInt(LAUNCH_NUMBER_SETTING, 0);
-  }
-
-  /**
-   * Session = single day, when app was started any number of times.
-   *
-   * @return number of sessions.
-   */
-  public int getSessionsNumber()
-  {
-    return nativeGetInt(SESSION_NUMBER_SETTING, 0);
-  }
-
-  public int getFirstInstallVersion()
-  {
-    return nativeGetInt(FIRST_INSTALL_VERSION, 0);
-  }
-
-  public String getFirstInstallFlavor()
-  {
-    return nativeGetString(FIRST_INSTALL_FLAVOR, "");
+    Config.resetAppSessionCounters();
   }
 }

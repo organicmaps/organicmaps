@@ -19,7 +19,7 @@ protected:
   uint8_t DecodeBase64Char(char const c);
   static double DecodeZoom(uint8_t const zoomByte);
   void DecodeLatLon(string const & url, double & lat, double & lon);
-  void DecodeLatLonToInt(string const & url, int & lat, int & lon, int const bytes);
+  void DecodeLatLonToInt(string const & url, int & lat, int & lon, size_t const bytes);
   double DecodeLatFromInt(int const lat, int const maxValue);
   double DecodeLonFromInt(int const lon, int const maxValue);
   string DecodeName(string name);

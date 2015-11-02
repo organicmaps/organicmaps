@@ -44,7 +44,7 @@ namespace boost { namespace fusion
             };
 
             template<typename Seq>
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             typename result<poly_at(Seq&)>::type
             operator()(Seq& seq) const
             {
@@ -52,14 +52,14 @@ namespace boost { namespace fusion
             }
 
             template<typename Seq>
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             typename result<poly_at(Seq const&)>::type
             operator()(Seq const& seq) const
             {
                 return fusion::at<N>(seq);
             }
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             unused_type operator()(unused_type const&) const
             {
                 return unused_type();
@@ -82,7 +82,7 @@ namespace boost { namespace fusion
                     typename result_of::transform<
                     typename Seq::sequences, detail::poly_at<N> >::type>::type type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Seq& seq)
                 {

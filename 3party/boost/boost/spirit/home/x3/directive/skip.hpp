@@ -8,10 +8,6 @@
 #if !defined(SPIRIT_SKIP_JANUARY_26_2008_0422PM)
 #define SPIRIT_SKIP_JANUARY_26_2008_0422PM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/spirit/home/x3/support/context.hpp>
 #include <boost/spirit/home/x3/support/unused.hpp>
 #include <boost/spirit/home/x3/core/skip_over.hpp>
@@ -91,34 +87,34 @@ namespace boost { namespace spirit { namespace x3
         template <typename Skipper>
         struct skip_gen
         {
-            explicit skip_gen(Skipper const& skipper)
+            skip_gen(Skipper const& skipper)
               : skipper_(skipper) {}
 
             template <typename Subject>
             skip_directive<typename extension::as_parser<Subject>::value_type, Skipper>
             operator[](Subject const& subject) const
             {
-                return {as_parser(subject), skipper_};
+                return { as_parser(subject), skipper_ };
             }
 
             Skipper skipper_;
         };
-        
+
         template <typename Skipper>
         skip_gen<Skipper> const operator()(Skipper const& skipper) const
         {
-            return skip_gen<Skipper>(skipper);
+            return { skipper };
         }
 
         template <typename Subject>
         reskip_directive<typename extension::as_parser<Subject>::value_type>
         operator[](Subject const& subject) const
         {
-            return {as_parser(subject)};
+            return { as_parser(subject) };
         }
     };
 
-    reskip_gen const skip = reskip_gen();
+    auto const skip = reskip_gen{};
 }}}
 
 #endif

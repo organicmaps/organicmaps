@@ -26,14 +26,14 @@ namespace boost { namespace fusion
         struct deref_impl<vector_iterator_tag>
         {
             template <typename Iterator>
-            struct apply 
+            struct apply
             {
                 typedef typename Iterator::vector vector;
                 typedef typename Iterator::index index;
                 typedef typename mpl::at<
                     typename vector::types, index>::type
                 element;
-                
+
                 typedef typename
                     mpl::if_<
                         is_const<vector>
@@ -42,7 +42,7 @@ namespace boost { namespace fusion
                     >::type
                 type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Iterator const& i)
                 {

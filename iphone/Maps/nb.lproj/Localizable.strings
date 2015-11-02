@@ -478,13 +478,35 @@
 
 "share_my_location" = "Del posisjonen min";
 
-"become_a_pro" = "Upgrade";
-
 "menu_search" = "Søk";
+
+/* Settings screen: "Map" category title */
+"prefs_group_map" = "Map";
+
+/* Settings screen: "Route" category title */
+"prefs_group_route" = "Route";
+
+/* Settings screen: "Miscellaneous" category title */
+"prefs_group_misc" = "Miscellaneous";
 
 "pref_zoom_title" = "Zoom-knapper";
 
 "pref_zoom_summary" = "Vis på skjermen";
+
+/* Settings «Map» category: «Map style» title */
+"pref_map_style_title" = "Map style";
+
+/* Settings «Map» category: «Map style» summary */
+"pref_map_style_summary" = "Change map presentation";
+
+/* «Map style» entry value */
+"pref_map_style_classic_light" = "Classic light";
+
+/* «Map style» entry value */
+"pref_map_style_classic_dark" = "Classic dark";
+
+/* «Map style» entry value */
+"pref_map_style_modern_light" = "Modern light";
 
 "placepage_distance" = "Avstand";
 
@@ -558,6 +580,12 @@
 "settings_and_more" = "Innstillinger med mer";
 
 /* Text in menu */
+"website" = "Website";
+
+/* Text in menu */
+"blog" = "Blog";
+
+/* Text in menu */
 "maps_me_community" = "MAPS.ME-samfunnet";
 
 /* Text in menu */
@@ -569,11 +597,26 @@
 /* Text in menu */
 "contact_us" = "Kontakt oss";
 
+/* Settings: Send feedback button and dialog title */
+"feedback" = "Feedback";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "General feedback";
+
 /* Text in menu */
 "subscribe_to_news" = "Abonner på nyheter fra oss";
 
 /* Text in menu */
 "rate_the_app" = "Ranger appen";
+
+/* Rate in Google Play (Android only) */
+"rate_gp" = "Rate on Google Play";
+
+/* Share with friends: menu item title */
+"tell_friends" = "Tell a Friend";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "Hi! Install Maps.me!";
 
 /* Text in menu */
 "help" = "Hjelp";
@@ -589,6 +632,9 @@
 
 /* Email body */
 "subscribe_me_body" = "Jeg ønsker å være den første som får vite om siste nytt og nye kampanjer. Jeg kan avbestille abonnementet når som helst.";
+
+/* About short text (below logo) */
+"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
 "about_text" = "MAPS.ME tilbyr de raskeste offline-kartene over alle byer i alle land i verden. Reis trygt: Uansett hvor du er, kan MAPS.ME hjelpe deg med å finne ut hvor du er på kartet eller finne nærmeste restaurant, hotell, bank, bensinstasjon osv. Det kreves ingen internettforbindelse.\n\nVi jobber alltid med å legge inn nye funksjoner, og vi vil gjerne høre hvordan du synes at vi kan forbedre MAPS.ME. Hvis du får problemer med appen, ikke nøl med å kontakte oss på support@maps.me. Vi svarer på alle forespørsler!\n\nLiker du MAPS.ME og ønsker å støtte oss? Det er noen enkle og helt gratis måter å gjøre det på:\n\n- Legg inn en vurdering på app-butikken\n- Lik Facebook-siden vår på http://www.facebook.com/mapswithme\n- Eller bare fortell mamma, venner og kolleger om MAPS.ME :)\n\nTakk for at du er med oss. Vi setter stor pris på støtten!\n\nPS! Vi henter kartdata fra OpenStreetMap, et kartprosjekt som ligner på Wikipedia, der brukerne selv kan opprette og redigere kart. Hvis du finner mangler eller feil på kartet, kan du korrigere kartet direkte på http://openstreetmap.org, og endringene vil vises i MAPS.ME-appen når neste versjon kommer.";
@@ -1268,11 +1314,5 @@
 "search_history_title" = "Søkehistorikk";
 
 "search_history_text" = "Vis de siste søkene raskt.";
-
-"update_maps_alert_title" = "Enklere utforsking på kartet";
-
-"update_maps_alert_message" = "Vi har forbedret utformingen på kartene: Nå vil alle objektene se tydeligere og mer brukervennlige ut. Oppdater kartene for å få det meste ut av den nye utformingen.";
-
-"update_maps_alert_button_title" = "Oppdater kart";
 
 "clear_search" = "Tøm søkehistorikk";

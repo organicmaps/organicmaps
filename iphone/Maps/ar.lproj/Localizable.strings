@@ -478,13 +478,35 @@
 
 "share_my_location" = "مشاركة موقعي";
 
-"become_a_pro" = "ترقية";
-
 "menu_search" = "بحث";
+
+/* Settings screen: "Map" category title */
+"prefs_group_map" = "Map";
+
+/* Settings screen: "Route" category title */
+"prefs_group_route" = "Route";
+
+/* Settings screen: "Miscellaneous" category title */
+"prefs_group_misc" = "Miscellaneous";
 
 "pref_zoom_title" = "أزرار التكبير";
 
 "pref_zoom_summary" = "عرض على الشاشة";
+
+/* Settings «Map» category: «Map style» title */
+"pref_map_style_title" = "Map style";
+
+/* Settings «Map» category: «Map style» summary */
+"pref_map_style_summary" = "Change map presentation";
+
+/* «Map style» entry value */
+"pref_map_style_classic_light" = "Classic light";
+
+/* «Map style» entry value */
+"pref_map_style_classic_dark" = "Classic dark";
+
+/* «Map style» entry value */
+"pref_map_style_modern_light" = "Modern light";
 
 "placepage_distance" = "المسافة";
 
@@ -558,6 +580,12 @@
 "settings_and_more" = "الإعدادات والمزيد";
 
 /* Text in menu */
+"website" = "Website";
+
+/* Text in menu */
+"blog" = "Blog";
+
+/* Text in menu */
 "maps_me_community" = "مجتمع MAPS.ME";
 
 /* Text in menu */
@@ -569,11 +597,26 @@
 /* Text in menu */
 "contact_us" = "أتصل بنا";
 
+/* Settings: Send feedback button and dialog title */
+"feedback" = "Feedback";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "General feedback";
+
 /* Text in menu */
 "subscribe_to_news" = "أشترك في نشرتنا الإخبارية";
 
 /* Text in menu */
 "rate_the_app" = "تقييم التطبيق";
+
+/* Rate in Google Play (Android only) */
+"rate_gp" = "Rate on Google Play";
+
+/* Share with friends: menu item title */
+"tell_friends" = "Tell a Friend";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "Hi! Install Maps.me!";
 
 /* Text in menu */
 "help" = "مساعدة";
@@ -589,6 +632,9 @@
 
 /* Email body */
 "subscribe_me_body" = "أريد أن أكون أول من يعرف آخر الأخبار والتحديثات والترقيات. يمكنني إلغاء اشتراكي في أي وقت.";
+
+/* About short text (below logo) */
+"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
 "about_text" = "توفر لكم MAPS.ME أحدث الخرائط دون الاتصال بالإنترنت لكافة دول وكافة مدن العالم. سافر وتمتع بالثقة التامة: إينما كنت، تساعدك MAPS.ME على تحديد مكانك على الخريطة، والعثور على أقرب مطعم أو فندق أو بنك أو محطة غاز الخ لا يتطلب الاتصال بالإنترنت.\n\nنحن نعمل دوماً على إدخال مزايا جديدة على التطبيق ونود أن نسمع منك رأيك عن الكيفية التي يمكن بها تحسين تطبيق MAPS.ME في رأيك. إذا واجهتك أي مشاكل مع التطبيق، لا تتردد في الاتصال بنا على support@maps.me. نحن نرد على كافة الطلبات.\n\nهل أعجبك تطبيق MAPS.ME وترغب في دعمنا؟ هناك بعض الطرق السهلة والمجانية بالكامل لعمل ذلك.\n\n- انشر رأيك على متجر التطبيقات الخاص بك\n- اعجب بصفحتنا على موقع Facebook http://www.facebook.com/mapswithme\n- أو أخبر والدتك وأصدقائك وزملائك عن تطبيق MAPS.ME :)\n\nشكراً لك على وجودك معنا. نحن نقدر جداً دعمك لنا!\n\nيُرجى ملاحظة نحن نستقي بيانات الخرائط من OpenStreetMap، مشروع خرائط يشبه موسوعة Wikipedia ويتيح هذا المشروع للمستخدمين إنشاء وتحرير الخرائط. إذا كنت ترى أن هناك خطأ ما أو شيء غير موجود على الخريطة، يمكنك تصحيح الخرائط مباشرة على http://openstreetmap.org، وسوف تظهر تغييراتك على تطبيق MAPS.ME في الإصدار القادم للتطبيق.";
@@ -1268,11 +1314,5 @@
 "search_history_title" = "سجل البحث";
 
 "search_history_text" = "الوصول إلى استعلامات البحث الحديثة بسرعة.";
-
-"update_maps_alert_title" = "تصفح الخريطة أصبح أسهل الآن";
-
-"update_maps_alert_message" = "قمنا بتحسين تصاميم الخريطة: الآن أصبحت كل الأشياء واضحة وسهلة الاستخدام. قم بتحديث الخرائط لتحصل على المزيد من التصميم الجديد.";
-
-"update_maps_alert_button_title" = "تحديث الخرائط";
 
 "clear_search" = "مسح تاريخ البحث";

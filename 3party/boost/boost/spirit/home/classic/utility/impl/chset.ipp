@@ -97,7 +97,7 @@ inline chset<CharT>::chset(anychar_parser /*arg*/)
 }
 
 template <typename CharT>
-inline chset<CharT>::chset(nothing_parser arg_)
+inline chset<CharT>::chset(nothing_parser /*arg_*/)
 : ptr(new basic_chset<CharT>()) {}
 
 template <typename CharT>
@@ -146,7 +146,7 @@ chset<CharT>::operator=(CharT rhs)
 
 template <typename CharT>
 inline chset<CharT>&
-chset<CharT>::operator=(anychar_parser rhs)
+chset<CharT>::operator=(anychar_parser /*rhs*/)
 {
     utility::impl::detach_clear(ptr);
     ptr->set(
@@ -158,7 +158,7 @@ chset<CharT>::operator=(anychar_parser rhs)
 
 template <typename CharT>
 inline chset<CharT>&
-chset<CharT>::operator=(nothing_parser rhs)
+chset<CharT>::operator=(nothing_parser /*rhs*/)
 {
     utility::impl::detach_clear(ptr);
     return *this;

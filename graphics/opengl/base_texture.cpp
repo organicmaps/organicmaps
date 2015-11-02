@@ -80,7 +80,7 @@ namespace graphics
     {
       if (queue)
       {
-        queue->processFn(bind(&BaseTexture::makeCurrent, this, (graphics::PacketsQueue*)0));
+        queue->processFn([this](){ makeCurrent(0); });
         return;
       }
 

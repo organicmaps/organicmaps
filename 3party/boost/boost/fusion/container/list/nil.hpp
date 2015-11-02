@@ -31,17 +31,17 @@ namespace boost { namespace fusion
         typedef void_ car_type;
         typedef void_ cdr_type;
 
-        BOOST_FUSION_GPU_ENABLED
-        nil_() {}
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+        nil_() BOOST_NOEXCEPT {}
 
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
-        nil_(Iterator const& /*iter*/, mpl::true_ /*this_is_an_iterator*/)
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+        nil_(Iterator const& /*iter*/, mpl::true_ /*this_is_an_iterator*/) BOOST_NOEXCEPT
         {}
 
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
-        void assign_from_iter(Iterator const& /*iter*/)
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+        void assign_from_iter(Iterator const& /*iter*/) BOOST_NOEXCEPT
         {
         }
     };

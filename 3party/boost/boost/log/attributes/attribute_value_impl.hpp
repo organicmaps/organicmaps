@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2014.
+ *          Copyright Andrey Semashev 2007 - 2015.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -15,6 +15,7 @@
 #ifndef BOOST_LOG_ATTRIBUTES_ATTRIBUTE_VALUE_IMPL_HPP_INCLUDED_
 #define BOOST_LOG_ATTRIBUTES_ATTRIBUTE_VALUE_IMPL_HPP_INCLUDED_
 
+#include <boost/type_index.hpp>
 #include <boost/move/core.hpp>
 #include <boost/move/utility.hpp>
 #include <boost/type_traits/remove_cv.hpp>
@@ -87,7 +88,7 @@ public:
     /*!
      * \return The attribute value type
      */
-    type_info_wrapper get_type() const { return type_info_wrapper(typeid(value_type)); }
+    typeindex::type_index get_type() const { return typeindex::type_id< value_type >(); }
 
     /*!
      * \return Reference to the contained value.

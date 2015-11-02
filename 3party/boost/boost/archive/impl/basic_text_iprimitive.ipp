@@ -19,7 +19,6 @@ namespace std{
 #endif
 
 #include <boost/serialization/throw_exception.hpp>
-#include <boost/serialization/pfto.hpp>
 
 #include <boost/archive/basic_text_iprimitive.hpp>
 #include <boost/archive/codecvt_null.hpp>
@@ -35,16 +34,16 @@ namespace archive {
 
 namespace detail {
     template<class CharType>
-    bool is_whitespace(CharType c);
+    static inline bool is_whitespace(CharType c);
 
     template<>
-    bool is_whitespace(char t){
+    inline bool is_whitespace(char t){
         return 0 != std::isspace(t);
     }
 
     #ifndef BOOST_NO_CWCHAR
     template<>
-    bool is_whitespace(wchar_t t){
+    inline bool is_whitespace(wchar_t t){
         return 0 != std::iswspace(t);
     }
     #endif
@@ -53,7 +52,7 @@ namespace detail {
 // translate base64 text into binary and copy into buffer
 // until buffer is full.
 template<class IStream>
-BOOST_ARCHIVE_OR_WARCHIVE_DECL(void)
+BOOST_ARCHIVE_OR_WARCHIVE_DECL void
 basic_text_iprimitive<IStream>::load_binary(
     void *address, 
     std::size_t count
@@ -87,11 +86,7 @@ basic_text_iprimitive<IStream>::load_binary(
         > 
         binary;
         
-    binary i = binary(
-        BOOST_MAKE_PFTO_WRAPPER(
-            iterators::istream_iterator<CharType>(is)
-        )
-    );
+    binary i = binary(iterators::istream_iterator<CharType>(is));
 
     char * caddr = static_cast<char *>(address);
     
@@ -112,7 +107,7 @@ basic_text_iprimitive<IStream>::load_binary(
 }
     
 template<class IStream>
-BOOST_ARCHIVE_OR_WARCHIVE_DECL(BOOST_PP_EMPTY())
+BOOST_ARCHIVE_OR_WARCHIVE_DECL
 basic_text_iprimitive<IStream>::basic_text_iprimitive(
     IStream  &is_,
     bool no_codecvt
@@ -121,17 +116,16 @@ basic_text_iprimitive<IStream>::basic_text_iprimitive(
     is(is_),
     flags_saver(is_),
     precision_saver(is_),
-    archive_locale(NULL),
     locale_saver(* is_.rdbuf())
 {
     if(! no_codecvt){
         archive_locale.reset(
             add_facet(
-                std::locale::classic(), 
-                new codecvt_null<typename IStream::char_type>
+                std::locale::classic(),
+                new boost::archive::codecvt_null<typename IStream::char_type>
             )
         );
-        is.imbue(* archive_locale);
+        //is.imbue(* archive_locale);
     }
     is >> std::noboolalpha;
 }
@@ -143,7 +137,7 @@ basic_text_iprimitive<IStream>::basic_text_iprimitive(
 #endif
 
 template<class IStream>
-BOOST_ARCHIVE_OR_WARCHIVE_DECL(BOOST_PP_EMPTY())
+BOOST_ARCHIVE_OR_WARCHIVE_DECL
 basic_text_iprimitive<IStream>::~basic_text_iprimitive(){
     is.sync();
 }

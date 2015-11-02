@@ -25,13 +25,15 @@ namespace boost { namespace fusion { namespace result_of
 namespace boost { namespace fusion
 {
     template <typename Sequence>
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::flatten<Sequence>::type
     flatten(Sequence& view)
     {
         return flatten_view<Sequence>(view);
     }
-    
+
     template <typename Sequence>
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::flatten<Sequence const>::type
     flatten(Sequence const& view)
     {

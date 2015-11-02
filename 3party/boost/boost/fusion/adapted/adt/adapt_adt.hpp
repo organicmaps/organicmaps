@@ -2,6 +2,7 @@
     Copyright (c) 2001-2009 Joel de Guzman
     Copyright (c) 2009-2010 Hartmut Kaiser
     Copyright (c) 2010-2011 Christopher Schmidt
+    Copyright (c) 2013-2014 Damien Buhl
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -13,6 +14,9 @@
 #include <boost/fusion/support/config.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/empty.hpp>
+#include <boost/preprocessor/control/if.hpp>
+#include <boost/preprocessor/comparison/equal.hpp>
+#include <boost/preprocessor/comparison/less.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/add_const.hpp>
@@ -22,6 +26,7 @@
 #include <boost/fusion/adapted/struct/detail/adapt_base.hpp>
 #include <boost/fusion/adapted/struct/detail/at_impl.hpp>
 #include <boost/fusion/adapted/struct/detail/is_view_impl.hpp>
+#include <boost/fusion/adapted/struct/detail/proxy_type.hpp>
 #include <boost/fusion/adapted/struct/detail/is_sequence_impl.hpp>
 #include <boost/fusion/adapted/struct/detail/value_at_impl.hpp>
 #include <boost/fusion/adapted/struct/detail/category_of_impl.hpp>
@@ -32,17 +37,21 @@
 #include <boost/fusion/adapted/struct/detail/deref_impl.hpp>
 #include <boost/fusion/adapted/adt/detail/extension.hpp>
 #include <boost/fusion/adapted/adt/detail/adapt_base.hpp>
+#include <boost/fusion/adapted/adt/detail/adapt_base_attr_filler.hpp>
 
-#define BOOST_FUSION_ADAPT_ADT_FILLER_0(A, B, C, D)\
-    ((A, B, C, D)) BOOST_FUSION_ADAPT_ADT_FILLER_1
-#define BOOST_FUSION_ADAPT_ADT_FILLER_1(A, B, C, D)\
-    ((A, B, C, D)) BOOST_FUSION_ADAPT_ADT_FILLER_0
-#define BOOST_FUSION_ADAPT_ADT_FILLER_0_END
-#define BOOST_FUSION_ADAPT_ADT_FILLER_1_END
-
-#define BOOST_FUSION_ADAPT_ADT_C(TEMPLATE_PARAMS_SEQ, NAME_SEQ, I, ATTRIBUTE)   \
-    BOOST_FUSION_ADAPT_ADT_C_BASE(                                              \
-        TEMPLATE_PARAMS_SEQ, NAME_SEQ, I, ATTRIBUTE, 4)
+#define BOOST_FUSION_ADAPT_ADT_C(                                               \
+    TEMPLATE_PARAMS_SEQ, NAME_SEQ, IS_VIEW, I, ATTRIBUTE)                       \
+        BOOST_FUSION_ADAPT_ADT_C_BASE(                                          \
+            TEMPLATE_PARAMS_SEQ,                                                \
+            NAME_SEQ,                                                           \
+            I,                                                                  \
+            BOOST_PP_IF(IS_VIEW, BOOST_FUSION_PROXY_PREFIX, BOOST_PP_EMPTY),    \
+            BOOST_FUSION_ADAPT_ADT_WRAPPEDATTR(ATTRIBUTE),                      \
+            BOOST_FUSION_ADAPT_ADT_WRAPPEDATTR_SIZE(ATTRIBUTE),                 \
+            BOOST_PP_IF(                                                        \
+                BOOST_PP_LESS(                                                  \
+                    BOOST_FUSION_ADAPT_ADT_WRAPPEDATTR_SIZE(ATTRIBUTE), 4)      \
+                , 1, 0))
 
 #define BOOST_FUSION_ADAPT_TPL_ADT(TEMPLATE_PARAMS_SEQ, NAME_SEQ , ATTRIBUTES)  \
     BOOST_FUSION_ADAPT_STRUCT_BASE(                                             \

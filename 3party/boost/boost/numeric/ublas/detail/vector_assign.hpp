@@ -30,7 +30,7 @@ namespace detail {
     template<class E1, class E2, class S>
     BOOST_UBLAS_INLINE
     bool equals (const vector_expression<E1> &e1, const vector_expression<E2> &e2, S epsilon, S min_norm) {
-        return norm_inf (e1 - e2) < epsilon *
+        return norm_inf (e1 - e2) <= epsilon *
                std::max<S> (std::max<S> (norm_inf (e1), norm_inf (e2)), min_norm);
     }
 
@@ -379,7 +379,7 @@ namespace detail {
         typedef typename V::size_type size_type;
         typedef typename V::difference_type difference_type;
         typedef typename V::value_type value_type;
-        typedef typename V::reference reference;
+
 #if BOOST_UBLAS_TYPE_CHECK
         vector<value_type> cv (v.size ());
         indexing_vector_assign<scalar_assign> (cv, v);
@@ -513,7 +513,6 @@ namespace detail {
         typedef F<typename V::iterator::reference, typename E::iterator::reference> functor_type;
         typedef typename V::size_type size_type;
         typedef typename V::difference_type difference_type;
-        typedef typename V::value_type value_type;
 
         detail::make_conformant (v, e);
         // FIXME should be a seperate restriction for E

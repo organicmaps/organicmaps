@@ -157,13 +157,18 @@ protected:
     <
         typename Turns,
         typename LinearGeometry1,
-        typename LinearGeometry2
+        typename LinearGeometry2,
+        typename RobustPolicy
     >
     static inline void compute_turns(Turns& turns,
                                      LinearGeometry1 const& linear1,
-                                     LinearGeometry2 const& linear2)
+                                     LinearGeometry2 const& linear2,
+                                     RobustPolicy const& robust_policy)
     {
         turns.clear();
+
+        detail::get_turns::no_interrupt_policy interrupt_policy;
+
         geometry::detail::relate::turns::get_turns
             <
                 LinearGeometry1,
@@ -173,8 +178,9 @@ protected:
                     LinearGeometry1,
                     LinearGeometry2,
                     assign_policy
-                >
-            >::apply(turns, linear1, linear2);
+                >,
+                RobustPolicy
+            >::apply(turns, linear1, linear2, interrupt_policy, robust_policy);
     }
 
 
@@ -229,19 +235,27 @@ public:
     >
     static inline OutputIterator apply(Linear1 const& linear1,
                                        Linear2 const& linear2,
-                                       RobustPolicy const&,
+                                       RobustPolicy const& robust_policy,
                                        OutputIterator oit,
                                        Strategy const& )
     {
         typedef typename detail::relate::turns::get_turns
             <
-                Linear1, Linear2
+                Linear1,
+                Linear2,
+                detail::get_turns::get_turn_info_type
+                <
+                    Linear1,
+                    Linear2,
+                    assign_policy
+                >,
+                RobustPolicy
             >::turn_info turn_info;
 
         typedef std::vector<turn_info> turns_container;
 
         turns_container turns;
-        compute_turns(turns, linear1, linear2);
+        compute_turns(turns, linear1, linear2, robust_policy);
 
         if ( turns.empty() )
         {

@@ -24,8 +24,6 @@
 // character and 8 bit bytes. Lowest common multiple is 24 => 4 6 bit characters
 // or 3 8 bit characters
 
-#include <boost/serialization/pfto.hpp>
-
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 
@@ -110,8 +108,8 @@ class transform_width :
 public:
     // make composible buy using templated constructor
     template<class T>
-    transform_width(BOOST_PFTO_WRAPPER(T) start) : 
-        super_t(Base(BOOST_MAKE_PFTO_WRAPPER(static_cast< T >(start)))),
+    transform_width(T start) :
+        super_t(Base(static_cast< T >(start))),
         m_buffer_out_full(false),
         // To disable GCC warning, but not truly necessary 
 	    //(m_buffer_in will be initialized later before being 
@@ -124,6 +122,7 @@ public:
     transform_width(const transform_width & rhs) : 
         super_t(rhs.base_reference()),
         m_buffer_out_full(rhs.m_buffer_out_full),
+        m_buffer_out(rhs.m_buffer_out),
         m_buffer_in(rhs.m_buffer_in),
         m_remaining_bits(rhs.m_remaining_bits),
         m_end_of_sequence(false)
@@ -153,7 +152,7 @@ void transform_width<Base, BitsOut, BitsIn, CharType>::fill() {
 
         // append these bits to the next output
         // up to the size of the output
-        unsigned int i = std::min(missing_bits, m_remaining_bits);
+        unsigned int i = (std::min)(missing_bits, m_remaining_bits);
         // shift interesting bits to least significant position
         base_value_type j = m_buffer_in >> (m_remaining_bits - i);
         // and mask off the un interesting higher bits

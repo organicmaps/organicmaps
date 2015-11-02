@@ -3,6 +3,7 @@
 // Copyright (c) 2014-2015, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Licensed under the Boost Software License version 1.0.
 // http://www.boost.org/users/license.html
@@ -18,6 +19,7 @@
 #include <boost/geometry/core/point_type.hpp>
 #include <boost/geometry/core/tags.hpp>
 
+#include <boost/geometry/util/condition.hpp>
 #include <boost/geometry/util/range.hpp>
 
 #include <boost/geometry/algorithms/equals.hpp>
@@ -138,7 +140,8 @@ public:
     static inline bool apply(MultiLinestring const& multilinestring,
                              VisitPolicy& visitor)
     {
-        if (AllowEmptyMultiGeometries && boost::empty(multilinestring))
+        if (BOOST_GEOMETRY_CONDITION(
+                AllowEmptyMultiGeometries && boost::empty(multilinestring)))
         {
             return visitor.template apply<no_failure>();
         }

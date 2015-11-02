@@ -970,6 +970,11 @@ node|z16-[natural=bay]
 
 /* water LABELS */
 
+line[waterway]
+{
+  text-position: line;
+}
+
 area|z10-[natural=lake][bbox_area>=4000000],
 area|z10-[landuse=reservoir][bbox_area>=4000000],
 area|z10-[natural=water][bbox_area>=4000000]
@@ -1137,7 +1142,7 @@ area|z17[leisure=park][!name] {
 
 area|z17[leisure=garden][!name] {
 }
-area|z18-[leisure=park][name] {
+area|z18-[leisure=park] {
   icon-image: park-l.svg;
   text-offset: 10;
   text: name;
@@ -1147,7 +1152,7 @@ area|z18-[leisure=park][name] {
   text-halo-color: @label_halo_light;
   text-halo-radius: 0.5;
 }
-area|z18-[leisure=garden][name] {
+area|z18-[leisure=garden] {
   icon-image: garden-l.svg;
   text-offset: 10;
   text: name;
@@ -1157,12 +1162,7 @@ area|z18-[leisure=garden][name] {
   text-halo-color: @label_halo_light;
   text-halo-radius: 0.5;
 }
-area|z18-[leisure=park][!name] {
-  icon-image: park-l.svg;
-}
-area|z18-[leisure=garden][!name] {
-  icon-image: garden-l.svg;
-}
+
 /* BEACH LABELS */
 
 area|z15-[leisure=beach_resort],
@@ -1204,7 +1204,7 @@ node|z17-[landuse=cemetery] {
 }
 area|z17-[amenity=grave_yard]
 node|z17-[amenity=grave_yard]{
-  icon-image: cemetry-l.svg;
+  icon-image: cemetery-l.svg;
   text-offset: 10;
   text: name;
   font-size: 10;

@@ -32,7 +32,9 @@ const routing::TNodesList kEmptyList;
 namespace routing
 {
 
-OsrmMappingTypes::FtSeg::FtSeg(uint32_t fid, uint32_t ps, uint32_t pe)
+namespace OsrmMappingTypes
+{
+FtSeg::FtSeg(uint32_t fid, uint32_t ps, uint32_t pe)
   : m_fid(fid),
     m_pointStart(static_cast<uint16_t>(ps)),
     m_pointEnd(static_cast<uint16_t>(pe))
@@ -42,17 +44,17 @@ OsrmMappingTypes::FtSeg::FtSeg(uint32_t fid, uint32_t ps, uint32_t pe)
   CHECK_EQUAL(m_pointEnd, pe, ());
 }
 
-OsrmMappingTypes::FtSeg::FtSeg(uint64_t x)
+FtSeg::FtSeg(uint64_t x)
   : m_fid(x & 0xFFFFFFFF), m_pointStart(x >> 48), m_pointEnd((x >> 32) & 0xFFFF)
 {
 }
 
-uint64_t OsrmMappingTypes::FtSeg::Store() const
+uint64_t FtSeg::Store() const
 {
   return (uint64_t(m_pointStart) << 48) + (uint64_t(m_pointEnd) << 32) + uint64_t(m_fid);
 }
 
-bool OsrmMappingTypes::FtSeg::Merge(FtSeg const & other)
+bool FtSeg::Merge(FtSeg const & other)
 {
   if (other.m_fid != m_fid)
     return false;
@@ -79,7 +81,7 @@ bool OsrmMappingTypes::FtSeg::Merge(FtSeg const & other)
     return false;
 }
 
-bool OsrmMappingTypes::FtSeg::IsIntersect(FtSeg const & other) const
+bool FtSeg::IsIntersect(FtSeg const & other) const
 {
   if (other.m_fid != m_fid)
     return false;
@@ -92,7 +94,7 @@ bool OsrmMappingTypes::FtSeg::IsIntersect(FtSeg const & other) const
   return my::IsIntersect(s1, e1, s2, e2);
 }
 
-string OsrmMappingTypes::DebugPrint(OsrmMappingTypes::FtSeg const & seg)
+string DebugPrint(FtSeg const & seg)
 {
   stringstream ss;
   ss << "{ fID = " << seg.m_fid <<
@@ -101,13 +103,59 @@ string OsrmMappingTypes::DebugPrint(OsrmMappingTypes::FtSeg const & seg)
   return ss.str();
 }
 
-string OsrmMappingTypes::DebugPrint(OsrmMappingTypes::SegOffset const & off)
+string DebugPrint(SegOffset const & off)
 {
   stringstream ss;
   ss << "{ " << off.m_nodeId << ", " << off.m_offset << " }";
   return ss.str();
 }
 
+bool IsInside(FtSeg const & bigSeg, FtSeg const & smallSeg)
+{
+  ASSERT_EQUAL(bigSeg.m_fid, smallSeg.m_fid, ());
+  ASSERT_EQUAL(smallSeg.m_pointEnd - smallSeg.m_pointStart, 1, ());
+
+  auto segmentLeft = min(bigSeg.m_pointStart, bigSeg.m_pointEnd);
+  auto segmentRight = max(bigSeg.m_pointStart, bigSeg.m_pointEnd);
+
+  return (smallSeg.m_pointStart != segmentLeft || smallSeg.m_pointEnd != segmentRight) &&
+         (segmentLeft <= smallSeg.m_pointStart && segmentRight >= smallSeg.m_pointEnd);
+}
+
+FtSeg SplitSegment(FtSeg const & segment, FtSeg const & splitter, bool const resultFromLeft)
+{
+  FtSeg resultSeg;
+  resultSeg.m_fid = segment.m_fid;
+
+  if (segment.m_pointStart < segment.m_pointEnd)
+  {
+    if (resultFromLeft)
+    {
+      resultSeg.m_pointStart = segment.m_pointStart;
+      resultSeg.m_pointEnd = splitter.m_pointEnd;
+    }
+    else
+    {
+      resultSeg.m_pointStart = splitter.m_pointStart;
+      resultSeg.m_pointEnd = segment.m_pointEnd;
+    }
+  }
+  else
+  {
+    if (resultFromLeft)
+    {
+      resultSeg.m_pointStart = segment.m_pointStart;
+      resultSeg.m_pointEnd = splitter.m_pointStart;
+    }
+    else
+    {
+      resultSeg.m_pointStart = splitter.m_pointEnd;
+      resultSeg.m_pointEnd = segment.m_pointEnd;
+    }
+  }
+  return resultSeg;
+}
+}  // namespace OsrmMappingTypes
 
 void OsrmFtSegMapping::Clear()
 {
@@ -172,7 +220,7 @@ void OsrmFtSegMapping::DumpSegmentByNode(TOsrmNodeId nodeId) const
 #endif
 }
 
-void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res) const
+void OsrmFtSegMapping::GetOsrmNodes(TFtSegVec const & segments, OsrmNodesT & res) const
 {
   auto addResFn = [&] (uint64_t seg, TOsrmNodeId nodeId, bool forward)
   {
@@ -198,7 +246,7 @@ void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res) cons
 
   for (auto it = segments.begin(); it != segments.end(); ++it)
   {
-    OsrmMappingTypes::FtSeg const & seg = *(*it);
+    OsrmMappingTypes::FtSeg const & seg = *it;
 
     TNodesList const & nodeIds = m_backwardIndex.GetNodeIdByFid(seg.m_fid);
 

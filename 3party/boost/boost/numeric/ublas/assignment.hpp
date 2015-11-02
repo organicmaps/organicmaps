@@ -170,7 +170,7 @@ BOOST_UBLAS_INLINE vector_move_manip<T>  move(T i) {
 *
 * \todo Doxygen has some problems with similar template functions. Correct that.
 */
-template <std::size_t I>
+template <std::ptrdiff_t I>
 class static_vector_move_manip: public index_manipulator<static_vector_move_manip<I> > {
 public:
     template <typename V>
@@ -198,8 +198,8 @@ public:
 *
 * \todo Doxygen has some problems with similar template functions. Correct that.
 */
-template <std::size_t I>
-BOOST_UBLAS_INLINE static_vector_move_manip<I>  move() {
+template <std::ptrdiff_t I>
+static_vector_move_manip<I>  move() {
     return static_vector_move_manip<I>();
 }
 
@@ -269,7 +269,7 @@ BOOST_UBLAS_INLINE matrix_move_to_manip<T>  move_to(T i, T j) {
 *
 * \todo Doxygen has some problems with similar template functions. Correct that.
 */
-template <std::size_t I, std::size_t J>
+template <std::size_t I,std::size_t J>
 class static_matrix_move_to_manip: public index_manipulator<static_matrix_move_to_manip<I, J> > {
 public:
     template <typename V, typename K>
@@ -369,7 +369,7 @@ BOOST_UBLAS_INLINE matrix_move_manip<T>  move(T i, T j) {
 *
 * \todo Doxygen has some problems with similar template functions. Correct that.
 */
-template <std::size_t I, std::size_t J>
+template <std::ptrdiff_t I, std::ptrdiff_t J>
 class static_matrix_move_manip: public index_manipulator<static_matrix_move_manip<I, J> > {
 public:
     template <typename V, typename K>
@@ -407,7 +407,7 @@ public:
 *
 * \todo Doxygen has some problems with similar template functions. Correct that.
 */
-template <std::size_t I, std::size_t J>
+template <std::ptrdiff_t I, std::ptrdiff_t J>
 BOOST_UBLAS_INLINE static_matrix_move_manip<I, J>  move() {
     return static_matrix_move_manip<I, J>();
 }
@@ -804,7 +804,7 @@ namespace traverse_policy {
             l++; j++;
             if (l>=e().size2()) {
                 l=0; k++; j=j0; i++;
-                // It is assumed that the iteration starts from 0 and happens only using this function from within
+                // It is assumed that the iteration starts from 0 and progresses only using this function from within
                 // an assigner object.
                 // Otherwise (i.e. if it is called outside the assigner object) apply2 should have been
                 // outside the if statement.
@@ -850,7 +850,7 @@ namespace traverse_policy {
             k++; i++;
             if (k>=e().size1()) {
                 k=0; l++; i=i0; j++;
-                // It is assumed that the iteration starts from 0 and happens only using this function from within
+                // It is assumed that the iteration starts from 0 and progresses only using this function from within
                 // an assigner object.
                 // Otherwise (i.e. if it is called outside the assigner object) apply2 should have been
                 // outside the if statement.

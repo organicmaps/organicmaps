@@ -11,9 +11,12 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 include(CheckCXXCompilerFlag)
 include(FindPackageHandleStandardArgs)
 
-set(OMIM_STORAGE_PATH "../../../storage/")
-set(OMIM_DEBUG_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../../omim-build-debug/out/debug")
-set(OMIM_RELEASE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../../omim-build-release/out/release")
+set(OMIM_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../.." CACHE PATH "Path to the root of omim repository")
+if(CMAKE_BUILD_TYPE MATCHES Debug)
+  set(OMIM_BUILD_PATH "${OMIM_PATH}/../omim-build-debug/out/debug" CACHE PATH "Path to the debug build of omim")
+else()
+  set(OMIM_BUILD_PATH "${OMIM_PATH}/../omim-build-release/out/release" CACHE PATH "Path to the release build of omim")
+endif()
 
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
@@ -37,7 +40,7 @@ option(ENABLE_JSON_LOGGING "Adds additional JSON debug logging to the response" 
 option(WITH_TOOLS "Build OSRM tools" OFF)
 option(BUILD_TOOLS "Build OSRM tools" OFF)
 
-include_directories(${OMIM_STORAGE_PATH}/../)
+include_directories(${OMIM_PATH}/)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third_party/)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third_party/libosmium/include/)
@@ -87,7 +90,7 @@ file(GLOB AlgorithmTestsGlob unit_tests/algorithms/*.cpp)
 
 file(GLOB MapsMeSources mapsme/*.cpp)
 file(GLOB MapsMeHeaders mapsme/*.h)
-file(GLOB MapsMeGenerator "${OMIM_STORAGE_PATH}/country.cpp" "${OMIM_STORAGE_PATH}/country_decl.cpp" "${OMIM_STORAGE_PATH}/country_info.cpp")
+file(GLOB MapsMeGenerator "${OMIM_PATH}/storage/country.cpp" "${OMIM_PATH}/storage/country_decl.cpp" "${OMIM_PATH}/storage/country_info.cpp")
 
 set(
   OSRMSources
@@ -223,34 +226,22 @@ if(NOT Boost_FOUND)
 endif()
 include_directories(${Boost_INCLUDE_DIRS})
 
+#Common libraries from omim
+set(OMIM_LIBRARIES
+  "${OMIM_BUILD_PATH}/librouting.a"
+  "${OMIM_BUILD_PATH}/libindexer.a"
+  "${OMIM_BUILD_PATH}/libgeometry.a"
+  "${OMIM_BUILD_PATH}/libcoding.a"
+  "${OMIM_BUILD_PATH}/libbase.a"
+  "${OMIM_BUILD_PATH}/libjansson.a"
+)
+
 target_link_libraries(OSRM ${Boost_LIBRARIES})
 target_link_libraries(osrm-extract ${Boost_LIBRARIES})
 target_link_libraries(osrm-prepare ${Boost_LIBRARIES})
-target_link_libraries(osrm-routed ${Boost_LIBRARIES} ${OPTIONAL_SOCKET_LIBS} OSRM
-                      debug "${OMIM_DEBUG_PATH}/libcoding.a"
-                            "${OMIM_DEBUG_PATH}/libbase.a"
-                            "${OMIM_DEBUG_PATH}/libgeometry.a"
-                            "${OMIM_DEBUG_PATH}/libindexer.a"
-                            "${OMIM_DEBUG_PATH}/libjansson.a"
-                      general "${OMIM_RELEASE_PATH}/libcoding.a"
-                              "${OMIM_RELEASE_PATH}/libgeometry.a"
-                              "${OMIM_RELEASE_PATH}/libindexer.a"
-                              "${OMIM_RELEASE_PATH}/libjansson.a"
-                              "${OMIM_RELEASE_PATH}/libbase.a"
-)
 target_link_libraries(osrm-datastore ${Boost_LIBRARIES})
-
-target_link_libraries(osrm-mapsme ${Boost_LIBRARIES} OSRM
-                      debug "${OMIM_DEBUG_PATH}/libcoding.a"
-                            "${OMIM_DEBUG_PATH}/libbase.a"
-                            "${OMIM_DEBUG_PATH}/librouting.a"
-                            "${OMIM_DEBUG_PATH}/libgeometry.a"
-                            "${OMIM_DEBUG_PATH}/libindexer.a"
-                      general "${OMIM_RELEASE_PATH}/libcoding.a"
-                              "${OMIM_RELEASE_PATH}/libbase.a"
-                              "${OMIM_RELEASE_PATH}/librouting.a"
-                              "${OMIM_RELEASE_PATH}/libgeometry.a"
-                              "${OMIM_RELEASE_PATH}/libindexer.a")
+target_link_libraries(osrm-routed ${OPTIONAL_SOCKET_LIBS} OSRM ${OMIM_LIBRARIES})
+target_link_libraries(osrm-mapsme OSRM ${OMIM_LIBRARIES})
 
 find_package(Threads REQUIRED)
 target_link_libraries(osrm-extract ${CMAKE_THREAD_LIBS_INIT} ${OPTIONAL_OMP_LIB})

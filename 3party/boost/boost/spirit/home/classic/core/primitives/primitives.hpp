@@ -47,7 +47,6 @@ BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
         typename parser_result<self_t, ScannerT>::type
         parse(ScannerT const& scan) const
         {
-            typedef typename parser_result<self_t, ScannerT>::type result_t;
             typedef typename ScannerT::value_t value_t;
             typedef typename ScannerT::iterator_t iterator_t;
 

@@ -29,11 +29,13 @@ namespace boost { namespace property_tree { namespace json_parser
         typename std::basic_string<Ch>::const_iterator e = s.end();
         while (b != e)
         {
+            typedef typename make_unsigned<Ch>::type UCh;
+            UCh c(*b);
             // This assumes an ASCII superset. But so does everything in PTree.
             // We escape everything outside ASCII, because this code can't
             // handle high unicode characters.
-            if (*b == 0x20 || *b == 0x21 || (*b >= 0x23 && *b <= 0x2E) ||
-                (*b >= 0x30 && *b <= 0x5B) || (*b >= 0x5D && *b <= 0xFF))
+            if (c == 0x20 || c == 0x21 || (c >= 0x23 && c <= 0x2E) ||
+                (c >= 0x30 && c <= 0x5B) || (c >= 0x5D && c <= 0xFF))
                 result += *b;
             else if (*b == Ch('\b')) result += Ch('\\'), result += Ch('b');
             else if (*b == Ch('\f')) result += Ch('\\'), result += Ch('f');
@@ -46,7 +48,6 @@ namespace boost { namespace property_tree { namespace json_parser
             else
             {
                 const char *hexdigits = "0123456789ABCDEF";
-                typedef typename make_unsigned<Ch>::type UCh;
                 unsigned long u = (std::min)(static_cast<unsigned long>(
                                                  static_cast<UCh>(*b)),
                                              0xFFFFul);

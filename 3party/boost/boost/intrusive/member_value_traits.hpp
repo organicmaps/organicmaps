@@ -17,9 +17,12 @@
 #include <boost/intrusive/intrusive_fwd.hpp>
 
 #include <boost/intrusive/link_mode.hpp>
-#include <iterator>
 #include <boost/intrusive/detail/parent_from_member.hpp>
 #include <boost/intrusive/pointer_traits.hpp>
+
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
 
 namespace boost {
 namespace intrusive {
@@ -42,6 +45,7 @@ struct member_value_traits
    typedef typename node_traits::node                                   node;
    typedef typename node_traits::node_ptr                               node_ptr;
    typedef typename node_traits::const_node_ptr                         const_node_ptr;
+   typedef pointer_traits<node_ptr>                                     node_ptr_traits;
    typedef typename pointer_traits<node_ptr>::template
       rebind_pointer<T>::type                                           pointer;
    typedef typename pointer_traits<node_ptr>::template
@@ -53,21 +57,22 @@ struct member_value_traits
    static const link_mode_type link_mode = LinkMode;
 
    static node_ptr to_node_ptr(reference value)
-   {  return node_ptr(&(value.*PtrToMember));   }
+   {  return pointer_traits<node_ptr>::pointer_to(value.*PtrToMember);   }
 
    static const_node_ptr to_node_ptr(const_reference value)
-   {  return node_ptr(&(value.*PtrToMember));   }
+   {  return pointer_traits<const_node_ptr>::pointer_to(value.*PtrToMember);   }
 
    static pointer to_value_ptr(const node_ptr &n)
    {
-      return pointer(detail::parent_from_member<value_type, node>
+      return pointer_traits<pointer>::pointer_to(*detail::parent_from_member<value_type, node>
          (boost::intrusive::detail::to_raw_pointer(n), PtrToMember));
    }
 
    static const_pointer to_value_ptr(const const_node_ptr &n)
    {
-      return pointer(detail::parent_from_member<value_type, node>
+      return pointer_traits<const_pointer>::pointer_to(*detail::parent_from_member<value_type, node>
          (boost::intrusive::detail::to_raw_pointer(n), PtrToMember));
+
    }
 };
 

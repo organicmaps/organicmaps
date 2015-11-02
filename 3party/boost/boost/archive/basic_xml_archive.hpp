@@ -27,35 +27,35 @@ namespace archive {
 // constant strings used in xml i/o
 
 extern 
-BOOST_ARCHIVE_DECL(const char *)
+BOOST_ARCHIVE_DECL const char *
 BOOST_ARCHIVE_XML_OBJECT_ID();
 
 extern 
-BOOST_ARCHIVE_DECL(const char *)
+BOOST_ARCHIVE_DECL const char *
 BOOST_ARCHIVE_XML_OBJECT_REFERENCE();
 
 extern 
-BOOST_ARCHIVE_DECL(const char *)
+BOOST_ARCHIVE_DECL const char *
 BOOST_ARCHIVE_XML_CLASS_ID();
 
 extern 
-BOOST_ARCHIVE_DECL(const char *)
+BOOST_ARCHIVE_DECL const char *
 BOOST_ARCHIVE_XML_CLASS_ID_REFERENCE();
 
 extern 
-BOOST_ARCHIVE_DECL(const char *)
+BOOST_ARCHIVE_DECL const char *
 BOOST_ARCHIVE_XML_CLASS_NAME();
 
 extern 
-BOOST_ARCHIVE_DECL(const char *)
+BOOST_ARCHIVE_DECL const char *
 BOOST_ARCHIVE_XML_TRACKING();
 
 extern 
-BOOST_ARCHIVE_DECL(const char *)
+BOOST_ARCHIVE_DECL const char *
 BOOST_ARCHIVE_XML_VERSION();
 
 extern 
-BOOST_ARCHIVE_DECL(const char *)
+BOOST_ARCHIVE_DECL const char *
 BOOST_ARCHIVE_XML_SIGNATURE();
 
 }// namespace archive

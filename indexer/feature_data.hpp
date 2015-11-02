@@ -121,7 +121,6 @@ struct FeatureParamsBase
   StringUtf8Multilang name;
   StringNumericOptimal house;
   string ref;
-  string flats;
   int8_t layer;
   uint8_t rank;
 

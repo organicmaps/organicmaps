@@ -235,6 +235,11 @@ namespace android
     }
   }
 
+  MapStyle Framework::GetMapStyle() const
+  {
+    return m_work.GetMapStyle();
+  }
+
   Storage & Framework::Storage()
   {
     return m_work.Storage();
@@ -1157,12 +1162,6 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_cleanSearchLayerOnMap(JNIEnv * env, jclass clazz)
-  {
-    android::Platform::RunOnGuiThreadImpl(bind(&::Framework::CancelInteractiveSearch, frm()));
-  }
-
-  JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_invalidate(JNIEnv * env, jclass clazz)
   {
     g_framework->Invalidate();
@@ -1263,14 +1262,14 @@ extern "C"
   }
 
   JNIEXPORT jobjectArray JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGenerateTurnSound(JNIEnv * env, jclass thiz)
+  Java_com_mapswithme_maps_Framework_nativeGenerateTurnNotifications(JNIEnv * env, jclass thiz)
   {
     ::Framework * fr = frm();
     if (!fr->IsRoutingActive())
       return nullptr;
 
     vector<string> turnNotifications;
-    fr->GenerateTurnSound(turnNotifications);
+    fr->GenerateTurnNotifications(turnNotifications);
     if (turnNotifications.empty())
       return nullptr;
 
@@ -1457,6 +1456,12 @@ extern "C"
   {
     MapStyle const val = static_cast<MapStyle>(mapStyle);
     android::Platform::RunOnGuiThreadImpl(bind(&android::Framework::SetMapStyle, g_framework, val));
+  }
+
+  JNIEXPORT jint JNICALL
+  Java_com_mapswithme_maps_Framework_getMapStyle(JNIEnv * env, jclass thiz)
+  {
+    return static_cast<jint>(g_framework->GetMapStyle());
   }
 
   JNIEXPORT void JNICALL

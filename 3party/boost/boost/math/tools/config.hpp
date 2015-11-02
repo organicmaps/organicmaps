@@ -50,6 +50,18 @@
 // are disabled for now.  (JM 2012).
 #  define BOOST_MATH_NO_REAL_CONCEPT_TESTS
 #endif
+#ifdef sun
+// Any use of __float128 in program startup code causes a segfault  (tested JM 2015, Solaris 11).
+#  define BOOST_MATH_DISABLE_FLOAT128
+#endif
+#ifdef __HAIKU__
+//
+// Not sure what's up with the math detection on Haiku, but linking fails with
+// float128 code enabled, and we don't have an implementation of __expl, so
+// disabling long double functions for now as well.
+#  define BOOST_MATH_DISABLE_FLOAT128
+#  define BOOST_MATH_NO_LONG_DOUBLE_MATH_FUNCTIONS
+#endif
 #if (defined(macintosh) || defined(__APPLE__) || defined(__APPLE_CC__)) && ((LDBL_MANT_DIG == 106) || (__LDBL_MANT_DIG__ == 106)) && !defined(BOOST_MATH_NO_LONG_DOUBLE_MATH_FUNCTIONS)
 //
 // Darwin's rather strange "double double" is rather hard to

@@ -27,25 +27,27 @@ win32:CONFIG(drape) {
 }
 
 SUBDIRS = 3party base geometry coding
-
-SUBDIRS += platform
-SUBDIRS += stats
 SUBDIRS += indexer
 SUBDIRS += routing
-SUBDIRS += storage
 
-# Integration tests dependencies for gtool
-CONFIG(gtool):!CONFIG(no-tests) {
-  SUBDIRS += search
-  SUBDIRS += map
-  SUBDIRS += routing/routing_integration_tests
+!CONFIG(osrm) {
+  SUBDIRS += platform
+  SUBDIRS += stats
+  SUBDIRS += storage
+
+  # Integration tests dependencies for gtool
+  CONFIG(gtool):!CONFIG(no-tests) {
+    SUBDIRS += search
+    SUBDIRS += map
+    SUBDIRS += routing/routing_integration_tests
+  }
+
+  CONFIG(desktop) {
+    SUBDIRS += generator generator/generator_tool
+  }
 }
 
-CONFIG(desktop) {
-  SUBDIRS += generator generator/generator_tool
-}
-
-!CONFIG(gtool) {
+!CONFIG(gtool):!CONFIG(osrm) {
   SUBDIRS *= anim
   SUBDIRS *= graphics
   SUBDIRS *= gui
@@ -57,7 +59,7 @@ CONFIG(desktop) {
     SUBDIRS += qt
   }
 
-  CONFIG(map_designer) {
+  CONFIG(map_designer):CONFIG(desktop) {
     SUBDIRS += skin_generator
   }
 
@@ -75,18 +77,19 @@ CONFIG(desktop) {
     SUBDIRS += platform/platform_tests_support
     SUBDIRS += geometry/geometry_tests
     SUBDIRS += platform/platform_tests
+    SUBDIRS += platform/downloader_tests
     SUBDIRS += qt_tstfrm
     SUBDIRS += render/render_tests
     SUBDIRS += storage/storage_tests
     SUBDIRS += search/search_tests
-    SUBDIRS += map/map_tests map/benchmark_tool map/mwm_tests
+    SUBDIRS += map/map_tests map/benchmark_tool map/mwm_tests map/style_tests
     SUBDIRS += routing/routing_integration_tests
     SUBDIRS += routing/routing_tests
     SUBDIRS += generator/generator_tests
     SUBDIRS += indexer/indexer_tests
     SUBDIRS += graphics/graphics_tests
     SUBDIRS += gui/gui_tests
-    SUBDIRS += pedestrian_routing_benchmarks
+    SUBDIRS += pedestrian_routing_tests
     SUBDIRS += search/search_integration_tests
 
     CONFIG(drape) {

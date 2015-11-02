@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2005-2008.
+//  (C) Copyright Gennadiy Rozental 2005-2014.
 //  Distributed under the Boost Software License, Version 1.0.
-//  (See accompanying file LICENSE_1_0.txt or copy at 
+//  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -12,8 +12,8 @@
 //  Description : defines model of program environment variable
 // ***************************************************************************
 
-#ifndef BOOST_RT_ENV_VARIABLE_HPP_062604GER
-#define BOOST_RT_ENV_VARIABLE_HPP_062604GER
+#ifndef BOOST_TEST_UTILS_RUNTIME_ENV_VARIABLE_HPP
+#define BOOST_TEST_UTILS_RUNTIME_ENV_VARIABLE_HPP
 
 #ifdef UNDER_CE
 #error Windows CE does not support environment variables.
@@ -32,7 +32,7 @@
 
 namespace boost {
 
-namespace BOOST_RT_PARAM_NAMESPACE {
+namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE {
 
 namespace environment {
 
@@ -74,7 +74,7 @@ public:
             res.reset();
     }
 
-    bool        has_value() const   { return m_data->m_value!=0; }
+    bool        has_value() const   { return !!m_data->m_value; }
     cstring     name() const        { return m_data->m_var_name; }
 
 protected:
@@ -95,7 +95,7 @@ public:
     template<typename Modifiers>
     explicit    variable( cstring var_name, Modifiers const& m );
 
-    explicit    variable( rt_env_detail::variable_data& data ) 
+    explicit    variable( rt_env_detail::variable_data& data )
     : variable_base( data )                                 {}
 
     // other variable assignment
@@ -179,7 +179,7 @@ operator!=( V const& v, variable<T> ev )
 
 } // namespace environment
 
-} // namespace BOOST_RT_PARAM_NAMESPACE
+} // namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE
 
 } // namespace boost
 
@@ -195,7 +195,7 @@ operator!=( V const& v, variable<T> ev )
 
 namespace boost {
 
-namespace BOOST_RT_PARAM_NAMESPACE {
+namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE {
 
 namespace environment {
 
@@ -216,8 +216,8 @@ variable<T>::variable( cstring var_name, Modifiers const& m )
 
 } // namespace environment
 
-} // namespace BOOST_RT_PARAM_NAMESPACE
+} // namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE
 
 } // namespace boost
 
-#endif // BOOST_RT_ENV_VARIABLE_HPP_062604GER
+#endif // BOOST_TEST_UTILS_RUNTIME_ENV_VARIABLE_HPP

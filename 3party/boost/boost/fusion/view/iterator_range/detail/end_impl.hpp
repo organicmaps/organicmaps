@@ -7,6 +7,8 @@
 #if !defined(FUSION_END_IMPL_05062005_1226)
 #define FUSION_END_IMPL_05062005_1226
 
+#include <boost/fusion/support/config.hpp>
+
 namespace boost { namespace fusion
 {
     struct iterator_range_tag;
@@ -24,7 +26,7 @@ namespace boost { namespace fusion
             {
                 typedef typename Sequence::end_type type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& s)
                 {

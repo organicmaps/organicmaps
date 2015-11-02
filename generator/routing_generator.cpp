@@ -91,7 +91,7 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
       });
   });
 
-  for (WritedNodeID nodeId = 0; nodeId < nodeData.size(); ++nodeId)
+  for (TWrittenNodeId nodeId = 0; nodeId < nodeData.size(); ++nodeId)
   {
     auto const & data = nodeData[nodeId];
 
@@ -119,14 +119,18 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
             if (outStart == outEnd)
               continue;
 
-            border.FindIntersection(MercatorBounds::FromLatLon(segment.lat1, segment.lon1),
-                                    MercatorBounds::FromLatLon(segment.lat2, segment.lon2),
-                                    intersection);
+            if (!border.FindIntersection(MercatorBounds::FromLatLon(segment.lat1, segment.lon1),
+                                         MercatorBounds::FromLatLon(segment.lat2, segment.lon2),
+                                         intersection))
 
+            {
+                ASSERT(false, ("Can't determine a intersection point with a border!"));
+                continue;
+            }
             // for old format compatibility
-            intersection = m2::PointD(MercatorBounds::XToLon(intersection.x), MercatorBounds::YToLat(intersection.y));
+            ms::LatLon wgsIntersection = MercatorBounds::ToLatLon(intersection);
             if (!outStart && outEnd)
-              crossContext.AddIngoingNode(nodeId, intersection);
+              crossContext.AddIngoingNode(nodeId, wgsIntersection);
             else if (outStart && !outEnd)
             {
               string mwmName;
@@ -143,7 +147,7 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
                 });
               });
               if (!mwmName.empty())
-                crossContext.AddOutgoingNode(nodeId, mwmName, intersection);
+                crossContext.AddOutgoingNode(nodeId, mwmName, wgsIntersection);
               else
                 LOG(LINFO, ("Unknowing outgoing edge", endSeg.lat2, endSeg.lon2, startSeg.lat1, startSeg.lon1));
             }
@@ -169,10 +173,10 @@ void CalculateCrossAdjacency(string const & mwmRoutingPath, routing::CrossRoutin
   // Fill sources and targets with start node task for ingoing (true) and target node task
   // (false) for outgoing nodes
   for (auto i = in.first; i != in.second; ++i)
-    sources.emplace_back(i->m_nodeId, true /* isStartNode */, mwmRoutingPath);
+    sources.emplace_back(i->m_nodeId, true /* isStartNode */, Index::MwmId());
 
   for (auto i = out.first; i != out.second; ++i)
-    targets.emplace_back(i->m_nodeId, false /* isStartNode */, mwmRoutingPath);
+    targets.emplace_back(i->m_nodeId, false /* isStartNode */, Index::MwmId());
 
   LOG(LINFO, ("Cross section has", sources.size(), "incomes and ", targets.size(), "outcomes."));
   vector<EdgeWeight> costs;
@@ -255,7 +259,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
 
   uint32_t found = 0, all = 0, multiple = 0, equal = 0, moreThan1Seg = 0, stored = 0;
 
-  for (WritedNodeID nodeId = 0; nodeId < nodeData.size(); ++nodeId)
+  for (TWrittenNodeId nodeId = 0; nodeId < nodeData.size(); ++nodeId)
   {
     auto const & data = nodeData[nodeId];
 

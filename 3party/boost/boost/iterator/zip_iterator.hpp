@@ -14,7 +14,7 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/detail/iterator.hpp>
 
-#include <boost/iterator/detail/minimum_category.hpp>
+#include <boost/iterator/minimum_category.hpp>
 
 #include <boost/tuple/tuple.hpp>
 
@@ -27,6 +27,7 @@
 #include <boost/mpl/aux_/lambda_support.hpp>
 
 namespace boost {
+namespace iterators {
 
   // Zip iterator forward declaration for zip_iterator_base
   template<typename IteratorTuple>
@@ -60,7 +61,7 @@ namespace boost {
     {
     public:
       advance_iterator(DiffType step) : m_step(step) {}
-      
+
       template<typename Iterator>
       void operator()(Iterator& it) const
       { it += m_step; }
@@ -87,9 +88,9 @@ namespace boost {
     {
       template<typename Iterator>
       struct apply
-      { 
+      {
         typedef typename
-          iterator_traits<Iterator>::reference
+          boost::detail::iterator_traits<Iterator>::reference
         type;
       };
 
@@ -97,7 +98,7 @@ namespace boost {
         typename apply<Iterator>::type operator()(Iterator const& it)
       { return *it; }
     };
-           
+
 
     // The namespace tuple_impl_specific provides two meta-
     // algorithms and two algorithms for tuples.
@@ -108,7 +109,7 @@ namespace boost {
       //
       template<typename Tuple, class UnaryMetaFun>
       struct tuple_meta_transform;
-      
+
       template<typename Tuple, class UnaryMetaFun>
       struct tuple_meta_transform_impl
       {
@@ -119,7 +120,7 @@ namespace boost {
               >::type
             , typename tuple_meta_transform<
                   typename Tuple::tail_type
-                , UnaryMetaFun 
+                , UnaryMetaFun
               >::type
           > type;
       };
@@ -133,14 +134,14 @@ namespace boost {
         >
       {
       };
-      
-      // Meta-accumulate algorithm for tuples. Note: The template 
-      // parameter StartType corresponds to the initial value in 
+
+      // Meta-accumulate algorithm for tuples. Note: The template
+      // parameter StartType corresponds to the initial value in
       // ordinary accumulation.
       //
       template<class Tuple, class BinaryMetaFun, class StartType>
       struct tuple_meta_accumulate;
-      
+
       template<
           typename Tuple
         , class BinaryMetaFun
@@ -154,7 +155,7 @@ namespace boost {
            , typename tuple_meta_accumulate<
                  typename Tuple::tail_type
                , BinaryMetaFun
-               , StartType 
+               , StartType
              >::type
          >::type type;
       };
@@ -166,14 +167,7 @@ namespace boost {
       >
       struct tuple_meta_accumulate
         : mpl::eval_if<
-#if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-              mpl::or_<
-#endif 
                   boost::is_same<Tuple, tuples::null_type>
-#if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-                , boost::is_same<Tuple,int>
-              >
-#endif 
             , mpl::identity<StartType>
             , tuple_meta_accumulate_impl<
                   Tuple
@@ -182,7 +176,7 @@ namespace boost {
               >
           >
       {
-      };  
+      };
 
 #if defined(BOOST_NO_FUNCTION_TEMPLATE_ORDERING)                            \
     || (                                                                    \
@@ -190,17 +184,17 @@ namespace boost {
     )
 // Not sure why intel's partial ordering fails in this case, but I'm
 // assuming int's an MSVC bug-compatibility feature.
-      
+
 # define BOOST_TUPLE_ALGO_DISPATCH
 # define BOOST_TUPLE_ALGO(algo) algo##_impl
 # define BOOST_TUPLE_ALGO_TERMINATOR , int
 # define BOOST_TUPLE_ALGO_RECURSE , ...
-#else 
+#else
 # define BOOST_TUPLE_ALGO(algo) algo
 # define BOOST_TUPLE_ALGO_TERMINATOR
 # define BOOST_TUPLE_ALGO_RECURSE
 #endif
-      
+
       // transform algorithm for tuples. The template parameter Fun
       // must be a unary functor which is also a unary metafunction
       // class that computes its return type based on its argument
@@ -218,22 +212,22 @@ namespace boost {
       //     Arg* operator()(Arg x);
       // };
       template<typename Fun>
-      tuples::null_type BOOST_TUPLE_ALGO(tuple_transform)
+      inline tuples::null_type BOOST_TUPLE_ALGO(tuple_transform)
           (tuples::null_type const&, Fun BOOST_TUPLE_ALGO_TERMINATOR)
       { return tuples::null_type(); }
 
       template<typename Tuple, typename Fun>
-      typename tuple_meta_transform<
+      inline typename tuple_meta_transform<
           Tuple
         , Fun
       >::type
-      
+
       BOOST_TUPLE_ALGO(tuple_transform)(
-        const Tuple& t, 
+        const Tuple& t,
         Fun f
         BOOST_TUPLE_ALGO_RECURSE
       )
-      { 
+      {
           typedef typename tuple_meta_transform<
               BOOST_DEDUCED_TYPENAME Tuple::tail_type
             , Fun
@@ -244,58 +238,58 @@ namespace boost {
                 Fun, BOOST_DEDUCED_TYPENAME Tuple::head_type
              >::type
            , transformed_tail_type
-        >( 
+        >(
             f(boost::tuples::get<0>(t)), tuple_transform(t.get_tail(), f)
         );
       }
 
 #ifdef BOOST_TUPLE_ALGO_DISPATCH
       template<typename Tuple, typename Fun>
-      typename tuple_meta_transform<
+      inline typename tuple_meta_transform<
           Tuple
         , Fun
       >::type
-      
+
       tuple_transform(
-        const Tuple& t, 
+        const Tuple& t,
         Fun f
       )
       {
           return tuple_transform_impl(t, f, 1);
       }
 #endif
-      
+
       // for_each algorithm for tuples.
       //
       template<typename Fun>
-      Fun BOOST_TUPLE_ALGO(tuple_for_each)(
+      inline Fun BOOST_TUPLE_ALGO(tuple_for_each)(
           tuples::null_type
         , Fun f BOOST_TUPLE_ALGO_TERMINATOR
       )
       { return f; }
 
-      
+
       template<typename Tuple, typename Fun>
-      Fun BOOST_TUPLE_ALGO(tuple_for_each)(
+      inline Fun BOOST_TUPLE_ALGO(tuple_for_each)(
           Tuple& t
         , Fun f BOOST_TUPLE_ALGO_RECURSE)
-      { 
+      {
           f( t.get_head() );
           return tuple_for_each(t.get_tail(), f);
       }
-      
+
 #ifdef BOOST_TUPLE_ALGO_DISPATCH
       template<typename Tuple, typename Fun>
-      Fun
+      inline Fun
       tuple_for_each(
-        Tuple& t, 
+        Tuple& t,
         Fun f
       )
       {
           return tuple_for_each_impl(t, f, 1);
       }
 #endif
-      
+
       // Equality of tuples. NOTE: "==" for tuples currently (7/2003)
       // has problems under some compilers, so I just do my own.
       // No point in bringing in a bunch of #ifdefs here. This is
@@ -305,12 +299,9 @@ namespace boost {
       { return true; }
 
       template<typename Tuple1, typename Tuple2>
-        bool tuple_equal(
-            Tuple1 const& t1, 
-            Tuple2 const& t2
-        )
-      { 
-          return t1.get_head() == t2.get_head() && 
+      inline bool tuple_equal(Tuple1 const& t1, Tuple2 const& t2)
+      {
+          return t1.get_head() == t2.get_head() &&
           tuple_equal(t1.get_tail(), t2.get_tail());
       }
     }
@@ -320,7 +311,7 @@ namespace boost {
     template<typename Iterator>
     struct iterator_reference
     {
-        typedef typename iterator_traits<Iterator>::reference type;
+        typedef typename boost::detail::iterator_traits<Iterator>::reference type;
     };
 
 #ifdef BOOST_MPL_CFG_NO_FULL_LAMBDA_SUPPORT
@@ -336,14 +327,14 @@ namespace boost {
         struct apply : iterator_reference<T> {};
     };
 #endif
-    
+
     // Metafunction to obtain the type of the tuple whose element types
     // are the reference types of an iterator tuple.
     //
     template<typename IteratorTuple>
     struct tuple_of_references
       : tuple_impl_specific::tuple_meta_transform<
-            IteratorTuple, 
+            IteratorTuple,
             iterator_reference<mpl::_1>
           >
     {
@@ -359,7 +350,7 @@ namespace boost {
           IteratorTuple
         , pure_traversal_tag<iterator_traversal<> >
       >::type tuple_of_traversal_tags;
-          
+
       typedef typename tuple_impl_specific::tuple_meta_accumulate<
           tuple_of_traversal_tags
         , minimum_category<>
@@ -367,14 +358,6 @@ namespace boost {
       >::type type;
     };
 
-#if BOOST_WORKAROUND(BOOST_MSVC, < 1300) // ETI workaround
-      template <>
-      struct minimum_traversal_category_in_iterator_tuple<int>
-      {
-          typedef int type;
-      };
-#endif
-      
       // We need to call tuple_meta_accumulate with mpl::and_ as the
       // accumulating functor. To this end, we need to wrap it into
       // a struct that has exactly two arguments (that is, template
@@ -385,7 +368,7 @@ namespace boost {
         : mpl::and_<Arg1, Arg2>
       {
       };
-    
+
 # ifdef BOOST_MPL_CFG_NO_FULL_LAMBDA_SUPPORT
   // Hack because BOOST_MPL_AUX_LAMBDA_SUPPORT doesn't seem to work
   // out well.  In this case I think it's an MPL bug
@@ -396,13 +379,13 @@ namespace boost {
           struct apply : mpl::and_<A1,A2>
           {};
       };
-# endif 
+# endif
 
     ///////////////////////////////////////////////////////////////////
     //
     // Class zip_iterator_base
     //
-    // Builds and exposes the iterator facade type from which the zip 
+    // Builds and exposes the iterator facade type from which the zip
     // iterator will be derived.
     //
     template<typename IteratorTuple>
@@ -411,30 +394,30 @@ namespace boost {
      private:
         // Reference type is the type of the tuple obtained from the
         // iterators' reference types.
-        typedef typename 
+        typedef typename
         detail::tuple_of_references<IteratorTuple>::type reference;
-      
+
         // Value type is the same as reference type.
         typedef reference value_type;
-      
+
         // Difference type is the first iterator's difference type
-        typedef typename iterator_traits<
+        typedef typename boost::detail::iterator_traits<
             typename tuples::element<0, IteratorTuple>::type
             >::difference_type difference_type;
-      
-        // Traversal catetgory is the minimum traversal category in the 
+
+        // Traversal catetgory is the minimum traversal category in the
         // iterator tuple.
-        typedef typename 
+        typedef typename
         detail::minimum_traversal_category_in_iterator_tuple<
             IteratorTuple
         >::type traversal_category;
      public:
-      
+
         // The iterator facade type from which the zip iterator will
         // be derived.
         typedef iterator_facade<
             zip_iterator<IteratorTuple>,
-            value_type,  
+            value_type,
             traversal_category,
             reference,
             difference_type
@@ -447,34 +430,34 @@ namespace boost {
         typedef int type;
     };
   }
-  
+
   /////////////////////////////////////////////////////////////////////
   //
   // zip_iterator class definition
   //
   template<typename IteratorTuple>
-  class zip_iterator : 
+  class zip_iterator :
     public detail::zip_iterator_base<IteratorTuple>::type
-  {  
+  {
 
-   // Typedef super_t as our base class. 
-   typedef typename 
+   // Typedef super_t as our base class.
+   typedef typename
      detail::zip_iterator_base<IteratorTuple>::type super_t;
 
    // iterator_core_access is the iterator's best friend.
    friend class iterator_core_access;
 
   public:
-    
+
     // Construction
     // ============
-    
+
     // Default constructor
     zip_iterator() { }
 
     // Constructor from iterator tuple
-    zip_iterator(IteratorTuple iterator_tuple) 
-      : m_iterator_tuple(iterator_tuple) 
+    zip_iterator(IteratorTuple iterator_tuple)
+      : m_iterator_tuple(iterator_tuple)
     { }
 
     // Copy constructor
@@ -493,15 +476,15 @@ namespace boost {
     { return m_iterator_tuple; }
 
   private:
-    
+
     // Implementation of Iterator Operations
     // =====================================
-    
+
     // Dereferencing returns a tuple built from the dereferenced
     // iterators in the iterator tuple.
     typename super_t::reference dereference() const
-    { 
-      return detail::tuple_impl_specific::tuple_transform( 
+    {
+      return detail::tuple_impl_specific::tuple_transform(
         get_iterator_tuple(),
         detail::dereference_iterator()
        );
@@ -517,7 +500,7 @@ namespace boost {
     // under several compilers. No point in bringing in a bunch
     // of #ifdefs here.
     //
-    template<typename OtherIteratorTuple>   
+    template<typename OtherIteratorTuple>
     bool equal(const zip_iterator<OtherIteratorTuple>& other) const
     {
       return detail::tuple_impl_specific::tuple_equal(
@@ -529,7 +512,7 @@ namespace boost {
     // Advancing a zip iterator means to advance all iterators in the
     // iterator tuple.
     void advance(typename super_t::difference_type n)
-    { 
+    {
       detail::tuple_impl_specific::tuple_for_each(
           m_iterator_tuple,
           detail::advance_iterator<BOOST_DEDUCED_TYPENAME super_t::difference_type>(n)
@@ -538,48 +521,53 @@ namespace boost {
     // Incrementing a zip iterator means to increment all iterators in
     // the iterator tuple.
     void increment()
-    { 
+    {
       detail::tuple_impl_specific::tuple_for_each(
         m_iterator_tuple,
         detail::increment_iterator()
         );
     }
-    
+
     // Decrementing a zip iterator means to decrement all iterators in
     // the iterator tuple.
     void decrement()
-    { 
+    {
       detail::tuple_impl_specific::tuple_for_each(
         m_iterator_tuple,
         detail::decrement_iterator()
         );
     }
-    
+
     // Distance is calculated using the first iterator in the tuple.
     template<typename OtherIteratorTuple>
       typename super_t::difference_type distance_to(
         const zip_iterator<OtherIteratorTuple>& other
         ) const
-    { 
-        return boost::tuples::get<0>(other.get_iterator_tuple()) - 
+    {
+        return boost::tuples::get<0>(other.get_iterator_tuple()) -
             boost::tuples::get<0>(this->get_iterator_tuple());
     }
-  
+
     // Data Members
     // ============
-    
+
     // The iterator tuple.
     IteratorTuple m_iterator_tuple;
- 
+
   };
 
   // Make function for zip iterator
   //
-  template<typename IteratorTuple> 
-  zip_iterator<IteratorTuple> 
+  template<typename IteratorTuple>
+  inline zip_iterator<IteratorTuple>
   make_zip_iterator(IteratorTuple t)
   { return zip_iterator<IteratorTuple>(t); }
 
-}
+} // namespace iterators
+
+using iterators::zip_iterator;
+using iterators::make_zip_iterator;
+
+} // namespace boost
 
 #endif

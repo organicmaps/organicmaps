@@ -92,41 +92,41 @@ public:
 
   // Save everything else in the usual way, forwarding on to the Base class
   template<class T>
-  void save_override(T const& x, int version, mpl::false_)
+  void save_override(T const& x, mpl::false_)
   {
-    archive::detail::common_oarchive<packed_oarchive>::save_override(x,version);
+    archive::detail::common_oarchive<packed_oarchive>::save_override(x);
   }
 
   // Save it directly using the primitives
   template<class T>
-  void save_override(T const& x, int /*version*/, mpl::true_)
+  void save_override(T const& x, mpl::true_)
   {
     oprimitive::save(x);
   }
 
   // Save all supported datatypes directly
   template<class T>
-  void save_override(T const& x, int version)
+  void save_override(T const& x)
   {
     typedef typename mpl::apply1<use_array_optimization,T>::type use_optimized;
-    save_override(x, version, use_optimized());
+    save_override(x, use_optimized());
   }
 
-  // input archives need to ignore  the optional information
-  void save_override(const archive::class_id_optional_type & /*t*/, int){}
+  // output archives need to ignore  the optional information
+  void save_override(const archive::class_id_optional_type & ){}
 
   // explicitly convert to char * to avoid compile ambiguities
-  void save_override(const archive::class_name_type & t, int){
+  void save_override(const archive::class_name_type & t){
       const std::string s(t);
       * this->This() << s;
   }
 
-  void save_override(archive::class_id_type & t, int version){
+  void save_override(const archive::class_id_type & t){
     const boost::int_least16_t x = t;
     * this->This() << x;
   }
 
-  void save_override(archive::version_type & t, int version){
+  void save_override(const archive::version_type & t){
     const boost::int_least8_t x = t;
     * this->This() << x;
   }

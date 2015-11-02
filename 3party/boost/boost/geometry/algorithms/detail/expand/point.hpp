@@ -13,8 +13,8 @@
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
 
-// Use, modification and distribution is subject to the Boost Software License,
-// Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_EXPAND_POINT_HPP
@@ -22,6 +22,9 @@
 
 #include <cstddef>
 #include <algorithm>
+
+#include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 #include <boost/geometry/core/access.hpp>
 #include <boost/geometry/core/coordinate_dimension.hpp>
@@ -33,14 +36,10 @@
 #include <boost/geometry/util/select_coordinate_type.hpp>
 
 #include <boost/geometry/strategies/compare.hpp>
-#include <boost/geometry/strategies/strategy_transform.hpp>
 #include <boost/geometry/policies/compare.hpp>
 
-#include <boost/geometry/algorithms/assign.hpp>
-#include <boost/geometry/algorithms/transform.hpp>
-
 #include <boost/geometry/algorithms/detail/normalize.hpp>
-#include <boost/geometry/algorithms/detail/envelope/range_of_boxes.hpp>
+#include <boost/geometry/algorithms/detail/envelope/transform_units.hpp>
 
 #include <boost/geometry/algorithms/dispatch/expand.hpp>
 
@@ -53,11 +52,81 @@ namespace detail { namespace expand
 {
 
 
-struct point_on_spheroid
+template
+<
+    typename StrategyLess, typename StrategyGreater,
+    std::size_t Dimension, std::size_t DimensionCount
+>
+struct point_loop
+{
+    template <typename Box, typename Point>
+    static inline void apply(Box& box, Point const& source)
+    {
+        typedef typename strategy::compare::detail::select_strategy
+            <
+                StrategyLess, 1, Point, Dimension
+            >::type less_type;
+
+        typedef typename strategy::compare::detail::select_strategy
+            <
+                StrategyGreater, -1, Point, Dimension
+            >::type greater_type;
+
+        typedef typename select_coordinate_type
+            <
+                Point, Box
+            >::type coordinate_type;
+
+        less_type less;
+        greater_type greater;
+
+        coordinate_type const coord = get<Dimension>(source);
+
+        if (less(coord, get<min_corner, Dimension>(box)))
+        {
+            set<min_corner, Dimension>(box, coord);
+        }
+
+        if (greater(coord, get<max_corner, Dimension>(box)))
+        {
+            set<max_corner, Dimension>(box, coord);
+        }
+
+        point_loop
+            <
+                StrategyLess, StrategyGreater, Dimension + 1, DimensionCount
+            >::apply(box, source);
+    }
+};
+
+
+template
+<
+    typename StrategyLess, typename StrategyGreater, std::size_t DimensionCount
+>
+struct point_loop
+    <
+        StrategyLess, StrategyGreater, DimensionCount, DimensionCount
+    >
+{
+    template <typename Box, typename Point>
+    static inline void apply(Box&, Point const&) {}
+};
+
+
+// implementation for the spherical equatorial and geographic coordinate systems
+template
+<
+    typename StrategyLess,
+    typename StrategyGreater,
+    std::size_t DimensionCount
+>
+struct point_loop_on_spheroid
 {
     template <typename Box, typename Point>
     static inline void apply(Box& box, Point const& point)
     {
+        typedef typename point_type<Box>::type box_point_type;
         typedef typename coordinate_type<Box>::type box_coordinate_type;
 
         typedef math::detail::constants_on_spheroid
@@ -70,9 +139,9 @@ struct point_on_spheroid
         Point p_normalized = detail::return_normalized<Point>(point);
         detail::normalize(box, box);
 
-        // transform input point to be the same type as the box point
-        typename point_type<Box>::type box_point;
-        geometry::transform(p_normalized, box_point);
+        // transform input point to be of the same type as the box point
+        box_point_type box_point;
+        detail::envelope::transform_units(p_normalized, box_point);
 
         box_coordinate_type p_lon = geometry::get<0>(box_point);
         box_coordinate_type p_lat = geometry::get<1>(box_point);
@@ -89,11 +158,8 @@ struct point_on_spheroid
             // south pole; the only important coordinate here is the
             // pole's latitude, as the longitude can be anything;
             // we, thus, take into account the point's latitude only and return
-            assign_values(box,
-                          b_lon_min,
-                          (std::min)(p_lat, b_lat_min),
-                          b_lon_max,
-                          (std::max)(p_lat, b_lat_max));
+            geometry::set<min_corner, 1>(box, (std::min)(p_lat, b_lat_min));
+            geometry::set<max_corner, 1>(box, (std::max)(p_lat, b_lat_max));
             return;
         }
 
@@ -104,11 +170,10 @@ struct point_on_spheroid
             // the only important coordinate here is the pole's latitude, 
             // as the longitude can be anything;
             // we thus take into account the box's latitude only and return
-            assign_values(box,
-                          p_lon,
-                          (std::min)(p_lat, b_lat_min),
-                          p_lon,
-                          (std::max)(p_lat, b_lat_max));
+            geometry::set<min_corner, 0>(box, p_lon);
+            geometry::set<min_corner, 1>(box, (std::min)(p_lat, b_lat_min));
+            geometry::set<max_corner, 0>(box, p_lon);
+            geometry::set<max_corner, 1>(box, (std::max)(p_lat, b_lat_max));
             return;
         }
 
@@ -151,68 +216,16 @@ struct point_on_spheroid
             }
         }
 
-        assign_values(box, b_lon_min, b_lat_min, b_lon_max, b_lat_max);
-    }
-};
-
-
-template
-<
-    typename StrategyLess, typename StrategyGreater,
-    std::size_t Dimension, std::size_t DimensionCount
->
-struct point_loop
-{
-    template <typename Box, typename Point>
-    static inline void apply(Box& box, Point const& source)
-    {
-        typedef typename strategy::compare::detail::select_strategy
-            <
-                StrategyLess, 1, Point, Dimension
-            >::type less_type;
-
-        typedef typename strategy::compare::detail::select_strategy
-            <
-                StrategyGreater, -1, Point, Dimension
-            >::type greater_type;
-
-        typedef typename select_coordinate_type<Point, Box>::type coordinate_type;
-
-        less_type less;
-        greater_type greater;
-
-        coordinate_type const coord = get<Dimension>(source);
-
-        if (less(coord, get<min_corner, Dimension>(box)))
-        {
-            set<min_corner, Dimension>(box, coord);
-        }
-
-        if (greater(coord, get<max_corner, Dimension>(box)))
-        {
-            set<max_corner, Dimension>(box, coord);
-        }
+        geometry::set<min_corner, 0>(box, b_lon_min);
+        geometry::set<min_corner, 1>(box, b_lat_min);
+        geometry::set<max_corner, 0>(box, b_lon_max);
+        geometry::set<max_corner, 1>(box, b_lat_max);
 
         point_loop
             <
-                StrategyLess, StrategyGreater,
-                Dimension + 1, DimensionCount
-            >::apply(box, source);
+                StrategyLess, StrategyGreater, 2, DimensionCount
+            >::apply(box, point);
     }
-};
-
-
-template
-<
-    typename StrategyLess, typename StrategyGreater, std::size_t DimensionCount
->
-struct point_loop
-    <
-        StrategyLess, StrategyGreater, DimensionCount, DimensionCount
-    >
-{
-    template <typename Box, typename Point>
-    static inline void apply(Box&, Point const&) {}
 };
 
 
@@ -223,6 +236,7 @@ struct point_loop
 namespace dispatch
 {
 
+
 // Box + point -> new box containing also point
 template
 <
@@ -232,12 +246,34 @@ template
 >
 struct expand
     <
-        BoxOut, Point, StrategyLess, StrategyGreater,
-        box_tag, point_tag, CSTagOut, CSTag
+        BoxOut, Point,
+        StrategyLess, StrategyGreater,
+        box_tag, point_tag,
+        CSTagOut, CSTag
     > : detail::expand::point_loop
         <
-            StrategyLess, StrategyGreater,
-            0, dimension<Point>::type::value
+            StrategyLess, StrategyGreater, 0, dimension<Point>::value
+        >
+{
+    BOOST_MPL_ASSERT_MSG((boost::is_same<CSTagOut, CSTag>::value),
+                         COORDINATE_SYSTEMS_MUST_BE_THE_SAME,
+                         (types<CSTagOut, CSTag>()));
+};
+
+template
+<
+    typename BoxOut, typename Point,
+    typename StrategyLess, typename StrategyGreater
+>
+struct expand
+    <
+        BoxOut, Point,
+        StrategyLess, StrategyGreater,
+        box_tag, point_tag,
+        spherical_equatorial_tag, spherical_equatorial_tag
+    > : detail::expand::point_loop_on_spheroid
+        <
+            StrategyLess, StrategyGreater, dimension<Point>::value
         >
 {};
 
@@ -248,22 +284,16 @@ template
 >
 struct expand
     <
-        BoxOut, Point, StrategyLess, StrategyGreater,
-        box_tag, point_tag, spherical_equatorial_tag, spherical_equatorial_tag
-    > : detail::expand::point_on_spheroid
+        BoxOut, Point,
+        StrategyLess, StrategyGreater,
+        box_tag, point_tag,
+        geographic_tag, geographic_tag
+    > : detail::expand::point_loop_on_spheroid
+        <
+            StrategyLess, StrategyGreater, dimension<Point>::value
+        >
 {};
 
-template
-<
-    typename BoxOut, typename Point,
-    typename StrategyLess, typename StrategyGreater
->
-struct expand
-    <
-        BoxOut, Point, StrategyLess, StrategyGreater,
-        box_tag, point_tag, geographic_tag, geographic_tag
-    > : detail::expand::point_on_spheroid
-{};
 
 } // namespace dispatch
 #endif // DOXYGEN_NO_DISPATCH

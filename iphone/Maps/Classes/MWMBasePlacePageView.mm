@@ -69,8 +69,6 @@ static NSString * const kPlacePageBookmarkCellIdentifier = @"PlacePageBookmarkCe
   self.directionArrow.hidden = isMyPosition || !isHeadingAvaible;
   self.directionButton.hidden = isMyPosition || !isHeadingAvaible;
 
-  self.distanceLabel.text = @"";
-
   [self.featureTable reloadData];
   [self layoutSubviews];
 }
@@ -171,6 +169,7 @@ static CGFloat const kTitleBottomOffset = 2.;
 
 - (void)reloadBookmarkCell
 {
+  [self configure];
   [self.featureTable reloadData];
   [self setNeedsLayout];
   [self layoutIfNeeded];

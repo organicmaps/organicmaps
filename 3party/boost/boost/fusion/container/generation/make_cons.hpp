@@ -26,7 +26,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Car>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline cons<typename detail::as_fusion_element<Car>::type>
     make_cons(Car const& car)
     {
@@ -34,7 +34,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Car, typename Cdr>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline cons<typename detail::as_fusion_element<Car>::type, Cdr>
     make_cons(Car const& car, Cdr const& cdr)
     {

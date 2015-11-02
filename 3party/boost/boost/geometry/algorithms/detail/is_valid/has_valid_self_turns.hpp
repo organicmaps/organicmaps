@@ -12,6 +12,7 @@
 
 #include <vector>
 
+#include <boost/core/ignore_unused.hpp>
 #include <boost/range.hpp>
 
 #include <boost/geometry/core/assert.hpp>
@@ -73,6 +74,8 @@ public:
                              Turns& turns,
                              VisitPolicy& visitor)
     {
+        boost::ignore_unused(visitor);
+
         rescale_policy_type robust_policy
             = geometry::get_rescale_policy<rescale_policy_type>(geometry);
 

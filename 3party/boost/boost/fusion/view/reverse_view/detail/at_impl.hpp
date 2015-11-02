@@ -30,7 +30,7 @@ namespace boost { namespace fusion { namespace extension
                 result_of::at<typename Seq::seq_type, real_n>::type
             type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type
             call(Seq& seq)
             {

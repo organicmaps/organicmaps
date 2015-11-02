@@ -115,9 +115,9 @@ struct arg_rvalue_from_python
     arg_rvalue_from_python(PyObject*);
     bool convertible() const;
 
-# if BOOST_MSVC < 1301 || _MSC_FULL_VER > 13102196
+# if _MSC_FULL_VER > 13102196
     typename arg_rvalue_from_python<T>::
-# endif 
+# endif
     result_type operator()();
     
  private:

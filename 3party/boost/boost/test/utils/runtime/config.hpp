@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2005-2008.
+//  (C) Copyright Gennadiy Rozental 2005-2014.
 //  Distributed under the Boost Software License, Version 1.0.
-//  (See accompanying file LICENSE_1_0.txt or copy at 
+//  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -12,8 +12,8 @@
 //  Description : Runtime.Param library configuration
 // ***************************************************************************
 
-#ifndef BOOST_RT_CONFIG_HPP_062604GER
-#define BOOST_RT_CONFIG_HPP_062604GER
+#ifndef BOOST_TEST_UTILS_RUNTIME_CONFIG_HPP
+#define BOOST_TEST_UTILS_RUNTIME_CONFIG_HPP
 
 // Boost
 #include <boost/config.hpp>
@@ -34,26 +34,28 @@
 #include <string>
 #include <cstdlib>
 
+#ifdef __SUNPRO_CC
+  #include <stdlib.h>
+#endif
+
 //____________________________________________________________________________//
 
-#ifndef BOOST_RT_PARAM_CUSTOM_STRING
-#  ifndef BOOST_RT_PARAM_WIDE_STRING
-#    define BOOST_RT_PARAM_NAMESPACE                            runtime
+#ifndef BOOST_TEST_UTILS_RUNTIME_PARAM_CUSTOM_STRING
+#  ifndef BOOST_TEST_UTILS_RUNTIME_PARAM_WIDE_STRING
+#    define BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE                            runtime
 #  else
-#    define BOOST_RT_PARAM_NAMESPACE                            wide_runtime
+#    define BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE                            wide_runtime
 #  endif
 #endif
 
-#ifdef __SUNPRO_CC
-extern int putenv(char*);
-#endif
+
 
 namespace boost {
 
-namespace BOOST_RT_PARAM_NAMESPACE {
+namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE {
 
-#ifndef BOOST_RT_PARAM_CUSTOM_STRING
-#  ifndef BOOST_RT_PARAM_WIDE_STRING
+#ifndef BOOST_TEST_UTILS_RUNTIME_PARAM_CUSTOM_STRING
+#  ifndef BOOST_TEST_UTILS_RUNTIME_PARAM_WIDE_STRING
 
 typedef char                                                    char_type;
 typedef std::string                                             dstring;
@@ -70,6 +72,10 @@ typedef std::basic_ostream<char_type>                           out_stream;
 #ifdef BOOST_MSVC
 #pragma warning(push)
 #pragma warning(disable:4996) // putenv
+#endif
+
+#if defined(__MINGW32__)
+extern "C" int putenv( const char * );
 #endif
 
 #ifndef UNDER_CE
@@ -97,15 +103,15 @@ putenv_impl( cstring name, cstring value )
 #endif
 #endif
 
-#ifdef BOOST_MSVC 
-#pragma warning(pop) 
-#endif 
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 
-#define BOOST_RT_PARAM_LITERAL( l ) l
-#define BOOST_RT_PARAM_CSTRING_LITERAL( l ) cstring( l, sizeof( l ) - 1 )
-#define BOOST_RT_PARAM_GETENV getenv
-#define BOOST_RT_PARAM_PUTENV ::boost::BOOST_RT_PARAM_NAMESPACE::putenv_impl
-#define BOOST_RT_PARAM_EXCEPTION_INHERIT_STD
+#define BOOST_TEST_UTILS_RUNTIME_PARAM_LITERAL( l ) l
+#define BOOST_TEST_UTILS_RUNTIME_PARAM_CSTRING_LITERAL( l ) cstring( l, sizeof( l ) - 1 )
+#define BOOST_TEST_UTILS_RUNTIME_PARAM_GETENV getenv
+#define BOOST_TEST_UTILS_RUNTIME_PARAM_PUTENV ::boost::BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE::putenv_impl
+#define BOOST_TEST_UTILS_RUNTIME_PARAM_EXCEPTION_INHERIT_STD
 
 //____________________________________________________________________________//
 
@@ -133,24 +139,24 @@ putenv_impl( cstring name, cstring value )
 }
 #endif
 
-#define BOOST_RT_PARAM_LITERAL( l ) L ## l
-#define BOOST_RT_PARAM_CSTRING_LITERAL( l ) cstring( L ## l, sizeof( L ## l )/sizeof(wchar_t) - 1 )
-#define BOOST_RT_PARAM_GETENV wgetenv
-#define BOOST_RT_PARAM_PUTENV putenv_impl
+#define BOOST_TEST_UTILS_RUNTIME_PARAM_LITERAL( l ) L ## l
+#define BOOST_TEST_UTILS_RUNTIME_PARAM_CSTRING_LITERAL( l ) cstring( L ## l, sizeof( L ## l )/sizeof(wchar_t) - 1 )
+#define BOOST_TEST_UTILS_RUNTIME_PARAM_GETENV wgetenv
+#define BOOST_TEST_UTILS_RUNTIME_PARAM_PUTENV putenv_impl
 
 #  endif
 #endif
 
 #ifdef __GNUC__
-#define BOOST_RT_PARAM_UNNEEDED_VIRTUAL virtual
+#define BOOST_TEST_UTILS_RUNTIME_PARAM_UNNEEDED_VIRTUAL virtual
 #else
-#define BOOST_RT_PARAM_UNNEEDED_VIRTUAL
+#define BOOST_TEST_UTILS_RUNTIME_PARAM_UNNEEDED_VIRTUAL
 #endif
 
 //____________________________________________________________________________//
 
-} // namespace BOOST_RT_PARAM_NAMESPACE
+} // namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE
 
 } // namespace boost
 
-#endif // BOOST_RT_CONFIG_HPP_062604GER
+#endif // BOOST_TEST_UTILS_RUNTIME_CONFIG_HPP

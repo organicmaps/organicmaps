@@ -1,0 +1,8 @@
+language: cpp
+compiler:
+  - clang
+  - gcc
+env:
+  - DEFINES=standard
+  - DEFINES=PUGIXML_WCHAR_MODE
+script: make test defines=$DEFINES -j2

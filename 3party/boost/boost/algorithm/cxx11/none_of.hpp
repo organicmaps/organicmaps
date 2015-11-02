@@ -18,10 +18,6 @@
 
 namespace boost { namespace algorithm {
 
-//  Use the C++11 versions of the none_of if it is available
-#if __cplusplus >= 201103L
-using std::none_of;     // Section 25.2.3
-#else
 /// \fn none_of ( InputIterator first, InputIterator last, Predicate p )
 /// \return true if none of the elements in [first, last) satisfy the predicate 'p'
 /// \note returns true on an empty range
@@ -38,7 +34,6 @@ for ( ; first != last; ++first )
         return false;
     return true;
 } 
-#endif
 
 /// \fn none_of ( const Range &r, Predicate p )
 /// \return true if none of the elements in the range satisfy the predicate 'p'

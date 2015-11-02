@@ -17,15 +17,15 @@ namespace boost { namespace fusion
         BOOST_FUSION_GPU_ENABLED tuple()
             : base_type() {}
         BOOST_FUSION_GPU_ENABLED tuple(tuple const& rhs)
-            : base_type(rhs) {}
+            : base_type(static_cast<base_type const&>(rhs)) {}
         template <typename U1, typename U2>
         BOOST_FUSION_GPU_ENABLED
         tuple(std::pair<U1, U2> const& rhs)
             : base_type(rhs) {}
     BOOST_FUSION_GPU_ENABLED
     explicit
-    tuple(typename detail::call_param<T0 >::type _0)
-        : base_type(_0) {}
+    tuple(typename detail::call_param<T0 >::type arg0)
+        : base_type(arg0) {}
     template <typename U0>
     BOOST_FUSION_GPU_ENABLED
     tuple(tuple<U0> const& rhs)
@@ -38,8 +38,8 @@ namespace boost { namespace fusion
         return *this;
     }
     BOOST_FUSION_GPU_ENABLED
-    tuple(typename detail::call_param<T0 >::type _0 , typename detail::call_param<T1 >::type _1)
-        : base_type(_0 , _1) {}
+    tuple(typename detail::call_param<T0 >::type arg0 , typename detail::call_param<T1 >::type arg1)
+        : base_type(arg0 , arg1) {}
     template <typename U0 , typename U1>
     BOOST_FUSION_GPU_ENABLED
     tuple(tuple<U0 , U1> const& rhs)
@@ -52,8 +52,8 @@ namespace boost { namespace fusion
         return *this;
     }
     BOOST_FUSION_GPU_ENABLED
-    tuple(typename detail::call_param<T0 >::type _0 , typename detail::call_param<T1 >::type _1 , typename detail::call_param<T2 >::type _2)
-        : base_type(_0 , _1 , _2) {}
+    tuple(typename detail::call_param<T0 >::type arg0 , typename detail::call_param<T1 >::type arg1 , typename detail::call_param<T2 >::type arg2)
+        : base_type(arg0 , arg1 , arg2) {}
     template <typename U0 , typename U1 , typename U2>
     BOOST_FUSION_GPU_ENABLED
     tuple(tuple<U0 , U1 , U2> const& rhs)
@@ -66,8 +66,8 @@ namespace boost { namespace fusion
         return *this;
     }
     BOOST_FUSION_GPU_ENABLED
-    tuple(typename detail::call_param<T0 >::type _0 , typename detail::call_param<T1 >::type _1 , typename detail::call_param<T2 >::type _2 , typename detail::call_param<T3 >::type _3)
-        : base_type(_0 , _1 , _2 , _3) {}
+    tuple(typename detail::call_param<T0 >::type arg0 , typename detail::call_param<T1 >::type arg1 , typename detail::call_param<T2 >::type arg2 , typename detail::call_param<T3 >::type arg3)
+        : base_type(arg0 , arg1 , arg2 , arg3) {}
     template <typename U0 , typename U1 , typename U2 , typename U3>
     BOOST_FUSION_GPU_ENABLED
     tuple(tuple<U0 , U1 , U2 , U3> const& rhs)
@@ -80,8 +80,8 @@ namespace boost { namespace fusion
         return *this;
     }
     BOOST_FUSION_GPU_ENABLED
-    tuple(typename detail::call_param<T0 >::type _0 , typename detail::call_param<T1 >::type _1 , typename detail::call_param<T2 >::type _2 , typename detail::call_param<T3 >::type _3 , typename detail::call_param<T4 >::type _4)
-        : base_type(_0 , _1 , _2 , _3 , _4) {}
+    tuple(typename detail::call_param<T0 >::type arg0 , typename detail::call_param<T1 >::type arg1 , typename detail::call_param<T2 >::type arg2 , typename detail::call_param<T3 >::type arg3 , typename detail::call_param<T4 >::type arg4)
+        : base_type(arg0 , arg1 , arg2 , arg3 , arg4) {}
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4>
     BOOST_FUSION_GPU_ENABLED
     tuple(tuple<U0 , U1 , U2 , U3 , U4> const& rhs)
@@ -94,8 +94,8 @@ namespace boost { namespace fusion
         return *this;
     }
     BOOST_FUSION_GPU_ENABLED
-    tuple(typename detail::call_param<T0 >::type _0 , typename detail::call_param<T1 >::type _1 , typename detail::call_param<T2 >::type _2 , typename detail::call_param<T3 >::type _3 , typename detail::call_param<T4 >::type _4 , typename detail::call_param<T5 >::type _5)
-        : base_type(_0 , _1 , _2 , _3 , _4 , _5) {}
+    tuple(typename detail::call_param<T0 >::type arg0 , typename detail::call_param<T1 >::type arg1 , typename detail::call_param<T2 >::type arg2 , typename detail::call_param<T3 >::type arg3 , typename detail::call_param<T4 >::type arg4 , typename detail::call_param<T5 >::type arg5)
+        : base_type(arg0 , arg1 , arg2 , arg3 , arg4 , arg5) {}
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5>
     BOOST_FUSION_GPU_ENABLED
     tuple(tuple<U0 , U1 , U2 , U3 , U4 , U5> const& rhs)
@@ -108,8 +108,8 @@ namespace boost { namespace fusion
         return *this;
     }
     BOOST_FUSION_GPU_ENABLED
-    tuple(typename detail::call_param<T0 >::type _0 , typename detail::call_param<T1 >::type _1 , typename detail::call_param<T2 >::type _2 , typename detail::call_param<T3 >::type _3 , typename detail::call_param<T4 >::type _4 , typename detail::call_param<T5 >::type _5 , typename detail::call_param<T6 >::type _6)
-        : base_type(_0 , _1 , _2 , _3 , _4 , _5 , _6) {}
+    tuple(typename detail::call_param<T0 >::type arg0 , typename detail::call_param<T1 >::type arg1 , typename detail::call_param<T2 >::type arg2 , typename detail::call_param<T3 >::type arg3 , typename detail::call_param<T4 >::type arg4 , typename detail::call_param<T5 >::type arg5 , typename detail::call_param<T6 >::type arg6)
+        : base_type(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6) {}
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6>
     BOOST_FUSION_GPU_ENABLED
     tuple(tuple<U0 , U1 , U2 , U3 , U4 , U5 , U6> const& rhs)
@@ -122,8 +122,8 @@ namespace boost { namespace fusion
         return *this;
     }
     BOOST_FUSION_GPU_ENABLED
-    tuple(typename detail::call_param<T0 >::type _0 , typename detail::call_param<T1 >::type _1 , typename detail::call_param<T2 >::type _2 , typename detail::call_param<T3 >::type _3 , typename detail::call_param<T4 >::type _4 , typename detail::call_param<T5 >::type _5 , typename detail::call_param<T6 >::type _6 , typename detail::call_param<T7 >::type _7)
-        : base_type(_0 , _1 , _2 , _3 , _4 , _5 , _6 , _7) {}
+    tuple(typename detail::call_param<T0 >::type arg0 , typename detail::call_param<T1 >::type arg1 , typename detail::call_param<T2 >::type arg2 , typename detail::call_param<T3 >::type arg3 , typename detail::call_param<T4 >::type arg4 , typename detail::call_param<T5 >::type arg5 , typename detail::call_param<T6 >::type arg6 , typename detail::call_param<T7 >::type arg7)
+        : base_type(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7) {}
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7>
     BOOST_FUSION_GPU_ENABLED
     tuple(tuple<U0 , U1 , U2 , U3 , U4 , U5 , U6 , U7> const& rhs)
@@ -136,8 +136,8 @@ namespace boost { namespace fusion
         return *this;
     }
     BOOST_FUSION_GPU_ENABLED
-    tuple(typename detail::call_param<T0 >::type _0 , typename detail::call_param<T1 >::type _1 , typename detail::call_param<T2 >::type _2 , typename detail::call_param<T3 >::type _3 , typename detail::call_param<T4 >::type _4 , typename detail::call_param<T5 >::type _5 , typename detail::call_param<T6 >::type _6 , typename detail::call_param<T7 >::type _7 , typename detail::call_param<T8 >::type _8)
-        : base_type(_0 , _1 , _2 , _3 , _4 , _5 , _6 , _7 , _8) {}
+    tuple(typename detail::call_param<T0 >::type arg0 , typename detail::call_param<T1 >::type arg1 , typename detail::call_param<T2 >::type arg2 , typename detail::call_param<T3 >::type arg3 , typename detail::call_param<T4 >::type arg4 , typename detail::call_param<T5 >::type arg5 , typename detail::call_param<T6 >::type arg6 , typename detail::call_param<T7 >::type arg7 , typename detail::call_param<T8 >::type arg8)
+        : base_type(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7 , arg8) {}
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8>
     BOOST_FUSION_GPU_ENABLED
     tuple(tuple<U0 , U1 , U2 , U3 , U4 , U5 , U6 , U7 , U8> const& rhs)
@@ -150,8 +150,8 @@ namespace boost { namespace fusion
         return *this;
     }
     BOOST_FUSION_GPU_ENABLED
-    tuple(typename detail::call_param<T0 >::type _0 , typename detail::call_param<T1 >::type _1 , typename detail::call_param<T2 >::type _2 , typename detail::call_param<T3 >::type _3 , typename detail::call_param<T4 >::type _4 , typename detail::call_param<T5 >::type _5 , typename detail::call_param<T6 >::type _6 , typename detail::call_param<T7 >::type _7 , typename detail::call_param<T8 >::type _8 , typename detail::call_param<T9 >::type _9)
-        : base_type(_0 , _1 , _2 , _3 , _4 , _5 , _6 , _7 , _8 , _9) {}
+    tuple(typename detail::call_param<T0 >::type arg0 , typename detail::call_param<T1 >::type arg1 , typename detail::call_param<T2 >::type arg2 , typename detail::call_param<T3 >::type arg3 , typename detail::call_param<T4 >::type arg4 , typename detail::call_param<T5 >::type arg5 , typename detail::call_param<T6 >::type arg6 , typename detail::call_param<T7 >::type arg7 , typename detail::call_param<T8 >::type arg8 , typename detail::call_param<T9 >::type arg9)
+        : base_type(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7 , arg8 , arg9) {}
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8 , typename U9>
     BOOST_FUSION_GPU_ENABLED
     tuple(tuple<U0 , U1 , U2 , U3 , U4 , U5 , U6 , U7 , U8 , U9> const& rhs)
@@ -173,7 +173,7 @@ namespace boost { namespace fusion
         BOOST_FUSION_GPU_ENABLED
         tuple& operator=(tuple const& rhs)
         {
-            base_type::operator=(rhs);
+            base_type::operator=(static_cast<base_type const&>(rhs));
             return *this;
         }
         template <typename U1, typename U2>

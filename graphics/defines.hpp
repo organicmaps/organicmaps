@@ -9,12 +9,16 @@ namespace graphics
 
   enum EDensity
   {
-    EDensityLDPI = 0,
+    EDensityLDPI = 0, //< The first must be 0
     EDensityMDPI,
     EDensityHDPI,
     EDensityXHDPI,
     EDensityXXHDPI,
-    EDensityIPhone6Plus
+    EDensityIPhone6Plus,
+    // Add new density here
+
+    // Specifies number of EDensity enum values, must be last
+    EDensityCount
   };
 
   /// get density name

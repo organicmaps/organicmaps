@@ -9,10 +9,6 @@
 #if !defined(BOOST_SPIRIT_X3_MOVE_TO_JAN_17_2013_0859PM)
 #define BOOST_SPIRIT_X3_MOVE_TO_JAN_17_2013_0859PM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/spirit/home/x3/support/traits/attribute_category.hpp>
 #include <boost/spirit/home/x3/support/traits/tuple_traits.hpp>
 #include <boost/spirit/home/x3/support/traits/variant_has_substitute.hpp>
@@ -181,14 +177,14 @@ namespace boost { namespace spirit { namespace x3 { namespace traits
     template <typename T>
     inline void move_to(T& src, T& dest)
     {
-        if (&src != &dest)
+        if (boost::addressof(src) != boost::addressof(dest))
             dest = std::move(src);
     }
 
     template <typename T>
     inline void move_to(T const& src, T& dest)
     {
-        if (&src != &dest)
+        if (boost::addressof(src) != boost::addressof(dest))
             dest = std::move(src);
     }
 

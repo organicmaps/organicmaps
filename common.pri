@@ -131,12 +131,9 @@ win32-msvc201* {
 unix|win32-g++ {
   LIBS *= -lz
   QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-compare -Wno-strict-aliasing -Wno-unused-parameter \
-                            -Werror=return-type -Wno-deprecated-register
-  iphone*-clang|macx-clang {
-    QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-local-typedef
-  }
+                            -Wno-unused-local-typedef
   *-clang {
-    QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-conversion
+    QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-conversion -Werror=return-type -Wno-deprecated-register
   }
 
 tizen{

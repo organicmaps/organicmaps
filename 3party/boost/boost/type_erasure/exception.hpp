@@ -13,6 +13,7 @@
 
 #include <stdexcept>
 #include <typeinfo>
+#include <string>
 
 namespace boost {
 namespace type_erasure {

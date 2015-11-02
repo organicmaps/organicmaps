@@ -1,76 +1,105 @@
 #include "platform/platform.hpp"
 
-#include "base/logging.hpp"
 #include "coding/file_reader.hpp"
+#include "coding/file_name_utils.hpp"
+
+#include "base/logging.hpp"
+#include "base/scope_guard.hpp"
+
+#include "std/bind.hpp"
 
 #include <stdlib.h>
 #include <unistd.h>
 
+#include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#include <arpa/inet.h>
+#include <netinet/in.h>
 
-/// @return directory where binary resides, including slash at the end
-static bool GetBinaryFolder(string & outPath)
+namespace
 {
-  char path[4096] = {0};
-  if (0 < ::readlink("/proc/self/exe", path, ARRAY_SIZE(path)))
-  {
-    outPath = path;
-    outPath.erase(outPath.find_last_of('/') + 1);
-    return true;
-  }
-  return false;
+// Web service ip to check internet connection. Now it's a mail.ru ip.
+char constexpr kSomeWorkingWebServer[] = "217.69.139.202";
+
+// Returns directory where binary resides, including slash at the end.
+bool GetBinaryDir(string & outPath)
+{
+  char path[4096] = {};
+  if (::readlink("/proc/self/exe", path, ARRAY_SIZE(path)) <= 0)
+    return false;
+  outPath = path;
+  outPath.erase(outPath.find_last_of('/') + 1);
+  return true;
 }
+
+// Returns true if EULA file exists in directory.
+bool IsEulaExist(string const & directory)
+{
+  return Platform::IsFileExistsByFullPath(my::JoinFoldersToPath(directory, "eula.html"));
+}
+}  // namespace
 
 Platform::Platform()
 {
-  // init directories
+  // Init directories.
   string path;
-  CHECK(GetBinaryFolder(path), ("Can't retrieve path to executable"));
+  CHECK(GetBinaryDir(path), ("Can't retrieve path to executable"));
 
   char const * homePath = ::getenv("HOME");
   string const home(homePath ? homePath : "");
 
-  m_settingsDir = home + "/.config/MapsWithMe";
+  m_settingsDir = my::JoinFoldersToPath({home, ".config"}, "MapsWithMe");
 
-  if (!IsFileExistsByFullPath(m_settingsDir + SETTINGS_FILE_NAME))
+  if (!IsFileExistsByFullPath(my::JoinFoldersToPath(m_settingsDir, SETTINGS_FILE_NAME)))
   {
-    mkdir((home + "/.config/").c_str(), 0755);
-    mkdir(m_settingsDir.c_str(), 0755);
+    MkDir(my::JoinFoldersToPath(home, ".config"));
+    MkDir(m_settingsDir.c_str());
   }
 
-  m_writableDir = home + "/.local/share/MapsWithMe";
-  mkdir((home + "/.local/").c_str(), 0755);
-  mkdir((home + "/.local/share/").c_str(), 0755);
-  mkdir(m_writableDir.c_str(), 0755);
+  m_writableDir = my::JoinFoldersToPath({home, ".local", "share"}, "MapsWithMe");
+  MkDir(my::JoinFoldersToPath(home, ".local"));
+  MkDir(my::JoinFoldersToPath({home, ".local"}, "share"));
+  MkDir(m_writableDir);
 
   char const * resDir = ::getenv("MWM_RESOURCES_DIR");
   if (resDir)
+  {
     m_resourcesDir = resDir;
+  }
   else
   {
-    // developer builds with symlink
-    if (IsFileExistsByFullPath(path + "../../data/eula.html"))
+    string const devBuildWithSymlink = my::JoinFoldersToPath({path, "..", ".."}, "data");
+    string const devBuildWithoutSymlink =
+        my::JoinFoldersToPath({path, "..", "..", "..", "omim"}, "data");
+    string const installedVersionWithPackages = my::JoinFoldersToPath({path, ".."}, "share");
+    string const installedVersionWithoutPackages =
+        my::JoinFoldersToPath({path, ".."}, "MapsWithMe");
+    string const customInstall = path;
+
+    if (IsEulaExist(devBuildWithSymlink))
     {
-      m_resourcesDir = path + "../../data";
+      m_resourcesDir = devBuildWithSymlink;
       m_writableDir = m_resourcesDir;
     }
-    // developer builds without symlink
-    else if (IsFileExistsByFullPath(path + "../../../omim/data/eula.html"))
+    else if (IsEulaExist(devBuildWithoutSymlink))
     {
-      m_resourcesDir = path + "../../../omim/data";
+      m_resourcesDir = devBuildWithoutSymlink;
       m_writableDir = m_resourcesDir;
     }
-    // installed version - /opt/MapsWithMe and unpacked packages
-    else if (IsFileExistsByFullPath(path + "../share/eula.html"))
-      m_resourcesDir = path + "../share";
-    // installed version
-    else if (IsFileExistsByFullPath(path + "../share/MapsWithMe/eula.html"))
-      m_resourcesDir = path + "../share/MapsWithMe";
-    // all-nearby installs
-    else if (IsFileExistsByFullPath(path + "/eula.html"))
+    else if (IsEulaExist(installedVersionWithPackages))
+    {
+      m_resourcesDir = installedVersionWithPackages;
+    }
+    else if (IsEulaExist(installedVersionWithoutPackages))
+    {
+      m_resourcesDir = installedVersionWithoutPackages;
+    }
+    else if (IsEulaExist(customInstall))
+    {
       m_resourcesDir = path;
+    }
   }
   m_resourcesDir += '/';
   m_settingsDir += '/';
@@ -91,7 +120,7 @@ Platform::Platform()
 }
 
 string Platform::UniqueClientId() const
-{  
+{
   string machineFile = "/var/lib/dbus/machine-id";
   if (IsFileExistsByFullPath("/etc/machine-id"))
     machineFile = "/etc/machine-id";
@@ -102,9 +131,8 @@ string Platform::UniqueClientId() const
     FileReader(machineFile).ReadAsString(content);
     return content.substr(0, 32);
   }
-  else
-    return "n0dbus0n0lsb00000000000000000000";
 
+  return "n0dbus0n0lsb00000000000000000000";
 }
 
 void Platform::RunOnGuiThread(TFunctor const & fn)
@@ -121,6 +149,19 @@ void Platform::RunAsync(TFunctor const & fn, Priority p)
 
 Platform::EConnectionType Platform::ConnectionStatus()
 {
-  // @TODO Add implementation
-  return EConnectionType::CONNECTION_NONE;
+  int socketFd = socket(AF_INET, SOCK_STREAM, 0);
+  MY_SCOPE_GUARD(closeSocket, bind(&close, socketFd));
+  if (socketFd < 0)
+    return EConnectionType::CONNECTION_NONE;
+
+  struct sockaddr_in addr;
+  memset(&addr, 0, sizeof(addr));
+  addr.sin_family = AF_INET;
+  addr.sin_port = htons(80);
+  inet_pton(AF_INET, kSomeWorkingWebServer, &addr.sin_addr);
+
+  if (connect(socketFd, reinterpret_cast<struct sockaddr *>(&addr), sizeof(addr)) < 0)
+    return EConnectionType::CONNECTION_NONE;
+
+  return EConnectionType::CONNECTION_WIFI;
 }

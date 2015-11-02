@@ -275,7 +275,7 @@
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Besked</string>
 	<!-- Share by email button text -->
-	<string name="email">E-Mail</string>
+	<string name="email">E-mail</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Kopier link</string>
 	<!-- Text for the button that returns to caller application -->
@@ -305,7 +305,6 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Længde</string>
 	<string name="share_my_location">Del min lokation</string>
-	<string name="become_a_pro">Opgrader</string>
 	<string name="menu_search">Søg</string>
 	<string name="pref_zoom_title">Zoom knapper</string>
 	<string name="pref_zoom_summary">Vis på skærmen</string>
@@ -803,8 +802,5 @@
 	<string name="search_not_found_location">Download kortet for din nuværende placering.</string>
 	<string name="search_history_title">Søgehistorik</string>
 	<string name="search_history_text">Gå hurtigt ind på seneste forespørgsel.</string>
-	<string name="update_maps_alert_title">Det er lettere nu at udforske kortet</string>
-	<string name="update_maps_alert_message">Vi har forbedret stilarterne på kortet: Nu ser alle objekter venligere og klarere ud. Opdatér kortet for at få det meste ud af det nye design.</string>
-	<string name="update_maps_alert_button_title">Opdatér kort</string>
 	<string name="clear_search">Ryd historiksøgning</string>
 </resources>

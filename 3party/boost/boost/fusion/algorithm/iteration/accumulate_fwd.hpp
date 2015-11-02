@@ -20,8 +20,8 @@ namespace boost { namespace fusion
     }
 
     template <typename Sequence, typename State, typename F>
-    BOOST_FUSION_GPU_ENABLED
-    typename
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+    inline typename
         lazy_enable_if<
             traits::is_sequence<Sequence>
           , result_of::accumulate<Sequence, State const, F>
@@ -29,8 +29,8 @@ namespace boost { namespace fusion
     accumulate(Sequence& seq, State const& state, F f);
 
     template <typename Sequence, typename State, typename F>
-    BOOST_FUSION_GPU_ENABLED
-    typename
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+    inline typename
         lazy_enable_if<
             traits::is_sequence<Sequence>
           , result_of::accumulate<Sequence const, State const, F>

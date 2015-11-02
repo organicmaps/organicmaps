@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2005-2008.
+//  (C) Copyright Gennadiy Rozental 2005-2014.
 //  Distributed under the Boost Software License, Version 1.0.
-//  (See accompanying file LICENSE_1_0.txt or copy at 
+//  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -12,8 +12,8 @@
 //  Description : default algorithms for string to specific type convertions
 // ***************************************************************************
 
-#ifndef BOOST_RT_INTERPRET_ARGUMENT_VALUE_HPP_062604GER
-#define BOOST_RT_INTERPRET_ARGUMENT_VALUE_HPP_062604GER
+#ifndef BOOST_TEST_UTILS_RUNTIME_INTERPRET_ARGUMENT_VALUE_HPP
+#define BOOST_TEST_UTILS_RUNTIME_INTERPRET_ARGUMENT_VALUE_HPP
 
 // Boost.Runtime.Parameter
 #include <boost/test/utils/runtime/config.hpp>
@@ -33,7 +33,7 @@
 
 namespace boost {
 
-namespace BOOST_RT_PARAM_NAMESPACE {
+namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE {
 
 // ************************************************************************** //
 // **************       runtime::interpret_argument_value      ************** //
@@ -45,11 +45,11 @@ template<typename T>
 struct interpret_argument_value_impl {
     static bool _( cstring source, boost::optional<T>& res )
     {
-        BOOST_RT_PARAM_TRACE( "In interpret_argument_value_impl<" << typeid(T).name() << ">" );
+        BOOST_TEST_UTILS_RUNTIME_PARAM_TRACE( "In interpret_argument_value_impl<" << typeid(T).name() << ">" );
 
         res = lexical_cast<T>( source );
 
-        BOOST_RT_PARAM_TRACE( "String " << source << " is interpreted as " << *res );
+        BOOST_TEST_UTILS_RUNTIME_PARAM_TRACE( "String " << source << " is interpreted as " << *res );
         return true;
     }
 };
@@ -62,7 +62,7 @@ template<>
 struct interpret_argument_value_impl<dstring> {
     static bool _( cstring source, boost::optional<dstring>& res )
     {
-        BOOST_RT_PARAM_TRACE( "In interpret_argument_value_impl<dstring>" );
+        BOOST_TEST_UTILS_RUNTIME_PARAM_TRACE( "In interpret_argument_value_impl<dstring>" );
 
         res = dstring();
         assign_op( *res, source, 0 );
@@ -78,7 +78,7 @@ template<>
 struct interpret_argument_value_impl<cstring> {
     static bool _( cstring source, boost::optional<cstring>& res )
     {
-        BOOST_RT_PARAM_TRACE( "In interpret_argument_value_impl<cstring>" );
+        BOOST_TEST_UTILS_RUNTIME_PARAM_TRACE( "In interpret_argument_value_impl<cstring>" );
 
         res = source;
 
@@ -93,14 +93,14 @@ template<>
 struct interpret_argument_value_impl<bool> {
     static bool _( cstring source, boost::optional<bool>& res )
     {
-        BOOST_RT_PARAM_TRACE( "In interpret_argument_value_impl<bool>" );
+        BOOST_TEST_UTILS_RUNTIME_PARAM_TRACE( "In interpret_argument_value_impl<bool>" );
 
-        static literal_cstring YES( BOOST_RT_PARAM_CSTRING_LITERAL( "YES" ) );
-        static literal_cstring Y( BOOST_RT_PARAM_CSTRING_LITERAL( "Y" ) );
-        static literal_cstring NO( BOOST_RT_PARAM_CSTRING_LITERAL( "NO" ) );
-        static literal_cstring N( BOOST_RT_PARAM_CSTRING_LITERAL( "N" ) );
-        static literal_cstring one( BOOST_RT_PARAM_CSTRING_LITERAL( "1" ) );
-        static literal_cstring zero( BOOST_RT_PARAM_CSTRING_LITERAL( "0" ) );
+        static literal_cstring YES( BOOST_TEST_UTILS_RUNTIME_PARAM_CSTRING_LITERAL( "YES" ) );
+        static literal_cstring Y( BOOST_TEST_UTILS_RUNTIME_PARAM_CSTRING_LITERAL( "Y" ) );
+        static literal_cstring NO( BOOST_TEST_UTILS_RUNTIME_PARAM_CSTRING_LITERAL( "NO" ) );
+        static literal_cstring N( BOOST_TEST_UTILS_RUNTIME_PARAM_CSTRING_LITERAL( "N" ) );
+        static literal_cstring one( BOOST_TEST_UTILS_RUNTIME_PARAM_CSTRING_LITERAL( "1" ) );
+        static literal_cstring zero( BOOST_TEST_UTILS_RUNTIME_PARAM_CSTRING_LITERAL( "0" ) );
 
         source.trim();
 
@@ -114,7 +114,7 @@ struct interpret_argument_value_impl<bool> {
         }
         else {
             res = true;
-            return false;
+            return source.is_empty();
         }
     }
 };
@@ -135,13 +135,13 @@ template<typename T>
 inline bool
 interpret_argument_value( cstring source, boost::optional<std::list<T> >& res, int )
 {
-    BOOST_RT_PARAM_TRACE( "In interpret_argument_value<std::list<T>>" );
+    BOOST_TEST_UTILS_RUNTIME_PARAM_TRACE( "In interpret_argument_value<std::list<T>>" );
 
     res = std::list<T>();
 
     while( !source.is_empty() ) {
         // !! should we use token_iterator
-        cstring::iterator single_value_end = std::find( source.begin(), source.end(), BOOST_RT_PARAM_LITERAL( ',' ) );
+        cstring::iterator single_value_end = std::find( source.begin(), source.end(), BOOST_TEST_UTILS_RUNTIME_PARAM_LITERAL( ',' ) );
 
         boost::optional<T> value;
         interpret_argument_value( cstring( source.begin(), single_value_end ), value, 0 );
@@ -156,8 +156,8 @@ interpret_argument_value( cstring source, boost::optional<std::list<T> >& res, i
 
 //____________________________________________________________________________//
 
-} // namespace BOOST_RT_PARAM_NAMESPACE
+} // namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE
 
 } // namespace boost
 
-#endif // BOOST_RT_INTERPRET_ARGUMENT_VALUE_HPP_062604GER
+#endif // BOOST_TEST_UTILS_RUNTIME_INTERPRET_ARGUMENT_VALUE_HPP

@@ -41,7 +41,7 @@ namespace boost { namespace fusion
                     typename result_of::segments<typename impl::type>::type
                 type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type call(Sequence & seq)
                 {
                     return fusion::segments(impl::call(seq.first, seq.last));

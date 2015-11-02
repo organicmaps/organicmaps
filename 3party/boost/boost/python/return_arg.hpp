@@ -29,7 +29,7 @@ namespace detail
 {
   template <std::size_t>
   struct return_arg_pos_argument_must_be_positive
-# if defined(__GNUC__) && __GNUC__ >= 3 || defined(__EDG__)
+# if defined(__GNUC__) || defined(__EDG__)
   {}
 # endif
   ;

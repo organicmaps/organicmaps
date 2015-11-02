@@ -37,13 +37,13 @@ namespace boost { namespace fusion
 
     public:
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         inline explicit fused_procedure(func_const_fwd_t f = Function())
             : fnc_transformed(f)
         { }
 
         template <class Seq> 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         inline void operator()(Seq const & s) const
         {
             fusion::invoke_procedure<
@@ -51,7 +51,7 @@ namespace boost { namespace fusion
         }
 
         template <class Seq> 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         inline void operator()(Seq const & s) 
         {
             fusion::invoke_procedure<
@@ -59,7 +59,7 @@ namespace boost { namespace fusion
         }
 
         template <class Seq> 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         inline void operator()(Seq & s) const
         {
             fusion::invoke_procedure<
@@ -67,7 +67,7 @@ namespace boost { namespace fusion
         }
 
         template <class Seq> 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         inline void operator()(Seq & s) 
         {
             return fusion::invoke_procedure<

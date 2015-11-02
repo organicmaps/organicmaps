@@ -1,96 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
            xmlns:tools="http://schemas.android.com/tools">
+  <style name="MwmWidget"/>
+  <style name="MwmWidget.Button"/>
+  <style name="MwmWidget.FrameLayout"/>
 
-  <!-- Themes -->
-
-  <style name="MwmTheme" parent="Theme.AppCompat.Light.NoActionBar">
-    <item name="colorPrimary">@color/base_green</item>
-    <item name="colorPrimaryDark">@color/base_green_darker</item>
-    <item name="clickableBackground">?attr/selectableItemBackground</item>
-    <item name="colorControlNormal">@color/text_dark_hint</item>
-    <item name="colorAccent">?attr/colorPrimary</item>
-    <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
-    <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
-    <item name="alertDialogTheme">@style/MwmMain.DialogFragment</item>
-    <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
-    <item name="android:windowBackground">@android:color/white</item>
-    <item name="android:colorBackgroundCacheHint">@null</item>
-    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
-    <item name="dividerHorizontal">@color/text_dark_hint</item>
-  </style>
-
-  <style name="MwmTheme.BottomSheet.Dialog" parent="BottomSheet.Dialog">
-    <item name="bs_listItemTitleTextAppearance">@style/MwmTextAppearance.Body1</item>
-    <item name="bs_gridItemTitleTextAppearance">@style/MwmTextAppearance.Body3</item>
-  </style>
 
   <style name="BottomSheet.Icon">
     <item name="android:layout_width">0dp</item>
     <item name="android:layout_height">0dp</item>
     <item name="android:layout_marginLeft">0dp</item>
   </style>
-
-  <style name="MwmTheme.Map">
-    <item name="android:colorPrimaryDark">@android:color/black</item>
-    <item name="android:windowBackground">@null</item>
-  </style>
-
-  <style name="MwmTheme.Light">
-    <item name="android:windowFrame">@null</item>
-    <item name="android:windowTitleStyle">@style/TextAppearance.AppCompat.Title</item>
-    <item name="android:windowIsFloating">true</item>
-    <item name="android:windowContentOverlay">@null</item>
-    <item name="android:windowActionModeOverlay">true</item>
-    <item name="android:windowCloseOnTouchOutside">false</item>
-    <item name="android:buttonBarStyle">@style/Theme.AppCompat.Dialog</item>
-    <item name="listPreferredItemPaddingLeft">16dip</item>
-    <item name="listPreferredItemPaddingRight">16dip</item>
-  </style>
-
-  <style name="MwmMain.DialogFragment" parent="Theme.AppCompat.Light.Dialog.Alert">
-    <item name="colorPrimary">@color/base_green</item>
-    <item name="colorPrimaryDark">@color/base_green_darker</item>
-    <item name="android:windowIsFloating">true</item>
-    <item name="clickableBackground">?attr/selectableItemBackground</item>
-    <item name="colorControlNormal">@color/text_dark_hint</item>
-    <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
-    <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
-    <item name="android:windowTitleStyle">@style/MwmMain.DialogFragment.TitleStyle</item>
-    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
-  </style>
-
-  <style name="MwmMain.DialogFragment.TitleStyle" parent="Base.DialogWindowTitle.AppCompat">
-    <item name="android:textAppearance">@style/MwmTextAppearance.Title</item>
-    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoMedium</item>
-  </style>
-
-  <style name="MwmMain.DialogFragment.Fullscreen" parent="Theme.AppCompat">
-    <item name="colorPrimary">@color/base_green</item>
-    <item name="colorPrimaryDark">@color/base_green_darker</item>
-    <item name="clickableBackground">?attr/selectableItemBackground</item>
-    <item name="colorControlNormal">@color/text_dark_hint</item>
-    <item name="colorAccent">?attr/colorPrimary</item>
-    <item name="android:windowIsTranslucent">true</item>
-    <item name="android:windowIsFloating">false</item>
-    <item name="android:windowBackground">@android:color/white</item>
-    <item name="android:textColorHint">@color/text_dark_hint</item>
-    <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
-    <item name="android:colorBackgroundCacheHint">@null</item>
-    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
-  </style>
-
-  <style name="MwmMain.DialogFragment.Fullscreen.SemiTransparent">
-    <item name="android:windowBackground">@color/semitransparent_black</item>
-  </style>
-
-  <!-- Themes -->
-
-  <!-- -->
-
-  <!-- Widgets -->
-
-  <style name="MwmWidget"/>
 
   <style name="MwmWidget.MapButton"
          parent="android:Widget.ImageButton">
@@ -100,8 +20,6 @@
     <item name="android:background">@null</item>
   </style>
 
-  <style name="MwmWidget.Button"/>
-
   <style name="MwmWidget.Button.Green">
     <item name="android:background">@drawable/bg_btn_green</item>
   </style>
@@ -110,7 +28,9 @@
     <item name="android:background">@drawable/ripple_blue</item>
   </style>
 
-  <style name="MwmWidget.Floating"/>
+  <style name="MwmWidget.Floating">
+    <item name="android:elevation" tools:ignore="NewApi">@dimen/appbar_elevation</item>
+  </style>
 
   <style name="MwmWidget.Floating.Panel">
     <item name="android:background">@color/bg_top_panels</item>
@@ -122,19 +42,19 @@
     <item name="android:textColorHint">@color/text_dark_hint</item>
     <item name="android:textCursorDrawable">@null</item>
     <item name="android:textSize">@dimen/text_size_body_1</item>
-    <item name="android:fontFamily">@string/robotoRegular</item>
+    <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoRegular</item>
   </style>
 
   <style name="MwmWidget.ToolbarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
     <item name="android:background">?attr/colorPrimary</item>
-    <item name="android:elevation">@dimen/appbar_elevation</item>
+    <item name="android:elevation" tools:ignore="NewApi">@dimen/appbar_elevation</item>
     <item name="android:displayOptions">homeAsUp|showTitle</item>
     <item name="contentInsetStart">72dp</item>
-    <item name="android:titleTextAppearance">@style/MwmTextAppearance.Toolbar.Title</item>
+    <item name="android:titleTextAppearance" tools:ignore="NewApi">@style/MwmTextAppearance.Toolbar.Title</item>
     <item name="titleTextAppearance">@style/MwmTextAppearance.Toolbar.Title</item>
     <item name="contentInsetLeft">72dp</item>
-    <item name="android:contentInsetStart">72dp</item>
-    <item name="android:contentInsetLeft">72dp</item>
+    <item name="android:contentInsetStart" tools:ignore="NewApi">72dp</item>
+    <item name="android:contentInsetLeft" tools:ignore="NewApi">72dp</item>
   </style>
 
   <style name="MwmWidget.ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -154,6 +74,17 @@
 
   <style name="MwmWidget.TextView" parent="android:Widget.TextView">
     <item name="android:background">@android:color/transparent</item>
+  </style>
+
+  <style name="MwmWidget.TextView.Item">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">@dimen/height_item_oneline</item>
+    <item name="android:gravity">center_vertical</item>
+    <item name="android:paddingLeft">@dimen/margin_base_plus</item>
+    <item name="android:paddingRight">@dimen/margin_base_plus</item>
+    <item name="android:background">?clickableBackground</item>
+    <item name="android:drawablePadding">@dimen/margin_base_plus</item>
+    <item name="android:textAppearance">@style/MwmTextAppearance.Body1</item>
   </style>
 
   <style name="MwmWidget.TextView.Search">
@@ -186,17 +117,6 @@
     <item name="android:textAllCaps">true</item>
   </style>
 
-  <style name="MwmWidget.FrameLayout"/>
-
-  <style name="MwmWidget.FrameLayout.Elevation">
-    <item name="android:foreground">@drawable/shadow_top</item>
-  </style>
-
-  <style name="MwmWidget.RatingBar" parent="android:Widget.RatingBar">
-    <item name="android:progressDrawable">@drawable/rating_bar</item>
-    <item name="android:indeterminateDrawable">@drawable/rating_bar</item>
-  </style>
-
   <style name="MwmWidget.TextView.OutOfDateMapsMarker">
     <item name="android:layout_width">26dp</item>
     <item name="android:layout_height">26dp</item>
@@ -206,135 +126,13 @@
     <item name="android:textColor">@android:color/white</item>
   </style>
 
-  <!-- Widgets -->
-
-  <!-- -->
-
-  <!-- Text appearance -->
-
-  <style name="MwmTextAppearance">
-    <item name="android:textStyle">normal</item>
-    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
+  <style name="MwmWidget.FrameLayout.Elevation">
+    <item name="android:foreground">@drawable/shadow_top</item>
   </style>
 
-  <style name="MwmTextAppearance.Display3">
-    <item name="android:textSize">@dimen/text_size_display_3</item>
-    <item name="android:textColor">@color/text_dark</item>
+  <style name="MwmWidget.RatingBar" parent="android:Widget.RatingBar">
+    <item name="android:progressDrawable">@drawable/rating_bar</item>
+    <item name="android:indeterminateDrawable">@drawable/rating_bar</item>
   </style>
-
-  <style name="MwmTextAppearance.Display2">
-    <item name="android:textSize">@dimen/text_size_display_2</item>
-    <item name="android:textColor">@color/text_dark</item>
-    <item name="android:textStyle">bold</item>
-  </style>
-
-  <style name="MwmTextAppearance.Display1">
-    <item name="android:textSize">@dimen/text_size_display_1</item>
-    <item name="android:textColor">@color/text_dark</item>
-  </style>
-
-  <style name="MwmTextAppearance.Display1.Plus">
-    <item name="android:textSize">@dimen/text_size_display_1_plus</item>
-  </style>
-
-  <style name="MwmTextAppearance.Headline">
-    <item name="android:textSize">@dimen/text_size_headline</item>
-    <item name="android:textColor">@color/text_dark</item>
-  </style>
-
-  <style name="MwmTextAppearance.Toolbar">
-    <item name="android:textSize">@dimen/text_size_toolbar</item>
-    <item name="android:textColor">@color/text_light</item>
-    <item name="android:textColorHint">@color/text_light_hint</item>
-  </style>
-
-  <style name="MwmTextAppearance.Title">
-    <item name="android:textSize">@dimen/text_size_title</item>
-    <item name="android:textColor">@color/text_dark</item>
-  </style>
-
-  <style name="MwmTextAppearance.Title.Light">
-    <item name="android:textSize">@dimen/text_size_title</item>
-    <item name="android:textColor">@color/text_light</item>
-  </style>
-
-  <style name="MwmTextAppearance.Body1">
-    <item name="android:textSize">@dimen/text_size_body_1</item>
-    <item name="android:textColor">@color/text_dark</item>
-  </style>
-
-  <style name="MwmTextAppearance.Body1.Light">
-    <item name="android:textColor">@color/text_light</item>
-  </style>
-
-  <style name="MwmTextAppearance.Body2">
-    <item name="android:textSize">@dimen/text_size_body_2</item>
-    <item name="android:textColor">@color/text_dark_subtitle</item>
-  </style>
-
-  <style name="MwmTextAppearance.Caption">
-    <item name="android:textSize">@dimen/text_size_caption</item>
-    <item name="android:textColor">@color/text_dark_subtitle</item>
-  </style>
-
-  <style name="MwmTextAppearance.Body3">
-    <item name="android:textSize">@dimen/text_size_body_3</item>
-    <item name="android:textColor">@color/text_dark_subtitle</item>
-  </style>
-
-  <style name="MwmTextAppearance.Body3.Light">
-    <item name="android:textColor">@color/text_light</item>
-  </style>
-
-  <style name="MwmTextAppearance.Body4">
-    <item name="android:textSize">@dimen/text_size_body_4</item>
-    <item name="android:textColor">@color/text_dark_subtitle</item>
-  </style>
-
-  <style name="MwmTextAppearance.Body4.Light">
-    <item name="android:textColor">@color/text_light</item>
-  </style>
-
-  <style name="MwmTextAppearance.IconTitle">
-    <item name="android:textSize">@dimen/text_size_icon_title</item>
-    <item name="android:textColor">@color/text_green</item>
-  </style>
-
-  <style name="MwmTextAppearance.Button">
-    <item name="android:textSize">@dimen/text_size_button</item>
-    <item name="android:textColor">@color/text_green</item>
-    <item name="android:textAllCaps">true</item>
-  </style>
-
-  <style name="MwmTextAppearance.RoutingNumber">
-    <item name="android:textSize">@dimen/text_size_routing_number</item>
-    <item name="android:textColor">@color/text_dark_subtitle</item>
-  </style>
-
-  <style name="MwmTextAppearance.Toolbar.Button" parent="MwmTextAppearance.Body3.Light">
-    <item name="android:textAllCaps">true</item>
-  </style>
-
-  <style name="MwmTextAppearance.Hint.InputLayout" parent="TextAppearance.AppCompat">
-    <item name="android:textColorHint">?attr/colorAccent</item>
-  </style>
-
-  <style name="MwmTextAppearance.Toolbar.Title" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
-    <item name="android:textSize">@dimen/text_size_toolbar</item>
-  </style>
-
-  <style name="MwmTextAppearance.Counter">
-    <item name="android:layout_width">wrap_content</item>
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:minWidth">20dp</item>
-    <item name="android:minHeight">20dp</item>
-    <item name="android:paddingLeft">2dp</item>
-    <item name="android:paddingRight">2dp</item>
-    <item name="android:gravity">center</item>
-    <item name="android:background">@drawable/counter</item>
-    <item name="android:textAppearance">@style/MwmTextAppearance.Body3.Light</item>
-  </style>
-
-  <!-- Text appearance -->
 
 </resources>

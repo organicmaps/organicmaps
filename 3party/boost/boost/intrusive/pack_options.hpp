@@ -15,6 +15,10 @@
 
 #include <boost/intrusive/detail/config_begin.hpp>
 
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 namespace boost {
 namespace intrusive {
 
@@ -253,7 +257,7 @@ struct OPTION_NAME \
 //!   - a default options class defining initial static constant
 //!   and typedefs
 //!   - several options defined with BOOST_INTRUSIVE_OPTION_CONSTANT and
-//! BOOST_INTRUSIVE_OPTION_TYPE 
+//! BOOST_INTRUSIVE_OPTION_TYPE
 //!
 //! and packs them together in a new type that defines all options as
 //! member typedefs or static constant values. Given options of form:
@@ -304,7 +308,7 @@ struct pack_options
 //!
 //! \code
 //! struct OPTION_NAME<class TYPE>
-//! { /*unspecified_content*/ };
+//! {  unspecified_content  };
 //! \endcode
 //!
 //! ...that after being combined with
@@ -334,7 +338,7 @@ struct pack_options
 //!
 //! \code
 //! struct OPTION_NAME<TYPE VALUE>
-//! { /*unspecified_content*/ };
+//! {  unspecified_content  };
 //! \endcode
 //!
 //! ...that after being combined with

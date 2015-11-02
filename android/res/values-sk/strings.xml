@@ -272,7 +272,7 @@
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Správa</string>
 	<!-- Share by email button text -->
-	<string name="email">E-Mail</string>
+	<string name="email">E-mail</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Skopírovať odkaz</string>
 	<!-- Text for the button that returns to caller application -->
@@ -302,7 +302,6 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Diaľka</string>
 	<string name="share_my_location">Zdielať moje umiestnenie</string>
-	<string name="become_a_pro">Vykonať upgrade</string>
 	<string name="menu_search">Vyhľadávanie</string>
 	<string name="pref_zoom_title">Tlačítka priblíženia/oddialenia</string>
 	<string name="pref_zoom_summary">Zobraziť na obrazovke</string>
@@ -806,8 +805,5 @@
 	<string name="search_not_found_location">Stiahnite si mapu svojej súčasnej polohy.</string>
 	<string name="search_history_title">História vyhľadávania</string>
 	<string name="search_history_text">Rýchlo pristupujte k nedávnym hľadaným výrazom.</string>
-	<string name="update_maps_alert_title">Prehliadanie máp je teraz jednoduchšie</string>
-	<string name="update_maps_alert_message">Zlepšili sme štýl máp: Teraz všetky objekty vyzerajú priateľskejšie a jasnejšie. Aktualizujte si mapy, aby ste z nového dizajnu získali čo najviac.</string>
-	<string name="update_maps_alert_button_title">Aktualizácia máp</string>
 	<string name="clear_search">Vymazať históriu vyhľadávania</string>
 </resources>

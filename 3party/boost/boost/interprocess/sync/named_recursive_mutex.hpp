@@ -11,7 +11,11 @@
 #ifndef BOOST_INTERPROCESS_NAMED_RECURSIVE_MUTEX_HPP
 #define BOOST_INTERPROCESS_NAMED_RECURSIVE_MUTEX_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -33,21 +37,21 @@
 namespace boost {
 namespace interprocess {
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 namespace ipcdetail{ class interprocess_tester; }
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 //!A recursive mutex with a global name, so it can be found from different
 //!processes. This mutex can't be placed in shared memory, and
 //!each process should have it's own named_recursive_mutex.
 class named_recursive_mutex
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    //Non-copyable
    named_recursive_mutex();
    named_recursive_mutex(const named_recursive_mutex &);
    named_recursive_mutex &operator=(const named_recursive_mutex &);
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
    public:
 
    //!Creates a global recursive_mutex with a name.
@@ -97,7 +101,7 @@ class named_recursive_mutex
    //!from the system
    static bool remove(const char *name);
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    friend class ipcdetail::interprocess_tester;
    void dont_close_on_destruction();
@@ -110,10 +114,10 @@ class named_recursive_mutex
    #endif
    impl_t m_mut;
 
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
 inline named_recursive_mutex::~named_recursive_mutex()
 {}
@@ -148,7 +152,7 @@ inline bool named_recursive_mutex::timed_lock(const boost::posix_time::ptime &ab
 inline bool named_recursive_mutex::remove(const char *name)
 {  return impl_t::remove(name); }
 
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 }  //namespace interprocess {
 }  //namespace boost {

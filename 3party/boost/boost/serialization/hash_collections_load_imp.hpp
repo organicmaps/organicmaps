@@ -34,7 +34,6 @@ namespace stl {
 template<class Archive, class Container, class InputFunction>
 inline void load_hash_collection(Archive & ar, Container &s)
 {
-    s.clear();
     collection_size_type count;
     collection_size_type bucket_count;
     boost::serialization::item_version_type item_version(0);
@@ -61,6 +60,7 @@ inline void load_hash_collection(Archive & ar, Container &s)
     if(boost::archive::library_version_type(3) < library_version){
         ar >> BOOST_SERIALIZATION_NVP(item_version);
     }
+    s.clear();
     #if ! defined(__MWERKS__)
     s.resize(bucket_count);
     #endif

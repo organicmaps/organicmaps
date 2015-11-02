@@ -102,7 +102,6 @@ struct tag
         detail::compound_tag<Tag3,Tag4> >
 { };
 
-#ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 template<class Tag1, class Tag2, class Tag3> struct tag<Tag1,Tag2,Tag3,null_tag>
   : detail::compound_tag<detail::compound_tag<Tag1,Tag2>,Tag3>
 { };
@@ -112,7 +111,6 @@ template<class Tag1, class Tag2> struct tag<Tag1,Tag2,null_tag,null_tag>
 template<class Tag1> struct tag<Tag1,null_tag,null_tag,null_tag>
   : Tag1
 { };
-#endif
 
 
 template<class Tag, class QueryTag> struct represents

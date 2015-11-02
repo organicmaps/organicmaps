@@ -11,7 +11,11 @@
 #ifndef BOOST_INTERPROCESS_PRIVATE_ADAPTIVE_POOL_HPP
 #define BOOST_INTERPROCESS_PRIVATE_ADAPTIVE_POOL_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -24,12 +28,12 @@
 #include <boost/assert.hpp>
 #include <boost/utility/addressof.hpp>
 #include <boost/interprocess/allocators/detail/adaptive_node_pool.hpp>
+#include <boost/interprocess/containers/version_type.hpp>
 #include <boost/container/detail/multiallocation_chain.hpp>
 #include <boost/interprocess/exceptions.hpp>
 #include <boost/interprocess/detail/utilities.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
-#include <memory>
-#include <algorithm>
+#include <boost/move/adl_move_swap.hpp>
 #include <cstddef>
 
 //!\file
@@ -38,7 +42,7 @@
 namespace boost {
 namespace interprocess {
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
 namespace ipcdetail {
 
@@ -63,7 +67,7 @@ class private_adaptive_pool_base
    typedef SegmentManager                                segment_manager;
    typedef typename SegmentManager::void_pointer         void_pointer;
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    typedef private_adaptive_pool_base
       < Version, T, SegmentManager, NodesPerBlock
@@ -78,7 +82,7 @@ class private_adaptive_pool_base
 
    BOOST_STATIC_ASSERT((Version <=2));
 
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    typedef typename boost::intrusive::
@@ -107,7 +111,7 @@ class private_adaptive_pool_base
          <Version, T2, SegmentManager, NodesPerBlock, MaxFreeBlocks, OverheadPercent>   other;
    };
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
    template <int dummy>
    struct node_pool
@@ -132,7 +136,7 @@ class private_adaptive_pool_base
 
    //!Not assignable from other private_adaptive_pool_base
    private_adaptive_pool_base& operator=(const private_adaptive_pool_base&);
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    //!Constructor from a segment manager
@@ -168,12 +172,12 @@ class private_adaptive_pool_base
    //!Swaps allocators. Does not throw. If each allocator is placed in a
    //!different shared memory segments, the result is undefined.
    friend void swap(self_t &alloc1,self_t &alloc2)
-   {  alloc1.m_node_pool.swap(alloc2.m_node_pool);  }
+   {  boost::adl_move_swap(alloc1.m_node_pool, alloc2.m_node_pool);  }
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    node_pool_t m_node_pool;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
 
 //!Equality test for same type of private_adaptive_pool_base
@@ -227,7 +231,7 @@ class private_adaptive_pool_v1
 
 }  //namespace ipcdetail {
 
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 //!An STL node allocator that uses a segment manager as memory
 //!source. The internal pointer type will of the same type (raw, smart) as
@@ -249,7 +253,7 @@ template < class T
          , unsigned char OverheadPercent
          >
 class private_adaptive_pool
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    :  public ipcdetail::private_adaptive_pool_base
          < 2
          , T
@@ -258,7 +262,7 @@ class private_adaptive_pool
          , MaxFreeBlocks
          , OverheadPercent
          >
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 {
 
    #ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
@@ -388,11 +392,8 @@ class private_adaptive_pool
    //!allocate, allocation_command and allocate_many.
    size_type size(const pointer &p) const;
 
-   std::pair<pointer, bool>
-      allocation_command(boost::interprocess::allocation_type command,
-                         size_type limit_size,
-                         size_type preferred_size,
-                         size_type &received_size, const pointer &reuse = 0);
+   pointer allocation_command(boost::interprocess::allocation_type command,
+                         size_type limit_size, size_type &prefer_in_recvd_out_size, pointer &reuse);
 
    //!Allocates many elements of size elem_size in a contiguous block
    //!of memory. The minimum number to be allocated is min_elements,

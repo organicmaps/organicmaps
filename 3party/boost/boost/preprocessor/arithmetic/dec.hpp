@@ -284,5 +284,6 @@
 # define BOOST_PP_DEC_254 253
 # define BOOST_PP_DEC_255 254
 # define BOOST_PP_DEC_256 255
+# define BOOST_PP_DEC_257 256
 #
 # endif

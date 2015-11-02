@@ -1,5 +1,5 @@
 /*
-Copyright Rene Rivera 2008-2013
+Copyright Rene Rivera 2008-2015
 Distributed under the Boost Software License, Version 1.0.
 (See accompanying file LICENSE_1_0.txt or copy at
 http://www.boost.org/LICENSE_1_0.txt)
@@ -89,7 +89,15 @@ of BSD. If the above variants is detected the corresponding macro is also set.]
 
 #define BOOST_OS_BSD_NAME "BSD"
 
-#include <boost/predef/detail/test.h>
-BOOST_PREDEF_DECLARE_TEST(BOOST_OS_BSD,BOOST_OS_BSD_NAME)
+#else
+
+#include <boost/predef/os/bsd/bsdi.h>
+#include <boost/predef/os/bsd/dragonfly.h>
+#include <boost/predef/os/bsd/free.h>
+#include <boost/predef/os/bsd/open.h>
+#include <boost/predef/os/bsd/net.h>
 
 #endif
+
+#include <boost/predef/detail/test.h>
+BOOST_PREDEF_DECLARE_TEST(BOOST_OS_BSD,BOOST_OS_BSD_NAME)

@@ -28,9 +28,9 @@ namespace feature
   bool IsDrawableForIndexGeometryOnly(FeatureBase const & f, int level);
 
   /// For FEATURE_TYPE_AREA need to have at least one area-filling type.
-  bool IsDrawableLike(vector<uint32_t> const & types, EGeomType ft);
+  bool IsDrawableLike(vector<uint32_t> const & types, EGeomType geomType);
   /// For FEATURE_TYPE_AREA removes line-drawing only types.
-  bool RemoveNoDrawableTypes(vector<uint32_t> & types, EGeomType ft);
+  bool RemoveNoDrawableTypes(vector<uint32_t> & types, EGeomType geomType, bool emptyName = false);
   //@}
 
   int GetMinDrawableScale(FeatureBase const & f);

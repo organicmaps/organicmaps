@@ -432,7 +432,7 @@
 "message" = "Besked";
 
 /* Share by email button text */
-"email" = "E-Mail";
+"email" = "E-mail";
 
 /* Copy Link */
 "copy_link" = "Kopier link";
@@ -478,13 +478,35 @@
 
 "share_my_location" = "Del min lokation";
 
-"become_a_pro" = "Opgrader";
-
 "menu_search" = "Søg";
+
+/* Settings screen: "Map" category title */
+"prefs_group_map" = "Map";
+
+/* Settings screen: "Route" category title */
+"prefs_group_route" = "Route";
+
+/* Settings screen: "Miscellaneous" category title */
+"prefs_group_misc" = "Miscellaneous";
 
 "pref_zoom_title" = "Zoom knapper";
 
 "pref_zoom_summary" = "Vis på skærmen";
+
+/* Settings «Map» category: «Map style» title */
+"pref_map_style_title" = "Map style";
+
+/* Settings «Map» category: «Map style» summary */
+"pref_map_style_summary" = "Change map presentation";
+
+/* «Map style» entry value */
+"pref_map_style_classic_light" = "Classic light";
+
+/* «Map style» entry value */
+"pref_map_style_classic_dark" = "Classic dark";
+
+/* «Map style» entry value */
+"pref_map_style_modern_light" = "Modern light";
 
 "placepage_distance" = "Afstand";
 
@@ -558,6 +580,12 @@
 "settings_and_more" = "Indstillinger & Mere";
 
 /* Text in menu */
+"website" = "Website";
+
+/* Text in menu */
+"blog" = "Blog";
+
+/* Text in menu */
 "maps_me_community" = "MAPS.ME Samfund";
 
 /* Text in menu */
@@ -569,11 +597,26 @@
 /* Text in menu */
 "contact_us" = "Kontakt os";
 
+/* Settings: Send feedback button and dialog title */
+"feedback" = "Feedback";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "General feedback";
+
 /* Text in menu */
 "subscribe_to_news" = "Abonnér på vores nyheder";
 
 /* Text in menu */
 "rate_the_app" = "Bedøm appen";
+
+/* Rate in Google Play (Android only) */
+"rate_gp" = "Rate on Google Play";
+
+/* Share with friends: menu item title */
+"tell_friends" = "Tell a Friend";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "Hi! Install Maps.me!";
 
 /* Text in menu */
 "help" = "Hjælp";
@@ -589,6 +632,9 @@
 
 /* Email body */
 "subscribe_me_body" = "Jeg vil være den første til at høre om de seneste nyheder opdateringer og tilbud. Jeg kan opsige abonnementet når som helst.";
+
+/* About short text (below logo) */
+"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
 "about_text" = "MAPS.ME tilbyder de hurtigste offline-kort over alle byer og alle lande i verden. Rejs med tillid: Hvor end du befinder dig, hjælper MAPS.ME med at lokalisere din placering på kortet, finde den nærmeste restaurant, hotel, bank, benzintank og så videre. Det er ikke nødvendigt at have forbindelse til internettet.\n\nVi arbejder altid på nye funktioner, og vi vil meget gerne høre fra dig, hvis du har forslag til, hvordan vi kan forbedre MAPS.ME. Hvis du oplever problemer med appen, er du meget velkommen til at kontakte os på support@maps.me. Vi besvarer alle henvendelser!\n\nSynes du om MAPS.ME, og har du lyst til at støtte os? Her er nogle simple og helt gratis metoder:\n\n-post en anmeldelse i din App Store\n-like vores facebook-side http://www.facebook.com/mapswithme\n-neller fortæl din mor, venner og kollegaer om MAPS.ME :)\n\nTak fordi du støtter os. Vi sætter stor pris på din støtte!\n\nPS: Vi får vores kortdata fra OpenStreetMap, som er et kortprojekt, der minder om Wikipedia, og som gør brugere i stand til at oprette og rette kort. Hvis du oplever, at noget mangler eller er forkert på kortet, kan du rette kortene direkte på http://openstreetmap.org, og dine ændringer vil figurere på MAPS.ME-appen i forbindelse med frigivelsen af den næste version.";
@@ -1268,11 +1314,5 @@
 "search_history_title" = "Søgehistorik";
 
 "search_history_text" = "Gå hurtigt ind på seneste forespørgsel.";
-
-"update_maps_alert_title" = "Det er lettere nu at udforske kortet";
-
-"update_maps_alert_message" = "Vi har forbedret stilarterne på kortet: Nu ser alle objekter venligere og klarere ud. Opdatér kortet for at få det meste ud af det nye design.";
-
-"update_maps_alert_button_title" = "Opdatér kort";
 
 "clear_search" = "Ryd historiksøgning";

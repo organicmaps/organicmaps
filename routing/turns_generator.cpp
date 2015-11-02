@@ -1,7 +1,8 @@
 #include "turns_generator.hpp"
 
-#include "routing/car_model.hpp"
-#include "routing/routing_mapping.hpp"
+#include "car_model.hpp"
+#include "osrm_helpers.hpp"
+#include "routing_mapping.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
@@ -73,8 +74,7 @@ public:
 
   void operator()(FeatureType const & ft)
   {
-    static CarModel const carModel;
-    if (ft.GetFeatureType() != feature::GEOM_LINE || !carModel.IsRoad(ft))
+    if (!CarModel::Instance().IsRoad(ft))
       return;
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
     size_t const count = ft.GetPointsCount();
@@ -101,29 +101,6 @@ public:
   DISALLOW_COPY_AND_MOVE(Point2Geometry);
 };
 
-class Point2Node
-{
-  RoutingMapping const & m_routingMapping;
-  vector<NodeID> & n_nodeIds;
-
-public:
-  Point2Node(RoutingMapping const & routingMapping, vector<NodeID> & nodeID)
-      : m_routingMapping(routingMapping), n_nodeIds(nodeID)
-  {
-  }
-
-  void operator()(FeatureType const & ft)
-  {
-    static CarModel const carModel;
-    if (ft.GetFeatureType() != feature::GEOM_LINE || !carModel.IsRoad(ft))
-      return;
-    uint32_t const featureId = ft.GetID().m_index;
-    for (auto const n : m_routingMapping.m_segMapping.GetNodeIdByFid(featureId))
-      n_nodeIds.push_back(n);
-  }
-
-  DISALLOW_COPY_AND_MOVE(Point2Node);
-};
 
 OsrmMappingTypes::FtSeg GetSegment(NodeID node, RoutingMapping const & routingMapping,
                                    TGetIndexFunction GetIndex)
@@ -380,7 +357,7 @@ void GetPossibleTurns(Index const & index, NodeID node, m2::PointD const & ingoi
 
   // Geting nodes by geometry.
   vector<NodeID> geomNodes;
-  Point2Node p2n(routingMapping, geomNodes);
+  helpers::Point2Node p2n(routingMapping, geomNodes);
 
   index.ForEachInRectForMWM(
       p2n, m2::RectD(junctionPoint.x - kReadCrossEpsilon, junctionPoint.y - kReadCrossEpsilon,

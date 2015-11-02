@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2014.
+ *          Copyright Andrey Semashev 2007 - 2015.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -88,8 +88,8 @@ private:
         BOOST_DELETED_FUNCTION(public_data(public_data const&))
         BOOST_DELETED_FUNCTION(public_data& operator= (public_data const&))
 
-        friend void intrusive_ptr_add_ref(const public_data* p) { ++p->m_ref_counter; }
-        friend void intrusive_ptr_release(const public_data* p) { if (--p->m_ref_counter == 0) public_data::destroy(p); }
+        friend void intrusive_ptr_add_ref(const public_data* p) BOOST_NOEXCEPT { ++p->m_ref_counter; }
+        friend void intrusive_ptr_release(const public_data* p) BOOST_NOEXCEPT { if (--p->m_ref_counter == 0) public_data::destroy(p); }
     };
 
 private:

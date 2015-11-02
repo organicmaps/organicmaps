@@ -163,12 +163,11 @@ extern "C"
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_search_SearchEngine_nativeRunSearch(
-      JNIEnv * env, jobject thiz, jstring query, jstring lang,
-      jlong timestamp, jboolean force, jboolean hasPosition, jdouble lat, jdouble lon)
+  Java_com_mapswithme_maps_search_SearchEngine_nativeRunSearch(JNIEnv * env, jclass clazz, jbyteArray bytes, jstring lang,
+                                                               jlong timestamp, jboolean force, jboolean hasPosition, jdouble lat, jdouble lon)
   {
     search::SearchParams params;
-    params.m_query = jni::ToNativeString(env, query);
+    params.m_query = jni::ToNativeString(env, bytes);
     params.SetInputLocale(ReplaceDeprecatedLanguageCode(jni::ToNativeString(env, lang)));
     params.SetForceSearch(force);
     if (hasPosition)
@@ -182,19 +181,23 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_search_SearchEngine_nativeRunInteractiveSearch(JNIEnv * env, jobject thiz, jstring query, jstring lang, jlong timestamp)
+  Java_com_mapswithme_maps_search_SearchEngine_nativeRunInteractiveSearch(JNIEnv * env, jclass clazz, jbyteArray bytes,
+                                                                          jstring lang, jlong timestamp, jboolean viewportOnly)
   {
     search::SearchParams params;
-    params.m_query = jni::ToNativeString(env, query);
+    params.m_query = jni::ToNativeString(env, bytes);
     params.SetInputLocale(ReplaceDeprecatedLanguageCode(jni::ToNativeString(env, lang)));
     params.m_callback = bind(&OnResults, _1, timestamp, true, false, 0, 0);
+    if (viewportOnly)
+      params.SetSearchMode(search::SearchParams::IN_VIEWPORT_ONLY | search::SearchParams::SEARCH_WORLD);
+
     g_framework->NativeFramework()->StartInteractiveSearch(params);
     g_framework->NativeFramework()->UpdateUserViewportChanged();
     g_queryTimestamp = timestamp;
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_search_SearchEngine_nativeShowResult(JNIEnv * env, jobject thiz, jint index)
+  Java_com_mapswithme_maps_search_SearchEngine_nativeShowResult(JNIEnv * env, jclass clazz, jint index)
   {
     lock_guard<mutex> guard(g_resultsMutex);
     g_framework->DontLoadState();
@@ -215,6 +218,15 @@ extern "C"
     android::Platform::RunOnGuiThreadImpl([results=g_results]()
     {
       g_framework->NativeFramework()->ShowAllSearchResults(results);
+    });
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_search_SearchEngine_nativeCancelInteractiveSearch(JNIEnv * env, jclass clazz)
+  {
+    android::Platform::RunOnGuiThreadImpl([]()
+    {
+      g_framework->NativeFramework()->CancelInteractiveSearch();
     });
   }
 } // extern "C"

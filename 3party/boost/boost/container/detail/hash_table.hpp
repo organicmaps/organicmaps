@@ -1,6 +1,6 @@
 /*
 template <class Value, unsigned int Options = 0, class Hash = hash<Value>, class Pred = equal_to<Value>,
-          class Alloc = allocator<Value> >
+          class Allocator = allocator<Value> >
 class hash_set
 {
 public:
@@ -9,7 +9,7 @@ public:
     typedef key_type                                                   value_type;
     typedef Hash                                                       hasher;
     typedef Pred                                                       key_equal;
-    typedef Alloc                                                      allocator_type;
+    typedef Allocator                                                      allocator_type;
     typedef value_type&                                                reference;
     typedef const value_type&                                          const_reference;
     typedef typename allocator_traits<allocator_type>::pointer         pointer;
@@ -71,9 +71,9 @@ public:
     const_iterator cend()   const noexcept;
 
     template <class... Args>
-        pair<iterator, bool> emplace(Args&&... args);
+        pair<iterator, bool> emplace(BOOST_FWD_REF(Args)... args);
     template <class... Args>
-        iterator emplace_hint(const_iterator position, Args&&... args);
+        iterator emplace_hint(const_iterator position, BOOST_FWD_REF(Args)... args);
     pair<iterator, bool> insert(const value_type& obj);
     pair<iterator, bool> insert(value_type&& obj);
     iterator insert(const_iterator hint, const value_type& obj);
@@ -124,7 +124,7 @@ public:
 };
 
 template <class Key, class T, unsigned int Options = 0, class Hash = hash<Key>, class Pred = equal_to<Key>,
-          class Alloc = allocator<pair<const Key, T> > >
+          class Allocator = allocator<pair<const Key, T> > >
 class hash_map
 {
 public:
@@ -133,7 +133,7 @@ public:
     typedef T                                                          mapped_type;
     typedef Hash                                                       hasher;
     typedef Pred                                                       key_equal;
-    typedef Alloc                                                      allocator_type;
+    typedef Allocator                                                      allocator_type;
     typedef pair<const key_type, mapped_type>                          value_type;
     typedef value_type&                                                reference;
     typedef const value_type&                                          const_reference;
@@ -196,9 +196,9 @@ public:
     const_iterator cend()   const noexcept;
 
     template <class... Args>
-        pair<iterator, bool> emplace(Args&&... args);
+        pair<iterator, bool> emplace(BOOST_FWD_REF(Args)... args);
     template <class... Args>
-        iterator emplace_hint(const_iterator position, Args&&... args);
+        iterator emplace_hint(const_iterator position, BOOST_FWD_REF(Args)... args);
     pair<iterator, bool> insert(const value_type& obj);
     template <class P>
         pair<iterator, bool> insert(P&& obj);
@@ -259,7 +259,7 @@ public:
 */
 
 template <class Key, class Value, class KeyOfValue, unsigned int Options = 0, class Hash = hash<Key>, class Pred = equal_to<Key>,
-          class Alloc = allocator<Value> >
+          class Allocator = allocator<Value> >
 class hash_table
 {
 public:
@@ -268,7 +268,7 @@ public:
     typedef key_type                                                   value_type;
     typedef Hash                                                       hasher;
     typedef Pred                                                       key_equal;
-    typedef Alloc                                                      allocator_type;
+    typedef Allocator                                                      allocator_type;
     typedef value_type&                                                reference;
     typedef const value_type&                                          const_reference;
     typedef typename allocator_traits<allocator_type>::pointer         pointer;
@@ -330,9 +330,9 @@ public:
     const_iterator cend()   const noexcept;
 
     template <class... Args>
-        pair<iterator, bool> emplace(Args&&... args);
+        pair<iterator, bool> emplace(BOOST_FWD_REF(Args)... args);
     template <class... Args>
-        iterator emplace_hint(const_iterator position, Args&&... args);
+        iterator emplace_hint(const_iterator position, BOOST_FWD_REF(Args)... args);
     pair<iterator, bool> insert(const value_type& obj);
     pair<iterator, bool> insert(value_type&& obj);
     iterator insert(const_iterator hint, const value_type& obj);

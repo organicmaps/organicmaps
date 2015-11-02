@@ -40,7 +40,8 @@ namespace boost { namespace fusion
         typedef Pos position;
         typedef SingleView single_view_type;
 
-        BOOST_FUSION_GPU_ENABLED explicit single_view_iterator(single_view_type& in_view)
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+        explicit single_view_iterator(single_view_type& in_view)
             : view(in_view) {}
 
         SingleView& view;
@@ -49,6 +50,15 @@ namespace boost { namespace fusion
         single_view_iterator& operator=(single_view_iterator const&);
     };
 }}
+
+#ifdef BOOST_FUSION_WORKAROUND_FOR_LWG_2408
+namespace std
+{
+    template <typename SingleView, typename Pos>
+    struct iterator_traits< ::boost::fusion::single_view_iterator<SingleView, Pos> >
+    { };
+}
+#endif
 
 #if defined (BOOST_MSVC)
 #  pragma warning(pop)

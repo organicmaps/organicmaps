@@ -35,10 +35,10 @@ namespace boost { namespace typeindex {
 namespace detail {
 
 // That's the most trickiest part of the TypeIndex library:
-//      1) we do not whant to give user ability to manually construct and compare `struct-that-represents-type`
-//      2) we need to distinguish beteween `struct-that-represents-type` and `const char*`
+//      1) we do not want to give user ability to manually construct and compare `struct-that-represents-type`
+//      2) we need to distinguish between `struct-that-represents-type` and `const char*`
 //      3) we need a thread-safe way to have references to instances `struct-that-represents-type`
-//      4) we need a compile-time control to make shure that user does not copy or 
+//      4) we need a compile-time control to make sure that user does not copy or
 // default construct `struct-that-represents-type`
 //
 // Solution would be the following:
@@ -72,15 +72,15 @@ private:
 
 } // namespace detail
 
-/// Helper method for getting detail::ctti_data of a tempalte patameter T.
+/// Helper method for getting detail::ctti_data of a template parameter T.
 template <class T>
 inline const detail::ctti_data& ctti_construct() BOOST_NOEXCEPT {
     // Standard C++11, 5.2.10 Reinterpret cast:
     // An object pointer can be explicitly converted to an object pointer of a different type. When a prvalue
-    // v of type “pointer to T1” is converted to the type “pointer to cv T2”, the result is static_cast<cv
+    // v of type "pointer to T1" is converted to the type "pointer to cv T2", the result is static_cast<cv
     // T2*>(static_cast<cv void*>(v)) if both T1 and T2 are standard-layout types (3.9) and the alignment
     // requirements of T2 are no stricter than those of T1, or if either type is void. Converting a prvalue of type
-    // “pointer to T1” to the type “pointer to T2” (where T1 and T2 are object types and where the alignment
+    // "pointer to T1" to the type "pointer to T2" (where T1 and T2 are object types and where the alignment
     // requirements of T2 are no stricter than those of T1) and back to its original type yields the original pointer
     // value.
     //

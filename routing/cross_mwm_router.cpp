@@ -18,7 +18,7 @@ IRouter::ResultCode CalculateRoute(BorderCross const & startPos, BorderCross con
   TAlgorithm::TOnVisitedVertexCallback onVisitedVertex =
       [&delegate](BorderCross const & cross, BorderCross const & /* target */)
   {
-    delegate.OnPointCheck(cross.fromNode.point);
+    delegate.OnPointCheck(MercatorBounds::FromLatLon(cross.fromNode.point));
   };
 
   my::HighResTimer timer(true);
@@ -53,8 +53,8 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
   IRouter::ResultCode code = IRouter::StartPointNotFound;
   for (FeatureGraphNode const & start : startGraphNodes)
   {
-    startNode = CrossNode(start.node.forward_node_id, start.node.reverse_node_id, start.mwmName,
-                          start.segmentPoint);
+    startNode = CrossNode(start.node.forward_node_id, start.node.reverse_node_id, start.mwmId,
+                          MercatorBounds::ToLatLon(start.segmentPoint));
     code = roadGraph.SetStartNode(startNode);
     if (code == IRouter::NoError)
     {
@@ -71,8 +71,8 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
   code = IRouter::EndPointNotFound;
   for (FeatureGraphNode const & final : finalGraphNodes)
   {
-    finalNode = CrossNode(final.node.reverse_node_id, final.node.forward_node_id, final.mwmName,
-                          final.segmentPoint);
+    finalNode = CrossNode(final.node.reverse_node_id, final.node.forward_node_id, final.mwmId,
+                          MercatorBounds::ToLatLon(final.segmentPoint));
     finalNode.isVirtual = true;
     code = roadGraph.SetFinalNode(finalNode);
     if (code == IRouter::NoError)

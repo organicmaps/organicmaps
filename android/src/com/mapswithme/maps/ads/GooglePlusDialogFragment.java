@@ -8,9 +8,9 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
-
 import com.google.android.gms.plus.PlusOneButton;
 import com.mapswithme.maps.R;
+import com.mapswithme.util.Config;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -30,7 +30,7 @@ public class GooglePlusDialogFragment extends DialogFragment
         @Override
         public void onPlusOneClick(Intent intent)
         {
-          LikesManager.setRatingApplied(GooglePlusDialogFragment.class, true);
+          Config.setRatingApplied(GooglePlusDialogFragment.class);
           dismiss();
           startActivityForResult(intent, 0);
         }

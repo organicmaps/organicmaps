@@ -76,10 +76,15 @@ public:
    // construct/copy/destroy:
    explicit match_results(const Allocator& a = Allocator())
 #ifndef BOOST_NO_STD_ALLOCATOR
-      : m_subs(a), m_base(), m_last_closed_paren(0), m_is_singular(true) {}
+      : m_subs(a), m_base(), m_null(), m_last_closed_paren(0), m_is_singular(true) {}
 #else
-      : m_subs(), m_base(), m_last_closed_paren(0), m_is_singular(true) { (void)a; }
+      : m_subs(), m_base(), m_null(), m_last_closed_paren(0), m_is_singular(true) { (void)a; }
 #endif
+   //
+   // IMPORTANT: in the code below, the crazy looking checks around m_is_singular are
+   // all required because it is illegal to copy a singular iterator.
+   // See https://svn.boost.org/trac/boost/ticket/3632.
+   //
    match_results(const match_results& m)
       : m_subs(m.m_subs), m_named_subs(m.m_named_subs), m_last_closed_paren(m.m_last_closed_paren), m_is_singular(m.m_is_singular) 
    {

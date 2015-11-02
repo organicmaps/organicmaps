@@ -23,8 +23,6 @@
 namespace std{ using ::memcpy; }
 #endif
 
-#include <boost/serialization/pfto.hpp>
-
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 
@@ -83,8 +81,8 @@ private:
 public:
     // make composible buy using templated constructor
     template<class T>
-    insert_linebreaks(BOOST_PFTO_WRAPPER(T)  start) :
-        super_t(Base(BOOST_MAKE_PFTO_WRAPPER(static_cast< T >(start)))),
+    insert_linebreaks(T  start) :
+        super_t(Base(static_cast< T >(start))),
         m_count(0)
     {}
     // intel 7.1 doesn't like default copy constructor

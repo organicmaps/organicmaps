@@ -103,7 +103,12 @@ void eval_exp(cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE> 
    eval_multiply(t, n, default_ops::get_constant_ln2<cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE> >());
    eval_subtract(t, arg);
    t.negate();
-   BOOST_ASSERT(t.compare(limb_type(0)) >= 0);
+   if(eval_get_sign(t) < 0)
+   {
+      // There are some very rare cases where arg/ln2 is an integer, and the subsequent multiply
+      // rounds up, in that situation t ends up negative at this point which breaks our invariants below:
+      t = limb_type(0);
+   }
    BOOST_ASSERT(t.compare(default_ops::get_constant_ln2<cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE> >()) < 0);
 
    Exponent k, nn;

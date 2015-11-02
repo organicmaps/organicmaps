@@ -17,8 +17,9 @@
 #ifndef BOOST_NUMERIC_ODEINT_ALGEBRA_ALGEBRA_DISPATCHER_HPP_INCLUDED
 #define BOOST_NUMERIC_ODEINT_ALGEBRA_ALGEBRA_DISPATCHER_HPP_INCLUDED
 
-#include <complex>
+#include <boost/numeric/odeint/config.hpp>
 
+#include <complex>
 #include <boost/type_traits/is_floating_point.hpp>
 
 #include <boost/numeric/ublas/vector.hpp>
@@ -38,14 +39,14 @@ namespace odeint {
 template< class StateType , class Enabler = void >
 struct algebra_dispatcher_sfinae
 {
-    //  range_algebra is the standard algebra^
+    // range_algebra is the standard algebra
     typedef range_algebra algebra_type;
 };
 
 template< class StateType >
 struct algebra_dispatcher : algebra_dispatcher_sfinae< StateType > { };
 
-//specialize for array
+// specialize for array
 template< class T , size_t N >
 struct algebra_dispatcher< boost::array< T , N > >
 {
@@ -83,5 +84,27 @@ struct algebra_dispatcher< boost::numeric::ublas::matrix< T , L , A > >
 }
 }
 }
+
+#ifdef BOOST_NUMERIC_ODEINT_CXX11
+
+// c++11 mode: specialization for std::array if available
+
+#include <array>
+
+namespace boost {
+namespace numeric {
+namespace odeint {
+
+// specialize for std::array
+template< class T , size_t N >
+struct algebra_dispatcher< std::array< T , N > >
+{
+    typedef array_algebra algebra_type;
+};
+
+} } }
+
+#endif
+
 
 #endif

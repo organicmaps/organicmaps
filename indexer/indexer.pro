@@ -28,6 +28,7 @@ SOURCES += \
     feature_impl.cpp \
     feature_loader.cpp \
     feature_loader_base.cpp \
+    feature_meta.cpp \
     feature_utils.cpp \
     feature_visibility.cpp \
     features_offsets_table.cpp \
@@ -37,6 +38,7 @@ SOURCES += \
     geometry_serialization.cpp \
     index.cpp \
     index_builder.cpp \
+    map_style.cpp \
     map_style_reader.cpp \
     mercator.cpp \
     mwm_set.cpp \

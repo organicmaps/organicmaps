@@ -322,8 +322,9 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (MWMBottomMenuState)menuState
 {
-  if (self.menuController.state == MWMBottomMenuStateActive)
-    return MWMBottomMenuStateActive;
+  MWMBottomMenuState const state = self.menuController.state;
+  if (state != MWMBottomMenuStateHidden)
+    return state;
   return _menuState;
 }
 

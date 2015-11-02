@@ -287,7 +287,6 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">長度</string>
 	<string name="share_my_location">分享我的位置</string>
-	<string name="become_a_pro">升級</string>
 	<string name="menu_search">搜尋</string>
 	<string name="pref_zoom_title">縮放按鈕</string>
 	<string name="pref_zoom_summary">在螢幕上顯示</string>
@@ -789,8 +788,5 @@
 	<string name="search_not_found_location">下載你當前位置的地圖。</string>
 	<string name="search_history_title">搜尋歷史紀錄</string>
 	<string name="search_history_text">快速存取最近搜尋的問題。</string>
-	<string name="update_maps_alert_title">探索地圖現在變得更加容易</string>
-	<string name="update_maps_alert_message">我們完善了地圖風格：現在，所有物件外觀更好看、更清楚。更新地圖以充分利用全新設計。</string>
-	<string name="update_maps_alert_button_title">更新地圖</string>
 	<string name="clear_search">清除搜尋記錄</string>
 </resources>

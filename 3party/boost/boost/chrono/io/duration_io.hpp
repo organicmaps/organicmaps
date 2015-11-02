@@ -18,8 +18,11 @@
 #include <boost/chrono/io/duration_get.hpp>
 #include <boost/chrono/io/utility/manip_base.hpp>
 #include <boost/detail/no_exceptions_support.hpp>
+#include <boost/type_traits/is_integral.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
 #include <locale>
 #include <iostream>
+#include <sstream>
 
 namespace boost
 {
@@ -71,19 +74,19 @@ namespace boost
        * Store a reference to the i/o stream and the value of the associated @c duration_style.
        */
       explicit duration_style_io_saver(state_type &s) :
-        s_save_(s)
+        s_save_(s), a_save_(get_duration_style(s))
       {
-        a_save_ = get_duration_style(s_save_);
       }
 
       /**
        * Construction from an i/o stream and a @c duration_style to restore.
        *
-       * Stores a reference to the i/o stream and the value @c duration_style to restore given as parameter.
+       * Stores a reference to the i/o stream and the value @c new_value @c duration_style to set.
        */
       duration_style_io_saver(state_type &s, aspect_type new_value) :
-        s_save_(s), a_save_(new_value)
+        s_save_(s), a_save_(get_duration_style(s))
       {
+        set_duration_style(s, new_value);
       }
 
       /**
@@ -111,14 +114,81 @@ namespace boost
       aspect_type a_save_;
     };
 
+    template <class Rep>
+    struct duration_put_enabled
+      : integral_constant<bool,
+          is_integral<Rep>::value || is_floating_point<Rep>::value
+        >
+     {};
+
+
     /**
      * duration stream inserter
      * @param os the output stream
      * @param d to value to insert
      * @return @c os
      */
+
     template <class CharT, class Traits, class Rep, class Period>
-    std::basic_ostream<CharT, Traits>&
+    typename boost::enable_if_c< ! duration_put_enabled<Rep>::value, std::basic_ostream<CharT, Traits>& >::type
+    operator<<(std::basic_ostream<CharT, Traits>& os, const duration<Rep, Period>& d)
+    {
+      std::basic_ostringstream<CharT, Traits> ostr;
+      ostr << d.count();
+      duration<int, Period> dd(0);
+      bool failed = false;
+      BOOST_TRY
+      {
+        std::ios_base::iostate err = std::ios_base::goodbit;
+        BOOST_TRY
+        {
+          typename std::basic_ostream<CharT, Traits>::sentry opfx(os);
+          if (bool(opfx))
+          {
+            if (!std::has_facet<duration_put<CharT> >(os.getloc()))
+            {
+              if (duration_put<CharT> ().put(os, os, os.fill(), dd, ostr.str().c_str()) .failed())
+              {
+                err = std::ios_base::badbit;
+              }
+            }
+            else if (std::use_facet<duration_put<CharT> >(os.getloc()) .put(os, os, os.fill(), dd, ostr.str().c_str()) .failed())
+            {
+              err = std::ios_base::badbit;
+            }
+            os.width(0);
+          }
+        }
+        BOOST_CATCH(...)
+        {
+          bool flag = false;
+          BOOST_TRY
+          {
+            os.setstate(std::ios_base::failbit);
+          }
+          BOOST_CATCH (std::ios_base::failure )
+          {
+            flag = true;
+          }
+          BOOST_CATCH_END
+          if (flag) throw;
+        }
+        BOOST_CATCH_END
+        if (err) os.setstate(err);
+        return os;
+      }
+      BOOST_CATCH(...)
+      {
+        failed = true;
+      }
+      BOOST_CATCH_END
+      if (failed) os.setstate(std::ios_base::failbit | std::ios_base::badbit);
+      return os;
+
+    }
+
+    template <class CharT, class Traits, class Rep, class Period>
+    typename boost::enable_if_c< duration_put_enabled<Rep>::value, std::basic_ostream<CharT, Traits>& >::type
     operator<<(std::basic_ostream<CharT, Traits>& os, const duration<Rep, Period>& d)
     {
       bool failed = false;

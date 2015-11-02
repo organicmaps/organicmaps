@@ -85,7 +85,7 @@ struct disable_if_is_same<T, T> {};
 }
  
 /// class declaration
-template<class Unit,class Y = double>
+template<class Unit,class Y>
 class quantity
 {
         // base units are not the same as units.

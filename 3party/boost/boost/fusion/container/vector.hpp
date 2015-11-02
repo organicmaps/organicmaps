@@ -8,7 +8,7 @@
 #define FUSION_SEQUENCE_CLASS_VECTOR_10022005_0602
 
 #include <boost/fusion/support/config.hpp>
-#include <boost/fusion/container/vector/limits.hpp>
+#include <boost/fusion/container/vector/detail/cpp03/limits.hpp>
 
 #include <boost/fusion/container/vector/vector10.hpp>
 #if (FUSION_MAX_VECTOR_SIZE > 10)

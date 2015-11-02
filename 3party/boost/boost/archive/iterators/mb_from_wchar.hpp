@@ -28,7 +28,6 @@ namespace std{
 } // namespace std
 #endif
 
-#include <boost/serialization/pfto.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 
 namespace boost { 
@@ -86,7 +85,7 @@ class mb_from_wchar
         wchar_t value = * this->base_reference();
         #if (defined(__MINGW32__) && ((__MINGW32_MAJOR_VERSION > 3) \
         || ((__MINGW32_MAJOR_VERSION == 3) && (__MINGW32_MINOR_VERSION >= 8))))
-        m_bend = std::wcrtomb(m_buffer, value, 0);
+        m_bend = std::wcrtomb(m_buffer, value,0);
         #else
         m_bend = std::wctomb(m_buffer, value);
         #endif
@@ -114,8 +113,8 @@ class mb_from_wchar
 public:
     // make composible buy using templated constructor
     template<class T>
-    mb_from_wchar(BOOST_PFTO_WRAPPER(T) start) :
-        super_t(Base(BOOST_MAKE_PFTO_WRAPPER(static_cast< T >(start)))),
+    mb_from_wchar(T start) :
+        super_t(Base(static_cast< T >(start))),
         m_bend(0),
         m_bnext(0),
         m_full(false)

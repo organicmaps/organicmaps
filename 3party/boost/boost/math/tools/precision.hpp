@@ -134,7 +134,12 @@ inline T log_max_value(const mpl::int_<0>& BOOST_MATH_APPEND_EXPLICIT_TEMPLATE_T
    BOOST_ASSERT(::std::numeric_limits<T>::is_specialized);
 #endif
    BOOST_MATH_STD_USING
+#ifdef __SUNPRO_CC
+   static const T m = (std::numeric_limits<T>::max)();
+   static const T val = log(m);
+#else
    static const T val = log((std::numeric_limits<T>::max)());
+#endif
    return val;
 }
 
@@ -147,7 +152,12 @@ inline T log_min_value(const mpl::int_<0>& BOOST_MATH_APPEND_EXPLICIT_TEMPLATE_T
    BOOST_ASSERT(::std::numeric_limits<T>::is_specialized);
 #endif
    BOOST_MATH_STD_USING
+#ifdef __SUNPRO_CC
+   static const T m = (std::numeric_limits<T>::min)();
+   static const T val = log(m);
+#else
    static const T val = log((std::numeric_limits<T>::min)());
+#endif
    return val;
 }
 

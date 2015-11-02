@@ -1,5 +1,5 @@
 /*
-Copyright Rene Rivera 2008-2013
+Copyright Rene Rivera 2008-2015
 Copyright Franz Detro 2014
 Copyright (c) Microsoft Corporation 2014
 Distributed under the Boost Software License, Version 1.0.
@@ -64,8 +64,7 @@ http://www.boost.org/LICENSE_1_0.txt)
 
 #define BOOST_ARCH_ARM_NAME "ARM"
 
+#endif
+
 #include <boost/predef/detail/test.h>
 BOOST_PREDEF_DECLARE_TEST(BOOST_ARCH_ARM,BOOST_ARCH_ARM_NAME)
-
-
-#endif

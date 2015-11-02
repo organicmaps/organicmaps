@@ -5,7 +5,7 @@
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 ==============================================================================*/
 
-#if !defined(BOOST_FUSION_REPETITIVE_REPETITIVE_VIEW_VIEW_HPP_INCLUDED)
+#ifndef BOOST_FUSION_REPETITIVE_VIEW_REPETITIVE_VIEW_HPP_INCLUDED
 #define BOOST_FUSION_REPETITIVE_VIEW_REPETITIVE_VIEW_HPP_INCLUDED
 
 #include <boost/fusion/support/config.hpp>
@@ -38,7 +38,7 @@ namespace boost { namespace fusion
             mpl::if_<traits::is_view<Sequence>, Sequence, sequence_type&>::type
         stored_seq_type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         repetitive_view(Sequence& in_seq)
             : seq(in_seq) {}
 

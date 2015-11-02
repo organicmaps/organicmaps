@@ -1,4 +1,4 @@
-/* Copyright 2006-2008 Joaquin M Lopez Munoz.
+/* Copyright 2006-2014 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -18,6 +18,11 @@
 #include <boost/parameter/parameters.hpp>
 #include <boost/preprocessor/punctuation/comma.hpp>
 #include <iosfwd>
+
+#if !defined(BOOST_FLYWEIGHT_DISABLE_HASH_SUPPORT)
+#include <boost/functional/hash_fwd.hpp>
+#include <cstddef>
+#endif
 
 namespace boost{
   
@@ -158,6 +163,41 @@ inline BOOST_TEMPLATED_STREAM(istream,ElemType,Traits)& operator>>(
 using flyweights::flyweight;
 
 } /* namespace boost */
+
+#if !defined(BOOST_FLYWEIGHT_DISABLE_HASH_SUPPORT)
+#if !defined(BOOST_NO_CXX11_HDR_FUNCTIONAL)
+
+#if !defined(_LIBCPP_VERSION)
+namespace std{
+template <class T> struct hash;
+}
+#else
+/* As discussed in http://lists.boost.org/Archives/boost/2011/02/177218.php */
+#include <functional>
+#endif
+
+namespace std{
+
+template<typename T,BOOST_FLYWEIGHT_TYPENAME_TEMPL_ARGS(_)>
+struct hash<boost::flyweight<T,BOOST_FLYWEIGHT_TEMPL_ARGS(_)> >;
+
+} /* namespace std */
+#endif /* !defined(BOOST_NO_CXX11_HDR_FUNCTIONAL) */
+
+namespace boost{
+#if !defined(BOOST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+namespace flyweights{
+#endif
+
+template<typename T,BOOST_FLYWEIGHT_TYPENAME_TEMPL_ARGS(_)>
+inline std::size_t hash_value(
+  const flyweight<T,BOOST_FLYWEIGHT_TEMPL_ARGS(_)>& x);
+
+#if !defined(BOOST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+} /* namespace flyweights */
+#endif
+} /* namespace boost */
+#endif /* !defined(BOOST_FLYWEIGHT_DISABLE_HASH_SUPPORT) */
 
 #undef BOOST_FLYWEIGHT_COMPLETE_COMP_OPS_DECL
 #undef BOOST_FLYWEIGHT_TEMPL_ARGS

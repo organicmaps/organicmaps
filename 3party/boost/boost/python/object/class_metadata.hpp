@@ -53,11 +53,7 @@ struct register_base_of
     template <class Base>
     inline void operator()(Base*) const
     {
-# if !BOOST_WORKAROUND(BOOST_MSVC, == 1200)
         BOOST_MPL_ASSERT_NOT((is_same<Base,Derived>));
-# else
-        BOOST_STATIC_ASSERT(!(is_same<Base,Derived>::value));
-# endif 
         
         // Register the Base class
         register_dynamic_id<Base>();

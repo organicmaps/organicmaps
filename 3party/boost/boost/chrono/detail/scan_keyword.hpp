@@ -19,14 +19,14 @@
 
 #include <boost/chrono/config.hpp>
 
-#include <boost/interprocess/smart_ptr/unique_ptr.hpp>
+#include <boost/move/unique_ptr.hpp>
 #include <ios>
 #include <exception>
 #include <stdlib.h>
 #include <boost/throw_exception.hpp>
 
 namespace boost {
-    using interprocess::unique_ptr;
+    using movelib::unique_ptr;
 
 namespace chrono {
 namespace chrono_detail {

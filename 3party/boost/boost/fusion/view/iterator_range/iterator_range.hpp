@@ -44,7 +44,7 @@ namespace boost { namespace fusion
 
         typedef typename traits::category_of<begin_type>::type category;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         iterator_range(First const& in_first, Last const& in_last)
             : first(convert_iterator<First>::call(in_first))
             , last(convert_iterator<Last>::call(in_last)) {}

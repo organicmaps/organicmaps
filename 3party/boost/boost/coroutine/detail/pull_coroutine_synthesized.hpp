@@ -68,7 +68,7 @@ public:
         impl_t( caller, callee, unwind, preserve_fpu)
     {}
 
-    void destroy() {}
+    inline void destroy() {}
 };
 
 }}}

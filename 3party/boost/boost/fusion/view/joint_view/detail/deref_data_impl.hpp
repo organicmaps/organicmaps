@@ -26,7 +26,7 @@ namespace boost { namespace fusion { namespace extension
                 result_of::deref_data<typename It::first_type>::type
             type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type
             call(It const& it)
             {

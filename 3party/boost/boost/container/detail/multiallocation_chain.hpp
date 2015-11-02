@@ -11,17 +11,27 @@
 #ifndef BOOST_CONTAINER_DETAIL_MULTIALLOCATION_CHAIN_HPP
 #define BOOST_CONTAINER_DETAIL_MULTIALLOCATION_CHAIN_HPP
 
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 #include <boost/container/detail/config_begin.hpp>
 #include <boost/container/detail/workaround.hpp>
-
+// container
 #include <boost/container/container_fwd.hpp>
-#include <boost/container/detail/utilities.hpp>
-#include <boost/container/detail/type_traits.hpp>
+// container/detail
+#include <boost/container/detail/to_raw_pointer.hpp>
 #include <boost/container/detail/transform_iterator.hpp>
+#include <boost/container/detail/type_traits.hpp>
+// intrusive
 #include <boost/intrusive/slist.hpp>
 #include <boost/intrusive/pointer_traits.hpp>
-#include <boost/type_traits/make_unsigned.hpp>
-#include <boost/move/utility.hpp>
+// move
+#include <boost/move/utility_core.hpp>
 
 namespace boost {
 namespace container {
@@ -43,7 +53,7 @@ class basic_multiallocation_chain
    typedef bi::slist< node
                     , bi::linear<true>
                     , bi::cache_last<true>
-                    , bi::size_type<typename boost::make_unsigned<difference_type>::type>
+                    , bi::size_type<typename boost::container::container_detail::make_unsigned<difference_type>::type>
                     > slist_impl_t;
    slist_impl_t slist_impl_;
 

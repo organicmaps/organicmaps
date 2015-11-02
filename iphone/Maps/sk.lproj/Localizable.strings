@@ -432,7 +432,7 @@
 "message" = "Správa";
 
 /* Share by email button text */
-"email" = "E-Mail";
+"email" = "E-mail";
 
 /* Copy Link */
 "copy_link" = "Skopírovať odkaz";
@@ -478,13 +478,35 @@
 
 "share_my_location" = "Zdielať moje umiestnenie";
 
-"become_a_pro" = "Vykonať upgrade";
-
 "menu_search" = "Vyhľadávanie";
+
+/* Settings screen: "Map" category title */
+"prefs_group_map" = "Map";
+
+/* Settings screen: "Route" category title */
+"prefs_group_route" = "Route";
+
+/* Settings screen: "Miscellaneous" category title */
+"prefs_group_misc" = "Miscellaneous";
 
 "pref_zoom_title" = "Tlačítka priblíženia/oddialenia";
 
 "pref_zoom_summary" = "Zobraziť na obrazovke";
+
+/* Settings «Map» category: «Map style» title */
+"pref_map_style_title" = "Map style";
+
+/* Settings «Map» category: «Map style» summary */
+"pref_map_style_summary" = "Change map presentation";
+
+/* «Map style» entry value */
+"pref_map_style_classic_light" = "Classic light";
+
+/* «Map style» entry value */
+"pref_map_style_classic_dark" = "Classic dark";
+
+/* «Map style» entry value */
+"pref_map_style_modern_light" = "Modern light";
 
 "placepage_distance" = "Vzdialenosť";
 
@@ -558,6 +580,12 @@
 "settings_and_more" = "Nastavenia a viac";
 
 /* Text in menu */
+"website" = "Website";
+
+/* Text in menu */
+"blog" = "Blog";
+
+/* Text in menu */
 "maps_me_community" = "Komunita MAPS.ME";
 
 /* Text in menu */
@@ -569,11 +597,26 @@
 /* Text in menu */
 "contact_us" = "Kontaktovať nás";
 
+/* Settings: Send feedback button and dialog title */
+"feedback" = "Feedback";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "General feedback";
+
 /* Text in menu */
 "subscribe_to_news" = "Prihlásiť sa k našim novinkám";
 
 /* Text in menu */
 "rate_the_app" = "Ohodnotiť aplikáciu";
+
+/* Rate in Google Play (Android only) */
+"rate_gp" = "Rate on Google Play";
+
+/* Share with friends: menu item title */
+"tell_friends" = "Tell a Friend";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "Hi! Install Maps.me!";
 
 /* Text in menu */
 "help" = "Nápoveda";
@@ -589,6 +632,9 @@
 
 /* Email body */
 "subscribe_me_body" = "Chcem sa vždy ako prvý dozvedať o najnovších správach, aktualizáciách a akčných ponukách. Svoje prihlásenie k odberu môžem kedykoľvek zrušiť.";
+
+/* About short text (below logo) */
+"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
 "about_text" = "MAPS.ME ponúka najrýchlejšie offline mapy všetkých miest a krajín po celom svete. Cestujte s úplnou dôverou: kdekoľvek ste, MAPS.ME vám pomôže sa nájsť na mape, nájsť najbližšiu reštauráciu, hotel, banku, benzínovú pumpu atď. Nevyžaduje pripojenie k internetu.\n\nNeustále pracujeme na nových funkciách a radi by sme počuli váš názor, ako môžeme vylepšiť MAPS.ME. Pokiaľ máte s touto aplikáciou akékoľvek problémy, tak nás neváhajte kontaktovať na support@maps.me. Odpovedáme na každú požiadavku!\n\nPáči sa vám MAPS.ME a chceli by ste nás podporiť? Existuje niekoľko ľahkých spôsobov celkom zadarmo:\n\n-napíšte recenziu vo svojom obchode s aplikáciami\n-označte našu stránku http://www.facebook.com/mapswithme pomocou Páči sa mi to\n- alebo len povedzte o MAPS.ME svojej mame, priateľom a kolegom :)\n\nĎakujeme, že ste s nami. Veľmi oceňujeme vašu podporu!\n\nP.S. Mapové dáta získavame z OpenStreetMaps, čo je mapový projekt podobný Wikipédii, ktorý umožňuje užívateľom vytvárať a upravovať mapy. Pokiaľ zistíte, že na mape niečo chýba alebo je nesprávné, môžete to opraviť priamo na http://openstreetmap.org, a vaše zmeny sa objavia v budúcej verzii MAPS.ME.";
@@ -1268,11 +1314,5 @@
 "search_history_title" = "História vyhľadávania";
 
 "search_history_text" = "Rýchlo pristupujte k nedávnym hľadaným výrazom.";
-
-"update_maps_alert_title" = "Prehliadanie máp je teraz jednoduchšie";
-
-"update_maps_alert_message" = "Zlepšili sme štýl máp: Teraz všetky objekty vyzerajú priateľskejšie a jasnejšie. Aktualizujte si mapy, aby ste z nového dizajnu získali čo najviac.";
-
-"update_maps_alert_button_title" = "Aktualizácia máp";
 
 "clear_search" = "Vymazať históriu vyhľadávania";

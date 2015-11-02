@@ -78,7 +78,7 @@ inline void save_construct_data(
     Archive & ar,
     const 
     boost_132::detail::sp_counted_base_impl<P, D> *t, 
-    const BOOST_PFTO unsigned int /* file_version */
+    const unsigned int /* file_version */
 ){
     // variables used for construction
     ar << boost::serialization::make_nvp("ptr", t->ptr);

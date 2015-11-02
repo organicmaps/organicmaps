@@ -294,7 +294,6 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">距離</string>
 	<string name="share_my_location">位置情報を共有する</string>
-	<string name="become_a_pro">アップグレード</string>
 	<string name="menu_search">検索</string>
 	<string name="pref_zoom_title">ズームボタン</string>
 	<string name="pref_zoom_summary">画面上に表示</string>
@@ -800,8 +799,5 @@
 	<string name="search_not_found_location">現在地の地図をダウンロードしてください。</string>
 	<string name="search_history_title">検索履歴</string>
 	<string name="search_history_text">最近の検索クエリに素早くアクセス。</string>
-	<string name="update_maps_alert_title">地図の閲覧がより簡単に</string>
-	<string name="update_maps_alert_message">地図のスタイルを改善しました：全てのオブジェクトがわかりやすくはっきりとなりました。新しいデザインを最大限に活用するには、地図をアップデートしてください。</string>
-	<string name="update_maps_alert_button_title">地図をアップデート</string>
 	<string name="clear_search">検索履歴を消去</string>
 </resources>

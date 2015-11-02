@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2014.
+ *          Copyright Andrey Semashev 2007 - 2015.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -18,10 +18,10 @@
 #include <cstddef>
 #include <string>
 #include <stdexcept>
+#include <boost/type_index.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
 #include <boost/log/detail/config.hpp>
 #include <boost/log/attributes/attribute_name.hpp>
-#include <boost/log/utility/type_info_wrapper.hpp>
 #include <boost/log/detail/header.hpp>
 
 #ifdef BOOST_HAS_PRAGMA_ONCE
@@ -130,8 +130,8 @@ public:
     static BOOST_LOG_NORETURN void throw_(const char* file, std::size_t line);
     static BOOST_LOG_NORETURN void throw_(const char* file, std::size_t line, std::string const& descr);
     static BOOST_LOG_NORETURN void throw_(const char* file, std::size_t line, std::string const& descr, attribute_name const& name);
-    static BOOST_LOG_NORETURN void throw_(const char* file, std::size_t line, std::string const& descr, type_info_wrapper const& type);
-    static BOOST_LOG_NORETURN void throw_(const char* file, std::size_t line, std::string const& descr, attribute_name const& name, type_info_wrapper const& type);
+    static BOOST_LOG_NORETURN void throw_(const char* file, std::size_t line, std::string const& descr, typeindex::type_index const& type);
+    static BOOST_LOG_NORETURN void throw_(const char* file, std::size_t line, std::string const& descr, attribute_name const& name, typeindex::type_index const& type);
 #endif
 };
 

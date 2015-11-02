@@ -7,10 +7,6 @@
 #if !defined(BOOST_SPIRIT_X3_PARSE_APRIL_16_2006_0442PM)
 #define BOOST_SPIRIT_X3_PARSE_APRIL_16_2006_0442PM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/spirit/home/x3/support/context.hpp>
 #include <boost/spirit/home/x3/core/parser.hpp>
 #include <boost/spirit/home/x3/core/skip_over.hpp>

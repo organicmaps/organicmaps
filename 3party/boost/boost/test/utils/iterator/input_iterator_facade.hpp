@@ -1,19 +1,16 @@
-//  (C) Copyright Gennadiy Rozental 2004-2008.
+//  (C) Copyright Gennadiy Rozental 2004-2014.
 //  Distributed under the Boost Software License, Version 1.0.
-//  (See accompanying file LICENSE_1_0.txt or copy at 
+//  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
 //
-//  File        : $RCSfile$
-//
-//  Version     : $Revision$
-//
-//  Description : Input iterator facade 
+//!@file
+//! Input iterator facade
 // ***************************************************************************
 
-#ifndef BOOST_INPUT_ITERATOR_FACADE_HPP_071894GER
-#define BOOST_INPUT_ITERATOR_FACADE_HPP_071894GER
+#ifndef BOOST_TEST_UTILS_INPUT_ITERATOR_FACADE_HPP
+#define BOOST_TEST_UTILS_INPUT_ITERATOR_FACADE_HPP
 
 // Boost
 #include <boost/iterator/iterator_facade.hpp>
@@ -80,7 +77,7 @@ private:
     // iterator facade interface implementation
     void                increment()
     {
-        // we make post-end incrementation indefinetly safe 
+        // we make post-end incrementation indefinetly safe
         if( m_valid )
             m_valid = input_iterator_core_access::get( *static_cast<Derived*>(this) );
     }
@@ -105,5 +102,5 @@ private:
 
 #include <boost/test/detail/enable_warnings.hpp>
 
-#endif // BOOST_INPUT_ITERATOR_FACADE_HPP_071894GER
+#endif // BOOST_TEST_UTILS_INPUT_ITERATOR_FACADE_HPP
 

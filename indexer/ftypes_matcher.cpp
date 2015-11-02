@@ -354,6 +354,7 @@ HighwayClass GetHighwayClass(feature::TypesHolder const & types)
       {HighwayClass::Trunk, c.GetTypeByPath({"highway", "motorway_link"})},
       {HighwayClass::Trunk, c.GetTypeByPath({"highway", "trunk"})},
       {HighwayClass::Trunk, c.GetTypeByPath({"highway", "trunk_link"})},
+      {HighwayClass::Trunk, c.GetTypeByPath({"route", "ferry"})},
       {HighwayClass::Primary, c.GetTypeByPath({"highway", "primary"})},
       {HighwayClass::Primary, c.GetTypeByPath({"highway", "primary_link"})},
       {HighwayClass::Secondary, c.GetTypeByPath({"highway", "secondary"})},

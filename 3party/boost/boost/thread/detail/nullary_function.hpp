@@ -13,7 +13,7 @@
 #include <boost/config.hpp>
 #include <boost/thread/detail/memory.hpp>
 #include <boost/thread/detail/move.hpp>
-#include <boost/smart_ptr/shared_ptr.hpp>
+#include <boost/thread/csbl/memory/shared_ptr.hpp>
 #include <boost/type_traits/decay.hpp>
 
 namespace boost
@@ -33,7 +33,7 @@ namespace boost
         {
         }
       };
-      shared_ptr<impl_base> impl;
+      csbl::shared_ptr<impl_base> impl;
       template <typename F>
       struct impl_type: impl_base
       {
@@ -64,7 +64,7 @@ namespace boost
         }
       };
     public:
-      BOOST_THREAD_MOVABLE(nullary_function)
+      BOOST_THREAD_COPYABLE_AND_MOVABLE(nullary_function)
 
       explicit nullary_function(void (*f)()):
       impl(new impl_type_ptr(f))
@@ -90,29 +90,39 @@ namespace boost
       {
       }
       nullary_function(BOOST_THREAD_RV_REF(nullary_function) other) BOOST_NOEXCEPT :
+#if defined BOOST_NO_CXX11_SMART_PTR
       impl(BOOST_THREAD_RV(other).impl)
       {
         BOOST_THREAD_RV(other).impl.reset();
       }
+#else
+      impl(boost::move(other.impl))
+      {
+      }
+#endif
       ~nullary_function()
       {
       }
 
-      nullary_function& operator=(nullary_function const& other) BOOST_NOEXCEPT
+      nullary_function& operator=(BOOST_THREAD_COPY_ASSIGN_REF(nullary_function) other) BOOST_NOEXCEPT
       {
         impl=other.impl;
         return *this;
       }
       nullary_function& operator=(BOOST_THREAD_RV_REF(nullary_function) other) BOOST_NOEXCEPT
       {
+#if defined BOOST_NO_CXX11_SMART_PTR
         impl=BOOST_THREAD_RV(other).impl;
         BOOST_THREAD_RV(other).impl.reset();
+#else
+        impl = boost::move(other.impl);
+#endif
         return *this;
       }
 
 
       void operator()()
-      { impl->call();}
+      { if (impl) impl->call();}
 
     };
 
@@ -126,7 +136,7 @@ namespace boost
         {
         }
       };
-      shared_ptr<impl_base> impl;
+      csbl::shared_ptr<impl_base> impl;
       template <typename F>
       struct impl_type: impl_base
       {
@@ -158,7 +168,7 @@ namespace boost
         }
       };
     public:
-      BOOST_THREAD_MOVABLE(nullary_function)
+      BOOST_THREAD_COPYABLE_AND_MOVABLE(nullary_function)
 
       nullary_function(R (*f)()):
       impl(new impl_type_ptr(f))
@@ -179,10 +189,16 @@ namespace boost
       {
       }
       nullary_function(BOOST_THREAD_RV_REF(nullary_function) other) BOOST_NOEXCEPT :
+#if defined BOOST_NO_CXX11_SMART_PTR
       impl(BOOST_THREAD_RV(other).impl)
       {
         BOOST_THREAD_RV(other).impl.reset();
       }
+#else
+      impl(boost::move(other.impl))
+      {
+      }
+#endif
       nullary_function()
         : impl()
       {
@@ -191,23 +207,28 @@ namespace boost
       {
       }
 
-      nullary_function& operator=(nullary_function const& other) BOOST_NOEXCEPT
+      nullary_function& operator=(BOOST_THREAD_COPY_ASSIGN_REF(nullary_function) other) BOOST_NOEXCEPT
       {
         impl=other.impl;
         return *this;
       }
       nullary_function& operator=(BOOST_THREAD_RV_REF(nullary_function) other) BOOST_NOEXCEPT
       {
+#if defined BOOST_NO_CXX11_SMART_PTR
         impl=BOOST_THREAD_RV(other).impl;
         BOOST_THREAD_RV(other).impl.reset();
+#else
+        impl = boost::move(other.impl);
+#endif
         return *this;
       }
 
       R operator()()
-      { return impl->call();}
+      { if (impl) return impl->call(); else return R();}
 
     };
   }
+  //BOOST_THREAD_DCL_MOVABLE_BEG(F) detail::nullary_function<F> BOOST_THREAD_DCL_MOVABLE_END
 }
 
 #endif // header

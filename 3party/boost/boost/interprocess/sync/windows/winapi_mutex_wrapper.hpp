@@ -11,7 +11,11 @@
 #ifndef BOOST_INTERPROCESS_DETAIL_WINAPI_MUTEX_WRAPPER_HPP
 #define BOOST_INTERPROCESS_DETAIL_WINAPI_MUTEX_WRAPPER_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -32,12 +36,12 @@ namespace ipcdetail {
 
 class winapi_mutex_functions
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
    //Non-copyable
    winapi_mutex_functions(const winapi_mutex_functions &);
    winapi_mutex_functions &operator=(const winapi_mutex_functions &);
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    winapi_mutex_functions(void *mtx_hnd)
@@ -56,22 +60,22 @@ class winapi_mutex_functions
    bool timed_lock(const boost::posix_time::ptime &abs_time)
    {  return winapi_wrapper_timed_wait_for_single_object(m_mtx_hnd, abs_time);  }
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    protected:
    void *m_mtx_hnd;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
 
 //Swappable mutex wrapper
 class winapi_mutex_wrapper
    : public winapi_mutex_functions
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
    //Non-copyable
    winapi_mutex_wrapper(const winapi_mutex_wrapper &);
    winapi_mutex_wrapper &operator=(const winapi_mutex_wrapper &);
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    //Note that Windows API does not return winapi::invalid_handle_value
    //when failing to create/open a mutex, but a nullptr

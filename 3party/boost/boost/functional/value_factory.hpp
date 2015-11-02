@@ -15,7 +15,6 @@
 
 #     include <new>
 #     include <boost/pointee.hpp>
-#     include <boost/none_t.hpp>
 #     include <boost/get_pointer.hpp>
 #     include <boost/non_type.hpp>
 #     include <boost/type_traits/remove_cv.hpp>

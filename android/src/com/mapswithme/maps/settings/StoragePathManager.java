@@ -2,24 +2,18 @@ package com.mapswithme.maps.settings;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.*;
 import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MapStorage;
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.util.Config;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.ThreadPool;
@@ -29,11 +23,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class StoragePathManager
 {
@@ -58,6 +48,11 @@ public class StoragePathManager
     void moveFilesFailed(int errorCode);
   }
 
+  public interface OnStorageListChangedListener
+  {
+    void onStorageListChanged(List<StorageItem> storageItems, int currentStorageIndex);
+  }
+
   public static final int NO_ERROR = 0;
   public static final int UNKNOWN_LITE_PRO_ERROR = 1;
   public static final int IOEXCEPTION_ERROR = 2;
@@ -67,33 +62,32 @@ public class StoragePathManager
 
   static final String TAG = StoragePathManager.class.getName();
 
-  private static final String IS_KML_PLACED_IN_MAIN_STORAGE = "KmlBeenMoved";
-  private static final String IS_KITKAT_MIGRATION_COMPLETED = "KitKatMigrationCompleted";
 
-  private BroadcastReceiver mExternalReceiver;
+  private OnStorageListChangedListener mStoragesChangedListener;
+  private MoveFilesListener mMoveFilesListener;
+
   private BroadcastReceiver mInternalReceiver;
   private Activity mActivity;
-  private ArrayList<StorageItem> mItems;
+  private List<StorageItem> mItems;
   private int mCurrentStorageIndex = -1;
-  private MoveFilesListener mStorageListener;
 
   /**
    * Observes status of connected media and retrieves list of available external storages.
    */
-  public void startExternalStorageWatching(Activity activity, @Nullable BroadcastReceiver receiver, @Nullable MoveFilesListener listener)
+  public void startExternalStorageWatching(Activity activity, final @Nullable OnStorageListChangedListener storagesChangedListener, @Nullable MoveFilesListener moveFilesListener)
   {
     mActivity = activity;
-    mStorageListener = listener;
-    mExternalReceiver = receiver;
+    mStoragesChangedListener = storagesChangedListener;
+    mMoveFilesListener = moveFilesListener;
     mInternalReceiver = new BroadcastReceiver()
     {
       @Override
       public void onReceive(Context context, Intent intent)
       {
-        if (mExternalReceiver != null)
-          mExternalReceiver.onReceive(context, intent);
-
         updateExternalStorages();
+
+        if (mStoragesChangedListener != null)
+          mStoragesChangedListener.onStorageListChanged(mItems, mCurrentStorageIndex);
       }
     };
 
@@ -124,7 +118,7 @@ public class StoragePathManager
     {
       mActivity.unregisterReceiver(mInternalReceiver);
       mInternalReceiver = null;
-      mExternalReceiver = null;
+      mStoragesChangedListener = null;
     }
   }
 
@@ -133,7 +127,7 @@ public class StoragePathManager
     return mItems.size() > 1;
   }
 
-  public ArrayList<StorageItem> getStorageItems()
+  public List<StorageItem> getStorageItems()
   {
     return mItems;
   }
@@ -296,16 +290,16 @@ public class StoragePathManager
               public void moveFilesFinished(String newPath)
               {
                 updateExternalStorages();
-                if (mStorageListener != null)
-                  mStorageListener.moveFilesFinished(newPath);
+                if (mMoveFilesListener != null)
+                  mMoveFilesListener.moveFilesFinished(newPath);
               }
 
               @Override
               public void moveFilesFailed(int errorCode)
               {
                 updateExternalStorages();
-                if (mStorageListener != null)
-                  mStorageListener.moveFilesFailed(errorCode);
+                if (mMoveFilesListener != null)
+                  mMoveFilesListener.moveFilesFailed(errorCode);
               }
             }, item, oldItem, R.string.wait_several_minutes);
 
@@ -366,7 +360,7 @@ public class StoragePathManager
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
       return;
 
-    migrateBookmarks(activity, new MoveFilesListener()
+    migrateBookmarks(new MoveFilesListener()
     {
       @Override
       public void moveFilesFinished(String newPath)
@@ -382,12 +376,11 @@ public class StoragePathManager
     });
   }
 
-  private void migrateBookmarks(final Activity activity, final MoveFilesListener listener)
+  private void migrateBookmarks(final MoveFilesListener listener)
   {
-    if (MwmApplication.get().nativeGetBoolean(IS_KML_PLACED_IN_MAIN_STORAGE, false))
+    if (Config.isKmlMoved())
       listener.moveFilesFinished("");
     else
-    {
       ThreadPool.getStorage().execute(new Runnable()
       {
         @Override
@@ -402,7 +395,7 @@ public class StoragePathManager
             {
               if (res)
               {
-                MwmApplication.get().nativeSetBoolean(IS_KML_PLACED_IN_MAIN_STORAGE, true);
+                Config.setKmlMoved();
                 listener.moveFilesFinished("");
               }
               else
@@ -411,31 +404,28 @@ public class StoragePathManager
           });
         }
       });
-    }
   }
 
   private void migrateMaps(final Activity activity)
   {
-    if (MwmApplication.get().nativeGetBoolean(IS_KITKAT_MIGRATION_COMPLETED, false))
+    if (Config.isKitKatMigrationComplete())
       return;
 
-    checkExternalStoragePathOnKitkat(activity,
-                                     new MoveFilesListener()
-                                     {
-                                       @Override
-                                       public void moveFilesFinished(String newPath)
-                                       {
-                                         MwmApplication.get().nativeSetBoolean(IS_KITKAT_MIGRATION_COMPLETED, true);
-                                         UiUtils.showAlertDialog(activity, R.string.kitkat_migrate_ok);
-                                       }
+    checkExternalStoragePathOnKitkat(activity, new MoveFilesListener()
+    {
+      @Override
+      public void moveFilesFinished(String newPath)
+      {
+        Config.setKitKatMigrationComplete();
+        UiUtils.showAlertDialog(activity, R.string.kitkat_migrate_ok);
+      }
 
-                                       @Override
-                                       public void moveFilesFailed(int errorCode)
-                                       {
-                                         UiUtils.showAlertDialog(activity, R.string.kitkat_migrate_failed);
-                                       }
-                                     }
-    );
+      @Override
+      public void moveFilesFailed(int errorCode)
+      {
+        UiUtils.showAlertDialog(activity, R.string.kitkat_migrate_failed);
+      }
+    });
   }
 
   private void setStoragePath(final Context context, final MoveFilesListener listener, final StorageItem newStorage,

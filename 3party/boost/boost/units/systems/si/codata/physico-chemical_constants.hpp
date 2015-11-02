@@ -12,6 +12,7 @@
 #define BOOST_UNITS_CODATA_PHYSICO_CHEMICAL_CONSTANTS_HPP
 
 #include <boost/units/pow.hpp>
+#include <boost/units/quantity.hpp>
 #include <boost/units/static_constant.hpp>
 
 #include <boost/units/systems/detail/constants.hpp>

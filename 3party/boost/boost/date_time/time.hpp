@@ -49,6 +49,8 @@ namespace date_time {
       > >
   {
   public:
+    // A tag for type categorization. Can be used to detect Boost.DateTime time points in generic code.
+    typedef void _is_boost_date_time_time_point;
     typedef T time_type;
     typedef typename time_system::time_rep_type time_rep_type;
     typedef typename time_system::date_type date_type;

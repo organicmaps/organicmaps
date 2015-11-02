@@ -9,10 +9,6 @@
 #if !defined(SPIRIT_SIGN_MAR_11_2009_0734PM)
 #define SPIRIT_SIGN_MAR_11_2009_0734PM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/config/no_tr1/cmath.hpp>
 #include <boost/math/special_functions/fpclassify.hpp>
 #include <boost/math/special_functions/sign.hpp>

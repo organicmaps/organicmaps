@@ -1,15 +1,15 @@
-//  (C) Copyright Gennadiy Rozental 2006-2008.
+//  (C) Copyright Gennadiy Rozental 2006-2014.
 //  Distributed under the Boost Software License, Version 1.0.
-//  (See accompanying file LICENSE_1_0.txt or copy at 
+//  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
 //
-//  File        : $RCSfile$
-//
-//  Version     : $Revision$
-//
-//  Description : user's config for Boost.Test debugging support
+//! @file
+//! @brief user's config for Boost.Test debugging support
+//!
+//! This file is intended to be edited by end user to specify varios macros, which configure debugger interface
+//! Alterntively you can set these parameters in your own sources/makefiles
 // ***************************************************************************
 
 #ifndef BOOST_TEST_DEBUG_CONFIG_HPP_112006GER

@@ -111,15 +111,15 @@ namespace boost { namespace spirit { namespace qi
                 qi::domain, template_params>::type
         skipper_type;
 
-        // The rule's signature
-        typedef typename
-            spirit::detail::extract_sig<template_params>::type
-        sig_type;
-
         // The rule's encoding type
         typedef typename
             spirit::detail::extract_encoding<template_params>::type
         encoding_type;
+
+        // The rule's signature
+        typedef typename
+            spirit::detail::extract_sig<template_params, encoding_type, qi::domain>::type
+        sig_type;
 
         // This is the rule's attribute type
         typedef typename

@@ -212,6 +212,8 @@ int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
     char const * m_name;
     int8_t m_code;
   };
+  // TODO(AlexZ): These constants should be updated when adding new
+  // translation into categories.txt
   static const Mapping mapping[] = {
     {"en", 1 },
     {"ru", 2 },

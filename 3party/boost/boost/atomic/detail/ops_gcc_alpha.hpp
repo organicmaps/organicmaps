@@ -123,7 +123,7 @@ struct operations< 4u, Signed > :
               "=&r" (tmp)        // %1
             : "m" (storage),     // %2
               "r" (v)            // %3
-            :
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -150,7 +150,7 @@ struct operations< 4u, Signed > :
               "=&r" (current),   // %2
               "=&r" (success)    // %3
             : "m" (storage)      // %4
-            :
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         if (success)
             fence_after(success_order);
@@ -188,7 +188,7 @@ struct operations< 4u, Signed > :
               "=&r" (success)    // %3
             : "m" (storage),     // %4
               "r" (desired)      // %5
-            :
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         if (success)
             fence_after(success_order);
@@ -217,7 +217,7 @@ struct operations< 4u, Signed > :
               "=&r" (modified)   // %1
             : "m" (storage),     // %2
               "r" (v)            // %3
-            :
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -243,7 +243,7 @@ struct operations< 4u, Signed > :
               "=&r" (modified)   // %1
             : "m" (storage),     // %2
               "r" (v)            // %3
-            :
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -269,7 +269,7 @@ struct operations< 4u, Signed > :
               "=&r" (modified)   // %1
             : "m" (storage),     // %2
               "r" (v)            // %3
-            :
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -295,7 +295,7 @@ struct operations< 4u, Signed > :
               "=&r" (modified)   // %1
             : "m" (storage),     // %2
               "r" (v)            // %3
-            :
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -321,7 +321,7 @@ struct operations< 4u, Signed > :
               "=&r" (modified)   // %1
             : "m" (storage),     // %2
               "r" (v)            // %3
-            :
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -372,7 +372,7 @@ struct operations< 1u, false > :
               "=&r" (modified)   // %1
             : "m" (storage),     // %2
               "r" (v)            // %3
-            :
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -399,7 +399,7 @@ struct operations< 1u, false > :
               "=&r" (modified)   // %1
             : "m" (storage),     // %2
               "r" (v)            // %3
-            :
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -434,7 +434,7 @@ struct operations< 1u, true > :
               "=&r" (modified)   // %1
             : "m" (storage),     // %2
               "r" (v)            // %3
-            :
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -461,7 +461,7 @@ struct operations< 1u, true > :
               "=&r" (modified)   // %1
             : "m" (storage),     // %2
               "r" (v)            // %3
-            :
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -497,7 +497,7 @@ struct operations< 2u, false > :
               "=&r" (modified)   // %1
             : "m" (storage),     // %2
               "r" (v)            // %3
-            :
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -524,7 +524,7 @@ struct operations< 2u, false > :
               "=&r" (modified)   // %1
             : "m" (storage),     // %2
               "r" (v)            // %3
-            :
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -559,7 +559,7 @@ struct operations< 2u, true > :
               "=&r" (modified)   // %1
             : "m" (storage),     // %2
               "r" (v)            // %3
-            :
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -586,7 +586,7 @@ struct operations< 2u, true > :
               "=&r" (modified)   // %1
             : "m" (storage),     // %2
               "r" (v)            // %3
-            :
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -634,7 +634,7 @@ struct operations< 8u, Signed > :
               "=&r" (tmp)        // %1
             : "m" (storage),     // %2
               "r" (v)            // %3
-            :
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -661,7 +661,7 @@ struct operations< 8u, Signed > :
               "=&r" (current),   // %2
               "=&r" (success)    // %3
             : "m" (storage)      // %4
-            :
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         if (success)
             fence_after(success_order);
@@ -699,7 +699,7 @@ struct operations< 8u, Signed > :
               "=&r" (success)    // %3
             : "m" (storage),     // %4
               "r" (desired)      // %5
-            :
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         if (success)
             fence_after(success_order);
@@ -728,7 +728,7 @@ struct operations< 8u, Signed > :
               "=&r" (modified)   // %1
             : "m" (storage),     // %2
               "r" (v)            // %3
-            :
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -754,7 +754,7 @@ struct operations< 8u, Signed > :
               "=&r" (modified)   // %1
             : "m" (storage),     // %2
               "r" (v)            // %3
-            :
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -780,7 +780,7 @@ struct operations< 8u, Signed > :
               "=&r" (modified)   // %1
             : "m" (storage),     // %2
               "r" (v)            // %3
-            :
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -806,7 +806,7 @@ struct operations< 8u, Signed > :
               "=&r" (modified)   // %1
             : "m" (storage),     // %2
               "r" (v)            // %3
-            :
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;
@@ -832,7 +832,7 @@ struct operations< 8u, Signed > :
               "=&r" (modified)   // %1
             : "m" (storage),     // %2
               "r" (v)            // %3
-            :
+            : BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
         );
         fence_after(order);
         return original;

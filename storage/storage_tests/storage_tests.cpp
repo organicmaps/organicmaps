@@ -4,6 +4,7 @@
 #include "storage/storage_defines.hpp"
 #include "storage/storage_tests/fake_map_files_downloader.hpp"
 #include "storage/storage_tests/task_runner.hpp"
+#include "storage/storage_tests/test_map_files_downloader.hpp"
 
 #include "indexer/indexer_tests/test_mwm_set.hpp"
 
@@ -23,11 +24,14 @@
 #include "base/string_utils.hpp"
 
 #include "std/bind.hpp"
+#include "std/condition_variable.hpp"
 #include "std/map.hpp"
+#include "std/mutex.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
+#include <QtCore/QCoreApplication>
 
 using namespace platform;
 
@@ -198,26 +202,6 @@ unique_ptr<CountryDownloaderChecker> CancelledCountryDownloaderChecker(Storage &
       vector<TStatus>{TStatus::ENotDownloaded, TStatus::EDownloading, TStatus::ENotDownloaded});
 }
 
-void OnCountryDownloaded(LocalCountryFile const & localFile)
-{
-  LOG(LINFO, ("OnCountryDownloaded:", localFile));
-}
-
-TLocalFilePtr CreateDummyMapFile(CountryFile const & countryFile, int64_t version, size_t size)
-{
-  TLocalFilePtr localFile = PreparePlaceForCountryFiles(countryFile, version);
-  TEST(localFile.get(), ("Can't prepare place for", countryFile, "(version ", version, ")"));
-  {
-    string const zeroes(size, '\0');
-    FileWriter writer(localFile->GetPath(MapOptions::Map));
-    writer.Write(zeroes.data(), zeroes.size());
-  }
-  localFile->SyncWithDisk();
-  TEST_EQUAL(MapOptions::Map, localFile->GetFiles(), ());
-  TEST_EQUAL(size, localFile->GetSize(MapOptions::Map), ());
-  return localFile;
-}
-
 class CountryStatusChecker
 {
 public:
@@ -258,6 +242,77 @@ private:
   bool m_triggered;
   int m_slot;
 };
+
+class FailedDownloadingWaiter
+{
+public:
+  FailedDownloadingWaiter(Storage & storage, TIndex const & index)
+    : m_storage(storage), m_index(index), m_finished(false)
+  {
+    m_slot = m_storage.Subscribe(bind(&FailedDownloadingWaiter::OnStatusChanged, this, _1),
+                                 bind(&FailedDownloadingWaiter::OnProgress, this, _1, _2));
+  }
+
+  ~FailedDownloadingWaiter()
+  {
+    Wait();
+    m_storage.Unsubscribe(m_slot);
+  }
+
+  void Wait()
+  {
+    unique_lock<mutex> lock(m_mu);
+    m_cv.wait(lock, [this]()
+    {
+      return m_finished;
+    });
+  }
+
+  void OnStatusChanged(TIndex const & index)
+  {
+    if (index != m_index)
+      return;
+    TStatus const status = m_storage.CountryStatusEx(index);
+    if (status != TStatus::EDownloadFailed)
+      return;
+    lock_guard<mutex> lock(m_mu);
+    m_finished = true;
+    m_cv.notify_one();
+
+    QCoreApplication::exit();
+  }
+
+  void OnProgress(TIndex const & /* index */, LocalAndRemoteSizeT const & /* progress */) {}
+
+private:
+  Storage & m_storage;
+  TIndex const m_index;
+  int m_slot;
+
+  mutex m_mu;
+  condition_variable m_cv;
+  bool m_finished;
+};
+
+void OnCountryDownloaded(LocalCountryFile const & localFile)
+{
+  LOG(LINFO, ("OnCountryDownloaded:", localFile));
+}
+
+TLocalFilePtr CreateDummyMapFile(CountryFile const & countryFile, int64_t version, size_t size)
+{
+  TLocalFilePtr localFile = PreparePlaceForCountryFiles(countryFile, version);
+  TEST(localFile.get(), ("Can't prepare place for", countryFile, "(version", version, ")"));
+  {
+    string const zeroes(size, '\0');
+    FileWriter writer(localFile->GetPath(MapOptions::Map));
+    writer.Write(zeroes.data(), zeroes.size());
+  }
+  localFile->SyncWithDisk();
+  TEST_EQUAL(MapOptions::Map, localFile->GetFiles(), ());
+  TEST_EQUAL(size, localFile->GetSize(MapOptions::Map), ());
+  return localFile;
+}
 
 void InitStorage(Storage & storage, TaskRunner & runner,
                  Storage::TUpdate const & update = &OnCountryDownloaded)
@@ -618,5 +673,63 @@ UNIT_TEST(StorageTest_DeleteCountry)
 
   map.Reset();
   routing.Reset();
+}
+
+UNIT_TEST(StorageTest_FailedDownloading)
+{
+  Storage storage;
+  storage.Init(&OnCountryDownloaded);
+  storage.SetDownloaderForTesting(make_unique<TestMapFilesDownloader>());
+  storage.SetCurrentDataVersionForTesting(1234);
+
+  TIndex const index = storage.FindIndexByFile("Uruguay");
+  CountryFile const countryFile = storage.GetCountryFile(index);
+
+  // To prevent interference from other tests and on other tests it's
+  // better to remove temprorary downloader files.
+  DeleteDownloaderFilesForCountry(countryFile, storage.GetCurrentDataVersion());
+  MY_SCOPE_GUARD(cleanup, [&]()
+  {
+    DeleteDownloaderFilesForCountry(countryFile, storage.GetCurrentDataVersion());
+  });
+
+  {
+    FailedDownloadingWaiter waiter(storage, index);
+    storage.DownloadCountry(index, MapOptions::Map);
+    QCoreApplication::exec();
+  }
+
+  // File wasn't downloaded, but temprorary downloader files must exist.
+  string const downloadPath =
+      GetFileDownloadPath(countryFile, MapOptions::Map, storage.GetCurrentDataVersion());
+  TEST(!Platform::IsFileExistsByFullPath(downloadPath), ());
+  TEST(Platform::IsFileExistsByFullPath(downloadPath + DOWNLOADING_FILE_EXTENSION), ());
+  TEST(Platform::IsFileExistsByFullPath(downloadPath + RESUME_FILE_EXTENSION), ());
+}
+
+// "South Georgia and the South Sandwich" doesn't have roads, so there
+// is no routing file for this island.
+UNIT_TEST(StorageTest_EmptyRoutingFile)
+{
+  Storage storage;
+  TaskRunner runner;
+  InitStorage(storage, runner, [](LocalCountryFile const & localFile)
+              {
+                TEST_EQUAL(localFile.GetFiles(), MapOptions::Map, ());
+              });
+
+  TIndex const index = storage.FindIndexByFile("South Georgia and the South Sandwich Islands");
+  TEST(index.IsValid(), ());
+  storage.DeleteCountry(index, MapOptions::MapWithCarRouting);
+  MY_SCOPE_GUARD(cleanup,
+                 bind(&Storage::DeleteCountry, &storage, index, MapOptions::MapWithCarRouting));
+
+  CountryFile const country = storage.GetCountryFile(index);
+  TEST_NOT_EQUAL(country.GetRemoteSize(MapOptions::Map), 0, ());
+  TEST_EQUAL(country.GetRemoteSize(MapOptions::CarRouting), 0, ());
+
+  auto checker = AbsentCountryDownloaderChecker(storage, index, MapOptions::MapWithCarRouting);
+  checker->StartDownload();
+  runner.Run();
 }
 }  // namespace storage

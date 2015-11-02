@@ -47,9 +47,9 @@ template< typename T >
 bool less_eq_with_sign( T t1 , T t2 , T dt )
 {
     if( get_unit_value(dt) > 0 )
-        return t1-t2 < std::numeric_limits<T>::epsilon();
+        return t1-t2 <= std::numeric_limits<T>::epsilon();
     else
-        return t2-t1 < std::numeric_limits<T>::epsilon();
+        return t2-t1 <= std::numeric_limits<T>::epsilon();
 }
 
 template< typename T >

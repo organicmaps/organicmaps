@@ -65,7 +65,7 @@ namespace boost { namespace fusion
                 cons<car_type, typename Stack::cdr_type>
             type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type call(Stack const & stack)
             {
                 return type(
@@ -98,7 +98,7 @@ namespace boost { namespace fusion
             typedef segmented_next_impl_recurse<typename Stack::cdr_type> impl;
             typedef typename impl::type type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type call(Stack const & stack)
             {
                 return impl::call(stack.cdr);
@@ -112,7 +112,7 @@ namespace boost { namespace fusion
             typedef iterator_range<end_type, end_type> range_type;
             typedef cons<range_type> type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type call(Stack const & stack)
             {
                 return type(range_type(stack.car.last, stack.car.last));
@@ -147,7 +147,7 @@ namespace boost { namespace fusion
             typedef segmented_next_impl_recurse3<Stack> impl;
             typedef typename impl::type type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type call(Stack const & stack)
             {
                 return impl::call(stack);
@@ -159,7 +159,7 @@ namespace boost { namespace fusion
         {
             typedef Result type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type call(Stack const & stack)
             {
                 return segmented_begin_impl<Sequence, Stack>::call(*stack.car.first, stack);
@@ -185,7 +185,7 @@ namespace boost { namespace fusion
                 typename segmented_next_impl_recurse<typename Stack::cdr_type>::type
             type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type call(Stack const& stack)
             {
                 return segmented_next_impl_recurse<typename Stack::cdr_type>::call(stack.cdr);
@@ -197,7 +197,7 @@ namespace boost { namespace fusion
         {
             typedef Next type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type call(Stack const & stack)
             {
                 return pop_front_car<Stack>::call(stack);
@@ -210,7 +210,7 @@ namespace boost { namespace fusion
             typedef segmented_next_impl_recurse2<Next> impl;
             typedef typename impl::type type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type call(Stack const & stack)
             {
                 return impl::call(pop_front_car<Stack>::call(stack));
@@ -236,7 +236,7 @@ namespace boost { namespace fusion
             typedef segmented_next_impl_recurse<typename Stack::cdr_type> impl;
             typedef typename impl::type type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type call(Stack const & stack)
             {
                 return impl::call(stack.cdr);
@@ -248,7 +248,7 @@ namespace boost { namespace fusion
         {
             typedef Next type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type call(Stack const & stack)
             {
                 return pop_front_car<Stack>::call(stack);

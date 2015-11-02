@@ -17,7 +17,7 @@
 #include <boost/fusion/adapted/struct/detail/extension.hpp>
 
 namespace boost { namespace fusion
-{ 
+{
     namespace detail
     {
         template <typename T, typename Dummy>
@@ -25,12 +25,12 @@ namespace boost { namespace fusion
           : remove_const<typename remove_reference<T>::type>
         {};
     }
-    
+
     namespace extension
     {
         // Overload as_const() to unwrap adt_attribute_proxy.
         template <typename T, int N, bool Const>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         typename adt_attribute_proxy<T, N, Const>::type as_const(const adt_attribute_proxy<T, N, Const>& proxy)
         {
             return proxy.get();

@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.google.gsonaltered.annotations.SerializedName;
+import com.google.gson.annotations.SerializedName;
 import com.mapswithme.util.Gsonable;
 
 public class SharingTarget implements Gsonable, Comparable<SharingTarget>

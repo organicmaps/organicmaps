@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+  <Preference android:key="@string/pref_storage"
+              android:title="@string/maps_storage"
+              android:summary="@string/maps_storage_summary"
+              android:order="1"/>
+
+  <ListPreference android:key="@string/pref_munits"
+                  android:title="@string/measurement_units"
+                  android:summary="@string/measurement_units_summary"
+                  android:entries="@array/measument_units"
+                  android:entryValues="@array/measument_units_values"
+                  android:order="2"/>
+
+  <SwitchPreference android:key="@string/pref_show_zoom_buttons"
+                    android:title="@string/pref_zoom_title"
+                    android:summary="@string/pref_zoom_summary"
+                    android:order="3"
+                    android:switchTextOn=""
+                    android:switchTextOff=""/>
+
+  <ListPreference android:key="@string/pref_map_style"
+                  android:title="@string/pref_map_style_title"
+                  android:summary="@string/pref_map_style_summary"
+                  android:entries="@array/map_style"
+                  android:entryValues="@array/map_style_values"
+                  android:order="4"/>
+
+  <Preference android:key="@string/pref_yota"
+              android:title="@string/yopme_pref_title"
+              android:summary="@string/yopme_pref_summary"
+              android:order="5"/>
+</PreferenceScreen>

@@ -57,13 +57,7 @@
 
 //------------------Enable selected warnings----------------------------------//
 
-// Enable the warnings relied on by BOOST_STATIC_WARNING, where possible. The 
-// only pragma which is absolutely necessary here is for Borland 5.x, since 
-// W8073 is disabled by default. If enabling selected warnings is considered 
-// unacceptable, this section can be replaced with:
-//   #if defined(__BORLANDC__) && (__BORLANDC__ <= 0x600)
-//    pragma warn +st
-//   #endif
+// Enable the warnings relied on by BOOST_STATIC_WARNING, where possible.
 
 // 6. replaced implementation with one which depends solely on
 //    mpl::print<>.  The previous one was found to fail for functions

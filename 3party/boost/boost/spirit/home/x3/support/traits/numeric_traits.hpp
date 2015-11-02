@@ -7,10 +7,6 @@
 #if !defined(BOOST_SPIRIT_X3_NUMERIC_TRAITS_JAN_07_2011_0722AM)
 #define BOOST_SPIRIT_X3_NUMERIC_TRAITS_JAN_07_2011_0722AM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/config.hpp>
 #include <boost/integer_traits.hpp>
 #include <boost/mpl/bool.hpp>

@@ -6,6 +6,7 @@
 //
 // Copyright (c) 2014 Glen Joseph Fernandes
 // glenfe at live dot com
+// Copyright (c) 2014 Riccardo Marcangelo
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -227,6 +228,7 @@ public:
     void resize(size_type num_bits, bool value = false);
     void clear();
     void push_back(bool bit);
+    void pop_back();
     void append(Block block);
 
     template <typename BlockInputIterator>
@@ -745,6 +747,22 @@ push_back(bool bit)
   resize(sz + 1);
   set(sz, bit);
 }
+
+template <typename Block, typename Allocator>
+void dynamic_bitset<Block, Allocator>::
+pop_back()
+{
+  const size_type old_num_blocks = num_blocks();
+  const size_type required_blocks = calc_num_blocks(m_num_bits - 1);
+
+  if (required_blocks != old_num_blocks) {
+    m_bits.pop_back();
+  }
+
+  --m_num_bits;
+  m_zero_unused_bits();
+}
+
 
 template <typename Block, typename Allocator>
 void dynamic_bitset<Block, Allocator>::

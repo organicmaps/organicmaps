@@ -12,13 +12,7 @@
 # include <boost/ref.hpp>
 # include <boost/python/detail/value_arg.hpp>
 # include <boost/python/detail/copy_ctor_mutates_rhs.hpp>
-# if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-#  include <boost/type_traits/is_enum.hpp>
-#  include <boost/mpl/and.hpp>
-#  include <boost/mpl/not.hpp>
-# else
-#  include <boost/mpl/or.hpp>
-# endif 
+# include <boost/mpl/or.hpp>
 
 namespace boost { namespace python { namespace objects { 
 
@@ -42,24 +36,13 @@ struct reference_to_value
 template <class T>
 struct forward
     : mpl::if_<
-# if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-          // vc6 chokes on unforwarding enums nested in classes
-          mpl::and_<
-              is_scalar<T>
-            , mpl::not_< 
-                  is_enum<T>
-              >
-          >
-# else 
           mpl::or_<python::detail::copy_ctor_mutates_rhs<T>, is_scalar<T> >
-# endif 
         , T
         , reference_to_value<T>
       >
 {
 };
 
-# ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 template<typename T>
 struct unforward
 {
@@ -86,88 +69,6 @@ struct unforward_cref<reference_to_value<T> >
 {
 };
 
-# else // no partial specialization
-
-namespace detail
-{
-  typedef char (&yes_reference_to_value_t)[1];
-  typedef char (&no_reference_to_value_t)[2];
-      
-  no_reference_to_value_t is_reference_to_value_test(...);
-
-  template<typename T>
-  yes_reference_to_value_t is_reference_to_value_test(boost::type< reference_to_value<T> >);
-
-  template<bool wrapped>
-  struct unforwarder
-  {
-      template <class T>
-      struct apply
-      {
-          typedef typename unwrap_reference<T>::type& type;
-      };
-  };
-
-  template<>
-  struct unforwarder<true>
-  {
-      template <class T>
-      struct apply
-      {
-          typedef typename T::reference type;
-      };
-  };
-
-  template<bool wrapped = false>
-  struct cref_unforwarder
-  {
-      template <class T>
-      struct apply
-        : python::detail::value_arg<
-              typename unwrap_reference<T>::type
-          >
-      {          
-      };
-  };
-      
-  template<>
-  struct cref_unforwarder<true>
-  {
-      template <class T>
-      struct apply
-        : python::detail::value_arg<
-              typename T::reference
-          >
-      {
-      };
-  };
-
-  template<typename T>
-  struct is_reference_to_value
-  {
-      BOOST_STATIC_CONSTANT(
-          bool, value = (
-              sizeof(is_reference_to_value_test(boost::type<T>()))
-              == sizeof(yes_reference_to_value_t)));
-      typedef mpl::bool_<value> type;
-  };
-}
-
-template <typename T>
-struct unforward
-    : public detail::unforwarder<
-        detail::is_reference_to_value<T>::value
-      >::template apply<T>
-{};
-
-template <typename T>
-struct unforward_cref
-    : public detail::cref_unforwarder<
-        detail::is_reference_to_value<T>::value
-      >::template apply<T>
-{};
-
-# endif // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 
 template <class T>
 typename reference_to_value<T>::reference

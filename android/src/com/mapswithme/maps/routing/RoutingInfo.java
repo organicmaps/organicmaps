@@ -98,6 +98,11 @@ public class RoutingInfo
     {
       return turn == TURN_RIGHT || turn == TURN_SHARP_RIGHT || turn == TURN_SLIGHT_RIGHT;
     }
+
+    public static boolean isRoundAbout(VehicleTurnDirection turn)
+    {
+      return turn == ENTER_ROUND_ABOUT || turn == LEAVE_ROUND_ABOUT || turn == STAY_ON_ROUND_ABOUT;
+    }
   }
 
   public enum PedestrianTurnDirection

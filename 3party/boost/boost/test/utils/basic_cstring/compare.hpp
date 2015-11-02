@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2004-2008.
+//  (C) Copyright Gennadiy Rozental 2004-2014.
 //  Distributed under the Boost Software License, Version 1.0.
-//  (See accompanying file LICENSE_1_0.txt or copy at 
+//  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -12,8 +12,8 @@
 //  Description : class basic_cstring comparisons implementation
 // ***************************************************************************
 
-#ifndef  BOOST_TEST_BASIC_CSTRING_COMPARE_HPP_071894GER
-#define  BOOST_TEST_BASIC_CSTRING_COMPARE_HPP_071894GER
+#ifndef BOOST_TEST_UTILS_BASIC_CSTRING_COMPARE_HPP
+#define BOOST_TEST_UTILS_BASIC_CSTRING_COMPARE_HPP
 
 // Boost.Test
 #include <boost/test/utils/basic_cstring/basic_cstring.hpp>
@@ -81,8 +81,8 @@ class case_ins_less : public std::binary_function<basic_cstring<CharT>,basic_cst
 public:
     bool operator()( basic_cstring<CharT> x, basic_cstring<CharT> y ) const
     {
-        return x.size() != y.size() 
-                ? x.size() < y.size() 
+        return x.size() != y.size()
+                ? x.size() < y.size()
                 : ut_detail::case_ins<CharT>::compare( x.begin(), y.begin(), x.size() ) < 0;
     }
 };
@@ -90,7 +90,7 @@ public:
 //____________________________________________________________________________//
 
 // ************************************************************************** //
-// **************                  operator <                  ************** //
+// **************                 operators <,>                ************** //
 // ************************************************************************** //
 
 template<class CharT>
@@ -99,10 +99,42 @@ operator <( boost::unit_test::basic_cstring<CharT> const& x,
             boost::unit_test::basic_cstring<CharT> const& y )
 {
     typedef typename boost::unit_test::basic_cstring<CharT>::traits_type traits_type;
-    return x.size() != y.size() 
-            ? x.size() < y.size() 
+    return x.size() != y.size()
+            ? x.size() < y.size()
             : traits_type::compare( x.begin(), y.begin(), x.size() ) < 0;
 }
+
+//____________________________________________________________________________//
+
+template<class CharT>
+inline bool
+operator <=( boost::unit_test::basic_cstring<CharT> const& x,
+            boost::unit_test::basic_cstring<CharT> const& y )
+{
+    return !(y < x);
+}
+
+//____________________________________________________________________________//
+
+template<class CharT>
+inline bool
+operator >( boost::unit_test::basic_cstring<CharT> const& x,
+            boost::unit_test::basic_cstring<CharT> const& y )
+{
+    return y < x;
+}
+
+//____________________________________________________________________________//
+
+template<class CharT>
+inline bool
+operator >=( boost::unit_test::basic_cstring<CharT> const& x,
+            boost::unit_test::basic_cstring<CharT> const& y )
+{
+    return !(x < y);
+}
+
+//____________________________________________________________________________//
 
 } // namespace unit_test
 

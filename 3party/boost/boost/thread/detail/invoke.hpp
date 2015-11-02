@@ -47,7 +47,6 @@ namespace boost
 #if ! defined(BOOST_NO_SFINAE_EXPR) && \
     ! defined(BOOST_NO_CXX11_DECLTYPE) && \
     ! defined(BOOST_NO_CXX11_DECLTYPE_N3276) && \
-    ! defined(BOOST_THREAD_NO_CXX11_DECLTYPE_N3276) && \
     ! defined(BOOST_NO_CXX11_TRAILING_RESULT_TYPES)
 
 #define BOOST_THREAD_PROVIDES_INVOKE
@@ -339,7 +338,6 @@ namespace boost
     ! defined BOOST_NO_CXX11_HDR_FUNCTIONAL && \
     defined  BOOST_MSVC
 
-//#error
     template <class Ret, class Fp>
     inline
     Ret invoke(BOOST_THREAD_RV_REF(Fp) f)

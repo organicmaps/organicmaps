@@ -38,9 +38,9 @@ ClassifObject * ClassifObject::Add(string const & s)
 
 ClassifObject * ClassifObject::Find(string const & s)
 {
-  for (iter_t i = m_objs.begin(); i != m_objs.end(); ++i)
-    if ((*i).m_name == s)
-      return &(*i);
+  for (auto & obj : m_objs)
+    if (obj.m_name == s)
+      return &obj;
 
   return 0;
 }
@@ -56,7 +56,7 @@ void ClassifObject::AddDrawRule(drule::Key const & k)
 
 ClassifObjectPtr ClassifObject::BinaryFind(string const & s) const
 {
-  const_iter_t i = lower_bound(m_objs.begin(), m_objs.end(), s, less_name_t());
+  auto const i = lower_bound(m_objs.begin(), m_objs.end(), s, less_name_t());
   if ((i == m_objs.end()) || ((*i).m_name != s))
     return ClassifObjectPtr(0, 0);
   else
@@ -293,10 +293,10 @@ bool ClassifObject::IsDrawable(int scale) const
 
 bool ClassifObject::IsDrawableAny() const
 {
-  return (m_visibility != visible_mask_t() && !m_drawRule.empty());
+  return (m_visibility != TVisibleMask() && !m_drawRule.empty());
 }
 
-bool ClassifObject::IsDrawableLike(feature::EGeomType ft) const
+bool ClassifObject::IsDrawableLike(feature::EGeomType ft, bool emptyName) const
 {
   ASSERT(ft >= 0 && ft <= 2, ());
 
@@ -310,12 +310,14 @@ bool ClassifObject::IsDrawableLike(feature::EGeomType ft) const
     {0, 1, 0, 0, 0, 0, 0, 0}    // farea (!!! key difference with GetSuitable !!!)
   };
 
-  for (size_t i = 0; i < m_drawRule.size(); ++i)
+  for (auto const & k : m_drawRule)
   {
-    ASSERT ( m_drawRule[i].m_type < drule::count_of_rules, () );
-    if (visible[ft][m_drawRule[i].m_type] == 1)
+    ASSERT_LESS(k.m_type, drule::count_of_rules, ());
+
+    // In case when feature name is empty we don't take into account caption drawing rules.
+    if ((visible[ft][k.m_type] == 1) &&
+        (!emptyName || (k.m_type != drule::caption && k.m_type != drule::pathtext)))
     {
-      /// @todo Check if rule's scale is reachable according to m_visibility (see GetSuitable algorithm).
       return true;
     }
   }

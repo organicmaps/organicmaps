@@ -104,7 +104,7 @@ namespace boost { namespace spirit { namespace karma
                     long exp = traits::truncate_to_long::call(-dim);
                     if (exp != -dim)
                         ++exp;
-                    dim = -exp;
+                    dim = static_cast<U>(-exp);
                     n *= spirit::traits::pow10<U>(exp);
                 }
             }

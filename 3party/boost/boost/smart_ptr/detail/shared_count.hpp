@@ -40,12 +40,17 @@
 # include <new>              // std::bad_alloc
 #endif
 
-#if !defined( BOOST_NO_CXX11_SMART_PTR )
-# include <boost/utility/addressof.hpp>
-#endif
+#include <boost/core/addressof.hpp>
 
 namespace boost
 {
+
+namespace movelib
+{
+
+    template< class T, class D > class unique_ptr;
+
+} // namespace movelib
 
 namespace detail
 {
@@ -62,8 +67,6 @@ struct sp_nothrow_tag {};
 template< class D > struct sp_inplace_tag
 {
 };
-
-#if !defined( BOOST_NO_CXX11_SMART_PTR )
 
 template< class T > class sp_reference_wrapper
 { 
@@ -92,8 +95,6 @@ template< class D > struct sp_convert_reference< D& >
 {
     typedef sp_reference_wrapper< D > type;
 };
-
-#endif
 
 class weak_count;
 
@@ -437,6 +438,29 @@ public:
     }
 
 #endif
+
+    template<class Y, class D>
+    explicit shared_count( boost::movelib::unique_ptr<Y, D> & r ): pi_( 0 )
+#if defined(BOOST_SP_ENABLE_DEBUG_HOOKS)
+        , id_(shared_count_id)
+#endif
+    {
+        typedef typename sp_convert_reference<D>::type D2;
+
+        D2 d2( r.get_deleter() );
+        pi_ = new sp_counted_impl_pd< typename boost::movelib::unique_ptr<Y, D>::pointer, D2 >( r.get(), d2 );
+
+#ifdef BOOST_NO_EXCEPTIONS
+
+        if( pi_ == 0 )
+        {
+            boost::throw_exception( std::bad_alloc() );
+        }
+
+#endif
+
+        r.release();
+    }
 
     ~shared_count() // nothrow
     {

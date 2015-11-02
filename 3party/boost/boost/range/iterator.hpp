@@ -46,31 +46,29 @@ namespace boost
        };       
     }  
     
-#endif  
-
     template< typename C, typename Enabler=void >
     struct range_iterator
     {
-#if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
-  
+
         typedef BOOST_RANGE_DEDUCED_TYPENAME  
                range_detail_vc7_1::range_iterator<C>::type type;  
-           
-#else  
 
-    private:
-        typedef typename remove_reference<C>::type param_t;
-
-    public:
-        typedef typename mpl::eval_if_c<
-            is_const<param_t>::value,
-            range_const_iterator<typename remove_const<param_t>::type>,
-            range_mutable_iterator<param_t>
-        >::type type;
-        
-#endif         
     };
-    
+
+#else
+
+    template< typename C, typename Enabler=void >
+    struct range_iterator
+      : mpl::if_c<
+            is_const<typename remove_reference<C>::type>::value,
+            range_const_iterator<typename remove_const<typename remove_reference<C>::type>::type>,
+            range_mutable_iterator<typename remove_reference<C>::type>
+        >::type
+    {
+    };
+
+#endif
+
 } // namespace boost
 
 #endif

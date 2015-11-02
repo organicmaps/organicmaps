@@ -76,27 +76,6 @@ namespace detail
   //
   //      This metaprogram checks if T is an optional
   //
-#if defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
-
-    template <class T>
-    struct is_optional {
-
-    private:
-
-        template <BOOST_PYTHON_OVERLOAD_TYPES>
-        static boost::type_traits::yes_type f(optional<BOOST_PYTHON_OVERLOAD_ARGS>);
-        static boost::type_traits::no_type f(...);
-        static T t();
-
-    public:
-
-        BOOST_STATIC_CONSTANT(
-            bool, value =
-                sizeof(f(t())) == sizeof(::boost::type_traits::yes_type));
-        typedef mpl::bool_<value> type;
-    };
-
-#else
 
     template <class T>
     struct is_optional
@@ -108,7 +87,6 @@ namespace detail
       : mpl::true_
     {};
   
-#endif
 
   template <int NDefaults>
   struct define_class_init_helper;

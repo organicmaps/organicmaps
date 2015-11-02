@@ -15,14 +15,23 @@
 #ifndef BOOST_INTERPROCESS_WEAK_PTR_HPP_INCLUDED
 #define BOOST_INTERPROCESS_WEAK_PTR_HPP_INCLUDED
 
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
 
 #include <boost/interprocess/smart_ptr/shared_ptr.hpp>
-#include <boost/detail/no_exceptions_support.hpp>
+#include <boost/core/no_exceptions_support.hpp>
 #include <boost/interprocess/allocators/allocator.hpp>
 #include <boost/interprocess/smart_ptr/deleter.hpp>
 #include <boost/intrusive/pointer_traits.hpp>
+#include <boost/move/adl_move_swap.hpp>
 
 //!\file
 //!Describes the smart pointer weak_ptr.
@@ -50,7 +59,7 @@ namespace interprocess{
 template<class T, class A, class D>
 class weak_ptr
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    // Borland 5.5.1 specific workarounds
    typedef weak_ptr<T, A, D> this_type;
@@ -61,7 +70,7 @@ class weak_ptr
                      <T>::type            reference;
    typedef typename ipcdetail::add_reference
                      <T>::type            const_reference;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    typedef T element_type;
@@ -193,9 +202,9 @@ class weak_ptr
    //!
    //!Throws: nothing.
    void swap(this_type & other) // never throws
-   {  ipcdetail::do_swap(m_pn, other.m_pn);   }
+   {  ::boost::adl_move_swap(m_pn, other.m_pn);   }
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    template<class T2, class A2, class D2>
    bool _internal_less(weak_ptr<T2, A2, D2> const & rhs) const
    {  return m_pn < rhs.m_pn;  }
@@ -213,7 +222,7 @@ class weak_ptr
    template<class T2, class A2, class D2> friend class weak_ptr;
 
    ipcdetail::weak_count<T, A, D> m_pn;      // reference counter
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };  // weak_ptr
 
 template<class T, class A, class D, class U, class A2, class D2> inline

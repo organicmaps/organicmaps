@@ -73,7 +73,6 @@ MwmSet::MwmHandle & MwmSet::MwmHandle::operator=(MwmHandle && handle)
   return *this;
 }
 
-
 MwmSet::MwmId MwmSet::GetMwmIdByCountryFileImpl(CountryFile const & countryFile) const
 {
   string const & name = countryFile.GetNameWithoutExt();

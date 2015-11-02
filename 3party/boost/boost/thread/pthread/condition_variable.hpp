@@ -160,7 +160,7 @@ namespace boost
             if(res2)
             {
                 BOOST_VERIFY(!pthread_mutex_destroy(&internal_mutex));
-                boost::throw_exception(thread_resource_error(res, "boost::condition_variable_any::condition_variable_any() failed in pthread_cond_init"));
+                boost::throw_exception(thread_resource_error(res2, "boost::condition_variable_any::condition_variable_any() failed in pthread_cond_init"));
             }
         }
         ~condition_variable_any()

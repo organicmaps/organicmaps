@@ -28,6 +28,7 @@
 #include <boost/random/detail/signed_unsigned_tools.hpp>
 #include <boost/random/uniform_01.hpp>
 #include <boost/detail/workaround.hpp>
+#include <boost/mpl/bool.hpp>
 
 namespace boost {
 namespace random {

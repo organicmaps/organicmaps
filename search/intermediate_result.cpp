@@ -18,7 +18,8 @@
 
 #ifndef OMIM_OS_LINUX
 // Lib opening_hours is not built for Linux since stdlib doesn't have required functions.
-#include "3party/opening_hours/osm_time_range.hpp"
+#include "3party/opening_hours/parse.hpp"
+#include "3party/opening_hours/rules_evaluation.hpp"
 #endif
 
 
@@ -41,7 +42,12 @@ void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
   // Lib opening_hours is not built for Linux since stdlib doesn't have required functions.
   string const openHours = src.Get(feature::Metadata::FMD_OPEN_HOURS);
   if (!openHours.empty())
-    meta.m_isClosed = OSMTimeRange::FromString(openHours).UpdateState(time(nullptr)).IsClosed();
+  {
+    osmoh::TRuleSequences rules;
+    Parse(openHours, rules);
+    // TODO(mgsergio): Is there a way to report that openHours was not parsed?
+    meta.m_isClosed = GetState(rules, time(nullptr)).IsClosed();
+  }
 #endif
 
   meta.m_stars = 0;
@@ -238,13 +244,11 @@ Result PreResult2::GenerateFinalResult(storage::CountryInfoGetter const & infoGe
   }
 }
 
-Result PreResult2::GeneratePointResult(storage::CountryInfoGetter const & infoGetter,
-                                     CategoriesHolder const * pCat,
-                                     set<uint32_t> const * pTypes, int8_t locale) const
+Result PreResult2::GeneratePointResult(CategoriesHolder const * pCat, set<uint32_t> const * pTypes,
+                                       int8_t locale) const
 {
   uint32_t const type = GetBestType(pTypes);
-  return Result(m_id, GetCenter(), m_str, GetRegionName(infoGetter, type),
-                ReadableFeatureType(pCat, type, locale));
+  return Result(m_id, GetCenter(), m_str, ReadableFeatureType(pCat, type, locale));
 }
 
 bool PreResult2::LessRank(PreResult2 const & r1, PreResult2 const & r2)

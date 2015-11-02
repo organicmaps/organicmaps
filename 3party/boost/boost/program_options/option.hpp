@@ -15,7 +15,7 @@ namespace boost { namespace program_options {
 
     /** Option found in input source.
         Contains a key and a value. The key, in turn, can be a string (name of
-        an option), or an integer (position in input source) -- in case no name
+        an option), or an integer (position in input source) \-- in case no name
         is specified. The latter is only possible for command line.
         The template parameter specifies the type of char used for storing the
         option's value.

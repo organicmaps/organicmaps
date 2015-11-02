@@ -16,11 +16,6 @@ namespace turns
 /// @todo(vbykoianko) It's a good idea to gather all the turns information into one entity.
 /// For the time being several separate entities reflect the turn information. Like Route::TTurns
 
-// If the distance between two sequential turns is more than kMaxTurnDistM
-// the information about the second turn will be shown or pronounced when the user is
-// approaching to the first one.
-double constexpr kMaxTurnDistM = 400.;
-
 /*!
  * \warning The order of values below shall not be changed.
  * TurnRight(TurnLeft) must have a minimal value and
@@ -98,9 +93,10 @@ typedef vector<LaneWay> TSingleLane;
 struct SingleLaneInfo
 {
   TSingleLane m_lane;
-  bool m_isRecommended;
+  bool m_isRecommended = false;
 
-  SingleLaneInfo(initializer_list<LaneWay> const & l = {}) : m_lane(l), m_isRecommended(false) {}
+  SingleLaneInfo() = default;
+  SingleLaneInfo(initializer_list<LaneWay> const & l) : m_lane(l) {}
   bool operator==(SingleLaneInfo const & other) const;
 };
 

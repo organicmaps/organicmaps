@@ -107,7 +107,7 @@ namespace boost { namespace fusion
                 type;
 
                 template <typename Cons, int N2>
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Cons& s, mpl::int_<N2>)
                 {
@@ -115,14 +115,14 @@ namespace boost { namespace fusion
                 }
 
                 template <typename Cons>
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Cons& s, mpl::int_<0>)
                 {
                     return s.car;
                 }
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& s)
                 {

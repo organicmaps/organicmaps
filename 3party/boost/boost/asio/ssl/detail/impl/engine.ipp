@@ -2,7 +2,7 @@
 // ssl/detail/impl/engine.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2015 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -211,7 +211,7 @@ const boost::system::error_code& engine::map_error_code(
 
   // SSL v2 doesn't provide a protocol-level shutdown, so an eof on the
   // underlying transport is passed through.
-  if (ssl_ && ssl_->version == SSL2_VERSION)
+  if (ssl_->version == SSL2_VERSION)
     return ec;
 
   // Otherwise, the peer should have negotiated a proper shutdown.
@@ -236,6 +236,7 @@ engine::want engine::perform(int (engine::* op)(void*, std::size_t),
     std::size_t* bytes_transferred)
 {
   std::size_t pending_output_before = ::BIO_ctrl_pending(ext_bio_);
+  ::ERR_clear_error();
   int result = (this->*op)(data, length);
   int ssl_error = ::SSL_get_error(ssl_, result);
   int sys_error = static_cast<int>(::ERR_get_error());

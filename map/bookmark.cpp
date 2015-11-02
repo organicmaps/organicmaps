@@ -136,19 +136,18 @@ void BookmarkCategory::DeleteBookmark(size_t index)
   ASSERT_LESS(index, c.GetUserMarkCount(), ());
   UserMark const * markForDelete = c.GetUserMark(index);
 
-  int animIndex = -1;
-  for (size_t i = 0; i < m_anims.size(); ++i)
+  size_t animIndex = 0;
+  for (; animIndex < m_anims.size(); ++animIndex)
   {
-    anim_node_t const & anim = m_anims[i];
+    anim_node_t const & anim = m_anims[animIndex];
     if (anim.first == markForDelete)
     {
       anim.second->Cancel();
-      animIndex = i;
       break;
     }
   }
 
-  if (animIndex != -1)
+  if (animIndex < m_anims.size())
     m_anims.erase(m_anims.begin() + animIndex);
 
   c.DeleteUserMark(index);

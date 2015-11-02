@@ -128,7 +128,7 @@ inline A checked_divide(A a, A b, const mpl::int_<unchecked>&)
 }
 
 template <class A>
-inline A checked_left_shift(A a, unsigned long long shift, const mpl::int_<checked>&)
+inline A checked_left_shift(A a, boost::ulong_long_type shift, const mpl::int_<checked>&)
 {
    if(a && shift)
    {
@@ -138,7 +138,7 @@ inline A checked_left_shift(A a, unsigned long long shift, const mpl::int_<check
    return a << shift;
 }
 template <class A>
-inline A checked_left_shift(A a, unsigned long long shift, const mpl::int_<unchecked>&)
+inline A checked_left_shift(A a, boost::ulong_long_type shift, const mpl::int_<unchecked>&)
 {
    return (shift >= sizeof(A) * CHAR_BIT) ? 0 : a << shift;
 }

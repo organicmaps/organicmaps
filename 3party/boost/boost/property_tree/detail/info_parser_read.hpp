@@ -61,12 +61,23 @@ namespace boost { namespace property_tree { namespace info_parser
         return result;
     }
 
+    // Detect whitespace in a not very smart way.
+    template <class Ch>
+    bool is_ascii_space(Ch c)
+    {
+        // Everything outside ASCII is not space.
+        unsigned n = c;
+        if (n > 127)
+            return false;
+        return isspace(c) != 0;
+    }
+
     // Advance pointer past whitespace
     template<class Ch>
     void skip_whitespace(const Ch *&text)
     {
         using namespace std;
-        while (isspace(*text))
+        while (is_ascii_space(*text))
             ++text;
     }
 
@@ -77,7 +88,7 @@ namespace boost { namespace property_tree { namespace info_parser
         using namespace std;
         skip_whitespace(text);
         const Ch *start = text;
-        while (!isspace(*text) && *text != Ch(';') && *text != Ch('\0'))
+        while (!is_ascii_space(*text) && *text != Ch(';') && *text != Ch('\0'))
             ++text;
         return expand_escapes(start, text);
     }
@@ -91,7 +102,7 @@ namespace boost { namespace property_tree { namespace info_parser
         const Ch *start = text;
         while (*text != Ch('\0') && *text != Ch(';'))
             ++text;
-        while (text > start && isspace(*(text - 1)))
+        while (text > start && is_ascii_space(*(text - 1)))
             --text;
         return expand_escapes(start, text);
     }

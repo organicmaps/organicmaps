@@ -11,7 +11,6 @@
 
 #include <boost/type.hpp>
 #include <boost/config.hpp>
-#include <boost/type_traits/config.hpp>
 #include <boost/type_traits/is_reference.hpp>
 #include <boost/type_traits/add_reference.hpp>
 
@@ -31,7 +30,13 @@ template<bits_t Flags, bits_t CCID, std::size_t Arity> struct encode_charr
   >::type type;
 };
 
-char BOOST_TT_DECL classifier_impl(...);
+#if defined(BOOST_MSVC) || (defined(__BORLANDC__) && !defined(BOOST_DISABLE_WIN32))
+#   define BOOST_FT_DECL __cdecl
+#else
+#   define BOOST_FT_DECL /**/
+#endif
+
+char BOOST_FT_DECL classifier_impl(...);
 
 #define BOOST_FT_variations BOOST_FT_function|BOOST_FT_pointer|\
                             BOOST_FT_member_pointer

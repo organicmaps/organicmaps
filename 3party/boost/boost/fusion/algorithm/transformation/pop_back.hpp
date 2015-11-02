@@ -33,7 +33,7 @@ namespace boost { namespace fusion
 
         static bool const is_last = IsLast;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         pop_back_iterator(Iterator_ const& iterator_base)
             : base_type(iterator_base) {}
 
@@ -42,7 +42,7 @@ namespace boost { namespace fusion
         {
             typedef pop_back_iterator<BaseIterator, is_last> type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type
             call(BaseIterator const& i)
             {
@@ -94,7 +94,7 @@ namespace boost { namespace fusion
 
             typedef pop_back_iterator<base_prior, false> type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type
             call(Iterator const& i)
             {
@@ -116,7 +116,7 @@ namespace boost { namespace fusion
 
             typedef pop_back_iterator<base_prior, false> type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type
             call(Iterator const& i)
             {
@@ -152,7 +152,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Sequence>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::pop_back<Sequence const>::type
     pop_back(Sequence const& seq)
     {

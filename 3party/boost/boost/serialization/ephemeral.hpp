@@ -63,10 +63,7 @@ private:
 
 template<class T>
 inline
-#ifndef BOOST_NO_FUNCTION_TEMPLATE_ORDERING
-const
-#endif
-ephemeral_object<T> ephemeral(const char * name, T & t){
+const ephemeral_object<T> ephemeral(const char * name, T & t){
     return ephemeral_object<T>(name, t);
 }
 

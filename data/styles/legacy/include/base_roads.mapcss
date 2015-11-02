@@ -1286,7 +1286,9 @@ line|z17-[highway=platform]
 
 line|z12-[highway=motorway],
 line|z12-[highway=trunk],
-line|z12-[highway=primary]
+line|z12-[highway=primary],
+line|z12-[highway=secondary],
+line|z12-[highway=tertiary]
 {
   shield-font-size: 11;
   shield-text-color: #964b00;

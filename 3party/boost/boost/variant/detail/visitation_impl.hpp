@@ -19,6 +19,7 @@
 #include "boost/variant/detail/cast_storage.hpp"
 #include "boost/variant/detail/forced_return.hpp"
 #include "boost/variant/detail/generic_result_type.hpp"
+#include "boost/variant/variant_fwd.hpp" // for BOOST_VARIANT_DO_NOT_USE_VARIADIC_TEMPLATES
 
 #include "boost/mpl/eval_if.hpp"
 #include "boost/mpl/bool.hpp"

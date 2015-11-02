@@ -4,7 +4,7 @@
 #include "routing/route.hpp"
 #include "routing/router.hpp"
 #include "routing/turns.hpp"
-#include "routing/turns_sound.hpp"
+#include "routing/turns_notification_manager.hpp"
 
 #include "platform/location.hpp"
 
@@ -44,7 +44,8 @@ public:
     RouteNotStarted,   // route is builded but the user isn't on it
     OnRoute,           // user follows the route
     RouteNeedRebuild,  // user left the route
-    RouteFinished      // destination point is reached but the session isn't closed
+    RouteFinished,     // destination point is reached but the session isn't closed
+    RouteNoFollowing   // route is built but following mode has been disabled
   };
 
   /*
@@ -54,6 +55,7 @@ public:
    * RouteNotStarted -> OnRoute           // user started following the route
    * RouteNotStarted -> RouteNeedRebuild  // user doesn't like the route.
    * OnRoute -> RouteNeedRebuild          // user moves away from route - need to rebuild
+   * OnRoute -> RouteNoFollowing          // following mode was disabled. Router doesn't track position.
    * OnRoute -> RouteFinished             // user reached the end of route
    * RouteNeedRebuild -> RouteNotReady    // start rebuild route
    * RouteFinished -> RouteNotReady       // start new route
@@ -98,6 +100,11 @@ public:
 
   void ActivateAdditionalFeatures() {}
 
+  /// Disable following mode on GPS updates. Following mode is disabled only for the current route.
+  /// If a route is rebuilt you must call DisableFollowMode again.
+  /// Returns true if following was disabled, false if a route is not ready for the following yet.
+  bool DisableFollowMode();
+
   void SetRoutingSettings(RoutingSettings const & routingSettings);
 
   // Sound notifications for turn instructions.
@@ -106,7 +113,7 @@ public:
   void SetTurnNotificationsUnits(Settings::Units const units);
   void SetTurnNotificationsLocale(string const & locale);
   string GetTurnNotificationsLocale() const;
-  void GenerateTurnSound(vector<string> & turnNotifications);
+  void GenerateTurnNotifications(vector<string> & turnNotifications);
 
 private:
   struct DoReadyCallback
@@ -154,7 +161,7 @@ private:
   m2::PointD m_lastGoodPosition;
 
   // Sound turn notification parameters.
-  turns::sound::TurnsSound m_turnsSound;
+  turns::sound::NotificationManager m_turnNotificationsMgr;
 
   RoutingSettings m_routingSettings;
 

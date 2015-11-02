@@ -63,6 +63,8 @@ import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,21 +87,27 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private TextView mTvElevation;
   // Place page details
   private ScrollView mPpDetails;
-  private LinearLayout mLlAddress;
+  private RelativeLayout mAddress;
   private TextView mTvAddress;
-  private LinearLayout mLlPhone;
+  private LinearLayout mPhone;
   private TextView mTvPhone;
-  private LinearLayout mLlWebsite;
+  private LinearLayout mWebsite;
   private TextView mTvWebsite;
-  private LinearLayout mLlLatlon;
+  private LinearLayout mLatlon;
   private TextView mTvLatlon;
-  private LinearLayout mLlSchedule;
+  private LinearLayout mSchedule;
   private TextView mTvSchedule;
-  private LinearLayout mLlWifi;
-  private LinearLayout mLlEmail;
+  private LinearLayout mWifi;
+  private LinearLayout mEmail;
   private TextView mTvEmail;
-  private LinearLayout mLlOperator;
+  private LinearLayout mOperator;
   private TextView mTvOperator;
+  private LinearLayout mCuisine;
+  private TextView mTvCuisine;
+  private LinearLayout mWiki;
+  private TextView mTvWiki;
+  private LinearLayout mEntrance;
+  private TextView mTvEntrance;
   // Bookmark
   private ImageView mIvColor;
   private EditText mEtBookmarkName;
@@ -110,7 +118,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private TextView mTvBookmarkGroup;
   // Place page buttons
   private BaseShadowController mShadowController;
-  private LinearLayout mLlApiBack;
+  private LinearLayout mApiBack;
   private ImageView mIvBookmark;
   private View mRoutingButton;
   // Animations
@@ -167,35 +175,45 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mTvElevation = (TextView) ppPreview.findViewById(R.id.tv__peak_elevation);
 
     mPpDetails = (ScrollView) findViewById(R.id.pp__details);
-    mLlAddress = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_name);
+    mAddress = (RelativeLayout) mPpDetails.findViewById(R.id.ll__place_name);
     mTvAddress = (TextView) mPpDetails.findViewById(R.id.tv__place_address);
-    mLlPhone = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_phone);
-    mLlPhone.setOnClickListener(this);
+    mPhone = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_phone);
+    mPhone.setOnClickListener(this);
     mTvPhone = (TextView) mPpDetails.findViewById(R.id.tv__place_phone);
-    mLlWebsite = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_website);
-    mLlWebsite.setOnClickListener(this);
+    mWebsite = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_website);
+    mWebsite.setOnClickListener(this);
     mTvWebsite = (TextView) mPpDetails.findViewById(R.id.tv__place_website);
-    mLlLatlon = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_latlon);
+    mLatlon = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_latlon);
     mTvLatlon = (TextView) mPpDetails.findViewById(R.id.tv__place_latlon);
-    mLlLatlon.setOnClickListener(this);
-    mLlSchedule = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_schedule);
+    mLatlon.setOnClickListener(this);
+    mSchedule = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_schedule);
     mTvSchedule = (TextView) mPpDetails.findViewById(R.id.tv__place_schedule);
-    mLlWifi = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_wifi);
+    mWifi = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_wifi);
     mIvColor = (ImageView) mPpDetails.findViewById(R.id.iv__bookmark_color);
     mIvColor.setOnClickListener(this);
-    mLlEmail = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_email);
-    mLlEmail.setOnClickListener(this);
-    mTvEmail = (TextView) mLlEmail.findViewById(R.id.tv__place_email);
-    mLlOperator = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_operator);
-    mLlOperator.setOnClickListener(this);
-    mTvOperator = (TextView) mPpDetails.findViewById(R.id.tv__place_operator);
-    mLlLatlon.setOnLongClickListener(this);
-    mLlAddress.setOnLongClickListener(this);
-    mLlPhone.setOnLongClickListener(this);
-    mLlWebsite.setOnLongClickListener(this);
-    mLlSchedule.setOnLongClickListener(this);
-    mLlEmail.setOnLongClickListener(this);
-    mLlOperator.setOnLongClickListener(this);
+    mEmail = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_email);
+    mEmail.setOnClickListener(this);
+    mTvEmail = (TextView) mEmail.findViewById(R.id.tv__place_email);
+    mOperator = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_operator);
+    mOperator.setOnClickListener(this);
+    mTvOperator = (TextView) mOperator.findViewById(R.id.tv__place_operator);
+    mCuisine = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_cuisine);
+    mCuisine.setOnClickListener(this);
+    mTvCuisine = (TextView) mCuisine.findViewById(R.id.tv__place_cuisine);
+    mWiki = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_wiki);
+    mWiki.setOnClickListener(this);
+    mTvWiki = (TextView) mWiki.findViewById(R.id.tv__place_wiki);
+    mEntrance = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_entrance);
+    mEntrance.setOnClickListener(this);
+    mTvEntrance = (TextView) mEntrance.findViewById(R.id.tv__place_entrance);
+    mLatlon.setOnLongClickListener(this);
+    mAddress.setOnLongClickListener(this);
+    mPhone.setOnLongClickListener(this);
+    mWebsite.setOnLongClickListener(this);
+    mSchedule.setOnLongClickListener(this);
+    mEmail.setOnLongClickListener(this);
+    mOperator.setOnLongClickListener(this);
+    mWiki.setOnLongClickListener(this);
 
     mEtBookmarkName = (EditText) mPpDetails.findViewById(R.id.et__bookmark_name);
     mTvNotes = (TextView) mPpDetails.findViewById(R.id.tv__bookmark_notes);
@@ -210,8 +228,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mBtnEditHtmlDescription.setOnClickListener(this);
 
     ViewGroup ppButtons = (ViewGroup) findViewById(R.id.pp__buttons);
-    mLlApiBack = (LinearLayout) ppButtons.findViewById(R.id.ll__api_back);
-    mLlApiBack.setOnClickListener(this);
+    mApiBack = (LinearLayout) ppButtons.findViewById(R.id.ll__api_back);
+    mApiBack.setOnClickListener(this);
     final ViewGroup bookmarkGroup = (ViewGroup) ppButtons.findViewById(R.id.ll__bookmark);
     bookmarkGroup.setOnClickListener(this);
     mIvBookmark = (ImageView) bookmarkGroup.findViewById(R.id.iv__bookmark);
@@ -219,8 +237,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mRoutingButton = ppButtons.findViewById(R.id.ll__route);
 
     mShadowController = new ScrollViewShadowController((ObservableScrollView) mPpDetails)
-                            .addShadow(BaseShadowController.BOTTOM, R.id.shadow_bottom)
-                            .attach();
+        .addBottomShadow()
+        .attach();
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
       setElevation(UiUtils.dimen(R.dimen.appbar_elevation));
@@ -274,7 +292,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     return mIsDocked;
   }
 
-  public boolean isFloating() {
+  public boolean isFloating()
+  {
     return mIsFloating;
   }
 
@@ -382,51 +401,46 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   public String translateCuisine(String cuisine)
   {
-    if (!TextUtils.isEmpty(cuisine))
-    {
-      // cuisines translations can contain unsupported symbols, and res ids
-      // replace them with supported "_"( so ', ' and ' ' are replaced with underlines)
-      final String[] cuisines = cuisine.split(";");
-      String result = "";
-      // search translations for each cuisine
-      for (String cuisineRaw : cuisines)
-      {
-        final String cuisineKey = cuisineRaw.replace(", ", "_").replace(' ', '_').toLowerCase();
-        int resId = getResources().getIdentifier("cuisine_" + cuisineKey, "string", BuildConfig.APPLICATION_ID);
-        result += resId == 0 ? cuisineRaw : getResources().getString(resId);
-      }
-      return result;
-    }
+    if (TextUtils.isEmpty(cuisine))
+      return cuisine;
 
-    return cuisine;
+    // cuisines translations can contain unsupported symbols, and res ids
+    // replace them with supported "_"( so ', ' and ' ' are replaced with underlines)
+    final String[] cuisines = cuisine.split(";");
+    String result = "";
+    // search translations for each cuisine
+    for (String cuisineRaw : cuisines)
+    {
+      final String cuisineKey = cuisineRaw.replace(", ", "_").replace(' ', '_').toLowerCase();
+      int resId = getResources().getIdentifier("cuisine_" + cuisineKey, "string", BuildConfig.APPLICATION_ID);
+      result += resId == 0 ? cuisineRaw : getResources().getString(resId);
+    }
+    return result;
   }
 
   private void refreshDetails()
   {
     refreshLatLon();
     final String website = mMapObject.getMetadata(Metadata.MetadataType.FMD_WEBSITE);
-    if (website != null)
-      refreshMetadataOrHide(website, mLlWebsite, mTvWebsite);
-    else
-      refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_URL), mLlWebsite, mTvWebsite);
-    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER), mLlPhone, mTvPhone);
-    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_EMAIL), mLlEmail, mTvEmail);
-    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mLlOperator, mTvOperator);
-
+    refreshMetadataOrHide(TextUtils.isEmpty(website) ? mMapObject.getMetadata(Metadata.MetadataType.FMD_URL) : website, mWebsite, mTvWebsite);
+    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER), mPhone, mTvPhone);
+    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_EMAIL), mEmail, mTvEmail);
+    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mOperator, mTvOperator);
+    refreshMetadataOrHide(translateCuisine(mMapObject.getMetadata(Metadata.MetadataType.FMD_CUISINE)), mCuisine, mTvCuisine);
+    try
+    {
+      final String wikipedia = mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA);
+      refreshMetadataOrHide(TextUtils.isEmpty(wikipedia) ? null : URLDecoder.decode(wikipedia, "UTF-8"), mWiki, mTvWiki);
+    } catch (UnsupportedEncodingException e)
+    {
+    }
+    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_INTERNET), mWifi, null);
+    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
     // TODO throw away parsing hack when data will be parsed correctly in core
     final String rawSchedule = mMapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
-    if (!TextUtils.isEmpty(rawSchedule))
-      refreshMetadataOrHide(rawSchedule.replace("; ", "\n").replace(';', '\n'), mLlSchedule, mTvSchedule);
-    else
-      refreshMetadataOrHide(null, mLlSchedule, mTvSchedule);
-
+    refreshMetadataOrHide(TextUtils.isEmpty(rawSchedule) ? null : rawSchedule.replace("; ", "\n").replace(';', '\n'), mSchedule, mTvSchedule);
     refreshMetadataStars(mMapObject.getMetadata(Metadata.MetadataType.FMD_STARS));
-
-    final String elevation = mMapObject.getMetadata(Metadata.MetadataType.FMD_ELE);
-    if (TextUtils.isEmpty(elevation))
-      UiUtils.hide(mTvElevation);
-    else
-      UiUtils.setTextAndShow(mTvElevation, elevation);
+    UiUtils.setTextAndHideIfEmpty(mTvElevation, mMapObject.getMetadata(Metadata.MetadataType.FMD_ELE));
   }
 
   private void hideBookmarkDetails()
@@ -459,7 +473,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   private void refreshButtons(boolean showBackButton, boolean showRoutingButton)
   {
-    UiUtils.showIf(showBackButton || ParsedMwmRequest.isPickPointMode(), mLlApiBack);
+    UiUtils.showIf(showBackButton || ParsedMwmRequest.isPickPointMode(), mApiBack);
     UiUtils.showIf(showRoutingButton, mRoutingButton);
   }
 
@@ -681,12 +695,12 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       }
       break;
     case R.id.ll__place_website:
-      intent = new Intent(Intent.ACTION_VIEW);
-      String website = mTvWebsite.getText().toString();
-      if (!website.startsWith("http://") && !website.startsWith("https://"))
-        website = "http://" + website;
-      intent.setData(Uri.parse(website));
-      getContext().startActivity(intent);
+      followUrl(mTvWebsite.getText().toString());
+      break;
+    case R.id.ll__place_wiki:
+      final String[] wikiParts = mTvWiki.getText().toString().split(":");
+      if (wikiParts.length == 2)
+        followUrl("https://" + wikiParts[0] + ".wikipedia.org/wiki/" + wikiParts[1]);
       break;
     case R.id.tv__bookmark_group:
       saveBookmarkNameIfUpdated(null);
@@ -730,6 +744,15 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     final Bookmark updatedBookmark = BookmarkManager.INSTANCE.getBookmark(bookmark.getCategoryId(), bookmark.getBookmarkId());
     setMapObject(updatedBookmark);
     Statistics.INSTANCE.trackDescriptionChanged();
+  }
+
+  private void followUrl(String url)
+  {
+    final Intent intent = new Intent(Intent.ACTION_VIEW);
+    if (!url.startsWith("http://") && !url.startsWith("https://"))
+      url = "http://" + url;
+    intent.setData(Uri.parse(url));
+    getContext().startActivity(intent);
   }
 
   private void toggleIsBookmark()
@@ -849,6 +872,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       break;
     case R.id.ll__place_operator:
       items.add(mTvOperator.getText().toString());
+      break;
+    case R.id.ll__place_wiki:
+      items.add(mTvWiki.getText().toString());
       break;
     }
 

@@ -274,7 +274,7 @@ namespace detail {
 
     template< class Ch, class Tr, class Alloc, class T> 
     void distribute (basic_format<Ch,Tr, Alloc>& self, T x) {
-        // call put(x, ..) on every occurence of the current argument :
+        // call put(x, ..) on every occurrence of the current argument :
         if(self.cur_arg_ >= self.num_args_)  {
             if( self.exceptions() & too_many_args_bit )
                 boost::throw_exception(too_many_args(self.cur_arg_, self.num_args_)); 

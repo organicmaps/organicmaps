@@ -6,17 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.util.UiUtils;
 
-public abstract class BaseShadowController<V extends ViewGroup, ScrollListener>
+public abstract class BaseShadowController<V extends ViewGroup>
 {
   // Shadow IDs
-  public static final int TOP = 0;
-  public static final int BOTTOM = 1;
+  protected static final int TOP = 0;
+  protected static final int BOTTOM = 1;
 
+  private final SparseArray<View> mShadows = new SparseArray<>(1);
   protected final V mList;
-  protected final SparseArray<View> mShadows = new SparseArray<>(1);
-  protected ScrollListener mScrollListener;
-
 
   public BaseShadowController(V list)
   {
@@ -29,7 +28,7 @@ public abstract class BaseShadowController<V extends ViewGroup, ScrollListener>
     addShadow(TOP, shadowId);
   }
 
-  public BaseShadowController addShadow(int id, @IdRes int shadowViewId)
+  protected BaseShadowController addShadow(int id, @IdRes int shadowViewId)
   {
     View shadow = ((ViewGroup)mList.getParent()).findViewById(shadowViewId);
     if (shadow != null)
@@ -37,10 +36,9 @@ public abstract class BaseShadowController<V extends ViewGroup, ScrollListener>
     return this;
   }
 
-  public BaseShadowController setScrollListener(ScrollListener scrollListener)
+  public BaseShadowController addBottomShadow()
   {
-    mScrollListener = scrollListener;
-    return this;
+    return addShadow(BOTTOM, R.id.shadow_bottom);
   }
 
   public void updateShadows()
@@ -48,7 +46,7 @@ public abstract class BaseShadowController<V extends ViewGroup, ScrollListener>
     for (int i = 0; i < mShadows.size(); i++)
     {
       int id = mShadows.keyAt(i);
-      mShadows.get(id).setVisibility(shouldShowShadow(id) ? View.VISIBLE : View.GONE);
+      UiUtils.showIf(shouldShowShadow(id), mShadows.get(id));
     }
   }
 

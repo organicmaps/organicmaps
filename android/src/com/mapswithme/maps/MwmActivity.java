@@ -30,6 +30,7 @@ import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
+import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -40,6 +41,7 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationPredictor;
 import com.mapswithme.maps.routing.RoutingResultCodesProcessor;
 import com.mapswithme.maps.search.SearchActivity;
+import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.maps.search.SearchFragment;
 import com.mapswithme.maps.search.FloatingSearchToolbarController;
 import com.mapswithme.maps.settings.SettingsActivity;
@@ -143,15 +145,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .putExtra(DownloadResourcesActivity.EXTRA_AUTODOWNLOAD_COUNTRY, doAutoDownload);
   }
 
-  public static void startSearch(Context context, String query)
-  {
-    final MwmActivity activity = (MwmActivity) context;
-    if (activity.mIsFragmentContainer)
-      activity.showSearch();
-    else
-      SearchActivity.startWithQuery(context, query);
-  }
-
   public static Intent createUpdateMapsIntent()
   {
     return new Intent(MwmApplication.get(), MwmActivity.class)
@@ -219,18 +212,21 @@ public class MwmActivity extends BaseMwmFragmentActivity
     startActivity(new Intent(this, BookmarkCategoriesActivity.class));
   }
 
-  private void showSearch()
+  public void showSearch(String query)
   {
     if (mIsFragmentContainer)
     {
+      final Bundle args = new Bundle();
+      args.putString(SearchActivity.EXTRA_QUERY, query);
+
       if (getSupportFragmentManager().findFragmentByTag(SearchFragment.class.getName()) == null)
         popFragment();
 
       mSearchController.hide();
-      replaceFragment(SearchFragment.class, true, getIntent().getExtras());
+      replaceFragment(SearchFragment.class, true, args);
     }
     else
-      startActivity(new Intent(this, SearchActivity.class));
+      SearchActivity.startWithQuery(this, query);
   }
 
   private void shareMyLocation()
@@ -268,7 +264,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         return;
 
       popFragment();
-      FloatingSearchToolbarController.cancelSearch();
+      SearchEngine.cancelSearch();
       mSearchController.refreshToolbar();
       replaceFragment(DownloadFragment.class, true, args);
     }
@@ -286,6 +282,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     setContentView(R.layout.activity_map);
     initViews();
+
+    Statistics.INSTANCE.trackConnectionState();
 
     if (MwmApplication.get().nativeIsBenchmarking())
       Utils.keepScreenOn(true, getWindow());
@@ -480,7 +478,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
             @Override
             public void run()
             {
-              showSearch();
+              showSearch(mSearchController.getQuery());
             }
           });
           break;
@@ -776,7 +774,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void adjustZoomButtons(boolean routingActive)
   {
-    boolean show = (routingActive || MwmApplication.get().nativeGetBoolean(SettingsActivity.ZOOM_BUTTON_ENABLED, true));
+    boolean show = (routingActive || Config.getShowZoomButtons());
     UiUtils.showIf(show, mBtnZoomIn, mBtnZoomOut);
 
     if (!show)
@@ -848,7 +846,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (mSearchController.hide())
     {
-      FloatingSearchToolbarController.cancelSearch();
+      SearchEngine.cancelSearch();
       return;
     }
 
@@ -864,8 +862,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean canFragmentInterceptBackPress()
   {
     final FragmentManager manager = getSupportFragmentManager();
-    DownloadFragment fragment = (DownloadFragment) manager.findFragmentByTag(DownloadFragment.class.getName());
-    return fragment != null && fragment.isResumed() && fragment.onBackPressed();
+    for (String tag : DOCKED_FRAGMENTS)
+    {
+      final Fragment fragment = manager.findFragmentByTag(tag);
+      if (fragment != null && fragment.isResumed() && fragment instanceof OnBackPressListener)
+        return ((OnBackPressListener) fragment).onBackPressed();
+    }
+
+    return false;
   }
 
   private boolean popFragment()

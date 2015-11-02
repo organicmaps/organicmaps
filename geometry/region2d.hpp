@@ -29,11 +29,17 @@ namespace m2
                my::AlmostEqualAbs(p1.y, p2.y, static_cast<typename TPoint::value_type>(kPrecision));
       }
       template <class TCoord>
-      bool EqualZero(TCoord val, TCoord) const
+      bool EqualZeroSquarePrecision(TCoord val) const
       {
         static_assert(std::is_floating_point<TCoord>::value, "");
 
-        return my::AlmostEqualAbs(val, 0.0, static_cast<TCoord>(kPrecision));
+        return my::AlmostEqualAbs(val, 0.0, kPrecision * kPrecision);
+      }
+      // Determines if value of a val lays between a p1 and a p2 values with some precision.
+      inline bool IsAlmostBetween(double val, double p1, double p2) const
+      {
+        return (val >= p1 - kPrecision && val <= p2 + kPrecision) ||
+               (val <= p1 + kPrecision && val >= p2 - kPrecision);
       }
     };
 
@@ -45,9 +51,14 @@ namespace m2
         return p1 == p2;
       }
       template <class TCoord>
-      bool EqualZero(TCoord val, TCoord) const
+      bool EqualZeroSquarePrecision(TCoord val) const
       {
         return val == 0;
+      }
+      inline bool IsAlmostBetween(double val, double left, double right) const
+      {
+        return (val >= left && val <= right) ||
+               (val <= left && val >= right);
       }
     };
 
@@ -145,21 +156,24 @@ namespace m2
 
     ContainerT Data() const { return m_points; }
 
+    template <class TEqualF>
     inline bool IsIntersect(CoordT const & x11, CoordT const & y11, CoordT const & x12, CoordT const & y12,
-                             CoordT const & x21, CoordT const & y21, CoordT const & x22, CoordT const & y22, PointT & pt) const
+                            CoordT const & x21, CoordT const & y21, CoordT const & x22, CoordT const & y22,
+                            TEqualF equalF, PointT & pt) const
     {
-      if (!((y12 - y11) * (x22 - x21) - (x12 - x11) * (y22-y21)))
+      double const divider = ((y12 - y11) * (x22 - x21) - (x12 - x11) * (y22-y21));
+      if (equalF.EqualZeroSquarePrecision(divider))
         return false;
-      double v = ((x12 - x11) * (y21 - y11) + (y12 - y11) * (x11 - x21)) / ((y12 - y11) * (x22 - x21) - (x12 - x11) * (y22 - y21));
+      double v = ((x12 - x11) * (y21 - y11) + (y12 - y11) * (x11 - x21)) / divider;
       PointT p(x21 + (x22 - x21) * v, y21 + (y22 - y21) * v);
 
-      if (!(((p.x >= x11) && (p.x <= x12)) || ((p.x <= x11) && (p.x >= x12))))
+      if (!equalF.IsAlmostBetween(p.x, x11, x12))
         return false;
-      if (!(((p.x >= x21) && (p.x <= x22)) || ((p.x <= x21) && (p.x >= x22))))
+      if (!equalF.IsAlmostBetween(p.x, x21, x22))
         return false;
-      if (!(((p.y >= y11) && (p.y <= y12)) || ((p.y <= y11) && (p.y >= y12))))
+      if (!equalF.IsAlmostBetween(p.y, y11, y12))
         return false;
-      if (!(((p.y >= y21) && (p.y <= y22)) || ((p.y <= y21) && (p.y >= y22))))
+      if (!equalF.IsAlmostBetween(p.y, y21, y22))
         return false;
 
       pt = p;
@@ -168,14 +182,14 @@ namespace m2
 
     inline bool IsIntersect(PointT const & p1, PointT const & p2, PointT const & p3, PointT const & p4 , PointT & pt) const
     {
-      return IsIntersect(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y, pt);
+      return IsIntersect(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y, typename TraitsT::EqualType(), pt);
     }
 
   public:
 
     /// Taken from Computational Geometry in C and modified
-    template <class EqualF>
-    bool Contains(PointT const & pt, EqualF equalF) const
+    template <class TEqualF>
+    bool Contains(PointT const & pt, TEqualF equalF) const
     {
       if (!m_rect.IsPointInside(pt))
         return false;
@@ -206,7 +220,11 @@ namespace m2
           BigCoordT const delta = prev.y - curr.y;
           BigCoordT const cp = CrossProduct(curr, prev);
 
-          if (!equalF.EqualZero(cp, delta))
+          // Squared precision is needed here because of comparison between cross product of two
+          // vectors and zero. It's impossible to compare them relatively, so they're compared
+          // absolutely, and, as cross product is proportional to product of lengths of both
+          // operands precision must be squared too.
+          if (!equalF.EqualZeroSquarePrecision(cp))
           {
             bool const PrevGreaterCurr = delta > 0.0;
 
@@ -250,8 +268,8 @@ namespace m2
     }
 
     /// Slow check that point lies at the border.
-    template <class EqualF>
-    bool AtBorder(PointT const & pt, double const delta, EqualF equalF) const
+    template <class TEqualF>
+    bool AtBorder(PointT const & pt, double const delta, TEqualF equalF) const
     {
       if (!m_rect.IsPointInside(pt))
         return false;

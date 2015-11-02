@@ -21,7 +21,7 @@ namespace boost { namespace fusion { namespace detail
     struct replacer_helper<false>
     {
         template <typename U, typename T>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static U&
         call(U& x, T const&, T const&)
         {
@@ -33,7 +33,7 @@ namespace boost { namespace fusion { namespace detail
     struct replacer_helper<true>
     {
         template <typename U, typename T>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static U
         call(U& x, T const& old_value, T const& new_value)
         {
@@ -44,7 +44,7 @@ namespace boost { namespace fusion { namespace detail
     template <typename T>
     struct replacer
     {
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         replacer(T const& in_old_value, T const& in_new_value)
             : old_value(in_old_value), new_value(in_new_value) {}
 
@@ -59,9 +59,9 @@ namespace boost { namespace fusion { namespace detail
                 mpl::if_<is_convertible<T, value>, value, value const&>::type
             type;
         };
-    
+
         template <typename U>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         typename result<replacer(U)>::type
         operator()(U const& x) const
         {

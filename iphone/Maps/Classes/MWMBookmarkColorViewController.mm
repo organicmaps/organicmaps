@@ -47,7 +47,7 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
 {
   if (self.iPadOwnerNavigationController)
    [self.iPadOwnerNavigationController setNavigationBarHidden:YES];
-
+  [self.placePageManager reloadBookmark];
   [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -124,8 +124,7 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
   self.placePageManager.entity.bookmarkColor = kBookmarkColorsVariant[indexPath.row];
   if (!self.iPadOwnerNavigationController)
     return;
-
-  [self.placePageManager reloadBookmark];
+  
   GetFramework().Invalidate();
 }
 

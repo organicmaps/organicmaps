@@ -42,6 +42,16 @@ static NSString * const kBoldFont = @"HelveticaNeue-Bold";
   return [UIFont fontWithName:kRegularFont size:24];
 }
 
++ (UIFont *)regular32
+{
+  return [UIFont fontWithName:kRegularFont size:32];
+}
+
++ (UIFont *)regular52
+{
+  return [UIFont fontWithName:kRegularFont size:52];
+}
+
 + (UIFont *)medium10
 {
   return [UIFont fontWithName:kMediumFont size:10];

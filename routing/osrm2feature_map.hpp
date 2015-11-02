@@ -86,16 +86,17 @@ namespace OsrmMappingTypes
 
     friend string DebugPrint(SegOffset const & off);
   };
-
-  struct FtSegLess
-  {
-    bool operator() (FtSeg const * a, FtSeg const * b) const
-    {
-      return a->Store() < b->Store();
-    }
-  };
 #pragma pack (pop)
-}
+
+/// Checks if a smallSeg is inside a bigSeg and at least one point of a smallSeg differs from
+/// point of a bigSeg. Note that the smallSeg must be an ordered segment with 1 point length.
+bool IsInside(FtSeg const & bigSeg, FtSeg const & smallSeg);
+
+/// Splits segment by splitter segment and takes part of it.
+/// Warning this function includes a whole splitter segment to a result segment described by the
+/// resultFromLeft variable.
+FtSeg SplitSegment(FtSeg const & segment, FtSeg const & splitter, bool const resultFromLeft);
+}  // namespace OsrmMappingTypes
 
 class OsrmFtSegMapping;
 
@@ -125,7 +126,7 @@ public:
 class OsrmFtSegMapping
 {
 public:
-  typedef set<OsrmMappingTypes::FtSeg*, OsrmMappingTypes::FtSegLess> FtSegSetT;
+  using TFtSegVec = vector<OsrmMappingTypes::FtSeg>;
 
   void Clear();
   void Load(FilesMappingContainer & cont, platform::LocalCountryFile const & localFile);
@@ -147,7 +148,7 @@ public:
   }
 
   typedef unordered_map<uint64_t, pair<TOsrmNodeId, TOsrmNodeId> > OsrmNodesT;
-  void GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res) const;
+  void GetOsrmNodes(TFtSegVec const & segments, OsrmNodesT & res) const;
 
   void GetSegmentByIndex(size_t idx, OsrmMappingTypes::FtSeg & seg) const;
   TNodesList const & GetNodeIdByFid(uint32_t fid) const

@@ -40,7 +40,7 @@ namespace boost { namespace fusion
 
 #ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
             template <typename T>
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             typename add_reference<T>::type 
             operator()(T& x) const
             {
@@ -48,7 +48,7 @@ namespace boost { namespace fusion
             }
 #else
             template <typename T>
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             typename result<addref(T)>::type
             operator()(T&& x) const
             {
@@ -68,7 +68,7 @@ namespace boost { namespace fusion
             {};
 
             template <typename T>
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             typename add_reference<typename add_const<T>::type>::type 
             operator()(T& x) const
             {
@@ -76,7 +76,7 @@ namespace boost { namespace fusion
             }
 
             template <typename T>
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             typename add_reference<typename add_const<T>::type>::type 
             operator()(T const& x) const
             {
@@ -108,7 +108,8 @@ namespace boost { namespace fusion
         typedef typename result_of::as_vector<transform_view_type>::type 
             sequence_type;
 
-        BOOST_FUSION_GPU_ENABLED explicit nview(Sequence& val)
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+        explicit nview(Sequence& val)
           : seq(sequence_type(transform_view_type(val, transform_type()))) 
         {}
 

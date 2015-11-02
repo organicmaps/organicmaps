@@ -1,6 +1,7 @@
 #pragma once
 
-#include "3party/opening_hours/osm_time_range.hpp"
+#include "3party/opening_hours/parse.hpp"
+#include "3party/opening_hours/rules_evaluation.hpp"
 
 #include "std/chrono.hpp"
 
@@ -31,11 +32,14 @@ inline string DebugPrint(EPlaceState state)
 
 inline EPlaceState PlaceStateCheck(string const & openingHours, time_t timestamp)
 {
-  OSMTimeRange oh = OSMTimeRange::FromString(openingHours);
+  osmoh::TRuleSequences rules;
+  Parse(openingHours, rules);
+
   auto future = system_clock::from_time_t(timestamp);
   future += minutes(15);
-  size_t nowState = oh.UpdateState(timestamp).IsOpen() ? 0 : 1;
-  size_t futureState = oh.UpdateState(system_clock::to_time_t(future)).IsOpen() ? 0 : 1;
+
+  size_t nowState = GetState(rules, timestamp).IsOpen() ? 0 : 1;
+  size_t futureState = GetState(rules, system_clock::to_time_t(future)).IsOpen() ? 0 : 1;
 
   EPlaceState state[2][2] = {{EPlaceState::Open, EPlaceState::CloseSoon},
                              {EPlaceState::OpenSoon, EPlaceState::Closed}};

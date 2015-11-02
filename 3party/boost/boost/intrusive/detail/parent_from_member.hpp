@@ -12,12 +12,19 @@
 #ifndef BOOST_INTRUSIVE_DETAIL_PARENT_FROM_MEMBER_HPP
 #define BOOST_INTRUSIVE_DETAIL_PARENT_FROM_MEMBER_HPP
 
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 #include <boost/intrusive/detail/config_begin.hpp>
 #include <cstddef>
 
 #if defined(BOOST_MSVC) || ((defined(_WIN32) || defined(__WIN32__) || defined(WIN32)) && defined(BOOST_INTEL))
    #define BOOST_INTRUSIVE_MSVC_ABI_PTR_TO_MEMBER
-   #include <boost/cstdint.hpp>
    #include <boost/static_assert.hpp>
 #endif
 
@@ -35,17 +42,17 @@ inline std::ptrdiff_t offset_from_pointer_to_member(const Member Parent::* ptr_t
    union caster_union
    {
       const Member Parent::* ptr_to_member;
-      boost::int32_t offset;
+      int offset;
    } caster;
 
    //MSVC ABI can use up to 3 int32 to represent pointer to member data
    //with virtual base classes, in those cases there is no simple to
    //obtain the address of the parent. So static assert to avoid runtime errors
-   BOOST_STATIC_ASSERT( sizeof(caster) == sizeof(boost::int32_t) );
+   BOOST_STATIC_ASSERT( sizeof(caster) == sizeof(int) );
 
    caster.ptr_to_member = ptr_to_member;
    return std::ptrdiff_t(caster.offset);
-   //Additional info on MSVC behaviour for the future. For 2/3 int ptr-to-member 
+   //Additional info on MSVC behaviour for the future. For 2/3 int ptr-to-member
    //types dereference seems to be:
    //
    // vboffset = [compile_time_offset if 2-int ptr2memb] /

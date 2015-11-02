@@ -8,10 +8,6 @@
 #if !defined(BOOST_SPIRIT_X3_PARSER_OCTOBER_16_2008_0254PM)
 #define BOOST_SPIRIT_X3_PARSER_OCTOBER_16_2008_0254PM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/mpl/bool.hpp>
 #include <boost/type_traits/is_base_of.hpp>
 #include <boost/type_traits/remove_cv.hpp>
@@ -30,10 +26,6 @@
 
 namespace boost { namespace spirit { namespace x3
 {
-    using x3::unused_type;
-    using x3::unused;
-    using x3::get;
-
     template <typename Subject, typename Action>
     struct action;
 
@@ -81,7 +73,7 @@ namespace boost { namespace spirit { namespace x3
         typedef Subject subject_type;
         static bool const has_action = Subject::has_action;
 
-        unary_parser(Subject subject)
+        unary_parser(Subject const& subject)
             : subject(subject) {}
 
         unary_parser const& get_unary() const { return *this; }
@@ -98,7 +90,7 @@ namespace boost { namespace spirit { namespace x3
         static bool const has_action =
             left_type::has_action || right_type::has_action;
 
-        binary_parser(Left left, Right right)
+        binary_parser(Left const& left, Right const& right)
             : left(left), right(right) {}
 
         binary_parser const& get_binary() const { return *this; }

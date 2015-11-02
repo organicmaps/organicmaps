@@ -19,6 +19,7 @@
 #include <boost/config/no_tr1/cmath.hpp>
 #include <boost/limits.hpp>
 #include <boost/type_traits/is_integral.hpp>
+#include <boost/mpl/bool.hpp>
 #include <boost/random/detail/signed_unsigned_tools.hpp>
 #include <boost/random/detail/generator_bits.hpp>
 

@@ -25,6 +25,7 @@ SOURCES += \
     online_cross_fetcher.cpp \
     osrm2feature_map.cpp \
     osrm_engine.cpp \
+    osrm_helpers.cpp \
     osrm_router.cpp \
     pedestrian_directions.cpp \
     pedestrian_model.cpp \
@@ -39,7 +40,7 @@ SOURCES += \
     speed_camera.cpp \
     turns.cpp \
     turns_generator.cpp \
-    turns_sound.cpp \
+    turns_notification_manager.cpp \
     turns_sound_settings.cpp \
     turns_tts_text.cpp \
     vehicle_model.cpp \
@@ -60,6 +61,7 @@ HEADERS += \
     osrm2feature_map.hpp \
     osrm_data_facade.hpp \
     osrm_engine.hpp \
+    osrm_helpers.hpp \
     osrm_router.hpp \
     pedestrian_directions.hpp \
     pedestrian_model.hpp \
@@ -75,7 +77,7 @@ HEADERS += \
     speed_camera.hpp \
     turns.hpp \
     turns_generator.hpp \
-    turns_sound.hpp \
+    turns_notification_manager.hpp \
     turns_sound_settings.hpp \
     turns_tts_text.hpp \
     vehicle_model.hpp \

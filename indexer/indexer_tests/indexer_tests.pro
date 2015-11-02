@@ -13,10 +13,6 @@ include($$ROOT_DIR/common.pri)
 
 QT *= core
 
-!linux {
-SOURCES += opening_hours_test.cpp
-}
-
 HEADERS += \
     test_mwm_set.hpp \
     test_polylines.hpp \

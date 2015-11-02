@@ -273,7 +273,7 @@
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Tin nhắn</string>
 	<!-- Share by email button text -->
-	<string name="email">E-Mail</string>
+	<string name="email">E-mail</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Copiați link-ul</string>
 	<!-- Text for the button that returns to caller application -->
@@ -799,8 +799,5 @@
 	<string name="search_not_found_location">Descărcați harta locului în care vă aflați acum.</string>
 	<string name="search_history_title">Istoricul căutărilor</string>
 	<string name="search_history_text">Accesare rapidă a căutărilor recente.</string>
-	<string name="update_maps_alert_title">Explorarea hărții a devenit mai simplă acum</string>
-	<string name="update_maps_alert_message">Stilurile hărții au fost îmbunătățite: acum toate obiectivele sunt prezentate într-un mod mai clar și atractiv. Actualizează hărțile pentru a beneficia din plin de noul design.</string>
-	<string name="update_maps_alert_button_title">Actualizare hărți</string>
 	<string name="clear_search">Ștergere istoric de căutare</string>
 </resources>

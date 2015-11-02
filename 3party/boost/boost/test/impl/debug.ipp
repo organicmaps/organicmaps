@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2006-2008.
+//  (C) Copyright Gennadiy Rozental 2006-2014.
 //  Use, modification, and distribution are subject to the
 //  Boost Software License, Version 1.0. (See accompanying file
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -39,10 +39,6 @@
 #    include <crtdbg.h>
 #  endif
 
-
-#  if BOOST_WORKAROUND( BOOST_MSVC, <1300)
-#    define snprintf _snprintf
-#  endif
 
 #  ifdef BOOST_NO_STDC_NAMESPACE
 namespace std { using ::memset; using ::sprintf; }
@@ -113,7 +109,6 @@ namespace std { using ::memset; using ::sprintf; }
 //____________________________________________________________________________//
 
 namespace boost {
-
 namespace debug {
 
 using unit_test::const_string;
@@ -210,10 +205,11 @@ private:
 
 #if defined(BOOST_SUN_BASED_DEBUG)
     struct psinfo   m_psi;
+    char            m_binary_path_buff[500+1]; // !! ??
 #elif defined(BOOST_LINUX_BASED_DEBUG)
     char            m_stat_line[BOOST_TEST_STAT_LINE_MAX+1];
-#endif
     char            m_binary_path_buff[500+1]; // !! ??
+#endif
 };
 
 //____________________________________________________________________________//
@@ -239,12 +235,12 @@ process_info::process_info( int pid )
     m_binary_name.assign( m_psi.pr_fname );
 
     //-------------------------- //
-    
+
     ::snprintf( fname_buff, sizeof(fname_buff), "/proc/%d/as", pid );
 
     fd_holder as_fd( ::open( fname_buff, O_RDONLY ) );
     uintptr_t   binary_name_pos;
-  
+
     // !! ?? could we avoid reading whole m_binary_path_buff?
     if( as_fd == -1 ||
         ::lseek( as_fd, m_psi.pr_argv, SEEK_SET ) == -1 ||
@@ -252,9 +248,9 @@ process_info::process_info( int pid )
         ::lseek( as_fd, binary_name_pos, SEEK_SET ) == -1 ||
         ::read ( as_fd, m_binary_path_buff, sizeof(m_binary_path_buff) ) == -1 )
         return;
-        
+
     m_binary_path.assign( m_binary_path_buff );
-        
+
 #elif defined(BOOST_LINUX_BASED_DEBUG)
     char fname_buff[30];
 
@@ -377,8 +373,10 @@ safe_execlp( char const* file, ... )
     va_start( args, file );
     while( !!(arg = va_arg( args, char const* )) ) {
         printf( "!! %s\n", arg );
-        if( !(*argv_it++ = copy_arg( work_buff, arg )) )
+        if( !(*argv_it++ = copy_arg( work_buff, arg )) ) {
+            va_end( args );
             return false;
+        }
     }
     va_end( args );
 
@@ -440,7 +438,7 @@ prepare_gdb_cmnd_file( dbg_startup_info const& dsi )
     WRITE_CSTR( "\ncont" );
     if( dsi.break_or_continue )
         WRITE_CSTR( "\nup 4" );
-            
+
     WRITE_CSTR( "\necho \\n" ); // !! ??
     WRITE_CSTR( "\nlist -" );
     WRITE_CSTR( "\nlist" );
@@ -513,9 +511,9 @@ prepare_dbx_cmd_line( dbg_startup_info const& dsi, bool list_source = true )
 {
     static char cmd_line_buff[500]; // !! ??
 
-    ::snprintf( cmd_line_buff, sizeof(cmd_line_buff), "unlink %s;cont;%s%s", 
-                   dsi.init_done_lock.begin(), 
-                   dsi.break_or_continue ? "up 2;": "", 
+    ::snprintf( cmd_line_buff, sizeof(cmd_line_buff), "unlink %s;cont;%s%s",
+                   dsi.init_done_lock.begin(),
+                   dsi.break_or_continue ? "up 2;": "",
                    list_source ? "echo \" \";list -w3;" : "" );
 
     return cmd_line_buff;
@@ -543,8 +541,8 @@ start_dbx_in_xterm( dbg_startup_info const& dsi )
 
     char pid_buff[16]; // !! ??
     ::snprintf( pid_buff, sizeof(pid_buff), "%ld", dsi.pid );
-    
-    safe_execlp( "xterm", "-T", title, "-display", dsi.display.begin(), 
+
+    safe_execlp( "xterm", "-T", title, "-display", dsi.display.begin(),
                     "-bg", "black", "-fg", "white", "-geometry", "88x30+10+10", "-fn", "9x15", "-e",
                  "dbx", "-q", "-c", prepare_dbx_cmd_line( dsi ), dsi.binary_path.begin(), pid_buff, 0 );
 }
@@ -580,7 +578,7 @@ start_dbx_in_ddd( dbg_startup_info const& dsi )
 
     char pid_buff[16]; // !! ??
     ::snprintf( pid_buff, sizeof(pid_buff), "%ld", dsi.pid );
-    
+
     safe_execlp( "ddd", "-display", dsi.display.begin(),
                  "--dbx", "-q", "-c", prepare_dbx_cmd_line( dsi, false ), dsi.binary_path.begin(), pid_buff, 0 );
 }
@@ -597,7 +595,7 @@ static struct info_t {
 
     // Public properties
     unit_test::readwrite_property<std::string>  p_dbg;
-    
+
     // Data members
     std::map<std::string,dbg_starter>           m_dbg_starter_reg;
 } s_info;
@@ -609,7 +607,7 @@ info_t::info_t()
     p_dbg.value = ::getenv( "DISPLAY" )
         ? std::string( BOOST_STRINGIZE( BOOST_TEST_GUI_DBG ) )
         : std::string( BOOST_STRINGIZE( BOOST_TEST_CNL_DBG ) );
-        
+
     m_dbg_starter_reg[std::string("gdb")]           = &start_gdb_in_console;
     m_dbg_starter_reg[std::string("gdb-emacs")]     = &start_gdb_in_emacs;
     m_dbg_starter_reg[std::string("gdb-xterm")]     = &start_gdb_in_xterm;
@@ -679,8 +677,7 @@ debugger_break()
 
 #if defined(BOOST_WIN32_BASED_DEBUG) // *********************** WIN32
 
-#if BOOST_WORKAROUND(BOOST_MSVC, >= 1300)                       ||  \
-    BOOST_WORKAROUND(__GNUC__, >= 3) && !defined(__MINGW32__)   ||  \
+#if defined(__GNUC__) && !defined(__MINGW32__)   ||  \
     defined(__INTEL_COMPILER)
 #   define BOOST_DEBUG_BREAK    __debugbreak
 #else
@@ -734,7 +731,7 @@ set_debugger( unit_test::const_string dbg_id, dbg_starter s )
     assign_op( s_info.p_dbg.value, dbg_id, 0 );
 
     if( !!s )
-        s_info.m_dbg_starter_reg[s_info.p_dbg] = s;
+        s_info.m_dbg_starter_reg[s_info.p_dbg.get()] = s;
 
     return old;
 }
@@ -864,7 +861,7 @@ attach_debugger( bool break_or_continue )
 
     if( init_done_lock_fd == -1 )
         return false;
-    
+
     pid_t child_pid = fork();
 
     if( child_pid == -1 )
@@ -872,7 +869,7 @@ attach_debugger( bool break_or_continue )
 
     if( child_pid != 0 ) { // parent process - here we will start the debugger
         dbg_startup_info dsi;
-    
+
         process_info pi( child_pid );
         if( pi.binary_path().is_empty() )
             ::exit( -1 );
@@ -882,7 +879,7 @@ attach_debugger( bool break_or_continue )
         dsi.binary_path         = pi.binary_path();
         dsi.display             = ::getenv( "DISPLAY" );
         dsi.init_done_lock      = init_done_lock_fn;
-        
+
         dbg_starter starter = s_info.m_dbg_starter_reg[s_info.p_dbg];
         if( !!starter )
             starter( dsi );
@@ -922,7 +919,7 @@ attach_debugger( bool break_or_continue )
 // ************************************************************************** //
 
 void
-detect_memory_leaks( bool on_off )
+detect_memory_leaks( bool on_off, unit_test::const_string report_file )
 {
     unit_test::ut_detail::ignore_unused_variable_warning( on_off );
 
@@ -934,10 +931,19 @@ detect_memory_leaks( bool on_off )
     else  {
         flags |= _CRTDBG_LEAK_CHECK_DF;
         _CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_FILE);
-        _CrtSetReportFile(_CRT_WARN, _CRTDBG_FILE_STDOUT);
+
+        if( report_file.is_empty() )
+            _CrtSetReportFile(_CRT_WARN, _CRTDBG_FILE_STDERR);
+        else {
+            HANDLE hreport_f = ::CreateFileA( report_file.begin(),
+                                              GENERIC_WRITE, FILE_SHARE_WRITE, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+            _CrtSetReportFile(_CRT_WARN, hreport_f );
+        }
     }
 
     _CrtSetDbgFlag ( flags );
+#else
+    unit_test::ut_detail::ignore_unused_variable_warning( report_file );
 #endif // BOOST_MS_CRT_BASED_DEBUG
 }
 
@@ -954,15 +960,16 @@ break_memory_alloc( long mem_alloc_order_num )
     unit_test::ut_detail::ignore_unused_variable_warning( mem_alloc_order_num );
 
 #ifdef BOOST_MS_CRT_BASED_DEBUG
-    _CrtSetBreakAlloc( mem_alloc_order_num );
+    // only set the value if one was supplied (do not use default used by UTF just as a indicator to enable leak detection)
+    if( mem_alloc_order_num > 1 )
+        _CrtSetBreakAlloc( mem_alloc_order_num );
 #endif // BOOST_MS_CRT_BASED_DEBUG
 }
 
-} // namespace debug
-
-} // namespace boost
-
 //____________________________________________________________________________//
+
+} // namespace debug
+} // namespace boost
 
 #include <boost/test/detail/enable_warnings.hpp>
 

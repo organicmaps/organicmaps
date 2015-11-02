@@ -15,11 +15,9 @@
 # include <boost/static_assert.hpp>
 # include <boost/detail/workaround.hpp>
 # include <boost/type_traits/same_traits.hpp>
-# include <boost/type_traits/broken_compiler_spec.hpp>
 
 #  ifndef BOOST_PYTHON_HAVE_GCC_CP_DEMANGLE
 #   if defined(__GNUC__)                                                \
-    && ((__GNUC__ > 3) || ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 1)))   \
     && !defined(__EDG_VERSION__)
 #    define BOOST_PYTHON_HAVE_GCC_CP_DEMANGLE
 #   endif
@@ -30,7 +28,7 @@ namespace boost { namespace python {
 // for this compiler at least, cross-shared-library type_info
 // comparisons don't work, so use typeid(x).name() instead. It's not
 // yet clear what the best default strategy is.
-# if (defined(__GNUC__) && __GNUC__ >= 3) \
+# if defined(__GNUC__) \
  || defined(_AIX) \
  || (   defined(__sgi) && defined(__host_mips)) \
  || (defined(__hpux) && defined(__HP_aCC)) \
@@ -69,21 +67,18 @@ struct type_info : private totally_ordered<type_info>
     base_id_t m_base_type;
 };
 
-#  ifdef BOOST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS
-#   define BOOST_PYTHON_EXPLICIT_TT_DEF(T) ::boost::type<T>*
-#  else
-#   define BOOST_PYTHON_EXPLICIT_TT_DEF(T)
-#  endif
+
+// This macro is obsolete. Port away and remove.
+# define BOOST_PYTHON_EXPLICIT_TT_DEF(T)
 
 template <class T>
-inline type_info type_id(BOOST_EXPLICIT_TEMPLATE_TYPE(T))
+inline type_info type_id()
 {
     return type_info(
 #  if !defined(_MSC_VER)                                       \
-      || (!BOOST_WORKAROUND(BOOST_MSVC, <= 1300)                \
-          && !BOOST_WORKAROUND(BOOST_INTEL_CXX_VERSION, <= 700))
+      || !BOOST_WORKAROUND(BOOST_INTEL_CXX_VERSION, <= 700)
         typeid(T)
-#  else // strip the decoration which msvc and Intel mistakenly leave in
+#  else // strip the decoration which Intel mistakenly leaves in
         python::detail::msvc_typeid((boost::type<T>*)0)
 #  endif 
         );
@@ -99,7 +94,7 @@ inline type_info type_id(BOOST_EXPLICIT_TEMPLATE_TYPE(T))
 
 #   define BOOST_PYTHON_SIGNED_INTEGRAL_TYPE_ID(T)              \
 template <>                                                     \
-inline type_info type_id<T>(BOOST_PYTHON_EXPLICIT_TT_DEF(T))    \
+inline type_info type_id<T>()                                   \
 {                                                               \
     return type_info(typeid(T));                                \
 }
@@ -171,21 +166,18 @@ inline char const* type_info::name() const
 
 BOOST_PYTHON_DECL std::ostream& operator<<(std::ostream&, type_info const&);
 
-#  if !BOOST_WORKAROUND(BOOST_MSVC, == 1200)
 template<>
-inline type_info type_id<void>(BOOST_PYTHON_EXPLICIT_TT_DEF(void))
+inline type_info type_id<void>()
 {
     return type_info (typeid (void *));
 }
 #   ifndef BOOST_NO_CV_VOID_SPECIALIZATIONS
 template<>
-inline type_info type_id<const volatile void>(BOOST_PYTHON_EXPLICIT_TT_DEF(const volatile void))
+inline type_info type_id<const volatile void>()
 {
     return type_info (typeid (void *));
 }
 #  endif
-
-# endif 
 
 }} // namespace boost::python
 

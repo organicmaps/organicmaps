@@ -21,37 +21,37 @@ extern NSString * const kUserDefaultsLatLonAsDMSKey;
 
 - (void)configureWithType:(MWMPlacePageMetadataType)type info:(NSString *)info;
 {
-  NSMutableString * imageName = [@"ic_" mutableCopy];
+  NSString * typeName;
   switch (type)
   {
     case MWMPlacePageMetadataTypeURL:
     case MWMPlacePageMetadataTypeWebsite:
-      [imageName appendString:@"Website"];
+      typeName = @"website";
       break;
     case MWMPlacePageMetadataTypeEmail:
-      [imageName appendString:@"Email"];
+      typeName = @"email";
       break;
     case MWMPlacePageMetadataTypePhoneNumber:
-      [imageName appendString:@"PhoneNumber"];
+      typeName = @"phone_number";
       break;
     case MWMPlacePageMetadataTypeCoordinate:
-      [imageName appendString:@"Coordinate"];
+      typeName = @"coordinate";
       break;
     case MWMPlacePageMetadataTypePostcode:
-      [imageName appendString:@"Postcode"];
+      typeName = @"postcode";
       break;
     case MWMPlacePageMetadataTypeOpenHours:
-      [imageName appendString:@"OpenHours"];
+      typeName = @"open_hours";
       break;
     case MWMPlacePageMetadataTypeWiFi:
-      [imageName appendFormat:@"WiFi"];
+      typeName = @"wifi";
       break;
     case MWMPlacePageMetadataTypeBookmark:
       NSAssert(false, @"Incorrect type!");
       break;
   }
   
-  UIImage * image = [UIImage imageNamed:imageName];
+  UIImage * image = [UIImage imageNamed:[NSString stringWithFormat:@"%@%@", @"ic_placepage_", typeName]];
   self.type = type;
   self.icon.image = image;
 

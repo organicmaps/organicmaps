@@ -33,6 +33,18 @@
 namespace boost { namespace geometry { namespace detail
 {
 
+template <typename T>
+struct result_direct
+{
+    void set(T const& lo2, T const& la2)
+    {
+        lon2 = lo2;
+        lat2 = la2;
+    }
+    T lon2;
+    T lat2;
+};
+
 /*!
 \brief The solution of the direct problem of geodesics on latlong coordinates, after Vincenty, 1975
 \author See
@@ -45,45 +57,49 @@ namespace boost { namespace geometry { namespace detail
 
 */
 template <typename CT>
-class vincenty_direct
+struct vincenty_direct
 {
+    typedef result_direct<CT> result_type;
+
 public:
     template <typename T, typename Dist, typename Azi, typename Spheroid>
-    vincenty_direct(T const& lo1,
-                    T const& la1,
-                    Dist const& distance,
-                    Azi const& azimuth12,
-                    Spheroid const& spheroid)
-        : lon1(lo1)
-        , lat1(la1)
-        , is_distance_zero(false)
+    static inline result_type apply(T const& lo1,
+                                    T const& la1,
+                                    Dist const& distance,
+                                    Azi const& azimuth12,
+                                    Spheroid const& spheroid)
     {
+        result_type result;
+
+        CT const lon1 = lo1;
+        CT const lat1 = la1;
+
         if ( math::equals(distance, Dist(0)) || distance < Dist(0) )
         {
-            is_distance_zero = true;
-            return;
+            result.set(lon1, lat1);
+            return result;
         }
 
         CT const radius_a = CT(get_radius<0>(spheroid));
         CT const radius_b = CT(get_radius<2>(spheroid));
-        flattening = geometry::detail::flattening<CT>(spheroid);
+        CT const flattening = geometry::detail::flattening<CT>(spheroid);
 
-        sin_azimuth12 = sin(azimuth12);
-        cos_azimuth12 = cos(azimuth12);
+        CT const sin_azimuth12 = sin(azimuth12);
+        CT const cos_azimuth12 = cos(azimuth12);
 
         // U: reduced latitude, defined by tan U = (1-f) tan phi
-        one_min_f = CT(1) - flattening;
+        CT const one_min_f = CT(1) - flattening;
         CT const tan_U1 = one_min_f * tan(lat1);
         CT const sigma1 = atan2(tan_U1, cos_azimuth12); // (1)
 
         // may be calculated from tan using 1 sqrt()
         CT const U1 = atan(tan_U1);
-        sin_U1 = sin(U1);
-        cos_U1 = cos(U1);
+        CT const sin_U1 = sin(U1);
+        CT const cos_U1 = cos(U1);
 
-        sin_alpha = cos_U1 * sin_azimuth12; // (2)
-        sin_alpha_sqr = math::sqr(sin_alpha);
-        cos_alpha_sqr = CT(1) - sin_alpha_sqr;
+        CT const sin_alpha = cos_U1 * sin_azimuth12; // (2)
+        CT const sin_alpha_sqr = math::sqr(sin_alpha);
+        CT const cos_alpha_sqr = CT(1) - sin_alpha_sqr;
 
         CT const b_sqr = radius_b * radius_b;
         CT const u_sqr = cos_alpha_sqr * (radius_a * radius_a - b_sqr) / b_sqr;
@@ -91,9 +107,13 @@ public:
         CT const B = (u_sqr/CT(1024))*(CT(256) + u_sqr*(CT(-128) + u_sqr*(CT(74) - u_sqr*CT(47)))); // (4)
 
         CT s_div_bA = distance / (radius_b * A);
-        sigma = s_div_bA; // (7)
+        CT sigma = s_div_bA; // (7)
 
         CT previous_sigma;
+        CT sin_sigma;
+        CT cos_sigma;
+        CT cos_2sigma_m;
+        CT cos_2sigma_m_sqr;
 
         int counter = 0; // robustness
 
@@ -120,35 +140,27 @@ public:
         } while ( geometry::math::abs(previous_sigma - sigma) > CT(1e-12)
                //&& geometry::math::abs(sigma) < pi
                && counter < BOOST_GEOMETRY_DETAIL_VINCENTY_MAX_STEPS ); // robustness
-    }
 
-    inline CT lat2() const
-    {
-        if ( is_distance_zero )
         {
-            return lat1;
+            result.lat2
+                = atan2( sin_U1 * cos_sigma + cos_U1 * sin_sigma * cos_azimuth12,
+                         one_min_f * math::sqrt(sin_alpha_sqr + math::sqr(sin_U1 * sin_sigma - cos_U1 * cos_sigma * cos_azimuth12))); // (8)
         }
 
-        return atan2( sin_U1 * cos_sigma + cos_U1 * sin_sigma * cos_azimuth12,
-                      one_min_f * math::sqrt(sin_alpha_sqr + math::sqr(sin_U1 * sin_sigma - cos_U1 * cos_sigma * cos_azimuth12))); // (8)
-    }
-
-    inline CT lon2() const
-    {
-        if ( is_distance_zero )
         {
-            return lon1;
+            CT const lambda = atan2( sin_sigma * sin_azimuth12,
+                                     cos_U1 * cos_sigma - sin_U1 * sin_sigma * cos_azimuth12); // (9)
+            CT const C = (flattening/CT(16)) * cos_alpha_sqr * ( CT(4) + flattening * ( CT(4) - CT(3) * cos_alpha_sqr ) ); // (10)
+            CT const L = lambda - (CT(1) - C) * flattening * sin_alpha
+                            * ( sigma + C * sin_sigma * ( cos_2sigma_m + C * cos_sigma * ( CT(-1) + CT(2) * cos_2sigma_m_sqr ) ) ); // (11)
+
+            result.lon2 = lon1 + L;
         }
 
-        CT const lambda = atan2( sin_sigma * sin_azimuth12,
-                                 cos_U1 * cos_sigma - sin_U1 * sin_sigma * cos_azimuth12); // (9)
-        CT const C = (flattening/CT(16)) * cos_alpha_sqr * ( CT(4) + flattening * ( CT(4) - CT(3) * cos_alpha_sqr ) ); // (10)
-        CT const L = lambda - (CT(1) - C) * flattening * sin_alpha
-                        * ( sigma + C * sin_sigma * ( cos_2sigma_m + C * cos_sigma * ( CT(-1) + CT(2) * cos_2sigma_m_sqr ) ) ); // (11)
-
-        return lon1 + L;
+        return result;
     }
 
+    /*
     inline CT azimuth21() const
     {
         // NOTE: signs of X and Y are different than in the original paper
@@ -156,32 +168,7 @@ public:
                CT(0) :
                atan2(-sin_alpha, sin_U1 * sin_sigma - cos_U1 * cos_sigma * cos_azimuth12); // (12)
     }
-
-private:
-    CT sigma;
-    CT sin_sigma;
-    CT cos_sigma;
-
-    CT cos_2sigma_m;
-    CT cos_2sigma_m_sqr;
-
-    CT sin_alpha;
-    CT sin_alpha_sqr;
-    CT cos_alpha_sqr;
-
-    CT sin_azimuth12;
-    CT cos_azimuth12;
-
-    CT sin_U1;
-    CT cos_U1;
-
-    CT flattening;
-    CT one_min_f;
-
-    CT const lon1;
-    CT const lat1;
-
-    bool is_distance_zero;
+    */
 };
 
 }}} // namespace boost::geometry::detail

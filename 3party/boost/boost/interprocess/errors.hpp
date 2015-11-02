@@ -24,7 +24,11 @@
 #ifndef BOOST_INTERPROCESS_ERRORS_HPP
 #define BOOST_INTERPROCESS_ERRORS_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -49,7 +53,7 @@
 
 namespace boost {
 namespace interprocess {
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 inline int system_error_code() // artifact of POSIX and WINDOWS error reporting
 {
    #if defined (BOOST_INTERPROCESS_WINDOWS)
@@ -85,7 +89,7 @@ inline void fill_system_message(int sys_err_code, std::string &str)
 inline void fill_system_message( int system_error, std::string &str)
 {  str = std::strerror(system_error);  }
 # endif
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 enum error_code_t
 {
@@ -120,7 +124,7 @@ enum error_code_t
 
 typedef int    native_error_t;
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 struct ec_xlate
 {
    native_error_t sys_ec;
@@ -227,7 +231,7 @@ struct error_info
    native_error_t m_nat;
    error_code_t   m_ec;
 };
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 }  // namespace interprocess {
 }  // namespace boost

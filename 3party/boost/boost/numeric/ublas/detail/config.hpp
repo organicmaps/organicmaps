@@ -28,14 +28,23 @@
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 
+// C++11
+#if defined(__cplusplus) && __cplusplus >= 201103L
+
+#define BOOST_UBLAS_CPP_GE_2011
+
+#elif BOOST_MSVC >= 1800
+
+#define BOOST_UBLAS_CPP_GE_2011
+
+#else
+
+#undef BOOST_UBLAS_CPP_GE_2011 // Make sure no one defined it
+
+#endif
 
 // Microsoft Visual C++
 #if defined (BOOST_MSVC) && ! defined (BOOST_STRICT_CONFIG)
-
-// Version 6.0 and 7.0
-#if BOOST_MSVC <= 1300
-#define BOOST_UBLAS_UNSUPPORTED_COMPILER 1
-#endif
 
 // Version 7.1
 #if BOOST_MSVC == 1310
@@ -164,7 +173,7 @@ namespace std {
 
 // Detect other compilers with serious defects - override by defineing BOOST_UBLAS_UNSUPPORTED_COMPILER=0
 #ifndef BOOST_UBLAS_UNSUPPORTED_COMPILER
-#if defined(BOOST_NO_FUNCTION_TEMPLATE_ORDERING) || defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) || defined(BOOST_NO_SFINAE) || defined(BOOST_NO_STDC_NAMESPACE)
+#if defined(BOOST_NO_FUNCTION_TEMPLATE_ORDERING) || defined(BOOST_NO_SFINAE) || defined(BOOST_NO_STDC_NAMESPACE)
 #define BOOST_UBLAS_UNSUPPORTED_COMPILER 1
 #endif
 #endif

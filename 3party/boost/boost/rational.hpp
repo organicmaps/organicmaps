@@ -21,6 +21,15 @@
 //    Nickolay Mladenov, for the implementation of operator+=
 
 //  Revision History
+//  02 Sep 13  Remove unneeded forward declarations; tweak private helper
+//             function (Daryle Walker)
+//  30 Aug 13  Improve exception safety of "assign"; start modernizing I/O code
+//             (Daryle Walker)
+//  27 Aug 13  Add cross-version constructor template, plus some private helper
+//             functions; add constructor to exception class to take custom
+//             messages (Daryle Walker)
+//  25 Aug 13  Add constexpr qualification wherever possible (Daryle Walker)
+//  05 May 12  Reduced use of implicit gcd (Mario Lang)
 //  05 Nov 06  Change rational_cast to not depend on division between different
 //             types (Daryle Walker)
 //  04 Nov 06  Off-load GCD and LCM to Boost.Math; add some invariant checks;
@@ -54,17 +63,23 @@
 #ifndef BOOST_RATIONAL_HPP
 #define BOOST_RATIONAL_HPP
 
-#include <iostream>              // for std::istream and std::ostream
-#include <ios>                   // for std::noskipws
+#include <boost/config.hpp>      // for BOOST_NO_STDC_NAMESPACE, BOOST_MSVC, etc
+#ifndef BOOST_NO_IOSTREAM
+#include <iomanip>               // for std::setw
+#include <ios>                   // for std::noskipws, streamsize
+#include <istream>               // for std::istream
+#include <ostream>               // for std::ostream
+#include <sstream>               // for std::ostringstream
+#endif
+#include <cstddef>               // for NULL
 #include <stdexcept>             // for std::domain_error
 #include <string>                // for std::string implicit constructor
 #include <boost/operators.hpp>   // for boost::addable etc
 #include <cstdlib>               // for std::abs
 #include <boost/call_traits.hpp> // for boost::call_traits
-#include <boost/config.hpp>      // for BOOST_NO_STDC_NAMESPACE, BOOST_MSVC
 #include <boost/detail/workaround.hpp> // for BOOST_WORKAROUND
 #include <boost/assert.hpp>      // for BOOST_ASSERT
-#include <boost/math/common_factor_rt.hpp>  // for boost::math::gcd, lcm
+#include <boost/integer/common_factor_rt.hpp> // for boost::integer::gcd, lcm
 #include <limits>                // for std::numeric_limits
 #include <boost/static_assert.hpp>  // for BOOST_STATIC_ASSERT
 
@@ -80,14 +95,14 @@ template <typename IntType>
 IntType gcd(IntType n, IntType m)
 {
     // Defer to the version in Boost.Math
-    return math::gcd( n, m );
+    return integer::gcd( n, m );
 }
 
 template <typename IntType>
 IntType lcm(IntType n, IntType m)
 {
     // Defer to the version in Boost.Math
-    return math::lcm( n, m );
+    return integer::lcm( n, m );
 }
 #endif  // BOOST_CONTROL_RATIONAL_HAS_GCD
 
@@ -95,13 +110,8 @@ class bad_rational : public std::domain_error
 {
 public:
     explicit bad_rational() : std::domain_error("bad rational: zero denominator") {}
+    explicit bad_rational( char const *what ) : std::domain_error( what ) {}
 };
-
-template <typename IntType>
-class rational;
-
-template <typename IntType>
-rational<IntType> abs(const rational<IntType>& r);
 
 template <typename IntType>
 class rational :
@@ -133,21 +143,37 @@ class rational :
     typedef IntType (helper::* bool_type)[2];
 
 public:
+    // Component type
     typedef IntType int_type;
+
+    BOOST_CONSTEXPR
     rational() : num(0), den(1) {}
+    BOOST_CONSTEXPR
     rational(param_type n) : num(n), den(1) {}
     rational(param_type n, param_type d) : num(n), den(d) { normalize(); }
+
+#ifndef BOOST_NO_MEMBER_TEMPLATES
+    template < typename NewType >
+    BOOST_CONSTEXPR explicit
+    rational( rational<NewType> const &r )
+        : num( r.numerator() ), den( is_normalized(int_type( r.numerator() ),
+          int_type( r.denominator() )) ? r.denominator() :
+          throw bad_rational("bad rational: denormalized conversion") )
+    {}
+#endif
 
     // Default copy constructor and assignment are fine
 
     // Add assignment from IntType
-    rational& operator=(param_type n) { return assign(n, 1); }
+    rational& operator=(param_type i) { num = i; den = 1; return *this; }
 
     // Assign in place
     rational& assign(param_type n, param_type d);
 
     // Access to representation
+    BOOST_CONSTEXPR
     IntType numerator() const { return num; }
+    BOOST_CONSTEXPR
     IntType denominator() const { return den; }
 
     // Arithmetic assignment operators
@@ -156,16 +182,17 @@ public:
     rational& operator*= (const rational& r);
     rational& operator/= (const rational& r);
 
-    rational& operator+= (param_type i);
-    rational& operator-= (param_type i);
+    rational& operator+= (param_type i) { num += i * den; return *this; }
+    rational& operator-= (param_type i) { num -= i * den; return *this; }
     rational& operator*= (param_type i);
     rational& operator/= (param_type i);
 
     // Increment and decrement
-    const rational& operator++();
-    const rational& operator--();
+    const rational& operator++() { num += den; return *this; }
+    const rational& operator--() { num -= den; return *this; }
 
     // Operator not
+    BOOST_CONSTEXPR
     bool operator!() const { return !num; }
 
     // Boolean conversion
@@ -177,6 +204,7 @@ public:
 #pragma parse_mfunc_templ off
 #endif
 
+    BOOST_CONSTEXPR
     operator bool_type() const { return operator !() ? 0 : &helper::parts; }
 
 #if BOOST_WORKAROUND(__MWERKS__,<=0x3003)
@@ -185,10 +213,12 @@ public:
 
     // Comparison operators
     bool operator< (const rational& r) const;
+    BOOST_CONSTEXPR
     bool operator== (const rational& r) const;
 
     bool operator< (param_type i) const;
     bool operator> (param_type i) const;
+    BOOST_CONSTEXPR
     bool operator== (param_type i) const;
 
 private:
@@ -197,26 +227,42 @@ private:
     IntType num;
     IntType den;
 
+    // Helper functions
+    static BOOST_CONSTEXPR
+    int_type inner_gcd( param_type a, param_type b, int_type const &zero =
+     int_type(0) )
+    { return b == zero ? a : inner_gcd(b, a % b, zero); }
+
+    static BOOST_CONSTEXPR
+    int_type inner_abs( param_type x, int_type const &zero = int_type(0) )
+    { return x < zero ? -x : +x; }
+
     // Representation note: Fractions are kept in normalized form at all
     // times. normalized form is defined as gcd(num,den) == 1 and den > 0.
     // In particular, note that the implementation of abs() below relies
     // on den always being positive.
     bool test_invariant() const;
     void normalize();
+
+    static BOOST_CONSTEXPR
+    bool is_normalized( param_type n, param_type d, int_type const &zero =
+     int_type(0), int_type const &one = int_type(1) )
+    {
+        return d > zero && ( n != zero || d == one ) && inner_abs( inner_gcd(n,
+         d, zero), zero ) == one;
+    }
 };
 
 // Assign in place
 template <typename IntType>
 inline rational<IntType>& rational<IntType>::assign(param_type n, param_type d)
 {
-    num = n;
-    den = d;
-    normalize();
-    return *this;
+    return *this = rational( n, d );
 }
 
 // Unary plus and minus
 template <typename IntType>
+BOOST_CONSTEXPR
 inline rational<IntType> operator+ (const rational<IntType>& r)
 {
     return r;
@@ -254,10 +300,10 @@ rational<IntType>& rational<IntType>::operator+= (const rational<IntType>& r)
     IntType r_num = r.num;
     IntType r_den = r.den;
 
-    IntType g = math::gcd(den, r_den);
+    IntType g = integer::gcd(den, r_den);
     den /= g;  // = b1 from the calculations above
     num = num * (r_den / g) + r_num * den;
-    g = math::gcd(num, g);
+    g = integer::gcd(num, g);
     num /= g;
     den *= r_den/g;
 
@@ -273,10 +319,10 @@ rational<IntType>& rational<IntType>::operator-= (const rational<IntType>& r)
 
     // This calculation avoids overflow, and minimises the number of expensive
     // calculations. It corresponds exactly to the += case above
-    IntType g = math::gcd(den, r_den);
+    IntType g = integer::gcd(den, r_den);
     den /= g;
     num = num * (r_den / g) - r_num * den;
-    g = math::gcd(num, g);
+    g = integer::gcd(num, g);
     num /= g;
     den *= r_den/g;
 
@@ -291,8 +337,8 @@ rational<IntType>& rational<IntType>::operator*= (const rational<IntType>& r)
     IntType r_den = r.den;
 
     // Avoid overflow and preserve normalization
-    IntType gcd1 = math::gcd(num, r_den);
-    IntType gcd2 = math::gcd(r_num, den);
+    IntType gcd1 = integer::gcd(num, r_den);
+    IntType gcd2 = integer::gcd(r_num, den);
     num = (num/gcd1) * (r_num/gcd2);
     den = (den/gcd2) * (r_den/gcd1);
     return *this;
@@ -315,8 +361,8 @@ rational<IntType>& rational<IntType>::operator/= (const rational<IntType>& r)
         return *this;
 
     // Avoid overflow and preserve normalization
-    IntType gcd1 = math::gcd(num, r_num);
-    IntType gcd2 = math::gcd(r_den, den);
+    IntType gcd1 = integer::gcd(num, r_num);
+    IntType gcd2 = integer::gcd(r_den, den);
     num = (num/gcd1) * (r_den/gcd2);
     den = (den/gcd2) * (r_num/gcd1);
 
@@ -330,46 +376,36 @@ rational<IntType>& rational<IntType>::operator/= (const rational<IntType>& r)
 // Mixed-mode operators
 template <typename IntType>
 inline rational<IntType>&
-rational<IntType>::operator+= (param_type i)
-{
-    return operator+= (rational<IntType>(i));
-}
-
-template <typename IntType>
-inline rational<IntType>&
-rational<IntType>::operator-= (param_type i)
-{
-    return operator-= (rational<IntType>(i));
-}
-
-template <typename IntType>
-inline rational<IntType>&
 rational<IntType>::operator*= (param_type i)
 {
-    return operator*= (rational<IntType>(i));
-}
+    // Avoid overflow and preserve normalization
+    IntType gcd = integer::gcd(i, den);
+    num *= i / gcd;
+    den /= gcd;
 
-template <typename IntType>
-inline rational<IntType>&
-rational<IntType>::operator/= (param_type i)
-{
-    return operator/= (rational<IntType>(i));
-}
-
-// Increment and decrement
-template <typename IntType>
-inline const rational<IntType>& rational<IntType>::operator++()
-{
-    // This can never denormalise the fraction
-    num += den;
     return *this;
 }
 
 template <typename IntType>
-inline const rational<IntType>& rational<IntType>::operator--()
+rational<IntType>&
+rational<IntType>::operator/= (param_type i)
 {
-    // This can never denormalise the fraction
-    num -= den;
+    // Avoid repeated construction
+    IntType const zero(0);
+
+    if (i == zero) throw bad_rational();
+    if (num == zero) return *this;
+
+    // Avoid overflow and preserve normalization
+    IntType const gcd = integer::gcd(num, i);
+    num /= gcd;
+    den *= i / gcd;
+
+    if (den < zero) {
+        num = -num;
+        den = -den;
+    }
+
     return *this;
 }
 
@@ -405,7 +441,7 @@ bool rational<IntType>::operator< (const rational<IntType>& r) const
     while ( rs.r < zero )  { rs.r += rs.d; --rs.q; }
 
     // Loop through and compare each variable's continued-fraction components
-    while ( true )
+    for ( ;; )
     {
         // The quotients of the current cycle are the continued-fraction
         // components.  Comparing two c.f. is comparing their sequences,
@@ -479,21 +515,18 @@ bool rational<IntType>::operator< (param_type i) const
 template <typename IntType>
 bool rational<IntType>::operator> (param_type i) const
 {
-    // Trap equality first
-    if (num == i && den == IntType(1))
-        return false;
-
-    // Otherwise, we can use operator<
-    return !operator<(i);
+    return operator==(i)? false: !operator<(i);
 }
 
 template <typename IntType>
+BOOST_CONSTEXPR
 inline bool rational<IntType>::operator== (const rational<IntType>& r) const
 {
     return ((num == r.num) && (den == r.den));
 }
 
 template <typename IntType>
+BOOST_CONSTEXPR
 inline bool rational<IntType>::operator== (param_type i) const
 {
     return ((den == IntType(1)) && (num == i));
@@ -503,7 +536,7 @@ inline bool rational<IntType>::operator== (param_type i) const
 template <typename IntType>
 inline bool rational<IntType>::test_invariant() const
 {
-    return ( this->den > int_type(0) ) && ( math::gcd(this->num, this->den) ==
+    return ( this->den > int_type(0) ) && ( integer::gcd(this->num, this->den) ==
      int_type(1) );
 }
 
@@ -523,7 +556,7 @@ void rational<IntType>::normalize()
         return;
     }
 
-    IntType g = math::gcd(num, den);
+    IntType g = integer::gcd(num, den);
 
     num /= g;
     den /= g;
@@ -534,9 +567,17 @@ void rational<IntType>::normalize()
         den = -den;
     }
 
+    // ...But acknowledge that the previous step doesn't always work.
+    // (Nominally, this should be done before the mutating steps, but this
+    // member function is only called during the constructor, so we never have
+    // to worry about zombie objects.)
+    if (den < zero)
+        throw bad_rational( "bad rational: non-zero singular denominator" );
+
     BOOST_ASSERT( this->test_invariant() );
 }
 
+#ifndef BOOST_NO_IOSTREAM
 namespace detail {
 
     // A utility class to reset the format flags for an istream at end
@@ -554,25 +595,33 @@ namespace detail {
 template <typename IntType>
 std::istream& operator>> (std::istream& is, rational<IntType>& r)
 {
+    using std::ios;
+
     IntType n = IntType(0), d = IntType(1);
     char c = 0;
     detail::resetter sentry(is);
 
-    is >> n;
-    c = is.get();
-
-    if (c != '/')
-        is.clear(std::istream::badbit);  // old GNU c++ lib has no ios_base
-
-#if !defined(__GNUC__) || (defined(__GNUC__) && (__GNUC__ >= 3)) || defined __SGI_STL_PORT
-    is >> std::noskipws;
-#else
-    is.unsetf(ios::skipws); // compiles, but seems to have no effect.
-#endif
-    is >> d;
-
-    if (is)
-        r.assign(n, d);
+    if ( is >> n )
+    {
+        if ( is.get(c) )
+        {
+            if ( c == '/' )
+            {
+                if ( is >> std::noskipws >> d )
+                    try {
+                        r.assign( n, d );
+                    } catch ( bad_rational & ) {        // normalization fail
+                        try { is.setstate(ios::failbit); }
+                        catch ( ... ) {}  // don't throw ios_base::failure...
+                        if ( is.exceptions() & ios::failbit )
+                            throw;   // ...but the original exception instead
+                        // ELSE: suppress the exception, use just error flags
+                    }
+            }
+            else
+                is.setstate( ios::failbit );
+        }
+    }
 
     return is;
 }
@@ -581,14 +630,34 @@ std::istream& operator>> (std::istream& is, rational<IntType>& r)
 template <typename IntType>
 std::ostream& operator<< (std::ostream& os, const rational<IntType>& r)
 {
-    os << r.numerator() << '/' << r.denominator();
-    return os;
+    using namespace std;
+
+    // The slash directly precedes the denominator, which has no prefixes.
+    ostringstream  ss;
+
+    ss.copyfmt( os );
+    ss.tie( NULL );
+    ss.exceptions( ios::goodbit );
+    ss.width( 0 );
+    ss << noshowpos << noshowbase << '/' << r.denominator();
+
+    // The numerator holds the showpos, internal, and showbase flags.
+    string const   tail = ss.str();
+    streamsize const  w = os.width() - static_cast<streamsize>( tail.size() );
+
+    ss.clear();
+    ss.str( "" );
+    ss.flags( os.flags() );
+    ss << setw( w < 0 || (os.flags() & ios::adjustfield) != ios::internal ? 0 :
+     w ) << r.numerator();
+    return os << ss.str() + tail;
 }
+#endif  // BOOST_NO_IOSTREAM
 
 // Type conversion
 template <typename T, typename IntType>
-inline T rational_cast(
-    const rational<IntType>& src BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(T))
+BOOST_CONSTEXPR
+inline T rational_cast(const rational<IntType>& src)
 {
     return static_cast<T>(src.numerator())/static_cast<T>(src.denominator());
 }
@@ -599,10 +668,7 @@ inline T rational_cast(
 template <typename IntType>
 inline rational<IntType> abs(const rational<IntType>& r)
 {
-    if (r.numerator() >= IntType(0))
-        return r;
-
-    return rational<IntType>(-r.numerator(), r.denominator());
+    return r.numerator() >= IntType(0)? r: -r;
 }
 
 } // namespace boost

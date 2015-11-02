@@ -31,7 +31,7 @@ namespace boost { namespace fusion
                 static int const size = std::tuple_size<seq_type>::value;
                 typedef std_tuple_iterator<Sequence, size> type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& v)
                 {

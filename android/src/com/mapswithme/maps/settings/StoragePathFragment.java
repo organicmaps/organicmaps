@@ -1,51 +1,82 @@
 package com.mapswithme.maps.settings;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
-
+import android.widget.TextView;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.BaseMwmListFragment;
+import com.mapswithme.maps.base.OnBackPressListener;
+import com.mapswithme.maps.widget.BaseShadowController;
+import com.mapswithme.util.Constants;
 import com.mapswithme.util.Utils;
 
-public class StoragePathFragment extends BaseMwmListFragment implements StoragePathManager.MoveFilesListener
-{
-  private StoragePathManager mPathManager = new StoragePathManager();
-  private StoragePathAdapter mAdapter;
+import java.util.List;
 
-  private StoragePathAdapter getAdapter()
+public class StoragePathFragment extends BaseSettingsFragment
+                              implements StoragePathManager.MoveFilesListener,
+                                         OnBackPressListener
+{
+  private TextView mHeader;
+  private ListView mList;
+
+  private StoragePathAdapter mAdapter;
+  private StoragePathManager mPathManager = new StoragePathManager();
+
+  @Override
+  protected int getLayoutRes()
   {
-    return (StoragePathAdapter) getListView().getAdapter();
+    return R.layout.fragment_prefs_storage;
   }
 
   @Override
-  public void onListItemClick(final ListView l, View v, final int position, long id)
+  protected BaseShadowController createShadowController()
   {
-    getAdapter().onItemClick(position);
+    return null;
+  }
+
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+  {
+    super.onCreateView(inflater, container, savedInstanceState);
+
+    mHeader = (TextView) mFrame.findViewById(R.id.header);
+    mList = (ListView) mFrame.findViewById(R.id.list);
+    mList.setOnItemClickListener(new AdapterView.OnItemClickListener()
+    {
+      @Override
+      public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+      {
+        mAdapter.onItemClick(position);
+      }
+    });
+
+    return mFrame;
   }
 
   @Override
   public void onResume()
   {
     super.onResume();
-    BroadcastReceiver receiver = new BroadcastReceiver()
+    mPathManager.startExternalStorageWatching(getActivity(), new StoragePathManager.OnStorageListChangedListener()
     {
       @Override
-      public void onReceive(Context context, Intent intent)
+      public void onStorageListChanged(List<StorageItem> storageItems, int currentStorageIndex)
       {
-        if (mAdapter != null)
-          mAdapter.updateList(mPathManager.getStorageItems(), mPathManager.getCurrentStorageIndex(), StorageUtils.getWritableDirSize());
+        updateList();
       }
-    };
-    mPathManager.startExternalStorageWatching(getActivity(), receiver, this);
-    initAdapter();
-    mAdapter.updateList(mPathManager.getStorageItems(), mPathManager.getCurrentStorageIndex(), StorageUtils.getWritableDirSize());
-    setListAdapter(mAdapter);
+    }, this);
+
+    if (mAdapter == null)
+      mAdapter = new StoragePathAdapter(mPathManager, getActivity());
+
+    updateList();
+    mList.setAdapter(mAdapter);
   }
 
   @Override
@@ -55,16 +86,19 @@ public class StoragePathFragment extends BaseMwmListFragment implements StorageP
     mPathManager.stopExternalStorageWatching();
   }
 
-  private void initAdapter()
+  private void updateList()
   {
-    if (mAdapter == null)
-      mAdapter = new StoragePathAdapter(mPathManager, getActivity());
+    long dirSize = StorageUtils.getWritableDirSize();
+    mHeader.setText(getString(R.string.maps) + ": " + getSizeString(dirSize));
+
+    if (mAdapter != null)
+      mAdapter.update(mPathManager.getStorageItems(), mPathManager.getCurrentStorageIndex(), dirSize);
   }
 
   @Override
   public void moveFilesFinished(String newPath)
   {
-    mAdapter.updateList(mPathManager.getStorageItems(), mPathManager.getCurrentStorageIndex(), StorageUtils.getWritableDirSize());
+    updateList();
   }
 
   @Override
@@ -73,8 +107,11 @@ public class StoragePathFragment extends BaseMwmListFragment implements StorageP
     if (!isAdded())
       return;
 
-    final String message = "Failed to move maps with internal error :" + errorCode;
+    final String message = "Failed to move maps with internal error: " + errorCode;
     final Activity activity = getActivity();
+    if (activity.isFinishing())
+      return;
+
     new AlertDialog.Builder(activity)
         .setTitle(message)
         .setPositiveButton(R.string.report_a_bug, new DialogInterface.OnClickListener()
@@ -84,7 +121,38 @@ public class StoragePathFragment extends BaseMwmListFragment implements StorageP
           {
             Utils.sendSupportMail(activity, message);
           }
-        })
-        .show();
+        }).show();
+  }
+
+  static String getSizeString(long size)
+  {
+    final String units[] = { "Kb", "Mb", "Gb" };
+
+    long current = Constants.KB;
+    int i = 0;
+    for (; i < units.length; ++i)
+    {
+      final long bound = Constants.KB * current;
+      if (size < bound)
+        break;
+
+      current = bound;
+    }
+
+    // left 1 digit after the comma and add postfix string
+    return String.format("%.1f %s", (double) size / current, units[i]);
+  }
+
+  @Override
+  public boolean onBackPressed()
+  {
+    SettingsActivity activity = (SettingsActivity)getActivity();
+    if (activity.onIsMultiPane())
+    {
+      activity.switchToHeader(R.id.group_map);
+      return true;
+    }
+
+    return false;
   }
 }

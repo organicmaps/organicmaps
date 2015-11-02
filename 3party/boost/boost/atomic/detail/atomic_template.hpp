@@ -234,7 +234,7 @@ class base_atomic< bool, int >
 {
 private:
     typedef bool value_type;
-    typedef atomics::detail::operations< storage_size_of< value_type >::value, false > operations;
+    typedef atomics::detail::operations< 1u, false > operations;
 
 protected:
     typedef value_type value_arg_type;

@@ -38,7 +38,7 @@ namespace boost { namespace fusion
                 typename Iterator::iterator_type>::type
             type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type
             call(Iterator)
             {
@@ -53,7 +53,7 @@ namespace boost { namespace fusion
                 typename mpl::next<typename Iterator::iterator_type>::type> 
             type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type
             call(Iterator)
             {
@@ -68,7 +68,7 @@ namespace boost { namespace fusion
                 typename mpl::prior<typename Iterator::iterator_type>::type> 
             type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type
             call(Iterator)
             {
@@ -83,7 +83,7 @@ namespace boost { namespace fusion
                 typename mpl::advance<typename Iterator::iterator_type, N>::type>
             type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type
             call(Iterator const& /*i*/)
             {
@@ -104,7 +104,7 @@ namespace boost { namespace fusion
                 >::type
             type;
             
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type
             call(I1 const&, I2 const&)
             {
@@ -113,6 +113,15 @@ namespace boost { namespace fusion
         };
     };
 }}
+
+#ifdef BOOST_FUSION_WORKAROUND_FOR_LWG_2408
+namespace std
+{
+    template <typename Iterator>
+    struct iterator_traits< ::boost::fusion::mpl_iterator<Iterator> >
+    { };
+}
+#endif
 
 #endif
 

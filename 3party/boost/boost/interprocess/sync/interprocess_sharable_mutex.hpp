@@ -15,7 +15,11 @@
 #ifndef BOOST_INTERPROCESS_SHARABLE_MUTEX_HPP
 #define BOOST_INTERPROCESS_SHARABLE_MUTEX_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -109,7 +113,7 @@ class interprocess_sharable_mutex
    //!Throws: An exception derived from interprocess_exception on error.
    void unlock_sharable();
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    typedef scoped_lock<interprocess_mutex> scoped_lock_t;
 
@@ -155,10 +159,10 @@ class interprocess_sharable_mutex
          = ~(unsigned(1) << (sizeof(unsigned)*CHAR_BIT-1));
    };
    typedef base_constants_t<0> constants;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
 template <int Dummy>
 const unsigned interprocess_sharable_mutex::base_constants_t<Dummy>::max_readers;
@@ -335,7 +339,7 @@ inline void interprocess_sharable_mutex::unlock_sharable()
    }
 }
 
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 }  //namespace interprocess {
 }  //namespace boost {

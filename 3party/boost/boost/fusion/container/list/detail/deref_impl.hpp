@@ -27,18 +27,18 @@ namespace boost { namespace fusion
         struct deref_impl<cons_iterator_tag>
         {
             template <typename Iterator>
-            struct apply 
+            struct apply
             {
                 typedef typename Iterator::cons_type cons_type;
                 typedef typename cons_type::car_type value_type;
-    
+
                 typedef typename mpl::eval_if<
                     is_const<cons_type>
                   , add_reference<typename add_const<value_type>::type>
                   , add_reference<value_type> >::type
                 type;
-    
-                BOOST_FUSION_GPU_ENABLED
+
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Iterator const& i)
                 {

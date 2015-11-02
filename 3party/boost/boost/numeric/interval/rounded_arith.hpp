@@ -68,8 +68,8 @@ struct rounded_arith_std: Rounding {
   { BOOST_NUMERIC_INTERVAL_using_math(sqrt); BOOST_DN(sqrt(x)); }
   T sqrt_up  (const T& x)
   { BOOST_NUMERIC_INTERVAL_using_math(sqrt); BOOST_UP(sqrt(x)); }
-  T int_down(const T& x) { this->downward(); return to_int(x); }
-  T int_up  (const T& x) { this->upward();   return to_int(x); }
+  T int_down(const T& x) { this->downward(); return this->to_int(x); }
+  T int_up  (const T& x) { this->upward();   return this->to_int(x); }
 # undef BOOST_DN
 # undef BOOST_NR
 # undef BOOST_UP
@@ -105,8 +105,8 @@ struct rounded_arith_opp: Rounding {
   { BOOST_NUMERIC_INTERVAL_using_math(sqrt); BOOST_DN(sqrt(x)); }
   T sqrt_up  (const T& x)
   { BOOST_NUMERIC_INTERVAL_using_math(sqrt); BOOST_UP(sqrt(x)); }
-  T int_down(const T& x) { return -to_int(-x); }
-  T int_up  (const T& x) { return to_int(x); }
+  T int_down(const T& x) { return -this->to_int(-x); }
+  T int_up  (const T& x) { return  this->to_int(x); }
 # undef BOOST_DN
 # undef BOOST_NR
 # undef BOOST_UP

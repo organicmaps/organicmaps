@@ -27,16 +27,19 @@
 #endif
 #include <boost/thread/detail/delete.hpp>
 
-#ifdef _POSIX_TIMEOUTS
-#if _POSIX_TIMEOUTS >= 0 && _POSIX_TIMEOUTS>=200112L
+#if (defined _POSIX_TIMEOUTS && (_POSIX_TIMEOUTS-0)>=200112L) \
+ || (defined __ANDROID__ && defined __ANDROID_API__ && __ANDROID_API__ >= 21)
 #ifndef BOOST_PTHREAD_HAS_TIMEDLOCK
 #define BOOST_PTHREAD_HAS_TIMEDLOCK
 #endif
 #endif
+
+#if  defined BOOST_HAS_PTHREAD_MUTEXATTR_SETTYPE \
+ ||  defined __ANDROID__
+#define BOOST_THREAD_HAS_PTHREAD_MUTEXATTR_SETTYPE
 #endif
 
-
-#if defined(BOOST_HAS_PTHREAD_MUTEXATTR_SETTYPE) && defined(BOOST_PTHREAD_HAS_TIMEDLOCK)
+#if defined BOOST_THREAD_HAS_PTHREAD_MUTEXATTR_SETTYPE && defined BOOST_PTHREAD_HAS_TIMEDLOCK
 #define BOOST_USE_PTHREAD_RECURSIVE_TIMEDLOCK
 #endif
 
@@ -48,7 +51,7 @@ namespace boost
     {
     private:
         pthread_mutex_t m;
-#ifndef BOOST_HAS_PTHREAD_MUTEXATTR_SETTYPE
+#ifndef BOOST_THREAD_HAS_PTHREAD_MUTEXATTR_SETTYPE
         pthread_cond_t cond;
         bool is_locked;
         pthread_t owner;
@@ -58,7 +61,7 @@ namespace boost
         BOOST_THREAD_NO_COPYABLE(recursive_mutex)
         recursive_mutex()
         {
-#ifdef BOOST_HAS_PTHREAD_MUTEXATTR_SETTYPE
+#ifdef BOOST_THREAD_HAS_PTHREAD_MUTEXATTR_SETTYPE
             pthread_mutexattr_t attr;
 
             int const init_attr_res=pthread_mutexattr_init(&attr);
@@ -99,12 +102,12 @@ namespace boost
         ~recursive_mutex()
         {
             BOOST_VERIFY(!pthread_mutex_destroy(&m));
-#ifndef BOOST_HAS_PTHREAD_MUTEXATTR_SETTYPE
+#ifndef BOOST_THREAD_HAS_PTHREAD_MUTEXATTR_SETTYPE
             BOOST_VERIFY(!pthread_cond_destroy(&cond));
 #endif
         }
 
-#ifdef BOOST_HAS_PTHREAD_MUTEXATTR_SETTYPE
+#ifdef BOOST_THREAD_HAS_PTHREAD_MUTEXATTR_SETTYPE
         void lock()
         {
             BOOST_VERIFY(!pthread_mutex_lock(&m));

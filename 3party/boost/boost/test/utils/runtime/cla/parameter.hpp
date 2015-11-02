@@ -1,6 +1,6 @@
-//  (C) Copyright Gennadiy Rozental 2005-2008.
-//  Use, modification, and distribution are subject to the 
-//  Boost Software License, Version 1.0. (See accompanying file 
+//  (C) Copyright Gennadiy Rozental 2005-2014.
+//  Use, modification, and distribution are subject to the
+//  Boost Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
@@ -12,8 +12,8 @@
 //  Description : defines model of formal parameter
 // ***************************************************************************
 
-#ifndef BOOST_RT_CLA_PARAMETER_HPP_062604GER
-#define BOOST_RT_CLA_PARAMETER_HPP_062604GER
+#ifndef BOOST_TEST_UTILS_RUNTIME_CLA_PARAMETER_HPP
+#define BOOST_TEST_UTILS_RUNTIME_CLA_PARAMETER_HPP
 
 // Boost.Runtime.Parameter
 #include <boost/test/utils/runtime/config.hpp>
@@ -32,7 +32,7 @@
 
 namespace boost {
 
-namespace BOOST_RT_PARAM_NAMESPACE {
+namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE {
 
 namespace cla {
 
@@ -40,7 +40,7 @@ namespace cla {
 // **************            runtime::cla::parameter           ************** //
 // ************************************************************************** //
 
-class parameter : public BOOST_RT_PARAM_NAMESPACE::parameter {
+class parameter : public BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE::parameter {
 public:
     parameter( identification_policy& ID, argument_factory& F, bool optional_value = false )
     : p_optional( false )
@@ -78,9 +78,10 @@ public:
     }
 
     // access methods
-    bool            has_argument() const                        { return m_actual_argument!=0; }
+    bool            has_argument() const                        { return !!m_actual_argument; }
     argument const& actual_argument() const                     { return *m_actual_argument; }
     argument_ptr    actual_argument()                           { return m_actual_argument; }
+    void            reset()                                     { m_actual_argument.reset(); }
 
 
     // identification interface
@@ -88,20 +89,20 @@ public:
     bool            conflict_with( parameter const& p ) const
     {
         return (id_2_report() == p.id_2_report() && !id_2_report().is_empty())  ||
-               m_id_policy.conflict_with( p.m_id_policy )                       || 
+               m_id_policy.conflict_with( p.m_id_policy )                       ||
                ((m_id_policy.p_type_id != p.m_id_policy.p_type_id) && p.m_id_policy.conflict_with( m_id_policy ));
     }
     cstring         id_2_report() const                         { return m_id_policy.id_2_report(); }
     void            usage_info( format_stream& fs ) const
-    { 
+    {
         m_id_policy.usage_info( fs );
         if( p_optional_value )
-            fs << BOOST_RT_PARAM_LITERAL( '[' );
+            fs << BOOST_TEST_UTILS_RUNTIME_PARAM_LITERAL( '[' );
 
         m_arg_factory.argument_usage_info( fs );
 
         if( p_optional_value )
-            fs << BOOST_RT_PARAM_LITERAL( ']' );
+            fs << BOOST_TEST_UTILS_RUNTIME_PARAM_LITERAL( ']' );
     }
 
     // argument match/produce based on input
@@ -143,8 +144,8 @@ operator-( shared_ptr<Parameter> p, Modifier const& m )
 
 } // namespace cla
 
-} // namespace BOOST_RT_PARAM_NAMESPACE
+} // namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE
 
 } // namespace boost
 
-#endif // BOOST_RT_CLA_PARAMETER_HPP_062604GER
+#endif // BOOST_TEST_UTILS_RUNTIME_CLA_PARAMETER_HPP

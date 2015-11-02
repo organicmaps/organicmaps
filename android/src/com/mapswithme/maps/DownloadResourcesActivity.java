@@ -24,6 +24,7 @@ import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
@@ -551,7 +552,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
       org.alohalytics.Statistics.logEvent("MapsWithMeIntentProcessor::process", apiUrl == null ? "null" : apiUrl);
       if (apiUrl != null)
       {
-        Framework.cleanSearchLayerOnMap();
+        SearchEngine.nativeCancelInteractiveSearch();
 
         final ParsedMwmRequest request = ParsedMwmRequest.extractFromIntent(intent);
         ParsedMwmRequest.setCurrentRequest(request);

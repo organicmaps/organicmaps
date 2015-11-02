@@ -11,6 +11,14 @@
 #ifndef BOOST_INTERPROCESS_ANONYMOUS_SHARED_MEMORY_HPP
 #define BOOST_INTERPROCESS_ANONYMOUS_SHARED_MEMORY_HPP
 
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
+
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
 #include <boost/interprocess/creation_tags.hpp>
@@ -35,7 +43,7 @@
 namespace boost {
 namespace interprocess {
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
 namespace ipcdetail{
 
@@ -53,7 +61,7 @@ namespace ipcdetail{
    };
 }
 
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 //!A function that creates an anonymous shared memory segment of size "size".
 //!If "address" is passed the function will try to map the segment in that address.

@@ -491,7 +491,7 @@ inline void simplify(Geometry const& geometry, Geometry& out,
 {
     concept::check<Geometry>();
 
-    simplify(geometry, out, max_distance, default_strategy());
+    geometry::simplify(geometry, out, max_distance, default_strategy());
 }
 
 

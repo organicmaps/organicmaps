@@ -77,7 +77,7 @@ namespace odeint {
          * \param sys The system function (ODE) to solve.
          * \param s The initial state. const_step_iterator stores a reference of s and changes its value during the iteration.
          */
-        const_step_iterator_impl( stepper_type stepper , system_type sys , state_type &s )
+        const_step_iterator_impl( stepper_type stepper , system_type sys , state_type& /* s */ )
             : base_type( stepper , sys ) { }
 
     protected:

@@ -1,4 +1,4 @@
-/* Copyright 2003-2014 Joaquin M Lopez Munoz.
+/* Copyright 2003-2015 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -15,6 +15,7 @@
 
 #include <boost/config.hpp> /* keep it first to prevent nasty warns in MSVC */
 #include <boost/detail/allocator_utilities.hpp>
+#include <boost/multi_index/detail/raw_ptr.hpp>
 #include <utility>
 
 namespace boost{
@@ -143,12 +144,15 @@ public:
 
   static pointer pointer_from(base_pointer x)
   {
-    return static_cast<pointer>(static_cast<hashed_index_node_impl*>(&*x));
+    return static_cast<pointer>(
+      static_cast<hashed_index_node_impl*>(
+        raw_ptr<super*>(x)));
   }
 
   static base_pointer base_pointer_from(pointer x)
   {
-    return static_cast<base_pointer>(&*x);
+    return static_cast<base_pointer>(
+      raw_ptr<hashed_index_node_impl*>(x));
   }
 
 private:
@@ -738,14 +742,18 @@ public:
 
   static hashed_index_node* from_impl(impl_pointer x)
   {
-    return static_cast<hashed_index_node*>(
-      static_cast<trampoline*>(&*x));
+    return
+      static_cast<hashed_index_node*>(
+        static_cast<trampoline*>(
+          raw_ptr<impl_type*>(x)));
   }
 
   static const hashed_index_node* from_impl(const_impl_pointer x)
   {
-    return static_cast<const hashed_index_node*>(
-      static_cast<const trampoline*>(&*x));
+    return
+      static_cast<const hashed_index_node*>(
+        static_cast<const trampoline*>(
+          raw_ptr<const impl_type*>(x)));
   }
 
   /* interoperability with hashed_index_iterator */

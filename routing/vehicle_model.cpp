@@ -63,7 +63,7 @@ bool VehicleModel::IsOneWay(feature::TypesHolder const & types) const
 
 bool VehicleModel::IsRoad(FeatureType const & f) const
 {
-  return IsRoad(feature::TypesHolder(f));
+  return (f.GetFeatureType() == feature::GEOM_LINE) && IsRoad(feature::TypesHolder(f));
 }
 
 bool VehicleModel::IsRoad(uint32_t type) const

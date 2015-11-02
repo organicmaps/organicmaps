@@ -478,13 +478,35 @@
 
 "share_my_location" = "Helyzetem megosztása";
 
-"become_a_pro" = "Frissítés most";
-
 "menu_search" = "Keresés";
+
+/* Settings screen: "Map" category title */
+"prefs_group_map" = "Map";
+
+/* Settings screen: "Route" category title */
+"prefs_group_route" = "Route";
+
+/* Settings screen: "Miscellaneous" category title */
+"prefs_group_misc" = "Miscellaneous";
 
 "pref_zoom_title" = "Nagyítás/kicsinyítés gombok";
 
 "pref_zoom_summary" = "Mutassa a kijelzőn";
+
+/* Settings «Map» category: «Map style» title */
+"pref_map_style_title" = "Map style";
+
+/* Settings «Map» category: «Map style» summary */
+"pref_map_style_summary" = "Change map presentation";
+
+/* «Map style» entry value */
+"pref_map_style_classic_light" = "Classic light";
+
+/* «Map style» entry value */
+"pref_map_style_classic_dark" = "Classic dark";
+
+/* «Map style» entry value */
+"pref_map_style_modern_light" = "Modern light";
 
 "placepage_distance" = "Távolság";
 
@@ -558,6 +580,12 @@
 "settings_and_more" = "Beállítások és egyéb";
 
 /* Text in menu */
+"website" = "Website";
+
+/* Text in menu */
+"blog" = "Blog";
+
+/* Text in menu */
 "maps_me_community" = "MAPS.ME közösség";
 
 /* Text in menu */
@@ -569,11 +597,26 @@
 /* Text in menu */
 "contact_us" = "Kapcsolat";
 
+/* Settings: Send feedback button and dialog title */
+"feedback" = "Feedback";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "General feedback";
+
 /* Text in menu */
 "subscribe_to_news" = "Iratkozz fel hírlevelünkre";
 
 /* Text in menu */
 "rate_the_app" = "Értékeld az alkalmazást";
+
+/* Rate in Google Play (Android only) */
+"rate_gp" = "Rate on Google Play";
+
+/* Share with friends: menu item title */
+"tell_friends" = "Tell a Friend";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "Hi! Install Maps.me!";
 
 /* Text in menu */
 "help" = "Segítség";
@@ -589,6 +632,9 @@
 
 /* Email body */
 "subscribe_me_body" = "Elsőként szeretnék értesülni a legújabb hírekről frissítésekről és promóciókról. A feliratkozásom bármikor törölhetem.";
+
+/* About short text (below logo) */
+"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
 "about_text" = "A MAPS.ME kínálja a leggyorsabb offline térképeket, a világ összes városáról és országáról. Utazz magabiztosan: bárhol is vagy, a MAPS.ME segít, hogy megtaláld magad a térképen, valamint segít a legközelebbi étterem, hotel, bank, benzinkút stb. felkutatásában is. Nem igényel internet kapcsolatot.\n\nMindig dolgozunk új fejlesztéseken és örömmel vennénk a te véleményedet is arról, hogyan tudnánk tovább fejleszteni a MAPS.ME-t. Bármely probléma esetén írj nekünk a support@maps.me e-mail címre. Minden levélre válaszolunk!\n\nSzereted a MAPS.ME-t és szeretnél támogatni minket? Van erre pár egyszerű és teljesen ingyenes lehetőséged:\n\n- írj rólunk értékelést az App Market-en\n- kedveld a Facebook oldalunkat: http://www.facebook.com/mapswithme\n- vagy csak mesélj a MAPS.ME-ről anyukádnak, barátaidnak és munkatársaidnak :)\n\nKöszönjük, hogy velünk vagy. Nagyra értékeljük támogatásodat!\n\nU.i: Adatainkat az OpenStreetMap-ről vesszük, ami egy, a Wikipedia-hoz hasonló térképes projekt, ami megengedi felhasználóinak a térképek létrehozását és szerkesztését. Ha bármi hiányzik vagy rossz a térképpel, közvetlenül te is kijavíthatod a http://openstreetmap.org-on és változtatásaid a MAPS.ME következő verziójában már meg fognak jelenni.";
@@ -1268,11 +1314,5 @@
 "search_history_title" = "Előző keresések";
 
 "search_history_text" = "Aktuális keresés gyors elérése.";
-
-"update_maps_alert_title" = "Egyszerűbbé vált a navigálás";
-
-"update_maps_alert_message" = "Javítottunk a térképek stílusán: mostantól minden objektum barátságosabban és érthetőbben néz ki. Frissítse fel a térképeket az új design összes előnyének kihasználása érdekében.";
-
-"update_maps_alert_button_title" = "Térképek frissítése";
 
 "clear_search" = "A keresési előzmények törlése";

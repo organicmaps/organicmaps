@@ -8,6 +8,7 @@ import android.support.v4.app.NavUtils;
 
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
+import com.mapswithme.maps.base.OnBackPressListener;
 
 public class SearchActivity extends BaseMwmFragmentActivity implements CustomNavigateUpListener
 {
@@ -37,5 +38,16 @@ public class SearchActivity extends BaseMwmFragmentActivity implements CustomNav
     }
 
     manager.popBackStack();
+  }
+
+  @Override
+  public void onBackPressed()
+  {
+    final Fragment fragment = getSupportFragmentManager().findFragmentByTag(getFragmentClass().getName());
+    if (fragment != null && fragment.isAdded() &&
+        fragment instanceof OnBackPressListener && ((OnBackPressListener) fragment).onBackPressed())
+      return;
+
+    super.onBackPressed();
   }
 }

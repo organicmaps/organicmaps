@@ -7,7 +7,11 @@
 #if !defined(BOOST_SPIRIT_X3_ERROR_REPORTING_MAY_19_2014_00405PM)
 #define BOOST_SPIRIT_X3_ERROR_REPORTING_MAY_19_2014_00405PM
 
+#ifndef BOOST_SPIRIT_X3_NO_FILESYSTEM
 #include <boost/filesystem/path.hpp>
+#endif
+
+#include <boost/locale/encoding_utf.hpp>
 #include <boost/spirit/home/x3/support/ast/position_tagged.hpp>
 #include <ostream>
 
@@ -15,6 +19,9 @@
 
 namespace boost { namespace spirit { namespace x3
 {
+    // tag used to get our error handler from the context
+    struct error_handler_tag;
+
     template <typename Iterator>
     class error_handler
     {
@@ -37,11 +44,7 @@ namespace boost { namespace spirit { namespace x3
         void operator()(position_tagged pos, std::string const& message) const
         {
             auto where = pos_cache.position_of(pos);
-            (*this)(
-                where.begin()
-              , where.end()
-              , message
-            );
+            (*this)(where.begin(), where.end(), message);
         }
 
         template <typename AST>
@@ -49,20 +52,16 @@ namespace boost { namespace spirit { namespace x3
         {
             return pos_cache.annotate(ast, first, last);
         }
-//
-//        void operator()(
-//            Iterator first
-//          , Iterator last
-//          , Iterator err_op
-//          , Iterator err_first
-//          , Iterator err_last
-//          , std::string const& error_message
-//        ) const;
+
+        boost::iterator_range<Iterator> position_of(position_tagged pos) const
+        {
+            return pos_cache.position_of(pos);
+        }
 
     private:
 
         void print_file_line(std::size_t line) const;
-        void print_line(Iterator& line_start, Iterator last) const;
+        void print_line(Iterator line_start, Iterator last) const;
         void print_indicator(Iterator& line_start, Iterator last, char ind) const;
         void skip_whitespace(Iterator& err_pos, Iterator last) const;
         void skip_non_whitespace(Iterator& err_pos, Iterator last) const;
@@ -78,29 +77,39 @@ namespace boost { namespace spirit { namespace x3
     template <typename Iterator>
     void error_handler<Iterator>::print_file_line(std::size_t line) const
     {
-        namespace fs = boost::filesystem;
-
         if (file != "")
+        {
+#ifdef BOOST_SPIRIT_X3_NO_FILESYSTEM
+            err_out << "In file " << file << ", ";
+#else
+            namespace fs = boost::filesystem;
             err_out << "In file " << fs::path(file).generic_string() << ", ";
+#endif
+        }
         else
+        {
             err_out << "In ";
+        }
 
         err_out << "line " << line << ':' << std::endl;
     }
 
     template <typename Iterator>
-    void error_handler<Iterator>::print_line(Iterator& start, Iterator last) const
+    void error_handler<Iterator>::print_line(Iterator start, Iterator last) const
     {
-        for (; start != last; ++start)
+        auto end = start;
+        while (end != last)
         {
-            auto c = *start;
+            auto c = *end;
             if (c == '\r' || c == '\n')
                 break;
             else
-                err_out << c;
+                ++end;
         }
-        err_out << std::endl;
-   }
+        typedef typename std::iterator_traits<Iterator>::value_type char_type;
+        std::basic_string<char_type> line{start, end};
+        err_out << locale::conv::utf_to_utf<char>(line) << std::endl;
+    }
 
     template <typename Iterator>
     void error_handler<Iterator>::print_indicator(Iterator& start, Iterator last, char ind) const
@@ -159,8 +168,25 @@ namespace boost { namespace spirit { namespace x3
     template <typename Iterator>
     std::size_t error_handler<Iterator>::position(Iterator i) const
     {
-        // $$$ asumes iterator is similar to line_pos_iterator $$$
-        return i.position();
+        std::size_t line { 1 };
+        typename std::iterator_traits<Iterator>::value_type prev { 0 };
+
+        for (Iterator pos = pos_cache.first(); pos != i; ++pos) {
+            auto c = *pos;
+            switch (c) {
+            case '\n':
+                if (prev != '\r') ++line;
+                break;
+            case '\r':
+                if (prev != '\n') ++line;
+                break;
+            default:
+                break;
+            }
+            prev = c;
+        }
+
+        return line;
     }
 
     template <typename Iterator>
@@ -179,8 +205,7 @@ namespace boost { namespace spirit { namespace x3
         Iterator start = get_line_start(first, err_pos);
         if (start != first)
             ++start;
-        Iterator i = start;
-        print_line(i, last);
+        print_line(start, last);
         print_indicator(start, err_pos, '_');
         err_out << "^_" << std::endl;
     }
@@ -201,40 +226,11 @@ namespace boost { namespace spirit { namespace x3
         Iterator start = get_line_start(first, err_first);
         if (start != first)
             ++start;
-        Iterator i = start;
-        print_line(i, last);
+        print_line(start, last);
         print_indicator(start, err_first, ' ');
         print_indicator(start, err_last, '~');
         err_out << " <<-- Here" << std::endl;
     }
-//
-//    template <typename Iterator>
-//    void error_handler<Iterator>::operator()(
-//        Iterator first
-//      , Iterator last
-//      , Iterator err_op
-//      , Iterator err_first
-//      , Iterator err_last
-//      , std::string const& error_message
-//    ) const
-//    {
-//        // make sure err_pos does not point to white space
-//        skip_whitespace(err_first, last);
-//
-//        print_file_line(position(err_pos));
-//        err_out << error_message << std::endl;
-//
-//        Iterator start = get_line_start(first, err_first);
-//        if (start != first)
-//            ++start;
-//        Iterator i = start;
-//        print_line(i, last);
-//        print_indicator(start, err_first, ' ');
-//        print_indicator(start, err_op, '~');
-//        err_out << '^';
-//        print_indicator(++start, err_last, '~');
-//        err_out << " <<-- Here" << std::endl;
-//    }
 
 }}}
 

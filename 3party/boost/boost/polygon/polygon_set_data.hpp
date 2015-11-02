@@ -209,6 +209,9 @@ namespace boost { namespace polygon {
         return;
       }
       int wmultiplier = (winding == COUNTERCLOCKWISE) ? 1 : -1;
+      if (is_hole) {
+        wmultiplier = -wmultiplier;
+      }
       dirty_ = true;
       unsorted_ = true;
       while (vertex0 != end_vertex) {

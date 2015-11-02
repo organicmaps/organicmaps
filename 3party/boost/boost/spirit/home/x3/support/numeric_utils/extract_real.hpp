@@ -9,10 +9,6 @@
 #if !defined(SPIRIT_EXTRACT_REAL_APRIL_18_2006_0901AM)
 #define SPIRIT_EXTRACT_REAL_APRIL_18_2006_0901AM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <cmath>
 #include <boost/limits.hpp>
 #include <boost/type_traits/is_same.hpp>

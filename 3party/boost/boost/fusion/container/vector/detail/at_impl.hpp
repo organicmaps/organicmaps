@@ -31,7 +31,7 @@ namespace boost { namespace fusion
                 typedef typename mpl::at<typename Sequence::types, N>::type element;
                 typedef typename detail::ref_result<element>::type type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& v)
                 {
@@ -46,7 +46,7 @@ namespace boost { namespace fusion
                 typedef typename mpl::at<typename Sequence::types, N>::type element;
                 typedef typename detail::cref_result<element>::type type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence const& v)
                 {

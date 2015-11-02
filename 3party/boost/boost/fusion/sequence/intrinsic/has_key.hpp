@@ -68,7 +68,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Key, typename Sequence>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::has_key<Sequence, Key>::type
     has_key(Sequence const&)
     {

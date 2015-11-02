@@ -255,13 +255,13 @@ public:
 
     BOOST_EXPLICIT_OPERATOR_BOOL();
 
-    bool operator!() const BOOST_NOEXCEPT
+    inline bool operator!() const BOOST_NOEXCEPT
     { return 0 == impl_; }
 
-    void swap( symmetric_coroutine_yield & other) BOOST_NOEXCEPT
+    inline void swap( symmetric_coroutine_yield & other) BOOST_NOEXCEPT
     { std::swap( impl_, other.impl_); }
 
-    symmetric_coroutine_yield & operator()()
+    inline symmetric_coroutine_yield & operator()()
     {
         impl_->yield();
         return * this;

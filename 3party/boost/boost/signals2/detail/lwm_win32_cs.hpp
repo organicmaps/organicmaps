@@ -55,7 +55,7 @@ extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSectionEx(crit
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(critical_section *);
 #endif
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(critical_section *);
-extern "C" __declspec(dllimport) bool __stdcall TryEnterCriticalSection(critical_section *);
+extern "C" __declspec(dllimport) int __stdcall TryEnterCriticalSection(critical_section *);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(critical_section *);
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(critical_section *);
 

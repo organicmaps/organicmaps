@@ -9,10 +9,6 @@
 #if !defined(BOOST_SPIRIT_X3_POW10_DECEMBER_26_2008_1118AM)
 #define BOOST_SPIRIT_X3_POW10_DECEMBER_26_2008_1118AM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/config/no_tr1/cmath.hpp>
 #include <boost/limits.hpp>
 #include <boost/spirit/home/x3/support/unused.hpp>

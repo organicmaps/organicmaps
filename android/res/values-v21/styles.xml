@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <style name="MwmWidget.FrameLayout.Elevation"/>
-
-  <style name="MwmWidget.Floating">
-    <item name="android:elevation">@dimen/appbar_elevation</item>
-  </style>
-</resources>

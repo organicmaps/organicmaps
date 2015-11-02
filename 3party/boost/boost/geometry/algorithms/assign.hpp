@@ -281,7 +281,7 @@ struct assign<variant<BOOST_VARIANT_ENUM_PARAMS(T)>, Geometry2>
     apply(variant<BOOST_VARIANT_ENUM_PARAMS(T)>& geometry1,
           Geometry2 const& geometry2)
     {
-        return apply_visitor(visitor(geometry2), geometry1);
+        return boost::apply_visitor(visitor(geometry2), geometry1);
     }
 };
     
@@ -313,7 +313,7 @@ struct assign<Geometry1, variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
     apply(Geometry1& geometry1,
           variant<BOOST_VARIANT_ENUM_PARAMS(T)> const& geometry2)
     {
-        return apply_visitor(visitor(geometry1), geometry2);
+        return boost::apply_visitor(visitor(geometry1), geometry2);
     }
 };
     
@@ -341,7 +341,7 @@ struct assign<variant<BOOST_VARIANT_ENUM_PARAMS(T1)>, variant<BOOST_VARIANT_ENUM
     apply(variant<BOOST_VARIANT_ENUM_PARAMS(T1)>& geometry1,
           variant<BOOST_VARIANT_ENUM_PARAMS(T2)> const& geometry2)
     {
-        return apply_visitor(visitor(), geometry1, geometry2);
+        return boost::apply_visitor(visitor(), geometry1, geometry2);
     }
 };
     

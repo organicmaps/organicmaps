@@ -35,7 +35,7 @@ namespace boost { namespace fusion
     }
 
     template <typename ...Key, typename ...T>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline map<fusion::pair<Key, T&>...>
     map_tie(T&... arg)
     {

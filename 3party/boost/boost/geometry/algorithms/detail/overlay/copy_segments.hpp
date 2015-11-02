@@ -61,7 +61,7 @@ struct copy_segments_ring
     >
     static inline void apply(Ring const& ring,
             SegmentIdentifier const& seg_id,
-            signed_index_type to_index,
+            signed_size_type to_index,
             RobustPolicy const& robust_policy,
             RangeOut& current_output)
     {
@@ -90,10 +90,10 @@ struct copy_segments_ring
 
         // So we use the ever-circling iterator and determine when to step out
 
-        signed_index_type const from_index = seg_id.segment_index + 1;
+        signed_size_type const from_index = seg_id.segment_index + 1;
 
         // Sanity check
-        BOOST_GEOMETRY_ASSERT(from_index < static_cast<signed_index_type>(boost::size(view)));
+        BOOST_GEOMETRY_ASSERT(from_index < static_cast<signed_size_type>(boost::size(view)));
 
         ec_iterator it(boost::begin(view), boost::end(view),
                     boost::begin(view) + from_index);
@@ -101,12 +101,12 @@ struct copy_segments_ring
         // [2..4] -> 4 - 2 + 1 = 3 -> {2,3,4} -> OK
         // [4..2],size=6 -> 6 - 4 + 2 + 1 = 5 -> {4,5,0,1,2} -> OK
         // [1..1], travel the whole ring round
-        signed_index_type const count = from_index <= to_index
+        signed_size_type const count = from_index <= to_index
             ? to_index - from_index + 1
-            : static_cast<signed_index_type>(boost::size(view))
+            : static_cast<signed_size_type>(boost::size(view))
                 - from_index + to_index + 1;
 
-        for (signed_index_type i = 0; i < count; ++i, ++it)
+        for (signed_size_type i = 0; i < count; ++i, ++it)
         {
             detail::overlay::append_no_dups_or_spikes(current_output, *it, robust_policy);
         }
@@ -148,26 +148,26 @@ public:
     >
     static inline void apply(LineString const& ls,
             SegmentIdentifier const& seg_id,
-            signed_index_type to_index,
+            signed_size_type to_index,
             RobustPolicy const& robust_policy,
             RangeOut& current_output)
     {
-        signed_index_type const from_index = seg_id.segment_index + 1;
+        signed_size_type const from_index = seg_id.segment_index + 1;
 
         // Sanity check
         if ( from_index > to_index
           || from_index < 0
-          || to_index >= static_cast<signed_index_type>(boost::size(ls)) )
+          || to_index >= static_cast<signed_size_type>(boost::size(ls)) )
         {
             return;
         }
 
-        signed_index_type const count = to_index - from_index + 1;
+        signed_size_type const count = to_index - from_index + 1;
 
         typename boost::range_iterator<LineString const>::type
             it = boost::begin(ls) + from_index;
 
-        for (signed_index_type i = 0; i < count; ++i, ++it)
+        for (signed_size_type i = 0; i < count; ++i, ++it)
         {
             append_to_output(current_output, *it, robust_policy,
                              boost::integral_constant<bool, RemoveSpikes>());
@@ -187,7 +187,7 @@ struct copy_segments_polygon
     >
     static inline void apply(Polygon const& polygon,
             SegmentIdentifier const& seg_id,
-            signed_index_type to_index,
+            signed_size_type to_index,
             RobustPolicy const& robust_policy,
             RangeOut& current_output)
     {
@@ -217,14 +217,14 @@ struct copy_segments_box
     >
     static inline void apply(Box const& box,
             SegmentIdentifier const& seg_id,
-            signed_index_type to_index,
+            signed_size_type to_index,
             RobustPolicy const& robust_policy,
             RangeOut& current_output)
     {
-        signed_index_type index = seg_id.segment_index + 1;
+        signed_size_type index = seg_id.segment_index + 1;
         BOOST_GEOMETRY_ASSERT(index < 5);
 
-        signed_index_type const count = index <= to_index
+        signed_size_type const count = index <= to_index
             ? to_index - index + 1
             : 5 - index + to_index + 1;
 
@@ -235,7 +235,7 @@ struct copy_segments_box
 
         // (possibly cyclic) copy to output
         //    (see comments in ring-version)
-        for (signed_index_type i = 0; i < count; i++, index++)
+        for (signed_size_type i = 0; i < count; i++, index++)
         {
             detail::overlay::append_no_dups_or_spikes(current_output,
                 bp[index % 5], robust_policy);
@@ -257,7 +257,7 @@ struct copy_segments_multi
     >
     static inline void apply(MultiGeometry const& multi_geometry,
             SegmentIdentifier const& seg_id,
-            signed_index_type to_index,
+            signed_size_type to_index,
             RobustPolicy const& robust_policy,
             RangeOut& current_output)
     {
@@ -265,7 +265,7 @@ struct copy_segments_multi
         BOOST_GEOMETRY_ASSERT
             (
                 seg_id.multi_index >= 0
-                && seg_id.multi_index < int(boost::size(multi_geometry))
+                && static_cast<std::size_t>(seg_id.multi_index) < boost::size(multi_geometry)
             );
 
         // Call the single-version
@@ -345,7 +345,7 @@ template
 >
 inline void copy_segments(Geometry const& geometry,
             SegmentIdentifier const& seg_id,
-            signed_index_type to_index,
+            signed_size_type to_index,
             RobustPolicy const& robust_policy,
             RangeOut& range_out)
 {

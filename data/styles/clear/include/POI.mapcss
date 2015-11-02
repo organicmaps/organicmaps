@@ -209,7 +209,7 @@ node|z19-[amenity=recycling], area|z19-[amenity=recycling], { icon-image: recycl
 
 /* LEISURE */
 /* node|z18-[leisure] {  } */
-node|z18-[leisure], area|z18-[leisure] { font-size: 10; text: tourism; text-color: @poi_label; }
+node|z18-[leisure], area|z18-[leisure] { font-size: 10; text: name; text-color: @poi_label; }
 
 node|z16[leisure=stadium] { icon-image: pitch-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z17-[leisure=stadium] { icon-image: pitch-l.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }

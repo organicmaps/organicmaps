@@ -2,7 +2,11 @@ package com.mapswithme.util.statistics;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.util.Log;
+
 import com.facebook.appevents.AppEventsLogger;
 import com.flurry.android.FlurryAgent;
 import com.mapswithme.country.ActiveCountryTree;
@@ -10,20 +14,21 @@ import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.api.ParsedMwmRequest;
+import com.mapswithme.util.Config;
+import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.SimpleLogger;
 import com.mapswithme.util.log.StubLogger;
-import ru.mail.android.mytracker.MRMyTracker;
-import ru.mail.android.mytracker.MRMyTrackerParams;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import ru.mail.android.mytracker.MRMyTracker;
+import ru.mail.android.mytracker.MRMyTrackerParams;
+
 public enum Statistics
 {
   INSTANCE;
-
-  private final static String KEY_STAT_ENABLED = "StatisticsEnabled";
 
   private final Logger mLogger = BuildConfig.DEBUG ? SimpleLogger.get("MwmStatistics") : StubLogger.get();
 
@@ -48,18 +53,28 @@ public enum Statistics
     public static final String WIFI_CONNECTED = "Wifi connected";
     public static final String DOWNLOAD_COUNTRY_NOTIFICATION_SHOWN = "Download country notification shown";
     public static final String DOWNLOAD_COUNTRY_NOTIFICATION_CLICKED = "Download country notification clicked";
-    // settings
-    public static final String SETTINGS_CONTACT_US = "Send mail at info@maps.me";
-    public static final String SETTINGS_MAIL_SUBSCRIBE = "Settings. Subscribed";
-    public static final String SETTINGS_REPORT_BUG = "Settings. Bug reported";
-    public static final String SETTINGS_RATE = "Settings. Rate app called";
-    public static final String SETTINGS_FB = "Settings. Go to FB.";
-    public static final String SETTINGS_TWITTER = "Settings. Go to twitter.";
-    public static final String SETTINGS_HELP = "Settings. Help.";
-    public static final String SETTINGS_ABOUT = "Settings. About.";
-    public static final String SETTINGS_COPYRIGHT = "Settings. Copyright.";
-    public static final String SETTINGS_COMMUNITY = "Settings. Community.";
-    public static final String SETTINGS_CHANGE_SETTING = "Settings. Change settings.";
+    public static final String ACTIVE_CONNECTION = "Connection";
+
+    public static class Settings
+    {
+      public static final String WEB_SITE = "Setings. Go to website";
+      public static final String WEB_BLOG = "Setings. Go to blog";
+      public static final String FEEDBACK_GENERAL = "Send general feedback to android@maps.me";
+      public static final String SUBSCRIBE = "Settings. Subscribed";
+      public static final String REPORT_BUG = "Settings. Bug reported";
+      public static final String RATE = "Settings. Rate app called";
+      public static final String TELL_FRIEND = "Settings. Tell to friend";
+      public static final String FACEBOOK = "Settings. Go to FB.";
+      public static final String TWITTER = "Settings. Go to twitter.";
+      public static final String HELP = "Settings. Help.";
+      public static final String ABOUT = "Settings. About.";
+      public static final String COPYRIGHT = "Settings. Copyright.";
+      public static final String GROUP_MAP = "Settings. Group: map.";
+      public static final String GROUP_MISC = "Settings. Group: misc.";
+
+      private Settings() {}
+    }
+
     public static final String SEARCH_KEY_CLICKED = "Search key pressed.";
     public static final String SEARCH_ON_MAP_CLICKED = "Search on map clicked.";
     public static final String STATISTICS_STATUS_CHANGED = "Statistics status changed";
@@ -69,8 +84,8 @@ public enum Statistics
     public static final String FACEBOOK_INVITE_LATER = "Facebook invites dialog cancelled.";
     public static final String FACEBOOK_INVITE_INVITED = "GPlay dialog cancelled.";
     public static final String RATE_DIALOG_RATED = "GPlay dialog. Rating set";
-    public static final String NEW_STYLE_DIALOG_RATED = "New style. Rated.";
-    public static final String NEW_STYLE_DIALOG_CANCELLED = "New style. Cancelled.";
+
+    private EventName() {}
   }
 
   public static class EventParam
@@ -85,6 +100,11 @@ public enum Statistics
     public static final String DELAY_MILLIS = "Delay in milliseconds";
     public static final String ENABLED = "Enabled";
     public static final String RATING = "Rating";
+    public static final String CONNECTION_TYPE = "Connection name";
+    public static final String CONNECTION_FAST = "Connection fast";
+    public static final String CONNECTION_METERED = "Connection limit";
+
+    private EventParam() {}
   }
 
   private static class MyTrackerParams
@@ -101,7 +121,7 @@ public enum Statistics
 
   Statistics()
   {
-    mEnabled = isStatisticsEnabled();
+    mEnabled = Config.isStatisticsEnabled();
     final Context context = MwmApplication.get();
     // At the moment we need special handling for Alohalytics to enable/disable logging of events in core C++ code.
     if (mEnabled)
@@ -227,6 +247,24 @@ public enum Statistics
     post(eventName);
   }
 
+  public void trackConnectionState()
+  {
+    if (ConnectionState.isConnected())
+    {
+      final NetworkInfo info = ConnectionState.getActiveNetwork();
+      boolean isConnectionMetered = false;
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+        isConnectionMetered = ((ConnectivityManager) MwmApplication.get().getSystemService(Context.CONNECTIVITY_SERVICE)).isActiveNetworkMetered();
+      //noinspection ConstantConditions
+      post(EventName.ACTIVE_CONNECTION,
+           new String[]{EventParam.CONNECTION_TYPE, info.getTypeName() + ":" + info.getSubtypeName(),
+               EventParam.CONNECTION_FAST, String.valueOf(ConnectionState.isConnectionFast(info)),
+               EventParam.CONNECTION_METERED, String.valueOf(isConnectionMetered)});
+    }
+    else
+      post(EventName.ACTIVE_CONNECTION, new String[]{EventParam.CONNECTION_TYPE, "Not connected."});
+  }
+
   public void myTrackerTrackMapDownload()
   {
     myTrackerTrackMapChange(MyTrackerParams.MY_MAP_DOWNLOAD);
@@ -262,6 +300,7 @@ public enum Statistics
   {
     if (mEnabled)
     {
+      //noinspection ConstantConditions
       FlurryAgent.setLogLevel(BuildConfig.DEBUG ? Log.DEBUG : Log.ERROR);
       FlurryAgent.setVersionName(BuildConfig.VERSION_NAME);
       FlurryAgent.setCaptureUncaughtExceptions(false);
@@ -292,19 +331,13 @@ public enum Statistics
     }
   }
 
-  // This method is used to display user setting's preference and initialize
-  // actual state of statistics (see mEnabled in constructor).
-  public boolean isStatisticsEnabled()
-  {
-    return MwmApplication.get().nativeGetBoolean(KEY_STAT_ENABLED, !BuildConfig.DEBUG);
-  }
-
   public void setStatEnabled(boolean isEnabled)
   {
-    final MwmApplication theApp = MwmApplication.get();
-    // We track if user turned on/off statistics to understand data better.
-    post(EventName.STATISTICS_STATUS_CHANGED + " " + theApp.getFirstInstallFlavor(),
-        new String[]{EventParam.ENABLED, String.valueOf(isEnabled)});
-    theApp.nativeSetBoolean(KEY_STAT_ENABLED, isEnabled);
+    Config.setStatisticsEnabled(isEnabled);
+
+    // We track if user turned on/off
+    // statistics to understand data better.
+    post(EventName.STATISTICS_STATUS_CHANGED + " " + Config.getInstallFlavor(),
+         new String[] { EventParam.ENABLED, String.valueOf(isEnabled) });
   }
 }

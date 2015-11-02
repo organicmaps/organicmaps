@@ -45,7 +45,7 @@ UNIT_TEST(FBuilder_ManyTypes)
   params.FinishAddingTypes();
   params.AddHouseNumber("75");
   params.AddHouseName("Best House");
-  params.name.AddString(0, "Name");
+  params.AddName("default", "Name");
 
   fb1.SetParams(params);
   fb1.SetCenter(m2::PointD(0, 0));
@@ -105,12 +105,24 @@ UNIT_TEST(FVisibility_RemoveNoDrawableTypes)
   classificator::Load();
   Classificator const & c = classif();
 
-  vector<uint32_t> types;
-  types.push_back(c.GetTypeByPath({ "building" }));
-  types.push_back(c.GetTypeByPath({ "amenity", "theatre" }));
+  {
+    vector<uint32_t> types;
+    types.push_back(c.GetTypeByPath({ "building" }));
+    types.push_back(c.GetTypeByPath({ "amenity", "theatre" }));
 
-  TEST(feature::RemoveNoDrawableTypes(types, feature::GEOM_AREA), ());
-  TEST_EQUAL(types.size(), 2, ());
+    TEST(feature::RemoveNoDrawableTypes(types, feature::GEOM_AREA), ());
+    TEST_EQUAL(types.size(), 2, ());
+  }
+
+  {
+    vector<uint32_t> types;
+    types.push_back(c.GetTypeByPath({ "amenity" }));
+    types.push_back(c.GetTypeByPath({ "building" }));
+
+    TEST(feature::RemoveNoDrawableTypes(types, feature::GEOM_AREA, true), ());
+    TEST_EQUAL(types.size(), 1, ());
+    TEST_EQUAL(types[0], c.GetTypeByPath({ "building" }), ());
+  }
 }
 
 UNIT_TEST(FBuilder_RemoveUselessNames)
@@ -125,8 +137,8 @@ UNIT_TEST(FBuilder_RemoveUselessNames)
   AddTypes(params, arr2);
   params.FinishAddingTypes();
 
-  params.name.AddString(0, "Name");
-  params.name.AddString(8, "Имя");
+  params.AddName("default", "Name");
+  params.AddName("ru", "Имя");
 
   FeatureBuilder1 fb1;
   fb1.SetParams(params);
@@ -144,4 +156,35 @@ UNIT_TEST(FBuilder_RemoveUselessNames)
   TEST(fb1.GetName(8).empty(), ());
 
   TEST(fb1.CheckValid(), ());
+}
+
+UNIT_TEST(FBuilder_WithoutName)
+{
+  classificator::Load();
+  char const * arr1[][1] = { { "amenity" } };
+
+  {
+    FeatureParams params;
+    AddTypes(params, arr1);
+    params.AddName("default", "Name");
+
+    FeatureBuilder1 fb;
+    fb.SetParams(params);
+    fb.SetCenter(m2::PointD(0, 0));
+
+    TEST(fb.PreSerialize(), ());
+    TEST(fb.RemoveInvalidTypes(), ());
+  }
+
+  {
+    FeatureParams params;
+    AddTypes(params, arr1);
+
+    FeatureBuilder1 fb;
+    fb.SetParams(params);
+    fb.SetCenter(m2::PointD(0, 0));
+
+    TEST(fb.PreSerialize(), ());
+    TEST(!fb.RemoveInvalidTypes(), ());
+  }
 }

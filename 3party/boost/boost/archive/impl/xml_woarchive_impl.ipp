@@ -29,8 +29,8 @@ namespace std{
 } // namespace std
 #endif
 
+#include <boost/archive/xml_woarchive.hpp>
 #include <boost/serialization/throw_exception.hpp>
-#include <boost/serialization/pfto.hpp>
 
 #include <boost/archive/iterators/xml_escape.hpp>
 #include <boost/archive/iterators/wchar_from_mb.hpp>
@@ -38,14 +38,6 @@ namespace std{
 #include <boost/archive/iterators/dataflow_exception.hpp>
 
 #include <boost/archive/add_facet.hpp>
-#ifndef BOOST_NO_CXX11_HDR_CODECVT
-    #include <codecvt>
-    namespace boost { namespace archive { namespace detail {
-        typedef std::codecvt_utf8<wchar_t> utf8_codecvt_facet;
-    } } }
-#else
-    #include <boost/archive/detail/utf8_codecvt_facet.hpp>
-#endif
 
 namespace boost {
 namespace archive {
@@ -60,14 +52,14 @@ void save_iterator(std::wostream &os, InputIterator begin, InputIterator end){
         iterators::xml_escape<InputIterator>
     > xmbtows;
     std::copy(
-        xmbtows(BOOST_MAKE_PFTO_WRAPPER(begin)),
-        xmbtows(BOOST_MAKE_PFTO_WRAPPER(end)),
+        xmbtows(begin),
+        xmbtows(end),
         boost::archive::iterators::ostream_iterator<wchar_t>(os)
     );
 }
 
 template<class Archive>
-BOOST_WARCHIVE_DECL(void)
+BOOST_WARCHIVE_DECL void
 xml_woarchive_impl<Archive>::save(const std::string & s){
     // note: we don't use s.begin() and s.end() because dinkumware
     // doesn't have string::value_type defined. So use a wrapper
@@ -79,47 +71,47 @@ xml_woarchive_impl<Archive>::save(const std::string & s){
 
 #ifndef BOOST_NO_STD_WSTRING
 template<class Archive>
-BOOST_WARCHIVE_DECL(void)
+BOOST_WARCHIVE_DECL void
 xml_woarchive_impl<Archive>::save(const std::wstring & ws){
 #if 0
     typedef iterators::xml_escape<std::wstring::const_iterator> xmbtows;
     std::copy(
-        xmbtows(BOOST_MAKE_PFTO_WRAPPER(ws.begin())),
-        xmbtows(BOOST_MAKE_PFTO_WRAPPER(ws.end())),
+        xmbtows(ws.begin()),
+        xmbtows(ws.end()),
         boost::archive::iterators::ostream_iterator<wchar_t>(os)
     );
 #endif
     typedef iterators::xml_escape<const wchar_t *> xmbtows;
     std::copy(
-        xmbtows(BOOST_MAKE_PFTO_WRAPPER(ws.data())),
-        xmbtows(BOOST_MAKE_PFTO_WRAPPER(ws.data() + ws.size())),
+        xmbtows(ws.data()),
+        xmbtows(ws.data() + ws.size()),
         boost::archive::iterators::ostream_iterator<wchar_t>(os)
     );
 }
 #endif //BOOST_NO_STD_WSTRING
 
 template<class Archive>
-BOOST_WARCHIVE_DECL(void)
+BOOST_WARCHIVE_DECL void
 xml_woarchive_impl<Archive>::save(const char * s){
    save_iterator(os, s, s + std::strlen(s));
 }
 
 #ifndef BOOST_NO_INTRINSIC_WCHAR_T
 template<class Archive>
-BOOST_WARCHIVE_DECL(void)
+BOOST_WARCHIVE_DECL void
 xml_woarchive_impl<Archive>::save(const wchar_t * ws){
     os << ws;
     typedef iterators::xml_escape<const wchar_t *> xmbtows;
     std::copy(
-        xmbtows(BOOST_MAKE_PFTO_WRAPPER(ws)),
-        xmbtows(BOOST_MAKE_PFTO_WRAPPER(ws + std::wcslen(ws))),
+        xmbtows(ws),
+        xmbtows(ws + std::wcslen(ws)),
         boost::archive::iterators::ostream_iterator<wchar_t>(os)
     );
 }
 #endif
 
 template<class Archive>
-BOOST_WARCHIVE_DECL(BOOST_PP_EMPTY())
+BOOST_WARCHIVE_DECL
 xml_woarchive_impl<Archive>::xml_woarchive_impl(
     std::wostream & os_,
     unsigned int flags
@@ -136,29 +128,21 @@ xml_woarchive_impl<Archive>::xml_woarchive_impl(
     // transforms (such as one to many transforms from getting
     // mixed up.
     if(0 == (flags & no_codecvt)){
-        boost::archive::detail::utf8_codecvt_facet *pfacet;
-        #if defined(__SGI_STL_PORT)
-            // Unfortunately, STLPort doesn't respect b) above
-            // so the restoration of the original archive locale done by
-            // the locale_saver doesn't get processed,
-            // before the current one is destroyed.
-            // so the codecvt doesn't get replaced with the orginal
-            // so closing the stream invokes codecvt::do_unshift
-            // so it crashes because the corresponding locale that contained
-            // the codecvt isn't around any more.
-            // we can hack around this by using a static codecvt that never
-            // gets destroyed.
-            static boost::archive::detail::utf8_codecvt_facet
-                facet(static_cast<size_t>(1));
-            pfacet = & facet;
-        #else
-            pfacet = new boost::archive::detail::utf8_codecvt_facet;
-        #endif
-        archive_locale.reset(add_facet(os_.getloc(), pfacet));
-        os.imbue(* archive_locale);
+        archive_locale.reset(
+            add_facet(
+                os_.getloc(),
+                new boost::archive::detail::utf8_codecvt_facet
+            )
+        );
+        //os.imbue(* archive_locale);
     }
     if(0 == (flags & no_header))
         this->init();
+}
+
+template<class Archive>
+BOOST_WARCHIVE_DECL
+xml_woarchive_impl<Archive>::~xml_woarchive_impl(){
 }
 
 } // namespace archive

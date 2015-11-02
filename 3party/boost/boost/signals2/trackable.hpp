@@ -18,17 +18,27 @@
 
 #include <boost/assert.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/weak_ptr.hpp>
 
 namespace boost {
   namespace signals2 {
     namespace detail
     {
         class tracked_objects_visitor;
+
+        // trackable_pointee is used to identify the tracked shared_ptr
+        // originating from the signals2::trackable class.  These tracked
+        // shared_ptr are special in that we shouldn't bother to
+        // increment their use count during signal invocation, since
+        // they don't actually control the lifetime of the
+        // signals2::trackable object they are associated with.
+        class trackable_pointee
+        {};
     }
     class trackable {
     protected:
-      trackable(): _tracked_ptr(static_cast<int*>(0)) {}
-      trackable(const trackable &): _tracked_ptr(static_cast<int*>(0)) {}
+      trackable(): _tracked_ptr(static_cast<detail::trackable_pointee*>(0)) {}
+      trackable(const trackable &): _tracked_ptr(static_cast<detail::trackable_pointee*>(0)) {}
       trackable& operator=(const trackable &)
       {
           return *this;
@@ -36,12 +46,12 @@ namespace boost {
       ~trackable() {}
     private:
       friend class detail::tracked_objects_visitor;
-      const shared_ptr<void>& get_shared_ptr() const
+      weak_ptr<detail::trackable_pointee> get_weak_ptr() const
       {
           return _tracked_ptr;
       }
 
-      shared_ptr<void> _tracked_ptr;
+      shared_ptr<detail::trackable_pointee> _tracked_ptr;
     };
   } // end namespace signals2
 } // end namespace boost

@@ -72,14 +72,14 @@ public:
     friend struct return_values;
     
 private:
-    typedef BOOST_DEDUCED_TYPENAME std::basic_istream<CharType> IStream;
-    typedef BOOST_DEDUCED_TYPENAME std::basic_string<CharType> StringType;
-    typedef BOOST_DEDUCED_TYPENAME boost::spirit::classic::chset<CharType> chset_t;
-    typedef BOOST_DEDUCED_TYPENAME boost::spirit::classic::chlit<CharType> chlit_t;
-    typedef BOOST_DEDUCED_TYPENAME boost::spirit::classic::scanner<
-        BOOST_DEDUCED_TYPENAME  std::basic_string<CharType>::iterator
+    typedef typename std::basic_istream<CharType> IStream;
+    typedef typename std::basic_string<CharType> StringType;
+    typedef typename boost::spirit::classic::chset<CharType> chset_t;
+    typedef typename boost::spirit::classic::chlit<CharType> chlit_t;
+    typedef typename boost::spirit::classic::scanner<
+        typename  std::basic_string<CharType>::iterator
     > scanner_t;
-    typedef BOOST_DEDUCED_TYPENAME boost::spirit::classic::rule<scanner_t> rule_t;
+    typedef typename boost::spirit::classic::rule<scanner_t> rule_t;
     // Start grammar definition
     rule_t    
         Reference,

@@ -327,7 +327,7 @@ template<typename Geometry, typename OutputGeometry>
 inline void convex_hull(Geometry const& geometry,
             OutputGeometry& hull)
 {
-    convex_hull(geometry, hull, default_strategy());
+    geometry::convex_hull(geometry, hull, default_strategy());
 }
 
 #ifndef DOXYGEN_NO_DETAIL

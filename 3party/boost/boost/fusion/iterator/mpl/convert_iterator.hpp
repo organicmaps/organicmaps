@@ -31,21 +31,21 @@ namespace boost { namespace fusion
             >::type
         type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static T const&
         call(T const& x, mpl::true_)
         {
             return x;
         }
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static mpl_iterator<T>
         call(T const& /*x*/, mpl::false_)
         {
             return mpl_iterator<T>();
         }
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static typename
             mpl::if_<
                 is_fusion_iterator<T>

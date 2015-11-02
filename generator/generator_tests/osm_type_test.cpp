@@ -550,7 +550,7 @@ UNIT_TEST(OsmType_Hwtag)
 
 UNIT_TEST(OsmType_Ferry)
 {
-  routing::CarModel carModel;
+  routing::CarModel const & carModel = routing::CarModel::Instance();
 
   char const * arr[][2] = {
     { "motorcar", "yes" },

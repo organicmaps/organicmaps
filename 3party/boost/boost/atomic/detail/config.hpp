@@ -21,4 +21,19 @@
 #pragma once
 #endif
 
+#if defined(__CUDACC__)
+// nvcc does not support alternatives in asm statement constraints
+#define BOOST_ATOMIC_DETAIL_NO_ASM_CONSTRAINT_ALTERNATIVES
+// nvcc does not support condition code register ("cc") clobber in asm statements
+#define BOOST_ATOMIC_DETAIL_NO_ASM_CLOBBER_CC
+#endif
+
+#if !defined(BOOST_ATOMIC_DETAIL_NO_ASM_CLOBBER_CC)
+#define BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC "cc"
+#define BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC_COMMA "cc",
+#else
+#define BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC
+#define BOOST_ATOMIC_DETAIL_ASM_CLOBBER_CC_COMMA
+#endif
+
 #endif // BOOST_ATOMIC_DETAIL_CONFIG_HPP_INCLUDED_

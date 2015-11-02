@@ -432,7 +432,7 @@
 "message" = "Mensagem";
 
 /* Share by email button text */
-"email" = "E-Mail";
+"email" = "E-mail";
 
 /* Copy Link */
 "copy_link" = "Copiar hiperligação";
@@ -478,13 +478,35 @@
 
 "share_my_location" = "Partilhar a minha localização";
 
-"become_a_pro" = "Obter PRO";
-
 "menu_search" = "Pesquisar";
+
+/* Settings screen: "Map" category title */
+"prefs_group_map" = "Map";
+
+/* Settings screen: "Route" category title */
+"prefs_group_route" = "Route";
+
+/* Settings screen: "Miscellaneous" category title */
+"prefs_group_misc" = "Miscellaneous";
 
 "pref_zoom_title" = "Botões de zoom";
 
 "pref_zoom_summary" = "Mostrar no ecrã";
+
+/* Settings «Map» category: «Map style» title */
+"pref_map_style_title" = "Map style";
+
+/* Settings «Map» category: «Map style» summary */
+"pref_map_style_summary" = "Change map presentation";
+
+/* «Map style» entry value */
+"pref_map_style_classic_light" = "Classic light";
+
+/* «Map style» entry value */
+"pref_map_style_classic_dark" = "Classic dark";
+
+/* «Map style» entry value */
+"pref_map_style_modern_light" = "Modern light";
 
 "placepage_distance" = "Distância";
 
@@ -558,6 +580,12 @@
 "settings_and_more" = "Definições e Mais";
 
 /* Text in menu */
+"website" = "Website";
+
+/* Text in menu */
+"blog" = "Blog";
+
+/* Text in menu */
 "maps_me_community" = "Comunidade MAPS.ME";
 
 /* Text in menu */
@@ -569,11 +597,26 @@
 /* Text in menu */
 "contact_us" = "Contacte-nos";
 
+/* Settings: Send feedback button and dialog title */
+"feedback" = "Feedback";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "General feedback";
+
 /* Text in menu */
 "subscribe_to_news" = "Subscreva as nossas notícias";
 
 /* Text in menu */
 "rate_the_app" = "Classificar a aplicação";
+
+/* Rate in Google Play (Android only) */
+"rate_gp" = "Rate on Google Play";
+
+/* Share with friends: menu item title */
+"tell_friends" = "Tell a Friend";
+
+/* Share with friends: sharing text */
+"tell_friends_text" = "Hi! Install Maps.me!";
 
 /* Text in menu */
 "help" = "Ajuda";
@@ -589,6 +632,9 @@
 
 /* Email body */
 "subscribe_me_body" = "Quero ser o(a) primeiro(a) a saber sobre as últimas notícias atualizações e promoções. Posso cancelar a minha subscrição a qualquer altura.";
+
+/* About short text (below logo) */
+"about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
 "about_text" = "A MAPS.ME oferece os mapas offline mais rápidos de todas as cidades, de todos os países do mundo. Viaje com plena confiança: onde estiver, a MAPS.ME ajuda a localizar-se no mapa, a encontrar o restaurante, hotel, banco, posto de gasolina mais próximos, etc. Não requer ligação à Internet.\n\nEstamos sempre a trabalhar em novas funcionalidades e gostaríamos de saber a sua opinião sobre como poderíamos melhorar a MAPS.ME. Se tiver algum problema com a app, não hesite em contactar-nos em support@maps.me. Respondemos a cada pedido!\n\nGosta da MAPS.ME e quer apoiar-nos? Há algumas maneiras simples e absolutamente gratuitas:\n\n- publique um comentário no seu App Market\n- faça \"gosto\" na nossa página do Facebook http://www.facebook.com/mapswithme\n- ou fale da MAPS.ME à sua mãe, amigos e colegas :)\n\nObrigado por estar connosco. Agradecemos imenso o seu apoio!\n\nP. S. Tiramos os dados do OpenStreetMap, um projeto de mapeamento semelhante à Wikipedia, que permite aos utilizadores criarem e editarem mapas. Se vir que algo está em falta ou errado no mapa, pode corrigir diretamente os mapas em http://openstreetmap.org e as suas alterações irão aparecer na app MAPS.ME com o lançamento da próxima versão.";
@@ -1268,11 +1314,5 @@
 "search_history_title" = "Histórico de Busca";
 
 "search_history_text" = "Acesse os termos de busca recentes rapidamente.";
-
-"update_maps_alert_title" = "Está mais fácil explorar o mapa";
-
-"update_maps_alert_message" = "Melhoramos os estilos de mapa: agora todos os objetos estão mais agradáveis e mais claros. Atualize os mapas para aproveitar o novo design ao máximo.";
-
-"update_maps_alert_button_title" = "Atualizar mapas";
 
 "clear_search" = "Limpar histórico de pesquisa";

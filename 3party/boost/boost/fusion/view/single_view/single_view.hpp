@@ -43,18 +43,19 @@ namespace boost { namespace fusion
         typedef mpl::int_<1> size;
         typedef T value_type;
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         single_view()
             : val() {}
 
-        BOOST_FUSION_GPU_ENABLED explicit single_view(typename detail::call_param<T>::type in_val)
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+        explicit single_view(typename detail::call_param<T>::type in_val)
             : val(in_val) {}
 
         value_type val;
     };
     
     template <typename T>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline single_view<typename detail::as_fusion_element<T>::type>
     make_single_view(T const& v)
     {

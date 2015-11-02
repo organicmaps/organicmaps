@@ -7,8 +7,6 @@
 #include "map/information_display.hpp"
 #include "map/location_state.hpp"
 
-#include "platform/settings.hpp"
-
 
 extern "C"
 {
@@ -36,27 +34,6 @@ extern "C"
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_MwmApplication_nativeGetBoolean(JNIEnv * env,
-                                                           jobject thiz,
-                                                           jstring name,
-                                                           jboolean defaultVal)
-  {
-    bool val = defaultVal;
-    Settings::Get(jni::ToNativeString(env, name), val);
-    return val;
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MwmApplication_nativeSetBoolean(JNIEnv * env,
-                                                           jobject thiz,
-                                                           jstring name,
-                                                           jboolean val)
-  {
-    bool flag = val;
-    (void)Settings::Set(jni::ToNativeString(env, name), flag);
-  }
-
-  JNIEXPORT jboolean JNICALL
   Java_com_mapswithme_maps_MwmApplication_hasFreeSpace(JNIEnv * env, jobject thiz, jlong size)
   {
     return android::Platform::Instance().HasAvailableSpaceForWriting(size);
@@ -67,69 +44,5 @@ extern "C"
   {
     g_framework->AddString(jni::ToNativeString(env, name),
                            jni::ToNativeString(env, value));
-  }
-
-  JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_MwmApplication_nativeGetInt(JNIEnv * env, jobject thiz, jstring name, jint defaultValue)
-  {
-    jint value;
-    if (Settings::Get(jni::ToNativeString(env, name), value))
-      return value;
-
-    return defaultValue;
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MwmApplication_nativeSetInt(JNIEnv * env, jobject thiz, jstring name, jint value)
-  {
-    (void)Settings::Set(jni::ToNativeString(env, name), value);
-  }
-
-  JNIEXPORT jlong JNICALL
-  Java_com_mapswithme_maps_MwmApplication_nativeGetLong(JNIEnv * env, jobject thiz, jstring name, jlong defaultValue)
-  {
-    jlong value;
-    if (Settings::Get(jni::ToNativeString(env, name), value))
-      return value;
-
-    return defaultValue;
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MwmApplication_nativeSetLong(JNIEnv * env, jobject thiz, jstring name, jlong value)
-  {
-    (void)Settings::Set(jni::ToNativeString(env, name), value);
-  }
-
-  JNIEXPORT jdouble JNICALL
-  Java_com_mapswithme_maps_MwmApplication_nativeGetDouble(JNIEnv * env, jobject thiz, jstring name, jdouble defaultValue)
-  {
-    jdouble value;
-    if (Settings::Get(jni::ToNativeString(env, name), value))
-      return value;
-
-    return defaultValue;
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MwmApplication_nativeSetDouble(JNIEnv * env, jobject thiz, jstring name, jdouble value)
-  {
-    (void)Settings::Set(jni::ToNativeString(env, name), value);
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MwmApplication_nativeSetString(JNIEnv * env, jobject thiz, jstring name, jstring value)
-  {
-    (void)Settings::Set(jni::ToNativeString(env, name), jni::ToNativeString(env, value));
-  }
-
-  JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_MwmApplication_nativeGetString(JNIEnv * env, jobject thiz, jstring name, jstring defaultValue)
-  {
-    string value;
-    if (Settings::Get(jni::ToNativeString(env, name), value))
-      return jni::ToJavaString(env, value);
-
-    return defaultValue;
   }
 }

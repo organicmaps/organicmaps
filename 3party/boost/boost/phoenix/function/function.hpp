@@ -8,7 +8,7 @@
 #ifndef BOOST_PHOENIX_FUNCTION_FUNCTION_HPP
 #define BOOST_PHOENIX_FUNCTION_FUNCTION_HPP
 
-#include <boost/config.hpp>
+#include <boost/phoenix/config.hpp>
 //#include <boost/phoenix/function/function_handling.hpp>
 #include <boost/phoenix/core/detail/function_eval.hpp>
 #include <boost/preprocessor/facilities/expand.hpp>

@@ -182,8 +182,8 @@ public:
 
 #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1500) ) 
         sub_range(const sub_range& r)
-            : base(impl::adl_begin(static_cast<const base&>(r)),
-                   impl::adl_end(static_cast<const base&>(r)))
+            : base(impl::adl_begin(const_cast<base&>(static_cast<const base&>(r))),
+                   impl::adl_end(const_cast<base&>(static_cast<const base&>(r))))
         { }  
 #endif
 

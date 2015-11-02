@@ -30,11 +30,9 @@
 #include <codecvt>
 #include <vector>
 #include <ostream>
-#include <functional>\
 
 namespace
 {
-
 template <typename T, typename SeparatorExtrauctor>
 void PrintVector(std::ostream & ost, std::vector<T> const & v,
                  SeparatorExtrauctor && sepFunc)

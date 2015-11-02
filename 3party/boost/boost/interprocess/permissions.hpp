@@ -11,9 +11,13 @@
 #ifndef BOOST_INTERPROCESS_PERMISSIONS_HPP
 #define BOOST_INTERPROCESS_PERMISSIONS_HPP
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -27,7 +31,7 @@
 
 #endif
 
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 //!\file
 //!Describes permissions class
@@ -35,7 +39,7 @@
 namespace boost {
 namespace interprocess {
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
 #if defined(BOOST_INTERPROCESS_WINDOWS)
 
@@ -54,14 +58,14 @@ winapi::interprocess_all_access_security unrestricted_permissions_holder<Dummy>:
 
 #endif   //defined BOOST_INTERPROCESS_WINDOWS
 
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 //!The permissions class represents permissions to be set to shared memory or
 //!files, that can be constructed form usual permission representations:
 //!a SECURITY_ATTRIBUTES pointer in windows or ORed rwx chmod integer in UNIX.
 class permissions
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
    #if defined(BOOST_INTERPROCESS_WINDOWS)
    typedef void*  os_permissions_type;
@@ -70,7 +74,7 @@ class permissions
    #endif
    os_permissions_type  m_perm;
 
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    //!Constructs a permissions object from a user provided os-dependent
@@ -90,26 +94,22 @@ class permissions
    //!for UNIX.
    void set_default()
    {
-      /// @cond
       #if defined (BOOST_INTERPROCESS_WINDOWS)
       m_perm = 0;
       #else
       m_perm = 0644;
       #endif
-      /// @endcond
    }
 
    //!Sets permissions to unrestricted access:
    //!A null DACL for windows or 0666 for UNIX.
    void set_unrestricted()
    {
-      /// @cond
       #if defined (BOOST_INTERPROCESS_WINDOWS)
       m_perm = &ipcdetail::unrestricted_permissions_holder<0>::unrestricted;
       #else
       m_perm = 0666;
       #endif
-      /// @endcond
    }
 
    //!Sets permissions from a user provided os-dependent

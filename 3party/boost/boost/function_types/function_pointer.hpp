@@ -10,7 +10,6 @@
 #define BOOST_FT_FUNCTION_POINTER_HPP_INCLUDED
 
 #include <boost/mpl/aux_/lambda_support.hpp>
-#include <boost/type_traits/detail/template_arity_spec.hpp>
 
 #include <boost/function_types/function_type.hpp>
 
@@ -25,7 +24,6 @@ namespace boost
       BOOST_MPL_AUX_LAMBDA_SUPPORT(2,function_pointer,(Types,Tag))
     };
   } 
-  BOOST_TT_AUX_TEMPLATE_ARITY_SPEC(2,function_types::function_pointer)
 } 
 
 #endif

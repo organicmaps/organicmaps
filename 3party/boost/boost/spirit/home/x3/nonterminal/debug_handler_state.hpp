@@ -7,10 +7,6 @@
 #if !defined(BOOST_SPIRIT_X3_DEBUG_HANDLER_STATE_APR_21_2010_0733PM)
 #define BOOST_SPIRIT_X3_DEBUG_HANDLER_STATE_APR_21_2010_0733PM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 namespace boost { namespace spirit { namespace x3
 {
     enum debug_handler_state

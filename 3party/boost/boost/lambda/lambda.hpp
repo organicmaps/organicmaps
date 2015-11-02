@@ -24,11 +24,6 @@
 
 
 #include "boost/lambda/detail/operators.hpp"
-
-#ifndef BOOST_LAMBDA_FAILS_IN_TEMPLATE_KEYWORD_AFTER_SCOPE_OPER
-// sorry, member ptr does not work with gcc2.95
 #include "boost/lambda/detail/member_ptr.hpp"
-#endif
-
 
 #endif

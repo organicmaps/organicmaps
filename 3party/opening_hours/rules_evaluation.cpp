@@ -1,6 +1,7 @@
 #include "rules_evaluation.hpp"
 #include "rules_evaluation_private.hpp"
 
+#include <ctime>
 #include <iomanip>
 #include <sstream>
 #include <tuple>
@@ -242,5 +243,12 @@ RuleState GetState(TRuleSequences const & rules, std::tm const & date)
   return (rules.empty()
           ? RuleSequence::Modifier::Unknown
           : RuleSequence::Modifier::Closed);
+}
+
+RuleState GetState(TRuleSequences const & rules, time_t const dateTime)
+{
+  std::tm tm{};
+  gmtime_r(&dateTime, &tm);
+  return GetState(rules, tm);
 }
 } // namespace osmoh

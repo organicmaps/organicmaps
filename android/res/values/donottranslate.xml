@@ -5,6 +5,10 @@
   <!-- FB -->
   <string name="fb_app_id" translatable="false">185237551520383</string>
 
+  <!-- App names -->
+  <string name="facebook" translatable="false">Facebook</string>
+  <string name="twitter" translatable="false">Twitter</string>
+
   <!-- Font names -->
   <string name="robotoLight" translatable="false">sans-serif-light</string>
   <string name="robotoRegular" translatable="false">sans-serif</string>
@@ -15,11 +19,11 @@
   <string name="robotoMedium" translatable="false">sans-serif-medium</string>
 
   <!--  Prefs -->
-  <string name="pref_allow_stat" translatable="false">AllowStat</string>
+  <string name="pref_send_statistics" translatable="false">AllowStat</string>
   <string name="pref_munits" translatable="false">MeasurementUnits</string>
-  <string name="pref_storage_activity" translatable="false">StorageActivity</string>
+  <string name="pref_storage" translatable="false">Storage</string>
   <string name="pref_yota" translatable="false">Yota</string>
-  <string name="pref_zoom_btns_enabled" translatable="false">ZoomButtonsEnabled</string>
+  <string name="pref_show_zoom_buttons" translatable="false">ZoomButtonsEnabled</string>
   <string name="pref_play_services" translatable="false">PlayServicesEnabled</string>
   <string name="pref_about" translatable="false">AboutMapsWithMe</string>
   <string name="pref_rate_app" translatable="false">RateApp</string>
@@ -33,6 +37,7 @@
   <string name="pref_subscribe" translatable="false">Subscribe</string>
   <string name="pref_settings" translatable="false">Settings</string>
   <string name="pref_file_name" translatable="false">MapsMePrefs</string>
+  <string name="pref_map_style" translatable="false">MapStyle</string>
 
   <string name="notification_ticker_ltr" translatable="false">%1$s: %2$s</string>
   <string name="notification_ticker_rtl" translatable="false">%2$s :%1$s</string>

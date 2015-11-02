@@ -41,7 +41,7 @@ namespace program_options {
         are used only to validate input. Second affect interpretation of the
         option, for example default value for it or function that should be
         called  when the value is finally known. Routines which perform parsing
-        never use second kind of properties -- they are side effect free.
+        never use second kind of properties \-- they are side effect free.
         @sa options_description
     */
     class BOOST_PROGRAM_OPTIONS_DECL option_description {
@@ -71,7 +71,7 @@ namespace program_options {
             The 'name' parameter is interpreted by the following rules:
             - if there's no "," character in 'name', it specifies long name
             - otherwise, the part before "," specifies long name and the part
-            after -- short name.
+            after \-- short name.
         */
         option_description(const char* name,
                            const value_semantic* s);
@@ -236,6 +236,11 @@ namespace program_options {
         void print(std::ostream& os, unsigned width = 0) const;
 
     private:
+#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1800))
+        // prevent warning C4512: assignment operator could not be generated
+        options_description& operator=(const options_description&);
+#endif
+
         typedef std::map<std::string, int>::const_iterator name2index_iterator;
         typedef std::pair<name2index_iterator, name2index_iterator> 
             approximation_range;

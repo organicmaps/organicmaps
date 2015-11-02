@@ -17,6 +17,14 @@
 #include <boost/cstdint.hpp>
 #include <limits>
 
+#ifdef BOOST_MATH_LOG_ROOT_ITERATIONS
+#  define BOOST_MATH_LOGGER_INCLUDE <boost/math/tools/iteration_logger.hpp>
+#  include BOOST_MATH_LOGGER_INCLUDE
+#  undef BOOST_MATH_LOGGER_INCLUDE
+#else
+#  define BOOST_MATH_LOG_COUNT(count)
+#endif
+
 namespace boost{ namespace math{ namespace tools{
 
 template <class T>
@@ -452,6 +460,7 @@ std::pair<T, T> toms748_solve(F f, const T& ax, const T& bx, const T& fax, const
    {
       a = b;
    }
+   BOOST_MATH_LOG_COUNT(max_iter)
    return std::make_pair(a, b);
 }
 
@@ -493,6 +502,8 @@ std::pair<T, T> bracket_and_solve_root(F f, const T& guess, T factor, bool risin
    //
    boost::uintmax_t count = max_iter - 1;
 
+   int step = 32;
+
    if((fa < 0) == (guess < 0 ? !rising : rising))
    {
       //
@@ -504,11 +515,17 @@ std::pair<T, T> bracket_and_solve_root(F f, const T& guess, T factor, bool risin
          if(count == 0)
             return boost::math::detail::pair_from_single(policies::raise_evaluation_error(function, "Unable to bracket root, last nearest value was %1%", b, pol));
          //
-         // Heuristic: every 20 iterations we double the growth factor in case the
-         // initial guess was *really* bad !
+         // Heuristic: normally it's best not to increase the step sizes as we'll just end up
+         // with a really wide range to search for the root.  However, if the initial guess was *really*
+         // bad then we need to speed up the search otherwise we'll take forever if we're orders of
+         // magnitude out.  This happens most often if the guess is a small value (say 1) and the result
+         // we're looking for is close to std::numeric_limits<T>::min().
          //
-         if((max_iter - count) % 20 == 0)
+         if((max_iter - count) % step == 0)
+         {
             factor *= 2;
+            if(step > 1) step /= 2;
+         }
          //
          // Now go ahead and move our guess by "factor":
          //
@@ -538,11 +555,17 @@ std::pair<T, T> bracket_and_solve_root(F f, const T& guess, T factor, bool risin
          if(count == 0)
             return boost::math::detail::pair_from_single(policies::raise_evaluation_error(function, "Unable to bracket root, last nearest value was %1%", a, pol));
          //
-         // Heuristic: every 20 iterations we double the growth factor in case the
-         // initial guess was *really* bad !
+         // Heuristic: normally it's best not to increase the step sizes as we'll just end up
+         // with a really wide range to search for the root.  However, if the initial guess was *really*
+         // bad then we need to speed up the search otherwise we'll take forever if we're orders of
+         // magnitude out.  This happens most often if the guess is a small value (say 1) and the result
+         // we're looking for is close to std::numeric_limits<T>::min().
          //
-         if((max_iter - count) % 20 == 0)
+         if((max_iter - count) % step == 0)
+         {
             factor *= 2;
+            if(step > 1) step /= 2;
+         }
          //
          // Now go ahead and move are guess by "factor":
          //
@@ -567,6 +590,7 @@ std::pair<T, T> bracket_and_solve_root(F f, const T& guess, T factor, bool risin
       pol);
    max_iter += count;
    BOOST_MATH_INSTRUMENT_CODE("max_iter = " << max_iter << " count = " << count);
+   BOOST_MATH_LOG_COUNT(max_iter)
    return r;
 }
 

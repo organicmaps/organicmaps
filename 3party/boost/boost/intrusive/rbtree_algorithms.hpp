@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 //
 // (C) Copyright Olaf Krzikalla 2004-2006.
-// (C) Copyright Ion Gaztanaga  2006-2013.
+// (C) Copyright Ion Gaztanaga  2006-2014.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -29,9 +29,13 @@
 #include <cstddef>
 
 #include <boost/intrusive/detail/assert.hpp>
-#include <boost/intrusive/detail/utilities.hpp>
+#include <boost/intrusive/detail/algo_type.hpp>
 #include <boost/intrusive/bstree_algorithms.hpp>
-#include <boost/intrusive/pointer_traits.hpp>
+#include <boost/intrusive/detail/ebo_functor_holder.hpp>
+
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#  pragma once
+#endif
 
 namespace boost {
 namespace intrusive {
@@ -40,12 +44,13 @@ namespace intrusive {
 
 template<class NodeTraits, class F>
 struct rbtree_node_cloner
-   :  private detail::ebo_functor_holder<F>
+   //Use public inheritance to avoid MSVC bugs with closures
+   :  public detail::ebo_functor_holder<F>
 {
    typedef typename NodeTraits::node_ptr  node_ptr;
    typedef detail::ebo_functor_holder<F>  base_t;
 
-   rbtree_node_cloner(F f)
+   explicit rbtree_node_cloner(F f)
       :  base_t(f)
    {}
 
@@ -56,6 +61,54 @@ struct rbtree_node_cloner
       return n;
    }
 };
+
+namespace detail {
+
+template<class ValueTraits, class NodePtrCompare, class ExtraChecker>
+struct rbtree_node_checker
+   : public bstree_node_checker<ValueTraits, NodePtrCompare, ExtraChecker>
+{
+   typedef bstree_node_checker<ValueTraits, NodePtrCompare, ExtraChecker> base_checker_t;
+   typedef ValueTraits                             value_traits;
+   typedef typename value_traits::node_traits      node_traits;
+   typedef typename node_traits::const_node_ptr    const_node_ptr;
+   typedef typename node_traits::node_ptr          node_ptr;
+
+   struct return_type
+         : public base_checker_t::return_type
+   {
+      return_type() : black_count_(0) {}
+      std::size_t black_count_;
+   };
+
+   rbtree_node_checker(const NodePtrCompare& comp, ExtraChecker extra_checker)
+      : base_checker_t(comp, extra_checker)
+   {}
+
+   void operator () (const const_node_ptr& p,
+                     const return_type& check_return_left, const return_type& check_return_right,
+                     return_type& check_return)
+   {
+
+      if (node_traits::get_color(p) == node_traits::red()){
+         //Red nodes have black children
+         const node_ptr p_left(node_traits::get_left(p));   (void)p_left;
+         const node_ptr p_right(node_traits::get_right(p)); (void)p_right;
+         BOOST_INTRUSIVE_INVARIANT_ASSERT(!p_left  || node_traits::get_color(p_left)  == node_traits::black());
+         BOOST_INTRUSIVE_INVARIANT_ASSERT(!p_right || node_traits::get_color(p_right) == node_traits::black());
+         //Red node can't be root
+         BOOST_INTRUSIVE_INVARIANT_ASSERT(node_traits::get_parent(node_traits::get_parent(p)) != p);
+      }
+      //Every path to p contains the same number of black nodes
+      const std::size_t l_black_count = check_return_left.black_count_;
+      BOOST_INTRUSIVE_INVARIANT_ASSERT(l_black_count == check_return_right.black_count_);
+      check_return.black_count_ = l_black_count +
+         static_cast<std::size_t>(node_traits::get_color(p) == node_traits::black());
+      base_checker_t::operator()(p, check_return_left, check_return_right, check_return);
+   }
+};
+
+} // namespace detail
 
 #endif   //#ifndef BOOST_INTRUSIVE_DOXYGEN_INVOKED
 
@@ -148,7 +201,7 @@ class rbtree_algorithms
 
    //! @copydoc ::boost::intrusive::bstree_algorithms::swap_tree
    static void swap_tree(const node_ptr & header1, const node_ptr & header2);
-   
+
    #endif   //#ifdef BOOST_INTRUSIVE_DOXYGEN_INVOKED
 
    //! @copydoc ::boost::intrusive::bstree_algorithms::swap_nodes(const node_ptr&,const node_ptr&)
@@ -389,7 +442,7 @@ class rbtree_algorithms
          const node_ptr x_parent_left(NodeTraits::get_left(x_parent));
          if(x == x_parent_left){ //x is left child
             node_ptr w = NodeTraits::get_right(x_parent);
-            BOOST_ASSERT(w);
+            BOOST_INTRUSIVE_INVARIANT_ASSERT(w);
             if(NodeTraits::get_color(w) == NodeTraits::red()){
                NodeTraits::set_color(w, NodeTraits::black());
                NodeTraits::set_color(x_parent, NodeTraits::red());
@@ -517,6 +570,12 @@ template<class NodeTraits>
 struct get_algo<RbTreeAlgorithms, NodeTraits>
 {
    typedef rbtree_algorithms<NodeTraits> type;
+};
+
+template <class ValueTraits, class NodePtrCompare, class ExtraChecker>
+struct get_node_checker<RbTreeAlgorithms, ValueTraits, NodePtrCompare, ExtraChecker>
+{
+    typedef detail::rbtree_node_checker<ValueTraits, NodePtrCompare, ExtraChecker> type;
 };
 
 /// @endcond

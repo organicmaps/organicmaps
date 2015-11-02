@@ -6,7 +6,7 @@ It protects your and our rights to the code. Please read
 for an elaboration on reasons to sign such agreements.
 
 NOTE: This is only a preview of the individual agreement.
-Head to [maps.me/cla](http://maps.me/cla) to sign the actual form.
+Head to [maps.me/cla](http://maps.me/cla/) to sign the actual form.
 
 ## My.com Individual Contributor License Agreement
 

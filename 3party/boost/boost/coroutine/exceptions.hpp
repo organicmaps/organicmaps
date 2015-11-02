@@ -36,7 +36,8 @@ BOOST_SCOPED_ENUM_DECLARE_BEGIN(coroutine_errc)
 }
 BOOST_SCOPED_ENUM_DECLARE_END(coroutine_errc)
 
-BOOST_COROUTINES_DECL system::error_category const& coroutine_category() BOOST_NOEXCEPT;
+BOOST_COROUTINES_DECL
+system::error_category const& coroutine_category() BOOST_NOEXCEPT;
 
 }
 
@@ -81,9 +82,6 @@ public:
 
     system::error_code const& code() const BOOST_NOEXCEPT
     { return ec_; }
-
-    const char* what() const throw()
-    { return code().message().c_str(); }
 };
 
 class invalid_result : public coroutine_error

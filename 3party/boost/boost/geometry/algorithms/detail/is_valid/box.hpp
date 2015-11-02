@@ -3,6 +3,7 @@
 // Copyright (c) 2014-2015, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Licensed under the Boost Software License version 1.0.
 // http://www.boost.org/users/license.html
@@ -11,6 +12,8 @@
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_IS_VALID_BOX_HPP
 
 #include <cstddef>
+
+#include <boost/core/ignore_unused.hpp>
 
 #include <boost/geometry/core/access.hpp>
 #include <boost/geometry/core/tags.hpp>
@@ -57,6 +60,8 @@ struct has_valid_corners<Box, 0>
     template <typename VisitPolicy>
     static inline bool apply(Box const&, VisitPolicy& visitor)
     {
+        boost::ignore_unused(visitor);
+
         return visitor.template apply<no_failure>();
     }
 };

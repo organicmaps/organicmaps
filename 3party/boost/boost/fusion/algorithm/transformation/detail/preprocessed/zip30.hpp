@@ -28,7 +28,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1>::type
     zip(T0 const& t0 , T1 const& t1)
     {
@@ -50,7 +50,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2)
     {
@@ -72,7 +72,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3)
     {
@@ -94,7 +94,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4)
     {
@@ -116,7 +116,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5)
     {
@@ -138,7 +138,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6)
     {
@@ -160,7 +160,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7)
     {
@@ -182,7 +182,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7 , const T8>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7 , T8 const& t8)
     {
@@ -204,7 +204,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7 , const T8 , const T9>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7 , T8 const& t8 , T9 const& t9)
     {
@@ -226,7 +226,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7 , const T8 , const T9 , const T10>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7 , T8 const& t8 , T9 const& t9 , T10 const& t10)
     {
@@ -248,7 +248,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7 , const T8 , const T9 , const T10 , const T11>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7 , T8 const& t8 , T9 const& t9 , T10 const& t10 , T11 const& t11)
     {
@@ -270,7 +270,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7 , const T8 , const T9 , const T10 , const T11 , const T12>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7 , T8 const& t8 , T9 const& t9 , T10 const& t10 , T11 const& t11 , T12 const& t12)
     {
@@ -292,7 +292,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7 , const T8 , const T9 , const T10 , const T11 , const T12 , const T13>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7 , T8 const& t8 , T9 const& t9 , T10 const& t10 , T11 const& t11 , T12 const& t12 , T13 const& t13)
     {
@@ -314,7 +314,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7 , const T8 , const T9 , const T10 , const T11 , const T12 , const T13 , const T14>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7 , T8 const& t8 , T9 const& t9 , T10 const& t10 , T11 const& t11 , T12 const& t12 , T13 const& t13 , T14 const& t14)
     {
@@ -336,7 +336,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7 , const T8 , const T9 , const T10 , const T11 , const T12 , const T13 , const T14 , const T15>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7 , T8 const& t8 , T9 const& t9 , T10 const& t10 , T11 const& t11 , T12 const& t12 , T13 const& t13 , T14 const& t14 , T15 const& t15)
     {
@@ -358,7 +358,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15 , typename T16>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7 , const T8 , const T9 , const T10 , const T11 , const T12 , const T13 , const T14 , const T15 , const T16>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7 , T8 const& t8 , T9 const& t9 , T10 const& t10 , T11 const& t11 , T12 const& t12 , T13 const& t13 , T14 const& t14 , T15 const& t15 , T16 const& t16)
     {
@@ -380,7 +380,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15 , typename T16 , typename T17>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7 , const T8 , const T9 , const T10 , const T11 , const T12 , const T13 , const T14 , const T15 , const T16 , const T17>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7 , T8 const& t8 , T9 const& t9 , T10 const& t10 , T11 const& t11 , T12 const& t12 , T13 const& t13 , T14 const& t14 , T15 const& t15 , T16 const& t16 , T17 const& t17)
     {
@@ -402,7 +402,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15 , typename T16 , typename T17 , typename T18>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7 , const T8 , const T9 , const T10 , const T11 , const T12 , const T13 , const T14 , const T15 , const T16 , const T17 , const T18>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7 , T8 const& t8 , T9 const& t9 , T10 const& t10 , T11 const& t11 , T12 const& t12 , T13 const& t13 , T14 const& t14 , T15 const& t15 , T16 const& t16 , T17 const& t17 , T18 const& t18)
     {
@@ -424,7 +424,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15 , typename T16 , typename T17 , typename T18 , typename T19>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7 , const T8 , const T9 , const T10 , const T11 , const T12 , const T13 , const T14 , const T15 , const T16 , const T17 , const T18 , const T19>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7 , T8 const& t8 , T9 const& t9 , T10 const& t10 , T11 const& t11 , T12 const& t12 , T13 const& t13 , T14 const& t14 , T15 const& t15 , T16 const& t16 , T17 const& t17 , T18 const& t18 , T19 const& t19)
     {
@@ -446,7 +446,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15 , typename T16 , typename T17 , typename T18 , typename T19 , typename T20>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7 , const T8 , const T9 , const T10 , const T11 , const T12 , const T13 , const T14 , const T15 , const T16 , const T17 , const T18 , const T19 , const T20>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7 , T8 const& t8 , T9 const& t9 , T10 const& t10 , T11 const& t11 , T12 const& t12 , T13 const& t13 , T14 const& t14 , T15 const& t15 , T16 const& t16 , T17 const& t17 , T18 const& t18 , T19 const& t19 , T20 const& t20)
     {
@@ -468,7 +468,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15 , typename T16 , typename T17 , typename T18 , typename T19 , typename T20 , typename T21>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7 , const T8 , const T9 , const T10 , const T11 , const T12 , const T13 , const T14 , const T15 , const T16 , const T17 , const T18 , const T19 , const T20 , const T21>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7 , T8 const& t8 , T9 const& t9 , T10 const& t10 , T11 const& t11 , T12 const& t12 , T13 const& t13 , T14 const& t14 , T15 const& t15 , T16 const& t16 , T17 const& t17 , T18 const& t18 , T19 const& t19 , T20 const& t20 , T21 const& t21)
     {
@@ -490,7 +490,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15 , typename T16 , typename T17 , typename T18 , typename T19 , typename T20 , typename T21 , typename T22>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7 , const T8 , const T9 , const T10 , const T11 , const T12 , const T13 , const T14 , const T15 , const T16 , const T17 , const T18 , const T19 , const T20 , const T21 , const T22>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7 , T8 const& t8 , T9 const& t9 , T10 const& t10 , T11 const& t11 , T12 const& t12 , T13 const& t13 , T14 const& t14 , T15 const& t15 , T16 const& t16 , T17 const& t17 , T18 const& t18 , T19 const& t19 , T20 const& t20 , T21 const& t21 , T22 const& t22)
     {
@@ -512,7 +512,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15 , typename T16 , typename T17 , typename T18 , typename T19 , typename T20 , typename T21 , typename T22 , typename T23>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7 , const T8 , const T9 , const T10 , const T11 , const T12 , const T13 , const T14 , const T15 , const T16 , const T17 , const T18 , const T19 , const T20 , const T21 , const T22 , const T23>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7 , T8 const& t8 , T9 const& t9 , T10 const& t10 , T11 const& t11 , T12 const& t12 , T13 const& t13 , T14 const& t14 , T15 const& t15 , T16 const& t16 , T17 const& t17 , T18 const& t18 , T19 const& t19 , T20 const& t20 , T21 const& t21 , T22 const& t22 , T23 const& t23)
     {
@@ -534,7 +534,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15 , typename T16 , typename T17 , typename T18 , typename T19 , typename T20 , typename T21 , typename T22 , typename T23 , typename T24>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7 , const T8 , const T9 , const T10 , const T11 , const T12 , const T13 , const T14 , const T15 , const T16 , const T17 , const T18 , const T19 , const T20 , const T21 , const T22 , const T23 , const T24>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7 , T8 const& t8 , T9 const& t9 , T10 const& t10 , T11 const& t11 , T12 const& t12 , T13 const& t13 , T14 const& t14 , T15 const& t15 , T16 const& t16 , T17 const& t17 , T18 const& t18 , T19 const& t19 , T20 const& t20 , T21 const& t21 , T22 const& t22 , T23 const& t23 , T24 const& t24)
     {
@@ -556,7 +556,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15 , typename T16 , typename T17 , typename T18 , typename T19 , typename T20 , typename T21 , typename T22 , typename T23 , typename T24 , typename T25>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7 , const T8 , const T9 , const T10 , const T11 , const T12 , const T13 , const T14 , const T15 , const T16 , const T17 , const T18 , const T19 , const T20 , const T21 , const T22 , const T23 , const T24 , const T25>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7 , T8 const& t8 , T9 const& t9 , T10 const& t10 , T11 const& t11 , T12 const& t12 , T13 const& t13 , T14 const& t14 , T15 const& t15 , T16 const& t16 , T17 const& t17 , T18 const& t18 , T19 const& t19 , T20 const& t20 , T21 const& t21 , T22 const& t22 , T23 const& t23 , T24 const& t24 , T25 const& t25)
     {
@@ -578,7 +578,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15 , typename T16 , typename T17 , typename T18 , typename T19 , typename T20 , typename T21 , typename T22 , typename T23 , typename T24 , typename T25 , typename T26>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7 , const T8 , const T9 , const T10 , const T11 , const T12 , const T13 , const T14 , const T15 , const T16 , const T17 , const T18 , const T19 , const T20 , const T21 , const T22 , const T23 , const T24 , const T25 , const T26>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7 , T8 const& t8 , T9 const& t9 , T10 const& t10 , T11 const& t11 , T12 const& t12 , T13 const& t13 , T14 const& t14 , T15 const& t15 , T16 const& t16 , T17 const& t17 , T18 const& t18 , T19 const& t19 , T20 const& t20 , T21 const& t21 , T22 const& t22 , T23 const& t23 , T24 const& t24 , T25 const& t25 , T26 const& t26)
     {
@@ -600,7 +600,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15 , typename T16 , typename T17 , typename T18 , typename T19 , typename T20 , typename T21 , typename T22 , typename T23 , typename T24 , typename T25 , typename T26 , typename T27>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7 , const T8 , const T9 , const T10 , const T11 , const T12 , const T13 , const T14 , const T15 , const T16 , const T17 , const T18 , const T19 , const T20 , const T21 , const T22 , const T23 , const T24 , const T25 , const T26 , const T27>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7 , T8 const& t8 , T9 const& t9 , T10 const& t10 , T11 const& t11 , T12 const& t12 , T13 const& t13 , T14 const& t14 , T15 const& t15 , T16 const& t16 , T17 const& t17 , T18 const& t18 , T19 const& t19 , T20 const& t20 , T21 const& t21 , T22 const& t22 , T23 const& t23 , T24 const& t24 , T25 const& t25 , T26 const& t26 , T27 const& t27)
     {
@@ -622,7 +622,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15 , typename T16 , typename T17 , typename T18 , typename T19 , typename T20 , typename T21 , typename T22 , typename T23 , typename T24 , typename T25 , typename T26 , typename T27 , typename T28>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7 , const T8 , const T9 , const T10 , const T11 , const T12 , const T13 , const T14 , const T15 , const T16 , const T17 , const T18 , const T19 , const T20 , const T21 , const T22 , const T23 , const T24 , const T25 , const T26 , const T27 , const T28>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7 , T8 const& t8 , T9 const& t9 , T10 const& t10 , T11 const& t11 , T12 const& t12 , T13 const& t13 , T14 const& t14 , T15 const& t15 , T16 const& t16 , T17 const& t17 , T18 const& t18 , T19 const& t19 , T20 const& t20 , T21 const& t21 , T22 const& t22 , T23 const& t23 , T24 const& t24 , T25 const& t25 , T26 const& t26 , T27 const& t27 , T28 const& t28)
     {
@@ -644,7 +644,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15 , typename T16 , typename T17 , typename T18 , typename T19 , typename T20 , typename T21 , typename T22 , typename T23 , typename T24 , typename T25 , typename T26 , typename T27 , typename T28 , typename T29>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7 , const T8 , const T9 , const T10 , const T11 , const T12 , const T13 , const T14 , const T15 , const T16 , const T17 , const T18 , const T19 , const T20 , const T21 , const T22 , const T23 , const T24 , const T25 , const T26 , const T27 , const T28 , const T29>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7 , T8 const& t8 , T9 const& t9 , T10 const& t10 , T11 const& t11 , T12 const& t12 , T13 const& t13 , T14 const& t14 , T15 const& t15 , T16 const& t16 , T17 const& t17 , T18 const& t18 , T19 const& t19 , T20 const& t20 , T21 const& t21 , T22 const& t22 , T23 const& t23 , T24 const& t24 , T25 const& t25 , T26 const& t26 , T27 const& t27 , T28 const& t28 , T29 const& t29)
     {

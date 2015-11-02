@@ -68,7 +68,7 @@ namespace boost
             std::size_t seed = 0;
 
             if (length >= sizeof(std::size_t)) {
-                seed = *(std::size_t*) ptr;
+                std::memcpy(&seed, ptr, sizeof(std::size_t));
                 length -= sizeof(std::size_t);
                 ptr += sizeof(std::size_t);
 

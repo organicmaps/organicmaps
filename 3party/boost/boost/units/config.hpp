@@ -29,7 +29,7 @@
     ///INTERNAL ONLY
     #define BOOST_UNITS_HAS_TYPEOF          1
 #else    
-    #if (__GNUC__ && __cplusplus && __GNUC__ >= 3)
+    #if (__GNUC__ && __cplusplus)
         ///INTERNAL ONLY
         #define BOOST_UNITS_HAS_TYPEOF          1
         ///INTERNAL ONLY
@@ -67,13 +67,6 @@
         #error Boost.Units requires function template partial ordering
     #endif
 
-    #ifdef BOOST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS
-        #error Boost.Units requires explicit function template arguments
-    #endif
-
-    #ifdef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
-        #error Boost.Units requires partial specialization
-    #endif
 
 #endif
 

@@ -239,7 +239,7 @@ typename ::boost::mpl::eval_if<
     typename proto::matches<Expr,BuildStt>::type,
     boost::result_of<BuildStt(Expr)>,
     make_invalid_type>::type
-build_stt(Expr const& expr)
+build_stt(Expr const&)
 {
     return typename boost::result_of<BuildStt(Expr)>::type();
 }
@@ -270,7 +270,7 @@ typename ::boost::mpl::eval_if<
     typename proto::matches<Expr,BuildInternalStt>::type,
     boost::result_of<BuildInternalStt(Expr)>,
     make_invalid_type>::type
-build_internal_stt(Expr const& expr)
+build_internal_stt(Expr const&)
 {
     return typename boost::result_of<BuildInternalStt(Expr)>::type();
 }

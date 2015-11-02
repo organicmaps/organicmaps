@@ -77,7 +77,7 @@ namespace serialization {
 // attempt to retieve a mutable instances while locked will
 // generate a assertion if compiled for debug.
 
-class singleton_module : 
+class BOOST_SYMBOL_VISIBLE singleton_module :
     public boost::noncopyable
 {
 private:

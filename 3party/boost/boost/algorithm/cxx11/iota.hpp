@@ -19,10 +19,6 @@
 
 namespace boost { namespace algorithm {
 
-#if __cplusplus >= 201103L
-//  Use the C++11 versions of iota if it is available
-using std::iota;      // Section 26.7.6
-#else
 /// \fn iota ( ForwardIterator first, ForwardIterator last, T value )
 /// \brief Generates an increasing sequence of values, and stores them in [first, last)
 /// 
@@ -38,7 +34,6 @@ void iota ( ForwardIterator first, ForwardIterator last, T value )
     for ( ; first != last; ++first, ++value )
         *first = value;
 }
-#endif
 
 /// \fn iota ( Range &r, T value )
 /// \brief Generates an increasing sequence of values, and stores them in the input Range.

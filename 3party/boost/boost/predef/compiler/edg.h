@@ -1,5 +1,5 @@
 /*
-Copyright Rene Rivera 2008-2014
+Copyright Rene Rivera 2008-2015
 Distributed under the Boost Software License, Version 1.0.
 (See accompanying file LICENSE_1_0.txt or copy at
 http://www.boost.org/LICENSE_1_0.txt)
@@ -45,13 +45,12 @@ Version number available as major, minor, and patch.
 
 #define BOOST_COMP_EDG_NAME "EDG C++ Frontend"
 
+#endif
+
 #include <boost/predef/detail/test.h>
 BOOST_PREDEF_DECLARE_TEST(BOOST_COMP_EDG,BOOST_COMP_EDG_NAME)
 
 #ifdef BOOST_COMP_EDG_EMULATED
 #include <boost/predef/detail/test.h>
 BOOST_PREDEF_DECLARE_TEST(BOOST_COMP_EDG_EMULATED,BOOST_COMP_EDG_NAME)
-#endif
-
-
 #endif

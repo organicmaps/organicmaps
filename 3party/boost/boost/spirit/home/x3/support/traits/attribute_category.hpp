@@ -8,10 +8,6 @@
 #if !defined(BOOST_SPIRIT_X3_ATTRIBUTE_CATEGORY_JAN_4_2012_1150AM)
 #define BOOST_SPIRIT_X3_ATTRIBUTE_CATEGORY_JAN_4_2012_1150AM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/mpl/identity.hpp>
 #include <boost/mpl/logical.hpp>
 #include <boost/mpl/eval_if.hpp>

@@ -340,6 +340,8 @@ public :
           >
     {};
 
+    typedef typename Strategy::radius_type radius_type;
+
     inline cross_track()
     {}
 
@@ -491,6 +493,8 @@ public :
                   >::type
           >
     {};
+
+    typedef typename Strategy::radius_type radius_type;
 
     inline cross_track()
     {}

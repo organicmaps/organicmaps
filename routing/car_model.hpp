@@ -7,8 +7,10 @@ namespace routing
 
 class CarModel : public VehicleModel
 {
-public:
   CarModel();
+
+public:
+  static CarModel const & Instance();
 };
 
 }  // namespace routing

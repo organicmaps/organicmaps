@@ -11,7 +11,11 @@
 #ifndef BOOST_INTERPROCESS_NAMED_CONDITION_ANY_HPP
 #define BOOST_INTERPROCESS_NAMED_CONDITION_ANY_HPP
 
-#if defined(_MSC_VER)
+#ifndef BOOST_CONFIG_HPP
+#  include <boost/config.hpp>
+#endif
+#
+#if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
 
@@ -36,21 +40,21 @@
 namespace boost {
 namespace interprocess {
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 namespace ipcdetail{ class interprocess_tester; }
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 //! A global condition variable that can be created by name.
 //! This condition variable is designed to work with named_mutex and
 //! can't be placed in shared memory or memory mapped files.
 class named_condition_any
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    //Non-copyable
    named_condition_any();
    named_condition_any(const named_condition_any &);
    named_condition_any &operator=(const named_condition_any &);
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
    public:
    //!Creates a global condition with a name.
    //!If the condition can't be created throws interprocess_exception
@@ -128,7 +132,7 @@ class named_condition_any
    static bool remove(const char *name)
    {  return condition_any_type::remove(name);  }
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    #if defined(BOOST_INTERPROCESS_USE_WINDOWS)
    typedef ipcdetail::windows_named_condition_any   condition_any_type;
@@ -140,7 +144,7 @@ class named_condition_any
    friend class ipcdetail::interprocess_tester;
    void dont_close_on_destruction()
    {  ipcdetail::interprocess_tester::dont_close_on_destruction(m_cond); }
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
 
 }  //namespace interprocess

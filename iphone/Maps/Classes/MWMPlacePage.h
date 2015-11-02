@@ -31,7 +31,7 @@
 - (void)route;
 - (void)reloadBookmark;
 - (void)apiBack;
-- (void)willStartEditingBookmarkTitle:(CGFloat)keyboardHeight;
+- (void)willStartEditingBookmarkTitle;
 - (void)willFinishEditingBookmarkTitle:(NSString *)title;
 - (void)addPlacePageShadowToView:(UIView *)view offset:(CGSize)offset;
 
@@ -40,6 +40,9 @@
 - (void)setDirectionArrowTransform:(CGAffineTransform)transform;
 - (void)setDistance:(NSString *)distance;
 - (void)updateMyPositionStatus:(NSString *)status;
+
+- (void)keyboardWillShow:(NSNotification *)aNotification;
+- (void)keyboardWillHide;
 
 - (instancetype)init __attribute__((unavailable("call initWithManager: instead")));
 

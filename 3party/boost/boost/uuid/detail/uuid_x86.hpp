@@ -39,7 +39,7 @@ BOOST_FORCEINLINE __m128i load_unaligned_si128(const uint8_t* p) BOOST_NOEXCEPT
 
 inline bool uuid::is_nil() const BOOST_NOEXCEPT
 {
-    register __m128i mm = uuids::detail::load_unaligned_si128(data);
+    __m128i mm = uuids::detail::load_unaligned_si128(data);
 #if defined(BOOST_UUID_USE_SSE41)
     return _mm_test_all_zeros(mm, mm) != 0;
 #else
@@ -50,18 +50,18 @@ inline bool uuid::is_nil() const BOOST_NOEXCEPT
 
 inline void uuid::swap(uuid& rhs) BOOST_NOEXCEPT
 {
-    register __m128i mm_this = uuids::detail::load_unaligned_si128(data);
-    register __m128i mm_rhs = uuids::detail::load_unaligned_si128(rhs.data);
+    __m128i mm_this = uuids::detail::load_unaligned_si128(data);
+    __m128i mm_rhs = uuids::detail::load_unaligned_si128(rhs.data);
     _mm_storeu_si128(reinterpret_cast< __m128i* >(rhs.data), mm_this);
     _mm_storeu_si128(reinterpret_cast< __m128i* >(data), mm_rhs);
 }
 
 inline bool operator== (uuid const& lhs, uuid const& rhs) BOOST_NOEXCEPT
 {
-    register __m128i mm_left = uuids::detail::load_unaligned_si128(lhs.data);
-    register __m128i mm_right = uuids::detail::load_unaligned_si128(rhs.data);
+    __m128i mm_left = uuids::detail::load_unaligned_si128(lhs.data);
+    __m128i mm_right = uuids::detail::load_unaligned_si128(rhs.data);
 
-    register __m128i mm_cmp = _mm_cmpeq_epi32(mm_left, mm_right);
+    __m128i mm_cmp = _mm_cmpeq_epi32(mm_left, mm_right);
 #if defined(BOOST_UUID_USE_SSE41)
     return _mm_test_all_ones(mm_cmp);
 #else
@@ -71,8 +71,8 @@ inline bool operator== (uuid const& lhs, uuid const& rhs) BOOST_NOEXCEPT
 
 inline bool operator< (uuid const& lhs, uuid const& rhs) BOOST_NOEXCEPT
 {
-    register __m128i mm_left = uuids::detail::load_unaligned_si128(lhs.data);
-    register __m128i mm_right = uuids::detail::load_unaligned_si128(rhs.data);
+    __m128i mm_left = uuids::detail::load_unaligned_si128(lhs.data);
+    __m128i mm_right = uuids::detail::load_unaligned_si128(rhs.data);
 
     // To emulate lexicographical_compare behavior we have to perform two comparisons - the forward and reverse one.
     // Then we know which bytes are equivalent and which ones are different, and for those different the comparison results
@@ -100,7 +100,7 @@ inline bool operator< (uuid const& lhs, uuid const& rhs) BOOST_NOEXCEPT
     cmp = (cmp - 1u) ^ cmp;
     rcmp = (rcmp - 1u) ^ rcmp;
 
-    return static_cast< uint16_t >(cmp) < static_cast< uint16_t >(rcmp);
+    return cmp < rcmp;
 }
 
 } // namespace uuids

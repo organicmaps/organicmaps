@@ -71,6 +71,19 @@ operator/(const Eigen::MatrixBase<D1> &x1, const Eigen::MatrixBase<D2> &x2) {
     return x1.cwiseQuotient(x2);
 }
 
+
+template< typename D >
+inline const
+typename Eigen::CwiseUnaryOp<
+    typename Eigen::internal::scalar_abs_op<
+        typename Eigen::internal::traits< D >::Scalar > ,
+        const D >
+abs( const Eigen::MatrixBase< D > &m ) {
+    return m.cwiseAbs();
+}
+
+
+
 } // end Eigen namespace
 
 

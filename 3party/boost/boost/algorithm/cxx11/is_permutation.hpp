@@ -99,11 +99,6 @@ namespace detail {
 }
 /// \endcond
 
-#if __cplusplus >= 201103L
-//  Use the C++11 versions of is_permutation if it is available
-using std::is_permutation;              // Section 25.2.12
-#else
-
 /// \fn is_permutation ( ForwardIterator1 first, ForwardIterator1 last, ForwardIterator2 first2, BinaryPredicate p )
 /// \brief Tests to see if the sequence [first,last) is a permutation of the sequence starting at first2
 ///
@@ -160,8 +155,6 @@ bool is_permutation ( ForwardIterator1 first1, ForwardIterator1 last1, ForwardIt
         }
     return true;
 }
-
-#endif
 
 
 /// \fn is_permutation ( const Range &r, ForwardIterator first2 )

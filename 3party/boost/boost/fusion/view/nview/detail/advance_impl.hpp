@@ -12,7 +12,7 @@
 #include <boost/mpl/advance.hpp>
 #include <boost/fusion/iterator/advance.hpp>
 
-namespace boost { namespace fusion 
+namespace boost { namespace fusion
 {
     struct nview_iterator_tag;
 
@@ -36,7 +36,7 @@ namespace boost { namespace fusion
                 typedef nview_iterator<sequence_type, 
                     typename mpl::advance<iterator_type, Dist>::type> type;
 
-                BOOST_FUSION_GPU_ENABLED
+                BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Iterator const& i)
                 {

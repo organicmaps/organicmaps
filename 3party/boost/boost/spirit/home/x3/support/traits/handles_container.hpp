@@ -8,10 +8,6 @@
 #if !defined(BOOST_SPIRIT_X3_HANDLES_CONTAINER_DEC_18_2010_0920AM)
 #define BOOST_SPIRIT_X3_HANDLES_CONTAINER_DEC_18_2010_0920AM
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include <boost/mpl/bool.hpp>
 
 namespace boost { namespace spirit { namespace x3 { namespace traits

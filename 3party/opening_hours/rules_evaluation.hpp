@@ -40,6 +40,7 @@ class RuleState
 };
 
 RuleState GetState(TRuleSequences const & rules, std::tm const & date);
+RuleState GetState(TRuleSequences const & rules, time_t const dateTime);
 } // namespace osmoh
 
 

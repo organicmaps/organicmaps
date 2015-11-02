@@ -2,7 +2,7 @@
 //
 // R-tree quadratic split algorithm implementation
 //
-// Copyright (c) 2011-2014 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2015 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -57,7 +57,6 @@ inline void pick_seeds(Elements const& elements,
             indexable_type const& ind2 = rtree::element_indexable(elements[j], tr);
 
             box_type enlarged_box;
-            //geometry::convert(ind1, enlarged_box);
             detail::bounds(ind1, enlarged_box);
             geometry::expand(enlarged_box, ind2);
 
@@ -133,9 +132,7 @@ struct redistribute_elements<Value, Options, Translator, Box, Allocators, quadra
             elements2.push_back(elements_copy[seed2]);                                                      // MAY THROW, STRONG (alloc, copy)
 
             // calculate boxes
-            //geometry::convert(rtree::element_indexable(elements_copy[seed1], translator), box1);
             detail::bounds(rtree::element_indexable(elements_copy[seed1], translator), box1);
-            //geometry::convert(rtree::element_indexable(elements_copy[seed2], translator), box2);
             detail::bounds(rtree::element_indexable(elements_copy[seed2], translator), box2);
 
             // remove seeds

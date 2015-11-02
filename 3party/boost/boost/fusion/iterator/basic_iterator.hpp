@@ -77,7 +77,7 @@ namespace boost { namespace fusion
                 basic_iterator<Tag, Category, Seq, Index + N::value>
             type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static type
             call(It const& it)
             {
@@ -100,7 +100,7 @@ namespace boost { namespace fusion
         {
             typedef mpl::minus<typename It2::index, typename It1::index> type;
 
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static
             type
             call(It1 const&, It2 const&)
@@ -121,18 +121,18 @@ namespace boost { namespace fusion
         {};
 
         template<typename OtherSeq>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         basic_iterator(basic_iterator<Tag,Category,OtherSeq,Index> const& it)
           : seq(it.seq)
         {}
 
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         basic_iterator(Seq& in_seq, int)
           : seq(&in_seq)
         {}
 
         template<typename OtherSeq>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         basic_iterator&
         operator=(basic_iterator<Tag,Category,OtherSeq,Index> const& it)
         {
@@ -143,5 +143,14 @@ namespace boost { namespace fusion
         Seq* seq;
     };
 }}
+
+#ifdef BOOST_FUSION_WORKAROUND_FOR_LWG_2408
+namespace std
+{
+    template <typename Tag, typename Category, typename Seq, int Index>
+    struct iterator_traits< ::boost::fusion::basic_iterator<Tag, Category, Seq, Index> >
+    { };
+}
+#endif
 
 #endif

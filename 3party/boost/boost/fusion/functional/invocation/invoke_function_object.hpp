@@ -25,6 +25,7 @@
 #include <boost/utility/result_of.hpp>
 
 #include <boost/fusion/support/category_of.hpp>
+#include <boost/fusion/support/detail/enabler.hpp>
 #include <boost/fusion/sequence/intrinsic/size.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/fusion/sequence/intrinsic/begin.hpp>
@@ -34,29 +35,13 @@
 
 namespace boost { namespace fusion
 {
-    namespace result_of
-    {
-        template <class Function, class Sequence> struct invoke_function_object;
-    }
-
-    template <class Function, class Sequence>
-    BOOST_FUSION_GPU_ENABLED
-    inline typename result_of::invoke_function_object<Function, Sequence>::type
-    invoke_function_object(Function, Sequence &);
-
-    template <class Function, class Sequence>
-    BOOST_FUSION_GPU_ENABLED
-    inline typename result_of::invoke_function_object<Function, Sequence const
-        >::type invoke_function_object(Function, Sequence const &);
-
-    //----- ---- --- -- - -  -   -
-
     namespace detail
     {
         template<
             class Function, class Sequence,
             int N = result_of::size<Sequence>::value,
-            bool RandomAccess = traits::is_random_access<Sequence>::value
+            bool RandomAccess = traits::is_random_access<Sequence>::value,
+            typename Enable = void
             >
         struct invoke_function_object_impl;
 
@@ -72,7 +57,16 @@ namespace boost { namespace fusion
 
     namespace result_of
     {
-        template <class Function, class Sequence> struct invoke_function_object
+        template <class Function, class Sequence, class Enable = void>
+        struct invoke_function_object;
+
+        template <class Function, class Sequence>
+        struct invoke_function_object<Function, Sequence,
+            typename detail::enabler<
+                typename detail::invoke_function_object_impl<
+                    typename boost::remove_reference<Function>::type, Sequence
+                >::result_type
+            >::type>
         {
             typedef typename detail::invoke_function_object_impl<
                 typename boost::remove_reference<Function>::type, Sequence
@@ -81,7 +75,7 @@ namespace boost { namespace fusion
     }
 
     template <class Function, class Sequence>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::invoke_function_object<Function,Sequence>::type
     invoke_function_object(Function f, Sequence & s)
     {
@@ -91,7 +85,7 @@ namespace boost { namespace fusion
     }
 
     template <class Function, class Sequence>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::invoke_function_object<Function,Sequence const>::type
     invoke_function_object(Function f, Sequence const & s)
     {
@@ -111,21 +105,25 @@ namespace boost { namespace fusion
 ///////////////////////////////////////////////////////////////////////////////
 #define N BOOST_PP_ITERATION()
 
+#define M(z,j,data)                                                             \
+        typename result_of::at_c<Sequence,j>::type
+
         template <class Function, class Sequence>
-        struct invoke_function_object_impl<Function,Sequence,N,true>
+        struct invoke_function_object_impl<Function,Sequence,N,true,
+            typename enabler<
+                typename boost::result_of<Function (BOOST_PP_ENUM(N,M,~)) >::type
+            >::type>
         {
         public:
 
             typedef typename boost::result_of<
-#define M(z,j,data)                                                             \
-        typename result_of::at_c<Sequence,j>::type
                 Function (BOOST_PP_ENUM(N,M,~)) >::type result_type;
 #undef M
 
 #if N > 0
 
             template <class F>
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static inline result_type
             call(F & f, Sequence & s)
             {
@@ -137,7 +135,7 @@ namespace boost { namespace fusion
 #else
 
             template <class F>
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static inline result_type
             call(F & f, Sequence & /*s*/)
             {
@@ -148,8 +146,15 @@ namespace boost { namespace fusion
 
         };
 
+#define M(z,j,data)                                                             \
+            typename invoke_function_object_param_types<Sequence,N>::T ## j
+
         template <class Function, class Sequence>
-        struct invoke_function_object_impl<Function,Sequence,N,false>
+        struct invoke_function_object_impl<Function,Sequence,N,false,
+            typename enabler<
+                typename boost::result_of<Function (BOOST_PP_ENUM(N,M,~)) >::type
+            >::type>
+#undef M
         {
         private:
             typedef invoke_function_object_param_types<Sequence,N> seq;
@@ -161,7 +166,7 @@ namespace boost { namespace fusion
 #if N > 0
 
             template <class F>
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static inline result_type
             call(F & f, Sequence & s)
             {
@@ -177,7 +182,7 @@ namespace boost { namespace fusion
 #else
 
             template <class F>
-            BOOST_FUSION_GPU_ENABLED
+            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
             static inline result_type
             call(F & f, Sequence & /*s*/)
             {

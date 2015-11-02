@@ -34,14 +34,14 @@ UNIT_TEST(GetTextByIdRussianTest)
       {\
       \"in_800_meters\":\"Через восемьсот метров.\",\
       \"make_a_slight_right_turn\":\"Плавный поворот направо.\",\
-      \"take_the_6th_exit\":\"Шестой поворот с кольца.\",\
+      \"take_the_6_exit\":\"Шестой поворот с кольца.\",\
       \"in_1_mile\":\"Через одну милю.\"\
       }";
 
   auto getRussian = platform::ForTestingGetTextByIdFactory(shortJson, "ru");
   TEST_EQUAL((*getRussian)("in_800_meters"), "Через восемьсот метров.", ());
   TEST_EQUAL((*getRussian)("make_a_slight_right_turn"), "Плавный поворот направо.", ());
-  TEST_EQUAL((*getRussian)("take_the_6th_exit"), "Шестой поворот с кольца.", ());
+  TEST_EQUAL((*getRussian)("take_the_6_exit"), "Шестой поворот с кольца.", ());
   TEST_EQUAL((*getRussian)("in_1_mile"), "Через одну милю.", ());
 
   TEST_EQUAL((*getRussian)("some_nonexistent_key"), "", ());
@@ -57,14 +57,14 @@ UNIT_TEST(GetTextByIdKoreanTest)
       {\
       \"in_700_meters\":\"700 미터 앞\",\
       \"make_a_right_turn\":\"우회전입니다.\",\
-      \"take_the_5th_exit\":\"다섯 번째 출구입니다.\",\
+      \"take_the_5_exit\":\"다섯 번째 출구입니다.\",\
       \"in_5000_feet\":\"5000피트 앞\"\
       }";
 
   auto getKorean = platform::ForTestingGetTextByIdFactory(shortJson, "ko");
   TEST_EQUAL((*getKorean)("in_700_meters"), "700 미터 앞", ());
   TEST_EQUAL((*getKorean)("make_a_right_turn"), "우회전입니다.", ());
-  TEST_EQUAL((*getKorean)("take_the_5th_exit"), "다섯 번째 출구입니다.", ());
+  TEST_EQUAL((*getKorean)("take_the_5_exit"), "다섯 번째 출구입니다.", ());
   TEST_EQUAL((*getKorean)("in_5000_feet"), "5000피트 앞", ());
 
   TEST_EQUAL((*getKorean)("some_nonexistent_key"), "", ());
@@ -80,14 +80,14 @@ UNIT_TEST(GetTextByIdArabicTest)
       {\
       \"in_1_kilometer\":\"بعد كيلو متر واحدٍ\",\
       \"leave_the_roundabout\":\"اخرج من الطريق الدوار\",\
-      \"take_the_3rd_exit\":\"اسلك المخرج الثالث\",\
+      \"take_the_3_exit\":\"اسلك المخرج الثالث\",\
       \"in_4000_feet\":\"بعد 4000 قدم\"\
       }";
 
   auto getArabic = platform::ForTestingGetTextByIdFactory(shortJson, "ar");
   TEST_EQUAL((*getArabic)("in_1_kilometer"), "بعد كيلو متر واحدٍ", ());
   TEST_EQUAL((*getArabic)("leave_the_roundabout"), "اخرج من الطريق الدوار", ());
-  TEST_EQUAL((*getArabic)("take_the_3rd_exit"), "اسلك المخرج الثالث", ());
+  TEST_EQUAL((*getArabic)("take_the_3_exit"), "اسلك المخرج الثالث", ());
   TEST_EQUAL((*getArabic)("in_4000_feet"), "بعد 4000 قدم", ());
 
   TEST_EQUAL((*getArabic)("some_nonexistent_key"), "", ());
@@ -103,14 +103,14 @@ UNIT_TEST(GetTextByIdFrenchTest)
       {\
       \"in_1_5_kilometers\":\"Dans un virgule cinq kilomètre.\",\
       \"enter_the_roundabout\":\"Prenez le rond-point.\",\
-      \"take_the_2nd_exit\":\"Prenez la deuxième sortie.\",\
+      \"take_the_2_exit\":\"Prenez la deuxième sortie.\",\
       \"in_3500_feet\":\"Dans trois mille cinq cents pieds.\"\
       }";
 
   auto getFrench = platform::ForTestingGetTextByIdFactory(shortJson, "fr");
   TEST_EQUAL((*getFrench)("in_1_5_kilometers"), "Dans un virgule cinq kilomètre.", ());
   TEST_EQUAL((*getFrench)("enter_the_roundabout"), "Prenez le rond-point.", ());
-  TEST_EQUAL((*getFrench)("take_the_2nd_exit"), "Prenez la deuxième sortie.", ());
+  TEST_EQUAL((*getFrench)("take_the_2_exit"), "Prenez la deuxième sortie.", ());
   TEST_EQUAL((*getFrench)("in_3500_feet"), "Dans trois mille cinq cents pieds.", ());
 
   TEST_EQUAL((*getFrench)("some_nonexistent_key"), "", ());

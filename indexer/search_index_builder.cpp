@@ -226,21 +226,21 @@ class FeatureInserter
       Classificator const & c = classif();
 
       // Fill types that always! should be skipped.
-      for (auto const & e : (StringIL[]) { { "entrance" } })
+      for (StringIL const & e : (StringIL[]) { { "entrance" } })
         m_skipF[0].push_back(c.GetTypeByPath(e));
 
-      for (auto const & e : (StringIL[]) { { "building", "address" } })
+      for (StringIL const & e : (StringIL[]) { { "building", "address" } })
         m_skipF[1].push_back(c.GetTypeByPath(e));
 
       // Fill types that never! will be skipped.
-      for (auto const & e : (StringIL[]) { { "highway", "bus_stop" }, { "highway", "speed_camera" } })
+      for (StringIL const & e : (StringIL[]) { { "highway", "bus_stop" }, { "highway", "speed_camera" } })
         m_dontSkipEn.push_back(c.GetTypeByPath(e));
 
       // Fill types that will be skipped if feature's name is empty!
-      for (auto const & e : (StringIL[]) { { "building" }, { "highway" }, { "natural" }, { "waterway" }, { "landuse" } })
+      for (StringIL const & e : (StringIL[]) { { "building" }, { "highway" }, { "natural" }, { "waterway" }, { "landuse" } })
         m_skipEn[0].push_back(c.GetTypeByPath(e));
 
-      for (auto const & e : (StringIL[]) {
+      for (StringIL const & e : (StringIL[]) {
         { "place", "country" },
         { "place", "state" },
         { "place", "county" },

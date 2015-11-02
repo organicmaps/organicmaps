@@ -850,6 +850,11 @@ inline int digits(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE(T))
    typedef mpl::bool_< std::numeric_limits<T>::is_specialized > tag_type;
    return detail::digits_imp<T, Policy>(tag_type());
 }
+template <class T, class Policy>
+inline int digits_base10(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE(T))
+{
+   return boost::math::policies::digits<T, Policy>() * 301 / 1000L;
+}
 
 template <class Policy>
 inline unsigned long get_max_series_iterations()

@@ -8,6 +8,7 @@
 ==============================================================================*/
 namespace boost { namespace fusion { namespace detail
 {
+BOOST_FUSION_BARRIER_BEGIN
     template <bool is_assoc>
     struct as_map<1, is_assoc>
     {
@@ -19,7 +20,7 @@ namespace boost { namespace fusion { namespace detail
             typedef map<T0> type;
         };
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static typename apply<Iterator>::type
         call(Iterator const& i0)
         {
@@ -40,7 +41,7 @@ namespace boost { namespace fusion { namespace detail
             typedef map<T0 , T1> type;
         };
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static typename apply<Iterator>::type
         call(Iterator const& i0)
         {
@@ -61,7 +62,7 @@ namespace boost { namespace fusion { namespace detail
             typedef map<T0 , T1 , T2> type;
         };
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static typename apply<Iterator>::type
         call(Iterator const& i0)
         {
@@ -82,7 +83,7 @@ namespace boost { namespace fusion { namespace detail
             typedef map<T0 , T1 , T2 , T3> type;
         };
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static typename apply<Iterator>::type
         call(Iterator const& i0)
         {
@@ -103,7 +104,7 @@ namespace boost { namespace fusion { namespace detail
             typedef map<T0 , T1 , T2 , T3 , T4> type;
         };
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static typename apply<Iterator>::type
         call(Iterator const& i0)
         {
@@ -124,7 +125,7 @@ namespace boost { namespace fusion { namespace detail
             typedef map<T0 , T1 , T2 , T3 , T4 , T5> type;
         };
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static typename apply<Iterator>::type
         call(Iterator const& i0)
         {
@@ -145,7 +146,7 @@ namespace boost { namespace fusion { namespace detail
             typedef map<T0 , T1 , T2 , T3 , T4 , T5 , T6> type;
         };
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static typename apply<Iterator>::type
         call(Iterator const& i0)
         {
@@ -166,7 +167,7 @@ namespace boost { namespace fusion { namespace detail
             typedef map<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7> type;
         };
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static typename apply<Iterator>::type
         call(Iterator const& i0)
         {
@@ -187,7 +188,7 @@ namespace boost { namespace fusion { namespace detail
             typedef map<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8> type;
         };
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static typename apply<Iterator>::type
         call(Iterator const& i0)
         {
@@ -208,7 +209,7 @@ namespace boost { namespace fusion { namespace detail
             typedef map<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9> type;
         };
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static typename apply<Iterator>::type
         call(Iterator const& i0)
         {
@@ -229,7 +230,7 @@ namespace boost { namespace fusion { namespace detail
             typedef map<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10> type;
         };
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static typename apply<Iterator>::type
         call(Iterator const& i0)
         {
@@ -250,7 +251,7 @@ namespace boost { namespace fusion { namespace detail
             typedef map<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11> type;
         };
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static typename apply<Iterator>::type
         call(Iterator const& i0)
         {
@@ -271,7 +272,7 @@ namespace boost { namespace fusion { namespace detail
             typedef map<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12> type;
         };
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static typename apply<Iterator>::type
         call(Iterator const& i0)
         {
@@ -292,7 +293,7 @@ namespace boost { namespace fusion { namespace detail
             typedef map<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13> type;
         };
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static typename apply<Iterator>::type
         call(Iterator const& i0)
         {
@@ -313,7 +314,7 @@ namespace boost { namespace fusion { namespace detail
             typedef map<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14> type;
         };
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static typename apply<Iterator>::type
         call(Iterator const& i0)
         {
@@ -334,7 +335,7 @@ namespace boost { namespace fusion { namespace detail
             typedef map<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15> type;
         };
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static typename apply<Iterator>::type
         call(Iterator const& i0)
         {
@@ -355,7 +356,7 @@ namespace boost { namespace fusion { namespace detail
             typedef map<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16> type;
         };
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static typename apply<Iterator>::type
         call(Iterator const& i0)
         {
@@ -376,7 +377,7 @@ namespace boost { namespace fusion { namespace detail
             typedef map<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17> type;
         };
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static typename apply<Iterator>::type
         call(Iterator const& i0)
         {
@@ -397,7 +398,7 @@ namespace boost { namespace fusion { namespace detail
             typedef map<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18> type;
         };
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static typename apply<Iterator>::type
         call(Iterator const& i0)
         {
@@ -418,7 +419,7 @@ namespace boost { namespace fusion { namespace detail
             typedef map<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19> type;
         };
         template <typename Iterator>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static typename apply<Iterator>::type
         call(Iterator const& i0)
         {
@@ -428,4 +429,5 @@ namespace boost { namespace fusion { namespace detail
             return result(gen::D0::call(i0) , gen::D1::call(i1) , gen::D2::call(i2) , gen::D3::call(i3) , gen::D4::call(i4) , gen::D5::call(i5) , gen::D6::call(i6) , gen::D7::call(i7) , gen::D8::call(i8) , gen::D9::call(i9) , gen::D10::call(i10) , gen::D11::call(i11) , gen::D12::call(i12) , gen::D13::call(i13) , gen::D14::call(i14) , gen::D15::call(i15) , gen::D16::call(i16) , gen::D17::call(i17) , gen::D18::call(i18) , gen::D19::call(i19));
         }
     };
+BOOST_FUSION_BARRIER_END
 }}}

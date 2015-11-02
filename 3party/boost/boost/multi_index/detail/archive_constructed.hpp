@@ -1,4 +1,4 @@
-/* Copyright 2003-2013 Joaquin M Lopez Munoz.
+/* Copyright 2003-2015 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -64,7 +64,7 @@ struct archive_constructed:private noncopyable
     (&get())->~T();
   }
 
-  T& get(){return *static_cast<T*>(static_cast<void*>(&space));}
+  T& get(){return *reinterpret_cast<T*>(&space);}
 
 private:
   typename aligned_storage<sizeof(T),alignment_of<T>::value>::type space;

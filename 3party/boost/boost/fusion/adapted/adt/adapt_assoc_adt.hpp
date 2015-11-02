@@ -2,6 +2,7 @@
     Copyright (c) 2001-2009 Joel de Guzman
     Copyright (c) 2007 Dan Marsden
     Copyright (c) 2010-2011 Christopher Schmidt
+    Copyright (c) 2013-2014 Damien Buhl
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -22,6 +23,7 @@
 #include <boost/fusion/adapted/struct/detail/adapt_base.hpp>
 #include <boost/fusion/adapted/struct/detail/at_impl.hpp>
 #include <boost/fusion/adapted/struct/detail/is_view_impl.hpp>
+#include <boost/fusion/adapted/struct/detail/proxy_type.hpp>
 #include <boost/fusion/adapted/struct/detail/is_sequence_impl.hpp>
 #include <boost/fusion/adapted/struct/detail/value_at_impl.hpp>
 #include <boost/fusion/adapted/struct/detail/category_of_impl.hpp>
@@ -35,25 +37,29 @@
 #include <boost/fusion/adapted/struct/detail/value_of_data_impl.hpp>
 #include <boost/fusion/adapted/adt/detail/extension.hpp>
 #include <boost/fusion/adapted/adt/detail/adapt_base.hpp>
-
-#define BOOST_FUSION_ADAPT_ASSOC_ADT_FILLER_0(A, B, C, D, E)\
-    ((A, B, C, D, E)) BOOST_FUSION_ADAPT_ASSOC_ADT_FILLER_1
-#define BOOST_FUSION_ADAPT_ASSOC_ADT_FILLER_1(A, B, C, D, E)\
-    ((A, B, C, D, E)) BOOST_FUSION_ADAPT_ASSOC_ADT_FILLER_0
-#define BOOST_FUSION_ADAPT_ASSOC_ADT_FILLER_0_END
-#define BOOST_FUSION_ADAPT_ASSOC_ADT_FILLER_1_END
+#include <boost/fusion/adapted/adt/detail/adapt_base_assoc_attr_filler.hpp>
 
 #define BOOST_FUSION_ADAPT_ASSOC_ADT_C(                                         \
-    TEMPLATE_PARAMS_SEQ, NAME_SEQ, I, ATTRIBUTE)                                \
+    TEMPLATE_PARAMS_SEQ, NAME_SEQ, IS_VIEW, I, ATTRIBUTE)                       \
                                                                                 \
-    BOOST_FUSION_ADAPT_ADT_C_BASE(TEMPLATE_PARAMS_SEQ,NAME_SEQ,I,ATTRIBUTE,5)   \
+        BOOST_FUSION_ADAPT_ADT_C_BASE(                                          \
+            TEMPLATE_PARAMS_SEQ,                                                \
+            NAME_SEQ,                                                           \
+            I,                                                                  \
+            BOOST_PP_IF(IS_VIEW, BOOST_FUSION_PROXY_PREFIX, BOOST_PP_EMPTY),    \
+            BOOST_FUSION_ADAPT_ADT_WRAPPEDATTR(ATTRIBUTE),                      \
+            BOOST_FUSION_ADAPT_ADT_WRAPPEDATTR_SIZE(ATTRIBUTE),                 \
+            BOOST_PP_IF(                                                        \
+                BOOST_PP_LESS(                                                  \
+                    BOOST_FUSION_ADAPT_ADT_WRAPPEDATTR_SIZE(ATTRIBUTE), 5)      \
+                , 1, 0))                                                        \
                                                                                 \
     template<                                                                   \
         BOOST_FUSION_ADAPT_STRUCT_UNPACK_TEMPLATE_PARAMS(TEMPLATE_PARAMS_SEQ)   \
     >                                                                           \
     struct struct_assoc_key<BOOST_FUSION_ADAPT_STRUCT_UNPACK_NAME(NAME_SEQ), I> \
     {                                                                           \
-        typedef BOOST_PP_TUPLE_ELEM(5, 4, ATTRIBUTE) type;                      \
+        typedef BOOST_FUSION_ADAPT_ASSOC_ADT_WRAPPEDATTR_GET_KEY(ATTRIBUTE) type;\
     };
 
 #define BOOST_FUSION_ADAPT_ASSOC_TPL_ADT(                                       \

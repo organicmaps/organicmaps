@@ -20,6 +20,14 @@ extern NSString * const kMwmTextToSpeechDisable = @"MWMTEXTTOSPEECH_DISABLE";
   self = [super init];
   if (self)
   {
+    // Activating audio session.
+    NSError * err = nil;
+    AVAudioSession * audioSession = [AVAudioSession sharedInstance];
+    if (![audioSession setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionMixWithOthers error:&err])
+      LOG(LWARNING, ("[ setCategory]] error.", [err localizedDescription]));
+    if (![audioSession setActive:YES error:&err])
+      LOG(LWARNING, ("[[AVAudioSession sharedInstance] setActive]] error.", [err localizedDescription]));
+    
     // Before 9.0 version iOS has an issue with speechRate. AVSpeechUtteranceDefaultSpeechRate does not work correctly.
     // It's a work around for iOS 7.x and 8.x.
     self.speechRate = isIOSVersionLessThan(@"7.1.1") ? 0.3 : (isIOSVersionLessThan(@"9.0.0") ? 0.15 : AVSpeechUtteranceDefaultSpeechRate);
@@ -128,16 +136,16 @@ extern NSString * const kMwmTextToSpeechDisable = @"MWMTEXTTOSPEECH_DISABLE";
 
 - (void)playTurnNotifications
 {
-  if (![self isValid])
-    return;
-  
   Framework & frm = GetFramework();
   if (!frm.IsRoutingActive())
     return;
   
   vector<string> notifications;
-  frm.GenerateTurnSound(notifications);
-  
+  frm.GenerateTurnNotifications(notifications);
+
+  if (![self isValid])
+    return;
+
   for (auto const & text : notifications)
     [self speakOneString:@(text.c_str())];
 }

@@ -18,6 +18,7 @@
 
 #include <limits>
 
+#include <boost/config.hpp>
 #include <boost/units/units_fwd.hpp>
 
 namespace std {
@@ -30,8 +31,14 @@ class numeric_limits< ::boost::units::quantity<Unit, T> >
         static const bool is_specialized = std::numeric_limits<T>::is_specialized;
         static quantity_type (min)() { return(quantity_type::from_value((std::numeric_limits<T>::min)())); }
         static quantity_type (max)() { return(quantity_type::from_value((std::numeric_limits<T>::max)())); }
+#ifndef BOOST_NO_CXX11_NUMERIC_LIMITS
+        static quantity_type (lowest)() { return(quantity_type::from_value((std::numeric_limits<T>::lowest)())); }
+#endif
         static const int digits = std::numeric_limits<T>::digits;
         static const int digits10 = std::numeric_limits<T>::digits10;
+#ifndef BOOST_NO_CXX11_NUMERIC_LIMITS
+        static const int max_digits10 = std::numeric_limits<T>::max_digits10;
+#endif
         static const bool is_signed = std::numeric_limits<T>::is_signed;
         static const bool is_integer = std::numeric_limits<T>::is_integer;
         static const bool is_exact = std::numeric_limits<T>::is_exact;

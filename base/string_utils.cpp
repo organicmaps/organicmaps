@@ -170,6 +170,15 @@ bool StartsWith(string const & s1, char const * s2)
   return (s1.compare(0, strlen(s2), s2) == 0);
 }
 
+bool EndsWith(string const & s1, char const * s2)
+{
+  size_t const n = s1.size();
+  size_t const m = strlen(s2);
+  if (n < m)
+    return false;
+  return (s1.compare(n - m, m, s2) == 0);
+}
+
 string to_string_dac(double d, int dac)
 {
   dac = min(numeric_limits<double>::digits10, dac);

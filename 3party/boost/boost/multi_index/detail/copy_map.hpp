@@ -1,4 +1,4 @@
-/* Copyright 2003-2013 Joaquin M Lopez Munoz.
+/* Copyright 2003-2015 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <boost/detail/no_exceptions_support.hpp>
 #include <boost/multi_index/detail/auto_space.hpp>
+#include <boost/multi_index/detail/raw_ptr.hpp>
 #include <boost/noncopyable.hpp>
 #include <cstddef>
 #include <functional>
@@ -75,13 +76,13 @@ public:
     }
   }
 
-  const_iterator begin()const{return &*spc.data();}
-  const_iterator end()const{return &*(spc.data()+n);}
+  const_iterator begin()const{return raw_ptr<const_iterator>(spc.data());}
+  const_iterator end()const{return raw_ptr<const_iterator>(spc.data()+n);}
 
   void clone(Node* node)
   {
     (spc.data()+n)->first=node;
-    (spc.data()+n)->second=&*al_.allocate(1);
+    (spc.data()+n)->second=raw_ptr<Node*>(al_.allocate(1));
     BOOST_TRY{
       boost::detail::allocator::construct(
         &(spc.data()+n)->second->value(),node->value());
@@ -93,7 +94,11 @@ public:
     BOOST_CATCH_END
     ++n;
 
-    if(n==size_)std::sort(&*spc.data(),&*spc.data()+size_);
+    if(n==size_){
+      std::sort(
+        raw_ptr<copy_map_entry<Node>*>(spc.data()),
+        raw_ptr<copy_map_entry<Node>*>(spc.data())+size_);
+    }
   }
 
   Node* find(Node* node)const

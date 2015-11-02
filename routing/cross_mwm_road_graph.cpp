@@ -6,24 +6,30 @@
 namespace
 {
 inline bool IsValidEdgeWeight(EdgeWeight const & w) { return w != INVALID_EDGE_WEIGHT; }
-
-double constexpr kMwmCrossingNodeEqualityRadiusMeters = 5.0;
 }
 
 namespace routing
 {
 IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
 {
-  ASSERT(!startNode.mwmName.empty(), ());
+  ASSERT(startNode.mwmId.IsAlive(), ());
   // TODO (ldragunov) make cancellation if necessary
-  TRoutingMappingPtr startMapping = m_indexManager.GetMappingByName(startNode.mwmName);
+  TRoutingMappingPtr startMapping = m_indexManager.GetMappingById(startNode.mwmId);
+  if (!startMapping->IsValid())
+      return IRouter::ResultCode::StartPointNotFound;
   MappingGuard startMappingGuard(startMapping);
   UNUSED_VALUE(startMappingGuard);
   startMapping->LoadCrossContext();
 
   // Load source data.
-  auto const mwmOutsIter = startMapping->m_crossContext.GetOutgoingIterators();
-  size_t const outSize = distance(mwmOutsIter.first, mwmOutsIter.second);
+  vector<OutgoingCrossNode> outgoingNodes;
+
+  startMapping->m_crossContext.ForEachOutgoingNode([&outgoingNodes](OutgoingCrossNode const & node)
+                                                   {
+                                                     outgoingNodes.push_back(node);
+                                                   });
+
+  size_t const outSize = outgoingNodes.size();
   // Can't find the route if there are no routes outside source map.
   if (!outSize)
     return IRouter::RouteNotFound;
@@ -31,10 +37,13 @@ IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
   // Generate routing task from one source to several targets.
   TRoutingNodes sources(1), targets;
   targets.reserve(outSize);
-  for (auto j = mwmOutsIter.first; j < mwmOutsIter.second; ++j)
-    targets.emplace_back(j->m_nodeId, false /* isStartNode */, startNode.mwmName);
+  for (auto const & node : outgoingNodes)
+  {
+    targets.emplace_back(node.m_nodeId, false /* isStartNode */, startNode.mwmId);
+    targets.back().segmentPoint = MercatorBounds::FromLatLon(node.m_point);
+  }
   sources[0] = FeatureGraphNode(startNode.node, startNode.reverseNode, true /* isStartNode */,
-                                startNode.mwmName);
+                                startNode.mwmId);
 
   vector<EdgeWeight> weights;
   FindWeightsMatrix(sources, targets, startMapping->m_dataFacade, weights);
@@ -45,7 +54,7 @@ IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
   {
     if (IsValidEdgeWeight(weights[i]))
     {
-      BorderCross nextNode = FindNextMwmNode(*(mwmOutsIter.first + i), startMapping);
+      BorderCross nextNode = FindNextMwmNode(outgoingNodes[i], startMapping);
       if (nextNode.toNode.IsValid())
         dummyEdges.emplace_back(nextNode, weights[i]);
     }
@@ -58,8 +67,7 @@ IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
 void CrossMwmGraph::AddVirtualEdge(IngoingCrossNode const & node, CrossNode const & finalNode,
                                    EdgeWeight weight)
 {
-  CrossNode start(node.m_nodeId, finalNode.mwmName,
-                  MercatorBounds::FromLatLon(node.m_point.y, node.m_point.x));
+  CrossNode start(node.m_nodeId, finalNode.mwmId, node.m_point);
   vector<CrossWeightedEdge> dummyEdges;
   dummyEdges.emplace_back(BorderCross(finalNode, finalNode), weight);
   m_virtualEdges.insert(make_pair(start, dummyEdges));
@@ -67,37 +75,44 @@ void CrossMwmGraph::AddVirtualEdge(IngoingCrossNode const & node, CrossNode cons
 
 IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
 {
-  ASSERT(finalNode.mwmName.length(), ());
-  TRoutingMappingPtr finalMapping = m_indexManager.GetMappingByName(finalNode.mwmName);
+  ASSERT(finalNode.mwmId.IsAlive(), ());
+  TRoutingMappingPtr finalMapping = m_indexManager.GetMappingById(finalNode.mwmId);
+  if (!finalMapping->IsValid())
+      return IRouter::ResultCode::EndPointNotFound;
   MappingGuard finalMappingGuard(finalMapping);
   UNUSED_VALUE(finalMappingGuard);
   finalMapping->LoadCrossContext();
 
   // Load source data.
-  auto const mwmIngoingIter = finalMapping->m_crossContext.GetIngoingIterators();
-  // Generate routing task from one source to several targets.
-  TRoutingNodes sources, targets(1);
-  size_t const ingoingSize = distance(mwmIngoingIter.first, mwmIngoingIter.second);
-  sources.reserve(ingoingSize);
-
+  vector<IngoingCrossNode> ingoingNodes;
+  finalMapping->m_crossContext.ForEachIngoingNode([&ingoingNodes](IngoingCrossNode const & node)
+                                                   {
+                                                     ingoingNodes.push_back(node);
+                                                   });
+  size_t const ingoingSize = ingoingNodes.size();
   // If there is no routes inside target map.
-  if (!ingoingSize)
+  if (ingoingSize == 0)
     return IRouter::RouteNotFound;
 
-  for (auto j = mwmIngoingIter.first; j != mwmIngoingIter.second; ++j)
+  // Generate routing task from one source to several targets.
+  TRoutingNodes sources, targets(1);
+  sources.reserve(ingoingSize);
+
+  for (auto const & node : ingoingNodes)
   {
     // Case with a target node at the income mwm node.
-    if (j->m_nodeId == finalNode.node)
+    if (node.m_nodeId == finalNode.node)
     {
-      AddVirtualEdge(*j, finalNode, 0 /* no weight */);
+      AddVirtualEdge(node, finalNode, 0 /* no weight */);
       return IRouter::NoError;
     }
-    sources.emplace_back(j->m_nodeId, true /* isStartNode */, finalNode.mwmName);
+    sources.emplace_back(node.m_nodeId, true /* isStartNode */, finalNode.mwmId);
+    sources.back().segmentPoint = MercatorBounds::FromLatLon(node.m_point);
   }
   vector<EdgeWeight> weights;
 
   targets[0] = FeatureGraphNode(finalNode.node, finalNode.reverseNode, false /* isStartNode */,
-                                finalNode.mwmName);
+                                finalNode.mwmId);
   FindWeightsMatrix(sources, targets, finalMapping->m_dataFacade, weights);
   if (find_if(weights.begin(), weights.end(), &IsValidEdgeWeight) == weights.end())
     return IRouter::EndPointNotFound;
@@ -105,7 +120,7 @@ IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
   {
     if (IsValidEdgeWeight(weights[i]))
     {
-      AddVirtualEdge(*(mwmIngoingIter.first + i), finalNode, weights[i]);
+      AddVirtualEdge(ingoingNodes[i], finalNode, weights[i]);
     }
   }
   return IRouter::NoError;
@@ -114,7 +129,7 @@ IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
 BorderCross CrossMwmGraph::FindNextMwmNode(OutgoingCrossNode const & startNode,
                                            TRoutingMappingPtr const & currentMapping) const
 {
-  m2::PointD const & startPoint = startNode.m_point;
+  ms::LatLon const & startPoint = startNode.m_point;
 
   // Check cached crosses.
   auto const it = m_cachedNextNodes.find(startPoint);
@@ -131,22 +146,17 @@ BorderCross CrossMwmGraph::FindNextMwmNode(OutgoingCrossNode const & startNode,
     return BorderCross();
   nextMapping->LoadCrossContext();
 
-  auto incomeIters = nextMapping->m_crossContext.GetIngoingIterators();
-  for (auto i = incomeIters.first; i < incomeIters.second; ++i)
+  IngoingCrossNode ingoingNode;
+  if (nextMapping->m_crossContext.FindIngoingNodeByPoint(startPoint, ingoingNode))
   {
-    m2::PointD const & targetPoint = i->m_point;
-    if (ms::DistanceOnEarth(startPoint.y, startPoint.x, targetPoint.y, targetPoint.x) <
-        kMwmCrossingNodeEqualityRadiusMeters)
-    {
-      BorderCross const cross(
-          CrossNode(startNode.m_nodeId, currentMapping->GetCountryName(),
-                    MercatorBounds::FromLatLon(targetPoint.y, targetPoint.x)),
-          CrossNode(i->m_nodeId, nextMwm,
-                    MercatorBounds::FromLatLon(targetPoint.y, targetPoint.x)));
-      m_cachedNextNodes.insert(make_pair(startPoint, cross));
-      return cross;
-    }
+    auto const & targetPoint = ingoingNode.m_point;
+    BorderCross const cross(
+        CrossNode(startNode.m_nodeId, currentMapping->GetMwmId(), targetPoint),
+        CrossNode(ingoingNode.m_nodeId, nextMapping->GetMwmId(), targetPoint));
+    m_cachedNextNodes.insert(make_pair(startPoint, cross));
+    return cross;
   }
+
   return BorderCross();
 }
 
@@ -163,35 +173,37 @@ void CrossMwmGraph::GetOutgoingEdgesList(BorderCross const & v,
   }
 
   // Loading cross routing section.
-  TRoutingMappingPtr currentMapping = m_indexManager.GetMappingByName(v.toNode.mwmName);
+  TRoutingMappingPtr currentMapping = m_indexManager.GetMappingById(v.toNode.mwmId);
   ASSERT(currentMapping->IsValid(), ());
   currentMapping->LoadCrossContext();
   currentMapping->FreeFileIfPossible();
 
   CrossRoutingContextReader const & currentContext = currentMapping->m_crossContext;
-  auto inRange = currentContext.GetIngoingIterators();
-  auto outRange = currentContext.GetOutgoingIterators();
 
   // Find income node.
-  auto inIt = inRange.first;
-  while (inIt != inRange.second)
+  IngoingCrossNode ingoingNode;
+  CHECK(currentContext.FindIngoingNodeByPoint(v.toNode.point, ingoingNode), ());
+  if (ingoingNode.m_nodeId != v.toNode.node)
   {
-    if (inIt->m_nodeId == v.toNode.node)
-      break;
-    ++inIt;
+    LOG(LDEBUG, ("Several nodes stores in one border point.", v.toNode.point));
+    currentContext.ForEachIngoingNode([&ingoingNode, &v](IngoingCrossNode const & node)
+                                      {
+                                        if (node.m_nodeId == v.toNode.node)
+                                          ingoingNode = node;
+                                      });
   }
-  CHECK(inIt != inRange.second, ());
+
   // Find outs. Generate adjacency list.
-  for (auto outIt = outRange.first; outIt != outRange.second; ++outIt)
-  {
-    EdgeWeight const outWeight = currentContext.GetAdjacencyCost(inIt, outIt);
-    if (outWeight != INVALID_CONTEXT_EDGE_WEIGHT && outWeight != 0)
-    {
-      BorderCross target = FindNextMwmNode(*outIt, currentMapping);
-      if (target.toNode.IsValid())
-        adj.emplace_back(target, outWeight);
-    }
-  }
+  currentContext.ForEachOutgoingNode([&, this](OutgoingCrossNode const & node)
+                                     {
+                                       EdgeWeight const outWeight = currentContext.GetAdjacencyCost(ingoingNode, node);
+                                       if (outWeight != kInvalidContextEdgeWeight && outWeight != 0)
+                                       {
+                                         BorderCross target = FindNextMwmNode(node, currentMapping);
+                                         if (target.toNode.IsValid())
+                                           adj.emplace_back(target, outWeight);
+                                       }
+                                     });
 }
 
 double CrossMwmGraph::HeuristicCostEstimate(BorderCross const & v, BorderCross const & w) const
@@ -208,9 +220,12 @@ void ConvertToSingleRouterTasks(vector<BorderCross> const & graphCrosses,
   route.clear();
   for (size_t i = 0; i + 1 < graphCrosses.size(); ++i)
   {
-    ASSERT_EQUAL(graphCrosses[i].toNode.mwmName, graphCrosses[i + 1].fromNode.mwmName, ());
-    route.emplace_back(graphCrosses[i].toNode.node, graphCrosses[i + 1].fromNode.node,
-                       graphCrosses[i].toNode.mwmName);
+    ASSERT_EQUAL(graphCrosses[i].toNode.mwmId, graphCrosses[i + 1].fromNode.mwmId, ());
+    route.emplace_back(graphCrosses[i].toNode.node,
+                       MercatorBounds::FromLatLon(graphCrosses[i].toNode.point),
+                       graphCrosses[i + 1].fromNode.node,
+                       MercatorBounds::FromLatLon(graphCrosses[i + 1].fromNode.point),
+                       graphCrosses[i].toNode.mwmId);
   }
 
   if (route.empty())
@@ -218,8 +233,8 @@ void ConvertToSingleRouterTasks(vector<BorderCross> const & graphCrosses,
 
   route.front().startNode = startGraphNode;
   route.back().finalNode = finalGraphNode;
-  ASSERT_EQUAL(route.front().startNode.mwmName, route.front().finalNode.mwmName, ());
-  ASSERT_EQUAL(route.back().startNode.mwmName, route.back().finalNode.mwmName, ());
+  ASSERT_EQUAL(route.front().startNode.mwmId, route.front().finalNode.mwmId, ());
+  ASSERT_EQUAL(route.back().startNode.mwmId, route.back().finalNode.mwmId, ());
 }
 
 }  // namespace routing

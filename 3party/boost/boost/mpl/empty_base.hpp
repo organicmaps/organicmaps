@@ -17,11 +17,10 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/aux_/config/msvc.hpp>
 #include <boost/mpl/aux_/config/workaround.hpp>
+#include <boost/mpl/aux_/lambda_support.hpp>
 
+#include <boost/type_traits/integral_constant.hpp>
 #include <boost/type_traits/is_empty.hpp>
-
-// should be always the last #include directive
-#include <boost/type_traits/detail/bool_trait_def.hpp>
 
 namespace boost { namespace mpl {
 
@@ -51,9 +50,14 @@ struct is_empty_base<empty_base>
 }}
 
 namespace boost {
-BOOST_TT_AUX_BOOL_TRAIT_SPEC1(is_empty, mpl::empty_base, true)
-}
 
-#include <boost/type_traits/detail/bool_trait_undef.hpp>
+template<> struct is_empty< mpl::empty_base >
+    : public ::boost::integral_constant<bool,true>
+{
+public:
+    BOOST_MPL_AUX_LAMBDA_SUPPORT_SPEC(1,is_empty,(mpl::empty_base))
+};
+
+}
 
 #endif // BOOST_MPL_EMPTY_BASE_HPP_INCLUDED

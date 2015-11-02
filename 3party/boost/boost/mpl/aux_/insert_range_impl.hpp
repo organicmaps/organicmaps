@@ -14,9 +14,10 @@
 // $Date$
 // $Revision$
 
-#include <boost/mpl/copy.hpp>
+#include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/fold.hpp>
+#include <boost/mpl/insert.hpp>
 #include <boost/mpl/clear.hpp>
-#include <boost/mpl/front_inserter.hpp>
 #include <boost/mpl/joint_view.hpp>
 #include <boost/mpl/iterator_range.hpp>
 #include <boost/mpl/aux_/na_spec.hpp>
@@ -43,29 +44,31 @@ struct insert_range_impl
         >
     struct apply
 #if !defined(BOOST_MPL_CFG_NO_NESTED_FORWARDING)
-        : reverse_copy<
-              joint_view< 
+        : reverse_fold<
+              joint_view<
                   iterator_range<typename begin<Sequence>::type,Pos>
-                , joint_view< 
+                , joint_view<
                       Range
                     , iterator_range<Pos,typename end<Sequence>::type>
                     >
                 >
-            , front_inserter< typename clear<Sequence>::type >
+            , typename clear<Sequence>::type
+            , insert<_1, begin<_1>, _2>
             >
     {
 #else
     {
-        typedef typename reverse_copy<
-              joint_view< 
-                  iterator_range<typename begin<Sequence>::type,Pos>
-                , joint_view< 
-                      Range
-                    , iterator_range<Pos,typename end<Sequence>::type>
-                    >
-                >
-            , front_inserter< typename clear<Sequence>::type >
-            >::type type;
+        typedef typename reverse_fold<
+                joint_view<
+                    iterator_range<typename begin<Sequence>::type,Pos>
+                  , joint_view<
+                        Range
+                      , iterator_range<Pos,typename end<Sequence>::type>
+                      >
+                  >
+              , typename clear<Sequence>::type
+              , insert<_1, begin<_1>, _2>
+              >::type type;
 #endif
     };
 };

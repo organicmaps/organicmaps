@@ -37,6 +37,7 @@
 
 #include <boost/numeric/odeint/stepper/stepper_categories.hpp>
 #include <boost/numeric/odeint/stepper/runge_kutta4.hpp>
+#include <boost/numeric/odeint/stepper/extrapolation_stepper.hpp>
 
 #include <boost/numeric/odeint/stepper/base/algebra_stepper_base.hpp>
 
@@ -44,11 +45,28 @@
 #include <boost/numeric/odeint/stepper/detail/adams_bashforth_call_algebra.hpp>
 #include <boost/numeric/odeint/stepper/detail/rotating_buffer.hpp>
 
+#include <boost/mpl/arithmetic.hpp>
+#include <boost/mpl/min_max.hpp>
+#include <boost/mpl/equal_to.hpp>
+
+namespace mpl = boost::mpl;
+
 
 namespace boost {
 namespace numeric {
 namespace odeint {
 
+    using mpl::int_;
+
+    /* if N >= 4, returns the smallest even number > N, otherwise returns 4 */
+    template < int N >
+    struct order_helper
+        : mpl::max< typename mpl::eval_if<
+                        mpl::equal_to< mpl::modulus< int_< N >, int_< 2 > >,
+                                       int_< 0 > >,
+                        int_< N >, int_< N + 1 > >::type,
+                    int_< 4 > >::type
+    { };
 
 template<
 size_t Steps ,
@@ -59,7 +77,9 @@ class Time = Value ,
 class Algebra = typename algebra_dispatcher< State >::algebra_type ,
 class Operations = typename operations_dispatcher< State >::operations_type ,
 class Resizer = initially_resizer ,
-class InitializingStepper = runge_kutta4< State , Value , Deriv , Time , Algebra , Operations, Resizer >
+class InitializingStepper = extrapolation_stepper< order_helper<Steps>::value,
+                                                   State, Value, Deriv, Time,
+                                                   Algebra, Operations, Resizer >
 >
 class adams_bashforth : public algebra_stepper_base< Algebra , Operations >
 {
@@ -181,7 +201,8 @@ public :
         {
             if( i != 0 ) m_step_storage.rotate();
             sys( x , m_step_storage[0].m_v , t );
-            stepper.do_step( system , x , m_step_storage[0].m_v , t , dt );
+            stepper.do_step_dxdt_impl( system, x, m_step_storage[0].m_v, t,
+                                       dt );
             t += dt;
         }
         m_steps_initialized = steps;
@@ -222,7 +243,8 @@ private:
         {
             if( m_steps_initialized != 0 ) m_step_storage.rotate();
             sys( in , m_step_storage[0].m_v , t );
-            m_initializing_stepper.do_step( system , in , m_step_storage[0].m_v , t , out , dt );
+            m_initializing_stepper.do_step_dxdt_impl(
+                system, in, m_step_storage[0].m_v, t, out, dt );
             ++m_steps_initialized;
         }
         else

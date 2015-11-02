@@ -49,9 +49,4 @@ public class MyPositionButton
     if (image instanceof AnimationDrawable)
       ((AnimationDrawable) image).start();
   }
-
-  public void click()
-  {
-    mButton.performClick();
-  }
 }

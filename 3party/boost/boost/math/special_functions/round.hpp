@@ -26,7 +26,30 @@ inline typename tools::promote_args<T>::type round(const T& v, const Policy& pol
       typedef typename tools::promote_args<T>::type result_type;
    if(!(boost::math::isfinite)(v))
       return policies::raise_rounding_error("boost::math::round<%1%>(%1%)", 0, static_cast<result_type>(v), static_cast<result_type>(v), pol);
-   return v < 0 ? static_cast<result_type>(ceil(v - 0.5f)) : static_cast<result_type>(floor(v + 0.5f));
+   //
+   // The logic here is rather convoluted, but avoids a number of traps,
+   // see discussion here https://github.com/boostorg/math/pull/8
+   //
+   if (-0.5 < v && v < 0.5)
+   {
+      // special case to avoid rounding error on the direct
+      // predecessor of +0.5 resp. the direct successor of -0.5 in
+      // IEEE floating point types
+      return 0;
+   }
+   else if (v > 0)
+   {
+      // subtract v from ceil(v) first in order to avoid rounding
+      // errors on largest representable integer numbers
+      result_type c(ceil(v));
+      return 0.5 < c - v ? c - 1 : c;
+   }
+   else
+   {
+      // see former branch
+      result_type f(floor(v));
+      return 0.5 < v - f ? f + 1 : f;
+   }
 }
 template <class T, class Policy>
 inline typename tools::promote_args<T>::type round(const T& v, const Policy&, const mpl::true_)

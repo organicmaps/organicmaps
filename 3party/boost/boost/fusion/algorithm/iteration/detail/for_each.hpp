@@ -21,14 +21,14 @@ namespace boost { namespace fusion {
 namespace detail
 {
     template <typename First, typename Last, typename F>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline void
     for_each_linear(First const&, Last const&, F const&, mpl::true_)
     {
     }
-        
+
     template <typename First, typename Last, typename F>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline void
     for_each_linear(First const& first, Last const& last, F const& f, mpl::false_)
     {
@@ -39,7 +39,7 @@ namespace detail
 
 
     template <typename Sequence, typename F, typename Tag>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline void
     for_each_dispatch(Sequence& seq, F const& f, Tag)
     {
@@ -56,7 +56,7 @@ namespace detail
     struct for_each_unrolled
     {
         template<typename I0, typename F>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static void call(I0 const& i0, F const& f)
         {
             f(*i0);
@@ -77,7 +77,7 @@ namespace detail
     struct for_each_unrolled<3>
     {
         template<typename I0, typename F>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static void call(I0 const& i0, F const& f)
         {
             f(*i0);
@@ -94,7 +94,7 @@ namespace detail
     struct for_each_unrolled<2>
     {
         template<typename I0, typename F>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static void call(I0 const& i0, F const& f)
         {
             f(*i0);
@@ -108,7 +108,7 @@ namespace detail
     struct for_each_unrolled<1>
     {
         template<typename I0, typename F>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static void call(I0 const& i0, F const& f)
         {
             f(*i0);
@@ -119,14 +119,14 @@ namespace detail
     struct for_each_unrolled<0>
     {
         template<typename It, typename F>
-        BOOST_FUSION_GPU_ENABLED
+        BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         static void call(It const&, F const&)
         {
         }
     };
 
     template <typename Sequence, typename F>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline void
     for_each_dispatch(Sequence& seq, F const& f, random_access_traversal_tag)
     {
@@ -136,7 +136,7 @@ namespace detail
     }
 
     template <typename Sequence, typename F>
-    BOOST_FUSION_GPU_ENABLED
+    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline void
     for_each(Sequence& seq, F const& f, mpl::false_) // unsegmented implementation
     {

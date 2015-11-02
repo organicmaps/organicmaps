@@ -11,10 +11,14 @@ class ModelReader;
 
 namespace platform
 {
+// Removes all files downloader creates during downloading of a country.
+void DeleteDownloaderFilesForCountry(CountryFile const & countryFile, int64_t version);
+
 // Removes partially downloaded maps, empty directories and old
 // (format v1) maps.  Also, removes old (splitted) Japan and Brazil
-// maps.
-void CleanupMapsDirectory();
+// maps. |version| must be set to the latest data version this app can
+// work with.
+void CleanupMapsDirectory(int64_t latestVersion);
 
 // Finds all local map files in a directory. Version of these files is
 // passed as an argument.
@@ -48,6 +52,8 @@ bool ParseVersion(string const & s, int64_t & version);
 // directory with name equal to decimal representation of version.
 shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(CountryFile const & countryFile,
                                                          int64_t version);
+
+string GetFileDownloadPath(CountryFile const & countryFile, MapOptions file, int64_t version);
 
 ModelReader * GetCountryReader(LocalCountryFile const & file, MapOptions options);
 

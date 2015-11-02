@@ -18,8 +18,6 @@
 
 #include <boost/config.hpp>
 
-#include <boost/serialization/pfto.hpp>
-
 namespace boost {
 
 namespace archive {
@@ -66,19 +64,19 @@ public:
     friend inline void serialize(
         Archive & ar, 
         T & t, 
-        const BOOST_PFTO unsigned int file_version
+        const unsigned int file_version
     );
     template<class Archive, class T>
     friend inline void save_construct_data(
         Archive & ar, 
         const T * t, 
-        const BOOST_PFTO unsigned int file_version
+        const unsigned int file_version
     );
     template<class Archive, class T>
     friend inline void load_construct_data(
         Archive & ar, 
         T * t, 
-        const BOOST_PFTO unsigned int file_version
+        const unsigned int file_version
     );
 #endif
 

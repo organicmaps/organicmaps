@@ -4,11 +4,6 @@ import android.app.Activity;
 
 public class TextShareable extends BaseShareable
 {
-  public TextShareable(Activity context)
-  {
-    super(context);
-  }
-
   public TextShareable(Activity context, String text)
   {
     super(context);

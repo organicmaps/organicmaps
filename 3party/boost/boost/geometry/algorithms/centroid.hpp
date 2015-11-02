@@ -624,7 +624,7 @@ inline void centroid(Geometry const& geometry, Point& c,
 template<typename Geometry, typename Point>
 inline void centroid(Geometry const& geometry, Point& c)
 {
-    centroid(geometry, c, default_strategy());
+    geometry::centroid(geometry, c, default_strategy());
 }
 
 
@@ -643,7 +643,7 @@ template<typename Point, typename Geometry>
 inline Point return_centroid(Geometry const& geometry)
 {
     Point c;
-    centroid(geometry, c);
+    geometry::centroid(geometry, c);
     return c;
 }
 
@@ -666,7 +666,7 @@ template<typename Point, typename Geometry, typename Strategy>
 inline Point return_centroid(Geometry const& geometry, Strategy const& strategy)
 {
     Point c;
-    centroid(geometry, c, strategy);
+    geometry::centroid(geometry, c, strategy);
     return c;
 }
 

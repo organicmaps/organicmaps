@@ -15,7 +15,8 @@
 #import "MWMPlacePageViewManager.h"
 #import "MWMPlacePageViewManagerDelegate.h"
 
-#include "Framework.h"
+#include "geometry/distance_on_sphere.hpp"
+#include "platform/measurement_utils.hpp"
 
 extern NSString * const kBookmarksChangedNotification;
 
@@ -195,9 +196,10 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 - (void)share
 {
   MWMPlacePageEntity * entity = self.entity;
+  NSString * title = entity.bookmarkTitle ? entity.bookmarkTitle : entity.title;
   CLLocationCoordinate2D const coord = CLLocationCoordinate2DMake(entity.point.x, entity.point.y);
   MWMActivityViewController * shareVC =
-      [MWMActivityViewController shareControllerForLocationTitle:entity.title
+      [MWMActivityViewController shareControllerForLocationTitle:title
                                                         location:coord
                                                       myPosition:NO];
   [shareVC presentInParentViewController:self.ownerViewController
@@ -210,6 +212,13 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   NSURL * url = [NSURL URLWithString:@(GetFramework().GenerateApiBackUrl(*p).c_str())];
   [[UIApplication sharedApplication] openURL:url];
   [self.delegate apiBack];
+}
+
+- (void)changeBookmarkCategory:(BookmarkAndCategory)bac;
+{
+  BookmarkCategory const * category = GetFramework().GetBmCategory(bac.first);
+  Bookmark const * bookmark = category->GetBookmark(bac.second);
+  m_userMark.reset(new UserMarkCopy(bookmark, false));
 }
 
 - (void)addBookmark
@@ -258,6 +267,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 {
   [self.entity synchronize];
   [self.placePage reloadBookmark];
+  [self updateDistance];
 }
 
 - (void)dragPlacePage:(CGRect)frame
@@ -283,14 +293,11 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   CLLocation * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
   if (!location || !m_userMark)
     return @"";
-
-  double azimut = -1;
-  double north = -1;
-  [[MapsAppDelegate theApp].m_locationManager getNorthRad:north];
   string distance;
   CLLocationCoordinate2D const coord = location.coordinate;
-  GetFramework().GetDistanceAndAzimut(m_userMark->GetUserMark()->GetOrg(), coord.latitude, coord.longitude, north,
-                                      distance, azimut);
+  ms::LatLon const target = MercatorBounds::ToLatLon(m_userMark->GetUserMark()->GetOrg());
+  MeasurementUtils::FormatDistance(ms::DistanceOnEarth(coord.latitude, coord.longitude,
+                                                       target.lat, target.lon), distance);
   return @(distance.c_str());
 }
 
@@ -309,9 +316,11 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 - (void)showDirectionViewWithTitle:(NSString *)title type:(NSString *)type
 {
   MWMDirectionView * directionView = self.directionView;
+  UIView * ownerView = self.ownerViewController.view;
   directionView.titleLabel.text = title;
   directionView.typeLabel.text = type;
-  [self.ownerViewController.view addSubview:directionView];
+  [ownerView addSubview:directionView];
+  [ownerView endEditing:YES];
   [directionView setNeedsLayout];
   [self.delegate updateStatusBarStyle];
   [(MapsAppDelegate *)[UIApplication sharedApplication].delegate disableStandby];
@@ -323,6 +332,13 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   [self.directionView removeFromSuperview];
   [self.delegate updateStatusBarStyle];
   [(MapsAppDelegate *)[UIApplication sharedApplication].delegate enableStandby];
+}
+
+- (void)changeHeight:(CGFloat)height
+{
+  if (!IPAD)
+    return;
+  ((MWMiPadPlacePage *)self.placePage).height = height;
 }
 
 #pragma mark - Properties

@@ -62,7 +62,7 @@
 	<!-- Search Suggestion -->
 	<text id="IDS_PHARMACY">Apotheke</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_HOSPITAL">Spital</text>
+	<text id="IDS_HOSPITAL">Krankenhaus</text>
 	<!-- Search Suggestion -->
 	<text id="IDS_TOILET">Toilette</text>
 	<!-- Search Suggestion -->
@@ -76,7 +76,7 @@
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<text id="IDS_BOOKMARK_SHARE_SMS">Meine Nadel auf der Karte sehen. Klicke auf den Link %1$s oder %2$s</text>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<text id="IDS_MY_POSITION_SHARE_SMS">Sieh, wo ich gerade bin. Klicke auf den Link %1$s oder %2$s</text>
+	<text id="IDS_MY_POSITION_SHARE_SMS">Schau wo ich gerade bin. Klicke auf den Link %1$s oder %2$s</text>
 	<!-- Subject for emailed bookmark -->
 	<text id="IDS_BOOKMARK_SHARE_EMAIL_SUBJECT">Schau dir meine Nadel auf der MAPS.ME-Karte an</text>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
@@ -100,7 +100,6 @@
 	<!-- Confirmation in downloading countries dialog -->
 	<text id="IDS_ARE_YOU_SURE">Möchten Sie wirklich fortfahren?</text>
 	<text id="IDS_SHARE_MY_LOCATION">Meinen Standort teilen</text>
-	<text id="IDS_BECOME_A_PRO">Upgrade</text>
 	<text id="IDS_PREF_ZOOM_TITLE">Zoom-Tasten</text>
 	<text id="IDS_PREF_ZOOM_SUMMARY">Auf dem Bildschirm anzeigen</text>
 	<!-- Search Suggestion -->

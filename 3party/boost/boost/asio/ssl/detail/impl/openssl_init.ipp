@@ -3,7 +3,7 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
 // Copyright (c) 2005 Voipster / Indrek dot Juhani at voipster dot com
-// Copyright (c) 2005-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2005-2015 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -64,7 +64,11 @@ public:
     ::CRYPTO_set_id_callback(0);
     ::CRYPTO_set_locking_callback(0);
     ::ERR_free_strings();
+#if (OPENSSL_VERSION_NUMBER >= 0x10000000L)
+    ::ERR_remove_thread_state(NULL);
+#else // (OPENSSL_VERSION_NUMBER >= 0x10000000L)
     ::ERR_remove_state(0);
+#endif // (OPENSSL_VERSION_NUMBER >= 0x10000000L)
     ::EVP_cleanup();
     ::CRYPTO_cleanup_all_ex_data();
     ::CONF_modules_unload(1);

@@ -43,8 +43,8 @@ struct copy_segment_point_range
     {
         detail::normalized_view<Range const> view(range);
 
-        signed_index_type const n = boost::size(view);
-        signed_index_type index = seg_id.segment_index;
+        signed_size_type const n = boost::size(view);
+        signed_size_type index = seg_id.segment_index;
         if (second)
         {
             index++;
@@ -95,7 +95,7 @@ struct copy_segment_point_box
             SegmentIdentifier const& seg_id, bool second,
             PointOut& point)
     {
-        signed_index_type index = seg_id.segment_index;
+        signed_size_type index = seg_id.segment_index;
         if (second)
         {
             index++;

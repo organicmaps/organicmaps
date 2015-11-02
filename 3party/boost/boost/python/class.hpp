@@ -45,8 +45,7 @@
 # if BOOST_WORKAROUND(__MWERKS__, <= 0x3004)                        \
     /* pro9 reintroduced the bug */                                 \
     || (BOOST_WORKAROUND(__MWERKS__, > 0x3100)                      \
-        && BOOST_WORKAROUND(__MWERKS__, BOOST_TESTED_AT(0x3201)))   \
-    || BOOST_WORKAROUND(__GNUC__, < 3)
+        && BOOST_WORKAROUND(__MWERKS__, BOOST_TESTED_AT(0x3201)))
 
 #  define BOOST_PYTHON_NO_MEMBER_POINTER_ORDERING 1
 
@@ -302,7 +301,6 @@ class class_ : public objects::class_base
     }
 
     // Property creation
-# if !BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
     template <class Get>
     self& add_property(char const* name, Get fget, char const* docstr = 0)
     {
@@ -317,47 +315,6 @@ class class_ : public objects::class_base
             name, this->make_getter(fget), this->make_setter(fset), docstr);
         return *this;
     }
-# else
- private:
-    template <class Get>
-    self& add_property_impl(char const* name, Get fget, char const* docstr, int)
-    {
-        base::add_property(name, this->make_getter(fget), docstr);
-        return *this;
-    }
-
-    template <class Get, class Set>
-    self& add_property_impl(char const* name, Get fget, Set fset, ...)
-    {
-        base::add_property(
-            name, this->make_getter(fget), this->make_setter(fset), 0);
-        return *this;
-    }
-
- public:    
-    template <class Get>
-    self& add_property(char const* name, Get fget)
-    {
-        base::add_property(name, this->make_getter(fget), 0);
-        return *this;
-    }
-
-    template <class Get, class DocStrOrSet>
-    self& add_property(char const* name, Get fget, DocStrOrSet docstr_or_set)
-    {
-        this->add_property_impl(name, this->make_getter(fget), docstr_or_set, 0);
-        return *this;
-    }
-
-    template <class Get, class Set>
-    self&
-    add_property(char const* name, Get fget, Set fset, char const* docstr)
-    {
-        base::add_property(
-            name, this->make_getter(fget), this->make_setter(fset), docstr);
-        return *this;
-    }
-# endif
         
     template <class Get>
     self& add_static_property(char const* name, Get fget)

@@ -10,7 +10,7 @@
 #ifndef BOOST_RANGE_DETAIL_ANY_ITERATOR_WRAPPER_HPP_INCLUDED
 #define BOOST_RANGE_DETAIL_ANY_ITERATOR_WRAPPER_HPP_INCLUDED
 
-#include <boost/polymorphic_cast.hpp>
+#include <boost/cast.hpp>
 #include <boost/range/config.hpp>
 #include <boost/range/detail/any_iterator_interface.hpp>
 #include <boost/range/concepts.hpp>
