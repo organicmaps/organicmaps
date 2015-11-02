@@ -70,7 +70,7 @@ def create_diff(zooms1, zooms2):
       print "{}: not found in the alternative style; {}".format(typ, zooms_string(zooms1[typ][0].scale, zooms1[typ][1].scale))
 
   add_types = []
-  for typ in seen:
+  for typ in sorted(seen):
     print "{}: missing completely; {}".format(typ, zooms_string(zooms2[typ][0].scale, zooms2[typ][1].scale))
     cont = drules_struct_pb2.ClassifElementProto()
     cont.name = typ
@@ -84,9 +84,14 @@ def create_diff(zooms1, zooms2):
 
 def apply_diff(drules, diff):
   """Applies diff tuple (from create_diff) to a drules set."""
+  d2pos = 0
   result = drules_struct_pb2.ContainerProto()
   for rule in drules.cont:
     typ = str(rule.name)
+    # Append rules from diff[2] which nas name less than typ
+    while d2pos < len(diff[2]) and diff[2][d2pos].name < typ:
+      result.cont.extend([diff[2][d2pos]])
+      d2pos += 1
     fix = drules_struct_pb2.ClassifElementProto()
     fix.name = typ
     if typ in diff[0]:
@@ -96,7 +101,7 @@ def apply_diff(drules, diff):
     if typ in diff[1]:
       fix.element.extend(diff[1][typ])
     result.cont.extend([fix])
-  result.cont.extend(diff[2])
+  result.cont.extend(diff[2][d2pos:])
   return result
 
 if __name__ == '__main__':
