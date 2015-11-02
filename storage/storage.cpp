@@ -719,31 +719,41 @@ TStatus Storage::CountryStatusFull(TIndex const & index, TStatus const status) c
   return TStatus::EOnDisk;
 }
 
-MapOptions Storage::NormalizeDownloadFileSet(TIndex const & index, MapOptions opt) const
+MapOptions Storage::NormalizeDownloadFileSet(TIndex const & index, MapOptions options) const
 {
+  auto const & country = GetCountryFile(index);
+
   // Car routing files are useless without map files.
-  if (HasOptions(opt, MapOptions::CarRouting))
-    opt = SetOptions(opt, MapOptions::Map);
+  if (HasOptions(options, MapOptions::CarRouting))
+    options = SetOptions(options, MapOptions::Map);
 
   TLocalFilePtr localCountryFile = GetLatestLocalFile(index);
-  for (MapOptions file : {MapOptions::Map, MapOptions::CarRouting})
+  for (MapOptions option : {MapOptions::Map, MapOptions::CarRouting})
   {
     // Check whether requested files are on disk and up-to-date.
-    if (HasOptions(opt, file) && localCountryFile && localCountryFile->OnDisk(file) &&
+    if (HasOptions(options, option) && localCountryFile && localCountryFile->OnDisk(option) &&
         localCountryFile->GetVersion() == GetCurrentDataVersion())
     {
-      opt = UnsetOptions(opt, file);
+      options = UnsetOptions(options, option);
+    }
+
+    // Check whether requested file is not empty.
+    if (GetRemoteSize(country, option) == 0)
+    {
+      ASSERT_NOT_EQUAL(MapOptions::Map, option, ("Map can't be empty."));
+      options = UnsetOptions(options, option);
     }
   }
-  return opt;
+
+  return options;
 }
 
-MapOptions Storage::NormalizeDeleteFileSet(MapOptions opt) const
+MapOptions Storage::NormalizeDeleteFileSet(MapOptions options) const
 {
   // Car routing files are useless without map files.
-  if (HasOptions(opt, MapOptions::Map))
-    opt = SetOptions(opt, MapOptions::CarRouting);
-  return opt;
+  if (HasOptions(options, MapOptions::Map))
+    options = SetOptions(options, MapOptions::CarRouting);
+  return options;
 }
 
 QueuedCountry * Storage::FindCountryInQueue(TIndex const & index)

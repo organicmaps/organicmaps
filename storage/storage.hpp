@@ -190,11 +190,11 @@ private:
   // Modifies file set of requested files - always adds a map file
   // when routing file is requested for downloading, but drops all
   // already downloaded and up-to-date files.
-  MapOptions NormalizeDownloadFileSet(TIndex const & index, MapOptions opt) const;
+  MapOptions NormalizeDownloadFileSet(TIndex const & index, MapOptions options) const;
 
   // Modifies file set of file to deletion - always adds (marks for
   // removal) a routing file when map file is marked for deletion.
-  MapOptions NormalizeDeleteFileSet(MapOptions opt) const;
+  MapOptions NormalizeDeleteFileSet(MapOptions options) const;
 
   // Returns a pointer to a country in the downloader's queue.
   QueuedCountry * FindCountryInQueue(TIndex const & index);

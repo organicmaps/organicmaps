@@ -706,4 +706,30 @@ UNIT_TEST(StorageTest_FailedDownloading)
   TEST(Platform::IsFileExistsByFullPath(downloadPath + DOWNLOADING_FILE_EXTENSION), ());
   TEST(Platform::IsFileExistsByFullPath(downloadPath + RESUME_FILE_EXTENSION), ());
 }
+
+// "South Georgia and the South Sandwich" doesn't have roads, so there
+// is no routing file for this island.
+UNIT_TEST(StorageTest_EmptyRoutingFile)
+{
+  Storage storage;
+  TaskRunner runner;
+  InitStorage(storage, runner, [](LocalCountryFile const & localFile)
+              {
+                TEST_EQUAL(localFile.GetFiles(), MapOptions::Map, ());
+              });
+
+  TIndex const index = storage.FindIndexByFile("South Georgia and the South Sandwich Islands");
+  TEST(index.IsValid(), ());
+  storage.DeleteCountry(index, MapOptions::MapWithCarRouting);
+  MY_SCOPE_GUARD(cleanup,
+                 bind(&Storage::DeleteCountry, &storage, index, MapOptions::MapWithCarRouting));
+
+  CountryFile const country = storage.GetCountryFile(index);
+  TEST_NOT_EQUAL(country.GetRemoteSize(MapOptions::Map), 0, ());
+  TEST_EQUAL(country.GetRemoteSize(MapOptions::CarRouting), 0, ());
+
+  auto checker = AbsentCountryDownloaderChecker(storage, index, MapOptions::MapWithCarRouting);
+  checker->StartDownload();
+  runner.Run();
+}
 }  // namespace storage
