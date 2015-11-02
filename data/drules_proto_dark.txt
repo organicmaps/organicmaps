@@ -38966,6 +38966,39 @@ cont {
   }
 }
 cont {
+  name: "shop-laundry"
+  element {
+    scale: 18
+    symbol {
+      name: "laundry-l"
+      priority: 16888
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15888
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "laundry-l"
+      priority: 16888
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15888
+    }
+  }
+}
+cont {
   name: "shop-mall"
   element {
     scale: 16

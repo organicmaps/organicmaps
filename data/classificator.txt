@@ -719,6 +719,7 @@ world  +
         hardware  -
         jewelry  -
         kiosk  -
+        laundry  -
         mall  -
         mobile_phone  -
         optician  -
