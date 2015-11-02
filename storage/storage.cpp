@@ -721,6 +721,8 @@ TStatus Storage::CountryStatusFull(TIndex const & index, TStatus const status) c
 
 MapOptions Storage::NormalizeDownloadFileSet(TIndex const & index, MapOptions opt) const
 {
+  auto const & country = GetCountryFile(index);
+
   // Car routing files are useless without map files.
   if (HasOptions(opt, MapOptions::CarRouting))
     opt = SetOptions(opt, MapOptions::Map);
@@ -734,7 +736,15 @@ MapOptions Storage::NormalizeDownloadFileSet(TIndex const & index, MapOptions op
     {
       opt = UnsetOptions(opt, file);
     }
+
+    // Check whether requested file is not empty.
+    if (GetRemoteSize(country, file) == 0)
+    {
+      ASSERT_NOT_EQUAL(MapOptions::Map, file, ("Map can't be empty."));
+      opt = UnsetOptions(opt, file);
+    }
   }
+
   return opt;
 }
 
