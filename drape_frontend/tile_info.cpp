@@ -57,13 +57,12 @@ void TileInfo::ReadFeatures(MapDataProvider const & model, MemoryFeatureIndex & 
   // Reading can be interrupted by exception throwing
   MY_SCOPE_GUARD(ReleaseReadTile, bind(&EngineContext::EndReadTile, m_context.get()));
 
-  ReadFeatureIndex(model);
-
   vector<FeatureID> featuresToRead;
   {
     MemoryFeatureIndex::Lock lock(memIndex);
     UNUSED_VALUE(lock);
 
+    ReadFeatureIndex(model);
     CheckCanceled();
     featuresToRead.reserve(AverageFeaturesCount);
     memIndex.ReadFeaturesRequest(m_featureInfo, featuresToRead);
@@ -92,7 +91,6 @@ bool TileInfo::IsCancelled() const
 void TileInfo::ProcessID(FeatureID const & id)
 {
   m_featureInfo.push_back(id);
-  CheckCanceled();
 }
 
 void TileInfo::InitStylist(FeatureType const & f, Stylist & s)

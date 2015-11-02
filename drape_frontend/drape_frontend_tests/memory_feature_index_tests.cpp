@@ -155,6 +155,7 @@ namespace
     virtual void Do()
     {
       vector<FeatureID> result;
+      df::MemoryFeatureIndex::Lock lock(m_index);
       m_index.ReadFeaturesRequest(m_features, result);
       MarkNodesAsReaded(m_features, result);
     }
