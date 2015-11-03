@@ -51,7 +51,9 @@ m2::AnyRectD ModelViewAnimation::GetRect(double elapsedTime) const
 
 double ModelViewAnimation::GetRotateDuration(double startAngle, double endAngle)
 {
-  return 0.5 * fabs(ang::GetShortestDistance(startAngle, endAngle)) / math::pi;
+  double const kRotateDurationScalar = 0.75;
+
+  return kRotateDurationScalar * fabs(ang::GetShortestDistance(startAngle, endAngle)) / math::pi;
 }
 
 namespace
@@ -59,7 +61,9 @@ namespace
 
 double CalcAnimSpeedDuration(double pxDiff, double pxSpeed)
 {
-  if (my::AlmostEqualAbs(pxDiff, 0.0, 1e-5))
+  double const kEps = 1e-5;
+
+  if (my::AlmostEqualAbs(pxDiff, 0.0, kEps))
     return 0.0;
 
   return fabs(pxDiff) / pxSpeed;
@@ -69,26 +73,33 @@ double CalcAnimSpeedDuration(double pxDiff, double pxSpeed)
 
 double ModelViewAnimation::GetMoveDuration(m2::PointD const & startPt, m2::PointD const & endPt, ScreenBase const & convertor)
 {
+  double const kMinMoveDuration = 0.2;
+  double const kMinSpeedScalar = 0.2;
+  double const kMaxSpeedScalar = 7.0;
+  double const kEps = 1e-5;
+
   m2::RectD const & dispPxRect = convertor.PixelRect();
-  double pixelLength = convertor.GtoP(endPt).Length(convertor.GtoP(startPt));
-  if (pixelLength < 1e-5)
+  double const pixelLength = convertor.GtoP(endPt).Length(convertor.GtoP(startPt));
+  if (pixelLength < kEps)
     return 0.0;
 
-  if (pixelLength < 0.2 * min(dispPxRect.SizeX(), dispPxRect.SizeY()))
-    return 0.2;
+  double const minSize = min(dispPxRect.SizeX(), dispPxRect.SizeY());
+  if (pixelLength < kMinSpeedScalar * minSize)
+    return kMinMoveDuration;
 
-  double const pixelSpeed = 1.5 * min(dispPxRect.SizeX(), dispPxRect.SizeY());
+  double const pixelSpeed = kMaxSpeedScalar * minSize;
   return CalcAnimSpeedDuration(pixelLength, pixelSpeed);
 }
 
 double ModelViewAnimation::GetScaleDuration(double startSize, double endSize)
 {
+  // Resize 2.0 times should be done for 0.3 seconds.
+  double constexpr kPixelSpeed = 2.0 / 0.3;
+
   if (startSize > endSize)
     swap(startSize, endSize);
 
-  // Resize 2.0 times should be done for 0.3 seconds.
-  static double const pixelSpeed = 2.0 / 0.3;
-  return CalcAnimSpeedDuration(endSize / startSize, pixelSpeed);
+  return CalcAnimSpeedDuration(endSize / startSize, kPixelSpeed);
 }
 
 ScaleAnimation::ScaleAnimation(m2::AnyRectD const & startRect, m2::AnyRectD const & endRect,

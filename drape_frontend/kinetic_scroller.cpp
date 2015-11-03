@@ -96,7 +96,7 @@ void KineticScroller::GrabViewRect(ScreenBase const & modelView, double timeStam
     delta = delta.Normalize();
 
     // Velocity on pixels.
-    double v = min(pxDeltaLength / elapsed, CalculateKineticMaxSpeed(modelView));
+    double const v = min(pxDeltaLength / elapsed, CalculateKineticMaxSpeed(modelView));
 
     // At this point length(m_direction) already in pixel space, and delta normalized.
     m_direction = delta * v;
@@ -124,8 +124,8 @@ unique_ptr<BaseModelViewAnimation> KineticScroller::CreateKineticAnimation(Scree
 
   // Before we start animation we have to convert length(m_direction) from pixel space to mercator space.
   m2::PointD center = m_lastRect.GlobalCenter();
-  double const d = (modelView.PtoG(modelView.GtoP(center) + m_direction) - center).Length();
-  double const glbLength = kKineticAcceleration * d;
+  double const offset = (modelView.PtoG(modelView.GtoP(center) + m_direction) - center).Length();
+  double const glbLength = kKineticAcceleration * offset;
   m2::PointD const glbDirection = m_direction.Normalize() * glbLength;
   m2::PointD const targetCenter = center + glbDirection;
   if (!df::GetWorldRect().IsPointInside(targetCenter))
