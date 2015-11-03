@@ -178,10 +178,6 @@ m2::RectD OverlayHandle::GetPixelRectPerspective(ScreenBase const & screen) cons
 
     m2::RectD pxRectPerspective = GetPixelRect(screen, false);
     pxRectPerspective.Offset(-pxPivot);
-    double const maxY = -pxRectPerspective.minY();
-    double const minY = -pxRectPerspective.maxY();
-    pxRectPerspective.setMinY(minY);
-    pxRectPerspective.setMaxY(maxY);
     pxRectPerspective.Offset(pxPivotPerspective);
 
     return pxRectPerspective;

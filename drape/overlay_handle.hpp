@@ -51,7 +51,7 @@ public:
 
   bool IsBillboard() const;
 
-  m2::PointD GetPivot(ScreenBase const & screen, bool perspective) const;
+  virtual m2::PointD GetPivot(ScreenBase const & screen, bool perspective) const;
 
   virtual bool Update(ScreenBase const & /*screen*/) { return true; }
 
