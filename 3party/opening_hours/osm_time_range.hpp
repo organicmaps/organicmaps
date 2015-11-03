@@ -502,7 +502,8 @@ public:
     DefaultOpen,
     Open,
     Closed,
-    Unknown
+    Unknown,
+    Comment
   };
 
 

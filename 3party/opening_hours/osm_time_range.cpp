@@ -1305,6 +1305,7 @@ std::ostream & operator<<(std::ostream & ost, RuleSequence::Modifier const modif
   switch (modifier)
   {
     case RuleSequence::Modifier::DefaultOpen:
+    case RuleSequence::Modifier::Comment:
       break;
     case RuleSequence::Modifier::Unknown:
       ost << "unknown";
@@ -1329,7 +1330,10 @@ std::ostream & operator<<(std::ostream & ost, RuleSequence const & s)
   };
 
   if (s.Is24Per7())
+  {
+    putSpace();
     ost << "24/7";
+  }
   else
   {
     if (s.HasComment())
@@ -1367,10 +1371,16 @@ std::ostream & operator<<(std::ostream & ost, RuleSequence const & s)
       }
     }
   }
-  if (s.GetModifier() != RuleSequence::Modifier::DefaultOpen)
+  if (s.GetModifier() != RuleSequence::Modifier::DefaultOpen &&
+      s.GetModifier() != RuleSequence::Modifier::Comment)
   {
     putSpace();
     ost << s.GetModifier();
+  }
+  if (s.HasModifierComment())
+  {
+    putSpace();
+    ost << '"' << s.GetModifierComment() << '"';
   }
 
   return ost;

@@ -30,9 +30,11 @@ public:
     return m_modifier == RuleSequence::Modifier::Closed;
   }
 
-  bool IsUnknon() const
+  bool IsUnknown() const
   {
-    return m_modifier == RuleSequence::Modifier::Unknown;
+    return
+        m_modifier == RuleSequence::Modifier::Unknown ||
+        m_modifier == RuleSequence::Modifier::Comment;
   }
 
 private:

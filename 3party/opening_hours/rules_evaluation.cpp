@@ -248,7 +248,7 @@ RuleState GetState(TRuleSequences const & rules, std::tm const & date)
 RuleState GetState(TRuleSequences const & rules, time_t const dateTime)
 {
   std::tm tm{};
-  gmtime_r(&dateTime, &tm);
+  localtime_r(&dateTime, &tm);
   return GetState(rules, tm);
 }
 } // namespace osmoh

@@ -397,7 +397,7 @@ protected:
   month_selector<Iterator> month_selector;
   week_selector<Iterator> week_selector;
 
-  qi::rule<Iterator, std::string(), space_type> comment;
+  qi::rule<Iterator, std::string()> comment;
   qi::rule<Iterator, std::string(), space_type> separator;
 
   qi::rule<Iterator, qi::unused_type(osmoh::RuleSequence &), space_type> small_range_selectors;
@@ -459,15 +459,15 @@ public:
            [bind(&osmoh::RuleSequence::SetModifier, _r1, Modifier::Unknown)] >>
            -(comment [bind(&osmoh::RuleSequence::SetModifierComment, _r1, _1)]))
 
-        | comment    [bind(&osmoh::RuleSequence::SetModifier, _r1, Modifier::Unknown),
+        | comment    [bind(&osmoh::RuleSequence::SetModifier, _r1, Modifier::Comment),
                       bind(&osmoh::RuleSequence::SetModifierComment, _r1, _1)]
         ;
 
     rule_sequence =
-        lit("24/7") [bind(&osmoh::RuleSequence::Set24Per7, _val, true)]
-        | ( -wide_range_selectors(_val) >>
-            -small_range_selectors(_val) >>
-            -rule_modifier(_val) )
+        ( lit("24/7") [bind(&osmoh::RuleSequence::Set24Per7, _val, true)]
+          | ( -wide_range_selectors(_val) >>
+              -small_range_selectors(_val) )) >>
+        -rule_modifier(_val)
         ;
 
     main = ( -(lit("opening_hours") >> lit('=')) >>
