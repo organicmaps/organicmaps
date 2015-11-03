@@ -148,6 +148,8 @@ private:
   m2::PointD m_endPoint;
   size_t m_lastWarnedSpeedCameraIndex;
   SpeedCameraRestriction m_lastCheckedCamera;
+  size_t m_lastCheckedSpeedCameraIndex;
+
   // TODO (ldragunov) Rewrite UI interop to message queue and avoid mutable.
   /// This field is mutable because it's modified in a constant getter. Note that the notification
   /// about camera will be sent at most once.
