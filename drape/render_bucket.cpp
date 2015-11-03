@@ -85,9 +85,10 @@ void RenderBucket::Render(ScreenBase const & screen)
     bool hasIndexMutation = false;
     for (drape_ptr<OverlayHandle> const & handle : m_overlay)
     {
-      if (handle->IndexesRequired() && handle->IsVisible())
+      if (handle->IndexesRequired())
       {
-        handle->GetElementIndexes(rfpIndex);
+        if (handle->IsVisible())
+          handle->GetElementIndexes(rfpIndex);
         hasIndexMutation = true;
       }
 
