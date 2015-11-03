@@ -86,8 +86,8 @@ double ModelViewAnimation::GetScaleDuration(double startSize, double endSize)
   if (startSize > endSize)
     swap(startSize, endSize);
 
-  // Resize 2.0 times should be done for 0.5 seconds.
-  static double const pixelSpeed = 2.0 / 0.5;
+  // Resize 2.0 times should be done for 0.3 seconds.
+  static double const pixelSpeed = 2.0 / 0.3;
   return CalcAnimSpeedDuration(endSize / startSize, pixelSpeed);
 }
 

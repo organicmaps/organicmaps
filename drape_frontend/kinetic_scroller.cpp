@@ -8,29 +8,28 @@
 namespace df
 {
 
-double const kKineticDuration = 0.375;
-double const kKineticFeedbackStart = 0.1;
-double const kKineticFeedbackEnd = 0.5;
-double const kKineticFadeoff = 5.0;
+double const kKineticDuration = 0.6;
+double const kKineticFadeoff = 1.5;
 double const kKineticThreshold = 50.0;
-double const kKineticInertia = 0.5;
-double const kKineticMaxSpeed = 1500.0; // pixels per second
+double const kKineticAcceleration = 0.4;
+double const kKineticMaxSpeedStart = 1000.0; // pixels per second
+double const kKineticMaxSpeedEnd = 10000.0; // pixels per second
 
-double CalculateKineticFeedback(ScreenBase const & modelView)
+double CalculateKineticMaxSpeed(ScreenBase const & modelView)
 {
   double const kMinZoom = 1.0;
   double const kMaxZoom = scales::UPPER_STYLE_SCALE + 1.0;
   double const zoomLevel = my::clamp(fabs(log(modelView.GetScale()) / log(2.0)), kMinZoom, kMaxZoom);
   double const lerpCoef = 1.0 - ((zoomLevel - kMinZoom) / (kMaxZoom - kMinZoom));
 
-  return kKineticFeedbackStart * lerpCoef + kKineticFeedbackEnd * (1.0 - lerpCoef);
+  return (kKineticMaxSpeedStart * lerpCoef + kKineticMaxSpeedEnd * (1.0 - lerpCoef)) * VisualParams::Instance().GetVisualScale();
 }
 
 class KineticScrollAnimation : public BaseModelViewAnimation
 {
 public:
-  // startRect - mercator visible on screen rect in moment when user release fingers
-  // direction - mercator space direction of moving. length(direction) - mercator distance on wich map will be offset
+  // startRect - mercator visible on screen rect in moment when user release fingers.
+  // direction - mercator space direction of moving. length(direction) - mercator distance on wich map will be offset.
   KineticScrollAnimation(m2::AnyRectD const & startRect, m2::PointD const & direction, double duration)
     : BaseModelViewAnimation(duration)
     , m_targetCenter(startRect.GlobalCenter() + direction)
@@ -44,8 +43,8 @@ public:
 
   m2::AnyRectD GetCurrentRect(ScreenBase const & screen) const override
   {
-    // current position = target position - amplutide * e ^ (elapsed / duration)
-    // we calculate current position not based on start position, but based on target position
+    // Current position = target position - amplutide * e ^ (elapsed / duration).
+    // We calculate current position not based on start position, but based on target position.
     return m2::AnyRectD(m_targetCenter - m_direction * exp(-kKineticFadeoff * GetT()), m_angle, m_localRect);
   }
 
@@ -81,9 +80,9 @@ bool KineticScroller::IsActive() const
 
 void KineticScroller::GrabViewRect(ScreenBase const & modelView, double timeStamp)
 {
-  // In KineitcScroller we store m_direction in mixed state
-  // Direction in mercator space, and length(m_direction) in pixel space
-  // We need same reaction on different zoom levels, and should calculate velocity on pixel space
+  // In KineitcScroller we store m_direction in mixed state.
+  // Direction in mercator space, and length(m_direction) in pixel space.
+  // We need same reaction on different zoom levels, and should calculate velocity on pixel space.
   ASSERT_GREATER(m_lastTimestamp, 0.0, ());
   ASSERT_GREATER(timeStamp, m_lastTimestamp, ());
   double elapsed = timeStamp - m_lastTimestamp;
@@ -96,11 +95,11 @@ void KineticScroller::GrabViewRect(ScreenBase const & modelView, double timeStam
   {
     delta = delta.Normalize();
 
-    // velocity on pixels
-    double v = min(pxDeltaLength / elapsed, kKineticMaxSpeed * VisualParams::Instance().GetVisualScale());
+    // Velocity on pixels.
+    double v = min(pxDeltaLength / elapsed, CalculateKineticMaxSpeed(modelView));
 
-    // at this point length(m_direction) already in pixel space, and delta normalized
-    m_direction = delta * kKineticInertia * v + m_direction * (1.0 - kKineticInertia);
+    // At this point length(m_direction) already in pixel space, and delta normalized.
+    m_direction = delta * v;
   }
   else
   {
@@ -123,11 +122,12 @@ unique_ptr<BaseModelViewAnimation> KineticScroller::CreateKineticAnimation(Scree
   if (m_direction.Length() < kVelocityThreshold)
     return unique_ptr<BaseModelViewAnimation>();
 
-  // Before we start animation we have to convert length(m_direction) from pixel space to mercator space
+  // Before we start animation we have to convert length(m_direction) from pixel space to mercator space.
   m2::PointD center = m_lastRect.GlobalCenter();
-  double glbLength = CalculateKineticFeedback(modelView) * (modelView.PtoG(modelView.GtoP(center) + m_direction) - center).Length();
-  m2::PointD glbDirection = m_direction.Normalize() * glbLength;
-  m2::PointD targetCenter = center + glbDirection;
+  double const d = (modelView.PtoG(modelView.GtoP(center) + m_direction) - center).Length();
+  double const glbLength = kKineticAcceleration * d;
+  m2::PointD const glbDirection = m_direction.Normalize() * glbLength;
+  m2::PointD const targetCenter = center + glbDirection;
   if (!df::GetWorldRect().IsPointInside(targetCenter))
     return unique_ptr<BaseModelViewAnimation>();
 
