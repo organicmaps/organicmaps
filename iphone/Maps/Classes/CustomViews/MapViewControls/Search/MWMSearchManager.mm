@@ -1,3 +1,4 @@
+#import "LocationManager.h"
 #import "MapsAppDelegate.h"
 #import "MapsObservers.h"
 #import "MWMConsole.h"
@@ -154,6 +155,21 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   self.searchTextField.text = text;
   NSString * inputLocale = locale ? locale : self.searchTextField.textInputMode.primaryLanguage;
   [self.tableViewController searchText:text forInputLocale:inputLocale];
+}
+
+- (void)tapMyPositionFromHistory
+{
+  MapsAppDelegate * a = MapsAppDelegate.theApp;
+  MWMRoutePoint const p = MWMRoutePoint::MWMRoutePoint(ToMercator(a.m_locationManager.lastLocation.coordinate));
+  if (a.routingPlaneMode == MWMRoutingPlaneModeSearchSource)
+    [self.delegate buildRouteFrom:p];
+  else if (a.routingPlaneMode == MWMRoutingPlaneModeSearchDestination)
+    [self.delegate buildRouteTo:p];
+  else
+    NSAssert(false, @"Incorrect state for process my position tap");
+  if (!IPAD)
+    a.routingPlaneMode = MWMRoutingPlaneModePlacePage;
+  self.state = MWMSearchManagerStateHidden;
 }
 
 - (void)processSearchWithResult:(search::Result const &)result query:(search::QuerySaver::TSearchRequest const &)query
