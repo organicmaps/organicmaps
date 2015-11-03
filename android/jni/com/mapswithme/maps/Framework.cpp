@@ -1492,6 +1492,12 @@ extern "C"
   }
 
   JNIEXPORT jint JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGetLastUsedRouter(JNIEnv * env, jclass thiz)
+  {
+    return static_cast<jint>(g_framework->GetLastUsedRouter());
+  }
+
+  JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_Framework_nativeGetBestRouter(JNIEnv * env, jclass thiz, jdouble srcLat, jdouble srcLon, jdouble dstLat, jdouble dstLon)
   {
     return static_cast<jint>(frm()->GetBestRouter(MercatorBounds::FromLatLon(srcLat, srcLon), MercatorBounds::FromLatLon(dstLat, dstLon)));

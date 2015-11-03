@@ -175,6 +175,8 @@ public class Framework
 
   public native static int nativeGetRouter();
 
+  public native static int nativeGetLastUsedRouter();
+
   /**
    * @return {@link Framework#ROUTER_TYPE_VEHICLE} or {@link Framework#ROUTER_TYPE_PEDESTRIAN}
    */
