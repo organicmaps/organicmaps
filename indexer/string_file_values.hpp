@@ -203,6 +203,15 @@ public:
       m_cbv.reset();
   }
 
+  template <typename TSource>
+  void Deserialize(TSource & src, SingleValueSerializer<TValue> const & /* serializer */)
+  {
+    if (src.Size() > 0)
+      m_cbv = coding::CompressedBitVectorBuilder::DeserializeFromSource(src);
+    else
+      m_cbv.reset();
+  }
+
   template <typename TF>
   void ForEach(TF && f) const
   {

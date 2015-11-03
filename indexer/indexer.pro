@@ -51,6 +51,7 @@ SOURCES += \
     types_mapping.cpp \
     types_skipper.cpp \
 
+
 HEADERS += \
     categories_holder.hpp \
     cell_coverer.hpp \
@@ -103,8 +104,14 @@ HEADERS += \
     search_trie.hpp \
     string_file.hpp \
     string_file_values.hpp \
+    succinct_trie.hpp \
+    succinct_trie_builder.hpp \
+    succinct_trie_reader.hpp \
     tesselator_decl.hpp \
     tree_structure.hpp \
+    trie.hpp \
+    trie_builder.hpp \
+    trie_reader.hpp \
     types_mapping.hpp \
     types_skipper.hpp \
     unique_index.hpp \

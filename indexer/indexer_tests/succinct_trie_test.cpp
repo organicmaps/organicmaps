@@ -1,15 +1,14 @@
 #include "testing/testing.hpp"
 
-#include "coding/succinct_trie_builder.hpp"
-#include "coding/succinct_trie_reader.hpp"
-#include "coding/trie_builder.hpp"
-#include "coding/trie.hpp"
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
-#include "coding/trie_reader.hpp"
-
 #include "indexer/search_trie.hpp"
+#include "indexer/succinct_trie_builder.hpp"
+#include "indexer/succinct_trie_reader.hpp"
+#include "indexer/trie.hpp"
+#include "indexer/trie_builder.hpp"
+#include "indexer/trie_reader.hpp"
 
 #include "base/string_utils.hpp"
 

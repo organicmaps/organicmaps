@@ -1,9 +1,11 @@
 #include "testing/testing.hpp"
+
+#include "indexer/trie.hpp"
+#include "indexer/trie_builder.hpp"
+#include "indexer/trie_reader.hpp"
+
 #include "coding/byte_stream.hpp"
 #include "coding/reader.hpp"
-#include "coding/trie.hpp"
-#include "coding/trie_builder.hpp"
-#include "coding/trie_reader.hpp"
 #include "coding/write_to_sink.hpp"
 
 #include "base/logging.hpp"
@@ -134,11 +136,6 @@ public:
   template <typename TSource>
   void Deserialize(TSource & src, uint32_t valueCount, TSerializer const & /* serializer */)
   {
-    if (valueCount == 0)
-    {
-      Deserialize(src, TSerializer());
-      return;
-    }
     m_values.resize(valueCount);
     for (size_t i = 0; i < valueCount; ++i)
       m_values[i] = ReadPrimitiveFromSource<TValue>(src);

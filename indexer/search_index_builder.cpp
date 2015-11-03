@@ -11,6 +11,7 @@
 #include "indexer/search_trie.hpp"
 #include "indexer/string_file.hpp"
 #include "indexer/string_file_values.hpp"
+#include "indexer/trie_builder.hpp"
 #include "indexer/types_skipper.hpp"
 
 #include "search/search_common.hpp"  // for MAX_TOKENS constant
@@ -21,7 +22,6 @@
 
 #include "coding/file_name_utils.hpp"
 #include "coding/reader_writer_ops.hpp"
-#include "coding/trie_builder.hpp"
 #include "coding/writer.hpp"
 
 #include "base/assert.hpp"

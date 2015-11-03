@@ -39,8 +39,6 @@ SOURCES += ../../testing/testingmain.cpp \
     simple_dense_coding_test.cpp \
     sha2_test.cpp \
     succinct_mapper_test.cpp \
-    succinct_trie_test.cpp \
-    trie_test.cpp \
     uri_test.cpp \
     url_encode_test.cpp \
     value_opt_string_test.cpp \

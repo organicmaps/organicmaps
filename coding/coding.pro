@@ -89,12 +89,6 @@ HEADERS += \
     streams_common.hpp \
     streams_sink.hpp \
     succinct_mapper.hpp \
-    succinct_trie.hpp \
-    succinct_trie_builder.hpp \
-    succinct_trie_reader.hpp \
-    trie.hpp \
-    trie_builder.hpp \
-    trie_reader.hpp \
     uri.hpp \
     url_encode.hpp \
     value_opt_string.hpp \

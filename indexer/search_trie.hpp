@@ -2,11 +2,10 @@
 
 #include "indexer/geometry_serialization.hpp"
 #include "indexer/string_file_values.hpp"
+#include "indexer/trie.hpp"
+#include "indexer/trie_reader.hpp"
 
 #include "coding/reader.hpp"
-#include "coding/trie.hpp"
-#include "coding/trie_reader.hpp"
-
 
 namespace search
 {

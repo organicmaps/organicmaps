@@ -1,5 +1,6 @@
 #pragma once
-#include "coding/trie.hpp"
+#include "indexer/trie.hpp"
+
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
 
@@ -20,8 +21,7 @@ public:
   LeafIterator0(TReader const & reader, TSerializer const & serializer)
   {
     ReaderSource<TReader> src(reader);
-    if (src.Size() > 0)
-      m_valueList.Deserialize(src, 0 /* valueCount */, serializer);
+    m_valueList.Deserialize(src, serializer);
     ASSERT_EQUAL(src.Size(), 0, ());
   }
 

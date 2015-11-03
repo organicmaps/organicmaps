@@ -1,8 +1,9 @@
 #pragma once
+#include "indexer/trie.hpp"
+
 #include "coding/bit_streams.hpp"
 #include "coding/huffman.hpp"
 #include "coding/reader.hpp"
-#include "coding/trie.hpp"
 #include "coding/varint.hpp"
 
 #include "base/assert.hpp"

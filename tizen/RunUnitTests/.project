@@ -521,7 +521,7 @@
 			<locationURI>PARENT-2-ECLIPSE_HOME/GitHub/omim/coding/coding_tests/sha2_test.cpp</locationURI>
 		</link>
 		<link>
-			<name>src/Tests/coding/trie_test.cpp</name>
+			<name>src/Tests/indexer/trie_test.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-2-ECLIPSE_HOME/GitHub/omim/coding/coding_tests/trie_test.cpp</locationURI>
 		</link>

@@ -50,7 +50,14 @@ void WriteNode(TSink & sink, TSerializer const & serializer, TrieChar baseChar,
   if (begChild == endChild && !isRoot)
   {
     // Leaf node.
+#ifdef DEBUG
+    auto posBefore = sink.Pos();
+#endif
     valueList.Serialize(sink, serializer);
+#ifdef DEBUG
+    if (valueCount == 0)
+      ASSERT_EQUAL(sink.Pos(), posBefore, ("Empty valueList must produce an empty serialization."));
+#endif
     return;
   }
   uint32_t const childCount = endChild - begChild;
