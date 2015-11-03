@@ -602,6 +602,7 @@ public:
   void CloseRouting();
   void GetRouteFollowingInfo(location::FollowingInfo & info) const { m_routingSession.GetRouteFollowingInfo(info); }
   m2::PointD GetRouteEndPoint() const { return m_routingSession.GetEndPoint(); }
+  routing::RouterType GetLastUsedRouter() const;
   void SetLastUsedRouter(routing::RouterType type);
   /// Returns the most situable router engine type. Bases on distance and the last used router.
   routing::RouterType GetBestRouter(m2::PointD const & startPoint, m2::PointD const & finalPoint);
