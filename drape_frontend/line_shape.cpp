@@ -423,6 +423,9 @@ void LineShape::Construct(TBuilder & builder) const
   segments.reserve(path.size() - 1);
   ConstructLineSegments(path, segments);
 
+  if (segments.empty())
+    return;
+
   // build geometry
   for (size_t i = 0; i < segments.size(); i++)
   {
