@@ -78,6 +78,8 @@ namespace
 
 UNIT_TEST(UploadingGlyphs)
 {
+  // This unit test creates window so can't be run in GUI-less Linux machine.
+#ifndef OMIM_OS_LINUX
   EXPECTGL(glHasExtension(_)).Times(AnyNumber());
   EXPECTGL(glBindTexture(_)).Times(AnyNumber());
   EXPECTGL(glDeleteTexture(_)).Times(AnyNumber());
@@ -122,4 +124,5 @@ UNIT_TEST(UploadingGlyphs)
   index.UploadResources(make_ref(&tex));
 
   RunTestLoop("UploadingGlyphs", bind(&UploadedRender::Render, &r, _1));
+#endif
 }

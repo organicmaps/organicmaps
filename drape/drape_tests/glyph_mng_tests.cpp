@@ -77,6 +77,9 @@ namespace
 
 UNIT_TEST(GlyphLoadingTest)
 {
+  // This unit test creates window so can't be run in GUI-less Linux machine.
+#ifndef OMIM_OS_LINUX
   GlyphRenderer renderer;
   RunTestLoop("GlyphLoadingTest", bind(&GlyphRenderer::RenderGlyphs, &renderer, _1));
+#endif
 }
