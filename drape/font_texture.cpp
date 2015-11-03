@@ -226,6 +226,9 @@ void GlyphIndex::UploadResources(ref_ptr<Texture> texture)
       ++it;
   }
 
+  if (pendingNodes.empty())
+    return;
+
   buffer_vector<size_t, 3> ranges;
   buffer_vector<uint32_t, 2> maxHeights;
   ranges.push_back(0);
