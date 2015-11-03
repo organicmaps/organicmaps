@@ -147,7 +147,8 @@ private:
   State m_state;
   m2::PointD m_endPoint;
   size_t m_lastWarnedSpeedCameraIndex;
-  SpeedCameraRestriction m_lastCheckedCamera;
+  SpeedCameraRestriction m_lastFoundCamera;
+  // Index of a last point on a route checked for a speed camera.
   size_t m_lastCheckedSpeedCameraIndex;
 
   // TODO (ldragunov) Rewrite UI interop to message queue and avoid mutable.
