@@ -1479,14 +1479,14 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_setRouter(JNIEnv * env, jclass thiz, jint routerType)
+  Java_com_mapswithme_maps_Framework_nativeSetRouter(JNIEnv * env, jclass thiz, jint routerType)
   {
     routing::RouterType const val = static_cast<routing::RouterType>(routerType);
     android::Platform::RunOnGuiThreadImpl(bind(&android::Framework::SetRouter, g_framework, val));
   }
 
   JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_Framework_getRouter(JNIEnv * env, jclass thiz)
+  Java_com_mapswithme_maps_Framework_nativeGetRouter(JNIEnv * env, jclass thiz)
   {
     return static_cast<jint>(g_framework->GetRouter());
   }

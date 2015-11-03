@@ -171,9 +171,9 @@ public class Framework
 
   public native static int getMapStyle();
 
-  public native static void setRouter(int routerType);
+  public native static void nativeSetRouter(int routerType);
 
-  public native static int getRouter();
+  public native static int nativeGetRouter();
 
   /**
    * @return {@link Framework#ROUTER_TYPE_VEHICLE} or {@link Framework#ROUTER_TYPE_PEDESTRIAN}
