@@ -5,9 +5,8 @@ namespace parsing
 {
 namespace qi = boost::spirit::qi;
 
-class dash_ : public qi::symbols<wchar_t>
+struct dash_ : public qi::symbols<wchar_t>
 {
- public:
   dash_()
   {
     add
@@ -18,9 +17,8 @@ class dash_ : public qi::symbols<wchar_t>
   }
 } dash;
 
-class event_ : public qi::symbols<char, osmoh::Time::Event>
+struct event_ : public qi::symbols<char, osmoh::Time::Event>
 {
- public:
   event_()
   {
     add

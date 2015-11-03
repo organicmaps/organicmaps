@@ -31,7 +31,7 @@ namespace phx = boost::phoenix;
 
 class test_impl
 {
- public:
+public:
   template <typename T>
   struct result { typedef void type; };
 
@@ -43,43 +43,6 @@ class test_impl
 };
 phx::function<test_impl> const test = test_impl();
 
-// inline boost::posix_time::time_period make_time_period(boost::gregorian::date const & d,
-//                                                        osmoh::TimeSpan const & ts)
-// {
-//   using boost::posix_time::ptime;
-//   using boost::posix_time::hours;
-//   using boost::posix_time::minutes;
-//   using boost::posix_time::time_period;
-
-//   /// TODO(yershov@): Need create code for calculate real values
-//   ptime sunrise(d, hours(6));
-//   ptime sunset(d, hours(19));
-
-//   ptime t1, t2;
-
-//   if (ts.from.flags & osmoh::Time::Sunrise)
-//     t1 = sunrise;
-//   else if (ts.from.flags & osmoh::Time::Sunset)
-//     t1 = sunset;
-//   else
-//     t1 = ptime(d, hours((ts.from.flags & osmoh::Time::Hours) ? ts.from.hours : 0) + minutes((ts.from.flags & osmoh::Time::Minutes) ? ts.from.minutes : 0));
-
-//   t2 = t1;
-
-//   if (ts.to.flags & osmoh::Time::Sunrise)
-//     t2 = sunrise;
-//   else if (ts.to.flags & osmoh::Time::Sunset)
-//     t2 = sunset;
-//   else
-//   {
-//     t2 = ptime(d, hours((ts.to.flags & osmoh::Time::Hours) ? ts.to.hours : 24) + minutes((ts.to.flags & osmoh::Time::Minutes) ? ts.to.minutes : 0));
-//     if (t2 < t1)
-//       t2 += hours(24);
-//   }
-
-//   return time_period(t1, t2);
-// }
-
 namespace parsing
 {
 namespace qi = boost::spirit::qi;
@@ -90,11 +53,11 @@ using space_type = charset::space_type;
 template <class Iterator>
 class year_selector : public qi::grammar<Iterator, osmoh::TYearRanges(), space_type>
 {
- protected:
+protected:
   qi::rule<Iterator, osmoh::YearRange(), space_type> year_range;
   qi::rule<Iterator, osmoh::TYearRanges(), space_type> main;
 
- public:
+public:
   year_selector() : year_selector::base_type(main)
   {
     using qi::uint_;
@@ -124,11 +87,11 @@ class year_selector : public qi::grammar<Iterator, osmoh::TYearRanges(), space_t
 template <typename Iterator>
 class week_selector : public qi::grammar<Iterator, osmoh::TWeekRanges(), space_type>
 {
- protected:
+protected:
   qi::rule<Iterator, osmoh::WeekRange(), space_type> week;
   qi::rule<Iterator, osmoh::TWeekRanges(), space_type> main;
 
- public:
+public:
   week_selector() : week_selector::base_type(main)
   {
     using qi::uint_;
@@ -154,7 +117,7 @@ class week_selector : public qi::grammar<Iterator, osmoh::TWeekRanges(), space_t
 template <typename Iterator>
 class month_selector : public qi::grammar<Iterator, TMonthdayRanges(), space_type>
 {
- protected:
+protected:
   qi::rule<Iterator, int32_t(), space_type, qi::locals<int32_t>> day_offset;
   qi::rule<Iterator, DateOffset(), space_type, qi::locals<bool>> date_offset;
 
@@ -168,7 +131,7 @@ class month_selector : public qi::grammar<Iterator, TMonthdayRanges(), space_typ
   qi::rule<Iterator, MonthdayRange(), space_type> monthday_range;
   qi::rule<Iterator, TMonthdayRanges(), space_type> main;
 
- public:
+public:
   month_selector() : month_selector::base_type(main)
   {
     using qi::_1;
@@ -260,11 +223,10 @@ class month_selector : public qi::grammar<Iterator, TMonthdayRanges(), space_typ
   }
 };
 
-
 template <typename Iterator>
 class weekday_selector : public qi::grammar<Iterator, osmoh::Weekdays(), space_type>
 {
- protected:
+protected:
   qi::rule<Iterator, osmoh::NthEntry::Nth(), space_type> nth;
   qi::rule<Iterator, osmoh::NthEntry(), space_type> nth_entry;
   qi::rule<Iterator, int32_t(), space_type, qi::locals<int8_t>> day_offset;
@@ -274,7 +236,7 @@ class weekday_selector : public qi::grammar<Iterator, osmoh::Weekdays(), space_t
   qi::rule<Iterator, osmoh::THolidays(), space_type> holiday_sequence;
   qi::rule<Iterator, osmoh::Weekdays(), space_type> main;
 
- public:
+public:
   weekday_selector() : weekday_selector::base_type(main)
   {
     using qi::_a;
@@ -339,7 +301,7 @@ class weekday_selector : public qi::grammar<Iterator, osmoh::Weekdays(), space_t
 template <typename Iterator>
 class time_selector : public qi::grammar<Iterator, osmoh::TTimespans(), space_type>
 {
- protected:
+protected:
   qi::rule<Iterator, osmoh::Time(), space_type> hour_minutes;
   qi::rule<Iterator, osmoh::Time(), space_type> extended_hour_minutes;
   qi::rule<Iterator, osmoh::Time(), space_type> variable_time;
@@ -348,32 +310,7 @@ class time_selector : public qi::grammar<Iterator, osmoh::TTimespans(), space_ty
   qi::rule<Iterator, osmoh::Timespan(), space_type> timespan;
   qi::rule<Iterator, osmoh::TTimespans(), space_type> main;
 
-  // class validate_timespan_impl
-  // {
-  //  public:
-  //   template <typename T>
-  //   struct result { typedef bool type; };
-
-  //   bool operator() (osmoh::TimeSpan const & ts) const
-  //   {
-  //     using boost::posix_time::ptime;
-  //     using boost::posix_time::time_duration;
-  //     using boost::posix_time::hours;
-  //     using boost::posix_time::minutes;
-  //     using boost::posix_time::time_period;
-
-  //     bool result = true;
-  //     if (ts.period.flags)
-  //     {
-  //       time_period tp = osmoh::make_time_period(boost::gregorian::day_clock::local_day(), ts);
-  //       result = (tp.length() >= time_duration(ts.period.hours, ts.period.minutes, 0 /* seconds */));
-  //     }
-
-  //     return result;
-  //   }
-  // };
-
- public:
+public:
   time_selector() : time_selector::base_type(main)
   {
     using qi::int_;
@@ -384,12 +321,9 @@ class time_selector : public qi::grammar<Iterator, osmoh::TTimespans(), space_ty
     using qi::_val;
     using qi::eps;
     using qi::lit;
-    // using qi::_pass;
     using charset::char_;
     using boost::phoenix::bind;
     using boost::phoenix::construct;
-
-    // phx::function<validate_timespan_impl> const validate_timespan = validate_timespan_impl();
 
     hour_minutes =
         (hours >> lit(':') >> minutes) [bind(&osmoh::Time::SetHours, _val, _1),
@@ -442,7 +376,6 @@ class time_selector : public qi::grammar<Iterator, osmoh::TTimespans(), space_ty
         | time[bind(&osmoh::Timespan::SetStart, _val, _1)]
         ;
 
-    // main %= timespan[_pass = validate_timespan(_1)] % ',';
     main %= timespan % ',';
 
     BOOST_SPIRIT_DEBUG_NODE(main);
@@ -493,7 +426,6 @@ public:
     using Modifier = osmoh::RuleSequence::Modifier;
 
     comment %= '"' >> +(char_ - '"') >> '"'
-        // | lexeme['(' >> +(char_ - ')') >> ')']
         ;
 
     separator %= charset::string(";")
@@ -529,8 +461,6 @@ public:
 
         | comment    [bind(&osmoh::RuleSequence::SetModifier, _r1, Modifier::Unknown),
                       bind(&osmoh::RuleSequence::SetModifierComment, _r1, _1)]
-
-        //        | eps [bind(&osmoh::RuleSequence::SetModifier, _val, Modifier::Open)]
         ;
 
     rule_sequence =

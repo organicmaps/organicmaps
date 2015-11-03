@@ -7,7 +7,7 @@ namespace osmoh
 {
 class RuleState
 {
- public:
+public:
   RuleState(RuleSequence::Modifier const & modifier):
       m_modifier(modifier)
   {
@@ -35,7 +35,7 @@ class RuleState
     return m_modifier == RuleSequence::Modifier::Unknown;
   }
 
- private:
+private:
   RuleSequence::Modifier m_modifier;
 };
 

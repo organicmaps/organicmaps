@@ -44,7 +44,7 @@ class Time
 
   using TStateRep = std::underlying_type<State>::type;
 
- public:
+public:
   enum class Event
   {
     NotEvent,
@@ -62,8 +62,6 @@ class Time
   Time(Time const &) = default;
   Time(THours const hours);
   Time(TMinutes const minutes);
-  Time(THours const hours, TMinutes const minutes);
-  Time(Event const event);
 
   Time & operator=(Time const &) = default;
 
@@ -90,7 +88,7 @@ class Time
   Time operator-(Time const & t);
   Time & operator-();
 
- private:
+private:
   Time GetEventTime() const;
 
 
@@ -114,7 +112,7 @@ std::ostream & operator<<(std::ostream & ost, Time const & time);
 
 class Timespan
 {
- public:
+public:
   Timespan() = default;
   Timespan(Timespan const &) = default;
   Timespan(Time const & start, bool plus = false);
@@ -139,7 +137,7 @@ class Timespan
 
   bool IsValid() const;
 
- private:
+private:
   Time m_start;
   Time m_end;
   Time m_period;
@@ -153,7 +151,7 @@ std::ostream & operator<<(std::ostream & ost, osmoh::TTimespans const & timespan
 
 class NthEntry
 {
- public:
+public:
   enum class Nth
   {
     None,
@@ -175,7 +173,7 @@ class NthEntry
   void SetStart(Nth const s);
   void SetEnd(Nth const e);
 
- private:
+private:
   Nth m_start{};
   Nth m_end{};
 };
@@ -214,7 +212,7 @@ class WeekdayRange
 {
   using TNths = std::vector<NthEntry>;
 
- public:
+public:
   bool HasWday(Weekday const & wday) const;
 
   bool HasSunday() const;
@@ -245,7 +243,7 @@ class WeekdayRange
 
   void AddNth(NthEntry const & entry);
 
- private:
+private:
   Weekday m_start{};
   Weekday m_end{};
   int32_t m_offset{};
@@ -259,14 +257,14 @@ std::ostream & operator<<(std::ostream & ost, TWeekdayRanges const & ranges);
 
 class Holiday
 {
- public:
+public:
   bool IsPlural() const;
   void SetPlural(bool const plural);
 
   int32_t GetOffset() const;
   void SetOffset(int32_t const offset);
 
- private:
+private:
   bool m_plural{false};
   int32_t m_offset{};
 };
@@ -279,7 +277,7 @@ std::ostream & operator<<(std::ostream & ost, THolidays const & holidys);
 /// Correspond to weekday_selector in osm opening hours
 class Weekdays
 {
- public:
+public:
   bool IsEmpty() const;
   bool HasWeekday() const;
   bool HasHolidays() const;
@@ -293,7 +291,7 @@ class Weekdays
   void AddWeekdayRange(WeekdayRange const range);
   void AddHoliday(Holiday const & holiday);
 
- private:
+private:
   TWeekdayRanges m_weekdayRanges;
   THolidays m_holidays;
 };
@@ -302,7 +300,7 @@ std::ostream & operator<<(std::ostream & ost, Weekdays const & weekday);
 
 class DateOffset
 {
- public:
+public:
   bool IsEmpty() const;
   bool HasWDayOffset() const;
   bool HasOffset() const;
@@ -316,7 +314,7 @@ class DateOffset
   void SetOffset(int32_t const offset);
   void SetWDayOffsetPositive(bool const on);
 
- private:
+private:
   Weekday m_wday_offset{Weekday::None};
   bool m_positive{true};
   int32_t m_offset{};
@@ -326,7 +324,7 @@ std::ostream & operator<<(std::ostream & ost, DateOffset const & offset);
 
 class MonthDay
 {
- public:
+public:
   enum class Month
   {
     None,
@@ -374,7 +372,7 @@ class MonthDay
   void SetOffset(DateOffset const & offset);
   void SetVariableDate(VariableDate const date);
 
- private:
+private:
   TYear m_year{};
   Month m_month{Month::None};
   TDayNum m_daynum{};
@@ -402,7 +400,7 @@ std::ostream & operator<<(std::ostream & ost, MonthDay const md);
 
 class MonthdayRange
 {
- public:
+public:
   bool IsEmpty() const;
   bool HasStart() const;
   bool HasEnd() const;
@@ -418,7 +416,7 @@ class MonthdayRange
   void SetPeriod(uint32_t const period);
   void SetPlus(bool const plus);
 
- private:
+private:
   MonthDay m_start;
   MonthDay m_end;
   uint32_t m_period{};
@@ -433,7 +431,7 @@ std::ostream & operator<<(std::ostream & ost, TMonthdayRanges const & ranges);
 
 class YearRange
 {
- public:
+public:
   using TYear = uint16_t;
 
 
@@ -453,7 +451,7 @@ class YearRange
   void SetPlus(bool const plus);
   void SetPeriod(uint32_t const period);
 
- private:
+private:
   TYear m_start{};
   TYear m_end{};
   bool m_plus{false};
@@ -467,7 +465,7 @@ std::ostream & operator<<(std::ostream & ost, TYearRanges const ranges);
 
 class WeekRange
 {
- public:
+public:
   using TWeek = uint8_t;
 
 
@@ -485,7 +483,7 @@ class WeekRange
   void SetEnd(TWeek const end);
   void SetPeriod(uint32_t const period);
 
- private:
+private:
   TWeek m_start{};
   TWeek m_end{};
   uint32_t m_period{0};
@@ -498,7 +496,7 @@ std::ostream & operator<<(std::ostream & ost, TWeekRanges const ranges);
 
 class RuleSequence
 {
- public:
+public:
   enum class Modifier
   {
     DefaultOpen,
@@ -547,10 +545,10 @@ class RuleSequence
 
   void SetModifier(Modifier const modifier);
 
- private:
+private:
   void dump() const;
 
- private:
+private:
   bool m_24_per_7{false};
 
   TYearRanges m_years;
