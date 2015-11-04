@@ -16,8 +16,9 @@
 
 namespace style
 {
-  // Fixes icons which are not supported by MapsWithMe
-  string GetSupportedStyle(string const & s, string const & context);
+  // Fixes icons which are not supported by MapsWithMe.
+  string GetSupportedStyle(string const & s, string const & context, string const & fallback);
+  // Default icon.
   string GetDefaultStyle();
 }  // namespace style
 
@@ -45,6 +46,6 @@ public:
   void SetStyle(const string & style) { m_style = style; }
 
 private:
-  string m_style;  ///< Point style (name of icon).
+  string m_style;  ///< Point style (name of icon), or empty string for plain circle.
 };
 

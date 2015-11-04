@@ -1,27 +1,29 @@
 #include "map/styled_point.hpp"
 
-#include "base/stl_add.hpp"
-#include "base/string_utils.hpp"
-
-#include "std/fstream.hpp"
-#include "std/algorithm.hpp"
-#include "std/auto_ptr.hpp"
-
 
 graphics::DisplayList * StyledPoint::GetDisplayList(UserMarkDLCache * cache) const
 {
-  return cache->FindUserMark(UserMarkDLCache::Key(GetStyle(), graphics::EPosAbove, GetContainer()->GetDepth()));
+  UserMarkDLCache::Key key = GetStyle().empty() ? GetContainer()->GetDefaultKey()
+                                                : UserMarkDLCache::Key(GetStyle(),
+                                                                       graphics::EPosAbove,
+                                                                       GetContainer()->GetDepth());
+  return cache->FindUserMark(key);
 }
 
 double StyledPoint::GetAnimScaleFactor() const
 {
+  // Matches the behaviour for non-custom drawables. The only caller
+  // of ::DrawUserMark is UserMarkContainer::Draw and it always passes
+  // this value.
   return 1.0;
 }
 
 m2::PointD const & StyledPoint::GetPixelOffset() const
 {
-  static m2::PointD s_offset(0.0, 3.0);
-  return s_offset;
+  static m2::PointD const s_centre(0.0, 0.0);
+  static m2::PointD const s_offset(0.0, 3.0);
+
+  return GetStyle().empty() ? s_centre : s_offset;
 }
 
 static char const * s_arrSupportedColors[] =
@@ -32,10 +34,10 @@ static char const * s_arrSupportedColors[] =
 
 namespace style
 {
-  string GetSupportedStyle(string const & s, string const & context)
+  string GetSupportedStyle(string const & s, string const & context, string const & fallback)
   {
     if (s.empty())
-      return s_arrSupportedColors[0];
+      return fallback;
 
     for (size_t i = 0; i < ARRAY_SIZE(s_arrSupportedColors); ++i)
       if (s == s_arrSupportedColors[i])
@@ -43,7 +45,7 @@ namespace style
 
     // Not recognized symbols are replaced with default one
     LOG(LWARNING, ("Icon", s, "for point", context, "is not supported"));
-    return s_arrSupportedColors[0];
+    return fallback;
   }
 
   string GetDefaultStyle()

@@ -202,7 +202,7 @@ namespace
     {
       // Remove leading '#' symbol
       string const result = s.substr(1);
-      return style::GetSupportedStyle(result, m_name);
+      return style::GetSupportedStyle(result, m_name, style::GetDefaultStyle());
     }
 
     BookmarkCategory & m_category;

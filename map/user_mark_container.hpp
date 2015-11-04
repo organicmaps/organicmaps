@@ -84,6 +84,8 @@ public:
 
   double GetDepth() const { return m_layerDepth; }
 
+  virtual UserMarkDLCache::Key GetDefaultKey() const;
+
   static void InitStaticMarks(UserMarkContainer * container);
   static PoiMarkPoint * UserMarkForPoi();
   static MyPositionMarkPoint * UserMarkForMyPostion();

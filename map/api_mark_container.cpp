@@ -3,8 +3,6 @@
 
 #include "framework.hpp"
 
-////////////////////////////////////////////////////////////////////////
-
 
 ApiUserMarkContainer::ApiUserMarkContainer(double layerDepth, Framework & framework)
   : UserMarkContainer(layerDepth, framework)
@@ -25,5 +23,3 @@ UserMark * ApiUserMarkContainer::AllocateUserMark(const m2::PointD & ptOrg)
 {
   return new ApiMarkPoint(ptOrg, this);
 }
-
-

@@ -177,6 +177,13 @@ namespace
   static unique_ptr<MyPositionMarkPoint> s_myPosition;
 }
 
+UserMarkDLCache::Key UserMarkContainer::GetDefaultKey() const
+{
+  return UserMarkDLCache::Key(GetTypeName(),
+                              graphics::EPosCenter,
+                              GetDepth());
+}
+
 void UserMarkContainer::InitStaticMarks(UserMarkContainer * container)
 {
   if (s_selectionUserMark == NULL)

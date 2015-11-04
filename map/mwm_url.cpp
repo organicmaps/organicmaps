@@ -70,7 +70,7 @@ bool ParsedMapApi::Parse(Uri const & uri)
     ApiMarkPoint * mark = static_cast<ApiMarkPoint *>(m_controller->CreateUserMark(glPoint));
     mark->SetName(p.m_name);
     mark->SetID(p.m_id);
-    mark->SetStyle(style::GetSupportedStyle(p.m_style, p.m_name));
+    mark->SetStyle(style::GetSupportedStyle(p.m_style, p.m_name, ""));
   }
 
   return true;
