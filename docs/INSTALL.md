@@ -51,23 +51,27 @@ Install Qt 5.5:
     sudo apt-get install qt55base
     source /opt/qt55/bin/qt55-env.sh
 
-To run OSRM binaries, you'll need:
-
-    sudo apt-get install libtbb2 libluabind0.9.1 liblua50 libstxxl1
-
 Do a git clone:
 
-    git clone git@github.com:mapsme/omim.git
+    git clone --depth=1 --recursive https://github.com/mapsme/omim.git
     cd omim
     echo | ./configure.sh
 
 Then:
 
-    sudo apt-get install clang-3.5 libboost-iostreams-dev libglu1-mesa-dev
-    sudo apt-get install libtbb-dev libluabind-dev libstxxl-dev libosmpbf-dev libprotobuf-dev
+    sudo apt-get install clang-3.5 libc++-dev libboost-iostreams-dev libglu1-mesa-dev
     sudo ln -s /usr/lib/llvm-3.5/bin/clang /usr/bin/clang
     sudo ln -s /usr/lib/llvm-3.5/bin/clang++ /usr/bin/clang++
-    omim/tools/unix/build_omim.sh
+    tools/unix/build_omim.sh
+
+Prepend with `CONFIG=gtool` if only generator_tool is needed. You would need 1.5 GB of memory
+to compile `stats` module.
+
+To build and run OSRM binaries:
+
+    sudo apt-get install libtbb2 libluabind0.9.1 liblua50 libstxxl1
+    sudo apt-get install libtbb-dev libluabind-dev libstxxl-dev libosmpbf-dev libprotobuf-dev
+    tools/unix/build_omim.sh -o
 
 ### Windows
 
