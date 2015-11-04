@@ -6,6 +6,12 @@
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
+/* This class is for debugging purposes.
+ * It writes points to a CSF formatted file.
+ * We will use this points to determine places where OSRM can't handle a road graph dividing by mwm
+ * borders.
+ */
+
 namespace routing
 {
 enum class PointType : char

@@ -10,9 +10,9 @@ void WarningsWriter::Write()
     return;
   stringstream out;
   out << "Lat;Lon;Type;\n";
-  for (auto point : m_points)
+  for (auto const & point : m_points)
   {
-    out << point.first.lat << ";" << point.first.lon << ";" << char(point.second) << ";\n";
+    out << point.first.lat << ";" << point.first.lon << ";" << char(point.second) << ";" << std::endl;
   }
   FileWriter writer(m_fileName);
   string const result = out.str();
@@ -22,6 +22,6 @@ void WarningsWriter::Write()
 void WarningsWriter::AddPoint(ms::LatLon const & point, PointType type)
 {
   if (!m_fileName.empty())
-    m_points.emplace_back(make_pair(point, type));
+    m_points.emplace_back(point, type);
 }
 }  // namespace routing
