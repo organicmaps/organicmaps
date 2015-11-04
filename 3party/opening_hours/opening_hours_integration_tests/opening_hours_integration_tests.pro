@@ -1,4 +1,4 @@
-TARGET = opening_hours_tests
+TARGET = opening_hours_integration_tests
 CONFIG += console
 CONFIG -= app_bundle
 TEMPLATE = app
@@ -16,4 +16,4 @@ HEADERS += $$OPENING_HOURS_INCLUDE/osm_time_range.hpp \
            $$OPENING_HOURS_INCLUDE/rules_evaluation.hpp \
            $$OPENING_HOURS_INCLUDE/rules_evaluation_private.hpp \
 
-SOURCES += osm_time_range_tests.cpp
+SOURCES += opening_hours_integration_tests.cpp
