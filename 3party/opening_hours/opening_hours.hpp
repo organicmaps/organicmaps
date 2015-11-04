@@ -57,7 +57,6 @@ public:
   using THours = std::chrono::hours;
   using TMinutes = std::chrono::minutes;
 
-
   Time() = default;
   Time(Time const &) = default;
   Time(THours const hours);
@@ -90,7 +89,6 @@ public:
 
 private:
   Time GetEventTime() const;
-
 
   Event m_event{Event::NotEvent};
   TMinutes m_duration{TMinutes::zero()};
@@ -149,10 +147,10 @@ using TTimespans = std::vector<Timespan>;
 std::ostream & operator<<(std::ostream & ost, Timespan const & span);
 std::ostream & operator<<(std::ostream & ost, osmoh::TTimespans const & timespans);
 
-class NthEntry
+class NthWeekdayOfTheMonthEntry
 {
 public:
-  enum class Nth
+  enum class NthDayOfTheMonth
   {
     None,
     First,
@@ -162,23 +160,22 @@ public:
     Fifth
   };
 
-
   bool IsEmpty() const;
   bool HasStart() const;
   bool HasEnd() const;
 
-  Nth GetStart() const;
-  Nth GetEnd() const;
+  NthDayOfTheMonth GetStart() const;
+  NthDayOfTheMonth GetEnd() const;
 
-  void SetStart(Nth const s);
-  void SetEnd(Nth const e);
+  void SetStart(NthDayOfTheMonth const s);
+  void SetEnd(NthDayOfTheMonth const e);
 
 private:
-  Nth m_start{};
-  Nth m_end{};
+  NthDayOfTheMonth m_start{};
+  NthDayOfTheMonth m_end{};
 };
 
-std::ostream & operator<<(std::ostream & ost, NthEntry const entry);
+std::ostream & operator<<(std::ostream & ost, NthWeekdayOfTheMonthEntry const entry);
 
 enum class Weekday
 {
@@ -210,7 +207,7 @@ std::ostream & operator<<(std::ostream & ost, Weekday const wday);
 
 class WeekdayRange
 {
-  using TNths = std::vector<NthEntry>;
+  using TNths = std::vector<NthWeekdayOfTheMonthEntry>;
 
 public:
   bool HasWday(Weekday const & wday) const;
@@ -241,7 +238,7 @@ public:
   bool HasNth() const;
   TNths const & GetNths() const;
 
-  void AddNth(NthEntry const & entry);
+  void AddNth(NthWeekdayOfTheMonthEntry const & entry);
 
 private:
   Weekday m_start{};
@@ -274,7 +271,7 @@ using THolidays = std::vector<Holiday>;
 std::ostream & operator<<(std::ostream & ost, Holiday const & holiday);
 std::ostream & operator<<(std::ostream & ost, THolidays const & holidys);
 
-/// Correspond to weekday_selector in osm opening hours
+// Correspond to weekday_selector in osm opening hours.
 class Weekdays
 {
 public:
@@ -350,7 +347,6 @@ public:
 
   using TYear = uint16_t;
   using TDayNum = uint8_t;
-
 
   bool IsEmpty() const;
   bool IsVariable() const;
@@ -428,12 +424,10 @@ using TMonthdayRanges = std::vector<MonthdayRange>;
 std::ostream & operator<<(std::ostream & ost, MonthdayRange const & range);
 std::ostream & operator<<(std::ostream & ost, TMonthdayRanges const & ranges);
 
-
 class YearRange
 {
 public:
   using TYear = uint16_t;
-
 
   bool IsEmpty() const;
   bool IsOpen() const;
@@ -467,7 +461,6 @@ class WeekRange
 {
 public:
   using TWeek = uint8_t;
-
 
   bool IsEmpty() const;
   bool IsOpen() const;
@@ -506,9 +499,8 @@ public:
     Comment
   };
 
-
   bool IsEmpty() const;
-  bool Is24Per7() const;
+  bool IsTwentyFourHours() const;
 
   bool HasYears() const;
   bool HasMonths() const;
@@ -531,7 +523,7 @@ public:
 
   Modifier GetModifier() const;
 
-  void Set24Per7(bool const on);
+  void SetTwentyFourHours(bool const on);
   void SetYears(TYearRanges const & years);
   void SetMonths(TMonthdayRanges const & months);
   void SetWeeks(TWeekRanges const & weeks);
@@ -549,8 +541,7 @@ public:
 private:
   void dump() const;
 
-private:
-  bool m_24_per_7{false};
+  bool m_twentyFourHours{false};
 
   TYearRanges m_years;
   TMonthdayRanges m_months;
@@ -560,11 +551,11 @@ private:
   TTimespans m_times;
 
   std::string m_comment;
-  std::string m_any_separator{";"};
-  bool m_separator_for_readablility{false};
+  std::string m_anySeparator{";"};
+  bool m_separatorForReadability{false};
 
   Modifier m_modifier{Modifier::DefaultOpen};
-  std::string m_modifier_comment;
+  std::string m_modifierComment;
 };
 
 using TRuleSequences = std::vector<RuleSequence>;

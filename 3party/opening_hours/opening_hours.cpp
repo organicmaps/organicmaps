@@ -22,7 +22,7 @@
   THE SOFTWARE.
 */
 
-#include "osm_time_range.hpp"
+#include "opening_hours.hpp"
 
 #include <iomanip>
 #include <ios>
@@ -366,42 +366,42 @@ std::ostream & operator<<(std::ostream & ost, osmoh::TTimespans const & timespan
 }
 
 
-bool NthEntry::IsEmpty() const
+bool NthWeekdayOfTheMonthEntry::IsEmpty() const
 {
   return !HasStart() && !HasEnd();
 }
 
-bool NthEntry::HasStart() const
+bool NthWeekdayOfTheMonthEntry::HasStart() const
 {
-  return GetStart() != Nth::None;
+  return GetStart() != NthDayOfTheMonth::None;
 }
 
-bool NthEntry::HasEnd() const
+bool NthWeekdayOfTheMonthEntry::HasEnd() const
 {
-  return GetEnd() != Nth::None;
+  return GetEnd() != NthDayOfTheMonth::None;
 }
 
-NthEntry::Nth NthEntry::GetStart() const
+NthWeekdayOfTheMonthEntry::NthDayOfTheMonth NthWeekdayOfTheMonthEntry::GetStart() const
 {
   return m_start;
 }
 
-NthEntry::Nth NthEntry::GetEnd() const
+NthWeekdayOfTheMonthEntry::NthDayOfTheMonth NthWeekdayOfTheMonthEntry::GetEnd() const
 {
   return m_end;
 }
 
-void NthEntry::SetStart(Nth const s)
+void NthWeekdayOfTheMonthEntry::SetStart(NthDayOfTheMonth const s)
 {
   m_start = s;
 }
 
-void NthEntry::SetEnd(Nth const e)
+void NthWeekdayOfTheMonthEntry::SetEnd(NthDayOfTheMonth const e)
 {
   m_end = e;
 }
 
-std::ostream & operator<<(std::ostream & ost, NthEntry const entry)
+std::ostream & operator<<(std::ostream & ost, NthWeekdayOfTheMonthEntry const entry)
 {
   if (entry.HasStart())
     ost << static_cast<uint32_t>(entry.GetStart());
@@ -496,7 +496,7 @@ WeekdayRange::TNths const & WeekdayRange::GetNths() const
   return m_nths;
 }
 
-void WeekdayRange::AddNth(NthEntry const & entry)
+void WeekdayRange::AddNth(NthWeekdayOfTheMonthEntry const & entry)
 {
   m_nths.push_back(entry);
 }
@@ -1143,9 +1143,9 @@ bool RuleSequence::IsEmpty() const
           !HasTimes());
 }
 
-bool RuleSequence::Is24Per7() const
+bool RuleSequence::IsTwentyFourHours() const
 {
-  return m_24_per_7;
+  return m_twentyFourHours;
 }
 
 bool RuleSequence::HasYears() const
@@ -1185,7 +1185,7 @@ bool RuleSequence::HasModifierComment() const
 
 bool RuleSequence::HasSeparatorForReadability() const
 {
-  return m_separator_for_readablility;
+  return m_separatorForReadability;
 }
 
 TYearRanges const & RuleSequence::GetYears() const
@@ -1220,12 +1220,12 @@ std::string const & RuleSequence::GetComment() const
 
 std::string const & RuleSequence::GetModifierComment() const
 {
-  return m_modifier_comment;
+  return m_modifierComment;
 }
 
 std::string const & RuleSequence::GetAnySeparator() const
 {
-  return m_any_separator;
+  return m_anySeparator;
 }
 
 RuleSequence::Modifier RuleSequence::GetModifier() const
@@ -1233,9 +1233,9 @@ RuleSequence::Modifier RuleSequence::GetModifier() const
   return m_modifier;
 }
 
-void RuleSequence::Set24Per7(bool const on)
+void RuleSequence::SetTwentyFourHours(bool const on)
 {
-  m_24_per_7 = on;
+  m_twentyFourHours = on;
 }
 
 void RuleSequence::SetYears(TYearRanges const & years)
@@ -1270,35 +1270,23 @@ void RuleSequence::SetComment(std::string const & comment)
 
 void RuleSequence::SetModifierComment(std::string & comment)
 {
-  m_modifier_comment = comment;
+  m_modifierComment = comment;
 }
 
 void RuleSequence::SetAnySeparator(std::string const & separator)
 {
-  m_any_separator = separator;
+  m_anySeparator = separator;
 }
 
 void RuleSequence::SetSeparatorForReadability(bool const on)
 {
-  m_separator_for_readablility = on;
+  m_separatorForReadability = on;
 }
 
 void RuleSequence::SetModifier(Modifier const modifier)
 {
   m_modifier = modifier;
 }
-
-// uint32_t RuleSequence::id{};
-// void RuleSequence::dump() const
-// {
-//   std::cout << "My id: " << my_id << '\n'
-//             << "Years " << GetYears().size() << '\n'
-//             << "Months " << GetMonths().size() << '\n'
-//             << "Weeks " << GetWeeks().size() << '\n'
-//             << "Holidays " << GetWeekdays().GetHolidays().size() << '\n'
-//             << "Weekdays " << GetWeekdays().GetWeekdayRanges().size() << '\n'
-//             << "Times " << GetTimes().size() << std::endl;
-// }
 
 std::ostream & operator<<(std::ostream & ost, RuleSequence::Modifier const modifier)
 {
@@ -1329,7 +1317,7 @@ std::ostream & operator<<(std::ostream & ost, RuleSequence const & s)
     space = true;
   };
 
-  if (s.Is24Per7())
+  if (s.IsTwentyFourHours())
   {
     putSpace();
     ost << "24/7";

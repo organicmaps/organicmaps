@@ -18,7 +18,7 @@
 
 #ifndef OMIM_OS_LINUX
 // Lib opening_hours is not built for Linux since stdlib doesn't have required functions.
-#include "3party/opening_hours/parse.hpp"
+#include "3party/opening_hours/parse_opening_hours.hpp"
 #include "3party/opening_hours/rules_evaluation.hpp"
 #endif
 

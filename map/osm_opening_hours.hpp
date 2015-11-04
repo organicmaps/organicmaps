@@ -1,6 +1,6 @@
 #pragma once
 
-#include "3party/opening_hours/parse.hpp"
+#include "3party/opening_hours/parse_opening_hours.hpp"
 #include "3party/opening_hours/rules_evaluation.hpp"
 
 #include "std/chrono.hpp"

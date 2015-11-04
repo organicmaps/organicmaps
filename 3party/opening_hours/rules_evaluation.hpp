@@ -1,6 +1,6 @@
 #pragma once
 
-#include "osm_time_range.hpp"
+#include "opening_hours.hpp"
 #include <ctime>
 
 namespace osmoh
@@ -44,8 +44,3 @@ private:
 RuleState GetState(TRuleSequences const & rules, std::tm const & date);
 RuleState GetState(TRuleSequences const & rules, time_t const dateTime);
 } // namespace osmoh
-
-
-// bool IsActive(Time const & time, std::tm const & date);
-// bool IsActive(NthEntry const & nthEntry, std::tm const & date);
-// bool IsActive(MonthDay const & MonthDay, std::tm const & date);

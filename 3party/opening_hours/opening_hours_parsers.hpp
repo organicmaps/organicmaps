@@ -1,6 +1,6 @@
 #pragma once
 
-#include "osm_time_range.hpp"
+#include "opening_hours.hpp"
 
 // #define BOOST_SPIRIT_DEBUG
 #define BOOST_SPIRIT_USE_PHOENIX_V3
@@ -23,7 +23,7 @@
 #include <boost/date_time/gregorian/gregorian.hpp>
 #endif
 
-#include "osm_parsers_terminals.hpp"
+#include "opening_hours_parsers_terminals.hpp"
 
 namespace osmoh
 {
@@ -66,18 +66,18 @@ public:
     using qi::_2;
     using qi::_3;
     using qi::_val;
+    using osmoh::YearRange;
 
     static const qi::int_parser<unsigned, 10, 4, 4> year = {};
 
-    year_range = (year >> dash >> year >> '/' >> uint_)
-                  [bind(&osmoh::YearRange::SetStart, _val, _1),
-                   bind(&osmoh::YearRange::SetEnd, _val, _2),
-                   bind(&osmoh::YearRange::SetPeriod, _val, _3)]
-        | (year >> dash >> year) [bind(&osmoh::YearRange::SetStart, _val, _1),
-                                  bind(&osmoh::YearRange::SetEnd, _val, _2)]
-        | (year >> lit('+'))     [bind(&osmoh::YearRange::SetStart, _val, _1),
-                                  bind(&osmoh::YearRange::SetPlus, _val, true)]
-        | year                   [bind(&osmoh::YearRange::SetStart, _val, _1)]
+    year_range = (year >> dash >> year >> '/' >> uint_) [bind(&YearRange::SetStart, _val, _1),
+                                                         bind(&YearRange::SetEnd, _val, _2),
+                                                         bind(&YearRange::SetPeriod, _val, _3)]
+        | (year >> dash >> year) [bind(&YearRange::SetStart, _val, _1),
+                                  bind(&YearRange::SetEnd, _val, _2)]
+        | (year >> lit('+'))     [bind(&YearRange::SetStart, _val, _1),
+                                  bind(&YearRange::SetPlus, _val, true)]
+        | year                   [bind(&YearRange::SetStart, _val, _1)]
         ;
 
     main %= (year_range % ',');
@@ -100,14 +100,14 @@ public:
     using qi::_2;
     using qi::_3;
     using qi::_val;
+    using osmoh::WeekRange;
 
-    week = (weeknum >> dash >> weeknum >> '/' >> uint_)
-           [bind(&osmoh::WeekRange::SetStart, _val, _1),
-            bind(&osmoh::WeekRange::SetEnd, _val, _2),
-            bind(&osmoh::WeekRange::SetPeriod, _val, _3)]
-        | (weeknum >> dash >> weeknum) [bind(&osmoh::WeekRange::SetStart, _val, _1),
-                                        bind(&osmoh::WeekRange::SetEnd, _val, _2)]
-        | weeknum                      [bind(&osmoh::WeekRange::SetStart, _val, _1)]
+    week = (weeknum >> dash >> weeknum >> '/' >> uint_) [bind(&WeekRange::SetStart, _val, _1),
+                                                         bind(&WeekRange::SetEnd, _val, _2),
+                                                         bind(&WeekRange::SetPeriod, _val, _3)]
+        | (weeknum >> dash >> weeknum) [bind(&WeekRange::SetStart, _val, _1),
+                                        bind(&WeekRange::SetEnd, _val, _2)]
+        | weeknum                      [bind(&WeekRange::SetStart, _val, _1)]
         ;
 
     main %= charset::no_case[lit("week")] >> (week % ',');
@@ -144,6 +144,9 @@ public:
     using qi::lit;
     using qi::double_;
     using qi::lexeme;
+    using osmoh::DateOffset;
+    using osmoh::MonthDay;
+    using osmoh::MonthdayRange;
 
     static const qi::int_parser<unsigned, 10, 4, 4> year = {};
 
@@ -152,60 +155,60 @@ public:
 
     date_offset = ((lit('+')[_a = true] | lit('-')[_a = false])
                    >> charset::no_case[wdays] >> day_offset)
-                  [bind(&osmoh::DateOffset::SetWDayOffset, _val, _1),
-                   bind(&osmoh::DateOffset::SetOffset, _val, _2),
-                   bind(&osmoh::DateOffset::SetWDayOffsetPositive, _val, _a)]
+                  [bind(&DateOffset::SetWDayOffset, _val, _1),
+                   bind(&DateOffset::SetOffset, _val, _2),
+                   bind(&DateOffset::SetWDayOffsetPositive, _val, _a)]
         | ((lit('+')[_a = true] | lit('-') [_a = false]) >> charset::no_case[wdays])
-          [bind(&osmoh::DateOffset::SetWDayOffset, _val, _1),
-           bind(&osmoh::DateOffset::SetWDayOffsetPositive, _val, _a)]
-        | day_offset [bind(&osmoh::DateOffset::SetOffset, _val, _1)]
+          [bind(&DateOffset::SetWDayOffset, _val, _1),
+           bind(&DateOffset::SetWDayOffsetPositive, _val, _a)]
+        | day_offset [bind(&DateOffset::SetOffset, _val, _1)]
         ;
 
-    date_left = (year >> charset::no_case[month]) [bind(&osmoh::MonthDay::SetYear, _val, _1),
-                                                   bind(&osmoh::MonthDay::SetMonth, _val, _2)]
+    date_left = (year >> charset::no_case[month]) [bind(&MonthDay::SetYear, _val, _1),
+                                                   bind(&MonthDay::SetMonth, _val, _2)]
 
-        | charset::no_case[month]                 [bind(&osmoh::MonthDay::SetMonth, _val, _1)]
+        | charset::no_case[month]                 [bind(&MonthDay::SetMonth, _val, _1)]
         ;
 
-    date_right = charset::no_case[month]          [bind(&osmoh::MonthDay::SetMonth, _val, _1)]
+    date_right = charset::no_case[month]          [bind(&MonthDay::SetMonth, _val, _1)]
         ;
 
     date_from = (date_left >> (daynum >> !(lit(':') >> qi::digit)))
-                [_val = _1, bind(&osmoh::MonthDay::SetDayNum, _val, _2)]
-        | (year >> charset::no_case[lit("easter")]) [bind(&osmoh::MonthDay::SetYear, _val, _1),
-                                                     bind(&osmoh::MonthDay::SetVariableDate, _val,
+                [_val = _1, bind(&MonthDay::SetDayNum, _val, _2)]
+        | (year >> charset::no_case[lit("easter")]) [bind(&MonthDay::SetYear, _val, _1),
+                                                     bind(&MonthDay::SetVariableDate, _val,
                                                           MonthDay::VariableDate::Easter)]
-        | charset::no_case[lit("easter")]           [bind(&osmoh::MonthDay::SetVariableDate, _val,
+        | charset::no_case[lit("easter")]           [bind(&MonthDay::SetVariableDate, _val,
                                                           MonthDay::VariableDate::Easter)]
         ;
 
     date_to = date_from                        [_val = _1]
-        | (daynum >> !(lit(':') >> qi::digit)) [bind(&osmoh::MonthDay::SetDayNum, _val, _1)]
+        | (daynum >> !(lit(':') >> qi::digit)) [bind(&MonthDay::SetDayNum, _val, _1)]
         ;
 
     date_from_with_offset = (date_from >> date_offset)
-                            [_val = _1, bind(&osmoh::MonthDay::SetOffset, _val, _2)]
+                            [_val = _1, bind(&MonthDay::SetOffset, _val, _2)]
         | date_from         [_val = _1]
         ;
 
     date_to_with_offset = (date_to >> date_offset)
-                          [_val = _1, bind(&osmoh::MonthDay::SetOffset, _val, _2)]
+                          [_val = _1, bind(&MonthDay::SetOffset, _val, _2)]
         | date_to         [_val = _1]
         ;
 
     monthday_range = (date_from_with_offset >> dash >> date_to_with_offset)
-                     [bind(&osmoh::MonthdayRange::SetStart, _val, _1),
-                      bind(&osmoh::MonthdayRange::SetEnd, _val, _2)]
-        | (date_from_with_offset >> '+') [bind(&osmoh::MonthdayRange::SetStart, _val, _1),
-                                          bind(&osmoh::MonthdayRange::SetPlus, _val, true)]
+                     [bind(&MonthdayRange::SetStart, _val, _1),
+                      bind(&MonthdayRange::SetEnd, _val, _2)]
+        | (date_from_with_offset >> '+') [bind(&MonthdayRange::SetStart, _val, _1),
+                                          bind(&MonthdayRange::SetPlus, _val, true)]
         | (date_left >> dash >> date_right >> '/' >> uint_)
-          [bind(&osmoh::MonthdayRange::SetStart, _val, _1),
-           bind(&osmoh::MonthdayRange::SetEnd, _val, _2),
-           bind(&osmoh::MonthdayRange::SetPeriod, _val, _3)]
-        | (date_left >> lit("-") >> date_right) [bind(&osmoh::MonthdayRange::SetStart, _val, _1),
-                                                 bind(&osmoh::MonthdayRange::SetEnd, _val, _2)]
-        | date_from [bind(&osmoh::MonthdayRange::SetStart, _val, _1)]
-        | date_left [bind(&osmoh::MonthdayRange::SetStart, _val, _1)]
+          [bind(&MonthdayRange::SetStart, _val, _1),
+           bind(&MonthdayRange::SetEnd, _val, _2),
+           bind(&MonthdayRange::SetPeriod, _val, _3)]
+        | (date_left >> lit("-") >> date_right) [bind(&MonthdayRange::SetStart, _val, _1),
+                                                 bind(&MonthdayRange::SetEnd, _val, _2)]
+        | date_from [bind(&MonthdayRange::SetStart, _val, _1)]
+        | date_left [bind(&MonthdayRange::SetStart, _val, _1)]
         ;
 
     main %= (monthday_range % ',');
@@ -227,8 +230,8 @@ template <typename Iterator>
 class weekday_selector : public qi::grammar<Iterator, osmoh::Weekdays(), space_type>
 {
 protected:
-  qi::rule<Iterator, osmoh::NthEntry::Nth(), space_type> nth;
-  qi::rule<Iterator, osmoh::NthEntry(), space_type> nth_entry;
+  qi::rule<Iterator, osmoh::NthWeekdayOfTheMonthEntry::NthDayOfTheMonth(), space_type> nth;
+  qi::rule<Iterator, osmoh::NthWeekdayOfTheMonthEntry(), space_type> nth_entry;
   qi::rule<Iterator, int32_t(), space_type, qi::locals<int8_t>> day_offset;
   qi::rule<Iterator, osmoh::WeekdayRange(), space_type> weekday_range;
   qi::rule<Iterator, osmoh::TWeekdayRanges(), space_type> weekday_sequence;
@@ -246,17 +249,21 @@ public:
     using qi::lit;
     using qi::ushort_;
     using boost::phoenix::bind;
+    using osmoh::NthWeekdayOfTheMonthEntry;
+    using osmoh::Holiday;
+    using osmoh::WeekdayRange;
+    using osmoh::Weekdays;
 
-    nth = ushort_(1)[_val = osmoh::NthEntry::Nth::First]
-        | ushort_(2) [_val = osmoh::NthEntry::Nth::Second]
-        | ushort_(3) [_val = osmoh::NthEntry::Nth::Third]
-        | ushort_(4) [_val = osmoh::NthEntry::Nth::Fourth]
-        | ushort_(5) [_val = osmoh::NthEntry::Nth::Fifth];
+    nth = ushort_(1)[_val = NthWeekdayOfTheMonthEntry::NthDayOfTheMonth::First]
+        | ushort_(2) [_val = NthWeekdayOfTheMonthEntry::NthDayOfTheMonth::Second]
+        | ushort_(3) [_val = NthWeekdayOfTheMonthEntry::NthDayOfTheMonth::Third]
+        | ushort_(4) [_val = NthWeekdayOfTheMonthEntry::NthDayOfTheMonth::Fourth]
+        | ushort_(5) [_val = NthWeekdayOfTheMonthEntry::NthDayOfTheMonth::Fifth];
 
-    nth_entry = (nth >> dash >> nth) [bind(&osmoh::NthEntry::SetStart, _val, _1),
-                                      bind(&osmoh::NthEntry::SetEnd, _val, _2)]
-        | (lit('-') >> nth) [bind(&osmoh::NthEntry::SetEnd, _val, _1)]
-        | nth [bind(&osmoh::NthEntry::SetStart, _val, _1)]
+    nth_entry = (nth >> dash >> nth) [bind(&NthWeekdayOfTheMonthEntry::SetStart, _val, _1),
+                                      bind(&NthWeekdayOfTheMonthEntry::SetEnd, _val, _2)]
+        | (lit('-') >> nth)          [bind(&NthWeekdayOfTheMonthEntry::SetEnd, _val, _1)]
+        | nth [bind(&NthWeekdayOfTheMonthEntry::SetStart, _val, _1)]
         ;
 
     day_offset =
@@ -265,30 +272,30 @@ public:
           charset::no_case[(lit("days") | lit("day"))] )
         ;
 
-    holiday = (charset::no_case[lit("SH")] [bind(&osmoh::Holiday::SetPlural, _val, false)]
-               >> -day_offset              [bind(&osmoh::Holiday::SetOffset, _val, _1)])
-        | charset::no_case[lit("PH")] [bind(&osmoh::Holiday::SetPlural, _val, true)]
+    holiday = (charset::no_case[lit("SH")] [bind(&Holiday::SetPlural, _val, false)]
+               >> -day_offset              [bind(&Holiday::SetOffset, _val, _1)])
+        | charset::no_case[lit("PH")]      [bind(&Holiday::SetPlural, _val, true)]
         ;
 
     holiday_sequence %= (holiday % ',');
 
     weekday_range =
-        ( charset::no_case[wdays]  [bind(&osmoh::WeekdayRange::SetStart, _val, _1)] >>
-          '[' >> (nth_entry        [bind(&osmoh::WeekdayRange::AddNth, _val, _1)]) % ',') >> ']' >>
-          -(day_offset             [bind(&osmoh::WeekdayRange::SetOffset, _val, _1)])
-        | charset::no_case[(wdays >> dash >> wdays)]  [bind(&osmoh::WeekdayRange::SetStart, _val, _1),
-                                                       bind(&osmoh::WeekdayRange::SetEnd, _val, _2)]
-        | charset::no_case[wdays]  [bind(&osmoh::WeekdayRange::SetStart, _val, _1)]
+        ( charset::no_case[wdays]  [bind(&WeekdayRange::SetStart, _val, _1)] >>
+          '[' >> (nth_entry        [bind(&WeekdayRange::AddNth, _val, _1)]) % ',') >> ']' >>
+          -(day_offset             [bind(&WeekdayRange::SetOffset, _val, _1)])
+        | charset::no_case[(wdays >> dash >> wdays)]  [bind(&WeekdayRange::SetStart, _val, _1),
+                                                       bind(&WeekdayRange::SetEnd, _val, _2)]
+        | charset::no_case[wdays]  [bind(&WeekdayRange::SetStart, _val, _1)]
         ;
 
     weekday_sequence %= (weekday_range % ',') >> !qi::no_skip[charset::alpha]
         ;
 
     main = (holiday_sequence >> -lit(',') >> weekday_sequence)
-           [bind(&osmoh::Weekdays::SetHolidays, _val, _1),
-            bind(&osmoh::Weekdays::SetWeekdayRanges, _val, _2)]
-        | holiday_sequence [bind(&osmoh::Weekdays::SetHolidays, _val, _1)]
-        | weekday_sequence [bind(&osmoh::Weekdays::SetWeekdayRanges, _val, _1)]
+           [bind(&Weekdays::SetHolidays, _val, _1),
+            bind(&Weekdays::SetWeekdayRanges, _val, _2)]
+        | holiday_sequence [bind(&Weekdays::SetHolidays, _val, _1)]
+        | weekday_sequence [bind(&Weekdays::SetWeekdayRanges, _val, _1)]
         ;
 
     BOOST_SPIRIT_DEBUG_NODE(main);
@@ -324,25 +331,27 @@ public:
     using charset::char_;
     using boost::phoenix::bind;
     using boost::phoenix::construct;
+    using osmoh::Time;
+    using osmoh::Timespan;
 
     hour_minutes =
-        (hours >> lit(':') >> minutes) [bind(&osmoh::Time::SetHours, _val, _1),
+        (hours >> lit(':') >> minutes) [bind(&Time::SetHours, _val, _1),
                                         _val = _val + _2]
         ;
 
     extended_hour_minutes =
-        (exthours >> lit(':') >> minutes)[bind(&osmoh::Time::SetHours, _val, _1),
+        (exthours >> lit(':') >> minutes)[bind(&Time::SetHours, _val, _1),
                                           _val = _val + _2]
         ;
 
-    variable_time = eps [phx::bind(&osmoh::Time::SetHours, _val, 0_h)] >>
+    variable_time = eps [phx::bind(&Time::SetHours, _val, 0_h)] >>
         (lit('(')
-         >> charset::no_case[event][bind(&osmoh::Time::SetEvent, _val, _1)]
+         >> charset::no_case[event][bind(&Time::SetEvent, _val, _1)]
          >> ( (lit('+') >> hour_minutes)    [_val = _val + _1]
               | (lit('-') >> hour_minutes)  [_val = _val - _1] )
          >> lit(')')
          )
-         | charset::no_case[event][bind(&osmoh::Time::SetEvent, _val, _1)]
+         | charset::no_case[event][bind(&Time::SetEvent, _val, _1)]
         ;
 
     extended_time %= extended_hour_minutes | variable_time;
@@ -351,29 +360,29 @@ public:
 
     timespan =
         (time >> dash >> extended_time >> '/' >> hour_minutes)
-        [bind(&osmoh::Timespan::SetStart, _val, _1),
-         bind(&osmoh::Timespan::SetEnd, _val, _2),
-         bind(&osmoh::Timespan::SetPeriod, _val, _3)]
+        [bind(&Timespan::SetStart, _val, _1),
+         bind(&Timespan::SetEnd, _val, _2),
+         bind(&Timespan::SetPeriod, _val, _3)]
 
         | (time >> dash >> extended_time >> '/' >> minutes)
-          [bind(&osmoh::Timespan::SetStart, _val, _1),
-           bind(&osmoh::Timespan::SetEnd, _val, _2),
-           bind(&osmoh::Timespan::SetPeriod, _val, _3)]
+          [bind(&Timespan::SetStart, _val, _1),
+           bind(&Timespan::SetEnd, _val, _2),
+           bind(&Timespan::SetPeriod, _val, _3)]
 
         | (time >> dash >> extended_time >> '+')
-          [bind(&osmoh::Timespan::SetStart, _val, _1),
-           bind(&osmoh::Timespan::SetEnd, _val, _2),
-           bind(&osmoh::Timespan::SetPlus, _val, true)]
+          [bind(&Timespan::SetStart, _val, _1),
+           bind(&Timespan::SetEnd, _val, _2),
+           bind(&Timespan::SetPlus, _val, true)]
 
         | (time >> dash >> extended_time)
-          [bind(&osmoh::Timespan::SetStart, _val, _1),
-           bind(&osmoh::Timespan::SetEnd, _val, _2)]
+          [bind(&Timespan::SetStart, _val, _1),
+           bind(&Timespan::SetEnd, _val, _2)]
 
         | (time >> '+')
-          [bind(&osmoh::Timespan::SetStart, _val, _1),
-           bind(&osmoh::Timespan::SetPlus, _val, true)]
+          [bind(&Timespan::SetStart, _val, _1),
+           bind(&Timespan::SetPlus, _val, true)]
 
-        | time[bind(&osmoh::Timespan::SetStart, _val, _1)]
+        | time[bind(&Timespan::SetStart, _val, _1)]
         ;
 
     main %= timespan % ',';
@@ -422,8 +431,9 @@ public:
     using phx::back;
     using phx::push_back;
     using phx::construct;
+    using osmoh::RuleSequence;
 
-    using Modifier = osmoh::RuleSequence::Modifier;
+    using Modifier = RuleSequence::Modifier;
 
     comment %= '"' >> +(char_ - '"') >> '"'
         ;
@@ -434,37 +444,37 @@ public:
         ;
 
     wide_range_selectors =
-        ( -(year_selector    [bind(&osmoh::RuleSequence::SetYears, _r1, _1)]) >>
-          -(month_selector   [bind(&osmoh::RuleSequence::SetMonths, _r1, _1)]) >>
-          -(week_selector    [bind(&osmoh::RuleSequence::SetWeeks, _r1, _1)]) >>
-          -(lit(':')         [bind(&osmoh::RuleSequence::SetSeparatorForReadability, _r1, true)]))
-        | (comment >> ':')   [bind(&osmoh::RuleSequence::SetComment, _r1, _1)]
+        ( -(year_selector    [bind(&RuleSequence::SetYears, _r1, _1)]) >>
+          -(month_selector   [bind(&RuleSequence::SetMonths, _r1, _1)]) >>
+          -(week_selector    [bind(&RuleSequence::SetWeeks, _r1, _1)]) >>
+          -(lit(':')         [bind(&RuleSequence::SetSeparatorForReadability, _r1, true)]))
+        | (comment >> ':')   [bind(&RuleSequence::SetComment, _r1, _1)]
         ;
 
     small_range_selectors =
-        ( -(weekday_selector [bind(&osmoh::RuleSequence::SetWeekdays, _r1, _1)]) >>
-          -(time_selector    [bind(&osmoh::RuleSequence::SetTimes, _r1, _1)]))
+        ( -(weekday_selector [bind(&RuleSequence::SetWeekdays, _r1, _1)]) >>
+          -(time_selector    [bind(&RuleSequence::SetTimes, _r1, _1)]))
         ;
 
     rule_modifier =
         (charset::no_case[lit("open")]
-           [bind(&osmoh::RuleSequence::SetModifier, _r1, Modifier::Open)] >>
-           -(comment [bind(&osmoh::RuleSequence::SetModifierComment, _r1, _1)]))
+           [bind(&RuleSequence::SetModifier, _r1, Modifier::Open)] >>
+           -(comment [bind(&RuleSequence::SetModifierComment, _r1, _1)]))
 
         | ((charset::no_case[lit("closed") | lit("off")])
-           [bind(&osmoh::RuleSequence::SetModifier, _r1, Modifier::Closed)] >>
-           -(comment [bind(&osmoh::RuleSequence::SetModifierComment, _r1, _1)]))
+           [bind(&RuleSequence::SetModifier, _r1, Modifier::Closed)] >>
+           -(comment [bind(&RuleSequence::SetModifierComment, _r1, _1)]))
 
         | (charset::no_case[lit("unknown")]
-           [bind(&osmoh::RuleSequence::SetModifier, _r1, Modifier::Unknown)] >>
-           -(comment [bind(&osmoh::RuleSequence::SetModifierComment, _r1, _1)]))
+           [bind(&RuleSequence::SetModifier, _r1, Modifier::Unknown)] >>
+           -(comment [bind(&RuleSequence::SetModifierComment, _r1, _1)]))
 
-        | comment    [bind(&osmoh::RuleSequence::SetModifier, _r1, Modifier::Comment),
-                      bind(&osmoh::RuleSequence::SetModifierComment, _r1, _1)]
+        | comment    [bind(&RuleSequence::SetModifier, _r1, Modifier::Comment),
+                      bind(&RuleSequence::SetModifierComment, _r1, _1)]
         ;
 
     rule_sequence =
-        ( lit("24/7") [bind(&osmoh::RuleSequence::Set24Per7, _val, true)]
+        ( lit("24/7") [bind(&RuleSequence::SetTwentyFourHours, _val, true)]
           | ( -wide_range_selectors(_val) >>
               -small_range_selectors(_val) )) >>
         -rule_modifier(_val)
@@ -472,7 +482,7 @@ public:
 
     main = ( -(lit("opening_hours") >> lit('=')) >>
              (rule_sequence [push_back(_val, _1)] %
-              (separator    [phx::bind(&osmoh::RuleSequence::SetAnySeparator, back(_val), _1)])))
+              (separator    [phx::bind(&RuleSequence::SetAnySeparator, back(_val), _1)])))
         ;
 
     BOOST_SPIRIT_DEBUG_NODE(main);

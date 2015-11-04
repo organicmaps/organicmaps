@@ -29,7 +29,7 @@ bool ToHourMinutes(std::tm const & t, THourMinutes & hm)
 int CompareMonthDayAndTimeTumple(osmoh::MonthDay const & monthDay, std::tm const & date)
 {
   if (monthDay.IsVariable())
-    // Not implemented yet
+    // TODO(mgsergio): Not implemented yet
     return false;
 
   if (monthDay.HasYear())
@@ -62,7 +62,7 @@ bool operator==(osmoh::MonthDay const & monthDay, std::tm const & date)
   return CompareMonthDayAndTimeTumple(monthDay, date) == 0;
 }
 
-/// Fill result with fields that present in start and missing in end.
+// Fill result with fields that present in start and missing in end.
 osmoh::MonthDay NormalizeEnd(osmoh::MonthDay const & start, osmoh::MonthDay const & end)
 {
   osmoh::MonthDay result = start;
@@ -95,7 +95,6 @@ bool IsLoopedBetween(Bound const & start, Bound const & end, Point const & p)
   return end <= p && p <= start;
 }
 } // namespace
-
 
 namespace osmoh
 {
@@ -207,7 +206,7 @@ bool IsActiveAny(std::vector<T> const & selectors, std::tm const & date)
 
 bool IsActive(RuleSequence const & rule, std::tm const & date)
 {
-  if (rule.Is24Per7())
+  if (rule.IsTwentyFourHours())
     return true;
 
   return

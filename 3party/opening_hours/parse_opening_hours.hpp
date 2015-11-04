@@ -1,6 +1,6 @@
 #pragma once
 
-#include "osm_time_range.hpp"
+#include "opening_hours.hpp"
 #include <string>
 
 namespace osmoh

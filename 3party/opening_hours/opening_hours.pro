@@ -13,13 +13,13 @@ ROOT_DIR = ../..
 
 include($$ROOT_DIR/common.pri)
 
-HEADERS += osm_time_range.hpp \
-           osm_parsers.hpp \
-           osm_parsers_terminals.hpp \
-           parse.hpp \
-           rules_evalustion.hpp \
-           rules_evalustion_private.hpp \
+HEADERS += rules_evaluation.hpp \
+           rules_evaluation_private.hpp \
+           opening_hours_parsers.hpp \
+           opening_hours_parsers_terminals.hpp \
+           opening_hours.hpp \
+           parse_opening_hours.hpp
 
-SOURCES += osm_time_range.cpp \
-           parse.cpp \
-           rules_evaluation.cpp \
+SOURCES += rules_evaluation.cpp \
+           opening_hours.cpp \
+           parse_opening_hours.cpp

@@ -22,8 +22,7 @@
  THE SOFTWARE.
 */
 
-#include "osm_time_range.hpp"
-#include "parse.hpp"
+#include "parse_opening_hours.hpp"
 #include "rules_evaluation.hpp"
 #include "rules_evaluation_private.hpp"
 
@@ -70,7 +69,6 @@ bool Test(std::string const & str, Parser const & p, bool full_match = true)
 template <typename ParseResult>
 std::string ParseAndUnparse(std::string const & str)
 {
-
   ParseResult parseResult;
   if (!osmoh::Parse(str, parseResult))
     return ":CAN'T PARSE:";
@@ -278,30 +276,30 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestTimespan)
   }
 }
 
-BOOST_AUTO_TEST_CASE(OpeningHours_TestNthEntry)
+BOOST_AUTO_TEST_CASE(OpeningHours_TestNthWeekdayOfTheMonthEntry)
 {
   using namespace osmoh;
 
   {
-    NthEntry entry;
+    NthWeekdayOfTheMonthEntry entry;
     BOOST_CHECK(entry.IsEmpty());
     BOOST_CHECK(!entry.HasStart());
     BOOST_CHECK(!entry.HasEnd());
     BOOST_CHECK_EQUAL(ToString(entry), "");
 
-    entry.SetStart(NthEntry::Nth::Third);
+    entry.SetStart(NthWeekdayOfTheMonthEntry::NthDayOfTheMonth::Third);
     BOOST_CHECK(!entry.IsEmpty());
     BOOST_CHECK(entry.HasStart());
     BOOST_CHECK(!entry.HasEnd());
     BOOST_CHECK_EQUAL(ToString(entry), "3");
 
-    entry.SetEnd(NthEntry::Nth::Fifth);
+    entry.SetEnd(NthWeekdayOfTheMonthEntry::NthDayOfTheMonth::Fifth);
     BOOST_CHECK(!entry.IsEmpty());
     BOOST_CHECK(entry.HasStart());
     BOOST_CHECK(entry.HasEnd());
     BOOST_CHECK_EQUAL(ToString(entry), "3-5");
 
-    entry.SetStart(NthEntry::Nth::None);
+    entry.SetStart(NthWeekdayOfTheMonthEntry::NthDayOfTheMonth::None);
     BOOST_CHECK(!entry.IsEmpty());
     BOOST_CHECK(!entry.HasStart());
     BOOST_CHECK(entry.HasEnd());
@@ -347,8 +345,8 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestWeekdayRange)
     WeekdayRange range;
     BOOST_CHECK(!range.HasNth());
 
-    NthEntry entry;
-    entry.SetStart(NthEntry::NthEntry::Nth::First);
+    NthWeekdayOfTheMonthEntry entry;
+    entry.SetStart(NthWeekdayOfTheMonthEntry::NthDayOfTheMonth::First);
     range.AddNth(entry);
     BOOST_CHECK(range.HasNth());
   }

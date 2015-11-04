@@ -1,5 +1,5 @@
-#include "parse.hpp"
-#include "osm_parsers.hpp"
+#include "parse_opening_hours.hpp"
+#include "opening_hours_parsers.hpp"
 
 namespace
 {

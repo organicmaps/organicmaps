@@ -1,4 +1,4 @@
-#include "parse.hpp"
+#include "parse_opening_hours.hpp"
 #include "rules_evaluation.hpp"
 
 #define BOOST_TEST_MODULE OpeningHoursIntegration

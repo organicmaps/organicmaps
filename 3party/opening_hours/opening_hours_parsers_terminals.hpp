@@ -5,12 +5,12 @@ namespace parsing
 {
 namespace qi = boost::spirit::qi;
 
-struct dash_ : public qi::symbols<wchar_t>
+struct dash_ : public qi::symbols<char>
 {
   dash_()
   {
     add
-        (L"-")
+        ("-")
         /* not standard */
         // (L"–")(L"—")(L"－")(L"~")(L"～")(L"〜")(L"to")(L"às")(L"ás")(L"as")(L"a")(L"ate")(L"bis")
         ;
