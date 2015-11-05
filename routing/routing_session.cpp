@@ -35,6 +35,9 @@ double constexpr kSpeedCameraWarningSeconds = 30;
 double constexpr kKmHToMps = 1000. / 3600.;
 
 double constexpr kInvalidSpeedCameraDistance = -1;
+
+// It limits depth of a speed camera point lookup along the route to avoid freezing.
+size_t constexpr kSpeedCameraLookAheadCount = 50;
 }  // namespace
 
 namespace routing
@@ -45,6 +48,7 @@ RoutingSession::RoutingSession()
       m_state(RoutingNotActive),
       m_endPoint(m2::PointD::Zero()),
       m_lastWarnedSpeedCameraIndex(0),
+      m_lastCheckedSpeedCameraIndex(0),
       m_speedWarningSignal(false),
       m_passedDistanceOnRouteMeters(0.0)
 {
@@ -133,7 +137,8 @@ void RoutingSession::Reset()
 
   m_passedDistanceOnRouteMeters = 0.0;
   m_lastWarnedSpeedCameraIndex = 0;
-  m_lastCheckedCamera = SpeedCameraRestriction();
+  m_lastCheckedSpeedCameraIndex = 0;
+  m_lastFoundCamera = SpeedCameraRestriction();
   m_speedWarningSignal = false;
 }
 
@@ -329,7 +334,8 @@ void RoutingSession::AssignRoute(Route & route, IRouter::ResultCode e)
   route.SetRoutingSettings(m_routingSettings);
   m_route.Swap(route);
   m_lastWarnedSpeedCameraIndex = 0;
-  m_lastCheckedCamera = SpeedCameraRestriction();
+  m_lastCheckedSpeedCameraIndex = 0;
+  m_lastFoundCamera = SpeedCameraRestriction();
 }
 
 void RoutingSession::SetRouter(unique_ptr<IRouter> && router,
@@ -422,25 +428,24 @@ double RoutingSession::GetDistanceToCurrentCamM(SpeedCameraRestriction & camera,
 {
   auto const & m_poly = m_route.GetFollowedPolyline();
   auto const & currentIter = m_poly.GetCurrentIter();
-  if (currentIter.m_ind < m_lastCheckedCamera.m_index &&
-      m_lastCheckedCamera.m_index < m_poly.GetPolyline().GetSize())
+  if (currentIter.m_ind < m_lastFoundCamera.m_index &&
+      m_lastFoundCamera.m_index < m_poly.GetPolyline().GetSize())
   {
-    camera = m_lastCheckedCamera;
+    camera = m_lastFoundCamera;
     return m_poly.GetDistanceM(currentIter, m_poly.GetIterToIndex(camera.m_index));
   }
-  size_t const currentIndex = max(currentIter.m_ind,
-                                  m_lastCheckedCamera.m_index + 1);
-  for (size_t i = currentIndex; i < m_poly.GetPolyline().GetSize(); ++i)
+  size_t const currentIndex = max(currentIter.m_ind, m_lastCheckedSpeedCameraIndex + 1);
+  size_t const upperBound = min(m_poly.GetPolyline().GetSize(), currentIndex + kSpeedCameraLookAheadCount);
+  for (m_lastCheckedSpeedCameraIndex = currentIndex; m_lastCheckedSpeedCameraIndex < upperBound; ++m_lastCheckedSpeedCameraIndex)
   {
-    uint8_t speed = CheckCameraInPoint(m_poly.GetPolyline().GetPoint(i), index);
+    uint8_t speed = CheckCameraInPoint(m_poly.GetPolyline().GetPoint(m_lastCheckedSpeedCameraIndex), index);
     if (speed != kNoSpeedCamera)
     {
-      camera = SpeedCameraRestriction(static_cast<uint32_t>(i), speed);
-      m_lastCheckedCamera = camera;
-      return m_poly.GetDistanceM(currentIter, m_poly.GetIterToIndex(i));
+      camera = SpeedCameraRestriction(static_cast<uint32_t>(m_lastCheckedSpeedCameraIndex), speed);
+      m_lastFoundCamera = camera;
+      return m_poly.GetDistanceM(currentIter, m_poly.GetIterToIndex(m_lastCheckedSpeedCameraIndex));
     }
   }
-  m_lastCheckedCamera.m_index = m_poly.GetPolyline().GetSize();
   return kInvalidSpeedCameraDistance;
 }
 }  // namespace routing
