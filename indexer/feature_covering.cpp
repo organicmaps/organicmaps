@@ -208,22 +208,11 @@ RectId GetRectIdAsIs(m2::RectD const & r)
   double const eps = MercatorBounds::GetCellID2PointAbsEpsilon();
   using TConverter = CellIdConverter<MercatorBounds, RectId>;
 
-  RectId const id = TConverter::Cover2PointsWithCell(
+  return TConverter::Cover2PointsWithCell(
     MercatorBounds::ClampX(r.minX() + eps),
     MercatorBounds::ClampY(r.minY() + eps),
     MercatorBounds::ClampX(r.maxX() - eps),
     MercatorBounds::ClampY(r.maxY() - eps));
-
-  // Calling this function makes sence only for rects that are equal with index cells.
-  // Check it here ...
-#ifdef DEBUG
-  double minX, minY, maxX, maxY;
-  TConverter::GetCellBounds(id, minX, minY, maxX, maxY);
-  m2::RectD dbgR(minX, minY, maxX, maxY);
-  ASSERT(m2::IsEqual(dbgR, r, eps, eps), (r, dbgR));
-#endif
-
-  return id;
 }
 
 int GetCodingDepth(int scale)
