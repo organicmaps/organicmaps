@@ -796,7 +796,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   m_myPositionController->Render(MyPositionController::RenderMyPosition,
                                  modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
-  if (m_guiRenderer != nullptr)
+  if (!m_useFramebuffer && m_guiRenderer != nullptr)
     m_guiRenderer->Render(make_ref(m_gpuProgramManager), modelView);
 
   if (m_useFramebuffer)
@@ -820,6 +820,13 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
       group->UpdateAnimation();
       if (m_userMarkVisibility.find(group->GetTileKey()) != m_userMarkVisibility.end())
         RenderSingleGroup(modelView, make_ref(group));
+    }
+
+    if (m_guiRenderer != nullptr)
+    {
+      ScreenBase modelView2d = modelView;
+      modelView2d.ResetPerspective();
+      m_guiRenderer->Render(make_ref(m_gpuProgramManager), modelView2d);
     }
 
     m_isBillboardRenderPass = false;
@@ -913,12 +920,10 @@ void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
 {
   double halfSize = VisualParams::Instance().GetTouchRectRadius();
   m2::PointD sizePoint(halfSize, halfSize);
+  m2::RectD selectRect(pt - sizePoint, pt + sizePoint);
 
   ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
   bool isMyPosition = false;
-
-  m2::RectD selectRect(pt - sizePoint, pt + sizePoint);
-
   if (m_myPositionController->IsModeHasPosition())
     isMyPosition = selectRect.IsPointInside(screen.GtoP(m_myPositionController->Position()));
 

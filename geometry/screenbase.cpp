@@ -2,6 +2,7 @@
 #include "geometry/transformations.hpp"
 #include "geometry/angles.hpp"
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
 
 #include "std/cmath.hpp"
@@ -12,10 +13,10 @@ ScreenBase::ScreenBase() :
     m_Scale(0.1),
     m_Angle(0.0),
     m_Org(320, 240),
-    m_3dFOV(M_PI / 3.0),
+    m_3dFOV(0.0),
     m_3dNearZ(0.0),
     m_3dFarZ(0.0),
-    m_3dAngleX(M_PI_4),
+    m_3dAngleX(0.0),
     m_3dScaleX(1.0),
     m_3dScaleY(1.0),
     m_isPerspective(false),
@@ -257,6 +258,9 @@ void ScreenBase::ExtractGtoPParams(MatrixT const & m,
 // Calculate expanded area of visible map plane.
 void ScreenBase::ApplyPerspective(double rotationAngle, double angleFOV)
 {
+  // TODO: Handle the case when rotationAngle == 0.0.
+  ASSERT_NOT_EQUAL(rotationAngle, 0.0, ());
+  ASSERT_NOT_EQUAL(angleFOV, 0.0, ());
   m_isPerspective = true;
 
   m_3dAngleX = rotationAngle;
@@ -321,6 +325,10 @@ void ScreenBase::ResetPerspective()
   m_PixelRect.setMaxY(m_PixelRect.maxY() / m_3dScaleY);
 
   Scale(1.0 / m_3dScaleX);
+
+  m_3dScaleX = m_3dScaleY = 1.0;
+  m_3dAngleX = 0.0;
+  m_3dFOV = 0.0;
 }
 
 m2::PointD ScreenBase::PtoP3d(m2::PointD const & pt) const

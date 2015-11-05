@@ -139,6 +139,8 @@ public:
   {
     return m2::RectD(0.0, 0.0, m_PixelRect.maxX() / m_3dScaleX, m_PixelRect.maxY() / m_3dScaleY);
   }
+  double GetRotationAngle() const { return m_3dAngleX; }
+  double GetAngleFOV() const { return m_3dFOV; }
 
   double GetMinPixelRectSize() const;
 

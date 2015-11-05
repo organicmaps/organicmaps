@@ -1659,7 +1659,7 @@ UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool
 
   m2::AnyRectD bmSearchRect;
   double const bmAddition = BM_TOUCH_PIXEL_INCREASE * vp.GetVisualScale();
-  double const pxWidth  =  touchRadius;
+  double const pxWidth = touchRadius;
   double const pxHeight = touchRadius + bmAddition;
   m_currentModelView.GetTouchRect(pxPoint2d + m2::PointD(0, bmAddition),
                                   pxWidth, pxHeight, bmSearchRect);

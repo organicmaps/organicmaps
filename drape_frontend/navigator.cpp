@@ -108,11 +108,25 @@ void Navigator::OnSize(int w, int h)
 {
   m2::RectD const & worldR = df::GetWorldRect();
 
+  double const fov = m_Screen.GetAngleFOV();
+  double const rotation = m_Screen.GetRotationAngle();
+  if (m_Screen.isPerspective())
+  {
+    m_Screen.ResetPerspective();
+    m_StartScreen.ResetPerspective();
+  }
+
   m_Screen.OnSize(0, 0, w, h);
   m_Screen = ShrinkAndScaleInto(m_Screen, worldR);
 
   m_StartScreen.OnSize(0, 0, w, h);
   m_StartScreen = ShrinkAndScaleInto(m_StartScreen, worldR);
+
+  if (fov != 0.0)
+  {
+    m_Screen.ApplyPerspective(rotation, fov);
+    m_StartScreen.ApplyPerspective(rotation, fov);
+  }
 }
 
 m2::PointD Navigator::GtoP(m2::PointD const & pt) const
@@ -165,7 +179,7 @@ ScreenBase const Navigator::ScaleInto(ScreenBase const & screen, m2::RectD bound
 
   m2::RectD clipRect = res.ClipRect();
 
-  ASSERT(boundRect.IsPointInside(clipRect.Center()), ("center point should be inside boundRect"));
+  //ASSERT(boundRect.IsPointInside(clipRect.Center()), ("center point should be inside boundRect"));
 
   if (clipRect.minX() < boundRect.minX())
   {
@@ -374,14 +388,16 @@ namespace
 
 void Navigator::Scale(m2::PointD const & pt, double factor)
 {
-  CalculateScale(m_Screen.P3dToP(pt), factor, m_Screen);
+  CalculateScale(pt, factor, m_Screen);
 }
 
 void Navigator::CalculateScale(m2::PointD const & pt, double factor, ScreenBase & screen)
 {
   m2::PointD startPt, endPt;
-  CalcScalePoints(pt, factor, screen.PixelRect(), startPt, endPt);
-  ScaleImpl(pt, endPt, pt, startPt, factor > 1, false, screen);
+  CalcScalePoints(pt, factor, screen.isPerspective() ? screen.PixelRectIn3d() : screen.PixelRect(), startPt, endPt);
+  m2::PointD const newOffset = (endPt - pt) / 2.0;
+  m2::PointD const oldOffset = (startPt - pt) / 2.0;
+  ScaleImpl(pt - newOffset, pt + newOffset, pt - oldOffset, pt + oldOffset, factor > 1, false, screen);
 }
 
 bool Navigator::CheckMinScale(ScreenBase const & screen) const
@@ -416,8 +432,13 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
                           bool skipMinScaleAndBordersCheck, bool doRotateScreen,
                           ScreenBase & screen)
 {
+  m2::PointD const center3d = (oldPt1 + oldPt2) / 2.0;
+  m2::PointD const center2d = screen.P3dToP(center3d);
+  m2::PointD const offset =  center2d - center3d;
   math::Matrix<double, 3, 3> const newM =
-      screen.GtoPMatrix() * ScreenBase::CalcTransform(oldPt1, oldPt2, newPt1, newPt2, doRotateScreen);
+      screen.GtoPMatrix() * ScreenBase::CalcTransform(oldPt1 + offset, oldPt2 + offset,
+                                                      newPt1 + offset, newPt2 + offset,
+                                                      doRotateScreen);
 
   ScreenBase tmp = screen;
   tmp.SetGtoPMatrix(newM);
