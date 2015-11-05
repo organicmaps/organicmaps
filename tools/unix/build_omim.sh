@@ -43,7 +43,8 @@ OMIM_PATH="$(cd "${OMIM_PATH:-$(dirname "$0")/../..}"; pwd)"
 BOOST_PATH="${BOOST_PATH:-/usr/local/boost_1.54.0}"
 DEVTOOLSET_PATH=/opt/rh/devtoolset-2
 if [ -d "$DEVTOOLSET_PATH" ]; then
-  . "$DEVTOOLSET_PATH/enable"
+  export MANPATH=
+  source "$DEVTOOLSET_PATH/enable"
 else
   DEVTOOLSET_PATH=
 fi
