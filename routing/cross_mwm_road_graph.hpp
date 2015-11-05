@@ -11,6 +11,7 @@
 
 #include "base/macros.hpp"
 
+#include "std/functional.hpp"
 #include "std/unordered_map.hpp"
 
 namespace routing
@@ -118,8 +119,14 @@ public:
   IRouter::ResultCode SetFinalNode(CrossNode const & finalNode);
 
 private:
-  BorderCross FindNextMwmNode(OutgoingCrossNode const & startNode,
-                              TRoutingMappingPtr const & currentMapping) const;
+  // Cashing wrapper for the ConstructBorderCrossImpl function.
+  BorderCross ConstructBorderCross(OutgoingCrossNode const & startNode,
+                                   TRoutingMappingPtr const & currentMapping) const;
+
+  // Pure function to construct boder cross by outgoing cross node.
+  bool ConstructBorderCrossImpl(OutgoingCrossNode const & startNode,
+                                TRoutingMappingPtr const & currentMapping,
+                                BorderCross & cross) const;
   /*!
    * Adds a virtual edge to the graph so that it is possible to represent
    * the final segment of the path that leads from the map's border
@@ -130,8 +137,21 @@ private:
                       EdgeWeight weight);
 
   map<CrossNode, vector<CrossWeightedEdge> > m_virtualEdges;
+
   mutable RoutingIndexManager m_indexManager;
-  mutable unordered_map<ms::LatLon, BorderCross, ms::LatLon::Hash> m_cachedNextNodes;
+
+  // Caching stuff.
+  using TCachingKey = pair<TWrittenNodeId, Index::MwmId>;
+
+  struct Hash
+  {
+    size_t operator()(TCachingKey const & p) const
+    {
+      return hash<TWrittenNodeId>()(p.first) ^ hash<string>()(p.second.GetInfo()->GetCountryName());
+    }
+  };
+
+  mutable unordered_map<TCachingKey, BorderCross, Hash> m_cachedNextNodes;
 };
 
 //--------------------------------------------------------------------------------------------------

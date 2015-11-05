@@ -54,9 +54,9 @@ IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
   {
     if (IsValidEdgeWeight(weights[i]))
     {
-      BorderCross nextNode = FindNextMwmNode(outgoingNodes[i], startMapping);
-      if (nextNode.toNode.IsValid())
-        dummyEdges.emplace_back(nextNode, weights[i]);
+      BorderCross nextCross = ConstructBorderCross(outgoingNodes[i], startMapping);
+      if (nextCross.toNode.IsValid())
+        dummyEdges.emplace_back(nextCross, weights[i]);
     }
   }
 
@@ -126,38 +126,43 @@ IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
   return IRouter::NoError;
 }
 
-BorderCross CrossMwmGraph::FindNextMwmNode(OutgoingCrossNode const & startNode,
-                                           TRoutingMappingPtr const & currentMapping) const
+BorderCross CrossMwmGraph::ConstructBorderCross(OutgoingCrossNode const & startNode,
+                                                TRoutingMappingPtr const & currentMapping) const
 {
-  ms::LatLon const & startPoint = startNode.m_point;
-
   // Check cached crosses.
-  auto const it = m_cachedNextNodes.find(startPoint);
+  auto const key = make_pair(startNode.m_nodeId, currentMapping->GetMwmId());
+  auto const it = m_cachedNextNodes.find(key);
   if (it != m_cachedNextNodes.end())
-  {
     return it->second;
-  }
 
+  // Cache miss case.
+  BorderCross cross;
+  if (!ConstructBorderCrossImpl(startNode, currentMapping, cross))
+    return BorderCross();
+  m_cachedNextNodes.insert(make_pair(key, cross));
+  return cross;
+}
+
+bool CrossMwmGraph::ConstructBorderCrossImpl(OutgoingCrossNode const & startNode,
+                                             TRoutingMappingPtr const & currentMapping,
+                                             BorderCross & cross) const
+{
   string const & nextMwm = currentMapping->m_crossContext.GetOutgoingMwmName(startNode);
-  TRoutingMappingPtr nextMapping;
-  nextMapping = m_indexManager.GetMappingByName(nextMwm);
+  TRoutingMappingPtr nextMapping = m_indexManager.GetMappingByName(nextMwm);
   // If we haven't this routing file, we skip this path.
   if (!nextMapping->IsValid())
-    return BorderCross();
+    return false;
   nextMapping->LoadCrossContext();
 
   IngoingCrossNode ingoingNode;
-  if (nextMapping->m_crossContext.FindIngoingNodeByPoint(startPoint, ingoingNode))
+  if (nextMapping->m_crossContext.FindIngoingNodeByPoint(startNode.m_point, ingoingNode))
   {
     auto const & targetPoint = ingoingNode.m_point;
-    BorderCross const cross(
-        CrossNode(startNode.m_nodeId, currentMapping->GetMwmId(), targetPoint),
-        CrossNode(ingoingNode.m_nodeId, nextMapping->GetMwmId(), targetPoint));
-    m_cachedNextNodes.insert(make_pair(startPoint, cross));
-    return cross;
+    cross = BorderCross(CrossNode(startNode.m_nodeId, currentMapping->GetMwmId(), targetPoint),
+                        CrossNode(ingoingNode.m_nodeId, nextMapping->GetMwmId(), targetPoint));
+    return true;
   }
-
-  return BorderCross();
+  return false;
 }
 
 void CrossMwmGraph::GetOutgoingEdgesList(BorderCross const & v,
@@ -199,7 +204,7 @@ void CrossMwmGraph::GetOutgoingEdgesList(BorderCross const & v,
                                        EdgeWeight const outWeight = currentContext.GetAdjacencyCost(ingoingNode, node);
                                        if (outWeight != kInvalidContextEdgeWeight && outWeight != 0)
                                        {
-                                         BorderCross target = FindNextMwmNode(node, currentMapping);
+                                         BorderCross target = ConstructBorderCross(node, currentMapping);
                                          if (target.toNode.IsValid())
                                            adj.emplace_back(target, outWeight);
                                        }
