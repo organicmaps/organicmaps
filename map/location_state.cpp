@@ -311,7 +311,7 @@ void State::SwitchToNextMode()
   Mode currentMode = GetMode();
   Mode newMode = currentMode;
 
-  if (!IsInRouting())
+  if (!IsInRouting() || IsRoutingFollowingDisabled())
   {
     switch (currentMode)
     {
@@ -360,10 +360,7 @@ void State::RouteBuilded()
   if (mode > NotFollow)
     SetModeInfo(ChangeMode(m_modeInfo, NotFollow));
   else if (mode == UnknownPosition)
-  {
     m_afterPendingMode = NotFollow;
-    SetModeInfo(ChangeMode(m_modeInfo, PendingPosition));
-  }
 }
 
 void State::StartRouteFollow(int scale)
@@ -382,7 +379,11 @@ void State::StopRoutingMode()
 {
   if (IsInRouting())
   {
-    SetModeInfo(ChangeMode(ExcludeModeBit(m_modeInfo, RoutingSessionBit), GetMode() == RotateAndFollow ? Follow : NotFollow));
+    bool const isNotFollow = IsRoutingFollowingDisabled();
+    m_modeInfo = ExcludeModeBit(m_modeInfo, RoutingNotFollowBit | RoutingSessionBit);
+    if (isNotFollow)
+      return;
+    SetModeInfo(ChangeMode(m_modeInfo, GetMode() == RotateAndFollow ? Follow : NotFollow));
     RotateOnNorth();
     AnimateFollow();
   }
@@ -662,6 +663,11 @@ bool State::IsInRouting() const
   return TestModeBit(m_modeInfo, RoutingSessionBit);
 }
 
+bool State::IsRoutingFollowingDisabled() const
+{
+  return TestModeBit(m_modeInfo, RoutingNotFollowBit);
+}
+
 m2::PointD const State::GetModeDefaultPixelBinding(State::Mode mode) const
 {
   switch (mode)
@@ -771,6 +777,11 @@ void State::StopLocationFollow(bool callListeners)
 void State::SetFixedZoom()
 {
   SetModeInfo(IncludeModeBit(m_modeInfo, FixedZoomBit));
+}
+
+void State::SetRoutingNotFollow()
+{
+  SetModeInfo(IncludeModeBit(m_modeInfo, RoutingNotFollowBit));
 }
 
 void State::DragStarted()

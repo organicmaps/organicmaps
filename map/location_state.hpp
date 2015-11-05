@@ -83,6 +83,7 @@ namespace location
     void StopCompassFollowing();
     void StopLocationFollow(bool callListeners = true);
     void SetFixedZoom();
+    void SetRoutingNotFollow();
 
     /// @name User input notification block
     //@{
@@ -142,6 +143,7 @@ namespace location
 
     bool IsRotationActive() const;
     bool IsInRouting() const;
+    bool IsRoutingFollowingDisabled() const;
 
     m2::PointD const GetModeDefaultPixelBinding(Mode mode) const;
     m2::PointD const GetRaFModeDefaultPxBind() const;
@@ -158,12 +160,14 @@ namespace location
     const m2::PointD GetPositionForDraw() const;
 
   private:
-    // Mode bits
-    // {
-    static uint16_t const FixedZoomBit = 0x20;
-    static uint16_t const RoutingSessionBit = 0x40;
-    static uint16_t const KnownDirectionBit = 0x80;
-    // }
+    
+    enum ExternalMode
+    {
+      RoutingNotFollowBit = 0x10,
+      FixedZoomBit = 0x20,
+      RoutingSessionBit = 0x40,
+      KnownDirectionBit = 0x80
+    };
     static uint16_t const s_cacheRadius = 500.0f;
 
     uint16_t m_modeInfo; // combination of Mode enum and "Mode bits"
