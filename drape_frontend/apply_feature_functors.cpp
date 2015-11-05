@@ -29,6 +29,8 @@ namespace df
 namespace
 {
 
+double const kMinVisibleFontSize = 8.0;
+
 dp::Color ToDrapeColor(uint32_t src)
 {
   return dp::Extract(src, 255 - (src >> 24));
@@ -144,7 +146,7 @@ void Extract(::LineDefProto const * lineRule,
 void CaptionDefProtoToFontDecl(CaptionDefProto const * capRule, dp::FontDecl &params)
 {
   params.m_color = ToDrapeColor(capRule->color());
-  params.m_size = max(8.0, capRule->height() * df::VisualParams::Instance().GetVisualScale());
+  params.m_size = max(kMinVisibleFontSize, capRule->height() * df::VisualParams::Instance().GetVisualScale());
 
   if (capRule->has_stroke_color())
     params.m_outlineColor = ToDrapeColor(capRule->stroke_color());
@@ -153,7 +155,7 @@ void CaptionDefProtoToFontDecl(CaptionDefProto const * capRule, dp::FontDecl &pa
 void ShieldRuleProtoToFontDecl(ShieldRuleProto const * shieldRule, dp::FontDecl &params)
 {
   params.m_color = ToDrapeColor(shieldRule->color());
-  params.m_size = max(8.0, shieldRule->height() * df::VisualParams::Instance().GetVisualScale());
+  params.m_size = max(kMinVisibleFontSize, shieldRule->height() * df::VisualParams::Instance().GetVisualScale());
 
   if (shieldRule->has_stroke_color())
     params.m_outlineColor = ToDrapeColor(shieldRule->stroke_color());
