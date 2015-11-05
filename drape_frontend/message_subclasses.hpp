@@ -268,9 +268,9 @@ private:
 class GuiRecacheMessage : public BaseBlockingMessage
 {
 public:
-  GuiRecacheMessage(Blocker & blocker, gui::TWidgetsInitInfo && initInfo, gui::TWidgetsSizeInfo & resultInfo)
+  GuiRecacheMessage(Blocker & blocker, gui::TWidgetsInitInfo const & initInfo, gui::TWidgetsSizeInfo & resultInfo)
     : BaseBlockingMessage(blocker)
-    , m_initInfo(move(initInfo))
+    , m_initInfo(initInfo)
     , m_sizeInfo(resultInfo)
   {
   }
@@ -287,10 +287,9 @@ private:
 class GuiLayerLayoutMessage : public Message
 {
 public:
-  GuiLayerLayoutMessage(gui::TWidgetsLayoutInfo && info)
-    : m_layoutInfo(move(info))
-  {
-  }
+  GuiLayerLayoutMessage(gui::TWidgetsLayoutInfo const & info)
+    : m_layoutInfo(info)
+  {}
 
   Type GetType() const override { return GuiLayerLayout; }
 
@@ -569,9 +568,13 @@ private:
   drape_ptr<RouteData> m_routeData;
 };
 
-class UpdateMapStyleMessage : public Message
+class UpdateMapStyleMessage : public BaseBlockingMessage
 {
 public:
+  UpdateMapStyleMessage(Blocker & blocker)
+    : BaseBlockingMessage(blocker)
+  {}
+
   Type GetType() const override { return Message::UpdateMapStyle; }
 };
 

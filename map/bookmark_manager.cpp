@@ -84,6 +84,7 @@ void BookmarkManager::InitBookmarks()
   {
     BookmarkCategory * cat = *it;
     BookmarkCategory::Guard guard(*cat);
+    guard.m_controller.Update();
   }
 }
 

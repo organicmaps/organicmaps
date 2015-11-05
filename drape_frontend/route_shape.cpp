@@ -141,11 +141,8 @@ vector<m2::PointD> CalculatePoints(m2::PolylineD const & polyline, double start,
 
 }
 
-RouteShape::RouteShape(m2::PolylineD const & polyline,  vector<double> const & turns,
-                       CommonViewParams const & params)
+RouteShape::RouteShape(CommonViewParams const & params)
   : m_params(params)
-  , m_polyline(polyline)
-  , m_turns(turns)
 {}
 
 void RouteShape::PrepareGeometry(bool isRoute, vector<m2::PointD> const & path,
@@ -291,7 +288,7 @@ void RouteShape::CacheEndOfRouteSign(ref_ptr<dp::TextureManager> mng, RouteData 
   m2::RectF const & texRect = symbol.GetTexRect();
   m2::PointF halfSize = m2::PointF(symbol.GetPixelSize()) * 0.5f;
 
-  glsl::vec2 const pos = glsl::ToVec2(m_polyline.Back());
+  glsl::vec2 const pos = glsl::ToVec2(routeData.m_sourcePolyline.Back());
   glsl::vec3 const pivot = glsl::vec3(pos.x, pos.y, m_params.m_depth);
   gpu::SolidTexturingVertex data[4]=
   {
@@ -327,14 +324,15 @@ void RouteShape::Draw(ref_ptr<dp::TextureManager> textures, RouteData & routeDat
     TGeometryBuffer geometry;
     TGeometryBuffer joinsGeometry;
     vector<RouteJoinBounds> bounds;
-    PrepareGeometry(true /* isRoute */, m_polyline.GetPoints(), geometry, joinsGeometry, bounds, routeData.m_length);
+    PrepareGeometry(true /* isRoute */, routeData.m_sourcePolyline.GetPoints(),
+                    geometry, joinsGeometry, bounds, routeData.m_length);
 
     dp::GLState state = dp::GLState(gpu::ROUTE_PROGRAM, dp::GLState::GeometryLayer);
     BatchGeometry(state, geometry, joinsGeometry, routeData.m_route);
   }
 
   // arrows geometry
-  if (!m_turns.empty())
+  if (!routeData.m_sourceTurns.empty())
   {
     dp::TextureManager::SymbolRegion region;
     GetArrowTextureRegion(textures, region);
@@ -343,13 +341,13 @@ void RouteShape::Draw(ref_ptr<dp::TextureManager> textures, RouteData & routeDat
     dp::GLState state = dp::GLState(gpu::ROUTE_ARROW_PROGRAM, dp::GLState::GeometryLayer);
     state.SetColorTexture(region.GetTexture());
 
-    ClipArrowToSegments(m_turns, routeData);
+    ClipArrowToSegments(routeData.m_sourceTurns, routeData);
     for (auto & renderProperty : routeData.m_arrows)
     {
       TGeometryBuffer geometry;
       TGeometryBuffer joinsGeometry;
-      vector<m2::PointD> points = CalculatePoints(m_polyline, renderProperty->m_start, renderProperty->m_end);
-      ASSERT_LESS_OR_EQUAL(points.size(), m_polyline.GetSize(), ());
+      vector<m2::PointD> points = CalculatePoints(routeData.m_sourcePolyline, renderProperty->m_start, renderProperty->m_end);
+      ASSERT_LESS_OR_EQUAL(points.size(), routeData.m_sourcePolyline.GetSize(), ());
       PrepareGeometry(false /* isRoute */, points, geometry, joinsGeometry, renderProperty->m_joinsBounds, routeData.m_length);
       BatchGeometry(state, geometry, joinsGeometry, renderProperty->m_arrow);
     }

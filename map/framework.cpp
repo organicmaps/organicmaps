@@ -1256,14 +1256,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   m_drapeEngine->SetMyPositionModeListener(m_myPositionListener);
   m_drapeEngine->InvalidateMyPosition();
 
-  m_bmManager.InitBookmarks();
-
-  vector<UserMarkType> types = { UserMarkType::SEARCH_MARK, UserMarkType::API_MARK, UserMarkType::DEBUG_MARK };
-  for (size_t typeIndex = 0; typeIndex < types.size(); typeIndex++)
-  {
-    UserMarkControllerGuard guard(m_bmManager, types[typeIndex]);
-    guard.m_controller.Update();
-  }
+  InvalidateUserMarks();
 
   // In case of the engine reinitialization simulate the last tap to show selection mark.
   if (m_lastTapEvent != nullptr)
@@ -1298,6 +1291,8 @@ void Framework::SetMapStyle(MapStyle mapStyle)
   classificator::Load();
   drule::LoadRules();
   CallDrapeFunction(bind(&df::DrapeEngine::UpdateMapStyle, _1));
+
+  InvalidateUserMarks();
 
   alohalytics::TStringMap details {{"mapStyle", strings::to_string(static_cast<int>(mapStyle))}};
   alohalytics::Stats::Instance().LogEvent("MapStyle_Changed", details);
@@ -1589,6 +1584,18 @@ bool Framework::HasActiveUserMark()
     return false;
 
   return m_drapeEngine->GetSelectedObject() != df::SelectionShape::OBJECT_EMPTY;
+}
+
+void Framework::InvalidateUserMarks()
+{
+  m_bmManager.InitBookmarks();
+
+  vector<UserMarkType> types = { UserMarkType::SEARCH_MARK, UserMarkType::API_MARK, UserMarkType::DEBUG_MARK };
+  for (size_t typeIndex = 0; typeIndex < types.size(); typeIndex++)
+  {
+    UserMarkControllerGuard guard(m_bmManager, types[typeIndex]);
+    guard.m_controller.Update();
+  }
 }
 
 void Framework::OnTapEvent(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID feature)

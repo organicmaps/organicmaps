@@ -69,8 +69,10 @@ DrapeEngine::DrapeEngine(Params && params)
                                    frParams.m_texMng, params.m_model);
   m_backend = make_unique_dp<BackendRenderer>(brParams);
 
+  m_widgetsInfo = move(params.m_info);
+
   GuiRecacheMessage::Blocker blocker;
-  drape_ptr<GuiRecacheMessage> message( new GuiRecacheMessage(blocker, move(params.m_info), m_widgetSizes));
+  drape_ptr<GuiRecacheMessage> message(new GuiRecacheMessage(blocker, m_widgetsInfo, m_widgetSizes));
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread, move(message), MessagePriority::High);
   blocker.Wait();
 
@@ -169,9 +171,26 @@ void DrapeEngine::InvalidateRect(m2::RectD const & rect)
 
 void DrapeEngine::UpdateMapStyle()
 {
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<UpdateMapStyleMessage>(),
-                                  MessagePriority::High);
+  // Update map style.
+  {
+    UpdateMapStyleMessage::Blocker blocker;
+    m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                    make_unique_dp<UpdateMapStyleMessage>(blocker),
+                                    MessagePriority::High);
+    blocker.Wait();
+  }
+
+  // Recache gui after updating of style.
+  {
+    GuiRecacheMessage::Blocker blocker;
+    drape_ptr<GuiRecacheMessage> message(new GuiRecacheMessage(blocker, m_widgetsInfo, m_widgetSizes));
+    m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread, move(message), MessagePriority::High);
+    blocker.Wait();
+
+    m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                    make_unique_dp<GuiLayerLayoutMessage>(m_widgetsLayout),
+                                    MessagePriority::High);
+  }
 }
 
 void DrapeEngine::AddUserEvent(UserEvent const & e)
@@ -371,8 +390,9 @@ void DrapeEngine::RemoveRoute(bool deactivateFollowing)
 
 void DrapeEngine::SetWidgetLayout(gui::TWidgetsLayoutInfo && info)
 {
+  m_widgetsLayout = move(info);
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<GuiLayerLayoutMessage>(move(info)),
+                                  make_unique_dp<GuiLayerLayoutMessage>(m_widgetsLayout),
                                   MessagePriority::Normal);
 }
 

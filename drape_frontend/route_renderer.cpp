@@ -291,12 +291,19 @@ void RouteRenderer::SetRouteData(drape_ptr<RouteData> && routeData, ref_ptr<dp::
   m_distanceFromBegin = 0.0;
 }
 
-void RouteRenderer::Clear()
+drape_ptr<RouteData> const & RouteRenderer::GetRouteData() const
+{
+  return m_routeData;
+}
+
+void RouteRenderer::Clear(bool keepDistanceFromBegin)
 {
   m_routeData.reset();
   m_arrowBorders.clear();
   m_routeSegments.clear();
-  m_distanceFromBegin = 0.0;
+
+  if (!keepDistanceFromBegin)
+    m_distanceFromBegin = 0.0;
 }
 
 void RouteRenderer::UpdateDistanceFromBegin(double distanceFromBegin)

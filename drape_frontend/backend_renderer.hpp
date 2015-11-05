@@ -47,6 +47,7 @@ protected:
 private:
   void RecacheGui(gui::TWidgetsInitInfo const  & initInfo, gui::TWidgetsSizeInfo & sizeInfo);
   void RecacheCountryStatus();
+  void RecacheMyPosition();
 
   void AcceptMessage(ref_ptr<Message> message) override;
 

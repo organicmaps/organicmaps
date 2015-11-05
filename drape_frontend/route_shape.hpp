@@ -42,6 +42,8 @@ struct ArrowRenderProperty
 
 struct RouteData
 {
+  m2::PolylineD m_sourcePolyline;
+  vector<double> m_sourceTurns;
   dp::Color m_color;
   m2::RectF m_arrowTextureRect;
   double m_length;
@@ -53,8 +55,7 @@ struct RouteData
 class RouteShape
 {
 public:
-  RouteShape(m2::PolylineD const & polyline,  vector<double> const & turns,
-             CommonViewParams const & params);
+  RouteShape(CommonViewParams const & params);
   void Draw(ref_ptr<dp::TextureManager> textures, RouteData & routeData);
 
 private:
@@ -69,8 +70,6 @@ private:
                      TGeometryBuffer & joinsGeometry, RouteRenderProperty & property);
 
   CommonViewParams m_params;
-  m2::PolylineD m_polyline;
-  vector<double> m_turns;
 };
 
 } // namespace df

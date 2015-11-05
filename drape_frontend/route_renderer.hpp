@@ -44,8 +44,9 @@ public:
                         dp::UniformValuesStorage const & commonUniforms);
 
   void SetRouteData(drape_ptr<RouteData> && routeData, ref_ptr<dp::GpuProgramManager> mng);
+  drape_ptr<RouteData> const & GetRouteData() const;
 
-  void Clear();
+  void Clear(bool keepDistanceFromBegin = false);
 
   void UpdateDistanceFromBegin(double distanceFromBegin);
 

@@ -123,8 +123,6 @@ void StipplePenRasterizator::Rasterize(void * buffer)
 
   pixels[0] = pixels[1];
   pixels[offset] = pixels[offset - 1];
-
-  memcpy(pixels + MAX_STIPPLE_PEN_LENGTH, pixels, MAX_STIPPLE_PEN_LENGTH);
 }
 
 ref_ptr<Texture::ResourceInfo> StipplePenIndex::ReserveResource(bool predefined, StipplePenKey const & key, bool & newResource)

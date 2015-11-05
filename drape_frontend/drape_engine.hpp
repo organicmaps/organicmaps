@@ -137,7 +137,9 @@ private:
   TTapEventInfoFn m_tapListener;
   TUserPositionChangedFn m_userPositionChangedFn;
 
+  gui::TWidgetsInitInfo m_widgetsInfo;
   gui::TWidgetsSizeInfo m_widgetSizes;
+  gui::TWidgetsLayoutInfo m_widgetsLayout;
 };
 
 } // namespace df

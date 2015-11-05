@@ -333,25 +333,43 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::UpdateMapStyle:
     {
+      // Clear tile tree.
       m_tileTree->Invalidate();
 
+      // Get new tiles.
       TTilesCollection tiles;
       ScreenBase screen = m_userEventStream.GetCurrentScreen();
       ResolveTileKeys(screen.ClipRect(), tiles);
 
+      // Clear all graphics.
       m_renderGroups.clear();
       m_deferredRenderGroups.clear();
 
+      // Invalidate read manager.
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                 make_unique_dp<InvalidateReadManagerRectMessage>(tiles),
                                 MessagePriority::Normal);
 
+      // Invalidate textures and wait for completion.
       BaseBlockingMessage::Blocker blocker;
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                 make_unique_dp<InvalidateTexturesMessage>(blocker),
                                 MessagePriority::Normal);
       blocker.Wait();
 
+      // Invalidate route.
+      auto const & routeData = m_routeRenderer->GetRouteData();
+      if (routeData != nullptr)
+      {
+        auto recacheRouteMsg = make_unique_dp<AddRouteMessage>(routeData->m_sourcePolyline,
+                                                               routeData->m_sourceTurns,
+                                                               routeData->m_color);
+        m_routeRenderer->Clear(true /* keepDistanceFromBegin */);
+        m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, move(recacheRouteMsg),
+                                  MessagePriority::Normal);
+      }
+
+      // Request new tiles.
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                 make_unique_dp<UpdateReadManagerMessage>(screen, move(tiles)),
                                 MessagePriority::Normal);
