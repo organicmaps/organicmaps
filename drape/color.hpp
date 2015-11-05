@@ -25,11 +25,10 @@ struct Color
   bool operator==(Color const & other) const { return m_rgba == other.m_rgba; }
   bool operator< (Color const & other) const { return m_rgba < other.m_rgba; }
 
-  static Color Black()             { return Color(0, 0, 0, 255); }
-  static Color White()             { return Color(255, 255, 255, 255); }
-  static Color Red()               { return Color(255, 0, 0, 255); }
-  static Color Transparent()       { return Color(0, 0, 0, 0); }
-  static Color RoadNumberOutline() { return Color(150, 75, 0, 255); }
+  static Color Black()       { return Color(0, 0, 0, 255); }
+  static Color White()       { return Color(255, 255, 255, 255); }
+  static Color Red()         { return Color(255, 0, 0, 255); }
+  static Color Transparent() { return Color(0, 0, 0, 0); }
 
 private:
   uint32_t m_rgba;

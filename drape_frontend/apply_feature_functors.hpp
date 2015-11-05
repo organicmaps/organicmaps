@@ -13,6 +13,7 @@
 class CircleRuleProto;
 class SymbolRuleProto;
 class CaptionDefProto;
+class ShieldRuleProto;
 
 //#define CALC_FILTERED_POINTS
 
@@ -99,6 +100,8 @@ private:
   m2::PointD m_lastAddedPoint;
   bool m_simplify;
   size_t m_initialPointsCount;
+  double m_shieldDepth;
+  ShieldRuleProto const * m_shieldRule;
 
 #ifdef CALC_FILTERED_POINTS
   int m_readedCount;

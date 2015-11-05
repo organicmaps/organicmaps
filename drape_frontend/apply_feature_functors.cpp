@@ -150,6 +150,15 @@ void CaptionDefProtoToFontDecl(CaptionDefProto const * capRule, dp::FontDecl &pa
     params.m_outlineColor = ToDrapeColor(capRule->stroke_color());
 }
 
+void ShieldRuleProtoToFontDecl(ShieldRuleProto const * shieldRule, dp::FontDecl &params)
+{
+  params.m_color = ToDrapeColor(shieldRule->color());
+  params.m_size = max(8.0, shieldRule->height() * df::VisualParams::Instance().GetVisualScale());
+
+  if (shieldRule->has_stroke_color())
+    params.m_outlineColor = ToDrapeColor(shieldRule->stroke_color());
+}
+
 dp::Anchor GetAnchor(CaptionDefProto const * capRule)
 {
   if (capRule->has_offset_y())
@@ -343,6 +352,8 @@ ApplyLineFeature::ApplyLineFeature(TInsertShapeFn const & insertShape, FeatureID
   , m_sqrScale(math::sqr(m_currentScaleGtoP))
   , m_simplify(simplify)
   , m_initialPointsCount(pointsCount)
+  , m_shieldDepth(0.0)
+  , m_shieldRule(nullptr)
 #ifdef CALC_FILTERED_POINTS
   , m_readedCount(0)
 #endif
@@ -394,11 +405,9 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
   bool isWay = (pRule->GetType() & drule::way) != 0;
   CaptionDefProto const * pCaptionRule = pRule->GetCaption(0);
   LineDefProto const * pLineRule = pRule->GetLine();
-  if (pCaptionRule == NULL && pLineRule == NULL)
-    return;
+  ShieldRuleProto const * pShieldRule = pRule->GetShield();
 
-  ASSERT(pCaptionRule == NULL || pLineRule == NULL, ());
-  if (pCaptionRule != NULL && pCaptionRule->height() > 2 &&
+  if (pCaptionRule != nullptr && pCaptionRule->height() > 2 &&
       !m_captions.GetPathName().empty() && isWay)
   {
     dp::FontDecl fontDecl;
@@ -413,7 +422,7 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     m_insertShape(make_unique_dp<PathTextShape>(m_spline, params));
   }
 
-  if (pLineRule != NULL)
+  if (pLineRule != nullptr)
   {
     if (pLineRule->has_pathsym())
     {
@@ -438,6 +447,12 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
       m_insertShape(make_unique_dp<LineShape>(m_spline, params));
     }
   }
+
+  if (pShieldRule != nullptr)
+  {
+    m_shieldDepth = depth;
+    m_shieldRule = pShieldRule;
+  }
 }
 
 void ApplyLineFeature::Finish()
@@ -446,12 +461,18 @@ void ApplyLineFeature::Finish()
   LinesStat::Get().InsertLine(m_id, m_currentScaleGtoP, m_readedCount, m_spline->GetSize());
 #endif
 
+  if (m_shieldRule == nullptr)
+    return;
+
   string const & roadNumber = m_captions.GetRoadNumber();
   if (roadNumber.empty())
     return;
 
+  dp::FontDecl font;
+  ShieldRuleProtoToFontDecl(m_shieldRule, font);
+
   double pathPixelLength = m_spline->GetLength() * m_currentScaleGtoP;
-  int const textHeight = static_cast<int>(11 * df::VisualParams::Instance().GetVisualScale());
+  int const textHeight = static_cast<int>(font.m_size);
 
   // I don't know why we draw by this, but it's work before and will work now
   if (pathPixelLength > (roadNumber.size() + 2) * textHeight)
@@ -462,11 +483,11 @@ void ApplyLineFeature::Finish()
     double const splineStep = pathPixelLength / count;
 
     TextViewParams viewParams;
-    viewParams.m_depth = 0;
+    viewParams.m_depth = m_shieldDepth;
     viewParams.m_anchor = dp::Center;
     viewParams.m_featureID = FeatureID();
     viewParams.m_primaryText = roadNumber;
-    viewParams.m_primaryTextFont = dp::FontDecl(dp::Color::RoadNumberOutline(), textHeight, dp::Color::White());
+    viewParams.m_primaryTextFont = font;
     viewParams.m_primaryOffset = m2::PointF(0, 0);
 
     m2::Spline::iterator it = m_spline.CreateIterator();
