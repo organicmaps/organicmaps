@@ -10,10 +10,10 @@
 #include "geometry/point2d.hpp"
 #include "geometry/spline.hpp"
 
-class CircleRuleProto;
-class SymbolRuleProto;
 class CaptionDefProto;
+class CircleRuleProto;
 class ShieldRuleProto;
+class SymbolRuleProto;
 
 //#define CALC_FILTERED_POINTS
 
