@@ -49,10 +49,7 @@ void QtRenderOGLContext::doneCurrent()
 void QtRenderOGLContext::setDefaultFramebuffer()
 {
   if (m_backFrame == nullptr)
-  {
-    LOG(LWARNING, ("Back framebuffer has't been created"));
     return;
-  }
 
   m_backFrame->bind();
 }

@@ -44,7 +44,7 @@ area|z14-[area:highway=living_street],
 {
   fill-color: @pedestrian_area;
   fill-position: background;
-  fill-opacity: 0.3;
+  fill-opacity: 1;
   z-index: 550;
 }
 
@@ -53,14 +53,17 @@ area|z16-[area:highway=pedestrian],
 area|z16-[highway=footway][area?][!sac_scale],
 area|z16-[area:highway=footway],
 area|z16-[area:highway=living_street],
+
 {
-  fill-color: @pedestrian_area;
+  fill-color: @pedestrian_area_light;
   fill-position: background;
-  fill-opacity: 0.3;
+  fill-opacity: 1;
   z-index: 550;
 }
 
+
 /* INDUSTRIAL */
+
 
 area|z15-[landuse=industrial]
 area|z15-[landuse=construction]{
@@ -97,7 +100,7 @@ area|z15-[landuse=cemetery] {
 /* UNIVERSITY */
 area|z14-15[amenity=university] {
   fill-color: @unversity;
-  fill-opacity: 0.8;
+  fill-opacity: 1;
   fill-position: background;
 }
 
@@ -120,16 +123,23 @@ area|z17-[leisure=playground]  {
   fill-color: @sport;
   fill-position: background;
   fill-opacity: 1;
-  z-index: 150;
+  z-index: 0;
 }
 
-/* HOSPITALS */
-area|z14-[amenity=hospital] {
+/* hospital*/
+
+area|z14-15[amenity=hospital] {
+  fill-color: @hospital;
+  fill-opacity: 1;
+  fill-position: background
+
+}
+area|z16-[amenity=hospital] {
   fill-color: @hospital;
   fill-opacity: 1;
   fill-position: background;
-}
 
+}
 /* PARKINGS*/
 
 

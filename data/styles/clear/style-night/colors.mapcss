@@ -85,7 +85,13 @@
 @tram: #5C5C51;
 @ferry: #2A4541;
 @aerodrome: #2A1444;
-
+/*aerodrome*/
+@aerodrome0: #2A1444;
+@aerodrome1: #2A1444;
+@aerodrome2: #2A1444;
+@aerodrome3: #2A1444;
+@aerodrome4: #2A1444;
+@aerodrome5: #2A1444;
 /* NATURAL */
 @glacier: #111111;
 @water: #002222;
@@ -93,7 +99,13 @@
 @forest: #1B2500;
 @park: #1B2500;
 @beach: #28281A;
-
+/*forest-park*/
+@green0: #1B2500;
+@green1: #1B2500;
+@green2: #1B2500;
+@green3: #1B2500;
+@green4: #1B2500;
+@green5: #1B2500;
 /* BUILDINGS */
 @housename: #555555;
 @building: #222222;
@@ -101,6 +113,7 @@
 
 /* LANDUSE */
 @pedestrian_area: #2E2E1C;
+@pedestrian_area_light: #2E2E1C;
 @unversity: #2C2A17;
 @hospital: #3B2D23;
 @industrial: #141400;
@@ -144,6 +157,9 @@
 @shield_halo: #000000;
 /* blue - #2E89B0; #498F46; #598DBE; */
 
+@label_dark: #333333;
+@label_light: #444444;
+@dark:  #333333;
 
 /* NATURAL LABELS */
 @water_label: #004466;

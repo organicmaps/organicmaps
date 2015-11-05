@@ -19,10 +19,10 @@ public:
   ReadMWMTask(MemoryFeatureIndex & memIndex,
               MapDataProvider & model);
 
-  virtual void Do();
+  void Do() override;
 
   void Init(shared_ptr<TileInfo> const & tileInfo);
-  void Reset();
+  void Reset() override;
   bool IsCancelled() const override;
   TileKey GetTileKey() const;
 

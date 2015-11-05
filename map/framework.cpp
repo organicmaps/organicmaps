@@ -199,12 +199,6 @@ Framework::Framework()
     mapStyle = MapStyleClear;
   GetStyleReader().SetCurrentStyle(static_cast<MapStyle>(mapStyle));
 
-  // Checking whether we should enable benchmark.
-  bool isBenchmarkingEnabled = false;
-  (void)Settings::Get("IsBenchmarking", isBenchmarkingEnabled);
-  if (isBenchmarkingEnabled)
-    m_benchmarkEngine = new BenchmarkEngine(this);
-
   // Init strings bundle.
   // @TODO. There are hardcoded strings below which are defined in strings.txt as well.
   // It's better to use strings form strings.txt intead of hardcoding them here.

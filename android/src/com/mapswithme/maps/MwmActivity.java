@@ -295,9 +295,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     Statistics.INSTANCE.trackConnectionState();
 
-    if (MwmApplication.get().nativeIsBenchmarking())
-      Utils.keepScreenOn(true, getWindow());
-
     Framework.nativeSetBalloonListener(this);
 
     mSearchController = new FloatingSearchToolbarController(this);

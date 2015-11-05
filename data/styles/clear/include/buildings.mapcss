@@ -1,8 +1,9 @@
 area|z14[building]
 {
   fill-color: @building;
-  fill-opacity: 0.4;
+  fill-opacity: 0.5;
   z-index: 200;
+  
 }
 area|z15[building]
 {
@@ -20,8 +21,8 @@ area|z16[building]
 
 area|z17[building]
 {
-  fill-color: @building;
-  opacity: 1;
+  fill-color: @building_dark;
+  opacity: 0.9;
   z-index: 200;
 }
 

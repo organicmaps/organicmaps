@@ -23,33 +23,32 @@ line|z11-[highway=tertiary] {
 	z-index: 750;
 }
 
-line|z10-[highway=unclassified],
-line|z10-[highway=road],
-line|z10-[highway=living_street] {
+line|z7-[highway=unclassified],
+line|z7-[highway=living_street] {
 	z-index: 700;
 }
 
-line|z10-[highway=service] {
+line|z7-[highway=service] {
 	z-index: 650;
 }
 
-line|z10-[highway=pedestrian] {
+line|z7-[highway=pedestrian] {
 	z-index: 650;
 }
 
-line|z10-[highway=footway],
-line|z10-[highway=path] {
+line|z7-[highway=footway],
+line|z7-[highway=path] {
 	z-index: 600;
 }
 
-line|z10-[highway=trunk_link],
-line|z10-[highway=motorway_link],
-line|z10-[highway=primary_link],
-line|z10-[highway=secondary_link],
-line|z10-[highway=tertiary_link],
-line|z10-[highway=residential_link],
-line|z10-[highway=track],
-line|z10-[highway=bridleway] {
+line|z7-[highway=trunk_link],
+line|z7-[highway=motorway_link],
+line|z7-[highway=primary_link],
+line|z7-[highway=secondary_link],
+line|z7-[highway=tertiary_link],
+line|z7-[highway=residential_link],
+line|z7-[highway=track],
+line|z7-[highway=bridleway] {
 	z-index: 500;
 }
 
@@ -58,9 +57,9 @@ line|z10-[highway=bridleway] {
 
 line|z7[highway=trunk],
 line|z7[highway=motorway] {
-    color: @trunk;
-    width: 0.3;
-	opacity: 0.4;
+    color: @trunk_orange_light;
+    width: 0.6;
+	opacity: 1;
 
 }
 
@@ -69,32 +68,35 @@ line|z7[highway=motorway] {
 line|z8[highway=trunk],
 line|z8[highway=motorway]
 {
-  width: 0.6;
-  color: @trunk;
-  opacity: 0.5;
+  width: 0.7;
+  color: @trunk_orange_light;
+  opacity: 1;
 }
+line|z8[highway=primary]
+{
+  color: @primary_orange;
+  width: 0.5;
+  opacity: 1;
+}
+
 
 /* ZOOM 9 */
 
 line|z9[highway=trunk],
 line|z9[highway=motorway]
 {
-  color: @trunk;
-  width: 0.8;
-  opacity: 0.7;
+  color: @trunk_orange_medium;
+  width: 1;
+  opacity: 1;
 }
 
 line|z9[highway=primary]
 {
-  color: @primary;
-  width: 0.1;
-  opacity: 0.4;
+  color: @primary_orange;
+  width: 0.7;
+  opacity: 1;
 }
 
-
-line|z7-[highway=cycleway] {
-	z-index: 950;
-}
 
 /* ZOOM 10 */
 
@@ -102,23 +104,24 @@ line|z7-[highway=cycleway] {
 line|z10[highway=trunk],
 line|z10[highway=motorway]
 {
-  color: @trunk_yellow;
-  width: 1.2;
-  opacity: 0.8;
+  color: @trunk_orange_medium;
+  width: 1.3;
+  opacity: 1;
+  z-index: 10000;
 }
 
 line|z10[highway=primary]
 {
-  color: @primary;
-  width: 0.9;
-  opacity: 0.8;
+  color: @primary_orange;
+  width: 1;
+  opacity: 1;
 }
 
 line|z10[highway=secondary]
 {
   color: @secondary;
-  width: 0.2;
-  opacity: 0.4;
+  width: 0.8;
+  opacity: 1;
 }
 
 
@@ -127,49 +130,50 @@ line|z10[highway=secondary]
 line|z11[highway=trunk],
 line|z11[highway=motorway]
 {
-  color: @trunk_yellow;
+  color: @trunk_orange_light;
   width: 1.8;
-  opacity: 0.7;
+  opacity: 1;
 }
-
+/*
 line|z11[highway=trunk]::case,
 line|z11[highway=motorway]::case
 {
-  color: @trunk_yellow_case;
-  width: 2.8;
+  color: @trunk_orange_case;
+  width: 3.6;
   opacity: 1;
   z-index: 45;
 }
+*/
 
 line|z11[highway=primary]
 {
-  color: @primary_yellow;
-  width: 1;
+  color: @primary_orange_medium;
+  width: 1.4;
   opacity: 1;
 }
-
+/*
 line|z11[highway=primary]::case
 {
-  color: @primary_yellow_case;
-  width: 2;
+  color: @primary_orange_case;
+  width: 2.6;
   opacity: 1;
   z-index: 45;
 }
-
+*/
 
 line|z11[highway=secondary]
 {
   color: @secondary;
-  width: 0.7;
-  opacity: 0.8;
+  width: 1.1;
+  opacity: 1;
 }
 
 line|z11[highway=residential],
 line|z11[highway=tertiary]
 {
   color: @residential;
-  width: 0.1;
-  opacity: 0.2;
+  width: 0.4;
+  opacity: 1;
 }
 
 
@@ -178,23 +182,24 @@ line|z11[highway=tertiary]
 line|z12[highway=trunk],
 line|z12[highway=motorway]
 {
-  color: @trunk_yellow;
+  color: @trunk_orange_medium;
   width: 2;
-  opacity: 0.9;
+  opacity: 1;
 }
-
+/*
 line|z12[highway=trunk]::case,
 line|z12[highway=motorway]::case
 {
-  color: @trunk_yellow_case;
+  color: @trunk_orange_case;
   width: 3.2;
   opacity: 1;
   z-index: 45;
 }
-
+*/
 
 line|z12[highway=motorway][tunnel?],
 line|z12[highway=trunk][tunnel?] {
+	color: @trunk_tunnel_orange;
     casing-width: 0.5;
     casing-linecap: butt;
     casing-color: @trunk_tunnel_casing;
@@ -204,24 +209,25 @@ line|z12[highway=trunk][tunnel?] {
 
 line|z12[highway=primary]
 {
-  color: @primary_yellow;
-  width: 1.5;
-  opacity: 0.9;
+  color: @primary_orange;
+  width: 1.6;
+  opacity: 1;
 }
-
+/*
 line|z12[highway=primary]::case
 {
-  color: @primary_yellow_case;
+  color: @primary_orange_case;
   width: 2.5;
   opacity: 1;
   z-index: 45;
 }
+*/
 
 line|z12[highway=secondary]
 {
   color: @secondary;
-  width: 1.8;
-  opacity: 0.7;
+  width: 1.6;
+  opacity: 1;
 }
 
 line|z12[highway=residential],
@@ -231,8 +237,8 @@ line|z12[highway=road],
 line|z12[highway=living_street]
 {
   color: @residential;
-  width: 0.3;
-  opacity: 0.4;
+  width: 0.8;
+  opacity: 1;
 }
 
 /* ZOOM 13 */
@@ -241,24 +247,25 @@ line|z13[highway=trunk],
 line|z13[highway=motorway]
 {
   width: 2.8;
-  opacity: 0.9;
-  color: @trunk_yellow;
+  opacity: 1;
+  color: @trunk_orange_light;
 }
-
+/*
 line|z13[highway=trunk]::case,
 line|z13[highway=motorway]::case
 {
-  color: @trunk_yellow_case;
+  color: @trunk_orange_case;
   width: 4;
   opacity: 1;
   z-index: 45;
 }
-
+*/
 
 line|z13[highway=motorway][tunnel?],
 line|z13[highway=trunk][tunnel?],
 line|z13[highway=motorway_link][tunnel?],
 line|z13[highway=trunk_link][tunnel?] {
+	color: @trunk_tunnel_orange;
   casing-width: 1;
   casing-linecap: butt;
   casing-color: @trunk_tunnel_casing;
@@ -269,28 +276,29 @@ line|z13[highway=motorway_link],
 line|z13[highway=trunk_link]
 {
   color: @trunk_link;
-  width: 0.8;
+  width: 1.4;
 }
 
 line|z13[highway=primary]
 {
-  color: @primary_yellow;
-  width: 2.5;
+  color: @primary_orange_light;
+  width: 2.4;
   opacity: 1;
 }
-
+/*
 line|z13[highway=primary]::case
 {
-  color: @primary_yellow_case;
+  color: @primary_orange_case;
   width: 3.5;
   opacity: 1;
   z-index: 45;
 }
+*/
 
 line|z13[highway=secondary]
 {
   color: @secondary;
-  width: 2;
+  width: 2.2;
   opacity: 1;
 }
 
@@ -299,8 +307,8 @@ line|z13[highway=residential],
 line|z13[highway=tertiary],
 {
   color: @residential;
-  width: 0.7;
-  opacity: 0.7;
+  width: 1.2;
+  opacity: 1;
 }
 
 line|z13[highway=unclassified],
@@ -308,25 +316,34 @@ line|z13[highway=road],
 line|z13[highway=living_street]
 {
   color: @unclassified;
-  width: 0.7;
-  opacity: 0.7;
+  width: 1;
+  opacity: 1;
 }
 
 line|z13[highway=pedestrian]
 {
   color: @pedestrian;
-  width: 0.7;
-  dashes: 2,1;
-  opacity: 0.7;
+  width: 1;
+  dashes: 1,0.5;
+  opacity: 1;
 }
 
+line|z13[highway=cycleway]
+{
+  color: @cycleway;
+  width: 1;
+  opacity: 1;
+  z-index: 1000;
+/*  dashes: 1,1;
+  opacity: 0.8;*/
+}
 
 line|z13[highway=construction]
 {
   color: @construction;
-  opacity: 0.5;
-  width: 1.4;
-  dashes: 4,4;
+  opacity: 1;
+  width: 1.2;
+  dashes: 4,2;
 }
 
 /* ZOOM 14 */
@@ -336,17 +353,18 @@ line|z14[highway=motorway]
 {
   width: 3.8;
   opacity: 1;
-  color: @trunk_yellow;
+  color: @trunk_orange_light;
 }
-
+/*
 line|z14[highway=trunk]::case,
 line|z14[highway=motorway]::case
 {
-  color: @trunk_yellow_case;
+  color: @trunk_orange_case;
   width: 5;
   opacity: 1;
   z-index: 45;
 }
+*/
 
 line|z14[highway=motorway_link],
 line|z14[highway=trunk_link]
@@ -359,6 +377,7 @@ line|z14[highway=motorway][tunnel?],
 line|z14[highway=trunk][tunnel?],
 line|z14[highway=motorway_link][tunnel?],
 line|z14[highway=trunk_link][tunnel?] {
+	color: @trunk_tunnel_orange;
     casing-width: 1;
     casing-linecap: butt;
     casing-color: @trunk_tunnel_casing;
@@ -367,27 +386,29 @@ line|z14[highway=trunk_link][tunnel?] {
 
 line|z14[highway=primary]
 {
-  color: @primary_yellow;
-  width: 2.8;
+  color: @primary_orange_medium;
+  width: 2.9;
   opacity: 1;
 }
-
+/*
 line|z14[highway=primary]::case
 {
-  color: @primary_yellow_case;
+  color: @primary_orange_case;
   width: 4;
   opacity: 1;
   z-index: 45;
 }
+*/
 
 line|z14[highway=primary_link]
 {
   color: @primary_link;
-  width: 1.4;
+  width: 1.5;
 }
 
 line|z14[highway=primary][tunnel?],
-line|z14[highway=primary_link][tunnel?] {
+line|z14[highway=primary_link][tunnel?]  {
+	color: @primary_tunnel_orange;
     casing-width: 1;
     casing-linecap: butt;
     casing-color: @primary_tunnel_casing;
@@ -397,38 +418,47 @@ line|z14[highway=primary_link][tunnel?] {
 line|z14[highway=secondary]
 {
   color: @secondary;
-  width: 2.8;
+  width: 3;
   opacity: 1;
 }
 
 line|z14[highway=secondary_link]
 {
   color: @secondary_link;
-  width: 1.4;
+  width: 1.5;
 }
 
 line|z14[highway=residential],
 line|z14[highway=tertiary],
 {
   color: @residential;
-  width: 1.4;
-  opacity: 0.8;
+  width: 1.8;
+  opacity: 1;
 }
 
 line|z14[highway=unclassified],
 line|z14[highway=living_street],
 line|z14[highway=road]
+
 {
   color: @unclassified;
-  width: 1.4;
+  width: 1.8;
+  opacity: 1;
+}
+
+line|z14[highway=pedestrian]
+{
+  color: @pedestrian;
+  width: 1.6;
+  dashes: 4,1.6;
   opacity: 1;
 }
 
 line|z14[highway=service]
 {
   color: @unclassified;
-  width: 0.2;
-  opacity: 0.4;
+  width: 0.7;
+  opacity: 0;
   z-index: 600;
 }
 
@@ -436,7 +466,7 @@ line|z14[highway=track][tracktype=grade1],
 {
   color: @track;
   opacity: 1;
-  width: 0.8;
+  width: 1;
 }
 line|z14[highway=track],
 line|z14[highway=path],
@@ -444,31 +474,24 @@ line|z14[route=hiking]
 {
   color: @track;
   opacity: 1;
-  dashes: 0.1,0.1;
-  width: 0.1;
+  dashes: 2.8,1.5;
+  width: 0.9;
 }
 
 line|z14[highway=bridleway]
 {
   color: @bridleway;
   opacity: 1;
-  width: 0.1;
-  dashes: 0.1,2;
+  width: 0.9;
+  dashes: 3,1.4;
 }
 
-line|z14[highway=pedestrian]
-{
-  color: @pedestrian;
-  width: 0.9;
-  dashes: 2,0.5;
-  opacity: 0.8;
-}
 
 line|z14[highway=footway]
 {
   color: @footway;
-  width: 0.1;
-  dashes: 0.1,0.1;
+  width: 0.9;
+  dashes: 3,1.4;
   opacity: 1;
   z-index: 600;
 }
@@ -476,19 +499,20 @@ line|z14[highway=footway]
 line|z14[highway=construction]
 {
   color: @construction;
-  opacity: 0.5;
+  opacity: 1;
   width: 1.4;
-  dashes: 5,5;
+  dashes: 5,2;
 }
 
 line|z14[highway=cycleway]
 {
   color: @cycleway;
-  width: 0.4;
-  opacity: 0.8;
+  width: 1.2;
+  opacity: 1;
   z-index: 2000;
 
 }
+
 /* ZOOM 15 */
 
 line|z15[highway=trunk],
@@ -496,18 +520,19 @@ line|z15[highway=motorway]
 {
   width: 4.8;
   opacity: 1;
-  color: @trunk_yellow;
+  color: @trunk_orange_light;
   z-index: 900;
 }
-
+/*
 line|z15[highway=trunk]::case,
 line|z15[highway=motorway]::case
 {
-  color: @trunk_yellow_case;
+  color: @trunk_orange_case;
   width: 6;
   opacity: 1;
   z-index: 45;
 }
+*/
 
 line|z15[highway=motorway_link],
 line|z15[highway=trunk_link]
@@ -528,29 +553,31 @@ line|z15[highway=trunk_link][tunnel?] {
 
 line|z15[highway=primary]
 {
-  color: @primary_yellow;
-  width: 3.8;
+  color: @primary_orange_light;
+  width: 4.2;
   opacity: 1;
   z-index: 850;
 }
-
+/*
 line|z15[highway=primary]::case
 {
-  color: @primary_yellow_case;
+  color: @primary_orange_case;
   width: 5.5;
   opacity: 1;
   z-index: 45;
 }
+*/
 
 line|z15[highway=primary_link]
 {
   color: @primary_link;
-  width: 1.9;
+  width: 2.1;
   z-index: 500;
 }
 
 line|z15[highway=primary][tunnel?],
-line|z15[highway=primary][tunnel?] {
+line|z15[highway=primary_link][tunnel?] {
+
     casing-width: 1;
     casing-linecap: butt;
     casing-color: @primary_tunnel_casing;
@@ -560,7 +587,7 @@ line|z15[highway=primary][tunnel?] {
 line|z15[highway=secondary]
 {
   color: @secondary;
-  width: 3.8;
+  width: 4;
   opacity: 1;
   z-index: 800;
 }
@@ -568,7 +595,7 @@ line|z15[highway=secondary]
 line|z15[highway=secondary_link]
 {
   color: @secondary_link;
-  width: 1.9;
+  width: 2;
 }
 
 
@@ -576,13 +603,15 @@ line|z15[highway=residential],
 line|z15[highway=tertiary],
 {
   color: @residential;
-  width: 3;
+  width: 3.2;
   opacity: 1;
+  z-index: 750;
 }
+
 
 line|z15[highway=tertiary_link] {
     color: @tertiary_link;
-    width: 1.5;
+    width: 1.6;
 }
 
 line|z15[highway=unclassified],
@@ -594,25 +623,31 @@ line|z15[highway=road]
   opacity: 1;
   z-index: 700;
 }
-
+line|z15[highway=pedestrian]
+{
+  color: @pedestrian;
+  width: 2;
+  dashes: 6,3;
+  opacity: 1;
+}
 line|z15[highway=service]
 {
   color: @unclassified;
-  width: 0.6;
-  opacity: 0.9;
-  z-index: 600;
+  width: 1.2;
+  opacity: 1;
+  z-index: 10;
 }
 
 line|z15[highway=service][service=driveway]
 {
-  width: 0;
+ width: 0;
 }
 
 line|z15[highway=track][tracktype=grade1],
 {
   color: @track;
   opacity: 1;
-  width: 1.6;
+  width: 1.5;
   z-index: 1000;
 }
 line|z15[highway=track],
@@ -621,8 +656,8 @@ line|z15[route=hiking]
 {
   color: @track;
   opacity: 1;
-  dashes: 2,0.5;
-  width: 0.8;
+  dashes: 3,1.4;
+  width: 1.3;
   z-index: 1000;
 }
 
@@ -630,24 +665,17 @@ line|z15[highway=bridleway]
 {
   color: @bridleway;
   opacity: 1;
-  dashes: 0.5,3.5;
-  width: 1;
+  dashes: 3,1.4;
+  width: 1.4;
   z-index: 600;
 }
 
-line|z15[highway=pedestrian]
-{
-  color: @pedestrian;
-  width: 1.6;
-  dashes: 2,0.5;
-  opacity: 0.8;
-}
 
 line|z15[highway=footway]
 {
   color: @footway;
-  width: 0.8;
-  dashes: 0.5,0.5;
+  width: 1.5;
+  dashes: 3,1.4;
   opacity: 1;
   z-index: 600;
 }
@@ -655,17 +683,17 @@ line|z15[highway=footway]
 line|z15[highway=cycleway]
 {
   color: @cycleway;
-  width: 0.6;
-  opacity: 0.9;
+  width: 1.4;
+  opacity: 1;
   z-index: 2000;
 
 }
 line|z15[highway=construction]
 {
   color: @construction;
-  opacity: 0.5;
+  opacity: 1;
   width: 2;
-  dashes: 5,5;
+  dashes: 8,3;
 }
 
 /* ZOOM 16 */
@@ -673,26 +701,27 @@ line|z15[highway=construction]
 line|z16[highway=trunk],
 line|z16[highway=motorway]
 {
-  color: @trunk_yellow;
-  width: 6.8;
+  color: @trunk_orange_light;
+  width: 6;
   opacity: 1;
 }
 
-
+/*
 line|z16[highway=trunk]::case,
 line|z16[highway=motorway]::case
 {
-  color: @trunk_yellow_case;
+  color: @trunk_orange_case;
   width: 8.8;
   opacity: 1;
   z-index: 45;
 }
+*/
 
 line|z16[highway=motorway_link],
 line|z16[highway=trunk_link]
 {
   color: @trunk_link;
-  width: 3.4;
+  width: 3;
 }
 
 line|z16[highway=motorway][tunnel?],
@@ -707,24 +736,25 @@ line|z16[highway=trunk_link][tunnel?] {
 
 line|z16[highway=primary]
 {
-  color: @primary_yellow;
-  width: 6;
+  color: @primary_orange_light;
+  width: 4.8;
   opacity: 1;
 }
 
+/*
 line|z16[highway=primary]::case
 {
-  color: @primary_yellow_case;
+  color: @primary_orange_case;
   width: 7.2;
   opacity: 1;
   z-index: 45;
 }
-
+*/
 
 line|z16[highway=primary_link]
 {
   color: @primary_link;
-  width: 3;
+  width: 2.4;
 }
 
 line|z16[highway=primary][tunnel?],
@@ -738,13 +768,13 @@ line|z16[highway=primary_link][tunnel?] {
 line|z16[highway=secondary]
 {
   color: @secondary;
-  width: 5.4;
+  width: 4.8;
 }
 
 line|z16[highway=secondary_link]
 {
   color: @secondary_link;
-  width: 2.7;
+  width: 2.4;
 }
 
 line|z16[highway=secondary][tunnel?],
@@ -759,7 +789,7 @@ line|z16[highway=residential],
 line|z16[highway=tertiary],
 {
   color: @residential;
-  width: 4.5;
+  width: 4.4;
 }
 
 line|z16[highway=tertiary_link]
@@ -772,7 +802,7 @@ line|z16[highway=tertiary_link][tunnel?],
 line|z16[highway=residential_link][tunnel?],
 line|z16[highway=tertiary][tunnel?],
 line|z16[highway=residential][tunnel?] {
-	color: @unclassified_tunnel;
+	  color: @unclassified_tunnel;
     casing-width: 1;
     casing-linecap: butt;
     casing-color: @unclassified_tunnel_casing;
@@ -784,50 +814,23 @@ line|z16[highway=living_street],
 line|z16[highway=road]
 {
   color: @unclassified;
-  width: 4.5;
+  width: 4;
 }
 
 line|z16[highway=service]
 {
   color: @unclassified;
-  width: 1.4;
-  opacity: 0.8;
-}
-
-line|z16[highway=service][service=driveway]
-{
- width: 0;
-}
-
-line|z16[highway=track][tracktype=grade1],
-{
-  color: @track;
+  width: 1.6;
   opacity: 1;
-  width: 3.5;
-}
-line|z16[highway=track],
-line|z16[highway=path],
-line|z16[route=hiking]
-{
-  color: @track;
-  opacity: 1;
-  dashes: 3,1.5;
-  width: 1.2;
-}
-
-line|z16[highway=bridleway]
-{
-  color: @bridleway;
-  opacity: 1;
-  dashes: 1,4;
-  width: 1.2;
+  z-index: 300;
 }
 
 line|z16[highway=pedestrian]
 {
   color: @pedestrian;
-  width: 2.2;
-  dashes: 3,1.5;
+  width: 2.4;
+  dashes: 6,3;
+  opacity: 1;
 }
 
 
@@ -844,33 +847,67 @@ line|z16[highway=pedestrian][tunnel?] {
 line|z16[highway=footway]
 {
   color: @footway;
-  width: 1;
-  dashes: 1,1;
+  width: 1.8;
+  dashes: 4,2;
   opacity: 1;
+  z-index: 1100;
 }
+
+line|z16[highway=service][service=driveway]
+{
+ width: 0;
+}
+
+line|z16[highway=track][tracktype=grade1],
+{
+  color: @track;
+  opacity: 1;
+  width: 1.8;
+}
+line|z16[highway=track],
+line|z16[highway=path],
+line|z16[route=hiking]
+{
+  color: @track;
+  opacity: 1;
+  dashes: 4,2;
+  width: 1.8;
+  z-index: 1000;
+}
+
+line|z16[highway=bridleway]
+{
+  color: @bridleway;
+  opacity: 1;
+  dashes: 4,2;
+  width: 1.8;
+  z-index: 600;
+}
+
 
 line|z16[highway=steps]
 {
   color: @steps;
   width: 4;
-  dashes: 0.5,0.5;
+  dashes: 2,2;
 }
 
 line|z16[highway=construction]
 {
   color: @construction;
-  opacity: 0.7;
-  width: 2;
-  dashes: 5,5;
+  opacity: 1;
+  width: 2.6;
+  dashes: 10,4;
 }
 
 line|z16[highway=cycleway]
 {
   color: @cycleway;
-  width: 1;
+  width: 1.6;
   opacity: 1;
   z-index: 2000;
 }
+
 
 
 /* ZOOM 17 */
@@ -878,19 +915,20 @@ line|z16[highway=cycleway]
 line|z17[highway=trunk],
 line|z17[highway=motorway]
 {
-  color: @trunk_yellow;
+  color: @trunk_orange_light;
   width: 9;
   opacity: 1;
 }
-
+/*
 line|z17[highway=trunk]::case,
 line|z17[highway=motorway]::case
 {
-  color: @trunk_yellow_case;
+  color: @trunk_orange_case;
   width: 10.5;
   opacity: 1;
   z-index: 45;
 }
+*/
 
 line|z17[highway=trunk_link],
 line|z17[highway=motorway_link]
@@ -911,23 +949,24 @@ line|z17[highway=motorway_link][tunnel?] {
 
 line|z17[highway=primary]
 {
-  color: @primary_light;
-  width: 9;
+  color: @primary_orange_light;
+  width: 7;
   opacity: 1;
 }
-
+/*
 line|z17[highway=primary]::case
 {
-  color: @primary_yellow_case;
+  color: @primary_orange_case;
   width: 10.5;
   opacity: 1;
   z-index: 45;
 }
+*/
 
 line|z17[highway=primary_link]
 {
   color: @primary_link;
-  width: 4.5;
+  width: 3.5;
   opacity: 1;
 }
 
@@ -942,18 +981,19 @@ line|z17[highway=primary_link][tunnel?] {
 line|z17[highway=secondary]
 {
   color: @secondary;
-  width: 9;
+  width: 7;
   opacity: 1;
+  z-index: 10;
 }
 
 line|z17[highway=secondary_link]
 {
   color: @secondary_link;
-  width: 4.5;
+  width: 3.5;
 }
 
-line|z17[highway=secondary_link][tunnel?],
-line|z17[highway=secondary][tunnel?] {
+line|z17[highway=secondary][tunnel?],
+line|z17[highway=secondary_link][tunnel?] {
     casing-width: 1;
     casing-linecap: butt;
     casing-color: @secondary_tunnel_casing;
@@ -964,20 +1004,21 @@ line|z17[highway=residential],
 line|z17[highway=tertiary],
 {
   color: @residential;
-  width: 7.2;
+  width: 6;
   opacity: 1;
 }
 
 line|z17[highway=tertiary_link],
 {
   color: @tertiary_link;
-  width: 3.6;
+  width: 3;
 }
 
 line|z17[highway=tertiary_link][tunnel?],
 line|z17[highway=residential_link][tunnel?],
 line|z17[highway=tertiary][tunnel?],
 line|z17[highway=residential][tunnel?] {
+	color: @tertiary_tunnel;
     casing-width: 1;
     casing-linecap: butt;
     casing-color: @tertiary_tunnel_casing;
@@ -989,14 +1030,14 @@ line|z17[highway=living_street],
 line|z17[highway=road]
 {
   color: @unclassified;
-  width: 7.2;
+  width: 6;
 }
 
 line|z17[highway=pedestrian]
 {
   color: @pedestrian;
-  width: 3.2;
-  dashes: 6,3;
+  width: 3;
+  dashes: 10,4;
 }
 
 line|z17[highway=unclassified][tunnel?],
@@ -1009,13 +1050,14 @@ line|z17[highway=pedestrian][tunnel?] {
     casing-dashes: 5,5;
 }
 
-line|z17[highway=footway]
+line|z17[highway=footway],
+line|z17[highway=path]
 {
   color: @footway;
-  width: 1.2;
-  dashes: 2,2;
+  width: 2;
+  dashes: 5,2;
   opacity: 1;
-  z-index: 750;
+  z-index: 600;
 }
 
 line|z17[highway=footway][tunnel?]::tunnelBackground,
@@ -1038,13 +1080,14 @@ line|z17[highway=path][tunnel?]::tunnelCasing {
 line|z17[highway=service]
 {
   color: @unclassified;
-  width: 2.4;
+  width: 2;
 }
+
 line|z17[highway=track][tracktype=grade1],
 {
   color: @track;
   opacity: 1;
-  width: 6;
+  width: 3;
 }
 line|z17[highway=track],
 line|z17[highway=path],
@@ -1052,7 +1095,7 @@ line|z17[route=hiking]
 {
   color: @track;
   opacity: 1;
-  dashes: 3.5,2;
+  dashes: 5,2;
   width: 2;
 }
 
@@ -1060,15 +1103,15 @@ line|z17[highway=bridleway]
 {
   color: @bridleway;
   opacity: 1;
-  dashes: 1,4;
-  width: 1.6;
+  dashes: 5,2;
+  width: 2;
 }
 
 line|z17[highway=steps]
 {
   color: @steps;
   width: 6;
-  dashes: 1,1;
+  dashes: 3,3;
 }
 
 line|z17[highway=construction]
@@ -1076,16 +1119,17 @@ line|z17[highway=construction]
   color: @construction;
   opacity: 1;
   width: 3;
-  dashes: 6,6;
+  dashes: 12,5;
 }
 
 line|z17[highway=cycleway]
 {
   color: @cycleway;
-  width: 1.2;
+  width: 1.8;
   opacity: 1;
   z-index: 2000;
 }
+
 
 
 /* ZOOM 18+ */
@@ -1093,25 +1137,25 @@ line|z17[highway=cycleway]
 line|z18[highway=trunk],
 line|z18[highway=motorway]
 {
-  color: @trunk_yellow;
-  width: 14;
+  color: @trunk_orange_light;
+  width: 12;
   opacity: 1;
 }
-
+/*
 line|z18[highway=trunk]::case,
 line|z18[highway=motorway]::case
 {
-  color: @trunk_yellow_case;
+  color: @trunk_orange_case;
   width: 16;
   opacity: 1;
   z-index: 45;
 }
-
+*/
 line|z18[highway=trunk_link],
 line|z18[highway=motorway_link]
 {
   color: @trunk_link;
-  width: 7;
+  width: 6;
 }
 
 line|z18[highway=trunk][tunnel?],
@@ -1126,24 +1170,24 @@ line|z18[highway=motorway_link][tunnel?] {
 
 line|z18[highway=primary]
 {
-  color: @primary_yellow;
-  width: 14;
+  color: @primary_orange_light;
+  width: 10;
   opacity: 1;
 }
-
+/*
 line|z18[highway=primary]::case
 {
-  color: @primary_yellow_case;
+  color: @primary_orange_case;
   width: 16;
   opacity: 1;
   z-index: 45;
 }
-
+*/
 
 line|z18[highway=primary_link]
 {
   color: @primary_link;
-  width: 7;
+  width: 5;
   opacity: 1;
 }
 
@@ -1158,14 +1202,14 @@ line|z18[highway=primary_link][tunnel?] {
 line|z18[highway=secondary]
 {
   color: @secondary;
-  width: 12;
+  width: 10;
   opacity: 1;
 }
 
 line|z18[highway=secondary_link]
 {
   color: @secondary_link;
-  width: 6;
+  width: 5;
 }
 
 line|z18[highway=secondary][tunnel?],
@@ -1212,8 +1256,8 @@ line|z18[highway=road]
 line|z18[highway=pedestrian]
 {
   color: @pedestrian;
-   width: 4.6;
-   dashes: 5,2;
+   width: 4;
+   dashes: 12,6;
 }
 
 line|z18[highway=unclassified][tunnel?],
@@ -1226,13 +1270,14 @@ line|z18[highway=pedestrian][tunnel?] {
    casing-dashes: 5,5;
 }
 
-line|z18[highway=footway]
+line|z18[highway=footway],
+line|z18[highway=path]
 {
   color: @footway;
-  width: 1.8;
-  dashes: 3,1.5;
+  width: 3;
+  dashes: 8,3;
   opacity: 1;
-  z-index: 1050;
+  z-index: 600;
 }
 
 line|z18[highway=footway][tunnel?]::tunnelBackground,
@@ -1256,13 +1301,14 @@ line|z18[highway=service]
 {
   color: @unclassified;
   width: 3;
+  z-index: 1000;
 }
 
 line|z18[highway=track][tracktype=grade1],
 {
   color: @track;
   opacity: 1;
-  width: 7.4;
+  width: 3;
   z-index: 600;
 }
 line|z18[highway=track],
@@ -1271,7 +1317,7 @@ line|z18[route=hiking]
 {
   color: @track;
   opacity: 1;
-  dashes: 5,3;
+  dashes: 8,3;
   width: 3;
   z-index: 600;
 
@@ -1281,8 +1327,8 @@ line|z18[highway=bridleway]
 {
   color: @bridleway;
   opacity: 1;
-  dashes: 2,5;
-  width: 2;
+  dashes: 8,3;
+  width: 3;
   z-index: 600;
 }
 
@@ -1290,7 +1336,7 @@ line|z18[highway=steps]
 {
   color: @steps;
   width: 8;
-  dashes: 1,1;
+  dashes: 4,4;
 }
 
 line|z18[highway=construction]
@@ -1298,7 +1344,7 @@ line|z18[highway=construction]
   color: @construction;
   opacity: 1;
   width: 4;
-  dashes: 6,6;
+  dashes: 15,6;
 }
 
 line|z18[highway=cycleway]
@@ -1314,25 +1360,26 @@ line|z18[highway=cycleway]
 line|z19-[highway=trunk],
 line|z19-[highway=motorway]
 {
-  color: @trunk_yellow;
-  width: 14;
+  color: @trunk_orange_light;
+  width: 15;
   opacity: 1;
 }
-
+/*
 line|z19-[highway=trunk]::case,
 line|z19-[highway=motorway]::case
 {
-  color: @trunk_yellow_case;
+  color: @trunk_orange_case;
   width: 16;
   opacity: 1;
   z-index: 45;
 }
+*/
 
 line|z19-[highway=trunk_link],
 line|z19-[highway=motorway_link]
 {
   color: @trunk_link;
-  width: 7;
+  width: 7.5;
 }
 
 
@@ -1340,27 +1387,27 @@ line|z19-[highway=trunk][tunnel?],
 line|z19-[highway=motorway][tunnel?],
 line|z19-[highway=trunk_link][tunnel?],
 line|z19-[highway=motorway_link][tunnel?] {
-  casing-width: 1;
-  casing-linecap: butt;
-  casing-color: @trunk_tunnel_casing;
-  casing-dashes: 5,5;
+    casing-width: 1;
+    casing-linecap: butt;
+    casing-color: @trunk_tunnel_casing;
+    casing-dashes: 5,5;
 }
 
 line|z19-[highway=primary]
 {
-  color: @primary_yellow;
-  width: 14;
+  color: @primary_orange_light;
+  width: 13;
   opacity: 1;
 }
-
+/*
 line|z19-[highway=primary]::case
 {
-  color: @primary_yellow_case;
+  color: @primary_orange_case;
   width: 16;
   opacity: 1;
   z-index: 45;
 }
-
+*/
 
 line|z19-[highway=primary_link]
 {
@@ -1380,14 +1427,14 @@ line|z19-[highway=primary_link][tunnel?] {
 line|z19-[highway=secondary]
 {
   color: @secondary;
-  width: 12;
+  width: 13;
   opacity: 1;
 }
 
 line|z19-[highway=secondary_link]
 {
   color: @secondary_link;
-  width: 6;
+  width: 7;
 }
 
 line|z19-[highway=secondary][tunnel?],
@@ -1403,14 +1450,14 @@ line|z19-[highway=residential],
 line|z19-[highway=tertiary],
 {
   color: @residential;
-  width: 9;
+  width: 12;
   opacity: 1;
 }
 
 line|z19-[highway=tertiary_link],
 {
   color: @tertiary_link;
-  width: 4.5;
+  width: 6;
 }
 
 line|z19-[highway=tertiary][tunnel?],
@@ -1428,14 +1475,14 @@ line|z19-[highway=living_street],
 line|z19-[highway=road]
 {
   color: @unclassified;
-  width: 9;
+  width: 12;
 }
 
 line|z19-[highway=pedestrian]
 {
   color: @pedestrian;
    width: 5;
-   dashes: 5,2;
+   dashes: 18,9;
 }
 
 line|z19-[highway=unclassified][tunnel?],
@@ -1448,13 +1495,14 @@ line|z19-[highway=pedestrian][tunnel?] {
    casing-dashes: 5,5;
 }
 
-line|z19-[highway=footway]
+line|z19-[highway=footway],
+line|z19-[highway=path]
 {
   color: @footway;
-  width: 2;
-  dashes: 3,1.5;
+  width: 4;
+  dashes: 10,4;
   opacity: 1;
-  z-index: 1050;
+  z-index: 600;
 }
 
 line|z19-[highway=footway][tunnel?]::tunnelBackground,
@@ -1477,14 +1525,14 @@ line|z19-[highway=path][tunnel?]::tunnelCasing {
 line|z19-[highway=service]
 {
   color: @unclassified;
-  width: 3;
+  width: 4;
 }
 
 line|z19-[highway=track][tracktype=grade1],
 {
   color: @track;
   opacity: 1;
-  width: 8.2;
+  width: 4;
 }
 line|z19-[highway=track],
 line|z19-[highway=path],
@@ -1492,23 +1540,23 @@ line|z19-[route=hiking]
 {
   color: @track;
   opacity: 1;
-  dashes: 5,3;
-  width: 3.8;
+  dashes: 10,4;
+  width: 4;
 }
 
 line|z19-[highway=bridleway]
 {
   color: @bridleway;
   opacity: 1;
-  dashes: 3,6;
-  width: 3;
+  dashes: 10,4;
+  width: 4;
 }
 
 line|z19-[highway=steps]
 {
   color: @steps;
   width: 10;
-  dashes: 0.5,0.5;
+  dashes: 5,5;
 }
 
 line|z19-[highway=construction]
@@ -1516,18 +1564,109 @@ line|z19-[highway=construction]
   color: @construction;
   opacity: 1;
   width: 6;
-  dashes: 6,6;
+  dashes: 20,7;
 }
 
 line|z19-[highway=cycleway]
 {
   color: @cycleway;
-  width: 2;
+  width: 2.2;
   opacity: 1;
   z-index: 2000;
 }
 
 
+
+/* BRIDGES */
+
+/* CASING FOR PRIMARY ROADS */
+/* LAST VERSION
+line|z15-[highway=primary]::casingBackground {
+  z-index: 30;
+  casing-width: eval(prop("width")+0.2);
+  casing-linecap: butt;
+  casing-color: @background;
+}
+
+
+
+line|z13[highway=motorway][bridge?]::bridgewhite,
+line|z13[highway=trunk][bridge?]::bridgewhite {
+  z-index: 30;
+  casing-width: eval(prop("width")+0.2);
+  casing-linecap: butt;
+  casing-color: @bridge_background;
+}
+
+line|z13[highway=motorway][bridge?]::bridgeblack,
+line|z13[highway=trunk][bridge?]::bridgeblack {
+  z-index: 25;
+  casing-width: eval(prop("width")+0.5);
+  casing-linecap: butt;
+  casing-color: @bridge_casing;
+}
+
+line|z14-[highway=motorway][bridge?]::bridgewhite,
+line|z14-[highway=trunk][bridge?]::bridgewhite,
+line|z14-[highway=primary][bridge?]::bridgewhite,
+line|z15-[highway=secondary][bridge?]::bridgewhite,
+line|z16-[highway=tertiary][bridge?]::bridgewhite,
+line|z16-[highway=residential][bridge?]::bridgewhite,
+line|z16-[highway=unclassified][bridge?]::bridgewhite,
+line|z16-[highway=pedestrian][bridge?]::bridgewhite,
+line|z16-[highway=footway][bridge?]::bridgewhite,
+line|z17-[highway=steps][bridge?]::bridgewhite,
+line|z17-[highway=road][bridge?]::bridgewhite,
+line|z17-[highway=service][bridge?]::bridgewhite {
+  z-index: 510;
+  casing-width: eval(prop("width"));
+  casing-linecap: butt;
+  casing-color: @bridge_background;
+}
+
+line|z14-[highway=motorway][bridge?]::bridgeblack,
+line|z14-[highway=trunk][bridge?]::bridgeblack,
+line|z14-[highway=primary][bridge?]::bridgeblack,
+line|z15-[highway=secondary][bridge?]::bridgeblack,
+line|z16-[highway=tertiary][bridge?]::bridgeblack,
+line|z16-[highway=residential][bridge?]::bridgeblack,
+line|z16-[highway=unclassified][bridge?]::bridgeblack,
+line|z16-[highway=pedestrian][bridge?]::bridgeblack,
+line|z16-[highway=footway][bridge?]::bridgeblack,
+line|z17-[highway=steps][bridge?]::bridgeblack,
+line|z17-[highway=road][bridge?]::bridgeblack,
+line|z17-[highway=service][bridge?]::bridgeblack
+{
+  z-index: 500;
+  casing-width: eval(prop("width")+0.4);
+  casing-linecap: butt;
+  casing-color: @bridge_casing;
+}
+
+line|z15-[highway=motorway_link][bridge?]::bridgewhite,
+line|z15-[highway=trunk_link][bridge?]::bridgewhite,
+line|z15-[highway=primary_link][bridge?]::bridgewhite,
+line|z16-[highway=secondary_link][bridge?]::bridgewhite,
+line|z16-[highway=tertiary_link][bridge?]::bridgewhite
+{
+  z-index: 30;
+  casing-width: eval(prop("width")+0.5);
+  casing-linecap: butt;
+  casing-color: @bridge_background;
+}
+
+line|z15-[highway=motorway_link][bridge?]::bridgeblack,
+line|z15-[highway=trunk_link][bridge?]::bridgeblack,
+line|z15-[highway=primary_link][bridge?]::bridgeblack,
+line|z16-[highway=secondary_link][bridge?]::bridgeblack,
+line|z16-[highway=tertiary_link][bridge?]::bridgeblack
+{
+  z-index: 25;
+  casing-width: eval(prop("width")+1);
+  casing-linecap: butt;
+  casing-color: @bridge_casing;
+}
+*/
 /* BRIDGES */
 
 /* CASING FOR PRIMARY ROADS */
@@ -1774,6 +1913,35 @@ line|z18-[highway=footway][bridge?]::bridgeblack,
 }
 
 
+
+/* Process bridge and tunnel */
+/*
+line|z15-[bridge?]::bridgewhite,
+line|z15-[tunnel?]::tunnelwhite,
+{
+  z-index: 30;
+  casing-width: eval(prop("width")/2+4);
+  casing-linecap: butt;
+  casing-color: white;
+}
+
+line|z15-[bridge?]::bridgeblack
+{
+  z-index: 25;
+  casing-width: eval(prop("width")/2+5);
+  casing-linecap: butt;
+  casing-color: black;
+}
+line|z15-[tunnel?]::tunnelblack
+{
+  z-index: 25;
+  casing-width: eval(prop("width")/2+5);
+  casing-linecap: butt;
+  casing-color: black;
+  casing-dashes: 5,5;
+}
+*/
+
 /* ONEWAY ARROWS */
 
 /* line|z15-[highway=primary][hwtag=oneway]::arrows <-- не работает по типам магистралей */
@@ -1803,34 +1971,3 @@ line|z18-[hwtag=oneway]::arrows
   pattern-image: arrow-m.svg;
   pattern-spacing: 200;
 }
-
-
-
-
-/* Process bridge and tunnel */
-/*
-line|z15-[bridge?]::bridgewhite,
-line|z15-[tunnel?]::tunnelwhite,
-{
-  z-index: 30;
-  casing-width: eval(prop("width")/2+4);
-  casing-linecap: butt;
-  casing-color: white;
-}
-
-line|z15-[bridge?]::bridgeblack
-{
-  z-index: 25;
-  casing-width: eval(prop("width")/2+5);
-  casing-linecap: butt;
-  casing-color: black;
-}
-line|z15-[tunnel?]::tunnelblack
-{
-  z-index: 25;
-  casing-width: eval(prop("width")/2+5);
-  casing-linecap: butt;
-  casing-color: black;
-  casing-dashes: 5,5;
-}
-*/

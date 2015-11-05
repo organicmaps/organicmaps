@@ -21822,7 +21822,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16048
     }
@@ -21853,7 +21853,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16048
     }
@@ -21884,7 +21884,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16048
     }
@@ -21915,7 +21915,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16048
     }
@@ -21946,7 +21946,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16048
     }
@@ -21977,7 +21977,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16048
     }
@@ -22008,7 +22008,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16048
     }
@@ -22039,7 +22039,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16048
     }
@@ -22116,7 +22116,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16048
     }
@@ -22147,7 +22147,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16048
     }
@@ -22178,7 +22178,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16048
     }
@@ -22223,7 +22223,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16048
     }
@@ -22268,7 +22268,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16048
     }
@@ -22313,7 +22313,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16048
     }
@@ -22358,7 +22358,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16048
     }
@@ -22403,7 +22403,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16048
     }
@@ -22480,7 +22480,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16048
     }
@@ -22511,7 +22511,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16048
     }
@@ -22542,7 +22542,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16048
     }
@@ -22591,7 +22591,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16048
     }
@@ -22640,7 +22640,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16048
     }
@@ -22689,7 +22689,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16048
     }
@@ -22738,7 +22738,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16048
     }
@@ -22787,7 +22787,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16048
     }
@@ -25679,7 +25679,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16045
     }
@@ -25702,7 +25702,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16045
     }
@@ -25733,7 +25733,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16045
     }
@@ -25764,7 +25764,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16045
     }
@@ -25795,7 +25795,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16045
     }
@@ -25826,7 +25826,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16045
     }
@@ -25857,7 +25857,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16045
     }
@@ -25888,7 +25888,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16045
     }
@@ -25914,7 +25914,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16045
     }
@@ -25937,7 +25937,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16045
     }
@@ -25968,7 +25968,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16045
     }
@@ -26013,7 +26013,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16045
     }
@@ -26058,7 +26058,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16045
     }
@@ -26103,7 +26103,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16045
     }
@@ -26148,7 +26148,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16045
     }
@@ -26193,7 +26193,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16045
     }
@@ -26219,7 +26219,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16045
     }
@@ -26242,7 +26242,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16045
     }
@@ -26273,7 +26273,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16045
     }
@@ -26322,7 +26322,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16045
     }
@@ -26371,7 +26371,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16045
     }
@@ -26420,7 +26420,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16045
     }
@@ -26469,7 +26469,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16045
     }
@@ -26518,7 +26518,7 @@ cont {
     }
     shield {
       height: 11
-      color: 10044416
+      color: 9849600
       stroke_color: 16777215
       priority: 16045
     }
@@ -63621,6 +63621,45 @@ cont {
       name: "kiosk"
       priority: 16003
     }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+}
+cont {
+  name: "shop-laundry"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 19
     caption {
       primary {
         height: 11

@@ -1,21 +1,21 @@
 line|z2[boundary=administrative][admin_level=2]
 {
   color: @border_country;
-  width: 0.2;
-  opacity: 0.6;
+  width: 0.5;
+  opacity: 0.7;
   z-index: 400;
 }
 line|z3[boundary=administrative][admin_level=2]
 {
   color: @border_country;
-  width: 0.2;
+  width: 0.5;
   opacity: 0.8;
   z-index: 400;
 }
 line|z4[boundary=administrative][admin_level=2]
 {
   color: @border_country;
-  width: 0.4;
+  width: 0.6;
   opacity: 1;
   z-index: 400;
 }
@@ -23,17 +23,23 @@ line|z4[boundary=administrative][admin_level=2]
 line|z5[boundary=administrative][admin_level=2]
 {
   color: @border_country;
-  width: 0.5;
+  width: 0.8;
   opacity: 1;
 }
 
 line|z6[boundary=administrative][admin_level=2]
 {
   color: @border_country;
-  width: 0.8;
+  width: 0.85;
   opacity: 1;
 }
 line|z7-[boundary=administrative][admin_level=2]
+{
+  color: @border_country;
+  width: 1;
+  opacity: 1;
+}
+line|z8-[boundary=administrative][admin_level=2]
 {
   color: @border_country;
   width: 1.1;
@@ -43,16 +49,16 @@ line|z7-[boundary=administrative][admin_level=2]
 line|z4[boundary=administrative][admin_level=3]
 {
   color: @border_region;
-  width: 0.4;
+  width: 0.8;
   opacity: 1;
   z-index: 400;
-  dashes: 1.5,1;
+  dashes: 1,0.4;
 }
 
 line|z5[boundary=administrative][admin_level=4]
 {
   color: @border_region;
-  width: 0.4;
+  width: 0.7;
   opacity: 0.8;
   z-index: 380;
   dashes: 1.5,1;
@@ -60,10 +66,10 @@ line|z5[boundary=administrative][admin_level=4]
 line|z6[boundary=administrative][admin_level=4]
 {
   color: @border_region;
-  width: 0.6;
+  width: 0.8;
   opacity: 1;
   z-index: 380;
-  dashes: 1.5,1;
+  dashes: 1,0.5;
 }
 line|z7[boundary=administrative][admin_level=4]
 {
@@ -71,7 +77,7 @@ line|z7[boundary=administrative][admin_level=4]
   width: 0.9;
   opacity: 1;
   z-index: 380;
-  dashes: 1.5,1;
+  dashes: 2,1;
 }
 line|z8-[boundary=administrative][admin_level=4]
 {
@@ -79,17 +85,18 @@ line|z8-[boundary=administrative][admin_level=4]
   width: 0.9;
   opacity: 1;
   z-index: 400;
-  dashes: 1.5,1;
+  dashes: 1.6,1.6;
 }
-line|z8-[boundary=administrative][admin_level=4]
+line|z9-[boundary=administrative][admin_level=4]
 {
   color: @border_region;
-  width: 0.9;
+  width: 1;
   opacity: 1;
   z-index: 400;
-  dashes: 1.5,1;
+  dashes: 2,1;
 }
-line|z11-[boundary=administrative][admin_level=4]
+
+line|z10-[boundary=administrative][admin_level=4]
 {
   color: @border_region;
   width: 1.2;
