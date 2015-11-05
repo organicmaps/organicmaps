@@ -179,9 +179,7 @@ namespace
 
 UserMarkDLCache::Key UserMarkContainer::GetDefaultKey() const
 {
-  return UserMarkDLCache::Key(GetTypeName(),
-                              graphics::EPosCenter,
-                              GetDepth());
+  return UserMarkDLCache::Key(GetTypeName(), graphics::EPosCenter, GetDepth());
 }
 
 void UserMarkContainer::InitStaticMarks(UserMarkContainer * container)

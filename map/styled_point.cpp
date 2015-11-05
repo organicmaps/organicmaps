@@ -3,10 +3,11 @@
 
 graphics::DisplayList * StyledPoint::GetDisplayList(UserMarkDLCache * cache) const
 {
-  UserMarkDLCache::Key key = GetStyle().empty() ? GetContainer()->GetDefaultKey()
-                                                : UserMarkDLCache::Key(GetStyle(),
-                                                                       graphics::EPosAbove,
-                                                                       GetContainer()->GetDepth());
+  UserMarkContainer const * container = GetContainer();
+  UserMarkDLCache::Key const key = GetStyle().empty() ? container->GetDefaultKey()
+                                                      : UserMarkDLCache::Key(GetStyle(),
+                                                                             graphics::EPosAbove,
+                                                                             container->GetDepth());
   return cache->FindUserMark(key);
 }
 

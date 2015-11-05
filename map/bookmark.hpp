@@ -87,7 +87,12 @@ public:
   {
   }
 
-  void SetData(BookmarkData const & data) { m_data = data; SetStyle(m_data.GetType()); }
+  void SetData(BookmarkData const & data)
+  {
+    m_data = data;
+    SetStyle(m_data.GetType());
+  }
+
   BookmarkData const & GetData() const { return m_data; }
 
   virtual Type GetMarkType() const override { return UserMark::Type::BOOKMARK; }
@@ -97,7 +102,13 @@ public:
   void SetName(string const & name) { m_data.SetName(name); }
   /// @return Now its a bookmark color - name of icon file
   string const & GetType() const { return m_data.GetType(); }
-  void SetType(string const & type) { m_data.SetType(type); SetStyle(type); }
+
+  void SetType(string const & type)
+  {
+    m_data.SetType(type);
+    SetStyle(type);
+  }
+
   m2::RectD GetViewport() const { return m2::RectD(GetOrg(), GetOrg()); }
 
   string const & GetDescription() const { return m_data.GetDescription(); }
