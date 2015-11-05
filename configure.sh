@@ -4,12 +4,13 @@
 # Stop on the first error.
 set -e -u
 
-PRIVATE_HEADER="private.h"
-PRIVATE_PROPERTIES="android/secure.properties"
-SAVED_PRIVATE_REPO_FILE=".private_repository_url"
-TMP_REPO_DIR=".tmp.private.repo"
+BASE_PATH=`dirname "$0"`
+PRIVATE_HEADER="$BASE_PATH/private.h"
+PRIVATE_PROPERTIES="$BASE_PATH/android/secure.properties"
+SAVED_PRIVATE_REPO_FILE="$BASE_PATH/.private_repository_url"
+TMP_REPO_DIR="$BASE_PATH/.tmp.private.repo"
 
-if [ ! -f "./omim.pro" ]; then
+if [ ! -f "$BASE_PATH/omim.pro" ]; then
   echo "Please run this script from the root repository folder."
   exit -1
 fi
