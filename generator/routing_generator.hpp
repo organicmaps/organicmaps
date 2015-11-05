@@ -14,8 +14,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
 /// @param[in]  baseDir      Full path to .mwm files directory.
 /// @param[in]  countryName   Country name same with .mwm and .border file name.
 /// @param[in]  osrmFile  Full path to .osrm file (all prepared osrm files should be there).
-/// @param[in]  warningsFile File path to write border intersection warnings. Checks will not
 /// perform if it's emplty.
 void BuildCrossRoutingIndex(string const & baseDir, string const & countryName,
-                            string const & osrmFile, string const & warningsFile);
+                            string const & osrmFile);
 }

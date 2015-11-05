@@ -1,9 +1,8 @@
 #include "generator/routing_generator.hpp"
 
-#include "borders_generator.hpp"
-#include "borders_loader.hpp"
-#include "gen_mwm_info.hpp"
-#include "warnings_writer.hpp"
+#include "generator/borders_generator.hpp"
+#include "generator/borders_loader.hpp"
+#include "generator/gen_mwm_info.hpp"
 
 #include "routing/osrm2feature_map.hpp"
 #include "routing/osrm_data_facade.hpp"
@@ -82,7 +81,7 @@ bool CheckBBoxCrossingBorder(m2::RegionD const & border, osrm::NodeData const & 
 
 void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID const & osm2ft,
                     borders::CountriesContainerT const & m_countries, string const & countryName,
-                    string const & warningsFile, routing::CrossRoutingContextWriter & crossContext)
+                    routing::CrossRoutingContextWriter & crossContext)
 {
   vector<m2::RegionD> regionBorders;
   m_countries.ForEach([&](borders::CountryPolygons const & c)
@@ -94,7 +93,6 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
       });
   });
 
-  WarningsWriter warnings(warningsFile);
   for (TWrittenNodeId nodeId = 0; nodeId < nodeData.size(); ++nodeId)
   {
     auto const & data = nodeData[nodeId];
@@ -155,19 +153,15 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
               if (!mwmName.empty())
                 crossContext.AddOutgoingNode(nodeId, mwmName, wgsIntersection);
               else
-              {
                 LOG(LINFO, ("Unknowing outgoing edge", endSeg.lat2, endSeg.lon2, startSeg.lat1, startSeg.lon1));
-                warnings.AddPoint({endSeg.lat2, endSeg.lon2}, PointType::EUnconnectedExit);
-              }
             }
           }
           if (intersectionCount > 1)
-            warnings.AddPoint(wgsIntersection, PointType::EDoubleCross);
+            LOG(LINFO, ("Double border intersection", wgsIntersection));
         }
       }
     }
   }
-  warnings.Write();
 }
 
 void CalculateCrossAdjacency(string const & mwmRoutingPath, routing::CrossRoutingContextWriter & crossContext)
@@ -217,7 +211,7 @@ void WriteCrossSection(routing::CrossRoutingContextWriter const & crossContext, 
 }
 
 void BuildCrossRoutingIndex(string const & baseDir, string const & countryName,
-                            string const & osrmFile, string const & warningsFile)
+                            string const & osrmFile)
 {
   LOG(LINFO, ("Cross mwm routing section builder"));
 
@@ -238,7 +232,7 @@ void BuildCrossRoutingIndex(string const & baseDir, string const & countryName,
 
   LOG(LINFO, ("Finding cross nodes..."));
   routing::CrossRoutingContextWriter crossContext;
-  FindCrossNodes(nodeData, osm2ft, m_countries, countryName, warningsFile, crossContext);
+  FindCrossNodes(nodeData, osm2ft, m_countries, countryName, crossContext);
 
   string const mwmRoutingPath = localFile.GetPath(MapOptions::CarRouting);
   CalculateCrossAdjacency(mwmRoutingPath, crossContext);
