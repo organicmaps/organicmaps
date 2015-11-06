@@ -29,6 +29,26 @@ import java.util.Map;
 
 public class MainMenu
 {
+  public enum State
+  {
+    MENU,
+    NAVIGATION,
+    ROUTE_PREPARE
+      {
+        @Override
+        boolean showToggle()
+        {
+          return false;
+        }
+      };
+
+    boolean showToggle()
+    {
+      return true;
+    }
+  }
+
+
   private static final int ANIMATION_DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_menu);
   private static final String TAG_COLLAPSE = MwmApplication.get().getString(R.string.tag_menu_collapse);
   private static final String STATE_OPEN = "MenuOpen";
@@ -42,6 +62,7 @@ public class MainMenu
   private final ViewGroup mFrame;
   private final View mButtonsFrame;
   private final View mNavigationFrame;
+  private final View mRoutePlanFrame;
   private final View mContentFrame;
   private final View mAnimationSpacer;
   private final View mAnimationSymmetricalGap;
@@ -50,13 +71,13 @@ public class MainMenu
   private final TextView mCurrentPlace;
   private final TextView mNewsCounter;
 
-  private boolean mLayoutCorrected;
   private boolean mCollapsed;
   private boolean mOpenDelayed;
   private final List<View> mCollapseViews = new ArrayList<>();
 
   private final MyPositionButton mMyPositionButton;
   private final Toggle mToggle;
+  private View mRouteStartButton;
 
   private int mContentHeight;
 
@@ -69,7 +90,6 @@ public class MainMenu
   private final MwmActivity.LeftAnimationTrackListener mAnimationTrackListener = new MwmActivity.LeftAnimationTrackListener()
   {
     private float mSymmetricalGapScale;
-
 
     @Override
     public void onTrackStarted(boolean collapsed)
@@ -122,7 +142,7 @@ public class MainMenu
   {
     TOGGLE(R.id.toggle),
     SEARCH(R.id.search),
-    //ROUTE(R.id.route),
+    P2P(R.id.p2p),
     BOOKMARKS(R.id.bookmarks),
     SHARE(R.id.share),
     DOWNLOADER(R.id.download_maps),
@@ -144,7 +164,7 @@ public class MainMenu
   }
 
 
-  private class AnimationListener implements Animator.AnimatorListener
+  private class AnimationListener extends UiUtils.SimpleAnimatorListener
   {
     @Override
     public void onAnimationStart(android.animation.Animator animation)
@@ -157,14 +177,6 @@ public class MainMenu
     {
       mAnimating = false;
     }
-
-    @Override
-    public void onAnimationCancel(android.animation.Animator animation)
-    {}
-
-    @Override
-    public void onAnimationRepeat(android.animation.Animator animation)
-    {}
   }
 
 
@@ -199,9 +211,9 @@ public class MainMenu
       mCollapseImage.setCrossFadeEnabled(true);
     }
 
-    public void updateNavigationMode(boolean navigation)
+    public void setState(State state)
     {
-      UiUtils.showIf(mAlwaysShow || navigation, mButton);
+      UiUtils.showIf(mAlwaysShow || state.showToggle(), mButton);
       animateCollapse(mCollapsed);
     }
 
@@ -286,20 +298,22 @@ public class MainMenu
                                                                                    : R.color.menu_background_closed));
   }
 
+  private boolean isLayoutCorrected()
+  {
+    return (mFrame.getVisibility() == View.VISIBLE);
+  }
+
   private void correctLayout()
   {
-    if (mLayoutCorrected)
+    if (isLayoutCorrected())
       return;
 
-    mContentFrame.post(new Runnable()
+    UiUtils.measureView(mContentFrame, new UiUtils.OnViewMeasuredListener()
     {
       @Override
-      public void run()
+      public void onViewMeasured(int width, int height)
       {
-        mContentHeight = mContentFrame.getMeasuredHeight();
-
-        mFrame.removeView(mContentFrame);
-        mFrame.addView(mContentFrame);
+        mContentHeight = height;
 
         if (mOpenDelayed)
           open(false);
@@ -307,7 +321,7 @@ public class MainMenu
           UiUtils.hide(mContentFrame);
 
         mOpenDelayed = false;
-        mLayoutCorrected = true;
+        UiUtils.show(mFrame);
       }
     });
   }
@@ -336,16 +350,39 @@ public class MainMenu
     state.putString(STATE_LAST_INFO, mCurrentPlace.getText().toString());
   }
 
-  public void onRestoreState(Bundle state)
+  /*private void restoreState(RoutingController.State routingState)
   {
-    mOpenDelayed = (mToggle.mAlwaysShow && state.containsKey(STATE_OPEN));
-    updateRoutingInfo(state.getString(STATE_LAST_INFO));
+    State state;
+    switch (routingState)
+    {
+      case NONE:
+        state = State.MENU;
+        break;
+
+      case PREPARE:
+        state = State.ROUTE_PREPARE;
+        break;
+
+      case NAVIGATION:
+        state = State.NAVIGATION;
+        break;
+
+      default:
+        throw new IllegalArgumentException("Unhandled routingState value");
+    }
+
+    setState(state);
   }
 
-  public void updateRoutingInfo()
+  public void onRestoreState(Bundle savedState, RoutingController.State routingState)
   {
-    RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
+    mOpenDelayed = (mToggle.mAlwaysShow && savedState.containsKey(STATE_OPEN));
+    restoreState(routingState);
+    updateRoutingInfo(savedState.getString(STATE_LAST_INFO));
+  }*/
 
+  public void updateRoutingInfo(RoutingInfo info)
+  {
     if (info != null)
       updateRoutingInfo(info.currentStreet);
   }
@@ -358,7 +395,7 @@ public class MainMenu
   private void init()
   {
     mapItem(Item.SEARCH);
-    //mapItem(Item.ROUTE);
+    mapItem(Item.P2P);
     mapItem(Item.BOOKMARKS);
     mapItem(Item.SHARE);
     mapItem(Item.DOWNLOADER);
@@ -366,7 +403,7 @@ public class MainMenu
 
     adjustCollapsedItems();
     adjustTransparency();
-    setNavigationMode(false);
+    setState(State.MENU);
   }
 
   public MainMenu(ViewGroup frame, Container container)
@@ -377,6 +414,7 @@ public class MainMenu
     View lineFrame = mFrame.findViewById(R.id.line_frame);
     mButtonsFrame = lineFrame.findViewById(R.id.buttons_frame);
     mNavigationFrame = lineFrame.findViewById(R.id.navigation_frame);
+    mRoutePlanFrame = lineFrame.findViewById(R.id.routing_plan_frame);
     mContentFrame = mFrame.findViewById(R.id.content_frame);
 
     mAnimationSpacer = mFrame.findViewById(R.id.animation_spacer);
@@ -390,23 +428,43 @@ public class MainMenu
     mNewsMarker = mButtonsFrame.findViewById(R.id.marker);
     mNewsCounter = (TextView) mContentFrame.findViewById(R.id.counter);
 
+    if (mRoutePlanFrame != null)
+      mRouteStartButton = mRoutePlanFrame.findViewById(R.id.start);
+
     init();
   }
 
-  public void setNavigationMode(boolean navigation)
+  public void setState(State state)
   {
-    updateRoutingInfo();
-    mToggle.updateNavigationMode(navigation);
-    UiUtils.showIf(!navigation, mButtonsFrame);
-    UiUtils.showIf(navigation, mNavigationFrame,
-                               mItemViews.get(Item.SEARCH),
-                               mItemViews.get(Item.BOOKMARKS));
-    if (mLayoutCorrected)
+    mToggle.setState(state);
+
+    boolean expandContent;
+    if (mRoutePlanFrame == null)
+    {
+      UiUtils.showIf(state != State.NAVIGATION, mButtonsFrame);
+      expandContent = false;
+    } else
+    {
+      UiUtils.showIf(state == State.MENU, mButtonsFrame);
+      UiUtils.showIf(state == State.ROUTE_PREPARE, mRoutePlanFrame);
+      expandContent = (state == State.NAVIGATION ||
+                       state == State.ROUTE_PREPARE);
+    }
+
+    UiUtils.showIf(state == State.NAVIGATION, mNavigationFrame);
+    UiUtils.showIf(expandContent,
+                   mItemViews.get(Item.SEARCH),
+                   mItemViews.get(Item.BOOKMARKS));
+
+    if (isLayoutCorrected())
     {
       mContentFrame.measure(ViewGroup.LayoutParams.MATCH_PARENT,
                             ViewGroup.LayoutParams.WRAP_CONTENT);
       mContentHeight = mContentFrame.getMeasuredHeight();
     }
+
+    if (state == State.NAVIGATION)
+      updateRoutingInfo(Framework.nativeGetRouteFollowingInfo());
   }
 
   public boolean isOpen()
@@ -441,7 +499,7 @@ public class MainMenu
     mFrame.animate()
           .setDuration(ANIMATION_DURATION)
           .translationY(0.0f)
-          .setListener(new AnimationListener() {})
+          .setListener(new AnimationListener())
           .start();
 
     return true;
@@ -522,6 +580,16 @@ public class MainMenu
     UiUtils.showIf(show, mFrame);
   }
 
+  public void setEnabled(Item item, boolean enable)
+  {
+    View view = mItemViews.get(item);
+    if (view == null)
+      return;
+
+    // FIXME: Does not work for ImageView`s src.
+    view.setEnabled(enable);
+  }
+
   public View getFrame()
   {
     return mFrame;
@@ -535,5 +603,10 @@ public class MainMenu
   public MwmActivity.LeftAnimationTrackListener getLeftAnimationTrackListener()
   {
     return mAnimationTrackListener;
+  }
+
+  public View getRouteStartButton()
+  {
+    return mRouteStartButton;
   }
 }

@@ -302,6 +302,8 @@ public class SearchFragment extends BaseMwmFragment
     if (query != null)
       setQuery(query);
 
+    // TODO: Show "My position" item
+
     mToolbarController.activate();
   }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <!-- routing layout -->
-  <dimen name="height_routing_info">56dp</dimen>
-  <dimen name="padding_routing_turns">12dp</dimen>
+  <dimen name="routing_info_height">56dp</dimen>
+  <dimen name="routing_turns_padding">12dp</dimen>
 
 </resources>

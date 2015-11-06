@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/menu_line_height"
+    android:layout_marginLeft="@dimen/menu_line_button_width_edge"
+    android:layout_marginRight="@dimen/menu_line_button_width_edge">
+  <Button
+      android:id="@+id/start"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:text="@string/routing_start"
+      android:textAppearance="@style/MwmTextAppearance.Body1"
+      android:textColor="@color/routing_start_button"
+      android:textAllCaps="true"
+      android:background="?clickableBackground"
+      tools:background="#2F0000FF"/>
+</FrameLayout>

@@ -86,6 +86,8 @@
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         android:background="@color/divider_standard"/>
 
     <TextView

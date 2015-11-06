@@ -4,22 +4,9 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:clickable="true">
-  <!-- Content frame should be ABOVE buttons line at the moment of layout inflation
-       in order to be properly measured and correctly animated.
-       It will be swapped manually after layouting is completed. -->
-  <FrameLayout android:id="@+id/content_frame"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:visibility="invisible"
-               tools:visibility="visible">
-    <View android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:background="@color/divider_standard"/>
-
-    <include layout="@layout/menu_content"/>
-  </FrameLayout>
-
+              android:clickable="true"
+              android:visibility="invisible"
+              tools:visibility="visible">
   <LinearLayout android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -59,6 +46,24 @@
                tools:layout_width="match_parent"
                tools:layout_height="@dimen/menu_line_height"
                tools:layout_marginTop="60dp"/>
+
+      <include android:id="@+id/routing_plan_frame"
+               layout="@layout/menu_route_plan_line"
+               tools:layout_width="match_parent"
+               tools:layout_height="@dimen/menu_line_height"
+               tools:layout_marginTop="120dp"/>
     </FrameLayout>
   </LinearLayout>
+
+  <FrameLayout android:id="@+id/content_frame"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:visibility="invisible"
+               tools:visibility="visible">
+    <View android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/divider_standard"/>
+
+    <include layout="@layout/menu_content"/>
+  </FrameLayout>
 </LinearLayout>

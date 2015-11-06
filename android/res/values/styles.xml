@@ -3,6 +3,7 @@
            xmlns:tools="http://schemas.android.com/tools">
   <style name="MwmWidget"/>
   <style name="MwmWidget.Button"/>
+  <style name="MwmWidget.ProgressWheel"/>
   <style name="MwmWidget.FrameLayout"/>
 
 
@@ -24,8 +25,12 @@
     <item name="android:background">@drawable/bg_btn_green</item>
   </style>
 
-  <style name="MwmWidget.Button.Blue">
-    <item name="android:background">@drawable/ripple_blue</item>
+  <style name="MwmWidget.ProgressWheel.RoutingPlan">
+    <item name="android:layout_width">@dimen/routing_selector_wheel_size</item>
+    <item name="android:layout_height">@dimen/routing_selector_wheel_size</item>
+    <item name="android:layout_margin">@dimen/routing_selector_wheel_margin</item>
+    <item name="android:visibility">invisible</item>
+    <item name="android:background">?selectableItemBackgroundBorderless</item>
   </style>
 
   <style name="MwmWidget.Floating">
@@ -134,5 +139,4 @@
     <item name="android:progressDrawable">@drawable/rating_bar</item>
     <item name="android:indeterminateDrawable">@drawable/rating_bar</item>
   </style>
-
 </resources>

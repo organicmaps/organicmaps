@@ -13,11 +13,13 @@ import com.mapswithme.maps.base.OnBackPressListener;
 public class SearchActivity extends BaseMwmFragmentActivity implements CustomNavigateUpListener
 {
   public static final String EXTRA_QUERY = "search_query";
+  public static final String EXTRA_SHOW_MY_POSITION = "show my position";
 
-  public static void startWithQuery(Context context, String query)
+  public static void start(Context context, String query, boolean showMyPosition)
   {
     final Intent i = new Intent(context, SearchActivity.class);
     i.putExtra(EXTRA_QUERY, query);
+    i.putExtra(EXTRA_SHOW_MY_POSITION, showMyPosition);
     context.startActivity(i);
   }
 

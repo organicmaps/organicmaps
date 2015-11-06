@@ -1,11 +1,10 @@
 package com.mapswithme.maps.bookmarks.data;
 
-import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
-
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 
 public abstract class MapObject implements Parcelable
@@ -25,13 +24,13 @@ public abstract class MapObject implements Parcelable
     mMetadata = new Metadata();
   }
 
-  public void setDefaultIfEmpty(Resources res)
+  public void setDefaultIfEmpty()
   {
     if (TextUtils.isEmpty(mName))
-      mName = TextUtils.isEmpty(mTypeName) ? res.getString(R.string.dropped_pin) : mTypeName;
+      mName = TextUtils.isEmpty(mTypeName) ? MwmApplication.get().getString(R.string.dropped_pin) : mTypeName;
 
     if (TextUtils.isEmpty(mTypeName))
-      mTypeName = res.getString(R.string.placepage_unsorted);
+      mTypeName = MwmApplication.get().getString(R.string.placepage_unsorted);
   }
 
   @Override
@@ -54,15 +53,24 @@ public abstract class MapObject implements Parcelable
   {
     if (this == obj)
       return true;
-    if (obj == null ||
-        getClass() != obj.getClass())
+
+    if (obj == null || getClass() != obj.getClass())
       return false;
 
     final MapObject other = (MapObject) obj;
     return Double.doubleToLongBits(mLon) == Double.doubleToLongBits(other.mLon) &&
-        Double.doubleToLongBits(mLat) == Double.doubleToLongBits(other.mLat) &&
-        TextUtils.equals(mName, other.mName) &&
-        TextUtils.equals(mTypeName, other.mTypeName);
+           Double.doubleToLongBits(mLat) == Double.doubleToLongBits(other.mLat) &&
+           TextUtils.equals(mName, other.mName) &&
+           TextUtils.equals(mTypeName, other.mTypeName);
+  }
+
+  public static boolean same(MapObject one, MapObject another)
+  {
+    //noinspection SimplifiableIfStatement
+    if (one == null && another == null)
+      return true;
+
+    return (one != null && one.equals(another));
   }
 
   public double getScale() { return 0; }
@@ -253,9 +261,9 @@ public abstract class MapObject implements Parcelable
 
   public static class MyPosition extends MapObject
   {
-    public MyPosition(String name, double lat, double lon)
+    public MyPosition(double lat, double lon)
     {
-      super(name, lat, lon, "");
+      super(MwmApplication.get().getString(R.string.my_position), lat, lon, "");
     }
 
     protected MyPosition(Parcel source)
@@ -270,10 +278,10 @@ public abstract class MapObject implements Parcelable
     }
 
     @Override
-    public void setDefaultIfEmpty(Resources res)
+    public void setDefaultIfEmpty()
     {
       if (TextUtils.isEmpty(mName))
-        mName = res.getString(R.string.my_position);
+        mName = MwmApplication.get().getString(R.string.my_position);
     }
   }
 

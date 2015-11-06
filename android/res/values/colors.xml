@@ -63,7 +63,8 @@
   <color name="downloader_progress_bg">#f0f0f0</color>
 
   <!-- routing-->
-  <color name="routing_blue">#2096f3</color>
+  <color name="routing_blue">#FF2096f3</color>
+  <color name="routing_slot_shadow">#3D000000</color>
 
   <!-- TODO end of unfinished colors-->
 

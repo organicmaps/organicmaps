@@ -148,12 +148,6 @@ public class Framework
 
   public native static void nativeSetRouteProgressListener(RoutingProgressListener listener);
 
-  // TODO consider implementing other model of listeners connection, and implement methods below then
-//  public native static void nativeRemoveRoutingListener();
-//
-//  public native static void nativeRemoveRouteProgressListener();
-  //
-
   public native static String nativeGetCountryNameIfAbsent(double lat, double lon);
 
   public native static Index nativeGetCountryIndex(double lat, double lon);

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-
   <style name="PlacePagePreview">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">56dp</item>
@@ -15,16 +14,27 @@
   <style name="PlacePageButtonText">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
+    <item name="android:gravity">center</item>
     <item name="android:textAllCaps" tools:targetApi="ice_cream_sandwich">true</item>
     <item name="android:textColor">@color/text_place_page_buttons</item>
-    <item name="android:layout_marginTop">@dimen/margin_eighth</item>
     <item name="android:textSize">10sp</item>
+  </style>
+
+  <style name="PlacePageButtonText.Route">
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:layout_weight">1</item>
+    <item name="android:textColor">@color/text_place_page_buttons</item>
+    <item name="android:layout_marginTop">@dimen/margin_eighth</item>
+    <item name="android:textSize">16sp</item>
+    <item name="android:background">?attr/clickableBackground</item>
   </style>
 
   <style name="PlacePageButtonImage">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">0dp</item>
     <item name="android:layout_weight">1</item>
+    <item name="android:layout_marginBottom">@dimen/margin_eighth</item>
     <item name="android:paddingTop">@dimen/margin_base</item>
     <item name="android:paddingBottom">@dimen/margin_base</item>
     <item name="android:scaleType">center</item>
@@ -37,8 +47,8 @@
     <item name="android:layout_weight">1</item>
     <item name="android:orientation">vertical</item>
     <item name="android:paddingTop">@dimen/margin_half</item>
-    <item name="android:background">?attr/clickableBackground</item>
     <item name="android:paddingBottom">@dimen/margin_half</item>
     <item name="android:gravity">center_horizontal</item>
+    <item name="android:background">?attr/clickableBackground</item>
   </style>
 </resources>

@@ -19,10 +19,10 @@ public class RotateByAlphaDrawable extends Drawable
   {
     super();
     mBaseDrawable = MwmApplication.get().getResources().getDrawable(resId);
-    adjustAngle(transparent ? 0x00 : 0xFF);
+    computeAngle(transparent ? 0x00 : 0xFF);
   }
 
-  private void adjustAngle(int alpha)
+  private void computeAngle(int alpha)
   {
     mAngle = (alpha - 0xFF) / 3 + mBaseAngle;
   }
@@ -44,7 +44,7 @@ public class RotateByAlphaDrawable extends Drawable
   public void setAlpha(int alpha)
   {
     mBaseDrawable.setAlpha(alpha);
-    adjustAngle(alpha);
+    computeAngle(alpha);
   }
 
   @Override

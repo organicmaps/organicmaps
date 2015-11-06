@@ -60,10 +60,19 @@ public final class UiUtils
     public void onAnimationRepeat(Animator animation) {}
   }
 
-  
+  public interface OnViewMeasuredListener
+  {
+    void onViewMeasured(int width, int height);
+  }
+
+
   public static void waitLayout(final View view, @NonNull final ViewTreeObserver.OnGlobalLayoutListener callback)
   {
-    view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
+    ViewTreeObserver observer = view.getViewTreeObserver();
+    if (!observer.isAlive())
+      throw new IllegalArgumentException("ViewTreeObserver is not alive");
+
+    observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
     {
       @SuppressWarnings("deprecation")
       @Override
@@ -76,6 +85,21 @@ public final class UiUtils
           view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
         callback.onGlobalLayout();
+      }
+    });
+  }
+
+  public static void measureView(final View frame, final OnViewMeasuredListener listener) {
+    waitLayout(frame, new ViewTreeObserver.OnGlobalLayoutListener()
+    {
+      @Override
+      public void onGlobalLayout()
+      {
+        Activity ac = (Activity) frame.getContext();
+        if (ac == null || ac.isFinishing())
+          return;
+
+        listener.onViewMeasured(frame.getMeasuredWidth(), frame.getMeasuredHeight());
       }
     });
   }
@@ -144,6 +168,19 @@ public final class UiUtils
   {
     for (final int id : viewIds)
       invisible(frame, id);
+  }
+
+  public static void visibleIf(boolean condition, View view)
+  {
+    view.setVisibility(condition ? View.VISIBLE : View.INVISIBLE);
+  }
+
+  public static void visibleIf(boolean condition, View... views)
+  {
+    if (condition)
+      show(views);
+    else
+      invisible(views);
   }
 
   public static void showIf(boolean condition, View view)
@@ -276,7 +313,7 @@ public final class UiUtils
 
   public static void appearSlidingDown(final View view, @Nullable final Runnable completionListener)
   {
-    if (view.getVisibility() == View.VISIBLE)
+    if (view.getVisibility() == View.VISIBLE || view.getAnimation() != null)
     {
       if (completionListener != null)
         completionListener.run();
@@ -301,7 +338,7 @@ public final class UiUtils
 
   public static void disappearSlidingUp(final View view, @Nullable final Runnable completionListener)
   {
-    if (view.getVisibility() != View.VISIBLE)
+    if (view.getVisibility() != View.VISIBLE || view.getAnimation() != null)
     {
       if (completionListener != null)
         completionListener.run();

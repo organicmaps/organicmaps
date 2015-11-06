@@ -1,4 +1,4 @@
-package com.mapswithme.maps.dialog;
+package com.mapswithme.maps.routing;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -20,7 +20,6 @@ import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.DisabledChildSimpleExpandableListAdapter;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
-import com.mapswithme.maps.routing.RoutingResultCodesProcessor;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 
@@ -43,20 +42,15 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
   private MapStorage.Index[] mMissingRoutes;
   private int mResultCode;
 
-  public interface RoutingDialogListener
+  public interface Listener
   {
     void onDownload();
-
-    void onCancel();
-
     void onOk();
   }
 
-  private RoutingDialogListener mListener;
+  private Listener mListener;
 
-  public RoutingErrorDialogFragment() {}
-
-  public void setListener(RoutingDialogListener listener)
+  public void setListener(Listener listener)
   {
     mListener = listener;
   }
@@ -68,8 +62,9 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
     parseArguments();
     final Pair<String, String> titleMessage = RoutingResultCodesProcessor.getDialogTitleSubtitle(mResultCode, mMissingCountries);
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
-        .setTitle(titleMessage.first)
-        .setCancelable(true);
+                                                 .setTitle(titleMessage.first)
+                                                 .setCancelable(true);
+
     if (hasIndex(mMissingCountries) || hasIndex(mMissingRoutes))
     {
       View view;
@@ -78,51 +73,36 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
       else
         view = buildMultipleMapView(titleMessage.second);
 
-      builder.setView(view);
-      builder
-          .setPositiveButton(R.string.download, new Dialog.OnClickListener()
-          {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-              if (mListener != null)
-                mListener.onDownload();
-            }
-          })
-          .setNegativeButton(android.R.string.cancel, new Dialog.OnClickListener()
-          {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-              if (mListener != null)
-                mListener.onCancel();
-            }
-          });
-    }
-    else
-    {
-      builder.setMessage(titleMessage.second)
-          .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener()
-          {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-              if (mListener != null)
-                mListener.onOk();
-            }
-          });
+      return builder.setView(view)
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .setPositiveButton(R.string.download, new Dialog.OnClickListener()
+                    {
+                      @Override
+                      public void onClick(DialogInterface dialog, int which)
+                      {
+                        if (mListener != null)
+                          mListener.onDownload();
+                      }
+                    }).create();
     }
 
-    return builder.create();
+    return builder.setMessage(titleMessage.second)
+                  .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener()
+                  {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                      if (mListener != null)
+                        mListener.onOk();
+                    }
+                  }).create();
   }
 
   @Override
-  public void onDismiss(DialogInterface dialog)
+  public void onDestroyView()
   {
-    super.onDismiss(dialog);
-
-    if (mListener != null)
-      mListener.onCancel();
+    super.onDestroyView();
+    mListener = null;
   }
 
   private void parseArguments()
@@ -133,20 +113,20 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
     mResultCode = args.getInt(EXTRA_RESULT_CODE);
   }
 
-  private boolean hasIndex(MapStorage.Index[] indexes)
+  private static boolean hasIndex(MapStorage.Index[] indices)
   {
-    return indexes != null && indexes.length != 0;
+    return (indices != null && indices.length != 0);
   }
 
-  private boolean hasSingleIndex(MapStorage.Index[] indexes)
+  private static boolean hasSingleIndex(MapStorage.Index[] indices)
   {
-    return indexes != null && indexes.length == 1;
+    return (indices != null && indices.length == 1);
   }
 
   private View buildSingleMapView(String message, MapStorage.Index index, int option)
   {
-    @SuppressLint("InflateParams") final View countryView = getActivity().getLayoutInflater().
-        inflate(R.layout.dialog_download_single_item, null);
+    @SuppressLint("InflateParams")
+    final View countryView = View.inflate(getActivity(), R.layout.dialog_download_single_item, null);
     ((TextView) countryView.findViewById(R.id.tv__title)).setText(MapStorage.INSTANCE.countryName(index));
     ((TextView) countryView.findViewById(R.id.tv__message)).setText(message);
 
@@ -161,9 +141,9 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
 
   private View buildMultipleMapView(String message)
   {
-    @SuppressLint("InflateParams") final View countriesView = getActivity().getLayoutInflater().
-        inflate(R.layout.dialog_download_multiple_items, null);
-    UiUtils.setTextAndShow(((TextView) countriesView.findViewById(R.id.tv__message)), message);
+    @SuppressLint("InflateParams")
+    final View countriesView = View.inflate(getActivity(), R.layout.dialog_download_multiple_items, null);
+    ((TextView) countriesView.findViewById(R.id.tv__message)).setText(message);
 
     final ExpandableListView listView = (ExpandableListView) countriesView.findViewById(R.id.elv__items);
     listView.setAdapter(buildAdapter());
@@ -227,19 +207,19 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
                                                         groupData,
                                                         R.layout.item_country_group_dialog_expanded,
                                                         R.layout.item_country_dialog,
-                                                        new String[]{GROUP_NAME, GROUP_SIZE},
-                                                        new int[]{R.id.tv__title, R.id.tv__size},
+                                                        new String[] { GROUP_NAME, GROUP_SIZE },
+                                                        new int[] { R.id.tv__title, R.id.tv__size },
                                                         childData,
                                                         R.layout.item_country_dialog,
-                                                        new String[]{COUNTRY_NAME},
-                                                        new int[]{R.id.tv__title}
+                                                        new String[] { COUNTRY_NAME },
+                                                        new int[] { R.id.tv__title }
     );
   }
 
-  private List<Map<String, String>> getCountryNames(MapStorage.Index[] indexes)
+  private static List<Map<String, String>> getCountryNames(MapStorage.Index[] indices)
   {
-    final List<Map<String, String>> countries = new ArrayList<>();
-    for (MapStorage.Index index : indexes)
+    final List<Map<String, String>> countries = new ArrayList<>(indices.length);
+    for (MapStorage.Index index : indices)
     {
       final Map<String, String> countryData = new HashMap<>();
       countryData.put(COUNTRY_NAME, MapStorage.INSTANCE.countryName(index));
@@ -248,10 +228,10 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
     return countries;
   }
 
-  private long getCountrySizesBytes(MapStorage.Index[] indexes, int option)
+  private static long getCountrySizesBytes(MapStorage.Index[] indices, int option)
   {
     long total = 0;
-    for (MapStorage.Index index : indexes)
+    for (MapStorage.Index index : indices)
       total += MapStorage.INSTANCE.countryRemoteSizeInBytes(index, option);
     return total;
   }

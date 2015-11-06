@@ -31,11 +31,11 @@
         android:visibility="gone"
         tools:visibility="visible"/>
 
-    <com.mapswithme.maps.widget.RoutingLayout
+    <!--com.mapswithme.maps.routing.RoutingLayout
         android:id="@+id/layout__routing"
         android:layout_width="@dimen/panel_width"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/margin_base"/>
+        android:paddingBottom="@dimen/margin_base"/-->
 
     <com.mapswithme.maps.widget.placepage.PlacePageView
         android:id="@+id/info_box"

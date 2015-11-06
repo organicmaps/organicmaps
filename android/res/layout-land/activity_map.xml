@@ -22,11 +22,11 @@
       android:id="@+id/navigation_buttons"
       layout="@layout/map_navigation_buttons"/>
 
-  <com.mapswithme.maps.widget.RoutingLayout
+  <!--com.mapswithme.maps.routing.RoutingLayout
       android:id="@+id/layout__routing"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_below="@id/toolbar"/>
+      android:layout_below="@id/toolbar"/ -->
 
   <com.mapswithme.maps.widget.FadeView
       android:id="@+id/fade_view"
