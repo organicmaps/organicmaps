@@ -120,7 +120,8 @@ void Platform::GetFilesByExt(string const & directory, string const & ext, Files
 }
 
 // static
-void Platform::GetFilesByType(string const & directory, unsigned typeMask, FilesList & outFiles)
+void Platform::GetFilesByType(string const & directory, unsigned typeMask,
+                              TFilesWithType & outFiles)
 {
   FilesList allFiles;
   GetFilesByRegExp(directory, ".*", allFiles);
@@ -130,7 +131,7 @@ void Platform::GetFilesByType(string const & directory, unsigned typeMask, Files
     if (GetFileType(my::JoinFoldersToPath(directory, file), type) != ERR_OK)
       continue;
     if (typeMask & type)
-      outFiles.push_back(file);
+      outFiles.emplace_back(file, type);
   }
 }
 

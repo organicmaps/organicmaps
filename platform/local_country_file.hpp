@@ -81,7 +81,8 @@ public:
 private:
   friend string DebugPrint(LocalCountryFile const &);
   friend void UnitTest_LocalCountryFile_DirectoryLookup();
-  friend void FindAllLocalMaps(vector<LocalCountryFile> & localFiles);
+  friend void FindAllLocalMapsAndCleanup(int64_t latestVersion,
+                                         vector<LocalCountryFile> & localFiles);
 
   /// @note! If directory is empty, the file is stored in resources.
   /// In this case, the only valid params are m_countryFile and m_version.

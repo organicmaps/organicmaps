@@ -159,7 +159,7 @@ namespace integration
       pl.SetResourceDir(options.m_resourcePath);
 
     vector<LocalCountryFile> localFiles;
-    platform::FindAllLocalMaps(localFiles);
+    platform::FindAllLocalMapsAndCleanup(-1, localFiles);
     for (auto & file : localFiles)
       file.SyncWithDisk();
     ASSERT(!localFiles.empty(), ());

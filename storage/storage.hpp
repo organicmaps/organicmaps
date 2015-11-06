@@ -6,6 +6,8 @@
 #include "storage/queued_country.hpp"
 #include "storage/storage_defines.hpp"
 
+#include "platform/local_country_file.hpp"
+
 #include "std/function.hpp"
 #include "std/list.hpp"
 #include "std/set.hpp"
@@ -13,7 +15,6 @@
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
-
 
 namespace storage
 {
@@ -48,7 +49,9 @@ private:
 
   using TLocalFilePtr = shared_ptr<platform::LocalCountryFile>;
   map<TIndex, list<TLocalFilePtr>> m_localFiles;
-  // Our World.mwm and WorldCoasts.mwm are fake countries, together with any custom mwm in data folder.
+
+  // Our World.mwm and WorldCoasts.mwm are fake countries, together with any custom mwm in data
+  // folder.
   map<platform::CountryFile, TLocalFilePtr> m_localFilesForFakeCountries;
 
   /// used to correctly calculate total country download progress with more than 1 file

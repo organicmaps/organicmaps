@@ -111,7 +111,7 @@ void Storage::RegisterAllLocalMaps()
   m_localFilesForFakeCountries.clear();
 
   vector<LocalCountryFile> localFiles;
-  FindAllLocalMaps(localFiles);
+  FindAllLocalMapsAndCleanup(GetCurrentDataVersion(), localFiles);
 
   auto compareByCountryAndVersion = [](LocalCountryFile const & lhs, LocalCountryFile const & rhs)
   {

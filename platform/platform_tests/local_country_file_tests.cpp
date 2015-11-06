@@ -157,25 +157,16 @@ UNIT_TEST(LocalCountryFile_CleanupMapFiles)
   LocalCountryFile irelandLocalFile(dir4.GetFullPath(), irelandFile, 4 /* version */);
   ScopedFile irelandMapFile(dir4, irelandFile, MapOptions::Map, "Ireland");
 
-  // Check that FindAllLocalMaps()
+  // Check FindAllLocalMaps()
   vector<LocalCountryFile> localFiles;
-  FindAllLocalMaps(localFiles);
-  TEST(Contains(localFiles, japanLocalFile), (japanLocalFile, localFiles));
-  TEST(Contains(localFiles, brazilLocalFile), (brazilLocalFile, localFiles));
+  FindAllLocalMapsAndCleanup(-1 /* latestVersion */, localFiles);
+  TEST(!Contains(localFiles, japanLocalFile), (japanLocalFile, localFiles));
+  TEST(!Contains(localFiles, brazilLocalFile), (brazilLocalFile, localFiles));
   TEST(Contains(localFiles, irelandLocalFile), (irelandLocalFile, localFiles));
 
-  CleanupMapsDirectory(0 /* latestVersion */, [](string const filename)
-                       {
-                         return filename == "Ireland" || filename == "Absent";
-                       });
-
-  japanLocalFile.SyncWithDisk();
-  TEST_EQUAL(MapOptions::Nothing, japanLocalFile.GetFiles(), ());
   TEST(!japanMapFile.Exists(), (japanMapFile));
   japanMapFile.Reset();
 
-  brazilLocalFile.SyncWithDisk();
-  TEST_EQUAL(MapOptions::Nothing, brazilLocalFile.GetFiles(), ());
   TEST(!brazilMapFile.Exists(), (brazilMapFile));
   brazilMapFile.Reset();
 
@@ -215,11 +206,7 @@ UNIT_TEST(LocalCountryFile_CleanupPartiallyDownloadedFiles)
       {my::JoinFoldersToPath(latestDir.GetRelativePath(), "Russia_Southern.mwm.downloading"),
        "Southern Russia map"}};
 
-  auto const isCountryName = [&](string const & /* filename */)
-  {
-    return false;
-  };
-  CleanupMapsDirectory(101010 /* latestVersion */, isCountryName);
+  CleanupMapsDirectory(101010 /* latestVersion */);
 
   for (ScopedFile & file : toBeDeleted)
   {
@@ -254,7 +241,8 @@ UNIT_TEST(LocalCountryFile_DirectoryLookup)
                                         "Netherlands-routing");
 
   vector<LocalCountryFile> localFiles;
-  FindAllLocalMapsInDirectory(testDir.GetFullPath(), 150309, localFiles);
+  FindAllLocalMapsInDirectoryAndCleanup(testDir.GetFullPath(), 150309 /* version */,
+                                        -1 /* latestVersion */, localFiles);
   sort(localFiles.begin(), localFiles.end());
   for (LocalCountryFile & localFile : localFiles)
     localFile.SyncWithDisk();
@@ -278,11 +266,11 @@ UNIT_TEST(LocalCountryFile_AllLocalFilesLookup)
 {
   CountryFile const italyFile("Italy");
 
-  ScopedDir testDir("010101");
+  ScopedDir testDir("10101");
   ScopedFile testItalyMapFile(testDir, italyFile, MapOptions::Map, "Italy-map");
 
   vector<LocalCountryFile> localFiles;
-  FindAllLocalMaps(localFiles);
+  FindAllLocalMapsAndCleanup(-1 /* latestVersion */, localFiles);
   multiset<LocalCountryFile> localFilesSet(localFiles.begin(), localFiles.end());
 
   bool worldFound = false;
