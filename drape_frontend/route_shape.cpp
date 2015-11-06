@@ -346,7 +346,7 @@ void RouteShape::Draw(ref_ptr<dp::TextureManager> textures, RouteData & routeDat
     {
       TGeometryBuffer geometry;
       TGeometryBuffer joinsGeometry;
-      vector<m2::PointD> points = CalculatePoints(routeData.m_sourcePolyline, renderProperty->m_start, renderProperty->m_end);
+      vector<m2::PointD> const points = CalculatePoints(routeData.m_sourcePolyline, renderProperty->m_start, renderProperty->m_end);
       ASSERT_LESS_OR_EQUAL(points.size(), routeData.m_sourcePolyline.GetSize(), ());
       PrepareGeometry(false /* isRoute */, points, geometry, joinsGeometry, renderProperty->m_joinsBounds, routeData.m_length);
       BatchGeometry(state, geometry, joinsGeometry, renderProperty->m_arrow);
