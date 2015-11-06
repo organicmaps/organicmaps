@@ -100,10 +100,10 @@ HEADERS += \
     scales.hpp \
     search_delimiters.hpp \
     search_index_builder.hpp \
+    search_index_values.hpp \
     search_string_utils.hpp \
     search_trie.hpp \
     string_file.hpp \
-    string_file_values.hpp \
     succinct_trie.hpp \
     succinct_trie_builder.hpp \
     succinct_trie_reader.hpp \

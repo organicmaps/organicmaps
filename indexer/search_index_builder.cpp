@@ -7,10 +7,9 @@
 #include "indexer/feature_visibility.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/search_delimiters.hpp"
+#include "indexer/search_index_values.hpp"
 #include "indexer/search_string_utils.hpp"
 #include "indexer/search_trie.hpp"
-#include "indexer/string_file.hpp"
-#include "indexer/string_file_values.hpp"
 #include "indexer/trie_builder.hpp"
 #include "indexer/types_skipper.hpp"
 
@@ -92,21 +91,26 @@ public:
   }
 };
 
-template <typename TStringsFile>
+template <typename TKey, typename TValue>
 struct FeatureNameInserter
 {
   SynonymsHolder * m_synonyms;
-  TStringsFile & m_names;
-  typename TStringsFile::ValueT m_val;
+  vector<pair<TKey, TValue>> & m_keyValuePairs;
+  TValue m_val;
 
-  FeatureNameInserter(SynonymsHolder * synonyms, TStringsFile & names)
-    : m_synonyms(synonyms), m_names(names)
+  FeatureNameInserter(SynonymsHolder * synonyms, vector<pair<TKey, TValue>> & keyValuePairs)
+    : m_synonyms(synonyms), m_keyValuePairs(keyValuePairs)
   {
   }
 
   void AddToken(signed char lang, strings::UniString const & s) const
   {
-    m_names.AddString(typename TStringsFile::TString(s, lang, m_val));
+    strings::UniString key;
+    key.reserve(s.size() + 1);
+    key.push_back(static_cast<uint8_t>(lang));
+    key.append(s.begin(), s.end());
+
+    m_keyValuePairs.emplace_back(key, m_val);
   }
 
 private:
@@ -151,7 +155,7 @@ public:
   }
 };
 
-template <typename ValueT>
+template <typename TValue>
 struct ValueBuilder;
 
 template <>
@@ -182,26 +186,24 @@ struct ValueBuilder<FeatureIndexValue>
   }
 };
 
-template <typename TStringsFile>
+template <typename TKey, typename TValue>
 class FeatureInserter
 {
   SynonymsHolder * m_synonyms;
-  TStringsFile & m_names;
+  vector<pair<TKey, TValue>> & m_keyValuePairs;
 
   CategoriesHolder const & m_categories;
 
-  using ValueT = typename TStringsFile::ValueT;
-
   pair<int, int> m_scales;
 
-  ValueBuilder<ValueT> const & m_valueBuilder;
+  ValueBuilder<TValue> const & m_valueBuilder;
 
 public:
-  FeatureInserter(SynonymsHolder * synonyms, TStringsFile & names,
+  FeatureInserter(SynonymsHolder * synonyms, vector<pair<TKey, TValue>> & keyValuePairs,
                   CategoriesHolder const & catHolder, pair<int, int> const & scales,
-                  ValueBuilder<ValueT> const & valueBuilder)
+                  ValueBuilder<TValue> const & valueBuilder)
     : m_synonyms(synonyms)
-    , m_names(names)
+    , m_keyValuePairs(keyValuePairs)
     , m_categories(catHolder)
     , m_scales(scales)
     , m_valueBuilder(valueBuilder)
@@ -220,8 +222,8 @@ public:
 
     // Init inserter with serialized value.
     // Insert synonyms only for countries and states (maybe will add cities in future).
-    FeatureNameInserter<TStringsFile> inserter(
-        skipIndex.IsCountryOrState(types) ? m_synonyms : nullptr, m_names);
+    FeatureNameInserter<TKey, TValue> inserter(
+        skipIndex.IsCountryOrState(types) ? m_synonyms : nullptr, m_keyValuePairs);
     m_valueBuilder.MakeValue(f, types, index, inserter.m_val);
 
     // Skip types for features without names.
@@ -256,9 +258,9 @@ public:
   }
 };
 
-template <typename TValue>
+template <typename TKey, typename TValue>
 void AddFeatureNameIndexPairs(FeaturesVectorTest & features, CategoriesHolder & categoriesHolder,
-                              StringsFile<TValue> & stringsFile,
+                              vector<pair<TKey, TValue>> & keyValuePairs,
                               SingleValueSerializer<TValue> const & serializer)
 {
   feature::DataHeader const & header = features.GetHeader();
@@ -269,8 +271,8 @@ void AddFeatureNameIndexPairs(FeaturesVectorTest & features, CategoriesHolder & 
   if (header.GetType() == feature::DataHeader::world)
     synonyms.reset(new SynonymsHolder(GetPlatform().WritablePathForFile(SYNONYMS_FILE)));
 
-  features.GetVector().ForEach(FeatureInserter<StringsFile<TValue>>(
-      synonyms.get(), stringsFile, categoriesHolder, header.GetScaleRange(), valueBuilder));
+  features.GetVector().ForEach(FeatureInserter<TKey, TValue>(
+      synonyms.get(), keyValuePairs, categoriesHolder, header.GetScaleRange(), valueBuilder));
 }
 }  // namespace
 
@@ -289,14 +291,12 @@ bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild)
   my::GetNameWithoutExt(mwmName);
   string const indexFilePath = platform.WritablePathForFile(mwmName + ".sdx.tmp");
   MY_SCOPE_GUARD(indexFileGuard, bind(&FileWriter::DeleteFileX, indexFilePath));
-  string const stringsFilePath = platform.WritablePathForFile(mwmName + ".sdx.strings.tmp");
-  MY_SCOPE_GUARD(stringsFileGuard, bind(&FileWriter::DeleteFileX, stringsFilePath));
 
   try
   {
     {
       FileWriter indexWriter(indexFilePath);
-      BuildSearchIndex(readContainer, indexWriter, stringsFilePath);
+      BuildSearchIndex(readContainer, indexWriter);
       LOG(LINFO, ("Search index size =", indexWriter.Size()));
     }
     {
@@ -319,9 +319,9 @@ bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild)
   return true;
 }
 
-void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter,
-                      string const & stringsFilePath)
+void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter)
 {
+  using TKey = strings::UniString;
   using TValue = FeatureIndexValue;
 
   Platform & platform = GetPlatform();
@@ -335,16 +335,14 @@ void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter,
   auto codingParams = trie::GetCodingParams(features.GetHeader().GetDefCodingParams());
   SingleValueSerializer<TValue> serializer(codingParams);
 
-  StringsFile<TValue> stringsFile(stringsFilePath, serializer);
-  AddFeatureNameIndexPairs(features, categoriesHolder, stringsFile, serializer);
+  vector<pair<TKey, TValue>> searchIndexKeyValuePairs;
+  AddFeatureNameIndexPairs(features, categoriesHolder, searchIndexKeyValuePairs, serializer);
 
-  stringsFile.EndAdding();
+  sort(searchIndexKeyValuePairs.begin(), searchIndexKeyValuePairs.end());
   LOG(LINFO, ("End sorting strings:", timer.ElapsedSeconds()));
 
-  stringsFile.OpenForRead();
-
-  trie::Build<Writer, typename StringsFile<TValue>::IteratorT, ValueList<TValue>>(
-      indexWriter, serializer, stringsFile.Begin(), stringsFile.End());
+  trie::Build<Writer, TKey, ValueList<TValue>, SingleValueSerializer<TValue>>(
+      indexWriter, serializer, searchIndexKeyValuePairs);
 
   LOG(LINFO, ("End building search index, elapsed seconds:", timer.ElapsedSeconds()));
 }

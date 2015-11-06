@@ -228,28 +228,26 @@ void AppendValue(TNodeInfo & node, TValue const & value)
     LOG(LERROR, ("Cannot append to a finalized value list."));
 }
 
-template <typename TSink, typename TIter, typename TValueList, typename TSerializer>
-void Build(TSink & sink, TSerializer const & serializer, TIter const beg, TIter const end)
+template <typename TSink, typename TKey, typename TValueList, typename TSerializer>
+void Build(TSink & sink, TSerializer const & serializer,
+           vector<pair<TKey, typename TValueList::TValue>> const & data)
 {
-  using TTrieString = buffer_vector<TrieChar, 32>;
+  using TValue = typename TValueList::TValue;
   using TNodeInfo = NodeInfo<TValueList>;
 
   vector<TNodeInfo> nodes;
   nodes.emplace_back(sink.Pos(), kDefaultChar);
 
-  TTrieString prevKey;
+  TKey prevKey;
+  pair<TKey, TValue> prevE;  // e for "element".
 
-  using TElement = typename TIter::value_type;
-  TElement prevE;
-
-  for (TIter it = beg; it != end; ++it)
+  for (auto it = data.begin(); it != data.end(); ++it)
   {
-    TElement e = *it;
-    if (it != beg && e == prevE)
+    auto e = *it;
+    if (it != data.begin() && e == prevE)
       continue;
 
-    TrieChar const * const pKeyData = e.GetKeyData();
-    TTrieString key(pKeyData, pKeyData + e.GetKeySize());
+    auto const & key = e.first;
     CHECK(!(key < prevKey), (key, prevKey));
     size_t nCommon = 0;
     while (nCommon < min(key.size(), prevKey.size()) && prevKey[nCommon] == key[nCommon])
@@ -260,10 +258,10 @@ void Build(TSink & sink, TSerializer const & serializer, TIter const beg, TIter 
     uint64_t const pos = sink.Pos();
     for (size_t i = nCommon; i < key.size(); ++i)
       nodes.emplace_back(pos, key[i]);
-    AppendValue(nodes.back(), e.GetValue());
+    AppendValue(nodes.back(), e.second);
 
-    prevKey.swap(key);
-    prevE.Swap(e);
+    prevKey = key;
+    swap(e, prevE);
   }
 
   // Pop all the nodes from the stack.

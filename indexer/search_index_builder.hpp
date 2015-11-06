@@ -9,6 +9,5 @@ namespace indexer
 {
 bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild = false);
 
-void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter,
-                      string const & stringsFilePath);
+void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter);
 }  // namespace indexer

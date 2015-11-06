@@ -167,10 +167,7 @@ public:
   // compressed bit vector, this method returns 1 when there're at
   // least one feature's index in the list - so, compressed bit
   // vector will be built and serialized - and 0 otherwise.
-  size_t Size() const
-  {
-    return (m_cbv && m_cbv->PopCount() != 0) ? 1 : 0;
-  }
+  size_t Size() const { return (m_cbv && m_cbv->PopCount() != 0) ? 1 : 0; }
 
   bool IsEmpty() const { return Size() == 0; }
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "indexer/geometry_serialization.hpp"
-#include "indexer/string_file_values.hpp"
+#include "indexer/search_index_values.hpp"
 #include "indexer/trie.hpp"
 #include "indexer/trie_reader.hpp"
 

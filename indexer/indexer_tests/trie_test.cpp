@@ -13,6 +13,7 @@
 #include "std/algorithm.hpp"
 #include "std/cstring.hpp"
 #include "std/string.hpp"
+#include "std/utility.hpp"
 #include "std/vector.hpp"
 
 #include <boost/utility/binary.hpp>
@@ -37,65 +38,8 @@ struct ChildNodeInfo
   uint32_t GetEdgeSize() const { return m_edge.size(); }
 };
 
-struct KeyValuePair
-{
-  buffer_vector<trie::TrieChar, 8> m_key;
-  uint32_t m_value;
-
-  KeyValuePair() {}
-
-  template <class TString>
-  KeyValuePair(TString const & key, int value)
-    : m_key(key.begin(), key.end()), m_value(value)
-  {
-  }
-
-  uint32_t GetKeySize() const { return m_key.size(); }
-  trie::TrieChar const * GetKeyData() const { return m_key.data(); }
-  uint32_t GetValue() const { return m_value; }
-
-  inline void const * value_data() const { return &m_value; }
-
-  inline size_t value_size() const { return sizeof(m_value); }
-
-  bool operator==(KeyValuePair const & p) const
-  {
-    return (m_key == p.m_key && m_value == p.m_value);
-  }
-
-  bool operator<(KeyValuePair const & p) const
-  {
-    return ((m_key != p.m_key) ? m_key < p.m_key : m_value < p.m_value);
-  }
-
-  void Swap(KeyValuePair & r)
-  {
-    m_key.swap(r.m_key);
-    swap(m_value, r.m_value);
-  }
-};
-
-string DebugPrint(KeyValuePair const & p)
-{
-  string keyS = ::DebugPrint(p.m_key);
-  ostringstream out;
-  out << "KVP(" << keyS << ", " << p.m_value << ")";
-  return out.str();
-}
-
-struct KeyValuePairBackInserter
-{
-  template <class TString>
-  void operator()(TString const & s, uint32_t const & value)
-  {
-    m_v.push_back(KeyValuePair(s, value));
-  }
-
-  vector<KeyValuePair> m_v;
-};
-
 // The SingleValueSerializer and ValueList classes are similar to
-// those in indexer/string_file_values.hpp.
+// those in indexer/search_index_values.hpp.
 template <typename TPrimitive>
 class SingleValueSerializer
 {
@@ -229,33 +173,48 @@ UNIT_TEST(TrieBuilder_Build)
 
   int const count = static_cast<int>(possibleStrings.size());
   for (int i0 = -1; i0 < count; ++i0)
+  {
     for (int i1 = i0; i1 < count; ++i1)
+    {
       for (int i2 = i1; i2 < count; ++i2)
       {
-        vector<KeyValuePair> v;
+        using TKey = buffer_vector<trie::TrieChar, 8>;
+        using TValue = uint32_t;
+        using TKeyValuePair = pair<TKey, TValue>;
+
+        vector<TKeyValuePair> v;
+        auto makeKey = [](string const & s)
+        {
+          return TKey(s.begin(), s.end());
+        };
         if (i0 >= 0)
-          v.push_back(KeyValuePair(possibleStrings[i0], i0));
+          v.emplace_back(makeKey(possibleStrings[i0]), i0);
         if (i1 >= 0)
-          v.push_back(KeyValuePair(possibleStrings[i1], i1 + 10));
+          v.emplace_back(makeKey(possibleStrings[i1]), i1 + 10);
         if (i2 >= 0)
-          v.push_back(KeyValuePair(possibleStrings[i2], i2 + 100));
+          v.emplace_back(makeKey(possibleStrings[i2]), i2 + 100);
         vector<string> vs;
         for (size_t i = 0; i < v.size(); ++i)
-          vs.push_back(string(v[i].m_key.begin(), v[i].m_key.end()));
+          vs.push_back(string(v[i].first.begin(), v[i].first.end()));
 
         vector<uint8_t> buf;
         PushBackByteSink<vector<uint8_t>> sink(buf);
         SingleValueSerializer<uint32_t> serializer;
-        trie::Build<PushBackByteSink<vector<uint8_t>>, typename vector<KeyValuePair>::iterator,
-                    ValueList<uint32_t>>(sink, serializer, v.begin(), v.end());
+        trie::Build<PushBackByteSink<vector<uint8_t>>, TKey, ValueList<uint32_t>,
+                    SingleValueSerializer<uint32_t>>(sink, serializer, v);
         reverse(buf.begin(), buf.end());
 
         MemReader memReader = MemReader(&buf[0], buf.size());
         auto const root = trie::ReadTrie<MemReader, ValueList<uint32_t>>(memReader, serializer);
-        vector<KeyValuePair> res;
-        KeyValuePairBackInserter f;
-        trie::ForEachRef(*root, f, vector<trie::TrieChar>());
-        sort(f.m_v.begin(), f.m_v.end());
-        TEST_EQUAL(v, f.m_v, ());
+        vector<TKeyValuePair> res;
+        auto addKeyValuePair = [&res](TKey const & k, TValue const & v)
+        {
+          res.emplace_back(k, v);
+        };
+        trie::ForEachRef(*root, addKeyValuePair, TKey());
+        sort(res.begin(), res.end());
+        TEST_EQUAL(v, res, ());
       }
+    }
+  }
 }
