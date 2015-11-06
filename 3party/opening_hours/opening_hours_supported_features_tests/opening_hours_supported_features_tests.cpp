@@ -21,7 +21,7 @@ LongTimeRange RangeToLong(std::string const & start, std::string const & end)
   auto const r1 = mktime(&when);
 
   strptime(end.data(), fmt, &when);
-  return { r1, mktime(&when) };
+  return std::make_tuple(r1, mktime(&when));
 }
 
 

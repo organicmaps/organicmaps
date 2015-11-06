@@ -95,12 +95,12 @@ private:
   TStateRep m_state{State::IsNotTime};
 };
 
-inline constexpr Time::THours operator ""_h(uint64_t h)
+inline constexpr Time::THours operator ""_h(unsigned long long int h)
 {
   return Time::THours(h);
 }
 
-inline constexpr Time::TMinutes operator ""_min(uint64_t m)
+inline constexpr Time::TMinutes operator ""_min(unsigned long long int m)
 {
   return Time::TMinutes(m);
 }
@@ -198,7 +198,7 @@ inline constexpr Weekday ToWeekday(uint64_t const day)
           : static_cast<Weekday>(day));
 }
 
-inline constexpr Weekday operator ""_day(uint64_t day)
+inline constexpr Weekday operator ""_day(unsigned long long int day)
 {
   return ToWeekday(day);
 }
@@ -385,7 +385,7 @@ inline constexpr MonthDay::Month ToMonth(uint64_t const month)
           : static_cast<osmoh::MonthDay::Month>(month));
 }
 
-inline constexpr MonthDay::Month operator ""_M(uint64_t month)
+inline constexpr MonthDay::Month operator ""_M(unsigned long long int month)
 {
   return ToMonth(month);
 }

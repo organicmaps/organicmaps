@@ -27,15 +27,14 @@
 #include <iomanip>
 #include <ios>
 #include <cstdlib>
-#include <codecvt>
 #include <vector>
 #include <ostream>
 
 namespace
 {
-template <typename T, typename SeparatorExtrauctor>
+template <typename T, typename SeparatorExtractor>
 void PrintVector(std::ostream & ost, std::vector<T> const & v,
-                 SeparatorExtrauctor && sepFunc)
+                 SeparatorExtractor && sepFunc)
 {
   auto it = begin(v);
   if (it == end(v))
