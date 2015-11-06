@@ -3,6 +3,7 @@
 #include "platform/country_defines.hpp"
 #include "platform/local_country_file.hpp"
 
+#include "std/function.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
@@ -17,8 +18,11 @@ void DeleteDownloaderFilesForCountry(CountryFile const & countryFile, int64_t ve
 // Removes partially downloaded maps, empty directories and old
 // (format v1) maps.  Also, removes old (splitted) Japan and Brazil
 // maps. |version| must be set to the latest data version this app can
-// work with.
-void CleanupMapsDirectory(int64_t latestVersion);
+// work with. |isCountryName| predicate is used to detect and remove
+// indexes for absent countries. It must return true for file names
+// corresponding to a country.
+void CleanupMapsDirectory(int64_t latestVersion,
+                          function<bool(string const & filename)> const & isCountryName);
 
 // Finds all local map files in a directory. Version of these files is
 // passed as an argument.

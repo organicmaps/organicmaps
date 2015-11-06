@@ -1,6 +1,8 @@
-#include "local_country_file_utils.hpp"
-#include "mwm_version.hpp"
-#include "platform.hpp"
+#include "platform/local_country_file_utils.hpp"
+
+#include "platform/country_file.hpp"
+#include "platform/mwm_version.hpp"
+#include "platform/platform.hpp"
 
 #include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
@@ -15,6 +17,7 @@
 #include "std/cctype.hpp"
 #include "std/sstream.hpp"
 #include "std/unique_ptr.hpp"
+#include "std/unordered_set.hpp"
 
 #include "defines.hpp"
 
@@ -82,6 +85,31 @@ void DeleteDownloaderFilesForAllCountries(string const & directory)
   for (auto const & file : files)
     my::DeleteFileX(my::JoinFoldersToPath(directory, file));
 }
+
+void DeleteIndexesForAbsentCountries(string const & directory,
+                                     int64_t version,
+                                     function<bool(string const & filename)> const & isCountryName)
+{
+  vector<LocalCountryFile> files;
+  FindAllLocalMapsInDirectory(directory, version, files);
+
+  unordered_set<string> names;
+  for (auto const & file : files)
+    names.insert(file.GetCountryName());
+
+  Platform::FilesList subdirs;
+  Platform::GetFilesByType(directory, Platform::FILE_TYPE_DIRECTORY, subdirs);
+  for (auto const & subdir : subdirs)
+  {
+    if (subdir == "." || subdir == "..")
+      continue;
+    if (!isCountryName(subdir) || names.count(subdir) != 0)
+      continue;
+
+    LocalCountryFile absentCountry(directory, CountryFile(subdir), version);
+    CountryIndexes::DeleteFromDisk(absentCountry);
+  }
+}
 }  // namespace
 
 void DeleteDownloaderFilesForCountry(CountryFile const & countryFile, int64_t version)
@@ -96,7 +124,8 @@ void DeleteDownloaderFilesForCountry(CountryFile const & countryFile, int64_t ve
   }
 }
 
-void CleanupMapsDirectory(int64_t latestVersion)
+void CleanupMapsDirectory(int64_t latestVersion,
+                          function<bool(string const & filename)> const & isCountryName)
 {
   Platform & platform = GetPlatform();
 
@@ -137,6 +166,9 @@ void CleanupMapsDirectory(int64_t latestVersion)
     if (version != latestVersion)
       DeleteDownloaderFilesForAllCountries(subdirPath);
 
+    // It's OK to remove indexes for absent countries.
+    DeleteIndexesForAbsentCountries(subdirPath, version, isCountryName);
+
     // Remove subdirectory if it does not contain any files except "." and "..".
     if (subdir != "." && Platform::IsDirectoryEmpty(subdirPath))
     {
@@ -146,9 +178,6 @@ void CleanupMapsDirectory(int64_t latestVersion)
       UNUSED_VALUE(ret);
     }
   }
-
-  /// @todo Cleanup temporary index files for already absent mwm files.
-  /// https://trello.com/c/PKiiOsB4/28--
 }
 
 void FindAllLocalMapsInDirectory(string const & directory, int64_t version,

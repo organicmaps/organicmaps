@@ -137,6 +137,13 @@ UNIT_TEST(LocalCountryFile_CleanupMapFiles)
   Platform & platform = GetPlatform();
   string const mapsDir = platform.WritableDir();
 
+  // Two fake directories for test country files and indexes.
+  ScopedDir dir3("3");
+  ScopedDir dir4("4");
+
+  ScopedDir absentCountryIndexesDir(dir4, "Absent");
+  ScopedDir irelandIndexesDir(dir4, "Ireland");
+
   CountryFile japanFile("Japan");
   CountryFile brazilFile("Brazil");
   CountryFile irelandFile("Ireland");
@@ -147,10 +154,8 @@ UNIT_TEST(LocalCountryFile_CleanupMapFiles)
   LocalCountryFile brazilLocalFile(mapsDir, brazilFile, 0 /* version */);
   ScopedFile brazilMapFile("Brazil.mwm", "Brazil");
 
-  LocalCountryFile irelandLocalFile(mapsDir, irelandFile, 0 /* version */);
-  ScopedFile irelandMapFile("Ireland.mwm", "Ireland");
-
-  ScopedDir emptyDir("3");
+  LocalCountryFile irelandLocalFile(dir4.GetFullPath(), irelandFile, 4 /* version */);
+  ScopedFile irelandMapFile(dir4, irelandFile, MapOptions::Map, "Ireland");
 
   // Check that FindAllLocalMaps()
   vector<LocalCountryFile> localFiles;
@@ -159,7 +164,10 @@ UNIT_TEST(LocalCountryFile_CleanupMapFiles)
   TEST(Contains(localFiles, brazilLocalFile), (brazilLocalFile, localFiles));
   TEST(Contains(localFiles, irelandLocalFile), (irelandLocalFile, localFiles));
 
-  CleanupMapsDirectory(0 /* latestVersion */);
+  CleanupMapsDirectory(0 /* latestVersion */, [](string const filename)
+                       {
+                         return filename == "Ireland" || filename == "Absent";
+                       });
 
   japanLocalFile.SyncWithDisk();
   TEST_EQUAL(MapOptions::Nothing, japanLocalFile.GetFiles(), ());
@@ -177,8 +185,15 @@ UNIT_TEST(LocalCountryFile_CleanupMapFiles)
   TEST(!irelandMapFile.Exists(), (irelandMapFile));
   irelandMapFile.Reset();
 
-  TEST(!emptyDir.Exists(), ("Empty directory", emptyDir, "wasn't removed."));
-  emptyDir.Reset();
+  TEST(!dir3.Exists(), ("Empty directory", dir3, "wasn't removed."));
+  dir3.Reset();
+
+  TEST(dir4.Exists(), ());
+
+  TEST(!absentCountryIndexesDir.Exists(), ("Indexes for absent country weren't deleted."));
+  absentCountryIndexesDir.Reset();
+
+  TEST(irelandIndexesDir.Exists(), ());
 }
 
 UNIT_TEST(LocalCountryFile_CleanupPartiallyDownloadedFiles)
@@ -200,7 +215,11 @@ UNIT_TEST(LocalCountryFile_CleanupPartiallyDownloadedFiles)
       {my::JoinFoldersToPath(latestDir.GetRelativePath(), "Russia_Southern.mwm.downloading"),
        "Southern Russia map"}};
 
-  CleanupMapsDirectory(101010 /* latestVersion */);
+  auto const isCountryName = [&](string const & /* filename */)
+  {
+    return false;
+  };
+  CleanupMapsDirectory(101010 /* latestVersion */, isCountryName);
 
   for (ScopedFile & file : toBeDeleted)
   {

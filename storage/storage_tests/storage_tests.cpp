@@ -12,6 +12,7 @@
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
+#include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
 
 #include "coding/file_name_utils.hpp"
@@ -731,5 +732,31 @@ UNIT_TEST(StorageTest_EmptyRoutingFile)
   auto checker = AbsentCountryDownloaderChecker(storage, index, MapOptions::MapWithCarRouting);
   checker->StartDownload();
   runner.Run();
+}
+
+UNIT_TEST(StorageTest_ObsoleteMapsRemoval)
+{
+  CountryFile country("Azerbaijan");
+
+  tests_support::ScopedDir dir1("1");
+  tests_support::ScopedFile map1(dir1, country, MapOptions::Map, "map1");
+  LocalCountryFile file1(dir1.GetFullPath(), country, 1 /* version */);
+  CountryIndexes::PreparePlaceOnDisk(file1);
+
+  tests_support::ScopedDir dir2("2");
+  tests_support::ScopedFile map2(dir2, country, MapOptions::Map, "map2");
+  LocalCountryFile file2(dir2.GetFullPath(), country, 2 /* version */);
+  CountryIndexes::PreparePlaceOnDisk(file2);
+
+  TEST(map1.Exists(), ());
+  TEST(map2.Exists(), ());
+
+  Storage storage;
+  storage.RegisterAllLocalMaps();
+
+  TEST(!map1.Exists(), ());
+  map1.Reset();
+
+  TEST(map2.Exists(), ());
 }
 }  // namespace storage

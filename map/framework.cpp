@@ -477,7 +477,11 @@ void Framework::RegisterAllMaps()
          ("Registering maps while map downloading leads to removing downloading maps from "
           "ActiveMapsListener::m_items."));
 
-  platform::CleanupMapsDirectory(m_storage.GetCurrentDataVersion());
+  auto const isCountryName = [this](string const & filename)
+  {
+    return m_storage.FindIndexByFile(filename).IsValid();
+  };
+  platform::CleanupMapsDirectory(m_storage.GetCurrentDataVersion(), isCountryName);
   m_storage.RegisterAllLocalMaps();
 
   int minFormat = numeric_limits<int>::max();
