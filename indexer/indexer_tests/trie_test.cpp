@@ -47,7 +47,8 @@ struct KeyValuePair
   template <class TString>
   KeyValuePair(TString const & key, int value)
     : m_key(key.begin(), key.end()), m_value(value)
-  {}
+  {
+  }
 
   uint32_t GetKeySize() const { return m_key.size(); }
   trie::TrieChar const * GetKeyData() const { return m_key.data(); }
@@ -57,12 +58,12 @@ struct KeyValuePair
 
   inline size_t value_size() const { return sizeof(m_value); }
 
-  bool operator == (KeyValuePair const & p) const
+  bool operator==(KeyValuePair const & p) const
   {
     return (m_key == p.m_key && m_value == p.m_value);
   }
 
-  bool operator < (KeyValuePair const & p) const
+  bool operator<(KeyValuePair const & p) const
   {
     return ((m_key != p.m_key) ? m_key < p.m_key : m_value < p.m_value);
   }
@@ -94,8 +95,7 @@ struct KeyValuePairBackInserter
 };
 
 // The SingleValueSerializer and ValueList classes are similar to
-// those in indexer/string_file_values.hpp but that file
-// is not included to avoid coding_tests's dependency from indexer.
+// those in indexer/string_file_values.hpp.
 template <typename TPrimitive>
 class SingleValueSerializer
 {
@@ -179,30 +179,29 @@ UNIT_TEST(TrieBuilder_WriteNode_Smoke)
   valueList.Init({'1', '2', '3'});
   trie::WriteNode(sink, SingleValueSerializer<char>(), 0, valueList, &children[0],
                   &children[0] + ARRAY_SIZE(children));
-  uint8_t const expected [] =
-  {
-    BOOST_BINARY(11000101),                                                 // Header: [0b11] [0b000101]
-    3,                                                                      // Number of values
-    '1', '2', '3',                                                          // Values
-    BOOST_BINARY(10000001),                                                 // Child 1: header: [+leaf] [-supershort]  [2 symbols]
-    MKUC(ZENC(MKSC('1'))), MKUC(ZENC(MKSC('A') - MKSC('1'))),               // Child 1: edge
-    1,                                                                      // Child 1: size
-    MKUC(64 | ZENC(MKSC('B') - MKSC('1'))),                                 // Child 2: header: [-leaf] [+supershort]
-    2,                                                                      // Child 2: size
-    BOOST_BINARY(00000001),                                                 // Child 3: header: [-leaf] [-supershort]  [2 symbols]
-    MKUC(ZENC(MKSC('z') - MKSC('B'))), 0,                                   // Child 3: edge
-    3,                                                                      // Child 3: size
-    BOOST_BINARY(10111111),                                                 // Child 4: header: [+leaf] [-supershort]  [>= 63 symbols]
-    69,                                                                     // Child 4: edgeSize - 1
-    MKUC(ZENC(MKSC('a') - MKSC('z'))), 2,2,2,2,2,2,2,2,2,                   // Child 4: edge
-    MKUC(ZENC(MKSC('a') - MKSC('j'))), 2,2,2,2,2,2,2,2,2,                   // Child 4: edge
-    MKUC(ZENC(MKSC('a') - MKSC('j'))), 2,2,2,2,2,2,2,2,2,                   // Child 4: edge
-    MKUC(ZENC(MKSC('a') - MKSC('j'))), 2,2,2,2,2,2,2,2,2,                   // Child 4: edge
-    MKUC(ZENC(MKSC('a') - MKSC('j'))), 2,2,2,2,2,2,2,2,2,                   // Child 4: edge
-    MKUC(ZENC(MKSC('a') - MKSC('j'))), 2,2,2,2,2,2,2,2,2,                   // Child 4: edge
-    MKUC(ZENC(MKSC('a') - MKSC('j'))), 2,2,2,2,2,2,2,2,2,                   // Child 4: edge
-    4,                                                                      // Child 4: size
-    MKUC(BOOST_BINARY(11000000) | ZENC(0)),                                 // Child 5: header: [+leaf] [+supershort]
+  uint8_t const expected[] = {
+      BOOST_BINARY(11000101),  // Header: [0b11] [0b000101]
+      3,                       // Number of values
+      '1', '2', '3',           // Values
+      BOOST_BINARY(10000001),  // Child 1: header: [+leaf] [-supershort]  [2 symbols]
+      MKUC(ZENC(MKSC('1'))), MKUC(ZENC(MKSC('A') - MKSC('1'))),  // Child 1: edge
+      1,                                                         // Child 1: size
+      MKUC(64 | ZENC(MKSC('B') - MKSC('1'))),  // Child 2: header: [-leaf] [+supershort]
+      2,                                       // Child 2: size
+      BOOST_BINARY(00000001),                // Child 3: header: [-leaf] [-supershort]  [2 symbols]
+      MKUC(ZENC(MKSC('z') - MKSC('B'))), 0,  // Child 3: edge
+      3,                                     // Child 3: size
+      BOOST_BINARY(10111111),  // Child 4: header: [+leaf] [-supershort]  [>= 63 symbols]
+      69,                      // Child 4: edgeSize - 1
+      MKUC(ZENC(MKSC('a') - MKSC('z'))), 2, 2, 2, 2, 2, 2, 2, 2, 2,  // Child 4: edge
+      MKUC(ZENC(MKSC('a') - MKSC('j'))), 2, 2, 2, 2, 2, 2, 2, 2, 2,  // Child 4: edge
+      MKUC(ZENC(MKSC('a') - MKSC('j'))), 2, 2, 2, 2, 2, 2, 2, 2, 2,  // Child 4: edge
+      MKUC(ZENC(MKSC('a') - MKSC('j'))), 2, 2, 2, 2, 2, 2, 2, 2, 2,  // Child 4: edge
+      MKUC(ZENC(MKSC('a') - MKSC('j'))), 2, 2, 2, 2, 2, 2, 2, 2, 2,  // Child 4: edge
+      MKUC(ZENC(MKSC('a') - MKSC('j'))), 2, 2, 2, 2, 2, 2, 2, 2, 2,  // Child 4: edge
+      MKUC(ZENC(MKSC('a') - MKSC('j'))), 2, 2, 2, 2, 2, 2, 2, 2, 2,  // Child 4: edge
+      4,                                                             // Child 4: size
+      MKUC(BOOST_BINARY(11000000) | ZENC(0)),  // Child 5: header: [+leaf] [+supershort]
   };
 
   TEST_EQUAL(buf, vector<uint8_t>(&expected[0], &expected[0] + ARRAY_SIZE(expected)), ());
@@ -216,7 +215,7 @@ UNIT_TEST(TrieBuilder_Build)
   vector<string> possibleStrings(1, string());
   for (int len = 1; len <= maxLen; ++len)
   {
-    for (int i = 0, p = static_cast<int>(pow((double) base, len)); i < p; ++i)
+    for (int i = 0, p = static_cast<int>(pow((double)base, len)); i < p; ++i)
     {
       string s(len, 'A');
       int t = i;
@@ -232,28 +231,31 @@ UNIT_TEST(TrieBuilder_Build)
   for (int i0 = -1; i0 < count; ++i0)
     for (int i1 = i0; i1 < count; ++i1)
       for (int i2 = i1; i2 < count; ++i2)
-  {
-    vector<KeyValuePair> v;
-    if (i0 >= 0) v.push_back(KeyValuePair(possibleStrings[i0], i0));
-    if (i1 >= 0) v.push_back(KeyValuePair(possibleStrings[i1], i1 + 10));
-    if (i2 >= 0) v.push_back(KeyValuePair(possibleStrings[i2], i2 + 100));
-    vector<string> vs;
-    for (size_t i = 0; i < v.size(); ++i)
-      vs.push_back(string(v[i].m_key.begin(), v[i].m_key.end()));
+      {
+        vector<KeyValuePair> v;
+        if (i0 >= 0)
+          v.push_back(KeyValuePair(possibleStrings[i0], i0));
+        if (i1 >= 0)
+          v.push_back(KeyValuePair(possibleStrings[i1], i1 + 10));
+        if (i2 >= 0)
+          v.push_back(KeyValuePair(possibleStrings[i2], i2 + 100));
+        vector<string> vs;
+        for (size_t i = 0; i < v.size(); ++i)
+          vs.push_back(string(v[i].m_key.begin(), v[i].m_key.end()));
 
-    vector<uint8_t> buf;
-    PushBackByteSink<vector<uint8_t>> sink(buf);
-    SingleValueSerializer<uint32_t> serializer;
-    trie::Build<PushBackByteSink<vector<uint8_t>>, typename vector<KeyValuePair>::iterator,
-                ValueList<uint32_t>>(sink, serializer, v.begin(), v.end());
-    reverse(buf.begin(), buf.end());
+        vector<uint8_t> buf;
+        PushBackByteSink<vector<uint8_t>> sink(buf);
+        SingleValueSerializer<uint32_t> serializer;
+        trie::Build<PushBackByteSink<vector<uint8_t>>, typename vector<KeyValuePair>::iterator,
+                    ValueList<uint32_t>>(sink, serializer, v.begin(), v.end());
+        reverse(buf.begin(), buf.end());
 
-    MemReader memReader = MemReader(&buf[0], buf.size());
-    auto const root = trie::ReadTrie<MemReader, ValueList<uint32_t>>(memReader, serializer);
-    vector<KeyValuePair> res;
-    KeyValuePairBackInserter f;
-    trie::ForEachRef(*root, f, vector<trie::TrieChar>());
-    sort(f.m_v.begin(), f.m_v.end());
-    TEST_EQUAL(v, f.m_v, ());
-  }
+        MemReader memReader = MemReader(&buf[0], buf.size());
+        auto const root = trie::ReadTrie<MemReader, ValueList<uint32_t>>(memReader, serializer);
+        vector<KeyValuePair> res;
+        KeyValuePairBackInserter f;
+        trie::ForEachRef(*root, f, vector<trie::TrieChar>());
+        sort(f.m_v.begin(), f.m_v.end());
+        TEST_EQUAL(v, f.m_v, ());
+      }
 }

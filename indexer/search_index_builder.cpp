@@ -14,7 +14,7 @@
 #include "indexer/trie_builder.hpp"
 #include "indexer/types_skipper.hpp"
 
-#include "search/search_common.hpp"  // for MAX_TOKENS constant
+#include "search/search_common.hpp"
 
 #include "defines.hpp"
 

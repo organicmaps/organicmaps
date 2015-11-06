@@ -245,7 +245,7 @@ int main(int argc, char ** argv)
     feature::DumpPrefixes(datFile);
 
   if (FLAGS_dump_search_tokens)
-    feature::DumpSearchTokens(datFile);
+    feature::DumpSearchTokens(datFile, 100 /* maxTokensToShow */);
 
   if (FLAGS_unpack_mwm)
     UnpackMwm(datFile);

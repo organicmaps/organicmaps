@@ -18,7 +18,8 @@
 //   -- Serialized Huffman encoding.
 //   -- Topology of the trie built on Huffman-encoded input strings [2 bits per node, level-order representation].
 //   -- List of pairs (node id, offset). One pair per final node (i.e. a node where a string ends).
-//      The lists of node ids and offsets are both non-decreasing and are delta-encoded with varuints.
+//      The lists of node ids and offsets are both non-decreasing and are delta-encoded with
+//      varuints.
 //   -- Values of final nodes in level-order. The values for final node |id| start at offset |offset|
 //      if there is a pair (id, offset) in the list above.
 

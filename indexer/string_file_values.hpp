@@ -31,7 +31,7 @@ struct FeatureIndexValue
 
   bool operator==(FeatureIndexValue const & o) const { return m_featureId == o.m_featureId; }
 
-  void Swap(FeatureIndexValue & o) { ::swap(m_featureId, o.m_featureId); }
+  void Swap(FeatureIndexValue & o) { swap(m_featureId, o.m_featureId); }
 
   uint64_t m_featureId;
 };
@@ -150,7 +150,7 @@ public:
   ValueList(ValueList<FeatureIndexValue> const & o)
   {
     if (o.m_cbv)
-      m_cbv = coding::CompressedBitVectorBuilder::FromCBV(*o.m_cbv);
+      m_cbv = o.m_cbv->Clone();
   }
 
   void Init(vector<FeatureIndexValue> const & values)
@@ -158,7 +158,7 @@ public:
     vector<uint64_t> ids(values.size());
     for (size_t i = 0; i < ids.size(); ++i)
       ids[i] = values[i].m_featureId;
-    m_cbv = coding::CompressedBitVectorBuilder::FromBitPositions(ids);
+    m_cbv = coding::CompressedBitVectorBuilder::FromBitPositions(move(ids));
   }
 
   // This method returns number of values in the current instance of
@@ -172,7 +172,7 @@ public:
     return (m_cbv && m_cbv->PopCount() != 0) ? 1 : 0;
   }
 
-  bool IsEmpty() const { return !m_cbv || m_cbv->PopCount() == 0; }
+  bool IsEmpty() const { return Size() == 0; }
 
   template <typename TSink>
   void Serialize(TSink & sink, SingleValueSerializer<TValue> const & /* serializer */) const

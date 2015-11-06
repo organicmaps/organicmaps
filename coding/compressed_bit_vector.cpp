@@ -231,6 +231,14 @@ void DenseCBV::Serialize(Writer & writer) const
   rw::WriteVectorOfPOD(writer, m_bitGroups);
 }
 
+unique_ptr<CompressedBitVector> DenseCBV::Clone() const
+{
+  DenseCBV * cbv = new DenseCBV();
+  cbv->m_popCount = m_popCount;
+  cbv->m_bitGroups = m_bitGroups;
+  return unique_ptr<CompressedBitVector>(cbv);
+}
+
 SparseCBV::SparseCBV(vector<uint64_t> const & setBits) : m_positions(setBits)
 {
   ASSERT(is_sorted(m_positions.begin(), m_positions.end()), ());
@@ -267,6 +275,13 @@ void SparseCBV::Serialize(Writer & writer) const
   rw::WriteVectorOfPOD(writer, m_positions);
 }
 
+unique_ptr<CompressedBitVector> SparseCBV::Clone() const
+{
+  SparseCBV * cbv = new SparseCBV();
+  cbv->m_positions = m_positions;
+  return unique_ptr<CompressedBitVector>(cbv);
+}
+
 // static
 unique_ptr<CompressedBitVector> CompressedBitVectorBuilder::FromBitPositions(
     vector<uint64_t> const & setBits)
@@ -290,7 +305,7 @@ unique_ptr<CompressedBitVector> CompressedBitVectorBuilder::FromBitGroups(
   while (!bitGroups.empty() && bitGroups.back() == 0)
     bitGroups.pop_back();
   if (bitGroups.empty())
-    return make_unique<SparseCBV>(bitGroups);
+    return make_unique<SparseCBV>(move(bitGroups));
 
   uint64_t const maxBit = kBlockSize * (bitGroups.size() - 1) + bits::CeilLog(bitGroups.back());
   uint64_t popCount = 0;
@@ -310,28 +325,6 @@ unique_ptr<CompressedBitVector> CompressedBitVectorBuilder::FromBitGroups(
     }
   }
   return make_unique<SparseCBV>(setBits);
-}
-
-// static
-unique_ptr<CompressedBitVector> CompressedBitVectorBuilder::FromCBV(CompressedBitVector const & cbv)
-{
-  auto strat = cbv.GetStorageStrategy();
-  switch (strat)
-  {
-  case CompressedBitVector::StorageStrategy::Dense:
-  {
-    DenseCBV const & dense = static_cast<DenseCBV const &>(cbv);
-    auto bitGroups = dense.m_bitGroups;
-    return CompressedBitVectorBuilder::FromBitGroups(move(bitGroups));
-  }
-  case CompressedBitVector::StorageStrategy::Sparse:
-  {
-    SparseCBV const & sparse = static_cast<SparseCBV const &>(cbv);
-    return CompressedBitVectorBuilder::FromBitPositions(sparse.m_positions);
-  }
-  }
-  CHECK(false, ("Unknown strategy when building a compressed bit vector."));
-  return unique_ptr<CompressedBitVector>();
 }
 
 string DebugPrint(CompressedBitVector::StorageStrategy strat)

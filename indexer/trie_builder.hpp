@@ -49,15 +49,18 @@ void WriteNode(TSink & sink, TSerializer const & serializer, TrieChar baseChar,
   uint32_t const valueCount = valueList.Size();
   if (begChild == endChild && !isRoot)
   {
-    // Leaf node.
+// Leaf node.
 #ifdef DEBUG
     auto posBefore = sink.Pos();
 #endif
+
     valueList.Serialize(sink, serializer);
+
 #ifdef DEBUG
     if (valueCount == 0)
       ASSERT_EQUAL(sink.Pos(), posBefore, ("Empty valueList must produce an empty serialization."));
 #endif
+
     return;
   }
   uint32_t const childCount = endChild - begChild;
@@ -215,7 +218,8 @@ void AppendValue(TNodeInfo & node, TValue const & value)
   // sorted order and we can avoid sorting them before doing
   // further operations such as ValueList construction.
   using namespace std::rel_ops;
-  ASSERT(node.m_temporaryValueList.empty() || node.m_temporaryValueList.back() <= value, ());
+  ASSERT(node.m_temporaryValueList.empty() || node.m_temporaryValueList.back() <= value,
+         (node.m_temporaryValueList.size()));
   if (!node.m_temporaryValueList.empty() && node.m_temporaryValueList.back() == value)
     return;
   if (node.m_mayAppend)

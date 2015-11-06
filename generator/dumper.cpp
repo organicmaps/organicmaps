@@ -1,9 +1,9 @@
 #include "generator/dumper.hpp"
 
-#include "indexer/search_delimiters.hpp"
-#include "indexer/search_string_utils.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/feature_processor.hpp"
+#include "indexer/search_delimiters.hpp"
+#include "indexer/search_string_utils.hpp"
 #include "indexer/search_trie.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
@@ -12,9 +12,9 @@
 
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
+#include "std/functional.hpp"
 #include "std/iostream.hpp"
 #include "std/map.hpp"
-#include "std/queue.hpp"
 #include "std/vector.hpp"
 
 namespace
@@ -22,40 +22,30 @@ namespace
 template <typename TValue>
 struct SearchTokensCollector
 {
-  priority_queue<pair<uint32_t, strings::UniString>> tokens;
-  strings::UniString m_currentS;
-  uint32_t m_currentCount;
-
   SearchTokensCollector() : m_currentS(), m_currentCount(0) {}
 
   void operator()(strings::UniString const & s, TValue const & /* value */)
   {
-    if (m_currentS == s)
-    {
-      ++m_currentCount;
-    }
-    else
+    if (m_currentS != s)
     {
       if (m_currentCount > 0)
-      {
-        tokens.push(make_pair(m_currentCount, m_currentS));
-        if (tokens.size() > 100)
-          tokens.pop();
-      }
+        m_tokens.emplace_back(m_currentCount, m_currentS);
       m_currentS = s;
       m_currentCount = 0;
     }
+    ++m_currentCount;
   }
 
   void Finish()
   {
     if (m_currentCount > 0)
-    {
-      tokens.push(make_pair(m_currentCount, m_currentS));
-      if (tokens.size() > 100)
-        tokens.pop();
-    }
+      m_tokens.emplace_back(m_currentCount, m_currentS);
+    sort(m_tokens.begin(), m_tokens.end(), greater<pair<uint32_t, strings::UniString>>());
   }
+
+  vector<pair<uint32_t, strings::UniString>> m_tokens;
+  strings::UniString m_currentS;
+  uint32_t m_currentCount;
 };
 }  // namespace
 
@@ -198,7 +188,7 @@ namespace feature
     }
   }
 
-  void DumpSearchTokens(string const & fPath)
+  void DumpSearchTokens(string const & fPath, size_t maxTokensToShow)
   {
     using TValue = FeatureIndexValue;
 
@@ -213,11 +203,11 @@ namespace feature
     trie::ForEachRef(*trieRoot, f, strings::UniString());
     f.Finish();
 
-    while (!f.tokens.empty())
+    auto freqTokenPairs = f.m_tokens;
+    for (size_t i = 0; i < min(maxTokensToShow, freqTokenPairs.size()); ++i)
     {
-      strings::UniString const & s = f.tokens.top().second;
-      cout << f.tokens.top().first << " '" << strings::ToUtf8(s) << "'" << endl;
-      f.tokens.pop();
+      auto const & s = f.m_tokens[i].second;
+      cout << f.m_tokens[i].first << " " << strings::ToUtf8(s) << endl;
     }
   }
 

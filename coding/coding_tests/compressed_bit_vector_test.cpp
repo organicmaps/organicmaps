@@ -229,7 +229,7 @@ UNIT_TEST(CompressedBitVector_SerializationDense)
     cbv->Serialize(writer);
   }
   MemReader reader(buf.data(), buf.size());
-  auto cbv = coding::CompressedBitVectorBuilder::Deserialize(reader);
+  auto cbv = coding::CompressedBitVectorBuilder::DeserializeFromReader(reader);
   TEST(cbv.get(), ());
   TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Dense, cbv->GetStorageStrategy(), ());
   TEST_EQUAL(setBits.size(), cbv->PopCount(), ());
@@ -254,7 +254,7 @@ UNIT_TEST(CompressedBitVector_SerializationSparse)
     cbv->Serialize(writer);
   }
   MemReader reader(buf.data(), buf.size());
-  auto cbv = coding::CompressedBitVectorBuilder::Deserialize(reader);
+  auto cbv = coding::CompressedBitVectorBuilder::DeserializeFromReader(reader);
   TEST(cbv.get(), ());
   TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Sparse, cbv->GetStorageStrategy(), ());
   TEST_EQUAL(setBits.size(), cbv->PopCount(), ());

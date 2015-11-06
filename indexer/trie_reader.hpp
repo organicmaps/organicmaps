@@ -31,10 +31,9 @@ public:
     return make_unique<LeafIterator0<TValueList, TSerializer>>(*this);
   }
 
-  unique_ptr<Iterator<TValueList>> GoToEdge(size_t i) const override
+  unique_ptr<Iterator<TValueList>> GoToEdge(size_t /* i */) const override
   {
-    ASSERT(false, (i));
-    UNUSED_VALUE(i);
+    ASSERT(false, ());
     return nullptr;
   }
 };
@@ -63,7 +62,7 @@ public:
   {
     ASSERT_LESS(i, this->m_edge.size(), ());
     uint32_t const offset = m_edgeInfo[i].m_offset;
-    uint32_t const size = m_edgeInfo[i+1].m_offset - offset;
+    uint32_t const size = m_edgeInfo[i + 1].m_offset - offset;
 
     if (m_edgeInfo[i].m_isLeaf)
     {

@@ -8,7 +8,6 @@
 
 namespace trie
 {
-
 typedef uint32_t TrieChar;
 
 // 95 is a good value for the default baseChar, since both small and capital latin letters
@@ -19,7 +18,7 @@ static uint32_t const DEFAULT_CHAR = 0;
 template <typename TValueList>
 class Iterator
 {
-  //dbg::ObjectTracker m_tracker;
+  // dbg::ObjectTracker m_tracker;
 
 public:
   using TValue = typename TValueList::TValue;
@@ -46,7 +45,7 @@ struct EmptyValueReader
   EmptyValueReader() = default;
 
   template <typename SourceT>
-  void operator() (SourceT &, ValueType & value) const
+  void operator()(SourceT &, ValueType & value) const
   {
     value = 0;
   }
@@ -61,7 +60,7 @@ struct FixedSizeValueReader
   };
 
   template <typename SourceT>
-  void operator() (SourceT & src, ValueType & value) const
+  void operator()(SourceT & src, ValueType & value) const
   {
     src.Read(&value.m_data[0], N);
   }
