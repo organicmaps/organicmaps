@@ -1316,3 +1316,6 @@
 "search_history_text" = "เข้าถึงคำถามที่ใช้ในการค้นหาเมื่อเร็ว ๆ นี้ได้อย่างรวดเร็ว";
 
 "clear_search" = "ล้างการค้นหาประวัติ";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Wikipedia";

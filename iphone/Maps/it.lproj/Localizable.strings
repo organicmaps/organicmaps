@@ -1316,3 +1316,6 @@
 "search_history_text" = "Accedi velocemente alle stringhe di ricerca recenti.";
 
 "clear_search" = "Cancella сronologia ricerche";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Wikipedia";

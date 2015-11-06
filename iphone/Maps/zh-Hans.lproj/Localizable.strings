@@ -1316,3 +1316,6 @@
 "search_history_text" = "快速访问最近的搜索查询。";
 
 "clear_search" = "清除历史搜索";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Wikipedia";

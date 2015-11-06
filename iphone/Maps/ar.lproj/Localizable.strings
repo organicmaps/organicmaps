@@ -1316,3 +1316,6 @@
 "search_history_text" = "الوصول إلى استعلامات البحث الحديثة بسرعة.";
 
 "clear_search" = "مسح تاريخ البحث";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Wikipedia";
