@@ -46,6 +46,7 @@ bool Blending::operator == (Blending const & other) const
 
 GLState::GLState(uint32_t gpuProgramIndex, DepthLayer depthLayer)
   : m_gpuProgramIndex(gpuProgramIndex)
+  , m_gpuProgram3dIndex(gpuProgramIndex)
   , m_depthLayer(depthLayer)
   , m_depthFunction(gl_const::GLLessOrEqual)
   , m_textureFilter(gl_const::GLLinear)
@@ -82,6 +83,8 @@ bool GLState::operator<(GLState const & other) const
     return m_blending < other.m_blending;
   if (m_gpuProgramIndex != other.m_gpuProgramIndex)
     return m_gpuProgramIndex < other.m_gpuProgramIndex;
+  if (m_gpuProgram3dIndex != other.m_gpuProgram3dIndex)
+    return m_gpuProgram3dIndex < other.m_gpuProgram3dIndex;
   if (m_colorTexture != other.m_colorTexture)
     return m_colorTexture < other.m_colorTexture;
 
@@ -92,6 +95,7 @@ bool GLState::operator==(GLState const & other) const
 {
   return m_depthLayer == other.m_depthLayer &&
          m_gpuProgramIndex == other.m_gpuProgramIndex &&
+         m_gpuProgram3dIndex == other.m_gpuProgram3dIndex &&
          m_blending == other.m_blending &&
          m_colorTexture == other.m_colorTexture &&
          m_maskTexture == other.m_maskTexture;

@@ -187,7 +187,8 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
   layout.Cache(glsl::vec3(glsl::ToVec2(m_basePoint), m_params.m_depth),
                baseOffset, color, staticBuffer, dynamicBuffer);
 
-  dp::GLState state(gpu::TEXT_BILLBOARD_PROGRAM, dp::GLState::OverlayLayer);
+  dp::GLState state(gpu::TEXT_PROGRAM, dp::GLState::OverlayLayer);
+  state.SetProgram3dIndex(gpu::TEXT_BILLBOARD_PROGRAM);
   ASSERT(color.GetTexture() == outline.GetTexture(), ());
   state.SetColorTexture(color.GetTexture());
   state.SetMaskTexture(layout.GetMaskTexture());
@@ -230,7 +231,8 @@ void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::Fon
   layout.Cache(glsl::vec3(glsl::ToVec2(m_basePoint), m_params.m_depth),
                baseOffset, color, outline, staticBuffer, dynamicBuffer);
 
-  dp::GLState state(gpu::TEXT_OUTLINED_BILLBOARD_PROGRAM, dp::GLState::OverlayLayer);
+  dp::GLState state(gpu::TEXT_OUTLINED_PROGRAM, dp::GLState::OverlayLayer);
+  state.SetProgram3dIndex(gpu::TEXT_OUTLINED_BILLBOARD_PROGRAM);
   ASSERT(color.GetTexture() == outline.GetTexture(), ());
   state.SetColorTexture(color.GetTexture());
   state.SetMaskTexture(layout.GetMaskTexture());

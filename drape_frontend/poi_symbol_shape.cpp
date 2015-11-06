@@ -43,7 +43,8 @@ void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManag
                                glsl::vec2(texRect.maxX(), texRect.minY())},
   };
 
-  dp::GLState state(gpu::TEXTURING_BILLBOARD_PROGRAM, dp::GLState::OverlayLayer);
+  dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::OverlayLayer);
+  state.SetProgram3dIndex(gpu::TEXTURING_BILLBOARD_PROGRAM);
   state.SetColorTexture(region.GetTexture());
   state.SetTextureFilter(gl_const::GLNearest);
 

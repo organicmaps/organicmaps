@@ -137,7 +137,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       dp::GLState const & state = msg->GetState();
       TileKey const & key = msg->GetKey();
       drape_ptr<dp::RenderBucket> bucket = msg->AcceptBuffer();
-      ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
+      ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(m_useFramebuffer ? state.GetProgram3dIndex()
+                                                                                         : state.GetProgramIndex());
       program->Bind();
       bucket->GetBuffer()->Build(program);
       if (!IsUserMarkLayer(key))
@@ -849,10 +850,8 @@ bool FrontendRenderer::IsBillboardProgram(int programIndex) const
 
 void FrontendRenderer::RenderSingleGroup(ScreenBase const & modelView, ref_ptr<BaseRenderGroup> group)
 {
-  dp::GLState const & state = group->GetState();
-  bool const isBillboardProgram = IsBillboardProgram(state.GetProgramIndex());
-
-  if (m_useFramebuffer && (m_isBillboardRenderPass != isBillboardProgram))
+  if (m_useFramebuffer &&
+      (m_isBillboardRenderPass != IsBillboardProgram(group->GetState().GetProgram3dIndex())))
     return;
 
   group->UpdateAnimation();

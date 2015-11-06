@@ -59,6 +59,9 @@ public:
 
   int GetProgramIndex() const { return m_gpuProgramIndex; }
 
+  void SetProgram3dIndex(uint32_t gpuProgram3dIndex) { m_gpuProgram3dIndex = gpuProgram3dIndex; }
+  int GetProgram3dIndex() const { return m_gpuProgram3dIndex; }
+
   glConst GetDepthFunction() const;
   void SetDepthFunction(glConst functionName);
 
@@ -70,6 +73,7 @@ public:
 
 private:
   uint32_t m_gpuProgramIndex;
+  uint32_t m_gpuProgram3dIndex;
   DepthLayer m_depthLayer;
   Blending m_blending;
   glConst m_depthFunction;

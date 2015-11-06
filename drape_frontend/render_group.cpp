@@ -75,8 +75,9 @@ void RenderGroup::Render(ScreenBase const & screen)
 
   auto const & params = df::VisualParams::Instance().GetGlyphVisualParams();
   int programIndex = m_state.GetProgramIndex();
+  int program3dIndex = m_state.GetProgram3dIndex();
   if (programIndex == gpu::TEXT_OUTLINED_PROGRAM ||
-      programIndex == gpu::TEXT_OUTLINED_BILLBOARD_PROGRAM)
+      program3dIndex == gpu::TEXT_OUTLINED_BILLBOARD_PROGRAM)
   {
     m_uniforms.SetFloatValue("u_contrastGamma", params.m_outlineContrast, params.m_outlineGamma);
     m_uniforms.SetFloatValue("u_isOutlinePass", 1.0f);
@@ -92,7 +93,7 @@ void RenderGroup::Render(ScreenBase const & screen)
       renderBucket->Render(screen);
   }
   else if (programIndex == gpu::TEXT_PROGRAM ||
-          programIndex == gpu::TEXT_BILLBOARD_PROGRAM)
+           program3dIndex == gpu::TEXT_BILLBOARD_PROGRAM)
   {
     m_uniforms.SetFloatValue("u_contrastGamma", params.m_contrast, params.m_gamma);
     dp::ApplyUniforms(m_uniforms, m_shader);
