@@ -20,7 +20,7 @@
 	<!-- Settings/Downloader - No internet connection dialog title -->
 	<text id="IDS_NO_INTERNET_CONNECTION_DETECTED">Připojení k Internetu nenalezeno</text>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<text id="IDS_NO_WIFI_ASK_CELLULAR_DOWNLOAD">Připojení k WiFi nenalezeno. Chceš použít mobilní sítě (GPRS, EDGE nebo 3G) pro stažení %s?</text>
+	<text id="IDS_NO_WIFI_ASK_CELLULAR_DOWNLOAD">Připojení k WiFi nenalezeno. Chcete použít mobilní sítě (GPRS, EDGE nebo 3G) pro stažení %s?</text>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<text id="IDS_USE_WIFI_RECOMMENDATION_TEXT">Pro stahování větších map doporučujeme používat WiFi</text>
 	<text id="IDS_DOWNLOAD">Stáhnout</text>
@@ -39,7 +39,7 @@
 	<!-- Measurement units title in settings activity -->
 	<text id="IDS_MEASUREMENT_UNITS">Měřicí jednotky</text>
 	<!-- Detailed description of Measurement Units settings button -->
-	<text id="IDS_MEASUREMENT_UNITS_SUMMARY">Vyber si míle nebo kilometry</text>
+	<text id="IDS_MEASUREMENT_UNITS_SUMMARY">Vyberte si míle nebo kilometry</text>
 	<!-- Search Suggestion -->
 	<text id="IDS_FOOD">Jídlo</text>
 	<!-- Search Suggestion -->
@@ -74,7 +74,7 @@
 	<!-- resource for context menu -->
 	<text id="IDS_EDIT">Upravit</text>
 	<!-- Warning message when doing search around current position -->
-	<text id="IDS_UNKNOWN_CURRENT_POSITION">Tvá poloha zatím nebyla určena</text>
+	<text id="IDS_UNKNOWN_CURRENT_POSITION">Vaše poloha zatím nebyla určena</text>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<text id="IDS_BOOKMARK_SHARE_SMS">Koukni na mou značku na mapě. Otevři odkaz: %1$s nebo %2$s</text>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
@@ -82,7 +82,7 @@
 	<!-- Subject for emailed bookmark -->
 	<text id="IDS_BOOKMARK_SHARE_EMAIL_SUBJECT">Koukni na moji značku na mapě v MAPS.ME</text>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<text id="IDS_BOOKMARK_SHARE_EMAIL">Ahoj,\n\noznačil/a jsem: %1$s v MAPS.ME, offline mapách celého světa. Klepni na jeden z těchto odkazů %2$s, %3$s a uvidíš toto místo na mapě.\n\nDíky.</text>
+	<text id="IDS_BOOKMARK_SHARE_EMAIL">Ahoj,\n\noznačil/a jsem %1$s v MAPS.ME, offline mapách celého světa. Klepni na jeden z těchto odkazů %2$s, %3$s a uvidíš toto místo na mapě.\n\nDíky.</text>
 	<!-- Subject for emailed position -->
 	<text id="IDS_MY_POSITION_SHARE_EMAIL_SUBJECT">Podívej se na mou aktuální polohu na mapě na MAPS.ME</text>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
@@ -92,7 +92,7 @@
 	<!-- iOS share by Message button text (including SMS) -->
 	<text id="IDS_MESSAGE">Zpráva</text>
 	<!-- Share by email button text -->
-	<text id="IDS_EMAIL">E-Mail</text>
+	<text id="IDS_EMAIL">E-mail</text>
 	<!-- Copy Link -->
 	<text id="IDS_COPY_LINK">Zkopírovat odkaz</text>
 	<!-- Used for bookmark editing -->
@@ -100,7 +100,7 @@
 	<!-- Prints version number in About dialog -->
 	<text id="IDS_VERSION">Verze: %s</text>
 	<!-- Confirmation in downloading countries dialog -->
-	<text id="IDS_ARE_YOU_SURE">Opravdu chceš pokračovat?</text>
+	<text id="IDS_ARE_YOU_SURE">Opravdu chcete pokračovat?</text>
 	<text id="IDS_SHARE_MY_LOCATION">Sdílet mé umístění</text>
 	<text id="IDS_PREF_ZOOM_TITLE">Tlačítka přiblížení/oddálení</text>
 	<text id="IDS_PREF_ZOOM_SUMMARY">Zobrazit na obrazovce</text>
@@ -115,7 +115,7 @@
 	<!-- Update map suggestion -->
 	<text id="IDS_ROUTING_MAP_OUTDATED">Pro funkci vytváření tras je nutné aktualizovat mapu.</text>
 	<!-- Update maps suggestion -->
-	<text id="IDS_ROUTING_UPDATE_MAPS">Nová verze MAPS.ME umožňuje vytvářet trasy z tvé aktuální polohy do cílového bodu. Chceš-li tuto funkci používat, aktualizuj mapy.</text>
+	<text id="IDS_ROUTING_UPDATE_MAPS">Nová verze MAPS.ME umožňuje vytvářet trasy z vaší aktuální polohy do cílového bodu. Chcete-li tuto funkci používat, aktualizujte mapy.</text>
 	<!-- Update all button text -->
 	<text id="IDS_DOWNLOADER_UPDATE_ALL">Aktualizovat vše</text>
 	<!-- Cancel all button text -->
@@ -129,7 +129,7 @@
 	<!-- Country queued for download -->
 	<text id="IDS_DOWNLOADER_QUEUED">ve frontě</text>
 	<!-- Disclaimer message -->
-	<text id="IDS_ROUTING_DISCLAIMER">Při vytváření tras v aplikaci MAPS.ME měj, prosím, na paměti následující:\n\n - Navrhované trasy lze brát jen jako doporučení.\n - Pravidla silničního provozu, aktuální podmínky na silnici a dopravní značení mají přednost před údaji z navigace.\n - Mapa může být nepřesná nebo zastaralá a navržené cesty nemusí být ideální.\n\n  Cestuj bezpečně a ohleduplně. Šťastnou cestu!</text>
+	<text id="IDS_ROUTING_DISCLAIMER">Při vytváření tras v aplikaci MAPS.ME mějte, prosím, na paměti následující:\n\n • Navrhované trasy lze brát jen jako doporučení.\n • Pravidla silničního provozu, aktuální podmínky na silnici a dopravní značení mají přednost před údaji z navigace.\n • Mapa může být nepřesná nebo zastaralá a navržené cesty nemusí být ideální.\n\nCestujte bezpečně a ohleduplně. Šťastnou cestu!</text>
 	<!-- Outdated maps category -->
 	<text id="IDS_DOWNLOADER_OUTDATED_MAPS">Zastaralé</text>
 	<!-- Up to date maps category -->
