@@ -355,7 +355,7 @@ public:
   size_t ShowAllSearchResults(search::Results const & results);
   void UpdateSearchResults(search::Results const & results);
 
-  void StartInteractiveSearch(search::SearchParams const & params) { m_lastSearch = params; }
+  void StartInteractiveSearch(search::SearchParams const & params);
   bool IsISActive() const { return !m_lastSearch.m_query.empty(); }
   void CancelInteractiveSearch();
 

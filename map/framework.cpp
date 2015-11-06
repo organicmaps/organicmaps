@@ -995,12 +995,29 @@ void Framework::ShowRectFixedAR(m2::AnyRectD const & rect)
   Invalidate();
 }
 
+void Framework::StartInteractiveSearch(search::SearchParams const & params)
+{
+  using namespace search;
+
+  m_lastSearch = params;
+  m_lastSearch.SetForceSearch(false);
+  m_lastSearch.SetSearchMode(SearchParams::IN_VIEWPORT_ONLY | SearchParams::SEARCH_WORLD);
+  m_lastSearch.m_callback = [this](Results const & results)
+  {
+    if (!results.IsEndMarker())
+      GetPlatform().RunOnGuiThread([this, results]()
+      {
+        UpdateSearchResults(results);
+      });
+  };
+}
+
 void Framework::UpdateUserViewportChanged()
 {
   if (IsISActive())
   {
     (void)GetCurrentPosition(m_lastSearch.m_lat, m_lastSearch.m_lon);
-    m_lastSearch.SetForceSearch(false);
+
     m_searchEngine->Search(m_lastSearch, GetCurrentViewport());
   }
 }

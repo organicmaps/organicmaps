@@ -91,10 +91,16 @@ LocationObserver>
     dispatch_async(dispatch_get_main_queue(), [=]()
     {
       if (!results.IsEndMarker())
+      {
         searchResults = results;
+        [self updateSearchResultsInTable];
+      }
       else if (results.IsEndedNormal())
+      {
         [self completeSearch];
-      [self updateSearchResults];
+        if (IPAD)
+          GetFramework().UpdateUserViewportChanged();
+      }
     });
   };
 }
@@ -261,12 +267,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   }
 }
 
-- (void)updateSearchResultsOnMap
-{
-  if (self.searchOnMap)
-    GetFramework().UpdateSearchResults(searchResults);
-}
-
 - (void)updateSearchResultsInTable
 {
   if (!IPAD && _searchOnMap)
@@ -274,12 +274,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
   self.commonSizingCell = nil;
   [self.tableView reloadData];
-}
-
-- (void)updateSearchResults
-{
-  [self updateSearchResultsOnMap];
-  [self updateSearchResultsInTable];
 }
 
 #pragma mark - LocationObserver
@@ -312,26 +306,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   if (!searchParams.m_query.empty())
   {
     self.watchLocationUpdates = YES;
-    if (IPAD)
-    {
-      f.StartInteractiveSearch(searchParams);
-      f.UpdateUserViewportChanged();
-    }
-    else if (_searchOnMap)
-    {
-      search::SearchParams local(searchParams);
-      local.SetSearchMode(search::SearchParams::IN_VIEWPORT_ONLY |
-                          search::SearchParams::SEARCH_WORLD);
-      f.StartInteractiveSearch(local);
 
-      if (searchResults.GetCount() > 0)
-        f.ShowAllSearchResults(searchResults);
-      f.UpdateUserViewportChanged();
-    }
-    else
-    {
+    if (self.searchOnMap)
+      f.StartInteractiveSearch(searchParams);
+
+    if (!_searchOnMap)
       f.Search(searchParams);
-    }
+    else
+      f.ShowAllSearchResults(searchResults);
   }
   else
   {
