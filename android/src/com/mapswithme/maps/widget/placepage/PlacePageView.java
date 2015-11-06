@@ -26,6 +26,7 @@ import com.mapswithme.maps.bookmarks.data.*;
 import com.mapswithme.maps.bookmarks.data.MapObject.MapObjectType;
 import com.mapswithme.maps.bookmarks.data.MapObject.Poi;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.maps.widget.BaseShadowController;
 import com.mapswithme.maps.widget.ObservableScrollView;
@@ -93,8 +94,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private View mApiBack;
   private ImageView mIvBookmark;
   private View mRoutingButton;
-  private View mRouteButtonFrom;
-  private View mRouteButtonTo;
   // Animations
   private BaseShadowController mShadowController;
   private BasePlacePageAnimationController mAnimationController;
@@ -213,12 +212,31 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mRoutingButton = mGeneralButtonsFrame.findViewById(R.id.ll__route);
 
     mRouteButtonsFrame = ppButtons.findViewById(R.id.routing);
-    mRouteButtonFrom = mRouteButtonsFrame.findViewById(R.id.from);
-    mRouteButtonTo = mRouteButtonsFrame.findViewById(R.id.to);
+    mRouteButtonsFrame.findViewById(R.id.from).setOnClickListener(new OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        if (RoutingController.get().setStartPoint(mMapObject) &&
+            (isDocked() || !isFloating()))
+          hide();
+      }
+    });
+
+    mRouteButtonsFrame.findViewById(R.id.to).setOnClickListener(new OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        if (RoutingController.get().setEndPoint(mMapObject) &&
+            (isDocked() || !isFloating()))
+          hide();
+      }
+    });
 
     mShadowController = new ScrollViewShadowController((ObservableScrollView) mPpDetails)
-        .addBottomShadow()
-        .attach();
+                            .addBottomShadow()
+                            .attach();
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
       setElevation(UiUtils.dimen(R.dimen.appbar_elevation));
@@ -318,11 +336,11 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     return false;
   }
 
-  private void refreshViews()
+  public void refreshViews()
   {
     if (mMapObject != null)
     {
-      mMapObject.setDefaultIfEmpty(getResources());
+      mMapObject.setDefaultIfEmpty();
 
       refreshPreview();
       refreshDetails();
@@ -448,10 +466,15 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   private void refreshButtons(boolean showBackButton, boolean showRoutingButton)
   {
-    // TODO: Select button layout
+    boolean planning = RoutingController.get().isPlanning();
+    UiUtils.showIf(planning, mRouteButtonsFrame);
+    UiUtils.showIf(!planning, mGeneralButtonsFrame);
 
-    UiUtils.showIf(showBackButton || ParsedMwmRequest.isPickPointMode(), mApiBack);
-    UiUtils.showIf(showRoutingButton, mRoutingButton);
+    if (!planning)
+    {
+      UiUtils.showIf(showBackButton || ParsedMwmRequest.isPickPointMode(), mApiBack);
+      UiUtils.showIf(showRoutingButton, mRoutingButton);
+    }
   }
 
   public void refreshLocation(Location l)
@@ -543,12 +566,13 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     if (getState() == State.HIDDEN || mMapObject == null || mMapObject.getType() == MapObjectType.MY_POSITION)
       return;
 
-    final Location l = LocationHelper.INSTANCE.getLastLocation();
-    if (l == null)
+    final Location location = LocationHelper.INSTANCE.getLastLocation();
+    if (location == null)
       return;
 
     double azimuth = Framework.nativeGetDistanceAndAzimutFromLatLon(mMapObject.getLat(), mMapObject.getLon(),
-                                                                    l.getLatitude(), l.getLongitude(), northAzimuth)
+                                                                    location.getLatitude(), location.getLongitude(),
+                                                                    northAzimuth)
                               .getAzimuth();
     if (azimuth >= 0)
     {
