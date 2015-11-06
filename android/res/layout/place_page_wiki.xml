@@ -28,5 +28,5 @@
       android:layout_height="wrap_content"
       android:textColor="@color/text_place_page_blue"
       android:textSize="@dimen/text_size_body_1"
-      tools:text="https://en.wikipedia.org/"/>
+      android:text="@string/read_in_wikipedia"/>
 </LinearLayout>

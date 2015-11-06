@@ -131,44 +131,59 @@ UNIT_TEST(Metadata_ValidateAndFormat_ele)
 
 UNIT_TEST(Metadata_ValidateAndFormat_wikipedia)
 {
+  using feature::Metadata;
+
+  char const * kWikiKey = "wikipedia";
+
   FeatureParams params;
   MetadataTagProcessor p(params);
-  string const lanaWoodUrlEncoded = "%D0%9B%D0%B0%D0%BD%D0%B0_%D0%92%D1%83%D0%B4";
 
-  p("wikipedia", "ru:Лана Вуд");
-  TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_WIKIPEDIA), "ru:" + lanaWoodUrlEncoded, ("ru:"));
-  TEST_EQUAL(params.GetMetadata().GetWikiTitle(), "ru:Лана Вуд", ("ru:"));
-  TEST_EQUAL(params.GetMetadata().GetWikiURL(), "https://ru.wikipedia.org/wiki/" + lanaWoodUrlEncoded, ("ru:"));
-  params.GetMetadata().Drop(feature::Metadata::FMD_WIKIPEDIA);
+  p(kWikiKey, "en:Bad %20Data");
+  TEST_EQUAL(params.GetMetadata().Get(Metadata::FMD_WIKIPEDIA), "en:Bad %20Data", ());
+  TEST_EQUAL(params.GetMetadata().GetWikiURL(), "https://en.m.wikipedia.org/wiki/Bad_%2520Data", ());
+  params.GetMetadata().Drop(Metadata::FMD_WIKIPEDIA);
 
-  p("wikipedia", "https://ru.wikipedia.org/wiki/" + lanaWoodUrlEncoded);
-  TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_WIKIPEDIA), "ru:" + lanaWoodUrlEncoded, ("https:"));
-  TEST_EQUAL(params.GetMetadata().GetWikiTitle(), "ru:Лана Вуд", ("https:"));
-  TEST_EQUAL(params.GetMetadata().GetWikiURL(), "https://ru.wikipedia.org/wiki/" + lanaWoodUrlEncoded, ("https:"));
-  params.GetMetadata().Drop(feature::Metadata::FMD_WIKIPEDIA);
+  p(kWikiKey, "ru:Тест_with % sign");
+  TEST_EQUAL(params.GetMetadata().Get(Metadata::FMD_WIKIPEDIA), "ru:Тест with % sign", ());
+  TEST_EQUAL(params.GetMetadata().GetWikiURL(), "https://ru.m.wikipedia.org/wiki/Тест_with_%25_sign", ());
+  params.GetMetadata().Drop(Metadata::FMD_WIKIPEDIA);
 
-  p("wikipedia", "Test");
-  TEST(params.GetMetadata().Empty(), ("Test"));
+  p(kWikiKey, "https://be-tarask.wikipedia.org/wiki/Вялікае_Княства_Літоўскае");
+  TEST_EQUAL(params.GetMetadata().Get(Metadata::FMD_WIKIPEDIA), "be-tarask:Вялікае Княства Літоўскае", ());
+  TEST_EQUAL(params.GetMetadata().GetWikiURL(), "https://be-tarask.m.wikipedia.org/wiki/Вялікае_Княства_Літоўскае", ());
+  params.GetMetadata().Drop(Metadata::FMD_WIKIPEDIA);
 
-  p("wikipedia", "https://en.wikipedia.org/wiki/");
-  TEST(params.GetMetadata().Empty(), ("Null wiki"));
+  // Final link points to https and mobile version.
+  p(kWikiKey, "http://en.wikipedia.org/wiki/A");
+  TEST_EQUAL(params.GetMetadata().Get(Metadata::FMD_WIKIPEDIA), "en:A", ());
+  TEST_EQUAL(params.GetMetadata().GetWikiURL(), "https://en.m.wikipedia.org/wiki/A", ());
+  params.GetMetadata().Drop(Metadata::FMD_WIKIPEDIA);
 
-  p("wikipedia", "http://.wikipedia.org/wiki/Whatever");
-  TEST(params.GetMetadata().Empty(), ("Null lang", params.GetMetadata().Get(feature::Metadata::FMD_WIKIPEDIA)));
+  p(kWikiKey, "invalid_input_without_language_and_colon");
+  TEST(params.GetMetadata().Empty(), (params.GetMetadata().Get(Metadata::FMD_WIKIPEDIA)));
 
-  // We ignore incorrect prefixes
-  p("wikipedia", "ht.tps://en.wikipedia.org/wiki/Whuh");
-  TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_WIKIPEDIA), "en:Whuh", ("ht.tp:"));
-  params.GetMetadata().Drop(feature::Metadata::FMD_WIKIPEDIA);
+  p(kWikiKey, "https://en.wikipedia.org/wiki/");
+  TEST(params.GetMetadata().Empty(), (params.GetMetadata().Get(Metadata::FMD_WIKIPEDIA)));
 
-  p("wikipedia", "http://ru.google.com/wiki/wutlol");
-  TEST(params.GetMetadata().Empty(), ("Google"));
+  p(kWikiKey, "http://wikipedia.org/wiki/Article");
+  TEST(params.GetMetadata().Empty(), (params.GetMetadata().Get(Metadata::FMD_WIKIPEDIA)));
 
-  // URL Decoding Test
-  string const badWikiTitle = "%%A";
-  p("wikipedia", "https://bad.wikipedia.org/wiki/" + badWikiTitle);
-  TEST_EQUAL(params.GetMetadata().GetWikiTitle(), "bad:" + badWikiTitle, ("bad title"));
-  params.GetMetadata().Drop(feature::Metadata::FMD_WIKIPEDIA);
+  p(kWikiKey, "http://somesite.org");
+  TEST(params.GetMetadata().Empty(), (params.GetMetadata().Get(Metadata::FMD_WIKIPEDIA)));
+
+  p(kWikiKey, "http://www.spamsitewithaslash.com/");
+  TEST(params.GetMetadata().Empty(), (params.GetMetadata().Get(Metadata::FMD_WIKIPEDIA)));
+
+  p(kWikiKey, "http://.wikipedia.org/wiki/Article");
+  TEST(params.GetMetadata().Empty(), (params.GetMetadata().Get(Metadata::FMD_WIKIPEDIA)));
+
+  // Ignore incorrect prefixes.
+  p(kWikiKey, "ht.tps://en.wikipedia.org/wiki/Whuh");
+  TEST_EQUAL(params.GetMetadata().Get(Metadata::FMD_WIKIPEDIA), "en:Whuh", ());
+  params.GetMetadata().Drop(Metadata::FMD_WIKIPEDIA);
+
+  p(kWikiKey, "http://ru.google.com/wiki/wutlol");
+  TEST(params.GetMetadata().Empty(), ("Not a wikipedia site."));
 }
 
 UNIT_TEST(Metadata_ReadWrite_Intermediate)

@@ -739,15 +739,21 @@ namespace android
   // Fills mapobject's metadata from UserMark
   void Framework::InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, UserMark const * userMark)
   {
-    feature::Metadata metadata;
+    using feature::Metadata;
+
+    Metadata metadata;
     frm()->FindClosestPOIMetadata(userMark->GetOrg(), metadata);
 
     static jmethodID const addId = env->GetMethodID(clazz, "addMetadata", "(ILjava/lang/String;)V");
     ASSERT ( addId, () );
 
-    for (feature::Metadata::EType t : metadata.GetPresentTypes())
+    for (auto const t : metadata.GetPresentTypes())
     {
-      jstring metaString = jni::ToJavaString(env, metadata.Get(t));
+      // TODO: It is not a good idea to pass raw strings to UI. Calling separate getters should be a better way.
+      // Upcoming change: how to pass opening hours (parsed) into Editor's UI? How to get edited changes back?
+      jstring metaString = t == Metadata::FMD_WIKIPEDIA ?
+                           jni::ToJavaString(env, metadata.GetWikiURL()) :
+                           jni::ToJavaString(env, metadata.Get(t));
       env->CallVoidMethod(mapObject, addId, t, metaString);
       // TODO use unique_ptrs for autoallocation of local refs
       env->DeleteLocalRef(metaString);
@@ -775,7 +781,9 @@ namespace
 {
 pair<jintArray, jobjectArray> NativeMetadataToJavaMetadata(JNIEnv * env, feature::Metadata const & metadata)
 {
-  vector<feature::Metadata::EType> const metaTypes = metadata.GetPresentTypes();
+  using feature::Metadata;
+
+  vector<Metadata::EType> const metaTypes = metadata.GetPresentTypes();
   // FIXME arrays, allocated through New<Type>Array should be deleted manually in the method.
   // refactor that to delete refs locally or pass arrays from outside context
   const jintArray j_metaTypes = env->NewIntArray(metadata.Size());
@@ -784,8 +792,12 @@ pair<jintArray, jobjectArray> NativeMetadataToJavaMetadata(JNIEnv * env, feature
 
   for (size_t i = 0; i < metaTypes.size(); i++)
   {
-    arr[i] = metaTypes[i];
-    jstring metaString = jni::ToJavaString(env, metadata.Get(metaTypes[i]));
+    auto const type = metaTypes[i];
+    arr[i] = type;
+    // TODO: Refactor code to use separate getters for each metadata.
+    jstring metaString = type == Metadata::FMD_WIKIPEDIA ?
+                         jni::ToJavaString(env, metadata.GetWikiURL()) :
+                         jni::ToJavaString(env, metadata.Get(type));
     env->SetObjectArrayElement(j_metaValues, i, metaString);
     env->DeleteLocalRef(metaString);
   }

@@ -63,8 +63,6 @@ import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -427,13 +425,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_EMAIL), mEmail, mTvEmail);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mOperator, mTvOperator);
     refreshMetadataOrHide(translateCuisine(mMapObject.getMetadata(Metadata.MetadataType.FMD_CUISINE)), mCuisine, mTvCuisine);
-    try
-    {
-      final String wikipedia = mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA);
-      refreshMetadataOrHide(TextUtils.isEmpty(wikipedia) ? null : URLDecoder.decode(wikipedia, "UTF-8"), mWiki, mTvWiki);
-    } catch (UnsupportedEncodingException e)
-    {
-    }
+    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA), mWiki, mTvWiki);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_INTERNET), mWifi, null);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
     // TODO throw away parsing hack when data will be parsed correctly in core
@@ -698,9 +690,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       followUrl(mTvWebsite.getText().toString());
       break;
     case R.id.ll__place_wiki:
-      final String[] wikiParts = mTvWiki.getText().toString().split(":");
-      if (wikiParts.length == 2)
-        followUrl("https://" + wikiParts[0] + ".wikipedia.org/wiki/" + wikiParts[1]);
+      // TODO: Refactor and use separate getters for Wiki and all other PP meta info too.
+      followUrl(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
       break;
     case R.id.tv__bookmark_group:
       saveBookmarkNameIfUpdated(null);
