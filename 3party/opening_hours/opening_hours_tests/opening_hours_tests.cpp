@@ -126,32 +126,6 @@ bool IsUnknown(osmoh::TRuleSequences const & rules, std::string const & dateTime
 }
 } // namespace
 
-
-BOOST_AUTO_TEST_CASE(OpeningHours_Locale)
-{
-  namespace charset = boost::spirit::standard_wide;
-  namespace qi = boost::spirit::qi;
-
-  class Alltime : public qi::symbols<wchar_t>
-  {
-  public:
-    Alltime()
-    {
-      add
-          (L"пн")(L"uu")(L"œæ")
-      ;
-    }
-  } alltime;
-
-  std::locale loc("en_US");
-  std::locale prev = std::locale::global(loc);
-
-  BOOST_CHECK(Test("TeSt", charset::no_case[qi::lit("test")]));
-  BOOST_CHECK(Test("UU", charset::no_case[alltime]));
-
-  std::locale::global(prev);
-}
-
 BOOST_AUTO_TEST_CASE(OpeningHours_TestTime)
 {
   using namespace osmoh;
