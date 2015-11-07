@@ -1,5 +1,5 @@
 CMDRES = $$system(python ../tools/autobuild/shader_preprocessor.py $$SHADER_COMPILE_ARGS)
-message($$CMDRES)
+!isEmpty($$CMDRES):message($$CMDRES)
 
 INCLUDEPATH *= $$ROOT_DIR/3party/freetype/include
 INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
