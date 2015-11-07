@@ -14,7 +14,6 @@ lessThan(QT_MAJOR_VERSION, 5) {
 cache()
 
 TEMPLATE = subdirs
-CONFIG += ordered
 
 HEADERS += defines.hpp
 
@@ -26,75 +25,140 @@ win32:CONFIG(drape) {
   CONFIG *= desktop
 }
 
-SUBDIRS = 3party base geometry coding
-SUBDIRS += indexer
-SUBDIRS += routing
+SUBDIRS = 3party base coding geometry indexer routing
 
 !CONFIG(osrm) {
-  SUBDIRS += platform
-  SUBDIRS += stats
-  SUBDIRS += storage
+  SUBDIRS *= platform stats storage
 
-  # Integration tests dependencies for gtool
+  # Integration tests dependencies for gtool.
+  # TODO(AlexZ): Avoid duplication for routing_integration_tests.
   CONFIG(gtool):!CONFIG(no-tests) {
-    SUBDIRS += search
-    SUBDIRS += map
-    SUBDIRS += routing/routing_integration_tests
+    SUBDIRS *= search map
+
+    routing_integration_tests.subdir = routing/routing_integration_tests
+    routing_integration_tests.depends = $$SUBDIRS
+    SUBDIRS *= routing_integration_tests
   }
 
   CONFIG(desktop) {
-    SUBDIRS += generator generator/generator_tool
+    SUBDIRS *= generator
+
+    generator_tool.subdir = generator/generator_tool
+    generator_tool.depends = $$SUBDIRS
+    SUBDIRS *= generator_tool
   }
 }
 
 !CONFIG(gtool):!CONFIG(osrm) {
-  SUBDIRS *= anim
-  SUBDIRS *= graphics
-  SUBDIRS *= gui
-  SUBDIRS *= render
-  SUBDIRS *= search
-  SUBDIRS *= map
-
-  CONFIG(desktop) {
-    SUBDIRS += qt
-  }
+  SUBDIRS *= anim graphics gui render search map
 
   CONFIG(map_designer):CONFIG(desktop) {
-    SUBDIRS += skin_generator
+    SUBDIRS *= skin_generator
   }
 
   CONFIG(drape) {
-    SUBDIRS += drape drape_frontend
-
+    SUBDIRS *= drape drape_frontend
     CONFIG(desktop) {
-      SUBDIRS += drape_head
+      drape_head.depends = $$SUBDIRS
+      SUBDIRS *= drape_head
     }
   }
 
+  CONFIG(desktop) {
+    benchmark_tool.subdir = map/benchmark_tool
+    benchmark_tool.depends = 3party base coding geometry platform indexer map
+    SUBDIRS *= benchmark_tool
+
+    qt.depends = $$SUBDIRS
+    SUBDIRS *= qt
+  }
+
   CONFIG(desktop):!CONFIG(no-tests) {
-    SUBDIRS += base/base_tests
-    SUBDIRS += coding/coding_tests
-    SUBDIRS += platform/platform_tests_support
-    SUBDIRS += geometry/geometry_tests
-    SUBDIRS += platform/platform_tests
-    SUBDIRS += platform/downloader_tests
-    SUBDIRS += qt_tstfrm
-    SUBDIRS += render/render_tests
-    SUBDIRS += storage/storage_tests
-    SUBDIRS += search/search_tests
-    SUBDIRS += map/map_tests map/benchmark_tool map/mwm_tests map/style_tests
-    SUBDIRS += routing/routing_integration_tests
-    SUBDIRS += routing/routing_tests
-    SUBDIRS += generator/generator_tests
-    SUBDIRS += indexer/indexer_tests
-    SUBDIRS += graphics/graphics_tests
-    SUBDIRS += gui/gui_tests
-    SUBDIRS += pedestrian_routing_tests
-    SUBDIRS += search/search_integration_tests
+    # Additional desktop-only, tests-only libraries.
+    platform_tests_support.subdir = platform/platform_tests_support
+    SUBDIRS *= platform_tests_support
+
+    # Tests binaries.
+    base_tests.subdir = base/base_tests
+    base_tests.depends = base
+    SUBDIRS *= base_tests
+
+    coding_tests.subdir = coding/coding_tests
+    coding_tests.depends = 3party base
+    SUBDIRS *= coding_tests
+
+    geometry_tests.subdir = geometry/geometry_tests
+    geometry_tests.depends = 3party base geometry indexer
+    SUBDIRS *= geometry_tests
+
+    indexer_tests.subdir = indexer/indexer_tests
+    indexer_tests.depends = 3party base coding geometry indexer
+    SUBDIRS *= indexer_tests
+
+    platform_tests.subdir = platform/platform_tests
+    platform_tests.depends = 3party base coding platform platform_tests_support
+    SUBDIRS *= platform_tests
+
+    downloader_tests.subdir = platform/downloader_tests
+    downloader_tests.depends = 3party base coding platform platform_tests_support
+    SUBDIRS *= downloader_tests
+
+    storage_tests.subdir = storage/storage_tests
+    storage_tests.depends = 3party base coding geometry platform storage indexer stats
+    SUBDIRS *= storage_tests
+
+    search_tests.subdir = search/search_tests
+    search_tests.depends = 3party base coding geometry platform indexer search
+    SUBDIRS *= search_tests
+
+    search_integration_tests.subdir = search/search_integration_tests
+    search_integration_tests.depends = 3party base coding geometry platform indexer search
+    SUBDIRS *= search_integration_tests
+
+    MapDepLibs = 3party base coding geometry platform storage indexer search map
+    map_tests.subdir = map/map_tests
+    map_tests.depends = $$MapDepLibs
+    SUBDIRS *= map_tests
+
+    mwm_tests.subdir = map/mwm_tests
+    mwm_tests.depends = $$MapDepLibs
+    SUBDIRS *= mwm_tests
+
+    style_tests.subdir = map/style_tests
+    style_tests.depends = $$MapDepLibs
+    SUBDIRS *= style_tests
+
+    routing_tests.subdir = routing/routing_tests
+    routing_tests.depends = $$MapDepLibs routing
+    SUBDIRS *= routing_tests
+
+    routing_integration_tests.subdir = routing/routing_integration_tests
+    routing_integration_tests.depends = $$MapDepLibs routing
+    SUBDIRS *= routing_integration_tests
+
+    # TODO(AlexZ): Move pedestrian tests into routing dir.
+    pedestrian_routing_tests.depends = $$MapDepLibs routing
+    SUBDIRS *= pedestrian_routing_tests
+
+    generator_tests.subdir = generator/generator_tests
+    generator_tests.depends = $$MapDepLibs routing generator
+    SUBDIRS *= generator_tests
+
+    # TODO(AlexZ): Do we really need them?
+    #SUBDIRS += render/render_tests
+    #SUBDIRS += graphics/graphics_tests
+    #SUBDIRS += gui/gui_tests
 
     CONFIG(drape) {
-      SUBDIRS += drape/drape_tests
-      SUBDIRS += drape_frontend/drape_frontend_tests
+      SUBDIRS *= qt_tstfrm
+
+      drape_tests.subdir = drape/drape_tests
+      drape_tests.depends = 3party base coding platform qt_tstfrm
+      SUBDIRS *= drape_tests
+
+      drape_frontend_tests.subdir = drape_frontend/drape_frontend_tests
+      drape_frontend_tests.depends = 3party base coding platform drape drape_frontend
+      SUBDIRS *= drape_frontend_tests
     }
   } # !no-tests
 } # !gtool
