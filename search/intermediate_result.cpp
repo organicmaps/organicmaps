@@ -38,8 +38,6 @@ void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
 
   meta.m_cuisine = src.Get(feature::Metadata::FMD_CUISINE);
 
-#ifndef OMIM_OS_LINUX
-  // Lib opening_hours is not built for Linux since stdlib doesn't have required functions.
   string const openHours = src.Get(feature::Metadata::FMD_OPEN_HOURS);
   if (!openHours.empty())
   {
@@ -48,7 +46,6 @@ void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
     // TODO(mgsergio): Is there a way to report that openHours was not parsed?
     meta.m_isClosed = GetState(rules, time(nullptr)).IsClosed();
   }
-#endif
 
   meta.m_stars = 0;
   (void) strings::to_int(src.Get(feature::Metadata::FMD_STARS), meta.m_stars);

@@ -198,7 +198,7 @@ inline constexpr Weekday ToWeekday(uint64_t const day)
           : static_cast<Weekday>(day));
 }
 
-inline constexpr Weekday operator ""_day(unsigned long long int day)
+inline constexpr Weekday operator ""_weekday(unsigned long long int day)
 {
   return ToWeekday(day);
 }

@@ -35,7 +35,7 @@ struct wdays_ : qi::symbols<char, osmoh::Weekday>
   wdays_()
   {
     add
-        ("su", 1_day)("mo", 2_day)("tu", 3_day)("we", 4_day)("th", 5_day)("fr", 6_day)("sa", 7_day) // en
+        ("su", 1_weekday)("mo", 2_weekday)("tu", 3_weekday)("we", 4_weekday)("th", 5_weekday)("fr", 6_weekday)("sa", 7_weekday) // en
         // (L"mon", 0)(L"tue", 1)(L"wed", 2)(L"thu", 3)(L"fri", 4)(L"sat", 5)(L"sun", 6) // en
         // (L"пн", 0)(L"вт", 1)(L"ср", 2)(L"чт", 3)(L"пт", 4)(L"сб", 5)(L"вс", 6) // ru
         // (L"пн.", 0)(L"вт.", 1)(L"ср.", 2)(L"чт.", 3)(L"пт.", 4)(L"сб.", 5)(L"вс.", 6) // ru

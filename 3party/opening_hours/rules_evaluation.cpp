@@ -87,12 +87,13 @@ uint8_t GetWeekNumber(std::tm const & date)
   return weekNumber;
 }
 
-template <typename Bound, typename Point>
-bool IsLoopedBetween(Bound const & start, Bound const & end, Point const & p)
+bool IsBetweenLooped(osmoh::Weekday const start,
+                     osmoh::Weekday const end,
+                     osmoh::Weekday const p)
 {
   if (start <= end)
     return start <= p && p <= end;
-  return end <= p && p <= start;
+  return p >= end || start <= p;
 }
 } // namespace
 
@@ -130,7 +131,7 @@ bool IsActive(WeekdayRange const & range, std::tm const & date)
     return false;
 
   if (range.HasEnd())
-    return IsLoopedBetween(range.GetStart(), range.GetEnd(), wday);
+    return IsBetweenLooped(range.GetStart(), range.GetEnd(), wday);
 
   return range.GetStart() == wday;
 }
@@ -189,7 +190,7 @@ bool IsActive(WeekRange const & range, std::tm const & date)
   auto const weekNumber = GetWeekNumber(date);
 
   if (range.HasEnd())
-    return IsLoopedBetween(range.GetStart(), range.GetEnd(), weekNumber);
+    return range.GetStart() <= weekNumber && weekNumber <= range.GetEnd();
 
   return range.GetStart() == weekNumber;
 }

@@ -1324,4 +1324,11 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestIsOpen)
     BOOST_CHECK(IsOpen(rules, "2012-10-08 00:01"));
     BOOST_CHECK(IsClosed(rules, "2012-10-08 15:59"));
   }
+  {
+    TRuleSequences rules;
+    BOOST_CHECK(Parse("Mo-Su 12:00-23:00", rules));
+
+    BOOST_CHECK(IsOpen(rules, "2015-11-06 18:40"));
+    BOOST_CHECK(!IsClosed(rules, "2015-11-06 18:40"));
+  }
 }
