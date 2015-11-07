@@ -5,7 +5,7 @@ INCLUDEPATH *= $$ROOT_DIR/3party/freetype/include
 INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
 
 SOURCES += \
-    $$ROOT_DIR/3party/stb_image/sdf_image.cpp \
+    $$ROOT_DIR/3party/sdf_image/sdf_image.cpp \
     $$ROOT_DIR/3party/stb_image/stb_image.c \
     $$DRAPE_DIR/data_buffer.cpp \
     $$DRAPE_DIR/binding_info.cpp \
@@ -44,8 +44,8 @@ SOURCES += \
     $$DRAPE_DIR/utils/vertex_decl.cpp
 
 HEADERS += \
-    $$ROOT_DIR/sdf_image/sdf_image.h \
-    $$ROOT_DIR/stb_image/stb_image.h \
+    $$ROOT_DIR/3party/sdf_image/sdf_image.h \
+    $$ROOT_DIR/3party/stb_image/stb_image.h \
     $$DRAPE_DIR/data_buffer.hpp \
     $$DRAPE_DIR/binding_info.hpp \
     $$DRAPE_DIR/batcher.hpp \
