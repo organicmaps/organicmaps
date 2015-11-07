@@ -1,7 +1,7 @@
-#include "api_mark_container.hpp"
-#include "api_mark_point.hpp"
+#include "map/api_mark_container.hpp"
+#include "map/api_mark_point.hpp"
 
-#include "framework.hpp"
+#include "map/framework.hpp"
 
 ApiUserMarkContainer::ApiUserMarkContainer(double layerDepth, Framework & framework)
   : UserMarkContainer(layerDepth, framework)

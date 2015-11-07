@@ -203,8 +203,8 @@ private:
   
 private:
   bool m_blockAnimation;
-  typedef pair<UserMark *, shared_ptr<anim::Task> > anim_node_t;
-  vector<anim_node_t> m_anims;
+  using TAnimNode = pair<UserMark *, shared_ptr<anim::Task> >;
+  vector<TAnimNode> m_anims;
 };
 
 /// <category index, bookmark index>

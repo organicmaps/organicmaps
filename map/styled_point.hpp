@@ -34,9 +34,10 @@ public:
   {
   }
 
-  virtual graphics::DisplayList * GetDisplayList(UserMarkDLCache * cache) const override;
-  virtual double GetAnimScaleFactor() const override;
-  virtual m2::PointD const & GetPixelOffset() const override;
+  // ICustomDrawable overrides:
+  graphics::DisplayList * GetDisplayList(UserMarkDLCache * cache) const override;
+  double GetAnimScaleFactor() const override;
+  m2::PointD const & GetPixelOffset() const override;
 
   string const & GetStyle() const { return m_style; }
   void SetStyle(const string & style) { m_style = style; }

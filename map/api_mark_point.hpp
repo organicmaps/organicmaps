@@ -17,21 +17,21 @@ public:
   {
   }
 
-  UserMark::Type GetMarkType() const override { return UserMark::Type::API; }
-
   string const & GetName() const { return m_name; }
   void SetName(string const & name) { m_name = name; }
 
   string const & GetID() const { return m_id; }
   void SetID(string const & id) { m_id = id; }
 
+  // UserMark overrides:
+  UserMark::Type GetMarkType() const override { return UserMark::Type::API; }
+
   unique_ptr<UserMarkCopy> Copy() const override
   {
-    return unique_ptr<UserMarkCopy>(
-        new UserMarkCopy(new ApiMarkPoint(m_name, m_id, GetStyle(), m_ptOrg, m_container)));
+    return make_unique<UserMarkCopy>(new ApiMarkPoint(m_name, m_id, GetStyle(), m_ptOrg, m_container));
   }
 
-  virtual void FillLogEvent(TEventContainer & details) const override
+  void FillLogEvent(TEventContainer & details) const override
   {
     UserMark::FillLogEvent(details);
     details["markType"] = "API";

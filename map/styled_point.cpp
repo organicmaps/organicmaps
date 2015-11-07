@@ -26,9 +26,12 @@ m2::PointD const & StyledPoint::GetPixelOffset() const
   return GetStyle().empty() ? s_centre : s_offset;
 }
 
-static char const * s_arrSupportedColors[] = {
+namespace
+{
+  char const * kSupportedColors[] = {
     "placemark-red",  "placemark-blue",  "placemark-purple", "placemark-yellow",
     "placemark-pink", "placemark-brown", "placemark-green",  "placemark-orange"};
+}
 
 namespace style
 {
@@ -37,15 +40,17 @@ string GetSupportedStyle(string const & s, string const & context, string const 
   if (s.empty())
     return fallback;
 
-  for (size_t i = 0; i < ARRAY_SIZE(s_arrSupportedColors); ++i)
-    if (s == s_arrSupportedColors[i])
+  for (size_t i = 0; i < ARRAY_SIZE(kSupportedColors); ++i)
+  {
+    if (s == kSupportedColors[i])
       return s;
+  }
 
   // Not recognized symbols are replaced with default one
   LOG(LWARNING, ("Icon", s, "for point", context, "is not supported"));
   return fallback;
 }
 
-string GetDefaultStyle() { return s_arrSupportedColors[0]; }
+string GetDefaultStyle() { return kSupportedColors[0]; }
 
 }  // namespace style

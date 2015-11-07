@@ -173,8 +173,8 @@ void UserMarkContainer::Clear(size_t skipCount/* = 0*/)
 
 namespace
 {
-  static unique_ptr<PoiMarkPoint> s_selectionUserMark;
-  static unique_ptr<MyPositionMarkPoint> s_myPosition;
+  unique_ptr<PoiMarkPoint> g_selectionUserMark;
+  unique_ptr<MyPositionMarkPoint> g_myPosition;
 }
 
 UserMarkDLCache::Key UserMarkContainer::GetDefaultKey() const
@@ -184,23 +184,23 @@ UserMarkDLCache::Key UserMarkContainer::GetDefaultKey() const
 
 void UserMarkContainer::InitStaticMarks(UserMarkContainer * container)
 {
-  if (s_selectionUserMark == NULL)
-    s_selectionUserMark.reset(new PoiMarkPoint(container));
+  if (g_selectionUserMark == NULL)
+    g_selectionUserMark.reset(new PoiMarkPoint(container));
 
-  if (s_myPosition == NULL)
-    s_myPosition.reset(new MyPositionMarkPoint(container));
+  if (g_myPosition == NULL)
+    g_myPosition.reset(new MyPositionMarkPoint(container));
 }
 
 PoiMarkPoint * UserMarkContainer::UserMarkForPoi()
 {
-  ASSERT(s_selectionUserMark != NULL, ());
-  return s_selectionUserMark.get();
+  ASSERT(g_selectionUserMark != NULL, ());
+  return g_selectionUserMark.get();
 }
 
 MyPositionMarkPoint * UserMarkContainer::UserMarkForMyPostion()
 {
-  ASSERT(s_myPosition != NULL, ());
-  return s_myPosition.get();
+  ASSERT(g_myPosition != NULL, ());
+  return g_myPosition.get();
 }
 
 UserMark * UserMarkContainer::CreateUserMark(m2::PointD const & ptOrg)
