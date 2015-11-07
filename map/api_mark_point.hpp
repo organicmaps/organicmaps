@@ -28,7 +28,8 @@ public:
 
   unique_ptr<UserMarkCopy> Copy() const override
   {
-    return make_unique<UserMarkCopy>(new ApiMarkPoint(m_name, m_id, GetStyle(), m_ptOrg, m_container));
+    return make_unique<UserMarkCopy>(
+        new ApiMarkPoint(m_name, m_id, GetStyle(), m_ptOrg, m_container));
   }
 
   void FillLogEvent(TEventContainer & details) const override

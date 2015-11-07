@@ -173,8 +173,8 @@ void UserMarkContainer::Clear(size_t skipCount/* = 0*/)
 
 namespace
 {
-  unique_ptr<PoiMarkPoint> g_selectionUserMark;
-  unique_ptr<MyPositionMarkPoint> g_myPosition;
+unique_ptr<PoiMarkPoint> g_selectionUserMark;
+unique_ptr<MyPositionMarkPoint> g_myPosition;
 }
 
 UserMarkDLCache::Key UserMarkContainer::GetDefaultKey() const

@@ -166,15 +166,14 @@ size_t BookmarkCategory::FindBookmark(Bookmark const * bookmark) const
 
 namespace
 {
+string const kPlacemark = "Placemark";
+string const kStyle = "Style";
+string const kDocument = "Document";
+string const kStyleMap = "StyleMap";
+string const kStyleUrl = "styleUrl";
+string const kPair = "Pair";
 
-  string const kPlacemark = "Placemark";
-  string const kStyle = "Style";
-  string const kDocument =  "Document";
-  string const kStyleMap = "StyleMap";
-  string const kStyleUrl = "styleUrl";
-  string const kPair = "Pair";
-
-  graphics::Color const kDefaultTrackColor = graphics::Color::fromARGB(0xFF33CCFF);
+graphics::Color const kDefaultTrackColor = graphics::Color::fromARGB(0xFF33CCFF);
 
   string PointToString(m2::PointD const & org)
   {
@@ -293,7 +292,7 @@ namespace
     }
 
     bool MakeValid()
-    { 
+    {
       if (GEOMETRY_TYPE_POINT == m_geometryType)
       {
         if (MercatorBounds::ValidX(m_org.x) && MercatorBounds::ValidY(m_org.y))
@@ -457,7 +456,8 @@ namespace
         {
           ParseColor(value);
         }
-        else if (ppTag == kStyleMap && prevTag == kPair && currTag == kStyleUrl && m_styleUrlKey == "normal")
+        else if (ppTag == kStyleMap && prevTag == kPair && currTag == kStyleUrl &&
+                 m_styleUrlKey == "normal")
         {
           if (!m_mapStyleId.empty())
             m_mapStyle2Style[m_mapStyleId] = value;

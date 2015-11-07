@@ -203,7 +203,7 @@ private:
   
 private:
   bool m_blockAnimation;
-  using TAnimNode = pair<UserMark *, shared_ptr<anim::Task> >;
+  using TAnimNode = pair<UserMark *, shared_ptr<anim::Task>>;
   vector<TAnimNode> m_anims;
 };
 

@@ -28,9 +28,9 @@ m2::PointD const & StyledPoint::GetPixelOffset() const
 
 namespace
 {
-  char const * kSupportedColors[] = {
-    "placemark-red",  "placemark-blue",  "placemark-purple", "placemark-yellow",
-    "placemark-pink", "placemark-brown", "placemark-green",  "placemark-orange"};
+char const * kSupportedColors[] = {"placemark-red",    "placemark-blue",  "placemark-purple",
+                                   "placemark-yellow", "placemark-pink",  "placemark-brown",
+                                   "placemark-green",  "placemark-orange"};
 }
 
 namespace style
