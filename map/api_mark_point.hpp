@@ -11,14 +11,9 @@ public:
   {
   }
 
-  ApiMarkPoint(string const & name,
-           string const & id,
-           string const & style,
-           m2::PointD const & ptOrg,
-           UserMarkContainer * container)
-    : StyledPoint(style, ptOrg, container)
-    , m_name(name)
-    , m_id(id)
+  ApiMarkPoint(string const & name, string const & id, string const & style,
+               m2::PointD const & ptOrg, UserMarkContainer * container)
+    : StyledPoint(style, ptOrg, container), m_name(name), m_id(id)
   {
   }
 
@@ -27,8 +22,8 @@ public:
   string const & GetName() const { return m_name; }
   void SetName(string const & name) { m_name = name; }
 
-  string const & GetID() const   { return m_id; }
-  void SetID(string const & id)  { m_id = id; }
+  string const & GetID() const { return m_id; }
+  void SetID(string const & id) { m_id = id; }
 
   unique_ptr<UserMarkCopy> Copy() const override
   {
@@ -47,4 +42,3 @@ private:
   string m_name;
   string m_id;
 };
-

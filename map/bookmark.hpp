@@ -73,17 +73,12 @@ class Bookmark : public StyledPoint
 
 public:
   Bookmark(m2::PointD const & ptOrg, UserMarkContainer * container)
-    : StyledPoint(ptOrg, container)
-    , m_animScaleFactor(1.0)
+    : StyledPoint(ptOrg, container), m_animScaleFactor(1.0)
   {
   }
 
-  Bookmark(BookmarkData const & data,
-           m2::PointD const & ptOrg,
-           UserMarkContainer * container)
-    : StyledPoint(data.GetType(), ptOrg, container)
-    , m_data(data)
-    , m_animScaleFactor(1.0)
+  Bookmark(BookmarkData const & data, m2::PointD const & ptOrg, UserMarkContainer * container)
+    : StyledPoint(data.GetType(), ptOrg, container), m_data(data), m_animScaleFactor(1.0)
   {
   }
 

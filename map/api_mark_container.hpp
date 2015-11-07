@@ -11,8 +11,8 @@ public:
   virtual Type GetType() const { return API_MARK; }
 
   virtual string GetActiveTypeName() const;
+
 protected:
   virtual string GetTypeName() const;
   virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg);
 };
-

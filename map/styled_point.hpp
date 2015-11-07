@@ -13,28 +13,24 @@
 #include "std/unique_ptr.hpp"
 #include "std/utility.hpp"
 
-
 namespace style
 {
-  // Fixes icons which are not supported by MapsWithMe.
-  string GetSupportedStyle(string const & s, string const & context, string const & fallback);
-  // Default icon.
-  string GetDefaultStyle();
+// Fixes icons which are not supported by MapsWithMe.
+string GetSupportedStyle(string const & s, string const & context, string const & fallback);
+// Default icon.
+string GetDefaultStyle();
 }  // namespace style
-
 
 class StyledPoint : public ICustomDrawable
 {
 public:
   StyledPoint(m2::PointD const & ptOrg, UserMarkContainer * container)
-    : ICustomDrawable(ptOrg, container)
-    , m_style(style::GetDefaultStyle())
+    : ICustomDrawable(ptOrg, container), m_style(style::GetDefaultStyle())
   {
   }
 
   StyledPoint(string const & style, m2::PointD const & ptOrg, UserMarkContainer * container)
-    : ICustomDrawable(ptOrg, container)
-    , m_style(style)
+    : ICustomDrawable(ptOrg, container), m_style(style)
   {
   }
 
@@ -48,4 +44,3 @@ public:
 private:
   string m_style;  ///< Point style (name of icon), or empty string for plain circle.
 };
-
