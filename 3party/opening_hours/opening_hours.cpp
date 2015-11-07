@@ -24,11 +24,11 @@
 
 #include "opening_hours.hpp"
 
+#include <cstdlib>
 #include <iomanip>
 #include <ios>
-#include <cstdlib>
-#include <vector>
 #include <ostream>
+#include <vector>
 
 namespace
 {
