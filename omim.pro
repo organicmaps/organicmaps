@@ -5,7 +5,10 @@
 #   map_designer: enable designer-related flags
 #   no-tests: do not build tests for desktop
 #   drape: include drape libraries
-#   iphone / tizen / android: build an app (implies no-tests)
+#
+# There are no supported options in CONFIG for mobile platforms.
+# Please use XCode or gradle/Android Studio.
+
 
 lessThan(QT_MAJOR_VERSION, 5) {
   error("You need Qt 5 to build this project. You have Qt $$QT_VERSION")
@@ -17,6 +20,7 @@ TEMPLATE = subdirs
 
 HEADERS += defines.hpp
 
+# TODO(AlexZ): Why is it here? Drape should build on win32 too.
 win32:CONFIG(drape) {
   CONFIG -= drape
 }
