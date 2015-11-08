@@ -116,6 +116,16 @@ bool IsActive(Timespan const & span, std::tm const & time)
     if (!ToHourMinutes(time, toBeChecked))
       return false;
 
+    // TODO(mgsergio): We don't handle extended hours yet.
+    // Extended hours handling could be implemented through
+    // splitting rule with extended hours into separated rules.
+    if (end <= start || end > THourMinutes{24,00})
+      // It's better to say we are open, cause
+      // in search result page only `closed' lables are shown.
+      // So from user's perspective `unknown' and `open'
+      // mean same as `not closed'.
+      return true;
+
     return start <= toBeChecked && toBeChecked <= end;
   }
   return false;
