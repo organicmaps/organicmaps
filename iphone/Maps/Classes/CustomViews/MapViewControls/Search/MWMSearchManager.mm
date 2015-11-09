@@ -1,5 +1,8 @@
+#import "LocationManager.h"
+#import "MapsAppDelegate.h"
 #import "MapsObservers.h"
 #import "MWMConsole.h"
+#import "MWMRoutingProtocol.h"
 #import "MWMSearchDownloadViewController.h"
 #import "MWMSearchManager.h"
 #import "MWMSearchTabbedViewController.h"
@@ -41,7 +44,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 }
 
 - (nullable instancetype)initWithParentView:(nonnull UIView *)view
-                                   delegate:(nonnull id<MWMSearchManagerProtocol, MWMSearchViewProtocol>)delegate
+                                   delegate:(nonnull id<MWMSearchManagerProtocol, MWMSearchViewProtocol, MWMRoutingProtocol>)delegate
 {
   self = [super init];
   if (self)
@@ -107,6 +110,10 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 {
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"searchCancel"];
   self.state = MWMSearchManagerStateHidden;
+  MapsAppDelegate * a = MapsAppDelegate.theApp;
+  MWMRoutingPlaneMode const m = a.routingPlaneMode;
+  if (m == MWMRoutingPlaneModeSearchDestination || m == MWMRoutingPlaneModeSearchSource)
+    a.routingPlaneMode = MWMRoutingPlaneModePlacePage;
 }
 
 - (void)tabButtonPressed:(MWMSearchTabButtonsView *)sender
@@ -148,6 +155,39 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   self.searchTextField.text = text;
   NSString * inputLocale = locale ? locale : self.searchTextField.textInputMode.primaryLanguage;
   [self.tableViewController searchText:text forInputLocale:inputLocale];
+}
+
+- (void)tapMyPositionFromHistory
+{
+  MapsAppDelegate * a = MapsAppDelegate.theApp;
+  MWMRoutePoint const p = MWMRoutePoint::MWMRoutePoint(ToMercator(a.m_locationManager.lastLocation.coordinate));
+  if (a.routingPlaneMode == MWMRoutingPlaneModeSearchSource)
+    [self.delegate buildRouteFrom:p];
+  else if (a.routingPlaneMode == MWMRoutingPlaneModeSearchDestination)
+    [self.delegate buildRouteTo:p];
+  else
+    NSAssert(false, @"Incorrect state for process my position tap");
+  if (!IPAD)
+    a.routingPlaneMode = MWMRoutingPlaneModePlacePage;
+  self.state = MWMSearchManagerStateHidden;
+}
+
+- (void)processSearchWithResult:(search::Result const &)result query:(search::QuerySaver::TSearchRequest const &)query
+{
+  auto & f = GetFramework();
+  f.SaveSearchQuery(query);
+  MapsAppDelegate * a = MapsAppDelegate.theApp;
+  MWMRoutingPlaneMode const m = a.routingPlaneMode;
+  MWMRoutePoint const p = {result.GetFeatureCenter(), @(result.GetString())};
+  if (m == MWMRoutingPlaneModeSearchSource)
+    [self.delegate buildRouteFrom:p];
+  else if (m == MWMRoutingPlaneModeSearchDestination)
+     [self.delegate buildRouteTo:p];
+  else
+    f.ShowSearchResult(result);
+  if (!IPAD)
+    a.routingPlaneMode = MWMRoutingPlaneModePlacePage;
+  self.state = MWMSearchManagerStateHidden;
 }
 
 #pragma mark - MWMSearchDownloadMapRequest
@@ -221,6 +261,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 
 - (void)changeToDefaultState
 {
+  self.view.alpha = 1.;
   GetFramework().PrepareSearch();
   [self updateTopController];
   [self.navigationController popToRootViewControllerAnimated:NO];

@@ -69,7 +69,6 @@
   {
     if (!v.hidden)
       height += v.height;
-    continue;
   }
   return height;
 }

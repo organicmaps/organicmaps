@@ -1,22 +1,32 @@
 #import "MWMNavigationView.h"
 
+@protocol MWMRoutePreviewDataSource <NSObject>
+
+@required
+- (NSString *)source;
+- (NSString *)destination;
+
+@end
+
 @class MWMNavigationDashboardEntity;
+@class MWMRouteTypeButton;
+@class MWMNavigationDashboardManager;
+@class MWMCircularProgress;
 
 @interface MWMRoutePreview : MWMNavigationView
 
-@property (weak, nonatomic) IBOutlet UILabel * status;
-@property (weak, nonatomic) IBOutlet UIButton * pedestrian;
-@property (weak, nonatomic) IBOutlet UIButton * vehicle;
-@property (weak, nonatomic) IBOutlet UILabel * timeLabel;
-@property (weak, nonatomic) IBOutlet UILabel * distanceLabel;
-@property (weak, nonatomic) IBOutlet UILabel * arrivalsLabel;
-@property (weak, nonatomic) IBOutlet UIButton * cancelButton;
+@property (weak, nonatomic, readonly) IBOutlet UIButton * extendButton;
+@property (nonatomic, readonly) MWMCircularProgress * pedestrianProgressView;
+@property (nonatomic, readonly) MWMCircularProgress * vehicleProgressView;
+@property (weak, nonatomic) id<MWMRoutePreviewDataSource> dataSource;
+@property (weak, nonatomic) MWMNavigationDashboardManager * dashboardManager;
 
 - (void)configureWithEntity:(MWMNavigationDashboardEntity *)entity;
-- (void)statePlaning;
+- (void)statePrepare;
+- (void)statePlanning;
 - (void)stateError;
-
-- (void)setRouteBuildingProgress:(CGFloat)progress;
-- (void)showGoButtonAnimated:(BOOL)show;
+- (void)stateReady;
+- (void)reloadData;
+- (void)selectProgress:(MWMCircularProgress *)progress;
 
 @end

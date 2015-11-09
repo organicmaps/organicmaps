@@ -130,6 +130,12 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   self.streetLabel.text = streetName;
 }
 
+- (void)setInactive
+{
+  self.p2pButton.selected = NO;
+  self.state = self.restoreState = MWMBottomMenuStateInactive;
+}
+
 - (void)setPlanning
 {
   if (IPAD)
@@ -376,18 +382,33 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 
 - (IBAction)point2PointButtonTouchUpInside:(UIButton *)sender
 {
+  self.state = self.restoreState;
+  BOOL const isSelected = !sender.isSelected;
+  sender.selected = isSelected;
+  MapsAppDelegate * theApp = [MapsAppDelegate theApp];
+  if (isSelected)
+  {
+    theApp.routingPlaneMode = MWMRoutingPlaneModePlacePage;
+    [self.controller.controlsManager routingPrepare];
+  }
+  else
+  {
+    if (theApp.routingPlaneMode == MWMRoutingPlaneModeSearchDestination || theApp.routingPlaneMode == MWMRoutingPlaneModeSearchSource)
+      self.controller.controlsManager.searchHidden = YES;
+    [self.controller.controlsManager routingHidden];
+  }
 }
 
 - (IBAction)searchButtonTouchUpInside:(UIButton *)sender
 {
-  self.state = MWMBottomMenuStateInactive;
+  self.state = self.restoreState;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"search"];
   self.controller.controlsManager.searchHidden = self.searchIsActive;
 }
 
 - (IBAction)bookmarksButtonTouchUpInside:(UIButton *)sender
 {
-  self.state = MWMBottomMenuStateInactive;
+  self.state = self.restoreState;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"bookmarks"];
   BookmarksRootVC * const vc = [[BookmarksRootVC alloc] init];
   [self.controller.navigationController pushViewController:vc animated:YES];
@@ -416,6 +437,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 }
 - (IBAction)goButtonTouchUpInside:(UIButton *)sender
 {
+  [self.controller.controlsManager routingNavigation];
 }
 
 - (void)dimBackgroundTap

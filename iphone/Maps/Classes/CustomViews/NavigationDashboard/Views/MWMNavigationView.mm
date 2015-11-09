@@ -27,9 +27,14 @@ static CGFloat const kStatusbarHeight = 20.0;
 - (void)addToView:(UIView *)superview
 {
   NSAssert(superview != nil, @"Superview can't be nil");
+  if ([superview.subviews containsObject:self])
+    return;
   dispatch_async(dispatch_get_main_queue(), ^
   {
-    [superview insertSubview:self atIndex:0];
+    if (IPAD)
+      [superview addSubview:self];
+    else
+      [superview insertSubview:self atIndex:0];
     self.frame = self.defaultFrame;
     self.isVisible = YES;
   });

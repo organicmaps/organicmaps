@@ -4,24 +4,19 @@
 @interface MWMCircularProgress ()
 
 @property (nonatomic) IBOutlet MWMCircularProgressView * rootView;
-@property (nonatomic) IBOutlet UIButton * button;
-
 @property (nonatomic) NSNumber * nextProgressToAnimate;
-
-@property (weak, nonatomic) id <MWMCircularProgressDelegate> delegate;
 
 @end
 
 @implementation MWMCircularProgress
 
-- (nonnull instancetype)initWithParentView:(nonnull UIView *)parentView delegate:(nonnull id <MWMCircularProgressDelegate>)delegate
+- (nonnull instancetype)initWithParentView:(nonnull UIView *)parentView
 {
   self = [super init];
   if (self)
   {
     [[NSBundle mainBundle] loadNibNamed:self.class.className owner:self options:nil];
     [parentView addSubview:self.rootView];
-    self.delegate = delegate;
     [self reset];
   }
   return self;
@@ -31,6 +26,28 @@
 {
   [self.rootView updatePath:0.];
   self.nextProgressToAnimate = nil;
+}
+
+- (void)setImage:(nonnull UIImage *)image forState:(MWMCircularProgressState)state
+{
+  [self.rootView setImage:image forState:state];
+}
+
+- (void)setColor:(nonnull UIColor *)color forState:(MWMCircularProgressState)state
+{
+  [self.rootView setColor:color forState:state];
+}
+
+#pragma mark - Spinner
+
+- (void)startSpinner
+{
+  [self.rootView startSpinner];
+}
+
+- (void)stopSpinner
+{
+  [self.rootView stopSpinner];
 }
 
 #pragma mark - Animation
@@ -66,18 +83,14 @@
   }
 }
 
-- (void)setFailed:(BOOL)failed
+- (void)setState:(MWMCircularProgressState)state
 {
-  if (self.button.selected == failed)
-    return;
-  self.button.selected = failed;
-  [self.rootView refreshProgress];
-  [self.rootView updatePath:self.progress];
+  self.rootView.state = state;
 }
 
-- (BOOL)failed
+- (MWMCircularProgressState)state
 {
-  return self.button.selected;
+  return self.rootView.state;
 }
 
 @end

@@ -1,3 +1,4 @@
+#import "MapsAppDelegate.h"
 #import "MWMBasePlacePageView.h"
 #import "MWMBookmarkColorViewController.h"
 #import "MWMBookmarkDescriptionViewController.h"
@@ -8,7 +9,7 @@
 #import "MWMPlacePageViewManager.h"
 #import "SelectSetVC.h"
 
-#import "../../3party/Alohalytics/src/alohalytics_objc.h"
+#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 static NSString * const kPlacePageNibIdentifier = @"PlacePageView";
 extern NSString * const kAlohalyticsTapEventKey;
@@ -83,7 +84,16 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
 {
   MWMPlacePageEntity * entity = self.manager.entity;
   [self.basePlacePageView configureWithEntity:entity];
-  [self.actionBar configureWithPlacePage:self];
+  BOOL const isPrepareRouteMode = MapsAppDelegate.theApp.routingPlaneMode != MWMRoutingPlaneModeNone;
+  if (self.actionBar.isPrepareRouteMode == isPrepareRouteMode)
+  {
+    [self.actionBar configureWithPlacePage:self];
+  }
+  else
+  {
+    [self.actionBar removeFromSuperview];
+    self.actionBar = [MWMPlacePageActionBar actionBarForPlacePage:self];
+  }
 }
 
 - (void)show

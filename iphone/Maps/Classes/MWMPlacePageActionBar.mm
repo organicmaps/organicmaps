@@ -29,7 +29,15 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 
 + (MWMPlacePageActionBar *)actionBarForPlacePage:(MWMPlacePage *)placePage
 {
-  MWMPlacePageActionBar * bar = [[[NSBundle mainBundle] loadNibNamed:kPlacePageActionBarNibName owner:self options:nil] firstObject];
+  BOOL const isPrepareRouteMode = MapsAppDelegate.theApp.routingPlaneMode != MWMRoutingPlaneModeNone;
+  NSUInteger const i = isPrepareRouteMode ? 1 : 0;
+  MWMPlacePageActionBar * bar = [NSBundle.mainBundle
+                                 loadNibNamed:kPlacePageActionBarNibName owner:nil options:nil][i];
+  NSAssert(i == bar.tag, @"Incorrect view!");
+  bar.isPrepareRouteMode = isPrepareRouteMode;
+  if (isPrepareRouteMode)
+    return bar;
+
   [bar setupBookmarkButton];
   [bar configureWithPlacePage:placePage];
   return bar;
@@ -121,6 +129,16 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   UIImageView * animationIV = btn.imageView;
   animationIV.animationImages = animationImages;
   animationIV.animationRepeatCount = 1;
+}
+
+- (IBAction)fromTap
+{
+  [self.placePage.manager routeFrom];
+}
+
+- (IBAction)toTap
+{
+  [self.placePage.manager routeTo];
 }
 
 - (IBAction)bookmarkTap:(UIButton *)sender

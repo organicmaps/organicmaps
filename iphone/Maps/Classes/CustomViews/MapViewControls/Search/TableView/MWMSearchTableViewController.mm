@@ -114,7 +114,8 @@ LocationObserver>
   }
   else
   {
-    if (IPAD)
+    MWMRoutingPlaneMode const m = MapsAppDelegate.theApp.routingPlaneMode;
+    if (IPAD || m == MWMRoutingPlaneModeSearchSource || m == MWMRoutingPlaneModeSearchDestination)
       return MWMSearchTableCellTypeCommon;
     else
       return indexPath.row == 0 ? MWMSearchTableCellTypeOnMap : MWMSearchTableCellTypeCommon;
@@ -235,16 +236,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   {
     search::Result const & result = [self searchResultForIndexPath:indexPath];
     if (cellType == MWMSearchTableCellTypeSuggestion)
-    {
       [self.delegate searchText:@(result.GetSuggestionString()) forInputLocale:nil];
-    }
     else
-    {
-      Framework & f = GetFramework();
-      f.ShowSearchResult(result);
-      f.SaveSearchQuery(make_pair(searchParams.m_inputLocale, searchParams.m_query));
-      self.delegate.state = MWMSearchManagerStateHidden;
-    }
+      [self.delegate processSearchWithResult:result query:make_pair(searchParams.m_inputLocale, searchParams.m_query)];
   }
 }
 

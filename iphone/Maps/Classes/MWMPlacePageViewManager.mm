@@ -31,7 +31,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   unique_ptr<UserMarkCopy> m_userMark;
 }
 
-@property (weak, nonatomic) UIViewController<MWMPlacePageViewManagerProtocol> * ownerViewController;
+@property (weak, nonatomic) UIViewController * ownerViewController;
 @property (nonatomic, readwrite) MWMPlacePageEntity * entity;
 @property (nonatomic) MWMPlacePage * placePage;
 @property (nonatomic) MWMPlacePageManagerState state;
@@ -186,11 +186,30 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)buildRoute
 {
-  auto & f = GetFramework();
   m2::PointD const & destination = m_userMark->GetUserMark()->GetOrg();
   m2::PointD const myPosition (ToMercator([MapsAppDelegate theApp].m_locationManager.lastLocation.coordinate));
-  f.SetRouter(f.GetBestRouter(myPosition, destination));
-  [self.delegate buildRoute:destination];
+  [self.delegate buildRouteFrom:MWMRoutePoint(myPosition) to:{destination, self.placePage.basePlacePageView.titleLabel.text}];
+}
+
+- (void)routeFrom
+{
+  [self.delegate buildRouteFrom:self.target];
+  [self dismissPlacePage];
+}
+
+- (void)routeTo
+{
+  [self.delegate buildRouteTo:self.target];
+  [self dismissPlacePage];
+}
+
+- (MWMRoutePoint)target
+{
+  UserMark const * m = m_userMark->GetUserMark();
+  m2::PointD const & org = m->GetOrg();
+  return m->GetMarkType() == UserMark::Type::MY_POSITION ?
+                          MWMRoutePoint(org) :
+                          MWMRoutePoint(org, self.placePage.basePlacePageView.titleLabel.text);
 }
 
 - (void)share

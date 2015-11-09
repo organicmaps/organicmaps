@@ -8,7 +8,7 @@
 #include "Framework.h"
 #include "storage/index.hpp"
 
-@interface MWMDownloadMapRequest () <MWMCircularProgressDelegate>
+@interface MWMDownloadMapRequest () <MWMCircularProgressProtocol>
 
 @property (nonatomic) IBOutlet MWMDownloadMapRequestView * rootView;
 @property (nonatomic) IBOutlet UILabel * mapTitleLabel;
@@ -37,11 +37,26 @@
   {
     [[NSBundle mainBundle] loadNibNamed:self.class.className owner:self options:nil];
     [parentView addSubview:self.rootView];
-    self.progressView = [[MWMCircularProgress alloc] initWithParentView:self.progressViewWrapper delegate:self];
+    self.progressView = [[MWMCircularProgress alloc] initWithParentView:self.progressViewWrapper];
+    self.progressView.delegate = self;
+    [self setupProgressImages];
     self.delegate = delegate;
     [self showRequest];
   }
   return self;
+}
+
+- (void)setupProgressImages
+{
+  [self.progressView setImage:[UIImage imageNamed:@"ic_download"] forState:MWMCircularProgressStateNormal];
+  [self.progressView setImage:[UIImage imageNamed:@"ic_download_press"] forState:MWMCircularProgressStateHighlighted];
+  [self.progressView setImage:[UIImage imageNamed:@"ic_download"] forState:MWMCircularProgressStateSelected];
+  [self.progressView setImage:[UIImage imageNamed:@"ic_download_press"] forState:MWMCircularProgressStateSelectedHighlighted];
+  [self.progressView setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateProgress];
+  [self.progressView setImage:[UIImage imageNamed:@"ic_close_spinner_press"] forState:MWMCircularProgressStateProgressHighlighted];
+  [self.progressView setImage:[UIImage imageNamed:@"ic_download_error"] forState:MWMCircularProgressStateFailed];
+  [self.progressView setImage:[UIImage imageNamed:@"ic_download_error_press"] forState:MWMCircularProgressStateFailedHighlighted];
+  [self.progressView setImage:[UIImage imageNamed:@"ic_check"] forState:MWMCircularProgressStateCompleted];
 }
 
 - (void)dealloc
@@ -56,7 +71,7 @@
   if (activeMapLayout.IsDownloadingActive())
   {
     self.currentCountryIndex = activeMapLayout.GetCurrentDownloadingCountryIndex();
-    self.progressView.failed = NO;
+    self.progressView.state = MWMCircularProgressStateProgress;
     [self updateState:MWMDownloadMapRequestStateDownload];
   }
   else
@@ -96,7 +111,8 @@
 
 - (void)setDownloadFailed
 {
-  self.progressView.failed = YES;
+  self.progressView.state = MWMCircularProgressStateFailed;
+  [self.progressView stopSpinner];
 }
 
 #pragma mark - MWMCircularProgressDelegate
@@ -104,10 +120,15 @@
 - (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
 {
   auto & activeMapLayout = GetFramework().GetCountryTree().GetActiveMapLayout();
-  if (progress.failed)
+  if (progress.state == MWMCircularProgressStateFailed)
+  {
     activeMapLayout.RetryDownloading(self.currentCountryIndex);
+    [self.progressView startSpinner];
+  }
   else
+  {
     activeMapLayout.CancelDownloading(self.currentCountryIndex);
+  }
   [self showRequest];
 }
 
@@ -119,6 +140,7 @@
   GetFramework().GetCountryTree().GetActiveMapLayout().DownloadMap(self.currentCountryIndex, mapType);
   self.progressView.progress = 0.0;
   [self showRequest];
+  [self.progressView startSpinner];
 }
 
 - (IBAction)downloadRoutesTouchUpInside:(nonnull UIButton *)sender

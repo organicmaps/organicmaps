@@ -2258,6 +2258,12 @@ void Framework::RemoveRoute()
   m_bmManager.ResetRouteTrack();
 }
 
+bool Framework::DisableFollowMode()
+{
+  GetLocationState()->SetRoutingNotFollow();
+  return m_routingSession.DisableFollowMode();
+}
+
 void Framework::FollowRoute()
 {
   int const scale = (m_currentRouterType == RouterType::Pedestrian) ?

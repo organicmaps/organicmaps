@@ -1,6 +1,6 @@
 #import "MWMNavigationViewProtocol.h"
 
-@interface MWMNavigationView : UIView
+@interface MWMNavigationView : SolidTouchView
 
 @property (nonatomic) CGFloat topBound;
 @property (nonatomic) CGFloat leftBound;
