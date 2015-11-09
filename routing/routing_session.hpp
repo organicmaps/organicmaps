@@ -14,6 +14,7 @@
 #include "base/deferred_task.hpp"
 #include "base/mutex.hpp"
 
+#include "std/atomic.hpp"
 #include "std/limits.hpp"
 #include "std/unique_ptr.hpp"
 
@@ -144,7 +145,7 @@ private:
 private:
   unique_ptr<AsyncRouter> m_router;
   Route m_route;
-  State m_state;
+  atomic<State> m_state;
   m2::PointD m_endPoint;
   size_t m_lastWarnedSpeedCameraIndex;
   SpeedCameraRestriction m_lastFoundCamera;
