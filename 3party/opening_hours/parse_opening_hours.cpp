@@ -53,12 +53,8 @@ bool ParseImp(std::string const & str, Context & context)
 
   auto first = begin(str);
   auto const last = end(str);
-  auto parsed = phrase_parse(
-      first,
-      last,
-      parser,
-      space,
-      context);
+  auto parsed = phrase_parse(first, last, parser,
+                             space, context);
 
   if (!parsed || first != last)
     return false;

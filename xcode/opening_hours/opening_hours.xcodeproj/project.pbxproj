@@ -83,7 +83,6 @@
 		E91738CF1BECD36E00717F6E /* opening_hours_tests_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = opening_hours_tests_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E91738E21BECD36E00717F6E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E91739081BECD60000717F6E /* opening_hours_integration_tests_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = opening_hours_integration_tests_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E917391B1BECD60000717F6E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,7 +145,6 @@
 				E91738A51BECCEB000717F6E /* opening_hours_tests */,
 				670C61E91AC3511700C38A8C /* opening_hours */,
 				E91738D01BECD36E00717F6E /* opening_hours_tests_ios */,
-				E91739091BECD60000717F6E /* opening_hours_integration_tests_ios */,
 				670C61E81AC3511700C38A8C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -215,14 +213,6 @@
 				E91738E21BECD36E00717F6E /* Info.plist */,
 			);
 			path = opening_hours_tests_ios;
-			sourceTree = "<group>";
-		};
-		E91739091BECD60000717F6E /* opening_hours_integration_tests_ios */ = {
-			isa = PBXGroup;
-			children = (
-				E917391B1BECD60000717F6E /* Info.plist */,
-			);
-			path = opening_hours_integration_tests_ios;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -753,6 +743,7 @@
 				E91738B91BECD02B00717F6E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E91738C41BECD08500717F6E /* Build configuration list for PBXNativeTarget "opening_hours_integration_tests" */ = {
 			isa = XCConfigurationList;
@@ -761,6 +752,7 @@
 				E91738C61BECD08500717F6E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E91738F91BECD36F00717F6E /* Build configuration list for PBXNativeTarget "opening_hours_tests_ios" */ = {
 			isa = XCConfigurationList;
@@ -769,6 +761,7 @@
 				E91738FB1BECD36F00717F6E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E917391C1BECD60000717F6E /* Build configuration list for PBXNativeTarget "opening_hours_integration_tests_ios" */ = {
 			isa = XCConfigurationList;
@@ -777,6 +770,7 @@
 				E917391E1BECD60000717F6E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

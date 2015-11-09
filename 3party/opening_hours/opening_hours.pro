@@ -13,12 +13,12 @@ ROOT_DIR = ../..
 
 include($$ROOT_DIR/common.pri)
 
-HEADERS += rules_evaluation.hpp \
-           rules_evaluation_private.hpp \
+HEADERS += opening_hours.hpp \
            opening_hours_parsers.hpp \
            opening_hours_parsers_terminals.hpp \
-           opening_hours.hpp \
-           parse_opening_hours.hpp
+           parse_opening_hours.hpp \
+           rules_evaluation_private.hpp \
+           rules_evaluation.hpp
 
 SOURCES += rules_evaluation.cpp \
            opening_hours.cpp \

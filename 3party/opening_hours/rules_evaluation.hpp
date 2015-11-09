@@ -1,46 +1,32 @@
 #pragma once
 
 #include "opening_hours.hpp"
+
 #include <ctime>
 
 namespace osmoh
 {
-class RuleState
+enum class RuleState
 {
-public:
-  RuleState(RuleSequence::Modifier const & modifier):
-      m_modifier(modifier)
-  {
-  }
-
-  operator bool() const
-  {
-    return IsOpen();
-  }
-
-  bool IsOpen() const
-  {
-    return
-        m_modifier == RuleSequence::Modifier::DefaultOpen ||
-        m_modifier == RuleSequence::Modifier::Open;
-  }
-
-  bool IsClosed() const
-  {
-    return m_modifier == RuleSequence::Modifier::Closed;
-  }
-
-  bool IsUnknown() const
-  {
-    return
-        m_modifier == RuleSequence::Modifier::Unknown ||
-        m_modifier == RuleSequence::Modifier::Comment;
-  }
-
-private:
-  RuleSequence::Modifier m_modifier;
+  Open,
+  Closed,
+  Unknown
 };
-
 RuleState GetState(TRuleSequences const & rules, std::tm const & date);
 RuleState GetState(TRuleSequences const & rules, time_t const dateTime);
+
+inline bool IsOpen(TRuleSequences const & rules, time_t const dateTime)
+{
+  return GetState(rules, dateTime) == RuleState::Open;
+}
+
+inline bool IsClosed(TRuleSequences const & rules, time_t const dateTime)
+{
+  return GetState(rules, dateTime) == RuleState::Closed;
+}
+
+inline bool IsUnknown(TRuleSequences const & rules, time_t const dateTime)
+{
+  return GetState(rules, dateTime) == RuleState::Unknown;
+}
 } // namespace osmoh

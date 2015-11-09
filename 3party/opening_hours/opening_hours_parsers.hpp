@@ -4,13 +4,13 @@
 
 // #define BOOST_SPIRIT_DEBUG
 #define BOOST_SPIRIT_USE_PHOENIX_V3
-#include <boost/spirit/include/qi.hpp>
-#include <boost/spirit/include/phoenix_operator.hpp>
-#include <boost/spirit/include/phoenix_fusion.hpp>
-#include <boost/spirit/include/phoenix_stl.hpp>
-#include <boost/spirit/include/phoenix_statement.hpp>
 #include <boost/spirit/include/phoenix_bind.hpp>
+#include <boost/spirit/include/phoenix_fusion.hpp>
 #include <boost/spirit/include/phoenix_object.hpp>
+#include <boost/spirit/include/phoenix_operator.hpp>
+#include <boost/spirit/include/phoenix_statement.hpp>
+#include <boost/spirit/include/phoenix_stl.hpp>
+#include <boost/spirit/include/qi.hpp>
 
 #if defined(__clang__)
 #pragma clang diagnostic push
@@ -28,20 +28,6 @@
 namespace osmoh
 {
 namespace phx = boost::phoenix;
-
-class test_impl
-{
-public:
-  template <typename T>
-  struct result { typedef void type; };
-
-  template <typename Arg>
-  void operator() (const Arg & a) const
-  {
-    std::cout << a << " \t(" << typeid(a).name() << ")" << std::endl;
-  }
-};
-phx::function<test_impl> const test = test_impl();
 
 namespace parsing
 {
@@ -309,9 +295,9 @@ template <typename Iterator>
 class time_selector : public qi::grammar<Iterator, osmoh::TTimespans(), space_type>
 {
 protected:
-  qi::rule<Iterator, osmoh::Time(), space_type> hour_minutes;
-  qi::rule<Iterator, osmoh::Time(), space_type> extended_hour_minutes;
-  qi::rule<Iterator, osmoh::Time(), space_type> variable_time;
+  qi::rule<Iterator, osmoh::HourMinutes(), space_type> hour_minutes;
+  qi::rule<Iterator, osmoh::HourMinutes(), space_type> extended_hour_minutes;
+  qi::rule<Iterator, osmoh::TimeEvent(), space_type> variable_time;
   qi::rule<Iterator, osmoh::Time(), space_type> extended_time;
   qi::rule<Iterator, osmoh::Time(), space_type> time;
   qi::rule<Iterator, osmoh::Timespan(), space_type> timespan;
@@ -326,37 +312,42 @@ public:
     using qi::_3;
     using qi::_a;
     using qi::_val;
-    using qi::eps;
     using qi::lit;
     using charset::char_;
     using boost::phoenix::bind;
     using boost::phoenix::construct;
+    using osmoh::HourMinutes;
+    using osmoh::TimeEvent;
     using osmoh::Time;
     using osmoh::Timespan;
 
     hour_minutes =
-        (hours >> lit(':') >> minutes) [bind(&Time::SetHours, _val, _1),
-                                        _val = _val + _2]
+        (hours >> lit(':') >> minutes) [bind(&HourMinutes::AddDuration, _val, _1),
+                                        bind(&HourMinutes::AddDuration, _val, _2)]
         ;
 
     extended_hour_minutes =
-        (exthours >> lit(':') >> minutes)[bind(&Time::SetHours, _val, _1),
-                                          _val = _val + _2]
+        (exthours >> lit(':') >> minutes)[bind(&HourMinutes::AddDuration, _val, _1),
+                                          bind(&HourMinutes::AddDuration, _val, _2)]
         ;
 
-    variable_time = eps [phx::bind(&Time::SetHours, _val, 0_h)] >>
-        (lit('(')
-         >> charset::no_case[event][bind(&Time::SetEvent, _val, _1)]
-         >> ( (lit('+') >> hour_minutes)    [_val = _val + _1]
-              | (lit('-') >> hour_minutes)  [_val = _val - _1] )
-         >> lit(')')
-         )
-         | charset::no_case[event][bind(&Time::SetEvent, _val, _1)]
+    variable_time =
+        ( lit('(')
+          >> charset::no_case[event]         [bind(&TimeEvent::SetEvent, _val, _1)]
+          >> ( (lit('+') >> hour_minutes)    [bind(&TimeEvent::SetOffset, _val, _1)]
+               | (lit('-') >> hour_minutes)  [bind(&TimeEvent::SetOffset, _val, -_1)] )
+          >> lit(')')
+          )
+        | charset::no_case[event][bind(&TimeEvent::SetEvent, _val, _1)]
         ;
 
-    extended_time %= extended_hour_minutes | variable_time;
+    extended_time = extended_hour_minutes [bind(&Time::SetHourMinutes, _val, _1)]
+        | variable_time                   [bind(&Time::SetEvent, _val, _1)]
+        ;
 
-    time %= hour_minutes | variable_time;
+    time = hour_minutes [bind(&Time::SetHourMinutes, _val, _1)]
+        | variable_time [bind(&Time::SetEvent, _val, _1)]
+        ;
 
     timespan =
         (time >> dash >> extended_time >> '/' >> hour_minutes)
@@ -494,3 +485,4 @@ public:
 };
 } // namespace parsing
 } // namespace osmoh
+#undef BOOST_SPIRIT_USE_PHOENIX_V3

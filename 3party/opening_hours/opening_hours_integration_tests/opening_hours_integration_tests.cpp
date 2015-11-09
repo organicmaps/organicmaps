@@ -35,14 +35,19 @@ bool HasPlus(std::vector<T> const & v)
   return std::any_of(begin(v), end(v), hasPlus);
 }
 
-bool HasEHours(osmoh::TTimespans const & spans)
+bool HasExtendedHours(osmoh::TTimespans const & spans)
 {
-  auto const hasEHours = [](osmoh::Timespan const & s) -> bool {
+  auto const hasExtendedHours = [](osmoh::Timespan const & s) -> bool
+  {
     if (!s.HasEnd())
       return false;
-    return s.GetEnd().GetMinutes() + s.GetEnd().GetHours() > 24 * std::chrono::minutes(60);
+
+    auto const startDuration = s.GetStart().GetMinutes() + s.GetStart().GetHours();
+    auto const endDuration = s.GetEnd().GetMinutes() + s.GetEnd().GetHours();
+
+    return endDuration > 24 * std::chrono::minutes(60) || startDuration > endDuration;
   };
-  return std::any_of(begin(spans), end(spans), hasEHours);
+  return std::any_of(begin(spans), end(spans), hasExtendedHours);
 }
 
 bool HasOffset(osmoh::TMonthdayRanges const & mr)
@@ -64,40 +69,41 @@ bool HasOffset(osmoh::Weekdays const & wd)
 template <typename ParserResult>
 bool CompareNormalized(std::string const & original, ParserResult const & pretendent)
 {
-  auto original_copy = original;
-  auto pretendent_copy = ToString(pretendent);
+  auto originalCopy = original;
+  auto pretendentCopy = ToString(pretendent);
 
-  boost::to_lower(original_copy);
-  boost::to_lower(pretendent_copy);
+  boost::to_lower(originalCopy);
+  boost::to_lower(pretendentCopy);
 
-  boost::replace_all(original_copy, "off", "closed");
+  boost::replace_all(originalCopy, "off", "closed");
 
-  boost::replace_all(original_copy, " ", "");
-  boost::replace_all(pretendent_copy, " ", "");
+  boost::replace_all(originalCopy, " ", "");
+  boost::replace_all(pretendentCopy, " ", "");
 
-  return pretendent_copy == original_copy;
+  return pretendentCopy == originalCopy;
 }
 
 enum
 {
   Parsed,
-  Unparsed,
+  Serialised,
   Period,
   Plus,
-  Ehours,
-  Offset
+  // True if a rule has Timespen with more than 24 hours at the end
+  // or and greater than start.
+  // Example:
+  // 12:00-29:00
+  // 13:12-06:15
+  ExtendedHours,
+  Offset,
+  Count_
 };
-using TRuleFeatures = std::array<bool, 6>;
+using TRuleFeatures = std::array<bool, Count_>;
 
 std::ostream & operator<<(std::ostream & ost, TRuleFeatures const & f)
 {
-  ost << f[Parsed] << '\t'
-      << f[Unparsed] << '\t'
-      << f[Period] << '\t'
-      << f[Plus] << '\t'
-      << f[Ehours] << '\t'
-      << f[Offset] << '\t';
-  return ost;
+ std::copy(begin(f), end(f), std::ostream_iterator<bool>(ost, "\t"));
+ return ost;
 }
 
 TRuleFeatures DescribeRule(osmoh::TRuleSequences const & rule)
@@ -117,7 +123,7 @@ TRuleFeatures DescribeRule(osmoh::TRuleSequences const & rule)
     features[Offset] |= HasOffset(r.GetMonths());
     features[Offset] |= HasOffset(r.GetWeekdays());
 
-    features[Ehours] |= HasEHours(r.GetTimes());
+    features[ExtendedHours] |= HasExtendedHours(r.GetTimes());
   }
 
   return features;
@@ -156,8 +162,8 @@ BOOST_AUTO_TEST_CASE(OpeningHours_CountFailed)
     }
     else
     {
-      count = std::stol(line.substr(0,d));
-      datastr = line.substr(d+1);
+      count = std::stol(line.substr(0, d));
+      datastr = line.substr(d + 1);
     }
 
     line_num++;
@@ -169,21 +175,21 @@ BOOST_AUTO_TEST_CASE(OpeningHours_CountFailed)
     if (isParsed)
       features = DescribeRule(rule);
     features[Parsed] = true;
-    features[Unparsed] = true;
+    features[Serialised] = true;
 
     if (!isParsed)
     {
       num_failed += count;
       ++hist[count];
       features[Parsed] = false;
-      features[Unparsed] = false;
+      features[Serialised] = false;
       BOOST_TEST_MESSAGE("-- " << count << " :[" << datastr << "]");
     }
     else if (!CompareNormalized(datastr, rule))
     {
       num_failed += count;
       ++hist[count];
-      features[Unparsed] = false;
+      features[Serialised] = false;
       BOOST_TEST_MESSAGE("- " << count << " :[" << datastr << "]");
       BOOST_TEST_MESSAGE("+ " << count << " :[" << ToString(rule) << "]");
     }
@@ -206,7 +212,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_CountFailed)
   }
   {
     std::stringstream message;
-    message << "Parsed\tUnparsed\tPeriod\tPlus\tEhours\tOffset\tCount\n";
+    message << "Parsed\tSerialised\tPeriod\tPlus\tExtendedHours\tOffset\tCount" << std::endl;
     for (auto const & e : featuresDistrib)
       message << e.first  << '\t' << e.second << std::endl;
 

@@ -87,7 +87,7 @@ bool GetTimeTuple(std::string const & strTime, std::string const & fmt, std::tm 
 
 struct GetTimeError: std::exception
 {
-  GetTimeError(std::string const & message): m_message(message) { }
+  GetTimeError(std::string const & message): m_message(message) {}
   char const * what() const noexcept override
   {
     return m_message.data();
@@ -98,7 +98,7 @@ struct GetTimeError: std::exception
 osmoh::RuleState GetRulesState(osmoh::TRuleSequences const & rules, std::string const & dateTime)
 {
   static auto const & fmt = "%Y-%m-%d %H:%M";
-  std::tm time{};
+  std::tm time = {};
   if (!GetTimeTuple(dateTime, fmt, time))
     throw GetTimeError{"Can't parse " + dateTime + " against " + fmt};
 
@@ -112,114 +112,136 @@ osmoh::RuleState GetRulesState(osmoh::TRuleSequences const & rules, std::string 
 
 bool IsOpen(osmoh::TRuleSequences const & rules, std::string const & dateTime)
 {
-  return GetRulesState(rules, dateTime).IsOpen();
+  return GetRulesState(rules, dateTime) == osmoh::RuleState::Open;
 }
 
 bool IsClosed(osmoh::TRuleSequences const & rules, std::string const & dateTime)
 {
-  return GetRulesState(rules, dateTime).IsClosed();
+  return GetRulesState(rules, dateTime) == osmoh::RuleState::Closed;
 }
 
 bool IsUnknown(osmoh::TRuleSequences const & rules, std::string const & dateTime)
 {
-  return GetRulesState(rules, dateTime).IsUnknown();
+  return GetRulesState(rules, dateTime) == osmoh::RuleState::Unknown;
 }
 } // namespace
+
+BOOST_AUTO_TEST_CASE(OpeningHours_TestHourMinutes)
+{
+  using namespace osmoh;
+
+  {
+    BOOST_CHECK(HourMinutes().IsEmpty());
+    BOOST_CHECK_EQUAL(ToString(HourMinutes()), "hh:mm");
+  }
+  {
+    HourMinutes hm(10_min);
+    BOOST_CHECK(!hm.IsEmpty());
+    BOOST_CHECK_EQUAL(ToString(hm), "00:10");
+  }
+  {
+    HourMinutes hm{100_min};
+    BOOST_CHECK(!hm.IsEmpty());
+    BOOST_CHECK_EQUAL(hm.GetHoursCount(), 1);
+    BOOST_CHECK_EQUAL(hm.GetMinutesCount(), 40);
+
+    BOOST_CHECK_EQUAL(ToString(hm), "01:40");
+  }
+  {
+    HourMinutes hm{};
+    hm.SetHours(22_h);
+    hm.SetMinutes(15_min);
+    BOOST_CHECK(!hm.IsEmpty());
+
+    BOOST_CHECK_EQUAL(hm.GetHoursCount(), 22);
+    BOOST_CHECK_EQUAL(hm.GetMinutesCount(), 15);
+
+    BOOST_CHECK_EQUAL(ToString(hm), "22:15");
+  }
+}
+
+BOOST_AUTO_TEST_CASE(OpeningHours_TestTimeEvent)
+{
+  using namespace osmoh;
+
+  {
+    BOOST_CHECK(TimeEvent().IsEmpty());
+    BOOST_CHECK(!TimeEvent().HasOffset());
+  }
+  {
+    TimeEvent te(TimeEvent::Event::Sunrise);
+    BOOST_CHECK(!te.IsEmpty());
+    BOOST_CHECK(!te.HasOffset());
+
+    BOOST_CHECK_EQUAL(ToString(te), "sunrise");
+  }
+  {
+    TimeEvent te(TimeEvent::Event::Sunset);
+    BOOST_CHECK(!te.IsEmpty());
+    BOOST_CHECK(!te.HasOffset());
+
+    BOOST_CHECK_EQUAL(ToString(te), "sunset");
+  }
+  {
+    TimeEvent te(TimeEvent::Event::Sunrise);
+    te.SetOffset(-HourMinutes(100_min));
+    BOOST_CHECK(!te.IsEmpty());
+    BOOST_CHECK(te.HasOffset());
+
+    BOOST_CHECK_EQUAL(ToString(te), "(sunrise-01:40)");
+
+    te.SetOffset(HourMinutes(100_min));
+    BOOST_CHECK_EQUAL(ToString(te), "(sunrise+01:40)");
+  }
+}
 
 BOOST_AUTO_TEST_CASE(OpeningHours_TestTime)
 {
   using namespace osmoh;
 
   {
-    BOOST_CHECK(!Time{}.HasValue());
-    BOOST_CHECK_EQUAL(ToString(Time{}), "hh:mm");
+    BOOST_CHECK(Time().IsEmpty());
+    BOOST_CHECK(!Time().IsHoursMinutes());
+    BOOST_CHECK(!Time().IsTime());
+    BOOST_CHECK(!Time().IsEvent());
   }
   {
-    Time time{10_min};
-    BOOST_CHECK(time.HasValue());
-    BOOST_CHECK(!time.IsHoursMinutes());
-    BOOST_CHECK(!time.IsTime());
-    BOOST_CHECK(time.IsMinutes());
-    BOOST_CHECK(!time.IsEvent());
-    BOOST_CHECK(!time.IsEventOffset());
-
-    BOOST_CHECK_EQUAL(ToString(time), "10");
-  }
-  {
-    Time time{100_min};
-    BOOST_CHECK(time.HasValue());
-    BOOST_CHECK(time.IsHoursMinutes());
-    BOOST_CHECK(time.IsTime());
-    BOOST_CHECK(!time.IsMinutes());
-    BOOST_CHECK(!time.IsEvent());
-    BOOST_CHECK(!time.IsEventOffset());
-
-    BOOST_CHECK_EQUAL(time.GetHoursCount(), 1);
-    BOOST_CHECK_EQUAL(time.GetMinutesCount(), 40);
-
-    BOOST_CHECK_EQUAL(ToString(time), "01:40");
-  }
-  {
-    Time time{};
-    time.SetHours(22_h);
-    time = time + 15_min;
-    BOOST_CHECK(time.HasValue());
-    BOOST_CHECK(time.IsHoursMinutes());
-    BOOST_CHECK(time.IsTime());
-    BOOST_CHECK(!time.IsMinutes());
-    BOOST_CHECK(!time.IsEvent());
-    BOOST_CHECK(!time.IsEventOffset());
-
-    BOOST_CHECK_EQUAL(time.GetHoursCount(), 22);
-    BOOST_CHECK_EQUAL(time.GetMinutesCount(), 15);
-
-    BOOST_CHECK_EQUAL(ToString(time), "22:15");
-  }
-  {
-    Time time{};
-    time.SetEvent(Time::Event::Sunrise);
-    BOOST_CHECK(time.HasValue());
+    Time time;
+    time.SetEvent(TimeEvent::Event::Sunrise);
+    BOOST_CHECK(!time.IsEmpty());
     BOOST_CHECK(!time.IsHoursMinutes());
     BOOST_CHECK(time.IsTime());
-    BOOST_CHECK(!time.IsMinutes());
     BOOST_CHECK(time.IsEvent());
-    BOOST_CHECK(!time.IsEventOffset());
 
     BOOST_CHECK_EQUAL(ToString(time), "sunrise");
 
-    time = time - 90_min;
-    BOOST_CHECK(time.IsEventOffset());
+    time.AddDuration(-90_min);
     BOOST_CHECK_EQUAL(ToString(time), "(sunrise-01:30)");
   }
   {
     Time time{};
-    time.SetEvent(Time::Event::Sunrise);
-    time.SetHours(22_h);
-    time.SetMinutes(15_min);
-    BOOST_CHECK(time.HasValue());
-    BOOST_CHECK(!time.IsHoursMinutes());
+    time.SetHourMinutes(HourMinutes(22_h + 5_min));
+    BOOST_CHECK(!time.IsEmpty());
+    BOOST_CHECK(time.IsHoursMinutes());
     BOOST_CHECK(time.IsTime());
-    BOOST_CHECK(!time.IsMinutes());
-    BOOST_CHECK(time.IsEvent());
-    BOOST_CHECK(time.IsEventOffset());
+    BOOST_CHECK(!time.IsEvent());
+
+    BOOST_CHECK_EQUAL(ToString(time), "22:05");
+
+    time.AddDuration(10_min);
+    BOOST_CHECK_EQUAL(ToString(time), "22:15");
   }
   {
-    Time time{10_min};
-    BOOST_CHECK_EQUAL((-time).GetMinutesCount(), -10);
-    BOOST_CHECK_EQUAL(ToString(-time), "10");
+    Time time{};
+    time.SetHourMinutes(HourMinutes(22_h + 5_min));
+
+    time.SetEvent(TimeEvent::Event::Sunset);
+    BOOST_CHECK_EQUAL(ToString(time), "sunset");
   }
   {
-    Time t1{2_h};
-    Time t2{100_min};
-    Time t3 = t1 - t2;
-    BOOST_CHECK_EQUAL(t3.GetHoursCount(), 0);
-    BOOST_CHECK_EQUAL(t3.GetMinutesCount(), 20);
-  }
-  {
-    Time time {27_h + 30_min};
+    Time time(HourMinutes(27_h + 30_min));
     BOOST_CHECK_EQUAL(ToString(time), "27:30");
   }
-  // TODO(mgsergio): more tests with event and get hours/minutes
 }
 
 BOOST_AUTO_TEST_CASE(OpeningHours_TestTimespan)
@@ -233,12 +255,12 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestTimespan)
     BOOST_CHECK(!span.HasEnd());
     BOOST_CHECK_EQUAL(ToString(span), "hh:mm-hh:mm");
 
-    span.SetStart(10_h);
+    span.SetStart(HourMinutes(10_h));
     BOOST_CHECK(span.HasStart());
     BOOST_CHECK(span.IsOpen());
     BOOST_CHECK_EQUAL(ToString(span), "10:00");
 
-    span.SetEnd(12_h);
+    span.SetEnd(HourMinutes(12_h));
     BOOST_CHECK(span.HasEnd());
     BOOST_CHECK(!span.IsOpen());
     BOOST_CHECK_EQUAL(ToString(span), "10:00-12:00");
@@ -622,26 +644,32 @@ BOOST_AUTO_TEST_CASE(OpeningHoursTimerange_TestParseUnparse)
   {
     auto const rule = "dusk";
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TTimespans>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, "sunset");
   }
   {
     auto const rule = "dawn+";
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TTimespans>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, "sunrise+");
   }
   {
     auto const rule = "sunrise-sunset";
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TTimespans>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
-    auto const rule = "(dusk-12:12)";
+    auto const rule = "(sunset-12:12)";
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TTimespans>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
   {
     auto const rule = "(dusk-12:12)+";
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TTimespans>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, "(sunset-12:12)+");
   }
   {
-    auto const rule = "(dusk-12:12)-sunset";
+    auto const rule = "(sunrise-12:12)-sunset";
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TTimespans>(rule);
+    BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
 }
 
@@ -1330,5 +1358,31 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestIsOpen)
 
     BOOST_CHECK(IsOpen(rules, "2015-11-06 18:40"));
     BOOST_CHECK(!IsClosed(rules, "2015-11-06 18:40"));
+  }
+}
+
+
+BOOST_AUTO_TEST_CASE(OpeningHours_TestOpeningHours)
+{
+  // OpeningHours is just a wrapper. So a couple of tests is
+  // enough to check if it works.
+
+  static auto const & fmt = "%Y-%m-%d %H:%M";
+
+  using namespace osmoh;
+
+  {
+    OpeningHours oh("Su 11:00-17:00; \"Wochentags auf Anfrage\"; Tu off");
+    BOOST_CHECK(oh.IsValid());
+
+    std::tm time = {};
+    BOOST_CHECK(GetTimeTuple("2015-11-08 12:30", fmt, time));
+    BOOST_CHECK(oh.IsOpen(mktime(&time)));
+
+    BOOST_CHECK(GetTimeTuple("2015-11-09 12:30", fmt, time));
+    BOOST_CHECK(oh.IsUnknown(mktime(&time)));
+
+    BOOST_CHECK(GetTimeTuple("2015-11-10 12:30", fmt, time));
+    BOOST_CHECK(oh.IsClosed(mktime(&time)));
   }
 }

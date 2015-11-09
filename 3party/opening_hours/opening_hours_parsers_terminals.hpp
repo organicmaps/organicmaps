@@ -1,4 +1,8 @@
 
+// This header file should be used only with opening_hours_parsers.hpp.
+// It's only purpose is to avoid polution opening_hours_parsers.hpp with
+// it's content.
+
 namespace osmoh
 {
 namespace parsing
@@ -17,15 +21,15 @@ struct dash_ : public qi::symbols<char>
   }
 } dash;
 
-struct event_ : public qi::symbols<char, osmoh::Time::Event>
+struct event_ : public qi::symbols<char, osmoh::TimeEvent::Event>
 {
   event_()
   {
     add
-        ("dawn", osmoh::Time::Event::Sunrise)
-        ("sunrise", osmoh::Time::Event::Sunrise)
-        ("sunset", osmoh::Time::Event::Sunset)
-        ("dusk", osmoh::Time::Event::Sunset)
+        ("dawn", osmoh::TimeEvent::Event::Sunrise)
+        ("sunrise", osmoh::TimeEvent::Event::Sunrise)
+        ("sunset", osmoh::TimeEvent::Event::Sunset)
+        ("dusk", osmoh::TimeEvent::Event::Sunset)
         ;
   }
 } event;

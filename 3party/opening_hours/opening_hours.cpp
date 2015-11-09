@@ -23,6 +23,8 @@
 */
 
 #include "opening_hours.hpp"
+#include "rules_evaluation.hpp"
+#include "parse_opening_hours.hpp"
 
 #include <cstdlib>
 #include <iomanip>
@@ -56,7 +58,6 @@ void PrintVector(std::ostream & ost, std::vector<T> const & v, char const * cons
   PrintVector(ost, v, [&sep](T const &) { return sep; });
 }
 
-
 void PrintOffset(std::ostream & ost, int32_t const offset, bool const space)
 {
   if (offset == 0)
@@ -75,7 +76,7 @@ void PrintOffset(std::ostream & ost, int32_t const offset, bool const space)
 class StreamFlagsKeeper
 {
  public:
-  StreamFlagsKeeper(std::ostream & ost):
+  explicit StreamFlagsKeeper(std::ostream & ost):
       m_ost(ost),
       m_flags(m_ost.flags())
   {
@@ -93,8 +94,17 @@ class StreamFlagsKeeper
 
 void PrintPaddedNumber(std::ostream & ost, uint32_t const number, uint32_t const padding = 1)
 {
-  StreamFlagsKeeper keeper{ost};
+  StreamFlagsKeeper keeper(ost);
   ost << std::setw(padding) << std::setfill('0') << number;
+}
+
+void PrintHoursMinutes(std::ostream & ost,
+                       std::chrono::hours::rep hours,
+                       std::chrono::minutes::rep minutes)
+{
+  PrintPaddedNumber(ost, hours, 2);
+  ost << ':';
+  PrintPaddedNumber(ost, minutes, 2);
 }
 
 } // namespace
@@ -102,14 +112,188 @@ void PrintPaddedNumber(std::ostream & ost, uint32_t const number, uint32_t const
 namespace osmoh
 {
 
-Time::Time(THours const hours)
+// HourMinutes -------------------------------------------------------------------------------------
+HourMinutes::HourMinutes(THours const duration)
 {
-  SetHours(hours);
+  SetDuration(duration);
 }
 
-Time::Time(TMinutes const minutes)
+HourMinutes::HourMinutes(TMinutes const duration)
 {
-  SetMinutes(minutes);
+  SetDuration(duration);
+}
+
+bool HourMinutes::IsEmpty() const
+{
+  return m_empty;
+}
+
+HourMinutes::THours HourMinutes::GetHours() const
+{
+  return m_hours;
+}
+
+HourMinutes::TMinutes HourMinutes::GetMinutes() const
+{
+  return m_minutes;
+}
+
+HourMinutes::TMinutes HourMinutes::GetDuration() const
+{
+  return GetMinutes() + GetHours();
+}
+
+HourMinutes::THours::rep HourMinutes::GetHoursCount() const
+{
+  return GetHours().count();
+}
+
+HourMinutes::TMinutes::rep HourMinutes::GetMinutesCount() const
+{
+  return GetMinutes().count();
+}
+
+HourMinutes::TMinutes::rep HourMinutes::GetDurationCount() const
+{
+  return GetDuration().count();
+}
+
+void HourMinutes::SetHours(THours const hours)
+{
+  m_empty = false;
+  m_hours = hours;
+}
+
+void HourMinutes::SetMinutes(TMinutes const minutes)
+{
+  m_empty = false;
+  m_minutes = minutes;
+}
+
+void HourMinutes::SetDuration(TMinutes const duration)
+{
+  SetHours(std::chrono::duration_cast<THours>(duration));
+  SetMinutes(duration - GetHours());
+}
+
+void HourMinutes::AddDuration(TMinutes const duration)
+{
+  SetDuration(GetDuration() + duration);
+}
+
+HourMinutes operator-(HourMinutes const & hm)
+{
+  HourMinutes result;
+  result.SetHours(-hm.GetHours());
+  result.SetMinutes(-hm.GetMinutes());
+  return result;
+}
+
+std::ostream & operator<<(std::ostream & ost, HourMinutes const & hm)
+{
+  if (hm.IsEmpty())
+    ost << "hh:mm";
+  else
+    PrintHoursMinutes(ost, std::abs(hm.GetHoursCount()), std::abs(hm.GetMinutesCount()));
+  return ost;
+}
+
+// TimeEvent ---------------------------------------------------------------------------------------
+TimeEvent::TimeEvent(Event const event): m_event(event) {}
+
+bool TimeEvent::IsEmpty() const
+{
+  return m_event == Event::None;
+}
+
+bool TimeEvent::HasOffset() const
+{
+  return !m_offset.IsEmpty();
+}
+
+TimeEvent::Event TimeEvent::GetEvent() const
+{
+  return m_event;
+}
+
+void TimeEvent::SetEvent(TimeEvent::Event const event)
+{
+  m_event = event;
+}
+
+HourMinutes const & TimeEvent::GetOffset() const
+{
+  return m_offset;
+}
+
+void TimeEvent::SetOffset(HourMinutes const & offset)
+{
+  m_offset = offset;
+}
+
+void TimeEvent::AddDurationToOffset(HourMinutes::TMinutes const duration)
+{
+  m_offset.AddDuration(duration);
+}
+
+Time TimeEvent::GetEventTime() const
+{
+  return Time(HourMinutes(0_h + 0_min));  // TODO(mgsergio): get real time
+}
+
+std::ostream & operator<<(std::ostream & ost, TimeEvent::Event const event)
+{
+  switch (event)
+  {
+    case TimeEvent::Event::None:
+      ost << "None";
+    case TimeEvent::Event::Sunrise:
+      ost << "sunrise";
+      break;
+    case TimeEvent::Event::Sunset:
+      ost << "sunset";
+      break;
+  }
+  return ost;
+}
+
+std::ostream & operator<<(std::ostream & ost, TimeEvent const te)
+{
+  if (te.HasOffset())
+  {
+    ost << '(' << te.GetEvent();
+
+    auto const & offset = te.GetOffset();
+
+    if (offset.GetHoursCount() < 0)
+      ost << '-';
+    else
+      ost << '+';
+
+    ost << offset << ')';
+  }
+  else
+  {
+    ost << te.GetEvent();
+  }
+
+  return ost;
+}
+
+// Time --------------------------------------------------------------------------------------------
+Time::Time(HourMinutes const & hm)
+{
+  SetHourMinutes(hm);
+}
+
+Time::Time(TimeEvent const & te)
+{
+  SetEvent(te);
+}
+
+Time::Type Time::GetType() const
+{
+  return m_type;
 }
 
 Time::THours::rep Time::GetHoursCount() const
@@ -125,58 +309,58 @@ Time::TMinutes::rep Time::GetMinutesCount() const
 Time::THours Time::GetHours() const
 {
   if (IsEvent())
-    return GetEventTime().GetHours();
-  else if (IsEventOffset())
-    return (GetEventTime() - *this).GetHours();
-  return std::chrono::duration_cast<THours>(m_duration);
+    return GetEvent().GetEventTime().GetHours();
+  return GetHourMinutes().GetHours();
 }
 
 Time::TMinutes Time::GetMinutes() const
 {
   if (IsEvent())
-    return GetEventTime().GetMinutes();
-  else if (IsEventOffset())
-    return (GetEventTime() - *this).GetMinutes();
-  return std::chrono::duration_cast<TMinutes>(m_duration) - GetHours();
+    return GetEvent().GetEventTime().GetMinutes();
+  return GetHourMinutes().GetMinutes();
 }
 
-void Time::SetHours(THours const hours)
+void Time::AddDuration(TMinutes const duration)
 {
-  m_state |= HaveHours | HaveMinutes;
-  m_duration = hours;
+  if (IsEvent())
+  {
+    m_event.AddDurationToOffset(duration);
+  }
+  else if (IsHoursMinutes())
+  {
+    m_hourMinutes.AddDuration(duration);
+  }
+  else
+  {
+    // Undefined behaviour.
+  }
 }
 
-void Time::SetMinutes(TMinutes const minutes)
+TimeEvent const & Time::GetEvent() const
 {
-  m_state |= HaveMinutes;
-  m_duration = minutes;
-  if (m_duration > 1_h || m_duration < -1_h)
-    m_state |= HaveHours;
+  return m_event;
 }
 
-void Time::SetEvent(Event const event)
+void Time::SetEvent(TimeEvent const & event)
 {
+  m_type = Type::Event;
   m_event = event;
 }
 
-bool Time::IsEvent() const
+HourMinutes const & Time::GetHourMinutes() const
 {
-  return GetEvent() != Event::NotEvent;
+  return m_hourMinutes;
 }
 
-bool Time::IsEventOffset() const
+void Time::SetHourMinutes(HourMinutes const & hm)
 {
-  return IsEvent() && m_state != IsNotTime;
+  m_type = Type::HourMinutes;
+  m_hourMinutes = hm;
 }
 
-bool Time::IsHoursMinutes() const
+bool Time::IsEmpty() const
 {
-  return !IsEvent() && ((m_state & HaveHours) && (m_state & HaveMinutes));
-}
-
-bool Time::IsMinutes() const
-{
-  return !IsEvent() && ((m_state & HaveMinutes) && !(m_state & HaveHours));
+  return GetType() == Type::None;
 }
 
 bool Time::IsTime() const
@@ -184,96 +368,87 @@ bool Time::IsTime() const
   return IsHoursMinutes() || IsEvent();
 }
 
-bool Time::HasValue() const
+bool Time::IsEvent() const
 {
-  return IsEvent() || IsTime() || IsMinutes();
+  return GetType() == Type::Event;
 }
 
-Time Time::operator+(Time const & t)
+bool Time::IsHoursMinutes() const
 {
-  Time result = *this;
-  result.SetMinutes(m_duration + t.m_duration);
-  return result;
-}
-
-Time Time::operator-(Time const & t)
-{
-  Time result = *this;
-  result.SetMinutes(m_duration - t.m_duration);
-  return result;
-}
-
-Time & Time::operator-()
-{
-  m_duration = -m_duration;
-  return *this;
-}
-
-Time Time::GetEventTime() const {return {};}; // TODO(mgsergio): get real time
-
-std::ostream & operator<<(std::ostream & ost, Time::Event const event)
-{
-  switch (event)
-  {
-    case Time::Event::NotEvent:
-      ost << "NotEvent";
-      break;
-    case Time::Event::Sunrise:
-      ost << "sunrise";
-      break;
-    case Time::Event::Sunset:
-      ost << "sunset";
-      break;
-    case Time::Event::Dawn:
-      ost << "dawn";
-      break;
-    case Time::Event::Dusk:
-      ost << "dusk";
-      break;
-  }
-  return ost;
+  return GetType() == Type::HourMinutes;
 }
 
 std::ostream & operator<<(std::ostream & ost, Time const & time)
 {
-  if (!time.HasValue())
+  if (time.IsEmpty())
   {
     ost << "hh:mm";
     return ost;
   }
 
-  auto const minutes = time.GetMinutesCount();
-  auto const hours = time.GetHoursCount();
   if (time.IsEvent())
-  {
-    if (time.IsEventOffset())
-    {
-      ost << '(' << time.GetEvent();
-      if (hours < 0)
-        ost << '-';
-      else
-        ost << '+';
-      PrintPaddedNumber(ost, std::abs(hours), 2);
-      ost << ':';
-      PrintPaddedNumber(ost, std::abs(minutes), 2);
-      ost << ')';
-    }
-    else
-      ost << time.GetEvent();
-  }
-  else if (time.IsMinutes())
-    PrintPaddedNumber(ost, std::abs(minutes), 2);
+    ost << time.GetEvent();
   else
-  {
-    PrintPaddedNumber(ost, std::abs(hours), 2);
-    ost << ':';
-    PrintPaddedNumber(ost, std::abs(minutes), 2);
-  }
+    ost << time.GetHourMinutes();
 
   return ost;
 }
 
+// TimespanPrion -----------------------------------------------------------------------------------
+TimespanPeriod::TimespanPeriod(HourMinutes const & hm):
+    m_hourMinutes(hm),
+    m_type(Type::HourMinutes)
+{
+}
 
+TimespanPeriod::TimespanPeriod(HourMinutes::TMinutes const minutes):
+    m_minutes(minutes),
+    m_type(Type::Minutes)
+{
+}
+
+bool TimespanPeriod::IsEmpty() const
+{
+  return m_type == Type::None;
+}
+
+bool TimespanPeriod::IsHoursMinutes() const
+{
+  return m_type == Type::HourMinutes;
+}
+
+bool TimespanPeriod::IsMinutes() const
+{
+  return m_type == Type::Minutes;
+}
+
+HourMinutes const & TimespanPeriod::GetHourMinutes() const
+{
+  return m_hourMinutes;
+}
+
+HourMinutes::TMinutes TimespanPeriod::GetMinutes() const
+{
+  return m_minutes;
+}
+
+HourMinutes::TMinutes::rep TimespanPeriod::GetMinutesCount() const
+{
+  return GetMinutes().count();
+}
+
+std::ostream & operator<<(std::ostream & ost, TimespanPeriod const p)
+{
+  if (p.IsEmpty())
+    ost << "None";
+  else if (p.IsHoursMinutes())
+    ost << p.GetHourMinutes();
+  else if (p.IsMinutes())
+    PrintPaddedNumber(ost, p.GetMinutesCount(), 2);
+  return ost;
+}
+
+// Timespan ----------------------------------------------------------------------------------------
 bool Timespan::IsEmpty() const
 {
   return !HasStart() && !HasEnd();
@@ -286,12 +461,12 @@ bool Timespan::IsOpen() const
 
 bool Timespan::HasStart() const
 {
-  return GetStart().HasValue();
+  return !GetStart().IsEmpty();
 }
 
 bool Timespan::HasEnd() const
 {
-  return GetEnd().HasValue();
+  return !GetEnd().IsEmpty();
 }
 
 bool Timespan::HasPlus() const
@@ -301,7 +476,7 @@ bool Timespan::HasPlus() const
 
 bool Timespan::HasPeriod() const
 {
-  return m_period.HasValue();
+  return !m_period.IsEmpty();
 }
 
 Time const & Timespan::GetStart() const
@@ -314,7 +489,7 @@ Time const & Timespan::GetEnd() const
   return m_end;
 }
 
-Time const & Timespan::GetPeriod() const
+TimespanPeriod const & Timespan::GetPeriod() const
 {
   return m_period;
 }
@@ -329,7 +504,7 @@ void Timespan::SetEnd(Time const & end)
   m_end = end;
 }
 
-void Timespan::SetPeriod(Time const & period)
+void Timespan::SetPeriod(TimespanPeriod const & period)
 {
   m_period = period;
 }
@@ -341,7 +516,9 @@ void Timespan::SetPlus(bool const plus)
 
 bool Timespan::IsValid() const
 {
-  return false; // TODO(mgsergio): implement validator
+  // TODO(mgsergio): implement validator.
+  // See https://trello.com/c/e4pbOhDC/24-opening-hours
+  return false;
 }
 
 std::ostream & operator<<(std::ostream & ost, Timespan const & span)
@@ -364,7 +541,7 @@ std::ostream & operator<<(std::ostream & ost, osmoh::TTimespans const & timespan
   return ost;
 }
 
-
+// NthWeekdayOfTheMonthEntry -----------------------------------------------------------------------
 bool NthWeekdayOfTheMonthEntry::IsEmpty() const
 {
   return !HasStart() && !HasEnd();
@@ -409,6 +586,7 @@ std::ostream & operator<<(std::ostream & ost, NthWeekdayOfTheMonthEntry const en
   return ost;
 }
 
+// WeekdayRange ------------------------------------------------------------------------------------
 bool WeekdayRange::HasWday(Weekday const & wday) const
 {
   if (IsEmpty() || wday == Weekday::None)
@@ -456,13 +634,6 @@ Weekday WeekdayRange::GetStart() const
 Weekday WeekdayRange::GetEnd() const
 {
   return m_end;
-}
-
-size_t WeekdayRange::GetDaysCount() const
-{
-  if (IsEmpty())
-    return 0;
-  return static_cast<uint32_t>(m_start) - static_cast<uint32_t>(m_end) + 1;
 }
 
 void WeekdayRange::SetStart(Weekday const & wday)
@@ -526,7 +697,7 @@ std::ostream & operator<<(std::ostream & ost, Weekday const wday)
       ost << "Sa";
       break;
     case Weekday::None:
-      ost << "not-a-day";
+      ost << "None";
   }
   return ost;
 }
@@ -535,7 +706,9 @@ std::ostream & operator<<(std::ostream & ost, WeekdayRange const & range)
 {
   ost << range.GetStart();
   if (range.HasEnd())
+  {
     ost << '-' << range.GetEnd();
+  }
   else
   {
     if (range.HasNth())
@@ -555,7 +728,7 @@ std::ostream & operator<<(std::ostream & ost, TWeekdayRanges const & ranges)
   return ost;
 }
 
-
+// Holiday -----------------------------------------------------------------------------------------
 bool Holiday::IsPlural() const
 {
   return m_plural;
@@ -579,7 +752,9 @@ void Holiday::SetOffset(int32_t const offset)
 std::ostream & operator<<(std::ostream & ost, Holiday const & holiday)
 {
   if (holiday.IsPlural())
+  {
     ost << "PH";
+  }
   else
   {
     ost << "SH";
@@ -594,7 +769,7 @@ std::ostream & operator<<(std::ostream & ost, THolidays const & holidays)
   return ost;
 }
 
-
+// Weekdays ----------------------------------------------------------------------------------------
 bool Weekdays::IsEmpty() const
 {
   return GetWeekdayRanges().empty() && GetHolidays().empty();
@@ -649,7 +824,7 @@ std::ostream & operator<<(std::ostream & ost, Weekdays const & weekday)
   return ost;
 }
 
-
+// DateOffset --------------------------------------------------------------------------------------
 bool DateOffset::IsEmpty() const
 {
   return !HasOffset() && !HasWDayOffset();
@@ -657,7 +832,7 @@ bool DateOffset::IsEmpty() const
 
 bool DateOffset::HasWDayOffset() const
 {
-  return m_wday_offset != Weekday::None;
+  return m_wdayOffest != Weekday::None;
 }
 
 bool DateOffset::HasOffset() const
@@ -672,7 +847,7 @@ bool DateOffset::IsWDayOffsetPositive() const
 
 Weekday DateOffset::GetWDayOffset() const
 {
-  return m_wday_offset;
+  return m_wdayOffest;
 }
 
 int32_t DateOffset::GetOffset() const
@@ -682,7 +857,7 @@ int32_t DateOffset::GetOffset() const
 
 void DateOffset::SetWDayOffset(Weekday const wday)
 {
-  m_wday_offset = wday;
+  m_wdayOffest = wday;
 }
 
 void DateOffset::SetOffset(int32_t const offset)
@@ -698,13 +873,15 @@ void DateOffset::SetWDayOffsetPositive(bool const on)
 std::ostream & operator<<(std::ostream & ost, DateOffset const & offset)
 {
   if (offset.HasWDayOffset())
+  {
     ost << (offset.IsWDayOffsetPositive() ? '+' : '-')
         << offset.GetWDayOffset();
+  }
   PrintOffset(ost, offset.GetOffset(), offset.HasWDayOffset());
   return ost;
 }
 
-
+// MonthDay ----------------------------------------------------------------------------------------
 bool MonthDay::IsEmpty() const
 {
   return !HasYear() && !HasMonth() && !HasDayNum() && !IsVariable();
@@ -880,11 +1057,13 @@ std::ostream & operator<<(std::ostream & ost, MonthDay const md)
     }
   }
   if (md.HasOffset())
+  {
     ost << ' ' << md.GetOffset();
+  }
   return ost;
 }
 
-
+// MonthdayRange -----------------------------------------------------------------------------------
 bool MonthdayRange::IsEmpty() const
 {
   return !HasStart() && !HasEnd();
@@ -966,7 +1145,7 @@ std::ostream & operator<<(std::ostream & ost, TMonthdayRanges const & ranges)
   return ost;
 }
 
-
+// YearRange ---------------------------------------------------------------------------------------
 bool YearRange::IsEmpty() const
 {
   return !HasStart() && !HasEnd();
@@ -1045,7 +1224,10 @@ std::ostream & operator<<(std::ostream & ost, YearRange const range)
       ost << '/' << range.GetPeriod();
   }
   else if (range.HasPlus())
+  {
     ost << '+';
+  }
+
   return ost;
 }
 
@@ -1055,7 +1237,7 @@ std::ostream & operator<<(std::ostream & ost, TYearRanges const ranges)
   return ost;
 }
 
-
+// WeekRange ---------------------------------------------------------------------------------------
 bool WeekRange::IsEmpty() const
 {
   return !HasStart() && !HasEnd();
@@ -1134,7 +1316,7 @@ std::ostream & operator<<(std::ostream & ost, TWeekRanges const ranges)
   return ost;
 }
 
-
+// RuleSequence ------------------------------------------------------------------------------------
 bool RuleSequence::IsEmpty() const
 {
   return (!HasYears() && !HasMonths() &&
@@ -1380,5 +1562,37 @@ std::ostream & operator<<(std::ostream & ost, TRuleSequences const & s)
       return (sep == "||" ? ' ' + sep + ' ' : sep + ' ');
     });
   return ost;
+}
+
+// OpeningHours ------------------------------------------------------------------------------------
+OpeningHours::OpeningHours(std::string const & rule):
+    m_valid(Parse(rule, m_rule))
+{
+}
+
+OpeningHours::OpeningHours(TRuleSequences const & rule):
+    m_rule(rule),
+    m_valid(true)
+{
+}
+
+bool OpeningHours::IsOpen(time_t const dateTime) const
+{
+  return osmoh::IsOpen(m_rule, dateTime);
+}
+
+bool OpeningHours::IsClosed(time_t const dateTime) const
+{
+  return osmoh::IsClosed(m_rule, dateTime);
+}
+
+bool OpeningHours::IsUnknown(time_t const dateTime) const
+{
+  return osmoh::IsUnknown(m_rule, dateTime);
+}
+
+bool OpeningHours::IsValid() const
+{
+  return m_valid;
 }
 } // namespace osmoh

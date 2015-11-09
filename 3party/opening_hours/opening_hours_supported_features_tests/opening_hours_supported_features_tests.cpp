@@ -48,15 +48,15 @@ void TestRanges(std::string const & name, std::initializer_list<std::string> con
       if (!checkOpen)
         std::cout << "Checking unknown " << input << std::endl;
       if (std::get<0>(lRange) - 60 >= std::get<0>(ltr) &&
-          !GetState(rule, std::get<0>(lRange) - 60).IsClosed())
+          !IsClosed(rule, std::get<0>(lRange) - 60))
       {
         failed = true;
         BOOST_CHECK_MESSAGE(false, name << " [" << input << "] not closed before " << range[0]);
       }
       else if (std::get<0>(lRange) + 60 <= std::get<1>(ltr)
                && (checkOpen
-                   ? !GetState(rule, std::get<0>(lRange) + 60).IsOpen()
-                   : !GetState(rule, std::get<0>(lRange) + 60).IsUnknown()))
+                   ? !IsOpen(rule, std::get<0>(lRange) + 60)
+                   : !IsUnknown(rule, std::get<0>(lRange) + 60)))
       {
         failed = true;
         BOOST_CHECK_MESSAGE(false, name << " [" << input << "] not " << (checkOpen ? "open" : "unknown") << " after " << range[0]);
@@ -72,14 +72,14 @@ void TestRanges(std::string const & name, std::initializer_list<std::string> con
       // }
       else if (std::get<1>(lRange) - 60 >= std::get<0>(ltr) &&
                (checkOpen
-                ? !GetState(rule, std::get<1>(lRange) - 60).IsOpen()
-                : !GetState(rule, std::get<1>(lRange) - 60).IsUnknown()))
+                ? !IsOpen(rule, std::get<1>(lRange) - 60)
+                : !IsUnknown(rule, std::get<1>(lRange) - 60)))
       {
         failed = true;
         BOOST_CHECK_MESSAGE(false, name << " [" << input << "] not " << (checkOpen ? "open" : "unknown") << " before " << range[1]);
       }
       else if (std::get<1>(lRange) + 60 <= std::get<1>(ltr) &&
-               !GetState(rule, std::get<1>(lRange) + 60).IsClosed())
+               !IsClosed(rule, std::get<1>(lRange) + 60))
       {
         failed = true;
         BOOST_CHECK_MESSAGE(false, name << " [" << input << "] not closed after " << range[1]);

@@ -24,45 +24,102 @@
 
 #pragma once
 
-#include <string>
-#include <vector>
-#include <iostream>
 #include <chrono>
+#include <iostream>
+#include <string>
 #include <type_traits>
+#include <vector>
 
 namespace osmoh
 {
 
-class Time
+class HourMinutes
 {
-  enum State
-  {
-    IsNotTime = 0,
-    HaveHours = 1,
-    HaveMinutes = 2,
-  };
-
-  using TStateRep = std::underlying_type<State>::type;
-
 public:
-  enum class Event
-  {
-    NotEvent,
-    Dawn,
-    Sunrise,
-    Sunset,
-    Dusk
-  };
-
   using THours = std::chrono::hours;
   using TMinutes = std::chrono::minutes;
 
-  Time() = default;
-  Time(Time const &) = default;
-  Time(THours const hours);
-  Time(TMinutes const minutes);
+  HourMinutes() = default;
+  explicit HourMinutes(THours const duration);
+  explicit HourMinutes(TMinutes const duration);
 
-  Time & operator=(Time const &) = default;
+  bool IsEmpty() const;
+
+  THours GetHours() const;
+  TMinutes GetMinutes() const;
+  TMinutes GetDuration() const;
+
+  THours::rep GetHoursCount() const;
+  TMinutes::rep GetMinutesCount() const;
+  TMinutes::rep GetDurationCount() const;
+
+  void SetHours(THours const hours);
+  void SetMinutes(TMinutes const minutes);
+  void SetDuration(TMinutes const duration);
+
+  void AddDuration(TMinutes const duration);
+
+private:
+  THours m_hours = THours::zero();
+  TMinutes m_minutes = TMinutes::zero();
+  bool m_empty = true;
+};
+
+HourMinutes operator-(HourMinutes const & hm);
+std::ostream & operator<<(std::ostream & ost, HourMinutes const & hm);
+
+class Time;
+
+class TimeEvent
+{
+public:
+  enum class Event
+  {
+    None,
+    Sunrise,
+    Sunset
+  };
+
+  TimeEvent() = default;
+  TimeEvent(Event const event);
+
+  bool IsEmpty() const;
+  bool HasOffset() const;
+
+  Event GetEvent() const;
+  void SetEvent(Event const event);
+
+  HourMinutes const & GetOffset() const;
+  void SetOffset(HourMinutes const & offset);
+  void AddDurationToOffset(HourMinutes::TMinutes const duration);
+
+  Time GetEventTime() const;
+
+private:
+  Event m_event = Event::None;
+  HourMinutes m_offset;
+};
+
+std::ostream & operator<<(std::ostream & ost, TimeEvent const te);
+
+class Time
+{
+  enum class Type
+  {
+    None,
+    HourMinutes,
+    Event,
+  };
+
+ public:
+  using THours = HourMinutes::THours;
+  using TMinutes = HourMinutes::TMinutes;
+
+  Time() = default;
+  Time(HourMinutes const & hm);
+  Time(TimeEvent const & te);
+
+  Type GetType() const;
 
   THours::rep GetHoursCount() const;
   TMinutes::rep GetMinutesCount() const;
@@ -70,29 +127,24 @@ public:
   THours GetHours() const;
   TMinutes GetMinutes() const;
 
-  void SetHours(THours const hours);
-  void SetMinutes(TMinutes const minutes);
+  void AddDuration(TMinutes const duration);
 
-  Event GetEvent() const {return m_event;}
-  void SetEvent(Event const event);
+  TimeEvent const & GetEvent() const;
+  void SetEvent(TimeEvent const & event);
 
-  bool IsEvent() const;
-  bool IsEventOffset() const;
-  bool IsHoursMinutes() const;
-  bool IsMinutes() const;
+  HourMinutes const & GetHourMinutes() const;
+  void SetHourMinutes(HourMinutes const & hm);
+
+  bool IsEmpty() const;
   bool IsTime() const;
-  bool HasValue() const;
+  bool IsEvent() const;
+  bool IsHoursMinutes() const;
 
-  Time operator+(Time const & t);
-  Time operator-(Time const & t);
-  Time & operator-();
+ private:
+  HourMinutes m_hourMinutes;
+  TimeEvent m_event;
 
-private:
-  Time GetEventTime() const;
-
-  Event m_event{Event::NotEvent};
-  TMinutes m_duration{TMinutes::zero()};
-  TStateRep m_state{State::IsNotTime};
+  Type m_type = Type::None;
 };
 
 inline constexpr Time::THours operator ""_h(unsigned long long int h)
@@ -105,18 +157,42 @@ inline constexpr Time::TMinutes operator ""_min(unsigned long long int m)
   return Time::TMinutes(m);
 }
 
-std::ostream & operator<<(std::ostream & ost, Time::Event const event);
 std::ostream & operator<<(std::ostream & ost, Time const & time);
+
+class TimespanPeriod
+{
+public:
+  enum class Type
+  {
+    None,
+    Minutes,
+    HourMinutes
+  };
+
+  TimespanPeriod() = default;
+  TimespanPeriod(HourMinutes const & hm);
+  TimespanPeriod(HourMinutes::TMinutes const minutes);
+
+  bool IsEmpty() const;
+  bool IsHoursMinutes() const;
+  bool IsMinutes() const;
+
+  HourMinutes const & GetHourMinutes() const;
+  HourMinutes::TMinutes GetMinutes() const;
+  HourMinutes::TMinutes::rep GetMinutesCount() const;
+
+private:
+  HourMinutes::TMinutes m_minutes;
+  HourMinutes m_hourMinutes;
+
+  Type m_type = Type::None;
+};
+
+std::ostream & operator<<(std::ostream & ost, TimespanPeriod const p);
 
 class Timespan
 {
 public:
-  Timespan() = default;
-  Timespan(Timespan const &) = default;
-  Timespan(Time const & start, bool plus = false);
-  Timespan(Time const & start, Time const & end, bool plus = false);
-  Timespan(Time const & start, Time const & end, Time const & period);
-
   bool IsEmpty() const;
   bool IsOpen() const;
   bool HasStart() const;
@@ -126,11 +202,11 @@ public:
 
   Time const & GetStart() const;
   Time const & GetEnd() const;
-  Time const & GetPeriod() const;
+  TimespanPeriod const & GetPeriod() const;
 
   void SetStart(Time const & start);
   void SetEnd(Time const & end);
-  void SetPeriod(Time const & period);
+  void SetPeriod(TimespanPeriod const & period);
   void SetPlus(bool const plus);
 
   bool IsValid() const;
@@ -138,8 +214,8 @@ public:
 private:
   Time m_start;
   Time m_end;
-  Time m_period;
-  bool m_plus{false};
+  TimespanPeriod m_period;
+  bool m_plus = false;
 };
 
 using TTimespans = std::vector<Timespan>;
@@ -171,8 +247,8 @@ public:
   void SetEnd(NthDayOfTheMonth const e);
 
 private:
-  NthDayOfTheMonth m_start{};
-  NthDayOfTheMonth m_end{};
+  NthDayOfTheMonth m_start = NthDayOfTheMonth::None;
+  NthDayOfTheMonth m_end = NthDayOfTheMonth::None;
 };
 
 std::ostream & operator<<(std::ostream & ost, NthWeekdayOfTheMonthEntry const entry);
@@ -227,7 +303,6 @@ public:
 
   Weekday GetStart() const;
   Weekday GetEnd() const;
-  size_t GetDaysCount() const;
 
   void SetStart(Weekday const & wday);
   void SetEnd(Weekday const & wday);
@@ -241,9 +316,9 @@ public:
   void AddNth(NthWeekdayOfTheMonthEntry const & entry);
 
 private:
-  Weekday m_start{};
-  Weekday m_end{};
-  int32_t m_offset{};
+  Weekday m_start = Weekday::None;
+  Weekday m_end = Weekday::None;
+  int32_t m_offset = 0;
   TNths m_nths;
 };
 
@@ -262,8 +337,8 @@ public:
   void SetOffset(int32_t const offset);
 
 private:
-  bool m_plural{false};
-  int32_t m_offset{};
+  bool m_plural = false;
+  int32_t m_offset = 0;
 };
 
 using THolidays = std::vector<Holiday>;
@@ -312,9 +387,9 @@ public:
   void SetWDayOffsetPositive(bool const on);
 
 private:
-  Weekday m_wday_offset{Weekday::None};
-  bool m_positive{true};
-  int32_t m_offset{};
+  Weekday m_wdayOffest = Weekday::None;
+  bool m_positive = true;
+  int32_t m_offset = 0;
 };
 
 std::ostream & operator<<(std::ostream & ost, DateOffset const & offset);
@@ -369,11 +444,11 @@ public:
   void SetVariableDate(VariableDate const date);
 
 private:
-  TYear m_year{};
-  Month m_month{Month::None};
-  TDayNum m_daynum{};
-  VariableDate m_variable_date{VariableDate::None};
-  DateOffset m_offset{};
+  TYear m_year = 0;
+  Month m_month = Month::None;
+  TDayNum m_daynum = 0;
+  VariableDate m_variable_date = VariableDate::None;
+  DateOffset m_offset;
 };
 
 inline constexpr MonthDay::Month ToMonth(uint64_t const month)
@@ -415,8 +490,8 @@ public:
 private:
   MonthDay m_start;
   MonthDay m_end;
-  uint32_t m_period{};
-  bool m_plus{false};
+  uint32_t m_period = 0;
+  bool m_plus = false;
 };
 
 using TMonthdayRanges = std::vector<MonthdayRange>;
@@ -446,10 +521,10 @@ public:
   void SetPeriod(uint32_t const period);
 
 private:
-  TYear m_start{};
-  TYear m_end{};
-  bool m_plus{false};
-  uint32_t m_period{0};
+  TYear m_start = 0;
+  TYear m_end = 0;
+  bool m_plus = false;
+  uint32_t m_period = 0;
 };
 
 using TYearRanges = std::vector<YearRange>;
@@ -477,9 +552,9 @@ public:
   void SetPeriod(uint32_t const period);
 
 private:
-  TWeek m_start{};
-  TWeek m_end{};
-  uint32_t m_period{0};
+  TWeek m_start = 0;
+  TWeek m_end = 0;
+  uint32_t m_period = 0;
 };
 
 using TWeekRanges = std::vector<WeekRange>;
@@ -539,8 +614,6 @@ public:
   void SetModifier(Modifier const modifier);
 
 private:
-  void dump() const;
-
   bool m_twentyFourHours{false};
 
   TYearRanges m_years;
@@ -551,10 +624,10 @@ private:
   TTimespans m_times;
 
   std::string m_comment;
-  std::string m_anySeparator{";"};
-  bool m_separatorForReadability{false};
+  std::string m_anySeparator = ";";
+  bool m_separatorForReadability = false;
 
-  Modifier m_modifier{Modifier::DefaultOpen};
+  Modifier m_modifier = Modifier::DefaultOpen;
   std::string m_modifierComment;
 };
 
@@ -563,4 +636,21 @@ using TRuleSequences = std::vector<RuleSequence>;
 std::ostream & operator<<(std::ostream & ost, RuleSequence::Modifier const modifier);
 std::ostream & operator<<(std::ostream & ost, RuleSequence const & sequence);
 std::ostream & operator<<(std::ostream & ost, TRuleSequences const & sequences);
+
+class OpeningHours
+{
+public:
+  OpeningHours(std::string const & rule);
+  OpeningHours(TRuleSequences const & rule);
+
+  bool IsOpen(time_t const dateTime) const;
+  bool IsClosed(time_t const dateTime) const;
+  bool IsUnknown(time_t const dateTime) const;
+
+  bool IsValid() const;
+
+private:
+  TRuleSequences m_rule;
+  bool const m_valid;
+};
 } // namespace osmoh
