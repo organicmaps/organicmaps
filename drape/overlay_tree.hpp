@@ -46,7 +46,7 @@ struct OverlayTraits
 
 class OverlayTree : public m4::Tree<detail::OverlayInfo, detail::OverlayTraits>
 {
-  using BaseT = m4::Tree<detail::OverlayInfo, detail::OverlayTraits>;
+  using TBase = m4::Tree<detail::OverlayInfo, detail::OverlayTraits>;
 
 public:
   OverlayTree();
@@ -63,14 +63,13 @@ public:
   void Select(m2::RectD const & rect, TSelectResult & result) const;
 
   using THandle = pair<ref_ptr<OverlayHandle>, bool>;
-  using THandles = vector<THandle>;
 
 private:
   ScreenBase const & GetModelView() const { return m_traits.m_modelView; }
   void InsertHandle(ref_ptr<OverlayHandle> handle, bool isTransparent);
 
   int m_frameCounter;
-  THandles m_handles;
+  vector<THandle> m_handles;
 };
 
 } // namespace dp

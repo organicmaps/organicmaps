@@ -21,8 +21,6 @@
 #include "std/algorithm.hpp"
 #include "std/vector.hpp"
 
-#include "drape/glfunctions.hpp"
-
 using m2::Spline;
 
 namespace

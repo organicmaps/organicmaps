@@ -115,4 +115,3 @@ void DebugRectRenderer::DrawRect(ScreenBase const & screen, m2::RectF const & re
 }
 
 } // namespace dp
-

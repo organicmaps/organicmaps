@@ -15,7 +15,7 @@ namespace
 class HandleComparator
 {
 public:
-  bool operator()(OverlayTree::THandle const & l, OverlayTree::THandle const & r)
+  bool operator()(OverlayTree::THandle const & l, OverlayTree::THandle const & r) const
   {
     int const priorityLeft = l.first->GetPriority();
     int const priorityRight = r.first->GetPriority();
@@ -29,7 +29,7 @@ public:
   }
 };
 
-}
+} // namespace
 
 OverlayTree::OverlayTree()
   : m_frameCounter(-1)
@@ -78,7 +78,7 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle, bool isTransparent)
     return;
   }
 
-  m_handles.push_back(make_pair(handle, isTransparent));
+  m_handles.emplace_back(make_pair(handle, isTransparent));
 }
 
 void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, bool isTransparent)
@@ -112,13 +112,13 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, bool isTransparent
   for (OverlayContainerT::const_iterator it = elements.begin(); it != elements.end(); ++it)
     Erase(*it);
 
-  BaseT::Add(detail::OverlayInfo(handle, isTransparent), pixelRect);
+  TBase::Add(detail::OverlayInfo(handle, isTransparent), pixelRect);
 }
 
 void OverlayTree::EndOverlayPlacing()
 {
   HandleComparator comparator;
-  sort(m_handles.begin(), m_handles.end(), bind(&HandleComparator::operator(), &comparator, _1, _2));
+  sort(m_handles.begin(), m_handles.end(), comparator);
   for (auto const & handle : m_handles)
     InsertHandle(handle.first, handle.second);
   m_handles.clear();
