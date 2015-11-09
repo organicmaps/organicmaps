@@ -420,7 +420,11 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 
 - (void)dimBackgroundTap
 {
-  self.state = self.restoreState;
+  // In case when there are 2 touch events (dimBackgroundTap & menuButtonTouchUpInside)
+  // if dimBackgroundTap is processed first then menuButtonTouchUpInside behaves as if menu is
+  // inactive this is wrong case, so we postpone dimBackgroundTap to make sure
+  // menuButtonTouchUpInside processed first
+  dispatch_async(dispatch_get_main_queue(), ^{ self.state = self.restoreState; });
 }
 
 - (void)toggleDimBackgroundVisible:(BOOL)visible
