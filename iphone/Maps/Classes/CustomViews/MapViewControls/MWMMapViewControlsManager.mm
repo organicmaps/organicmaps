@@ -382,12 +382,17 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (!self.routeSource.IsMyPosition())
   {
     MWMAlertViewController * controller = [[MWMAlertViewController alloc] initWithViewController:self.ownerController];
+    LocationManager * manager = MapsAppDelegate.theApp.m_locationManager;
+    auto const m = GetFramework().GetLocationState()->GetMode();
+    BOOL const needToRebuild = manager.lastLocationIsValid &&
+                               m != location::State::Mode::PendingPosition &&
+                               m != location::State::Mode::UnknownPosition;
     [controller presentPoint2PointAlertWithOkBlock:^
     {
-      m2::PointD const locationPoint = ToMercator(MapsAppDelegate.theApp.m_locationManager.lastLocation.coordinate);
+      m2::PointD const locationPoint = ToMercator(manager.lastLocation.coordinate);
       self.routeSource = MWMRoutePoint(locationPoint);
       [self buildRoute];
-    }];
+    } needToRebuild:needToRebuild];
     return NO;
   }
   self.hidden = NO;

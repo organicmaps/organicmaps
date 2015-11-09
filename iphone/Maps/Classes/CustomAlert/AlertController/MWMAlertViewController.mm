@@ -61,9 +61,9 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 //  });
 }
 
-- (void)presentPoint2PointAlertWithOkBlock:(nonnull CloseAlertCompletion)block
+- (void)presentPoint2PointAlertWithOkBlock:(nonnull CloseAlertCompletion)block needToRebuild:(BOOL)needToRebuild
 {
-  [self displayAlert:[MWMAlert point2PointAlertWithOkBlock:block]];
+  [self displayAlert:[MWMAlert point2PointAlertWithOkBlock:block needToRebuild:needToRebuild]];
 }
 
 - (void)presentFacebookAlert

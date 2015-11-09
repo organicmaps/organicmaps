@@ -108,11 +108,19 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   return [self defaultAlertWithTitle:@"routing_failed_cross_mwm_building" message:nil rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
 }
 
-+ (instancetype)point2PointAlertWithOkBlock:(RightButtonAction)block
++ (instancetype)point2PointAlertWithOkBlock:(RightButtonAction)block needToRebuild:(BOOL)needToRebuild
 {
-  return [self defaultAlertWithTitle:@"Navigation is available only from your current location."
+  if (needToRebuild)
+  {
+    return [self defaultAlertWithTitle:@"Navigation is available only from your current location."
                              message:@"Do you want us to recreate/rebuild/ plan the route?"
                     rightButtonTitle:@"ok" leftButtonTitle:@"cancel" rightButtonAction:block];
+  }
+  else
+  {
+    return [self defaultAlertWithTitle:@"dialog_routing_location_unknown"
+                               message:nil rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
+  }
 }
 
 + (instancetype)defaultAlertWithTitle:(nonnull NSString *)title message:(nullable NSString *)message rightButtonTitle:(nonnull NSString *)rightButtonTitle leftButtonTitle:(nullable NSString *)leftButtonTitle rightButtonAction:(nullable RightButtonAction)action
