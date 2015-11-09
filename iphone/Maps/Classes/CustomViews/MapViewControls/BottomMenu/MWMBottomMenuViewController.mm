@@ -133,7 +133,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 - (void)setInactive
 {
   self.p2pButton.selected = NO;
-  self.state = MWMBottomMenuStateInactive;
+  self.state = self.restoreState = MWMBottomMenuStateInactive;
 }
 
 - (void)setPlanning
