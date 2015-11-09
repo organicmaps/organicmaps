@@ -382,6 +382,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 
 - (IBAction)point2PointButtonTouchUpInside:(UIButton *)sender
 {
+  self.state = self.restoreState;
   BOOL const isSelected = !sender.isSelected;
   sender.selected = isSelected;
   MapsAppDelegate * theApp = [MapsAppDelegate theApp];

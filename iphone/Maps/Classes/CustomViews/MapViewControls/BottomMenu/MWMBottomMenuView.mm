@@ -94,12 +94,12 @@
     self.goButton.alpha = 0.0;
     self.streetLabel.alpha = 0.0;
     break;
+  case MWMBottomMenuStatePlanning:
   case MWMBottomMenuStateGo:
     self.p2pButton.alpha = self.searchButton.alpha = self.bookmarksButton.alpha = 0.0;
     self.goButton.alpha = 1.0;
     self.streetLabel.alpha = 0.0;
     break;
-  case MWMBottomMenuStatePlanning:
   case MWMBottomMenuStateText:
     self.p2pButton.alpha = self.searchButton.alpha = self.bookmarksButton.alpha = 0.0;
     self.goButton.alpha = 0.0;
@@ -132,9 +132,6 @@
     self.streetLabel.hidden = YES;
     break;
   case MWMBottomMenuStatePlanning:
-    self.p2pButton.hidden = self.searchButton.hidden = self.bookmarksButton.hidden = YES;
-    self.streetLabel.hidden = YES;
-    break;
   case MWMBottomMenuStateGo:
     self.p2pButton.hidden = self.searchButton.hidden = self.bookmarksButton.hidden = YES;
     [self.goButton setBackgroundColor:[UIColor linkBlue] forState:UIControlStateNormal];
@@ -144,6 +141,7 @@
   case MWMBottomMenuStateText:
     self.p2pButton.hidden = self.searchButton.hidden = self.bookmarksButton.hidden = YES;
     self.goButton.hidden = YES;
+    self.streetLabel.hidden = NO;
     break;
   }
 }
@@ -295,13 +293,12 @@
     [self updateMenuButtonFromState:_state toState:state];
     break;
   case MWMBottomMenuStatePlanning:
-    self.streetLabel.font = [UIFont regular17];
-    self.streetLabel.textColor = [UIColor blackHintText];
-    self.streetLabel.text = L(@"routing_planning");
-    self.streetLabel.hidden = NO;
+    self.goButton.enabled = NO;
+    self.goButton.hidden = NO;
     [self updateMenuButtonFromState:_state toState:state];
     break;
   case MWMBottomMenuStateGo:
+    self.goButton.enabled = YES;
     self.goButton.hidden = NO;
     [self updateMenuButtonFromState:_state toState:state];
     break;

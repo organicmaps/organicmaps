@@ -258,6 +258,8 @@ static CGFloat const kAdditionalHeight = 20.;
 
 - (void)setupActualHeight
 {
+  if (!self.superview)
+    return;
   if (IPAD)
   {
     self.height = self.superview.height - kAdditionalHeight;
