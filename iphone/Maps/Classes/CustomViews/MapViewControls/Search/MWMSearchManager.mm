@@ -177,20 +177,16 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   auto & f = GetFramework();
   f.SaveSearchQuery(query);
   MapsAppDelegate * a = MapsAppDelegate.theApp;
-  if (a.routingPlaneMode != MWMRoutingPlaneModeNone)
-  {
-    MWMRoutePoint const p = {result.GetFeatureCenter(), @(result.GetString())};
-    if (a.routingPlaneMode == MWMRoutingPlaneModeSearchSource)
-      [self.delegate buildRouteFrom:p];
-    else
-      [self.delegate buildRouteTo:p];
-    if (!IPAD)
-      a.routingPlaneMode = MWMRoutingPlaneModePlacePage;
-  }
+  MWMRoutingPlaneMode const m = a.routingPlaneMode;
+  MWMRoutePoint const p = {result.GetFeatureCenter(), @(result.GetString())};
+  if (m == MWMRoutingPlaneModeSearchSource)
+    [self.delegate buildRouteFrom:p];
+  else if (m == MWMRoutingPlaneModeSearchDestination)
+     [self.delegate buildRouteTo:p];
   else
-  {
     f.ShowSearchResult(result);
-  }
+  if (!IPAD)
+    a.routingPlaneMode = MWMRoutingPlaneModePlacePage;
   self.state = MWMSearchManagerStateHidden;
 }
 
