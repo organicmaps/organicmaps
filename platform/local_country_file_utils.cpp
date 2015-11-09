@@ -92,7 +92,7 @@ bool IsSpecialName(string const & name) { return name == "." || name == ".."; }
 
 bool IsDownloaderFile(string const & name)
 {
-  static StringsRegexpFilter filter(".*\\.(downloading|resume|ready)[0-9]?$");
+  static StringsRegexpFilter const filter(".*\\.(downloading|resume|ready)[0-9]?$");
   return filter.Matches(name);
 }
 

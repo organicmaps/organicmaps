@@ -15,9 +15,6 @@ namespace platform
 // Removes all files downloader creates during downloading of a country.
 void DeleteDownloaderFilesForCountry(CountryFile const & countryFile, int64_t version);
 
-void CleanupMapsDirectory(int64_t latestVersion, vector<LocalCountryFile> const & localFiles,
-                          function<bool(string const & filename)> const & isCountryName);
-
 // Finds all local map files in |directory|. Version of these files is
 // passed as an argument. Also, performs cleanup described in comment
 // for FindAllLocalMapsAndCleanup().
@@ -46,7 +43,7 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, vector<LocalCountryFile> 
 // * partially downloaded non-latest maps (with version less than |latestVersion|)
 // * empty directories
 // * old (format v1) maps
-// * old (splitted) Japan and Brazil maps
+// * old (split) Japan and Brazil maps
 // * indexes for absent countries
 void CleanupMapsDirectory(int64_t latestVersion);
 
