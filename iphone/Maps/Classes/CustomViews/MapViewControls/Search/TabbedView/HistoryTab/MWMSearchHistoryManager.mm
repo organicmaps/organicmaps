@@ -142,7 +142,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   BOOL const isRequestCell = isRouteSearch ? row != 0 : row < f.GetLastSearchQueries().size();
   if (isRequestCell)
   {
-    search::QuerySaver::TSearchRequest const & query = [self queryAtIndex:indexPath.row];
+    search::QuerySaver::TSearchRequest const & query = [self queryAtIndex:isRouteSearch ? indexPath.row - 1 : indexPath.row];
     [self.delegate searchText:@(query.second.c_str()) forInputLocale:@(query.first.c_str())];
   }
   else
