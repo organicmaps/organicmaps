@@ -11,6 +11,13 @@
 #import "MWMRoutePreview.h"
 #import "MWMTextToSpeech.h"
 
+static NSString * const kRoutePreviewXibName = @"MWMRoutePreview";
+static NSString * const kRoutePreviewIPADXibName = @"MWMiPadRoutePreview";
+static NSString * const kNavigationDashboardPortraitXibName = @"MWMPortraitNavigationDashboard";
+static NSString * const kNavigationDashboardLandscapeXibName = @"MWMLandscapeNavigationDashboard";
+static NSString * const kNavigationDashboardIPADXibName = @"MWMNiPadNavigationDashboard";
+
+
 @interface MWMNavigationDashboardManager () <MWMCircularProgressProtocol>
 
 @property (nonatomic) IBOutlet MWMRoutePreview * iPhoneRoutePreview;
@@ -45,12 +52,12 @@
     BOOL const isPortrait = _ownerView.width < _ownerView.height;
     if (IPAD)
     {
-      [NSBundle.mainBundle loadNibNamed:@"MWMiPadRoutePreview" owner:self options:nil];
+      [NSBundle.mainBundle loadNibNamed:kRoutePreviewIPADXibName owner:self options:nil];
       _routePreview = _iPadRoutePreview;
     }
     else
     {
-      [NSBundle.mainBundle loadNibNamed:[MWMRoutePreview className] owner:self options:nil];
+      [NSBundle.mainBundle loadNibNamed:kRoutePreviewXibName owner:self options:nil];
       _routePreview = _iPhoneRoutePreview;
     }
 
@@ -60,14 +67,14 @@
     _routePreview.dataSource = delegate;
     if (IPAD)
     {
-      [NSBundle.mainBundle loadNibNamed:@"MWMNiPadNavigationDashboard" owner:self options:nil];
+      [NSBundle.mainBundle loadNibNamed:kNavigationDashboardIPADXibName owner:self options:nil];
       _navigationDashboard = _navigationDashboardPortrait;
       _navigationDashboard.delegate = delegate;
     }
     else
     {
-      [NSBundle.mainBundle loadNibNamed:@"MWMPortraitNavigationDashboard" owner:self options:nil];
-      [NSBundle.mainBundle loadNibNamed:@"MWMLandscapeNavigationDashboard" owner:self options:nil];
+      [NSBundle.mainBundle loadNibNamed:kNavigationDashboardPortraitXibName owner:self options:nil];
+      [NSBundle.mainBundle loadNibNamed:kNavigationDashboardLandscapeXibName owner:self options:nil];
       _navigationDashboard = isPortrait ? _navigationDashboardPortrait : _navigationDashboardLandscape;
       _navigationDashboardPortrait.delegate = _navigationDashboardLandscape.delegate = delegate;
     }
@@ -150,13 +157,6 @@
 
 - (void)updateDashboard
 {
-  MWMNavigationDashboardState const s = self.state;
-  BOOL const isPrepareState = s == MWMNavigationDashboardStateHidden &&
-                              s == MWMNavigationDashboardStateError &&
-                              s == MWMNavigationDashboardStatePlanning;
-  if (isPrepareState)
-    return;
-
   [self.routePreview configureWithEntity:self.entity];
   [self.navigationDashboardLandscape configureWithEntity:self.entity];
   [self.navigationDashboardPortrait configureWithEntity:self.entity];
@@ -247,7 +247,6 @@
   f.SetRouter(type);
   f.SetLastUsedRouter(type);
   [self.routePreview selectProgress:progress];
-//  progress.state = MWMCircularProgressStateSelected;
   if (!self.delegate.isPossibleToBuildRoute)
     return;
   [progress startSpinner];

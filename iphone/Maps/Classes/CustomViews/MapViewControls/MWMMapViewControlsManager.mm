@@ -199,7 +199,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     if (!self.searchHidden)
       self.searchManager.state = MWMSearchManagerStateHidden;
     else if (MapsAppDelegate.theApp.routingPlaneMode != MWMRoutingPlaneModeNone)
-       [self routingHidden];
+     [self routingHidden];
   }
   else
   {
@@ -250,7 +250,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   auto & f = GetFramework();
   if (self.isPossibleToBuildRoute)
-    f.SetRouter(f.GetBestRouter(self.routeSource.point, self.routeDestination.point));
+    f.SetRouter(f.GetBestRouter(self.routeSource.Point(), self.routeDestination.Point()));
 }
 
 - (void)buildRouteFrom:(MWMRoutePoint const &)from to:(MWMRoutePoint const &)to
@@ -267,7 +267,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)buildRouteFrom:(MWMRoutePoint const &)from
 {
   self.routeSource = from;
-  if ((from.isMyPosition && self.routeDestination.isMyPosition) || from == self.routeDestination)
+  if ((from.IsMyPosition() && self.routeDestination.IsMyPosition()) || from == self.routeDestination)
     self.routeDestination = MWMRoutePoint::MWMRoutePointZero();
 
   if (IPAD)
@@ -278,7 +278,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)buildRouteTo:(MWMRoutePoint const &)to
 {
   self.routeDestination = to;
-  if ((to.isMyPosition && self.routeSource.isMyPosition) || to == self.routeSource)
+  if ((to.IsMyPosition() && self.routeSource.IsMyPosition()) || to == self.routeSource)
     self.routeSource = MWMRoutePoint::MWMRoutePointZero();
 
   if (IPAD)
@@ -340,7 +340,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     return;
 
   LocationManager * locMgr = [MapsAppDelegate theApp].m_locationManager;
-  if (!locMgr.lastLocationIsValid && self.routeSource.isMyPosition)
+  if (!locMgr.lastLocationIsValid && self.routeSource.IsMyPosition())
   {
     MWMAlertViewController * alert =
         [[MWMAlertViewController alloc] initWithViewController:self.ownerController];
@@ -349,17 +349,17 @@ extern NSString * const kAlohalyticsTapEventKey;
   }
 
   m2::PointD const locationPoint = ToMercator(locMgr.lastLocation.coordinate);
-  if (self.routeSource.isMyPosition)
+  if (self.routeSource.IsMyPosition())
   {
-    self.routeSource.point = locationPoint;
+    self.routeSource = MWMRoutePoint(locationPoint);
     [locMgr start:self.navigationManager];
   }
-  else if (self.routeDestination.isMyPosition)
-    self.routeDestination.point = locationPoint;
+  else if (self.routeDestination.IsMyPosition())
+    self.routeDestination = MWMRoutePoint(locationPoint);
 
   self.navigationManager.state = MWMNavigationDashboardStatePlanning;
   [self.menuController setPlanning];
-  GetFramework().BuildRoute(self.routeSource.point, self.routeDestination.point, 0 /* timeoutSec */);
+  GetFramework().BuildRoute(self.routeSource.Point(), self.routeDestination.Point(), 0 /* timeoutSec */);
   [self.navigationManager setRouteBuildingProgress:0.];
 }
 
@@ -379,7 +379,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (BOOL)didStartFollowing
 {
-  if (!self.routeSource.isMyPosition)
+  if (!self.routeSource.IsMyPosition())
   {
     MWMAlertViewController * controller = [[MWMAlertViewController alloc] initWithViewController:self.ownerController];
     [controller presentPoint2PointAlertWithOkBlock:^
@@ -434,7 +434,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)routingReady
 {
-  if (!self.routeSource.isMyPosition)
+  if (!self.routeSource.IsMyPosition())
   {
     dispatch_async(dispatch_get_main_queue(), ^
     {
@@ -485,12 +485,12 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (NSString *)source
 {
-  return self.routeSource.name;
+  return self.routeSource.Name();
 }
 
 - (NSString *)destination
 {
-  return self.routeDestination.name;
+  return self.routeDestination.Name();
 }
 
 #pragma mark - Properties

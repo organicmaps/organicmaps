@@ -1,16 +1,17 @@
 #pragma once
 
-typedef struct MWMRoutePoint
+class MWMRoutePoint
 {
+public:
   MWMRoutePoint() {}
 
-  MWMRoutePoint(m2::PointD const & p, NSString * n) : point(p), name(n), isMyPosition(false) {}
+  MWMRoutePoint(m2::PointD const & p, NSString * n) : m_point(p), m_name(n), m_isMyPosition(false) {}
 
-  explicit MWMRoutePoint(m2::PointD const & p) : point(p), name(L(@"my_position")), isMyPosition(true) {}
+  explicit MWMRoutePoint(m2::PointD const & p) : m_point(p), m_name(L(@"my_position")), m_isMyPosition(true) {}
 
   bool operator ==(MWMRoutePoint const & p) const
   {
-    return point.EqualDxDy(p.point, 0.00000001) && [name isEqualToString:p.name] && isMyPosition == p.isMyPosition;
+    return m_point.EqualDxDy(p.m_point, 0.00000001) && [m_name isEqualToString:p.m_name] && m_isMyPosition == p.m_isMyPosition;
   }
 
   bool operator !=(MWMRoutePoint const & p) const
@@ -23,8 +24,23 @@ typedef struct MWMRoutePoint
     return MWMRoutePoint(m2::PointD::Zero(), @"");
   }
 
-  m2::PointD point;
-  NSString * name;
-  bool isMyPosition;
+  m2::PointD const & Point() const
+  {
+    return m_point;
+  }
 
-} MWMRoutePoint;
+  NSString * Name() const
+  {
+    return m_name;
+  }
+
+  bool IsMyPosition() const
+  {
+    return m_isMyPosition;
+  }
+
+private:
+  m2::PointD m_point;
+  NSString * m_name;
+  bool m_isMyPosition;
+};
