@@ -331,7 +331,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     if (mo == null && mMapObject == null)
       return true;
     else if (mMapObject != null)
-      return mMapObject.equals(mo);
+      return mMapObject.sameAs(mo);
 
     return false;
   }

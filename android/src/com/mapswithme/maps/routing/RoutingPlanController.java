@@ -33,7 +33,15 @@ public class RoutingPlanController extends ToolbarController
     mFrame = root;
 
     mToggle = (ImageView) mToolbar.findViewById(R.id.toggle);
-    mSlotFrame = new SlotFrame(root);
+    mSlotFrame = (SlotFrame) root.findViewById(R.id.slots);
+    mSlotFrame.setOnSlotClickListener(new SlotFrame.OnSlotClickListener()
+    {
+      @Override
+      public void OnSlotClick()
+      {
+
+      }
+    });
 
     View planFrame = root.findViewById(R.id.planning_frame);
 
@@ -149,7 +157,7 @@ public class RoutingPlanController extends ToolbarController
   private void showSlots(boolean show, boolean animate)
   {
     // TODO: Animation
-    UiUtils.showIf(show, mSlotFrame.getFrame());
+    UiUtils.showIf(show, mSlotFrame);
     updateToggle();
   }
 

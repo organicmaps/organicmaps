@@ -33,31 +33,18 @@ public abstract class MapObject implements Parcelable
       mTypeName = MwmApplication.get().getString(R.string.placepage_unsorted);
   }
 
-  @Override
-  public int hashCode()
+  public boolean sameAs(MapObject other)
   {
-    final int prime = 31;
-    int result = 1;
-    long temp;
-    temp = Double.doubleToLongBits(mLat);
-    result = prime * result + (int) (temp ^ (temp >>> 32));
-    temp = Double.doubleToLongBits(mLon);
-    result = prime * result + (int) (temp ^ (temp >>> 32));
-    result = prime * result + ((mName == null) ? 0 : mName.hashCode());
-    result = prime * result + ((mTypeName == null) ? 0 : mTypeName.hashCode());
-    return result;
-  }
-
-  @Override
-  public boolean equals(Object obj)
-  {
-    if (this == obj)
-      return true;
-
-    if (obj == null || getClass() != obj.getClass())
+    if (other == null)
       return false;
 
-    final MapObject other = (MapObject) obj;
+    if (this == other)
+      return true;
+
+    //noinspection SimplifiableIfStatement
+    if (getClass() != other.getClass())
+      return false;
+
     return Double.doubleToLongBits(mLon) == Double.doubleToLongBits(other.mLon) &&
            Double.doubleToLongBits(mLat) == Double.doubleToLongBits(other.mLat) &&
            TextUtils.equals(mName, other.mName) &&
@@ -70,7 +57,7 @@ public abstract class MapObject implements Parcelable
     if (one == null && another == null)
       return true;
 
-    return (one != null && one.equals(another));
+    return (one != null && one.sameAs(another));
   }
 
   public double getScale() { return 0; }
@@ -283,6 +270,11 @@ public abstract class MapObject implements Parcelable
       if (TextUtils.isEmpty(mName))
         mName = MwmApplication.get().getString(R.string.my_position);
     }
-  }
 
+    @Override
+    public boolean sameAs(MapObject other)
+    {
+      return ((other instanceof MyPosition) || super.sameAs(other));
+    }
+  }
 }

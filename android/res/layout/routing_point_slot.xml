@@ -7,13 +7,16 @@
   <View
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/routing_shadow_top_margin"
       android:background="@drawable/routing_slot_background_shadow"/>
 
   <LinearLayout
+      android:id="@+id/shadowed_frame"
       android:orientation="horizontal"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="1dp"
+      android:layout_marginTop="@dimen/routing_shadow_top_margin"
+      android:layout_marginBottom="@dimen/routing_shadow_bottom_margin"
       android:background="@drawable/routing_slot_background">
     <TextView
         android:id="@+id/order"
@@ -25,18 +28,14 @@
         android:textAppearance="@style/MwmTextAppearance.Body3.Light"
         tools:text="1"/>
 
-    <EditText
+    <TextView
         android:id="@+id/text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="16dp"
-        android:background="@null"
-        android:textAppearance="@style/MwmTextAppearance.Body1"
-        android:textColorHint="@color/text_dark_hint"
-        android:inputType="none"
-        android:focusable="false"
+        android:textSize="@dimen/text_size_body_1"
         android:singleLine="true"
         android:ellipsize="end"
         tools:text="Current position"/>
