@@ -195,7 +195,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
   {
     // Distance from the last known projection on route
     // (check if we are moving far from the last known projection).
-    double const dist = m_route.GetCurrentSqDistance(position);
+    double const dist = MercatorBounds::DistanceOnEarth(m_route.GetFollowedPolyline().GetCurrentIter().m_pt, position);
     if (my::AlmostEqualAbs(dist, m_lastDistance, kRunawayDistanceSensitivityMeters))
         return m_state;
     if (dist > m_lastDistance)
