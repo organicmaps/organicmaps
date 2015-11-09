@@ -145,4 +145,6 @@ const glConst GLAlways              = GL_ALWAYS;
 
 const glConst GLActiveUniforms      = GL_ACTIVE_UNIFORMS;
 
+const glConst GLLineStrip           = GL_LINE_STRIP;
+
 } // namespace GLConst

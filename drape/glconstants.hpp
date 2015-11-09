@@ -137,4 +137,7 @@ extern const glConst GLAlways;
 /// Program object parameter names
 extern const glConst GLActiveUniforms;
 
+/// Draw primitives
+extern const glConst GLLineStrip;
+
 } // namespace GLConst

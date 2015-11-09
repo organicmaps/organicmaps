@@ -1,9 +1,10 @@
 #include "drape/render_bucket.hpp"
 
-#include "drape/overlay_handle.hpp"
 #include "drape/attribute_buffer_mutator.hpp"
-#include "drape/vertex_array_buffer.hpp"
+#include "drape/debug_rect_renderer.hpp"
+#include "drape/overlay_handle.hpp"
 #include "drape/overlay_tree.hpp"
+#include "drape/vertex_array_buffer.hpp"
 
 #include "base/stl_add.hpp"
 #include "std/bind.hpp"
@@ -99,6 +100,19 @@ void RenderBucket::Render(ScreenBase const & screen)
     m_buffer->ApplyMutation(hasIndexMutation ? rfpIndex : nullptr, rfpAttrib);
   }
   m_buffer->Render();
+
+#ifdef RENDER_DEBUG_RECTS
+  if (!m_overlay.empty())
+  {
+    for (auto const & handle : m_overlay)
+    {
+      OverlayHandle::Rects rects;
+      handle->GetPixelShape(screen, rects);
+      for (auto const & rect : rects)
+        DebugRectRenderer::Instance().DrawRect(screen, rect);
+    }
+  }
+#endif
 }
 
 } // namespace dp

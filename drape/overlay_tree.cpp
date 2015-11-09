@@ -1,16 +1,46 @@
 #include "drape/overlay_tree.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/bind.hpp"
 
 namespace dp
 {
 
-int const FRAME_UPDATE_PERIOD = 10;
+int const kFrameUpdarePeriod = 10;
+int const kAverageHandlesCount = 500;
+
+namespace
+{
+
+class HandleComparator
+{
+public:
+  bool operator()(OverlayTree::THandle const & l, OverlayTree::THandle const & r)
+  {
+    int const priorityLeft = l.first->GetPriority();
+    int const priorityRight = r.first->GetPriority();
+    if (priorityLeft > priorityRight)
+      return true;
+
+    if (priorityLeft == priorityRight)
+      return l.first.get() > r.first.get();
+
+    return false;
+  }
+};
+
+}
+
+OverlayTree::OverlayTree()
+  : m_frameCounter(-1)
+{
+  m_handles.reserve(kAverageHandlesCount);
+}
 
 void OverlayTree::Frame()
 {
   m_frameCounter++;
-  if (m_frameCounter >= FRAME_UPDATE_PERIOD)
+  if (m_frameCounter >= kFrameUpdarePeriod)
     m_frameCounter = -1;
 }
 
@@ -48,6 +78,14 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle, bool isTransparent)
     return;
   }
 
+  m_handles.push_back(make_pair(handle, isTransparent));
+}
+
+void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, bool isTransparent)
+{
+  ScreenBase const & modelView = GetModelView();
+  m2::RectD const pixelRect = handle->GetPixelRect(modelView);
+
   typedef buffer_vector<detail::OverlayInfo, 8> OverlayContainerT;
   OverlayContainerT elements;
   /*
@@ -79,6 +117,12 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle, bool isTransparent)
 
 void OverlayTree::EndOverlayPlacing()
 {
+  HandleComparator comparator;
+  sort(m_handles.begin(), m_handles.end(), bind(&HandleComparator::operator(), &comparator, _1, _2));
+  for (auto const & handle : m_handles)
+    InsertHandle(handle.first, handle.second);
+  m_handles.clear();
+
   ForEach([] (detail::OverlayInfo const & info)
   {
     info.m_handle->SetIsVisible(true);

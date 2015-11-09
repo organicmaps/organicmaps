@@ -7,6 +7,8 @@
 
 #include "base/buffer_vector.hpp"
 
+#include "std/vector.hpp"
+
 namespace dp
 {
 
@@ -44,9 +46,11 @@ struct OverlayTraits
 
 class OverlayTree : public m4::Tree<detail::OverlayInfo, detail::OverlayTraits>
 {
-  typedef m4::Tree<detail::OverlayInfo, detail::OverlayTraits> BaseT;
+  using BaseT = m4::Tree<detail::OverlayInfo, detail::OverlayTraits>;
 
 public:
+  OverlayTree();
+
   void Frame();
   bool IsNeedUpdate() const;
   void ForceUpdate();
@@ -58,11 +62,15 @@ public:
   using TSelectResult = buffer_vector<ref_ptr<OverlayHandle>, 8>;
   void Select(m2::RectD const & rect, TSelectResult & result) const;
 
-private:
-  ScreenBase const & GetModelView() const { return m_traits.m_modelView; }
+  using THandle = pair<ref_ptr<OverlayHandle>, bool>;
+  using THandles = vector<THandle>;
 
 private:
-  int m_frameCounter = -1;
+  ScreenBase const & GetModelView() const { return m_traits.m_modelView; }
+  void InsertHandle(ref_ptr<OverlayHandle> handle, bool isTransparent);
+
+  int m_frameCounter;
+  THandles m_handles;
 };
 
 } // namespace dp

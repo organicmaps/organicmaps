@@ -5,6 +5,8 @@
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
 
+#include "drape/debug_rect_renderer.hpp"
+
 #include "drape/utils/glyph_usage_tracker.hpp"
 #include "drape/utils/gpu_mem_tracker.hpp"
 #include "drape/utils/projection.hpp"
@@ -840,6 +842,10 @@ void FrontendRenderer::Routine::Do()
   dp::BlendingParams blendingParams;
   blendingParams.Apply();
 
+#ifdef RENDER_DEBUG_RECTS
+  dp::DebugRectRenderer::Instance().Init(make_ref(m_renderer.m_gpuProgramManager));
+#endif
+
   double const kMaxInactiveSeconds = 2.0;
 
   my::Timer timer;
@@ -905,6 +911,10 @@ void FrontendRenderer::Routine::Do()
 
     m_renderer.CheckRenderingEnabled();
   }
+
+#ifdef RENDER_DEBUG_RECTS
+  dp::DebugRectRenderer::Instance().Destroy();
+#endif
 
   m_renderer.ReleaseResources();
 }

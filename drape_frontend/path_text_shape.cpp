@@ -21,6 +21,8 @@
 #include "std/algorithm.hpp"
 #include "std/vector.hpp"
 
+#include "drape/glfunctions.hpp"
+
 using m2::Spline;
 
 namespace
@@ -70,7 +72,8 @@ public:
       r.Add(pixelPivot + glsl::ToPoint(m_normals[quadIndex + 1].m_normal));
       r.Add(pixelPivot + glsl::ToPoint(m_normals[quadIndex + 2].m_normal));
       r.Add(pixelPivot + glsl::ToPoint(m_normals[quadIndex + 3].m_normal));
-      rects.push_back(r);
+      if (screen.PixelRect().IsIntersect(m2::RectD(r)))
+        rects.push_back(r);
     }
   }
 

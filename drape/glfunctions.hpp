@@ -130,6 +130,7 @@ public:
 
   // Draw support
   static void glDrawElements(uint32_t sizeOfIndex, uint32_t indexCount, uint32_t startIndex = 0);
+  static void glDrawArrays(glConst mode, int32_t first, uint32_t count);
 };
 
 void CheckGLError(my::SrcPoint const &src);

@@ -939,6 +939,11 @@ void GLFunctions::glDrawElements(uint32_t sizeOfIndex, uint32_t indexCount, uint
                            reinterpret_cast<GLvoid *>(startIndex * sizeOfIndex)));
 }
 
+void GLFunctions::glDrawArrays(glConst mode, int32_t first, uint32_t count)
+{
+  GLCHECK(::glDrawArrays(mode, first, count));
+}
+
 namespace
 {
 

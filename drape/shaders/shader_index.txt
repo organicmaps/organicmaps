@@ -13,3 +13,4 @@ BUTTON_PROGRAM button_vertex_shader.vsh button_fragment_shader.fsh
 BOOKMARK_PROGRAM user_mark.vsh texturing_fragment_shader.fsh
 ROUTE_PROGRAM route_vertex_shader.vsh route_fragment_shader.fsh
 ROUTE_ARROW_PROGRAM route_vertex_shader.vsh route_arrow_fragment_shader.fsh
+DEBUG_RECT_PROGRAM debug_rect_vertex_shader.vsh debug_rect_fragment_shader.fsh

@@ -15,6 +15,7 @@ SOURCES += \
     $$DRAPE_DIR/color.cpp \
     $$DRAPE_DIR/cpu_buffer.cpp \
     $$DRAPE_DIR/data_buffer.cpp \
+    $$DRAPE_DIR/debug_rect_renderer.cpp \
     $$DRAPE_DIR/font_texture.cpp \
     $$DRAPE_DIR/fribidi.cpp \
     $$DRAPE_DIR/glconstants.cpp \
@@ -61,6 +62,7 @@ HEADERS += \
     $$DRAPE_DIR/cpu_buffer.hpp \
     $$DRAPE_DIR/data_buffer.hpp \
     $$DRAPE_DIR/data_buffer_impl.hpp \
+    $$DRAPE_DIR/debug_rect_renderer.hpp \
     $$DRAPE_DIR/depth_constants.hpp \
     $$DRAPE_DIR/drape_global.hpp \
     $$DRAPE_DIR/dynamic_texture.hpp \
