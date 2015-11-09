@@ -295,7 +295,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     searchParams.SetInputLocale(locale.UTF8String);
   searchParams.m_query = text.precomposedStringWithCompatibilityMapping.UTF8String;
   searchParams.SetForceSearch(true);
-  searchResults.Clear();
 
   [self updateSearch];
 }
