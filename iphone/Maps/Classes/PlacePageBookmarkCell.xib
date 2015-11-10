@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="223"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jfp-wb-Z7G" id="kUu-ao-FYN">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="223"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="222.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_bookmark" translatesAutoresizingMaskIntoConstraints="NO" id="NJ3-lK-ziZ" userLabel="Bookmark icon">
@@ -67,11 +67,15 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="44" id="8lM-kf-teP"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                         <state key="normal" title="My marks &gt;">
-                            <color key="titleColor" red="0.094117647060000004" green="0.61960784310000006" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="categoryButtonTap" destination="jfp-wb-Z7G" eventType="touchUpInside" id="e4D-w3-PQb"/>
                         </connections>
@@ -88,7 +92,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XF8-Ny-HSu" userLabel="Title">
-                                <rect key="frame" x="16" y="21" width="31" height="17"/>
+                                <rect key="frame" x="16" y="13" width="31" height="17"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
@@ -99,15 +103,10 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ao2-ZN-0ct" userLabel="White Background">
-                                <rect key="frame" x="0.0" y="45" width="320" height="43"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="fVU-OV-gcK">
-                                <rect key="frame" x="16" y="50" width="288" height="20"/>
+                                <rect key="frame" x="16" y="46" width="288" height="20"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -116,7 +115,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1yW-c7-l8L">
-                                <rect key="frame" x="16" y="45" width="288" height="43"/>
+                                <rect key="frame" x="16" y="38" width="288" height="50"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
@@ -126,13 +125,11 @@
                             </webView>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="1yW-c7-l8L" firstAttribute="top" secondItem="XF8-Ny-HSu" secondAttribute="bottom" constant="7" id="1Dv-8c-J8F"/>
-                            <constraint firstItem="fVU-OV-gcK" firstAttribute="top" secondItem="XF8-Ny-HSu" secondAttribute="bottom" constant="12" id="32Q-yX-6EP"/>
+                            <constraint firstItem="1yW-c7-l8L" firstAttribute="top" secondItem="XF8-Ny-HSu" secondAttribute="bottom" constant="8" id="1Dv-8c-J8F"/>
+                            <constraint firstItem="fVU-OV-gcK" firstAttribute="top" secondItem="XF8-Ny-HSu" secondAttribute="bottom" constant="16" id="32Q-yX-6EP"/>
                             <constraint firstItem="1yW-c7-l8L" firstAttribute="leading" secondItem="f8i-PA-TJb" secondAttribute="leading" constant="16" id="6vP-Tg-Q2p"/>
-                            <constraint firstAttribute="bottom" secondItem="Ao2-ZN-0ct" secondAttribute="bottom" id="8gM-ju-Pai"/>
-                            <constraint firstItem="Ao2-ZN-0ct" firstAttribute="leading" secondItem="f8i-PA-TJb" secondAttribute="leading" id="DgQ-h6-MKp"/>
                             <constraint firstAttribute="bottom" secondItem="1yW-c7-l8L" secondAttribute="bottom" id="EEq-tP-Q3r"/>
                             <constraint firstAttribute="trailing" secondItem="fVU-OV-gcK" secondAttribute="trailing" constant="16" id="FOU-f4-TaK"/>
                             <constraint firstAttribute="trailing" secondItem="1yW-c7-l8L" secondAttribute="trailing" constant="16" id="HCK-RR-QTa"/>
@@ -140,10 +137,8 @@
                             <constraint firstItem="fVU-OV-gcK" firstAttribute="leading" secondItem="f8i-PA-TJb" secondAttribute="leading" constant="16" id="OH6-73-FCW"/>
                             <constraint firstAttribute="height" constant="88" id="P0o-9l-5ht"/>
                             <constraint firstAttribute="trailing" secondItem="rwd-Um-zNb" secondAttribute="trailing" id="eRh-OF-HHJ"/>
-                            <constraint firstItem="XF8-Ny-HSu" firstAttribute="top" secondItem="rwd-Um-zNb" secondAttribute="bottom" constant="20" id="jOZ-xI-bCL"/>
-                            <constraint firstItem="Ao2-ZN-0ct" firstAttribute="top" secondItem="XF8-Ny-HSu" secondAttribute="bottom" constant="7" id="q2x-6b-LrZ"/>
+                            <constraint firstItem="XF8-Ny-HSu" firstAttribute="top" secondItem="rwd-Um-zNb" secondAttribute="bottom" constant="12" id="jOZ-xI-bCL"/>
                             <constraint firstItem="XF8-Ny-HSu" firstAttribute="leading" secondItem="f8i-PA-TJb" secondAttribute="leading" constant="16" id="t8B-yg-VDs"/>
-                            <constraint firstAttribute="trailing" secondItem="Ao2-ZN-0ct" secondAttribute="trailing" id="tjB-T9-wJt"/>
                             <constraint firstItem="rwd-Um-zNb" firstAttribute="top" secondItem="f8i-PA-TJb" secondAttribute="top" id="u3c-ZQ-FDu"/>
                         </constraints>
                     </view>

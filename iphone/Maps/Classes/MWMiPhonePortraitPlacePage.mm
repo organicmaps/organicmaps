@@ -163,8 +163,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
   BOOL const isLandscape = size.width > size.height;
   CGFloat const width = isLandscape ? size.height : size.width;
   CGFloat const height = isLandscape ? size.width : size.height;
-  CGFloat const gapHeight = -8.;
-  return {width / 2, height + self.topY + (self.isHover ? 0 : gapHeight)};
+  return {width / 2, height + self.topY};
 }
 
 - (CGPoint)getHoverTargetPoint
