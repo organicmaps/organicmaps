@@ -38,6 +38,8 @@
   <string name="pref_settings" translatable="false">Settings</string>
   <string name="pref_file_name" translatable="false">MapsMePrefs</string>
   <string name="pref_map_style" translatable="false">MapStyle</string>
+  <string name="pref_tts_enabled" translatable="false">TtsEnabled</string>
+  <string name="pref_tts_language" translatable="false">TtsLanguage</string>
 
   <string name="notification_ticker_ltr" translatable="false">%1$s: %2$s</string>
   <string name="notification_ticker_rtl" translatable="false">%2$s :%1$s</string>

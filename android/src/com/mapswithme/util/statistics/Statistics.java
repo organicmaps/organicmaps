@@ -70,6 +70,7 @@ public enum Statistics
       public static final String ABOUT = "Settings. About.";
       public static final String COPYRIGHT = "Settings. Copyright.";
       public static final String GROUP_MAP = "Settings. Group: map.";
+      public static final String GROUP_ROUTE = "Settings. Group: route.";
       public static final String GROUP_MISC = "Settings. Group: misc.";
 
       private Settings() {}

@@ -4,6 +4,10 @@
           android:title="@string/prefs_group_map"
           android:fragment="com.mapswithme.maps.settings.MapPrefsFragment"/>
 
+  <header android:id="@+id/group_route"
+          android:title="@string/prefs_group_route"
+          android:fragment="com.mapswithme.maps.settings.RoutePrefsFragment"/>
+
   <header android:id="@+id/group_misc"
           android:title="@string/prefs_group_misc"
           android:fragment="com.mapswithme.maps.settings.MiscPrefsFragment"/>

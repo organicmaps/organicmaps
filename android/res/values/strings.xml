@@ -329,6 +329,14 @@
 	<string name="pref_map_style_classic_dark">Classic dark</string>
 	<!-- «Map style» entry value -->
 	<string name="pref_map_style_modern_light">Modern light</string>
+	<!-- Settings «Route» category: «Tts enabled» title -->
+	<string name="pref_tts_enable_title">Voice instructions</string>
+	<!-- Settings «Route» category: «Tts enabled» summary -->
+	<string name="pref_tts_enable_summary">Turn instructions</string>
+	<!-- Settings «Route» category: «Tts language» title -->
+	<string name="pref_tts_language_title">Voice language</string>
+	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
+	<string name="pref_tts_unavailable">TTS unavailable</string>
 	<string name="placepage_distance">Distance</string>
 	<string name="placepage_coordinates">Coordinates</string>
 	<string name="placepage_unsorted">Unsorted</string>

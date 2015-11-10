@@ -1,16 +1,17 @@
 package com.mapswithme.maps;
 
+import android.app.Application;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
-
 import com.google.gson.Gson;
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.CountryItem;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
@@ -24,7 +25,8 @@ import com.parse.SaveCallback;
 
 import java.io.File;
 
-public class MwmApplication extends android.app.Application implements ActiveCountryTree.ActiveCountryListener
+public class MwmApplication extends Application
+                         implements ActiveCountryTree.ActiveCountryListener
 {
   private final static String TAG = "MwmApplication";
 
@@ -32,32 +34,32 @@ public class MwmApplication extends android.app.Application implements ActiveCou
   private static final String PREF_PARSE_DEVICE_TOKEN = "ParseDeviceToken";
   private static final String PREF_PARSE_INSTALLATION_ID = "ParseInstallationId";
 
-  private static MwmApplication mSelf;
+  private static MwmApplication sSelf;
+  private static SharedPreferences sPrefs;
   private final Gson mGson = new Gson();
-  private static SharedPreferences mPrefs;
 
-  private boolean mAreCountersInitialised;
+  private boolean mAreCountersInitialized;
   private boolean mIsFrameworkInitialized;
 
   public MwmApplication()
   {
     super();
-    mSelf = this;
+    sSelf = this;
   }
 
   public static MwmApplication get()
   {
-    return mSelf;
+    return sSelf;
   }
 
   public static Gson gson()
   {
-    return mSelf.mGson;
+    return sSelf.mGson;
   }
 
   public static SharedPreferences prefs()
   {
-    return mPrefs;
+    return sPrefs;
   }
 
   @Override
@@ -92,10 +94,10 @@ public class MwmApplication extends android.app.Application implements ActiveCou
     super.onCreate();
 
     initParse();
-    mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
+    sPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
   }
 
-  public synchronized void initNativeCore()
+  public void initNativeCore()
   {
     if (mIsFrameworkInitialized)
       return;
@@ -107,6 +109,7 @@ public class MwmApplication extends android.app.Application implements ActiveCou
     ActiveCountryTree.addListener(this);
     initNativeStrings();
     BookmarkManager.getIcons(); // init BookmarkManager (automatically loads bookmarks)
+    TtsPlayer.INSTANCE.init(this);
     mIsFrameworkInitialized = true;
   }
 
@@ -226,9 +229,9 @@ public class MwmApplication extends android.app.Application implements ActiveCou
 
   public void initCounters()
   {
-    if (!mAreCountersInitialised)
+    if (!mAreCountersInitialized)
     {
-      mAreCountersInitialised = true;
+      mAreCountersInitialized = true;
       Config.updateLaunchCounter();
       PreferenceManager.setDefaultValues(this, R.xml.prefs_misc, false);
     }

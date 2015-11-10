@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:persistent="false">
+  <SwitchPreference android:key="@string/pref_tts_enabled"
+                    android:title="@string/pref_tts_enable_title"
+                    android:summary="@string/pref_tts_enable_summary"
+                    android:switchTextOn=""
+                    android:switchTextOff=""/>
+
+  <ListPreference android:key="@string/pref_tts_language"
+                  android:title="@string/pref_tts_language_title"/>
+</PreferenceScreen>

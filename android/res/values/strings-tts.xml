@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!--
+    Supported voice languages. Should have language[-country][:code] format.
+    Where:
+      language - two-letter ISO 639-1 language code.
+      country - two-letter ISO 3166-1 (alpha-2) country code.
+      code - internal language code to be set in the core.
+             If not specified, language2 is used.
+
+    Chinese is an exception. Matching is based on country code:
+    zho_TW, zho_MO and zho_HK correspond to zh-Hant.
+    Otherwise we consider that this is zh-Hans.
+
+    TODO: Move language list to core.
+  -->
+  <string-array name="tts_languages_supported"
+                translatable="false">
+    <item>en</item>
+    <item>ru</item>
+    <item>pl</item>
+    <item>sv</item>
+    <item>tr</item>
+    <item>fr</item>
+    <item>nl</item>
+    <item>de</item>
+    <item>ar</item>
+    <item>el</item>
+    <item>it</item>
+    <item>cs</item>
+    <item>hu</item>
+    <item>ro</item>
+    <item>ja</item>
+    <item>da</item>
+    <item>es</item>
+    <item>fi</item>
+    <item>hi</item>
+    <item>hr</item>
+    <item>id</item>
+    <item>ko</item>
+    <item>pt</item>
+    <item>sk</item>
+    <item>sw</item>
+    <item>th</item>
+    <item>zh-TW:zh-Hant</item>
+    <item>zh-CN:zh-Hans</item>
+  </string-array>
+
+  <string-array name="tts_language_names"
+                translatable="false">
+    <item>English</item>
+    <item>Русский</item>
+    <item>Polski</item>
+    <item>Svenska</item>
+    <item>Türkçe</item>
+    <item>Français</item>
+    <item>Nederlands</item>
+    <item>Deutsch</item>
+    <item>العربية</item>
+    <item>Ελληνικά</item>
+    <item>Italiano</item>
+    <item>Čeština</item>
+    <item>Magyar</item>
+    <item>Română</item>
+    <item>日本語</item>
+    <item>Dansk</item>
+    <item>Español</item>
+    <item>Suomi</item>
+    <item>हिंदी</item>
+    <item>Hrvatski</item>
+    <item>Indonesia</item>
+    <item>한국어</item>
+    <item>Português</item>
+    <item>Slovenčina</item>
+    <item>Kiswahili</item>
+    <item>ภาษาไทย</item>
+    <item>中文繁體</item>
+    <item>中文简体</item>
+  </string-array>
+</resources>

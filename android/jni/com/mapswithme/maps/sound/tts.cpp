@@ -13,13 +13,13 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_sound_TtsPlayer_nativeEnableTurnNotifications(JNIEnv * env, jclass thiz, jboolean enable)
   {
-    return frm()->EnableTurnNotifications(enable == JNI_TRUE ? true : false);
+    return frm()->EnableTurnNotifications(static_cast<bool>(enable));
   }
 
   JNIEXPORT jboolean JNICALL
   Java_com_mapswithme_maps_sound_TtsPlayer_nativeAreTurnNotificationsEnabled(JNIEnv * env, jclass clazz)
   {
-    return frm()->AreTurnNotificationsEnabled() ? JNI_TRUE : JNI_FALSE;
+    return static_cast<jboolean>(frm()->AreTurnNotificationsEnabled());
   }
 
   JNIEXPORT void JNICALL

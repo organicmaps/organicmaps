@@ -767,14 +767,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onStart();
 
-    TtsPlayer.INSTANCE.reinitIfLocaleChanged();
     if (!mIsFragmentContainer)
       popFragment();
   }
 
   private void adjustZoomButtons(boolean routingActive)
   {
-    boolean show = (routingActive || Config.getShowZoomButtons());
+    boolean show = (routingActive || Config.showZoomButtons());
     UiUtils.showIf(show, mBtnZoomIn, mBtnZoomOut);
 
     if (!show)

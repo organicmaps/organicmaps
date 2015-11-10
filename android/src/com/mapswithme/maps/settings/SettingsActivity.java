@@ -62,6 +62,8 @@ public class SettingsActivity extends PreferenceActivity
   {
     if (header.id == R.id.group_map)
       Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.Settings.GROUP_MAP);
+    else if (header.id == R.id.group_route)
+      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.Settings.GROUP_ROUTE);
     else if (header.id == R.id.group_misc)
       Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.Settings.GROUP_MISC);
     else if (header.id == R.id.help)

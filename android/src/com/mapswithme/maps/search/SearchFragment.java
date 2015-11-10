@@ -15,7 +15,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.CountrySuggestFragment;
 import com.mapswithme.maps.Framework;
@@ -24,7 +23,6 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.Language;
@@ -82,7 +80,7 @@ public class SearchFragment extends BaseMwmFragment
       }
 
       // TODO: This code only for demonstration purposes and will be removed soon
-      if (trySwitchOnTurnSound(query) || tryChangeMapStyle(query))
+      if (tryChangeMapStyle(query))
         return;
 
       runSearch();
@@ -332,20 +330,6 @@ public class SearchFragment extends BaseMwmFragment
     Framework.setMapStyle(mapStyle);
 
     return true;
-  }
-
-  private boolean trySwitchOnTurnSound(String query)
-  {
-    final boolean sound = "?sound".equals(query);
-    final boolean nosound = "?nosound".equals(query);
-
-    if (!sound && !nosound)
-      return false;
-
-    hideSearch();
-    TtsPlayer.INSTANCE.enable(sound);
-
-    return sound;
   }
   // FIXME END
 

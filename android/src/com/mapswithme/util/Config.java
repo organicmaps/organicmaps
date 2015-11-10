@@ -13,6 +13,9 @@ public final class Config
   private static final String KEY_APP_LAST_SESSION_TIMESTAMP = "LastSessionTimestamp";
   private static final String KEY_APP_FIRST_INSTALL_FLAVOR = "FirstInstallFlavor";
 
+  private static final String KEY_TTS_ENABLED = "TtsEnabled";
+  private static final String KEY_TTS_LANGUAGE = "TtsLanguage";
+
   private static final String KEY_PREF_ZOOM_BUTTONS = "ZoomButtonsEnabled";
   private static final String KEY_PREF_STATISTICS = "StatisticsEnabled";
 
@@ -167,7 +170,27 @@ public final class Config
     incrementSessionNumber();
   }
 
-  public static boolean getShowZoomButtons()
+  public static boolean isTtsEnabled()
+  {
+    return getBool(KEY_TTS_ENABLED, true);
+  }
+
+  public static void setTtsEnabled(boolean enabled)
+  {
+    setBool(KEY_TTS_ENABLED, enabled);
+  }
+
+  public static String getTtsLanguage()
+  {
+    return getString(KEY_TTS_LANGUAGE);
+  }
+
+  public static void setTtsLanguage(String language)
+  {
+    setString(KEY_TTS_LANGUAGE, language);
+  }
+
+  public static boolean showZoomButtons()
   {
     return getBool(KEY_PREF_ZOOM_BUTTONS, true);
   }

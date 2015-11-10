@@ -1,17 +1,36 @@
 package com.mapswithme.maps.sound;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.speech.tts.TextToSpeech;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
-
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.util.Language;
+import com.mapswithme.maps.R;
+import com.mapswithme.util.Config;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
-
+/**
+ * {@code TtsPlayer} class manages available TTS voice languages.
+ * Single TTS language is described by {@link LanguageData} item.
+ * <p>
+ * We support a set of languages listed in {@code strings-tts.xml} file.
+ * During loading each item in this list is marked as {@code downloaded} or {@code not downloaded},
+ * unsupported voices are excluded.
+ * <p>
+ * At startup we check whether currently selected language is in our list of supported voices and its data is downloaded.
+ * If not, we check system default locale. If failed, the same check is made for English language.
+ * Finally, if mentioned checks fail we manually disable TTS, so the user must go to the settings and select
+ * preferred voice language by hand.
+ * <p>
+ * If no core supported languages can be used by the system, TTS is locked down and can not be enabled and used.
+ */
 public enum TtsPlayer
 {
   INSTANCE;
@@ -19,160 +38,203 @@ public enum TtsPlayer
   private static final Locale DEFAULT_LOCALE = Locale.US;
   private static final float SPEECH_RATE = 1.2f;
 
-  // The both mTtts and mTtsLocale should be initialized before usage.
   private TextToSpeech mTts;
-  private Locale mTtsLocale;
-  private boolean mIsLocaleChanging;
+  private boolean mInitializing;
 
-  private final static String TAG = "TtsPlayer";
+  // TTS is locked down due to absence of supported languages
+  private boolean mUnavailable;
 
   TtsPlayer() {}
 
-  public void reinitIfLocaleChanged()
+  private static @Nullable LanguageData findSupportedLanguage(String internalCode, List<LanguageData> langs)
   {
-    if (!isValid())
-      return; // TtsPlayer was not inited yet.
+    if (TextUtils.isEmpty(internalCode))
+      return null;
 
-    final Locale locale = getDefaultLocale();
-    if (!isLocaleEqual(locale))
-      initTts(locale);
+    for (LanguageData lang : langs)
+      if (lang.matchesInternalCode(internalCode))
+        return lang;
+
+    return null;
   }
 
-  private Locale getDefaultLocale()
+  private static @Nullable LanguageData findSupportedLanguage(Locale locale, List<LanguageData> langs)
   {
-    final Locale locale = Locale.getDefault();
-    return locale == null ? DEFAULT_LOCALE : locale;
+    if (locale == null)
+      return null;
+
+    for (LanguageData lang : langs)
+      if (lang.matchesLocale(locale))
+        return lang;
+
+    return null;
   }
 
-  private boolean isLocaleEqual(Locale locale)
+  private void setLanguageInternal(LanguageData lang)
   {
-    return locale.getLanguage().equals(mTtsLocale.getLanguage()) &&
-        locale.getCountry().equals(mTtsLocale.getCountry());
+    mTts.setLanguage(lang.locale);
+    nativeSetTurnNotificationsLocale(lang.internalCode);
+    Config.setTtsLanguage(lang.internalCode);
   }
 
-  private boolean isLocaleAvailable(Locale locale)
+  public void setLanguage(LanguageData lang)
   {
-    final int avail = mTts.isLanguageAvailable(locale);
-    return avail == TextToSpeech.LANG_AVAILABLE || avail == TextToSpeech.LANG_COUNTRY_AVAILABLE ||
-        avail == TextToSpeech.LANG_COUNTRY_VAR_AVAILABLE;
+    if (lang != null)
+      setLanguageInternal(lang);
   }
 
-  private void initTts(final Locale locale)
+  private static @Nullable LanguageData getDefaultLanguage(List<LanguageData> langs)
   {
-    if (mIsLocaleChanging)
-      return; // Preventing reiniting while creating TextToSpeech object. There's a small possibility a new locale is skipped.
+    LanguageData res;
 
-    if (mTts != null && mTtsLocale != null && mTtsLocale.equals(locale))
-      return;
-
-    mTtsLocale = null;
-    mIsLocaleChanging = true;
-
-    if (mTts != null)
+    Locale defLocale = Locale.getDefault();
+    if (defLocale != null)
     {
-      mTts.stop();
-      mTts.shutdown();
+      res = findSupportedLanguage(defLocale, langs);
+      if (res != null && res.downloaded)
+        return res;
     }
 
-    mTts = new TextToSpeech(MwmApplication.get(), new TextToSpeech.OnInitListener()
+    res = findSupportedLanguage(DEFAULT_LOCALE, langs);
+    if (res != null && res.downloaded)
+      return res;
+
+    return null;
+  }
+
+  public static @Nullable LanguageData getSelectedLanguage(List<LanguageData> langs)
+  {
+    return findSupportedLanguage(Config.getTtsLanguage(), langs);
+  }
+
+  private void lockDown()
+  {
+    mUnavailable = true;
+    setEnabled(false);
+  }
+
+  public void init(Context context)
+  {
+    if (mTts != null || mInitializing || mUnavailable)
+      return;
+
+    mInitializing = true;
+    mTts = new TextToSpeech(context, new TextToSpeech.OnInitListener()
     {
       @Override
       public void onInit(int status)
       {
-        // This method is called asynchronously.
-        mIsLocaleChanging = false;
         if (status == TextToSpeech.ERROR)
         {
-          Log.w(TAG, "Can't initialize TextToSpeech for locale " + locale.getLanguage() + " " + locale.getCountry());
+          Log.e("TtsPlayer", "Failed to initialize TextToSpeach");
+          lockDown();
+          mInitializing = false;
           return;
         }
 
-        if (isLocaleAvailable(locale))
-        {
-          Log.i(TAG, "The locale " + locale.getLanguage() + " " + locale.getCountry() + " will be used for TTS.");
-          mTtsLocale = locale;
-        }
-        else if (isLocaleAvailable(DEFAULT_LOCALE))
-        {
-          Log.w(TAG, "TTS is not available for locale " + locale.getLanguage() + " " + locale.getCountry() +
-              ". The default locale " + DEFAULT_LOCALE.getLanguage() + " " + DEFAULT_LOCALE.getCountry() + " will be used.");
-          mTtsLocale = DEFAULT_LOCALE;
-        }
-        else
-        {
-          Log.w(TAG, "TTS is not available for locale " + locale.getLanguage() + " " + locale.getCountry() +
-              " and for the default locale " +  DEFAULT_LOCALE.getLanguage() + " " + DEFAULT_LOCALE.getCountry() +
-              ". TTS will be switched off.");
-          mTtsLocale = null;
-          return;
-        }
-
-        String localeTwine = Language.localeToTwineLanguage(mTtsLocale);
-        if (TextUtils.isEmpty(localeTwine))
-        {
-          Log.w(TAG, "Cann't get a twine language name for the locale " + locale.getLanguage() + " " + locale.getCountry() +
-              ". TTS will be switched off.");
-          mTtsLocale = null;
-          return;
-        }
-
+        refreshLanguages();
         mTts.setSpeechRate(SPEECH_RATE);
-        nativeSetTurnNotificationsLocale(localeTwine);
-        mTts.setLanguage(mTtsLocale);
-        Log.i(TAG, "setLocaleIfAvailable() onInit nativeSetTurnNotificationsLocale(" + localeTwine + ")");
+        mInitializing = false;
       }
     });
   }
 
-  private boolean isValid()
+  public boolean isReady()
   {
-    return !mIsLocaleChanging && mTts != null && mTtsLocale != null;
+    return (mTts != null && !mUnavailable && !mInitializing);
   }
 
   private void speak(String textToSpeak)
   {
-    // @TODO(vbykoianko) removes these two toasts below when the test period is finished.
-    Toast.makeText(MwmApplication.get(), textToSpeak, Toast.LENGTH_SHORT).show();
-    if (mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null) == TextToSpeech.ERROR)
-    {
-      Log.e(TAG, "TextToSpeech returns TextToSpeech.ERROR.");
-      Toast.makeText(MwmApplication.get(), "TTS error", Toast.LENGTH_SHORT).show();
-    }
+    if (Config.isTtsEnabled())
+      //noinspection deprecation
+      mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null);
   }
 
   public void playTurnNotifications()
   {
     // It's necessary to call Framework.nativeGenerateTurnNotifications() even if TtsPlayer is invalid.
     final String[] turnNotifications = Framework.nativeGenerateTurnNotifications();
-    
-    if (turnNotifications != null && isValid())
+
+    if (turnNotifications != null && isReady())
       for (String textToSpeak : turnNotifications)
         speak(textToSpeak);
   }
 
   public void stop()
   {
-    if(mTts != null)
+    if (isReady())
       mTts.stop();
   }
 
   public boolean isEnabled()
   {
-    return nativeAreTurnNotificationsEnabled();
+    return (isReady() && nativeAreTurnNotificationsEnabled());
   }
 
-  // Note. After a call of enable(true) the flag enabled in cpp core will be set.
-  // But later in onInit callback the initialization could fail.
-  // In that case isValid() returns false and every call of playTurnNotifications returns in the beginning.
-  public void enable(boolean enabled)
+  public static void setEnabled(boolean enabled)
   {
-    if (enabled && !isValid())
-      initTts(getDefaultLocale());
+    Config.setTtsEnabled(enabled);
     nativeEnableTurnNotifications(enabled);
+  }
+
+  private void getUsableLanguages(List<LanguageData> outList)
+  {
+    Resources resources = MwmApplication.get().getResources();
+    String[] codes = resources.getStringArray(R.array.tts_languages_supported);
+    String[] names = resources.getStringArray(R.array.tts_language_names);
+
+    for (int i = 0; i < codes.length; i++)
+    {
+      try
+      {
+        outList.add(new LanguageData(codes[i], names[i], mTts));
+      } catch (LanguageData.NotAvailableException ignored)
+      {}
+    }
+  }
+
+  private @Nullable LanguageData refreshLanguagesInternal(List<LanguageData> outList)
+  {
+    getUsableLanguages(outList);
+
+    if (outList.isEmpty())
+    {
+      // No supported languages found, lock down TTS :(
+      lockDown();
+      return null;
+    }
+
+    LanguageData res = getSelectedLanguage(outList);
+    if (res == null || !res.downloaded)
+      // Selected locale is not available or not downloaded
+      res = getDefaultLanguage(outList);
+
+    if (res == null || !res.downloaded)
+    {
+      // Default locale can not be used too
+      Config.setTtsEnabled(false);
+      return null;
+    }
+
+    return res;
+  }
+
+  public @NonNull List<LanguageData> refreshLanguages()
+  {
+    List<LanguageData> res = new ArrayList<>();
+    if (mUnavailable || mTts == null)
+      return res;
+
+    LanguageData lang = refreshLanguagesInternal(res);
+    setLanguage(lang);
+
+    setEnabled(Config.isTtsEnabled());
+    return res;
   }
 
   private native static void nativeEnableTurnNotifications(boolean enable);
   private native static boolean nativeAreTurnNotificationsEnabled();
-  private native static void nativeSetTurnNotificationsLocale(String locale);
+  private native static void nativeSetTurnNotificationsLocale(String code);
   private native static String nativeGetTurnNotificationsLocale();
 }
