@@ -2303,7 +2303,8 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
         GetPlatform().RunOnGuiThread(bind(&Framework::InsertRoute, this, route));
     };
 
-    m_routingSession.RebuildRoute(position, readyCallback, m_progressCallback, 0 /* timeoutSec */);
+    m_routingSession.RebuildRoute(MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude),
+                                  readyCallback, m_progressCallback, 0 /* timeoutSec */);
   }
 }
 
