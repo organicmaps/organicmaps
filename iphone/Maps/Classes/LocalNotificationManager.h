@@ -1,11 +1,10 @@
-
-#import <Foundation/Foundation.h>
+typedef void (^CompletionHandler)(UIBackgroundFetchResult);
 
 @interface LocalNotificationManager : NSObject
 
 + (instancetype)sharedManager;
 
-- (void)showDownloadMapNotificationIfNeeded:(void (^)(UIBackgroundFetchResult))completionHandler;
+- (void)showDownloadMapNotificationIfNeeded:(CompletionHandler)completionHandler;
 - (void)processNotification:(UILocalNotification *)notification onLaunch:(BOOL)onLaunch;
 
 @end
