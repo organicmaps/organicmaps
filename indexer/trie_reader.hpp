@@ -152,7 +152,7 @@ private:
 template <class TReader, class TValueList, class TSerializer>
 unique_ptr<Iterator<TValueList>> ReadTrie(TReader const & reader, TSerializer const & serializer)
 {
-  return make_unique<Iterator0<TReader, TValueList, TSerializer>>(reader, DEFAULT_CHAR, serializer);
+  return make_unique<Iterator0<TReader, TValueList, TSerializer>>(reader, kDefaultChar, serializer);
 }
 
 }  // namespace trie

@@ -63,6 +63,19 @@ struct EmptyValueList
   void Append(int) {}
 };
 
+struct EmptyValueReader
+{
+  using ValueType = unsigned char;
+
+  EmptyValueReader() = default;
+
+  template <typename SourceT>
+  void operator()(SourceT &, ValueType & value) const
+  {
+    value = 0;
+  }
+};
+
 struct SimpleValueReader
 {
 public:
@@ -147,9 +160,9 @@ UNIT_TEST(SuccinctTrie_Serialization_Smoke1)
 
   MemReader memReader(buf.data(), buf.size());
 
-  using TEmptyValue = trie::EmptyValueReader::ValueType;
+  using TEmptyValue = EmptyValueReader::ValueType;
 
-  auto trieRoot = trie::ReadSuccinctTrie(memReader, trie::EmptyValueReader());
+  auto trieRoot = trie::ReadSuccinctTrie(memReader, EmptyValueReader());
   TEST(trieRoot, ());
 }
 
@@ -166,7 +179,7 @@ UNIT_TEST(SuccinctTrie_Serialization_Smoke2)
 
   MemReader memReader(buf.data(), buf.size());
 
-  using TEmptyValue = trie::EmptyValueReader::ValueType;
+  using TEmptyValue = EmptyValueReader::ValueType;
 
   auto trieRoot = trie::ReadSuccinctTrie(memReader, SimpleValueReader());
   TEST(trieRoot, ());
@@ -188,7 +201,7 @@ UNIT_TEST(SuccinctTrie_Iterator)
 
   MemReader memReader(buf.data(), buf.size());
 
-  using TEmptyValue = trie::EmptyValueReader::ValueType;
+  using TEmptyValue = EmptyValueReader::ValueType;
 
   auto trieRoot = trie::ReadSuccinctTrie(memReader, SimpleValueReader());
   TEST(trieRoot, ());
@@ -216,7 +229,7 @@ UNIT_TEST(SuccinctTrie_MoveToString)
   BuildFromSimpleValueList(memWriter, data);
   MemReader memReader(buf.data(), buf.size());
 
-  using TEmptyValue = trie::EmptyValueReader::ValueType;
+  using TEmptyValue = EmptyValueReader::ValueType;
 
   auto trieRoot = trie::ReadSuccinctTrie(memReader, SimpleValueReader());
 

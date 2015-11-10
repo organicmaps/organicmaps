@@ -203,8 +203,7 @@ namespace feature
     trie::ForEachRef(*trieRoot, f, strings::UniString());
     f.Finish();
 
-    auto freqTokenPairs = f.m_tokens;
-    for (size_t i = 0; i < min(maxTokensToShow, freqTokenPairs.size()); ++i)
+    for (size_t i = 0; i < min(maxTokensToShow, f.m_tokens.size()); ++i)
     {
       auto const & s = f.m_tokens[i].second;
       cout << f.m_tokens[i].first << " " << strings::ToUtf8(s) << endl;

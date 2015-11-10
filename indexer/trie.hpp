@@ -8,12 +8,12 @@
 
 namespace trie
 {
-typedef uint32_t TrieChar;
+using TrieChar = uint32_t;
 
 // 95 is a good value for the default baseChar, since both small and capital latin letters
 // are less than +/- 32 from it and thus can fit into supershort edge.
 // However 0 is used because the first byte is actually language id.
-static uint32_t const DEFAULT_CHAR = 0;
+uint32_t constexpr kDefaultChar = 0;
 
 template <typename TValueList>
 class Iterator
@@ -32,38 +32,10 @@ public:
   buffer_vector<Edge, 8> m_edge;
   TValueList m_valueList;
 
-  virtual ~Iterator() {}
+  virtual ~Iterator() = default;
 
   virtual unique_ptr<Iterator<TValueList>> Clone() const = 0;
   virtual unique_ptr<Iterator<TValueList>> GoToEdge(size_t i) const = 0;
-};
-
-struct EmptyValueReader
-{
-  typedef unsigned char ValueType;
-
-  EmptyValueReader() = default;
-
-  template <typename SourceT>
-  void operator()(SourceT &, ValueType & value) const
-  {
-    value = 0;
-  }
-};
-
-template <unsigned int N>
-struct FixedSizeValueReader
-{
-  struct ValueType
-  {
-    unsigned char m_data[N];
-  };
-
-  template <typename SourceT>
-  void operator()(SourceT & src, ValueType & value) const
-  {
-    src.Read(&value.m_data[0], N);
-  }
 };
 
 template <typename TValueList, typename TF, typename TString>

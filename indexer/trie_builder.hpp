@@ -235,7 +235,7 @@ void Build(TSink & sink, TSerializer const & serializer, TIter const beg, TIter 
   using TNodeInfo = NodeInfo<TValueList>;
 
   vector<TNodeInfo> nodes;
-  nodes.emplace_back(sink.Pos(), DEFAULT_CHAR);
+  nodes.emplace_back(sink.Pos(), kDefaultChar);
 
   TTrieString prevKey;
 
@@ -270,7 +270,7 @@ void Build(TSink & sink, TSerializer const & serializer, TIter const beg, TIter 
   PopNodes(sink, serializer, nodes, nodes.size() - 1);
 
   // Write the root.
-  WriteNodeReverse(sink, serializer, DEFAULT_CHAR /* baseChar */, nodes.back(), true /* isRoot */);
+  WriteNodeReverse(sink, serializer, kDefaultChar /* baseChar */, nodes.back(), true /* isRoot */);
 }
 
 }  // namespace trie

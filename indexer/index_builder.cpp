@@ -8,7 +8,7 @@
 
 namespace indexer
 {
-bool BuildIndexFromDataFile(string const & datFile, string const & tmpFile)
+  bool BuildIndexFromDataFile(string const & datFile, string const & tmpFile)
   {
     try
     {
