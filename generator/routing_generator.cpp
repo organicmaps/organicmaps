@@ -79,10 +79,12 @@ bool CheckBBoxCrossingBorder(m2::RegionD const & border, osrm::NodeData const & 
   return any && !all;
 }
 
-void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID const & osm2ft, borders::CountriesContainerT const & m_countries, string const & countryName, routing::CrossRoutingContextWriter & crossContext)
+void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID const & osm2ft,
+                    borders::CountriesContainerT const & countries, string const & countryName,
+                    routing::CrossRoutingContextWriter & crossContext)
 {
   vector<m2::RegionD> regionBorders;
-  m_countries.ForEach([&](borders::CountryPolygons const & c)
+  countries.ForEach([&](borders::CountryPolygons const & c)
   {
     if (c.m_name == countryName)
       c.m_regions.ForEach([&regionBorders](m2::RegionD const & region)
@@ -110,6 +112,8 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
             continue;
 
           m2::PointD intersection = m2::PointD::Zero();
+          ms::LatLon wgsIntersection = ms::LatLon::Zero();
+          size_t intersectionCount = 0;
           for (auto const & segment : data.m_segments)
           {
             bool const outStart =
@@ -127,15 +131,15 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
                 ASSERT(false, ("Can't determine a intersection point with a border!"));
                 continue;
             }
-            // for old format compatibility
-            ms::LatLon wgsIntersection = MercatorBounds::ToLatLon(intersection);
+            intersectionCount++;
+            wgsIntersection = MercatorBounds::ToLatLon(intersection);
             if (!outStart && outEnd)
               crossContext.AddIngoingNode(nodeId, wgsIntersection);
             else if (outStart && !outEnd)
             {
               string mwmName;
               m2::PointD const & mercatorPoint = MercatorBounds::FromLatLon(endSeg.lat2, endSeg.lon2);
-              m_countries.ForEachInRect(m2::RectD(mercatorPoint, mercatorPoint), [&](borders::CountryPolygons const & c)
+              countries.ForEachInRect(m2::RectD(mercatorPoint, mercatorPoint), [&](borders::CountryPolygons const & c)
               {
                 if (c.m_name == countryName)
                   return;
@@ -152,6 +156,8 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
                 LOG(LINFO, ("Unknowing outgoing edge", endSeg.lat2, endSeg.lon2, startSeg.lat1, startSeg.lon1));
             }
           }
+          if (intersectionCount > 1)
+            LOG(LINFO, ("Double border intersection", wgsIntersection));
         }
       }
     }
@@ -204,7 +210,8 @@ void WriteCrossSection(routing::CrossRoutingContextWriter const & crossContext, 
   LOG(LINFO, ("Have written routing info, bytes written:", w.Pos() - start_size, "bytes"));
 }
 
-void BuildCrossRoutingIndex(string const & baseDir, string const & countryName, string const & osrmFile)
+void BuildCrossRoutingIndex(string const & baseDir, string const & countryName,
+                            string const & osrmFile)
 {
   LOG(LINFO, ("Cross mwm routing section builder"));
 
@@ -219,13 +226,13 @@ void BuildCrossRoutingIndex(string const & baseDir, string const & countryName, 
     return;
 
   LOG(LINFO, ("Loading countries borders..."));
-  borders::CountriesContainerT m_countries;
-  CHECK(borders::LoadCountriesList(baseDir, m_countries),
+  borders::CountriesContainerT countries;
+  CHECK(borders::LoadCountriesList(baseDir, countries),
         ("Error loading country polygons files"));
 
   LOG(LINFO, ("Finding cross nodes..."));
   routing::CrossRoutingContextWriter crossContext;
-  FindCrossNodes(nodeData, osm2ft, m_countries, countryName, crossContext);
+  FindCrossNodes(nodeData, osm2ft, countries, countryName, crossContext);
 
   string const mwmRoutingPath = localFile.GetPath(MapOptions::CarRouting);
   CalculateCrossAdjacency(mwmRoutingPath, crossContext);
