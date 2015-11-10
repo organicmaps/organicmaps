@@ -49,6 +49,8 @@ public:
     CONNECTION_WWAN
   };
 
+  using TFilesWithType = vector<pair<string, EFileType>>;
+
 protected:
   /// Usually read-only directory for application resources
   string m_resourcesDir;
@@ -138,7 +140,8 @@ public:
   static void GetFilesByRegExp(string const & directory, string const & regexp, FilesList & outFiles);
   //@}
 
-  static void GetFilesByType(string const & directory, unsigned typeMask, FilesList & outFiles);
+  static void GetFilesByType(string const & directory, unsigned typeMask,
+                             TFilesWithType & outFiles);
 
   static bool IsDirectoryEmpty(string const & directory);
 

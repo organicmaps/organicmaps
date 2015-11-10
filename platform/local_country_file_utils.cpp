@@ -1,6 +1,8 @@
-#include "local_country_file_utils.hpp"
-#include "mwm_version.hpp"
-#include "platform.hpp"
+#include "platform/local_country_file_utils.hpp"
+
+#include "platform/country_file.hpp"
+#include "platform/mwm_version.hpp"
+#include "platform/platform.hpp"
 
 #include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
@@ -15,6 +17,7 @@
 #include "std/cctype.hpp"
 #include "std/sstream.hpp"
 #include "std/unique_ptr.hpp"
+#include "std/unordered_set.hpp"
 
 #include "defines.hpp"
 
@@ -74,13 +77,44 @@ string GetSpecialFilesSearchScope()
 #endif  // defined(OMIM_OS_ANDROID)
 }
 
-void DeleteDownloaderFilesForAllCountries(string const & directory)
+class StringsRegexpFilter
 {
-  static string const regexp = "\\.(downloading|resume|ready)[0-9]?$";
-  Platform::FilesList files;
-  Platform::GetFilesByRegExp(directory, regexp, files);
-  for (auto const & file : files)
-    my::DeleteFileX(my::JoinFoldersToPath(directory, file));
+public:
+  StringsRegexpFilter(string const & regexp) { regexp::Create(regexp, m_regexp); }
+
+  bool Matches(string const & s) const { return regexp::Matches(s, m_regexp); }
+
+private:
+  regexp::RegExpT m_regexp;
+};
+
+bool IsSpecialName(string const & name) { return name == "." || name == ".."; }
+
+bool IsDownloaderFile(string const & name)
+{
+  static StringsRegexpFilter const filter(".*\\.(downloading|resume|ready)[0-9]?$");
+  return filter.Matches(name);
+}
+
+bool DirectoryHasIndexesOnly(string const & directory)
+{
+  Platform::TFilesWithType fwts;
+  Platform::GetFilesByType(directory, Platform::FILE_TYPE_REGULAR | Platform::FILE_TYPE_DIRECTORY,
+                           fwts);
+  for (auto const & fwt : fwts)
+  {
+    auto const & name = fwt.first;
+    auto const & type = fwt.second;
+    if (type == Platform::FILE_TYPE_DIRECTORY)
+    {
+      if (!IsSpecialName(name))
+        return false;
+      continue;
+    }
+    if (!CountryIndexes::IsIndexFile(name))
+      return false;
+  }
+  return true;
 }
 }  // namespace
 
@@ -96,93 +130,93 @@ void DeleteDownloaderFilesForCountry(CountryFile const & countryFile, int64_t ve
   }
 }
 
-void CleanupMapsDirectory(int64_t latestVersion)
-{
-  Platform & platform = GetPlatform();
-
-  string const mapsDir = platform.WritableDir();
-
-  {
-    // Delete Brazil.mwm and Japan.mwm maps, because they was replaces with
-    // smaler regions after osrm routing implementation.
-    vector<LocalCountryFile> localFiles;
-    FindAllLocalMapsInDirectory(mapsDir, 0 /* version */, localFiles);
-    for (LocalCountryFile & localFile : localFiles)
-    {
-      string const & countryName = localFile.GetCountryFile().GetNameWithoutExt();
-      if (countryName == "Japan" || countryName == "Brazil")
-      {
-        localFile.SyncWithDisk();
-        localFile.DeleteFromDisk(MapOptions::MapWithCarRouting);
-      }
-    }
-  }
-
-  // Try to delete empty folders.
-  Platform::FilesList subdirs;
-  platform.GetFilesByType(mapsDir, Platform::FILE_TYPE_DIRECTORY, subdirs);
-  for (string const & subdir : subdirs)
-  {
-    // No need to visit parent directory.
-    if (subdir == "..")
-      continue;
-
-    int64_t version = 0;
-    if (subdir != "." && !ParseVersion(subdir, version))
-      continue;
-
-    string const subdirPath = my::JoinFoldersToPath(mapsDir, subdir);
-
-    // It's OK to remove all temprorary files for maps older than app.
-    if (version != latestVersion)
-      DeleteDownloaderFilesForAllCountries(subdirPath);
-
-    // Remove subdirectory if it does not contain any files except "." and "..".
-    if (subdir != "." && Platform::IsDirectoryEmpty(subdirPath))
-    {
-      Platform::EError const ret = Platform::RmDir(subdirPath);
-      ASSERT_EQUAL(Platform::ERR_OK, ret,
-                   ("Can't remove empty directory:", subdirPath, "error:", ret));
-      UNUSED_VALUE(ret);
-    }
-  }
-
-  /// @todo Cleanup temporary index files for already absent mwm files.
-  /// https://trello.com/c/PKiiOsB4/28--
-}
-
-void FindAllLocalMapsInDirectory(string const & directory, int64_t version,
-                                 vector<LocalCountryFile> & localFiles)
+void FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t version,
+                                           int64_t latestVersion,
+                                           vector<LocalCountryFile> & localFiles)
 {
   vector<string> files;
   Platform & platform = GetPlatform();
 
-  platform.GetFilesByRegExp(directory, ".*\\" DATA_FILE_EXTENSION "$", files);
-  for (string const & file : files)
+  Platform::TFilesWithType fwts;
+  platform.GetFilesByType(directory, Platform::FILE_TYPE_REGULAR | Platform::FILE_TYPE_DIRECTORY,
+                          fwts);
+
+  unordered_set<string> names;
+  for (auto const & fwt : fwts)
   {
+    if (fwt.second != Platform::FILE_TYPE_REGULAR)
+      continue;
+
+    string name = fwt.first;
+
+    // Remove downloader files for old version directories.
+    if (IsDownloaderFile(name) && version < latestVersion)
+    {
+      my::DeleteFileX(my::JoinFoldersToPath(directory, name));
+      continue;
+    }
+
+    if (!strings::EndsWith(name, DATA_FILE_EXTENSION))
+      continue;
+
     // Remove DATA_FILE_EXTENSION and use base name as a country file name.
-    string name = file;
     my::GetNameWithoutExt(name);
-    localFiles.emplace_back(directory, CountryFile(name), version);
+    names.insert(name);
+    LocalCountryFile localFile(directory, CountryFile(name), version);
+
+    // Delete Brazil.mwm and Japan.mwm maps, because they were
+    // replaced with smaller regions after osrm routing
+    // implementation.
+    if (name == "Japan" || name == "Brazil")
+    {
+      localFile.SyncWithDisk();
+      localFile.DeleteFromDisk(MapOptions::MapWithCarRouting);
+      continue;
+    }
+
+    localFiles.push_back(localFile);
+  }
+
+  for (auto const & fwt : fwts)
+  {
+    if (fwt.second != Platform::FILE_TYPE_DIRECTORY)
+      continue;
+
+    string name = fwt.first;
+    if (IsSpecialName(name))
+      continue;
+
+    if (names.count(name) == 0 && DirectoryHasIndexesOnly(my::JoinFoldersToPath(directory, name)))
+    {
+      // Directory which looks like a directory with indexes for absent country. It's OK to remove
+      // it.
+      LocalCountryFile absentCountry(directory, CountryFile(name), version);
+      CountryIndexes::DeleteFromDisk(absentCountry);
+    }
   }
 }
 
-void FindAllLocalMaps(vector<LocalCountryFile> & localFiles)
+void FindAllLocalMapsAndCleanup(int64_t latestVersion, vector<LocalCountryFile> & localFiles)
 {
-  localFiles.clear();
-
   Platform & platform = GetPlatform();
 
-  string const directory = platform.WritableDir();
-  FindAllLocalMapsInDirectory(directory, 0 /* version */, localFiles);
+  string const dir = platform.WritableDir();
+  FindAllLocalMapsInDirectoryAndCleanup(dir, 0 /* version */, latestVersion, localFiles);
 
-  Platform::FilesList subdirs;
-  Platform::GetFilesByType(directory, Platform::FILE_TYPE_DIRECTORY, subdirs);
-  for (string const & subdir : subdirs)
+  Platform::TFilesWithType fwts;
+  Platform::GetFilesByType(dir, Platform::FILE_TYPE_DIRECTORY, fwts);
+  for (auto const & fwt : fwts)
   {
+    string const & subdir = fwt.first;
     int64_t version;
-    if (ParseVersion(subdir, version))
-      FindAllLocalMapsInDirectory(my::JoinFoldersToPath(directory, subdir), version, localFiles);
+    if (!ParseVersion(subdir, version))
+      continue;
+
+    string const fullPath = my::JoinFoldersToPath(dir, subdir);
+    FindAllLocalMapsInDirectoryAndCleanup(fullPath, version, latestVersion, localFiles);
+    Platform::EError err = Platform::RmDir(fullPath);
+    if (err != Platform::ERR_OK && err != Platform::ERR_DIRECTORY_NOT_EMPTY)
+      LOG(LWARNING, ("Can't remove directory:", fullPath, err));
   }
 
   // World and WorldCoasts can be stored in app bundle or in resources
@@ -198,10 +232,12 @@ void FindAllLocalMaps(vector<LocalCountryFile> & localFiles)
 
     try
     {
-      ModelReaderPtr reader(platform.GetReader(file + DATA_FILE_EXTENSION, GetSpecialFilesSearchScope()));
+      ModelReaderPtr reader(
+          platform.GetReader(file + DATA_FILE_EXTENSION, GetSpecialFilesSearchScope()));
 
       // Assume that empty path means the resource file.
-      LocalCountryFile worldFile(string(), CountryFile(file), version::ReadVersionTimestamp(reader));
+      LocalCountryFile worldFile(string(), CountryFile(file),
+                                 version::ReadVersionTimestamp(reader));
       worldFile.m_files = MapOptions::Map;
       if (i != localFiles.end())
       {
@@ -220,6 +256,12 @@ void FindAllLocalMaps(vector<LocalCountryFile> & localFiles)
       }
     }
   }
+}
+
+void CleanupMapsDirectory(int64_t latestVersion)
+{
+  vector<LocalCountryFile> localFiles;
+  FindAllLocalMapsAndCleanup(latestVersion, localFiles);
 }
 
 bool ParseVersion(string const & s, int64_t & version)
@@ -265,7 +307,10 @@ ModelReader * GetCountryReader(platform::LocalCountryFile const & file, MapOptio
   Platform & platform = GetPlatform();
   // See LocalCountryFile comment for explanation.
   if (file.GetDirectory().empty())
-    return platform.GetReader(file.GetCountryName() + DATA_FILE_EXTENSION, GetSpecialFilesSearchScope());
+  {
+    return platform.GetReader(file.GetCountryName() + DATA_FILE_EXTENSION,
+                              GetSpecialFilesSearchScope());
+  }
   return platform.GetReader(file.GetPath(options), "f");
 }
 
@@ -327,6 +372,13 @@ void CountryIndexes::GetIndexesExts(vector<string> & exts)
   exts.push_back(kBitsExt);
   exts.push_back(kNodesExt);
   exts.push_back(kOffsetsExt);
+}
+
+// static
+bool CountryIndexes::IsIndexFile(string const & file)
+{
+  return strings::EndsWith(file, kBitsExt) || strings::EndsWith(file, kNodesExt) ||
+         strings::EndsWith(file, kOffsetsExt);
 }
 
 // static

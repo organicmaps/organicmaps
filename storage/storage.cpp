@@ -66,6 +66,12 @@ void DeleteCountryIndexes(LocalCountryFile const & localFile)
   platform::CountryIndexes::DeleteFromDisk(localFile);
 }
 
+void DeleteFromDiskWithIndexes(LocalCountryFile const & localFile, MapOptions options)
+{
+  DeleteCountryIndexes(localFile);
+  localFile.DeleteFromDisk(options);
+}
+
 class EqualFileName
 {
   string const & m_name;
@@ -105,7 +111,7 @@ void Storage::RegisterAllLocalMaps()
   m_localFilesForFakeCountries.clear();
 
   vector<LocalCountryFile> localFiles;
-  FindAllLocalMaps(localFiles);
+  FindAllLocalMapsAndCleanup(GetCurrentDataVersion(), localFiles);
 
   auto compareByCountryAndVersion = [](LocalCountryFile const & lhs, LocalCountryFile const & rhs)
   {
@@ -130,7 +136,7 @@ void Storage::RegisterAllLocalMaps()
       LocalCountryFile & localFile = *j;
       LOG(LINFO, ("Removing obsolete", localFile));
       localFile.SyncWithDisk();
-      localFile.DeleteFromDisk(MapOptions::MapWithCarRouting);
+      DeleteFromDiskWithIndexes(localFile, MapOptions::MapWithCarRouting);
       ++j;
     }
 
@@ -340,8 +346,7 @@ void Storage::DeleteCountry(TIndex const & index, MapOptions opt)
 void Storage::DeleteCustomCountryVersion(LocalCountryFile const & localFile)
 {
   CountryFile const countryFile = localFile.GetCountryFile();
-  localFile.DeleteFromDisk(MapOptions::MapWithCarRouting);
-  CountryIndexes::DeleteFromDisk(localFile);
+  DeleteFromDiskWithIndexes(localFile, MapOptions::MapWithCarRouting);
 
   {
     auto it = m_localFilesForFakeCountries.find(countryFile);
@@ -844,9 +849,8 @@ void Storage::DeleteCountryFiles(TIndex const & index, MapOptions opt)
   auto & localFiles = it->second;
   for (auto & localFile : localFiles)
   {
-    localFile->DeleteFromDisk(opt);
+    DeleteFromDiskWithIndexes(*localFile, opt);
     localFile->SyncWithDisk();
-    DeleteCountryIndexes(*localFile);
     if (localFile->GetFiles() == MapOptions::Nothing)
       localFile.reset();
   }

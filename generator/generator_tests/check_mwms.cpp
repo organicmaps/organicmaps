@@ -16,7 +16,8 @@ UNIT_TEST(CheckMWM_LoadAll)
 {
   Platform & platform = GetPlatform();
   vector<platform::LocalCountryFile> localFiles;
-  platform::FindAllLocalMapsInDirectory(platform.WritableDir(), 0 /* version */, localFiles);
+  platform::FindAllLocalMapsInDirectoryAndCleanup(platform.WritableDir(), 0 /* version */,
+                                                  -1 /* latestVersion */, localFiles);
 
   model::FeaturesFetcher m;
   m.InitClassificator();

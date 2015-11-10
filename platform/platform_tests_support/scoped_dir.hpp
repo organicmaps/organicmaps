@@ -18,6 +18,8 @@ public:
   /// @param path Path for a testing directory, should be relative to writable-dir.
   ScopedDir(string const & relativePath);
 
+  ScopedDir(ScopedDir const & parent, string const & name);
+
   ~ScopedDir();
 
   inline void Reset() { m_reset = true; }

@@ -3,6 +3,7 @@
 #include "platform/country_defines.hpp"
 #include "platform/local_country_file.hpp"
 
+#include "std/function.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
@@ -14,20 +15,16 @@ namespace platform
 // Removes all files downloader creates during downloading of a country.
 void DeleteDownloaderFilesForCountry(CountryFile const & countryFile, int64_t version);
 
-// Removes partially downloaded maps, empty directories and old
-// (format v1) maps.  Also, removes old (splitted) Japan and Brazil
-// maps. |version| must be set to the latest data version this app can
-// work with.
-void CleanupMapsDirectory(int64_t latestVersion);
+// Finds all local map files in |directory|. Version of these files is
+// passed as an argument. Also, performs cleanup described in comment
+// for FindAllLocalMapsAndCleanup().
+void FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t version,
+                                           int64_t latestVersion,
+                                           vector<LocalCountryFile> & localFiles);
 
-// Finds all local map files in a directory. Version of these files is
-// passed as an argument.
-void FindAllLocalMapsInDirectory(string const & directory, int64_t version,
-                                 vector<LocalCountryFile> & localFiles);
-
-// Finds all local map files in resources and writable
-// directory. Also, for Android, checks /Android/obb directory.
-// Directories should have the following structure:
+// Finds all local map files in resources and writable directory. For
+// Android, checks /Android/obb directory.  Subdirectories in the
+// writable directory should have the following structure:
 //
 // dir/*.mwm            -- map files, base name should correspond to countries.txt,
 //                      -- version is assumed to be zero (unknown).
@@ -38,10 +35,17 @@ void FindAllLocalMapsInDirectory(string const & directory, int64_t version,
 // dir/[0-9]{1,18}/*.mwm.routing  -- routing file for corresponding map files,
 //                                -- version is assumed to be the name of a directory.
 //
-// We can't derive version of a map file from its header because
-// currently header stores format version + individual mwm's file
-// generation timestamp, not timestamp mentioned in countries.txt.
-void FindAllLocalMaps(vector<LocalCountryFile> & localFiles);
+// Also, this method performs cleanup described in a comment for
+// CleanupMapsDirectory().
+void FindAllLocalMapsAndCleanup(int64_t latestVersion, vector<LocalCountryFile> & localFiles);
+
+// This method removes:
+// * partially downloaded non-latest maps (with version less than |latestVersion|)
+// * empty directories
+// * old (format v1) maps
+// * old (split) Japan and Brazil maps
+// * indexes for absent countries
+void CleanupMapsDirectory(int64_t latestVersion);
 
 // Tries to parse a version from a string of size not longer than 18
 // symbols and representing an unsigned decimal number. Leading zeroes
@@ -83,6 +87,9 @@ public:
 
   // Pushes to the exts's end possible index files extensions.
   static void GetIndexesExts(vector<string> & exts);
+
+  // Returns true if |file| corresponds to an index file.
+  static bool IsIndexFile(string const & file);
 
 private:
   friend void UnitTest_LocalCountryFile_CountryIndexes();

@@ -34,6 +34,11 @@ ScopedDir::ScopedDir(string const & relativePath)
   }
 }
 
+ScopedDir::ScopedDir(ScopedDir const & parent, string const & name)
+  : ScopedDir(my::JoinFoldersToPath(parent.GetRelativePath(), name))
+{
+}
+
 ScopedDir::~ScopedDir()
 {
   if (m_reset)
