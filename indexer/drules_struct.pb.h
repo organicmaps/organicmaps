@@ -924,6 +924,13 @@ class CaptionDefProto : public ::google::protobuf::MessageLite {
   inline ::std::string* release_text();
   inline void set_allocated_text(::std::string* text);
 
+  // optional bool is_optional = 7;
+  inline bool has_is_optional() const;
+  inline void clear_is_optional();
+  static const int kIsOptionalFieldNumber = 7;
+  inline bool is_optional() const;
+  inline void set_is_optional(bool value);
+
   // @@protoc_insertion_point(class_scope:CaptionDefProto)
  private:
   inline void set_has_height();
@@ -938,6 +945,8 @@ class CaptionDefProto : public ::google::protobuf::MessageLite {
   inline void clear_has_offset_y();
   inline void set_has_text();
   inline void clear_has_text();
+  inline void set_has_is_optional();
+  inline void clear_has_is_optional();
 
   ::std::string _unknown_fields_;
 
@@ -949,6 +958,7 @@ class CaptionDefProto : public ::google::protobuf::MessageLite {
   ::google::protobuf::int32 offset_x_;
   ::std::string* text_;
   ::google::protobuf::int32 offset_y_;
+  bool is_optional_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
   #else
@@ -2850,6 +2860,30 @@ inline void CaptionDefProto::set_allocated_text(::std::string* text) {
     text_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
   // @@protoc_insertion_point(field_set_allocated:CaptionDefProto.text)
+}
+
+// optional bool is_optional = 7;
+inline bool CaptionDefProto::has_is_optional() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void CaptionDefProto::set_has_is_optional() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void CaptionDefProto::clear_has_is_optional() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void CaptionDefProto::clear_is_optional() {
+  is_optional_ = false;
+  clear_has_is_optional();
+}
+inline bool CaptionDefProto::is_optional() const {
+  // @@protoc_insertion_point(field_get:CaptionDefProto.is_optional)
+  return is_optional_;
+}
+inline void CaptionDefProto::set_is_optional(bool value) {
+  set_has_is_optional();
+  is_optional_ = value;
+  // @@protoc_insertion_point(field_set:CaptionDefProto.is_optional)
 }
 
 // -------------------------------------------------------------------

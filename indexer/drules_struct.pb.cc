@@ -2036,6 +2036,7 @@ const int CaptionDefProto::kStrokeColorFieldNumber;
 const int CaptionDefProto::kOffsetXFieldNumber;
 const int CaptionDefProto::kOffsetYFieldNumber;
 const int CaptionDefProto::kTextFieldNumber;
+const int CaptionDefProto::kIsOptionalFieldNumber;
 #endif  // !_MSC_VER
 
 CaptionDefProto::CaptionDefProto()
@@ -2063,6 +2064,7 @@ void CaptionDefProto::SharedCtor() {
   offset_x_ = 0;
   offset_y_ = 0;
   text_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  is_optional_ = false;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -2114,9 +2116,9 @@ void CaptionDefProto::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 63) {
+  if (_has_bits_[0 / 32] & 127) {
     ZR_(height_, offset_x_);
-    offset_y_ = 0;
+    ZR_(offset_y_, is_optional_);
     if (has_text()) {
       if (text_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         text_->clear();
@@ -2228,6 +2230,21 @@ bool CaptionDefProto::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(56)) goto parse_is_optional;
+        break;
+      }
+
+      // optional bool is_optional = 7;
+      case 7: {
+        if (tag == 56) {
+         parse_is_optional:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &is_optional_)));
+          set_has_is_optional();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -2288,6 +2305,11 @@ void CaptionDefProto::SerializeWithCachedSizes(
       6, this->text(), output);
   }
 
+  // optional bool is_optional = 7;
+  if (has_is_optional()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(7, this->is_optional(), output);
+  }
+
   output->WriteRaw(unknown_fields().data(),
                    unknown_fields().size());
   // @@protoc_insertion_point(serialize_end:CaptionDefProto)
@@ -2339,6 +2361,11 @@ int CaptionDefProto::ByteSize() const {
           this->text());
     }
 
+    // optional bool is_optional = 7;
+    if (has_is_optional()) {
+      total_size += 1 + 1;
+    }
+
   }
   total_size += unknown_fields().size();
 
@@ -2374,6 +2401,9 @@ void CaptionDefProto::MergeFrom(const CaptionDefProto& from) {
     if (from.has_text()) {
       set_text(from.text());
     }
+    if (from.has_is_optional()) {
+      set_is_optional(from.is_optional());
+    }
   }
   mutable_unknown_fields()->append(from.unknown_fields());
 }
@@ -2398,6 +2428,7 @@ void CaptionDefProto::Swap(CaptionDefProto* other) {
     std::swap(offset_x_, other->offset_x_);
     std::swap(offset_y_, other->offset_y_);
     std::swap(text_, other->text_);
+    std::swap(is_optional_, other->is_optional_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
