@@ -21,7 +21,7 @@ set -e
 
 if [ $# -lt 1 ]; then
   echo
-  echo "Usage: $0 \<file.o5m/bz2/pbf\> [\<routing_profile.lua\>]"
+  echo "Usage: $0 \<file.o5m/osm/bz2/pbf\> [\<routing_profile.lua\>]"
   echo
   echo "Useful environment variables:"
   echo
@@ -90,7 +90,7 @@ if [ -f "$COASTS" ]; then
   GENERATE_EVERYTHING="$GENERATE_EVERYTHING --emit_coasts=true --split_by_polygons=true"
 fi
 # Convert everything to o5m
-if [ "$SOURCE_TYPE" == "pbf" -o "$SOURCE_TYPE" == "bz2" ]; then
+if [ "$SOURCE_TYPE" == "pbf" -o "$SOURCE_TYPE" == "bz2" -o "$SOURCE_TYPE" == "osm" ]; then
   find_osmconvert
   if [ "$SOURCE_TYPE" == "bz2" ]; then
     bzcat "$SOURCE_FILE" | $OSMCONVERT - --out-o5m "-o=$INTDIR/$BASE_NAME.o5m" || fail
