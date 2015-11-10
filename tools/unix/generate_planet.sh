@@ -424,7 +424,7 @@ fi
 if [ "$MODE" == "test" ]; then
   putmode "Step 8: Testing data"
   TEST_LOG="$LOG_PATH/test_planet.log"
-  bash "$TESTING_SCRIPT" "$TARGET" > "$TEST_LOG"
+  bash "$TESTING_SCRIPT" "$TARGET" "${DELTA_WITH-}" > "$TEST_LOG"
   # Send both log files via e-mail
   if [ -n "${MAIL-}" ]; then
     cat <(grep STATUS "$PLANET_LOG") <(echo ---------------) "$TEST_LOG" | mailx -s "Generate_planet: build completed at $(hostname)" "$MAIL"

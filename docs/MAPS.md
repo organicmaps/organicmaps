@@ -136,6 +136,8 @@ it can fail due to low memory.
 * `MERGE_INTERVAL`: delay in minutes between attempts to merge a coast line.
 Default is 40.
 * `REGIONS`: a list of `.poly` files for regions to be built. One for each line.
+* `DELTA_WITH`: a path to an older map directory, to compare with the freshly
+generated data in the testing step.
 Can be empty. Example: `$(ls ../../data/borders/{UK*,Ireland}.poly)`.
 
 ### Testing
