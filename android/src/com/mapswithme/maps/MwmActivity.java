@@ -59,7 +59,6 @@ import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Stack;
 
 
@@ -193,29 +192,25 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  : super.getFragmentContentResId());
   }
 
-  public Fragment getSidePanelFragment()
+  public Fragment getFragment(Class<? extends Fragment> clazz)
   {
-    // TODO: Check this
-
-    if (!mIsFragmentContainer)
-      return null;
-
-    List<Fragment> fragments = getSupportFragmentManager().getFragments();
-    return (fragments.isEmpty() ? null : fragments.get(0));
+    return (mIsFragmentContainer ? getSupportFragmentManager().findFragmentByTag(clazz.getName()) : null);
   }
 
   void replaceFragmentInternal(Class<? extends Fragment> fragmentClass, Bundle args)
   {
-    super.replaceFragment(fragmentClass, true, args);
+    super.replaceFragment(fragmentClass, args);
   }
 
   @Override
-  public void replaceFragment(Class<? extends Fragment> fragmentClass, boolean addToBackStack, Bundle args)
+  public void replaceFragment(Class<? extends Fragment> fragmentClass, Bundle args)
   {
-    if (addToBackStack)
-      mPanelAnimator.show(fragmentClass, args);
-    else
-      super.replaceFragment(fragmentClass, false, args);
+    replaceFragment(fragmentClass, args, null);
+  }
+
+  private void replaceFragment(Class<? extends Fragment> fragmentClass, Bundle args, Runnable completionListener)
+  {
+    mPanelAnimator.show(fragmentClass, args, completionListener);
   }
 
   private void showBookmarks()
@@ -232,7 +227,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (mIsFragmentContainer)
     {
-      if (getSupportFragmentManager().findFragmentByTag(SearchFragment.class.getName()) == null)
+      if (getFragment(SearchFragment.class) == null)
         popFragment();
 
       mSearchController.hide();
@@ -240,7 +235,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       final Bundle args = new Bundle();
       args.putString(SearchActivity.EXTRA_QUERY, query);
       args.putBoolean(SearchActivity.EXTRA_SHOW_MY_POSITION, showMyPosition);
-      replaceFragment(SearchFragment.class, true, args);
+      mPanelAnimator.show(SearchFragment.class, args);
     }
     else
       SearchActivity.start(this, query, showMyPosition);
@@ -278,13 +273,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     args.putBoolean(DownloadActivity.EXTRA_OPEN_DOWNLOADED_LIST, openDownloadedList);
     if (mIsFragmentContainer)
     {
-      if (getSupportFragmentManager().findFragmentByTag(DownloadFragment.class.getName()) != null) // downloader is already shown
+      if (getFragment(DownloadFragment.class) != null) // downloader is already shown
         return;
 
       popFragment();
       SearchEngine.cancelSearch();
       mSearchController.refreshToolbar();
-      replaceFragment(DownloadFragment.class, true, args);
+      mPanelAnimator.show(DownloadFragment.class, args);
     }
     else
     {
@@ -343,6 +338,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         mMainMenu.close(true);
       }
     });
+
     mMapFragment = (MapFragment) getSupportFragmentManager().findFragmentByTag(MapFragment.FRAGMENT_TAG);
     if (mMapFragment == null)
     {
@@ -906,21 +902,21 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onApiPointActivated(final double lat, final double lon, final String name, final String id)
   {
-    if (ParsedMwmRequest.hasRequest())
-    {
-      final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
-      request.setPointData(lat, lon, name, id);
+    final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
+    if (request == null)
+      return;
 
-      runOnUiThread(new Runnable()
+    request.setPointData(lat, lon, name, id);
+
+    runOnUiThread(new Runnable()
+    {
+      @Override
+      public void run()
       {
-        @Override
-        public void run()
-        {
-          final String poiType = ParsedMwmRequest.getCurrentRequest().getCallerName(MwmApplication.get()).toString();
-          activateMapObject(new ApiPoint(name, id, poiType, lat, lon));
-        }
-      });
-    }
+        final String poiType = request.getCallerName(MwmApplication.get()).toString();
+        activateMapObject(new ApiPoint(name, id, poiType, lat, lon));
+      }
+    });
   }
 
   @Override
@@ -1164,7 +1160,32 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void showPlan(boolean show)
+  public void updateMenu()
+  {
+    if (RoutingController.get().isNavigating())
+    {
+      mMainMenu.setState(MainMenu.State.NAVIGATION);
+      return;
+    }
+
+    if (mIsFragmentContainer)
+    {
+      // TODO: Handle point selection state
+      mMainMenu.setEnabled(MainMenu.Item.P2P, !RoutingController.get().isPlanning());
+    } else
+    {
+      if (RoutingController.get().isPlanning())
+      {
+        mMainMenu.setState(MainMenu.State.ROUTE_PREPARE);
+        return;
+      }
+    }
+
+    mMainMenu.setState(MainMenu.State.MENU);
+  }
+
+  @Override
+  public void showRoutePlan(boolean show)
   {
     if (show)
     {
@@ -1172,31 +1193,21 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
       if (mIsFragmentContainer)
       {
-        Fragment f = getSidePanelFragment();
-        if (f == null || !f.getClass().equals(RoutingPlanFragment.class))
-        {
-          if (getSupportFragmentManager().findFragmentByTag(RoutingPlanFragment.class.getName()) == null)
-            popFragment();
+        Fragment f = getFragment(RoutingPlanFragment.class);
+        if (f == null)
+          popFragment();
 
-          replaceFragment(RoutingPlanFragment.class, true, null);
-        }
-        mMainMenu.setEnabled(MainMenu.Item.P2P, false);
+        mPanelAnimator.show(RoutingPlanFragment.class, null);
       } else
       {
         mRoutingPlanInplace.show(true);
-        mMainMenu.setState(MainMenu.State.ROUTE_PREPARE);
       }
     } else
     {
       if (mIsFragmentContainer)
-      {
         closeSidePanel();
-        mMainMenu.setEnabled(MainMenu.Item.P2P, true);
-      } else
-      {
+      else
         mRoutingPlanInplace.show(false);
-        mMainMenu.setState(MainMenu.State.MENU);
-      }
     }
 
     mPlacePage.refreshViews();
