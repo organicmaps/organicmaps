@@ -94,7 +94,7 @@
 	<!-- iOS share by Message button text (including SMS) -->
 	<text id="IDS_MESSAGE">Сообщение</text>
 	<!-- Share by email button text -->
-	<text id="IDS_EMAIL">E-Mail</text>
+	<text id="IDS_EMAIL">E-mail</text>
 	<!-- Copy Link -->
 	<text id="IDS_COPY_LINK">Скопировать ссылку</text>
 	<!-- Used for bookmark editing -->

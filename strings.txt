@@ -14291,4 +14291,8 @@
     pl = Wyczyść historię wyszukiwania
     nl = Zoekgeschiedenis wissen
     pt = Limpar histórico de pesquisa
- 
+
+  [read_in_wikipedia]
+    tags = ios, android
+    comment = Place Page link to Wikipedia article (if map object has it).
+    en = Wikipedia

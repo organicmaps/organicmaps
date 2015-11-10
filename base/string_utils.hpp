@@ -48,6 +48,8 @@ UniString Normalize(UniString const & s);
 size_t CountNormLowerSymbols(UniString const & s, UniString const & lowStr);
 
 void AsciiToLower(string & s);
+// TODO(AlexZ): current boost impl uses default std::locale() to trim.
+// In general, it does not work for any unicode whitespace except ASCII U+0020 one.
 void Trim(string & s);
 
 void MakeLowerCaseInplace(string & s);

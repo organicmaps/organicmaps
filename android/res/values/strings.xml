@@ -848,4 +848,6 @@
 	<string name="search_history_title">Search History</string>
 	<string name="search_history_text">View recent searches.</string>
 	<string name="clear_search">Clear Search History</string>
+	<!-- Place Page link to Wikipedia article (if map object has it). -->
+	<string name="read_in_wikipedia">Wikipedia</string>
 </resources>

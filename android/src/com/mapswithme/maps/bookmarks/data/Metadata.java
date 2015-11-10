@@ -26,6 +26,7 @@ public class Metadata implements Parcelable
     FMD_TURN_LANES_BACKWARD(13),
     FMD_EMAIL(14),
     FMD_POSTCODE(15),
+    // TODO: It is hacked in jni and returns full Wikipedia url. Should use separate getter instead.
     FMD_WIKIPEDIA(16),
     FMD_MAXSPEED(17),
     FMD_FLATS(18);

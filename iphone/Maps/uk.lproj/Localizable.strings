@@ -1316,3 +1316,6 @@
 "search_history_text" = "Швидкий доступ до недавніх результатів пошуку.";
 
 "clear_search" = "Очистити історію пошуку";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Wikipedia";
