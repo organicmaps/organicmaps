@@ -187,7 +187,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 - (void)buildRoute
 {
   m2::PointD const & destination = m_userMark->GetUserMark()->GetOrg();
-  m2::PointD const myPosition (ToMercator([MapsAppDelegate theApp].m_locationManager.lastLocation.coordinate));
+  m2::PointD const myPosition ([MapsAppDelegate theApp].m_locationManager.lastLocation.mercator);
   [self.delegate buildRouteFrom:MWMRoutePoint(myPosition) to:{destination, self.placePage.basePlacePageView.titleLabel.text}];
 }
 
@@ -326,7 +326,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   if (!location || !m_userMark)
     return;
 
-  CGFloat const angle = ang::AngleTo(ToMercator(location.coordinate), m_userMark->GetUserMark()->GetOrg()) + info.m_bearing;
+  CGFloat const angle = ang::AngleTo(location.mercator, m_userMark->GetUserMark()->GetOrg()) + info.m_bearing;
   CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI_2 - angle);
   [self.placePage setDirectionArrowTransform:transform];
   [self.directionView setDirectionArrowTransform:transform];

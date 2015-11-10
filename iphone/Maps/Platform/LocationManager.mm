@@ -348,3 +348,12 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
 }
 
 @end
+
+@implementation CLLocation (Mercator)
+
+- (m2::PointD)mercator
+{
+  return ToMercator(self.coordinate);
+}
+
+@end

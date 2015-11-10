@@ -446,7 +446,7 @@ static NSString * const kNavigationDashboardIPADXibName = @"MWMNiPadNavigationDa
   if (!res.IsValid())
     return;
 
-  CGFloat const angle = ang::AngleTo(ToMercator(location.coordinate),
+  CGFloat const angle = ang::AngleTo(location.mercator,
                                      ToMercator(res.m_pedestrianDirectionPos)) + info.m_bearing;
   CGAffineTransform const transform (CGAffineTransformMakeRotation(M_PI_2 - angle));
   self.navigationDashboardPortrait.direction.transform = transform;

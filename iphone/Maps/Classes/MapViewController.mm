@@ -183,7 +183,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 {
   self.forceRoutingStateChange = ForceRoutingStateChangeStartFollowing;
   auto & f = GetFramework();
-  m2::PointD const location = ToMercator([MapsAppDelegate theApp].m_locationManager.lastLocation.coordinate);
+  m2::PointD const location = [MapsAppDelegate theApp].m_locationManager.lastLocation.mercator;
   f.SetRouter(f.GetBestRouter(location, self.restoreRouteDestination));
   GetFramework().BuildRoute(location, self.restoreRouteDestination, 0 /* timeoutSec */);
 }

@@ -43,6 +43,12 @@
 
 @end
 
+@interface CLLocation (Mercator)
+
+- (m2::PointD)mercator;
+
+@end
+
 static inline m2::PointD ToMercator(CLLocationCoordinate2D const & l)
 {
   return MercatorBounds::FromLatLon(l.latitude, l.longitude);
