@@ -151,7 +151,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
   return _locationManager;
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
   [self.timer invalidate];
   [self.locationManager stopUpdatingLocation];
@@ -164,7 +164,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
   {
     Framework & f = GetFramework();
     CLLocation * lastLocation = [locations lastObject];
-    TIndex const index = f.GetCountryIndex(ToMercator(lastLocation.coordinate));
+    TIndex const index = f.GetCountryIndex(lastLocation.mercator);
     
     if (index.IsValid() && [self shouldShowNotificationForIndex:index])
     {

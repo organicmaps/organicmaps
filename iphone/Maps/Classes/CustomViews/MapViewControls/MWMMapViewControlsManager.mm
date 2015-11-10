@@ -60,7 +60,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.zoomHidden = NO;
   self.menuState = MWMBottomMenuStateInactive;
   LocationManager * m = MapsAppDelegate.theApp.m_locationManager;
-  self.routeSource = m.lastLocationIsValid ? MWMRoutePoint(ToMercator(m.lastLocation.coordinate)) :
+  self.routeSource = m.lastLocationIsValid ? MWMRoutePoint(m.lastLocation.mercator) :
                                              MWMRoutePoint::MWMRoutePointZero();
   self.routeDestination = MWMRoutePoint::MWMRoutePointZero();
   return self;
@@ -348,7 +348,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     return;
   }
 
-  m2::PointD const locationPoint = ToMercator(locMgr.lastLocation.coordinate);
+  m2::PointD const locationPoint = locMgr.lastLocation.mercator;
   if (self.routeSource.IsMyPosition())
   {
     self.routeSource = MWMRoutePoint(locationPoint);
@@ -389,7 +389,7 @@ extern NSString * const kAlohalyticsTapEventKey;
                                m != location::State::Mode::UnknownPosition;
     [controller presentPoint2PointAlertWithOkBlock:^
     {
-      m2::PointD const locationPoint = ToMercator(manager.lastLocation.coordinate);
+      m2::PointD const locationPoint = manager.lastLocation.mercator;
       self.routeSource = MWMRoutePoint(locationPoint);
       [self buildRoute];
     } needToRebuild:needToRebuild];
@@ -432,7 +432,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)resetRoutingPoint
 {
   LocationManager * m = MapsAppDelegate.theApp.m_locationManager;
-  self.routeSource = m.lastLocationIsValid ? MWMRoutePoint(ToMercator(m.lastLocation.coordinate)) :
+  self.routeSource = m.lastLocationIsValid ? MWMRoutePoint(m.lastLocation.mercator) :
                                              MWMRoutePoint::MWMRoutePointZero();
   self.routeDestination = MWMRoutePoint::MWMRoutePointZero();
 }
