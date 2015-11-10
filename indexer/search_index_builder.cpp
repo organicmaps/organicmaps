@@ -297,7 +297,7 @@ bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild)
     {
       FileWriter indexWriter(indexFilePath);
       BuildSearchIndex(readContainer, indexWriter, stringsFilePath);
-      LOG(LINFO, ("Search index size = ", indexWriter.Size()));
+      LOG(LINFO, ("Search index size =", indexWriter.Size()));
     }
     {
       FilesContainerW writeContainer(readContainer.GetFileName(), FileWriter::OP_WRITE_EXISTING);
