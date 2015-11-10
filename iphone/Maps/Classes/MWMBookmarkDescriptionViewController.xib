@@ -8,7 +8,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMBookmarkDescriptionViewController">
             <connections>
                 <outlet property="textView" destination="24o-IB-Pbl" id="sUc-Ad-jBz"/>
-                <outlet property="textViewBottomOffset" destination="fvC-Lz-Wl4" id="e0E-a6-gOl"/>
                 <outlet property="view" destination="iN0-l3-epB" id="CMc-df-bqm"/>
                 <outlet property="webView" destination="lov-Ku-GJM" id="0tn-HE-9c5"/>
             </connections>
@@ -19,7 +18,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="24o-IB-Pbl" customClass="MWMTextView">
-                    <rect key="frame" x="20" y="5" width="280" height="543"/>
+                    <rect key="frame" x="8" y="12" width="304" height="544"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="textColor" red="0.12941176470588237" green="0.12941176470588237" blue="0.12941176470588237" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -30,7 +29,7 @@
                     </userDefinedRuntimeAttributes>
                 </textView>
                 <webView alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lov-Ku-GJM">
-                    <rect key="frame" x="20" y="5" width="280" height="543"/>
+                    <rect key="frame" x="8" y="12" width="304" height="544"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
@@ -42,14 +41,14 @@
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="24o-IB-Pbl" secondAttribute="trailing" constant="20" symbolic="YES" id="0yD-gW-2U7"/>
-                <constraint firstAttribute="bottom" secondItem="lov-Ku-GJM" secondAttribute="bottom" constant="20" symbolic="YES" id="8Nl-2m-geo"/>
-                <constraint firstAttribute="trailing" secondItem="lov-Ku-GJM" secondAttribute="trailing" constant="20" symbolic="YES" id="9c0-pP-yI9"/>
-                <constraint firstItem="lov-Ku-GJM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="JRG-vj-DBO"/>
-                <constraint firstItem="24o-IB-Pbl" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="Vv0-cX-1d3"/>
-                <constraint firstAttribute="bottom" secondItem="24o-IB-Pbl" secondAttribute="bottom" constant="20" symbolic="YES" id="fvC-Lz-Wl4"/>
-                <constraint firstItem="24o-IB-Pbl" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="ss4-MI-ZOa"/>
-                <constraint firstItem="lov-Ku-GJM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="wSL-73-MXz"/>
+                <constraint firstAttribute="bottom" secondItem="lov-Ku-GJM" secondAttribute="bottom" constant="12" id="2Vh-CS-WmU"/>
+                <constraint firstAttribute="bottom" secondItem="24o-IB-Pbl" secondAttribute="bottom" constant="12" id="FZf-xW-Bym"/>
+                <constraint firstAttribute="trailing" secondItem="24o-IB-Pbl" secondAttribute="trailing" constant="8" id="JrP-74-iHR"/>
+                <constraint firstItem="lov-Ku-GJM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="QTh-m4-RGF"/>
+                <constraint firstItem="24o-IB-Pbl" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="Tvy-uS-LLQ"/>
+                <constraint firstItem="24o-IB-Pbl" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="XxF-BN-kEE"/>
+                <constraint firstItem="lov-Ku-GJM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="eGH-Cd-eln"/>
+                <constraint firstAttribute="trailing" secondItem="lov-Ku-GJM" secondAttribute="trailing" constant="8" id="rmo-FN-eau"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <point key="canvasLocation" x="303" y="292"/>
