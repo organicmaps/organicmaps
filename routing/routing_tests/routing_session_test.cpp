@@ -8,10 +8,13 @@
 
 #include "base/logging.hpp"
 
+#include "std/chrono.hpp"
+#include "std/mutex.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
-namespace routing {
+namespace routing
+{
 // Simple router. It returns route given to him on creation.
 class DummyRouter : public IRouter
 {
@@ -39,6 +42,7 @@ public:
 };
 
 static vector<m2::PointD> kTestRoute = {{0., 1.}, {0., 2.}, {0., 3.}, {0., 4.}};
+static auto kRouteBuildingMaxDuration = seconds(30);
 
 UNIT_TEST(TestRouteBuilding)
 {
@@ -47,18 +51,17 @@ UNIT_TEST(TestRouteBuilding)
   vector<m2::PointD> routePoints = kTestRoute;
   Route masterRoute("dummy", routePoints.begin(), routePoints.end());
   size_t counter = 0;
-  atomic<bool> routeBuilded(false);
+  timed_mutex routeBuilded;
+  routeBuilded.lock();
   unique_ptr<DummyRouter> router = make_unique<DummyRouter>(masterRoute, DummyRouter::NoError, counter);
   session.SetRouter(move(router), nullptr);
   session.BuildRoute(kTestRoute.front(), kTestRoute.back(),
                      [&routeBuilded](Route const &, IRouter::ResultCode)
                      {
-                       routeBuilded = true;
+                       routeBuilded.unlock();
                      },
                      nullptr, 0);
-  while (!routeBuilded)
-  {
-  }
+  TEST(routeBuilded.try_lock_for(kRouteBuildingMaxDuration), ());
   TEST_EQUAL(counter, 1, ());
 }
 
@@ -70,28 +73,25 @@ UNIT_TEST(TestRouteRebuilding)
   vector<m2::PointD> routePoints = kTestRoute;
   Route masterRoute("dummy", routePoints.begin(), routePoints.end());
   size_t counter = 0;
-  atomic<bool> routeBuilded(false);
+  timed_mutex routeBuilded;
+  auto fn = [&routeBuilded](Route const &, IRouter::ResultCode)
+            {
+              routeBuilded.unlock();
+            };
+  routeBuilded.lock();
   unique_ptr<DummyRouter> router = make_unique<DummyRouter>(masterRoute, DummyRouter::NoError, counter);
   session.SetRouter(move(router), nullptr);
 
   // Go along the route.
-  session.BuildRoute(kTestRoute.front(), kTestRoute.back(),
-                     [&routeBuilded](Route const &, IRouter::ResultCode)
-                     {
-                       routeBuilded = true;
-                     },
-                     nullptr, 0);
-  while (!routeBuilded)
-  {
-  }
+  session.BuildRoute(kTestRoute.front(), kTestRoute.back(), fn, nullptr, 0);
+  TEST(routeBuilded.try_lock_for(kRouteBuildingMaxDuration), ());
 
   location::GpsInfo info;
   info.m_horizontalAccuracy = 0.01;
   info.m_verticalAccuracy = 0.01;
   info.m_longitude = 0.;
   info.m_latitude = 1.;
-  RoutingSession::State code = session.OnLocationPositionChanged(
-      MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude), info, index);
+  RoutingSession::State code;
   while (info.m_latitude < kTestRoute.back().y)
   {
     code = session.OnLocationPositionChanged(
@@ -103,19 +103,11 @@ UNIT_TEST(TestRouteRebuilding)
 
   // Rebuild route and go in opposite direction. So initiate a route rebuilding flag.
   counter = 0;
-  routeBuilded = false;
-  session.BuildRoute(kTestRoute.front(), kTestRoute.back(),
-                     [&routeBuilded](Route const &, IRouter::ResultCode)
-                     {
-                       routeBuilded = true;
-                     },
-                     nullptr, 0);
+  session.BuildRoute(kTestRoute.front(), kTestRoute.back(), fn, nullptr, 0);
+  TEST(routeBuilded.try_lock_for(kRouteBuildingMaxDuration), ());
+
   info.m_longitude = 0.;
   info.m_latitude = 1.;
-  while (!routeBuilded)
-  {
-  }
-
   for (size_t i = 0; i < 10; ++i)
   {
     code = session.OnLocationPositionChanged(
