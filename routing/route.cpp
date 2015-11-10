@@ -228,12 +228,6 @@ bool Route::MoveIterator(location::GpsInfo const & info) const
   return res.IsValid();
 }
 
-double Route::GetCurrentSqDistance(m2::PointD const & pt) const
-{
-  ASSERT(m_poly.IsValid(), ());
-  return pt.SquareLength(m_poly.GetCurrentIter().m_pt);
-}
-
 double Route::GetPolySegAngle(size_t ind) const
 {
   size_t const polySz = m_poly.GetPolyline().GetSize();
