@@ -80,11 +80,11 @@ bool CheckBBoxCrossingBorder(m2::RegionD const & border, osrm::NodeData const & 
 }
 
 void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID const & osm2ft,
-                    borders::CountriesContainerT const & m_countries, string const & countryName,
+                    borders::CountriesContainerT const & countries, string const & countryName,
                     routing::CrossRoutingContextWriter & crossContext)
 {
   vector<m2::RegionD> regionBorders;
-  m_countries.ForEach([&](borders::CountryPolygons const & c)
+  countries.ForEach([&](borders::CountryPolygons const & c)
   {
     if (c.m_name == countryName)
       c.m_regions.ForEach([&regionBorders](m2::RegionD const & region)
@@ -139,7 +139,7 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
             {
               string mwmName;
               m2::PointD const & mercatorPoint = MercatorBounds::FromLatLon(endSeg.lat2, endSeg.lon2);
-              m_countries.ForEachInRect(m2::RectD(mercatorPoint, mercatorPoint), [&](borders::CountryPolygons const & c)
+              countries.ForEachInRect(m2::RectD(mercatorPoint, mercatorPoint), [&](borders::CountryPolygons const & c)
               {
                 if (c.m_name == countryName)
                   return;
@@ -226,13 +226,13 @@ void BuildCrossRoutingIndex(string const & baseDir, string const & countryName,
     return;
 
   LOG(LINFO, ("Loading countries borders..."));
-  borders::CountriesContainerT m_countries;
-  CHECK(borders::LoadCountriesList(baseDir, m_countries),
+  borders::CountriesContainerT countries;
+  CHECK(borders::LoadCountriesList(baseDir, countries),
         ("Error loading country polygons files"));
 
   LOG(LINFO, ("Finding cross nodes..."));
   routing::CrossRoutingContextWriter crossContext;
-  FindCrossNodes(nodeData, osm2ft, m_countries, countryName, crossContext);
+  FindCrossNodes(nodeData, osm2ft, countries, countryName, crossContext);
 
   string const mwmRoutingPath = localFile.GetPath(MapOptions::CarRouting);
   CalculateCrossAdjacency(mwmRoutingPath, crossContext);
