@@ -94,8 +94,6 @@ public:
   /// @return true  If position was updated successfully (projection within gps error radius).
   bool MoveIterator(location::GpsInfo const & info) const;
 
-  /// Square distance to current projection in mercator.
-  double GetCurrentSqDistance(m2::PointD const & pt) const;
   void MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const;
 
   bool IsCurrentOnEnd() const;
