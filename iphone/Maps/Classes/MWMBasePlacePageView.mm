@@ -15,7 +15,6 @@ static NSString * const kPlacePageBookmarkCellIdentifier = @"PlacePageBookmarkCe
 
 @property (weak, nonatomic) MWMPlacePageEntity * entity;
 @property (weak, nonatomic) IBOutlet MWMPlacePage * ownerPlacePage;
-
 @property (nonatomic) MWMPlacePageBookmarkCell * bookmarkSizingCell;
 
 @end
@@ -186,6 +185,13 @@ static CGFloat const kTitleBottomOffset = 2.;
   [self setNeedsLayout];
 }
 
+- (MWMPlacePageBookmarkCell *)bookmarkSizingCell
+{
+  if (!_bookmarkSizingCell)
+    _bookmarkSizingCell = [self.featureTable dequeueReusableCellWithIdentifier:kPlacePageBookmarkCellIdentifier];
+  return _bookmarkSizingCell;
+}
+
 @end
 
 @implementation MWMBasePlacePageView (UITableView)
@@ -237,13 +243,6 @@ static CGFloat const kTitleBottomOffset = 2.;
   cell.currentEntity = self.entity;
   [cell configureWithType:currentType info:self.entity.metadataValues[indexPath.row]];
   return cell;
-}
-
-- (MWMPlacePageBookmarkCell *)bookmarkSizingCell
-{
-  if (!_bookmarkSizingCell)
-    _bookmarkSizingCell = [self.featureTable dequeueReusableCellWithIdentifier:kPlacePageBookmarkCellIdentifier];
-  return _bookmarkSizingCell;
 }
 
 @end
