@@ -17,6 +17,7 @@ ScreenBase::ScreenBase() :
     m_3dNearZ(0.0),
     m_3dFarZ(0.0),
     m_3dAngleX(0.0),
+    m_3dMaxAngleX(0.0),
     m_3dScaleX(1.0),
     m_3dScaleY(1.0),
     m_isPerspective(false),
@@ -254,26 +255,56 @@ void ScreenBase::ExtractGtoPParams(MatrixT const & m,
 }
 
 // Place the camera at the distance, where it gives the same view of plane as the
-// orthogonal projection does and rotate the map plane around its near horizontal side.
-// Calculate expanded area of visible map plane.
-void ScreenBase::ApplyPerspective(double rotationAngle, double angleFOV)
+// orthogonal projection does. Calculate the expanded area of the visible map plane
+// after rotation through maxRotationAngle around its near horizontal side.
+void ScreenBase::ApplyPerspective(double currentRotationAngle, double maxRotationAngle, double angleFOV)
 {
-  // TODO: Handle the case when rotationAngle == 0.0.
-  ASSERT_NOT_EQUAL(rotationAngle, 0.0, ());
   ASSERT_NOT_EQUAL(angleFOV, 0.0, ());
+  if (m_isPerspective)
+    ResetPerspective();
+
   m_isPerspective = true;
 
-  m_3dAngleX = rotationAngle;
+  m_3dMaxAngleX = maxRotationAngle;
   m_3dFOV = angleFOV;
 
   double const halfFOV = m_3dFOV / 2.0;
   double const cameraZ = 1.0 / tan(halfFOV);
 
   // Ratio of the expanded plane's size to the original size.
-  m_3dScaleY = cos(m_3dAngleX) + sin(m_3dAngleX) * tan(halfFOV + m_3dAngleX);
-  m_3dScaleX = 1.0 + 2 * sin(m_3dAngleX) * cos(halfFOV) / (cameraZ * cos(halfFOV + m_3dAngleX));
+  m_3dScaleY = cos(m_3dMaxAngleX) + sin(m_3dMaxAngleX) * tan(halfFOV + m_3dMaxAngleX);
+  m_3dScaleX = 1.0 + 2 * sin(m_3dMaxAngleX) * cos(halfFOV) / (cameraZ * cos(halfFOV + m_3dMaxAngleX));
 
   m_3dScaleX = m_3dScaleY = max(m_3dScaleX, m_3dScaleY);
+
+  double const dy = m_PixelRect.SizeY() * (m_3dScaleX - 1.0);
+
+  Scale(1.0 / m_3dScaleX);
+
+  m_PixelRect.setMaxX(m_PixelRect.maxX() * m_3dScaleX);
+  m_PixelRect.setMaxY(m_PixelRect.maxY() * m_3dScaleY);
+
+  Scale(m_3dScaleX);
+
+  Move(0.0, dy / 2.0);
+
+  SetRotationAngle(currentRotationAngle);
+}
+
+// Place the camera at the distance, where it gives the same view of plane as the
+// orthogonal projection does and rotate the map plane around its near horizontal side.
+void ScreenBase::SetRotationAngle(double rotationAngle)
+{
+  ASSERT(m_isPerspective, ());
+  ASSERT_LESS_OR_EQUAL(rotationAngle, m_3dMaxAngleX, ());
+
+  if (rotationAngle > m_3dMaxAngleX)
+    rotationAngle = m_3dMaxAngleX;
+
+  m_3dAngleX = rotationAngle;
+
+  double const halfFOV = m_3dFOV / 2.0;
+  double const cameraZ = 1.0 / tan(halfFOV);
 
   double const offsetZ = cameraZ + sin(m_3dAngleX) * m_3dScaleY;
   double const offsetY = cos(m_3dAngleX) * m_3dScaleX - 1.0;
@@ -296,38 +327,33 @@ void ScreenBase::ApplyPerspective(double rotationAngle, double angleFOV)
   m_3dNearZ = cameraZ;
   m_3dFarZ = cameraZ + 2.0 * sin(m_3dAngleX) * m_3dScaleY;
   projectionM(0, 0) = projectionM(1, 1) = m_3dNearZ;
-  projectionM(2, 2) = (m_3dFarZ + m_3dNearZ) / (m_3dFarZ - m_3dNearZ);
+  projectionM(2, 2) = m_3dAngleX != 0.0 ? (m_3dFarZ + m_3dNearZ) / (m_3dFarZ - m_3dNearZ)
+                                        : 0.0;
   projectionM(2, 3) = 1.0;
-  projectionM(3, 2) = -2.0 * m_3dFarZ * m_3dNearZ / (m_3dFarZ - m_3dNearZ);
+  projectionM(3, 2) = m_3dAngleX != 0.0 ? -2.0 * m_3dFarZ * m_3dNearZ / (m_3dFarZ - m_3dNearZ)
+                                        : 0.0;
 
   m_Pto3d = scaleM * rotateM * translateM * projectionM;
   m_3dtoP = math::Inverse(m_Pto3d);
-
-  double const dyG = m_GlobalRect.GetLocalRect().SizeY() * (m_3dScaleX - 1.0);
-  Scale(1.0 / m_3dScaleX);
-
-  MoveG(m2::PointD(0, -dyG / 2.0));
-  m_PixelRect.setMaxX(m_PixelRect.maxX() * m_3dScaleX);
-  m_PixelRect.setMaxY(m_PixelRect.maxY() * m_3dScaleY);
-
-  Scale(m_3dScaleX);
 }
 
 void ScreenBase::ResetPerspective()
 {
   m_isPerspective = false;
 
-  double const dyG = m_GlobalRect.GetLocalRect().SizeY() * (1.0 - 1.0 / m_3dScaleX);
+  double const dy = m_PixelRect.SizeY() * (1.0 - 1.0 / m_3dScaleX);
   Scale(m_3dScaleX);
 
-  MoveG(m2::PointD(0, dyG / 2.0));
   m_PixelRect.setMaxX(m_PixelRect.maxX() / m_3dScaleX);
   m_PixelRect.setMaxY(m_PixelRect.maxY() / m_3dScaleY);
 
   Scale(1.0 / m_3dScaleX);
 
+  Move(0, -dy / 2.0);
+
   m_3dScaleX = m_3dScaleY = 1.0;
   m_3dAngleX = 0.0;
+  m_3dMaxAngleX = 0.0;
   m_3dFOV = 0.0;
 }
 
@@ -357,13 +383,17 @@ m2::PointD ScreenBase::P3dToP(m2::PointD const & pt) const
   double const normalizedX = 2.0 * pt.x / PixelRectIn3d().SizeX() - 1.0;
   double const normalizedY = -2.0 * pt.y / PixelRectIn3d().SizeY() + 1.0;
 
-  double const tanX = tan(m_3dAngleX);
-  double const cameraDistanceZ =
-      m_3dNearZ * (1.0 + (normalizedY + 1.0) * tanX / (m_3dNearZ - normalizedY * tanX));
+  double normalizedZ = 0.0;
+  if (m_3dAngleX != 0.0)
+  {
+    double const tanX = tan(m_3dAngleX);
+    double const cameraDistanceZ =
+        m_3dNearZ * (1.0 + (normalizedY + 1.0) * tanX / (m_3dNearZ - normalizedY * tanX));
 
-  double const a = (m_3dFarZ + m_3dNearZ) / (m_3dFarZ - m_3dNearZ);
-  double const b = -2.0 * m_3dFarZ * m_3dNearZ / (m_3dFarZ - m_3dNearZ);
-  double const normalizedZ = (a * cameraDistanceZ + b) / cameraDistanceZ;
+    double const a = (m_3dFarZ + m_3dNearZ) / (m_3dFarZ - m_3dNearZ);
+    double const b = -2.0 * m_3dFarZ * m_3dNearZ / (m_3dFarZ - m_3dNearZ);
+    normalizedZ = (a * cameraDistanceZ + b) / cameraDistanceZ;
+  }
 
   Vector3dT const normalizedPoint{normalizedX, normalizedY, normalizedZ, 1.0};
 

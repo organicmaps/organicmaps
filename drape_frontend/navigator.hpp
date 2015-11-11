@@ -47,7 +47,8 @@ public:
   void CalculateScale(m2::PointD const & pt, double factor, ScreenBase & screen);
   bool InAction() const;
 
-  void Enable3dMode(double rotationAngle, double angleFOV);
+  void Enable3dMode(double currentRotationAngle, double maxRotationAngle, double angleFOV);
+  void SetRotationIn3dMode(double rotationAngle);
   void Disable3dMode();
 
 private:
@@ -66,8 +67,6 @@ private:
   ScreenBase m_StartScreen;
   // Internal screen to do GtoP() and PtoG() calculations. It is always up to date with navigation.
   ScreenBase m_Screen;
-
-  bool m_is3dMode;
 
   // Intial point for dragging and scaling.
   m2::PointD m_StartPt1;

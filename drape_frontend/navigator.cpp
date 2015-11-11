@@ -31,8 +31,7 @@ namespace df
 {
 
 Navigator::Navigator()
-  : m_is3dMode(false)
-  , m_InAction(false)
+  : m_InAction(false)
 {
 }
 
@@ -124,8 +123,8 @@ void Navigator::OnSize(int w, int h)
 
   if (fov != 0.0)
   {
-    m_Screen.ApplyPerspective(rotation, fov);
-    m_StartScreen.ApplyPerspective(rotation, fov);
+    m_Screen.ApplyPerspective(rotation, rotation, fov);
+    m_StartScreen.ApplyPerspective(rotation, rotation, fov);
   }
 }
 
@@ -533,18 +532,21 @@ bool Navigator::IsRotatingDuringScale() const
   return m_IsRotatingDuringScale;
 }
 
-void Navigator::Enable3dMode(double rotationAngle, double angleFOV)
+void Navigator::Enable3dMode(double currentRotationAngle, double maxRotationAngle, double angleFOV)
 {
-  ASSERT(!m_is3dMode, ());
-  m_Screen.ApplyPerspective(rotationAngle, angleFOV);
-  m_is3dMode = true;
+  ASSERT(!m_Screen.isPerspective(), ());
+  m_Screen.ApplyPerspective(currentRotationAngle, maxRotationAngle, angleFOV);
+}
+
+void Navigator::SetRotationIn3dMode(double rotationAngle)
+{
+  m_Screen.SetRotationAngle(rotationAngle);
 }
 
 void Navigator::Disable3dMode()
 {
-  ASSERT(m_is3dMode, ());
+  ASSERT(m_Screen.isPerspective(), ());
   m_Screen.ResetPerspective();
-  m_is3dMode = false;
 }
 
 m2::AnyRectD ToRotated(Navigator const & navigator, m2::RectD const & rect)

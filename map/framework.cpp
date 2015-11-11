@@ -1836,8 +1836,11 @@ void Framework::FollowRoute()
   int const scale = (m_currentRouterType == RouterType::Pedestrian) ?
                      scales::GetUpperComfortScale() :
                      scales::GetNavigationScale();
-
-  m_drapeEngine->FollowRoute(scale);
+  int const scale3d = scale + 1;
+  double const rotationAngle = math::pi4;
+  double const angleFOV = math::pi / 3.0;
+  
+  m_drapeEngine->FollowRoute(scale, scale3d, rotationAngle, angleFOV);
   m_drapeEngine->SetRoutePoint(m2::PointD(), true /* isStart */, false /* isValid */);
 }
 
@@ -2052,8 +2055,5 @@ void Framework::SetRouteFinishPoint(m2::PointD const & pt, bool isValid)
 void Framework::Enable3dMode(bool enable)
 {
   ASSERT(m_drapeEngine != nullptr, ());
-  if (enable)
-    m_drapeEngine->Enable3dMode(M_PI_4, M_PI / 3.0f);
-  else
-    m_drapeEngine->Disable3dMode();
+  m_drapeEngine->Enable3dMode(enable);
 }

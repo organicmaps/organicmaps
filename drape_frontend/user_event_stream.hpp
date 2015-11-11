@@ -3,6 +3,7 @@
 #include "drape_frontend/kinetic_scroller.hpp"
 #include "drape_frontend/navigator.hpp"
 #include "drape_frontend/animation/model_view_animation.hpp"
+#include "drape_frontend/animation/perspective_animation.hpp"
 
 #include "drape/pointers.hpp"
 
@@ -155,9 +156,9 @@ struct Enable3dModeEvent
   double m_angleFOV;
 };
 
-struct Disable3dMode
+struct Disable3dModeEvent
 {
-  Disable3dMode() {}
+  Disable3dModeEvent() {}
 };
 
 struct RotateEvent
@@ -200,7 +201,7 @@ struct UserEvent
   UserEvent(RotateEvent const & e) : m_type(EVENT_ROTATE) { m_rotate = e; }
   UserEvent(FollowAndRotateEvent const & e) : m_type(EVENT_FOLLOW_AND_ROTATE) { m_followAndRotate = e; }
   UserEvent(Enable3dModeEvent const & e) : m_type(EVENT_ENABLE_3D_MODE) { m_enable3dMode = e; }
-  UserEvent(Disable3dMode const & e) : m_type(EVENT_DISABLE_3D_MODE) { m_disable3dMode = e; }
+  UserEvent(Disable3dModeEvent const & e) : m_type(EVENT_DISABLE_3D_MODE) { m_disable3dMode = e; }
 
   EEventType m_type;
   union
@@ -214,7 +215,7 @@ struct UserEvent
     RotateEvent m_rotate;
     FollowAndRotateEvent m_followAndRotate;
     Enable3dModeEvent m_enable3dMode;
-    Disable3dMode m_disable3dMode;
+    Disable3dModeEvent m_disable3dMode;
   };
 };
 
@@ -284,8 +285,8 @@ private:
   bool SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos,
                           double azimuth, int preferredZoomLevel, bool isAnim);
 
-  void Enable3dMode(double rotationAngle, double angleFOV);
-  void Disable3dMode();
+  void SetEnable3dModeAnimation(double maxRotationAngle);
+  void SetDisable3dModeAnimation();
 
   m2::AnyRectD GetCurrentRect() const;
 
@@ -345,6 +346,8 @@ private:
   array<Touch, 2> m_touches;
 
   unique_ptr<BaseModelViewAnimation> m_animation;
+  unique_ptr<PerspectiveAnimation> m_perspectiveAnimation;
+  unique_ptr<Enable3dModeEvent> m_pendingEnable3dEvent;
   ref_ptr<Listener> m_listener;
 
 #ifdef DEBUG

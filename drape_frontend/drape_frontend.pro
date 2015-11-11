@@ -17,6 +17,7 @@ SOURCES += \
     animation/interpolations.cpp \
     animation/model_view_animation.cpp \
     animation/opacity_animation.cpp \
+    animation/perspective_animation.cpp \
     animation/show_hide_animation.cpp \
     gui/button.cpp \
     gui/compass.cpp \
@@ -96,6 +97,7 @@ HEADERS += \
     animation/interpolations.hpp \
     animation/model_view_animation.hpp \
     animation/opacity_animation.hpp \
+    animation/perspective_animation.hpp \
     animation/show_hide_animation.hpp \
     animation/value_mapping.hpp \
     gui/button.hpp \

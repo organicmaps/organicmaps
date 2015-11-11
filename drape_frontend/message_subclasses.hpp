@@ -604,6 +604,29 @@ public:
   Type GetType() const override { return Message::UpdateMapStyle; }
 };
 
+class FollowRouteMessage : public Message
+{
+public:
+  FollowRouteMessage(int preferredZoomLevel, int preferredZoomLevelIn3d, double rotationAngle, double angleFOV)
+    : m_preferredZoomLevel(preferredZoomLevel)
+    , m_preferredZoomLevelIn3d(preferredZoomLevelIn3d)
+    , m_rotationAngle(rotationAngle)
+    , m_angleFOV(angleFOV)
+  {}
+
+  Type GetType() const override { return Message::FollowRoute; }
+  int GetPreferredZoomLevel() const { return m_preferredZoomLevel; }
+  int GetPreferredZoomLevelIn3d() const { return m_preferredZoomLevelIn3d; }
+  double GetRotationAngle() const { return m_rotationAngle; }
+  double GetAngleFOV() const { return m_angleFOV; }
+
+private:
+  int m_preferredZoomLevel;
+  int m_preferredZoomLevelIn3d;
+  double m_rotationAngle;
+  double m_angleFOV;
+};
+
 class InvalidateTexturesMessage : public BaseBlockingMessage
 {
 public:
@@ -633,28 +656,15 @@ public:
 class Enable3dModeMessage : public Message
 {
 public:
-  Enable3dModeMessage(float rotationAngle, float angleFOV)
-    : m_angleFOV(angleFOV)
-    , m_rotationAngle(rotationAngle)
+  Enable3dModeMessage(bool enable)
+    : m_enable(enable)
   {}
 
   Type GetType() const override { return Message::Enable3dMode; }
-
-  float GetAngleFOV() const { return m_angleFOV; }
-  float GetRotationAngle() const { return m_rotationAngle; }
+  bool Enable() const { return m_enable; }
 
 private:
-  float m_angleFOV;
-  float m_rotationAngle;
-};
-
-class Disable3dModeMessage : public Message
-{
-public:
-  Disable3dModeMessage()
-  {}
-
-  Type GetType() const override { return Message::Disable3dMode; }
+  bool m_enable;
 };
 
 } // namespace df

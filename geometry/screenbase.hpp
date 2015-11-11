@@ -25,6 +25,7 @@ private:
   double m_3dNearZ;
   double m_3dFarZ;
   double m_3dAngleX;
+  double m_3dMaxAngleX;
   double m_3dScaleX;
   double m_3dScaleY;
   bool m_isPerspective;
@@ -125,8 +126,13 @@ public:
   m2::AnyRectD const & GlobalRect() const { return m_GlobalRect; }
   m2::RectD const & ClipRect() const { return m_ClipRect; }
 
-  void ApplyPerspective(double rotationAngle, double angleFOV);
+  void ApplyPerspective(double currentRotationAngle, double maxRotationAngle, double angleFOV);
   void ResetPerspective();
+
+  void SetRotationAngle(double rotationAngle);
+  double GetRotationAngle() const { return m_3dAngleX; }
+
+  double GetAngleFOV() const { return m_3dFOV; }
 
   m2::PointD P3dToP(m2::PointD const & pt) const;
 
@@ -139,8 +145,6 @@ public:
   {
     return m2::RectD(0.0, 0.0, m_PixelRect.maxX() / m_3dScaleX, m_PixelRect.maxY() / m_3dScaleY);
   }
-  double GetRotationAngle() const { return m_3dAngleX; }
-  double GetAngleFOV() const { return m_3dFOV; }
 
   double GetMinPixelRectSize() const;
 
