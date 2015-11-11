@@ -184,9 +184,7 @@ UNIT_TEST(FBuilder_PointAddress)
 {
   classificator::Load();
 
-  char const * arr[][2] = {
-    { "addr:housenumber", "39/79" }
-  };
+  char const * arr[][2] = { { "addr:housenumber", "39/79" } };
 
   OsmElement e;
   FillXmlElement(arr, ARRAY_SIZE(arr), &e);

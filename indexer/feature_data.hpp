@@ -132,6 +132,8 @@ struct FeatureParamsBase
 
   bool CheckValid() const;
   string DebugString() const;
+
+  /// @return true if feature doesn't have any drawable strings (names, houses, etc).
   bool IsEmptyNames() const;
 
   template <class TSink>

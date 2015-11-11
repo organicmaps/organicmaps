@@ -5,6 +5,9 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature_data.hpp"
 
+#include "std/string.hpp"
+#include "std/vector.hpp"
+
 
 namespace tests
 {
@@ -36,4 +39,4 @@ inline uint32_t GetType(StringIL const & lst)
   return classif().GetTypeByPath(lst);
 }
 
-}
+} // namespace tests

@@ -8,8 +8,15 @@
 
 class Classificator;
 class FeatureBuilder1;
-namespace feature { class FeaturesCollector; }
-namespace platform { class LocalCountryFile; }
+
+namespace feature
+{
+class FeaturesCollector;
+}
+namespace platform
+{
+class LocalCountryFile;
+}
 
 class TestMwmBuilder
 {
