@@ -70,7 +70,7 @@ private:
   void InsertHandle(ref_ptr<OverlayHandle> handle, bool isTransparent,
                     detail::OverlayInfo const & parentOverlay);
   bool CheckHandle(ref_ptr<OverlayHandle> handle, int currentRank,
-                   detail::OverlayInfo & parentOverlay);
+                   detail::OverlayInfo & parentOverlay) const;
   void AddHandleToDelete(detail::OverlayInfo const & overlay);
 
   int m_frameCounter;

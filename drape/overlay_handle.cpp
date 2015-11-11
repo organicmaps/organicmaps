@@ -163,7 +163,11 @@ uint64_t CalculateOverlayPriority(int minZoomLevel, uint8_t rank, float depth)
   // - Rank of the feature (the more the better);
   // [1 byte - zoom][4 bytes - priority][1 byte - rank][1 byte - reserved][1 byte - reserved].
   uint8_t const minZoom = 0xFF - static_cast<uint8_t>(max(minZoomLevel, 0));
-  uint32_t const priority = static_cast<uint32_t>(depth);
+
+  float const kMinDepth = -100000.0f;
+  float const kMaxDepth = 100000.0f;
+  float const d = my::clamp(depth, kMinDepth, kMaxDepth) + kMaxDepth;
+  uint32_t const priority = static_cast<uint32_t>(d);
 
   return (static_cast<uint64_t>(minZoom) << 56) |
          (static_cast<uint64_t>(priority) << 24) |

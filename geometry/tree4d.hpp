@@ -227,7 +227,7 @@ namespace m4
     }
 
     template <class ToDo>
-    bool FindNode(ToDo toDo) const
+    bool FindNode(ToDo const & toDo) const
     {
       for (ValueT const & v : m_tree)
         if (toDo(v.m_val))

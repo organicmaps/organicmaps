@@ -51,7 +51,6 @@ public:
   void CollectOverlay(ref_ptr<dp::OverlayTree> tree);
   void Render(ScreenBase const & screen) override;
 
-  void PrepareForAdd(size_t countForAdd);
   void AddBucket(drape_ptr<dp::RenderBucket> && bucket);
 
   bool IsEmpty() const { return m_renderBuckets.empty(); }

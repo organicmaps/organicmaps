@@ -58,11 +58,6 @@ void RenderGroup::Render(ScreenBase const & screen)
     renderBucket->Render(screen);
 }
 
-void RenderGroup::PrepareForAdd(size_t countForAdd)
-{
-  m_renderBuckets.reserve(m_renderBuckets.size() + countForAdd);
-}
-
 void RenderGroup::AddBucket(drape_ptr<dp::RenderBucket> && bucket)
 {
   m_renderBuckets.push_back(move(bucket));
@@ -114,7 +109,7 @@ void RenderGroup::Disappear()
 {
   if (m_state.GetDepthLayer() == dp::GLState::OverlayLayer)
   {
-    m_disappearAnimation = make_unique<OpacityAnimation>(0.2 /* duration */, 0.05 /* delay */,
+    m_disappearAnimation = make_unique<OpacityAnimation>(0.1 /* duration */, 0.1 /* delay */,
                                                          1.0 /* startOpacity */, 0.0 /* endOpacity */);
   }
   else

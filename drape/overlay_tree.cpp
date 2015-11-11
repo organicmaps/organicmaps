@@ -178,7 +178,7 @@ void OverlayTree::EndOverlayPlacing()
 }
 
 bool OverlayTree::CheckHandle(ref_ptr<OverlayHandle> handle, int currentRank,
-                              detail::OverlayInfo & parentOverlay)
+                              detail::OverlayInfo & parentOverlay) const
 {
   if (currentRank == dp::OverlayRank0)
     return true;

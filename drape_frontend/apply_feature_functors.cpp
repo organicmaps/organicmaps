@@ -220,7 +220,7 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
   params.m_primaryText = m_captions.GetMainText();
   params.m_primaryTextFont = decl;
   params.m_primaryOffset = GetOffset(primaryProto);
-  params.m_primaryOptional = primaryProto->is_optional();
+  params.m_primaryOptional = primaryProto->has_is_optional() ? primaryProto->is_optional() : true;
   params.m_secondaryOptional = true;
 
   if (secondaryProto)
@@ -230,7 +230,7 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
 
     params.m_secondaryText = m_captions.GetAuxText();
     params.m_secondaryTextFont = auxDecl;
-    params.m_secondaryOptional = secondaryProto->is_optional();
+    params.m_secondaryOptional = secondaryProto->has_is_optional() ? secondaryProto->is_optional() : true;
   }
 }
 
