@@ -7,6 +7,7 @@
 
 #include "base/buffer_vector.hpp"
 
+#include "std/array.hpp"
 #include "std/vector.hpp"
 
 namespace dp
@@ -66,10 +67,15 @@ public:
 
 private:
   ScreenBase const & GetModelView() const { return m_traits.m_modelView; }
-  void InsertHandle(ref_ptr<OverlayHandle> handle, bool isTransparent);
+  void InsertHandle(ref_ptr<OverlayHandle> handle, bool isTransparent,
+                    detail::OverlayInfo const & parentOverlay);
+  bool CheckHandle(ref_ptr<OverlayHandle> handle, int currentRank,
+                   detail::OverlayInfo & parentOverlay);
+  void AddHandleToDelete(detail::OverlayInfo const & overlay);
 
   int m_frameCounter;
-  vector<THandle> m_handles;
+  array<vector<THandle>, dp::OverlayRanksCount> m_handles;
+  vector<detail::OverlayInfo> m_handlesToDelete;
 };
 
 } // namespace dp

@@ -17,6 +17,15 @@
 namespace dp
 {
 
+enum OverlayRank
+{
+  OverlayRank0 = 0,
+  OverlayRank1,
+  OverlayRank2,
+
+  OverlayRanksCount
+};
+
 class OverlayHandle
 {
 public:
@@ -50,10 +59,17 @@ public:
   FeatureID const & GetFeatureID() const;
   uint64_t const & GetPriority() const;
 
+  virtual bool IsBound() const { return false; }
+
+  int GetOverlayRank() const { return m_overlayRank; }
+  void SetOverlayRank(int overlayRank) { m_overlayRank = overlayRank; }
+
 protected:
   FeatureID const m_id;
   dp::Anchor const m_anchor;
   uint64_t const m_priority;
+
+  int m_overlayRank;
 
   typedef pair<BindingInfo, MutateRegion> TOffsetNode;
   TOffsetNode const & GetOffsetNode(uint8_t bufferID) const;

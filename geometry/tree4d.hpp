@@ -227,6 +227,16 @@ namespace m4
     }
 
     template <class ToDo>
+    bool FindNode(ToDo toDo) const
+    {
+      for (ValueT const & v : m_tree)
+        if (toDo(v.m_val))
+          return true;
+
+      return false;
+    }
+
+    template <class ToDo>
     void ForEachWithRect(ToDo toDo) const
     {
       for (ValueT const & v : m_tree)

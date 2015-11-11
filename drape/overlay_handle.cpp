@@ -23,6 +23,7 @@ OverlayHandle::OverlayHandle(FeatureID const & id, dp::Anchor anchor, uint64_t p
   : m_id(id)
   , m_anchor(anchor)
   , m_priority(priority)
+  , m_overlayRank(OverlayRank0)
   , m_isVisible(false)
 {
 }

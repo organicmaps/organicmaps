@@ -27,11 +27,12 @@ public:
                      dp::Anchor anchor, glsl::vec2 const & pivot,
                      glsl::vec2 const & pxSize, glsl::vec2 const & offset,
                      uint64_t priority, ref_ptr<dp::TextureManager> textureManager,
-                     gpu::TTextDynamicVertexBuffer && normals)
+                     bool isOptional, gpu::TTextDynamicVertexBuffer && normals)
     : TextHandle(id, text, anchor, priority, textureManager, move(normals))
     , m_pivot(glsl::ToPoint(pivot))
     , m_offset(glsl::ToPoint(offset))
     , m_size(glsl::ToPoint(pxSize))
+    , m_isOptional(isOptional)
   {}
 
   m2::RectD GetPixelRect(ScreenBase const & screen) const override
@@ -70,17 +71,24 @@ public:
     rects.push_back(m2::RectF(GetPixelRect(screen)));
   }
 
+  bool IsBound() const override
+  {
+    return !m_isOptional;
+  }
+
 private:
   m2::PointF m_pivot;
   m2::PointF m_offset;
   m2::PointF m_size;
+  bool m_isOptional;
 };
 
 } // namespace
 
-TextShape::TextShape(m2::PointF const & basePoint, TextViewParams const & params)
+TextShape::TextShape(m2::PointF const & basePoint, TextViewParams const & params, bool hasPOI)
   : m_basePoint(basePoint),
-    m_params(params)
+    m_params(params),
+    m_hasPOI(hasPOI)
 {}
 
 void TextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
@@ -108,18 +116,18 @@ void TextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
     }
 
     if (secondaryLayout.GetGlyphCount() > 0)
-      DrawSubString(secondaryLayout, m_params.m_secondaryTextFont, secondaryOffset, batcher, textures);
+      DrawSubString(secondaryLayout, m_params.m_secondaryTextFont, secondaryOffset, batcher,
+                    textures, false /* isPrimary */, m_params.m_secondaryOptional);
   }
 
   if (primaryLayout.GetGlyphCount() > 0)
-    DrawSubString(primaryLayout, m_params.m_primaryTextFont, primaryOffset, batcher, textures);
+    DrawSubString(primaryLayout, m_params.m_primaryTextFont, primaryOffset, batcher,
+                  textures, true /* isPrimary */, m_params.m_primaryOptional);
 }
 
-void TextShape::DrawSubString(StraightTextLayout const & layout,
-                              dp::FontDecl const & font,
-                              glsl::vec2 const & baseOffset,
-                              ref_ptr<dp::Batcher> batcher,
-                              ref_ptr<dp::TextureManager> textures) const
+void TextShape::DrawSubString(StraightTextLayout const & layout, dp::FontDecl const & font,
+                              glsl::vec2 const & baseOffset, ref_ptr<dp::Batcher> batcher,
+                              ref_ptr<dp::TextureManager> textures, bool isPrimary, bool isOptional) const
 {
   gpu::TTextStaticVertexBuffer staticBuffer;
   gpu::TTextDynamicVertexBuffer dynamicBuffer;
@@ -150,7 +158,9 @@ void TextShape::DrawSubString(StraightTextLayout const & layout,
                                                                            baseOffset,
                                                                            GetOverlayPriority(),
                                                                            textures,
+                                                                           isOptional,
                                                                            move(dynamicBuffer));
+  handle->SetOverlayRank(m_hasPOI ? (isPrimary ? dp::OverlayRank1 : dp::OverlayRank2) : dp::OverlayRank0);
 
   dp::AttributeProvider provider(2, staticBuffer.size());
   provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));

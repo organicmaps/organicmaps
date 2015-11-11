@@ -440,7 +440,9 @@ void TestingEngine::DrawImpl()
   params.m_secondaryTextFont = auxFd;
   params.m_secondaryText = "Народная Китайская республика";
   params.m_primaryOffset = m2::PointF(12.0, 20.0);
-  TextShape sh1(m2::PointF(82.277071f, 46.9271164f), params);
+  params.m_primaryOptional = true;
+  params.m_secondaryOptional = true;
+  TextShape sh1(m2::PointF(82.277071f, 46.9271164f), params, false);
   sh1.Draw(make_ref(m_batcher), make_ref(m_textures));
 
   vector<m2::PointD> path;

@@ -60,6 +60,8 @@ struct TextViewParams : CommonViewParams
   string m_secondaryText;
   dp::Anchor m_anchor;
   m2::PointF m_primaryOffset;
+  bool m_primaryOptional;
+  bool m_secondaryOptional;
 };
 
 struct PathTextViewParams : CommonViewParams

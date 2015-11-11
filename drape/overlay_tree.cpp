@@ -7,7 +7,9 @@ namespace dp
 {
 
 int const kFrameUpdarePeriod = 10;
-int const kAverageHandlesCount = 500;
+int const kAverageHandlesCount[dp::OverlayRanksCount] = { 300, 200, 100 };
+
+using TOverlayContainer = buffer_vector<detail::OverlayInfo, 8>;
 
 namespace
 {
@@ -16,21 +18,26 @@ class HandleComparator
 {
 public:
   bool operator()(OverlayTree::THandle const & l, OverlayTree::THandle const & r) const
+  {  
+    return IsGreater(l.first, r.first);
+  }
+
+  bool IsGreater(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const
   {
-    uint64_t const priorityLeft = l.first->GetPriority();
-    uint64_t const priorityRight = r.first->GetPriority();
+    uint64_t const priorityLeft = l->GetPriority();
+    uint64_t const priorityRight = r->GetPriority();
     if (priorityLeft > priorityRight)
       return true;
 
     if (priorityLeft == priorityRight)
     {
-      auto const & hashLeft = l.first->GetFeatureID();
-      auto const & hashRight = r.first->GetFeatureID();
+      auto const & hashLeft = l->GetFeatureID();
+      auto const & hashRight = r->GetFeatureID();
       if (hashLeft < hashRight)
         return true;
 
       if (hashLeft == hashRight)
-        return l.first.get() < r.first.get();
+        return l.get() < r.get();
     }
 
     return false;
@@ -42,7 +49,8 @@ public:
 OverlayTree::OverlayTree()
   : m_frameCounter(-1)
 {
-  m_handles.reserve(kAverageHandlesCount);
+  for (size_t i = 0; i < m_handles.size(); i++)
+    m_handles[i].reserve(kAverageHandlesCount[i]);
 }
 
 void OverlayTree::Frame()
@@ -86,39 +94,60 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle, bool isTransparent)
     return;
   }
 
-  m_handles.emplace_back(make_pair(handle, isTransparent));
+  int const rank = handle->GetOverlayRank();
+  ASSERT_LESS(rank, m_handles.size(), ());
+  m_handles[rank].emplace_back(make_pair(handle, isTransparent));
 }
 
-void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, bool isTransparent)
+void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, bool isTransparent,
+                               detail::OverlayInfo const & parentOverlay)
 {
   ScreenBase const & modelView = GetModelView();
   m2::RectD const pixelRect = handle->GetPixelRect(modelView);
 
-  typedef buffer_vector<detail::OverlayInfo, 8> OverlayContainerT;
-  OverlayContainerT elements;
-  /*
-   * Find elements that already on OverlayTree and it's pixel rect
-   * intersect with handle pixel rect ("Intersected elements")
-   */
+  TOverlayContainer elements;
+
+  // Find elements that already on OverlayTree and it's pixel rect
+  // intersect with handle pixel rect ("Intersected elements").
   ForEachInRect(pixelRect, [&] (detail::OverlayInfo const & info)
   {
-    if (isTransparent == info.m_isTransparent && handle->IsIntersect(modelView, info.m_handle))
+    bool const isParent = (info == parentOverlay);
+    if (!isParent && isTransparent == info.m_isTransparent &&
+        handle->IsIntersect(modelView, info.m_handle))
       elements.push_back(info);
   });
 
-  double const inputPriority = handle->GetPriority();
-  /*
-   * In this loop we decide which element must be visible
-   * If input element "handle" more priority than all "Intersected elements"
-   * than we remove all "Intersected elements" and insert input element "handle"
-   * But if some of already inserted elements more priority than we don't insert "handle"
-   */
-  for (OverlayContainerT::const_iterator it = elements.begin(); it != elements.end(); ++it)
-    if (inputPriority < it->m_handle->GetPriority())
-      return;
+  bool const boundToParent = (parentOverlay.m_handle != nullptr && handle->IsBound());
 
-  for (OverlayContainerT::const_iterator it = elements.begin(); it != elements.end(); ++it)
-    Erase(*it);
+  // If handle is bound to its parent, parent's handle will be used.
+  ref_ptr<OverlayHandle> handleToCompare = handle;
+  if (boundToParent)
+    handleToCompare = parentOverlay.m_handle;
+
+  // In this loop we decide which element must be visible.
+  // If input element "handle" more priority than all "Intersected elements"
+  // than we remove all "Intersected elements" and insert input element "handle".
+  // But if some of already inserted elements more priority than we don't insert "handle".
+  HandleComparator comparator;
+  for (auto const & info : elements)
+  {
+    if (comparator.IsGreater(info.m_handle, handleToCompare))
+    {
+      // Handle is displaced and bound to its parent, parent will be displaced too.
+      if (boundToParent)
+        Erase(parentOverlay);
+      return;
+    }
+  }
+
+  // Current overlay displaces other overlay, delete them.
+  for (auto const & info : elements)
+    AddHandleToDelete(info);
+
+  for (auto const & handle : m_handlesToDelete)
+    Erase(handle);
+
+  m_handlesToDelete.clear();
 
   TBase::Add(detail::OverlayInfo(handle, isTransparent), pixelRect);
 }
@@ -126,15 +155,67 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, bool isTransparent
 void OverlayTree::EndOverlayPlacing()
 {
   HandleComparator comparator;
-  sort(m_handles.begin(), m_handles.end(), comparator);
-  for (auto const & handle : m_handles)
-    InsertHandle(handle.first, handle.second);
-  m_handles.clear();
+
+  for (int rank = 0; rank < dp::OverlayRanksCount; rank++)
+  {
+    sort(m_handles[rank].begin(), m_handles[rank].end(), comparator);
+    for (auto const & handle : m_handles[rank])
+    {
+      detail::OverlayInfo parentOverlay;
+      if (!CheckHandle(handle.first, rank, parentOverlay))
+        continue;
+
+      InsertHandle(handle.first, handle.second, parentOverlay);
+    }
+
+    m_handles[rank].clear();
+  }
 
   ForEach([] (detail::OverlayInfo const & info)
   {
     info.m_handle->SetIsVisible(true);
   });
+}
+
+bool OverlayTree::CheckHandle(ref_ptr<OverlayHandle> handle, int currentRank,
+                              detail::OverlayInfo & parentOverlay)
+{
+  if (currentRank == dp::OverlayRank0)
+    return true;
+
+  int const seachingRank = currentRank - 1;
+  return FindNode([&](detail::OverlayInfo const & info) -> bool
+  {
+    if (info.m_handle->GetFeatureID() == handle->GetFeatureID() &&
+        info.m_handle->GetOverlayRank() == seachingRank)
+    {
+      parentOverlay = info;
+      return true;
+    }
+    return false;
+  });
+}
+
+void OverlayTree::AddHandleToDelete(detail::OverlayInfo const & overlay)
+{
+  if (overlay.m_handle->IsBound())
+  {
+    ForEach([&](detail::OverlayInfo const & info)
+    {
+      if (info.m_handle->GetFeatureID() == overlay.m_handle->GetFeatureID())
+      {
+        if (find(m_handlesToDelete.begin(),
+                 m_handlesToDelete.end(), info) == m_handlesToDelete.end())
+          m_handlesToDelete.push_back(info);
+      }
+    });
+  }
+  else
+  {
+    if (find(m_handlesToDelete.begin(),
+             m_handlesToDelete.end(), overlay) == m_handlesToDelete.end())
+      m_handlesToDelete.push_back(overlay);
+  }
 }
 
 void OverlayTree::Select(m2::RectD const & rect, TSelectResult & result) const

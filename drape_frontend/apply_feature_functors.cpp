@@ -220,6 +220,8 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
   params.m_primaryText = m_captions.GetMainText();
   params.m_primaryTextFont = decl;
   params.m_primaryOffset = GetOffset(primaryProto);
+  params.m_primaryOptional = primaryProto->is_optional();
+  params.m_secondaryOptional = true;
 
   if (secondaryProto)
   {
@@ -228,6 +230,7 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
 
     params.m_secondaryText = m_captions.GetAuxText();
     params.m_secondaryTextFont = auxDecl;
+    params.m_secondaryOptional = secondaryProto->is_optional();
   }
 }
 
@@ -252,10 +255,26 @@ void ApplyPointFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
 {
   if (m_hasPoint == false)
     return;
-  drule::BaseRule const * pRule = rule.first;
-  float depth = rule.second;
 
-  bool isNode = (pRule->GetType() & drule::node) != 0;
+  drule::BaseRule const * pRule = rule.first;
+  float const depth = rule.second;
+
+  SymbolRuleProto const * symRule = pRule->GetSymbol();
+  if (symRule != nullptr)
+  {
+    m_symbolDepth = depth;
+    m_symbolRule = symRule;
+  }
+
+  CircleRuleProto const * circleRule = pRule->GetCircle();
+  if (circleRule != nullptr)
+  {
+    m_circleDepth = depth;
+    m_circleRule = circleRule;
+  }
+
+  bool const hasPOI = (m_symbolRule != nullptr || m_circleRule != nullptr);
+  bool const isNode = (pRule->GetType() & drule::node) != 0;
   CaptionDefProto const * capRule = pRule->GetCaption(0);
   if (capRule && isNode)
   {
@@ -264,21 +283,7 @@ void ApplyPointFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
     if(!params.m_primaryText.empty() || !params.m_secondaryText.empty())
-      m_insertShape(make_unique_dp<TextShape>(m_centerPoint, params));
-  }
-
-  SymbolRuleProto const * symRule = pRule->GetSymbol();
-  if (symRule)
-  {
-    m_symbolDepth = depth;
-    m_symbolRule  = symRule;
-  }
-
-  CircleRuleProto const * circleRule = pRule->GetCircle();
-  if (circleRule)
-  {
-    m_circleDepth = depth;
-    m_circleRule  = circleRule;
+      m_insertShape(make_unique_dp<TextShape>(m_centerPoint, params, hasPOI));
   }
 }
 
@@ -501,11 +506,13 @@ void ApplyLineFeature::Finish()
     viewParams.m_primaryText = roadNumber;
     viewParams.m_primaryTextFont = font;
     viewParams.m_primaryOffset = m2::PointF(0, 0);
+    viewParams.m_primaryOptional = true;
+    viewParams.m_secondaryOptional = true;
 
     m2::Spline::iterator it = m_spline.CreateIterator();
     while (!it.BeginAgain())
     {
-      m_insertShape(make_unique_dp<TextShape>(it.m_pos, viewParams));
+      m_insertShape(make_unique_dp<TextShape>(it.m_pos, viewParams, false /* hasPOI */));
       it.Advance(splineStep);
     }
   }
