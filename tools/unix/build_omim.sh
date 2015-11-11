@@ -149,6 +149,7 @@ build()
 {
   build_conf $1
   [ -n "$OPT_OSRM" ] && build_osrm $1
+  return 0
 }
 
 [ -n "$OPT_DEBUG" ]   && build debug
