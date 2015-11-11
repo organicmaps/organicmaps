@@ -3023,7 +3023,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp.watchkitextension";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitextension";
 				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -3038,7 +3038,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp.watchkitextension";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitextension";
 				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -3053,7 +3053,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp.watchkitextension";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitextension";
 				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -3068,7 +3068,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp.watchkitextension";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitextension";
 				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -3083,7 +3083,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp.watchkitextension";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitextension";
 				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -3098,7 +3098,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp.watchkitextension";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitextension";
 				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -3113,7 +3113,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp.watchkitextension";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitextension";
 				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -3128,7 +3128,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp.watchkitextension";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitextension";
 				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
