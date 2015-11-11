@@ -130,8 +130,14 @@ win32-msvc201* {
 # unix also works for Android
 unix|win32-g++ {
   LIBS *= -lz
-  QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-compare -Wno-strict-aliasing -Wno-unused-parameter \
-                            -Wno-unused-local-typedef
+  QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-compare -Wno-strict-aliasing -Wno-unused-parameter
+
+  # -Wno-unused-local-typedef is not supported on clang 3.5.
+  IS_CLANG35 = $$system( echo | $$QMAKE_CXX -dM -E - | grep '__clang_version__.*3\.5.*' )
+  if (isEmpty(IS_CLANG35)){
+    QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-local-typedef
+  }
+
   *-clang {
     QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-conversion -Werror=return-type -Wno-deprecated-register
   }
