@@ -1,11 +1,12 @@
 #include "testing/testing.hpp"
 
-#include "indexer/classificator_loader.hpp"
-#include "indexer/scales.hpp"
+#include "generator/generator_tests_support/test_mwm_builder.hpp"
 
-#include "search/search_integration_tests/test_mwm_builder.hpp"
 #include "search/search_integration_tests/test_search_engine.hpp"
 #include "search/search_integration_tests/test_search_request.hpp"
+
+#include "indexer/classificator_loader.hpp"
+#include "indexer/scales.hpp"
 
 #include "platform/country_defines.hpp"
 #include "platform/country_file.hpp"
