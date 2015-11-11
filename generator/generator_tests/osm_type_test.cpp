@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "types_helper.hpp"
+
 #include "generator/osm_element.hpp"
 #include "generator/osm2type.hpp"
 
@@ -12,21 +14,7 @@
 #include "std/iostream.hpp"
 
 
-namespace
-{
-  void FillXmlElement(char const * arr[][2], size_t count, OsmElement * p)
-  {
-    for (size_t i = 0; i < count; ++i)
-      p->AddTag(arr[i][0], arr[i][1]);
-  }
-
-  template <size_t N> uint32_t GetType(char const * (&arr)[N])
-  {
-    vector<string> path(arr, arr + N);
-    return classif().GetTypeByPath(path);
-  }
-  uint32_t GetType(StringIL const & lst) { return classif().GetTypeByPath(lst); }
-}
+using namespace tests;
 
 UNIT_TEST(OsmType_SkipDummy)
 {

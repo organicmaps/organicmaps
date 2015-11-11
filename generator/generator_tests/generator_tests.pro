@@ -13,6 +13,7 @@ QT *= core
 
 HEADERS += \
     source_data.hpp \
+    types_helper.hpp \
 
 SOURCES += \
     ../../testing/testingmain.cpp \

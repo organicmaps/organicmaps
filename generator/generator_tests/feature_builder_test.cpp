@@ -1,24 +1,15 @@
 #include "testing/testing.hpp"
 
+#include "types_helper.hpp"
+
 #include "generator/feature_builder.hpp"
+#include "generator/osm2type.hpp"
 
-#include "indexer/feature_visibility.hpp"
 #include "indexer/classificator_loader.hpp"
-#include "indexer/classificator.hpp"
+#include "indexer/feature_visibility.hpp"
 
+using namespace tests;
 
-namespace
-{
-
-template <size_t N, size_t M> void AddTypes(FeatureParams & params, char const * (&arr)[N][M])
-{
-  Classificator const & c = classif();
-
-  for (size_t i = 0; i < N; ++i)
-    params.AddType(c.GetTypeByPath(vector<string>(arr[i], arr[i] + M)));
-}
-
-}
 
 UNIT_TEST(FBuilder_ManyTypes)
 {
