@@ -1,5 +1,12 @@
 #include "map/styled_point.hpp"
 
+namespace
+{
+char const * kSupportedColors[] = {"placemark-red",    "placemark-blue",  "placemark-purple",
+                                   "placemark-yellow", "placemark-pink",  "placemark-brown",
+                                   "placemark-green",  "placemark-orange"};
+}
+
 graphics::DisplayList * StyledPoint::GetDisplayList(UserMarkDLCache * cache) const
 {
   UserMarkContainer const * container = GetContainer();
@@ -26,13 +33,6 @@ m2::PointD const & StyledPoint::GetPixelOffset() const
   return GetStyle().empty() ? s_centre : s_offset;
 }
 
-namespace
-{
-char const * kSupportedColors[] = {"placemark-red",    "placemark-blue",  "placemark-purple",
-                                   "placemark-yellow", "placemark-pink",  "placemark-brown",
-                                   "placemark-green",  "placemark-orange"};
-}
-
 namespace style
 {
 string GetSupportedStyle(string const & s, string const & context, string const & fallback)
@@ -52,5 +52,4 @@ string GetSupportedStyle(string const & s, string const & context, string const 
 }
 
 string GetDefaultStyle() { return kSupportedColors[0]; }
-
 }  // namespace style
