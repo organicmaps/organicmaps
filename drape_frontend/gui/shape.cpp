@@ -10,7 +10,8 @@
 namespace gui
 {
 Handle::Handle(dp::Anchor anchor, const m2::PointF & pivot, const m2::PointF & size)
-    : dp::OverlayHandle(FeatureID(), anchor, 0.0), m_pivot(glsl::ToVec2(pivot)), m_size(size)
+  : dp::OverlayHandle(FeatureID(), anchor, 0)
+  , m_pivot(glsl::ToVec2(pivot)), m_size(size)
 {
 }
 

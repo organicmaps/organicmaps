@@ -18,11 +18,11 @@ class TextHandle : public dp::OverlayHandle
 {
 public:
   TextHandle(FeatureID const & id, strings::UniString const & text,
-             dp::Anchor anchor, double priority,
+             dp::Anchor anchor, uint64_t priority,
              ref_ptr<dp::TextureManager> textureManager);
 
   TextHandle(FeatureID const & id, strings::UniString const & text,
-             dp::Anchor anchor, double priority,
+             dp::Anchor anchor, uint64_t priority,
              ref_ptr<dp::TextureManager> textureManager,
              gpu::TTextDynamicVertexBuffer && normals);
 

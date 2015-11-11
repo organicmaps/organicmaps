@@ -15,6 +15,8 @@ public:
   MapShapePriority GetPriority() const override { return MapShapePriority::TextAndPoiPriority; }
 
 private:
+  uint64_t GetOverlayPriority() const;
+
   m2::PointF const m_pt;
   PoiSymbolViewParams const m_params;
 };

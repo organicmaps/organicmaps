@@ -29,27 +29,29 @@ class BaseApplyFeature
 {
 public:
   BaseApplyFeature(TInsertShapeFn const & insertShape, FeatureID const & id,
-                   CaptionDescription const & captions);
+                   int minVisibleScale, uint8_t rank, CaptionDescription const & captions);
 
   virtual ~BaseApplyFeature() {}
 
 protected:
   void ExtractCaptionParams(CaptionDefProto const * primaryProto,
                             CaptionDefProto const * secondaryProto,
-                            double depth,
-                            TextViewParams & params) const;
+                            double depth, TextViewParams & params) const;
 
   TInsertShapeFn m_insertShape;
   FeatureID m_id;
   CaptionDescription const & m_captions;
+  int m_minVisibleScale;
+  uint8_t m_rank;
 };
 
 class ApplyPointFeature : public BaseApplyFeature
 {
-  typedef BaseApplyFeature TBase;
+  using TBase = BaseApplyFeature;
+
 public:
   ApplyPointFeature(TInsertShapeFn const & insertShape, FeatureID const & id,
-                    CaptionDescription const & captions);
+                    int minVisibleScale, uint8_t rank, CaptionDescription const & captions);
 
   void operator()(m2::PointD const & point);
   void ProcessRule(Stylist::TRuleWrapper const & rule);
@@ -66,10 +68,11 @@ private:
 
 class ApplyAreaFeature : public ApplyPointFeature
 {
-  typedef ApplyPointFeature TBase;
+  using TBase = ApplyPointFeature;
+
 public:
   ApplyAreaFeature(TInsertShapeFn const & insertShape, FeatureID const & id,
-                   CaptionDescription const & captions);
+                   int minVisibleScale, uint8_t rank, CaptionDescription const & captions);
 
   using TBase::operator ();
 
@@ -82,11 +85,12 @@ private:
 
 class ApplyLineFeature : public BaseApplyFeature
 {
-  typedef BaseApplyFeature TBase;
+  using TBase = BaseApplyFeature;
+
 public:
   ApplyLineFeature(TInsertShapeFn const & insertShape, FeatureID const & id,
-                   CaptionDescription const & captions, double currentScaleGtoP,
-                   bool simplify, size_t pointsCount);
+                   int minVisibleScale, uint8_t rank, CaptionDescription const & captions,
+                   double currentScaleGtoP, bool simplify, size_t pointsCount);
 
   void operator() (m2::PointD const & point);
   bool HasGeometry() const;

@@ -13,6 +13,8 @@ void RouteBuilder::Build(m2::PolylineD const & routePolyline, vector<double> con
                          dp::Color const & color, ref_ptr<dp::TextureManager> textures)
 {
   CommonViewParams params;
+  params.m_minVisibleScale = 1;
+  params.m_rank = 0;
   params.m_depth = 0.0f;
 
   drape_ptr<RouteData> routeData = make_unique_dp<RouteData>();

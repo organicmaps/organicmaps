@@ -5,8 +5,9 @@
 #include "drape/utils/vertex_decl.hpp"
 #include "drape/shader_def.hpp"
 #include "drape/attribute_provider.hpp"
-#include "drape/glstate.hpp"
 #include "drape/batcher.hpp"
+#include "drape/glstate.hpp"
+#include "drape/overlay_handle.hpp"
 #include "drape/texture_manager.hpp"
 
 #include "base/string_utils.hpp"
@@ -25,7 +26,7 @@ public:
   StraightTextHandle(FeatureID const & id, strings::UniString const & text,
                      dp::Anchor anchor, glsl::vec2 const & pivot,
                      glsl::vec2 const & pxSize, glsl::vec2 const & offset,
-                     double priority, ref_ptr<dp::TextureManager> textureManager,
+                     uint64_t priority, ref_ptr<dp::TextureManager> textureManager,
                      gpu::TTextDynamicVertexBuffer && normals)
     : TextHandle(id, text, anchor, priority, textureManager, move(normals))
     , m_pivot(glsl::ToPoint(pivot))
@@ -80,8 +81,7 @@ private:
 TextShape::TextShape(m2::PointF const & basePoint, TextViewParams const & params)
   : m_basePoint(basePoint),
     m_params(params)
-{
-}
+{}
 
 void TextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
 {
@@ -147,7 +147,8 @@ void TextShape::DrawSubString(StraightTextLayout const & layout,
                                                                            m_params.m_anchor,
                                                                            glsl::ToVec2(m_basePoint),
                                                                            glsl::vec2(pixelSize.x, pixelSize.y),
-                                                                           baseOffset, m_params.m_depth,
+                                                                           baseOffset,
+                                                                           GetOverlayPriority(),
                                                                            textures,
                                                                            move(dynamicBuffer));
 
@@ -155,6 +156,22 @@ void TextShape::DrawSubString(StraightTextLayout const & layout,
   provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));
   provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(initialDynBuffer.data()));
   batcher->InsertListOfStrip(state, make_ref(&provider), move(handle), 4);
+}
+
+uint64_t TextShape::GetOverlayPriority() const
+{
+  // Overlay priority for text shapes considers the existance of secondary string and length of primary text.
+  // - If the text has secondary string then it has more priority;
+  // - The more text length, the more priority.
+  // [6 bytes - standard overlay priority][1 byte - secondary text][1 byte - length].
+  static uint64_t constexpr kMask = ~static_cast<uint64_t>(0xFFFF);
+  uint64_t priority = dp::CalculateOverlayPriority(m_params.m_minVisibleScale, m_params.m_rank, m_params.m_depth);
+  priority &= kMask;
+  if (!m_params.m_secondaryText.empty())
+    priority |= 0xFF00;
+  priority |= (0xFF - static_cast<uint8_t>(m_params.m_primaryText.size()));
+
+  return priority;
 }
 
 } //end of df namespace

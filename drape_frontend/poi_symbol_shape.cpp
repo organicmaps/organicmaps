@@ -2,9 +2,9 @@
 
 #include "drape/utils/vertex_decl.hpp"
 #include "drape/attribute_provider.hpp"
-#include "drape/texture_manager.hpp"
-#include "drape/glstate.hpp"
 #include "drape/batcher.hpp"
+#include "drape/glstate.hpp"
+#include "drape/texture_manager.hpp"
 
 #include "drape/shader_def.hpp"
 
@@ -14,8 +14,7 @@ namespace df
 PoiSymbolShape::PoiSymbolShape(m2::PointF const & mercatorPt, PoiSymbolViewParams const & params)
   : m_pt(mercatorPt)
   , m_params(params)
-{
-}
+{}
 
 void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
 {
@@ -55,9 +54,14 @@ void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManag
                                                                          dp::Center,
                                                                          m_pt,
                                                                          pixelSize,
-                                                                         m_params.m_depth);
+                                                                         GetOverlayPriority());
 
   batcher->InsertTriangleStrip(state, make_ref(&provider), move(handle));
+}
+
+uint64_t PoiSymbolShape::GetOverlayPriority() const
+{
+  return dp::CalculateOverlayPriority(m_params.m_minVisibleScale, m_params.m_rank, m_params.m_depth);
 }
 
 } // namespace df

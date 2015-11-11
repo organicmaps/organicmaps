@@ -6,6 +6,7 @@
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/feature_visibility.hpp"
 
 #include "base/assert.hpp"
 #include "std/bind.hpp"
@@ -82,7 +83,8 @@ void RuleDrawer::operator()(FeatureType const & f)
   }
 #endif
 
-  int zoomLevel = m_context->GetTileKey().m_zoomLevel;
+  int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
+  int const minVisibleScale = feature::GetMinDrawableScale(f);
 
   auto insertShape = [this](drape_ptr<MapShape> && shape)
   {
@@ -93,7 +95,7 @@ void RuleDrawer::operator()(FeatureType const & f)
 
   if (s.AreaStyleExists())
   {
-    ApplyAreaFeature apply(insertShape, f.GetID(), s.GetCaptionDescription());
+    ApplyAreaFeature apply(insertShape, f.GetID(), minVisibleScale, f.GetRank(), s.GetCaptionDescription());
     f.ForEachTriangleRef(apply, zoomLevel);
 
     if (s.PointStyleExists())
@@ -104,7 +106,8 @@ void RuleDrawer::operator()(FeatureType const & f)
   }
   else if (s.LineStyleExists())
   {
-    ApplyLineFeature apply(insertShape, f.GetID(), s.GetCaptionDescription(), m_currentScaleGtoP,
+    ApplyLineFeature apply(insertShape, f.GetID(), minVisibleScale, f.GetRank(),
+                           s.GetCaptionDescription(), m_currentScaleGtoP,
                            zoomLevel >= kLineSimplifyLevelStart && zoomLevel <= kLineSimplifyLevelEnd,
                            f.GetPointsCount());
     f.ForEachPointRef(apply, zoomLevel);
@@ -116,7 +119,7 @@ void RuleDrawer::operator()(FeatureType const & f)
   else
   {
     ASSERT(s.PointStyleExists(), ());
-    ApplyPointFeature apply(insertShape, f.GetID(), s.GetCaptionDescription());
+    ApplyPointFeature apply(insertShape, f.GetID(), minVisibleScale, f.GetRank(), s.GetCaptionDescription());
     f.ForEachPointRef(apply, zoomLevel);
 
     s.ForEachRule(bind(&ApplyPointFeature::ProcessRule, &apply, _1));

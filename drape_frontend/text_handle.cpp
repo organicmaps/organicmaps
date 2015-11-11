@@ -6,7 +6,7 @@ namespace df
 {
 
 TextHandle::TextHandle(FeatureID const & id, strings::UniString const & text,
-                       dp::Anchor anchor, double priority,
+                       dp::Anchor anchor, uint64_t priority,
                        ref_ptr<dp::TextureManager> textureManager)
   : OverlayHandle(id, anchor, priority)
   , m_forceUpdateNormals(false)
@@ -17,7 +17,7 @@ TextHandle::TextHandle(FeatureID const & id, strings::UniString const & text,
 {}
 
 TextHandle::TextHandle(FeatureID const & id, strings::UniString const & text,
-                       dp::Anchor anchor, double priority,
+                       dp::Anchor anchor, uint64_t priority,
                        ref_ptr<dp::TextureManager> textureManager,
                        gpu::TTextDynamicVertexBuffer && normals)
   : OverlayHandle(id, anchor, priority)

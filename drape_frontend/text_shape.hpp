@@ -24,6 +24,8 @@ private:
                      glsl::vec2 const & baseOffset, ref_ptr<dp::Batcher> batcher,
                      ref_ptr<dp::TextureManager> textures) const;
 
+  uint64_t GetOverlayPriority() const;
+
   m2::PointF m_basePoint;
   TextViewParams m_params;
 };

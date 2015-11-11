@@ -432,6 +432,8 @@ void TestingEngine::DrawImpl()
   TextViewParams params;
   params.m_featureID = FeatureID(MwmSet::MwmId(), 567);
   params.m_depth = 10.0f;
+  params.m_minVisibleScale = 1;
+  params.m_rank = 0;
   params.m_anchor = dp::Center;
   params.m_primaryText = "People's republic of China";
   params.m_primaryTextFont = fd;
@@ -450,6 +452,8 @@ void TestingEngine::DrawImpl()
   PathTextViewParams ptvp;
   ptvp.m_baseGtoPScale = 1.0f / m_modelView.GetScale();
   ptvp.m_depth = 100.0f;
+  ptvp.m_minVisibleScale = 1;
+  ptvp.m_rank = 0;
   ptvp.m_text = "Some text";
   ptvp.m_textFont = dp::FontDecl(dp::Color::Black(), 40, dp::Color::Red());
 
@@ -457,6 +461,8 @@ void TestingEngine::DrawImpl()
   LineViewParams lvp;
   lvp.m_baseGtoPScale = ptvp.m_baseGtoPScale;
   lvp.m_depth = 90.0f;
+  lvp.m_minVisibleScale = 1;
+  lvp.m_rank = 0;
   lvp.m_cap = dp::SquareCap;
   lvp.m_color = dp::Color::Red();
   lvp.m_width = 16.0f;
@@ -466,6 +472,8 @@ void TestingEngine::DrawImpl()
   {
     PathSymbolViewParams p;
     p.m_depth = 95.0f;
+    p.m_minVisibleScale = 1;
+    p.m_rank = 0;
     p.m_baseGtoPScale = ptvp.m_baseGtoPScale;
     p.m_offset = 0.0f;
     p.m_step = 60.0f;
@@ -501,6 +509,8 @@ void TestingEngine::DrawImpl()
     AreaViewParams p;
     p.m_color = dp::Color::White();
     p.m_depth = 0.0f;
+    params.m_minVisibleScale = 1;
+    params.m_rank = 0;
     AreaShape(move(trg), p).Draw(make_ref(m_batcher), make_ref(m_textures));
   }
   m_batcher->EndSession();
@@ -555,6 +565,8 @@ void TestingEngine::DrawRects()
   LineViewParams lvp;
   lvp.m_baseGtoPScale = m_modelView.GetScale();
   lvp.m_depth = 0.0f;
+  lvp.m_minVisibleScale = 1;
+  lvp.m_rank = 0;
   lvp.m_cap = dp::RoundCap;
   lvp.m_join = dp::RoundJoin;
   lvp.m_color = dp::Color::Red();

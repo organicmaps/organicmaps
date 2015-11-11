@@ -197,18 +197,19 @@ m2::PointF GetOffset(CaptionDefProto const * capRule)
 } // namespace
 
 BaseApplyFeature::BaseApplyFeature(TInsertShapeFn const & insertShape, FeatureID const & id,
-                                   CaptionDescription const & caption)
+                                   int minVisibleScale, uint8_t rank, CaptionDescription const & caption)
   : m_insertShape(insertShape)
   , m_id(id)
   , m_captions(caption)
+  , m_minVisibleScale(minVisibleScale)
+  , m_rank(rank)
 {
   ASSERT(m_insertShape != nullptr, ());
 }
 
 void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto,
                                             CaptionDefProto const * secondaryProto,
-                                            double depth,
-                                            TextViewParams & params) const
+                                            double depth, TextViewParams & params) const
 {
   dp::FontDecl decl;
   CaptionDefProtoToFontDecl(primaryProto, decl);
@@ -230,11 +231,9 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
   }
 }
 
-// ============================================= //
-
 ApplyPointFeature::ApplyPointFeature(TInsertShapeFn const & insertShape, FeatureID const & id,
-                                     CaptionDescription const & captions)
-  : TBase(insertShape, id, captions)
+                                     int minVisibleScale, uint8_t rank, CaptionDescription const & captions)
+  : TBase(insertShape, id, minVisibleScale, rank, captions)
   , m_hasPoint(false)
   , m_symbolDepth(dp::minDepth)
   , m_circleDepth(dp::minDepth)
@@ -262,6 +261,8 @@ void ApplyPointFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
   {
     TextViewParams params;
     ExtractCaptionParams(capRule, pRule->GetCaption(1), depth, params);
+    params.m_minVisibleScale = m_minVisibleScale;
+    params.m_rank = m_rank;
     if(!params.m_primaryText.empty() || !params.m_secondaryText.empty())
       m_insertShape(make_unique_dp<TextShape>(m_centerPoint, params));
   }
@@ -291,6 +292,8 @@ void ApplyPointFeature::Finish()
   {
     CircleViewParams params(m_id);
     params.m_depth = m_circleDepth;
+    params.m_minVisibleScale = m_minVisibleScale;
+    params.m_rank = m_rank;
     params.m_color = ToDrapeColor(m_circleRule->color());
     params.m_radius = m_circleRule->radius();
     m_insertShape(make_unique_dp<CircleShape>(m_centerPoint, params));
@@ -299,18 +302,17 @@ void ApplyPointFeature::Finish()
   {
     PoiSymbolViewParams params(m_id);
     params.m_depth = m_symbolDepth;
+    params.m_minVisibleScale = m_minVisibleScale;
+    params.m_rank = m_rank;
     params.m_symbolName = m_symbolRule->name();
     m_insertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params));
   }
 }
 
-// ============================================= //
-
 ApplyAreaFeature::ApplyAreaFeature(TInsertShapeFn const & insertShape, FeatureID const & id,
-                                   CaptionDescription const & captions)
-  : TBase(insertShape, id, captions)
-{
-}
+                                   int minVisibleScale, uint8_t rank, CaptionDescription const & captions)
+  : TBase(insertShape, id, minVisibleScale, rank, captions)
+{}
 
 void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
 {
@@ -338,18 +340,18 @@ void ApplyAreaFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     AreaViewParams params;
     params.m_depth = depth;
     params.m_color = ToDrapeColor(areaRule->color());
+    params.m_minVisibleScale = m_minVisibleScale;
+    params.m_rank = m_rank;
     m_insertShape(make_unique_dp<AreaShape>(move(m_triangles), params));
   }
   else
     TBase::ProcessRule(rule);
 }
 
-// ============================================= //
-
 ApplyLineFeature::ApplyLineFeature(TInsertShapeFn const & insertShape, FeatureID const & id,
-                                   CaptionDescription const & captions, double currentScaleGtoP,
-                                   bool simplify, size_t pointsCount)
-  : TBase(insertShape, id, captions)
+                                   int minVisibleScale, uint8_t rank, CaptionDescription const & captions,
+                                   double currentScaleGtoP, bool simplify, size_t pointsCount)
+  : TBase(insertShape, id, minVisibleScale, rank, captions)
   , m_currentScaleGtoP(currentScaleGtoP)
   , m_sqrScale(math::sqr(m_currentScaleGtoP))
   , m_simplify(simplify)
@@ -417,6 +419,8 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
 
     PathTextViewParams params;
     params.m_depth = depth;
+    params.m_minVisibleScale = m_minVisibleScale;
+    params.m_rank = m_rank;
     params.m_text = m_captions.GetPathName();
     params.m_textFont = fontDecl;
     params.m_baseGtoPScale = m_currentScaleGtoP;
@@ -431,6 +435,8 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
       PathSymProto const & symRule = pLineRule->pathsym();
       PathSymbolViewParams params;
       params.m_depth = depth;
+      params.m_minVisibleScale = m_minVisibleScale;
+      params.m_rank = m_rank;
       params.m_symbolName = symRule.name();
       float const mainScale = df::VisualParams::Instance().GetVisualScale();
       params.m_offset = symRule.offset() * mainScale;
@@ -444,6 +450,8 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
       LineViewParams params;
       Extract(pLineRule, params);
       params.m_depth = depth;
+      params.m_minVisibleScale = m_minVisibleScale;
+      params.m_rank = m_rank;
       params.m_baseGtoPScale = m_currentScaleGtoP;
 
       m_insertShape(make_unique_dp<LineShape>(m_spline, params));
@@ -486,6 +494,8 @@ void ApplyLineFeature::Finish()
 
     TextViewParams viewParams;
     viewParams.m_depth = m_shieldDepth;
+    viewParams.m_minVisibleScale = m_minVisibleScale;
+    viewParams.m_rank = m_rank;
     viewParams.m_anchor = dp::Center;
     viewParams.m_featureID = FeatureID();
     viewParams.m_primaryText = roadNumber;

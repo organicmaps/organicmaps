@@ -17,13 +17,21 @@ class HandleComparator
 public:
   bool operator()(OverlayTree::THandle const & l, OverlayTree::THandle const & r) const
   {
-    int const priorityLeft = l.first->GetPriority();
-    int const priorityRight = r.first->GetPriority();
+    uint64_t const priorityLeft = l.first->GetPriority();
+    uint64_t const priorityRight = r.first->GetPriority();
     if (priorityLeft > priorityRight)
       return true;
 
     if (priorityLeft == priorityRight)
-      return l.first.get() > r.first.get();
+    {
+      auto const & hashLeft = l.first->GetFeatureID();
+      auto const & hashRight = r.first->GetFeatureID();
+      if (hashLeft < hashRight)
+        return true;
+
+      if (hashLeft == hashRight)
+        return l.first.get() < r.first.get();
+    }
 
     return false;
   }

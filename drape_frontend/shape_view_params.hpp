@@ -15,6 +15,8 @@ namespace df
 struct CommonViewParams
 {
   float m_depth;
+  int m_minVisibleScale;
+  uint8_t m_rank;
 };
 
 struct PoiSymbolViewParams : CommonViewParams

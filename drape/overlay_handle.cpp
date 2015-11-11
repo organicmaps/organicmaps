@@ -19,9 +19,7 @@ private:
   uint8_t m_bufferID;
 };
 
-OverlayHandle::OverlayHandle(FeatureID const & id,
-                             dp::Anchor anchor,
-                             double priority)
+OverlayHandle::OverlayHandle(FeatureID const & id, dp::Anchor anchor, uint64_t priority)
   : m_id(id)
   , m_anchor(anchor)
   , m_priority(priority)
@@ -110,7 +108,7 @@ FeatureID const & OverlayHandle::GetFeatureID() const
   return m_id;
 }
 
-double const & OverlayHandle::GetPriority() const
+uint64_t const & OverlayHandle::GetPriority() const
 {
   return m_priority;
 }
@@ -122,16 +120,13 @@ OverlayHandle::TOffsetNode const & OverlayHandle::GetOffsetNode(uint8_t bufferID
   return *it;
 }
 
-////////////////////////////////////////////////////////////////////////////////
-
 SquareHandle::SquareHandle(FeatureID const & id, dp::Anchor anchor,
                            m2::PointD const & gbPivot, m2::PointD const & pxSize,
-                           double priority)
-  : base_t(id, anchor, priority)
+                           uint64_t priority)
+  : TBase(id, anchor, priority)
   , m_gbPivot(gbPivot)
   , m_pxHalfSize(pxSize.x / 2.0, pxSize.y / 2.0)
-{
-}
+{}
 
 m2::RectD SquareHandle::GetPixelRect(ScreenBase const & screen) const
 {
@@ -157,6 +152,22 @@ void SquareHandle::GetPixelShape(ScreenBase const & screen, Rects & rects) const
 {
   m2::RectD rd = GetPixelRect(screen);
   rects.push_back(m2::RectF(rd.minX(), rd.minY(), rd.maxX(), rd.maxY()));
+}
+
+uint64_t CalculateOverlayPriority(int minZoomLevel, uint8_t rank, float depth)
+{
+  // Overlay priority consider the following:
+  // - Minimum visible zoom level (the less the better);
+  // - Manual priority from styles (equals to the depth);
+  // - Rank of the feature (the more the better);
+  // [1 byte - zoom][4 bytes - priority][1 byte - rank][1 byte - reserved][1 byte - reserved].
+  uint8_t const minZoom = 0xFF - static_cast<uint8_t>(max(minZoomLevel, 0));
+  uint32_t const priority = static_cast<uint32_t>(depth);
+
+  return (static_cast<uint64_t>(minZoom) << 56) |
+         (static_cast<uint64_t>(priority) << 24) |
+         (static_cast<uint64_t>(rank) << 16) |
+         static_cast<uint64_t>(0xFFFF);
 }
 
 } // namespace dp

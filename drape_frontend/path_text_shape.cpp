@@ -4,10 +4,11 @@
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/intrusive_vector.hpp"
 
-#include "drape/shader_def.hpp"
 #include "drape/attribute_provider.hpp"
-#include "drape/glstate.hpp"
 #include "drape/batcher.hpp"
+#include "drape/glstate.hpp"
+#include "drape/shader_def.hpp"
+#include "drape/overlay_handle.hpp"
 
 #include "base/math.hpp"
 #include "base/logging.hpp"
@@ -31,9 +32,9 @@ class PathTextHandle : public df::TextHandle
 public:
   PathTextHandle(m2::SharedSpline const & spl,
                  df::SharedTextLayout const & layout,
-                 float const mercatorOffset, float const depth,
+                 float const mercatorOffset, uint64_t priority,
                  ref_ptr<dp::TextureManager> textureManager)
-    : TextHandle(FeatureID(), layout->GetText(), dp::Center, depth, textureManager)
+    : TextHandle(FeatureID(), layout->GetText(), dp::Center, priority, textureManager)
     , m_spline(spl)
     , m_layout(layout)
   {
@@ -99,7 +100,11 @@ PathTextShape::PathTextShape(m2::SharedSpline const & spline,
                              PathTextViewParams const & params)
   : m_spline(spline)
   , m_params(params)
+{}
+
+uint64_t PathTextShape::GetOverlayPriority() const
 {
+  return dp::CalculateOverlayPriority(m_params.m_minVisibleScale, m_params.m_rank, m_params.m_depth);
 }
 
 void PathTextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
@@ -195,7 +200,8 @@ void PathTextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManage
     provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(dynBuffer.data()));
 
     drape_ptr<dp::OverlayHandle> handle = make_unique_dp<PathTextHandle>(m_spline, layoutPtr, offset,
-                                                                         m_params.m_depth, textures);
+                                                                         GetOverlayPriority(),
+                                                                         textures);
     batcher->InsertListOfStrip(state, make_ref(&provider), move(handle), 4);
   }
 }
