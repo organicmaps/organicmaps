@@ -11,10 +11,10 @@
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
 #include "base/logging.hpp"
-#include "base/regexp.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/cctype.hpp"
+#include "std/regex.hpp"
 #include "std/sstream.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/unordered_set.hpp"
@@ -77,23 +77,12 @@ string GetSpecialFilesSearchScope()
 #endif  // defined(OMIM_OS_ANDROID)
 }
 
-class StringsRegexpFilter
-{
-public:
-  StringsRegexpFilter(string const & regexp) { regexp::Create(regexp, m_regexp); }
-
-  bool Matches(string const & s) const { return regexp::Matches(s, m_regexp); }
-
-private:
-  regexp::RegExpT m_regexp;
-};
-
 bool IsSpecialName(string const & name) { return name == "." || name == ".."; }
 
 bool IsDownloaderFile(string const & name)
 {
-  static StringsRegexpFilter const filter(".*\\.(downloading|resume|ready)[0-9]?$");
-  return filter.Matches(name);
+  static regex const filter(".*\\.(downloading|resume|ready)[0-9]?$");
+  return regex_match(name.begin(), name.end(), filter);
 }
 
 bool DirectoryHasIndexesOnly(string const & directory)

@@ -4,6 +4,7 @@
 
 #include "std/cstdint.hpp"
 #include "std/limits.hpp"
+#include "std/regex.hpp"
 #include "std/sstream.hpp"
 #include "std/string.hpp"
 
@@ -297,4 +298,11 @@ typename ContainerT::value_type JoinStrings(ContainerT const & container,
   return JoinStrings(container.begin(), container.end(), delimiter);
 }
 */
+
+template <typename TFn>
+void ForEachMatched(string const & s, regex const & regex, TFn && fn)
+{
+  for (sregex_token_iterator cur(s.begin(), s.end(), regex), end; cur != end; ++cur)
+    fn(*cur);
 }
+}  // namespace strings
