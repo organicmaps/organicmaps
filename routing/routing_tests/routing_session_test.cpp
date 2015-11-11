@@ -44,6 +44,33 @@ public:
 static vector<m2::PointD> kTestRoute = {{0., 1.}, {0., 2.}, {0., 3.}, {0., 4.}};
 static auto kRouteBuildingMaxDuration = seconds(30);
 
+class TimedSignal
+{
+public:
+  TimedSignal() : m_flag(false) {}
+  void Signal()
+  {
+    lock_guard<mutex> guard(m_waitingMutex);
+    m_flag = true;
+    m_cv.notify_one();
+  }
+
+  bool WaitUntil(steady_clock::time_point const & time)
+  {
+    unique_lock<mutex> lock(m_waitingMutex);
+    m_cv.wait_until(lock, time, [this, &time]
+                    {
+                      return m_flag || steady_clock::now() > time;
+                    });
+    return m_flag;
+  }
+
+private:
+  mutex m_waitingMutex;
+  condition_variable m_cv;
+  bool m_flag;
+};
+
 UNIT_TEST(TestRouteBuilding)
 {
   RoutingSession session;
@@ -51,24 +78,18 @@ UNIT_TEST(TestRouteBuilding)
   vector<m2::PointD> routePoints = kTestRoute;
   Route masterRoute("dummy", routePoints.begin(), routePoints.end());
   size_t counter = 0;
-  bool routeBuilt(false);
-  mutex waitingMutex;
-  unique_lock<mutex> lock(waitingMutex);
-  condition_variable cv;
+  TimedSignal timedSignal;
   unique_ptr<DummyRouter> router = make_unique<DummyRouter>(masterRoute, DummyRouter::NoError, counter);
   session.SetRouter(move(router), nullptr);
   session.BuildRoute(kTestRoute.front(), kTestRoute.back(),
-                     [&routeBuilt, &waitingMutex, &cv](Route const &, IRouter::ResultCode)
+                     [&timedSignal](Route const &, IRouter::ResultCode)
                      {
-                       lock_guard<mutex> guard(waitingMutex);
-                       routeBuilt = true;
-                       cv.notify_one();
+                       timedSignal.Signal();
                      },
                      nullptr, 0);
   // Manual check of the routeBuilded mutex to avoid spurious results.
   auto const time = steady_clock::now() + kRouteBuildingMaxDuration;
-  cv.wait_until(lock, time, [&routeBuilt, &time]{return routeBuilt || steady_clock::now() > time;});
-  TEST(routeBuilt, ("Route was not built."));
+  TEST(timedSignal.WaitUntil(time), ("Route was not built."));
   TEST_EQUAL(counter, 1, ());
 }
 
@@ -80,25 +101,20 @@ UNIT_TEST(TestRouteRebuilding)
   vector<m2::PointD> routePoints = kTestRoute;
   Route masterRoute("dummy", routePoints.begin(), routePoints.end());
   size_t counter = 0;
-  bool routeBuilt(false);
-  mutex waitingMutex;
-  unique_lock<mutex> lock(waitingMutex);
-  condition_variable cv;
-  auto fn = [&routeBuilt, &waitingMutex, &cv](Route const &, IRouter::ResultCode)
-            {
-              lock_guard<mutex> guard(waitingMutex);
-              routeBuilt = true;
-              cv.notify_one();
-            };
   unique_ptr<DummyRouter> router = make_unique<DummyRouter>(masterRoute, DummyRouter::NoError, counter);
   session.SetRouter(move(router), nullptr);
 
   // Go along the route.
-  session.BuildRoute(kTestRoute.front(), kTestRoute.back(), fn, nullptr, 0);
+  TimedSignal alongTimedSignal;
+  session.BuildRoute(kTestRoute.front(), kTestRoute.back(),
+                     [&alongTimedSignal](Route const &, IRouter::ResultCode)
+                     {
+                       alongTimedSignal.Signal();
+                     },
+                     nullptr, 0);
   // Manual check of the routeBuilded mutex to avoid spurious results.
   auto time = steady_clock::now() + kRouteBuildingMaxDuration;
-  cv.wait_until(lock, time, [&routeBuilt, &time]{return routeBuilt || steady_clock::now() > time;});
-  TEST(routeBuilt, ("Route was not built."));
+  TEST(alongTimedSignal.WaitUntil(time), ("Route was not built."));
 
   location::GpsInfo info;
   info.m_horizontalAccuracy = 0.01;
@@ -118,10 +134,14 @@ UNIT_TEST(TestRouteRebuilding)
   // Rebuild route and go in opposite direction. So initiate a route rebuilding flag.
   time = steady_clock::now() + kRouteBuildingMaxDuration;
   counter = 0;
-  routeBuilt = false;
-  session.BuildRoute(kTestRoute.front(), kTestRoute.back(), fn, nullptr, 0);
-  cv.wait_until(lock, time, [&routeBuilt, &time]{return routeBuilt || steady_clock::now() > time;});
-  TEST(routeBuilt, ("Route was not built."));
+  TimedSignal oppositeTimedSignal;
+  session.BuildRoute(kTestRoute.front(), kTestRoute.back(),
+                     [&oppositeTimedSignal](Route const &, IRouter::ResultCode)
+                     {
+                       oppositeTimedSignal.Signal();
+                     },
+                     nullptr, 0);
+  TEST(oppositeTimedSignal.WaitUntil(time), ("Route was not built."));
 
   info.m_longitude = 0.;
   info.m_latitude = 1.;
