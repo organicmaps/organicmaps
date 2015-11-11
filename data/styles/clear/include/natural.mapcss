@@ -288,6 +288,31 @@ area|z16-[leisure=park], area|z16-[leisure=garden]  {
   z-index: 40;
 }
 
+area|z13-[landuse=grass],
+area|z13-[natural=grassland],
+
+{
+  fill-color: @green0;
+  fill-opacity: 1;
+  z-index: 50;
+}
+
+area|z13-[landuse=farmland],
+area|z13-[landuse=allotments],
+area|z13-[natural=scrub],
+area|z13-[landuse=orchard],
+area|z13-[landuse=vineyard],
+area|z13-[landuse=meadow],
+area|z13-[landuse=recreation_ground],
+area|z13-[landuse=village_green],
+
+{
+  fill-color: @green0;
+  fill-opacity: 1;
+  z-index: 15;
+	fill-position: background;
+}
+
 area|z14-[landuse=grass],
 area|z14-[natural=grassland],
 

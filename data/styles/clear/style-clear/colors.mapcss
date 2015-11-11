@@ -51,7 +51,7 @@
 
 
 /* bridges */
-@bridge_background: #EEEEDD;
+@bridge_background: #E3E1D2;
 @bridge_casing: #808080;
 
 /* tunnels */
@@ -157,7 +157,7 @@
 @road_label_halo: #FFFFFF;
 @shield: #fff;
 @shield_halo: #498F46;
-/* blue - #2E89B0; #498F46; #598DBE; */
+/* blue - #2E89B0; #687E94; #598DBE; */
 
 @label_dark: #333333;
 @label_light: #444444;
@@ -166,7 +166,7 @@
 /* NATURAL LABELS */
 @water_label: #4499Bb;
 @park_label: #3A7921;
-@halo_park_lable: #fff;
+@halo_park_lable: #FFFFFF;
 @halo_water_lable: #fff;
 
 /* UNIVERSAL HALO */
