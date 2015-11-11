@@ -13,7 +13,7 @@ public:
 
   ApiMarkPoint(string const & name, string const & id, string const & style,
                m2::PointD const & ptOrg, UserMarkContainer * container)
-    : StyledPoint(style, ptOrg, container), m_name(name), m_id(id)
+    : StyledPoint(ptOrg, container), m_name(name), m_id(id), m_style(style)
   {
   }
 
@@ -22,6 +22,11 @@ public:
 
   string const & GetID() const { return m_id; }
   void SetID(string const & id) { m_id = id; }
+
+  void SetStyle(string const & style) { m_style = style; }
+
+  // StyledPoint overrides:
+  string const & GetStyle() const override { return m_style; }
 
   // UserMark overrides:
   UserMark::Type GetMarkType() const override { return UserMark::Type::API; }
@@ -42,4 +47,5 @@ public:
 private:
   string m_name;
   string m_id;
+  string m_style;
 };

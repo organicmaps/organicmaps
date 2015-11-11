@@ -78,15 +78,11 @@ public:
   }
 
   Bookmark(BookmarkData const & data, m2::PointD const & ptOrg, UserMarkContainer * container)
-    : StyledPoint(data.GetType(), ptOrg, container), m_data(data), m_animScaleFactor(1.0)
+    : StyledPoint(ptOrg, container), m_data(data), m_animScaleFactor(1.0)
   {
   }
 
-  void SetData(BookmarkData const & data)
-  {
-    m_data = data;
-    SetStyle(m_data.GetType());
-  }
+  void SetData(BookmarkData const & data) { m_data = data; }
 
   BookmarkData const & GetData() const { return m_data; }
 
@@ -98,11 +94,7 @@ public:
   /// @return Now its a bookmark color - name of icon file
   string const & GetType() const { return m_data.GetType(); }
 
-  void SetType(string const & type)
-  {
-    m_data.SetType(type);
-    SetStyle(type);
-  }
+  void SetType(string const & type) { m_data.SetType(type); }
 
   m2::RectD GetViewport() const { return m2::RectD(GetOrg(), GetOrg()); }
 
@@ -119,6 +111,9 @@ public:
   unique_ptr<UserMarkCopy> Copy() const override;
 
   shared_ptr<anim::Task> CreateAnimTask(Framework & fm);
+
+  // StyledPoint overrides:
+  string const & GetStyle() const override { return m_data.GetType(); }
 };
 
 class BookmarkCategory : public UserMarkContainer

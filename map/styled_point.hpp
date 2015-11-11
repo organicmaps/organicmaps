@@ -25,12 +25,7 @@ class StyledPoint : public ICustomDrawable
 {
 public:
   StyledPoint(m2::PointD const & ptOrg, UserMarkContainer * container)
-    : ICustomDrawable(ptOrg, container), m_style(style::GetDefaultStyle())
-  {
-  }
-
-  StyledPoint(string const & style, m2::PointD const & ptOrg, UserMarkContainer * container)
-    : ICustomDrawable(ptOrg, container), m_style(style)
+    : ICustomDrawable(ptOrg, container)
   {
   }
 
@@ -39,9 +34,6 @@ public:
   double GetAnimScaleFactor() const override;
   m2::PointD const & GetPixelOffset() const override;
 
-  string const & GetStyle() const { return m_style; }
-  void SetStyle(const string & style) { m_style = style; }
-
-private:
-  string m_style;  ///< Point style (name of icon), or empty string for plain circle.
+  /// @return name of icon, or empty string for plain circle.
+  virtual string const & GetStyle() const = 0;
 };
