@@ -8,8 +8,8 @@
 
 #include "base/logging.hpp"
 
+#include "std/atomic.hpp"
 #include "std/chrono.hpp"
-#include "std/mutex.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -42,7 +42,7 @@ public:
 };
 
 static vector<m2::PointD> kTestRoute = {{0., 1.}, {0., 2.}, {0., 3.}, {0., 4.}};
-static auto kRouteBuildingMaxDuration = seconds(30);
+static auto kTestMaxDuration = seconds(30);
 
 UNIT_TEST(TestRouteBuilding)
 {
@@ -51,17 +51,21 @@ UNIT_TEST(TestRouteBuilding)
   vector<m2::PointD> routePoints = kTestRoute;
   Route masterRoute("dummy", routePoints.begin(), routePoints.end());
   size_t counter = 0;
-  timed_mutex routeBuilded;
-  routeBuilded.lock();
+  atomic<bool> routeBuilded(false);
   unique_ptr<DummyRouter> router = make_unique<DummyRouter>(masterRoute, DummyRouter::NoError, counter);
   session.SetRouter(move(router), nullptr);
   session.BuildRoute(kTestRoute.front(), kTestRoute.back(),
                      [&routeBuilded](Route const &, IRouter::ResultCode)
                      {
-                       routeBuilded.unlock();
+                       routeBuilded = true;
                      },
                      nullptr, 0);
-  TEST(routeBuilded.try_lock_for(kRouteBuildingMaxDuration), ());
+  // Manual check of the routeBuilded mutex to avoid spurious results.
+  auto time = steady_clock::now() + kTestMaxDuration;
+  while (steady_clock::now() < time  && !routeBuilded)
+  {
+  }
+  TEST(routeBuilded, ("Route was not built."));
   TEST_EQUAL(counter, 1, ());
 }
 
@@ -73,18 +77,22 @@ UNIT_TEST(TestRouteRebuilding)
   vector<m2::PointD> routePoints = kTestRoute;
   Route masterRoute("dummy", routePoints.begin(), routePoints.end());
   size_t counter = 0;
-  timed_mutex routeBuilded;
+  atomic<bool> routeBuilded(false);
   auto fn = [&routeBuilded](Route const &, IRouter::ResultCode)
             {
-              routeBuilded.unlock();
+              routeBuilded = true;
             };
-  routeBuilded.lock();
   unique_ptr<DummyRouter> router = make_unique<DummyRouter>(masterRoute, DummyRouter::NoError, counter);
   session.SetRouter(move(router), nullptr);
 
   // Go along the route.
   session.BuildRoute(kTestRoute.front(), kTestRoute.back(), fn, nullptr, 0);
-  TEST(routeBuilded.try_lock_for(kRouteBuildingMaxDuration), ());
+  // Manual check of the routeBuilded mutex to avoid spurious results.
+  auto time = steady_clock::now() + kTestMaxDuration;
+  while (steady_clock::now() < time  && !routeBuilded)
+  {
+  }
+  TEST(routeBuilded, ("Route was not built."));
 
   location::GpsInfo info;
   info.m_horizontalAccuracy = 0.01;
@@ -103,8 +111,12 @@ UNIT_TEST(TestRouteRebuilding)
 
   // Rebuild route and go in opposite direction. So initiate a route rebuilding flag.
   counter = 0;
+  routeBuilded = false;
   session.BuildRoute(kTestRoute.front(), kTestRoute.back(), fn, nullptr, 0);
-  TEST(routeBuilded.try_lock_for(kRouteBuildingMaxDuration), ());
+  while (steady_clock::now() < time  && !routeBuilded)
+  {
+  }
+  TEST(routeBuilded, ("Route was not built."));
 
   info.m_longitude = 0.;
   info.m_latitude = 1.;
