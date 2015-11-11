@@ -38,6 +38,8 @@
 		670F299C1BAABDA600F2ABF4 /* transformations_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F293A1BA9D2E700F2ABF4 /* transformations_test.cpp */; };
 		670F299D1BAABDA600F2ABF4 /* tree_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F293B1BA9D2E700F2ABF4 /* tree_test.cpp */; };
 		670F299E1BAABDA600F2ABF4 /* vector_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F293C1BA9D2E700F2ABF4 /* vector_test.cpp */; };
+		6741AAA01BF35476002C974C /* latlon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6741AA9E1BF35476002C974C /* latlon.cpp */; };
+		6741AAA11BF35476002C974C /* latlon.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6741AA9F1BF35476002C974C /* latlon.hpp */; };
 		675344BC1A3F687400A0A8C3 /* angles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753449F1A3F687400A0A8C3 /* angles.cpp */; };
 		675344BD1A3F687400A0A8C3 /* angles.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675344A01A3F687400A0A8C3 /* angles.hpp */; };
 		675344BE1A3F687400A0A8C3 /* any_rect2d.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675344A11A3F687400A0A8C3 /* any_rect2d.hpp */; };
@@ -116,6 +118,8 @@
 		670F297E1BA9D41E00F2ABF4 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
 		670F29811BA9D46F00F2ABF4 /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
 		670F29821BA9D46F00F2ABF4 /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-xcode-build/Debug/libindexer.a"; sourceTree = "<group>"; };
+		6741AA9E1BF35476002C974C /* latlon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = latlon.cpp; sourceTree = "<group>"; };
+		6741AA9F1BF35476002C974C /* latlon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = latlon.hpp; sourceTree = "<group>"; };
 		675344911A3F684600A0A8C3 /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6753449F1A3F687400A0A8C3 /* angles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = angles.cpp; sourceTree = "<group>"; };
 		675344A01A3F687400A0A8C3 /* angles.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = angles.hpp; sourceTree = "<group>"; };
@@ -239,6 +243,8 @@
 		675344931A3F684600A0A8C3 /* geometry */ = {
 			isa = PBXGroup;
 			children = (
+				6741AA9E1BF35476002C974C /* latlon.cpp */,
+				6741AA9F1BF35476002C974C /* latlon.hpp */,
 				675344DA1A3F68E200A0A8C3 /* region2d */,
 				6753449F1A3F687400A0A8C3 /* angles.cpp */,
 				675344A01A3F687400A0A8C3 /* angles.hpp */,
@@ -311,6 +317,7 @@
 				675344C21A3F687400A0A8C3 /* covering.hpp in Headers */,
 				675344C81A3F687400A0A8C3 /* point2d.hpp in Headers */,
 				675344D01A3F687400A0A8C3 /* robust_orientation.hpp in Headers */,
+				6741AAA11BF35476002C974C /* latlon.hpp in Headers */,
 				675344D51A3F687400A0A8C3 /* spline.hpp in Headers */,
 				675344DF1A3F68F900A0A8C3 /* binary_operators.hpp in Headers */,
 				675344D61A3F687400A0A8C3 /* transformations.hpp in Headers */,
@@ -434,6 +441,7 @@
 				675344D41A3F687400A0A8C3 /* spline.cpp in Sources */,
 				675344D11A3F687400A0A8C3 /* screenbase.cpp in Sources */,
 				675344BC1A3F687400A0A8C3 /* angles.cpp in Sources */,
+				6741AAA01BF35476002C974C /* latlon.cpp in Sources */,
 				675344C61A3F687400A0A8C3 /* packer.cpp in Sources */,
 				675344DE1A3F68F900A0A8C3 /* binary_operators.cpp in Sources */,
 			);
