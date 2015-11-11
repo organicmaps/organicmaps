@@ -214,8 +214,9 @@ def validateDocumentation(shaders, shaderDir):
     for shader in shaders:
         if formatShaderDocName(shader) not in docFiles:
             undocumentedShaders.append(shader)
-    if undocumentedShaders:
-        print("no documentation for shaders:", undocumentedShaders)
+    # TODO(AlexZ): Commented out lines below to avoid qtcreator console spamming.
+    #if undocumentedShaders:
+        #print("no documentation for shaders:", undocumentedShaders)
         #exit(20)
 
 if len(sys.argv) < 4:
@@ -238,7 +239,8 @@ if definitionChanged(headerFile, formatOutFilePath(shaderDir, definesFile)):
     f = open(formatOutFilePath(shaderDir, definesFile), 'w')
     f.write(headerFile)
     f.close()
-else:
-    print("No need to update definition file")
+# TODO(AlexZ): Commented out lines below to avoid qtcreator console spamming.
+#else:
+    #print("No need to update definition file")
 writeImplementationFile(programDefinition, programIndex, shaderIndex, shaderDir, implFile, definesFile, shaders)
 validateDocumentation(shaders, shaderDir)

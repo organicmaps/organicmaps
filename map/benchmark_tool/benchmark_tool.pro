@@ -6,6 +6,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
+
 DEPENDENCIES = map indexer platform geometry coding base gflags protobuf tomcrypt
 
 include($$ROOT_DIR/common.pri)

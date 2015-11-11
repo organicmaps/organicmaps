@@ -6,6 +6,8 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
+# TODO(AlexZ): latlon.hpp introduces indexer dependency for tests,
+# because of indexer/mercator.hpp. Either move latlon to indexer, or mercator to geometry.
 DEPENDENCIES = indexer geometry base
 
 include($$ROOT_DIR/common.pri)
