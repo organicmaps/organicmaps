@@ -1,37 +1,35 @@
 #include "testing/testing.hpp"
 
-#include "base/regexp.hpp"
-
 #include "base/stl_add.hpp"
+#include "base/string_utils.hpp"
 
+#include "std/regex.hpp"
 
 UNIT_TEST(RegExp_Or)
 {
-  regexp::RegExpT exp;
-  regexp::Create("\\.mwm\\.(downloading2?$|resume2?$)", exp);
+  regex exp("\\.mwm\\.(downloading2?$|resume2?$)");
 
-  TEST(regexp::IsExist("Aruba.mwm.downloading", exp), ());
-  TEST(!regexp::IsExist("Aruba.mwm.downloading1", exp), ());
-  TEST(regexp::IsExist("Aruba.mwm.downloading2", exp), ());
-  TEST(!regexp::IsExist("Aruba.mwm.downloading3", exp), ());
-  TEST(!regexp::IsExist("Aruba.mwm.downloading.tmp", exp), ());
+  TEST(regex_search("Aruba.mwm.downloading", exp), ());
+  TEST(!regex_search("Aruba.mwm.downloading1", exp), ());
+  TEST(regex_search("Aruba.mwm.downloading2", exp), ());
+  TEST(!regex_search("Aruba.mwm.downloading3", exp), ());
+  TEST(!regex_search("Aruba.mwm.downloading.tmp", exp), ());
 
-  TEST(regexp::IsExist("Aruba.mwm.resume", exp), ());
-  TEST(!regexp::IsExist("Aruba.mwm.resume1", exp), ());
-  TEST(regexp::IsExist("Aruba.mwm.resume2", exp), ());
-  TEST(!regexp::IsExist("Aruba.mwm.resume3", exp), ());
-  TEST(!regexp::IsExist("Aruba.mwm.resume.tmp", exp), ());
+  TEST(regex_search("Aruba.mwm.resume", exp), ());
+  TEST(!regex_search("Aruba.mwm.resume1", exp), ());
+  TEST(regex_search("Aruba.mwm.resume2", exp), ());
+  TEST(!regex_search("Aruba.mwm.resume3", exp), ());
+  TEST(!regex_search("Aruba.mwm.resume.tmp", exp), ());
 }
 
 UNIT_TEST(RegExp_ForEachMatched)
 {
-  regexp::RegExpT exp;
-  regexp::Create("-?\\d+\\.?\\d*, *-?\\d+\\.?\\d*", exp);
+  regex exp("-?\\d+\\.?\\d*, *-?\\d+\\.?\\d*");
 
   {
     string const s = "6.66, 9.99";
     vector<string> v;
-    regexp::ForEachMatched(s, exp, MakeBackInsertFunctor(v));
+    strings::ForEachMatched(s, exp, MakeBackInsertFunctor(v));
     TEST_EQUAL(v.size(), 1, ());
     TEST_EQUAL(v[0], s, ());
   }
@@ -40,7 +38,7 @@ UNIT_TEST(RegExp_ForEachMatched)
     string const s1 = "6.66, 9.99";
     string const s2 = "-5.55, -7.77";
     vector<string> v;
-    regexp::ForEachMatched(s1 + " 180 , bfuewib 365@" + s2, exp, MakeBackInsertFunctor(v));
+    strings::ForEachMatched(s1 + " 180 , bfuewib 365@" + s2, exp, MakeBackInsertFunctor(v));
     TEST_EQUAL(v.size(), 2, ());
     TEST_EQUAL(v[0], s1, ());
     TEST_EQUAL(v[1], s2, ());
@@ -49,7 +47,7 @@ UNIT_TEST(RegExp_ForEachMatched)
   {
     string const s = "X6.66, 9.99";
     vector<string> v;
-    regexp::ForEachMatched(s, exp, MakeBackInsertFunctor(v));
+    strings::ForEachMatched(s, exp, MakeBackInsertFunctor(v));
     TEST_EQUAL(v.size(), 1, ());
     TEST_EQUAL(v[0], string(s.begin() + 1, s.end()), ());
   }
@@ -57,7 +55,7 @@ UNIT_TEST(RegExp_ForEachMatched)
   {
     string const s = "6.66, 9.99X";
     vector<string> v;
-    regexp::ForEachMatched(s, exp, MakeBackInsertFunctor(v));
+    strings::ForEachMatched(s, exp, MakeBackInsertFunctor(v));
     TEST_EQUAL(v.size(), 1, ());
     TEST_EQUAL(v[0], string(s.begin(), s.end() - 1), ());
   }
@@ -65,14 +63,14 @@ UNIT_TEST(RegExp_ForEachMatched)
   {
     string const s = "6.66X, 9.99";
     vector<string> v;
-    regexp::ForEachMatched(s, exp, MakeBackInsertFunctor(v));
+    strings::ForEachMatched(s, exp, MakeBackInsertFunctor(v));
     TEST_EQUAL(v.size(), 0, ());
   }
 
   {
     string const s = "6.66, X9.99";
     vector<string> v;
-    regexp::ForEachMatched(s, exp, MakeBackInsertFunctor(v));
+    strings::ForEachMatched(s, exp, MakeBackInsertFunctor(v));
     TEST_EQUAL(v.size(), 0, ());
   }
 }

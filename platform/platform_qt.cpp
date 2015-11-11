@@ -6,9 +6,9 @@
 #include "coding/file_reader.hpp"
 
 #include "base/logging.hpp"
-#include "base/regexp.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/regex.hpp"
 #include "std/target_os.hpp"
 
 #include <QtCore/QDir>
@@ -35,8 +35,7 @@ bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
 
 void Platform::GetFilesByRegExp(string const & directory, string const & regexp, FilesList & outFiles)
 {
-  regexp::RegExpT exp;
-  regexp::Create(regexp, exp);
+  regex exp(regexp);
 
   QDir dir(QString::fromUtf8(directory.c_str()));
   int const count = dir.count();
@@ -44,7 +43,7 @@ void Platform::GetFilesByRegExp(string const & directory, string const & regexp,
   for (int i = 0; i < count; ++i)
   {
     string const name = dir[i].toUtf8().data();
-    if (regexp::IsExist(name, exp))
+    if (regex_search(name.begin(), name.end(), exp))
       outFiles.push_back(name);
   }
 }

@@ -2,15 +2,15 @@
 #include "testing/testregister.hpp"
 
 #include "base/logging.hpp"
-#include "base/regexp.hpp"
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
 #include "std/cstring.hpp"
 #include "std/iomanip.hpp"
 #include "std/iostream.hpp"
-#include "std/target_os.hpp"
+#include "std/regex.hpp"
 #include "std/string.hpp"
+#include "std/target_os.hpp"
 #include "std/vector.hpp"
 
 #ifdef OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP
@@ -122,13 +122,13 @@ int main(int argc, char * argv[])
     return STATUS_SUCCESS;
   }
 
-  regexp::RegExpT filterRegExp;
+  regex filterRegExp;
   if (g_testingOptions.m_filterRegExp)
-    regexp::Create(g_testingOptions.m_filterRegExp, filterRegExp);
+    filterRegExp.assign(g_testingOptions.m_filterRegExp);
 
-  regexp::RegExpT suppressRegExp;
+  regex suppressRegExp;
   if (g_testingOptions.m_suppressRegExp)
-    regexp::Create(g_testingOptions.m_suppressRegExp, suppressRegExp);
+    suppressRegExp.assign(g_testingOptions.m_suppressRegExp);
 
   for (TestRegister * pTest = TestRegister::FirstRegister(); pTest; pTest = pTest->m_pNext)
   {
@@ -147,12 +147,19 @@ int main(int argc, char * argv[])
   int iTest = 0;
   for (TestRegister * pTest = TestRegister::FirstRegister(); pTest; ++iTest, pTest = pTest->m_pNext)
   {
-    if (g_testingOptions.m_filterRegExp && !regexp::Matches(testNames[iTest], filterRegExp))
+    auto const & testName = testNames[iTest];
+    if (g_testingOptions.m_filterRegExp &&
+        !regex_match(testName.begin(), testName.end(), filterRegExp))
+    {
       continue;
-    if (g_testingOptions.m_suppressRegExp && regexp::Matches(testNames[iTest], suppressRegExp))
+    }
+    if (g_testingOptions.m_suppressRegExp &&
+        regex_match(testName.begin(), testName.end(), suppressRegExp))
+    {
       continue;
+    }
 
-    LOG(LINFO, ("Running", testNames[iTest]));
+    LOG(LINFO, ("Running", testName));
     if (!g_bLastTestOK)
     {
       // Somewhere else global variables have been reset.
