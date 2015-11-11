@@ -8,8 +8,8 @@
 
 #include "base/logging.hpp"
 
-#include "std/atomic.hpp"
 #include "std/chrono.hpp"
+#include "std/mutex.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -42,7 +42,7 @@ public:
 };
 
 static vector<m2::PointD> kTestRoute = {{0., 1.}, {0., 2.}, {0., 3.}, {0., 4.}};
-static auto kTestMaxDuration = seconds(30);
+static auto kRouteBuildingMaxDuration = seconds(30);
 
 UNIT_TEST(TestRouteBuilding)
 {
@@ -51,21 +51,24 @@ UNIT_TEST(TestRouteBuilding)
   vector<m2::PointD> routePoints = kTestRoute;
   Route masterRoute("dummy", routePoints.begin(), routePoints.end());
   size_t counter = 0;
-  atomic<bool> routeBuilded(false);
+  bool routeBuilt(false);
+  mutex waitingMutex;
+  unique_lock<mutex> lock(waitingMutex);
+  condition_variable cv;
   unique_ptr<DummyRouter> router = make_unique<DummyRouter>(masterRoute, DummyRouter::NoError, counter);
   session.SetRouter(move(router), nullptr);
   session.BuildRoute(kTestRoute.front(), kTestRoute.back(),
-                     [&routeBuilded](Route const &, IRouter::ResultCode)
+                     [&routeBuilt, &waitingMutex, &cv](Route const &, IRouter::ResultCode)
                      {
-                       routeBuilded = true;
+                       lock_guard<mutex> guard(waitingMutex);
+                       routeBuilt = true;
+                       cv.notify_one();
                      },
                      nullptr, 0);
   // Manual check of the routeBuilded mutex to avoid spurious results.
-  auto time = steady_clock::now() + kTestMaxDuration;
-  while (steady_clock::now() < time  && !routeBuilded)
-  {
-  }
-  TEST(routeBuilded, ("Route was not built."));
+  auto const time = steady_clock::now() + kRouteBuildingMaxDuration;
+  cv.wait_until(lock, time, [&routeBuilt, &time]{return routeBuilt || steady_clock::now() > time;});
+  TEST(routeBuilt, ("Route was not built."));
   TEST_EQUAL(counter, 1, ());
 }
 
@@ -77,10 +80,15 @@ UNIT_TEST(TestRouteRebuilding)
   vector<m2::PointD> routePoints = kTestRoute;
   Route masterRoute("dummy", routePoints.begin(), routePoints.end());
   size_t counter = 0;
-  atomic<bool> routeBuilded(false);
-  auto fn = [&routeBuilded](Route const &, IRouter::ResultCode)
+  bool routeBuilt(false);
+  mutex waitingMutex;
+  unique_lock<mutex> lock(waitingMutex);
+  condition_variable cv;
+  auto fn = [&routeBuilt, &waitingMutex, &cv](Route const &, IRouter::ResultCode)
             {
-              routeBuilded = true;
+              lock_guard<mutex> guard(waitingMutex);
+              routeBuilt = true;
+              cv.notify_one();
             };
   unique_ptr<DummyRouter> router = make_unique<DummyRouter>(masterRoute, DummyRouter::NoError, counter);
   session.SetRouter(move(router), nullptr);
@@ -88,11 +96,9 @@ UNIT_TEST(TestRouteRebuilding)
   // Go along the route.
   session.BuildRoute(kTestRoute.front(), kTestRoute.back(), fn, nullptr, 0);
   // Manual check of the routeBuilded mutex to avoid spurious results.
-  auto time = steady_clock::now() + kTestMaxDuration;
-  while (steady_clock::now() < time  && !routeBuilded)
-  {
-  }
-  TEST(routeBuilded, ("Route was not built."));
+  auto time = steady_clock::now() + kRouteBuildingMaxDuration;
+  cv.wait_until(lock, time, [&routeBuilt, &time]{return routeBuilt || steady_clock::now() > time;});
+  TEST(routeBuilt, ("Route was not built."));
 
   location::GpsInfo info;
   info.m_horizontalAccuracy = 0.01;
@@ -110,13 +116,12 @@ UNIT_TEST(TestRouteRebuilding)
   TEST_EQUAL(counter, 1, ());
 
   // Rebuild route and go in opposite direction. So initiate a route rebuilding flag.
+  time = steady_clock::now() + kRouteBuildingMaxDuration;
   counter = 0;
-  routeBuilded = false;
+  routeBuilt = false;
   session.BuildRoute(kTestRoute.front(), kTestRoute.back(), fn, nullptr, 0);
-  while (steady_clock::now() < time  && !routeBuilded)
-  {
-  }
-  TEST(routeBuilded, ("Route was not built."));
+  cv.wait_until(lock, time, [&routeBuilt, &time]{return routeBuilt || steady_clock::now() > time;});
+  TEST(routeBuilt, ("Route was not built."));
 
   info.m_longitude = 0.;
   info.m_latitude = 1.;
