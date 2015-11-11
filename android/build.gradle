@@ -47,7 +47,7 @@ def getDate() {
   return formattedDate
 }
 
-project.ext.versionCodes = ['armeabi-v7a':1, 'x86':2]
+project.ext.versionCodes = ['armeabi-v7a': 1, 'x86': 2]
 
 android {
   // All properties are read from gradle.properties file
@@ -270,73 +270,46 @@ android {
   }
 }
 
-//@{ Below are tasks needed to compile our NDK part
+// Tasks needed to compile NDK part
 apply plugin: 'base'
 
-task cppLibsBuildDebug(type: Exec, description: 'Building DEBUG version of static C++ libraries') {
-  commandLine 'bash', '../tools/autobuild/android.sh', 'debug'
-}
-
-task cppLibsBuildDebugArm(type: Exec, description: 'Building DEBUG version of static C++ libraries (ARM only)') {
-  commandLine 'bash', '../tools/autobuild/android.sh', 'debug', 'armeabi-v7a-hard'
-}
-
-task cppLibsBuildDebugIntel(type: Exec, description: 'Building DEBUG version of static C++ libraries (x86 only)') {
-  commandLine 'bash', '../tools/autobuild/android.sh', 'debug', 'x86'
-}
-
-task cppLibsBuildRelease(type: Exec, description: 'Building RELEASE/PRODUCTION version of static C++ libraries') {
-  commandLine 'bash', '../tools/autobuild/android.sh', 'production'
-}
-
-task cppLibsBuildReleaseArm(type: Exec, description: 'Building RELEASE/PRODUCTION version of static C++ libraries (ARM only)') {
-  commandLine 'bash', '../tools/autobuild/android.sh', 'production', 'armeabi-v7a-hard'
-}
-
-task cppLibsBuildReleaseIntel(type: Exec, description: 'Building RELEASE/PRODUCTION version of static C++ libraries (x86 only)') {
-  commandLine 'bash', '../tools/autobuild/android.sh', 'production', 'x86'
-}
-
-def PARAM_PARALLEL_TASK_COUNT = '-j' + (Runtime.runtime.availableProcessors() + 1)
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-def NDK_BUILD = properties.getProperty('ndk.dir') + '/ndk-build'
-
+project.ext.PARAM_PARALLEL_TASK_COUNT = '-j' + (Runtime.runtime.availableProcessors() + 1)
+project.ext.NDK_BUILD = android.getNdkDirectory().toString() + '/ndk-build'
 if (System.properties['os.name'].toLowerCase().contains('windows'))
-  NDK_BUILD += ".cmd"
+  project.ext.NDK_BUILD += ".cmd"
 
-task ndkBuildDebug(type: Exec, dependsOn: 'cppLibsBuildDebug', description: 'Building DEBUG jni sources') {
-  def clArgs = ([NDK_BUILD, PARAM_PARALLEL_TASK_COUNT] + propDebugNdkFlags.split(' ')).flatten()
-  commandLine clArgs
+def archs = ['x86', 'armeabi-v7a-hard']
+def buildTypes = [[ndkType: 'release', cppType: "production", flags : propReleaseNdkFlags], [ndkType: 'debug', cppType: "debug", flags : propDebugNdkFlags]]
+
+buildTypes.each { type ->
+  def suffix = type.ndkType.capitalize()
+  createCppBuildTask(type.cppType, '', suffix)
+  createNdkBuildTask(type.ndkType, '', suffix, type.flags)
+
+  archs.each { arch ->
+    suffix = type.ndkType.capitalize() + arch.capitalize()
+    createCppBuildTask(type.cppType, arch, suffix)
+    createNdkBuildTask(type.ndkType, arch, suffix, type.flags)
+  }
 }
 
-task ndkBuildDebugArm(type: Exec, dependsOn: 'cppLibsBuildDebugArm', description: 'Building DEBUG jni sources (ARM only)') {
-  def clArgs = ([NDK_BUILD, PARAM_PARALLEL_TASK_COUNT, 'NDK_ABI_TO_BUILD=armeabi-v7a-hard'] + propDebugNdkFlags.split(' ')).flatten()
-  commandLine clArgs
+def createCppBuildTask(buildType, arch, suffix) {
+  return tasks.create(name: "cppBuild${suffix}", type: Exec, description: "Building ${buildType} version of static C++ libraries. Arch : ${arch}") {
+    commandLine 'bash', '../tools/autobuild/android.sh', buildType, arch
+  }
 }
 
-task ndkBuildDebugIntel(type: Exec, dependsOn: 'cppLibsBuildDebugIntel', description: 'Building DEBUG jni sources (x86 only)') {
-  def clArgs = ([NDK_BUILD, PARAM_PARALLEL_TASK_COUNT, 'NDK_ABI_TO_BUILD=x86'] + propDebugNdkFlags.split(' ')).flatten()
-  commandLine clArgs
+def createNdkBuildTask(buildType, arch, suffix, flags) {
+  return tasks.create(name: "ndkBuild${suffix}", dependsOn: "cppBuild${suffix}", type: Exec, description: "Building ${buildType} version of jni. Arch : ${arch}") {
+    def ndkParams = ([project.ext.NDK_BUILD, project.ext.PARAM_PARALLEL_TASK_COUNT] + flags.split(' ')).flatten()
+    if (!arch.isEmpty())
+      ndkParams += "NDK_ABI_TO_BUILD=${arch}"
+    commandLine ndkParams
+  }
 }
 
-task ndkBuildRelease(type: Exec, dependsOn: 'cppLibsBuildRelease', description: 'Building RELEASE/PRODUCTION jni sources') {
-  def clArgs = ([NDK_BUILD, PARAM_PARALLEL_TASK_COUNT] + propReleaseNdkFlags.split(' ')).flatten()
-  commandLine clArgs
-}
-
-task ndkBuildReleaseArm(type: Exec, dependsOn: 'cppLibsBuildReleaseArm', description: 'Building RELEASE/PRODUCTION jni sources (ARM only)') {
-  def clArgs = ([NDK_BUILD, PARAM_PARALLEL_TASK_COUNT, 'NDK_ABI_TO_BUILD=armeabi-v7a-hard'] + propReleaseNdkFlags.split(' ')).flatten()
-  commandLine clArgs
-}
-
-task ndkBuildReleaseIntel(type: Exec, dependsOn: 'cppLibsBuildReleaseIntel', description: 'Building RELEASE/PRODUCTION jni sources (x86 only)') {
-  def clArgs = ([NDK_BUILD, PARAM_PARALLEL_TASK_COUNT, 'NDK_ABI_TO_BUILD=x86'] + propReleaseNdkFlags.split(' ')).flatten()
-  commandLine clArgs
-}
-
-task ndkBuildClean(type: Exec, description: 'Clean native libraries') {
-  commandLine NDK_BUILD, 'clean'
+task ndkBuildClean(type: Exec, description: 'Clean native jni libraries') {
+  commandLine project.ext.NDK_BUILD, 'clean'
 }
 
 tasks.withType(JavaCompile) { compileTask ->
@@ -349,7 +322,7 @@ tasks.withType(JavaCompile) { compileTask ->
 
 clean.dependsOn ndkBuildClean
 
-// tasks for generating obb files for Google Play
+// Tasks for generating obb files for Google Play
 task obbClean(type: Exec) {
   def obbOutput = 'build/distributions/';
   commandLine 'rm', '-rf', obbOutput
@@ -368,7 +341,7 @@ task obbGenerate() {
   createObbGenerateTask('Patch', worlds, 'worlds')
 
   createObbAlignTask('Main', 'build/distributions/fonts.obb', 'build/distributions/fonts_aligned.obb')
-  createObbAlignTask('Patch','build/distributions/worlds.obb','build/distributions/worlds_aligned.obb')
+  createObbAlignTask('Patch', 'build/distributions/worlds.obb', 'build/distributions/worlds_aligned.obb')
 }
 
 obbGenerate.dependsOn obbClean, obbMainGenerate, obbPatchGenerate, obbMainAlign, obbPatchAlign
