@@ -146,6 +146,11 @@ string FeatureParamsBase::DebugString() const
           (!ref.empty() ? " Ref:" + ref : ""));
 }
 
+bool FeatureParamsBase::IsEmptyNames() const
+{
+  return name.IsEmpty() && house.IsEmpty() && ref.empty();
+}
+
 namespace
 {
 

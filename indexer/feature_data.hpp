@@ -131,8 +131,8 @@ struct FeatureParamsBase
   bool operator == (FeatureParamsBase const & rhs) const;
 
   bool CheckValid() const;
-
   string DebugString() const;
+  bool IsEmptyNames() const;
 
   template <class TSink>
   void Write(TSink & sink, uint8_t header) const

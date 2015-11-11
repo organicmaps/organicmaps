@@ -179,3 +179,30 @@ UNIT_TEST(FBuilder_WithoutName)
     TEST(!fb.RemoveInvalidTypes(), ());
   }
 }
+
+UNIT_TEST(FBuilder_PointAddress)
+{
+  classificator::Load();
+
+  char const * arr[][2] = {
+    { "addr:housenumber", "39/79" }
+  };
+
+  OsmElement e;
+  FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+  FeatureParams params;
+  ftype::GetNameAndType(&e, params);
+
+  TEST_EQUAL(params.m_Types.size(), 1, ());
+  TEST(params.IsTypeExist(GetType({"building", "address"})), ());
+  TEST_EQUAL(params.house.Get(), "39/79", ());
+
+  FeatureBuilder1 fb;
+  fb.SetParams(params);
+  fb.SetCenter(m2::PointD(0, 0));
+
+  TEST(fb.PreSerialize(), ());
+  TEST(fb.RemoveInvalidTypes(), ());
+  TEST(fb.CheckValid(), ());
+}
