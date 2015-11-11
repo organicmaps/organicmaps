@@ -47,6 +47,8 @@ def getDate() {
   return formattedDate
 }
 
+project.ext.versionCodes = ['armeabi-v7a':1, 'x86':2]
+
 android {
   // All properties are read from gradle.properties file
   compileSdkVersion propTargetSdkVersion.toInteger()
@@ -176,13 +178,11 @@ android {
   // Currently (as of 1.2.3 gradle plugin) ABI filters aren't supported inside of product flavors, so we cannot generate splitted builds only for Google build.
   // TODO check that feature when new gradle plugins will appear
   // connected bugreport https://code.google.com/p/android/issues/detail?id=178606
-  splits {
-    abi {
-      enable true
-      reset()
-      include 'x86', 'armeabi-v7a'
-      universalApk true
-    }
+  splits.abi {
+    enable true
+    reset()
+    include 'x86', 'armeabi-v7a'
+    universalApk true
   }
 
   // TODO: Fix a lot of lint errors in our code
@@ -199,6 +199,17 @@ android {
         def component = "$applicationId/com.mapswithme.maps.DownloadResourcesActivity"
         executable "sh"
         args "-c", "adb shell am start -n ${component}"
+      }
+
+      variant.outputs.each { output ->
+        if (output.outputFile != null && output.outputFile.name.endsWith('.apk')) {
+          def file = output.outputFile
+          // version at the end of each built apk
+          output.outputFile = new File(file.parent, file.name.replace(".apk", "-" + android.defaultConfig.versionName + "-" + getDate() + ".apk"))
+          // set different versionCodes for different ABIs
+          int abiVersionCode = project.ext.versionCodes.get(output.getFilter(com.android.build.OutputFile.ABI)) ?: 0
+          output.versionCodeOverride = (abiVersionCode * 1000) + android.defaultConfig.versionCode
+        }
       }
     }
   }
@@ -256,22 +267,6 @@ android {
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_7
     targetCompatibility JavaVersion.VERSION_1_7
-  }
-}
-
-import com.android.build.OutputFile
-project.ext.versionCodes = ['armeabi-v7a':1, 'x86':2]
-
-android.applicationVariants.all { variant ->
-  variant.outputs.each { output ->
-    if (output.outputFile != null && output.outputFile.name.endsWith('.apk')) {
-      def file = output.outputFile
-      // version at the end of each built apk
-      output.outputFile = new File(file.parent, file.name.replace(".apk", "-" + android.defaultConfig.versionName + "-" + getDate() + ".apk"))
-      // set different versionCodes for different ABIs
-      int abiVersionCode = project.ext.versionCodes.get(output.getFilter(OutputFile.ABI)) ?: 0
-      output.versionCodeOverride = (abiVersionCode * 1000) + android.defaultConfig.versionCode
-    }
   }
 }
 
@@ -352,4 +347,48 @@ tasks.withType(JavaCompile) { compileTask ->
   }
 }
 
-clean.dependsOn 'ndkBuildClean'
+clean.dependsOn ndkBuildClean
+
+// tasks for generating obb files for Google Play
+task obbClean(type: Exec) {
+  def obbOutput = 'build/distributions/';
+  commandLine 'rm', '-rf', obbOutput
+}
+
+def fonts = ['../data/01_dejavusans.ttf',
+             '../data/02_droidsans-fallback.ttf',
+             '../data/03_jomolhari-id-a3d.ttf',
+             '../data/04_padauk.ttf',
+             '../data/05_khmeros.ttf',
+             '../data/06_code2000.ttf']
+def worlds = ['../data/World.mwm', '../data/WorldCoasts.mwm']
+
+task obbGenerate() {
+  createObbGenerateTask('Main', fonts, 'fonts')
+  createObbGenerateTask('Patch', worlds, 'worlds')
+
+  createObbAlignTask('Main', 'build/distributions/fonts.obb', 'build/distributions/fonts_aligned.obb')
+  createObbAlignTask('Patch','build/distributions/worlds.obb','build/distributions/worlds_aligned.obb')
+}
+
+obbGenerate.dependsOn obbClean, obbMainGenerate, obbPatchGenerate, obbMainAlign, obbPatchAlign
+
+def createObbGenerateTask(type, data, name) {
+  return tasks.create(name: "obb${type}Generate", type: Zip, description: 'Generate obb files') {
+    from data
+    into 'build'
+    baseName name
+    extension 'obb'
+    entryCompression ZipEntryCompression.STORED
+  }
+}
+
+def createObbAlignTask(type, rawObb, alignedObb) {
+  def sdkDir = "${android.getSdkDirectory().getAbsolutePath()}"
+  def zipalignPath = sdkDir + File.separator + "build-tools" + File.separator +
+                     propBuildToolsVersion + File.separator + "zipalign";
+
+  return tasks.create(name: "obb${type}Align", dependsOn: "obb${type}Generate", type: Exec, description: 'Align obb files') {
+    commandLine zipalignPath, '-v', '8', rawObb, alignedObb
+  }
+}
