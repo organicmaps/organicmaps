@@ -19,7 +19,7 @@ public:
   void SetDefaultContext(dp::OGLContext * context);
   void SetSize(uint32_t width, uint32_t height);
 
-  int32_t GetMaxSize() const;
+  int32_t GetMaxSize();
 
   void Enable();
   void Disable();
@@ -38,7 +38,7 @@ private:
 
   dp::OGLContext * m_defaultContext = 0;
 
-  int32_t const m_maxTextureSize;
+  int32_t m_maxTextureSize = 0;
 };
 
 }  // namespace df

@@ -46,16 +46,22 @@ void Renderer3d::Build(ref_ptr<dp::GpuProgram> prg)
   GLFunctions::glBindVertexArray(m_VAO);
 
   int8_t attributeLocation = prg->GetAttributeLocation("a_pos");
-  assert(attributeLocation != -1);
+  ASSERT_NOT_EQUAL(attributeLocation, -1, ());
   GLFunctions::glEnableVertexAttribute(attributeLocation);
   GLFunctions::glVertexAttributePointer(attributeLocation, 2, gl_const::GLFloatType, false,
                                         sizeof(float) * 4, 0);
 
   attributeLocation = prg->GetAttributeLocation("a_tcoord");
-  assert(attributeLocation != -1);
+  ASSERT_NOT_EQUAL(attributeLocation, -1, ());
   GLFunctions::glEnableVertexAttribute(attributeLocation);
   GLFunctions::glVertexAttributePointer(attributeLocation, 2, gl_const::GLFloatType, false,
                                         sizeof(float) * 4, sizeof(float) * 2);
+
+  GLFunctions::glBufferData(gl_const::GLArrayBuffer, m_vertices.size() * sizeof(m_vertices[0]),
+                            m_vertices.data(), gl_const::GLStaticDraw);
+
+  GLFunctions::glBindVertexArray(0);
+  GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
 }
 
 void Renderer3d::Render(ScreenBase const & screen, uint32_t textureId, ref_ptr<dp::GpuProgramManager> mng)
@@ -80,9 +86,6 @@ void Renderer3d::Render(ScreenBase const & screen, uint32_t textureId, ref_ptr<d
   GLFunctions::glBindTexture(textureId);
   GLFunctions::glBindBuffer(m_bufferId, gl_const::GLArrayBuffer);
   GLFunctions::glBindVertexArray(m_VAO);
-
-  GLFunctions::glBufferData(gl_const::GLArrayBuffer, m_vertices.size() * sizeof(m_vertices[0]),
-                            m_vertices.data(), gl_const::GLStaticDraw);
 
   GLFunctions::glViewport(0, 0, m_width, m_height);
   GLFunctions::glClear();
