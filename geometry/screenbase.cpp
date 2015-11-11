@@ -255,8 +255,8 @@ void ScreenBase::ExtractGtoPParams(MatrixT const & m,
 }
 
 // Place the camera at the distance, where it gives the same view of plane as the
-// orthogonal projection does. Calculate the expanded area of the visible map plane
-// after rotation through maxRotationAngle around its near horizontal side.
+// orthogonal projection does. Calculate what part of the map would be visible,
+// when it is rotated through maxRotationAngle around its near horizontal side.
 void ScreenBase::ApplyPerspective(double currentRotationAngle, double maxRotationAngle, double angleFOV)
 {
   ASSERT_NOT_EQUAL(angleFOV, 0.0, ());

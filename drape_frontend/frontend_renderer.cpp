@@ -397,8 +397,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::FollowRoute:
     {
-      ref_ptr<FollowRouteMessage> msg = message;
-      m_myPositionController->NextMode(msg->GetPreferredZoomLevel());
+      ref_ptr<FollowRouteMessage> const msg = message;
+      m_myPositionController->NextMode(!m_enable3dInNavigation ? msg->GetPreferredZoomLevel()
+                                                               : msg->GetPreferredZoomLevelIn3d());
       if (m_enable3dInNavigation)
         AddUserEvent(Enable3dModeEvent(msg->GetRotationAngle(), msg->GetAngleFOV()));
       break;
