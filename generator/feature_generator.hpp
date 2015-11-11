@@ -38,6 +38,8 @@ public:
   FeaturesCollector(string const & fName);
   virtual ~FeaturesCollector();
 
+  string const & GetFilePath() const { return m_datFile.GetName(); }
+
   virtual void operator()(FeatureBuilder1 const & f);
 };
 
