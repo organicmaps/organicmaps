@@ -413,6 +413,20 @@ public class RoutingController
       build();
   }
 
+  private boolean setStartFromMyPosition()
+  {
+    Log.d(TAG, "setStartFromMyPosition");
+
+    MapObject my = LocationHelper.INSTANCE.getMyPosition();
+    if (my == null)
+    {
+      Log.d(TAG, "setStartFromMyPosition: no my position - skip");
+      return false;
+    }
+
+    return setStartPoint(my);
+  }
+
   @SuppressWarnings("Duplicates")
   public boolean setStartPoint(MapObject point)
   {
@@ -448,6 +462,9 @@ public class RoutingController
 
     if (MapObject.same(mEndPoint, point))
     {
+      if (mStartPoint == null)
+        return setStartFromMyPosition();
+
       Log.d(TAG, "setEndPoint: skip the same end point");
       return false;
     }
@@ -465,6 +482,10 @@ public class RoutingController
     }
 
     mEndPoint = point;
+
+    if (mStartPoint == null)
+      return setStartFromMyPosition();
+
     checkAndBuildRoute();
     return true;
   }
