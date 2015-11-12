@@ -9,10 +9,8 @@ ROOT_DIR = ../..
 DEPENDENCIES = generator routing search storage stats_client jansson indexer platform geometry coding base \
                tess2 protobuf tomcrypt
 
-!linux* {
-  DEPENDENCIES += opening_hours \
+DEPENDENCIES += opening_hours \
 
-}
 
 include($$ROOT_DIR/common.pri)
 

@@ -5,17 +5,11 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 DEPENDENCIES = indexer platform geometry coding base protobuf tomcrypt
-!linux {
 DEPENDENCIES += opening_hours
-}
 
 include($$ROOT_DIR/common.pri)
 
 QT *= core
-
-!linux {
-SOURCES += opening_hours_test.cpp
-}
 
 HEADERS += \
     test_mwm_set.hpp \

@@ -16,10 +16,7 @@
 #include "base/string_utils.hpp"
 #include "base/logging.hpp"
 
-#ifndef OMIM_OS_LINUX
-// Lib opening_hours is not built for Linux since stdlib doesn't have required functions.
-#include "3party/opening_hours/osm_time_range.hpp"
-#endif
+#include "3party/opening_hours/opening_hours.hpp"
 
 
 namespace search
@@ -37,12 +34,18 @@ void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
 
   meta.m_cuisine = src.Get(feature::Metadata::FMD_CUISINE);
 
-#ifndef OMIM_OS_LINUX
-  // Lib opening_hours is not built for Linux since stdlib doesn't have required functions.
   string const openHours = src.Get(feature::Metadata::FMD_OPEN_HOURS);
   if (!openHours.empty())
-    meta.m_isClosed = OSMTimeRange(openHours)(time(nullptr)).IsClosed();
-#endif
+  {
+    osmoh::OpeningHours oh(openHours);
+
+    // TODO(mgsergio): Switch to three-stated model instead of two-staed
+    // I.e. set unknown if we can't parse or can't answer whether it's open.
+    if (oh.IsValid())
+     meta.m_isClosed = oh.IsClosed(time(nullptr));
+    else
+      meta.m_isClosed = false;
+  }
 
   meta.m_stars = 0;
   (void) strings::to_int(src.Get(feature::Metadata::FMD_STARS), meta.m_stars);

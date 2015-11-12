@@ -1,4 +1,4 @@
-# This subproject implements integration tests. 
+# This subproject implements integration tests.
 # This tests are launched on the whole world dataset.
 
 # It is recommended to place tests here in the following cases:
@@ -13,10 +13,7 @@ TEMPLATE = app
 ROOT_DIR = ../..
 DEPENDENCIES = map routing search storage indexer platform geometry coding base osrm jansson protobuf tomcrypt succinct stats_client
 
-# this dependency is not built on Linux
-!linux* {
-  DEPENDENCIES += opening_hours
-}
+DEPENDENCIES += opening_hours
 
 macx-*: LIBS *= "-framework IOKit" "-framework SystemConfiguration"
 

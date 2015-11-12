@@ -4,14 +4,22 @@
 #
 #-------------------------------------------------
 
-ROOT_DIR = ../..
 
 TARGET = opening_hours
 TEMPLATE = lib
 CONFIG += staticlib
 
+ROOT_DIR = ../..
+
 include($$ROOT_DIR/common.pri)
 
-SOURCES += osm_time_range.cpp
+HEADERS += opening_hours.hpp \
+           opening_hours_parsers.hpp \
+           opening_hours_parsers_terminals.hpp \
+           parse_opening_hours.hpp \
+           rules_evaluation_private.hpp \
+           rules_evaluation.hpp
 
-HEADERS += osm_time_range.hpp
+SOURCES += rules_evaluation.cpp \
+           opening_hours.cpp \
+           parse_opening_hours.cpp

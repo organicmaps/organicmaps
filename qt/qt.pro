@@ -4,10 +4,7 @@ DEPENDENCIES = map render gui routing search storage indexer graphics platform a
                freetype expat fribidi tomcrypt jansson protobuf osrm stats_client minizip succinct
 
 
-!linux* {
-  DEPENDENCIES += opening_hours \
-
-}
+DEPENDENCIES += opening_hours \
 
 drape {
   DEPENDENCIES *= drape_frontend drape
