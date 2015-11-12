@@ -1,4 +1,3 @@
-
 #import "SettingsViewController.h"
 #import "SwitchCell.h"
 #import "SelectableCell.h"
@@ -8,6 +7,7 @@
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
 #import "MWMMapViewControlsManager.h"
+#import "MWMTextToSpeech.h"
 
 #include "Framework.h"
 
@@ -16,14 +16,16 @@
 #include "platform/preferred_languages.hpp"
 
 extern char const * kStatisticsEnabledSettingsKey;
+extern NSString * const kTTSStatusWasChangedNotification = @"TTFStatusWasChangedFromSettingsNotification";
 
 typedef NS_ENUM(NSUInteger, Section)
 {
   SectionMetrics,
   SectionZoomButtons,
+  SectionRouting,
   SectionCalibration,
   SectionStatistics,
-  SectionCount
+  SectionCount // Must be latest value!
 };
 
 @interface SettingsViewController () <SwitchCellDelegate>
@@ -60,7 +62,7 @@ typedef NS_ENUM(NSUInteger, Section)
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  if (section == SectionMetrics)
+  if (section == SectionMetrics || section == SectionRouting)
     return 2;
   else
     return 1;
@@ -110,7 +112,23 @@ typedef NS_ENUM(NSUInteger, Section)
     customCell.titleLabel.text = L(@"pref_calibration_title");
     customCell.delegate = self;
   }
-
+  else if (indexPath.section == SectionRouting)
+  {
+    if (indexPath.row == 0)
+    {
+      cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
+      SwitchCell * customCell = (SwitchCell *)cell;
+      customCell.switchButton.on = [[MWMTextToSpeech tts] isNeedToEnable];
+      customCell.titleLabel.text = L(@"pref_tts_enable_title");
+      customCell.delegate = self;
+    }
+    else
+    {
+      cell = [tableView dequeueReusableCellWithIdentifier:[LinkCell className]];
+      LinkCell * customCell = (LinkCell *)cell;
+      customCell.titleLabel.text = L(@"pref_tts_language_title");
+    }
+  }
   return cell;
 }
 
@@ -144,6 +162,13 @@ typedef NS_ENUM(NSUInteger, Section)
   {
     Settings::Set("CompassCalibrationEnabled", (bool)value);
   }
+  else if (indexPath.section == SectionRouting)
+  {
+    [[MWMTextToSpeech tts] setNeedToEnable:value];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kTTSStatusWasChangedNotification
+                                                        object:nil
+                                                      userInfo:@{@"on" : @(value)}];
+  }
 }
 
 Settings::Units unitsForIndex(NSInteger index)
@@ -166,6 +191,8 @@ Settings::Units unitsForIndex(NSInteger index)
 {
   if (section == SectionMetrics)
     return L(@"measurement_units");
+  else if (section == SectionRouting)
+    return L(@"prefs_group_route");
   else
     return nil;
 }

@@ -37,7 +37,6 @@
 #pragma mark - MWMNavigationDashboardManager
 
 - (void)setupRoutingDashboard:(location::FollowingInfo const &)info;
-- (void)playTurnNotifications;
 - (void)routingHidden;
 - (void)routingReady;
 - (void)routingPrepare;

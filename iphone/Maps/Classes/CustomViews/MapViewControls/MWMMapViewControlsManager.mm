@@ -322,11 +322,6 @@ extern NSString * const kAlohalyticsTapEventKey;
     [self.menuController setStreetName:@(info.m_sourceName.c_str())];
 }
 
-- (void)playTurnNotifications
-{
-  [self.navigationManager playTurnNotifications];
-}
-
 - (void)handleRoutingError
 {
   self.navigationManager.state = MWMNavigationDashboardStateError;

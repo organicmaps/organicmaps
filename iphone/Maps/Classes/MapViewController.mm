@@ -6,6 +6,7 @@
 #import "MWMAPIBar.h"
 #import "MWMMapViewControlsManager.h"
 #import "RouteState.h"
+#import "MWMTextToSpeech.h"
 #import "UIFont+MapsMeFonts.h"
 #import "UIViewController+Navigation.h"
 
@@ -143,7 +144,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   if (res.IsValid())
     [self.controlsManager setupRoutingDashboard:res];
   
-  [self.controlsManager playTurnNotifications];
+  [[MWMTextToSpeech tts] playTurnNotifications];
 }
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info

@@ -32,7 +32,6 @@ static NSString * const kNavigationDashboardIPADXibName = @"MWMNiPadNavigationDa
 @property (weak, nonatomic) UIView * ownerView;
 
 @property (nonatomic) MWMNavigationDashboardEntity * entity;
-@property (nonatomic) MWMTextToSpeech * tts;
 //@property (nonatomic) MWMLanesPanel * lanesPanel;
 @property (nonatomic) MWMNextTurnPanel * nextTurnPanel;
 @property (nonatomic) MWMRouteHelperPanelsDrawer * drawer;
@@ -78,10 +77,24 @@ static NSString * const kNavigationDashboardIPADXibName = @"MWMNiPadNavigationDa
       _navigationDashboard = isPortrait ? _navigationDashboardPortrait : _navigationDashboardLandscape;
       _navigationDashboardPortrait.delegate = _navigationDashboardLandscape.delegate = delegate;
     }
-    _tts = [[MWMTextToSpeech alloc] init];
     _helperPanels = [NSMutableArray array];
   }
   return self;
+}
+
+- (void)changedTTSStatus:(NSNotification *)notification
+{
+  if (self.state != MWMNavigationDashboardStateNavigation)
+    return;
+  NSDictionary<NSString *, NSNumber *> * userInfo = notification.userInfo;
+  BOOL const enabled = userInfo[@"on"].boolValue;
+  self.navigationDashboardPortrait.soundButton.selected = enabled;
+  self.navigationDashboardLandscape.soundButton.selected = enabled;
+}
+
+- (void)dealloc
+{
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Layout
@@ -142,12 +155,6 @@ static NSString * const kNavigationDashboardIPADXibName = @"MWMNiPadNavigationDa
   [self updateDashboard];
 }
 
-- (void)playTurnNotifications
-{
-  if (self.state == MWMNavigationDashboardStateNavigation)
-    [self.tts playTurnNotifications];
-}
-
 - (void)handleError
 {
   [self.routePreview stateError];
@@ -192,10 +199,7 @@ static NSString * const kNavigationDashboardIPADXibName = @"MWMNiPadNavigationDa
       return;
     case 1:
       if (![self.helperPanels.firstObject isKindOfClass:panel.class])
-      {
         [self.helperPanels addObject:panel];
-        return;
-      }
       return;
     case 2:
       for (MWMRouteHelperPanel * p in self.helperPanels)
@@ -272,6 +276,17 @@ static NSString * const kNavigationDashboardIPADXibName = @"MWMNiPadNavigationDa
   [self.delegate didCancelRouting];
 }
 
+- (IBAction)soundTap:(UIButton *)sender
+{
+  BOOL const isEnable = !sender.selected;
+  MWMTextToSpeech * tts = [MWMTextToSpeech tts];
+  if (isEnable)
+    [tts enable];
+  else
+    [tts disable];
+  sender.selected = isEnable;
+}
+
 #pragma mark - MWMNavigationGo
 
 - (IBAction)navigationGoPressed:(UIButton *)sender
@@ -316,6 +331,13 @@ static NSString * const kNavigationDashboardIPADXibName = @"MWMNiPadNavigationDa
 - (void)showStateNavigation
 {
   [self.routePreview remove];
+  MWMTextToSpeech * tts = [MWMTextToSpeech tts];
+  BOOL const isNeedToEnable = tts.isNeedToEnable;
+  self.navigationDashboardPortrait.soundButton.selected = isNeedToEnable;
+  self.navigationDashboardLandscape.soundButton.selected = isNeedToEnable;
+  if (isNeedToEnable) {
+    [tts enable];
+  }
   [self.navigationDashboard addToView:self.ownerView];
 }
 
