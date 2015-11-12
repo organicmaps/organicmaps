@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
-import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,16 +30,16 @@ public class MainMenu
 {
   public enum State
   {
-    MENU,
-    NAVIGATION,
-    ROUTE_PREPARE
+    MENU
+    {
+      @Override
+      boolean showToggle()
       {
-        @Override
-        boolean showToggle()
-        {
-          return false;
-        }
-      };
+        return false;
+      }
+    },
+    NAVIGATION,
+    ROUTE_PREPARE;
 
     boolean showToggle()
     {
@@ -48,11 +47,8 @@ public class MainMenu
     }
   }
 
-
   private static final int ANIMATION_DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_menu);
   private static final String TAG_COLLAPSE = MwmApplication.get().getString(R.string.tag_menu_collapse);
-  private static final String STATE_OPEN = "MenuOpen";
-  private static final String STATE_LAST_INFO = "MenuLastInfo";
 
   private final int mButtonsWidth = UiUtils.dimen(R.dimen.menu_line_button_width);
   private final int mPanelWidth = UiUtils.dimen(R.dimen.panel_width);
@@ -72,7 +68,6 @@ public class MainMenu
   private final TextView mNewsCounter;
 
   private boolean mCollapsed;
-  private boolean mOpenDelayed;
   private final List<View> mCollapseViews = new ArrayList<>();
 
   private final MyPositionButton mMyPositionButton;
@@ -105,7 +100,7 @@ public class MainMenu
          .start();
       }
 
-      mToggle.animateCollapse(!collapsed);
+      mToggle.setCollapsed(!collapsed, true);
 
       mSymmetricalGapScale = (float) mButtonsWidth / mPanelWidth;
     }
@@ -124,14 +119,14 @@ public class MainMenu
     @Override
     public void onTrackLeftAnimation(float offset)
     {
-      LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mAnimationSpacer.getLayoutParams();
+      ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) mAnimationSpacer.getLayoutParams();
       lp.rightMargin = (int) offset;
       mAnimationSpacer.setLayoutParams(lp);
 
       if (mAnimationSymmetricalGap == null)
         return;
 
-      lp = (LinearLayout.LayoutParams) mAnimationSymmetricalGap.getLayoutParams();
+      lp = (ViewGroup.MarginLayoutParams) mAnimationSymmetricalGap.getLayoutParams();
       lp.width = mButtonsWidth - (int) (mSymmetricalGapScale * offset);
       mAnimationSymmetricalGap.setLayoutParams(lp);
     }
@@ -211,15 +206,15 @@ public class MainMenu
       mCollapseImage.setCrossFadeEnabled(true);
     }
 
-    public void setState(State state)
+    public void setState(State state, boolean animate)
     {
       UiUtils.showIf(mAlwaysShow || state.showToggle(), mButton);
-      animateCollapse(mCollapsed);
+      setCollapsed(mCollapsed, animate);
     }
 
     private void transitImage(TransitionDrawable image, boolean forward, boolean animate)
     {
-      if (mButton.getVisibility() != View.VISIBLE)
+      if (!UiUtils.isVisible(mButton))
         animate = false;
 
       mButton.setImageDrawable(image);
@@ -233,22 +228,16 @@ public class MainMenu
         image.getDrawable(forward ? 1 : 0).setAlpha(0xFF);
     }
 
-    public void updateOpenImageNoAnimation(boolean open)
+    public void setOpen(boolean open, boolean animate)
     {
-      transitImage(mOpenImage, open, false);
+      transitImage(mOpenImage, open, animate);
     }
 
-    public void animateOpen(boolean open)
+    public void setCollapsed(boolean collapse, boolean animate)
     {
-      transitImage(mOpenImage, open, true);
-    }
-
-    public void animateCollapse(boolean collapse)
-    {
-      transitImage(mCollapseImage, collapse, true);
+      transitImage(mCollapseImage, collapse, animate);
     }
   }
-
 
   private View mapItem(final Item item, View frame)
   {
@@ -300,7 +289,7 @@ public class MainMenu
 
   private boolean isLayoutCorrected()
   {
-    return (mFrame.getVisibility() == View.VISIBLE);
+    return UiUtils.isVisible(mFrame);
   }
 
   private void correctLayout()
@@ -315,12 +304,7 @@ public class MainMenu
       {
         mContentHeight = height;
 
-        if (mOpenDelayed)
-          open(false);
-        else
-          UiUtils.hide(mContentFrame);
-
-        mOpenDelayed = false;
+        UiUtils.hide(mContentFrame);
         UiUtils.show(mFrame);
       }
     });
@@ -341,45 +325,6 @@ public class MainMenu
     correctLayout();
     updateMarker();
   }
-
-  public void onSaveState(Bundle state)
-  {
-    if (isOpen())
-      state.putBoolean(STATE_OPEN, true);
-
-    state.putString(STATE_LAST_INFO, mCurrentPlace.getText().toString());
-  }
-
-  /*private void restoreState(RoutingController.State routingState)
-  {
-    State state;
-    switch (routingState)
-    {
-      case NONE:
-        state = State.MENU;
-        break;
-
-      case PREPARE:
-        state = State.ROUTE_PREPARE;
-        break;
-
-      case NAVIGATION:
-        state = State.NAVIGATION;
-        break;
-
-      default:
-        throw new IllegalArgumentException("Unhandled routingState value");
-    }
-
-    setState(state);
-  }
-
-  public void onRestoreState(Bundle savedState, RoutingController.State routingState)
-  {
-    mOpenDelayed = (mToggle.mAlwaysShow && savedState.containsKey(STATE_OPEN));
-    restoreState(routingState);
-    updateRoutingInfo(savedState.getString(STATE_LAST_INFO));
-  }*/
 
   public void updateRoutingInfo(RoutingInfo info)
   {
@@ -403,7 +348,7 @@ public class MainMenu
 
     adjustCollapsedItems();
     adjustTransparency();
-    setState(State.MENU);
+    setState(State.MENU, false);
   }
 
   public MainMenu(ViewGroup frame, Container container)
@@ -434,9 +379,9 @@ public class MainMenu
     init();
   }
 
-  public void setState(State state)
+  public void setState(State state, boolean animateToggle)
   {
-    mToggle.setState(state);
+    mToggle.setState(state, animateToggle);
 
     boolean expandContent;
     if (mRoutePlanFrame == null)
@@ -469,12 +414,7 @@ public class MainMenu
 
   public boolean isOpen()
   {
-    return (mContentFrame.getVisibility() == View.VISIBLE);
-  }
-
-  public boolean shouldOpenDelayed()
-  {
-    return mOpenDelayed;
+    return UiUtils.isVisible(mContentFrame);
   }
 
   public boolean open(boolean animate)
@@ -487,13 +427,9 @@ public class MainMenu
     adjustTransparency();
     updateMarker();
 
+    mToggle.setOpen(true, animate);
     if (!animate)
-    {
-      mToggle.updateOpenImageNoAnimation(true);
       return true;
-    }
-
-    mToggle.animateOpen(true);
 
     mFrame.setTranslationY(mContentHeight);
     mFrame.animate()
@@ -528,7 +464,7 @@ public class MainMenu
       adjustTransparency();
       updateMarker();
 
-      mToggle.updateOpenImageNoAnimation(false);
+      mToggle.setOpen(false, false);
 
       if (onCloseListener != null)
         onCloseListener.run();
@@ -536,7 +472,7 @@ public class MainMenu
       return true;
     }
 
-    mToggle.animateOpen(false);
+    mToggle.setOpen(false, true);
 
     mFrame.animate()
           .setDuration(ANIMATION_DURATION)

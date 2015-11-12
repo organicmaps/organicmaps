@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/bg_top_panels"
     android:layout_width="match_parent"
-    android:clipToPadding="false"
-    android:elevation="@dimen/appbar_elevation"
-    android:layout_height="wrap_content">
-
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/bg_top_panels"
+    android:elevation="@dimen/appbar_elevation">
   <LinearLayout
       android:id="@+id/time_distance"
       android:layout_width="match_parent"
@@ -16,7 +15,6 @@
       android:gravity="center_vertical"
       android:orientation="horizontal"
       android:padding="@dimen/margin_quarter">
-
     <ImageView
         android:id="@+id/btn__close"
         android:layout_width="@dimen/base_block_size"
@@ -53,14 +51,12 @@
         android:textAppearance="@style/MwmTextAppearance.RoutingNumber"
         android:textSize="@dimen/text_size_routing_number"
         tools:text="23:59"/>
-
   </LinearLayout>
 
   <com.mapswithme.maps.widget.FlatProgressView
       android:id="@+id/fp__route_progress"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_below="@id/time_distance"
       app:headRadius="2dp"
       app:progressColor="#757575"
       app:progressThickness="4dp"
@@ -72,6 +68,5 @@
       layout="@layout/layout_turn_and_street"
       android:layout_width="@dimen/panel_width"
       android:layout_height="wrap_content"
-      android:layout_below="@id/fp__route_progress"
-      android:layout_centerHorizontal="true"/>
-</RelativeLayout>
+      android:layout_gravity="center_horizontal"/>
+</LinearLayout>

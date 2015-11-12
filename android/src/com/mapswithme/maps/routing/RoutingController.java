@@ -1,10 +1,8 @@
 package com.mapswithme.maps.routing;
 
 import android.content.DialogInterface;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
@@ -35,7 +33,7 @@ public class RoutingController
     NAVIGATION
   }
 
-  public enum BuildState
+  enum BuildState
   {
     NONE,
     BUILDING,
@@ -47,9 +45,10 @@ public class RoutingController
   {
     FragmentActivity getActivity();
     void showSearch(boolean showMyPosition);
-    void showPlan(boolean show);
+    void showRoutePlan(boolean show, @Nullable Runnable completionListener);
     void showNavigation(boolean show);
     void showDownloader(boolean openDownloadedList);
+    void updateMenu();
     void updatePoints();
 
     /**
@@ -66,6 +65,7 @@ public class RoutingController
 
   private BuildState mBuildState = BuildState.NONE;
   private State mState = State.NONE;
+  private boolean mIsWaitingPoiPick;
 
   private MapObject mStartPoint;
   private MapObject mEndPoint;
@@ -86,9 +86,9 @@ public class RoutingController
         @Override
         public void run()
         {
-          if (resultCode == RoutingResultCodesProcessor.NO_ERROR)
+          if (resultCode == ResultCodesHelper.NO_ERROR)
           {
-            mBuildState = BuildState.BUILT;
+            setBuildState(BuildState.BUILT);
             mLastBuildProgress = 100;
             updatePlan();
             return;
@@ -97,17 +97,11 @@ public class RoutingController
           if (mContainer == null)
             return;
 
-          mBuildState = BuildState.ERROR;
+          setBuildState(BuildState.ERROR);
           mLastBuildProgress = 0;
           updateProgress();
 
-          Bundle args = new Bundle();
-          args.putInt(RoutingErrorDialogFragment.EXTRA_RESULT_CODE, resultCode);
-          args.putSerializable(RoutingErrorDialogFragment.EXTRA_MISSING_COUNTRIES, missingCountries);
-          args.putSerializable(RoutingErrorDialogFragment.EXTRA_MISSING_ROUTES, missingRoutes);
-          RoutingErrorDialogFragment fragment = (RoutingErrorDialogFragment) Fragment.instantiate(MwmApplication.get(),
-                                                                                                  RoutingErrorDialogFragment.class.getName());
-          fragment.setArguments(args);
+          RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(resultCode, missingCountries, missingRoutes);
           fragment.setListener(new RoutingErrorDialogFragment.Listener()
           {
             @Override
@@ -127,7 +121,7 @@ public class RoutingController
             @Override
             public void onOk()
             {
-              if (RoutingResultCodesProcessor.isDownloadable(resultCode))
+              if (ResultCodesHelper.isDownloadable(resultCode))
               {
                 cancel();
 
@@ -176,19 +170,15 @@ public class RoutingController
   {
     Log.d(TAG, "[S] State: " + mState + " -> " + newState + ", BuildState: " + mBuildState);
     mState = newState;
+
+    if (mContainer != null)
+      mContainer.updateMenu();
   }
 
   private void setBuildState(BuildState newState)
   {
     Log.d(TAG, "[B] State: " + mState + ", BuildState: " + mBuildState + " -> " + newState);
     mBuildState = newState;
-  }
-
-  private void restoreAttachedContainer()
-  {
-    mContainer.showPlan(isPlanning());
-    mContainer.showNavigation(isNavigating());
-    updatePlan();
   }
 
   private void updateProgress()
@@ -205,7 +195,24 @@ public class RoutingController
       throw new IllegalStateException("Must be detached before attach()");
 
     mContainer = container;
-    restoreAttachedContainer();
+  }
+
+  public void restore()
+  {
+    if (isPlanning())
+    {
+      mContainer.showRoutePlan(true, new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          updatePlan();
+        }
+      });
+    }
+
+    mContainer.showNavigation(isNavigating());
+    mContainer.updateMenu();
   }
 
   public void detach()
@@ -254,6 +261,7 @@ public class RoutingController
   {
     Log.d(TAG, "prepare (" + (endPoint == null ? "route)" : "p2p)"));
 
+    cancel();
     if (!Config.isRoutingDisclaimerAccepted())
     {
       showDisclaimer(endPoint);
@@ -262,32 +270,37 @@ public class RoutingController
 
     if (!LocationState.isTurnedOn())
     {
-      mRoutingListener.onRoutingEvent(RoutingResultCodesProcessor.NO_POSITION, null, null);
+      mRoutingListener.onRoutingEvent(ResultCodesHelper.NO_POSITION, null, null);
       return;
     }
 
     mStartPoint = LocationHelper.INSTANCE.getMyPosition();
     if (mStartPoint == null)
     {
-      mRoutingListener.onRoutingEvent(RoutingResultCodesProcessor.NO_POSITION, null, null);
+      mRoutingListener.onRoutingEvent(ResultCodesHelper.NO_POSITION, null, null);
       return;
     }
 
     mEndPoint = endPoint;
     setState(State.PREPARE);
 
-    if (mContainer != null)
-      mContainer.showPlan(true);
-
     if (mEndPoint != null)
       mLastRouterType = Framework.nativeGetBestRouter(mStartPoint.getLat(), mStartPoint.getLon(),
                                                       mEndPoint.getLat(), mEndPoint.getLon());
     Framework.nativeSetRouter(mLastRouterType);
 
-    if (mEndPoint == null)
-      updatePlan();
-    else
-      build();
+    if (mContainer != null)
+      mContainer.showRoutePlan(true, new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          if (mEndPoint == null)
+            updatePlan();
+          else
+            build();
+        }
+      });
   }
 
   public void start()
@@ -299,7 +312,7 @@ public class RoutingController
 
     if (mContainer != null)
     {
-      mContainer.showPlan(false);
+      mContainer.showRoutePlan(false, null);
       mContainer.showNavigation(true);
     }
   }
@@ -321,7 +334,7 @@ public class RoutingController
                             mBuildState == BuildState.BUILT);
   }
 
-  public void setStartButton(@NonNull View button)
+  public void setStartButton(@Nullable View button)
   {
     Log.d(TAG, "setStartButton");
     mStartButton = button;
@@ -333,8 +346,8 @@ public class RoutingController
     mStartPoint = null;
     mEndPoint = null;
 
-    setState(State.NONE);
     setBuildState(BuildState.NONE);
+    setState(State.NONE);
 
     Framework.nativeCloseRouting();
   }
@@ -347,7 +360,7 @@ public class RoutingController
 
       cancelInternal();
       if (mContainer != null)
-        mContainer.showPlan(false);
+        mContainer.showRoutePlan(false, null);
       return true;
     }
 
@@ -357,7 +370,10 @@ public class RoutingController
 
       cancelInternal();
       if (mContainer != null)
+      {
         mContainer.showNavigation(false);
+        mContainer.updateMenu();
+      }
       return true;
     }
 
@@ -365,10 +381,17 @@ public class RoutingController
     return false;
   }
 
-  // Nothing related to navigation is active
-  public boolean isIdle()
+  public boolean cancelPlanning()
   {
-    return (mState == State.NONE);
+    Log.d(TAG, "cancelPlanning");
+
+    if (!mIsWaitingPoiPick && isPlanning())
+    {
+      cancel();
+      return true;
+    }
+
+    return false;
   }
 
   // Planning UI is visible, no navigation active
@@ -387,6 +410,11 @@ public class RoutingController
   public boolean isBuilding()
   {
     return (mState == State.PREPARE && mBuildState == BuildState.BUILDING);
+  }
+
+  public boolean isWaitingPoiPick()
+  {
+    return mIsWaitingPoiPick;
   }
 
   public BuildState getBuildState()
@@ -438,7 +466,7 @@ public class RoutingController
       return false;
     }
 
-    if (point != null && point.equals(mEndPoint))
+    if (point != null && point.sameAs(mEndPoint))
     {
       if (mStartPoint == null)
       {
@@ -469,7 +497,7 @@ public class RoutingController
       return false;
     }
 
-    if (point != null && point.equals(mStartPoint))
+    if (point != null && point.sameAs(mStartPoint))
     {
       if (mEndPoint == null)
       {
@@ -488,6 +516,17 @@ public class RoutingController
 
     checkAndBuildRoute();
     return true;
+  }
+
+  public void swapPoints()
+  {
+    Log.d(TAG, "swapPoints");
+
+    MapObject point = mStartPoint;
+    mStartPoint = mEndPoint;
+    mEndPoint = point;
+
+    checkAndBuildRoute();
   }
 
   public void setRouterType(int router)

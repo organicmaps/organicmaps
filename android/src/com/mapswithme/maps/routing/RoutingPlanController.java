@@ -92,12 +92,12 @@ public class RoutingPlanController extends ToolbarController
   protected void onUpClick()
   {
     AlohaHelper.logClick(AlohaHelper.ROUTING_GO_CLOSE);
-    RoutingController.get().cancel();
+    RoutingController.get().cancelPlanning();
   }
 
   private void updateToggle()
   {
-    if (mToggle.getVisibility() != View.VISIBLE)
+    if (!UiUtils.isVisible(mToggle))
       return;
 
 
@@ -164,6 +164,6 @@ public class RoutingPlanController extends ToolbarController
   public void disableToggle()
   {
     UiUtils.hide(mToggle);
-    showSlots(false, false);
+    showSlots(true, false);
   }
 }

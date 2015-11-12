@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Pair;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 import com.mapswithme.country.StorageOptions;
 import com.mapswithme.maps.MapStorage;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.DisabledChildSimpleExpandableListAdapter;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
@@ -30,9 +32,9 @@ import java.util.Map;
 
 public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
 {
-  public static final String EXTRA_RESULT_CODE = "ResultCode";
-  public static final String EXTRA_MISSING_COUNTRIES = "MissingCountries";
-  public static final String EXTRA_MISSING_ROUTES = "MissingRoutes";
+  private static final String EXTRA_RESULT_CODE = "ResultCode";
+  private static final String EXTRA_MISSING_COUNTRIES = "MissingCountries";
+  private static final String EXTRA_MISSING_ROUTES = "MissingRoutes";
 
   private static final String GROUP_NAME = "GroupName";
   private static final String GROUP_SIZE = "GroupSize";
@@ -60,7 +62,7 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
   public Dialog onCreateDialog(Bundle savedInstanceState)
   {
     parseArguments();
-    final Pair<String, String> titleMessage = RoutingResultCodesProcessor.getDialogTitleSubtitle(mResultCode, mMissingCountries);
+    final Pair<String, String> titleMessage = ResultCodesHelper.getDialogTitleSubtitle(mResultCode, mMissingCountries);
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
                                                  .setTitle(titleMessage.first)
                                                  .setCancelable(true);
@@ -234,5 +236,16 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
     for (MapStorage.Index index : indices)
       total += MapStorage.INSTANCE.countryRemoteSizeInBytes(index, option);
     return total;
+  }
+
+  public static RoutingErrorDialogFragment create(int resultCode, MapStorage.Index[] missingCountries, MapStorage.Index[] missingRoutes)
+  {
+    Bundle args = new Bundle();
+    args.putInt(EXTRA_RESULT_CODE, resultCode);
+    args.putSerializable(EXTRA_MISSING_COUNTRIES, missingCountries);
+    args.putSerializable(EXTRA_MISSING_ROUTES, missingRoutes);
+    RoutingErrorDialogFragment res = (RoutingErrorDialogFragment)Fragment.instantiate(MwmApplication.get(), RoutingErrorDialogFragment.class.getName());
+    res.setArguments(args);
+    return res;
   }
 }

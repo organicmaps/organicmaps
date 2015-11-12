@@ -196,6 +196,11 @@ public final class UiUtils
       hide(views);
   }
 
+  public static boolean isVisible(View view)
+  {
+    return (view.getVisibility() == View.VISIBLE);
+  }
+
   public static void setTextAndShow(TextView tv, CharSequence text)
   {
     tv.setText(text);
@@ -313,7 +318,7 @@ public final class UiUtils
 
   public static void appearSlidingDown(final View view, @Nullable final Runnable completionListener)
   {
-    if (view.getVisibility() == View.VISIBLE || view.getAnimation() != null)
+    if (isVisible(view) || view.getAnimation() != null)
     {
       if (completionListener != null)
         completionListener.run();
@@ -338,7 +343,7 @@ public final class UiUtils
 
   public static void disappearSlidingUp(final View view, @Nullable final Runnable completionListener)
   {
-    if (view.getVisibility() != View.VISIBLE || view.getAnimation() != null)
+    if (!isVisible(view) || view.getAnimation() != null)
     {
       if (completionListener != null)
         completionListener.run();

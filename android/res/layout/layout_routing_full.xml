@@ -8,15 +8,16 @@
     android:orientation="vertical">
   <include
       layout="@layout/layout_turn_instructions"
-      tools:layout_width="match_parent"
-      tools:layout_height="wrap_content"/>
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingBottom="@dimen/margin_half"
+      android:layout_marginBottom="@dimen/margin_half"/>
 
   <LinearLayout
       android:id="@+id/next_turn_frame"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center_horizontal"
-      android:layout_marginTop="@dimen/margin_half"
       android:background="@drawable/bg_next_turn"
       android:gravity="center_vertical"
       android:orientation="horizontal"

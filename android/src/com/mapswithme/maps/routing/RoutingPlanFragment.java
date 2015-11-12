@@ -7,42 +7,56 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
+import com.mapswithme.maps.base.OnBackPressListener;
 
 public class RoutingPlanFragment extends BaseMwmFragment
+                              implements OnBackPressListener
 {
-  private View mFrame;
   private RoutingPlanController mPlanController;
-
-  public RoutingPlanController getPlanController()
-  {
-    return mPlanController;
-  }
 
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
-    return inflater.inflate(R.layout.fragment_routing, container, false);
-  }
+    View res = inflater.inflate(R.layout.fragment_routing, container, false);
 
-  @Override
-  public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
-  {
-    mFrame = view;
-  }
-
-  @Override
-  public void onActivityCreated(@Nullable Bundle savedInstanceState)
-  {
-    super.onActivityCreated(savedInstanceState);
-    mPlanController = new RoutingPlanController(mFrame, getActivity());
+    mPlanController = new RoutingPlanController(res, getActivity());
     mPlanController.disableToggle();
-    mPlanController.updatePoints();
+    updatePoints();
+
+    View start = res.findViewById(R.id.start);
+    RoutingController.get().setStartButton(start);
+    start.setOnClickListener(new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        RoutingController.get().start();
+      }
+    });
+
+    return res;
   }
 
   @Override
   public void onDestroyView()
   {
     super.onDestroyView();
+    RoutingController.get().setStartButton(null);
+  }
 
+  public void updatePoints()
+  {
+    mPlanController.updatePoints();
+  }
+
+  public void updateBuildProgress(int progress, int router)
+  {
+    mPlanController.updateBuildProgress(progress, router);
+  }
+
+  @Override
+  public boolean onBackPressed()
+  {
+    return RoutingController.get().cancelPlanning();
   }
 }

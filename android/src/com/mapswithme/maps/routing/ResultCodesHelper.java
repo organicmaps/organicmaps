@@ -11,7 +11,7 @@ import com.mapswithme.maps.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoutingResultCodesProcessor
+class ResultCodesHelper
 {
   // Codes correspond to native routing::IRouter::ResultCode
   public static final int NO_ERROR = 0;

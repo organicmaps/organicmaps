@@ -33,7 +33,6 @@ public class NavigationController
 
   private double mNorth;
 
-
   public NavigationController(Activity activity)
   {
     mFrame = activity.findViewById(R.id.navigation_frame);

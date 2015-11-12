@@ -45,7 +45,7 @@ public class SlotFrame extends LinearLayout
     private Rect mOverlapRect;
     private Rect mHitRect;
 
-    private int mOrder;
+    private final int mOrder;
     private MapObject mMapObject;
 
     private final Animator.AnimatorListener mCancelAnimationListener = new UiUtils.SimpleAnimatorListener()
@@ -74,7 +74,9 @@ public class SlotFrame extends LinearLayout
         }
       });
 
-      setOrder(order);
+      mOrder = order;
+      mOrderText.setText(String.valueOf(mOrder));
+
       setMapObject(null);
     }
 
@@ -93,13 +95,6 @@ public class SlotFrame extends LinearLayout
 
       mText.setText(mMapObject.getName());
       mText.setTextColor(COLOR_TEXT);
-    }
-
-    void setOrder(int order)
-    {
-      mOrder = order;
-      mOrderText.setText(String.valueOf(order));
-      updateText();
     }
 
     void setMapObject(MapObject mapObject)

@@ -2,6 +2,7 @@ package com.mapswithme.maps.base;
 
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -109,13 +110,13 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
   {
     Class<? extends Fragment> clazz = getFragmentClass();
     if (clazz != null)
-      replaceFragment(clazz, getIntent().getExtras());
+      replaceFragment(clazz, getIntent().getExtras(), null);
   }
 
   /**
    * Replace attached fragment with the new one.
    */
-  public void replaceFragment(Class<? extends Fragment> fragmentClass, Bundle args)
+  public void replaceFragment(Class<? extends Fragment> fragmentClass, Bundle args, @Nullable Runnable completionListener)
   {
     final int resId = getFragmentContentResId();
     if (resId <= 0 || findViewById(resId) == null)
@@ -126,6 +127,10 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
     getSupportFragmentManager().beginTransaction()
                                .replace(resId, fragment, name)
                                .commit();
+    getSupportFragmentManager().executePendingTransactions();
+
+    if (completionListener != null)
+      completionListener.run();
   }
 
   /**
