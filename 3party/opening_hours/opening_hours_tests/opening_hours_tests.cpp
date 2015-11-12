@@ -1148,6 +1148,32 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestIsActive)
     BOOST_CHECK(!IsActive(ranges[0], time));
   }
   {
+    TMonthdayRanges ranges;
+    BOOST_CHECK(Parse("Sep 01", ranges));
+
+    std::tm time{};
+    auto const fmt = "%Y-%m-%d";
+
+    BOOST_CHECK(GetTimeTuple("2015-09-01", fmt, time));
+    BOOST_CHECK(IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2014-09-02", fmt, time));
+    BOOST_CHECK(!IsActive(ranges[0], time));
+  }
+  {
+    TMonthdayRanges ranges;
+    BOOST_CHECK(Parse("2015 Sep 01", ranges));
+
+    std::tm time{};
+    auto const fmt = "%Y-%m-%d";
+
+    BOOST_CHECK(GetTimeTuple("2015-09-01", fmt, time));
+    BOOST_CHECK(IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2014-09-01", fmt, time));
+    BOOST_CHECK(!IsActive(ranges[0], time));
+  }
+  {
     TYearRanges ranges;
     BOOST_CHECK(Parse("2011-2014", ranges));
 
@@ -1384,5 +1410,9 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestOpeningHours)
 
     BOOST_CHECK(GetTimeTuple("2015-11-10 12:30", fmt, time));
     BOOST_CHECK(oh.IsClosed(mktime(&time)));
+  }
+  {
+    OpeningHours oh("Nov +1");
+    BOOST_CHECK(!oh.IsValid());
   }
 }
