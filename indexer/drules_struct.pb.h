@@ -787,6 +787,13 @@ class SymbolRuleProto : public ::google::protobuf::MessageLite {
   inline ::google::protobuf::int32 priority() const;
   inline void set_priority(::google::protobuf::int32 value);
 
+  // optional int32 min_distance = 4;
+  inline bool has_min_distance() const;
+  inline void clear_min_distance();
+  static const int kMinDistanceFieldNumber = 4;
+  inline ::google::protobuf::int32 min_distance() const;
+  inline void set_min_distance(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:SymbolRuleProto)
  private:
   inline void set_has_name();
@@ -795,6 +802,8 @@ class SymbolRuleProto : public ::google::protobuf::MessageLite {
   inline void clear_has_apply_for_type();
   inline void set_has_priority();
   inline void clear_has_priority();
+  inline void set_has_min_distance();
+  inline void clear_has_min_distance();
 
   ::std::string _unknown_fields_;
 
@@ -803,6 +812,7 @@ class SymbolRuleProto : public ::google::protobuf::MessageLite {
   ::std::string* name_;
   ::google::protobuf::int32 apply_for_type_;
   ::google::protobuf::int32 priority_;
+  ::google::protobuf::int32 min_distance_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
   #else
@@ -2660,6 +2670,30 @@ inline void SymbolRuleProto::set_priority(::google::protobuf::int32 value) {
   set_has_priority();
   priority_ = value;
   // @@protoc_insertion_point(field_set:SymbolRuleProto.priority)
+}
+
+// optional int32 min_distance = 4;
+inline bool SymbolRuleProto::has_min_distance() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void SymbolRuleProto::set_has_min_distance() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void SymbolRuleProto::clear_has_min_distance() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void SymbolRuleProto::clear_min_distance() {
+  min_distance_ = 0;
+  clear_has_min_distance();
+}
+inline ::google::protobuf::int32 SymbolRuleProto::min_distance() const {
+  // @@protoc_insertion_point(field_get:SymbolRuleProto.min_distance)
+  return min_distance_;
+}
+inline void SymbolRuleProto::set_min_distance(::google::protobuf::int32 value) {
+  set_has_min_distance();
+  min_distance_ = value;
+  // @@protoc_insertion_point(field_set:SymbolRuleProto.min_distance)
 }
 
 // -------------------------------------------------------------------

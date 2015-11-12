@@ -1751,6 +1751,7 @@ void AreaRuleProto::Swap(AreaRuleProto* other) {
 const int SymbolRuleProto::kNameFieldNumber;
 const int SymbolRuleProto::kApplyForTypeFieldNumber;
 const int SymbolRuleProto::kPriorityFieldNumber;
+const int SymbolRuleProto::kMinDistanceFieldNumber;
 #endif  // !_MSC_VER
 
 SymbolRuleProto::SymbolRuleProto()
@@ -1775,6 +1776,7 @@ void SymbolRuleProto::SharedCtor() {
   name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   apply_for_type_ = 0;
   priority_ = 0;
+  min_distance_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -1826,8 +1828,8 @@ void SymbolRuleProto::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 7) {
-    ZR_(apply_for_type_, priority_);
+  if (_has_bits_[0 / 32] & 15) {
+    ZR_(apply_for_type_, min_distance_);
     if (has_name()) {
       if (name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         name_->clear();
@@ -1894,6 +1896,21 @@ bool SymbolRuleProto::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(32)) goto parse_min_distance;
+        break;
+      }
+
+      // optional int32 min_distance = 4;
+      case 4: {
+        if (tag == 32) {
+         parse_min_distance:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &min_distance_)));
+          set_has_min_distance();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -1939,6 +1956,11 @@ void SymbolRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->priority(), output);
   }
 
+  // optional int32 min_distance = 4;
+  if (has_min_distance()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->min_distance(), output);
+  }
+
   output->WriteRaw(unknown_fields().data(),
                    unknown_fields().size());
   // @@protoc_insertion_point(serialize_end:SymbolRuleProto)
@@ -1969,6 +1991,13 @@ int SymbolRuleProto::ByteSize() const {
           this->priority());
     }
 
+    // optional int32 min_distance = 4;
+    if (has_min_distance()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->min_distance());
+    }
+
   }
   total_size += unknown_fields().size();
 
@@ -1995,6 +2024,9 @@ void SymbolRuleProto::MergeFrom(const SymbolRuleProto& from) {
     if (from.has_priority()) {
       set_priority(from.priority());
     }
+    if (from.has_min_distance()) {
+      set_min_distance(from.min_distance());
+    }
   }
   mutable_unknown_fields()->append(from.unknown_fields());
 }
@@ -2016,6 +2048,7 @@ void SymbolRuleProto::Swap(SymbolRuleProto* other) {
     std::swap(name_, other->name_);
     std::swap(apply_for_type_, other->apply_for_type_);
     std::swap(priority_, other->priority_);
+    std::swap(min_distance_, other->min_distance_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

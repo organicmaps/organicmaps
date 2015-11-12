@@ -60,6 +60,7 @@ message SymbolRuleProto
   required string name = 1;
   optional int32 apply_for_type = 2;  // 1 - for nodes, 2 - for ways, default - for all
   required int32 priority = 3;
+  optional int32 min_distance = 4;
 }
 
 message CaptionDefProto
