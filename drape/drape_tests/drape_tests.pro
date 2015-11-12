@@ -14,7 +14,7 @@ QT *= core gui widgets
 DRAPE_DIR = ..
 include($$DRAPE_DIR/drape_common.pri)
 
-INCLUDEPATH *= $$ROOT_DIR/3party/gmock/include $$ROOT_DIR/3party/gmock/gtest/include $$ROOT_DIR/3party/expat/lib
+INCLUDEPATH *= $$ROOT_DIR/3party/gmock/include $$ROOT_DIR/3party/gmock/gtest/include
 
 macx-* : LIBS *= "-framework CoreLocation"
 
