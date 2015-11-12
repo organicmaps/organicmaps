@@ -87,15 +87,16 @@ struct LineVertex : BaseVertex
 struct DashedLineVertex : BaseVertex
 {
   using TNormal = glsl::vec3;
+  using TMaskTexCoord = glsl::vec4;
 
   DashedLineVertex();
   DashedLineVertex(TPosition const & position, TNormal const & normal,
-                   TTexCoord const & color, TTexCoord const & mask);
+                   TTexCoord const & color, TMaskTexCoord const & mask);
 
   TPosition m_position;
   TNormal m_normal;
   TTexCoord m_colorTexCoord;
-  TTexCoord m_maskTexCoord;
+  TMaskTexCoord m_maskTexCoord;
 
   static dp::BindingInfo const & GetBindingInfo();
 };

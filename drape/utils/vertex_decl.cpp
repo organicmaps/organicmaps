@@ -93,13 +93,14 @@ dp::BindingInfo DashedLineBindingInit()
 {
   static_assert(sizeof(DashedLineVertex) == sizeof(DashedLineVertex::TPosition) +
                                             sizeof(DashedLineVertex::TNormal) +
-                                            2 * sizeof(DashedLineVertex::TTexCoord), "");
+                                            sizeof(DashedLineVertex::TTexCoord) +
+                                            sizeof(DashedLineVertex::TMaskTexCoord), "");
 
   dp::BindingFiller<DashedLineVertex> filler(4);
   filler.FillDecl<DashedLineVertex::TPosition>("a_position");
   filler.FillDecl<DashedLineVertex::TNormal>("a_normal");
   filler.FillDecl<DashedLineVertex::TTexCoord>("a_colorTexCoord");
-  filler.FillDecl<DashedLineVertex::TTexCoord>("a_maskTexCoord");
+  filler.FillDecl<DashedLineVertex::TMaskTexCoord>("a_maskTexCoord");
 
   return filler.m_info;
 }
@@ -243,12 +244,12 @@ dp::BindingInfo const & LineVertex::GetBindingInfo()
 }
 
 DashedLineVertex::DashedLineVertex()
-  : m_maskTexCoord(0.0, 0.0)
+  : m_maskTexCoord(0.0, 0.0, 0.0, 0.0)
 {
 }
 
 DashedLineVertex::DashedLineVertex(TPosition const & position, TNormal const & normal,
-                                   TTexCoord const & color, TTexCoord const & mask)
+                                   TTexCoord const & color, TMaskTexCoord const & mask)
   : m_position(position)
   , m_normal(normal)
   , m_colorTexCoord(color)

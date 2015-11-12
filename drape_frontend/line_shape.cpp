@@ -21,31 +21,26 @@ namespace
 class TextureCoordGenerator
 {
 public:
-  TextureCoordGenerator(dp::TextureManager::StippleRegion const & region, float const baseGtoPScale)
+  TextureCoordGenerator(dp::TextureManager::StippleRegion const & region)
     : m_region(region)
-    , m_baseGtoPScale(baseGtoPScale)
     , m_maskLength(static_cast<float>(m_region.GetMaskPixelLength()))
+  {}
+
+  glsl::vec4 GetTexCoordsByDistance(float distance) const
   {
+    return GetTexCoords(distance / m_maskLength);
   }
 
-  float GetUvOffsetByDistance(float distance) const
-  {
-    return (distance * m_baseGtoPScale / m_maskLength);
-  }
-
-  glsl::vec2 GetTexCoordsByDistance(float distance) const
-  {
-    float normalizedOffset = min(GetUvOffsetByDistance(distance), 1.0f);
-    return GetTexCoords(normalizedOffset);
-  }
-
-  glsl::vec2 GetTexCoords(float normalizedOffset) const
+  glsl::vec4 GetTexCoords(float offset) const
   {
     m2::RectF const & texRect = m_region.GetTexRect();
-    return glsl::vec2(texRect.minX() + normalizedOffset * texRect.SizeX(), texRect.Center().y);
+    return glsl::vec4(offset, texRect.minX(), texRect.SizeX(), texRect.Center().y);
   }
 
-  float GetMaskLength() const { return m_maskLength; }
+  float GetMaskLength() const
+  {
+    return m_maskLength;
+  }
 
   dp::TextureManager::StippleRegion const & GetRegion()
   {
@@ -54,8 +49,7 @@ public:
 
 private:
   dp::TextureManager::StippleRegion m_region;
-  float const m_baseGtoPScale;
-  float m_maskLength = 0.0f;
+  float m_maskLength;
 };
 
 struct BaseBuilderParams
@@ -328,7 +322,7 @@ public:
 
   DashedLineBuilder(BuilderParams const & params, size_t pointsInSpline)
     : TBase(params, pointsInSpline * 8, (pointsInSpline - 2) * 8)
-    , m_texCoordGen(params.m_stipple, params.m_baseGtoP)
+    , m_texCoordGen(params.m_stipple)
     , m_glbHalfWidth(params.m_glbHalfWidth)
     , m_baseGtoPScale(params.m_baseGtoP)
   {
@@ -384,7 +378,7 @@ private:
     for (int j = 0; j < trianglesCount; j++)
     {
       size_t const baseIndex = 3 * j;
-      glsl::vec2 const texCoord = m_texCoordGen.GetTexCoords(0.0f);
+      glsl::vec4 const texCoord = m_texCoordGen.GetTexCoords(0.0f);
       m_joinGeom.push_back(V(pivot, TNormal(normals[baseIndex + 0], halfWidth), m_colorCoord, texCoord));
       m_joinGeom.push_back(V(pivot, TNormal(normals[baseIndex + 1], halfWidth), m_colorCoord, texCoord));
       m_joinGeom.push_back(V(pivot, TNormal(normals[baseIndex + 2], halfWidth), m_colorCoord, texCoord));

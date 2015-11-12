@@ -1,7 +1,7 @@
 attribute vec3 a_position;
 attribute vec3 a_normal;
 attribute vec2 a_colorTexCoord;
-attribute vec2 a_maskTexCoord;
+attribute vec4 a_maskTexCoord;
 
 uniform mat4 modelView;
 uniform mat4 projection;
@@ -22,8 +22,9 @@ void main(void)
     transformedAxisPos = transformedAxisPos + normalize(shiftPos - transformedAxisPos) * halfWidth;
   }
 
+  float uOffset = min(length(vec4(1, 0, 0, 0) * modelView) * a_maskTexCoord.x, 1.0);
   v_colorTexCoord = a_colorTexCoord;
-  v_maskTexCoord = a_maskTexCoord;
+  v_maskTexCoord = vec2(a_maskTexCoord.y + uOffset * a_maskTexCoord.z, a_maskTexCoord.w);
   v_halfLength = vec2(sign(a_normal.z) * halfWidth, abs(a_normal.z));
   gl_Position = vec4(transformedAxisPos, a_position.z, 1.0) * projection;
 }
