@@ -28,6 +28,7 @@ using namespace std;
 
   _languages.reserve(3);
   auto const & v = tts.availableLanguages;
+  NSAssert(!v.empty(), @"Vector can't be empty!");
   pair<string, string> const standart = v.front();
   _languages.push_back(standart);
 
