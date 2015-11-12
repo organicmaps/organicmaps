@@ -42,14 +42,14 @@ public:
     return m_maskLength;
   }
 
-  dp::TextureManager::StippleRegion const & GetRegion()
+  dp::TextureManager::StippleRegion const & GetRegion() const
   {
     return m_region;
   }
 
 private:
-  dp::TextureManager::StippleRegion m_region;
-  float m_maskLength;
+  dp::TextureManager::StippleRegion const m_region;
+  float const m_maskLength;
 };
 
 struct BaseBuilderParams
@@ -266,7 +266,7 @@ public:
 
   void SubmitVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, bool isLeft)
   {
-    float halfWidth = GetHalfWidth();
+    float const halfWidth = GetHalfWidth();
     m_geometry.emplace_back(V(pivot, TNormal(halfWidth * normal, halfWidth * GetSide(isLeft)), m_colorCoord));
   }
 
@@ -323,10 +323,8 @@ public:
   DashedLineBuilder(BuilderParams const & params, size_t pointsInSpline)
     : TBase(params, pointsInSpline * 8, (pointsInSpline - 2) * 8)
     , m_texCoordGen(params.m_stipple)
-    , m_glbHalfWidth(params.m_glbHalfWidth)
     , m_baseGtoPScale(params.m_baseGtoP)
-  {
-  }
+  {}
 
   void GetTexturingInfo(float const globalLength, int & steps, float & maskSize)
   {
@@ -343,51 +341,15 @@ public:
     return state;
   }
 
-  void SubmitVertex(LineSegment const & segment, glsl::vec3 const & pivot,
-                    glsl::vec2 const & normal, bool isLeft, float offsetFromStart)
+  void SubmitVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, bool isLeft, float offsetFromStart)
   {
-    float distance = GetProjectionLength(pivot.xy() + m_glbHalfWidth * normal,
-                                         segment.m_points[StartPoint],
-                                         segment.m_points[EndPoint]) - offsetFromStart;
-
     float const halfWidth = GetHalfWidth();
     m_geometry.emplace_back(V(pivot, TNormal(halfWidth * normal, halfWidth * GetSide(isLeft)),
-                              m_colorCoord, m_texCoordGen.GetTexCoordsByDistance(distance)));
-  }
-
-  void SubmitJoin(LineSegment const & seg1, LineSegment const & seg2)
-  {
-    SubmitJoinImpl(glsl::vec3(seg1.m_points[EndPoint], m_params.m_depth), GenerateJoin(seg1, seg2));
-  }
-
-  void SubmitCap(LineSegment const & segment, bool isStart)
-  {
-    if (m_params.m_cap == dp::ButtCap)
-      return;
-
-    EPointType const type = isStart ? StartPoint : EndPoint;
-    float const sign = isStart ? -1.0 : 1.0;
-    SubmitJoinImpl(glsl::vec3(segment.m_points[type], m_params.m_depth), GenerateCap(segment, type, sign, isStart));
-  }
-
-private:
-  void SubmitJoinImpl(glsl::vec3 const & pivot, vector<glsl::vec2> const & normals)
-  {
-    float const halfWidth = GetHalfWidth();
-    size_t const trianglesCount = normals.size() / 3;
-    for (int j = 0; j < trianglesCount; j++)
-    {
-      size_t const baseIndex = 3 * j;
-      glsl::vec4 const texCoord = m_texCoordGen.GetTexCoords(0.0f);
-      m_joinGeom.push_back(V(pivot, TNormal(normals[baseIndex + 0], halfWidth), m_colorCoord, texCoord));
-      m_joinGeom.push_back(V(pivot, TNormal(normals[baseIndex + 1], halfWidth), m_colorCoord, texCoord));
-      m_joinGeom.push_back(V(pivot, TNormal(normals[baseIndex + 2], halfWidth), m_colorCoord, texCoord));
-    }
+                              m_colorCoord, m_texCoordGen.GetTexCoordsByDistance(offsetFromStart)));
   }
 
 private:
   TextureCoordGenerator m_texCoordGen;
-  float const m_glbHalfWidth;
   float const m_baseGtoPScale;
 };
 
@@ -403,66 +365,49 @@ LineShape::LineShape(m2::SharedSpline const & spline, LineViewParams const & par
 template <typename TBuilder>
 void LineShape::Construct(TBuilder & builder) const
 {
+  ASSERT(false, ("No implementation"));
+}
+
+// Specialization optimized for dashed lines.
+template <>
+void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
+{
   vector<m2::PointD> const & path = m_spline->GetPath();
   ASSERT_GREATER(path.size(), 1, ());
 
-  // skip joins generation
-  float const kJoinsGenerationThreshold = 2.5f;
-  bool generateJoins = true;
-  if (builder.GetHalfWidth() <= kJoinsGenerationThreshold)
-    generateJoins = false;
-
-  // constuct segments
-  vector<LineSegment> segments;
-  segments.reserve(path.size() - 1);
-  ConstructLineSegments(path, segments);
-
-  if (segments.empty())
-    return;
-
   // build geometry
-  for (size_t i = 0; i < segments.size(); i++)
+  for (size_t i = 1; i < path.size(); ++i)
   {
-    if (generateJoins)
-    {
-      UpdateNormals(&segments[i], (i > 0) ? &segments[i - 1] : nullptr,
-                    (i < segments.size() - 1) ? &segments[i + 1] : nullptr);
-    }
+    if (path[i].EqualDxDy(path[i - 1], 1.0E-5))
+      continue;
+
+    glsl::vec2 const p1 = glsl::vec2(path[i - 1].x, path[i - 1].y);
+    glsl::vec2 const p2 = glsl::vec2(path[i].x, path[i].y);
+    glsl::vec2 tangent, leftNormal, rightNormal;
+    CalculateTangentAndNormals(p1, p2, tangent, leftNormal, rightNormal);
 
     // calculate number of steps to cover line segment
-    float const initialGlobalLength = glsl::length(segments[i].m_points[EndPoint] - segments[i].m_points[StartPoint]);
+    float const initialGlobalLength = glsl::length(p2 - p1);
     int steps = 1;
     float maskSize = initialGlobalLength;
     builder.GetTexturingInfo(initialGlobalLength, steps, maskSize);
 
-    // generate main geometry
+    // generate vertices
     float currentSize = 0;
-    glsl::vec3 currentStartPivot = glsl::vec3(segments[i].m_points[StartPoint], m_params.m_depth);
+    glsl::vec3 currentStartPivot = glsl::vec3(p1, m_params.m_depth);
     for (int step = 0; step < steps; step++)
     {
-      float const offsetFromStart = currentSize;
       currentSize += maskSize;
+      glsl::vec3 const newPivot = glsl::vec3(p1 + tangent * currentSize, m_params.m_depth);
 
-      glsl::vec2 const newPoint = segments[i].m_points[StartPoint] + segments[i].m_tangent * currentSize;
-      glsl::vec3 const newPivot = glsl::vec3(newPoint, m_params.m_depth);
-      glsl::vec2 const leftNormal = GetNormal(segments[i], true /* isLeft */, BaseNormal);
-      glsl::vec2 const rightNormal = GetNormal(segments[i], false /* isLeft */, BaseNormal);
-
-      builder.SubmitVertex(segments[i], currentStartPivot, rightNormal, false /* isLeft */, offsetFromStart);
-      builder.SubmitVertex(segments[i], currentStartPivot, leftNormal, true /* isLeft */, offsetFromStart);
-      builder.SubmitVertex(segments[i], newPivot, rightNormal, false /* isLeft */, offsetFromStart);
-      builder.SubmitVertex(segments[i], newPivot, leftNormal, true /* isLeft */, offsetFromStart);
+      builder.SubmitVertex(currentStartPivot, rightNormal, false /* isLeft */, 0.0);
+      builder.SubmitVertex(currentStartPivot, leftNormal, true /* isLeft */, 0.0);
+      builder.SubmitVertex(newPivot, rightNormal, false /* isLeft */, maskSize);
+      builder.SubmitVertex(newPivot, leftNormal, true /* isLeft */, maskSize);
 
       currentStartPivot = newPivot;
     }
-
-    // generate joins
-    if (generateJoins && i < segments.size() - 1)
-      builder.SubmitJoin(segments[i], segments[i + 1]);
   }
-
-  builder.SubmitCap(segments[0], true /* isStart */);
-  builder.SubmitCap(segments[segments.size() - 1], false /* isStart */);
 }
 
 // Specialization optimized for solid lines.
