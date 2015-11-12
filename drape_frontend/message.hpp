@@ -38,7 +38,8 @@ public:
     RemoveRoute,
     FlushRoute,
     UpdateMapStyle,
-    InvalidateTextures
+    InvalidateTextures,
+    Invalidate
   };
 
   virtual ~Message() {}

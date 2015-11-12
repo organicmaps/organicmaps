@@ -62,6 +62,7 @@ public:
   ~DrapeEngine();
 
   void Resize(int w, int h);
+  void Invalidate();
 
   void AddTouchEvent(TouchEvent const & event);
   void Scale(double  factor, m2::PointD const & pxPoint, bool isAnim);

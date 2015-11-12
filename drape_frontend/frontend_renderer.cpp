@@ -381,6 +381,12 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::Invalidate:
+    {
+      // Do nothing here, new frame will be rendered because of this message processing.
+      break;
+    }
+
   default:
     ASSERT(false, ());
   }

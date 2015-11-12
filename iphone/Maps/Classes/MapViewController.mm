@@ -394,6 +394,8 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   self.controlsManager.menuState = self.menuRestoreState;
 
   [self refreshAd];
+  
+  GetFramework().InvalidateRendering();
 }
 
 - (void)viewDidLoad

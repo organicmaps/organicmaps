@@ -96,6 +96,13 @@ void DrapeEngine::Resize(int w, int h)
     ResizeImpl(w, h);
 }
 
+void DrapeEngine::Invalidate()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<InvalidateMessage>(),
+                                  MessagePriority::High);
+}
+
 void DrapeEngine::AddTouchEvent(TouchEvent const & event)
 {
   AddUserEvent(event);

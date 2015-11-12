@@ -588,4 +588,12 @@ public:
   Type GetType() const override { return Message::InvalidateTextures; }
 };
 
+class InvalidateMessage : public Message
+{
+public:
+  InvalidateMessage(){}
+
+  Type GetType() const override { return Message::Invalidate; }
+};
+
 } // namespace df

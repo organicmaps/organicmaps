@@ -263,6 +263,8 @@ public:
 
   void ResetLastTapEvent();
 
+  void InvalidateRendering();
+
 private:
   struct TapEventData
   {
