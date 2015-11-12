@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <style type="text/css">
 
     /* All langs are invisible by default */
-    [lang = "en"], [lang = "ru"] {
+    [lang = "en"], [lang = "ru"], [lang = "de"], [lang = "es"] {
       display: none;
     }
     dt {
@@ -33,7 +33,7 @@
       lang = lang.substring(0, 2);
       if (lang == "be" || lang == "uk")
         lang = "ru";
-      else if (lang != "en" && lang != "ru")
+      else if (lang != "en" && lang != "ru" && lang != "de" && lang != "es")
         lang = "en";
       var elems = document.querySelectorAll('[lang="' + lang + '"]')
       // Make them visible
@@ -50,19 +50,33 @@
 <div class="contentTable">
 <ul>
 <li><a lang="en" href="#mapdata">Map data</a>
-    <a lang="ru" href="#mapdata">Картографические данные</a></li>
+    <a lang="ru" href="#mapdata">Картографические данные</a>
+    <a lang="de" href="#mapdata">Kartendaten</a>
+    <a lang="es" href="#mapdata">Datos de los mapas</a></li>
 <li><a lang="en" href="#gps">GPS and positioning</a>
-    <a lang="ru" href="#gps">GPS и определение позиции</a></li>
+    <a lang="ru" href="#gps">GPS и определение позиции</a>
+    <a lang="de" href="#gps">GPS</a>
+    <a lang="es" href="#gps">GPS</a></li>
 <li><a lang="en" href="#navigation">Navigation, routing and tracks</a>
-    <a lang="ru" href="#navigation">Навигация, маршруты и треки</a></li>
+    <a lang="ru" href="#navigation">Навигация, маршруты и треки</a>
+    <a lang="de" href="#navigation">Navigation, routing and tracks</a>
+    <a lang="es" href="#navigation">Navegación, rutas e itinerarios</a></li>
 <li><a lang="en" href="#search">Search</a>
-    <a lang="ru" href="#search">Поиск</a></li>
+    <a lang="ru" href="#search">Поиск</a>
+    <a lang="de" href="#search">Suchen</a>
+    <a lang="es" href="#search">Búsqueda</a></li>
 <li><a lang="en" href="#problems">Problems with the app</a>
-    <a lang="ru" href="#problems">Проблемы с приложением</a></li>
+    <a lang="ru" href="#problems">Проблемы с приложением</a>
+    <a lang="de" href="#problems">Probleme mit der App</a>
+    <a lang="es" href="#problems">Problemas con la aplicación</a></li>
 <li><a lang="en" href="#bookmarks">Bookmarks (pins)</a>
-    <a lang="ru" href="#bookmarks">Метки (закладки, пины)</a></li>
+    <a lang="ru" href="#bookmarks">Метки (закладки, пины)</a>
+    <a lang="de" href="#bookmarks">Lesezeichen (Pins)</a>
+    <a lang="es" href="#bookmarks">Marcadores</a></li>
 <li><a lang="en" href="#settings">App Settings</a>
-    <a lang="ru" href="#settings">Настройки</a></li>
+    <a lang="ru" href="#settings">Настройки</a>
+    <a lang="de" href="#settings">Präferenzen</a>
+    <a lang="es" href="#settings">Preferencias</a></li>
 </ul>
 </div>
 
@@ -71,44 +85,73 @@
 
 <h3 lang="en">Map data</h3>
 <h3 lang="ru">Картографические данные</h3>
+<h3 lang="de">Kartendaten</h3>
+<h3 lang="es">Datos de los mapas</h3>
 
 <dl id="mapdata">
 
 <dt lang="en">Some places are missing on the map or have wrong names.</dt>
 <dt lang="ru">На карте отсутствуют или неправильно называются объекты.</dt>
-<dd lang="en">Here at MAPS.ME we develop the app and its algorithms, but we get all the data from <a href="http://www.openstreetmap.org/">OpenStreetMap</a> (OSM). This is a mapping project similar to Wikipedia, where anybody can create and edit maps. If you see incorrect information or missing objects, you can become an OSM contributor. It’s simple and fun - you just need to <a href="https://www.openstreetmap.org/user/new">register on their website</a>. The more people who contribute, the more detailed maps we get. And we believe that it's only a matter of time until the whole planet will be mapped by the open community.
-</dd>
+<dt lang="de">Auf der Karte fehlen Orte oder sie haben falsche Namen.</dt>
+<dt lang="es">Algunos lugares no aparecen en el mapa o tienen un nombre incorrecto.</dt>
+<dd lang="en">Here at MAPS.ME we develop the app and its algorithms, but we get all the data from <a href="http://www.openstreetmap.org/">OpenStreetMap</a> (OSM). This is a mapping project similar to Wikipedia, where anybody can create and edit maps. If you see incorrect information or missing objects, you can become an OSM contributor. It’s simple and fun - you just need to <a href="https://www.openstreetmap.org/user/new">register on their website</a>. The more people who contribute, the more detailed maps we get. And we believe that it's only a matter of time until the whole planet will be mapped by the open community.</dd>
 <dd lang="ru">Дело в том, что в MAPS.ME мы делаем само приложение и сложные алгоритмы. А все данные берутся с открытого картографического проекта <a href="http://www.openstreetmap.org/">OpenStreetMap.org</a>, редактировать который, как и Википедию, может любой желающий. Если вы заметили неточности или отсутствующие на карте детали, вы можете <a href="https://www.openstreetmap.org/user/new">зарегистрироваться на сайте OpenStreetMap.org</a> и добавить или отредактировать карту - это очень интересно и важно! Чем больше небезразличных людей, тем точнее будут карты для всех нас. Мы в команде считаем, что подробные карты всей нашей планеты - это всего лишь вопрос времени.</dd>
+<dd lang="de">Hier bei MAPS.ME entwickeln wir die App und deren Algorithmen, aber wir erhalten die Daten von <a href="http://www.openstreetmap.org/">OpenStreetMap</a> (OSM). Es handelt sich um ein Kartierungsprojekt, ähnlich wie Wikipedia, bei dem jeder Karten erstellen und bearbeiten kann. Falls Sie auf falsche Informationen oder fehlende Objekte stoßen, können Sie ein OSM-Mitwirkender werden. Das geht einfach und es macht Spaß – Sie müssen sich einfach nur auf der <a href="https://www.openstreetmap.org/user/new">Webseite registrieren</a>. Je mehr Menschen beitragen, desto detaillierte Karten erhalten wir. Und wir glauben, dass es nur eine Frage der Zeit ist, bis der gesamte Planet von der Open Community kartiert wurde.</dd>
+<dd lang="es">Aunque en MAPS.ME desarrollamos la aplicación y sus algoritmos, obtenemos todos los datos de <a href="http://www.openstreetmap.org/">OpenStreetMap</a> (OSM). Al igual que Wikipedia, este es un proyecto en el que todo el mundo puede crear y editar mapas. Si ves información incorrecta o detectas que faltan objetos, puedes convertirte en colaborador de OSM. Es fácil y divertido: basta con que <a href="https://www.openstreetmap.org/user/new">te registres en su sitio web</a>. Cuanta más gente colabore, más detallados serán los mapas. Además, creemos que es solo cuestión de tiempo que la comunidad abierta trace el mapa de todo el planeta.</dd>
 
 <dt lang="en">I can't download maps! It always fails.</dt>
 <dt lang="ru">Не получается загрузить карты - все время выдает ошибку.</dt>
+<dt lang="de">Ich kann keine Karten herunterladen! Es tritt immer ein Fehler auf.</dt>
+<dt lang="es">No puedo descargar mapas. Da error constantemente.</dt>
 <dd lang="en">Your download can fail due to a temporary network error or specific network provider/router settings. Please try again later or use a different Wi-Fi access point. If you have a slow internet connection, you can <a href="http://direct.mapswithme.com/direct/latest/">download maps</a> directly via PC and then transfer them to the MAPS.ME folder on your device. On Android maps (.mwm files) are stored at MapsWithMe folder. On iOS, you need to connect your device to a computer and copy maps via iTunes (select your device, then Apps - MAPS.ME - Documents). Don’t forget to restart your device. Please note, that even the latest maps will be marked as outdated if you download them via PC.</dd>
 <dd lang="ru">Причиной может быть временная проблема с сетью, либо специфические настройки интернет-провайдера или роутера. Пожалуйста, попробуйте еще раз через некоторое время, или подключитесь к другой точке Wi-Fi. Вы можете <a href="http://direct.mapswithme.com/direct/latest/">скачать карты</a> напрямую через компьютер. Скачанные файлы (.mwm) переместите в папку MapsWithMe (Android) подключив устройство к компьютеру. На iOS устройство файлы можно скопировать с помощью iTunes, выбрав ваше устройство, затем Приложения – MAPS.ME, и прокрутив страницу вниз. Не забудьте перезагрузить устройство. Обратите внимание, что даже самые свежие карты, скачанные напрямую, будут отображаться в приложении как неактуальные.</dd>
+<dd lang="de">Ihr Download kann aufgrund eines temporären Netzwerkfehlers oder bestimmter Netzwerkanbieter-/Routereinstellungen fehlschlagen. Bitte versuchen Sie es später noch einmal oder verwenden Sie einen anderen WLAN-Access Point. Haben Sie eine langsame Internetverbindung, können Sie die Karten direkt über den PC <a href="http://direct.mapswithme.com/direct/latest/">herunterladen</a> und übertragen Sie dann zum MAPS.ME-Ordner auf Ihrem Gerät. Unter Android werden die Karten (.mwm-Dateien) im Ordner MapsWithMe gespeichert. Unter iOS müssen Sie Ihr Gerät mit einem Computer verbinden und kopieren die Karten über iTunes (wählen Sie Ihr Gerät aus, dann Apps – MAPS.ME – Dokumente). Ihr Gerät muss danach neu gestartet werden. Bitte beachten Sie, dass sogar die neuesten Karten als veraltet markiert werden, wenn Sie diese über den PC herunterladen.</dd>
+<dd lang="es">El error de la descarga puede deberse a un fallo temporal de la red o a ajustes específicos del proveedor de la red o del rúter. Inténtalo de nuevo más tarde o utiliza otro punto de acceso mediante wifi. Si tu conexión a internet no es muy rápida, puedes <a href="http://direct.mapswithme.com/direct/latest/">descargar mapas</a> directamente a un PC y transferirlos posteriormente a la carpeta de MAPS.ME de tu dispositivo. En Android, los mapas se almacenan en la carpeta «MapsWithMe» (como archivos .mwm). En iOS, debes conectar el dispositivo a un ordenador y copiar los mapas mediante iTunes. (Selecciona el dispositivo y, a continuación, «Aplicaciones» > «MAPS.ME» > «Documentos»). No olvides reiniciar el dispositivo. Ten en cuenta que incluso los mapas más recientes se marcarán como obsoletos si los descargas utilizando un PC.</dd>
 
 <dt lang="en">How often do you usually update maps?</dt>
 <dt lang="ru">Как часто обычно обновляются карты?</dt>
+<dt lang="de">Wie kann ich aktualisierte Karten herunterladen oder alte Karten löschen?</dt>
+<dt lang="es">¿Con cuánta frecuencia soléis actualizar los mapas?</dt>
 <dd lang="en">The OpenStreetMap database is updated every minute. As for the app itself, we update maps with almost every new release. If you have made a modification in OSM, you will be able to see it in the next release.</dd>
 <dd lang="ru">Данные OpenStreetMap обновляются каждую минуту, а карты стран в приложении мы обновляем почти с каждым новым релизом. Если вы что-то меняли в OSM, ваши исправления обязательно появятся в ближайшем обновлении.</dd>
+<dd lang="de">Gehen Sie zu Menü – Karten herunterladen – Heruntergeladen. Hier wird eine Liste aller Karten angezeigt, die Sie heruntergeladen haben, aktualisieren Karten und Routen, gehen zur Landesgesamtkarte oder zum Reiseführer und löschen unnötige Karten und Navigationsdateien. Sie können jede Kartendatei separat aktualisieren oder alle gleichzeitig. Wir aktualisieren die OpenStreetMap-Daten in unserer App mit fast jeder Neuveröffentlichung.</dd>
+<dd lang="es">La base de datos de OpenStreetMap se actualiza cada minuto. En lo que a la aplicación se refiere, actualizamos los mapas prácticamente con cada nueva versión. Si has realizado alguna modificación en OSM, podrás verla en la siguiente versión.</dd>
 
 <dt lang="en">How can I download updated maps or delete old maps?</dt>
 <dt lang="ru">Как загрузить обновленные карты или удалить ненужные?</dt>
+<dt lang="de">Wie kann ich aktualisierte Karten herunterladen oder alte Karten löschen?</dt>
+<dt lang="es">¿Cómo se descargan mapas actualizados y se eliminan mapas antiguos?</dt>
 <dd lang="en">Go to Menu - Download Maps - Downloaded. Here you can see a list of all the maps you have downloaded, update maps and routes, go to the whole country map or travel guide, as well as delete unnecessary maps and navigation files. You can update each map file separately or all of them at once. We update the OpenStreetMap data in our app with almost every new release.</dd>
 <dd lang="ru">В меню “Загрузить карты” есть пункт “Загруженные”. Там можно загрузить обновленные карты, маршруты, перейти к карте страны, а также удалить ненужные карты и маршруты. Вы можете обновлять каждый файл по отдельности или выбрать обновление всех карт сразу. Мы обновляем данные OpenStreetMap в приложении практически с каждым новым релизом.</dd>
+<dd lang="de">Gehen Sie zu Menü – Karten herunterladen – Heruntergeladen. Hier wird eine Liste aller Karten angezeigt, die Sie heruntergeladen haben, aktualisieren Karten und Routen, gehen zur Landesgesamtkarte oder zum Reiseführer und löschen unnötige Karten und Navigationsdateien. Sie können jede Kartendatei separat aktualisieren oder alle gleichzeitig. Wir aktualisieren die OpenStreetMap-Daten in unserer App mit fast jeder Neuveröffentlichung.</dd>
+<dd lang="es">Ve al menú y selecciona «Descargar mapas» > «Mapas descargados». Aquí, puedes consultar una lista de todos los mapas que has descargado, actualizar mapas y rutas, consultar el mapa o la guía de viaje de todo un país y eliminar mapas y archivos de navegación que no necesites. Puedes actualizar cada archivo de mapa por separado o todos los archivos a la vez. Actualizamos los datos de OpenStreetMap de nuestra aplicación prácticamente con cada nueva versión.</dd>
 
 <dt lang="en">What is the difference between “Download Map” and “Download Map without routing”?</dt>
 <dt lang="ru">В чем разница между “Скачать карту” и “Скачать карту без маршрутов”?</dt>
+<dt lang="de">Was ist der Unterschied zwischen „Karte herunterladen“ und „Karte ohne Routing herunterladen“?</dt>
+<dt lang="es">¿Qué diferencia hay entre «Descargar mapa» y «Descargar mapa sin ruta»?</dt>
 <dd lang="en">To create car routes in MAPS.ME additional data is required for each country/region. If you don’t need the routing feature, you can only download the necessary map. But if you’re going to create car routes, please don’t forget to download routing files for all the countries you need. Please note that maps with routing use more memory space on your device.</dd>
 <dd lang="ru">Для построения автомобильных маршрутов в MAPS.ME необходимы дополнительные данные для каждой страны или региона. Если вы не собираетесь прокладывать автомобильные маршруты, вам достаточно скачать только карту, если же вам нужна навигация, пожалуйста, не забудьте скачать маршруты для всех интересующих вас стран. Обратите внимание, что карта с маршрутами занимает больше места на устройстве.</dd>
+<dd lang="de">Um Autorouten in MAPS.DE zu erstellen, sind für die jeweiligen Länder/Regionen zusätzliche Daten erforderlich. Wird die Routing-Funktion nicht benötigt, kann nur die benötigte Karte heruntergeladen werden. Erstellen Sie Autorouten, müssen unbedingt die Routingdateien für alle benötigten Länder heruntergeladen werden. Bitte beachten Sie, dass die Karten mit Routing mehr Speicher auf Ihrem Gerät benötigen.</dd>
+<dd lang="es">Para crear rutas en coche en MAPS.ME, se necesitan más datos sobre cada país o región. Si no necesitas la función de rutas, puedes descargar únicamente el mapa. Sin embargo, si vas a crear rutas en coche, no olvides descargar los archivos de ruta de todos los países que necesites. Ten en cuenta que los mapas con rutas utilizan más espacio de memoria de tu dispositivo.</dd>
 
 <dt lang="en">Is there a map of a certain country in MAPS.ME and how can I learn how detailed it is?</dt>
 <dt lang="ru">Есть ли в MAPS.ME карта определенной страны и как мне узнать, насколько она детальная?</dt>
-<dd lang="en">MAPS.ME has maps for every country in the world, including islands. You can check how detailed they are on <a href="http://www.openstreetmap.org/">OpenStreetMap.org</a> </dd>
+<dt lang="de">Gibt es die Karte eines bestimmten Landes in MAPS.ME und wie kann ich sehen, wie detailliert sie ist?</dt>
+<dt lang="es">¿Cómo puedo saber si MAPS.ME tiene el mapa de un país determinado y el nivel de detalle?</dt>
+<dd lang="en">MAPS.ME has maps for every country in the world, including islands. You can check how detailed they are on <a href="http://www.openstreetmap.org/">OpenStreetMap.org</a></dd>
 <dd lang="ru">В приложении есть карты всех стран мира, включая острова. Детализацию вы можете проверить <a href="http://www.openstreetmap.org/">на сайте OpenStreetMap.org</a></dd>
+<dd lang="de">MAPS.ME enthält Karten für jedes Land weltweit, einschließlich der Inseln. Sie können die Details unter <a href="http://www.openstreetmap.org/">OpenStreetMap.org</a> überprüfen</dd>
+<dd lang="es">MAPS.ME tiene el mapa de todos los países del mundo, incluidas las islas. Puedes comprobar el nivel de detalle en <a href="http://www.openstreetmap.org/">OpenStreetMap.org</a></dd>
 
 <dt lang="en">Where does MAPS.ME store downloaded maps and my bookmarks?</dt>
 <dt lang="ru">Где хранятся загруженные карты и мои метки?</dt>
+<dt lang="de">Wo speichert MAPS.ME die heruntergeladenen Karten und meine Lesezeichen?</dt>
+<dt lang="es">¿Dónde almacena MAPS.ME los mapas descargados y mis marcadores?</dt>
 <dd lang="en">On iOS, you can access all files with iTunes (select your device, then Apps and scroll down). On Android, files are stored in the MapsWithMe folder or in Android/<wbr>data/<wbr>com.mapswithme.maps.pro/<wbr>files/<wbr>MapsWithMe folder if you are using SD-card and have Android 4.4 or newer.</dd>
 <dd lang="ru">Под iOS файлы можно найти с помощью iTunes, выбрав ваше устройство, затем Приложения, и прокрутив страницу вниз. Под Андроид файлы лежат либо в папке MapsWithMe, либо в Android/<wbr>data/<wbr>com.mapswithme.maps.pro/<wbr>files/<wbr>MapsWithMe, если вы храните файлы на SD-карточке и у вас Андроид 4.4 или новее.</dd>
+<dd lang="de">Unter iOs haben Sie über iTunes Zugriff auf alle Dateien (wählen Sie Ihr Gerät, dann Apps und nach unten scrollen). Unter Android werden die Dateien im Ordner MapsWithMe oder im Ordner Android/data/com.mapswithme.maps.pro/files/MapsWithMe, wenn Sie eine SD-Karte mit Android 4.4 oder höher verwenden.</dd>
+<dd lang="es">En iOS, puedes acceder a todos los archivos mediante iTunes. (Selecciona el dispositivo; a continuación, selecciona «Aplicaciones» y desplázate hacia abajo). En Android, los archivos se almacenan en la carpeta «MapsWithMe» o en la carpeta «Android/data/com.mapswithme.maps.pro/files/MapsWithMe», si utilizas una tarjeta SD y tienes Android 4.4 o una versión posterior.</dd>
 
 </dl>
 
@@ -120,45 +163,76 @@
 
 <dt lang="en">The app cannot determine my location.</dt>
 <dt lang="ru">Приложение не может определить мое местоположение.</dt>
+<dt lang="de">Mein Standort kann von der App nicht bestimmt werden.</dt>
+<dt lang="es">La aplicación no puede establecer mi posición.</dt>
 <dd lang="en">Please make sure that your device has a GPS module and check your <a href="https://www.facebook.com/notes/mapsme/faq-everything-you-wanted-to-know-about-gps-and-location-in-mapsme/833740000079400">geolocation settings</a>. Location determining with GPS (with WiFi and Mobile network off) make take some time. The longer the GPS has not been used, the more time it takes. The speed of location determining depends on the device, not on the app. The GPS' operation is influenced by the weather as well - it works best outdoors when the sky is clear. Problems may arise when trying to locate yourself indoors, on a narrow street or when driving a car. Also, not all mobile devices have built-in GPS receivers, such as the iPod, WiFi-only iPad, Amazon Kindle Fire/Kindle Fire HD 7” and some Android tablets. On these devices our application will show your approximate location, as long as you are connected to the internet.</dd>
 <dd lang="ru">Пожалуйста, убедитесь, что ваше устройство поддерживает GPS и что у вас активированы настройки геолокации. Подробнее о настройках геолокации вы можете прочитать <a href="http://maps.me/files/MAPS.ME%20User%20Guide%20v5.1%20RUS.pdf">в инструкции</a>. Определение местоположения по GPS (с выключенным WiFI, 3G и A-GPS) может занять продолжительное время (чем дольше не используется GPS, тем больше времени уходит на определение позиции), скорость определения местоположения будет зависеть  от устройства, а не от приложения. Кроме того, работа GPS зависит от погодных условий: лучше всего система работает на открытом воздухе при ясной погоде. Проблемы могут возникнуть при определении местоположения в закрытом помещении, на узких улицах или при движении в автомобиле.
 GPS точно отсутствует в iPod, iPad (модели только с WiFi), Amazon Kindle Fire/Kindle Fire HD 7” и в некоторых Android-планшетах. Но даже в этом случае при наличии подключения к Интернету вы увидите ваше положение на карте.</dd>
+<dd lang="de">Bitte stellen Sie sicher, dass Ihr Gerät über ein GPS-Modul verfügt und prüfen Sie Ihr <a href="https://www.facebook.com/notes/mapsme/faq-everything-you-wanted-to-know-about-gps-and-location-in-mapsme/833740000079400">Ortungseinstellungen</a>. Die Standortbestimmung über GPS (mit ausgeschaltetem WLAN und Mobilfunknetz) kann etwas Zeit benötigen. Je länger das GPS nicht verwendet wurde, desto mehr Zeit wird benötigt. Die Geschwindigkeit der Standortbestimmung ist vom Gerät abhängig, nicht von der App. Der GPS-Betrieb wird außerdem vom Wetter beeinflusst – es funktioniert am besten im Freien und bei klarem Himmel. Bei der Lokalisierung Ihrer Person in einem Raum, auf einer engen Straße oder beim Autofahren können Probleme auftreten. Außerdem enthalten nicht alle Mobilgeräte einen integrierten GPS-Empfänger, wie z. B. iPod, WLAN-iPad, Amazon Kindle Fire/Kindle Fire HD 7" und einige Android-Tablets. Auf diesen Geräten wird von unserer Anwendung Ihr ungefährer Standort angezeigt, solange Sie mit dem Internet verbunden sind.</dd>
+<dd lang="es">Asegúrate de que el dispositivo tenga un módulo GPS y comprueba la <a href="https://www.facebook.com/notes/mapsme/faq-everything-you-wanted-to-know-about-gps-and-location-in-mapsme/833740000079400">configuración de geolocalización</a>. Puede que lleve algo de tiempo establecer tu posición mediante GPS (con el wifi y el Red móvil desactivados). Cuanto más tiempo lleve sin utilizarse el GPS, más tardará la aplicación. La velocidad con la que se establece tu posición depende del dispositivo, no de la aplicación. Las condiciones meteorológicas también influyen en el funcionamiento del GPS: funciona mejor al aire libre con el cielo despejado. Por contra, puede tener dificultades para establecer tu posición si estás dentro de un edificio o en una calle estrecha o si vas conduciendo. Asimismo, no todos los dispositivos tienen receptores GPS integrados: en dispositivos como iPod, iPad únicamente con conexión wifi, Amazon Kindle Fire/Kindle Fire HD 7" y algunas tabletas Android,  nuestra aplicación mostrará tu posición aproximada, siempre que estés conectado a internet.</dd>
 
 <dt lang="en">What is this blue circle around my position arrow?</dt>
 <dt lang="ru">Что означает синий круг вокруг стрелки моей позиции?</dt>
+<dt lang="de">Was bedeutet der blaue Kreis um meinen Positionspfeil?</dt>
+<dt lang="es">¿Qué es el círculo de color azul que rodea la flecha de mi posición?</dt>
 <dd lang="en">This is your approximate location. You might be anywhere inside this blue circle, not necessarily in the center. When your position is detected clearly, the circle dissapears.</dd>
 <dd lang="ru">Это ваше примерное местоположение - вы можете находиться где угодно внутри этого круга, не обязательно в самом центре. Когда ваша позиция будет определена точно, круг пропадет.</dd>
+<dd lang="de">Hierbei handelt es sich um Ihren ungefähren Standort. Ihre Position befindet sich irgendwo innerhalb des blauen Kreises, nicht unbedingt in der Mitte. Sobald Ihre Position klar erkannt ist, wird der Kreis ausgeblendet.</dd>
+<dd lang="es">Se trata de tu posición aproximada. Puedes encontrarte en cualquier punto del interior del círculo, no necesariamente en el centro. Cuando se detecte tu posición con claridad, el círculo desaparecerá.</dd>
 
 <dt lang="en">Can I use the app and GPS in the flight mode?</dt>
 <dt lang="ru">Могу ли я пользоваться приложением и GPS в авиарежиме?</dt>
+<dt lang="de">Kann ich die App und GPS im Flugmodus verwenden?</dt>
+<dt lang="es">¿Se pueden utilizar la aplicación y el GPS en modo avión?</dt>
 <dd lang="en">Android and iOS devices (8.3 + version) can use GPS in the flight mode. However, if your iOS device is 8.2 or earlier, Airplane Mode will block GPS. You can even track your flight while on the airplane if you can receive GPS signal near the windows.</dd>
 <dd lang="ru">В iOS (8.3 и выше) и Android устройствах GPS работает даже при включенном авиарежиме. Однако, если на устройстве установлена iOS 8.2 или более ранней версии, включение авиарежима отключает GPS. При желании можно даже следить за своим полетом в самолете, если вам удастся поймать сигнал GPS-спутников сидя у окна.</dd>
+<dd lang="de">Android- und iOS-Geräte (Version 8.3+) können GPS im Flugmodus verwenden. Verwenden Sie ein Gerät mit iOS 8.2 oder älter, wird GPS vom Flugmodus blockiert. Sie können im Flugzeug Ihren Flug nachverfolgen, sofern in Fensternähe ein GPS-Signal empfangen werden kann.</dd>
+<dd lang="es">Es posible utilizar el GPS con dispositivos Android e iOS (versión 8.3 o posterior) en modo avión. Sin embargo, en la versión 8.2 y versiones anteriores de iOS, el modo avión bloqueará el GPS. Puedes incluso seguir el recorrido de tu vuelo a bordo del avión si consigues captar una señal de GPS cerca de las ventanas.</dd>
 
 <dt lang="en">What can I do if my position is determined incorrectly?</dt>
 <dt lang="ru">Что делать, если мое местоположение определено неправильно?</dt>
+<dt lang="de">Was kann ich tun, wenn meine Position falsch erkannt wird?</dt>
+<dt lang="es">¿Qué hago si mi posición se establece incorrectamente?</dt>
 <dd lang="en">This means that your location was detected by Wi-Fi or cellular location services provided by Google or Apple. These services are not accurate and can sometimes show your position incorrectly (and unfortunately we can't fix it). Please check that GPS is enabled in your device's settings and make sure you are outdoors, as GPS signal does not work properly inside buildings.</dd>
 <dd lang="ru">Это значит, что местоположение было определено службами Apple или Google через Wi-Fi или сотовую связь. Эти службы не точные и иногда некорректно определяют вашу позицию (и мы, к сожалению, не можем повлиять на их точность). Убедитесь, что GPS включен в настройках, и попробуйте выйти из помещения - внутри зданий сигнал от GPS спутников слишком слабый.</dd>
+<dd lang="de">Das bedeutet, dass Ihr Standort per WLAN oder Mobiltelefonstandortdienste von Google oder Apple erkannt wurde. Diese Dienste sind nicht exakt und Ihre Position kann manchmal nicht korrekt angezeigt werden (und leider können wir das nicht verhindern). Bitte prüfen Sie in den GPS-Einstellungen, ob GPS aktiviert ist und stellen Sie sicher, dass Sie sich im Freien befinden, da GPS-Singale innerhalb von Gebäuden nicht korrekt empfangen werden können.</dd>
+<dd lang="es">Si se da esta situación, significa que tu posición se ha detectado mediante servicios de localización por wifi o móvil prestados por Google o Apple. Estos servicios no son precisos y en ocasiones pueden mostrar tu posición incorrectamente. (Por desgracia, no podemos hacer nada al respecto). Comprueba que tienes habilitado el GPS en los ajustes del dispositivo y asegúrate de encontrarte al aire libre, ya que la señal de GPS no funciona correctamente dentro de edificios.</dd>
 
 <dt lang="en">I use the Android version of MAPS.ME and cannot determine my location.</dt>
 <dt lang="ru">Я пользуюсь Android-версией MAPS.ME и не могу определить свое местоположение.</dt>
+<dt lang="de">Ich verwende die Android-Version von MAPS.ME und kann meinen Standort nicht bestimmen.</dt>
+<dt lang="es">Utilizo la versión para Android de MAPS.ME, y la aplicación no consigue establecer mi posición.</dt>
 <dd lang="en">Check your Geolocation Settings and make sure that Google Play Services are not blocked. We use these to determine your location, but they may be blocked by some antivirus services, so check these settings too. Try to enable (disable if enabled) “Use Google Play Services” in app settings, then restart your device.</dd>
 <dd lang="ru">Если настройки геолокации в порядке, убедитесь, что службы Google Play не заблокированы другими приложениями или антивирусами - они нужны для более эффективного определения позиции. Попробуйте поставить (или убрать, если стоит) галочку “Использовать сервисы Google” в настройках приложения. На разных устройствах эта опция может давать положительный или отрицательный эффект. Не забудьте после этого перезагрузить устройство.</dd>
+<dd lang="de">Prüfen Sie Ihre Ortungseinstellungen und stellen Sie sicher, dass Google Play Services nicht blockiert. Wir verwenden diese zur Bestimmung Ihres Standorts, sie könnten jedoch von Antivirus-Diensten blockiert sein, überprüfen Sie daher auch diese Einstellungen. Versuchen Sie „Google Play Services“ in den App-Einstellungen zu aktivieren (deaktivieren, falls aktiviert) und starten Sie das Gerät neu.</dd>
+<dd lang="es">Asegúrate de que Servicios de Google Play no estén bloqueados en la configuración de geolocalización. Utilizamos estos servicios para establecer tu posición, pero puede que los haya bloqueado algún servicio antivirus, por lo que comprueba también estos ajustes. Prueba a habilitar (o a deshabilitar si ya está habilitado) «Usar Servicios de Google Play» en los ajustes de la aplicación y, a continuación, reinicia el dispositivo.</dd>
 
 <dt lang="en">How can I see my current speed and altitude?</dt>
 <dt lang="ru">Как посмотреть мою текущую скорость и высоту над уровнем моря?</dt>
+<dt lang="de">Wo kann ich meine aktuelle Geschwindigkeit und Höhe ablesen?</dt>
+<dt lang="es">¿Cómo consulto la velocidad a la que voy y la altitud a la que me encuentro?</dt>
 <dd lang="en">Make sure that you get GPS signal and then select your current position on the map.</dd>
-<dd lang="ru">Когда позиция определилась с помощью GPS-спутников (не по Wi-Fi или сотовой сети), выберите ваше текущее местоположение на карте.
-</dd>
+<dd lang="ru">Когда позиция определилась с помощью GPS-спутников (не по Wi-Fi или сотовой сети), выберите ваше текущее местоположение на карте.</dd>
+<dd lang="de">Stellen Sie sicher, dass Sie ein GPS-Signal empfangen und wählen Sie Ihre aktuelle Position auf der Karte.</dd>
+<dd lang="es">Comprueba que captas una señal de GPS y selecciona tu posición en el mapa.</dd>
 
 <dt lang="en">What does the auto-follow mode stand for and how can I activate it?</dt>
 <dt lang="ru">Что такое режим автоследования и как мне его активировать?</dt>
+<dt lang="de">Wofür steht der Modus „Automatisch folgen“ und wie kann ich ihn aktivieren?</dt>
+<dt lang="es">¿Para qué sirve el modo de seguimiento automático y cómo se activa?</dt>
 <dd lang="en">In auto-follow mode the map rotates as you move. To activate it, tap the blue arrow in the lower left corner once your location has been determined, tap the compass icon to deactivate it.</dd>
 <dd lang="ru">Режим автоследования позволяет карте вращаться по ходу вашего движения. После того как определилось ваше местоположение, нажмите на синюю стрелку в левом углу один раз, чтобы его активировать. Нажатие на значок компаса отключает режим автоследования.</dd>
+<dd lang="de">Im Modus „Automatisch folgen“ dreht sich die Karte bei Bewegung. Um ihn zu aktivieren, tippen Sie auf den blauen Pfeil in der unteren linken Ecke, sobald Ihr Standort bestimmt wurde, tippen Sie auf das Kompasssymbol, um ihn zu deaktivieren.</dd>
+<dd lang="es">En el modo de seguimiento automático, el mapa rota a medida que te mueves. Para activarlo, toca la flecha de color azul situada en la esquina inferior izquierda una vez establecida tu posición; para desactivarlo, toca el icono de la brújula.</dd>
 
 <dt lang="en">Can I use external GPS device with your maps?</dt>
 <dt lang="ru">Можно ли использовать внешний GPS вместе с MAPS.ME?</dt>
+<dt lang="de">Kann ich mit euren Karten ein externes GPS-Gerät verwenden?</dt>
+<dt lang="es">¿Puedo utilizar un dispositivo GPS externo con vuestros mapas?</dt>
 <dd lang="en">We haven’t tried this out ourselves, but users have reported successful use of external GPS devices with MAPS.ME.</dd>
 <dd lang="ru">Мы не проверяли, но многие наши пользователи пишут, что успешно использовали внешние GPS-устройства с нашими картами.</dd>
+<dd lang="de">Wir haben das selbst noch nicht ausprobiert, aber Benutzer haben von einer erfolgreichen Verwendung externer GPS-Geräte mit MAPS.ME berichtet.</dd>
+<dd lang="es">Nosotros no lo hemos probado, pero varios usuarios han afirmado haber utilizado correctamente dispositivos GPS externos con MAPS.ME.</dd>
 
 </dl>
 
@@ -166,48 +240,82 @@ GPS точно отсутствует в iPod, iPad (модели только �
 
 <h3 lang="en">Navigation, routing and tracks</h3>
 <h3 lang="ru">Навигация, маршруты и треки</h3>
+<h3 lang="de">Navigation, Routing und Tracks</h3>
+<h3 lang="es">Navegación, rutas e itinerarios</h3>
 
 <dl id="navigation">
 
 <dt lang="en">Does MAPS.ME have voice-guided navigation and route planning?</dt>
 <dt lang="ru">Есть ли в приложении MAPS.ME голосовая навигация или прокладка маршрутов?</dt>
+<dt lang="de">Bietet MAPS.ME eine sprachgeführte Navigation und Routenplanung?</dt>
+<dt lang="es">¿Incorpora MAPS.ME opciones de navegación guiada por voz y planificación de rutas?</dt>
 <dd lang="en">MAPS.ME does not have voice-guided navigation, but it does have offline routing. You can create routes from your current location to any point on the map.</dd>
 <dd lang="ru">Пока в приложении нет навигации, но доступна функция планирования маршрута в режиме офлайн. Вы можете прокладывать маршрут от вашего местоположения до любой точки на карте.</dd>
+<dd lang="de">MAPS.ME bietet keine sprachgeführte Navigation, aber es verfügt über ein Offline-Routing. Sie können Routen von Ihrem aktuellen Standort zu einem beliebigen Punkt auf der Karte erstellen.</dd>
+<dd lang="es">MAPS.ME no incorpora navegación guiada por voz, pero sí una función de planificación de rutas sin conexión a internet. Puedes crear rutas desde tu posición hasta cualquier punto del mapa.</dd>
 
 <dt lang="en">Why can’t I plan a route from any point on the map?</dt>
 <dt lang="ru">Почему я не могу проложить маршрут из любой точки А в точку В?</dt>
+<dt lang="de">Warum kann ich keine Route von jedem beliebigen Punkt auf der Karte planen?</dt>
+<dt lang="es">¿Por qué no se pueden planificar rutas desde cualquier punto del mapa?</dt>
 <dd lang="en">You can only plan routes from your current location in this (first) version of navigation. We will add route planning from any point on the map in future releases.</dd>
 <dd lang="ru">В первой версии роутинга доступно построение маршрута только от вашего текущего местоположения. В дальнейшем мы добавим маршруты из произвольных точек на карте.</dd>
+<dd lang="de">Sie können mit dieser (ersten) Version der Navigation nur Routen von Ihrem aktuellen Standort ab planen. Die Planung von Routen ab einem beliebigen Punkt auf der Karte wird in zukünftigen Veröffentlichungen hinzugefügt.</dd>
+<dd lang="es">En esta (primera) versión de la navegación, solamente puedes planificar rutas desde tu posición. Será posible planificar rutas desde cualquier punto del mapa en versiones futuras.</dd>
 
 <dt lang="en">How can I create a route in MAPS.ME?</dt>
 <dt lang="ru">Как проложить маршрут в MAPS.ME?</dt>
-<dd lang="en">Make sure your position is determined, then choose with your finger a point on the map where you want to go. Tap the "Route" icon in the pop-up window. You can change the route type by pressing the "Pedestrian" icon or the "Car" icon at the top of the screen. Press "Start" to begin moving. Press the cross in the top left corner of the screen to finish the route.</dd>
-<dd lang="ru">Убедитесь, что ваше местоположение определено, затем выберите на карте точку, к которой хотите проложить маршрут. В выпадающем меню нажмите иконку "Маршрут". Тип маршрута можно изменить, нажав на иконку автомобиля или пешехода вверху экрана. Для движения по маршруту нажмите кнопку “Начать”. Чтобы закончить движение по маршруту нажмите на крестик в левом верхнем углу экрана.</dd>
+<dt lang="de">Wie kann ich mit MAPS.ME eine Route erstellen?</dt>
+<dt lang="es">¿Cómo se crea una ruta en MAPS.ME?</dt>
+<dd lang="en">Make sure your position is determined, then choose with your finger a point on the map where you want to go. Tap Route icon <img src="images/ic_route_to.png"> in the pop-up window. You can change the route type by pressing Pedestrian icon <img src="images/ic_type_walk_off_active.png"> or Car icon <img src="images/ic_type_drive_on_active.png"> at the top of the screen. Press "Start" to begin moving. Press the cross in the top left corner of the screen to finish the route.</dd>
+<dd lang="ru">Убедитесь, что ваше местоположение определено, затем выберите на карте точку, к которой хотите проложить маршрут. В выпадающем меню нажмите иконку маршрут <img src="images/ic_route_to.png">. Тип маршрута можно изменить, нажав на иконку автомобиля <img src="images/ic_type_drive_on_active.png"> или пешехода <img src="images/ic_type_walk_off_active.png"> вверху экрана. Для движения по маршруту нажмите кнопку “Начать”. Чтобы закончить движение по маршруту нажмите на крестик в левом верхнем углу экрана.</dd>
+<dd lang="de">Stellen Sie sicher, dass Ihre Position bestimmt ist und wählen Sie dann mit Ihrem Finger einen Punkt auf der Karte, wohin Sie möchten. Tippen Sie im Popup-fenster auf das Symbol „Route“. Sie können den Routentyp ändern, indem Sie oben im Bildschirm auf das Symbol „Fußgänger“ oder „Auto“ drücken. Drücken Sie auf „Start“ und fahren Sie los. Drücken Sie auf das Kreuz oben links im Bildschirm, um die Route fertigzustellen.</dd>
+<dd lang="es">Confirma que se haya establecido tu posición; a continuación, elige con el dedo el punto del mapa al que quieras ir. Toca el icono «Ruta» en la ventana emergente. Para cambiar el tipo de ruta, pulsa los iconos «A pie» o «En coche» situados en la parte superior de la pantalla. Pulsa «Empezar» para empezar a moverte. Pulsa la «X» situada en la esquina superior izquierda de la pantalla para finalizar la ruta.</dd>
 
 <dt lang="en">I am not satisfied with the route MAPS.ME planned for me.</dt>
 <dt lang="ru">Маршрут, который предложило приложение, меня не устраивает.</dt>
+<dt lang="de">Ich bin nicht zufrieden mit der Route, die MAPS.ME für mich geplant hat.</dt>
+<dt lang="es">No me gusta la ruta que ha planificado MAPS.ME.</dt>
 <dd lang="en">Routes created by MAPS.ME are not necessarily the best possible ones. However, as soon as you leave the route, the app will suggest you a new one. Don’t forget to take the following things into account when driving: traffic jams, road works, weather conditions, etc. Rely on yourself above any software.</dd>
 <dd lang="ru">Маршрут, который строит MAPS.ME, не обязательно будет самым оптимальным, хотя мы к этому и стремимся. Как только вы уйдете с проложенного маршрута, приложение предложит вам новый. Кроме того, вам необходимо учитывать условия движения: пробки, дорожные работы, временные знаки и т.д. Даже на программное обеспечение полагаться на 100% нельзя.</dd>
+<dd lang="de">Die von MAPS.ME erstellten Routen müssen nicht unbedingt die bestmöglichen sein. Sobald Sie die Route verlassen, wird die App Ihnen eine neue Route vorschlagen. Vergessen Sie nicht, während der Fahrt die folgenden Dinge zu berücksichtigen: Staus, Straßenarbeiten, Wetterbedingungen usw. Verlassen Sie sich auf sich selbst und nicht nur auf die Software.</dd>
+<dd lang="es">Las rutas creadas por MAPS.ME no son necesariamente la mejor opción posible. Sin embargo, en cuanto te desvíes de la ruta, la aplicación te sugerirá una nueva. Cuando vayas conduciendo, ten en cuenta elementos como los atascos, las obras, las condiciones meteorológicas, etc. Utiliza el sentido común antes que cualquier software.</dd>
 
 <dt lang="en">Can I record tracks in GPX format in MAPS.ME?</dt>
 <dt lang="ru">Есть ли в приложении возможность записывать треки в формате GPX?</dt>
+<dt lang="de">Kann ich in MAPS.ME Tracks im GPX-Format aufzeichnen?</dt>
+<dt lang="es">¿Permite MAPS.ME grabar itinerarios en formato GPX?</dt>
 <dd lang="en">We plan to add GPX tracks import and recording. So far, you can <a href="http://gpx2kml.com">convert GPX to KML</a> or KMZ and <a href="https://www.facebook.com/notes/mapsme/how-to-importexport-bookmarks-and-routes-in-mapsme/360411020745636">import tracks and bookmarks</a> in KML or KMZ format.</dd>
 <dd lang="ru">Мы планируем добавить импорт GPX и запись треков. Сейчас можно <a href="http://gpx2kml.com">конвертировать GPX в KML</a> или KMZ и <a href="https://www.facebook.com/notes/mapsme/how-to-importexport-bookmarks-and-routes-in-mapsme/360411020745636">импортировать треки и закладки</a> в фомате KML или KMZ.</dd>
+<dd lang="de">МWir planen das Importieren und Aufzeichnen für GPX. Bisher können Sie <a href="http://gpx2kml.com">GPX zu KML</a> oder KMZ konvertieren und <a href="https://www.facebook.com/notes/mapsme/how-to-importexport-bookmarks-and-routes-in-mapsme/360411020745636">importieren Tracks und Lesezeichen</a> im KML- oder KMZ-Format.</dd>
+<dd lang="es">Tenemos pensado añadir funciones de importación y grabación de itinerarios en GPX. De momento, puedes  <a href="http://gpx2kml.com">convertir de GPX a KML</a> o KMZ e <a href="https://www.facebook.com/notes/mapsme/how-to-importexport-bookmarks-and-routes-in-mapsme/360411020745636">importar itinerarios y marcadores</a> en formato KML o KMZ.</dd>
 
 <dt lang="en">Can I use my bookmarks/routes from Google Maps?</dt>
 <dt lang="ru">Могу ли я воспользоваться своими метками/маршрутами из Google Maps?</dt>
-<dd lang="en">You can <a href="https://www.facebook.com/notes/mapsme/how-to-importexport-bookmarks-and-routes-in-mapsme/360411020745636">import and export</a> bookmarks and tracks in KML format. Send yourself a set of bookmarks or a track from Google Maps by e-mail, then open it in MAPS.ME. It is even easier to export bookmarks and sets of bookmarks from MAPS.ME - just tap the Share button and email them to yourself. Bookmarks can also be retrieved by simply copying the "Any name.kml" file (any name = name of your bookmark, e.g. My Places.kml). On Android, bookmarks are stored in the MapsWithMe folder. On iOS, you will need to connect your device to a computer and copy the bookmarks using iTunes (select your device, then Apps - MAPS.ME - Documents).</dd>
+<dt lang="de">Kann ich meine Lesezeichen/Routen von Google Maps verwenden?</dt>
+<dt lang="es">¿Puedo utilizar mis marcadores o rutas de Google Maps?</dt>
+<dd lang="en">You can <a href="https://www.facebook.com/notes/mapsme/how-to-export-routes-from-google-maps-in-kml-format/461950040591733">import and export</a> bookmarks and tracks in KML format. Send yourself a set of bookmarks or a track from Google Maps by e-mail, then open it in MAPS.ME. It is even easier to export bookmarks and sets of bookmarks from MAPS.ME - just tap the Share button and email them to yourself. Bookmarks can also be retrieved by simply copying the "Any name.kml" file (any name = name of your bookmark, e.g. My Places.kml). On Android, bookmarks are stored in the MapsWithMe folder. On iOS, you will need to connect your device to a computer and copy the bookmarks using iTunes (select your device, then Apps - MAPS.ME - Documents).</dd>
 <dd lang="ru">В MAPS.ME реализована функция <a href="http://vk.com/topic-47505828_29265147">импорта/экспорта</a> меток и маршрутов в формате KML. Вы можете отправить группу меток или маршрут из Google Maps себе на электронную почту, а затем открыть их в приложении. Экспортировать метки и группы меток из приложения еще проще - просто нажмите кнопку «Поделиться» и отправьте себе на электронную почту. Кроме того, можно просто скопировать .kml файлы (например, Мои Метки.kml), подключив устройство к компьютеру. Под iOS файлы можно найти с помощью iTunes, выбрав ваше устройство, затем Приложения, и прокрутив страницу вниз. Под Андроид файлы лежат в папке MapsWithMe.</dd>
+<dd lang="de">Sie können Lesezeichen und Tracks im KML-Format importieren und <a href="https://www.facebook.com/notes/mapsme/how-to-export-routes-from-google-maps-in-kml-format/461950040591733">exportieren</a>. Senden Sie sich selbst einen Lesezeichensatz oder einen Track von Google Maps per E-Mail und öffnen Sie diese in MAPS.ME. Das Exportieren von Lesezeichen und Lesezeichensätzen von MAPS.ME – tippen Sie einfach auf die Teilen-Schaltfläche und senden Sie diese per E-Mail ans ich selbst. Lesezeichen können auch empfangen werden, indem Sie einfach die Datei „Any name.kml“ (Any name = Name Ihres Lesezeichens, wie z. B. Meine Orte.kml) kopieren. Unter Android werden die Lesezeichen im Ordner MapsWhithMe gespeichert. Unter iOS müssen Sie Ihr Gerät mit einem Computer verbinden und die Lesezeichen mit iTunes kopieren (wählen Sie Ihr Gerät, dann Apps – MAPS.ME – Dokumente).</dd>
+<dd lang="es">Puedes importar y <a href="https://www.facebook.com/notes/mapsme/how-to-export-routes-from-google-maps-in-kml-format/461950040591733">exportar</a> marcadores y recorridos en formato KML. Envíate un grupo de marcadores por correo electrónico desde Google Maps y ábrelo en MAPS.ME. Exportar marcadores y grupos de marcadores desde MAPS.ME es aún más fácil: basta con que toques el botón «Compartir» y te los envíes a ti mismo por correo electrónico. Los marcadores también se pueden recuperar simplemente copiando el archivo «nombre.kml» (donde «nombre» es el nombre del marcador, por ejemplo, «Mis lugares.kml»). En Android, los marcadores se almacenan en la carpeta «MapsWithMe». En iOS, tendrás que conectar el dispositivo a un ordenador y copiar los marcadores mediante iTunes. (Selecciona el dispositivo y, a continuación, «Aplicaciones» > «MAPS.ME» > «Documentos»).</dd>
 
 <dt lang="en">How can I calculate distance between two arbitrary points on a map?</dt>
 <dt lang="ru">Как можно посчитать расстояние между любыми двумя точками на карте?</dt>
+<dt lang="de">Wie kann ich die Distanz zwischen zwei beliebigen Punkten auf einer Karte berechnen?</dt>
+<dt lang="es">¿Cómo calculo la distancia existente entre dos puntos al azar de un mapa?</dt>
 <dd lang="en">We are planning to release this feature when we finish the car/bicycle/foot routing features. Until then you can use the scale in the bottom part of the screen. You can also measure the distance to a place from your current location by creating a route, or you can tap anywhere on the map and see the straight line distance.</dd>
 <dd lang="ru">Мы планируем решить эту задачу, когда закончим офлайновый роутинг для машин, велосипедистов и пешеходов. Пока можно использовать линейку внизу экрана - это позволяет примерно оценить расстояние. Кроме того, можно измерить расстояние до объекта при создании маршрута или нажать на объект на карте и увидеть расстояние по прямой от текущего местоположения.</dd>
+<dd lang="de">Wir planen diese Funktionen nach Abschluss der Auto-/Fahrrad-/Fußgänger-Routing-Optionen. Bis dahin können Sie die Skala im unteren Bildschirmbereich verwenden. Sie können die Distanz von einem zu einem Ort von Ihrem aktuellen Standort aus messen, indem Sie eine Route erstellen oder Sie tippen auf eine beliebige Stelle auf der Karte und sehen die geradlinige Distanz.</dd>
+<dd lang="es">Tenemos pensado lanzar esta función cuando terminemos con las funciones de rutas en coche, en bicicleta y a pie. Hasta que llegue ese momento, puedes utilizar la escala situada en la parte inferior de la pantalla. Para medir la distancia que hay hasta un lugar desde tu posición, puedes también crear una ruta o bien tocar en cualquier punto del mapa y comprobar la distancia en línea recta.</dd>
 
 <dt lang="en">Are you planning to add terrain relief? It's important for hiking and cycling!</dt>
 <dt lang="ru">Вы планируете поддерживать рельеф местности? Это важно для пешего и велосипедного туризма.</dt>
+<dt lang="de">Planen Sie das Hinzufügen von Gelände? Das ist wichtig für Wandern und Radfahren!</dt>
+<dt lang="es">¿Tenéis pensado añadir el relieve del terreno? Es importante si vas a practicar senderismo o a andar en bici.</dt>
 <dd lang="en">Yes, we do. It's in our plans.</dd>
 <dd lang="ru">Да, мы обязательно это сделаем.</dd>
+<dd lang="de">Ja, ist geplant. Das ist bereits in den Plänen vorgemerkt.</dd>
+<dd lang="es">Sí, está entre nuestros planes.</dd>
 
 </dl>
 
@@ -215,39 +323,58 @@ GPS точно отсутствует в iPod, iPad (модели только �
 
 <h3 lang="en">Search</h3>
 <h3 lang="ru">Поиск</h3>
+<h3 lang="de">Suchen</h3>
+<h3 lang="es">Búsqueda</h3>
+
 
 <dl id="search">
 
 <dt lang="en">How can I search on the map?</dt>
 <dt lang="ru">Как мне найти нужный объект на карте?</dt>
+<dt lang="de">Wie kann ich auf der Karte suchen?</dt>
+<dt lang="es">¿Cómo se busca algo en un mapa?</dt>
 <dd lang="en">Download the country or region map first. Tap on the Search button and type the place name, address or coordinates in the search bar. You will see suggestions and search results in the list below. To view search results on the map, tap "Search" on the virtual keyboard or the "Search on map" button. For better results, enter the country name first (if you are not yet there), then city, street and house number. You will only be able to find addresses which are in the <a href="http://www.openstreetmap.org/">OpenStreetMap</a> database.</dd>
 <dd lang="ru">Для начала скачайте карту страны или местности, где находится нужный вам объект. Нажмите кнопку поиска и введите название необходимого вам места, адрес или координаты. Вы увидите подсказки, и результаты, соответствующие запросу, отобразятся в списке ниже. Чтобы посмотреть результаты поиска на карте, нажмите "Поиск" на клавиатуре (или кнопку "Искать на карте"). Лучше всего вводить сначала страну (если вы сейчас не в ней), затем город, улицу и номер дома. Номера домов найдутся только если они есть в данных <a href="http://www.openstreetmap.org">OpenStreetMap</a>.</dd>
-
+<dd lang="de">Laden Sie zuerst die Landes- oder Regionskarte herunter. Tippen Sie auf die die Suchen-Taste und geben Sie den Ortsnamen, die Adresse oder die Koordinaten in die Suchleiste ein. Ihnen werden dann Empfehlungen und Suchergebnisse in der folgenden Liste angezeigt. Um die Suchergebnisse auf der Karte anzuzeigen, tippen Sie auf „Suchen“ auf der virtuellen Tastatur oder auf die Taste „Auf Karte suchen“. Für bessere Ergebnisse geben Sie zuerst den Landesnamen ein (wenn Sie noch nicht dort sind) und dann Stadt, Straße und Hausnummer ein. Es können nur Adressen gefunden werden, die sich in der Datenbank <a href="http://www.openstreetmap.org/">OpenStreetMap</a> befinden.</dd>
+<dd lang="es">Primero, descarga el mapa del país o de la región. Toca el botón «Buscar» y escribe el nombre, la dirección o las coordenadas del lugar en la barra de búsqueda. Aparecerán sugerencias y los resultados de búsqueda en la lista de la parte inferior. Para ver los resultados de búsqueda en el mapa, toca «Buscar» en el teclado virtual o el botón «Buscar en mapa». Para optimizar los resultados, escribe primero el nombre del país (si no te encuentras todavía en él) y, después, la ciudad, la calle y el número del portal. Solamente podrás buscar direcciones que figuren en la base de datos de <a href="http://www.openstreetmap.org/">OpenStreetMap</a>.</dd>
 
 <dt lang="en">Can I find a place by its postcode (ZIP code)?</dt>
 <dt lang="ru">Могу ли я найти объект по почтовому индексу?</dt>
+<dt lang="de">Kann ich einen Ort anhand der Postleitzahl (PLZ) finden?</dt>
+<dt lang="es">¿Se puede buscar un lugar por el código postal?</dt>
 <dd lang="en">Not yet, but we plan to add search by postcode in the future.</dd>
 <dd lang="ru">Пока нет, но в будущем мы планируем добавить такую возможность.</dd>
+<dd lang="de">Noch nicht, aber wir planen die Suche per Postleitzahl in der Zukunft.</dd>
+<dd lang="es">Todavía no, pero tenemos pensado añadir la búsqueda por código postal en el futuro.</dd>
 
 <dt lang="en">How can I find the nearest shop, gas station or bank?</dt>
 <dt lang="ru">Как найти ближайший магазин, заправку или банк?</dt>
-<dd lang="en">You can search either by name, or by category (keyword). The most popular categories are shown as icons under the search tab (food for restaurants, money for ATMs or currency exchange, fuel for gas stations, sights for places of interest, etc). Other keywords you might like to use (change according to language): bench, WC, money, food, fuel, shop, transport, sights, bicycle, cinema, hospital, library, pharmacy, phone, theater, hotel, airport, sport, police, embassy, etc.
-</dd>
+<dt lang="de">Wie kann ich nächstgelegene Shops, Tankstellen oder Banken finden?</dt>
+<dt lang="es">¿Puedo buscar la tienda, la gasolinera o el banco que tenga más cerca?</dt>
+<dd lang="en">You can search either by name, or by category (keyword). The most popular categories are shown as icons under the search tab (food for restaurants, money for ATMs or currency exchange, fuel for gas stations, sights for places of interest, etc). Other keywords you might like to use (change according to language): bench, WC, money, food, fuel, shop, transport, sights, bicycle, cinema, hospital, library, pharmacy, phone, theater, hotel, airport, sport, police, embassy, etc.</dd>
 <dd lang="ru">Искать можно не только по имени, но и по категории или ключевому слову.
 Наиболее популярные категории отображены в списке под полем поиска:
 еда, гостиница, достопримечательность, транспорт, заправка, магазин, развлечения, банкомат, банк, парковка, туалет, аптека, больница, почта,полиция, WiFi.</dd>
-
+<dd lang="de">Sie können entweder nach Name oder nach Kategorie suchen (Schlüsselwort). Die gängigsten Kategorien werden als Symbole unter dem Suchregister angezeigt (Verpflegung für Restaurants, Geld für Bankautomaten oder Geldumtausch, Benzin für Tankstellen, Sehenswürdigkeiten für interessante Orte usw.). Andere Schlüsselwörter, die Sie verwenden können (ändern Sie diese entsprechend der Sprache): Bank, WC, Lebensmittel, Benzin, Shop, Transport, Sehenswürdigkeiten, Fahrrad, Kino, Krankenhaus, Bibliothek, Apotheke, Telefon, Theater, Hotel, Flughafen, Sport, Polizei, Botschaft usw.</dd>
+<dd lang="es">Puedes buscarlos por el nombre o por la categoría (palabra clave). Las categorías más populares se muestran en forma de iconos debajo de la pestaña de búsqueda («Comer» para los restaurantes, «ATM» para los cajeros automáticos o puntos de cambio de divisas, «Gasolinera» para las gasolineras, «Turismo» para los lugares de interés, etc.). Otras palabras clave que podrías querer utilizar (varían en función del idioma): «banco», «baño», «dinero», «comer», «gasolina», «tienda», «transporte», «lugares de interés», «bicicleta», «cine», «hospital», «biblioteca», «farmacia», «teléfono», «teatro», «hotel», «aeropuerto», «deporte», «policía», «embajada», etc.</dd>
 
 <dt lang="en">How do I search for places that are far away from me?</dt>
 <dt lang="ru">Как искать объекты в другой стране?</dt>
+<dt lang="de">Wie suche ich nach Orten, die sehr weit weg sind?</dt>
+<dt lang="es">¿Cómo busco lugares que están muy alejados de donde me encuentro?</dt>
 <dd lang="en">If you want to search for a place in a different country (to your current location), you will need to download the relevant map, then zoom in to the right country and start searching, or simply enter the country name in the search bar.</dd>
 <dd lang="ru">Если вы ищете объект в стране, где не находитесь в данный момент, сначала вам нужно загрузить карту этой страны или региона, приблизить ее и только потом начинать искать. Либо всегда указывайте название страны, где ищете, в окне поиска.</dd>
-
+<dd lang="de">Wenn Sie nach einem Ort in einem anderen Land suchen möchten (nicht das Ihres aktuellen Standorts), muss die dafür relevante Karte heruntergeladen werden, vergrößern Sie dann in das gewünschte Land und beginnen Sie mit der Suche, oder geben Sie einfach den Namen des Landes in die Suchleiste ein.</dd>
+<dd lang="es">Si quieres buscar un lugar de otro país (distinto al de tu posición), tendrás que descargar el país correspondiente, ampliar la imagen hasta dar con el país adecuado y buscar el lugar, o bien simplemente escribir el nombre del país en la barra de búsqueda.</dd>
 
 <dt lang="en">Search cannot find a place on the map.</dt>
 <dt lang="ru">Поиск не находит то, что я ищу.</dt>
+<dt lang="de">Die Suche findet einen Ort nicht auf der Karte.</dt>
+<dt lang="es">La función de búsqueda no encuentra un lugar en el mapa.</dt>
 <dd lang="en">The place has probably not been mapped yet at <a href="http://www.openstreetmap.org/">OpenStreetMap.org</a>. Remember that to find an object in a specific area, you will need to zoom in before you start searching.  If the place is displayed in MAPS.ME but our search cannot find it, please <a href="mailto:support@maps.me">report this bug</a> to us.</dd>
 <dd lang="ru">Возможно, то, что вы ищете, отсутствует в данных OpenStreetMap - это всегда можно проверить у них <a href="http://www.openstreetmap.org/">на сайте</a>. Помните, чтобы найти объект в определенном районе, надо сперва приблизить карту этой местности. Если нужный объект нарисован на карте, но поиск его не находит, пожалуйста, <a href="mailto:support@maps.me">сообщите нам</a> об этом.</dd>
+<dd lang="de">Der Ort wurde unter <a href="http://www.openstreetmap.org/">OpenStreetMap.org</a> wahrscheinlich noch nicht kartiert. Denke Sie daran, um ein Objekt in einem bestimmten Bereich zu finden, müssen Sie hineinvergrößern, bevor Sie mit der Suche beginnen. Wird der Ort in MAPS.ME angezeigt, aber unsere Suche kann ihn nicht finden, melden Sie uns bitte <a href="mailto:support@maps.me">diesen Fehler</a>.</dd>
+<dd lang="es">Es probable que todavía no haya un mapa del lugar en <a href="http://www.openstreetmap.org/">OpenStreetMap.org</a>. Recuerda que, para buscar un objeto en una zona en concreto, debes ampliar la imagen antes de realizar la búsqueda. Si el lugar se muestra en MAPS.ME, pero nuestra función de búsqueda no lo encuentra, <a href="mailto:support@maps.me">comunícanoslo</a>.</dd>
 
 </dl>
 
@@ -255,11 +382,15 @@ GPS точно отсутствует в iPod, iPad (модели только �
 
 <h3 lang="en">Problems with the app</h3>
 <h3 lang="ru">Проблемы с приложением</h3>
+<h3 lang="de">Probleme mit der app</h3>
+<h3 lang="es">Problemas con la aplicación</h3>
 
 <dl id="problems">
 
 <dt lang="en">I cannot install MAPS.ME from AppStore or Android Market.</dt>
 <dt lang="ru">Карты не устанавливаются из магазина приложений.</dt>
+<dt lang="de">Ich kann MAPS.ME nicht vom AppStore oder von Android Market installieren.</dt>
+<dt lang="es">No puedo instalar MAPS.ME desde el App Store o Android Market.</dt>
 <dd lang="en">Restart your device and try to install the app again. If that doesn’t help and you have an Android device, follow these instructions:
 <ul><li>Go to Settings -> More -> Application Manager</li>
 <li>Swipe left until you’re in the All tab</li>
@@ -279,20 +410,49 @@ GPS точно отсутствует в iPod, iPad (модели только �
 <li>перезагрузите свое устройство и снова запустите Google Play (или Samsung Apps)</li>
 <li>войдите в свой аккаунт и снова загрузите приложение</li></ul>
 </dd>
+<dd lang="de">Starten Sie Ihr Gerät neu und versuchen Sie erneut, die App zu installieren. Schafft das keine Abhilfe und Sie besitzen ein Android-Gerät, folgen Sie diesen Anweisungen:
+<ul><li>Gehen Sie zu Einstellungen – Mehr – Anwendungsmanager</li>
+<li>GWischen Sie nach links, bis Sie sich in der Registerkarte „Alle“ befinden</li>
+<li>Scrollen Sie zum Google Play Store und tippen Sie diesen an (oder auf Samsung Apps, falls verwendet)</li>
+<li>Tippen Sie zuerst auf „Schließen erzwingen“</li>
+<li>Tippen Sie dann auf die Taste „Daten löschen“</li>
+<li>Starten Sie das Gerät neu</li>
+<li>Starten Sie den Google Play Store (oder Samsung Apps usw.)</li>
+<li>Richten Sie Ihr Konto ein und laden Sie die App erneut herunter.</li>
+</dd>
+<dd lang="es">Reinicia el dispositivo y prueba a instalar de nuevo la aplicación. Si no se resuelve el problema y tienes un dispositivo Android, sigue estas indicaciones:
+<ul><li>Ve a «Ajustes» > «Más» > «Administrador de aplicaciones».</li>
+<li>Desliza el dedo rápidamente hacia la izquierda hasta que llegues a la pestaña «Todas».</li>
+<li>Baja hasta «Google Play Store» (o «Samsung Apps» si lo utilizas) y tócalo.</li>
+<li>Toca primero «Forzar cierre».</li>
+<li>A continuación, toca el botón «Borrar datos».</li>
+<li>Reinicia el dispositivo.</li>
+<li>Inicia Google Play Store (o Samsung Apps, etc.).</li>
+<li>Configura tu cuenta y descarga de nuevo la aplicación.</li></ul>
+</dd>
 
 <dt lang="en">What can I do if the app has stopped/crashed?</dt>
 <dt lang="ru">Что делать, если приложение перестало работать (остановлено)?</dt>
+<dt lang="de">Was kann ich tun, wenn die App sich aufhängt oder wenn sie abstürzt?</dt>
+<dt lang="es">¿Qué hago si la aplicación se detiene o se bloquea?</dt>
 <dd lang="en">If you are using an Android device and store your maps on an SD card, the most likely cause is a faulty SD-card. You can format your SD card, or better yet replace it with a new one. For all other cases please <a href="mailto:support@maps.me">contact us immediately</a>.</dd>
 <dd lang="ru">На Android чаще всего эта проблема связана с плохой SD-картой. Если вы храните загруженные карты стран на SD-карте, попробуйте отформатировать ее, а лучше замените на новую. Во всех остальных случаях, пожалуйста, немедленно <a href="mailto:support@maps.me">сообщите нам</a> о проблеме.</dd>
+<dd lang="de">Falls Sie ein Android-Gerät verwenden und Ihre Karten auf einer SD-Karte speichern, ist die wahrscheinlichste Ursache eine fehlerhafte SD-Karte. Sie können Ihre SD-Karte formatieren oder noch besser, durch eine neue ersetzen. In allen anderen Fällen <a href="mailto:support@maps.me">kontaktieren Sie uns bitte umgehend</a>.</dd>
+<dd lang="es">Si utilizas un dispositivo Android y almacenas los mapas en una tarjeta SD, lo más probable es que el error se deba a un fallo de la tarjeta. Puedes formatear la tarjeta SD o, mejor aún, cambiarla por otra nueva. En todos los demás casos, <a href="mailto:support@maps.me">ponte en contacto con nosotros de inmediato</a>.</dd>
 
 <dt lang="en">I cannot download maps.</dt>
 <dt lang="ru">Я не могу скачать карты.</dt>
+<dt lang="de">Ich kann keine Karten herunterladen.</dt>
+<dt lang="es">No puedo descargar mapas.</dt>
 <dd lang="en">Your download can fail due to a temporary network error or specific network provider/router settings. Please try again later or use a different Wi-Fi access point. If you have a slow internet connection, you can <a href="http://direct.mapswithme.com/direct/latest/">download maps</a> directly via PC and then transfer them to the MAPS.ME folder on your device. On Android maps (.mwm files) are stored at MapsWithMe folder. On iOS, you need to connect your device to a computer and copy maps via iTunes (select your device, then Apps - MAPS.ME - Documents). Don’t forget to restart your device. Please note, that even the latest maps will be marked as outdated if you download them via PC.</dd>
 <dd lang="ru">Причиной может быть временная проблема с сетью, либо специфические настройки интернет-провайдера или роутера. Пожалуйста, попробуйте еще раз через некоторое время, или подключитесь к другой точке Wi-Fi. Вы можете <a href="http://direct.mapswithme.com/direct/latest/">скачать карты</a> напрямую через компьютер. Скачанные файлы (.mwm) переместите в папку MapsWithMe (Android) подключив устройство к компьютеру. На iOS устройство файлы можно скопировать с помощью iTunes, выбрав ваше устройство, затем Приложения – MAPS.ME, и прокрутив страницу вниз. Не забудьте перезагрузить устройство. Обратите внимание, что даже самые свежие карты, скачанные напрямую, будут отображаться в приложении как неактуальные.</dd>
+<dd lang="de">Ihr Download kann aufgrund eines temporären Netzwerkfehlers oder bestimmter Netzwerkanbieter-/Routereinstellungen fehlschlagen. Bitte versuchen Sie es später noch einmal oder verwenden Sie einen anderen WLAN-Access Point. Haben Sie eine langsame Internetverbindung, können Sie die Karten direkt über den PC <a href="http://direct.mapswithme.com/direct/latest/">herunterladen</a> und übertragen Sie dann zum MAPS.ME-Ordner auf Ihrem Gerät. Unter Android werden die Karten (.mwm-Dateien) im Ordner MapsWithMe gespeichert. Unter iOS müssen Sie Ihr Gerät mit einem Computer verbinden und kopieren die Karten über iTunes (wählen Sie Ihr Gerät aus, dann Apps – MAPS.ME – Dokumente). Ihr Gerät muss danach neu gestartet werden. Bitte beachten Sie, dass sogar die neuesten Karten als veraltet markiert werden, wenn Sie diese über den PC herunterladen.</dd>
+<dd lang="es">El error de la descarga puede deberse a un fallo temporal de la red o a ajustes específicos del proveedor de la red o del rúter. Inténtalo de nuevo más tarde o utiliza otro punto de acceso mediante wifi. Si tu conexión a internet no es muy rápida, puedes <a href="http://direct.mapswithme.com/direct/latest/">descargar mapas</a> directamente a un PC y transferirlos posteriormente a la carpeta de MAPS.ME de tu dispositivo. En Android, los mapas se almacenan en la carpeta «MapsWithMe» (como archivos .mwm). En iOS, debes conectar el dispositivo a un ordenador y copiar los mapas mediante iTunes. (Selecciona el dispositivo y, a continuación, «Aplicaciones» > «MAPS.ME» > «Documentos»). No olvides reiniciar el dispositivo. Ten en cuenta que incluso los mapas más recientes se marcarán como obsoletos si los descargas utilizando un PC.</dd>
 
 <dt lang="en">I see blank/white screen instead of the map, what can I do?</dt>
 <dt lang="ru">Вместо карты отображается пустой белый экран, что делать?</dt>
-<dd lang="en">Make sure you have saved all your bookmarks using the Share button before you continue. Android - Force stop the app in settings. Delete settings.ini file. Restart your device. On Android setting.ini file is stored in the MapsWithMe folder.  iOS - Close the app on the device. Connect it to a computer and open iTunes. Select your device, then Apps > MAPS.ME > Documents. Find and delete settings.ini file. Restart your device. If you cannot use iTunes, save your bookmarks and reinstall the app.
+<dd lang="en">Make sure you have saved all your bookmarks using the Share button before you continue. Android - Force stop the app in settings. Delete settings.ini file. Restart your device. On Android setting.ini file is stored in the MapsWithMe folder. 
+iOS - Close the app on the device. Connect it to a computer and open iTunes. Select your device, then Apps > MAPS.ME > Documents. Find and delete settings.ini file. Restart your device. If you cannot use iTunes, save your bookmarks and reinstall the app.
 </dd>
 <dd lang="ru">Сохраните закладки с помощью кнопки “Поделиться”.
 Android – Принудительно остановите приложение через настройки. Удалите файл settings.ini. Перезагрузите устройство. Файл хранится в папке MapsWithMe во внутренней памяти.
@@ -300,6 +460,8 @@ iOS – Закройте приложение на устройстве. Под�
 
 <dt lang="en">The app’s icon disappeared, what can I do?</dt>
 <dt lang="ru">У меня пропала иконка приложения, что делать?</dt>
+<dt lang="de">Das Symbol der App ist verschwunden, was kann ich tun?</dt>
+<dt lang="es">El icono de la aplicación ha desaparecido. ¿Qué hago?</dt>
 <dd lang="en">The icon will only disappear from your iOS device if you accidentally delete the app. You can simply reinstall it. It’s more complicated with Android devices and the problem is mostly caused by the device, not the app itself. Try the following:
 <ul><li>Uninstall MAPS.ME manually from your device (Settings -> Application manager -> MAPS.ME -> Uninstall)</li>
 <li>Go to the Settings -> Application Manager -> Google Play Store (or whichever store you used to download MAPS.ME, e.g. Samsung Apps) and do Force Stop, Clear Cache, Clear Data</li>
@@ -311,56 +473,99 @@ iOS – Закройте приложение на устройстве. Под�
 <li>дальше Настройки -> Диспетчер приложений -> Google Play Маркет (или другой, где вы скачали приложение, например, Samsung Apps) -> Остановить -> Очистить кеш -> Очистить данные</li>
 <li>перезагрузите устройство</li>
 <li>снова установите MAPS.ME с того же магазина приложений.</li></ul></dd>
+<dd lang="de">Das Symbol wird nur dann von Ihrem iOS-Gerät verschwinden, wenn Sie die App versehentlich löschen. SIe kann dann einfach neu installiert werden. Es ist mit Android-Geräten wesentlich komplizierter und das Problem wird meistens vom Gerät verursacht, nicht von der App selbst. Versuchen Sie Folgendes:
+<ul><li>Deinstallieren Sie MAPS.ME manuell von Ihrem Gerät (Einstellungen – Anwendungsmanager – MAPS.ME – Deinstallieren)</li>
+<li>Gehen Sie zu Einstellungen – Anwendungsmanager – Google Play Store (oder den Store, den Sie für den Download von MAPS.ME verwendet haben, wie z. B. Samsung Apps) und Beenden erzwingen, Cache leeren, Daten löschen</li>
+<li>Starten Sie das Gerät neu</li>
+<li>Installieren Sie MAPS.ME neu.</li></ul></dd>
+<dd lang="es">El icono solamente desaparecerá de tu dispositivo iOS si eliminas sin querer la aplicación. Bastará con que vuelvas a instalarla. El proceso es más complicado en dispositivos Android, ya que es probable que la causa del problema sea el dispositivo, no la aplicación. Prueba lo siguiente:
+<ul><li>Desinstala MAPS.ME manualmente del dispositivo («Ajustes» > «Administrador de aplicaciones» > «MAPS.ME» > «Desinstalar»).</li>
+<li>Ve a «Ajustes» > «Administrador de aplicaciones» > «Google Play Store» (o la tienda que hayas utilizado para descargar MAPS.ME, por ejemplo, Samsung Apps) y pulsa «Forzar detención», «Borrar caché» y «Borrar datos».</li>
+<li>Reinicia el dispositivo.</li>
+<li>Vuelve a instalar MAPS.ME.</li></ul></dd>
 
 <dt lang="en">I don’t like the new version of the app, how can I get back to the previous version?</dt>
 <dt lang="ru">Мне не нравится новая версия, как мне вернуть старую?</dt>
+<dt lang="de">Ich mag die neue Version der App nicht, wie kann ich zur vorherigen Version zurückkehren?</dt>
+<dt lang="es">No me gusta la nueva versión de la aplicación. ¿Puedo volver a la versión anterior?</dt>
 <dd lang="en">Unfortunately this is not possible. However, we always listen to our users’ requests and do everything possible to make them happy. Please <a href="mailto:support@maps.me">share your ideas and suggestions</a> with us.</dd>
 <dd lang="ru">К сожалению, это технически невозможно. Но мы всегда прислушиваемся к нашим пользователям и стараемся сделать все возможное, чтобы вы были довольны приложением. Поэтому не стесняйтесь <a href="mailto:support@maps.me">присылать нам</a> свои идеи и пожелания.</dd>
+<dd lang="de">Leider ist das nicht möglich. Wir berücksichtigen aber immer die Anforderungen unserer Benutzer und tun unser Möglichstes, um diese zufriedenzustellen. Bitte <a href="mailto:support@maps.me">teilen Sie Ihre Ideen und Vorschläge</a> mit uns.</dd>
+<dd lang="es">Por desgracia, no es posible. Sin embargo, siempre tenemos en cuenta las solicitudes de nuestros usuarios y hacemos todo lo posible por hacerles felices. No dudes en <a href="mailto:support@maps.me">hacernos llegar tus ideas y sugerencias</a>.</dd>
 
 <dt lang="en">Maps are too slow on my modern device.</dt>
 <dt lang="ru">Карты работают слишком медленно, хотя у меня новое быстрое устройство.</dt>
+<dt lang="de">Die Karten sind zu langsam auf meinem modernen Gerät.</dt>
+<dt lang="es">Los mapas van demasiado despacio en mi dispositivo.</dt>
 <dd lang="en">For Android, if you store your maps on SD card the performance will be slower.  Most of cheap SD-cards are very slow. If you think that maps are too slow on iOS, please, <a href="mailto:support@maps.me">let us know</a>.</dd>
 <dd lang="ru">Если вы храните карты на SD-карточке на вашем Android-устройстве, быстродействие будет значительно ниже. Большинство недорогих SD-карточек очень медленные. Если сильно "тормозит" под iOS, пожалуйста, <a href="mailto:support@maps.me">напишите нам</a> об этом.</dd>
+<dd lang="de">Unter Android gilt, wenn Sie Ihre Karten auf SD-Karte speichern, wir die Geschwindigkeit langsamer. Die meisten der günstigen SD-Karten sind sehr langsam. Wenn Sie der Meinung sind, die Karten sind unter iOS zu langsam, <a href="mailto:support@maps.me">lassen Sie uns das bitte wissen</a>.</dd>
+<dd lang="es">En Android, si almacenas los mapas en una tarjeta SD, la aplicación irá más despacio. La mayoría de las tarjetas SD baratas van muy despacio. Si crees que los mapas van demasiado despacio en iOS, <a href="mailto:support@maps.me">comunícanoslo</a>.</dd>
 
 <dt lang="en">Can I use MAPS.ME on my Windows Phone/Tablet?</dt>
 <dt lang="ru">Есть ли версия MAPS.ME для Windows Phone?</dt>
+<dt lang="de">Kann ich MAPS.ME auf meinem Windows Phone/Tablet verwenden?</dt>
+<dt lang="es">¿Puedo utilizar MAPS.ME en teléfonos o tabletas Windows?</dt>
 <dd lang="en">Our maps are available for devices running iOS, Android and BlackBerry. For the time being we are not developing a Windows Phone version. Please check in again in the future.</dd>
 <dd lang="ru">В данный момент наши карты работают на iOS, Android и BlackBerry. Версия для Windows Phone пока не планируется, возможно, мы вернемся к этому вопросу в будущем.</dd>
+<dd lang="de">Unsere Karten sind für Geräte mit iOS, Android und BlackBerry OS 10 verfügbar. Zum aktuellen Zeitpunkt entwickeln wir keine Windows Phone-Version. Bitte fragen Sie zu einem späteren Zeitpunkt noch einmal nach.</dd>
+<dd lang="es">Nuestros mapas están disponibles para dispositivos que ejecuten iOS, Android y BlackBerry OS 10. De momento, no tenemos pensado desarrollar una versión para teléfonos Windows. Vuelve a consultarlo en el futuro.</dd>
 
 <dt lang="en">Can I use MAPS.ME on my PC or Mac?</dt>
 <dt lang="ru">Существует ли версия MAPS.ME для PC или Mac?</dt>
+<dt lang="de">Kann ich MAPS.ME auf meinem PC oder Mac verwenden?</dt>
+<dt lang="es">¿Puedo utilizar MAPS.ME en PC o Mac?</dt>
 <dd lang="en">We do not have an official desktop version of MAPS.ME, but you can check out <a href="http://www.bluestacks.com/">BlueStacks App Player project</a>, which lets you launch Android apps on PC and Mac.</dd>
 <dd lang="ru">Мы официально не распространяем MAPS.ME для обычных компьютеров, но вы можете попробовать проект <a href="http://www.bluestacks.com/">BlueStacks App Player</a> - он позволяет запускать Android-приложения на PC и Mac.</dd>
+<dd lang="de">Wir bieten keine offizielle Version von MAPS.ME an, aber mit dem Projekt <a href="http://www.bluestacks.com/">BlueStacks App Player</a> können Android-Apps auf PC und Mac abgespielt werden.</dd>
+<dd lang="es">No tenemos una versión oficial de MAPS.ME para ordenador; sin embargo, puedes echarle un vistazo al <a href="http://www.bluestacks.com/">proyecto BlueStacks App Player</a>, que permite iniciar aplicaciones para Android en PC y Mac.</dd>
 
 </dl>
 
 
 
-
 <h3 lang="en">Bookmarks (pins)</h3>
 <h3 lang="ru">Метки (закладки, пины)</h3>
+<h3 lang="de">Lesezeichen (Pins)</h3>
+<h3 lang="es">Marcadores (pins)</h3>
 
 <dl id="bookmarks">
 
 <dt lang="en">How can I save a place to bookmarks?</dt>
 <dt lang="ru">Как мне добавить метку на карту?</dt>
+<dt lang="de">Wie kann ich einen Ort unter den Lesezeichen speichern?</dt>
+<dt lang="es">¿Cómo se guarda un lugar en los marcadores?</dt>
 <dd lang="en">Tap on any place and a place page with its name will open. To add a place to bookmarks, tap the star symbol. If you tap on the place page, you will be able to see its coordinates and distance from your current location. For open areas you will need to tap and hold for a second to see a place page.</dd>
 <dd lang="ru">После нажатия на место, которое вы хотите добавить в закладки, появится всплывающее окно с названием этого места. Чтобы добавить его в закладки, нажмите на звездочку. Если вы нажмете на само окно, то увидите дополнительные параметры - координаты и дистанцию до объекта. Можно также удерживать палец в течение секунды в любом месте карты, чтобы добавить его в закладки.</dd>
+<dd lang="de">Tippen Sie auf einen beliebigen Ort und eine Ortsseite mit deren Namen wird geöffnet. Um einen Ort den Lesezeichen hinzuzufügen, tippen Sie auf das Sternsymbol. Tippen Sie auf eine Ortsseite, werden dessen Koordinaten und die Distanz zu Ihrem aktuellen Standort angezeigt. Für Freiflächen tippen und halten Sie eine Sekunde, um eine Ortsseite anzuzeigen.</dd>
+<dd lang="es">Toca cualquier lugar para que se abra una página con su nombre. Para añadir un lugar a los marcadores, toca el símbolo de estrella. Si tocas la página del lugar, podrás ver las coordenadas y la distancia con relación a tu posición. En el caso de zonas abiertas, tendrás que mantener pulsado el lugar durante un segundo para que aparezca una página.</dd>
 
 <dt lang="en">How do I edit and delete bookmarks?</dt>
 <dt lang="ru">Как редактировать и удалять метки?</dt>
+<dt lang="de">Wie kann ich Lesezeichen bearbeiten und löschen?</dt>
+<dt lang="es">¿Cómo se editan y se eliminan los marcadores?</dt>
 <dd lang="en">Select any bookmark and tap the white banner to change its name and coordinate format, choose or add a new set, and add notes. To change the color of a bookmark tap the red dot and choose your own color. If you want to remove the bookmark, tap the star symbol again.</dd>
 <dd lang="ru">Выберите любую метку и затем раскройте появившуюся внизу белую панель. Здесь вы можете поменять цвет метки и формат координат, изменить название, группу или добавить заметку. Если вы хотите удалить добавленную метку, нажмите на знак звездочки, и метка исчезнет.</dd>
+<dd lang="de">Wählen Sie ein Lesezeichen aus und tippen Sie auf den weißen Banner, um dessen Name und Koordinatenformat zu ändern, um einen neuen Satz auszuwählen oder hinzuzufügen und für das Hinzufügen von Notizen. Um die Farbe eines Leszeichens zu ändern, tippen Sie auf den roten Punkt und wählen Ihre eigene Farbe aus. Möchten Sie das Lesezeichen entfernen, tippen Sie erneut auf das Sternsymbol.</dd>
+<dd lang="es">Selecciona cualquier marcador y toca el banner de color blanco para cambiar el formato del nombre y de las coordenadas, elegir o añadir un nuevo grupo y añadir notas. Para cambiar el color de un marcador, toca el punto de color rojo y elige el color que desees. Si quieres eliminar el marcador, toca de nuevo el símbolo de estrella.</dd>
 
 <dt lang="en">All my bookmarks are gone! What happened?</dt>
 <dt lang="ru">Все закладки исчезли. Что случилось?</dt>
+<dt lang="de">Alle meine Lesezeichen sind verschwunden! Was ist passiert?</dt>
+<dt lang="es">¡Han desaparecido todos los marcadores! ¿Qué ha pasado?</dt>
 <dd lang="en">Don't worry! You might have accidentally made them invisible. The eye icon next to the set name indicates its visibility. Tap it to make the whole set invisible on the map (but not in the Bookmarks menu). The app can't delete bookmarks by itself. Bookmarks can be deleted only if you delete them manually. It may also happen if you installed a system update, restored a backup or used such apps like Clean Master. You can backup bookmarks via Share button in bookmarks menu or copy all .kml files from app’s folder. In iOS bookmarks are saved automatically with a system backup.</dd>
 <dd lang="ru">Не беспокойтесь – возможно, вы случайно сделали их невидимыми. Нажмите на кнопку в виде глаза – и все закладки вновь появятся на карте. Метки в приложении не могут пропасть самостоятельно, если только вы не удалили их вручную. Метки могут быть удалены вовремя переустановки приложения (iOS), системного обновления или из-за использования сторонних приложений по очистке файлов, таких как Clean Master. Вы можете делать резервную копию меток с помощью кнопки “Поделиться” в меню меток или копировать файлы с расширением .kml из папки приложения. В iOS метки сохраняются автоматически вместе с резервной копией системы.</dd>
+<dd lang="de">Machen Sie sich keine Sorgen! Sie haben die Lesezeichen eventuell unsichtbar gemacht. Das Augensymbol neben dem Satzname weist auf dessen Sichtbarkeit hin. Tippen Sie es an, um den gesamten Satz auf der Karte unsichtbar zu machen (aber nicht im Lesezeichen-Menü). Die App selbst kann keine Lesezeichen löschen. Lesezeichen können nur manuel gelöscht werden. Nach der Installation eines Systemupdates, nach der Wiederherstellung eines Backups oder der Verwendung von Apps, wie z. B. Clean Master, kann es auch vorkommen, dass Lesezeichen gelöscht werden. Sie können die Lesezeichen über die Taste „Teilen“ im Lesezeichen-Menü sichern oder kopieren alle .kml-Dateien aus dem App-Ordner. Unter iOS werden die Lesezeichen automatisch durch die Systemsicherung gespeichert.</dd>
+<dd lang="es">¡No te preocupes! Puede que los hayas ocultado sin querer. El icono del ojo situado junto al nombre del grupo indica si está visible o no. Tócalo para ocultar todo el grupo en el mapa (pero no en el menú «Marcadores»). La aplicación no puede eliminar marcadores por sí sola. Solamente se pueden eliminar de forma manual. Esta situación puede darse también si has instalado una actualización del sistema, has restaurado una copia de seguridad o has utilizado aplicaciones como Clean Master. Puedes realizar una copia de seguridad de los marcadores mediante el botón «Compartir» del menú «Marcadores» o copiar todos los archivos .kml de la carpeta de la aplicación. En iOS, los marcadores se guardan automáticamente al realizar una copia de seguridad del sistema.</dd>
 
 <dt lang="en">How can I sync bookmarks on several devices I use?</dt>
 <dt lang="ru">Как мне синхронизировать метки на нескольких устройствах?</dt>
+<dt lang="de">Wie kann ich die Lesezeichen verschiedener Geräte synchronisieren, die ich verwende?</dt>
+<dt lang="es">¿Puedo sincronizar los marcadores entre los distintos dispositivos que utilizo?</dt>
 <dd lang="en">For the time being, you can email your bookmarks to yourself and then open them on another device. We plan to add automatic sync in a long term.</dd>
 <dd lang="ru">Пока что можно отправить себе метки по электронной почте и затем открыть на другом устройстве. Мы планируем добавить автоматическую синхронизацию в долгосрочной перспективе.</dd>
+<dd lang="de">Zum aktuellen Zeitpunkt können Sie sich Ihre Lesezeichen per E-Mail zusenden und öffnen SIe dann auf einem anderen Gerät. Langfristig ist das Hinzufügen einer automatischen Synchronisierung geplant.</dd>
+<dd lang="es">De momento, puedes enviarte los marcadores por correo electrónico y abrirlos en otro dispositivo. Tenemos pensado añadir una función de sincronización automática a largo plazo.</dd>
 
 </dl>
 
@@ -368,33 +573,55 @@ iOS – Закройте приложение на устройстве. Под�
 
 <h3 lang="en">Preferences</h3>
 <h3 lang="ru">Настройки</h3>
+<h3 lang="de">Präferenzen</h3>
+<h3 lang="es">Preferencias</h3>
 
 <dl id="settings">
 
 <dt lang="en">How can I move maps to SD? (for Android devices)</dt>
 <dt lang="ru">Как переместить карты на SD? (для Android устройств)</dt>
+<dt lang="de">Wie kann ich Karten auf eine SD verschieben? (für Android-Geräte)</dt>
+<dt lang="es">¿Se pueden mover los mapas a una tarjeta SD ? (en dispositivos Android)</dt>
 <dd lang="en">If you want to store downloaded maps on SD, you should move them directly from the app - open app’s settings > Map > Maps storage > select SD card. If you don’t see Maps storage tab in app’s settings, turn off the device, take out SD card and put it back again, turn on the device. If you moved the app itself to SD, move it back to the device storage.</dd>
 <dd lang="ru">Карты необходимо перенести напрямую из приложения. Откройте меню настроек приложения > Карта > Хранилище карт > выберите SD карту. Если вкладка недоступна, выключите устройство, попробуйте вытащить SD карту и поставить ее назад. Если вы перенесли само приложение на SD карту, верните его назад в память устройства.</dd>
+<dd lang="de">Falls Sie heruntergeladene Karten auf SD speichern möchten, sollten diese über die App verschoben werden – öffnen Sie das Menü Anwendungen > Einstellungen > Map > Kartenspeicher > SD-Karte auswählen Wird die Registerkarte Kartenspeicher in den Einstellungen der App nicht angezeigt, nehmen Sie die SD-Karte heraus und stecken Sie wieder ein und schalten das Gerät dann ein. Haben Sie die App selbst auf die SD verschoben, verschieben Sie diese zurück zum Gerätespeicher.</dd>
+<dd lang="es">Si quieres almacenar mapas descargados en una tarjeta SD, debes moverlos directamente desde la aplicación; para ello, en el menú de la aplicación, selecciona Ajustes > Map > Almacenamiento de mapas > Tarjeta SD. Si no aparece la pestaña «Almacenamiento de mapas» en los ajustes de la aplicación, apaga el dispositivo, saca la tarjeta SD, vuélvela a introducir y enciende el dispositivo. Si has movido la aplicación a la tarjeta SD, vuélvela a mover al almacenamiento del dispositivo.</dd>
 
 <dt lang="en">How can I change the app’s language?</dt>
 <dt lang="ru">Как поменять язык приложения?</dt>
+<dt lang="de">Wie kann ich die Sprache der App ändern?</dt>
+<dt lang="es">¿Cómo se cambia el idioma de la aplicación?</dt>
 <dd lang="en">The language used by the app is set according to your device’s settings, and will change automatically when you change them. The app is available in more than 20 languages.</dd>
 <dd lang="ru">Язык приложения зависит от настроек вашего устройства и автоматически меняется при смене языка в настройках. Сейчас доступно более 20 языков.</dd>
+<dd lang="de">Die von der App verwendete Sprache ist von Ihren Geräteeinstellungen abhängig und ändert sich automatisch, wenn Sie diese ändern. Die App ist in mehr als 20 Sprachen verfügbar.</dd>
+<dd lang="es">El idioma que utiliza la aplicación se establece de acuerdo con los ajustes del dispositivo y cambiará automáticamente en consonancia con estos. La aplicación está disponible en más de 20 idiomas.</dd>
 
 <dt lang="en">How can I change the language on the maps themselves?</dt>
 <dt lang="ru">Как поменять язык на карте?</dt>
+<dt lang="de">Wie kann ich die Sprache der Karten selbst ändern?</dt>
+<dt lang="es">¿Cómo se cambia el idioma de los mapas?</dt>
 <dd lang="en">The language on the maps themselves depends on the OpenStreetMap data. As a general rule, names of streets and places are written in the local language. Very often you will see two variants - the local name and the name in your device’s language. You can always add the name in your language directly at <a href="http://www.openstreetmap.org/">OpenStreetMap.org</a>.</dd>
-<dd lang="ru">Язык на карте зависит от данных OpenStreetMap. Как правило, названия улиц и объектов указываются на местном языке. Очень часто они дублируются и на других распространенных языках, и тогда вы будете видеть 2 варианта названий - на местном языке и на языке вашего устройства. Кроме того, всегда можно добавить названия на вашем языке самому на сайте OpenStreetMap.org, сервис предоставляет такую возможность.</dd>
+<dd lang="ru">Язык на карте зависит от данных OpenStreetMap. Как правило, названия улиц и объектов указываются на местном языке. Очень часто они дублируются и на других распространенных языках, и тогда вы будете видеть 2 варианта названий - на местном языке и на языке вашего устройства. Кроме того, всегда можно добавить названия на вашем языке самому на сайте <a href="http://www.openstreetmap.org/">OpenStreetMap.org</a>, сервис предоставляет такую возможность.</dd>
+<dd lang="de">Die Sprache der Karten selbst ist von den OpenStreetMap-Daten abhängig. Als allgemeine Regel gilt, die Namen der Straßen und Orte sind in der jeweiligen Landessprache angegeben. Oftmals werden zwei Varianten angezeigt – der lokale Name und der Name in der Sprache Ihres Geräts. Sie können unter <a href="http://www.openstreetmap.org/">OpenStreetMap.org</a> jederzeit den Namen in Ihrer Sprache hinzufügen.</dd>
+<dd lang="es">El idioma de los mapas depende de los datos de OpenStreetMap. Por regla general, el nombre de las calles y de los lugares aparece en el idioma local. Con frecuencia, aparecerán dos variantes: el nombre local y el nombre en el idioma del dispositivo. Puedes añadir en cualquier momento el nombre en tu idioma directamente en <a href="http://www.openstreetmap.org/">OpenStreetMap.org</a>.</dd>
 
 <dt lang="en">Does the app support different coordinates formats?</dt>
 <dt lang="ru">Какие типы координат поддерживаются в приложении?</dt>
+<dt lang="de">Unterstützt die App verschiedene Koordinatenformate?</dt>
+<dt lang="es">¿Admite la aplicación diferentes formatos de coordenadas?</dt>
 <dd lang="en">There are two formats available in the app: decimal (53.899366 27.543801) and DMS (53°53’57.72”N 27°32’37.68”E). Type coordinates in one of these formats in the search field to find or bookmark a necessary place.</dd>
 <dd lang="ru">Приложение поддерживает 2 типа координат: десятичные (53.899366 27.543801) и DMS (53°53’57.72”N 27°32’37.68”E). Введите координаты в одном из этих форматов в строку поиска, чтобы найти нужное место или сохранить метку.</dd>
+<dd lang="de">Es werden in der App zwei Formate verwendet: Dezimalzahl (53.899366 27.543801) und DMS (53°53’57.72”N 27°32’37.68”E). Geben Sie die Koordinaten in einem dieser Formate in das Suchfeld ein, um einen wichtigen Ort zu finden oder als Lesezeichen zu setzen.</dd>
+<dd lang="es">Hay dos formatos disponibles en la aplicación: decimal («53.899366 27.543801») y GMS («53°53’57.72”N 27°32’37.68”E»). Escribe las coordenadas en uno de estos formatos en el campo de búsqueda para buscar o marcar un lugar.</dd>
 
 <dt lang="en">How to use Apple Watch version?</dt>
 <dt lang="ru">Как использовать версию для Apple Watch?</dt>
+<dt lang="de">Wie verwendet man die Apple Watch-Version?</dt>
+<dt lang="es">¿Cómo se utiliza la versión para el Apple Watch?</dt>
 <dd lang="en">Please check this <a href="http://blog.maps.me/2015/05/mapsme-version-for-apple-watch-how-to.html">link</a>.</dd>
 <dd lang="ru">У нас есть отдельное <a href="http://ru.blog.maps.me/2015/05/mapsme-apple-watch.html">руководство</a> для Apple Watch.</dd>
+<dd lang="de">Klicken Sie auf diesen <a href="http://blog.maps.me/2015/05/mapsme-version-for-apple-watch-how-to.html">Link</a>.</dd>
+<dd lang="es">Accede a este <a href="http://blog.maps.me/2015/05/mapsme-version-for-apple-watch-how-to.html">enlace</a>.</dd>
 
 
 </dl>
