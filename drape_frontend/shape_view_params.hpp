@@ -25,6 +25,7 @@ struct PoiSymbolViewParams : CommonViewParams
 
   FeatureID m_id;
   string m_symbolName;
+  uint32_t m_extendingSize;
 };
 
 struct CircleViewParams : CommonViewParams

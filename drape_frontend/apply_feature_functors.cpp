@@ -310,6 +310,8 @@ void ApplyPointFeature::Finish()
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
     params.m_symbolName = m_symbolRule->name();
+    float const mainScale = df::VisualParams::Instance().GetVisualScale();
+    params.m_extendingSize = m_symbolRule->has_min_distance() ? mainScale * m_symbolRule->min_distance() : 0;
     m_insertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params));
   }
 }
