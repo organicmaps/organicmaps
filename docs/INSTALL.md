@@ -49,6 +49,9 @@ Install Qt 5.5:
     sudo add-apt-repository ppa:beineri/opt-qt55-trusty
     sudo apt-get update
     sudo apt-get install qt55base
+
+Set up the Qt 5.5 environment:
+
     source /opt/qt55/bin/qt55-env.sh
 
 Do a git clone:
