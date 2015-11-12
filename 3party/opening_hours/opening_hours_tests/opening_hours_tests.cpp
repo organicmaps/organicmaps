@@ -140,7 +140,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestHourMinutes)
     BOOST_CHECK_EQUAL(ToString(hm), "00:10");
   }
   {
-    HourMinutes hm{100_min};
+    HourMinutes hm(100_min);
     BOOST_CHECK(!hm.IsEmpty());
     BOOST_CHECK_EQUAL(hm.GetHoursCount(), 1);
     BOOST_CHECK_EQUAL(hm.GetMinutesCount(), 40);
@@ -148,15 +148,28 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestHourMinutes)
     BOOST_CHECK_EQUAL(ToString(hm), "01:40");
   }
   {
-    HourMinutes hm{};
+    HourMinutes hm;
     hm.SetHours(22_h);
     hm.SetMinutes(15_min);
     BOOST_CHECK(!hm.IsEmpty());
+    BOOST_CHECK(!hm.IsExtended());
 
     BOOST_CHECK_EQUAL(hm.GetHoursCount(), 22);
     BOOST_CHECK_EQUAL(hm.GetMinutesCount(), 15);
 
     BOOST_CHECK_EQUAL(ToString(hm), "22:15");
+  }
+  {
+    HourMinutes hm;
+    hm.SetHours(39_h);
+    hm.SetMinutes(15_min);
+    BOOST_CHECK(!hm.IsEmpty());
+    BOOST_CHECK(hm.IsExtended());
+
+    BOOST_CHECK_EQUAL(hm.GetHoursCount(), 39);
+    BOOST_CHECK_EQUAL(hm.GetMinutesCount(), 15);
+
+    BOOST_CHECK_EQUAL(ToString(hm), "39:15");
   }
 }
 
@@ -253,16 +266,19 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestTimespan)
     BOOST_CHECK(span.IsEmpty());
     BOOST_CHECK(!span.HasStart());
     BOOST_CHECK(!span.HasEnd());
+    BOOST_CHECK(!span.HasExtendedHours());
     BOOST_CHECK_EQUAL(ToString(span), "hh:mm-hh:mm");
 
     span.SetStart(HourMinutes(10_h));
     BOOST_CHECK(span.HasStart());
     BOOST_CHECK(span.IsOpen());
+    BOOST_CHECK(!span.HasExtendedHours());
     BOOST_CHECK_EQUAL(ToString(span), "10:00");
 
     span.SetEnd(HourMinutes(12_h));
     BOOST_CHECK(span.HasEnd());
     BOOST_CHECK(!span.IsOpen());
+    BOOST_CHECK(!span.HasExtendedHours());
     BOOST_CHECK_EQUAL(ToString(span), "10:00-12:00");
 
     BOOST_CHECK(!span.HasPeriod());
@@ -270,6 +286,34 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestTimespan)
     BOOST_CHECK(span.HasPeriod());
     BOOST_CHECK_EQUAL(ToString(span), "10:00-12:00/10");
   }
+  {
+    Timespan span;
+
+    span.SetStart(HourMinutes(10_h));
+    span.SetEnd(HourMinutes(47_h));
+
+    BOOST_CHECK(span.HasExtendedHours());
+    BOOST_CHECK_EQUAL(ToString(span), "10:00-47:00");
+  }
+  {
+    Timespan span;
+
+    span.SetStart(HourMinutes(10_h));
+    span.SetEnd(HourMinutes(06_h));
+
+    BOOST_CHECK(span.HasExtendedHours());
+    BOOST_CHECK_EQUAL(ToString(span), "10:00-06:00");
+  }
+  {
+    Timespan span;
+
+    span.SetStart(HourMinutes(10_h));
+    span.SetEnd(HourMinutes(00_h));
+
+    BOOST_CHECK(!span.HasExtendedHours());
+    BOOST_CHECK_EQUAL(ToString(span), "10:00-00:00");
+  }
+
 }
 
 BOOST_AUTO_TEST_CASE(OpeningHours_TestNthWeekdayOfTheMonthEntry)

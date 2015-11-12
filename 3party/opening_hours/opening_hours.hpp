@@ -44,6 +44,7 @@ public:
   explicit HourMinutes(TMinutes const duration);
 
   bool IsEmpty() const;
+  bool IsExtended() const;
 
   THours GetHours() const;
   TMinutes GetMinutes() const;
@@ -199,6 +200,7 @@ public:
   bool HasEnd() const;
   bool HasPlus() const;
   bool HasPeriod() const;
+  bool HasExtendedHours() const;
 
   Time const & GetStart() const;
   Time const & GetEnd() const;

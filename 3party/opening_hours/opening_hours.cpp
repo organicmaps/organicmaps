@@ -128,6 +128,11 @@ bool HourMinutes::IsEmpty() const
   return m_empty;
 }
 
+bool HourMinutes::IsExtended() const
+{
+  return GetDuration() > 24_h;
+}
+
 HourMinutes::THours HourMinutes::GetHours() const
 {
   return m_hours;
@@ -477,6 +482,22 @@ bool Timespan::HasPlus() const
 bool Timespan::HasPeriod() const
 {
   return !m_period.IsEmpty();
+}
+
+bool Timespan::HasExtendedHours() const
+{
+  if (HasStart() && HasEnd() &&
+      GetStart().IsHoursMinutes() &&
+      GetEnd().IsHoursMinutes())
+  {
+    auto const & startHM = GetStart().GetHourMinutes();
+    auto const & endHM = GetEnd().GetHourMinutes();
+    if (endHM.IsExtended())
+      return true;
+    return endHM.GetDurationCount() != 0 && (endHM.GetDuration() < startHM.GetDuration());
+  }
+
+  return false;
 }
 
 Time const & Timespan::GetStart() const

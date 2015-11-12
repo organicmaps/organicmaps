@@ -37,15 +37,9 @@ bool HasPlus(std::vector<T> const & v)
 
 bool HasExtendedHours(osmoh::TTimespans const & spans)
 {
-  auto const hasExtendedHours = [](osmoh::Timespan const & s) -> bool
+  auto const hasExtendedHours = [](osmoh::Timespan const & s)
   {
-    if (!s.HasEnd())
-      return false;
-
-    auto const startDuration = s.GetStart().GetMinutes() + s.GetStart().GetHours();
-    auto const endDuration = s.GetEnd().GetMinutes() + s.GetEnd().GetHours();
-
-    return endDuration > 24 * std::chrono::minutes(60) || startDuration > endDuration;
+    return s.HasExtendedHours();
   };
   return std::any_of(begin(spans), end(spans), hasExtendedHours);
 }
