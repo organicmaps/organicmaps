@@ -307,6 +307,8 @@
 	<string name="menu_search">Keresés</string>
 	<string name="pref_zoom_title">Nagyítás/kicsinyítés gombok</string>
 	<string name="pref_zoom_summary">Mutassa a kijelzőn</string>
+	<string name="pref_tts_other_section_title">Egyéb</string>
+	<string name="pref_tts_how_to_set_up_voice">Így állítsd be a hangot</string>
 	<string name="placepage_distance">Távolság</string>
 	<string name="placepage_coordinates">Koordináták</string>
 	<string name="placepage_unsorted">Osztályozatlan</string>

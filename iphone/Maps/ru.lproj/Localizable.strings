@@ -520,6 +520,10 @@
 /* Settings «Route» category: «Tts unavailable» subtitle */
 "pref_tts_unavailable" = "Голосовые подсказки недоступны";
 
+"pref_tts_other_section_title" = "Другой";
+
+"pref_tts_how_to_set_up_voice" = "Как настроить голос";
+
 "placepage_distance" = "Расстояние";
 
 "placepage_coordinates" = "Координаты";

@@ -299,6 +299,8 @@
 	<string name="menu_search">Buscar</string>
 	<string name="pref_zoom_title">Botones de zoom</string>
 	<string name="pref_zoom_summary">Visualización en la pantalla</string>
+	<string name="pref_tts_other_section_title">Otros</string>
+	<string name="pref_tts_how_to_set_up_voice">Cómo configurar la voz</string>
 	<string name="placepage_distance">Distancia</string>
 	<string name="placepage_coordinates">Coordenadas</string>
 	<string name="placepage_unsorted">Sin clasificar</string>

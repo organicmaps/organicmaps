@@ -306,6 +306,8 @@
 	<string name="menu_search">Cari</string>
 	<string name="pref_zoom_title">Tombol perbesaran</string>
 	<string name="pref_zoom_summary">Tampilkan pada layar</string>
+	<string name="pref_tts_other_section_title">Lainnya</string>
+	<string name="pref_tts_how_to_set_up_voice">Cara mengatur suara</string>
 	<string name="placepage_distance">Jarak</string>
 	<string name="placepage_coordinates">Koordinat</string>
 	<string name="placepage_unsorted">Tidak diurutkan</string>

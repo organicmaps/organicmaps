@@ -520,6 +520,10 @@
 /* Settings «Route» category: «Tts unavailable» subtitle */
 "pref_tts_unavailable" = "TTS unavailable";
 
+"pref_tts_other_section_title" = "Other";
+
+"pref_tts_how_to_set_up_voice" = "How to set up voice";
+
 "placepage_distance" = "Distance";
 
 "placepage_coordinates" = "Coordinates";
