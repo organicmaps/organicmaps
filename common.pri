@@ -139,7 +139,7 @@ unix|win32-g++ {
   }
 
   *-clang {
-    QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-conversion -Werror=return-type -Wno-deprecated-register
+    QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-conversion -Werror=return-type
   }
 
 tizen{
