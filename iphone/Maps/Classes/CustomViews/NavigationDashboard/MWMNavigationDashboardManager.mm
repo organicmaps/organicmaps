@@ -335,9 +335,9 @@ static NSString * const kNavigationDashboardIPADXibName = @"MWMNiPadNavigationDa
   BOOL const isNeedToEnable = tts.isNeedToEnable;
   self.navigationDashboardPortrait.soundButton.selected = isNeedToEnable;
   self.navigationDashboardLandscape.soundButton.selected = isNeedToEnable;
-  if (isNeedToEnable) {
+  if (isNeedToEnable)
     [tts enable];
-  }
+
   [self.navigationDashboard addToView:self.ownerView];
 }
 
@@ -346,13 +346,9 @@ static NSString * const kNavigationDashboardIPADXibName = @"MWMNiPadNavigationDa
   switch (GetFramework().GetRouter())
   {
   case routing::RouterType::Pedestrian:
-//    self.routePreview.pedestrianProgressView.state = MWMCircularProgressStateSelected;
-//    self.routePreview.vehicleProgressView.state = MWMCircularProgressStateNormal;
     self.activeRouteTypeButton = self.routePreview.pedestrianProgressView;
     break;
   case routing::RouterType::Vehicle:
-//    self.routePreview.vehicleProgressView.state = MWMCircularProgressStateSelected;
-//    self.routePreview.pedestrianProgressView.state = MWMCircularProgressStateNormal;
     self.activeRouteTypeButton = self.routePreview.vehicleProgressView;
     break;
   }

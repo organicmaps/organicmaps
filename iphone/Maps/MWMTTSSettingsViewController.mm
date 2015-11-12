@@ -81,7 +81,8 @@ using namespace std;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return 2;
+  return 1;
+//  return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -125,10 +126,10 @@ using namespace std;
       [tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
     }
   }
-  else
-  {
 #warning need to add help
-  }
+//  else
+//  {
+//  }
 }
 
 @end
