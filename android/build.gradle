@@ -48,6 +48,7 @@ def getDate() {
 }
 
 project.ext.versionCodes = ['armeabi-v7a': 1, 'x86': 2]
+project.ext.appId = 'com.mapswithme.maps.pro'
 
 android {
   // All properties are read from gradle.properties file
@@ -60,7 +61,7 @@ android {
     versionName propVersionName
     minSdkVersion propMinSdkVersion.toInteger()
     targetSdkVersion propTargetSdkVersion.toInteger()
-    applicationId 'com.mapswithme.maps.pro'
+    applicationId project.ext.appId
     buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
     buildConfigField 'String', 'REVIEW_URL', '"market://details?id=com.mapswithme.maps.pro"'
     buildConfigField 'int', 'RATING_THRESHOLD', '5'
@@ -193,12 +194,8 @@ android {
   gradle.projectsEvaluated {
     android.applicationVariants.all { variant ->
       def task = variant.name.capitalize()
-      def runTask = "run$task"
-      def installTask = "install$task"
-      project.task(type: Exec, "${runTask}", dependsOn: "${installTask}") {
-        def component = "$applicationId/com.mapswithme.maps.DownloadResourcesActivity"
-        executable "sh"
-        args "-c", "adb shell am start -n ${component}"
+      project.task(type: Exec, "run${task}", dependsOn: "install${task}") {
+        commandLine android.getAdbExe(), 'shell', 'am', 'start', '-n', "${applicationId}/com.mapswithme.maps.DownloadResourcesActivity"
       }
 
       variant.outputs.each { output ->
@@ -295,7 +292,10 @@ buildTypes.each { type ->
 
 def createCppBuildTask(buildType, arch, suffix) {
   return tasks.create(name: "cppBuild${suffix}", type: Exec, description: "Building ${buildType} version of static C++ libraries. Arch : ${arch}") {
-    commandLine 'bash', '../tools/autobuild/android.sh', buildType, arch
+    def args = ['bash', '../tools/autobuild/android.sh', buildType]
+    if (!arch.isEmpty())
+      args += arch
+    commandLine args
   }
 }
 
@@ -320,12 +320,21 @@ tasks.withType(JavaCompile) { compileTask ->
   }
 }
 
+// NOTE : it does NOT clean built cpp static libs. cppClean does.
 clean.dependsOn ndkBuildClean
 
+// Cleans built native static libs.
+task cppClean(type: Delete) {
+  buildTypes.each { type ->
+    archs.each { arch ->
+      delete "../../omim-android-${type.cppType}-${arch}"
+    }
+  }
+}
+
 // Tasks for generating obb files for Google Play
-task obbClean(type: Exec) {
-  def obbOutput = 'build/distributions/';
-  commandLine 'rm', '-rf', obbOutput
+task obbClean(type: Delete) {
+  delete fileTree(dir: 'build', include: '**/*.obb')
 }
 
 def fonts = ['../data/01_dejavusans.ttf',
@@ -336,23 +345,24 @@ def fonts = ['../data/01_dejavusans.ttf',
              '../data/06_code2000.ttf']
 def worlds = ['../data/World.mwm', '../data/WorldCoasts.mwm']
 
-task obbGenerate() {
-  createObbGenerateTask('Main', fonts, 'fonts')
-  createObbGenerateTask('Patch', worlds, 'worlds')
+def rawFonts = 'build/fonts.obb'
+def rawWorlds = 'build/worlds.obb'
+def alignedFonts = 'build/worlds_aligned.obb'
+def alignedWorlds = 'build/fonts_aligned.obb'
 
-  createObbAlignTask('Main', 'build/distributions/fonts.obb', 'build/distributions/fonts_aligned.obb')
-  createObbAlignTask('Patch', 'build/distributions/worlds.obb', 'build/distributions/worlds_aligned.obb')
+task obbGenerate() {
+  createObbGenerateTask('Main', fonts, rawFonts)
+  createObbGenerateTask('Patch', worlds, rawWorlds)
+
+  createObbAlignTask('Main', rawFonts, alignedWorlds)
+  createObbAlignTask('Patch', rawWorlds, alignedFonts)
 }
 
 obbGenerate.dependsOn obbClean, obbMainGenerate, obbPatchGenerate, obbMainAlign, obbPatchAlign
 
 def createObbGenerateTask(type, data, name) {
-  return tasks.create(name: "obb${type}Generate", type: Zip, description: 'Generate obb files') {
-    from data
-    into 'build'
-    baseName name
-    extension 'obb'
-    entryCompression ZipEntryCompression.STORED
+  return tasks.create(name: "obb${type}Generate", type: Exec, description: 'Generate obb files') {
+    commandLine ((['zip', '-0', '-j', name, data]).flatten())
   }
 }
 
@@ -364,4 +374,17 @@ def createObbAlignTask(type, rawObb, alignedObb) {
   return tasks.create(name: "obb${type}Align", dependsOn: "obb${type}Generate", type: Exec, description: 'Align obb files') {
     commandLine zipalignPath, '-v', '8', rawObb, alignedObb
   }
+}
+
+task obbPush(dependsOn: ['obbGenerate', 'obbPushMain', 'obbPushPatch']) {
+  tasks.create(type: Exec, name: 'obbPushMain') {
+    commandLine android.getAdbExe(), 'push', alignedFonts, obbGetFullPath('main')
+  }
+  tasks.create(type: Exec, name: 'obbPushPatch') {
+    commandLine android.getAdbExe(), 'push', alignedWorlds, obbGetFullPath('patch')
+  }
+}
+
+def obbGetFullPath(name) {
+  return "/mnt/sdcard/Android/obb/${project.ext.appId}/${name}.obb"
 }
