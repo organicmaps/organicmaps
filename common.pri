@@ -138,7 +138,7 @@ unix|win32-g++ {
     QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-local-typedef
   }
 
-  *-clang {
+  *-clang* {
     QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-conversion -Werror=return-type
   }
 
