@@ -7,6 +7,8 @@ char const * kSupportedColors[] = {"placemark-red",    "placemark-blue",  "place
                                    "placemark-green",  "placemark-orange"};
 }
 
+namespace style
+{
 graphics::DisplayList * StyledPoint::GetDisplayList(UserMarkDLCache * cache) const
 {
   UserMarkContainer const * container = GetContainer();
@@ -33,8 +35,6 @@ m2::PointD const & StyledPoint::GetPixelOffset() const
   return GetStyle().empty() ? s_centre : s_offset;
 }
 
-namespace style
-{
 string GetSupportedStyle(string const & s, string const & context, string const & fallback)
 {
   if (s.empty())

@@ -3,7 +3,7 @@
 #include "map/user_mark.hpp"
 #include "map/styled_point.hpp"
 
-class ApiMarkPoint : public StyledPoint
+class ApiMarkPoint : public style::StyledPoint
 {
 public:
   ApiMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container)

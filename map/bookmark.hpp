@@ -66,7 +66,7 @@ private:
   time_t m_timeStamp;
 };
 
-class Bookmark : public StyledPoint
+class Bookmark : public style::StyledPoint
 {
   BookmarkData m_data;
   double m_animScaleFactor;

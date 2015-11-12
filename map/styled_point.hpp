@@ -19,7 +19,6 @@ namespace style
 string GetSupportedStyle(string const & s, string const & context, string const & fallback);
 // Default icon.
 string GetDefaultStyle();
-}  // namespace style
 
 class StyledPoint : public ICustomDrawable
 {
@@ -37,3 +36,4 @@ public:
   /// @return name of icon, or empty string for plain circle.
   virtual string const & GetStyle() const = 0;
 };
+}  // namespace style
