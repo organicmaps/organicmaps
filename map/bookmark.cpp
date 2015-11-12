@@ -31,22 +31,6 @@ unique_ptr<UserMarkCopy> Bookmark::Copy() const
   return unique_ptr<UserMarkCopy>(new UserMarkCopy(this, false));
 }
 
-graphics::DisplayList * Bookmark::GetDisplayList(UserMarkDLCache * cache) const
-{
-  return cache->FindUserMark(UserMarkDLCache::Key(GetType(), graphics::EPosAbove, GetContainer()->GetDepth()));
-}
-
-double Bookmark::GetAnimScaleFactor() const
-{
-  return m_animScaleFactor;
-}
-
-m2::PointD const & Bookmark::GetPixelOffset() const
-{
-  static m2::PointD s_offset(0.0, 3.0);
-  return s_offset;
-}
-
 shared_ptr<anim::Task> Bookmark::CreateAnimTask(Framework & fm)
 {
   m_animScaleFactor = 0.0;
@@ -139,7 +123,7 @@ void BookmarkCategory::DeleteBookmark(size_t index)
   size_t animIndex = 0;
   for (; animIndex < m_anims.size(); ++animIndex)
   {
-    anim_node_t const & anim = m_anims[animIndex];
+    TAnimNode const & anim = m_anims[animIndex];
     if (anim.first == markForDelete)
     {
       anim.second->Cancel();
@@ -182,15 +166,14 @@ size_t BookmarkCategory::FindBookmark(Bookmark const * bookmark) const
 
 namespace
 {
+string const kPlacemark = "Placemark";
+string const kStyle = "Style";
+string const kDocument = "Document";
+string const kStyleMap = "StyleMap";
+string const kStyleUrl = "styleUrl";
+string const kPair = "Pair";
 
-  string const PLACEMARK = "Placemark";
-  string const STYLE = "Style";
-  string const DOCUMENT =  "Document";
-  string const STYLE_MAP = "StyleMap";
-  string const STYLE_URL = "styleUrl";
-  string const PAIR = "Pair";
-
-  graphics::Color const DEFAULT_TRACK_COLOR = graphics::Color::fromARGB(0xFF33CCFF);
+graphics::Color const kDefaultTrackColor = graphics::Color::fromARGB(0xFF33CCFF);
 
   string PointToString(m2::PointD const & org)
   {
@@ -206,31 +189,20 @@ namespace
 
   enum GeometryType
   {
-    UNKNOWN,
-    POINT,
-    LINE
-  };
-
-  static char const * s_arrSupportedColors[] =
-  {
-    "placemark-red", "placemark-blue", "placemark-purple", "placemark-yellow",
-    "placemark-pink", "placemark-brown", "placemark-green", "placemark-orange"
+    GEOMETRY_TYPE_UNKNOWN,
+    GEOMETRY_TYPE_POINT,
+    GEOMETRY_TYPE_LINE
   };
 
   class KMLParser
   {
-    // Fixes icons which are not supported by MapsWithMe
+    // Fixes icons which are not supported by MapsWithMe.
     string GetSupportedBMType(string const & s) const
     {
-      // Remove leading '#' symbol
+      // Remove leading '#' symbol.
+      ASSERT(!s.empty(), ());
       string const result = s.substr(1);
-      for (size_t i = 0; i < ARRAY_SIZE(s_arrSupportedColors); ++i)
-        if (result == s_arrSupportedColors[i])
-          return result;
-
-      // Not recognized symbols are replaced with default one
-      LOG(LWARNING, ("Icon", result, "for bookmark", m_name, "is not supported"));
-      return s_arrSupportedColors[0];
+      return style::GetSupportedStyle(result, m_name, style::GetDefaultStyle());
     }
 
     BookmarkCategory & m_category;
@@ -263,13 +235,13 @@ namespace
       m_scale = -1.0;
       m_timeStamp = my::INVALID_TIME_STAMP;
 
-      m_trackColor = DEFAULT_TRACK_COLOR;
+      m_trackColor = kDefaultTrackColor;
       m_styleId.clear();
       m_mapStyleId.clear();
       m_styleUrlKey.clear();
 
       m_points.Clear();
-      m_geometryType = UNKNOWN;
+      m_geometryType = GEOMETRY_TYPE_UNKNOWN;
     }
 
     bool ParsePoint(string const & s, char const * delim, m2::PointD & pt)
@@ -298,7 +270,7 @@ namespace
 
     void SetOrigin(string const & s)
     {
-      m_geometryType = POINT;
+      m_geometryType = GEOMETRY_TYPE_POINT;
 
       m2::PointD pt;
       if (ParsePoint(s, ", \n\r\t", pt))
@@ -307,7 +279,7 @@ namespace
 
     void ParseLineCoordinates(string const & s, char const * blockSeparator, char const * coordSeparator)
     {
-      m_geometryType = LINE;
+      m_geometryType = GEOMETRY_TYPE_LINE;
 
       strings::SimpleTokenizer cortegeIter(s, blockSeparator);
       while (cortegeIter)
@@ -320,8 +292,8 @@ namespace
     }
 
     bool MakeValid()
-    { 
-      if (POINT == m_geometryType)
+    {
+      if (GEOMETRY_TYPE_POINT == m_geometryType)
       {
         if (MercatorBounds::ValidX(m_org.x) && MercatorBounds::ValidY(m_org.y))
         {
@@ -337,7 +309,7 @@ namespace
         }
         return false;
       }
-      else if (LINE == m_geometryType)
+      else if (GEOMETRY_TYPE_LINE == m_geometryType)
       {
         return m_points.GetSize() > 1;
       }
@@ -359,7 +331,7 @@ namespace
         return false;
 
       // Remove leading '#' symbol
-      map<string, graphics::Color>::const_iterator it = m_styleUrl2Color.find(styleUrl.substr(1));
+      auto it = m_styleUrl2Color.find(styleUrl.substr(1));
       if (it != m_styleUrl2Color.end())
       {
         color = it->second;
@@ -385,9 +357,9 @@ namespace
       string attrInLowerCase = attr;
       strings::AsciiToLower(attrInLowerCase);
 
-      if (IsValidAttribute(STYLE, value, attrInLowerCase))
+      if (IsValidAttribute(kStyle, value, attrInLowerCase))
         m_styleId = value;
-      else if (IsValidAttribute(STYLE_MAP, value, attrInLowerCase))
+      else if (IsValidAttribute(kStyleMap, value, attrInLowerCase))
         m_mapStyleId = value;
     }
 
@@ -406,13 +378,13 @@ namespace
     {
       ASSERT_EQUAL(m_tags.back(), tag, ());
 
-      if (tag == PLACEMARK)
+      if (tag == kPlacemark)
       {
         if (MakeValid())
         {
-          if (POINT == m_geometryType)
+          if (GEOMETRY_TYPE_POINT == m_geometryType)
             m_category.AddBookmark(m_org, BookmarkData(m_name, m_type, m_description, m_scale, m_timeStamp));
-          else if (LINE == m_geometryType)
+          else if (GEOMETRY_TYPE_LINE == m_geometryType)
           {
             Track track(m_points);
             track.SetName(m_name);
@@ -426,14 +398,14 @@ namespace
         }
         Reset();
       }
-      else if (tag == STYLE)
+      else if (tag == kStyle)
       {
-        if (GetTagFromEnd(1) == DOCUMENT)
+        if (GetTagFromEnd(1) == kDocument)
         {
           if (!m_styleId.empty())
           {
             m_styleUrl2Color[m_styleId] = m_trackColor;
-            m_trackColor = DEFAULT_TRACK_COLOR;
+            m_trackColor = kDefaultTrackColor;
           }
         }
       }
@@ -452,14 +424,14 @@ namespace
         string const & prevTag = m_tags[count - 2];
         string const ppTag = count > 3 ? m_tags[count - 3] : string();
 
-        if (prevTag == DOCUMENT)
+        if (prevTag == kDocument)
         {
           if (currTag == "name")
             m_category.SetName(value);
           else if (currTag == "visibility")
             m_category.SetVisible(value == "0" ? false : true);
         }
-        else if (prevTag == PLACEMARK)
+        else if (prevTag == kPlacemark)
         {
           if (currTag == "name")
             m_name = value;
@@ -484,16 +456,17 @@ namespace
         {
           ParseColor(value);
         }
-        else if (ppTag == STYLE_MAP && prevTag == PAIR && currTag == STYLE_URL && m_styleUrlKey == "normal")
+        else if (ppTag == kStyleMap && prevTag == kPair && currTag == kStyleUrl &&
+                 m_styleUrlKey == "normal")
         {
           if (!m_mapStyleId.empty())
             m_mapStyle2Style[m_mapStyleId] = value;
         }
-        else if (ppTag == STYLE_MAP && prevTag == PAIR && currTag == "key")
+        else if (ppTag == kStyleMap && prevTag == kPair && currTag == "key")
         {
           m_styleUrlKey = value;
         }
-        else if (ppTag == PLACEMARK)
+        else if (ppTag == kPlacemark)
         {
           if (prevTag == "Point")
           {
@@ -527,7 +500,7 @@ namespace
                 LOG(LWARNING, ("Invalid timestamp in Placemark:", value));
             }
           }
-          else if (currTag == STYLE_URL)
+          else if (currTag == kStyleUrl)
           {
             GetColorForStyle(value, m_trackColor);
           }
@@ -565,7 +538,7 @@ namespace
 
 string BookmarkCategory::GetDefaultType()
 {
-  return s_arrSupportedColors[0];
+  return style::GetDefaultStyle();
 }
 
 namespace
@@ -852,10 +825,10 @@ string BookmarkCategory::GenerateUniqueFileName(const string & path, string name
 
 void BookmarkCategory::ReleaseAnimations()
 {
-  vector<anim_node_t> tempAnims;
+  vector<TAnimNode> tempAnims;
   for (size_t i = 0; i < m_anims.size(); ++i)
   {
-    anim_node_t const & anim = m_anims[i];
+    TAnimNode const & anim = m_anims[i];
     if (!anim.second->IsEnded() &&
         !anim.second->IsCancelled())
     {

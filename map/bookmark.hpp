@@ -2,6 +2,7 @@
 
 #include "map/user_mark.hpp"
 #include "map/user_mark_container.hpp"
+#include "map/styled_point.hpp"
 
 #include "coding/reader.hpp"
 
@@ -65,28 +66,24 @@ private:
   time_t m_timeStamp;
 };
 
-class Bookmark : public ICustomDrawable
+class Bookmark : public style::StyledPoint
 {
   BookmarkData m_data;
   double m_animScaleFactor;
 
 public:
   Bookmark(m2::PointD const & ptOrg, UserMarkContainer * container)
-    : ICustomDrawable(ptOrg, container)
-    , m_animScaleFactor(1.0)
+    : StyledPoint(ptOrg, container), m_animScaleFactor(1.0)
   {
   }
 
-  Bookmark(BookmarkData const & data,
-           m2::PointD const & ptOrg,
-           UserMarkContainer * container)
-    : ICustomDrawable(ptOrg, container)
-    , m_data(data)
-    , m_animScaleFactor(1.0)
+  Bookmark(BookmarkData const & data, m2::PointD const & ptOrg, UserMarkContainer * container)
+    : StyledPoint(ptOrg, container), m_data(data), m_animScaleFactor(1.0)
   {
   }
 
   void SetData(BookmarkData const & data) { m_data = data; }
+
   BookmarkData const & GetData() const { return m_data; }
 
   virtual Type GetMarkType() const override { return UserMark::Type::BOOKMARK; }
@@ -96,7 +93,9 @@ public:
   void SetName(string const & name) { m_data.SetName(name); }
   /// @return Now its a bookmark color - name of icon file
   string const & GetType() const { return m_data.GetType(); }
+
   void SetType(string const & type) { m_data.SetType(type); }
+
   m2::RectD GetViewport() const { return m2::RectD(GetOrg(), GetOrg()); }
 
   string const & GetDescription() const { return m_data.GetDescription(); }
@@ -111,10 +110,10 @@ public:
 
   unique_ptr<UserMarkCopy> Copy() const override;
 
-  virtual graphics::DisplayList * GetDisplayList(UserMarkDLCache * cache) const override;
-  virtual double GetAnimScaleFactor() const override;
-  virtual m2::PointD const & GetPixelOffset() const override;
   shared_ptr<anim::Task> CreateAnimTask(Framework & fm);
+
+  // StyledPoint overrides:
+  string const & GetStyle() const override { return m_data.GetType(); }
 };
 
 class BookmarkCategory : public UserMarkContainer
@@ -199,8 +198,8 @@ private:
   
 private:
   bool m_blockAnimation;
-  typedef pair<UserMark *, shared_ptr<anim::Task> > anim_node_t;
-  vector<anim_node_t> m_anims;
+  using TAnimNode = pair<UserMark *, shared_ptr<anim::Task>>;
+  vector<TAnimNode> m_anims;
 };
 
 /// <category index, bookmark index>

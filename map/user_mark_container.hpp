@@ -84,6 +84,8 @@ public:
 
   double GetDepth() const { return m_layerDepth; }
 
+  virtual UserMarkDLCache::Key GetDefaultKey() const;
+
   static void InitStaticMarks(UserMarkContainer * container);
   static PoiMarkPoint * UserMarkForPoi();
   static MyPositionMarkPoint * UserMarkForMyPostion();
@@ -126,19 +128,6 @@ public:
   SearchUserMarkContainer(double layerDepth, Framework & framework);
 
   virtual Type GetType() const { return SEARCH_MARK; }
-
-  virtual string GetActiveTypeName() const;
-protected:
-  virtual string GetTypeName() const;
-  virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg);
-};
-
-class ApiUserMarkContainer : public UserMarkContainer
-{
-public:
-  ApiUserMarkContainer(double layerDepth, Framework & framework);
-
-  virtual Type GetType() const { return API_MARK; }
 
   virtual string GetActiveTypeName() const;
 protected:

@@ -70,6 +70,7 @@ bool ParsedMapApi::Parse(Uri const & uri)
     ApiMarkPoint * mark = static_cast<ApiMarkPoint *>(m_controller->CreateUserMark(glPoint));
     mark->SetName(p.m_name);
     mark->SetID(p.m_id);
+    mark->SetStyle(style::GetSupportedStyle(p.m_style, p.m_name, ""));
   }
 
   return true;
@@ -133,6 +134,13 @@ void ParsedMapApi::AddKeyValue(string key, string const & value, vector<ApiPoint
       points.back().m_id = value;
     else
       LOG(LWARNING, ("Map API: Point url with no point. 'll' should come first!"));
+  }
+  else if (key == "s")
+  {
+    if (!points.empty())
+      points.back().m_style = value;
+    else
+      LOG(LWARNING, ("Map API: Point style with no point. 'll' should come first!"));
   }
   else if (key == "backurl")
   {

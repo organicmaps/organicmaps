@@ -1,6 +1,6 @@
 #pragma once
 
-#include "user_mark_container.hpp"
+#include "api_mark_container.hpp"
 
 #include "geometry/rect2d.hpp"
 
@@ -17,6 +17,7 @@ struct ApiPoint
   double m_lon;
   string m_name;
   string m_id;
+  string m_style;
 };
 
 class Uri;
