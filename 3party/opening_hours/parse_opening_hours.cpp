@@ -36,12 +36,11 @@ template<typename Iterator> struct context_parser<osmoh::TRuleSequences, Iterato
   using type = osmoh::parsing::time_domain<Iterator>;
 };
 
-
 template <typename Context, typename Iterator>
 using context_parser_t = typename context_parser<Context, Iterator>::type;
 
 template <typename Context>
-bool ParseImp(std::string const & str, Context & context)
+inline bool ParseImp(std::string const & str, Context & context)
 {
   using boost::spirit::qi::phrase_parse;
   using boost::spirit::standard_wide::space;

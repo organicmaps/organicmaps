@@ -35,7 +35,7 @@
 namespace
 {
 template <typename T, typename SeparatorExtractor>
-void PrintVector(std::ostream & ost, std::vector<T> const & v,
+inline void PrintVector(std::ostream & ost, std::vector<T> const & v,
                  SeparatorExtractor && sepFunc)
 {
   auto it = begin(v);
@@ -53,12 +53,12 @@ void PrintVector(std::ostream & ost, std::vector<T> const & v,
 }
 
 template <typename T>
-void PrintVector(std::ostream & ost, std::vector<T> const & v, char const * const sep = ", ")
+inline void PrintVector(std::ostream & ost, std::vector<T> const & v, char const * const sep = ", ")
 {
   PrintVector(ost, v, [&sep](T const &) { return sep; });
 }
 
-void PrintOffset(std::ostream & ost, int32_t const offset, bool const space)
+inline void PrintOffset(std::ostream & ost, int32_t const offset, bool const space)
 {
   if (offset == 0)
     return;
@@ -92,13 +92,15 @@ class StreamFlagsKeeper
   std::ios_base::fmtflags m_flags;
 };
 
-void PrintPaddedNumber(std::ostream & ost, uint32_t const number, uint32_t const padding = 1)
+inline void PrintPaddedNumber(std::ostream & ost,
+                              uint32_t const number,
+                              uint32_t const padding = 1)
 {
   StreamFlagsKeeper keeper(ost);
   ost << std::setw(padding) << std::setfill('0') << number;
 }
 
-void PrintHoursMinutes(std::ostream & ost,
+inline void PrintHoursMinutes(std::ostream & ost,
                        std::chrono::hours::rep hours,
                        std::chrono::minutes::rep minutes)
 {
@@ -106,12 +108,10 @@ void PrintHoursMinutes(std::ostream & ost,
   ost << ':';
   PrintPaddedNumber(ost, minutes, 2);
 }
-
 } // namespace
 
 namespace osmoh
 {
-
 // HourMinutes -------------------------------------------------------------------------------------
 HourMinutes::HourMinutes(THours const duration)
 {

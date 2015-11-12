@@ -47,7 +47,7 @@
 namespace
 {
 template <typename T>
-std::string ToString(T const & t)
+inline std::string ToString(T const & t)
 {
   std::stringstream sstr;
   sstr << t;
@@ -55,7 +55,7 @@ std::string ToString(T const & t)
 }
 
 template <typename Parser>
-bool Test(std::string const & str, Parser const & p, bool full_match = true)
+inline bool Test(std::string const & str, Parser const & p, bool full_match = true)
 {
   // We don't care about the result of the "what" function.
   // We only care that all parsers have it:
@@ -67,7 +67,7 @@ bool Test(std::string const & str, Parser const & p, bool full_match = true)
 }
 
 template <typename ParseResult>
-std::string ParseAndUnparse(std::string const & str)
+inline std::string ParseAndUnparse(std::string const & str)
 {
   ParseResult parseResult;
   if (!osmoh::Parse(str, parseResult))
@@ -79,7 +79,7 @@ std::string ParseAndUnparse(std::string const & str)
   return sstr.str();
 }
 
-bool GetTimeTuple(std::string const & strTime, std::string const & fmt, std::tm & tm)
+inline bool GetTimeTuple(std::string const & strTime, std::string const & fmt, std::tm & tm)
 {
   auto const rc = strptime(strTime.data(), fmt.data(), &tm);
   return rc != nullptr;
@@ -95,7 +95,7 @@ struct GetTimeError: std::exception
   std::string const m_message;
 };
 
-osmoh::RuleState GetRulesState(osmoh::TRuleSequences const & rules, std::string const & dateTime)
+inline osmoh::RuleState GetRulesState(osmoh::TRuleSequences const & rules, std::string const & dateTime)
 {
   static auto const & fmt = "%Y-%m-%d %H:%M";
   std::tm time = {};
@@ -110,17 +110,17 @@ osmoh::RuleState GetRulesState(osmoh::TRuleSequences const & rules, std::string 
   return osmoh::GetState(rules, time);
 }
 
-bool IsOpen(osmoh::TRuleSequences const & rules, std::string const & dateTime)
+inline bool IsOpen(osmoh::TRuleSequences const & rules, std::string const & dateTime)
 {
   return GetRulesState(rules, dateTime) == osmoh::RuleState::Open;
 }
 
-bool IsClosed(osmoh::TRuleSequences const & rules, std::string const & dateTime)
+inline bool IsClosed(osmoh::TRuleSequences const & rules, std::string const & dateTime)
 {
   return GetRulesState(rules, dateTime) == osmoh::RuleState::Closed;
 }
 
-bool IsUnknown(osmoh::TRuleSequences const & rules, std::string const & dateTime)
+inline bool IsUnknown(osmoh::TRuleSequences const & rules, std::string const & dateTime)
 {
   return GetRulesState(rules, dateTime) == osmoh::RuleState::Unknown;
 }

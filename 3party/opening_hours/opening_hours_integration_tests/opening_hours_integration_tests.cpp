@@ -14,7 +14,7 @@
 namespace
 {
 template <typename T>
-std::string ToString(T const & t)
+inline std::string ToString(T const & t)
 {
   std::stringstream sstr;
   sstr << t;
@@ -22,20 +22,20 @@ std::string ToString(T const & t)
 }
 
 template <typename T>
-bool HasPeriod(std::vector<T> const & v)
+inline bool HasPeriod(std::vector<T> const & v)
 {
   auto const hasPeriod = [](T const & t) { return t.HasPeriod(); };
   return std::any_of(begin(v), end(v), hasPeriod);
 }
 
 template <typename T>
-bool HasPlus(std::vector<T> const & v)
+inline bool HasPlus(std::vector<T> const & v)
 {
   auto const hasPlus = [](T const & t) { return t.HasPlus(); };
   return std::any_of(begin(v), end(v), hasPlus);
 }
 
-bool HasExtendedHours(osmoh::TTimespans const & spans)
+inline bool HasExtendedHours(osmoh::TTimespans const & spans)
 {
   auto const hasExtendedHours = [](osmoh::Timespan const & s)
   {
@@ -44,7 +44,7 @@ bool HasExtendedHours(osmoh::TTimespans const & spans)
   return std::any_of(begin(spans), end(spans), hasExtendedHours);
 }
 
-bool HasOffset(osmoh::TMonthdayRanges const & mr)
+inline bool HasOffset(osmoh::TMonthdayRanges const & mr)
 {
   auto const hasOffset = [](osmoh::MonthdayRange const & md) {
     return
@@ -54,14 +54,14 @@ bool HasOffset(osmoh::TMonthdayRanges const & mr)
   return std::any_of(begin(mr), end(mr), hasOffset);
 }
 
-bool HasOffset(osmoh::Weekdays const & wd)
+inline bool HasOffset(osmoh::Weekdays const & wd)
 {
   auto const hasOffset = [](osmoh::WeekdayRange const & w) { return w.HasOffset(); };
   return std::any_of(begin(wd.GetWeekdayRanges()), end(wd.GetWeekdayRanges()), hasOffset);
 }
 
 template <typename ParserResult>
-bool CompareNormalized(std::string const & original, ParserResult const & pretendent)
+inline bool CompareNormalized(std::string const & original, ParserResult const & pretendent)
 {
   auto originalCopy = original;
   auto pretendentCopy = ToString(pretendent);
@@ -94,13 +94,13 @@ enum
 };
 using TRuleFeatures = std::array<bool, Count_>;
 
-std::ostream & operator<<(std::ostream & ost, TRuleFeatures const & f)
+inline std::ostream & operator<<(std::ostream & ost, TRuleFeatures const & f)
 {
  std::copy(begin(f), end(f), std::ostream_iterator<bool>(ost, "\t"));
  return ost;
 }
 
-TRuleFeatures DescribeRule(osmoh::TRuleSequences const & rule)
+inline TRuleFeatures DescribeRule(osmoh::TRuleSequences const & rule)
 {
   TRuleFeatures features{};
   for (auto const & r : rule)
