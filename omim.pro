@@ -17,7 +17,6 @@ lessThan(QT_MAJOR_VERSION, 5) {
 cache()
 
 TEMPLATE = subdirs
-CONFIG += ordered
 
 HEADERS += defines.hpp
 
