@@ -155,3 +155,4 @@ build()
 [ -n "$OPT_DEBUG" ]   && build debug
 [ -n "$OPT_RELEASE" ] && build release
 [ -n "$OPT_OSRM" -a -z "$OPT_DEBUG$OPT_RELEASE" ] && build_osrm release
+exit 0
