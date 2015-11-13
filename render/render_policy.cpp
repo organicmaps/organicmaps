@@ -39,6 +39,7 @@ RenderPolicy::RenderPolicy(Params const & p,
   : m_primaryRC(p.m_primaryRC),
     m_doForceUpdate(false),
     m_density(p.m_density),
+    m_exactDensityDPI(p.m_exactDensityDPI),
     m_visualScale(graphics::visualScale(p.m_density)),
     m_skinName(p.m_skinName)
 {
@@ -206,6 +207,11 @@ double RenderPolicy::VisualScale() const
 graphics::EDensity RenderPolicy::Density() const
 {
   return m_density;
+}
+
+int RenderPolicy::DensityExactDPI() const
+{
+  return m_exactDensityDPI;
 }
 
 string const & RenderPolicy::SkinName() const

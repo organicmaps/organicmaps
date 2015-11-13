@@ -73,6 +73,7 @@ protected:
   bool m_doForceUpdate;
   m2::AnyRectD m_invalidRect;
   graphics::EDensity m_density;
+  int m_exactDensityDPI;
   double m_visualScale;
   string m_skinName;
   anim::Controller * m_controller;
@@ -91,6 +92,7 @@ public:
     string m_skinName;
     size_t m_screenWidth;
     size_t m_screenHeight;
+    int m_exactDensityDPI;
   };
 
   /// constructor
@@ -148,6 +150,7 @@ public:
   double VisualScale() const;
   virtual size_t TileSize() const { return 256; }
   graphics::EDensity Density() const;
+  int DensityExactDPI() const;
   string const & SkinName() const;
 
   /// This function is used when we need to prevent race
