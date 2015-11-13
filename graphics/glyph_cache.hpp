@@ -72,12 +72,15 @@ namespace graphics
       string m_blackListFile;
       size_t m_maxSize;
       EDensity m_density;
+      int    m_exactDensityDPI;
       bool   m_isDebugging;
+
       Params(string const & blocksFile,
              string const & whiteListFile,
              string const & blackListFile,
              size_t maxSize,
              EDensity density,
+             int exactDensityDPI,
              bool isDebugging);
     };
 
