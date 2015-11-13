@@ -324,7 +324,7 @@ tasks.withType(JavaCompile) { compileTask ->
 clean.dependsOn ndkBuildClean
 
 // Cleans built native static libs.
-task cppClean(type: Delete) {
+task cppClean(type: Delete) << {
   buildTypes.each { type ->
     archs.each { arch ->
       delete "../../omim-android-${type.cppType}-${arch}"
@@ -333,27 +333,18 @@ task cppClean(type: Delete) {
 }
 
 // Tasks for generating obb files for Google Play
-task obbClean(type: Delete) {
+task obbClean(type: Delete) << {
   delete fileTree(dir: 'build', include: '**/*.obb')
 }
 
-def fonts = ['../data/01_dejavusans.ttf',
-             '../data/02_droidsans-fallback.ttf',
-             '../data/03_jomolhari-id-a3d.ttf',
-             '../data/04_padauk.ttf',
-             '../data/05_khmeros.ttf',
-             '../data/06_code2000.ttf']
-def worlds = ['../data/World.mwm', '../data/WorldCoasts.mwm']
-
-def rawFonts = 'build/fonts.obb'
-def rawWorlds = 'build/worlds.obb'
-def alignedFonts = 'build/worlds_aligned.obb'
-def alignedWorlds = 'build/fonts_aligned.obb'
+def rawFonts = 'build/fonts_unaligned.obb'
+def rawWorlds = 'build/worlds_unaligned.obb'
+def alignedFonts = 'build/worlds.obb'
+def alignedWorlds = 'build/fonts.obb'
 
 task obbGenerate() {
-  createObbGenerateTask('Main', fonts, rawFonts)
-  createObbGenerateTask('Patch', worlds, rawWorlds)
-
+  createObbGenerateTask('Main', propObbFonts.split(' '), rawFonts)
+  createObbGenerateTask('Patch', propObbWorlds.split(' '), rawWorlds)
   createObbAlignTask('Main', rawFonts, alignedWorlds)
   createObbAlignTask('Patch', rawWorlds, alignedFonts)
 }
@@ -377,14 +368,14 @@ def createObbAlignTask(type, rawObb, alignedObb) {
 }
 
 task obbPush(dependsOn: ['obbGenerate', 'obbPushMain', 'obbPushPatch']) {
-  tasks.create(type: Exec, name: 'obbPushMain') {
-    commandLine android.getAdbExe(), 'push', alignedFonts, obbGetFullPath('main')
+  def obbPath = "/mnt/sdcard/Android/obb/${project.ext.appId}/"
+  tasks.create(type: Exec, name: 'obbRemoveOnDevice') {
+    commandLine android.getAdbExe(), 'shell', 'rm', "${obbPath}*.obb"
   }
-  tasks.create(type: Exec, name: 'obbPushPatch') {
-    commandLine android.getAdbExe(), 'push', alignedWorlds, obbGetFullPath('patch')
+  tasks.create(type: Exec, name: 'obbPushMain', dependsOn: 'obbRemoveOnDevice') {
+    commandLine android.getAdbExe(), 'push', alignedFonts, "${obbPath}fonts.obb"
   }
-}
-
-def obbGetFullPath(name) {
-  return "/mnt/sdcard/Android/obb/${project.ext.appId}/${name}.obb"
+  tasks.create(type: Exec, name: 'obbPushPatch', dependsOn: 'obbRemoveOnDevice') {
+    commandLine android.getAdbExe(), 'push', alignedWorlds, "${obbPath}worlds.obb"
+  }
 }
