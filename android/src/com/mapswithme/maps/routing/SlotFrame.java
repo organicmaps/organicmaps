@@ -32,7 +32,7 @@ public class SlotFrame extends LinearLayout
 
   public interface OnSlotClickListener
   {
-    void OnSlotClick();
+    void OnSlotClick(int slotId);
   }
 
   private class Slot
@@ -70,7 +70,7 @@ public class SlotFrame extends LinearLayout
         @Override
         public void onClick(View v)
         {
-          mClickListener.OnSlotClick();
+          mClickListener.OnSlotClick(mOrder);
         }
       });
 

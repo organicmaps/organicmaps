@@ -24,7 +24,7 @@
                  android:layout_height="@dimen/menu_line_height"
                  android:paddingLeft="@dimen/margin_half"
                  android:paddingRight="@dimen/margin_half_plus"
-                 tools:src="@drawable/ic_my_position_pressed"
+                 tools:src="@drawable/anim_myposition_pending"
                  tools:layout_marginTop="60dp"/>
 
       <ImageView android:id="@+id/toggle"

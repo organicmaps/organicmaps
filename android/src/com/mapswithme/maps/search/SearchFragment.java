@@ -23,6 +23,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.Language;
@@ -110,7 +111,12 @@ public class SearchFragment extends BaseMwmFragment
     {
       if (TextUtils.isEmpty(getQuery()))
       {
-        super.onUpClick();
+        if (mFromRoutePlan)
+          RoutingController.get().onPoiSelected(null);
+        else
+          super.onUpClick();
+
+        mToolbarController.deactivate();
         return;
       }
 
@@ -142,6 +148,7 @@ public class SearchFragment extends BaseMwmFragment
 
   private final LastPosition mLastPosition = new LastPosition();
   private boolean mSearchRunning;
+  private boolean mFromRoutePlan;
 
   private boolean doShowDownloadSuggest()
   {
@@ -217,9 +224,11 @@ public class SearchFragment extends BaseMwmFragment
     setRecyclerScrollListener(mResults);
     mResultsPlaceholder = mResultsFrame.findViewById(R.id.placeholder);
 
+    readArguments();
+
     if (mSearchAdapter == null)
     {
-      mSearchAdapter = new SearchAdapter(this);
+      mSearchAdapter = new SearchAdapter(this, mFromRoutePlan);
       mSearchAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
       {
         @Override
@@ -236,7 +245,6 @@ public class SearchFragment extends BaseMwmFragment
     updateFrames();
     updateResultsPlaceholder();
 
-    readArguments();
     SearchEngine.INSTANCE.addListener(this);
 
     if (SearchRecents.getSize() == 0)
@@ -302,7 +310,7 @@ public class SearchFragment extends BaseMwmFragment
     if (query != null)
       setQuery(query);
 
-    // TODO: Show "My position" item
+    mFromRoutePlan = arguments.getBoolean(SearchActivity.EXTRA_FROM_ROUTE_PLAN);
 
     mToolbarController.activate();
   }
@@ -335,7 +343,7 @@ public class SearchFragment extends BaseMwmFragment
   }
   // FIXME END
 
-  protected void showSingleResultOnMap(int resultIndex)
+  void showSingleResultOnMap(int resultIndex)
   {
     final String query = getQuery();
     SearchRecents.add(query);
@@ -346,7 +354,7 @@ public class SearchFragment extends BaseMwmFragment
     Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_KEY_CLICKED);
   }
 
-  protected void showAllResultsOnMap()
+  void showAllResultsOnMap()
   {
     final String query = getQuery();
     SearchRecents.add(query);
@@ -455,7 +463,14 @@ public class SearchFragment extends BaseMwmFragment
   public boolean onBackPressed()
   {
     if (!searchActive())
+    {
+      if (mFromRoutePlan)
+      {
+        RoutingController.get().onPoiSelected(null);
+        return true;
+      }
       return false;
+    }
 
     mToolbarController.clear();
     return true;

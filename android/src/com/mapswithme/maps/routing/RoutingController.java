@@ -24,6 +24,8 @@ import java.util.concurrent.TimeUnit;
 @android.support.annotation.UiThread
 public class RoutingController
 {
+  public static final int NO_SLOT = 0;
+
   private static final String TAG = "RCSTATE";
 
   private enum State
@@ -44,7 +46,7 @@ public class RoutingController
   public interface Container
   {
     FragmentActivity getActivity();
-    void showSearch(boolean showMyPosition);
+    void showSearchToPickPoi();
     void showRoutePlan(boolean show, @Nullable Runnable completionListener);
     void showNavigation(boolean show);
     void showDownloader(boolean openDownloadedList);
@@ -65,7 +67,7 @@ public class RoutingController
 
   private BuildState mBuildState = BuildState.NONE;
   private State mState = State.NONE;
-  private boolean mIsWaitingPoiPick;
+  private int mWaitingPoiPickSlot = NO_SLOT;
 
   private MapObject mStartPoint;
   private MapObject mEndPoint;
@@ -187,6 +189,19 @@ public class RoutingController
       mContainer.updateBuildProgress(mLastBuildProgress, mLastRouterType);
   }
 
+  private void showRoutePlan()
+  {
+    if (mContainer != null)
+      mContainer.showRoutePlan(true, new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          updatePlan();
+        }
+      });
+  }
+
   public void attach(@NonNull Container container)
   {
     Log.d(TAG, "attach");
@@ -201,14 +216,8 @@ public class RoutingController
   {
     if (isPlanning())
     {
-      mContainer.showRoutePlan(true, new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          updatePlan();
-        }
-      });
+      // TODO: Restore search fragment
+      showRoutePlan();
     }
 
     mContainer.showNavigation(isNavigating());
@@ -345,6 +354,7 @@ public class RoutingController
   {
     mStartPoint = null;
     mEndPoint = null;
+    mWaitingPoiPickSlot = NO_SLOT;
 
     setBuildState(BuildState.NONE);
     setState(State.NONE);
@@ -385,7 +395,7 @@ public class RoutingController
   {
     Log.d(TAG, "cancelPlanning");
 
-    if (!mIsWaitingPoiPick && isPlanning())
+    if (isPlanning())
     {
       cancel();
       return true;
@@ -414,7 +424,7 @@ public class RoutingController
 
   public boolean isWaitingPoiPick()
   {
-    return mIsWaitingPoiPick;
+    return (mWaitingPoiPickSlot != NO_SLOT);
   }
 
   public BuildState getBuildState()
@@ -543,9 +553,29 @@ public class RoutingController
       build();
   }
 
-  public void onPoiSelected(MapObject point)
+  public void searchPoi(int slotId)
   {
+    Log.d(TAG, "searchPoi: " + slotId);
+    mWaitingPoiPickSlot = slotId;
+    mContainer.showSearchToPickPoi();
+    mContainer.updateMenu();
+  }
 
+  public void onPoiSelected(@Nullable MapObject point)
+  {
+    mWaitingPoiPickSlot = NO_SLOT;
+    if (mContainer == null)
+      return;
+
+    mContainer.updateMenu();
+
+    if (point == null)
+    {
+      showRoutePlan();
+      return;
+    }
+
+    // TODO
   }
 
   public static CharSequence formatRoutingTime(int seconds)

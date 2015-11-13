@@ -518,12 +518,12 @@ public class MainMenu
 
   public void setEnabled(Item item, boolean enable)
   {
-    View view = mItemViews.get(item);
-    if (view == null)
+    View button = mButtonsFrame.findViewById(item.mViewId);
+    if (button == null)
       return;
 
-    // FIXME: Does not work for ImageView`s src.
-    view.setEnabled(enable);
+    button.setAlpha(enable ? 1.0f : 0.4f);
+    button.setEnabled(enable);
   }
 
   public View getFrame()

@@ -6,9 +6,9 @@ import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
 
-public class RoutingPlanInplace extends RoutingPlanController
+public class RoutingPlanInplaceController extends RoutingPlanController
 {
-  public RoutingPlanInplace(MwmActivity activity)
+  public RoutingPlanInplaceController(MwmActivity activity)
   {
     super(activity.findViewById(R.id.routing_plan_frame), activity);
   }

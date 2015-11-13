@@ -18,12 +18,12 @@
       tools:visibility="visible"/>
 
   <include
-    layout="@layout/layout_routing_full"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/toolbar"
-    android:paddingBottom="@dimen/margin_base"
-    android:visibility="gone"/>
+      layout="@layout/layout_routing_full"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/toolbar"
+      android:paddingBottom="@dimen/margin_base"
+      android:visibility="gone"/>
 
   <include
       layout="@layout/routing_plan"

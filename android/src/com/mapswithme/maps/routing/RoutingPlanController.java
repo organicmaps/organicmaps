@@ -37,9 +37,9 @@ public class RoutingPlanController extends ToolbarController
     mSlotFrame.setOnSlotClickListener(new SlotFrame.OnSlotClickListener()
     {
       @Override
-      public void OnSlotClick()
+      public void OnSlotClick(int slotId)
       {
-
+        RoutingController.get().searchPoi(slotId);
       }
     });
 

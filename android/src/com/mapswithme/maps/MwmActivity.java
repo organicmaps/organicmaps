@@ -95,7 +95,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   // Place page
   private PlacePageView mPlacePage;
   // Routing
-  private RoutingPlanInplace mRoutingPlanInplace;
+  private RoutingPlanInplaceController mRoutingPlanInplaceController;
   private NavigationController mNavigationController;
 
   private MainMenu mMainMenu;
@@ -228,7 +228,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     showSearch(query, false);
   }
 
-  public void showSearch(String query, boolean showMyPosition)
+  public void showSearch(String query, boolean fromRoutePlan)
   {
     if (mIsFragmentContainer)
     {
@@ -236,11 +236,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
       final Bundle args = new Bundle();
       args.putString(SearchActivity.EXTRA_QUERY, query);
-      args.putBoolean(SearchActivity.EXTRA_SHOW_MY_POSITION, showMyPosition);
+      args.putBoolean(SearchActivity.EXTRA_FROM_ROUTE_PLAN, fromRoutePlan);
       replaceFragment(SearchFragment.class, args, null);
     }
     else
-      SearchActivity.start(this, query, showMyPosition);
+      SearchActivity.start(this, query, fromRoutePlan);
   }
 
   private void shareMyLocation()
@@ -317,7 +317,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (findViewById(R.id.fragment_container) != null)
       mIsFragmentContainer = true;
     else
-      mRoutingPlanInplace = new RoutingPlanInplace(this);
+      mRoutingPlanInplaceController = new RoutingPlanInplaceController(this);
 
     if (!mIsFragmentContainer)
       removeCurrentFragment(false);
@@ -531,7 +531,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    mRoutingPlanInplace.setStartButton();
+    mRoutingPlanInplaceController.setStartButton();
     if (mPlacePage.isDocked())
       mPlacePage.setLeftAnimationTrackListener(mMainMenu.getLeftAnimationTrackListener());
   }
@@ -1142,9 +1142,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void showSearch(boolean showMyPosition)
+  public void showSearchToPickPoi()
   {
-    showSearch("", showMyPosition);
+    showSearch("", true);
   }
 
   @Override
@@ -1158,8 +1158,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (mIsFragmentContainer)
     {
-      // TODO: Handle point selection state
       mMainMenu.setEnabled(MainMenu.Item.P2P, !RoutingController.get().isPlanning());
+      mMainMenu.setEnabled(MainMenu.Item.SEARCH, !RoutingController.get().isWaitingPoiPick());
     } else
     {
       if (RoutingController.get().isPlanning())
@@ -1184,7 +1184,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         replaceFragment(RoutingPlanFragment.class, null, completionListener);
       } else
       {
-        mRoutingPlanInplace.show(true);
+        mRoutingPlanInplaceController.show(true);
         if (completionListener != null)
           completionListener.run();
       }
@@ -1193,7 +1193,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (mIsFragmentContainer)
         closeSidePanel();
       else
-        mRoutingPlanInplace.show(false);
+        mRoutingPlanInplaceController.show(false);
 
       if (completionListener != null)
         completionListener.run();
@@ -1220,7 +1220,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         fragment.updatePoints();
     } else
     {
-      mRoutingPlanInplace.updatePoints();
+      mRoutingPlanInplaceController.updatePoints();
     }
   }
 
@@ -1234,7 +1234,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         fragment.updateBuildProgress(progress, router);
     } else
     {
-      mRoutingPlanInplace.updateBuildProgress(progress, router);
+      mRoutingPlanInplaceController.updateBuildProgress(progress, router);
     }
   }
 }

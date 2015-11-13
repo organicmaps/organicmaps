@@ -23,7 +23,7 @@
   <ImageView
       android:id="@+id/p2p"
       style="@style/MwmTheme.Menu.Line.Button"
-      android:src="@drawable/menu_point_to_point"/>
+      android:src="@drawable/ic_menu_point_to_point"/>
 
   <ImageView
       android:id="@+id/search"
