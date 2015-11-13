@@ -5250,6 +5250,7 @@
 
   [pref_tts_other_section_title]
     tags = ios
+    comment = Title for "Other" section in TTS settings.
     en = Other
     ru = Другой
     fr = Autre
