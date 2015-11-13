@@ -5,6 +5,7 @@
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
 #import "MWMAlertViewController.h"
+#import "MWMTextToSpeech.h"
 #import "MWMWatchEventInfo.h"
 #import "Preferences.h"
 #import "RouteState.h"
@@ -210,6 +211,7 @@ void InitLocalizedStrings()
   f.GetLocationState()->InvalidatePosition();
 
   [self enableTTSForTheFirstTime];
+  [MWMTextToSpeech activateAudioSession];
 
   return returnValue;
 }

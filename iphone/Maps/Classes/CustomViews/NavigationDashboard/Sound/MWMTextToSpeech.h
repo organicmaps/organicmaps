@@ -4,7 +4,7 @@
 @interface MWMTextToSpeech : NSObject
 
 + (instancetype)tts;
-
++ (void)activateAudioSession;
 - (vector<std::pair<string, string>>)availableLanguages;
 - (NSString *)savedLanguage;
 - (void)setNotificationsLocale:(NSString *)locale;
