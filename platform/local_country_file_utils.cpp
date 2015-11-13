@@ -322,7 +322,7 @@ bool CountryIndexes::DeleteFromDisk(LocalCountryFile const & localFile)
     string const path = GetPath(localFile, index);
     if (Platform::IsFileExistsByFullPath(path) && !my::DeleteFileX(path))
     {
-      LOG(LERROR, ("Can't remove country index:", path));
+      LOG(LWARNING, ("Can't remove country index:", path));
       ok = false;
     }
   }
@@ -330,7 +330,7 @@ bool CountryIndexes::DeleteFromDisk(LocalCountryFile const & localFile)
   Platform::EError const ret = Platform::RmDir(directory);
   if (ret != Platform::ERR_OK && ret != Platform::ERR_FILE_DOES_NOT_EXIST)
   {
-    LOG(LERROR, ("Can't remove indexes directory:", directory, ret));
+    LOG(LWARNING, ("Can't remove indexes directory:", directory, ret));
     ok = false;
   }
   return ok;
