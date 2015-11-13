@@ -63,7 +63,10 @@ extern NSString * const kUserDafaultsNeedToEnableTTS = @"UserDefaultsNeedToEnabl
   NSError * err = nil;
   AVAudioSession * audioSession = [AVAudioSession sharedInstance];
   if (![audioSession setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionMixWithOthers error:&err])
+  {
     LOG(LWARNING, ("[ setCategory]] error.", [err localizedDescription]));
+    return;
+  }
   if (![audioSession setActive:YES error:&err])
     LOG(LWARNING, ("[[AVAudioSession sharedInstance] setActive]] error.", [err localizedDescription]));
 }
