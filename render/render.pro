@@ -6,7 +6,7 @@ ROOT_DIR = ..
 
 include($$ROOT_DIR/common.pri)
 
-INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/src $$ROOT_DIR/3party/expat/lib $$ROOT_DIR/3party/freetype/include
+INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/src $$ROOT_DIR/3party/freetype/include
 
 SOURCES += \
     $$ROOT_DIR/3party/agg/agg_curves.cpp \

@@ -7,7 +7,7 @@ DEFINES += GRAPHICS_LIBRARY
 
 ROOT_DIR = ..
 
-INCLUDEPATH += $$ROOT_DIR/3party/freetype/include $$ROOT_DIR/3party/agg $$ROOT_DIR/3party/expat/lib
+INCLUDEPATH += $$ROOT_DIR/3party/freetype/include $$ROOT_DIR/3party/agg
 
 include($$ROOT_DIR/common.pri)
 
