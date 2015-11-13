@@ -200,7 +200,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mTvCuisine = (TextView) mCuisine.findViewById(R.id.tv__place_cuisine);
     mWiki = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_wiki);
     mWiki.setOnClickListener(this);
-    mTvWiki = (TextView) mWiki.findViewById(R.id.tv__place_wiki);
     mEntrance = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_entrance);
     mEntrance.setOnClickListener(this);
     mTvEntrance = (TextView) mEntrance.findViewById(R.id.tv__place_entrance);
@@ -425,7 +424,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_EMAIL), mEmail, mTvEmail);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mOperator, mTvOperator);
     refreshMetadataOrHide(translateCuisine(mMapObject.getMetadata(Metadata.MetadataType.FMD_CUISINE)), mCuisine, mTvCuisine);
-    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA), mWiki, mTvWiki);
+    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA), mWiki, null);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_INTERNET), mWifi, null);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
     // TODO throw away parsing hack when data will be parsed correctly in core
@@ -865,7 +864,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       items.add(mTvOperator.getText().toString());
       break;
     case R.id.ll__place_wiki:
-      items.add(mTvWiki.getText().toString());
+      items.add(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
       break;
     }
 
