@@ -60,7 +60,6 @@ extern NSString * const kUserDafaultsNeedToEnableTTS = @"UserDefaultsNeedToEnabl
 
 + (void)activateAudioSession
 {
-  // Activating audio session.
   NSError * err = nil;
   AVAudioSession * audioSession = [AVAudioSession sharedInstance];
   if (![audioSession setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionMixWithOthers error:&err])

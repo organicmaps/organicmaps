@@ -25,7 +25,7 @@ typedef NS_ENUM(NSUInteger, Section)
   SectionRouting,
   SectionCalibration,
   SectionStatistics,
-  SectionCount // Must be latest value!
+  SectionCount // Must be the latest value!
 };
 
 @interface SettingsViewController () <SwitchCellDelegate>
