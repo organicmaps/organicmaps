@@ -306,6 +306,9 @@
 	<string name="menu_search">Haku</string>
 	<string name="pref_zoom_title">Zoomauspainikkeet</string>
 	<string name="pref_zoom_summary">Näytä ruudulla</string>
+	<!-- Title for "Other" section in TTS settings. -->
+	<string name="pref_tts_other_section_title">Egyéb</string>
+	<string name="pref_tts_how_to_set_up_voice">Így állítsd be a hangot</string>
 	<string name="placepage_distance">Etäisyys</string>
 	<string name="placepage_coordinates">Koordinaatit</string>
 	<string name="placepage_unsorted">Järjestelemätön</string>

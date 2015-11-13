@@ -51,8 +51,13 @@ using namespace routing::turns;
 //    _lanes = info.m_lanes;
     _nextTurnImage = image(info.m_nextTurn, true);
   }
-  _turnImage = image(info.m_turn, false);
-  if (info.m_turn == TurnDirection::EnterRoundAbout || info.m_turn == TurnDirection::LeaveRoundAbout)
+
+  TurnDirection const turn = info.m_turn;
+  _turnImage = image(turn, false);
+  BOOL const isRound = turn == TurnDirection::EnterRoundAbout ||
+                       turn == TurnDirection::StayOnRoundAbout ||
+                       turn == TurnDirection::LeaveRoundAbout;
+  if (isRound)
     _roundExitNumber = info.m_exitNum;
   else
     _roundExitNumber = 0;

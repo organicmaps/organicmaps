@@ -5,6 +5,7 @@
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
 #import "MWMAlertViewController.h"
+#import "MWMTextToSpeech.h"
 #import "MWMWatchEventInfo.h"
 #import "Preferences.h"
 #import "RouteState.h"
@@ -47,6 +48,8 @@ static NSString * const kBundleVersion = @"BundleVersion";
 extern string const kCountryCodeKey;
 extern string const kUniqueIdKey;
 extern string const kLanguageKey;
+extern NSString * const kUserDefaultsTTSLanguage;
+extern NSString * const kUserDafaultsNeedToEnableTTS;
 
 /// Adds needed localized strings to C++ code
 /// @TODO Refactor localization mechanism to make it simpler
@@ -202,10 +205,13 @@ void InitLocalizedStrings()
     [self incrementSessionCount];
     [self showAlertIfRequired];
   }
-  
+
   Framework & f = GetFramework();
   application.applicationIconBadgeNumber = f.GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
   f.GetLocationState()->InvalidatePosition();
+
+  [self enableTTSForTheFirstTime];
+  [MWMTextToSpeech activateAudioSession];
 
   return returnValue;
 }
@@ -527,6 +533,17 @@ void InitLocalizedStrings()
     self.mapViewController.restoreRouteDestination = state.endPoint;
   else
     [RouteState remove];
+}
+
+#pragma mark - TTS
+
+- (void)enableTTSForTheFirstTime
+{
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  if ([ud stringForKey:kUserDefaultsTTSLanguage].length)
+    return;
+  [ud setBool:YES forKey:kUserDafaultsNeedToEnableTTS];
+  [ud synchronize];
 }
 
 #pragma mark - Standby

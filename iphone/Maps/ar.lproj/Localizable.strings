@@ -508,6 +508,23 @@
 /* «Map style» entry value */
 "pref_map_style_modern_light" = "Modern light";
 
+/* Settings «Route» category: «Tts enabled» title */
+"pref_tts_enable_title" = "Voice instructions";
+
+/* Settings «Route» category: «Tts enabled» summary */
+"pref_tts_enable_summary" = "Turn instructions";
+
+/* Settings «Route» category: «Tts language» title */
+"pref_tts_language_title" = "Voice language";
+
+/* Settings «Route» category: «Tts unavailable» subtitle */
+"pref_tts_unavailable" = "TTS unavailable";
+
+/* Title for "Other" section in TTS settings. */
+"pref_tts_other_section_title" = "آخر";
+
+"pref_tts_how_to_set_up_voice" = "كيفية ضبط الصوت";
+
 "placepage_distance" = "المسافة";
 
 "placepage_coordinates" = "الإحداثيات";

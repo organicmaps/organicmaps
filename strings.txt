@@ -5248,6 +5248,67 @@
      en = TTS unavailable
      ru = Голосовые подсказки недоступны
 
+  [pref_tts_other_section_title]
+    tags = ios
+    comment = Title for "Other" section in TTS settings.
+    en = Other
+    ru = Другой
+    fr = Autre
+    da = Andet
+    id = Lainnya
+    ko = 다른 언어
+    sv = Övrigt
+    tr = Diğer
+    uk = Інша
+    vi = Khác
+    hu = Egyéb
+    de = Weitere
+    fi = Egyéb
+    cs = Ostatní
+    it = Altro
+    nb = Andre
+    zh-Hant = 其他
+    zh-Hans = 其他
+    th = อื่น ๆ
+    ja = その他
+    ro = Alta
+    ar = آخر
+    sk = Iný
+    es = Otros
+    pl = Inny
+    nl = Andere
+    pt = Outro
+
+  [pref_tts_how_to_set_up_voice]
+    tags = ios
+    en = How to set up voice
+    ru = Как настроить голос
+    fr = Comment configurer la voix
+    da = Sådan indstiller du tale
+    id = Cara mengatur suara
+    ko = 음성 설정 방법
+    sv = Hur man ställer in ljud
+    tr = Ses nasıl ayarlanır
+    uk = Як налаштувати голосовий контроль
+    vi = Làm thế nào để thiết lập tiếng nói
+    hu = Így állítsd be a hangot
+    de = Navi-Stimme einstellen
+    fi = Így állítsd be a hangot
+    cs = Jak nastavit hlas
+    it = Come impostare la voce
+    nb = Slik installerer du stemme
+    zh-Hant = 如何設置語音
+    zh-Hans = 如何设置语音
+    th = วิธีตั้งค่าเสียง
+    ja = 音声設定の仕方
+    ro = Modalitatea de configurare a vocii
+    ar = كيفية ضبط الصوت
+    sk = Ako nastaviť hlas
+    es = Cómo configurar la voz
+    pl = Jak skonfigurować usługę głosową
+    nl = Hoe stel je de stem in
+    pt = Como configurar a voz
+
   [placepage_distance]
     en = Distance
     fr = Distance

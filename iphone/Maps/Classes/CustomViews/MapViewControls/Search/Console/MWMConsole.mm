@@ -3,17 +3,11 @@
 
 #include "Framework.h"
 
-extern NSString * const kMwmTextToSpeechEnable;
-extern NSString * const kMwmTextToSpeechDisable;
-
 @implementation MWMConsole
 
 + (BOOL)performCommand:(NSString *)cmd
 {
   if ([self performMapStyle:cmd])
-    return YES;
-
-  if ([self performSound:cmd])
     return YES;
 
   return NO;
@@ -31,23 +25,6 @@ extern NSString * const kMwmTextToSpeechDisable;
 
   MapStyle const mapStyle = isDark ? MapStyleDark : (isOld ? MapStyleLight : MapStyleClear);
   [[MapsAppDelegate theApp] setMapStyle: mapStyle];
-
-  return YES;
-}
-
-+ (BOOL)performSound:(NSString *)cmd
-{
-  // Hook for shell command on change map style
-  BOOL const sound = [cmd isEqualToString:@"?sound"];
-  BOOL const nosound = sound ? NO : [cmd isEqualToString:@"?nosound"];
-
-  if (!sound && !nosound)
-    return NO;
-
-  if (sound)
-    [[NSNotificationCenter defaultCenter] postNotificationName:kMwmTextToSpeechEnable object:nil];
-  if (nosound)
-    [[NSNotificationCenter defaultCenter] postNotificationName:kMwmTextToSpeechDisable object:nil];
 
   return YES;
 }

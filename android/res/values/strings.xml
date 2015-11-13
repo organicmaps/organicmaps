@@ -337,6 +337,9 @@
 	<string name="pref_tts_language_title">Voice language</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">TTS unavailable</string>
+	<!-- Title for "Other" section in TTS settings. -->
+	<string name="pref_tts_other_section_title">Other</string>
+	<string name="pref_tts_how_to_set_up_voice">How to set up voice</string>
 	<string name="placepage_distance">Distance</string>
 	<string name="placepage_coordinates">Coordinates</string>
 	<string name="placepage_unsorted">Unsorted</string>
