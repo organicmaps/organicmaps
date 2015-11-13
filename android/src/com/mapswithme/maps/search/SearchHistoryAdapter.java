@@ -6,14 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.SearchToolbarController;
 
 class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.ViewHolder>
 {
   private static final int TYPE_ITEM = 0;
   private static final int TYPE_CLEAR = 1;
+  private static final int TYPE_MY_POSITION = 2;
 
   private final SearchToolbarController mSearchToolbarController;
+  private final boolean mShowMyPosition;
 
   public static class ViewHolder extends RecyclerView.ViewHolder
   {
@@ -29,6 +33,7 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
   public SearchHistoryAdapter(SearchToolbarController searchToolbarController)
   {
     mSearchToolbarController = searchToolbarController;
+    mShowMyPosition = RoutingController.get().isWaitingPoiPick();
   }
 
   @Override
@@ -51,7 +56,7 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
         break;
 
       case TYPE_CLEAR:
-        res = new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_search_common, viewGroup, false));
+        res = new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_search_clear_history, viewGroup, false));
         res.mText.setOnClickListener(new View.OnClickListener()
         {
           @Override
@@ -59,6 +64,19 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
           {
             SearchRecents.clear();
             notifyDataSetChanged();
+          }
+        });
+        break;
+
+      case TYPE_MY_POSITION:
+        res = new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_search_my_position, viewGroup, false));
+        res.mText.setOnClickListener(new View.OnClickListener()
+        {
+          @Override
+          public void onClick(View v)
+          {
+            RoutingController.get().onPoiSelected(LocationHelper.INSTANCE.getMyPosition());
+            mSearchToolbarController.onUpClick();
           }
         });
         break;
@@ -74,19 +92,38 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
   public void onBindViewHolder(ViewHolder viewHolder, int position)
   {
     if (getItemViewType(position) == TYPE_ITEM)
+    {
+      if (mShowMyPosition)
+        position--;
+
       viewHolder.mText.setText(SearchRecents.get(position));
+    }
   }
 
   @Override
   public int getItemCount()
   {
-    final int res = SearchRecents.getSize();
-    return (res == 0 ? 0 : res + 1);
+    int res = SearchRecents.getSize();
+    if (res > 0)
+      res++;
+
+    if (mShowMyPosition)
+      res++;
+
+    return res;
   }
 
   @Override
   public int getItemViewType(int position)
   {
+    if (mShowMyPosition)
+    {
+      if (position == 0)
+        return TYPE_MY_POSITION;
+
+      position--;
+    }
+
     return (position < SearchRecents.getSize() ? TYPE_ITEM : TYPE_CLEAR);
   }
 }

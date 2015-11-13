@@ -15,7 +15,7 @@ public class FloatingSearchToolbarController extends SearchToolbarController
   }
 
   @Override
-  protected void onUpClick()
+  public void onUpClick()
   {
     ((MwmActivity) mActivity).showSearch(getQuery());
     cancelSearchApiAndHide(true);

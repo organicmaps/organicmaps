@@ -22,6 +22,7 @@ import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
+import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.SearchToolbarController;
@@ -107,7 +108,7 @@ public class SearchFragment extends BaseMwmFragment
     }
 
     @Override
-    protected void onUpClick()
+    public void onUpClick()
     {
       if (TextUtils.isEmpty(getQuery()))
       {
@@ -125,13 +126,9 @@ public class SearchFragment extends BaseMwmFragment
   }
 
   private View mResultsFrame;
-  private RecyclerView mResults;
   private View mResultsPlaceholder;
 
-  private View mTabsFrame;
-
   private SearchToolbarController mToolbarController;
-  private ViewPager mPager;
 
   private SearchAdapter mSearchAdapter;
 
@@ -148,9 +145,10 @@ public class SearchFragment extends BaseMwmFragment
 
   private final LastPosition mLastPosition = new LastPosition();
   private boolean mSearchRunning;
+  private String mInitialQuery;
   private boolean mFromRoutePlan;
 
-  private boolean doShowDownloadSuggest()
+  private static boolean doShowDownloadSuggest()
   {
     return ActiveCountryTree.getTotalDownloadedCount() == 0;
   }
@@ -212,23 +210,23 @@ public class SearchFragment extends BaseMwmFragment
   public void onViewCreated(View view, Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
+    readArguments();
 
     ViewGroup root = (ViewGroup) view;
-    mTabsFrame = root.findViewById(R.id.tab_frame);
-    mPager = (ViewPager) mTabsFrame.findViewById(R.id.pages);
+    View tabsFrame = root.findViewById(R.id.tab_frame);
+    ViewPager pager = (ViewPager) tabsFrame.findViewById(R.id.pages);
     mToolbarController = new ToolbarController(view);
-    final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), mPager, (TabLayout) root.findViewById(R.id.tabs));
+
+    final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, (TabLayout) root.findViewById(R.id.tabs));
 
     mResultsFrame = root.findViewById(R.id.results_frame);
-    mResults = (RecyclerView) mResultsFrame.findViewById(R.id.recycler);
-    setRecyclerScrollListener(mResults);
+    RecyclerView results = (RecyclerView) mResultsFrame.findViewById(R.id.recycler);
+    setRecyclerScrollListener(results);
     mResultsPlaceholder = mResultsFrame.findViewById(R.id.placeholder);
-
-    readArguments();
 
     if (mSearchAdapter == null)
     {
-      mSearchAdapter = new SearchAdapter(this, mFromRoutePlan);
+      mSearchAdapter = new SearchAdapter(this);
       mSearchAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
       {
         @Override
@@ -239,16 +237,20 @@ public class SearchFragment extends BaseMwmFragment
       });
     }
 
-    mResults.setLayoutManager(new LinearLayoutManager(view.getContext()));
-    mResults.setAdapter(mSearchAdapter);
+    results.setLayoutManager(new LinearLayoutManager(view.getContext()));
+    results.setAdapter(mSearchAdapter);
 
     updateFrames();
     updateResultsPlaceholder();
 
+    if (mInitialQuery != null)
+      setQuery(mInitialQuery);
+    mToolbarController.activate();
+
     SearchEngine.INSTANCE.addListener(this);
 
     if (SearchRecents.getSize() == 0)
-      mPager.setCurrentItem(TabAdapter.Tab.CATEGORIES.ordinal());
+      pager.setCurrentItem(TabAdapter.Tab.CATEGORIES.ordinal());
 
     tabAdapter.setTabSelectedListener(new TabAdapter.OnTabSelectedListener()
     {
@@ -306,13 +308,8 @@ public class SearchFragment extends BaseMwmFragment
     if (arguments == null)
       return;
 
-    final String query = arguments.getString(SearchActivity.EXTRA_QUERY);
-    if (query != null)
-      setQuery(query);
-
+    mInitialQuery = arguments.getString(SearchActivity.EXTRA_QUERY);
     mFromRoutePlan = arguments.getBoolean(SearchActivity.EXTRA_FROM_ROUTE_PLAN);
-
-    mToolbarController.activate();
   }
 
   private void hideSearch()
@@ -343,15 +340,23 @@ public class SearchFragment extends BaseMwmFragment
   }
   // FIXME END
 
-  void showSingleResultOnMap(int resultIndex)
+  void showSingleResultOnMap(SearchResult result, int resultIndex)
   {
     final String query = getQuery();
     SearchRecents.add(query);
     SearchEngine.cancelApiCall();
-    SearchEngine.showResult(query, resultIndex);
-    Utils.navigateToParent(getActivity());
-
+    SearchEngine.showResult(resultIndex);
     Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_KEY_CLICKED);
+
+    if (mFromRoutePlan)
+    {
+      //noinspection ConstantConditions
+      MapObject.SearchResult sr = new MapObject.SearchResult(result.name, result.description.featureType, result.lat, result.lon);
+      RoutingController.get().onPoiSelected(sr);
+      return;
+    }
+
+    Utils.navigateToParent(getActivity());
   }
 
   void showAllResultsOnMap()

@@ -89,7 +89,7 @@ public class RoutingPlanController extends ToolbarController
   }
 
   @Override
-  protected void onUpClick()
+  public void onUpClick()
   {
     AlohaHelper.logClick(AlohaHelper.ROUTING_GO_CLOSE);
     RoutingController.get().cancelPlanning();

@@ -570,10 +570,10 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     if (location == null)
       return;
 
-    double azimuth = Framework.nativeGetDistanceAndAzimutFromLatLon(mMapObject.getLat(), mMapObject.getLon(),
-                                                                    location.getLatitude(), location.getLongitude(),
-                                                                    northAzimuth)
-                              .getAzimuth();
+    final double azimuth = Framework.nativeGetDistanceAndAzimutFromLatLon(mMapObject.getLat(), mMapObject.getLon(),
+                                                                          location.getLatitude(), location.getLongitude(),
+                                                                          northAzimuth)
+                                    .getAzimuth();
     if (azimuth >= 0)
     {
       UiUtils.show(mAvDirection);

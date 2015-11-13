@@ -192,7 +192,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  : super.getFragmentContentResId());
   }
 
-  public Fragment getFragment(Class<? extends Fragment> clazz)
+  public @Nullable Fragment getFragment(Class<? extends Fragment> clazz)
   {
     if (!mIsFragmentContainer)
       throw new IllegalStateException("Must be called for tablets only!");
@@ -1160,13 +1160,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       mMainMenu.setEnabled(MainMenu.Item.P2P, !RoutingController.get().isPlanning());
       mMainMenu.setEnabled(MainMenu.Item.SEARCH, !RoutingController.get().isWaitingPoiPick());
-    } else
+    } else if (RoutingController.get().isPlanning())
     {
-      if (RoutingController.get().isPlanning())
-      {
-        mMainMenu.setState(MainMenu.State.ROUTE_PREPARE, false);
-        return;
-      }
+      mMainMenu.setState(MainMenu.State.ROUTE_PREPARE, false);
+      return;
     }
 
     mMainMenu.setState(MainMenu.State.MENU, false);

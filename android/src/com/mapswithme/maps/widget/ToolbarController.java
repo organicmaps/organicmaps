@@ -28,7 +28,7 @@ public class ToolbarController
     });
   }
 
-  protected void onUpClick()
+  public void onUpClick()
   {
     Utils.navigateToParent(mActivity);
   }

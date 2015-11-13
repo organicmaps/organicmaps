@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- TODO: Text and icon -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+          style="@style/MwmWidget.TextView.Search"
+          android:text="@string/my_position"
+          android:textColor="@color/base_blue_light"
+          android:textAppearance="@style/MwmTextAppearance.Body1"
+          android:drawableLeft="@drawable/ic_search_recent"/>

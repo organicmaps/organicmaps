@@ -1,6 +1,7 @@
 package com.mapswithme.maps.routing;
 
 import android.content.DialogInterface;
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -54,10 +55,10 @@ public class RoutingController
     void updatePoints();
 
     /**
-     * @param progress [0..100] for progress to be displayed.
+     * @param progress progress to be displayed.
      * @param router selected router type. One of {@link Framework#ROUTER_TYPE_VEHICLE} and {@link Framework#ROUTER_TYPE_PEDESTRIAN}.
      * */
-    void updateBuildProgress(int progress, int router);
+    void updateBuildProgress(@IntRange(from = 0, to = 100) int progress, int router);
   }
 
   private static final RoutingController sInstance = new RoutingController();
@@ -445,7 +446,12 @@ public class RoutingController
   private void checkAndBuildRoute()
   {
     if (mContainer != null)
-      mContainer.updatePoints();
+    {
+      if (isWaitingPoiPick())
+        showRoutePlan();
+      else
+        mContainer.updatePoints();
+    }
 
     if (mStartPoint != null && mEndPoint != null)
       build();
@@ -465,6 +471,16 @@ public class RoutingController
     return setStartPoint(my);
   }
 
+  /**
+   * Sets starting point.
+   * <ul>
+   *   <li>If {@code point} matches ending one and the starting point was set &mdash; swap points.
+   *   <li>The same as the currently set starting point is skipped.
+   * </ul>
+   * Route starts to build if both points were set.
+   *
+   * @return {@code true} if the point was set.
+   */
   @SuppressWarnings("Duplicates")
   public boolean setStartPoint(MapObject point)
   {
@@ -493,6 +509,16 @@ public class RoutingController
     return true;
   }
 
+  /**
+   * Sets ending point.
+   * <ul>
+   *   <li>If {@code point} is the same as starting point &mdash; swap points if ending point is set, skip otherwise.
+   *   <li>Set starting point to MyPosition if it was not set before.
+   * </ul>
+   * Route starts to build if both points were set.
+   *
+   * @return {@code true} if the point was set.
+   */
   @SuppressWarnings("Duplicates")
   public boolean setEndPoint(MapObject point)
   {
@@ -561,21 +587,32 @@ public class RoutingController
     mContainer.updateMenu();
   }
 
-  public void onPoiSelected(@Nullable MapObject point)
+  private void onPoiSelectedInternal(@Nullable MapObject point)
   {
-    mWaitingPoiPickSlot = NO_SLOT;
     if (mContainer == null)
       return;
 
     mContainer.updateMenu();
 
-    if (point == null)
+    if (point != null)
     {
-      showRoutePlan();
-      return;
+      boolean set;
+      if (mWaitingPoiPickSlot == 1)
+        set = setStartPoint(point);
+      else
+        set = setEndPoint(point);
+
+      if (set)
+        return;
     }
 
-    // TODO
+    showRoutePlan();
+  }
+
+  public void onPoiSelected(@Nullable MapObject point)
+  {
+    onPoiSelectedInternal(point);
+    mWaitingPoiPickSlot = NO_SLOT;
   }
 
   public static CharSequence formatRoutingTime(int seconds)
