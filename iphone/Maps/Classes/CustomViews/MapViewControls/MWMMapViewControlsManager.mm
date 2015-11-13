@@ -386,7 +386,8 @@ extern NSString * const kAlohalyticsTapEventKey;
     auto const m = GetFramework().GetLocationState()->GetMode();
     BOOL const needToRebuild = manager.lastLocationIsValid &&
                                m != location::State::Mode::PendingPosition &&
-                               m != location::State::Mode::UnknownPosition;
+                               m != location::State::Mode::UnknownPosition &&
+                               !self.routeDestination.IsMyPosition();
     [controller presentPoint2PointAlertWithOkBlock:^
     {
       m2::PointD const locationPoint = manager.lastLocation.mercator;
