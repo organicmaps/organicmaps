@@ -10,6 +10,7 @@
 #import "MWMMapViewControlsManager.h"
 #import "MWMSearchManager.h"
 #import "SettingsAndMoreVC.h"
+#import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIKitCategories.h"
 
@@ -341,12 +342,14 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 
 - (void)menuActionDownloadMaps
 {
+  [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatDownloadMaps}];
   self.state = self.restoreState;
   [self.delegate actionDownloadMaps];
 }
 
 - (void)menuActionOpenSettings
 {
+  [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatSettings}];
   self.state = self.restoreState;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"settingsAndMore"];
   SettingsAndMoreVC * const vc = [[SettingsAndMoreVC alloc] initWithStyle:UITableViewStyleGrouped];
@@ -355,6 +358,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 
 - (void)menuActionShareLocation
 {
+  [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatShare}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"share@"];
   CLLocation * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
   if (!location)
@@ -377,11 +381,13 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 
 - (IBAction)locationButtonTouchUpInside:(UIButton *)sender
 {
+  [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatLocation}];
   GetFramework().GetLocationState()->SwitchToNextMode();
 }
 
 - (IBAction)point2PointButtonTouchUpInside:(UIButton *)sender
 {
+  [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatPointToPoint}];
   self.state = self.restoreState;
   BOOL const isSelected = !sender.isSelected;
   sender.selected = isSelected;
@@ -401,6 +407,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 
 - (IBAction)searchButtonTouchUpInside:(UIButton *)sender
 {
+  [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatSearch}];
   self.state = self.restoreState;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"search"];
   self.controller.controlsManager.searchHidden = self.searchIsActive;
@@ -408,6 +415,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 
 - (IBAction)bookmarksButtonTouchUpInside:(UIButton *)sender
 {
+  [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatBookmarks}];
   self.state = self.restoreState;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"bookmarks"];
   BookmarksRootVC * const vc = [[BookmarksRootVC alloc] init];
@@ -425,12 +433,15 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   case MWMBottomMenuStatePlanning:
   case MWMBottomMenuStateGo:
   case MWMBottomMenuStateText:
+    [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatExpand}];
     self.state = MWMBottomMenuStateActive;
     break;
   case MWMBottomMenuStateActive:
+    [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatCollapse}];
     self.state = self.restoreState;
     break;
   case MWMBottomMenuStateCompact:
+    [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatRegular}];
     [self.delegate closeInfoScreens];
     break;
   }

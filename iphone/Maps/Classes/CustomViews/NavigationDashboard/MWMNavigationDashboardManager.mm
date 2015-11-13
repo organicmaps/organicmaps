@@ -10,6 +10,7 @@
 #import "MWMRouteHelperPanelsDrawer.h"
 #import "MWMRoutePreview.h"
 #import "MWMTextToSpeech.h"
+#import "Statistics.h"
 
 static NSString * const kRoutePreviewXibName = @"MWMRoutePreview";
 static NSString * const kRoutePreviewIPADXibName = @"MWMiPadRoutePreview";
@@ -239,11 +240,17 @@ static NSString * const kNavigationDashboardIPADXibName = @"MWMNiPadNavigationDa
   routing::RouterType type;
   if ([progress isEqual:self.routePreview.pedestrianProgressView])
   {
+    [[Statistics instance]
+              logEvent:kStatPointToPoint
+        withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatPedestrian}];
     [self.routePreview.vehicleProgressView stopSpinner];
     type = routing::RouterType::Pedestrian;
   }
   else
   {
+    [[Statistics instance]
+              logEvent:kStatPointToPoint
+        withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatVehicle}];
     [self.routePreview.pedestrianProgressView stopSpinner];
     type = routing::RouterType::Vehicle;
   }

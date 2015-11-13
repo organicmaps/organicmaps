@@ -13,6 +13,7 @@
 #import "MWMSearchView.h"
 #import "MWMZoomButtons.h"
 #import "RouteState.h"
+#import "Statistics.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
@@ -346,11 +347,25 @@ extern NSString * const kAlohalyticsTapEventKey;
   m2::PointD const locationPoint = locMgr.lastLocation.mercator;
   if (self.routeSource.IsMyPosition())
   {
+    [[Statistics instance]
+              logEvent:kStatPointToPoint
+        withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatFromMyPosition}];
     self.routeSource = MWMRoutePoint(locationPoint);
     [locMgr start:self.navigationManager];
   }
   else if (self.routeDestination.IsMyPosition())
+  {
+    [[Statistics instance]
+              logEvent:kStatPointToPoint
+        withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatToMyPosition}];
     self.routeDestination = MWMRoutePoint(locationPoint);
+  }
+  else
+  {
+    [[Statistics instance]
+              logEvent:kStatPointToPoint
+        withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatPointToPoint}];
+  }
 
   self.navigationManager.state = MWMNavigationDashboardStatePlanning;
   [self.menuController setPlanning];
@@ -374,7 +389,19 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (BOOL)didStartFollowing
 {
-  if (!self.routeSource.IsMyPosition())
+  BOOL const isSourceMyPosition = self.routeSource.IsMyPosition();
+  BOOL const isDestinationMyPosition = self.routeDestination.IsMyPosition();
+  if (isSourceMyPosition)
+    [[Statistics instance] logEvent:kStatPointToPoint
+                     withParameters:@{kStatAction : kStatGo, kStatValue : kStatFromMyPosition}];
+  else if (isDestinationMyPosition)
+    [[Statistics instance] logEvent:kStatPointToPoint
+                     withParameters:@{kStatAction : kStatGo, kStatValue : kStatToMyPosition}];
+  else
+    [[Statistics instance] logEvent:kStatPointToPoint
+                     withParameters:@{kStatAction : kStatGo, kStatValue : kStatPointToPoint}];
+
+  if (!isSourceMyPosition)
   {
     MWMAlertViewController * controller = [[MWMAlertViewController alloc] initWithViewController:self.ownerController];
     LocationManager * manager = MapsAppDelegate.theApp.m_locationManager;
@@ -382,7 +409,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     BOOL const needToRebuild = manager.lastLocationIsValid &&
                                m != location::State::Mode::PendingPosition &&
                                m != location::State::Mode::UnknownPosition &&
-                               !self.routeDestination.IsMyPosition();
+                               !isDestinationMyPosition;
     [controller presentPoint2PointAlertWithOkBlock:^
     {
       m2::PointD const locationPoint = manager.lastLocation.mercator;
@@ -403,6 +430,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)didCancelRouting
 {
+  [[Statistics instance] logEvent:kStatPointToPoint withParameters:@{kStatAction : kStatClose}];
   [[MapsAppDelegate theApp].m_locationManager stop:self.navigationManager];
   self.navigationManager.state = MWMNavigationDashboardStateHidden;
   GetFramework().CloseRouting();
@@ -415,12 +443,19 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)swapPointsAndRebuildRouteIfPossible
 {
+  [[Statistics instance] logEvent:kStatPointToPoint
+                   withParameters:@{kStatAction : kStatSwapRoutingPoints}];
   swap(_routeSource, _routeDestination);
   [self buildRoute];
 }
 
 - (void)didStartEditingRoutePoint:(BOOL)isSource
 {
+  [[Statistics instance] logEvent:kStatPointToPoint
+                   withParameters:@{
+                     kStatAction : kStatSearch,
+                     kStatValue : (isSource ? kStatSource : kStatDestination)
+                   }];
   MapsAppDelegate.theApp.routingPlaneMode = isSource ? MWMRoutingPlaneModeSearchSource : MWMRoutingPlaneModeSearchDestination;
   self.searchManager.state = MWMSearchManagerStateDefault;
 }

@@ -1,3 +1,4 @@
+#import "LinkCell.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
 #import "MWMMapViewControlsManager.h"
@@ -6,7 +7,6 @@
 #import "SettingsViewController.h"
 #import "Statistics.h"
 #import "SwitchCell.h"
-#import "LinkCell.h"
 #import "WebViewController.h"
 
 #include "Framework.h"
@@ -147,7 +147,9 @@ typedef NS_ENUM(NSUInteger, Section)
   if (indexPath.section == SectionStatistics)
   {
     Statistics * stat = [Statistics instance];
-    [stat logEvent:@"StatisticsStatusChanged" withParameters:@{@"Enabled" : @(value)}];
+    [stat logEvent:kStatSettings
+        withParameters:
+            @{kStatAction : kStatToggleStatistics, kStatValue : (value ? kStatOn : kStatOff)}];
     if (value)
       [stat enableOnNextAppLaunch];
     else
@@ -155,11 +157,21 @@ typedef NS_ENUM(NSUInteger, Section)
   }
   else if (indexPath.section == SectionZoomButtons)
   {
+    [[Statistics instance] logEvent:kStatSettings
+                     withParameters:@{
+                       kStatAction : kStatToggleZoomButtonsVisibility,
+                       kStatValue : (value ? kStatVisible : kStatHidden)
+                     }];
     Settings::Set("ZoomButtonsEnabled", (bool)value);
     [MapsAppDelegate theApp].mapViewController.controlsManager.zoomHidden = !value;
   }
   else if (indexPath.section == SectionCalibration)
   {
+    [[Statistics instance] logEvent:kStatSettings
+                     withParameters:@{
+                       kStatAction : kStatToggleCompassCalibration,
+                       kStatValue : (value ? kStatOn : kStatOff)
+                     }];
     Settings::Set("CompassCalibrationEnabled", (bool)value);
   }
   else if (indexPath.section == SectionRouting)
@@ -181,6 +193,12 @@ Settings::Units unitsForIndex(NSInteger index)
   if (indexPath.section == SectionMetrics)
   {
     Settings::Units units = unitsForIndex(indexPath.row);
+    [[Statistics instance]
+              logEvent:kStatSettings
+        withParameters:@{
+          kStatAction : kStatChangeMeasureUnits,
+          kStatValue : (units == Settings::Units::Metric ? kStatKilometers : kStatMiles)
+        }];
     Settings::Set("Units", units);
     [tableView reloadSections:[NSIndexSet indexSetWithIndex:SectionMetrics] withRowAnimation:UITableViewRowAnimationFade];
     [[MapsAppDelegate theApp].mapViewController setupMeasurementSystem];

@@ -195,6 +195,7 @@ static CGFloat const kKeyboardOffset = 12.;
 
 - (void)willStartEditingBookmarkTitle
 {
+  [super willStartEditingBookmarkTitle];
   [self updatePlacePagePosition];
 }
 

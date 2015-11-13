@@ -5,6 +5,7 @@
 #import "MWMRoutePointCell.h"
 #import "MWMRoutePointLayout.h"
 #import "MWMRoutePreview.h"
+#import "Statistics.h"
 #import "TimeUtils.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
@@ -246,6 +247,11 @@ static CGFloat const kAdditionalHeight = 20.;
 - (IBAction)extendTap
 {
   BOOL const isExtended = !self.extendButton.selected;
+  [[Statistics instance] logEvent:kStatPointToPoint
+                   withParameters:@{
+                     kStatAction : kStatExpand,
+                     kStatValue : (isExtended ? kStatYes : kStatNo)
+                   }];
   self.extendButton.selected = isExtended;
   [self layoutIfNeeded];
   [self setupActualHeight];

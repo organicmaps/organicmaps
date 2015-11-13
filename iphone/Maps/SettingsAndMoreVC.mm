@@ -1,12 +1,12 @@
-
-#import "SettingsAndMoreVC.h"
-#import <MessageUI/MFMailComposeViewController.h>
-#import <sys/utsname.h>
-#import "SettingsViewController.h"
-#import "UIViewController+Navigation.h"
-#import "WebViewController.h"
 #import "CommunityVC.h"
 #import "RichTextVC.h"
+#import "SettingsAndMoreVC.h"
+#import "SettingsViewController.h"
+#import "Statistics.h"
+#import "UIViewController+Navigation.h"
+#import "WebViewController.h"
+#import <MessageUI/MFMailComposeViewController.h>
+#import <sys/utsname.h>
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
@@ -125,50 +125,44 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  [tableView deselectRowAtIndexPath:indexPath animated:YES];
   NSString * itemId = self.items[indexPath.section][@"Items"][indexPath.row][@"Id"];
   if ([itemId isEqualToString:@"About"])
-  {
-    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"about"];
     [self about];
-  }
   else if ([itemId isEqualToString:@"Community"])
-  {
-    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"community"];
-    CommunityVC * vc = [[CommunityVC alloc] initWithStyle:UITableViewStyleGrouped];
-    [self.navigationController pushViewController:vc animated:YES];
-  }
+    [self community];
   else if ([itemId isEqualToString:@"RateApp"])
-  {
-    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"rate"];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self rateApp];
-  }
   else if ([itemId isEqualToString:@"Settings"])
-  {
-    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"settingsMiles"];
-    SettingsViewController * vc = [self.mainStoryboard instantiateViewControllerWithIdentifier:[SettingsViewController className]];
-    [self.navigationController pushViewController:vc animated:YES];
-  }
+    [self settings];
   else if ([itemId isEqualToString:@"ReportBug"])
-  {
-    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"reportABug"];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self reportBug];
-  }
   else if ([itemId isEqualToString:@"Help"])
-  {
-    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"help"];
     [self help];
-  }
   else if ([itemId isEqualToString:@"Copyright"])
-  {
-    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"copyright"];
     [self copyright];
-  }
+}
+
+- (void)settings
+{
+  [[Statistics instance] logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatSettings}];
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"settingsMiles"];
+  SettingsViewController * vc = [self.mainStoryboard instantiateViewControllerWithIdentifier:[SettingsViewController className]];
+  [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)community
+{
+  [[Statistics instance] logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatSocial}];
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"community"];
+  CommunityVC * vc = [[CommunityVC alloc] initWithStyle:UITableViewStyleGrouped];
+  [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)help
 {
+  [[Statistics instance] logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatHelp}];
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"help"];
   NSString * path = [[NSBundle mainBundle] pathForResource:@"faq" ofType:@"html"];
   NSString * html = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
   WebViewController * aboutViewController = [[WebViewController alloc] initWithHtml:html baseUrl:nil andTitleOrNil:L(@"help")];
@@ -178,6 +172,8 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
 
 - (void)about
 {
+  [[Statistics instance] logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatAbout}];
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"about"];
   RichTextVC * vc = [[RichTextVC alloc] initWithText:L(@"about_text")];
   vc.title = L(@"about_menu_title");
   [self.navigationController pushViewController:vc animated:YES];
@@ -185,6 +181,8 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
 
 - (void)copyright
 {
+  [[Statistics instance] logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatCopyright}];
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"copyright"];
   string s; GetPlatform().GetReader("copyright.html")->ReadAsString(s);
   NSString * str = [NSString stringWithFormat:@"Version: %@ \n", [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"]];
   NSString * text = [NSString stringWithFormat:@"%@%@", str, @(s.c_str())];
@@ -195,11 +193,15 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
 
 - (void)rateApp
 {
+  [[Statistics instance] logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatRate}];
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"rate"];
   [[UIApplication sharedApplication] rateVersionFrom:@"rate_menu_item"];
 }
 
 - (void)reportBug
 {
+  [[Statistics instance] logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatReport}];
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"reportABug"];
   struct utsname systemInfo;
   uname(&systemInfo);
   NSString * machine = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];

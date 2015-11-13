@@ -76,6 +76,11 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
 
 - (void)onVisibilitySwitched:(UISwitch *)sender
 {
+  [[Statistics instance] logEvent:kStatBookmarks
+                   withParameters:@{
+                     kStatAction : kStatToggleVisibility,
+                     kStatValue : sender.on ? kStatVisible : kStatHidden
+                   }];
   BookmarkCategory * cat = GetFramework().GetBmCategory(m_categoryIndex);
   cat->SetVisible(sender.on);
   cat->SaveToKMLFile();
@@ -253,6 +258,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
       ASSERT(bm, ("NULL bookmark"));
       if (bm)
       {
+        [[Statistics instance] logEvent:kStatBookmarks withParameters:@{kStatAction : kStatShowOnMap}];
         // Same as "Close".
         MapViewController * mapVC = self.navigationController.viewControllers.firstObject;
         mapVC.controlsManager.searchHidden = YES;
@@ -266,6 +272,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
     BookmarkCategory const * cat = GetFramework().GetBmCategory(m_categoryIndex);
     if (cat)
     {
+      [[Statistics instance] logEvent:kStatBookmarks withParameters:@{kStatAction : kStatExport}];
       NSMutableString * catName = [NSMutableString stringWithUTF8String:cat->GetName().c_str()];
       if (![catName length])
         [catName setString:@"MapsMe"];

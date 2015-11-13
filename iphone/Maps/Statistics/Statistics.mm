@@ -79,6 +79,7 @@ char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
   if (_enabled)
   {
     [Flurry startSession:@(FLURRY_KEY)];
+    [Flurry logAllPageViewsForTarget:application.windows.firstObject.rootViewController];
 
     [MRMyTracker createTracker:@(MY_TRACKER_KEY)];
 #ifdef DEBUG
@@ -109,12 +110,18 @@ char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
 - (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters
 {
   if (_enabled)
+  {
+    NSMutableDictionary * params = [parameters mutableCopy];
+    params[kStatDeviceType] = IPAD ? kStatiPad : kStatiPhone;
+    BOOL isLandscape = UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation);
+    params[kStatOrientation] = isLandscape ? kStatLandscape : kStatPortrait;
     [Flurry logEvent:eventName withParameters:parameters];
+  }
 }
 
 - (void)logEvent:(NSString *)eventName
 {
-  [self logEvent:eventName withParameters:nil];
+  [self logEvent:eventName withParameters:@{}];
 }
 
 - (void)logApiUsage:(NSString *)programName

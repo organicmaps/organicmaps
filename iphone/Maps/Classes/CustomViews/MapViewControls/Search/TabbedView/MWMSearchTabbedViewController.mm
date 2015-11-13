@@ -4,6 +4,7 @@
 #import "MWMSearchTabbedViewController.h"
 #import "MWMSearchTabbedViewLayout.h"
 #import "MWMSearchTabbedViewProtocol.h"
+#import "Statistics.h"
 
 #include "Framework.h"
 
@@ -136,6 +137,21 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
   {
     if (isOffsetInButton(btnMid, btn))
     {
+      switch (btn.tag)
+      {
+      case MWMSearchTabbedViewCellHistory:
+        [[Statistics instance]
+                  logEvent:kStatSearch
+            withParameters:@{kStatAction : kStatSelectTab, kStatValue : kStatHistory}];
+        break;
+      case MWMSearchTabbedViewCellCategories:
+        [[Statistics instance]
+                  logEvent:kStatSearch
+            withParameters:@{kStatAction : kStatSelectTab, kStatValue : kStatCategories}];
+        break;
+      default:
+        break;
+      }
       self.selectedButton = btn;
       *stop = YES;
     }
