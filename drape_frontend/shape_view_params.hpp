@@ -54,6 +54,8 @@ struct LineViewParams : CommonViewParams
 
 struct TextViewParams : CommonViewParams
 {
+  TextViewParams() : m_extendingSize(0) {}
+
   FeatureID m_featureID;
   dp::FontDecl m_primaryTextFont;
   string m_primaryText;
@@ -63,6 +65,7 @@ struct TextViewParams : CommonViewParams
   m2::PointF m_primaryOffset;
   bool m_primaryOptional;
   bool m_secondaryOptional;
+  uint32_t m_extendingSize;
 };
 
 struct PathTextViewParams : CommonViewParams

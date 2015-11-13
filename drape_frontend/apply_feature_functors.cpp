@@ -488,7 +488,7 @@ void ApplyLineFeature::Finish()
   dp::FontDecl font;
   ShieldRuleProtoToFontDecl(m_shieldRule, font);
 
-  double pathPixelLength = m_spline->GetLength() * m_currentScaleGtoP;
+  double const pathPixelLength = m_spline->GetLength() * m_currentScaleGtoP;
   int const textHeight = static_cast<int>(font.m_size);
 
   // I don't know why we draw by this, but it's work before and will work now
@@ -498,6 +498,8 @@ void ApplyLineFeature::Finish()
     double const emptySpace = 1000.0;
     int const count = static_cast<int>((pathPixelLength / emptySpace) + 2);
     double const splineStep = pathPixelLength / count;
+
+    float const mainScale = df::VisualParams::Instance().GetVisualScale();
 
     TextViewParams viewParams;
     viewParams.m_depth = m_shieldDepth;
@@ -510,6 +512,7 @@ void ApplyLineFeature::Finish()
     viewParams.m_primaryOffset = m2::PointF(0, 0);
     viewParams.m_primaryOptional = true;
     viewParams.m_secondaryOptional = true;
+    viewParams.m_extendingSize = m_shieldRule->has_min_distance() ? mainScale * m_shieldRule->min_distance() : 0;
 
     m2::Spline::iterator it = m_spline.CreateIterator();
     while (!it.BeginAgain())

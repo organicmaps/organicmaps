@@ -150,11 +150,15 @@ void TextShape::DrawSubString(StraightTextLayout const & layout, dp::FontDecl co
   gpu::TTextDynamicVertexBuffer initialDynBuffer(dynamicBuffer.size());
 
   m2::PointU const & pixelSize = layout.GetPixelSize();
+
+  m2::PointU const size = pixelSize + m2::PointU(m_params.m_extendingSize,
+                                                 m_params.m_extendingSize) * 2;
+
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<StraightTextHandle>(m_params.m_featureID,
                                                                            layout.GetText(),
                                                                            m_params.m_anchor,
                                                                            glsl::ToVec2(m_basePoint),
-                                                                           glsl::vec2(pixelSize.x, pixelSize.y),
+                                                                           glsl::vec2(size.x, size.y),
                                                                            baseOffset,
                                                                            GetOverlayPriority(),
                                                                            textures,
