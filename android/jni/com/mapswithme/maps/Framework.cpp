@@ -150,6 +150,7 @@ namespace android
     }
 
     params.m_density = dens[bestRangeIndex].second;
+    params.m_exactDensityDPI = densityDpi;
   }
 
   bool Framework::InitRenderPolicyImpl(int densityDpi, int screenWidth, int screenHeight)
@@ -158,6 +159,7 @@ namespace android
 
     rmParams.m_videoMemoryLimit = 30 * 1024 * 1024;
     rmParams.m_texFormat = graphics::Data4Bpp;
+    rmParams.m_exactDensityDPI = densityDpi;
 
     RenderPolicy::Params rpParams;
 

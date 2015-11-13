@@ -76,10 +76,11 @@ public abstract class NvEventQueueFragment extends BaseMwmFragment implements Vi
   public void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-
-    final DisplayMetrics metrics = new DisplayMetrics();
-    getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-    mDisplayDensity = metrics.densityDpi;
+    
+    final DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
+    final float exactDensityDpi = (dm.xdpi + dm.ydpi) / 2;
+    mDisplayDensity = (int)exactDensityDpi;
+    
     mIsNativeLaunched = true;
     onCreateNative();
     if (getActivity().isChangingConfigurations())
