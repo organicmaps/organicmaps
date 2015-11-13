@@ -16,15 +16,6 @@
 namespace
 {
 
-void MarkNodesAsReaded(df::TFeaturesInfo & features, vector<FeatureID> const & featuresToRead)
-{
-  for (df::FeatureInfo & info : features)
-  {
-    if (find(featuresToRead.begin(), featuresToRead.end(), info.m_id) != featuresToRead.end())
-      info.m_isOwner = true;
-  }
-}
-
 void JoinFinishFinction(threads::IRoutine * routine, threads::Condition & condition, int & counter)
 {
   condition.Lock();
@@ -48,7 +39,6 @@ public:
     vector<FeatureID> result;
     df::MemoryFeatureIndex::Lock lock(m_index);
     m_index.ReadFeaturesRequest(m_features, result);
-    MarkNodesAsReaded(m_features, result);
   }
 
 private:
@@ -60,7 +50,7 @@ void GenerateFeatures(df::TFeaturesInfo & features, int taskIndex)
 {
   int const kCount = 10000;
   for (int i = 0; i < kCount; ++i)
-    features.push_back(df::FeatureInfo(FeatureID(MwmSet::MwmId(), taskIndex * kCount + i)));
+    features.push_back(df::FeatureInfo(FeatureID(MwmSet::MwmId(), taskIndex * kCount / 2 + i)));
 }
 
 } // namespace
