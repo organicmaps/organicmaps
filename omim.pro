@@ -118,10 +118,6 @@ SUBDIRS = 3party base coding geometry indexer routing
     MapDepLibs = 3party base coding geometry platform storage indexer search map \
                  routing anim render gui graphics
 
-    search_integration_tests.subdir = search/search_integration_tests
-    search_integration_tests.depends = $$MapDepLibs generator
-    SUBDIRS *= search_integration_tests
-
     map_tests.subdir = map/map_tests
     map_tests.depends = $$MapDepLibs
     SUBDIRS *= map_tests
@@ -146,8 +142,16 @@ SUBDIRS = 3party base coding geometry indexer routing
     pedestrian_routing_tests.depends = $$MapDepLibs routing
     SUBDIRS *= pedestrian_routing_tests
 
+    generator_tests_support.subdir = generator/generator_tests_support
+    generator_tests_support.depends = $$MapDepLibs generator
+    SUBDIRS *= generator_tests_support
+
+    search_integration_tests.subdir = search/search_integration_tests
+    search_integration_tests.depends = $$MapDepLibs generator generator_tests_support
+    SUBDIRS *= search_integration_tests
+
     generator_tests.subdir = generator/generator_tests
-    generator_tests.depends = $$MapDepLibs routing generator
+    generator_tests.depends = $$MapDepLibs routing generator generator_tests_support
     SUBDIRS *= generator_tests
 
     # TODO(AlexZ): Do we really need them?

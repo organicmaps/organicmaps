@@ -131,8 +131,10 @@ struct FeatureParamsBase
   bool operator == (FeatureParamsBase const & rhs) const;
 
   bool CheckValid() const;
-
   string DebugString() const;
+
+  /// @return true if feature doesn't have any drawable strings (names, houses, etc).
+  bool IsEmptyNames() const;
 
   template <class TSink>
   void Write(TSink & sink, uint8_t header) const

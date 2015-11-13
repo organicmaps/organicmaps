@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "generator/generator_tests_support/test_mwm_builder.hpp"
+
 #include "indexer/classificator_loader.hpp"
 #include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
@@ -7,7 +9,6 @@
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
-#include "search/search_integration_tests/test_mwm_builder.hpp"
 #include "search/retrieval.hpp"
 #include "search/search_query_params.hpp"
 

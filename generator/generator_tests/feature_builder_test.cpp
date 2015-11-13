@@ -1,24 +1,15 @@
 #include "testing/testing.hpp"
 
+#include "types_helper.hpp"
+
 #include "generator/feature_builder.hpp"
+#include "generator/osm2type.hpp"
 
-#include "indexer/feature_visibility.hpp"
 #include "indexer/classificator_loader.hpp"
-#include "indexer/classificator.hpp"
+#include "indexer/feature_visibility.hpp"
 
+using namespace tests;
 
-namespace
-{
-
-template <size_t N, size_t M> void AddTypes(FeatureParams & params, char const * (&arr)[N][M])
-{
-  Classificator const & c = classif();
-
-  for (size_t i = 0; i < N; ++i)
-    params.AddType(c.GetTypeByPath(vector<string>(arr[i], arr[i] + M)));
-}
-
-}
 
 UNIT_TEST(FBuilder_ManyTypes)
 {
@@ -187,4 +178,29 @@ UNIT_TEST(FBuilder_WithoutName)
     TEST(fb.PreSerialize(), ());
     TEST(!fb.RemoveInvalidTypes(), ());
   }
+}
+
+UNIT_TEST(FBuilder_PointAddress)
+{
+  classificator::Load();
+
+  char const * arr[][2] = { { "addr:housenumber", "39/79" } };
+
+  OsmElement e;
+  FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+  FeatureParams params;
+  ftype::GetNameAndType(&e, params);
+
+  TEST_EQUAL(params.m_Types.size(), 1, ());
+  TEST(params.IsTypeExist(GetType({"building", "address"})), ());
+  TEST_EQUAL(params.house.Get(), "39/79", ());
+
+  FeatureBuilder1 fb;
+  fb.SetParams(params);
+  fb.SetCenter(m2::PointD(0, 0));
+
+  TEST(fb.PreSerialize(), ());
+  TEST(fb.RemoveInvalidTypes(), ());
+  TEST(fb.CheckValid(), ());
 }

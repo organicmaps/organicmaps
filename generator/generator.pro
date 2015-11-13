@@ -54,6 +54,7 @@ HEADERS += \
     osm_element.hpp \
     osm_id.hpp \
     osm_o5m_source.hpp \
+    osm_translator.hpp \
     osm_xml_source.hpp \
     polygonizer.hpp \
     routing_generator.hpp \

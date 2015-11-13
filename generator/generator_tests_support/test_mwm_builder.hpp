@@ -5,7 +5,9 @@
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
 
+
 class Classificator;
+class FeatureBuilder1;
 
 namespace feature
 {
@@ -24,6 +26,7 @@ public:
   ~TestMwmBuilder();
 
   void AddPOI(m2::PointD const & p, string const & name, string const & lang);
+  bool Add(FeatureBuilder1 & fb);
 
   void Finish();
 
