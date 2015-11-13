@@ -18,63 +18,63 @@
                 translatable="false">
     <item>en</item>
     <item>ru</item>
-    <item>pl</item>
-    <item>sv</item>
-    <item>tr</item>
-    <item>fr</item>
-    <item>nl</item>
-    <item>de</item>
-    <item>ar</item>
-    <item>el</item>
-    <item>it</item>
-    <item>cs</item>
-    <item>hu</item>
-    <item>ro</item>
-    <item>ja</item>
-    <item>da</item>
     <item>es</item>
+    <item>de</item>
+    <item>fr</item>
+    <item>zh-TW:zh-Hant</item>
+    <item>zh-CN:zh-Hans</item>
+    <item>pt</item>
+    <item>th</item>
+    <item>tr</item>
+    <item>ar</item>
+    <item>cs</item>
+    <item>da</item>
+    <item>el</item>
     <item>fi</item>
     <item>hi</item>
     <item>hr</item>
+    <item>hu</item>
     <item>id</item>
+    <item>it</item>
+    <item>ja</item>
     <item>ko</item>
-    <item>pt</item>
+    <item>nl</item>
+    <item>pl</item>
+    <item>ro</item>
     <item>sk</item>
+    <item>sv</item>
     <item>sw</item>
-    <item>th</item>
-    <item>zh-TW:zh-Hant</item>
-    <item>zh-CN:zh-Hans</item>
   </string-array>
 
   <string-array name="tts_language_names"
                 translatable="false">
     <item>English</item>
     <item>Русский</item>
-    <item>Polski</item>
-    <item>Svenska</item>
-    <item>Türkçe</item>
-    <item>Français</item>
-    <item>Nederlands</item>
-    <item>Deutsch</item>
-    <item>العربية</item>
-    <item>Ελληνικά</item>
-    <item>Italiano</item>
-    <item>Čeština</item>
-    <item>Magyar</item>
-    <item>Română</item>
-    <item>日本語</item>
-    <item>Dansk</item>
     <item>Español</item>
+    <item>Deutsch</item>
+    <item>Français</item>
+    <item>中文繁體</item>
+    <item>中文简体</item>
+    <item>Português</item>
+    <item>ภาษาไทย</item>
+    <item>Türkçe</item>
+    <item>العربية</item>
+    <item>Čeština</item>
+    <item>Dansk</item>
+    <item>Ελληνικά</item>
     <item>Suomi</item>
     <item>हिंदी</item>
     <item>Hrvatski</item>
+    <item>Magyar</item>
     <item>Indonesia</item>
+    <item>Italiano</item>
+    <item>日本語</item>
     <item>한국어</item>
-    <item>Português</item>
+    <item>Nederlands</item>
+    <item>Polski</item>
+    <item>Română</item>
     <item>Slovenčina</item>
+    <item>Svenska</item>
     <item>Kiswahili</item>
-    <item>ภาษาไทย</item>
-    <item>中文繁體</item>
-    <item>中文简体</item>
   </string-array>
 </resources>
