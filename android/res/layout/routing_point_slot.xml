@@ -26,6 +26,7 @@
         android:gravity="center"
         android:layout_margin="@dimen/margin_half_plus"
         android:textAppearance="@style/MwmTextAppearance.Body3.Light"
+        android:textStyle="bold"
         tools:text="1"/>
 
     <TextView

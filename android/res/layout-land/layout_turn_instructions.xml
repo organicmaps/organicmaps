@@ -16,7 +16,8 @@
     android:layout_height="wrap_content"
     app:headRadius="2dp"
     app:progressColor="#757575"
-    app:progressThickness="4dp"
+    app:headColor="#757575"
+    app:progressThickness="2dp"
     app:secondaryProgressColor="@color/base_black_divider"
     app:secondaryProgressThickness="2dp"/>
 
@@ -31,7 +32,7 @@
     android:layout_marginTop="@dimen/margin_base_plus"
     android:background="?attr/selectableItemBackgroundBorderless"
     android:scaleType="center"
-    android:src="@drawable/ic_close_routing"/>
+    android:src="@drawable/ic_cancel"/>
 
   <FrameLayout
     android:id="@+id/turn"
