@@ -29,6 +29,7 @@ namespace graphics
 
   /// get scaling koefficient for specified density
   double visualScale(EDensity density);
+  double visualScaleExact(int exactDensity);
 
   /// When adding values here,
   /// please check constructor of ResourceManager,

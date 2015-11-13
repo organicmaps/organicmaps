@@ -83,6 +83,12 @@ namespace graphics
     return vs[density];
   }
 
+  double visualScaleExact(int exactDensity)
+  {
+    double const mdpiDensityDPI = 160.;
+    return exactDensity / mdpiDensityDPI;
+  }
+
   DataIS s_semantics[] = {
     {ESemPosition, "Position"},
     {ESemNormal, "Normal"},
