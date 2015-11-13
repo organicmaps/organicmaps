@@ -69,6 +69,8 @@ public:
   void Clear();
   void Render(graphics::Screen * dlScreen, ScreenBase const & screen);
 
+  void SetRoutePoint(m2::PointD const & pt, bool start);
+
   void UpdateDistanceFromBegin(double distanceFromBegin);
 
 private:
@@ -84,6 +86,9 @@ private:
   void RenderArrow(graphics::Screen * dlScreen, float halfWidth, ScreenBase const & screen);
   bool RecacheArrows();
   void DestroyDisplayLists();
+
+  void CreateRoutePointGraphics(graphics::Screen * dlScreen, bool start);
+  void DestroyRoutePointGraphics(bool start);
 
   struct RouteGraphics
   {
@@ -101,8 +106,33 @@ private:
     }
   };
 
+  struct RoutePoint
+  {
+    graphics::DisplayList * m_displayList;
+    m2::PointD m_point;
+    bool m_needUpdate;
+
+    bool IsVisible() const { return m_displayList != nullptr; }
+
+    void Reset()
+    {
+      if (m_displayList != nullptr)
+      {
+        delete m_displayList;
+        m_displayList = nullptr;
+      }
+    }
+
+    RoutePoint() : m_displayList(nullptr), m_needUpdate(false) {}
+    ~RoutePoint()
+    {
+      Reset();
+    }
+  };
+
   vector<RouteGraphics> m_routeGraphics;
-  graphics::DisplayList * m_endOfRouteDisplayList;
+  RoutePoint m_startRoutePoint;
+  RoutePoint m_finishRoutePoint;
   graphics::DisplayList * m_arrowDisplayList;
   graphics::gl::Storage m_arrowsStorage;
 
@@ -111,7 +141,6 @@ private:
   m2::RectF m_arrowTextureRect;
   graphics::Color m_color;
   vector<double> m_turns;
-  m2::PointD m_endOfRoutePoint;
 
   m2::PolylineD m_polyline;
   ArrowsBuffer m_arrowBuffer;

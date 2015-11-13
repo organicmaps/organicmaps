@@ -486,6 +486,16 @@ void BookmarkManager::UpdateRouteDistanceFromBegin(double distance)
   m_routeRenderer->UpdateDistanceFromBegin(distance);
 }
 
+void BookmarkManager::SetRouteStartPoint(m2::PointD const & pt)
+{
+  m_routeRenderer->SetRoutePoint(pt, true /* start */);
+}
+
+void BookmarkManager::SetRouteFinishPoint(m2::PointD const & pt)
+{
+  m_routeRenderer->SetRoutePoint(pt, false /* start */);
+}
+
 UserMarkContainer const * BookmarkManager::FindUserMarksContainer(UserMarkContainer::Type type) const
 {
   ASSERT(type >= 0 && type < m_userMarkLayers.size(), ());

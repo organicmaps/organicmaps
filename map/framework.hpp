@@ -630,6 +630,9 @@ public:
     return m_routingSession.GenerateTurnNotifications(turnNotifications);
   }
 
+  void SetRouteStartPoint(m2::PointD const & pt);
+  void SetRouteFinishPoint(m2::PointD const & pt);
+
 private:
   void SetRouterImpl(routing::RouterType type);
   void RemoveRoute();

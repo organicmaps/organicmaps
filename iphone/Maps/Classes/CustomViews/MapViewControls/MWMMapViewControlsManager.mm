@@ -262,6 +262,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   MapsAppDelegate.theApp.routingPlaneMode = MWMRoutingPlaneModePlacePage;
   [self setupBestRouter];
   [self buildRoute];
+  
+  GetFramework().SetRouteStartPoint(from.Point());
+  GetFramework().SetRouteFinishPoint(to.Point());
 }
 
 - (void)buildRouteFrom:(MWMRoutePoint const &)from
@@ -273,6 +276,8 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (IPAD)
     self.searchManager.state = MWMSearchManagerStateHidden;
   [self buildRoute];
+  
+  GetFramework().SetRouteStartPoint(from.Point());
 }
 
 - (void)buildRouteTo:(MWMRoutePoint const &)to
@@ -284,6 +289,8 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (IPAD)
     self.searchManager.state = MWMSearchManagerStateHidden;
   [self buildRoute];
+  
+  GetFramework().SetRouteFinishPoint(to.Point());
 }
 
 #pragma mark - MWMNavigationDashboardManager
@@ -421,6 +428,9 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   swap(_routeSource, _routeDestination);
   [self buildRoute];
+  
+  GetFramework().SetRouteStartPoint(_routeSource.Point());
+  GetFramework().SetRouteFinishPoint(_routeDestination.Point());
 }
 
 - (void)didStartEditingRoutePoint:(BOOL)isSource
