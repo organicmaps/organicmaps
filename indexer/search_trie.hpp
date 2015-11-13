@@ -15,8 +15,6 @@ static const uint8_t kPointCodingBits = 20;
 
 namespace trie
 {
-using DefaultIterator = trie::Iterator<ValueList<FeatureIndexValue>>;
-
 inline serial::CodingParams GetCodingParams(serial::CodingParams const & orig)
 {
   return serial::CodingParams(search::kPointCodingBits,

@@ -18,7 +18,8 @@ enum Format
   v4,      // April 2015 (distinguish и and й in search index)
   v5,      // July 2015 (feature id is the index in vector now).
   v6,      // October 2015 (offsets vector is in mwm now).
-  lastFormat = v6
+  v7,      // November 2015 (supply different search index formats).
+  lastFormat = v7
 };
 
 struct MwmVersion
