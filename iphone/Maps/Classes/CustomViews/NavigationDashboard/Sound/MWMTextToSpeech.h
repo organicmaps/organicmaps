@@ -7,7 +7,7 @@
 
 - (vector<std::pair<string, string>>)availableLanguages;
 - (NSString *)savedLanguage;
-- (void)setNotificationsLocale:(string const &)locale;
+- (void)setNotificationsLocale:(NSString *)locale;
 - (BOOL)isNeedToEnable;
 - (void)setNeedToEnable:(BOOL)need;
 - (BOOL)isEnable;

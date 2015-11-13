@@ -74,7 +74,7 @@ using namespace std;
 
 - (void)setAdditionalTTSLanguage:(pair<string, string> const &)l
 {
-  [[MWMTextToSpeech tts] setNotificationsLocale:l.first];
+  [[MWMTextToSpeech tts] setNotificationsLocale:@(l.first.c_str())];
   _additionalTTSLanguage = l;
 }
 
@@ -123,7 +123,7 @@ using namespace std;
     }
     else
     {
-      [[MWMTextToSpeech tts] setNotificationsLocale:_languages[indexPath.row].first];
+      [[MWMTextToSpeech tts] setNotificationsLocale:@(_languages[indexPath.row].first.c_str())];
       [tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
     }
   }

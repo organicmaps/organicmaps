@@ -57,9 +57,9 @@ extern NSString * const kUserDafaultsNeedToEnableTTS = @"UserDefaultsNeedToEnabl
 
     pair<string, string> const lan {preferedLanguage, tts::translatedTwine(preferedLanguage)};
     if (find(_availableLanguages.begin(), _availableLanguages.end(), lan) != _availableLanguages.end())
-      [self setNotificationsLocale:preferedLanguage];
+      [self setNotificationsLocale:@(preferedLanguage.c_str())];
     else
-      [self setNotificationsLocale:"en"];
+      [self setNotificationsLocale:@"en"];
     // Before 9.0 version iOS has an issue with speechRate. AVSpeechUtteranceDefaultSpeechRate does not work correctly.
     // It's a work around for iOS 7.x and 8.x.
     _speechRate = isIOSVersionLessThan(@"7.1.1") ? 0.3 : (isIOSVersionLessThan(@"9.0.0") ? 0.15 : AVSpeechUtteranceDefaultSpeechRate);
@@ -72,12 +72,12 @@ extern NSString * const kUserDafaultsNeedToEnableTTS = @"UserDefaultsNeedToEnabl
   return _availableLanguages;
 }
 
-- (void)setNotificationsLocale:(string const &)locale
+- (void)setNotificationsLocale:(NSString *)locale
 {
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-  [ud setObject:@(locale.c_str()) forKey:kUserDefaultsTTSLanguage];
-  GetFramework().SetTurnNotificationsLocale(locale);
+  [ud setObject:locale forKey:kUserDefaultsTTSLanguage];
   [ud synchronize];
+  [self createVoice:locale];
 }
 
 - (BOOL)isValid
@@ -100,12 +100,9 @@ extern NSString * const kUserDafaultsNeedToEnableTTS = @"UserDefaultsNeedToEnabl
 - (void)enable
 {
   [self setNeedToEnable:YES];
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
-  {
-    if (![self isValid])
-      [self createSynthesizer];
-    GetFramework().EnableTurnNotifications(true);
-  });
+  if (![self isValid])
+    [self createSynthesizer];
+  GetFramework().EnableTurnNotifications(true);
 }
 
 - (void)disable
@@ -126,8 +123,11 @@ extern NSString * const kUserDafaultsNeedToEnableTTS = @"UserDefaultsNeedToEnabl
 
 - (void)createSynthesizer
 {
-  self.speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
-  [self createVoice:self.savedLanguage];
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+  {
+    self.speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
+    [self createVoice:self.savedLanguage];
+  });
   // TODO(vbykoianko) Use [NSLocale preferredLanguages] instead of [AVSpeechSynthesisVoice currentLanguageCode].
   // [AVSpeechSynthesisVoice currentLanguageCode] is used now because of we need a language code in BCP-47.
 }
