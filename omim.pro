@@ -116,11 +116,13 @@ SUBDIRS = 3party base coding geometry indexer routing
     search_tests.depends = 3party base coding geometry platform indexer search
     SUBDIRS *= search_tests
 
+    MapDepLibs = 3party base coding geometry platform storage indexer search map \
+                 routing anim render gui graphics
+
     search_integration_tests.subdir = search/search_integration_tests
-    search_integration_tests.depends = 3party base coding geometry platform indexer search
+    search_integration_tests.depends = $$MapDepLibs generator
     SUBDIRS *= search_integration_tests
 
-    MapDepLibs = 3party base coding geometry platform storage indexer search map
     map_tests.subdir = map/map_tests
     map_tests.depends = $$MapDepLibs
     SUBDIRS *= map_tests
@@ -134,7 +136,7 @@ SUBDIRS = 3party base coding geometry indexer routing
     SUBDIRS *= style_tests
 
     routing_tests.subdir = routing/routing_tests
-    routing_tests.depends = $$MapDepLibs routing
+    routing_tests.depends = $$MapDepLibs
     SUBDIRS *= routing_tests
 
     routing_integration_tests.subdir = routing/routing_integration_tests
