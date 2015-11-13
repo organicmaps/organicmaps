@@ -137,7 +137,7 @@ unix|win32-g++ {
   if (isEmpty(IS_CLANG35)){
     QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-local-typedef
   }
-
+  # TODO: Check if we really need these warnings on every platform (by syershov).
   *-clang* {
     QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-conversion -Werror=return-type
   }
