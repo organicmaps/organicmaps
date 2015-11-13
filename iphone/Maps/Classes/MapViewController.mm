@@ -143,8 +143,9 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
   if (res.IsValid())
     [self.controlsManager setupRoutingDashboard:res];
-  
-  [[MWMTextToSpeech tts] playTurnNotifications];
+
+  if (frm.IsOnRoute())
+    [[MWMTextToSpeech tts] playTurnNotifications];
 }
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info
