@@ -311,6 +311,7 @@
 	<string name="menu_search">Rechercher</string>
 	<string name="pref_zoom_title">Boutons de zoom</string>
 	<string name="pref_zoom_summary">Afficher à l\&#39;écran</string>
+	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">Autre</string>
 	<string name="pref_tts_how_to_set_up_voice">Comment configurer la voix</string>
 	<string name="placepage_distance">Distance</string>

@@ -297,6 +297,7 @@
 	<string name="menu_search">検索</string>
 	<string name="pref_zoom_title">ズームボタン</string>
 	<string name="pref_zoom_summary">画面上に表示</string>
+	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">その他</string>
 	<string name="pref_tts_how_to_set_up_voice">音声設定の仕方</string>
 	<string name="placepage_distance">距離</string>

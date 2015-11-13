@@ -520,6 +520,7 @@
 /* Settings «Route» category: «Tts unavailable» subtitle */
 "pref_tts_unavailable" = "TTS unavailable";
 
+/* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Autre";
 
 "pref_tts_how_to_set_up_voice" = "Comment configurer la voix";

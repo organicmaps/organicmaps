@@ -305,6 +305,7 @@
 	<string name="menu_search">Vyhľadávanie</string>
 	<string name="pref_zoom_title">Tlačítka priblíženia/oddialenia</string>
 	<string name="pref_zoom_summary">Zobraziť na obrazovke</string>
+	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">Iný</string>
 	<string name="pref_tts_how_to_set_up_voice">Ako nastaviť hlas</string>
 	<string name="placepage_distance">Vzdialenosť</string>

@@ -306,6 +306,7 @@
 	<string name="menu_search">Căutare</string>
 	<string name="pref_zoom_title">Butoane zoom</string>
 	<string name="pref_zoom_summary">Afișare pe ecran</string>
+	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">Alta</string>
 	<string name="pref_tts_how_to_set_up_voice">Modalitatea de configurare a vocii</string>
 	<string name="placepage_distance">Distanță</string>

@@ -310,6 +310,7 @@
 	<string name="menu_search">بحث</string>
 	<string name="pref_zoom_title">أزرار التكبير</string>
 	<string name="pref_zoom_summary">عرض على الشاشة</string>
+	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">آخر</string>
 	<string name="pref_tts_how_to_set_up_voice">كيفية ضبط الصوت</string>
 	<string name="placepage_distance">المسافة</string>
