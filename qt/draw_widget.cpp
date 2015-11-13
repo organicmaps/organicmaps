@@ -274,9 +274,16 @@ namespace qt
     rpParams.m_screenHeight = L2D(geometry.height());
 
     if (m_ratio >= 1.5 || QApplication::desktop()->physicalDpiX() >= 180)
+    {
       rpParams.m_density = graphics::EDensityXHDPI;
+      rpParams.m_exactDensityDPI = 320.;
+    }
     else
+    {
       rpParams.m_density = graphics::EDensityMDPI;
+      rpParams.m_exactDensityDPI = 160.;
+    }
+    rmParams.m_exactDensityDPI = rpParams.m_exactDensityDPI;
 
     rpParams.m_videoTimer = m_videoTimer.get();
     rpParams.m_useDefaultFB = true;
