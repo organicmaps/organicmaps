@@ -1424,6 +1424,13 @@ class ShieldRuleProto : public ::google::protobuf::MessageLite {
   inline ::google::protobuf::int32 priority() const;
   inline void set_priority(::google::protobuf::int32 value);
 
+  // optional int32 min_distance = 5;
+  inline bool has_min_distance() const;
+  inline void clear_min_distance();
+  static const int kMinDistanceFieldNumber = 5;
+  inline ::google::protobuf::int32 min_distance() const;
+  inline void set_min_distance(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:ShieldRuleProto)
  private:
   inline void set_has_height();
@@ -1434,6 +1441,8 @@ class ShieldRuleProto : public ::google::protobuf::MessageLite {
   inline void clear_has_stroke_color();
   inline void set_has_priority();
   inline void clear_has_priority();
+  inline void set_has_min_distance();
+  inline void clear_has_min_distance();
 
   ::std::string _unknown_fields_;
 
@@ -1443,6 +1452,7 @@ class ShieldRuleProto : public ::google::protobuf::MessageLite {
   ::google::protobuf::uint32 color_;
   ::google::protobuf::uint32 stroke_color_;
   ::google::protobuf::int32 priority_;
+  ::google::protobuf::int32 min_distance_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
   #else
@@ -3375,6 +3385,30 @@ inline void ShieldRuleProto::set_priority(::google::protobuf::int32 value) {
   set_has_priority();
   priority_ = value;
   // @@protoc_insertion_point(field_set:ShieldRuleProto.priority)
+}
+
+// optional int32 min_distance = 5;
+inline bool ShieldRuleProto::has_min_distance() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void ShieldRuleProto::set_has_min_distance() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void ShieldRuleProto::clear_has_min_distance() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void ShieldRuleProto::clear_min_distance() {
+  min_distance_ = 0;
+  clear_has_min_distance();
+}
+inline ::google::protobuf::int32 ShieldRuleProto::min_distance() const {
+  // @@protoc_insertion_point(field_get:ShieldRuleProto.min_distance)
+  return min_distance_;
+}
+inline void ShieldRuleProto::set_min_distance(::google::protobuf::int32 value) {
+  set_has_min_distance();
+  min_distance_ = value;
+  // @@protoc_insertion_point(field_set:ShieldRuleProto.min_distance)
 }
 
 // -------------------------------------------------------------------
