@@ -134,6 +134,7 @@ class Time
   void SetEvent(TimeEvent const & event);
 
   HourMinutes const & GetHourMinutes() const;
+  HourMinutes & GetHourMinutes();
   void SetHourMinutes(HourMinutes const & hm);
 
   bool IsEmpty() const;
@@ -204,6 +205,10 @@ public:
 
   Time const & GetStart() const;
   Time const & GetEnd() const;
+
+  Time & GetStart();
+  Time & GetEnd();
+
   TimespanPeriod const & GetPeriod() const;
 
   void SetStart(Time const & start);

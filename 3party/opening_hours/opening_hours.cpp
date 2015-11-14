@@ -357,6 +357,11 @@ HourMinutes const & Time::GetHourMinutes() const
   return m_hourMinutes;
 }
 
+HourMinutes & Time::GetHourMinutes()
+{
+  return m_hourMinutes;
+}
+
 void Time::SetHourMinutes(HourMinutes const & hm)
 {
   m_type = Type::HourMinutes;
@@ -506,6 +511,16 @@ Time const & Timespan::GetStart() const
 }
 
 Time const & Timespan::GetEnd() const
+{
+  return m_end;
+}
+
+Time & Timespan::GetStart()
+{
+  return m_start;
+}
+
+Time & Timespan::GetEnd()
 {
   return m_end;
 }

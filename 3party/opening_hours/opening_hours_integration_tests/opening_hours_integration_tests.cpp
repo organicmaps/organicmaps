@@ -83,7 +83,7 @@ enum
   Serialised,
   Period,
   Plus,
-  // True if a rule has Timespen with more than 24 hours at the end
+  // True if a rule has Timespan with more than 24 hours at the end
   // or and greater than start.
   // Example:
   // 12:00-29:00

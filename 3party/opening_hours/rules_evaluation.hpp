@@ -12,7 +12,7 @@ enum class RuleState
   Closed,
   Unknown
 };
-RuleState GetState(TRuleSequences const & rules, std::tm const & date);
+
 RuleState GetState(TRuleSequences const & rules, time_t const dateTime);
 
 inline bool IsOpen(TRuleSequences const & rules, time_t const dateTime)
