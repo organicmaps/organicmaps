@@ -382,18 +382,23 @@ if [ "$MODE" == "routing" ]; then
   MODE=resources
 fi
 
+# Clean up temporary routing files
+[ -f "$OSRM_FLAG" ] && rm "$OSRM_FLAG"
+[ -n "$(ls "$TARGET" | grep '\.mwm\.osm2ft')" ] && mv "$TARGET"/*.mwm.osm2ft "$INTDIR"
+
 if [ "$MODE" == "resources" ]; then
   putmode "Step 7: Updating resource lists"
   # Update countries list
   [ ! -e "$TARGET/countries.txt" ] && cp "$DATA_PATH/countries.txt" "$TARGET/countries.txt"
-  "$GENERATOR_TOOL" --data_path="$TARGET" --planet_version="$UPDATE_DATE" --user_resource_path="$DATA_PATH/" -generate_update 2>> "$PLANET_LOG"
-  # We have no means of finding the resulting file, so let's assume it was magically placed in DATA_PATH
-  [ -e "$TARGET/countries.txt.updated" ] && mv "$TARGET/countries.txt.updated" "$TARGET/countries.txt"
-  # If we know the planet's version, update it in countries.txt
-  if [ -n "${UPDATE_DATE-}" ]; then
-    # In-place editing works differently on OS X and Linux, hence two steps
-    sed -e "s/\"v\":[0-9]\\{6\\}/\"v\":$UPDATE_DATE/" "$TARGET/countries.txt" > "$INTDIR/countries.txt"
-    mv "$INTDIR/countries.txt" "$TARGET"
+  if "$GENERATOR_TOOL" --data_path="$TARGET" --planet_version="$UPDATE_DATE" --user_resource_path="$DATA_PATH/" -generate_update 2>> "$PLANET_LOG"; then
+    # We have no means of finding the resulting file, so let's assume it was magically placed in DATA_PATH
+    [ -e "$TARGET/countries.txt.updated" ] && mv "$TARGET/countries.txt.updated" "$TARGET/countries.txt"
+    # If we know the planet's version, update it in countries.txt
+    if [ -n "${UPDATE_DATE-}" ]; then
+      # In-place editing works differently on OS X and Linux, hence two steps
+      sed -e "s/\"v\":[0-9]\\{6\\}/\"v\":$UPDATE_DATE/" "$TARGET/countries.txt" > "$INTDIR/countries.txt"
+      mv "$INTDIR/countries.txt" "$TARGET"
+    fi
   fi
   # A quick fix: chmodding to a+rw all generated files
   for file in "$TARGET"/*.mwm*; do
@@ -440,8 +445,6 @@ if [ -n "$(ls "$TARGET" | grep '\.mwm')" ]; then
 fi
 # Cleaning up temporary directories
 rm "$STATUS_FILE"
-[ -f "$OSRM_FLAG" ] && rm "$OSRM_FLAG"
-[ -n "$(ls "$TARGET" | grep '\.mwm\.osm2ft')" ] && mv "$TARGET"/*.mwm.osm2ft "$INTDIR"
 [ -z "$KEEP_INTDIR" ] && rm -r "$INTDIR"
 trap - SIGTERM ERR
 log "STATUS" "Done"
