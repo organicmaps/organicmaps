@@ -120,7 +120,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       if (!IsUserMarkLayer(key))
         m_tileTree->ProcessTile(key, GetCurrentZoomLevel(), state, move(bucket));
       else
+      {
         m_userMarkRenderGroups.emplace_back(make_unique_dp<UserMarkRenderGroup>(state, key, move(bucket)));
+        m_userMarkRenderGroups.back()->SetRenderParams(program, make_ref(&m_generalUniforms));
+      }
       break;
     }
 
@@ -411,6 +414,8 @@ void FrontendRenderer::AddToRenderGroup(vector<drape_ptr<RenderGroup>> & groups,
                                         TileKey const & newTile)
 {
   drape_ptr<RenderGroup> group = make_unique_dp<RenderGroup>(state, newTile);
+  ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
+  group->SetRenderParams(program, make_ref(&m_generalUniforms));
   group->AddBucket(move(renderBucket));
   groups.push_back(move(group));
 }
@@ -639,15 +644,6 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 void FrontendRenderer::RenderSingleGroup(ScreenBase const & modelView, ref_ptr<BaseRenderGroup> group)
 {
   group->UpdateAnimation();
-
-  dp::GLState const & state = group->GetState();
-  ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
-  program->Bind();
-
-  ApplyState(state, program);
-  ApplyUniforms(m_generalUniforms, program);
-  ApplyUniforms(group->GetUniforms(), program);
-
   group->Render(modelView);
 }
 

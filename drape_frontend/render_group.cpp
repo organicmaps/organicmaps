@@ -12,6 +12,12 @@
 namespace df
 {
 
+void BaseRenderGroup::SetRenderParams(ref_ptr<dp::GpuProgram> shader, ref_ptr<dp::UniformValuesStorage> generalUniforms)
+{
+  m_shader = shader;
+  m_generalUniforms = generalUniforms;
+}
+
 void BaseRenderGroup::UpdateAnimation()
 {
   m_uniforms.SetFloatValue("u_opacity", 1.0);
@@ -21,15 +27,6 @@ RenderGroup::RenderGroup(dp::GLState const & state, df::TileKey const & tileKey)
   : TBase(state, tileKey)
   , m_pendingOnDelete(false)
 {
-  if (state.GetProgramIndex() == gpu::TEXT_PROGRAM)
-  {
-    auto const & params = VisualParams::Instance().GetGlyphVisualParams();
-    m_uniforms.SetFloatValue("u_outlineGlyphParams",
-                             params.m_outlineMinStart, params.m_outlineMinEnd,
-                             params.m_outlineMaxStart, params.m_outlineMaxEnd);
-    m_uniforms.SetFloatValue("u_glyphParams",
-                             params.m_alphaGlyphMin, params.m_alphaGlyphMax);
-  }
 }
 
 RenderGroup::~RenderGroup()
@@ -39,6 +36,8 @@ RenderGroup::~RenderGroup()
 
 void RenderGroup::Update(ScreenBase const & modelView)
 {
+  ASSERT(m_shader != nullptr, ());
+  ASSERT(m_generalUniforms != nullptr, ());
   for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
     renderBucket->Update(modelView);
 }
@@ -48,14 +47,44 @@ void RenderGroup::CollectOverlay(ref_ptr<dp::OverlayTree> tree)
   if (m_pendingOnDelete)
     return;
 
+  ASSERT(m_shader != nullptr, ());
+  ASSERT(m_generalUniforms != nullptr, ());
   for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
     renderBucket->CollectOverlayHandles(tree, GetOpacity() < 1.0);
 }
 
 void RenderGroup::Render(ScreenBase const & screen)
 {
-  for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
-    renderBucket->Render(screen);
+  ASSERT(m_shader != nullptr, ());
+  ASSERT(m_generalUniforms != nullptr, ());
+
+  m_shader->Bind();
+  dp::ApplyState(m_state, m_shader);
+  dp::ApplyUniforms(*(m_generalUniforms.get()), m_shader);
+  if (m_state.GetProgramIndex() == gpu::TEXT_PROGRAM)
+  {
+    m_uniforms.SetFloatValue("u_contrast", 0.05f);
+    m_uniforms.SetFloatValue("u_gamma", 0.01f);
+    m_uniforms.SetFloatValue("u_isOutlinePass", 1.0f);
+    dp::ApplyUniforms(m_uniforms, m_shader);
+
+    for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
+      renderBucket->Render(screen);
+
+    m_uniforms.SetFloatValue("u_contrast", 0.45f);
+    m_uniforms.SetFloatValue("u_gamma", 0.05f);
+    m_uniforms.SetFloatValue("u_isOutlinePass", 0.0f);
+    dp::ApplyUniforms(m_uniforms, m_shader);
+    for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
+      renderBucket->Render(screen);
+  }
+  else
+  {
+    dp::ApplyUniforms(m_uniforms, m_shader);
+
+    for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
+      renderBucket->Render(screen);
+  }
 }
 
 void RenderGroup::AddBucket(drape_ptr<dp::RenderBucket> && bucket)

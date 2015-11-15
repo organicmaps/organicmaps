@@ -24,8 +24,7 @@ public:
                         dp::TextureManager::ColorRegion const & color,
                         dp::TextureManager::ColorRegion const & outline,
                         gpu::TTextStaticVertexBuffer & buffer)
-    : m_depthShift(0.0f, 0.0f, 0.0f)
-    , m_pivot(pivot)
+    : m_pivot(pivot)
     , m_colorCoord(glsl::ToVec2(color.GetTexRect().Center()))
     , m_outlineCoord(glsl::ToVec2(outline.GetTexRect().Center()))
     , m_buffer(buffer)
@@ -35,16 +34,13 @@ public:
   void operator() (dp::TextureManager::GlyphRegion const & glyph)
   {
     m2::RectF const & mask = glyph.GetTexRect();
-    glsl::vec3 pivot = m_pivot + m_depthShift;
-    m_buffer.push_back(gpu::TextStaticVertex(pivot, m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftTop())));
-    m_buffer.push_back(gpu::TextStaticVertex(pivot, m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftBottom())));
-    m_buffer.push_back(gpu::TextStaticVertex(pivot, m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.RightTop())));
-    m_buffer.push_back(gpu::TextStaticVertex(pivot, m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.RightBottom())));
-    m_depthShift += glsl::vec3(0.0f, 0.0f, 1.0f);
+    m_buffer.push_back(gpu::TextStaticVertex(m_pivot, m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftTop())));
+    m_buffer.push_back(gpu::TextStaticVertex(m_pivot, m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftBottom())));
+    m_buffer.push_back(gpu::TextStaticVertex(m_pivot, m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.RightTop())));
+    m_buffer.push_back(gpu::TextStaticVertex(m_pivot, m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.RightBottom())));
   }
 
 protected:
-  glsl::vec3 m_depthShift;
   glsl::vec3 const & m_pivot;
   glsl::vec2 m_colorCoord;
   glsl::vec2 m_outlineCoord;

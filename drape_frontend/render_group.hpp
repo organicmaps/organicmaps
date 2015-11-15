@@ -25,6 +25,8 @@ public:
     : m_state(state)
     , m_tileKey(tileKey) {}
 
+  void SetRenderParams(ref_ptr<dp::GpuProgram> shader, ref_ptr<dp::UniformValuesStorage> generalUniforms);
+
   dp::GLState const & GetState() const { return m_state; }
   TileKey const & GetTileKey() const { return m_tileKey; }
   dp::UniformValuesStorage const & GetUniforms() const { return m_uniforms; }
@@ -34,7 +36,9 @@ public:
 
 protected:
   dp::GLState m_state;
+  ref_ptr<dp::GpuProgram> m_shader;
   dp::UniformValuesStorage m_uniforms;
+  ref_ptr<dp::UniformValuesStorage> m_generalUniforms;
 
 private:
   TileKey m_tileKey;
