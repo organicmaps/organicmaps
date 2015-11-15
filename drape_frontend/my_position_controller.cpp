@@ -172,9 +172,9 @@ void MyPositionController::CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2)
 {
   if (IsModeChangeViewport())
   {
-    m2::PointD const ptDiff = GetCurrentPixelBinding() - ((pt1 + pt2) * 0.5);
-    pt1 += ptDiff;
-    pt2 += ptDiff;
+    m2::PointD const oldPt1(pt1);
+    pt1 = GetCurrentPixelBinding();
+    pt2 = pt2 - oldPt1 + pt1;
   }
 }
 

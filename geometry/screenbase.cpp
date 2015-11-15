@@ -153,10 +153,11 @@ int ScreenBase::GetHeight() const
 
 ScreenBase::MatrixT const
 ScreenBase::CalcTransform(m2::PointD const & oldPt1, m2::PointD const & oldPt2,
-                          m2::PointD const & newPt1, m2::PointD const & newPt2)
+                          m2::PointD const & newPt1, m2::PointD const & newPt2,
+                          bool allowRotate)
 {
-  double s = newPt1.Length(newPt2) / oldPt1.Length(oldPt2);
-  double a = ang::AngleTo(newPt1, newPt2) - ang::AngleTo(oldPt1, oldPt2);
+  double const s = newPt1.Length(newPt2) / oldPt1.Length(oldPt2);
+  double const a = allowRotate ? ang::AngleTo(newPt1, newPt2) - ang::AngleTo(oldPt1, oldPt2) : 0.0;
 
   MatrixT m =
       math::Shift(

@@ -415,13 +415,11 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
                           bool skipMinScaleAndBordersCheck, bool doRotateScreen,
                           ScreenBase & screen)
 {
-  math::Matrix<double, 3, 3> const newM = screen.GtoPMatrix() * ScreenBase::CalcTransform(oldPt1, oldPt2, newPt1, newPt2);
-
-  double oldAngle = screen.GetAngle();
+  math::Matrix<double, 3, 3> const newM =
+      screen.GtoPMatrix() * ScreenBase::CalcTransform(oldPt1, oldPt2,
+                                                      newPt1, newPt2, doRotateScreen);
   ScreenBase tmp = screen;
   tmp.SetGtoPMatrix(newM);
-  if (!doRotateScreen)
-    tmp.Rotate(-(tmp.GetAngle() - oldAngle));
 
   if (!skipMinScaleAndBordersCheck && !CheckMinScale(tmp))
     return false;
