@@ -4,13 +4,14 @@
 namespace df
 {
 
+// static
 double PerspectiveAnimation::GetRotateDuration(double startAngle, double endAngle)
 {
   return 0.5 * fabs(endAngle - startAngle) / math::pi4;
 }
 
 PerspectiveAnimation::PerspectiveAnimation(double duration, double startRotationAngle, double endRotationAngle)
-  : PerspectiveAnimation(duration, 0.0, startRotationAngle, endRotationAngle)
+  : PerspectiveAnimation(duration, 0.0 /* delay */, startRotationAngle, endRotationAngle)
 {
 }
 

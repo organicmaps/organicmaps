@@ -1836,7 +1836,7 @@ void Framework::FollowRoute()
   int const scale = (m_currentRouterType == RouterType::Pedestrian) ?
                      scales::GetUpperComfortScale() :
                      scales::GetNavigationScale();
-  int const scale3d = scale + 1;
+  int const scale3d = (m_currentRouterType == RouterType::Pedestrian) ? scale + 1 : scale + 2;
   double const rotationAngle = math::pi4;
   double const angleFOV = math::pi / 3.0;
   

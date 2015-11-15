@@ -259,7 +259,11 @@ void ScreenBase::ExtractGtoPParams(MatrixT const & m,
 // when it is rotated through maxRotationAngle around its near horizontal side.
 void ScreenBase::ApplyPerspective(double currentRotationAngle, double maxRotationAngle, double angleFOV)
 {
-  ASSERT_NOT_EQUAL(angleFOV, 0.0, ());
+  ASSERT_GREATER(angleFOV, 0.0, ());
+  ASSERT_LESS(angleFOV, math::pi2, ());
+  ASSERT_GREATER_OR_EQUAL(maxRotationAngle, 0.0, ());
+  ASSERT_LESS(maxRotationAngle, math::pi2, ());
+
   if (m_isPerspective)
     ResetPerspective();
 
@@ -279,12 +283,8 @@ void ScreenBase::ApplyPerspective(double currentRotationAngle, double maxRotatio
 
   double const dy = m_PixelRect.SizeY() * (m_3dScaleX - 1.0);
 
-  Scale(1.0 / m_3dScaleX);
-
   m_PixelRect.setMaxX(m_PixelRect.maxX() * m_3dScaleX);
   m_PixelRect.setMaxY(m_PixelRect.maxY() * m_3dScaleY);
-
-  Scale(m_3dScaleX);
 
   Move(0.0, dy / 2.0);
 
@@ -296,6 +296,7 @@ void ScreenBase::ApplyPerspective(double currentRotationAngle, double maxRotatio
 void ScreenBase::SetRotationAngle(double rotationAngle)
 {
   ASSERT(m_isPerspective, ());
+  ASSERT_GREATER_OR_EQUAL(rotationAngle, 0.0, ());
   ASSERT_LESS_OR_EQUAL(rotationAngle, m_3dMaxAngleX, ());
 
   if (rotationAngle > m_3dMaxAngleX)
@@ -342,12 +343,9 @@ void ScreenBase::ResetPerspective()
   m_isPerspective = false;
 
   double const dy = m_PixelRect.SizeY() * (1.0 - 1.0 / m_3dScaleX);
-  Scale(m_3dScaleX);
 
   m_PixelRect.setMaxX(m_PixelRect.maxX() / m_3dScaleX);
   m_PixelRect.setMaxY(m_PixelRect.maxY() / m_3dScaleY);
-
-  Scale(1.0 / m_3dScaleX);
 
   Move(0, -dy / 2.0);
 
@@ -392,7 +390,7 @@ m2::PointD ScreenBase::P3dToP(m2::PointD const & pt) const
 
     double const a = (m_3dFarZ + m_3dNearZ) / (m_3dFarZ - m_3dNearZ);
     double const b = -2.0 * m_3dFarZ * m_3dNearZ / (m_3dFarZ - m_3dNearZ);
-    normalizedZ = (a * cameraDistanceZ + b) / cameraDistanceZ;
+    normalizedZ = a + b / cameraDistanceZ;
   }
 
   Vector3dT const normalizedPoint{normalizedX, normalizedY, normalizedZ, 1.0};

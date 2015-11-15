@@ -523,10 +523,11 @@ void FrontendRenderer::OnResize(ScreenBase const & screen)
     int const maxTextureSize = m_framebuffer->GetMaxSize();
     if (maxSide > maxTextureSize)
     {
-      width = width * maxTextureSize / maxSide;
-      height = height * maxTextureSize / maxSide;
+      double const scale = maxTextureSize / static_cast<double>(maxSide);
+      width = static_cast<int>(width * scale);
+      height = static_cast<int>(height * scale);
       LOG(LINFO, ("Max texture size:", maxTextureSize, ", expanded screen size:", maxSide,
-                  ", scale:", maxTextureSize / (double)maxSide));
+                  ", scale:", scale));
     }
 
     m_viewport.SetViewport(0, 0, width, height);

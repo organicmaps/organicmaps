@@ -13,7 +13,7 @@ namespace df
 class Framebuffer
 {
 public:
-  Framebuffer();
+  Framebuffer() = default;
   ~Framebuffer();
 
   void SetDefaultContext(dp::OGLContext * context);

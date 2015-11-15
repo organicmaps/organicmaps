@@ -395,7 +395,7 @@ void UserEventStream::SetEnable3dModeAnimation(double maxRotationAngle)
   double const endAngle = maxRotationAngle;
   double const rotateDuration = PerspectiveAnimation::GetRotateDuration(startAngle, endAngle);
   m_perspectiveAnimation.reset(
-        new PerspectiveAnimation(rotateDuration, 0.0/*delay*/, startAngle, endAngle));
+        new PerspectiveAnimation(rotateDuration, 0.0 /* delay */, startAngle, endAngle));
 }
 
 void UserEventStream::SetDisable3dModeAnimation()
@@ -405,7 +405,7 @@ void UserEventStream::SetDisable3dModeAnimation()
   double const startAngle = m_navigator.Screen().GetRotationAngle();
   double const endAngle = 0.0;
   double const rotateDuration = PerspectiveAnimation::GetRotateDuration(startAngle, endAngle);
-  m_perspectiveAnimation.reset(new PerspectiveAnimation(rotateDuration, 0.0/*delay*/, startAngle, endAngle));
+  m_perspectiveAnimation.reset(new PerspectiveAnimation(rotateDuration, 0.0 /* delay */, startAngle, endAngle));
 }
 
 void UserEventStream::ResetCurrentAnimation(bool finishAnimation)

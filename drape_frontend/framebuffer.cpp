@@ -11,9 +11,6 @@
 
 namespace df
 {
-Framebuffer::Framebuffer()
-{
-}
 
 Framebuffer::~Framebuffer()
 {
