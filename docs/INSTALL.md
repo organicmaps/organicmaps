@@ -125,7 +125,7 @@ to check it out before following these steps.
 
 ### Building data
 
-* Run `CONFIG="gtool map-designer" omim/tools/unix/build_omim.sh`.
+* Run `CONFIG="gtool map_designer" omim/tools/unix/build_omim.sh`.
 * Generate data as usual (either with `generate_mwm.sh` or `generate_planet.sh`).
 * For MAPS.ME employees, publish planet data to http://designer.mapswithme.com/mac/DATA_VERSION
 (via a ticket to admins, from `mapsme4:/opt/mapsme/designers`).
