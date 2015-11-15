@@ -39,7 +39,7 @@ string MetadataTagProcessor::ValidateAndFormat_wikipedia(string v) const
     return string();
   }
   // Check if it's not a random/invalid link.
-  if (v.find("//") != string::npos)
+  if (v.find("//") != string::npos || v.find(".org") != string::npos)
   {
     LOG(LINFO, ("Invalid Wikipedia tag value:", v));
     return string();
