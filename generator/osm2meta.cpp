@@ -27,7 +27,7 @@ string MetadataTagProcessor::ValidateAndFormat_wikipedia(string v) const
         return v.substr(slashIndex + 1, baseIndex - slashIndex - 1) + ":" + title;
       }
     }
-    LOG(LWARNING, ("Invalid Wikipedia tag value:", v));
+    LOG(LINFO, ("Invalid Wikipedia tag value:", v));
     return string();
   }
   // Standard case: "lang:Article Name With Spaces".
@@ -35,13 +35,13 @@ string MetadataTagProcessor::ValidateAndFormat_wikipedia(string v) const
   auto const colonIndex = v.find(':');
   if (colonIndex == string::npos || colonIndex < 2 || colonIndex + 2 > v.size())
   {
-    LOG(LWARNING, ("Invalid Wikipedia tag value:", v));
+    LOG(LINFO, ("Invalid Wikipedia tag value:", v));
     return string();
   }
   // Check if it's not a random/invalid link.
-  if (v.find('/') != string::npos)
+  if (v.find("//") != string::npos || v.find(".org") != string::npos)
   {
-    LOG(LWARNING, ("Invalid Wikipedia tag value:", v));
+    LOG(LINFO, ("Invalid Wikipedia tag value:", v));
     return string();
   }
   // Normalize to OSM standards.

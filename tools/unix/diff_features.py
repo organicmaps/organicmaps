@@ -21,7 +21,7 @@ with open(sys.argv[1], 'r') as f:
   for line in f:
     parse_and_add(data2, line)
 
-threshold = (int(sys.argv[3]) if len(sys.argv) > 3 else 50) / 100.0 + 1
+threshold = (int(sys.argv[3]) if len(sys.argv) > 3 else 100) / 100.0 + 1
 min_diff = 40
 
 for k in data1:
