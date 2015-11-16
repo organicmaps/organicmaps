@@ -14,7 +14,7 @@
 namespace
 {
 template <typename T>
-inline std::string ToString(T const & t)
+std::string ToString(T const & t)
 {
   std::stringstream sstr;
   sstr << t;
@@ -22,20 +22,20 @@ inline std::string ToString(T const & t)
 }
 
 template <typename T>
-inline bool HasPeriod(std::vector<T> const & v)
+bool HasPeriod(std::vector<T> const & v)
 {
   auto const hasPeriod = [](T const & t) { return t.HasPeriod(); };
   return std::any_of(begin(v), end(v), hasPeriod);
 }
 
 template <typename T>
-inline bool HasPlus(std::vector<T> const & v)
+bool HasPlus(std::vector<T> const & v)
 {
   auto const hasPlus = [](T const & t) { return t.HasPlus(); };
   return std::any_of(begin(v), end(v), hasPlus);
 }
 
-inline bool HasOffset(osmoh::TMonthdayRanges const & mr)
+bool HasOffset(osmoh::TMonthdayRanges const & mr)
 {
   auto const hasOffset = [](osmoh::MonthdayRange const & md) {
     return
@@ -45,14 +45,14 @@ inline bool HasOffset(osmoh::TMonthdayRanges const & mr)
   return std::any_of(begin(mr), end(mr), hasOffset);
 }
 
-inline bool HasOffset(osmoh::Weekdays const & wd)
+bool HasOffset(osmoh::Weekdays const & wd)
 {
   auto const hasOffset = [](osmoh::WeekdayRange const & w) { return w.HasOffset(); };
   return std::any_of(begin(wd.GetWeekdayRanges()), end(wd.GetWeekdayRanges()), hasOffset);
 }
 
 template <typename ParserResult>
-inline bool CompareNormalized(std::string const & original, ParserResult const & pretendent)
+bool CompareNormalized(std::string const & original, ParserResult const & pretendent)
 {
   auto originalCopy = original;
   auto pretendentCopy = ToString(pretendent);
@@ -79,13 +79,13 @@ enum
 };
 using TRuleFeatures = std::array<bool, Count_>;
 
-inline std::ostream & operator<<(std::ostream & ost, TRuleFeatures const & f)
+std::ostream & operator<<(std::ostream & ost, TRuleFeatures const & f)
 {
  std::copy(begin(f), end(f), std::ostream_iterator<bool>(ost, "\t"));
  return ost;
 }
 
-inline TRuleFeatures DescribeRule(osmoh::TRuleSequences const & rule)
+TRuleFeatures DescribeRule(osmoh::TRuleSequences const & rule)
 {
   TRuleFeatures features{};
   for (auto const & r : rule)

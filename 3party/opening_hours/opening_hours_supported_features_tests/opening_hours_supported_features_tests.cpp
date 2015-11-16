@@ -11,7 +11,7 @@ namespace
 typedef std::tuple<long, long> LongTimeRange;
 int countTests = 0;
 
-inline LongTimeRange RangeToLong(std::string const & start, std::string const & end)
+LongTimeRange RangeToLong(std::string const & start, std::string const & end)
 {
   std::tm when{};
 
@@ -25,10 +25,9 @@ inline LongTimeRange RangeToLong(std::string const & start, std::string const & 
 }
 
 
-inline void TestRanges(std::string const & name,
-                       std::initializer_list<std::string> const & strings,
-                       std::string const & rangeStart, std::string const & rangeEnd,
-                       std::initializer_list<std::vector<std::string>> const & ranges)
+void TestRanges(std::string const & name, std::initializer_list<std::string> const & strings,
+                std::string const & rangeStart, std::string const & rangeEnd,
+                std::initializer_list<std::vector<std::string>> const & ranges)
 {
   for (std::string const & input : strings)
   {
@@ -92,7 +91,7 @@ inline void TestRanges(std::string const & name,
   }
 }
 
-inline void TestShouldFail(std::string const & name, std::initializer_list<std::string> const & strings)
+void TestShouldFail(std::string const & name, std::initializer_list<std::string> const & strings)
 {
   for (std::string const & input : strings)
   {

@@ -14,7 +14,7 @@ using osmoh::operator""_h;
 
 constexpr osmoh::MonthDay::TYear kTMYearOrigin = 1900;
 
-inline bool ToHourMinutes(osmoh::Time const & t, THourMinutes & hm)
+bool ToHourMinutes(osmoh::Time const & t, THourMinutes & hm)
 {
   if (!t.IsHoursMinutes())
     return false;
@@ -22,13 +22,13 @@ inline bool ToHourMinutes(osmoh::Time const & t, THourMinutes & hm)
   return true;
 }
 
-inline bool ToHourMinutes(std::tm const & t, THourMinutes & hm)
+bool ToHourMinutes(std::tm const & t, THourMinutes & hm)
 {
   hm = THourMinutes{t.tm_hour, t.tm_min};
   return true;
 }
 
-inline int CompareMonthDayTimeTuple(osmoh::MonthDay const & monthDay, std::tm const & date)
+int CompareMonthDayTimeTuple(osmoh::MonthDay const & monthDay, std::tm const & date)
 {
   if (monthDay.HasYear())
   {
@@ -51,23 +51,25 @@ inline int CompareMonthDayTimeTuple(osmoh::MonthDay const & monthDay, std::tm co
   return 0;
 }
 
-inline bool operator<=(osmoh::MonthDay const & monthDay, std::tm const & date)
+bool operator<=(osmoh::MonthDay const & monthDay, std::tm const & date)
 {
   return CompareMonthDayTimeTuple(monthDay, date) < 1;
 }
 
-inline bool operator<=(std::tm const & date, osmoh::MonthDay const & monthDay)
+bool operator<=(std::tm const & date, osmoh::MonthDay const & monthDay)
 {
   return CompareMonthDayTimeTuple(monthDay, date) > -1;
 }
 
-inline bool operator==(osmoh::MonthDay const & monthDay, std::tm const & date)
+bool operator==(osmoh::MonthDay const & monthDay, std::tm const & date)
 {
   return CompareMonthDayTimeTuple(monthDay, date) == 0;
 }
 
 // Fill result with fields that present in start and missing in end.
-inline osmoh::MonthDay NormalizeEnd(osmoh::MonthDay const & start, osmoh::MonthDay const & end)
+// 2015 Jan 30 - Feb 20 <=> 2015 Jan 30 - 2015 Feb 20
+// 2015 Jan 01 - 22 <=> 2015 Jan 01 - 2015 Jan 22
+osmoh::MonthDay NormalizeEnd(osmoh::MonthDay const & start, osmoh::MonthDay const & end)
 {
   osmoh::MonthDay result = start;
   if (end.HasYear())
@@ -79,7 +81,7 @@ inline osmoh::MonthDay NormalizeEnd(osmoh::MonthDay const & start, osmoh::MonthD
   return result;
 }
 
-inline uint8_t GetWeekNumber(std::tm const & date)
+uint8_t GetWeekNumber(std::tm const & date)
 {
   char buff[4]{};
   if (strftime(&buff[0], sizeof(buff), "%V", &date) == 0)
@@ -91,16 +93,16 @@ inline uint8_t GetWeekNumber(std::tm const & date)
   return weekNumber;
 }
 
-inline bool IsBetweenLooped(osmoh::Weekday const start,
-                            osmoh::Weekday const end,
-                            osmoh::Weekday const p)
+bool IsBetweenLooped(osmoh::Weekday const start,
+                     osmoh::Weekday const end,
+                     osmoh::Weekday const p)
 {
   if (start <= end)
     return start <= p && p <= end;
   return p >= end || start <= p;
 }
 
-inline osmoh::RuleState ModifierToRuleState(osmoh::RuleSequence::Modifier const modifier)
+osmoh::RuleState ModifierToRuleState(osmoh::RuleSequence::Modifier const modifier)
 {
   using Modifier = osmoh::RuleSequence::Modifier;
 
@@ -122,15 +124,15 @@ inline osmoh::RuleState ModifierToRuleState(osmoh::RuleSequence::Modifier const 
 // Transform timspan with extended end of the form of
 // time less than 24 hours to extended form, i.e from 25 to 48 hours.
 // Example: 12:15-06:00 -> 12:15-30:00.
-inline void NormalizeExtendedEnd(osmoh::Timespan & span)
+void NormalizeExtendedEnd(osmoh::Timespan & span)
 {
-  auto & endHouminutes = span.GetEnd().GetHourMinutes();
-  auto const duration = endHouminutes.GetDuration();
+  auto & endHourMinutes = span.GetEnd().GetHourMinutes();
+  auto const duration = endHourMinutes.GetDuration();
   if (duration < 24_h)
-    endHouminutes.SetDuration(duration + 24_h);
+    endHourMinutes.SetDuration(duration + 24_h);
 }
 
-inline osmoh::TTimespans SplitExtendedHours(osmoh::Timespan span)
+osmoh::TTimespans SplitExtendedHours(osmoh::Timespan span)
 {
   osmoh::TTimespans result;
   NormalizeExtendedEnd(span);
@@ -151,36 +153,35 @@ inline osmoh::TTimespans SplitExtendedHours(osmoh::Timespan span)
   return result;
 }
 
-inline void SplitExtendedHours(osmoh::TTimespans const & spans,
-                               osmoh::TTimespans & originalNormilizedSpans,
-                               osmoh::Timespan & additionalSpan)
+void SplitExtendedHours(osmoh::TTimespans const & spans,
+                        osmoh::TTimespans & originalNormalizedSpans,
+                        osmoh::Timespan & additionalSpan)
 {
   // We don't handle more than one occurence of extended span
   // since it is an invalid situation.
-  for (auto it = begin(spans); it != end(spans); ++it)
-  {
-    if (!it->HasExtendedHours())
-    {
-      originalNormilizedSpans.push_back(*it);
-      continue;
-    }
 
-    auto const splittedSpans = SplitExtendedHours(*it);
-    originalNormilizedSpans.push_back(splittedSpans[0]);
-    additionalSpan = splittedSpans[1];
+  auto it = begin(spans);
+  for (; it != end(spans) && !it->HasExtendedHours(); ++it)
+    originalNormalizedSpans.push_back(*it);
 
-    ++it;
-    std::copy(it, end(spans), back_inserter(originalNormilizedSpans));
+  if (it == end(spans))
+    return;
 
-    break;
-  }
+  auto const splittedSpans = SplitExtendedHours(*it);
+  originalNormalizedSpans.push_back(splittedSpans[0]);
+  additionalSpan = splittedSpans[1];
+
+  ++it;
+  std::copy(it, end(spans), back_inserter(originalNormalizedSpans));
 }
 
-inline bool HasExtendedHours(osmoh::RuleSequence const & rule)
+bool HasExtendedHours(osmoh::RuleSequence const & rule)
 {
   for (auto const & timespan : rule.GetTimes())
+  {
     if (timespan.HasExtendedHours())
       return true;
+  }
 
   return false;
 }
@@ -266,8 +267,10 @@ bool IsActive(MonthdayRange const & range, std::tm const & date)
     return false;
 
   if (range.HasEnd())
+  {
     return range.GetStart() <= date &&
            date <= NormalizeEnd(range.GetStart(), range.GetEnd());
+  }
 
   return range.GetStart() == date;
 }
@@ -337,7 +340,10 @@ bool IsActive(RuleSequence const & rule, time_t const timestamp)
 
   if (checkIsActive(rule, dateTimeTMShifted) &&
       IsActive(additionalSpan, dateTimeTMShifted))
+
+  {
     return true;
+  }
 
   return false;
 }

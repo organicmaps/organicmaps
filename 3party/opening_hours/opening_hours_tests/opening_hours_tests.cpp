@@ -47,7 +47,7 @@
 namespace
 {
 template <typename T>
-inline std::string ToString(T const & t)
+std::string ToString(T const & t)
 {
   std::stringstream sstr;
   sstr << t;
@@ -55,7 +55,7 @@ inline std::string ToString(T const & t)
 }
 
 template <typename Parser>
-inline bool Test(std::string const & str, Parser const & p, bool full_match = true)
+bool Test(std::string const & str, Parser const & p, bool full_match = true)
 {
   // We don't care about the result of the "what" function.
   // We only care that all parsers have it:
@@ -67,7 +67,7 @@ inline bool Test(std::string const & str, Parser const & p, bool full_match = tr
 }
 
 template <typename ParseResult>
-inline std::string ParseAndUnparse(std::string const & str)
+std::string ParseAndUnparse(std::string const & str)
 {
   ParseResult parseResult;
   if (!osmoh::Parse(str, parseResult))
@@ -79,7 +79,7 @@ inline std::string ParseAndUnparse(std::string const & str)
   return sstr.str();
 }
 
-inline bool GetTimeTuple(std::string const & strTime, std::string const & fmt, std::tm & tm)
+bool GetTimeTuple(std::string const & strTime, std::string const & fmt, std::tm & tm)
 {
   auto const rc = strptime(strTime.data(), fmt.data(), &tm);
   return rc != nullptr;
@@ -95,7 +95,7 @@ struct GetTimeError: std::exception
   std::string const m_message;
 };
 
-inline osmoh::RuleState GetRulesState(osmoh::TRuleSequences const & rules, std::string const & dateTime)
+osmoh::RuleState GetRulesState(osmoh::TRuleSequences const & rules, std::string const & dateTime)
 {
   static auto const & fmt = "%Y-%m-%d %H:%M";
   std::tm time = {};
@@ -107,22 +107,22 @@ inline osmoh::RuleState GetRulesState(osmoh::TRuleSequences const & rules, std::
   return osmoh::GetState(rules, mktime(&time));
 }
 
-inline bool IsOpen(osmoh::TRuleSequences const & rules, std::string const & dateTime)
+bool IsOpen(osmoh::TRuleSequences const & rules, std::string const & dateTime)
 {
   return GetRulesState(rules, dateTime) == osmoh::RuleState::Open;
 }
 
-inline bool IsClosed(osmoh::TRuleSequences const & rules, std::string const & dateTime)
+bool IsClosed(osmoh::TRuleSequences const & rules, std::string const & dateTime)
 {
   return GetRulesState(rules, dateTime) == osmoh::RuleState::Closed;
 }
 
-inline bool IsUnknown(osmoh::TRuleSequences const & rules, std::string const & dateTime)
+bool IsUnknown(osmoh::TRuleSequences const & rules, std::string const & dateTime)
 {
   return GetRulesState(rules, dateTime) == osmoh::RuleState::Unknown;
 }
 
-inline bool IsActive(osmoh::RuleSequence const & rule, std::tm tm)
+bool IsActive(osmoh::RuleSequence const & rule, std::tm tm)
 {
   return IsActive(rule, mktime(&tm));
 }
@@ -1288,18 +1288,6 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestIsActive)
   }
   {
     TRuleSequences rules;
-    BOOST_CHECK(Parse("Mo-We 17:00-18:00, Th,Fr 15:00-16:00", rules));
-
-    std::tm time{};
-    auto const fmt = "%Y-%m-%d %H:%M";
-    BOOST_CHECK(GetTimeTuple("2015-10-6 17:35", fmt, time));
-    BOOST_CHECK(IsActive(rules[0], time));
-
-    BOOST_CHECK(GetTimeTuple("2015-10-8 15:35", fmt, time));
-    BOOST_CHECK(IsActive(rules[1], time));
-  }
-  {
-    TRuleSequences rules;
     BOOST_CHECK(Parse("09:00-14:00", rules));
 
     std::tm time{};
@@ -1312,41 +1300,73 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestIsActive)
   }
   {
     TRuleSequences rules;
-    BOOST_CHECK(Parse("Apr-Sep Su 14:30-17:00", rules));
+    BOOST_CHECK(Parse("Mo-We 17:00-18:00, Th,Fr 15:00-16:00", rules));
 
     std::tm time{};
     auto const fmt = "%Y-%m-%d %H:%M";
-    BOOST_CHECK(GetTimeTuple("2015-04-12 15:35", fmt, time));
+    BOOST_CHECK(GetTimeTuple("2015-10-6 17:35", fmt, time));
     BOOST_CHECK(IsActive(rules[0], time));
 
-    BOOST_CHECK(GetTimeTuple("2015-04-13 15:35", fmt, time));
-    BOOST_CHECK(!IsActive(rules[0], time));
-
-    BOOST_CHECK(GetTimeTuple("2015-10-11 15:35", fmt, time));
-    BOOST_CHECK(!IsActive(rules[0], time));
+    BOOST_CHECK(GetTimeTuple("2015-10-8 15:35", fmt, time));
+    BOOST_CHECK(IsActive(rules[1], time));
   }
+
+  auto const kDateTimeFmt = "%Y-%m-%d %H:%M";
+
   {
     TRuleSequences rules;
     BOOST_CHECK(Parse("2010 Apr 01-30: Mo-Su 17:00-24:00", rules));
 
     std::tm time{};
-    auto const fmt = "%Y-%m-%d-%w %H:%M";
-    BOOST_CHECK(GetTimeTuple("2010-4-20-0 18:15", fmt, time));
+    BOOST_CHECK(GetTimeTuple("2010-4-20 18:15", kDateTimeFmt, time));
     BOOST_CHECK(IsActive(rules[0], time));
+  }
+  {
+    TRuleSequences rules;
+    BOOST_CHECK(Parse("2010 Apr 02 - May 21: Mo-Su 17:00-24:00", rules));
+
+    std::tm time{};
+    BOOST_CHECK(GetTimeTuple("2010-4-20 18:15", kDateTimeFmt, time));
+    BOOST_CHECK(IsActive(rules[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2010-5-20 18:15", kDateTimeFmt, time));
+    BOOST_CHECK(IsActive(rules[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2010-4-01 18:15", kDateTimeFmt, time));
+    BOOST_CHECK(!IsActive(rules[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2010-5-22 18:15", kDateTimeFmt, time));
+    BOOST_CHECK(!IsActive(rules[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2010-6-01 18:15", kDateTimeFmt, time));
+    BOOST_CHECK(!IsActive(rules[0], time));
+  }
+  {
+    TRuleSequences rules;
+    BOOST_CHECK(Parse("Apr-Sep Su 14:30-17:00", rules));
+
+    std::tm time{};
+    BOOST_CHECK(GetTimeTuple("2015-04-12 15:35", kDateTimeFmt, time));
+    BOOST_CHECK(IsActive(rules[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015-04-13 15:35", kDateTimeFmt, time));
+    BOOST_CHECK(!IsActive(rules[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015-10-11 15:35", kDateTimeFmt, time));
+    BOOST_CHECK(!IsActive(rules[0], time));
   }
   {
     TRuleSequences rules;
     BOOST_CHECK(Parse("Mo 09:00-06:00", rules));
 
     std::tm time{};
-    auto const fmt = "%Y-%m-%d %H:%M";
-    BOOST_CHECK(GetTimeTuple("2015-11-10 05:35", fmt, time));
+    BOOST_CHECK(GetTimeTuple("2015-11-10 05:35", kDateTimeFmt, time));
     BOOST_CHECK(IsActive(rules[0], time));
 
-    BOOST_CHECK(GetTimeTuple("2015-11-11 05:35", fmt, time));
+    BOOST_CHECK(GetTimeTuple("2015-11-11 05:35", kDateTimeFmt, time));
     BOOST_CHECK(!IsActive(rules[0], time));
 
-    BOOST_CHECK(GetTimeTuple("2015-11-11 06:01", fmt, time));
+    BOOST_CHECK(GetTimeTuple("2015-11-11 06:01", kDateTimeFmt, time));
     BOOST_CHECK(!IsActive(rules[0], time));
   }
   {
@@ -1354,14 +1374,13 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestIsActive)
     BOOST_CHECK(Parse("Mo 09:00-32:00", rules));
 
     std::tm time{};
-    auto const fmt = "%Y-%m-%d %H:%M";
-    BOOST_CHECK(GetTimeTuple("2015-11-10 05:35", fmt, time));
+    BOOST_CHECK(GetTimeTuple("2015-11-10 05:35", kDateTimeFmt, time));
     BOOST_CHECK(IsActive(rules[0], time));
 
-    BOOST_CHECK(GetTimeTuple("2015-11-11 05:35", fmt, time));
+    BOOST_CHECK(GetTimeTuple("2015-11-11 05:35", kDateTimeFmt, time));
     BOOST_CHECK(!IsActive(rules[0], time));
 
-    BOOST_CHECK(GetTimeTuple("2015-11-11 06:01", fmt, time));
+    BOOST_CHECK(GetTimeTuple("2015-11-11 06:01", kDateTimeFmt, time));
     BOOST_CHECK(!IsActive(rules[0], time));
   }
   {
@@ -1369,20 +1388,19 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestIsActive)
     BOOST_CHECK(Parse("Mo 09:00-48:00", rules));
 
     std::tm time{};
-    auto const fmt = "%Y-%m-%d %H:%M";
-    BOOST_CHECK(GetTimeTuple("2015-11-10 05:35", fmt, time));
+    BOOST_CHECK(GetTimeTuple("2015-11-10 05:35", kDateTimeFmt, time));
     BOOST_CHECK(IsActive(rules[0], time));
 
-    BOOST_CHECK(GetTimeTuple("2015-11-10 15:35", fmt, time));
+    BOOST_CHECK(GetTimeTuple("2015-11-10 15:35", kDateTimeFmt, time));
     BOOST_CHECK(IsActive(rules[0], time));
 
-    BOOST_CHECK(GetTimeTuple("2015-11-10 23:35", fmt, time));
+    BOOST_CHECK(GetTimeTuple("2015-11-10 23:35", kDateTimeFmt, time));
     BOOST_CHECK(IsActive(rules[0], time));
 
-    BOOST_CHECK(GetTimeTuple("2015-11-11 05:35", fmt, time));
+    BOOST_CHECK(GetTimeTuple("2015-11-11 05:35", kDateTimeFmt, time));
     BOOST_CHECK(!IsActive(rules[0], time));
 
-    BOOST_CHECK(GetTimeTuple("2015-11-11 06:01", fmt, time));
+    BOOST_CHECK(GetTimeTuple("2015-11-11 06:01", kDateTimeFmt, time));
     BOOST_CHECK(!IsActive(rules[0], time));
   }
 }

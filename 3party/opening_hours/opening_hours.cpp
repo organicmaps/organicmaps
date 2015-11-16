@@ -35,7 +35,7 @@
 namespace
 {
 template <typename T, typename SeparatorExtractor>
-inline void PrintVector(std::ostream & ost, std::vector<T> const & v,
+void PrintVector(std::ostream & ost, std::vector<T> const & v,
                  SeparatorExtractor && sepFunc)
 {
   auto it = begin(v);
@@ -53,12 +53,12 @@ inline void PrintVector(std::ostream & ost, std::vector<T> const & v,
 }
 
 template <typename T>
-inline void PrintVector(std::ostream & ost, std::vector<T> const & v, char const * const sep = ", ")
+void PrintVector(std::ostream & ost, std::vector<T> const & v, char const * const sep = ", ")
 {
   PrintVector(ost, v, [&sep](T const &) { return sep; });
 }
 
-inline void PrintOffset(std::ostream & ost, int32_t const offset, bool const space)
+void PrintOffset(std::ostream & ost, int32_t const offset, bool const space)
 {
   if (offset == 0)
     return;
@@ -92,15 +92,13 @@ class StreamFlagsKeeper
   std::ios_base::fmtflags m_flags;
 };
 
-inline void PrintPaddedNumber(std::ostream & ost,
-                              uint32_t const number,
-                              uint32_t const padding = 1)
+void PrintPaddedNumber(std::ostream & ost, uint32_t const number, uint32_t const padding = 1)
 {
   StreamFlagsKeeper keeper(ost);
   ost << std::setw(padding) << std::setfill('0') << number;
 }
 
-inline void PrintHoursMinutes(std::ostream & ost,
+void PrintHoursMinutes(std::ostream & ost,
                        std::chrono::hours::rep hours,
                        std::chrono::minutes::rep minutes)
 {
@@ -108,10 +106,12 @@ inline void PrintHoursMinutes(std::ostream & ost,
   ost << ':';
   PrintPaddedNumber(ost, minutes, 2);
 }
+
 } // namespace
 
 namespace osmoh
 {
+
 // HourMinutes -------------------------------------------------------------------------------------
 HourMinutes::HourMinutes(THours const duration)
 {
@@ -491,18 +491,21 @@ bool Timespan::HasPeriod() const
 
 bool Timespan::HasExtendedHours() const
 {
-  if (HasStart() && HasEnd() &&
-      GetStart().IsHoursMinutes() &&
-      GetEnd().IsHoursMinutes())
+  bool const canHaveExtendedHours = HasStart() && HasEnd() &&
+                                    GetStart().IsHoursMinutes() &&
+                                    GetEnd().IsHoursMinutes();
+  if (!canHaveExtendedHours)
   {
-    auto const & startHM = GetStart().GetHourMinutes();
-    auto const & endHM = GetEnd().GetHourMinutes();
-    if (endHM.IsExtended())
-      return true;
-    return endHM.GetDurationCount() != 0 && (endHM.GetDuration() < startHM.GetDuration());
+    return false;
   }
 
-  return false;
+  auto const & startHM = GetStart().GetHourMinutes();
+  auto const & endHM = GetEnd().GetHourMinutes();
+
+  if (endHM.IsExtended())
+    return true;
+
+  return endHM.GetDurationCount() != 0 && (endHM.GetDuration() < startHM.GetDuration());
 }
 
 Time const & Timespan::GetStart() const
