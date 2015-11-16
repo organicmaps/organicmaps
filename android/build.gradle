@@ -333,20 +333,18 @@ task cppClean(type: Delete) << {
 }
 
 // Tasks for generating obb files for Google Play
+def unalignedFonts = "${propObbFontsOutput}.unaligned"
+def unalignedWorlds = "${propObbWorldsOutput}.unaligned"
+
 task obbClean(type: Delete) << {
-  delete fileTree(dir: 'build', include: '**/*.obb')
+  delete propObbFontsOutput, propObbWorldsOutput, unalignedFonts, unalignedWorlds
 }
 
-def rawFonts = 'build/fonts_unaligned.obb'
-def rawWorlds = 'build/worlds_unaligned.obb'
-def alignedFonts = 'build/worlds.obb'
-def alignedWorlds = 'build/fonts.obb'
-
 task obbGenerate() {
-  createObbGenerateTask('Main', propObbFonts.split(' '), rawFonts)
-  createObbGenerateTask('Patch', propObbWorlds.split(' '), rawWorlds)
-  createObbAlignTask('Main', rawFonts, alignedWorlds)
-  createObbAlignTask('Patch', rawWorlds, alignedFonts)
+  createObbGenerateTask('Main', propObbFonts.split(' '), unalignedFonts)
+  createObbGenerateTask('Patch', propObbWorlds.split(' '), unalignedWorlds)
+  createObbAlignTask('Main', unalignedFonts, propObbFontsOutput)
+  createObbAlignTask('Patch', unalignedWorlds, propObbWorldsOutput)
 }
 
 obbGenerate.dependsOn obbClean, obbMainGenerate, obbPatchGenerate, obbMainAlign, obbPatchAlign
@@ -373,9 +371,9 @@ task obbPush(dependsOn: ['obbGenerate', 'obbPushMain', 'obbPushPatch']) {
     commandLine android.getAdbExe(), 'shell', 'rm', "${obbPath}*.obb"
   }
   tasks.create(type: Exec, name: 'obbPushMain', dependsOn: 'obbRemoveOnDevice') {
-    commandLine android.getAdbExe(), 'push', alignedFonts, "${obbPath}fonts.obb"
+    commandLine android.getAdbExe(), 'push', propObbWorldsOutput, "${obbPath}fonts.obb"
   }
   tasks.create(type: Exec, name: 'obbPushPatch', dependsOn: 'obbRemoveOnDevice') {
-    commandLine android.getAdbExe(), 'push', alignedWorlds, "${obbPath}worlds.obb"
+    commandLine android.getAdbExe(), 'push', propObbFontsOutput, "${obbPath}worlds.obb"
   }
 }
