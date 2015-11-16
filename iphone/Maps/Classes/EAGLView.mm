@@ -26,6 +26,37 @@
 
 @implementation EAGLView
 
+namespace
+{
+  // returns DPI as exact as possible. It works for iPhone, iPad and iWatch.
+  double getExactDPI()
+  {
+    float const iPadDPI = 132.;
+    float const iPhoneDPI = 163.;
+    float const mDPI = 160;
+    
+    float scale = 1;
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
+    {
+      scale = [[UIScreen mainScreen] scale];
+    }
+    
+    float dpi;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+      dpi = iPadDPI * scale;
+    }
+    else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+      dpi = iPhoneDPI * scale;
+    }
+    else
+    {
+      dpi = mDPI * scale;
+    };
+    return dpi;
+  }
+} //  namespace
 
 // You must implement this method
 + (Class)layerClass
@@ -82,9 +113,12 @@
   NSLog(@"EAGLView initRenderPolicy Started");
   
 #ifndef USE_DRAPE
+  float const dpi = getExactDPI();
+  
   graphics::ResourceManager::Params rmParams;
   rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();
   rmParams.m_texFormat = graphics::Data4Bpp;
+  rmParams.m_exactDensityDPI = dpi;
 
   RenderPolicy::Params rpParams;
 
@@ -104,6 +138,7 @@
     rpParams.m_density = graphics::EDensityIPhone6Plus;
   else
     rpParams.m_density = graphics::EDensityXHDPI;
+  rpParams.m_exactDensityDPI = dpi;
 
   rpParams.m_videoTimer = videoTimer;
   rpParams.m_useDefaultFB = false;
