@@ -429,8 +429,8 @@ extern NSString * const kAlohalyticsTapEventKey;
   swap(_routeSource, _routeDestination);
   [self buildRoute];
   
-  GetFramework().SetRouteStartPoint(_routeSource.Point());
-  GetFramework().SetRouteFinishPoint(_routeDestination.Point());
+  GetFramework().SetRouteStartPoint(self.routeSource.Point());
+  GetFramework().SetRouteFinishPoint(self.routeDestination.Point());
 }
 
 - (void)didStartEditingRoutePoint:(BOOL)isSource
