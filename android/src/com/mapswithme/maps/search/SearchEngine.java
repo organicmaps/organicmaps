@@ -103,7 +103,7 @@ public enum SearchEngine implements NativeSearchListener
     nativeCancelInteractiveSearch();
   }
 
-  public static void showResult(String query, int index)
+  public static void showResult(int index)
   {
     sSavedQuery = "";
     nativeShowResult(index);

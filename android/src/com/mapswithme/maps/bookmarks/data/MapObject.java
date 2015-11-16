@@ -3,7 +3,6 @@ package com.mapswithme.maps.bookmarks.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
-import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 
@@ -188,12 +187,6 @@ public abstract class MapObject implements Parcelable
 
   public static class SearchResult extends MapObject
   {
-    public SearchResult(long index)
-    {
-      super("", 0, 0, "");
-      Framework.injectData(this, index);
-    }
-
     public SearchResult(String name, String type, double lat, double lon)
     {
       super(name, lat, lon, type);
