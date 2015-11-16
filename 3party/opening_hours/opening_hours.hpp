@@ -40,25 +40,25 @@ public:
   using TMinutes = std::chrono::minutes;
 
   HourMinutes() = default;
-  explicit HourMinutes(THours const duration);
-  explicit HourMinutes(TMinutes const duration);
+  explicit HourMinutes(THours const duration) { SetDuration(duration); }
+  explicit HourMinutes(TMinutes const duration) { SetDuration(duration); }
 
-  bool IsEmpty() const;
+  bool IsEmpty() const { return m_empty; }
   bool IsExtended() const;
 
-  THours GetHours() const;
-  TMinutes GetMinutes() const;
-  TMinutes GetDuration() const;
+  THours GetHours() const { return m_hours; }
+  TMinutes GetMinutes() const { return m_minutes; }
+  TMinutes GetDuration() const { return GetMinutes() + GetHours(); }
 
-  THours::rep GetHoursCount() const;
-  TMinutes::rep GetMinutesCount() const;
-  TMinutes::rep GetDurationCount() const;
+  THours::rep GetHoursCount() const { return GetHours().count(); }
+  TMinutes::rep GetMinutesCount() const { return GetMinutes().count(); }
+  TMinutes::rep GetDurationCount() const { return GetDuration().count(); }
 
   void SetHours(THours const hours);
   void SetMinutes(TMinutes const minutes);
   void SetDuration(TMinutes const duration);
 
-  void AddDuration(TMinutes const duration);
+  void AddDuration(TMinutes const duration) { SetDuration(GetDuration() + duration); }
 
 private:
   THours m_hours = THours::zero();
@@ -82,17 +82,17 @@ public:
   };
 
   TimeEvent() = default;
-  TimeEvent(Event const event);
+  TimeEvent(Event const event): m_event(event) {}
 
-  bool IsEmpty() const;
-  bool HasOffset() const;
+  bool IsEmpty() const { return m_event == Event::None; }
+  bool HasOffset() const { return !m_offset.IsEmpty(); }
 
-  Event GetEvent() const;
-  void SetEvent(Event const event);
+  Event GetEvent() const { return m_event; }
+  void SetEvent(Event const event) { m_event = event; }
 
-  HourMinutes const & GetOffset() const;
-  void SetOffset(HourMinutes const & offset);
-  void AddDurationToOffset(HourMinutes::TMinutes const duration);
+  HourMinutes const & GetOffset() const { return m_offset; }
+  void SetOffset(HourMinutes const & offset) { m_offset = offset; }
+  void AddDurationToOffset(HourMinutes::TMinutes const duration) { m_offset.AddDuration(duration); }
 
   Time GetEventTime() const;
 
@@ -117,30 +117,30 @@ class Time
   using TMinutes = HourMinutes::TMinutes;
 
   Time() = default;
-  Time(HourMinutes const & hm);
-  Time(TimeEvent const & te);
+  Time(HourMinutes const & hm) { SetHourMinutes(hm); }
+  Time(TimeEvent const & te) { SetEvent(te); }
 
-  Type GetType() const;
+  bool IsEmpty() const { return GetType() == Type::None; }
+  bool IsTime() const { return IsHoursMinutes() || IsEvent(); }
+  bool IsEvent() const { return GetType() == Type::Event; }
+  bool IsHoursMinutes() const { return GetType() == Type::HourMinutes; }
 
-  THours::rep GetHoursCount() const;
-  TMinutes::rep GetMinutesCount() const;
+  Type GetType() const { return m_type; }
+
+  THours::rep GetHoursCount() const { return GetHours().count(); }
+  TMinutes::rep GetMinutesCount() const { return GetMinutes().count(); }
 
   THours GetHours() const;
   TMinutes GetMinutes() const;
 
   void AddDuration(TMinutes const duration);
 
-  TimeEvent const & GetEvent() const;
+  TimeEvent const & GetEvent() const { return m_event; }
   void SetEvent(TimeEvent const & event);
 
-  HourMinutes const & GetHourMinutes() const;
-  HourMinutes & GetHourMinutes();
+  HourMinutes const & GetHourMinutes() const { return m_hourMinutes; }
+  HourMinutes & GetHourMinutes() { return m_hourMinutes; }
   void SetHourMinutes(HourMinutes const & hm);
-
-  bool IsEmpty() const;
-  bool IsTime() const;
-  bool IsEvent() const;
-  bool IsHoursMinutes() const;
 
  private:
   HourMinutes m_hourMinutes;
@@ -175,13 +175,13 @@ public:
   TimespanPeriod(HourMinutes const & hm);
   TimespanPeriod(HourMinutes::TMinutes const minutes);
 
-  bool IsEmpty() const;
-  bool IsHoursMinutes() const;
-  bool IsMinutes() const;
+  bool IsEmpty() const { return m_type == Type::None; }
+  bool IsHoursMinutes() const { return m_type == Type::HourMinutes; }
+  bool IsMinutes() const { return m_type == Type::Minutes; }
 
-  HourMinutes const & GetHourMinutes() const;
-  HourMinutes::TMinutes GetMinutes() const;
-  HourMinutes::TMinutes::rep GetMinutesCount() const;
+  HourMinutes const & GetHourMinutes() const { return m_hourMinutes; }
+  HourMinutes::TMinutes GetMinutes() const { return m_minutes; }
+  HourMinutes::TMinutes::rep GetMinutesCount() const { return GetMinutes().count(); }
 
 private:
   HourMinutes::TMinutes m_minutes;
@@ -195,28 +195,26 @@ std::ostream & operator<<(std::ostream & ost, TimespanPeriod const p);
 class Timespan
 {
 public:
-  bool IsEmpty() const;
-  bool IsOpen() const;
-  bool HasStart() const;
-  bool HasEnd() const;
-  bool HasPlus() const;
-  bool HasPeriod() const;
+  bool IsEmpty() const { return !HasStart() && !HasEnd(); }
+  bool IsOpen() const { return HasStart() && !HasEnd(); }
+  bool HasStart() const { return !GetStart().IsEmpty(); }
+  bool HasEnd() const { return !GetEnd().IsEmpty(); }
+  bool HasPlus() const { return m_plus; }
+  bool HasPeriod() const { return !m_period.IsEmpty(); }
   bool HasExtendedHours() const;
 
-  Time const & GetStart() const;
-  Time const & GetEnd() const;
+  Time const & GetStart() const { return m_start; }
+  Time const & GetEnd() const { return m_end; }
 
-  Time & GetStart();
-  Time & GetEnd();
+  Time & GetStart() { return m_start; }
+  Time & GetEnd() { return m_end; }
 
-  TimespanPeriod const & GetPeriod() const;
+  TimespanPeriod const & GetPeriod() const { return m_period; }
 
-  void SetStart(Time const & start);
-  void SetEnd(Time const & end);
-  void SetPeriod(TimespanPeriod const & period);
-  void SetPlus(bool const plus);
-
-  bool IsValid() const;
+  void SetStart(Time const & start) { m_start = start; }
+  void SetEnd(Time const & end) { m_end = end; }
+  void SetPeriod(TimespanPeriod const & period) { m_period = period; }
+  void SetPlus(bool const plus) { m_plus = plus; }
 
 private:
   Time m_start;
@@ -243,15 +241,15 @@ public:
     Fifth
   };
 
-  bool IsEmpty() const;
-  bool HasStart() const;
-  bool HasEnd() const;
+  bool IsEmpty() const { return !HasStart() && !HasEnd(); }
+  bool HasStart() const { return GetStart() != NthDayOfTheMonth::None; }
+  bool HasEnd() const { return GetEnd() != NthDayOfTheMonth::None; }
 
-  NthDayOfTheMonth GetStart() const;
-  NthDayOfTheMonth GetEnd() const;
+  NthDayOfTheMonth GetStart() const { return m_start; }
+  NthDayOfTheMonth GetEnd() const { return m_end; }
 
-  void SetStart(NthDayOfTheMonth const s);
-  void SetEnd(NthDayOfTheMonth const e);
+  void SetStart(NthDayOfTheMonth const s) { m_start = s; }
+  void SetEnd(NthDayOfTheMonth const e) { m_end = e; }
 
 private:
   NthDayOfTheMonth m_start = NthDayOfTheMonth::None;
@@ -295,32 +293,33 @@ class WeekdayRange
 public:
   bool HasWday(Weekday const & wday) const;
 
-  bool HasSunday() const;
-  bool HasMonday() const;
-  bool HasTuesday() const;
-  bool HasWednesday() const;
-  bool HasThursday() const;
-  bool HasFriday() const;
-  bool HasSaturday() const;
+  bool HasSunday() const { return HasWday(Weekday::Sunday); }
+  bool HasMonday() const { return HasWday(Weekday::Monday); }
+  bool HasTuesday() const { return HasWday(Weekday::Tuesday); }
+  bool HasWednesday() const { return HasWday(Weekday::Wednesday); }
+  bool HasThursday() const { return HasWday(Weekday::Thursday); }
+  bool HasFriday() const { return HasWday(Weekday::Friday); }
+  bool HasSaturday() const { return HasWday(Weekday::Saturday); }
 
-  bool HasStart() const;
-  bool HasEnd() const;
-  bool HasOffset() const;
-  bool IsEmpty() const;
+  bool HasStart() const { return GetStart() != Weekday::None; }
+  bool HasEnd() const  {return GetEnd() != Weekday::None; }
+  bool HasOffset() const { return GetOffset() != 0; }
+  bool IsEmpty() const { return GetStart() == Weekday::None &&
+                                GetEnd() == Weekday::None; }
 
-  Weekday GetStart() const;
-  Weekday GetEnd() const;
+  Weekday GetStart() const { return m_start; }
+  Weekday GetEnd() const { return m_end; }
 
-  void SetStart(Weekday const & wday);
-  void SetEnd(Weekday const & wday);
+  void SetStart(Weekday const & wday) { m_start = wday; }
+  void SetEnd(Weekday const & wday) { m_end = wday; }
 
-  int32_t GetOffset() const;
-  void SetOffset(int32_t const offset);
+  int32_t GetOffset() const { return m_offset; }
+  void SetOffset(int32_t const offset) { m_offset = offset; }
 
-  bool HasNth() const;
-  TNths const & GetNths() const;
+  bool HasNth() const { return !m_nths.empty(); }
+  TNths const & GetNths() const { return m_nths; }
 
-  void AddNth(NthWeekdayOfTheMonthEntry const & entry);
+  void AddNth(NthWeekdayOfTheMonthEntry const & entry) { m_nths.push_back(entry); }
 
 private:
   Weekday m_start = Weekday::None;
@@ -337,11 +336,11 @@ std::ostream & operator<<(std::ostream & ost, TWeekdayRanges const & ranges);
 class Holiday
 {
 public:
-  bool IsPlural() const;
-  void SetPlural(bool const plural);
+  bool IsPlural() const { return m_plural; }
+  void SetPlural(bool const plural) { m_plural = plural; }
 
-  int32_t GetOffset() const;
-  void SetOffset(int32_t const offset);
+  int32_t GetOffset() const { return m_offset; }
+  void SetOffset(int32_t const offset) { m_offset = offset; }
 
 private:
   bool m_plural = false;
@@ -357,18 +356,18 @@ std::ostream & operator<<(std::ostream & ost, THolidays const & holidys);
 class Weekdays
 {
 public:
-  bool IsEmpty() const;
-  bool HasWeekday() const;
-  bool HasHolidays() const;
+  bool IsEmpty() const { return GetWeekdayRanges().empty() && GetHolidays().empty(); }
+  bool HasWeekday() const { return !GetWeekdayRanges().empty(); }
+  bool HasHolidays() const { return !GetHolidays().empty(); }
 
-  TWeekdayRanges const & GetWeekdayRanges() const;
-  THolidays const & GetHolidays() const;
+  TWeekdayRanges const & GetWeekdayRanges() const { return m_weekdayRanges; }
+  THolidays const & GetHolidays() const { return m_holidays; }
 
-  void SetWeekdayRanges(TWeekdayRanges const ranges);
-  void SetHolidays(THolidays const & holidays);
+  void SetWeekdayRanges(TWeekdayRanges const ranges) { m_weekdayRanges = ranges; }
+  void SetHolidays(THolidays const & holidays) { m_holidays = holidays; }
 
-  void AddWeekdayRange(WeekdayRange const range);
-  void AddHoliday(Holiday const & holiday);
+  void AddWeekdayRange(WeekdayRange const range) { m_weekdayRanges.push_back(range); }
+  void AddHoliday(Holiday const & holiday) { m_holidays.push_back(holiday); }
 
 private:
   TWeekdayRanges m_weekdayRanges;
@@ -380,18 +379,18 @@ std::ostream & operator<<(std::ostream & ost, Weekdays const & weekday);
 class DateOffset
 {
 public:
-  bool IsEmpty() const;
-  bool HasWDayOffset() const;
-  bool HasOffset() const;
+  bool IsEmpty() const { return !HasOffset() && !HasWDayOffset(); }
+  bool HasWDayOffset() const { return m_wdayOffest != Weekday::None; }
+  bool HasOffset() const { return m_offset != 0; }
 
-  bool IsWDayOffsetPositive() const;
+  bool IsWDayOffsetPositive() const { return m_positive; }
 
-  Weekday GetWDayOffset() const;
-  int32_t GetOffset() const;
+  Weekday GetWDayOffset() const { return m_wdayOffest; }
+  int32_t GetOffset() const { return m_offset; }
 
-  void SetWDayOffset(Weekday const wday);
-  void SetOffset(int32_t const offset);
-  void SetWDayOffsetPositive(bool const on);
+  void SetWDayOffset(Weekday const wday) { m_wdayOffest = wday; }
+  void SetOffset(int32_t const offset) { m_offset = offset; }
+  void SetWDayOffsetPositive(bool const on) { m_positive = on; }
 
 private:
   Weekday m_wdayOffest = Weekday::None;
@@ -430,25 +429,25 @@ public:
   using TYear = uint16_t;
   using TDayNum = uint8_t;
 
-  bool IsEmpty() const;
-  bool IsVariable() const;
+  bool IsEmpty() const { return !HasYear() && !HasMonth() && !HasDayNum() && !IsVariable(); }
+  bool IsVariable() const { return GetVariableDate() != VariableDate::None; }
 
-  bool HasYear() const;
-  bool HasMonth() const;
-  bool HasDayNum() const;
-  bool HasOffset() const;
+  bool HasYear() const { return GetYear() != 0; }
+  bool HasMonth() const { return GetMonth() != Month::None; }
+  bool HasDayNum() const { return GetDayNum() != 0; }
+  bool HasOffset() const { return !GetOffset().IsEmpty(); }
 
-  TYear GetYear() const;
-  Month GetMonth() const;
-  TDayNum GetDayNum() const;
-  DateOffset const & GetOffset() const;
-  VariableDate GetVariableDate() const;
+  TYear GetYear() const { return m_year; }
+  Month GetMonth() const { return m_month; }
+  TDayNum GetDayNum() const { return m_daynum; }
+  DateOffset const & GetOffset() const { return m_offset; }
+  VariableDate GetVariableDate() const { return m_variable_date; }
 
-  void SetYear(TYear const year);
-  void SetMonth(Month const month);
-  void SetDayNum(TDayNum const daynum);
-  void SetOffset(DateOffset const & offset);
-  void SetVariableDate(VariableDate const date);
+  void SetYear(TYear const year) { m_year = year; }
+  void SetMonth(Month const month) { m_month = month; }
+  void SetDayNum(TDayNum const daynum) { m_daynum = daynum; }
+  void SetOffset(DateOffset const & offset) { m_offset = offset; }
+  void SetVariableDate(VariableDate const date) { m_variable_date = date; }
 
 private:
   TYear m_year = 0;
@@ -479,20 +478,20 @@ std::ostream & operator<<(std::ostream & ost, MonthDay const md);
 class MonthdayRange
 {
 public:
-  bool IsEmpty() const;
-  bool HasStart() const;
-  bool HasEnd() const;
-  bool HasPeriod() const;
-  bool HasPlus() const;
+  bool IsEmpty() const { return !HasStart() && !HasEnd(); }
+  bool HasStart() const { return !GetStart().IsEmpty(); }
+  bool HasEnd() const { return !GetEnd().IsEmpty() || GetEnd().HasDayNum(); }
+  bool HasPeriod() const { return m_period != 0; }
+  bool HasPlus() const { return m_plus; }
 
-  MonthDay const & GetStart() const;
-  MonthDay const & GetEnd() const;
-  uint32_t GetPeriod() const;
+  MonthDay const & GetStart() const { return m_start; }
+  MonthDay const & GetEnd() const { return m_end; }
+  uint32_t GetPeriod() const { return m_period; }
 
-  void SetStart(MonthDay const & start);
-  void SetEnd(MonthDay const & end);
-  void SetPeriod(uint32_t const period);
-  void SetPlus(bool const plus);
+  void SetStart(MonthDay const & start) { m_start = start; }
+  void SetEnd(MonthDay const & end) { m_end = end; }
+  void SetPeriod(uint32_t const period) { m_period = period; }
+  void SetPlus(bool const plus) { m_plus = plus; }
 
 private:
   MonthDay m_start;
@@ -511,21 +510,21 @@ class YearRange
 public:
   using TYear = uint16_t;
 
-  bool IsEmpty() const;
-  bool IsOpen() const;
-  bool HasStart() const;
-  bool HasEnd() const;
-  bool HasPlus() const;
-  bool HasPeriod() const;
+  bool IsEmpty() const { return !HasStart() && !HasEnd(); }
+  bool IsOpen() const { return HasStart() && !HasEnd(); }
+  bool HasStart() const { return GetStart() != 0; }
+  bool HasEnd() const { return GetEnd() != 0; }
+  bool HasPlus() const { return m_plus; }
+  bool HasPeriod() const { return GetPeriod() != 0; }
 
-  TYear GetStart() const;
-  TYear GetEnd() const;
-  uint32_t GetPeriod() const;
+  TYear GetStart() const { return m_start; }
+  TYear GetEnd() const { return m_end; }
+  uint32_t GetPeriod() const { return m_period; }
 
-  void SetStart(TYear const start);
-  void SetEnd(TYear const end);
-  void SetPlus(bool const plus);
-  void SetPeriod(uint32_t const period);
+  void SetStart(TYear const start) { m_start = start; }
+  void SetEnd(TYear const end) { m_end = end; }
+  void SetPlus(bool const plus) { m_plus = plus; }
+  void SetPeriod(uint32_t const period) { m_period = period; }
 
 private:
   TYear m_start = 0;
@@ -544,19 +543,19 @@ class WeekRange
 public:
   using TWeek = uint8_t;
 
-  bool IsEmpty() const;
-  bool IsOpen() const;
-  bool HasStart() const;
-  bool HasEnd() const;
-  bool HasPeriod() const;
+  bool IsEmpty() const { return !HasStart() && !HasEnd(); }
+  bool IsOpen() const { return HasStart() && !HasEnd(); }
+  bool HasStart() const { return GetStart() != 0; }
+  bool HasEnd() const { return GetEnd() != 0; }
+  bool HasPeriod() const { return GetPeriod() != 0; }
 
-  TWeek GetStart() const;
-  TWeek GetEnd() const;
-  uint32_t GetPeriod() const;
+  TWeek GetStart() const { return m_start; }
+  TWeek GetEnd() const { return m_end; }
+  uint32_t GetPeriod() const { return m_period; }
 
-  void SetStart(TWeek const start);
-  void SetEnd(TWeek const end);
-  void SetPeriod(uint32_t const period);
+  void SetStart(TWeek const start) { m_start = start; }
+  void SetEnd(TWeek const end) { m_end = end; }
+  void SetPeriod(uint32_t const period) { m_period = period; }
 
 private:
   TWeek m_start = 0;
@@ -581,44 +580,45 @@ public:
     Comment
   };
 
-  bool IsEmpty() const;
-  bool IsTwentyFourHours() const;
+  bool IsEmpty() const { return !HasYears() && !HasMonths() && !HasWeeks() &&
+                                !HasWeekdays() && !HasTimes(); }
+  bool IsTwentyFourHours() const { return m_twentyFourHours; }
 
-  bool HasYears() const;
-  bool HasMonths() const;
-  bool HasWeeks() const;
-  bool HasWeekdays() const;
-  bool HasTimes() const;
-  bool HasComment() const;
-  bool HasModifierComment() const;
-  bool HasSeparatorForReadability() const;
+  bool HasYears() const { return !GetYears().empty(); }
+  bool HasMonths() const { return !GetMonths().empty(); }
+  bool HasWeeks() const { return !GetWeeks().empty(); }
+  bool HasWeekdays() const { return !GetWeekdays().IsEmpty(); }
+  bool HasTimes() const { return !GetTimes().empty(); }
+  bool HasComment() const { return !GetComment().empty(); }
+  bool HasModifierComment() const { return !GetModifierComment().empty(); }
+  bool HasSeparatorForReadability() const { return m_separatorForReadability; }
 
-  TYearRanges const & GetYears() const;
-  TMonthdayRanges const & GetMonths() const;
-  TWeekRanges const & GetWeeks() const;
-  Weekdays const & GetWeekdays() const;
-  TTimespans const & GetTimes() const;
+  TYearRanges const & GetYears() const { return m_years; }
+  TMonthdayRanges const & GetMonths() const { return m_months; }
+  TWeekRanges const & GetWeeks() const { return m_weeks; }
+  Weekdays const & GetWeekdays() const { return m_weekdays; }
+  TTimespans const & GetTimes() const { return m_times; }
 
-  std::string const & GetComment() const;
-  std::string const & GetModifierComment() const;
-  std::string const & GetAnySeparator() const;
+  std::string const & GetComment() const { return m_comment; }
+  std::string const & GetModifierComment() const { return m_modifierComment; }
+  std::string const & GetAnySeparator() const { return m_anySeparator; }
 
-  Modifier GetModifier() const;
+  Modifier GetModifier() const { return m_modifier; }
 
-  void SetTwentyFourHours(bool const on);
-  void SetYears(TYearRanges const & years);
-  void SetMonths(TMonthdayRanges const & months);
-  void SetWeeks(TWeekRanges const & weeks);
+  void SetTwentyFourHours(bool const on) { m_twentyFourHours = on; }
+  void SetYears(TYearRanges const & years) { m_years = years; }
+  void SetMonths(TMonthdayRanges const & months) { m_months = months; }
+  void SetWeeks(TWeekRanges const & weeks) { m_weeks = weeks; }
 
-  void SetWeekdays(Weekdays const & weekdays);
-  void SetTimes(TTimespans const & times);
+  void SetWeekdays(Weekdays const & weekdays) { m_weekdays = weekdays; }
+  void SetTimes(TTimespans const & times) { m_times = times; }
 
-  void SetComment(std::string const & comment);
-  void SetModifierComment(std::string & comment);
-  void SetAnySeparator(std::string const & separator);
-  void SetSeparatorForReadability(bool const on);
+  void SetComment(std::string const & comment) { m_comment = comment; }
+  void SetModifierComment(std::string & comment) { m_modifierComment = comment; }
+  void SetAnySeparator(std::string const & separator) { m_anySeparator = separator; }
+  void SetSeparatorForReadability(bool const on) { m_separatorForReadability = on; }
 
-  void SetModifier(Modifier const modifier);
+  void SetModifier(Modifier const modifier) { m_modifier = modifier; }
 
 private:
   bool m_twentyFourHours{false};
