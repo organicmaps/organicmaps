@@ -151,7 +151,7 @@ public class RoutingController
         @Override
         public void run()
         {
-          mLastBuildProgress = (int)progress;
+          mLastBuildProgress = (int) progress;
           updateProgress();
         }
       });
@@ -317,6 +317,12 @@ public class RoutingController
   {
     Log.d(TAG, "start");
 
+    if (!(mStartPoint instanceof MapObject.MyPosition))
+    {
+      suggestRebuildRoute();
+      return;
+    }
+
     setState(State.NAVIGATION);
     Framework.nativeFollowRoute();
 
@@ -325,6 +331,44 @@ public class RoutingController
       mContainer.showRoutePlan(false, null);
       mContainer.showNavigation(true);
     }
+  }
+
+  private void suggestRebuildRoute()
+  {
+    final AlertDialog.Builder builder = new AlertDialog.Builder(mContainer.getActivity())
+        .setCancelable(false)
+        .setNegativeButton(R.string.cancel, null);
+
+    // TODO add correct translations after https://github.com/mapsme/omim/pull/501 is merged
+    builder.setTitle("Navigation is available only from your current location.")
+           .setMessage("Do you want us to plan an alternative route?");
+    if (mEndPoint instanceof MapObject.MyPosition)
+    {
+      builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
+      {
+        @Override
+        public void onClick(DialogInterface dialog, int which)
+        {
+          swapPoints();
+        }
+      });
+    }
+    else
+    {
+      if (LocationHelper.INSTANCE.getMyPosition() == null)
+        builder.setMessage(null).setNegativeButton(null, null);
+
+      builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
+      {
+        @Override
+        public void onClick(DialogInterface dialog, int which)
+        {
+          setStartFromMyPosition();
+        }
+      });
+    }
+
+    builder.show();
   }
 
   private void updatePlan()
@@ -340,8 +384,7 @@ public class RoutingController
     if (mStartButton == null)
       return;
 
-    mStartButton.setEnabled(mState == State.PREPARE &&
-                            mBuildState == BuildState.BUILT);
+    mStartButton.setEnabled(mState == State.PREPARE && mBuildState == BuildState.BUILT);
   }
 
   public void setStartButton(@Nullable View button)
