@@ -62,6 +62,14 @@ public:
   static IsFuelStationChecker const & Instance();
 };
 
+class IsRailwayStationChecker : public BaseChecker
+{
+public:
+  IsRailwayStationChecker();
+
+  static IsRailwayStationChecker const & Instance();
+};
+
 class IsStreetChecker : public BaseChecker
 {
 public:

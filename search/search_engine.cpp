@@ -241,7 +241,7 @@ void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
 
   Results res;
 
-  m_query->SearchCoordinates(params.m_query, res);
+  m_query->SearchCoordinates(res);
 
   try
   {

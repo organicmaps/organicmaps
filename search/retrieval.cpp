@@ -20,7 +20,6 @@
 
 #include "std/algorithm.hpp"
 #include "std/cmath.hpp"
-#include "std/exception.hpp"
 #include "std/limits.hpp"
 
 namespace search
@@ -38,15 +37,6 @@ double const kMaxViewportScaleLevel = scales::GetUpperCountryScale();
 // Otherwise, slow path is used.
 uint64_t constexpr kFastPathThreshold = 100;
 
-// This exception can be thrown by callbacks from deeps of search and
-// geometry retrieval for fast cancellation of time-consuming tasks.
-//
-// TODO (@gorshenin): after merge to master, move this class to
-// base/cancellable.hpp.
-struct CancelException : public exception
-{
-};
-
 unique_ptr<coding::CompressedBitVector> SortFeaturesAndBuildCBV(vector<uint64_t> && features)
 {
   my::SortUnique(features);
@@ -60,14 +50,13 @@ void CoverRect(m2::RectD const & rect, int scale, covering::IntervalsT & result)
   result.insert(result.end(), intervals.begin(), intervals.end());
 }
 
-namespace
-{
+// Retrieves from the search index corresponding to |value| all
+// features matching to |params|.
 template <typename TValue>
 unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
-    MwmSet::MwmHandle const & handle, my::Cancellable const & cancellable,
-    SearchQueryParams const & params)
+    MwmValue * value, my::Cancellable const & cancellable, SearchQueryParams const & params)
 {
-  auto * value = handle.GetValue<MwmValue>();
+  ASSERT(value, ());
   serial::CodingParams codingParams(trie::GetCodingParams(value->GetHeader().GetDefCodingParams()));
   ModelReaderPtr searchReader = value->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
 
@@ -91,33 +80,6 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
 
   MatchFeaturesInTrie(params, *trieRoot, emptyFilter, collector);
   return SortFeaturesAndBuildCBV(move(features));
-}
-}  // namespace
-
-// Retrieves from the search index corresponding to |handle| all
-// features matching to |params|.
-unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(MwmSet::MwmHandle const & handle,
-                                                                my::Cancellable const & cancellable,
-                                                                SearchQueryParams const & params)
-{
-  auto * value = handle.GetValue<MwmValue>();
-  ASSERT(value, ());
-
-  MwmTraits mwmTraits(value->GetMwmVersion().format);
-
-  if (mwmTraits.GetSearchIndexFormat() ==
-      MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter)
-  {
-    using TValue = FeatureWithRankAndCenter;
-    return RetrieveAddressFeaturesImpl<TValue>(handle, cancellable, params);
-  }
-  else if (mwmTraits.GetSearchIndexFormat() ==
-           MwmTraits::SearchIndexFormat::CompressedBitVector)
-  {
-    using TValue = FeatureIndexValue;
-    return RetrieveAddressFeaturesImpl<TValue>(handle, cancellable, params);
-  }
-  return unique_ptr<coding::CompressedBitVector>();
 }
 
 // Retrieves from the geometry index corresponding to handle all
@@ -402,6 +364,29 @@ Retrieval::Bucket::Bucket(MwmSet::MwmHandle && handle)
 // Retrieval ---------------------------------------------------------------------------------------
 Retrieval::Retrieval() : m_index(nullptr), m_featuresReported(0) {}
 
+// static
+unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeatures(
+    MwmValue * value, my::Cancellable const & cancellable, SearchQueryParams const & params)
+{
+  ASSERT(value, ());
+
+  MwmTraits mwmTraits(value->GetMwmVersion().format);
+
+  if (mwmTraits.GetSearchIndexFormat() ==
+      MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter)
+  {
+    using TValue = FeatureWithRankAndCenter;
+    return RetrieveAddressFeaturesImpl<TValue>(value, cancellable, params);
+  }
+  else if (mwmTraits.GetSearchIndexFormat() ==
+           MwmTraits::SearchIndexFormat::CompressedBitVector)
+  {
+    using TValue = FeatureIndexValue;
+    return RetrieveAddressFeaturesImpl<TValue>(value, cancellable, params);
+  }
+  return unique_ptr<coding::CompressedBitVector>();
+}
+
 void Retrieval::Init(Index & index, vector<shared_ptr<MwmInfo>> const & infos,
                      m2::RectD const & viewport, SearchQueryParams const & params,
                      Limits const & limits)
@@ -532,7 +517,8 @@ bool Retrieval::InitBucketStrategy(Bucket & bucket, double scale)
 
   try
   {
-    addressFeatures = RetrieveAddressFeatures(bucket.m_handle, *this /* cancellable */, m_params);
+    addressFeatures = RetrieveAddressFeatures(bucket.m_handle.GetValue<MwmValue>(),
+                                              *this /* cancellable */, m_params);
   }
   catch (CancelException &)
   {

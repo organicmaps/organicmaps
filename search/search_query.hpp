@@ -95,9 +95,11 @@ public:
 
   /// @name Different search functions.
   //@{
-  void Search(Results & res, size_t resCount);
-  void SearchViewportPoints(Results & res);
-  void SearchCoordinates(string const & query, Results & res) const;
+  virtual void Search(Results & res, size_t resCount);
+  virtual void SearchViewportPoints(Results & res);
+
+  // Tries to generate a (lat, lon) result from |m_query|.
+  void SearchCoordinates(Results & res) const;
   //@}
 
   // Get scale level to make geometry index query for current viewport.
@@ -113,7 +115,7 @@ public:
 
   void InitParams(bool localitySearch, SearchQueryParams & params);
 
-private:
+protected:
   enum ViewportID
   {
     DEFAULT_V = -1,
@@ -209,7 +211,7 @@ private:
   storage::CountryInfoGetter const & m_infoGetter;
 
   string m_region;
-  string const * m_query;
+  string m_query;
   buffer_vector<strings::UniString, 32> m_tokens;
   strings::UniString m_prefix;
   set<uint32_t> m_prefferedTypes;
@@ -271,7 +273,7 @@ public:
     kQueuesCount = 2
   };
 
-private:
+protected:
   // The values order should be the same as in
   // g_arrCompare1, g_arrCompare2 function arrays.
   enum

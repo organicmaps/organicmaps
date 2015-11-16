@@ -11,6 +11,7 @@ include($$ROOT_DIR/common.pri)
 HEADERS += \
     algos.hpp \
     approximate_string_match.hpp \
+    dummy_rank_table.hpp \
     feature_offset_match.hpp \
     geometry_utils.hpp \
     house_detector.hpp \
@@ -35,9 +36,16 @@ HEADERS += \
     search_query_params.hpp \
     search_string_intersection.hpp \
     suggest.hpp \
+    v2/features_layer.hpp \
+    v2/features_layer_matcher.hpp \
+    v2/features_layer_path_finder.hpp \
+    v2/geocoder.hpp \
+    v2/search_model.hpp \
+    v2/search_query_v2.hpp \
 
 SOURCES += \
     approximate_string_match.cpp \
+    dummy_rank_table.cpp \
     geometry_utils.cpp \
     house_detector.cpp \
     intermediate_result.cpp \
@@ -55,3 +63,9 @@ SOURCES += \
     search_engine.cpp \
     search_query.cpp \
     search_query_params.cpp \
+    v2/features_layer.cpp \
+    v2/features_layer_matcher.cpp \
+    v2/features_layer_path_finder.cpp \
+    v2/geocoder.cpp \
+    v2/search_model.cpp \
+    v2/search_query_v2.cpp \

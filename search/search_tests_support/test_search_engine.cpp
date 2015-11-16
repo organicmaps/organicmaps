@@ -67,6 +67,16 @@ TestSearchEngine::TestSearchEngine(string const & locale,
 {
 }
 
+TestSearchEngine::TestSearchEngine(string const & locale,
+                                   unique_ptr<storage::CountryInfoGetter> && infoGetter,
+                                   unique_ptr<search::SearchQueryFactory> && factory)
+  : m_platform(GetPlatform())
+  , m_infoGetter(move(infoGetter))
+  , m_engine(*this, m_platform.GetReader(SEARCH_CATEGORIES_FILE_NAME), *m_infoGetter, locale,
+             move(factory))
+{
+}
+
 TestSearchEngine::~TestSearchEngine() {}
 
 weak_ptr<search::QueryHandle> TestSearchEngine::Search(search::SearchParams const & params,

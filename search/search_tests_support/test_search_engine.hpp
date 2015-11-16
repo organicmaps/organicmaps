@@ -27,6 +27,8 @@ class TestSearchEngine : public Index
 public:
   TestSearchEngine(string const & locale);
   TestSearchEngine(string const & locale, unique_ptr<storage::CountryInfoGetter> && infoGetter);
+  TestSearchEngine(string const & locale, unique_ptr<storage::CountryInfoGetter> && infoGetter,
+                   unique_ptr<search::SearchQueryFactory> && factory);
   ~TestSearchEngine();
 
   weak_ptr<search::QueryHandle> Search(search::SearchParams const & params,

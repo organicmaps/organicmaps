@@ -1,5 +1,6 @@
 #include "search/search_query.hpp"
 
+#include "search/dummy_rank_table.hpp"
 #include "search/feature_offset_match.hpp"
 #include "search/geometry_utils.hpp"
 #include "search/indexed_value.hpp"
@@ -133,33 +134,6 @@ public:
   explicit IndexedValue(impl::PreResult2 * v) : m_val(v) {}
 
   impl::PreResult2 const & operator*() const { return *m_val; }
-};
-
-// This dummy rank table is used instead of a normal rank table when
-// the latter can't be loaded. It should not be serialized and can't
-// be loaded.
-class DummyRankTable : public RankTable
-{
-public:
-  // RankTable overrides:
-  uint8_t Get(uint64_t i) const override { return 0; }
-
-  uint64_t Size() const override
-  {
-    NOTIMPLEMENTED();
-    return numeric_limits<uint64_t>::max();
-  }
-
-  Version GetVersion() const override
-  {
-    NOTIMPLEMENTED();
-    return RankTable::VERSION_COUNT;
-  }
-
-  void Serialize(Writer & /* writer */, bool /* preserveHostEndianness */) override
-  {
-    NOTIMPLEMENTED();
-  }
 };
 
 string DebugPrint(IndexedValue const & value)
@@ -508,7 +482,7 @@ void Query::ProcessEmojiIfNeeded(strings::UniString const & token, size_t ind, T
 
 void Query::SetQuery(string const & query)
 {
-  m_query = &query;
+  m_query = query;
 
   /// @todo Why Init is separated with SetQuery?
   ASSERT(m_tokens.empty(), ());
@@ -606,10 +580,10 @@ void Query::SearchViewportPoints(Results & res)
   }
 }
 
-void Query::SearchCoordinates(string const & query, Results & res) const
+void Query::SearchCoordinates(Results & res) const
 {
   double lat, lon;
-  if (MatchLatLonDegree(query, lat, lon))
+  if (MatchLatLonDegree(m_query, lat, lon))
   {
     ASSERT_EQUAL(res.GetCount(), 0, ());
     res.AddResultNoChecks(MakeResult(impl::PreResult2(lat, lon)));
@@ -923,7 +897,7 @@ void Query::GetSuggestion(string const & name, string & suggest) const
   if (!prefixMatched)
     return;
 
-  RemoveStringPrefix(*m_query, suggest);
+  RemoveStringPrefix(m_query, suggest);
 
   // Append unmatched result's tokens to the suggestion.
   for (size_t i = 0; i < vName.size(); ++i)
@@ -1756,7 +1730,7 @@ void Query::SuggestStrings(Results & res)
   int const localesCount = GetCategoryLocales(arrLocales);
 
   string prolog;
-  RemoveStringPrefix(*m_query, prolog);
+  RemoveStringPrefix(m_query, prolog);
 
   for (int i = 0; i < localesCount; ++i)
     MatchForSuggestionsImpl(m_prefix, arrLocales[i], prolog, res);

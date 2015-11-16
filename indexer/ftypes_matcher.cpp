@@ -95,6 +95,17 @@ IsFuelStationChecker const & IsFuelStationChecker::Instance()
   return inst;
 }
 
+IsRailwayStationChecker::IsRailwayStationChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"railway", "station"}));
+}
+
+IsRailwayStationChecker const & IsRailwayStationChecker::Instance()
+{
+  static const IsRailwayStationChecker inst;
+  return inst;
+}
 
 IsStreetChecker::IsStreetChecker()
 {

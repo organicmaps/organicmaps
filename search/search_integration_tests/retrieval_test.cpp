@@ -1,5 +1,11 @@
 #include "testing/testing.hpp"
 
+#include "search/search_integration_tests/test_feature.hpp"
+#include "search/search_integration_tests/test_mwm_builder.hpp"
+#include "search/search_integration_tests/test_results_matching.hpp"
+#include "search/search_integration_tests/test_search_engine.hpp"
+#include "search/search_integration_tests/test_search_request.hpp"
+
 #include "indexer/classificator_loader.hpp"
 #include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
@@ -29,7 +35,6 @@
 #include "std/algorithm.hpp"
 #include "std/initializer_list.hpp"
 #include "std/limits.hpp"
-#include "std/sstream.hpp"
 #include "std/shared_ptr.hpp"
 
 using namespace search::tests_support;
@@ -59,118 +64,6 @@ bool AllMwmsReleased(Index & index)
       return false;
   }
   return true;
-}
-
-class MatchingRule
-{
-public:
-
-  virtual ~MatchingRule() = default;
-
-  virtual bool Matches(FeatureType const & feature) const = 0;
-  virtual string ToString() const = 0;
-};
-
-string DebugPrint(MatchingRule const & rule) { return rule.ToString(); }
-
-class ExactMatch : public MatchingRule
-{
-public:
-  ExactMatch(MwmSet::MwmId const & mwmId, shared_ptr<TestFeature> feature)
-    : m_mwmId(mwmId), m_feature(feature)
-  {
-  }
-
-  // MatchingRule overrides:
-  bool Matches(FeatureType const & feature) const override
-  {
-    if (m_mwmId != feature.GetID().m_mwmId)
-      return false;
-    return m_feature->Matches(feature);
-  }
-
-  string ToString() const override
-  {
-    ostringstream os;
-    os << "ExactMatch [ " << DebugPrint(m_mwmId) << ", " << DebugPrint(*m_feature) << " ]";
-    return os.str();
-  }
-
-private:
-  MwmSet::MwmId m_mwmId;
-  shared_ptr<TestFeature> m_feature;
-};
-
-class AlternativesMatch : public MatchingRule
-{
-public:
-  AlternativesMatch(initializer_list<shared_ptr<MatchingRule>> rules) : m_rules(move(rules)) {}
-
-  // MatchingRule overrides:
-  bool Matches(FeatureType const & feature) const override
-  {
-    for (auto const & rule : m_rules)
-    {
-      if (rule->Matches(feature))
-        return true;
-    }
-    return false;
-  }
-
-  string ToString() const override
-  {
-    ostringstream os;
-    os << "OrRule [ ";
-    for (auto it = m_rules.cbegin(); it != m_rules.cend(); ++it)
-    {
-      os << (*it)->ToString();
-      if (it + 1 != m_rules.cend())
-        os << " | ";
-    }
-    os << " ]";
-    return os.str();
-  }
-
-private:
-  vector<shared_ptr<MatchingRule>> m_rules;
-};
-
-bool MatchResults(Index const & index, vector<shared_ptr<MatchingRule>> rules,
-                  vector<search::Result> const & actual)
-{
-  vector<FeatureID> resultIds;
-  for (auto const & a : actual)
-    resultIds.push_back(a.GetFeatureID());
-  sort(resultIds.begin(), resultIds.end());
-
-  vector<string> unexpected;
-  auto removeMatched = [&rules, &unexpected](FeatureType const & feature)
-  {
-    for (auto it = rules.begin(); it != rules.end(); ++it)
-    {
-      if ((*it)->Matches(feature))
-      {
-        rules.erase(it);
-        return;
-      }
-    }
-    unexpected.push_back(DebugPrint(feature) + " from " + DebugPrint(feature.GetID().m_mwmId));
-  };
-  index.ReadFeatures(removeMatched, resultIds);
-
-  if (rules.empty() && unexpected.empty())
-    return true;
-
-  ostringstream os;
-  os << "Unsatisfied rules:" << endl;
-  for (auto const & e : rules)
-    os << "  " << DebugPrint(*e) << endl;
-  os << "Unexpected retrieved features:" << endl;
-  for (auto const & u : unexpected)
-    os << "  " << u << endl;
-
-  LOG(LWARNING, (os.str()));
-  return false;
 }
 
 void Cleanup(platform::LocalCountryFile const & map)

@@ -535,7 +535,6 @@ namespace ftype
       //{ "addr:streetnumber", "*", [&params](string & k, string & v) { params.AddStreet(Normalize(v)); k.clear(); v.clear(); }},
       //{ "addr:full", "*", [&params](string & k, string & v) { params.AddAddress(Normalize(v)); k.clear(); v.clear(); }},
       { "addr:postcode", "*", [&params](string & k, string & v) { params.AddPostcode(Normalize(v)); k.clear(); v.clear(); }},
-      { "addr:flats", "*", [&params](string & k, string & v) { params.flats = v; k.clear(); v.clear(); }},
 
       { "population", "*", [&params](string & k, string & v)
         {
