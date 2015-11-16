@@ -1,4 +1,4 @@
-#import <Foundation/Foundation.h>
+#import "StatisticsStrings.h"
 
 @interface Statistics : NSObject
 + (bool)isStatisticsEnabledByDefault;

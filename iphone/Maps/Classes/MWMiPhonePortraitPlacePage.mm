@@ -284,6 +284,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 
 - (void)willStartEditingBookmarkTitle
 {
+  [super willStartEditingBookmarkTitle];
   if (self.isHover)
     self.state = MWMiPhonePortraitPlacePageStateHover;
   else

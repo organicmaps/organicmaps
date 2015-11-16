@@ -1,5 +1,6 @@
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageInfoCell.h"
+#import "Statistics.h"
 #import "UIFont+MapsMeFonts.h"
 
 #include "platform/settings.hpp"
@@ -80,9 +81,26 @@ extern NSString * const kUserDefaultsLatLonAsDMSKey;
 
 - (IBAction)cellTap
 {
+  switch (self.type)
+  {
+    case MWMPlacePageMetadataTypeURL:
+    case MWMPlacePageMetadataTypeWebsite:
+      [[Statistics instance] logEvent:kStatPlacePage withParameters:@{kStatAction : kStatOpenSite}];
+      break;
+    case MWMPlacePageMetadataTypeEmail:
+      [[Statistics instance] logEvent:kStatPlacePage withParameters:@{kStatAction : kStatSendEmail}];
+      break;
+    case MWMPlacePageMetadataTypePhoneNumber:
+      [[Statistics instance] logEvent:kStatPlacePage withParameters:@{kStatAction : kStatCallPhoneNumber}];
+      break;
+    case MWMPlacePageMetadataTypeCoordinate:
+      [[Statistics instance] logEvent:kStatPlacePage withParameters:@{kStatAction : kStatToggleCoordinates}];
+      break;
+    default:
+      break;
+  }
   if (self.type != MWMPlacePageMetadataTypeCoordinate)
     return;
-
   NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
   BOOL const showLatLonAsDMS = [defaults boolForKey:kUserDefaultsLatLonAsDMSKey];
   m2::PointD const point = self.currentEntity.point;

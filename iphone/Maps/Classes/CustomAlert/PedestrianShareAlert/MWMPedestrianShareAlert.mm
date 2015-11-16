@@ -9,7 +9,7 @@
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
-static NSString * const kShareEventName = @"pedestrianShareEvent";
+static NSString * const kStatisticsEvent = @"Pedestrian Share Alert";
 
 @interface MWMPedestrianShareAlert ()
 
@@ -27,7 +27,8 @@ static NSString * const kShareEventName = @"pedestrianShareEvent";
 
 + (MWMPedestrianShareAlert *)alert:(BOOL)isFirstLaunch
 {
-  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kShareEventName, @"open"]];
+  [[Statistics instance] logEvent:kStatAlert
+                   withParameters:@{kStatName : kStatisticsEvent, kStatAction : kStatOpen}];
   MWMPedestrianShareAlert * view = [NSBundle.mainBundle loadNibNamed:NSStringFromClass(self.class) owner:self
                                                              options:nil].firstObject;
   view.isFirstLaunch = isFirstLaunch;
@@ -50,8 +51,9 @@ static NSString * const kShareEventName = @"pedestrianShareEvent";
 
 - (IBAction)shareButtonTap
 {
-  [Alohalytics logEvent:kShareEventName withValue:@"shareTap"];
-  [[Statistics instance] logEvent:[NSString stringWithFormat:@"%@shareTap", kShareEventName]];
+  [[Statistics instance] logEvent:kStatAlert
+                   withParameters:@{kStatName : kStatisticsEvent, kStatAction : kStatApply}];
+  [Alohalytics logEvent:kStatisticsEvent withValue:@"shareTap"];
   MWMActivityViewController * shareVC = [MWMActivityViewController shareControllerForPedestrianRoutesToast];
   if (IPAD && !isIOSVersionLessThan(8))
   {
@@ -70,8 +72,9 @@ static NSString * const kShareEventName = @"pedestrianShareEvent";
 
 - (IBAction)doneButtonTap
 {
-  [Alohalytics logEvent:kShareEventName withValue:@"doneTap"];
-  [[Statistics instance] logEvent:[NSString stringWithFormat:@"%@doneTap", kShareEventName]];
+  [[Statistics instance] logEvent:kStatAlert
+                   withParameters:@{kStatName : kStatisticsEvent, kStatAction : kStatClose}];
+  [Alohalytics logEvent:kStatisticsEvent withValue:@"doneTap"];
   [self close];
 }
 

@@ -6,6 +6,7 @@
 #import "MWMSearchHistoryManager.h"
 #import "MWMSearchHistoryMyPositionCell.h"
 #import "MWMSearchHistoryRequestCell.h"
+#import "Statistics.h"
 
 #include "Framework.h"
 
@@ -143,15 +144,23 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   if (isRequestCell)
   {
     search::QuerySaver::TSearchRequest const & query = [self queryAtIndex:isRouteSearch ? indexPath.row - 1 : indexPath.row];
-    [self.delegate searchText:@(query.second.c_str()) forInputLocale:@(query.first.c_str())];
+    NSString * queryText = @(query.second.c_str());
+    [[Statistics instance] logEvent:kStatSearch
+                     withParameters:@{kStatAction : kStatSelectResult, kStatValue : queryText}];
+    [self.delegate searchText:queryText forInputLocale:@(query.first.c_str())];
   }
   else
   {
     if (isRouteSearch)
     {
+      [[Statistics instance]
+                logEvent:kStatSearch
+          withParameters:@{kStatAction : kStatSelectResult, kStatValue : kStatMyPosition}];
       [self.delegate tapMyPositionFromHistory];
       return;
     }
+    [[Statistics instance] logEvent:kStatSearch
+                     withParameters:@{kStatAction : kStatSelectResult, kStatValue : kStatClear}];
     f.ClearSearchHistory();
     MWMSearchTabbedCollectionViewCell * cell = self.cell;
     [UIView animateWithDuration:kDefaultAnimationDuration animations:^

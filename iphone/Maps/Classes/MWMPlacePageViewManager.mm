@@ -14,10 +14,14 @@
 #import "MWMPlacePageNavigationBar.h"
 #import "MWMPlacePageViewManager.h"
 #import "MWMPlacePageViewManagerDelegate.h"
+#import "Statistics.h"
+
+#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "geometry/distance_on_sphere.hpp"
 #include "platform/measurement_utils.hpp"
 
+extern NSString * const kAlohalyticsTapEventKey;
 extern NSString * const kBookmarksChangedNotification;
 
 typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
@@ -186,19 +190,29 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)buildRoute
 {
+  [[Statistics instance] logEvent:kStatPlacePage
+                   withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatDestination}];
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppRoute"];
   m2::PointD const & destination = m_userMark->GetUserMark()->GetOrg();
-  m2::PointD const myPosition ([MapsAppDelegate theApp].m_locationManager.lastLocation.mercator);
-  [self.delegate buildRouteFrom:MWMRoutePoint(myPosition) to:{destination, self.placePage.basePlacePageView.titleLabel.text}];
+  m2::PointD const myPosition([MapsAppDelegate theApp].m_locationManager.lastLocation.mercator);
+  [self.delegate buildRouteFrom:MWMRoutePoint(myPosition)
+                             to:{destination, self.placePage.basePlacePageView.titleLabel.text}];
 }
 
 - (void)routeFrom
 {
+  [[Statistics instance] logEvent:kStatPlacePage
+                   withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatSource}];
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppRoute"];
   [self.delegate buildRouteFrom:self.target];
   [self dismissPlacePage];
 }
 
 - (void)routeTo
 {
+  [[Statistics instance] logEvent:kStatPlacePage
+                   withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatDestination}];
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppRoute"];
   [self.delegate buildRouteTo:self.target];
   [self dismissPlacePage];
 }
@@ -214,6 +228,8 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)share
 {
+  [[Statistics instance] logEvent:kStatPlacePage withParameters:@{kStatAction : kStatShare}];
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppShare"];
   MWMPlacePageEntity * entity = self.entity;
   NSString * title = entity.bookmarkTitle ? entity.bookmarkTitle : entity.title;
   CLLocationCoordinate2D const coord = CLLocationCoordinate2DMake(entity.point.x, entity.point.y);

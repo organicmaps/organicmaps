@@ -8,6 +8,7 @@
 #import "MWMSearchTabbedViewController.h"
 #import "MWMSearchTabButtonsView.h"
 #import "MWMSearchTableViewController.h"
+#import "Statistics.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
@@ -372,15 +373,19 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   switch (state)
   {
   case MWMSearchManagerStateHidden:
+    [[Statistics instance] logEvent:kStatSearchEnteredState withParameters:@{kStatName : kStatClose}];
     [self changeToHiddenState];
     break;
   case MWMSearchManagerStateDefault:
+    [[Statistics instance] logEvent:kStatSearchEnteredState withParameters:@{kStatName : kStatOpen}];
     [self changeToDefaultState];
     break;
   case MWMSearchManagerStateTableSearch:
+    [[Statistics instance] logEvent:kStatSearchEnteredState withParameters:@{kStatName : kStatTable}];
     [self changeToTableSearchState];
     break;
   case MWMSearchManagerStateMapSearch:
+    [[Statistics instance] logEvent:kStatSearchEnteredState withParameters:@{kStatName : kStatMap}];
     [self changeToMapSearchState];
     break;
   }

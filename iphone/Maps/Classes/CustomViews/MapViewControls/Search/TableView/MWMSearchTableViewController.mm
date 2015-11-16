@@ -6,6 +6,7 @@
 #import "MWMSearchSuggestionCell.h"
 #import "MWMSearchTableView.h"
 #import "MWMSearchTableViewController.h"
+#import "Statistics.h"
 #import "ToastView.h"
 
 #include "std/vector.hpp"
@@ -236,7 +237,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   {
     search::Result const & result = [self searchResultForIndexPath:indexPath];
     if (cellType == MWMSearchTableCellTypeSuggestion)
-      [self.delegate searchText:@(result.GetSuggestionString()) forInputLocale:nil];
+    {
+      NSString * suggestionString = @(result.GetSuggestionString());
+      [[Statistics instance]
+                logEvent:kStatSearch
+          withParameters:@{kStatAction : kStatSelectResult, kStatValue : suggestionString}];
+      [self.delegate searchText:suggestionString forInputLocale:nil];
+    }
     else
       [self.delegate processSearchWithResult:result query:make_pair(searchParams.m_inputLocale, searchParams.m_query)];
   }

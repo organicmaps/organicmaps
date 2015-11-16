@@ -4,6 +4,7 @@
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageViewManager.h"
 #import "MWMTextView.h"
+#import "Statistics.h"
 
 extern CGFloat const kBookmarkCellHeight = 136.0;
 
@@ -138,12 +139,14 @@ static NSUInteger sWebViewHeight = 0;
 
 - (IBAction)categoryButtonTap
 {
+  [[Statistics instance] logEvent:kStatPlacePage withParameters:@{kStatAction : kStatChangeBookmarkGroup}];
   [self.placePage changeBookmarkCategory];
   [self.title resignFirstResponder];
 }
 
 - (IBAction)editTap
 {
+  [[Statistics instance] logEvent:kStatPlacePage withParameters:@{kStatAction : kStatChangeBookmarkDescription}];
   [self.placePage changeBookmarkDescription];
   [self.title resignFirstResponder];
 }

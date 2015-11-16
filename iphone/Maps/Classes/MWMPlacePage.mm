@@ -8,11 +8,9 @@
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageViewManager.h"
 #import "SelectSetVC.h"
-
-#import "3party/Alohalytics/src/alohalytics_objc.h"
+#import "Statistics.h"
 
 static NSString * const kPlacePageNibIdentifier = @"PlacePageView";
-extern NSString * const kAlohalyticsTapEventKey;
 static NSString * const kPlacePageViewCenterKeyPath = @"center";
 
 @interface MWMPlacePage ()
@@ -133,13 +131,11 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
 
 - (void)share
 {
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppShare"];
   [self.manager share];
 }
 
 - (void)route
 {
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppRoute"];
   [self.manager buildRoute];
 }
 
@@ -197,6 +193,7 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
 
 - (void)willStartEditingBookmarkTitle
 {
+  [[Statistics instance] logEvent:kStatPlacePage withParameters:@{kStatAction : kStatRename}];
 // This method should be ovverriden.
 }
 
