@@ -28,7 +28,6 @@ namespace graphics
   void convert(char const * name, EDensity & density);
 
   /// get scaling koefficient for specified density
-  double visualScale(EDensity density);
   double visualScaleExact(int exactDensity);
 
   /// When adding values here,

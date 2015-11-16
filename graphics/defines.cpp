@@ -77,12 +77,6 @@ namespace graphics
     density = static_cast<EDensity>(FindFirstBySecond(s_density, name, EqualStrings()));
   }
 
-  double visualScale(EDensity density)
-  {
-    static double const vs [6] = { 0.75, 1, 1.5, 2, 3, 2.4 };
-    return vs[density];
-  }
-
   double visualScaleExact(int exactDensity)
   {
     double const mdpiDensityDPI = 160.;
