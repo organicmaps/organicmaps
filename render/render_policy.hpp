@@ -201,5 +201,6 @@ protected:
 
 RenderPolicy * CreateRenderPolicy(RenderPolicy::Params const & params);
 
-graphics::GlyphCache::Params GetGlyphCacheParams(graphics::EDensity density, size_t cacheMaxSize = 2 * 1024 * 1024);
+graphics::GlyphCache::Params GetGlyphCacheParams(graphics::EDensity density,
+                                                 int exactDensity, size_t cacheMaxSize = 2 * 1024 * 1024);
 graphics::ResourceManager::GlyphCacheParams GetResourceGlyphCacheParams(graphics::EDensity density, size_t cacheMaxSize = 2 * 1024 * 1024);

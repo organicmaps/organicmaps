@@ -363,7 +363,7 @@ void Framework::InitSingleFrameRenderer(graphics::EDensity density, int exactDen
   ASSERT(!IsSingleFrameRendererInited(), ());
   if (m_cpuDrawer == nullptr)
   {
-    CPUDrawer::Params params(GetGlyphCacheParams(density));
+    CPUDrawer::Params params(GetGlyphCacheParams(density, exactDensityDPI));
     params.m_visualScale = graphics::visualScaleExact(exactDensityDPI);
     params.m_density = density;
 

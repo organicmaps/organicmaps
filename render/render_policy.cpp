@@ -40,7 +40,7 @@ RenderPolicy::RenderPolicy(Params const & p,
     m_doForceUpdate(false),
     m_density(p.m_density),
     m_exactDensityDPI(p.m_exactDensityDPI),
-    m_visualScale(graphics::visualScale(p.m_density)),
+    m_visualScale(graphics::visualScaleExact(p.m_exactDensityDPI)),
     m_skinName(p.m_skinName)
 {
   m_bgColors.resize(scales::UPPER_STYLE_SCALE+1);
@@ -341,13 +341,16 @@ RenderPolicy * CreateRenderPolicy(RenderPolicy::Params const & params)
 }
 
 
-graphics::GlyphCache::Params GetGlyphCacheParams(graphics::EDensity density, size_t cacheMaxSize)
+graphics::GlyphCache::Params GetGlyphCacheParams(graphics::EDensity density,
+                                                 int exactDensity,
+                                                 size_t cacheMaxSize)
 {
   return graphics::GlyphCache::Params(UNICODE_BLOCK_FILE,
                                       WHITE_LIST_FILE,
                                       BLACK_LIST_FILE,
                                       cacheMaxSize,
                                       density,
+                                      exactDensity,
                                       false);
 }
 
