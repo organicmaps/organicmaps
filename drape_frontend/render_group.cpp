@@ -23,6 +23,16 @@ void BaseRenderGroup::UpdateAnimation()
   m_uniforms.SetFloatValue("u_opacity", 1.0);
 }
 
+void BaseRenderGroup::Render(const ScreenBase &)
+{
+  ASSERT(m_shader != nullptr, ());
+  ASSERT(m_generalUniforms != nullptr, ());
+
+  m_shader->Bind();
+  dp::ApplyState(m_state, m_shader);
+  dp::ApplyUniforms(*(m_generalUniforms.get()), m_shader);
+}
+
 RenderGroup::RenderGroup(dp::GLState const & state, df::TileKey const & tileKey)
   : TBase(state, tileKey)
   , m_pendingOnDelete(false)
@@ -55,12 +65,8 @@ void RenderGroup::CollectOverlay(ref_ptr<dp::OverlayTree> tree)
 
 void RenderGroup::Render(ScreenBase const & screen)
 {
-  ASSERT(m_shader != nullptr, ());
-  ASSERT(m_generalUniforms != nullptr, ());
+  BaseRenderGroup::Render(screen);
 
-  m_shader->Bind();
-  dp::ApplyState(m_state, m_shader);
-  dp::ApplyUniforms(*(m_generalUniforms.get()), m_shader);
   if (m_state.GetProgramIndex() == gpu::TEXT_PROGRAM)
   {
     m_uniforms.SetFloatValue("u_contrast", 0.05f);
@@ -71,7 +77,7 @@ void RenderGroup::Render(ScreenBase const & screen)
     for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
       renderBucket->Render(screen);
 
-    m_uniforms.SetFloatValue("u_contrast", 0.45f);
+    m_uniforms.SetFloatValue("u_contrast", 0.5f);
     m_uniforms.SetFloatValue("u_gamma", 0.05f);
     m_uniforms.SetFloatValue("u_isOutlinePass", 0.0f);
     dp::ApplyUniforms(m_uniforms, m_shader);
@@ -211,6 +217,8 @@ void UserMarkRenderGroup::UpdateAnimation()
 
 void UserMarkRenderGroup::Render(ScreenBase const & screen)
 {
+  BaseRenderGroup::Render(screen);
+  dp::ApplyUniforms(m_uniforms, m_shader);
   if (m_renderBucket != nullptr)
     m_renderBucket->Render(screen);
 }

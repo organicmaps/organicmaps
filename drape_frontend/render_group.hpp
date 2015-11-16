@@ -32,7 +32,7 @@ public:
   dp::UniformValuesStorage const & GetUniforms() const { return m_uniforms; }
 
   virtual void UpdateAnimation();
-  virtual void Render(ScreenBase const & /*screen*/) {}
+  virtual void Render(ScreenBase const & /*screen*/);
 
 protected:
   dp::GLState m_state;
