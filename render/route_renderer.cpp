@@ -227,19 +227,27 @@ float NormColor(uint8_t value)
 }
 
 RouteRenderer::RouteRenderer()
-  : m_endOfRouteDisplayList(nullptr)
-  , m_arrowDisplayList(nullptr)
+  : m_arrowDisplayList(nullptr)
   , m_distanceFromBegin(0.0)
   , m_needClearGraphics(false)
   , m_needClearData(false)
   , m_waitForConstruction(false)
-{}
+{
+}
 
 RouteRenderer::~RouteRenderer()
 {
   ASSERT(m_routeGraphics.empty(), ());
-  ASSERT(m_endOfRouteDisplayList == nullptr, ());
+  ASSERT(m_startRoutePoint.m_displayList == nullptr, ());
+  ASSERT(m_finishRoutePoint.m_displayList == nullptr, ());
   ASSERT(m_arrowDisplayList == nullptr, ());
+}
+
+void RouteRenderer::SetRoutePoint(m2::PointD const & pt, bool start)
+{
+  RoutePoint & pnt = start ? m_startRoutePoint : m_finishRoutePoint;
+  pnt.m_point = pt;
+  pnt.m_needUpdate = true;
 }
 
 void RouteRenderer::Setup(m2::PolylineD const & routePolyline, vector<double> const & turns, graphics::Color const & color)
@@ -251,9 +259,14 @@ void RouteRenderer::Setup(m2::PolylineD const & routePolyline, vector<double> co
 
   m_turns = turns;
   m_color = color;
-  m_endOfRoutePoint = routePolyline.Back();
   m_distanceFromBegin = 0.0;
   m_polyline = routePolyline;
+
+  if (!m_startRoutePoint.IsVisible())
+    SetRoutePoint(m_polyline.Front(), true /* start */);
+
+  if (!m_finishRoutePoint.IsVisible())
+    SetRoutePoint(m_polyline.Back(), false /* start */);
 
   m_waitForConstruction = true;
 }
@@ -309,10 +322,6 @@ void RouteRenderer::ConstructRoute(graphics::Screen * dlScreen)
   dlScreen->setDisplayList(m_arrowDisplayList);
   dlScreen->drawRouteGeometry(texture, m_arrowsStorage);
 
-  m_endOfRouteDisplayList = dlScreen->createDisplayList();
-  dlScreen->setDisplayList(m_endOfRouteDisplayList);
-  dlScreen->drawSymbol(m_endOfRoutePoint, "route_to", graphics::EPosCenter, 0);
-
   dlScreen->setDisplayList(nullptr);
 
   m_waitForConstruction = false;
@@ -361,17 +370,38 @@ void RouteRenderer::DestroyDisplayLists()
 {
   m_routeGraphics.clear();
 
+  DestroyRoutePointGraphics(true /* start */);
+  DestroyRoutePointGraphics(false /* start */);
+
   if (m_arrowDisplayList != nullptr)
   {
     delete m_arrowDisplayList;
     m_arrowDisplayList = nullptr;
   }
+}
 
-  if (m_endOfRouteDisplayList != nullptr)
+void RouteRenderer::CreateRoutePointGraphics(graphics::Screen * dlScreen, bool start)
+{
+  RoutePoint & pnt = start ? m_startRoutePoint : m_finishRoutePoint;
+  if (pnt.m_needUpdate)
   {
-    delete m_endOfRouteDisplayList;
-    m_endOfRouteDisplayList = nullptr;
+    DestroyRoutePointGraphics(start);
+
+    pnt.m_displayList = dlScreen->createDisplayList();
+    dlScreen->setDisplayList(pnt.m_displayList);
+    dlScreen->drawSymbol(pnt.m_point, start ? "route_from" : "route_to", graphics::EPosCenter, 0);
+    dlScreen->setDisplayList(nullptr);
+
+    pnt.m_needUpdate = false;
   }
+}
+
+void RouteRenderer::DestroyRoutePointGraphics(bool start)
+{
+  if (start)
+    m_startRoutePoint.Reset();
+  else
+    m_finishRoutePoint.Reset();
 }
 
 void RouteRenderer::InterpolateByZoom(ScreenBase const & screen, float & halfWidth, float & alpha, double & zoom) const
@@ -409,44 +439,57 @@ void RouteRenderer::Render(graphics::Screen * dlScreen, ScreenBase const & scree
   if (m_waitForConstruction)
     ConstructRoute(dlScreen);
 
-  if (m_routeGraphics.empty())
-    return;
+  // route points
+  CreateRoutePointGraphics(dlScreen, true /* start */);
+  CreateRoutePointGraphics(dlScreen, false /* start */);
 
-  ASSERT_EQUAL(m_routeGraphics.size(), m_routeData.m_geometry.size(), ());
-
-  // rendering
-  dlScreen->clear(graphics::Color(), false, 1.0f, true);
-
-  // interpolate values by zoom level
-  double zoom = 0.0;
-  float halfWidth = 0.0;
-  float alpha = 0.0;
-  InterpolateByZoom(screen, halfWidth, alpha, zoom);
-
-  // set up uniforms
-  graphics::UniformsHolder uniforms;
-  uniforms.insertValue(graphics::ERouteColor, NormColor(m_color.r), NormColor(m_color.g), NormColor(m_color.b), alpha);
-  uniforms.insertValue(graphics::ERouteHalfWidth, halfWidth, halfWidth * screen.GetScale());
-  uniforms.insertValue(graphics::ERouteClipLength, m_distanceFromBegin);
-
-  // render routes
-  dlScreen->applyRouteStates();
-  for (size_t i = 0; i < m_routeGraphics.size(); ++i)
+  if (!m_routeGraphics.empty())
   {
-    RouteGraphics & graphics = m_routeGraphics[i];
-    if (!screen.ClipRect().IsIntersect(m_routeData.m_boundingBoxes[i]))
-      continue;
+    ASSERT_EQUAL(m_routeGraphics.size(), m_routeData.m_geometry.size(), ());
 
-    size_t const indicesCount = graphics.m_storage.m_indices->size() / sizeof(unsigned short);
-    dlScreen->drawDisplayList(graphics.m_displayList, screen.GtoPMatrix(), &uniforms, indicesCount);
+    // rendering
+    dlScreen->clear(graphics::Color(), false, 1.0f, true);
+
+    // interpolate values by zoom level
+    double zoom = 0.0;
+    float halfWidth = 0.0;
+    float alpha = 0.0;
+    InterpolateByZoom(screen, halfWidth, alpha, zoom);
+
+    // set up uniforms
+    graphics::UniformsHolder uniforms;
+    uniforms.insertValue(graphics::ERouteColor, NormColor(m_color.r), NormColor(m_color.g), NormColor(m_color.b), alpha);
+    uniforms.insertValue(graphics::ERouteHalfWidth, halfWidth, halfWidth * screen.GetScale());
+    uniforms.insertValue(graphics::ERouteClipLength, m_distanceFromBegin);
+
+    // render routes
+    dlScreen->applyRouteStates();
+    for (size_t i = 0; i < m_routeGraphics.size(); ++i)
+    {
+      RouteGraphics & graphics = m_routeGraphics[i];
+      if (!screen.ClipRect().IsIntersect(m_routeData.m_boundingBoxes[i]))
+        continue;
+
+      size_t const indicesCount = graphics.m_storage.m_indices->size() / sizeof(unsigned short);
+      dlScreen->drawDisplayList(graphics.m_displayList, screen.GtoPMatrix(), &uniforms, indicesCount);
+    }
+
+    // render arrows
+    if (zoom >= kArrowAppearingZoomLevel)
+      RenderArrow(dlScreen, halfWidth, screen);
   }
 
-  // render arrows
-  if (zoom >= kArrowAppearingZoomLevel)
-    RenderArrow(dlScreen, halfWidth, screen);
+  if (m_startRoutePoint.IsVisible())
+  {
+    dlScreen->applyStates();
+    dlScreen->drawDisplayList(m_startRoutePoint.m_displayList, screen.GtoPMatrix());
+  }
 
-  dlScreen->applyStates();
-  dlScreen->drawDisplayList(m_endOfRouteDisplayList, screen.GtoPMatrix());
+  if (m_finishRoutePoint.IsVisible())
+  {
+    dlScreen->applyStates();
+    dlScreen->drawDisplayList(m_finishRoutePoint.m_displayList, screen.GtoPMatrix());
+  }
 }
 
 void RouteRenderer::RenderArrow(graphics::Screen * dlScreen, float halfWidth, ScreenBase const & screen)

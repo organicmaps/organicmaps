@@ -92,6 +92,8 @@ public:
                      graphics::Color const & color);
   void ResetRouteTrack();
   void UpdateRouteDistanceFromBegin(double distance);
+  void SetRouteStartPoint(m2::PointD const & pt);
+  void SetRouteFinishPoint(m2::PointD const & pt);
 
 private:
   UserMarkContainer const * FindUserMarksContainer(UserMarkContainer::Type type) const;

@@ -2409,3 +2409,13 @@ void Framework::SetLastUsedRouter(RouterType type)
 {
   Settings::Set(kRouterTypeKey, routing::ToString(type));
 }
+
+void Framework::SetRouteStartPoint(m2::PointD const & pt)
+{
+  m_bmManager.SetRouteStartPoint(pt);
+}
+
+void Framework::SetRouteFinishPoint(m2::PointD const & pt)
+{
+  m_bmManager.SetRouteFinishPoint(pt);
+}
