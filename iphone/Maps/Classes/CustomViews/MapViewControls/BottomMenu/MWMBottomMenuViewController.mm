@@ -341,13 +341,13 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 
 - (void)menuActionDownloadMaps
 {
-  self.state = MWMBottomMenuStateInactive;
+  self.state = self.restoreState;
   [self.delegate actionDownloadMaps];
 }
 
 - (void)menuActionOpenSettings
 {
-  self.state = MWMBottomMenuStateInactive;
+  self.state = self.restoreState;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"settingsAndMore"];
   SettingsAndMoreVC * const vc = [[SettingsAndMoreVC alloc] initWithStyle:UITableViewStyleGrouped];
   [self.controller.navigationController pushViewController:vc animated:YES];
