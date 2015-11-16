@@ -10,6 +10,10 @@
 
 #include "platform/local_country_file.hpp"
 
+#include "storage/country_info_getter.hpp"
+
+#include "map/feature_vec_model.hpp"
+
 /*
  * These tests are developed to simplify routing integration tests writing.
  * You can use the interface bellow however you want but there are some hints.
@@ -36,12 +40,38 @@
  */
 using namespace routing;
 using namespace turns;
+using platform::LocalCountryFile;
 
 typedef pair<shared_ptr<Route>, IRouter::ResultCode> TRouteResult;
 
 namespace integration
 {
-  class IRouterComponents;
+shared_ptr<model::FeaturesFetcher> CreateFeaturesFetcher(vector<LocalCountryFile> const & localFiles);
+
+unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter();
+
+  class IRouterComponents
+  {
+  public:
+    IRouterComponents(vector<LocalCountryFile> const & localFiles)
+      : m_featuresFetcher(CreateFeaturesFetcher(localFiles))
+      , m_infoGetter(CreateCountryInfoGetter())
+    {
+    }
+
+    virtual ~IRouterComponents() = default;
+
+    virtual IRouter * GetRouter() const = 0;
+
+    storage::CountryInfoGetter const & GetCountryInfoGetter() const noexcept
+    {
+      return *m_infoGetter;
+    }
+
+   protected:
+    shared_ptr<model::FeaturesFetcher> m_featuresFetcher;
+    unique_ptr<storage::CountryInfoGetter> m_infoGetter;
+  };
 
   void TestOnlineCrosses(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
                          vector<string> const & expected, IRouterComponents & routerComponents);

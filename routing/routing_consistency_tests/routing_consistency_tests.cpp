@@ -1,0 +1,191 @@
+#include "testing/testing.hpp"
+#include "../routing_integration_tests/routing_test_tools.hpp"
+
+#include "generator/borders_loader.hpp"
+
+#include "storage/country_decl.hpp"
+
+#include "indexer/mercator.hpp"
+
+#include "geometry/point2d.hpp"
+
+#include "base/logging.hpp"
+
+#include "std/string.hpp"
+#include "std/fstream.hpp"
+
+#include "3party/gflags/src/gflags/gflags.h"
+
+
+using namespace routing;
+using storage::CountryInfo;
+
+double constexpr kMinimumRouteDistance = 10000.;
+double constexpr kRouteLengthAccuracy =  0.2;
+
+// Testing stub to make routing test tools linkable.
+static CommandLineOptions g_options;
+CommandLineOptions const & GetTestingOptions() {return g_options;}
+
+DEFINE_string(input_file, "", "File with statistics output.");
+DEFINE_string(data_path, "", "Working directory, 'path_to_exe/../../data' if empty.");
+DEFINE_bool(verbose, false, "Output processed lines to log.");
+DEFINE_uint64(confidence, 5, "Maximum test count for each single mwm file.");
+
+// Information about successful user routing.
+struct UserRoutingRecord
+{
+  m2::PointD start;
+  m2::PointD stop;
+  double distance;
+};
+
+// Parsing value from statistics.
+double GetDouble(string const & incomeString, string const & key)
+{
+  auto it = incomeString.find(key);
+  if (it == string::npos)
+    return 0;
+  auto end = incomeString.find(" ", it);
+  string number = incomeString.substr(it + key.size() + 1 /* key= */, end);
+  return stod(number);
+}
+
+// Decoding statistics line. Returns true if the incomeString is the valid record about
+// OSRM routing attempt.
+bool ParseUserString(string const & incomeString, UserRoutingRecord & result)
+{
+  // Check if it is a proper routing record.
+  auto it = incomeString.find("Routing_CalculatingRoute");
+  if (it == string::npos)
+    return false;
+  it = incomeString.find("result=NoError");
+  if (it == string::npos)
+    return false;
+  it = incomeString.find("name=vehicle");
+  if (it == string::npos)
+    return false;
+  if (GetDouble(incomeString, "startDirectionX") != 0 && GetDouble(incomeString, "startDirectionX") != 0)
+    return false;
+
+  // Extract numbers from a record.
+  result.distance = GetDouble(incomeString, "distance");
+  result.start = MercatorBounds::FromLatLon(GetDouble(incomeString, "startLat"), GetDouble(incomeString, "startLon"));
+  result.stop = MercatorBounds::FromLatLon(GetDouble(incomeString, "finalLat"), GetDouble(incomeString, "finalLon"));
+  return true;
+}
+
+class RouteTester
+{
+public:
+  RouteTester(string const & baseDir) :  m_components(integration::GetOsrmComponents())
+  {
+    CHECK(borders::LoadCountriesList(baseDir, m_countries),
+          ("Error loading country polygons files"));
+  }
+
+  bool BuildRoute(UserRoutingRecord const & record)
+  {
+    auto const result = integration::CalculateRoute(m_components, record.start, m2::PointD::Zero(), record.stop);
+    if (result.second != IRouter::NoError)
+    {
+      LOG(LINFO, ("Can't build the route. Code:", result.second));
+      return false;
+    }
+    auto const delta = record.distance * kRouteLengthAccuracy;
+    auto const routeLength = result.first->GetFollowedPolyline().GetDistanceToEndM();
+    if (std::abs(routeLength - record.distance) < delta)
+      return true;
+
+    LOG(LINFO, ("Route has invalid length. Expected:", record.distance, "have:", routeLength));
+    return false;
+  }
+
+  bool CheckRecord(UserRoutingRecord const & record)
+  {
+    CountryInfo startCountry, finishCountry;
+    m_components.GetCountryInfoGetter().GetRegionInfo(record.start, startCountry);
+    m_components.GetCountryInfoGetter().GetRegionInfo(record.stop, finishCountry);
+    if (startCountry.m_name != finishCountry.m_name || startCountry.m_name.empty())
+      return false;
+
+    if (record.distance < kMinimumRouteDistance)
+      return false;
+
+    if (m_checkedCountries[startCountry.m_name] > FLAGS_confidence)
+      return false;
+
+    return true;
+  }
+
+  bool BuildRouteByRecord(UserRoutingRecord const & record)
+  {
+    CountryInfo startCountry;
+    m_components.GetCountryInfoGetter().GetRegionInfo(record.start, startCountry);
+    m_checkedCountries[startCountry.m_name] += 1;
+    if (!BuildRoute(record))
+    {
+      m_errors[startCountry.m_name] += 1;
+      return false;
+    }
+    return true;
+  }
+
+  void PrintStatistics()
+  {
+    LOG(LINFO, ("Checked", m_checkedCountries.size(), "countries."));
+    LOG(LINFO, ("Found", m_errors.size(), "maps with errors."));
+    for (auto const & record : m_errors)
+    {
+      if (record.second == m_checkedCountries[record.first])
+        LOG(LINFO, ("ERROR!", record.first, " seems to be broken!"));
+      else
+        LOG(LINFO, ("Warning! Country:",record.first, "has", record.second,"errors on", m_checkedCountries[record.first], "checks"));
+    }
+  }
+
+private:
+  borders::CountriesContainerT m_countries;
+  integration::IRouterComponents & m_components;
+
+  map<string, size_t> m_checkedCountries;
+  map<string, size_t> m_errors;
+};
+
+void ReadInput(istream & stream, RouteTester & tester)
+{
+  string line;
+  while (stream.good())
+  {
+    getline(stream, line);
+    strings::Trim(line);
+    if (line.empty())
+      continue;
+    UserRoutingRecord record;
+    if (ParseUserString(line, record))
+      if (tester.CheckRecord(record))
+      {
+        if (FLAGS_verbose)
+          LOG(LINFO, ("Checked", line));
+        tester.BuildRoute(record);
+      }
+  }
+  tester.PrintStatistics();
+}
+
+int main(int argc, char ** argv)
+{
+  google::SetUsageMessage("Check mwm and routing files consistency. Calculating roads from a user statistics.");
+
+  google::ParseCommandLineFlags(&argc, &argv, true);
+
+  g_options.m_dataPath = FLAGS_data_path.c_str();
+  if (FLAGS_input_file.empty())
+    return 1;
+
+  RouteTester tester(FLAGS_data_path);
+  ifstream stream(FLAGS_input_file);
+  ReadInput(stream, tester);
+
+  return 0;
+}

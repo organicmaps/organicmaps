@@ -138,6 +138,10 @@ SUBDIRS = 3party base coding geometry indexer routing
     routing_integration_tests.depends = $$MapDepLibs routing
     SUBDIRS *= routing_integration_tests
 
+    routing_consistency_tests.subdir = routing/routing_consistency_tests
+    routing_consistency_tests.depends =  $$SUBDIRS
+    SUBDIRS *= routing_consistency_tests
+
     # TODO(AlexZ): Move pedestrian tests into routing dir.
     pedestrian_routing_tests.depends = $$MapDepLibs routing
     SUBDIRS *= pedestrian_routing_tests

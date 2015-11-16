@@ -15,8 +15,6 @@
 
 #include "indexer/index.hpp"
 
-#include "storage/country_info_getter.hpp"
-
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
@@ -30,7 +28,6 @@
 
 
 using namespace routing;
-using platform::LocalCountryFile;
 
 namespace
 {
@@ -93,29 +90,6 @@ namespace integration
     unique_ptr<IRouter> router = CreatePedestrianAStarBidirectionalRouter(index, countryFileGetter);
     return shared_ptr<IRouter>(move(router));
   }
-
-  class IRouterComponents
-  {
-  public:
-    IRouterComponents(vector<LocalCountryFile> const & localFiles)
-      : m_featuresFetcher(CreateFeaturesFetcher(localFiles))
-      , m_infoGetter(CreateCountryInfoGetter())
-    {
-    }
-
-    virtual ~IRouterComponents() = default;
-
-    virtual IRouter * GetRouter() const = 0;
-
-    storage::CountryInfoGetter const & GetCountryInfoGetter() const noexcept
-    {
-      return *m_infoGetter;
-    }
-
-   protected:
-    shared_ptr<model::FeaturesFetcher> m_featuresFetcher;
-    unique_ptr<storage::CountryInfoGetter> m_infoGetter;
-  };
 
   class OsrmRouterComponents : public IRouterComponents
   {
