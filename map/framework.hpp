@@ -189,7 +189,7 @@ public:
   };
 
   /// @param density - for Retina Display you must use EDensityXHDPI
-  void InitSingleFrameRenderer(graphics::EDensity density);
+  void InitSingleFrameRenderer(graphics::EDensity density, int exactDensityDPI);
   /// @param center - map center in ercator
   /// @param zoomModifier - result zoom calculate like "base zoom" + zoomModifier
   ///                       if we are have search result "base zoom" calculate that my position and search result

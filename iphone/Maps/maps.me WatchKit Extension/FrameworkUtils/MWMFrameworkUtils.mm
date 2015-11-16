@@ -56,9 +56,10 @@ extern NSString * const kSearchResultPointKey;
 
 + (void)initSoftwareRenderer
 {
+  int const xhdpi = 320;
   Framework & f = GetFramework();
   if (!f.IsSingleFrameRendererInited())
-    f.InitSingleFrameRenderer(graphics::EDensityXHDPI);
+    f.InitSingleFrameRenderer(graphics::EDensityXHDPI, xhdpi);
 }
 
 + (void)releaseSoftwareRenderer

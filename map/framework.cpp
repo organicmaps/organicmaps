@@ -358,13 +358,13 @@ void Framework::DrawSingleFrame(m2::PointD const & center, int zoomModifier,
   m_cpuDrawer->EndFrame(image);
 }
 
-void Framework::InitSingleFrameRenderer(graphics::EDensity density)
+void Framework::InitSingleFrameRenderer(graphics::EDensity density, int exactDensityDPI)
 {
   ASSERT(!IsSingleFrameRendererInited(), ());
   if (m_cpuDrawer == nullptr)
   {
     CPUDrawer::Params params(GetGlyphCacheParams(density));
-    params.m_visualScale = graphics::visualScale(density);
+    params.m_visualScale = graphics::visualScaleExact(exactDensityDPI);
     params.m_density = density;
 
     m_cpuDrawer.reset(new CPUDrawer(params));
@@ -1582,6 +1582,7 @@ void Framework::InitGuiSubsystem()
   if (m_renderPolicy)
   {
     gui::Controller::RenderParams rp(m_renderPolicy->Density(),
+                                     m_renderPolicy->DensityExactDPI(),
                                      bind(&WindowHandle::invalidate,
                                           m_renderPolicy->GetWindowHandle().get()),
                                      m_renderPolicy->GetGlyphCache(),

@@ -36,11 +36,13 @@ namespace gui
     struct RenderParams
     {
       graphics::EDensity m_Density;
+      int m_exactDensityDPI;
       TInvalidateFn m_InvalidateFn;
       graphics::GlyphCache * m_GlyphCache;
       graphics::Screen * m_CacheScreen;
       RenderParams();
       RenderParams(graphics::EDensity density,
+                   int exactDensityDPI,
                    TInvalidateFn invalidateFn,
                    graphics::GlyphCache * glyphCache,
                    graphics::Screen * cacheScreen);
