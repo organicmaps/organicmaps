@@ -116,11 +116,9 @@ class TestRunner:
             
             not_found = filter(not_on_disk, self.runlist)
 
-
         # now let's move the tests that need a server either to the beginning or the end of the tests_to_run list
-
-        tests_with_server = TESTS_REQUIRING_SERVER
-        for test in tests_with_server:
+        tests_with_server = list(TESTS_REQUIRING_SERVER)
+        for test in TESTS_REQUIRING_SERVER:
             if test in tests_to_run:
                 tests_to_run.remove(test)
             else:
@@ -204,10 +202,10 @@ class TestRunner:
         results = dict()
 
         for key in to_run_and_with_server_keys:
-            if key == WITH_SERVER:
+            if key == WITH_SERVER and categorized_tests[WITH_SERVER]:
                 self.start_server()
             results = self.merge_dicts_of_lists(results, self.run_tests(categorized_tests[key]))
-            if key == WITH_SERVER:
+            if key == WITH_SERVER and categorized_tests[WITH_SERVER]:
                 self.stop_server()
 
         self.print_pretty("failed", results[FAILED])

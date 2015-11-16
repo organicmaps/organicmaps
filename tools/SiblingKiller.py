@@ -141,7 +141,7 @@ class SiblingKiller:
 
     def wait_for_server(self):
         for i in range(0, 2):
-            if self.ping(): # unsuccessful ping takes 5 seconds (look at PING_TIMEOUT) 
+            if self.ping(): # unsuccessful ping takes 5 seconds (look at PING_TIMEOUT) iff there is a dead server occupying the port
                 return True
         return False
     
@@ -162,7 +162,7 @@ class SiblingKiller:
     def serving_process_id(self):
         resp = str()
         try:
-            response = urllib2.urlopen('http://localhost:{port}/id'.format(port=PORT), timeout=self.ping_timeout);
+            response = urllib2.urlopen('http://localhost:{port}/id'.format(port=self.port), timeout=self.ping_timeout);
             resp = response.read()
             id = int(resp)
             return id
