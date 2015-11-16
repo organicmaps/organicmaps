@@ -31,6 +31,7 @@ else
 #define ALOHALYTICS_URL ""
 #define FLURRY_KEY ""
 #define MY_TRACKER_KEY ""
+#define MY_TARGET_KEY ""
 #define PARSE_APPLICATION_ID ""
 #define PARSE_CLIENT_KEY ""
 #define MWM_GEOLOCATION_SERVER ""
