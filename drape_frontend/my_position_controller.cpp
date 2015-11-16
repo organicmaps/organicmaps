@@ -372,9 +372,11 @@ void MyPositionController::Assign(location::GpsInfo const & info, bool isNavigab
   if (m_listener)
     m_listener->PositionChanged(Position());
 
-  CreateAnim(oldPos, oldAzimut, screen);
-
-  m_isDirtyViewport = true;
+  if (oldPos != m_position || oldAzimut != m_drawDirection)
+  {
+    CreateAnim(oldPos, oldAzimut, screen);
+    m_isDirtyViewport = true;
+  }
 }
 
 void MyPositionController::Assign(location::CompassInfo const & info, ScreenBase const & screen)
@@ -389,9 +391,12 @@ void MyPositionController::Assign(location::CompassInfo const & info, ScreenBase
   }
 
   SetDirection(info.m_bearing);
-  CreateAnim(oldPos, oldAzimut, screen);
 
-  m_isDirtyViewport = true;
+  if (oldPos != m_position || oldAzimut != m_drawDirection)
+  {
+    CreateAnim(oldPos, oldAzimut, screen);
+    m_isDirtyViewport = true;
+  }
 }
 
 void MyPositionController::SetDirection(double bearing)
