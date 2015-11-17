@@ -138,6 +138,11 @@ m2::PointD Navigator::PtoG(m2::PointD const & pt) const
   return m_Screen.PtoG(pt);
 }
 
+m2::PointD Navigator::P3dtoP(m2::PointD const & pt) const
+{
+  return m_Screen.P3dToP(pt);
+}
+
 bool Navigator::CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
   m2::RectD clipRect = screen.ClipRect();

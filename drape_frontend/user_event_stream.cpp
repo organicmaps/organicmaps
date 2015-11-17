@@ -264,13 +264,11 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
     // Reset current animation if there is any.
     ResetCurrentAnimation();
 
-    m2::PointD glbScaleCenter = m_navigator.PtoG(scaleCenter);
+    m2::PointD glbScaleCenter = m_navigator.PtoG(m_navigator.P3dtoP(scaleCenter));
     if (m_listener)
       m_listener->CorrectGlobalScalePoint(glbScaleCenter);
 
-    ScreenBase screen = GetCurrentScreen();
-    m_navigator.CalculateScale(scaleCenter, factor, screen);
-    m2::PointD offset = GetCurrentScreen().PixelRect().Center() - scaleCenter;
+    m2::PointD const offset = GetCurrentScreen().PixelRect().Center() - m_navigator.P3dtoP(scaleCenter);
 
     auto const creator = [this, &glbScaleCenter, &offset](m2::AnyRectD const & startRect, m2::AnyRectD const & endRect,
                                                           double aDuration, double mDuration, double sDuration)
@@ -278,6 +276,9 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
       m_animation.reset(new ScaleAnimation(startRect, endRect, aDuration, mDuration,
                                            sDuration, glbScaleCenter, offset));
     };
+
+    ScreenBase screen = GetCurrentScreen();
+    m_navigator.CalculateScale(scaleCenter, factor, screen);
 
     return SetRect(screen.GlobalRect(), true, creator);
   }

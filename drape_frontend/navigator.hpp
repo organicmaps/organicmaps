@@ -32,6 +32,7 @@ public:
 
   m2::PointD GtoP(m2::PointD const & pt) const;
   m2::PointD PtoG(m2::PointD const & pt) const;
+  m2::PointD P3dtoP(m2::PointD const & pt) const;
 
   void StartDrag(m2::PointD const & pt);
   void DoDrag(m2::PointD const & pt);

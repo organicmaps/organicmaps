@@ -44,6 +44,7 @@ public:
   ~MyPositionController();
 
   void SetPixelRect(m2::RectD const & pixelRect);
+  void UpdatePixelPosition(ScreenBase const & screen);
   void SetListener(ref_ptr<Listener> listener);
 
   m2::PointD const & Position() const;
@@ -143,6 +144,7 @@ private:
   my::HighResTimer m_lastGPSBearing;
 
   m2::RectD m_pixelRect;
+  m2::PointD m_pixelPosition;
 
   bool m_isVisible;
   bool m_isDirtyViewport;
