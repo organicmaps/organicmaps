@@ -803,4 +803,6 @@
 	<string name="search_history_title">Histórico de Busca</string>
 	<string name="search_history_text">Acesse os termos de busca recentes rapidamente.</string>
 	<string name="clear_search">Limpar histórico de pesquisa</string>
+	<!-- Title for settings to enable/disable showcase menu button -->
+	<string name="showcase_settings_title">Mostrar anúncios</string>
 </resources>

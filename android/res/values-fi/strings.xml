@@ -806,4 +806,6 @@
 	<string name="search_history_title">Hakuhistoria</string>
 	<string name="search_history_text">Siirry nopeasti aikaisempaan hakuun.</string>
 	<string name="clear_search">Poista hakuhistoria</string>
+	<!-- Title for settings to enable/disable showcase menu button -->
+	<string name="showcase_settings_title">Näytä mainokset</string>
 </resources>

@@ -806,4 +806,6 @@
 	<string name="search_history_title">Lịch sử tìm kiếm</string>
 	<string name="search_history_text">Truy cập nhanh chóng đến câu hỏi tìm kiếm gần đây.</string>
 	<string name="clear_search">Xóa Lịch sử Tìm kiếm</string>
+	<!-- Title for settings to enable/disable showcase menu button -->
+	<string name="showcase_settings_title">Hiển thị Quảng cáo</string>
 </resources>

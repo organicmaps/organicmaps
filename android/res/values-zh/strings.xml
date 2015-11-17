@@ -810,4 +810,6 @@
 	<string name="search_history_title">搜索历史。</string>
 	<string name="search_history_text">快速访问最近的搜索查询。</string>
 	<string name="clear_search">清除历史搜索</string>
+	<!-- Title for settings to enable/disable showcase menu button -->
+	<string name="showcase_settings_title">显示广告</string>
 </resources>

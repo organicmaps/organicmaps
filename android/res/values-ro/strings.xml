@@ -803,4 +803,6 @@
 	<string name="search_history_title">Istoricul căutărilor</string>
 	<string name="search_history_text">Accesare rapidă a căutărilor recente.</string>
 	<string name="clear_search">Ștergere istoric de căutare</string>
+	<!-- Title for settings to enable/disable showcase menu button -->
+	<string name="showcase_settings_title">Afișare reclame</string>
 </resources>

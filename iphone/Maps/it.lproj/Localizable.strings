@@ -1334,5 +1334,8 @@
 
 "clear_search" = "Cancella сronologia ricerche";
 
+/* Title for settings to enable/disable showcase menu button */
+"showcase_settings_title" = "Mostra pubblicità";
+
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";

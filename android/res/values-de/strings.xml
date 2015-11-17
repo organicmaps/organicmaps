@@ -801,4 +801,6 @@
 	<string name="search_history_title">Suchverlauf</string>
 	<string name="search_history_text">Schnell auf die letzten Suchanfragen zugreifen.</string>
 	<string name="clear_search">Suchhistorie löschen</string>
+	<!-- Title for settings to enable/disable showcase menu button -->
+	<string name="showcase_settings_title">Werbung anzeigen</string>
 </resources>

@@ -810,4 +810,6 @@
 	<string name="search_history_title">سجل البحث</string>
 	<string name="search_history_text">الوصول إلى استعلامات البحث الحديثة بسرعة.</string>
 	<string name="clear_search">مسح تاريخ البحث</string>
+	<!-- Title for settings to enable/disable showcase menu button -->
+	<string name="showcase_settings_title">إظهار الإعلانات</string>
 </resources>

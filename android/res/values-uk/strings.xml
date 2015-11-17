@@ -809,4 +809,6 @@
 	<string name="search_history_title">Історія пошуку</string>
 	<string name="search_history_text">Швидкий доступ до недавніх результатів пошуку.</string>
 	<string name="clear_search">Очистити історію пошуку</string>
+	<!-- Title for settings to enable/disable showcase menu button -->
+	<string name="showcase_settings_title">Показувати рекламу</string>
 </resources>
