@@ -26,11 +26,8 @@ bool Handle::Update(ScreenBase const & screen)
     m_uniforms.SetFloatValue("u_opacity", 1.0);
 
     auto const & params = df::VisualParams::Instance().GetGlyphVisualParams();
-    m_uniforms.SetFloatValue("u_outlineGlyphParams",
-                             params.m_outlineMinStart, params.m_outlineMinEnd,
-                             params.m_outlineMaxStart, params.m_outlineMaxEnd);
-    m_uniforms.SetFloatValue("u_glyphParams",
-                             params.m_alphaGlyphMin, params.m_alphaGlyphMax);
+    m_uniforms.SetFloatValue("u_contrastGamma", params.m_contrast, params.m_gamma);
+    m_uniforms.SetFloatValue("u_isOutlinePass", 0.0f);
   }
 
   return true;

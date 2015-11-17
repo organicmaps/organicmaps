@@ -69,16 +69,16 @@ void RenderGroup::Render(ScreenBase const & screen)
 
   if (m_state.GetProgramIndex() == gpu::TEXT_PROGRAM)
   {
-    m_uniforms.SetFloatValue("u_contrast", 0.05f);
-    m_uniforms.SetFloatValue("u_gamma", 0.01f);
+    auto const & params = df::VisualParams::Instance().GetGlyphVisualParams();
+
+    m_uniforms.SetFloatValue("u_contrastGamma", params.m_outlineContrast, params.m_outlineGamma);
     m_uniforms.SetFloatValue("u_isOutlinePass", 1.0f);
     dp::ApplyUniforms(m_uniforms, m_shader);
 
     for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
       renderBucket->Render(screen);
 
-    m_uniforms.SetFloatValue("u_contrast", 0.5f);
-    m_uniforms.SetFloatValue("u_gamma", 0.05f);
+    m_uniforms.SetFloatValue("u_contrastGamma", params.m_contrast, params.m_gamma);
     m_uniforms.SetFloatValue("u_isOutlinePass", 0.0f);
     dp::ApplyUniforms(m_uniforms, m_shader);
     for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)

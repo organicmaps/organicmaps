@@ -34,12 +34,10 @@ public:
 
   struct GlyphVisualParams
   {
-    float m_outlineMinStart;
-    float m_outlineMinEnd;
-    float m_outlineMaxStart;
-    float m_outlineMaxEnd;
-    float m_alphaGlyphMin;
-    float m_alphaGlyphMax;
+    float m_contrast;
+    float m_gamma;
+    float m_outlineContrast;
+    float m_outlineGamma;
   };
 
   GlyphVisualParams const & GetGlyphVisualParams() const;
