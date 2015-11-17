@@ -120,7 +120,7 @@ public class RoutingPlanController extends ToolbarController
     if (!ready)
       return;
 
-    RoutingInfo rinfo = Framework.nativeGetRouteFollowingInfo();
+    RoutingInfo rinfo = RoutingController.get().getCachedRoutingInfo();
     mNumbersTime.setText(RoutingController.formatRoutingTime(rinfo.totalTimeInSeconds));
     mNumbersDistance.setText(Utils.formatUnitsText(R.dimen.text_size_routing_number, R.dimen.text_size_routing_dimension,
                                                    rinfo.distToTarget, rinfo.targetUnits));

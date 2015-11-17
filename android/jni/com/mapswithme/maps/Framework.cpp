@@ -1275,6 +1275,15 @@ extern "C"
     android::Platform::RunOnGuiThreadImpl(bind(&::Framework::FollowRoute, frm()));
   }
 
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeDisableFollowing(JNIEnv * env, jclass thiz)
+  {
+    android::Platform::RunOnGuiThreadImpl([]()
+    {
+      (void)g_framework->NativeFramework()->DisableFollowMode();
+    });
+  }
+
   JNIEXPORT jobjectArray JNICALL
   Java_com_mapswithme_maps_Framework_nativeGenerateTurnNotifications(JNIEnv * env, jclass thiz)
   {

@@ -75,6 +75,7 @@ public class RoutingController
 
   private int mLastBuildProgress;
   private int mLastRouterType = Framework.nativeGetLastUsedRouter();
+  private RoutingInfo mCachedRoutingInfo;
 
   @SuppressWarnings("FieldCanBeLocal")
   private final Framework.RoutingListener mRoutingListener = new Framework.RoutingListener()
@@ -91,11 +92,14 @@ public class RoutingController
         {
           if (resultCode == ResultCodesHelper.NO_ERROR)
           {
+            mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
             setBuildState(BuildState.BUILT);
             mLastBuildProgress = 100;
             updatePlan();
             return;
           }
+
+          mCachedRoutingInfo = null;
 
           if (mContainer == null)
             return;
@@ -182,6 +186,10 @@ public class RoutingController
   {
     Log.d(TAG, "[B] State: " + mState + ", BuildState: " + mBuildState + " -> " + newState);
     mBuildState = newState;
+
+    if (mBuildState == BuildState.BUILT &&
+        !(mStartPoint instanceof MapObject.MyPosition))
+      Framework.nativeDisableFollowing();
   }
 
   private void updateProgress()
@@ -484,6 +492,11 @@ public class RoutingController
   public MapObject getEndPoint()
   {
     return mEndPoint;
+  }
+
+  public RoutingInfo getCachedRoutingInfo()
+  {
+    return mCachedRoutingInfo;
   }
 
   private void checkAndBuildRoute()

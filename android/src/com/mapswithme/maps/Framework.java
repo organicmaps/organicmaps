@@ -134,6 +134,8 @@ public class Framework
 
   public native static void nativeFollowRoute();
 
+  public native static void nativeDisableFollowing();
+
   public native static RoutingInfo nativeGetRouteFollowingInfo();
 
   // When an end user is going to a turn he gets sound turn instructions.
