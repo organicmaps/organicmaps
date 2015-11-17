@@ -200,4 +200,10 @@ extern "C"
   {
     g_framework->ApplyWidgets();
   }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MapFragment_nativeCleanWidgets(JNIEnv * env, jclass clazz)
+  {
+    g_framework->CleanWidgets();
+  }
 } // extern "C"

@@ -160,6 +160,7 @@ namespace android
 
     void SetupWidget(gui::EWidget widget, float x, float y, dp::Anchor anchor);
     void ApplyWidgets();
+    void CleanWidgets();
 
     // Fills mapobject's metadata from UserMark
     void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, UserMark const * userMark);

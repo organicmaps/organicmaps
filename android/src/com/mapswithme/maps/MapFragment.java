@@ -17,7 +17,7 @@ public class MapFragment extends BaseMwmFragment
                       implements View.OnTouchListener,
                                  SurfaceHolder.Callback
 {
-  // Should be equal to values from Framework.cpp MultiTouchAction enum
+  // Should correspond to android::MultiTouchAction from Framework.cpp
   private static final int NATIVE_ACTION_UP = 0x01;
   private static final int NATIVE_ACTION_DOWN = 0x02;
   private static final int NATIVE_ACTION_MOVE = 0x03;
@@ -48,6 +48,7 @@ public class MapFragment extends BaseMwmFragment
   private int mWidth;
   private boolean mRequireResize;
   private boolean mEngineCreated;
+  private static boolean sWasCopyrightDisplayed;
 
   public interface MapRenderingListener
   {
@@ -61,15 +62,20 @@ public class MapFragment extends BaseMwmFragment
     mHeight = height;
     mWidth = width;
 
+    nativeCleanWidgets();
+    if (!sWasCopyrightDisplayed)
+    {
+      nativeSetupWidget(WIDGET_COPYRIGHT,
+                        mWidth - UiUtils.dimen(R.dimen.margin_ruler_right),
+                        mHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom),
+                        ANCHOR_RIGHT_BOTTOM);
+      sWasCopyrightDisplayed = true;
+    }
+
     nativeSetupWidget(WIDGET_RULER,
                       mWidth - UiUtils.dimen(R.dimen.margin_ruler_right),
                       mHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom),
                       ANCHOR_RIGHT_BOTTOM);
-
-    nativeSetupWidget(WIDGET_COPYRIGHT,
-                      mWidth / 2,
-                      UiUtils.dimen(R.dimen.margin_base),
-                      ANCHOR_TOP);
 
     if (BuildConfig.DEBUG)
     {
@@ -152,10 +158,8 @@ public class MapFragment extends BaseMwmFragment
   @Override
   public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height)
   {
-    if (!mEngineCreated)
-      return;
-
-    if (!mRequireResize && surfaceHolder.isCreating())
+    if (!mEngineCreated ||
+        (!mRequireResize && surfaceHolder.isCreating()))
       return;
 
     nativeSurfaceChanged(width, height);
@@ -177,10 +181,9 @@ public class MapFragment extends BaseMwmFragment
       // Destroy engine first, then clear the queue that theoretically can be filled by nativeDestroyEngine().
       nativeDestroyEngine();
       MwmApplication.get().clearFunctorsOnUiThread();
-    } else
-    {
-      nativeDetachSurface();
     }
+    else
+      nativeDetachSurface();
   }
 
   @Override
@@ -298,4 +301,5 @@ public class MapFragment extends BaseMwmFragment
   private static native void nativeOnTouch(int actionType, int id1, float x1, float y1, int id2, float x2, float y2, int maskedPointer);
   private static native void nativeSetupWidget(int widget, float x, float y, int anchor);
   private static native void nativeApplyWidgets();
+  private static native void nativeCleanWidgets();
 }

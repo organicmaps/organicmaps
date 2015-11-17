@@ -451,6 +451,11 @@ void Framework::ApplyWidgets()
   m_work.SetWidgetLayout(move(layout));
 }
 
+void Framework::CleanWidgets()
+{
+  m_guiPositions.clear();
+}
+
 void Framework::SetupMeasurementSystem()
 {
   m_work.SetupMeasurementSystem();
