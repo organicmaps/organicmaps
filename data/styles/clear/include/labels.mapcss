@@ -1234,9 +1234,9 @@ node|z18-[addr:housenumber][addr:street]::int_name
 }
 node|z18-[entrance]
 {
-  font-size: 11;
+  font-size: 10;
   text: ref;
-  text-offset-x: 6;
+  text-offset-x: 9;
   z-index: 10;
   text-color: @building_label;
 }

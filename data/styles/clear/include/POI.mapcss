@@ -274,10 +274,12 @@ node|z16-[shop=mall] { icon-image: shop-m.svg; text-offset: 10; font-size: 10; t
 node|z17-[shop=mall] { icon-image: shop-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000;}
 node|z17-[shop=supermarket] { icon-image: grocery-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000;}
 node|z17-[shop=car_repair], area|z17-[shop=car_repair] { icon-image: car-repair-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;  z-index: 25000;}
+
 node|z18-[shop=alcohol] { icon-image: alcohol-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 24000; }
-node|z18-[shop=laundry], area|z18-[shop=laundry] { icon-image:laundry-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000; }
+node|z17-19[shop=laundry], area|z18-[shop=laundry] { icon-image:laundry-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25001; }
 node|z18-[shop=car_repair], area|z18-[shop=car_repair] { icon-image: car-repair-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000; }
 node|z19-[shop], area|z19-[shop] { icon-image: shop-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000;}
+
 
 /* SPORT */
 /* LEISURE */
