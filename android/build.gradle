@@ -47,6 +47,9 @@ def getDate() {
   return formattedDate
 }
 
+project.ext.versionCodes = ['armeabi-v7a': 1, 'x86': 2]
+project.ext.appId = 'com.mapswithme.maps.pro'
+
 android {
   // All properties are read from gradle.properties file
   compileSdkVersion propTargetSdkVersion.toInteger()
@@ -58,7 +61,7 @@ android {
     versionName propVersionName
     minSdkVersion propMinSdkVersion.toInteger()
     targetSdkVersion propTargetSdkVersion.toInteger()
-    applicationId 'com.mapswithme.maps.pro'
+    applicationId project.ext.appId
     buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
     buildConfigField 'String', 'REVIEW_URL', '"market://details?id=com.mapswithme.maps.pro"'
     buildConfigField 'int', 'RATING_THRESHOLD', '5'
@@ -176,13 +179,11 @@ android {
   // Currently (as of 1.2.3 gradle plugin) ABI filters aren't supported inside of product flavors, so we cannot generate splitted builds only for Google build.
   // TODO check that feature when new gradle plugins will appear
   // connected bugreport https://code.google.com/p/android/issues/detail?id=178606
-  splits {
-    abi {
-      enable true
-      reset()
-      include 'x86', 'armeabi-v7a'
-      universalApk true
-    }
+  splits.abi {
+    enable true
+    reset()
+    include 'x86', 'armeabi-v7a'
+    universalApk true
   }
 
   // TODO: Fix a lot of lint errors in our code
@@ -193,12 +194,19 @@ android {
   gradle.projectsEvaluated {
     android.applicationVariants.all { variant ->
       def task = variant.name.capitalize()
-      def runTask = "run$task"
-      def installTask = "install$task"
-      project.task(type: Exec, "${runTask}", dependsOn: "${installTask}") {
-        def component = "$applicationId/com.mapswithme.maps.DownloadResourcesActivity"
-        executable "sh"
-        args "-c", "adb shell am start -n ${component}"
+      project.task(type: Exec, "run${task}", dependsOn: "install${task}") {
+        commandLine android.getAdbExe(), 'shell', 'am', 'start', '-n', "${applicationId}/com.mapswithme.maps.DownloadResourcesActivity"
+      }
+
+      variant.outputs.each { output ->
+        if (output.outputFile != null && output.outputFile.name.endsWith('.apk')) {
+          def file = output.outputFile
+          // version at the end of each built apk
+          output.outputFile = new File(file.parent, file.name.replace(".apk", "-" + android.defaultConfig.versionName + "-" + getDate() + ".apk"))
+          // set different versionCodes for different ABIs
+          int abiVersionCode = project.ext.versionCodes.get(output.getFilter(com.android.build.OutputFile.ABI)) ?: 0
+          output.versionCodeOverride = (abiVersionCode * 1000) + android.defaultConfig.versionCode
+        }
       }
     }
   }
@@ -259,89 +267,49 @@ android {
   }
 }
 
-import com.android.build.OutputFile
-project.ext.versionCodes = ['armeabi-v7a':1, 'x86':2]
+// Tasks needed to compile NDK part
+apply plugin: 'base'
 
-android.applicationVariants.all { variant ->
-  variant.outputs.each { output ->
-    if (output.outputFile != null && output.outputFile.name.endsWith('.apk')) {
-      def file = output.outputFile
-      // version at the end of each built apk
-      output.outputFile = new File(file.parent, file.name.replace(".apk", "-" + android.defaultConfig.versionName + "-" + getDate() + ".apk"))
-      // set different versionCodes for different ABIs
-      int abiVersionCode = project.ext.versionCodes.get(output.getFilter(OutputFile.ABI)) ?: 0
-      output.versionCodeOverride = (abiVersionCode * 1000) + android.defaultConfig.versionCode
-    }
+project.ext.PARAM_PARALLEL_TASK_COUNT = '-j' + (Runtime.runtime.availableProcessors() + 1)
+project.ext.NDK_BUILD = android.getNdkDirectory().toString() + '/ndk-build'
+if (System.properties['os.name'].toLowerCase().contains('windows'))
+  project.ext.NDK_BUILD += ".cmd"
+
+def archs = ['x86', 'armeabi-v7a-hard']
+def buildTypes = [[ndkType: 'release', cppType: "production", flags : propReleaseNdkFlags], [ndkType: 'debug', cppType: "debug", flags : propDebugNdkFlags]]
+
+buildTypes.each { type ->
+  def suffix = type.ndkType.capitalize()
+  createCppBuildTask(type.cppType, '', suffix)
+  createNdkBuildTask(type.ndkType, '', suffix, type.flags)
+
+  archs.each { arch ->
+    suffix = type.ndkType.capitalize() + arch.capitalize()
+    createCppBuildTask(type.cppType, arch, suffix)
+    createNdkBuildTask(type.ndkType, arch, suffix, type.flags)
   }
 }
 
-//@{ Below are tasks needed to compile our NDK part
-apply plugin: 'base'
-
-task cppLibsBuildDebug(type: Exec, description: 'Building DEBUG version of static C++ libraries') {
-  commandLine 'bash', '../tools/autobuild/android.sh', 'debug'
+def createCppBuildTask(buildType, arch, suffix) {
+  return tasks.create(name: "cppBuild${suffix}", type: Exec, description: "Building ${buildType} version of static C++ libraries. Arch : ${arch}") {
+    def args = ['bash', '../tools/autobuild/android.sh', buildType]
+    if (!arch.isEmpty())
+      args += arch
+    commandLine args
+  }
 }
 
-task cppLibsBuildDebugArm(type: Exec, description: 'Building DEBUG version of static C++ libraries (ARM only)') {
-  commandLine 'bash', '../tools/autobuild/android.sh', 'debug', 'armeabi-v7a-hard'
+def createNdkBuildTask(buildType, arch, suffix, flags) {
+  return tasks.create(name: "ndkBuild${suffix}", dependsOn: "cppBuild${suffix}", type: Exec, description: "Building ${buildType} version of jni. Arch : ${arch}") {
+    def ndkParams = ([project.ext.NDK_BUILD, project.ext.PARAM_PARALLEL_TASK_COUNT] + flags.split(' ')).flatten()
+    if (!arch.isEmpty())
+      ndkParams += "NDK_ABI_TO_BUILD=${arch}"
+    commandLine ndkParams
+  }
 }
 
-task cppLibsBuildDebugIntel(type: Exec, description: 'Building DEBUG version of static C++ libraries (x86 only)') {
-  commandLine 'bash', '../tools/autobuild/android.sh', 'debug', 'x86'
-}
-
-task cppLibsBuildRelease(type: Exec, description: 'Building RELEASE/PRODUCTION version of static C++ libraries') {
-  commandLine 'bash', '../tools/autobuild/android.sh', 'production'
-}
-
-task cppLibsBuildReleaseArm(type: Exec, description: 'Building RELEASE/PRODUCTION version of static C++ libraries (ARM only)') {
-  commandLine 'bash', '../tools/autobuild/android.sh', 'production', 'armeabi-v7a-hard'
-}
-
-task cppLibsBuildReleaseIntel(type: Exec, description: 'Building RELEASE/PRODUCTION version of static C++ libraries (x86 only)') {
-  commandLine 'bash', '../tools/autobuild/android.sh', 'production', 'x86'
-}
-
-def PARAM_PARALLEL_TASK_COUNT = '-j' + (Runtime.runtime.availableProcessors() + 1)
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-def NDK_BUILD = properties.getProperty('ndk.dir') + '/ndk-build'
-
-if (System.properties['os.name'].toLowerCase().contains('windows'))
-  NDK_BUILD += ".cmd"
-
-task ndkBuildDebug(type: Exec, dependsOn: 'cppLibsBuildDebug', description: 'Building DEBUG jni sources') {
-  def clArgs = ([NDK_BUILD, PARAM_PARALLEL_TASK_COUNT] + propDebugNdkFlags.split(' ')).flatten()
-  commandLine clArgs
-}
-
-task ndkBuildDebugArm(type: Exec, dependsOn: 'cppLibsBuildDebugArm', description: 'Building DEBUG jni sources (ARM only)') {
-  def clArgs = ([NDK_BUILD, PARAM_PARALLEL_TASK_COUNT, 'NDK_ABI_TO_BUILD=armeabi-v7a-hard'] + propDebugNdkFlags.split(' ')).flatten()
-  commandLine clArgs
-}
-
-task ndkBuildDebugIntel(type: Exec, dependsOn: 'cppLibsBuildDebugIntel', description: 'Building DEBUG jni sources (x86 only)') {
-  def clArgs = ([NDK_BUILD, PARAM_PARALLEL_TASK_COUNT, 'NDK_ABI_TO_BUILD=x86'] + propDebugNdkFlags.split(' ')).flatten()
-  commandLine clArgs
-}
-
-task ndkBuildRelease(type: Exec, dependsOn: 'cppLibsBuildRelease', description: 'Building RELEASE/PRODUCTION jni sources') {
-  def clArgs = ([NDK_BUILD, PARAM_PARALLEL_TASK_COUNT] + propReleaseNdkFlags.split(' ')).flatten()
-  commandLine clArgs
-}
-
-task ndkBuildReleaseArm(type: Exec, dependsOn: 'cppLibsBuildReleaseArm', description: 'Building RELEASE/PRODUCTION jni sources (ARM only)') {
-  def clArgs = ([NDK_BUILD, PARAM_PARALLEL_TASK_COUNT, 'NDK_ABI_TO_BUILD=armeabi-v7a-hard'] + propReleaseNdkFlags.split(' ')).flatten()
-  commandLine clArgs
-}
-
-task ndkBuildReleaseIntel(type: Exec, dependsOn: 'cppLibsBuildReleaseIntel', description: 'Building RELEASE/PRODUCTION jni sources (x86 only)') {
-  def clArgs = ([NDK_BUILD, PARAM_PARALLEL_TASK_COUNT, 'NDK_ABI_TO_BUILD=x86'] + propReleaseNdkFlags.split(' ')).flatten()
-  commandLine clArgs
-}
-
-task ndkBuildClean(type: Exec, description: 'Clean native libraries') {
-  commandLine NDK_BUILD, 'clean'
+task ndkBuildClean(type: Exec, description: 'Clean native jni libraries') {
+  commandLine project.ext.NDK_BUILD, 'clean'
 }
 
 tasks.withType(JavaCompile) { compileTask ->
@@ -352,4 +320,60 @@ tasks.withType(JavaCompile) { compileTask ->
   }
 }
 
-clean.dependsOn 'ndkBuildClean'
+// NOTE : it does NOT clean built cpp static libs. cppClean does.
+clean.dependsOn ndkBuildClean
+
+// Cleans built native static libs.
+task cppClean(type: Delete) << {
+  buildTypes.each { type ->
+    archs.each { arch ->
+      delete "../../omim-android-${type.cppType}-${arch}"
+    }
+  }
+}
+
+// Tasks for generating obb files for Google Play
+def unalignedFonts = "${propObbFontsOutput}.unaligned"
+def unalignedWorlds = "${propObbWorldsOutput}.unaligned"
+
+task obbClean(type: Delete) << {
+  delete propObbFontsOutput, propObbWorldsOutput, unalignedFonts, unalignedWorlds
+}
+
+task obbGenerate() {
+  createObbGenerateTask('Main', propObbFonts.split(' '), unalignedFonts)
+  createObbGenerateTask('Patch', propObbWorlds.split(' '), unalignedWorlds)
+  createObbAlignTask('Main', unalignedFonts, propObbFontsOutput)
+  createObbAlignTask('Patch', unalignedWorlds, propObbWorldsOutput)
+}
+
+obbGenerate.dependsOn obbClean, obbMainGenerate, obbPatchGenerate, obbMainAlign, obbPatchAlign
+
+def createObbGenerateTask(type, data, name) {
+  return tasks.create(name: "obb${type}Generate", type: Exec, description: 'Generate obb files') {
+    commandLine ((['zip', '-0', '-j', name, data]).flatten())
+  }
+}
+
+def createObbAlignTask(type, rawObb, alignedObb) {
+  def sdkDir = "${android.getSdkDirectory().getAbsolutePath()}"
+  def zipalignPath = sdkDir + File.separator + "build-tools" + File.separator +
+                     propBuildToolsVersion + File.separator + "zipalign";
+
+  return tasks.create(name: "obb${type}Align", dependsOn: "obb${type}Generate", type: Exec, description: 'Align obb files') {
+    commandLine zipalignPath, '-v', '8', rawObb, alignedObb
+  }
+}
+
+task obbPush(dependsOn: ['obbGenerate', 'obbPushMain', 'obbPushPatch']) {
+  def obbPath = "/mnt/sdcard/Android/obb/${project.ext.appId}/"
+  tasks.create(type: Exec, name: 'obbRemoveOnDevice') {
+    commandLine android.getAdbExe(), 'shell', 'rm', "${obbPath}*.obb"
+  }
+  tasks.create(type: Exec, name: 'obbPushMain', dependsOn: 'obbRemoveOnDevice') {
+    commandLine android.getAdbExe(), 'push', propObbWorldsOutput, "${obbPath}fonts.obb"
+  }
+  tasks.create(type: Exec, name: 'obbPushPatch', dependsOn: 'obbRemoveOnDevice') {
+    commandLine android.getAdbExe(), 'push', propObbFontsOutput, "${obbPath}worlds.obb"
+  }
+}
