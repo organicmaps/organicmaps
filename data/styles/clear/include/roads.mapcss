@@ -27,20 +27,19 @@ line|z7-[highway=unclassified],
 line|z7-[highway=living_street] {
 	z-index: 700;
 }
-line|z14[highway=service],
-
 
 line|z14[highway=track],
 line|z14[highway=path],
 line|z14[route=hiking],
 line|z14[highway=track][tracktype=grade1],
 
-{  z-index: 600;}
+{ z-index: 600;}
 
 
 /*line|z7-[highway=service] {
 	z-index: 650;
-}*/
+}
+
 line|z7-[highway=footway],
 line|z7-[highway=path] {
 	z-index: 600;
@@ -63,14 +62,17 @@ line|z13[highway=construction]
 
 line|z7-[highway=trunk_link],
 line|z7-[highway=motorway_link],
+{z-index: 890;}
 line|z7-[highway=primary_link],
+{z-index: 840;}
 line|z7-[highway=secondary_link],
+{z-index: 790;}
 line|z7-[highway=tertiary_link],
 line|z7-[highway=residential_link],
-line|z7-[highway=track],
-line|z7-[highway=bridleway] {
-	z-index: 500;
-}
+{z-index: 740;}
+
+*/
+
 
 /* ZOOM 7 */
 
@@ -312,7 +314,7 @@ line|z13[highway=trunk_link]
 {
   color: @trunk_orange_light;
   width: 2.8;
-  z-index: 500;
+  z-index: 890;
 }
 
 line|z13[highway=primary]
@@ -364,9 +366,9 @@ line|z13[highway=pedestrian]
 {
   color: @pedestrian;
   width: 1;
-  dashes: 1,0.5;
+  dashes: 2,1;
   opacity: 1;
-  z-index: 550;
+  z-index: 660;
 }
 
 line|z13[highway=cycleway]
@@ -385,7 +387,7 @@ line|z13[highway=construction]
   opacity: 1;
   width: 1.2;
   dashes: 4,2;
-  z-index: 500;
+  z-index: 450;
 }
 
 /* ZOOM 14 */
@@ -500,9 +502,9 @@ line|z14[highway=pedestrian]
 {
   color: @pedestrian;
   width: 1.6;
-  dashes: 4,1.6;
+  dashes: 4,2;
   opacity: 1;
-  z-index: 550;
+  z-index: 660;
 }
 
 line|z14[highway=service]
@@ -510,7 +512,7 @@ line|z14[highway=service]
   color: @unclassified;
   width: 0.7;
   opacity: 0;
-  z-index: 600;
+  z-index: 650;
 }
 
 line|z14[highway=track][tracktype=grade1],
@@ -685,9 +687,9 @@ line|z15[highway=pedestrian]
 {
   color: @pedestrian;
   width: 2;
-  dashes: 6,3;
+  dashes: 4,2;
   opacity: 1;
-  z-index: 550;
+  z-index: 660;
 }
 line|z15[highway=service]
 {
@@ -695,7 +697,7 @@ line|z15[highway=service]
   width: 1.2;
   opacity: 1;
   z-index: 10;
-  z-index: 600;
+  z-index: 650;
 }
 
 line|z15[highway=service][service=driveway]
@@ -727,7 +729,7 @@ line|z15[highway=bridleway]
   opacity: 1;
   dashes: 3,1.4;
   width: 1.4;
-  z-index: 560;
+  z-index: 590;
 }
 
 
@@ -893,16 +895,16 @@ line|z16[highway=service]
   color: @unclassified;
   width: 1.6;
   opacity: 1;
-  z-index: 600;
+  z-index: 650;
 }
 
 line|z16[highway=pedestrian]
 {
   color: @pedestrian;
   width: 2.4;
-  dashes: 6,3;
+  dashes: 4,2;
   opacity: 1;
-  z-index: 550;
+  z-index: 660;
 }
 
 
@@ -954,7 +956,7 @@ line|z16[highway=bridleway]
   opacity: 1;
   dashes: 4,2;
   width: 1.8;
-  z-index: 560;
+  z-index: 590;
 }
 
 
@@ -1114,15 +1116,15 @@ line|z17[highway=road]
 {
   color: @unclassified;
   width: 6;
-  z-index: 600;
+  z-index: 700;
 }
 
 line|z17[highway=pedestrian]
 {
   color: @pedestrian;
   width: 3;
-  dashes: 10,4;
-  z-index: 550;
+  dashes: 8,4;
+  z-index: 660;
 }
 
 line|z17[highway=unclassified][tunnel?],
@@ -1166,7 +1168,7 @@ line|z17[highway=service]
 {
   color: @unclassified;
   width: 2;
-  z-index: 600;
+  z-index: 650;
 }
 
 line|z17[highway=track][tracktype=grade1],
@@ -1350,7 +1352,7 @@ line|z18[highway=road]
 {
   color: @unclassified;
   width: 9;
-  z-index: 600;
+  z-index: 700;
 }
 
 line|z18[highway=pedestrian]
@@ -1358,7 +1360,7 @@ line|z18[highway=pedestrian]
   color: @pedestrian;
    width: 4;
    dashes: 12,6;
-   z-index: 550;
+   z-index: 660;
 }
 
 line|z18[highway=unclassified][tunnel?],
@@ -1402,7 +1404,7 @@ line|z18[highway=service]
 {
   color: @unclassified;
   width: 3;
-  z-index: 600;
+  z-index: 650;
 }
 
 line|z18[highway=track][tracktype=grade1],
@@ -1587,7 +1589,7 @@ line|z19-[highway=road]
 {
   color: @unclassified;
   width: 12;
-  z-index: 600;
+  z-index: 700;
 }
 
 line|z19-[highway=pedestrian]
@@ -1595,7 +1597,7 @@ line|z19-[highway=pedestrian]
   color: @pedestrian;
    width: 5;
    dashes: 18,9;
-   z-index: 550;
+   z-index: 660;
 }
 
 line|z19-[highway=unclassified][tunnel?],
@@ -1639,7 +1641,7 @@ line|z19-[highway=service]
 {
   color: @unclassified;
   width: 4;
-  z-index: 600;
+  z-index: 650;
 }
 
 line|z19-[highway=track][tracktype=grade1],

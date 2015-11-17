@@ -7,6 +7,7 @@ area|z11-[place=hamlet] {
 fill-color: @background;
 }
 */
+
 /* PIER */
 area|z12-[man_made=pier],
 area|z12-[man_made=breakwater],
@@ -14,24 +15,24 @@ area|z12-[man_made=breakwater],
  {
   fill-color: @background;
   fill-opacity: 1;
-  z-index: 1000;
+  z-index: 120;
 }
 
 line|z14-[man_made=pier],
 line|z14-[man_made=breakwater]
-{ casing-width: 0.3;
+{ casing-width: 2;
   casing-color: @background;
   fill-color: @background;
  fill-opacity: 1;
- z-index: 1000;
+ z-index: 120;
 }
 line|z17-[man_made=pier],
 line|z17-[man_made=breakwater]
-{ casing-width: 1;
+{ casing-width: 2;
   casing-color: @background;
   fill-color: @background;
  fill-opacity: 1;
- z-index: 1000;
+ z-index: 120;
 }
 
 /* PEDESTRIAN AREAS */
@@ -45,7 +46,7 @@ area|z14-[area:highway=living_street],
   fill-color: @pedestrian_area;
   fill-position: background;
   fill-opacity: 1;
-  z-index: 550;
+  z-index: 44;
 }
 
 area|z16-[highway=pedestrian][area?],
@@ -58,62 +59,78 @@ area|z16-[area:highway=living_street],
   fill-color: @pedestrian_area_light;
   fill-position: background;
   fill-opacity: 1;
-  z-index: 550;
+  z-index: 44;
 }
 
 
 /* INDUSTRIAL */
 
 
-area|z15-[landuse=industrial]
+area|z15-[landuse=industrial],
 area|z15-[landuse=construction]{
   fill-color: @industrial;
   fill-position: background;
   fill-opacity: 1;
-  z-index: -100;
+  z-index: 3;
 }
 
 
 /* CEMETRY */
 
 area|z14[landuse=cemetery] {
-  fill-color: @park;
+  fill-color: @green2;
   fill-opacity: 0.85;
-  z-index: -5000;
+  z-index: 43;
   fill-position: background;
 }
 area|z14[amenity=grave_yard] {
-  fill-color: @park;
+  fill-color: @green2;
   fill-opacity: 0.85;
-  z-index: -5000;
+  z-index: 43;
   fill-position: background;
 }
 area|z15-[amenity=grave_yard],
 area|z15-[landuse=cemetery] {
-  fill-color: @park;
+  fill-color: @green2;
   fill-opacity: 1;
-  z-index: -10000;
+  z-index: 43;
+  fill-position: background;
+}
+area|z16-[amenity=grave_yard],
+area|z16-[landuse=cemetery] {
+  fill-color: @green3;
+  fill-opacity: 1;
+  z-index: 43;
   fill-position: background;
 }
 
-
 /* UNIVERSITY */
+
 area|z14-15[amenity=university] {
   fill-color: @unversity;
   fill-opacity: 1;
   fill-position: background;
+  z-index: 1;
 }
+/*area|z15[amenity=university] {
+  fill-color: @unversity;
+  fill-opacity: 1;
+  fill-position: background;
+  z-index: -10;
+}*/
 
 area|z16-17[amenity=university] {
   fill-color: @unversity;
   fill-opacity: 1;
   fill-position: background;
+  z-index: 1;
 }
 
 area|z18-[amenity=university] {
   fill-color: @unversity;
   fill-position: background;
   fill-opacity: 1;
+  z-index: 1;
 }
 
 area|z16-[leisure=pitch],
@@ -123,7 +140,7 @@ area|z17-[leisure=playground]  {
   fill-color: @sport;
   fill-position: background;
   fill-opacity: 1;
-  z-index: 0;
+  z-index: 5;
 }
 
 /* hospital*/
@@ -131,18 +148,25 @@ area|z17-[leisure=playground]  {
 area|z14-15[amenity=hospital] {
   fill-color: @hospital;
   fill-opacity: 1;
-  fill-position: background
+  fill-position: background;
+  z-index: 2;
 
 }
 area|z16-[amenity=hospital] {
   fill-color: @hospital;
   fill-opacity: 1;
   fill-position: background;
+  z-index: 2;
 
 }
-/* PARKINGS*/
+area|z16-[amenity=place_of_worship]
+{
+ fill-color: @pedestrian;
+ fill-opacity: 1;
+ fill-position: background;
+ z-index: 210;
 
-
+}
 /* MILITARY */
 /* area|z14[landuse=military] {
   fill-color: ;

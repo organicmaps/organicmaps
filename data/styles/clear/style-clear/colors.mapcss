@@ -132,9 +132,9 @@
 @label_light: #444444;
 @label_extra_light: #7F7F7F;
 
-@label_halo_bg: #DDDDCC;
-@label_halo_dark: #DDDDCC;
-@label_halo_medium: #EEEEDD;
+@label_halo_bg: #E3E1D2;
+@label_halo_dark: #E3E1D2;
+@label_halo_medium: #EDEBDB;
 @label_halo_light: #FFFFFF;
 
 
@@ -173,7 +173,7 @@
 @label_halo: #FFFFFF;
 
 /* OTHER LABELS */
-@building_label: #7F7F7F;
+@building_label: #656565;
 
 /* PISTE */
 @piste: #C47AFF;

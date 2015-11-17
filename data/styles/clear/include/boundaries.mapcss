@@ -3,21 +3,21 @@ line|z2[boundary=administrative][admin_level=2]
   color: @border_country;
   width: 0.5;
   opacity: 0.7;
-  z-index: 400;
+  z-index: 130;
 }
 line|z3[boundary=administrative][admin_level=2]
 {
   color: @border_country;
   width: 0.5;
   opacity: 0.8;
-  z-index: 400;
+  z-index: 130;
 }
 line|z4[boundary=administrative][admin_level=2]
 {
   color: @border_country;
   width: 0.6;
   opacity: 1;
-  z-index: 400;
+  z-index: 130;
 }
 
 line|z5[boundary=administrative][admin_level=2]
@@ -25,6 +25,7 @@ line|z5[boundary=administrative][admin_level=2]
   color: @border_country;
   width: 0.8;
   opacity: 1;
+  z-index: 130;
 }
 
 line|z6[boundary=administrative][admin_level=2]
@@ -32,18 +33,21 @@ line|z6[boundary=administrative][admin_level=2]
   color: @border_country;
   width: 0.85;
   opacity: 1;
+  z-index: 130;
 }
-line|z7-[boundary=administrative][admin_level=2]
+line|z7[boundary=administrative][admin_level=2]
 {
   color: @border_country;
   width: 1;
   opacity: 1;
+  z-index: 130;
 }
-line|z8-[boundary=administrative][admin_level=2]
+line|z8[boundary=administrative][admin_level=2]
 {
   color: @border_country;
   width: 1.1;
   opacity: 1;
+  z-index: 130;
 }
 
 line|z4[boundary=administrative][admin_level=3]
@@ -51,7 +55,7 @@ line|z4[boundary=administrative][admin_level=3]
   color: @border_region;
   width: 0.8;
   opacity: 1;
-  z-index: 400;
+  z-index: 130;
   dashes: 1,0.4;
 }
 
@@ -60,7 +64,7 @@ line|z5[boundary=administrative][admin_level=4]
   color: @border_region;
   width: 0.7;
   opacity: 0.8;
-  z-index: 380;
+  z-index: 130;
   dashes: 1.5,1;
 }
 line|z6[boundary=administrative][admin_level=4]
@@ -68,7 +72,7 @@ line|z6[boundary=administrative][admin_level=4]
   color: @border_region;
   width: 0.8;
   opacity: 1;
-  z-index: 380;
+  z-index: 130;
   dashes: 1,0.5;
 }
 line|z7[boundary=administrative][admin_level=4]
@@ -76,23 +80,23 @@ line|z7[boundary=administrative][admin_level=4]
   color: @border_region;
   width: 0.9;
   opacity: 1;
-  z-index: 380;
+  z-index: 130;
   dashes: 2,1;
 }
-line|z8-[boundary=administrative][admin_level=4]
+line|z8[boundary=administrative][admin_level=4]
 {
   color: @border_region;
   width: 0.9;
   opacity: 1;
-  z-index: 400;
+  z-index: 130;
   dashes: 1.6,1.6;
 }
-line|z9-[boundary=administrative][admin_level=4]
+line|z9[boundary=administrative][admin_level=4]
 {
   color: @border_region;
   width: 1;
   opacity: 1;
-  z-index: 400;
+  z-index: 130;
   dashes: 2,1;
 }
 
@@ -101,12 +105,15 @@ line|z10-[boundary=administrative][admin_level=4]
   color: @border_region;
   width: 1.2;
   opacity: 1;
-  z-index: 400;
+  z-index: 130;
   dashes: 2,1;
 }
-
-/* DEBUG */
-/* line|z2-[boundary=administrative][admin_level=2] {
-  color: red;
-  width: 1;
-} */
+/*
+line|z12-[boundary=administrative][admin_level=4]
+{
+  color: @border_region;
+  width: 1.2;
+  opacity: 1;
+  z-index: 130;
+}
+*/
