@@ -80,6 +80,10 @@ namespace graphics
   double visualScaleExact(int exactDensity)
   {
     double const mdpiDensityDPI = 160.;
+    // For some old devices (for example iPad 2) the density could be less than 160 DPI.
+    // Returns one in that case to keep readable text on the map.
+    if (exactDensity <= mdpiDensityDPI)
+      return 1.;
     return exactDensity / mdpiDensityDPI;
   }
 
