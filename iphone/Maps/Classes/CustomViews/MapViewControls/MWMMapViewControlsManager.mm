@@ -74,6 +74,11 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 #pragma mark - Layout
 
+- (void)refreshLayout
+{
+  [self.menuController refreshLayout];
+}
+
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
                                 duration:(NSTimeInterval)duration
 {

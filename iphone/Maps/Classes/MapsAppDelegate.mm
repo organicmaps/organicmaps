@@ -252,6 +252,7 @@ void InitLocalizedStrings()
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
+  [self.mapViewController.appWallAd close];
   [RouteState save];
 }
 

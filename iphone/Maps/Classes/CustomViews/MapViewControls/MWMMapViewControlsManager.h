@@ -22,6 +22,8 @@
 
 #pragma mark - Layout
 
+- (void)refreshLayout;
+
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
                                 duration:(NSTimeInterval)duration;
 - (void)viewWillTransitionToSize:(CGSize)size

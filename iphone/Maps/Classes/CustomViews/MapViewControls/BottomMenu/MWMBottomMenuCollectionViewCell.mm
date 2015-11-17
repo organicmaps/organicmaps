@@ -4,25 +4,28 @@
 
 @interface MWMBottomMenuCollectionViewCell ()
 
-@property(weak, nonatomic) IBOutlet UILabel * label;
-@property(weak, nonatomic) IBOutlet UIView * badgeBackground;
-@property(weak, nonatomic) IBOutlet UILabel * badgeCount;
-@property(weak, nonatomic) IBOutlet UIView * separator;
+@property (weak, nonatomic) IBOutlet UILabel * label;
+@property (weak, nonatomic) IBOutlet UIView * badgeBackground;
+@property (weak, nonatomic) IBOutlet UILabel * badgeCount;
+@property (weak, nonatomic) IBOutlet UIView * separator;
 
-@property(nonatomic) BOOL isWideMenu;
+@property (nonatomic) BOOL isWideMenu;
 
-@property(copy, nonatomic) NSString * iconName;
+@property (nonatomic) UIImage * image;
+@property (nonatomic) UIImage * highlightedImage;
 
 @end
 
 @implementation MWMBottomMenuCollectionViewCell
 
-- (void)configureWithIconName:(NSString *)iconName
-                        label:(NSString *)label
-                   badgeCount:(NSUInteger)badgeCount
+- (void)configureWithImage:(UIImage *)image
+          highlightedImage:(UIImage *)highlightedImage
+                     label:(NSString *)label
+                badgeCount:(NSUInteger)badgeCount
 {
-  self.iconName = iconName;
-  self.icon.image = [UIImage imageNamed:iconName];
+  self.image = image;
+  self.highlightedImage = highlightedImage;
+  self.icon.image = image;
   self.label.text = label;
   if (badgeCount > 0)
   {
@@ -38,10 +41,19 @@
   [self highlighted:NO];
 }
 
+- (void)configureWithImageName:(NSString *)imageName
+                         label:(NSString *)label
+                    badgeCount:(NSUInteger)badgeCount
+{
+  [self configureWithImage:[UIImage imageNamed:imageName]
+          highlightedImage:[UIImage imageNamed:[imageName stringByAppendingString:@"_press"]]
+                     label:label
+                badgeCount:badgeCount];
+}
+
 - (void)highlighted:(BOOL)highlighted
 {
-  NSString * pressed = highlighted ? @"_press" : @"";
-  self.icon.image = [UIImage imageNamed:[self.iconName stringByAppendingString:pressed]];
+  self.icon.image = highlighted ? self.highlightedImage : self.image;
   self.label.textColor = highlighted ? [UIColor blackHintText] : [UIColor blackPrimaryText];
 }
 

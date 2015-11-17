@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * mainButtonWidth;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * separatorWidth;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * additionalButtonsWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * additionalButtonsHeight;
 
 @property(weak, nonatomic) IBOutlet UIView * downloadBadge;
 
@@ -38,7 +39,10 @@
 - (void)awakeFromNib
 {
   [super awakeFromNib];
-  self.additionalButtons.hidden = self.goButton.hidden = self.streetLabel.hidden = self.downloadBadge.hidden = YES;
+  self.additionalButtons.hidden = YES;
+  self.downloadBadge.hidden = YES;
+  self.goButton.hidden = YES;
+  self.streetLabel.hidden = YES;
   self.restoreState = MWMBottomMenuStateInactive;
 }
 
@@ -75,34 +79,46 @@
     break;
   case MWMBottomMenuStateInactive:
     self.backgroundColor = [UIColor menuBackground];
-    self.p2pButton.alpha = self.searchButton.alpha = self.bookmarksButton.alpha = 1.0;
+    self.bookmarksButton.alpha = 1.0;
     self.downloadBadge.alpha = 1.0;
     self.goButton.alpha = 0.0;
+    self.p2pButton.alpha = 1.0;
+    self.searchButton.alpha = 1.0;
     self.streetLabel.alpha = 0.0;
     break;
   case MWMBottomMenuStateActive:
     self.backgroundColor = [UIColor whiteColor];
-    self.p2pButton.alpha = self.searchButton.alpha = self.bookmarksButton.alpha = 1.0;
+    self.bookmarksButton.alpha = 1.0;
     self.downloadBadge.alpha = 0.0;
     self.goButton.alpha = 0.0;
+    self.p2pButton.alpha = 1.0;
+    self.searchButton.alpha = 1.0;
     self.streetLabel.alpha = 0.0;
     break;
   case MWMBottomMenuStateCompact:
     if (!IPAD)
-      self.p2pButton.alpha = self.searchButton.alpha = self.bookmarksButton.alpha = 0.0;
+    {
+      self.bookmarksButton.alpha = 0.0;
+      self.p2pButton.alpha = 0.0;
+      self.searchButton.alpha = 0.0;
+    }
     self.downloadBadge.alpha = 0.0;
     self.goButton.alpha = 0.0;
     self.streetLabel.alpha = 0.0;
     break;
   case MWMBottomMenuStatePlanning:
   case MWMBottomMenuStateGo:
-    self.p2pButton.alpha = self.searchButton.alpha = self.bookmarksButton.alpha = 0.0;
+    self.bookmarksButton.alpha = 0.0;
     self.goButton.alpha = 1.0;
+    self.p2pButton.alpha = 0.0;
+    self.searchButton.alpha = 0.0;
     self.streetLabel.alpha = 0.0;
     break;
   case MWMBottomMenuStateText:
-    self.p2pButton.alpha = self.searchButton.alpha = self.bookmarksButton.alpha = 0.0;
+    self.bookmarksButton.alpha = 0.0;
     self.goButton.alpha = 0.0;
+    self.p2pButton.alpha = 0.0;
+    self.searchButton.alpha = 0.0;
     self.streetLabel.alpha = 1.0;
     break;
   }
@@ -115,8 +131,9 @@
   case MWMBottomMenuStateHidden:
     break;
   case MWMBottomMenuStateInactive:
-    self.separator.hidden = self.additionalButtons.hidden = YES;
+    self.additionalButtons.hidden = YES;
     self.goButton.hidden = YES;
+    self.separator.hidden = YES;
     self.streetLabel.hidden = YES;
     break;
   case MWMBottomMenuStateActive:
@@ -126,21 +143,29 @@
     break;
   case MWMBottomMenuStateCompact:
     if (!IPAD)
-      self.p2pButton.hidden = self.searchButton.hidden = self.bookmarksButton.hidden = YES;
+    {
+      self.bookmarksButton.hidden = YES;
+      self.p2pButton.hidden = YES;
+      self.searchButton.hidden = YES;
+    }
     self.downloadBadge.hidden = YES;
     self.goButton.hidden = YES;
     self.streetLabel.hidden = YES;
     break;
   case MWMBottomMenuStatePlanning:
   case MWMBottomMenuStateGo:
-    self.p2pButton.hidden = self.searchButton.hidden = self.bookmarksButton.hidden = YES;
     [self.goButton setBackgroundColor:[UIColor linkBlue] forState:UIControlStateNormal];
     [self.goButton setBackgroundColor:[UIColor linkBlueDark] forState:UIControlStateHighlighted];
+    self.bookmarksButton.hidden = YES;
+    self.p2pButton.hidden = YES;
+    self.searchButton.hidden = YES;
     self.streetLabel.hidden = YES;
     break;
   case MWMBottomMenuStateText:
-    self.p2pButton.hidden = self.searchButton.hidden = self.bookmarksButton.hidden = YES;
+    self.bookmarksButton.hidden = YES;
     self.goButton.hidden = YES;
+    self.p2pButton.hidden = YES;
+    self.searchButton.hidden = YES;
     self.streetLabel.hidden = NO;
     break;
   }
@@ -169,14 +194,27 @@
   case MWMBottomMenuStatePlanning:
   case MWMBottomMenuStateGo:
   case MWMBottomMenuStateText:
-    self.separator.height = self.additionalButtons.height = 0.0;
+    self.additionalButtonsHeight.constant = 0.0;
+    self.separator.height = 0.0;
     break;
   case MWMBottomMenuStateActive:
-    self.additionalButtons.height = self.width > self.layoutThreshold ? 64.0 : 148.0;
+    {
+      BOOL const isLandscape = self.width > self.layoutThreshold;
+      if (isLandscape)
+      {
+        self.additionalButtonsHeight.constant = 64.0;
+      }
+      else
+      {
+        NSUInteger const additionalButtonsCount = [self.additionalButtons numberOfItemsInSection:0];
+        CGFloat const buttonHeight = 52.0;
+        self.additionalButtonsHeight.constant = additionalButtonsCount * buttonHeight;
+      }
+    }
     break;
   }
   CGFloat const width = MIN(self.superview.width - self.leftBound, self.superview.width);
-  CGFloat const height = self.mainButtons.height + self.separator.height + self.additionalButtons.height;
+  CGFloat const height = self.mainButtons.height + self.separator.height + self.additionalButtonsHeight.constant;
   self.frame = {{self.superview.width - width, self.superview.height - height}, {width, height}};
   self.mainButtonWidth.constant = self.separatorWidth.constant = self.additionalButtonsWidth.constant = width;
 }
@@ -285,8 +323,11 @@
   case MWMBottomMenuStateActive:
     self.restoreState = _state;
     [self updateMenuButtonFromState:_state toState:state];
-    self.separator.hidden = self.additionalButtons.hidden = NO;
-    self.p2pButton.hidden = self.searchButton.hidden = self.bookmarksButton.hidden = NO;
+    self.additionalButtons.hidden = NO;
+    self.bookmarksButton.hidden = NO;
+    self.p2pButton.hidden = NO;
+    self.searchButton.hidden = NO;
+    self.separator.hidden = NO;
     break;
   case MWMBottomMenuStateCompact:
     self.layoutDuration = IPAD ? kDefaultAnimationDuration : 0.0;
@@ -304,8 +345,8 @@
     break;
   case MWMBottomMenuStateText:
     self.streetLabel.font = [UIFont medium16];
-    self.streetLabel.textColor = [UIColor blackSecondaryText];
     self.streetLabel.hidden = NO;
+    self.streetLabel.textColor = [UIColor blackSecondaryText];
     [self updateMenuButtonFromState:_state toState:state];
     break;
   }

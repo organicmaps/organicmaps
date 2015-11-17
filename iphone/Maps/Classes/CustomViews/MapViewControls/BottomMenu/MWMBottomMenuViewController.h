@@ -26,4 +26,6 @@
 - (void)setPlanning;
 - (void)setGo;
 
+- (void)refreshLayout;
+
 @end

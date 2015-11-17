@@ -16,6 +16,7 @@
 #include "platform/preferred_languages.hpp"
 
 extern char const * kStatisticsEnabledSettingsKey;
+char const * kAdForbiddenSettingsKey = "AdForbidden";
 extern NSString * const kTTSStatusWasChangedNotification = @"TTFStatusWasChangedFromSettingsNotification";
 
 typedef NS_ENUM(NSUInteger, Section)
@@ -24,6 +25,7 @@ typedef NS_ENUM(NSUInteger, Section)
   SectionZoomButtons,
   SectionRouting,
   SectionCalibration,
+  SectionAd,
   SectionStatistics,
   SectionCount // Must be the latest value!
 };
@@ -81,6 +83,16 @@ typedef NS_ENUM(NSUInteger, Section)
     SelectableCell * customCell = (SelectableCell *)cell;
     customCell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     customCell.titleLabel.text = indexPath.row == 0 ? L(@"kilometres") : L(@"miles");
+  }
+  else if (indexPath.section == SectionAd)
+  {
+    cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
+    SwitchCell * customCell = (SwitchCell *)cell;
+    bool forbidden = false;
+    (void)Settings::Get(kAdForbiddenSettingsKey, forbidden);
+    customCell.switchButton.on = !forbidden;
+    customCell.titleLabel.text = L(@"showcase_settings_title");
+    customCell.delegate = self;
   }
   else if (indexPath.section == SectionStatistics)
   {
@@ -144,7 +156,14 @@ typedef NS_ENUM(NSUInteger, Section)
 - (void)switchCell:(SwitchCell *)cell didChangeValue:(BOOL)value
 {
   NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-  if (indexPath.section == SectionStatistics)
+  if (indexPath.section == SectionAd)
+  {
+    [[Statistics instance]
+              logEvent:kStatSettings
+        withParameters:@{kStatAction : kStatMoreApps, kStatValue : (value ? kStatOn : kStatOff)}];
+    Settings::Set(kAdForbiddenSettingsKey, (bool)!value);
+  }
+  else if (indexPath.section == SectionStatistics)
   {
     Statistics * stat = [Statistics instance];
     [stat logEvent:kStatSettings

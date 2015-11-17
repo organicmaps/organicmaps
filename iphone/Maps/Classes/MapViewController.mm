@@ -9,8 +9,10 @@
 #import "MWMMapViewControlsManager.h"
 #import "MWMTextToSpeech.h"
 #import "RouteState.h"
+#import "Statistics.h"
 #import "UIFont+MapsMeFonts.h"
 #import "UIViewController+Navigation.h"
+#import <MyTargetSDKCorp/MTRGManager_Corp.h>
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
@@ -27,7 +29,11 @@
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
+// If you have a "missing header error" here, then please run configure.sh script in the root repo folder.
+#import "../../../private.h"
+
 extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
+extern char const * kAdForbiddenSettingsKey;
 
 typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
 {
@@ -74,7 +80,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 @end
 
-@interface MapViewController ()
+@interface MapViewController () <MTRGNativeAppwallAdDelegate>
 
 @property (nonatomic, readwrite) MWMMapViewControlsManager * controlsManager;
 @property (nonatomic) MWMBottomMenuState menuRestoreState;
@@ -534,6 +540,21 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   [self invalidate];
 
   self.controlsManager.menuState = self.menuRestoreState;
+
+  bool adForbidden = false;
+  (void)Settings::Get(kAdForbiddenSettingsKey, adForbidden);
+  if (adForbidden)
+  {
+    self.appWallAd = nil;
+  }
+  else
+  {
+    self.appWallAd = [[MTRGNativeAppwallAd alloc]initWithSlotId:@(MY_TARGET_KEY)];
+    self.appWallAd.handleLinksInApp = YES;
+    self.appWallAd.closeButtonTitle = L(@"close");
+    self.appWallAd.delegate = self;
+    [self.appWallAd load];
+  }
 }
 
 - (void)viewDidLoad
@@ -542,6 +563,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   EAGLView * v = (EAGLView *)self.view;
   [v initRenderPolicy];
   self.view.clipsToBounds = YES;
+  [MTRGManager setMyCom:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -753,6 +775,19 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   }
 }
 
+#pragma mark - myTarget
+
+- (void)onLoadWithAppwallBanners:(NSArray *)appwallBanners appwallAd:(MTRGNativeAppwallAd *)appwallAd
+{
+  if (appwallBanners.count == 0)
+    self.appWallAd = nil;
+}
+
+- (void)onNoAdWithReason:(NSString *)reason appwallAd:(MTRGNativeAppwallAd *)appwallAd
+{
+  self.appWallAd = nil;
+}
+
 #pragma mark - API bar
 
 - (MWMAPIBar *)apiBar
@@ -896,6 +931,14 @@ NSInteger compareAddress(id l, id r, void * context)
   if (!_controlsManager)
     _controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
   return _controlsManager;
+}
+
+- (void)setAppWallAd:(MTRGNativeAppwallAd *)appWallAd
+{
+  if ([_appWallAd isEqual:appWallAd])
+    return;
+  _appWallAd = appWallAd;
+  [self.controlsManager refreshLayout];
 }
 
 @end
