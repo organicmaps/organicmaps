@@ -407,6 +407,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
     }
 
     // Annotate turns.
+    size_t skipTurnSegments = 0;
     for (size_t segmentIndex = 0; segmentIndex < numSegments; ++segmentIndex)
     {
       auto const & loadedSegment = loadedSegments[segmentIndex];
@@ -415,13 +416,17 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
       double const nodeTimeSeconds = loadedSegment.m_weight * kOSRMWeightToSecondsMultiplier;
 
       // Turns information.
-      if (segmentIndex > 0 && !points.empty())
+      if (segmentIndex > 0 && !points.empty() && skipTurnSegments == 0)
       {
         turns::TurnItem turnItem;
         turnItem.m_index = static_cast<uint32_t>(points.size() - 1);
 
+        skipTurnSegments = CheckUTurnOnRoute(loadedSegments, segmentIndex, turnItem);
+
         turns::TurnInfo turnInfo(loadedSegments[segmentIndex - 1], loadedSegments[segmentIndex]);
-        turns::GetTurnDirection(*m_pIndex, *mapping, turnInfo, turnItem);
+
+        if (turnItem.m_turn == turns::TurnDirection::NoTurn)
+          turns::GetTurnDirection(*m_pIndex, *mapping, turnInfo, turnItem);
 
 #ifdef DEBUG
         double distMeters = 0.0;
@@ -443,6 +448,8 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
       }
 
       estimatedTime += nodeTimeSeconds;
+      if (skipTurnSegments > 0)
+        --skipTurnSegments;
 
       // Path geometry.
       points.insert(points.end(), loadedSegment.m_path.begin(), loadedSegment.m_path.end());

@@ -143,5 +143,11 @@ TurnDirection GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoi
 void GetTurnDirection(Index const & index, RoutingMapping & mapping, turns::TurnInfo & turnInfo,
                       TurnItem & turn);
 
+/*!
+ * \brief Finds UTurn started from current segment and returns how many segments it lasts.
+ * Returns 0 otherwise.
+ */
+size_t CheckUTurnOnRoute(vector<LoadedPathSegment> const & segments, size_t currentSegment, TurnItem & turn);
+
 }  // namespace routing
 }  // namespace turns

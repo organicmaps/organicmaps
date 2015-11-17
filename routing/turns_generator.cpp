@@ -887,5 +887,53 @@ void GetTurnDirection(Index const & index, RoutingMapping & mapping, TurnInfo & 
     return;
   }
 }
+
+size_t CheckUTurnOnRoute(vector<LoadedPathSegment> const & segments, size_t currentSegment, TurnItem & turn)
+{
+  size_t constexpr kUTurnLookAhead = 5;
+  double const kUTurnHeadingSensitivity = math::pi / 10.0;
+
+  ASSERT_GREATER(segments.size(), 1, ());
+  ASSERT_GREATER(currentSegment, 0, ());
+  auto const & masterSegment = segments[currentSegment - 1];
+  // Roundabout is not the UTurn.
+  if (masterSegment.m_onRoundabout)
+    return 0;
+  for (size_t i = 0; i< min(kUTurnLookAhead, segments.size()); ++i)
+  {
+    auto const & checkedSegment = segments[currentSegment + i];
+    if (checkedSegment.m_name == masterSegment.m_name &&
+        checkedSegment.m_highwayClass == masterSegment.m_highwayClass &&
+        checkedSegment.m_isLink == masterSegment.m_isLink && !checkedSegment.m_onRoundabout)
+    {
+      m2::PointD p1 = masterSegment.m_path.back() - masterSegment.m_path[masterSegment.m_path.size() - 2];
+      m2::PointD p2 = checkedSegment.m_path[1] -checkedSegment.m_path.front();
+      auto angle = ang::TwoVectorsAngle(m2::PointD::Zero(), p1, p2);
+      if (my::AlmostEqualAbs(angle, math::pi, kUTurnHeadingSensitivity))
+      {
+        if (i == 0)
+        {
+          turn.m_turn = TurnDirection::UTurnLeft;
+          return 0;
+        }
+        // Determine turn direction.
+        m2::PointD const junctionPoint = masterSegment.m_path.back();
+        m2::PointD const ingoingPoint = GetPointForTurn(masterSegment.m_path, junctionPoint,
+                                                        kMaxPointsCount, kMinDistMeters,
+                                                        GetIngoingPointIndex);
+        m2::PointD const outgoingPoint = GetPointForTurn(segments[currentSegment].m_path, junctionPoint,
+                                                         kMaxPointsCount, kMinDistMeters,
+                                                         GetOutgoingPointIndex);
+        if (PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint) < 0)
+          turn.m_turn = TurnDirection::UTurnLeft;
+        else
+          turn.m_turn = TurnDirection::UTurnRight;
+        return ++i;
+      }
+    }
+  }
+
+  return 0;
+}
 }  // namespace turns
 }  // namespace routing
