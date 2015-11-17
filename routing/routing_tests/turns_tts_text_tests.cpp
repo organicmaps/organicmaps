@@ -78,7 +78,7 @@ UNIT_TEST(GetDirectionTextIdTest)
   TEST_EQUAL(GetDirectionTextId(notifiation1), "make_a_right_turn", ());
   Notification const notifiation2(1000, 0, false, TurnDirection::GoStraight, ::Settings::Metric);
   TEST_EQUAL(GetDirectionTextId(notifiation2), "go_straight", ());
-  Notification const notifiation3(700, 0, false, TurnDirection::UTurn, ::Settings::Metric);
+  Notification const notifiation3(700, 0, false, TurnDirection::UTurnLeft, ::Settings::Metric);
   TEST_EQUAL(GetDirectionTextId(notifiation3), "make_a_u_turn", ());
   Notification const notifiation4(200, 0, false, TurnDirection::ReachedYourDestination, ::Settings::Metric);
   TEST_EQUAL(GetDirectionTextId(notifiation4), "destination", ());
