@@ -110,18 +110,8 @@ public class SearchFragment extends BaseMwmFragment
     @Override
     public void onUpClick()
     {
-      if (TextUtils.isEmpty(getQuery()))
-      {
-        if (mFromRoutePlan)
-          RoutingController.get().onPoiSelected(null);
-        else
-          super.onUpClick();
-
-        mToolbarController.deactivate();
-        return;
-      }
-
-      clear();
+      if (!onBackPressed())
+        super.onUpClick();
     }
   }
 
@@ -309,7 +299,7 @@ public class SearchFragment extends BaseMwmFragment
       return;
 
     mInitialQuery = arguments.getString(SearchActivity.EXTRA_QUERY);
-    mFromRoutePlan = arguments.getBoolean(SearchActivity.EXTRA_FROM_ROUTE_PLAN);
+    mFromRoutePlan = RoutingController.get().isWaitingPoiPick();
   }
 
   private void hideSearch()
@@ -340,23 +330,33 @@ public class SearchFragment extends BaseMwmFragment
   }
   // FIXME END
 
+  private void processSelected(SearchResult result)
+  {
+    if (mFromRoutePlan)
+    {
+      //noinspection ConstantConditions
+      final MapObject point = new MapObject.SearchResult(result.name, result.description.featureType, result.lat, result.lon);
+      RoutingController.get().onPoiSelected(point);
+    }
+
+    mToolbarController.deactivate();
+
+    if (getActivity() instanceof SearchActivity)
+      Utils.navigateToParent(getActivity());
+  }
+
   void showSingleResultOnMap(SearchResult result, int resultIndex)
   {
     final String query = getQuery();
     SearchRecents.add(query);
     SearchEngine.cancelApiCall();
-    SearchEngine.showResult(resultIndex);
+
+    if (!mFromRoutePlan)
+      SearchEngine.showResult(resultIndex);
+
+    processSelected(result);
+
     Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_KEY_CLICKED);
-
-    if (mFromRoutePlan)
-    {
-      //noinspection ConstantConditions
-      MapObject.SearchResult sr = new MapObject.SearchResult(result.name, result.description.featureType, result.lat, result.lon);
-      RoutingController.get().onPoiSelected(sr);
-      return;
-    }
-
-    Utils.navigateToParent(getActivity());
   }
 
   void showAllResultsOnMap()
@@ -364,8 +364,7 @@ public class SearchFragment extends BaseMwmFragment
     final String query = getQuery();
     SearchRecents.add(query);
     mLastQueryTimestamp = System.nanoTime();
-    SearchEngine.runInteractiveSearch(query, Language.getKeyboardLocale(),
-            mLastQueryTimestamp, false /* isMapAndTable */);
+    SearchEngine.runInteractiveSearch(query, Language.getKeyboardLocale(), mLastQueryTimestamp, false /* isMapAndTable */);
     SearchEngine.showAllResults(query);
     Utils.navigateToParent(getActivity());
 
@@ -467,18 +466,16 @@ public class SearchFragment extends BaseMwmFragment
   @Override
   public boolean onBackPressed()
   {
-    if (!searchActive())
+    if (searchActive())
     {
-      if (mFromRoutePlan)
-      {
-        RoutingController.get().onPoiSelected(null);
-        return true;
-      }
-      return false;
+      mToolbarController.clear();
+      return true;
     }
 
-    mToolbarController.clear();
-    return true;
+    if (mFromRoutePlan)
+      RoutingController.get().onPoiSelected(null);
+
+    return false;
   }
 
   public void setRecyclerScrollListener(RecyclerView recycler)

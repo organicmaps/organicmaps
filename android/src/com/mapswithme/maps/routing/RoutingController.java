@@ -47,7 +47,7 @@ public class RoutingController
   public interface Container
   {
     FragmentActivity getActivity();
-    void showSearchToPickPoi();
+    void showSearch();
     void showRoutePlan(boolean show, @Nullable Runnable completionListener);
     void showNavigation(boolean show);
     void showDownloader(boolean openDownloadedList);
@@ -583,7 +583,7 @@ public class RoutingController
   {
     Log.d(TAG, "searchPoi: " + slotId);
     mWaitingPoiPickSlot = slotId;
-    mContainer.showSearchToPickPoi();
+    mContainer.showSearch();
     mContainer.updateMenu();
   }
 
@@ -612,6 +612,7 @@ public class RoutingController
   public void onPoiSelected(@Nullable MapObject point)
   {
     onPoiSelectedInternal(point);
+    mContainer.updatePoints();
     mWaitingPoiPickSlot = NO_SLOT;
   }
 

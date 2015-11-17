@@ -225,22 +225,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void showSearch(String query)
   {
-    showSearch(query, false);
-  }
-
-  public void showSearch(String query, boolean fromRoutePlan)
-  {
     if (mIsFragmentContainer)
     {
       mSearchController.hide();
 
       final Bundle args = new Bundle();
       args.putString(SearchActivity.EXTRA_QUERY, query);
-      args.putBoolean(SearchActivity.EXTRA_FROM_ROUTE_PLAN, fromRoutePlan);
       replaceFragment(SearchFragment.class, args, null);
     }
     else
-      SearchActivity.start(this, query, fromRoutePlan);
+      SearchActivity.start(this, query);
   }
 
   private void shareMyLocation()
@@ -1142,9 +1136,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void showSearchToPickPoi()
+  public void showSearch()
   {
-    showSearch("", true);
+    showSearch("");
   }
 
   @Override
