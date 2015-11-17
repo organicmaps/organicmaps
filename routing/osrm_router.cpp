@@ -399,10 +399,11 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
       bool isStartNode = (segmentIndex == 0);
       bool isEndNode = (segmentIndex == numSegments - 1);
       if (isStartNode || isEndNode)
-        loadedSegments.emplace_back(*mapping, *m_pIndex, pathSegments[segmentIndex], routingResult.sourceEdge, routingResult.targetEdge, isStartNode, isEndNode);
+        loadedSegments.emplace_back(*mapping, *m_pIndex, pathSegments[segmentIndex],
+                                    routingResult.sourceEdge, routingResult.targetEdge, isStartNode,
+                                    isEndNode);
       else
         loadedSegments.emplace_back(*mapping, *m_pIndex, pathSegments[segmentIndex]);
-
     }
 
     // Annotate turns.
@@ -411,7 +412,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
       auto const & loadedSegment = loadedSegments[segmentIndex];
 
       // ETA information.
-      double const nodeTimeSeconds = double(loadedSegment.m_weight) * kOSRMWeightToSecondsMultiplier;
+      double const nodeTimeSeconds = loadedSegment.m_weight * kOSRMWeightToSecondsMultiplier;
 
       // Turns information.
       if (segmentIndex > 0 && !points.empty())

@@ -45,15 +45,20 @@ struct LoadedPathSegment
   vector<SingleLaneInfo> m_lanes;
 
   // General constructor.
-  LoadedPathSegment(RoutingMapping & mapping, Index const & index, RawPathData const & osrmPathSegment);
+  LoadedPathSegment(RoutingMapping & mapping, Index const & index,
+                    RawPathData const & osrmPathSegment);
   // Spesial constructor for side nodes. Splits OSRM node by information from the FeatureGraphNode.
-  LoadedPathSegment(RoutingMapping & mapping, Index const & index, RawPathData const & osrmPathSegment, FeatureGraphNode const & startGraphNode, FeatureGraphNode const & endGraphNode, bool isStartNode, bool isEndNode);
+  LoadedPathSegment(RoutingMapping & mapping, Index const & index,
+                    RawPathData const & osrmPathSegment, FeatureGraphNode const & startGraphNode,
+                    FeatureGraphNode const & endGraphNode, bool isStartNode, bool isEndNode);
   LoadedPathSegment() = delete;
 
 private:
-  void LoadPathGeometry(buffer_vector<OsrmMappingTypes::FtSeg, 8> const & buffer, size_t startK, size_t endK, Index const & index, RoutingMapping & mapping, FeatureGraphNode const & startGraphNode, FeatureGraphNode const & endGraphNode, bool isStartNode, bool isEndNode);
+  void LoadPathGeometry(buffer_vector<OsrmMappingTypes::FtSeg, 8> const & buffer, size_t startK,
+                        size_t endK, Index const & index, RoutingMapping & mapping,
+                        FeatureGraphNode const & startGraphNode,
+                        FeatureGraphNode const & endGraphNode, bool isStartNode, bool isEndNode);
 };
-
 
 /*!
  * \brief The TurnInfo struct is a representation of a junction.
@@ -64,7 +69,10 @@ struct TurnInfo
   LoadedPathSegment const & m_ingoing;
   LoadedPathSegment const & m_outgoing;
 
-  TurnInfo(LoadedPathSegment const & ingoingSegment, LoadedPathSegment const & outgoingSegment) : m_ingoing(ingoingSegment), m_outgoing(outgoingSegment) {}
+  TurnInfo(LoadedPathSegment const & ingoingSegment, LoadedPathSegment const & outgoingSegment)
+    : m_ingoing(ingoingSegment), m_outgoing(outgoingSegment)
+  {
+  }
 
   bool IsSegmentsValid() const;
 };
@@ -132,7 +140,8 @@ TurnDirection GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoi
  * \param turnInfo is used for cashing some information while turn calculation.
  * \param turn is used for keeping the result of turn calculation.
  */
-void GetTurnDirection(Index const & index, RoutingMapping & mapping, turns::TurnInfo & turnInfo, TurnItem & turn);
+void GetTurnDirection(Index const & index, RoutingMapping & mapping, turns::TurnInfo & turnInfo,
+                      TurnItem & turn);
 
 }  // namespace routing
 }  // namespace turns

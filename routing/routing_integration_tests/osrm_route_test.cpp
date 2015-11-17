@@ -120,7 +120,6 @@ namespace
         {11.327927635052676, 48.166256203616726}, 2870710.);
   }
 
-
   UNIT_TEST(RussiaMoscowFranceParisCenterRouteTest)
   {
     integration::CalculateRouteAndTestRouteLength(

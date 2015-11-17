@@ -133,7 +133,8 @@ ftypes::HighwayClass GetOutgoingHighwayClass(NodeID outgoingNode,
  * - and the turn is GoStraight or TurnSlight*.
  */
 bool KeepTurnByHighwayClass(TurnDirection turn, TTurnCandidates const & possibleTurns,
-                            TurnInfo const & turnInfo, Index const & index, RoutingMapping & mapping)
+                            TurnInfo const & turnInfo, Index const & index,
+                            RoutingMapping & mapping)
 {
   if (!IsGoStraightOrSlightTurn(turn))
     return true;  // The road significantly changes its direction here. So this turn shall be kept.
@@ -147,8 +148,7 @@ bool KeepTurnByHighwayClass(TurnDirection turn, TTurnCandidates const & possible
   {
     if (t.node == turnInfo.m_outgoing.m_nodeId)
       continue;
-    ftypes::HighwayClass const highwayClass =
-        GetOutgoingHighwayClass(t.node, mapping, index);
+    ftypes::HighwayClass const highwayClass = GetOutgoingHighwayClass(t.node, mapping, index);
     if (static_cast<int>(highwayClass) > static_cast<int>(maxClassForPossibleTurns))
       maxClassForPossibleTurns = highwayClass;
   }
@@ -309,7 +309,8 @@ TurnDirection FindDirectionByAngle(vector<pair<double, TurnDirection>> const & l
  * \param maxPointsCount returned poit could't be more than maxPointsCount poins away from junctionPoint
  * \param minDistMeters returned point should be minDistMeters away from junctionPoint if ft is long and consists of short segments
  * \param GetPointIndex is a function for getting points by index.
- * It defines a direction of following along a feature. So it differs for ingoing and outgoing cases.
+ * It defines a direction of following along a feature. So it differs for ingoing and outgoing
+ * cases.
  * It has following parameters:
  * - start is an index of the start point of a feature segment. For example, path.back().
  * - end is an index of the end point of a feature segment. For example, path.front().
@@ -319,11 +320,10 @@ TurnDirection FindDirectionByAngle(vector<pair<double, TurnDirection>> const & l
  * shift belongs to a  range [0, abs(end - start)].
  * \return an ingoing or outgoing point for a turn calculation.
  */
-m2::PointD GetPointForTurn(vector<m2::PointD> const & path,
-                           m2::PointD const & junctionPoint,
-                           size_t const maxPointsCount,
-                           double const minDistMeters,
-                           size_t (*GetPointIndex)(const size_t start, const size_t end, const size_t shift))
+m2::PointD GetPointForTurn(vector<m2::PointD> const & path, m2::PointD const & junctionPoint,
+                           size_t const maxPointsCount, double const minDistMeters,
+                           size_t (*GetPointIndex)(const size_t start, const size_t end,
+                                                   const size_t shift))
 {
   double curDistanceMeters = 0.;
   m2::PointD point = junctionPoint;
@@ -338,7 +338,8 @@ m2::PointD GetPointForTurn(vector<m2::PointD> const & path,
     nextPoint = path[GetPointIndex(0, numSegPoints, i)];
 
     // TODO The code below is a stub for compatability with older versions with this function.
-    // Remove it, fix tests cases when it works (integration test RussiaMoscowTTKKashirskoeShosseOutTurnTest)
+    // Remove it, fix tests cases when it works (integration test
+    // RussiaMoscowTTKKashirskoeShosseOutTurnTest)
     // and remove point duplication when we get geometry from feature segments.
     if (point == nextPoint)
       return nextPoint;
@@ -444,14 +445,25 @@ namespace turns
 {
 using TSeg = OsrmMappingTypes::FtSeg;
 
-LoadedPathSegment::LoadedPathSegment(RoutingMapping & mapping, Index const & index, RawPathData const & osrmPathSegment) : m_highwayClass(ftypes::HighwayClass::Undefined), m_onRoundabout(false), m_isLink(false), m_weight(osrmPathSegment.segmentWeight), m_nodeId(osrmPathSegment.node)
+LoadedPathSegment::LoadedPathSegment(RoutingMapping & mapping, Index const & index,
+                                     RawPathData const & osrmPathSegment)
+  : m_highwayClass(ftypes::HighwayClass::Undefined)
+  , m_onRoundabout(false)
+  , m_isLink(false)
+  , m_weight(osrmPathSegment.segmentWeight)
+  , m_nodeId(osrmPathSegment.node)
 {
   buffer_vector<TSeg, 8> buffer;
   mapping.m_segMapping.ForEachFtSeg(osrmPathSegment.node, MakeBackInsertFunctor(buffer));
-  LoadPathGeometry(buffer, 0, buffer.size(), index, mapping, FeatureGraphNode(), FeatureGraphNode(), false /* isStartNode */, false /*isEndNode*/);
+  LoadPathGeometry(buffer, 0, buffer.size(), index, mapping, FeatureGraphNode(), FeatureGraphNode(),
+                   false /* isStartNode */, false /*isEndNode*/);
 }
 
-void LoadedPathSegment::LoadPathGeometry(buffer_vector<TSeg, 8> const & buffer, size_t startK, size_t endK, Index const & index, RoutingMapping & mapping, FeatureGraphNode const & startGraphNode, FeatureGraphNode const & endGraphNode, bool isStartNode, bool isEndNode)
+void LoadedPathSegment::LoadPathGeometry(buffer_vector<TSeg, 8> const & buffer, size_t startK,
+                                         size_t endK, Index const & index, RoutingMapping & mapping,
+                                         FeatureGraphNode const & startGraphNode,
+                                         FeatureGraphNode const & endGraphNode, bool isStartNode,
+                                         bool isEndNode)
 {
   for (size_t k = startK; k < endK; ++k)
   {
@@ -471,9 +483,11 @@ void LoadedPathSegment::LoadPathGeometry(buffer_vector<TSeg, 8> const & buffer, 
     auto startIdx = segment.m_pointStart;
     auto endIdx = segment.m_pointEnd;
     if (isStartNode && k == startK && startGraphNode.segment.IsValid())
-      startIdx = (segment.m_pointEnd > segment.m_pointStart) ? startGraphNode.segment.m_pointStart : startGraphNode.segment.m_pointEnd;
+      startIdx = (segment.m_pointEnd > segment.m_pointStart) ? startGraphNode.segment.m_pointStart
+                                                             : startGraphNode.segment.m_pointEnd;
     if (isEndNode && k == endK - 1 && endGraphNode.segment.IsValid())
-      endIdx = (segment.m_pointEnd > segment.m_pointStart) ? endGraphNode.segment.m_pointEnd : endGraphNode.segment.m_pointStart;
+      endIdx = (segment.m_pointEnd > segment.m_pointStart) ? endGraphNode.segment.m_pointEnd
+                                                           : endGraphNode.segment.m_pointStart;
     if (startIdx < endIdx)
     {
       for (auto idx = startIdx; idx <= endIdx; ++idx)
@@ -497,7 +511,8 @@ void LoadedPathSegment::LoadPathGeometry(buffer_vector<TSeg, 8> const & buffer, 
 
       if (!ftypes::IsOneWayChecker::Instance()(ft))
       {
-        directionType = (startIdx < endIdx) ? Metadata::FMD_TURN_LANES_FORWARD : Metadata::FMD_TURN_LANES_BACKWARD;
+        directionType = (startIdx < endIdx) ? Metadata::FMD_TURN_LANES_FORWARD
+                                            : Metadata::FMD_TURN_LANES_BACKWARD;
       }
       ParseLanes(md.Get(directionType), m_lanes);
     }
@@ -512,49 +527,68 @@ void LoadedPathSegment::LoadPathGeometry(buffer_vector<TSeg, 8> const & buffer, 
   }
 }
 
-LoadedPathSegment::LoadedPathSegment(RoutingMapping & mapping, Index const & index, RawPathData const & osrmPathSegment, FeatureGraphNode const & startGraphNode, FeatureGraphNode const & endGraphNode, bool isStartNode, bool isEndNode) : m_highwayClass(ftypes::HighwayClass::Undefined), m_onRoundabout(false), m_isLink(false), m_weight(0), m_nodeId(osrmPathSegment.node)
+LoadedPathSegment::LoadedPathSegment(RoutingMapping & mapping, Index const & index,
+                                     RawPathData const & osrmPathSegment,
+                                     FeatureGraphNode const & startGraphNode,
+                                     FeatureGraphNode const & endGraphNode, bool isStartNode,
+                                     bool isEndNode)
+  : m_highwayClass(ftypes::HighwayClass::Undefined)
+  , m_onRoundabout(false)
+  , m_isLink(false)
+  , m_weight(0)
+  , m_nodeId(osrmPathSegment.node)
 {
   if (!startGraphNode.segment.IsValid() || !endGraphNode.segment.IsValid())
     return;
   buffer_vector<TSeg, 8> buffer;
   mapping.m_segMapping.ForEachFtSeg(osrmPathSegment.node, MakeBackInsertFunctor(buffer));
 
-  auto FindIntersectingSeg = [&buffer] (TSeg const & seg) -> size_t
+  auto FindIntersectingSeg = [&buffer](TSeg const & seg) -> size_t
   {
     ASSERT(seg.IsValid(), ());
-    auto const it = find_if(buffer.begin(), buffer.end(), [&seg] (OsrmMappingTypes::FtSeg const & s)
-    {
-      return s.IsIntersect(seg);
-    });
+    auto const it = find_if(buffer.begin(), buffer.end(), [&seg](OsrmMappingTypes::FtSeg const & s)
+                            {
+                              return s.IsIntersect(seg);
+                            });
 
     ASSERT(it != buffer.end(), ());
     return distance(buffer.begin(), it);
   };
 
   // Calculate estimated time for a start and a end node cases.
-  // Multiplier -1 because a whole node weight is already in esimated time, and we need to substruct time
-  // form a node start to a user point.
   if (isStartNode)
   {
-    m_weight = (osrmPathSegment.node == startGraphNode.node.forward_node_id) ? startGraphNode.node.GetForwardWeightPlusOffset() : startGraphNode.node.GetReverseWeightPlusOffset();
+    m_weight = (osrmPathSegment.node == startGraphNode.node.forward_node_id)
+                   ? startGraphNode.node.GetForwardWeightPlusOffset()
+                   : startGraphNode.node.GetReverseWeightPlusOffset();
   }
   if (isEndNode)
   {
-    m_weight = (osrmPathSegment.node == endGraphNode.node.forward_node_id) ? endGraphNode.node.GetForwardWeightPlusOffset() : endGraphNode.node.GetReverseWeightPlusOffset();
+    m_weight = (osrmPathSegment.node == endGraphNode.node.forward_node_id)
+                   ? endGraphNode.node.GetForwardWeightPlusOffset()
+                   : endGraphNode.node.GetReverseWeightPlusOffset();
   }
 
- if (isStartNode && isEndNode)
+  if (isStartNode && isEndNode)
   {
-    double const forwardWeight = (osrmPathSegment.node == startGraphNode.node.forward_node_id) ? startGraphNode.node.forward_weight : startGraphNode.node.reverse_weight;
-    double const backwardWeight = (osrmPathSegment.node == endGraphNode.node.forward_node_id) ? endGraphNode.node.forward_weight : endGraphNode.node.reverse_weight;
-    double const wholeWeight = (osrmPathSegment.node == startGraphNode.node.forward_node_id) ? startGraphNode.node.forward_offset : startGraphNode.node.reverse_offset;
-    // Sum because weights in forward/backward_weight fields are negative. Look osrm_helpers for more info.
+    double const forwardWeight = (osrmPathSegment.node == startGraphNode.node.forward_node_id)
+                                     ? startGraphNode.node.forward_weight
+                                     : startGraphNode.node.reverse_weight;
+    double const backwardWeight = (osrmPathSegment.node == endGraphNode.node.forward_node_id)
+                                      ? endGraphNode.node.forward_weight
+                                      : endGraphNode.node.reverse_weight;
+    double const wholeWeight = (osrmPathSegment.node == startGraphNode.node.forward_node_id)
+                                   ? startGraphNode.node.forward_offset
+                                   : startGraphNode.node.reverse_offset;
+    // Sum because weights in forward/backward_weight fields are negative. Look osrm_helpers for
+    // more info.
     m_weight = wholeWeight + forwardWeight + backwardWeight;
   }
 
   size_t startK = isStartNode ? FindIntersectingSeg(startGraphNode.segment) : 0;
   size_t endK = isEndNode ? FindIntersectingSeg(endGraphNode.segment) + 1 : buffer.size();
-  LoadPathGeometry(buffer, startK, endK, index, mapping, startGraphNode, endGraphNode, isStartNode, isEndNode);
+  LoadPathGeometry(buffer, startK, endK, index, mapping, startGraphNode, endGraphNode, isStartNode,
+                   isEndNode);
 }
 
 bool TurnInfo::IsSegmentsValid() const
@@ -765,7 +799,8 @@ TurnDirection IntermediateDirection(const double angle)
   return FindDirectionByAngle(kLowerBounds, angle);
 }
 
-void GetTurnDirection(Index const & index, RoutingMapping & mapping, TurnInfo & turnInfo, TurnItem & turn)
+void GetTurnDirection(Index const & index, RoutingMapping & mapping, TurnInfo & turnInfo,
+                      TurnItem & turn)
 {
   if (!turnInfo.IsSegmentsValid())
     return;
@@ -819,7 +854,7 @@ void GetTurnDirection(Index const & index, RoutingMapping & mapping, TurnInfo & 
       turn.m_turn = intermediateDirection;
   }
 
-  bool const keepTurnByHighwayClass = KeepTurnByHighwayClass(turn.m_turn, nodes, turnInfo, index, mapping);
+  bool const keepTurnByHighwayClass =  KeepTurnByHighwayClass(turn.m_turn, nodes, turnInfo, index, mapping);
   if (turnInfo.m_ingoing.m_onRoundabout || turnInfo.m_outgoing.m_onRoundabout)
   {
     turn.m_turn = GetRoundaboutDirection(turnInfo.m_ingoing.m_onRoundabout,
@@ -834,10 +869,9 @@ void GetTurnDirection(Index const & index, RoutingMapping & mapping, TurnInfo & 
     return;
   }
 
-  auto const notSoCloseToTheTurnPoint = GetPointForTurn(turnInfo.m_ingoing.m_path, junctionPoint,
-                                                        kNotSoCloseMaxPointsCount,
-                                                        kNotSoCloseMinDistMeters,
-                                                        GetIngoingPointIndex);
+  auto const notSoCloseToTheTurnPoint =
+      GetPointForTurn(turnInfo.m_ingoing.m_path, junctionPoint, kNotSoCloseMaxPointsCount,
+                      kNotSoCloseMinDistMeters, GetIngoingPointIndex);
 
   if (!KeepTurnByIngoingEdges(junctionPoint, notSoCloseToTheTurnPoint, outgoingPoint, hasMultiTurns,
                               mapping, index))
