@@ -149,58 +149,19 @@ UNIT_TEST(FBuilder_RemoveUselessNames)
   TEST(fb1.CheckValid(), ());
 }
 
-UNIT_TEST(FBuilder_WithoutName)
+UNIT_TEST(FeatureParams_Parsing)
 {
   classificator::Load();
-  char const * arr1[][1] = { { "amenity" } };
 
   {
     FeatureParams params;
-    AddTypes(params, arr1);
-    params.AddName("default", "Name");
-
-    FeatureBuilder1 fb;
-    fb.SetParams(params);
-    fb.SetCenter(m2::PointD(0, 0));
-
-    TEST(fb.PreSerialize(), ());
-    TEST(fb.RemoveInvalidTypes(), ());
+    params.AddStreet("Embarcadero street \t\t 85");
+    TEST_EQUAL(params.GetStreet(), "Embarcadero street", ());
   }
 
   {
     FeatureParams params;
-    AddTypes(params, arr1);
-
-    FeatureBuilder1 fb;
-    fb.SetParams(params);
-    fb.SetCenter(m2::PointD(0, 0));
-
-    TEST(fb.PreSerialize(), ());
-    TEST(!fb.RemoveInvalidTypes(), ());
+    params.AddAddress("165 \t\t Dolliver Street");
+    TEST_EQUAL(params.GetStreet(), "Dolliver Street", ());
   }
-}
-
-UNIT_TEST(FBuilder_PointAddress)
-{
-  classificator::Load();
-
-  char const * arr[][2] = { { "addr:housenumber", "39/79" } };
-
-  OsmElement e;
-  FillXmlElement(arr, ARRAY_SIZE(arr), &e);
-
-  FeatureParams params;
-  ftype::GetNameAndType(&e, params);
-
-  TEST_EQUAL(params.m_Types.size(), 1, ());
-  TEST(params.IsTypeExist(GetType({"building", "address"})), ());
-  TEST_EQUAL(params.house.Get(), "39/79", ());
-
-  FeatureBuilder1 fb;
-  fb.SetParams(params);
-  fb.SetCenter(m2::PointD(0, 0));
-
-  TEST(fb.PreSerialize(), ());
-  TEST(fb.RemoveInvalidTypes(), ());
-  TEST(fb.CheckValid(), ());
 }

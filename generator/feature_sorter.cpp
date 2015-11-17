@@ -90,14 +90,15 @@ namespace feature
 
     vector<FileWriter*> m_geoFile, m_trgFile;
 
-    unique_ptr<FileWriter> m_MetadataWriter;
+    unique_ptr<FileWriter> m_metadataWriter;
+    unique_ptr<FileWriter> m_searchTokensWriter;
 
     struct TMetadataIndexEntry
     {
       uint32_t key;
       uint32_t value;
     };
-    vector<TMetadataIndexEntry> m_MetadataIndex;
+    vector<TMetadataIndexEntry> m_metadataIndex;
 
     DataHeader m_header;
     uint32_t m_versionDate;
@@ -108,7 +109,8 @@ namespace feature
     FeaturesCollector2(string const & fName, DataHeader const & header, uint32_t versionDate)
       : FeaturesCollector(fName + DATA_FILE_TAG), m_writer(fName), m_header(header), m_versionDate(versionDate)
     {
-      m_MetadataWriter.reset(new FileWriter(fName + METADATA_FILE_TAG));
+      m_metadataWriter.reset(new FileWriter(fName + METADATA_FILE_TAG));
+      m_searchTokensWriter.reset(new FileWriter(fName + SEARCH_TOKENS_FILE_TAG));
 
       for (size_t i = 0; i < m_header.GetScalesCount(); ++i)
       {
@@ -162,19 +164,23 @@ namespace feature
 
       {
         FileWriter w = m_writer.GetWriter(METADATA_INDEX_FILE_TAG);
-        for (auto const & v : m_MetadataIndex)
+        for (auto const & v : m_metadataIndex)
         {
           WriteToSink(w, v.key);
           WriteToSink(w, v.value);
         }
       }
 
-      m_MetadataWriter->Flush();
-      m_writer.Write(m_MetadataWriter->GetName(), METADATA_FILE_TAG);
+      m_metadataWriter->Flush();
+      m_writer.Write(m_metadataWriter->GetName(), METADATA_FILE_TAG);
+
+      m_searchTokensWriter->Flush();
+      m_writer.Write(m_searchTokensWriter->GetName(), SEARCH_TOKENS_FILE_TAG);
 
       m_writer.Finish();
 
-      FileWriter::DeleteFileX(m_MetadataWriter->GetName());
+      FileWriter::DeleteFileX(m_metadataWriter->GetName());
+      FileWriter::DeleteFileX(m_searchTokensWriter->GetName());
 
       if (m_header.GetType() == DataHeader::country)
       {
@@ -506,12 +512,14 @@ namespace feature
 
         uint32_t const ftID = WriteFeatureBase(holder.m_buffer.m_buffer, fb);
 
+        fb.GetAddressData().Serialize(*m_searchTokensWriter);
+
         if (!fb.GetMetadata().Empty())
         {
-          uint64_t offset = m_MetadataWriter->Pos();
+          uint64_t offset = m_metadataWriter->Pos();
           ASSERT_LESS_OR_EQUAL(offset, numeric_limits<uint32_t>::max(), ());
-          m_MetadataIndex.push_back({ ftID, static_cast<uint32_t>(offset) });
-          fb.GetMetadata().SerializeToMWM(*m_MetadataWriter);
+          m_metadataIndex.push_back({ ftID, static_cast<uint32_t>(offset) });
+          fb.GetMetadata().SerializeToMWM(*m_metadataWriter);
         }
 
         uint64_t const osmID = fb.GetWayIDForRouting();

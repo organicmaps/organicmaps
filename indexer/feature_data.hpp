@@ -201,10 +201,8 @@ class FeatureParams : public FeatureParamsBase
 
   uint8_t m_geomType;
 
-  /// We use it now only for search unit tests
-  string m_street;
-
   feature::Metadata m_metadata;
+  feature::AddressData m_addrTags;
 
 public:
   typedef vector<uint32_t> TTypes;
@@ -220,9 +218,17 @@ public:
 
   /// @name Used in storing full street address only.
   //@{
-  void AddStreetAddress(string const & s);
+  void AddStreet(string s);
+  void AddPlace(string const & s);
+  void AddPostcode(string const & s);
+  void AddAddress(string const & s);
+
   bool FormatFullAddress(m2::PointD const & pt, string & res) const;
   //@}
+
+  /// Used for testing purposes now.
+  string GetStreet() const;
+  feature::AddressData const & GetAddressData() const { return m_addrTags; }
 
   /// Assign parameters except geometry type.
   /// Geometry is independent state and it's set by FeatureType's geometry functions.
@@ -231,7 +237,7 @@ public:
     BaseT::operator=(rhs);
 
     m_Types = rhs.m_Types;
-    m_street = rhs.m_street;
+    m_addrTags = rhs.m_addrTags;
     m_metadata = rhs.m_metadata;
   }
 
@@ -268,7 +274,7 @@ public:
   feature::Metadata const & GetMetadata() const { return m_metadata; }
   feature::Metadata & GetMetadata() { return m_metadata; }
 
-  template <class SinkT> void Write(SinkT & sink, bool needStoreMetadata = true) const
+  template <class SinkT> void Write(SinkT & sink, bool fullStoring) const
   {
     uint8_t const header = GetHeader();
 
@@ -277,13 +283,16 @@ public:
     for (size_t i = 0; i < m_Types.size(); ++i)
       WriteVarUint(sink, GetIndexForType(m_Types[i]));
 
-    if (needStoreMetadata)
+    if (fullStoring)
+    {
       m_metadata.Serialize(sink);
+      m_addrTags.Serialize(sink);
+    }
 
     BaseT::Write(sink, header);
   }
 
-  template <class SrcT> void Read(SrcT & src, bool needReadMetadata = true)
+  template <class SrcT> void Read(SrcT & src)
   {
     using namespace feature;
 
@@ -294,8 +303,8 @@ public:
     for (size_t i = 0; i < count; ++i)
       m_Types.push_back(GetTypeForIndex(ReadVarUint<uint32_t>(src)));
 
-    if (needReadMetadata)
-      m_metadata.Deserialize(src);
+    m_metadata.Deserialize(src);
+    m_addrTags.Deserialize(src);
 
     BaseT::Read(src, header);
   }

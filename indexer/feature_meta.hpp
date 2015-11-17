@@ -12,7 +12,62 @@
 
 namespace feature
 {
-  class Metadata
+  class MetadataBase
+  {
+  public:
+    string Get(uint8_t type) const
+    {
+      auto it = m_metadata.find(type);
+      return (it == m_metadata.end()) ? string() : it->second;
+    }
+
+    vector<uint8_t> GetPresentTypes() const
+    {
+      vector<uint8_t> types;
+      types.reserve(m_metadata.size());
+
+      for (auto const & item : m_metadata)
+        types.push_back(item.first);
+
+      return types;
+    }
+
+    void Drop(uint8_t type)
+    {
+      m_metadata.erase(type);
+    }
+
+    inline bool Empty() const { return m_metadata.empty(); }
+    inline size_t Size() const { return m_metadata.size(); }
+
+    template <class ArchiveT> void Serialize(ArchiveT & ar) const
+    {
+      uint8_t const sz = m_metadata.size();
+      WriteToSink(ar, sz);
+      for (auto const & it : m_metadata)
+      {
+        WriteToSink(ar, static_cast<uint8_t>(it.first));
+        utils::WriteString(ar, it.second);
+      }
+    }
+
+    template <class ArchiveT> void Deserialize(ArchiveT & ar)
+    {
+      uint8_t const sz = ReadPrimitiveFromSource<uint8_t>(ar);
+      for (size_t i = 0; i < sz; ++i)
+      {
+        uint8_t const key = ReadPrimitiveFromSource<uint8_t>(ar);
+        string value;
+        utils::ReadString(ar, value);
+        m_metadata.insert(make_pair(key, value));
+      }
+    }
+
+  protected:
+    map<uint8_t, string> m_metadata;
+  };
+
+  class Metadata : public MetadataBase
   {
   public:
     /// @note! Do not change values here.
@@ -45,8 +100,7 @@ namespace feature
 
     static_assert(FMD_COUNT <= 255, "Meta types count is limited to one byte.");
 
-    /// Empty value drops (clears) corresponding type.
-    void Set(EType type, string const & value)
+    void Add(EType type, string const & s)
     {
       auto found = m_metadata.find(type);
       if (found == m_metadata.end())
@@ -91,6 +145,11 @@ namespace feature
 
     string GetWikiURL() const;
 
+=======
+        val = val + ", " + s;
+    }
+
+>>>>>>> 12268b5... [generator] Pass address tokens to the search index generation step.
     template <class ArchiveT> void SerializeToMWM(ArchiveT & ar) const
     {
       for (auto const & e : m_metadata)
@@ -112,43 +171,28 @@ namespace feature
       {
         ar.Read(header, sizeof(header));
         ar.Read(buffer, header[1]);
-        m_metadata[ToType(header[0] & 0x7F)].assign(buffer, header[1]);
+        m_metadata[header[0] & 0x7F].assign(buffer, header[1]);
       } while (!(header[0] & 0x80));
     }
 
-    template <class ArchiveT> void Serialize(ArchiveT & ar) const
-    {
-      uint8_t const sz = m_metadata.size();
-      WriteToSink(ar, sz);
-      for (auto const & it : m_metadata)
-      {
-        WriteToSink(ar, static_cast<uint8_t>(it.first));
-        utils::WriteString(ar, it.second);
-      }
-    }
-
-    template <class ArchiveT> void Deserialize(ArchiveT & ar)
-    {
-      uint8_t const sz = ReadPrimitiveFromSource<uint8_t>(ar);
-      ASSERT_LESS_OR_EQUAL(sz, FMD_COUNT, ());
-
-      for (size_t i = 0; i < sz; ++i)
-      {
-        EType const key = ToType(ReadPrimitiveFromSource<uint8_t>(ar));
-        string value;
-        utils::ReadString(ar, value);
-        m_metadata.insert(make_pair(key, value));
-      }
-    }
-
   private:
-    static EType ToType(uint8_t key)
-    {
-      ASSERT(key > 0 && key < FMD_COUNT, (key));
-      return static_cast<EType>(key);
-    }
-
     enum { kMaxStringLength = 255 };
-    map<EType, string> m_metadata;
+  };
+
+  class AddressData : public MetadataBase
+  {
+  public:
+    enum EType
+    {
+      FAD_PLACE = 1,
+      FAD_STREET = 2,
+      FAD_POSTCODE = 3,
+    };
+
+    void Add(EType type, string const & s)
+    {
+      /// @todo Probably, we need to add separator here and store multiple values.
+      m_metadata[type] = s;
+    }
   };
 }

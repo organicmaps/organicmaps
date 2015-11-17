@@ -242,6 +242,8 @@ public:
   bool PreSerialize(SupportingData const & data);
   void Serialize(SupportingData & data, serial::CodingParams const & params);
   //@}
+
+  feature::AddressData const & GetAddressData() const { return m_params.GetAddressData(); }
 };
 
 namespace feature

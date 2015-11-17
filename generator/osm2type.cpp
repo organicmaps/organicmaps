@@ -107,6 +107,15 @@ namespace ftype
       });
     }
 
+    string Normalize(string const & s)
+    {
+      // Unicode Compatibility Decomposition,
+      // followed by Canonical Composition (NFKC).
+      // Needed for better search matching.
+      QByteArray ba = QString::fromUtf8(s.c_str()).normalized(QString::NormalizationForm_KC).toUtf8();
+      return ba.constData();
+    }
+
     class NamesExtractor
     {
       set<string> m_savedNames;
@@ -148,12 +157,7 @@ namespace ftype
         if (v.empty() || !GetLangByKey(k, lang))
           return false;
 
-        // Unicode Compatibility Decomposition,
-        // followed by Canonical Composition (NFKC).
-        // Needed for better search matching
-        QByteArray const normBytes = QString::fromUtf8(
-              v.c_str()).normalized(QString::NormalizationForm_KC).toUtf8();
-        m_params.AddName(lang, normBytes.constData());
+        m_params.AddName(lang, Normalize(v));
         k.clear();
         v.clear();
         return false;
@@ -522,15 +526,17 @@ namespace ftype
       { "restaurant", "yes", [](string & k, string & v) { k.swap(v); k = "amenity"; }},
       { "hotel", "yes", [](string & k, string & v) { k.swap(v); k = "tourism"; }},
       { "building", "entrance", [](string & k, string & v) { k.swap(v); v = "yes"; }},
-      { "addr:housename", "*", [&params](string & k, string & v) { params.AddHouseName(v); k.clear(); v.clear(); }},
-      { "addr:street", "*", [&params](string & k, string & v) { params.AddStreetAddress(v); k.clear(); v.clear(); }},
-      { "addr:housenumber", "*", [&params](string & k, string & v)
-        {
-          // Treat "numbers" like names if it's not an actual number.
-          if (!params.AddHouseNumber(v))
-            params.AddHouseName(v);
-          k.clear(); v.clear();
-        }},
+
+      { "addr:city", "*", [&params](string & k, string & v) { params.AddPlace(Normalize(v)); k.clear(); v.clear(); }},
+      { "addr:place", "*", [&params](string & k, string & v) { params.AddPlace(Normalize(v)); k.clear(); v.clear(); }},
+      { "addr:housenumber", "*", [&params](string & k, string & v) { params.AddHouseName(Normalize(v)); k.clear(); v.clear(); }},
+      { "addr:housename", "*", [&params](string & k, string & v) { params.AddHouseName(Normalize(v)); k.clear(); v.clear(); }},
+      { "addr:street", "*", [&params](string & k, string & v) { params.AddStreet(Normalize(v)); k.clear(); v.clear(); }},
+      //{ "addr:streetnumber", "*", [&params](string & k, string & v) { params.AddStreet(Normalize(v)); k.clear(); v.clear(); }},
+      //{ "addr:full", "*", [&params](string & k, string & v) { params.AddAddress(Normalize(v)); k.clear(); v.clear(); }},
+      { "addr:postcode", "*", [&params](string & k, string & v) { params.AddPostcode(Normalize(v)); k.clear(); v.clear(); }},
+      { "addr:flats", "*", [&params](string & k, string & v) { params.flats = v; k.clear(); v.clear(); }},
+
       { "population", "*", [&params](string & k, string & v)
         {
           // Get population rank.

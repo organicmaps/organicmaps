@@ -273,6 +273,23 @@ void AddFeatureNameIndexPairs(FeaturesVectorTest & features, CategoriesHolder & 
 
   features.GetVector().ForEach(FeatureInserter<TKey, TValue>(
       synonyms.get(), keyValuePairs, categoriesHolder, header.GetScaleRange(), valueBuilder));
+
+  ReaderSource<ModelReaderPtr> src = features.GetReader(SEARCH_TOKENS_FILE_TAG);
+  uint64_t index = 0;
+  FeatureNameInserter<TKey, TValue> inserter(nullptr, keyValuePairs);
+  int8_t const lang = StringUtf8Multilang::GetLangIndex("default");
+
+  while (src.Size() > 0)
+  {
+    feature::AddressData data;
+    data.Deserialize(src);
+
+    inserter.m_val.m_featureId = index++;
+
+    string const street = data.Get(feature::AddressData::FAD_STREET);
+    if (!street.empty())
+      inserter(lang, street);
+  }
 }
 }  // namespace
 
