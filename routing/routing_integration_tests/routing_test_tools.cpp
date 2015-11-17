@@ -216,7 +216,7 @@ namespace integration
     double const delta = expectedRouteMeters * relativeError;
     double const routeMeters = route.GetTotalDistanceMeters();
     TEST(my::AlmostEqualAbs(routeMeters, expectedRouteMeters, delta),
-        ("Route time test failed. Expected:", expectedRouteMeters, "have:", routeMeters, "delta:", delta));
+        ("Route length test failed. Expected:", expectedRouteMeters, "have:", routeMeters, "delta:", delta));
   }
 
   void TestRouteTime(Route const & route, double expectedRouteSeconds, double relativeError)

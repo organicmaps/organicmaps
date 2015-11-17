@@ -376,10 +376,6 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
 {
   ASSERT(mapping, ());
 
-  typedef OsrmMappingTypes::FtSeg TSeg;
-  TSeg const & segBegin = routingResult.sourceEdge.segment;
-  TSeg const & segEnd = routingResult.targetEdge.segment;
-
   double estimatedTime = 0;
 
   LOG(LDEBUG, ("Shortest path length:", routingResult.shortestPathLength));
@@ -394,20 +390,37 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
 
     // Get all computed route coordinates.
     size_t const numSegments = pathSegments.size();
+
+    // Construct loaded segments.
+    vector<turns::LoadedPathSegment> loadedSegments;
+    loadedSegments.reserve(numSegments);
     for (size_t segmentIndex = 0; segmentIndex < numSegments; ++segmentIndex)
     {
-      RawPathData const & pathData = pathSegments[segmentIndex];
+      bool isStartNode = (segmentIndex == 0);
+      bool isEndNode = (segmentIndex == numSegments - 1);
+      if (isStartNode || isEndNode)
+        loadedSegments.emplace_back(*mapping, *m_pIndex, pathSegments[segmentIndex], routingResult.sourceEdge, routingResult.targetEdge, isStartNode, isEndNode);
+      else
+        loadedSegments.emplace_back(*mapping, *m_pIndex, pathSegments[segmentIndex]);
 
+    }
+
+    // Annotate turns.
+    for (size_t segmentIndex = 0; segmentIndex < numSegments; ++segmentIndex)
+    {
+      auto const & loadedSegment = loadedSegments[segmentIndex];
+
+      // ETA information.
+      double const nodeTimeSeconds = double(loadedSegment.m_weight) * kOSRMWeightToSecondsMultiplier;
+
+      // Turns information.
       if (segmentIndex > 0 && !points.empty())
       {
         turns::TurnItem turnItem;
         turnItem.m_index = static_cast<uint32_t>(points.size() - 1);
 
-        turns::TurnInfo turnInfo(*mapping, pathSegments[segmentIndex - 1].node, pathSegments[segmentIndex].node);
-        turns::GetTurnDirection(*m_pIndex, turnInfo, turnItem);
-
-        // ETA information.
-        double const nodeTimeSeconds = pathData.segmentWeight * kOSRMWeightToSecondsMultiplier;
+        turns::TurnInfo turnInfo(loadedSegments[segmentIndex - 1], loadedSegments[segmentIndex]);
+        turns::GetTurnDirection(*m_pIndex, *mapping, turnInfo, turnItem);
 
 #ifdef DEBUG
         double distMeters = 0.0;
@@ -418,106 +431,20 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
                      "target:", turnItem.m_targetName));
         lastIdx = points.size();
 #endif
-        estimatedTime += nodeTimeSeconds;
         times.push_back(Route::TTimeItem(points.size(), estimatedTime));
 
         //  Lane information.
         if (turnItem.m_turn != turns::TurnDirection::NoTurn)
         {
-          turnItem.m_lanes = turns::GetLanesInfo(pathSegments[segmentIndex - 1].node,
-                                          *mapping, turns::GetLastSegmentPointIndex, *m_pIndex);
+          turnItem.m_lanes = turnInfo.m_ingoing.m_lanes;
           turnsDir.push_back(move(turnItem));
         }
       }
 
-      buffer_vector<TSeg, 8> buffer;
-      mapping->m_segMapping.ForEachFtSeg(pathData.node, MakeBackInsertFunctor(buffer));
+      estimatedTime += nodeTimeSeconds;
 
-      auto FindIntersectingSeg = [&buffer] (TSeg const & seg) -> size_t
-      {
-        ASSERT(seg.IsValid(), ());
-        auto const it = find_if(buffer.begin(), buffer.end(), [&seg] (OsrmMappingTypes::FtSeg const & s)
-        {
-          return s.IsIntersect(seg);
-        });
-
-        ASSERT(it != buffer.end(), ());
-        return distance(buffer.begin(), it);
-      };
-
-      //m_mapping.DumpSegmentByNode(path_data.node);
-
-      bool const isStartSegment = (segmentIndex == 0);
-      bool const isEndSegment = (segmentIndex == numSegments - 1);
-      // Calculate estimated time for a start and a end node cases.
-      if (isStartSegment || isEndSegment)
-      {
-        double multiplier = 1.;
-        double weight = 0.;
-        if (isStartSegment)
-        {
-          // -1 because a whole node weight is already in esimated time, and we need to substruct time
-          // form a node start to a user point.
-          multiplier = -1.;
-          auto const & node = routingResult.sourceEdge.node;
-          if (pathSegments[segmentIndex].node == node.forward_node_id)
-            weight = node.forward_weight;
-          else
-            weight = node.reverse_weight;
-        }
-        if (isEndSegment)
-        {
-          auto const & node = routingResult.targetEdge.node;
-          if (pathSegments[segmentIndex].node == node.forward_node_id)
-            weight = node.forward_weight;
-          else
-            weight = node.reverse_weight;
-        }
-        estimatedTime += multiplier * kOSRMWeightToSecondsMultiplier * weight;
-      }
-
-      size_t startK = 0, endK = buffer.size();
-      if (isStartSegment)
-      {
-        if (!segBegin.IsValid())
-          continue;
-        startK = FindIntersectingSeg(segBegin);
-      }
-      if (isEndSegment)
-      {
-        if (!segEnd.IsValid())
-          continue;
-        endK = FindIntersectingSeg(segEnd) + 1;
-      }
-
-      for (size_t k = startK; k < endK; ++k)
-      {
-        TSeg const & seg = buffer[k];
-
-        FeatureType ft;
-        Index::FeaturesLoaderGuard loader(*m_pIndex, mapping->GetMwmId());
-        loader.GetFeatureByIndex(seg.m_fid, ft);
-        ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-
-        auto startIdx = seg.m_pointStart;
-        auto endIdx = seg.m_pointEnd;
-        if (isStartSegment && k == startK && segBegin.IsValid())
-          startIdx = (seg.m_pointEnd > seg.m_pointStart) ? segBegin.m_pointStart : segBegin.m_pointEnd;
-        if (isEndSegment && k == endK - 1 && segEnd.IsValid())
-          endIdx = (seg.m_pointEnd > seg.m_pointStart) ? segEnd.m_pointEnd : segEnd.m_pointStart;
-
-        if (startIdx < endIdx)
-        {
-          for (auto idx = startIdx; idx <= endIdx; ++idx)
-            points.push_back(ft.GetPoint(idx));
-        }
-        else
-        {
-          // I use big signed type because endIdx can be 0.
-          for (int64_t idx = startIdx; idx >= endIdx; --idx)
-            points.push_back(ft.GetPoint(idx));
-        }
-      }
+      // Path geometry.
+      points.insert(points.end(), loadedSegment.m_path.begin(), loadedSegment.m_path.end());
     }
   }
 

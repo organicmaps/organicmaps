@@ -29,35 +29,45 @@ namespace turns
 using TGetIndexFunction = function<size_t(pair<size_t, size_t>)>;
 
 /*!
- * \brief The TurnInfo struct is an accumulator for all junction information.
- * During a junction (a turn) analysis a different subsets of fields in the structure
- * may be calculated. The main purpose of TurnInfo is to prevent recalculation the same fields.
- * The idea is if a field is required to check whether a field has been calculated.
- * If yes, just use it. If not, the field should be calculated, kept in the structure
- * and used.
+ * \brief The LoadedPathSegment struct is a representation for a single osrm node path.
+ * It unpacks all necessary information about path and stores it inside this structure.
+ * Postprocessing must read information from the structure and does not initiate disk readings.
+ */
+struct LoadedPathSegment
+{
+  vector<m2::PointD> m_path;
+  ftypes::HighwayClass m_highwayClass;
+  bool m_onRoundabout;
+  bool m_isLink;
+  EdgeWeight m_weight;
+  string m_name;
+  NodeID m_nodeId;
+  vector<SingleLaneInfo> m_lanes;
+
+  // General constructor.
+  LoadedPathSegment(RoutingMapping & mapping, Index const & index, RawPathData const & osrmPathSegment);
+  // Spesial constructor for side nodes. Splits OSRM node by information from the FeatureGraphNode.
+  LoadedPathSegment(RoutingMapping & mapping, Index const & index, RawPathData const & osrmPathSegment, FeatureGraphNode const & startGraphNode, FeatureGraphNode const & endGraphNode, bool isStartNode, bool isEndNode);
+  LoadedPathSegment() = delete;
+
+private:
+  void LoadPathGeometry(buffer_vector<OsrmMappingTypes::FtSeg, 8> const & buffer, size_t startK, size_t endK, Index const & index, RoutingMapping & mapping, FeatureGraphNode const & startGraphNode, FeatureGraphNode const & endGraphNode, bool isStartNode, bool isEndNode);
+};
+
+
+/*!
+ * \brief The TurnInfo struct is a representation of a junction.
+ * It has ingoing and outgoing edges and method to check if this edges are valid.
  */
 struct TurnInfo
 {
-  RoutingMapping & m_routeMapping;
+  LoadedPathSegment const & m_ingoing;
+  LoadedPathSegment const & m_outgoing;
 
-  NodeID m_ingoingNodeID;
-  OsrmMappingTypes::FtSeg m_ingoingSegment;
-  ftypes::HighwayClass m_ingoingHighwayClass;
-  bool m_isIngoingEdgeRoundabout;
-
-  NodeID m_outgoingNodeID;
-  OsrmMappingTypes::FtSeg m_outgoingSegment;
-  ftypes::HighwayClass m_outgoingHighwayClass;
-  bool m_isOutgoingEdgeRoundabout;
-
-  TurnInfo(RoutingMapping & routeMapping, NodeID ingoingNodeID, NodeID outgoingNodeID);
+  TurnInfo(LoadedPathSegment const & ingoingSegment, LoadedPathSegment const & outgoingSegment) : m_ingoing(ingoingSegment), m_outgoing(outgoingSegment) {}
 
   bool IsSegmentsValid() const;
 };
-
-size_t GetLastSegmentPointIndex(pair<size_t, size_t> const & p);
-vector<SingleLaneInfo> GetLanesInfo(NodeID node, RoutingMapping const & routingMapping,
-                                    TGetIndexFunction GetIndex, Index const & index);
 
 // Returns the distance in meractor units for the path of points for the range [startPointIndex, endPointIndex].
 double CalculateMercatorDistanceAlongPath(uint32_t startPointIndex, uint32_t endPointIndex,
@@ -122,7 +132,7 @@ TurnDirection GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoi
  * \param turnInfo is used for cashing some information while turn calculation.
  * \param turn is used for keeping the result of turn calculation.
  */
-void GetTurnDirection(Index const & index, turns::TurnInfo & turnInfo, TurnItem & turn);
+void GetTurnDirection(Index const & index, RoutingMapping & mapping, turns::TurnInfo & turnInfo, TurnItem & turn);
 
 }  // namespace routing
 }  // namespace turns
