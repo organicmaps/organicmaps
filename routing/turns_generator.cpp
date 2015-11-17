@@ -890,7 +890,7 @@ void GetTurnDirection(Index const & index, RoutingMapping & mapping, TurnInfo & 
 
 size_t CheckUTurnOnRoute(vector<LoadedPathSegment> const & segments, size_t currentSegment, TurnItem & turn)
 {
-  size_t constexpr kUTurnLookAhead = 5;
+  size_t constexpr kUTurnLookAhead = 3;
   double const kUTurnHeadingSensitivity = math::pi / 10.0;
 
   ASSERT_GREATER(segments.size(), 1, ());
@@ -929,6 +929,10 @@ size_t CheckUTurnOnRoute(vector<LoadedPathSegment> const & segments, size_t curr
         else
           turn.m_turn = TurnDirection::UTurnRight;
         return ++i;
+      }
+      else
+      {
+        return 0;
       }
     }
   }

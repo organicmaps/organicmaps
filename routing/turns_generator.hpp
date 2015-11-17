@@ -148,6 +148,5 @@ void GetTurnDirection(Index const & index, RoutingMapping & mapping, turns::Turn
  * Returns 0 otherwise.
  */
 size_t CheckUTurnOnRoute(vector<LoadedPathSegment> const & segments, size_t currentSegment, TurnItem & turn);
-
 }  // namespace routing
 }  // namespace turns
