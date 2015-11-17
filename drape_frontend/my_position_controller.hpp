@@ -115,6 +115,8 @@ private:
   void CheckAnimFinished() const;
   void CreateAnim(m2::PointD const & oldPos, double oldAzimut, ScreenBase const & screen);
 
+  bool AlmostEqualToTheCurrent(m2::PointD const & pos, double azimut) const;
+
 private:
   // Mode bits
   // {

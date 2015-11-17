@@ -6,6 +6,8 @@
 
 #include "indexer/mercator.hpp"
 
+#include "base/math.hpp"
+
 #include "3party/Alohalytics/src/alohalytics.h"
 
 namespace df
@@ -350,6 +352,15 @@ void MyPositionController::AnimateStateTransition(location::EMyPositionMode oldM
   }
 }
 
+bool MyPositionController::AlmostEqualToTheCurrent(const m2::PointD &pos, double azimut) const
+{
+  double const kPositionEqualityDelta = 1e-5;
+  double const kDirectionEqualityDelta = 1e-5;
+
+  return pos.EqualDxDy(m_position, kPositionEqualityDelta) &&
+      my::AlmostEqualAbs(azimut, m_drawDirection, kDirectionEqualityDelta);
+}
+
 void MyPositionController::Assign(location::GpsInfo const & info, bool isNavigable, ScreenBase const & screen)
 {
   m2::PointD oldPos = GetDrawablePosition();
@@ -372,7 +383,7 @@ void MyPositionController::Assign(location::GpsInfo const & info, bool isNavigab
   if (m_listener)
     m_listener->PositionChanged(Position());
 
-  if (oldPos != m_position || oldAzimut != m_drawDirection)
+  if (!AlmostEqualToTheCurrent(oldPos, oldAzimut))
   {
     CreateAnim(oldPos, oldAzimut, screen);
     m_isDirtyViewport = true;
@@ -392,7 +403,7 @@ void MyPositionController::Assign(location::CompassInfo const & info, ScreenBase
 
   SetDirection(info.m_bearing);
 
-  if (oldPos != m_position || oldAzimut != m_drawDirection)
+  if (!AlmostEqualToTheCurrent(oldPos, oldAzimut))
   {
     CreateAnim(oldPos, oldAzimut, screen);
     m_isDirtyViewport = true;
