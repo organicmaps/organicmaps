@@ -77,14 +77,14 @@ namespace graphics
     density = static_cast<EDensity>(FindFirstBySecond(s_density, name, EqualStrings()));
   }
 
-  double visualScaleExact(int exactDensity)
+  double visualScaleExact(int exactDensityDPI)
   {
     double const mdpiDensityDPI = 160.;
     // For some old devices (for example iPad 2) the density could be less than 160 DPI.
     // Returns one in that case to keep readable text on the map.
-    if (exactDensity <= mdpiDensityDPI)
+    if (exactDensityDPI <= mdpiDensityDPI)
       return 1.;
-    return exactDensity / mdpiDensityDPI;
+    return exactDensityDPI / mdpiDensityDPI;
   }
 
   DataIS s_semantics[] = {

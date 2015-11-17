@@ -28,34 +28,26 @@
 
 namespace
 {
-  // returns DPI as exact as possible. It works for iPhone, iPad and iWatch.
-  double getExactDPI()
+// Returns DPI as exact as possible. It works for iPhone, iPad and iWatch.
+double getExactDPI()
+{
+  float const iPadDPI = 132.f;
+  float const iPhoneDPI = 163.f;
+  float const mDPI = 160.f;
+
+  UIScreen * screen = [UIScreen mainScreen];
+  float const scale = [screen respondsToSelector:@selector(scale)] ? [screen scale] : 1.f;
+    
+  switch (UI_USER_INTERFACE_IDIOM())
   {
-    float const iPadDPI = 132.;
-    float const iPhoneDPI = 163.;
-    float const mDPI = 160;
-    
-    float scale = 1;
-    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
-    {
-      scale = [[UIScreen mainScreen] scale];
-    }
-    
-    float dpi;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-      dpi = iPadDPI * scale;
-    }
-    else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-    {
-      dpi = iPhoneDPI * scale;
-    }
-    else
-    {
-      dpi = mDPI * scale;
-    };
-    return dpi;
+    case UIUserInterfaceIdiomPhone:
+      return iPhoneDPI * scale;
+    case UIUserInterfaceIdiomPad:
+      return iPadDPI * scale;
+    default:
+      return mDPI * scale;
   }
+}
 } //  namespace
 
 // You must implement this method
@@ -113,7 +105,7 @@ namespace
   NSLog(@"EAGLView initRenderPolicy Started");
   
 #ifndef USE_DRAPE
-  float const dpi = getExactDPI();
+  int const dpi = static_cast<int>(getExactDPI());
   
   graphics::ResourceManager::Params rmParams;
   rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();

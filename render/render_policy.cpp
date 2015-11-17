@@ -342,7 +342,7 @@ RenderPolicy * CreateRenderPolicy(RenderPolicy::Params const & params)
 
 
 graphics::GlyphCache::Params GetGlyphCacheParams(graphics::EDensity density,
-                                                 int exactDensity,
+                                                 int exactDensityDPI,
                                                  size_t cacheMaxSize)
 {
   return graphics::GlyphCache::Params(UNICODE_BLOCK_FILE,
@@ -350,7 +350,7 @@ graphics::GlyphCache::Params GetGlyphCacheParams(graphics::EDensity density,
                                       BLACK_LIST_FILE,
                                       cacheMaxSize,
                                       density,
-                                      exactDensity,
+                                      exactDensityDPI,
                                       false);
 }
 
