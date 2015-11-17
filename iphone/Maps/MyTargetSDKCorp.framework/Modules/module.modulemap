@@ -1,0 +1,6 @@
+framework module MyTargetSDKCorp {
+  umbrella header "MyTargetSDKCorp.h"
+
+  export *
+  module * { export * }
+}
