@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.content.Context;
 import android.graphics.PointF;
 import android.graphics.Rect;
+import android.os.Build;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
@@ -40,6 +41,7 @@ public class SlotFrame extends LinearLayout
   {
     private final View mFrame;
     private final View mShadowedFrame;
+    private final View mShadow;
     private final TextView mOrderText;
     private final TextView mText;
     private final View mDragHandle;
@@ -62,6 +64,7 @@ public class SlotFrame extends LinearLayout
     {
       mFrame = frame.findViewById(id);
       mShadowedFrame = mFrame.findViewById(R.id.shadowed_frame);
+      mShadow = mFrame.findViewById(R.id.shadow);
       mOrderText = (TextView) mFrame.findViewById(R.id.order);
       mText = (TextView) mFrame.findViewById(R.id.text);
       mDragHandle = mFrame.findViewById(R.id.drag_handle);
@@ -149,6 +152,13 @@ public class SlotFrame extends LinearLayout
       lp.bottomMargin = UiUtils.dimen(dragging ? R.dimen.routing_shadow_bottom_margin_dragging
                                                : R.dimen.routing_shadow_bottom_margin);
       mShadowedFrame.setLayoutParams(lp);
+      mShadow.setAlpha(dragging ? 0.4f : 1.0f);
+
+      mShadowedFrame.setBackgroundResource(dragging ? R.drawable.routing_slot_background_pressed
+                                                    : R.drawable.routing_slot_background);
+
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        mFrame.setElevation(dragging ? 1.0f : 0.0f);
     }
 
     void moveViewTo(float x, float y)
@@ -206,7 +216,7 @@ public class SlotFrame extends LinearLayout
     setClickable(true);
 
     int padding = UiUtils.dp(8);
-    setPadding(padding, padding / 2, padding, padding);
+    setPadding(padding, padding / 4, padding, padding);
 
     mSlotFrom = new Slot(this, R.id.from, 1);
     mSlotTo = new Slot(this, R.id.to, 2);

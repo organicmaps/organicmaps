@@ -40,15 +40,16 @@
       android:id="@+id/planning_frame"
       style="@style/MwmWidget.Floating.Panel"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="@dimen/routing_selector_size"
       android:paddingLeft="8dp"
       android:paddingRight="12dp"
       android:clickable="true">
     <LinearLayout
         android:id="@+id/progress_frame"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/routing_selector_size"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_centerVertical="true"
         tools:background="#3000FF00">
       <com.mapswithme.maps.widget.WheelProgressView
           android:id="@+id/progress_vehicle"
@@ -72,7 +73,7 @@
     <RadioGroup
         android:id="@+id/route_type"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/routing_selector_size"
+        android:layout_height="match_parent"
         android:layout_alignLeft="@id/progress_frame"
         android:orientation="horizontal">
       <RadioButton
@@ -123,6 +124,6 @@
         android:textColor="@color/base_red"
         android:gravity="right"
         tools:layout_centerVertical="false"
-        tools:layout_marginTop="27dp"/>
+        tools:layout_marginTop="14dp"/>
   </RelativeLayout>
 </LinearLayout>

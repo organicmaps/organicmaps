@@ -207,7 +207,7 @@ public class RoutingPlanController extends ToolbarController
         {
           float fraction = (float)animation.getAnimatedValue();
           animateSlotFrame((int)(fraction * mFrameHeight));
-          mToggleImage.setAngle(fraction * 180.0f);
+          mToggleImage.setAngle((1.0f - fraction) * 180.0f);
         }
       });
 
@@ -217,7 +217,7 @@ public class RoutingPlanController extends ToolbarController
     } else
     {
       animateSlotFrame(mOpen ? 0 : mFrameHeight);
-      mToggleImage.setAngle(mOpen ? 0.0f : 180.0f);
+      mToggleImage.setAngle(mOpen ? 180.0f : 0.0f);
       mSlotFrame.unfadeSlots();
     }
   }
