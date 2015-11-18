@@ -193,7 +193,7 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
 
 - (void)willStartEditingBookmarkTitle
 {
-  [[Statistics instance] logEvent:kStatPlacePage withParameters:@{kStatAction : kStatRename}];
+  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatRename)];
 // This method should be ovverriden.
 }
 

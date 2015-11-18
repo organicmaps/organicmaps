@@ -232,6 +232,8 @@ static NSString * const kNavigationDashboardIPADXibName = @"MWMNiPadNavigationDa
 
 - (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
 {
+  [[Statistics instance] logEvent:kStatEventName(kStatNavigationDashboard, kStatButton)
+                   withParameters:@{kStatValue : kStatProgress}];
   MWMCircularProgressState const s = progress.state;
   if (s == MWMCircularProgressStateSelected || s == MWMCircularProgressStateCompleted)
     return;
@@ -275,6 +277,7 @@ static NSString * const kNavigationDashboardIPADXibName = @"MWMNiPadNavigationDa
 
 - (IBAction)navigationCancelPressed:(UIButton *)sender
 {
+  [[Statistics instance] logEvent:kStatEventName(kStatNavigationDashboard, kStatClose)];
   if (IPAD && self.state != MWMNavigationDashboardStateNavigation)
     [self.delegate routePreviewDidChangeFrame:{}];
   [self removePanel:self.nextTurnPanel];
@@ -286,6 +289,7 @@ static NSString * const kNavigationDashboardIPADXibName = @"MWMNiPadNavigationDa
 - (IBAction)soundTap:(UIButton *)sender
 {
   BOOL const isEnable = !sender.selected;
+  [[Statistics instance] logEvent:kStatEventName(kStatNavigationDashboard, isEnable ? kStatOn : kStatOff)];
   MWMTextToSpeech * tts = [MWMTextToSpeech tts];
   if (isEnable)
     [tts enable];
@@ -298,6 +302,7 @@ static NSString * const kNavigationDashboardIPADXibName = @"MWMNiPadNavigationDa
 
 - (IBAction)navigationGoPressed:(UIButton *)sender
 {
+  [[Statistics instance] logEvent:kStatEventName(kStatNavigationDashboard, kStatGo)];
   if ([self.delegate didStartFollowing])
     self.state = MWMNavigationDashboardStateNavigation;
 }

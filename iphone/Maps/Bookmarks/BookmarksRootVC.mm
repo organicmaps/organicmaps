@@ -89,11 +89,8 @@
   {
     // Invert visibility
     bool visible = !cat->IsVisible();
-    [[Statistics instance] logEvent:kStatBookmarks
-                     withParameters:@{
-                       kStatAction : kStatToggleVisibility,
-                       kStatValue : visible ? kStatVisible : kStatHidden
-                     }];
+    [[Statistics instance] logEvent:kStatEventName(kStatBookmarks, kStatToggleVisibility)
+                     withParameters:@{kStatValue : visible ? kStatVisible : kStatHidden}];
     cell.imageView.image = [UIImage imageNamed:(visible ? @"ic_show_light" : @"ic_hide_light")];
     cat->SetVisible(visible);
     cat->SaveToKMLFile();
@@ -225,7 +222,7 @@
 {
   if (editingStyle == UITableViewCellEditingStyleDelete)
   {
-    [[Statistics instance] logEvent:kStatPlacePage withParameters:@{kStatAction : kStatRemove}];
+    [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatRemove)];
     [[NSNotificationCenter defaultCenter] postNotificationName:BOOKMARK_CATEGORY_DELETED_NOTIFICATION object:@(indexPath.row)];
     Framework & f = GetFramework();
     f.DeleteBmCategory(indexPath.row);
@@ -288,7 +285,7 @@
 // To hide keyboard and apply changes
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-  [[Statistics instance] logEvent:kStatBookmarks withParameters:@{kStatAction : kStatRename}];
+  [[Statistics instance] logEvent:kStatEventName(kStatBookmarks, kStatRename)];
   if (textField.text.length == 0)
     return YES;
 

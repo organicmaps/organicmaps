@@ -4,6 +4,7 @@
 #import "MWMCircularProgress.h"
 #import "MWMDownloadMapRequest.h"
 #import "MWMDownloadMapRequestView.h"
+#import "Statistics.h"
 
 #include "Framework.h"
 #include "storage/index.hpp"
@@ -119,6 +120,8 @@
 
 - (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
 {
+  [[Statistics instance] logEvent:kStatEventName(kStatDownloadRequest, kStatButton)
+                   withParameters:@{kStatValue : kStatProgress}];
   auto & activeMapLayout = GetFramework().GetCountryTree().GetActiveMapLayout();
   if (progress.state == MWMCircularProgressStateFailed)
   {
@@ -136,6 +139,7 @@
 
 - (IBAction)downloadMapTouchUpInside:(nonnull UIButton *)sender
 {
+  [[Statistics instance] logEvent:kStatEventName(kStatDownloadRequest, kStatDownloadMap)];
   auto const mapType = self.downloadRoutesButton.selected ? MapOptions::MapWithCarRouting : MapOptions::Map;
   GetFramework().GetCountryTree().GetActiveMapLayout().DownloadMap(self.currentCountryIndex, mapType);
   self.progressView.progress = 0.0;
@@ -145,6 +149,7 @@
 
 - (IBAction)downloadRoutesTouchUpInside:(nonnull UIButton *)sender
 {
+  [[Statistics instance] logEvent:kStatEventName(kStatDownloadRequest, kStatDownloadRoute)];
   sender.selected = !sender.selected;
   [self.downloadMapButton setTitle:[NSString stringWithFormat:@"%@ (%@)",
                                     L(@"downloader_download_map"),
@@ -154,6 +159,7 @@
 
 - (IBAction)selectMapTouchUpInside:(nonnull UIButton *)sender
 {
+  [[Statistics instance] logEvent:kStatEventName(kStatDownloadRequest, kStatSelectMap)];
   [self.delegate selectMapsAction];
 }
 

@@ -55,8 +55,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSString * string = @(categoriesNames[indexPath.row]);
-  [[Statistics instance] logEvent:kStatSearch
-                   withParameters:@{kStatAction : kStatSelectResult, kStatValue : string}];
+  [[Statistics instance] logEvent:kStatEventName(kStatSearch, kStatSelectResult)
+                   withParameters:@{kStatValue : string}];
   [self.delegate searchText:[L(string) stringByAppendingString:@" "] forInputLocale:nil];
 }
 

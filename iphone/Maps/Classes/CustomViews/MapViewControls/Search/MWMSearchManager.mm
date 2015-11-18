@@ -109,6 +109,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 
 - (IBAction)cancelButtonPressed
 {
+  [[Statistics instance] logEvent:kStatEventName(kStatSearch, kStatCancel)];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"searchCancel"];
   self.state = MWMSearchManagerStateHidden;
   MapsAppDelegate * a = MapsAppDelegate.theApp;

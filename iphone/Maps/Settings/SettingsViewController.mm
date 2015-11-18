@@ -156,17 +156,16 @@ typedef NS_ENUM(NSUInteger, Section)
 - (void)switchCell:(SwitchCell *)cell didChangeValue:(BOOL)value
 {
   NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+  Statistics * stat = [Statistics instance];
   if (indexPath.section == SectionAd)
   {
-    [[Statistics instance]
-              logEvent:kStatSettings
+    [stat logEvent:kStatSettings
         withParameters:@{kStatAction : kStatMoreApps, kStatValue : (value ? kStatOn : kStatOff)}];
     Settings::Set(kAdForbiddenSettingsKey, (bool)!value);
   }
   else if (indexPath.section == SectionStatistics)
   {
-    Statistics * stat = [Statistics instance];
-    [stat logEvent:kStatSettings
+    [stat logEvent:kStatEventName(kStatSettings, kStatToggleStatistics)
         withParameters:
             @{kStatAction : kStatToggleStatistics, kStatValue : (value ? kStatOn : kStatOff)}];
     if (value)
@@ -176,25 +175,21 @@ typedef NS_ENUM(NSUInteger, Section)
   }
   else if (indexPath.section == SectionZoomButtons)
   {
-    [[Statistics instance] logEvent:kStatSettings
-                     withParameters:@{
-                       kStatAction : kStatToggleZoomButtonsVisibility,
-                       kStatValue : (value ? kStatVisible : kStatHidden)
-                     }];
+    [stat logEvent:kStatEventName(kStatSettings, kStatToggleZoomButtonsVisibility)
+        withParameters:@{kStatValue : (value ? kStatVisible : kStatHidden)}];
     Settings::Set("ZoomButtonsEnabled", (bool)value);
     [MapsAppDelegate theApp].mapViewController.controlsManager.zoomHidden = !value;
   }
   else if (indexPath.section == SectionCalibration)
   {
-    [[Statistics instance] logEvent:kStatSettings
-                     withParameters:@{
-                       kStatAction : kStatToggleCompassCalibration,
-                       kStatValue : (value ? kStatOn : kStatOff)
-                     }];
+    [stat logEvent:kStatEventName(kStatSettings, kStatToggleCompassCalibration)
+        withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
     Settings::Set("CompassCalibrationEnabled", (bool)value);
   }
   else if (indexPath.section == SectionRouting)
   {
+    [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatTTS)
+                     withParameters:@{kStatValue : value ? kStatOn : kStatOff}];
     [[MWMTextToSpeech tts] setNeedToEnable:value];
     [[NSNotificationCenter defaultCenter] postNotificationName:kTTSStatusWasChangedNotification
                                                         object:nil
@@ -212,15 +207,16 @@ Settings::Units unitsForIndex(NSInteger index)
   if (indexPath.section == SectionMetrics)
   {
     Settings::Units units = unitsForIndex(indexPath.row);
-    [[Statistics instance]
-              logEvent:kStatSettings
-        withParameters:@{
-          kStatAction : kStatChangeMeasureUnits,
-          kStatValue : (units == Settings::Units::Metric ? kStatKilometers : kStatMiles)
-        }];
+    [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatChangeMeasureUnits)
+        withParameters:@{kStatValue : (units == Settings::Units::Metric ? kStatKilometers : kStatMiles)}];
     Settings::Set("Units", units);
     [tableView reloadSections:[NSIndexSet indexSetWithIndex:SectionMetrics] withRowAnimation:UITableViewRowAnimationFade];
     [[MapsAppDelegate theApp].mapViewController setupMeasurementSystem];
+  }
+  else if (indexPath.section == SectionRouting && indexPath.row == 1)
+  {
+    [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatTTS)
+                     withParameters:@{kStatAction : kStatChangeLanguage}];
   }
 }
 

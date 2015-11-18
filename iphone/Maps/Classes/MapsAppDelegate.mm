@@ -141,7 +141,7 @@ void InitLocalizedStrings()
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-  [Statistics.instance logEvent:@"Push received" withParameters:userInfo];
+  [[Statistics instance] logEvent:kStatEventName(kStatApplication, kStatPushReceived) withParameters:userInfo];
   if (![self handleURLPush:userInfo])
     [PFPush handlePush:userInfo];
   completionHandler(UIBackgroundFetchResultNoData);
@@ -269,11 +269,8 @@ void InitLocalizedStrings()
   {
     if (f.ShowMapForURL([m_geoURL UTF8String]))
     {
-      if ([m_scheme isEqualToString:@"geo"])
-        [[Statistics instance] logEvent:@"geo Import"];
-      if ([m_scheme isEqualToString:@"ge0"])
-        [[Statistics instance] logEvent:@"ge0(zero) Import"];
-
+      [[Statistics instance] logEvent:kStatEventName(kStatApplication, kStatImport)
+                       withParameters:@{kStatValue : m_scheme}];
       [self showMap];
     }
   }
@@ -293,7 +290,8 @@ void InitLocalizedStrings()
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"KML file added" object:nil];
     [self showLoadFileAlertIsSuccessful:YES];
-    [[Statistics instance] logEvent:@"KML Import"];
+    [[Statistics instance] logEvent:kStatEventName(kStatApplication, kStatImport)
+                     withParameters:@{kStatValue : kStatKML}];
   }
   else
   {
@@ -313,7 +311,7 @@ void InitLocalizedStrings()
 
   [self restoreRouteState];
 
-  [Statistics.instance applicationDidBecomeActive];
+  [[Statistics instance] applicationDidBecomeActive];
 }
 
 - (void)dealloc
@@ -327,7 +325,6 @@ void InitLocalizedStrings()
 {
   Statistics * statistics = [Statistics instance];
   BOOL returnValue = [statistics application:application didFinishLaunchingWithOptions:launchOptions];
-  [statistics logEvent:@"Device Info" withParameters:@{@"Country" : [AppInfo sharedInfo].countryCode}];
 
   NSString * connectionType;
   switch (Platform::ConnectionStatus())
@@ -343,7 +340,9 @@ void InitLocalizedStrings()
   }
   if (!connectionType)
     connectionType = @"Offline";
-  [statistics logEvent:@"Connection" withParameters:@{@"Type" : connectionType}];
+  [statistics logEvent:kStatDeviceInfo
+        withParameters:
+            @{kStatCountry : [AppInfo sharedInfo].countryCode, kStatConnection : connectionType}];
 
   return returnValue;
 }

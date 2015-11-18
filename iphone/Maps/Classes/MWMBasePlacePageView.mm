@@ -152,8 +152,8 @@ static CGFloat const kTitleBottomOffset = 2.;
 
 - (void)addBookmark
 {
-  [[Statistics instance] logEvent:kStatPlacePage
-                   withParameters:@{kStatAction : kStatToggleBookmark, kStatValue : kStatAdd}];
+  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatToggleBookmark)
+                   withParameters:@{kStatValue : kStatAdd}];
   self.entity.type = MWMPlacePageEntityTypeBookmark;
   [self.typeDescriptionView removeFromSuperview];
   self.typeDescriptionView = nil;
@@ -164,8 +164,8 @@ static CGFloat const kTitleBottomOffset = 2.;
 
 - (void)removeBookmark
 {
-  [[Statistics instance] logEvent:kStatPlacePage
-                   withParameters:@{kStatAction : kStatToggleBookmark, kStatValue : kStatRemove}];
+  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatToggleBookmark)
+                   withParameters:@{kStatValue : kStatRemove}];
   self.entity.type = MWMPlacePageEntityTypeRegular;
   [self.entity removeBookmarkFromTypes];
   [self configure];
@@ -181,7 +181,7 @@ static CGFloat const kTitleBottomOffset = 2.;
 
 - (IBAction)directionButtonTap
 {
-  [[Statistics instance] logEvent:kStatPlacePage withParameters:@{kStatAction : kStatCompass}];
+  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatCompass)];
   [self.ownerPlacePage.manager showDirectionViewWithTitle:self.titleLabel.text type:self.typeLabel.text];
 }
 

@@ -139,14 +139,14 @@ static NSUInteger sWebViewHeight = 0;
 
 - (IBAction)categoryButtonTap
 {
-  [[Statistics instance] logEvent:kStatPlacePage withParameters:@{kStatAction : kStatChangeBookmarkGroup}];
+  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatChangeBookmarkGroup)];
   [self.placePage changeBookmarkCategory];
   [self.title resignFirstResponder];
 }
 
 - (IBAction)editTap
 {
-  [[Statistics instance] logEvent:kStatPlacePage withParameters:@{kStatAction : kStatChangeBookmarkDescription}];
+  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatChangeBookmarkDescription)];
   [self.placePage changeBookmarkDescription];
   [self.title resignFirstResponder];
 }

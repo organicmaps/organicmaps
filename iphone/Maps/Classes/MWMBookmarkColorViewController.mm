@@ -122,9 +122,8 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSString * bookmarkColor = kBookmarkColorsVariant[indexPath.row];
-  [[Statistics instance]
-            logEvent:kStatPlacePage
-      withParameters:@{kStatAction : kStatChangeBookmarkColor, kStatValue : bookmarkColor}];
+  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatChangeBookmarkColor)
+                   withParameters:@{kStatValue : bookmarkColor}];
   self.colorWasChanged = YES;
   self.placePageManager.entity.bookmarkColor = bookmarkColor;
   if (!self.iPadOwnerNavigationController)

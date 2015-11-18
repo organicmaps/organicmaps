@@ -56,18 +56,12 @@ NSString * httpGe0Url(NSString * shortUrl)
          itemForActivityType:(NSString *)activityType
 {
   NSString * event = @"MWMShareLocationActivityItem:activityViewController:itemForActivityType:";
+  [[Statistics instance] logEvent:kStatEventName(kStatShare, kStatLocation) withParameters:@{kStatAction : activityType}];
   [Alohalytics logEvent:event withValue:activityType];
   if ([UIActivityTypeMessage isEqualToString:activityType])
-  {
-    [[Statistics instance] logEvent:@"ge0(zero) MESSAGE Export"];
     return [self itemForMessageApp];
-  }
   if ([UIActivityTypeMail isEqualToString:activityType])
-  {
-    [[Statistics instance] logEvent:@"ge0(zero) MAIL Export"];
     return [self itemForMailApp];
-  }
-  [Statistics.instance logEvent:event withParameters:@{@"type" : activityType}];
   return [self itemDefault];
 }
 

@@ -1,6 +1,7 @@
 #import "Common.h"
 #import "MWMAPIBar.h"
 #import "MWMAPIBarView.h"
+#import "Statistics.h"
 
 #include "Framework.h"
 
@@ -51,6 +52,7 @@ static NSString * const kKeyPath = @"subviews";
 
 - (IBAction)back
 {
+  [[Statistics instance] logEvent:kStatEventName(kStatAPI, kStatBack)];
   auto & f = GetFramework();
   auto & bm = f.GetBalloonManager();
   bm.RemovePin();

@@ -1,8 +1,9 @@
-#import <AVFoundation/AVFoundation.h>
 #import "LinkCell.h"
 #import "MWMTextToSpeech.h"
 #import "MWMTTSSettingsViewController.h"
 #import "SelectableCell.h"
+#import "Statistics.h"
+#import <AVFoundation/AVFoundation.h>
 
 static NSString * kSelectTTSLanguageSegueName = @"TTSLanguage";
 
@@ -118,6 +119,8 @@ using namespace std;
   {
     if (indexPath.row == _languages.size())
     {
+      [[Statistics instance] logEvent:kStatEventName(kStatTTSSettings, kStatChangeLanguage)
+                       withParameters:@{kStatValue : kStatOther}];
       [self performSegueWithIdentifier:kSelectTTSLanguageSegueName sender:nil];
     }
     else
