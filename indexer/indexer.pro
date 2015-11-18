@@ -41,6 +41,7 @@ SOURCES += \
     map_style_reader.cpp \
     mwm_set.cpp \
     old/feature_loader_101.cpp \
+    osm_editor.cpp \
     point_to_int64.cpp \
     rank_table.cpp \
     scales.cpp \
@@ -88,6 +89,7 @@ HEADERS += \
     mwm_set.hpp \
     old/feature_loader_101.hpp \
     old/interval_index_101.hpp \
+    osm_editor.hpp \
     point_to_int64.hpp \
     rank_table.hpp \
     scale_index.hpp \

@@ -21,7 +21,6 @@ namespace old_101 { namespace feature
   class LoaderImpl;
 }}
 
-
 /// Base feature class for storing common data (without geometry).
 class FeatureBase
 {
