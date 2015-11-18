@@ -30,9 +30,11 @@ public class RoutingPlanController extends ToolbarController
   private final WheelProgressView mProgressPedestrian;
   private final View mPlanningLabel;
   private final View mErrorLabel;
+  private final View mDetailsFrame;
   private final View mNumbersFrame;
   private final TextView mNumbersTime;
   private final TextView mNumbersDistance;
+  private final TextView mNumbersArrival;
 
   private final RotateDrawable mToggleImage = new RotateDrawable(R.drawable.ic_down);
   private int mFrameHeight;
@@ -86,9 +88,11 @@ public class RoutingPlanController extends ToolbarController
 
     mPlanningLabel = planFrame.findViewById(R.id.planning);
     mErrorLabel = planFrame.findViewById(R.id.error);
+    mDetailsFrame = planFrame.findViewById(R.id.details_frame);
     mNumbersFrame = planFrame.findViewById(R.id.numbers);
     mNumbersTime = (TextView) mNumbersFrame.findViewById(R.id.time);
     mNumbersDistance = (TextView) mNumbersFrame.findViewById(R.id.distance);
+    mNumbersArrival = (TextView) mNumbersFrame.findViewById(R.id.arrival);
 
     setTitle(R.string.route);
 
@@ -135,9 +139,17 @@ public class RoutingPlanController extends ToolbarController
 
   private void updateProgressLabels()
   {
+    RoutingController.BuildState buildState = RoutingController.get().getBuildState();
+    boolean idle = (RoutingController.get().isPlanning() &&
+                    buildState == RoutingController.BuildState.NONE);
+    if (mDetailsFrame != null)
+      UiUtils.showIf(!idle, mDetailsFrame);
+
     UiUtils.showIf(RoutingController.get().isBuilding(), mPlanningLabel);
 
-    RoutingController.BuildState buildState = RoutingController.get().getBuildState();
+    if (idle)
+      return;
+
     UiUtils.showIf(buildState == RoutingController.BuildState.ERROR, mErrorLabel);
 
     boolean ready = (buildState == RoutingController.BuildState.BUILT);
@@ -149,6 +161,10 @@ public class RoutingPlanController extends ToolbarController
     mNumbersTime.setText(RoutingController.formatRoutingTime(rinfo.totalTimeInSeconds));
     mNumbersDistance.setText(Utils.formatUnitsText(R.dimen.text_size_routing_number, R.dimen.text_size_routing_dimension,
                                                    rinfo.distToTarget, rinfo.targetUnits));
+
+    if (mNumbersArrival != null)
+      mNumbersArrival.setText(MwmApplication.get().getString(R.string.routing_arrive) + " " +
+                              RoutingController.formatArrivalTime(rinfo.totalTimeInSeconds));
   }
 
   public void updateBuildProgress(int progress, int router)

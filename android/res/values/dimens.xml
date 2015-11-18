@@ -67,7 +67,7 @@
 
   <!-- routing layout -->
   <dimen name="routing_info_height">48dp</dimen>
-  <dimen name="routing_selector_size">56dp</dimen>
+  <dimen name="routing_selector_size">48dp</dimen>
   <dimen name="routing_selector_wheel_size">40dp</dimen>
   <dimen name="routing_selector_wheel_margin">4dp</dimen>
   <dimen name="routing_slot_height">51dp</dimen>

@@ -24,7 +24,6 @@
         android:orientation="vertical">
       <android.support.design.widget.TabLayout
           android:id="@+id/tabs"
-          style="@style/MwmWidget.FrameLayout.Elevation"
           android:theme="@style/ThemeOverlay.AppCompat"
           android:layout_width="match_parent"
           android:layout_height="@dimen/tabs_height"

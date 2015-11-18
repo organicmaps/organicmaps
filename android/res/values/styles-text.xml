@@ -123,4 +123,9 @@
     <item name="android:textSize">@dimen/text_size_routing_number</item>
     <item name="android:textColor">@color/text_dark_subtitle</item>
   </style>
+
+  <style name="MwmTextAppearance.RoutingDetail">
+    <item name="android:textSize">@dimen/text_size_routing_plan_detail</item>
+    <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoMedium</item>
+  </style>
 </resources>

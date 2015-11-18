@@ -110,6 +110,21 @@
     <item name="android:textSize">@dimen/text_size_headline</item>
   </style>
 
+  <style name="MwmWidget.TextView.PlanDetail">
+    <item name="android:textAppearance">@style/MwmTextAppearance.RoutingDetail</item>
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+  </style>
+
+  <style name="MwmWidget.TextView.PlanDetail.Number">
+    <item name="android:singleLine">true</item>
+  </style>
+
+  <style name="MwmWidget.TextView.PlanDetail.Status">
+    <item name="android:layout_gravity">center_vertical</item>
+    <item name="android:layout_centerVertical">true</item>
+  </style>
+
   <style name="MwmWidget.TextView.BottomMenu">
     <item name="android:maxLines">2</item>
     <item name="android:textColor">@color/color_menu_text</item>
