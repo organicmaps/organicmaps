@@ -13,10 +13,10 @@
 
 namespace math
 {
-  static const double pi = 3.14159265358979323846;
-  static const double pi2 = pi / 2.;
-  static const double pi4 = pi / 4.;
-  static const double twicePi = 2. * pi;
+  double constexpr pi = 3.14159265358979323846;
+  double constexpr pi2 = pi / 2.;
+  double constexpr pi4 = pi / 4.;
+  double constexpr twicePi = 2. * pi;
 
   template <class T> T sqr(T t) { return (t*t); }
 }

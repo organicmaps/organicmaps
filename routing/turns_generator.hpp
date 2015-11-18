@@ -29,8 +29,8 @@ namespace turns
 using TGetIndexFunction = function<size_t(pair<size_t, size_t>)>;
 
 /*!
- * \brief The LoadedPathSegment struct is a representation for a single osrm node path.
- * It unpacks all necessary information about path and stores it inside this structure.
+ * \brief The LoadedPathSegment struct is a representation of a single osrm node path.
+ * It unpacks and stores information about path and road type flags.
  * Postprocessing must read information from the structure and does not initiate disk readings.
  */
 struct LoadedPathSegment
@@ -47,22 +47,24 @@ struct LoadedPathSegment
   // General constructor.
   LoadedPathSegment(RoutingMapping & mapping, Index const & index,
                     RawPathData const & osrmPathSegment);
-  // Spesial constructor for side nodes. Splits OSRM node by information from the FeatureGraphNode.
+  // Special constructor for side nodes. Splits OSRM node by information from the FeatureGraphNode.
   LoadedPathSegment(RoutingMapping & mapping, Index const & index,
                     RawPathData const & osrmPathSegment, FeatureGraphNode const & startGraphNode,
                     FeatureGraphNode const & endGraphNode, bool isStartNode, bool isEndNode);
   LoadedPathSegment() = delete;
 
 private:
-  void LoadPathGeometry(buffer_vector<OsrmMappingTypes::FtSeg, 8> const & buffer, size_t startK,
-                        size_t endK, Index const & index, RoutingMapping & mapping,
+  // Load information about road, that described as the sequence of FtSegs and start/end indexes in
+  // in it. For the side case, it has information about start/end graph nodes.
+  void LoadPathGeometry(buffer_vector<OsrmMappingTypes::FtSeg, 8> const & buffer, size_t startIndex,
+                        size_t endIndex, Index const & index, RoutingMapping & mapping,
                         FeatureGraphNode const & startGraphNode,
                         FeatureGraphNode const & endGraphNode, bool isStartNode, bool isEndNode);
 };
 
 /*!
  * \brief The TurnInfo struct is a representation of a junction.
- * It has ingoing and outgoing edges and method to check if this edges are valid.
+ * It has ingoing and outgoing edges and method to check if these edges are valid.
  */
 struct TurnInfo
 {
@@ -144,8 +146,9 @@ void GetTurnDirection(Index const & index, RoutingMapping & mapping, turns::Turn
                       TurnItem & turn);
 
 /*!
- * \brief Finds UTurn started from current segment and returns how many segments it lasts.
- * Returns 0 otherwise.
+ * \brief Finds an UTurn that starts from current segment and returns how many segments it lasts.
+ * Returns 0 if there is no UTurn.
+ * Warning! currentSegment must be greater than 0.
  */
 size_t CheckUTurnOnRoute(vector<LoadedPathSegment> const & segments, size_t currentSegment, TurnItem & turn);
 }  // namespace routing

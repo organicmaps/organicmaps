@@ -322,9 +322,10 @@ TurnDirection FindDirectionByAngle(vector<pair<double, TurnDirection>> const & l
  */
 m2::PointD GetPointForTurn(vector<m2::PointD> const & path, m2::PointD const & junctionPoint,
                            size_t const maxPointsCount, double const minDistMeters,
-                           size_t (*GetPointIndex)(const size_t start, const size_t end,
-                                                   const size_t shift))
+                           function<size_t(const size_t start, const size_t end, const size_t shift)> GetPointIndex)
 {
+  ASSERT(!path.empty(), ());
+
   double curDistanceMeters = 0.;
   m2::PointD point = junctionPoint;
   m2::PointD nextPoint;
@@ -332,6 +333,7 @@ m2::PointD GetPointForTurn(vector<m2::PointD> const & path, m2::PointD const & j
   size_t const numSegPoints = path.size() - 1;
   ASSERT_GREATER(numSegPoints, 0, ());
   size_t const usedFtPntNum = min(maxPointsCount, numSegPoints);
+  ASSERT_GREATER_OR_EQUAL(usedFtPntNum, 1, ());
 
   for (size_t i = 1; i <= usedFtPntNum; ++i)
   {
@@ -459,13 +461,16 @@ LoadedPathSegment::LoadedPathSegment(RoutingMapping & mapping, Index const & ind
                    false /* isStartNode */, false /*isEndNode*/);
 }
 
-void LoadedPathSegment::LoadPathGeometry(buffer_vector<TSeg, 8> const & buffer, size_t startK,
-                                         size_t endK, Index const & index, RoutingMapping & mapping,
+void LoadedPathSegment::LoadPathGeometry(buffer_vector<TSeg, 8> const & buffer, size_t startIndex,
+                                         size_t endIndex, Index const & index, RoutingMapping & mapping,
                                          FeatureGraphNode const & startGraphNode,
                                          FeatureGraphNode const & endGraphNode, bool isStartNode,
                                          bool isEndNode)
 {
-  for (size_t k = startK; k < endK; ++k)
+  ASSERT_LESS(startIndex, endIndex, ());
+  ASSERT_LESS_OR_EQUAL(endIndex, buffer.size(), ());
+  ASSERT(!buffer.empty(), ());
+  for (size_t k = startIndex; k < endIndex; ++k)
   {
     auto const & segment = buffer[k];
     if (!segment.IsValid())
@@ -482,10 +487,10 @@ void LoadedPathSegment::LoadPathGeometry(buffer_vector<TSeg, 8> const & buffer, 
     // Get points in proper direction.
     auto startIdx = segment.m_pointStart;
     auto endIdx = segment.m_pointEnd;
-    if (isStartNode && k == startK && startGraphNode.segment.IsValid())
+    if (isStartNode && k == startIndex && startGraphNode.segment.IsValid())
       startIdx = (segment.m_pointEnd > segment.m_pointStart) ? startGraphNode.segment.m_pointStart
                                                              : startGraphNode.segment.m_pointEnd;
-    if (isEndNode && k == endK - 1 && endGraphNode.segment.IsValid())
+    if (isEndNode && k == endIndex - 1 && endGraphNode.segment.IsValid())
       endIdx = (segment.m_pointEnd > segment.m_pointStart) ? endGraphNode.segment.m_pointEnd
                                                            : endGraphNode.segment.m_pointStart;
     if (startIdx < endIdx)
@@ -496,7 +501,7 @@ void LoadedPathSegment::LoadPathGeometry(buffer_vector<TSeg, 8> const & buffer, 
     else
     {
       // I use big signed type because endIdx can be 0.
-      for (int64_t idx = startIdx; idx >= endIdx; --idx)
+      for (int64_t idx = startIdx; idx >= static_cast<int64_t>(endIdx); --idx)
         m_path.push_back(ft.GetPoint(idx));
     }
 
@@ -538,12 +543,13 @@ LoadedPathSegment::LoadedPathSegment(RoutingMapping & mapping, Index const & ind
   , m_weight(0)
   , m_nodeId(osrmPathSegment.node)
 {
+  ASSERT(isStartNode || isEndNode, ("This function process only side cases."));
   if (!startGraphNode.segment.IsValid() || !endGraphNode.segment.IsValid())
     return;
   buffer_vector<TSeg, 8> buffer;
   mapping.m_segMapping.ForEachFtSeg(osrmPathSegment.node, MakeBackInsertFunctor(buffer));
 
-  auto FindIntersectingSeg = [&buffer](TSeg const & seg) -> size_t
+  auto findIntersectingSeg = [&buffer](TSeg const & seg) -> size_t
   {
     ASSERT(seg.IsValid(), ());
     auto const it = find_if(buffer.begin(), buffer.end(), [&seg](OsrmMappingTypes::FtSeg const & s)
@@ -556,19 +562,6 @@ LoadedPathSegment::LoadedPathSegment(RoutingMapping & mapping, Index const & ind
   };
 
   // Calculate estimated time for a start and a end node cases.
-  if (isStartNode)
-  {
-    m_weight = (osrmPathSegment.node == startGraphNode.node.forward_node_id)
-                   ? startGraphNode.node.GetForwardWeightPlusOffset()
-                   : startGraphNode.node.GetReverseWeightPlusOffset();
-  }
-  if (isEndNode)
-  {
-    m_weight = (osrmPathSegment.node == endGraphNode.node.forward_node_id)
-                   ? endGraphNode.node.GetForwardWeightPlusOffset()
-                   : endGraphNode.node.GetReverseWeightPlusOffset();
-  }
-
   if (isStartNode && isEndNode)
   {
     double const forwardWeight = (osrmPathSegment.node == startGraphNode.node.forward_node_id)
@@ -584,10 +577,23 @@ LoadedPathSegment::LoadedPathSegment(RoutingMapping & mapping, Index const & ind
     // more info.
     m_weight = wholeWeight + forwardWeight + backwardWeight;
   }
+  else
+  {
+    PhantomNode const * node = nullptr;
+    if (isStartNode)
+        node = &startGraphNode.node;
+    else if (isEndNode)
+        node = &endGraphNode.node;
+    if (node)
+    {
+        m_weight = (osrmPathSegment.node == node->forward_weight)
+                     ? node->GetForwardWeightPlusOffset() : node->GetReverseWeightPlusOffset();
+    }
+  }
 
-  size_t startK = isStartNode ? FindIntersectingSeg(startGraphNode.segment) : 0;
-  size_t endK = isEndNode ? FindIntersectingSeg(endGraphNode.segment) + 1 : buffer.size();
-  LoadPathGeometry(buffer, startK, endK, index, mapping, startGraphNode, endGraphNode, isStartNode,
+  size_t startIndex = isStartNode ? findIntersectingSeg(startGraphNode.segment) : 0;
+  size_t endIndex = isEndNode ? findIntersectingSeg(endGraphNode.segment) + 1 : buffer.size();
+  LoadPathGeometry(buffer, startIndex, endIndex, index, mapping, startGraphNode, endGraphNode, isStartNode,
                    isEndNode);
 }
 
@@ -891,49 +897,51 @@ void GetTurnDirection(Index const & index, RoutingMapping & mapping, TurnInfo & 
 size_t CheckUTurnOnRoute(vector<LoadedPathSegment> const & segments, size_t currentSegment, TurnItem & turn)
 {
   size_t constexpr kUTurnLookAhead = 3;
-  double const kUTurnHeadingSensitivity = math::pi / 10.0;
+  double constexpr kUTurnHeadingSensitivity = math::pi / 10.0;
 
+  // In this function we process the turn between the previous and the current
+  // segments. So we need a shift to get the previous segment.
   ASSERT_GREATER(segments.size(), 1, ());
   ASSERT_GREATER(currentSegment, 0, ());
+  ASSERT_GREATER(segments.size(), currentSegment, ());
   auto const & masterSegment = segments[currentSegment - 1];
+  ASSERT_GREATER(masterSegment.m_path.size(), 1, ());
   // Roundabout is not the UTurn.
   if (masterSegment.m_onRoundabout)
     return 0;
-  for (size_t i = 0; i< min(kUTurnLookAhead, segments.size()); ++i)
+  for (size_t i = 0; i < min(kUTurnLookAhead, segments.size() - currentSegment); ++i)
   {
     auto const & checkedSegment = segments[currentSegment + i];
     if (checkedSegment.m_name == masterSegment.m_name &&
         checkedSegment.m_highwayClass == masterSegment.m_highwayClass &&
         checkedSegment.m_isLink == masterSegment.m_isLink && !checkedSegment.m_onRoundabout)
     {
-      m2::PointD p1 = masterSegment.m_path.back() - masterSegment.m_path[masterSegment.m_path.size() - 2];
-      m2::PointD p2 = checkedSegment.m_path[1] -checkedSegment.m_path.front();
+      auto const & path = masterSegment.m_path;
+      m2::PointD p1 = path[path.size() - 1] - path[path.size() - 2];
+      m2::PointD p2 = checkedSegment.m_path[1] - checkedSegment.m_path[0];
       auto angle = ang::TwoVectorsAngle(m2::PointD::Zero(), p1, p2);
-      if (my::AlmostEqualAbs(angle, math::pi, kUTurnHeadingSensitivity))
+
+      if (!my::AlmostEqualAbs(angle, math::pi, kUTurnHeadingSensitivity))
+        return 0;
+
+      if (i == 0)
       {
-        if (i == 0)
-        {
-          turn.m_turn = TurnDirection::UTurnLeft;
-          return 0;
-        }
-        // Determine turn direction.
-        m2::PointD const junctionPoint = masterSegment.m_path.back();
-        m2::PointD const ingoingPoint = GetPointForTurn(masterSegment.m_path, junctionPoint,
-                                                        kMaxPointsCount, kMinDistMeters,
-                                                        GetIngoingPointIndex);
-        m2::PointD const outgoingPoint = GetPointForTurn(segments[currentSegment].m_path, junctionPoint,
-                                                         kMaxPointsCount, kMinDistMeters,
-                                                         GetOutgoingPointIndex);
-        if (PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint) < 0)
-          turn.m_turn = TurnDirection::UTurnLeft;
-        else
-          turn.m_turn = TurnDirection::UTurnRight;
-        return ++i;
-      }
-      else
-      {
+        turn.m_turn = TurnDirection::UTurnLeft;
         return 0;
       }
+      // Determine turn direction.
+      m2::PointD const junctionPoint = masterSegment.m_path.back();
+      m2::PointD const ingoingPoint = GetPointForTurn(masterSegment.m_path, junctionPoint,
+                                                      kMaxPointsCount, kMinDistMeters,
+                                                      GetIngoingPointIndex);
+      m2::PointD const outgoingPoint = GetPointForTurn(segments[currentSegment].m_path, junctionPoint,
+                                                       kMaxPointsCount, kMinDistMeters,
+                                                       GetOutgoingPointIndex);
+      if (PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint) < 0)
+        turn.m_turn = TurnDirection::UTurnLeft;
+      else
+        turn.m_turn = TurnDirection::UTurnRight;
+      return i + 1;
     }
   }
 
