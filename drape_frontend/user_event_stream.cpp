@@ -134,14 +134,14 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
     swap(m_events, events);
   }
 
-  // Block all events while the perspective animation is playing.
-  if (m_perspectiveAnimation != nullptr)
-    events.clear();
-
   modelViewChange = !events.empty() || m_state != STATE_EMPTY;
   bool breakAnim = false;
   for (UserEvent const & e : events)
   {
+    if (m_perspectiveAnimation != nullptr &&
+        FilterEventWhile3dAnimation(e.m_type))
+      continue;
+
     switch (e.m_type)
     {
     case UserEvent::EVENT_SCALE:
@@ -159,6 +159,11 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       TouchCancel(m_touches);
       break;
     case UserEvent::EVENT_SET_RECT:
+      if (m_perspectiveAnimation != nullptr)
+      {
+        m_pendingEvent.reset(new UserEvent(e.m_rectEvent));
+        break;
+      }
       breakAnim = SetRect(e.m_rectEvent.m_rect, e.m_rectEvent.m_zoom, e.m_rectEvent.m_applyRotation, e.m_rectEvent.m_isAnim);
       TouchCancel(m_touches);
       break;
@@ -183,7 +188,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       TouchCancel(m_touches);
       break;
     case UserEvent::EVENT_ENABLE_3D_MODE:
-      m_pendingEnable3dEvent.reset(new Enable3dModeEvent(e.m_enable3dMode));
+      m_pendingEvent.reset(new UserEvent(e.m_enable3dMode));
       break;
     case UserEvent::EVENT_DISABLE_3D_MODE:
       SetDisable3dModeAnimation();
@@ -208,13 +213,15 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
     if (m_animation->IsFinished())
     {
       if (m_animation->GetType() == ModelViewAnimationType::FollowAndRotate &&
-          m_pendingEnable3dEvent != nullptr)
+          m_pendingEvent != nullptr && m_pendingEvent->m_type == UserEvent::EVENT_ENABLE_3D_MODE)
       {
-        SetEnable3dModeAnimation(m_pendingEnable3dEvent->m_rotationAngle);
-        m_navigator.Enable3dMode(0.0, m_pendingEnable3dEvent->m_rotationAngle, m_pendingEnable3dEvent->m_angleFOV);
+        SetEnable3dModeAnimation(m_pendingEvent->m_enable3dMode.m_rotationAngle);
+        m_navigator.Enable3dMode(0.0 /* current rotation angle */,
+                                 m_pendingEvent->m_enable3dMode.m_rotationAngle,
+                                 m_pendingEvent->m_enable3dMode.m_angleFOV);
         viewportChanged = true;
 
-        m_pendingEnable3dEvent.reset();
+        m_pendingEvent.reset();
       }
       m_animation.reset();
     }
@@ -225,6 +232,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
     double const angle = m_perspectiveAnimation->GetRotationAngle();
     m_navigator.SetRotationIn3dMode(angle);
     modelViewChange = true;
+    TouchCancel(m_touches);
 
     if (m_perspectiveAnimation->IsFinished())
     {
@@ -232,7 +240,12 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       {
         m_navigator.Disable3dMode();
         viewportChanged = true;
+
+        if (m_pendingEvent != nullptr && m_pendingEvent->m_type == UserEvent::EVENT_SET_RECT)
+          SetRect(m_pendingEvent->m_rectEvent.m_rect, m_pendingEvent->m_rectEvent.m_zoom,
+                  m_pendingEvent->m_rectEvent.m_applyRotation, m_pendingEvent->m_rectEvent.m_isAnim);
       }
+      m_pendingEvent.reset();
       m_perspectiveAnimation.reset();
     }
   }
@@ -388,6 +401,12 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
   m2::PointD const center = FollowAndRotateAnimation::CalculateCenter(m_navigator.Screen(), userPos, pixelPos, -azimuth);
   m_navigator.SetFromRect(m2::AnyRectD(center, -azimuth, targetLocalRect));
   return true;
+}
+
+bool UserEventStream::FilterEventWhile3dAnimation(UserEvent::EEventType type) const
+{
+  return type != UserEvent::EVENT_RESIZE &&
+      type != UserEvent::EVENT_SET_RECT;
 }
 
 void UserEventStream::SetEnable3dModeAnimation(double maxRotationAngle)

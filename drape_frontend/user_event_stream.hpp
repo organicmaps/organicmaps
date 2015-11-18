@@ -285,6 +285,7 @@ private:
   bool SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos,
                           double azimuth, int preferredZoomLevel, bool isAnim);
 
+  bool FilterEventWhile3dAnimation(UserEvent::EEventType type) const;
   void SetEnable3dModeAnimation(double maxRotationAngle);
   void SetDisable3dModeAnimation();
 
@@ -347,7 +348,7 @@ private:
 
   unique_ptr<BaseModelViewAnimation> m_animation;
   unique_ptr<PerspectiveAnimation> m_perspectiveAnimation;
-  unique_ptr<Enable3dModeEvent> m_pendingEnable3dEvent;
+  unique_ptr<UserEvent> m_pendingEvent;
   ref_ptr<Listener> m_listener;
 
 #ifdef DEBUG

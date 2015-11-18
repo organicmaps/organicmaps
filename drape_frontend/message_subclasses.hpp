@@ -664,7 +664,7 @@ public:
   bool Enable() const { return m_enable; }
 
 private:
-  bool m_enable;
+  bool const m_enable;
 };
 
 } // namespace df
