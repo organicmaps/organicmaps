@@ -115,7 +115,7 @@ void MyPositionController::SetPixelRect(m2::RectD const & pixelRect)
 
 void MyPositionController::UpdatePixelPosition(ScreenBase const & screen)
 {
-  m_pixelPosition = screen.P3dtoP(GetCurrentPixelBinding());
+  m_pixelPositionRaF = screen.P3dtoP(GetRaFPixelBinding());
 }
 
 void MyPositionController::SetListener(ref_ptr<MyPositionController::Listener> listener)
@@ -513,11 +513,7 @@ void MyPositionController::Follow(int preferredZoomLevel)
   if (currentMode == location::MODE_FOLLOW)
     ChangeModelView(m_position);
   else if (currentMode == location::MODE_ROTATE_AND_FOLLOW)
-  {
-    ChangeModelView(m_position, m_drawDirection,
-                    m_pixelPosition,
-                    preferredZoomLevel);
-  }
+    ChangeModelView(m_position, m_drawDirection, m_pixelPositionRaF, preferredZoomLevel);
 }
 
 m2::PointD MyPositionController::GetRaFPixelBinding() const

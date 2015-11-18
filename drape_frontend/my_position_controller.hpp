@@ -144,7 +144,7 @@ private:
   my::HighResTimer m_lastGPSBearing;
 
   m2::RectD m_pixelRect;
-  m2::PointD m_pixelPosition;
+  m2::PointD m_pixelPositionRaF;
 
   bool m_isVisible;
   bool m_isDirtyViewport;
