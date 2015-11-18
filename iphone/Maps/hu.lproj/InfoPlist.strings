@@ -11,3 +11,9 @@
 
 /* Used in home screen quick actions. */
 "share_my_location" = "Helyzetem megosztása";
+
+/* Used in home screen quick actions. */
+"bookmarks" = "Könyvjelzők";
+
+/* Used in home screen quick actions. */
+"route" = "Útvonal";

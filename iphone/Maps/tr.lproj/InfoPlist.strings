@@ -11,3 +11,9 @@
 
 /* Used in home screen quick actions. */
 "share_my_location" = "Yerimi paylaş";
+
+/* Used in home screen quick actions. */
+"bookmarks" = "Yer İmleri";
+
+/* Used in home screen quick actions. */
+"route" = "Rota";

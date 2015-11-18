@@ -11,3 +11,9 @@
 
 /* Used in home screen quick actions. */
 "share_my_location" = "Dela Min Plats";
+
+/* Used in home screen quick actions. */
+"bookmarks" = "Bokmärken";
+
+/* Used in home screen quick actions. */
+"route" = "Rutt";

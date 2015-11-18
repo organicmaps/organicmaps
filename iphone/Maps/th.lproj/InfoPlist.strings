@@ -11,3 +11,9 @@
 
 /* Used in home screen quick actions. */
 "share_my_location" = "แชร์ตำแหน่งที่ตั้งของฉัน";
+
+/* Used in home screen quick actions. */
+"bookmarks" = "บุ๊กมาร์ก";
+
+/* Used in home screen quick actions. */
+"route" = "เส้นทาง";

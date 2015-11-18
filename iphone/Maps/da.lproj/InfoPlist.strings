@@ -11,3 +11,9 @@
 
 /* Used in home screen quick actions. */
 "share_my_location" = "Del min lokation";
+
+/* Used in home screen quick actions. */
+"bookmarks" = "Bogmærker";
+
+/* Used in home screen quick actions. */
+"route" = "Rute";

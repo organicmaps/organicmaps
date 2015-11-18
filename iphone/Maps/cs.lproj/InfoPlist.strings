@@ -11,3 +11,9 @@
 
 /* Used in home screen quick actions. */
 "share_my_location" = "Sdílet mé umístění";
+
+/* Used in home screen quick actions. */
+"bookmarks" = "Záložky";
+
+/* Used in home screen quick actions. */
+"route" = "Trasa";

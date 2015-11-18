@@ -11,3 +11,9 @@
 
 /* Used in home screen quick actions. */
 "share_my_location" = "Udostępnij moją lokalizację";
+
+/* Used in home screen quick actions. */
+"bookmarks" = "Zakładki";
+
+/* Used in home screen quick actions. */
+"route" = "Trasa";
