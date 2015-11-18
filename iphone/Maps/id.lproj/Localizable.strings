@@ -1339,3 +1339,31 @@
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
+
+"p2p_route_planning" = "Perencana Rute";
+
+"p2p_your_location" = "Lokasi Anda";
+
+"p2p_from" = "Titik keberangkatan";
+
+"p2p_to" = "Titik tujuan";
+
+"p2p_start" = "Mulai";
+
+"p2p_planning" = "Merencanakan…";
+
+"p2p_from_here" = "Dari";
+
+"p2p_to_here" = "Ke";
+
+"p2p_only_from_current" = "Navigasi tersedia hanya dari lokasi Anda saat ini.";
+
+"p2p_reroute_from_current" = "Apakah Anda ingin kami merencanakan sebuah rute dari lokasi Anda saat ini?";
+
+"whats_new_where_to_turn" = "MAPS.ME akan memberi tahu Anda tempat untuk berbelok";
+
+"whats_new_voice_instructions" = "Teman-teman, Anda telah lama meminta petunjuk suara selama navigasi - kami telah menyelesaikannya! Sekarang navigator kami secara tepat waktu akan memperingatkan Anda tentang belokan berikutnya.";
+
+"whats_new_between_any_points" = "Buat rute antar titik mana saja";
+
+"whats_new_happy_day" = "Memang hari yang membahagiakan! Rencanakan perjalanan Anda ke depan bersama MAPS.ME.";

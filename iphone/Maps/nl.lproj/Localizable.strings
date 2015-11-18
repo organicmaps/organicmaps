@@ -1339,3 +1339,31 @@
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
+
+"p2p_route_planning" = "Routeberekening";
+
+"p2p_your_location" = "Uw locatie";
+
+"p2p_from" = "Vertrekpunt";
+
+"p2p_to" = "Bestemmingspunt";
+
+"p2p_start" = "Beginnen";
+
+"p2p_planning" = "Aan het plannen…";
+
+"p2p_from_here" = "Van";
+
+"p2p_to_here" = "Naar";
+
+"p2p_only_from_current" = "Navigatie is uitsluitend beschikbaar vanuit uw huidige locatie.";
+
+"p2p_reroute_from_current" = "Wilt u dat wij een route plannen vanaf uw huidige locatie?";
+
+"whats_new_where_to_turn" = "MAPS.ME zal u laten weten waar u moet afslaan";
+
+"whats_new_voice_instructions" = "Beste vrienden, jullie vragen al lang om gesproken instructies voor tijdens het navigeren - dat hebben we gerealiseerd! Nu zal onze navigator u tijdig op de hoogte brengen van uw volgende afslag.";
+
+"whats_new_between_any_points" = "Maak routes tussen alle punten";
+
+"whats_new_happy_day" = "Inderdaad een prettige dag! Plan uw reizen vooruit met MAPS.ME.";

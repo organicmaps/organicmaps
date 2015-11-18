@@ -805,4 +805,18 @@
 	<string name="clear_search">Ștergere istoric de căutare</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">Afișare reclame</string>
+	<string name="p2p_route_planning">Planificare rută</string>
+	<string name="p2p_your_location">Locația dvs.</string>
+	<string name="p2p_from">Punctul de plecare</string>
+	<string name="p2p_to">Punctul de sosire</string>
+	<string name="p2p_start">Start</string>
+	<string name="p2p_planning">Se planifică…</string>
+	<string name="p2p_from_here">Din</string>
+	<string name="p2p_to_here">În</string>
+	<string name="p2p_only_from_current">Navigația este disponibilă doar având ca punct de pornire locațiacctuală.</string>
+	<string name="p2p_reroute_from_current">Doriți să vă planificăm o rută având ca punct de pornire locația actuală?</string>
+	<string name="whats_new_where_to_turn">MAPS.ME vă va spune unde să cotiți</string>
+	<string name="whats_new_voice_instructions">Dragi prieteni, ați solicitat în repetate rânduri indicații audio în timpul navigării – iar noi am realizat acest lucru! Noul dvs. copilot vă va avertiza la timp despre manevre.</string>
+	<string name="whats_new_between_any_points">Elaborați un traseu între orice obiecte</string>
+	<string name="whats_new_happy_day">Da, da, e adevărat! Astăzi este o zi fericită cu încă o îmbunătățire! Planificați-vă călătoria din timp cu MAPS.ME.</string>
 </resources>

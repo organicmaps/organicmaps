@@ -1339,3 +1339,31 @@
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
+
+"p2p_route_planning" = "تخطيط الطريق";
+
+"p2p_your_location" = "موقعك";
+
+"p2p_from" = "نقطة المغادرة";
+
+"p2p_to" = "نقطة الوصول";
+
+"p2p_start" = "البداية";
+
+"p2p_planning" = "جار التخطيط…";
+
+"p2p_from_here" = "من";
+
+"p2p_to_here" = "إلى";
+
+"p2p_only_from_current" = "تتوافر إمكانية التنقل فقط من خلال موقعك الحالي. هل تريد أن نخطط لك طريقاً بديلاً؟";
+
+"p2p_reroute_from_current" = "هل ترغب في أن نرسم مسار لك من موقعك الحالي؟";
+
+"whats_new_where_to_turn" = "سوف تمكنك MAPS.ME من معرفة أين تتجه";
+
+"whats_new_voice_instructions" = "الأصدقاء الأعزاء، لطالما طالبتم بتوفير تعليمات صوتية أثناء التنقل – لقد قمنا بذلك! سوف يتولى الملاح الخاص بنا الآن تحذيريكم في الوقت المناسب عند قرب المنعطف القادم.";
+
+"whats_new_between_any_points" = "إنشاء الطرق بين أي نقاط";
+
+"whats_new_happy_day" = "يوم سعيد حقا! قم بتخطيط رحلاتك مقدماً مع MAPS.ME.";

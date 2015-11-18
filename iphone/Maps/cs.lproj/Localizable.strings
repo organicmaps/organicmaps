@@ -1339,3 +1339,31 @@
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
+
+"p2p_route_planning" = "Plánování trasy";
+
+"p2p_your_location" = "Vaše umístění";
+
+"p2p_from" = "Počátek cesty";
+
+"p2p_to" = "Místo určení";
+
+"p2p_start" = "Start";
+
+"p2p_planning" = "Plánování…";
+
+"p2p_from_here" = "Z";
+
+"p2p_to_here" = "Do";
+
+"p2p_only_from_current" = "Navigace je dostupná pouze z vašeho současného umístění.";
+
+"p2p_reroute_from_current" = "Chcete, abychom naplánovali trasu z vašeho současného umístění?";
+
+"whats_new_where_to_turn" = "MAPS.ME vám řekne, kdy zatočit";
+
+"whats_new_voice_instructions" = "Vážení přátelé, již dlouho jste žádali o mluvené instrukce při navádění – my jsme to udělali! Nyní vás náš navigátor včas varuje před další zatáčkou.";
+
+"whats_new_between_any_points" = "Vytvořte cesty mezi dvěma body";
+
+"whats_new_happy_day" = "Přejeme vám opravdu hezký den! Naplánujte svůj výlet předem s aplikací MAPS.ME.";

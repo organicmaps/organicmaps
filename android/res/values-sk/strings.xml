@@ -811,4 +811,18 @@
 	<string name="clear_search">Vymazať históriu vyhľadávania</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">Ukázať reklamu</string>
+	<string name="p2p_route_planning">Plánovanie trasy</string>
+	<string name="p2p_your_location">Vaša poloha</string>
+	<string name="p2p_from">Východiskový bod</string>
+	<string name="p2p_to">Cieľový bod</string>
+	<string name="p2p_start">Štart</string>
+	<string name="p2p_planning">Plánovanie…</string>
+	<string name="p2p_from_here">Z</string>
+	<string name="p2p_to_here">Do</string>
+	<string name="p2p_only_from_current">Navigácia je dostupná iba z vašej aktuálnej polohy.</string>
+	<string name="p2p_reroute_from_current">Doriți să vă planificăm o rută având ca punct de pornire locația actuală?</string>
+	<string name="whats_new_where_to_turn">MAPS.ME vám dá vedieť, kde sa obrátiť</string>
+	<string name="whats_new_voice_instructions">Vážení priatelia, už dlhší čas požadujete hlasové pokyny počas navigácie - ma sme vám vyhoveli! Teraz vás náš navigátor včas upozorní na váš ďalší obrat.</string>
+	<string name="whats_new_between_any_points">Vytvorte si trasy medzi ľubovoľnými bodmi</string>
+	<string name="whats_new_happy_day">Naozaj šťastný deň! Plánujte si výlety napred s MAPS.ME.</string>
 </resources>

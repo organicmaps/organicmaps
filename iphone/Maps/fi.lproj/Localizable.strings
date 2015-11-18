@@ -1339,3 +1339,31 @@
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
+
+"p2p_route_planning" = "Reittisuunnittelu";
+
+"p2p_your_location" = "Sijaintisi";
+
+"p2p_from" = "Lähtöpiste";
+
+"p2p_to" = "Päämäärä";
+
+"p2p_start" = "Aloita";
+
+"p2p_planning" = "Lasketaan…";
+
+"p2p_from_here" = "Lähtöpaikka";
+
+"p2p_to_here" = "Määränpää";
+
+"p2p_only_from_current" = "Navigointi onnistuu vain nykyisestä sijainnistasi.";
+
+"p2p_reroute_from_current" = "Haluatko valita vaihtoehtoisen reitin?";
+
+"whats_new_where_to_turn" = "MAPS.ME kertoo sinulle, minne kääntyä";
+
+"whats_new_voice_instructions" = "Hyvät ystävät, olette pyytäneet ääniopastusta navigoinnin avuksi jo pitkän aikaa - toiveenne on kuultu! Nyt navigaattorimme varoittaa sinua hyvissä ajoin, ennen kuin sinun pitää kääntyä.";
+
+"whats_new_between_any_points" = "Luo reittejä minkä tahansa kohteiden välille";
+
+"whats_new_happy_day" = "Elämä hymyilee! Suunnittele matkasi etukäteen MAPS.ME -sovelluksen avulla.";

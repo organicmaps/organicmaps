@@ -805,4 +805,18 @@
 	<string name="clear_search">検索履歴を消去</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">広告を表示</string>
+	<string name="p2p_route_planning">ルート作成</string>
+	<string name="p2p_your_location">現在位置</string>
+	<string name="p2p_from">出発地</string>
+	<string name="p2p_to">目的地</string>
+	<string name="p2p_start">開始</string>
+	<string name="p2p_planning">作成中…</string>
+	<string name="p2p_from_here">出発地</string>
+	<string name="p2p_to_here">目的地</string>
+	<string name="p2p_only_from_current">ナビゲーションは現在位置からのみ利用できます。</string>
+	<string name="p2p_reroute_from_current">現在位置からのルートを作成しますか？</string>
+	<string name="whats_new_where_to_turn">MAPS.MEが道順をご案内します</string>
+	<string name="whats_new_voice_instructions">お友達の皆様へ。皆様が長い間待ち望んでいたナビゲーションの音声案内を、ついに実現しました！ナビゲーターがリアルタイムで次の道順をご案内します。</string>
+	<string name="whats_new_between_any_points">出発地から目的時までのルートを作成</string>
+	<string name="whats_new_happy_day">実にすがすがしい日ですね！MAPS.MEで旅程を立てましょう。</string>
 </resources>

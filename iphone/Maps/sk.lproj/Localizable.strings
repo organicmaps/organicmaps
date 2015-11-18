@@ -1339,3 +1339,31 @@
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
+
+"p2p_route_planning" = "Plánovanie trasy";
+
+"p2p_your_location" = "Vaša poloha";
+
+"p2p_from" = "Východiskový bod";
+
+"p2p_to" = "Cieľový bod";
+
+"p2p_start" = "Štart";
+
+"p2p_planning" = "Plánovanie…";
+
+"p2p_from_here" = "Z";
+
+"p2p_to_here" = "Do";
+
+"p2p_only_from_current" = "Navigácia je dostupná iba z vašej aktuálnej polohy.";
+
+"p2p_reroute_from_current" = "Doriți să vă planificăm o rută având ca punct de pornire locația actuală?";
+
+"whats_new_where_to_turn" = "MAPS.ME vám dá vedieť, kde sa obrátiť";
+
+"whats_new_voice_instructions" = "Vážení priatelia, už dlhší čas požadujete hlasové pokyny počas navigácie - ma sme vám vyhoveli! Teraz vás náš navigátor včas upozorní na váš ďalší obrat.";
+
+"whats_new_between_any_points" = "Vytvorte si trasy medzi ľubovoľnými bodmi";
+
+"whats_new_happy_day" = "Naozaj šťastný deň! Plánujte si výlety napred s MAPS.ME.";

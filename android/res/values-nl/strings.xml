@@ -798,4 +798,18 @@
 	<string name="clear_search">Zoekgeschiedenis wissen</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">Advertentie weergeven</string>
+	<string name="p2p_route_planning">Routeberekening</string>
+	<string name="p2p_your_location">Uw locatie</string>
+	<string name="p2p_from">Vertrekpunt</string>
+	<string name="p2p_to">Bestemmingspunt</string>
+	<string name="p2p_start">Beginnen</string>
+	<string name="p2p_planning">Aan het plannen…</string>
+	<string name="p2p_from_here">Van</string>
+	<string name="p2p_to_here">Naar</string>
+	<string name="p2p_only_from_current">Navigatie is uitsluitend beschikbaar vanuit uw huidige locatie.</string>
+	<string name="p2p_reroute_from_current">Wilt u dat wij een route plannen vanaf uw huidige locatie?</string>
+	<string name="whats_new_where_to_turn">MAPS.ME zal u laten weten waar u moet afslaan</string>
+	<string name="whats_new_voice_instructions">Beste vrienden, jullie vragen al lang om gesproken instructies voor tijdens het navigeren - dat hebben we gerealiseerd! Nu zal onze navigator u tijdig op de hoogte brengen van uw volgende afslag.</string>
+	<string name="whats_new_between_any_points">Maak routes tussen alle punten</string>
+	<string name="whats_new_happy_day">Inderdaad een prettige dag! Plan uw reizen vooruit met MAPS.ME.</string>
 </resources>
