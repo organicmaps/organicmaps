@@ -806,4 +806,6 @@
 	<string name="search_history_title">Søgehistorik</string>
 	<string name="search_history_text">Gå hurtigt ind på seneste forespørgsel.</string>
 	<string name="clear_search">Ryd historiksøgning</string>
+	<!-- Title for settings to enable/disable showcase menu button -->
+	<string name="showcase_settings_title">Vis reklame</string>
 </resources>

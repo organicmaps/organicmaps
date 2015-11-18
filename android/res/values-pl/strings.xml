@@ -807,4 +807,6 @@
 	<string name="search_history_title">Historia wyszukiwania</string>
 	<string name="search_history_text">Uzyskaj szybki dostęp do ostatniego hasła wyszukiwania.</string>
 	<string name="clear_search">Wyczyść historię wyszukiwania</string>
+	<!-- Title for settings to enable/disable showcase menu button -->
+	<string name="showcase_settings_title">Pokaż reklamy</string>
 </resources>

@@ -1,10 +1,15 @@
 @interface MWMBottomMenuCollectionViewCell : UICollectionViewCell
 
-@property(weak, nonatomic) IBOutlet UIImageView * icon;
+@property (weak, nonatomic) IBOutlet UIImageView * icon;
 
-- (void)configureWithIconName:(NSString *)iconName
-                        label:(NSString *)label
-                   badgeCount:(NSUInteger)badgeCount;
+- (void)configureWithImage:(UIImage *)image
+          highlightedImage:(UIImage *)highlightedImage
+                    label:(NSString *)label
+               badgeCount:(NSUInteger)badgeCount;
+
+- (void)configureWithImageName:(NSString *)imageName
+                         label:(NSString *)label
+                    badgeCount:(NSUInteger)badgeCount;
 
 - (void)highlighted:(BOOL)highlighted;
 

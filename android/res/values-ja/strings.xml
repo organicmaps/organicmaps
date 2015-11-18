@@ -803,4 +803,6 @@
 	<string name="search_history_title">検索履歴</string>
 	<string name="search_history_text">最近の検索クエリに素早くアクセス。</string>
 	<string name="clear_search">検索履歴を消去</string>
+	<!-- Title for settings to enable/disable showcase menu button -->
+	<string name="showcase_settings_title">広告を表示</string>
 </resources>

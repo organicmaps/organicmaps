@@ -817,4 +817,6 @@
 	<string name="search_history_title">Historique de recherche</string>
 	<string name="search_history_text">Accédez rapidement aux dernières recherches.</string>
 	<string name="clear_search">Effacer l\&#39;historique de recherche</string>
+	<!-- Title for settings to enable/disable showcase menu button -->
+	<string name="showcase_settings_title">Afficher publicité</string>
 </resources>

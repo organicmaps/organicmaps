@@ -796,4 +796,6 @@
 	<string name="search_history_title">검색 기록</string>
 	<string name="search_history_text">최근 검색 쿼리에 신속하게 액세스할 수 있습니다.</string>
 	<string name="clear_search">이력 검색 지우기</string>
+	<!-- Title for settings to enable/disable showcase menu button -->
+	<string name="showcase_settings_title">광고 보기</string>
 </resources>

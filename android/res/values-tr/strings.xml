@@ -810,4 +810,6 @@
 	<string name="search_history_title">Arama Geçmişi</string>
 	<string name="search_history_text">En son yapılan arama sorgularına hızlı erişim.</string>
 	<string name="clear_search">Arama geçmişini temizle</string>
+	<!-- Title for settings to enable/disable showcase menu button -->
+	<string name="showcase_settings_title">Reklamı göster</string>
 </resources>

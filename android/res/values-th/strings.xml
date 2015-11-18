@@ -808,4 +808,6 @@
 	<string name="search_history_title">ประวัติการค้นหา</string>
 	<string name="search_history_text">เข้าถึงคำถามที่ใช้ในการค้นหาเมื่อเร็ว ๆ นี้ได้อย่างรวดเร็ว</string>
 	<string name="clear_search">ล้างการค้นหาประวัติ</string>
+	<!-- Title for settings to enable/disable showcase menu button -->
+	<string name="showcase_settings_title">แสดงโฆษณา</string>
 </resources>

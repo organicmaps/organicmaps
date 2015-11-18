@@ -803,4 +803,6 @@
 	<string name="search_history_title">Cerca nella cronologia</string>
 	<string name="search_history_text">Accedi velocemente alle stringhe di ricerca recenti.</string>
 	<string name="clear_search">Cancella сronologia ricerche</string>
+	<!-- Title for settings to enable/disable showcase menu button -->
+	<string name="showcase_settings_title">Mostra pubblicità</string>
 </resources>

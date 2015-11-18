@@ -21,6 +21,8 @@ extern NSString * const kAlohalyticsTapEventKey;
 extern NSString * const kSearchStateWillChangeNotification;
 extern NSString * const kSearchStateKey;
 
+extern char const * kAdForbiddenSettingsKey;
+
 static NSString * const kCollectionCellPortrait = @"MWMBottomMenuCollectionViewPortraitCell";
 static NSString * const kCollectionCelllandscape = @"MWMBottomMenuCollectionViewLandscapeCell";
 
@@ -31,29 +33,32 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   MWMBottomMenuViewCellDownload,
   MWMBottomMenuViewCellSettings,
   MWMBottomMenuViewCellShare,
+  MWMBottomMenuViewCellAd,
   MWMBottomMenuViewCellCount
 };
 
 @interface MWMBottomMenuViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property(weak, nonatomic) MapViewController * controller;
-@property(weak, nonatomic) IBOutlet UICollectionView * buttonsCollectionView;
+@property (weak, nonatomic) MapViewController * controller;
+@property (weak, nonatomic) IBOutlet UICollectionView * buttonsCollectionView;
 
-@property(weak, nonatomic) IBOutlet UIButton * locationButton;
-@property(weak, nonatomic) IBOutlet UICollectionView * additionalButtons;
-@property(weak, nonatomic) IBOutlet UILabel * streetLabel;
+@property (weak, nonatomic) IBOutlet UIButton * locationButton;
+@property (weak, nonatomic) IBOutlet UICollectionView * additionalButtons;
+@property (weak, nonatomic) IBOutlet UILabel * streetLabel;
 
-@property(weak, nonatomic) id<MWMBottomMenuControllerProtocol> delegate;
+@property (weak, nonatomic) id<MWMBottomMenuControllerProtocol> delegate;
 
-@property(nonatomic) BOOL searchIsActive;
+@property (nonatomic) BOOL searchIsActive;
 
-@property(nonatomic) SolidTouchView * dimBackground;
+@property (nonatomic) SolidTouchView * dimBackground;
 
-@property(nonatomic) MWMBottomMenuState restoreState;
+@property (nonatomic) MWMBottomMenuState restoreState;
 
-@property(nonatomic) int locationListenerSlot;
+@property (nonatomic) int locationListenerSlot;
 
-@property(nonatomic) location::State::Mode locationState;
+@property (nonatomic) location::State::Mode locationState;
+
+@property (nonatomic, readonly) NSUInteger additionalButtonsCount;
 
 @end
 
@@ -87,12 +92,21 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  [self setupCollectionView];
+  [self.buttonsCollectionView registerNib:[UINib nibWithNibName:kCollectionCellPortrait bundle:nil]
+               forCellWithReuseIdentifier:kCollectionCellPortrait];
+  [self.buttonsCollectionView registerNib:[UINib nibWithNibName:kCollectionCelllandscape bundle:nil]
+               forCellWithReuseIdentifier:kCollectionCelllandscape];
+  MWMBottomMenuLayout * cvLayout =
+  (MWMBottomMenuLayout *)self.buttonsCollectionView.collectionViewLayout;
+  cvLayout.layoutThreshold = kLayoutThreshold;
+  ((MWMBottomMenuView *)self.view).layoutThreshold = kLayoutThreshold;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
+  [self refreshLayout];
+
   [self configLocationListener];
   [self onLocationStateModeChanged:GetFramework().GetLocationState()->GetMode()];
 }
@@ -106,6 +120,16 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 - (void)onEnterForeground
 {
   [self onLocationStateModeChanged:GetFramework().GetLocationState()->GetMode()];
+}
+
+#pragma mark - Refresh Collection View layout
+
+- (void)refreshLayout
+{
+  MWMBottomMenuLayout * cvLayout =
+      (MWMBottomMenuLayout *)self.buttonsCollectionView.collectionViewLayout;
+  cvLayout.buttonsCount = [self additionalButtonsCount];
+  [self.additionalButtons reloadData];
 }
 
 #pragma mark - Layout
@@ -246,27 +270,12 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   self.searchIsActive = state != MWMSearchManagerStateHidden;
 }
 
-#pragma mark - Setup
-
-- (void)setupCollectionView
-{
-  [self.buttonsCollectionView registerNib:[UINib nibWithNibName:kCollectionCellPortrait bundle:nil]
-               forCellWithReuseIdentifier:kCollectionCellPortrait];
-  [self.buttonsCollectionView registerNib:[UINib nibWithNibName:kCollectionCelllandscape bundle:nil]
-               forCellWithReuseIdentifier:kCollectionCelllandscape];
-  MWMBottomMenuLayout * cvLayout =
-      (MWMBottomMenuLayout *)self.buttonsCollectionView.collectionViewLayout;
-  cvLayout.buttonsCount = MWMBottomMenuViewCellCount;
-  cvLayout.layoutThreshold = kLayoutThreshold;
-  ((MWMBottomMenuView *)self.view).layoutThreshold = kLayoutThreshold;
-}
-
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)section
 {
-  return MWMBottomMenuViewCellCount;
+  return [self additionalButtonsCount];
 }
 
 - (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView
@@ -283,16 +292,26 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   {
     NSUInteger const badgeCount =
         GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
-    [cell configureWithIconName:@"ic_menu_download"
-                          label:L(@"download_maps")
-                     badgeCount:badgeCount];
+    [cell configureWithImageName:@"ic_menu_download"
+                           label:L(@"download_maps")
+                      badgeCount:badgeCount];
   }
   break;
   case MWMBottomMenuViewCellSettings:
-    [cell configureWithIconName:@"ic_menu_settings" label:L(@"settings") badgeCount:0];
+    [cell configureWithImageName:@"ic_menu_settings" label:L(@"settings") badgeCount:0];
     break;
   case MWMBottomMenuViewCellShare:
-    [cell configureWithIconName:@"ic_menu_share" label:L(@"share_my_location") badgeCount:0];
+    [cell configureWithImageName:@"ic_menu_share" label:L(@"share_my_location") badgeCount:0];
+    break;
+  case MWMBottomMenuViewCellAd:
+  {
+    MTRGNativeAppwallBanner * banner = [self.controller.appWallAd.banners firstObject];
+    [self.controller.appWallAd handleShow:banner];
+    UIImage * image = banner.icon.image;
+    UIImage * highlightedImage = banner.itemHighlightIcon.image;
+    NSString * title = banner.title;
+    [cell configureWithImage:image highlightedImage:highlightedImage label:title badgeCount:0];
+  }
     break;
   case MWMBottomMenuViewCellCount:
     break;
@@ -315,6 +334,9 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
     break;
   case MWMBottomMenuViewCellShare:
     [self menuActionShareLocation];
+    break;
+  case MWMBottomMenuViewCellAd:
+    [self menuActionOpenAd];
     break;
   case MWMBottomMenuViewCellCount:
     break;
@@ -376,6 +398,15 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   MWMActivityViewController * shareVC =
       [MWMActivityViewController shareControllerForLocationTitle:nil location:coord myPosition:YES];
   [shareVC presentInParentViewController:self.controller anchorView:cell.icon];
+}
+
+- (void)menuActionOpenAd
+{
+  NSAssert(self.controller.appWallAd.banners.count != 0, @"Banners collection can not be empty!");
+  [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatMoreApps}];
+  self.state = self.restoreState;
+  [self.controller.appWallAd handleClick:[self.controller.appWallAd.banners firstObject]
+                          withController:self.controller];
 }
 
 - (IBAction)locationButtonTouchUpInside:(UIButton *)sender
@@ -539,6 +570,12 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 - (BOOL)searchIsActive
 {
   return ((MWMBottomMenuView *)self.view).searchIsActive;
+}
+
+- (NSUInteger)additionalButtonsCount
+{
+  BOOL const adForbidden = (self.controller.appWallAd == nil);
+  return MWMBottomMenuViewCellCount - (adForbidden ? 1 : 0);
 }
 
 @end

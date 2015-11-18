@@ -807,4 +807,6 @@
 	<string name="search_history_title">Előző keresések</string>
 	<string name="search_history_text">Aktuális keresés gyors elérése.</string>
 	<string name="clear_search">A keresési előzmények törlése</string>
+	<!-- Title for settings to enable/disable showcase menu button -->
+	<string name="showcase_settings_title">Hirdetés mutatása</string>
 </resources>

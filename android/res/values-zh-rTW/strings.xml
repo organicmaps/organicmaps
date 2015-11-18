@@ -792,4 +792,6 @@
 	<string name="search_history_title">搜尋歷史紀錄</string>
 	<string name="search_history_text">快速存取最近搜尋的問題。</string>
 	<string name="clear_search">清除搜尋記錄</string>
+	<!-- Title for settings to enable/disable showcase menu button -->
+	<string name="showcase_settings_title">顯示廣告</string>
 </resources>

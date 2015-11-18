@@ -1,7 +1,7 @@
-
 #import "LocationManager.h"
 #import "LocationPredictor.h"
 #import "ViewController.h"
+#import <MyTargetSDKCorp/MTRGNativeAppwallAd.h>
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
@@ -45,6 +45,8 @@ namespace search { struct AddressInfo; }
 - (void)performAction:(NSString *)action;
 
 - (void)openBookmarks;
+
+@property (nonatomic) MTRGNativeAppwallAd * appWallAd;
 
 @property (nonatomic) UIPopoverController * popoverVC;
 @property (nonatomic) ShareActionSheet * shareActionSheet;

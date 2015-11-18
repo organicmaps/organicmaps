@@ -857,4 +857,6 @@
 	<string name="search_history_title">История поиска</string>
 	<string name="search_history_text">Быстрый доступ к последним поисковым запросам.</string>
 	<string name="clear_search">Очистить историю поиска</string>
+	<!-- Title for settings to enable/disable showcase menu button -->
+	<string name="showcase_settings_title">Показывать рекламу</string>
 </resources>
