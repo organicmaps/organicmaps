@@ -2,6 +2,33 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemType</key>
+			<string>me.maps.3daction.search</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>search</string>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>ic_3dtouch_search</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemType</key>
+			<string>me.maps.3daction.bookmarks</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>bookmarks</string>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>ic_3dtouch_bookmarks</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemType</key>
+			<string>me.maps.3daction.route</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>route</string>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>ic_3dtouch_planing_route</string>
+		</dict>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
