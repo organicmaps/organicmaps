@@ -35,21 +35,6 @@ bool HasPlus(std::vector<T> const & v)
   return std::any_of(begin(v), end(v), hasPlus);
 }
 
-bool HasExtendedHours(osmoh::TTimespans const & spans)
-{
-  auto const hasExtendedHours = [](osmoh::Timespan const & s) -> bool
-  {
-    if (!s.HasEnd())
-      return false;
-
-    auto const startDuration = s.GetStart().GetMinutes() + s.GetStart().GetHours();
-    auto const endDuration = s.GetEnd().GetMinutes() + s.GetEnd().GetHours();
-
-    return endDuration > 24 * std::chrono::minutes(60) || startDuration > endDuration;
-  };
-  return std::any_of(begin(spans), end(spans), hasExtendedHours);
-}
-
 bool HasOffset(osmoh::TMonthdayRanges const & mr)
 {
   auto const hasOffset = [](osmoh::MonthdayRange const & md) {
@@ -89,12 +74,6 @@ enum
   Serialised,
   Period,
   Plus,
-  // True if a rule has Timespen with more than 24 hours at the end
-  // or and greater than start.
-  // Example:
-  // 12:00-29:00
-  // 13:12-06:15
-  ExtendedHours,
   Offset,
   Count_
 };
@@ -122,8 +101,6 @@ TRuleFeatures DescribeRule(osmoh::TRuleSequences const & rule)
 
     features[Offset] |= HasOffset(r.GetMonths());
     features[Offset] |= HasOffset(r.GetWeekdays());
-
-    features[ExtendedHours] |= HasExtendedHours(r.GetTimes());
   }
 
   return features;
@@ -212,7 +189,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_CountFailed)
   }
   {
     std::stringstream message;
-    message << "Parsed\tSerialised\tPeriod\tPlus\tExtendedHours\tOffset\tCount" << std::endl;
+    message << "Parsed\tSerialised\tPeriod\tPlus\tOffset\tCount" << std::endl;
     for (auto const & e : featuresDistrib)
       message << e.first  << '\t' << e.second << std::endl;
 

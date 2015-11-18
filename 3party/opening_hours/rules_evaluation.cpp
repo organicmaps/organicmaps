@@ -1,6 +1,7 @@
 #include "rules_evaluation.hpp"
 #include "rules_evaluation_private.hpp"
 
+#include <algorithm>
 #include <ctime>
 #include <iomanip>
 #include <sstream>
@@ -9,10 +10,11 @@
 namespace
 {
 using THourMinutes = std::tuple<int, int>;
+using osmoh::operator""_h;
 
 constexpr osmoh::MonthDay::TYear kTMYearOrigin = 1900;
 
-inline bool ToHourMinutes(osmoh::Time const & t, THourMinutes & hm)
+bool ToHourMinutes(osmoh::Time const & t, THourMinutes & hm)
 {
   if (!t.IsHoursMinutes())
     return false;
@@ -20,13 +22,13 @@ inline bool ToHourMinutes(osmoh::Time const & t, THourMinutes & hm)
   return true;
 }
 
-inline bool ToHourMinutes(std::tm const & t, THourMinutes & hm)
+bool ToHourMinutes(std::tm const & t, THourMinutes & hm)
 {
   hm = THourMinutes{t.tm_hour, t.tm_min};
   return true;
 }
 
-inline int CompareMonthDayTimeTuple(osmoh::MonthDay const & monthDay, std::tm const & date)
+int CompareMonthDayTimeTuple(osmoh::MonthDay const & monthDay, std::tm const & date)
 {
   if (monthDay.HasYear())
   {
@@ -49,23 +51,25 @@ inline int CompareMonthDayTimeTuple(osmoh::MonthDay const & monthDay, std::tm co
   return 0;
 }
 
-inline bool operator<=(osmoh::MonthDay const & monthDay, std::tm const & date)
+bool operator<=(osmoh::MonthDay const & monthDay, std::tm const & date)
 {
   return CompareMonthDayTimeTuple(monthDay, date) < 1;
 }
 
-inline bool operator<=(std::tm const & date, osmoh::MonthDay const & monthDay)
+bool operator<=(std::tm const & date, osmoh::MonthDay const & monthDay)
 {
   return CompareMonthDayTimeTuple(monthDay, date) > -1;
 }
 
-inline bool operator==(osmoh::MonthDay const & monthDay, std::tm const & date)
+bool operator==(osmoh::MonthDay const & monthDay, std::tm const & date)
 {
   return CompareMonthDayTimeTuple(monthDay, date) == 0;
 }
 
 // Fill result with fields that present in start and missing in end.
-inline osmoh::MonthDay NormalizeEnd(osmoh::MonthDay const & start, osmoh::MonthDay const & end)
+// 2015 Jan 30 - Feb 20 <=> 2015 Jan 30 - 2015 Feb 20
+// 2015 Jan 01 - 22 <=> 2015 Jan 01 - 2015 Jan 22
+osmoh::MonthDay NormalizeEnd(osmoh::MonthDay const & start, osmoh::MonthDay const & end)
 {
   osmoh::MonthDay result = start;
   if (end.HasYear())
@@ -77,7 +81,7 @@ inline osmoh::MonthDay NormalizeEnd(osmoh::MonthDay const & start, osmoh::MonthD
   return result;
 }
 
-inline uint8_t GetWeekNumber(std::tm const & date)
+uint8_t GetWeekNumber(std::tm const & date)
 {
   char buff[4]{};
   if (strftime(&buff[0], sizeof(buff), "%V", &date) == 0)
@@ -89,16 +93,16 @@ inline uint8_t GetWeekNumber(std::tm const & date)
   return weekNumber;
 }
 
-inline bool IsBetweenLooped(osmoh::Weekday const start,
-                            osmoh::Weekday const end,
-                            osmoh::Weekday const p)
+bool IsBetweenLooped(osmoh::Weekday const start,
+                     osmoh::Weekday const end,
+                     osmoh::Weekday const p)
 {
   if (start <= end)
     return start <= p && p <= end;
   return p >= end || start <= p;
 }
 
-inline osmoh::RuleState ModifierToRuleState(osmoh::RuleSequence::Modifier const modifier)
+osmoh::RuleState ModifierToRuleState(osmoh::RuleSequence::Modifier const modifier)
 {
   using Modifier = osmoh::RuleSequence::Modifier;
 
@@ -116,12 +120,88 @@ inline osmoh::RuleState ModifierToRuleState(osmoh::RuleSequence::Modifier const 
       return osmoh::RuleState::Unknown;
   }
 }
+
+// Transform timspan with extended end of the form of
+// time less than 24 hours to extended form, i.e from 25 to 48 hours.
+// Example: 12:15-06:00 -> 12:15-30:00.
+void NormalizeExtendedEnd(osmoh::Timespan & span)
+{
+  auto & endHourMinutes = span.GetEnd().GetHourMinutes();
+  auto const duration = endHourMinutes.GetDuration();
+  if (duration < 24_h)
+    endHourMinutes.SetDuration(duration + 24_h);
+}
+
+osmoh::TTimespans SplitExtendedHours(osmoh::Timespan span)
+{
+  osmoh::TTimespans result;
+  NormalizeExtendedEnd(span);
+
+  auto spanToBeSplit = span;
+  if (spanToBeSplit.HasExtendedHours())
+  {
+    osmoh::Timespan normalSpan;
+    normalSpan.SetStart(spanToBeSplit.GetStart());
+    normalSpan.SetEnd(osmoh::HourMinutes(24_h));
+    result.push_back(normalSpan);
+
+    spanToBeSplit.SetStart(osmoh::HourMinutes(0_h));
+    spanToBeSplit.GetEnd().AddDuration(-24_h);
+  }
+  result.push_back(spanToBeSplit);
+
+  return result;
+}
+
+void SplitExtendedHours(osmoh::TTimespans const & spans,
+                        osmoh::TTimespans & originalNormalizedSpans,
+                        osmoh::Timespan & additionalSpan)
+{
+  // We don't handle more than one occurence of extended span
+  // since it is an invalid situation.
+
+  auto it = begin(spans);
+  for (; it != end(spans) && !it->HasExtendedHours(); ++it)
+    originalNormalizedSpans.push_back(*it);
+
+  if (it == end(spans))
+    return;
+
+  auto const splittedSpans = SplitExtendedHours(*it);
+  originalNormalizedSpans.push_back(splittedSpans[0]);
+  additionalSpan = splittedSpans[1];
+
+  ++it;
+  std::copy(it, end(spans), back_inserter(originalNormalizedSpans));
+}
+
+bool HasExtendedHours(osmoh::RuleSequence const & rule)
+{
+  for (auto const & timespan : rule.GetTimes())
+  {
+    if (timespan.HasExtendedHours())
+      return true;
+  }
+
+  return false;
+}
+
+std::tm MakeTimetuple(time_t const timestamp)
+{
+  std::tm tm{};
+  localtime_r(&timestamp, &tm);
+  return tm;
+}
 } // namespace
 
 namespace osmoh
 {
 bool IsActive(Timespan const & span, std::tm const & time)
 {
+  // Timespan with e.h. should be split into parts with no e.h.
+  // before calling IsActive().
+  // TODO(mgsergio): set assert(!span.HasExtendedHours())
+
   if (span.HasStart() && span.HasEnd())
   {
     THourMinutes start;
@@ -136,17 +216,6 @@ bool IsActive(Timespan const & span, std::tm const & time)
 
     if (!ToHourMinutes(time, toBeChecked))
       return false;
-
-    // TODO(mgsergio): We don't handle extended hours yet.
-    // Extended hours handling could be implemented through
-    // splitting rule with extended hours into separated rules.
-    // See https://trello.com/c/Efsvs6PP/23-opening-hours-extended-hours
-    if (end <= start || end > THourMinutes{24, 00})
-      // It's better to say we are open, cause
-      // in search result page only `closed' lables are shown.
-      // So from user's perspective `unknown' and `open'
-      // mean same as `not closed'.
-      return true;
 
     return start <= toBeChecked && toBeChecked <= end;
   }
@@ -188,9 +257,8 @@ bool IsActive(Weekdays const & weekdays, std::tm const & date)
     if (IsActive(hd, date))
       return true;
 
-  return
-      weekdays.GetWeekdayRanges().empty() &&
-      weekdays.GetHolidays().empty();
+  return weekdays.GetWeekdayRanges().empty() &&
+         weekdays.GetHolidays().empty();
 }
 
 bool IsActive(MonthdayRange const & range, std::tm const & date)
@@ -199,9 +267,10 @@ bool IsActive(MonthdayRange const & range, std::tm const & date)
     return false;
 
   if (range.HasEnd())
-    return
-        range.GetStart() <= date &&
-        date <= NormalizeEnd(range.GetStart(), range.GetEnd());
+  {
+    return range.GetStart() <= date &&
+           date <= NormalizeEnd(range.GetStart(), range.GetEnd());
+  }
 
   return range.GetStart() == date;
 }
@@ -244,25 +313,47 @@ bool IsActiveAny(std::vector<T> const & selectors, std::tm const & date)
   return selectors.empty();
 }
 
-bool IsActive(RuleSequence const & rule, std::tm const & date)
+bool IsActive(RuleSequence const & rule, time_t const timestamp)
 {
   if (rule.IsTwentyFourHours())
     return true;
 
-  return
-      IsActiveAny(rule.GetYears(), date) &&
-      IsActiveAny(rule.GetMonths(), date) &&
-      IsActiveAny(rule.GetWeeks(), date) &&
-      IsActive(rule.GetWeekdays(), date) &&
-      IsActiveAny(rule.GetTimes(), date);
+  auto const checkIsActive = [](RuleSequence const & rule, std::tm const & dt)
+  {
+    return IsActiveAny(rule.GetYears(), dt) && IsActiveAny(rule.GetMonths(), dt) &&
+           IsActiveAny(rule.GetWeeks(), dt) && IsActive(rule.GetWeekdays(), dt);
+  };
+
+  auto const dateTimeTM = MakeTimetuple(timestamp);
+  if (!HasExtendedHours(rule))
+    return checkIsActive(rule, dateTimeTM) && IsActiveAny(rule.GetTimes(), dateTimeTM);
+
+  TTimespans originalNormalizedSpans;
+  Timespan additionalSpan;
+  SplitExtendedHours(rule.GetTimes(), originalNormalizedSpans, additionalSpan);
+
+  if (checkIsActive(rule, dateTimeTM) && IsActiveAny(originalNormalizedSpans, dateTimeTM))
+    return true;
+
+  time_t constexpr twentyFourHoursShift = 24 * 60 * 60;
+  auto const dateTimeTMShifted = MakeTimetuple(timestamp - twentyFourHoursShift);
+
+  if (checkIsActive(rule, dateTimeTMShifted) &&
+      IsActive(additionalSpan, dateTimeTMShifted))
+
+  {
+    return true;
+  }
+
+  return false;
 }
 
-RuleState GetState(TRuleSequences const & rules, std::tm const & date)
+RuleState GetState(TRuleSequences const & rules, time_t const timestamp)
 {
   auto emptyRuleIt = rules.rend();
   for (auto it = rules.rbegin(); it != rules.rend(); ++it)
   {
-    if (IsActive(*it, date))
+    if (IsActive(*it, timestamp))
     {
       if (it->IsEmpty() && emptyRuleIt == rules.rend())
         emptyRuleIt = it;
@@ -282,12 +373,5 @@ RuleState GetState(TRuleSequences const & rules, std::tm const & date)
   return (rules.empty()
           ? RuleState::Unknown
           : RuleState::Closed);
-}
-
-RuleState GetState(TRuleSequences const & rules, time_t const dateTime)
-{
-  std::tm tm{};
-  localtime_r(&dateTime, &tm);
-  return GetState(rules, tm);
 }
 } // namespace osmoh

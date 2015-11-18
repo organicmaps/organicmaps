@@ -99,15 +99,12 @@ osmoh::RuleState GetRulesState(osmoh::TRuleSequences const & rules, std::string 
 {
   static auto const & fmt = "%Y-%m-%d %H:%M";
   std::tm time = {};
+  /// Parsing the format such as "%Y-%m-%d %H:%M" doesn't
+  /// fill tm_wday field. It will be filled after time_t to tm convertion.
   if (!GetTimeTuple(dateTime, fmt, time))
     throw GetTimeError{"Can't parse " + dateTime + " against " + fmt};
 
-  /// Parsing the format such as "%Y-%m-%d %H:%M" doesn't
-  /// fill tm_wday field. So we fill it using two convertions.
-  time_t const timestamp = mktime(&time);
-  localtime_r(&timestamp, &time);
-
-  return osmoh::GetState(rules, time);
+  return osmoh::GetState(rules, mktime(&time));
 }
 
 bool IsOpen(osmoh::TRuleSequences const & rules, std::string const & dateTime)
@@ -123,6 +120,11 @@ bool IsClosed(osmoh::TRuleSequences const & rules, std::string const & dateTime)
 bool IsUnknown(osmoh::TRuleSequences const & rules, std::string const & dateTime)
 {
   return GetRulesState(rules, dateTime) == osmoh::RuleState::Unknown;
+}
+
+bool IsActive(osmoh::RuleSequence const & rule, std::tm tm)
+{
+  return IsActive(rule, mktime(&tm));
 }
 } // namespace
 
@@ -140,7 +142,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestHourMinutes)
     BOOST_CHECK_EQUAL(ToString(hm), "00:10");
   }
   {
-    HourMinutes hm{100_min};
+    HourMinutes hm(100_min);
     BOOST_CHECK(!hm.IsEmpty());
     BOOST_CHECK_EQUAL(hm.GetHoursCount(), 1);
     BOOST_CHECK_EQUAL(hm.GetMinutesCount(), 40);
@@ -148,15 +150,28 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestHourMinutes)
     BOOST_CHECK_EQUAL(ToString(hm), "01:40");
   }
   {
-    HourMinutes hm{};
+    HourMinutes hm;
     hm.SetHours(22_h);
     hm.SetMinutes(15_min);
     BOOST_CHECK(!hm.IsEmpty());
+    BOOST_CHECK(!hm.IsExtended());
 
     BOOST_CHECK_EQUAL(hm.GetHoursCount(), 22);
     BOOST_CHECK_EQUAL(hm.GetMinutesCount(), 15);
 
     BOOST_CHECK_EQUAL(ToString(hm), "22:15");
+  }
+  {
+    HourMinutes hm;
+    hm.SetHours(39_h);
+    hm.SetMinutes(15_min);
+    BOOST_CHECK(!hm.IsEmpty());
+    BOOST_CHECK(hm.IsExtended());
+
+    BOOST_CHECK_EQUAL(hm.GetHoursCount(), 39);
+    BOOST_CHECK_EQUAL(hm.GetMinutesCount(), 15);
+
+    BOOST_CHECK_EQUAL(ToString(hm), "39:15");
   }
 }
 
@@ -253,16 +268,19 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestTimespan)
     BOOST_CHECK(span.IsEmpty());
     BOOST_CHECK(!span.HasStart());
     BOOST_CHECK(!span.HasEnd());
+    BOOST_CHECK(!span.HasExtendedHours());
     BOOST_CHECK_EQUAL(ToString(span), "hh:mm-hh:mm");
 
     span.SetStart(HourMinutes(10_h));
     BOOST_CHECK(span.HasStart());
     BOOST_CHECK(span.IsOpen());
+    BOOST_CHECK(!span.HasExtendedHours());
     BOOST_CHECK_EQUAL(ToString(span), "10:00");
 
     span.SetEnd(HourMinutes(12_h));
     BOOST_CHECK(span.HasEnd());
     BOOST_CHECK(!span.IsOpen());
+    BOOST_CHECK(!span.HasExtendedHours());
     BOOST_CHECK_EQUAL(ToString(span), "10:00-12:00");
 
     BOOST_CHECK(!span.HasPeriod());
@@ -270,6 +288,34 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestTimespan)
     BOOST_CHECK(span.HasPeriod());
     BOOST_CHECK_EQUAL(ToString(span), "10:00-12:00/10");
   }
+  {
+    Timespan span;
+
+    span.SetStart(HourMinutes(10_h));
+    span.SetEnd(HourMinutes(47_h));
+
+    BOOST_CHECK(span.HasExtendedHours());
+    BOOST_CHECK_EQUAL(ToString(span), "10:00-47:00");
+  }
+  {
+    Timespan span;
+
+    span.SetStart(HourMinutes(10_h));
+    span.SetEnd(HourMinutes(06_h));
+
+    BOOST_CHECK(span.HasExtendedHours());
+    BOOST_CHECK_EQUAL(ToString(span), "10:00-06:00");
+  }
+  {
+    Timespan span;
+
+    span.SetStart(HourMinutes(10_h));
+    span.SetEnd(HourMinutes(00_h));
+
+    BOOST_CHECK(!span.HasExtendedHours());
+    BOOST_CHECK_EQUAL(ToString(span), "10:00-00:00");
+  }
+
 }
 
 BOOST_AUTO_TEST_CASE(OpeningHours_TestNthWeekdayOfTheMonthEntry)
@@ -1148,6 +1194,32 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestIsActive)
     BOOST_CHECK(!IsActive(ranges[0], time));
   }
   {
+    TMonthdayRanges ranges;
+    BOOST_CHECK(Parse("Sep 01", ranges));
+
+    std::tm time{};
+    auto const fmt = "%Y-%m-%d";
+
+    BOOST_CHECK(GetTimeTuple("2015-09-01", fmt, time));
+    BOOST_CHECK(IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2014-09-02", fmt, time));
+    BOOST_CHECK(!IsActive(ranges[0], time));
+  }
+  {
+    TMonthdayRanges ranges;
+    BOOST_CHECK(Parse("2015 Sep 01", ranges));
+
+    std::tm time{};
+    auto const fmt = "%Y-%m-%d";
+
+    BOOST_CHECK(GetTimeTuple("2015-09-01", fmt, time));
+    BOOST_CHECK(IsActive(ranges[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2014-09-01", fmt, time));
+    BOOST_CHECK(!IsActive(ranges[0], time));
+  }
+  {
     TYearRanges ranges;
     BOOST_CHECK(Parse("2011-2014", ranges));
 
@@ -1216,18 +1288,6 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestIsActive)
   }
   {
     TRuleSequences rules;
-    BOOST_CHECK(Parse("Mo-We 17:00-18:00, Th,Fr 15:00-16:00", rules));
-
-    std::tm time{};
-    auto const fmt = "%w %H:%M";
-    BOOST_CHECK(GetTimeTuple("2 17:35", fmt, time));
-    BOOST_CHECK(IsActive(rules[0], time));
-
-    BOOST_CHECK(GetTimeTuple("4 15:35", fmt, time));
-    BOOST_CHECK(IsActive(rules[1], time));
-  }
-  {
-    TRuleSequences rules;
     BOOST_CHECK(Parse("09:00-14:00", rules));
 
     std::tm time{};
@@ -1240,27 +1300,108 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestIsActive)
   }
   {
     TRuleSequences rules;
-    BOOST_CHECK(Parse("Apr-Sep Su 14:30-17:00", rules));
+    BOOST_CHECK(Parse("Mo-We 17:00-18:00, Th,Fr 15:00-16:00", rules));
 
     std::tm time{};
-    auto const fmt = "%m-%w %H:%M";
-    BOOST_CHECK(GetTimeTuple("5-0 15:35", fmt, time));
+    auto const fmt = "%Y-%m-%d %H:%M";
+    BOOST_CHECK(GetTimeTuple("2015-10-6 17:35", fmt, time));
     BOOST_CHECK(IsActive(rules[0], time));
 
-    BOOST_CHECK(GetTimeTuple("5-1 15:35", fmt, time));
-    BOOST_CHECK(!IsActive(rules[0], time));
-
-    BOOST_CHECK(GetTimeTuple("10-0 15:35", fmt, time));
-    BOOST_CHECK(!IsActive(rules[0], time));
+    BOOST_CHECK(GetTimeTuple("2015-10-8 15:35", fmt, time));
+    BOOST_CHECK(IsActive(rules[1], time));
   }
+
+  auto const kDateTimeFmt = "%Y-%m-%d %H:%M";
+
   {
     TRuleSequences rules;
     BOOST_CHECK(Parse("2010 Apr 01-30: Mo-Su 17:00-24:00", rules));
 
     std::tm time{};
-    auto const fmt = "%Y-%m-%d-%w %H:%M";
-    BOOST_CHECK(GetTimeTuple("2010-4-20-0 18:15", fmt, time));
+    BOOST_CHECK(GetTimeTuple("2010-4-20 18:15", kDateTimeFmt, time));
     BOOST_CHECK(IsActive(rules[0], time));
+  }
+  {
+    TRuleSequences rules;
+    BOOST_CHECK(Parse("2010 Apr 02 - May 21: Mo-Su 17:00-24:00", rules));
+
+    std::tm time{};
+    BOOST_CHECK(GetTimeTuple("2010-4-20 18:15", kDateTimeFmt, time));
+    BOOST_CHECK(IsActive(rules[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2010-5-20 18:15", kDateTimeFmt, time));
+    BOOST_CHECK(IsActive(rules[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2010-4-01 18:15", kDateTimeFmt, time));
+    BOOST_CHECK(!IsActive(rules[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2010-5-22 18:15", kDateTimeFmt, time));
+    BOOST_CHECK(!IsActive(rules[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2010-6-01 18:15", kDateTimeFmt, time));
+    BOOST_CHECK(!IsActive(rules[0], time));
+  }
+  {
+    TRuleSequences rules;
+    BOOST_CHECK(Parse("Apr-Sep Su 14:30-17:00", rules));
+
+    std::tm time{};
+    BOOST_CHECK(GetTimeTuple("2015-04-12 15:35", kDateTimeFmt, time));
+    BOOST_CHECK(IsActive(rules[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015-04-13 15:35", kDateTimeFmt, time));
+    BOOST_CHECK(!IsActive(rules[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015-10-11 15:35", kDateTimeFmt, time));
+    BOOST_CHECK(!IsActive(rules[0], time));
+  }
+  {
+    TRuleSequences rules;
+    BOOST_CHECK(Parse("Mo 09:00-06:00", rules));
+
+    std::tm time{};
+    BOOST_CHECK(GetTimeTuple("2015-11-10 05:35", kDateTimeFmt, time));
+    BOOST_CHECK(IsActive(rules[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015-11-11 05:35", kDateTimeFmt, time));
+    BOOST_CHECK(!IsActive(rules[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015-11-11 06:01", kDateTimeFmt, time));
+    BOOST_CHECK(!IsActive(rules[0], time));
+  }
+  {
+    TRuleSequences rules;
+    BOOST_CHECK(Parse("Mo 09:00-32:00", rules));
+
+    std::tm time{};
+    BOOST_CHECK(GetTimeTuple("2015-11-10 05:35", kDateTimeFmt, time));
+    BOOST_CHECK(IsActive(rules[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015-11-11 05:35", kDateTimeFmt, time));
+    BOOST_CHECK(!IsActive(rules[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015-11-11 06:01", kDateTimeFmt, time));
+    BOOST_CHECK(!IsActive(rules[0], time));
+  }
+  {
+    TRuleSequences rules;
+    BOOST_CHECK(Parse("Mo 09:00-48:00", rules));
+
+    std::tm time{};
+    BOOST_CHECK(GetTimeTuple("2015-11-10 05:35", kDateTimeFmt, time));
+    BOOST_CHECK(IsActive(rules[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015-11-10 15:35", kDateTimeFmt, time));
+    BOOST_CHECK(IsActive(rules[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015-11-10 23:35", kDateTimeFmt, time));
+    BOOST_CHECK(IsActive(rules[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015-11-11 05:35", kDateTimeFmt, time));
+    BOOST_CHECK(!IsActive(rules[0], time));
+
+    BOOST_CHECK(GetTimeTuple("2015-11-11 06:01", kDateTimeFmt, time));
+    BOOST_CHECK(!IsActive(rules[0], time));
   }
 }
 
@@ -1359,6 +1500,16 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestIsOpen)
     BOOST_CHECK(IsOpen(rules, "2015-11-06 18:40"));
     BOOST_CHECK(!IsClosed(rules, "2015-11-06 18:40"));
   }
+  {
+    TRuleSequences rules;
+    BOOST_CHECK(Parse("2015 Apr 01-30: Mo-Fr 17:00-08:00", rules));
+
+    BOOST_CHECK(IsOpen(rules, "2015-04-10 07:15"));
+    BOOST_CHECK(IsOpen(rules, "2015-05-01 07:15"));
+    BOOST_CHECK(IsOpen(rules, "2015-04-11 07:15"));
+    BOOST_CHECK(IsClosed(rules, "2015-04-12 14:15"));
+    BOOST_CHECK(IsClosed(rules, "2016-04-12 20:15"));
+  }
 }
 
 
@@ -1384,5 +1535,9 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestOpeningHours)
 
     BOOST_CHECK(GetTimeTuple("2015-11-10 12:30", fmt, time));
     BOOST_CHECK(oh.IsClosed(mktime(&time)));
+  }
+  {
+    OpeningHours oh("Nov +1");
+    BOOST_CHECK(!oh.IsValid());
   }
 }
