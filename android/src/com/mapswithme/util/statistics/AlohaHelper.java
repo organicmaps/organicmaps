@@ -65,13 +65,16 @@ public class AlohaHelper
   public static final String PP_DIRECTION_ARROW_CLOSE = "ppDirectionArrowClose";
   public static final String PP_METADATA_COPY = "ppCopyMetadata";
   // routing
+  public static final String ROUTING_BUILD = "routeBuild";
   public static final String ROUTING_CLOSE = "routeClose";
   public static final String ROUTING_GO = "routeGo";
-  public static final String ROUTING_GO_CLOSE = "routeGoClose";
-  public static final String ROUTING_PROGRESS_CLOSE = "routeProgressClose";
+  public static final String ROUTING_GO_SUGGEST_REBUILD = "routeGoRebuild";
   public static final String ROUTING_CANCEL = "routeCancel";
   public static final String ROUTING_PEDESTRIAN_SET = "routerSetPedestrian";
   public static final String ROUTING_VEHICLE_SET = "routerSetVehicle";
+  public static final String ROUTING_SWAP_POINTS = "routeSwapPoints";
+  public static final String ROUTING_TOGGLE = "routeToggle";
+  public static final String ROUTING_SEARCH_POINT = "routSearchPoint";
   // search
   public static final String SEARCH_CANCEL = "searchCancel";
   // installation of Parse

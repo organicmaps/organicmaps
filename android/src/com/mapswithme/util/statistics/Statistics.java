@@ -14,6 +14,7 @@ import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.api.ParsedMwmRequest;
+import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.log.Logger;
@@ -79,12 +80,23 @@ public enum Statistics
     public static final String SEARCH_KEY_CLICKED = "Search key pressed.";
     public static final String SEARCH_ON_MAP_CLICKED = "Search on map clicked.";
     public static final String STATISTICS_STATUS_CHANGED = "Statistics status changed";
-    //
+    // dialogs
     public static final String PLUS_DIALOG_LATER = "GPlus dialog cancelled.";
     public static final String RATE_DIALOG_LATER = "GPlay dialog cancelled.";
     public static final String FACEBOOK_INVITE_LATER = "Facebook invites dialog cancelled.";
     public static final String FACEBOOK_INVITE_INVITED = "GPlay dialog cancelled.";
     public static final String RATE_DIALOG_RATED = "GPlay dialog. Rating set";
+    // routing
+    public static final String ROUTING_BUILD = "Routing. Build";
+    public static final String ROUTING_START_SUGGEST_REBUILD = "Routing. Suggest rebuild";
+    public static final String ROUTING_START = "Routing. Start";
+    public static final String ROUTING_CLOSE = "Routing. Close";
+    public static final String ROUTING_CANCEL = "Routing. Cancel";
+    public static final String ROUTING_PEDESTRIAN_SET = "Routing. Set pedestrian";
+    public static final String ROUTING_VEHICLE_SET = "Routing. Set vehicle";
+    public static final String ROUTING_SWAP_POINTS = "Routing. Swap points";
+    public static final String ROUTING_TOGGLE = "Routing. Toggle";
+    public static final String ROUTING_SEARCH_POINT = "Routing. Search point";
 
     private EventName() {}
   }
@@ -104,6 +116,8 @@ public enum Statistics
     public static final String CONNECTION_TYPE = "Connection name";
     public static final String CONNECTION_FAST = "Connection fast";
     public static final String CONNECTION_METERED = "Connection limit";
+    public static final String MY_POSITION = "my position";
+    public static final String POINT = "point";
 
     private EventParam() {}
   }
@@ -113,6 +127,8 @@ public enum Statistics
     private static final String MY_MAP_DOWNLOAD = "DownloadMap";
     private static final String MY_MAP_UPDATE = "UpdateMap";
     private static final String MY_TOTAL_COUNT = "Count";
+
+    private MyTrackerParams() {}
   }
 
   // Initialized once in constructor and does not change until the process restarts.
@@ -266,6 +282,11 @@ public enum Statistics
       post(EventName.ACTIVE_CONNECTION, new String[]{EventParam.CONNECTION_TYPE, "Not connected."});
   }
 
+  public void trackRouteBuild(String from, String to)
+  {
+    post(EventName.ROUTING_BUILD, new String[]{EventParam.FROM, from, EventParam.TO, to});
+  }
+
   public void myTrackerTrackMapDownload()
   {
     myTrackerTrackMapChange(MyTrackerParams.MY_MAP_DOWNLOAD);
@@ -340,5 +361,10 @@ public enum Statistics
     // statistics to understand data better.
     post(EventName.STATISTICS_STATUS_CHANGED + " " + Config.getInstallFlavor(),
          new String[] { EventParam.ENABLED, String.valueOf(isEnabled) });
+  }
+
+  public static String getPointType(MapObject point)
+  {
+    return point instanceof MapObject.MyPosition ? Statistics.EventParam.MY_POSITION : Statistics.EventParam.POINT;
   }
 }

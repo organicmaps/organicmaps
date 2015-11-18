@@ -13,6 +13,7 @@ import com.mapswithme.maps.widget.FlatProgressView;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
+import com.mapswithme.util.statistics.Statistics;
 
 public class NavigationController
 {
@@ -53,6 +54,7 @@ public class NavigationController
       public void onClick(View v)
       {
         AlohaHelper.logClick(AlohaHelper.ROUTING_CLOSE);
+        Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.ROUTING_CLOSE);
         RoutingController.get().cancel();
       }
     });

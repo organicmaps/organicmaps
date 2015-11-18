@@ -17,6 +17,8 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.util.statistics.AlohaHelper;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -246,6 +248,10 @@ public class RoutingController
     setBuildState(BuildState.BUILDING);
     updatePlan();
 
+    Statistics.INSTANCE.trackRouteBuild(Statistics.getPointType(mStartPoint), Statistics.getPointType(mEndPoint));
+    org.alohalytics.Statistics.logEvent(AlohaHelper.ROUTING_BUILD, new String[] {Statistics.EventParam.FROM, Statistics.getPointType(mStartPoint),
+                                                                                 Statistics.EventParam.TO, Statistics.getPointType(mEndPoint)});
+
     Framework.nativeBuildRoute(mStartPoint.getLat(), mStartPoint.getLon(), mEndPoint.getLat(), mEndPoint.getLon());
   }
 
@@ -324,10 +330,14 @@ public class RoutingController
 
     if (!(mStartPoint instanceof MapObject.MyPosition))
     {
+      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.ROUTING_START_SUGGEST_REBUILD);
+      AlohaHelper.logClick(AlohaHelper.ROUTING_GO_SUGGEST_REBUILD);
       suggestRebuildRoute();
       return;
     }
 
+    Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.ROUTING_START);
+    AlohaHelper.logClick(AlohaHelper.ROUTING_GO);
     setState(State.NAVIGATION);
     Framework.nativeFollowRoute();
 
@@ -615,6 +625,9 @@ public class RoutingController
     mStartPoint = mEndPoint;
     mEndPoint = point;
 
+    Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.ROUTING_SWAP_POINTS);
+    AlohaHelper.logClick(AlohaHelper.ROUTING_SWAP_POINTS);
+
     checkAndBuildRoute();
   }
 
@@ -635,6 +648,8 @@ public class RoutingController
   public void searchPoi(int slotId)
   {
     Log.d(TAG, "searchPoi: " + slotId);
+    Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.ROUTING_SEARCH_POINT);
+    AlohaHelper.logClick(AlohaHelper.ROUTING_SEARCH_POINT);
     mWaitingPoiPickSlot = slotId;
     mContainer.showSearch();
     mContainer.updateMenu();
