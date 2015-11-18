@@ -337,7 +337,9 @@ def unalignedFonts = "${propObbFontsOutput}.unaligned"
 def unalignedWorlds = "${propObbWorldsOutput}.unaligned"
 
 task obbClean(type: Delete) << {
-  delete propObbFontsOutput, propObbWorldsOutput, unalignedFonts, unalignedWorlds
+  [propObbFontsOutput, propObbWorldsOutput, unalignedFonts, unalignedWorlds].each { file ->
+    delete file
+  }
 }
 
 task obbGenerate() {
