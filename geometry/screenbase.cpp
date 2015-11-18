@@ -373,7 +373,7 @@ m2::PointD ScreenBase::PtoP3d(m2::PointD const & pt) const
   return pixelPointPerspective;
 }
 
-m2::PointD ScreenBase::P3dToP(m2::PointD const & pt) const
+m2::PointD ScreenBase::P3dtoP(m2::PointD const & pt) const
 {
   if (!m_isPerspective)
     return pt;

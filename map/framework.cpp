@@ -1640,7 +1640,7 @@ void Framework::InvalidateRendering()
 
 UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID const & feature)
 {
-  m2::PointD const pxPoint2d = m_currentModelView.P3dToP(pxPoint);
+  m2::PointD const pxPoint2d = m_currentModelView.P3dtoP(pxPoint);
 
   if (isMyPosition)
   {
@@ -1693,7 +1693,7 @@ UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool
   if (needMark)
   {
     PoiMarkPoint * poiMark = UserMarkContainer::UserMarkForPoi();
-    poiMark->SetPtOrg(m_currentModelView.PtoG(m_currentModelView.P3dToP(pxPivot)));
+    poiMark->SetPtOrg(m_currentModelView.PtoG(m_currentModelView.P3dtoP(pxPivot)));
     poiMark->SetInfo(info);
     poiMark->SetMetadata(move(metadata));
     return poiMark;

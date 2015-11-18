@@ -72,7 +72,7 @@ void Renderer3d::Render(ScreenBase const & screen, uint32_t textureId, ref_ptr<d
   if (m_VAO == 0)
     Build(prg);
 
-  math::Matrix<float, 4, 4> const transform(screen.PTo3dMatrix());
+  math::Matrix<float, 4, 4> const transform(screen.Pto3dMatrix());
 
   dp::UniformValuesStorage uniforms;
   uniforms.SetIntValue("tex", 0);

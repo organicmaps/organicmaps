@@ -140,7 +140,7 @@ m2::PointD Navigator::PtoG(m2::PointD const & pt) const
 
 m2::PointD Navigator::P3dtoP(m2::PointD const & pt) const
 {
-  return m_Screen.P3dToP(pt);
+  return m_Screen.P3dtoP(pt);
 }
 
 bool Navigator::CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
@@ -438,7 +438,7 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
                           ScreenBase & screen)
 {
   m2::PointD const center3d = (oldPt1 + oldPt2) / 2.0;
-  m2::PointD const center2d = screen.P3dToP(center3d);
+  m2::PointD const center2d = screen.P3dtoP(center3d);
   m2::PointD const offset =  center2d - center3d;
   math::Matrix<double, 3, 3> const newM =
       screen.GtoPMatrix() * ScreenBase::CalcTransform(oldPt1 + offset, oldPt2 + offset,

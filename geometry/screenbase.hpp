@@ -134,9 +134,9 @@ public:
 
   double GetAngleFOV() const { return m_3dFOV; }
 
-  m2::PointD P3dToP(m2::PointD const & pt) const;
+  m2::PointD P3dtoP(m2::PointD const & pt) const;
 
-  Matrix3dT const & PTo3dMatrix() const { return m_Pto3d; }
+  Matrix3dT const & Pto3dMatrix() const { return m_Pto3d; }
   bool isPerspective() const { return m_isPerspective; }
 
   m2::PointD PtoP3d(m2::PointD const & pt) const;

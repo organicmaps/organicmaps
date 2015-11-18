@@ -115,7 +115,7 @@ void MyPositionController::SetPixelRect(m2::RectD const & pixelRect)
 
 void MyPositionController::UpdatePixelPosition(ScreenBase const & screen)
 {
-  m_pixelPosition = screen.P3dToP(GetCurrentPixelBinding());
+  m_pixelPosition = screen.P3dtoP(GetCurrentPixelBinding());
 }
 
 void MyPositionController::SetListener(ref_ptr<MyPositionController::Listener> listener)
