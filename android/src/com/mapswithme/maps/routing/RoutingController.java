@@ -655,7 +655,7 @@ public class RoutingController
     mContainer.updateMenu();
   }
 
-  private void onPoiSelectedInternal(@Nullable MapObject point)
+  private void onPoiSelectedInternal(@Nullable MapObject point, int slot)
   {
     if (mContainer == null)
       return;
@@ -664,14 +664,10 @@ public class RoutingController
 
     if (point != null)
     {
-      boolean set;
-      if (mWaitingPoiPickSlot == 1)
-        set = setStartPoint(point);
+      if (slot == 1)
+        setStartPoint(point);
       else
-        set = setEndPoint(point);
-
-      if (set)
-        return;
+        setEndPoint(point);
     }
 
     showRoutePlan();
@@ -679,9 +675,10 @@ public class RoutingController
 
   public void onPoiSelected(@Nullable MapObject point)
   {
-    onPoiSelectedInternal(point);
-    mContainer.updatePoints();
+    int slot = mWaitingPoiPickSlot;
     mWaitingPoiPickSlot = NO_SLOT;
+    onPoiSelectedInternal(point, slot);
+    mContainer.updatePoints();
   }
 
   public static CharSequence formatRoutingTime(int seconds)

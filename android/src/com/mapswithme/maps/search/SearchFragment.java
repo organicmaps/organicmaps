@@ -475,8 +475,12 @@ public class SearchFragment extends BaseMwmFragment
       return true;
     }
 
+    mToolbarController.deactivate();
     if (mFromRoutePlan)
+    {
       RoutingController.get().onPoiSelected(null);
+      return true;
+    }
 
     return false;
   }
