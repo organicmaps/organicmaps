@@ -14,9 +14,7 @@ final class TargetUtils
   static final String EXTRA_SMS_TEXT = Intent.EXTRA_TEXT;
   static final String URI_STRING_SMS = "sms:";
 
-
   private TargetUtils() {}
-
 
   public static void fillSmsIntent(Activity activity, Intent smsIntent, String body)
   {

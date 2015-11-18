@@ -47,7 +47,7 @@ public class RateStoreDialogFragment extends BaseMwmDialogFragment implements Vi
           @Override
           public void onClick(DialogInterface dialog, int which)
           {
-            Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.RATE_DIALOG_LATER);
+            Statistics.INSTANCE.trackEvent(Statistics.EventName.RATE_DIALOG_LATER);
           }
         });
 
@@ -96,7 +96,7 @@ public class RateStoreDialogFragment extends BaseMwmDialogFragment implements Vi
   public void onCancel(DialogInterface dialog)
   {
     super.onCancel(dialog);
-    Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.RATE_DIALOG_LATER);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.RATE_DIALOG_LATER);
   }
 
   @Override

@@ -3,8 +3,11 @@ package com.mapswithme.maps.settings;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.*;
+import android.preference.ListPreference;
+import android.preference.Preference;
+import android.preference.TwoStatePreference;
 import android.support.v7.app.AlertDialog;
+
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
@@ -12,6 +15,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.AlohaHelper;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
 
@@ -81,6 +85,7 @@ public class MapPrefsFragment extends BaseXmlSettingsFragment
       public boolean onPreferenceChange(Preference preference, Object newValue)
       {
         UnitLocale.setUnits(Integer.parseInt((String) newValue));
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.UNITS);
         AlohaHelper.logClick(AlohaHelper.Settings.CHANGE_UNITS);
         return true;
       }
@@ -93,6 +98,7 @@ public class MapPrefsFragment extends BaseXmlSettingsFragment
       @Override
       public boolean onPreferenceChange(Preference preference, Object newValue)
       {
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.ZOOM);
         Config.setShowZoomButtons((Boolean) newValue);
         return true;
       }
@@ -107,20 +113,17 @@ public class MapPrefsFragment extends BaseXmlSettingsFragment
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue)
         {
+          Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.MAP_STYLE);
           Framework.setMapStyle(Integer.parseInt((String) newValue));
           return true;
         }
       });
     }
     else
-    {
       getPreferenceScreen().removePreference(pref);
-    }
 
     pref = findPreference(getString(R.string.pref_yota));
-    if (!Yota.isFirstYota())
-      getPreferenceScreen().removePreference(pref);
-    else
+    if (Yota.isFirstYota())
       pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
       {
         @Override
@@ -130,13 +133,14 @@ public class MapPrefsFragment extends BaseXmlSettingsFragment
           return false;
         }
       });
+    else
+      getPreferenceScreen().removePreference(pref);
   }
 
   @Override
   public void onAttach(Activity activity)
   {
     super.onAttach(activity);
-
     mPathManager.startExternalStorageWatching(activity, new StoragePathManager.OnStorageListChangedListener()
     {
       @Override

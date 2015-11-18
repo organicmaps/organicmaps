@@ -95,8 +95,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment implem
     if (mListener != null)
       mListener.onCategoryChanged(mBookmark.getBookmarkId(), category);
     dismiss();
-
-    Statistics.INSTANCE.trackGroupCreated();
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.BMK_GROUP_CREATED);
   }
 
   @Override
@@ -107,7 +106,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment implem
     if (mListener != null)
       mListener.onCategoryChanged(mBookmark.getBookmarkId(), categoryId);
     dismiss();
-    Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.GROUP_CHANGED);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.BMK_GROUP_CHANGED);
   }
 
   @Override

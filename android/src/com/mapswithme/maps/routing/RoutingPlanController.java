@@ -66,7 +66,7 @@ public class RoutingPlanController extends ToolbarController
       public void onClick(View v)
       {
         AlohaHelper.logClick(AlohaHelper.ROUTING_VEHICLE_SET);
-        Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.ROUTING_VEHICLE_SET);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_VEHICLE_SET);
         RoutingController.get().setRouterType(Framework.ROUTER_TYPE_VEHICLE);
       }
     });
@@ -77,7 +77,7 @@ public class RoutingPlanController extends ToolbarController
       public void onClick(View v)
       {
         AlohaHelper.logClick(AlohaHelper.ROUTING_PEDESTRIAN_SET);
-        Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.ROUTING_PEDESTRIAN_SET);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_PEDESTRIAN_SET);
         RoutingController.get().setRouterType(Framework.ROUTER_TYPE_PEDESTRIAN);
       }
     });
@@ -118,7 +118,7 @@ public class RoutingPlanController extends ToolbarController
   public void onUpClick()
   {
     AlohaHelper.logClick(AlohaHelper.ROUTING_CANCEL);
-    Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.ROUTING_CANCEL);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_CANCEL);
     RoutingController.get().cancelPlanning();
   }
 
@@ -194,7 +194,7 @@ public class RoutingPlanController extends ToolbarController
   private void toggleSlots()
   {
     AlohaHelper.logClick(AlohaHelper.ROUTING_TOGGLE);
-    Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.ROUTING_TOGGLE);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_TOGGLE);
     showSlots(!mOpen, true);
   }
 

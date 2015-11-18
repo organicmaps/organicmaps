@@ -54,7 +54,7 @@ public class NavigationController
       public void onClick(View v)
       {
         AlohaHelper.logClick(AlohaHelper.ROUTING_CLOSE);
-        Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.ROUTING_CLOSE);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_CLOSE);
         RoutingController.get().cancel();
       }
     });

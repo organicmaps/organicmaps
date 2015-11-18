@@ -364,7 +364,7 @@ public class SearchFragment extends BaseMwmFragment
 
     processSelected(result);
 
-    Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_KEY_CLICKED);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.SEARCH_ITEM_CLICKED);
   }
 
   void showAllResultsOnMap()
@@ -376,7 +376,7 @@ public class SearchFragment extends BaseMwmFragment
     SearchEngine.showAllResults(query);
     Utils.navigateToParent(getActivity());
 
-    Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_ON_MAP_CLICKED);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.SEARCH_ON_MAP_CLICKED);
   }
 
   @Override

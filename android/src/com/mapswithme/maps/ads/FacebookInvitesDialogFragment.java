@@ -39,7 +39,7 @@ public class FacebookInvitesDialogFragment extends BaseMwmDialogFragment
           @Override
           public void onClick(DialogInterface dialog, int which)
           {
-            Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.FACEBOOK_INVITE_LATER);
+            Statistics.INSTANCE.trackEvent(Statistics.EventName.FACEBOOK_INVITE_LATER);
           }
         }).
         setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
@@ -48,7 +48,7 @@ public class FacebookInvitesDialogFragment extends BaseMwmDialogFragment
           {
             mHasInvited = true;
             showAppInviteDialog();
-            Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.FACEBOOK_INVITE_INVITED);
+            Statistics.INSTANCE.trackEvent(Statistics.EventName.FACEBOOK_INVITE_INVITED);
           }
         });
 
@@ -67,7 +67,7 @@ public class FacebookInvitesDialogFragment extends BaseMwmDialogFragment
   public void onCancel(DialogInterface dialog)
   {
     super.onCancel(dialog);
-    Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.FACEBOOK_INVITE_LATER);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.FACEBOOK_INVITE_LATER);
   }
 
   private void showAppInviteDialog()

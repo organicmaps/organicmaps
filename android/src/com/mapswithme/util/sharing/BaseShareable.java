@@ -16,7 +16,6 @@ public abstract class BaseShareable
   private String mText;
   private String mSubject;
 
-
   public BaseShareable(Activity activity)
   {
     mActivity = activity;

@@ -679,7 +679,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       {
         final Bookmark updatedBookmark = BookmarkManager.INSTANCE.getBookmark(bookmark.getCategoryId(), bookmark.getBookmarkId());
         setMapObject(updatedBookmark);
-        Statistics.INSTANCE.trackDescriptionChanged();
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.BMK_DESCRIPTION_CHANGED);
       }
     });
   }
@@ -694,10 +694,12 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       selectBookmarkColor();
       break;
     case R.id.ll__bookmark:
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_BOOKMARK);
       AlohaHelper.logClick(AlohaHelper.PP_BOOKMARK);
       toggleIsBookmark();
       break;
     case R.id.ll__share:
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_SHARE);
       AlohaHelper.logClick(AlohaHelper.PP_SHARE);
       ShareOption.ANY.shareMapObject((Activity) getContext(), mMapObject);
       break;
@@ -741,6 +743,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       selectBookmarkSet();
       break;
     case R.id.av__direction:
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_DIRECTION_ARROW);
       AlohaHelper.logClick(AlohaHelper.PP_DIRECTION_ARROW);
       showBigDirection();
       break;
@@ -917,6 +920,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
         final Context ctx = getContext();
         Utils.copyTextToClipboard(ctx, items.get(id));
         Utils.toastShortcut(ctx, ctx.getString(R.string.copied_to_clipboard, items.get(id)));
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_METADATA_COPY + ":" + tagStr);
         AlohaHelper.logClick(AlohaHelper.PP_METADATA_COPY + ":" + tagStr);
         return true;
       }

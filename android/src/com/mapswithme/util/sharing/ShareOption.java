@@ -36,7 +36,7 @@ public abstract class ShareOption
   public void shareMapObject(Activity activity, MapObject mapObject)
   {
     SharingHelper.shareOutside(new MapObjectShareable(activity, mapObject)
-        .setBaseIntent(new Intent(mBaseIntent)), mNameResId);
+                 .setBaseIntent(new Intent(mBaseIntent)), mNameResId);
   }
 
   public static class SmsShareOption extends ShareOption
@@ -51,6 +51,7 @@ public abstract class ShareOption
       Intent smsIntent = new Intent();
       TargetUtils.fillSmsIntent(activity, smsIntent, body);
       activity.startActivity(smsIntent);
+      Statistics.INSTANCE.trackPlaceShared("SMS");
     }
 
     @Override
@@ -58,14 +59,10 @@ public abstract class ShareOption
     {
       final String ge0Url = Framework.nativeGetGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), "");
       final String httpUrl = Framework.getHttpGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), "");
-
       final int bodyId = mapObject.getType() == MapObjectType.MY_POSITION ? R.string.my_position_share_sms : R.string.bookmark_share_sms;
-
       final String body = activity.getString(bodyId, ge0Url, httpUrl);
 
       shareWithText(activity, body);
-
-      Statistics.INSTANCE.trackPlaceShared(this.getClass().getSimpleName());
     }
   }
 
