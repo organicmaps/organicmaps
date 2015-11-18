@@ -11,3 +11,9 @@
 
 /* Used in home screen quick actions. */
 "share_my_location" = "位置情報を共有する";
+
+/* Used in home screen quick actions. */
+"bookmarks" = "ブックマーク";
+
+/* Used in home screen quick actions. */
+"route" = "経路";

@@ -11,3 +11,9 @@
 
 /* Used in home screen quick actions. */
 "share_my_location" = "내 위치 공유";
+
+/* Used in home screen quick actions. */
+"bookmarks" = "북마크";
+
+/* Used in home screen quick actions. */
+"route" = "경로";

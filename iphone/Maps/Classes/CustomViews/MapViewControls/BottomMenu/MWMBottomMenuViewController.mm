@@ -1,4 +1,3 @@
-#import "BookmarksRootVC.h"
 #import "Common.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
@@ -408,18 +407,17 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 - (IBAction)searchButtonTouchUpInside:(UIButton *)sender
 {
   [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatSearch}];
-  self.state = self.restoreState;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"search"];
+  self.state = self.restoreState;
   self.controller.controlsManager.searchHidden = self.searchIsActive;
 }
 
 - (IBAction)bookmarksButtonTouchUpInside:(UIButton *)sender
 {
   [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatBookmarks}];
-  self.state = self.restoreState;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"bookmarks"];
-  BookmarksRootVC * const vc = [[BookmarksRootVC alloc] init];
-  [self.controller.navigationController pushViewController:vc animated:YES];
+  self.state = self.restoreState;
+  [self.controller openBookmarks];
 }
 
 - (IBAction)menuButtonTouchUpInside:(UIButton *)sender

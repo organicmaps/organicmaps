@@ -11,3 +11,9 @@
 
 /* Used in home screen quick actions. */
 "share_my_location" = "Jaa sijaintini";
+
+/* Used in home screen quick actions. */
+"bookmarks" = "Kirjanmerkit";
+
+/* Used in home screen quick actions. */
+"route" = "Reitti";

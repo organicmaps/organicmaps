@@ -11,3 +11,9 @@
 
 /* Used in home screen quick actions. */
 "share_my_location" = "Chia sẻ Vị trí của tôi";
+
+/* Used in home screen quick actions. */
+"bookmarks" = "Đánh dấu";
+
+/* Used in home screen quick actions. */
+"route" = "Tuyến đường";

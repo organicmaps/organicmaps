@@ -1,3 +1,5 @@
+#import "BookmarksRootVC.h"
+#import "BookmarksVC.h"
 #import "Common.h"
 #import "EAGLView.h"
 #import "MapsAppDelegate.h"
@@ -5,8 +7,8 @@
 #import "MWMAlertViewController.h"
 #import "MWMAPIBar.h"
 #import "MWMMapViewControlsManager.h"
-#import "RouteState.h"
 #import "MWMTextToSpeech.h"
+#import "RouteState.h"
 #import "UIFont+MapsMeFonts.h"
 #import "UIViewController+Navigation.h"
 
@@ -83,6 +85,8 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 @property (nonatomic) MWMAlertViewController * alertController;
 
 @property (nonatomic) UserTouchesAction userTouchesAction;
+
+@property (nonatomic) BOOL skipForceTouch;
 
 @end
 
@@ -267,9 +271,17 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   }
 }
 
+- (BOOL)hasForceTouch
+{
+  if (isIOSVersionLessThan(9))
+    return NO;
+  return self.view.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable;
+}
+
 -(void)preformLongTapSelector:(NSValue *)object
 {
-  [self performSelector:@selector(onLongTap:) withObject:[[NSValueWrapper alloc] initWithValue:object] afterDelay:1.0];
+  if (![self hasForceTouch])
+    [self performSelector:@selector(onLongTap:) withObject:[[NSValueWrapper alloc] initWithValue:object] afterDelay:1.0];
 }
 
 -(void)performSingleTapSelector:(NSValue *)object
@@ -279,7 +291,8 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 -(void)cancelLongTap
 {
-  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(onLongTap:) object:[[NSValueWrapper alloc] initWithValue:nil]];
+  if (![self hasForceTouch])
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(onLongTap:) object:[[NSValueWrapper alloc] initWithValue:nil]];
 }
 
 -(void)cancelSingleTap
@@ -319,6 +332,16 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+  if (!self.skipForceTouch && [self hasForceTouch])
+  {
+    UITouch * theTouch = (UITouch *)[touches anyObject];
+    if (theTouch.force >= theTouch.maximumPossibleForce)
+    {
+      self.skipForceTouch = YES;
+      [self processMapClickAtPoint:[theTouch locationInView:self.view] longClick:YES];
+    }
+  }
+
   m2::PointD const TempPt1 = m_Pt1;
   m2::PointD const TempPt2 = m_Pt2;
 
@@ -398,7 +421,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     if (tapCount == 1)
     {
       // Launch single tap timer
-      if (m_isSticking)
+      if (m_isSticking && !self.skipForceTouch)
         [self performSingleTapSelector: [NSValue valueWithCGPoint:[theTouch locationInView:self.view]]];
     }
     else if (tapCount == 2 && m_isSticking)
@@ -417,10 +440,12 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     }
     m_isSticking = NO;
   }
+  self.skipForceTouch = NO;
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
+  self.skipForceTouch = NO;
   [self cancelLongTap];
   [self cancelSingleTap];
 
@@ -517,7 +542,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   EAGLView * v = (EAGLView *)self.view;
   [v initRenderPolicy];
   self.view.clipsToBounds = YES;
-  self.controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -699,6 +723,36 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   return self;
 }
 
+- (void)openBookmarks
+{
+  BOOL const oneCategory = (GetFramework().GetBmCategoriesCount() == 1);
+  TableViewController * vc =
+      oneCategory ? [[BookmarksVC alloc] initWithCategory:0] : [[BookmarksRootVC alloc] init];
+  [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - 3d touch
+
+- (void)performAction:(NSString *)action
+{
+  [self.navigationController popToRootViewControllerAnimated:NO];
+  self.controlsManager.searchHidden = YES;
+  [self.controlsManager routingHidden];
+  if ([action isEqualToString:@"me.maps.3daction.bookmarks"])
+  {
+    [self openBookmarks];
+  }
+  else if ([action isEqualToString:@"me.maps.3daction.search"])
+  {
+    self.controlsManager.searchHidden = NO;
+  }
+  else if ([action isEqualToString:@"me.maps.3daction.route"])
+  {
+    [MapsAppDelegate theApp].routingPlaneMode = MWMRoutingPlaneModePlacePage;
+    [self.controlsManager routingPrepare];
+  }
+}
+
 #pragma mark - API bar
 
 - (MWMAPIBar *)apiBar
@@ -833,6 +887,15 @@ NSInteger compareAddress(id l, id r, void * context)
       break;
   }
   _userTouchesAction = userTouchesAction;
+}
+
+#pragma mark - Properties
+
+- (MWMMapViewControlsManager *)controlsManager
+{
+  if (!_controlsManager)
+    _controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
+  return _controlsManager;
 }
 
 @end
