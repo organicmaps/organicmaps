@@ -14080,7 +14080,7 @@
     tags = ios, android
     en = Then
     ru = След.
-    fr = Luego
+    fr = Ensuite
     da = Så
     id = Lalu
     ko = 그런 다음
@@ -14110,7 +14110,7 @@
     tags = ios, android
     en = Closed
     ru = Закрыто
-    fr = Cerrado
+    fr = Fermé
     da = Lukket
     id = Tutup
     ko = 닫음
