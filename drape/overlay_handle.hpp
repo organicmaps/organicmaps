@@ -26,6 +26,12 @@ enum OverlayRank
   OverlayRanksCount
 };
 
+uint64_t constexpr kPriorityMaskZoomLevel = 0xFF0000000000FFFF;
+uint64_t constexpr kPriorityMaskManual    = 0x00FFFFFFFF00FFFF;
+uint64_t constexpr kPriorityMaskRank      = 0x0000000000FFFFFF;
+uint64_t constexpr kPriorityMaskAll = kPriorityMaskZoomLevel |
+                                      kPriorityMaskManual |
+                                      kPriorityMaskRank;
 class OverlayHandle
 {
 public:
@@ -58,6 +64,8 @@ public:
 
   FeatureID const & GetFeatureID() const;
   uint64_t const & GetPriority() const;
+
+  virtual uint64_t GetPriorityMask() const { return kPriorityMaskAll; }
 
   virtual bool IsBound() const { return false; }
 

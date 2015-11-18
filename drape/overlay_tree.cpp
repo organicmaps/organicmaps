@@ -24,8 +24,9 @@ public:
 
   bool IsGreater(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const
   {
-    uint64_t const priorityLeft = l->GetPriority();
-    uint64_t const priorityRight = r->GetPriority();
+    uint64_t const mask = l->GetPriorityMask() & r->GetPriorityMask();
+    uint64_t const priorityLeft = l->GetPriority() & mask;
+    uint64_t const priorityRight = r->GetPriority() & mask;
     if (priorityLeft > priorityRight)
       return true;
 

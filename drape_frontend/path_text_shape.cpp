@@ -84,6 +84,11 @@ public:
     TextHandle::GetAttributeMutation(mutator, screen);
   }
 
+  uint64_t GetPriorityMask() const override
+  {
+    return dp::kPriorityMaskManual | dp::kPriorityMaskRank;
+  }
+
 private:
   m2::SharedSpline m_spline;
   m2::Spline::iterator m_centerPointIter;
