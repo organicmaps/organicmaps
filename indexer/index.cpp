@@ -119,6 +119,11 @@ bool Index::FeaturesLoaderGuard::IsWorld() const
 
 void Index::FeaturesLoaderGuard::GetFeatureByIndex(uint32_t index, FeatureType & ft) const
 {
-  m_vector.GetByIndex(index, ft);
-  ft.SetID(FeatureID(m_handle.GetId(), index));
+  FeatureID const fid(m_handle.GetId(), index);
+  ASSERT(!m_editor.IsFeatureDeleted(fid), ("Deleted feature was cached. Please review your code."));
+  if (!m_editor.Instance().GetEditedFeature(fid, ft))
+  {
+    m_vector.GetByIndex(index, ft);
+    ft.SetID(fid);
+  }
 }
