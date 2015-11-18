@@ -27,8 +27,8 @@ namespace graphics
   /// get density from name
   void convert(char const * name, EDensity & density);
 
-  /// get scaling koefficient for specified density
-  double visualScale(EDensity density);
+  /// Gets visual scale by exact density in dpi.
+  double visualScaleExact(int exactDensityDPI);
 
   /// When adding values here,
   /// please check constructor of ResourceManager,

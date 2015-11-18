@@ -56,9 +56,11 @@ extern NSString * const kSearchResultPointKey;
 
 + (void)initSoftwareRenderer
 {
+  // @TODO. It's a hard code of apple watch dpi. It should be gotten dynamicly.
+  int const iWatchDPI = 384;
   Framework & f = GetFramework();
   if (!f.IsSingleFrameRendererInited())
-    f.InitSingleFrameRenderer(graphics::EDensityXHDPI);
+    f.InitSingleFrameRenderer(graphics::EDensityXHDPI, iWatchDPI);
 }
 
 + (void)releaseSoftwareRenderer

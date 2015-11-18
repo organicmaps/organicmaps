@@ -215,6 +215,7 @@ namespace graphics
       unsigned m_threadSlotsCount;
 
       bool m_rgba4RenderBuffer;
+      int m_exactDensityDPI;
 
       Params();
 

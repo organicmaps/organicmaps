@@ -47,12 +47,14 @@ namespace graphics
                              string const & blackListFile,
                              size_t maxSize,
                              EDensity density,
+                             int exactDensityDPI,
                              bool isDebugging)
     : m_blocksFile(blocksFile),
       m_whiteListFile(whiteListFile),
       m_blackListFile(blackListFile),
       m_maxSize(maxSize),
       m_density(density),
+      m_exactDensityDPI(exactDensityDPI),
       m_isDebugging(isDebugging)
   {}
 

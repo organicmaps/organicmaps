@@ -9,7 +9,7 @@
 namespace gui
 {
   Controller::RenderParams::RenderParams()
-    : m_Density(graphics::EDensityMDPI), m_GlyphCache(0)
+    : m_Density(graphics::EDensityMDPI), m_exactDensityDPI(0), m_GlyphCache(0)
   {}
 
   Controller::Controller()
@@ -17,10 +17,12 @@ namespace gui
   {}
 
   Controller::RenderParams::RenderParams(graphics::EDensity density,
+                                         int exactDensityDPI,
                                          TInvalidateFn invalidateFn,
                                          graphics::GlyphCache * glyphCache,
                                          graphics::Screen * cacheScreen)
     : m_Density(density),
+      m_exactDensityDPI(exactDensityDPI),
       m_InvalidateFn(invalidateFn),
       m_GlyphCache(glyphCache),
       m_CacheScreen(cacheScreen)
@@ -162,7 +164,7 @@ namespace gui
     m_GlyphCache = p.m_GlyphCache;
     m_InvalidateFn = p.m_InvalidateFn;
     m_Density = p.m_Density;
-    m_VisualScale = graphics::visualScale(p.m_Density);
+    m_VisualScale = graphics::visualScaleExact(p.m_exactDensityDPI);
     m_CacheScreen = p.m_CacheScreen;
 
     m_DisplayListCache.reset(new DisplayListCache(m_CacheScreen, m_GlyphCache));

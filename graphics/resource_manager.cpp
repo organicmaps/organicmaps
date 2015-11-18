@@ -330,6 +330,7 @@ namespace
                              gccp.m_blackListFile,
                              gccp.m_glyphCacheMemoryLimit / p.m_threadSlotsCount,
                              gccp.m_density,
+                             p.m_exactDensityDPI,
                              false);
 
       m_threadSlots[i].m_glyphCache.reset(new GlyphCache(gcp));

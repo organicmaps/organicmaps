@@ -379,7 +379,7 @@ namespace graphics
 
       /// Initializing stroker
       FREETYPE_CHECK(FT_Stroker_New(m_lib, &m_stroker));
-      FT_Stroker_Set(m_stroker, FT_Fixed(graphics::visualScale(params.m_density) * 2 * 64), FT_STROKER_LINECAP_ROUND, FT_STROKER_LINEJOIN_ROUND, 0);
+      FT_Stroker_Set(m_stroker, FT_Fixed(visualScaleExact(params.m_exactDensityDPI) * 2 * 64), FT_STROKER_LINECAP_ROUND, FT_STROKER_LINEJOIN_ROUND, 0);
 
       FREETYPE_CHECK(FTC_CMapCache_New(m_manager, &m_charMapCache));
     }
