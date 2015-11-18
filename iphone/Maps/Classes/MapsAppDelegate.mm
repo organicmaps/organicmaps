@@ -216,6 +216,14 @@ void InitLocalizedStrings()
   return returnValue;
 }
 
+- (void)application:(UIApplication *)application
+    performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
+               completionHandler:(void (^)(BOOL))completionHandler
+{
+  [self.mapViewController performAction:shortcutItem.type];
+  completionHandler(YES);
+}
+
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
   // At the moment, we need to perform 2 asynchronous background tasks simultaneously:

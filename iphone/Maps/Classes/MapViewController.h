@@ -42,6 +42,10 @@ namespace search { struct AddressInfo; }
 
 - (void)showAPIBar;
 
+- (void)performAction:(NSString *)action;
+
+- (void)openBookmarks;
+
 @property (nonatomic) UIPopoverController * popoverVC;
 @property (nonatomic) ShareActionSheet * shareActionSheet;
 @property (nonatomic, readonly) MWMMapViewControlsManager * controlsManager;
