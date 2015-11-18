@@ -4,6 +4,7 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/feature_data.hpp"
+#include "indexer/map_style_reader.hpp"
 
 #include "base/logging.hpp"
 
@@ -21,15 +22,43 @@ namespace
         TEST(false, ("Inconsistency type", type, m_c.GetFullObjectName(type)));
     }
   };
-}
+
+  // Some tests require MapStyleLight (legacy) set as default.
+  // But unfortunately current map style is stored as global variable.
+  // Therefore, to reset current map style to the MapStyleLight, this RAII is used.
+  class ResetMapStyleRAII
+  {
+  public:
+    ResetMapStyleRAII() = default;
+    ~ResetMapStyleRAII()
+    {
+      GetStyleReader().SetCurrentStyle(MapStyleLight);
+    }
+  };
+
+  void RunForEveryMapStyle(std::function<void()> const & fn)
+  {
+    ResetMapStyleRAII resetMapStype;
+    for (size_t s = 0; s < MapStyleCount; ++s)
+    {
+      MapStyle const mapStyle = static_cast<MapStyle>(s);
+      GetStyleReader().SetCurrentStyle(mapStyle);
+      LOG(LINFO, ("Test with map style", mapStyle));
+      fn();
+    }
+  }
+}  // namespace
 
 UNIT_TEST(Classificator_CheckConsistency)
 {
-  classificator::Load();
-  Classificator const & c = classif();
+  RunForEveryMapStyle([]()
+  {
+    classificator::Load();
+    Classificator const & c = classif();
 
-  DoCheckConsistency doCheck(c);
-  c.ForEachTree(doCheck);
+    DoCheckConsistency doCheck(c);
+    c.ForEachTree(doCheck);
+  });
 }
 
 using namespace feature;
@@ -94,32 +123,35 @@ void CheckLineStyles(Classificator const & c, string const & name)
   ForEachObject(c, name, GEOM_LINE, RULE_PATH_TEXT);
 }
 
-}
+}  // namespace
 
 UNIT_TEST(Classificator_DrawingRules)
 {
-  classificator::Load();
-  Classificator const & c = classif();
+  RunForEveryMapStyle([]()
+  {
+    classificator::Load();
+    Classificator const & c = classif();
 
-  LOG(LINFO, ("--------------- Point styles ---------------"));
-  CheckPointStyles(c, "landuse");
-  CheckPointStyles(c, "amenity");
-  CheckPointStyles(c, "historic");
-  CheckPointStyles(c, "office");
-  CheckPointStyles(c, "place");
-  CheckPointStyles(c, "shop");
-  CheckPointStyles(c, "sport");
-  CheckPointStyles(c, "tourism");
-  CheckPointStyles(c, "highway-bus_stop");
-  CheckPointStyles(c, "highway-motorway_junction");
-  CheckPointStyles(c, "railway-station");
-  CheckPointStyles(c, "railway-tram_stop");
-  CheckPointStyles(c, "railway-halt");
+    LOG(LINFO, ("--------------- Point styles ---------------"));
+    CheckPointStyles(c, "landuse");
+    CheckPointStyles(c, "amenity");
+    CheckPointStyles(c, "historic");
+    CheckPointStyles(c, "office");
+    CheckPointStyles(c, "place");
+    CheckPointStyles(c, "shop");
+    CheckPointStyles(c, "sport");
+    CheckPointStyles(c, "tourism");
+    CheckPointStyles(c, "highway-bus_stop");
+    CheckPointStyles(c, "highway-motorway_junction");
+    CheckPointStyles(c, "railway-station");
+    CheckPointStyles(c, "railway-tram_stop");
+    CheckPointStyles(c, "railway-halt");
 
-  LOG(LINFO, ("--------------- Linear styles ---------------"));
-  CheckLineStyles(c, "highway");
-  CheckLineStyles(c, "waterway");
-  //CheckLineStyles(c, "railway");
+    LOG(LINFO, ("--------------- Linear styles ---------------"));
+    CheckLineStyles(c, "highway");
+    CheckLineStyles(c, "waterway");
+    //CheckLineStyles(c, "railway");
+  });
 }
 
 namespace
@@ -146,7 +178,7 @@ pair<int, int> GetMinMax(int level, vector<uint32_t> const & types)
   return res;
 }
 
-}
+}  // namespace
 
 // Check area drawing priority according to the types order below (from downmost to upmost).
 // If someone is desagree with this order, please, refer to VNG :)
@@ -157,52 +189,55 @@ pair<int, int> GetMinMax(int level, vector<uint32_t> const & types)
 
 UNIT_TEST(Classificator_AreaPriority)
 {
-  classificator::Load();
-  Classificator const & c = classif();
-
-  vector<vector<uint32_t> > types;
-
-  char const * arrT[][2] =
+  RunForEveryMapStyle([]()
   {
-    // 0
-    {"natural", "coastline"},
-    // 1
-    //{"waterway", "riverbank"}, - it's not a good idea to place it here
-    // 2
-    {"place", "island"}, {"natural", "land"},
-    // 3
-    {"natural", "wood"}, {"natural", "scrub"}, {"natural", "heath"}, {"natural", "grassland"},
-    {"landuse", "grass"}, {"landuse", "farm"}, {"landuse", "farmland"}, {"landuse", "forest"},
-    // 4
-    //{"leisure", "park"}, {"leisure", "garden"}, - maybe next time (too tricky to do it now)
-    // 5
-    {"natural", "water"}, {"natural", "lake"}, {"landuse", "basin"}
-  };
-  size_t arrI[] = { 1, 2, 8, 3 };
+    classificator::Load();
+    Classificator const & c = classif();
 
-  size_t ind = 0;
-  for (size_t i = 0; i < ARRAY_SIZE(arrI); ++i)
-  {
-    types.push_back(vector<uint32_t>());
-    types.back().reserve(arrI[i]);
+    vector<vector<uint32_t> > types;
 
-    for (size_t j = 0; j < arrI[i]; ++j)
+    char const * arrT[][2] =
     {
-      types.back().push_back(c.GetTypeByPath(vector<string>(arrT[ind], arrT[ind] + 2)));
-      ++ind;
-    }
-  }
+      // 0
+      {"natural", "coastline"},
+      // 1
+      //{"waterway", "riverbank"}, - it's not a good idea to place it here
+      // 2
+      {"place", "island"}, {"natural", "land"},
+      // 3
+      {"natural", "wood"}, {"natural", "scrub"}, {"natural", "heath"}, {"natural", "grassland"},
+      {"landuse", "grass"}, {"landuse", "farm"}, {"landuse", "farmland"}, {"landuse", "forest"},
+      // 4
+      //{"leisure", "park"}, {"leisure", "garden"}, - maybe next time (too tricky to do it now)
+      // 5
+      {"natural", "water"}, {"natural", "lake"}, {"landuse", "basin"}
+    };
+    size_t arrI[] = { 1, 2, 8, 3 };
 
-  TEST_EQUAL(ind, ARRAY_SIZE(arrT), ());
-
-  for (int level = scales::GetUpperWorldScale() + 1; level <= scales::GetUpperStyleScale(); ++level)
-  {
-    pair<int, int> minmax = GetMinMax(level, types[0]);
-    for (size_t i = 1; i < types.size(); ++i)
+    size_t ind = 0;
+    for (size_t i = 0; i < ARRAY_SIZE(arrI); ++i)
     {
-      pair<int, int> const mm = GetMinMax(level, types[i]);
-      TEST_LESS(minmax.second, mm.first, (i));
-      minmax = mm;
+      types.push_back(vector<uint32_t>());
+      types.back().reserve(arrI[i]);
+
+      for (size_t j = 0; j < arrI[i]; ++j)
+      {
+        types.back().push_back(c.GetTypeByPath(vector<string>(arrT[ind], arrT[ind] + 2)));
+        ++ind;
+      }
     }
-  }
+
+    TEST_EQUAL(ind, ARRAY_SIZE(arrT), ());
+
+    for (int level = scales::GetUpperWorldScale() + 1; level <= scales::GetUpperStyleScale(); ++level)
+    {
+      pair<int, int> minmax = GetMinMax(level, types[0]);
+      for (size_t i = 1; i < types.size(); ++i)
+      {
+        pair<int, int> const mm = GetMinMax(level, types[i]);
+        TEST_LESS(minmax.second, mm.first, (i));
+        minmax = mm;
+      }
+    }
+  });
 }
