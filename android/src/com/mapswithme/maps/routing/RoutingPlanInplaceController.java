@@ -3,6 +3,7 @@ package com.mapswithme.maps.routing;
 import android.view.View;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
 
@@ -17,6 +18,12 @@ public class RoutingPlanInplaceController extends RoutingPlanController
   {
     if (show == UiUtils.isVisible(mFrame))
       return;
+
+    if (show)
+    {
+      showSlots(!(RoutingController.get().getStartPoint() instanceof MapObject.MyPosition) ||
+                (RoutingController.get().getEndPoint() == null), false);
+    }
 
     UiUtils.showIf(show, mFrame);
     if (show)

@@ -20,6 +20,7 @@ public class SlotFrame extends LinearLayout
 {
   private static final int COLOR_TEXT = MwmApplication.get().getResources().getColor(R.color.text_dark);
   private static final int COLOR_HINT = MwmApplication.get().getResources().getColor(R.color.text_dark_hint);
+  private static final int ANIM_SWAP = MwmApplication.get().getResources().getInteger(R.integer.anim_slots_swap);
 
   private OnSlotClickListener mClickListener;
   private Slot mSlotFrom;
@@ -173,12 +174,10 @@ public class SlotFrame extends LinearLayout
       float otherOffsetX = (mFrame.getTranslationX() - offsetX);
       float otherOffsetY = (mFrame.getTranslationY() - offsetY);
 
-      int duration = getResources().getInteger(R.integer.anim_slot_swap);
-
       mFrame.setTranslationX(offsetX);
       mFrame.setTranslationY(offsetY);
       mFrame.animate()
-            .setDuration(duration)
+            .setDuration(ANIM_SWAP)
             .translationX(0.0f)
             .translationY(0.0f)
             .setListener(mCancelAnimationListener)
@@ -187,7 +186,7 @@ public class SlotFrame extends LinearLayout
       other.mFrame.setTranslationX(otherOffsetX);
       other.mFrame.setTranslationY(otherOffsetY);
       other.mFrame.animate()
-                  .setDuration(duration)
+                  .setDuration(ANIM_SWAP)
                   .translationX(0.0f)
                   .translationY(0.0f)
                   .setListener(null)
@@ -203,6 +202,7 @@ public class SlotFrame extends LinearLayout
     setBackgroundColor(getContext().getResources().getColor(R.color.base_green));
     setBaselineAligned(false);
     setClipChildren(false);
+    setClipToPadding(false);
     setClickable(true);
 
     int padding = UiUtils.dp(8);
@@ -219,6 +219,9 @@ public class SlotFrame extends LinearLayout
 
   private void cancelDrag()
   {
+    if (mDraggedSlot == null)
+      return;
+
     mDraggedSlot.moveViewTo(mDragStartPoint.x, mDragStartPoint.y);
 
     mDraggedSlot.setDragging(false);
@@ -315,5 +318,29 @@ public class SlotFrame extends LinearLayout
   {
     mSlotFrom.setMapObject(RoutingController.get().getStartPoint());
     mSlotTo.setMapObject(RoutingController.get().getEndPoint());
+  }
+
+  private void fadeSlot(Slot slot, boolean out)
+  {
+    slot.mFrame.setAlpha(out ? 1.0f : 0.1f);
+    slot.mFrame.animate()
+               .alpha(out ? 0.1f : 1.0f)
+               .setDuration(RoutingPlanController.ANIM_TOGGLE)
+               .start();
+  }
+
+  public void fadeSlots(boolean out)
+  {
+    fadeSlot(mSlotFrom, out);
+    fadeSlot(mSlotTo, out);
+  }
+
+  public void unfadeSlots()
+  {
+    mSlotFrom.mFrame.clearAnimation();
+    mSlotFrom.mFrame.setAlpha(1.0f);
+
+    mSlotTo.mFrame.clearAnimation();
+    mSlotTo.mFrame.setAlpha(1.0f);
   }
 }

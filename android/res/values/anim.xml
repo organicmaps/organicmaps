@@ -6,5 +6,6 @@
   <integer name="anim_fade_main">@integer/anim_default</integer>
   <integer name="anim_menu">200</integer>
   <integer name="anim_location_pending_item">50</integer>
-  <integer name="anim_slot_swap">200</integer>
+  <integer name="anim_slots_swap">@integer/anim_default</integer>
+  <integer name="anim_slots_toggle">@integer/anim_default</integer>
 </resources>

@@ -20,7 +20,6 @@ public class RoutingPlanFragment extends BaseMwmFragment
     View res = inflater.inflate(R.layout.fragment_routing, container, false);
 
     mPlanController = new RoutingPlanController(res, getActivity());
-    mPlanController.disableToggle();
     updatePoints();
 
     View start = res.findViewById(R.id.start);
@@ -35,6 +34,12 @@ public class RoutingPlanFragment extends BaseMwmFragment
     });
 
     return res;
+  }
+
+  @Override
+  public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+  {
+    mPlanController.disableToggle();
   }
 
   @Override

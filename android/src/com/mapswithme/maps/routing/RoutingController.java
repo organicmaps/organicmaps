@@ -224,10 +224,7 @@ public class RoutingController
   public void restore()
   {
     if (isPlanning())
-    {
-      // TODO: Restore search fragment
       showRoutePlan();
-    }
 
     mContainer.showNavigation(isNavigating());
     mContainer.updateMenu();

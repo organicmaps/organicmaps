@@ -167,7 +167,6 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
     }
   }
 
-  @SuppressLint("NewApi")
   protected void showPreview(final State currentState)
   {
     UiUtils.show(mPlacePage, mPreview);
@@ -229,18 +228,6 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
     animator.setDuration(DURATION);
     animator.setInterpolator(interpolator);
     animator.start();
-  }
-
-  private void correctPreviewTranslation()
-  {
-    UiThread.runLater(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        mPreview.setTranslationY(-mDetailsContent.getHeight());
-      }
-    });
   }
 
   private void showPreviewFrame()

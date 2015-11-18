@@ -29,7 +29,7 @@
 
   <include
       layout="@layout/routing_plan"
-      android:visibility="gone"/>
+      android:visibility="invisible"/>
 
   <include
       android:id="@+id/navigation_buttons"

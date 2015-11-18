@@ -1,12 +1,16 @@
 package com.mapswithme.maps.routing;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.widget.RotateDrawable;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.maps.widget.WheelProgressView;
 import com.mapswithme.util.UiUtils;
@@ -15,6 +19,8 @@ import com.mapswithme.util.statistics.AlohaHelper;
 
 public class RoutingPlanController extends ToolbarController
 {
+  static final int ANIM_TOGGLE = MwmApplication.get().getResources().getInteger(R.integer.anim_slots_toggle);
+
   protected final View mFrame;
   private final ImageView mToggle;
   private final SlotFrame mSlotFrame;
@@ -26,6 +32,11 @@ public class RoutingPlanController extends ToolbarController
   private final View mNumbersFrame;
   private final TextView mNumbersTime;
   private final TextView mNumbersDistance;
+
+  private final RotateDrawable mToggleImage = new RotateDrawable(R.drawable.ic_down);
+  private int mFrameHeight;
+  private int mToolbarHeight;
+  private boolean mOpen;
 
   public RoutingPlanController(View root, Activity activity)
   {
@@ -78,6 +89,7 @@ public class RoutingPlanController extends ToolbarController
 
     setTitle(R.string.route);
 
+    mToggle.setImageDrawable(mToggleImage);
     mToggle.setOnClickListener(new View.OnClickListener()
     {
       @Override
@@ -95,12 +107,21 @@ public class RoutingPlanController extends ToolbarController
     RoutingController.get().cancelPlanning();
   }
 
-  private void updateToggle()
+  private boolean checkFrameHeight()
   {
-    if (!UiUtils.isVisible(mToggle))
-      return;
+    if (mFrameHeight > 0)
+      return true;
 
+    mFrameHeight = mSlotFrame.getHeight();
+    mToolbarHeight = mToolbar.getHeight();
+    return (mFrameHeight > 0);
+  }
 
+  private void animateSlotFrame(int offset)
+  {
+    ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) mSlotFrame.getLayoutParams();
+    lp.topMargin = (mToolbarHeight - offset);
+    mSlotFrame.setLayoutParams(lp);
   }
 
   public void updatePoints()
@@ -150,15 +171,49 @@ public class RoutingPlanController extends ToolbarController
 
   private void toggleSlots()
   {
-    // TODO
-    updateToggle();
+    showSlots(!mOpen, true);
   }
 
-  private void showSlots(boolean show, boolean animate)
+  protected void showSlots(final boolean show, final boolean animate)
   {
-    // TODO: Animation
-    UiUtils.showIf(show, mSlotFrame);
-    updateToggle();
+    if (!checkFrameHeight())
+    {
+      mFrame.post(new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          showSlots(show, animate);
+        }
+      });
+      return;
+    }
+
+    mOpen = show;
+
+    if (animate)
+    {
+      ValueAnimator animator = ValueAnimator.ofFloat(mOpen ? 1.0f : 0, mOpen ? 0 : 1.0f);
+      animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
+      {
+        @Override
+        public void onAnimationUpdate(ValueAnimator animation)
+        {
+          float fraction = (float)animation.getAnimatedValue();
+          animateSlotFrame((int)(fraction * mFrameHeight));
+          mToggleImage.setAngle(fraction * 180.0f);
+        }
+      });
+
+      animator.setDuration(ANIM_TOGGLE);
+      animator.start();
+      mSlotFrame.fadeSlots(!mOpen);
+    } else
+    {
+      animateSlotFrame(mOpen ? 0 : mFrameHeight);
+      mToggleImage.setAngle(mOpen ? 0.0f : 180.0f);
+      mSlotFrame.unfadeSlots();
+    }
   }
 
   public void disableToggle()
