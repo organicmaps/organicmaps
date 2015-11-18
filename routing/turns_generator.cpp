@@ -919,16 +919,27 @@ size_t CheckUTurnOnRoute(vector<LoadedPathSegment> const & segments, size_t curr
       auto const & path = masterSegment.m_path;
       m2::PointD p1 = path[path.size() - 1] - path[path.size() - 2];
       m2::PointD p2 = checkedSegment.m_path[1] - checkedSegment.m_path[0];
+
+      // Same segment UTurn case.
+      if (i == 0)
+      {
+        // TODO Fix direction calculation.
+        // Warning! We can not determine UTurn direction in single edge case. So we use UTurnLeft.
+        // We deside to add driving rules (left-right sided driving) to mwm header.
+        if (p1 == p2)
+        {
+          turn.m_turn = TurnDirection::UTurnLeft;
+          return 1;
+        }
+        // Wide UTurn must have link in it's middle.
+        return 0;
+      }
+
       auto angle = ang::TwoVectorsAngle(m2::PointD::Zero(), p1, p2);
 
       if (!my::AlmostEqualAbs(angle, math::pi, kUTurnHeadingSensitivity))
         return 0;
 
-      if (i == 0)
-      {
-        turn.m_turn = TurnDirection::UTurnLeft;
-        return 0;
-      }
       // Determine turn direction.
       m2::PointD const junctionPoint = masterSegment.m_path.back();
       m2::PointD const ingoingPoint = GetPointForTurn(masterSegment.m_path, junctionPoint,
