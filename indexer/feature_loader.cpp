@@ -278,9 +278,9 @@ void LoaderCurrent::ParseMetadata()
 
     if (it != idx.end() && m_pF->m_id.m_index == it->key)
     {
-      ReaderSource<FilesContainerR::ReaderT> reader(m_Info.GetMetadataReader());
-      reader.Skip(it->value);
-      m_pF->GetMetadata().DeserializeFromMWM(reader);
+      ReaderSource<FilesContainerR::ReaderT> src(m_Info.GetMetadataReader());
+      src.Skip(it->value);
+      m_pF->GetMetadata().DeserializeFromMWM(src);
     }
   }
   catch (Reader::OpenException const &)

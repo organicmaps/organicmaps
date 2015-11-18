@@ -141,8 +141,11 @@ protected:
 
     for (auto const & p : e.tags)
     {
-      // Store only this tags to use it in railway stations processing for the particular city.
-      if (p.first == "network" || p.first == "operator" || p.first == "route" || p.first == "maxspeed" ||
+      // - used in railway station processing
+      // - used in routing information
+      // - used in building addresses matching
+      if (p.first == "network" || p.first == "operator" || p.first == "route" ||
+          p.first == "maxspeed" ||
           strings::StartsWith(p.first, "addr:"))
       {
         if (!TBase::IsKeyTagExists(p.first))

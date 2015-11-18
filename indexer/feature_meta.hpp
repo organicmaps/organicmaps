@@ -32,34 +32,29 @@ namespace feature
       return types;
     }
 
-    void Drop(uint8_t type)
-    {
-      m_metadata.erase(type);
-    }
-
     inline bool Empty() const { return m_metadata.empty(); }
     inline size_t Size() const { return m_metadata.size(); }
 
-    template <class ArchiveT> void Serialize(ArchiveT & ar) const
+    template <class TSink> void Serialize(TSink & sink) const
     {
       uint8_t const sz = m_metadata.size();
-      WriteToSink(ar, sz);
+      WriteToSink(sink, sz);
       for (auto const & it : m_metadata)
       {
-        WriteToSink(ar, static_cast<uint8_t>(it.first));
-        utils::WriteString(ar, it.second);
+        WriteToSink(sink, static_cast<uint8_t>(it.first));
+        utils::WriteString(sink, it.second);
       }
     }
 
-    template <class ArchiveT> void Deserialize(ArchiveT & ar)
+    template <class TSource> void Deserialize(TSource & src)
     {
-      uint8_t const sz = ReadPrimitiveFromSource<uint8_t>(ar);
+      uint8_t const sz = ReadPrimitiveFromSource<uint8_t>(src);
       for (size_t i = 0; i < sz; ++i)
       {
-        uint8_t const key = ReadPrimitiveFromSource<uint8_t>(ar);
+        uint8_t const key = ReadPrimitiveFromSource<uint8_t>(src);
         string value;
-        utils::ReadString(ar, value);
-        m_metadata.insert(make_pair(key, value));
+        utils::ReadString(src, value);
+        m_metadata[key].swap(value);
       }
     }
 
@@ -100,7 +95,7 @@ namespace feature
 
     static_assert(FMD_COUNT <= 255, "Meta types count is limited to one byte.");
 
-    void Add(EType type, string const & s)
+    void Set(EType type, string const & value)
     {
       auto found = m_metadata.find(type);
       if (found == m_metadata.end())
@@ -117,40 +112,11 @@ namespace feature
       }
     }
 
-    /// Synonym of Set(type, "").
-    void Drop(EType type)
-    {
-      Set(type, "");
-    }
-
-    string Get(EType type) const
-    {
-      auto const it = m_metadata.find(type);
-      return (it == m_metadata.end()) ? string() : it->second;
-    }
-
-    vector<EType> GetPresentTypes() const
-    {
-      vector<EType> types;
-      types.reserve(m_metadata.size());
-
-      for (auto const & item : m_metadata)
-        types.push_back(item.first);
-
-      return types;
-    }
-
-    inline bool Empty() const { return m_metadata.empty(); }
-    inline size_t Size() const { return m_metadata.size(); }
+    void Drop(EType type) { Set(type, ""); }
 
     string GetWikiURL() const;
 
-=======
-        val = val + ", " + s;
-    }
-
->>>>>>> 12268b5... [generator] Pass address tokens to the search index generation step.
-    template <class ArchiveT> void SerializeToMWM(ArchiveT & ar) const
+    template <class TWriter> void SerializeToMWM(TWriter & writer) const
     {
       for (auto const & e : m_metadata)
       {
@@ -158,19 +124,19 @@ namespace feature
         uint8_t const mark = (&e == &(*m_metadata.crbegin()) ? 0x80 : 0);
         uint8_t elem[2] = {static_cast<uint8_t>(e.first | mark),
                            static_cast<uint8_t>(min(e.second.size(), (size_t)kMaxStringLength))};
-        ar.Write(elem, sizeof(elem));
-        ar.Write(e.second.data(), elem[1]);
+        writer.Write(elem, sizeof(elem));
+        writer.Write(e.second.data(), elem[1]);
       }
     }
 
-    template <class ArchiveT> void DeserializeFromMWM(ArchiveT & ar)
+    template <class TSource> void DeserializeFromMWM(TSource & src)
     {
       uint8_t header[2] = {0};
       char buffer[kMaxStringLength] = {0};
       do
       {
-        ar.Read(header, sizeof(header));
-        ar.Read(buffer, header[1]);
+        src.Read(header, sizeof(header));
+        src.Read(buffer, header[1]);
         m_metadata[header[0] & 0x7F].assign(buffer, header[1]);
       } while (!(header[0] & 0x80));
     }
@@ -182,14 +148,9 @@ namespace feature
   class AddressData : public MetadataBase
   {
   public:
-    enum EType
-    {
-      FAD_PLACE = 1,
-      FAD_STREET = 2,
-      FAD_POSTCODE = 3,
-    };
+    enum Type { PLACE, STREET, POSTCODE };
 
-    void Add(EType type, string const & s)
+    void Add(Type type, string const & s)
     {
       /// @todo Probably, we need to add separator here and store multiple values.
       m_metadata[type] = s;

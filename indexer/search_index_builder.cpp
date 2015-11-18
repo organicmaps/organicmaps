@@ -286,7 +286,7 @@ void AddFeatureNameIndexPairs(FeaturesVectorTest & features, CategoriesHolder & 
 
     inserter.m_val.m_featureId = index++;
 
-    string const street = data.Get(feature::AddressData::FAD_STREET);
+    string const street = data.Get(feature::AddressData::STREET);
     if (!street.empty())
       inserter(lang, street);
   }

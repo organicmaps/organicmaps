@@ -155,7 +155,7 @@ UNIT_TEST(FeatureParams_Parsing)
 
   {
     FeatureParams params;
-    params.AddStreet("Embarcadero street \t\t 85");
+    params.AddStreet("Embarcadero\nstreet");
     TEST_EQUAL(params.GetStreet(), "Embarcadero street", ());
   }
 

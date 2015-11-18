@@ -274,6 +274,9 @@ public:
   feature::Metadata const & GetMetadata() const { return m_metadata; }
   feature::Metadata & GetMetadata() { return m_metadata; }
 
+  /// @param[in] fullStoring \n
+  /// - true when saving in temporary files after first generation step \n
+  /// - false when final mwm saving
   template <class SinkT> void Write(SinkT & sink, bool fullStoring) const
   {
     uint8_t const header = GetHeader();

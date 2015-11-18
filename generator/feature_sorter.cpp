@@ -93,12 +93,8 @@ namespace feature
     unique_ptr<FileWriter> m_metadataWriter;
     unique_ptr<FileWriter> m_searchTokensWriter;
 
-    struct TMetadataIndexEntry
-    {
-      uint32_t key;
-      uint32_t value;
-    };
-    vector<TMetadataIndexEntry> m_metadataIndex;
+    // Mapping from feature id to offset in file section with the correspondent metadata.
+    vector<pair<uint32_t, uint32_t>> m_metadataIndex;
 
     DataHeader m_header;
     uint32_t m_versionDate;
@@ -107,11 +103,11 @@ namespace feature
 
   public:
     FeaturesCollector2(string const & fName, DataHeader const & header, uint32_t versionDate)
-      : FeaturesCollector(fName + DATA_FILE_TAG), m_writer(fName), m_header(header), m_versionDate(versionDate)
+      : FeaturesCollector(fName + DATA_FILE_TAG), m_writer(fName),
+        m_metadataWriter(new FileWriter(fName + METADATA_FILE_TAG)),
+        m_searchTokensWriter(new FileWriter(fName + SEARCH_TOKENS_FILE_TAG)),
+        m_header(header), m_versionDate(versionDate)
     {
-      m_metadataWriter.reset(new FileWriter(fName + METADATA_FILE_TAG));
-      m_searchTokensWriter.reset(new FileWriter(fName + SEARCH_TOKENS_FILE_TAG));
-
       for (size_t i = 0; i < m_header.GetScalesCount(); ++i)
       {
         string const postfix = strings::to_string(i);
@@ -163,11 +159,12 @@ namespace feature
       }
 
       {
+        /// @todo Replace this mapping vector with succint structure.
         FileWriter w = m_writer.GetWriter(METADATA_INDEX_FILE_TAG);
         for (auto const & v : m_metadataIndex)
         {
-          WriteToSink(w, v.key);
-          WriteToSink(w, v.value);
+          WriteToSink(w, v.first);
+          WriteToSink(w, v.second);
         }
       }
 
@@ -516,9 +513,9 @@ namespace feature
 
         if (!fb.GetMetadata().Empty())
         {
-          uint64_t offset = m_metadataWriter->Pos();
+          uint64_t const offset = m_metadataWriter->Pos();
           ASSERT_LESS_OR_EQUAL(offset, numeric_limits<uint32_t>::max(), ());
-          m_metadataIndex.push_back({ ftID, static_cast<uint32_t>(offset) });
+          m_metadataIndex.emplace_back(ftID, static_cast<uint32_t>(offset));
           fb.GetMetadata().SerializeToMWM(*m_metadataWriter);
         }
 

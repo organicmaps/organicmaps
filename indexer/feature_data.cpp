@@ -164,11 +164,6 @@ bool IsDummyName(string const & s)
           s == "Edificio" || s == "edificio");
 }
 
-struct IsBadChar
-{
-  bool operator() (char c) const { return (c == '\n'); }
-};
-
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -224,19 +219,10 @@ bool FeatureParams::AddHouseNumber(string const & ss)
 
 void FeatureParams::AddStreet(string s)
 {
-  // Erase bad chars (\n) because we write addresses to txt file.
-  s.erase(remove_if(s.begin(), s.end(), IsBadChar()), s.end());
+  // Replace \n with spaces because we write addresses to txt file.
+  replace(s.begin(), s.end(), '\n', ' ');
 
-  // Osm likes to put house numbers into addr:street field.
-  size_t i = s.find_last_of("\t ");
-  if (i != string::npos)
-  {
-    uint64_t n;
-    if (strings::to_uint64(s.substr(i+1), n))
-      s.erase(s.find_last_not_of("\t ", i)+1);
-  }
-
-  m_addrTags.Add(AddressData::FAD_STREET, s);
+  m_addrTags.Add(AddressData::STREET, s);
 }
 
 void FeatureParams::AddAddress(string const & s)
@@ -251,22 +237,26 @@ void FeatureParams::AddAddress(string const & s)
       i = s.find_first_not_of("\t ", i);
     }
     else
+    {
       i = 0;
+    }
   }
   else
+  {
     i = 0;
+  }
 
-  AddStreet(s.substr(i, s.size()-i));
+  AddStreet(s.substr(i, s.size() - i));
 }
 
 void FeatureParams::AddPlace(string const & s)
 {
-  m_addrTags.Add(AddressData::FAD_PLACE, s);
+  m_addrTags.Add(AddressData::PLACE, s);
 }
 
 void FeatureParams::AddPostcode(string const & s)
 {
-  m_addrTags.Add(AddressData::FAD_POSTCODE, s);
+  m_addrTags.Add(AddressData::POSTCODE, s);
 }
 
 bool FeatureParams::FormatFullAddress(m2::PointD const & pt, string & res) const
@@ -285,7 +275,7 @@ bool FeatureParams::FormatFullAddress(m2::PointD const & pt, string & res) const
 
 string FeatureParams::GetStreet() const
 {
-  return m_addrTags.Get(AddressData::FAD_STREET);
+  return m_addrTags.Get(AddressData::STREET);
 }
 
 void FeatureParams::SetGeomType(feature::EGeomType t)
