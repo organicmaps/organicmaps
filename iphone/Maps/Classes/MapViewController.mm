@@ -578,19 +578,11 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   if (whatsNewWasShown)
     return;
 
-  void (^setWhatsNewShowed)() = ^
-  {
-    [ud setBool:YES forKey:kUDWhatsNewWasShown];
-    [ud synchronize];
-  };
+  if (![Alohalytics isFirstSession])
+    [self configureAndShowPageController];
 
-  if ([Alohalytics isFirstSession])
-  {
-    setWhatsNewShowed();
-    return;
-  }
-  [self configureAndShowPageController];
-  setWhatsNewShowed();
+  [ud setBool:YES forKey:kUDWhatsNewWasShown];
+  [ud synchronize];
 }
 
 - (void)configureAndShowPageController
