@@ -1,62 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
 
   <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:gravity="center_horizontal"
-      android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv__download_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dip"
-        android:drawableLeft="@drawable/ic_launcher"
-        android:drawablePadding="@dimen/margin_base"
-        android:padding="@dimen/margin_half"
-        android:text="@string/download_resources"
-        android:textAppearance="@style/MwmTextAppearance.Body2"/>
+      android:id="@+id/tv__download_message"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_base_plus"
+      android:drawableLeft="@drawable/ic_launcher"
+      android:drawablePadding="@dimen/margin_base"
+      android:drawableStart="@drawable/ic_launcher"
+      android:padding="@dimen/margin_half"
+      android:textAppearance="@style/MwmTextAppearance.Body2"
+      tools:text="@string/download_resources"/>
 
     <ProgressBar
-        android:id="@+id/pb__download_resources"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_base_plus"
-        android:indeterminate="false"
-        android:minWidth="200dip"/>
+      android:id="@+id/pb__download_resources"
+      style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_base_plus"
+      android:indeterminate="false"
+      android:minWidth="200dp"/>
 
     <Button
-        android:id="@+id/btn__download_resources"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_base_plus"
-        android:textAppearance="@style/MwmTextAppearance.Body1"
-        tools:text="@string/download"/>
+      android:id="@+id/btn__download_resources"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_base_plus"
+      android:textAppearance="@style/MwmTextAppearance.Body1"
+      android:text="@string/download"/>
 
     <TextView
-        android:id="@+id/tv__location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_base_plus"
-        android:gravity="center_horizontal"
-        android:text="@string/getting_position"
-        android:textAppearance="@style/MwmTextAppearance.Body2"
-        android:visibility="gone"/>
+      android:id="@+id/tv__location"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_base_plus"
+      android:gravity="center_horizontal"
+      android:text="@string/getting_position"
+      android:textAppearance="@style/MwmTextAppearance.Body2"
+      android:visibility="gone"/>
 
     <CheckBox
-        android:id="@+id/chb__download_country"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_base_plus"
-        android:text="@string/download_country_ask"
-        android:textAppearance="@style/MwmTextAppearance.Body2"
-        android:visibility="gone"/>
+      android:id="@+id/chb__download_country"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_base_plus"
+      android:text="@string/download_country_ask"
+      android:textAppearance="@style/MwmTextAppearance.Body2"
+      android:visibility="gone"/>
   </LinearLayout>
 
 </ScrollView>
