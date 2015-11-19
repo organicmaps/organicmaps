@@ -10,6 +10,8 @@
 
 #include "base/logging.hpp"
 
+#include "std/limits.hpp"
+
 using namespace routing;
 
 namespace
@@ -18,7 +20,8 @@ UNIT_TEST(CheckCrossSections)
 {
   static double constexpr kPointEquality = 0.01;
   vector<platform::LocalCountryFile> localFiles;
-  platform::FindAllLocalMapsAndCleanup(-1 /* latestVersion */, localFiles);
+  platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* latestVersion */,
+                                       localFiles);
 
   size_t ingoingErrors = 0;
   size_t outgoingErrors = 0;

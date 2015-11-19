@@ -24,6 +24,8 @@
 
 #include "geometry/distance_on_sphere.hpp"
 
+#include "std/limits.hpp"
+
 #include "private.h"
 
 #include <sys/resource.h>
@@ -159,7 +161,8 @@ namespace integration
       pl.SetResourceDir(options.m_resourcePath);
 
     vector<LocalCountryFile> localFiles;
-    platform::FindAllLocalMapsAndCleanup(-1, localFiles);
+    platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* latestVersion */,
+                                         localFiles);
     for (auto & file : localFiles)
       file.SyncWithDisk();
     ASSERT(!localFiles.empty(), ());
