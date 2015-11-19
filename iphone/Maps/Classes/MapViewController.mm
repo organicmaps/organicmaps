@@ -7,6 +7,7 @@
 #import "MWMAlertViewController.h"
 #import "MWMAPIBar.h"
 #import "MWMMapViewControlsManager.h"
+#import "MWMPageController.h"
 #import "MWMTextToSpeech.h"
 #import "RouteState.h"
 #import "Statistics.h"
@@ -33,7 +34,7 @@
 #import "../../../private.h"
 
 extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
-extern char const * kAdForbiddenSettingsKey;
+static NSString * const kUDWhatsNewWasShown = @"WhatsNewWithTTSAndP2PWasShown";
 
 typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
 {
@@ -91,6 +92,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 @property (nonatomic) MWMAlertViewController * alertController;
 
 @property (nonatomic) UserTouchesAction userTouchesAction;
+@property (nonatomic) MWMPageController * pageViewController;
 
 @property (nonatomic) BOOL skipForceTouch;
 
@@ -476,9 +478,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
                                 duration:(NSTimeInterval)duration
 {
   if (isIOSVersionLessThan(8))
-    [(UIViewController *)self.childViewControllers.firstObject
-        willRotateToInterfaceOrientation:toInterfaceOrientation
-                                duration:duration];
+    [self.alertController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
   [self.controlsManager willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
@@ -486,6 +486,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
   [self.controlsManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+  [self.pageViewController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
@@ -564,6 +565,37 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   [v initRenderPolicy];
   self.view.clipsToBounds = YES;
   [MTRGManager setMyCom:YES];
+  self.controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
+  if (!isIOSVersionLessThan(8))
+    [self showWhatsNewIfNeeded];
+}
+
+- (void)showWhatsNewIfNeeded
+{
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  BOOL const whatsNewWasShown = [ud boolForKey:kUDWhatsNewWasShown];
+  if (whatsNewWasShown)
+    return;
+
+  void (^setWhatsNewShowed)() = ^
+  {
+    [ud setBool:YES forKey:kUDWhatsNewWasShown];
+    [ud synchronize];
+  };
+
+  if ([Alohalytics isFirstSession])
+  {
+    setWhatsNewShowed();
+    return;
+  }
+  [self configureAndShowPageController];
+  setWhatsNewShowed();
+}
+
+- (void)configureAndShowPageController
+{
+  self.pageViewController = [MWMPageController pageControllerWithParent:self];
+  [self.pageViewController show];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
