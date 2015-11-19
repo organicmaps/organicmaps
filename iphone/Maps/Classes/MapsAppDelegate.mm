@@ -10,6 +10,8 @@
 #import "Preferences.h"
 #import "RouteState.h"
 #import "Statistics.h"
+#import "UIColor+MapsMeColor.h"
+#import "UIFont+MapsMeFonts.h"
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Parse/Parse.h>
@@ -376,18 +378,18 @@ void InitLocalizedStrings()
 
 - (void)customizeAppearance
 {
-  NSMutableDictionary * attributes = [[NSMutableDictionary alloc] init];
-  attributes[NSForegroundColorAttributeName] = [UIColor whiteColor];
+  NSDictionary * attributes = @{
+    NSForegroundColorAttributeName : [UIColor whiteColor],
+    NSFontAttributeName : [UIFont regular18]
+  };
 
-  Class const navigationControllerClass = [NavigationController class];
-  [[UINavigationBar appearanceWhenContainedIn:navigationControllerClass, nil] setTintColor:[UIColor whiteColor]];
-  [[UIBarButtonItem appearance] setTitleTextAttributes:attributes forState:UIControlStateNormal];
-  [[UINavigationBar appearanceWhenContainedIn:navigationControllerClass, nil] setBarTintColor:[UIColor colorWithColorCode:@"0e8639"]];
-  attributes[NSFontAttributeName] = [UIFont fontWithName:@"HelveticaNeue" size:17.5];
-
-  UINavigationBar * navBar = [UINavigationBar appearanceWhenContainedIn:navigationControllerClass, nil];
-  navBar.shadowImage = [[UIImage alloc] init];
+  UINavigationBar * navBar = [UINavigationBar appearance];
+  navBar.tintColor = [UIColor primary];
+  navBar.barTintColor = [UIColor primary];
+  navBar.shadowImage = [UIImage imageWithColor:[UIColor fadeBackground]];
   navBar.titleTextAttributes = attributes;
+
+  [[UIBarButtonItem appearance] setTitleTextAttributes:attributes forState:UIControlStateNormal];
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
