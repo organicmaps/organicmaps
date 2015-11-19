@@ -192,7 +192,7 @@ For XCode configuration instructions, see [CONTRIBUTING.md](CONTRIBUTING.md).
 * Open "Product → Scheme → Edit Scheme", then "Info" and change build configuration to Simulator.
 * Run the project (Product → Run).
 
-If a script has trouble finding your Qt 5 installation, edit `omim/autobuild/detect_qmake.sh`,
+If a script has trouble finding your Qt 5 installation, edit `omim/tools/autobuild/detect_qmake.sh`,
 adding a path to `qmake` there.
 
 ## Map Servers
