@@ -1,6 +1,7 @@
 package com.mapswithme.maps.routing;
 
 import android.content.DialogInterface;
+import android.support.annotation.DimenRes;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -400,7 +401,8 @@ public class RoutingController
       return;
 
     mStartButton.setEnabled(mState == State.PREPARE && mBuildState == BuildState.BUILT);
-    mStartButton.setTextColor(MwmApplication.get().getResources().getColor(R.color.text_light));
+    mStartButton.setTextColor(MwmApplication.get().getResources().getColor(mStartButton.isEnabled() ? R.color.routing_start_text
+                                                                                                    : R.color.routing_start_text_disabled));
   }
 
   public void setStartButton(@Nullable Button button)
@@ -682,7 +684,7 @@ public class RoutingController
     mContainer.updatePoints();
   }
 
-  public static CharSequence formatRoutingTime(int seconds)
+  public static CharSequence formatRoutingTime(int seconds, @DimenRes int unitsSize)
   {
     long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
     long hours = TimeUnit.SECONDS.toHours(seconds);
@@ -690,14 +692,11 @@ public class RoutingController
       // One minute is added to estimated time to destination point to prevent displaying zero minutes left
       minutes++;
 
-    return hours == 0 ? Utils.formatUnitsText(R.dimen.text_size_routing_number,
-                                              R.dimen.text_size_routing_dimension,
+    return hours == 0 ? Utils.formatUnitsText(R.dimen.text_size_routing_number, unitsSize,
                                               String.valueOf(minutes), "min")
-                      : TextUtils.concat(Utils.formatUnitsText(R.dimen.text_size_routing_number,
-                                                               R.dimen.text_size_routing_dimension,
+                      : TextUtils.concat(Utils.formatUnitsText(R.dimen.text_size_routing_number, unitsSize,
                                                                String.valueOf(hours), "h "),
-                                         Utils.formatUnitsText(R.dimen.text_size_routing_number,
-                                                               R.dimen.text_size_routing_dimension,
+                                         Utils.formatUnitsText(R.dimen.text_size_routing_number, unitsSize,
                                                                String.valueOf(minutes), "min"));
   }
 

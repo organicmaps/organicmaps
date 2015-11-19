@@ -2,6 +2,7 @@ package com.mapswithme.maps.routing;
 
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,7 +15,6 @@ import com.mapswithme.maps.widget.RotateDrawable;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.maps.widget.WheelProgressView;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -94,6 +94,13 @@ public class RoutingPlanController extends ToolbarController
     mNumbersDistance = (TextView) mNumbersFrame.findViewById(R.id.distance);
     mNumbersArrival = (TextView) mNumbersFrame.findViewById(R.id.arrival);
 
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+    {
+      View divider = planFrame.findViewById(R.id.details_divider);
+      if (divider != null)
+        UiUtils.invisible(divider);
+    }
+
     setTitle(R.string.route);
 
     mToggle.setImageDrawable(mToggleImage);
@@ -154,9 +161,8 @@ public class RoutingPlanController extends ToolbarController
       return;
 
     RoutingInfo rinfo = RoutingController.get().getCachedRoutingInfo();
-    mNumbersTime.setText(RoutingController.formatRoutingTime(rinfo.totalTimeInSeconds));
-    mNumbersDistance.setText(Utils.formatUnitsText(R.dimen.text_size_routing_number, R.dimen.text_size_routing_dimension,
-                                                   rinfo.distToTarget, rinfo.targetUnits));
+    mNumbersTime.setText(RoutingController.formatRoutingTime(rinfo.totalTimeInSeconds, R.dimen.text_size_routing_number));
+    mNumbersDistance.setText(rinfo.distToTarget + " " + rinfo.targetUnits);
 
     if (mNumbersArrival != null)
       mNumbersArrival.setText(MwmApplication.get().getString(R.string.routing_arrive) + " " +

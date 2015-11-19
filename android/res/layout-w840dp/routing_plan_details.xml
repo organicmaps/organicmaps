@@ -10,6 +10,7 @@
     android:clickable="true">
   <FrameLayout android:layout_width="match_parent"
                android:layout_height="@dimen/routing_selector_size"
+               android:elevation="3dp"
                style="@style/MwmWidget.Floating.Panel">
     <LinearLayout
         android:id="@+id/progress_frame"
@@ -26,6 +27,9 @@
           wheel:wheelProgressColor="@color/routing_blue"
           wheel:wheelSecondaryColor="@color/base_black_divider"
           wheel:wheelThickness="@dimen/margin_eighth"/>
+
+      <Space android:layout_width="32dp"
+             android:layout_height="0dp"/>
 
       <com.mapswithme.maps.widget.WheelProgressView
           android:id="@+id/progress_pedestrian"
@@ -47,6 +51,7 @@
           android:id="@+id/vehicle"
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
+          android:layout_marginRight="32dp"
           android:button="@drawable/selector_vehicle"/>
 
       <RadioButton
@@ -57,11 +62,17 @@
     </RadioGroup>
   </FrameLayout>
 
+  <ImageView
+      android:id="@+id/details_divider"
+      android:layout_width="match_parent"
+      android:layout_height="24dp"
+      android:src="@drawable/shadow_top"
+      android:scaleType="fitXY"/>
+
   <FrameLayout
       android:id="@+id/details_frame"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="24dp"
       android:animateLayoutChanges="true"
       android:background="@android:color/white"
       android:visibility="gone"
@@ -88,7 +99,10 @@
           style="@style/MwmWidget.TextView.PlanDetail.Number"
           android:layout_toRightOf="@id/time"
           android:textColor="@color/base_black_hint"
-          android:text=" • "
+          android:text="•"
+          android:layout_marginLeft="6dp"
+          android:layout_marginRight="6dp"
+          android:layout_marginTop="2dp"
           tools:ignore="HardcodedText"/>
 
       <TextView
@@ -113,7 +127,7 @@
         style="@style/MwmWidget.TextView.PlanDetail.Status"
         android:layout_margin="16dp"
         android:text="@string/routing_planning"
-        android:textColor="@color/base_black_hint"
+        android:textColor="@color/text_dark_hint"
         android:visibility="gone"
         tools:visibility="visible"
         tools:layout_gravity="right"/>

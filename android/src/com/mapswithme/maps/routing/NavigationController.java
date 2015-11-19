@@ -115,7 +115,7 @@ public class NavigationController
     else
       updatePedestrian(info);
 
-    mTimeTotal.setText(RoutingController.formatRoutingTime(info.totalTimeInSeconds));
+    mTimeTotal.setText(RoutingController.formatRoutingTime(info.totalTimeInSeconds, R.dimen.text_size_routing_dimension));
     mDistanceTotal.setText(Utils.formatUnitsText(R.dimen.text_size_routing_number, R.dimen.text_size_routing_dimension,
                                                  info.distToTarget, info.targetUnits));
     mTimeArrival.setText(RoutingController.formatArrivalTime(info.totalTimeInSeconds));

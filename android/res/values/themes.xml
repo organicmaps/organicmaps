@@ -13,7 +13,7 @@
     <item name="android:windowBackground">@android:color/white</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
-    <item name="dividerHorizontal">@color/text_dark_hint</item>
+    <item name="dividerHorizontal">@color/divider_standard</item>
   </style>
 
   <style name="MwmTheme.MainActivity">

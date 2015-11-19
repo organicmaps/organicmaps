@@ -36,7 +36,7 @@
   <color name="semitransparent_black">#60000000</color>
   <color name="semitransparent_black_dark">#BB000000</color>
 
-  <color name="divider_standard">#1E4A4B53</color>
+  <color name="divider_standard">@color/base_black_divider</color>
   <!-- TODO end of unfinished colors-->
 
   <!-- place page -->
@@ -68,8 +68,10 @@
   <color name="routing_slot_background_pressed">#FFF0F0F0</color>
   <color name="routing_slot_shadow">#3D000000</color>
   <color name="routing_start">@color/base_blue_light</color>
-  <color name="routing_start_pressed">@color/base_blue</color>
-  <color name="routing_start_disabled">#FF91CAFF</color>
+  <color name="routing_start_pressed">#FF1C85D6</color>
+  <color name="routing_start_disabled">#FFEFEFEF</color>
+  <color name="routing_start_text">@android:color/white</color>
+  <color name="routing_start_text_disabled">#42000000</color>
 
   <!-- TODO end of unfinished colors-->
 

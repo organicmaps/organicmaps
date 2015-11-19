@@ -217,8 +217,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       @Override
       public void onClick(View v)
       {
-        if (RoutingController.get().setStartPoint(mMapObject) &&
-            (isDocked() || !isFloating()))
+        if (RoutingController.get().setStartPoint(mMapObject))
           hide();
       }
     });
@@ -228,8 +227,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       @Override
       public void onClick(View v)
       {
-        if (RoutingController.get().setEndPoint(mMapObject) &&
-            (isDocked() || !isFloating()))
+        if (RoutingController.get().setEndPoint(mMapObject))
           hide();
       }
     });
@@ -239,7 +237,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
                             .attach();
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-      setElevation(UiUtils.dimen(R.dimen.appbar_elevation));
+      setElevation(UiUtils.dimen(R.dimen.placepage_elevation));
 
     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
       mPpDetails.setBackgroundResource(0);

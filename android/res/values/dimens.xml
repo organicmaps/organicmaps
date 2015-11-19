@@ -70,12 +70,12 @@
   <dimen name="routing_selector_size">48dp</dimen>
   <dimen name="routing_selector_wheel_size">40dp</dimen>
   <dimen name="routing_selector_wheel_margin">4dp</dimen>
-  <dimen name="routing_slot_height">51dp</dimen>
+  <dimen name="routing_slot_height">52dp</dimen>
   <dimen name="routing_slot_overlap_margin">12dp</dimen>
-  <dimen name="routing_shadow_top_margin">2dp</dimen>
+  <dimen name="routing_shadow_top_margin">3dp</dimen>
   <dimen name="routing_shadow_top_margin_dragging">0dp</dimen>
-  <dimen name="routing_shadow_bottom_margin">1dp</dimen>
-  <dimen name="routing_shadow_bottom_margin_dragging">3dp</dimen>
+  <dimen name="routing_shadow_bottom_margin">2dp</dimen>
+  <dimen name="routing_shadow_bottom_margin_dragging">4dp</dimen>
   <dimen name="routing_turns_padding">8dp</dimen>
 
   <!-- Bottom menu -->
@@ -86,8 +86,9 @@
   <dimen name="menu_line_button_inset_edge">-16dp</dimen>
   <dimen name="menu_list_item_height">48dp</dimen>
 
-  <dimen name="navigation_elevation">4dp</dimen>
+  <dimen name="panel_elevation">12dp</dimen>
   <dimen name="appbar_elevation">4dp</dimen>
+  <dimen name="placepage_elevation">4dp</dimen>
 
   <dimen name="tabs_height">64dp</dimen>
 </resources>

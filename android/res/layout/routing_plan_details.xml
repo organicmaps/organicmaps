@@ -76,7 +76,10 @@
     <TextView
         style="@style/MwmWidget.TextView.PlanDetail.Number"
         android:textColor="@color/base_black_hint"
-        android:text=" • "
+        android:text="•"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="2dp"
         tools:ignore="HardcodedText"/>
 
     <TextView
@@ -92,7 +95,7 @@
       android:layout_toRightOf="@id/progress_frame"
       android:layout_alignParentRight="true"
       android:text="@string/routing_planning"
-      android:textColor="@color/base_black_hint"
+      android:textColor="@color/text_dark_hint"
       android:gravity="right"
       android:visibility="gone"
       tools:visibility="visible"

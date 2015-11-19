@@ -33,9 +33,15 @@
           app:tabMode="fixed"
           app:tabGravity="fill"/>
 
+      <View
+          android:id="@+id/tabs_divider"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="?dividerHorizontal"/>
+
       <android.support.v4.view.ViewPager
           android:id="@+id/pages"
-          style="@style/MwmWidget.FrameLayout.Elevation"
+          style="@style/MwmWidget.Floating"
           android:layout_width="match_parent"
           android:layout_height="match_parent"/>
     </LinearLayout>

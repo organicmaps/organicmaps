@@ -16,5 +16,9 @@
         android:layout_height="1dp"
         android:background="?dividerHorizontal"/>
 
-  <include layout="@layout/menu_route_plan_line"/>
+  <FrameLayout android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:background="@android:color/white">
+    <include layout="@layout/menu_route_plan_line"/>
+  </FrameLayout>
 </LinearLayout>

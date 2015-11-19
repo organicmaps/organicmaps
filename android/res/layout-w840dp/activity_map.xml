@@ -68,7 +68,7 @@
       android:layout_width="@dimen/panel_width"
       android:layout_height="match_parent"
       android:background="#FFF0F0F0"
-      android:elevation="@dimen/navigation_elevation"
+      android:elevation="@dimen/panel_elevation"
       android:visibility="gone"
       tools:visibility="visible"/>
 </RelativeLayout>

@@ -208,6 +208,10 @@ public class SearchFragment extends BaseMwmFragment
     ViewGroup root = (ViewGroup) view;
     View tabsFrame = root.findViewById(R.id.tab_frame);
     ViewPager pager = (ViewPager) tabsFrame.findViewById(R.id.pages);
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+      UiUtils.hide(tabsFrame.findViewById(R.id.tabs_divider));
+
     mToolbarController = new ToolbarController(view);
 
     final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, (TabLayout) root.findViewById(R.id.tabs));

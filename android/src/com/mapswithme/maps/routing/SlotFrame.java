@@ -174,6 +174,10 @@ public class SlotFrame extends LinearLayout
     {
       mSwapProgress = true;
 
+      MapObject point = other.mMapObject;
+      other.setMapObject(mMapObject);
+      setMapObject(point);
+
       setDragging(false);
       checkHitRect();
       other.checkHitRect();
