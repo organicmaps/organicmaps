@@ -53,6 +53,11 @@ using namespace std;
 - (IBAction)unwind:(id)sender
 {
   size_t const size = _languages.size();
+  if (find(_languages.begin(), _languages.end(), _additionalTTSLanguage) != _languages.end())
+  {
+    [self.tableView reloadData];
+    return;
+  }
   switch (size)
   {
     case 1:
