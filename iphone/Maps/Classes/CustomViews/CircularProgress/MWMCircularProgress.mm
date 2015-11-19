@@ -24,6 +24,7 @@
 
 - (void)reset
 {
+  _progress = 0.;
   [self.rootView updatePath:0.];
   self.nextProgressToAnimate = nil;
 }
@@ -42,6 +43,7 @@
 
 - (void)startSpinner
 {
+  [self reset];
   [self.rootView startSpinner];
 }
 
@@ -72,9 +74,12 @@
 
 - (void)setProgress:(CGFloat)progress
 {
+  if (progress <= _progress)
+    return;
   if (self.rootView.animating)
   {
-    self.nextProgressToAnimate = @(progress);
+    if (progress > self.nextProgressToAnimate.floatValue)
+      self.nextProgressToAnimate = @(progress);
   }
   else
   {
