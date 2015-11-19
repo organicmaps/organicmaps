@@ -404,14 +404,14 @@ extern NSString * const kAlohalyticsTapEventKey;
   BOOL const isSourceMyPosition = self.routeSource.IsMyPosition();
   BOOL const isDestinationMyPosition = self.routeDestination.IsMyPosition();
   if (isSourceMyPosition)
-    [[Statistics instance] logEvent:kStatPointToPoint
-                     withParameters:@{kStatAction : kStatGo, kStatValue : kStatFromMyPosition}];
+    [[Statistics instance] logEvent:kStatEventName(kStatPointToPoint, kStatGo)
+                     withParameters:@{kStatValue : kStatFromMyPosition}];
   else if (isDestinationMyPosition)
-    [[Statistics instance] logEvent:kStatPointToPoint
-                     withParameters:@{kStatAction : kStatGo, kStatValue : kStatToMyPosition}];
+    [[Statistics instance] logEvent:kStatEventName(kStatPointToPoint, kStatGo)
+                     withParameters:@{kStatValue : kStatToMyPosition}];
   else
-    [[Statistics instance] logEvent:kStatPointToPoint
-                     withParameters:@{kStatAction : kStatGo, kStatValue : kStatPointToPoint}];
+    [[Statistics instance] logEvent:kStatEventName(kStatPointToPoint, kStatGo)
+                     withParameters:@{kStatValue : kStatPointToPoint}];
 
   if (!isSourceMyPosition)
   {
@@ -442,7 +442,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)didCancelRouting
 {
-  [[Statistics instance] logEvent:kStatPointToPoint withParameters:@{kStatAction : kStatClose}];
+  [[Statistics instance] logEvent:kStatEventName(kStatPointToPoint, kStatClose)];
   [[MapsAppDelegate theApp].m_locationManager stop:self.navigationManager];
   self.navigationManager.state = MWMNavigationDashboardStateHidden;
   GetFramework().CloseRouting();
@@ -455,8 +455,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)swapPointsAndRebuildRouteIfPossible
 {
-  [[Statistics instance] logEvent:kStatPointToPoint
-                   withParameters:@{kStatAction : kStatSwapRoutingPoints}];
+  [[Statistics instance] logEvent:kStatEventName(kStatPointToPoint, kStatSwapRoutingPoints)];
   swap(_routeSource, _routeDestination);
   [self buildRoute];
   
@@ -466,11 +465,8 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)didStartEditingRoutePoint:(BOOL)isSource
 {
-  [[Statistics instance] logEvent:kStatPointToPoint
-                   withParameters:@{
-                     kStatAction : kStatSearch,
-                     kStatValue : (isSource ? kStatSource : kStatDestination)
-                   }];
+  [[Statistics instance] logEvent:kStatEventName(kStatPointToPoint, kStatSearch)
+                   withParameters:@{kStatValue : (isSource ? kStatSource : kStatDestination)}];
   MapsAppDelegate.theApp.routingPlaneMode = isSource ? MWMRoutingPlaneModeSearchSource : MWMRoutingPlaneModeSearchDestination;
   self.searchManager.state = MWMSearchManagerStateDefault;
 }

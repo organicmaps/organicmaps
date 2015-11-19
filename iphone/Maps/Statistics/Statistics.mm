@@ -96,27 +96,26 @@ char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
 
 - (void)logLocation:(CLLocation *)location
 {
-  if (_enabled)
+  if (!_enabled)
+    return;
+  if (!_lastLocationLogTimestamp || [[NSDate date] timeIntervalSinceDate:_lastLocationLogTimestamp] > (60 * 60 * 3))
   {
-    if (!_lastLocationLogTimestamp || [[NSDate date] timeIntervalSinceDate:_lastLocationLogTimestamp] > (60 * 60 * 3))
-    {
-      _lastLocationLogTimestamp = [NSDate date];
-      CLLocationCoordinate2D const coord = location.coordinate;
-      [Flurry setLatitude:coord.latitude longitude:coord.longitude horizontalAccuracy:location.horizontalAccuracy verticalAccuracy:location.verticalAccuracy];
-    }
+    _lastLocationLogTimestamp = [NSDate date];
+    CLLocationCoordinate2D const coord = location.coordinate;
+    [Flurry setLatitude:coord.latitude longitude:coord.longitude horizontalAccuracy:location.horizontalAccuracy verticalAccuracy:location.verticalAccuracy];
   }
 }
 
 - (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters
 {
-  if (_enabled)
-  {
-    NSMutableDictionary * params = [parameters mutableCopy];
-    params[kStatDeviceType] = IPAD ? kStatiPad : kStatiPhone;
-    BOOL isLandscape = UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation);
-    params[kStatOrientation] = isLandscape ? kStatLandscape : kStatPortrait;
-    [Flurry logEvent:eventName withParameters:parameters];
-  }
+  if (!_enabled)
+    return;
+  NSMutableDictionary * params = [parameters mutableCopy];
+  params[kStatDeviceType] = IPAD ? kStatiPad : kStatiPhone;
+  BOOL isLandscape = UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation);
+  params[kStatOrientation] = isLandscape ? kStatLandscape : kStatPortrait;
+  [Flurry logEvent:eventName withParameters:parameters];
+  [Alohalytics logEvent:eventName withDictionary:parameters];
 }
 
 - (void)logEvent:(NSString *)eventName
@@ -126,30 +125,29 @@ char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
 
 - (void)logApiUsage:(NSString *)programName
 {
-  if (_enabled)
-  {
-    if (programName)
-      [self logEvent:@"Api Usage" withParameters: @{@"Application Name" : programName}];
-    else
-      [self logEvent:@"Api Usage" withParameters: @{@"Application Name" : @"Error passing nil as SourceApp name."}];
-  }
+  if (!_enabled)
+    return;
+  if (programName)
+    [self logEvent:@"Api Usage" withParameters: @{@"Application Name" : programName}];
+  else
+    [self logEvent:@"Api Usage" withParameters: @{@"Application Name" : @"Error passing nil as SourceApp name."}];
 }
 
 - (void)applicationDidBecomeActive
 {
-  if (_enabled)
-  {
-    [FBSDKAppEvents activateApp];
-    // Special FB events to improve marketing campaigns quality.
-    [MWMCustomFacebookEvents optimizeExpenses];
-  }
+  if (!_enabled)
+    return;
+  [FBSDKAppEvents activateApp];
+  // Special FB events to improve marketing campaigns quality.
+  [MWMCustomFacebookEvents optimizeExpenses];
 }
 
 + (instancetype)instance
 {
   static Statistics * instance;
   static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
+  dispatch_once(&onceToken, ^
+  {
     instance = [[Statistics alloc] init];
   });
   return instance;

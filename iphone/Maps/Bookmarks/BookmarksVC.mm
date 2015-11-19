@@ -76,11 +76,8 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
 
 - (void)onVisibilitySwitched:(UISwitch *)sender
 {
-  [[Statistics instance] logEvent:kStatBookmarks
-                   withParameters:@{
-                     kStatAction : kStatToggleVisibility,
-                     kStatValue : sender.on ? kStatVisible : kStatHidden
-                   }];
+  [[Statistics instance] logEvent:kStatEventName(kStatBookmarks, kStatToggleVisibility)
+                   withParameters:@{kStatValue : sender.on ? kStatVisible : kStatHidden}];
   BookmarkCategory * cat = GetFramework().GetBmCategory(m_categoryIndex);
   cat->SetVisible(sender.on);
   cat->SaveToKMLFile();
@@ -258,7 +255,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
       ASSERT(bm, ("NULL bookmark"));
       if (bm)
       {
-        [[Statistics instance] logEvent:kStatBookmarks withParameters:@{kStatAction : kStatShowOnMap}];
+        [[Statistics instance] logEvent:kStatEventName(kStatBookmarks, kStatShowOnMap)];
         // Same as "Close".
         MapViewController * mapVC = self.navigationController.viewControllers.firstObject;
         mapVC.controlsManager.searchHidden = YES;
@@ -272,7 +269,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
     BookmarkCategory const * cat = GetFramework().GetBmCategory(m_categoryIndex);
     if (cat)
     {
-      [[Statistics instance] logEvent:kStatBookmarks withParameters:@{kStatAction : kStatExport}];
+      [[Statistics instance] logEvent:kStatEventName(kStatBookmarks, kStatExport)];
       NSMutableString * catName = [NSMutableString stringWithUTF8String:cat->GetName().c_str()];
       if (![catName length])
         [catName setString:@"MapsMe"];
@@ -293,8 +290,9 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
+  [[Statistics instance] logEvent:kStatEventName(kStatBookmarks, kStatExport)
+                   withParameters:@{kStatValue : kStatKML}];
   [self dismissViewControllerAnimated:YES completion:nil];
-  [[Statistics instance] logEvent:@"KML Export"];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

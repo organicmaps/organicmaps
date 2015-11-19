@@ -190,8 +190,8 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)buildRoute
 {
-  [[Statistics instance] logEvent:kStatPlacePage
-                   withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatDestination}];
+  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
+                   withParameters:@{kStatValue : kStatDestination}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppRoute"];
   m2::PointD const & destination = m_userMark->GetUserMark()->GetOrg();
   m2::PointD const myPosition([MapsAppDelegate theApp].m_locationManager.lastLocation.mercator);
@@ -201,8 +201,8 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)routeFrom
 {
-  [[Statistics instance] logEvent:kStatPlacePage
-                   withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatSource}];
+  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
+                   withParameters:@{kStatValue : kStatSource}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppRoute"];
   [self.delegate buildRouteFrom:self.target];
   [self dismissPlacePage];
@@ -210,8 +210,8 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)routeTo
 {
-  [[Statistics instance] logEvent:kStatPlacePage
-                   withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatDestination}];
+  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
+                   withParameters:@{kStatValue : kStatDestination}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppRoute"];
   [self.delegate buildRouteTo:self.target];
   [self dismissPlacePage];
@@ -228,7 +228,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)share
 {
-  [[Statistics instance] logEvent:kStatPlacePage withParameters:@{kStatAction : kStatShare}];
+  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatShare)];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppShare"];
   MWMPlacePageEntity * entity = self.entity;
   NSString * title = entity.bookmarkTitle ? entity.bookmarkTitle : entity.title;
@@ -243,6 +243,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)apiBack
 {
+  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatAPI)];
   ApiMarkPoint const * p = static_cast<ApiMarkPoint const *>(m_userMark->GetUserMark());
   NSURL * url = [NSURL URLWithString:@(GetFramework().GenerateApiBackUrl(*p).c_str())];
   [[UIApplication sharedApplication] openURL:url];
@@ -258,6 +259,8 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)addBookmark
 {
+  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatBookmarks)
+                   withParameters:@{kStatValue : kStatAdd}];
   Framework & f = GetFramework();
   BookmarkData data = BookmarkData(self.entity.title.UTF8String, f.LastEditedBMType());
   size_t const categoryIndex = f.LastEditedBMCategory();
@@ -278,6 +281,8 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)removeBookmark
 {
+  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatBookmarks)
+                   withParameters:@{kStatValue : kStatRemove}];
   Framework & f = GetFramework();
   BookmarkCategory * bookmarkCategory = f.GetBookmarkManager().GetBmCategory(self.entity.bac.first);
   UserMark const * bookmark = bookmarkCategory->GetBookmark(self.entity.bac.second);

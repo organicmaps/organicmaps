@@ -1,6 +1,7 @@
 #import "Common.h"
-#import <AVFoundation/AVFoundation.h>
 #import "MWMTextToSpeech.h"
+#import "Statistics.h"
+#import <AVFoundation/AVFoundation.h>
 
 #include "Framework.h"
 #include "sound/tts/languages.hpp"
@@ -78,6 +79,8 @@ extern NSString * const kUserDafaultsNeedToEnableTTS = @"UserDefaultsNeedToEnabl
 
 - (void)setNotificationsLocale:(NSString *)locale
 {
+  [[Statistics instance] logEvent:kStatEventName(kStatTTSSettings, kStatChangeLanguage)
+                   withParameters:@{kStatValue : locale}];
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   [ud setObject:locale forKey:kUserDefaultsTTSLanguage];
   [ud synchronize];

@@ -1,9 +1,10 @@
 #import "Common.h"
-#import "MWMPlacePageNavigationBar.h"
-#import "MWMiPhonePortraitPlacePage.h"
-#import "MWMPlacePageViewManager.h"
 #import "MWMBasePlacePageView.h"
+#import "MWMiPhonePortraitPlacePage.h"
 #import "MWMPlacePageEntity.h"
+#import "MWMPlacePageNavigationBar.h"
+#import "MWMPlacePageViewManager.h"
+#import "Statistics.h"
 #import <objc/runtime.h>
 
 static NSString * const kPlacePageNavigationBarNibName = @"PlacePageNavigationBar";
@@ -99,6 +100,7 @@ static inline CGPoint const dismissCenter(CGFloat xPosition)
 
 - (IBAction)backTap:(id)sender
 {
+  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatBack)];
   [self dismiss];
   [self.placePage.manager refreshPlacePage];
 }

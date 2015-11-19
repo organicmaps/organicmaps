@@ -247,11 +247,8 @@ static CGFloat const kAdditionalHeight = 20.;
 - (IBAction)extendTap
 {
   BOOL const isExtended = !self.extendButton.selected;
-  [[Statistics instance] logEvent:kStatPointToPoint
-                   withParameters:@{
-                     kStatAction : kStatExpand,
-                     kStatValue : (isExtended ? kStatYes : kStatNo)
-                   }];
+  [[Statistics instance] logEvent:kStatEventName(kStatPointToPoint, kStatExpand)
+                   withParameters:@{kStatValue : (isExtended ? kStatYes : kStatNo)}];
   self.extendButton.selected = isExtended;
   [self layoutIfNeeded];
   [self setupActualHeight];

@@ -85,16 +85,16 @@ extern NSString * const kUserDefaultsLatLonAsDMSKey;
   {
     case MWMPlacePageMetadataTypeURL:
     case MWMPlacePageMetadataTypeWebsite:
-      [[Statistics instance] logEvent:kStatPlacePage withParameters:@{kStatAction : kStatOpenSite}];
+      [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatOpenSite)];
       break;
     case MWMPlacePageMetadataTypeEmail:
-      [[Statistics instance] logEvent:kStatPlacePage withParameters:@{kStatAction : kStatSendEmail}];
+      [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatSendEmail)];
       break;
     case MWMPlacePageMetadataTypePhoneNumber:
-      [[Statistics instance] logEvent:kStatPlacePage withParameters:@{kStatAction : kStatCallPhoneNumber}];
+      [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatCallPhoneNumber)];
       break;
     case MWMPlacePageMetadataTypeCoordinate:
-      [[Statistics instance] logEvent:kStatPlacePage withParameters:@{kStatAction : kStatToggleCoordinates}];
+      [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatToggleCoordinates)];
       break;
     default:
       break;
