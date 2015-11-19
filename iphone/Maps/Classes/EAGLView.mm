@@ -9,11 +9,45 @@
 
 #include "platform/platform.hpp"
 
+#include "../../base/visual_scale.hpp"
+
 #include "std/bind.hpp"
 #include "std/limits.hpp"
 #include "std/unique_ptr.hpp"
 
 @implementation EAGLView
+
+namespace
+{
+// Returns native scale if it's possible.
+double correctContentScale()
+{
+  UIScreen * uiScreen = [UIScreen mainScreen];
+  
+  if (isIOSVersionLessThan(8))
+    return [uiScreen respondsToSelector:@selector(scale)] ? [uiScreen scale] : 1.f;
+  else
+    return [uiScreen respondsToSelector:@selector(nativeScale)] ? [uiScreen nativeScale] : 1.f;
+}
+
+// Returns DPI as exact as possible. It works for iPhone, iPad and iWatch.
+double getExactDPI(double contentScaleFactor)
+{
+  float const iPadDPI = 132.f;
+  float const iPhoneDPI = 163.f;
+  float const mDPI = 160.f;
+
+  switch (UI_USER_INTERFACE_IDIOM())
+  {
+    case UIUserInterfaceIdiomPhone:
+      return iPhoneDPI * contentScaleFactor;
+    case UIUserInterfaceIdiomPad:
+      return iPadDPI * contentScaleFactor;
+    default:
+      return mDPI * contentScaleFactor;
+  }
+}
+} //  namespace
 
 // You must implement this method
 + (Class)layerClass
@@ -39,7 +73,7 @@
                                      kEAGLDrawablePropertyColorFormat : kEAGLColorFormatRGBA8};
     
     // Correct retina display support in opengl renderbuffer
-    self.contentScaleFactor = [self correctContentScale];
+    self.contentScaleFactor = correctContentScale();
 
     m_factory = make_unique_dp<dp::ThreadSafeFactory>(new iosOGLContextFactory(eaglLayer));
   }
@@ -55,7 +89,7 @@
   Framework::DrapeCreationParams p;
   p.m_surfaceWidth = width;
   p.m_surfaceHeight = height;
-  p.m_visualScale = self.contentScaleFactor;
+  p.m_visualScale = VisualScale(getExactDPI(self.contentScaleFactor));
 
   [self.widgetsManager setupWidgets:p];
   GetFramework().CreateDrapeEngine(make_ref<dp::OGLContextFactory>(m_factory), move(p));
@@ -98,15 +132,6 @@
   }
 
   [self applyOnSize:w withHeight:h];
-}
-
-- (double)correctContentScale
-{
-  UIScreen * uiScreen = [UIScreen mainScreen];
-  if (isIOSVersionLessThan(8))
-    return uiScreen.scale;
-  else
-    return uiScreen.nativeScale;
 }
 
 - (void)layoutSubviews
