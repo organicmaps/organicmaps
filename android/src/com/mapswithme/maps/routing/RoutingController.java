@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
+import android.widget.Button;
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.StorageOptions;
 import com.mapswithme.maps.*;
@@ -66,7 +66,7 @@ public class RoutingController
   private static final RoutingController sInstance = new RoutingController();
 
   private Container mContainer;
-  private View mStartButton;
+  private Button mStartButton;
 
   private BuildState mBuildState = BuildState.NONE;
   private State mState = State.NONE;
@@ -400,9 +400,10 @@ public class RoutingController
       return;
 
     mStartButton.setEnabled(mState == State.PREPARE && mBuildState == BuildState.BUILT);
+    mStartButton.setTextColor(MwmApplication.get().getResources().getColor(R.color.text_light));
   }
 
-  public void setStartButton(@Nullable View button)
+  public void setStartButton(@Nullable Button button)
   {
     Log.d(TAG, "setStartButton");
     mStartButton = button;

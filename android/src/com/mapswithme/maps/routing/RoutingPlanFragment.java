@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
@@ -22,7 +23,7 @@ public class RoutingPlanFragment extends BaseMwmFragment
     mPlanController = new RoutingPlanController(res, getActivity());
     updatePoints();
 
-    View start = res.findViewById(R.id.start);
+    Button start = (Button) res.findViewById(R.id.start);
     RoutingController.get().setStartButton(start);
     start.setOnClickListener(new View.OnClickListener()
     {

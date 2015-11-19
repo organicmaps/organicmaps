@@ -67,7 +67,7 @@
       android:layout_centerVertical="true"
       android:layout_gravity="center_vertical|right"
       tools:layout_gravity="bottom|right">
-  <TextView
+    <TextView
         android:id="@+id/time"
         style="@style/MwmWidget.TextView.PlanDetail.Number"
         android:textColor="@color/base_black"
@@ -94,6 +94,8 @@
       android:text="@string/routing_planning"
       android:textColor="@color/base_black_hint"
       android:gravity="right"
+      android:visibility="gone"
+      tools:visibility="visible"
       tools:layout_centerVertical="false"/>
 
   <TextView
@@ -104,7 +106,8 @@
       android:text="@string/routing_planning_error"
       android:textColor="@color/base_red"
       android:gravity="right"
+      android:visibility="gone"
+      tools:visibility="visible"
       tools:layout_centerVertical="false"
-      tools:layout_alignParentBottom="true"
-      tools:layout_marginTop="14dp"/>
+      tools:layout_alignParentBottom="true"/>
 </RelativeLayout>

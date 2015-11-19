@@ -8,6 +8,7 @@ import android.graphics.drawable.TransitionDrawable;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -72,7 +73,7 @@ public class MainMenu
 
   private final MyPositionButton mMyPositionButton;
   private final Toggle mToggle;
-  private View mRouteStartButton;
+  private Button mRouteStartButton;
 
   private int mContentHeight;
 
@@ -374,7 +375,7 @@ public class MainMenu
     mNewsCounter = (TextView) mContentFrame.findViewById(R.id.counter);
 
     if (mRoutePlanFrame != null)
-      mRouteStartButton = mRoutePlanFrame.findViewById(R.id.start);
+      mRouteStartButton = (Button) mRoutePlanFrame.findViewById(R.id.start);
 
     init();
   }
@@ -541,7 +542,7 @@ public class MainMenu
     return mAnimationTrackListener;
   }
 
-  public View getRouteStartButton()
+  public Button getRouteStartButton()
   {
     return mRouteStartButton;
   }

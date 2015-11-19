@@ -57,6 +57,7 @@ public class SlotFrame extends LinearLayout
       public void onAnimationEnd(Animator animation)
       {
         cancelDrag();
+        RoutingController.get().swapPoints();
       }
     };
 
@@ -152,7 +153,7 @@ public class SlotFrame extends LinearLayout
       lp.bottomMargin = UiUtils.dimen(dragging ? R.dimen.routing_shadow_bottom_margin_dragging
                                                : R.dimen.routing_shadow_bottom_margin);
       mShadowedFrame.setLayoutParams(lp);
-      mShadow.setAlpha(dragging ? 0.4f : 1.0f);
+      mShadow.setAlpha(dragging ? 0.6f : 1.0f);
 
       mShadowedFrame.setBackgroundResource(dragging ? R.drawable.routing_slot_background_pressed
                                                     : R.drawable.routing_slot_background);
@@ -171,8 +172,6 @@ public class SlotFrame extends LinearLayout
 
     void swapAnimated(Slot other)
     {
-      RoutingController.get().swapPoints();
-
       mSwapProgress = true;
 
       setDragging(false);

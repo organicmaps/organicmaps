@@ -1,6 +1,7 @@
 package com.mapswithme.maps.routing;
 
 import android.view.View;
+import android.widget.Button;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -34,7 +35,7 @@ public class RoutingPlanInplaceController extends RoutingPlanController
   {
     final MwmActivity activity = (MwmActivity)mActivity;
 
-    View start = activity.getMainMenu().getRouteStartButton();
+    Button start = activity.getMainMenu().getRouteStartButton();
     RoutingController.get().setStartButton(start);
     start.setOnClickListener(new View.OnClickListener()
     {

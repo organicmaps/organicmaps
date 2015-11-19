@@ -145,15 +145,11 @@ public class RoutingPlanController extends ToolbarController
     if (mDetailsFrame != null)
       UiUtils.showIf(!idle, mDetailsFrame);
 
-    UiUtils.showIf(RoutingController.get().isBuilding(), mPlanningLabel);
-
-    if (idle)
-      return;
-
-    UiUtils.showIf(buildState == RoutingController.BuildState.ERROR, mErrorLabel);
-
     boolean ready = (buildState == RoutingController.BuildState.BUILT);
     UiUtils.showIf(ready, mNumbersFrame);
+    UiUtils.showIf(RoutingController.get().isBuilding(), mPlanningLabel);
+    UiUtils.showIf(buildState == RoutingController.BuildState.ERROR, mErrorLabel);
+
     if (!ready)
       return;
 

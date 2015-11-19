@@ -114,6 +114,8 @@
         android:layout_margin="16dp"
         android:text="@string/routing_planning"
         android:textColor="@color/base_black_hint"
+        android:visibility="gone"
+        tools:visibility="visible"
         tools:layout_gravity="right"/>
 
     <TextView
@@ -122,6 +124,8 @@
         android:layout_margin="16dp"
         android:text="@string/routing_planning_error"
         android:textColor="@color/base_red"
+        android:visibility="gone"
+        tools:visibility="visible"
         tools:layout_marginTop="14dp"
         tools:layout_gravity="right|bottom"/>
 
