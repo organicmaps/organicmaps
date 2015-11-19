@@ -17,8 +17,11 @@ extern "C"
       JNIEnv * env, jobject thiz, jint c, jint b)
   {
     BookmarkAndCategory bnc = BookmarkAndCategory(c,b);
-    frm()->ShowBookmark(bnc);
-    frm()->SaveState();
+    g_framework->PostDrapeTask([bnc]()
+    {
+      frm()->ShowBookmark(bnc);
+      frm()->SaveState();
+    });
   }
 
   JNIEXPORT void JNICALL
