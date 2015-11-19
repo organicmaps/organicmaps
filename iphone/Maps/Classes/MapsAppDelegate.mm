@@ -390,6 +390,11 @@ void InitLocalizedStrings()
   navBar.titleTextAttributes = attributes;
 
   [[UIBarButtonItem appearance] setTitleTextAttributes:attributes forState:UIControlStateNormal];
+
+  UIPageControl * pageControl = [UIPageControl appearance];
+  pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
+  pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
+  pageControl.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
