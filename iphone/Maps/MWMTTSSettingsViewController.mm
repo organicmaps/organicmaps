@@ -3,6 +3,7 @@
 #import "MWMTTSSettingsViewController.h"
 #import "SelectableCell.h"
 #import "Statistics.h"
+#import "WebViewController.h"
 #import <AVFoundation/AVFoundation.h>
 
 static NSString * kSelectTTSLanguageSegueName = @"TTSLanguage";
@@ -83,7 +84,7 @@ using namespace std;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return 1;
+  return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -129,10 +130,14 @@ using namespace std;
       [tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
     }
   }
-#warning need to add help
-//  else
-//  {
-//  }
+  else if (indexPath.section == 1)
+  {
+    NSString * path = [[NSBundle mainBundle] pathForResource:@"tts-how-to-set-up-voice" ofType:@"html"];
+    NSString * html = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    NSURL * baseURL = [NSURL fileURLWithPath:path];
+    WebViewController * vc = [[WebViewController alloc] initWithHtml:html baseUrl:baseURL andTitleOrNil:L(@"pref_tts_how_to_set_up_voice")];
+    [self.navigationController pushViewController:vc animated:YES];
+  }
 }
 
 @end

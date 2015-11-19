@@ -35,6 +35,7 @@
   UIWebView * webView = [[UIWebView alloc] initWithFrame:frame];
   webView.autoresizesSubviews = YES;
   webView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
+  webView.backgroundColor = [UIColor whiteColor];
   webView.delegate = self;
 
   if (self.m_htmlText)
