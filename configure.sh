@@ -29,7 +29,7 @@ else
 #pragma once
 
 #define ALOHALYTICS_URL ""
-#define FLURRY_KEY ""
+#define FLURRY_KEY "12345678901234567890"
 #define MY_TRACKER_KEY ""
 #define MY_TARGET_KEY ""
 #define PARSE_APPLICATION_ID ""
