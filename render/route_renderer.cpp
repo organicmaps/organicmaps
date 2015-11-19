@@ -2,6 +2,7 @@
 #include "render/route_shape.hpp"
 #include "render/gpu_drawer.hpp"
 
+#include "graphics/depth_constants.hpp"
 #include "graphics/geometry_pipeline.hpp"
 #include "graphics/resource.hpp"
 #include "graphics/opengl/texture.hpp"
@@ -389,7 +390,7 @@ void RouteRenderer::CreateRoutePointGraphics(graphics::Screen * dlScreen, bool s
 
     pnt.m_displayList = dlScreen->createDisplayList();
     dlScreen->setDisplayList(pnt.m_displayList);
-    dlScreen->drawSymbol(pnt.m_point, start ? "route_from" : "route_to", graphics::EPosCenter, 0);
+    dlScreen->drawSymbol(pnt.m_point, start ? "route_from" : "route_to", graphics::EPosCenter, graphics::maxDepth);
     dlScreen->setDisplayList(nullptr);
 
     pnt.m_needUpdate = false;
