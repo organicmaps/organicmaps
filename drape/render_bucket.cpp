@@ -100,7 +100,10 @@ void RenderBucket::Render(ScreenBase const & screen)
     m_buffer->ApplyMutation(hasIndexMutation ? rfpIndex : nullptr, rfpAttrib);
   }
   m_buffer->Render();
+}
 
+void RenderBucket::RenderDebug(ScreenBase const & screen)
+{
 #ifdef RENDER_DEBUG_RECTS
   if (!m_overlay.empty())
   {

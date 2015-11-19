@@ -29,7 +29,10 @@ public:
   void CollectOverlayHandles(ref_ptr<OverlayTree> tree, bool isTransparent);
   void Render(ScreenBase const & screen);
 
-  /// Only for testing! Don't use this function in production code!
+  // Only for testing! Don't use this function in production code!
+  void RenderDebug(ScreenBase const & screen);
+
+  // Only for testing! Don't use this function in production code!
   template <typename ToDo>
   void ForEachOverlay(ToDo const & todo)
   {
