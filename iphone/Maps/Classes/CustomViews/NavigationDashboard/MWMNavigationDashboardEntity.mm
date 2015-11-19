@@ -89,7 +89,8 @@ UIImage * image(routing::turns::TurnDirection t, bool isNextTurn)
     case TurnDirection::TurnSharpLeft:
       imageName = @"sharp_left";
       break;
-    case TurnDirection::UTurn:
+    case TurnDirection::UTurnLeft:
+    case TurnDirection::UTurnRight:
       imageName = @"uturn";
       break;
     case TurnDirection::ReachedYourDestination:

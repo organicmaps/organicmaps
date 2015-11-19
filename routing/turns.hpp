@@ -36,7 +36,8 @@ enum class TurnDirection
   TurnSharpLeft,
   TurnSlightLeft,
 
-  UTurn,
+  UTurnLeft,
+  UTurnRight,
 
   TakeTheExit,
 

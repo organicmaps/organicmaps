@@ -147,7 +147,8 @@ string GetDirectionTextId(Notification const & notification)
       return "make_a_sharp_left_turn";
     case TurnDirection::TurnSlightLeft:
       return "make_a_slight_left_turn";
-    case TurnDirection::UTurn:
+    case TurnDirection::UTurnLeft:
+    case TurnDirection::UTurnRight:
       return "make_a_u_turn";
     case TurnDirection::EnterRoundAbout:
       return "enter_the_roundabout";

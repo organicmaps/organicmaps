@@ -245,6 +245,6 @@ namespace
     IRouter::ResultCode const result = routeResult.second;
     TEST_EQUAL(result, IRouter::NoError, ());
 
-    integration::TestRouteTime(route, 900.);
+    integration::TestRouteTime(route, 909.);
   }
 }  // namespace

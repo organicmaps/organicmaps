@@ -35,7 +35,8 @@ array<pair<TurnDirection, char const *>, static_cast<size_t>(TurnDirection::Coun
      {TurnDirection::TurnLeft, "TurnLeft"},
      {TurnDirection::TurnSharpLeft, "TurnSharpLeft"},
      {TurnDirection::TurnSlightLeft, "TurnSlightLeft"},
-     {TurnDirection::UTurn, "UTurn"},
+     {TurnDirection::UTurnLeft, "UTurnLeft"},
+     {TurnDirection::UTurnRight, "UTurnRight"},
      {TurnDirection::TakeTheExit, "TakeTheExit"},
      {TurnDirection::EnterRoundAbout, "EnterRoundAbout"},
      {TurnDirection::LeaveRoundAbout, "LeaveRoundAbout"},
@@ -138,7 +139,8 @@ bool IsLaneWayConformedTurnDirection(LaneWay l, TurnDirection t)
       return l == LaneWay::SharpLeft;
     case TurnDirection::TurnSlightLeft:
       return l == LaneWay::SlightLeft;
-    case TurnDirection::UTurn:
+    case TurnDirection::UTurnLeft:
+    case TurnDirection::UTurnRight:
       return l == LaneWay::Reverse;
   }
 }
@@ -163,7 +165,8 @@ bool IsLaneWayConformedTurnDirectionApproximately(LaneWay l, TurnDirection t)
       return l == LaneWay::SharpLeft || l == LaneWay::Left;
     case TurnDirection::TurnSlightLeft:
       return l == LaneWay::SlightLeft || l == LaneWay::Through || l == LaneWay::Left;
-    case TurnDirection::UTurn:
+    case TurnDirection::UTurnLeft:
+    case TurnDirection::UTurnRight:
       return l == LaneWay::Reverse;
   }
 }
