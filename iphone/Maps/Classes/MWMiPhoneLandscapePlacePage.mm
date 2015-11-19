@@ -170,11 +170,13 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 - (void)setTopBound:(CGFloat)topBound
 {
   super.topBound = topBound;
-  CGSize const size = self.extendedPlacePageView.superview.size;
-  CGFloat const height = MIN(size.width, size.height);
   CGRect const frame = self.extendedPlacePageView.frame;
-  self.extendedPlacePageView.frame = {{frame.origin.x, topBound}, {frame.size.width, height - topBound}};
-  self.actionBar.maxY = height - topBound;
+  CGSize const size = self.extendedPlacePageView.superview.size;
+  CGFloat const height = MIN(size.width, size.height) - topBound;
+  CGFloat const width = frame.size.width;
+  CGFloat const actionBarHeight = self.actionBar.height;
+  self.extendedPlacePageView.frame = {{frame.origin.x, topBound}, {width, height}};
+  self.actionBar.frame = {{0, height - actionBarHeight}, {width, actionBarHeight}};
   if (self.state == MWMiPhoneLandscapePlacePageStateOpen)
     [self updateTargetPoint];
   [self configureContentInset];
