@@ -50,8 +50,6 @@ namespace android
 
     map<gui::EWidget, gui::Position> m_guiPositions;
 
-    float GetBestDensity(int densityDpi);
-
     void MyPositionModeChanged(location::EMyPositionMode mode);
 
     location::TMyPositionModeChanged m_myPositionModeSignal;

@@ -31,6 +31,7 @@
 
 #include "base/math.hpp"
 #include "base/logging.hpp"
+#include "base/visual_scale.hpp"
 
 android::Framework * g_framework = 0;
 
@@ -102,35 +103,6 @@ void Framework::UpdateCompassSensor(int ind, float * arr)
   m_sensors[ind].Next(arr);
 }
 
-float Framework::GetBestDensity(int densityDpi)
-{
-  typedef pair<int, float> P;
-  P dens[] = {
-      P(120, 0.75f),
-      P(160, 1.0f),
-      P(240, 1.5f),
-      P(320, 2.0f),
-      P(480, 3.0f)
-  };
-
-  int prevRange = numeric_limits<int>::max();
-  int bestRangeIndex = 0;
-  for (int i = 0; i < ARRAY_SIZE(dens); i++)
-  {
-    int currRange = abs(densityDpi - dens[i].first);
-    if (currRange <= prevRange)
-    {
-      // it is better, take index
-      bestRangeIndex = i;
-      prevRange = currRange;
-    }
-    else
-      break;
-  }
-
-  return dens[bestRangeIndex].second;
-}
-
 void Framework::MyPositionModeChanged(location::EMyPositionMode mode)
 {
   if (m_myPositionModeSignal != nullptr)
@@ -144,11 +116,10 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   if (!factory->IsValid())
     return false;
 
-  float visualScale = GetBestDensity(densityDpi);
   ::Framework::DrapeCreationParams p;
   p.m_surfaceWidth = factory->GetWidth();
   p.m_surfaceHeight = factory->GetHeight();
-  p.m_visualScale = visualScale;
+  p.m_visualScale = VisualScale(densityDpi);
   p.m_hasMyPositionState = m_isCurrentModeInitialized;
   p.m_initialMyPositionState = m_currentMode;
   ASSERT(!m_guiPositions.empty(), ("GUI elements must be set-up before engine is created"));
