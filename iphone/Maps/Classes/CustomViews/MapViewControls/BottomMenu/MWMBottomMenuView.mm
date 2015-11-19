@@ -44,6 +44,8 @@
   self.goButton.hidden = YES;
   self.streetLabel.hidden = YES;
   self.restoreState = MWMBottomMenuStateInactive;
+  [self.goButton setBackgroundColor:[UIColor linkBlue] forState:UIControlStateNormal];
+  [self.goButton setBackgroundColor:[UIColor linkBlueDark] forState:UIControlStateHighlighted];
 }
 
 - (void)layoutSubviews
@@ -154,8 +156,6 @@
     break;
   case MWMBottomMenuStatePlanning:
   case MWMBottomMenuStateGo:
-    [self.goButton setBackgroundColor:[UIColor linkBlue] forState:UIControlStateNormal];
-    [self.goButton setBackgroundColor:[UIColor linkBlueDark] forState:UIControlStateHighlighted];
     self.bookmarksButton.hidden = YES;
     self.p2pButton.hidden = YES;
     self.searchButton.hidden = YES;
