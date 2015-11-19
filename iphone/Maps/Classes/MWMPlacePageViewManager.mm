@@ -225,7 +225,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 - (MWMRoutePoint)target
 {
   UserMark const * m = m_userMark->GetUserMark();
-  m2::PointD const & org = m->GetOrg();
+  m2::PointD const & org = m->GetPivot();
   return m->GetMarkType() == UserMark::Type::MY_POSITION ?
                           MWMRoutePoint(org) :
                           MWMRoutePoint(org, self.placePage.basePlacePageView.titleLabel.text);

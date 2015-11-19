@@ -1,6 +1,7 @@
 #pragma once
 
 #include "map/active_maps_layout.hpp"
+#include "map/api_mark_point.hpp"
 #include "map/bookmark.hpp"
 #include "map/bookmark_manager.hpp"
 #include "map/country_tree.hpp"

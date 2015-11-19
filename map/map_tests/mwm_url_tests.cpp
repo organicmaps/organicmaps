@@ -3,6 +3,8 @@
 #include "map/framework.hpp"
 #include "map/mwm_url.hpp"
 
+#include "drape_frontend/visual_params.hpp"
+
 #include "coding/uri.hpp"
 
 #include "base/string_format.hpp"
@@ -27,18 +29,23 @@ namespace
     ApiTest(string const & uriString)
     {
       m_m = &m_fm.GetBookmarkManager();
-      UserMarkControllerGuard guard(*m_m, type);
-      url_scheme::ParseUrl(guard.m_controller, uriString, m_api, m_viewportRect);
+      m_api.SetBookmarkManager(m_m);
+
+      if (m_api.SetUriAndParse(uriString))
+      {
+        if (!m_api.GetViewportRect(m_viewportRect))
+          m_viewportRect = df::GetWorldRect();
+      }
     }
 
-    bool IsValid() const { return m_api.m_isValid; }
+    bool IsValid() const { return m_api.IsValid(); }
     m2::RectD GetViewport() const { return m_viewportRect; }
 
-    string const & GetAppTitle() const { return m_api.m_appTitle; }
-    bool GoBackOnBalloonClick() const { return m_api.m_goBackOnBalloonClick; }
+    string const & GetAppTitle() const { return m_api.GetAppTitle(); }
+    bool GoBackOnBalloonClick() const { return m_api.GoBackOnBalloonClick(); }
     int GetPointCount() const { return UserMarkControllerGuard(*m_m, type).m_controller.GetUserMarkCount(); }
-    string const & GetGlobalBackUrl() const { return m_api.m_globalBackUrl; }
-    int GetApiVersion() const { return m_api.m_version; }
+    string const & GetGlobalBackUrl() const { return m_api.GetGlobalBackUrl(); }
+    int GetApiVersion() const { return m_api.GetApiVersion(); }
     bool TestLatLon(int index, double lat, double lon) const
     {
       double tLat, tLon;
@@ -71,17 +78,20 @@ namespace
     BookmarkManager * m_m;
   };
 
-  bool IsValid(Framework & fm, string const & uriStrig)
+  bool IsValid(Framework & fm, string const & uriString)
   {
     ParsedMapApi api;
+    bool isValid = false;
     {
+      api.SetBookmarkManager(&fm.GetBookmarkManager());
+      if (api.SetUriAndParse(uriString))
+        isValid = api.IsValid();
+
       UserMarkControllerGuard guard(fm.GetBookmarkManager(), UserMarkType::API_MARK);
-      m2::RectD dummyRect;
-      url_scheme::ParseUrl(guard.m_controller, uriStrig, api, dummyRect);
       guard.m_controller.Clear();
     }
 
-    return api.m_isValid;
+    return isValid;
   }
 }
 

@@ -20,17 +20,11 @@ string GetSupportedStyle(string const & s, string const & context, string const 
 // Default icon.
 string GetDefaultStyle();
 
-class StyledPoint : public ICustomDrawable
+class StyledPoint : public UserMark
 {
 public:
-  StyledPoint(m2::PointD const & ptOrg, UserMarkContainer * container)
-    : ICustomDrawable(ptOrg, container)
-  {
-  }
+  StyledPoint(m2::PointD const & ptOrg, UserMarkContainer * container);
 
-  // ICustomDrawable overrides:
-  graphics::DisplayList * GetDisplayList(UserMarkDLCache * cache) const override;
-  double GetAnimScaleFactor() const override;
   m2::PointD const & GetPixelOffset() const override;
 
   /// @return name of icon, or empty string for plain circle.

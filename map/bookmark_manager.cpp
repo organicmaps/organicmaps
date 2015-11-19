@@ -1,3 +1,4 @@
+#include "map/api_mark_container.hpp"
 #include "map/bookmark_manager.hpp"
 #include "map/framework.hpp"
 #include "map/user_mark.hpp"

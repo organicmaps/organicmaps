@@ -45,8 +45,9 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 @implementation MWMMapViewControlsManager
 
-- (void)setMyPositionMode:(location::EMyPositionMode) mode
+- (void)setMyPositionMode:(location::EMyPositionMode)mode
 {
+  _myPositionMode = mode;
   [self.menuController onLocationStateModeChanged:mode];
 }
 
@@ -429,10 +430,10 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     MWMAlertViewController * controller = [[MWMAlertViewController alloc] initWithViewController:self.ownerController];
     LocationManager * manager = MapsAppDelegate.theApp.m_locationManager;
-    auto const m = GetFramework().GetLocationState()->GetMode();
+    auto const m = self.myPositionMode;
     BOOL const needToRebuild = manager.lastLocationIsValid &&
-                               m != location::State::Mode::PendingPosition &&
-                               m != location::State::Mode::UnknownPosition &&
+                               m != location::MODE_PENDING_POSITION &&
+                               m != location::MODE_UNKNOWN_POSITION &&
                                !isDestinationMyPosition;
     [controller presentPoint2PointAlertWithOkBlock:^
     {

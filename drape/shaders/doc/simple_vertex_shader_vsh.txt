@@ -1,8 +1,0 @@
-Simple transformation position by modelViewProjection
-
-Attributes:
- - position (vec2)  xy of point
- - depth    (float) z of point
-
-Uniforms:
- - modelViewProjectionMatrix (mat4)

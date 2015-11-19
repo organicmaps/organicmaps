@@ -29,6 +29,12 @@ m2::PointD const & UserMark::GetPivot() const
   return m_ptOrg;
 }
 
+m2::PointD const & UserMark::GetPixelOffset() const
+{
+  static m2::PointD const s_centre(0.0, 0.0);
+  return s_centre;
+}
+
 dp::Anchor UserMark::GetAnchor() const
 {
   return dp::Center;
@@ -65,8 +71,6 @@ void UserMark::FillLogEvent(UserMark::TEventContainer & details) const
   details.emplace("markType", ToString(GetMarkType()));
 }
 
-////////////////////////////////////////////////////////////////
-
 UserMarkCopy::UserMarkCopy(UserMark const * srcMark, bool needDestroy)
   : m_srcMark(srcMark)
   , m_needDestroy(needDestroy)
@@ -83,65 +87,6 @@ UserMark const * UserMarkCopy::GetUserMark() const
 {
   return m_srcMark;
 }
-
-////////////////////////////////////////////////////////////////
-
-ApiMarkPoint::ApiMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container)
-  : UserMark(ptOrg, container)
-{
-}
-
-ApiMarkPoint::ApiMarkPoint(string const & name, string const & id, m2::PointD const & ptOrg,
-                           UserMarkContainer * container)
-  : UserMark(ptOrg, container)
-  , m_name(name)
-  , m_id(id)
-{
-}
-
-string ApiMarkPoint::GetSymbolName() const
-{
-  return "api-result";
-}
-
-UserMark::Type ApiMarkPoint::GetMarkType() const
-{
-  return UserMark::Type::API;
-}
-
-string const & ApiMarkPoint::GetName() const
-{
-  return m_name;
-}
-
-void ApiMarkPoint::SetName(string const & name)
-{
-  m_name = name;
-}
-
-string const & ApiMarkPoint::GetID() const
-{
-  return m_id;
-}
-
-void ApiMarkPoint::SetID(string const & id)
-{
-  m_id = id;
-}
-
-unique_ptr<UserMarkCopy> ApiMarkPoint::Copy() const
-{
-  return unique_ptr<UserMarkCopy>(
-        new UserMarkCopy(new ApiMarkPoint(m_name, m_id, m_ptOrg, m_container)));
-}
-
-void ApiMarkPoint::FillLogEvent(UserMark::TEventContainer & details) const
-{
-  UserMark::FillLogEvent(details);
-  details.emplace("name", GetName());
-}
-
-/////////////////////////////////////////////////////////////////
 
 SearchMarkPoint::SearchMarkPoint(search::AddressInfo const & info, m2::PointD const & ptOrg,
                                  UserMarkContainer * container)
@@ -199,8 +144,6 @@ void SearchMarkPoint::FillLogEvent(UserMark::TEventContainer & details) const
   details.emplace("metaData", m_metadata.Empty() ? "0" : "1");
 }
 
-/////////////////////////////////////////////////////////////////
-
 PoiMarkPoint::PoiMarkPoint(UserMarkContainer * container)
   : SearchMarkPoint(m2::PointD(0.0, 0.0), container) {}
 
@@ -222,8 +165,6 @@ void PoiMarkPoint::SetName(string const & name)
 {
   m_info.m_name = name;
 }
-
-/////////////////////////////////////////////////////////////////
 
 MyPositionMarkPoint::MyPositionMarkPoint(UserMarkContainer * container)
   : PoiMarkPoint(container)

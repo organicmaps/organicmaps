@@ -1,5 +1,7 @@
 #include "map/styled_point.hpp"
 
+#include "base/logging.hpp"
+
 namespace
 {
 char const * kSupportedColors[] = {"placemark-red",    "placemark-blue",  "placemark-purple",
@@ -9,22 +11,10 @@ char const * kSupportedColors[] = {"placemark-red",    "placemark-blue",  "place
 
 namespace style
 {
-graphics::DisplayList * StyledPoint::GetDisplayList(UserMarkDLCache * cache) const
-{
-  UserMarkContainer const * container = GetContainer();
-  UserMarkDLCache::Key const key =
-      GetStyle().empty()
-          ? container->GetDefaultKey()
-          : UserMarkDLCache::Key(GetStyle(), graphics::EPosAbove, container->GetDepth());
-  return cache->FindUserMark(key);
-}
 
-double StyledPoint::GetAnimScaleFactor() const
+StyledPoint::StyledPoint(m2::PointD const & ptOrg, UserMarkContainer * container)
+  : UserMark(ptOrg, container)
 {
-  // Matches the behaviour for non-custom drawables. The only caller
-  // of ::DrawUserMark is UserMarkContainer::Draw and it always passes
-  // this value.
-  return 1.0;
 }
 
 m2::PointD const & StyledPoint::GetPixelOffset() const

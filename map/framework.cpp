@@ -199,6 +199,8 @@ Framework::Framework()
     mapStyle = MapStyleClear;
   GetStyleReader().SetCurrentStyle(static_cast<MapStyle>(mapStyle));
 
+  m_ParsedMapApi.SetBookmarkManager(&m_bmManager);
+
   // Init strings bundle.
   // @TODO. There are hardcoded strings below which are defined in strings.txt as well.
   // It's better to use strings form strings.txt intead of hardcoding them here.
@@ -1361,22 +1363,30 @@ bool Framework::ShowMapForURL(string const & url)
   }
   else if (StartsWith(url, "mapswithme://") || StartsWith(url, "mwm://"))
   {
-    UserMarkControllerGuard guard(m_bmManager, UserMarkType::API_MARK);
-    guard.m_controller.Clear();
-
-    apiMark = url_scheme::ParseUrl(guard.m_controller, url, m_ParsedMapApi, rect);
-
-    if (m_ParsedMapApi.m_isValid)
+    if (m_ParsedMapApi.SetUriAndParse(url))
     {
-      guard.m_controller.SetIsVisible(true);
-      guard.m_controller.SetIsDrawable(true);
-      if (apiMark)
+      if (!m_ParsedMapApi.GetViewportRect(rect))
+        rect = df::GetWorldRect();
+
+      // set up controller guard to show api marks
+      {
+        UserMarkControllerGuard guard(m_bmManager, UserMarkType::API_MARK);
+        guard.m_controller.Clear();
+        guard.m_controller.SetIsVisible(true);
+        guard.m_controller.SetIsDrawable(true);
+      }
+
+      if ((apiMark = m_ParsedMapApi.GetSinglePoint()))
         result = NEED_CLICK;
       else
         result = NO_NEED_CLICK;
     }
     else
+    {
+      UserMarkControllerGuard guard(m_bmManager, UserMarkType::API_MARK);
+      guard.m_controller.Clear();
       guard.m_controller.SetIsVisible(false);
+    }
   }
   else  // Actually, we can parse any geo url scheme with correct coordinates.
   {
@@ -1732,7 +1742,7 @@ string Framework::CodeGe0url(double lat, double lon, double zoomLevel, string co
 
 string Framework::GenerateApiBackUrl(ApiMarkPoint const & point)
 {
-  string res = m_ParsedMapApi.m_globalBackUrl;
+  string res = m_ParsedMapApi.GetGlobalBackUrl();
   if (!res.empty())
   {
     double lat, lon;
@@ -1830,6 +1840,15 @@ void Framework::FollowRoute()
                      scales::GetNavigationScale();
 
   m_drapeEngine->FollowRoute(scale);
+}
+
+bool Framework::DisableFollowMode()
+{
+  bool const disabled = m_routingSession.DisableFollowMode();
+  if (disabled && m_drapeEngine != nullptr)
+    m_drapeEngine->DeactivateRouteFollowing();
+
+  return disabled;
 }
 
 void Framework::SetRouter(RouterType type)
@@ -1932,12 +1951,8 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
       }
     };
 
-    m2::PointD const & position = m_routingSession.GetUserCurrentPosition();
-    m_routingSession.RebuildRoute(position, readyCallback, m_progressCallback, 0 /* timeoutSec */);
-  }
-  else if (state == RoutingSession::RouteFinished)
-  {
-    RemoveRoute(false /* deactivateFollowing */);
+    m_routingSession.RebuildRoute(MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude),
+                                  readyCallback, m_progressCallback, 0 /* timeoutSec */);
   }
 }
 

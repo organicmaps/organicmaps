@@ -569,11 +569,10 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   {
     case routing::IRouter::ResultCode::NoError:
     {
-      if (f.GetRouter() == routing::RouterType::Pedestrian)
-        [self countPedestrianRoute];
       self.controlsManager.routeBuildingProgress = 100.;
       f.ActivateUserMark(nullptr, true);
-      [self.searchView setState:SearchViewStateHidden animated:YES];
+      self.controlsManager.routeBuildingProgress = 100.;
+      self.controlsManager.searchHidden = YES;
       if (self.forceRoutingStateChange == ForceRoutingStateChangeStartFollowing)
         [self.controlsManager routingNavigation];
       else
@@ -725,102 +724,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   if (!_alertController)
     _alertController = [[MWMAlertViewController alloc] initWithViewController:self];
   return _alertController;
-}
-
-#pragma mark - Map state
-
-- (void)checkCurrentLocationMap
-{
-  Framework & f = GetFramework();
-  ActiveMapsLayout & activeMapLayout = f.GetCountryTree().GetActiveMapLayout();
-  int const mapsCount = activeMapLayout.GetCountInGroup(ActiveMapsLayout::TGroup::EOutOfDate) + activeMapLayout.GetCountInGroup(ActiveMapsLayout::TGroup::EUpToDate);
-  self.haveMap = mapsCount > 0;
-}
-
-#pragma mark - SearchViewDelegate
-
-- (void)searchViewWillEnterState:(SearchViewState)state
-{
-  [self checkCurrentLocationMap];
-  switch (state)
-  {
-    case SearchViewStateHidden:
-      self.controlsManager.hidden = NO;
-      break;
-    case SearchViewStateResults:
-      self.controlsManager.hidden = NO;
-      break;
-    case SearchViewStateAlpha:
-      self.controlsManager.hidden = NO;
-      break;
-    case SearchViewStateFullscreen:
-      self.controlsManager.hidden = YES;
-      GetFramework().DiactivateUserMark();
-      break;
-  }
-}
-
-- (void)searchViewDidEnterState:(SearchViewState)state
-{
-  switch (state)
-  {
-    case SearchViewStateResults:
-      [self setMapInfoViewFlag:MapInfoViewSearch];
-      break;
-    case SearchViewStateHidden:
-    case SearchViewStateAlpha:
-    case SearchViewStateFullscreen:
-      [self clearMapInfoViewFlag:MapInfoViewSearch];
-      break;
-  }
-  [self updateStatusBarStyle];
-}
-
-#pragma mark - MWMNavigationDelegate
-
-- (void)pushDownloadMaps
-{
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"downloader"];
-  CountryTreeVC * vc = [[CountryTreeVC alloc] initWithNodePosition:-1];
-  [self.navigationController pushViewController:vc animated:YES];
-}
-
-#pragma mark - MWMPlacePageViewManagerDelegate
-
-- (void)addPlacePageViews:(NSArray *)views
-{
-  [views enumerateObjectsUsingBlock:^(UIView * view, NSUInteger idx, BOOL *stop)
-  {
-    if ([self.view.subviews containsObject:view])
-      return;
-    [self.view insertSubview:view belowSubview:self.searchView];
-  }];
-}
-
-#pragma mark - ActiveMapsObserverProtocol
-
-- (void)countryStatusChangedAtPosition:(int)position inGroup:(ActiveMapsLayout::TGroup const &)group
-{
-  auto const status = GetFramework().GetCountryTree().GetActiveMapLayout().GetCountryStatus(group, position);
-  if (status == TStatus::EDownloadFailed)
-  {
-    [self.searchView downloadFailed];
-  }
-  else if (status == TStatus::EOnDisk)
-  {
-    [self checkCurrentLocationMap];
-    [self.searchView downloadComplete];
-  }
-}
-
-- (void)countryDownloadingProgressChanged:(LocalAndRemoteSizeT const &)progress atPosition:(int)position inGroup:(ActiveMapsLayout::TGroup const &)group
-{
-  if (self.searchView.state != SearchViewStateFullscreen)
-    return;
-  CGFloat const normProgress = (CGFloat)progress.first / (CGFloat)progress.second;
-  ActiveMapsLayout & activeMapLayout = GetFramework().GetCountryTree().GetActiveMapLayout();
-  NSString * countryName = [NSString stringWithUTF8String:activeMapLayout.GetFormatedCountryName(activeMapLayout.GetCoreIndex(group, position)).c_str()];
-  [self.searchView downloadProgress:normProgress countryName:countryName];
 }
 
 #pragma mark - Private methods

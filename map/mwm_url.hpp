@@ -1,10 +1,13 @@
 #pragma once
 
-#include "api_mark_container.hpp"
+#include "map/user_mark.hpp"
 
 #include "geometry/rect2d.hpp"
 
 #include "std/string.hpp"
+
+class ScalesProcessor;
+class BookmarkManager;
 
 namespace url_scheme
 {
@@ -18,24 +21,40 @@ struct ApiPoint
   string m_style;
 };
 
-struct ParsedMapApi
-{
-  string m_globalBackUrl;
-  string m_appTitle;
-  int m_version = 0;
-  /// Zoom level in OSM format (e.g. from 1.0 to 20.0)
-  /// Taken into an account when calculating viewport rect, but only if points count is == 1
-  double m_zoomLevel = 0.0;
-  bool m_goBackOnBalloonClick = false;
-  bool m_isValid = false;
-};
+class Uri;
 
 /// Handles [mapswithme|mwm]://map?params - everything related to displaying info on a map
-/// apiData - extracted data from url. If apiData.m_isValid == true then returned mark or rect is valid
-/// If return nullptr and apiData.m_isValid == true, than more than one api point exists.
-///   In rect returned bound rect of api points
-/// If return not nullptr, than only one api point exists
-UserMark const * ParseUrl(UserMarksController & controller, string const & url,
-                          ParsedMapApi & apiData, m2::RectD & rect);
+class ParsedMapApi
+{
+public:
+  ParsedMapApi();
+
+  void SetBookmarkManager(BookmarkManager * manager);
+
+  bool SetUriAndParse(string const & url);
+  bool IsValid() const;
+  string const & GetGlobalBackUrl() const { return m_globalBackUrl; }
+  string const & GetAppTitle() const { return m_appTitle; }
+  int GetApiVersion() const { return m_version; }
+  void Reset();
+  bool GoBackOnBalloonClick() const { return m_goBackOnBalloonClick; }
+
+  /// @name Used in settings map viewport after invoking API.
+  bool GetViewportRect(m2::RectD & rect) const;
+  UserMark const * GetSinglePoint() const;
+
+private:
+  bool Parse(Uri const & uri);
+  void AddKeyValue(string key, string const & value, vector<ApiPoint> & points);
+
+  BookmarkManager * m_bmManager;
+  string m_globalBackUrl;
+  string m_appTitle;
+  int m_version;
+  /// Zoom level in OSM format (e.g. from 1.0 to 20.0)
+  /// Taken into an account when calculating viewport rect, but only if points count is == 1
+  double m_zoomLevel;
+  bool m_goBackOnBalloonClick;
+};
 
 }

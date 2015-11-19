@@ -1,9 +1,12 @@
-#include "map/mwm_url.hpp"
+#include "mwm_url.hpp"
 
-#include "drape_frontend/visual_params.hpp"
+#include "map/api_mark_point.hpp"
+#include "map/bookmark_manager.hpp"
 
 #include "indexer/mercator.hpp"
 #include "indexer/scales.hpp"
+
+#include "drape_frontend/visual_params.hpp"
 
 #include "coding/uri.hpp"
 
@@ -27,16 +30,16 @@ bool IsInvalidApiPoint(ApiPoint const & p) { return p.m_lat == INVALID_LAT_VALUE
 }  // unnames namespace
 
 ParsedMapApi::ParsedMapApi()
-  : m_controller(NULL)
+  : m_bmManager(nullptr)
   , m_version(0)
   , m_zoomLevel(0.0)
   , m_goBackOnBalloonClick(false)
 {
 }
 
-void ParsedMapApi::SetController(UserMarkContainer::Controller * controller)
+void ParsedMapApi::SetBookmarkManager(BookmarkManager * manager)
 {
-  m_controller = controller;
+  m_bmManager = manager;
 }
 
 bool ParsedMapApi::SetUriAndParse(string const & url)
@@ -47,17 +50,19 @@ bool ParsedMapApi::SetUriAndParse(string const & url)
 
 bool ParsedMapApi::IsValid() const
 {
-  ASSERT(m_controller != NULL,  ());
-  return m_controller->GetUserMarkCount() > 0;
+  ASSERT(m_bmManager != nullptr, ());
+  UserMarkControllerGuard guard(*m_bmManager, UserMarkType::API_MARK);
+  return guard.m_controller.GetUserMarkCount() > 0;
 }
 
 bool ParsedMapApi::Parse(Uri const & uri)
 {
-  ASSERT(m_controller != NULL, ());
-
   string const & scheme = uri.GetScheme();
   if ((scheme != "mapswithme" && scheme != "mwm") || uri.GetPath() != "map")
     return false;
+
+  ASSERT(m_bmManager != nullptr, ());
+  UserMarkControllerGuard guard(*m_bmManager, UserMarkType::API_MARK);
 
   vector<ApiPoint> points;
   uri.ForEachKeyValue(bind(&ParsedMapApi::AddKeyValue, this, _1, _2, ref(points)));
@@ -67,7 +72,7 @@ bool ParsedMapApi::Parse(Uri const & uri)
   {
     ApiPoint const & p = points[i];
     m2::PointD glPoint(MercatorBounds::FromLatLon(p.m_lat, p.m_lon));
-    ApiMarkPoint * mark = static_cast<ApiMarkPoint *>(m_controller->CreateUserMark(glPoint));
+    ApiMarkPoint * mark = static_cast<ApiMarkPoint *>(guard.m_controller.CreateUserMark(glPoint));
     mark->SetName(p.m_name);
     mark->SetID(p.m_id);
     mark->SetStyle(style::GetSupportedStyle(p.m_style, p.m_name, ""));
@@ -176,19 +181,21 @@ void ParsedMapApi::Reset()
 
 bool ParsedMapApi::GetViewportRect(m2::RectD & rect) const
 {
-  ASSERT(m_controller != NULL, ());
-  size_t markCount = m_controller->GetUserMarkCount();
+  ASSERT(m_bmManager != nullptr, ());
+  UserMarkControllerGuard guard(*m_bmManager, UserMarkType::API_MARK);
+
+  size_t markCount = guard.m_controller.GetUserMarkCount();
   if (markCount == 1 && m_zoomLevel >= 1)
   {
     double zoom = min(static_cast<double>(scales::GetUpperComfortScale()), m_zoomLevel);
-    rect = df::GetRectForDrawScale(zoom, m_controller->GetUserMark(0)->GetOrg());
+    rect = df::GetRectForDrawScale(zoom, guard.m_controller.GetUserMark(0)->GetPivot());
     return true;
   }
   else
   {
     m2::RectD result;
-    for (size_t i = 0; i < m_controller->GetUserMarkCount(); ++i)
-      result.Add(m_controller->GetUserMark(i)->GetOrg());
+    for (size_t i = 0; i < guard.m_controller.GetUserMarkCount(); ++i)
+      result.Add(guard.m_controller.GetUserMark(i)->GetPivot());
 
     if (result.IsValid())
     {
@@ -202,11 +209,13 @@ bool ParsedMapApi::GetViewportRect(m2::RectD & rect) const
 
 UserMark const * ParsedMapApi::GetSinglePoint() const
 {
-  ASSERT(m_controller != NULL, ());
-  if (m_controller->GetUserMarkCount() != 1)
-    return 0;
+  ASSERT(m_bmManager != nullptr, ());
+  UserMarkControllerGuard guard(*m_bmManager, UserMarkType::API_MARK);
 
-  return m_controller->GetUserMark(0);
+  if (guard.m_controller.GetUserMarkCount() != 1)
+    return nullptr;
+
+  return guard.m_controller.GetUserMark(0);
 }
 
 }

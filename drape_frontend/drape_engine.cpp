@@ -395,6 +395,13 @@ void DrapeEngine::RemoveRoute(bool deactivateFollowing)
                                   MessagePriority::Normal);
 }
 
+void DrapeEngine::DeactivateRouteFollowing()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<DeactivateRouteFollowingMessage>(),
+                                  MessagePriority::Normal);
+}
+
 void DrapeEngine::SetWidgetLayout(gui::TWidgetsLayoutInfo && info)
 {
   m_widgetsLayout = move(info);

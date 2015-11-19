@@ -16,6 +16,7 @@ area|z12-[man_made=breakwater],
   fill-color: @background;
   fill-opacity: 1;
   z-index: 120;
+  fill-position: background;
 }
 
 line|z14-[man_made=pier],
@@ -25,6 +26,7 @@ line|z14-[man_made=breakwater]
   fill-color: @background;
  fill-opacity: 1;
  z-index: 120;
+ fill-position: background;
 }
 line|z17-[man_made=pier],
 line|z17-[man_made=breakwater]
@@ -33,6 +35,7 @@ line|z17-[man_made=breakwater]
   fill-color: @background;
  fill-opacity: 1;
  z-index: 120;
+ fill-position: background;
 }
 
 /* PEDESTRIAN AREAS */
@@ -47,6 +50,7 @@ area|z14-[area:highway=living_street],
   fill-position: background;
   fill-opacity: 1;
   z-index: 44;
+  
 }
 
 area|z16-[highway=pedestrian][area?],

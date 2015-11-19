@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.3.3 (12081) - http://www.bohemiancoding.com/sketch -->
+<svg width="23px" height="24px" viewBox="0 0 23 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4.1 (15681) - http://www.bohemiancoding.com/sketch -->
     <title>waterfall-m</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="waterfall-m" sketch:type="MSLayerGroup">
+        <g id="waterfall-m" sketch:type="MSLayerGroup" transform="translate(0.000000, 0.981000)">
             <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
             <ellipse id="Oval-1-Copy-40" fill="#2E89B0" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
             <path d="M6.53367864,14 C6.00144614,14 5.50629799,14.2069955 5,14.3195164 L5,15.3579702 C5,15.3579702 5.76683932,15.022708 6.53367864,15.0224524 C7.30051796,15.0221968 8.06735728,15.5336786 9.21761626,15.5336786 C10.3678752,15.5336786 10.730989,15.040192 11.5181342,15.0224524 C12.2849735,15.022708 12.6683932,15.5336786 13.8186522,15.5336786 C14.9689111,15.5336786 15.7357505,15.0224524 16.5025898,15.0224524 C17.0406426,15.0224524 18.0362684,15.3579702 18.0362684,15.3579702 L18.0362684,14.3195164 C17.5442643,14.1933458 17.0060735,14 16.5025898,14 C15.3523308,14 14.5854915,14.5114818 13.8186522,14.5112262 C13.0518129,14.5109706 12.6683932,14 11.5181342,14 C10.3678752,14 9.98445557,14.5114818 9.21761626,14.5112262 C8.45077694,14.5114818 7.68393762,14 6.53367864,14 L6.53367864,14 Z" id="path4758-copy-18" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>

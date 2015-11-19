@@ -37,6 +37,7 @@ public:
     AddRoute,
     RemoveRoute,
     FlushRoute,
+    DeactivateRouteFollowing,
     UpdateMapStyle,
     InvalidateTextures,
     Invalidate

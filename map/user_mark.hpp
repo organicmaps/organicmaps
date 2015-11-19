@@ -39,6 +39,7 @@ public:
   ///////////////////////////////////////////////////////
   /// df::UserPointMark
   m2::PointD const & GetPivot() const override;
+  m2::PointD const & GetPixelOffset() const override;
   dp::Anchor GetAnchor() const override;
   float GetDepth() const override;
   bool RunCreationAnim() const override;
@@ -68,34 +69,6 @@ public:
 private:
   UserMark const * m_srcMark;
   bool m_needDestroy;
-};
-
-class ApiMarkPoint : public UserMark
-{
-public:
-  ApiMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container);
-
-  ApiMarkPoint(string const & name,
-           string const & id,
-           m2::PointD const & ptOrg,
-           UserMarkContainer * container);
-
-  string GetSymbolName() const override;
-  UserMark::Type GetMarkType() const override;
-
-  string const & GetName() const;
-  void SetName(string const & name);
-
-  string const & GetID() const;
-  void SetID(string const & id);
-
-  unique_ptr<UserMarkCopy> Copy() const override;
-
-  virtual void FillLogEvent(TEventContainer & details) const override;
-
-private:
-  string m_name;
-  string m_id;
 };
 
 class SearchMarkPoint : public UserMark

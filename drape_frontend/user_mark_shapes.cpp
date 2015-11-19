@@ -148,10 +148,13 @@ void CacheUserPoints(UserMarksProvider const * provider,
     AlignHorizontal(pxSize.x * 0.5f, anchor, left, right);
     AlignVertical(pxSize.y * 0.5f, anchor, up, down);
 
-    buffer.emplace_back(pos, left + down, glsl::ToVec2(texRect.LeftTop()), runAnim);
-    buffer.emplace_back(pos, left + up, glsl::ToVec2(texRect.LeftBottom()), runAnim);
-    buffer.emplace_back(pos, right + down, glsl::ToVec2(texRect.RightTop()), runAnim);
-    buffer.emplace_back(pos, right + up, glsl::ToVec2(texRect.RightBottom()), runAnim);
+    m2::PointD const & pixelOffset = pointMark->GetPixelOffset();
+    glsl::vec2 const offset(pixelOffset.x, pixelOffset.y);
+
+    buffer.emplace_back(pos, left + down + offset, glsl::ToVec2(texRect.LeftTop()), runAnim);
+    buffer.emplace_back(pos, left + up + offset, glsl::ToVec2(texRect.LeftBottom()), runAnim);
+    buffer.emplace_back(pos, right + down + offset, glsl::ToVec2(texRect.RightTop()), runAnim);
+    buffer.emplace_back(pos, right + up + offset, glsl::ToVec2(texRect.RightBottom()), runAnim);
   }
 
   dp::GLState state(gpu::BOOKMARK_PROGRAM, dp::GLState::UserMarkLayer);

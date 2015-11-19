@@ -596,4 +596,12 @@ public:
   Type GetType() const override { return Message::Invalidate; }
 };
 
+class DeactivateRouteFollowingMessage : public Message
+{
+public:
+  DeactivateRouteFollowingMessage(){}
+
+  Type GetType() const override { return Message::DeactivateRouteFollowing; }
+};
+
 } // namespace df

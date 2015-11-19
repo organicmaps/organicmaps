@@ -3,7 +3,7 @@ Z-INDEXES
 /*NATURE -1000 - 1 */
 
 area|z0-[natural=coastline]
-{z-index: -1000;}
+{z-index: -10;}
 area|z0-[natural=land]
 {z-index: 0;}
 area|z0-[natural=glacier]

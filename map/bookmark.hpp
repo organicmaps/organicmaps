@@ -66,7 +66,7 @@ private:
   time_t m_timeStamp;
 };
 
-class Bookmark : public UserMark, public style::StyledPoint
+class Bookmark : public UserMark
 {
   using TBase = UserMark;
 public:
@@ -103,11 +103,6 @@ public:
   void SetScale(double scale);
 
   unique_ptr<UserMarkCopy> Copy() const override;
-
-  // StyledPoint overrides:
-  double GetAnimScaleFactor() const override;
-  m2::PointD const & GetPixelOffset() const override; 
-  string const & GetStyle() const override { return m_data.GetType(); }
 
 private:
   BookmarkData m_data;
@@ -147,10 +142,8 @@ public:
   BookmarkCategory(string const & name, Framework & framework);
   ~BookmarkCategory();
 
-  //////////////////////////////////////////////////////////////////////
   size_t GetUserLineCount() const override;
   df::UserLineMark const * GetUserLineMark(size_t index) const override;
-  //////////////////////////////////////////////////////////////////////
 
   static string GetDefaultType();
 

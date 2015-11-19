@@ -58,7 +58,7 @@ static NSString * const kKeyPath = @"subviews";
   UserMarkControllerGuard guard(f.GetBookmarkManager(), UserMarkType::API_MARK);
   guard.m_controller.Clear();
   self.isVisible = NO;
-  NSURL * url = [NSURL URLWithString:@(f.GetApiDataHolder().m_globalBackUrl.c_str())];
+  NSURL * url = [NSURL URLWithString:@(f.GetApiDataHolder().GetGlobalBackUrl().c_str())];
   [[UIApplication sharedApplication] openURL:url];
 }
 
@@ -85,7 +85,7 @@ static NSString * const kKeyPath = @"subviews";
   if (isVisible)
   {
     self.backLabel.text = [NSString
-        stringWithFormat:L(@"back_to"), @(GetFramework().GetApiDataHolder().m_appTitle.c_str())];
+        stringWithFormat:L(@"back_to"), @(GetFramework().GetApiDataHolder().GetAppTitle().c_str())];
     [self.controller.view addSubview:self.rootView];
     [self.controller.view addObserver:self
                            forKeyPath:kKeyPath

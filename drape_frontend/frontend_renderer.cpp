@@ -336,6 +336,12 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::DeactivateRouteFollowing:
+    {
+      m_myPositionController->DeactivateRouting();
+      break;
+    }
+
   case Message::UpdateMapStyle:
     {
       // Clear tile tree.

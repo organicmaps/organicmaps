@@ -137,8 +137,6 @@ void Bookmark::SetScale(double scale)
   m_data.SetScale(scale);
 }
 
-//////////////////////////////////////////////////////////////////
-
 void BookmarkCategory::AddTrack(unique_ptr<Track> && track)
 {
   SetDirty();

@@ -101,11 +101,6 @@ unique_ptr<PoiMarkPoint> g_selectionUserMark;
 unique_ptr<MyPositionMarkPoint> g_myPosition;
 }
 
-UserMarkDLCache::Key UserMarkContainer::GetDefaultKey() const
-{
-  return UserMarkDLCache::Key(GetTypeName(), graphics::EPosCenter, GetDepth());
-}
-
 void UserMarkContainer::InitStaticMarks(UserMarkContainer * container)
 {
   if (g_selectionUserMark == NULL)
@@ -280,16 +275,6 @@ SearchUserMarkContainer::SearchUserMarkContainer(double layerDepth, Framework & 
 UserMark * SearchUserMarkContainer::AllocateUserMark(const m2::PointD & ptOrg)
 {
   return new SearchMarkPoint(ptOrg, this);
-}
-
-ApiUserMarkContainer::ApiUserMarkContainer(double layerDepth, Framework & framework)
-  : UserMarkContainer(layerDepth, UserMarkType::API_MARK, framework)
-{
-}
-
-UserMark * ApiUserMarkContainer::AllocateUserMark(const m2::PointD & ptOrg)
-{
-  return new ApiMarkPoint(ptOrg, this);
 }
 
 DebugUserMarkContainer::DebugUserMarkContainer(double layerDepth, Framework & framework)

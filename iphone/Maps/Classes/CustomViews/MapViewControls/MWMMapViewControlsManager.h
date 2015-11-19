@@ -14,6 +14,7 @@
 @property (nonatomic) MWMBottomMenuState menuState;
 @property (nonatomic, readonly) MWMNavigationDashboardState navigationState;
 @property (nonatomic) BOOL searchHidden;
+@property (nonatomic) location::EMyPositionMode myPositionMode;
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentController:(MapViewController *)controller;
@@ -45,6 +46,5 @@
 - (void)routingNavigation;
 - (void)handleRoutingError;
 - (void)setRouteBuildingProgress:(CGFloat)progress;
-- (void)setMyPositionMode:(location::EMyPositionMode)mode;
 
 @end

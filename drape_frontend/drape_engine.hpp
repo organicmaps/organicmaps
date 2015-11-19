@@ -108,6 +108,7 @@ public:
   void AddRoute(m2::PolylineD const & routePolyline, vector<double> const & turns, dp::Color const & color);
   void RemoveRoute(bool deactivateFollowing);
   void FollowRoute(int preferredZoomLevel);
+  void DeactivateRouteFollowing();
 
   void SetWidgetLayout(gui::TWidgetsLayoutInfo && info);
   gui::TWidgetsSizeInfo const & GetWidgetSizes();
