@@ -669,6 +669,7 @@
 		F672A6B71AD423A7009060C3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F672A6B61AD423A7009060C3 /* Images.xcassets */; };
 		F67BC26F1B254B2000FE1D7B /* MWMPlacePageDescriptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F67BC26E1B254B1F00FE1D7B /* MWMPlacePageDescriptionView.xib */; };
 		F67BC2751B254F5500FE1D7B /* MWMPlacePageTypeDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = F67BC2741B254F5500FE1D7B /* MWMPlacePageTypeDescription.mm */; };
+		F681DE971BFB390A00B547C7 /* MWMWhatsNewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F681DE961BFB390A00B547C7 /* MWMWhatsNewController.mm */; };
 		F6830F111B85F6B900C42AAE /* MWMLanesPanel.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6830F101B85F6B900C42AAE /* MWMLanesPanel.mm */; };
 		F68CEF741AD8852A00563FBA /* MWMMapController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68CEF731AD8852A00563FBA /* MWMMapController.mm */; };
 		F68E6BD21B8DB7AE0040566D /* MWMRouteHelperPanel.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68E6BD11B8DB7AE0040566D /* MWMRouteHelperPanel.mm */; };
@@ -708,6 +709,9 @@
 		F6D434521AD2AB96007C7728 /* maps.me WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 348E57D71B0F49EE000FA02A /* maps.me WatchKit App.app */; };
 		F6D4345A1AD2AB96007C7728 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6D434581AD2AB96007C7728 /* Interface.storyboard */; };
 		F6D4345F1AD2AB96007C7728 /* maps.me WatchKit Extension WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 348E57C81B0F49EE000FA02A /* maps.me WatchKit Extension WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F6D5822D1BFDB7C6009409E8 /* MWMPageController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6D5822C1BFDB7C6009409E8 /* MWMPageController.mm */; };
+		F6D5822E1BFDC9FF009409E8 /* MWMWhatsNewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F681DE961BFB390A00B547C7 /* MWMWhatsNewController.mm */; };
+		F6D5822F1BFDCA03009409E8 /* MWMPageController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6D5822C1BFDB7C6009409E8 /* MWMPageController.mm */; };
 		F6DBF9B61AA8779300F2EC2C /* CALayer+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6DBF9B51AA8779300F2EC2C /* CALayer+RuntimeAttributes.mm */; };
 		F6E0047B1B908CF5003BF5D8 /* MWMNiPadNavigationDashboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E0047A1B908CF5003BF5D8 /* MWMNiPadNavigationDashboard.xib */; };
 		F6ED13541B1643900095C6DE /* MWMDirectionView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6ED13531B1643900095C6DE /* MWMDirectionView.mm */; };
@@ -1238,6 +1242,8 @@
 		F67BC26E1B254B1F00FE1D7B /* MWMPlacePageDescriptionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMPlacePageDescriptionView.xib; sourceTree = "<group>"; };
 		F67BC2731B254F5500FE1D7B /* MWMPlacePageTypeDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPlacePageTypeDescription.h; sourceTree = "<group>"; };
 		F67BC2741B254F5500FE1D7B /* MWMPlacePageTypeDescription.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPlacePageTypeDescription.mm; sourceTree = "<group>"; };
+		F681DE951BFB390A00B547C7 /* MWMWhatsNewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMWhatsNewController.h; sourceTree = "<group>"; };
+		F681DE961BFB390A00B547C7 /* MWMWhatsNewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMWhatsNewController.mm; sourceTree = "<group>"; };
 		F6830F0F1B85F6B900C42AAE /* MWMLanesPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMLanesPanel.h; sourceTree = "<group>"; };
 		F6830F101B85F6B900C42AAE /* MWMLanesPanel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMLanesPanel.mm; sourceTree = "<group>"; };
 		F68CEF721AD8852A00563FBA /* MWMMapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapController.h; sourceTree = "<group>"; };
@@ -1299,6 +1305,8 @@
 		F6D4344D1AD2AB96007C7728 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F6D434571AD2AB96007C7728 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6D434591AD2AB96007C7728 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		F6D5822B1BFDB7C6009409E8 /* MWMPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPageController.h; sourceTree = "<group>"; };
+		F6D5822C1BFDB7C6009409E8 /* MWMPageController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPageController.mm; sourceTree = "<group>"; };
 		F6DBF9B41AA8779300F2EC2C /* CALayer+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+RuntimeAttributes.h"; sourceTree = "<group>"; };
 		F6DBF9B51AA8779300F2EC2C /* CALayer+RuntimeAttributes.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "CALayer+RuntimeAttributes.mm"; sourceTree = "<group>"; };
 		F6E0047A1B908CF5003BF5D8 /* MWMNiPadNavigationDashboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMNiPadNavigationDashboard.xib; sourceTree = "<group>"; };
@@ -2032,6 +2040,7 @@
 		34BC72091B0DECAE0012A34B /* MapViewControls */ = {
 			isa = PBXGroup;
 			children = (
+				F681DE941BFB38D700B547C7 /* What's New */,
 				34CFFE881B7DE67F009D0C9F /* Search */,
 				3465E7D51B66589900854C4D /* APIBar */,
 				340537621BBED98600D452C6 /* MWMMapViewControlsCommon.h */,
@@ -2473,6 +2482,17 @@
 				F66A8FAB1B09F137001B9C97 /* MWMiPadPlacePage.mm */,
 			);
 			name = MWMiPadPlacePageView;
+			sourceTree = "<group>";
+		};
+		F681DE941BFB38D700B547C7 /* What's New */ = {
+			isa = PBXGroup;
+			children = (
+				F681DE951BFB390A00B547C7 /* MWMWhatsNewController.h */,
+				F681DE961BFB390A00B547C7 /* MWMWhatsNewController.mm */,
+				F6D5822B1BFDB7C6009409E8 /* MWMPageController.h */,
+				F6D5822C1BFDB7C6009409E8 /* MWMPageController.mm */,
+			);
+			name = "What's New";
 			sourceTree = "<group>";
 		};
 		F6830F0E1B85DD7600C42AAE /* Lanes */ = {
@@ -3422,6 +3442,7 @@
 				FAA614B8155F16950031C345 /* AddSetVC.mm in Sources */,
 				977E26C619E31BDF00BA2219 /* DownloaderParentVC.mm in Sources */,
 				34CC4C121B82120700E44C1F /* MWMSearchTabbedViewLayout.mm in Sources */,
+				F681DE971BFB390A00B547C7 /* MWMWhatsNewController.mm in Sources */,
 				FAAEA7D5161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */,
 				340837131B7243CE00B5C185 /* MWMActivityViewController.mm in Sources */,
 				3497A93A1B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm in Sources */,
@@ -3442,6 +3463,7 @@
 				F6F533A31B3C248900C1940B /* UIColor+MapsMeColor.mm in Sources */,
 				346EDADB1B9F0E35004F8DB5 /* MWMMultilineLabel.mm in Sources */,
 				CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */,
+				F6D5822D1BFDB7C6009409E8 /* MWMPageController.mm in Sources */,
 				6BA0BCD11B74DDBA00CC9969 /* MWMCustomFacebookEvents.mm in Sources */,
 				978F9244183B660F000D6C7C /* SwitchCell.mm in Sources */,
 				342AD7721B53D32F00E0B997 /* UIView+RuntimeAttributes.mm in Sources */,
@@ -3542,6 +3564,7 @@
 				6741A9C71BF340DE002C974C /* NavigationController.mm in Sources */,
 				6741A9C81BF340DE002C974C /* MWMiPhoneLandscapePlacePage.mm in Sources */,
 				6741A9C91BF340DE002C974C /* ToastView.mm in Sources */,
+				F6D5822E1BFDC9FF009409E8 /* MWMWhatsNewController.mm in Sources */,
 				6741A9CA1BF340DE002C974C /* MWMAnimator.mm in Sources */,
 				6741A9CB1BF340DE002C974C /* MWMSearchContentView.mm in Sources */,
 				6741A9CC1BF340DE002C974C /* MWMSearchTableViewController.mm in Sources */,
@@ -3557,6 +3580,7 @@
 				6741A9D51BF340DE002C974C /* WebViewController.mm in Sources */,
 				6741A9D61BF340DE002C974C /* MWMPlacePageNavigationBar.mm in Sources */,
 				6741A9D71BF340DE002C974C /* MWMRouteHelperPanelsDrawer.mm in Sources */,
+				F6D5822F1BFDCA03009409E8 /* MWMPageController.mm in Sources */,
 				6741A9D81BF340DE002C974C /* RouteState.mm in Sources */,
 				6741A9D91BF340DE002C974C /* MWMLanesPanel.mm in Sources */,
 				6741A9DA1BF340DE002C974C /* UIKitCategories.mm in Sources */,
