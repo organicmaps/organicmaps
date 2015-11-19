@@ -54,6 +54,11 @@
 		3472747B1B0F4FF100756B37 /* me.maps.production.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 3472747A1B0F4FF100756B37 /* me.maps.production.entitlements */; };
 		3472EC051B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3472EC041B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm */; };
 		34751E9E1BFB8E73005299B7 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864B186C5EAA00AF7E9E /* MediaPlayer.framework */; };
+		3476B8CC1BFDCB6700874594 /* MWMTTSSettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F668F6551BCD4507002D6FFC /* MWMTTSSettingsViewController.mm */; };
+		3476B8DC1BFDD30B00874594 /* tts-how-to-set-up-voice.html in Resources */ = {isa = PBXBuildFile; fileRef = 3476B8D51BFDD30B00874594 /* tts-how-to-set-up-voice.html */; };
+		3476B8DD1BFDD30B00874594 /* tts-how-to-set-up-voice.html in Resources */ = {isa = PBXBuildFile; fileRef = 3476B8D51BFDD30B00874594 /* tts-how-to-set-up-voice.html */; };
+		3476B8E01BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */ = {isa = PBXBuildFile; fileRef = 3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */; };
+		3476B8E11BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */ = {isa = PBXBuildFile; fileRef = 3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */; };
 		347BAC691B733D540010FF78 /* MWMPedestrianShareAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347BAC681B733D540010FF78 /* MWMPedestrianShareAlert.xib */; };
 		347BAC6E1B736BA70010FF78 /* MWMSharePedestrianRoutesToastActivityItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 347BAC6D1B736BA70010FF78 /* MWMSharePedestrianRoutesToastActivityItem.mm */; };
 		347FDDA11BB59B4E00871410 /* Mapsme.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 347FDDA01BB59B4E00871410 /* Mapsme.storyboard */; };
@@ -890,6 +895,8 @@
 		3472747A1B0F4FF100756B37 /* me.maps.production.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = me.maps.production.entitlements; sourceTree = "<group>"; };
 		3472EC031B4D44BE0085CB79 /* UIFont+MapsMeFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+MapsMeFonts.h"; sourceTree = "<group>"; };
 		3472EC041B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIFont+MapsMeFonts.mm"; sourceTree = "<group>"; };
+		3476B8D51BFDD30B00874594 /* tts-how-to-set-up-voice.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "tts-how-to-set-up-voice.html"; path = "../../data/tts-how-to-set-up-voice.html"; sourceTree = "<group>"; };
+		3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tts-how-to-set-up-voice-img"; path = "../../data/tts-how-to-set-up-voice-img"; sourceTree = "<group>"; };
 		347BAC681B733D540010FF78 /* MWMPedestrianShareAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMPedestrianShareAlert.xib; sourceTree = "<group>"; };
 		347BAC6C1B736BA70010FF78 /* MWMSharePedestrianRoutesToastActivityItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSharePedestrianRoutesToastActivityItem.h; sourceTree = "<group>"; };
 		347BAC6D1B736BA70010FF78 /* MWMSharePedestrianRoutesToastActivityItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSharePedestrianRoutesToastActivityItem.mm; sourceTree = "<group>"; };
@@ -2665,6 +2672,8 @@
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3476B8D51BFDD30B00874594 /* tts-how-to-set-up-voice.html */,
+				3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */,
 				4A23D1561B8B4DD700D4EB6F /* drules_proto_clear.bin */,
 				4A23D1571B8B4DD700D4EB6F /* resources-6plus_clear */,
 				4A23D1581B8B4DD700D4EB6F /* resources-mdpi_clear */,
@@ -3008,6 +3017,7 @@
 				EEA61604134C496A003A9827 /* 04_padauk.ttf in Resources */,
 				EEA61605134C496A003A9827 /* 05_khmeros.ttf in Resources */,
 				347274731B0F4EE000756B37 /* me.maps.entitlements in Resources */,
+				3476B8E01BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */,
 				EE164811135CEE4A003B8A3E /* 06_code2000.ttf in Resources */,
 				FAAFD697139D9BE2000AE70C /* categories.txt in Resources */,
 				FA64D9A913F975AD00350ECF /* types.txt in Resources */,
@@ -3021,6 +3031,7 @@
 				B0DFE6311A1B78A200B6C35E /* LocalNotifications.plist in Resources */,
 				34B82ABB1B837FFD00180497 /* MWMSearchHistoryRequestCell.xib in Resources */,
 				34B6CF5D1BBBFC6B009203C6 /* LaunchScreen.storyboard in Resources */,
+				3476B8DC1BFDD30B00874594 /* tts-how-to-set-up-voice.html in Resources */,
 				978D4A31199A11E600D72CA7 /* faq.html in Resources */,
 				F66A8FB21B0A0954001B9C97 /* PlacePageView.xib in Resources */,
 				97FC99E019C1A2CD00C1CF98 /* resources-xxhdpi in Resources */,
@@ -3155,6 +3166,7 @@
 				6741A9581BF340DE002C974C /* 04_padauk.ttf in Resources */,
 				6741A9591BF340DE002C974C /* 05_khmeros.ttf in Resources */,
 				6741A95A1BF340DE002C974C /* me.maps.entitlements in Resources */,
+				3476B8E11BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */,
 				6741A95B1BF340DE002C974C /* 06_code2000.ttf in Resources */,
 				6741A95C1BF340DE002C974C /* categories.txt in Resources */,
 				6741A95D1BF340DE002C974C /* types.txt in Resources */,
@@ -3168,6 +3180,7 @@
 				6741A9651BF340DE002C974C /* LocalNotifications.plist in Resources */,
 				6741A9661BF340DE002C974C /* MWMSearchHistoryRequestCell.xib in Resources */,
 				6741A9671BF340DE002C974C /* LaunchScreen.storyboard in Resources */,
+				3476B8DD1BFDD30B00874594 /* tts-how-to-set-up-voice.html in Resources */,
 				6741A9681BF340DE002C974C /* faq.html in Resources */,
 				6741A9691BF340DE002C974C /* PlacePageView.xib in Resources */,
 				6741A96A1BF340DE002C974C /* resources-xxhdpi in Resources */,
@@ -3539,6 +3552,7 @@
 				6741A9D11BF340DE002C974C /* RenderContext.mm in Sources */,
 				6741A9D21BF340DE002C974C /* MWMBookmarkDescriptionViewController.mm in Sources */,
 				6741A9D31BF340DE002C974C /* MWMDownloadMapRequestView.mm in Sources */,
+				3476B8CC1BFDCB6700874594 /* MWMTTSSettingsViewController.mm in Sources */,
 				6741A9D41BF340DE002C974C /* MWMAlertViewController.mm in Sources */,
 				6741A9D51BF340DE002C974C /* WebViewController.mm in Sources */,
 				6741A9D61BF340DE002C974C /* MWMPlacePageNavigationBar.mm in Sources */,
