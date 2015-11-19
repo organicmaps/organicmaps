@@ -866,7 +866,7 @@ line|z10-11[highway=trunk_link] {
 
 line|z10-11[highway=primary],
 line|z10-11[highway=primary_link] {
-  font-size: 9;
+  font-size: 10;
   text: name;
   text-color: @label_medium;
   text-halo-opacity: 0.3;
@@ -876,7 +876,7 @@ line|z10-11[highway=primary_link] {
 }
 
 line|z10-11[highway=secondary] {
-  font-size: 9;
+  font-size: 10;
   text: name;
   text-color: @label_light;
   text-halo-opacity: 0.3;
@@ -922,7 +922,7 @@ line|z12-13[highway=primary_link] {
 }
 
 line|z12-13[highway=secondary] {
-  font-size: 9;
+  font-size: 10;
   text: name;
   text-color: @label_light;
   text-halo-opacity: 0.3;
@@ -932,7 +932,7 @@ line|z12-13[highway=secondary] {
 
 line|z12-13[highway=residential],
 line|z12-13[highway=tertiary] {
-  font-size: 8;
+  font-size: 10;
   text: name;
   text-color: @label_light;
   text-halo-opacity: 0;
@@ -981,7 +981,7 @@ line|z14[highway=tertiary],
 line|z14[highway=unclassified],
 line|z14[highway=living_street],
 line|z14[highway=pedestrian] {
-  font-size: 9;
+  font-size: 10;
   text: name;
   text-color: @label_medium;
   text-halo-opacity: 0.5;
@@ -999,7 +999,7 @@ line|z15[highway=tertiary],
 line|z15[highway=unclassified],
 line|z15[highway=living_street],
 line|z15[highway=pedestrian] {
-  font-size: 10;
+  font-size: 11;
   text: name;
   text-color: @label_medium;
   text-halo-opacity: 0.5;
@@ -1042,7 +1042,7 @@ line|z16-17[highway=unclassified],
 line|z16-17[highway=living_street],
 line|z16-17[highway=pedestrian],
 line|z16-17[highway=path] {
-  font-size: 11;
+  font-size: 12;
   text: name;
   text-color: @label_medium;
   text-halo-opacity: 0.5;
@@ -1436,13 +1436,14 @@ area|z14[leisure=park][name] {
   icon-image: park-s.svg;
   text-offset: 8;
   text: name;
-  font-size: 10;
+  font-size: 11;
   text-color: @park_label;
   text-halo-color: @label_halo_light;
   text-halo-radius: 0.4;
   text-halo-opacity: 0.4;
 }
 area|z14[leisure=park][!name] {
+    icon-image: none.svg;
 }
 
 
@@ -1461,7 +1462,7 @@ area|z15[leisure=park][name], {
   icon-image: park-m.svg;
   text-offset: 8;
   text: name;
-  font-size: 10;
+  font-size: 11;
   text-color: @park_label;
   text-halo-color: @label_halo_light;
   text-halo-radius: 0.4;
@@ -1469,6 +1470,7 @@ area|z15[leisure=park][name], {
 }
 
 area|z15[leisure=park][name]::int_name, {
+  font-size: 10;
   text-offset: 18;
   text: int_name;
   text-color: @park_label;
