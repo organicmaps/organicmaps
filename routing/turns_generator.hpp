@@ -51,7 +51,6 @@ struct LoadedPathSegment
   LoadedPathSegment(RoutingMapping & mapping, Index const & index,
                     RawPathData const & osrmPathSegment, FeatureGraphNode const & startGraphNode,
                     FeatureGraphNode const & endGraphNode, bool isStartNode, bool isEndNode);
-  LoadedPathSegment() = delete;
 
 private:
   // Load information about road, that described as the sequence of FtSegs and start/end indexes in

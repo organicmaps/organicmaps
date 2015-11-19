@@ -543,7 +543,7 @@ LoadedPathSegment::LoadedPathSegment(RoutingMapping & mapping, Index const & ind
   , m_weight(0)
   , m_nodeId(osrmPathSegment.node)
 {
-  ASSERT(isStartNode || isEndNode, ("This function process only side cases."));
+  ASSERT(isStartNode || isEndNode, ("This function process only corner cases."));
   if (!startGraphNode.segment.IsValid() || !endGraphNode.segment.IsValid())
     return;
   buffer_vector<TSeg, 8> buffer;
@@ -581,13 +581,13 @@ LoadedPathSegment::LoadedPathSegment(RoutingMapping & mapping, Index const & ind
   {
     PhantomNode const * node = nullptr;
     if (isStartNode)
-        node = &startGraphNode.node;
-    else if (isEndNode)
-        node = &endGraphNode.node;
+      node = &startGraphNode.node;
+    if (isEndNode)
+      node = &endGraphNode.node;
     if (node)
     {
-        m_weight = (osrmPathSegment.node == node->forward_weight)
-                     ? node->GetForwardWeightPlusOffset() : node->GetReverseWeightPlusOffset();
+      m_weight = (osrmPathSegment.node == node->forward_weight)
+                  ? node->GetForwardWeightPlusOffset() : node->GetReverseWeightPlusOffset();
     }
   }
 
@@ -909,7 +909,7 @@ size_t CheckUTurnOnRoute(vector<LoadedPathSegment> const & segments, size_t curr
   // Roundabout is not the UTurn.
   if (masterSegment.m_onRoundabout)
     return 0;
-  for (size_t i = 0; i < min(kUTurnLookAhead, segments.size() - currentSegment); ++i)
+  for (size_t i = 0; i < kUTurnLookAhead && i + currentSegment < segments.size(); ++i)
   {
     auto const & checkedSegment = segments[currentSegment + i];
     if (checkedSegment.m_name == masterSegment.m_name &&
@@ -925,7 +925,7 @@ size_t CheckUTurnOnRoute(vector<LoadedPathSegment> const & segments, size_t curr
       {
         // TODO Fix direction calculation.
         // Warning! We can not determine UTurn direction in single edge case. So we use UTurnLeft.
-        // We deside to add driving rules (left-right sided driving) to mwm header.
+        // We decided to add driving rules (left-right sided driving) to mwm header.
         if (p1 == p2)
         {
           turn.m_turn = TurnDirection::UTurnLeft;

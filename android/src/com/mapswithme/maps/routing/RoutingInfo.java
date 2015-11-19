@@ -47,7 +47,8 @@ public class RoutingInfo
     TURN_SHARP_LEFT(R.drawable.ic_sharp_right_light, R.drawable.ic_sharp_right_then),
     TURN_SLIGHT_LEFT(R.drawable.ic_slight_right_light, R.drawable.ic_slight_right_then),
 
-    U_TURN(R.drawable.ic_uturn_light, R.drawable.ic_uturn_then),
+    U_TURN_LEFT(R.drawable.ic_uturn_light, R.drawable.ic_uturn_then),
+    U_TURN_RIGHT(R.drawable.ic_uturn_light, R.drawable.ic_uturn_then),
     TAKE_THE_EXIT(R.drawable.ic_finish_point_light, 0),
 
     ENTER_ROUND_ABOUT(R.drawable.ic_round_light, R.drawable.ic_round_then),
