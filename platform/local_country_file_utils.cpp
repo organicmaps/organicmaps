@@ -198,7 +198,7 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, vector<LocalCountryFile> 
   {
     string const & subdir = fwt.first;
     int64_t version;
-    if (!ParseVersion(subdir, version))
+    if (!ParseVersion(subdir, version) || version > latestVersion)
       continue;
 
     string const fullPath = my::JoinFoldersToPath(dir, subdir);

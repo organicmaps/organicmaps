@@ -159,7 +159,7 @@ UNIT_TEST(LocalCountryFile_CleanupMapFiles)
 
   // Check FindAllLocalMaps()
   vector<LocalCountryFile> localFiles;
-  FindAllLocalMapsAndCleanup(-1 /* latestVersion */, localFiles);
+  FindAllLocalMapsAndCleanup(4 /* latestVersion */, localFiles);
   TEST(!Contains(localFiles, japanLocalFile), (japanLocalFile, localFiles));
   TEST(!Contains(localFiles, brazilLocalFile), (brazilLocalFile, localFiles));
   TEST(Contains(localFiles, irelandLocalFile), (irelandLocalFile, localFiles));
@@ -270,7 +270,7 @@ UNIT_TEST(LocalCountryFile_AllLocalFilesLookup)
   ScopedFile testItalyMapFile(testDir, italyFile, MapOptions::Map, "Italy-map");
 
   vector<LocalCountryFile> localFiles;
-  FindAllLocalMapsAndCleanup(-1 /* latestVersion */, localFiles);
+  FindAllLocalMapsAndCleanup(10101 /* latestVersion */, localFiles);
   multiset<LocalCountryFile> localFilesSet(localFiles.begin(), localFiles.end());
 
   bool worldFound = false;
