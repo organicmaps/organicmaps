@@ -205,7 +205,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
                    withParameters:@{kStatValue : kStatSource}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppRoute"];
   [self.delegate buildRouteFrom:self.target];
-  [self dismissPlacePage];
+  [self hidePlacePage];
 }
 
 - (void)routeTo
@@ -214,7 +214,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
                    withParameters:@{kStatValue : kStatDestination}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppRoute"];
   [self.delegate buildRouteTo:self.target];
-  [self dismissPlacePage];
+  [self hidePlacePage];
 }
 
 - (MWMRoutePoint)target
