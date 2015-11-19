@@ -483,7 +483,7 @@ public class SearchFragment extends BaseMwmFragment
     if (mFromRoutePlan)
     {
       RoutingController.get().onPoiSelected(null);
-      return true;
+      return !(getActivity() instanceof SearchActivity);
     }
 
     return false;
