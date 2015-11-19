@@ -801,4 +801,18 @@
 	<string name="clear_search">Eliminar el historial de búsqueda</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">Mostrar publicidad</string>
+	<string name="p2p_route_planning">Planificación de ruta</string>
+	<string name="p2p_your_location">Tu ubicación</string>
+	<string name="p2p_from">El punto de origen</string>
+	<string name="p2p_to">El punto de destino</string>
+	<string name="p2p_start">Empezar</string>
+	<string name="p2p_planning">Planeando…</string>
+	<string name="p2p_from_here">Desde</string>
+	<string name="p2p_to_here">A</string>
+	<string name="p2p_only_from_current">La navegación solo está disponible desde tu ubicación actual.</string>
+	<string name="p2p_reroute_from_current">¿Quieres que planeemos un ruta desde tu ubicación actual?</string>
+	<string name="whats_new_where_to_turn">MAPS.ME te permitirá saber dónde girar</string>
+	<string name="whats_new_voice_instructions">Estimados amigos: hace tiempo que solicitáis instrucciones de voz durante la navegación. ¡Lo hemos hecho posible! Ahora, nuestro navegador te indicará oportunamente dónde debes girar a continuación.</string>
+	<string name="whats_new_between_any_points">Crea rutas entre los puntos que quieras</string>
+	<string name="whats_new_happy_day">¡Que tengas un buen día! Planifica tus viajes por adelantado con MAPS.ME.</string>
 </resources>

@@ -808,4 +808,18 @@
 	<string name="clear_search">Tøm søkehistorikk</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">Vis annonser</string>
+	<string name="p2p_route_planning">Ruteplanlegging</string>
+	<string name="p2p_your_location">Din beliggenhet</string>
+	<string name="p2p_from">Avreisested</string>
+	<string name="p2p_to">Destinasjonssted</string>
+	<string name="p2p_start">Start</string>
+	<string name="p2p_planning">Planlegger…</string>
+	<string name="p2p_from_here">Fra</string>
+	<string name="p2p_to_here">Til</string>
+	<string name="p2p_only_from_current">Navigering er kun tilgjengelig fra din nåværende beliggenhet.</string>
+	<string name="p2p_reroute_from_current">Vil du vi skal planlegge en rute fra din nåværende posisjon?</string>
+	<string name="whats_new_where_to_turn">MAPS.ME gir deg perfekte veibeskrivelser</string>
+	<string name="whats_new_voice_instructions">Kjære venner, vi har nå oppfylt deres ønske om tale av veibeskrivelser! Nå vil navigatøren vår gi deg veibeskrivelser i god tid.</string>
+	<string name="whats_new_between_any_points">Sett sammen en reiserute mellom to steder</string>
+	<string name="whats_new_happy_day">I dag er en god dag! Planlegg reisene dine i forveien med MAPS.ME.</string>
 </resources>

@@ -808,4 +808,18 @@
 	<string name="clear_search">Poista hakuhistoria</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">Näytä mainokset</string>
+	<string name="p2p_route_planning">Reittisuunnittelu</string>
+	<string name="p2p_your_location">Sijaintisi</string>
+	<string name="p2p_from">Lähtöpiste</string>
+	<string name="p2p_to">Päämäärä</string>
+	<string name="p2p_start">Aloita</string>
+	<string name="p2p_planning">Lasketaan…</string>
+	<string name="p2p_from_here">Lähtöpaikka</string>
+	<string name="p2p_to_here">Määränpää</string>
+	<string name="p2p_only_from_current">Navigointi onnistuu vain nykyisestä sijainnistasi.</string>
+	<string name="p2p_reroute_from_current">Haluatko valita vaihtoehtoisen reitin?</string>
+	<string name="whats_new_where_to_turn">MAPS.ME kertoo sinulle, minne kääntyä</string>
+	<string name="whats_new_voice_instructions">Hyvät ystävät, olette pyytäneet ääniopastusta navigoinnin avuksi jo pitkän aikaa - toiveenne on kuultu! Nyt navigaattorimme varoittaa sinua hyvissä ajoin, ennen kuin sinun pitää kääntyä.</string>
+	<string name="whats_new_between_any_points">Luo reittejä minkä tahansa kohteiden välille</string>
+	<string name="whats_new_happy_day">Elämä hymyilee! Suunnittele matkasi etukäteen MAPS.ME -sovelluksen avulla.</string>
 </resources>

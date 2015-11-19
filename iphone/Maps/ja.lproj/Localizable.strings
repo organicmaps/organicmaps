@@ -1339,3 +1339,31 @@
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
+
+"p2p_route_planning" = "ルート作成";
+
+"p2p_your_location" = "現在位置";
+
+"p2p_from" = "出発地";
+
+"p2p_to" = "目的地";
+
+"p2p_start" = "開始";
+
+"p2p_planning" = "作成中…";
+
+"p2p_from_here" = "出発地";
+
+"p2p_to_here" = "目的地";
+
+"p2p_only_from_current" = "ナビゲーションは現在位置からのみ利用できます。";
+
+"p2p_reroute_from_current" = "現在位置からのルートを作成しますか？";
+
+"whats_new_where_to_turn" = "MAPS.MEが道順をご案内します";
+
+"whats_new_voice_instructions" = "お友達の皆様へ。皆様が長い間待ち望んでいたナビゲーションの音声案内を、ついに実現しました！ナビゲーターがリアルタイムで次の道順をご案内します。";
+
+"whats_new_between_any_points" = "出発地から目的時までのルートを作成";
+
+"whats_new_happy_day" = "実にすがすがしい日ですね！MAPS.MEで旅程を立てましょう。";

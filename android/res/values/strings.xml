@@ -863,4 +863,18 @@
 	<string name="showcase_settings_title">Show Advertising</string>
 	<!-- Place Page link to Wikipedia article (if map object has it). -->
 	<string name="read_in_wikipedia">Wikipedia</string>
+	<string name="p2p_route_planning">Route Planning</string>
+	<string name="p2p_your_location">Your Location</string>
+	<string name="p2p_from">From</string>
+	<string name="p2p_to">To</string>
+	<string name="p2p_start">Start</string>
+	<string name="p2p_planning">Planning…</string>
+	<string name="p2p_from_here">From</string>
+	<string name="p2p_to_here">To</string>
+	<string name="p2p_only_from_current">Navigation is available only from your current location.</string>
+	<string name="p2p_reroute_from_current">Do you want us to plan a route from your current location?</string>
+	<string name="whats_new_where_to_turn">MAPS.ME will let you know where to turn</string>
+	<string name="whats_new_voice_instructions">Dear friends, you have long been asking for voice instructions during navigation - we have done that! Now our navigator will timely warn you of your next turn.</string>
+	<string name="whats_new_between_any_points">Build routes between any points</string>
+	<string name="whats_new_happy_day">A happy day indeed! Plan your trips ahead with MAPS.ME.</string>
 </resources>

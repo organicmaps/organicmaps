@@ -812,4 +812,18 @@
 	<string name="clear_search">Arama geçmişini temizle</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">Reklamı göster</string>
+	<string name="p2p_route_planning">Rota planlama</string>
+	<string name="p2p_your_location">Konumunuz</string>
+	<string name="p2p_from">Kalkış noktası</string>
+	<string name="p2p_to">Varış noktası</string>
+	<string name="p2p_start">Başla</string>
+	<string name="p2p_planning">Planlanıyor…</string>
+	<string name="p2p_from_here">Başlangıç</string>
+	<string name="p2p_to_here">Hedef</string>
+	<string name="p2p_only_from_current">Navigasyon sadece şu anki konumunuzdan mevcut.</string>
+	<string name="p2p_reroute_from_current">Mevcut konumunuzdan bir rota planlamamızı ister misiniz?</string>
+	<string name="whats_new_where_to_turn">MAPS.ME nereye döneceğinizi bilmenizi sağlayacak</string>
+	<string name="whats_new_voice_instructions">Sevgili arkadaşlar, navigasyon sırasında sesli talimatları uzun süredir sormaktaydınız - Bunu yaptık! Artık navigatörümüz bir sonraki dönüşünüz için zamanı geldiğinde sizi uyaracak.</string>
+	<string name="whats_new_between_any_points">Herhangi noktalar arasında rotalar oluşturun</string>
+	<string name="whats_new_happy_day">Çok mutlu bir gün öyle değil mi! Yolculuğunuzu önceden MAPS.ME ile planlayın.</string>
 </resources>

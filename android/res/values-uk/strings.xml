@@ -811,4 +811,18 @@
 	<string name="clear_search">Очистити історію пошуку</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">Показувати рекламу</string>
+	<string name="p2p_route_planning">Планування маршруту</string>
+	<string name="p2p_your_location">Ваше місцезнаходження</string>
+	<string name="p2p_from">Пункт відправлення</string>
+	<string name="p2p_to">Пункт призначення</string>
+	<string name="p2p_start">Почати рух</string>
+	<string name="p2p_planning">Плануємо…</string>
+	<string name="p2p_from_here">Звідси</string>
+	<string name="p2p_to_here">Сюди</string>
+	<string name="p2p_only_from_current">Маршрут можна прокласти лише з поточного місцезнаходження.</string>
+	<string name="p2p_reroute_from_current">Хочете спланувати маршрут із поточного місцезнаходження?</string>
+	<string name="whats_new_where_to_turn">MAPS.ME підкаже, куди повернути</string>
+	<string name="whats_new_voice_instructions">Любі друзі, Ви давно просили додати голосові підказки під час навігації - і ми це зробили! Ваш новий штурман вчасно попередить про маневр.</string>
+	<string name="whats_new_between_any_points">Прокладіть маршрут між будь-якими об\&#39;єктами</string>
+	<string name="whats_new_happy_day">Так, це насправді! Сьогодні щасливий день і ще одне покращення. Заздалегідь заплануйте свої подорожі разом з MAPS.ME.</string>
 </resources>

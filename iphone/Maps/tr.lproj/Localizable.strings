@@ -1339,3 +1339,31 @@
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
+
+"p2p_route_planning" = "Rota planlama";
+
+"p2p_your_location" = "Konumunuz";
+
+"p2p_from" = "Kalkış noktası";
+
+"p2p_to" = "Varış noktası";
+
+"p2p_start" = "Başla";
+
+"p2p_planning" = "Planlanıyor…";
+
+"p2p_from_here" = "Başlangıç";
+
+"p2p_to_here" = "Hedef";
+
+"p2p_only_from_current" = "Navigasyon sadece şu anki konumunuzdan mevcut.";
+
+"p2p_reroute_from_current" = "Mevcut konumunuzdan bir rota planlamamızı ister misiniz?";
+
+"whats_new_where_to_turn" = "MAPS.ME nereye döneceğinizi bilmenizi sağlayacak";
+
+"whats_new_voice_instructions" = "Sevgili arkadaşlar, navigasyon sırasında sesli talimatları uzun süredir sormaktaydınız - Bunu yaptık! Artık navigatörümüz bir sonraki dönüşünüz için zamanı geldiğinde sizi uyaracak.";
+
+"whats_new_between_any_points" = "Herhangi noktalar arasında rotalar oluşturun";
+
+"whats_new_happy_day" = "Çok mutlu bir gün öyle değil mi! Yolculuğunuzu önceden MAPS.ME ile planlayın.";

@@ -1339,3 +1339,31 @@
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
+
+"p2p_route_planning" = "Ruttplanering";
+
+"p2p_your_location" = "Din plats";
+
+"p2p_from" = "Startplats";
+
+"p2p_to" = "Målplats";
+
+"p2p_start" = "Start";
+
+"p2p_planning" = "Planerar…";
+
+"p2p_from_here" = "Från";
+
+"p2p_to_here" = "Till";
+
+"p2p_only_from_current" = "Navigering är endast tillgänglig från din aktuella plats.";
+
+"p2p_reroute_from_current" = "Vill du att vi planerar en färdväg från din nuvarande plats?";
+
+"whats_new_where_to_turn" = "MAPS.ME berättar var du ska svänga";
+
+"whats_new_voice_instructions" = "Kära vänner, ni har länge frågat efter röstinstruktioner under navigering – vi har gjort det! Nu meddelar vår navigator dig lagom till nästa sväng.";
+
+"whats_new_between_any_points" = "Skapa rutter mellan valfria punkter";
+
+"whats_new_happy_day" = "Definitivt en dag att fira! Planera dina resor i förväg med MAPS.ME.";

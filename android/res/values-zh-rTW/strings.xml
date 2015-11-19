@@ -794,4 +794,18 @@
 	<string name="clear_search">清除搜尋記錄</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">顯示廣告</string>
+	<string name="p2p_route_planning">路線計劃</string>
+	<string name="p2p_your_location">您的位置</string>
+	<string name="p2p_from">出發地點</string>
+	<string name="p2p_to">目的地點</string>
+	<string name="p2p_start">開始</string>
+	<string name="p2p_planning">計劃中…</string>
+	<string name="p2p_from_here">從</string>
+	<string name="p2p_to_here">到</string>
+	<string name="p2p_only_from_current">導航只能從您目前的位置開始。</string>
+	<string name="p2p_reroute_from_current">你是否想要規劃當前位置的路線？</string>
+	<string name="whats_new_where_to_turn">MAPS.ME 會讓您知道應該在哪裡轉彎</string>
+	<string name="whats_new_voice_instructions">親愛的朋友，您一直要求在導航時提供語音指示 - 我們已經做到了！現在，我們的導航儀會及時在您下一次轉變之前發出警示。</string>
+	<string name="whats_new_between_any_points">創建任何點之間的路線</string>
+	<string name="whats_new_happy_day">真是愉快的一天！使用MAPS.ME提前計劃您的旅行。</string>
 </resources>
