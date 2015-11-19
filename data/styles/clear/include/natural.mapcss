@@ -4,21 +4,25 @@
 area|z0-9[natural=land]
 {
 	fill-opacity: 1;
-	z-index: -100;
 	fill-color: @background;
+	fill-position: background;
+	z-index: 0;
 }
 
 area|z10-[natural=land]
 {
 	fill-opacity: 1;
-	z-index: -100;
 	fill-color: @background;
+	fill-position: background;
+	z-index: 0;
 }
 
 /* glacier */
 area|z0-[natural=glacier]
 {
-  fill-color: @glacier;
+	fill-color: @glacier;
+	fill-position: background;
+  z-index: 1;
 }
 
 /*water */
@@ -26,6 +30,7 @@ area|z0-[natural=glacier]
 area|z0-10[natural=coastline]
 {
   fill-color: @water;
+	fill-position: background;
 	opacity: 1;
   z-index: -10;
 }
@@ -33,6 +38,7 @@ area|z0-10[natural=coastline]
 area|z11-19[natural=coastline]
 {
   fill-color: @water;
+	fill-position: background;
 	opacity: 1;
   z-index: -10;
 }
@@ -40,6 +46,7 @@ area|z11-19[natural=coastline]
 area|z10-19[natural=coastline]
 {
   fill-color: @water;
+	fill-position: background;
   z-index: -10;
 }
 
@@ -56,21 +63,17 @@ area|z10-[waterway=river],
 area|z10-[natural=bay],
 {
   fill-color: @water;
-  z-index: 250;
+  z-index: 100;
+	fill-position: background;
 }
 
-area|z10-11[natural=lake],
-area|z10-11[landuse=reservoir],
-area|z10-11[natural=water]
-{
-  fill-color: @water;
-  z-index: 1000;
-}
 
-area|z12-[natural=wetland] {
-	z-index: 15;
-	fill-opacity: 0.2;
+area|z11-[natural=wetland] {
+	z-index: 49;
+	fill-opacity: 0.3;
 	fill-color: @water;
+	fill-position: background;
+
 }
 
 /* rivers */
@@ -170,6 +173,7 @@ area|z10[leisure=nature_reserve]
   fill-color: @forest;
   fill-opacity: 0.5;
   z-index: 30;
+	fill-position: background;
 }
 area|z11[natural=wood],
 area|z11[landuse=forest],
@@ -178,6 +182,7 @@ area|z11[leisure=nature_reserve]
   fill-color: @forest;
   fill-opacity: 0.65;
   z-index: 30;
+	fill-position: background;
 }
 area|z12[natural=wood],
 area|z12[landuse=forest],
@@ -186,6 +191,8 @@ area|z12[leisure=nature_reserve]
   fill-color: @forest;
   fill-opacity: 0.75;
   z-index: 30;
+	fill-position: background;
+
 }
 
 area|z13-14[natural=wood],
@@ -195,6 +202,7 @@ area|z13-14[leisure=nature_reserve]
   fill-color: @forest;
   fill-opacity: 0.85;
   z-index: 30;
+	fill-position: background;
 }
 
 area|z15-[natural=wood],
@@ -204,18 +212,21 @@ area|z15-[leisure=nature_reserve]
   fill-color: @forest;
   fill-opacity: 1;
   z-index: 30;
+	fill-position: background;
 }
 
 area|z10[leisure=park] {
   fill-color: @park;
   fill-opacity: 0.4;
   z-index: 40;
+	fill-position: background;
 }
 
 area|z11[leisure=park] {
   fill-color: @park;
   fill-opacity: 0.5;
   z-index: 40;
+	fill-position: background;
 }
 
 
@@ -223,36 +234,52 @@ area|z12[leisure=park], area|z12[leisure=garden] {
   fill-color: @park;
   fill-opacity: 0.7;
   z-index: 40;
+	fill-position: background;
 }
 
 area|z13[leisure=park], area|z13[leisure=garden] {
   fill-color: @park;
   fill-opacity: 0.8;
   z-index: 40;
+	fill-position: background;
 }
 area|z14[leisure=park], area|z14[leisure=garden] {
   fill-color: @park;
   fill-opacity: 0.85;
   z-index: 40;
+	fill-position: background;
 }
 area|z15-[leisure=park], area|z15-[leisure=garden]  {
   fill-color: @park;
   fill-opacity: 1;
   z-index: 40;
+	fill-position: background;
 }
 area|z15-[landuse=grass]
 {
   fill-color: @forest;
   fill-opacity: 1;
-  z-index: 15;
+  z-index: 45;
+	fill-position: background;
 }
 
-area|z15-[natural=scrub]
+area|z14-[landuse=farmland],
+area|z14-[landuse=allotments],
+area|z14-[natural=scrub],
+area|z14-[landuse=orchard],
+area|z14-[landuse=vineyard],
+area|z14-[landuse=meadow],
+area|z14-[landuse=recreation_ground],
+area|z14-[landuse=village_green],
+
+
 {
   fill-color: @forest;
   fill-opacity: 1;
-  z-index: 15;
+  z-index: 42;
+	fill-position: background;
 }
+
 
 /*  BEACH */
 
@@ -262,19 +289,22 @@ area|z10-14[natural=beach],
 {
   fill-color: @beach;
   fill-opacity: 0.7;
-  z-index: 30;
+  z-index: 1;
+	fill-position: background;
 }
 area|z15-[leisure=beach_resort],
 area|z15-[natural=beach],
 {
   fill-color: @beach;
   fill-opacity: 0.85;
-  z-index: 40;
+  z-index: 1;
+	fill-position: background;
 }
 area|z17-[leisure=beach_resort],
 area|z17-[natural=beach],
 {
   fill-color: @beach;
   fill-opacity: 1;
-  z-index: 40;
+  z-index: 1;
+	fill-position: background;
 }
