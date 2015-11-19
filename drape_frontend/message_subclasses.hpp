@@ -667,4 +667,22 @@ private:
   bool const m_enable;
 };
 
+class EnablePerspectiveMessage : public Message
+{
+public:
+  EnablePerspectiveMessage(double rotationAngle, double angleFOV)
+    : m_rotationAngle(rotationAngle)
+    , m_angleFOV(angleFOV)
+  {}
+
+  Type GetType() const override { return Message::EnablePerspective; }
+
+  double GetRotationAngle() const { return m_rotationAngle; }
+  double GetAngleFOV() const { return m_angleFOV; }
+
+private:
+  double const m_rotationAngle;
+  double const m_angleFOV;
+};
+
 } // namespace df

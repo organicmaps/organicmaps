@@ -115,6 +115,7 @@ public:
   gui::TWidgetsSizeInfo const & GetWidgetSizes();
 
   void Enable3dMode(bool enable);
+  void EnablePerspective(double rotationAngle, double angleFOV);
 
 private:
   void AddUserEvent(UserEvent const & e);

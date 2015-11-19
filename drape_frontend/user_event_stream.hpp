@@ -145,20 +145,22 @@ struct FollowAndRotateEvent
   bool m_isAnim;
 };
 
-struct Enable3dModeEvent
+struct EnablePerspectiveEvent
 {
-  Enable3dModeEvent(double rotationAngle, double angleFOV)
+  EnablePerspectiveEvent(double rotationAngle, double angleFOV, bool isAnim)
     : m_rotationAngle(rotationAngle)
     , m_angleFOV(angleFOV)
+    , m_isAnim(isAnim)
   {}
 
+  bool m_isAnim;
   double m_rotationAngle;
   double m_angleFOV;
 };
 
-struct Disable3dModeEvent
+struct DisablePerspectiveEvent
 {
-  Disable3dModeEvent() {}
+  DisablePerspectiveEvent() {}
 };
 
 struct RotateEvent
@@ -188,8 +190,8 @@ struct UserEvent
     EVENT_RESIZE,
     EVENT_ROTATE,
     EVENT_FOLLOW_AND_ROTATE,
-    EVENT_ENABLE_3D_MODE,
-    EVENT_DISABLE_3D_MODE
+    EVENT_ENABLE_PERSPECTIVE,
+    EVENT_DISABLE_PERSPECTIVE
   };
 
   UserEvent(TouchEvent const & e) : m_type(EVENT_TOUCH) { m_touchEvent = e; }
@@ -200,8 +202,8 @@ struct UserEvent
   UserEvent(ResizeEvent const & e) : m_type(EVENT_RESIZE) { m_resize = e; }
   UserEvent(RotateEvent const & e) : m_type(EVENT_ROTATE) { m_rotate = e; }
   UserEvent(FollowAndRotateEvent const & e) : m_type(EVENT_FOLLOW_AND_ROTATE) { m_followAndRotate = e; }
-  UserEvent(Enable3dModeEvent const & e) : m_type(EVENT_ENABLE_3D_MODE) { m_enable3dMode = e; }
-  UserEvent(Disable3dModeEvent const & e) : m_type(EVENT_DISABLE_3D_MODE) { m_disable3dMode = e; }
+  UserEvent(EnablePerspectiveEvent const & e) : m_type(EVENT_ENABLE_PERSPECTIVE) { m_enable3dMode = e; }
+  UserEvent(DisablePerspectiveEvent const & e) : m_type(EVENT_DISABLE_PERSPECTIVE) { m_disable3dMode = e; }
 
   EEventType m_type;
   union
@@ -214,8 +216,8 @@ struct UserEvent
     ResizeEvent m_resize;
     RotateEvent m_rotate;
     FollowAndRotateEvent m_followAndRotate;
-    Enable3dModeEvent m_enable3dMode;
-    Disable3dModeEvent m_disable3dMode;
+    EnablePerspectiveEvent m_enable3dMode;
+    DisablePerspectiveEvent m_disable3dMode;
   };
 };
 

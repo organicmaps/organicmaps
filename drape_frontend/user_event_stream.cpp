@@ -188,7 +188,17 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       TouchCancel(m_touches);
       break;
     case UserEvent::EVENT_ENABLE_3D_MODE:
-      m_pendingEvent.reset(new UserEvent(e.m_enable3dMode));
+      if (e.m_enable3dMode.m_isAnim)
+      {
+        m_pendingEvent.reset(new UserEvent(e.m_enable3dMode));
+      }
+      else
+      {
+        m_navigator.Enable3dMode(e.m_enable3dMode.m_rotationAngle,
+                                 e.m_enable3dMode.m_rotationAngle,
+                                 e.m_enable3dMode.m_angleFOV);
+        viewportChanged = true;
+      }
       break;
     case UserEvent::EVENT_DISABLE_3D_MODE:
       SetDisable3dModeAnimation();

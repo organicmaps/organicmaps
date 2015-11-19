@@ -44,7 +44,8 @@ public:
     UpdateMapStyle,
     InvalidateTextures,
     Invalidate,
-    Enable3dMode
+    Enable3dMode,
+    EnablePerspective
   };
 
   virtual ~Message() {}

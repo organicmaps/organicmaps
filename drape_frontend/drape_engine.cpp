@@ -436,4 +436,11 @@ void DrapeEngine::Enable3dMode(bool enable)
                                   MessagePriority::Normal);
 }
 
+void DrapeEngine::EnablePerspective(double rotationAngle, double angleFOV)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<EnablePerspectiveMessage>(rotationAngle, angleFOV),
+                                  MessagePriority::Normal);
+}
+
 } // namespace df

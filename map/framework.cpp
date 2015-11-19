@@ -92,6 +92,9 @@ namespace
   static const int kKeepPedestrianDistanceMeters = 10000;
   char const kRouterTypeKey[] = "router";
   char const kMapStyleKey[] = "MapStyleKeyV1";
+
+  double constexpr kRotationAngle = math::pi4;
+  double constexpr kAngleFOV = math::pi / 3.0;
 }
 
 pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(
@@ -1266,9 +1269,16 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
       ActivateUserMark(mark, true);
   }
 
+  bool const enable3d = Load3dMode();
+  Enable3dMode(enable3d);
+
   // In case of the engine reinitialization recover route.
   if (m_routingSession.IsActive())
+  {
     InsertRoute(m_routingSession.GetRoute());
+    if (enable3d)
+      m_drapeEngine->EnablePerspective(kRotationAngle, kAngleFOV);
+  }
 }
 
 ref_ptr<df::DrapeEngine> Framework::GetDrapeEngine()
@@ -1838,10 +1848,8 @@ void Framework::FollowRoute()
                      scales::GetUpperComfortScale() :
                      scales::GetNavigationScale();
   int const scale3d = (m_currentRouterType == RouterType::Pedestrian) ? scale + 1 : scale + 2;
-  double const rotationAngle = math::pi4;
-  double const angleFOV = math::pi / 3.0;
   
-  m_drapeEngine->FollowRoute(scale, scale3d, rotationAngle, angleFOV);
+  m_drapeEngine->FollowRoute(scale, scale3d, kRotationAngle, kAngleFOV);
   m_drapeEngine->SetRoutePoint(m2::PointD(), true /* isStart */, false /* isValid */);
 }
 
@@ -2055,6 +2063,18 @@ void Framework::SetRouteFinishPoint(m2::PointD const & pt, bool isValid)
 
 void Framework::Enable3dMode(bool enable)
 {
-  ASSERT(m_drapeEngine != nullptr, ());
-  m_drapeEngine->Enable3dMode(enable);
+  Save3dMode(enable);
+  CallDrapeFunction(bind(&df::DrapeEngine::Enable3dMode, _1, enable));
+}
+
+void Framework::Save3dMode(bool enable)
+{
+  Settings::Set("Enable3d", enable);
+}
+
+bool Framework::Load3dMode()
+{
+  bool enable3d = false;
+  Settings::Get("Enable3d", enable3d);
+  return enable3d;
 }
