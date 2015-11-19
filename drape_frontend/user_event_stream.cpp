@@ -187,7 +187,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
                                      e.m_followAndRotate.m_isAnim);
       TouchCancel(m_touches);
       break;
-    case UserEvent::EVENT_ENABLE_3D_MODE:
+    case UserEvent::EVENT_ENABLE_PERSPECTIVE:
       if (e.m_enable3dMode.m_isAnim)
       {
         m_pendingEvent.reset(new UserEvent(e.m_enable3dMode));
@@ -200,7 +200,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
         viewportChanged = true;
       }
       break;
-    case UserEvent::EVENT_DISABLE_3D_MODE:
+    case UserEvent::EVENT_DISABLE_PERSPECTIVE:
       SetDisable3dModeAnimation();
       break;
     default:
@@ -223,7 +223,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
     if (m_animation->IsFinished())
     {
       if (m_animation->GetType() == ModelViewAnimationType::FollowAndRotate &&
-          m_pendingEvent != nullptr && m_pendingEvent->m_type == UserEvent::EVENT_ENABLE_3D_MODE)
+          m_pendingEvent != nullptr && m_pendingEvent->m_type == UserEvent::EVENT_ENABLE_PERSPECTIVE)
       {
         SetEnable3dModeAnimation(m_pendingEvent->m_enable3dMode.m_rotationAngle);
         m_navigator.Enable3dMode(0.0 /* current rotation angle */,

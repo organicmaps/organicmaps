@@ -653,14 +653,14 @@ public:
   Type GetType() const override { return Message::DeactivateRouteFollowing; }
 };
 
-class Enable3dModeMessage : public Message
+class Allow3dModeMessage : public Message
 {
 public:
-  Enable3dModeMessage(bool enable)
+  Allow3dModeMessage(bool enable)
     : m_enable(enable)
   {}
 
-  Type GetType() const override { return Message::Enable3dMode; }
+  Type GetType() const override { return Message::Allow3dMode; }
   bool Enable() const { return m_enable; }
 
 private:

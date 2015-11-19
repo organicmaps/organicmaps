@@ -178,5 +178,5 @@ public class Framework
 
   public native static void nativeDeregisterMaps();
 
-  public native static void nativeEnable3dMode(boolean enable);
+  public native static void nativeAllow3dMode(boolean enable);
 }

@@ -490,9 +490,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::Enable3dMode:
+  case Message::Allow3dMode:
     {
-      ref_ptr<Enable3dModeMessage> const msg = message;
+      ref_ptr<Allow3dModeMessage> const msg = message;
       m_enable3dInNavigation = msg->Enable();
       break;
     }

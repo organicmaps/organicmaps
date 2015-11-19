@@ -44,7 +44,7 @@ public:
     UpdateMapStyle,
     InvalidateTextures,
     Invalidate,
-    Enable3dMode,
+    Allow3dMode,
     EnablePerspective
   };
 

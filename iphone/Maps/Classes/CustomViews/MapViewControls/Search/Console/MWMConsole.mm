@@ -35,14 +35,14 @@
 + (BOOL)perform3dMode:(NSString *)cmd
 {
   // Hook for shell command on change 3d mode
-  BOOL const enable = [cmd isEqualToString:@"?3d"];
-  BOOL const disable = [cmd isEqualToString:@"?2d"];
+  BOOL const is3d = [cmd isEqualToString:@"?3d"];
+  BOOL const is2d = [cmd isEqualToString:@"?2d"];
   
-  if (!enable && !disable)
+  if (!is3d && !is2d)
     return NO;
   
   Framework & frm = GetFramework();
-  frm.Enable3dMode(enable);
+  frm.Allow3dMode(is3d);
   
   return YES;
 }

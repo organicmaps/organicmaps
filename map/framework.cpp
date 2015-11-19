@@ -90,11 +90,13 @@ namespace
 {
   static const int BM_TOUCH_PIXEL_INCREASE = 20;
   static const int kKeepPedestrianDistanceMeters = 10000;
+
   char const kRouterTypeKey[] = "router";
   char const kMapStyleKey[] = "MapStyleKeyV1";
+  char const kAllow3dKey[] = "Allow3d";
 
-  double constexpr kRotationAngle = math::pi4;
-  double constexpr kAngleFOV = math::pi / 3.0;
+  double const kRotationAngle = math::pi4;
+  double const kAngleFOV = math::pi / 3.0;
 }
 
 pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(
@@ -1269,14 +1271,14 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
       ActivateUserMark(mark, true);
   }
 
-  bool const enable3d = Load3dMode();
-  Enable3dMode(enable3d);
+  bool const allow3d = Load3dMode();
+  Allow3dMode(allow3d);
 
   // In case of the engine reinitialization recover route.
   if (m_routingSession.IsActive())
   {
     InsertRoute(m_routingSession.GetRoute());
-    if (enable3d)
+    if (allow3d)
       m_drapeEngine->EnablePerspective(kRotationAngle, kAngleFOV);
   }
 }
@@ -2061,20 +2063,20 @@ void Framework::SetRouteFinishPoint(m2::PointD const & pt, bool isValid)
     m_drapeEngine->SetRoutePoint(pt, false /* isStart */, isValid);
 }
 
-void Framework::Enable3dMode(bool enable)
+void Framework::Allow3dMode(bool allow)
 {
-  Save3dMode(enable);
-  CallDrapeFunction(bind(&df::DrapeEngine::Enable3dMode, _1, enable));
+  Save3dMode(allow);
+  CallDrapeFunction(bind(&df::DrapeEngine::Allow3dMode, _1, allow));
 }
 
-void Framework::Save3dMode(bool enable)
+void Framework::Save3dMode(bool allow)
 {
-  Settings::Set("Enable3d", enable);
+  Settings::Set(kAllow3dKey, allow);
 }
 
 bool Framework::Load3dMode()
 {
-  bool enable3d = false;
-  Settings::Get("Enable3d", enable3d);
-  return enable3d;
+  bool allow = false;
+  Settings::Get(kAllow3dKey, allow);
+  return allow;
 }

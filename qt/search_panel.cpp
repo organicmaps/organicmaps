@@ -200,7 +200,7 @@ bool SearchPanel::Try3dModeCmd(QString const & str)
   if (!is3dModeOn && !is3dModeOff)
     return false;
 
-  m_pDrawWidget->GetFramework().Enable3dMode(is3dModeOn);
+  m_pDrawWidget->GetFramework().Allow3dMode(is3dModeOn);
 
   return true;
 }

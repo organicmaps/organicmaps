@@ -429,10 +429,10 @@ gui::TWidgetsSizeInfo const & DrapeEngine::GetWidgetSizes()
   return m_widgetSizes;
 }
 
-void DrapeEngine::Enable3dMode(bool enable)
+void DrapeEngine::Allow3dMode(bool enable)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<Enable3dModeMessage>(enable),
+                                  make_unique_dp<Allow3dModeMessage>(enable),
                                   MessagePriority::Normal);
 }
 
