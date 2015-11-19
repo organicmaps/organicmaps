@@ -1123,7 +1123,7 @@ line|z17[highway=pedestrian]
 {
   color: @pedestrian;
   width: 3;
-  dashes: 9,3.6;/*dashes: 7.2,3.6;*/
+  dashes: 5,2;/*dashes: 7.2,3.6;*/
   z-index: 660;
 }
 
@@ -1358,7 +1358,7 @@ line|z18[highway=pedestrian]
 {
   color: @pedestrian;
    width: 4;
-   dashes: 10.8,5.4;
+   dashes: 7,3;
    z-index: 660;
 }
 

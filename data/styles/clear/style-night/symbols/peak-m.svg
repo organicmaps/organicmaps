@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.4.1 (15681) - http://www.bohemiancoding.com/sketch -->
+    <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>peak-m</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="peak-m-copy" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
-            <path d="M11.5,7.00000002 C11.2631579,6.99995002 11.1560607,7.11970001 11.0855263,7.25000001 L7.05921053,14.2499999 C7.01747895,14.3271499 7,14.4136999 7,14.4999999 C7,14.8749999 7.23684211,15.0000999 7.47368421,14.9999999 L15.5263158,14.9999999 C15.7631579,15.0000999 16,14.8749999 16,14.4999999 C16,14.4136999 15.9825447,14.3271499 15.9407895,14.2499999 L11.9144737,7.25000001 C11.8439393,7.11970001 11.7368421,6.99995002 11.5,7.00000002 L11.5,7.00000002 Z" id="path11349-copy-2" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+        <g id="peak-m-copy" sketch:type="MSLayerGroup" transform="translate(7.000000, 7.000000)" fill="#FFFFFF" opacity="0.7">
+            <path d="M4.5,1.56520779e-08 C4.26315789,-4.99843474e-05 4.15606074,0.119700015 4.08552632,0.250000013 L0.0592105263,7.24999995 C0.0174789474,7.32714995 0,7.41369995 0,7.49999994 C0,7.87499994 0.236842105,8.00009994 0.473684211,7.99999994 L8.52631579,7.99999994 C8.76315789,8.00009994 9,7.87499994 9,7.49999994 C9,7.41369995 8.98254474,7.32714995 8.94078947,7.24999995 L4.91447368,0.250000013 C4.84393926,0.119700015 4.73684211,-4.99843474e-05 4.5,1.56520779e-08 L4.5,1.56520779e-08 Z" id="path11349-copy-2" sketch:type="MSShapeGroup"></path>
         </g>
     </g>
 </svg>

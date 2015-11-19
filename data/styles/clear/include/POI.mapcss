@@ -1,175 +1,175 @@
 /* ZOOM 15 */
 
 /* z=15 icons — small icons
-node|z15-[tourism], area|z15-[tourism] { z-index: 27000; }
-node|z15-[amenity], area|z15-[amenity] { z-index: 27000; }
+node|z15-[tourism], area|z15-[tourism] { z-index: 2700; }
+node|z15-[amenity], area|z15-[amenity] { z-index: 2700; }
 */
 node|z15[tourism=museum], area|z15[tourism=museum]
-{ icon-image: museum-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 27000; icon-min-distance: 1; }
+{ icon-image: museum-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2700; icon-min-distance: 1; }
 node|z15[tourism=gallery]
-{ icon-image: gallery-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 27000;  } /* <-- <-- не показывается, непонятно почему, позже разобраться */
+{ icon-image: gallery-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2700;  } /* <-- <-- не показывается, непонятно почему, позже разобраться */
 node|z15[tourism=zoo], area|z15[tourism=zoo]
-{ icon-image: zoo-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 27000;  }
+{ icon-image: zoo-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2700;  }
 node|z15[amenity=university][name]
 { icon-image: college-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 1; icon-min-distance: 12;}
 node|z15[amenity=university][!name]{};
 node|z15[amenity=hospital]
-{ icon-image: hospital-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 27000; }
+{ icon-image: hospital-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2700; }
 
 /* TOURISM, HISTORIC  */
 
 /* NAMED TOURISM POINTS BY DEFAULT — TEMPORARY */
 
 node|z16[tourism=museum],area|z16[tourism=museum]
-{ icon-image: museum-m.svg; text-offset: 12; font-size: 10; text: name; text-color: @poi_label; z-index: 27000; }
+{ icon-image: museum-m.svg; text-offset: 12; font-size: 10; text: name; text-color: @poi_label; z-index: 2700; }
 node|z16[historic=museum],area|z16[historic=museum]
-{ icon-image: museum-m.svg; text-offset: 12; font-size: 10; text: name; text-color: @poi_label;z-index: 27000;  }
+{ icon-image: museum-m.svg; text-offset: 12; font-size: 10; text: name; text-color: @poi_label;z-index: 2700;  }
 node|z16[historic=monument],area|z16[historic=monument]
-{ icon-image: monument-m.svg; text-offset: 12; font-size: 10; text: name; text-color: @poi_label;z-index: 27000;  }
+{ icon-image: monument-m.svg; text-offset: 12; font-size: 10; text: name; text-color: @poi_label;z-index: 2700;  }
 node|z16-[historic=fort],area|z16-[historic=fort]
-{ icon-image: remains-m.svg; text-offset: 12; font-size: 10; text: name; text-color: @poi_label;z-index: 27000;  }
+{ icon-image: remains-m.svg; text-offset: 12; font-size: 10; text: name; text-color: @poi_label;z-index: 2700;  }
 node|z16-[historic=castle],area|z16-[historic=castle]
-{ icon-image: remains-m.svg; text-offset: 12; font-size: 10; text: name; text-color: @poi_label;z-index: 27000;  }
+{ icon-image: remains-m.svg; text-offset: 12; font-size: 10; text: name; text-color: @poi_label;z-index: 2700;  }
 
 /*node|z16[historic=memorial], area|z16[historic=memorial] { icon-image: monument-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; }*/
 node|z16[tourism=gallery],area|z16[tourism=gallery]
-{ icon-image: gallery-m.svg; text-offset: 12; font-size: 10; text: name; text-color: @poi_label; z-index: 27000; }
+{ icon-image: gallery-m.svg; text-offset: 12; font-size: 10; text: name; text-color: @poi_label; z-index: 2700; }
 node|z16[tourism=zoo], area|z16[tourism=zoo]
-{ icon-image: zoo-m.svg; text-offset: 12; font-size: 10; text: name; text-color: @poi_label; z-index: 27000; }
+{ icon-image: zoo-m.svg; text-offset: 12; font-size: 10; text: name; text-color: @poi_label; z-index: 2700; }
 
 node|z15[tourism=camp_site], area|z15[tourism=camp_site]
-{ text-offset: 12; icon-image: campsite-m.svg; z-index: 27000; }
+{ text-offset: 12; icon-image: campsite-m.svg; z-index: 2700; }
 node|z16[tourism=camp_site], area|z16-17[tourism=camp_site]
-{ icon-image: campsite-m.svg; text-offset: 12; font-size: 10; text: name; text-color: @poi_label;z-index: 27000;  }
+{ icon-image: campsite-m.svg; text-offset: 12; font-size: 10; text: name; text-color: @poi_label;z-index: 2700;  }
 
 node|z18-[tourism], area|z18-[tourism]
-{ font-size: 10; text: name;text-offset: 12; text-color: @poi_label;z-index: 27000;  }
+{ font-size: 10; text: name;text-offset: 12; text-color: @poi_label;z-index: 2700;  }
 
 /* ZOOM 17+ */
 node|z17-[tourism=museum],area|z17-[tourism=museum]
-{ icon-image: museum-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 27000; }
+{ icon-image: museum-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2700; }
 node|z17-[historic=museum],area|z17-[historic=museum]
-{ icon-image: museum-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 27000; }
+{ icon-image: museum-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2700; }
 node|z17-[tourism=gallery],area|z17-[tourism=gallery]
-{ icon-image: gallery-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 27000; }
+{ icon-image: gallery-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2700; }
 node|z17-[tourism=zoo], area|z17-[tourism=zoo]
-{ icon-image: zoo-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 27000; }
+{ icon-image: zoo-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2700; }
 node|z17-[tourism=hotel]
-{ icon-image: hotel-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000; }
+{ icon-image: hotel-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600; }
 node|z17-[tourism=hostel]
-{ icon-image: hotel-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 26000;  }
+{ icon-image: hotel-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600;  }
 node|z17-[tourism=artwork]
-{ icon-image: tourism-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 26000;  }
+{ icon-image: tourism-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600;  }
 node|z17-[tourism=attraction]
-{ icon-image: tourism-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000; }
+{ icon-image: tourism-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600; }
 node|z17-[tourism=viewpoint]
-{ icon-image: tourism-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000; }
+{ icon-image: tourism-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500; }
 node|z17-[tourism=information]
-{ icon-image: information-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000; }
+{ icon-image: information-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500; }
 node|z17-[tourism=camp_site], area|z17-[tourism=camp_site]
-{ icon-image: campsite-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 27000; }
+{ icon-image: campsite-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2700; }
 node|z17-[tourism=picnic_site], area|z17-[tourism=picnic_site]
-{ icon-image: picnic-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000; }
+{ icon-image: picnic-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500; }
 node|z17-[amenity=shelter], area|z17-[amenity=shelter]
-{ icon-image: picnic-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 25000;  }
+{ icon-image: picnic-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2500;  }
 node|z17-[historic=memorial], area|z17-[historic=memorial]
-{ icon-image: monument-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000; }
+{ icon-image: monument-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600; }
 node|z17-[historic=monument],area|z17-[historic=monument]
-{ icon-image: monument-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000; }
+{ icon-image: monument-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600; }
 node|z17-[historic=archaeological_site],area|z17-[historic=archaeological_site]
-{ icon-image: remains-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 26000;  }
-node|z17-[historic=ruins],area|z17-[historic=ruins]  { icon-image: remains-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 26000;  }
-node|z17-[historic=fort],area|z17-[historic=fort]  { icon-image: remains-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 26000;  }
-node|z17-[historic=castle],area|z17-[historic=castle]  { icon-image: remains-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 26000;  }
-/*node|z17-[amenity=fire_station], area|z17-[amenity=fire_station] { icon-image: fire_station-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000; }*/
+{ icon-image: remains-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600;  }
+node|z17-[historic=ruins],area|z17-[historic=ruins]  { icon-image: remains-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600;  }
+node|z17-[historic=fort],area|z17-[historic=fort]  { icon-image: remains-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600;  }
+node|z17-[historic=castle],area|z17-[historic=castle]  { icon-image: remains-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600;  }
+/*node|z17-[amenity=fire_station], area|z17-[amenity=fire_station] { icon-image: fire_station-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500; }*/
 
 
-node|z18-[tourism=camp_site], area|z18-[tourism=camp_site] { icon-image: campsite-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000; }
-node|z18-[tourism=picnic_site], area|z18-[tourism=picnic_site] { icon-image: picnic-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000; }
-node|z18-[amenity=shelter], area|z18-[amenity=shelter] { icon-image: picnic-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000; }
-node|z18-[amenity=fire_station], area|z18-[amenity=fire_station] { icon-image: fire_station-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000; }
+node|z18-[tourism=camp_site], area|z18-[tourism=camp_site] { icon-image: campsite-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600; }
+node|z18-[tourism=picnic_site], area|z18-[tourism=picnic_site] { icon-image: picnic-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500; }
+node|z18-[amenity=shelter], area|z18-[amenity=shelter] { icon-image: picnic-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500; }
+node|z18-[amenity=fire_station], area|z18-[amenity=fire_station] { icon-image: fire_station-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500; }
 
 
-node|z19-[tourism=camp_site], area|z19-[tourism=camp_site] { icon-image: campsite-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 26000; }
-node|z19-[tourism=picnic_site], area|z19-[tourism=picnic_site] { icon-image: picnic-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 25000;   }
-node|z19-[amenity=shelter], area|z19-[amenity=shelter] { icon-image: picnic-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 25000;  }
-node|z19-[amenity=fire_station], area|z19-[amenity=fire_station] { icon-image: fire_station-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000; }
+node|z19-[tourism=camp_site], area|z19-[tourism=camp_site] { icon-image: campsite-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; }
+node|z19-[tourism=picnic_site], area|z19-[tourism=picnic_site] { icon-image: picnic-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2500;   }
+node|z19-[amenity=shelter], area|z19-[amenity=shelter] { icon-image: picnic-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2500;  }
+node|z19-[amenity=fire_station], area|z19-[amenity=fire_station] { icon-image: fire_station-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500; }
 
 
 /* NATURAL*/
 
-node|z12-14[natural=cave_entrance],area|z12-[natural=cave] { icon-image: cave-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 27000;  }
-node|z15-17[natural=cave_entrance],area|z15-[natural=cave] { icon-image: cave-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 27000; }
-node|z18-[natural=cave_entrance],area|z16-[natural=cave] { icon-image: cave-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 27000; }
+node|z12-14[natural=cave_entrance],area|z12-[natural=cave] { icon-image: cave-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2700;  }
+node|z15-17[natural=cave_entrance],area|z15-[natural=cave] { icon-image: cave-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2700; }
+node|z18-[natural=cave_entrance],area|z16-[natural=cave] { icon-image: cave-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2700; }
 
-node|z12-14[natural=waterfall],area|z12-14[natural=waterfall] { icon-image: waterfall-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 27000; }
-node|z15-16[natural=waterfall],area|z15-17[natural=waterfall] { icon-image: waterfall-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 27000;}
-node|z17-[natural=waterfall],area|z18-[natural=waterfall] { icon-image: waterfall-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 27000; }
+node|z12-14[natural=waterfall],area|z12-14[natural=waterfall] { icon-image: waterfall-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2700; }
+node|z15-16[natural=waterfall],area|z15-17[natural=waterfall] { icon-image: waterfall-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2700;}
+node|z17-[natural=waterfall],area|z18-[natural=waterfall] { icon-image: waterfall-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2700; }
 
-node|z10-14[natural=volcano],{ icon-image: volcano-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 27000; }
-node|z15-16[natural=volcano],{ icon-image: volcano-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 27000;}
-node|z17-[natural=volcano],{ icon-image: volcano-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 27000;}
-area|z10-14[natural=volcano],{ icon-image: volcano-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 27000; }
-area|z15-16[natural=volcano],{ icon-image: volcano-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 27000;}
-area|z17-[natural=volcano],{ icon-image: volcano-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 27000; }
+node|z10-14[natural=volcano],{ icon-image: volcano-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2700; }
+node|z15-16[natural=volcano],{ icon-image: volcano-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2700;}
+node|z17-[natural=volcano],{ icon-image: volcano-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2700;}
+area|z10-14[natural=volcano],{ icon-image: volcano-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2700; }
+area|z15-16[natural=volcano],{ icon-image: volcano-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2700;}
+area|z17-[natural=volcano],{ icon-image: volcano-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2700; }
 
 node|z12[natural=peak][name],
-{ icon-image: peakt-s.svg; z-index: 27000; }
+{ icon-image: peakt-s.svg; z-index: 2700; }
 node|z12[natural=peak][!name],
 node|z12[natural=bare_rock][!name],
 node|z12[natural=rock][!name]
 {  }
 area|z12[natural=peak][name],
-{ icon-image: peakt-s.svg; z-index: 27000;}
+{ icon-image: peakt-s.svg; z-index: 2700;}
 area|z12[natural=peak][!name],
 area|z12[natural=bare_rock][!name],
 area|z12[natural=rock][!name]
 {  }
 
 node|z13[natural=peak][name],
-{ icon-image: peakt-s.svg;text-offset: 6; font-size: 9; text: name; text-color: @poi_label;z-index: 27000;   }
+{ icon-image: peakt-s.svg;text-offset: 6; font-size: 9; text: name; text-color: @poi_label;z-index: 2700;   }
 node|z13[natural=peak][!name],
 node|z13[natural=bare_rock][!name],
 node|z13[natural=rock][!name]
 {  }
 area|z13[natural=peak][name],
-{ icon-image: peakt-s.svg; text-offset: 6; font-size: 9; text: name; text-color: @poi_label;z-index: 27000; }
+{ icon-image: peakt-s.svg; text-offset: 6; font-size: 9; text: name; text-color: @poi_label;z-index: 2700; }
 area|z13[natural=peak][!name],
 area|z13[natural=bare_rock][!name],
 area|z13[natural=rock][!name]
 {  }
 
 node|z14[natural=peak][name],
-{ icon-image: peakt-m.svg; text-offset: 6; font-size: 10; text: name; text-color: @poi_label;z-index: 27000; }
+{ icon-image: peakt-m.svg; text-offset: 6; font-size: 10; text: name; text-color: @poi_label;z-index: 2700; }
 node|z14[natural=peak][!name],
 node|z14[natural=bare_rock][!name],
 node|z14[natural=rock][!name]
 {  }
 area|z14[natural=peak][name],
-{ icon-image: peakt-m.svg; text-offset: 6; font-size: 10; text: name; text-color: @poi_label;z-index: 27000; }
+{ icon-image: peakt-m.svg; text-offset: 6; font-size: 10; text: name; text-color: @poi_label;z-index: 2700; }
 area|z14[natural=peak][!name],
 area|z14[natural=bare_rock][!name],
 area|z14[natural=rock][!name]
 {  }
 
-node|z15[natural=peak],node|z15-16[natural=bare_rock],node|z15-16[natural=rock] { icon-image: peakt-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 27000; }
-area|z15[natural=peak],area|z15-16[natural=bare_rock],area|z15-16[natural=rock] { icon-image: peakt-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 27000;}
-node|z16-[natural=peak],node|z17-[natural=bare_rock],node|z17-[natural=rock] { icon-image: peakt-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 27000; }
-area|z16-[natural=peak],area|z17-[natural=bare_rock],area|z17-[natural=rock] { icon-image: peakt-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 27000;}
+node|z15[natural=peak],node|z15-16[natural=bare_rock],node|z15-16[natural=rock] { icon-image: peakt-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2700; }
+area|z15[natural=peak],area|z15-16[natural=bare_rock],area|z15-16[natural=rock] { icon-image: peakt-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2700;}
+node|z16-[natural=peak],node|z17-[natural=bare_rock],node|z17-[natural=rock] { icon-image: peakt-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2700; }
+area|z16-[natural=peak],area|z17-[natural=bare_rock],area|z17-[natural=rock] { icon-image: peakt-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2700;}
 
 node|z12-14[landuse=forest][boundary=national_park],area|z12-14[landuse=forest][boundary=national_park] { icon-image: nparkf-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @park_label; text-halo-opacity: 1; text-halo-color: @label_halo_light;
-text-halo-radius:0.5; z-index: 27000;}
+text-halo-radius:0.5; z-index: 2700;}
 node|z15-16[landuse=forest][boundary=national_park],area|z15-16[landuse=forest][boundary=national_park] { icon-image: nparkf-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @park_label;text-halo-opacity: 1; text-halo-color: @label_halo_light;
-text-halo-radius:0.5; z-index: 27000;}
+text-halo-radius:0.5; z-index: 2700;}
 node|z17-[landuse=forest][boundary=national_park],area|z17-[landuse=forest][boundary=national_park] { icon-image: nparkf-l.svg; text-offset: 12; font-size: 10; text: name; text-color: @park_label; text-halo-opacity: 1; text-halo-color: @label_halo_light;
-text-halo-radius:0.5; z-index: 27000;}
+text-halo-radius:0.5; z-index: 2700;}
 
 node|z12-14[leisure=nature_reserve],area|z12-14[leisure=nature_reserve] { icon-image: nparkf-s.svg; text-offset: 10; font-size: 10; text: name; text-color: @park_label; text-halo-opacity: 1; text-halo-color: @label_halo_light;
-text-halo-radius:0.5; z-index: 27000;}
+text-halo-radius:0.5; z-index: 2700;}
 node|z15-16[leisure=nature_reserve],area|z15-16[leisure=nature_reserve] { icon-image: nparkf-m.svg; text-offset: 10; font-size: 11; text: name; text-color: @park_label; text-halo-opacity: 1; text-halo-color: @label_halo_light;
-text-halo-radius:0.5; z-index: 27000; }
+text-halo-radius:0.5; z-index: 2700; }
 node|z17-[leisure=nature_reserve],area|z17-[leisure=nature_reserve] { icon-image: nparkf-l.svg; text-offset: 12; font-size: 10; text: name; text-color: @park_label; text-halo-opacity: 1; text-halo-color: @label_halo_light;
-text-halo-radius:0.5; z-index: 27000; }
+text-halo-radius:0.5; z-index: 2700; }
 
 
 /* AMENITY */
@@ -180,142 +180,140 @@ node|z19-[amenity], area|z19-[amenity] { icon-image: none.svg;  text-offset: 10;
 
 /* AMENITY */
 
-node|z15-[natural=spring],area|z17-[natural=spring]{ icon-image: drinking-water-m.svg; text-offset:8; font-size: 10;  text: name; text-color: @poi_label; z-index: 27000;  }
-node|z15-[amenity=hunting_stand], area|z18-[amenity=hunting_stand] { icon-image: hunting-tower-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 25000; }
+node|z15-[natural=spring],area|z17-[natural=spring]{ icon-image: drinking-water-m.svg; text-offset:8; font-size: 10;  text: name; text-color: @poi_label; z-index: 2700;  }
+node|z15-[amenity=hunting_stand], area|z18-[amenity=hunting_stand] { icon-image: hunting-tower-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2500; }
 
 
-node|z16[amenity=place_of_worship], area|z16[amenity=place_of_worship] { icon-image: place-of-worship-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000;}
-/*node|z16[amenity=theatre], area|z16[amenity=theatre] { icon-image: theatre-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 24000;}
-node|z16[amenity=kindergarten], area|z16[amenity=kindergarten] { icon-image: kindergarten-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 25000; }
-node|z16[amenity=school], area|z16[amenity=school] { icon-image: school-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000;}*/
-node|z16[amenity=college], area|z16[amenity=college] { icon-image: college-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 26000; }
-node|z16[amenity=hospital], area|z16[amenity=hospital] { icon-image: hospital-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 27000;}
-node|z16[amenity=clinic], area|z16[amenity=clinic] { icon-image: hospital-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 24000; }
-node|z16[amenity=university], area|z16[amenity=university][name] { icon-image: college-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 1;icon-min-distance: 11; }
-node|z16[amenity=university], area|z16[amenity=university][!name]{};
+node|z16[amenity=place_of_worship], area|z16[amenity=place_of_worship] { icon-image: place-of-worship-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+/*node|z16[amenity=theatre], area|z16[amenity=theatre] { icon-image: theatre-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z16[amenity=kindergarten], area|z16[amenity=kindergarten] { icon-image: kindergarten-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2500; }
+node|z16[amenity=school], area|z16[amenity=school] { icon-image: school-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;}*/
+node|z16[amenity=college], area|z16[amenity=college] { icon-image: college-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; }
+node|z16[amenity=hospital], area|z16[amenity=hospital] { icon-image: hospital-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2700;}
+node|z16[amenity=clinic], area|z16[amenity=clinic] { icon-image: hospital-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+node|z16[amenity=university][name], area|z16[amenity=university][name] { icon-image: college-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 1;icon-min-distance: 11; }
+node|z16[amenity=university][!name], area|z16[amenity=university][!name]{};
 node|z16[amenity=fuel], area|z16[amenity=fuel] { icon-image: fuel-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; }
-node|z16-[natural=spring],area|z16-[natural=spring]{ icon-image: drinking-water-m.svg; z-index: 1000; text-offset:8; font-size: 10;  text: name; text-color: @poi_label; z-index: 100; z-index: 27000; }
-node|z16[amenity=cafe], area|z16[amenity=cafe] { icon-image: cafe-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 26000; icon-min-distance: 10;}
-node|z16[amenity=restaurant], area|z16[amenity=restaurant] { icon-image: restaurant-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000;icon-min-distance: 10;}
-node|z16[amenity=theatre], area|z16[amenity=theatre] { icon-image: theatre-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 26000; icon-min-distance: 10;}
+node|z16-[natural=spring],area|z16-[natural=spring]{ icon-image: drinking-water-m.svg; z-index: 1000; text-offset:8; font-size: 10;  text: name; text-color: @poi_label; z-index: 100; z-index: 2700; }
+node|z16[amenity=cafe], area|z16[amenity=cafe] { icon-image: cafe-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; icon-min-distance: 10;}
+node|z16[amenity=restaurant], area|z16[amenity=restaurant] { icon-image: restaurant-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;icon-min-distance: 10;}
+node|z16[amenity=theatre], area|z16[amenity=theatre] { icon-image: theatre-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; icon-min-distance: 10;}
 
 
-node|z17[amenity=place_of_worship], area|z17[amenity=place_of_worship] { icon-image: place-of-worship-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000;}
-node|z17[amenity=theatre], area|z17[amenity=theatre] { icon-image: theatre-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 26000; }
+node|z17[amenity=place_of_worship], area|z17[amenity=place_of_worship] { icon-image: place-of-worship-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z17[amenity=theatre], area|z17[amenity=theatre] { icon-image: theatre-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; }
 node|z17[amenity=kindergarten], area|z17[amenity=kindergarten] { icon-image: kindergarten-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 21000; }
-node|z17[amenity=school], area|z17[amenity=school] { icon-image: school-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000;}
-node|z17[amenity=college], area|z17[amenity=college] { icon-image: college-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000;}
-node|z17[amenity=hospital], area|z17[amenity=hospital] { icon-image: hospital-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 27000; }
-node|z17[amenity=clinic], area|z17[amenity=clinic] { icon-image: hospital-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 24000;}
-node|z17[amenity=university], area|z17[amenity=university][name] { icon-image: college-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 1; icon-min-distance: 10;}
-node|z17[amenity=university], area|z17[amenity=university][!name]{};
-node|z17[amenity=cinema], area|z17[amenity=cinema] { icon-image: cinema-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000;}
-node|z17[amenity=bank], area|z17[amenity=bank] { z-index: 4500; icon-image: bank-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000;}
-node|z17[amenity=fuel], area|z17[amenity=fuel] { icon-image: fuel-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 26000; }
-node|z17[amenity=police], area|z17[amenity=police] { icon-image: police-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000;}
-node|z17[amenity=embassy], area|z17[amenity=embassy] { icon-image: embassy-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000;}
-node|z17[amenity=bicycle_rental], area|z17[amenity=bicycle_rental] { icon-image: bicycle-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000;}
-node|z17[amenity=post_office] { icon-image: mail-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 24000;}
-node|z17[amenity=cafe], area|z17[amenity=cafe] { icon-image: cafe-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 26000; }
-node|z17[amenity=restaurant], area|z17[amenity=restaurant] { icon-image: restaurant-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000;}
-node|z17-[amenity=fountain],area|z17-[amenity=fountain] { icon-image: fountain-l.svg; z-index: 1000; text-offset: 10; font-size: 10;  text: name; text-color: @poi_label; z-index: 25000;}
-node|z17-[amenity=drinking_water],area|z17-[amenity=drinking_water],node|z17-[amenity=water_point] ,area|z17-[amenity=water_point]{ icon-image: drinking-water-l.svg;z-index: 24000; }
-node|z17-[natural=spring],area|z17-[natural=spring]{ icon-image: drinking-water-l.svg; z-index: 1000; text-offset:8; font-size: 10;  text: name; text-color: @poi_label; z-index: 100; z-index: 27000; }
-node|z17-[historic=memorial], area|z17-[historic=memorial] { icon-image: monument-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000;}
-node|z17-[historic=monument],area|z17-[historic=monument]  { icon-image: monument-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000;}
-node|z17-[historic=archaeological_site],area|z17-[historic=archaeological_site]  { icon-image: remains-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 27000;}
-node|z17-[historic=ruins],area|z17-[historic=ruins]  { icon-image: remains-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 27000;}
-node|z17-[historic=fort],area|z17-[historic=fort]  { icon-image: remains-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 27000; }
-node|z17-[historic=castle],area|z17-[historic=castle]  { icon-image: remains-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 27000;}
+node|z17[amenity=school], area|z17[amenity=school] { icon-image: school-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;}
+node|z17[amenity=college], area|z17[amenity=college] { icon-image: college-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z17[amenity=hospital], area|z17[amenity=hospital] { icon-image: hospital-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2700; }
+node|z17[amenity=clinic], area|z17[amenity=clinic] { icon-image: hospital-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z17[amenity=university][name], area|z17[amenity=university][name] { icon-image: college-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; icon-min-distance: 10;}
+node|z17[amenity=university][!name], area|z17[amenity=university][!name]{};
+node|z17[amenity=cinema], area|z17[amenity=cinema] { icon-image: cinema-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;}
+node|z17[amenity=bank], area|z17[amenity=bank] { z-index: 4500; icon-image: bank-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z17[amenity=fuel], area|z17[amenity=fuel] { icon-image: fuel-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; }
+node|z17[amenity=police], area|z17[amenity=police] { icon-image: police-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z17[amenity=embassy], area|z17[amenity=embassy] { icon-image: embassy-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z17[amenity=bicycle_rental], area|z17[amenity=bicycle_rental] { icon-image: bicycle-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;}
+node|z17[amenity=post_office] { icon-image: mail-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z17[amenity=cafe], area|z17[amenity=cafe] { icon-image: cafe-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; }
+node|z17[amenity=restaurant], area|z17[amenity=restaurant] { icon-image: restaurant-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z17-[amenity=fountain],area|z17-[amenity=fountain] { icon-image: fountain-l.svg; z-index: 1000; text-offset: 10; font-size: 10;  text: name; text-color: @poi_label; z-index: 2500;}
+node|z17-[amenity=drinking_water],area|z17-[amenity=drinking_water],node|z17-[amenity=water_point] ,area|z17-[amenity=water_point]{ icon-image: drinking-water-l.svg;z-index: 2400; }
+node|z17-[natural=spring],area|z17-[natural=spring]{ icon-image: drinking-water-l.svg; z-index: 1000; text-offset:8; font-size: 10;  text: name; text-color: @poi_label; z-index: 100; z-index: 2700; }
+node|z17-[historic=memorial], area|z17-[historic=memorial] { icon-image: monument-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z17-[historic=monument],area|z17-[historic=monument]  { icon-image: monument-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z17-[historic=archaeological_site],area|z17-[historic=archaeological_site]  { icon-image: remains-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2700;}
+node|z17-[historic=ruins],area|z17-[historic=ruins]  { icon-image: remains-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2700;}
+node|z17-[historic=fort],area|z17-[historic=fort]  { icon-image: remains-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2700; }
+node|z17-[historic=castle],area|z17-[historic=castle]  { icon-image: remains-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2700;}
 
 
-node|z18-[amenity=place_of_worship], area|z18-[amenity=place_of_worship] { icon-image: place-of-worship-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000;}
-node|z18-[amenity=theatre], area|z18-[amenity=theatre] { icon-image: theatre-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000;}
-node|z18-[amenity=kindergarten], area|z18-[amenity=kindergarten] { icon-image: kindergarten-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 24000; }
-node|z18-[amenity=school], area|z18-[amenity=school] { icon-image: school-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 25000; }
-node|z18-[amenity=college], area|z18-[amenity=college] { icon-image: college-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000;}
-node|z18-[amenity=hospital], area|z18-[amenity=hospital] { icon-image: hospital-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 27000; }
-node|z18-[amenity=clinic], area|z18-[amenity=clinic] { icon-image: hospital-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 24000;}
-node|z18-[amenity=university], area|z18-[amenity=university][name] { icon-image: college-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 1; }
-node|z18-[amenity=university], area|z18-[amenity=university][!name]{};
-node|z18-[amenity=cinema], area|z18-[amenity=cinema] { icon-image: cinema-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000;}
-node|z18-[amenity=bank], area|z18-[amenity=bank] { z-index: 4500; icon-image: bank-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000;}
-node|z18-[amenity=fuel], area|z18-[amenity=fuel] { icon-image: fuel-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 26000; }
-node|z18-[amenity=police], area|z18-[amenity=police] { icon-image: police-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000;}
-node|z18-[amenity=embassy], area|z18-[amenity=embassy] { icon-image: embassy-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000;}
-node|z18-[amenity=bicycle_rental], area|z18-[amenity=bicycle_rental] { icon-image: bicycle-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 25000; }
-node|z18-[amenity=post_office] { icon-image: mail-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 24000;}
-node|z18-[amenity=toilets], area|z18-[amenity=toilets] { icon-image: toilets-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000;}
-node|z18-[amenity=atm], area|z18-[amenity=atm] { z-index: 4200; icon-image: atm-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000;}
-node|z18-[amenity=pharmacy], area|z18-[amenity=pharmacy] { icon-image: pharmacy-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 25000; }
-node|z18-[amenity=cafe], area|z18-[amenity=cafe] { icon-image: cafe-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000;}
-node|z18-[amenity=restaurant], area|z18-[amenity=restaurant] { icon-image: restaurant-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 26000; }
-node|z18-[amenity=fast_food], area|z18-[amenity=fast_food] { icon-image: fastfood-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000;}
-node|z18-[amenity=bar], area|z18-[amenity=bar] { icon-image: beer-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000;}
-node|z18-[amenity=pub], area|z18-[amenity=pub] { icon-image: beer-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 26000; }
-node|z18-[amenity=nightclub], area|z18-[amenity=nightclub] { icon-image: bar-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000;}
-node|z18-[amenity=bureau_de_change] { icon-image: banknote-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 25000; }
-node|z18-[amenity=bench] { icon-image: bench.svg;z-index: 24000; }
-node|z18-[amenity=fountain],area|z18-[amenity=fountain] { icon-image: fountain-l.svg; z-index: 1000; text-offset: 10; font-size: 10;  text: name; text-color: @poi_label;z-index: 25000; }
-node|z18-[amenity=drinking_water],area|z18-[amenity=drinking_water],node|z18-[amenity=water_point],area|z18-[amenity=water_point] { icon-image: drinking-water-l.svg; z-index: 24000;}
-node|z18-[natural=spring],area|z18-[natural=spring]{ icon-image: drinking-water-l.svg; z-index: 1000; text-offset: 10; font-size: 10;  text: name; text-color: @poi_label; z-index: 26000;}
-node|z18-[amenity=library] { icon-image: library-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000;}
-node|z18-[amenity=waste_disposal], area|z18-[amenity=waste_disposal] { icon-image: recycling-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 25000; }
-node|z18-[historic=memorial], area|z18-[historic=memorial] { icon-image: monument-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 26000; }
-node|z18-[historic=monument],area|z18-[historic=monument]  { icon-image: monument-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000;}
-node|z18-[amenity=hunting_stand], area|z18-[amenity=hunting_stand] { icon-image: hunting-tower-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 25000; }
-node|z18-[historic=monument],area|z18-[historic=monument]  { icon-image: monument-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000;}
-node|z18-[amenity=hunting_stand], area|z18-[amenity=hunting_stand] { icon-image: hunting-tower-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000;}
-node|z18-[office], area|z18-[office] { icon-image: office-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 25000; }
+node|z18-[amenity=place_of_worship], area|z18-[amenity=place_of_worship] { icon-image: place-of-worship-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z18-[amenity=theatre], area|z18-[amenity=theatre] { icon-image: theatre-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z18-[amenity=kindergarten], area|z18-[amenity=kindergarten] { icon-image: kindergarten-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+node|z18-[amenity=school], area|z18-[amenity=school] { icon-image: school-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2500; }
+node|z18-[amenity=college], area|z18-[amenity=college] { icon-image: college-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z18-[amenity=hospital], area|z18-[amenity=hospital] { icon-image: hospital-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2700; }
+node|z18-[amenity=clinic], area|z18-[amenity=clinic] { icon-image: hospital-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[amenity=university][name], area|z18-[amenity=university][name] { icon-image: college-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;}
+node|z18-[amenity=university][!name], area|z18-[amenity=university][!name]{};
+node|z18-[amenity=cinema], area|z18-[amenity=cinema] { icon-image: cinema-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;}
+node|z18-[amenity=bank], area|z18-[amenity=bank] { z-index: 4500; icon-image: bank-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z18-[amenity=fuel], area|z18-[amenity=fuel] { icon-image: fuel-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; }
+node|z18-[amenity=police], area|z18-[amenity=police] { icon-image: police-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z18-[amenity=embassy], area|z18-[amenity=embassy] { icon-image: embassy-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z18-[amenity=bicycle_rental], area|z18-[amenity=bicycle_rental] { icon-image: bicycle-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2500; }
+node|z18-[amenity=post_office] { icon-image: mail-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[amenity=toilets], area|z18-[amenity=toilets] { icon-image: toilets-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;}
+node|z18-[amenity=atm], area|z18-[amenity=atm] { z-index: 4200; icon-image: atm-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;}
+node|z18-[amenity=pharmacy], area|z18-[amenity=pharmacy] { icon-image: pharmacy-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2500; }
+node|z18-[amenity=cafe], area|z18-[amenity=cafe] { icon-image: cafe-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z18-[amenity=restaurant], area|z18-[amenity=restaurant] { icon-image: restaurant-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; }
+node|z18-[amenity=fast_food], area|z18-[amenity=fast_food] { icon-image: fastfood-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;}
+node|z18-[amenity=bar], area|z18-[amenity=bar] { icon-image: beer-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z18-[amenity=pub], area|z18-[amenity=pub] { icon-image: beer-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; }
+node|z18-[amenity=nightclub], area|z18-[amenity=nightclub] { icon-image: bar-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;}
+node|z18-[amenity=bureau_de_change] { icon-image: banknote-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2500; }
+node|z18-[amenity=bench] { icon-image: bench.svg;z-index: 2400; }
+node|z18-[amenity=fountain],area|z18-[amenity=fountain] { icon-image: fountain-l.svg; z-index: 1000; text-offset: 10; font-size: 10;  text: name; text-color: @poi_label;z-index: 2500; }
+node|z18-[amenity=drinking_water],area|z18-[amenity=drinking_water],node|z18-[amenity=water_point],area|z18-[amenity=water_point] { icon-image: drinking-water-l.svg; z-index: 2400;}
+node|z18-[natural=spring],area|z18-[natural=spring]{ icon-image: drinking-water-l.svg; z-index: 1000; text-offset: 10; font-size: 10;  text: name; text-color: @poi_label; z-index: 2600;}
+node|z18-[amenity=library] { icon-image: library-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;}
+node|z18-[amenity=waste_disposal], area|z18-[amenity=waste_disposal] { icon-image: recycling-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2500; }
+node|z18-[historic=memorial], area|z18-[historic=memorial] { icon-image: monument-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; }
+node|z18-[historic=monument],area|z18-[historic=monument]  { icon-image: monument-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z18-[amenity=hunting_stand], area|z18-[amenity=hunting_stand] { icon-image: hunting-tower-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2500; }
+node|z18-[historic=monument],area|z18-[historic=monument]  { icon-image: monument-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z18-[amenity=hunting_stand], area|z18-[amenity=hunting_stand] { icon-image: hunting-tower-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;}
+node|z18-[office], area|z18-[office] { icon-image: office-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2500; }
 
 
-node|z19-[amenity=telephone] { icon-image: phone-l.svg; z-index: 25000; }
-node|z19-[amenity=recycling], area|z19-[amenity=recycling], { icon-image: recycling-l.svg;z-index: 25000; }
+node|z19-[amenity=telephone] { icon-image: phone-l.svg; z-index: 2500; }
+node|z19-[amenity=recycling], area|z19-[amenity=recycling], { icon-image: recycling-l.svg;z-index: 2500; }
 
 
 /* SHOPS */
 
-node|z16-[shop=mall] { icon-image: shop-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 26000; }
-node|z17-[shop=mall] { icon-image: shop-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000;}
-node|z17-[shop=supermarket] { icon-image: grocery-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000;}
-node|z17-[shop=car_repair], area|z17-[shop=car_repair] { icon-image: car-repair-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;  z-index: 25000;}
+node|z16-[shop=mall] { icon-image: shop-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; }
+node|z17-[shop=mall] { icon-image: shop-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
+node|z17-[shop=supermarket] { icon-image: grocery-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;}
+node|z17-[shop=car_repair], area|z17-[shop=car_repair] { icon-image: car-repair-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;  z-index: 2500;}
 
-node|z18-[shop=alcohol] { icon-image: alcohol-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 24000; }
+node|z18-[shop=alcohol] { icon-image: alcohol-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
 node|z17-19[shop=laundry], area|z18-[shop=laundry] { icon-image:laundry-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25001; }
-node|z18-[shop=car_repair], area|z18-[shop=car_repair] { icon-image: car-repair-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000; }
-node|z19-[shop], area|z19-[shop] { icon-image: shop-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000;}
+node|z18-[shop=car_repair], area|z18-[shop=car_repair] { icon-image: car-repair-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500; }
+node|z19-[shop], area|z19-[shop] { icon-image: shop-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;}
 
 
 /* SPORT */
 /* LEISURE */
-/* node|z18-[leisure] {  } */
-node|z18-[leisure], area|z18-[leisure] { font-size: 10; text: name; text-color: @poi_label; }
 
-node|z16-[leisure=stadium] { icon-image: pitch-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000; }
-node|z17-[leisure=stadium] { icon-image: pitch-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000; }
+node|z16-[leisure=stadium] { icon-image: pitch-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500; }
+node|z17-[leisure=stadium] { icon-image: pitch-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500; }
 
-node|z17-[leisure=pitch] { icon-image: pitch-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000; }
-node|z17-[leisure=sports_centre] { icon-image: pitch-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000; }
-node|z17-[leisure=playground] { icon-image: pitch-l.svg; z-index: 25000; }
-node|z17-[leisure=swimming_pool],area|z18-[leisure=swimming_pool] { icon-image: swimming-l.svg;z-index: 26000; }
+node|z17-[leisure=pitch] { icon-image: pitch-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500; }
+node|z17-[leisure=sports_centre] { icon-image: pitch-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600; }
+node|z17-[leisure=playground] { icon-image: pitch-l.svg; z-index: 2500; }
+node|z17-[leisure=swimming_pool],area|z18-[leisure=swimming_pool] { icon-image: swimming-l.svg;z-index: 2600; }
 node|z17-[leisure=golf_course], area|z18-[leisure=golf_course] { icon-image: golf-l.svg;z-index: 50; } /* нельзя другой z-inex^иначе пропадают все объекты на поле */
 
-node|z17-[sport=soccer], area|z17[sport=soccer] { icon-image: soccer-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 25000; }
-node|z17-[sport=tennis]  { icon-image: tennis-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000;}
-node|z17-[leisure=pitch][sport=tennis] { icon-image: tennis-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000; }
+node|z17-[sport=soccer], area|z17[sport=soccer] { icon-image: soccer-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2500; }
+node|z17-[sport=tennis]  { icon-image: tennis-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;}
+node|z17-[leisure=pitch][sport=tennis] { icon-image: tennis-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500; }
 
-node|z18-[sport=swimming] { icon-image: swimming-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000;}
-node|z18-[sport=baseball] { icon-image: baseball-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000;}
-node|z18-[sport=basketball] { icon-image: basketball-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000;}
-node|z18-[sport=american_football] { icon-image: america-football-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 25000; }
-node|z18-[sport=athletics] { icon-image: pitch-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000;}
-node|z18-[sport=golf] { icon-image: golf-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 25000; }
-node|z18-[sport=gymnastics] { icon-image: pitch-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 25000;}
+node|z18-[sport=swimming] { icon-image: swimming-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;}
+node|z18-[sport=baseball] { icon-image: baseball-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;}
+node|z18-[sport=basketball] { icon-image: basketball-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;}
+node|z18-[sport=american_football] { icon-image: america-football-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2500; }
+node|z18-[sport=athletics] { icon-image: pitch-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;}
+node|z18-[sport=golf] { icon-image: golf-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2500; }
+node|z18-[sport=gymnastics] { icon-image: pitch-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2500;}
 
 
-node|z16-[highway=speed_camera] { icon-image: speedcam-m.svg; z-index: 24000; }
-node|z16[building=hospital], area|z16[building=hospital] { icon-image: hospital-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 27000; }
-node|z17-[building=hospital], area|z17-[building=hospital] { icon-image: hospital-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 27000;  }
+node|z16-[highway=speed_camera] { icon-image: speedcam-m.svg; z-index: 2400; }
+node|z16[building=hospital], area|z16[building=hospital] { icon-image: hospital-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2700; }
+node|z17-[building=hospital], area|z17-[building=hospital] { icon-image: hospital-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2700;  }
 
 
 /* PARKINGS */
@@ -334,13 +332,89 @@ area|z17-[aeroway=helipad],
 node|z17-[aeroway=heliport],
 node|z17-[aeroway=helipad]
 
-{ icon-image: heliport-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 26000; }
+{ icon-image: heliport-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600; }
 
 /* MAN MADE */
 
-node|z15-16[man_made=lighthouse], area|z15-16[man_made=lighthouse] { icon-image: lighthouse-m.svg;  text-offset: 10; font-size: 10; text: name; text-color: @poi_label;  z-index: 27000;}
-node|z17-[man_made=lighthouse], area|z17-[man_made=lighthouse] { icon-image: lighthouse-l.svg;  text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 27000; }
+node|z15-16[man_made=lighthouse], area|z15-16[man_made=lighthouse] { icon-image: lighthouse-m.svg;  text-offset: 10; font-size: 10; text: name; text-color: @poi_label;  z-index: 2700;}
+node|z17-[man_made=lighthouse], area|z17-[man_made=lighthouse] { icon-image: lighthouse-l.svg;  text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2700; }
 
 /* BORDER CONTROL*/
-node|z15-[barrier=border_control]{ icon-image:bcontrol-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 27000; }
-node|z17-[barrier=border_control]{ icon-image:bcontrol-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 27000; }
+node|z15-[barrier=border_control]{ icon-image:bcontrol-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2700; }
+node|z17-[barrier=border_control]{ icon-image:bcontrol-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2700; }
+
+/* NEW POI */
+
+node|z18-[amenity=car_sharing], area|z18-[amenity=car_sharing]{ icon-image: car_sharing-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[amenity=post_box], area|z18-[amenity=post_box]{ icon-image: postbox-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[aeroway=gate], area|z18-[aeroway=gate]{ icon-image: gate-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+
+node|z18-[amenity=bbq], area|z18-[amenity=bbq]{ icon-image: bbq-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+node|z18-[amenity=car_rental], area|z18-[amenity=car_rental]{ icon-image: car_sharing-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+/*node|z18-[], area|z18-[] { icon-image: none.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }*/
+
+node|z18-[amenity=vending_machine], area|z18-[amenity=vending_machine] { icon-image: vending-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+/*node|z18-[vending=parking_tickets], area|z18-[vending=parking_tickets] { icon-image: parking-meter-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }*/
+
+
+node|z18-[amenity=casino], area|z18-[amenity=casino]{ icon-image: casino-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+node|z18-[amenity=marketplace], area|z18-[amenity=marketplace]{ icon-image: marketplace-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[amenity=taxi], area|z18-[amenity=taxi]{ icon-image: taxi-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[barrier=lift_gate], area|z18-[barrier=lift_gate] { icon-image: lift_gate-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[barrier=toll_booth], area|z18-[barrier=toll_booth] { icon-image: toll_booth-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+node|z18-[historic=boundary_stone], area|z18-[historic=boundary_stone]{ icon-image: boundary_stone-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[historic=ship], area|z18-[historic=ship]{ icon-image: ship-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+node|z18-[historic=tomb], area|z18-[historic=tomb] { icon-image: tomb-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[historic=wayside_cross], area|z18-[historic=wayside_cross]{ icon-image: wayside_cross-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[historic=wayside_shrine], area|z18-[historic=wayside_shrine] { icon-image: wayside_shrine-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[leisure=dog_park], area|z18-[leisure=dog_park] { icon-image: dog_park-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+node|z18-[leisure=water_park], area|z18-[leisure=water_park]{ icon-image: diving-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+node|z18-[man_made=windmill], area|z18-[man_made=windmill]{ icon-image: windmill-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+
+node|z18-[shop=books], area|z18-[shop=books]{ icon-image: book-shop-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[shop=bakery], area|z18-[shop=bakery] { icon-image: bakery-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[shop=beauty], area|z18-[shop=beauty] { icon-image: beauty-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+node|z18-[shop=beverages], area|z18-[shop=beverages] { icon-image: alcohol-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+node|z18-[shop=bicycle], area|z18-[shop=bicycle]{ icon-image: shop-bicycle-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[shop=butcher], area|z18-[shop=butcher] { icon-image: butcher-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[shop=car], area|z18-[shop=car]{ icon-image: car_sharing-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[shop=car_repair], area|z18-[shop=car_repair] { icon-image: car-repair-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[shop=chemist], area|z18-[shop=chemist] { icon-image: chemist-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+node|z18-[shop=clothes], area|z18-[shop=clothes] { icon-image: clothes-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+node|z18-[shop=computer], area|z18-[shop=computer]{ icon-image: computer-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[shop=confectionery], area|z18-[shop=confectionery]{ icon-image: sweets-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+node|z18-[shop=convenience], area|z18-[shop=convenience] { icon-image: convenience-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[shop=department_store], area|z18-[shop=department_store]{ icon-image: department_store-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[shop=doityourself], area|z18-[shop=doityourself] { icon-image: doityourself-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[shop=electronics], area|z18-[shop=electronics] { icon-image: electronics-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+node|z18-[shop=florist], area|z18-[shop=florist]{ icon-image: florist-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+node|z18-[shop=furniture], area|z18-[shop=furniture]{ icon-image: furniture-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[shop=garden_centre], area|z18-[shop=garden_centre]{ icon-image: garden_center-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+node|z18-[shop=gift], area|z18-[shop=gift]{ icon-image: gift-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[shop=greengrocer], area|z18-[shop=greengrocer]{ icon-image: greengrocer-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[shop=hairdresser], area|z18-[shop=hairdresser] { icon-image: hairdresser-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[shop=hardware], area|z18-[shop=hardware]{ icon-image: hardware-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+node|z18-[shop=jewelry], area|z18-[shop=jewelry] { icon-image: jewelry-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+node|z18-[shop=kiosk], area|z18-[shop=kiosk]{ icon-image: kiosk-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[shop=mobile_phone], area|z18-[shop=mobile_phone]{ icon-image: mobile_phone-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+node|z18-[shop=optician], area|z18-[shop=optician]{ icon-image: optician-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[shop=shoes], area|z18-[shop=shoes]{ icon-image: shoes-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[shop=sports], area|z18-[shop=sports]{ icon-image: sports-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+node|z18-[shop=toys], area|z18-[shop=toys]{ icon-image: toys-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+
+node|z18-[sport=archery], area|z18-[sport=archery]{ icon-image: archery-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[sport=australian_football], area|z18-[sport=australian_football]{ icon-image: australian-football-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+node|z18-[sport=bowls], area|z18-[sport=bowls] { icon-image: bowls-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[sport=cricket], area|z18-[sport=cricket]{ icon-image: cricket-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[sport=curling], area|z18-[sport=curling] { icon-image: curling-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[sport=diving], area|z18-[sport=diving] { icon-image: diving-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+node|z18-[sport=scuba_diving], area|z18-[sport=scuba_diving]{ icon-image: diving-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+node|z18-[tourism=alpine_hut], area|z18-[tourism=alpine_hut]{ icon-image: alpine_hut-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[tourism=caravan_site], area|z18-[tourism=caravan_site]{ icon-image: caravan_site-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+
+node|z18-[tourism=guest_house], area|z18-[tourism=guest_house]{ icon-image: motel-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+
+node|z18-[tourism=motel], area|z18-[tourism=motel]{ icon-image: motel-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+node|z18-[tourism=picnic_site], area|z18-[tourism=picnic_site]{ icon-image: picnic-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
+
+node|z18-[natural=beach], area|z18-[natural=beach]{ icon-image: beach-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }

@@ -340,16 +340,7 @@ area|z14-[landuse=village_green],
   z-index: 42;
 	fill-position: background;
 }
-area|z17-[landuse=grass],
-area|z17-[natural=grassland],
-area|z17-[leisure=golf_course]
 
-{
-  fill-color: @green1;
-  fill-opacity: 1;
-  z-index: 45;
-	fill-position: background;
-}
 /*  BEACH */
 
 area|z10-14[leisure=beach_resort],

@@ -1668,6 +1668,12 @@ area|z16[landuse=forest][name]::int_name {
   text-halo-color: @halo_park_lable;
   text-halo-radius: 0.1;
 }
+area|z16[leisure=park][!name]::int_name,
+area|z16[leisure=garden][!name]::int_name,
+area|z16[landuse=forest][!name]::int_name {
+
+}
+
 area|z17[leisure=park][name],
 area|z17[landuse=forest][name] {
   icon-image: park-l.svg;
@@ -1684,9 +1690,9 @@ area|z17[leisure=garden][name] {
   icon-image: garden-l.svg;
   text-offset: 10;
   text: name;
-  font-size: 13;
+  font-size: 11;
   text-color: @park_label;
-  text-halo-opacity: 1;
+  text-halo-opacity: 0.4;
   text-halo-color: @halo_park_lable;
   text-halo-radius: 0.1;
   icon-min-distance: 10;
@@ -1709,6 +1715,11 @@ area|z17[leisure=forest][name]::int_name
   text-halo-color: @halo_park_lable;
   text-halo-radius: 0.1;
 }
+area|z17[leisure=park][!name]::int_name,
+area|z17[leisure=garden][!name]::int_name,
+area|z17[leisure=forest][!name]::int_name {
+
+}
 
 area|z18-[leisure=park],
 area|z18-[landuse=forest]{
@@ -1725,9 +1736,9 @@ area|z18-[leisure=garden]{
   icon-image: garden-l.svg;
   text-offset: 10;
   text: name;
-  font-size: 13;
+  font-size: 11;
   text-color: @park_label;
-  text-halo-opacity: 1;
+  text-halo-opacity: 0.4;
   text-halo-color: @halo_park_lable;
   text-halo-radius: 0.1;
 }
@@ -1742,6 +1753,7 @@ area|z18-[leisure=forest]::int_name {
   text-halo-color: @halo_park_lable;
   text-halo-radius: 0.1;
 }
+
 /* BEACH LABELS */
 
 area|z15-[leisure=beach_resort],
@@ -1778,15 +1790,7 @@ area|z17-[landuse=vineyard],
   font-size: 10;
   text-color: @poi_label;
 }
-/*  SPORT */
 
-/*
-{text: name;
-font-size: 10;
-text-color: @city_label;
-text-position: center;
-z-index: 5000;}
-*/
 
 /* MILITARY */
 

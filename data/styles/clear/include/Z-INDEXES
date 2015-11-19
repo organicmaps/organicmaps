@@ -216,3 +216,5 @@ line|z17-[aerialway=chair_lift],
 line|z17-[aerialway=gondola],
 line|z17-[aerialway=mixed_lift]
 {z-index: 1050;}
+
+/*POI 2400-2900*/
