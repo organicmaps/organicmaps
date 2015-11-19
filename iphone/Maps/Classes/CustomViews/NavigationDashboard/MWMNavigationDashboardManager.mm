@@ -17,7 +17,7 @@ static NSString * const kRoutePreviewIPADXibName = @"MWMiPadRoutePreview";
 static NSString * const kNavigationDashboardPortraitXibName = @"MWMPortraitNavigationDashboard";
 static NSString * const kNavigationDashboardLandscapeXibName = @"MWMLandscapeNavigationDashboard";
 static NSString * const kNavigationDashboardIPADXibName = @"MWMNiPadNavigationDashboard";
-
+extern NSString * const kTTSStatusWasChangedNotification;
 
 @interface MWMNavigationDashboardManager () <MWMCircularProgressProtocol>
 
@@ -79,6 +79,9 @@ static NSString * const kNavigationDashboardIPADXibName = @"MWMNiPadNavigationDa
       _navigationDashboardPortrait.delegate = _navigationDashboardLandscape.delegate = delegate;
     }
     _helperPanels = [NSMutableArray array];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(changedTTSStatus:)
+                                                 name:kTTSStatusWasChangedNotification object:nullptr];
   }
   return self;
 }
