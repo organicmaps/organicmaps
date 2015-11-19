@@ -12,7 +12,6 @@
 
 static NSDictionary * const kEtaAttributes = @{NSForegroundColorAttributeName : UIColor.blackPrimaryText,
                                                           NSFontAttributeName : UIFont.medium17};
-static CGFloat const kBottomPanelHeight = 48.;
 static CGFloat const kAdditionalHeight = 20.;
 
 @interface MWMRoutePreview () <MWMRoutePointCellDelegate>
@@ -20,6 +19,7 @@ static CGFloat const kAdditionalHeight = 20.;
 @property (weak, nonatomic) IBOutlet UIView * pedestrian;
 @property (weak, nonatomic) IBOutlet UIView * vehicle;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * planningRouteViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * planningContainerHeight;
 @property (weak, nonatomic, readwrite) IBOutlet UIButton * extendButton;
 @property (weak, nonatomic) IBOutlet UIButton * goButton;
 @property (weak, nonatomic) IBOutlet UICollectionView * collectionView;
@@ -241,7 +241,7 @@ static CGFloat const kAdditionalHeight = 20.;
 
 - (CGFloat)visibleHeight
 {
-  return self.planningRouteViewHeight.constant + kBottomPanelHeight + kAdditionalHeight;
+  return self.planningRouteViewHeight.constant + self.planningContainerHeight.constant + kAdditionalHeight;
 }
 
 - (IBAction)extendTap
@@ -265,13 +265,19 @@ static CGFloat const kAdditionalHeight = 20.;
     return;
   if (IPAD)
   {
-    self.height = self.superview.height - kAdditionalHeight;
+    CGFloat const selfHeight = self.superview.height - kAdditionalHeight;
+    self.defaultHeight = selfHeight;
+    self.height = selfHeight;
     return;
   }
   BOOL const isPortrait = self.superview.height > self.superview.width;
   CGFloat const height = isPortrait ? 140. : 96.;
-  self.planningRouteViewHeight.constant = self.extendButton.selected ? height : 44.;
-  [self.dashboardManager.delegate routePreviewDidChangeFrame:{self.origin, {self.width, self.planningRouteViewHeight.constant + kBottomPanelHeight + kAdditionalHeight}}];
+  CGFloat const planningRouteViewHeight = self.extendButton.selected ? height : 44.;
+  self.planningRouteViewHeight.constant = planningRouteViewHeight;
+  CGFloat const selfHeight = planningRouteViewHeight + self.planningContainerHeight.constant;
+  self.defaultHeight = selfHeight;
+  self.height = selfHeight;
+  [self.dashboardManager.delegate routePreviewDidChangeFrame:{self.origin, {self.width, selfHeight + kAdditionalHeight}}];
 }
 
 - (void)setDataSource:(id<MWMRoutePreviewDataSource>)dataSource

@@ -6,7 +6,6 @@ static CGFloat const kStatusbarHeight = 20.0;
 @interface MWMNavigationView ()
 
 @property (nonatomic) BOOL isVisible;
-@property (nonatomic, readwrite) CGFloat defaultHeight;
 
 @property (weak, nonatomic, readwrite) IBOutlet UIView * contentView;
 
