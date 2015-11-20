@@ -408,12 +408,12 @@ static CGFloat const kAdditionalHeight = 20.;
   if (indexPath.row == 0)
   {
     cell.title.text = self.dataSource.source;
-    cell.title.placeholder = L(@"choose_from");
+    cell.title.placeholder = L(@"p2p_from");
   }
   else
   {
     cell.title.text = self.dataSource.destination;
-    cell.title.placeholder = L(@"choose_to");
+    cell.title.placeholder = L(@"p2p_to");
   }
   cell.delegate = self;
   return cell;

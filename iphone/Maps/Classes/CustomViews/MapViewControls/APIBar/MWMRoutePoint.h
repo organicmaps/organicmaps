@@ -7,7 +7,7 @@ public:
 
   MWMRoutePoint(m2::PointD const & p, NSString * n) : m_point(p), m_name(n), m_isMyPosition(false) {}
 
-  explicit MWMRoutePoint(m2::PointD const & p) : m_point(p), m_name(L(@"my_position")), m_isMyPosition(true) {}
+  explicit MWMRoutePoint(m2::PointD const & p) : m_point(p), m_name(L(@"p2p_your_location")), m_isMyPosition(true) {}
 
   bool operator ==(MWMRoutePoint const & p) const
   {

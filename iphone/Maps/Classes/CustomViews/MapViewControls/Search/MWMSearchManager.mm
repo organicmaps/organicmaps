@@ -187,7 +187,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
      [self.delegate buildRouteTo:p];
   else
     f.ShowSearchResult(result);
-  if (!IPAD)
+  if (!IPAD && a.routingPlaneMode != MWMRoutingPlaneModeNone)
     a.routingPlaneMode = MWMRoutingPlaneModePlacePage;
   self.state = MWMSearchManagerStateHidden;
 }

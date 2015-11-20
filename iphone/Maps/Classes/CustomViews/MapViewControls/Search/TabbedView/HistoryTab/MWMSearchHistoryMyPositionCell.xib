@@ -37,7 +37,7 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="my_position"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="p2p_your_location"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                         </userDefinedRuntimeAttributes>
