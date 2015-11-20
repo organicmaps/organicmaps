@@ -64,10 +64,12 @@ void Navigator::SetFromRect(m2::AnyRectD const & r, uint32_t tileSize, double vi
   tmp.SetFromRect(r);
   tmp = ScaleInto(tmp, worldR);
   if (CheckMaxScale(tmp, tileSize, visualScale))
+  {
     m_Screen = tmp;
 
-  if (!m_InAction)
-    m_StartScreen = tmp;
+    if (!m_InAction)
+      m_StartScreen = tmp;
+  }
 }
 
 void Navigator::CenterViewport(m2::PointD const & p)
