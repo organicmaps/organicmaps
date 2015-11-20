@@ -402,6 +402,13 @@ void DrapeEngine::DeactivateRouteFollowing()
                                   MessagePriority::Normal);
 }
 
+void DrapeEngine::SetRoutePoint(m2::PointD const & position, bool isStart, bool isValid)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<CacheRouteSignMessage>(position, isStart, isValid),
+                                  MessagePriority::Normal);
+}
+
 void DrapeEngine::SetWidgetLayout(gui::TWidgetsLayoutInfo && info)
 {
   m_widgetsLayout = move(info);

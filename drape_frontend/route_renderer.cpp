@@ -219,24 +219,35 @@ void RouteRenderer::RenderRoute(ScreenBase const & screen, ref_ptr<dp::GpuProgra
 void RouteRenderer::RenderRouteSigns(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
                                      dp::UniformValuesStorage const & commonUniforms)
 {
-  if (!m_routeData)
-    return;
-
-  // render end of route
+  if (m_startRouteSign)
   {
-    dp::GLState const & state = m_routeData->m_endOfRouteSign.m_state;
-
-    dp::UniformValuesStorage uniforms = commonUniforms;
-    uniforms.SetFloatValue("u_opacity", 1.0);
-
-    ref_ptr<dp::GpuProgram> program = mng->GetProgram(state.GetProgramIndex());
-    program->Bind();
-    dp::ApplyState(m_routeData->m_endOfRouteSign.m_state, program);
-    dp::ApplyUniforms(uniforms, program);
-
-    for (drape_ptr<dp::RenderBucket> const & bucket : m_routeData->m_endOfRouteSign.m_buckets)
-      bucket->Render(screen);
+    ASSERT(m_startRouteSign->m_isValid, ());
+    RenderRouteSign(m_startRouteSign, screen, mng, commonUniforms);
   }
+
+  if (m_finishRouteSign)
+  {
+    ASSERT(m_finishRouteSign->m_isValid, ());
+    RenderRouteSign(m_finishRouteSign, screen, mng, commonUniforms);
+  }
+}
+
+void RouteRenderer::RenderRouteSign(drape_ptr<RouteSignData> const & sign, ScreenBase const & screen,
+                                    ref_ptr<dp::GpuProgramManager> mng,
+                                    dp::UniformValuesStorage const & commonUniforms)
+{
+  dp::GLState const & state = sign->m_sign.m_state;
+
+  dp::UniformValuesStorage uniforms = commonUniforms;
+  uniforms.SetFloatValue("u_opacity", 1.0);
+
+  ref_ptr<dp::GpuProgram> program = mng->GetProgram(state.GetProgramIndex());
+  program->Bind();
+  dp::ApplyState(sign->m_sign.m_state, program);
+  dp::ApplyUniforms(uniforms, program);
+
+  for (drape_ptr<dp::RenderBucket> const & bucket : sign->m_sign.m_buckets)
+    bucket->Render(screen);
 }
 
 void RouteRenderer::RenderArrow(ref_ptr<dp::GpuProgram> prg, drape_ptr<ArrowRenderProperty> const & property,
@@ -284,11 +295,46 @@ void RouteRenderer::SetRouteData(drape_ptr<RouteData> && routeData, ref_ptr<dp::
   m_routeData = move(routeData);
 
   BuildBuckets(m_routeData->m_route, mng);
-  BuildBuckets(m_routeData->m_endOfRouteSign, mng);
   for (drape_ptr<ArrowRenderProperty> const & arrow : m_routeData->m_arrows)
     BuildBuckets(arrow->m_arrow, mng);
 
   m_distanceFromBegin = 0.0;
+}
+
+void RouteRenderer::SetRouteSign(drape_ptr<RouteSignData> && routeSignData, ref_ptr<dp::GpuProgramManager> mng)
+{
+  if (routeSignData->m_isStart)
+  {
+    if (!routeSignData->m_isValid)
+    {
+      m_startRouteSign.reset();
+      return;
+    }
+
+    m_startRouteSign = move(routeSignData);
+    BuildBuckets(m_startRouteSign->m_sign, mng);
+  }
+  else
+  {
+    if (!routeSignData->m_isValid)
+    {
+      m_finishRouteSign.reset();
+      return;
+    }
+
+    m_finishRouteSign = move(routeSignData);
+    BuildBuckets(m_finishRouteSign->m_sign, mng);
+  }
+}
+
+drape_ptr<RouteSignData> const & RouteRenderer::GetStartPoint() const
+{
+  return m_startRouteSign;
+}
+
+drape_ptr<RouteSignData> const & RouteRenderer::GetFinishPoint() const
+{
+  return m_finishRouteSign;
 }
 
 drape_ptr<RouteData> const & RouteRenderer::GetRouteData() const
@@ -299,6 +345,8 @@ drape_ptr<RouteData> const & RouteRenderer::GetRouteData() const
 void RouteRenderer::Clear(bool keepDistanceFromBegin)
 {
   m_routeData.reset();
+  m_startRouteSign.reset();
+  m_finishRouteSign.reset();
   m_arrowBorders.clear();
   m_routeSegments.clear();
 

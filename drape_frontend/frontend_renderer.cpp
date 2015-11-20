@@ -321,9 +321,33 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<FlushRouteMessage> msg = message;
       drape_ptr<RouteData> routeData = msg->AcceptRouteData();
+      m2::PointD startPoint = routeData->m_sourcePolyline.Front();
+      m2::PointD finishPoint = routeData->m_sourcePolyline.Back();
       m_routeRenderer->SetRouteData(move(routeData), make_ref(m_gpuProgramManager));
+      if (!m_routeRenderer->GetStartPoint())
+      {
+        m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<CacheRouteSignMessage>(startPoint, true /* isStart */,
+                                                                        true /* isValid */),
+                                  MessagePriority::High);
+      }
+      if (!m_routeRenderer->GetFinishPoint())
+      {
+        m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<CacheRouteSignMessage>(finishPoint, false /* isStart */,
+                                                                        true /* isValid */),
+                                  MessagePriority::High);
+      }
 
       m_myPositionController->ActivateRouting();
+      break;
+    }
+
+  case Message::FlushRouteSign:
+    {
+      ref_ptr<FlushRouteSignMessage> msg = message;
+      drape_ptr<RouteSignData> routeSignData = msg->AcceptRouteSignData();
+      m_routeRenderer->SetRouteSign(move(routeSignData), make_ref(m_gpuProgramManager));
       break;
     }
 
@@ -369,6 +393,23 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       blocker.Wait();
 
       // Invalidate route.
+      if (m_routeRenderer->GetStartPoint())
+      {
+        m2::PointD const & position = m_routeRenderer->GetStartPoint()->m_position;
+        m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<CacheRouteSignMessage>(position, true /* isStart */,
+                                                                        true /* isValid */),
+                                  MessagePriority::High);
+      }
+      if (m_routeRenderer->GetFinishPoint())
+      {
+        m2::PointD const & position = m_routeRenderer->GetFinishPoint()->m_position;
+        m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<CacheRouteSignMessage>(position, false /* isStart */,
+                                                                        true /* isValid */),
+                                  MessagePriority::High);
+      }
+
       auto const & routeData = m_routeRenderer->GetRouteData();
       if (routeData != nullptr)
       {

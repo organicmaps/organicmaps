@@ -39,6 +39,11 @@ BackendRenderer::BackendRenderer(Params const & params)
     m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                               make_unique_dp<FlushRouteMessage>(move(routeData)),
                               MessagePriority::Normal);
+  }, [this](drape_ptr<RouteSignData> && routeSignData)
+  {
+    m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                              make_unique_dp<FlushRouteSignMessage>(move(routeSignData)),
+                              MessagePriority::Normal);
   });
 
   StartThread();
@@ -184,6 +189,12 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<AddRouteMessage> msg = message;
       m_routeBuilder->Build(msg->GetRoutePolyline(), msg->GetTurns(), msg->GetColor(), m_texMng);
+      break;
+    }
+  case Message::CacheRouteSign:
+    {
+      ref_ptr<CacheRouteSignMessage> msg = message;
+      m_routeBuilder->BuildSign(msg->GetPosition(), msg->IsStart(), msg->IsValid(), m_texMng);
       break;
     }
   case Message::RemoveRoute:

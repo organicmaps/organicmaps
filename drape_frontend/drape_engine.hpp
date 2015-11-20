@@ -109,6 +109,7 @@ public:
   void RemoveRoute(bool deactivateFollowing);
   void FollowRoute(int preferredZoomLevel);
   void DeactivateRouteFollowing();
+  void SetRoutePoint(m2::PointD const & position, bool isStart, bool isValid);
 
   void SetWidgetLayout(gui::TWidgetsLayoutInfo && info);
   gui::TWidgetsSizeInfo const & GetWidgetSizes();

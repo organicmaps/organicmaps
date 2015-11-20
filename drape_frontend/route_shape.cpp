@@ -280,15 +280,15 @@ void RouteShape::PrepareGeometry(bool isRoute, vector<m2::PointD> const & path,
   }
 }
 
-void RouteShape::CacheEndOfRouteSign(ref_ptr<dp::TextureManager> mng, RouteData & routeData)
+void RouteShape::CacheRouteSign(ref_ptr<dp::TextureManager> mng, RouteSignData & routeSignData)
 {
   dp::TextureManager::SymbolRegion symbol;
-  mng->GetSymbolRegion("route_to", symbol);
+  mng->GetSymbolRegion(routeSignData.m_isStart ? "route_from" : "route_to", symbol);
 
   m2::RectF const & texRect = symbol.GetTexRect();
   m2::PointF halfSize = m2::PointF(symbol.GetPixelSize()) * 0.5f;
 
-  glsl::vec2 const pos = glsl::ToVec2(routeData.m_sourcePolyline.Back());
+  glsl::vec2 const pos = glsl::ToVec2(routeSignData.m_position);
   glsl::vec3 const pivot = glsl::vec3(pos.x, pos.y, m_params.m_depth);
   gpu::SolidTexturingVertex data[4]=
   {
@@ -303,10 +303,10 @@ void RouteShape::CacheEndOfRouteSign(ref_ptr<dp::TextureManager> mng, RouteData 
 
   {
     dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
-    dp::SessionGuard guard(batcher, [&routeData](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
+    dp::SessionGuard guard(batcher, [&routeSignData](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
     {
-      routeData.m_endOfRouteSign.m_buckets.push_back(move(b));
-      routeData.m_endOfRouteSign.m_state = state;
+      routeSignData.m_sign.m_buckets.push_back(move(b));
+      routeSignData.m_sign.m_state = state;
     });
 
     dp::AttributeProvider provider(1 /* stream count */, dp::Batcher::VertexPerQuad);
@@ -352,9 +352,6 @@ void RouteShape::Draw(ref_ptr<dp::TextureManager> textures, RouteData & routeDat
       BatchGeometry(state, geometry, joinsGeometry, renderProperty->m_arrow);
     }
   }
-
-  // end of route sign
-  CacheEndOfRouteSign(textures, routeData);
 }
 
 void RouteShape::BatchGeometry(dp::GLState const & state, TGeometryBuffer & geometry,

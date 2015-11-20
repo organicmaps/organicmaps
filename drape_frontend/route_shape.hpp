@@ -49,20 +49,27 @@ struct RouteData
   double m_length;
   RouteRenderProperty m_route;
   vector<drape_ptr<ArrowRenderProperty>> m_arrows;
-  RouteRenderProperty m_endOfRouteSign;
+};
+
+struct RouteSignData
+{
+  RouteRenderProperty m_sign;
+  bool m_isStart;
+  bool m_isValid;
+  m2::PointD m_position;
 };
 
 class RouteShape
 {
 public:
   RouteShape(CommonViewParams const & params);
+  void CacheRouteSign(ref_ptr<dp::TextureManager> mng, RouteSignData & routeSignData);
   void Draw(ref_ptr<dp::TextureManager> textures, RouteData & routeData);
 
 private:
   using RV = gpu::RouteVertex;
   using TGeometryBuffer = buffer_vector<gpu::RouteVertex, 128>;
 
-  void CacheEndOfRouteSign(ref_ptr<dp::TextureManager> mng, RouteData & routeData);
   void PrepareGeometry(bool isRoute, vector<m2::PointD> const & path,
                        TGeometryBuffer & geometry, TGeometryBuffer & joinsGeometry,
                        vector<RouteJoinBounds> & joinsBounds, double & outputLength);

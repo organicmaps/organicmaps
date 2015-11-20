@@ -46,6 +46,10 @@ public:
   void SetRouteData(drape_ptr<RouteData> && routeData, ref_ptr<dp::GpuProgramManager> mng);
   drape_ptr<RouteData> const & GetRouteData() const;
 
+  void SetRouteSign(drape_ptr<RouteSignData> && routeSignData, ref_ptr<dp::GpuProgramManager> mng);
+  drape_ptr<RouteSignData> const & GetStartPoint() const;
+  drape_ptr<RouteSignData> const & GetFinishPoint() const;
+
   void Clear(bool keepDistanceFromBegin = false);
 
   void UpdateDistanceFromBegin(double distanceFromBegin);
@@ -58,12 +62,17 @@ private:
   void RenderArrow(ref_ptr<dp::GpuProgram> prg, drape_ptr<ArrowRenderProperty> const & property,
                    float halfWidth, ScreenBase const & screen);
   void InterpolateByZoom(ScreenBase const & screen, float & halfWidth, float & alpha, double & zoom) const;
+  void RenderRouteSign(drape_ptr<RouteSignData> const & sign, ScreenBase const & screen,
+                       ref_ptr<dp::GpuProgramManager> mng, dp::UniformValuesStorage const & commonUniforms);
 
   double m_distanceFromBegin;
   drape_ptr<RouteData> m_routeData;
 
   vector<ArrowBorders> m_arrowBorders;
   vector<RouteSegment> m_routeSegments;
+
+  drape_ptr<RouteSignData> m_startRouteSign;
+  drape_ptr<RouteSignData> m_finishRouteSign;
 };
 
 } // namespace df

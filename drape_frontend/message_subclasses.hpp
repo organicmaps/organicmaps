@@ -539,6 +539,27 @@ private:
   vector<double> m_turns;
 };
 
+class CacheRouteSignMessage : public Message
+{
+public:
+  CacheRouteSignMessage(m2::PointD const & pos, bool isStart, bool isValid)
+    : m_position(pos)
+    , m_isStart(isStart)
+    , m_isValid(isValid)
+  {}
+
+  Type GetType() const override { return Message::CacheRouteSign; }
+
+  m2::PointD const & GetPosition() const { return m_position; }
+  bool IsStart() const { return m_isStart; }
+  bool IsValid() const { return m_isValid; }
+
+private:
+  m2::PointD m_position;
+  bool m_isStart;
+  bool m_isValid;
+};
+
 class RemoveRouteMessage : public Message
 {
 public:
@@ -566,6 +587,20 @@ public:
 
 private:
   drape_ptr<RouteData> m_routeData;
+};
+
+class FlushRouteSignMessage : public Message
+{
+public:
+  FlushRouteSignMessage(drape_ptr<RouteSignData> && routeSignData)
+    : m_routeSignData(move(routeSignData))
+  {}
+
+  Type GetType() const override { return Message::FlushRouteSign; }
+  drape_ptr<RouteSignData> && AcceptRouteSignData() { return move(m_routeSignData); }
+
+private:
+  drape_ptr<RouteSignData> m_routeSignData;
 };
 
 class UpdateMapStyleMessage : public BaseBlockingMessage
