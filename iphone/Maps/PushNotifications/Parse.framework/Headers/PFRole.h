@@ -9,11 +9,10 @@
 
 #import <Foundation/Foundation.h>
 
-#import <Parse/PFNullability.h>
 #import <Parse/PFObject.h>
 #import <Parse/PFSubclassing.h>
 
-PF_ASSUME_NONNULL_BEGIN
+NS_ASSUME_NONNULL_BEGIN
 
 /*!
  The `PFRole` class represents a Role on the Parse server.
@@ -44,7 +43,7 @@ PF_ASSUME_NONNULL_BEGIN
  @param name The name of the Role to create.
  @param acl The ACL for this role. Roles must have an ACL.
  */
-- (instancetype)initWithName:(NSString *)name acl:(PF_NULLABLE PFACL *)acl;
+- (instancetype)initWithName:(NSString *)name acl:(nullable PFACL *)acl;
 
 /*!
  @abstract Constructs a new `PFRole` with the given name.
@@ -61,7 +60,7 @@ PF_ASSUME_NONNULL_BEGIN
  @param name The name of the Role to create.
  @param acl The ACL for this role. Roles must have an ACL.
  */
-+ (instancetype)roleWithName:(NSString *)name acl:(PF_NULLABLE PFACL *)acl;
++ (instancetype)roleWithName:(NSString *)name acl:(nullable PFACL *)acl;
 
 ///--------------------------------------
 /// @name Role-specific Properties
@@ -97,4 +96,4 @@ PF_ASSUME_NONNULL_BEGIN
 
 @end
 
-PF_ASSUME_NONNULL_END
+NS_ASSUME_NONNULL_END

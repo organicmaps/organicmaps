@@ -11,13 +11,13 @@
 
 #import <Bolts/BFTask.h>
 
-#import <Parse/PFNullability.h>
+#import <Parse/PFConstants.h>
 
-PF_ASSUME_NONNULL_BEGIN
+NS_ASSUME_NONNULL_BEGIN
 
 @class PFConfig;
 
-typedef void(^PFConfigResultBlock)(PFConfig *PF_NULLABLE_S config, NSError *PF_NULLABLE_S error);
+typedef void(^PFConfigResultBlock)(PFConfig *__nullable config, NSError *__nullable error);
 
 /*!
  `PFConfig` is a representation of the remote configuration object.
@@ -47,7 +47,7 @@ typedef void(^PFConfigResultBlock)(PFConfig *PF_NULLABLE_S config, NSError *PF_N
 
  @returns Instance of `PFConfig` if the operation succeeded, otherwise `nil`.
  */
-+ (PF_NULLABLE PFConfig *)getConfig;
++ (nullable PFConfig *)getConfig PF_SWIFT_UNAVAILABLE;
 
 /*!
  @abstract Gets the `PFConfig` object *synchronously* from the server and sets an error if it occurs.
@@ -56,14 +56,14 @@ typedef void(^PFConfigResultBlock)(PFConfig *PF_NULLABLE_S config, NSError *PF_N
 
  @returns Instance of PFConfig if the operation succeeded, otherwise `nil`.
  */
-+ (PF_NULLABLE PFConfig *)getConfig:(NSError **)error;
++ (nullable PFConfig *)getConfig:(NSError **)error;
 
 /*!
  @abstract Gets the `PFConfig` *asynchronously* and sets it as a result of a task.
 
  @returns The task, that encapsulates the work being done.
  */
-+ (BFTask *)getConfigInBackground;
++ (BFTask PF_GENERIC(PFConfig *)*)getConfigInBackground;
 
 /*!
  @abstract Gets the `PFConfig` *asynchronously* and executes the given callback block.
@@ -71,7 +71,7 @@ typedef void(^PFConfigResultBlock)(PFConfig *PF_NULLABLE_S config, NSError *PF_N
  @param block The block to execute.
  It should have the following argument signature: `^(PFConfig *config, NSError *error)`.
  */
-+ (void)getConfigInBackgroundWithBlock:(PF_NULLABLE PFConfigResultBlock)block;
++ (void)getConfigInBackgroundWithBlock:(nullable PFConfigResultBlock)block;
 
 ///--------------------------------------
 /// @name Parameters
@@ -84,7 +84,7 @@ typedef void(^PFConfigResultBlock)(PFConfig *PF_NULLABLE_S config, NSError *PF_N
 
  @returns The value associated with `key`, or `nil` if there is no such value.
  */
-- (PF_NULLABLE_S id)objectForKey:(NSString *)key;
+- (nullable id)objectForKey:(NSString *)key;
 
 /*!
  @abstract Returns the object associated with a given key.
@@ -98,8 +98,8 @@ typedef void(^PFConfigResultBlock)(PFConfig *PF_NULLABLE_S config, NSError *PF_N
 
  @returns The value associated with `key`, or `nil` if there is no such value.
  */
-- (PF_NULLABLE_S id)objectForKeyedSubscript:(NSString *)keyedSubscript;
+- (nullable id)objectForKeyedSubscript:(NSString *)keyedSubscript;
 
 @end
 
-PF_ASSUME_NONNULL_END
+NS_ASSUME_NONNULL_END

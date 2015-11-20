@@ -10,11 +10,13 @@
 #import <Foundation/Foundation.h>
 
 #import <Parse/PFFile.h>
-#import <Parse/PFNullability.h>
 #import <Parse/PFObject.h>
 #import <Parse/PFSubclassing.h>
 
-PF_ASSUME_NONNULL_BEGIN
+PF_OSX_UNAVAILABLE_WARNING
+PF_WATCH_UNAVAILABLE_WARNING
+
+NS_ASSUME_NONNULL_BEGIN
 
 /*!
  The `PFProduct` class represents an in-app purchase product on the Parse server.
@@ -23,7 +25,7 @@ PF_ASSUME_NONNULL_BEGIN
 
  This class is currently for iOS only.
  */
-@interface PFProduct : PFObject<PFSubclassing>
+PF_OSX_UNAVAILABLE PF_WATCH_UNAVAILABLE @interface PFProduct : PFObject<PFSubclassing>
 
 ///--------------------------------------
 /// @name Product-specific Properties
@@ -34,37 +36,37 @@ PF_ASSUME_NONNULL_BEGIN
 
  @discussion This should match the product identifier in iTunes Connect exactly.
  */
-@property (PF_NULLABLE_PROPERTY nonatomic, strong) NSString *productIdentifier;
+@property (nullable, nonatomic, strong) NSString *productIdentifier;
 
 /*!
  @abstract The icon of the product.
  */
-@property (PF_NULLABLE_PROPERTY nonatomic, strong) PFFile *icon;
+@property (nullable, nonatomic, strong) PFFile *icon;
 
 /*!
  @abstract The title of the product.
  */
-@property (PF_NULLABLE_PROPERTY nonatomic, strong) NSString *title;
+@property (nullable, nonatomic, strong) NSString *title;
 
 /*!
  @abstract The subtitle of the product.
  */
-@property (PF_NULLABLE_PROPERTY nonatomic, strong) NSString *subtitle;
+@property (nullable, nonatomic, strong) NSString *subtitle;
 
 /*!
  @abstract The order in which the product information is displayed in <PFProductTableViewController>.
 
  @discussion The product with a smaller order is displayed earlier in the <PFProductTableViewController>.
  */
-@property (PF_NULLABLE_PROPERTY nonatomic, strong) NSNumber *order;
+@property (nullable, nonatomic, strong) NSNumber *order;
 
 /*!
  @abstract The name of the associated download.
 
  @discussion If there is no downloadable asset, it should be `nil`.
  */
-@property (PF_NULLABLE_PROPERTY nonatomic, strong, readonly) NSString *downloadName;
+@property (nullable, nonatomic, strong, readonly) NSString *downloadName;
 
 @end
 
-PF_ASSUME_NONNULL_END
+NS_ASSUME_NONNULL_END

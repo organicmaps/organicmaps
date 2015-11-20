@@ -13,7 +13,7 @@
 
 #import <Parse/PFConstants.h>
 
-PF_ASSUME_NONNULL_BEGIN
+NS_ASSUME_NONNULL_BEGIN
 
 /*!
  `PFAnalytics` provides an interface to Parse's logging and analytics backend.
@@ -41,7 +41,7 @@ PF_ASSUME_NONNULL_BEGIN
 
  @returns Returns the task encapsulating the work being done.
  */
-+ (BFTask *)trackAppOpenedWithLaunchOptions:(PF_NULLABLE NSDictionary *)launchOptions;
++ (BFTask PF_GENERIC(NSNumber *)*)trackAppOpenedWithLaunchOptions:(nullable NSDictionary *)launchOptions;
 
 /*!
  @abstract Tracks this application being launched.
@@ -56,8 +56,8 @@ PF_ASSUME_NONNULL_BEGIN
  @param block The block to execute on server response.
  It should have the following argument signature: `^(BOOL succeeded, NSError *error)`
  */
-+ (void)trackAppOpenedWithLaunchOptionsInBackground:(PF_NULLABLE NSDictionary *)launchOptions
-                                              block:(PF_NULLABLE PFBooleanResultBlock)block;
++ (void)trackAppOpenedWithLaunchOptionsInBackground:(nullable NSDictionary *)launchOptions
+                                              block:(nullable PFBooleanResultBlock)block;
 
 /*!
  @abstract Tracks this application being launched. If this happened as the result of the
@@ -71,7 +71,7 @@ PF_ASSUME_NONNULL_BEGIN
 
  @returns Returns the task encapsulating the work being done.
  */
-+ (BFTask *)trackAppOpenedWithRemoteNotificationPayload:(PF_NULLABLE NSDictionary *)userInfo;
++ (BFTask PF_GENERIC(NSNumber *)*)trackAppOpenedWithRemoteNotificationPayload:(nullable NSDictionary *)userInfo;
 
 /*!
  @abstract Tracks this application being launched. If this happened as the result of the
@@ -84,8 +84,8 @@ PF_ASSUME_NONNULL_BEGIN
  @param block The block to execute on server response.
  It should have the following argument signature: `^(BOOL succeeded, NSError *error)`
  */
-+ (void)trackAppOpenedWithRemoteNotificationPayloadInBackground:(PF_NULLABLE NSDictionary *)userInfo
-                                                          block:(PF_NULLABLE PFBooleanResultBlock)block;
++ (void)trackAppOpenedWithRemoteNotificationPayloadInBackground:(nullable NSDictionary *)userInfo
+                                                          block:(nullable PFBooleanResultBlock)block;
 
 ///--------------------------------------
 /// @name Custom Analytics
@@ -100,7 +100,7 @@ PF_ASSUME_NONNULL_BEGIN
 
  @returns Returns the task encapsulating the work being done.
  */
-+ (BFTask *)trackEvent:(NSString *)name;
++ (BFTask PF_GENERIC(NSNumber *)*)trackEvent:(NSString *)name;
 
 /*!
  @abstract Tracks the occurrence of a custom event. Parse will store a data point at the
@@ -111,7 +111,7 @@ PF_ASSUME_NONNULL_BEGIN
  @param block The block to execute on server response.
  It should have the following argument signature: `^(BOOL succeeded, NSError *error)`
  */
-+ (void)trackEventInBackground:(NSString *)name block:(PF_NULLABLE PFBooleanResultBlock)block;
++ (void)trackEventInBackground:(NSString *)name block:(nullable PFBooleanResultBlock)block;
 
 /*!
  @abstract Tracks the occurrence of a custom event with additional dimensions. Parse will
@@ -134,7 +134,8 @@ PF_ASSUME_NONNULL_BEGIN
 
  @returns Returns the task encapsulating the work being done.
  */
-+ (BFTask *)trackEvent:(NSString *)name dimensions:(PF_NULLABLE NSDictionary *)dimensions;
++ (BFTask PF_GENERIC(NSNumber *)*)trackEvent:(NSString *)name
+                                  dimensions:(nullable NSDictionary PF_GENERIC(NSString *, NSString *)*)dimensions;
 
 /*!
  @abstract Tracks the occurrence of a custom event with additional dimensions. Parse will
@@ -158,9 +159,9 @@ PF_ASSUME_NONNULL_BEGIN
  It should have the following argument signature: `^(BOOL succeeded, NSError *error)`
  */
 + (void)trackEventInBackground:(NSString *)name
-                    dimensions:(PF_NULLABLE NSDictionary *)dimensions
-                         block:(PF_NULLABLE PFBooleanResultBlock)block;
+                    dimensions:(nullable NSDictionary PF_GENERIC(NSString *, NSString *)*)dimensions
+                         block:(nullable PFBooleanResultBlock)block;
 
 @end
 
-PF_ASSUME_NONNULL_END
+NS_ASSUME_NONNULL_END

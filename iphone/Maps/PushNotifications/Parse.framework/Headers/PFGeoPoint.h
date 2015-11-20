@@ -10,13 +10,11 @@
 #import <CoreLocation/CoreLocation.h>
 #import <Foundation/Foundation.h>
 
-#import <Parse/PFNullability.h>
-
-PF_ASSUME_NONNULL_BEGIN
+NS_ASSUME_NONNULL_BEGIN
 
 @class PFGeoPoint;
 
-typedef void(^PFGeoPointResultBlock)(PFGeoPoint *PF_NULLABLE_S geoPoint, NSError *PF_NULLABLE_S error);
+typedef void(^PFGeoPointResultBlock)(PFGeoPoint *__nullable geoPoint, NSError *__nullable error);
 
 /*!
  `PFGeoPoint` may be used to embed a latitude / longitude point as the value for a key in a <PFObject>.
@@ -44,7 +42,7 @@ typedef void(^PFGeoPointResultBlock)(PFGeoPoint *PF_NULLABLE_S geoPoint, NSError
 
  @returns Returns a new PFGeoPoint at specified location.
  */
-+ (instancetype)geoPointWithLocation:(PF_NULLABLE CLLocation *)location;
++ (instancetype)geoPointWithLocation:(nullable CLLocation *)location;
 
 /*!
  @abstract Create a new `PFGeoPoint` object with the specified latitude and longitude.
@@ -62,7 +60,7 @@ typedef void(^PFGeoPointResultBlock)(PFGeoPoint *PF_NULLABLE_S geoPoint, NSError
  @param resultBlock A block which takes the newly created `PFGeoPoint` as an argument.
  It should have the following argument signature: `^(PFGeoPoint *geoPoint, NSError *error)`
  */
-+ (void)geoPointForCurrentLocationInBackground:(PF_NULLABLE PFGeoPointResultBlock)resultBlock;
++ (void)geoPointForCurrentLocationInBackground:(nullable PFGeoPointResultBlock)resultBlock;
 
 ///--------------------------------------
 /// @name Controlling Position
@@ -89,7 +87,7 @@ typedef void(^PFGeoPointResultBlock)(PFGeoPoint *PF_NULLABLE_S geoPoint, NSError
 
  @returns Distance in radians between the receiver and `point`.
  */
-- (double)distanceInRadiansTo:(PF_NULLABLE PFGeoPoint *)point;
+- (double)distanceInRadiansTo:(nullable PFGeoPoint *)point;
 
 /*!
  @abstract Get distance in miles from this point to specified point.
@@ -98,7 +96,7 @@ typedef void(^PFGeoPointResultBlock)(PFGeoPoint *PF_NULLABLE_S geoPoint, NSError
 
  @returns Distance in miles between the receiver and `point`.
  */
-- (double)distanceInMilesTo:(PF_NULLABLE PFGeoPoint *)point;
+- (double)distanceInMilesTo:(nullable PFGeoPoint *)point;
 
 /*!
  @abstract Get distance in kilometers from this point to specified point.
@@ -107,8 +105,8 @@ typedef void(^PFGeoPointResultBlock)(PFGeoPoint *PF_NULLABLE_S geoPoint, NSError
 
  @returns Distance in kilometers between the receiver and `point`.
  */
-- (double)distanceInKilometersTo:(PF_NULLABLE PFGeoPoint *)point;
+- (double)distanceInKilometersTo:(nullable PFGeoPoint *)point;
 
 @end
 
-PF_ASSUME_NONNULL_END
+NS_ASSUME_NONNULL_END

@@ -9,11 +9,10 @@
 
 #import <Foundation/Foundation.h>
 
-#import <Parse/PFNullability.h>
 #import <Parse/PFObject.h>
 #import <Parse/PFQuery.h>
 
-PF_ASSUME_NONNULL_BEGIN
+NS_ASSUME_NONNULL_BEGIN
 
 /*!
  The `PFRelation` class that is used to access all of the children of a many-to-many relationship.
@@ -24,7 +23,7 @@ PF_ASSUME_NONNULL_BEGIN
 /*!
  @abstract The name of the class of the target child objects.
  */
-@property (PF_NULLABLE_PROPERTY nonatomic, copy) NSString *targetClass;
+@property (nullable, nonatomic, copy) NSString *targetClass;
 
 ///--------------------------------------
 /// @name Accessing Objects
@@ -33,7 +32,7 @@ PF_ASSUME_NONNULL_BEGIN
 /*!
  @abstract Returns a <PFQuery> object that can be used to get objects in this relation.
  */
-- (PF_NULLABLE PFQuery *)query;
+- (PFQuery *)query;
 
 ///--------------------------------------
 /// @name Modifying Relations
@@ -55,4 +54,4 @@ PF_ASSUME_NONNULL_BEGIN
 
 @end
 
-PF_ASSUME_NONNULL_END
+NS_ASSUME_NONNULL_END

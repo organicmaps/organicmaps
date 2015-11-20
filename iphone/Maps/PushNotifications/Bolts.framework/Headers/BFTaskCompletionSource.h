@@ -10,14 +10,18 @@
 
 #import <Foundation/Foundation.h>
 
-@class BFTask;
+#import <Bolts/BFDefines.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@class BFTask BF_GENERIC(BFGenericType);
 
 /*!
  A BFTaskCompletionSource represents the producer side of tasks.
  It is a task that also has methods for changing the state of the
  task by settings its completion values.
  */
-@interface BFTaskCompletionSource : NSObject
+@interface BFTaskCompletionSource BF_GENERIC(__covariant BFGenericType) : NSObject
 
 /*!
  Creates a new unfinished task.
@@ -27,14 +31,14 @@
 /*!
  The task associated with this TaskCompletionSource.
  */
-@property (nonatomic, strong, readonly) BFTask *task;
+@property (nonatomic, strong, readonly) BFTask BF_GENERIC(BFGenericType) *task;
 
 /*!
  Completes the task by setting the result.
  Attempting to set this for a completed task will raise an exception.
  @param result The result of the task.
  */
-- (void)setResult:(id)result;
+- (void)setResult:(nullable BFGenericType)result;
 
 /*!
  Completes the task by setting the error.
@@ -60,7 +64,7 @@
  Sets the result of the task if it wasn't already completed.
  @returns whether the new value was set.
  */
-- (BOOL)trySetResult:(id)result;
+- (BOOL)trySetResult:(nullable BFGenericType)result;
 
 /*!
  Sets the error of the task if it wasn't already completed.
@@ -83,3 +87,5 @@
 - (BOOL)trySetCancelled;
 
 @end
+
+NS_ASSUME_NONNULL_END

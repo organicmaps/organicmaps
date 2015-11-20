@@ -11,18 +11,24 @@
 #import <StoreKit/StoreKit.h>
 
 #import <Parse/PFConstants.h>
-#import <Parse/PFNullability.h>
+
+PF_OSX_UNAVAILABLE_WARNING
+PF_WATCH_UNAVAILABLE_WARNING
 
 @class PFProduct;
 
-PF_ASSUME_NONNULL_BEGIN
+NS_ASSUME_NONNULL_BEGIN
+
+typedef void (^PFPurchaseProductObservationBlock)(SKPaymentTransaction *transaction);
+typedef void (^PFPurchaseBuyProductResultBlock)(NSError *__nullable error);
+typedef void (^PFPurchaseDownloadAssetResultBlock)(NSString *__nullable filePath, NSError *__nullable error);
 
 /*!
  `PFPurchase` provides a set of APIs for working with in-app purchases.
 
  This class is currently for iOS only.
  */
-@interface PFPurchase : NSObject
+PF_OSX_UNAVAILABLE PF_WATCH_UNAVAILABLE @interface PFPurchase : NSObject
 
 /*!
  @abstract Add application logic block which is run when buying a product.
@@ -35,8 +41,7 @@ PF_ASSUME_NONNULL_BEGIN
  @param productIdentifier the product identifier
  @param block The block to be run when buying a product.
  */
-+ (void)addObserverForProduct:(NSString *)productIdentifier
-                        block:(void(^)(SKPaymentTransaction *transaction))block;
++ (void)addObserverForProduct:(NSString *)productIdentifier block:(PFPurchaseProductObservationBlock)block;
 
 /*!
  @abstract *Asynchronously* initiates the purchase for the product.
@@ -44,7 +49,7 @@ PF_ASSUME_NONNULL_BEGIN
  @param productIdentifier the product identifier
  @param block the completion block.
  */
-+ (void)buyProduct:(NSString *)productIdentifier block:(void(^)(NSError *error))block;
++ (void)buyProduct:(NSString *)productIdentifier block:(nullable PFPurchaseBuyProductResultBlock)block;
 
 /*!
  @abstract *Asynchronously* download the purchased asset, which is stored on Parse's server.
@@ -55,7 +60,7 @@ PF_ASSUME_NONNULL_BEGIN
  @param completion the completion block.
  */
 + (void)downloadAssetForTransaction:(SKPaymentTransaction *)transaction
-                         completion:(void(^)(NSString *filePath, NSError *error))completion;
+                         completion:(PFPurchaseDownloadAssetResultBlock)completion;
 
 /*!
  @abstract *Asynchronously* download the purchased asset, which is stored on Parse's server.
@@ -67,8 +72,8 @@ PF_ASSUME_NONNULL_BEGIN
  @param progress the progress block, which is called multiple times to reveal progress of the download.
  */
 + (void)downloadAssetForTransaction:(SKPaymentTransaction *)transaction
-                         completion:(void(^)(NSString *filePath, NSError *error))completion
-                           progress:(PF_NULLABLE PFProgressBlock)progress;
+                         completion:(PFPurchaseDownloadAssetResultBlock)completion
+                           progress:(nullable PFProgressBlock)progress;
 
 /*!
  @abstract *Asynchronously* restore completed transactions for the current user.
@@ -88,8 +93,8 @@ PF_ASSUME_NONNULL_BEGIN
 
  @warning This method will return `nil`, if the purchase wasn't verified or if the asset was not downloaded.
  */
-+ (PF_NULLABLE NSString *)assetContentPathForProduct:(PFProduct *)product;
++ (nullable NSString *)assetContentPathForProduct:(PFProduct *)product;
 
 @end
 
-PF_ASSUME_NONNULL_END
+NS_ASSUME_NONNULL_END

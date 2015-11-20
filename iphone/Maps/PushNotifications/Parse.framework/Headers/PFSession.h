@@ -14,11 +14,11 @@
 #import <Parse/PFObject.h>
 #import <Parse/PFSubclassing.h>
 
-PF_ASSUME_NONNULL_BEGIN
+NS_ASSUME_NONNULL_BEGIN
 
 @class PFSession;
 
-typedef void(^PFSessionResultBlock)(PFSession *PF_NULLABLE_S session, NSError *PF_NULLABLE_S error);
+typedef void(^PFSessionResultBlock)(PFSession *__nullable session, NSError *__nullable error);
 
 /*!
  `PFSession` is a local representation of a session.
@@ -30,14 +30,14 @@ typedef void(^PFSessionResultBlock)(PFSession *PF_NULLABLE_S session, NSError *P
 /*!
  @abstract The session token string for this session.
  */
-@property (PF_NULLABLE_PROPERTY nonatomic, copy, readonly) NSString *sessionToken;
+@property (nullable, nonatomic, copy, readonly) NSString *sessionToken;
 
 /*!
  *Asynchronously* fetches a `PFSession` object related to the current user.
 
  @returns A task that is `completed` with an instance of `PFSession` class or is `faulted` if the operation fails.
  */
-+ (BFTask *)getCurrentSessionInBackground;
++ (BFTask PF_GENERIC(PFSession *)*)getCurrentSessionInBackground;
 
 /*!
  *Asynchronously* fetches a `PFSession` object related to the current user.
@@ -45,8 +45,8 @@ typedef void(^PFSessionResultBlock)(PFSession *PF_NULLABLE_S session, NSError *P
  @param block The block to execute when the operation completes.
  It should have the following argument signature: `^(PFSession *session, NSError *error)`.
  */
-+ (void)getCurrentSessionInBackgroundWithBlock:(PF_NULLABLE PFSessionResultBlock)block;
++ (void)getCurrentSessionInBackgroundWithBlock:(nullable PFSessionResultBlock)block;
 
 @end
 
-PF_ASSUME_NONNULL_END
+NS_ASSUME_NONNULL_END
