@@ -1033,6 +1033,34 @@ line|z16-17[highway=secondary] {
 }
 
 /* SECONDARY LABELS */
+line|z15[highway=primary_link],
+line|z15[highway=secondary],
+line|z15[highway=motorway_link],
+line|z15[highway=trunk_link],
+line|z15[highway=residential],
+line|z15[highway=tertiary],
+line|z15[highway=unclassified],
+line|z15[highway=living_street],
+line|z15[highway=pedestrian] {
+  font-size: 10;
+  text: name;
+  text-color: @label_medium;
+  text-halo-opacity: 0.5;
+  text-halo-radius: 1;
+  text-halo-color: @label_halo_medium;
+}
+
+line|z15-[highway=bridleway],
+line|z15-[highway=path],
+line|z15-[highway=footway] {
+  font-size: 9;
+  text: name;
+  text-color: @label_medium;
+  text-halo-opacity: 0.5;
+  text-halo-radius: 1;
+  text-halo-color: @label_halo_light;
+}
+
 line|z16-17[highway=primary_link],
 line|z16-17[highway=motorway_link],
 line|z16-17[highway=trunk_link],
@@ -1041,7 +1069,7 @@ line|z16-17[highway=tertiary],
 line|z16-17[highway=unclassified],
 line|z16-17[highway=living_street],
 line|z16-17[highway=pedestrian],
-line|z16-17[highway=path] {
+line|z16-17[highway=path], {
   font-size: 12;
   text: name;
   text-color: @label_medium;
