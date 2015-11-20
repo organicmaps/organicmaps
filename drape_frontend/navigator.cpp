@@ -444,7 +444,6 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
       screen.GtoPMatrix() * ScreenBase::CalcTransform(oldPt1 + offset, oldPt2 + offset,
                                                       newPt1 + offset, newPt2 + offset,
                                                       doRotateScreen);
-
   ScreenBase tmp = screen;
   tmp.SetGtoPMatrix(newM);
 

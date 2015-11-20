@@ -201,7 +201,8 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       }
       break;
     case UserEvent::EVENT_DISABLE_PERSPECTIVE:
-      SetDisable3dModeAnimation();
+      if (m_navigator.Screen().isPerspective())
+        SetDisable3dModeAnimation();
       break;
     default:
       ASSERT(false, ());

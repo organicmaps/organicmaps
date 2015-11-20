@@ -148,9 +148,9 @@ struct FollowAndRotateEvent
 struct EnablePerspectiveEvent
 {
   EnablePerspectiveEvent(double rotationAngle, double angleFOV, bool isAnim)
-    : m_rotationAngle(rotationAngle)
+    : m_isAnim(isAnim)
+    , m_rotationAngle(rotationAngle)
     , m_angleFOV(angleFOV)
-    , m_isAnim(isAnim)
   {}
 
   bool m_isAnim;
