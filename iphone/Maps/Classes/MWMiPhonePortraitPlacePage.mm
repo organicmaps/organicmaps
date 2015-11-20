@@ -12,7 +12,8 @@
 
 #include "Framework.h"
 
-static CGFloat const kPlacePageBottomOffset = 31.;
+static CGFloat const kPlacePageBottomOffset = 32.;
+extern CGFloat const kBasePlacePageViewTitleBottomOffset;
 
 typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 {
@@ -152,8 +153,10 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
   CGFloat const width = isLandscape ? size.height : size.width;
   CGFloat const height = isLandscape ? size.width : size.height;
   MWMBasePlacePageView * basePPV = self.basePlacePageView;
-  CGFloat const typeHeight = basePPV.typeLabel.text.length > 0 ? basePPV.typeLabel.height : basePPV.typeDescriptionView.height;
-  CGFloat const h = height - (basePPV.titleLabel.height + kPlacePageBottomOffset + typeHeight + self.actionBar.height);
+  CGFloat const typeHeight = basePPV.typeLabel.text.length > 0 ? basePPV.typeLabel.height
+                                                               : basePPV.typeDescriptionView.height;
+  CGFloat const h = height - (basePPV.titleLabel.height + kPlacePageBottomOffset + typeHeight +
+                              self.actionBar.height);
   return {width / 2, height + h};
 }
 
@@ -178,11 +181,12 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
   MWMBasePlacePageView * basePPV = self.basePlacePageView;
   CGSize const size = UIScreen.mainScreen.bounds.size;
   CGFloat const height = MAX(size.width, size.height);
-  CGFloat const typeHeight = basePPV.typeLabel.text.length > 0 ?
-                             basePPV.typeLabel.height :
-                             basePPV.typeDescriptionView.height;
-  return height - (basePPV.titleLabel.height + kPlacePageBottomOffset + typeHeight +
-                   [(UITableView *)basePPV.featureTable height] + self.actionBar.height + self.keyboardHeight);
+  CGFloat const typeHeight = basePPV.typeLabel.text.length > 0 ? basePPV.typeLabel.height
+                                                               : basePPV.typeDescriptionView.height;
+  return height -
+         (basePPV.titleLabel.height + kPlacePageBottomOffset + kBasePlacePageViewTitleBottomOffset +
+          typeHeight + [(UITableView *)basePPV.featureTable height] + self.actionBar.height +
+          self.keyboardHeight);
 }
 
 #pragma mark - Actions

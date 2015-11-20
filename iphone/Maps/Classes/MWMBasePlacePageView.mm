@@ -12,6 +12,13 @@ static NSString * const kPlacePageLinkCellIdentifier = @"PlacePageLinkCell";
 static NSString * const kPlacePageInfoCellIdentifier = @"PlacePageInfoCell";
 static NSString * const kPlacePageBookmarkCellIdentifier = @"PlacePageBookmarkCell";
 
+static CGFloat const kPlacePageTitleKoefficient = 0.63;
+static CGFloat const kLeftOffset = 16.;
+static CGFloat const kDirectionArrowSide = 26.;
+static CGFloat const kOffsetFromTitleToDistance = 12.;
+static CGFloat const kOffsetFromDistanceToArrow = 8.;
+extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
+
 @interface MWMBasePlacePageView ()
 
 @property (weak, nonatomic) MWMPlacePageEntity * entity;
@@ -73,13 +80,6 @@ static NSString * const kPlacePageBookmarkCellIdentifier = @"PlacePageBookmarkCe
   [self layoutSubviews];
 }
 
-static CGFloat const kPlacePageTitleKoefficient = 0.63;
-static CGFloat const kLeftOffset = 16.;
-static CGFloat const kDirectionArrowSide = 25.;
-static CGFloat const kOffsetFromTitleToDistance = 12.;
-static CGFloat const kOffsetFromDistanceToArrow = 8.;
-static CGFloat const kTitleBottomOffset = 2.;
-
 - (void)layoutSubviews
 {
   [super layoutSubviews];
@@ -87,9 +87,11 @@ static CGFloat const kTitleBottomOffset = 2.;
   MWMPlacePageEntityType const type = entity.type;
   CGFloat const maximumWidth = 360.;
   CGSize const size = [UIScreen mainScreen].bounds.size;
-  CGFloat const placePageWidth = IPAD ? maximumWidth : size.width > size.height ? MIN(maximumWidth, size.height) : size.width;
+  CGFloat const placePageWidth =
+      IPAD ? maximumWidth : size.width > size.height ? MIN(maximumWidth, size.height) : size.width;
   CGFloat const maximumTitleWidth = kPlacePageTitleKoefficient * placePageWidth;
-  BOOL const isExtendedType = type == MWMPlacePageEntityTypeEle || type == MWMPlacePageEntityTypeHotel;
+  BOOL const isExtendedType =
+      type == MWMPlacePageEntityTypeEle || type == MWMPlacePageEntityTypeHotel;
   CGFloat const topOffset = (self.typeLabel.text.length > 0 || isExtendedType) ? 0 : 4.;
   CGFloat const typeBottomOffset = 10.;
   self.width = placePageWidth;
@@ -97,7 +99,7 @@ static CGFloat const kTitleBottomOffset = 2.;
   [self.titleLabel sizeToFit];
   self.typeLabel.width = maximumTitleWidth;
   [self.typeLabel sizeToFit];
-  CGFloat const typeMinY = self.titleLabel.maxY + kTitleBottomOffset;
+  CGFloat const typeMinY = self.titleLabel.maxY + kBasePlacePageViewTitleBottomOffset;
 
   self.titleLabel.origin = CGPointMake(kLeftOffset, topOffset);
   self.typeLabel.origin = CGPointMake(kLeftOffset, typeMinY);
@@ -106,24 +108,34 @@ static CGFloat const kTitleBottomOffset = 2.;
   if (isExtendedType)
     [self layoutTypeDescription];
 
-  CGFloat const typeHeight = self.typeLabel.text.length > 0 ? self.typeLabel.height : self.typeDescriptionView.height;
+  CGFloat const typeHeight =
+      self.typeLabel.text.length > 0 ? self.typeLabel.height : self.typeDescriptionView.height;
   self.featureTable.minY = typeMinY + typeHeight + typeBottomOffset;
   self.separatorView.minY = self.featureTable.minY - 1;
   [self layoutDistanceLabelWithPlacePageWidth:placePageWidth];
   self.featureTable.height = self.featureTable.contentSize.height;
-  self.height = typeBottomOffset + kTitleBottomOffset + self.titleLabel.height + self.typeLabel.height + self.featureTable.height;
+  self.height = typeBottomOffset + kBasePlacePageViewTitleBottomOffset + self.titleLabel.height +
+                self.typeLabel.height + self.featureTable.height;
 }
 
 - (void)layoutTypeDescription
 {
   MWMPlacePageEntity * entity = self.entity;
-  CGFloat const typeMinY = self.titleLabel.maxY + kTitleBottomOffset;
-  MWMPlacePageTypeDescription * typeDescription = [[MWMPlacePageTypeDescription alloc] initWithPlacePageEntity:entity];
-  self.typeDescriptionView = entity.type == MWMPlacePageEntityTypeHotel ? (UIView *)typeDescription.hotelDescription : (UIView *)typeDescription.eleDescription;
+  CGFloat const typeMinY = self.titleLabel.maxY + kBasePlacePageViewTitleBottomOffset;
+  MWMPlacePageTypeDescription * typeDescription =
+      [[MWMPlacePageTypeDescription alloc] initWithPlacePageEntity:entity];
+  self.typeDescriptionView = entity.type == MWMPlacePageEntityTypeHotel
+                                 ? (UIView *)typeDescription.hotelDescription
+                                 : (UIView *)typeDescription.eleDescription;
   self.typeDescriptionView.autoresizingMask = UIViewAutoresizingNone;
   BOOL const typeLabelIsNotEmpty = self.typeLabel.text.length > 0;
-  CGFloat const minX = typeLabelIsNotEmpty ? self.typeLabel.minX + self.typeLabel.width + 2 * kTitleBottomOffset : kLeftOffset;
-  CGFloat const minY = typeLabelIsNotEmpty ? self.typeLabel.center.y - self.typeDescriptionView.height / 2. - 1.: typeMinY;
+  CGFloat const minX =
+      typeLabelIsNotEmpty
+          ? self.typeLabel.minX + self.typeLabel.width + 2 * kBasePlacePageViewTitleBottomOffset
+          : kLeftOffset;
+  CGFloat const minY = typeLabelIsNotEmpty
+                           ? self.typeLabel.center.y - self.typeDescriptionView.height / 2. - 1.
+                           : typeMinY;
   if (![self.subviews containsObject:self.typeDescriptionView])
     [self addSubview:self.typeDescriptionView];
 

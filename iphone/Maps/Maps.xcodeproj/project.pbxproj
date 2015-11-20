@@ -2460,7 +2460,7 @@
 			children = (
 				F6FE2C121B04A2AF009814AA /* iPhonePortrait */,
 				F66A8FA91B09F069001B9C97 /* iPhoneLandscape */,
-				F66A8FAD1B09F13C001B9C97 /* MWMiPadPlacePageView */,
+				F66A8FAD1B09F13C001B9C97 /* iPadPlacePageView */,
 				F65243311B0B51A000BFA9D4 /* Base */,
 			);
 			name = OrientationVariants;
@@ -2475,13 +2475,13 @@
 			name = iPhoneLandscape;
 			sourceTree = "<group>";
 		};
-		F66A8FAD1B09F13C001B9C97 /* MWMiPadPlacePageView */ = {
+		F66A8FAD1B09F13C001B9C97 /* iPadPlacePageView */ = {
 			isa = PBXGroup;
 			children = (
 				F66A8FAA1B09F137001B9C97 /* MWMiPadPlacePage.h */,
 				F66A8FAB1B09F137001B9C97 /* MWMiPadPlacePage.mm */,
 			);
-			name = MWMiPadPlacePageView;
+			name = iPadPlacePageView;
 			sourceTree = "<group>";
 		};
 		F681DE941BFB38D700B547C7 /* What's New */ = {
