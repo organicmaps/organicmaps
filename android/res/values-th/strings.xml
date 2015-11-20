@@ -824,4 +824,5 @@
 	<string name="whats_new_voice_instructions">เรียน เพื่อน ๆ จากที่คุณได้ร้องขอในเรื่องคำแนะนำด้วยเสียงพูดในระหว่างการนำทาง - เราได้ทำมันแล้ว! ต่อไปนี้ตัวนำทางของเราจะเตือนเกี่ยวกับการเลี้ยวครั้งถัดไปของคุณได้ทันเวลา</string>
 	<string name="whats_new_between_any_points">สร้างเส้นทางระหว่างทุกจุด</string>
 	<string name="whats_new_happy_day">เป็นวันที่แสนสุขจริง ๆ! วางแผนทริปของคุณล่วงหน้าด้วย MAPS.ME</string>
+	<string name="whats_new_next">ถัดไป</string>
 </resources>

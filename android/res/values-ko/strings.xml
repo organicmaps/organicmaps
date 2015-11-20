@@ -812,4 +812,5 @@
 	<string name="whats_new_voice_instructions">친애하는 친구 여러분, 네비게이션 동안 음성 안내를 오랫동안 요구했습니다. 우리가 이를 해냈습니다! 이제 네비게이터는 적시에 다음 회전할 차례를 알려 줍니다.</string>
 	<string name="whats_new_between_any_points">모든 지점 사이로 경로 구축</string>
 	<string name="whats_new_happy_day">정말로 행복한 하루되세요! MAPS.ME로 향후 여행을 계획하세요.</string>
+	<string name="whats_new_next">다음</string>
 </resources>

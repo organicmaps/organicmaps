@@ -826,4 +826,5 @@
 	<string name="whats_new_voice_instructions">Sevgili arkadaşlar, navigasyon sırasında sesli talimatları uzun süredir sormaktaydınız - Bunu yaptık! Artık navigatörümüz bir sonraki dönüşünüz için zamanı geldiğinde sizi uyaracak.</string>
 	<string name="whats_new_between_any_points">Herhangi noktalar arasında rotalar oluşturun</string>
 	<string name="whats_new_happy_day">Çok mutlu bir gün öyle değil mi! Yolculuğunuzu önceden MAPS.ME ile planlayın.</string>
+	<string name="whats_new_next">Sonraki</string>
 </resources>

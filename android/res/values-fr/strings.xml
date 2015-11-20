@@ -807,8 +807,8 @@
 	<string name="rate_alert_less_than_four_star_message">Avez-vous une idée de ce que nous pourrions améliorer ?</string>
 	<string name="categories">Catégories</string>
 	<string name="history">Historique</string>
-	<string name="next_turn_then">Luego</string>
-	<string name="closed">Cerrado</string>
+	<string name="next_turn_then">Ensuite</string>
+	<string name="closed">Fermé</string>
 	<string name="back_to">Revenir à %s</string>
 	<string name="search_not_found">Désolé, je n\&#39;ai rien trouvé.</string>
 	<string name="search_not_found_query">Veuillez essayer un autre mot-clé.</string>
@@ -833,4 +833,5 @@
 	<string name="whats_new_voice_instructions">Chers amis, vous nous demandiez depuis longtemps d\&#39;inclure des instructions vocales au cours de la navigation – nous l\&#39;avons fait ! Désormais, notre navigateur vous préviendra à l\&#39;avance de votre prochain virage.</string>
 	<string name="whats_new_between_any_points">Obtenez des itinéraires entre n\&#39;importe quels points</string>
 	<string name="whats_new_happy_day">Nous vous souhaitons une bonne journée ! Préparez vos trajet en avance avec MAPS.ME</string>
+	<string name="whats_new_next">Neste</string>
 </resources>

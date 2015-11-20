@@ -823,4 +823,5 @@
 	<string name="whats_new_voice_instructions">Kedves barátaink! Már régóta kértétek tőlünk a hangirányítás hozzáadását a navigációhoz, most végre kész lett! Most a navigátor időben figyelmeztet, hogy mikor kell legközelebb kanyarodnod.</string>
 	<string name="whats_new_between_any_points">Alakíts ki egy útvonalat két tetszőleges pont között</string>
 	<string name="whats_new_happy_day">Micsoda boldog nap ez! Tervezd meg az utaidat előre a MAPS.ME-vel!</string>
+	<string name="whats_new_next">Következő</string>
 </resources>
