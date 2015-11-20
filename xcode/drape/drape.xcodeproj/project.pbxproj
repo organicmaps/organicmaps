@@ -97,6 +97,8 @@
 		6729A5B31A69213A007D5872 /* vertex_decl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6729A5601A69213A007D5872 /* vertex_decl.hpp */; };
 		6729A5B41A69213A007D5872 /* vertex_array_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6729A5611A69213A007D5872 /* vertex_array_buffer.cpp */; };
 		6729A5B51A69213A007D5872 /* vertex_array_buffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6729A5621A69213A007D5872 /* vertex_array_buffer.hpp */; };
+		675D21991BFB876E00717E4F /* projection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675D21971BFB876E00717E4F /* projection.cpp */; };
+		675D219A1BFB876E00717E4F /* projection.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675D21981BFB876E00717E4F /* projection.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -219,6 +221,8 @@
 		6729A5601A69213A007D5872 /* vertex_decl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vertex_decl.hpp; sourceTree = "<group>"; };
 		6729A5611A69213A007D5872 /* vertex_array_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vertex_array_buffer.cpp; sourceTree = "<group>"; };
 		6729A5621A69213A007D5872 /* vertex_array_buffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vertex_array_buffer.hpp; sourceTree = "<group>"; };
+		675D21971BFB876E00717E4F /* projection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = projection.cpp; sourceTree = "<group>"; };
+		675D21981BFB876E00717E4F /* projection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = projection.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -378,6 +382,8 @@
 		6729A55C1A69213A007D5872 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				675D21971BFB876E00717E4F /* projection.cpp */,
+				675D21981BFB876E00717E4F /* projection.hpp */,
 				6729A55F1A69213A007D5872 /* vertex_decl.cpp */,
 				6729A5601A69213A007D5872 /* vertex_decl.hpp */,
 			);
@@ -408,6 +414,7 @@
 				6729A5681A69213A007D5872 /* batcher_helpers.hpp in Headers */,
 				6729A5931A69213A007D5872 /* oglcontextfactory.hpp in Headers */,
 				6729A56A1A69213A007D5872 /* batcher.hpp in Headers */,
+				675D219A1BFB876E00717E4F /* projection.hpp in Headers */,
 				670947291BDF9A4F005014C0 /* hw_texture_ios.hpp in Headers */,
 				670947281BDF9A4F005014C0 /* glyph_manager.hpp in Headers */,
 				6729A5991A69213A007D5872 /* pointers.hpp in Headers */,
@@ -516,6 +523,7 @@
 				6729A5981A69213A007D5872 /* pointers.cpp in Sources */,
 				6729A5881A69213A007D5872 /* gpu_program_manager.cpp in Sources */,
 				6729A5A41A69213A007D5872 /* symbols_texture.cpp in Sources */,
+				675D21991BFB876E00717E4F /* projection.cpp in Sources */,
 				6729A56D1A69213A007D5872 /* buffer_base.cpp in Sources */,
 				6729A5A01A69213A007D5872 /* shader.cpp in Sources */,
 				6709472F1BDF9A4F005014C0 /* shader_def.cpp in Sources */,

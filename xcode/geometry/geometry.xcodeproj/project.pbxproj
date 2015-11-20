@@ -71,6 +71,8 @@
 		675344DE1A3F68F900A0A8C3 /* binary_operators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675344DB1A3F68F900A0A8C3 /* binary_operators.cpp */; };
 		675344DF1A3F68F900A0A8C3 /* binary_operators.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675344DC1A3F68F900A0A8C3 /* binary_operators.hpp */; };
 		675344E01A3F68F900A0A8C3 /* boost_concept.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675344DD1A3F68F900A0A8C3 /* boost_concept.hpp */; };
+		675D21951BFB874500717E4F /* latlon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675D21931BFB874500717E4F /* latlon.cpp */; };
+		675D21961BFB874500717E4F /* latlon.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675D21941BFB874500717E4F /* latlon.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -152,6 +154,8 @@
 		675344DB1A3F68F900A0A8C3 /* binary_operators.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = binary_operators.cpp; sourceTree = "<group>"; };
 		675344DC1A3F68F900A0A8C3 /* binary_operators.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = binary_operators.hpp; sourceTree = "<group>"; };
 		675344DD1A3F68F900A0A8C3 /* boost_concept.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = boost_concept.hpp; sourceTree = "<group>"; };
+		675D21931BFB874500717E4F /* latlon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = latlon.cpp; sourceTree = "<group>"; };
+		675D21941BFB874500717E4F /* latlon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = latlon.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
