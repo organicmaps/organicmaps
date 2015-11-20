@@ -24,7 +24,7 @@ static CGFloat const kOffsetBetweenPanels = 8.;
 
 - (void)invalidateTopBounds:(NSArray *)panels topView:(UIView *)view
 {
-  if (IPAD || !panels.count)
+  if (!panels.count)
     return;
   self.topView = view;
   dispatch_async(dispatch_get_main_queue(), ^
