@@ -53,6 +53,7 @@ static NSString * const kStatIn = @"In";
 static NSString * const kStatKML = @"KML";
 static NSString * const kStatKilometers = @"Kilometers";
 static NSString * const kStatLandscape = @"Landscape";
+static NSString * const kStatLanguage = @"Language";
 static NSString * const kStatLocation = @"Location";
 static NSString * const kStatMap = @"Map search";
 static NSString * const kStatMenu = @"Menu";
