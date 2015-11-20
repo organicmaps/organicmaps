@@ -1314,9 +1314,9 @@
 
 "history" = "Historique";
 
-"next_turn_then" = "Luego";
+"next_turn_then" = "Ensuite";
 
-"closed" = "Cerrado";
+"closed" = "Fermé";
 
 "back_to" = "Revenir à %@";
 
@@ -1367,3 +1367,5 @@
 "whats_new_between_any_points" = "Obtenez des itinéraires entre n'importe quels points";
 
 "whats_new_happy_day" = "Nous vous souhaitons une bonne journée ! Préparez vos trajet en avance avec MAPS.ME";
+
+"whats_new_next" = "Neste";

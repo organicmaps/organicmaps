@@ -14832,3 +14832,33 @@
     pl = To będzie dobry dzień! Planuj swoje podróże z MAPS.ME.
     nl = Inderdaad een prettige dag! Plan uw reizen vooruit met MAPS.ME.
     pt = ¡Que tengas un buen día! Planifica tus viajes por adelantado con MAPS.ME.
+
+  [whats_new_next]
+    tags = ios, android
+    en = Next
+    ru = Далее
+    fr = Neste
+    da = Næste
+    id = Berikut
+    ko = 다음
+    sv = Nästa
+    tr = Sonraki
+    uk = Далі
+    vi = Tiếp theo
+    hu = Következő
+    de = Weiter
+    fi = Seuraava
+    cs = Další
+    it = Avanti
+    nb = Neste
+    zh-Hant = 下一頁
+    zh-Hans = 下一页
+    th = ถัดไป
+    ja = 次へ
+    ro = Următoarea
+    ar = التالي
+    sk = Nasledujúca
+    es = Siguiente
+    pl = Dalej
+    nl = Volgende
+    pt = Próxima

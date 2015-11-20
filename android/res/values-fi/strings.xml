@@ -822,4 +822,5 @@
 	<string name="whats_new_voice_instructions">Hyvät ystävät, olette pyytäneet ääniopastusta navigoinnin avuksi jo pitkän aikaa - toiveenne on kuultu! Nyt navigaattorimme varoittaa sinua hyvissä ajoin, ennen kuin sinun pitää kääntyä.</string>
 	<string name="whats_new_between_any_points">Luo reittejä minkä tahansa kohteiden välille</string>
 	<string name="whats_new_happy_day">Elämä hymyilee! Suunnittele matkasi etukäteen MAPS.ME -sovelluksen avulla.</string>
+	<string name="whats_new_next">Seuraava</string>
 </resources>
