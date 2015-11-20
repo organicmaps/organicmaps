@@ -93,9 +93,9 @@ namespace OsrmMappingTypes
 bool IsInside(FtSeg const & bigSeg, FtSeg const & smallSeg);
 
 /// Splits segment by splitter segment and takes part of it.
-/// Warning this function includes a whole splitter segment to a result segment described by the
-/// resultFromLeft variable.
-FtSeg SplitSegment(FtSeg const & segment, FtSeg const & splitter, bool const resultFromLeft);
+/// Warning! This function returns part from the start of the segment to the splitter, including it.
+/// Splitter segment points must be ordered.
+FtSeg SplitSegment(FtSeg const & segment, FtSeg const & splitter);
 }  // namespace OsrmMappingTypes
 
 class OsrmFtSegMapping;

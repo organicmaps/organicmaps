@@ -68,7 +68,7 @@ double Point2PhantomNode::CalculateDistance(FeatureType const & ft,
 
 void Point2PhantomNode::CalculateWeight(OsrmMappingTypes::FtSeg const & seg,
                                         m2::PointD const & segPt, NodeID const & nodeId,
-                                        bool calcFromRight, int & weight, int & offset) const
+                                        int & weight, int & offset) const
 {
   // nodeId can be INVALID_NODE_ID when reverse node is absent. This node has no weight.
   if (nodeId == INVALID_NODE_ID)
@@ -92,13 +92,8 @@ void Point2PhantomNode::CalculateWeight(OsrmMappingTypes::FtSeg const & seg,
   auto const range = m_routingMapping.m_segMapping.GetSegmentsRange(nodeId);
   OsrmMappingTypes::FtSeg segment;
 
-  size_t const startIndex = calcFromRight ? range.second - 1 : range.first;
-  size_t const endIndex = calcFromRight ? range.first - 1 : range.second;
-  int const indexIncrement = calcFromRight ? -1 : 1;
-
   bool foundSeg = false;
-  m2::PointD lastPoint;
-  for (size_t segmentIndex = startIndex; segmentIndex != endIndex; segmentIndex += indexIncrement)
+  for (size_t segmentIndex = range.first; segmentIndex != range.second; ++segmentIndex)
   {
     m_routingMapping.m_segMapping.GetSegmentByIndex(segmentIndex, segment);
     if (!segment.IsValid())
@@ -120,11 +115,10 @@ void Point2PhantomNode::CalculateWeight(OsrmMappingTypes::FtSeg const & seg,
 
     if (segment.m_fid == seg.m_fid && OsrmMappingTypes::IsInside(segment, seg))
     {
-      auto const splittedSegment = OsrmMappingTypes::SplitSegment(segment, seg, !calcFromRight);
+      auto const splittedSegment = OsrmMappingTypes::SplitSegment(segment, seg);
       distanceM += CalculateDistance(ft, splittedSegment.m_pointStart, splittedSegment.m_pointEnd);
       // node.m_seg always forward ordered (m_pointStart < m_pointEnd)
-      distanceM -= MercatorBounds::DistanceOnEarth(
-          ft.GetPoint(calcFromRight ? seg.m_pointStart : seg.m_pointEnd), segPt);
+      distanceM -= MercatorBounds::DistanceOnEarth(ft.GetPoint(seg.m_pointEnd), segPt);
 
       foundSeg = true;
     }
@@ -274,9 +268,9 @@ void Point2PhantomNode::CalculateWeights(FeatureGraphNode & node) const
     // Need to initialize weights for correct work of PhantomNode::GetForwardWeightPlusOffset
     // and PhantomNode::GetReverseWeightPlusOffset.
   CalculateWeight(node.segment, node.segmentPoint, node.node.forward_node_id,
-                  false /* calcFromRight */, node.node.forward_weight, node.node.forward_offset);
+                  node.node.forward_weight, node.node.forward_offset);
   CalculateWeight(node.segment, node.segmentPoint, node.node.reverse_node_id,
-                  true /* calcFromRight */, node.node.reverse_weight, node.node.reverse_offset);
+                  node.node.reverse_weight, node.node.reverse_offset);
 }
 
 void Point2Node::operator()(FeatureType const & ft)

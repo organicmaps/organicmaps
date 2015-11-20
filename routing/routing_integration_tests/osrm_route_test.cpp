@@ -120,6 +120,14 @@ namespace
         {11.327927635052676, 48.166256203616726}, 2870710.);
   }
 
+  UNIT_TEST(PeruSingleRoadTest)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetOsrmComponents(),
+        MercatorBounds::FromLatLon(-14.22061, -73.35969), {0., 0.},
+        MercatorBounds::FromLatLon(-14.22389, -73.44281), 15900.);
+  }
+
   UNIT_TEST(RussiaMoscowFranceParisCenterRouteTest)
   {
     integration::CalculateRouteAndTestRouteLength(
@@ -245,6 +253,6 @@ namespace
     IRouter::ResultCode const result = routeResult.second;
     TEST_EQUAL(result, IRouter::NoError, ());
 
-    integration::TestRouteTime(route, 909.);
+    integration::TestRouteTime(route, 900.);
   }
 }  // namespace
