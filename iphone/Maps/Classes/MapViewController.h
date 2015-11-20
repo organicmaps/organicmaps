@@ -47,6 +47,7 @@ namespace search { struct AddressInfo; }
 - (void)openBookmarks;
 
 @property (nonatomic) MTRGNativeAppwallAd * appWallAd;
+@property (nonatomic, readonly) BOOL isAppWallAdActive;
 
 @property (nonatomic) UIPopoverController * popoverVC;
 @property (nonatomic) ShareActionSheet * shareActionSheet;

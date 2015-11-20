@@ -800,6 +800,8 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     self.appWallAd = nil;
     return;
   }
+  if (self.isAppWallAdActive)
+    return;
   self.appWallAd = [[MTRGNativeAppwallAd alloc]initWithSlotId:@(MY_TARGET_KEY)];
   self.appWallAd.handleLinksInApp = YES;
   self.appWallAd.closeButtonTitle = L(@"close");
@@ -963,6 +965,13 @@ NSInteger compareAddress(id l, id r, void * context)
   if (!_controlsManager)
     _controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
   return _controlsManager;
+}
+
+- (BOOL)isAppWallAdActive
+{
+  BOOL const haveAppWall = (self.appWallAd != nil);
+  BOOL const haveBanners = (self.appWallAd.banners && self.appWallAd.banners != 0);
+  return haveAppWall && haveBanners;
 }
 
 @end
