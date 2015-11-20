@@ -240,7 +240,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     {
       NSString * suggestionString = @(result.GetSuggestionString());
       [[Statistics instance] logEvent:kStatEventName(kStatSearch, kStatSelectResult)
-                       withParameters:@{kStatValue : suggestionString}];
+                       withParameters:@{kStatValue : suggestionString, kStatScreen : kStatSearch}];
       [self.delegate searchText:suggestionString forInputLocale:nil];
     }
     else

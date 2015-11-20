@@ -82,6 +82,7 @@ static NSString * const kStatRegular = @"Regular";
 static NSString * const kStatRemove = @"Remove";
 static NSString * const kStatRename = @"Rename";
 static NSString * const kStatReport = @"Report";
+static NSString * const kStatScreen = @"Screen";
 static NSString * const kStatSearch = @"Search";
 static NSString * const kStatSearchEnteredState = @"Search entered state";
 static NSString * const kStatSelectMap = @"Select map";
