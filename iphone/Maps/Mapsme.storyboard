@@ -159,7 +159,7 @@
                                 <animations/>
                                 <connections>
                                     <outlet property="titleLabel" destination="8jb-wX-P4h" id="swZ-rt-c36"/>
-                                    <segue destination="XDU-iY-yV9" kind="show" id="6P4-k0-wZ3"/>
+                                    <segue destination="XDU-iY-yV9" kind="push" id="6P4-k0-wZ3"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -257,8 +257,9 @@
                             <outlet property="delegate" destination="XDU-iY-yV9" id="jFV-ti-w00"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="EoK-6i-cBy"/>
                     <connections>
-                        <segue destination="13e-Bs-Dwh" kind="show" identifier="TTSLanguage" id="Shk-sp-8OS"/>
+                        <segue destination="13e-Bs-Dwh" kind="push" identifier="TTSLanguage" id="Shk-sp-8OS"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="374-fn-hNn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -314,6 +315,7 @@
                             <outlet property="delegate" destination="13e-Bs-Dwh" id="yy5-Cx-ZaD"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="4EX-eg-Lfl"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qSX-mz-m27" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="SWt-Am-yp4" userLabel="Exit" sceneMemberID="exit"/>
