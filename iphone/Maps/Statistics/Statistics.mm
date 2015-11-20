@@ -114,6 +114,10 @@ char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
   params[kStatDeviceType] = IPAD ? kStatiPad : kStatiPhone;
   BOOL isLandscape = UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation);
   params[kStatOrientation] = isLandscape ? kStatLandscape : kStatPortrait;
+  AppInfo * info = [AppInfo sharedInfo];
+  params[kStatCountry] = info.countryCode;
+  if (info.languageId)
+    params[kStatLanguage] = info.languageId;
   [Flurry logEvent:eventName withParameters:parameters];
   [Alohalytics logEvent:eventName withDictionary:parameters];
 }

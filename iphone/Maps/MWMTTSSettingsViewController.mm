@@ -137,6 +137,7 @@ using namespace std;
   }
   else if (indexPath.section == 1)
   {
+    [[Statistics instance] logEvent:kStatEventName(kStatTTSSettings, kStatHelp)];
     NSString * path = [[NSBundle mainBundle] pathForResource:@"tts-how-to-set-up-voice" ofType:@"html"];
     NSString * html = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     NSURL * baseURL = [NSURL fileURLWithPath:path];
