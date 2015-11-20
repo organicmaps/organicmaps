@@ -154,6 +154,9 @@
                     <state key="normal" title="From">
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="p2p_from_here"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="fromTap" destination="2HF-YO-IQi" eventType="touchUpInside" id="TlT-QT-gt8"/>
                     </connections>
@@ -166,6 +169,9 @@
                     <state key="normal" title="To">
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="p2p_to_here"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="toTap" destination="2HF-YO-IQi" eventType="touchUpInside" id="cv9-Vs-6EE"/>
                     </connections>

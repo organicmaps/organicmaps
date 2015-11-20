@@ -42,6 +42,9 @@
                             <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="p2p_route_planning"/>
+                            </userDefinedRuntimeAttributes>
                         </label>
                         <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="TC0-58-PO9">
                             <rect key="frame" x="8" y="48" width="304" height="80"/>
@@ -142,7 +145,7 @@
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.26000000000000001" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="routing_planning"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="p2p_planning"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
@@ -256,7 +259,7 @@
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                     <integer key="value" value="4"/>
                                 </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="routing_go"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="p2p_start"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="whiteColor"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueDark"/>

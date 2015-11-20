@@ -113,13 +113,13 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 {
   if (needToRebuild)
   {
-    return [self defaultAlertWithTitle:@"Navigation is available only from your current location."
-                             message:@"Do you want us to recreate/rebuild/ plan the route?"
+    return [self defaultAlertWithTitle:@"p2p_only_from_current"
+                             message:@"p2p_reroute_from_current"
                     rightButtonTitle:@"ok" leftButtonTitle:@"cancel" rightButtonAction:block];
   }
   else
   {
-    return [self defaultAlertWithTitle:@"dialog_routing_location_unknown"
+    return [self defaultAlertWithTitle:@"p2p_only_from_current"
                                message:nil rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
   }
 }
