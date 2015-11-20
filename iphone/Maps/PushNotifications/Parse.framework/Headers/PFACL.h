@@ -9,9 +9,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import <Parse/PFNullability.h>
-
-PF_ASSUME_NONNULL_BEGIN
+NS_ASSUME_NONNULL_BEGIN
 
 @class PFRole;
 @class PFUser;
@@ -47,32 +45,14 @@ PF_ASSUME_NONNULL_BEGIN
 ///--------------------------------------
 
 /*!
- @abstract Set whether the public is allowed to read this object.
-
- @param allowed Whether the public can read this object.
+ @abstract Controls whether the public is allowed to read this object.
  */
-- (void)setPublicReadAccess:(BOOL)allowed;
+@property (nonatomic, assign, getter=getPublicReadAccess) BOOL publicReadAccess;
 
 /*!
- @abstract Gets whether the public is allowed to read this object.
-
- @returns `YES` if the public read access is enabled, otherwise `NO`.
+ @abstract Controls whether the public is allowed to write this object.
  */
-- (BOOL)getPublicReadAccess;
-
-/*!
- @abstract Set whether the public is allowed to write this object.
-
- @param allowed Whether the public can write this object.
- */
-- (void)setPublicWriteAccess:(BOOL)allowed;
-
-/*!
- @abstract Gets whether the public is allowed to write this object.
-
- @returns `YES` if the public write access is enabled, otherwise `NO`.
- */
-- (BOOL)getPublicWriteAccess;
+@property (nonatomic, assign, getter=getPublicWriteAccess) BOOL publicWriteAccess;
 
 ///--------------------------------------
 /// @name Controlling Access Per-User
@@ -257,8 +237,8 @@ PF_ASSUME_NONNULL_BEGIN
  - If `NO`, the provided `acl` will be used without modification.
  - If `acl` is `nil`, this value is ignored.
  */
-+ (void)setDefaultACL:(PF_NULLABLE PFACL *)acl withAccessForCurrentUser:(BOOL)currentUserAccess;
++ (void)setDefaultACL:(nullable PFACL *)acl withAccessForCurrentUser:(BOOL)currentUserAccess;
 
 @end
 
-PF_ASSUME_NONNULL_END
+NS_ASSUME_NONNULL_END

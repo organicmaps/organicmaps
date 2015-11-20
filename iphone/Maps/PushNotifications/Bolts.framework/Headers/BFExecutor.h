@@ -10,6 +10,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /*!
  An object that can run a given block.
  */
@@ -56,3 +58,5 @@
 - (void)execute:(void(^)())block;
 
 @end
+
+NS_ASSUME_NONNULL_END

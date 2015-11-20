@@ -9,8 +9,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import <Parse/PFNullability.h>
-
 @class PFObject;
 @class PFUser;
 
@@ -18,7 +16,7 @@
 /// @name Version
 ///--------------------------------------
 
-#define PARSE_VERSION @"1.8.2"
+#define PARSE_VERSION @"1.10.0"
 
 extern NSInteger const PARSE_API_VERSION;
 
@@ -29,7 +27,7 @@ extern NSInteger const PARSE_API_VERSION;
 #define PARSE_IOS_ONLY (TARGET_OS_IPHONE)
 #define PARSE_OSX_ONLY (TARGET_OS_MAC && !(TARGET_OS_IPHONE))
 
-extern NSString *const PF_NONNULL_S kPFDeviceType;
+extern NSString *const __nonnull kPFDeviceType;
 
 #if PARSE_IOS_ONLY
 #import <UIKit/UIKit.h>
@@ -41,7 +39,7 @@ extern NSString *const PF_NONNULL_S kPFDeviceType;
 /// @name Server
 ///--------------------------------------
 
-extern NSString *const PF_NONNULL_S kPFParseServer;
+extern NSString *const __nonnull kPFParseServer;
 
 ///--------------------------------------
 /// @name Cache Policies
@@ -137,7 +135,7 @@ typedef NS_ENUM(uint8_t, PFLogLevel) {
 /// @name Errors
 ///--------------------------------------
 
-extern NSString *const PF_NONNULL_S PFParseErrorDomain;
+extern NSString *const __nonnull PFParseErrorDomain;
 
 /*!
  `PFErrorCode` enum contains all custom error codes that are used as `code` for `NSError` for callbacks on all classes.
@@ -373,17 +371,51 @@ typedef NS_ENUM(NSInteger, PFErrorCode) {
 /// @name Blocks
 ///--------------------------------------
 
-typedef void (^PFBooleanResultBlock)(BOOL succeeded, NSError *PF_NULLABLE_S error);
-typedef void (^PFIntegerResultBlock)(int number, NSError *PF_NULLABLE_S error);
-typedef void (^PFArrayResultBlock)(NSArray *PF_NULLABLE_S objects, NSError *PF_NULLABLE_S error);
-typedef void (^PFObjectResultBlock)(PFObject *PF_NULLABLE_S object,  NSError *PF_NULLABLE_S error);
-typedef void (^PFSetResultBlock)(NSSet *PF_NULLABLE_S channels, NSError *PF_NULLABLE_S error);
-typedef void (^PFUserResultBlock)(PFUser *PF_NULLABLE_S user, NSError *PF_NULLABLE_S error);
-typedef void (^PFDataResultBlock)(NSData *PF_NULLABLE_S data, NSError *PF_NULLABLE_S error);
-typedef void (^PFDataStreamResultBlock)(NSInputStream *PF_NULLABLE_S stream, NSError *PF_NULLABLE_S error);
-typedef void (^PFStringResultBlock)(NSString *PF_NULLABLE_S string, NSError *PF_NULLABLE_S error);
-typedef void (^PFIdResultBlock)(PF_NULLABLE_S id object, NSError *PF_NULLABLE_S error);
+typedef void (^PFBooleanResultBlock)(BOOL succeeded, NSError *__nullable error);
+typedef void (^PFIntegerResultBlock)(int number, NSError *__nullable error);
+typedef void (^PFArrayResultBlock)(NSArray *__nullable objects, NSError *__nullable error);
+typedef void (^PFObjectResultBlock)(PFObject *__nullable object,  NSError *__nullable error);
+typedef void (^PFSetResultBlock)(NSSet *__nullable channels, NSError *__nullable error);
+typedef void (^PFUserResultBlock)(PFUser *__nullable user, NSError *__nullable error);
+typedef void (^PFDataResultBlock)(NSData *__nullable data, NSError *__nullable error);
+typedef void (^PFDataStreamResultBlock)(NSInputStream *__nullable stream, NSError *__nullable error);
+typedef void (^PFFilePathResultBlock)(NSString *__nullable filePath, NSError *__nullable error);
+typedef void (^PFStringResultBlock)(NSString *__nullable string, NSError *__nullable error);
+typedef void (^PFIdResultBlock)(__nullable id object, NSError *__nullable error);
 typedef void (^PFProgressBlock)(int percentDone);
+
+///--------------------------------------
+/// @name Network Notifications
+///--------------------------------------
+
+/*!
+ @abstract The name of the notification that is going to be sent before any URL request is sent.
+ */
+extern NSString *const __nonnull PFNetworkWillSendURLRequestNotification;
+
+/*!
+ @abstract The name of the notification that is going to be sent after any URL response is received.
+ */
+extern NSString *const __nonnull PFNetworkDidReceiveURLResponseNotification;
+
+/*!
+ @abstract The key of request(NSURLRequest) in the userInfo dictionary of a notification.
+ @note This key is populated in userInfo, only if `PFLogLevel` on `Parse` is set to `PFLogLevelDebug`.
+ */
+extern NSString *const __nonnull PFNetworkNotificationURLRequestUserInfoKey;
+
+/*!
+ @abstract The key of response(NSHTTPURLResponse) in the userInfo dictionary of a notification.
+ @note This key is populated in userInfo, only if `PFLogLevel` on `Parse` is set to `PFLogLevelDebug`.
+ */
+extern NSString *const __nonnull PFNetworkNotificationURLResponseUserInfoKey;
+
+/*!
+ @abstract The key of repsonse body (usually `NSString` with JSON) in the userInfo dictionary of a notification.
+ @note This key is populated in userInfo, only if `PFLogLevel` on `Parse` is set to `PFLogLevelDebug`.
+ */
+extern NSString *const __nonnull PFNetworkNotificationURLResponseBodyUserInfoKey;
+
 
 ///--------------------------------------
 /// @name Deprecated Macros
@@ -418,5 +450,114 @@ typedef void (^PFProgressBlock)(int percentDone);
 #    else
 #      define PF_EXTENSION_UNAVAILABLE(_msg)
 #    endif
+#  endif
+#endif
+
+///--------------------------------------
+/// @name Swift Macros
+///--------------------------------------
+
+#ifndef PF_SWIFT_UNAVAILABLE
+#  ifdef NS_SWIFT_UNAVAILABLE
+#    define PF_SWIFT_UNAVAILABLE NS_SWIFT_UNAVAILABLE("")
+#  else
+#    define PF_SWIFT_UNAVAILABLE
+#  endif
+#endif
+
+///--------------------------------------
+/// @name Obj-C Generics Macros
+///--------------------------------------
+
+#if __has_feature(objc_generics) || __has_extension(objc_generics)
+#  define PF_GENERIC(...) <__VA_ARGS__>
+#else
+#  define PF_GENERIC(...)
+#  define PFGenericObject PFObject *
+#endif
+
+///--------------------------------------
+/// @name Platform Availability Defines
+///--------------------------------------
+
+#ifndef TARGET_OS_IOS
+#  define TARGET_OS_IOS TARGET_OS_IPHONE
+#endif
+#ifndef TARGET_OS_WATCH
+#  define TARGET_OS_WATCH 0
+#endif
+#ifndef TARGET_OS_TV
+#  define TARGET_OS_TV 0
+#endif
+
+#ifndef PF_TARGET_OS_OSX
+#  define PF_TARGET_OS_OSX TARGET_OS_MAC && !TARGET_OS_IOS && !TARGET_OS_WATCH && !TARGET_OS_TV
+#endif
+
+///--------------------------------------
+/// @name Avaiability Macros
+///--------------------------------------
+
+#ifndef PF_IOS_UNAVAILABLE
+#  ifdef __IOS_UNAVILABLE
+#    define PF_IOS_UNAVAILABLE __IOS_UNAVAILABLE
+#  else
+#    define PF_IOS_UNAVAILABLE
+#  endif
+#endif
+
+#ifndef PF_IOS_UNAVAILABLE_WARNING
+#  if TARGET_OS_IOS
+#    define PF_IOS_UNAVAILABLE_WARNING _Pragma("GCC warning \"This file is unavailable on iOS.\"")
+#  else
+#    define PF_IOS_UNAVAILABLE_WARNING
+#  endif
+#endif
+
+#ifndef PF_OSX_UNAVAILABLE
+#  if PF_TARGET_OS_OSX
+#    define PF_OSX_UNAVAILABLE __OSX_UNAVAILABLE
+#  else
+#    define PF_OSX_UNAVAILABLE
+#  endif
+#endif
+
+#ifndef PF_OSX_UNAVAILABLE_WARNING
+#  if PF_TARGET_OS_OSX
+#    define PF_OSX_UNAVAILABLE_WARNING _Pragma("GCC warning \"This file is unavailable on OS X.\"")
+#  else
+#    define PF_OSX_UNAVAILABLE_WARNING
+#  endif
+#endif
+
+#ifndef PF_WATCH_UNAVAILABLE
+#  ifdef __WATCHOS_UNAVAILABLE
+#    define PF_WATCH_UNAVAILABLE __WATCHOS_UNAVAILABLE
+#  else
+#    define PF_WATCH_UNAVAILABLE
+#  endif
+#endif
+
+#ifndef PF_WATCH_UNAVAILABLE_WARNING
+#  if TARGET_OS_WATCH
+#    define PF_WATCH_UNAVAILABLE_WARNING _Pragma("GCC warning \"This file is unavailable on watchOS.\"")
+#  else
+#    define PF_WATCH_UNAVAILABLE_WARNING
+#  endif
+#endif
+
+#ifndef PF_TV_UNAVAILABLE
+#  ifdef __TVOS_PROHIBITED
+#    define PF_TV_UNAVAILABLE __TVOS_PROHIBITED
+#  else
+#    define PF_TV_UNAVAILABLE
+#  endif
+#endif
+
+#ifndef PF_TV_UNAVAILABLE_WARNING
+#  if TARGET_OS_TV
+#    define PF_TV_UNAVAILABLE_WARNING _Pragma("GCC warning \"This file is unavailable on tvOS.\"")
+#  else
+#    define PF_TV_UNAVAILABLE_WARNING
 #  endif
 #endif
