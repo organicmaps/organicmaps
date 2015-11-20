@@ -325,10 +325,6 @@
 	<string name="route">Route</string>
 	<!-- category title -->
 	<string name="routes">Routes</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">Vertrekpunt kiezen…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">Bestemming kiezen…</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Download de kaart van de plaats waar u bent</string>
 	<!-- text of notification -->
@@ -750,11 +746,7 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Routeberekening mislukt</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Aankomst</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">Starten</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">Route wordt berekend</string>
+	<string name="routing_arrive">Aankomst: %s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Om een route te maken, download en update alle kaarten rondom de route.</string>
 	<string name="rate_alert_title">Vindt u de app leuk?</string>

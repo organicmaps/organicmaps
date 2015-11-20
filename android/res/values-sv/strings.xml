@@ -333,10 +333,6 @@
 	<string name="route">Rutt</string>
 	<!-- category title -->
 	<string name="routes">Rutter</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">Välj startpunkt…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">Välj destination…</string>
 	<!-- Show on first launch. -->
 	<string name="maps_licence_info">Detta program använder geografisk data (inkluderar kartor, företagsuppgifter, intressepunkter, landsgränser och regioner m.m.) från OpenStreetMap projektet. Vi garanterar ingen konsekvenshet, nogrannhet, fullständighet eller tillämpbarhet av OpenStreetMap datan.</string>
 	<!-- Show on first launch -->
@@ -760,11 +756,7 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Ruttplanering misslyckades</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Ankomst</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">Starta</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">Planerar rutt</string>
+	<string name="routing_arrive">Ankomst: %s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">För att skapa en rutt, ladda ner och uppdatera alla kartor längs rutten.</string>
 	<string name="rate_alert_title">Gillar du appen?</string>

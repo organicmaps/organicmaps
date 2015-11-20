@@ -329,10 +329,6 @@
 	<string name="route">Rute</string>
 	<!-- category title -->
 	<string name="routes">Rute</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">Pilih titik awal…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">Pilih tujuan…</string>
 	<!-- Show on first launch. -->
 	<string name="maps_licence_info">Aplikasi ini menggunakan data geografis (termasuk peta, daftar perusahaan, lokasi-lokasi menarik, batas-batas negara dan daerah, dll) yang diambil dari proyek OpenStreetMap. Kami tidak menjamin konsistensi, akurasi, kelengkapan atau kesesuaian data OpenStreetMap apa pun.</string>
 	<!-- Show on first launch. -->
@@ -759,11 +755,7 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Sudah sampai di tujuan</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Kedatangan</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">Mulai</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">Merencanakan Rute</string>
+	<string name="routing_arrive">Kedatangan: %s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Untuk membuat rute, silakan unduh dan perbarui semua peta sepanjang rute.</string>
 	<string name="rate_alert_title">Suka aplikasi ini?</string>

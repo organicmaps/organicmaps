@@ -563,12 +563,6 @@
 /* category title */
 "routes" = "Tuyến đường";
 
-/* button in the interface */
-"choose_starting_point" = "Chọn điểm xuất phát…";
-
-/* button in the interface */
-"choose_destination" = "Chọn điểm đến…";
-
 /* Show on first launch. */
 "maps_licence_info" = "Ứng dụng này sử dụng dữ liệu địa lý (bao gồm bản đồ, thông tin doanh nghiệp, các điểm lưu tâm, biên giới quốc gia và khu vực, v.v...) lấy từ dự án OpenStreetMap. Chúng tôi không đảm bảo bất kỳ sự nhất quán, chính xác, toàn vẹn hay phù hợp nào từ các dữ liệu OpenStreetMap.";
 
@@ -744,12 +738,6 @@
 
 /* Button for routing. */
 "routing_go" = "Tiến hành!";
-
-/* Routing planning: button "Route from" in PP. */
-"routing_from" = "Route from";
-
-/* Routing planning: button "Route to" in PP. */
-"routing_to" = "Route to";
 
 /* Item status in downloader. */
 "downloader_retry" = "Thử lại";
@@ -1262,13 +1250,7 @@
 "routing_planning_error" = "Không thể Lập Lộ trình";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Đến";
-
-/* Routing Start button title */
-"routing_start" = "Xuất phát";
-
-/* Planning route message in navigation view */
-"routing_planning" = "Đang tìm đường";
+"routing_arrive" = "Đến: %s";
 
 /* Text for routing::IRouter::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Để tạo đường đi, vui lòng tải về và cập nhật tất cả bản đồ dọc theo tuyến đường.";

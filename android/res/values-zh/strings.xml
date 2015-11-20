@@ -333,10 +333,6 @@
 	<string name="route">路线</string>
 	<!-- category title -->
 	<string name="routes">路线</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">选择起点…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">选择目的地…</string>
 	<!-- Show on first launch. -->
 	<string name="maps_licence_info">这个应用程序使用了源自OpenStreetMap项目的地理数据（包括地图、商业清单、景点、国家和地区边界等）。我们对OpenStreetMap任何数据的一致性、准确性、完整性或适用性不做担保。</string>
 	<!-- Show on first launch. -->
@@ -764,11 +760,7 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">路线计划失败</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">抵達</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">开始</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">规划路线</string>
+	<string name="routing_arrive">抵達:%s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">要创建路线，请下载并更新所有沿路线的地图。</string>
 	<string name="rate_alert_title">喜欢这个应用吗？</string>

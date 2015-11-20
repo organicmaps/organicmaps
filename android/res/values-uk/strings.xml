@@ -336,10 +336,6 @@
 	<string name="route">Маршрут</string>
 	<!-- category title -->
 	<string name="routes">Маршрути</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">Виберіть початкову точку…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">Виберіть місце призначення…</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Завантажуйте карту тієї місцевості, де ви знаходитесь</string>
 	<!-- text of notification -->
@@ -763,11 +759,7 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Збій планування маршруту</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Прибуття</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">Почати</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">Планування маршруту</string>
+	<string name="routing_arrive">Прибуття в %s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Для створення маршруту, будь ласка, скачайте та обновіть всі карти за ним.</string>
 	<string name="rate_alert_title">Подобається програма?</string>

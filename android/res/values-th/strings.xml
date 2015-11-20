@@ -335,10 +335,6 @@
 	<string name="route">เส้นทาง</string>
 	<!-- category title -->
 	<string name="routes">เส้นทาง</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">เลือกจุดเริ่มต้น…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">เลือกจุดหมาย…</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">ดาวน์โหลดแผนที่เกี่ยวกับสถานที่ที่คุณอยู่</string>
 	<!-- text of notification -->
@@ -762,11 +758,7 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">การวางแผนเส้นทางล้มเหลว</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">มาถึง</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">เริ่มต้น</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">กำลังวางแผนเส้นทาง</string>
+	<string name="routing_arrive">มาถึง: %s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">เพื่อสร้างเส้นทาง โปรดดาวน์โหลดและอัปเดตแผนที่ทั้งหมดตลอดเส้นทาง</string>
 	<string name="rate_alert_title">ชอบแอปหรือไม่?</string>

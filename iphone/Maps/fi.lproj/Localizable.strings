@@ -563,12 +563,6 @@
 /* category title */
 "routes" = "Reitit";
 
-/* button in the interface */
-"choose_starting_point" = "Valitse lähtöpaikka…";
-
-/* button in the interface */
-"choose_destination" = "Valitse määränpää…";
-
 /* Show on first launch. */
 "maps_licence_info" = "Tämä sovellus käyttää maantieteellistä dataa (mukaan lukien karttoja, yrityslistauksia, mielenkiinnon kohteita, maiden ja alueiden rajoja jne.), joka on noudettu OpenStreetMap-järjestelmästä. Emme takaa OpenStreetMapin datan johdonmukaisuutta, täsmällisyyttä, täydellisyyttä tai sovellettavuutta.";
 
@@ -744,12 +738,6 @@
 
 /* Button for routing. */
 "routing_go" = "Lähde!";
-
-/* Routing planning: button "Route from" in PP. */
-"routing_from" = "Route from";
-
-/* Routing planning: button "Route to" in PP. */
-"routing_to" = "Route to";
 
 /* Item status in downloader. */
 "downloader_retry" = "Yritä uudelleen";
@@ -1262,13 +1250,7 @@
 "routing_planning_error" = "Reitin suunnittelu epäonnistui";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Saavut";
-
-/* Routing Start button title */
-"routing_start" = "Aloita";
-
-/* Planning route message in navigation view */
-"routing_planning" = "Reittiä suunnitellaan";
+"routing_arrive" = "Saavut: %s";
 
 /* Text for routing::IRouter::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Lataa ja päivitä kaikki kartat reitin varrella luodaksesi reitin.";

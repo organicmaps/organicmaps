@@ -335,10 +335,6 @@
 	<string name="route">Rute</string>
 	<!-- category title -->
 	<string name="routes">Ruter</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">Vælg dit startpunkt…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">Vælg din destination…</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Download kortet over det sted, hvor du befinder dig</string>
 	<!-- text of notification -->
@@ -760,11 +756,7 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Ruteplanlægning mislykkedes</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Ankomst</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">Start</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">Planlægger rute</string>
+	<string name="routing_arrive">Ankomst: %s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">For at oprette en rute skal du hente og opdatere alle kort langs ruten.</string>
 	<string name="rate_alert_title">Kan du lide appen?</string>

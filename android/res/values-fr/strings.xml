@@ -338,10 +338,6 @@
 	<string name="route">Itinéraire</string>
 	<!-- category title -->
 	<string name="routes">Itinéraires</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">Choisir le point de départ…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">Choisir la destination…</string>
 	<!-- Show on first launch. -->
 	<string name="maps_licence_info">Cette application utilise des données géographiques (incluant des cartes, des listes d\&#39;entreprises, des centres d\&#39;intérêt, des frontières de pays et de régions, etc.) extraites du projet OpenStreetMap. Nous ne garantissons aucune cohérence, exactitude, complétude ou applicabilité des données d\&#39;OpenStreetMap.</string>
 	<!-- Show on first launch. -->
@@ -771,11 +767,7 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">La planification de l\&#39;itinéraire a échoué</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Arrivée</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">Démarrer</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">Calcul de l\&#39;itinéraire</string>
+	<string name="routing_arrive">Arrivée: %s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Pour créer un trajet, veuillez télécharger et mettre à jour toutes les cartes concernant ce trajet.</string>
 	<string name="rate_alert_title">Vous aimez l’application ?</string>

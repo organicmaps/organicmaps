@@ -326,10 +326,6 @@
 	<string name="route">Ruta</string>
 	<!-- category title -->
 	<string name="routes">Rutas</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">Elegir punto de partida…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">Elige un destino…</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Descarga el mapa del lugar en que te encuentras</string>
 	<!-- text of notification -->
@@ -753,11 +749,7 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Error al planificar la ruta</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Llegada</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">Empezar</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">Planificando ruta</string>
+	<string name="routing_arrive">Llegada: %s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Para crear una ruta, por favor, descarga y actualiza todos los mapas a lo largo de la ruta.</string>
 	<string name="rate_alert_title">¿Te gusta la aplicación?</string>

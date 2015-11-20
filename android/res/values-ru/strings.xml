@@ -362,10 +362,6 @@
 	<string name="route">Маршрут</string>
 	<!-- category title -->
 	<string name="routes">Маршруты</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">Откуда…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">Куда…</string>
 	<!-- Show on first launch. -->
 	<string name="maps_licence_info">Это приложение использует географические данные (включая карты, справочники, достопримечательности, границы стран и регионов, др.) взятые из проекта OpenStreetMap. Мы не гарантируем последовательности, точности, полноты и пригодности данных OpenStreetMap.</string>
 	<!-- Show on first launch. -->
@@ -483,10 +479,6 @@
 	<string name="downloader_download_map_no_routing">Загрузить карту без маршрутов</string>
 	<!-- Button for routing. -->
 	<string name="routing_go">Поехали!</string>
-	<!-- Routing planning: button "Route from" in PP. -->
-	<string name="routing_from">Маршрут отсюда</string>
-	<!-- Routing planning: button "Route to" in PP. -->
-	<string name="routing_to">Маршрут сюда</string>
 	<!-- Item status in downloader. -->
 	<string name="downloader_retry">Повторите попытку</string>
 	<!-- Item in context menu. -->
@@ -815,11 +807,7 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Ошибка построения маршрута</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Прибытие в</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">Начать</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">Поиск маршрута</string>
+	<string name="routing_arrive">Прибытие в %s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Для построения маршрута загрузите и обновите все карты по пути следования.</string>
 	<string name="rate_alert_title">Нравится приложение?</string>

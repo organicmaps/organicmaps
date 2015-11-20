@@ -330,10 +330,6 @@
 	<string name="route">Linea</string>
 	<!-- category title -->
 	<string name="routes">Percorsi</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">Scegli il punto di partenza…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">Scegli la destinazione…</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Scarica la mappa del luogo in cui ti trovi</string>
 	<!-- text of notification -->
@@ -757,11 +753,7 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Pianificazione del percorso fallito</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Arrivo</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">Parti</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">Calcolo del percorso</string>
+	<string name="routing_arrive">Arrivo: %s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Per creare un percorso, scaricare e aggiornare tutte le mappe interessate dal percorso.</string>
 	<string name="rate_alert_title">Ti piace l’app?</string>

@@ -563,12 +563,6 @@
 /* category title */
 "routes" = "เส้นทาง";
 
-/* button in the interface */
-"choose_starting_point" = "เลือกจุดเริ่มต้น…";
-
-/* button in the interface */
-"choose_destination" = "เลือกจุดหมาย…";
-
 /* Show on first launch. */
 "maps_licence_info" = "This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.";
 
@@ -744,12 +738,6 @@
 
 /* Button for routing. */
 "routing_go" = "ไป!";
-
-/* Routing planning: button "Route from" in PP. */
-"routing_from" = "Route from";
-
-/* Routing planning: button "Route to" in PP. */
-"routing_to" = "Route to";
 
 /* Item status in downloader. */
 "downloader_retry" = "ลองอีกครั้ง";
@@ -1262,13 +1250,7 @@
 "routing_planning_error" = "การวางแผนเส้นทางล้มเหลว";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "มาถึง";
-
-/* Routing Start button title */
-"routing_start" = "เริ่มต้น";
-
-/* Planning route message in navigation view */
-"routing_planning" = "กำลังวางแผนเส้นทาง";
+"routing_arrive" = "มาถึง: %s";
 
 /* Text for routing::IRouter::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "เพื่อสร้างเส้นทาง โปรดดาวน์โหลดและอัปเดตแผนที่ทั้งหมดตลอดเส้นทาง";

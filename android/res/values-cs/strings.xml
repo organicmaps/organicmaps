@@ -334,10 +334,6 @@
 	<string name="route">Trasa</string>
 	<!-- category title -->
 	<string name="routes">Trasy</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">Zvolte začátek…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">Zvolte cíl…</string>
 	<!-- Show on first launch. -->
 	<string name="maps_licence_info">Tato aplikace využívá geografická data (zahrnující mapy, zakreslení firem a zájmových bodů, hranice států a regionů apod.), která byla převzata z otevřeného projektu OpenStreetMap. Konzistenci, přesnost, úplnost ani správnost těchto OpenStreetMap dat proto nemůžeme zaručit.</string>
 	<!-- Show on first launch. -->
@@ -767,11 +763,7 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Naplánování trasy se nezdařilo</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Příjezd</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">Začít</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">Probíhá plánování trasy</string>
+	<string name="routing_arrive">Příjezd: %s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Pro vytvoření trasy si prosím stáhněte a aktualizujte všechny mapy podél očekávané cesty.</string>
 	<string name="rate_alert_title">Líbí se vám aplikace?</string>

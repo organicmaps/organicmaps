@@ -324,10 +324,6 @@
 	<string name="route">経路</string>
 	<!-- category title -->
 	<string name="routes">ルート</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">出発地を入力…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">目的地を入力…</string>
 	<!-- Show on first launch. -->
 	<string name="maps_licence_info">このアプリケーションはOpenStreetMapプロジェクトから取得された地理的データ（地図、ビジネスリスト、興味のある場所、国境と地域など）を使います。OpenStreetMapのデータの整合性、正確さ、完全性や適合性に関して弊社は保証致しかねます。</string>
 	<!-- Show on first launch. -->
@@ -757,11 +753,7 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">ルート検索に失敗</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">到着予定</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">スタート</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">ルートを計画中</string>
+	<string name="routing_arrive">到着予定: %s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">ルートを作成するには、ルートの通過する地図を全てダウンロード・アップデートしてください。</string>
 	<string name="rate_alert_title">このアプリが好きですか?</string>

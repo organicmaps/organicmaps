@@ -317,10 +317,6 @@
 	<string name="route">路線</string>
 	<!-- category title -->
 	<string name="routes">路線</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">選擇起點…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">選擇目的地…</string>
 	<!-- Show on first launch. -->
 	<string name="maps_licence_info">此應用程序使用從OpenStreetMap專案擷取之地理數據（包括地圖、商家資訊、興趣點、國家和地區邊界等）。我們不保證OpenStreetMap數據的一致性、準確性、完整性、或適用性。</string>
 	<!-- Show on first launch. -->
@@ -746,11 +742,7 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">路線計劃失敗</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">抵達</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">開始</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">計劃路線</string>
+	<string name="routing_arrive">抵達:%s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">要創建路線，請下載並更新所有沿路線的地圖。</string>
 	<string name="rate_alert_title">喜歡這個應用嗎？</string>

@@ -329,10 +329,6 @@
 	<string name="route">Tuyến đường</string>
 	<!-- category title -->
 	<string name="routes">Tuyến đường</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">Chọn điểm xuất phát…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">Chọn điểm đến…</string>
 	<!-- Show on first launch. -->
 	<string name="maps_licence_info">Ứng dụng này sử dụng dữ liệu địa lý (bao gồm bản đồ, thông tin doanh nghiệp, các điểm lưu tâm, biên giới quốc gia và khu vực, v.v...) lấy từ dự án OpenStreetMap. Chúng tôi không đảm bảo bất kỳ sự nhất quán, chính xác, toàn vẹn hay phù hợp nào từ các dữ liệu OpenStreetMap.</string>
 	<!-- Show on first launch. -->
@@ -760,11 +756,7 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Không thể Lập Lộ trình</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Đến</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">Xuất phát</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">Đang tìm đường</string>
+	<string name="routing_arrive">Đến: %s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Để tạo đường đi, vui lòng tải về và cập nhật tất cả bản đồ dọc theo tuyến đường.</string>
 	<string name="rate_alert_title">Bạn thích ứng dụng chứ?</string>

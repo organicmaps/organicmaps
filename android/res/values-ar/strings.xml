@@ -337,10 +337,6 @@
 	<string name="route">المسار</string>
 	<!-- category title -->
 	<string name="routes">المسارات</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">اختيار نقطة البداية…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">اختيار الوجهة…</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">تنزيل خريطة المكان الذي توجد فيه</string>
 	<!-- text of notification -->
@@ -764,11 +760,7 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">فشل في تخطيط المسار</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">الوصول</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">ابدأ</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">يتم تخطيط المسار</string>
+	<string name="routing_arrive">الوصول: %s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">لإنشاء مسار، يرجى تنزيل وتحديث جميع الخرائط على امتداد الطريق.</string>
 	<string name="rate_alert_title">يعجبك التطبيق؟</string>

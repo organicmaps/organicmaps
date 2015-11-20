@@ -330,10 +330,6 @@
 	<string name="route">Trajeto</string>
 	<!-- category title -->
 	<string name="routes">Trajetos</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">Selecione o ponto de partida…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">Selecione o destino…</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Descarregue o mapa do local onde estiver</string>
 	<!-- text of notification -->
@@ -757,11 +753,7 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Falhou o Planeamento da Rota</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Chegada</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">Começar</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">A planear a viagem</string>
+	<string name="routing_arrive">Chegada: %s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Para criar uma rota, por favor, baixe e atualize todos os mapas ao longo da rota.</string>
 	<string name="rate_alert_title">Gosta do aplicativo?</string>

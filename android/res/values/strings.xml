@@ -364,10 +364,6 @@
 	<string name="route">Route</string>
 	<!-- category title -->
 	<string name="routes">Routes</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">Choose starting point…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">Choose destination…</string>
 	<!-- Show on first launch. -->
 	<string name="maps_licence_info">This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.</string>
 	<!-- Show on first launch. -->
@@ -485,10 +481,6 @@
 	<string name="downloader_download_map_no_routing">Download map without routing</string>
 	<!-- Button for routing. -->
 	<string name="routing_go">Go!</string>
-	<!-- Routing planning: button "Route from" in PP. -->
-	<string name="routing_from">Route from</string>
-	<!-- Routing planning: button "Route to" in PP. -->
-	<string name="routing_to">Route to</string>
 	<!-- Item status in downloader. -->
 	<string name="downloader_retry">Retry</string>
 	<!-- Item in context menu. -->
@@ -817,11 +809,7 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Route Planning Failed</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Arrival at</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">Start</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">Planning Route</string>
+	<string name="routing_arrive">Arrival at %s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Download and update all map along the projected path to calculate route.</string>
 	<string name="rate_alert_title">Like the app?</string>

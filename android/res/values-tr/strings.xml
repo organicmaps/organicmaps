@@ -337,10 +337,6 @@
 	<string name="route">Rota</string>
 	<!-- category title -->
 	<string name="routes">Güzergahlar</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">Başlangıç noktası seçin…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">Varış noktası seçin…</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Bulunduğun yerin haritasını indir</string>
 	<!-- text of notification -->
@@ -764,11 +760,7 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Rota Planlaması Başarısız</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Varış</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">Başlat</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">Rota Planlanıyor</string>
+	<string name="routing_arrive">Varış: %s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Bir rota oluşturmak için lütfen rota üzerindeki tüm haritaları indirin ve güncelleyin.</string>
 	<string name="rate_alert_title">Uygulamayı beğendiniz mi?</string>

@@ -332,10 +332,6 @@
 	<string name="route">Trasa</string>
 	<!-- category title -->
 	<string name="routes">Trasy</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">Zvoliť východisko…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">Zvoliť cieľ…</string>
 	<!-- Show on first launch. -->
 	<string name="maps_licence_info">Táto aplikácia používa geografické dáta (zahrňujúce mapy, obchodné zoznamy, body záujmov, hranice krajín a regiónov, atď.) prevzaté z OpenStreetMap projektu. Negarantujeme žiadnu jednotnosť, presnosť, úplnosť alebo použiteľnosť dát OpenStreetMap.</string>
 	<!-- Show on first launch. -->
@@ -763,11 +759,7 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Plánovanie trasy zlyhalo</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Pricestovať</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">Spustiť</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">Plánovanie trasy</string>
+	<string name="routing_arrive">Pricestovať: %s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Prosím, pre vytvorenie trasy si stiahnite a aktualizujte všetky mapy pozdĺž trasy.</string>
 	<string name="rate_alert_title">Páči sa vám aplikácia?</string>

@@ -334,10 +334,6 @@
 	<string name="route">Trasa</string>
 	<!-- category title -->
 	<string name="routes">Marszruty</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">Wybierz punkt początkowy…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">Wybierz miejsce docelowe…</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Pobierz mapę miejsca, w którym się zajdujesz</string>
 	<!-- text of notification -->
@@ -761,11 +757,7 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Planowanie trasy nieudane</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Przybycie</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">Rozpocznij</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">Planowanie trasy</string>
+	<string name="routing_arrive">Przybycie: %s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Aby utworzyć trasę, pobierz i zaktualizuj wszystkie właściwe dla niej mapy.</string>
 	<string name="rate_alert_title">Lubisz tę aplikację?</string>

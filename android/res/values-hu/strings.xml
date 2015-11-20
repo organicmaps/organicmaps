@@ -334,10 +334,6 @@
 	<string name="route">Útvonal</string>
 	<!-- category title -->
 	<string name="routes">Útvonalak</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">Válasszon kiindulási pontot…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">Válasszon úti célt…</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Töltsd le annak a helynek a térképét, ahol most vagy</string>
 	<!-- text of notification -->
@@ -761,11 +757,7 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Sikertelen útvonaltervezés</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Megérkezik</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">Indítás</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">Útvonal tervezése</string>
+	<string name="routing_arrive">Megérkezik: %s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Útvonal létrehozásához kérjük, töltse le és frissítse az összes térképet az útvonal mentén.</string>
 	<string name="rate_alert_title">Tetszik az app?</string>

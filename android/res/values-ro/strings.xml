@@ -329,10 +329,6 @@
 	<string name="route">Traseu</string>
 	<!-- category title -->
 	<string name="routes">Trasee</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">Alegeți punctul de pornire…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">Alegeți destinația…</string>
 	<!-- Show on first launch. -->
 	<string name="maps_licence_info">Această aplicație utilizează date geografice (inclusiv hărți, liste de firme, puncte de interes, frontiere de țări și regiuni etc.) preluate din proiectul OpenStreetMap. Nu garantăm uniformitatea, acuratețea, integralitatea sau aplicabilitatea datelor OpenStreetMap.</string>
 	<!-- Show on first launch. -->
@@ -757,11 +753,7 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Planificarea rutei a eșuat</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Sosire</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">Incepeți</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">Se determină ruta</string>
+	<string name="routing_arrive">Sosire: %s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Pentru a crea o rută, vă rugăm să descărcați și să actualizați toate hărțile de pe parcursul rutei.</string>
 	<string name="rate_alert_title">Vă place aplicația?</string>
