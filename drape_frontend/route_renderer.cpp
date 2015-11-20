@@ -239,14 +239,14 @@ void RouteRenderer::RenderRouteSign(drape_ptr<RouteSignData> const & sign, Scree
   dp::GLState const & state = sign->m_sign.m_state;
 
   dp::UniformValuesStorage uniforms = commonUniforms;
-  uniforms.SetFloatValue("u_opacity", 1.0);
+  uniforms.SetFloatValue("u_opacity", 1.0f);
 
   ref_ptr<dp::GpuProgram> program = mng->GetProgram(state.GetProgramIndex());
   program->Bind();
   dp::ApplyState(sign->m_sign.m_state, program);
   dp::ApplyUniforms(uniforms, program);
 
-  for (drape_ptr<dp::RenderBucket> const & bucket : sign->m_sign.m_buckets)
+  for (auto const & bucket : sign->m_sign.m_buckets)
     bucket->Render(screen);
 }
 

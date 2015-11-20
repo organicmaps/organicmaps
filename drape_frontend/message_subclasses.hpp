@@ -555,9 +555,9 @@ public:
   bool IsValid() const { return m_isValid; }
 
 private:
-  m2::PointD m_position;
-  bool m_isStart;
-  bool m_isValid;
+  m2::PointD const m_position;
+  bool const m_isStart;
+  bool const m_isValid;
 };
 
 class RemoveRouteMessage : public Message
