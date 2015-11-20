@@ -1,44 +1,22 @@
 #pragma once
 
-#include "std/array.hpp"
 #include "std/ctime.hpp"
 #include "std/string.hpp"
 
-// It would be better to use c++ standard means of
-// time parsing and unparsing like
-// time_get/time_put (<locale>) or get_time/put_time (<iomanip>).
-// But at the moment of writing they was not widely supporded
-// and/or worked inkorekd.
-//
-// All covertions are made in UTC
-
-namespace w3ctime
+namespace base
 {
-char constexpr kW3CTimeFormat[] = "%Y-%m-%dT%H:%MZ";
 
-// Two more digits for year and one for \n
-size_t constexpr kBufSize = sizeof(kW3CTimeFormat) + 2 + 1;
+inline bool NotATime(time_t const t) noexcept { return t == -1; }
 
-time_t constexpr kNotATime = -1;
+// See http://www.w3.org/TR/NOTE-datetime to learn more
+// about the format.
 
-inline time_t ParseTime(std::string const & w3ctime) noexcept
-{
-  std::tm tm{};
-  if (strptime(w3ctime.data(), kW3CTimeFormat, &tm) == nullptr)
-    return kNotATime;
+// Parses a string of a format YYYY-MM-DDThh:mmTZD
+// (eg 1997-07-16T19:20:30.45+01:00).
+// Returns timestamp corresponding to w3ctime or -1 on failure.
+time_t ParseTime(std::string const & w3ctime) noexcept;
 
-  return timegm(&tm);
-}
-
-inline std::string TimeToString(time_t const timestamp) noexcept
-{
-  std::tm tm{};
-  array<char, kBufSize> buff{};
-
-  gmtime_r(&timestamp, &tm);
-  strftime(buff.data(), kBufSize, kW3CTimeFormat, &tm);
-
-  return buff.data();
-}
-
-} // namespace w3ctime
+// Converts timestamp to a string of a fromat YYYY-MM-DDThh:mmTZD
+// or empty string if cannot convert.
+std::string TimeToString(time_t const timestamp);
+} // namespace base

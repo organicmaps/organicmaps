@@ -1,12 +1,14 @@
-#include "base/w3ctime.hpp"
 #include "testing/testing.hpp"
 
-using namespace w3ctime;
+#include "base/w3ctime.hpp"
+
+using namespace base;
 
 UNIT_TEST(ParseTime)
 {
-  TEST_EQUAL(ParseTime(""), kNotATime, ());
-  TEST_EQUAL(ParseTime("2015-10-11 23:21"), kNotATime, ());
+  TEST(NotATime(ParseTime("")), ());
+  TEST(NotATime(ParseTime("2015-10-11 23:21")), ());
+  TEST(!NotATime(ParseTime("2015-10-11T23:21Z")), ());
   TEST_EQUAL(ParseTime("2015-10-11T23:21Z"), 1444605660, ());
 }
 
