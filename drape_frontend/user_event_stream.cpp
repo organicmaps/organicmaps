@@ -314,7 +314,7 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
 bool UserEventStream::SetCenter(m2::PointD const & center, int zoom, bool isAnim)
 {
   m2::PointD targetCenter = center;
-  ang::Angle<double> angle;
+  ang::AngleD angle;
   m2::RectD localRect;
 
   ScreenBase const &screen = GetCurrentScreen();
