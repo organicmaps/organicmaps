@@ -1,6 +1,6 @@
 //
 //  MTRGNativeCommonAdBanner.h
-//  myTargetSDKCorp 4.2.5
+//  myTargetSDKCorp 4.2.6
 //
 //  Created by Anton Bulankin on 22.12.14.
 //  Copyright (c) 2014 Mail.ru Group. All rights reserved.
