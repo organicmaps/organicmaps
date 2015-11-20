@@ -480,17 +480,12 @@ void RouteRenderer::Render(graphics::Screen * dlScreen, ScreenBase const & scree
       RenderArrow(dlScreen, halfWidth, screen);
   }
 
+  dlScreen->applyStates();
   if (m_startRoutePoint.IsVisible())
-  {
-    dlScreen->applyStates();
     dlScreen->drawDisplayList(m_startRoutePoint.m_displayList, screen.GtoPMatrix());
-  }
 
   if (m_finishRoutePoint.IsVisible())
-  {
-    dlScreen->applyStates();
     dlScreen->drawDisplayList(m_finishRoutePoint.m_displayList, screen.GtoPMatrix());
-  }
 }
 
 void RouteRenderer::RenderArrow(graphics::Screen * dlScreen, float halfWidth, ScreenBase const & screen)
