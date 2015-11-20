@@ -1,6 +1,6 @@
 //
 //  MTRGTracer.h
-//  myTargetSDKCorp 4.2.5
+//  myTargetSDKCorp 4.2.6
 //
 //  Created by Igor Glotov on 23.07.14.
 //  Copyright (c) 2014 Mail.ru. All rights reserved.

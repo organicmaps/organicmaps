@@ -1,6 +1,6 @@
 //
 //  MTRGVideoAdView.h
-//  myTargetSDKCorp 4.2.5
+//  myTargetSDKCorp 4.2.6
 //
 //  Created by Anton Bulankin on 17.06.15.
 //  Copyright (c) 2015 Mail.ru. All rights reserved.
@@ -55,6 +55,8 @@ extern NSString *const kMTRGAdSectionTypeInstreamadsMidroll;
 -(void) onBannerSuspenseWithInfo:(MTRGVideoBannerInfo*)info videoAdView:(MTRGVideoAdView*)videoAdView;
 //Возобновление
 -(void) onBannerResumptionWithInfo:(MTRGVideoBannerInfo*)info videoAdView:(MTRGVideoAdView*)videoAdView;
+//Изменение состояния air-play
+-(void) onAirPlayVideoActiveChanged:(BOOL)airPlayVideoActive videoAdView:(MTRGVideoAdView*)videoAdView;
 
 @end
 
