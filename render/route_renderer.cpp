@@ -390,7 +390,7 @@ void RouteRenderer::CreateRoutePointGraphics(graphics::Screen * dlScreen, bool s
 
     pnt.m_displayList = dlScreen->createDisplayList();
     dlScreen->setDisplayList(pnt.m_displayList);
-    dlScreen->drawSymbol(pnt.m_point, start ? "route_from" : "route_to", graphics::EPosCenter, graphics::maxDepth);
+    dlScreen->drawSymbol(pnt.m_point, start ? "route_from" : "route_to", graphics::EPosCenter, graphics::routingFinishDepth);
     dlScreen->setDisplayList(nullptr);
 
     pnt.m_needUpdate = false;
