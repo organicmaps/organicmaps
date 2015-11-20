@@ -21,7 +21,7 @@ public:
   bool IsEnabled() const;
   void SetEnabled(bool enabled);
 
-  void DrawRect(ScreenBase const & screen, m2::RectF const & rect);
+  void DrawRect(ScreenBase const & screen, m2::RectF const & rect) const;
 
 private:
   DebugRectRenderer();

@@ -30,7 +30,7 @@ public:
   void Render(ScreenBase const & screen);
 
   // Only for testing! Don't use this function in production code!
-  void RenderDebug(ScreenBase const & screen);
+  void RenderDebug(ScreenBase const & screen) const;
 
   // Only for testing! Don't use this function in production code!
   template <typename ToDo>

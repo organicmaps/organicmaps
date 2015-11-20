@@ -76,17 +76,17 @@ void RenderGroup::Render(ScreenBase const & screen)
     m_uniforms.SetFloatValue("u_isOutlinePass", 1.0f);
     dp::ApplyUniforms(m_uniforms, m_shader);
 
-    for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
+    for(auto & renderBucket : m_renderBuckets)
       renderBucket->Render(screen);
 
     m_uniforms.SetFloatValue("u_contrastGamma", params.m_contrast, params.m_gamma);
     m_uniforms.SetFloatValue("u_isOutlinePass", 0.0f);
     dp::ApplyUniforms(m_uniforms, m_shader);
-    for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
+    for(auto & renderBucket : m_renderBuckets)
       renderBucket->Render(screen);
 
 #ifdef RENDER_DEBUG_RECTS
-    for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
+    for(auto const & renderBucket : m_renderBuckets)
       renderBucket->RenderDebug(screen);
 #endif
   }

@@ -83,7 +83,7 @@ void DebugRectRenderer::SetEnabled(bool enabled)
   m_isEnabled = enabled;
 }
 
-void DebugRectRenderer::DrawRect(ScreenBase const & screen, m2::RectF const & rect)
+void DebugRectRenderer::DrawRect(ScreenBase const & screen, m2::RectF const & rect) const
 {
   if (!m_isEnabled)
     return;

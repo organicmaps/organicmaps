@@ -102,7 +102,7 @@ void RenderBucket::Render(ScreenBase const & screen)
   m_buffer->Render();
 }
 
-void RenderBucket::RenderDebug(ScreenBase const & screen)
+void RenderBucket::RenderDebug(ScreenBase const & screen) const
 {
 #ifdef RENDER_DEBUG_RECTS
   if (!m_overlay.empty())
