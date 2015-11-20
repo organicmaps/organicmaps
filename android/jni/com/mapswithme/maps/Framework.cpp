@@ -1513,6 +1513,18 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeSetRouteStartPoint(JNIEnv * env, jclass thiz, jdouble lat, jdouble lon)
+  {
+    frm()->SetRouteStartPoint(m2::PointD(MercatorBounds::FromLatLon(lat, lon)));
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeSetRouteEndPoint(JNIEnv * env, jclass thiz, jdouble lat, jdouble lon)
+  {
+    frm()->SetRouteFinishPoint(m2::PointD(MercatorBounds::FromLatLon(lat, lon)));
+  }
+
+  JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_setWidgetPivot(JNIEnv * env, jclass thiz, jint widget, jint pivotX, jint pivotY)
   {
     using WidgetType = InformationDisplay::WidgetType;

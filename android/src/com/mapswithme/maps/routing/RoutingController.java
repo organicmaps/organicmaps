@@ -509,6 +509,15 @@ public class RoutingController
     return mCachedRoutingInfo;
   }
 
+  private void setPointsInternal()
+  {
+    if (mStartPoint != null)
+      Framework.nativeSetRouteStartPoint(mStartPoint.getLat(), mStartPoint.getLon());
+
+    if (mEndPoint != null)
+      Framework.nativeSetRouteEndPoint(mEndPoint.getLat(), mEndPoint.getLon());
+  }
+
   private void checkAndBuildRoute()
   {
     if (mContainer != null)
@@ -571,6 +580,7 @@ public class RoutingController
     }
 
     mStartPoint = point;
+    setPointsInternal();
     checkAndBuildRoute();
     return true;
   }
@@ -616,6 +626,7 @@ public class RoutingController
     if (mStartPoint == null)
       return setStartFromMyPosition();
 
+    setPointsInternal();
     checkAndBuildRoute();
     return true;
   }
@@ -631,6 +642,7 @@ public class RoutingController
     Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.ROUTING_SWAP_POINTS);
     AlohaHelper.logClick(AlohaHelper.ROUTING_SWAP_POINTS);
 
+    setPointsInternal();
     checkAndBuildRoute();
   }
 
