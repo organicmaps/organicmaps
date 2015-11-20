@@ -94,7 +94,8 @@ public class SearchFragment extends BaseMwmFragment
     @Override
     protected boolean onStartSearchClick()
     {
-      showAllResultsOnMap();
+      if (!mFromRoutePlan)
+        showAllResultsOnMap();
       return true;
     }
 
