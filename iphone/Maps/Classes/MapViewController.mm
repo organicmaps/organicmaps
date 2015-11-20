@@ -543,20 +543,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
   self.controlsManager.menuState = self.menuRestoreState;
 
-  bool adForbidden = false;
-  (void)Settings::Get(kAdForbiddenSettingsKey, adForbidden);
-  if (adForbidden)
-  {
-    self.appWallAd = nil;
-  }
-  else
-  {
-    self.appWallAd = [[MTRGNativeAppwallAd alloc]initWithSlotId:@(MY_TARGET_KEY)];
-    self.appWallAd.handleLinksInApp = YES;
-    self.appWallAd.closeButtonTitle = L(@"close");
-    self.appWallAd.delegate = self;
-    [self.appWallAd load];
-  }
+  [self setupMyTarget];
 }
 
 - (void)viewDidLoad
@@ -802,15 +789,35 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 #pragma mark - myTarget
 
+- (void)setupMyTarget
+{
+  if (isIOSVersionLessThan(8))
+    return;
+  bool adForbidden = false;
+  (void)Settings::Get(kAdForbiddenSettingsKey, adForbidden);
+  if (adForbidden)
+  {
+    self.appWallAd = nil;
+    return;
+  }
+  self.appWallAd = [[MTRGNativeAppwallAd alloc]initWithSlotId:@(MY_TARGET_KEY)];
+  self.appWallAd.handleLinksInApp = YES;
+  self.appWallAd.closeButtonTitle = L(@"close");
+  self.appWallAd.delegate = self;
+  [self.appWallAd load];
+}
+
 - (void)onLoadWithAppwallBanners:(NSArray *)appwallBanners appwallAd:(MTRGNativeAppwallAd *)appwallAd
 {
   if (appwallBanners.count == 0)
     self.appWallAd = nil;
+  [self.controlsManager refreshLayout];
 }
 
 - (void)onNoAdWithReason:(NSString *)reason appwallAd:(MTRGNativeAppwallAd *)appwallAd
 {
   self.appWallAd = nil;
+  [self.controlsManager refreshLayout];
 }
 
 #pragma mark - API bar
@@ -956,14 +963,6 @@ NSInteger compareAddress(id l, id r, void * context)
   if (!_controlsManager)
     _controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
   return _controlsManager;
-}
-
-- (void)setAppWallAd:(MTRGNativeAppwallAd *)appWallAd
-{
-  if ([_appWallAd isEqual:appWallAd])
-    return;
-  _appWallAd = appWallAd;
-  [self.controlsManager refreshLayout];
 }
 
 @end

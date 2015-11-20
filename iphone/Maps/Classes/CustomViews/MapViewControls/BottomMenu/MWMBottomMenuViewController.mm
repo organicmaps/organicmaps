@@ -574,7 +574,9 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 
 - (NSUInteger)additionalButtonsCount
 {
-  BOOL const adForbidden = (self.controller.appWallAd == nil);
+  BOOL const haveAppWall = (self.controller.appWallAd != nil);
+  BOOL const haveBanners = (self.controller.appWallAd.banners && self.controller.appWallAd.banners != 0);
+  BOOL const adForbidden = (!haveAppWall || !haveBanners);
   return MWMBottomMenuViewCellCount - (adForbidden ? 1 : 0);
 }
 

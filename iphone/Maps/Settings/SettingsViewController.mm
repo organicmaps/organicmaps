@@ -1,3 +1,4 @@
+#import "Common.h"
 #import "LinkCell.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
@@ -26,8 +27,7 @@ typedef NS_ENUM(NSUInteger, Section)
   SectionRouting,
   SectionCalibration,
   SectionAd,
-  SectionStatistics,
-  SectionCount // Must be the latest value!
+  SectionStatistics
 };
 
 @interface SettingsViewController () <SwitchCellDelegate>
@@ -35,6 +35,9 @@ typedef NS_ENUM(NSUInteger, Section)
 @end
 
 @implementation SettingsViewController
+{
+  vector<Section> sections;
+}
 
 - (void)viewDidLoad
 {
@@ -42,6 +45,10 @@ typedef NS_ENUM(NSUInteger, Section)
   self.title = L(@"settings");
   self.tableView.backgroundView = nil;
   self.tableView.backgroundColor = [UIColor applicationBackgroundColor];
+  if (isIOSVersionLessThan(8))
+    sections = {SectionMetrics, SectionZoomButtons, SectionRouting, SectionCalibration, SectionStatistics};
+  else
+    sections = {SectionMetrics, SectionZoomButtons, SectionRouting, SectionCalibration, SectionAd, SectionStatistics};
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -59,12 +66,12 @@ typedef NS_ENUM(NSUInteger, Section)
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return SectionCount;
+  return sections.size();
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  if (section == SectionMetrics || section == SectionRouting)
+  if (sections[section] == SectionMetrics || sections[section] == SectionRouting)
     return 2;
   else
     return 1;
@@ -73,7 +80,8 @@ typedef NS_ENUM(NSUInteger, Section)
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell * cell = nil;
-  if (indexPath.section == SectionMetrics)
+  Section section = sections[indexPath.section];
+  if (section == SectionMetrics)
   {
     cell = [tableView dequeueReusableCellWithIdentifier:[SelectableCell className]];
     Settings::Units units = Settings::Metric;
@@ -84,7 +92,7 @@ typedef NS_ENUM(NSUInteger, Section)
     customCell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     customCell.titleLabel.text = indexPath.row == 0 ? L(@"kilometres") : L(@"miles");
   }
-  else if (indexPath.section == SectionAd)
+  else if (section == SectionAd)
   {
     cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
     SwitchCell * customCell = (SwitchCell *)cell;
@@ -94,7 +102,7 @@ typedef NS_ENUM(NSUInteger, Section)
     customCell.titleLabel.text = L(@"showcase_settings_title");
     customCell.delegate = self;
   }
-  else if (indexPath.section == SectionStatistics)
+  else if (section == SectionStatistics)
   {
     cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
     SwitchCell * customCell = (SwitchCell *)cell;
@@ -104,7 +112,7 @@ typedef NS_ENUM(NSUInteger, Section)
     customCell.titleLabel.text = L(@"allow_statistics");
     customCell.delegate = self;
   }
-  else if (indexPath.section == SectionZoomButtons)
+  else if (section == SectionZoomButtons)
   {
     cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
     SwitchCell * customCell = (SwitchCell *)cell;
@@ -114,7 +122,7 @@ typedef NS_ENUM(NSUInteger, Section)
     customCell.titleLabel.text = L(@"pref_zoom_title");
     customCell.delegate = self;
   }
-  else if (indexPath.section == SectionCalibration)
+  else if (section == SectionCalibration)
   {
     cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
     SwitchCell * customCell = (SwitchCell *)cell;
@@ -124,7 +132,7 @@ typedef NS_ENUM(NSUInteger, Section)
     customCell.titleLabel.text = L(@"pref_calibration_title");
     customCell.delegate = self;
   }
-  else if (indexPath.section == SectionRouting)
+  else if (section == SectionRouting)
   {
     if (indexPath.row == 0)
     {
@@ -157,13 +165,14 @@ typedef NS_ENUM(NSUInteger, Section)
 {
   NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
   Statistics * stat = [Statistics instance];
-  if (indexPath.section == SectionAd)
+  Section section = sections[indexPath.section];
+  if (section == SectionAd)
   {
     [stat logEvent:kStatSettings
         withParameters:@{kStatAction : kStatMoreApps, kStatValue : (value ? kStatOn : kStatOff)}];
     Settings::Set(kAdForbiddenSettingsKey, (bool)!value);
   }
-  else if (indexPath.section == SectionStatistics)
+  else if (section == SectionStatistics)
   {
     [stat logEvent:kStatEventName(kStatSettings, kStatToggleStatistics)
         withParameters:
@@ -173,20 +182,20 @@ typedef NS_ENUM(NSUInteger, Section)
     else
       [stat disableOnNextAppLaunch];
   }
-  else if (indexPath.section == SectionZoomButtons)
+  else if (section == SectionZoomButtons)
   {
     [stat logEvent:kStatEventName(kStatSettings, kStatToggleZoomButtonsVisibility)
         withParameters:@{kStatValue : (value ? kStatVisible : kStatHidden)}];
     Settings::Set("ZoomButtonsEnabled", (bool)value);
     [MapsAppDelegate theApp].mapViewController.controlsManager.zoomHidden = !value;
   }
-  else if (indexPath.section == SectionCalibration)
+  else if (section == SectionCalibration)
   {
     [stat logEvent:kStatEventName(kStatSettings, kStatToggleCompassCalibration)
         withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
     Settings::Set("CompassCalibrationEnabled", (bool)value);
   }
-  else if (indexPath.section == SectionRouting)
+  else if (section == SectionRouting)
   {
     [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatTTS)
                      withParameters:@{kStatValue : value ? kStatOn : kStatOff}];
@@ -204,7 +213,8 @@ Settings::Units unitsForIndex(NSInteger index)
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (indexPath.section == SectionMetrics)
+  Section section = sections[indexPath.section];
+  if (section == SectionMetrics)
   {
     Settings::Units units = unitsForIndex(indexPath.row);
     [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatChangeMeasureUnits)
@@ -213,7 +223,7 @@ Settings::Units unitsForIndex(NSInteger index)
     [tableView reloadSections:[NSIndexSet indexSetWithIndex:SectionMetrics] withRowAnimation:UITableViewRowAnimationFade];
     [[MapsAppDelegate theApp].mapViewController setupMeasurementSystem];
   }
-  else if (indexPath.section == SectionRouting && indexPath.row == 1)
+  else if (section == SectionRouting && indexPath.row == 1)
   {
     [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatTTS)
                      withParameters:@{kStatAction : kStatChangeLanguage}];
