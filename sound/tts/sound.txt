@@ -91,7 +91,7 @@
 
   [enter_the_roundabout]
     en = Enter the roundabout.
-    ru = На кольцо.
+    ru = Въезд на кольцо.
     pl = Wjedź na rondo.
     sv = Kör in i rondellen.
     tr = Kavşağa girin.
@@ -120,34 +120,34 @@
     zh-Hans = 进入环岛。
 
   [leave_the_roundabout]
-    en = Leave the roundabout.
-    ru = С кольца.
-    pl = Opuść rondo.
+    en = Exit from the roundabout.
+    ru = Съезд с кольца.
+    pl = Zjazd z ronda.
     sv = Lämna rondellen.
-    tr = Kavşaktan çıkın.
-    fr = Quittez le rond-point.
+    tr = Kavşaktan çık.
+    fr = Sortir du rond-point.
     nl = Verlaat de rotonde.
-    de = Verlassen Sie den Kreisverkehr.
-    ar = اخرج من الطريق الدوار.
-    el = Βγείτε από τον κυκλικό κόμβο.
+    de = Aus dem Kreisverkehr ausfahren.
+    ar = اخرج من الدوار.
+    el = Έξοδος από τον κυκλικό κόμβο.
     it = Esci dalla rotonda.
-    cs = Opusťte kruhový objezd.
+    cs = Vyjeďte z kruhového objezdu.
     hu = Hagyja el a körforgalmat.
     ro = Ieșiți din sensul giratoriu.
-    ja = ロータリー出口です。
+    ja = ロータリーから抜けてください。
     da = Forlad rundkørslen.
-    es = Salga de la rotonda.
+    es = Salir de la rotonda.
     fi = Poistu liikenneympyrästä.
-    hi = गोल चक्‍कर से बाहर निकलें।
-    hr = Izađite sa zaobilaznice.
+    hi = परिपथ से बाहर निकलें।
+    hr = Napustite zaobilaznicu.
     id = Keluar dari bundaran.
-    ko = 로터리에서 나갑니다.
+    ko = 원형 교차로에서 나갑니다.
     pt = Saia da rotunda.
-    sk = Opustite kruhový objazd.
-    sw = Ondoka kwenye mzunguko.
+    sk = Výjazd z kruhového objazdu.
+    sw = Toka kwenye mzunguko wa barabara.
     th = ออกจากวงเวียน
-    zh-Hant = 離開環島。
-    zh-Hans = 离开环岛。
+    zh-Hant = 退出環島。
+    zh-Hans = 退出环岛。
 
   [make_a_slight_left_turn]
     en = Slight left.
@@ -334,7 +334,7 @@
     ru = Вы прибыли.
     pl = Dotarłeś do celu.
     sv = Du har anlänt.
-    tr = Ulaştınız.
+    tr = Vardınız.
     fr = Vous êtes arrivé.
     nl = Bestemming bereikt.
     de = Sie sind angekommen.
