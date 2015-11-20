@@ -296,10 +296,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   searchParams.m_query = text.precomposedStringWithCompatibilityMapping.UTF8String;
   searchParams.SetForceSearch(true);
 
-  [self updateSearch];
+  [self updateSearch:YES];
 }
 
-- (void)updateSearch
+- (void)updateSearch:(BOOL)textChanged
 {
   Framework & f = GetFramework();
   if (!searchParams.m_query.empty())
@@ -307,12 +307,27 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     self.watchLocationUpdates = YES;
 
     if (self.searchOnMap)
+    {
+      if (textChanged)
+        f.CancelInteractiveSearch();
+
       f.StartInteractiveSearch(searchParams);
+    }
 
     if (!_searchOnMap)
+    {
       f.Search(searchParams);
+    }
     else
-      f.ShowAllSearchResults(searchResults);
+    {
+      if (textChanged)
+      {
+        self.delegate.searchTextField.isSearching = NO;
+        f.UpdateUserViewportChanged();
+      }
+      else
+        f.ShowAllSearchResults(searchResults);
+    }
   }
   else
   {
@@ -338,7 +353,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 - (void)setSearchOnMap:(BOOL)searchOnMap
 {
   _searchOnMap = searchOnMap;
-  [self updateSearch];
+  [self updateSearch:NO];
 }
 
 - (BOOL)searchOnMap
