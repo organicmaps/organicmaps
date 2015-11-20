@@ -14,6 +14,7 @@
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 #include "drape/pointers.hpp"
+#include "drape/visual_scale.hpp"
 
 #include "coding/file_container.hpp"
 #include "coding/file_name_utils.hpp"
@@ -31,7 +32,6 @@
 
 #include "base/math.hpp"
 #include "base/logging.hpp"
-#include "base/visual_scale.hpp"
 
 android::Framework * g_framework = 0;
 
@@ -119,7 +119,7 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   ::Framework::DrapeCreationParams p;
   p.m_surfaceWidth = factory->GetWidth();
   p.m_surfaceHeight = factory->GetHeight();
-  p.m_visualScale = VisualScale(densityDpi);
+  p.m_visualScale = dp::VisualScale(densityDpi);
   p.m_hasMyPositionState = m_isCurrentModeInitialized;
   p.m_initialMyPositionState = m_currentMode;
   ASSERT(!m_guiPositions.empty(), ("GUI elements must be set-up before engine is created"));

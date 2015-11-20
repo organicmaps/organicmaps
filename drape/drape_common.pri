@@ -104,6 +104,7 @@ HEADERS += \
     $$DRAPE_DIR/utils/projection.hpp \
     $$DRAPE_DIR/utils/vertex_decl.hpp \
     $$DRAPE_DIR/vertex_array_buffer.hpp \
+    $$DRAPE_DIR/visual_scale.hpp \
 
 iphone*{
     HEADERS += $$DRAPE_DIR/hw_texture_ios.hpp

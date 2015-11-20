@@ -9,7 +9,7 @@
 
 #include "platform/platform.hpp"
 
-#include "../../base/visual_scale.hpp"
+#include "drape/visual_scale.hpp"
 
 #include "std/bind.hpp"
 #include "std/limits.hpp"
@@ -89,7 +89,7 @@ double getExactDPI(double contentScaleFactor)
   Framework::DrapeCreationParams p;
   p.m_surfaceWidth = width;
   p.m_surfaceHeight = height;
-  p.m_visualScale = VisualScale(getExactDPI(self.contentScaleFactor));
+  p.m_visualScale = dp::VisualScale(getExactDPI(self.contentScaleFactor));
 
   [self.widgetsManager setupWidgets:p];
   GetFramework().CreateDrapeEngine(make_ref<dp::OGLContextFactory>(m_factory), move(p));
