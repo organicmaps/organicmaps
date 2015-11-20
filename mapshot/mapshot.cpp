@@ -56,7 +56,11 @@ void RenderPlace(Framework & framework, Place const & place, string const & file
   df::watch::FrameSymbols sym;
   sym.m_showSearchResult = false;
 
-  framework.DrawWatchFrame(MercatorBounds::FromLatLon(place.lat, place.lon), place.zoom - 17,
+  // If you are interested why, look at CPUDrawer::CalculateScreen.
+  // It is almost UpperComfortScale but there is some magic involved.
+  int constexpr kMagicBaseScale = 17;
+
+  framework.DrawWatchFrame(MercatorBounds::FromLatLon(place.lat, place.lon), place.zoom - kMagicBaseScale,
                            place.width, place.height, sym, frame);
 
   ofstream file(filename.c_str());
@@ -105,7 +109,10 @@ int main(int argc, char * argv[])
       cout << "Rendering " << place << " into " << filename << " is finished." << endl;
     };
 
-    f.InitWatchFrameRenderer(1.1);
+    // This magic constant was determined in several attempts.
+    // It is a scale level, basically, dpi factor. 1 means 90 or 96, it seems,
+    // and with 1.1 the map looks subjectively better.
+    f.InitWatchFrameRenderer(1.1 /* visualScale */);
 
     if (!FLAGS_place.empty())
       processPlace(FLAGS_place);
