@@ -36,7 +36,7 @@
   self.image.image = [UIImage imageNamed:@"img_tts"];
   self.alertTitle.text = L(@"whats_new_where_to_turn");
   self.alertText.text = L(@"whats_new_voice_instructions");
-  [self.button setTitle:@"Next" forState:UIControlStateNormal];
+  [self.button setTitle:L(@"whats_new_next") forState:UIControlStateNormal];
   [self.button addTarget:self.pageController action:@selector(nextPage) forControlEvents:UIControlEventTouchUpInside];
 }
 
