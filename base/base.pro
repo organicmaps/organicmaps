@@ -30,6 +30,7 @@ SOURCES += \
     thread_checker.cpp \
     thread_pool.cpp \
     threaded_container.cpp \
+    timegm.cpp \
     timer.cpp \
 
 HEADERS += \
@@ -80,5 +81,6 @@ HEADERS += \
     threaded_container.hpp \
     threaded_list.hpp \
     threaded_priority_queue.hpp \
+    timegm.hpp \
     timer.hpp \
     worker_thread.hpp \
