@@ -57,6 +57,7 @@ public class SlotFrame extends LinearLayout
       public void onAnimationEnd(Animator animation)
       {
         cancelDrag();
+        mFrame.animate().setListener(null);
         RoutingController.get().swapPoints();
       }
     };
