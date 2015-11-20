@@ -2,6 +2,7 @@
 #import <OpenGLES/EAGLDrawable.h>
 #import "Common.h"
 #import "EAGLView.h"
+#import "MWMDirectionView.h"
 
 #include "Framework.h"
 
@@ -157,6 +158,19 @@ double getExactDPI()
 #endif
 
   NSLog(@"EAGLView initRenderPolicy Ended");
+}
+
+- (void)addSubview:(UIView *)view
+{
+  [super addSubview:view];
+  for (UIView * v in self.subviews)
+  {
+    if ([v isKindOfClass:[MWMDirectionView class]])
+    {
+      [self bringSubviewToFront:v];
+      break;
+    }
+  }
 }
 
 - (void)setMapStyle:(MapStyle)mapStyle
