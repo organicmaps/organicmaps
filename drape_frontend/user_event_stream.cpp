@@ -313,13 +313,43 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
 
 bool UserEventStream::SetCenter(m2::PointD const & center, int zoom, bool isAnim)
 {
+  m2::PointD targetCenter = center;
+  ang::Angle<double> angle;
+  m2::RectD localRect;
+
+  ScreenBase const &screen = GetCurrentScreen();
+  double const scale3d = screen.PixelRect().SizeX() / screen.PixelRectIn3d().SizeX();
   if (zoom == -1)
   {
-    m2::AnyRectD r = GetTargetRect();
-    return SetRect(m2::AnyRectD(center, r.Angle(), r.GetLocalRect()), isAnim);
+    m2::AnyRectD const r = GetTargetRect();
+    angle = r.Angle();
+    localRect = r.GetLocalRect();
+  }
+  else
+  {
+    angle = screen.GlobalRect().Angle();
+
+    localRect = df::GetRectForDrawScale(zoom, center);
+    CheckMinGlobalRect(localRect);
+    CheckMinMaxVisibleScale(m_isCountryLoaded, localRect, zoom);
+
+    localRect.Offset(-center);
+    localRect.Scale(scale3d);
+
+    double const aspectRatio = screen.PixelRect().SizeY() / screen.PixelRect().SizeX();
+    if (aspectRatio > 1.0)
+      localRect.Inflate(0.0, localRect.SizeY() / 2.0 * aspectRatio);
+    else
+      localRect.Inflate(localRect.SizeX() / 2.0 / aspectRatio, 0.0);
   }
 
-  return SetRect(df::GetRectForDrawScale(zoom, center), zoom, true, isAnim);
+  if (screen.isPerspective())
+  {
+    double const centerOffset3d = localRect.SizeY() * (1.0 - 1.0 / (scale3d * cos(screen.GetRotationAngle()))) / 2.0;
+    targetCenter = targetCenter.Move(centerOffset3d, angle.cos(), -angle.sin());
+  }
+
+  return SetRect(m2::AnyRectD(targetCenter, angle, localRect), isAnim);
 }
 
 bool UserEventStream::SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim)

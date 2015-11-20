@@ -183,8 +183,7 @@ ScreenBase const Navigator::ScaleInto(ScreenBase const & screen, m2::RectD bound
 
   m2::RectD clipRect = res.ClipRect();
 
-  // TODO: This assert fails in 3d mode, do proper check.
-  //ASSERT(boundRect.IsPointInside(clipRect.Center()), ("center point should be inside boundRect"));
+  ASSERT(boundRect.IsPointInside(clipRect.Center()), ("center point should be inside boundRect"));
 
   if (clipRect.minX() < boundRect.minX())
   {
