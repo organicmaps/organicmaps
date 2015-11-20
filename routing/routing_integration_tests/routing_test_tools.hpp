@@ -1,18 +1,18 @@
 #pragma once
 
+#include "routing/osrm_router.hpp"
+
+#include "storage/country_info_getter.hpp"
+
+#include "map/feature_vec_model.hpp"
+
+#include "platform/local_country_file.hpp"
+
 #include "std/set.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/string.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
-
-#include "routing/osrm_router.hpp"
-
-#include "platform/local_country_file.hpp"
-
-#include "storage/country_info_getter.hpp"
-
-#include "map/feature_vec_model.hpp"
 
 /*
  * These tests are developed to simplify routing integration tests writing.

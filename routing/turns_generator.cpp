@@ -13,6 +13,7 @@
 
 #include "3party/osrm/osrm-backend/data_structures/internal_route_result.hpp"
 
+#include "std/cmath.hpp"
 #include "std/numeric.hpp"
 #include "std/string.hpp"
 

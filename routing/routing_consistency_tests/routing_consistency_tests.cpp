@@ -16,7 +16,6 @@
 
 #include "3party/gflags/src/gflags/gflags.h"
 
-
 using namespace routing;
 using storage::CountryInfo;
 
@@ -65,7 +64,7 @@ bool ParseUserString(string const & incomeString, UserRoutingRecord & result)
   it = incomeString.find("name=vehicle");
   if (it == string::npos)
     return false;
-  if (GetDouble(incomeString, "startDirectionX") != 0 && GetDouble(incomeString, "startDirectionX") != 0)
+  if (GetDouble(incomeString, "startDirectionX") != 0 && GetDouble(incomeString, "startDirectionY") != 0)
     return false;
 
   // Extract numbers from a record.
@@ -78,10 +77,8 @@ bool ParseUserString(string const & incomeString, UserRoutingRecord & result)
 class RouteTester
 {
 public:
-  RouteTester(string const & baseDir) :  m_components(integration::GetOsrmComponents())
+  RouteTester() :  m_components(integration::GetOsrmComponents())
   {
-    CHECK(borders::LoadCountriesList(baseDir, m_countries),
-          ("Error loading country polygons files"));
   }
 
   bool BuildRoute(UserRoutingRecord const & record)
@@ -93,8 +90,8 @@ public:
       return false;
     }
     auto const delta = record.distance * kRouteLengthAccuracy;
-    auto const routeLength = result.first->GetFollowedPolyline().GetDistanceToEndM();
-    if (std::abs(routeLength - record.distance) < delta)
+    auto const routeLength = result.first->GetTotalDistanceMeters();
+    if (abs(routeLength - record.distance) < delta)
       return true;
 
     LOG(LINFO, ("Route has invalid length. Expected:", record.distance, "have:", routeLength));
@@ -145,7 +142,6 @@ public:
   }
 
 private:
-  borders::CountriesContainerT m_countries;
   integration::IRouterComponents & m_components;
 
   map<string, size_t> m_checkedCountries;
@@ -167,7 +163,7 @@ void ReadInput(istream & stream, RouteTester & tester)
       {
         if (FLAGS_verbose)
           LOG(LINFO, ("Checked", line));
-        tester.BuildRoute(record);
+        tester.BuildRouteByRecord(record);
       }
   }
   tester.PrintStatistics();
@@ -183,7 +179,7 @@ int main(int argc, char ** argv)
   if (FLAGS_input_file.empty())
     return 1;
 
-  RouteTester tester(FLAGS_data_path);
+  RouteTester tester;
   ifstream stream(FLAGS_input_file);
   ReadInput(stream, tester);
 
