@@ -126,7 +126,7 @@
         android:id="@+id/planning"
         style="@style/MwmWidget.TextView.PlanDetail.Status"
         android:layout_margin="16dp"
-        android:text="@string/routing_planning"
+        android:text="@string/p2p_planning"
         android:textColor="@color/text_dark_hint"
         android:visibility="gone"
         tools:visibility="visible"

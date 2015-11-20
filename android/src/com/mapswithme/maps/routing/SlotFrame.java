@@ -91,15 +91,19 @@ public class SlotFrame extends LinearLayout
       if (mMapObject == null)
       {
         if (mOrder == 1)
-          mText.setText(R.string.choose_starting_point);
+          mText.setText(R.string.p2p_from);
         else
-          mText.setText(R.string.choose_destination);
+          mText.setText(R.string.p2p_to);
 
         mText.setTextColor(COLOR_HINT);
         return;
       }
 
-      mText.setText(mMapObject.getName());
+      if (mMapObject instanceof MapObject.MyPosition)
+        mText.setText(R.string.p2p_your_location);
+      else
+        mText.setText(mMapObject.getName());
+
       mText.setTextColor(COLOR_TEXT);
     }
 

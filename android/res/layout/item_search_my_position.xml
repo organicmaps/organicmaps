@@ -2,5 +2,5 @@
 <!-- TODO: Text -->
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
           style="@style/MwmWidget.TextView.Search"
-          android:text="@string/my_position"
+          android:text="@string/p2p_your_location"
           android:drawableLeft="@drawable/ic_search_my_position"/>

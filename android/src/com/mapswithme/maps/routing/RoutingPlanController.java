@@ -101,7 +101,7 @@ public class RoutingPlanController extends ToolbarController
         UiUtils.invisible(divider);
     }
 
-    setTitle(R.string.route);
+    setTitle(R.string.p2p_route_planning);
 
     mToggle.setImageDrawable(mToggleImage);
     mToggle.setOnClickListener(new View.OnClickListener()
@@ -165,8 +165,8 @@ public class RoutingPlanController extends ToolbarController
     mNumbersDistance.setText(rinfo.distToTarget + " " + rinfo.targetUnits);
 
     if (mNumbersArrival != null)
-      mNumbersArrival.setText(MwmApplication.get().getString(R.string.routing_arrive) + " " +
-                              RoutingController.formatArrivalTime(rinfo.totalTimeInSeconds));
+      mNumbersArrival.setText(MwmApplication.get().getString(R.string.routing_arrive,
+                              RoutingController.formatArrivalTime(rinfo.totalTimeInSeconds)));
   }
 
   public void updateBuildProgress(int progress, int router)

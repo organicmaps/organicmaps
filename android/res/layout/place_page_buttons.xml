@@ -81,7 +81,7 @@
     <TextView
         android:id="@+id/from"
         style="@style/PlacePageButtonText.Route"
-        android:text="@string/routing_from"/>
+        android:text="@string/p2p_from_here"/>
 
     <View
         android:layout_width="1dp"
@@ -93,6 +93,6 @@
     <TextView
         android:id="@+id/to"
         style="@style/PlacePageButtonText.Route"
-        android:text="@string/routing_to"/>
+        android:text="@string/p2p_to_here"/>
   </LinearLayout>
 </FrameLayout>

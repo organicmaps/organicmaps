@@ -94,7 +94,7 @@
       style="@style/MwmWidget.TextView.PlanDetail.Status"
       android:layout_toRightOf="@id/progress_frame"
       android:layout_alignParentRight="true"
-      android:text="@string/routing_planning"
+      android:text="@string/p2p_planning"
       android:textColor="@color/text_dark_hint"
       android:gravity="right"
       android:visibility="gone"

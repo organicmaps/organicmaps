@@ -11,7 +11,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:layout_margin="@dimen/margin_quarter_plus"
-      android:text="@string/routing_start"
+      android:text="@string/p2p_start"
       android:textAppearance="@style/MwmTextAppearance.Body1"
       android:fontFamily="@string/robotoMedium"
       android:textAllCaps="true"

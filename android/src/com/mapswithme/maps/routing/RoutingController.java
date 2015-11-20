@@ -355,9 +355,8 @@ public class RoutingController
         .setCancelable(false)
         .setNegativeButton(R.string.cancel, null);
 
-    // TODO add correct translations after https://github.com/mapsme/omim/pull/501 is merged
-    builder.setTitle("Navigation is available only from your current location.")
-           .setMessage("Do you want us to plan an alternative route?");
+    builder.setTitle(R.string.p2p_only_from_current)
+           .setMessage(R.string.p2p_reroute_from_current);
     if (mEndPoint instanceof MapObject.MyPosition)
     {
       builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
