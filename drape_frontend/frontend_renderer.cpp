@@ -137,10 +137,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       dp::GLState const & state = msg->GetState();
       TileKey const & key = msg->GetKey();
       drape_ptr<dp::RenderBucket> bucket = msg->AcceptBuffer();
-      ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(m_useFramebuffer ? state.GetProgram3dIndex()
-                                                                                         : state.GetProgramIndex());
+      ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
+      ref_ptr<dp::GpuProgram> program3d = m_gpuProgramManager->GetProgram(state.GetProgram3dIndex());
       program->Bind();
-      bucket->GetBuffer()->Build(program);
+      bucket->GetBuffer()->Build(m_useFramebuffer ? program3d : program);
       if (!IsUserMarkLayer(key))
       {
         if (CheckTileGenerations(key))
@@ -149,7 +149,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       else
       {
         m_userMarkRenderGroups.emplace_back(make_unique_dp<UserMarkRenderGroup>(state, key, move(bucket)));
-        m_userMarkRenderGroups.back()->SetRenderParams(program, make_ref(&m_generalUniforms));
+        m_userMarkRenderGroups.back()->SetRenderParams(program, program3d, make_ref(&m_generalUniforms));
       }
       break;
     }
@@ -546,7 +546,9 @@ void FrontendRenderer::AddToRenderGroup(vector<drape_ptr<RenderGroup>> & groups,
 {
   drape_ptr<RenderGroup> group = make_unique_dp<RenderGroup>(state, newTile);
   ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
-  group->SetRenderParams(program, make_ref(&m_generalUniforms));
+  ref_ptr<dp::GpuProgram> program3d = m_gpuProgramManager->GetProgram(state.GetProgram3dIndex());
+
+  group->SetRenderParams(program, program3d, make_ref(&m_generalUniforms));
   group->AddBucket(move(renderBucket));
   groups.push_back(move(group));
 }

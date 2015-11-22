@@ -94,7 +94,9 @@ void VertexArrayBuffer::Build(ref_ptr<GpuProgram> program)
   if (m_moveToGpuOnBuild && !m_isPreflushed)
     PreflushImpl();
 
-  ASSERT(m_VAO == 0 && m_program == nullptr, ("No-no-no! You can't rebuild VertexArrayBuffer"));
+  if (m_VAO != 0 && m_program == program)
+      return;
+
   m_program = program;
   /// if OES_vertex_array_object not supported, than buffers will be bind on each Render call
   if (!GLExtensionsList::Instance().IsSupported(GLExtensionsList::VertexArrayObject))
@@ -103,6 +105,8 @@ void VertexArrayBuffer::Build(ref_ptr<GpuProgram> program)
   if (m_staticBuffers.empty())
     return;
 
+  if (m_VAO != 0)
+    GLFunctions::glDeleteVertexArray(m_VAO);
   m_VAO = GLFunctions::glGenVertexArray();
   Bind();
   BindStaticBuffers();

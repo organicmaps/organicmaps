@@ -3,6 +3,7 @@
 
 #include "drape/debug_rect_renderer.hpp"
 #include "drape/shader_def.hpp"
+#include "drape/vertex_array_buffer.hpp"
 
 #include "geometry/screenbase.hpp"
 
@@ -13,9 +14,11 @@
 namespace df
 {
 
-void BaseRenderGroup::SetRenderParams(ref_ptr<dp::GpuProgram> shader, ref_ptr<dp::UniformValuesStorage> generalUniforms)
+void BaseRenderGroup::SetRenderParams(ref_ptr<dp::GpuProgram> shader, ref_ptr<dp::GpuProgram> shader3d,
+                                      ref_ptr<dp::UniformValuesStorage> generalUniforms)
 {
   m_shader = shader;
+  m_shader3d = shader3d;
   m_generalUniforms = generalUniforms;
 }
 
@@ -24,14 +27,15 @@ void BaseRenderGroup::UpdateAnimation()
   m_uniforms.SetFloatValue("u_opacity", 1.0);
 }
 
-void BaseRenderGroup::Render(const ScreenBase &)
+void BaseRenderGroup::Render(const ScreenBase & screen)
 {
-  ASSERT(m_shader != nullptr, ());
+  ref_ptr<dp::GpuProgram> shader = screen.isPerspective() ? m_shader3d : m_shader;
+  ASSERT(shader != nullptr, ());
   ASSERT(m_generalUniforms != nullptr, ());
 
-  m_shader->Bind();
-  dp::ApplyState(m_state, m_shader);
-  dp::ApplyUniforms(*(m_generalUniforms.get()), m_shader);
+  shader->Bind();
+  dp::ApplyState(m_state, shader);
+  dp::ApplyUniforms(*(m_generalUniforms.get()), shader);
 }
 
 bool BaseRenderGroup::IsOverlay() const
@@ -73,6 +77,10 @@ void RenderGroup::Render(ScreenBase const & screen)
 {
   BaseRenderGroup::Render(screen);
 
+  ref_ptr<dp::GpuProgram> shader = screen.isPerspective() ? m_shader3d : m_shader;
+  for(auto & renderBucket : m_renderBuckets)
+    renderBucket->GetBuffer()->Build(shader);
+
   auto const & params = df::VisualParams::Instance().GetGlyphVisualParams();
   int programIndex = m_state.GetProgramIndex();
   int program3dIndex = m_state.GetProgram3dIndex();
@@ -81,14 +89,14 @@ void RenderGroup::Render(ScreenBase const & screen)
   {
     m_uniforms.SetFloatValue("u_contrastGamma", params.m_outlineContrast, params.m_outlineGamma);
     m_uniforms.SetFloatValue("u_isOutlinePass", 1.0f);
-    dp::ApplyUniforms(m_uniforms, m_shader);
+    dp::ApplyUniforms(m_uniforms, shader);
 
     for(auto & renderBucket : m_renderBuckets)
       renderBucket->Render(screen);
 
     m_uniforms.SetFloatValue("u_contrastGamma", params.m_contrast, params.m_gamma);
     m_uniforms.SetFloatValue("u_isOutlinePass", 0.0f);
-    dp::ApplyUniforms(m_uniforms, m_shader);
+    dp::ApplyUniforms(m_uniforms, shader);
     for(auto & renderBucket : m_renderBuckets)
       renderBucket->Render(screen);
   }
@@ -96,13 +104,13 @@ void RenderGroup::Render(ScreenBase const & screen)
            program3dIndex == gpu::TEXT_BILLBOARD_PROGRAM)
   {
     m_uniforms.SetFloatValue("u_contrastGamma", params.m_contrast, params.m_gamma);
-    dp::ApplyUniforms(m_uniforms, m_shader);
+    dp::ApplyUniforms(m_uniforms, shader);
     for(auto & renderBucket : m_renderBuckets)
       renderBucket->Render(screen);
   }
   else
   {
-    dp::ApplyUniforms(m_uniforms, m_shader);
+    dp::ApplyUniforms(m_uniforms, shader);
 
     for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
       renderBucket->Render(screen);
@@ -241,9 +249,13 @@ void UserMarkRenderGroup::UpdateAnimation()
 void UserMarkRenderGroup::Render(ScreenBase const & screen)
 {
   BaseRenderGroup::Render(screen);
-  dp::ApplyUniforms(m_uniforms, m_shader);
+  ref_ptr<dp::GpuProgram> shader = screen.isPerspective() ? m_shader3d : m_shader;
+  dp::ApplyUniforms(m_uniforms, shader);
   if (m_renderBucket != nullptr)
+  {
+    m_renderBucket->GetBuffer()->Build(shader);
     m_renderBucket->Render(screen);
+  }
 }
 
 string DebugPrint(RenderGroup const & group)
