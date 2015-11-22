@@ -6,6 +6,7 @@ uniform float u_accuracy;
 
 uniform mat4 modelView;
 uniform mat4 projection;
+uniform mat4 pivotTransform;
 
 varying vec2 v_colorTexCoords;
 
@@ -13,7 +14,11 @@ void main(void)
 {
   vec4 position = vec4(u_position, 1.0) * modelView;
   vec4 normal = vec4(normalize(a_normal) * u_accuracy, 0.0, 0.0);
-  gl_Position = (position + normal) * projection;
+  position = (position + normal) * projection;
+  float w = position.w;
+  position.xyw = (pivotTransform * position).xyw;
+  position.z *= position.w / w;
+  gl_Position = position;
 
   v_colorTexCoords = a_colorTexCoords;
 }

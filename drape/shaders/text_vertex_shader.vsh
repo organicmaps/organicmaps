@@ -5,6 +5,7 @@ attribute vec2 a_maskTexCoord;
 
 uniform mat4 modelView;
 uniform mat4 projection;
+uniform mat4 pivotTransform;
 uniform float u_isOutlinePass;
 
 #ifdef ENABLE_VTF
@@ -25,7 +26,12 @@ void main()
   // to eliminate jittering effect in process of billboard reconstruction.
   lowp vec4 pos = a_position * modelView;
   highp vec4 shiftedPos = vec4(a_normal, Zero, Zero) + pos;
-  gl_Position = shiftedPos * projection;
+  shiftedPos = shiftedPos * projection;
+  float w = shiftedPos.w;
+  shiftedPos.xyw = (pivotTransform * shiftedPos).xyw;
+  shiftedPos.z *= shiftedPos.w / w;
+  gl_Position = shiftedPos;
+  
 #ifdef ENABLE_VTF
   v_color = texture2D(u_colorTex, a_colorTexCoord);
 #else

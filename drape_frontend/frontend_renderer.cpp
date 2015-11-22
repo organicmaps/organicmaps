@@ -1,11 +1,14 @@
 #include "drape_frontend/animation/interpolation_holder.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
-#include "drape_frontend/framebuffer.hpp"
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/message_subclasses.hpp"
-#include "drape_frontend/renderer3d.hpp"
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
+
+#ifdef USE_TEXTURE_IN_3D
+#include "drape_frontend/framebuffer.hpp"
+#include "drape_frontend/renderer3d.hpp"
+#endif
 
 #include "drape/debug_rect_renderer.hpp"
 #include "drape/shader_def.hpp"
@@ -47,8 +50,10 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_overlayTree(new dp::OverlayTree())
   , m_enable3dInNavigation(false)
   , m_isBillboardRenderPass(false)
+#ifdef USE_TEXTURE_IN_3D
   , m_framebuffer(new Framebuffer())
   , m_renderer3d(new Renderer3d())
+#endif
   , m_viewport(params.m_viewport)
   , m_userEventStream(params.m_isCountryLoadedFn)
   , m_modelViewChangedFn(params.m_modelViewChangedFn)
@@ -532,10 +537,12 @@ void FrontendRenderer::OnResize(ScreenBase const & screen)
   m_myPositionController->UpdatePixelPosition(screen);
   m_myPositionController->SetPixelRect(viewportRect);
 
-  m_viewport.SetViewport(0, 0, screen.GetWidth(), screen.GetHeight());
+  m_viewport.SetViewport(0, 0, viewportRect.SizeX(), viewportRect.SizeY());
   m_contextFactory->getDrawContext()->resize(viewportRect.SizeX(), viewportRect.SizeY());
-  RefreshProjection();
+  RefreshProjection(screen);
+  RefreshPivotTransform(screen);
 
+#ifdef USE_TEXTURE_IN_3D
   if (screen.isPerspective())
   {
     int width = screen.GetWidth();
@@ -550,15 +557,13 @@ void FrontendRenderer::OnResize(ScreenBase const & screen)
       LOG(LINFO, ("Max texture size:", maxTextureSize, ", expanded screen size:", maxSide,
                   ", scale:", scale));
     }
-
     m_viewport.SetViewport(0, 0, width, height);
 
     m_renderer3d->SetSize(viewportRect.SizeX(), viewportRect.SizeY());
     m_framebuffer->SetDefaultContext(m_contextFactory->getDrawContext());
     m_framebuffer->SetSize(width, height);
-
-    RefreshPivotTransform(screen);
   }
+#endif
 }
 
 void FrontendRenderer::AddToRenderGroup(vector<drape_ptr<RenderGroup>> & groups,
@@ -714,11 +719,13 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 #endif
 
   bool const isPerspective = modelView.isPerspective();
+#ifdef USE_TEXTURE_IN_3D
   if (isPerspective)
   {
     m_framebuffer->SetDefaultContext(m_contextFactory->getDrawContext());
     m_framebuffer->Enable();
   }
+#endif
 
   RenderGroupComparator comparator;
   sort(m_renderGroups.begin(), m_renderGroups.end(), bind(&RenderGroupComparator::operator (), &comparator, _1, _2));
@@ -827,8 +834,10 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
   if (isPerspective)
   {
+#ifdef USE_TEXTURE_IN_3D
     m_framebuffer->Disable();
     m_renderer3d->Render(modelView, m_framebuffer->GetTextureId(), make_ref(m_gpuProgramManager));
+#endif
 
     m_isBillboardRenderPass = true;
 
@@ -888,11 +897,11 @@ void FrontendRenderer::RenderSingleGroup(ScreenBase const & modelView, ref_ptr<B
   group->Render(modelView);
 }
 
-void FrontendRenderer::RefreshProjection()
+void FrontendRenderer::RefreshProjection(ScreenBase const & screen)
 {
   array<float, 16> m;
 
-  dp::MakeProjection(m, 0.0f, m_viewport.GetWidth(), m_viewport.GetHeight(), 0.0f);
+  dp::MakeProjection(m, 0.0f, screen.GetWidth(), screen.GetHeight(), 0.0f);
   m_generalUniforms.SetMatrix4x4Value("projection", m.data());
 }
 
@@ -915,7 +924,11 @@ void FrontendRenderer::RefreshPivotTransform(ScreenBase const & screen)
 {
   if (screen.isPerspective())
   {
-    math::Matrix<float, 4, 4> const transform(screen.Pto3dMatrix());
+    math::Matrix<float, 4, 4> transform(screen.Pto3dMatrix());
+    math::Matrix<float, 4, 4> scaleM = math::Identity<float, 4>();
+    scaleM(2, 2) = 0.0;
+
+    transform = scaleM * transform;
     m_generalUniforms.SetMatrix4x4Value("pivotTransform", transform.m_data);
   }
   else
