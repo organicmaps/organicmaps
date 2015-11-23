@@ -20,4 +20,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuState)
 
 @property(nonatomic) BOOL searchIsActive;
 
+- (void)refreshLayout;
+
 @end

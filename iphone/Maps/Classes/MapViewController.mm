@@ -36,6 +36,7 @@
 extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 static NSString * const kUDWhatsNewWasShown = @"WhatsNewWithTTSAndP2PWasShown";
 extern char const * kAdForbiddenSettingsKey;
+extern char const * kAdServerForbiddenKey;
 
 typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
 {
@@ -543,7 +544,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
   self.controlsManager.menuState = self.menuRestoreState;
 
-  [self setupMyTarget];
+  [self refreshAd];
 }
 
 - (void)viewDidLoad
@@ -789,13 +790,13 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 #pragma mark - myTarget
 
-- (void)setupMyTarget
+- (void)refreshAd
 {
-  if (isIOSVersionLessThan(8))
-    return;
+  bool adServerForbidden = false;
+  (void)Settings::Get(kAdServerForbiddenKey, adServerForbidden);
   bool adForbidden = false;
   (void)Settings::Get(kAdForbiddenSettingsKey, adForbidden);
-  if (adForbidden)
+  if (isIOSVersionLessThan(8) || adServerForbidden || adForbidden)
   {
     self.appWallAd = nil;
     return;
@@ -819,7 +820,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 - (void)onNoAdWithReason:(NSString *)reason appwallAd:(MTRGNativeAppwallAd *)appwallAd
 {
   self.appWallAd = nil;
-  [self.controlsManager refreshLayout];
 }
 
 #pragma mark - API bar
@@ -959,6 +959,12 @@ NSInteger compareAddress(id l, id r, void * context)
 }
 
 #pragma mark - Properties
+
+- (void)setAppWallAd:(MTRGNativeAppwallAd *)appWallAd
+{
+  _appWallAd = appWallAd;
+  [self.controlsManager refreshLayout];
+}
 
 - (MWMMapViewControlsManager *)controlsManager
 {

@@ -21,8 +21,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 extern NSString * const kSearchStateWillChangeNotification;
 extern NSString * const kSearchStateKey;
 
-extern char const * kAdForbiddenSettingsKey;
-
 static NSString * const kCollectionCellPortrait = @"MWMBottomMenuCollectionViewPortraitCell";
 static NSString * const kCollectionCelllandscape = @"MWMBottomMenuCollectionViewLandscapeCell";
 
@@ -130,6 +128,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
       (MWMBottomMenuLayout *)self.buttonsCollectionView.collectionViewLayout;
   cvLayout.buttonsCount = [self additionalButtonsCount];
   [self.additionalButtons reloadData];
+  [(MWMBottomMenuView *)self.view refreshLayout];
 }
 
 #pragma mark - Layout

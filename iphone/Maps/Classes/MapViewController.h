@@ -46,6 +46,7 @@ namespace search { struct AddressInfo; }
 
 - (void)openBookmarks;
 
+- (void)refreshAd;
 @property (nonatomic) MTRGNativeAppwallAd * appWallAd;
 @property (nonatomic, readonly) BOOL isAppWallAdActive;
 
