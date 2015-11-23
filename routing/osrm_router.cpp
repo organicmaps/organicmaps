@@ -222,7 +222,6 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
                                                   RouterDelegate const & delegate, Route & route)
 {
   my::HighResTimer timer(true);
-  m_indexManager.Clear();  // TODO (Dragunov) make proper index manager cleaning
 
   TRoutingMappingPtr startMapping = m_indexManager.GetMappingByPoint(startPoint);
   TRoutingMappingPtr targetMapping = m_indexManager.GetMappingByPoint(finalPoint);
@@ -285,6 +284,9 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
 
   // 4. Find route.
   RawRoutingResult routingResult;
+
+  // Manually load facade to avoid unmaping files we routing on.
+  startMapping->LoadFacade();
 
   // 4.1 Single mwm case
   if (startMapping->GetMwmId() == targetMapping->GetMwmId())
