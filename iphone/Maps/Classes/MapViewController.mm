@@ -812,6 +812,8 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 - (void)onLoadWithAppwallBanners:(NSArray *)appwallBanners appwallAd:(MTRGNativeAppwallAd *)appwallAd
 {
+  if (![appwallAd isEqual:self.appWallAd])
+    return;
   if (appwallBanners.count == 0)
     self.appWallAd = nil;
   [self.controlsManager refreshLayout];
@@ -819,6 +821,8 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 - (void)onNoAdWithReason:(NSString *)reason appwallAd:(MTRGNativeAppwallAd *)appwallAd
 {
+  if (![appwallAd isEqual:self.appWallAd])
+    return;
   self.appWallAd = nil;
 }
 
