@@ -1,9 +1,11 @@
 #import "MWMPageController.h"
 #import "MWMWhatsNewController.h"
+#import "Statistics.h"
 
 static NSString * const kPageViewControllerStoryboardID = @"PageViewController";
 static NSString * const kContentViewControllerStoryboardID = @"PageContentController";
 static NSUInteger const kNumberOfPages = 2;
+extern NSString * const kUDWhatsNewWasShown;
 
 @protocol MWMPageControllerDataSource <UIPageViewControllerDataSource>
 
@@ -103,6 +105,7 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface MWMPageControllerDataSourceImpl : NSObjec
 
 - (void)close
 {
+  [[Statistics instance] logEvent:kStatEventName(kStatWhatsNew, kUDWhatsNewWasShown) withParameters:@{kStatAction : kStatClose}];
   [self.iPadBackgroundView removeFromSuperview];
   [self.view removeFromSuperview];
   [self removeFromParentViewController];
@@ -110,11 +113,13 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface MWMPageControllerDataSourceImpl : NSObjec
 
 - (void)nextPage
 {
+  [[Statistics instance] logEvent:kStatEventName(kStatWhatsNew, kUDWhatsNewWasShown) withParameters:@{kStatAction : kStatNext}];
   [self setViewControllers:@[[self.pageControllerDataSource viewControllerAtIndex:1]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 }
 
 - (void)show
 {
+  [[Statistics instance] logEvent:kStatEventName(kStatWhatsNew, kUDWhatsNewWasShown) withParameters:@{kStatAction : kStatOpen}];
   if (IPAD)
     [self.parent.view addSubview:self.iPadBackgroundView];
   [self.parent addChildViewController:self];
