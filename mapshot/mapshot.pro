@@ -15,7 +15,7 @@ TEMPLATE = app
 # needed for Platform::WorkingDir() and unicode combining
 QT *= core
 
-LIBS *= "-framework IOKit"
+LIBS *= "-framework IOKit" "-framework SystemConfiguration"
 
 SOURCES += \
     mapshot.cpp \
