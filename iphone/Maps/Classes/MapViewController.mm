@@ -34,7 +34,7 @@
 #import "../../../private.h"
 
 extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
-static NSString * const kUDWhatsNewWasShown = @"WhatsNewWithTTSAndP2PWasShown";
+extern NSString * const kUDWhatsNewWasShown = @"WhatsNewWithTTSAndP2PWasShown";
 extern char const * kAdForbiddenSettingsKey;
 extern char const * kAdServerForbiddenKey;
 
