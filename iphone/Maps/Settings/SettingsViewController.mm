@@ -18,6 +18,7 @@
 
 extern char const * kStatisticsEnabledSettingsKey;
 char const * kAdForbiddenSettingsKey = "AdForbidden";
+char const * kAdServerForbiddenKey = "AdServerForbidden";
 extern NSString * const kTTSStatusWasChangedNotification = @"TTFStatusWasChangedFromSettingsNotification";
 
 typedef NS_ENUM(NSUInteger, Section)
@@ -45,7 +46,9 @@ typedef NS_ENUM(NSUInteger, Section)
   self.title = L(@"settings");
   self.tableView.backgroundView = nil;
   self.tableView.backgroundColor = [UIColor applicationBackgroundColor];
-  if (isIOSVersionLessThan(8))
+  bool adServerForbidden = false;
+  (void)Settings::Get(kAdServerForbiddenKey, adServerForbidden);
+  if (isIOSVersionLessThan(8) || adServerForbidden)
     sections = {SectionMetrics, SectionZoomButtons, SectionRouting, SectionCalibration, SectionStatistics};
   else
     sections = {SectionMetrics, SectionZoomButtons, SectionRouting, SectionCalibration, SectionAd, SectionStatistics};

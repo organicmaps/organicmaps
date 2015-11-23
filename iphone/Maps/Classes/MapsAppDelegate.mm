@@ -53,6 +53,8 @@ extern string const kLanguageKey;
 extern NSString * const kUserDefaultsTTSLanguage;
 extern NSString * const kUserDafaultsNeedToEnableTTS;
 
+extern char const * kAdServerForbiddenKey;
+
 /// Adds needed localized strings to C++ code
 /// @TODO Refactor localization mechanism to make it simpler
 void InitLocalizedStrings()
@@ -83,6 +85,8 @@ void InitLocalizedStrings()
 @interface MapsAppDelegate ()
 
 @property (nonatomic) NSInteger standbyCounter;
+
+@property (weak, nonatomic) NSTimer * checkAdServerForbiddenTimer;
 
 @end
 
@@ -207,6 +211,8 @@ void InitLocalizedStrings()
     [self incrementSessionCount];
     [self showAlertIfRequired];
   }
+
+  [self startAdServerForbiddenCheckTimer];
 
   Framework & f = GetFramework();
   application.applicationIconBadgeNumber = f.GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
@@ -731,6 +737,35 @@ void InitLocalizedStrings()
   [calendar rangeOfUnit:NSCalendarUnitDay startDate:&now interval:NULL forDate:now];
   NSDateComponents *difference = [calendar components:NSCalendarUnitDay fromDate:fromDate toDate:now options:0];
   return difference.day;
+}
+
+#pragma mark - Showcase
+
+- (void)checkAdServerForbidden
+{
+  NSURLSession * session = [NSURLSession sharedSession];
+  NSURL * url = [NSURL URLWithString:@(AD_PERMISION_SERVER_URL)];
+  NSURLSessionDataTask * task = [session dataTaskWithURL:url
+                                       completionHandler:^(NSData * data, NSURLResponse * response,
+                                                           NSError * error)
+  {
+    bool adServerForbidden = (error || [(NSHTTPURLResponse *)response statusCode] != 200);
+    Settings::Set(kAdServerForbiddenKey, adServerForbidden);
+    dispatch_async(dispatch_get_main_queue(), ^{ [self.mapViewController refreshAd]; });
+  }];
+  [task resume];
+}
+
+- (void)startAdServerForbiddenCheckTimer
+{
+  [self checkAdServerForbidden];
+  [self.checkAdServerForbiddenTimer invalidate];
+  self.checkAdServerForbiddenTimer =
+      [NSTimer scheduledTimerWithTimeInterval:AD_PERMISION_CHECK_DURATION
+                                       target:self
+                                     selector:@selector(checkAdServerForbidden)
+                                     userInfo:nil
+                                      repeats:YES];
 }
 
 @end

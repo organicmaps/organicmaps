@@ -39,6 +39,8 @@ else
 #define RESOURCES_METASERVER_URL ""
 #define METASERVER_URL ""
 #define DEFAULT_URLS_JSON ""
+#define AD_PERMISION_SERVER_URL ""
+#define AD_PERMISION_CHECK_DURATION 2 * 60 * 60
 ' > "$PRIVATE_HEADER"
     echo '
 ext {

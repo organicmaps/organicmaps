@@ -290,6 +290,12 @@
     self.leftBound = 0.0;
 }
 
+- (void)refreshLayout
+{
+  self.layoutDuration = kDefaultAnimationDuration;
+  [self setNeedsLayout];
+}
+
 #pragma mark - Properties
 
 - (void)setFrame:(CGRect)frame
@@ -303,7 +309,7 @@
 {
   if (_state == state)
     return;
-  self.layoutDuration = kDefaultAnimationDuration;
+  [self refreshLayout];
   switch (state)
   {
   case MWMBottomMenuStateHidden:
@@ -351,7 +357,6 @@
     break;
   }
   _state = state;
-  [self setNeedsLayout];
 }
 
 - (void)setLeftBound:(CGFloat)leftBound
