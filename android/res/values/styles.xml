@@ -117,6 +117,7 @@
   </style>
 
   <style name="MwmWidget.TextView.PlanDetail.Number">
+    <item name="android:textSize">@dimen/text_size_routing_number</item>
     <item name="android:singleLine">true</item>
   </style>
 

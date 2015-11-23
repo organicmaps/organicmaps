@@ -290,23 +290,11 @@ public class RoutingController
       return;
     }
 
-    if (!LocationState.isTurnedOn())
-    {
-      mRoutingListener.onRoutingEvent(ResultCodesHelper.NO_POSITION, null, null);
-      return;
-    }
-
     mStartPoint = LocationHelper.INSTANCE.getMyPosition();
-    if (mStartPoint == null)
-    {
-      mRoutingListener.onRoutingEvent(ResultCodesHelper.NO_POSITION, null, null);
-      return;
-    }
-
     mEndPoint = endPoint;
     setState(State.PREPARE);
 
-    if (mEndPoint != null)
+    if (mStartPoint != null && mEndPoint != null)
       mLastRouterType = Framework.nativeGetBestRouter(mStartPoint.getLat(), mStartPoint.getLon(),
                                                       mEndPoint.getLat(), mEndPoint.getLon());
     Framework.nativeSetRouter(mLastRouterType);
@@ -317,7 +305,7 @@ public class RoutingController
         @Override
         public void run()
         {
-          if (mEndPoint == null)
+          if (mStartPoint == null || mEndPoint == null)
             updatePlan();
           else
             build();
@@ -337,16 +325,21 @@ public class RoutingController
       return;
     }
 
+    MapObject.MyPosition my = LocationHelper.INSTANCE.getMyPosition();
+    if (my == null)
+    {
+      mRoutingListener.onRoutingEvent(ResultCodesHelper.NO_POSITION, null, null);
+      return;
+    }
+
+    mStartPoint = my;
     Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.ROUTING_START);
     AlohaHelper.logClick(AlohaHelper.ROUTING_GO);
     setState(State.NAVIGATION);
     Framework.nativeFollowRoute();
 
-    if (mContainer != null)
-    {
-      mContainer.showRoutePlan(false, null);
-      mContainer.showNavigation(true);
-    }
+    mContainer.showRoutePlan(false, null);
+    mContainer.showNavigation(true);
   }
 
   private void suggestRebuildRoute()
@@ -539,6 +532,11 @@ public class RoutingController
     if (my == null)
     {
       Log.d(TAG, "setStartFromMyPosition: no my position - skip");
+
+      if (mContainer != null)
+        mContainer.updatePoints();
+
+      setPointsInternal();
       return false;
     }
 

@@ -797,6 +797,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void invalidateLocationState()
   {
     final int currentLocationMode = LocationState.INSTANCE.getLocationStateMode();
+    LocationHelper.INSTANCE.invalidateLocation();
     refreshLocationState(currentLocationMode);
     LocationState.INSTANCE.invalidatePosition();
   }

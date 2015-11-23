@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.mapswithme.maps.LocationState;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -133,6 +134,12 @@ public enum LocationHelper implements SensorEventListener
 
   public @Nullable MapObject.MyPosition getMyPosition()
   {
+    if (!LocationState.isTurnedOn())
+    {
+      invalidateLocation();
+      return null;
+    }
+
     if (mLastLocation == null)
       return null;
 
@@ -152,6 +159,12 @@ public enum LocationHelper implements SensorEventListener
     mMyPosition = null;
     mLastLocationTime = System.currentTimeMillis();
     notifyLocationUpdated();
+  }
+
+  public void invalidateLocation()
+  {
+    mLastLocation = null;
+    mMyPosition = null;
   }
 
   void notifyLocationUpdated()
