@@ -35,6 +35,7 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
                                  loadNibNamed:kPlacePageActionBarNibName owner:nil options:nil][i];
   NSAssert(i == bar.tag, @"Incorrect view!");
   bar.isPrepareRouteMode = isPrepareRouteMode;
+  bar.placePage = placePage;
   if (isPrepareRouteMode)
     return bar;
 
