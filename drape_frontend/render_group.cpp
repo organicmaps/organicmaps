@@ -84,11 +84,6 @@ void RenderGroup::Render(ScreenBase const & screen)
     dp::ApplyUniforms(m_uniforms, m_shader);
     for(auto & renderBucket : m_renderBuckets)
       renderBucket->Render(screen);
-
-#ifdef RENDER_DEBUG_RECTS
-    for(auto const & renderBucket : m_renderBuckets)
-      renderBucket->RenderDebug(screen);
-#endif
   }
   else
   {
@@ -97,6 +92,11 @@ void RenderGroup::Render(ScreenBase const & screen)
     for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
       renderBucket->Render(screen);
   }
+
+#ifdef RENDER_DEBUG_RECTS
+  for(auto const & renderBucket : m_renderBuckets)
+    renderBucket->RenderDebug(screen);
+#endif
 }
 
 void RenderGroup::AddBucket(drape_ptr<dp::RenderBucket> && bucket)
