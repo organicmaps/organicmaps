@@ -23,6 +23,7 @@
 #include "platform/video_timer.hpp"
 
 #include "std/bind.hpp"
+#include "std/limits.hpp"
 
 
 @implementation EAGLView
@@ -48,6 +49,36 @@ double getExactDPI()
     default:
       return mDPI * scale;
   }
+}
+  
+graphics::EDensity getDensityType(int exactDensityDPI, double scale)
+{
+  if (scale > 2)
+    return graphics::EDensityIPhone6Plus;
+      
+  typedef pair<int, graphics::EDensity> P;
+  P dens[] = {
+      //        P(120, graphics::EDensityLDPI),
+      P(160, graphics::EDensityMDPI),
+      P(240, graphics::EDensityHDPI),
+      P(320, graphics::EDensityXHDPI),
+      P(480, graphics::EDensityXXHDPI)
+  };
+    
+  int prevRange = numeric_limits<int>::max();
+  int bestRangeIndex = 0;
+  for (int i = 0; i < ARRAY_SIZE(dens); i++)
+  {
+    int currRange = abs(exactDensityDPI - dens[i].first);
+    if (currRange <= prevRange)
+    {
+      bestRangeIndex = i;
+      prevRange = currRange;
+    }
+    else
+      break;
+  }
+  return dens[bestRangeIndex].second;
 }
 } //  namespace
 
@@ -122,17 +153,9 @@ double getExactDPI()
 
   rpParams.m_screenWidth = screenRect.size.width * vs;
   rpParams.m_screenHeight = screenRect.size.height * vs;
-
   rpParams.m_skinName = "basic.skn";
-
-  if (vs == 1.0)
-    rpParams.m_density = graphics::EDensityMDPI;
-  else if (vs > 2.0)
-    rpParams.m_density = graphics::EDensityIPhone6Plus;
-  else
-    rpParams.m_density = graphics::EDensityXHDPI;
+  rpParams.m_density = getDensityType(dpi, vs);
   rpParams.m_exactDensityDPI = dpi;
-
   rpParams.m_videoTimer = videoTimer;
   rpParams.m_useDefaultFB = false;
   rpParams.m_rmParams = rmParams;
