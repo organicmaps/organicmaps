@@ -2411,12 +2411,12 @@ void Framework::SetLastUsedRouter(RouterType type)
   Settings::Set(kRouterTypeKey, routing::ToString(type));
 }
 
-void Framework::SetRouteStartPoint(m2::PointD const & pt)
+void Framework::SetRouteStartPoint(m2::PointD const & pt, bool isValid)
 {
-  m_bmManager.SetRouteStartPoint(pt);
+  m_bmManager.SetRouteStartPoint(pt, isValid);
 }
 
-void Framework::SetRouteFinishPoint(m2::PointD const & pt)
+void Framework::SetRouteFinishPoint(m2::PointD const & pt, bool isValid)
 {
-  m_bmManager.SetRouteFinishPoint(pt);
+  m_bmManager.SetRouteFinishPoint(pt, isValid);
 }

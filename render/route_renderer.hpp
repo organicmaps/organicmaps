@@ -69,7 +69,7 @@ public:
   void Clear();
   void Render(graphics::Screen * dlScreen, ScreenBase const & screen);
 
-  void SetRoutePoint(m2::PointD const & pt, bool start);
+  void SetRoutePoint(m2::PointD const & pt, bool start, bool isValid);
 
   void UpdateDistanceFromBegin(double distanceFromBegin);
 
@@ -111,6 +111,7 @@ private:
     graphics::DisplayList * m_displayList;
     m2::PointD m_point;
     bool m_needUpdate;
+    bool m_isValid;
 
     bool IsVisible() const { return m_displayList != nullptr; }
 
@@ -123,7 +124,7 @@ private:
       }
     }
 
-    RoutePoint() : m_displayList(nullptr), m_needUpdate(false) {}
+    RoutePoint() : m_displayList(nullptr), m_needUpdate(false), m_isValid(false) {}
     ~RoutePoint()
     {
       Reset();

@@ -244,10 +244,11 @@ RouteRenderer::~RouteRenderer()
   ASSERT(m_arrowDisplayList == nullptr, ());
 }
 
-void RouteRenderer::SetRoutePoint(m2::PointD const & pt, bool start)
+void RouteRenderer::SetRoutePoint(m2::PointD const & pt, bool start, bool isValid)
 {
   RoutePoint & pnt = start ? m_startRoutePoint : m_finishRoutePoint;
   pnt.m_point = pt;
+  pnt.m_isValid = isValid;
   pnt.m_needUpdate = true;
 }
 
@@ -264,10 +265,10 @@ void RouteRenderer::Setup(m2::PolylineD const & routePolyline, vector<double> co
   m_polyline = routePolyline;
 
   if (!m_startRoutePoint.IsVisible())
-    SetRoutePoint(m_polyline.Front(), true /* start */);
+    SetRoutePoint(m_polyline.Front(), true /* start */, true /* isValid */);
 
   if (!m_finishRoutePoint.IsVisible())
-    SetRoutePoint(m_polyline.Back(), false /* start */);
+    SetRoutePoint(m_polyline.Back(), false /* start */, true /* isValid */);
 
   m_waitForConstruction = true;
 }
@@ -387,12 +388,13 @@ void RouteRenderer::CreateRoutePointGraphics(graphics::Screen * dlScreen, bool s
   if (pnt.m_needUpdate)
   {
     DestroyRoutePointGraphics(start);
-
-    pnt.m_displayList = dlScreen->createDisplayList();
-    dlScreen->setDisplayList(pnt.m_displayList);
-    dlScreen->drawSymbol(pnt.m_point, start ? "route_from" : "route_to", graphics::EPosCenter, graphics::routingFinishDepth);
-    dlScreen->setDisplayList(nullptr);
-
+    if (pnt.m_isValid)
+    {
+      pnt.m_displayList = dlScreen->createDisplayList();
+      dlScreen->setDisplayList(pnt.m_displayList);
+      dlScreen->drawSymbol(pnt.m_point, start ? "route_from" : "route_to", graphics::EPosCenter, graphics::routingFinishDepth);
+      dlScreen->setDisplayList(nullptr);
+    }
     pnt.m_needUpdate = false;
   }
 }

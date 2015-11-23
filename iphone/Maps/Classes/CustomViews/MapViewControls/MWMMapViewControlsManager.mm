@@ -275,8 +275,8 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self setupBestRouter];
   [self buildRoute];
   
-  GetFramework().SetRouteStartPoint(from.Point());
-  GetFramework().SetRouteFinishPoint(to.Point());
+  GetFramework().SetRouteStartPoint(from.Point(), true /* isValid */);
+  GetFramework().SetRouteFinishPoint(to.Point(), to != MWMRoutePoint::MWMRoutePointZero());
 }
 
 - (void)buildRouteFrom:(MWMRoutePoint const &)from
@@ -289,7 +289,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     self.searchManager.state = MWMSearchManagerStateHidden;
   [self buildRoute];
   
-  GetFramework().SetRouteStartPoint(from.Point());
+  GetFramework().SetRouteStartPoint(from.Point(), from != MWMRoutePoint::MWMRoutePointZero());
 }
 
 - (void)buildRouteTo:(MWMRoutePoint const &)to
@@ -302,7 +302,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     self.searchManager.state = MWMSearchManagerStateHidden;
   [self buildRoute];
   
-  GetFramework().SetRouteFinishPoint(to.Point());
+  GetFramework().SetRouteFinishPoint(to.Point(), to != MWMRoutePoint::MWMRoutePointZero());
 }
 
 #pragma mark - MWMNavigationDashboardManager
@@ -465,8 +465,10 @@ extern NSString * const kAlohalyticsTapEventKey;
   swap(_routeSource, _routeDestination);
   [self buildRoute];
   
-  GetFramework().SetRouteStartPoint(self.routeSource.Point());
-  GetFramework().SetRouteFinishPoint(self.routeDestination.Point());
+  GetFramework().SetRouteStartPoint(self.routeSource.Point(),
+                                    self.routeSource != MWMRoutePoint::MWMRoutePointZero());
+  GetFramework().SetRouteFinishPoint(self.routeDestination.Point(),
+                                     self.routeDestination != MWMRoutePoint::MWMRoutePointZero());
 }
 
 - (void)didStartEditingRoutePoint:(BOOL)isSource
