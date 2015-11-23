@@ -194,9 +194,14 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
                    withParameters:@{kStatValue : kStatDestination}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppRoute"];
   m2::PointD const & destination = m_userMark->GetUserMark()->GetOrg();
-  m2::PointD const myPosition([MapsAppDelegate theApp].m_locationManager.lastLocation.mercator);
-  [self.delegate buildRouteFrom:MWMRoutePoint(myPosition)
-                             to:{destination, self.placePage.basePlacePageView.titleLabel.text}];
+
+  auto const mode = GetFramework().GetLocationState()->GetMode();
+  m2::PointD const myPosition {MapsAppDelegate.theApp.m_locationManager.lastLocation.mercator};
+  using namespace location;
+  [self.delegate buildRouteFrom:mode != State::Mode::UnknownPosition && mode != State::Mode::PendingPosition ?
+                                                     MWMRoutePoint(myPosition) :
+                                              MWMRoutePoint::MWMRoutePointZero()
+            to:{destination, self.placePage.basePlacePageView.titleLabel.text}];
 }
 
 - (void)routeFrom

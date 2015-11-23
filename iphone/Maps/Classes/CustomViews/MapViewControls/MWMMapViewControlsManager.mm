@@ -261,11 +261,17 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)buildRouteFrom:(MWMRoutePoint const &)from to:(MWMRoutePoint const &)to
 {
+  self.menuController.p2pButton.selected = YES;
+  self.navigationManager.routePreview.extendButton.selected = NO;
+  MapsAppDelegate.theApp.routingPlaneMode = MWMRoutingPlaneModePlacePage;
+  if (from == MWMRoutePoint::MWMRoutePointZero())
+  {
+    self.navigationManager.state = MWMNavigationDashboardStatePrepare;
+    [self buildRouteTo:to];
+    return;
+  }
   self.routeSource = from;
   self.routeDestination = to;
-  self.navigationManager.routePreview.extendButton.selected = NO;
-  self.menuController.p2pButton.selected = YES;
-  MapsAppDelegate.theApp.routingPlaneMode = MWMRoutingPlaneModePlacePage;
   [self setupBestRouter];
   [self buildRoute];
   
