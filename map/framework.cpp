@@ -290,7 +290,8 @@ void Framework::DrawWatchFrame(m2::PointD const & center, int zoomModifier,
   ScreenBase screen = m_cpuDrawer->CalculateScreen(center, zoomModifier, pxWidth, pxHeight, symbols, resultZoom);
   ASSERT_GREATER(resultZoom, 0, ());
 
-  m_cpuDrawer->BeginFrame(pxWidth, pxHeight, dp::Extract(drule::rules().GetBgColor(resultZoom)));
+  uint32_t const bgColor = drule::rules().GetBgColor(resultZoom);
+  m_cpuDrawer->BeginFrame(pxWidth, pxHeight, dp::Extract(bgColor, 255 - (bgColor >> 24)));
 
   m2::RectD renderRect = m2::RectD(0, 0, pxWidth, pxHeight);
   m2::RectD selectRect;
