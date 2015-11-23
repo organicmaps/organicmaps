@@ -4942,6 +4942,72 @@ cont {
   }
 }
 cont {
+  name: "amenity-vending_machine-parking_tickets"
+  element {
+    scale: 18
+    symbol {
+      name: "parking-meter-l"
+      priority: 16722
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15722
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "parking-meter-l"
+      priority: 16722
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15722
+    }
+  }
+}
+cont {
+  name: "amenity-vending_machine-public_transport_tickets"
+  element {
+    scale: 18
+    symbol {
+      name: "vending-l"
+      priority: 16722
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15722
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "vending-l"
+      priority: 16722
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15722
+    }
+  }
+}
+cont {
   name: "amenity-waste_disposal"
   element {
     scale: 18

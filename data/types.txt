@@ -1038,3 +1038,5 @@ amenity|clinic
 barrier|entrance
 barrier|border_control
 shop|laundry
+amenity|vending_machine|parking_tickets
+amenity|vending_machine|public_transport_tickets
