@@ -632,6 +632,12 @@
 		EED10A4511F78D120095FAD4 /* MapViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EED10A4411F78D120095FAD4 /* MapViewController.mm */; };
 		EEFE7C1412F8C9E1006AF8C3 /* fonts_blacklist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */; };
 		EEFE7C1512F8C9E1006AF8C3 /* fonts_whitelist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */; };
+		F607C1851C032A8800B53A87 /* resources-hdpi in Resources */ = {isa = PBXBuildFile; fileRef = F607C1821C032A8800B53A87 /* resources-hdpi */; };
+		F607C1861C032A8800B53A87 /* resources-hdpi in Resources */ = {isa = PBXBuildFile; fileRef = F607C1821C032A8800B53A87 /* resources-hdpi */; };
+		F607C1871C032A8800B53A87 /* resources-hdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = F607C1831C032A8800B53A87 /* resources-hdpi_clear */; };
+		F607C1881C032A8800B53A87 /* resources-hdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = F607C1831C032A8800B53A87 /* resources-hdpi_clear */; };
+		F607C1891C032A8800B53A87 /* resources-hdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = F607C1841C032A8800B53A87 /* resources-hdpi_dark */; };
+		F607C18A1C032A8800B53A87 /* resources-hdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = F607C1841C032A8800B53A87 /* resources-hdpi_dark */; };
 		F61579341AC2CE9A0032D8E9 /* MWMRateAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F61579331AC2CE9A0032D8E9 /* MWMRateAlert.mm */; };
 		F61579361AC2CEB60032D8E9 /* MWMRateAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F61579351AC2CEB60032D8E9 /* MWMRateAlert.xib */; };
 		F6172FA51BBD5A3E0081D325 /* MWMiPadRoutePreview.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6172FA41BBD5A3E0081D325 /* MWMiPadRoutePreview.xib */; };
@@ -1179,6 +1185,9 @@
 		F60699001B429CC8002BECBB /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F60699011B429D08002BECBB /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F60699021B429D23002BECBB /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F607C1821C032A8800B53A87 /* resources-hdpi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-hdpi"; path = "../../data/resources-hdpi"; sourceTree = "<group>"; };
+		F607C1831C032A8800B53A87 /* resources-hdpi_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-hdpi_clear"; path = "../../data/resources-hdpi_clear"; sourceTree = "<group>"; };
+		F607C1841C032A8800B53A87 /* resources-hdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-hdpi_dark"; path = "../../data/resources-hdpi_dark"; sourceTree = "<group>"; };
 		F61579321AC2CE9A0032D8E9 /* MWMRateAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRateAlert.h; sourceTree = "<group>"; };
 		F61579331AC2CE9A0032D8E9 /* MWMRateAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRateAlert.mm; sourceTree = "<group>"; };
 		F61579351AC2CEB60032D8E9 /* MWMRateAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMRateAlert.xib; sourceTree = "<group>"; };
@@ -2697,10 +2706,12 @@
 				4A23D1561B8B4DD700D4EB6F /* drules_proto_clear.bin */,
 				4A23D1571B8B4DD700D4EB6F /* resources-6plus_clear */,
 				4A23D1581B8B4DD700D4EB6F /* resources-mdpi_clear */,
+				F607C1831C032A8800B53A87 /* resources-hdpi_clear */,
 				4A23D1591B8B4DD700D4EB6F /* resources-xhdpi_clear */,
 				4A23D15A1B8B4DD700D4EB6F /* resources-xxhdpi_clear */,
 				4A7D89C11B2EBF3B00AC843E /* resources-6plus_dark */,
 				4A7D89C21B2EBF3B00AC843E /* resources-mdpi_dark */,
+				F607C1841C032A8800B53A87 /* resources-hdpi_dark */,
 				4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */,
 				4A7D89C41B2EBF3B00AC843E /* resources-xxhdpi_dark */,
 				45159BF81B0CA2D5009BFA85 /* resources-6plus */,
@@ -2710,6 +2721,7 @@
 				FAAEA7D0161BD26600CCD661 /* synonyms.txt */,
 				F7FDD822147F30CC005900FA /* drules_proto.bin */,
 				97FC99D919C1A2CD00C1CF98 /* resources-mdpi */,
+				F607C1821C032A8800B53A87 /* resources-hdpi */,
 				97FC99DA19C1A2CD00C1CF98 /* resources-xhdpi */,
 				97FC99DB19C1A2CD00C1CF98 /* resources-xxhdpi */,
 				FAAFD696139D9BE2000AE70C /* categories.txt */,
@@ -3029,6 +3041,7 @@
 				EEFE7C1512F8C9E1006AF8C3 /* fonts_whitelist.txt in Resources */,
 				F64F4B711B4A41D40081A24A /* MWMDownloaderDialogHeader.xib in Resources */,
 				FAFF422A1347F101009BBB14 /* World.mwm in Resources */,
+				F607C1891C032A8800B53A87 /* resources-hdpi_dark in Resources */,
 				EEA61601134C496A003A9827 /* 01_dejavusans.ttf in Resources */,
 				341C2A571B72092A00AD41A1 /* 02_droidsans-fallback.ttf in Resources */,
 				4A7D89C81B2EBF3B00AC843E /* resources-xxhdpi_dark in Resources */,
@@ -3073,6 +3086,7 @@
 				34CFFE8D1B7DE71C009D0C9F /* MWMSearchView.xib in Resources */,
 				F7FDD823147F30CC005900FA /* drules_proto.bin in Resources */,
 				F6588E381B15D87A00EE1E58 /* MWMBookmarkColorCell.xib in Resources */,
+				F607C1851C032A8800B53A87 /* resources-hdpi in Resources */,
 				FAAEA7D1161BD26600CCD661 /* synonyms.txt in Resources */,
 				4A00DBDF1AB704C400113624 /* drules_proto_dark.bin in Resources */,
 				4A23D15D1B8B4DD700D4EB6F /* resources-mdpi_clear in Resources */,
@@ -3094,6 +3108,7 @@
 				34B82AD11B846B2C00180497 /* MWMSearchBookmarksCell.xib in Resources */,
 				4A7D89C61B2EBF3B00AC843E /* resources-mdpi_dark in Resources */,
 				F6BC1E541ACBF9AB00EF0360 /* MWMFacebookAlert.xib in Resources */,
+				F607C1871C032A8800B53A87 /* resources-hdpi_clear in Resources */,
 				F6CB21641AEFC42800FB8963 /* PlacePageActionBar.xib in Resources */,
 				34F45E901B96E8B100AC93F8 /* MWMSearchTabButtonsView.xib in Resources */,
 				F6BD337A1B62400E00F2CE18 /* MWMPortraitNavigationDashboard.xib in Resources */,
@@ -3178,6 +3193,7 @@
 				6741A9501BF340DE002C974C /* fonts_whitelist.txt in Resources */,
 				6741A9511BF340DE002C974C /* MWMDownloaderDialogHeader.xib in Resources */,
 				6741A9521BF340DE002C974C /* World.mwm in Resources */,
+				F607C18A1C032A8800B53A87 /* resources-hdpi_dark in Resources */,
 				6741A9531BF340DE002C974C /* 01_dejavusans.ttf in Resources */,
 				6741A9541BF340DE002C974C /* 02_droidsans-fallback.ttf in Resources */,
 				6741A9551BF340DE002C974C /* resources-xxhdpi_dark in Resources */,
@@ -3222,6 +3238,7 @@
 				6741A97A1BF340DE002C974C /* MWMSearchView.xib in Resources */,
 				6741A97B1BF340DE002C974C /* drules_proto.bin in Resources */,
 				6741A97C1BF340DE002C974C /* MWMBookmarkColorCell.xib in Resources */,
+				F607C1861C032A8800B53A87 /* resources-hdpi in Resources */,
 				6741A97D1BF340DE002C974C /* synonyms.txt in Resources */,
 				6741A97E1BF340DE002C974C /* drules_proto_dark.bin in Resources */,
 				6741A97F1BF340DE002C974C /* resources-mdpi_clear in Resources */,
@@ -3243,6 +3260,7 @@
 				6741A98F1BF340DE002C974C /* MWMSearchBookmarksCell.xib in Resources */,
 				6741A9901BF340DE002C974C /* resources-mdpi_dark in Resources */,
 				6741A9911BF340DE002C974C /* MWMFacebookAlert.xib in Resources */,
+				F607C1881C032A8800B53A87 /* resources-hdpi_clear in Resources */,
 				6741A9921BF340DE002C974C /* PlacePageActionBar.xib in Resources */,
 				6741A9931BF340DE002C974C /* MWMSearchTabButtonsView.xib in Resources */,
 				6741A9941BF340DE002C974C /* MWMPortraitNavigationDashboard.xib in Resources */,
