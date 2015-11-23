@@ -12,7 +12,7 @@
 
 #include "Framework.h"
 
-static CGFloat const kPlacePageBottomOffset = 32.;
+static CGFloat const kPlacePageBottomOffset = 31.;
 extern CGFloat const kBasePlacePageViewTitleBottomOffset;
 
 typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
