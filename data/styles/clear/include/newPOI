@@ -7,7 +7,9 @@ node|z18-[amenity=car_rental], area|z18-[amenity=car_rental]{ icon-image: car_sh
 node|z18-[], area|z18-[] { icon-image: none.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
 
 node|z18-[amenity=vending_machine], area|z18-[amenity=vending_machine] { icon-image: vending-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
-node|z18-[vending=parking_tickets], area|z18-[vending=parking_tickets] { icon-image: parking-meter-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
+node|z18-[amenity=vending_machine][vending=parking_tickets],
+area|z18-[amenity=vending_machine][vending=parking_tickets]
+{ icon-image: parking-meter-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
 
 
 node|z18-[amenity=casino], area|z18-[amenity=casino]{ icon-image: casino-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
