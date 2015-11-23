@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:padding="@dimen/margin_half">
+  <android.support.v4.view.ViewPager
+    android:id="@+id/pager"
+    android:layout_width="wrap_content"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    tools:background="#200000FF"/>
+
+  <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+      android:id="@+id/dots"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center">
+      <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="9dp"
+        tools:src="@drawable/news_marker_active"/>
+      <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:src="@drawable/news_marker_inactive"/>
+    </LinearLayout>
+
+    <TextView
+      android:id="@+id/next"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="right"
+      android:textAppearance="@style/MwmTextAppearance.Body3"
+      android:textColor="@color/base_blue_light"
+      android:textAllCaps="true"
+      android:padding="@dimen/margin_base"
+      android:background="?clickableBackground"
+      tools:text="Next"/>
+  </FrameLayout>
+</LinearLayout>

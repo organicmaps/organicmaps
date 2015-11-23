@@ -40,4 +40,19 @@
     <item>@string/post</item>
   </array>
 
+  <!-- What's new -->
+  <integer-array name="news_images">
+    <item>@drawable/img_news_tts</item>
+    <item>@drawable/img_news_p2p</item>
+  </integer-array>
+
+  <string-array name="news_titles">
+    <item>@string/whats_new_where_to_turn</item>
+    <item>@string/whats_new_between_any_points</item>
+  </string-array>
+
+  <string-array name="news_subtitles">
+    <item>@string/whats_new_voice_instructions</item>
+    <item>@string/whats_new_happy_day</item>
+  </string-array>
 </resources>

@@ -71,7 +71,6 @@
   </style>
 
   <style name="MwmTextAppearance.Body3.Light">
-    <item name="android:textSize">@dimen/text_size_body_3</item>
     <item name="android:textColor">@color/text_light</item>
   </style>
 

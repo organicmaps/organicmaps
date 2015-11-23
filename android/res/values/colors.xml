@@ -70,4 +70,7 @@
   <!-- search -->
   <color name="search_star_dimmed">#1F000000</color>
 
+  <!-- What's new -->
+  <color name="news_marker_active">#8A000000</color>
+  <color name="news_marker_inactive">#1F000000</color>
 </resources>
