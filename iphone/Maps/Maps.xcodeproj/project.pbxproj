@@ -4278,7 +4278,6 @@
 				OTHER_CFLAGS = (
 					"-Wall",
 					"-Wno-unused-local-typedef",
-					"-Wfloat-equal",
 					"-Wimplicit-retain-self",
 				);
 				OTHER_LDFLAGS = "";
@@ -4311,7 +4310,6 @@
 				OTHER_CFLAGS = (
 					"-Wall",
 					"-Wno-unused-local-typedef",
-					"-Wfloat-equal",
 					"-Wimplicit-retain-self",
 				);
 				OTHER_LDFLAGS = "";
@@ -4344,7 +4342,6 @@
 				OTHER_CFLAGS = (
 					"-Wall",
 					"-Wno-unused-local-typedef",
-					"-Wfloat-equal",
 					"-Wimplicit-retain-self",
 				);
 				OTHER_LDFLAGS = "";
@@ -4377,7 +4374,6 @@
 				OTHER_CFLAGS = (
 					"-Wall",
 					"-Wno-unused-local-typedef",
-					"-Wfloat-equal",
 					"-Wimplicit-retain-self",
 				);
 				OTHER_LDFLAGS = "";
@@ -4410,7 +4406,6 @@
 				OTHER_CFLAGS = (
 					"-Wall",
 					"-Wno-unused-local-typedef",
-					"-Wfloat-equal",
 					"-Wimplicit-retain-self",
 				);
 				OTHER_LDFLAGS = "";
@@ -4443,7 +4438,6 @@
 				OTHER_CFLAGS = (
 					"-Wall",
 					"-Wno-unused-local-typedef",
-					"-Wfloat-equal",
 					"-Wimplicit-retain-self",
 				);
 				OTHER_LDFLAGS = "";
@@ -4476,7 +4470,6 @@
 				OTHER_CFLAGS = (
 					"-Wall",
 					"-Wno-unused-local-typedef",
-					"-Wfloat-equal",
 					"-Wimplicit-retain-self",
 				);
 				OTHER_LDFLAGS = "";
@@ -4509,7 +4502,6 @@
 				OTHER_CFLAGS = (
 					"-Wall",
 					"-Wno-unused-local-typedef",
-					"-Wfloat-equal",
 					"-Wimplicit-retain-self",
 				);
 				OTHER_LDFLAGS = "";
@@ -4638,7 +4630,6 @@
 				OTHER_CFLAGS = (
 					"-Wall",
 					"-Wno-unused-local-typedef",
-					"-Wfloat-equal",
 					"-Wimplicit-retain-self",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
@@ -4764,7 +4755,6 @@
 				OTHER_CFLAGS = (
 					"-Wall",
 					"-Wno-unused-local-typedef",
-					"-Wfloat-equal",
 					"-Wimplicit-retain-self",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
@@ -5300,7 +5290,6 @@
 				OTHER_CFLAGS = (
 					"-Wall",
 					"-Wno-unused-local-typedef",
-					"-Wfloat-equal",
 					"-Wimplicit-retain-self",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
@@ -5421,7 +5410,6 @@
 				OTHER_CFLAGS = (
 					"-Wall",
 					"-Wno-unused-local-typedef",
-					"-Wfloat-equal",
 					"-Wimplicit-retain-self",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
@@ -5546,7 +5534,6 @@
 				OTHER_CFLAGS = (
 					"-Wall",
 					"-Wno-unused-local-typedef",
-					"-Wfloat-equal",
 					"-Wimplicit-retain-self",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
@@ -5671,7 +5658,6 @@
 				OTHER_CFLAGS = (
 					"-Wall",
 					"-Wno-unused-local-typedef",
-					"-Wfloat-equal",
 					"-Wimplicit-retain-self",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
@@ -5794,7 +5780,6 @@
 				OTHER_CFLAGS = (
 					"-Wall",
 					"-Wno-unused-local-typedef",
-					"-Wfloat-equal",
 					"-Wimplicit-retain-self",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
@@ -5917,7 +5902,6 @@
 				OTHER_CFLAGS = (
 					"-Wall",
 					"-Wno-unused-local-typedef",
-					"-Wfloat-equal",
 					"-Wimplicit-retain-self",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
