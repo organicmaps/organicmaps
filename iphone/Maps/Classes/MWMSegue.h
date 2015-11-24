@@ -1,0 +1,3 @@
+@interface MWMSegue : UIStoryboardSegue
+
+@end
