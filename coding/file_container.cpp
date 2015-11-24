@@ -5,6 +5,7 @@
 
 #ifndef OMIM_OS_WINDOWS
   #include <errno.h>
+  #include <stdio.h>
   #include <unistd.h>
   #include <sys/mman.h>
   #include <sys/stat.h>

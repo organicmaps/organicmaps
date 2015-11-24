@@ -272,7 +272,7 @@ public:
   {
     Clear();
 
-    // Load huge data first.
+    // Map huge data first, as we hope it will reduce fragmentation of the program address space.
     m_handleFanoMatrix.Assign(container.Map(ROUTING_MATRIX_FILE_TAG));
     ASSERT(m_handleFanoMatrix.IsValid(), ());
 
