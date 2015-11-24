@@ -161,6 +161,10 @@ public class NewsFragment extends BaseMwmDialogFragment
     return res;
   }
 
+  /**
+   * Displays "What's new" dialog on given {@code activity}. Or not.
+   * @return whether "What's new" dialog to be shown.
+   */
   @SuppressWarnings("TryWithIdenticalCatches")
   public static boolean showOn(FragmentActivity activity)
   {
@@ -170,10 +174,9 @@ public class NewsFragment extends BaseMwmDialogFragment
 
     Config.setWhatsNewShown();
 
-    final NewsFragment fragment;
     try
     {
-      fragment = NewsFragment.class.newInstance();
+      final NewsFragment fragment = NewsFragment.class.newInstance();
       fragment.show(activity.getSupportFragmentManager(), tag);
     } catch (java.lang.InstantiationException ignored)
     {}
