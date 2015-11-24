@@ -2,17 +2,24 @@
 <PreferenceScreen
   xmlns:android="http://schemas.android.com/apk/res/android">
   <SwitchPreference
+    android:key="@string/pref_showcase_switched_on"
+    android:title="@string/showcase_settings_title"
+    android:defaultValue="true"
+    android:switchTextOff=""
+    android:switchTextOn=""/>
+
+  <SwitchPreference
     android:key="@string/pref_send_statistics"
     android:title="@string/allow_statistics"
     android:summary="@string/allow_statistics_hint"
-    android:switchTextOn=""
-    android:switchTextOff=""/>
+    android:switchTextOff=""
+    android:switchTextOn=""/>
 
   <SwitchPreference
     android:key="@string/pref_play_services"
     android:title="Google Play Services"
     android:summary="@string/pref_use_google_play"
     android:defaultValue="true"
-    android:switchTextOn=""
-    android:switchTextOff=""/>
+    android:switchTextOff=""
+    android:switchTextOn=""/>
 </PreferenceScreen>

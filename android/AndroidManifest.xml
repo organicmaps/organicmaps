@@ -235,6 +235,10 @@
         android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize"
         android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
+    <activity
+        android:name="ru.mail.android.mytarget.ads.MyTargetActivity"
+        android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+
     <receiver
         android:name="com.mapswithme.maps.background.ConnectivityChangedReceiver"
         android:enabled="true"

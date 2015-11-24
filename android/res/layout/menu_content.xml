@@ -1,49 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="@dimen/margin_half"
-              android:layout_marginBottom="@dimen/margin_half"
-              android:orientation="vertical">
-  <TextView android:id="@+id/search"
-            style="@style/MwmTheme.Menu.Content.ListItem"
-            android:drawableLeft="@drawable/ic_menu_search"
-            android:text="@string/search"
-            tools:background="#200000FF"/>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_marginBottom="@dimen/margin_half"
+  android:layout_marginTop="@dimen/margin_half"
+  android:orientation="vertical">
+  <TextView
+    android:id="@+id/search"
+    style="@style/MwmTheme.Menu.Content.ListItem"
+    android:drawableLeft="@drawable/ic_menu_search"
+    android:text="@string/search"
+    tools:background="#200000FF"/>
 
-  <TextView android:id="@+id/bookmarks"
-            style="@style/MwmTheme.Menu.Content.ListItem"
-            android:drawableLeft="@drawable/ic_menu_bookmarks"
-            android:text="@string/bookmarks"
-            tools:background="#40FF00FF"/>
+  <TextView
+    android:id="@+id/bookmarks"
+    style="@style/MwmTheme.Menu.Content.ListItem"
+    android:drawableLeft="@drawable/ic_menu_bookmarks"
+    android:text="@string/bookmarks"
+    tools:background="#40FF00FF"/>
 
-  <FrameLayout android:layout_width="match_parent"
-               android:layout_height="wrap_content">
-    <TextView android:id="@+id/download_maps"
-              style="@style/MwmTheme.Menu.Content.ListItem"
-              android:drawableLeft="@drawable/ic_menu_download"
-              android:text="@string/download_maps"
-              tools:background="#2000FF00"/>
+  <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+      android:id="@+id/download_maps"
+      style="@style/MwmTheme.Menu.Content.ListItem"
+      android:drawableLeft="@drawable/ic_menu_download"
+      android:text="@string/download_maps"
+      tools:background="#2000FF00"/>
 
-    <TextView android:id="@+id/counter"
-              style="@style/MwmTextAppearance.Counter"
-              android:layout_gravity="right|center_vertical"
-              android:layout_marginRight="@dimen/margin_base"
-              android:visibility="gone"
-              tools:visibility="visible"
-              tools:text="9999"/>
+    <TextView
+      android:id="@+id/counter"
+      style="@style/MwmTextAppearance.Counter"
+      android:layout_gravity="right|center_vertical"
+      android:layout_marginRight="@dimen/margin_base"
+      android:visibility="gone"
+      tools:text="9999"
+      tools:visibility="visible"/>
   </FrameLayout>
 
-  <TextView android:id="@+id/settings"
-            style="@style/MwmTheme.Menu.Content.ListItem"
-            android:drawableLeft="@drawable/ic_menu_settings"
-            android:text="@string/settings"
-            tools:background="#20FF0000"/>
+  <TextView
+    android:id="@+id/settings"
+    style="@style/MwmTheme.Menu.Content.ListItem"
+    android:drawableLeft="@drawable/ic_menu_settings"
+    android:text="@string/settings"
+    tools:background="#20FF0000"/>
 
-  <TextView android:id="@+id/share"
-            style="@style/MwmTheme.Menu.Content.ListItem"
-            android:drawableLeft="@drawable/ic_menu_share"
-            android:text="@string/share_my_location"
-            tools:background="#400FF000"/>
+  <TextView
+    android:id="@+id/showcase"
+    style="@style/MwmTheme.Menu.Content.ListItem"
+    android:drawableLeft="@drawable/ic_showcase"
+    android:visibility="gone"
+    tools:visibility="visible"
+    tools:background="#20FF0000"/>
+
+  <TextView
+    android:id="@+id/share"
+    style="@style/MwmTheme.Menu.Content.ListItem"
+    android:drawableLeft="@drawable/ic_menu_share"
+    android:text="@string/share_my_location"
+    tools:background="#400FF000"/>
 </LinearLayout>

@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.DownloadActivity;
 import com.mapswithme.country.DownloadFragment;
@@ -38,7 +39,11 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.ApiPoint;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationPredictor;
-import com.mapswithme.maps.routing.*;
+import com.mapswithme.maps.routing.NavigationController;
+import com.mapswithme.maps.routing.RoutingController;
+import com.mapswithme.maps.routing.RoutingInfo;
+import com.mapswithme.maps.routing.RoutingPlanFragment;
+import com.mapswithme.maps.routing.RoutingPlanInplaceController;
 import com.mapswithme.maps.search.FloatingSearchToolbarController;
 import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.search.SearchEngine;
@@ -52,14 +57,24 @@ import com.mapswithme.maps.widget.menu.MainMenu;
 import com.mapswithme.maps.widget.placepage.BasePlacePageAnimationController;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
-import com.mapswithme.util.*;
+import com.mapswithme.util.BottomSheetHelper;
+import com.mapswithme.util.Config;
+import com.mapswithme.util.InputUtils;
+import com.mapswithme.util.LocationUtils;
+import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
+import com.mapswithme.util.Yota;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.AlohaHelper;
+import com.mapswithme.util.statistics.MytargetHelper;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.io.Serializable;
 import java.util.Stack;
+
+import ru.mail.android.mytarget.nativeads.NativeAppwallAd;
+import ru.mail.android.mytarget.nativeads.banners.NativeAppwallBanner;
 
 
 public class MwmActivity extends BaseMwmFragmentActivity
@@ -100,6 +115,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private MainMenu mMainMenu;
   private PanelAnimator mPanelAnimator;
+  private MytargetHelper mMytargetHelper;
 
   private int mLocationStateModeListenerId = LocationState.SLOT_UNDEFINED;
 
@@ -515,6 +531,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
             }
           });
           break;
+
+        case SHOWCASE:
+          closeMenuAndRun(AlohaHelper.MENU_SHOWCASE, new Runnable()
+          {
+            @Override
+            public void run()
+            {
+              mMytargetHelper.displayShowcase();
+            }
+          });
+          break;
         }
       }
     });
@@ -727,11 +754,38 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mMainMenu.onResume();
   }
 
-  @Override
-  protected void onStart()
+  private void initShowcase()
   {
-    super.onStart();
+    NativeAppwallAd.AppwallAdListener listener = new NativeAppwallAd.AppwallAdListener()
+    {
+      @Override
+      public void onLoad(NativeAppwallAd nativeAppwallAd)
+      {
+        if (nativeAppwallAd.getBanners().isEmpty())
+        {
+          mMainMenu.showShowcase(false);
+          return;
+        }
 
+        final NativeAppwallBanner menuBanner = nativeAppwallAd.getBanners().get(0);
+        mMainMenu.showShowcase(true);
+        mMainMenu.setShowcaseText(menuBanner.getTitle());
+        mMainMenu.setShowcaseDrawable(menuBanner.getIcon().getBitmap());
+      }
+
+      @Override
+      public void onNoAd(String reason, NativeAppwallAd nativeAppwallAd)
+      {
+        mMainMenu.showShowcase(false);
+      }
+
+      @Override
+      public void onClick(NativeAppwallBanner nativeAppwallBanner, NativeAppwallAd nativeAppwallAd) {}
+
+      @Override
+      public void onDismissDialog(NativeAppwallAd nativeAppwallAd) {}
+    };
+    mMytargetHelper = new MytargetHelper(listener, this);
   }
 
   @Override
@@ -803,6 +857,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
     LocationHelper.INSTANCE.invalidateLocation();
     refreshLocationState(currentLocationMode);
     LocationState.INSTANCE.invalidatePosition();
+  }
+
+  @Override
+  protected void onStart()
+  {
+    super.onStart();
+    initShowcase();
+  }
+
+  @Override
+  protected void onStop()
+  {
+    super.onStop();
+    mMytargetHelper.cancel();
   }
 
   @Override

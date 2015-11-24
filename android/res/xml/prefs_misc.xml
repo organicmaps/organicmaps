@@ -2,6 +2,11 @@
 <PreferenceScreen
   xmlns:android="http://schemas.android.com/apk/res/android">
   <CheckBoxPreference
+    android:key="@string/pref_showcase_switched_on"
+    android:title="@string/showcase_settings_title"
+    android:defaultValue="true"/>
+
+  <CheckBoxPreference
     android:key="@string/pref_send_statistics"
     android:title="@string/allow_statistics"
     android:summary="@string/allow_statistics_hint"/>
