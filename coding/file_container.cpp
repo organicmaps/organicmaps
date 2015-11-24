@@ -4,6 +4,7 @@
 #include "coding/internal/file_data.hpp"
 
 #ifndef OMIM_OS_WINDOWS
+  #include <errno.h>
   #include <unistd.h>
   #include <sys/mman.h>
   #include <sys/stat.h>
@@ -169,7 +170,7 @@ MappedFile::Handle MappedFile::Map(uint64_t offset, uint64_t size, string const 
 #else
   void * pMap = mmap(0, length, PROT_READ, MAP_SHARED, m_fd, alignedOffset);
   if (pMap == MAP_FAILED)
-    MYTHROW(Reader::OpenException, ("Can't map section:", tag, "with [offset, size]:", offset, size, "errno:", errno));
+    MYTHROW(Reader::OpenException, ("Can't map section:", tag, "with [offset, size]:", offset, size, "errno:", strerror(errno)));
 #endif
 
   char const * data = reinterpret_cast<char const *>(pMap);
