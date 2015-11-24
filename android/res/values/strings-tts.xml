@@ -6,10 +6,10 @@
       language - two-letter ISO 639-1 language code.
       country - two-letter ISO 3166-1 (alpha-2) country code.
       code - internal language code to be set in the core.
-             If not specified, language2 is used.
+             If not specified, language is used.
 
     Chinese is an exception. Matching is based on country code:
-    zho_TW, zho_MO and zho_HK correspond to zh-Hant.
+    zh_TW, zh_MO and zh_HK correspond to zh-Hant.
     Otherwise we consider that this is zh-Hans.
 
     TODO: Move language list to core.
@@ -32,7 +32,6 @@
     <item>el</item>
     <item>fi</item>
     <item>hi</item>
-    <item>hr</item>
     <item>hu</item>
     <item>id</item>
     <item>it</item>
@@ -41,9 +40,6 @@
     <item>nl</item>
     <item>pl</item>
     <item>ro</item>
-    <item>sk</item>
-    <item>sv</item>
-    <item>sw</item>
   </string-array>
 
   <string-array name="tts_language_names"
@@ -64,7 +60,6 @@
     <item>Ελληνικά</item>
     <item>Suomi</item>
     <item>हिंदी</item>
-    <item>Hrvatski</item>
     <item>Magyar</item>
     <item>Indonesia</item>
     <item>Italiano</item>
@@ -73,8 +68,5 @@
     <item>Nederlands</item>
     <item>Polski</item>
     <item>Română</item>
-    <item>Slovenčina</item>
-    <item>Svenska</item>
-    <item>Kiswahili</item>
   </string-array>
 </resources>
