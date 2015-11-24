@@ -230,8 +230,6 @@ CustomIOSPlatform::CustomIOSPlatform()
     m_tmpDir += "/tmp/";
   }
 
-  NSString * appID = [[bundle infoDictionary] objectForKey:@"CFBundleIdentifier"];
-
   UIDevice * device = [UIDevice currentDevice];
   NSLog(@"Device: %@, SystemName: %@, SystemVersion: %@", device.model, device.systemName, device.systemVersion);
 
