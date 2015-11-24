@@ -147,13 +147,16 @@ struct FollowAndRotateEvent
 
 struct EnablePerspectiveEvent
 {
-  EnablePerspectiveEvent(double rotationAngle, double angleFOV, bool isAnim)
+  EnablePerspectiveEvent(double rotationAngle, double angleFOV,
+                         bool isAnim, bool immediatelyStart)
     : m_isAnim(isAnim)
+    , m_immediatelyStart(immediatelyStart)
     , m_rotationAngle(rotationAngle)
     , m_angleFOV(angleFOV)
   {}
 
   bool m_isAnim;
+  bool m_immediatelyStart;
   double m_rotationAngle;
   double m_angleFOV;
 };
@@ -252,7 +255,7 @@ public:
 
   m2::AnyRectD GetTargetRect() const;
   bool IsInUserAction() const;
-
+  bool IsInPerspectiveAnimation() const;
   bool IsWaitingForActionCompletion() const;
 
   void SetListener(ref_ptr<Listener> listener) { m_listener = listener; }

@@ -243,6 +243,10 @@ private:
 
   unique_ptr<TileTree> m_tileTree;
   int m_currentZoomLevel = -1;
+  int m_min3dZoomLevel = 17;
+  double m_discardedFOV = -1.0;
+  double m_discardedAngle = -1.0;
+  
   ref_ptr<RequestedTiles> m_requestedTiles;
   uint64_t m_maxGeneration;
 

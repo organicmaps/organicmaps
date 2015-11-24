@@ -161,7 +161,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
     case UserEvent::EVENT_SET_RECT:
       if (m_perspectiveAnimation != nullptr)
       {
-        m_pendingEvent.reset(new UserEvent(e.m_rectEvent));
+        //m_pendingEvent.reset(new UserEvent(e.m_rectEvent));
         break;
       }
       breakAnim = SetRect(e.m_rectEvent.m_rect, e.m_rectEvent.m_zoom, e.m_rectEvent.m_applyRotation, e.m_rectEvent.m_isAnim);
@@ -190,6 +190,14 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
     case UserEvent::EVENT_ENABLE_PERSPECTIVE:
       if (e.m_enable3dMode.m_isAnim)
       {
+        if (e.m_enable3dMode.m_immediatelyStart)
+        {
+          SetEnable3dModeAnimation(e.m_enable3dMode.m_rotationAngle);
+          m_navigator.Enable3dMode(0.0 /* current rotation angle */,
+                                   e.m_enable3dMode.m_rotationAngle,
+                                   e.m_enable3dMode.m_angleFOV);
+          viewportChanged = true;
+        }
         m_pendingEvent.reset(new UserEvent(e.m_enable3dMode));
       }
       else
@@ -452,6 +460,8 @@ bool UserEventStream::FilterEventWhile3dAnimation(UserEvent::EEventType type) co
 
 void UserEventStream::SetEnable3dModeAnimation(double maxRotationAngle)
 {
+  ResetCurrentAnimation();
+
   double const startAngle = 0.0;
   double const endAngle = maxRotationAngle;
   double const rotateDuration = PerspectiveAnimation::GetRotateDuration(startAngle, endAngle);
@@ -969,6 +979,11 @@ bool UserEventStream::IsInUserAction() const
 bool UserEventStream::IsWaitingForActionCompletion() const
 {
   return m_state != STATE_EMPTY;
+}
+
+bool UserEventStream::IsInPerspectiveAnimation() const
+{
+  return m_perspectiveAnimation != nullptr;
 }
 
 }
