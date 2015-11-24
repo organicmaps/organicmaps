@@ -39,6 +39,5 @@ SOURCES += \
   threads_test.cpp \
   timer_test.cpp \
   worker_thread_test.cpp \
-  w3ctime_test.cpp \
 
 HEADERS +=
