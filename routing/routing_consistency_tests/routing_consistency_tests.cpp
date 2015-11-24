@@ -1,5 +1,5 @@
 #include "testing/testing.hpp"
-#include "../routing_integration_tests/routing_test_tools.hpp"
+#include "routing/routing_integration_tests/routing_test_tools.hpp"
 
 #include "generator/borders_loader.hpp"
 
@@ -19,8 +19,8 @@
 using namespace routing;
 using storage::CountryInfo;
 
-double constexpr kMinimumRouteDistance = 10000.;
-double constexpr kRouteLengthAccuracy =  0.2;
+double constexpr kMinimumRouteDistanceM = 10000.;
+double constexpr kRouteLengthAccuracy =  0.15;
 
 // Testing stub to make routing test tools linkable.
 static CommandLineOptions g_options;
@@ -40,13 +40,15 @@ struct UserRoutingRecord
 };
 
 // Parsing value from statistics.
-double GetDouble(string const & incomeString, string const & key)
+double GetDouble(string const & incomingString, string const & key)
 {
-  auto it = incomeString.find(key);
+  auto it = incomingString.find(key);
   if (it == string::npos)
     return 0;
-  auto end = incomeString.find(" ", it);
-  string number = incomeString.substr(it + key.size() + 1 /* key= */, end);
+  // Skip "key="
+  it += key.size() + 1;
+  auto end = incomingString.find(" ", it);
+  string number = incomingString.substr(it, end - it);
   return stod(number);
 }
 
@@ -55,14 +57,11 @@ double GetDouble(string const & incomeString, string const & key)
 bool ParseUserString(string const & incomeString, UserRoutingRecord & result)
 {
   // Check if it is a proper routing record.
-  auto it = incomeString.find("Routing_CalculatingRoute");
-  if (it == string::npos)
+  if (incomeString.find("Routing_CalculatingRoute") == string::npos)
     return false;
-  it = incomeString.find("result=NoError");
-  if (it == string::npos)
+  if (incomeString.find("result=NoError") == string::npos)
     return false;
-  it = incomeString.find("name=vehicle");
-  if (it == string::npos)
+  if (incomeString.find("name=vehicle") == string::npos)
     return false;
   if (GetDouble(incomeString, "startDirectionX") != 0 && GetDouble(incomeString, "startDirectionY") != 0)
     return false;
@@ -106,7 +105,7 @@ public:
     if (startCountry.m_name != finishCountry.m_name || startCountry.m_name.empty())
       return false;
 
-    if (record.distance < kMinimumRouteDistance)
+    if (record.distance < kMinimumRouteDistanceM)
       return false;
 
     if (m_checkedCountries[startCountry.m_name] > FLAGS_confidence)
@@ -137,7 +136,8 @@ public:
       if (record.second == m_checkedCountries[record.first])
         LOG(LINFO, ("ERROR!", record.first, " seems to be broken!"));
       else
-        LOG(LINFO, ("Warning! Country:",record.first, "has", record.second,"errors on", m_checkedCountries[record.first], "checks"));
+        LOG(LINFO, ("Warning! Country:", record.first, "has", record.second, "errors on",
+                    m_checkedCountries[record.first], "checks"));
     }
   }
 
@@ -158,13 +158,14 @@ void ReadInput(istream & stream, RouteTester & tester)
     if (line.empty())
       continue;
     UserRoutingRecord record;
-    if (ParseUserString(line, record))
-      if (tester.CheckRecord(record))
-      {
-        if (FLAGS_verbose)
-          LOG(LINFO, ("Checked", line));
-        tester.BuildRouteByRecord(record);
-      }
+    if (!ParseUserString(line, record))
+      continue;
+    if (tester.CheckRecord(record))
+    {
+      if (FLAGS_verbose)
+        LOG(LINFO, ("Checked", line));
+      tester.BuildRouteByRecord(record);
+    }
   }
   tester.PrintStatistics();
 }
