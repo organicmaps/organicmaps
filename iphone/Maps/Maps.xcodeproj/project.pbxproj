@@ -638,6 +638,7 @@
 		F607C1881C032A8800B53A87 /* resources-hdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = F607C1831C032A8800B53A87 /* resources-hdpi_clear */; };
 		F607C1891C032A8800B53A87 /* resources-hdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = F607C1841C032A8800B53A87 /* resources-hdpi_dark */; };
 		F607C18A1C032A8800B53A87 /* resources-hdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = F607C1841C032A8800B53A87 /* resources-hdpi_dark */; };
+		F607C18E1C047FDC00B53A87 /* MWMSegue.mm in Sources */ = {isa = PBXBuildFile; fileRef = F607C18D1C047FDC00B53A87 /* MWMSegue.mm */; };
 		F61579341AC2CE9A0032D8E9 /* MWMRateAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F61579331AC2CE9A0032D8E9 /* MWMRateAlert.mm */; };
 		F61579361AC2CEB60032D8E9 /* MWMRateAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F61579351AC2CEB60032D8E9 /* MWMRateAlert.xib */; };
 		F6172FA51BBD5A3E0081D325 /* MWMiPadRoutePreview.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6172FA41BBD5A3E0081D325 /* MWMiPadRoutePreview.xib */; };
@@ -1188,6 +1189,8 @@
 		F607C1821C032A8800B53A87 /* resources-hdpi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-hdpi"; path = "../../data/resources-hdpi"; sourceTree = "<group>"; };
 		F607C1831C032A8800B53A87 /* resources-hdpi_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-hdpi_clear"; path = "../../data/resources-hdpi_clear"; sourceTree = "<group>"; };
 		F607C1841C032A8800B53A87 /* resources-hdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-hdpi_dark"; path = "../../data/resources-hdpi_dark"; sourceTree = "<group>"; };
+		F607C18C1C047FDC00B53A87 /* MWMSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSegue.h; sourceTree = "<group>"; };
+		F607C18D1C047FDC00B53A87 /* MWMSegue.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSegue.mm; sourceTree = "<group>"; };
 		F61579321AC2CE9A0032D8E9 /* MWMRateAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRateAlert.h; sourceTree = "<group>"; };
 		F61579331AC2CE9A0032D8E9 /* MWMRateAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRateAlert.mm; sourceTree = "<group>"; };
 		F61579351AC2CEB60032D8E9 /* MWMRateAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMRateAlert.xib; sourceTree = "<group>"; };
@@ -1571,6 +1574,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F607C18B1C047FCA00B53A87 /* Segue */,
 				346EDAD81B9F0E15004F8DB5 /* Components */,
 				340837101B7243B500B5C185 /* Share */,
 				340F24601B1490ED00F874CD /* RouteState */,
@@ -2262,6 +2266,15 @@
 				F6EE7BC11B78A1AB00FF6500 /* FlurryWatch.h */,
 			);
 			path = Statistics;
+			sourceTree = "<group>";
+		};
+		F607C18B1C047FCA00B53A87 /* Segue */ = {
+			isa = PBXGroup;
+			children = (
+				F607C18C1C047FDC00B53A87 /* MWMSegue.h */,
+				F607C18D1C047FDC00B53A87 /* MWMSegue.mm */,
+			);
+			name = Segue;
 			sourceTree = "<group>";
 		};
 		F613FA741AB330AF002394D4 /* MapViewController */ = {
@@ -3415,6 +3428,7 @@
 				F64F19991AB81A00006EAF7E /* MWMAlertViewController.mm in Sources */,
 				FAFCB63613366E78001A5C59 /* WebViewController.mm in Sources */,
 				F63BA3711BCD5B520044C504 /* MWMTTSLanguageViewController.mm in Sources */,
+				F607C18E1C047FDC00B53A87 /* MWMSegue.mm in Sources */,
 				F6FE2C0F1B03A006009814AA /* MWMPlacePageNavigationBar.mm in Sources */,
 				F64A37D01B9EE24C00180464 /* MWMRouteHelperPanelsDrawer.mm in Sources */,
 				340F24631B14910500F874CD /* RouteState.mm in Sources */,
