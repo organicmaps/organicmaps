@@ -268,6 +268,7 @@ void InitLocalizedStrings()
 {
   [self.m_locationManager orientationChanged];
   [self.mapViewController onEnterForeground];
+  [MWMTextToSpeech activateAudioSession];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
