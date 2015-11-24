@@ -163,11 +163,14 @@ public class NewsFragment extends BaseMwmDialogFragment
 
   /**
    * Displays "What's new" dialog on given {@code activity}. Or not.
-   * @return whether "What's new" dialog to be shown.
+   * @return whether "What's new" dialog should be shown.
    */
   @SuppressWarnings("TryWithIdenticalCatches")
   public static boolean showOn(FragmentActivity activity)
   {
+    if (Config.getFirstInstallVersion() >= BuildConfig.VERSION_CODE)
+      return false;
+
     String tag = NewsFragment.class.getName();
     if (Config.getLastWhatsNewVersion() >= BuildConfig.VERSION_CODE)
       return (activity.getSupportFragmentManager().findFragmentByTag(tag) != null);
