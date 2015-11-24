@@ -2,7 +2,6 @@ TARGET = drape_frontend
 TEMPLATE = lib
 CONFIG += staticlib
 
-DEPENDENCIES = drape base
 ROOT_DIR = ..
 include($$ROOT_DIR/common.pri)
 

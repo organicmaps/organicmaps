@@ -7,8 +7,6 @@ CONFIG += staticlib
 ROOT_DIR = ..
 include($$ROOT_DIR/common.pri)
 
-DEPENDENCIES =
-
 SOURCES += $$ROOT_DIR/3party/Alohalytics/src/cpp/alohalytics.cc \
 
 HEADERS += $$ROOT_DIR/3party/Alohalytics/src/alohalytics.h \

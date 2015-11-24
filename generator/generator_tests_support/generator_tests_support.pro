@@ -3,8 +3,6 @@ TEMPLATE = lib
 CONFIG += staticlib warn_on
 
 ROOT_DIR = ../..
-DEPENDENCIES = generator map routing indexer platform geometry coding base \
-               expat tess2 protobuf tomcrypt osrm succinct
 
 include($$ROOT_DIR/common.pri)
 
