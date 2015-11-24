@@ -178,9 +178,9 @@ public class Framework
    */
   public native static int nativeGetBestRouter(double srcLat, double srcLon, double dstLat, double dstLon);
 
-  public native static void nativeSetRouteStartPoint(double lat, double lon);
+  public native static void nativeSetRouteStartPoint(double lat, double lon, boolean valid);
 
-  public native static void nativeSetRouteEndPoint(double lat, double lon);
+  public native static void nativeSetRouteEndPoint(double lat, double lon, boolean valid);
 
   public native static void setWidgetPivot(int widget, int pivotX, int pivotY);
 

@@ -1513,15 +1513,15 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeSetRouteStartPoint(JNIEnv * env, jclass thiz, jdouble lat, jdouble lon)
+  Java_com_mapswithme_maps_Framework_nativeSetRouteStartPoint(JNIEnv * env, jclass thiz, jdouble lat, jdouble lon, jboolean valid)
   {
-    frm()->SetRouteStartPoint(m2::PointD(MercatorBounds::FromLatLon(lat, lon)));
+    frm()->SetRouteStartPoint(m2::PointD(MercatorBounds::FromLatLon(lat, lon)), static_cast<bool>(valid));
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeSetRouteEndPoint(JNIEnv * env, jclass thiz, jdouble lat, jdouble lon)
+  Java_com_mapswithme_maps_Framework_nativeSetRouteEndPoint(JNIEnv * env, jclass thiz, jdouble lat, jdouble lon, jboolean valid)
   {
-    frm()->SetRouteFinishPoint(m2::PointD(MercatorBounds::FromLatLon(lat, lon)));
+    frm()->SetRouteFinishPoint(m2::PointD(MercatorBounds::FromLatLon(lat, lon)), static_cast<bool>(valid));
   }
 
   JNIEXPORT void JNICALL

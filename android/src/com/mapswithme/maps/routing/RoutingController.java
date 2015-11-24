@@ -503,11 +503,15 @@ public class RoutingController
 
   private void setPointsInternal()
   {
-    if (mStartPoint != null)
-      Framework.nativeSetRouteStartPoint(mStartPoint.getLat(), mStartPoint.getLon());
+    if (mStartPoint == null)
+      Framework.nativeSetRouteStartPoint(0.0, 0.0, false);
+    else
+      Framework.nativeSetRouteStartPoint(mStartPoint.getLat(), mStartPoint.getLon(), true);
 
-    if (mEndPoint != null)
-      Framework.nativeSetRouteEndPoint(mEndPoint.getLat(), mEndPoint.getLon());
+    if (mEndPoint == null)
+      Framework.nativeSetRouteEndPoint(0.0, 0.0, false);
+    else
+      Framework.nativeSetRouteEndPoint(mEndPoint.getLat(), mEndPoint.getLon(), true);
   }
 
   private void checkAndBuildRoute()
