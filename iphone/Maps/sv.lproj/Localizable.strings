@@ -563,12 +563,6 @@
 /* category title */
 "routes" = "Rutter";
 
-/* button in the interface */
-"choose_starting_point" = "Välj startpunkt…";
-
-/* button in the interface */
-"choose_destination" = "Välj destination…";
-
 /* Show on first launch. */
 "maps_licence_info" = "Detta program använder geografisk data (inkluderar kartor, företagsuppgifter, intressepunkter, landsgränser och regioner m.m.) från OpenStreetMap projektet. Vi garanterar ingen konsekvenshet, nogrannhet, fullständighet eller tillämpbarhet av OpenStreetMap datan.";
 
@@ -742,7 +736,7 @@
 
 "downloader_download_map_no_routing" = "Hämta karta utan rutter";
 
-/* Button for routing PP. */
+/* Button for routing. */
 "routing_go" = "Kör!";
 
 /* Item status in downloader. */
@@ -1256,49 +1250,10 @@
 "routing_planning_error" = "Ruttplanering misslyckades";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Ankomst";
-
-/* Routing Start button title */
-"routing_start" = "Starta";
-
-/* Planning route message in navigation view */
-"routing_planning" = "Planerar rutt";
+"routing_arrive" = "Ankomst: %s";
 
 /* Text for routing::IRouter::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "För att skapa en rutt, ladda ner och uppdatera alla kartor längs rutten.";
-
-/* Text for facebook sharing news about walking routes */
-"share_walking_routes_facebook" = "MAPS.ME sparar gångtid. Över 2 miljoner km gångrutter, stigar och leder finns med vägbeskrivningar till fots.";
-
-/* Text for messenger sharing news about walking routes */
-"share_walking_routes_messenger" = "MAPS.ME ger dig den kortaste gångrutten över hela världen! Kolla in på: http://maps.me/get?walk_im";
-
-/* Text for sms sharing news about walking routes */
-"share_walking_routes_sms" = "MAPS.ME ger dig de kortaste gångrutterna: http://maps.me/get?walk";
-
-/* Subject for email sharing news about walking routes */
-"share_walking_routes_email_subject" = "Nu med de kortaste gångrutterna";
-
-/* Text for email sharing news about walking routes */
-"share_walking_routes_email_body" = "MAPS.ME släppte precis vägbeskrivningar till fots baserade på världens mest detaljerade karta! De ger dig den kortaste rutten till alla destinationer. Prova på: http://maps.me/get?walk_em";
-
-/* Title for walking routes dialog, notifications etc. */
-"title_walking_available" = "MAPS.ME har nu vägbeskrivningar till fots!";
-
-/* Text for walking routes dialog */
-"share_walking_routes_first_launch" = "Du får den kortaste rutten till alla destinationer. Testa det själv och hjälp även dina vänner att spara restid!";
-
-/* Title for walking routes dialog after 3 built routes */
-"share_walking_routes_congratulations" = "Grattis!";
-
-/* Text for walking routes dialog after 3 built routes */
-"share_walking_routes_mastering" = "Du har bemästrat funktionen med vägbeskrivningar till fots. Hjälp även dina vänner att spara gångtid. Berätta för dem om MAPS.ME.";
-
-/* Android notification about walking directions for update users */
-"walking_notification_text" = "Vill du testa det?";
-
-/* Android notification with picture (rich) about walking directions for update users */
-"walking_rich_notification_text" = "Du får den kortaste rutten till alla destinationer. Testa det själv och hjälp dina vänner att spara restid.";
 
 "rate_alert_title" = "Gillar du appen?";
 

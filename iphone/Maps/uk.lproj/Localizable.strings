@@ -563,12 +563,6 @@
 /* category title */
 "routes" = "Маршрути";
 
-/* button in the interface */
-"choose_starting_point" = "Виберіть початкову точку…";
-
-/* button in the interface */
-"choose_destination" = "Виберіть місце призначення…";
-
 /* Show on first launch. */
 "maps_licence_info" = "This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.";
 
@@ -742,7 +736,7 @@
 
 "downloader_download_map_no_routing" = "Завантажити карту без маршрутів";
 
-/* Button for routing PP. */
+/* Button for routing. */
 "routing_go" = "Поїхали!";
 
 /* Item status in downloader. */
@@ -1256,49 +1250,10 @@
 "routing_planning_error" = "Збій планування маршруту";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Прибуття";
-
-/* Routing Start button title */
-"routing_start" = "Почати";
-
-/* Planning route message in navigation view */
-"routing_planning" = "Планування маршруту";
+"routing_arrive" = "Прибуття в %s";
 
 /* Text for routing::IRouter::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Для створення маршруту, будь ласка, скачайте та обновіть всі карти за ним.";
-
-/* Text for facebook sharing news about walking routes */
-"share_walking_routes_facebook" = "MAPS.ME економить час при ходьбі. Більше 2 мільйонів кілометрів пішохідних маршрутів, доріг і стежок доступні для пішохідних маршрутів зараз.";
-
-/* Text for messenger sharing news about walking routes */
-"share_walking_routes_messenger" = "MAPS.ME пропонує найкоротші пішохідні маршрути по всьому світу! Зацініть out: http://maps.me/get?walk_im";
-
-/* Text for sms sharing news about walking routes */
-"share_walking_routes_sms" = "MAPS.ME - найкоротші пішохідні маршрути: http://maps.me/get?walk";
-
-/* Subject for email sharing news about walking routes */
-"share_walking_routes_email_subject" = "Доступні найкоротші пішохідні маршрути";
-
-/* Text for email sharing news about walking routes */
-"share_walking_routes_email_body" = "MAPS.ME щойно випустили пішохідні маршрути в основі яких лежить найбільш детальна карта світу! Вони пропонують найкоротші маршрути до будь-якого місця призначення. Спробуйте: http://maps.me/get?walk_em";
-
-/* Title for walking routes dialog, notifications etc. */
-"title_walking_available" = "Пішохідні маршрути доступні в MAPS.ME!";
-
-/* Text for walking routes dialog */
-"share_walking_routes_first_launch" = "Вони пропонують найкоротший шлях до точки призначення. Допоможіть друзям зекономити час при ходьбі також!";
-
-/* Title for walking routes dialog after 3 built routes */
-"share_walking_routes_congratulations" = "Вітання!";
-
-/* Text for walking routes dialog after 3 built routes */
-"share_walking_routes_mastering" = "Ви освоїли функцію пішохідні маршрути. Допоможіть друзям зекономити час при ходьбі також. Розкажіть їм про MAPS.ME.";
-
-/* Android notification about walking directions for update users */
-"walking_notification_text" = "Хочете спробувати їх?";
-
-/* Android notification with picture (rich) about walking directions for update users */
-"walking_rich_notification_text" = "Вони пропонують найкоротший шлях до точки призначення. Спробуйте самі і допоможіть друзям зекономити час у подорожі.";
 
 "rate_alert_title" = "Подобається програма?";
 

@@ -13,7 +13,8 @@
 
   <style name="MwmTheme.Menu.Line.CurrentLocationText">
     <item name="android:gravity">center</item>
-    <item name="android:singleLine">true</item>
+    <item name="android:maxLines">2</item>
+    <item name="android:ellipsize">end</item>
     <item name="android:textAppearance">@style/MwmTextAppearance.Body1</item>
   </style>
 

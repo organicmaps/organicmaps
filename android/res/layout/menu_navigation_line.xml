@@ -15,7 +15,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             tools:background="#200000FF"
-            tools:text="Some street place. Long long long long name here!"/>
+            tools:text="Some street name. Long long long long name here! Loooooong!!!111"/>
 
   <!-- Gap for menu open/close button -->
   <View android:layout_width="@dimen/menu_line_button_width_edge"

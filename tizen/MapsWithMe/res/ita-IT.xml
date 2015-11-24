@@ -140,7 +140,7 @@
 	<text id="IDS_DOWNLOADER_DELETE_ROUTING">Elimina il percorso</text>
 	<!-- Context menu item for downloader. -->
 	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP">Scarica mappa</text>
-	<!-- Button for routing PP. -->
+	<!-- Button for routing. -->
 	<text id="IDS_ROUTING_GO">Andare!</text>
 	<!-- Item status in downloader. -->
 	<text id="IDS_DOWNLOADER_RETRY">Riprova</text>

@@ -19,14 +19,21 @@
       tools:visibility="visible"/>
 
   <include
-      android:id="@+id/navigation_buttons"
-      layout="@layout/map_navigation_buttons"/>
-
-  <com.mapswithme.maps.widget.RoutingLayout
-      android:id="@+id/layout__routing"
+      layout="@layout/layout_routing_full"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_below="@id/toolbar"/>
+      android:layout_below="@id/toolbar"
+      android:paddingBottom="@dimen/margin_base"
+      android:visibility="gone"
+      tools:visibility="visible"/>
+
+  <include
+      layout="@layout/routing_plan"
+      android:visibility="invisible"/>
+
+  <include
+      android:id="@+id/navigation_buttons"
+      layout="@layout/map_navigation_buttons"/>
 
   <com.mapswithme.maps.widget.FadeView
       android:id="@+id/fade_view"
@@ -47,7 +54,9 @@
       style="@style/MwmWidget.Floating.Panel"
       android:layout_width="@dimen/place_page_width"
       android:layout_height="match_parent"
-      android:layout_below="@+id/layout__routing"
+      android:layout_below="@+id/navigation_frame"
+      android:layout_alignWithParentIfMissing="true"
       placePage:animationType="left"
-      placePage:docked="true"/>
+      placePage:docked="true"
+      tools:ignore="UnknownIdInLayout"/>
 </RelativeLayout>

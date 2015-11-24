@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.UiUtils;
 
 class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
@@ -21,8 +22,8 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
   private static final int TYPE_SUGGEST = 1;
   private static final int TYPE_RESULT = 2;
 
-  private SearchResult[] mResults;
   private final SearchFragment mSearchFragment;
+  private SearchResult[] mResults;
 
   protected static abstract class BaseViewHolder extends RecyclerView.ViewHolder
   {
@@ -191,8 +192,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
     @Override
     void processClick(SearchResult result, int order)
     {
-      mSearchFragment.showSingleResultOnMap(order);
-      notifyDataSetChanged();
+      mSearchFragment.showSingleResultOnMap(result, order);
     }
   }
 
@@ -262,7 +262,8 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
 
   private boolean showPopulateButton()
   {
-    return (mResults != null &&
+    return (!RoutingController.get().isWaitingPoiPick() &&
+            mResults != null &&
             mResults.length > 0 &&
             mResults[0].type != SearchResult.TYPE_SUGGEST);
   }
@@ -276,13 +277,15 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
   @Override
   public int getItemCount()
   {
+    int res = 0;
     if (mResults == null)
-      return 0;
+      return res;
 
     if (showPopulateButton())
-      return mResults.length + 1;
+      res++;
 
-    return mResults.length;
+    res += mResults.length;
+    return res;
   }
 
   public void clear()

@@ -563,12 +563,6 @@
 /* category title */
 "routes" = "Routen";
 
-/* button in the interface */
-"choose_starting_point" = "Start auswählen…";
-
-/* button in the interface */
-"choose_destination" = "Ziel auswählen…";
-
 /* Show on first launch. */
 "maps_licence_info" = "This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.";
 
@@ -742,7 +736,7 @@
 
 "downloader_download_map_no_routing" = "Karte ohne Routenplanung herunterladen";
 
-/* Button for routing PP. */
+/* Button for routing. */
 "routing_go" = "Los!";
 
 /* Item status in downloader. */
@@ -1256,49 +1250,10 @@
 "routing_planning_error" = "Routenplanung fehlgeschlagen";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Ankunft";
-
-/* Routing Start button title */
-"routing_start" = "Start";
-
-/* Planning route message in navigation view */
-"routing_planning" = "Routenplanung";
+"routing_arrive" = "Ankunft: %s";
 
 /* Text for routing::IRouter::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Zum Erstellen einer Route müssen Sie alle Karten herunterladen und aktualisieren, die zur Route gehören.";
-
-/* Text for facebook sharing news about walking routes */
-"share_walking_routes_facebook" = "MAPS.ME erspart Ihnen Gehzeit. Mehr als 2 Millionen km Fußgängerwege, Pfade und Wanderwege sind jetzt für Wegbeschreibungen zu Fuß verfügbar.";
-
-/* Text for messenger sharing news about walking routes */
-"share_walking_routes_messenger" = "MAPS.ME zeigt Ihnen weltweit die kürzesten Gehstrecken! Probieren Sie es aus: http://maps.me/get?walk_im";
-
-/* Text for sms sharing news about walking routes */
-"share_walking_routes_sms" = "MAPS.ME zeigt Ihnen die kürzesten Gehstrecken: http://maps.me/get?walk";
-
-/* Subject for email sharing news about walking routes */
-"share_walking_routes_email_subject" = "Die kürzesten Gehstrecken stehen zur Verfügung.";
-
-/* Text for email sharing news about walking routes */
-"share_walking_routes_email_body" = "MAPS.ME hat soeben, basierend auf der detailliertesten Karte der Welt, die Funktion Wegbeschreibungen zu Fuß freigegeben! Sie zeigt die kürzeste Strecke zu einem beliebigen Zielort an. Probieren Sie es aus: http://maps.me/get?walk_em";
-
-/* Title for walking routes dialog, notifications etc. */
-"title_walking_available" = "MAPS.ME verfügt über eine neue Funktion: Wegbeschreibungen zu Fuß!";
-
-/* Text for walking routes dialog */
-"share_walking_routes_first_launch" = "Sie zeigt die kürzeste Strecke zu einem beliebigen Zielort an. Helfen Sie Ihren Freunden, auch Gehzeit zu sparen!";
-
-/* Title for walking routes dialog after 3 built routes */
-"share_walking_routes_congratulations" = "Herzlichen Glückwunsch!";
-
-/* Text for walking routes dialog after 3 built routes */
-"share_walking_routes_mastering" = "Sie beherrschen die Funktion der Wegbeschreibungen zu Fuß. Helfen Sie Ihren Freunden, auch Gehzeit zu sparen. Erzählen Sie ihnen von MAPS.ME.";
-
-/* Android notification about walking directions for update users */
-"walking_notification_text" = "Möchten Sie sie ausprobieren?";
-
-/* Android notification with picture (rich) about walking directions for update users */
-"walking_rich_notification_text" = "Sie zeigt die kürzeste Strecke zu einem beliebigen Zielort an. Probieren Sie sie selber aus  und helfen Sie Ihren Freunden, Reisezeit zu sparen.";
 
 "rate_alert_title" = "Gefällt Ihnen die App?";
 

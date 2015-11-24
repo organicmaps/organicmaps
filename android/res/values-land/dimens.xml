@@ -3,4 +3,8 @@
   <dimen name="zoom_plus_top_margin">-10dp</dimen>
   <dimen name="drawer_top_padding">12dp</dimen>
   <dimen name="tabs_height">48dp</dimen>
+
+  <dimen name="menu_line_button_inset_edge">-12dp</dimen>
+  <dimen name="menu_line_button_width_edge">72dp</dimen>
+  <dimen name="menu_line_button_width">88dp</dimen>
 </resources>

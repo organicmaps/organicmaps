@@ -563,12 +563,6 @@
 /* category title */
 "routes" = "路線";
 
-/* button in the interface */
-"choose_starting_point" = "選擇起點…";
-
-/* button in the interface */
-"choose_destination" = "選擇目的地…";
-
 /* Show on first launch. */
 "maps_licence_info" = "此應用程序使用從OpenStreetMap專案擷取之地理數據（包括地圖、商家資訊、興趣點、國家和地區邊界等）。我們不保證OpenStreetMap數據的一致性、準確性、完整性、或適用性。";
 
@@ -742,7 +736,7 @@
 
 "downloader_download_map_no_routing" = "下載不帶路線的地圖";
 
-/* Button for routing PP. */
+/* Button for routing. */
 "routing_go" = "開始！";
 
 /* Item status in downloader. */
@@ -1256,49 +1250,10 @@
 "routing_planning_error" = "路線計劃失敗";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "抵達";
-
-/* Routing Start button title */
-"routing_start" = "開始";
-
-/* Planning route message in navigation view */
-"routing_planning" = "計劃路線";
+"routing_arrive" = "抵達:%s";
 
 /* Text for routing::IRouter::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "要創建路線，請下載並更新所有沿路線的地圖。";
-
-/* Text for facebook sharing news about walking routes */
-"share_walking_routes_facebook" = "MAPS.ME為您節省步行時間。現在，《步行路線》提供超過2百萬公里的步行路線、路徑，以及游徑。";
-
-/* Text for messenger sharing news about walking routes */
-"share_walking_routes_messenger" = "MAPS.ME提供全世界各地的最短步行路線！來看看：http://maps.me/get?walk_im";
-
-/* Text for sms sharing news about walking routes */
-"share_walking_routes_sms" = "MAPS.ME 提供最短的步行路線：http://maps.me/get?walk";
-
-/* Subject for email sharing news about walking routes */
-"share_walking_routes_email_subject" = "提供最短的步行路線";
-
-/* Text for email sharing news about walking routes */
-"share_walking_routes_email_body" = "MAPS.ME 剛剛推出了以世界上最詳細的地圖為基礎的《步行路線》！它們提供至任何目的地的最短路線。嘗試一下：http://maps.me/get?walk_em";
-
-/* Title for walking routes dialog, notifications etc. */
-"title_walking_available" = "MAPS.ME中推出《步行路線》了！";
-
-/* Text for walking routes dialog */
-"share_walking_routes_first_launch" = "它們會給出至任何目的地的最短路線。幫助您的朋友也節省步行時間！";
-
-/* Title for walking routes dialog after 3 built routes */
-"share_walking_routes_congratulations" = "祝賀您！";
-
-/* Text for walking routes dialog after 3 built routes */
-"share_walking_routes_mastering" = "您已經掌握了步行路線的功能了。幫助您的朋友也節省步行時間。告訴他們關於MAPS.ME的信息。";
-
-/* Android notification about walking directions for update users */
-"walking_notification_text" = "想要嘗試嗎？";
-
-/* Android notification with picture (rich) about walking directions for update users */
-"walking_rich_notification_text" = "它們提供至任何目的地的最短路線。您自己來嘗試一下，並且幫助您的朋友節省旅行時間。";
 
 "rate_alert_title" = "喜歡這個應用嗎？";
 

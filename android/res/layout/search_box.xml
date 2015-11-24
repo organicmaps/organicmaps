@@ -28,13 +28,13 @@
   <ProgressBar
       android:id="@+id/progress"
       style="@style/Widget.AppCompat.ProgressBar"
-      android:layout_width="@dimen/routing_progress_size"
-      android:layout_height="@dimen/routing_progress_size"
+      android:layout_width="@dimen/search_progress_size"
+      android:layout_height="@dimen/search_progress_size"
       android:layout_marginRight="@dimen/margin_half"
       android:layout_weight="0"
       android:background="@null"
-      android:minHeight="@dimen/routing_progress_size"
-      android:minWidth="@dimen/routing_progress_size"/>
+      android:minHeight="@dimen/search_progress_size"
+      android:minWidth="@dimen/search_progress_size"/>
 
   <ImageView
       android:id="@+id/clear"

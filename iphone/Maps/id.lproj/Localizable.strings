@@ -563,12 +563,6 @@
 /* category title */
 "routes" = "Rute";
 
-/* button in the interface */
-"choose_starting_point" = "Pilih titik awal…";
-
-/* button in the interface */
-"choose_destination" = "Pilih tujuan…";
-
 /* Show on first launch. */
 "maps_licence_info" = "Aplikasi ini menggunakan data geografis (termasuk peta, daftar perusahaan, lokasi-lokasi menarik, batas-batas negara dan daerah, dll) yang diambil dari proyek OpenStreetMap. Kami tidak menjamin konsistensi, akurasi, kelengkapan atau kesesuaian data OpenStreetMap apa pun.";
 
@@ -742,7 +736,7 @@
 
 "downloader_download_map_no_routing" = "Unduh peta tanpa perutean";
 
-/* Button for routing PP. */
+/* Button for routing. */
 "routing_go" = "Mulai!";
 
 /* Item status in downloader. */
@@ -1256,49 +1250,10 @@
 "routing_planning_error" = "Sudah sampai di tujuan";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Kedatangan";
-
-/* Routing Start button title */
-"routing_start" = "Mulai";
-
-/* Planning route message in navigation view */
-"routing_planning" = "Merencanakan Rute";
+"routing_arrive" = "Kedatangan: %s";
 
 /* Text for routing::IRouter::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Untuk membuat rute, silakan unduh dan perbarui semua peta sepanjang rute.";
-
-/* Text for facebook sharing news about walking routes */
-"share_walking_routes_facebook" = "Jalur terpendek yang pernah ada. MAPS.ME menghemat waktu berjalan Anda. Lebih dari 2 juta km rute, jalan, dan jalur untuk pejalan kaki tersedia untuk petunjuk berjalan sekarang.";
-
-/* Text for messenger sharing news about walking routes */
-"share_walking_routes_messenger" = "MAPS.ME memberikan rute berjalan yang terpendek di seluruh dunia! Ayo lihat: http://maps.me/get?walk_im";
-
-/* Text for sms sharing news about walking routes */
-"share_walking_routes_sms" = "MAPS.ME memberikan rute berjalan yang terpendek: http://maps.me/get?walk";
-
-/* Subject for email sharing news about walking routes */
-"share_walking_routes_email_subject" = "Rute berjalan yang terpendek tersedia";
-
-/* Text for email sharing news about walking routes */
-"share_walking_routes_email_body" = "MAPS.ME baru saja merilis petunjuk berjalan berdasarkan peta dengan perincian yang terlengkap di dunia! Aplikasi ini memberikan rute terpendek ke destinasi mana saja. Ayo dicoba: http://maps.me/get?walk_em";
-
-/* Title for walking routes dialog, notifications etc. */
-"title_walking_available" = "Petunjuk berjalan tersedia di MAPS.ME!";
-
-/* Text for walking routes dialog */
-"share_walking_routes_first_launch" = "Petunjuk berjalan memberikan rute terpendek ke destinasi mana saja. Bantu teman-teman Anda untuk menghemat waktu berjalan juga!";
-
-/* Title for walking routes dialog after 3 built routes */
-"share_walking_routes_congratulations" = "Selamat!";
-
-/* Text for walking routes dialog after 3 built routes */
-"share_walking_routes_mastering" = "Anda telah menguasai fungsi petunjuk berjalan. Bantu teman-teman Anda untuk menghemat waktu berjalan juga. Beri tahu mereka tentang MAPS.ME.";
-
-/* Android notification about walking directions for update users */
-"walking_notification_text" = "Maukah Anda mencobanya?";
-
-/* Android notification with picture (rich) about walking directions for update users */
-"walking_rich_notification_text" = "Petunjuk berjalan memberikan rute terpendek ke titik destinasi mana saja. Ayo coba sendiri dan bantu teman-teman Anda menghemat waktu perjalanan.";
 
 "rate_alert_title" = "Suka aplikasi ini?";
 

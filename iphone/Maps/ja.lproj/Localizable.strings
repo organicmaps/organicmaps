@@ -563,12 +563,6 @@
 /* category title */
 "routes" = "ルート";
 
-/* button in the interface */
-"choose_starting_point" = "出発地を入力…";
-
-/* button in the interface */
-"choose_destination" = "目的地を入力…";
-
 /* Show on first launch. */
 "maps_licence_info" = "このアプリケーションはOpenStreetMapプロジェクトから取得された地理的データ（地図、ビジネスリスト、興味のある場所、国境と地域など）を使います。OpenStreetMapのデータの整合性、正確さ、完全性や適合性に関して弊社は保証致しかねます。";
 
@@ -742,7 +736,7 @@
 
 "downloader_download_map_no_routing" = "ルートなしで地図をダウンロード";
 
-/* Button for routing PP. */
+/* Button for routing. */
 "routing_go" = "開始！";
 
 /* Item status in downloader. */
@@ -1256,49 +1250,10 @@
 "routing_planning_error" = "ルート検索に失敗";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "到着予定";
-
-/* Routing Start button title */
-"routing_start" = "スタート";
-
-/* Planning route message in navigation view */
-"routing_planning" = "ルートを計画中";
+"routing_arrive" = "到着予定: %s";
 
 /* Text for routing::IRouter::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "ルートを作成するには、ルートの通過する地図を全てダウンロード・アップデートしてください。";
-
-/* Text for facebook sharing news about walking routes */
-"share_walking_routes_facebook" = "MAPS.MEは歩行時間を短縮します。200万キロの歩行ルート、歩道、散歩道が徒歩ルートに利用できるようになりました。";
-
-/* Text for messenger sharing news about walking routes */
-"share_walking_routes_messenger" = "MAPS.MEは世界中の最短徒歩ルートを提供します！要チェック：http://maps.me/get?walk_im";
-
-/* Text for sms sharing news about walking routes */
-"share_walking_routes_sms" = "MAPS.MEは最短徒歩ルートを提供します：http://maps.me/get?walk";
-
-/* Subject for email sharing news about walking routes */
-"share_walking_routes_email_subject" = "最短の徒歩ルートがあります";
-
-/* Text for email sharing news about walking routes */
-"share_walking_routes_email_body" = "MAPS.MEが世界で最も詳細な地図に基づいた徒歩ルート機能をリリースしました！どんな目的地にでも最短のルートを表示します。お試しください：http://maps.me/get?walk_em";
-
-/* Title for walking routes dialog, notifications etc. */
-"title_walking_available" = "MAPS.MEで徒歩ルートが利用できます！";
-
-/* Text for walking routes dialog */
-"share_walking_routes_first_launch" = "どんな目的地にでも最短のルートを表示します。お友達の歩行時間の短縮にも役立ててください！";
-
-/* Title for walking routes dialog after 3 built routes */
-"share_walking_routes_congratulations" = "おめでとうございます！";
-
-/* Text for walking routes dialog after 3 built routes */
-"share_walking_routes_mastering" = "徒歩ルート機能をマスターしました。お友達の歩行時間の短縮にも役立ててください。MAPS.MEについて教えてあげてください。";
-
-/* Android notification about walking directions for update users */
-"walking_notification_text" = "試してみますか？";
-
-/* Android notification with picture (rich) about walking directions for update users */
-"walking_rich_notification_text" = "どんな目的地にでも最短のルートを表示します。ご自身でお試しいただき、お友達の移動時間の短縮にも役立ててください。";
 
 "rate_alert_title" = "このアプリが好きですか?";
 

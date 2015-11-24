@@ -19,7 +19,7 @@ public class MapFragment extends NvEventQueueFragment
     void onRenderingInitialized();
   }
 
-  public static final String FRAGMENT_TAG = MapFragment.class.getSimpleName();
+  public static final String FRAGMENT_TAG = MapFragment.class.getName();
 
   protected native void nativeConnectDownloadButton();
 

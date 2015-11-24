@@ -329,10 +329,6 @@
 	<string name="route">Rute</string>
 	<!-- category title -->
 	<string name="routes">Rute</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">Pilih titik awal…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">Pilih tujuan…</string>
 	<!-- Show on first launch. -->
 	<string name="maps_licence_info">Aplikasi ini menggunakan data geografis (termasuk peta, daftar perusahaan, lokasi-lokasi menarik, batas-batas negara dan daerah, dll) yang diambil dari proyek OpenStreetMap. Kami tidak menjamin konsistensi, akurasi, kelengkapan atau kesesuaian data OpenStreetMap apa pun.</string>
 	<!-- Show on first launch. -->
@@ -430,7 +426,7 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Unduh peta</string>
 	<string name="downloader_download_map_no_routing">Unduh peta tanpa perutean</string>
-	<!-- Button for routing PP. -->
+	<!-- Button for routing. -->
 	<string name="routing_go">Mulai!</string>
 	<!-- Item status in downloader. -->
 	<string name="downloader_retry">Coba lagi</string>
@@ -759,35 +755,9 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Sudah sampai di tujuan</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Kedatangan</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">Mulai</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">Merencanakan Rute</string>
+	<string name="routing_arrive">Kedatangan: %s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Untuk membuat rute, silakan unduh dan perbarui semua peta sepanjang rute.</string>
-	<!-- Text for facebook sharing news about walking routes -->
-	<string name="share_walking_routes_facebook">Jalur terpendek yang pernah ada. MAPS.ME menghemat waktu berjalan Anda. Lebih dari 2 juta km rute, jalan, dan jalur untuk pejalan kaki tersedia untuk petunjuk berjalan sekarang.</string>
-	<!-- Text for messenger sharing news about walking routes -->
-	<string name="share_walking_routes_messenger">MAPS.ME memberikan rute berjalan yang terpendek di seluruh dunia! Ayo lihat: http://maps.me/get?walk_im</string>
-	<!-- Text for sms sharing news about walking routes -->
-	<string name="share_walking_routes_sms">MAPS.ME memberikan rute berjalan yang terpendek: http://maps.me/get?walk</string>
-	<!-- Subject for email sharing news about walking routes -->
-	<string name="share_walking_routes_email_subject">Rute berjalan yang terpendek tersedia</string>
-	<!-- Text for email sharing news about walking routes -->
-	<string name="share_walking_routes_email_body">MAPS.ME baru saja merilis petunjuk berjalan berdasarkan peta dengan perincian yang terlengkap di dunia! Aplikasi ini memberikan rute terpendek ke destinasi mana saja. Ayo dicoba: http://maps.me/get?walk_em</string>
-	<!-- Title for walking routes dialog, notifications etc. -->
-	<string name="title_walking_available">Petunjuk berjalan tersedia di MAPS.ME!</string>
-	<!-- Text for walking routes dialog -->
-	<string name="share_walking_routes_first_launch">Petunjuk berjalan memberikan rute terpendek ke destinasi mana saja. Bantu teman-teman Anda untuk menghemat waktu berjalan juga!</string>
-	<!-- Title for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_congratulations">Selamat!</string>
-	<!-- Text for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_mastering">Anda telah menguasai fungsi petunjuk berjalan. Bantu teman-teman Anda untuk menghemat waktu berjalan juga. Beri tahu mereka tentang MAPS.ME.</string>
-	<!-- Android notification about walking directions for update users -->
-	<string name="walking_notification_text">Maukah Anda mencobanya?</string>
-	<!-- Android notification with picture (rich) about walking directions for update users -->
-	<string name="walking_rich_notification_text">Petunjuk berjalan memberikan rute terpendek ke titik destinasi mana saja. Ayo coba sendiri dan bantu teman-teman Anda menghemat waktu perjalanan.</string>
 	<string name="rate_alert_title">Suka aplikasi ini?</string>
 	<string name="rate_alert_default_message">Terima kasih karena menggunakan MAPS.ME. Mohon beri peringkat untuk aplikasi ini. Masukan dari Anda membantu kami untuk menjadi lebih baik.</string>
 	<string name="rate_alert_five_star_message">Hore! Kami juga sangat menyukai Anda!</string>

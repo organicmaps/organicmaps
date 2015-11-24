@@ -11,8 +11,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.DimenRes;
 import android.support.v4.app.NavUtils;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.AbsoluteSizeSpan;
 import android.util.Log;
 import android.view.Window;
 import android.widget.Toast;
@@ -306,5 +310,13 @@ public class Utils
       ((CustomNavigateUpListener) activity).customOnNavigateUp();
     else
       NavUtils.navigateUpFromSameTask(activity);
+  }
+
+  public static SpannableStringBuilder formatUnitsText(@DimenRes int size, @DimenRes int units, String dimension, String unitText)
+  {
+    final SpannableStringBuilder res = new SpannableStringBuilder(dimension).append(" ").append(unitText);
+    res.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(size), false), 0, dimension.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    res.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(units), false), dimension.length(), res.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    return res;
   }
 }

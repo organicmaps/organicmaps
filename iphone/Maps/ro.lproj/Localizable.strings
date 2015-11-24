@@ -563,12 +563,6 @@
 /* category title */
 "routes" = "Trasee";
 
-/* button in the interface */
-"choose_starting_point" = "Alegeți punctul de pornire…";
-
-/* button in the interface */
-"choose_destination" = "Alegeți destinația…";
-
 /* Show on first launch. */
 "maps_licence_info" = "Această aplicație utilizează date geografice (inclusiv hărți, liste de firme, puncte de interes, frontiere de țări și regiuni etc.) preluate din proiectul OpenStreetMap. Nu garantăm uniformitatea, acuratețea, integralitatea sau aplicabilitatea datelor OpenStreetMap.";
 
@@ -742,7 +736,7 @@
 
 "downloader_download_map_no_routing" = "Descărcare hartă fără rutare";
 
-/* Button for routing PP. */
+/* Button for routing. */
 "routing_go" = "Pornește!";
 
 /* Item status in downloader. */
@@ -1256,49 +1250,10 @@
 "routing_planning_error" = "Planificarea rutei a eșuat";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Sosire";
-
-/* Routing Start button title */
-"routing_start" = "Incepeți";
-
-/* Planning route message in navigation view */
-"routing_planning" = "Se determină ruta";
+"routing_arrive" = "Sosire: %s";
 
 /* Text for routing::IRouter::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Pentru a crea o rută, vă rugăm să descărcați și să actualizați toate hărțile de pe parcursul rutei.";
-
-/* Text for facebook sharing news about walking routes */
-"share_walking_routes_facebook" = "MAPS.ME vă reduce timpul de mers pe jos. Peste 2 milioane de kilometri de rute pietonale, trasee și itinerarii sunt disponibile acum la indicațiile pentru deplasarea pietonală.";
-
-/* Text for messenger sharing news about walking routes */
-"share_walking_routes_messenger" = "MAPS.ME oferă cele mai scurte rute de deplasare pietonală din întreaga lume! Vizitați http://maps.me/get?walk_im";
-
-/* Text for sms sharing news about walking routes */
-"share_walking_routes_sms" = "MAPS.ME oferă cele mai scurte rute de deplasare pietonală: http://maps.me/get?walk";
-
-/* Subject for email sharing news about walking routes */
-"share_walking_routes_email_subject" = "Sunt disponibile cele mai scurte rute de mers de jos";
-
-/* Text for email sharing news about walking routes */
-"share_walking_routes_email_body" = "MAPS.ME tocmai a lansat rute de mers pe jos, bazată pe cea mai detaliată hartă din lume! Ea vă oferă cea mai scurtă rută către orice destinație. Încercați-o: http://maps.me/get?walk_em";
-
-/* Title for walking routes dialog, notifications etc. */
-"title_walking_available" = "Rute de mers pe jos este disponibilă în MAPS.ME!";
-
-/* Text for walking routes dialog */
-"share_walking_routes_first_launch" = "Ea vă oferă cea mai scurtă rută către orice destinație. Ajutați-i și pe prietenii dvs. să-și reducă timpul de deplasare pe jos!";
-
-/* Title for walking routes dialog after 3 built routes */
-"share_walking_routes_congratulations" = "Felicitări!";
-
-/* Text for walking routes dialog after 3 built routes */
-"share_walking_routes_mastering" = "Ați utilizat cu succes rute de mers pe jos. Ajutați-i și pe prietenii dvs. să-și reducă timpul de deplasare pe jos. Spuneți-le despre MAPS.ME.";
-
-/* Android notification about walking directions for update users */
-"walking_notification_text" = "Doriți să o încercați?";
-
-/* Android notification with picture (rich) about walking directions for update users */
-"walking_rich_notification_text" = "Ea vă oferă cea mai scurtă rută către orice punct de destinație. Încercați-o și ajutați-vă prietenii să-și reducă timpul de deplasare.";
 
 "rate_alert_title" = "Vă place aplicația?";
 

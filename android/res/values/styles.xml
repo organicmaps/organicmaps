@@ -3,6 +3,7 @@
            xmlns:tools="http://schemas.android.com/tools">
   <style name="MwmWidget"/>
   <style name="MwmWidget.Button"/>
+  <style name="MwmWidget.ProgressWheel"/>
   <style name="MwmWidget.FrameLayout"/>
 
 
@@ -24,8 +25,12 @@
     <item name="android:background">@drawable/bg_btn_green</item>
   </style>
 
-  <style name="MwmWidget.Button.Blue">
-    <item name="android:background">@drawable/ripple_blue</item>
+  <style name="MwmWidget.ProgressWheel.RoutingPlan">
+    <item name="android:layout_width">@dimen/routing_selector_wheel_size</item>
+    <item name="android:layout_height">@dimen/routing_selector_wheel_size</item>
+    <item name="android:layout_margin">@dimen/routing_selector_wheel_margin</item>
+    <item name="android:visibility">invisible</item>
+    <item name="android:background">?selectableItemBackgroundBorderless</item>
   </style>
 
   <style name="MwmWidget.Floating">
@@ -105,6 +110,22 @@
     <item name="android:textSize">@dimen/text_size_headline</item>
   </style>
 
+  <style name="MwmWidget.TextView.PlanDetail">
+    <item name="android:textAppearance">@style/MwmTextAppearance.RoutingDetail</item>
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+  </style>
+
+  <style name="MwmWidget.TextView.PlanDetail.Number">
+    <item name="android:textSize">@dimen/text_size_routing_number</item>
+    <item name="android:singleLine">true</item>
+  </style>
+
+  <style name="MwmWidget.TextView.PlanDetail.Status">
+    <item name="android:layout_gravity">center_vertical</item>
+    <item name="android:layout_centerVertical">true</item>
+  </style>
+
   <style name="MwmWidget.TextView.BottomMenu">
     <item name="android:maxLines">2</item>
     <item name="android:textColor">@color/color_menu_text</item>
@@ -134,5 +155,4 @@
     <item name="android:progressDrawable">@drawable/rating_bar</item>
     <item name="android:indeterminateDrawable">@drawable/rating_bar</item>
   </style>
-
 </resources>

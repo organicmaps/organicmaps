@@ -84,7 +84,10 @@ jobject ToJavaResult(Result result, bool hasPosition, double lat, double lon)
   env->DeleteLocalRef(cuisine);
 
   jstring name = jni::ToJavaString(env, result.GetString());
-  jobject ret = env->NewObject(g_resultClass, g_resultConstructor, name, desc, ranges);
+
+  double const poiLat = MercatorBounds::YToLat(result.GetFeatureCenter().y);
+  double const poiLon = MercatorBounds::XToLon(result.GetFeatureCenter().x);
+  jobject ret = env->NewObject(g_resultClass, g_resultConstructor, name, desc, poiLat, poiLon, ranges);
   ASSERT(ret, ());
   env->DeleteLocalRef(name);
   env->DeleteLocalRef(desc);
@@ -147,7 +150,7 @@ extern "C"
     ASSERT(g_endResultsId, ());
     g_resultClass = static_cast<jclass>(env->NewGlobalRef(env->FindClass("com/mapswithme/maps/search/SearchResult")));
     ASSERT(g_resultClass, ());
-    g_resultConstructor = env->GetMethodID(g_resultClass, "<init>", "(Ljava/lang/String;Lcom/mapswithme/maps/search/SearchResult$Description;[I)V");
+    g_resultConstructor = env->GetMethodID(g_resultClass, "<init>", "(Ljava/lang/String;Lcom/mapswithme/maps/search/SearchResult$Description;DD[I)V");
     ASSERT(g_resultConstructor, ());
     g_suggestConstructor = env->GetMethodID(g_resultClass, "<init>", "(Ljava/lang/String;Ljava/lang/String;[I)V");
     ASSERT(g_suggestConstructor, ());

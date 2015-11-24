@@ -563,12 +563,6 @@
 /* category title */
 "routes" = "Ruter";
 
-/* button in the interface */
-"choose_starting_point" = "Vælg dit startpunkt…";
-
-/* button in the interface */
-"choose_destination" = "Vælg din destination…";
-
 /* Show on first launch. */
 "maps_licence_info" = "This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.";
 
@@ -742,7 +736,7 @@
 
 "downloader_download_map_no_routing" = "Download kort uden ruteplanlægning";
 
-/* Button for routing PP. */
+/* Button for routing. */
 "routing_go" = "Kør!";
 
 /* Item status in downloader. */
@@ -1256,49 +1250,10 @@
 "routing_planning_error" = "Ruteplanlægning mislykkedes";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Ankomst";
-
-/* Routing Start button title */
-"routing_start" = "Start";
-
-/* Planning route message in navigation view */
-"routing_planning" = "Planlægger rute";
+"routing_arrive" = "Ankomst: %s";
 
 /* Text for routing::IRouter::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "For at oprette en rute skal du hente og opdatere alle kort langs ruten.";
-
-/* Text for facebook sharing news about walking routes */
-"share_walking_routes_facebook" = "MAPS.ME sparer dig gå-tid. Mere end 2 millioner km. gågader, gangstier og stier er nu tilgængelige for rutevejledninger til fods.";
-
-/* Text for messenger sharing news about walking routes */
-"share_walking_routes_messenger" = "MAPS.ME giver dig den korteste rute til fods over hele verden! Prøv det: http://maps.me/get?walk_im";
-
-/* Text for sms sharing news about walking routes */
-"share_walking_routes_sms" = "MAPS.ME giver dig den korteste rute til fods: http://maps.me/get?walk";
-
-/* Subject for email sharing news about walking routes */
-"share_walking_routes_email_subject" = "De korteste ruter til fods er nu tilgængelige";
-
-/* Text for email sharing news about walking routes */
-"share_walking_routes_email_body" = "MAPS.ME har netop udgivet Rutevejledninger til fods, baseret på de mest detaljerede kort i verden. De giver den korteste rute til enhver destination. Prøv det: http://maps.me/get?walk_em";
-
-/* Title for walking routes dialog, notifications etc. */
-"title_walking_available" = "Rutevejledninger til fods er tilgængelige i MAPS.ME!";
-
-/* Text for walking routes dialog */
-"share_walking_routes_first_launch" = "Den giver den korteste rute til enhver destination, Hjælp dine venner med også at spare gå-tid!";
-
-/* Title for walking routes dialog after 3 built routes */
-"share_walking_routes_congratulations" = "Tillykke!";
-
-/* Text for walking routes dialog after 3 built routes */
-"share_walking_routes_mastering" = "Du har fundet ud at at bruge rutevejledning til fods funktionen. Hjælp dine venner med også at spare gå-tid. Fortæl dem om MAPS.ME.";
-
-/* Android notification about walking directions for update users */
-"walking_notification_text" = "Vil du prøve det?";
-
-/* Android notification with picture (rich) about walking directions for update users */
-"walking_rich_notification_text" = "Den giver den korteste rute til enhver destination. Prøv det selv, og hjælp dine venner med at spare rejsetid.";
 
 "rate_alert_title" = "Kan du lide appen?";
 

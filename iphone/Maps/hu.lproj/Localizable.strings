@@ -563,12 +563,6 @@
 /* category title */
 "routes" = "Útvonalak";
 
-/* button in the interface */
-"choose_starting_point" = "Válasszon kiindulási pontot…";
-
-/* button in the interface */
-"choose_destination" = "Válasszon úti célt…";
-
 /* Show on first launch. */
 "maps_licence_info" = "This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.";
 
@@ -742,7 +736,7 @@
 
 "downloader_download_map_no_routing" = "Térkép letöltése útvonal nélkül";
 
-/* Button for routing PP. */
+/* Button for routing. */
 "routing_go" = "Indulás!";
 
 /* Item status in downloader. */
@@ -1256,49 +1250,10 @@
 "routing_planning_error" = "Sikertelen útvonaltervezés";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Megérkezik";
-
-/* Routing Start button title */
-"routing_start" = "Indítás";
-
-/* Planning route message in navigation view */
-"routing_planning" = "Útvonal tervezése";
+"routing_arrive" = "Megérkezik: %s";
 
 /* Text for routing::IRouter::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Útvonal létrehozásához kérjük, töltse le és frissítse az összes térképet az útvonal mentén.";
-
-/* Text for facebook sharing news about walking routes */
-"share_walking_routes_facebook" = "A MAPS.ME segít a séta menetidő spórolásában. Több mint kétmillió km gyalogos szakasz, táv és ösvény érhető el a séta útszakaszokhoz.";
-
-/* Text for messenger sharing news about walking routes */
-"share_walking_routes_messenger" = "A MAPS.ME világszerte a lehető legrövidebb séta szakaszt adja meg! Nézze meg itt: http://maps.me/get?walk_im";
-
-/* Text for sms sharing news about walking routes */
-"share_walking_routes_sms" = "A MAPS.ME a legrövidebb séta szakaszt adja meg: http://maps.me/get?walk";
-
-/* Subject for email sharing news about walking routes */
-"share_walking_routes_email_subject" = "A lehető legrövidebb útszakaszok érhetők el";
-
-/* Text for email sharing news about walking routes */
-"share_walking_routes_email_body" = "A MAPS.ME épp most adta ki a séta útvonalakat, méghozzá a világ legrészletesebb térképe alapján! Bármely úti célhoz a legrövidebb útvonalat adják meg. Próbálja ki őket: http://maps.me/get?walk_em";
-
-/* Title for walking routes dialog, notifications etc. */
-"title_walking_available" = "A séta útvonalak elérhetők a MAPS.ME-n!";
-
-/* Text for walking routes dialog */
-"share_walking_routes_first_launch" = "A legrövidebb útvonalat adják meg bármely megadott úti célhoz. Próbálja ki saját maga, és segítsen a barátainak is időt spórolni!";
-
-/* Title for walking routes dialog after 3 built routes */
-"share_walking_routes_congratulations" = "Gratulálunk!";
-
-/* Text for walking routes dialog after 3 built routes */
-"share_walking_routes_mastering" = "Elsajátította a séta útvonalak funkciót. Segítsen a barátainak is séta menetidőt spórolni. Számoljon be nekik a MAPS.ME-ről.";
-
-/* Android notification about walking directions for update users */
-"walking_notification_text" = "Ki akarja próbálni őket?";
-
-/* Android notification with picture (rich) about walking directions for update users */
-"walking_rich_notification_text" = "A legrövidebb útvonalat adják meg bármely megszabott úti célhoz. Próbálja ki saját maga, és segítsen a barátainak időt spórolni.";
 
 "rate_alert_title" = "Tetszik az app?";
 

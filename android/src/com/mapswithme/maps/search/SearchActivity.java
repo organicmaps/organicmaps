@@ -14,7 +14,7 @@ public class SearchActivity extends BaseMwmFragmentActivity implements CustomNav
 {
   public static final String EXTRA_QUERY = "search_query";
 
-  public static void startWithQuery(Context context, String query)
+  public static void start(Context context, String query)
   {
     final Intent i = new Intent(context, SearchActivity.class);
     i.putExtra(EXTRA_QUERY, query);
@@ -44,10 +44,8 @@ public class SearchActivity extends BaseMwmFragmentActivity implements CustomNav
   public void onBackPressed()
   {
     final Fragment fragment = getSupportFragmentManager().findFragmentByTag(getFragmentClass().getName());
-    if (fragment != null && fragment.isAdded() &&
-        fragment instanceof OnBackPressListener && ((OnBackPressListener) fragment).onBackPressed())
-      return;
-
-    super.onBackPressed();
+    if ((fragment == null) || !fragment.isAdded() ||
+        !((OnBackPressListener) fragment).onBackPressed())
+      super.onBackPressed();
   }
 }

@@ -2385,25 +2385,28 @@ RouterType Framework::GetBestRouter(m2::PointD const & startPoint, m2::PointD co
 {
   if (MercatorBounds::DistanceOnEarth(startPoint, finalPoint) < kKeepPedestrianDistanceMeters)
   {
-    string routerType;
-    Settings::Get(kRouterTypeKey, routerType);
-    if (routerType == routing::ToString(RouterType::Pedestrian))
+    if (GetLastUsedRouter() == RouterType::Pedestrian)
       return RouterType::Pedestrian;
-    else
+
+    // Return on a short distance the vehicle router flag only if we are already have routing files.
+    auto countryFileGetter = [this](m2::PointD const & pt)
     {
-      // Return on a short distance the vehicle router flag only if we are already have routing files.
-      auto countryFileGetter = [this](m2::PointD const & pt)
-      {
-        return m_infoGetter->GetRegionFile(pt);
-      };
-      if (!OsrmRouter::CheckRoutingAbility(startPoint, finalPoint, countryFileGetter,
-                                           &m_model.GetIndex()))
-      {
-        return RouterType::Pedestrian;
-      }
+      return m_infoGetter->GetRegionFile(pt);
+    };
+    if (!OsrmRouter::CheckRoutingAbility(startPoint, finalPoint, countryFileGetter,
+                                         &m_model.GetIndex()))
+    {
+      return RouterType::Pedestrian;
     }
   }
   return RouterType::Vehicle;
+}
+
+RouterType Framework::GetLastUsedRouter() const
+{
+  string routerType;
+  Settings::Get(kRouterTypeKey, routerType);
+  return (routerType == routing::ToString(RouterType::Pedestrian) ? RouterType::Pedestrian : RouterType::Vehicle);
 }
 
 void Framework::SetLastUsedRouter(RouterType type)

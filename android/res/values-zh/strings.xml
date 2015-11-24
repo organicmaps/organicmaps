@@ -333,10 +333,6 @@
 	<string name="route">路线</string>
 	<!-- category title -->
 	<string name="routes">路线</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">选择起点…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">选择目的地…</string>
 	<!-- Show on first launch. -->
 	<string name="maps_licence_info">这个应用程序使用了源自OpenStreetMap项目的地理数据（包括地图、商业清单、景点、国家和地区边界等）。我们对OpenStreetMap任何数据的一致性、准确性、完整性或适用性不做担保。</string>
 	<!-- Show on first launch. -->
@@ -436,7 +432,7 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">下载地图</string>
 	<string name="downloader_download_map_no_routing">下载不带路线的地图</string>
-	<!-- Button for routing PP. -->
+	<!-- Button for routing. -->
 	<string name="routing_go">出发！</string>
 	<!-- Item status in downloader. -->
 	<string name="downloader_retry">重试</string>
@@ -764,35 +760,9 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">路线计划失败</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">抵達</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">开始</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">规划路线</string>
+	<string name="routing_arrive">抵達:%s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">要创建路线，请下载并更新所有沿路线的地图。</string>
-	<!-- Text for facebook sharing news about walking routes -->
-	<string name="share_walking_routes_facebook">MAPS.ME为您节省步行时间。现在有200多万公里的步行路线、轨道和步道有步行方向了。</string>
-	<!-- Text for messenger sharing news about walking routes -->
-	<string name="share_walking_routes_messenger">MAPS.ME给出全世界的最短步行路线！查看它：http://maps.me/get?walk_im</string>
-	<!-- Text for sms sharing news about walking routes -->
-	<string name="share_walking_routes_sms">MAPS.ME给出最短的步行路线：http://maps.me/get?walk</string>
-	<!-- Subject for email sharing news about walking routes -->
-	<string name="share_walking_routes_email_subject">有最短的步行路线</string>
-	<!-- Text for email sharing news about walking routes -->
-	<string name="share_walking_routes_email_body">MAPS.ME刚刚基于世界上最详细的地图发布了步行方向！它们给出到任何目的地的最短路线。试试它们：http://maps.me/get?walk_em</string>
-	<!-- Title for walking routes dialog, notifications etc. -->
-	<string name="title_walking_available">MAPS.ME有步行方向了！</string>
-	<!-- Text for walking routes dialog -->
-	<string name="share_walking_routes_first_launch">它们给出到任何目的地的最短路线。也帮您的好友们节省步行时间吧！</string>
-	<!-- Title for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_congratulations">恭喜！</string>
-	<!-- Text for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_mastering">您掌握了步行方向功能。也帮您的好友们节省步行时间吧。告诉他们MAPS.ME。</string>
-	<!-- Android notification about walking directions for update users -->
-	<string name="walking_notification_text">想试试它们吗？</string>
-	<!-- Android notification with picture (rich) about walking directions for update users -->
-	<string name="walking_rich_notification_text">它们给出到任何目的地的最短路线。亲自试试，帮您的好友们节省旅行时间。</string>
 	<string name="rate_alert_title">喜欢这个应用吗？</string>
 	<string name="rate_alert_default_message">感谢您使用 MAPS.ME。请，评价该应用。您的反馈帮助我们变得更好。</string>
 	<string name="rate_alert_five_star_message">太棒了！我们也爱您！</string>

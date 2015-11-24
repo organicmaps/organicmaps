@@ -334,10 +334,6 @@
 	<string name="route">Trasa</string>
 	<!-- category title -->
 	<string name="routes">Trasy</string>
-	<!-- button in the interface -->
-	<string name="choose_starting_point">Zvolte začátek…</string>
-	<!-- button in the interface -->
-	<string name="choose_destination">Zvolte cíl…</string>
 	<!-- Show on first launch. -->
 	<string name="maps_licence_info">Tato aplikace využívá geografická data (zahrnující mapy, zakreslení firem a zájmových bodů, hranice států a regionů apod.), která byla převzata z otevřeného projektu OpenStreetMap. Konzistenci, přesnost, úplnost ani správnost těchto OpenStreetMap dat proto nemůžeme zaručit.</string>
 	<!-- Show on first launch. -->
@@ -437,7 +433,7 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Stáhnout mapu</string>
 	<string name="downloader_download_map_no_routing">Stáhnout mapy bez tras</string>
-	<!-- Button for routing PP. -->
+	<!-- Button for routing. -->
 	<string name="routing_go">Jet!</string>
 	<!-- Item status in downloader. -->
 	<string name="downloader_retry">Zkusit znovu</string>
@@ -767,35 +763,9 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Naplánování trasy se nezdařilo</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Příjezd</string>
-	<!-- Routing Start button title -->
-	<string name="routing_start">Začít</string>
-	<!-- Planning route message in navigation view -->
-	<string name="routing_planning">Probíhá plánování trasy</string>
+	<string name="routing_arrive">Příjezd: %s</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Pro vytvoření trasy si prosím stáhněte a aktualizujte všechny mapy podél očekávané cesty.</string>
-	<!-- Text for facebook sharing news about walking routes -->
-	<string name="share_walking_routes_facebook">MAPS.ME vám ušetří čas chůze. Nyní jsou dostupné pokyny pro chodce pro více než 2 milióny km chodníků, stezek a pěšin.</string>
-	<!-- Text for messenger sharing news about walking routes -->
-	<string name="share_walking_routes_messenger">MAPS.ME vám po celém světě ukáže nejkratší trasy pro chodce! Vyzkoušejte to: http://maps.me/get?walk_im</string>
-	<!-- Text for sms sharing news about walking routes -->
-	<string name="share_walking_routes_sms">MAPS.ME vám ukáže nejkratší trasy pro chodce: http://maps.me/get?walk</string>
-	<!-- Subject for email sharing news about walking routes -->
-	<string name="share_walking_routes_email_subject">Jsou dostupné nejkratší trasy pro chodce</string>
-	<!-- Text for email sharing news about walking routes -->
-	<string name="share_walking_routes_email_body">MAPS.ME právě uvedlo pokyny pro chodce založené na nejpodrobnější mapě světa! Ukážou vám nejkratší trasu do jakékoliv destinace. Vyzkoušejte je: http://maps.me/get?walk_em</string>
-	<!-- Title for walking routes dialog, notifications etc. -->
-	<string name="title_walking_available">V MAPS.ME jsou dostupné pokyny pro chodce!</string>
-	<!-- Text for walking routes dialog -->
-	<string name="share_walking_routes_first_launch">Ukážou vám nejkratší trasu do jakékoliv destinace. Pomozte svým přátelům také ušetřit čas chůze!</string>
-	<!-- Title for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_congratulations">Blahopřejeme!</string>
-	<!-- Text for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_mastering">Zvládli jste funkci Pokyny pro chodce. Pomozte svým přátelům také ušetřit čas chůze. Řekněte jim o MAPS.ME.</string>
-	<!-- Android notification about walking directions for update users -->
-	<string name="walking_notification_text">Chcete je vyzkoušet?</string>
-	<!-- Android notification with picture (rich) about walking directions for update users -->
-	<string name="walking_rich_notification_text">Ukážou vám nejkratší trasu do cílového bodu. Vyzkoušejte si to sami a pomozte svým přátelům ušetřit čas cestování.</string>
 	<string name="rate_alert_title">Líbí se vám aplikace?</string>
 	<string name="rate_alert_default_message">Děkujeme, že používáte MAPS.ME. Ohodnoťte, prosím, tuto aplikaci. Váš komentář nám pomůže ji ještě zlepšit.</string>
 	<string name="rate_alert_five_star_message">Hurá! Také vás zbožňujeme!</string>

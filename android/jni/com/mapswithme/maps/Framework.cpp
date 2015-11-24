@@ -1275,6 +1275,15 @@ extern "C"
     android::Platform::RunOnGuiThreadImpl(bind(&::Framework::FollowRoute, frm()));
   }
 
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeDisableFollowing(JNIEnv * env, jclass thiz)
+  {
+    android::Platform::RunOnGuiThreadImpl([]()
+    {
+      (void)g_framework->NativeFramework()->DisableFollowMode();
+    });
+  }
+
   JNIEXPORT jobjectArray JNICALL
   Java_com_mapswithme_maps_Framework_nativeGenerateTurnNotifications(JNIEnv * env, jclass thiz)
   {
@@ -1479,22 +1488,40 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_setRouter(JNIEnv * env, jclass thiz, jint routerType)
+  Java_com_mapswithme_maps_Framework_nativeSetRouter(JNIEnv * env, jclass thiz, jint routerType)
   {
     routing::RouterType const val = static_cast<routing::RouterType>(routerType);
     android::Platform::RunOnGuiThreadImpl(bind(&android::Framework::SetRouter, g_framework, val));
   }
 
   JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_Framework_getRouter(JNIEnv * env, jclass thiz)
+  Java_com_mapswithme_maps_Framework_nativeGetRouter(JNIEnv * env, jclass thiz)
   {
     return static_cast<jint>(g_framework->GetRouter());
+  }
+
+  JNIEXPORT jint JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGetLastUsedRouter(JNIEnv * env, jclass thiz)
+  {
+    return static_cast<jint>(g_framework->GetLastUsedRouter());
   }
 
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_Framework_nativeGetBestRouter(JNIEnv * env, jclass thiz, jdouble srcLat, jdouble srcLon, jdouble dstLat, jdouble dstLon)
   {
     return static_cast<jint>(frm()->GetBestRouter(MercatorBounds::FromLatLon(srcLat, srcLon), MercatorBounds::FromLatLon(dstLat, dstLon)));
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeSetRouteStartPoint(JNIEnv * env, jclass thiz, jdouble lat, jdouble lon, jboolean valid)
+  {
+    frm()->SetRouteStartPoint(m2::PointD(MercatorBounds::FromLatLon(lat, lon)), static_cast<bool>(valid));
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeSetRouteEndPoint(JNIEnv * env, jclass thiz, jdouble lat, jdouble lon, jboolean valid)
+  {
+    frm()->SetRouteFinishPoint(m2::PointD(MercatorBounds::FromLatLon(lat, lon)), static_cast<bool>(valid));
   }
 
   JNIEXPORT void JNICALL

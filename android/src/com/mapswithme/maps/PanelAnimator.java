@@ -20,7 +20,6 @@ class PanelAnimator
   private final MwmActivity.LeftAnimationTrackListener mAnimationTrackListener;
   private final View mPanel;
 
-
   public PanelAnimator(MwmActivity activity, @NonNull MwmActivity.LeftAnimationTrackListener animationTrackListener)
   {
     mActivity = activity;
@@ -36,19 +35,24 @@ class PanelAnimator
     mAnimationTrackListener.onTrackLeftAnimation(offset + WIDTH);
   }
 
-  public void show(final Class<? extends Fragment> clazz, final Bundle args)
+  /** @param completionListener will be called before the fragment becomes actually visible */
+  public void show(final Class<? extends Fragment> clazz, final Bundle args, @Nullable final Runnable completionListener)
   {
     if (isVisible())
     {
-      if (mActivity.getSupportFragmentManager().findFragmentByTag(clazz.getName()) != null)
+      if (mActivity.getFragment(clazz) != null)
+      {
+        if (completionListener != null)
+          completionListener.run();
         return;
+      }
 
       hide(new Runnable()
       {
         @Override
         public void run()
         {
-          show(clazz, args);
+          show(clazz, args, completionListener);
         }
       });
 
@@ -56,8 +60,11 @@ class PanelAnimator
     }
 
     mActivity.replaceFragmentInternal(clazz, args);
+    if (completionListener != null)
+      completionListener.run();
 
     UiUtils.show(mPanel);
+
     mAnimationTrackListener.onTrackStarted(false);
 
     ValueAnimator animator = ValueAnimator.ofFloat(-WIDTH, 0.0f);
@@ -125,6 +132,6 @@ class PanelAnimator
 
   public boolean isVisible()
   {
-    return (mPanel.getVisibility() == View.VISIBLE);
+    return UiUtils.isVisible(mPanel);
   }
 }

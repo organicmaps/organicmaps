@@ -563,12 +563,6 @@
 /* category title */
 "routes" = "Trajetos";
 
-/* button in the interface */
-"choose_starting_point" = "Selecione o ponto de partida…";
-
-/* button in the interface */
-"choose_destination" = "Selecione o destino…";
-
 /* Show on first launch. */
 "maps_licence_info" = "This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.";
 
@@ -742,7 +736,7 @@
 
 "downloader_download_map_no_routing" = "Baixar mapa sem roteamento";
 
-/* Button for routing PP. */
+/* Button for routing. */
 "routing_go" = "Avançar!";
 
 /* Item status in downloader. */
@@ -1256,49 +1250,10 @@
 "routing_planning_error" = "Falhou o Planeamento da Rota";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Chegada";
-
-/* Routing Start button title */
-"routing_start" = "Começar";
-
-/* Planning route message in navigation view */
-"routing_planning" = "A planear a viagem";
+"routing_arrive" = "Chegada: %s";
 
 /* Text for routing::IRouter::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Para criar uma rota, por favor, baixe e atualize todos os mapas ao longo da rota.";
-
-/* Text for facebook sharing news about walking routes */
-"share_walking_routes_facebook" = "O MAPS.ME economiza tempo de caminhada. Mais de 2 milhões de km de percursos, caminhos e trilhas pedestres estão disponíveis para rotas a pé agora.";
-
-/* Text for messenger sharing news about walking routes */
-"share_walking_routes_messenger" = "O MAPS.ME dá as rotas pedestres mais curtas em todo o mundo! Confira: http://maps.me/get?walk_im";
-
-/* Text for sms sharing news about walking routes */
-"share_walking_routes_sms" = "MAPS.ME dá as rotas pedestres mais curtas: http://maps.me/get?walk";
-
-/* Subject for email sharing news about walking routes */
-"share_walking_routes_email_subject" = "As rotas pedestres mais curtas estão disponíveis";
-
-/* Text for email sharing news about walking routes */
-"share_walking_routes_email_body" = "O MAPS.ME acaba de lançar as rotas a pé com base no mapa mais detalhado do mundo! Elas dão o caminho mais curto para qualquer destino. Experimente-as: http://maps.me/get?walk_em";
-
-/* Title for walking routes dialog, notifications etc. */
-"title_walking_available" = "As rotas a pé estão disponíveis no MAPS.ME!";
-
-/* Text for walking routes dialog */
-"share_walking_routes_first_launch" = "As rotas a pé estão disponíveis no MAPS.ME! Elas dão o caminho mais curto para qualquer destino. Ajude seus amigos a poupar tempo caminhando, também!";
-
-/* Title for walking routes dialog after 3 built routes */
-"share_walking_routes_congratulations" = "Parabéns!";
-
-/* Text for walking routes dialog after 3 built routes */
-"share_walking_routes_mastering" = "Você dominou a função rotas a pé. Ajude seus amigos a poupar tempo caminhando, também. Conte a eles sobre o MAPS.ME.";
-
-/* Android notification about walking directions for update users */
-"walking_notification_text" = "Quer experimentá-las?";
-
-/* Android notification with picture (rich) about walking directions for update users */
-"walking_rich_notification_text" = "Elas dão o caminho mais curto para qualquer ponto de destino. Experimente-as e ajude seus amigos a poupar tempo de viagem.";
 
 "rate_alert_title" = "Gosta do aplicativo?";
 

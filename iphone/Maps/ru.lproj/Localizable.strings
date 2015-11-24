@@ -563,12 +563,6 @@
 /* category title */
 "routes" = "Маршруты";
 
-/* button in the interface */
-"choose_starting_point" = "Откуда…";
-
-/* button in the interface */
-"choose_destination" = "Куда…";
-
 /* Show on first launch. */
 "maps_licence_info" = "Это приложение использует географические данные (включая карты, справочники, достопримечательности, границы стран и регионов, др.) взятые из проекта OpenStreetMap. Мы не гарантируем последовательности, точности, полноты и пригодности данных OpenStreetMap.";
 
@@ -742,7 +736,7 @@
 
 "downloader_download_map_no_routing" = "Загрузить карту без маршрутов";
 
-/* Button for routing PP. */
+/* Button for routing. */
 "routing_go" = "Поехали!";
 
 /* Item status in downloader. */
@@ -1256,49 +1250,10 @@
 "routing_planning_error" = "Ошибка построения маршрута";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Прибытие в";
-
-/* Routing Start button title */
-"routing_start" = "Начать";
-
-/* Planning route message in navigation view */
-"routing_planning" = "Поиск маршрута";
+"routing_arrive" = "Прибытие в %s";
 
 /* Text for routing::IRouter::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Для построения маршрута загрузите и обновите все карты по пути следования.";
-
-/* Text for facebook sharing news about walking routes */
-"share_walking_routes_facebook" = "MAPS.ME экономит время на передвижения пешком. Более двух миллионов км. пешеходных дорог и троп используется для построения маршрутов.";
-
-/* Text for messenger sharing news about walking routes */
-"share_walking_routes_messenger" = "MAPS.ME найдет кратчайшие пешеходные маршруты по всему миру! Проверь сам:  http://maps.me/get?walk_im";
-
-/* Text for sms sharing news about walking routes */
-"share_walking_routes_sms" = "MAPS.ME ищет кратчайшие пешеходные маршруты: http://maps.me/get?walk";
-
-/* Subject for email sharing news about walking routes */
-"share_walking_routes_email_subject" = "Пешеходные маршруты теперь доступны в MAPS.ME";
-
-/* Text for email sharing news about walking routes */
-"share_walking_routes_email_body" = "В приложении MAPS.ME появилась пешеходная навигация, разработанная на базе самой детальной карты мира! Благодаря ей ты всегда сможешь найти кратчайший путь к любому месту. Проверь сам: http://maps.me/get?walk_em";
-
-/* Title for walking routes dialog, notifications etc. */
-"title_walking_available" = "В MAPS.ME появилась пешеходная навигация!";
-
-/* Text for walking routes dialog */
-"share_walking_routes_first_launch" = "С её помощью ты найдешь кратчайший путь до любого места. Попробуй сам и поделись новостью с друзьями: пусть и они экономят время на дорогу!";
-
-/* Title for walking routes dialog after 3 built routes */
-"share_walking_routes_congratulations" = "Поздравляем!";
-
-/* Text for walking routes dialog after 3 built routes */
-"share_walking_routes_mastering" = "Теперь ты знаешь, как работают пешеходные маршруты. Помоги друзьям также экономить время на дорогу. Расскажи им о MAPS.ME!";
-
-/* Android notification about walking directions for update users */
-"walking_notification_text" = "Хочешь проверить, как она работает?";
-
-/* Android notification with picture (rich) about walking directions for update users */
-"walking_rich_notification_text" = "С её помощью ты найдешь кратчайший путь до любого места. Попробуй сам и поделись новостью с друзьями: пусть и они экономят время на дорогу.";
 
 "rate_alert_title" = "Нравится приложение?";
 
@@ -1314,7 +1269,7 @@
 
 "history" = "История";
 
-"next_turn_then" = "След.";
+"next_turn_then" = "Далее";
 
 "closed" = "Закрыто";
 

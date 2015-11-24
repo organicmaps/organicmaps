@@ -6,7 +6,7 @@
   android:layout_width="@dimen/panel_width"
   android:layout_height="wrap_content"
   android:layout_centerHorizontal="true"
-  android:padding="@dimen/padding_routing_turns">
+  android:padding="@dimen/routing_turns_padding">
 
   <FrameLayout
     android:id="@+id/turn"
@@ -29,7 +29,6 @@
       android:visibility="gone"
       tools:text="2"
       tools:visibility="visible"/>
-
   </FrameLayout>
 
   <TextView

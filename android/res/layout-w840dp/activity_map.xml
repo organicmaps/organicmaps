@@ -31,11 +31,13 @@
         android:visibility="gone"
         tools:visibility="visible"/>
 
-    <com.mapswithme.maps.widget.RoutingLayout
-        android:id="@+id/layout__routing"
+    <include
+        layout="@layout/layout_routing_full"
         android:layout_width="@dimen/panel_width"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/margin_base"/>
+        android:layout_marginBottom="@dimen/margin_half"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
     <com.mapswithme.maps.widget.placepage.PlacePageView
         android:id="@+id/info_box"
@@ -65,8 +67,8 @@
       android:id="@+id/fragment_container"
       android:layout_width="@dimen/panel_width"
       android:layout_height="match_parent"
-      android:background="@android:color/white"
-      android:elevation="@dimen/navigation_elevation"
+      android:background="#FFF0F0F0"
+      android:elevation="@dimen/panel_elevation"
       android:visibility="gone"
       tools:visibility="visible"/>
 </RelativeLayout>

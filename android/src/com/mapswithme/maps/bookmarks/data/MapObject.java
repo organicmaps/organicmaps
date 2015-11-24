@@ -1,11 +1,9 @@
 package com.mapswithme.maps.bookmarks.data;
 
-import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
-
-import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 
 public abstract class MapObject implements Parcelable
@@ -25,44 +23,45 @@ public abstract class MapObject implements Parcelable
     mMetadata = new Metadata();
   }
 
-  public void setDefaultIfEmpty(Resources res)
+  public void setDefaultIfEmpty()
   {
     if (TextUtils.isEmpty(mName))
-      mName = TextUtils.isEmpty(mTypeName) ? res.getString(R.string.dropped_pin) : mTypeName;
+      mName = TextUtils.isEmpty(mTypeName) ? MwmApplication.get().getString(R.string.dropped_pin) : mTypeName;
 
     if (TextUtils.isEmpty(mTypeName))
-      mTypeName = res.getString(R.string.placepage_unsorted);
+      mTypeName = MwmApplication.get().getString(R.string.placepage_unsorted);
   }
 
-  @Override
-  public int hashCode()
+  /**
+   * If you override {@link #equals(Object)} it is also required to override {@link #hashCode()}.
+   * MapObject does not participate in any sets or other collections that need {@code hashCode()}.
+   * So {@code sameAs()} serves as {@code equals()} but does not break the equals+hashCode contract.
+   */
+  public boolean sameAs(MapObject other)
   {
-    final int prime = 31;
-    int result = 1;
-    long temp;
-    temp = Double.doubleToLongBits(mLat);
-    result = prime * result + (int) (temp ^ (temp >>> 32));
-    temp = Double.doubleToLongBits(mLon);
-    result = prime * result + (int) (temp ^ (temp >>> 32));
-    result = prime * result + ((mName == null) ? 0 : mName.hashCode());
-    result = prime * result + ((mTypeName == null) ? 0 : mTypeName.hashCode());
-    return result;
-  }
-
-  @Override
-  public boolean equals(Object obj)
-  {
-    if (this == obj)
-      return true;
-    if (obj == null ||
-        getClass() != obj.getClass())
+    if (other == null)
       return false;
 
-    final MapObject other = (MapObject) obj;
+    if (this == other)
+      return true;
+
+    //noinspection SimplifiableIfStatement
+    if (getClass() != other.getClass())
+      return false;
+
     return Double.doubleToLongBits(mLon) == Double.doubleToLongBits(other.mLon) &&
-        Double.doubleToLongBits(mLat) == Double.doubleToLongBits(other.mLat) &&
-        TextUtils.equals(mName, other.mName) &&
-        TextUtils.equals(mTypeName, other.mTypeName);
+           Double.doubleToLongBits(mLat) == Double.doubleToLongBits(other.mLat) &&
+           TextUtils.equals(mName, other.mName) &&
+           TextUtils.equals(mTypeName, other.mTypeName);
+  }
+
+  public static boolean same(MapObject one, MapObject another)
+  {
+    //noinspection SimplifiableIfStatement
+    if (one == null && another == null)
+      return true;
+
+    return (one != null && one.sameAs(another));
   }
 
   public double getScale() { return 0; }
@@ -193,12 +192,6 @@ public abstract class MapObject implements Parcelable
 
   public static class SearchResult extends MapObject
   {
-    public SearchResult(long index)
-    {
-      super("", 0, 0, "");
-      Framework.injectData(this, index);
-    }
-
     public SearchResult(String name, String type, double lat, double lon)
     {
       super(name, lat, lon, type);
@@ -253,9 +246,9 @@ public abstract class MapObject implements Parcelable
 
   public static class MyPosition extends MapObject
   {
-    public MyPosition(String name, double lat, double lon)
+    public MyPosition(double lat, double lon)
     {
-      super(name, lat, lon, "");
+      super(MwmApplication.get().getString(R.string.my_position), lat, lon, "");
     }
 
     protected MyPosition(Parcel source)
@@ -270,11 +263,16 @@ public abstract class MapObject implements Parcelable
     }
 
     @Override
-    public void setDefaultIfEmpty(Resources res)
+    public void setDefaultIfEmpty()
     {
       if (TextUtils.isEmpty(mName))
-        mName = res.getString(R.string.my_position);
+        mName = MwmApplication.get().getString(R.string.my_position);
+    }
+
+    @Override
+    public boolean sameAs(MapObject other)
+    {
+      return ((other instanceof MyPosition) || super.sameAs(other));
     }
   }
-
 }

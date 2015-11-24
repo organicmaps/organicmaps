@@ -2,8 +2,6 @@ package com.mapswithme.maps.search;
 
 import android.app.Activity;
 import android.text.TextUtils;
-import android.view.View;
-
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.widget.SearchToolbarController;
@@ -17,7 +15,7 @@ public class FloatingSearchToolbarController extends SearchToolbarController
   }
 
   @Override
-  protected void onUpClick()
+  public void onUpClick()
   {
     ((MwmActivity) mActivity).showSearch(getQuery());
     cancelSearchApiAndHide(true);
@@ -72,7 +70,7 @@ public class FloatingSearchToolbarController extends SearchToolbarController
 
   public boolean hide()
   {
-    if (mToolbar.getVisibility() != View.VISIBLE)
+    if (!UiUtils.isVisible(mToolbar))
       return false;
 
     UiUtils.disappearSlidingUp(mToolbar, null);

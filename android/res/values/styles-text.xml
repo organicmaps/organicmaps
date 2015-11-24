@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <style name="MwmTextAppearance">
-    <item name="android:textStyle">normal</item>
     <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoRegular</item>
   </style>
 
@@ -121,5 +120,10 @@
   <style name="MwmTextAppearance.RoutingNumber">
     <item name="android:textSize">@dimen/text_size_routing_number</item>
     <item name="android:textColor">@color/text_dark_subtitle</item>
+  </style>
+
+  <style name="MwmTextAppearance.RoutingDetail">
+    <item name="android:textSize">@dimen/text_size_routing_plan_detail</item>
+    <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoMedium</item>
   </style>
 </resources>

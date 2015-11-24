@@ -2,16 +2,16 @@ package com.mapswithme.maps.search;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.View;
+import android.support.v7.widget.RecyclerView;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 
-public class SearchCategoriesFragment extends BaseMwmRecyclerFragment implements CategoriesAdapter.OnCategorySelectedListener
+public class SearchCategoriesFragment extends BaseMwmRecyclerFragment
+                                   implements CategoriesAdapter.OnCategorySelectedListener
 {
   @Override
-  public void onViewCreated(View view, Bundle savedInstanceState)
+  protected RecyclerView.Adapter createAdapter()
   {
-    super.onViewCreated(view, savedInstanceState);
-    getRecyclerView().setAdapter(new CategoriesAdapter(this));
+    return new CategoriesAdapter(this);
   }
 
   @Override
@@ -28,7 +28,7 @@ public class SearchCategoriesFragment extends BaseMwmRecyclerFragment implements
       passCategory(getActivity(), category);
   }
 
-  private boolean passCategory(Object listener, String category)
+  private static boolean passCategory(Object listener, String category)
   {
     if (!(listener instanceof CategoriesAdapter.OnCategorySelectedListener))
       return false;

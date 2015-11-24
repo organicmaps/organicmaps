@@ -563,12 +563,6 @@
 /* category title */
 "routes" = "Percorsi";
 
-/* button in the interface */
-"choose_starting_point" = "Scegli il punto di partenza…";
-
-/* button in the interface */
-"choose_destination" = "Scegli la destinazione…";
-
 /* Show on first launch. */
 "maps_licence_info" = "This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.";
 
@@ -742,7 +736,7 @@
 
 "downloader_download_map_no_routing" = "Scarica mappa senza percorsi";
 
-/* Button for routing PP. */
+/* Button for routing. */
 "routing_go" = "Andare!";
 
 /* Item status in downloader. */
@@ -1256,49 +1250,10 @@
 "routing_planning_error" = "Pianificazione del percorso fallito";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Arrivo";
-
-/* Routing Start button title */
-"routing_start" = "Parti";
-
-/* Planning route message in navigation view */
-"routing_planning" = "Calcolo del percorso";
+"routing_arrive" = "Arrivo: %s";
 
 /* Text for routing::IRouter::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Per creare un percorso, scaricare e aggiornare tutte le mappe interessate dal percorso.";
-
-/* Text for facebook sharing news about walking routes */
-"share_walking_routes_facebook" = "MAPS.ME ti fa risparmiare tempo anche a piedi. Disponibili oltre 2 milioni di km di percorsi pedonali, itinerari e sentieri pedonali.";
-
-/* Text for messenger sharing news about walking routes */
-"share_walking_routes_messenger" = "MAPS.ME ti offre i percorsi pedonali più brevi in tutto il mondo. Scopri su: http://maps.me/get?walk_im";
-
-/* Text for sms sharing news about walking routes */
-"share_walking_routes_sms" = "MAPS.ME offre i percorsi pedonali più brevi:http://maps.me/get?walk";
-
-/* Subject for email sharing news about walking routes */
-"share_walking_routes_email_subject" = "Disponibili i percorsi pedonali più brevi";
-
-/* Text for email sharing news about walking routes */
-"share_walking_routes_email_body" = "MAPS.ME ha appena lanciato i percorsi pedonali per trovare la strada più breve verso qualsiasi destinazione basati sulla mappa più dettagliata al mondo. Provali ora: http://maps.me/get?walk_em";
-
-/* Title for walking routes dialog, notifications etc. */
-"title_walking_available" = "Percorsi pedonali ora disponibili su MAPS.ME!";
-
-/* Text for walking routes dialog */
-"share_walking_routes_first_launch" = "Indicano il percorso più veloce verso la tua destinazione. Aiuta i tuoi amici a risparmiare tempo!";
-
-/* Title for walking routes dialog after 3 built routes */
-"share_walking_routes_congratulations" = "Congratulazioni!";
-
-/* Text for walking routes dialog after 3 built routes */
-"share_walking_routes_mastering" = "Hai usufruito della funzione percorsi pedonali. Aiuta i tuoi amici a risparmiare tempo. Invitali a scoprire MAPS.ME.";
-
-/* Android notification about walking directions for update users */
-"walking_notification_text" = "Vuoi provarli?";
-
-/* Android notification with picture (rich) about walking directions for update users */
-"walking_rich_notification_text" = "Indicano il percorso più veloce verso la tua destinazione. Provali tu stesso e aiuta i tuoi amici a risparmiare tempo.";
 
 "rate_alert_title" = "Ti piace l’app?";
 

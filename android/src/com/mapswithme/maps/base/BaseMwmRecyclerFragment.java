@@ -20,9 +20,16 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
   private Toolbar mToolbar;
   protected RecyclerView mRecycler;
 
+  protected abstract RecyclerView.Adapter createAdapter();
+
   protected @LayoutRes int getLayoutRes()
   {
     return R.layout.fragment_recycler;
+  }
+
+  protected RecyclerView.Adapter getAdapter()
+  {
+    return mRecycler.getAdapter();
   }
 
   @Override
@@ -56,6 +63,7 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
 
     LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
     mRecycler.setLayoutManager(manager);
+    mRecycler.setAdapter(createAdapter());
   }
 
   public Toolbar getToolbar()

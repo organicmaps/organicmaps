@@ -17,12 +17,17 @@
       android:visibility="gone"
       tools:visibility="visible"/>
 
-  <com.mapswithme.maps.widget.RoutingLayout
-      android:id="@+id/layout__routing"
+  <include
+      layout="@layout/layout_routing_full"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@id/toolbar"
-      android:paddingBottom="@dimen/margin_base"/>
+      android:paddingBottom="@dimen/margin_base"
+      android:visibility="gone"/>
+
+  <include
+      layout="@layout/routing_plan"
+      android:visibility="invisible"/>
 
   <include
       android:id="@+id/navigation_buttons"

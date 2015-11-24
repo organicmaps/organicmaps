@@ -10,8 +10,8 @@ import com.mapswithme.util.Utils;
 
 public class ToolbarController
 {
-  protected final Toolbar mToolbar;
   protected final Activity mActivity;
+  protected final Toolbar mToolbar;
 
   public ToolbarController(View root, Activity activity)
   {
@@ -28,7 +28,7 @@ public class ToolbarController
     });
   }
 
-  protected void onUpClick()
+  public void onUpClick()
   {
     Utils.navigateToParent(mActivity);
   }

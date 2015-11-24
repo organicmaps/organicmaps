@@ -31,6 +31,8 @@ public class SearchResult
 
   public final String name;
   public final String suggestion;
+  public final double lat;
+  public final double lon;
 
   public final int type;
   public final Description description;
@@ -42,16 +44,20 @@ public class SearchResult
   {
     this.name = name;
     this.suggestion = suggestion;
+    this.lat = 0.0;
+    this.lon = 0.0;
     description = null;
     type = TYPE_SUGGEST;
 
     this.highlightRanges = highlightRanges;
   }
 
-  public SearchResult(String name, Description description, int[] highlightRanges)
+  public SearchResult(String name, Description description, double lat, double lon, int[] highlightRanges)
   {
     this.name = name;
     suggestion = null;
+    this.lat = lat;
+    this.lon = lon;
     type = TYPE_RESULT;
     this.description = description;
     this.highlightRanges = highlightRanges;

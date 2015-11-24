@@ -41,9 +41,8 @@
   <dimen name="progress_wheel_width">48dp</dimen>
   <dimen name="progress_wheel_height">40dp</dimen>
   <dimen name="progress_wheel_width_neg">-48dp</dimen>
+  <dimen name="search_progress_size">32dp</dimen>
 
-  <dimen name="routing_pp_height">55dp</dimen>
-  <dimen name="routing_progress_size">32dp</dimen>
   <dimen name="panel_width">360dp</dimen>
 
   <!-- direction fragment -->
@@ -58,7 +57,7 @@
   <dimen name="height_item_edit_bookmark">72dp</dimen>
 
   <dimen name="zoom_buttons_top_required_space">266dp</dimen>
-  <dimen name="zoom_buttons_bottom_max_space">240dp</dimen>
+  <dimen name="zoom_buttons_bottom_max_space">228dp</dimen>
 
   <!-- map widgets -->
   <dimen name="margin_compass_left">32dp</dimen>
@@ -67,19 +66,29 @@
   <dimen name="margin_ruler_bottom">56dp</dimen>
 
   <!-- routing layout -->
-  <dimen name="height_routing_info">48dp</dimen>
-  <dimen name="padding_routing_turns">8dp</dimen>
+  <dimen name="routing_info_height">48dp</dimen>
+  <dimen name="routing_selector_size">48dp</dimen>
+  <dimen name="routing_selector_wheel_size">40dp</dimen>
+  <dimen name="routing_selector_wheel_margin">4dp</dimen>
+  <dimen name="routing_slot_height">52dp</dimen>
+  <dimen name="routing_slot_overlap_margin">12dp</dimen>
+  <dimen name="routing_shadow_top_margin">3dp</dimen>
+  <dimen name="routing_shadow_top_margin_dragging">0dp</dimen>
+  <dimen name="routing_shadow_bottom_margin">2dp</dimen>
+  <dimen name="routing_shadow_bottom_margin_dragging">4dp</dimen>
+  <dimen name="routing_turns_padding">8dp</dimen>
 
   <!-- Bottom menu -->
   <dimen name="menu_line_height">48dp</dimen>
-  <dimen name="menu_line_button_width">88dp</dimen>
-  <dimen name="menu_line_button_width_edge">72dp</dimen>
+  <dimen name="menu_line_button_width">60dp</dimen>
+  <dimen name="menu_line_button_width_edge">68dp</dimen>
   <dimen name="menu_line_button_inset_top">-20dp</dimen>
-  <dimen name="menu_line_button_inset_edge">-12dp</dimen>
+  <dimen name="menu_line_button_inset_edge">-16dp</dimen>
   <dimen name="menu_list_item_height">48dp</dimen>
 
-  <dimen name="navigation_elevation">4dp</dimen>
+  <dimen name="panel_elevation">12dp</dimen>
   <dimen name="appbar_elevation">4dp</dimen>
+  <dimen name="placepage_elevation">4dp</dimen>
 
   <dimen name="tabs_height">64dp</dimen>
 
