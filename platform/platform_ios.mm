@@ -202,6 +202,8 @@ CustomIOSPlatform::CustomIOSPlatform()
 {
   NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 
+  m_isTablet = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
+
   NSBundle * bundle = [NSBundle mainBundle];
   NSString * path = [bundle resourcePath];
   m_resourcesDir = [path UTF8String];
