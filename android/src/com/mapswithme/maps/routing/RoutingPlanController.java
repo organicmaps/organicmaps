@@ -232,7 +232,8 @@ public class RoutingPlanController extends ToolbarController
       animator.setDuration(ANIM_TOGGLE);
       animator.start();
       mSlotFrame.fadeSlots(!mOpen);
-    } else
+    }
+    else
     {
       animateSlotFrame(mOpen ? 0 : mFrameHeight);
       mToggleImage.setAngle(mOpen ? 180.0f : 0.0f);

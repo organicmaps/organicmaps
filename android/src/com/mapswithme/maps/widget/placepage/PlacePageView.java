@@ -212,25 +212,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mRoutingButton = mGeneralButtonsFrame.findViewById(R.id.ll__route);
 
     mRouteButtonsFrame = ppButtons.findViewById(R.id.routing);
-    mRouteButtonsFrame.findViewById(R.id.from).setOnClickListener(new OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        if (RoutingController.get().setStartPoint(mMapObject))
-          hide();
-      }
-    });
-
-    mRouteButtonsFrame.findViewById(R.id.to).setOnClickListener(new OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        if (RoutingController.get().setEndPoint(mMapObject))
-          hide();
-      }
-    });
+    mRouteButtonsFrame.findViewById(R.id.from).setOnClickListener(this);
+    mRouteButtonsFrame.findViewById(R.id.to).setOnClickListener(this);
 
     mShadowController = new ScrollViewShadowController((ObservableScrollView) mPpDetails)
                             .addBottomShadow()
@@ -464,12 +447,16 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   private void refreshButtons(boolean showBackButton, boolean showRoutingButton)
   {
-    boolean planning = RoutingController.get().isPlanning();
-    UiUtils.showIf(planning, mRouteButtonsFrame);
-    UiUtils.showIf(!planning, mGeneralButtonsFrame);
-
-    if (!planning)
+    if (RoutingController.get().isPlanning())
     {
+      UiUtils.show(mRouteButtonsFrame);
+      UiUtils.hide(mGeneralButtonsFrame);
+    }
+    else
+    {
+      UiUtils.show(mGeneralButtonsFrame);
+      UiUtils.hide(mRouteButtonsFrame);
+
       UiUtils.showIf(showBackButton || ParsedMwmRequest.isPickPointMode(), mApiBack);
       UiUtils.showIf(showRoutingButton, mRoutingButton);
     }
@@ -730,7 +717,13 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       });
       fragment.show(((FragmentActivity) getContext()).getSupportFragmentManager(), null);
       break;
-    default:
+    case R.id.from:
+      if (RoutingController.get().setStartPoint(mMapObject))
+        hide();
+      break;
+    case R.id.to:
+      if (RoutingController.get().setEndPoint(mMapObject))
+        hide();
       break;
     }
   }

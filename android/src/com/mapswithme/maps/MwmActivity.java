@@ -1228,7 +1228,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       RoutingPlanFragment fragment = (RoutingPlanFragment)getFragment(RoutingPlanFragment.class);
       if (fragment != null)
         fragment.updateBuildProgress(progress, router);
-    } else
+    }
+    else
     {
       mRoutingPlanInplaceController.updateBuildProgress(progress, router);
     }

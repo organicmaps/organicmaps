@@ -389,7 +389,8 @@ public class MainMenu
     {
       UiUtils.showIf(state != State.NAVIGATION, mButtonsFrame);
       expandContent = false;
-    } else
+    }
+    else
     {
       UiUtils.showIf(state == State.MENU, mButtonsFrame);
       UiUtils.showIf(state == State.ROUTE_PREPARE, mRoutePlanFrame);

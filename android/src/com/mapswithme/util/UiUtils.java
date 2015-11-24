@@ -89,7 +89,8 @@ public final class UiUtils
     });
   }
 
-  public static void measureView(final View frame, final OnViewMeasuredListener listener) {
+  public static void measureView(final View frame, final OnViewMeasuredListener listener)
+  {
     waitLayout(frame, new ViewTreeObserver.OnGlobalLayoutListener()
     {
       @Override
