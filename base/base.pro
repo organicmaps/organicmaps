@@ -31,7 +31,6 @@ SOURCES += \
     thread_pool.cpp \
     threaded_container.cpp \
     timer.cpp \
-    w3ctime.cpp \
 
 HEADERS += \
     SRC_FIRST.hpp \
@@ -82,5 +81,4 @@ HEADERS += \
     threaded_list.hpp \
     threaded_priority_queue.hpp \
     timer.hpp \
-    w3ctime.hpp \
     worker_thread.hpp \
