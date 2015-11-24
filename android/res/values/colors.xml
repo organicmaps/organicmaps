@@ -64,6 +64,7 @@
 
   <!-- routing-->
   <color name="routing_blue">#FF2096F3</color>
+  <color name="routing_progress">#FF757575</color>
   <color name="routing_slot_background">@android:color/white</color>
   <color name="routing_slot_background_pressed">#FFF0F0F0</color>
   <color name="routing_slot_shadow">#3D000000</color>

@@ -32,6 +32,11 @@ public abstract class MapObject implements Parcelable
       mTypeName = MwmApplication.get().getString(R.string.placepage_unsorted);
   }
 
+  /**
+   * If you override {@link #equals(Object)} it is also required to override {@link #hashCode()}.
+   * MapObject does not participate in any sets or other collections that need {@code hashCode()}.
+   * So {@code sameAs()} serves as {@code equals()} but does not break the equals+hashCode contract.
+   */
   public boolean sameAs(MapObject other)
   {
     if (other == null)

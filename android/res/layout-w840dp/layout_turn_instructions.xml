@@ -65,8 +65,8 @@
       android:layout_height="wrap_content"
       android:layout_below="@id/time_distance"
       app:headRadius="2dp"
-      app:progressColor="#757575"
-      app:headColor="#757575"
+      app:progressColor="@color/routing_progress"
+      app:headColor="@color/routing_progress"
       app:progressThickness="2dp"
       app:secondaryProgressColor="@color/base_black_divider"
       app:secondaryProgressThickness="2dp"/>

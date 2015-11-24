@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.mapswithme.maps.routing.SlotFrame
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/slots"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/slots"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="horizontal">
   <include
-      android:id="@+id/from"
-      layout="@layout/routing_point_slot"
-      android:layout_width="0dp"
-      android:layout_height="@dimen/routing_slot_height"
-      android:layout_weight="1"
-      android:layout_marginRight="8dp"/>
+    android:id="@+id/from"
+    layout="@layout/routing_point_slot"
+    android:layout_width="0dp"
+    android:layout_height="@dimen/routing_slot_height"
+    android:layout_weight="1"
+    android:layout_marginRight="8dp"/>
 
   <include
-      android:id="@+id/to"
-      layout="@layout/routing_point_slot"
-      android:layout_width="0dp"
-      android:layout_height="@dimen/routing_slot_height"
-      android:layout_weight="1"/>
+    android:id="@+id/to"
+    layout="@layout/routing_point_slot"
+    android:layout_width="0dp"
+    android:layout_height="@dimen/routing_slot_height"
+    android:layout_weight="1"/>
 </com.mapswithme.maps.routing.SlotFrame>

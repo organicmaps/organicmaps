@@ -12,7 +12,10 @@ import android.util.Log;
 import android.widget.Button;
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.StorageOptions;
-import com.mapswithme.maps.*;
+import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MapStorage;
+import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Config;
@@ -61,7 +64,8 @@ public class RoutingController
      * @param progress progress to be displayed.
      * @param router selected router type. One of {@link Framework#ROUTER_TYPE_VEHICLE} and {@link Framework#ROUTER_TYPE_PEDESTRIAN}.
      * */
-    void updateBuildProgress(@IntRange(from = 0, to = 100) int progress, int router);
+    void updateBuildProgress(@IntRange(from = 0, to = 100) int progress,
+                             @IntRange(from = Framework.ROUTER_TYPE_VEHICLE, to = Framework.ROUTER_TYPE_PEDESTRIAN) int router);
   }
 
   private static final RoutingController sInstance = new RoutingController();
@@ -283,13 +287,13 @@ public class RoutingController
   {
     Log.d(TAG, "prepare (" + (endPoint == null ? "route)" : "p2p)"));
 
-    cancel();
     if (!Config.isRoutingDisclaimerAccepted())
     {
       showDisclaimer(endPoint);
       return;
     }
 
+    cancel();
     mStartPoint = LocationHelper.INSTANCE.getMyPosition();
     mEndPoint = endPoint;
     setState(State.PREPARE);
@@ -345,8 +349,8 @@ public class RoutingController
   private void suggestRebuildRoute()
   {
     final AlertDialog.Builder builder = new AlertDialog.Builder(mContainer.getActivity())
-        .setCancelable(false)
-        .setNegativeButton(R.string.cancel, null);
+                                                       .setCancelable(false)
+                                                       .setNegativeButton(R.string.cancel, null);
 
     builder.setTitle(R.string.p2p_only_from_current)
            .setMessage(R.string.p2p_reroute_from_current);
@@ -458,19 +462,16 @@ public class RoutingController
     return false;
   }
 
-  // Planning UI is visible, no navigation active
   public boolean isPlanning()
   {
     return (mState == State.PREPARE);
   }
 
-  // Navigation is active
   public boolean isNavigating()
   {
     return (mState == State.NAVIGATION);
   }
 
-  // Route building is in progress
   public boolean isBuilding()
   {
     return (mState == State.PREPARE && mBuildState == BuildState.BUILDING);

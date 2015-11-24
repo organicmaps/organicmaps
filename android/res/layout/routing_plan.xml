@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/routing_plan_frame"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingBottom="8dp"
-    android:clipToPadding="false">
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/routing_plan_frame"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:paddingBottom="8dp"
+  android:clipToPadding="false">
   <FrameLayout android:layout_width="match_parent"
                android:layout_height="wrap_content">
     <include
-        layout="@layout/routing_plan_slots"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:clickable="true"/>
+      layout="@layout/routing_plan_slots"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="?attr/actionBarSize"
+      android:clickable="true"/>
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        style="@style/MwmWidget.ToolbarStyle"
-        android:theme="@style/MwmWidget.ToolbarTheme"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:elevation="0dp">
+      android:id="@+id/toolbar"
+      style="@style/MwmWidget.ToolbarStyle"
+      android:theme="@style/MwmWidget.ToolbarTheme"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:elevation="0dp">
       <ImageView
-          android:id="@+id/toggle"
-          android:layout_width="?attr/actionBarSize"
-          android:layout_height="?attr/actionBarSize"
-          android:layout_gravity="right|center_horizontal"
-          android:background="?attr/selectableItemBackgroundBorderless"
-          android:scaleType="center"
-          tools:src="@drawable/ic_down"/>
+        android:id="@+id/toggle"
+        android:layout_width="?attr/actionBarSize"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_gravity="right|center_horizontal"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:scaleType="center"
+        tools:src="@drawable/ic_down"/>
     </android.support.v7.widget.Toolbar>
   </FrameLayout>
 

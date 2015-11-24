@@ -311,10 +311,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (findViewById(R.id.fragment_container) != null)
       mIsFragmentContainer = true;
     else
+    {
       mRoutingPlanInplaceController = new RoutingPlanInplaceController(this);
-
-    if (!mIsFragmentContainer)
       removeCurrentFragment(false);
+    }
 
     mNavigationController = new NavigationController(this);
     initMenu();
@@ -1155,7 +1155,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       mMainMenu.setEnabled(MainMenu.Item.P2P, !RoutingController.get().isPlanning());
       mMainMenu.setEnabled(MainMenu.Item.SEARCH, !RoutingController.get().isWaitingPoiPick());
-    } else if (RoutingController.get().isPlanning())
+    }
+    else if (RoutingController.get().isPlanning())
     {
       mMainMenu.setState(MainMenu.State.ROUTE_PREPARE, false);
       return;
@@ -1174,13 +1175,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (mIsFragmentContainer)
       {
         replaceFragment(RoutingPlanFragment.class, null, completionListener);
-      } else
+      }
+      else
       {
         mRoutingPlanInplaceController.show(true);
         if (completionListener != null)
           completionListener.run();
       }
-    } else
+    }
+    else
     {
       if (mIsFragmentContainer)
         closeSidePanel();
@@ -1210,7 +1213,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       RoutingPlanFragment fragment = (RoutingPlanFragment)getFragment(RoutingPlanFragment.class);
       if (fragment != null)
         fragment.updatePoints();
-    } else
+    }
+    else
     {
       mRoutingPlanInplaceController.updatePoints();
     }
