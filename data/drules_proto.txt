@@ -5162,6 +5162,84 @@ cont {
   }
 }
 cont {
+  name: "amenity-vending_machine-parking_tickets"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+}
+cont {
+  name: "amenity-vending_machine-public_transport_tickets"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+}
+cont {
   name: "amenity-waste_disposal"
   element {
     scale: 17
