@@ -7,6 +7,7 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/index.hpp"
 #include "indexer/scales.hpp"
+#include "indexer/search_index_values.hpp"
 #include "indexer/search_trie.hpp"
 
 #include "platform/mwm_version.hpp"
@@ -59,14 +60,14 @@ void CoverRect(m2::RectD const & rect, int scale, covering::IntervalsT & result)
   result.insert(result.end(), intervals.begin(), intervals.end());
 }
 
-// Retrieves from the search index corresponding to |handle| all
-// features matching to |params|.
-unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(MwmSet::MwmHandle const & handle,
-                                                                my::Cancellable const & cancellable,
-                                                                SearchQueryParams const & params)
+namespace
+{
+template <typename TValue>
+unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
+    MwmSet::MwmHandle const & handle, my::Cancellable const & cancellable,
+    SearchQueryParams const & params)
 {
   auto * value = handle.GetValue<MwmValue>();
-  ASSERT(value, ());
   serial::CodingParams codingParams(trie::GetCodingParams(value->GetHeader().GetDefCodingParams()));
   ModelReaderPtr searchReader = value->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
 
@@ -75,55 +76,56 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(MwmSet::MwmHandl
     return true;
   };
 
+  auto const trieRoot = trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<TValue>>(
+      SubReaderWrapper<Reader>(searchReader.GetPtr()), SingleValueSerializer<TValue>(codingParams));
+
+  // TODO (@y, @m): This code may be optimized in the case where
+  // bit vectors are sorted in the search index.
+  vector<uint64_t> features;
+  auto collector = [&](TValue const & value)
+  {
+    if (cancellable.IsCancelled())
+      throw CancelException();
+    features.push_back(value.m_featureId);
+  };
+
+  MatchFeaturesInTrie(params, *trieRoot, emptyFilter, collector);
+  return SortFeaturesAndBuildCBV(move(features));
+}
+}  // namespace
+
+// Retrieves from the search index corresponding to |handle| all
+// features matching to |params|.
+unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(MwmSet::MwmHandle const & handle,
+                                                                my::Cancellable const & cancellable,
+                                                                SearchQueryParams const & params)
+{
+  auto * value = handle.GetValue<MwmValue>();
+  ASSERT(value, ());
+
   version::MwmVersion version;
   if (!version::ReadVersion(value->m_cont, version))
   {
     LOG(LERROR, ("Unreadable mwm version."));
     return unique_ptr<coding::CompressedBitVector>();
   }
-  if (version.format < version::v7)
+  MwmFeatures mwmFeatures(version.format);
+
+  if (mwmFeatures.GetSearchIndexFormat() ==
+      MwmFeatures::SearchIndexFormat::FeaturesWithRankAndCenter)
   {
     using TValue = FeatureWithRankAndCenter;
-
-    auto const trieRoot = trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<TValue>>(
-        SubReaderWrapper<Reader>(searchReader.GetPtr()),
-        SingleValueSerializer<TValue>(codingParams));
-
-    vector<uint64_t> features;
-    auto collector = [&](TValue const & value)
-    {
-      if (cancellable.IsCancelled())
-        throw CancelException();
-      features.push_back(value.m_featureId);
-    };
-
-    MatchFeaturesInTrie(params, *trieRoot, emptyFilter, collector);
-    return SortFeaturesAndBuildCBV(move(features));
+    return RetrieveAddressFeaturesImpl<TValue>(handle, cancellable, params);
   }
-  else if (version.format == version::v7)
+  else if (mwmFeatures.GetSearchIndexFormat() ==
+           MwmFeatures::SearchIndexFormat::CompressedBitVector)
   {
     using TValue = FeatureIndexValue;
-
-    auto const trieRoot = trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<TValue>>(
-        SubReaderWrapper<Reader>(searchReader.GetPtr()),
-        SingleValueSerializer<TValue>(codingParams));
-
-    // TODO (@y, @m): remove this code as soon as search index will have
-    // native support for bit vectors.
-    vector<uint64_t> features;
-    auto collector = [&](TValue const & value)
-    {
-      if (cancellable.IsCancelled())
-        throw CancelException();
-      features.push_back(value.m_featureId);
-    };
-
-    MatchFeaturesInTrie(params, *trieRoot, emptyFilter, collector);
-    return SortFeaturesAndBuildCBV(move(features));
+    return RetrieveAddressFeaturesImpl<TValue>(handle, cancellable, params);
   }
   else
   {
-    LOG(LERROR, ("Unsupported mwm version:", version.format));
+    LOG(LERROR, ("Unsupported search index format."));
     return unique_ptr<coding::CompressedBitVector>();
   }
 }

@@ -1606,73 +1606,24 @@ public:
     }
   }
 };
+
 }  // namespace impl
 
-void Query::SearchLocality(MwmValue const * pMwm, Locality & res1, Region & res2)
+namespace
 {
-  SearchQueryParams params;
-  InitParams(true /* localitySearch */, params);
-
-  auto codingParams = trie::GetCodingParams(pMwm->GetHeader().GetDefCodingParams());
-
-  auto versionFormat = pMwm->GetHeader().GetFormat();
-  if (versionFormat < version::v7)
-  {
-    using TValue = FeatureWithRankAndCenter;
-
+template <typename TValue>
+void SearchLocalityImpl(Query * query, MwmValue const * pMwm, Locality & res1, Region & res2,
+                        SearchQueryParams & params, serial::CodingParams & codingParams)
+{
     ModelReaderPtr searchReader = pMwm->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
 
     auto const trieRoot = trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<TValue>>(
         SubReaderWrapper<Reader>(searchReader.GetPtr()),
         SingleValueSerializer<TValue>(codingParams));
 
-    ForEachLangPrefix(params, *trieRoot, [&](TrieRootPrefix<TValue> & langRoot, int8_t lang)
-                      {
-                        impl::DoFindLocality doFind(*this, pMwm, lang);
-                        MatchTokensInTrie(params.m_tokens, langRoot, doFind);
-
-                        // Last token's prefix is used as a complete token here, to limit number of
-                        // results.
-                        doFind.Resize(params.m_tokens.size() + 1);
-                        doFind.SwitchTo(params.m_tokens.size());
-                        MatchTokenInTrie(params.m_prefixTokens, langRoot, doFind);
-                        doFind.SortLocalities();
-
-                        // Get regions from STATE and COUNTRY localities
-                        vector<Region> regions;
-                        doFind.GetRegions(regions);
-
-                        // Get best CITY locality.
-                        Locality loc;
-                        doFind.GetBestCity(loc, regions);
-                        if (res1 < loc)
-                        {
-                          LOG(LDEBUG, ("Better location ", loc, " for language ", lang));
-                          res1.Swap(loc);
-                        }
-
-                        // Get best region.
-                        if (!regions.empty())
-                        {
-                          sort(regions.begin(), regions.end());
-                          if (res2 < regions.back())
-                            res2.Swap(regions.back());
-                        }
-                      });
-  }
-  else if (versionFormat == version::v7)
-  {
-    using TValue = FeatureIndexValue;
-
-    ModelReaderPtr searchReader = pMwm->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
-
-    auto const trieRoot = trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<TValue>>(
-        SubReaderWrapper<Reader>(searchReader.GetPtr()),
-        SingleValueSerializer<TValue>(codingParams));
-
-    ForEachLangPrefix(params, *trieRoot, [&](TrieRootPrefix<TValue> & langRoot, int8_t lang)
+    auto finder = [&](TrieRootPrefix<TValue> & langRoot, int8_t lang)
     {
-      impl::DoFindLocality doFind(*this, pMwm, lang);
+      impl::DoFindLocality doFind(*query, pMwm, lang);
       MatchTokensInTrie(params.m_tokens, langRoot, doFind);
 
       // Last token's prefix is used as a complete token here, to limit number of
@@ -1691,7 +1642,7 @@ void Query::SearchLocality(MwmValue const * pMwm, Locality & res1, Region & res2
       doFind.GetBestCity(loc, regions);
       if (res1 < loc)
       {
-        LOG(LDEBUG, ("Better location", loc, " for language", lang));
+        LOG(LDEBUG, ("Better location ", loc, " for language ", lang));
         res1.Swap(loc);
       }
 
@@ -1700,13 +1651,38 @@ void Query::SearchLocality(MwmValue const * pMwm, Locality & res1, Region & res2
       {
         sort(regions.begin(), regions.end());
         if (res2 < regions.back())
-        res2.Swap(regions.back());
+          res2.Swap(regions.back());
       }
-    });
-  }
-  else
+    };
+
+    ForEachLangPrefix(params, *trieRoot, finder);
+}
+}  // namespace
+
+void Query::SearchLocality(MwmValue const * pMwm, Locality & res1, Region & res2)
+{
+  SearchQueryParams params;
+  InitParams(true /* localitySearch */, params);
+
+  auto codingParams = trie::GetCodingParams(pMwm->GetHeader().GetDefCodingParams());
+
+  MwmFeatures mwmFeatures(pMwm->GetHeader().GetFormat());
+
+  if (mwmFeatures.GetSearchIndexFormat() ==
+      MwmFeatures::SearchIndexFormat::FeaturesWithRankAndCenter)
   {
-    LOG(LERROR, ("Unsupported mwm version:", versionFormat));
+    using TValue = FeatureWithRankAndCenter;
+    SearchLocalityImpl<TValue>(this, pMwm, res1, res2, params, codingParams);
+  }
+  else if (mwmFeatures.GetSearchIndexFormat() ==
+           MwmFeatures::SearchIndexFormat::CompressedBitVector)
+  {
+    using TValue = FeatureIndexValue;
+    SearchLocalityImpl<TValue>(this, pMwm, res1, res2, params, codingParams);
+  }
+  else if (mwmFeatures.GetSearchIndexFormat() == MwmFeatures::SearchIndexFormat::Unknown)
+  {
+    LOG(LERROR, ("Unsupported search index format."));
   }
 }
 
