@@ -14,6 +14,7 @@ ReadMWMTask::ReadMWMTask(MemoryFeatureIndex & memIndex, MapDataProvider & model)
 void ReadMWMTask::Init(shared_ptr<TileInfo> const & tileInfo)
 {
   m_tileInfo = tileInfo;
+  m_tileKey = tileInfo->GetTileKey();
 #ifdef DEBUG
   m_checker = true;
 #endif
@@ -29,10 +30,11 @@ void ReadMWMTask::Reset()
 
 bool ReadMWMTask::IsCancelled() const
 {
-  if (m_tileInfo == nullptr)
+  shared_ptr<TileInfo> tile = m_tileInfo.lock();
+  if (tile == nullptr)
     return true;
 
-  return m_tileInfo->IsCancelled() || IRoutine::IsCancelled();
+  return tile->IsCancelled() || IRoutine::IsCancelled();
 }
 
 void ReadMWMTask::Do()
@@ -41,21 +43,17 @@ void ReadMWMTask::Do()
   ASSERT(m_checker, ());
 #endif
 
-  ASSERT(m_tileInfo != nullptr, ());
+  shared_ptr<TileInfo> tile = m_tileInfo.lock();
+  if (tile == nullptr)
+    return;
   try
   {
-    m_tileInfo->ReadFeatures(m_model, m_memIndex);
+    tile->ReadFeatures(m_model, m_memIndex);
   }
   catch (TileInfo::ReadCanceledException &)
   {
     return;
   }
-}
-
-TileKey ReadMWMTask::GetTileKey() const
-{
-  ASSERT(m_tileInfo != nullptr, ());
-  return m_tileInfo->GetTileKey();
 }
 
 } // namespace df

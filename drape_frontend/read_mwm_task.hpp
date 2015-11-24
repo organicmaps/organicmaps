@@ -9,6 +9,7 @@
 #endif
 
 #include "std/shared_ptr.hpp"
+#include "std/weak_ptr.hpp"
 
 namespace df
 {
@@ -24,10 +25,11 @@ public:
   void Init(shared_ptr<TileInfo> const & tileInfo);
   void Reset() override;
   bool IsCancelled() const override;
-  TileKey GetTileKey() const;
+  TileKey const & GetTileKey() const { return m_tileKey; }
 
 private:
-  shared_ptr<TileInfo> m_tileInfo;
+  weak_ptr<TileInfo> m_tileInfo;
+  TileKey m_tileKey;
   MemoryFeatureIndex & m_memIndex;
   MapDataProvider & m_model;
 
