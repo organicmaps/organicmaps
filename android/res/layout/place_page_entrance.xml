@@ -10,6 +10,7 @@
   android:paddingBottom="@dimen/margin_half"
   android:paddingTop="@dimen/margin_half"
   android:visibility="gone"
+  android:clickable="true"
   tools:background="#6000FF00"
   tools:visibility="visible">
 

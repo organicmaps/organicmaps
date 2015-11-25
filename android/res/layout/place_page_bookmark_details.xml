@@ -28,12 +28,10 @@
         android:layout_height="wrap_content"
         android:hint="@string/name"
         android:inputType="textCapWords"
-        android:singleLine="true"
-        android:textSize="@dimen/text_size_body_1"/>
+        android:singleLine="true"/>
   </com.mapswithme.maps.widget.CustomTextInputLayout>
 
   <TextView
-      android:id="@+id/tv__bookmark_group_title"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_base_plus"

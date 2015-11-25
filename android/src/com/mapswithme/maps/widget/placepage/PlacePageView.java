@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.*;
+import android.view.inputmethod.EditorInfo;
 import android.webkit.WebView;
 import android.widget.*;
 import com.mapswithme.maps.*;
@@ -159,7 +160,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mTvWebsite = (TextView) mPpDetails.findViewById(R.id.tv__place_website);
     mLatlon = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_latlon);
     mTvLatlon = (TextView) mPpDetails.findViewById(R.id.tv__place_latlon);
-    mLatlon.setOnClickListener(this);
     mSchedule = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_schedule);
     mTvSchedule = (TextView) mPpDetails.findViewById(R.id.tv__place_schedule);
     mWifi = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_wifi);
@@ -172,12 +172,10 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mOperator.setOnClickListener(this);
     mTvOperator = (TextView) mOperator.findViewById(R.id.tv__place_operator);
     mCuisine = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_cuisine);
-    mCuisine.setOnClickListener(this);
     mTvCuisine = (TextView) mCuisine.findViewById(R.id.tv__place_cuisine);
     mWiki = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_wiki);
     mWiki.setOnClickListener(this);
     mEntrance = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_entrance);
-    mEntrance.setOnClickListener(this);
     mTvEntrance = (TextView) mEntrance.findViewById(R.id.tv__place_entrance);
     mLatlon.setOnLongClickListener(this);
     mAddress.setOnLongClickListener(this);
@@ -189,6 +187,21 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mWiki.setOnLongClickListener(this);
 
     mEtBookmarkName = (EditText) mPpDetails.findViewById(R.id.et__bookmark_name);
+    mEtBookmarkName.setOnEditorActionListener(new TextView.OnEditorActionListener()
+    {
+      @Override
+      public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
+      {
+        if (actionId == EditorInfo.IME_ACTION_DONE)
+        {
+          saveBookmarkNameIfUpdated();
+          refreshPreview();
+        }
+
+        return false;
+      }
+    });
+
     mTvNotes = (TextView) mPpDetails.findViewById(R.id.tv__bookmark_notes);
     mTvNotes.setOnClickListener(this);
 
@@ -293,7 +306,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   public MapObject getMapObject()
   {
-    saveBookmarkNameIfUpdated(null);
+    saveBookmarkNameIfUpdated();
     return mMapObject;
   }
 
@@ -302,7 +315,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     if (hasMapObject(mapObject))
       return;
 
-    saveBookmarkNameIfUpdated(mapObject);
+    if (!(mapObject instanceof Bookmark))
+      saveBookmarkNameIfUpdated();
+
     mMapObject = mapObject;
     refreshViews();
   }
@@ -319,49 +334,49 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   public void refreshViews()
   {
-    if (mMapObject != null)
+    if (mMapObject == null)
+      return;
+
+    mMapObject.setDefaultIfEmpty();
+
+    refreshPreview();
+    refreshDetails();
+    final Location loc = LocationHelper.INSTANCE.getLastLocation();
+
+    switch (mMapObject.getType())
     {
-      mMapObject.setDefaultIfEmpty();
-
-      refreshPreview();
-      refreshDetails();
-      final Location loc = LocationHelper.INSTANCE.getLastLocation();
-
-      switch (mMapObject.getType())
-      {
-      case BOOKMARK:
-        refreshDistanceToObject(loc);
-        showBookmarkDetails();
-        refreshButtons(false, true);
-        break;
-      case POI:
-      case ADDITIONAL_LAYER:
-        refreshDistanceToObject(loc);
-        hideBookmarkDetails();
-        refreshButtons(false, true);
-        break;
-      case API_POINT:
-        refreshDistanceToObject(loc);
-        hideBookmarkDetails();
-        refreshButtons(true, true);
-        break;
-      case MY_POSITION:
-        refreshMyPosition(loc);
-        hideBookmarkDetails();
-        refreshButtons(false, false);
-        break;
-      }
-
-      UiThread.runLater(new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          mShadowController.updateShadows();
-          requestLayout();
-        }
-      });
+    case BOOKMARK:
+      refreshDistanceToObject(loc);
+      showBookmarkDetails();
+      refreshButtons(false, true);
+      break;
+    case POI:
+    case ADDITIONAL_LAYER:
+      refreshDistanceToObject(loc);
+      hideBookmarkDetails();
+      refreshButtons(false, true);
+      break;
+    case API_POINT:
+      refreshDistanceToObject(loc);
+      hideBookmarkDetails();
+      refreshButtons(true, true);
+      break;
+    case MY_POSITION:
+      refreshMyPosition(loc);
+      hideBookmarkDetails();
+      refreshButtons(false, false);
+      break;
     }
+
+    UiThread.runLater(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        mShadowController.updateShadows();
+        requestLayout();
+      }
+    });
   }
 
   private void refreshPreview()
@@ -621,12 +636,10 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     }
   }
 
-  private void saveBookmarkNameIfUpdated(MapObject newObject)
+  private void saveBookmarkNameIfUpdated()
   {
-    // 1. Can't save bookmark name if current object is not bookmark.
-    // 2. If new object is bookmark, we should NOT try to save old one, cause it might be just old bookmark moved to the new set.
-    // In that case old bookmark is already saved.
-    if (mMapObject == null || !(mMapObject instanceof Bookmark) || newObject instanceof Bookmark)
+    // Can't save bookmark name if current object is not bookmark.
+    if (mMapObject == null || !(mMapObject instanceof Bookmark))
       return;
 
     final Bookmark bookmark = (Bookmark) mMapObject;
@@ -640,7 +653,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     switch (v.getId())
     {
     case R.id.iv__bookmark_color:
-      saveBookmarkNameIfUpdated(null);
+      saveBookmarkNameIfUpdated();
       selectBookmarkColor();
       break;
     case R.id.ll__bookmark:
@@ -687,7 +700,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       followUrl(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
       break;
     case R.id.tv__bookmark_group:
-      saveBookmarkNameIfUpdated(null);
+      saveBookmarkNameIfUpdated();
       selectBookmarkSet();
       break;
     case R.id.av__direction:
@@ -702,6 +715,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     case R.id.tv__bookmark_notes:
     case R.id.tv__description:
     case R.id.btn__edit_html_bookmark:
+      saveBookmarkNameIfUpdated();
       final Bundle args = new Bundle();
       final Bookmark bookmark = (Bookmark) mMapObject;
       args.putString(EditDescriptionFragment.EXTRA_DESCRIPTION, bookmark.getBookmarkDescription());
