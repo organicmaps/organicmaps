@@ -12,6 +12,7 @@
   android:paddingTop="@dimen/margin_half"
   android:tag="schedule"
   android:visibility="gone"
+  android:clickable="true"
   tools:visibility="visible">
 
   <ImageView

@@ -54,7 +54,7 @@
       style="@style/MwmWidget.Floating.Panel"
       android:layout_width="@dimen/place_page_width"
       android:layout_height="match_parent"
-      android:layout_below="@+id/navigation_frame"
+      android:layout_below="@id/toolbar"
       android:layout_alignWithParentIfMissing="true"
       placePage:animationType="left"
       placePage:docked="true"
