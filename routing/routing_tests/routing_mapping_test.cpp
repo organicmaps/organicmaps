@@ -118,14 +118,10 @@ UNIT_TEST(FtSegSplitSegmentiTest)
   OsrmMappingTypes::FtSeg bseg(123, 5, 1);
   OsrmMappingTypes::FtSeg splitter(123, 2, 3);
 
-  OsrmMappingTypes::FtSeg res1(123, 2, 5);
-  TEST_EQUAL(res1, OsrmMappingTypes::SplitSegment(seg, splitter, false), ());
-  OsrmMappingTypes::FtSeg res2(123, 1, 3);
-  TEST_EQUAL(res2, OsrmMappingTypes::SplitSegment(seg, splitter, true), ());
+  OsrmMappingTypes::FtSeg res1(123, 1, 3);
+  TEST_EQUAL(res1, OsrmMappingTypes::SplitSegment(seg, splitter), ());
 
-  OsrmMappingTypes::FtSeg res3(123, 3, 1);
-  TEST_EQUAL(res3, OsrmMappingTypes::SplitSegment(bseg, splitter, false), ());
-  OsrmMappingTypes::FtSeg res4(123, 5, 2);
-  TEST_EQUAL(res4, OsrmMappingTypes::SplitSegment(bseg, splitter, true), ());
+  OsrmMappingTypes::FtSeg res2(123, 5, 2);
+  TEST_EQUAL(res2, OsrmMappingTypes::SplitSegment(bseg, splitter), ());
 }
 }  // namespace

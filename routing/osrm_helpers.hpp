@@ -59,7 +59,7 @@ private:
   /// Calculates part of a node weight in the OSRM format. Projection point @segPt divides node on
   /// two parts. So we find weight of a part, set by the @calcFromRight parameter.
   void CalculateWeight(OsrmMappingTypes::FtSeg const & seg, m2::PointD const & segPt,
-                       NodeID const & nodeId, bool calcFromRight, int & weight, int & offset) const;
+                       NodeID const & nodeId, int & weight, int & offset) const;
 
   /// Returns minimal weight of the node.
   EdgeWeight GetMinNodeWeight(NodeID node, m2::PointD const & point) const;

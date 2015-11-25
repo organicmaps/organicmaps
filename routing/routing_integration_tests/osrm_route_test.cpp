@@ -8,6 +8,13 @@ using namespace routing;
 
 namespace
 {
+  UNIT_TEST(StrangeCaseInAfrica)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetOsrmComponents(), MercatorBounds::FromLatLon(19.207890000000002573, 30.506630000000001246), {0., 0.},
+        MercatorBounds::FromLatLon(19.172889999999998878, 30.473150000000000404), 7250.);
+  }
+
   // Node filtering test. SVO has many restricted service roads that absent in a OSRM index.
   UNIT_TEST(MoscowToSVOAirport)
   {
@@ -118,6 +125,14 @@ namespace
     integration::CalculateRouteAndTestRouteLength(
         integration::GetOsrmComponents(), {37.537596024929826, 67.536160359657288}, {0., 0.},
         {11.327927635052676, 48.166256203616726}, 2870710.);
+  }
+
+  UNIT_TEST(PeruSingleRoadTest)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetOsrmComponents(),
+        MercatorBounds::FromLatLon(-14.22061, -73.35969), {0., 0.},
+        MercatorBounds::FromLatLon(-14.22389, -73.44281), 15900.);
   }
 
   UNIT_TEST(RussiaMoscowFranceParisCenterRouteTest)
@@ -245,6 +260,6 @@ namespace
     IRouter::ResultCode const result = routeResult.second;
     TEST_EQUAL(result, IRouter::NoError, ());
 
-    integration::TestRouteTime(route, 909.);
+    integration::TestRouteTime(route, 900.);
   }
 }  // namespace

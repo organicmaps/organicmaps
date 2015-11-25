@@ -11,6 +11,8 @@
 #define new DEBUG_NEW
 #endif
 
+using std::abs;
+
 namespace math
 {
   double constexpr pi = 3.14159265358979323846;

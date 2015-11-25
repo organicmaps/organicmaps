@@ -122,36 +122,20 @@ bool IsInside(FtSeg const & bigSeg, FtSeg const & smallSeg)
          (segmentLeft <= smallSeg.m_pointStart && segmentRight >= smallSeg.m_pointEnd);
 }
 
-FtSeg SplitSegment(FtSeg const & segment, FtSeg const & splitter, bool const resultFromLeft)
+FtSeg SplitSegment(FtSeg const & segment, FtSeg const & splitter)
 {
   FtSeg resultSeg;
   resultSeg.m_fid = segment.m_fid;
 
   if (segment.m_pointStart < segment.m_pointEnd)
   {
-    if (resultFromLeft)
-    {
-      resultSeg.m_pointStart = segment.m_pointStart;
-      resultSeg.m_pointEnd = splitter.m_pointEnd;
-    }
-    else
-    {
-      resultSeg.m_pointStart = splitter.m_pointStart;
-      resultSeg.m_pointEnd = segment.m_pointEnd;
-    }
+    resultSeg.m_pointStart = segment.m_pointStart;
+    resultSeg.m_pointEnd = splitter.m_pointEnd;
   }
   else
   {
-    if (resultFromLeft)
-    {
-      resultSeg.m_pointStart = segment.m_pointStart;
-      resultSeg.m_pointEnd = splitter.m_pointStart;
-    }
-    else
-    {
-      resultSeg.m_pointStart = splitter.m_pointEnd;
-      resultSeg.m_pointEnd = segment.m_pointEnd;
-    }
+    resultSeg.m_pointStart = segment.m_pointStart;
+    resultSeg.m_pointEnd = splitter.m_pointStart;
   }
   return resultSeg;
 }
