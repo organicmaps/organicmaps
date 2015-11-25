@@ -2,10 +2,7 @@ package com.mapswithme.maps.settings;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
-import android.preference.SwitchPreference;
+import android.preference.*;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import com.mapswithme.maps.R;
@@ -21,7 +18,7 @@ public class RoutePrefsFragment extends PreferenceFragment
 {
   private static final int REQUEST_INSTALL_DATA = 1;
 
-  private SwitchPreference mPrefEnabled;
+  private TwoStatePreference mPrefEnabled;
   private ListPreference mPrefLanguages;
 
   private final Map<String, LanguageData> mLanguages = new HashMap<>();
@@ -143,7 +140,7 @@ public class RoutePrefsFragment extends PreferenceFragment
     super.onCreate(savedInstanceState);
     addPreferencesFromResource(R.xml.prefs_route);
 
-    mPrefEnabled = (SwitchPreference) findPreference(getString(R.string.pref_tts_enabled));
+    mPrefEnabled = (TwoStatePreference) findPreference(getString(R.string.pref_tts_enabled));
     mPrefLanguages = (ListPreference) findPreference(getString(R.string.pref_tts_language));
     update();
   }
