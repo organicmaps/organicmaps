@@ -123,7 +123,7 @@ PLANET="${PLANET:-$HOME/planet}"
 [ -d "$PLANET" ] && PLANET="$PLANET/planet-latest.o5m"
 [ ! -f "$PLANET" -a -z "$OPT_DOWNLOAD" ] && fail "Please put planet file into $PLANET, use -U, or specify correct PLANET variable"
 OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
-DATA_PATH="$OMIM_PATH/data"
+DATA_PATH="${DATA_PATH:-$OMIM_PATH/data}"
 [ ! -r "${DATA_PATH}/types.txt" ] && fail "Cannot find classificators in $DATA_PATH, please set correct OMIM_PATH"
 [ -n "$OPT_ROUTING" -a ! -f "$HOME/.stxxl" ] && fail "For routing, you need ~/.stxxl file. Run this: echo 'disk=$HOME/stxxl_disk1,400G,syscall' > $HOME/.stxxl"
 TARGET="${TARGET:-$DATA_PATH}"
@@ -135,11 +135,17 @@ MERGE_INTERVAL=${MERGE_INTERVAL:-40}
 # set to "mem" if there is more than 64 GB of memory
 NODE_STORAGE=${NODE_STORAGE:-${NS:-mem}}
 ASYNC_PBF=${ASYNC_PBF-}
-NUM_PROCESSES=${NUM_PROCESSES:-$(($(nproc || echo 8) - 1))}
 KEEP_INTDIR=${KEEP_INTDIR-1}
+# nproc is linux-only
+if [ "$(uname -s)" == "Darwin" ]; then
+  CPUS="$(sysctl -n hw.ncpu)"
+else
+  CPUS="$(nproc || echo 8)"
+fi
+NUM_PROCESSES=${NUM_PROCESSES:-$(($CPUS - 1))}
 
 STATUS_FILE="$INTDIR/status"
-OSRM_FLAG="${OSRM_FLAG:-$INTDIR/osrm_done}"
+OSRM_FLAG="$INTDIR/osrm_done"
 SCRIPTS_PATH="$(dirname "$0")"
 ROUTING_SCRIPT="$SCRIPTS_PATH/generate_planet_routing.sh"
 TESTING_SCRIPT="$SCRIPTS_PATH/test_planet.sh"
@@ -182,7 +188,6 @@ ULIMIT_REQ=$((3 * $(ls "$TARGET/borders" | { grep '\.poly' || true; } | wc -l)))
 export GENERATOR_TOOL
 export INTDIR
 export OMIM_PATH
-export OSRM_FLAG
 export PLANET
 export OSMCTOOLS
 export NUM_PROCESSES
@@ -194,8 +199,8 @@ export LC_ALL=en_US.UTF-8
 
 [ -n "$OPT_CLEAN" -a -d "$INTDIR" ] && rm -r "$INTDIR"
 mkdir -p "$INTDIR"
-if [ "$(df -m "$INTDIR" | tail -n 1 | awk '{ printf "%d\n", $4 / 1024 }')" -lt "250" ]; then
-  echo "WARNING: You have less than 250 MB for intermediate data, that's not enough for the whole planet."
+if [ -z "${REGIONS+1}" -a "$(df -m "$INTDIR" | tail -n 1 | awk '{ printf "%d\n", $4 / 1024 }')" -lt "250" ]; then
+  echo "WARNING: You have less than 250 GB for intermediate data, that's not enough for the whole planet."
 fi
 
 if [ -r "$STATUS_FILE" ]; then
@@ -284,15 +289,28 @@ if [ -n "$OPT_ROUTING" -a -z "$NO_REGIONS" ]; then
     log "start_routing(): OSRM files have been already created, no need to repeat"
   else
     putmode "Step R: Starting OSRM files generation"
-    if [ -n "$ASYNC_PBF" ]; then
+    PBF_FLAG="${OSRM_FLAG}_pbf"
+    if [ -n "$ASYNC_PBF" -a ! -e "$PBF_FLAG" ]; then
       (
         bash "$ROUTING_SCRIPT" pbf >> "$PLANET_LOG" 2>&1
+        touch "$PBF_FLAG"
         bash "$ROUTING_SCRIPT" prepare >> "$PLANET_LOG" 2>&1
+        touch "$OSRM_FLAG"
+        rm "$PBF_FLAG"
       ) &
     else
       # Osmconvert takes too much memory: it makes sense to not extract pbfs asyncronously
-      bash "$ROUTING_SCRIPT" pbf >> "$PLANET_LOG" 2>&1
-      ( bash "$ROUTING_SCRIPT" prepare >> "$PLANET_LOG" 2>&1 ) &
+      if [ -e "$PBF_FLAG" ]; then
+        log "start_routing(): PBF files have been already created, skipping that step"
+      else
+        bash "$ROUTING_SCRIPT" pbf >> "$PLANET_LOG" 2>&1
+        touch "$PBF_FLAG"
+      fi
+      (
+        bash "$ROUTING_SCRIPT" prepare >> "$PLANET_LOG" 2>&1
+        touch "$OSRM_FLAG"
+        rm "$PBF_FLAG"
+      ) &
     fi
   fi
 fi
@@ -437,7 +455,7 @@ if [ "$MODE" == "test" ]; then
 fi
 
 # Clean temporary indices
-if [ -n "$(ls "$TARGET" | grep '\.mwm')" ]; then
+if [ -n "$(ls "$TARGET" | grep '\.mwm$')" ]; then
   for mwm in "$TARGET"/*.mwm; do
     BASENAME="${mwm%.mwm}"
     [ -d "$BASENAME" ] && rm -r "$BASENAME"

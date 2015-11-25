@@ -10,13 +10,17 @@ OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
 
 if [ -z "${GENERATOR_TOOL-}" -o ! -x "${GENERATOR_TOOL-}" ]; then
   IT_PATHS_ARRAY=()
-  for i in ${BUILD_PATH-} $OMIM_PATH $OMIM_PATH/../*omim*elease* $OMIM_PATH/../*omim*ebug; do
+  for i in "${BUILD_PATH-}" "$OMIM_PATH" "$OMIM_PATH/.."/*omim*elease* "$OMIM_PATH/.."/*omim*ebug; do
     if [ -d "$i/out" ]; then
       IT_PATHS_ARRAY+=("$i/out/release/generator_tool" "$i/out/debug/generator_tool")
     fi
   done
 
-  for i in "${BUILD_PATH:+$BUILD_PATH/generator_tool}" ${IT_PATHS_ARRAY[@]}; do
+  if [ -d "$OMIM_PATH/../omim-xcode-build" ]; then
+    IT_PATHS_ARRAY+=("$OMIM_PATH/../omim-xcode-build/Release" "$OMIM_PATH/../omim-xcode-build/Debug")
+  fi
+
+  for i in "${BUILD_PATH:+$BUILD_PATH/generator_tool}" "${IT_PATHS_ARRAY[@]}"; do
     if [ -x "$i" ]; then
       GENERATOR_TOOL="$i"
       break
