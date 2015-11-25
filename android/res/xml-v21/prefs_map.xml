@@ -15,11 +15,13 @@
     android:entryValues="@array/measument_units_values"
     android:order="2"/>
 
-  <CheckBoxPreference
+  <SwitchPreference
     android:key="@string/pref_show_zoom_buttons"
     android:title="@string/pref_zoom_title"
     android:summary="@string/pref_zoom_summary"
-    android:order="3"/>
+    android:order="3"
+    android:switchTextOn=""
+    android:switchTextOff=""/>
 
   <ListPreference
     android:key="@string/pref_map_style"

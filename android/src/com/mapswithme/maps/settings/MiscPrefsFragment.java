@@ -2,7 +2,7 @@ package com.mapswithme.maps.settings;
 
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.SwitchPreference;
+import android.preference.TwoStatePreference;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.mapswithme.maps.MwmApplication;
@@ -24,7 +24,7 @@ public class MiscPrefsFragment extends BaseXmlSettingsFragment
     super.onCreate(savedInstanceState);
 
     Preference pref = findPreference(getString(R.string.pref_send_statistics));
-    ((SwitchPreference)pref).setChecked(Config.isStatisticsEnabled());
+    ((TwoStatePreference)pref).setChecked(Config.isStatisticsEnabled());
     pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
     {
       @Override
