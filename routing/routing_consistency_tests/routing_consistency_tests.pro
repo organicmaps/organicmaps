@@ -1,7 +1,7 @@
 # This subproject implements routing consistency tests.
 # This tests are launched on the whole world dataset.
 
-TARGET = routing_consistency
+TARGET = routing_consistency_test
 CONFIG += console warn_on
 CONFIG -= app_bundle
 TEMPLATE = app
