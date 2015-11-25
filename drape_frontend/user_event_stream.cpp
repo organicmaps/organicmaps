@@ -161,7 +161,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
     case UserEvent::EVENT_SET_RECT:
       if (m_perspectiveAnimation != nullptr)
       {
-        //m_pendingEvent.reset(new UserEvent(e.m_rectEvent));
+        m_pendingEvent.reset(new UserEvent(e.m_rectEvent));
         break;
       }
       breakAnim = SetRect(e.m_rectEvent.m_rect, e.m_rectEvent.m_zoom, e.m_rectEvent.m_applyRotation, e.m_rectEvent.m_isAnim);

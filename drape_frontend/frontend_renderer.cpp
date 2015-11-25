@@ -386,11 +386,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       {
         m_myPositionController->DeactivateRouting();
         if (m_enable3dInNavigation)
-        {
-          m_discardedFOV = -1.0;
-          m_discardedAngle = -1.0;
-          AddUserEvent(DisablePerspectiveEvent());
-        }
+          DiscardPerspective();
       }
       break;
     }
@@ -410,11 +406,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       m_myPositionController->DeactivateRouting();
       if (m_enable3dInNavigation)
-      {
-        m_discardedFOV = -1.0;
-        m_discardedAngle = -1.0;
-        AddUserEvent(DisablePerspectiveEvent());
-      }
+        DiscardPerspective();
       break;
     }
 
@@ -909,26 +901,44 @@ int FrontendRenderer::GetCurrentZoomLevelForData() const
   return (m_currentZoomLevel <= upperScale ? m_currentZoomLevel : upperScale);
 }
 
+void FrontendRenderer::DiscardPerspective(ScreenBase const & screen)
+{
+  if (!screen.isPerspective())
+    return;
+
+  m_discardedFOV = screen.GetAngleFOV();
+  m_discardedAngle = screen.GetRotationAngle();
+  AddUserEvent(DisablePerspectiveEvent());
+}
+
+void FrontendRenderer::DiscardPerspective()
+{
+  m_discardedFOV = 0.0;
+  m_discardedAngle = 0.0;
+  AddUserEvent(DisablePerspectiveEvent());
+}
+
+void FrontendRenderer::RecoverPerspective()
+{
+  if (m_discardedFOV <= 0.0)
+    return;
+
+  AddUserEvent(EnablePerspectiveEvent(m_discardedAngle, m_discardedFOV,
+                                      true /* animated */, true /* immediately start */));
+  m_discardedFOV = 0.0;
+  m_discardedAngle = 0.0;
+}
+
 void FrontendRenderer::ResolveZoomLevel(ScreenBase const & screen)
 {
   m_currentZoomLevel = GetDrawTileScale(screen);
 
-  if (m_userEventStream.IsInPerspectiveAnimation())
-    return;
-  LOG(LWARNING, ("m_currentZoomLevel =", m_currentZoomLevel));
-  if (screen.isPerspective() && m_currentZoomLevel < m_min3dZoomLevel)
+  if (m_enable3dInNavigation && !m_userEventStream.IsInPerspectiveAnimation())
   {
-    m_discardedFOV = screen.GetAngleFOV();
-    m_discardedAngle = screen.GetRotationAngle();
-    AddUserEvent(DisablePerspectiveEvent());
-  }
-  else if (m_discardedFOV > 0.0 &&
-           m_currentZoomLevel >= m_min3dZoomLevel)
-  {
-    AddUserEvent(EnablePerspectiveEvent(m_discardedAngle, m_discardedFOV,
-                                        true /* animated */, true /* immediately start */));
-    m_discardedFOV = -1.0;
-    m_discardedAngle = -1.0;
+    if (m_currentZoomLevel < m_min3dZoomLevel)
+      DiscardPerspective(screen);
+    else
+      RecoverPerspective();
   }
 }
 
