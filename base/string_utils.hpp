@@ -336,8 +336,7 @@ uint32_t EditDistance(TIter const & b1, TIter const & e1, TIter const & b2, TIte
     {
       auto const & c2 = *it2;
 
-      best[i][j] = min(best[i][j], best[i - 1][j] + 1);
-      best[i][j] = min(best[i][j], best[i][j - 1] + 1);
+      best[i][j] = min(best[i - 1][j], best[i][j - 1]) + 1;
       best[i][j] = min(best[i][j], best[i - 1][j - 1] + (c1 == c2 ? 0 : 1));
     }
   }
