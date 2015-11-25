@@ -739,6 +739,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onResumeFragments();
     RoutingController.get().restore();
+    mPlacePage.restore();
   }
 
   private void adjustZoomButtons()

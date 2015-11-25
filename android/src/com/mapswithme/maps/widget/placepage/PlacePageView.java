@@ -11,8 +11,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -265,6 +267,12 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     }
 
     mAnimationController.initialHide();
+  }
+
+  public void restore()
+  {
+    if (mMapObject != null)
+      subscribeBookmarkEditFragment(null);
   }
 
   @Override
@@ -647,6 +655,34 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     bookmark.setParams(name, null, bookmark.getBookmarkDescription());
   }
 
+  /**
+   * Adds listener to {@link EditDescriptionFragment} to catch notification about bookmark description edit is complete.
+   * <br/>When the user rotates device screen the listener is lost, so we must re-subscribe again.
+   * @param fragment if specified - explicitely subscribe to this fragment. Otherwise try to find the fragment by hands.
+   */
+  private void subscribeBookmarkEditFragment(@Nullable EditDescriptionFragment fragment)
+  {
+    if (fragment == null)
+    {
+      FragmentManager fm = ((FragmentActivity)getContext()).getSupportFragmentManager();
+      fragment = (EditDescriptionFragment)fm.findFragmentByTag(EditDescriptionFragment.class.getName());
+    }
+
+    if (fragment == null)
+      return;
+
+    fragment.setSaveDescriptionListener(new EditDescriptionFragment.OnDescriptionSavedListener()
+    {
+      @Override
+      public void onSaved(Bookmark bookmark)
+      {
+        final Bookmark updatedBookmark = BookmarkManager.INSTANCE.getBookmark(bookmark.getCategoryId(), bookmark.getBookmarkId());
+        setMapObject(updatedBookmark);
+        Statistics.INSTANCE.trackDescriptionChanged();
+      }
+    });
+  }
+
   @Override
   public void onClick(View v)
   {
@@ -717,19 +753,12 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     case R.id.btn__edit_html_bookmark:
       saveBookmarkNameIfUpdated();
       final Bundle args = new Bundle();
-      final Bookmark bookmark = (Bookmark) mMapObject;
-      args.putString(EditDescriptionFragment.EXTRA_DESCRIPTION, bookmark.getBookmarkDescription());
-      final EditDescriptionFragment fragment = (EditDescriptionFragment) Fragment.instantiate(getContext(), EditDescriptionFragment.class.getName(), args);
+      args.putParcelable(EditDescriptionFragment.EXTRA_BOOKMARK, mMapObject);
+      String name = EditDescriptionFragment.class.getName();
+      final EditDescriptionFragment fragment = (EditDescriptionFragment) Fragment.instantiate(getContext(), name, args);
       fragment.setArguments(args);
-      fragment.setSaveDescriptionListener(new EditDescriptionFragment.OnDescriptionSaveListener()
-      {
-        @Override
-        public void onSave(String description)
-        {
-          updateDescription(bookmark, description);
-        }
-      });
-      fragment.show(((FragmentActivity) getContext()).getSupportFragmentManager(), null);
+      fragment.show(((FragmentActivity) getContext()).getSupportFragmentManager(), name);
+      subscribeBookmarkEditFragment(fragment);
       break;
     case R.id.from:
       if (RoutingController.get().setStartPoint(mMapObject))
@@ -740,14 +769,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
         hide();
       break;
     }
-  }
-
-  private void updateDescription(Bookmark bookmark, String description)
-  {
-    bookmark.setParams(bookmark.getName(), null, description);
-    final Bookmark updatedBookmark = BookmarkManager.INSTANCE.getBookmark(bookmark.getCategoryId(), bookmark.getBookmarkId());
-    setMapObject(updatedBookmark);
-    Statistics.INSTANCE.trackDescriptionChanged();
   }
 
   private void followUrl(String url)
