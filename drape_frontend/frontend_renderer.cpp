@@ -5,11 +5,6 @@
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
 
-#ifdef USE_TEXTURE_IN_3D
-#include "drape_frontend/framebuffer.hpp"
-#include "drape_frontend/renderer3d.hpp"
-#endif
-
 #include "drape/debug_rect_renderer.hpp"
 #include "drape/shader_def.hpp"
 #include "drape/support_manager.hpp"
@@ -50,10 +45,6 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_overlayTree(new dp::OverlayTree())
   , m_enable3dInNavigation(false)
   , m_isBillboardRenderPass(false)
-#ifdef USE_TEXTURE_IN_3D
-  , m_framebuffer(new Framebuffer())
-  , m_renderer3d(new Renderer3d())
-#endif
   , m_viewport(params.m_viewport)
   , m_userEventStream(params.m_isCountryLoadedFn)
   , m_modelViewChangedFn(params.m_modelViewChangedFn)
@@ -541,29 +532,6 @@ void FrontendRenderer::OnResize(ScreenBase const & screen)
   m_contextFactory->getDrawContext()->resize(viewportRect.SizeX(), viewportRect.SizeY());
   RefreshProjection(screen);
   RefreshPivotTransform(screen);
-
-#ifdef USE_TEXTURE_IN_3D
-  if (screen.isPerspective())
-  {
-    int width = screen.GetWidth();
-    int height = screen.GetHeight();
-    int const maxSide = max(width, height);
-    int const maxTextureSize = m_framebuffer->GetMaxSize();
-    if (maxSide > maxTextureSize)
-    {
-      double const scale = maxTextureSize / static_cast<double>(maxSide);
-      width = static_cast<int>(width * scale);
-      height = static_cast<int>(height * scale);
-      LOG(LINFO, ("Max texture size:", maxTextureSize, ", expanded screen size:", maxSide,
-                  ", scale:", scale));
-    }
-    m_viewport.SetViewport(0, 0, width, height);
-
-    m_renderer3d->SetSize(viewportRect.SizeX(), viewportRect.SizeY());
-    m_framebuffer->SetDefaultContext(m_contextFactory->getDrawContext());
-    m_framebuffer->SetSize(width, height);
-  }
-#endif
 }
 
 void FrontendRenderer::AddToRenderGroup(vector<drape_ptr<RenderGroup>> & groups,
@@ -719,13 +687,6 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 #endif
 
   bool const isPerspective = modelView.isPerspective();
-#ifdef USE_TEXTURE_IN_3D
-  if (isPerspective)
-  {
-    m_framebuffer->SetDefaultContext(m_contextFactory->getDrawContext());
-    m_framebuffer->Enable();
-  }
-#endif
 
   RenderGroupComparator comparator;
   sort(m_renderGroups.begin(), m_renderGroups.end(), bind(&RenderGroupComparator::operator (), &comparator, _1, _2));
@@ -834,11 +795,6 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
   if (isPerspective)
   {
-#ifdef USE_TEXTURE_IN_3D
-    m_framebuffer->Disable();
-    m_renderer3d->Render(modelView, m_framebuffer->GetTextureId(), make_ref(m_gpuProgramManager));
-#endif
-
     m_isBillboardRenderPass = true;
 
     // TODO: Try to avoid code duplicate in billboard render pass.
