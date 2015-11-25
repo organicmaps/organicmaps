@@ -27,7 +27,8 @@ static CommandLineOptions g_options;
 CommandLineOptions const & GetTestingOptions() {return g_options;}
 
 DEFINE_string(input_file, "", "File with statistics output.");
-DEFINE_string(data_path, "", "Working directory, 'path_to_exe/../../data' if empty.");
+DEFINE_string(data_path, "../../data/", "Working directory, 'path_to_exe/../../data' if empty.");
+DEFINE_string(user_resource_path, "", "User defined resource path for classificator.txt and etc.");
 DEFINE_bool(verbose, false, "Output processed lines to log.");
 DEFINE_uint64(confidence, 5, "Maximum test count for each single mwm file.");
 
@@ -177,6 +178,7 @@ int main(int argc, char ** argv)
   google::ParseCommandLineFlags(&argc, &argv, true);
 
   g_options.m_dataPath = FLAGS_data_path.c_str();
+  g_options.m_resourcePath = FLAGS_user_resource_path.c_str();
   if (FLAGS_input_file.empty())
     return 1;
 
