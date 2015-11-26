@@ -126,5 +126,7 @@ public class NavigationController
   public void show(boolean show)
   {
     UiUtils.showIf(show, mFrame);
+    if (!show)
+      UiUtils.hide(mNextTurnFrame);
   }
 }
