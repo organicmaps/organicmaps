@@ -119,6 +119,23 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
 
   m2::RectD const pixelRect = handle->GetExtendedPixelRect(modelView);
 
+  bool const boundToParent = (parentOverlay.m_handle != nullptr && handle->IsBound());
+
+  if (is3dMode && handle->GetMinScaleInPerspective() > 0.0)
+  {
+    m2::RectD const pixelRect3d = handle->GetPixelRect(modelView, true);
+    m2::RectD const pixelRect2d = handle->GetPixelRect(modelView, false);
+    double const scale = min(pixelRect3d.SizeX() / pixelRect2d.SizeX(),
+                             pixelRect3d.SizeY() / pixelRect2d.SizeY());
+    if (scale < handle->GetMinScaleInPerspective())
+    {
+      // Handle is displaced and bound to its parent, parent will be displaced too.
+      if (boundToParent)
+        Erase(parentOverlay);
+      return;
+    }
+  }
+
   TOverlayContainer elements;
 
   // Find elements that already on OverlayTree and it's pixel rect
@@ -132,8 +149,6 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
 
   if (handle->IsMinVisibilityTimeUp())
   {
-    bool const boundToParent = (parentOverlay.m_handle != nullptr && handle->IsBound());
-
     // If handle is bound to its parent, parent's handle will be used.
     ref_ptr<OverlayHandle> handleToCompare = handle;
     if (boundToParent)

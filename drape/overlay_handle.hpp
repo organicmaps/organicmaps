@@ -50,6 +50,7 @@ public:
   void SetIsVisible(bool isVisible);
 
   bool IsBillboard() const;
+  virtual double GetMinScaleInPerspective() const { return 0.0; }
 
   virtual m2::PointD GetPivot(ScreenBase const & screen, bool perspective) const;
 

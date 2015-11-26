@@ -42,6 +42,8 @@ public:
     m_centerPointIter.Advance(mercatorOffset);
   }
 
+  double GetMinScaleInPerspective() const override { return 0.5; }
+
   bool Update(ScreenBase const & screen) override
   {
     if (!df::TextHandle::Update(screen))
