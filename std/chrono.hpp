@@ -9,6 +9,7 @@
 using std::chrono::duration;
 using std::chrono::duration_cast;
 using std::chrono::high_resolution_clock;
+using std::chrono::hours;
 using std::chrono::milliseconds;
 using std::chrono::minutes;
 using std::chrono::nanoseconds;
