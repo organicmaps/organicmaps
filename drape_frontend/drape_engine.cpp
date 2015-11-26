@@ -49,6 +49,7 @@ DrapeEngine::DrapeEngine(Params && params)
 
   m_textureManager = make_unique_dp<dp::TextureManager>();
   m_threadCommutator = make_unique_dp<ThreadsCommutator>();
+  m_requestedTiles = make_unique_dp<RequestedTiles>();
 
   location::EMyPositionMode mode = params.m_initialMyPositionMode.first;
   if (!params.m_initialMyPositionMode.second && !Settings::Get(LocationStateMode, mode))
@@ -61,12 +62,12 @@ DrapeEngine::DrapeEngine(Params && params)
                                     bind(&DrapeEngine::TapEvent, this, _1, _2, _3, _4),
                                     bind(&DrapeEngine::UserPositionChanged, this, _1),
                                     bind(&DrapeEngine::MyPositionModeChanged, this, _1),
-                                    mode);
+                                    mode, make_ref(m_requestedTiles));
 
   m_frontend = make_unique_dp<FrontendRenderer>(frParams);
 
   BackendRenderer::Params brParams(frParams.m_commutator, frParams.m_oglContextFactory,
-                                   frParams.m_texMng, params.m_model);
+                                   frParams.m_texMng, params.m_model, make_ref(m_requestedTiles));
   m_backend = make_unique_dp<BackendRenderer>(brParams);
 
   m_widgetsInfo = move(params.m_info);

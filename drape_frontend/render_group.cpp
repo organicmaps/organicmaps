@@ -34,6 +34,11 @@ void BaseRenderGroup::Render(const ScreenBase &)
   dp::ApplyUniforms(*(m_generalUniforms.get()), m_shader);
 }
 
+bool BaseRenderGroup::IsOverlay() const
+{
+  return m_state.GetDepthLayer() == dp::GLState::OverlayLayer;
+}
+
 RenderGroup::RenderGroup(dp::GLState const & state, df::TileKey const & tileKey)
   : TBase(state, tileKey)
   , m_pendingOnDelete(false)
@@ -139,21 +144,23 @@ bool RenderGroup::IsAnimating() const
 
 void RenderGroup::Appear()
 {
-  if (m_state.GetDepthLayer() == dp::GLState::OverlayLayer)
-  {
-    m_appearAnimation = make_unique<OpacityAnimation>(0.25 /* duration */, 0.0 /* delay */,
-                                                      0.0 /* startOpacity */, 1.0 /* endOpacity */);
-  }
+  // Commented because of perfomance reasons.
+  //if (IsOverlay())
+  //{
+  //  m_appearAnimation = make_unique<OpacityAnimation>(0.25 /* duration */, 0.0 /* delay */,
+  //                                                    0.0 /* startOpacity */, 1.0 /* endOpacity */);
+  //}
 }
 
 void RenderGroup::Disappear()
 {
-  if (m_state.GetDepthLayer() == dp::GLState::OverlayLayer)
-  {
-    m_disappearAnimation = make_unique<OpacityAnimation>(0.1 /* duration */, 0.1 /* delay */,
-                                                         1.0 /* startOpacity */, 0.0 /* endOpacity */);
-  }
-  else
+  // Commented because of perfomance reasons.
+  //if (IsOverlay())
+  //{
+  //  m_disappearAnimation = make_unique<OpacityAnimation>(0.1 /* duration */, 0.1 /* delay */,
+  //                                                       1.0 /* startOpacity */, 0.0 /* endOpacity */);
+  //}
+  //else
   {
     // Create separate disappearing animation for area objects to eliminate flickering.
     if (m_state.GetProgramIndex() == gpu::AREA_PROGRAM)

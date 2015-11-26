@@ -24,12 +24,13 @@ public:
   void PushMessage(drape_ptr<Message> && message, MessagePriority priority);
   void CancelWait();
   void ClearQuery();
-  bool IsEmpty();
+  bool IsEmpty() const;
+  size_t GetSize() const;
 
 private:
   void CancelWaitImpl();
 
-  mutex m_mutex;
+  mutable mutex m_mutex;
   condition_variable m_condition;
   bool m_isWaiting;
   deque<drape_ptr<Message> > m_messages;

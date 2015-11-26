@@ -4,6 +4,7 @@
 
 #include "drape_frontend/base_renderer.hpp"
 #include "drape_frontend/map_data_provider.hpp"
+#include "drape_frontend/requested_tiles.hpp"
 #include "drape_frontend/viewport.hpp"
 
 #include "drape/pointers.hpp"
@@ -30,12 +31,15 @@ public:
   struct Params : BaseRenderer::Params
   {
     Params(ref_ptr<ThreadsCommutator> commutator, ref_ptr<dp::OGLContextFactory> factory,
-           ref_ptr<dp::TextureManager> texMng, MapDataProvider const & model)
+           ref_ptr<dp::TextureManager> texMng, MapDataProvider const & model,
+           ref_ptr<RequestedTiles> requestedTiles)
       : BaseRenderer::Params(commutator, factory, texMng)
       , m_model(model)
+      , m_requestedTiles(requestedTiles)
     {}
 
     MapDataProvider const & m_model;
+    ref_ptr<RequestedTiles> m_requestedTiles;
   };
 
   BackendRenderer(Params const & params);
@@ -73,6 +77,8 @@ private:
   drape_ptr<ReadManager> m_readManager;
   drape_ptr<RouteBuilder> m_routeBuilder;
   gui::LayerCacher m_guiCacher;
+
+  ref_ptr<RequestedTiles> m_requestedTiles;
 };
 
 } // namespace df

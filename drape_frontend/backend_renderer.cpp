@@ -26,6 +26,7 @@ BackendRenderer::BackendRenderer(Params const & params)
   : BaseRenderer(ThreadsCommutator::ResourceUploadThread, params)
   , m_model(params.m_model)
   , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model))
+  , m_requestedTiles(params.m_requestedTiles)
 {
   gui::DrapeGui::Instance().SetRecacheCountryStatusSlot([this]()
   {
@@ -80,17 +81,18 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   {
   case Message::UpdateReadManager:
     {
-      ref_ptr<UpdateReadManagerMessage> msg = message;
-      ScreenBase const & screen = msg->GetScreen();
-      TTilesCollection const & tiles = msg->GetTiles();
-      m_readManager->UpdateCoverage(screen, tiles, m_texMng);
+      TTilesCollection tiles = m_requestedTiles->GetTiles();
+      if (!tiles.empty())
+      {
+        ScreenBase screen = m_requestedTiles->GetScreen();
+        m_readManager->UpdateCoverage(screen, tiles, m_texMng);
 
-      gui::CountryStatusHelper & helper = gui::DrapeGui::Instance().GetCountryStatusHelper();
-      if (!tiles.empty() && (*tiles.begin()).m_zoomLevel > scales::GetUpperWorldScale())
-        m_model.UpdateCountryIndex(helper.GetCountryIndex(), screen.ClipRect().Center());
-      else
-        helper.Clear();
-
+        gui::CountryStatusHelper & helper = gui::DrapeGui::Instance().GetCountryStatusHelper();
+        if ((*tiles.begin()).m_zoomLevel > scales::GetUpperWorldScale())
+          m_model.UpdateCountryIndex(helper.GetCountryIndex(), screen.ClipRect().Center());
+        else
+          helper.Clear();
+      }
       break;
     }
   case Message::InvalidateReadManagerRect:
@@ -141,9 +143,13 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::MapShapeReaded:
     {
       ref_ptr<MapShapeReadedMessage> msg = message;
-      ref_ptr<dp::Batcher> batcher = m_batchersPool->GetTileBatcher(msg->GetKey());
-      for (drape_ptr<MapShape> const & shape : msg->GetShapes())
-        shape->Draw(batcher, m_texMng);
+      auto const & tileKey = msg->GetKey();
+      if (m_requestedTiles->CheckTileKey(tileKey) && m_readManager->CheckTileKey(tileKey))
+      {
+        ref_ptr<dp::Batcher> batcher = m_batchersPool->GetTileBatcher(tileKey);
+        for (drape_ptr<MapShape> const & shape : msg->GetShapes())
+          shape->Draw(batcher, m_texMng);
+      }
       break;
     }
   case Message::UpdateUserMarkLayer:

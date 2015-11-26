@@ -31,7 +31,7 @@ namespace df
 namespace
 {
 
-const double VSyncInterval = 0.030;
+const double VSyncInterval = 0.06;
 //const double VSyncInterval = 0.014;
 
 } // namespace
@@ -47,9 +47,10 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_tapEventInfoFn(params.m_tapEventFn)
   , m_userPositionChangedFn(params.m_positionChangedFn)
   , m_tileTree(new TileTree())
+  , m_requestedTiles(params.m_requestedTiles)
 {
 #ifdef DRAW_INFO
-  m_tpf = 0,0;
+  m_tpf = 0.0;
   m_fps = 0.0;
 #endif
 
@@ -164,8 +165,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
                                   make_unique_dp<InvalidateReadManagerRectMessage>(tiles),
                                   MessagePriority::Normal);
 
+        m_requestedTiles->Set(screen, move(tiles));
         m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<UpdateReadManagerMessage>(screen, move(tiles)),
+                                  make_unique_dp<UpdateReadManagerMessage>(),
                                   MessagePriority::Normal);
       }
       break;
@@ -422,8 +424,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       }
 
       // Request new tiles.
+      m_requestedTiles->Set(screen, move(tiles));
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                make_unique_dp<UpdateReadManagerMessage>(screen, move(tiles)),
+                                make_unique_dp<UpdateReadManagerMessage>(),
                                 MessagePriority::Normal);
 
       RefreshBgColor();
@@ -1035,8 +1038,27 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
   TTilesCollection tiles;
   ResolveTileKeys(modelView, tiles);
 
+  m_overlayTree->ForceUpdate();
+  auto removePredicate = [this](drape_ptr<RenderGroup> const & group)
+  {
+    return group->IsOverlay() && group->GetTileKey().m_zoomLevel > GetCurrentZoomLevel();
+  };
+  for (auto const & group : m_renderGroups)
+  {
+    if (removePredicate(group))
+    {
+      group->DeleteLater();
+      group->Disappear();
+    }
+  }
+  m_deferredRenderGroups.erase(remove_if(m_deferredRenderGroups.begin(),
+                                         m_deferredRenderGroups.end(),
+                                         removePredicate),
+                               m_deferredRenderGroups.end());
+
+  m_requestedTiles->Set(modelView, move(tiles));
   m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                            make_unique_dp<UpdateReadManagerMessage>(modelView, move(tiles)),
+                            make_unique_dp<UpdateReadManagerMessage>(),
                             MessagePriority::High);
 }
 

@@ -139,6 +139,15 @@ void ReadManager::Stop()
   m_pool.reset();
 }
 
+bool ReadManager::CheckTileKey(TileKey const & tileKey) const
+{
+  for (auto const & tileInfo : m_tileInfos)
+    if (tileInfo->GetTileKey() == tileKey)
+      return !tileInfo->IsCancelled();
+
+  return false;
+}
+
 size_t ReadManager::ReadCount()
 {
   return max(static_cast<int>(GetPlatform().CpuCores()) - 2, 1);

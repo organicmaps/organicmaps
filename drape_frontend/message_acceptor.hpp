@@ -28,7 +28,8 @@ protected:
   void CloseQueue();
 
   bool IsInInfinityWaiting() const;
-  bool IsQueueEmpty();
+  bool IsQueueEmpty() const;
+  bool GetQueueSize() const;
 
 private:
   friend class ThreadsCommutator;

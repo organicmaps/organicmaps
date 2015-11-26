@@ -33,10 +33,17 @@ size_t kMinFlushSizes[df::PrioritiesCount] =
   10, // LinePriority
 };
 
-RuleDrawer::RuleDrawer(TDrawerCallback const & fn, ref_ptr<EngineContext> context)
+RuleDrawer::RuleDrawer(TDrawerCallback const & fn,
+                       TCheckCancelledCallback const & checkCancelled,
+                       ref_ptr<EngineContext> context)
   : m_callback(fn)
+  , m_checkCancelled(checkCancelled)
   , m_context(context)
+  , m_wasCancelled(false)
 {
+  ASSERT(m_callback != nullptr, ());
+  ASSERT(m_checkCancelled != nullptr, ());
+
   m_globalRect = m_context->GetTileKey().GetGlobalRect();
 
   int32_t tileSize = df::VisualParams::Instance().GetTileSize();
@@ -50,6 +57,9 @@ RuleDrawer::RuleDrawer(TDrawerCallback const & fn, ref_ptr<EngineContext> contex
 
 RuleDrawer::~RuleDrawer()
 {
+  if (m_wasCancelled)
+    return;
+
   for (auto & shapes : m_mapShapes)
   {
     if (shapes.empty())
@@ -60,6 +70,12 @@ RuleDrawer::~RuleDrawer()
 
     m_context->Flush(move(shapes));
   }
+}
+
+bool RuleDrawer::CheckCancelled()
+{
+  m_wasCancelled = m_checkCancelled();
+  return m_wasCancelled;
 }
 
 void RuleDrawer::operator()(FeatureType const & f)
@@ -101,6 +117,9 @@ void RuleDrawer::operator()(FeatureType const & f)
     if (s.PointStyleExists())
       apply(feature::GetCenter(f, zoomLevel));
 
+    if (CheckCancelled())
+      return;
+
     s.ForEachRule(bind(&ApplyAreaFeature::ProcessRule, &apply, _1));
     apply.Finish();
   }
@@ -112,6 +131,9 @@ void RuleDrawer::operator()(FeatureType const & f)
                            f.GetPointsCount());
     f.ForEachPointRef(apply, zoomLevel);
 
+    if (CheckCancelled())
+      return;
+
     if (apply.HasGeometry())
       s.ForEachRule(bind(&ApplyLineFeature::ProcessRule, &apply, _1));
     apply.Finish();
@@ -121,6 +143,9 @@ void RuleDrawer::operator()(FeatureType const & f)
     ASSERT(s.PointStyleExists(), ());
     ApplyPointFeature apply(insertShape, f.GetID(), minVisibleScale, f.GetRank(), s.GetCaptionDescription());
     f.ForEachPointRef(apply, zoomLevel);
+
+    if (CheckCancelled())
+      return;
 
     s.ForEachRule(bind(&ApplyPointFeature::ProcessRule, &apply, _1));
     apply.Finish();
@@ -156,8 +181,11 @@ void RuleDrawer::operator()(FeatureType const & f)
 
   tp.m_primaryTextFont = dp::FontDecl(dp::Color::Red(), 30);
 
-  insertShape(make_unique_dp<TextShape>(r.Center(), tp));
+  insertShape(make_unique_dp<TextShape>(r.Center(), tp, false));
 #endif
+
+  if (CheckCancelled())
+    return;
 
   for (size_t i = 0; i < m_mapShapes.size(); i++)
   {

@@ -25,13 +25,18 @@ class RuleDrawer
 {
 public:
   using TDrawerCallback = function<void (FeatureType const &, Stylist &)>;
-  RuleDrawer(TDrawerCallback const & fn, ref_ptr<EngineContext> context);
+  using TCheckCancelledCallback = function<bool ()>;
+  RuleDrawer(TDrawerCallback const & fn, TCheckCancelledCallback const & checkCancelled,
+             ref_ptr<EngineContext> context);
   ~RuleDrawer();
 
   void operator() (FeatureType const & f);
 
 private:
+  bool CheckCancelled();
+
   TDrawerCallback m_callback;
+  TCheckCancelledCallback m_checkCancelled;
   ref_ptr<EngineContext> m_context;
   m2::RectD m_globalRect;
   ScreenBase m_geometryConvertor;
@@ -39,6 +44,7 @@ private:
   set<string> m_coastlines;
 
   array<TMapShapes, df::PrioritiesCount> m_mapShapes;
+  bool m_wasCancelled;
 };
 
 } // namespace dfo

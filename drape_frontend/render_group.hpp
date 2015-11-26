@@ -30,6 +30,7 @@ public:
   dp::GLState const & GetState() const { return m_state; }
   TileKey const & GetTileKey() const { return m_tileKey; }
   dp::UniformValuesStorage const & GetUniforms() const { return m_uniforms; }
+  bool IsOverlay() const;
 
   virtual void UpdateAnimation();
   virtual void Render(ScreenBase const & /*screen*/);
