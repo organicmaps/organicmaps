@@ -64,7 +64,7 @@ void TileInfo::ReadFeatures(MapDataProvider const & model, MemoryFeatureIndex & 
 
     ReadFeatureIndex(model);
     CheckCanceled();
-    featuresToRead.reserve(AverageFeaturesCount);
+    featuresToRead.reserve(kAverageFeaturesCount);
     memIndex.ReadFeaturesRequest(m_featureInfo, featuresToRead);
   }
 
