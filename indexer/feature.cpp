@@ -1,7 +1,9 @@
 #include "indexer/feature.hpp"
-#include "indexer/feature_visibility.hpp"
-#include "indexer/feature_loader_base.hpp"
+
 #include "indexer/classificator.hpp"
+#include "indexer/feature_algo.hpp"
+#include "indexer/feature_loader_base.hpp"
+#include "indexer/feature_visibility.hpp"
 
 #include "geometry/distance.hpp"
 #include "geometry/robust_orientation.hpp"
@@ -162,32 +164,8 @@ namespace
 
 string FeatureType::DebugString(int scale) const
 {
-  ParseAll(scale);
-
-  string s = base_type::DebugString();
-
-  switch (GetFeatureType())
-  {
-  case GEOM_POINT:
-    s += (" Center:" + DebugPrint(m_center));
-    break;
-
-  case GEOM_LINE:
-    s += " Points:";
-    Points2String(s, m_points);
-    break;
-
-  case GEOM_AREA:
-    s += " Triangles:";
-    Points2String(s, m_triangles);
-    break;
-
-  case GEOM_UNDEFINED:
-    ASSERT(false, ("Assume that we have valid feature always"));
-    break;
-  }
-
-  return s;
+  return base_type::DebugString() + "; Center = " +
+         DebugPrint(MercatorBounds::ToLatLon(feature::GetCenter(*this, scale)));
 }
 
 string DebugPrint(FeatureType const & ft)
