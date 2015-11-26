@@ -84,7 +84,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       TTilesCollection tiles = m_requestedTiles->GetTiles();
       if (!tiles.empty())
       {
-        ScreenBase screen = m_requestedTiles->GetScreen();
+        ScreenBase const screen = m_requestedTiles->GetScreen();
         m_readManager->UpdateCoverage(screen, tiles, m_texMng);
 
         gui::CountryStatusHelper & helper = gui::DrapeGui::Instance().GetCountryStatusHelper();

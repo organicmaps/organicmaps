@@ -13,6 +13,8 @@
 namespace df
 {
 
+//#define DEBUG_MESSAGE_QUEUE
+
 class MessageQueue
 {
 public:
@@ -24,8 +26,11 @@ public:
   void PushMessage(drape_ptr<Message> && message, MessagePriority priority);
   void CancelWait();
   void ClearQuery();
+
+#ifdef DEBUG_MESSAGE_QUEUE
   bool IsEmpty() const;
   size_t GetSize() const;
+#endif
 
 private:
   void CancelWaitImpl();

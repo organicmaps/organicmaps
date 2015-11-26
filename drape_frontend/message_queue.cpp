@@ -60,6 +60,8 @@ void MessageQueue::PushMessage(drape_ptr<Message> && message, MessagePriority pr
   CancelWaitImpl();
 }
 
+#ifdef DEBUG_MESSAGE_QUEUE
+
 bool MessageQueue::IsEmpty() const
 {
   lock_guard<mutex> lock(m_mutex);
@@ -71,6 +73,8 @@ size_t MessageQueue::GetSize() const
   lock_guard<mutex> lock(m_mutex);
   return m_messages.size();
 }
+
+#endif
 
 void MessageQueue::CancelWait()
 {

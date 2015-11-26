@@ -28,8 +28,11 @@ protected:
   void CloseQueue();
 
   bool IsInInfinityWaiting() const;
+
+#ifdef DEBUG_MESSAGE_QUEUE
   bool IsQueueEmpty() const;
-  bool GetQueueSize() const;
+  size_t GetQueueSize() const;
+#endif
 
 private:
   friend class ThreadsCommutator;
