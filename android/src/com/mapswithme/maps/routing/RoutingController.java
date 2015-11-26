@@ -412,6 +412,7 @@ public class RoutingController
   {
     mStartPoint = null;
     mEndPoint = null;
+    setPointsInternal();
     mWaitingPoiPickSlot = NO_SLOT;
 
     setBuildState(BuildState.NONE);
