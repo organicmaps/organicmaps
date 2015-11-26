@@ -91,10 +91,21 @@ namespace feature
 
     FilesContainerW m_writer;
 
-    vector<FileWriter*> m_geoFile, m_trgFile;
+    class TmpFile : public FileWriter
+    {
+    public:
+      explicit TmpFile(string const & filePath) : FileWriter(filePath) {}
+      ~TmpFile()
+      {
+        DeleteFileX(GetName());
+      }
+    };
 
-    enum { METADATA = 0, SEARCH_TOKENS = 1 };
-    vector<FileWriter*> m_helperFile;
+    using TmpFiles = vector<unique_ptr<TmpFile>>;
+    TmpFiles m_geoFile, m_trgFile;
+
+    enum { METADATA = 0, SEARCH_TOKENS = 1, FILES_COUNT = 2 };
+    TmpFiles m_helperFile;
 
     // Mapping from feature id to offset in file section with the correspondent metadata.
     vector<pair<uint32_t, uint32_t>> m_metadataIndex;
@@ -104,18 +115,6 @@ namespace feature
 
     gen::OsmID2FeatureID m_osm2ft;
 
-    static void DeleteFilesIfNeeded(vector<FileWriter *> const & v)
-    {
-      for (FileWriter * w : v)
-      {
-        if (w)
-        {
-          FileWriter::DeleteFileX(w->GetName());
-          delete w;
-        }
-      }
-    }
-
   public:
     FeaturesCollector2(string const & fName, DataHeader const & header, uint32_t versionDate)
       : FeaturesCollector(fName + DATA_FILE_TAG), m_writer(fName),
@@ -124,20 +123,13 @@ namespace feature
       for (size_t i = 0; i < m_header.GetScalesCount(); ++i)
       {
         string const postfix = strings::to_string(i);
-        m_geoFile.push_back(new FileWriter(fName + GEOMETRY_FILE_TAG + postfix));
-        m_trgFile.push_back(new FileWriter(fName + TRIANGLE_FILE_TAG + postfix));
+        m_geoFile.push_back(make_unique<TmpFile>(fName + GEOMETRY_FILE_TAG + postfix));
+        m_trgFile.push_back(make_unique<TmpFile>(fName + TRIANGLE_FILE_TAG + postfix));
       }
 
-      m_helperFile.resize(2);
-      m_helperFile[METADATA] = new FileWriter(fName + METADATA_FILE_TAG);
-      m_helperFile[SEARCH_TOKENS] = new FileWriter(fName + SEARCH_TOKENS_FILE_TAG);
-    }
-
-    ~FeaturesCollector2()
-    {
-      DeleteFilesIfNeeded(m_geoFile);
-      DeleteFilesIfNeeded(m_trgFile);
-      DeleteFilesIfNeeded(m_helperFile);
+      m_helperFile.resize(FILES_COUNT);
+      m_helperFile[METADATA] = make_unique<TmpFile>(fName + METADATA_FILE_TAG);
+      m_helperFile[SEARCH_TOKENS] = make_unique<TmpFile>(fName + SEARCH_TOKENS_FILE_TAG);
     }
 
     void Finish()
@@ -161,24 +153,18 @@ namespace feature
       m_writer.Write(m_datFile.GetName(), DATA_FILE_TAG);
 
       // File Writer finalization function with appending to the main mwm file.
-      auto const finalizeFn = [this](FileWriter * & w, string const & tag,
+      auto const finalizeFn = [this](unique_ptr<TmpFile> w, string const & tag,
                                      string const & postfix = string())
       {
-        string const name = w->GetName();
-        MY_SCOPE_GUARD(deleteFile, bind(&FileWriter::DeleteFileX, cref(name)));
-
         w->Flush();
-        m_writer.Write(name, tag + postfix);
-
-        delete w;
-        w = 0;
+        m_writer.Write(w->GetName(), tag + postfix);
       };
 
       for (size_t i = 0; i < m_header.GetScalesCount(); ++i)
       {
         string const postfix = strings::to_string(i);
-        finalizeFn(m_geoFile[i], GEOMETRY_FILE_TAG, postfix);
-        finalizeFn(m_trgFile[i], TRIANGLE_FILE_TAG, postfix);
+        finalizeFn(move(m_geoFile[i]), GEOMETRY_FILE_TAG, postfix);
+        finalizeFn(move(m_trgFile[i]), TRIANGLE_FILE_TAG, postfix);
       }
 
       {
@@ -191,8 +177,8 @@ namespace feature
         }
       }
 
-      finalizeFn(m_helperFile[METADATA], METADATA_FILE_TAG);
-      finalizeFn(m_helperFile[SEARCH_TOKENS], SEARCH_TOKENS_FILE_TAG);
+      finalizeFn(move(m_helperFile[METADATA]), METADATA_FILE_TAG);
+      finalizeFn(move(m_helperFile[SEARCH_TOKENS]), SEARCH_TOKENS_FILE_TAG);
 
       m_writer.Finish();
 
@@ -530,7 +516,7 @@ namespace feature
 
         if (!fb.GetMetadata().Empty())
         {
-          FileWriter * w = m_helperFile[METADATA];
+          auto const & w = m_helperFile[METADATA];
 
           uint64_t const offset = w->Pos();
           ASSERT_LESS_OR_EQUAL(offset, numeric_limits<uint32_t>::max(), ());

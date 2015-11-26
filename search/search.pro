@@ -27,7 +27,7 @@ HEADERS += \
     region.hpp \
     result.hpp \
     retrieval.hpp \
-    reverse_geocoding.hpp \
+    reverse_geocoder.hpp \
     search_common.hpp \
     search_engine.hpp \
     search_query.hpp \
@@ -51,7 +51,7 @@ SOURCES += \
     region.cpp \
     result.cpp \
     retrieval.cpp \
-    reverse_geocoding.cpp \
+    reverse_geocoder.cpp \
     search_engine.cpp \
     search_query.cpp \
     search_query_params.cpp \

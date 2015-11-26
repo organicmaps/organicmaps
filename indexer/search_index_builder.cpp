@@ -1,6 +1,6 @@
 #include "indexer/search_index_builder.hpp"
 
-#include "search/reverse_geocoding.hpp"
+#include "search/reverse_geocoder.hpp"
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
@@ -284,7 +284,7 @@ void AddFeatureNameIndexPairs(FeaturesVectorTest & features, CategoriesHolder & 
   Index mwmIndex;
   /// @ todo Make some better solution, or legalize MakeTemporary.
   mwmIndex.RegisterMap(platform::LocalCountryFile::MakeTemporary(features.GetFilePath()));
-  search::ReverseGeocoding rgc(&mwmIndex);
+  search::ReverseGeocoder rgc(mwmIndex);
 
   while (src.Size() > 0)
   {
@@ -298,7 +298,7 @@ void AddFeatureNameIndexPairs(FeaturesVectorTest & features, CategoriesHolder & 
       FeatureType ft;
       features.GetVector().GetByIndex(index, ft);
 
-      using TStreet = search::ReverseGeocoding::Street;
+      using TStreet = search::ReverseGeocoder::Street;
       vector<TStreet> streets;
       rgc.GetNearbyStreets(ft, street, streets);
 
@@ -321,6 +321,8 @@ void AddFeatureNameIndexPairs(FeaturesVectorTest & features, CategoriesHolder & 
 
   LOG(LINFO, ("Address: Matched percent", 100 * (1.0 - missing/double(address))));
   LOG(LINFO, ("Address: Upper bounds", bounds));
+
+  /// @todo Delete SEARCH_TOKENS_FILE_TAG section in production code.
 }
 }  // namespace
 

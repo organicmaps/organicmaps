@@ -13,17 +13,22 @@ class Index;
 namespace search
 {
 
-class ReverseGeocoding
+class ReverseGeocoder
 {
-  Index * m_index;
+  Index & m_index;
 
 public:
-  ReverseGeocoding(Index * p) : m_index(p) {}
+  ReverseGeocoder(Index & index) : m_index(index) {}
 
   struct Street
   {
     FeatureID m_id;
+
+    /// Min distance to the street in meters.
     double m_distance;
+
+    /// first - edit distance between actual street name and passed key name.
+    /// second - length of the actual street name.
     pair<size_t, size_t> m_editDistance;
   };
 

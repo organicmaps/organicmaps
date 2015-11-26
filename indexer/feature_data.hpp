@@ -277,7 +277,7 @@ public:
   /// @param[in] fullStoring \n
   /// - true when saving in temporary files after first generation step \n
   /// - false when final mwm saving
-  template <class SinkT> void Write(SinkT & sink, bool fullStoring) const
+  template <class TSink> void Write(TSink & sink, bool fullStoring) const
   {
     uint8_t const header = GetHeader();
 
@@ -295,7 +295,7 @@ public:
     BaseT::Write(sink, header);
   }
 
-  template <class SrcT> void Read(SrcT & src)
+  template <class TSource> void Read(TSource & src)
   {
     using namespace feature;
 

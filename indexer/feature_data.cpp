@@ -246,7 +246,7 @@ void FeatureParams::AddAddress(string const & s)
     i = 0;
   }
 
-  AddStreet(s.substr(i, s.size() - i));
+  AddStreet(s.substr(i));
 }
 
 void FeatureParams::AddPlace(string const & s)
