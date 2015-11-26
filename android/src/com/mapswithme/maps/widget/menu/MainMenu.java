@@ -2,6 +2,7 @@ package com.mapswithme.maps.widget.menu;
 
 import android.animation.Animator;
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
@@ -54,7 +56,6 @@ public class MainMenu
   private final int mButtonsWidth = UiUtils.dimen(R.dimen.menu_line_button_width);
   private final int mPanelWidth = UiUtils.dimen(R.dimen.panel_width);
 
-
   private final Container mContainer;
   private final ViewGroup mFrame;
   private final View mButtonsFrame;
@@ -81,7 +82,6 @@ public class MainMenu
   private final Map<Item, View> mItemViews = new HashMap<>();
 
   private boolean mAnimating;
-
 
   private final MwmActivity.LeftAnimationTrackListener mAnimationTrackListener = new MwmActivity.LeftAnimationTrackListener()
   {
@@ -133,7 +133,6 @@ public class MainMenu
     }
   };
 
-
   public enum Item
   {
     TOGGLE(R.id.toggle),
@@ -142,7 +141,8 @@ public class MainMenu
     BOOKMARKS(R.id.bookmarks),
     SHARE(R.id.share),
     DOWNLOADER(R.id.download_maps),
-    SETTINGS(R.id.settings);
+    SETTINGS(R.id.settings),
+    SHOWCASE(R.id.showcase);
 
     private final int mViewId;
 
@@ -152,13 +152,11 @@ public class MainMenu
     }
   }
 
-
   public interface Container
   {
     Activity getActivity();
     void onItemClick(Item item);
   }
-
 
   private class AnimationListener extends UiUtils.SimpleAnimatorListener
   {
@@ -175,7 +173,6 @@ public class MainMenu
     }
   }
 
-
   private class Toggle
   {
     final ImageView mButton;
@@ -183,7 +180,6 @@ public class MainMenu
 
     final TransitionDrawable mOpenImage;
     final TransitionDrawable mCollapseImage;
-
 
     public Toggle(View frame)
     {
@@ -245,7 +241,7 @@ public class MainMenu
     View res = frame.findViewById(item.mViewId);
     if (res != null)
     {
-      if ((res.getTag() instanceof String) && TAG_COLLAPSE.equals(res.getTag()))
+      if (TAG_COLLAPSE.equals(res.getTag()))
         mCollapseViews.add(res);
 
       res.setOnClickListener(new View.OnClickListener()
@@ -346,6 +342,7 @@ public class MainMenu
     mapItem(Item.SHARE);
     mapItem(Item.DOWNLOADER);
     mapItem(Item.SETTINGS);
+    mapItem(Item.SHOWCASE);
 
     adjustCollapsedItems();
     adjustTransparency();
@@ -541,6 +538,23 @@ public class MainMenu
   public MwmActivity.LeftAnimationTrackListener getLeftAnimationTrackListener()
   {
     return mAnimationTrackListener;
+  }
+
+  public void showShowcase(boolean show)
+  {
+    UiUtils.showIf(show, mItemViews.get(Item.SHOWCASE));
+  }
+
+  public void setShowcaseText(String text)
+  {
+    ((TextView)mItemViews.get(Item.SHOWCASE)).setText(text);
+  }
+
+  public void setShowcaseDrawable(Bitmap bitmap)
+  {
+    // TODO d.yunitsky uncomment or delete in future, when decision with dynamic vs static icons will be made
+//    final Drawable drawable = new BitmapDrawable(mFrame.getResources(), Bitmap.createScaledBitmap(bitmap, UiUtils.dp(48), UiUtils.dp(48), true));
+//    ((TextView) mItemViews.get(Item.SHOWCASE)).setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
   }
 
   public Button getRouteStartButton()

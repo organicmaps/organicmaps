@@ -52,6 +52,7 @@ public class AlohaHelper
   // menu actions
   public static final String MENU_DOWNLOADER = "downloader";
   public static final String MENU_SETTINGS = "settingsAndMore";
+  public static final String MENU_SHOWCASE = "showcase";
   public static final String MENU_SHARE = "share@";
   public static final String MENU_POINT2POINT = "point2point";
   // place page
