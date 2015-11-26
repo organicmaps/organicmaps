@@ -7,6 +7,7 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
 #include "indexer/scales.hpp"
+#include "indexer/search_string_utils.hpp"
 
 #include "platform/platform.hpp"
 

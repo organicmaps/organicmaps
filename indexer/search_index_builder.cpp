@@ -1,11 +1,14 @@
 #include "indexer/search_index_builder.hpp"
 
+#include "search/reverse_geocoding.hpp"
+
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/features_vector.hpp"
+#include "indexer/index.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_index_values.hpp"
 #include "indexer/search_string_utils.hpp"
@@ -260,8 +263,7 @@ public:
 
 template <typename TKey, typename TValue>
 void AddFeatureNameIndexPairs(FeaturesVectorTest & features, CategoriesHolder & categoriesHolder,
-                              vector<pair<TKey, TValue>> & keyValuePairs,
-                              SingleValueSerializer<TValue> const & serializer)
+                              vector<pair<TKey, TValue>> & keyValuePairs)
 {
   feature::DataHeader const & header = features.GetHeader();
 
@@ -276,20 +278,49 @@ void AddFeatureNameIndexPairs(FeaturesVectorTest & features, CategoriesHolder & 
 
   ReaderSource<ModelReaderPtr> src = features.GetReader(SEARCH_TOKENS_FILE_TAG);
   uint64_t index = 0;
-  FeatureNameInserter<TKey, TValue> inserter(nullptr, keyValuePairs);
-  int8_t const lang = StringUtf8Multilang::GetLangIndex("default");
+  uint64_t address = 0, missing = 0;
+  map<size_t, size_t> bounds;
+
+  Index mwmIndex;
+  /// @ todo Make some better solution, or legalize MakeTemporary.
+  mwmIndex.RegisterMap(platform::LocalCountryFile::MakeTemporary(features.GetFilePath()));
+  search::ReverseGeocoding rgc(&mwmIndex);
 
   while (src.Size() > 0)
   {
     feature::AddressData data;
     data.Deserialize(src);
 
-    inserter.m_val.m_featureId = index++;
-
-    string const street = data.Get(feature::AddressData::STREET);
+    string street;
+    search::GetStreetNameAsKey(data.Get(feature::AddressData::STREET), street);
     if (!street.empty())
-      inserter(lang, street);
+    {
+      FeatureType ft;
+      features.GetVector().GetByIndex(index, ft);
+
+      using TStreet = search::ReverseGeocoding::Street;
+      vector<TStreet> streets;
+      rgc.GetNearbyStreets(ft, street, streets);
+
+      size_t const ind = rgc.GetMatchedStreetIndex(streets);
+      if (ind == streets.size())
+      {
+        ++missing;
+        //LOG(LWARNING, ("No street found for address", street, ft));
+      }
+      else
+      {
+        ++bounds[ind];
+      }
+
+      ++address;
+    }
+
+    ++index;
   }
+
+  LOG(LINFO, ("Address: Matched percent", 100 * (1.0 - missing/double(address))));
+  LOG(LINFO, ("Address: Upper bounds", bounds));
 }
 }  // namespace
 
@@ -353,7 +384,7 @@ void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter)
   SingleValueSerializer<TValue> serializer(codingParams);
 
   vector<pair<TKey, TValue>> searchIndexKeyValuePairs;
-  AddFeatureNameIndexPairs(features, categoriesHolder, searchIndexKeyValuePairs, serializer);
+  AddFeatureNameIndexPairs(features, categoriesHolder, searchIndexKeyValuePairs);
 
   sort(searchIndexKeyValuePairs.begin(), searchIndexKeyValuePairs.end());
   LOG(LINFO, ("End sorting strings:", timer.ElapsedSeconds()));

@@ -70,4 +70,6 @@ public:
   FeaturesVector const & GetVector() const { return m_vector; }
 
   FilesContainerR::ReaderT GetReader(string const & tag) const { return m_cont.GetReader(tag); }
+
+  string const & GetFilePath() const { return m_cont.GetFileName(); }
 };
