@@ -113,5 +113,10 @@ echo
 echo '### INTEGRATION TESTS'
 "$(dirname "$GENERATOR_TOOL")/routing_integration_tests" "--data_path=$FTARGET/" "--user_resource_path=$OMIM_PATH/data/" "--suppress=online_cross_tests.*" 2>&1
 
+# Step 5: run consistency tests
+echo
+echo '### CONSISTENCY TEST'
+"$(dirname "$GENERATOR_TOOL")/routing_consistency_test" "--data_path=$FTARGET/" "--user_resource_path=$OMIM_PATH/data/" "--input_file=$OMIM_PATH/data/routing_statistics.log" 2>&1
+
 # Clean the temporary directory
 rm -r "$FTARGET"
