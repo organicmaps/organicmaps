@@ -11,24 +11,27 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
+import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 
+import java.lang.ref.WeakReference;
+
 public class EditDescriptionFragment extends BaseMwmDialogFragment
 {
-  public static final String EXTRA_DESCRIPTION = "ExtraDescription";
+  public static final String EXTRA_BOOKMARK = "bookmark";
 
   private EditText mEtDescription;
+  private Bookmark mBookmark;
 
-  public interface OnDescriptionSaveListener
+  public interface OnDescriptionSavedListener
   {
-    void onSave(String description);
+    void onSaved(Bookmark bookmark);
   }
 
-  private OnDescriptionSaveListener mListener;
+  private WeakReference<OnDescriptionSavedListener> mListener;
 
   public EditDescriptionFragment() {}
 
@@ -51,7 +54,8 @@ public class EditDescriptionFragment extends BaseMwmDialogFragment
   {
     super.onViewCreated(view, savedInstanceState);
 
-    String description = getArguments().getString(EXTRA_DESCRIPTION);
+    mBookmark = getArguments().getParcelable(EXTRA_BOOKMARK);
+    String description = mBookmark.getBookmarkDescription();
 
     if (StringUtils.isHtml(description))
     {
@@ -68,9 +72,9 @@ public class EditDescriptionFragment extends BaseMwmDialogFragment
     getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
   }
 
-  public void setSaveDescriptionListener(OnDescriptionSaveListener listener)
+  public void setSaveDescriptionListener(OnDescriptionSavedListener listener)
   {
-    mListener = listener;
+    mListener = new WeakReference<>(listener);
   }
 
   private void initToolbar(View view)
@@ -99,8 +103,21 @@ public class EditDescriptionFragment extends BaseMwmDialogFragment
 
   private void saveDescription()
   {
+    mBookmark.setParams(mBookmark.getName(), null, mEtDescription.getText().toString());
+
     if (mListener != null)
-      mListener.onSave(mEtDescription.getText().toString());
+    {
+      OnDescriptionSavedListener listener = mListener.get();
+      if (listener != null)
+        listener.onSaved(mBookmark);
+    }
     dismiss();
+  }
+
+  @Override
+  public void onDetach()
+  {
+    super.onDetach();
+    mListener = null;
   }
 }
