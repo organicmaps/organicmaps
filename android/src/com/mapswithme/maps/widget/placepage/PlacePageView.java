@@ -161,6 +161,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mWebsite.setOnClickListener(this);
     mTvWebsite = (TextView) mPpDetails.findViewById(R.id.tv__place_website);
     mLatlon = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_latlon);
+    mLatlon.setOnClickListener(this);
     mTvLatlon = (TextView) mPpDetails.findViewById(R.id.tv__place_latlon);
     mSchedule = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_schedule);
     mTvSchedule = (TextView) mPpDetails.findViewById(R.id.tv__place_schedule);
