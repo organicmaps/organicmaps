@@ -37,6 +37,7 @@ SOURCES += \
   thread_pool_tests.cpp \
   threaded_list_test.cpp \
   threads_test.cpp \
+  timegm_test.cpp \
   timer_test.cpp \
   worker_thread_test.cpp \
 

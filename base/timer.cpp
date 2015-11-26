@@ -1,6 +1,7 @@
 #include "base/timer.hpp"
 #include "base/assert.hpp"
 #include "base/macros.hpp"
+#include "base/timegm.hpp"
 
 #include "std/target_os.hpp"
 #include "std/systime.hpp"
@@ -8,7 +9,6 @@
 #include "std/sstream.hpp"
 #include "std/iomanip.hpp"
 #include "std/algorithm.hpp"
-
 
 namespace my
 {
@@ -62,31 +62,6 @@ uint32_t TodayAsYYMMDD()
   return GenerateTimestamp(pTm->tm_year, pTm->tm_mon, pTm->tm_mday);
 }
 
-namespace
-{
-  time_t my_timegm(tm * tm)
-  {
-#ifdef OMIM_OS_ANDROID
-    char * tz = getenv("TZ");
-    setenv("TZ", "", 1);
-    tzset();
-
-    time_t ret = mktime(tm);
-    if (tz)
-      setenv("TZ", tz, 1);
-    else
-      unsetenv("TZ");
-    tzset();
-
-    return ret;
-#elif defined(OMIM_OS_WINDOWS)
-    return mktime(tm);
-#else
-    return timegm(tm);
-#endif
-  }
-}
-
 string TimestampToString(time_t time)
 {
   tm * t = gmtime(&time);
@@ -109,7 +84,7 @@ bool IsValid(tm const & t)
 {
   /// @todo Funny thing, but "00" month is accepted as valid in get_time function.
   /// Seems like a bug in the std library.
-  return (t.tm_mday >= 1 && t.tm_mday<= 31 &&
+  return (t.tm_mday >= 1 && t.tm_mday <= 31 &&
           t.tm_mon >= 0 && t.tm_mon <= 11);
 }
 
@@ -123,24 +98,24 @@ time_t StringToTimestamp(string const & s)
   if (s.size() == 20)
   {
     // Parse UTC format: 1970-01-01T00:00:00Z
-    tm t;
+    tm t{};
     istringstream ss(s);
     ss >> get_time(&t, "%Y-%m-%dT%H:%M:%SZ");
 
     if (!ss.fail() && IsValid(t))
-      res = my_timegm(&t);
+      res = base::TimeGM(t);
   }
   else if (s.size() == 25)
   {
     // Parse custom time zone offset format: 2012-12-03T00:38:34+03:30
-    tm t1, t2;
+    tm t1{}, t2{};
     char sign;
     istringstream ss(s);
     ss >> get_time(&t1, "%Y-%m-%dT%H:%M:%S") >> sign >> get_time(&t2, "%H:%M");
 
     if (!ss.fail() && IsValid(t1))
     {
-      time_t const tt = my_timegm(&t1);
+      time_t const tt = base::TimeGM(t1);
 
       // Fix timezone offset
       if (sign == '-')

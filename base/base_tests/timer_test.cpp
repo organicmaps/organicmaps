@@ -29,6 +29,7 @@ UNIT_TEST(Timer_TimestampConversion)
 
   TEST_EQUAL(TimestampToString(0), "1970-01-01T00:00:00Z", ());
   TEST_EQUAL(TimestampToString(1354482514), "2012-12-02T21:08:34Z", ());
+
   TEST_EQUAL(StringToTimestamp("1970-01-01T00:00:00Z"), 0, ());
   TEST_EQUAL(StringToTimestamp("2012-12-02T21:08:34Z"), 1354482514, ());
   TEST_EQUAL(StringToTimestamp("2012-12-03T00:38:34+03:30"), 1354482514, ());
