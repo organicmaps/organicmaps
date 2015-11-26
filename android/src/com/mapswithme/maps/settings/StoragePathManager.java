@@ -8,19 +8,17 @@ import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.Config;
-import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.*;
@@ -61,7 +59,6 @@ public class StoragePathManager
   public static final int UNKNOWN_KITKAT_ERROR = 6;
 
   static final String TAG = StoragePathManager.class.getName();
-
 
   private OnStorageListChangedListener mStoragesChangedListener;
   private MoveFilesListener mMoveFilesListener;
@@ -193,76 +190,6 @@ public class StoragePathManager
     return null;
   }
 
-  @SuppressWarnings("ResultOfMethodCallIgnored")
-  public boolean moveBookmarksToPrimaryStorage()
-  {
-    ArrayList<String> paths = new ArrayList<>();
-    StorageUtils.parseStorages(paths);
-
-    List<String> approvedPaths = new ArrayList<>();
-    for (String path : paths)
-    {
-      String mwmPath = path + Constants.MWM_DIR_POSTFIX;
-      File f = new File(mwmPath);
-      if (f.exists() || f.canRead() || f.isDirectory())
-        approvedPaths.add(mwmPath);
-    }
-    final String settingsDir = Framework.nativeGetSettingsDir();
-    final String writableDir = Framework.nativeGetWritableDir();
-    final String bookmarkDir = Framework.nativeGetBookmarkDir();
-    final String bookmarkFileExt = Framework.nativeGetBookmarksExt();
-
-    Set<File> bookmarks = new LinkedHashSet<>();
-    if (!settingsDir.equals(writableDir))
-      approvedPaths.add(writableDir);
-
-    for (String path : approvedPaths)
-    {
-      if (!path.equals(settingsDir))
-        accumulateFiles(path, bookmarkFileExt, bookmarks);
-    }
-
-    long bookmarksSize = 0;
-    for (File f : bookmarks)
-      bookmarksSize += f.length();
-
-    if (StorageUtils.getFreeBytesAtPath(bookmarkDir) < bookmarksSize)
-      return false;
-
-    for (File oldBookmark : bookmarks)
-    {
-      String newBookmarkPath = BookmarkManager.generateUniqueBookmarkName(oldBookmark.getName().replace(bookmarkFileExt, ""));
-      try
-      {
-        StorageUtils.copyFile(oldBookmark, new File(newBookmarkPath));
-        oldBookmark.delete();
-      } catch (IOException e)
-      {
-        e.printStackTrace();
-        return false;
-      }
-    }
-
-    Framework.nativeLoadBookmarks();
-
-    return true;
-  }
-
-  private static void accumulateFiles(final String dirPath, final String filesExtension, Set<File> result)
-  {
-    File f = new File(dirPath);
-    File[] bookmarks = f.listFiles(new FileFilter()
-    {
-      @Override
-      public boolean accept(File pathname)
-      {
-        return pathname.getName().endsWith(filesExtension);
-      }
-    });
-
-    result.addAll(Arrays.asList(bookmarks));
-  }
-
   protected void changeStorage(int newIndex)
   {
     final StorageItem oldItem = (mCurrentStorageIndex != -1) ? mItems.get(mCurrentStorageIndex) : null;
@@ -320,12 +247,36 @@ public class StoragePathManager
    * Checks whether current directory is actually writable on Kitkat devices. On earlier versions of android ( < 4.4 ) the root of external
    * storages was writable, but on Kitkat it isn't, so we should move our maps to other directory.
    * http://www.doubleencore.com/2014/03/android-external-storage/ check that link for explanations
+   * <p/>
+   * TODO : use SAF framework to allow custom sdcard folder selections on Lollipop+ devices.
+   * https://developer.android.com/guide/topics/providers/document-provider.html#client
+   * https://code.google.com/p/android/issues/detail?id=103249
    */
-  public void checkExternalStoragePathOnKitkat(Context context, MoveFilesListener listener)
+  public void checkKitkatMigration(final Activity activity)
   {
-    if (Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT)
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT ||
+        Config.isKitKatMigrationComplete())
       return;
 
+    checkExternalStoragePathOnKitkat(activity, new MoveFilesListener()
+    {
+      @Override
+      public void moveFilesFinished(String newPath)
+      {
+        Config.setKitKatMigrationComplete();
+        UiUtils.showAlertDialog(activity, R.string.kitkat_migrate_ok);
+      }
+
+      @Override
+      public void moveFilesFailed(int errorCode)
+      {
+        UiUtils.showAlertDialog(activity, R.string.kitkat_migrate_failed);
+      }
+    });
+  }
+
+  private void checkExternalStoragePathOnKitkat(Context context, MoveFilesListener listener)
+  {
     final String settingsDir = Framework.nativeGetSettingsDir();
     final String writableDir = Framework.nativeGetWritableDir();
 
@@ -345,87 +296,6 @@ public class StoragePathManager
     }
 
     listener.moveFilesFailed(UNKNOWN_KITKAT_ERROR);
-  }
-
-  /**
-   * Checks bookmarks and data(mwms, routing, indexes etc) locations on external storages.
-   * <p/>
-   * Bookmarks should be placed in main MapsWithMe directory on primary storage (eg. SettingsDir, where settings.ini file is placed). If they were copied
-   * to external storage (can happen on 2.6 and earlier mapswithme application versions) - we should move them back.
-   * <p/>
-   * Data should be placed in private app directory on Kitkat+ devices, hence root of sdcard isn't writable anymore there.
-   */
-  public void checkKitkatMigration(final Activity activity)
-  {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
-      return;
-
-    migrateBookmarks(new MoveFilesListener()
-    {
-      @Override
-      public void moveFilesFinished(String newPath)
-      {
-        migrateMaps(activity);
-      }
-
-      @Override
-      public void moveFilesFailed(int errorCode)
-      {
-        UiUtils.showAlertDialog(activity, R.string.bookmark_move_fail);
-      }
-    });
-  }
-
-  private void migrateBookmarks(final MoveFilesListener listener)
-  {
-    if (Config.isKmlMoved())
-      listener.moveFilesFinished("");
-    else
-      ThreadPool.getStorage().execute(new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          final boolean res = moveBookmarksToPrimaryStorage();
-
-          UiThread.run(new Runnable()
-          {
-            @Override
-            public void run()
-            {
-              if (res)
-              {
-                Config.setKmlMoved();
-                listener.moveFilesFinished("");
-              }
-              else
-                listener.moveFilesFailed(NULL_ERROR);
-            }
-          });
-        }
-      });
-  }
-
-  private void migrateMaps(final Activity activity)
-  {
-    if (Config.isKitKatMigrationComplete())
-      return;
-
-    checkExternalStoragePathOnKitkat(activity, new MoveFilesListener()
-    {
-      @Override
-      public void moveFilesFinished(String newPath)
-      {
-        Config.setKitKatMigrationComplete();
-        UiUtils.showAlertDialog(activity, R.string.kitkat_migrate_ok);
-      }
-
-      @Override
-      public void moveFilesFailed(int errorCode)
-      {
-        UiUtils.showAlertDialog(activity, R.string.kitkat_migrate_failed);
-      }
-    });
   }
 
   private void setStoragePath(final Context context, final MoveFilesListener listener, final StorageItem newStorage,

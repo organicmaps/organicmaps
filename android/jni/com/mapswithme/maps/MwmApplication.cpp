@@ -11,20 +11,20 @@
 extern "C"
 {
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MwmApplication_nativeInit(
+  Java_com_mapswithme_maps_MwmApplication_nativeInitPlatform(
       JNIEnv * env, jobject thiz,
       jstring apkPath, jstring storagePath, jstring tmpPath, jstring obbGooglePath,
       jstring flavorName, jstring buildType, jboolean isYota, jboolean isTablet)
   {
     android::Platform::Instance().Initialize(
         env, apkPath, storagePath, tmpPath, obbGooglePath, flavorName, buildType, isYota, isTablet);
+  }
 
-    LOG(LDEBUG, ("Creating android::Framework instance ..."));
-
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MwmApplication_nativeInitFramework(JNIEnv * env, jobject thiz)
+  {
     if (!g_framework)
       g_framework = new android::Framework();
-
-    LOG(LDEBUG, ("android::Framework created"));
   }
 
   JNIEXPORT jboolean JNICALL
@@ -34,7 +34,7 @@ extern "C"
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_MwmApplication_hasFreeSpace(JNIEnv * env, jobject thiz, jlong size)
+  Java_com_mapswithme_maps_MwmApplication_nativeHasFreeSpace(JNIEnv * env, jobject thiz, jlong size)
   {
     return android::Platform::Instance().HasAvailableSpaceForWriting(size);
   }

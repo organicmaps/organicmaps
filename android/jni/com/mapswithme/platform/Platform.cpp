@@ -107,30 +107,22 @@ namespace android
       m_androidDefResScope = "fwr";
     else if (flavor.find("google") == 0)
       m_androidDefResScope = "ferw";
-    else if (flavor.find("amazon") == 0 || flavor.find("samsung") == 0)
+    else if (flavor.find("amazon") == 0 || flavor.find("samsung") == 0) // optimization to read World mwm-s faster
       m_androidDefResScope = "frw";
     else
       m_androidDefResScope = "fwr";
 
     m_isTablet = isTablet;
-
     m_resourcesDir = jni::ToNativeString(env, apkPath);
-
     // Settings file should be in a one place always (default external storage).
-    // It stores path to the current maps storage.
     m_settingsDir = jni::ToNativeString(env, storagePath);
+    m_tmpDir = jni::ToNativeString(env, tmpPath);
 
-    // @TODO it's a bug when user had all his maps on SD but when space is low,
-    // he loses access to all downloaded maps. We should display warnings in these cases in UI.
     if (!Settings::Get("StoragePath", m_writableDir) || !HasAvailableSpaceForWriting(1024))
     {
-      // If no saved storage path or the storage is unavailable
-      // (disconnected from the last session), assign writable
-      // path to the default external storage.
+      LOG(LINFO, ("Could not read writable dir. Use primary storage."));
       m_writableDir = m_settingsDir;
     }
-
-    m_tmpDir = jni::ToNativeString(env, tmpPath);
 
     string const obbPath = jni::ToNativeString(env, obbGooglePath);
     Platform::FilesList files;
