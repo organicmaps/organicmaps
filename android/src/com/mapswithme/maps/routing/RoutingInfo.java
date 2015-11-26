@@ -43,20 +43,20 @@ public class RoutingInfo
     TURN_SHARP_RIGHT(R.drawable.ic_sharp_right_light, R.drawable.ic_sharp_right_then),
     TURN_SLIGHT_RIGHT(R.drawable.ic_slight_right_light, R.drawable.ic_slight_right_then),
 
-    TURN_LEFT(R.drawable.ic_simple_right_light, R.drawable.ic_simple_right_then),
-    TURN_SHARP_LEFT(R.drawable.ic_sharp_right_light, R.drawable.ic_sharp_right_then),
-    TURN_SLIGHT_LEFT(R.drawable.ic_slight_right_light, R.drawable.ic_slight_right_then),
+    TURN_LEFT(R.drawable.ic_simple_left_light, R.drawable.ic_simple_left_then),
+    TURN_SHARP_LEFT(R.drawable.ic_sharp_left_light, R.drawable.ic_sharp_left_then),
+    TURN_SLIGHT_LEFT(R.drawable.ic_slight_left_light, R.drawable.ic_slight_left_then),
 
-    U_TURN_LEFT(R.drawable.ic_uturn_light, R.drawable.ic_uturn_then),
-    U_TURN_RIGHT(R.drawable.ic_uturn_light, R.drawable.ic_uturn_then),
-    TAKE_THE_EXIT(R.drawable.ic_finish_point_light, 0),
+    U_TURN_LEFT(R.drawable.ic_uturn_left_light, R.drawable.ic_then_uturn_left_light),
+    U_TURN_RIGHT(R.drawable.ic_uturn_right_light, R.drawable.ic_then_uturn_left_light),
+    TAKE_THE_EXIT(R.drawable.ic_finish_point_light, R.drawable.ic_then_finish_point_light),
 
     ENTER_ROUND_ABOUT(R.drawable.ic_round_light, R.drawable.ic_round_then),
     LEAVE_ROUND_ABOUT(R.drawable.ic_round_light, R.drawable.ic_round_then),
     STAY_ON_ROUND_ABOUT(R.drawable.ic_round_light, R.drawable.ic_round_then),
 
     START_AT_THE_END_OF_STREET(0, 0),
-    REACHED_YOUR_DESTINATION(R.drawable.ic_finish_point_light, 0);
+    REACHED_YOUR_DESTINATION(R.drawable.ic_finish_point_light, R.drawable.ic_then_finish_point_light);
 
     private final int mTurnRes;
     private final int mNextTurnRes;
@@ -71,13 +71,11 @@ public class RoutingInfo
     {
       imageView.setImageResource(mTurnRes);
       imageView.setRotation(0.0f);
-      imageView.setScaleX(isLeftTurn(this) ? -1 : 1); // right turns are displayed as mirrored left turns.
     }
 
     public void setNextTurnDrawable(ImageView imageView)
     {
       imageView.setImageResource(mNextTurnRes);
-      imageView.setScaleX(isLeftTurn(this) ? -1 : 1); // right turns are displayed as mirrored left turns.
     }
 
     public boolean containsTurn()
@@ -88,16 +86,6 @@ public class RoutingInfo
     public boolean containsNextTurn()
     {
       return mNextTurnRes != 0;
-    }
-
-    public static boolean isLeftTurn(VehicleTurnDirection turn)
-    {
-      return turn == TURN_LEFT || turn == TURN_SHARP_LEFT || turn == TURN_SLIGHT_LEFT;
-    }
-
-    public static boolean isRightTurn(VehicleTurnDirection turn)
-    {
-      return turn == TURN_RIGHT || turn == TURN_SHARP_RIGHT || turn == TURN_SLIGHT_RIGHT;
     }
 
     public static boolean isRoundAbout(VehicleTurnDirection turn)
