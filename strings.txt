@@ -14045,7 +14045,7 @@
   [p2p_start]
     tags = ios, android
     en = Start
-    ru = Начать движение
+    ru = Начать
     fr = Démarrer
     da = Start
     id = Mulai
