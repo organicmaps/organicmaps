@@ -241,10 +241,17 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
 
-  if (!m_route.IsValid() || !IsNavigable())
+  if (!m_route.IsValid())
   {
     // nothing should be displayed on the screen about turns if these lines are executed
     info = FollowingInfo();
+    return;
+  }
+
+  if (!IsNavigable())
+  {
+    info = FollowingInfo();
+    formatDistFn(m_route.GetTotalDistanceMeters(), info.m_distToTarget, info.m_targetUnitsSuffix);
     return;
   }
 
