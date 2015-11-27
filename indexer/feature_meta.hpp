@@ -42,14 +42,28 @@ namespace feature
 
     static_assert(FMD_COUNT <= 255, "Meta types count is limited to one byte.");
 
-    bool Add(EType type, string const & s)
+    /// Empty value drops (clears) corresponding type.
+    void Set(EType type, string const & value)
     {
-      string & val = m_metadata[type];
-      if (val.empty())
-        val = s;
+      auto found = m_metadata.find(type);
+      if (found == m_metadata.end())
+      {
+        if (!value.empty())
+          m_metadata[type] = value;
+      }
       else
-        val = val + ", " + s;
-      return true;
+      {
+        if (value.empty())
+          m_metadata.erase(found);
+        else
+          found->second = value;
+      }
+    }
+
+    /// Synonym of Set(type, "").
+    void Drop(EType type)
+    {
+      Set(type, "");
     }
 
     string Get(EType type) const
@@ -67,11 +81,6 @@ namespace feature
         types.push_back(item.first);
 
       return types;
-    }
-
-    void Drop(EType type)
-    {
-      m_metadata.erase(type);
     }
 
     inline bool Empty() const { return m_metadata.empty(); }

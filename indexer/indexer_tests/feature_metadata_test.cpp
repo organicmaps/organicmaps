@@ -9,6 +9,42 @@
 
 using feature::Metadata;
 
+UNIT_TEST(Feature_Metadata_GetSet)
+{
+  Metadata m;
+  Metadata::EType const type = Metadata::FMD_ELE;
+  // Absent types should return empty values.
+  TEST_EQUAL(m.Get(type), "", ());
+  m.Set(type, "12345");
+  TEST_EQUAL(m.Get(type), "12345", ());
+  TEST_EQUAL(m.Size(), 1, ());
+  // Same types should replace old metadata values.
+  m.Set(type, "5678");
+  TEST_EQUAL(m.Get(type), "5678", ());
+  // Empty values should drop fields.
+  m.Set(type, "");
+  TEST_EQUAL(m.Get(type), "", ());
+  TEST_EQUAL(m.Size(), 0, ());
+  TEST(m.Empty(), ());
+}
+
+static map<Metadata::EType, string> const kPairs = { {Metadata::FMD_ELE, "12345"},
+                                                     {Metadata::FMD_CUISINE, "greek;mediterranean"},
+                                                     {Metadata::FMD_EMAIL, "cool@email.at"} };
+
+UNIT_TEST(Feature_Metadata_PresentTypes)
+{
+  Metadata m;
+  for (auto const & value : kPairs)
+    m.Set(value.first, value.second);
+  TEST_EQUAL(m.Size(), kPairs.size(), ());
+
+  auto const types = m.GetPresentTypes();
+  TEST_EQUAL(types.size(), m.Size(), ());
+  for (auto const & type : types)
+    TEST_EQUAL(m.Get(type), kPairs.find(type)->second, ());
+}
+
 UNIT_TEST(Feature_Serialization)
 {
   Metadata original;
