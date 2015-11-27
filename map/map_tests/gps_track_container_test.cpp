@@ -12,12 +12,12 @@ uint32_t constexpr kSecondsPerHour = 60 * 60;
 struct GpsTrackContainerCallback
 {
 public:
-  void OnChange(vector<GpsTrackContainer::GpsTrackPoint> && toAdd, vector<uint32_t> && toRemove)
+  void OnChange(vector<df::GpsTrackPoint> && toAdd, vector<uint32_t> && toRemove)
   {
     m_toAdd.insert(m_toAdd.end(), toAdd.begin(), toAdd.end());
     m_toRemove.insert(m_toRemove.end(), toRemove.begin(), toRemove.end());
   }
-  vector<GpsTrackContainer::GpsTrackPoint> m_toAdd;
+  vector<df::GpsTrackPoint> m_toAdd;
   vector<uint32_t> m_toRemove;
 };
 
@@ -76,7 +76,7 @@ UNIT_TEST(GpsTrackContainer_Test)
 
   // and test there is only id25 point in the track
 
-  vector<GpsTrackContainer::GpsTrackPoint> points;
+  vector<df::GpsTrackPoint> points;
   gpstrack.GetPoints(points);
 
   TEST_EQUAL(1, points.size(), ());

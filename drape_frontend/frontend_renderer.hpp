@@ -12,6 +12,7 @@
 
 #include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/base_renderer.hpp"
+#include "drape_frontend/gps_track_renderer.hpp"
 #include "drape_frontend/my_position_controller.hpp"
 #include "drape_frontend/navigator.hpp"
 #include "drape_frontend/render_group.hpp"
@@ -222,6 +223,8 @@ private:
 
   bool IsPerspective() const;
 
+  void PrepareGpsTrackPoints(size_t pointsCount);
+
 private:
   drape_ptr<dp::GpuProgramManager> m_gpuProgramManager;
 
@@ -236,6 +239,7 @@ private:
   drape_ptr<RouteRenderer> m_routeRenderer;
   drape_ptr<Framebuffer> m_framebuffer;
   drape_ptr<TransparentLayer> m_transparentLayer;
+  drape_ptr<GpsTrackRenderer> m_gpsTrackRenderer;
 
   drape_ptr<dp::OverlayTree> m_overlayTree;
 

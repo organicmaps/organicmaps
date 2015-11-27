@@ -4,6 +4,8 @@
 #include "drape_frontend/gui/layer_render.hpp"
 #include "drape_frontend/gui/skin.hpp"
 
+#include "drape_frontend/gps_track_point.hpp"
+#include "drape_frontend/gps_track_shape.hpp"
 #include "drape_frontend/route_builder.hpp"
 #include "drape_frontend/my_position.hpp"
 #include "drape_frontend/selection_shape.hpp"
@@ -706,6 +708,55 @@ public:
 private:
   double const m_rotationAngle;
   double const m_angleFOV;
+};
+
+class CacheGpsTrackPointsMessage : public Message
+{
+public:
+  CacheGpsTrackPointsMessage(size_t pointsCount) : m_pointsCount(pointsCount) {}
+  Type GetType() const override { return Message::CacheGpsTrackPoints; }
+  size_t GetPointsCount() const { return m_pointsCount; }
+
+private:
+  size_t m_pointsCount;
+};
+
+class FlushGpsTrackPointsMessage : public Message
+{
+public:
+  FlushGpsTrackPointsMessage(drape_ptr<GpsTrackRenderData> && renderData)
+    : m_renderData(move(renderData))
+  {}
+
+  Type GetType() const override { return Message::FlushGpsTrackPoints; }
+  drape_ptr<GpsTrackRenderData> && AcceptRenderData() { return move(m_renderData); }
+
+private:
+  drape_ptr<GpsTrackRenderData> m_renderData;
+};
+
+class UpdateGpsTrackPointsMessage : public Message
+{
+public:
+  UpdateGpsTrackPointsMessage(vector<GpsTrackPoint> && toAdd, vector<uint32_t> && toRemove)
+    : m_pointsToAdd(move(toAdd))
+    , m_pointsToRemove(move(toRemove))
+  {}
+
+  Type GetType() const override { return Message::UpdateGpsTrackPoints; }
+  vector<GpsTrackPoint> const & GetPointsToAdd() { return m_pointsToAdd; }
+  vector<uint32_t> const & GetPointsToRemove() { return m_pointsToRemove; }
+
+private:
+  vector<GpsTrackPoint> m_pointsToAdd;
+  vector<uint32_t> m_pointsToRemove;
+};
+
+class ClearGpsTrackPointsMessage : public Message
+{
+public:
+  ClearGpsTrackPointsMessage(){}
+  Type GetType() const override { return Message::ClearGpsTrackPoints; }
 };
 
 } // namespace df

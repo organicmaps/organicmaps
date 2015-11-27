@@ -1,29 +1,15 @@
 #pragma once
 
+#include "drape_frontend/gps_track_point.hpp"
+
 #include "std/chrono.hpp"
 #include "std/deque.hpp"
 #include "std/function.hpp"
 #include "std/mutex.hpp"
 
-#include "geometry/point2d.hpp"
-
 class GpsTrackContainer
 {
 public:
-  struct GpsTrackPoint
-  {
-    // Timestamp of the point, seconds from 1st Jan 1970
-    double m_timestamp;
-
-    // Point in the Mercator projection
-    m2::PointD m_point;
-
-    // Speed in the point, M/S
-    double m_speedMPS;
-
-    // Unique identifier of the point
-    uint32_t m_id;
-  };
 
   static uint32_t constexpr kInvalidId = numeric_limits<uint32_t>::max();
 
@@ -31,7 +17,7 @@ public:
   /// @param toAdd - collection of points to add.
   /// @param toRemove - collection of point indices to remove.
   /// @note Calling of a GpsTrackContainer's function from the callback causes deadlock.
-  using TGpsTrackDiffCallback = std::function<void(vector<GpsTrackPoint> && toAdd, vector<uint32_t> && toRemove)>;
+  using TGpsTrackDiffCallback = std::function<void(vector<df::GpsTrackPoint> && toAdd, vector<uint32_t> && toRemove)>;
 
   GpsTrackContainer();
 
@@ -64,11 +50,11 @@ public:
 
   /// Returns points snapshot from the container.
   /// @param points - output for collection of points.
-  void GetPoints(vector<GpsTrackPoint> & points) const;
+  void GetPoints(vector<df::GpsTrackPoint> & points) const;
 
 private:
   void RemoveOldPoints(vector<uint32_t> & removedIds);
-  void CopyPoints(vector<GpsTrackPoint> & points) const;
+  void CopyPoints(vector<df::GpsTrackPoint> & points) const;
 
   mutable mutex m_guard;
 
@@ -82,7 +68,7 @@ private:
 
   // Collection of points, by nature is asc. sorted by m_timestamp.
   // Max size of m_points is adjusted by m_trackDuration and m_maxSize.
-  deque<GpsTrackPoint> m_points;
+  deque<df::GpsTrackPoint> m_points;
 
   // Simple counter which is used to generate point unique ids.
   uint32_t m_counter;

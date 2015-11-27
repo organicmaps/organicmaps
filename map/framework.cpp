@@ -878,6 +878,12 @@ void Framework::UpdateCountryInfo(storage::TIndex const & countryIndex, bool isC
   m_drapeEngine->SetCountryInfo(countryInfo, isCurrentCountry);
 }
 
+void Framework::OnUpdateGpsTrackPoints(vector<df::GpsTrackPoint> && toAdd, vector<uint32_t> && toRemove)
+{
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->UpdateGpsTrackPoints(move(toAdd), move(toRemove));
+}
+
 void Framework::MemoryWarning()
 {
   LOG(LINFO, ("MemoryWarning"));
