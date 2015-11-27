@@ -10,6 +10,7 @@
 #include "platform/mwm_version.hpp"
 
 #include "base/assert.hpp"
+#include "base/logging.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/unique_ptr.hpp"
@@ -320,6 +321,7 @@ public:
     }
     else
     {
+      LOG(LWARNING, ("Unknown search index format."));
       m_format = SearchIndexFormat::Unknown;
     }
   }

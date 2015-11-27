@@ -103,13 +103,7 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(MwmSet::MwmHandl
   auto * value = handle.GetValue<MwmValue>();
   ASSERT(value, ());
 
-  version::MwmVersion version;
-  if (!version::ReadVersion(value->m_cont, version))
-  {
-    LOG(LERROR, ("Unreadable mwm version."));
-    return unique_ptr<coding::CompressedBitVector>();
-  }
-  MwmTraits mwmTraits(version.format);
+  MwmTraits mwmTraits(value->GetMwmVersion().format);
 
   if (mwmTraits.GetSearchIndexFormat() ==
       MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter)
@@ -123,11 +117,7 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(MwmSet::MwmHandl
     using TValue = FeatureIndexValue;
     return RetrieveAddressFeaturesImpl<TValue>(handle, cancellable, params);
   }
-  else
-  {
-    LOG(LERROR, ("Unsupported search index format."));
-    return unique_ptr<coding::CompressedBitVector>();
-  }
+  return unique_ptr<coding::CompressedBitVector>();
 }
 
 // Retrieves from the geometry index corresponding to handle all

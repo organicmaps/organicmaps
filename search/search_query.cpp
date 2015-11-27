@@ -1680,10 +1680,6 @@ void Query::SearchLocality(MwmValue const * pMwm, Locality & res1, Region & res2
     using TValue = FeatureIndexValue;
     SearchLocalityImpl<TValue>(this, pMwm, res1, res2, params, codingParams);
   }
-  else if (mwmTraits.GetSearchIndexFormat() == MwmTraits::SearchIndexFormat::Unknown)
-  {
-    LOG(LERROR, ("Unsupported search index format."));
-  }
 }
 
 void Query::SearchFeatures()
