@@ -6,6 +6,8 @@
 #include "coding/writer.hpp"
 #include "coding/reader.hpp"
 
+#include "std/target_os.hpp"
+
 using feature::Metadata;
 
 UNIT_TEST(Metadata_ValidateAndFormat_stars)
@@ -134,6 +136,12 @@ UNIT_TEST(Metadata_ValidateAndFormat_ele)
   md.Drop(Metadata::FMD_ELE);
 }
 
+#ifdef OMIM_OS_MOBILE
+  #define WIKIHOST "m.wikipedia.org"
+#else
+  #define WIKIHOST "wikipedia.org"
+#endif
+
 UNIT_TEST(Metadata_ValidateAndFormat_wikipedia)
 {
   char const * kWikiKey = "wikipedia";
@@ -144,23 +152,23 @@ UNIT_TEST(Metadata_ValidateAndFormat_wikipedia)
 
   p(kWikiKey, "en:Bad %20Data");
   TEST_EQUAL(md.Get(Metadata::FMD_WIKIPEDIA), "en:Bad %20Data", ());
-  TEST_EQUAL(md.GetWikiURL(), "https://en.m.wikipedia.org/wiki/Bad_%2520Data", ());
+  TEST_EQUAL(md.GetWikiURL(), "https://en." WIKIHOST "/wiki/Bad_%2520Data", ());
   md.Drop(Metadata::FMD_WIKIPEDIA);
 
   p(kWikiKey, "ru:Тест_with % sign");
   TEST_EQUAL(md.Get(Metadata::FMD_WIKIPEDIA), "ru:Тест with % sign", ());
-  TEST_EQUAL(md.GetWikiURL(), "https://ru.m.wikipedia.org/wiki/Тест_with_%25_sign", ());
+  TEST_EQUAL(md.GetWikiURL(), "https://ru." WIKIHOST "/wiki/Тест_with_%25_sign", ());
   md.Drop(Metadata::FMD_WIKIPEDIA);
 
   p(kWikiKey, "https://be-tarask.wikipedia.org/wiki/Вялікае_Княства_Літоўскае");
   TEST_EQUAL(md.Get(Metadata::FMD_WIKIPEDIA), "be-tarask:Вялікае Княства Літоўскае", ());
-  TEST_EQUAL(md.GetWikiURL(), "https://be-tarask.m.wikipedia.org/wiki/Вялікае_Княства_Літоўскае", ());
+  TEST_EQUAL(md.GetWikiURL(), "https://be-tarask." WIKIHOST "/wiki/Вялікае_Княства_Літоўскае", ());
   md.Drop(Metadata::FMD_WIKIPEDIA);
 
   // Final link points to https and mobile version.
   p(kWikiKey, "http://en.wikipedia.org/wiki/A");
   TEST_EQUAL(md.Get(Metadata::FMD_WIKIPEDIA), "en:A", ());
-  TEST_EQUAL(md.GetWikiURL(), "https://en.m.wikipedia.org/wiki/A", ());
+  TEST_EQUAL(md.GetWikiURL(), "https://en." WIKIHOST "/wiki/A", ());
   md.Drop(Metadata::FMD_WIKIPEDIA);
 
   p(kWikiKey, "invalid_input_without_language_and_colon");

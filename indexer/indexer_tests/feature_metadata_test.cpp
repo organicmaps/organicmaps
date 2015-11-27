@@ -6,6 +6,7 @@
 #include "coding/writer.hpp"
 
 #include "std/map.hpp"
+#include "std/target_os.hpp"
 
 using feature::Metadata;
 
@@ -85,4 +86,17 @@ UNIT_TEST(Feature_Serialization)
     TEST_EQUAL(serialized.Get(Metadata::FMD_OPERATOR), "", ());
     TEST_EQUAL(serialized.Size(), kPairs.size(), ());
   }
+}
+
+UNIT_TEST(Feature_Metadata_GetWikipedia)
+{
+  Metadata m;
+  Metadata::EType const wikiType = Metadata::FMD_WIKIPEDIA;
+  m.Set(wikiType, "en:Article");
+  TEST_EQUAL(m.Get(wikiType), "en:Article", ());
+#ifdef OMIM_OS_MOBILE
+  TEST_EQUAL(m.GetWikiURL(), "https://en.m.wikipedia.org/wiki/Article", ());
+#else
+  TEST_EQUAL(m.GetWikiURL(), "https://en.wikipedia.org/wiki/Article", ());
+#endif
 }
