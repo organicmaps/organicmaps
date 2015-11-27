@@ -6,6 +6,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
+
 import com.google.gson.Gson;
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.CountryItem;
@@ -80,9 +81,9 @@ public class MwmApplication extends Application
   public void onCountryGroupChanged(int oldGroup, int oldPosition, int newGroup, int newPosition)
   {
     if (oldGroup == ActiveCountryTree.GROUP_NEW && newGroup == ActiveCountryTree.GROUP_UP_TO_DATE)
-      Statistics.INSTANCE.myTrackerTrackMapDownload();
+      Statistics.INSTANCE.trackMapChanged(Statistics.EventName.MAP_DOWNLOADED);
     else if (oldGroup == ActiveCountryTree.GROUP_OUT_OF_DATE && newGroup == ActiveCountryTree.GROUP_UP_TO_DATE)
-      Statistics.INSTANCE.myTrackerTrackMapUpdate();
+      Statistics.INSTANCE.trackMapChanged(Statistics.EventName.MAP_UPDATED);
   }
 
   @Override

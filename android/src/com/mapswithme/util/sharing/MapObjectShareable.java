@@ -11,7 +11,6 @@ public class MapObjectShareable extends BaseShareable
 {
   protected final MapObject mMapObject;
 
-
   public MapObjectShareable(Activity context, MapObject mapObject)
   {
     super(context);
@@ -34,7 +33,7 @@ public class MapObjectShareable extends BaseShareable
   public void share(SharingTarget target)
   {
     super.share(target);
-    Statistics.INSTANCE.trackPlaceShared(getClass().getSimpleName());
+    Statistics.INSTANCE.trackPlaceShared(target.name);
   }
 
   @Override

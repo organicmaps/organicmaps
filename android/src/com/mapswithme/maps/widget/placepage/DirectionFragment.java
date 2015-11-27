@@ -18,6 +18,7 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
+import com.mapswithme.util.statistics.Statistics;
 
 public class DirectionFragment extends DialogFragment implements LocationHelper.LocationListener
 {
@@ -47,6 +48,7 @@ public class DirectionFragment extends DialogFragment implements LocationHelper.
       public boolean onTouch(View v, MotionEvent event)
       {
         dismiss();
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_DIRECTION_ARROW_CLOSE);
         AlohaHelper.logClick(AlohaHelper.PP_DIRECTION_ARROW_CLOSE);
         return false;
       }

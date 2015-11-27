@@ -44,7 +44,7 @@ public final class Notifier
         PendingIntent.FLAG_UPDATE_CURRENT);
 
     placeNotification(title, content, pi, ID_DOWNLOAD_FAILED);
-    Statistics.INSTANCE.trackDownloadCountryNotificationShown();
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOAD_COUNTRY_NOTIFICATION_SHOWN);
   }
 
   public static void notifyDownloadSuggest(String title, String content, Index countryIndex)
@@ -54,7 +54,7 @@ public final class Notifier
         PendingIntent.FLAG_UPDATE_CURRENT);
 
     placeNotification(title, content, pi, ID_DOWNLOAD_NEW_COUNTRY);
-    Statistics.INSTANCE.trackDownloadCountryNotificationShown();
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOAD_COUNTRY_NOTIFICATION_SHOWN);
   }
 
   public static void cancelDownloadSuggest()

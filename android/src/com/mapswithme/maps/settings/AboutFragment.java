@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.BaseShadowController;
@@ -34,7 +35,7 @@ public class AboutFragment extends BaseSettingsFragment
   protected BaseShadowController createShadowController()
   {
     clearPaddings();
-    return new ScrollViewShadowController((ObservableScrollView)mFrame.findViewById(R.id.content_frame));
+    return new ScrollViewShadowController((ObservableScrollView) mFrame.findViewById(R.id.content_frame));
   }
 
   @Override
@@ -42,8 +43,8 @@ public class AboutFragment extends BaseSettingsFragment
   {
     super.onCreateView(inflater, container, savedInstanceState);
 
-    ((TextView)mFrame.findViewById(R.id.version))
-      .setText(getString(R.string.version, BuildConfig.VERSION_NAME));
+    ((TextView) mFrame.findViewById(R.id.version))
+        .setText(getString(R.string.version, BuildConfig.VERSION_NAME));
 
     mFrame.findViewById(R.id.web).setOnClickListener(this);
     mFrame.findViewById(R.id.blog).setOnClickListener(this);
@@ -64,64 +65,56 @@ public class AboutFragment extends BaseSettingsFragment
     {
       switch (v.getId())
       {
-        case R.id.web:
-          Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.Settings.WEB_SITE);
-          AlohaHelper.logClick(AlohaHelper.Settings.WEB_SITE);
+      case R.id.web:
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.WEB_SITE);
+        AlohaHelper.logClick(AlohaHelper.Settings.WEB_SITE);
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.WEB_SITE)));
+        break;
 
-          startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.WEB_SITE)));
-          break;
+      case R.id.blog:
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.WEB_BLOG);
+        AlohaHelper.logClick(AlohaHelper.Settings.WEB_BLOG);
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.WEB_BLOG)));
+        break;
 
-        case R.id.blog:
-          Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.Settings.WEB_BLOG);
-          AlohaHelper.logClick(AlohaHelper.Settings.WEB_BLOG);
+      case R.id.facebook:
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.FACEBOOK);
+        AlohaHelper.logClick(AlohaHelper.Settings.FACEBOOK);
+        Utils.showFacebookPage(getActivity());
+        break;
 
-          startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.WEB_BLOG)));
-          break;
+      case R.id.twitter:
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.TWITTER);
+        AlohaHelper.logClick(AlohaHelper.Settings.TWITTER);
+        Utils.showTwitterPage(getActivity());
+        break;
 
-        case R.id.facebook:
-          Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.Settings.FACEBOOK);
-          AlohaHelper.logClick(AlohaHelper.Settings.FACEBOOK);
+      case R.id.subscribe:
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.SUBSCRIBE);
+        AlohaHelper.logClick(AlohaHelper.Settings.MAIL_SUBSCRIBE);
+        startActivity(new Intent(Intent.ACTION_SENDTO)
+                          .setData(Utils.buildMailUri(Constants.Email.SUBSCRIBE,
+                                                      getString(R.string.subscribe_me_subject),
+                                                      getString(R.string.subscribe_me_body))));
+        break;
 
-          Utils.showFacebookPage(getActivity());
-          break;
+      case R.id.rate:
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.RATE);
+        AlohaHelper.logClick(AlohaHelper.Settings.RATE);
+        Utils.openAppInMarket(getActivity(), BuildConfig.REVIEW_URL);
+        break;
 
-        case R.id.twitter:
-          Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.Settings.TWITTER);
-          AlohaHelper.logClick(AlohaHelper.Settings.TWITTER);
+      case R.id.share:
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.TELL_FRIEND);
+        AlohaHelper.logClick(AlohaHelper.Settings.TELL_FRIEND);
+        ShareOption.ANY.share(getActivity(), getString(R.string.tell_friends_text), R.string.tell_friends);
+        break;
 
-          Utils.showTwitterPage(getActivity());
-          break;
-
-        case R.id.subscribe:
-          Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.Settings.SUBSCRIBE);
-          AlohaHelper.logClick(AlohaHelper.Settings.MAIL_SUBSCRIBE);
-
-          startActivity(new Intent(Intent.ACTION_SENDTO)
-                            .setData(Utils.buildMailUri(Constants.Email.SUBSCRIBE,
-                                                        getString(R.string.subscribe_me_subject),
-                                                        getString(R.string.subscribe_me_body))));
-          break;
-
-        case R.id.rate:
-          Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.Settings.RATE);
-          AlohaHelper.logClick(AlohaHelper.Settings.RATE);
-
-          Utils.openAppInMarket(getActivity(), BuildConfig.REVIEW_URL);
-          break;
-
-        case R.id.share:
-          Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.Settings.TELL_FRIEND);
-          AlohaHelper.logClick(AlohaHelper.Settings.TELL_FRIEND);
-
-          ShareOption.ANY.share(getActivity(), getString(R.string.tell_friends_text), R.string.tell_friends);
-          break;
-
-        case R.id.copyright:
-          Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.Settings.COPYRIGHT);
-          AlohaHelper.logClick(AlohaHelper.Settings.COPYRIGHT);
-
-          ((SettingsActivity)getActivity()).switchToFragment(CopyrightFragment.class, R.string.copyright);
-          break;
+      case R.id.copyright:
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.COPYRIGHT);
+        AlohaHelper.logClick(AlohaHelper.Settings.COPYRIGHT);
+        ((SettingsActivity) getActivity()).switchToFragment(CopyrightFragment.class, R.string.copyright);
+        break;
       }
     } catch (ActivityNotFoundException e)
     {

@@ -19,7 +19,6 @@ public class SharingTarget implements Gsonable, Comparable<SharingTarget>
   public transient String activityName;
   public transient Drawable drawableIcon;
 
-
   @SuppressWarnings("UnusedDeclaration")
   public SharingTarget()
   {}

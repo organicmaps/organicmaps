@@ -409,17 +409,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return false;
   }
 
-  public void closeMenuAndRun(String statEvent, Runnable proc)
+  public void closeMenu(String statEvent, String alohaStatEvent, @Nullable Runnable procAfterClose)
   {
-    AlohaHelper.logClick(statEvent);
+    Statistics.INSTANCE.trackEvent(statEvent);
+    AlohaHelper.logClick(alohaStatEvent);
 
     mFadeView.fadeOut(false);
-    mMainMenu.close(true, proc);
+    mMainMenu.close(true, procAfterClose);
   }
 
-  private void startLocationToPoint(String statEvent, final @Nullable MapObject endPoint)
+  private void startLocationToPoint(String statisticsEvent, String alohaEvent, final @Nullable MapObject endPoint)
   {
-    closeMenuAndRun(statEvent, new Runnable()
+    closeMenu(statisticsEvent, alohaEvent, new Runnable()
     {
       @Override
       public void run()
@@ -467,13 +468,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
               return;
           }
 
+          Statistics.INSTANCE.trackEvent(Statistics.EventName.TOOLBAR_MENU);
           AlohaHelper.logClick(AlohaHelper.TOOLBAR_MENU);
           toggleMenu();
           break;
 
         case SEARCH:
           RoutingController.get().cancelPlanning();
-          closeMenuAndRun(AlohaHelper.TOOLBAR_SEARCH, new Runnable()
+          closeMenu(Statistics.EventName.TOOLBAR_SEARCH, AlohaHelper.TOOLBAR_SEARCH, new Runnable()
           {
             @Override
             public void run()
@@ -484,11 +486,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
           break;
 
         case P2P:
-          startLocationToPoint(AlohaHelper.MENU_POINT2POINT, null);
+          startLocationToPoint(Statistics.EventName.MENU_P2P, AlohaHelper.MENU_POINT2POINT, null);
           break;
 
         case BOOKMARKS:
-          closeMenuAndRun(AlohaHelper.TOOLBAR_BOOKMARKS, new Runnable()
+          closeMenu(Statistics.EventName.TOOLBAR_BOOKMARKS, AlohaHelper.TOOLBAR_BOOKMARKS, new Runnable()
           {
             @Override
             public void run()
@@ -499,7 +501,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           break;
 
         case SHARE:
-          closeMenuAndRun(AlohaHelper.MENU_SHARE, new Runnable()
+          closeMenu(Statistics.EventName.MENU_SHARE, AlohaHelper.MENU_SHARE, new Runnable()
           {
             @Override
             public void run()
@@ -511,7 +513,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
         case DOWNLOADER:
           RoutingController.get().cancelPlanning();
-          closeMenuAndRun(AlohaHelper.MENU_DOWNLOADER, new Runnable()
+          closeMenu(Statistics.EventName.MENU_DOWNLOADER, AlohaHelper.MENU_DOWNLOADER, new Runnable()
           {
             @Override
             public void run()
@@ -522,7 +524,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           break;
 
         case SETTINGS:
-          closeMenuAndRun(AlohaHelper.MENU_SETTINGS, new Runnable()
+          closeMenu(Statistics.EventName.MENU_SETTINGS, AlohaHelper.MENU_SETTINGS, new Runnable()
           {
             @Override
             public void run()
@@ -533,7 +535,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           break;
 
         case SHOWCASE:
-          closeMenuAndRun(AlohaHelper.MENU_SHOWCASE, new Runnable()
+          closeMenu(Statistics.EventName.MENU_SHOWCASE, AlohaHelper.MENU_SHOWCASE, new Runnable()
           {
             @Override
             public void run()
@@ -1074,6 +1076,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onPlacePageVisibilityChanged(boolean isVisible)
   {
+    Statistics.INSTANCE.trackEvent(isVisible ? Statistics.EventName.PP_OPEN
+                                             : Statistics.EventName.PP_CLOSE);
     AlohaHelper.logClick(isVisible ? AlohaHelper.PP_OPEN
                                    : AlohaHelper.PP_CLOSE);
   }
@@ -1084,29 +1088,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
     switch (v.getId())
     {
     case R.id.ll__route:
-      startLocationToPoint(AlohaHelper.PP_ROUTE, mPlacePage.getMapObject());
+      startLocationToPoint(Statistics.EventName.PP_ROUTE, AlohaHelper.PP_ROUTE, mPlacePage.getMapObject());
       break;
-
     case R.id.map_button_plus:
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.ZOOM_IN);
       AlohaHelper.logClick(AlohaHelper.ZOOM_IN);
       mMapFragment.nativeScale(3.0 / 2);
       break;
     case R.id.map_button_minus:
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.ZOOM_OUT);
       AlohaHelper.logClick(AlohaHelper.ZOOM_OUT);
       mMapFragment.nativeScale(2 / 3.0);
-      break;
-    case R.id.yop_it:
-      final double[] latLon = Framework.getScreenRectCenter();
-      final double zoom = Framework.getDrawScale();
-
-      final int locationStateMode = LocationState.INSTANCE.getLocationStateMode();
-
-      if (locationStateMode > LocationState.NOT_FOLLOW)
-        Yota.showLocation(getApplicationContext(), zoom);
-      else
-        Yota.showMap(getApplicationContext(), latLon[0], latLon[1], zoom, null, locationStateMode == LocationState.NOT_FOLLOW);
-
-      Statistics.INSTANCE.trackBackscreenCall("Map");
       break;
     }
   }

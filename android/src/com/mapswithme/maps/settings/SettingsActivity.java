@@ -61,19 +61,19 @@ public class SettingsActivity extends PreferenceActivity
   public void onHeaderClick(@NonNull Header header, int position)
   {
     if (header.id == R.id.group_map)
-      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.Settings.GROUP_MAP);
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.GROUP_MAP);
     else if (header.id == R.id.group_route)
-      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.Settings.GROUP_ROUTE);
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.GROUP_ROUTE);
     else if (header.id == R.id.group_misc)
-      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.Settings.GROUP_MISC);
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.GROUP_MISC);
     else if (header.id == R.id.help)
     {
-      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.Settings.HELP);
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.HELP);
       AlohaHelper.logClick(AlohaHelper.Settings.HELP);
     }
     else if (header.id == R.id.about)
     {
-      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.Settings.ABOUT);
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.ABOUT);
       AlohaHelper.logClick(AlohaHelper.Settings.ABOUT);
     }
 

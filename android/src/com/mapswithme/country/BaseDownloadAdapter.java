@@ -147,7 +147,7 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
       public void onDownload()
       {
         startItemDownloading(holder, position, newOptions);
-        Statistics.INSTANCE.trackCountryDownload();
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_MAP_DOWNLOAD);
       }
     });
   }
@@ -181,7 +181,7 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
       public void onDownload()
       {
         updateCountry(position, newOptions);
-        Statistics.INSTANCE.trackCountryUpdate();
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_MAP_UPDATE);
       }
     });
   }
@@ -197,7 +197,7 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
           public void onClick(DialogInterface dlg, int which)
           {
             deleteCountry(position, newOptions);
-            Statistics.INSTANCE.trackCountryDeleted();
+            Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_MAP_DELETE);
             dlg.dismiss();
           }
         })
@@ -390,7 +390,7 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
         public void onClick(View v)
         {
           startItemUpdating(holder, position, getItem(position).getOptions());
-          Statistics.INSTANCE.trackCountryUpdate();
+          Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_MAP_UPDATE);
         }
       });
 

@@ -70,9 +70,7 @@ public class ParsedMwmRequest
     request.mCustomButtonName = data.getStringExtra(Const.EXTRA_CUSTOM_BUTTON_NAME);
 
     if (data.getBooleanExtra(Const.EXTRA_HAS_PENDING_INTENT, false))
-    {
       request.mPendingIntent = data.getParcelableExtra(Const.EXTRA_CALLER_PENDING_INTENT);
-    }
 
     return request;
   }

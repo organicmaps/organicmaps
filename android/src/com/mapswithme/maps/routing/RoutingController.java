@@ -323,8 +323,8 @@ public class RoutingController
 
     if (!(mStartPoint instanceof MapObject.MyPosition))
     {
-      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.ROUTING_START_SUGGEST_REBUILD);
-      AlohaHelper.logClick(AlohaHelper.ROUTING_GO_SUGGEST_REBUILD);
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_START_SUGGEST_REBUILD);
+      AlohaHelper.logClick(AlohaHelper.ROUTING_START_SUGGEST_REBUILD);
       suggestRebuildRoute();
       return;
     }
@@ -337,8 +337,8 @@ public class RoutingController
     }
 
     mStartPoint = my;
-    Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.ROUTING_START);
-    AlohaHelper.logClick(AlohaHelper.ROUTING_GO);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_START);
+    AlohaHelper.logClick(AlohaHelper.ROUTING_START);
     setState(State.NAVIGATION);
     Framework.nativeFollowRoute();
 
@@ -642,7 +642,7 @@ public class RoutingController
     mStartPoint = mEndPoint;
     mEndPoint = point;
 
-    Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.ROUTING_SWAP_POINTS);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_SWAP_POINTS);
     AlohaHelper.logClick(AlohaHelper.ROUTING_SWAP_POINTS);
 
     setPointsInternal();
@@ -666,7 +666,7 @@ public class RoutingController
   public void searchPoi(int slotId)
   {
     Log.d(TAG, "searchPoi: " + slotId);
-    Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.ROUTING_SEARCH_POINT);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_SEARCH_POINT);
     AlohaHelper.logClick(AlohaHelper.ROUTING_SEARCH_POINT);
     mWaitingPoiPickSlot = slotId;
     mContainer.showSearch();

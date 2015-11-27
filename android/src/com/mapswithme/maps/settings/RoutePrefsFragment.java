@@ -9,6 +9,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.sound.LanguageData;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.util.Config;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +31,7 @@ public class RoutePrefsFragment extends PreferenceFragment
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue)
     {
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.VOICE_ENABLED, Statistics.params().add(Statistics.EventParam.ENABLED, newValue.toString()));
       boolean set = (Boolean)newValue;
       if (!set)
       {
@@ -60,6 +62,7 @@ public class RoutePrefsFragment extends PreferenceFragment
         return false;
 
       mSelectedLanguage = (String)newValue;
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.VOICE_LANGUAGE, Statistics.params().add(Statistics.EventParam.LANGUAGE, mSelectedLanguage));
       LanguageData lang = mLanguages.get(mSelectedLanguage);
       if (lang == null)
         return false;

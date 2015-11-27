@@ -2,11 +2,13 @@ package com.mapswithme.maps.routing;
 
 import android.view.View;
 import android.widget.Button;
+
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
+import com.mapswithme.util.statistics.Statistics;
 
 public class RoutingPlanInplaceController extends RoutingPlanController
 {
@@ -22,8 +24,8 @@ public class RoutingPlanInplaceController extends RoutingPlanController
 
     if (show)
     {
-      showSlots(!(RoutingController.get().getStartPoint() instanceof MapObject.MyPosition) ||
-                (RoutingController.get().getEndPoint() == null), false);
+      showSlots(!(RoutingController.get().getStartPoint() instanceof MapObject.MyPosition) || (RoutingController.get().getEndPoint() == null),
+                false);
     }
 
     UiUtils.showIf(show, mFrame);
@@ -33,7 +35,7 @@ public class RoutingPlanInplaceController extends RoutingPlanController
 
   public void setStartButton()
   {
-    final MwmActivity activity = (MwmActivity)mActivity;
+    final MwmActivity activity = (MwmActivity) mActivity;
 
     Button start = activity.getMainMenu().getRouteStartButton();
     RoutingController.get().setStartButton(start);
@@ -42,7 +44,7 @@ public class RoutingPlanInplaceController extends RoutingPlanController
       @Override
       public void onClick(View v)
       {
-        activity.closeMenuAndRun(AlohaHelper.ROUTING_GO, new Runnable()
+        activity.closeMenu(Statistics.EventName.ROUTING_START, AlohaHelper.ROUTING_START, new Runnable()
         {
           @Override
           public void run()
