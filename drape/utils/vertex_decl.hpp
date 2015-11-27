@@ -43,9 +43,8 @@ typedef buffer_vector<SolidTexturingVertex, 128> TSolidTexVertexBuffer;
 struct TextStaticVertex : BaseVertex
 {
   TextStaticVertex();
-  TextStaticVertex(TPosition const & position, TTexCoord const & colorTexCoord, TTexCoord const & maskTexCoord);
+  TextStaticVertex(TTexCoord const & colorTexCoord, TTexCoord const & maskTexCoord);
 
-  TPosition m_position;
   TTexCoord m_colorTexCoord;
   TTexCoord m_maskTexCoord;
 
@@ -58,10 +57,9 @@ struct TextOutlinedStaticVertex : BaseVertex
 {
 public:
   TextOutlinedStaticVertex();
-  TextOutlinedStaticVertex(TPosition const & position, TTexCoord const & colorTexCoord,
-                   TTexCoord const & outlineTexCoord, TTexCoord const & maskTexCoord);
+  TextOutlinedStaticVertex(TTexCoord const & colorTexCoord, TTexCoord const & outlineTexCoord,
+                           TTexCoord const & maskTexCoord);
 
-  TPosition m_position;
   TTexCoord m_colorTexCoord;
   TTexCoord m_outlineTexCoord;
   TTexCoord m_maskTexCoord;
@@ -74,8 +72,9 @@ typedef buffer_vector<TextOutlinedStaticVertex, 128> TTextOutlinedStaticVertexBu
 struct TextDynamicVertex : BaseVertex
 {
   TextDynamicVertex();
-  TextDynamicVertex(TNormal const & normal);
+  TextDynamicVertex(TPosition const & position, TNormal const & normal);
 
+  TPosition m_position;
   TNormal m_normal;
 
   static dp::BindingInfo const & GetBindingInfo();

@@ -32,11 +32,13 @@ class PathTextHandle : public df::TextHandle
 public:
   PathTextHandle(m2::SharedSpline const & spl,
                  df::SharedTextLayout const & layout,
-                 float const mercatorOffset, uint64_t priority,
+                 float const mercatorOffset, float const depth,
+                 uint64_t priority,
                  ref_ptr<dp::TextureManager> textureManager)
     : TextHandle(FeatureID(), layout->GetText(), dp::Center, priority, textureManager)
     , m_spline(spl)
     , m_layout(layout)
+    , m_depth(depth)
   {
     m_centerPointIter = m_spline.CreateIterator();
     m_centerPointIter.Advance(mercatorOffset);
@@ -52,7 +54,7 @@ public:
     if (m_normals.empty())
       m_normals.resize(4 * m_layout->GetGlyphCount());
 
-    return m_layout->CacheDynamicGeometry(m_centerPointIter, screen, m_normals);
+    return m_layout->CacheDynamicGeometry(m_centerPointIter, m_depth, screen, m_normals);
   }
 
   m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override
@@ -104,7 +106,7 @@ public:
 private:
   m2::SharedSpline m_spline;
   m2::Spline::iterator m_centerPointIter;
-
+  float const m_depth;
   df::SharedTextLayout m_layout;
 };
 
@@ -155,16 +157,16 @@ void PathTextShape::DrawPathTextPlain(ref_ptr<dp::TextureManager> textures,
 
     Spline::iterator iter = m_spline.CreateIterator();
     iter.Advance(offset);
-    layoutPtr->CacheStaticGeometry(glsl::vec3(glsl::ToVec2(iter.m_pos), m_params.m_depth),
-                                   color, staticBuffer);
+    layoutPtr->CacheStaticGeometry(color, staticBuffer);
 
-    dynBuffer.resize(staticBuffer.size(), gpu::TextDynamicVertex(glsl::vec2(0.0, 0.0)));
+    dynBuffer.resize(staticBuffer.size());
 
     dp::AttributeProvider provider(2, staticBuffer.size());
     provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));
     provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(dynBuffer.data()));
 
     drape_ptr<dp::OverlayHandle> handle = make_unique_dp<PathTextHandle>(m_spline, layoutPtr, offset,
+                                                                         m_params.m_depth,
                                                                          GetOverlayPriority(),
                                                                          textures);
     batcher->InsertListOfStrip(state, make_ref(&provider), move(handle), 4);
@@ -196,16 +198,16 @@ void PathTextShape::DrawPathTextOutlined(ref_ptr<dp::TextureManager> textures,
 
     Spline::iterator iter = m_spline.CreateIterator();
     iter.Advance(offset);
-    layoutPtr->CacheStaticGeometry(glsl::vec3(glsl::ToVec2(iter.m_pos), m_params.m_depth),
-                                   color, outline, staticBuffer);
+    layoutPtr->CacheStaticGeometry(color, outline, staticBuffer);
 
-    dynBuffer.resize(staticBuffer.size(), gpu::TextDynamicVertex(glsl::vec2(0.0, 0.0)));
+    dynBuffer.resize(staticBuffer.size());
 
     dp::AttributeProvider provider(2, staticBuffer.size());
     provider.InitStream(0, gpu::TextOutlinedStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));
     provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(dynBuffer.data()));
 
     drape_ptr<dp::OverlayHandle> handle = make_unique_dp<PathTextHandle>(m_spline, layoutPtr, offset,
+                                                                         m_params.m_depth,
                                                                          GetOverlayPriority(),
                                                                          textures);
     batcher->InsertListOfStrip(state, make_ref(&provider), move(handle), 4);
