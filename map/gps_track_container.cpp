@@ -64,12 +64,6 @@ uint32_t GpsTrackContainer::AddPoint(m2::PointD const & point, double speedMPS, 
 {
   lock_guard<mutex> lg(m_guard);
 
-  GpsTrackPoint gtp;
-  gtp.m_timestamp = timestamp;
-  gtp.m_point = point;
-  gtp.m_speedMPS = speedMPS;
-  gtp.m_id = ++m_counter;
-
   // Do not process points which are come with timestamp earlier than timestamp of the last point
   // because it is probably some error in logic or gps error, because valid gps must provide UTC time which is growing.
   if (!m_points.empty() && timestamp < m_points.back().m_timestamp)
@@ -77,6 +71,12 @@ uint32_t GpsTrackContainer::AddPoint(m2::PointD const & point, double speedMPS, 
     LOG(LINFO, ("Incorrect GPS timestamp sequence"));
     return kInvalidId;
   }
+
+  GpsTrackPoint gtp;
+  gtp.m_timestamp = timestamp;
+  gtp.m_point = point;
+  gtp.m_speedMPS = speedMPS;
+  gtp.m_id = ++m_counter;
 
   m_points.push_back(gtp);
 
