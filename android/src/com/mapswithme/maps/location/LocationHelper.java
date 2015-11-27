@@ -2,7 +2,11 @@ package com.mapswithme.maps.location;
 
 import android.content.ContentResolver;
 import android.content.Context;
-import android.hardware.*;
+import android.hardware.GeomagneticField;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.Build;
 import android.preference.PreferenceManager;
@@ -10,6 +14,10 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.mapswithme.maps.LocationState;
@@ -20,9 +28,6 @@ import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.SimpleLogger;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public enum LocationHelper implements SensorEventListener
 {
@@ -136,7 +141,7 @@ public enum LocationHelper implements SensorEventListener
   {
     if (!LocationState.isTurnedOn())
     {
-      invalidateLocation();
+      mMyPosition = null;
       return null;
     }
 
@@ -159,12 +164,6 @@ public enum LocationHelper implements SensorEventListener
     mMyPosition = null;
     mLastLocationTime = System.currentTimeMillis();
     notifyLocationUpdated();
-  }
-
-  public void invalidateLocation()
-  {
-    mLastLocation = null;
-    mMyPosition = null;
   }
 
   void notifyLocationUpdated()
