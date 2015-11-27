@@ -288,7 +288,7 @@ private:
 // find out what is stored in the search index than by
 // staring at the mwm version number. Similar functionality
 // may be added to it later.
-class MwmFeatures
+class MwmTraits
 {
 public:
   enum class SearchIndexFormat
@@ -308,7 +308,7 @@ public:
     Unknown
   };
 
-  MwmFeatures(version::Format versionFormat)
+  MwmTraits(version::Format versionFormat)
   {
     if (versionFormat < version::v7)
     {

@@ -1666,21 +1666,21 @@ void Query::SearchLocality(MwmValue const * pMwm, Locality & res1, Region & res2
 
   auto codingParams = trie::GetCodingParams(pMwm->GetHeader().GetDefCodingParams());
 
-  MwmFeatures mwmFeatures(pMwm->GetHeader().GetFormat());
+  MwmTraits mwmTraits(pMwm->GetHeader().GetFormat());
 
-  if (mwmFeatures.GetSearchIndexFormat() ==
-      MwmFeatures::SearchIndexFormat::FeaturesWithRankAndCenter)
+  if (mwmTraits.GetSearchIndexFormat() ==
+      MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter)
   {
     using TValue = FeatureWithRankAndCenter;
     SearchLocalityImpl<TValue>(this, pMwm, res1, res2, params, codingParams);
   }
-  else if (mwmFeatures.GetSearchIndexFormat() ==
-           MwmFeatures::SearchIndexFormat::CompressedBitVector)
+  else if (mwmTraits.GetSearchIndexFormat() ==
+           MwmTraits::SearchIndexFormat::CompressedBitVector)
   {
     using TValue = FeatureIndexValue;
     SearchLocalityImpl<TValue>(this, pMwm, res1, res2, params, codingParams);
   }
-  else if (mwmFeatures.GetSearchIndexFormat() == MwmFeatures::SearchIndexFormat::Unknown)
+  else if (mwmTraits.GetSearchIndexFormat() == MwmTraits::SearchIndexFormat::Unknown)
   {
     LOG(LERROR, ("Unsupported search index format."));
   }

@@ -109,16 +109,16 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(MwmSet::MwmHandl
     LOG(LERROR, ("Unreadable mwm version."));
     return unique_ptr<coding::CompressedBitVector>();
   }
-  MwmFeatures mwmFeatures(version.format);
+  MwmTraits mwmTraits(version.format);
 
-  if (mwmFeatures.GetSearchIndexFormat() ==
-      MwmFeatures::SearchIndexFormat::FeaturesWithRankAndCenter)
+  if (mwmTraits.GetSearchIndexFormat() ==
+      MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter)
   {
     using TValue = FeatureWithRankAndCenter;
     return RetrieveAddressFeaturesImpl<TValue>(handle, cancellable, params);
   }
-  else if (mwmFeatures.GetSearchIndexFormat() ==
-           MwmFeatures::SearchIndexFormat::CompressedBitVector)
+  else if (mwmTraits.GetSearchIndexFormat() ==
+           MwmTraits::SearchIndexFormat::CompressedBitVector)
   {
     using TValue = FeatureIndexValue;
     return RetrieveAddressFeaturesImpl<TValue>(handle, cancellable, params);
