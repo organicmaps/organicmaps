@@ -481,13 +481,12 @@
 "menu_search" = "Tìm kiếm";
 
 /* Settings screen: "Map" category title */
-"prefs_group_map" = "Map";
-
-/* Settings screen: "Route" category title */
-"prefs_group_route" = "Route";
+"prefs_group_map" = "Bản đồ";
 
 /* Settings screen: "Miscellaneous" category title */
-"prefs_group_misc" = "Miscellaneous";
+"prefs_group_misc" = "Khác";
+
+"prefs_group_route" = "Điều hướng";
 
 "pref_zoom_title" = "Nút Phóng to/Thu nhỏ";
 

@@ -294,6 +294,11 @@
 	<string name="length">길이</string>
 	<string name="share_my_location">내 위치 공유</string>
 	<string name="menu_search">검색</string>
+	<!-- Settings screen: "Map" category title -->
+	<string name="prefs_group_map">지도</string>
+	<!-- Settings screen: "Miscellaneous" category title -->
+	<string name="prefs_group_misc">기타</string>
+	<string name="prefs_group_route">네비게이션</string>
 	<string name="pref_zoom_title">확대/축소 버튼</string>
 	<string name="pref_zoom_summary">화면에 표시</string>
 	<!-- Title for "Other" section in TTS settings. -->

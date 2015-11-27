@@ -295,6 +295,11 @@
 	<string name="length">距離</string>
 	<string name="share_my_location">位置情報を共有する</string>
 	<string name="menu_search">検索</string>
+	<!-- Settings screen: "Map" category title -->
+	<string name="prefs_group_map">地図</string>
+	<!-- Settings screen: "Miscellaneous" category title -->
+	<string name="prefs_group_misc">その他</string>
+	<string name="prefs_group_route">ナビゲーション</string>
 	<string name="pref_zoom_title">ズームボタン</string>
 	<string name="pref_zoom_summary">画面上に表示</string>
 	<!-- Title for "Other" section in TTS settings. -->
