@@ -154,6 +154,23 @@ UNIT_TEST(RussiaMoscowSchelkovskoeShosseUTurnTest)
   integration::GetNthTurn(route, 0).TestValid().TestDirection(TurnDirection::UTurnLeft);
 }
 
+UNIT_TEST(RussiaMoscowParallelResidentalUTurnAvoiding)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetOsrmComponents(),
+      MercatorBounds::FromLatLon(55.66192, 37.62852), {0., 0.},
+      MercatorBounds::FromLatLon(55.66189, 37.63254));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 2);
+  // Checking a turn in case going from a not-link to a link
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(TurnDirection::TurnLeft);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(TurnDirection::TurnLeft);
+}
+
 UNIT_TEST(RussiaMoscowPankratevskiPerBolshaySuharedskazPloschadTurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(

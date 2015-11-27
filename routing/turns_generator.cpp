@@ -936,6 +936,10 @@ size_t CheckUTurnOnRoute(vector<LoadedPathSegment> const & segments, size_t curr
         return 0;
       }
 
+      // Avoid the UTurn on unnamed roads inside the rectangle based distinct.
+      if (checkedSegment.m_name.empty())
+        return 0;
+
       auto angle = ang::TwoVectorsAngle(m2::PointD::Zero(), p1, p2);
 
       if (!my::AlmostEqualAbs(angle, math::pi, kUTurnHeadingSensitivity))
