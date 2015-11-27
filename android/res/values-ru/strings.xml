@@ -833,7 +833,7 @@
 	<string name="p2p_your_location">Ваше местоположение</string>
 	<string name="p2p_from">Пункт отправления</string>
 	<string name="p2p_to">Пункт назначения</string>
-	<string name="p2p_start">Начать движение</string>
+	<string name="p2p_start">Начать</string>
 	<string name="p2p_planning">Планируем…</string>
 	<string name="p2p_from_here">Отсюда</string>
 	<string name="p2p_to_here">Сюда</string>
