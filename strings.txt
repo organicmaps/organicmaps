@@ -5117,20 +5117,93 @@
   [prefs_group_map]
     tags = android
     comment = Settings screen: "Map" category title
-    en = Map
     ru = Карта
-
-  [prefs_group_route]
-    tags = android
-    comment = Settings screen: "Route" category title
-    en = Route
-    ru = Маршрут
+    en = Map
+    fr = Carte
+    da = Kort
+    id = Peta
+    ko = 지도
+    sv = Karta
+    tr = Harita
+    uk = Карта
+    vi = Bản đồ
+    hu = Térkép
+    de = Karteneinstellungen
+    fi = Kartta
+    cs = Mapa
+    it = Mappa
+    nb = Kart
+    zh-Hant = 地圖
+    zh-Hans = 地图
+    th = แผนที่
+    ja = 地図
+    ro = Hartă
+    ar = الخريطة
+    sk = Mapa
+    es = Mapa
+    pl = Mapa
+    nl = Kaart
+    pt = Mapa
 
   [prefs_group_misc]
     tags = android
     comment = Settings screen: "Miscellaneous" category title
-    en = Miscellaneous
     ru = Прочее
+    en = Miscellaneous
+    fr = Divers
+    da = Forskelligt
+    id = Lain-Lain
+    ko = 기타
+    sv = Diverse
+    tr = Çeşitli
+    uk = Інше
+    vi = Khác
+    hu = Egyéb
+    de = Verschiedenes
+    fi = Muut
+    cs = Jiné
+    it = Miscellanea
+    nb = Diverse
+    zh-Hant = 其他
+    zh-Hans = 其他
+    th = เบ็ดเตล็ด
+    ja = その他
+    ro = Diverse
+    ar = مُتَنَوّعة
+    sk = Ostatné nastavenia
+    es = Varios
+    pl = Różne
+    nl = Diversen
+    pt = Diversos
+
+  [prefs_group_route]
+    ru = Навигация
+    en = Navigation
+    fr = Navigation
+    da = Navigation
+    id = Navigasi
+    ko = 네비게이션
+    sv = Navigering
+    tr = Navigasyon
+    uk = Навігація
+    vi = Điều hướng
+    hu = Navigáció
+    de = Navigation
+    fi = Navigaatio
+    cs = Navigace
+    it = Navigazione
+    nb = Navigasjon
+    zh-Hant = 導航
+    zh-Hans = 导航
+    th = การนำทาง
+    ja = ナビゲーション
+    ro = Navigație
+    ar = الملاحة
+    sk = Navigácia
+    es = Navegación
+    pl = Nawigacja
+    nl = Navigatie
+    pt = Navegação
 
   [pref_zoom_title]
     tags = android,tizen
