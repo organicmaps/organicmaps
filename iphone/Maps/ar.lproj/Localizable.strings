@@ -481,13 +481,12 @@
 "menu_search" = "بحث";
 
 /* Settings screen: "Map" category title */
-"prefs_group_map" = "Map";
-
-/* Settings screen: "Route" category title */
-"prefs_group_route" = "Route";
+"prefs_group_map" = "الخريطة";
 
 /* Settings screen: "Miscellaneous" category title */
-"prefs_group_misc" = "Miscellaneous";
+"prefs_group_misc" = "مُتَنَوّعة";
+
+"prefs_group_route" = "الملاحة";
 
 "pref_zoom_title" = "أزرار التكبير";
 

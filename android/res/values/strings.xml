@@ -313,10 +313,9 @@
 	<string name="menu_search">Search</string>
 	<!-- Settings screen: "Map" category title -->
 	<string name="prefs_group_map">Map</string>
-	<!-- Settings screen: "Route" category title -->
-	<string name="prefs_group_route">Route</string>
 	<!-- Settings screen: "Miscellaneous" category title -->
 	<string name="prefs_group_misc">Miscellaneous</string>
+	<string name="prefs_group_route">Navigation</string>
 	<string name="pref_zoom_title">Zoom buttons</string>
 	<string name="pref_zoom_summary">Display on the screen</string>
 	<!-- Settings «Map» category: «Map style» title -->

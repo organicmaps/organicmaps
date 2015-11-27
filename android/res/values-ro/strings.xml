@@ -304,6 +304,11 @@
 	<string name="length">Lungime</string>
 	<string name="share_my_location">Partajează-mi poziția</string>
 	<string name="menu_search">Căutare</string>
+	<!-- Settings screen: "Map" category title -->
+	<string name="prefs_group_map">Hartă</string>
+	<!-- Settings screen: "Miscellaneous" category title -->
+	<string name="prefs_group_misc">Diverse</string>
+	<string name="prefs_group_route">Navigație</string>
 	<string name="pref_zoom_title">Butoane zoom</string>
 	<string name="pref_zoom_summary">Afișare pe ecran</string>
 	<!-- Title for "Other" section in TTS settings. -->

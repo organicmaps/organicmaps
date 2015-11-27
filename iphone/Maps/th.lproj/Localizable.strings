@@ -481,13 +481,12 @@
 "menu_search" = "ค้นหา";
 
 /* Settings screen: "Map" category title */
-"prefs_group_map" = "Map";
-
-/* Settings screen: "Route" category title */
-"prefs_group_route" = "Route";
+"prefs_group_map" = "แผนที่";
 
 /* Settings screen: "Miscellaneous" category title */
-"prefs_group_misc" = "Miscellaneous";
+"prefs_group_misc" = "เบ็ดเตล็ด";
+
+"prefs_group_route" = "การนำทาง";
 
 "pref_zoom_title" = "ปุ่มซูม";
 

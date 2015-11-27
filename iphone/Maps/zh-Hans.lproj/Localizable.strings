@@ -481,13 +481,12 @@
 "menu_search" = "搜索";
 
 /* Settings screen: "Map" category title */
-"prefs_group_map" = "Map";
-
-/* Settings screen: "Route" category title */
-"prefs_group_route" = "Route";
+"prefs_group_map" = "地图";
 
 /* Settings screen: "Miscellaneous" category title */
-"prefs_group_misc" = "Miscellaneous";
+"prefs_group_misc" = "其他";
+
+"prefs_group_route" = "导航";
 
 "pref_zoom_title" = "缩放按钮";
 
