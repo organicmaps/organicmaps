@@ -9,7 +9,13 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.StorageOptions;
 import com.mapswithme.maps.Framework;
@@ -349,11 +355,14 @@ public class RoutingController
   private void suggestRebuildRoute()
   {
     final AlertDialog.Builder builder = new AlertDialog.Builder(mContainer.getActivity())
-                                                       .setCancelable(false)
-                                                       .setNegativeButton(R.string.cancel, null);
+                                            .setMessage(R.string.p2p_reroute_from_current)
+                                            .setCancelable(false)
+                                            .setNegativeButton(R.string.cancel, null);
 
-    builder.setTitle(R.string.p2p_only_from_current)
-           .setMessage(R.string.p2p_reroute_from_current);
+    TextView titleView = (TextView)View.inflate(mContainer.getActivity(), R.layout.dialog_suggest_reroute_title, null);
+    titleView.setText(R.string.p2p_only_from_current);
+    builder.setCustomTitle(titleView);
+
     if (mEndPoint instanceof MapObject.MyPosition)
     {
       builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
