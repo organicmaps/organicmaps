@@ -11,10 +11,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
-import java.util.Calendar;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
+import android.widget.TextView;
 
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.StorageOptions;
@@ -29,6 +26,9 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 @android.support.annotation.UiThread
 public class RoutingController
