@@ -7,6 +7,7 @@
 #include "helpers.hpp"
 
 #include <string>
+#include <vector>
 
 TEST_XML(xpath_api_select_nodes, "<node><head/><foo/><foo/><tail/></node>")
 {
@@ -30,12 +31,12 @@ TEST_XML(xpath_api_select_node, "<node><head/><foo id='1'/><foo/><tail/></node>"
 	CHECK(n2.node().attribute(STR("id")).as_int() == 1);
 
 	xpath_node n3 = doc.select_node(STR("node/bar"));
-
+	
 	CHECK(!n3);
 
 	xpath_node n4 = doc.select_node(STR("node/head/following-sibling::foo"));
 	xpath_node n5 = doc.select_node(STR("node/tail/preceding-sibling::foo"));
-
+	
 	CHECK(n4.node().attribute(STR("id")).as_int() == 1);
 	CHECK(n5.node().attribute(STR("id")).as_int() == 1);
 }
@@ -257,7 +258,7 @@ TEST(xpath_api_evaluate_string)
 	// test for just enough space
 	std::basic_string<char_t> s1 = base;
 	CHECK(q.evaluate_string(&s1[0], 11, xml_node()) == 11 && memcmp(&s1[0], STR("0123456789\0xxxxx"), 16 * sizeof(char_t)) == 0);
-
+	
 	// test for just not enough space
 	std::basic_string<char_t> s2 = base;
 	CHECK(q.evaluate_string(&s2[0], 10, xml_node()) == 11 && memcmp(&s2[0], STR("012345678\0xxxxxx"), 16 * sizeof(char_t)) == 0);
@@ -291,7 +292,7 @@ TEST(xpath_api_return_type)
 TEST(xpath_api_query_bool)
 {
 	xpath_query q(STR("node"));
-
+	
 	CHECK(q);
 	CHECK((!q) == false);
 }
@@ -300,7 +301,7 @@ TEST(xpath_api_query_bool)
 TEST(xpath_api_query_bool_fail)
 {
 	xpath_query q(STR(""));
-
+	
 	CHECK((q ? true : false) == false);
 	CHECK((!q) == true);
 }
@@ -356,6 +357,7 @@ TEST(xpath_api_exception_what)
 		CHECK(e.what()[0] != 0);
 	}
 }
+#endif
 
 TEST(xpath_api_node_set_ctor_out_of_memory)
 {
@@ -363,15 +365,7 @@ TEST(xpath_api_node_set_ctor_out_of_memory)
 
 	xpath_node data[2];
 
-	try
-	{
-		xpath_node_set ns(data, data + 2);
-
-		CHECK_FORCE_FAIL("Expected out of memory exception");
-	}
-	catch (const std::bad_alloc&)
-	{
-	}
+	CHECK_ALLOC_FAIL(xpath_node_set ns(data, data + 2));
 }
 
 TEST(xpath_api_node_set_copy_ctor_out_of_memory)
@@ -381,40 +375,28 @@ TEST(xpath_api_node_set_copy_ctor_out_of_memory)
 
 	test_runner::_memory_fail_threshold = 1;
 
-	try
-	{
-		xpath_node_set copy = ns;
-
-		CHECK_FORCE_FAIL("Expected out of memory exception");
-	}
-	catch (const std::bad_alloc&)
-	{
-	}
+	CHECK_ALLOC_FAIL(xpath_node_set copy = ns);
 }
 
 TEST_XML(xpath_api_node_set_assign_out_of_memory_preserve, "<node><a/><b/></node>")
 {
 	xpath_node_set ns = doc.select_nodes(STR("node/*"));
 	CHECK(ns.size() == 2);
+	CHECK(ns.type() == xpath_node_set::type_sorted);
 
 	xpath_node_set nsall = doc.select_nodes(STR("//*"));
+	nsall.sort(true);
 	CHECK(nsall.size() == 3);
+	CHECK(nsall.type() == xpath_node_set::type_sorted_reverse);
 
 	test_runner::_memory_fail_threshold = 1;
 
-	try
-	{
-		ns = nsall;
+	CHECK_ALLOC_FAIL(ns = nsall);
 
-		CHECK_FORCE_FAIL("Expected out of memory exception");
-	}
-	catch (const std::bad_alloc&)
-	{
-	}
-
-	CHECK(ns.size() == 2 && ns[0] == doc.child(STR("node")).child(STR("a")) && ns[1] == doc.child(STR("node")).child(STR("b")));
+	CHECK(ns.size() == 2);
+	CHECK(ns.type() == xpath_node_set::type_sorted);
+	CHECK(ns[0] == doc.child(STR("node")).child(STR("a")) && ns[1] == doc.child(STR("node")).child(STR("b")));
 }
-#endif
 
 TEST_XML(xpath_api_deprecated_select_single_node, "<node><head/><foo id='1'/><foo/><tail/></node>")
 {
@@ -426,4 +408,233 @@ TEST_XML(xpath_api_deprecated_select_single_node, "<node><head/><foo id='1'/><fo
 	CHECK(n1.node().attribute(STR("id")).as_int() == 1);
 	CHECK(n2.node().attribute(STR("id")).as_int() == 1);
 }
+
+TEST(xpath_api_empty)
+{
+	xml_node c;
+
+	xpath_query q;
+	CHECK(!q);
+	CHECK(!q.evaluate_boolean(c));
+}
+
+#if __cplusplus >= 201103
+TEST_XML(xpath_api_nodeset_move_ctor, "<node><foo/><foo/><bar/></node>")
+{
+	xpath_node_set set = doc.select_nodes(STR("node/bar/preceding::*"));
+
+	CHECK(set.size() == 2);
+	CHECK(set.type() == xpath_node_set::type_sorted_reverse);
+
+	test_runner::_memory_fail_threshold = 1;
+
+	xpath_node_set move = std::move(set);
+
+	CHECK(set.size() == 0);
+	CHECK(set.type() == xpath_node_set::type_unsorted);
+
+	CHECK(move.size() == 2);
+	CHECK(move.type() == xpath_node_set::type_sorted_reverse);
+	CHECK(move[1] == doc.first_child().first_child());
+}
+
+
+TEST_XML(xpath_api_nodeset_move_ctor_single, "<node><foo/><foo/><bar/></node>")
+{
+	xpath_node_set set = doc.select_nodes(STR("node/bar"));
+
+	CHECK(set.size() == 1);
+	CHECK(set.type() == xpath_node_set::type_sorted);
+
+	test_runner::_memory_fail_threshold = 1;
+
+	xpath_node_set move = std::move(set);
+
+	CHECK(set.size() == 0);
+	CHECK(set.type() == xpath_node_set::type_unsorted);
+
+	CHECK(move.size() == 1);
+	CHECK(move.type() == xpath_node_set::type_sorted);
+	CHECK(move[0] == doc.first_child().last_child());
+}
+
+TEST(xpath_api_nodeset_move_ctor_empty)
+{
+	xpath_node_set set;
+	set.sort();
+
+	CHECK(set.size() == 0);
+	CHECK(set.type() == xpath_node_set::type_sorted);
+
+	test_runner::_memory_fail_threshold = 1;
+
+	xpath_node_set move = std::move(set);
+
+	CHECK(set.size() == 0);
+	CHECK(set.type() == xpath_node_set::type_unsorted);
+
+	CHECK(move.size() == 0);
+	CHECK(move.type() == xpath_node_set::type_sorted);
+}
+
+TEST_XML(xpath_api_nodeset_move_assign, "<node><foo/><foo/><bar/></node>")
+{
+	xpath_node_set set = doc.select_nodes(STR("node/bar/preceding::*"));
+
+	CHECK(set.size() == 2);
+	CHECK(set.type() == xpath_node_set::type_sorted_reverse);
+
+	test_runner::_memory_fail_threshold = 1;
+
+	xpath_node_set move;
+
+	CHECK(move.size() == 0);
+	CHECK(move.type() == xpath_node_set::type_unsorted);
+
+	move = std::move(set);
+
+	CHECK(set.size() == 0);
+	CHECK(set.type() == xpath_node_set::type_unsorted);
+
+	CHECK(move.size() == 2);
+	CHECK(move.type() == xpath_node_set::type_sorted_reverse);
+	CHECK(move[1] == doc.first_child().first_child());
+}
+
+TEST_XML(xpath_api_nodeset_move_assign_destroy, "<node><foo/><foo/><bar/></node>")
+{
+	xpath_node_set set = doc.select_nodes(STR("node/bar/preceding::*"));
+
+	CHECK(set.size() == 2);
+	CHECK(set.type() == xpath_node_set::type_sorted_reverse);
+
+	xpath_node_set all = doc.select_nodes(STR("//*"));
+
+	CHECK(all.size() == 4);
+
+	test_runner::_memory_fail_threshold = 1;
+
+	all = std::move(set);
+
+	CHECK(set.size() == 0);
+	CHECK(set.type() == xpath_node_set::type_unsorted);
+
+	CHECK(all.size() == 2);
+	CHECK(all.type() == xpath_node_set::type_sorted_reverse);
+	CHECK(all[1] == doc.first_child().first_child());
+}
+
+TEST_XML(xpath_api_nodeset_move_assign_single, "<node><foo/><foo/><bar/></node>")
+{
+	xpath_node_set set = doc.select_nodes(STR("node/bar"));
+
+	CHECK(set.size() == 1);
+	CHECK(set.type() == xpath_node_set::type_sorted);
+
+	test_runner::_memory_fail_threshold = 1;
+
+	xpath_node_set move;
+
+	CHECK(move.size() == 0);
+	CHECK(move.type() == xpath_node_set::type_unsorted);
+
+	move = std::move(set);
+
+	CHECK(set.size() == 0);
+	CHECK(set.type() == xpath_node_set::type_unsorted);
+
+	CHECK(move.size() == 1);
+	CHECK(move.type() == xpath_node_set::type_sorted);
+	CHECK(move[0] == doc.first_child().last_child());
+}
+
+TEST(xpath_api_nodeset_move_assign_empty)
+{
+	xpath_node_set set;
+	set.sort();
+
+	CHECK(set.size() == 0);
+	CHECK(set.type() == xpath_node_set::type_sorted);
+
+	test_runner::_memory_fail_threshold = 1;
+
+	xpath_node_set move;
+
+	CHECK(move.size() == 0);
+	CHECK(move.type() == xpath_node_set::type_unsorted);
+
+	move = std::move(set);
+
+	CHECK(set.size() == 0);
+	CHECK(set.type() == xpath_node_set::type_unsorted);
+
+	CHECK(move.size() == 0);
+	CHECK(move.type() == xpath_node_set::type_sorted);
+}
+
+TEST(xpath_api_query_move)
+{
+	xml_node c;
+
+	xpath_query q1(STR("true()"));
+	xpath_query q4(STR("true() and false()"));
+
+	test_runner::_memory_fail_threshold = 1;
+
+	CHECK(q1);
+	CHECK(q1.evaluate_boolean(c));
+
+	xpath_query q2 = std::move(q1);
+	CHECK(!q1);
+	CHECK(!q1.evaluate_boolean(c));
+	CHECK(q2);
+	CHECK(q2.evaluate_boolean(c));
+
+	xpath_query q3;
+	CHECK(!q3);
+	CHECK(!q3.evaluate_boolean(c));
+
+	q3 = std::move(q2);
+	CHECK(!q2);
+	CHECK(!q2.evaluate_boolean(c));
+	CHECK(q3);
+	CHECK(q3.evaluate_boolean(c));
+
+	CHECK(q4);
+	CHECK(!q4.evaluate_boolean(c));
+
+	q4 = std::move(q3);
+
+	CHECK(!q3);
+	CHECK(!q3.evaluate_boolean(c));
+	CHECK(q4);
+	CHECK(q4.evaluate_boolean(c));
+
+	q4 = std::move(*&q4);
+
+	CHECK(q4);
+	CHECK(q4.evaluate_boolean(c));
+}
+
+TEST(xpath_api_query_vector)
+{
+	std::vector<xpath_query> qv;
+
+	for (int i = 0; i < 10; ++i)
+	{
+		char_t expr[2];
+		expr[0] = char_t('0' + i);
+		expr[1] = 0;
+
+		qv.push_back(xpath_query(expr));
+	}
+
+	double result = 0;
+
+	for (auto& q: qv)
+		result += q.evaluate_number(xml_node());
+
+	CHECK(result == 45);
+}
+#endif
 #endif

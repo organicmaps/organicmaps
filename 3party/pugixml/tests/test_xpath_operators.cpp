@@ -63,7 +63,7 @@ TEST(xpath_operators_arithmetic_specials)
 	CHECK_XPATH_STRING(c, STR("1 div 0 + 100"), STR("Infinity"));
 	CHECK_XPATH_STRING(c, STR("-1 div 0 + 100"), STR("-Infinity"));
 	CHECK_XPATH_STRING(c, STR("0 div 0 + 100"), STR("NaN"));
-
+	
 	// unary - and multiplication clarifications from recommendations errata
 	CHECK_XPATH_STRING(c, STR("1 div -0"), STR("-Infinity"));
 	CHECK_XPATH_STRING(c, STR("-1 div -0"), STR("Infinity"));
@@ -99,7 +99,7 @@ TEST(xpath_operators_logical)
 	CHECK_XPATH_BOOLEAN(c, STR("true() and false()"), false);
 	CHECK_XPATH_BOOLEAN(c, STR("false() and false()"), false);
 	CHECK_XPATH_BOOLEAN(c, STR("false() and true()"), false);
-
+	
 	// boolean conversion
 	CHECK_XPATH_BOOLEAN(c, STR("1 or ''"), true);
 	CHECK_XPATH_BOOLEAN(c, STR("1 and ''"), false);
@@ -225,7 +225,7 @@ TEST_XML(xpath_operators_equality_node_set_primitive, "<node><c1><v>1</v><v>-1</
 	CHECK_XPATH_BOOLEAN(n, STR("c2/v != 1"), true);
 	CHECK_XPATH_BOOLEAN(n, STR("1 != c2/v"), true);
 #endif
-
+	
 	// node set vs string
 	CHECK_XPATH_BOOLEAN(c, STR("x = '1'"), false);
 	CHECK_XPATH_BOOLEAN(c, STR("x != '1'"), false);

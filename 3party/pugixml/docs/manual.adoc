@@ -38,7 +38,7 @@ Thanks to *Neville Franks* for contributions to pugxml parser.
 
 Thanks to *Artyom Palvelev* for suggesting a lazy gap contraction approach.
 
-Thanks to *Vyacheslav Egorov* for documentation proofreading.
+Thanks to *Vyacheslav Egorov* for documentation proofreading and fuzz testing.
 
 [[overview.license]]
 === License
@@ -71,7 +71,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 ....
 
 This means that you can freely use pugixml in your applications, both open-source and proprietary. If you use pugixml in a product, it is sufficient to add an acknowledgment like this to the product distribution:
-
+ 
 ....
 This software is based on pugixml library (http://pugixml.org).
 pugixml is Copyright (C) 2006-2015 Arseny Kapoulkine.
@@ -126,13 +126,25 @@ You can access the Git repository via Subversion using https://github.com/zeux/p
 svn checkout https://github.com/zeux/pugixml/tags/v{version} pugixml
 ----
 
+[[install.getting.packages]]
+==== Packages
+
+pugixml is available as a package via various package managers. Note that most packages are maintained separately from the main repository so they do not necessarily contain the latest version.
+
+Here's an incomplete list of pugixml packages in various systems:
+
+* Linux (http://packages.ubuntu.com/search?keywords=pugixml[Ubuntu], https://tracker.debian.org/pkg/pugixml[Debian], https://apps.fedoraproject.org/packages/pugixml[Fedora], https://aur.archlinux.org/packages/pugixml/[Arch Linux], other http://pkgs.org/search/pugixml[distributions])
+* http://fbsdmon.org/ports/textproc/pugixml[FreeBSD]
+* OSX, via http://brewformulas.org/Pugixml[Homebrew]
+* Windows, via https://www.nuget.org/packages/pugixml/[NuGet]
+
 [[install.building]]
 === Building pugixml
 
 pugixml is distributed in source form without any pre-built binaries; you have to build them yourself.
-
+ 
 The complete pugixml source consists of three files - one source file, `pugixml.cpp`, and two header files, `pugixml.hpp` and `pugiconfig.hpp`. `pugixml.hpp` is the primary header which you need to include in order to use pugixml classes/functions; `pugiconfig.hpp` is a supplementary configuration file (see <<install.building.config>>). The rest of this guide assumes that `pugixml.hpp` is either in the current directory or in one of include directories of your projects, so that `#include "pugixml.hpp"` can find the header; however you can also use relative path (i.e. `#include "../libs/pugixml/src/pugixml.hpp"`) or include directory-relative path (i.e. `#include <xml/thirdparty/pugixml/src/pugixml.hpp>`).
-
+ 
 [[install.building.embed]]
 ==== Building pugixml as a part of another static library/executable
 
@@ -153,11 +165,11 @@ The correct way to resolve this is to disable precompiled headers for `pugixml.c
 | image::vs2005_pch3.png[link="images/vs2005_pch3.png"]
 | image::vs2005_pch4.png[link="images/vs2005_pch4.png"]
 |===
-
+ 
 [[install.building.static]]
 ==== Building pugixml as a standalone static library
-
-It's possible to compile pugixml as a standalone static library. This process depends on the method of building your application; pugixml distribution comes with project files for several popular IDEs/build systems. There are project files for Apple XCode, Code::Blocks, Codelite, Microsoft Visual Studio 2005, 2008, 2010+, and configuration scripts for CMake and premake4. You're welcome to submit project files/build scripts for other software; see <<overview.feedback>>.
+ 
+It's possible to compile pugixml as a standalone static library. This process depends on the method of building your application; pugixml distribution comes with project files for several popular IDEs/build systems. There are project files for Apple XCode, Code::Blocks, Codelite, Microsoft Visual Studio 2005, 2008, 2010+, and configuration scripts for CMake and premake4. You're welcome to submit project files/build scripts for other software; see <<overview.feedback>>. 
 
 There are two projects for each version of Microsoft Visual Studio: one for dynamically linked CRT, which has a name like `pugixml_vs2008.vcproj`, and another one for statically linked CRT, which has a name like `pugixml_vs2008_static.vcproj`. You should select the version that matches the CRT used in your application; the default option for new projects created by Microsoft Visual Studio is dynamically linked CRT, so unless you changed the defaults, you should use the version with dynamic CRT (i.e. `pugixml_vs2008.vcproj` for Microsoft Visual Studio 2008).
 
@@ -175,7 +187,7 @@ In addition to adding pugixml project to your workspace, you'll have to make sur
 
 [[install.building.shared]]
 ==== Building pugixml as a standalone shared library
-
+ 
 It's possible to compile pugixml as a standalone shared library. The process is usually similar to the static library approach; however, no preconfigured projects/scripts are included into pugixml distribution, so you'll have to do it yourself. Generally, if you're using GCC-based toolchain, the process does not differ from building any other library as DLL (adding -shared to compilation flags should suffice); if you're using MSVC-based toolchain, you'll have to explicitly mark exported symbols with a declspec attribute. You can do it by defining <<PUGIXML_API,PUGIXML_API>> macro, i.e. via `pugiconfig.hpp`:
 
 [source]
@@ -216,6 +228,8 @@ pugixml uses several defines to control the compilation process. There are two w
 
 [[PUGIXML_WCHAR_MODE]]`PUGIXML_WCHAR_MODE` define toggles between UTF-8 style interface (the in-memory text encoding is assumed to be UTF-8, most functions use `char` as character type) and UTF-16/32 style interface (the in-memory text encoding is assumed to be UTF-16/32, depending on `wchar_t` size, most functions use `wchar_t` as character type). See <<dom.unicode>> for more details.
 
+[[PUGIXML_COMPACT]]`PUGIXML_COMPACT` define activates a different internal representation of document storage that is much more memory efficient for documents with a lot of markup (i.e. nodes and attributes), but is slightly slower to parse and access. For details see <<dom.memory.compact>>.
+
 [[PUGIXML_NO_XPATH]]`PUGIXML_NO_XPATH` define disables XPath. Both XPath interfaces and XPath implementation are excluded from compilation. This option is provided in case you do not need XPath functionality and need to save code space.
 
 [[PUGIXML_NO_STL]]`PUGIXML_NO_STL` define disables use of STL in pugixml. The functions that operate on STL types are no longer present (i.e. load/save via iostream) if this macro is defined. This option is provided in case your target platform does not have a standard-compliant STL implementation.
@@ -229,29 +243,19 @@ NOTE: In that example `PUGIXML_API` is inconsistent between several source files
 [[PUGIXML_MEMORY_PAGE_SIZE]]`PUGIXML_MEMORY_PAGE_SIZE`, [[PUGIXML_MEMORY_OUTPUT_STACK]]`PUGIXML_MEMORY_OUTPUT_STACK` and [[PUGIXML_MEMORY_XPATH_PAGE_SIZE]]`PUGIXML_MEMORY_XPATH_PAGE_SIZE` can be used to customize certain important sizes to optimize memory usage for the application-specific patterns. For details see <<dom.memory.tuning>>.
 
 [[PUGIXML_HAS_LONG_LONG]]`PUGIXML_HAS_LONG_LONG` define enables support for `long long` type in pugixml. This define is automatically enabled if your platform is known to have `long long` support (i.e. has C{plus}{plus}11 support or uses a reasonably modern version of a known compiler); if pugixml does not recognize that your platform supports `long long` but in fact it does, you can enable the define manually.
-
+ 
 [[install.portability]]
 === Portability
 
-pugixml is written in standard-compliant C{plus}{plus} with some compiler-specific workarounds where appropriate. pugixml is compatible with the C{plus}{plus}11 standard, but does not require C{plus}{plus}11 support. Each version is tested with a unit test suite (with code coverage about 99%) on the following platforms:
+pugixml is written in standard-compliant C{plus}{plus} with some compiler-specific workarounds where appropriate. pugixml is compatible with the C{plus}{plus}11 standard, but does not require C{plus}{plus}11 support. Each version is tested with a unit test suite with code coverage exceeding 99%.
 
-* Microsoft Windows:
-** Borland C{plus}{plus} Compiler 5.82
-** Digital Mars C{plus}{plus} Compiler 8.51
-** Intel C{plus}{plus} Compiler 8.0, 9.0 x86/x64, 10.0 x86/x64, 11.0 x86/x64
-** Metrowerks CodeWarrior 8.0
-** Microsoft Visual C{plus}{plus} 6.0, 7.0 (2002), 7.1 (2003), 8.0 (2005) x86/x64, 9.0 (2008) x86/x64, 10.0 (2010) x86/x64, 11.0 (2011) x86/x64/ARM, 12.0 (2013) x86/x64/ARM and some CLR versions
-** MinGW (GCC) 3.4, 4.4, 4.5, 4.6 x64
+pugixml runs on a variety of desktop platforms (including Microsoft Windows, Linux, FreeBSD, Apple MacOSX and Sun Solaris), game consoles (inclusing Microsoft Xbox 360, Microsoft Xbox One, Nintendo Wii, Sony Playstation Portable and Sony Playstation 3) and mobile platforms (including Android, iOS, BlackBerry, Samsung bada and Microsoft Windows CE).
 
-* Linux (GCC 4.4.3 x86/x64, GCC 4.8.1 x64, Clang 3.2 x64)
-* FreeBSD (GCC 4.2.1 x86/x64)
-* Apple MacOSX (GCC 4.0.1 x86/x64/PowerPC, Clang 3.5 x64)
-* Sun Solaris (sunCC x86/x64)
-* Microsoft Xbox 360
-* Nintendo Wii (Metrowerks CodeWarrior 4.1)
-* Sony Playstation Portable (GCC 3.4.2)
-* Sony Playstation 3 (GCC 4.1.1, SNC 310.1)
-* Various portable platforms (Android NDK, BlackBerry NDK, Samsung bada, Windows CE)
+pugixml supports various architectures, such as x86/x86-64, PowerPC, ARM, MIPS and SPARC. In general it should run on any architecture since it does not use architecture-specific code and does not rely on features such as unaligned memory access.
+
+pugixml can be compiled using any C++ compiler; it was tested with all versions of Microsoft Visual C{plus}{plus} from 6.0 up to 2015, GCC from 3.4 up to 5.2, Clang from 3.2 up to 3.7, as well as a variety of other compilers (e.g. Borland C{plus}{plus}, Digital Mars C{plus}{plus}, Intel C{plus}{plus}, Metrowerks CodeWarrior and PathScale). The code is written to avoid compilation warnings even on reasonably high warning levels.
+
+Note that some platforms may have very bare-bones support of C++; in some cases you'll have to use `PUGIXML_NO_STL` and/or `PUGIXML_NO_EXCEPTIONS` to compile without issues. This mostly applies to old game consoles and embedded systems.
 
 [[dom]]
 == Document object model
@@ -287,7 +291,7 @@ Here `"node"` element has three children, two of which are PCDATA nodes with val
 * Character data nodes ([[node_cdata]]`node_cdata`) represent text in XML that is quoted in a special way. CDATA nodes do not differ from PCDATA nodes except in XML representation - the above text example looks like this with CDATA:
 +
 ----
-<node> <![CDATA[[text1]]> <child/> <![CDATA[[text2]]> </node>
+<node> <![CDATA[text1]]> <child/> <![CDATA[text2]]> </node>
 ----
 +
 CDATA nodes make it easy to include non-escaped `<`, `&` and `>` characters in plain text. CDATA value can not contain the character sequence `]]>`, since it is used to determine the end of node contents.
@@ -379,7 +383,7 @@ Both `xml_node` and `xml_attribute` have the default constructor which initializ
 `xml_node` and `xml_attribute` try to behave like pointers, that is, they can be compared with other objects of the same type, making it possible to use them as keys in associative containers. All handles to the same underlying object are equal, and any two handles to different underlying objects are not equal. Null handles only compare as equal to themselves. The result of relational comparison can not be reliably determined from the order of nodes in file or in any other way. Do not use relational comparison operators except for search optimization (i.e. associative container keys).
 
 [[xml_attribute::hash_value]][[xml_node::hash_value]]
-If you want to use `xml_node` or `xml_attribute` objects as keys in hash-based associative containers, you can use the `hash_value` member functions. They return the hash values that are guaranteed to be the same for all handles to the same underlying object. The hash value for null handles is 0.
+If you want to use `xml_node` or `xml_attribute` objects as keys in hash-based associative containers, you can use the `hash_value` member functions. They return the hash values that are guaranteed to be the same for all handles to the same underlying object. The hash value for null handles is 0. Note that hash value does not depend on the content of the node, only on the location of the underlying structure in memory - this means that loading the same document twice will likely produce different hash values, and copying the node will not preserve the hash.
 
 [[xml_attribute::unspecified_bool_type]][[xml_node::unspecified_bool_type]][[xml_attribute::empty]][[xml_node::empty]]
 Finally handles can be implicitly cast to boolean-like objects, so that you can test if the node/attribute is empty with the following code: `if (node) { ... }` or `if (!node) { ... } else { ... }`. Alternatively you can check if a given `xml_node`/`xml_attribute` handle is null by calling the following methods:
@@ -418,7 +422,7 @@ bool xml_node::set_name(const wchar_t* value);
 [[char_t]][[string_t]]
 There is a special type, `pugi::char_t`, that is defined as the character type and depends on the library configuration; it will be also used in the documentation hereafter. There is also a type `pugi::string_t`, which is defined as the STL string of the character type; it corresponds to `std::string` in char mode and to `std::wstring` in wchar_t mode.
 
-In addition to the interface, the internal implementation changes to store XML data as `pugi::char_t`; this means that these two modes have different memory usage characteristics. The conversion to `pugi::char_t` upon document loading and from `pugi::char_t` upon document saving happen automatically, which also carries minor performance penalty. The general advice however is to select the character mode based on usage scenario, i.e. if UTF-8 is inconvenient to process and most of your XML data is non-ASCII, wchar_t mode is probably a better choice.
+In addition to the interface, the internal implementation changes to store XML data as `pugi::char_t`; this means that these two modes have different memory usage characteristics - generally UTF-8 mode is more memory and performance efficient, especially if `sizeof(wchar_t)` is 4. The conversion to `pugi::char_t` upon document loading and from `pugi::char_t` upon document saving happen automatically, which also carries minor performance penalty. The general advice however is to select the character mode based on usage scenario, i.e. if UTF-8 is inconvenient to process and most of your XML data is non-ASCII, wchar_t mode is probably a better choice.
 
 [[as_utf8]][[as_wide]]
 There are cases when you'll have to convert string data between UTF-8 and wchar_t encodings; the following helper functions are provided for such purposes:
@@ -447,7 +451,7 @@ you'll have to use
 
 `xml_node node = doc.child(L"bookstore").find_child_by_attribute(L"book", L"id", L"12345");`
 ====
-
+ 
 [[dom.thread]]
 === Thread-safety guarantees
 
@@ -497,7 +501,7 @@ allocation_function get_memory_allocation_function();
 deallocation_function get_memory_deallocation_function();
 ----
 
-Allocation function is called with the size (in bytes) as an argument and should return a pointer to a memory block with alignment that is suitable for storage of primitive types (usually a maximum of `void*` and `double` types alignment is sufficient) and size that is greater than or equal to the requested one. If the allocation fails, the function has to return null pointer (throwing an exception from allocation function results in undefined behavior).
+Allocation function is called with the size (in bytes) as an argument and should return a pointer to a memory block with alignment that is suitable for storage of primitive types (usually a maximum of `void*` and `double` types alignment is sufficient) and size that is greater than or equal to the requested one. If the allocation fails, the function has to either return null pointer or to throw an exception.
 
 Deallocation function is called with the pointer that was returned by some call to allocation function; it is never called with a null pointer. If memory management functions are not thread-safe, library thread safety is not guaranteed.
 
@@ -505,11 +509,11 @@ This is a simple example of custom memory management (link:samples/custom_memory
 
 [source,indent=0]
 ----
-include::samples/custom_memory_management.cpp[tags=decl]
+include::samples/custom_memory_management.cpp[tags=decl] 
 ----
 [source,indent=0]
 ----
-include::samples/custom_memory_management.cpp[tags=call]
+include::samples/custom_memory_management.cpp[tags=call] 
 ----
 
 When setting new memory management functions, care must be taken to make sure that there are no live pugixml objects. Otherwise when the objects are destroyed, the new deallocation function will be called with the memory obtained by the old allocation function, resulting in undefined behavior.
@@ -536,6 +540,17 @@ When the document is loaded from file/buffer, unless an inplace loading function
 
 All additional memory, such as memory for document structure (node/attribute objects) and memory for node/attribute names/values is allocated in pages on the order of 32 Kb; actual objects are allocated inside the pages using a memory management scheme optimized for fast allocation/deallocation of many small objects. Because of the scheme specifics, the pages are only destroyed if all objects inside them are destroyed; also, generally destroying an object does not mean that subsequent object creation will reuse the same memory. This means that it is possible to devise a usage scheme which will lead to higher memory usage than expected; one example is adding a lot of nodes, and them removing all even numbered ones; not a single page is reclaimed in the process. However this is an example specifically crafted to produce unsatisfying behavior; in all practical usage scenarios the memory consumption is less than that of a general-purpose allocator because allocation meta-data is very small in size.
 
+[[dom.memory.compact]]
+==== Compact mode
+
+By default nodes and attributes are optimized for efficiency of access. This can cause them to take a significant amount of memory - for documents with a lot of nodes and not a lot of contents (short attribute values/node text), and depending on the pointer size, the document structure can take noticeably more memory than the document itself (e.g. on a 64-bit platform in UTF-8 mode a markup-heavy document with the file size of 2.1 Mb can use 2.1 Mb for document buffer and 8.3 Mb for document structure).
+
+If you are processing big documents or your platform is memory constrained and you're willing to sacrifice a bit of performance for memory, you can compile pugixml with `PUGIXML_COMPACT` define which will activate compact mode. Compact mode uses a different representation of the document structure that assumes locality of reference between nodes and attributes to optimize memory usage. As a result you get significantly smaller node/attribute objects; usually most objects in most documents don't require additional storage, but in the worst case - if assumptions about locality of reference don't hold - additional memory will be allocated to store the extra data required.
+
+The compact storage supports all existing operations - including tree modification - with the same amortized complexity (that is, all basic document manipulations are still O(1) on average). The operations are slightly slower; you can usually expect 10-50% slowdown in terms of processing time unless your processing was memory-bound.
+
+On 32-bit architectures document structure in compact mode is typically reduced by around 2.5x; on 64-bit architectures the ratio is around 5x. Thus for big markup-heavy documents compact mode can make the difference between the processing of a multi-gigabyte document running completely from RAM vs requiring swapping to disk. Even if the document fits into memory, compact storage can use CPU caches more efficiently by taking less space and causing less cache/TLB misses.
+
 [[loading]]
 == Loading document
 
@@ -554,7 +569,7 @@ The most common source of XML data is files; pugixml provides dedicated function
 xml_parse_result xml_document::load_file(const char* path, unsigned int options = parse_default, xml_encoding encoding = encoding_auto);
 xml_parse_result xml_document::load_file(const wchar_t* path, unsigned int options = parse_default, xml_encoding encoding = encoding_auto);
 ----
-
+    
 These functions accept the file path as its first argument, and also two optional arguments, which specify parsing options (see <<loading.options>>) and input data encoding (see <<loading.encoding>>). The path has the target operating system format, so it can be a relative or absolute one, it should have the delimiters of the target system, it should have the exact case if the target file system is case-sensitive, etc.
 
 File path is passed to the system file opening function as is in case of the first function (which accepts `const char* path`); the second function either uses a special file opening function if it is provided by the runtime library or converts the path to UTF-8 and uses the system file opening function.
@@ -565,7 +580,7 @@ This is an example of loading XML document from file (link:samples/load_file.cpp
 
 [source,indent=0]
 ----
-include::samples/load_file.cpp[tags=code]
+include::samples/load_file.cpp[tags=code] 
 ----
 
 [[loading.memory]]
@@ -601,25 +616,25 @@ This is an example of loading XML document from memory using different functions
 
 [source,indent=0]
 ----
-include::samples/load_memory.cpp[tags=decl]
+include::samples/load_memory.cpp[tags=decl] 
 ----
 [source,indent=0]
 ----
-include::samples/load_memory.cpp[tags=load_buffer]
+include::samples/load_memory.cpp[tags=load_buffer] 
 ----
 [source,indent=0]
 ----
-include::samples/load_memory.cpp[tags=load_buffer_inplace_begin]
+include::samples/load_memory.cpp[tags=load_buffer_inplace_begin] 
 
-include::samples/load_memory.cpp[tags=load_buffer_inplace_end]
+include::samples/load_memory.cpp[tags=load_buffer_inplace_end] 
 ----
 [source,indent=0]
 ----
-include::samples/load_memory.cpp[tags=load_buffer_inplace_own]
+include::samples/load_memory.cpp[tags=load_buffer_inplace_own] 
 ----
 [source,indent=0]
 ----
-include::samples/load_memory.cpp[tags=load_string]
+include::samples/load_memory.cpp[tags=load_string] 
 ----
 
 [[loading.stream]]
@@ -642,7 +657,7 @@ This is a simple example of loading XML document from file using streams (link:s
 
 [source,indent=0]
 ----
-include::samples/load_stream.cpp[tags=code]
+include::samples/load_stream.cpp[tags=code] 
 ----
 
 [[loading.errors]]
@@ -703,7 +718,7 @@ This is an example of handling loading errors (link:samples/load_error_handling.
 
 [source,indent=0]
 ----
-include::samples/load_error_handling.cpp[tags=code]
+include::samples/load_error_handling.cpp[tags=code] 
 ----
 
 [[loading.options]]
@@ -759,7 +774,7 @@ This is an example of using different parsing options (link:samples/load_options
 
 [source,indent=0]
 ----
-include::samples/load_options.cpp[tags=code]
+include::samples/load_options.cpp[tags=code] 
 ----
 
 [[loading.encoding]]
@@ -820,7 +835,7 @@ pugixml features an extensive interface for getting various types of data from t
 
 [[xml_node::parent]][[xml_node::first_child]][[xml_node::last_child]][[xml_node::next_sibling]][[xml_node::previous_sibling]][[xml_node::first_attribute]][[xml_node::last_attribute]][[xml_attribute::next_attribute]][[xml_attribute::previous_attribute]]
 The internal representation of the document is a tree, where each node has a list of child nodes (the order of children corresponds to their order in the XML representation), and additionally element nodes have a list of attributes, which is also ordered. Several functions are provided in order to let you get from one node in the tree to the other. These functions roughly correspond to the internal representation, and thus are usually building blocks for other methods of traversing (i.e. XPath traversals are based on these functions).
-
+ 
 [source]
 ----
 xml_node xml_node::parent() const;
@@ -845,7 +860,7 @@ With these functions, you can iterate through all child nodes and display all at
 
 [source,indent=0]
 ----
-include::samples/traverse_base.cpp[tags=basic]
+include::samples/traverse_base.cpp[tags=basic] 
 ----
 
 [[access.nodedata]]
@@ -904,7 +919,7 @@ It returns `def` argument if the attribute handle is null. If you do not specify
 
 [[xml_attribute::as_int]][[xml_attribute::as_uint]][[xml_attribute::as_double]][[xml_attribute::as_float]][[xml_attribute::as_bool]][[xml_attribute::as_llong]][[xml_attribute::as_ullong]]
 In many cases attribute values have types that are not strings - i.e. an attribute may always contain values that should be treated as integers, despite the fact that they are represented as strings in XML. pugixml provides several accessors that convert attribute value to some other type:
-
+ 
 [source]
 ----
 int xml_attribute::as_int(int def = 0) const;
@@ -931,7 +946,7 @@ This is an example of using these functions, along with node data retrieval ones
 
 [source,indent=0]
 ----
-include::samples/traverse_base.cpp[tags=data]
+include::samples/traverse_base.cpp[tags=data] 
 ----
 
 [[access.contents]]
@@ -974,7 +989,7 @@ This is an example of using these functions (link:samples/traverse_base.cpp[]):
 
 [source,indent=0]
 ----
-include::samples/traverse_base.cpp[tags=contents]
+include::samples/traverse_base.cpp[tags=contents] 
 ----
 
 [[access.rangefor]]
@@ -996,7 +1011,7 @@ This is an example of using these functions (link:samples/traverse_rangefor.cpp[
 
 [source,indent=0]
 ----
-include::samples/traverse_rangefor.cpp[tags=code]
+include::samples/traverse_rangefor.cpp[tags=code] 
 ----
 
 [[access.iterators]]
@@ -1029,7 +1044,7 @@ Here is an example of using iterators for document traversal (link:samples/trave
 
 [source,indent=0]
 ----
-include::samples/traverse_iter.cpp[tags=code]
+include::samples/traverse_iter.cpp[tags=code] 
 ----
 
 CAUTION: Node and attribute iterators are somewhere in the middle between const and non-const iterators. While dereference operation yields a non-constant reference to the object, so that you can use it for tree modification operations, modifying this reference using assignment - i.e. passing iterators to a function like `std::sort` - will not give expected results, as assignment modifies local handle that's stored in the iterator.
@@ -1071,11 +1086,11 @@ This is an example of traversing tree hierarchy with xml_tree_walker (link:sampl
 
 [source,indent=0]
 ----
-include::samples/traverse_walker.cpp[tags=impl]
+include::samples/traverse_walker.cpp[tags=impl] 
 ----
 [source,indent=0]
 ----
-include::samples/traverse_walker.cpp[tags=traverse]
+include::samples/traverse_walker.cpp[tags=traverse] 
 ----
 
 [[access.predicate]]
@@ -1103,11 +1118,11 @@ This is an example of using predicate-based functions (link:samples/traverse_pre
 
 [source,indent=0]
 ----
-include::samples/traverse_predicate.cpp[tags=decl]
+include::samples/traverse_predicate.cpp[tags=decl] 
 ----
 [source,indent=0]
 ----
-include::samples/traverse_predicate.cpp[tags=find]
+include::samples/traverse_predicate.cpp[tags=find] 
 ----
 
 [[access.text]]
@@ -1118,7 +1133,7 @@ It is common to store data as text contents of some node - i.e. `<node><descript
 
 [[xml_node::text]]
 You can get the text object from a node by using `text()` method:
-
+    
 [source]
 ----
 xml_text xml_node::text() const;
@@ -1175,7 +1190,7 @@ This is an example of using `xml_text` object (link:samples/text.cpp[]):
 
 [source,indent=0]
 ----
-include::samples/text.cpp[tags=access]
+include::samples/text.cpp[tags=access] 
 ----
 
 [[access.misc]]
@@ -1202,7 +1217,7 @@ xml_node xml_node::first_element_by_path(const char_t* path, char_t delimiter = 
 
 Node paths consist of node names, separated with a delimiter (which is `/` by default); also paths can contain self (`.`) and parent (`..`) pseudo-names, so that this is a valid path: `"../../foo/./bar"`. `path` returns the path to the node from the document root, `first_element_by_path` looks for a node represented by a given path; a path can be an absolute one (absolute paths start with the delimiter), in which case the rest of the path is treated as document root relative, and relative to the given node. For example, in the following document: `<a><b><c/></b></a>`, node `<c/>` has path `"a/b/c"`; calling `first_element_by_path` for document with path `"a/b"` results in node `<b/>`; calling `first_element_by_path` for node `<a/>` with path `"../a/./b/../."` results in node `<a/>`; calling `first_element_by_path` with path `"/a"` results in node `<a/>` for any node.
 
-In case path component is ambiguous (if there are two nodes with given name), the first one is selected; paths are not guaranteed to uniquely identify nodes in a document. If any component of a path is not found, the result of `first_element_by_path` is null node; also `first_element_by_path` returns null node for null nodes, in which case the path does not matter. `path` returns an empty string for null nodes.
+In case path component is ambiguous (if there are two nodes with given name), the first one is selected; paths are not guaranteed to uniquely identify nodes in a document. If any component of a path is not found, the result of `first_element_by_path` is null node; also `first_element_by_path` returns null node for null nodes, in which case the path does not matter. `path` returns an empty string for null nodes. 
 
 NOTE: `path` function returns the result as STL string, and thus is not available if <<PUGIXML_NO_STL,PUGIXML_NO_STL>> is defined.
 
@@ -1243,7 +1258,7 @@ This is an example of setting node name and value (link:samples/modify_base.cpp[
 
 [source,indent=0]
 ----
-include::samples/modify_base.cpp[tags=node]
+include::samples/modify_base.cpp[tags=node] 
 ----
 
 [[modify.attrdata]]
@@ -1272,7 +1287,7 @@ bool xml_attribute::set_value(bool rhs);
 bool xml_attribute::set_value(long long rhs);
 bool xml_attribute::set_value(unsigned long long rhs);
 ----
-
+    
 The above functions convert the argument to string and then call the base `set_value` function. Integers are converted to a decimal form, floating-point numbers are converted to either decimal or scientific form, depending on the number magnitude, boolean values are converted to either `"true"` or `"false"`.
 
 CAUTION: Number conversion functions depend on current C locale as set with `setlocale`, so may generate unexpected results if the locale is different from `"C"`.
@@ -1301,7 +1316,7 @@ This is an example of setting attribute name and value (link:samples/modify_base
 
 [source,indent=0]
 ----
-include::samples/modify_base.cpp[tags=attr]
+include::samples/modify_base.cpp[tags=attr] 
 ----
 
 [[modify.add]]
@@ -1350,7 +1365,7 @@ This is an example of adding new attributes/nodes to the document (link:samples/
 
 [source,indent=0]
 ----
-include::samples/modify_add.cpp[tags=code]
+include::samples/modify_add.cpp[tags=code] 
 ----
 
 [[modify.remove]]
@@ -1387,7 +1402,7 @@ This is an example of removing attributes/nodes from the document (link:samples/
 
 [source,indent=0]
 ----
-include::samples/modify_remove.cpp[tags=code]
+include::samples/modify_remove.cpp[tags=code] 
 ----
 
 [[modify.text]]
@@ -1418,7 +1433,7 @@ bool xml_text::set(bool rhs);
 bool xml_text::set(long long rhs);
 bool xml_text::set(unsigned long long rhs);
 ----
-
+    
 The above functions convert the argument to string and then call the base `set` function. These functions have the same semantics as similar `xml_attribute` functions. You can <<xml_attribute::set_value,refer to documentation for the attribute functions>> for details.
 
 [[xml_text::assign]]
@@ -1443,7 +1458,7 @@ This is an example of using `xml_text` object to modify text contents (link:samp
 
 [source,indent=0]
 ----
-include::samples/text.cpp[tags=modify]
+include::samples/text.cpp[tags=modify] 
 ----
 
 [[modify.clone]]
@@ -1479,7 +1494,7 @@ This is an example with one possible implementation of include tags in XML (link
 
 [source,indent=0]
 ----
-include::samples/include.cpp[tags=code]
+include::samples/include.cpp[tags=code] 
 ----
 
 [[modify.move]]
@@ -1582,7 +1597,7 @@ This is a simple example of saving XML document to file (link:samples/save_file.
 
 [source,indent=0]
 ----
-include::samples/save_file.cpp[tags=code]
+include::samples/save_file.cpp[tags=code] 
 ----
 
 [[saving.stream]]
@@ -1606,7 +1621,7 @@ This is a simple example of saving XML document to standard output (link:samples
 
 [source,indent=0]
 ----
-include::samples/save_stream.cpp[tags=code]
+include::samples/save_stream.cpp[tags=code] 
 ----
 
 [[saving.writer]]
@@ -1634,7 +1649,7 @@ This is a simple example of custom writer for saving document data to STL string
 
 [source,indent=0]
 ----
-include::samples/save_custom_writer.cpp[tags=code]
+include::samples/save_custom_writer.cpp[tags=code] 
 ----
 
 [[saving.subtree]]
@@ -1656,7 +1671,7 @@ Saving a subtree differs from saving the whole document: the process behaves as 
 
 [source,indent=0]
 ----
-include::samples/save_subtree.cpp[tags=code]
+include::samples/save_subtree.cpp[tags=code] 
 ----
 
 [[saving.options]]
@@ -1668,7 +1683,9 @@ NOTE: You should use the usual bitwise arithmetics to manipulate the bitmask: to
 
 These flags control the resulting tree contents:
 
-* [[format_indent]]`format_indent` determines if all nodes should be indented with the indentation string (this is an additional parameter for all saving functions, and is `"\t"` by default). If this flag is on, before every node the indentation string is output several times, where the amount of indentation depends on the node's depth relative to the output subtree. This flag has no effect if <<format_raw,format_raw>> is enabled. This flag is *on* by default.
+* [[format_indent]]`format_indent` determines if all nodes should be indented with the indentation string (this is an additional parameter for all saving functions, and is `"\t"` by default). If this flag is on, the indentation string is printed several times before every node, where the amount of indentation depends on the node's depth relative to the output subtree. This flag has no effect if <<format_raw,format_raw>> is enabled. This flag is *on* by default.
+
+* [[format_indent_attributes]]`format_indent_attributes` determines if all attributes should be printed on a new line, indented with the indentation string according to the attribute's depth. This flag implies <<format_indent,format_indent>>. This flag has no effect if <<format_raw,format_raw>> is enabled. This flag is *off* by default.
 
 * [[format_raw]]`format_raw` switches between formatted and raw output. If this flag is on, the nodes are not indented in any way, and also no newlines that are not part of document text are printed. Raw mode can be used for serialization where the result is not intended to be read by humans; also it can be useful if the document was parsed with <<parse_ws_pcdata,parse_ws_pcdata>> flag, to preserve the original document formatting as much as possible. This flag is *off* by default.
 
@@ -1691,7 +1708,7 @@ This is an example that shows the outputs of different output options (link:samp
 
 [source,indent=0]
 ----
-include::samples/save_options.cpp[tags=code]
+include::samples/save_options.cpp[tags=code] 
 ----
 
 [[saving.encoding]]
@@ -1718,7 +1735,7 @@ This is an example that shows how to create a custom declaration node (link:samp
 
 [source,indent=0]
 ----
-include::samples/save_declaration.cpp[tags=code]
+include::samples/save_declaration.cpp[tags=code] 
 ----
 
 [[xpath]]
@@ -1852,7 +1869,7 @@ This is an example of selecting nodes using XPath expressions (link:samples/xpat
 
 [source,indent=0]
 ----
-include::samples/xpath_select.cpp[tags=code]
+include::samples/xpath_select.cpp[tags=code] 
 ----
 
 [[xpath.query]]
@@ -1865,7 +1882,7 @@ When you call `select_nodes` with an expression string as an argument, a query o
 * You can use query objects to evaluate XPath expressions which result in booleans, numbers or strings;
 * You can get the type of expression value via query object.
 
-Query objects correspond to `xpath_query` type. They are immutable and non-copyable: they are bound to the expression at creation time and can not be cloned. If you want to put query objects in a container, allocate them on heap via `new` operator and store pointers to `xpath_query` in the container.
+Query objects correspond to `xpath_query` type. They are immutable and non-copyable: they are bound to the expression at creation time and can not be cloned. If you want to put query objects in a container, either allocate them on heap via `new` operator and store pointers to `xpath_query` in the container, or use a C++11 compiler (query objects are movable in C++11).
 
 [[xpath_query::ctor]]
 You can create a query object with the constructor that takes XPath expression as an argument:
@@ -1907,7 +1924,7 @@ Note that `evaluate_string` function returns the STL string; as such, it's not a
 size_t xpath_query::evaluate_string(char_t* buffer, size_t capacity, const xpath_node& n) const;
 ----
 
-This function evaluates the string, and then writes the result to `buffer` (but at most `capacity` characters); then it returns the full size of the result in characters, including the terminating zero. If `capacity` is not 0, the resulting buffer is always zero-terminated. You can use this function as follows:
+This function evaluates the string, and then writes the result to `buffer` (but at most `capacity` characters); then it returns the full size of the result in characters, including the terminating zero. If `capacity` is not 0, the resulting buffer is always zero-terminated. You can use this function as follows: 
 
 * First call the function with `buffer = 0` and `capacity = 0`; then allocate the returned amount of characters, and call the function again, passing the allocated storage and the amount of characters;
 * First call the function with small buffer and buffer capacity; then, if the result is larger than the capacity, the output has been trimmed, so allocate a larger buffer and call the function again.
@@ -1916,7 +1933,7 @@ This is an example of using query objects (link:samples/xpath_query.cpp[]):
 
 [source,indent=0]
 ----
-include::samples/xpath_query.cpp[tags=code]
+include::samples/xpath_query.cpp[tags=code] 
 ----
 
 [[xpath.variables]]
@@ -2020,7 +2037,7 @@ This is an example of using variables in XPath queries (link:samples/xpath_varia
 
 [source,indent=0]
 ----
-include::samples/xpath_variables.cpp[tags=code]
+include::samples/xpath_variables.cpp[tags=code] 
 ----
 
 [[xpath.errors]]
@@ -2044,7 +2061,7 @@ If exceptions are disabled, then in the event of parsing failure the query is in
 ----
 const xpath_parse_result& xpath_query::result() const;
 ----
-
+    
 Without exceptions, evaluating invalid query results in `false`, empty string, `NaN` or an empty node set, depending on the type; evaluating a query as a node set results in an empty node set if the return type is not node set.
 
 [[xpath_parse_result]]
@@ -2078,7 +2095,7 @@ This is an example of XPath error handling (link:samples/xpath_error.cpp[]):
 
 [source,indent=0]
 ----
-include::samples/xpath_error.cpp[tags=code]
+include::samples/xpath_error.cpp[tags=code] 
 ----
 
 [[xpath.w3c]]
@@ -2096,6 +2113,31 @@ Because of the differences in document object models, performance considerations
 == Changelog
 
 :!numbered:
+
+[[v1.7]]
+=== v1.7 ^19.10.2015^
+
+Major release, featuring performance and memory improvements along with some new features. Changes:
+
+* Compact mode:
+    . Introduced a new tree storage mode that takes significantly less memory (2-5x smaller DOM) at some performance cost.
+    . The mode can be enabled using `PUGIXML_COMPACT` define.
+
+* New integer parsing/formatting implementation:
+	. Functions that convert from and to integers (e.g. `as_int`/`set_value`) do not rely on CRT any more.
+	. New implementation is 3-5x faster and is always correct wrt overflow or underflow. This is a behavior change - where previously `as_uint()` would return UINT_MAX on a value "-1", it now returns 0.
+
+* New features:
+	. XPath objects (`xpath_query`, `xpath_node_set`, `xpath_variable_set`) are now movable if your compiler supports C++11. Additionally, `xpath_variable_set` is copyable.
+	. Added `format_indent_attributes` that makes the resulting XML friendlier to line diff/merge tools.
+	. Added a variant of `xml_node::attribute` function with a hint that can improve lookup performance.
+	. Custom allocation functions are now allowed (but not required) to throw instead of returning a null pointer.
+
+* Bug fixes:
+	. Fix Clang 3.7 crashes in out-of-memory cases (C++ DR 1748)
+	. Fix XPath crashes on SPARC64 (and other 32-bit architectures where doubles have to be aligned to 8 bytes)
+	. Fix xpath_node_set assignment to provide strong exception guarantee
+	. Fix saving for custom xml_writer implementations that can throw from write()
 
 [[v1.6]]
 === v1.6 ^10.04.2015^
@@ -2459,6 +2501,7 @@ This is the reference for all macros, types, enumerations, classes and functions
 [source,subs="+macros"]
 ----
 #define +++<a href="#PUGIXML_WCHAR_MODE">PUGIXML_WCHAR_MODE</a>+++
+#define +++<a href="#PUGIXML_COMPACT">PUGIXML_COMPACT</a>+++
 #define +++<a href="#PUGIXML_NO_XPATH">PUGIXML_NO_XPATH</a>+++
 #define +++<a href="#PUGIXML_NO_STL">PUGIXML_NO_STL</a>+++
 #define +++<a href="#PUGIXML_NO_EXCEPTIONS">PUGIXML_NO_EXCEPTIONS</a>+++
@@ -2546,6 +2589,7 @@ enum +++<a href="#xpath_value_type">xpath_value_type</a>+++
 // Formatting options bit flags:
 const unsigned int +++<a href="#format_default">format_default</a>+++
 const unsigned int +++<a href="#format_indent">format_indent</a>+++
+const unsigned int +++<a href="#format_indent_attributes">format_indent_attributes</a>+++
 const unsigned int +++<a href="#format_no_declaration">format_no_declaration</a>+++
 const unsigned int +++<a href="#format_no_escapes">format_no_escapes</a>+++
 const unsigned int +++<a href="#format_raw">format_raw</a>+++
@@ -2570,7 +2614,7 @@ const unsigned int +++<a href="#parse_ws_pcdata_single">parse_ws_pcdata_single</
 const unsigned int +++<a href="#parse_wconv_attribute">parse_wconv_attribute</a>+++
 const unsigned int +++<a href="#parse_wnorm_attribute">parse_wnorm_attribute</a>+++
 ----
-
+        
 [[apiref.classes]]
 === Classes
 

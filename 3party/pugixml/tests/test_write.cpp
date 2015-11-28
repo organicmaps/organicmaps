@@ -4,6 +4,7 @@
 
 #include <string>
 #include <sstream>
+#include <stdexcept>
 
 TEST_XML(write_simple, "<node attr='1'><child>text</child></node>")
 {
@@ -18,6 +19,31 @@ TEST_XML(write_raw, "<node attr='1'><child>text</child></node>")
 TEST_XML(write_indent, "<node attr='1'><child><sub>text</sub></child></node>")
 {
 	CHECK_NODE_EX(doc, STR("<node attr=\"1\">\n\t<child>\n\t\t<sub>text</sub>\n\t</child>\n</node>\n"), STR("\t"), format_indent);
+}
+
+TEST_XML(write_indent_attributes, "<node attr='1' other='2'><child><sub>text</sub></child></node>")
+{
+	CHECK_NODE_EX(doc, STR("<node\n\tattr=\"1\"\n\tother=\"2\">\n\t<child>\n\t\t<sub>text</sub>\n\t</child>\n</node>\n"), STR("\t"), format_indent_attributes);
+}
+
+TEST_XML(write_indent_attributes_empty_element, "<node attr='1' other='2' />")
+{
+	CHECK_NODE_EX(doc, STR("<node\n\tattr=\"1\"\n\tother=\"2\" />\n"), STR("\t"), format_indent_attributes);
+}
+
+TEST_XML_FLAGS(write_indent_attributes_declaration, "<?xml version=\"1.0\" encoding=\"UTF-8\"?><node attr='1' other='2' />", parse_full)
+{
+	CHECK_NODE_EX(doc, STR("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<node\n\tattr=\"1\"\n\tother=\"2\" />\n"), STR("\t"), format_indent_attributes);
+}
+
+TEST_XML(write_indent_attributes_raw, "<node attr='1' other='2'><child><sub>text</sub></child></node>")
+{
+	CHECK_NODE_EX(doc, STR("<node attr=\"1\" other=\"2\"><child><sub>text</sub></child></node>"), STR("\t"), format_indent_attributes | format_raw);
+}
+
+TEST_XML(write_indent_attributes_empty_indent, "<node attr='1' other='2'><child><sub>text</sub></child></node>")
+{
+	CHECK_NODE_EX(doc, STR("<node\nattr=\"1\"\nother=\"2\">\n<child>\n<sub>text</sub>\n</child>\n</node>\n"), STR(""), format_indent_attributes);
 }
 
 TEST_XML(write_pcdata, "<node attr='1'><child><sub/>text</child></node>")
@@ -574,3 +600,41 @@ TEST_XML_FLAGS(write_mixed, "<node><child1/><child2>pre<![CDATA[data]]>mid<!--co
 	CHECK_NODE_EX(doc, STR("<node>\n<child1 />\n<child2>pre<![CDATA[data]]>mid<!--comment-->\n<test />post<?pi value?>fin</child2>\n<child3 />\n</node>\n"), STR("\t"), 0);
 	CHECK_NODE_EX(doc, STR("<node>\n\t<child1 />\n\t<child2>pre<![CDATA[data]]>mid<!--comment-->\n\t\t<test />post<?pi value?>fin</child2>\n\t<child3 />\n</node>\n"), STR("\t"), format_indent);
 }
+
+#ifndef PUGIXML_NO_EXCEPTIONS
+struct throwing_writer: pugi::xml_writer
+{
+	virtual void write(const void*, size_t)
+	{
+		throw std::runtime_error("write failed");
+	}
+};
+
+TEST_XML(write_throw_simple, "<node><child/></node>")
+{
+	try
+	{
+		throwing_writer w;
+		doc.print(w);
+
+		CHECK_FORCE_FAIL("Expected exception");
+	}
+	catch (std::runtime_error&)
+	{
+	}
+}
+
+TEST_XML(write_throw_encoding, "<node><child/></node>")
+{
+	try
+	{
+		throwing_writer w;
+		doc.print(w, STR("\t"), format_default, encoding_utf32_be);
+
+		CHECK_FORCE_FAIL("Expected exception");
+	}
+	catch (std::runtime_error&)
+	{
+	}
+}
+#endif

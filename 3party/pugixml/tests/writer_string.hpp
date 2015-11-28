@@ -8,7 +8,7 @@
 struct xml_writer_string: public pugi::xml_writer
 {
 	std::string contents;
-
+	
 	virtual void write(const void* data, size_t size);
 
 	std::string as_narrow() const;
