@@ -104,4 +104,10 @@ TileKey GetParentTile(TileKey const & tileKey, int targetZoom)
                  targetZoom);
 }
 
+bool IsNeighbours(TileKey const & tileKey1, TileKey const & tileKey2)
+{
+  return (abs(tileKey1.m_x - tileKey2.m_x) < 2) &&
+         (abs(tileKey1.m_y - tileKey2.m_y) < 2);
+}
+
 } // namespace df
