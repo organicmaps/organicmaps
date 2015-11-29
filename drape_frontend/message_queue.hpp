@@ -38,7 +38,8 @@ private:
   mutable mutex m_mutex;
   condition_variable m_condition;
   bool m_isWaiting;
-  deque<drape_ptr<Message> > m_messages;
+  using TMessageNode = pair<drape_ptr<Message>, MessagePriority>;
+  deque<TMessageNode> m_messages;
 };
 
 } // namespace df

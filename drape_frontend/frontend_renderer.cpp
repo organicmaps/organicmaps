@@ -168,7 +168,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         m_requestedTiles->Set(screen, move(tiles));
         m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<UpdateReadManagerMessage>(),
-                                  MessagePriority::Normal);
+                                  MessagePriority::UberHighSingleton);
       }
       break;
     }
@@ -427,7 +427,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_requestedTiles->Set(screen, move(tiles));
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                 make_unique_dp<UpdateReadManagerMessage>(),
-                                MessagePriority::Normal);
+                                MessagePriority::UberHighSingleton);
 
       RefreshBgColor();
 
@@ -1059,7 +1059,7 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
   m_requestedTiles->Set(modelView, move(tiles));
   m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                             make_unique_dp<UpdateReadManagerMessage>(),
-                            MessagePriority::High);
+                            MessagePriority::UberHighSingleton);
 }
 
 void FrontendRenderer::EmitModelViewChanged(ScreenBase const & modelView) const
