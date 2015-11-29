@@ -1,7 +1,6 @@
 #include "drape_frontend/path_text_shape.hpp"
 #include "drape_frontend/text_handle.hpp"
 #include "drape_frontend/text_layout.hpp"
-#include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/intrusive_vector.hpp"
 
 #include "drape/attribute_provider.hpp"
@@ -32,16 +31,24 @@ class PathTextHandle : public df::TextHandle
 public:
   PathTextHandle(m2::SharedSpline const & spl,
                  df::SharedTextLayout const & layout,
-                 float const mercatorOffset, float const depth,
+                 float const mercatorOffset,
+                 float depth,
+                 uint32_t textIndex,
                  uint64_t priority,
-                 ref_ptr<dp::TextureManager> textureManager)
-    : TextHandle(FeatureID(), layout->GetText(), dp::Center, priority, textureManager)
+                 ref_ptr<dp::TextureManager> textureManager,
+                 bool isBillboard)
+    : TextHandle(FeatureID(), layout->GetText(), dp::Center, priority, textureManager, isBillboard)
     , m_spline(spl)
     , m_layout(layout)
+    , m_textIndex(textIndex)
+    , m_globalOffset(mercatorOffset)
     , m_depth(depth)
   {
-    m_centerPointIter = m_spline.CreateIterator();
-    m_centerPointIter.Advance(mercatorOffset);
+
+    m2::Spline::iterator centerPointIter = m_spline.CreateIterator();
+    centerPointIter.Advance(m_globalOffset);
+    m_globalPivot = centerPointIter.m_pos;
+    m_buffer.resize(4 * m_layout->GetGlyphCount());
   }
 
   double GetMinScaleInPerspective() const override { return 0.5; }
@@ -51,20 +58,70 @@ public:
     if (!df::TextHandle::Update(screen))
       return false;
 
-    if (m_normals.empty())
-      m_normals.resize(4 * m_layout->GetGlyphCount());
+    if (m_buffer.empty())
+      m_buffer.resize(4 * m_layout->GetGlyphCount());
+    
+    m2::Spline pixelSpline(m_spline->GetSize());
 
-    return m_layout->CacheDynamicGeometry(m_centerPointIter, m_depth, screen, m_normals);
+    vector<m2::PointD> const & globalPoints = m_spline->GetPath();
+    for (auto pos : globalPoints)
+    {
+      pos = screen.GtoP(pos);
+
+      if (screen.isPerspective())
+      {
+        if (!screen.PixelRect().IsPointInside(pos))
+          continue;
+
+        pos = screen.PtoP3d(pos);
+      }
+
+      pixelSpline.AddPoint(pos);
+    }
+
+    m2::Spline::iterator centerPointIter;
+    centerPointIter.Attach(pixelSpline);
+
+    if (screen.isPerspective())
+    {
+      vector<float> offsets;
+      df::PathTextLayout::CalculatePositions(offsets, pixelSpline.GetLength(), 1.0,
+                                             m_layout->GetPixelLength());
+
+      if (offsets.size() <= m_textIndex)
+        return false;
+
+      centerPointIter.Advance(offsets[m_textIndex]);
+      m_globalPivot = screen.PtoG(screen.P3dtoP(centerPointIter.m_pos));
+    }
+    else
+    {
+      centerPointIter.Advance(m_globalOffset / screen.GetScale());
+      m_globalPivot = screen.PtoG(centerPointIter.m_pos);
+    }
+    return m_layout->CacheDynamicGeometry(centerPointIter, m_depth, m_globalPivot, m_buffer);
   }
 
   m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override
   {
-    if (perspective)
-      return GetPixelRectPerspective(screen);
+    m2::PointD const pixelPivot(screen.GtoP(m_globalPivot));
 
-    m2::PointD const pixelPivot(screen.GtoP(m_centerPointIter.m_pos));
+    if (perspective)
+    {
+      if (IsBillboard())
+      {
+        m2::RectD r = GetPixelRect(screen, false);
+        m2::PointD pixelPivotPerspective = screen.PtoP3d(pixelPivot);
+        r.Offset(-pixelPivot);
+        r.Offset(pixelPivotPerspective);
+
+        return r;
+      }
+      return GetPixelRectPerspective(screen);
+    }
+
     m2::RectD result;
-    for (gpu::TextDynamicVertex const & v : m_normals)
+    for (gpu::TextDynamicVertex const & v : m_buffer)
       result.Add(pixelPivot + glsl::ToPoint(v.m_normal));
 
     return result;
@@ -72,19 +129,29 @@ public:
 
   void GetPixelShape(ScreenBase const & screen, Rects & rects, bool perspective) const override
   {
-    m2::PointD const pixelPivot(screen.GtoP(m_centerPointIter.m_pos));
-    for (size_t quadIndex = 0; quadIndex < m_normals.size(); quadIndex += 4)
+    m2::PointD const pixelPivot(screen.GtoP(m_globalPivot));
+    for (size_t quadIndex = 0; quadIndex < m_buffer.size(); quadIndex += 4)
     {
       m2::RectF r;
-      r.Add(pixelPivot + glsl::ToPoint(m_normals[quadIndex].m_normal));
-      r.Add(pixelPivot + glsl::ToPoint(m_normals[quadIndex + 1].m_normal));
-      r.Add(pixelPivot + glsl::ToPoint(m_normals[quadIndex + 2].m_normal));
-      r.Add(pixelPivot + glsl::ToPoint(m_normals[quadIndex + 3].m_normal));
+      r.Add(pixelPivot + glsl::ToPoint(m_buffer[quadIndex].m_normal));
+      r.Add(pixelPivot + glsl::ToPoint(m_buffer[quadIndex + 1].m_normal));
+      r.Add(pixelPivot + glsl::ToPoint(m_buffer[quadIndex + 2].m_normal));
+      r.Add(pixelPivot + glsl::ToPoint(m_buffer[quadIndex + 3].m_normal));
+
+      if (perspective)
+      {
+        if (IsBillboard())
+        {
+          m2::PointD const pxPivotPerspective = screen.PtoP3d(pixelPivot);
+
+          r.Offset(-pixelPivot);
+          r.Offset(pxPivotPerspective);
+        }
+        else
+          r = m2::RectF(GetPerspectiveRect(m2::RectD(r), screen));
+      }
 
       m2::RectD const screenRect = perspective ? screen.PixelRectIn3d() : screen.PixelRect();
-      if (perspective)
-        r = m2::RectF(GetPerspectiveRect(m2::RectD(r), screen));
-
       if (screenRect.IsIntersect(m2::RectD(r)))
         rects.emplace_back(move(r));
     }
@@ -105,9 +172,11 @@ public:
 
 private:
   m2::SharedSpline m_spline;
-  m2::Spline::iterator m_centerPointIter;
-  float const m_depth;
   df::SharedTextLayout m_layout;
+  uint32_t const m_textIndex;
+  m2::PointD m_globalPivot;
+  float const m_globalOffset;
+  float const m_depth;
 };
 
 }
@@ -137,12 +206,13 @@ uint64_t PathTextShape::GetOverlayPriority() const
 void PathTextShape::DrawPathTextPlain(ref_ptr<dp::TextureManager> textures,
                                       ref_ptr<dp::Batcher> batcher,
                                       unique_ptr<PathTextLayout> && layout,
-                                      buffer_vector<float, 32> const & offsets) const
+                                      vector<float> const & offsets) const
 {
   dp::TextureManager::ColorRegion color;
   textures->GetColorRegion(m_params.m_textFont.m_color, color);
 
   dp::GLState state(gpu::TEXT_PROGRAM, dp::GLState::OverlayLayer);
+  state.SetProgram3dIndex(gpu::TEXT_BILLBOARD_PROGRAM);
   state.SetColorTexture(color.GetTexture());
   state.SetMaskTexture(layout->GetMaskTexture());
 
@@ -150,15 +220,13 @@ void PathTextShape::DrawPathTextPlain(ref_ptr<dp::TextureManager> textures,
   gpu::TTextStaticVertexBuffer staticBuffer;
   gpu::TTextDynamicVertexBuffer dynBuffer;
   SharedTextLayout layoutPtr(layout.release());
-  for (float offset : offsets)
+  for (size_t textIndex = 0; textIndex < offsets.size(); ++textIndex)
   {
+    float offset = offsets[textIndex];
     staticBuffer.clear();
     dynBuffer.clear();
 
-    Spline::iterator iter = m_spline.CreateIterator();
-    iter.Advance(offset);
     layoutPtr->CacheStaticGeometry(color, staticBuffer);
-
     dynBuffer.resize(staticBuffer.size());
 
     dp::AttributeProvider provider(2, staticBuffer.size());
@@ -167,8 +235,10 @@ void PathTextShape::DrawPathTextPlain(ref_ptr<dp::TextureManager> textures,
 
     drape_ptr<dp::OverlayHandle> handle = make_unique_dp<PathTextHandle>(m_spline, layoutPtr, offset,
                                                                          m_params.m_depth,
+                                                                         textIndex,
                                                                          GetOverlayPriority(),
-                                                                         textures);
+                                                                         textures,
+                                                                         true);
     batcher->InsertListOfStrip(state, make_ref(&provider), move(handle), 4);
   }
 }
@@ -176,7 +246,7 @@ void PathTextShape::DrawPathTextPlain(ref_ptr<dp::TextureManager> textures,
 void PathTextShape::DrawPathTextOutlined(ref_ptr<dp::TextureManager> textures,
                                          ref_ptr<dp::Batcher> batcher,
                                          unique_ptr<PathTextLayout> && layout,
-                                         buffer_vector<float, 32> const & offsets) const
+                                         vector<float> const & offsets) const
 {
   dp::TextureManager::ColorRegion color;
   dp::TextureManager::ColorRegion outline;
@@ -184,6 +254,7 @@ void PathTextShape::DrawPathTextOutlined(ref_ptr<dp::TextureManager> textures,
   textures->GetColorRegion(m_params.m_textFont.m_outlineColor, outline);
 
   dp::GLState state(gpu::TEXT_OUTLINED_PROGRAM, dp::GLState::OverlayLayer);
+  state.SetProgram3dIndex(gpu::TEXT_OUTLINED_BILLBOARD_PROGRAM);
   state.SetColorTexture(color.GetTexture());
   state.SetMaskTexture(layout->GetMaskTexture());
 
@@ -191,15 +262,13 @@ void PathTextShape::DrawPathTextOutlined(ref_ptr<dp::TextureManager> textures,
   gpu::TTextOutlinedStaticVertexBuffer staticBuffer;
   gpu::TTextDynamicVertexBuffer dynBuffer;
   SharedTextLayout layoutPtr(layout.release());
-  for (float offset : offsets)
+  for (size_t textIndex = 0; textIndex < offsets.size(); ++textIndex)
   {
+    float offset = offsets[textIndex];
     staticBuffer.clear();
     dynBuffer.clear();
 
-    Spline::iterator iter = m_spline.CreateIterator();
-    iter.Advance(offset);
     layoutPtr->CacheStaticGeometry(color, outline, staticBuffer);
-
     dynBuffer.resize(staticBuffer.size());
 
     dp::AttributeProvider provider(2, staticBuffer.size());
@@ -208,8 +277,10 @@ void PathTextShape::DrawPathTextOutlined(ref_ptr<dp::TextureManager> textures,
 
     drape_ptr<dp::OverlayHandle> handle = make_unique_dp<PathTextHandle>(m_spline, layoutPtr, offset,
                                                                          m_params.m_depth,
+                                                                         textIndex,
                                                                          GetOverlayPriority(),
-                                                                         textures);
+                                                                         textures,
+                                                                         true);
     batcher->InsertListOfStrip(state, make_ref(&provider), move(handle), 4);
   }
 }
@@ -223,37 +294,11 @@ void PathTextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManage
   if (glyphCount == 0)
     return;
 
-  //we leave a little space on either side of the text that would
-  //remove the comparison for equality of spline portions
-  float const kTextBorder = 4.0f;
-  float const textLength = kTextBorder + layout->GetPixelLength();
-  float const pathGlbLength = m_spline->GetLength();
-
-  // on next readable scale m_scaleGtoP will be twice
-  if (textLength > pathGlbLength * 2.0 * m_params.m_baseGtoPScale)
+  vector<float> offsets;
+  PathTextLayout::CalculatePositions(offsets, m_spline->GetLength(), m_params.m_baseGtoPScale,
+                                     layout->GetPixelLength());
+  if (offsets.empty())
     return;
-
-  float const kPathLengthScalar = 0.75;
-  float const pathLength = kPathLengthScalar * m_params.m_baseGtoPScale * pathGlbLength;
-
-  float const etalonEmpty = max(300 * df::VisualParams::Instance().GetVisualScale(), (double)textLength);
-  float const minPeriodSize = etalonEmpty + textLength;
-  float const twoTextAndEmpty = minPeriodSize + textLength;
-
-  buffer_vector<float, 32> offsets;
-  if (pathLength < twoTextAndEmpty)
-  {
-    // if we can't place 2 text and empty part on path
-    // we place only one text on center of path
-    offsets.push_back(pathGlbLength / 2.0f);
-  }
-  else
-  {
-    double const textCount = max(floor(pathLength / minPeriodSize), 1.0);
-    double const glbTextLen = pathGlbLength / textCount;
-    for (double offset = 0.5 * glbTextLen; offset < pathGlbLength; offset += glbTextLen)
-      offsets.push_back(offset);
-  }
 
   if (m_params.m_textFont.m_outlineColor == dp::Color::Transparent())
     DrawPathTextPlain(textures, batcher, move(layout), offsets);

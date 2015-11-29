@@ -1,4 +1,5 @@
 #include "drape_frontend/text_layout.hpp"
+#include "drape_frontend/visual_params.hpp"
 
 #include "drape_frontend/visual_params.hpp"
 
@@ -457,37 +458,36 @@ void PathTextLayout::CacheStaticGeometry(dp::TextureManager::ColorRegion const &
 }
 
 bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, const float depth,
-                                          ScreenBase const & screen,
+                                          m2::PointD const & globalPivot,
                                           gpu::TTextDynamicVertexBuffer & buffer) const
 {
-  float const scalePtoG = screen.GetScale();
-  float const glbHalfLength = 0.5 * GetPixelLength() * scalePtoG;
+  float const halfLength = 0.5 * GetPixelLength();
 
   m2::Spline::iterator beginIter = iter;
-  beginIter.Advance(-glbHalfLength);
+  beginIter.Advance(-halfLength);
   m2::Spline::iterator endIter = iter;
-  endIter.Advance(glbHalfLength);
+  endIter.Advance(halfLength);
   if (beginIter.BeginAgain() || endIter.BeginAgain())
     return false;
 
   float const halfFontSize = 0.5 * GetPixelHeight();
   float advanceSign = 1.0f;
   m2::Spline::iterator penIter = beginIter;
-  if (screen.GtoP(beginIter.m_pos).x > screen.GtoP(endIter.m_pos).x)
+  if (beginIter.m_pos.x > endIter.m_pos.x)
   {
     advanceSign = -advanceSign;
     penIter = endIter;
   }
 
-  glsl::vec2 pxPivot = glsl::ToVec2(screen.GtoP(iter.m_pos));
+  glsl::vec2 pxPivot = glsl::ToVec2(iter.m_pos);
   buffer.resize(4 * m_metrics.size());
   for (size_t i = 0; i < m_metrics.size(); ++i)
   {
     GlyphRegion const & g = m_metrics[i];
     m2::PointF pxSize = m2::PointF(g.GetPixelSize()) * m_textSizeRatio;
 
-    m2::PointD const pxBase = screen.GtoP(penIter.m_pos);
-    m2::PointD const pxShiftBase = screen.GtoP(penIter.m_pos + penIter.m_dir);
+    m2::PointD const pxBase = penIter.m_pos;
+    m2::PointD const pxShiftBase = penIter.m_pos + penIter.m_dir;
 
     glsl::vec2 tangent = advanceSign * glsl::normalize(glsl::ToVec2(pxShiftBase - pxBase));
     glsl::vec2 normal = glsl::normalize(glsl::vec2(-tangent.y, tangent.x));
@@ -501,7 +501,7 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, con
 
     size_t baseIndex = 4 * i;
 
-    glsl::vec3 pivot(glsl::ToVec2(iter.m_pos), depth);
+    glsl::vec3 pivot(glsl::ToVec2(globalPivot), depth);
     buffer[baseIndex + 0] = gpu::TextDynamicVertex(pivot, formingVector + normal * bottomVector + tangent * xOffset);
     buffer[baseIndex + 1] = gpu::TextDynamicVertex(pivot, formingVector + normal * upVector + tangent * xOffset);
     buffer[baseIndex + 2] = gpu::TextDynamicVertex(pivot, formingVector + normal * bottomVector + tangent * (pxSize.x + xOffset));
@@ -509,13 +509,49 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, con
 
     float const xAdvance = g.GetAdvanceX() * m_textSizeRatio;
     glsl::vec2 currentTangent = glsl::ToVec2(penIter.m_dir);
-    penIter.Advance(advanceSign * xAdvance * scalePtoG);
+    penIter.Advance(advanceSign * xAdvance);
     float const dotProduct = glsl::dot(currentTangent, glsl::ToVec2(penIter.m_dir));
     if (dotProduct < kValidSplineTurn)
       return false;
   }
 
   return true;
+}
+
+// static
+void PathTextLayout::CalculatePositions(vector<float> & offsets, float splineLength,
+                                       float splineScaleToPixel, float textPixelLength)
+{
+  //we leave a little space on either side of the text that would
+  //remove the comparison for equality of spline portions
+  float const kTextBorder = 4.0f;
+  float const textLength = kTextBorder + textPixelLength;
+  float const pathGlbLength = splineLength;
+
+  // on next readable scale m_scaleGtoP will be twice
+  if (textLength > pathGlbLength * 2.0 * splineScaleToPixel)
+    return;
+
+  float const kPathLengthScalar = 0.75;
+  float const pathLength = kPathLengthScalar * splineScaleToPixel * pathGlbLength;
+
+  float const etalonEmpty = max(300 * df::VisualParams::Instance().GetVisualScale(), (double)textLength);
+  float const minPeriodSize = etalonEmpty + textLength;
+  float const twoTextAndEmpty = minPeriodSize + textLength;
+
+  if (pathLength < twoTextAndEmpty)
+  {
+    // if we can't place 2 text and empty part on path
+    // we place only one text on center of path
+    offsets.push_back(pathGlbLength / 2.0f);
+  }
+  else
+  {
+    double const textCount = max(floor(pathLength / minPeriodSize), 1.0);
+    double const glbTextLen = pathGlbLength / textCount;
+    for (double offset = 0.5 * glbTextLen; offset < pathGlbLength; offset += glbTextLen)
+      offsets.push_back(offset);
+  }
 }
 
 ///////////////////////////////////////////////////////////////
