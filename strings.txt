@@ -5128,7 +5128,7 @@
     uk = Карта
     vi = Bản đồ
     hu = Térkép
-    de = Karteneinstellungen
+    de = Karte
     fi = Kartta
     cs = Mapa
     it = Mappa
@@ -5170,7 +5170,7 @@
     ja = その他
     ro = Diverse
     ar = مُتَنَوّعة
-    sk = Ostatné nastavenia
+    sk = Iné
     es = Varios
     pl = Różne
     nl = Diversen
