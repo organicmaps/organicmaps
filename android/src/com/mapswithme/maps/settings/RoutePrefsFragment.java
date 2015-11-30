@@ -2,18 +2,22 @@ package com.mapswithme.maps.settings;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.*;
+import android.preference.ListPreference;
+import android.preference.Preference;
+import android.preference.PreferenceFragment;
+import android.preference.TwoStatePreference;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.sound.LanguageData;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.statistics.Statistics;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class RoutePrefsFragment extends PreferenceFragment
 {
@@ -112,6 +116,7 @@ public class RoutePrefsFragment extends PreferenceFragment
     }
 
     mPrefEnabled.setChecked(TtsPlayer.INSTANCE.isEnabled());
+    mPrefEnabled.setSummary(null);
 
     final CharSequence[] entries = new CharSequence[languages.size()];
     final CharSequence[] values = new CharSequence[languages.size()];
