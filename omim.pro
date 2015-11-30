@@ -23,7 +23,7 @@ HEADERS += defines.hpp
   CONFIG *= desktop
 }
 
-SUBDIRS = 3party base coding geometry indexer search routing
+SUBDIRS = 3party base coding geometry indexer search routing editor
 
 !CONFIG(osrm) {
   SUBDIRS *= platform stats storage
