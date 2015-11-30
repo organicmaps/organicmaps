@@ -510,14 +510,11 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Голосовые инструкции";
 
-/* Settings «Route» category: «Tts enabled» summary */
-"pref_tts_enable_summary" = "Подсказки о поворотах и прочих манёврах";
-
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Язык подсказок";
 
 /* Settings «Route» category: «Tts unavailable» subtitle */
-"pref_tts_unavailable" = "Голосовые подсказки недоступны";
+"pref_tts_unavailable" = "Не доступны";
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Другой";
