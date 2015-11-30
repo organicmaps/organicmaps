@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
@@ -245,5 +246,10 @@ public class RoutingPlanController extends ToolbarController
   {
     UiUtils.hide(mToggle);
     showSlots(true, false);
+  }
+
+  public boolean isOpen()
+  {
+    return mOpen;
   }
 }
