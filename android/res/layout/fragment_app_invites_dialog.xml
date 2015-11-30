@@ -38,7 +38,7 @@
         android:layout_marginLeft="@dimen/margin_base_plus"
         android:layout_marginRight="@dimen/margin_base_plus"
         android:layout_marginTop="@dimen/margin_base"
-        android:text="@string/rating_tap_star"
+        android:text="@string/share_on_facebook_text"
         android:textAppearance="@style/MwmTextAppearance.Body2"/>
 
 </LinearLayout>

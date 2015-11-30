@@ -42,7 +42,7 @@ public class FacebookInvitesDialogFragment extends BaseMwmDialogFragment
             Statistics.INSTANCE.trackEvent(Statistics.EventName.FACEBOOK_INVITE_LATER);
           }
         }).
-        setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+        setPositiveButton(R.string.share, new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which)
           {

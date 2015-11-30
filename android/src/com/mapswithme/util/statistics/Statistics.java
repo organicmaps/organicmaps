@@ -8,6 +8,9 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.facebook.appevents.AppEventsLogger;
 import com.flurry.android.FlurryAgent;
 import com.mapswithme.country.ActiveCountryTree;
@@ -18,10 +21,9 @@ import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
-
-import java.util.HashMap;
-import java.util.Map;
-
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.SimpleLogger;
+import com.mapswithme.util.log.StubLogger;
 import ru.mail.android.mytracker.MRMyTracker;
 import ru.mail.android.mytracker.MRMyTrackerParams;
 
@@ -76,7 +78,7 @@ public enum Statistics
     public static final String PLUS_DIALOG_LATER = "GPlus dialog cancelled.";
     public static final String RATE_DIALOG_LATER = "GPlay dialog cancelled.";
     public static final String FACEBOOK_INVITE_LATER = "Facebook invites dialog cancelled.";
-    public static final String FACEBOOK_INVITE_INVITED = "GPlay dialog cancelled.";
+    public static final String FACEBOOK_INVITE_INVITED = "Facebook invites dialog accepted.";
     public static final String RATE_DIALOG_RATED = "GPlay dialog. Rating set";
     // misc
     public static final String ZOOM_IN = "Zoom. In";
@@ -125,7 +127,7 @@ public enum Statistics
 
       private Settings() {}
     }
-    
+
     private EventName() {}
   }
 

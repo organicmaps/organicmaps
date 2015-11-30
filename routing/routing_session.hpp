@@ -84,7 +84,7 @@ public:
 
   m2::PointD GetEndPoint() const { return m_endPoint; }
   bool IsActive() const { return (m_state != RoutingNotActive); }
-  bool IsNavigable() const { return (m_state == RouteNotStarted || m_state == OnRoute); }
+  bool IsNavigable() const { return (m_state == RouteNotStarted || m_state == OnRoute || m_state == RouteFinished); }
   bool IsBuilt() const { return (IsNavigable() || m_state == RouteNeedRebuild || m_state == RouteFinished); }
   bool IsBuilding() const { return (m_state == RouteBuilding); }
   bool IsOnRoute() const { return (m_state == OnRoute); }
