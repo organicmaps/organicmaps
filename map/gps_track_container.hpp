@@ -52,6 +52,10 @@ public:
   /// @param points - output for collection of points.
   void GetPoints(vector<df::GpsTrackPoint> & points) const;
 
+  /// Clears collection of point in the track.
+  /// @note Callback is called with 'toRemove' points, if need.
+  void Clear();
+
 private:
   void RemoveOldPoints(vector<uint32_t> & removedIds);
   void CopyPoints(vector<df::GpsTrackPoint> & points) const;

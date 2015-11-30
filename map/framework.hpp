@@ -6,6 +6,7 @@
 #include "map/bookmark_manager.hpp"
 #include "map/country_tree.hpp"
 #include "map/feature_vec_model.hpp"
+#include "map/gps_track_container.hpp"
 #include "map/mwm_url.hpp"
 #include "map/track.hpp"
 
@@ -38,6 +39,7 @@
 #include "base/strings_bundle.hpp"
 #include "base/thread_checker.hpp"
 
+#include "std/atomic.hpp"
 #include "std/list.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/target_os.hpp"
@@ -127,6 +129,9 @@ protected:
   location::TMyPositionModeChanged m_myPositionListener;
 
   BookmarkManager m_bmManager;
+
+  GpsTrackContainer m_gpsTrack;
+  atomic<bool> m_gpsTrackingEnabled;
 
   /// This function is called by m_storage when latest local files
   /// were changed.
@@ -314,6 +319,8 @@ public:
   void CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory, DrapeCreationParams && params);
   ref_ptr<df::DrapeEngine> GetDrapeEngine();
   void DestroyDrapeEngine();
+
+  void EnableGpsTracking(bool enabled);
 
   void SetMapStyle(MapStyle mapStyle);
   MapStyle GetMapStyle() const;

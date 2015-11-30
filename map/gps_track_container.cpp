@@ -99,6 +99,26 @@ void GpsTrackContainer::GetPoints(vector<df::GpsTrackPoint> & points) const
   CopyPoints(points);
 }
 
+void GpsTrackContainer::Clear()
+{
+  lock_guard<mutex> lg(m_guard);
+
+  vector<uint32_t> removed;
+
+  if (m_callback)
+  {
+    removed.reserve(m_points.size());
+    for_each(m_points.begin(), m_points.end(), [&](df::GpsTrackPoint const & pt){ removed.emplace_back(pt.m_id); });
+  }
+
+  // We do not use 'clear' because it does not guarantee memory cleaning,
+  // Instead, we use move from an empty queue
+  m_points = deque<df::GpsTrackPoint>();
+
+  if (m_callback && !removed.empty())
+    m_callback(vector<df::GpsTrackPoint>(), move(removed));
+}
+
 void GpsTrackContainer::RemoveOldPoints(vector<uint32_t> & removedIds)
 {
   // Must be called under m_guard lock
