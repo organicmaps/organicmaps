@@ -7,6 +7,8 @@
 
 #include "indexer/scales.hpp"
 
+#include "geometry/rect_intersect.hpp"
+
 #include "base/logging.hpp"
 
 #include "std/algorithm.hpp"
@@ -96,6 +98,7 @@ void GpsTrackRenderer::AddRenderData(ref_ptr<dp::GpuProgramManager> mng,
   program->Bind();
   data->m_bucket->GetBuffer()->Build(program);
   m_renderData.push_back(move(data));
+  m_waitForRenderData = false;
 }
 
 void GpsTrackRenderer::UpdatePoints(vector<GpsTrackPoint> const & toAdd, vector<uint32_t> const & toRemove)
@@ -142,6 +145,9 @@ void GpsTrackRenderer::UpdateSpeedsAndColors()
       m_endSpeed = m_points[i].m_speedMPS;
   }
 
+  m_startSpeed = max(m_startSpeed, 0.0);
+  m_endSpeed = max(m_endSpeed, 0.0);
+
   double const delta = m_endSpeed - m_startSpeed;
   if (delta <= kMinSpeed)
     m_startColor = kMaxSpeedColor;
@@ -168,17 +174,15 @@ size_t GpsTrackRenderer::GetAvailablePointsCount() const
 }
 
 double GpsTrackRenderer::PlacePoints(size_t & cacheIndex,
-                                     GpsTrackPoint const & start, GpsTrackPoint const & end,
+                                     m2::PointD const & start, m2::PointD const & end,
+                                     double startSpeed, double endSpeed,
                                      float radius, double diameterMercator,
                                      double offset, double trackLengthMercator,
-                                     bool & gap, double & lengthFromStart)
+                                     double lengthFromStart, bool & gap)
 {
-  if (start.m_point.EqualDxDy(end.m_point, 1e-5))
-    return offset;
-
   double const kDistanceScalar = 0.65;
 
-  m2::PointD const delta = end.m_point - start.m_point;
+  m2::PointD const delta = end - start;
   double const length = delta.Length();
   m2::PointD const dir = delta.Normalize();
   double pos = offset;
@@ -188,25 +192,30 @@ double GpsTrackRenderer::PlacePoints(size_t & cacheIndex,
     {
       double const dist = pos + diameterMercator * 0.5;
       double const td = my::clamp(dist / length, 0.0, 1.0);
-      double const speed = start.m_speedMPS * (1.0 - td) + end.m_speedMPS * td;
+      double const speed = max(startSpeed * (1.0 - td) + endSpeed * td, 0.0);
       double const ts = my::clamp((speed - m_startSpeed) / (m_endSpeed - m_startSpeed), 0.0, 1.0);
       dp::Color color = InterpolateColors(m_startColor, kMaxSpeedColor, ts);
       double const ta = my::clamp((lengthFromStart + dist) / trackLengthMercator, 0.0, 1.0);
       double const alpha = kMinAlpha * (1.0 - ta) + kMaxAlpha * ta;
       color = dp::Color(color.GetRed(), color.GetGreen(), color.GetBlue(), alpha);
 
-      m2::PointD const p = start.m_point + dir * dist;
+      m2::PointD const p = start + dir * dist;
       m_handlesCache[cacheIndex].first->SetPoint(m_handlesCache[cacheIndex].second, p, radius, color);
       m_handlesCache[cacheIndex].second++;
       if (m_handlesCache[cacheIndex].second >= m_handlesCache[cacheIndex].first->GetPointsCount())
         cacheIndex++;
-      ASSERT_LESS(cacheIndex, m_handlesCache.size(), ());
+
+      if (cacheIndex >= m_handlesCache.size())
+      {
+        m_dataRequestFn(kAveragePointsCount);
+        m_waitForRenderData = true;
+        return -1.0;
+      }
     }
     gap = !gap;
     pos += (diameterMercator * kDistanceScalar);
   }
 
-  lengthFromStart += length;
   return pos - length;
 }
 
@@ -226,69 +235,82 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
       return;
     }
 
+    // Check if there are render data.
+    if (m_renderData.empty() && !m_waitForRenderData)
+    {
+      m_dataRequestFn(kAveragePointsCount);
+      m_waitForRenderData = true;
+    }
+
+    if (m_waitForRenderData)
+      return;
+
     m_radius = CalculateRadius(screen);
     float const diameter = 2.0f * m_radius;
     float const currentScaleGtoP = 1.0f / screen.GetScale();
     double const trackLengthMercator = CalculateTrackLength();
-    double const trackLengthPixels = trackLengthMercator * currentScaleGtoP;
-    size_t const pointsCount = static_cast<size_t>(trackLengthPixels / (2 * diameter));
-    if (pointsCount == 0)
-    {
-      m_needUpdate = false;
-      return;
-    }
 
-    // Check if we have enough points.
-    size_t const availablePointsCount = GetAvailablePointsCount();
-    if (pointsCount > availablePointsCount)
+    // Update points' positions and colors.
+    ASSERT(!m_renderData.empty(), ());
+    m_handlesCache.clear();
+    for (size_t i = 0; i < m_renderData.size(); i++)
     {
-      if (!m_waitForRenderData)
-      {
-        size_t const bucketSize = (pointsCount / kAveragePointsCount + 1) * kAveragePointsCount - availablePointsCount;
-        m_dataRequestFn(bucketSize);
-      }
-      m_waitForRenderData = true;
-      return;
+      ASSERT_EQUAL(m_renderData[i]->m_bucket->GetOverlayHandlesCount(), 1, ());
+      GpsTrackHandle * handle = static_cast<GpsTrackHandle*>(m_renderData[i]->m_bucket->GetOverlayHandle(0).get());
+      handle->Clear();
+      m_handlesCache.push_back(make_pair(handle, 0));
+    }
+    UpdateSpeedsAndColors();
+
+    size_t cacheIndex = 0;
+    double lengthFromStart = 0.0;
+    if (m_points.size() == 1)
+    {
+      m_handlesCache[cacheIndex].first->SetPoint(0, m_points.front().m_point, m_radius, kMaxSpeedColor);
+      m_handlesCache[cacheIndex].second++;
     }
     else
     {
-      m_waitForRenderData = false;
+      bool gap = true;
+      double const diameterMercator = diameter / currentScaleGtoP;
+      double offset = 0.0;
+      for (size_t i = 0; i + 1 < m_points.size(); i++)
+      {
+        // Clip points outside visible rect.
+        m2::PointD p1 = m_points[i].m_point;
+        m2::PointD p2 = m_points[i + 1].m_point;
+        double const dist = (m_points[i + 1].m_point - m_points[i].m_point).Length();
+        if (!m2::Intersect(screen.ClipRect(), p1, p2))
+        {
+          lengthFromStart += dist;
+          offset = 0.0;
+          continue;
+        }
+
+        // Check points equality.
+        if (p1.EqualDxDy(p2, 1e-5))
+        {
+          lengthFromStart += dist;
+          continue;
+        }
+
+        // Interpolate speeds.
+        double const startOffset = (p1 - m_points[i].m_point).Length();
+        double const t1 = startOffset / dist;
+        double const t2 = 1.0 - (m_points[i + 1].m_point - p2).Length() / dist;
+        double startSpeed = m_points[i].m_speedMPS * (1.0 - t1) + m_points[i + 1].m_speedMPS * t1;
+        double endSpeed = m_points[i].m_speedMPS * (1.0 - t2) + m_points[i + 1].m_speedMPS * t2;
+
+        // Place points.
+        offset = PlacePoints(cacheIndex, p1, p2, startSpeed, endSpeed, m_radius, diameterMercator,
+                             offset, trackLengthMercator, lengthFromStart + startOffset, gap);
+        if (offset < 0.0)
+          return;
+
+        lengthFromStart += dist;
+      }
     }
-
-    // Update points' positions and colors.
-    if (!m_waitForRenderData)
-    {
-      ASSERT(!m_renderData.empty(), ());
-      m_handlesCache.clear();
-      for (size_t i = 0; i < m_renderData.size(); i++)
-      {
-        ASSERT_EQUAL(m_renderData[i]->m_bucket->GetOverlayHandlesCount(), 1, ());
-        GpsTrackHandle * handle = static_cast<GpsTrackHandle*>(m_renderData[i]->m_bucket->GetOverlayHandle(0).get());
-        handle->Clear();
-        m_handlesCache.push_back(make_pair(handle, 0));
-      }
-
-      UpdateSpeedsAndColors();
-
-      size_t cacheIndex = 0;
-      double lengthFromStart = 0.0;
-      if (m_points.size() == 1)
-      {
-        m_handlesCache[cacheIndex].first->SetPoint(0, m_points.front().m_point, m_radius, kMaxSpeedColor);
-        m_handlesCache[cacheIndex].second++;
-      }
-      else
-      {
-        bool gap = true;
-        double const diameterMercator = diameter / currentScaleGtoP;
-        double offset = 0.0;
-        for (size_t i = 0; i + 1 < m_points.size(); i++)
-          offset = PlacePoints(cacheIndex, m_points[i], m_points[i + 1], m_radius,
-                               diameterMercator, offset, trackLengthMercator,
-                               gap, lengthFromStart);
-      }
-      m_needUpdate = false;
-    }
+    m_needUpdate = false;
   }
 
   if (m_handlesCache.empty() || m_handlesCache.front().second == 0)

@@ -43,10 +43,11 @@ private:
   void UpdateSpeedsAndColors();
   size_t GetAvailablePointsCount() const;
   double PlacePoints(size_t & cacheIndex,
-                     GpsTrackPoint const & start, GpsTrackPoint const & end,
+                     m2::PointD const & start, m2::PointD const & end,
+                     double startSpeed, double endSpeed,
                      float radius, double diameterMercator,
                      double offset, double trackLengthMercator,
-                     bool & gap, double & lengthFromStart);
+                     double lengthFromStart, bool & gap);
 
   TRenderDataRequestFn m_dataRequestFn;
   vector<drape_ptr<GpsTrackRenderData>> m_renderData;
