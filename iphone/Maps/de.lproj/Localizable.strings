@@ -481,7 +481,7 @@
 "menu_search" = "Suche";
 
 /* Settings screen: "Map" category title */
-"prefs_group_map" = "Karteneinstellungen";
+"prefs_group_map" = "Karte";
 
 /* Settings screen: "Miscellaneous" category title */
 "prefs_group_misc" = "Verschiedenes";

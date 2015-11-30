@@ -300,7 +300,7 @@
 	<string name="share_my_location">Meinen Standort teilen</string>
 	<string name="menu_search">Suche</string>
 	<!-- Settings screen: "Map" category title -->
-	<string name="prefs_group_map">Karteneinstellungen</string>
+	<string name="prefs_group_map">Karte</string>
 	<!-- Settings screen: "Miscellaneous" category title -->
 	<string name="prefs_group_misc">Verschiedenes</string>
 	<string name="prefs_group_route">Navigation</string>
