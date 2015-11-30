@@ -457,7 +457,7 @@ void PathTextLayout::CacheStaticGeometry(dp::TextureManager::ColorRegion const &
   for_each(m_metrics.begin(), m_metrics.end(), gen);
 }
 
-bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, const float depth,
+bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, float depth,
                                           m2::PointD const & globalPivot,
                                           gpu::TTextDynamicVertexBuffer & buffer) const
 {

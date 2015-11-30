@@ -31,7 +31,7 @@ class PathTextHandle : public df::TextHandle
 public:
   PathTextHandle(m2::SharedSpline const & spl,
                  df::SharedTextLayout const & layout,
-                 float const mercatorOffset,
+                 float mercatorOffset,
                  float depth,
                  uint32_t textIndex,
                  uint64_t priority,
@@ -50,8 +50,6 @@ public:
     m_globalPivot = centerPointIter.m_pos;
     m_buffer.resize(4 * m_layout->GetGlyphCount());
   }
-
-  double GetMinScaleInPerspective() const override { return 0.5; }
 
   bool Update(ScreenBase const & screen) override
   {
@@ -72,7 +70,6 @@ public:
       {
         if (!screen.PixelRect().IsPointInside(pos))
           continue;
-
         pos = screen.PtoP3d(pos);
       }
 

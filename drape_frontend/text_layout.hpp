@@ -98,7 +98,7 @@ public:
                            gpu::TTextStaticVertexBuffer & staticBuffer) const;
 
   bool CacheDynamicGeometry(m2::Spline::iterator const & iter,
-                            float const depth,
+                            float depth,
                             m2::PointD const & globalPivot,
                             gpu::TTextDynamicVertexBuffer & buffer) const;
 };
