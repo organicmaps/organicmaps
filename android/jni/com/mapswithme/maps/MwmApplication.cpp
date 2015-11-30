@@ -12,6 +12,7 @@ extern "C"
       jstring apkPath, jstring storagePath, jstring tmpPath, jstring obbGooglePath,
       jstring flavorName, jstring buildType, jboolean isYota, jboolean isTablet)
   {
+    android::Platform::Instance().InitAppMethodRefs(thiz);
     android::Platform::Instance().Initialize(
         env, apkPath, storagePath, tmpPath, obbGooglePath, flavorName, buildType, isYota, isTablet);
   }

@@ -13,7 +13,7 @@ endif
 # List all static libraries which are built using our own scripts in tools/android #
 ####################################################################################
 
-MY_PREBUILT_LIBS_PATH := ../../../omim-android-drape-$(OMIM_CONFIG)-$(TARGET_ARCH_ABI)/out/$(OMIM_CONFIG)
+MY_PREBUILT_LIBS_PATH := ../../../omim-android-$(OMIM_CONFIG)-$(TARGET_ARCH_ABI)/out/$(OMIM_CONFIG)
 
 # Avoid clean errors due to missing external static libs
 ifneq ($(MAKECMDGOALS),clean)

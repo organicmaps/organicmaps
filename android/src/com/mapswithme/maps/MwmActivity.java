@@ -60,6 +60,7 @@ import com.mapswithme.maps.widget.menu.MainMenu;
 import com.mapswithme.maps.widget.placepage.BasePlacePageAnimationController;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
+import com.mapswithme.util.Animations;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.InputUtils;
@@ -328,11 +329,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mFrame = findViewById(R.id.map_fragment_container);
 
     mFadeView = (FadeView) findViewById(R.id.fade_view);
-    mFadeView.setListener(new FadeView.Listener()
-    {
+    mFadeView.setListener(new FadeView.Listener() {
       @Override
-      public void onTouch()
-      {
+      public void onTouch() {
         mMainMenu.close(true);
       }
     });
@@ -343,7 +342,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mMapFragment = (MapFragment) MapFragment.instantiate(this, MapFragment.class.getName(), null);
       getSupportFragmentManager()
           .beginTransaction()
-          .replace(R.id.map_fragment_container, mMapFragment, FRAGMENT_TAG)
+          .replace(R.id.map_fragment_container, mMapFragment, MapFragment.FRAGMENT_TAG)
           .commit();
     }
     mFrame.setOnTouchListener(this);
@@ -407,11 +406,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void startLocationToPoint(String statisticsEvent, String alohaEvent, final @Nullable MapObject endPoint)
   {
-    closeMenu(statisticsEvent, alohaEvent, new Runnable()
-    {
+    closeMenu(statisticsEvent, alohaEvent, new Runnable() {
       @Override
-      public void run()
-      {
+      public void run() {
         RoutingController.get().prepare(endPoint);
 
         if (mPlacePage.isDocked() || !mPlacePage.isFloating())
@@ -719,7 +716,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onResume();
 
-    mLocationStateModeListenerId = LocationState.INSTANCE.addLocationStateModeListener(this);
+    LocationState.INSTANCE.setMyPositionModeListener(this);
     invalidateLocationState();
 
     mSearchController.refreshToolbar();
@@ -802,7 +799,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   protected void onPause()
   {
-    LocationState.INSTANCE.removeLocationStateModeListener(mLocationStateModeListenerId);
+    LocationState.INSTANCE.removeMyPositionModeListener();
     pauseLocation();
     TtsPlayer.INSTANCE.stop();
     LikesManager.INSTANCE.cancelDialogs();

@@ -223,7 +223,7 @@ public class SlotFrame extends LinearLayout
     setClipToPadding(false);
     setClickable(true);
 
-    int padding = UiUtils.dp(8);
+    int padding = UiUtils.toPx(8);
     setPadding(padding, padding / 4, padding, padding);
 
     mSlotFrom = new Slot(this, R.id.from, 1);

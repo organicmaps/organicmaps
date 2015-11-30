@@ -123,7 +123,7 @@
 		34F45E8E1B96E88100AC93F8 /* MWMSearchTabButtonsView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F45E8D1B96E88100AC93F8 /* MWMSearchTabButtonsView.mm */; };
 		34F45E901B96E8B100AC93F8 /* MWMSearchTabButtonsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34F45E8F1B96E8B100AC93F8 /* MWMSearchTabButtonsView.xib */; };
 		34F8ADD91B97229A004184CC /* MWMSearchTableView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F8ADD81B97229A004184CC /* MWMSearchTableView.mm */; };
-		34FE4C451BCC013500066718 /* MWMMapWidgets.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34FE4C441BCC013500066718 /* MWMMapWidgets.mm */; settings = {ASSET_TAGS = (); }; };
+		34FE4C451BCC013500066718 /* MWMMapWidgets.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34FE4C441BCC013500066718 /* MWMMapWidgets.mm */; };
 		45159BF91B0CA2D5009BFA85 /* resources-6plus in Resources */ = {isa = PBXBuildFile; fileRef = 45159BF81B0CA2D5009BFA85 /* resources-6plus */; };
 		4519503A1B7A3E070085DA05 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 451950391B7A3E070085DA05 /* patterns.txt */; };
 		4519503B1B7A3E390085DA05 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 451950391B7A3E070085DA05 /* patterns.txt */; };
@@ -621,12 +621,9 @@
 		B0DFE6311A1B78A200B6C35E /* LocalNotifications.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0DFE62F1A1B78A200B6C35E /* LocalNotifications.plist */; };
 		B0FBFA271A515AFD0086819E /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B0FBFA261A515AFD0086819E /* ViewController.mm */; };
 		B0FBFA2B1A515B4C0086819E /* TableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B0FBFA2A1A515B4C0086819E /* TableViewController.mm */; };
-		BB3E6ED81C03229C007EF3F8 /* resources-hdpi in Resources */ = {isa = PBXBuildFile; fileRef = BB3E6ED21C03229C007EF3F8 /* resources-hdpi */; settings = {ASSET_TAGS = (); }; };
-		BB3E6ED91C03229C007EF3F8 /* resources-hdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = BB3E6ED31C03229C007EF3F8 /* resources-hdpi_clear */; settings = {ASSET_TAGS = (); }; };
-		BB3E6EDA1C03229C007EF3F8 /* resources-hdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = BB3E6ED41C03229C007EF3F8 /* resources-hdpi_dark */; settings = {ASSET_TAGS = (); }; };
-		BB3E6EDE1C0327F8007EF3F8 /* resources-hdpi in Resources */ = {isa = PBXBuildFile; fileRef = BB3E6ED21C03229C007EF3F8 /* resources-hdpi */; settings = {ASSET_TAGS = (); }; };
-		BB3E6EDF1C0327FB007EF3F8 /* resources-hdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = BB3E6ED31C03229C007EF3F8 /* resources-hdpi_clear */; settings = {ASSET_TAGS = (); }; };
-		BB3E6EE01C0327FE007EF3F8 /* resources-hdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = BB3E6ED41C03229C007EF3F8 /* resources-hdpi_dark */; settings = {ASSET_TAGS = (); }; };
+		BB3E6EDE1C0327F8007EF3F8 /* resources-hdpi in Resources */ = {isa = PBXBuildFile; fileRef = BB3E6ED21C03229C007EF3F8 /* resources-hdpi */; };
+		BB3E6EDF1C0327FB007EF3F8 /* resources-hdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = BB3E6ED31C03229C007EF3F8 /* resources-hdpi_clear */; };
+		BB3E6EE01C0327FE007EF3F8 /* resources-hdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = BB3E6ED41C03229C007EF3F8 /* resources-hdpi_dark */; };
 		CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
 		ED48BBB517C267F5003E7E92 /* ColorPickerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */; };
 		ED48BBBA17C2B1E2003E7E92 /* CircleView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB917C2B1E2003E7E92 /* CircleView.mm */; };
@@ -3115,7 +3112,6 @@
 				FA459EB414327AF700B5BB3C /* WorldCoasts.mwm in Resources */,
 				FA85F633145DDDC20090E1A0 /* packed_polygons.bin in Resources */,
 				F6ED13561B16439E0095C6DE /* MWMDirectionView.xib in Resources */,
-				BB3E6ED81C03229C007EF3F8 /* resources-hdpi in Resources */,
 				34D15BA91BD8F93C00C8BCBE /* AddSetTableViewCell.xib in Resources */,
 				FA99CB73147089B100689A9A /* Localizable.strings in Resources */,
 				34CFFE8D1B7DE71C009D0C9F /* MWMSearchView.xib in Resources */,
@@ -3132,8 +3128,6 @@
 				3438CDF91B8616760051AA78 /* MWMSearchShowOnMapCell.xib in Resources */,
 				34BAB6EE1BB2DFCE00DB941B /* MWMBottomMenuCollectionViewPortraitCell.xib in Resources */,
 				349A358D1B53EABC009677EE /* MWMSearchDownloadMapRequest.xib in Resources */,
-				BB3E6EDA1C03229C007EF3F8 /* resources-hdpi_dark in Resources */,
-				BB3E6ED91C03229C007EF3F8 /* resources-hdpi_clear in Resources */,
 				4A23D15B1B8B4DD700D4EB6F /* drules_proto_clear.bin in Resources */,
 				341C2A5B1B720B8A00AD41A1 /* MWMAPIBarView.xib in Resources */,
 				34B82AC51B84608600180497 /* MWMSearchHistoryClearCell.xib in Resources */,

@@ -44,7 +44,6 @@ public class MwmApplication extends Application
   private boolean mAreCountersInitialized;
   private boolean mIsFrameworkInitialized;
 
-  private boolean mAreStatsInitialised;
   private Handler mMainLoopHandler;
   private Object mMainQueueToken = new Object();
 
@@ -195,6 +194,8 @@ public class MwmApplication extends Application
    */
   private native void nativeInitPlatform(String apkPath, String storagePath, String tmpPath, String obbGooglePath,
                                          String flavorName, String buildType, boolean isYota, boolean isTablet);
+
+  private native void nativeInitFramework();
 
   private native void nativeAddLocalization(String name, String value);
 
