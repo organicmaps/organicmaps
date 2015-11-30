@@ -1,5 +1,6 @@
 package com.mapswithme.maps.routing;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
@@ -12,6 +13,10 @@ import com.mapswithme.util.statistics.Statistics;
 
 public class RoutingPlanInplaceController extends RoutingPlanController
 {
+  private static final String STATE_OPEN = "slots panel open";
+
+  private Boolean mSlotsRestoredState;
+
   public RoutingPlanInplaceController(MwmActivity activity)
   {
     super(activity.findViewById(R.id.routing_plan_frame), activity);
@@ -24,8 +29,11 @@ public class RoutingPlanInplaceController extends RoutingPlanController
 
     if (show)
     {
-      showSlots(!(RoutingController.get().getStartPoint() instanceof MapObject.MyPosition) || (RoutingController.get().getEndPoint() == null),
-                false);
+      boolean open = (mSlotsRestoredState == null ? !(RoutingController.get().getStartPoint() instanceof MapObject.MyPosition) ||
+                                                    (RoutingController.get().getEndPoint() == null)
+                                                  : mSlotsRestoredState);
+      showSlots(open, false);
+      mSlotsRestoredState = null;
     }
 
     UiUtils.showIf(show, mFrame);
@@ -54,5 +62,16 @@ public class RoutingPlanInplaceController extends RoutingPlanController
         });
       }
     });
+  }
+
+  public void onSaveState(Bundle outState)
+  {
+    outState.putBoolean(STATE_OPEN, isOpen());
+  }
+
+  public void restoreState(Bundle state)
+  {
+    if (state.containsKey(STATE_OPEN))
+      mSlotsRestoredState = state.getBoolean(STATE_OPEN);
   }
 }
