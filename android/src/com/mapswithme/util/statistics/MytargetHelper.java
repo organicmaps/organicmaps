@@ -5,18 +5,17 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
-
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import ru.mail.android.mytarget.core.net.Hosts;
 import ru.mail.android.mytarget.nativeads.NativeAppwallAd;
 
@@ -45,7 +44,7 @@ public final class MytargetHelper
     mActivity = activity;
 
     if (!ConnectionState.isConnected() ||
-        isAdSwitchedOff())
+        !isShowcaseSwitchedOnLocal())
     {
       listener.onNoAd("Switched off", null);
       return;
@@ -90,9 +89,7 @@ public final class MytargetHelper
     final long lastCheckMillis = MwmApplication.prefs().getLong(PREF_CHECK_MILLIS, 0);
     final long currentMillis = System.currentTimeMillis();
     if (currentMillis - lastCheckMillis < CHECK_INTERVAL_MILLIS)
-      return MwmApplication.prefs().getBoolean(PREF_CHECK, false);
-
-    MwmApplication.prefs().edit().putLong(PREF_CHECK_MILLIS, currentMillis).commit();
+      return isShowcaseSwitchedOnServer();
 
     HttpURLConnection connection = null;
     try
@@ -105,7 +102,7 @@ public final class MytargetHelper
       connection.connect();
 
       final boolean showShowcase = connection.getResponseCode() == HttpURLConnection.HTTP_OK;
-      MwmApplication.prefs().edit().putBoolean(PREF_CHECK, showShowcase).commit();
+      setShowcaseSwitchedOnServer(showShowcase);
 
       return showShowcase;
     } catch (MalformedURLException ignored)
@@ -134,9 +131,20 @@ public final class MytargetHelper
     mShowcase.show();
   }
 
-  public static boolean isAdSwitchedOff()
+  public static boolean isShowcaseSwitchedOnLocal()
   {
-    return !PreferenceManager.getDefaultSharedPreferences(MwmApplication.get())
-                             .getBoolean(MwmApplication.get().getString(R.string.pref_showcase_switched_on), true);
+    return PreferenceManager.getDefaultSharedPreferences(MwmApplication.get())
+                             .getBoolean(MwmApplication.get().getString(R.string.pref_showcase_switched_on), false);
+  }
+
+  public static boolean isShowcaseSwitchedOnServer()
+  {
+    return MwmApplication.prefs().getBoolean(PREF_CHECK, false);
+  }
+
+  private static void setShowcaseSwitchedOnServer(boolean switchedOn)
+  {
+    MwmApplication.prefs().edit().putLong(PREF_CHECK_MILLIS, System.currentTimeMillis())
+                                 .putBoolean(PREF_CHECK, switchedOn).apply();
   }
 }
