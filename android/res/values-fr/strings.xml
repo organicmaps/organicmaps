@@ -316,6 +316,12 @@
 	<string name="prefs_group_route">Navigation</string>
 	<string name="pref_zoom_title">Boutons de zoom</string>
 	<string name="pref_zoom_summary">Afficher à l\&#39;écran</string>
+	<!-- Settings «Route» category: «Tts enabled» title -->
+	<string name="pref_tts_enable_title">Instructions vocales</string>
+	<!-- Settings «Route» category: «Tts language» title -->
+	<string name="pref_tts_language_title">Langue vocale</string>
+	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
+	<string name="pref_tts_unavailable">Non disponible</string>
 	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">Autre</string>
 	<string name="pref_tts_how_to_set_up_voice">Comment configurer la voix</string>

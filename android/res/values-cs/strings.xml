@@ -312,6 +312,12 @@
 	<string name="prefs_group_route">Navigace</string>
 	<string name="pref_zoom_title">Tlačítka přiblížení/oddálení</string>
 	<string name="pref_zoom_summary">Zobrazit na obrazovce</string>
+	<!-- Settings «Route» category: «Tts enabled» title -->
+	<string name="pref_tts_enable_title">Hlasové instrukce</string>
+	<!-- Settings «Route» category: «Tts language» title -->
+	<string name="pref_tts_language_title">Jazyk hlasu</string>
+	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
+	<string name="pref_tts_unavailable">Není dostupná</string>
 	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">Ostatní</string>
 	<string name="pref_tts_how_to_set_up_voice">Jak nastavit hlas</string>

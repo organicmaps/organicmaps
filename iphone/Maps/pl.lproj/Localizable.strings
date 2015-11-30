@@ -508,16 +508,13 @@
 "pref_map_style_modern_light" = "Modern light";
 
 /* Settings «Route» category: «Tts enabled» title */
-"pref_tts_enable_title" = "Voice instructions";
-
-/* Settings «Route» category: «Tts enabled» summary */
-"pref_tts_enable_summary" = "Turn instructions";
+"pref_tts_enable_title" = "Instrukcje głosowe";
 
 /* Settings «Route» category: «Tts language» title */
-"pref_tts_language_title" = "Voice language";
+"pref_tts_language_title" = "Język instrukcji";
 
 /* Settings «Route» category: «Tts unavailable» subtitle */
-"pref_tts_unavailable" = "TTS unavailable";
+"pref_tts_unavailable" = "Niedostępne";
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Inny";

@@ -311,6 +311,12 @@
 	<string name="prefs_group_route">Navigație</string>
 	<string name="pref_zoom_title">Butoane zoom</string>
 	<string name="pref_zoom_summary">Afișare pe ecran</string>
+	<!-- Settings «Route» category: «Tts enabled» title -->
+	<string name="pref_tts_enable_title">Instrucțiuni vocale</string>
+	<!-- Settings «Route» category: «Tts language» title -->
+	<string name="pref_tts_language_title">Limba ghidului vocal</string>
+	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
+	<string name="pref_tts_unavailable">Nu există</string>
 	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">Alta</string>
 	<string name="pref_tts_how_to_set_up_voice">Modalitatea de configurare a vocii</string>

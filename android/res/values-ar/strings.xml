@@ -315,6 +315,12 @@
 	<string name="prefs_group_route">الملاحة</string>
 	<string name="pref_zoom_title">أزرار التكبير</string>
 	<string name="pref_zoom_summary">عرض على الشاشة</string>
+	<!-- Settings «Route» category: «Tts enabled» title -->
+	<string name="pref_tts_enable_title">تعليمات صوتية</string>
+	<!-- Settings «Route» category: «Tts language» title -->
+	<string name="pref_tts_language_title">لغة الصوت</string>
+	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
+	<string name="pref_tts_unavailable">غير متاح</string>
 	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">آخر</string>
 	<string name="pref_tts_how_to_set_up_voice">كيفية ضبط الصوت</string>

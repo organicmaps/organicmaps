@@ -5,7 +5,6 @@
   <SwitchPreference
     android:key="@string/pref_tts_enabled"
     android:title="@string/pref_tts_enable_title"
-    android:summary="@string/pref_tts_enable_summary"
     android:switchTextOn=""
     android:switchTextOff=""/>
 

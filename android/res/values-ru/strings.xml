@@ -328,12 +328,10 @@
 	<string name="pref_map_style_modern_light">Современная светлая</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Голосовые инструкции</string>
-	<!-- Settings «Route» category: «Tts enabled» summary -->
-	<string name="pref_tts_enable_summary">Подсказки о поворотах и прочих манёврах</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Язык подсказок</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
-	<string name="pref_tts_unavailable">Голосовые подсказки недоступны</string>
+	<string name="pref_tts_unavailable">Не доступны</string>
 	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">Другой</string>
 	<string name="pref_tts_how_to_set_up_voice">Как настроить голос</string>
