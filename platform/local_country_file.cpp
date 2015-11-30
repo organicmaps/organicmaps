@@ -57,7 +57,11 @@ void LocalCountryFile::DeleteFromDisk(MapOptions files) const
 
 string LocalCountryFile::GetPath(MapOptions file) const
 {
-  return my::JoinFoldersToPath(m_directory, m_countryFile.GetNameWithExt(file));
+  // TODO (mpimenov): Refactor with MwmTraits after merge new-search branch.
+  bool singleFile = GetVersion() > 151126;
+  string const & countryFilePath = singleFile ? m_countryFile.GetNameWithExt(MapOptions::Map)
+                                              : m_countryFile.GetNameWithExt(file);
+  return my::JoinFoldersToPath(m_directory, countryFilePath);
 }
 
 uint32_t LocalCountryFile::GetSize(MapOptions filesMask) const

@@ -263,9 +263,9 @@ void BuildCrossRoutingIndex(string const & baseDir, string const & countryName,
   routing::CrossRoutingContextWriter crossContext;
   FindCrossNodes(nodeData, osm2ft, countries, countryName, index, p.first, crossContext);
 
-  string const mwmRoutingPath = localFile.GetPath(MapOptions::CarRouting);
-  CalculateCrossAdjacency(mwmRoutingPath, crossContext);
-  WriteCrossSection(crossContext, mwmRoutingPath);
+  string const mwmWithRoutingPath = localFile.GetPath(MapOptions::Map) + ROUTING_FILE_EXTENSION;
+  CalculateCrossAdjacency(mwmWithRoutingPath, crossContext);
+  WriteCrossSection(crossContext, mwmWithRoutingPath);
 }
 
 void BuildRoutingIndex(string const & baseDir, string const & countryName, string const & osrmFile)
@@ -442,19 +442,13 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
               "Multiple:", multiple, "Equal:", equal));
 
   LOG(LINFO, ("Collect all data into one file..."));
-  string const fPath = localFile.GetPath(MapOptions::CarRouting);
 
-  FilesContainerW routingCont(fPath /*, FileWriter::OP_APPEND*/);
+  string const mwmPath = localFile.GetPath(MapOptions::Map);
+  string const mwmWithRoutingPath = mwmPath + ROUTING_FILE_EXTENSION;
 
-  {
-    // Write version for routing file that is equal to correspondent mwm file.
-    FilesContainerR mwmCont(localFile.GetPath(MapOptions::Map));
+  CHECK(my::CopyFileX(mwmPath, mwmWithRoutingPath), ("Can't copy", mwmPath, "to", mwmWithRoutingPath));
 
-    FileWriter w = routingCont.GetWriter(VERSION_FILE_TAG);
-    ReaderSource<ModelReaderPtr> src(mwmCont.GetReader(VERSION_FILE_TAG));
-    rw::ReadAndWrite(src, w);
-    w.WritePaddingByEnd(4);
-  }
+  FilesContainerW routingCont(mwmWithRoutingPath, FileWriter::OP_WRITE_EXISTING);
 
   mapping.Save(routingCont);
 
@@ -473,7 +467,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
   routingCont.Finish();
 
   uint64_t sz;
-  VERIFY(my::GetFileSize(fPath, sz), ());
+  VERIFY(my::GetFileSize(mwmWithRoutingPath, sz), ());
   LOG(LINFO, ("Nodes stored:", stored, "Routing index file size:", sz));
 }
 }
