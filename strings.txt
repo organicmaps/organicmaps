@@ -5300,26 +5300,95 @@
   [pref_tts_enable_title]
      tags = android,ios
      comment = Settings «Route» category: «Tts enabled» title
-     en = Voice instructions
+     en = Voice Instructions
      ru = Голосовые инструкции
-
-  [pref_tts_enable_summary]
-     tags = android,ios
-     comment = Settings «Route» category: «Tts enabled» summary
-     en = Turn instructions
-     ru = Подсказки о поворотах и прочих манёврах
+     fr = Instructions vocales
+     da = Stemmeinstruktioner
+     id = Petunjuk Suara
+     ko = 음성 지침
+     sv = Röstinstruktioner
+     tr = Sesli Talimatlar
+     uk = Голосові інструкції
+     vi = Hướng dẫn bằng Giọng nói
+     hu = Hangutasítások
+     de = Sprachbefehle
+     fi = Ääniohjeistukset
+     cs = Hlasové instrukce
+     it = Istruzioni vocali
+     nb = Taleinstrukser
+     zh-Hant = 語音指示
+     zh-Hans = 语音指导
+     th = คำแนะนำด้วยเสียง
+     ja = 音声指示
+     ro = Instrucțiuni vocale
+     ar = تعليمات صوتية
+     sk = Hlasové povely
+     es = Instrucciones de voz
+     pl = Instrukcje głosowe
+     nl = Gesproken instructies
+     pt = Instruções de voz
 
   [pref_tts_language_title]
      tags = android,ios
      comment = Settings «Route» category: «Tts language» title
-     en = Voice language
+     en = Voice Language
      ru = Язык подсказок
+     fr = Langue vocale
+     da = Stemmesprog
+     id = Bahasa Suara
+     ko = 음성 언어
+     sv = Röstspråk
+     tr = Ses Dili
+     uk = Мова підказок
+     vi = Ngôn ngữ Giọng nói
+     hu = A hang nyelve
+     de = Sprachauswahl für Sprachbefehle
+     fi = Äänen kieli
+     cs = Jazyk hlasu
+     it = Lingua per la voce
+     nb = Talespråk
+     zh-Hant = 語音語言
+     zh-Hans = 语音语言
+     th = ภาษาสำหรับเสียง
+     ja = 音声言語
+     ro = Limba ghidului vocal
+     ar = لغة الصوت
+     sk = Nastavenia jazyka povelov
+     es = Idioma de voz
+     pl = Język instrukcji
+     nl = Gesproken taal
+     pt = Idioma da voz
 
   [pref_tts_unavailable]
      tags = android,ios
      comment = Settings «Route» category: «Tts unavailable» subtitle
-     en = TTS unavailable
-     ru = Голосовые подсказки недоступны
+     en = Not Available
+     ru = Не доступны
+     fr = Non disponible
+     da = Ikke til rådighed
+     id = Tidak Tersedia
+     ko = 사용할 수 없음
+     sv = Inte tillgängligt
+     tr = Mevcut değil
+     uk = Не доступнi
+     vi = Không có sẵn
+     hu = Nem áll rendelkezésre
+     de = Nicht verfügbar
+     fi = Non disponible
+     cs = Není dostupná
+     it = Non disponibile
+     nb = Ikke tilgjengelig
+     zh-Hant = 無法使用
+     zh-Hans = 无法使用
+     th = ไม่สามารถใช้ได้
+     ja = 利用不可
+     ro = Nu există
+     ar = غير متاح
+     sk = Nie je k dispozícii
+     es = No disponible
+     pl = Niedostępne
+     nl = Niet beschikbaar
+     pt = Não disponível
 
   [pref_tts_other_section_title]
     tags = ios
