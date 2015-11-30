@@ -1,84 +1,51 @@
-#import <QuartzCore/QuartzCore.h>
-#import <OpenGLES/EAGLDrawable.h>
 #import "Common.h"
 #import "EAGLView.h"
 #import "MWMDirectionView.h"
 
+#import "../Platform/opengl/iosOGLContextFactory.h"
+
 #include "Framework.h"
-
-#ifndef USE_DRAPE
-  #include "RenderBuffer.hpp"
-  #include "RenderContext.hpp"
-  #include "graphics/resource_manager.hpp"
-  #include "graphics/opengl/opengl.hpp"
-  #include "graphics/data_formats.hpp"
-  #include "indexer/classificator_loader.hpp"
-#else
-  #import "../Platform/opengl/iosOGLContextFactory.h"
-#endif
-
-#include "render/render_policy.hpp"
+#include "indexer/classificator_loader.hpp"
 
 #include "platform/platform.hpp"
-#include "platform/video_timer.hpp"
+
+#include "drape/visual_scale.hpp"
 
 #include "std/bind.hpp"
 #include "std/limits.hpp"
-
+#include "std/unique_ptr.hpp"
 
 @implementation EAGLView
 
 namespace
 {
+// Returns native scale if it's possible.
+double correctContentScale()
+{
+  UIScreen * uiScreen = [UIScreen mainScreen];
+  
+  if (isIOSVersionLessThan(8))
+    return [uiScreen respondsToSelector:@selector(scale)] ? [uiScreen scale] : 1.f;
+  else
+    return [uiScreen respondsToSelector:@selector(nativeScale)] ? [uiScreen nativeScale] : 1.f;
+}
+
 // Returns DPI as exact as possible. It works for iPhone, iPad and iWatch.
-double getExactDPI()
+double getExactDPI(double contentScaleFactor)
 {
   float const iPadDPI = 132.f;
   float const iPhoneDPI = 163.f;
   float const mDPI = 160.f;
 
-  UIScreen * screen = [UIScreen mainScreen];
-  float const scale = [screen respondsToSelector:@selector(scale)] ? [screen scale] : 1.f;
-    
   switch (UI_USER_INTERFACE_IDIOM())
   {
     case UIUserInterfaceIdiomPhone:
-      return iPhoneDPI * scale;
+      return iPhoneDPI * contentScaleFactor;
     case UIUserInterfaceIdiomPad:
-      return iPadDPI * scale;
+      return iPadDPI * contentScaleFactor;
     default:
-      return mDPI * scale;
+      return mDPI * contentScaleFactor;
   }
-}
-  
-graphics::EDensity getDensityType(int exactDensityDPI, double scale)
-{
-  if (scale > 2)
-    return graphics::EDensityIPhone6Plus;
-      
-  typedef pair<int, graphics::EDensity> P;
-  P dens[] = {
-      //        P(120, graphics::EDensityLDPI),
-      P(160, graphics::EDensityMDPI),
-      P(240, graphics::EDensityHDPI),
-      P(320, graphics::EDensityXHDPI),
-      P(480, graphics::EDensityXXHDPI)
-  };
-    
-  int prevRange = numeric_limits<int>::max();
-  int bestRangeIndex = 0;
-  for (int i = 0; i < ARRAY_SIZE(dens); i++)
-  {
-    int currRange = abs(exactDensityDPI - dens[i].first);
-    if (currRange <= prevRange)
-    {
-      bestRangeIndex = i;
-      prevRange = currRange;
-    }
-    else
-      break;
-  }
-  return dens[bestRangeIndex].second;
 }
 } //  namespace
 
@@ -95,92 +62,39 @@ graphics::EDensity getDensityType(int exactDensityDPI, double scale)
 
   if ((self = [super initWithCoder:coder]))
   {
+    lastViewSize = CGRectZero;
+    _widgetsManager = [[MWMMapWidgets alloc] init];
+
     // Setup Layer Properties
     CAEAGLLayer * eaglLayer = (CAEAGLLayer *)self.layer;
 
     eaglLayer.opaque = YES;
-    // ColorFormat : RGB565
-    // Backbuffer : YES, (to prevent from loosing content when mixing with ordinary layers).
-    eaglLayer.drawableProperties = @{kEAGLDrawablePropertyRetainedBacking : @NO, kEAGLDrawablePropertyColorFormat : kEAGLColorFormatRGB565};
+    eaglLayer.drawableProperties = @{kEAGLDrawablePropertyRetainedBacking : @NO,
+                                     kEAGLDrawablePropertyColorFormat : kEAGLColorFormatRGBA8};
     
     // Correct retina display support in opengl renderbuffer
-    self.contentScaleFactor = [self correctContentScale];
+    self.contentScaleFactor = correctContentScale();
 
-#ifndef USE_DRAPE
-    renderContext = shared_ptr<iphone::RenderContext>(new iphone::RenderContext());
-
-    if (!renderContext.get())
-    {
-      NSLog(@"EAGLView initWithCoder Error");
-      return nil;
-    }
-    
-    renderContext->makeCurrent();
-
-    typedef void (*drawFrameFn)(id, SEL);
-    SEL drawFrameSel = @selector(drawFrame);
-    drawFrameFn drawFrameImpl = (drawFrameFn)[self methodForSelector:drawFrameSel];
-    
-    videoTimer = CreateIOSVideoTimer(bind(drawFrameImpl, self, drawFrameSel));
-#else
-    dp::ThreadSafeFactory * factory = new dp::ThreadSafeFactory(new iosOGLContextFactory(eaglLayer));
-    m_factory.Reset(factory);
-#endif
+    m_factory = make_unique_dp<dp::ThreadSafeFactory>(new iosOGLContextFactory(eaglLayer));
   }
 
   NSLog(@"EAGLView initWithCoder Ended");
   return self;
 }
 
-- (void)initRenderPolicy
+- (void)createDrapeEngineWithWidth:(int)width height:(int)height
 {
-  NSLog(@"EAGLView initRenderPolicy Started");
-  
-#ifndef USE_DRAPE
-  int const dpi = static_cast<int>(getExactDPI());
-  
-  graphics::ResourceManager::Params rmParams;
-  rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();
-  rmParams.m_texFormat = graphics::Data4Bpp;
-  rmParams.m_exactDensityDPI = dpi;
+  NSLog(@"EAGLView createDrapeEngine Started");
 
-  RenderPolicy::Params rpParams;
+  Framework::DrapeCreationParams p;
+  p.m_surfaceWidth = width;
+  p.m_surfaceHeight = height;
+  p.m_visualScale = dp::VisualScale(getExactDPI(self.contentScaleFactor));
 
-  UIScreen * screen = [UIScreen mainScreen];
-  CGRect screenRect = screen.bounds;
+  [self.widgetsManager setupWidgets:p];
+  GetFramework().CreateDrapeEngine(make_ref<dp::OGLContextFactory>(m_factory), move(p));
 
-  double vs = self.contentScaleFactor;
-
-  rpParams.m_screenWidth = screenRect.size.width * vs;
-  rpParams.m_screenHeight = screenRect.size.height * vs;
-  rpParams.m_skinName = "basic.skn";
-  rpParams.m_density = getDensityType(dpi, vs);
-  rpParams.m_exactDensityDPI = dpi;
-  rpParams.m_videoTimer = videoTimer;
-  rpParams.m_useDefaultFB = false;
-  rpParams.m_rmParams = rmParams;
-  rpParams.m_primaryRC = renderContext;
-
-  try
-  {
-    renderPolicy = CreateRenderPolicy(rpParams);
-  }
-  catch (graphics::gl::platform_unsupported const & )
-  {
-    /// terminate program (though this situation is unreal :) )
-  }
-
-  frameBuffer = renderPolicy->GetDrawer()->Screen()->frameBuffer();
-
-  Framework & f = GetFramework();
-  f.SetRenderPolicy(renderPolicy);
-  f.InitGuiSubsystem();
-#else
-  CGRect frameRect = [UIScreen mainScreen].applicationFrame;
-  GetFramework().CreateDrapeEngine(m_factory.GetRefPointer(), self.contentScaleFactor, frameRect.size.width, frameRect.size.height);
-#endif
-
-  NSLog(@"EAGLView initRenderPolicy Ended");
+  NSLog(@"EAGLView createDrapeEngine Ended");
 }
 
 - (void)addSubview:(UIView *)view
@@ -196,126 +110,44 @@ graphics::EDensity getDensityType(int exactDensityDPI, double scale)
   }
 }
 
-- (void)setMapStyle:(MapStyle)mapStyle
+- (void)applyOnSize:(int)width withHeight:(int)height
 {
-  Framework & f = GetFramework();
-  
-  if (f.GetMapStyle() == mapStyle)
-    return;
-  
-  NSLog(@"EAGLView setMapStyle Started");
-  
-  renderContext->makeCurrent();
-  
-  /// drop old render policy
-  f.SetRenderPolicy(nullptr);
-  frameBuffer.reset();
-
-  f.SetMapStyle(mapStyle);
-  
-  /// init new render policy
-  [self initRenderPolicy];
-  
-  /// restore render policy screen
-  CGFloat const scale = self.contentScaleFactor;
-  CGSize const s = self.bounds.size;
-  [self onSize:s.width * scale withHeight:s.height * scale];
-  
-  /// update framework
-  f.SetUpdatesEnabled(true);
-  
-  NSLog(@"EAGLView setMapStyle Ended");
+  dispatch_async(dispatch_get_main_queue(), ^
+  {
+    GetFramework().OnSize(width, height);
+    [self.widgetsManager resize:CGSizeMake(width, height)];
+  });
 }
 
 - (void)onSize:(int)width withHeight:(int)height
 {
-#ifndef USE_DRAPE
-  frameBuffer->onSize(width, height);
-  
-  graphics::Screen * screen = renderPolicy->GetDrawer()->Screen();
+  int w = width * self.contentScaleFactor;
+  int h = height * self.contentScaleFactor;
 
-  /// free old render buffer, as we would not create a new one.
-  screen->resetRenderTarget();
-  screen->resetDepthBuffer();
-  renderBuffer.reset();
-  
-  /// detaching of old render target will occur inside beginFrame
-  screen->beginFrame();
-  screen->endFrame();
-
-	/// allocate the new one
-  renderBuffer.reset();
-  renderBuffer.reset(new iphone::RenderBuffer(renderContext, (CAEAGLLayer*)self.layer));
-  
-  screen->setRenderTarget(renderBuffer);
-  screen->setDepthBuffer(make_shared<graphics::gl::RenderBuffer>(width, height, true));
-#endif
-
-  GetFramework().OnSize(width, height);
-  
-#ifndef USE_DRAPE
-  screen->beginFrame();
-  screen->clear(graphics::Screen::s_bgColor);
-  screen->endFrame();
-  GetFramework().SetNeedRedraw(true);
-#endif
-}
-
-- (double)correctContentScale
-{
-  UIScreen * uiScreen = [UIScreen mainScreen];
-  if (isIOSVersionLessThan(8))
-    return uiScreen.scale;
-  else
-    return uiScreen.nativeScale;
-}
-
-#ifndef USE_DRAPE
-- (void)drawFrame
-{
-	shared_ptr<PaintEvent> pe(new PaintEvent(renderPolicy->GetDrawer().get()));
-  
-  Framework & f = GetFramework();
-  if (f.NeedRedraw())
+  if (GetFramework().GetDrapeEngine() == nullptr)
   {
-    // Workaround. iOS Voice recognition creates own OGL-context, so here we must set ours
-    // (http://discuss.cocos2d-x.org/t/engine-crash-on-ios7/9129/6)
-    [EAGLContext setCurrentContext:renderContext->getEAGLContext()];
-
-    f.SetNeedRedraw(false);
-    f.BeginPaint(pe);
-    f.DoPaint(pe);
-    renderBuffer->present();
-    f.EndPaint(pe);
+    [self createDrapeEngineWithWidth:w height:h];
+    GetFramework().LoadState();
+    return;
   }
+
+  [self applyOnSize:w withHeight:h];
 }
-#endif
 
 - (void)layoutSubviews
 {
   if (!CGRectEqualToRect(lastViewSize, self.frame))
   {
     lastViewSize = self.frame;
-#ifndef USE_DRAPE
-    CGFloat const scale = self.contentScaleFactor;
-    CGSize const s = self.bounds.size;
-	  [self onSize:s.width * scale withHeight:s.height * scale];
-#else
     CGSize const s = self.bounds.size;
     [self onSize:s.width withHeight:s.height];
-#endif
   }
 }
 
-- (void)dealloc
+- (void)deallocateNative
 {
-#ifndef USE_DRAPE
-  delete videoTimer;
-  [EAGLContext setCurrentContext:nil];
-#else
   GetFramework().PrepareToShutdown();
-  m_factory.Destroy();
-#endif
+  m_factory.reset();
 }
 
 - (CGPoint)viewPoint2GlobalPoint:(CGPoint)pt

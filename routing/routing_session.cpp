@@ -142,10 +142,8 @@ void RoutingSession::Reset()
   m_speedWarningSignal = false;
 }
 
-RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const & position,
-                                                                GpsInfo const & info,
-                                                                Index const & index)
-{
+RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & info, Index const & index)
+ {
   ASSERT(m_state != RoutingNotActive, ());
   ASSERT(m_router != nullptr, ());
 
@@ -194,7 +192,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
         }
       }
     }
-    m_lastGoodPosition = position;
+    m_lastGoodPosition = m_userCurrentPosition;
   }
   else
   {
@@ -365,21 +363,6 @@ void RoutingSession::MatchLocationToRoute(location::GpsInfo & location,
   m_route.MatchLocationToRoute(location, routeMatchingInfo);
 }
 
-bool RoutingSession::GetMercatorDistanceFromBegin(double & distance) const
-{
-  if (m_state != State::OnRoute)
-  {
-    distance = 0.0;
-    return false;
-  }
-
-  threads::MutexGuard guard(m_routeSessionMutex);
-  UNUSED_VALUE(guard);
-
-  distance = m_route.GetMercatorDistanceFromBegin();
-  return true;
-}
-
 bool RoutingSession::DisableFollowMode()
 {
   if (m_state == RouteNotStarted || m_state == OnRoute)
@@ -389,11 +372,22 @@ bool RoutingSession::DisableFollowMode()
   }
   return false;
 }
+
 void RoutingSession::SetRoutingSettings(RoutingSettings const & routingSettings)
 {
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
   m_routingSettings = routingSettings;
+}
+
+void RoutingSession::SetUserCurrentPosition(m2::PointD const & position)
+{
+  m_userCurrentPosition = position;
+}
+
+m2::PointD const & RoutingSession::GetUserCurrentPosition() const
+{
+  return m_userCurrentPosition;
 }
 
 void RoutingSession::EnableTurnNotifications(bool enable)

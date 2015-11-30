@@ -1,106 +1,102 @@
-#include "drape_frontend/tile_info.hpp"
 #include "drape_frontend/engine_context.hpp"
-#include "drape_frontend/stylist.hpp"
-#include "drape_frontend/rule_drawer.hpp"
 #include "drape_frontend/map_data_provider.hpp"
+#include "drape_frontend/rule_drawer.hpp"
+#include "drape_frontend/stylist.hpp"
+#include "drape_frontend/tile_info.hpp"
 
 #include "indexer/scales.hpp"
 
 #include "base/scope_guard.hpp"
+#include "base/logging.hpp"
 
 #include "std/bind.hpp"
-
-
-namespace
-{
-
-struct IDsAccumulator
-{
-  IDsAccumulator(vector<FeatureID> & ids, vector<df::FeatureInfo> const & src)
-    : m_ids(ids)
-    , m_src(src)
-  {
-  }
-
-  void operator()(size_t index)
-  {
-    ASSERT_LESS(index, m_src.size(), ());
-    m_ids.push_back(m_src[index].m_id);
-  }
-
-  vector<FeatureID> & m_ids;
-  vector<df::FeatureInfo> const & m_src;
-};
-
-} // namespace
 
 namespace df
 {
 
-TileInfo::TileInfo(TileKey const & key)
-  : m_key(key)
+TileInfo::TileInfo(drape_ptr<EngineContext> && context)
+  : m_context(move(context))
   , m_isCanceled(false)
-{}
+{
+}
 
 m2::RectD TileInfo::GetGlobalRect() const
 {
-  return m_key.GetGlobalRect();
+  return GetTileKey().GetGlobalRect();
 }
 
 void TileInfo::ReadFeatureIndex(MapDataProvider const & model)
 {
-  threads::MutexGuard guard(m_mutex);
-  UNUSED_VALUE(guard);
-
   if (DoNeedReadIndex())
   {
     CheckCanceled();
     model.ReadFeaturesID(bind(&TileInfo::ProcessID, this, _1), GetGlobalRect(), GetZoomLevel());
-    sort(m_featureInfo.begin(), m_featureInfo.end());
+
+    //sort(m_featureInfo.begin(), m_featureInfo.end());
+    // Do debug check instead of useless sorting.
+#ifdef DEBUG
+    set<MwmSet::MwmId> existing;
+    auto i = m_featureInfo.begin();
+    while (i != m_featureInfo.end())
+    {
+      auto const & id = i->m_id.m_mwmId;
+      ASSERT(existing.insert(id).second, ());
+      i = find_if(i+1, m_featureInfo.end(), [&id](FeatureInfo const & info)
+      {
+        return (id != info.m_id.m_mwmId);
+      });
+    }
+#endif
   }
 }
 
-void TileInfo::ReadFeatures(MapDataProvider const & model,
-                            MemoryFeatureIndex & memIndex,
-                            EngineContext & context)
+void TileInfo::ReadFeatures(MapDataProvider const & model, MemoryFeatureIndex & memIndex)
 {
-  CheckCanceled();
-  vector<size_t> indexes;
-  RequestFeatures(memIndex, indexes);
+  m_context->BeginReadTile();
 
-  if (!indexes.empty())
+  // Reading can be interrupted by exception throwing
+  MY_SCOPE_GUARD(ReleaseReadTile, bind(&EngineContext::EndReadTile, m_context.get()));
+
+  vector<FeatureID> featuresToRead;
   {
-    context.BeginReadTile(m_key);
+    MemoryFeatureIndex::Lock lock(memIndex);
+    UNUSED_VALUE(lock);
 
-    // Reading can be interrupted by exception throwing
-    MY_SCOPE_GUARD(ReleaseReadTile, bind(&EngineContext::EndReadTile, &context, m_key));
+    ReadFeatureIndex(model);
+    CheckCanceled();
+    featuresToRead.reserve(AverageFeaturesCount);
+    memIndex.ReadFeaturesRequest(m_featureInfo, featuresToRead);
+  }
 
-    vector<FeatureID> featuresToRead;
-    for_each(indexes.begin(), indexes.end(), IDsAccumulator(featuresToRead, m_featureInfo));
-
-    RuleDrawer drawer(bind(&TileInfo::InitStylist, this, _1 ,_2), m_key, context);
-    model.ReadFeatures(ref(drawer), featuresToRead);
+  if (!featuresToRead.empty())
+  {
+    RuleDrawer drawer(bind(&TileInfo::InitStylist, this, _1 ,_2), make_ref(m_context));
+    model.ReadFeatures(bind<void>(ref(drawer), _1), featuresToRead);
   }
 }
 
 void TileInfo::Cancel(MemoryFeatureIndex & memIndex)
 {
   m_isCanceled = true;
-  threads::MutexGuard guard(m_mutex);
-  UNUSED_VALUE(guard);
+  MemoryFeatureIndex::Lock lock(memIndex);
+  UNUSED_VALUE(lock);
   memIndex.RemoveFeatures(m_featureInfo);
+}
+
+bool TileInfo::IsCancelled() const
+{
+  return m_isCanceled;
 }
 
 void TileInfo::ProcessID(FeatureID const & id)
 {
   m_featureInfo.push_back(id);
-  CheckCanceled();
 }
 
 void TileInfo::InitStylist(FeatureType const & f, Stylist & s)
 {
   CheckCanceled();
-  df::InitStylist(f, GetZoomLevel(), s);
+  df::InitStylist(f, m_context->GetTileKey().m_zoomLevel, s);
 }
 
 //====================================================//
@@ -108,12 +104,6 @@ void TileInfo::InitStylist(FeatureType const & f, Stylist & s)
 bool TileInfo::DoNeedReadIndex() const
 {
   return m_featureInfo.empty();
-}
-
-void TileInfo::RequestFeatures(MemoryFeatureIndex & memIndex, vector<size_t> & featureIndexes)
-{
-  threads::MutexGuard guard(m_mutex);
-  memIndex.ReadFeaturesRequest(m_featureInfo, featureIndexes);
 }
 
 void TileInfo::CheckCanceled() const
@@ -125,7 +115,8 @@ void TileInfo::CheckCanceled() const
 int TileInfo::GetZoomLevel() const
 {
   int const upperScale = scales::GetUpperScale();
-  return (m_key.m_zoomLevel <= upperScale ? m_key.m_zoomLevel : upperScale);
+  int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
+  return (zoomLevel <= upperScale ? zoomLevel : upperScale);
 }
 
 } // namespace df

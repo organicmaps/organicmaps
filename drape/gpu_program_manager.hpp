@@ -15,14 +15,14 @@ class GpuProgramManager : public noncopyable
 public:
   ~GpuProgramManager();
 
-  RefPointer<GpuProgram> GetProgram(int index);
+  ref_ptr<GpuProgram> GetProgram(int index);
 
 private:
-  RefPointer<Shader> GetShader(int index, string const & source, Shader::Type t);
+  ref_ptr<Shader> GetShader(int index, string const & source, Shader::Type t);
 
 private:
-  typedef map<int, MasterPointer<GpuProgram> > program_map_t;
-  typedef map<int, MasterPointer<Shader> > shader_map_t;
+  typedef map<int, drape_ptr<GpuProgram> > program_map_t;
+  typedef map<int, drape_ptr<Shader> > shader_map_t;
   program_map_t m_programs;
   shader_map_t m_shaders;
 };

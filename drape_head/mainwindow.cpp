@@ -6,7 +6,7 @@
 
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
-  , m_surface(NULL)
+  , m_surface(nullptr)
 {
   resize(1200, 800);
 

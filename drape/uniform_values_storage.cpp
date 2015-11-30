@@ -80,13 +80,13 @@ void UniformValuesStorage::SetFloatValue(string const & name, float v1, float v2
     m_uniforms.push_back(UniformValue(name, v1, v2, v3, v4));
 }
 
-void UniformValuesStorage::SetMatrix4x4Value(string const & name, float * matrixValue)
+void UniformValuesStorage::SetMatrix4x4Value(string const & name, float const * matrixValue)
 {
   UniformValue * uniform = findByName(name);
   if (uniform)
     uniform->SetMatrix4x4Value(matrixValue);
   else
-    m_uniforms.push_back(UniformValue(name, matrixValue));
+    m_uniforms.emplace_back(name, matrixValue);
 }
 
 void UniformValuesStorage::ForeachValue(enum_uniforms_fn action) const

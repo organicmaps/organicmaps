@@ -4,6 +4,10 @@ set -e -u -x
 MY_PATH=`pwd`
 BINARY_PATH="$MY_PATH/../../out/release/skin_generator"
 DATA_PATH="$MY_PATH/../../data"
+DETECT_QMAKE="$MY_PATH/../autobuild/detect_qmake.sh"
+
+source "$DETECT_QMAKE"
+QMAKE="$(PrintQmakePath)" || ( echo "ERROR: qmake was not found, please add it to your PATH or into the tools/autobuild/detect_qmake.sh"; exit 1 )
 
 # If skin_generator does not exist then build it
 if [ ! -f $BINARY_PATH ];
@@ -12,14 +16,14 @@ then
   for project in ${projects[*]}
   do
     cd $MY_PATH/../../3party/$project
-    qmake $project.pro -r -spec macx-clang CONFIG+=x86_64
+    "$QMAKE" $project.pro -r -spec macx-clang CONFIG+=x86_64
     make
   done
   projects=(base coding geometry skin_generator)
   for project in ${projects[*]}
   do
     cd $MY_PATH/../../$project
-    qmake $project.pro -r -spec macx-clang CONFIG+=x86_64
+    "$QMAKE" $project.pro -r -spec macx-clang CONFIG+=x86_64
     make
   done
   cd $MY_PATH

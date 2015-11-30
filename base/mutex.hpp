@@ -5,7 +5,7 @@
 #include "std/target_os.hpp"
 
 #if defined(OMIM_OS_WINDOWS_NATIVE)
-  #include "../std/windows.hpp"
+  #include "std/windows.hpp"
 #else
   #include <pthread.h>
 #endif

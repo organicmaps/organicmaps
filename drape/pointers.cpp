@@ -1,46 +1,59 @@
 #include "drape/pointers.hpp"
+#include "base/logging.hpp"
 
-namespace dp
+DpPointerTracker & DpPointerTracker::Instance()
 {
-
-PointerTracker::~PointerTracker()
-{
-  ASSERT(m_countMap.empty(), ());
+  static DpPointerTracker pointersTracker;
+  return pointersTracker;
 }
 
-void PointerTracker::Deref(void * p)
+DpPointerTracker::~DpPointerTracker()
 {
-  threads::MutexGuard g(m_mutex);
-  if (p == NULL)
-    return;
+  ASSERT(m_alivePointers.empty(), ());
+}
 
-  map_t::iterator it = m_countMap.find(p);
-  ASSERT(it != m_countMap.end(), ());
-  ASSERT(it->second.first > 0, ());
-
-  if (--it->second.first == 0)
+void DpPointerTracker::RefPtrNamed(void * refPtr, string const & name)
+{
+  lock_guard<mutex> lock(m_mutex);
+  if (refPtr != nullptr)
   {
-    ASSERT(m_alivePointers.find(p) == m_alivePointers.end(), ("Pointer leak for type : ", it->second.second));
-    m_countMap.erase(it);
+    auto it = m_alivePointers.find(refPtr);
+    if (it != m_alivePointers.end())
+      it->second.first++;
+    else
+      m_alivePointers.insert(make_pair(refPtr, make_pair(1, name)));
   }
 }
 
-void PointerTracker::Destroy(void * p)
+void DpPointerTracker::DestroyPtr(void * p)
 {
-  threads::MutexGuard g(m_mutex);
-  if (p == NULL)
-    return;
-
-  map_t::iterator it = m_countMap.find(p);
-  if (it == m_countMap.end()) // suppress warning in release build
-    ASSERT(false, ());
-
-  ASSERT(it->second.first == 1, ("Delete memory with more than one user : ", it->second.second));
-  ASSERT(m_alivePointers.erase(p) == 1, ());
+  lock_guard<mutex> lock(m_mutex);
+  ASSERT(p != nullptr, ());
+  auto it = m_alivePointers.find(p);
+  if (it != m_alivePointers.end())
+  {
+    ASSERT(it->second.first == 0, ("Drape pointer [", it->second.second, p,
+                                   "] was destroyed, but had references, ref count = ",
+                                   it->second.first));
+    m_alivePointers.erase(it);
+  }
 }
 
-#if defined(CHECK_POINTERS)
-  PointerTracker g_tracker;
-#endif
+void DpPointerTracker::DerefPtr(void * p)
+{
+  lock_guard<mutex> lock(m_mutex);
+  if (p != nullptr)
+  {
+    auto it = m_alivePointers.find(p);
+    if (it != m_alivePointers.end())
+    {
+      ASSERT(it->second.first > 0, ());
+      it->second.first--;
+    }
+  }
+}
 
-} // namespace dp
+DpPointerTracker::TAlivePointers const & DpPointerTracker::GetAlivePointers() const
+{
+  return m_alivePointers;
+}

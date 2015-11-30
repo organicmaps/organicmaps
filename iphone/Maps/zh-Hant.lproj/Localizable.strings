@@ -142,7 +142,7 @@
 "country_status_added_to_queue" = "^\n已加入到下載佇列中";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "下載中\n^\n^%";
+"country_status_downloading" = "下載中\n^\n^";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "下載地圖\n(^ ^)";

@@ -3,12 +3,6 @@
 # To use it, define ROOT_DIR variable and include($$ROOT_DIR/common.pri)
 
 
-#CONFIG *= drape
-
-drape {
-  DEFINES *= USE_DRAPE
-}
-
 CONFIG(map_designer) {
   DEFINES *= STANDALONE_APP
   DEFINES *= BUILD_DESIGNER

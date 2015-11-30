@@ -18,13 +18,12 @@
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "Framework.h"
-#include "RenderContext.hpp"
 
-#include "anim/controller.hpp"
-#include "gui/controller.hpp"
+#include "../Statistics/Statistics.h"
 
-#include "map/country_status_display.hpp"
 #include "map/user_mark.hpp"
+
+#include "drape_frontend/user_event_stream.hpp"
 
 #include "platform/file_logging.hpp"
 #include "platform/platform.hpp"
@@ -169,25 +168,28 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     GetFramework().OnCompassUpdate(info);
 }
 
-- (void)onLocationStateModeChanged:(location::State::Mode)newMode
+- (void)onLocationStateModeChanged:(location::EMyPositionMode)newMode
 {
+  [m_predictor setMode:newMode];
+  [self.controlsManager setMyPositionMode:newMode];
+
   switch (newMode)
   {
-    case location::State::UnknownPosition:
+    case location::MODE_UNKNOWN_POSITION:
     {
       self.disableStandbyOnLocationStateMode = NO;
       [[MapsAppDelegate theApp].m_locationManager stop:self];
       break;
     }
-    case location::State::PendingPosition:
+    case location::MODE_PENDING_POSITION:
       self.disableStandbyOnLocationStateMode = NO;
       [[MapsAppDelegate theApp].m_locationManager start:self];
       break;
-    case location::State::NotFollow:
+    case location::MODE_NOT_FOLLOW:
       self.disableStandbyOnLocationStateMode = NO;
       break;
-    case location::State::Follow:
-    case location::State::RotateAndFollow:
+    case location::MODE_FOLLOW:
+    case location::MODE_ROTATE_AND_FOLLOW:
       self.disableStandbyOnLocationStateMode = YES;
       break;
   }
@@ -213,72 +215,78 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 - (void)onUserMarkClicked:(unique_ptr<UserMarkCopy>)mark
 {
-  [self.controlsManager showPlacePageWithUserMark:std::move(mark)];
-}
-
-- (void)processMapClickAtPoint:(CGPoint)point longClick:(BOOL)isLongClick
-{
-  CGFloat const scaleFactor = self.view.contentScaleFactor;
-  m2::PointD const pxClicked(point.x * scaleFactor, point.y * scaleFactor);
-
-  Framework & f = GetFramework();
-  UserMark const * userMark = f.GetUserMark(pxClicked, isLongClick);
-  if (!f.HasActiveUserMark() && self.controlsManager.searchHidden && !f.IsRouteNavigable()
-      && MapsAppDelegate.theApp.routingPlaneMode == MWMRoutingPlaneModeNone)
+  if (mark == nullptr)
   {
-    if (userMark == nullptr)
+    [self dismissPlacePage];
+    
+    auto & f = GetFramework();
+    if (!f.HasActiveUserMark() && self.controlsManager.searchHidden && !f.IsRouteNavigable())
       self.controlsManager.hidden = !self.controlsManager.hidden;
-    else
-      self.controlsManager.hidden = NO;
   }
-  f.GetBalloonManager().OnShowMark(userMark);
+  else
+  {
+    self.controlsManager.hidden = NO;
+    [self.controlsManager showPlacePageWithUserMark:move(mark)];
+  }
 }
 
-- (void)onSingleTap:(NSValueWrapper *)point
+- (void)onMyPositionClicked:(id)sender
 {
-  [self processMapClickAtPoint:[[point getInnerValue] CGPointValue] longClick:NO];
-}
-
-- (void)onLongTap:(NSValueWrapper *)point
-{
-  [self processMapClickAtPoint:[[point getInnerValue] CGPointValue] longClick:YES];
+  GetFramework().SwitchMyPositionNextMode();
 }
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
   [self destroyPopover];
-  [self invalidate];
 }
 
-- (void)updatePointsFromEvent:(UIEvent *)event
+- (void)checkMaskedPointer:(UITouch *)touch withEvent:(df::TouchEvent &)e
 {
-  NSSet * allTouches = [event allTouches];
+  int64_t id = reinterpret_cast<int64_t>(touch);
+  int8_t pointerIndex = df::TouchEvent::INVALID_MASKED_POINTER;
+  if (e.m_touches[0].m_id == id)
+    pointerIndex = 0;
+  else if (e.m_touches[1].m_id == id)
+    pointerIndex = 1;
+
+  if (e.GetFirstMaskedPointer() == df::TouchEvent::INVALID_MASKED_POINTER)
+    e.SetFirstMaskedPointer(pointerIndex);
+  else
+    e.SetSecondMaskedPointer(pointerIndex);
+}
+
+- (void)sendTouchType:(df::TouchEvent::ETouchType)type withTouches:(NSSet *)touches andEvent:(UIEvent *)event
+{
+  NSArray * allTouches = [[event allTouches] allObjects];
+  if ([allTouches count] < 1)
+    return;
 
   UIView * v = self.view;
   CGFloat const scaleFactor = v.contentScaleFactor;
 
-  // 0 touches are possible from touchesCancelled.
-  switch ([allTouches count])
+  df::TouchEvent e;
+  UITouch * touch = [allTouches objectAtIndex:0];
+  CGPoint const pt = [touch locationInView:v];
+  e.m_type = type;
+  e.m_touches[0].m_id = reinterpret_cast<int64_t>(touch);
+  e.m_touches[0].m_location = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
+  if (allTouches.count > 1)
   {
-    case 0:
-      break;
-    case 1:
-    {
-      CGPoint const pt = [[[allTouches allObjects] objectAtIndex:0] locationInView:v];
-      m_Pt1 = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
-      break;
-    }
-    default:
-    {
-      NSArray * sortedTouches = [[allTouches allObjects] sortedArrayUsingFunction:compareAddress context:NULL];
-      CGPoint const pt1 = [[sortedTouches objectAtIndex:0] locationInView:v];
-      CGPoint const pt2 = [[sortedTouches objectAtIndex:1] locationInView:v];
-
-      m_Pt1 = m2::PointD(pt1.x * scaleFactor, pt1.y * scaleFactor);
-      m_Pt2 = m2::PointD(pt2.x * scaleFactor, pt2.y * scaleFactor);
-      break;
-    }
+    UITouch * touch = [allTouches objectAtIndex:1];
+    CGPoint const pt = [touch locationInView:v];
+    e.m_touches[1].m_id = reinterpret_cast<int64_t>(touch);
+    e.m_touches[1].m_location = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
   }
+
+  NSArray * toggledTouches = [touches allObjects];
+  if (toggledTouches.count > 0)
+    [self checkMaskedPointer:[toggledTouches objectAtIndex:0] withEvent:e];
+
+  if (toggledTouches.count > 1)
+    [self checkMaskedPointer:[toggledTouches objectAtIndex:1] withEvent:e];
+
+  Framework & f = GetFramework();
+  f.TouchEvent(e);
 }
 
 - (BOOL)hasForceTouch
@@ -288,179 +296,24 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   return self.view.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable;
 }
 
--(void)preformLongTapSelector:(NSValue *)object
-{
-  if (![self hasForceTouch])
-    [self performSelector:@selector(onLongTap:) withObject:[[NSValueWrapper alloc] initWithValue:object] afterDelay:1.0];
-}
-
--(void)performSingleTapSelector:(NSValue *)object
-{
-  [self performSelector:@selector(onSingleTap:) withObject:[[NSValueWrapper alloc] initWithValue:object] afterDelay:0.3];
-}
-
--(void)cancelLongTap
-{
-  if (![self hasForceTouch])
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(onLongTap:) object:[[NSValueWrapper alloc] initWithValue:nil]];
-}
-
--(void)cancelSingleTap
-{
-  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(onSingleTap:) object:[[NSValueWrapper alloc] initWithValue:nil]];
-}
-
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  // To cancel single tap timer
-  UITouch * theTouch = (UITouch *)[touches anyObject];
-  if (theTouch.tapCount > 1)
-    [self cancelSingleTap];
-
-  [self updatePointsFromEvent:event];
-
-  Framework & f = GetFramework();
-
-  if ([event allTouches].count == 1)
-  {
-    if (f.GetGuiController()->OnTapStarted(m_Pt1))
-      return;
-    self.userTouchesAction = UserTouchesActionDrag;
-
-    // Start long-tap timer
-    [self preformLongTapSelector:[NSValue valueWithCGPoint:[theTouch locationInView:self.view]]];
-    // Temporary solution to filter long touch
-    m_touchDownPoint = m_Pt1;
-  }
-  else
-  {
-    self.userTouchesAction = UserTouchesActionScale;
-  }
-
-  m_isSticking = true;
+  [self sendTouchType:df::TouchEvent::TOUCH_DOWN withTouches:touches andEvent:event];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  if (!self.skipForceTouch && [self hasForceTouch])
-  {
-    UITouch * theTouch = (UITouch *)[touches anyObject];
-    if (theTouch.force >= theTouch.maximumPossibleForce)
-    {
-      self.skipForceTouch = YES;
-      [self processMapClickAtPoint:[theTouch locationInView:self.view] longClick:YES];
-    }
-  }
-
-  m2::PointD const TempPt1 = m_Pt1;
-  m2::PointD const TempPt2 = m_Pt2;
-
-  [self updatePointsFromEvent:event];
-
-  // Cancel long-touch timer
-  if (!m_touchDownPoint.EqualDxDy(m_Pt1, 9))
-    [self cancelLongTap];
-
-  Framework & f = GetFramework();
-
-  if (f.GetGuiController()->OnTapMoved(m_Pt1))
-    return;
-
-  if (m_isSticking)
-  {
-    if ((TempPt1.Length(m_Pt1) > m_StickyThreshold) || (TempPt2.Length(m_Pt2) > m_StickyThreshold))
-    {
-      m_isSticking = false;
-    }
-    else
-    {
-      // Still stickying. Restoring old points and return.
-      m_Pt1 = TempPt1;
-      m_Pt2 = TempPt2;
-      return;
-    }
-  }
-
-  NSUInteger const touchesCount = [event allTouches].count;
-  switch (self.userTouchesAction)
-  {
-    case UserTouchesActionNone:
-      if (touchesCount == 1)
-        self.userTouchesAction = UserTouchesActionDrag;
-      else
-        self.userTouchesAction = UserTouchesActionScale;
-      break;
-    case UserTouchesActionDrag:
-      if (touchesCount == 1)
-        f.DoDrag(DragEvent(m_Pt1.x, m_Pt1.y));
-      else
-        self.userTouchesAction = UserTouchesActionNone;
-      break;
-    case UserTouchesActionScale:
-      if (touchesCount == 2)
-        f.DoScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
-      else
-        self.userTouchesAction = UserTouchesActionNone;
-      break;
-  }
+  [self sendTouchType:df::TouchEvent::TOUCH_MOVE withTouches:nil andEvent:event];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  [self updatePointsFromEvent:event];
-  self.userTouchesAction = UserTouchesActionNone;
-
-  UITouch * theTouch = (UITouch *)[touches anyObject];
-  NSUInteger const tapCount = theTouch.tapCount;
-  NSUInteger const touchesCount = [event allTouches].count;
-
-  Framework & f = GetFramework();
-
-  if (touchesCount == 1)
-  {
-    // Cancel long-touch timer
-    [self cancelLongTap];
-
-    // TapCount could be zero if it was a single long (or moving) tap.
-    if (tapCount < 2)
-    {
-      if (f.GetGuiController()->OnTapEnded(m_Pt1))
-        return;
-    }
-
-    if (tapCount == 1)
-    {
-      // Launch single tap timer
-      if (m_isSticking && !self.skipForceTouch)
-        [self performSingleTapSelector: [NSValue valueWithCGPoint:[theTouch locationInView:self.view]]];
-    }
-    else if (tapCount == 2 && m_isSticking)
-    {
-      f.ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2.0));
-    }
-  }
-
-  if (touchesCount == 2 && tapCount == 1 && m_isSticking)
-  {
-    f.Scale(0.5);
-    if (!m_touchDownPoint.EqualDxDy(m_Pt1, 9))
-    {
-      [self cancelLongTap];
-      [self cancelSingleTap];
-    }
-    m_isSticking = NO;
-  }
-  self.skipForceTouch = NO;
+  [self sendTouchType:df::TouchEvent::TOUCH_UP withTouches:touches andEvent:event];
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  self.skipForceTouch = NO;
-  [self cancelLongTap];
-  [self cancelSingleTap];
-
-  [self updatePointsFromEvent:event];
-  self.userTouchesAction = UserTouchesActionNone;
+  [self sendTouchType:df::TouchEvent::TOUCH_CANCEL withTouches:touches andEvent:event];
 }
 
 #pragma mark - ViewController lifecycle
@@ -494,7 +347,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
   [self showPopover];
-  [self invalidate];
 }
 
 - (void)didReceiveMemoryWarning
@@ -506,6 +358,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 - (void)onTerminate
 {
   GetFramework().SaveState();
+  [(EAGLView *)self.view deallocateNative];
 }
 
 - (void)onEnterBackground
@@ -514,14 +367,12 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
   Framework & f = GetFramework();
   f.SaveState();
-  f.SetUpdatesEnabled(false);
   f.EnterBackground();
 }
 
 - (void)setMapStyle:(MapStyle)mapStyle
 {
-  EAGLView * v = (EAGLView *)self.view;
-  [v setMapStyle: mapStyle];
+  GetFramework().SetMapStyle(mapStyle);
 }
 
 - (void)onEnterForeground
@@ -531,7 +382,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
   if (self.isViewLoaded && self.view.window)
   {
-    [self invalidate]; // only invalidate when map is displayed on the screen
     [self.controlsManager onEnterForeground];
   }
 }
@@ -540,18 +390,17 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 {
   [super viewWillAppear:animated];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
-  [self invalidate];
 
   self.controlsManager.menuState = self.menuRestoreState;
 
   [self refreshAd];
+  
+  GetFramework().InvalidateRendering();
 }
 
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  EAGLView * v = (EAGLView *)self.view;
-  [v initRenderPolicy];
   self.view.clipsToBounds = YES;
   [MTRGManager setMyCom:YES];
   self.controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
@@ -583,7 +432,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 {
   [super viewWillDisappear:animated];
   self.menuRestoreState = self.controlsManager.menuState;
-  GetFramework().SetUpdatesEnabled(false);
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
@@ -635,38 +483,23 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     typedef void (*UserMarkActivatedFnT)(id, SEL, unique_ptr<UserMarkCopy>);
     typedef void (*PlacePageDismissedFnT)(id, SEL);
 
-    PinClickManager & manager = f.GetBalloonManager();
-
     SEL userMarkSelector = @selector(onUserMarkClicked:);
     UserMarkActivatedFnT userMarkFn = (UserMarkActivatedFnT)[self methodForSelector:userMarkSelector];
-    manager.ConnectUserMarkListener(bind(userMarkFn, self, userMarkSelector, _1));
-
-    SEL dismissSelector = @selector(dismissPlacePage);
-    PlacePageDismissedFnT dismissFn = (PlacePageDismissedFnT)[self methodForSelector:dismissSelector];
-    manager.ConnectDismissListener(bind(dismissFn, self, dismissSelector));
-
-    typedef void (*LocationStateModeFnT)(id, SEL, location::State::Mode);
-    SEL locationStateModeSelector = @selector(onLocationStateModeChanged:);
-    LocationStateModeFnT locationStateModeFn = (LocationStateModeFnT)[self methodForSelector:locationStateModeSelector];
-
-    f.GetLocationState()->AddStateModeListener(bind(locationStateModeFn, self, locationStateModeSelector, _1));
-
+    f.SetUserMarkActivationListener(bind(userMarkFn, self, userMarkSelector, _1));
     m_predictor = [[LocationPredictor alloc] initWithObserver:self];
-
-    m_StickyThreshold = 10;
 
     self.forceRoutingStateChange = ForceRoutingStateChangeNone;
     self.userTouchesAction = UserTouchesActionNone;
     self.menuRestoreState = MWMBottomMenuStateInactive;
 
-    // restore previous screen position
-    if (!f.LoadState())
-      f.SetMaxWorldRect();
-
-    f.Invalidate();
     f.LoadBookmarks();
 
-    f.GetCountryStatusDisplay()->SetDownloadCountryListener([self, &f](storage::TIndex const & idx, int opt)
+    using TLocationStateModeFn = void (*)(id, SEL, location::EMyPositionMode);
+    SEL locationStateModeSelector = @selector(onLocationStateModeChanged:);
+    TLocationStateModeFn locationStateModeFn = (TLocationStateModeFn)[self methodForSelector:locationStateModeSelector];
+    f.SetMyPositionModeListener(bind(locationStateModeFn, self, locationStateModeSelector, _1));
+
+    f.SetDownloadCountryListener([self, &f](storage::TIndex const & idx, int opt)
     {
       ActiveMapsLayout & layout = f.GetCountryTree().GetActiveMapLayout();
       if (opt == -1)
@@ -706,56 +539,73 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
     f.SetRouteBuildingListener([self, &f](routing::IRouter::ResultCode code, vector<storage::TIndex> const & absentCountries, vector<storage::TIndex> const & absentRoutes)
     {
-      switch (code)
+      vector<storage::TIndex> countries = absentCountries;
+      vector<storage::TIndex> routes = absentRoutes;
+      dispatch_async(dispatch_get_main_queue(), ^
       {
-        case routing::IRouter::ResultCode::NoError:
-        {
-          f.GetBalloonManager().RemovePin();
-          f.GetBalloonManager().Dismiss();
-          self.controlsManager.routeBuildingProgress = 100.;
-          self.controlsManager.searchHidden = YES;
-          if (self.forceRoutingStateChange == ForceRoutingStateChangeStartFollowing)
-            [self.controlsManager routingNavigation];
-          else
-            [self.controlsManager routingReady];
-          [self updateRoutingInfo];
-          self.forceRoutingStateChange = ForceRoutingStateChangeNone;
-          bool isDisclaimerApproved = false;
-          (void)Settings::Get("IsDisclaimerApproved", isDisclaimerApproved);
-          if (!isDisclaimerApproved)
-          {
-            [self presentRoutingDisclaimerAlert];
-            Settings::Set("IsDisclaimerApproved", true);
-          }
-          break;
-        }
-        case routing::IRouter::RouteFileNotExist:
-        case routing::IRouter::InconsistentMWMandRoute:
-        case routing::IRouter::NeedMoreMaps:
-        case routing::IRouter::FileTooOld:
-        case routing::IRouter::RouteNotFound:
-          [self.controlsManager handleRoutingError];
-          [self presentDownloaderAlert:code countries:absentCountries routes:absentRoutes];
-          self.forceRoutingStateChange = ForceRoutingStateChangeNone;
-          break;
-        case routing::IRouter::Cancelled:
-          self.forceRoutingStateChange = ForceRoutingStateChangeNone;
-          break;
-        default:
-          [self.controlsManager handleRoutingError];
-          [self presentDefaultAlert:code];
-          self.forceRoutingStateChange = ForceRoutingStateChangeNone;
-          break;
-      }
+        [self processRoutingBuildingEvent:code countries:countries routes:routes];
+      });
     });
+    
     f.SetRouteProgressListener([self](float progress)
     {
-      self.controlsManager.routeBuildingProgress = progress;
+      dispatch_async(dispatch_get_main_queue(), ^
+      {
+        self.controlsManager.routeBuildingProgress = progress;
+      });
     });
   }
 
   NSLog(@"MapViewController initWithCoder Ended");
   return self;
+}
+
+- (void)processRoutingBuildingEvent:(routing::IRouter::ResultCode)code
+                          countries:(vector<storage::TIndex> const &)absentCountries
+                             routes:(vector<storage::TIndex> const &)absentRoutes
+{
+  Framework & f = GetFramework();
+  switch (code)
+  {
+    case routing::IRouter::ResultCode::NoError:
+    {
+      self.controlsManager.routeBuildingProgress = 100.;
+      f.ActivateUserMark(nullptr, true);
+      self.controlsManager.routeBuildingProgress = 100.;
+      self.controlsManager.searchHidden = YES;
+      if (self.forceRoutingStateChange == ForceRoutingStateChangeStartFollowing)
+        [self.controlsManager routingNavigation];
+      else
+        [self.controlsManager routingReady];
+      [self updateRoutingInfo];
+      self.forceRoutingStateChange = ForceRoutingStateChangeNone;
+      bool isDisclaimerApproved = false;
+      (void)Settings::Get("IsDisclaimerApproved", isDisclaimerApproved);
+      if (!isDisclaimerApproved)
+      {
+        [self presentRoutingDisclaimerAlert];
+        Settings::Set("IsDisclaimerApproved", true);
+      }
+      break;
+    }
+    case routing::IRouter::RouteFileNotExist:
+    case routing::IRouter::InconsistentMWMandRoute:
+    case routing::IRouter::NeedMoreMaps:
+    case routing::IRouter::FileTooOld:
+    case routing::IRouter::RouteNotFound:
+      [self.controlsManager handleRoutingError];
+      [self presentDownloaderAlert:code countries:absentCountries routes:absentRoutes];
+      self.forceRoutingStateChange = ForceRoutingStateChangeNone;
+      break;
+    case routing::IRouter::Cancelled:
+      self.forceRoutingStateChange = ForceRoutingStateChangeNone;
+      break;
+    default:
+      [self.controlsManager handleRoutingError];
+      [self presentDefaultAlert:code];
+      self.forceRoutingStateChange = ForceRoutingStateChangeNone;
+      break;
+  }
 }
 
 - (void)openBookmarks
@@ -876,26 +726,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   return _alertController;
 }
 
-#pragma mark - Public methods
-
-- (void)setupMeasurementSystem
-{
-  GetFramework().SetupMeasurementSystem();
-}
-
 #pragma mark - Private methods
-
-NSInteger compareAddress(id l, id r, void * context)
-{
-  return l < r;
-}
-
-- (void)invalidate
-{
-  Framework & f = GetFramework();
-  if (!f.SetUpdatesEnabled(true))
-    f.Invalidate();
-}
 
 - (void)destroyPopover
 {
@@ -904,12 +735,12 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void)showPopover
 {
+  Framework & f = GetFramework();
   if (self.popoverVC)
-    GetFramework().GetBalloonManager().Hide();
+    f.ActivateUserMark(nullptr, true);
 
   double const sf = self.view.contentScaleFactor;
 
-  Framework & f = GetFramework();
   m2::PointD tmp = m2::PointD(f.GtoP(m2::PointD(m_popoverPos.x, m_popoverPos.y)));
 
   [self.popoverVC presentPopoverFromRect:CGRectMake(tmp.x / sf, tmp.y / sf, 1, 1) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
@@ -919,7 +750,6 @@ NSInteger compareAddress(id l, id r, void * context)
 {
   [self.popoverVC dismissPopoverAnimated:YES];
   [self destroyPopover];
-  [self invalidate];
 }
 
 - (void)setRestoreRouteDestination:(m2::PointD)restoreRouteDestination
@@ -937,29 +767,6 @@ NSInteger compareAddress(id l, id r, void * context)
     [[MapsAppDelegate theApp] disableStandby];
   else
     [[MapsAppDelegate theApp] enableStandby];
-}
-
-- (void)setUserTouchesAction:(UserTouchesAction)userTouchesAction
-{
-  if (_userTouchesAction == userTouchesAction)
-    return;
-  Framework & f = GetFramework();
-  switch (userTouchesAction)
-  {
-    case UserTouchesActionNone:
-      if (_userTouchesAction == UserTouchesActionDrag)
-        f.StopDrag(DragEvent(m_Pt1.x, m_Pt1.y));
-      else if (_userTouchesAction == UserTouchesActionScale)
-        f.StopScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
-      break;
-    case UserTouchesActionDrag:
-      f.StartDrag(DragEvent(m_Pt1.x, m_Pt1.y));
-      break;
-    case UserTouchesActionScale:
-      f.StartScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
-      break;
-  }
-  _userTouchesAction = userTouchesAction;
 }
 
 #pragma mark - Properties

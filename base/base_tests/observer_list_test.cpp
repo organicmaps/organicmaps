@@ -1,8 +1,8 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../observer_list.hpp"
+#include "base/observer_list.hpp"
 
-#include "../../std/string.hpp"
+#include "std/string.hpp"
 
 namespace
 {

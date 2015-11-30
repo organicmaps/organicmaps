@@ -2,48 +2,127 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/macros.hpp"
+#include "base/math.hpp"
 
 #include "drape/glfunctions.hpp"
 
-QtOGLContext::QtOGLContext(QWindow * surface, QtOGLContext * contextToShareWith)
+QtRenderOGLContext::QtRenderOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface)
+  : m_surface(surface)
 {
-  m_isContextCreated = false;
-  m_surface = surface;
-  m_nativeContext = new QOpenGLContext();
-
-  if  (contextToShareWith != NULL)
-    m_nativeContext->setShareContext(contextToShareWith->m_nativeContext);
-
-  m_nativeContext->setFormat(m_surface->requestedFormat());
-  ASSERT(m_surface->isExposed(), ());
-  VERIFY(m_nativeContext->create(), ());
+  m_ctx = new QOpenGLContext();
+  m_ctx->setFormat(rootContext->format());
+  m_ctx->setShareContext(rootContext);
+  m_ctx->create();
+  ASSERT(m_ctx->isValid(), ());
 }
 
-QtOGLContext::~QtOGLContext()
+QtRenderOGLContext::~QtRenderOGLContext()
 {
-  delete m_nativeContext;
+  delete m_frontFrame;
+  delete m_backFrame;
+  delete m_ctx;
 }
 
-void QtOGLContext::makeCurrent()
+void QtRenderOGLContext::present()
 {
-  ASSERT(m_nativeContext->isValid(), ());
-  m_nativeContext->makeCurrent(m_surface);
+  if (!m_resizeLock)
+    lockFrame();
 
-#ifdef DEBUG
-  LOG(LDEBUG, ("Current context : ", m_nativeContext));
-  QList<QOpenGLContext *> list = QOpenGLContextGroup::currentContextGroup()->shares();
-  for (int i = 0; i < list.size(); ++i)
-    LOG(LDEBUG, ("Share context : ", list[i]));
-#endif
+  m_resizeLock = false;
+  GLFunctions::glFinish();
+
+  swap(m_frontFrame, m_backFrame);
+  unlockFrame();
 }
 
-void QtOGLContext::present()
+void QtRenderOGLContext::makeCurrent()
 {
-  m_nativeContext->makeCurrent(m_surface);
-  m_nativeContext->swapBuffers(m_surface);
+  VERIFY(m_ctx->makeCurrent(m_surface), ());
 }
 
-void QtOGLContext::setDefaultFramebuffer()
+void QtRenderOGLContext::doneCurrent()
 {
-  GLFunctions::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+  m_ctx->doneCurrent();
+}
+
+void QtRenderOGLContext::setDefaultFramebuffer()
+{
+  if (m_backFrame == nullptr)
+    return;
+
+  m_backFrame->bind();
+}
+
+void QtRenderOGLContext::resize(int w, int h)
+{
+  lockFrame();
+  m_resizeLock = true;
+
+  delete m_frontFrame;
+  delete m_backFrame;
+
+  QSize size(my::NextPowOf2(w), my::NextPowOf2(h));
+  m_texRect = QRectF(0.0, 0.0, w / (float)size.width(), h / (float)size.height());
+
+  m_frontFrame = new QOpenGLFramebufferObject(size, QOpenGLFramebufferObject::Depth);
+  m_backFrame = new QOpenGLFramebufferObject(size, QOpenGLFramebufferObject::Depth);
+}
+
+void QtRenderOGLContext::lockFrame()
+{
+  m_lock.lock();
+}
+
+QRectF const & QtRenderOGLContext::getTexRect() const
+{
+  return m_texRect;
+}
+
+GLuint QtRenderOGLContext::getTextureHandle() const
+{
+  if (m_frontFrame == nullptr)
+    return 0;
+
+  return m_frontFrame->texture();
+}
+
+void QtRenderOGLContext::unlockFrame()
+{
+  m_lock.unlock();
+}
+
+QtUploadOGLContext::QtUploadOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface)
+  : m_surface(surface)
+{
+  m_ctx = new QOpenGLContext();
+  m_ctx->setFormat(rootContext->format());
+  m_ctx->setShareContext(rootContext);
+  m_ctx->create();
+  ASSERT(m_ctx->isValid(), ());
+}
+
+QtUploadOGLContext::~QtUploadOGLContext()
+{
+  delete m_ctx;
+}
+
+void QtUploadOGLContext::makeCurrent()
+{
+  m_ctx->makeCurrent(m_surface);
+}
+
+void QtUploadOGLContext::doneCurrent()
+{
+  m_ctx->doneCurrent();
+}
+
+void QtUploadOGLContext::present()
+{
+  ASSERT(false, ());
+}
+
+void QtUploadOGLContext::setDefaultFramebuffer()
+{
+  ASSERT(false, ());
 }

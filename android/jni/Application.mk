@@ -15,7 +15,8 @@ endif
 
 LOCAL_PATH := $(call my-dir)
 APP_CFLAGS += -I$(LOCAL_PATH)/../../3party/boost \
-              -I$(LOCAL_PATH)/../../3party/protobuf/src
+              -I$(LOCAL_PATH)/../../3party/protobuf/src \
+              -I$(LOCAL_PATH)/../../3party/glm
 
 APP_GNUSTL_FORCE_CPP_FEATURES := exceptions rtti
 

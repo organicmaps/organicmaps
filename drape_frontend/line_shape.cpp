@@ -1,304 +1,533 @@
 #include "drape_frontend/line_shape.hpp"
 
+#include "drape_frontend/line_shape_helper.hpp"
+
 #include "drape/utils/vertex_decl.hpp"
 #include "drape/glsl_types.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/shader_def.hpp"
 #include "drape/attribute_provider.hpp"
-#include "drape/glstate.hpp"
 #include "drape/batcher.hpp"
 #include "drape/texture_manager.hpp"
+
+#include "base/logging.hpp"
 
 namespace df
 {
 
 namespace
 {
-  float const SEGMENT = 0.0f;
-  float const CAP = 1.0f;
-  float const LEFT_WIDTH = 1.0f;
-  float const RIGHT_WIDTH = -1.0f;
-  size_t const TEX_BEG_IDX = 0;
-  size_t const TEX_END_IDX = 1;
 
-  struct TexDescription
+class TextureCoordGenerator
+{
+public:
+  TextureCoordGenerator(dp::TextureManager::StippleRegion const & region)
+    : m_region(region)
+    , m_maskLength(static_cast<float>(m_region.GetMaskPixelLength()))
+  {}
+
+  glsl::vec4 GetTexCoordsByDistance(float distance) const
   {
-    float m_globalLength;
-    glsl::vec2 m_texCoord;
+    return GetTexCoords(distance / m_maskLength);
+  }
+
+  glsl::vec4 GetTexCoords(float offset) const
+  {
+    m2::RectF const & texRect = m_region.GetTexRect();
+    return glsl::vec4(offset, texRect.minX(), texRect.SizeX(), texRect.Center().y);
+  }
+
+  float GetMaskLength() const
+  {
+    return m_maskLength;
+  }
+
+  dp::TextureManager::StippleRegion const & GetRegion() const
+  {
+    return m_region;
+  }
+
+private:
+  dp::TextureManager::StippleRegion const m_region;
+  float const m_maskLength;
+};
+
+struct BaseBuilderParams
+{
+  dp::TextureManager::ColorRegion m_color;
+  float m_pxHalfWidth;
+  float m_depth;
+  dp::LineCap m_cap;
+  dp::LineJoin m_join;
+};
+
+template <typename TVertex>
+class BaseLineBuilder : public ILineShapeInfo
+{
+public:
+  BaseLineBuilder(BaseBuilderParams const & params, size_t geomsSize, size_t joinsSize)
+    : m_params(params)
+    , m_colorCoord(glsl::ToVec2(params.m_color.GetTexRect().Center()))
+  {
+    m_geometry.reserve(geomsSize);
+    m_joinGeom.reserve(joinsSize);
+  }
+
+  void GetTexturingInfo(float const globalLength, int & steps, float & maskSize)
+  {
+    UNUSED_VALUE(globalLength);
+    UNUSED_VALUE(steps);
+    UNUSED_VALUE(maskSize);
+  }
+
+  dp::BindingInfo const & GetBindingInfo() override
+  {
+    return TVertex::GetBindingInfo();
+  }
+
+  ref_ptr<void> GetLineData() override
+  {
+    return make_ref(m_geometry.data());
+  }
+
+  size_t GetLineSize() override
+  {
+    return m_geometry.size();
+  }
+
+  ref_ptr<void> GetJoinData() override
+  {
+    return make_ref(m_joinGeom.data());
+  }
+
+  size_t GetJoinSize() override
+  {
+    return m_joinGeom.size();
+  }
+
+  float GetHalfWidth()
+  {
+    return m_params.m_pxHalfWidth;
+  }
+
+  dp::BindingInfo const & GetCapBindingInfo() override
+  {
+    return GetBindingInfo();
+  }
+
+  dp::GLState GetCapState() override
+  {
+    return GetState();
+  }
+
+  ref_ptr<void> GetCapData() override
+  {
+    return ref_ptr<void>();
+  }
+
+  size_t GetCapSize() override
+  {
+    return 0;
+  }
+
+  float GetSide(bool isLeft) const
+  {
+    return isLeft ? 1.0 : -1.0;
+  }
+
+protected:
+  vector<glsl::vec2> const & GenerateCap(LineSegment const & segment, EPointType type,
+                                         float sign, bool isStart)
+  {
+    m_normalBuffer.clear();
+    m_normalBuffer.reserve(24);
+
+    GenerateCapNormals(m_params.m_cap,
+                       segment.m_leftNormals[type],
+                       segment.m_rightNormals[type],
+                       sign * segment.m_tangent,
+                       GetHalfWidth(), isStart, m_normalBuffer);
+
+    return m_normalBuffer;
+  }
+
+  vector<glsl::vec2> const & GenerateJoin(LineSegment const & seg1, LineSegment const & seg2)
+  {
+    m_normalBuffer.clear();
+    m_normalBuffer.reserve(24);
+
+    glsl::vec2 n1 = seg1.m_hasLeftJoin[EndPoint] ? seg1.m_leftNormals[EndPoint] :
+                                                   seg1.m_rightNormals[EndPoint];
+
+    glsl::vec2 n2 = seg2.m_hasLeftJoin[StartPoint] ? seg2.m_leftNormals[StartPoint] :
+                                                     seg2.m_rightNormals[StartPoint];
+
+    float widthScalar = seg1.m_hasLeftJoin[EndPoint] ? seg1.m_rightWidthScalar[EndPoint].x :
+                                                       seg1.m_leftWidthScalar[EndPoint].x;
+
+    GenerateJoinNormals(m_params.m_join, n1, n2, GetHalfWidth(),
+                        seg1.m_hasLeftJoin[EndPoint], widthScalar, m_normalBuffer);
+
+    return m_normalBuffer;
+  }
+
+protected:
+  using V = TVertex;
+  using TGeometryBuffer = vector<V>;
+
+  TGeometryBuffer m_geometry;
+  TGeometryBuffer m_joinGeom;
+
+  vector<glsl::vec2> m_normalBuffer;
+
+  BaseBuilderParams m_params;
+  glsl::vec2 const m_colorCoord;
+};
+
+class SolidLineBuilder : public BaseLineBuilder<gpu::LineVertex>
+{
+  using TBase = BaseLineBuilder<gpu::LineVertex>;
+  using TNormal = gpu::LineVertex::TNormal;
+
+  struct CapVertex
+  {
+    using TPosition = gpu::LineVertex::TPosition;
+    using TNormal = gpu::LineVertex::TNormal;
+    using TTexCoord = gpu::LineVertex::TTexCoord;
+
+    CapVertex() {}
+    CapVertex(TPosition const & pos, TNormal const & normal, TTexCoord const & color)
+      : m_position(pos)
+      , m_normal(normal)
+      , m_color(color)
+    {
+    }
+
+    TPosition m_position;
+    TNormal m_normal;
+    TTexCoord m_color;
   };
 
-  class TextureCoordGenerator
+  using TCapBuffer = vector<CapVertex>;
+
+public:
+  using BuilderParams = BaseBuilderParams;
+
+  SolidLineBuilder(BuilderParams const & params, size_t pointsInSpline)
+    : TBase(params, pointsInSpline * 2, (pointsInSpline - 2) * 8)
+  {}
+
+  dp::GLState GetState() override
   {
-  public:
-    TextureCoordGenerator(float const baseGtoPScale)
-      : m_baseGtoPScale(baseGtoPScale)
-      , m_basePtoGScale(1.0f / baseGtoPScale)
+    dp::GLState state(gpu::LINE_PROGRAM, dp::GLState::GeometryLayer);
+    state.SetColorTexture(m_params.m_color.GetTexture());
+    return state;
+  }
+
+  dp::BindingInfo const & GetCapBindingInfo() override
+  {
+    if (m_params.m_cap == dp::ButtCap)
+      return TBase::GetCapBindingInfo();
+
+    static unique_ptr<dp::BindingInfo> s_capInfo;
+    if (s_capInfo == nullptr)
     {
+      dp::BindingFiller<CapVertex> filler(3);
+      filler.FillDecl<CapVertex::TPosition>("a_position");
+      filler.FillDecl<CapVertex::TNormal>("a_normal");
+      filler.FillDecl<CapVertex::TTexCoord>("a_colorTexCoords");
+
+      s_capInfo.reset(new dp::BindingInfo(filler.m_info));
     }
 
-    void SetRegion(dp::TextureManager::StippleRegion const & region, bool isSolid)
-    {
-      m_isSolid = isSolid;
-      m_region = region;
-      if (!m_isSolid)
-      {
-        m_maskLength = static_cast<float>(m_region.GetMaskPixelLength());
-        m_patternLength = static_cast<float>(m_region.GetPatternPixelLength());
-      }
-    }
+    return *s_capInfo;
+  }
 
-    bool GetTexCoords(TexDescription & desc)
-    {
-      if (m_isSolid)
-      {
-        desc.m_texCoord = glsl::ToVec2(m_region.GetTexRect().Center());
-        return true;
-      }
+  dp::GLState GetCapState() override
+  {
+    if (m_params.m_cap == dp::ButtCap)
+      return TBase::GetCapState();
 
-      float const pxLength = desc.m_globalLength * m_baseGtoPScale;
-      float const maskRest = m_maskLength - m_pxCursor;
+    dp::GLState state(gpu::CAP_JOIN_PROGRAM, dp::GLState::GeometryLayer);
+    state.SetColorTexture(m_params.m_color.GetTexture());
+    state.SetDepthFunction(gl_const::GLLess);
+    return state;
+  }
 
-      m2::RectF const & texRect = m_region.GetTexRect();
-      if (maskRest < pxLength)
-      {
-        desc.m_globalLength = maskRest * m_basePtoGScale;
-        desc.m_texCoord = glsl::vec2(texRect.maxX(), texRect.Center().y);
-        return false;
-      }
+  ref_ptr<void> GetCapData() override
+  {
+    return make_ref<void>(m_capGeometry.data());
+  }
 
-      float texX = texRect.minX() + ((m_pxCursor + pxLength) / m_maskLength) * texRect.SizeX();
-      m_pxCursor = fmodf(m_pxCursor + pxLength, m_patternLength);
+  size_t GetCapSize() override
+  {
+    return m_capGeometry.size();
+  }
 
-      desc.m_texCoord = glsl::vec2(texX, texRect.Center().y);
-      return true;
-    }
+  void SubmitVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, bool isLeft)
+  {
+    float const halfWidth = GetHalfWidth();
+    m_geometry.emplace_back(V(pivot, TNormal(halfWidth * normal, halfWidth * GetSide(isLeft)), m_colorCoord));
+  }
 
-  private:
-    float const m_baseGtoPScale;
-    float const m_basePtoGScale;
-    dp::TextureManager::StippleRegion m_region;
-    float m_maskLength = 0.0f;
-    float m_patternLength = 0.0f;
-    bool m_isSolid = true;
-    float m_pxCursor = 0.0f;
+  void SubmitJoin(glsl::vec2 const & pos)
+  {
+    if (m_params.m_join == dp::RoundJoin)
+      CreateRoundCap(pos);
+  }
+
+  void SubmitCap(glsl::vec2 const & pos)
+  {
+    if (m_params.m_cap != dp::ButtCap)
+      CreateRoundCap(pos);
+  }
+
+private:
+  void CreateRoundCap(glsl::vec2 const & pos)
+  {
+    m_capGeometry.reserve(8);
+
+    float const radius = GetHalfWidth();
+
+    m_capGeometry.push_back(CapVertex(CapVertex::TPosition(pos, m_params.m_depth),
+                                      CapVertex::TNormal(-radius, radius, radius),
+                                      CapVertex::TTexCoord(m_colorCoord)));
+    m_capGeometry.push_back(CapVertex(CapVertex::TPosition(pos, m_params.m_depth),
+                                      CapVertex::TNormal(-radius, -radius, radius),
+                                      CapVertex::TTexCoord(m_colorCoord)));
+    m_capGeometry.push_back(CapVertex(CapVertex::TPosition(pos, m_params.m_depth),
+                                      CapVertex::TNormal(radius, radius, radius),
+                                      CapVertex::TTexCoord(m_colorCoord)));
+    m_capGeometry.push_back(CapVertex(CapVertex::TPosition(pos, m_params.m_depth),
+                                      CapVertex::TNormal(radius, -radius, radius),
+                                      CapVertex::TTexCoord(m_colorCoord)));
+  }
+
+private:
+  TCapBuffer m_capGeometry;
+};
+
+class DashedLineBuilder : public BaseLineBuilder<gpu::DashedLineVertex>
+{
+  using TBase = BaseLineBuilder<gpu::DashedLineVertex>;
+  using TNormal = gpu::LineVertex::TNormal;
+
+public:
+  struct BuilderParams : BaseBuilderParams
+  {
+    dp::TextureManager::StippleRegion m_stipple;
+    float m_glbHalfWidth;
+    float m_baseGtoP;
   };
-}
 
-LineShape::LineShape(m2::SharedSpline const & spline,
-                     LineViewParams const & params)
+  DashedLineBuilder(BuilderParams const & params, size_t pointsInSpline)
+    : TBase(params, pointsInSpline * 8, (pointsInSpline - 2) * 8)
+    , m_texCoordGen(params.m_stipple)
+    , m_baseGtoPScale(params.m_baseGtoP)
+  {}
+
+  void GetTexturingInfo(float const globalLength, int & steps, float & maskSize)
+  {
+    float const pixelLen = globalLength * m_baseGtoPScale;
+    steps = static_cast<int>((pixelLen + m_texCoordGen.GetMaskLength() - 1) / m_texCoordGen.GetMaskLength());
+    maskSize = globalLength / steps;
+  }
+
+  dp::GLState GetState() override
+  {
+    dp::GLState state(gpu::DASHED_LINE_PROGRAM, dp::GLState::GeometryLayer);
+    state.SetColorTexture(m_params.m_color.GetTexture());
+    state.SetMaskTexture(m_texCoordGen.GetRegion().GetTexture());
+    return state;
+  }
+
+  void SubmitVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, bool isLeft, float offsetFromStart)
+  {
+    float const halfWidth = GetHalfWidth();
+    m_geometry.emplace_back(V(pivot, TNormal(halfWidth * normal, halfWidth * GetSide(isLeft)),
+                              m_colorCoord, m_texCoordGen.GetTexCoordsByDistance(offsetFromStart)));
+  }
+
+private:
+  TextureCoordGenerator m_texCoordGen;
+  float const m_baseGtoPScale;
+};
+
+} // namespace
+
+LineShape::LineShape(m2::SharedSpline const & spline, LineViewParams const & params)
   : m_params(params)
   , m_spline(spline)
 {
   ASSERT_GREATER(m_spline->GetPath().size(), 1, ());
 }
 
-void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const
+template <typename TBuilder>
+void LineShape::Construct(TBuilder & builder) const
 {
-  typedef gpu::LineVertex LV;
-  buffer_vector<gpu::LineVertex, 128> geometry;
+  ASSERT(false, ("No implementation"));
+}
+
+// Specialization optimized for dashed lines.
+template <>
+void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
+{
   vector<m2::PointD> const & path = m_spline->GetPath();
+  ASSERT_GREATER(path.size(), 1, ());
 
-  dp::TextureManager::ColorRegion colorRegion;
-  textures->GetColorRegion(m_params.m_color, colorRegion);
-  glsl::vec2 colorCoord(glsl::ToVec2(colorRegion.GetTexRect().Center()));
-
-  TextureCoordGenerator texCoordGen(m_params.m_baseGtoPScale);
-  dp::TextureManager::StippleRegion maskRegion;
-  if (m_params.m_pattern.empty())
-    textures->GetStippleRegion(dp::TextureManager::TStipplePattern{1}, maskRegion);
-  else
-    textures->GetStippleRegion(m_params.m_pattern, maskRegion);
-
-  texCoordGen.SetRegion(maskRegion, m_params.m_pattern.empty());
-  float const halfWidth = m_params.m_width / 2.0f;
-  float const glbHalfWidth = halfWidth / m_params.m_baseGtoPScale;
-  bool generateCap = m_params.m_cap != dp::ButtCap;
-
-  auto const calcTangentAndNormals = [&halfWidth](glsl::vec2 const & pt0, glsl::vec2 const & pt1,
-                                        glsl::vec2 & tangent, glsl::vec2 & leftNormal,
-                                        glsl::vec2 & rightNormal)
-  {
-    tangent = glsl::normalize(pt1 - pt0);
-    leftNormal = halfWidth * glsl::vec2(tangent.y, -tangent.x);
-    rightNormal = -leftNormal;
-  };
-
-  float capType = m_params.m_cap == dp::RoundCap ? CAP : SEGMENT;
-
-  glsl::vec2 leftSegment(SEGMENT, LEFT_WIDTH);
-  glsl::vec2 rightSegment(SEGMENT, RIGHT_WIDTH);
-
-  TexDescription texCoords[2];
-
-  if (generateCap)
-  {
-    glsl::vec2 startPoint = glsl::ToVec2(path[0]);
-    glsl::vec2 endPoint = glsl::ToVec2(path[1]);
-    glsl::vec2 tangent, leftNormal, rightNormal;
-    calcTangentAndNormals(startPoint, endPoint, tangent, leftNormal, rightNormal);
-    tangent = -halfWidth * tangent;
-
-    glsl::vec3 pivot = glsl::vec3(startPoint, m_params.m_depth);
-    glsl::vec2 leftCap(capType, LEFT_WIDTH);
-    glsl::vec2 rightCap(capType, RIGHT_WIDTH);
-
-    texCoords[TEX_BEG_IDX].m_globalLength = 0.0;
-    texCoords[TEX_END_IDX].m_globalLength = glbHalfWidth;
-
-    VERIFY(texCoordGen.GetTexCoords(texCoords[TEX_BEG_IDX]), ());
-    VERIFY(texCoordGen.GetTexCoords(texCoords[TEX_END_IDX]), ());
-
-    geometry.push_back(LV(pivot, leftNormal + tangent, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, leftCap));
-    geometry.push_back(LV(pivot, rightNormal + tangent, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, rightCap));
-    geometry.push_back(LV(pivot, leftNormal, colorCoord, texCoords[TEX_END_IDX].m_texCoord, leftSegment));
-    geometry.push_back(LV(pivot, rightNormal, colorCoord, texCoords[TEX_END_IDX].m_texCoord, rightSegment));
-  }
-
-  glsl::vec2 prevPoint;
-  glsl::vec2 prevLeftNormal;
-  glsl::vec2 prevRightNormal;
-
+  // build geometry
   for (size_t i = 1; i < path.size(); ++i)
   {
-    glsl::vec2 startPoint = glsl::ToVec2(path[i - 1]);
-    glsl::vec2 endPoint = glsl::ToVec2(path[i]);
+    if (path[i].EqualDxDy(path[i - 1], 1.0E-5))
+      continue;
+
+    glsl::vec2 const p1 = glsl::vec2(path[i - 1].x, path[i - 1].y);
+    glsl::vec2 const p2 = glsl::vec2(path[i].x, path[i].y);
     glsl::vec2 tangent, leftNormal, rightNormal;
-    calcTangentAndNormals(startPoint, endPoint, tangent, leftNormal, rightNormal);
+    CalculateTangentAndNormals(p1, p2, tangent, leftNormal, rightNormal);
 
-    glsl::vec3 startPivot = glsl::vec3(startPoint, m_params.m_depth);
-    glsl::vec3 endPivot = glsl::vec3(endPoint, m_params.m_depth);
+    // calculate number of steps to cover line segment
+    float const initialGlobalLength = glsl::length(p2 - p1);
+    int steps = 1;
+    float maskSize = initialGlobalLength;
+    builder.GetTexturingInfo(initialGlobalLength, steps, maskSize);
 
-    // Create join beetween current segment and previous
-    if (i > 1)
+    // generate vertices
+    float currentSize = 0;
+    glsl::vec3 currentStartPivot = glsl::vec3(p1, m_params.m_depth);
+    for (int step = 0; step < steps; step++)
     {
-      glsl::vec2 zeroNormal(0.0, 0.0);
-      glsl::vec2 prevForming, nextForming;
-      if (glsl::dot(prevLeftNormal, tangent) < 0)
-      {
-        prevForming = prevLeftNormal;
-        nextForming = leftNormal;
-      }
-      else
-      {
-        prevForming = prevRightNormal;
-        nextForming = rightNormal;
-      }
+      currentSize += maskSize;
+      glsl::vec3 const newPivot = glsl::vec3(p1 + tangent * currentSize, m_params.m_depth);
 
-      if (m_params.m_join == dp::BevelJoin)
-      {
-        texCoords[TEX_BEG_IDX].m_globalLength = 0.0f;
-        texCoords[TEX_END_IDX].m_globalLength = glsl::length(nextForming - prevForming) / m_params.m_baseGtoPScale;
-        VERIFY(texCoordGen.GetTexCoords(texCoords[TEX_BEG_IDX]), ());
-        VERIFY(texCoordGen.GetTexCoords(texCoords[TEX_END_IDX]), ());
+      builder.SubmitVertex(currentStartPivot, rightNormal, false /* isLeft */, 0.0);
+      builder.SubmitVertex(currentStartPivot, leftNormal, true /* isLeft */, 0.0);
+      builder.SubmitVertex(newPivot, rightNormal, false /* isLeft */, maskSize);
+      builder.SubmitVertex(newPivot, leftNormal, true /* isLeft */, maskSize);
 
-        geometry.push_back(LV(startPivot, prevForming, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, leftSegment));
-        geometry.push_back(LV(startPivot, zeroNormal, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, leftSegment));
-        geometry.push_back(LV(startPivot, nextForming, colorCoord, texCoords[TEX_END_IDX].m_texCoord, leftSegment));
-        geometry.push_back(LV(startPivot, nextForming, colorCoord, texCoords[TEX_END_IDX].m_texCoord, leftSegment));
-      }
-      else
-      {
-        glsl::vec2 middleForming = glsl::normalize(prevForming + nextForming);
-        glsl::vec2 zeroDxDy(0.0, 0.0);
-
-        texCoords[TEX_BEG_IDX].m_globalLength = 0.0f;
-        texCoords[TEX_END_IDX].m_globalLength = glsl::length(nextForming - prevForming) / m_params.m_baseGtoPScale;
-        TexDescription middle;
-        middle.m_globalLength = texCoords[TEX_END_IDX].m_globalLength / 2.0f;
-        VERIFY(texCoordGen.GetTexCoords(texCoords[TEX_BEG_IDX]), ());
-        VERIFY(texCoordGen.GetTexCoords(middle), ());
-        VERIFY(texCoordGen.GetTexCoords(texCoords[TEX_END_IDX]), ());
-
-        if (m_params.m_join == dp::MiterJoin)
-        {
-          float const b = glsl::length(prevForming - nextForming) / 2.0;
-          float const a = glsl::length(prevForming);
-          middleForming *= static_cast<float>(sqrt(a * a + b * b));
-
-          geometry.push_back(LV(startPivot, prevForming, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, zeroDxDy));
-          geometry.push_back(LV(startPivot, zeroNormal, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, zeroDxDy));
-          geometry.push_back(LV(startPivot, middleForming, colorCoord, middle.m_texCoord, zeroDxDy));
-          geometry.push_back(LV(startPivot, nextForming, colorCoord, texCoords[TEX_END_IDX].m_texCoord, zeroDxDy));
-        }
-        else
-        {
-          middleForming *= glsl::length(prevForming);
-
-          glsl::vec2 dxdyLeft(0.0, -1.0);
-          glsl::vec2 dxdyRight(0.0, -1.0);
-          glsl::vec2 dxdyMiddle(1.0, 1.0);
-          geometry.push_back(LV(startPivot, zeroNormal, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, zeroDxDy));
-          geometry.push_back(LV(startPivot, prevForming, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, dxdyLeft));
-          geometry.push_back(LV(startPivot, nextForming, colorCoord, texCoords[TEX_END_IDX].m_texCoord, dxdyRight));
-          geometry.push_back(LV(startPivot, middleForming, colorCoord, middle.m_texCoord, dxdyMiddle));
-        }
-      }
+      currentStartPivot = newPivot;
     }
-
-    texCoords[TEX_BEG_IDX].m_globalLength = 0.0;
-    texCoords[TEX_END_IDX].m_globalLength = glsl::length(endPoint - startPoint);
-    VERIFY(texCoordGen.GetTexCoords(texCoords[TEX_BEG_IDX]), ());
-    while (!texCoordGen.GetTexCoords(texCoords[TEX_END_IDX]))
-    {
-      glsl::vec2 newEndPoint = startPoint + tangent * texCoords[TEX_END_IDX].m_globalLength;
-      glsl::vec3 newEndPivot = glsl::vec3(newEndPoint, m_params.m_depth);
-
-      geometry.push_back(LV(startPivot, leftNormal, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, leftSegment));
-      geometry.push_back(LV(startPivot, rightNormal, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, rightSegment));
-      geometry.push_back(LV(newEndPivot, leftNormal, colorCoord, texCoords[TEX_END_IDX].m_texCoord, leftSegment));
-      geometry.push_back(LV(newEndPivot, rightNormal, colorCoord, texCoords[TEX_END_IDX].m_texCoord, rightSegment));
-
-      startPoint = newEndPoint;
-      startPivot = newEndPivot;
-
-      VERIFY(texCoordGen.GetTexCoords(texCoords[TEX_BEG_IDX]), ());
-      texCoords[TEX_END_IDX].m_globalLength = glsl::length(endPoint - startPoint);
-    }
-
-    geometry.push_back(LV(startPivot, leftNormal, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, leftSegment));
-    geometry.push_back(LV(startPivot, rightNormal, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, rightSegment));
-    geometry.push_back(LV(endPivot, leftNormal, colorCoord, texCoords[TEX_END_IDX].m_texCoord, leftSegment));
-    geometry.push_back(LV(endPivot, rightNormal, colorCoord, texCoords[TEX_END_IDX].m_texCoord, rightSegment));
-
-    prevPoint = startPoint;
-    prevLeftNormal = leftNormal;
-    prevRightNormal = rightNormal;
   }
+}
 
-  if (generateCap)
+// Specialization optimized for solid lines.
+template <>
+void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
+{
+  vector<m2::PointD> const & path = m_spline->GetPath();
+  ASSERT_GREATER(path.size(), 1, ());
+
+  // skip joins generation
+  float const kJoinsGenerationThreshold = 2.5f;
+  bool generateJoins = true;
+  if (builder.GetHalfWidth() <= kJoinsGenerationThreshold)
+    generateJoins = false;
+
+  // build geometry
+  glsl::vec2 firstPoint = glsl::vec2(path.front().x, path.front().y);
+  glsl::vec2 lastPoint;
+  bool hasConstructedSegments = false;
+  for (size_t i = 1; i < path.size(); ++i)
   {
-    size_t lastPointIndex = path.size() - 1;
-    glsl::vec2 startPoint = glsl::ToVec2(path[lastPointIndex - 1]);
-    glsl::vec2 endPoint = glsl::ToVec2(path[lastPointIndex]);
+    if (path[i].EqualDxDy(path[i - 1], 1.0E-5))
+      continue;
+
+    glsl::vec2 const p1 = glsl::vec2(path[i - 1].x, path[i - 1].y);
+    glsl::vec2 const p2 = glsl::vec2(path[i].x, path[i].y);
     glsl::vec2 tangent, leftNormal, rightNormal;
-    calcTangentAndNormals(startPoint, endPoint, tangent, leftNormal, rightNormal);
-    tangent = halfWidth * tangent;
+    CalculateTangentAndNormals(p1, p2, tangent, leftNormal, rightNormal);
 
-    glsl::vec3 pivot = glsl::vec3(endPoint, m_params.m_depth);
-    glsl::vec2 leftCap(capType, LEFT_WIDTH);
-    glsl::vec2 rightCap(capType, RIGHT_WIDTH);
+    glsl::vec3 const startPoint = glsl::vec3(p1, m_params.m_depth);
+    glsl::vec3 const endPoint = glsl::vec3(p2, m_params.m_depth);
 
-    texCoords[TEX_BEG_IDX].m_globalLength = 0.0;
-    texCoords[TEX_END_IDX].m_globalLength = glbHalfWidth;
+    builder.SubmitVertex(startPoint, rightNormal, false /* isLeft */);
+    builder.SubmitVertex(startPoint, leftNormal, true /* isLeft */);
+    builder.SubmitVertex(endPoint, rightNormal, false /* isLeft */);
+    builder.SubmitVertex(endPoint, leftNormal, true /* isLeft */);
 
-    VERIFY(texCoordGen.GetTexCoords(texCoords[TEX_BEG_IDX]), ());
-    VERIFY(texCoordGen.GetTexCoords(texCoords[TEX_END_IDX]), ());
+    // generate joins
+    if (generateJoins && i < path.size() - 1)
+      builder.SubmitJoin(p2);
 
-    geometry.push_back(LV(pivot, leftNormal, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, leftSegment));
-    geometry.push_back(LV(pivot, rightNormal, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, rightSegment));
-    geometry.push_back(LV(pivot, leftNormal + tangent, colorCoord, texCoords[TEX_END_IDX].m_texCoord, leftCap));
-    geometry.push_back(LV(pivot, rightNormal + tangent, colorCoord, texCoords[TEX_END_IDX].m_texCoord, rightCap));
+    lastPoint = p2;
+    hasConstructedSegments = true;
   }
 
-  dp::GLState state(gpu::LINE_PROGRAM, dp::GLState::GeometryLayer);
-  state.SetBlending(true);
-  state.SetColorTexture(colorRegion.GetTexture());
-  state.SetMaskTexture(maskRegion.GetTexture());
+  if (hasConstructedSegments)
+  {
+    builder.SubmitCap(firstPoint);
+    builder.SubmitCap(lastPoint);
+  }
+}
 
-  dp::AttributeProvider provider(1, geometry.size());
-  provider.InitStream(0, gpu::LineVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(geometry.data()));
+void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
+{
+  dp::TextureManager::ColorRegion colorRegion;
+  textures->GetColorRegion(m_params.m_color, colorRegion);
+  float const pxHalfWidth = m_params.m_width / 2.0f;
 
-  batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), 4);
+  auto commonParamsBuilder = [&](BaseBuilderParams & p)
+  {
+    p.m_cap = m_params.m_cap;
+    p.m_color = colorRegion;
+    p.m_depth = m_params.m_depth;
+    p.m_join = m_params.m_join;
+    p.m_pxHalfWidth = pxHalfWidth;
+  };
+
+  if (m_params.m_pattern.empty())
+  {
+    SolidLineBuilder::BuilderParams p;
+    commonParamsBuilder(p);
+
+    auto builder = make_unique<SolidLineBuilder>(p, m_spline->GetPath().size());
+    Construct<SolidLineBuilder>(*builder);
+    m_lineShapeInfo = move(builder);
+  }
+  else
+  {
+    dp::TextureManager::StippleRegion maskRegion;
+    textures->GetStippleRegion(m_params.m_pattern, maskRegion);
+
+    DashedLineBuilder::BuilderParams p;
+    commonParamsBuilder(p);
+    p.m_stipple = maskRegion;
+    p.m_baseGtoP = m_params.m_baseGtoPScale;
+    p.m_glbHalfWidth = pxHalfWidth / m_params.m_baseGtoPScale;
+
+    auto builder = make_unique<DashedLineBuilder>(p, m_spline->GetPath().size());
+    Construct<DashedLineBuilder>(*builder);
+    m_lineShapeInfo = move(builder);
+  }
+}
+
+void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
+{
+  if (!m_lineShapeInfo)
+    Prepare(textures);
+
+  ASSERT(m_lineShapeInfo != nullptr, ());
+  dp::GLState state = m_lineShapeInfo->GetState();
+
+  dp::AttributeProvider provider(1, m_lineShapeInfo->GetLineSize());
+  provider.InitStream(0, m_lineShapeInfo->GetBindingInfo(), m_lineShapeInfo->GetLineData());
+  batcher->InsertListOfStrip(state, make_ref(&provider), dp::Batcher::VertexPerQuad);
+
+  size_t joinSize = m_lineShapeInfo->GetJoinSize();
+  if (joinSize > 0)
+  {
+    dp::AttributeProvider joinsProvider(1, joinSize);
+    joinsProvider.InitStream(0, m_lineShapeInfo->GetBindingInfo(), m_lineShapeInfo->GetJoinData());
+    batcher->InsertTriangleList(state, make_ref(&joinsProvider));
+  }
+
+  size_t capSize = m_lineShapeInfo->GetCapSize();
+  if (capSize > 0)
+  {
+    dp::AttributeProvider capProvider(1, capSize);
+    capProvider.InitStream(0, m_lineShapeInfo->GetCapBindingInfo(), m_lineShapeInfo->GetCapData());
+    batcher->InsertListOfStrip(m_lineShapeInfo->GetCapState(), make_ref(&capProvider), dp::Batcher::VertexPerQuad);
+  }
 }
 
 } // namespace df

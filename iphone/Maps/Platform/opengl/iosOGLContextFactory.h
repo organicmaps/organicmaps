@@ -12,6 +12,9 @@ public:
   virtual dp::OGLContext * getDrawContext();
   virtual dp::OGLContext * getResourcesUploadContext();
 
+  virtual bool isDrawContextCreated() const;
+  virtual bool isUploadContextCreated() const;
+
 private:
   CAEAGLLayer * m_layer;
   iosOGLContext * m_drawContext;

@@ -256,7 +256,7 @@ android {
 
   // We don't compress these extensions in assets/ because our random FileReader can't read zip-compressed files from apk
   aaptOptions {
-    noCompress 'txt', 'bin', 'skn', 'html', 'png', 'json', 'mwm', 'ttf'
+    noCompress 'txt', 'bin', 'html', 'png', 'json', 'mwm', 'ttf', 'sdf', 'ui'
     ignoreAssetsPattern "!.svn:!.git:!.DS_Store:!*.scc:.*:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"
   }
 

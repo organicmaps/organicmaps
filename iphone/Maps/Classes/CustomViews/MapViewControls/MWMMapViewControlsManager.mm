@@ -1,5 +1,6 @@
 #import "Common.h"
 #import "CountryTreeVC.h"
+#import "EAGLView.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
 #import "MWMAlertViewController.h"
@@ -43,6 +44,12 @@ extern NSString * const kAlohalyticsTapEventKey;
 @end
 
 @implementation MWMMapViewControlsManager
+
+- (void)setMyPositionMode:(location::EMyPositionMode)mode
+{
+  _myPositionMode = mode;
+  [self.menuController onLocationStateModeChanged:mode];
+}
 
 - (instancetype)initWithParentController:(MapViewController *)controller
 {
@@ -423,10 +430,10 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     MWMAlertViewController * controller = [[MWMAlertViewController alloc] initWithViewController:self.ownerController];
     LocationManager * manager = MapsAppDelegate.theApp.m_locationManager;
-    auto const m = GetFramework().GetLocationState()->GetMode();
+    auto const m = self.myPositionMode;
     BOOL const needToRebuild = manager.lastLocationIsValid &&
-                               m != location::State::Mode::PendingPosition &&
-                               m != location::State::Mode::UnknownPosition &&
+                               m != location::MODE_PENDING_POSITION &&
+                               m != location::MODE_UNKNOWN_POSITION &&
                                !isDestinationMyPosition;
     [controller presentPoint2PointAlertWithOkBlock:^
     {
@@ -467,6 +474,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   
   GetFramework().SetRouteStartPoint(self.routeSource.Point(),
                                     self.routeSource != MWMRoutePoint::MWMRoutePointZero());
+  
   GetFramework().SetRouteFinishPoint(self.routeDestination.Point(),
                                      self.routeDestination != MWMRoutePoint::MWMRoutePointZero());
 }
@@ -559,7 +567,8 @@ extern NSString * const kAlohalyticsTapEventKey;
   _hidden = hidden;
   self.zoomHidden = _zoomHidden;
   self.menuState = _menuState;
-  GetFramework().SetFullScreenMode(hidden);
+  EAGLView * glView = (EAGLView *)self.ownerController.view;
+  glView.widgetsManager.fullScreen = hidden;
 }
 
 - (void)setZoomHidden:(BOOL)zoomHidden

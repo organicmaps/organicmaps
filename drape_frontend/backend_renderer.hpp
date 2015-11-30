@@ -1,13 +1,12 @@
 #pragma once
 
-#include "drape_frontend/message_acceptor.hpp"
-#include "drape_frontend/engine_context.hpp"
-#include "drape_frontend/viewport.hpp"
+#include "drape_frontend/gui/layer_render.hpp"
+
+#include "drape_frontend/base_renderer.hpp"
 #include "drape_frontend/map_data_provider.hpp"
+#include "drape_frontend/viewport.hpp"
 
 #include "drape/pointers.hpp"
-
-#include "base/thread.hpp"
 
 namespace dp
 {
@@ -21,60 +20,59 @@ namespace df
 {
 
 class Message;
-class ThreadsCommutator;
 class BatchersPool;
 class ReadManager;
+class RouteBuilder;
 
-class BackendRenderer : public MessageAcceptor
+class BackendRenderer : public BaseRenderer
 {
 public:
-  BackendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
-                  dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
-                  MapDataProvider const & model);
+  struct Params : BaseRenderer::Params
+  {
+    Params(ref_ptr<ThreadsCommutator> commutator, ref_ptr<dp::OGLContextFactory> factory,
+           ref_ptr<dp::TextureManager> texMng, MapDataProvider const & model)
+      : BaseRenderer::Params(commutator, factory, texMng)
+      , m_model(model)
+    {}
 
+    MapDataProvider const & m_model;
+  };
+
+  BackendRenderer(Params const & params);
   ~BackendRenderer() override;
 
-private:
-  MapDataProvider m_model;
-  EngineContext m_engineContext;
-  dp::MasterPointer<BatchersPool> m_batchersPool;
-  dp::MasterPointer<ReadManager>  m_readManager;
+protected:
+  unique_ptr<threads::IRoutine> CreateRoutine() override;
 
-  /////////////////////////////////////////
-  //           MessageAcceptor           //
-  /////////////////////////////////////////
 private:
-  void AcceptMessage(dp::RefPointer<Message> message);
+  void RecacheGui(gui::TWidgetsInitInfo const  & initInfo, gui::TWidgetsSizeInfo & sizeInfo);
+  void RecacheCountryStatus();
+  void RecacheMyPosition();
 
-    /////////////////////////////////////////
-    //             ThreadPart              //
-    /////////////////////////////////////////
-private:
+  void AcceptMessage(ref_ptr<Message> message) override;
+
   class Routine : public threads::IRoutine
   {
-   public:
+  public:
     Routine(BackendRenderer & renderer);
 
     // threads::IRoutine overrides:
     void Do() override;
 
-   private:
+  private:
     BackendRenderer & m_renderer;
   };
 
-  void StartThread();
-  void StopThread();
   void ReleaseResources();
 
   void InitGLDependentResource();
-  void FlushGeometry(dp::TransferPointer<Message> message);
+  void FlushGeometry(drape_ptr<Message> && message);
 
-private:
-  threads::Thread m_selfThread;
-  dp::RefPointer<ThreadsCommutator> m_commutator;
-  dp::RefPointer<dp::OGLContextFactory> m_contextFactory;
-
-  dp::MasterPointer<dp::TextureManager> m_textures;
+  MapDataProvider m_model;
+  drape_ptr<BatchersPool> m_batchersPool;
+  drape_ptr<ReadManager> m_readManager;
+  drape_ptr<RouteBuilder> m_routeBuilder;
+  gui::LayerCacher m_guiCacher;
 };
 
 } // namespace df

@@ -3,6 +3,7 @@
 #include "drape/drape_global.hpp"
 #include "drape/binding_info.hpp"
 #include "drape/index_buffer_mutator.hpp"
+#include "drape/index_storage.hpp"
 #include "drape/attribute_buffer_mutator.hpp"
 
 #include "indexer/feature_decl.hpp"
@@ -16,56 +17,75 @@
 namespace dp
 {
 
+enum OverlayRank
+{
+  OverlayRank0 = 0,
+  OverlayRank1,
+  OverlayRank2,
+
+  OverlayRanksCount
+};
+
+uint64_t constexpr kPriorityMaskZoomLevel = 0xFF0000000000FFFF;
+uint64_t constexpr kPriorityMaskManual    = 0x00FFFFFFFF00FFFF;
+uint64_t constexpr kPriorityMaskRank      = 0x0000000000FFFFFF;
+uint64_t constexpr kPriorityMaskAll = kPriorityMaskZoomLevel |
+                                      kPriorityMaskManual |
+                                      kPriorityMaskRank;
 class OverlayHandle
 {
 public:
   typedef vector<m2::RectF> Rects;
 
-  OverlayHandle(FeatureID const & id,
-                dp::Anchor anchor,
-                double priority);
+  OverlayHandle(FeatureID const & id, dp::Anchor anchor, uint64_t priority);
 
   virtual ~OverlayHandle() {}
 
   bool IsVisible() const;
   void SetIsVisible(bool isVisible);
 
-  bool IsValid() const { return m_isValid; }
+  m2::PointD GetPivot(ScreenBase const & screen) const;
 
-  virtual void Update(ScreenBase const & /*screen*/) {}
+  virtual bool Update(ScreenBase const & /*screen*/) { return true; }
   virtual m2::RectD GetPixelRect(ScreenBase const & screen) const = 0;
 
   virtual void GetPixelShape(ScreenBase const & screen, Rects & rects) const = 0;
 
-  bool IsIntersect(ScreenBase const & screen, OverlayHandle const & h) const;
+  bool IsIntersect(ScreenBase const & screen, ref_ptr<OverlayHandle> const h) const;
 
-  uint16_t * IndexStorage(uint16_t size);
-  size_t GetIndexCount() const;
-  void GetElementIndexes(RefPointer<IndexBufferMutator> mutator) const;
-  virtual void GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator, ScreenBase const & screen) const;
+  virtual bool IndexesRequired() const { return true; }
+  void * IndexStorage(uint32_t size);
+  void GetElementIndexes(ref_ptr<IndexBufferMutator> mutator) const;
+  virtual void GetAttributeMutation(ref_ptr<AttributeBufferMutator> mutator,
+                                    ScreenBase const & screen) const;
 
   bool HasDynamicAttributes() const;
-  void AddDynamicAttribute(BindingInfo const & binding, uint16_t offset, uint16_t count);
+  void AddDynamicAttribute(BindingInfo const & binding, uint32_t offset, uint32_t count);
 
   FeatureID const & GetFeatureID() const;
-  double const & GetPriority() const;
+  uint64_t const & GetPriority() const;
 
-protected:
-  void SetIsValid(bool isValid) { m_isValid = isValid; }
+  virtual uint64_t GetPriorityMask() const { return kPriorityMaskAll; }
+
+  virtual bool IsBound() const { return false; }
+
+  int GetOverlayRank() const { return m_overlayRank; }
+  void SetOverlayRank(int overlayRank) { m_overlayRank = overlayRank; }
 
 protected:
   FeatureID const m_id;
   dp::Anchor const m_anchor;
-  double const m_priority;
+  uint64_t const m_priority;
+
+  int m_overlayRank;
 
   typedef pair<BindingInfo, MutateRegion> TOffsetNode;
   TOffsetNode const & GetOffsetNode(uint8_t bufferID) const;
 
 private:
   bool m_isVisible;
-  bool m_isValid;
 
-  vector<uint16_t> m_indexes;
+  dp::IndexStorage m_indexes;
   struct LessOffsetNode
   {
     bool operator()(TOffsetNode const & node1, TOffsetNode const & node2) const
@@ -81,13 +101,14 @@ private:
 
 class SquareHandle : public OverlayHandle
 {
-  typedef OverlayHandle base_t;
+  using TBase = OverlayHandle;
+
 public:
   SquareHandle(FeatureID const & id,
                dp::Anchor anchor,
                m2::PointD const & gbPivot,
                m2::PointD const & pxSize,
-               double priority);
+               uint64_t priority);
 
   virtual m2::RectD GetPixelRect(ScreenBase const & screen) const;
   virtual void GetPixelShape(ScreenBase const & screen, Rects & rects) const;
@@ -96,5 +117,7 @@ private:
   m2::PointD m_gbPivot;
   m2::PointD m_pxHalfSize;
 };
+
+uint64_t CalculateOverlayPriority(int minZoomLevel, uint8_t rank, float depth);
 
 } // namespace dp

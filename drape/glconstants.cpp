@@ -45,6 +45,9 @@ const glConst GLMaxTextureSize      = GL_MAX_TEXTURE_SIZE;
 const glConst GLArrayBuffer         = GL_ARRAY_BUFFER;
 const glConst GLElementArrayBuffer  = GL_ELEMENT_ARRAY_BUFFER;
 
+const glConst GLBufferSize          = GL_BUFFER_SIZE;
+const glConst GLBufferUsage         = GL_BUFFER_USAGE;
+
 const glConst GLWriteOnly           = WRITE_ONLY_DEF;
 
 const glConst GLStaticDraw          = GL_STATIC_DRAW;
@@ -122,6 +125,14 @@ const glConst GLOneMinusDstAlfa     = GL_ONE_MINUS_DST_ALPHA;
 
 const glConst GLDepthTest           = GL_DEPTH_TEST;
 const glConst GLBlending            = GL_BLEND;
+const glConst GLCullFace            = GL_CULL_FACE;
+
+const glConst GLClockwise           = GL_CW;
+const glConst GLCounterClockwise    = GL_CCW;
+
+const glConst GLFront               = GL_FRONT;
+const glConst GLBack                = GL_BACK;
+const glConst GLFrontAndBack        = GL_FRONT_AND_BACK;
 
 const glConst GLNever               = GL_NEVER;
 const glConst GLLess                = GL_LESS;
@@ -133,5 +144,7 @@ const glConst GLGreatOrEqual        = GL_GEQUAL;
 const glConst GLAlways              = GL_ALWAYS;
 
 const glConst GLActiveUniforms      = GL_ACTIVE_UNIFORMS;
+
+const glConst GLLineStrip           = GL_LINE_STRIP;
 
 } // namespace GLConst

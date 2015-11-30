@@ -10,7 +10,6 @@ import android.provider.Settings;
 import android.support.annotation.DimenRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -19,7 +18,6 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.mapswithme.maps.MwmApplication;
@@ -28,7 +26,6 @@ import com.mapswithme.maps.R;
 public final class UiUtils
 {
   private static float sScreenDensity;
-
 
   public static class SimpleAnimationListener implements AnimationListener
   {
@@ -65,19 +62,11 @@ public final class UiUtils
     void onViewMeasured(int width, int height);
   }
 
-
-  public static void waitLayout(final View view, @NonNull final ViewTreeObserver.OnGlobalLayoutListener callback)
-  {
-    ViewTreeObserver observer = view.getViewTreeObserver();
-    if (!observer.isAlive())
-      throw new IllegalArgumentException("ViewTreeObserver is not alive");
-
-    observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
-    {
+  public static void waitLayout(final View view, @NonNull final ViewTreeObserver.OnGlobalLayoutListener callback) {
+    view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
       @SuppressWarnings("deprecation")
       @Override
-      public void onGlobalLayout()
-      {
+      public void onGlobalLayout() {
         // viewTreeObserver can be dead(isAlive() == false), we should get a new one here.
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
           view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
@@ -171,6 +160,21 @@ public final class UiUtils
       invisible(frame, id);
   }
 
+  public static boolean isHidden(View view)
+  {
+    return view.getVisibility() == View.GONE;
+  }
+
+  public static boolean isInvisible(View view)
+  {
+    return view.getVisibility() == View.INVISIBLE;
+  }
+
+  public static boolean isVisible(View view)
+  {
+    return view.getVisibility() == View.VISIBLE;
+  }
+
   public static void visibleIf(boolean condition, View view)
   {
     view.setVisibility(condition ? View.VISIBLE : View.INVISIBLE);
@@ -197,11 +201,6 @@ public final class UiUtils
       hide(views);
   }
 
-  public static boolean isVisible(View view)
-  {
-    return (view.getVisibility() == View.VISIBLE);
-  }
-
   public static void setTextAndShow(TextView tv, CharSequence text)
   {
     tv.setText(text);
@@ -224,34 +223,34 @@ public final class UiUtils
         public void run()
         {
           new AlertDialog.Builder(activity)
-              .setCancelable(false)
-              .setMessage(message)
-              .setPositiveButton(activity.getString(R.string.connection_settings), new DialogInterface.OnClickListener()
-              {
-                @Override
-                public void onClick(DialogInterface dlg, int which)
-                {
-                  try
+                  .setCancelable(false)
+                  .setMessage(message)
+                  .setPositiveButton(activity.getString(R.string.connection_settings), new DialogInterface.OnClickListener()
                   {
-                    activity.startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
-                  } catch (final Exception ex)
-                  {
-                    ex.printStackTrace();
-                  }
+                    @Override
+                    public void onClick(DialogInterface dlg, int which)
+                    {
+                      try
+                      {
+                        activity.startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
+                      } catch (final Exception ex)
+                      {
+                        ex.printStackTrace();
+                      }
 
-                  dlg.dismiss();
-                }
-              })
-              .setNegativeButton(activity.getString(R.string.close), new DialogInterface.OnClickListener()
-              {
-                @Override
-                public void onClick(DialogInterface dlg, int which)
-                {
-                  dlg.dismiss();
-                }
-              })
-              .create()
-              .show();
+                      dlg.dismiss();
+                    }
+                  })
+                  .setNegativeButton(activity.getString(R.string.close), new DialogInterface.OnClickListener()
+                  {
+                    @Override
+                    public void onClick(DialogInterface dlg, int which)
+                    {
+                      dlg.dismiss();
+                    }
+                  })
+                  .create()
+                  .show();
         }
       });
     }
@@ -265,14 +264,13 @@ public final class UiUtils
   public static AlertDialog buildAlertDialog(Activity activity, int titleId)
   {
     return new AlertDialog.Builder(activity)
-        .setCancelable(false)
-        .setMessage(titleId)
-        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dlg, int which) { dlg.dismiss(); }
-        })
-        .create();
+            .setCancelable(false)
+            .setMessage(titleId)
+            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+              @Override
+              public void onClick(DialogInterface dlg, int which) { dlg.dismiss(); }
+            })
+            .create();
   }
 
   public static void showAlertDialog(Activity activity, int titleId)
@@ -286,18 +284,18 @@ public final class UiUtils
     String rotation = activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ? "|" : "-";
     switch (activity.getWindowManager().getDefaultDisplay().getRotation())
     {
-    case Surface.ROTATION_0:
-      rotation += "0";
-      break;
-    case Surface.ROTATION_90:
-      rotation += "90";
-      break;
-    case Surface.ROTATION_180:
-      rotation += "180";
-      break;
-    case Surface.ROTATION_270:
-      rotation += "270";
-      break;
+      case Surface.ROTATION_0:
+        rotation += "0";
+        break;
+      case Surface.ROTATION_90:
+        rotation += "90";
+        break;
+      case Surface.ROTATION_180:
+        rotation += "180";
+        break;
+      case Surface.ROTATION_270:
+        rotation += "270";
+        break;
     }
     return rotation;
   }
@@ -317,80 +315,17 @@ public final class UiUtils
     return isSmallTablet() || isBigTablet();
   }
 
-  public static void appearSlidingDown(final View view, @Nullable final Runnable completionListener)
-  {
-    if (isVisible(view) || view.getAnimation() != null)
-    {
-      if (completionListener != null)
-        completionListener.run();
-      return;
-    }
-
-    show(view);
-
-    Animation a = AnimationUtils.loadAnimation(view.getContext(), R.anim.slide_appear_down);
-    if (completionListener != null)
-      a.setAnimationListener(new UiUtils.SimpleAnimationListener()
-      {
-        @Override
-        public void onAnimationEnd(Animation animation)
-        {
-          completionListener.run();
-        }
-      });
-
-    view.startAnimation(a);
-  }
-
-  public static void disappearSlidingUp(final View view, @Nullable final Runnable completionListener)
-  {
-    if (!isVisible(view) || view.getAnimation() != null)
-    {
-      if (completionListener != null)
-        completionListener.run();
-      return;
-    }
-
-    Animation a = AnimationUtils.loadAnimation(view.getContext(), R.anim.slide_disappear_up);
-    a.setAnimationListener(new UiUtils.SimpleAnimationListener()
-    {
-      @Override
-      public void onAnimationEnd(Animation animation)
-      {
-        hide(view);
-        view.clearAnimation();
-
-        if (completionListener != null)
-          completionListener.run();
-      }
-    });
-
-    view.startAnimation(a);
-  }
-
-  public static void exchangeViewsAnimatedDown(final View toHide, final View toShow, @Nullable final Runnable completionListener)
-  {
-    disappearSlidingUp(toHide, new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        appearSlidingDown(toShow, completionListener);
-      }
-    });
-  }
-
   public static int dimen(@DimenRes int id)
   {
     return MwmApplication.get().getResources().getDimensionPixelSize(id);
   }
 
-  public static int dp(int v)
+  public static int toPx(int dp)
   {
     if (sScreenDensity == 0)
       sScreenDensity = MwmApplication.get().getResources().getDisplayMetrics().density;
 
-    return (int) (v * sScreenDensity + 0.5);
+    return (int) (dp * sScreenDensity + 0.5);
   }
 
   // utility class

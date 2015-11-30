@@ -8,7 +8,6 @@
 #include "std/vector.hpp"
 #include "std/type_traits.hpp"
 
-
 namespace rw
 {
   template <class TSink>

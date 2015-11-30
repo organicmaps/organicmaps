@@ -11,7 +11,6 @@ if [[ $# < 1 ]]; then
   exit 1
 fi
 CONFIGURATION="$1"
-DRAPE_CONF="$2"
 
 source "$MY_PATH/build.sh"
 source "$MY_PATH/detect_xcode.sh"
@@ -37,11 +36,6 @@ elif [[ $CONFIGURATION == *debug* || $CONFIGURATION == "simulator" ]]; then
 else
   echo "Unrecognized configuration passed to the script: $CONFIGURATION"
   exit 1
-fi
-
-if [[ $DRAPE_CONF == *drape* ]]; then
-  QMAKE_PARAMS=$QMAKE_PARAMS" drape drape_device"
-  SHADOW_DIR="${SHADOW_DIR}-drape"
 fi
 
 if [[ $CONFIGURATION == *simulator* ]]; then

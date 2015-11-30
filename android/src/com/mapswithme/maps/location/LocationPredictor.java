@@ -18,7 +18,6 @@ public class LocationPredictor
   private Location mLastLocation;
   private boolean mGeneratePredictions;
   private int mPredictionCount;
-  private int mConnectionSlot = LocationState.SLOT_UNDEFINED;
 
   public LocationPredictor(Handler handler, LocationHelper.LocationListener listener)
   {
@@ -38,15 +37,22 @@ public class LocationPredictor
 
   public void resume()
   {
-    mConnectionSlot = LocationState.INSTANCE.addLocationStateModeListener(this);
-    onLocationStateModeChangedCallback(LocationState.INSTANCE.getLocationStateMode());
+    myPositionModeChanged(LocationState.INSTANCE.getLocationStateMode());
   }
 
   public void pause()
   {
-    LocationState.INSTANCE.removeLocationStateModeListener(mConnectionSlot);
     mGeneratePredictions = false;
     mLastLocation = null;
+    resetHandler();
+  }
+
+  public void myPositionModeChanged(final int mode)
+  {
+    if (mode < LocationState.NOT_FOLLOW)
+      mLastLocation = null;
+
+    mGeneratePredictions = (mode == LocationState.ROTATE_AND_FOLLOW);
     resetHandler();
   }
 
@@ -61,27 +67,6 @@ public class LocationPredictor
     else
       mLastLocation = null;
 
-    resetHandler();
-  }
-
-  private void onLocationStateModeChangedCallback(final int mode)
-  {
-    mHandler.post(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        onLocationStateModeChangedCallbackImpl(mode);
-      }
-    });
-  }
-
-  private void onLocationStateModeChangedCallbackImpl(int mode)
-  {
-    if (mode < LocationState.NOT_FOLLOW)
-      mLastLocation = null;
-
-    mGeneratePredictions = (mode == LocationState.ROTATE_AND_FOLLOW);
     resetHandler();
   }
 

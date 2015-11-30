@@ -787,6 +787,13 @@ class SymbolRuleProto : public ::google::protobuf::MessageLite {
   inline ::google::protobuf::int32 priority() const;
   inline void set_priority(::google::protobuf::int32 value);
 
+  // optional int32 min_distance = 4;
+  inline bool has_min_distance() const;
+  inline void clear_min_distance();
+  static const int kMinDistanceFieldNumber = 4;
+  inline ::google::protobuf::int32 min_distance() const;
+  inline void set_min_distance(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:SymbolRuleProto)
  private:
   inline void set_has_name();
@@ -795,6 +802,8 @@ class SymbolRuleProto : public ::google::protobuf::MessageLite {
   inline void clear_has_apply_for_type();
   inline void set_has_priority();
   inline void clear_has_priority();
+  inline void set_has_min_distance();
+  inline void clear_has_min_distance();
 
   ::std::string _unknown_fields_;
 
@@ -803,6 +812,7 @@ class SymbolRuleProto : public ::google::protobuf::MessageLite {
   ::std::string* name_;
   ::google::protobuf::int32 apply_for_type_;
   ::google::protobuf::int32 priority_;
+  ::google::protobuf::int32 min_distance_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
   #else
@@ -924,6 +934,13 @@ class CaptionDefProto : public ::google::protobuf::MessageLite {
   inline ::std::string* release_text();
   inline void set_allocated_text(::std::string* text);
 
+  // optional bool is_optional = 7;
+  inline bool has_is_optional() const;
+  inline void clear_is_optional();
+  static const int kIsOptionalFieldNumber = 7;
+  inline bool is_optional() const;
+  inline void set_is_optional(bool value);
+
   // @@protoc_insertion_point(class_scope:CaptionDefProto)
  private:
   inline void set_has_height();
@@ -938,6 +955,8 @@ class CaptionDefProto : public ::google::protobuf::MessageLite {
   inline void clear_has_offset_y();
   inline void set_has_text();
   inline void clear_has_text();
+  inline void set_has_is_optional();
+  inline void clear_has_is_optional();
 
   ::std::string _unknown_fields_;
 
@@ -949,6 +968,7 @@ class CaptionDefProto : public ::google::protobuf::MessageLite {
   ::google::protobuf::int32 offset_x_;
   ::std::string* text_;
   ::google::protobuf::int32 offset_y_;
+  bool is_optional_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
   #else
@@ -1404,6 +1424,13 @@ class ShieldRuleProto : public ::google::protobuf::MessageLite {
   inline ::google::protobuf::int32 priority() const;
   inline void set_priority(::google::protobuf::int32 value);
 
+  // optional int32 min_distance = 5;
+  inline bool has_min_distance() const;
+  inline void clear_min_distance();
+  static const int kMinDistanceFieldNumber = 5;
+  inline ::google::protobuf::int32 min_distance() const;
+  inline void set_min_distance(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:ShieldRuleProto)
  private:
   inline void set_has_height();
@@ -1414,6 +1441,8 @@ class ShieldRuleProto : public ::google::protobuf::MessageLite {
   inline void clear_has_stroke_color();
   inline void set_has_priority();
   inline void clear_has_priority();
+  inline void set_has_min_distance();
+  inline void clear_has_min_distance();
 
   ::std::string _unknown_fields_;
 
@@ -1423,6 +1452,7 @@ class ShieldRuleProto : public ::google::protobuf::MessageLite {
   ::google::protobuf::uint32 color_;
   ::google::protobuf::uint32 stroke_color_;
   ::google::protobuf::int32 priority_;
+  ::google::protobuf::int32 min_distance_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
   #else
@@ -2652,6 +2682,30 @@ inline void SymbolRuleProto::set_priority(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:SymbolRuleProto.priority)
 }
 
+// optional int32 min_distance = 4;
+inline bool SymbolRuleProto::has_min_distance() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void SymbolRuleProto::set_has_min_distance() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void SymbolRuleProto::clear_has_min_distance() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void SymbolRuleProto::clear_min_distance() {
+  min_distance_ = 0;
+  clear_has_min_distance();
+}
+inline ::google::protobuf::int32 SymbolRuleProto::min_distance() const {
+  // @@protoc_insertion_point(field_get:SymbolRuleProto.min_distance)
+  return min_distance_;
+}
+inline void SymbolRuleProto::set_min_distance(::google::protobuf::int32 value) {
+  set_has_min_distance();
+  min_distance_ = value;
+  // @@protoc_insertion_point(field_set:SymbolRuleProto.min_distance)
+}
+
 // -------------------------------------------------------------------
 
 // CaptionDefProto
@@ -2850,6 +2904,30 @@ inline void CaptionDefProto::set_allocated_text(::std::string* text) {
     text_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
   // @@protoc_insertion_point(field_set_allocated:CaptionDefProto.text)
+}
+
+// optional bool is_optional = 7;
+inline bool CaptionDefProto::has_is_optional() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void CaptionDefProto::set_has_is_optional() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void CaptionDefProto::clear_has_is_optional() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void CaptionDefProto::clear_is_optional() {
+  is_optional_ = false;
+  clear_has_is_optional();
+}
+inline bool CaptionDefProto::is_optional() const {
+  // @@protoc_insertion_point(field_get:CaptionDefProto.is_optional)
+  return is_optional_;
+}
+inline void CaptionDefProto::set_is_optional(bool value) {
+  set_has_is_optional();
+  is_optional_ = value;
+  // @@protoc_insertion_point(field_set:CaptionDefProto.is_optional)
 }
 
 // -------------------------------------------------------------------
@@ -3307,6 +3385,30 @@ inline void ShieldRuleProto::set_priority(::google::protobuf::int32 value) {
   set_has_priority();
   priority_ = value;
   // @@protoc_insertion_point(field_set:ShieldRuleProto.priority)
+}
+
+// optional int32 min_distance = 5;
+inline bool ShieldRuleProto::has_min_distance() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void ShieldRuleProto::set_has_min_distance() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void ShieldRuleProto::clear_has_min_distance() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void ShieldRuleProto::clear_min_distance() {
+  min_distance_ = 0;
+  clear_has_min_distance();
+}
+inline ::google::protobuf::int32 ShieldRuleProto::min_distance() const {
+  // @@protoc_insertion_point(field_get:ShieldRuleProto.min_distance)
+  return min_distance_;
+}
+inline void ShieldRuleProto::set_min_distance(::google::protobuf::int32 value) {
+  set_has_min_distance();
+  min_distance_ = value;
+  // @@protoc_insertion_point(field_set:ShieldRuleProto.min_distance)
 }
 
 // -------------------------------------------------------------------

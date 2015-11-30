@@ -1,90 +1,49 @@
 #pragma once
 
+#include "qt/qtoglcontextfactory.hpp"
+
 #include "map/framework.hpp"
-#include "map/navigator.hpp"
-#include "map/qgl_render_context.hpp"
 
-#include "render/window_handle.hpp"
+#include "drape_frontend/gui/skin.hpp"
 
-#include "platform/video_timer.hpp"
-
-#include "base/deferred_task.hpp"
+#include "drape_frontend/drape_engine.hpp"
 
 #include "std/unique_ptr.hpp"
+#include "std/mutex.hpp"
+#include "std/condition_variable.hpp"
 
-#include <QtCore/QTimer>
-#include <QtOpenGL/qgl.h>
+#include <QtWidgets/QOpenGLWidget>
 
+class QQuickWindow;
 
 namespace qt
 {
   class QScaleSlider;
 
-  class DrawWidget;
-
-  class QtVideoTimer : public QObject, public ::VideoTimer
+  class DrawWidget : public QOpenGLWidget
   {
-    Q_OBJECT
-  private:
-    QTimer * m_timer;
+    using TBase = QOpenGLWidget;
 
-  public:
-    QtVideoTimer(::VideoTimer::TFrameFn frameFn);
-
-    void resume();
-    void pause();
-
-    void start();
-    void stop();
-
-  protected:
-    Q_SLOT void TimerElapsed();
-  };
-
-  class DrawWidget : public QGLWidget
-  {
-    bool m_isInitialized;
-    bool m_isTimerStarted;
-
+    drape_ptr<QtOGLContextFactory> m_contextFactory;
     unique_ptr<Framework> m_framework;
-    unique_ptr<VideoTimer> m_videoTimer;
-
-    bool m_isDrag;
-    bool m_isRotate;
-
-    //QTimer * m_timer;
-    //QTimer * m_animTimer;
-    //size_t m_redrawInterval;
 
     qreal m_ratio;
-
-    inline int L2D(int px) const { return px * m_ratio; }
-    inline m2::PointD GetDevicePoint(QMouseEvent * e) const;
-    DragEvent GetDragEvent(QMouseEvent * e) const;
-    RotateEvent GetRotateEvent(QPoint const & pt) const;
 
     Q_OBJECT
 
   public Q_SLOTS:
-    void MoveLeft();
-    void MoveRight();
-    void MoveUp();
-    void MoveDown();
-
     void ScalePlus();
     void ScaleMinus();
     void ScalePlusLight();
     void ScaleMinusLight();
 
     void ShowAll();
-    void Repaint();
     void ScaleChanged(int action);
-    //void ScaleTimerElapsed();
-
-    void QueryMaxScaleMode();
+    void SliderPressed();
+    void SliderReleased();
 
   public:
-    DrawWidget(QWidget * pParent);
+    DrawWidget(QWidget * parent);
     ~DrawWidget();
 
     void SetScaleControl(QScaleSlider * pScale);
@@ -92,14 +51,12 @@ namespace qt
     bool Search(search::SearchParams params);
     string GetDistance(search::Result const & res) const;
     void ShowSearchResult(search::Result const & res);
-    void CloseSearch();
 
     void OnLocationUpdate(location::GpsInfo const & info);
 
     void SaveState();
     void LoadState();
 
-    void UpdateNow();
     void UpdateAfterSettingsChanged();
 
     void PrepareShutdown();
@@ -109,52 +66,46 @@ namespace qt
     void SetMapStyle(MapStyle mapStyle);
 
     void SetRouter(routing::RouterType routerType);
+    Q_SIGNAL void BeforeEngineCreation();
+
+    void CreateEngine();
 
   protected:
-    VideoTimer * CreateVideoTimer();
-
-  protected:
-    void StartPressTask(m2::PointD const & pt, unsigned ms);
-    void KillPressTask();
-    void OnPressTaskEvent(m2::PointD const & pt, unsigned ms);
-    void OnActivateMark(unique_ptr<UserMarkCopy> pCopy);
-
-  protected:
-    /// @name Overriden from base_type.
+    void initializeGL() override;
+    void paintGL() override;
+    void resizeGL(int width, int height) override;
+    /// @name Overriden from QOpenGLWindow.
     //@{
-    virtual void initializeGL();
-    virtual void resizeGL(int w, int h);
-    virtual void paintGL();
-    //@}
-
-    void DrawFrame();
-
-    /// @name Overriden from QWidget.
-    //@{
-    virtual void mousePressEvent(QMouseEvent * e);
-    virtual void mouseDoubleClickEvent(QMouseEvent * e);
-    virtual void mouseMoveEvent(QMouseEvent * e);
-    virtual void mouseReleaseEvent(QMouseEvent * e);
-    virtual void wheelEvent(QWheelEvent * e);
-    virtual void keyReleaseEvent(QKeyEvent * e);
+    void mousePressEvent(QMouseEvent * e) override;
+    void mouseDoubleClickEvent(QMouseEvent * e) override;
+    void mouseMoveEvent(QMouseEvent * e) override;
+    void mouseReleaseEvent(QMouseEvent * e) override;
+    void wheelEvent(QWheelEvent * e) override;
+    void keyPressEvent(QKeyEvent * e) override;
+    void keyReleaseEvent(QKeyEvent * e) override;
     //@}
 
   private:
+    void SubmitFakeLocationPoint(m2::PointD const & pt);
+    void SubmitRoutingPoint(m2::PointD const & pt);
+    void ShowInfoPopup(m2::PointD const & pt);
+
+    void OnViewportChanged(ScreenBase const & screen);
     void UpdateScaleControl();
-    void StopDragging(QMouseEvent * e);
-    void StopRotating(QMouseEvent * e);
-    void StopRotating(QKeyEvent * e);
+    df::Touch GetTouch(QMouseEvent * e);
+    df::Touch GetSymmetrical(const df::Touch & touch);
+    df::TouchEvent GetTouchEvent(QMouseEvent * e, df::TouchEvent::ETouchType type);
+
+    inline int L2D(int px) const { return px * m_ratio; }
+    m2::PointD GetDevicePoint(QMouseEvent * e) const;
 
     QScaleSlider * m_pScale;
-
-    unique_ptr<DeferredTask> m_deferredTask;
-    m2::PointD m_taskPoint;
-    bool m_wasLongClick, m_isCleanSingleClick;
+    bool m_enableScaleUpdate;
 
     bool m_emulatingLocation;
 
-    PinClickManager & GetBalloonManager() { return m_framework->GetBalloonManager(); }
-
     void InitRenderPolicy();
+
+    unique_ptr<gui::Skin> m_skin;
   };
 }

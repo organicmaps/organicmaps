@@ -25,7 +25,7 @@ define add_prebuild_static_lib
   include $(PREBUILT_STATIC_LIBRARY)
 endef
 
-prebuild_static_libs := osrm protobuf tomcrypt jansson minizip fribidi freetype expat base coding geometry anim platform graphics indexer storage search routing gui render map stats_client succinct opening_hours
+prebuild_static_libs := osrm protobuf tomcrypt jansson minizip fribidi freetype expat base coding geometry platform indexer storage search routing drape drape_frontend map stats_client succinct opening_hours
 
 $(foreach item,$(prebuild_static_libs),$(eval $(call add_prebuild_static_lib,$(item))))
 
@@ -40,7 +40,7 @@ LOCAL_CPP_FEATURES += exceptions rtti
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../
 
 LOCAL_MODULE := mapswithme
-LOCAL_STATIC_LIBRARIES := map render gui routing search storage indexer graphics platform anim geometry coding base expat freetype fribidi minizip jansson tomcrypt protobuf osrm stats_client succinct opening_hours
+LOCAL_STATIC_LIBRARIES := map drape_frontend routing search storage indexer drape platform geometry coding base expat freetype fribidi minizip jansson tomcrypt protobuf osrm stats_client succinct opening_hours
 LOCAL_CFLAGS := -ffunction-sections -fdata-sections -Wno-extern-c-compat
 
 ifneq ($(NDK_DEBUG),1)
@@ -60,21 +60,18 @@ LOCAL_HEADER_FILES := \
 	../../private.h \
 	com/mapswithme/core/jni_helper.hpp \
 	com/mapswithme/core/logging.hpp \
-	com/mapswithme/core/render_context.hpp \
 	com/mapswithme/maps/Framework.hpp \
 	com/mapswithme/maps/MapStorage.hpp \
 	com/mapswithme/platform/Platform.hpp \
+	com/mapswithme/platform/MethodRef.hpp \
 	com/mapswithme/platform/http_thread_android.hpp \
-	nv_thread/nv_thread.hpp \
-	nv_event/nv_event_queue.hpp \
-	nv_event/nv_event.hpp \
-	nv_event/nv_keycode_mapping.hpp \
-	nv_event/scoped_profiler.hpp
+	com/mapswithme/opengl/android_gl_utils.hpp \
+	com/mapswithme/opengl/androidoglcontext.hpp \
+	com/mapswithme/opengl/androidoglcontextfactory.hpp \
 
 LOCAL_SRC_FILES := \
 	com/mapswithme/core/jni_helper.cpp \
 	com/mapswithme/core/logging.cpp \
-	com/mapswithme/core/render_context.cpp \
 	com/mapswithme/country/country_helper.cpp \
 	com/mapswithme/country/CountryTree.cpp \
 	com/mapswithme/country/ActiveCountryTree.cpp \
@@ -83,10 +80,8 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/maps/bookmarks/data/BookmarkManager.cpp \
 	com/mapswithme/maps/bookmarks/data/BookmarkCategory.cpp \
 	com/mapswithme/maps/sound/tts.cpp \
-	com/mapswithme/maps/VideoTimer.cpp \
 	com/mapswithme/maps/MapFragment.cpp \
 	com/mapswithme/maps/MwmApplication.cpp \
-	com/mapswithme/maps/Lifecycle.cpp \
 	com/mapswithme/maps/LocationState.cpp \
 	com/mapswithme/maps/MapStorage.cpp \
 	com/mapswithme/maps/DownloadResourcesActivity.cpp \
@@ -97,15 +92,15 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/platform/Platform.cpp \
 	com/mapswithme/platform/HttpThread.cpp \
 	com/mapswithme/platform/Language.cpp \
+	com/mapswithme/platform/MethodRef.cpp \
 	com/mapswithme/platform/PThreadImpl.cpp \
 	com/mapswithme/util/StringUtils.cpp \
-	com/mapswithme/util/Config.cpp \
-	nv_thread/nv_thread.cpp \
-	nv_event/nv_event_queue.cpp \
-	nv_event/nv_event.cpp \
-	nv_time/nv_time.cpp \
+    com/mapswithme/util/Config.cpp \
+	com/mapswithme/opengl/android_gl_utils.cpp \
+	com/mapswithme/opengl/androidoglcontext.cpp \
+	com/mapswithme/opengl/androidoglcontextfactory.cpp \
 
-LOCAL_LDLIBS := -llog -lGLESv2 -latomic -lz
+LOCAL_LDLIBS := -llog -landroid -lEGL -lGLESv2 -latomic -lz
 
 LOCAL_LDLIBS += -Wl,--gc-sections
 

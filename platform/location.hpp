@@ -1,5 +1,7 @@
 #pragma once
 
+#include "geometry/point2d.hpp"
+
 #include "base/base.hpp"
 
 #include "geometry/latlon.hpp"
@@ -8,6 +10,7 @@
 #include "routing/turns_sound_settings.hpp"
 
 #include "std/cmath.hpp"
+#include "std/function.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -175,18 +178,46 @@ namespace location
     m2::PointD m_matchedPosition;
     size_t m_indexInRoute;
     bool m_isPositionMatched;
+    bool m_hasDistanceFromBegin;
+    double m_distanceFromBegin;
 
   public:
-    RouteMatchingInfo() : m_matchedPosition(0., 0.), m_indexInRoute(0), m_isPositionMatched(false) {}
-    void Set(m2::PointD const & matchedPosition, size_t indexInRoute)
+    RouteMatchingInfo()
+      : m_matchedPosition(0., 0.)
+      , m_indexInRoute(0)
+      , m_isPositionMatched(false)
+      , m_hasDistanceFromBegin(false)
+      , m_distanceFromBegin(0.0)
+    {}
+
+    void Set(m2::PointD const & matchedPosition, size_t indexInRoute, double distanceFromBegin)
     {
       m_matchedPosition = matchedPosition;
       m_indexInRoute = indexInRoute;
       m_isPositionMatched = true;
+
+      m_distanceFromBegin = distanceFromBegin;
+      m_hasDistanceFromBegin = true;
     }
+
     void Reset() { m_isPositionMatched = false; }
     bool IsMatched() const { return m_isPositionMatched; }
     size_t GetIndexInRoute() const { return m_indexInRoute; }
     m2::PointD GetPosition() const { return m_matchedPosition; }
+    bool HasDistanceFromBegin() const { return m_hasDistanceFromBegin; }
+    double GetDistanceFromBegin() const { return m_distanceFromBegin; }
   };
+
+  // Do not change the order and values
+  enum EMyPositionMode
+  {
+    MODE_UNKNOWN_POSITION = 0x0,
+    MODE_PENDING_POSITION = 0x1,
+    MODE_NOT_FOLLOW = 0x2,
+    MODE_FOLLOW = 0x3,
+    MODE_ROTATE_AND_FOLLOW = 0x4,
+  };
+
+  using TMyPositionModeChanged = function<void (location::EMyPositionMode)>;
+
 } // namespace location

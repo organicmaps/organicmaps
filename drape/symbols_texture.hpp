@@ -29,17 +29,21 @@ public:
     virtual ResourceType GetType() const;
   };
 
-  void Load(string const & skinPathName);
-  RefPointer<ResourceInfo> FindResource(Key const & key) const;
+  explicit SymbolsTexture(string const & skinPathName, ref_ptr<HWTextureAllocator> allocator);
 
+  ref_ptr<ResourceInfo> FindResource(Key const & key, bool & newResource) override;
+
+  void Invalidate(string const & skinPathName, ref_ptr<HWTextureAllocator> allocator);
+
+  static bool DecodeToMemory(string const & skinPathName, vector<uint8_t> & symbolsSkin,
+                             map<string, m2::RectU> & symbolsIndex,
+                             uint32_t & skinWidth, uint32_t & skinHeight);
 private:
   void Fail();
+  void Load(string const & skinPathName, ref_ptr<HWTextureAllocator> allocator);
 
-private:
   typedef map<string, SymbolInfo> TSymDefinition;
   mutable TSymDefinition m_definition;
-
-  class DefinitionLoader;
 };
 
 } // namespace dp

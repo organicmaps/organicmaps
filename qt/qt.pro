@@ -1,14 +1,10 @@
 # Main application in qt.
 ROOT_DIR = ..
-DEPENDENCIES = map render gui routing search storage indexer graphics platform anim geometry coding base \
+DEPENDENCIES = map drape_frontend routing search storage indexer drape platform geometry coding base \
                freetype expat fribidi tomcrypt jansson protobuf osrm stats_client minizip succinct
 
 
 DEPENDENCIES += opening_hours \
-
-drape {
-  DEPENDENCIES *= drape_frontend drape
-}
 
 include($$ROOT_DIR/common.pri)
 
@@ -68,10 +64,12 @@ CLASSIFICATOR_RES.path = $$DATADIR
 CLASSIFICATOR_RES.files = ../data/classificator.txt \
                           ../data/types.txt \
                           ../data/drules_proto.bin
+DEFAULT_SKIN_RES.path = $$DATADIR/resources-default
+DEFAULT_SKIN_RES.files = ../resources-default/default.ui
 MDPI_SKIN_RES.path = $$DATADIR/resources-mdpi
-MDPI_SKIN_RES.files = ../data/resources-mdpi/basic.skn ../data/resources-mdpi/symbols.png
+MDPI_SKIN_RES.files = ../data/resources-mdpi/symbols.sdf ../data/resources-mdpi/symbols.png
 XHDPI_SKIN_RES.path = $$DATADIR/resources-xhdpi
-XHDPI_SKIN_RES.files = ../data/resources-xhdpi/basic.skn ../data/resources-xhdpi/symbols.png
+XHDPI_SKIN_RES.files = ../data/resources-xhdpi/symbols.sdf ../data/resources-xhdpi/symbols.png
 
 FONT_RES.path = $$FONTSDIR
 FONT_RES.files = ../data/00_roboto_regular.ttf \
@@ -90,6 +88,7 @@ MWM_RES.path = $$DATADIR
 MWM_RES.files = ../data/World.mwm ../data/WorldCoasts.mwm
 
 ALL_RESOURCES = OTHER_RES CLASSIFICATOR_RES MDPI_SKIN_RES XHDPI_SKIN_RES FONT_RES MWM_RES
+#ALL_RESOURCES += DEFAULT_SKIN_RES
 
 linux* {
   INSTALLS += $$ALL_RESOURCES
@@ -110,17 +109,11 @@ SOURCES += \
     preferences_dialog.cpp \
     search_panel.cpp \
     update_dialog.cpp \
-
-CONFIG(drape){
-  SOURCES += \
-    drape_surface.cpp \
     qtoglcontext.cpp \
     qtoglcontextfactory.cpp \
-}
 
 HEADERS += \
     mainwindow.hpp \
-    widgets.hpp \
     draw_widget.hpp \
     proxystyle.hpp \
     slider_ctrl.hpp \
@@ -129,12 +122,7 @@ HEADERS += \
     preferences_dialog.hpp \
     search_panel.hpp \
     update_dialog.hpp \
-
-CONFIG(drape){
-  HEADERS += \
-    drape_surface.hpp \
     qtoglcontext.hpp \
     qtoglcontextfactory.hpp \
-}
 
 RESOURCES += res/resources.qrc

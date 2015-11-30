@@ -8,30 +8,30 @@
 #include "base/object_tracker.hpp"
 #endif
 
+#include "std/shared_ptr.hpp"
 #include "std/weak_ptr.hpp"
 
 namespace df
 {
 
-class EngineContext;
-
 class ReadMWMTask : public threads::IRoutine
 {
 public:
   ReadMWMTask(MemoryFeatureIndex & memIndex,
-              MapDataProvider & model,
-              EngineContext & context);
+              MapDataProvider & model);
 
-  virtual void Do();
+  void Do() override;
 
-  void Init(weak_ptr<TileInfo> const & tileInfo);
-  void Reset();
+  void Init(shared_ptr<TileInfo> const & tileInfo);
+  void Reset() override;
+  bool IsCancelled() const override;
+  TileKey const & GetTileKey() const { return m_tileKey; }
 
 private:
   weak_ptr<TileInfo> m_tileInfo;
+  TileKey m_tileKey;
   MemoryFeatureIndex & m_memIndex;
   MapDataProvider & m_model;
-  EngineContext & m_context;
 
 #ifdef DEBUG
   dbg::ObjectTracker m_objTracker;
@@ -43,21 +43,19 @@ class ReadMWMTaskFactory
 {
 public:
   ReadMWMTaskFactory(MemoryFeatureIndex & memIndex,
-                     MapDataProvider & model,
-                     EngineContext & context)
+                     MapDataProvider & model)
     : m_memIndex(memIndex)
-    , m_model(model)
-    , m_context(context) {}
+    , m_model(model) {}
 
+  /// Caller must handle object life cycle
   ReadMWMTask * GetNew() const
   {
-    return new ReadMWMTask(m_memIndex, m_model, m_context);
+    return new ReadMWMTask(m_memIndex, m_model);
   }
 
 private:
   MemoryFeatureIndex & m_memIndex;
   MapDataProvider & m_model;
-  EngineContext & m_context;
 };
 
 } // namespace df

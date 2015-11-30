@@ -6,23 +6,25 @@
 
 #include "search/result.hpp"
 
+#include "drape_frontend/gui/skin.hpp"
+
+#include "drape/pointers.hpp"
+#include "drape/oglcontextfactory.hpp"
+
 #include "platform/country_defines.hpp"
+#include "platform/location.hpp"
 
 #include "geometry/avg_vector.hpp"
 
-#include "base/deferred_task.hpp"
 #include "base/timer.hpp"
 
 #include "indexer/map_style.hpp"
 
 #include "std/map.hpp"
+#include "std/mutex.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/unique_ptr.hpp"
-
-#include "../../../nv_event/nv_event.hpp"
-
-
-class CountryStatusDisplay;
+#include "std/cstdint.hpp"
 
 namespace android
 {
@@ -30,11 +32,10 @@ namespace android
                     public storage::ActiveMapsLayout::ActiveMapsListener
   {
   private:
+    drape_ptr<dp::ThreadSafeFactory> m_contextFactory;
     ::Framework m_work;
-    VideoTimer * m_videoTimer;
 
     typedef shared_ptr<jobject> TJobject;
-
     TJobject m_javaCountryListener;
     typedef map<int, TJobject> TListenerMap;
     TListenerMap m_javaActiveMapListeners;
@@ -42,68 +43,46 @@ namespace android
 
     int m_activeMapsConnectionID;
 
-    void CallRepaint();
-
-    double m_x1;
-    double m_y1;
-    double m_x2;
-    double m_y2;
-    int m_mask;
-
-    bool m_doLoadState;
-
-    /// @name Single click processing parameters.
-    //@{
-    my::Timer m_doubleClickTimer;
-    bool m_isCleanSingleClick;
-    double m_lastX1;
-    double m_lastY1;
-    //@}
-
     math::LowPassVector<float, 3> m_sensors[2];
     double m_lastCompass;
 
-    unique_ptr<DeferredTask> m_deferredTask;
-    bool m_wasLongClick;
-
-    int m_densityDpi;
-    int m_screenWidth;
-    int m_screenHeight;
-
-    void StartTouchTask(double x, double y, unsigned ms);
-    void KillTouchTask();
-    void OnProcessTouchTask(double x, double y, unsigned ms);
-
     string m_searchQuery;
 
-    void SetBestDensity(int densityDpi, RenderPolicy::Params & params);
+    map<gui::EWidget, gui::Position> m_guiPositions;
 
-    bool InitRenderPolicyImpl(int densityDpi, int screenWidth, int screenHeight);
+    void MyPositionModeChanged(location::EMyPositionMode mode);
+
+    location::TMyPositionModeChanged m_myPositionModeSignal;
+    location::EMyPositionMode m_currentMode;
+    bool m_isCurrentModeInitialized;
 
   public:
     Framework();
     ~Framework();
 
     storage::Storage & Storage();
-    CountryStatusDisplay * GetCountryStatusDisplay();
-
-    void DontLoadState() { m_doLoadState = false; }
 
     void ShowCountry(storage::TIndex const & idx, bool zoomToDownloadButton);
     storage::TStatus GetCountryStatus(storage::TIndex const & idx) const;
 
     void OnLocationError(int/* == location::TLocationStatus*/ newStatus);
     void OnLocationUpdated(location::GpsInfo const & info);
-    void OnCompassUpdated(location::CompassInfo const & info, bool force);
+    void OnCompassUpdated(location::CompassInfo const & info, bool forceRedraw);
     void UpdateCompassSensor(int ind, float * arr);
 
     void Invalidate();
 
-    bool InitRenderPolicy(int densityDpi, int screenWidth, int screenHeight);
-    void DeleteRenderPolicy();
+    bool CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi);
+    void DeleteDrapeEngine();
+    bool IsDrapeEngineCreated();
+
+    void DetachSurface();
+    void AttachSurface(JNIEnv * env, jobject jSurface);
 
     void SetMapStyle(MapStyle mapStyle);
     MapStyle GetMapStyle() const;
+
+    void SetupMeasurementSystem();
 
     void SetRouter(routing::RouterType type) { m_work.SetRouter(type); }
     routing::RouterType GetRouter() const { return m_work.GetRouter(); }
@@ -111,16 +90,32 @@ namespace android
 
     void Resize(int w, int h);
 
-    void DrawFrame();
+    struct Finger
+    {
+      Finger(int64_t id, float x, float y)
+        : m_id(id)
+        , m_x(x)
+        , m_y(y)
+      {
+      }
 
-    void Move(int mode, double x, double y);
-    void Zoom(int mode, double x1, double y1, double x2, double y2);
-    void Touch(int action, int mask, double x1, double y1, double x2, double y2);
+      int64_t m_id;
+      float m_x, m_y;
+    };
+
+    void Touch(int action, Finger const & f1, Finger const & f2, uint8_t maskedPointer);
+
+    /// Show rect from another activity. Ensure that no LoadState will be called,
+    /// when main map activity will become active.
+    void ShowSearchResult(search::Result const & r);
+    void ShowAllSearchResults(search::Results const & results);
+
+    bool Search(search::SearchParams const & params);
+    string GetLastSearchQuery() { return m_searchQuery; }
+    void ClearLastSearchQuery() { m_searchQuery.clear(); }
 
     void LoadState();
     void SaveState();
-
-    void SetupMeasurementSystem();
 
     void AddLocalMaps();
     void RemoveLocalMaps();
@@ -133,14 +128,13 @@ namespace android
 
     void AddString(string const & name, string const & value);
 
-    void Scale(double k);
+    void Scale(::Framework::EScaleMode mode);
 
     BookmarkAndCategory AddBookmark(size_t category, m2::PointD const & pt, BookmarkData & bm);
     void ReplaceBookmark(BookmarkAndCategory const & ind, BookmarkData & bm);
     size_t ChangeBookmarkCategory(BookmarkAndCategory const & ind, size_t newCat);
 
     ::Framework * NativeFramework();
-    PinClickManager & GetPinClickManager() { return m_work.GetBalloonManager(); }
 
     bool IsDownloadingActive();
 
@@ -158,8 +152,20 @@ namespace android
     int AddActiveMapsListener(shared_ptr<jobject> obj);
     void RemoveActiveMapsListener(int slotID);
 
+    void SetMyPositionModeListener(location::TMyPositionModeChanged const & fn);
+    location::EMyPositionMode GetMyPositionMode() const;
+    void SetMyPositionMode(location::EMyPositionMode mode);
+
+    void SetupWidget(gui::EWidget widget, float x, float y, dp::Anchor anchor);
+    void ApplyWidgets();
+    void CleanWidgets();
+
     // Fills mapobject's metadata from UserMark
     void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, UserMark const * userMark);
+
+    using TDrapeTask = function<void()>;
+    // Posts a task which must be executed when Drape Engine is alive.
+    void PostDrapeTask(TDrapeTask && task);
 
   public:
     virtual void ItemStatusChanged(int childPosition);
@@ -174,6 +180,13 @@ namespace android
                                        MapOptions const & newOpt);
     virtual void DownloadingProgressUpdate(storage::ActiveMapsLayout::TGroup const & group, int position,
                                            storage::LocalAndRemoteSizeT const & progress);
+
+  private:
+    vector<TDrapeTask> m_drapeTasksQueue;
+    mutex m_drapeQueueMutex;
+
+    // This method must be executed under mutex m_drapeQueueMutex.
+    void ExecuteDrapeTasks();
   };
 }
 

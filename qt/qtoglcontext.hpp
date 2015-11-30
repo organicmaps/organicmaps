@@ -1,22 +1,53 @@
 #pragma once
 
 #include "drape/oglcontext.hpp"
+#include "std/mutex.hpp"
 
-#include <QtGui/QWindow>
+#include <QtGui/QOffscreenSurface>
+#include <QtGui/QOpenGLFramebufferObject>
 #include <QtGui/QOpenGLContext>
 
-class QtOGLContext: public dp::OGLContext
+class QtRenderOGLContext : public dp::OGLContext
 {
 public:
-  QtOGLContext(QWindow * surface, QtOGLContext * contextToShareWith);
-  ~QtOGLContext();
+  QtRenderOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface);
+  ~QtRenderOGLContext();
 
-  virtual void present();
-  virtual void makeCurrent();
-  virtual void setDefaultFramebuffer();
+  void present() override;
+  void makeCurrent() override;
+  void doneCurrent() override;
+  void setDefaultFramebuffer() override;
+  void resize(int w, int h) override;
+
+  void lockFrame();
+  GLuint getTextureHandle() const;
+  QRectF const & getTexRect() const;
+  void unlockFrame();
 
 private:
-  QOpenGLContext * m_nativeContext;
-  QWindow * m_surface;
-  bool m_isContextCreated;
+  QOffscreenSurface * m_surface = nullptr;
+  QOpenGLContext * m_ctx = nullptr;
+
+  QOpenGLFramebufferObject * m_frontFrame = nullptr;
+  QOpenGLFramebufferObject * m_backFrame = nullptr;
+  QRectF m_texRect = QRectF(0.0, 0.0, 0.0, 0.0);
+
+  mutex m_lock;
+  bool m_resizeLock = false;
+};
+
+class QtUploadOGLContext: public dp::OGLContext
+{
+public:
+  QtUploadOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface);
+  ~QtUploadOGLContext();
+
+  void present() override;
+  void makeCurrent() override;
+  void doneCurrent() override;
+  void setDefaultFramebuffer() override;
+
+private:
+  QOpenGLContext * m_ctx = nullptr;
+  QOffscreenSurface * m_surface = nullptr;
 };

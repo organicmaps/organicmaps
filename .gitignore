@@ -58,6 +58,7 @@ iphone/*/build/*
 xcode/**/xcuserdata
 xcode/**/xcshareddata
 tools/emacsmode/build
+**/DerivedData/*
 
 # GeneratedFiles
 version/version.hpp
@@ -76,7 +77,7 @@ bada/Maps/*.zip
 
 # data
 data/intermediate_data
-data/*.mwm
+data/**/*.mwm
 !data/World.mwm
 !data/WorldCoasts.mwm
 # temporary files for downloader

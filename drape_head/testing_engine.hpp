@@ -12,49 +12,33 @@
 
 #include "std/map.hpp"
 
-#include <QObject>
-#include <QEvent>
-
 namespace df
 {
 
-class TestingEngine : public QObject
+class TestingEngine
 {
 public:
-  TestingEngine(dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
-                Viewport const & viewport,
-                MapDataProvider const & model);
+  TestingEngine(Viewport const & viewport, double vs);
   ~TestingEngine();
 
   void Draw();
   void Resize(int w, int h);
-  void DragStarted(m2::PointF const & p);
-  void Drag(m2::PointF const & p);
-  void DragEnded(m2::PointF const & p);
-  void Scale(m2::PointF const & p, double factor);
-  void UpdateCoverage(ScreenBase const & s){};
-
-protected:
-  void timerEvent(QTimerEvent * e);
-
-  int m_timerId;
 
 private:
   void DrawImpl();
   void DrawRects();
   void ModelViewInit();
   void ProjectionInit();
-  void OnFlushData(dp::GLState const & state, dp::TransferPointer<dp::RenderBucket> vao);
+  void OnFlushData(dp::GLState const & state, drape_ptr<dp::RenderBucket> && vao);
   void ClearScene();
 
 private:
-  dp::RefPointer<dp::OGLContextFactory> m_contextFactory;
-  dp::MasterPointer<dp::Batcher> m_batcher;
-  dp::MasterPointer<dp::GpuProgramManager> m_programManager;
-  dp::MasterPointer<dp::TextureManager> m_textures;
+  drape_ptr<dp::Batcher> m_batcher;
+  drape_ptr<dp::GpuProgramManager> m_programManager;
+  drape_ptr<dp::TextureManager> m_textures;
   df::Viewport m_viewport;
 
-  typedef map<dp::GLState, vector<dp::MasterPointer<dp::RenderBucket> > > TScene;
+  typedef map<dp::GLState, vector<drape_ptr<dp::RenderBucket> > > TScene;
   TScene m_scene;
   ScreenBase m_modelView;
   float m_angle = 0.0;

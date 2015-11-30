@@ -1,10 +1,13 @@
 #include "drape/gpu_buffer.hpp"
 #include "drape/glfunctions.hpp"
 #include "drape/glextensions_list.hpp"
+#include "drape/utils/gpu_mem_tracker.hpp"
 
 #include "base/assert.hpp"
 
 #include "std/cstring.hpp"
+
+//#define CHECK_VBO_BOUNDS
 
 namespace dp
 {
@@ -26,33 +29,47 @@ glConst glTarget(GPUBuffer::Target t)
   return gl_const::GLElementArrayBuffer;
 }
 
-GPUBuffer::GPUBuffer(Target t, uint8_t elementSize, uint16_t capacity)
-  : base_t(elementSize, capacity)
+GPUBuffer::GPUBuffer(Target t, void const * data, uint8_t elementSize, uint32_t capacity)
+  : TBase(elementSize, capacity)
   , m_t(t)
 #ifdef DEBUG
   , m_isMapped(false)
 #endif
 {
   m_bufferID = GLFunctions::glGenBuffer();
-  Resize(capacity);
+  Resize(data, capacity);
 }
-
 GPUBuffer::~GPUBuffer()
 {
   GLFunctions::glBindBuffer(0, glTarget(m_t));
   GLFunctions::glDeleteBuffer(m_bufferID);
+
+#if defined(TRACK_GPU_MEM)
+  dp::GPUMemTracker::Inst().RemoveDeallocated("VBO", m_bufferID);
+#endif
 }
 
-void GPUBuffer::UploadData(void const * data, uint16_t elementCount)
+void GPUBuffer::UploadData(void const * data, uint32_t elementCount)
 {
   ASSERT(m_isMapped == false, ());
 
-  uint16_t currentSize = GetCurrentSize();
+  uint32_t currentSize = GetCurrentSize();
   uint8_t elementSize = GetElementSize();
   ASSERT(GetCapacity() >= elementCount + currentSize, ("Not enough memory to upload ", elementCount, " elements"));
   Bind();
+
+#if defined(CHECK_VBO_BOUNDS)
+  int32_t size = GLFunctions::glGetBufferParameter(glTarget(m_t), gl_const::GLBufferSize);
+  ASSERT_EQUAL(GetCapacity() * elementSize, size, ());
+  ASSERT_LESS_OR_EQUAL((elementCount + currentSize) * elementSize, size,());
+#endif
+
   GLFunctions::glBufferSubData(glTarget(m_t), elementCount * elementSize, data, currentSize * elementSize);
-  base_t::UploadData(elementCount);
+  TBase::UploadData(elementCount);
+
+#if defined(TRACK_GPU_MEM)
+  dp::GPUMemTracker::Inst().SetUsed("VBO", m_bufferID, (currentSize + elementCount) * elementSize);
+#endif
 }
 
 void GPUBuffer::Bind()
@@ -73,12 +90,20 @@ void * GPUBuffer::Map()
   return NULL;
 }
 
-void GPUBuffer::UpdateData(void * gpuPtr, void const * data, uint16_t elementOffset, uint16_t elementCount)
+void GPUBuffer::UpdateData(void * gpuPtr, void const * data, uint32_t elementOffset, uint32_t elementCount)
 {
-  uint16_t const elementSize = GetElementSize();
-  uint32_t const byteOffset = elementOffset * (uint32_t)elementSize;
-  uint32_t const byteCount = elementCount * (uint32_t)elementSize;
+  uint32_t const elementSize = GetElementSize();
+  uint32_t const byteOffset = elementOffset * elementSize;
+  uint32_t const byteCount = elementCount * elementSize;
+  uint32_t const byteCapacity = GetCapacity() * elementSize;
   ASSERT(m_isMapped == true, ());
+
+#if defined(CHECK_VBO_BOUNDS)
+  int32_t size = GLFunctions::glGetBufferParameter(glTarget(m_t), gl_const::GLBufferSize);
+  ASSERT_EQUAL(size, byteCapacity, ());
+  ASSERT_LESS(byteOffset + byteCount, size, ());
+#endif
+
   if (IsMapBufferSupported())
   {
     ASSERT(gpuPtr != NULL, ());
@@ -87,7 +112,7 @@ void GPUBuffer::UpdateData(void * gpuPtr, void const * data, uint16_t elementOff
   else
   {
     ASSERT(gpuPtr == NULL, ());
-    if (byteOffset == 0 && byteCount == GetCapacity())
+    if (byteOffset == 0 && byteCount == byteCapacity)
       GLFunctions::glBufferData(glTarget(m_t), byteCount, data, gl_const::GLStaticDraw);
     else
       GLFunctions::glBufferSubData(glTarget(m_t), byteCount, data, byteOffset);
@@ -104,60 +129,23 @@ void GPUBuffer::Unmap()
     GLFunctions::glUnmapBuffer(glTarget(m_t));
 }
 
-void GPUBuffer::Resize(uint16_t elementCount)
+void GPUBuffer::Resize(void const * data, uint32_t elementCount)
 {
-  base_t::Resize(elementCount);
+  TBase::Resize(elementCount);
   Bind();
-  GLFunctions::glBufferData(glTarget(m_t), GetCapacity() * GetElementSize(), NULL, gl_const::GLStaticDraw);
-}
+  GLFunctions::glBufferData(glTarget(m_t), GetCapacity() * GetElementSize(), data, gl_const::GLDynamicDraw);
 
-////////////////////////////////////////////////////////////////////////////
-GPUBufferMapper::GPUBufferMapper(RefPointer<GPUBuffer> buffer)
-  : m_buffer(buffer)
-{
-#ifdef DEBUG
-  if (m_buffer->m_t == GPUBuffer::ElementBuffer)
-  {
-    ASSERT(m_mappedDataBuffer == 0, ());
-    m_mappedDataBuffer = m_buffer->m_bufferID;
-  }
-  else
-  {
-    ASSERT(m_mappedIndexBuffer == 0, ());
-    m_mappedIndexBuffer = m_buffer->m_bufferID;
-  }
+  // if we have set up data already (in glBufferData), we have to call SetDataSize
+  if (data != nullptr)
+    SetDataSize(elementCount);
+
+#if defined(TRACK_GPU_MEM)
+  dp::GPUMemTracker & memTracker = dp::GPUMemTracker::Inst();
+  memTracker.RemoveDeallocated("VBO", m_bufferID);
+  memTracker.AddAllocated("VBO", m_bufferID, GetCapacity() * GetElementSize());
+  if (data != nullptr)
+    dp::GPUMemTracker::Inst().SetUsed("VBO", m_bufferID, GetCurrentSize() * GetElementSize());
 #endif
-
-  m_buffer->Bind();
-  m_gpuPtr = m_buffer->Map();
 }
-
-GPUBufferMapper::~GPUBufferMapper()
-{
-#ifdef DEBUG
-  if (m_buffer->m_t == GPUBuffer::ElementBuffer)
-  {
-    ASSERT(m_mappedDataBuffer == m_buffer->m_bufferID, ());
-    m_mappedDataBuffer = 0;
-  }
-  else
-  {
-    ASSERT(m_mappedIndexBuffer == m_buffer->m_bufferID, ());
-    m_mappedIndexBuffer = 0;
-  }
-#endif
-
-  m_buffer->Unmap();
-}
-
-void GPUBufferMapper::UpdateData(void const * data, uint16_t elementOffset, uint16_t elementCount)
-{
-  m_buffer->UpdateData(m_gpuPtr, data, elementOffset, elementCount);
-}
-
-#ifdef DEBUG
-  uint32_t GPUBufferMapper::m_mappedDataBuffer;
-  uint32_t GPUBufferMapper::m_mappedIndexBuffer;
-#endif
 
 } // namespace dp

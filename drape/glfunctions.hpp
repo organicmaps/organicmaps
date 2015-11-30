@@ -1,12 +1,23 @@
 #pragma once
 
 #include "drape/glconstants.hpp"
+
+#include "base/src_point.hpp"
+
 #include "std/string.hpp"
+#include "std/thread.hpp"
 
 class GLFunctions
 {
+  friend class GLFunctionsCache;
+
 public:
   static void Init();
+
+  /// Attaches cache of gl-functions to specified thread. The only cache
+  /// is available, so invoking of this method on other thread leads to
+  /// disabling of current cache and enabling another
+  static void AttachCache(thread::id const & threadId);
 
   static bool glHasExtension(string const & name);
   static void glClearColor(float r, float g, float b, float a);
@@ -14,10 +25,17 @@ public:
   static void glClearDepth();
   static void glViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h);
   static void glFlush();
+  static void glFinish();
+
+  static void glFrontFace(glConst mode);
+  static void glCullFace(glConst face);
 
   static void glPixelStore(glConst name, uint32_t value);
 
   static int32_t glGetInteger(glConst pname);
+  /// target = { gl_const::GLArrayBuffer, gl_const::GLElementArrayBuffer }
+  /// name = { gl_const::GLBufferSize, gl_const::GLBufferUsage }
+  static int32_t glGetBufferParameter(glConst target, glConst name);
 
   static void glEnable(glConst mode);
   static void glDisable(glConst mode);
@@ -111,10 +129,16 @@ public:
   static void glTexParameter(glConst param, glConst value);
 
   // Draw support
-  static void glDrawElements(uint16_t indexCount);
+  static void glDrawElements(uint32_t sizeOfIndex, uint32_t indexCount, uint32_t startIndex = 0);
+  static void glDrawArrays(glConst mode, int32_t first, uint32_t count);
 };
 
-void CheckGLError();
+void CheckGLError(my::SrcPoint const &src);
 
-#define GLCHECK(x) do { (x); CheckGLError(); } while (false)
-#define GLCHECKCALL() do { CheckGLError(); } while (false)
+#ifdef DEBUG
+  #define GLCHECK(x) do { (x); CheckGLError(SRC()); } while (false)
+  #define GLCHECKCALL() do { CheckGLError(SRC()); } while (false)
+#else
+  #define GLCHECK(x) (x)
+  #define GLCHECKCALL()
+#endif

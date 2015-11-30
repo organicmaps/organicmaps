@@ -124,8 +124,7 @@ UNIT_TEST(TestRouteRebuilding)
   RoutingSession::State code;
   while (info.m_latitude < kTestRoute.back().y)
   {
-    code = session.OnLocationPositionChanged(
-        MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude), info, index);
+    code = session.OnLocationPositionChanged(info, index);
     TEST_EQUAL(code, RoutingSession::State::OnRoute, ());
     info.m_latitude += 0.01;
   }
@@ -147,8 +146,7 @@ UNIT_TEST(TestRouteRebuilding)
   info.m_latitude = 1.;
   for (size_t i = 0; i < 10; ++i)
   {
-    code = session.OnLocationPositionChanged(
-        MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude), info, index);
+    code = session.OnLocationPositionChanged(info, index);
     info.m_latitude -= 0.1;
   }
   TEST_EQUAL(code, RoutingSession::State::RouteNeedRebuild, ());

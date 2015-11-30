@@ -2,10 +2,10 @@
 #import "MWMWatchLocationTracker.h"
 #include "Framework.h"
 
-#include "render/frame_image.hpp"
-
 #include "indexer/scales.hpp"
 #include "indexer/mercator.hpp"
+
+#include "drape_frontend/watch/frame_image.hpp"
 
 #include "platform/location.hpp"
 
@@ -54,21 +54,19 @@ extern NSString * const kSearchResultPointKey;
   return @(countryName.c_str());
 }
 
-+ (void)initSoftwareRenderer
++ (void)initSoftwareRenderer:(CGFloat)screenScale
 {
-  // @TODO. It's a hard code of apple watch dpi. It should be gotten dynamicly.
-  int const iWatchDPI = 384;
   Framework & f = GetFramework();
-  if (!f.IsSingleFrameRendererInited())
-    f.InitSingleFrameRenderer(graphics::EDensityXHDPI, iWatchDPI);
+  if (!f.IsWatchFrameRendererInited())
+    f.InitWatchFrameRenderer(screenScale);
 }
 
 + (void)releaseSoftwareRenderer
 {
-  GetFramework().ReleaseSingleFrameRenderer();
+  GetFramework().ReleaseWatchFrameRenderer();
 }
 
-+ (UIImage *)getFrame:(CGSize)frameSize withZoomModifier:(int)zoomModifier
++ (UIImage *)getFrame:(CGSize)frameSize withScreenScale:(CGFloat)screenScale andZoomModifier:(int)zoomModifier
 {
   [MWMFrameworkUtils prepareFramework];
   Framework & f = GetFramework();
@@ -78,7 +76,7 @@ extern NSString * const kSearchResultPointKey;
   m2::PointD const center = MercatorBounds::FromLatLon(coordinate.latitude, coordinate.longitude);
   uint32_t const pxWidth = 2 * (uint32_t)frameSize.width;
   uint32_t const pxHeight = 2 * (uint32_t)frameSize.height;
-  Framework::SingleFrameSymbols symbols;
+  df::watch::FrameSymbols symbols;
   if (tracker.hasDestination)
   {
     symbols.m_showSearchResult = true;
@@ -88,9 +86,10 @@ extern NSString * const kSearchResultPointKey;
   else
     symbols.m_showSearchResult = false;
 
-  FrameImage image;
-  [MWMFrameworkUtils initSoftwareRenderer];
-  f.DrawSingleFrame(center, zoomModifier, pxWidth, pxHeight, image, symbols);
+
+  df::watch::FrameImage image;
+  [MWMFrameworkUtils initSoftwareRenderer:screenScale];
+  f.DrawWatchFrame(center, zoomModifier, pxWidth, pxHeight, symbols, image);
   NSData * imadeData = [NSData dataWithBytes:image.m_data.data() length:image.m_data.size()];
   return [UIImage imageWithData:imadeData];
 }

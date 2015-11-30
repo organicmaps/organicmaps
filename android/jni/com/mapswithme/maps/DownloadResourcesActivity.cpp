@@ -55,9 +55,9 @@ extern "C"
   {
     switch (pl.GetWritableStorageStatus(fileSize))
     {
-    case Platform::STORAGE_DISCONNECTED: return ERR_STORAGE_DISCONNECTED;
-    case Platform::NOT_ENOUGH_SPACE: return ERR_NOT_ENOUGH_FREE_SPACE;
-    default: return fileSize;
+      case Platform::STORAGE_DISCONNECTED: return ERR_STORAGE_DISCONNECTED;
+      case Platform::NOT_ENOUGH_SPACE: return ERR_NOT_ENOUGH_FREE_SPACE;
+      default: return fileSize;
     }
   }
 

@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.widget.SearchToolbarController;
+import com.mapswithme.util.Animations;
 import com.mapswithme.util.UiUtils;
 
 public class FloatingSearchToolbarController extends SearchToolbarController
@@ -42,12 +43,12 @@ public class FloatingSearchToolbarController extends SearchToolbarController
 
     if (ParsedMwmRequest.hasRequest())
     {
-      UiUtils.appearSlidingDown(mToolbar, null);
+      Animations.appearSliding(mToolbar, Animations.TOP, null);
       setQuery(ParsedMwmRequest.getCurrentRequest().getTitle());
     }
     else if (!TextUtils.isEmpty(SearchEngine.getQuery()))
     {
-      UiUtils.appearSlidingDown(mToolbar, null);
+      Animations.appearSliding(mToolbar, Animations.TOP, null);
       setQuery(SearchEngine.getQuery());
     }
     else
@@ -73,7 +74,7 @@ public class FloatingSearchToolbarController extends SearchToolbarController
     if (!UiUtils.isVisible(mToolbar))
       return false;
 
-    UiUtils.disappearSlidingUp(mToolbar, null);
+    Animations.disappearSliding(mToolbar, Animations.TOP, null);
     return true;
   }
 }

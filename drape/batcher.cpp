@@ -1,9 +1,12 @@
 #include "drape/batcher.hpp"
-#include "drape/cpu_buffer.hpp"
 #include "drape/batcher_helpers.hpp"
+#include "drape/cpu_buffer.hpp"
+#include "drape/glextensions_list.hpp"
+#include "drape/index_storage.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
 #include "base/assert.hpp"
+#include "base/stl_add.hpp"
 
 #include "std/bind.hpp"
 
@@ -13,40 +16,41 @@ namespace dp
 class Batcher::CallbacksWrapper
 {
 public:
-  CallbacksWrapper(GLState const & state, RefPointer<OverlayHandle> overlay)
+  CallbacksWrapper(GLState const & state, ref_ptr<OverlayHandle> overlay)
     : m_state(state)
     , m_overlay(overlay)
+    , m_vaoChanged(false)
   {
-
   }
 
-  void SetVAO(RefPointer<VertexArrayBuffer> buffer)
+  void SetVAO(ref_ptr<VertexArrayBuffer> buffer)
   {
+    // invocation with non-null VAO will cause to invalid range of indices.
+    // It means that VAO has been changed during batching
+    if (m_buffer != nullptr)
+      m_vaoChanged = true;
+
     m_buffer = buffer;
+    m_indicesRange.m_idxStart = m_buffer->GetIndexCount();
   }
 
-  bool IsVAOFilled() const
+  void FlushData(BindingInfo const & info, void const * data, uint32_t count)
   {
-    return m_buffer->IsFilled();
-  }
-
-  void FlushData(BindingInfo const & info, void const * data, uint16_t count)
-  {
-    if (!m_overlay.IsNull() && info.IsDynamic())
+    if (m_overlay != nullptr && info.IsDynamic())
     {
-      uint16_t offset = m_buffer->GetDynamicBufferOffset(info);
+      uint32_t offset = m_buffer->GetDynamicBufferOffset(info);
       m_overlay->AddDynamicAttribute(info, offset, count);
     }
     m_buffer->UploadData(info, data, count);
   }
 
-  uint16_t * GetIndexStorage(uint16_t size, uint16_t & startIndex)
+  void * GetIndexStorage(uint32_t size, uint32_t & startIndex)
   {
     startIndex = m_buffer->GetStartIndexValue();
-    if (m_overlay.IsNull())
+    if (m_overlay == nullptr || !m_overlay->IndexesRequired())
     {
-      m_indexStorage.resize(size);
-      return &m_indexStorage[0];
+      m_indexStorage.Resize(size);
+      return m_indexStorage.GetRaw();
     }
     else
       return m_overlay->IndexStorage(size);
@@ -54,16 +58,16 @@ public:
 
   void SubmitIndexes()
   {
-    if (m_overlay.IsNull())
-      m_buffer->UploadIndexes(&m_indexStorage[0], m_indexStorage.size());
+    if (m_overlay == nullptr || !m_overlay->IndexesRequired())
+      m_buffer->UploadIndexes(m_indexStorage.GetRawConst(), m_indexStorage.Size());
   }
 
-  uint16_t GetAvailableVertexCount() const
+  uint32_t GetAvailableVertexCount() const
   {
     return m_buffer->GetAvailableVertexCount();
   }
 
-  uint16_t GetAvailableIndexCount() const
+  uint32_t GetAvailableIndexCount() const
   {
     return m_buffer->GetAvailableIndexCount();
   }
@@ -73,11 +77,23 @@ public:
     return m_state;
   }
 
+  IndicesRange const & Finish()
+  {
+    if (!m_vaoChanged)
+      m_indicesRange.m_idxCount = m_buffer->GetIndexCount() - m_indicesRange.m_idxStart;
+    else
+      m_indicesRange = IndicesRange();
+
+    return m_indicesRange;
+  }
+
 private:
   GLState const & m_state;
-  RefPointer<VertexArrayBuffer> m_buffer;
-  RefPointer<OverlayHandle>     m_overlay;
-  vector<uint16_t>              m_indexStorage;
+  ref_ptr<VertexArrayBuffer> m_buffer;
+  ref_ptr<OverlayHandle> m_overlay;
+  IndexStorage m_indexStorage;
+  IndicesRange m_indicesRange;
+  bool m_vaoChanged;
 };
 
 ////////////////////////////////////////////////////////////////
@@ -90,56 +106,55 @@ Batcher::Batcher(uint32_t indexBufferSize, uint32_t vertexBufferSize)
 
 Batcher::~Batcher()
 {
-  buckets_t::iterator it = m_buckets.begin();
-  for (; it != m_buckets.end(); ++it)
-    it->second.Destroy();
+  m_buckets.clear();
 }
 
-void Batcher::InsertTriangleList(GLState const & state, RefPointer<AttributeProvider> params)
+void Batcher::InsertTriangleList(GLState const & state, ref_ptr<AttributeProvider> params)
 {
-  InsertTriangleList(state, params, MovePointer<OverlayHandle>(NULL));
+  InsertTriangleList(state, params, nullptr);
 }
 
-void Batcher::InsertTriangleList(GLState const & state, RefPointer<AttributeProvider> params,
-                                 TransferPointer<OverlayHandle> handle)
+IndicesRange Batcher::InsertTriangleList(GLState const & state, ref_ptr<AttributeProvider> params,
+                                         drape_ptr<OverlayHandle> && handle)
 {
-  InsertTriangles<TriangleListBatch>(state, params, handle);
+  return InsertTriangles<TriangleListBatch>(state, params, move(handle));
 }
 
-void Batcher::InsertTriangleStrip(GLState const & state, RefPointer<AttributeProvider> params)
+void Batcher::InsertTriangleStrip(GLState const & state, ref_ptr<AttributeProvider> params)
 {
-  InsertTriangleStrip(state, params, MovePointer<OverlayHandle>(NULL));
+  InsertTriangleStrip(state, params, nullptr);
 }
 
-void Batcher::InsertTriangleStrip(GLState const & state, RefPointer<AttributeProvider> params,
-                                  TransferPointer<OverlayHandle> handle)
+IndicesRange Batcher::InsertTriangleStrip(GLState const & state, ref_ptr<AttributeProvider> params,
+                                          drape_ptr<OverlayHandle> && handle)
 {
-  InsertTriangles<TriangleStripBatch>(state, params, handle);
+  return InsertTriangles<TriangleStripBatch>(state, params, move(handle));
 }
 
-void Batcher::InsertTriangleFan(GLState const & state, RefPointer<AttributeProvider> params)
+void Batcher::InsertTriangleFan(GLState const & state, ref_ptr<AttributeProvider> params)
 {
-  InsertTriangleFan(state, params, MovePointer<OverlayHandle>(NULL));
+  InsertTriangleFan(state, params, nullptr);
 }
 
-void Batcher::InsertTriangleFan(GLState const & state, RefPointer<AttributeProvider> params,
-                                TransferPointer<OverlayHandle> handle)
+IndicesRange Batcher::InsertTriangleFan(GLState const & state, ref_ptr<AttributeProvider> params,
+                                        drape_ptr<OverlayHandle> && handle)
 {
-  InsertTriangles<TriangleFanBatch>(state, params, handle);
+  return InsertTriangles<TriangleFanBatch>(state, params, move(handle));
 }
 
-void Batcher::InsertListOfStrip(GLState const & state, RefPointer<AttributeProvider> params, uint8_t vertexStride)
+void Batcher::InsertListOfStrip(GLState const & state, ref_ptr<AttributeProvider> params,
+                                uint8_t vertexStride)
 {
-  InsertListOfStrip(state, params, MovePointer<OverlayHandle>(NULL), vertexStride);
+  InsertListOfStrip(state, params, nullptr, vertexStride);
 }
 
-void Batcher::InsertListOfStrip(GLState const & state, RefPointer<AttributeProvider> params,
-                       TransferPointer<OverlayHandle> handle, uint8_t vertexStride)
+IndicesRange Batcher::InsertListOfStrip(GLState const & state, ref_ptr<AttributeProvider> params,
+                                        drape_ptr<OverlayHandle> && handle, uint8_t vertexStride)
 {
-  InsertTriangles<TriangleListOfStripBatch>(state, params, handle, vertexStride);
+  return InsertTriangles<TriangleListOfStripBatch>(state, params, move(handle), vertexStride);
 }
 
-void Batcher::StartSession(flush_fn const & flusher)
+void Batcher::StartSession(TFlushFn const & flusher)
 {
   m_flushInterface = flusher;
 }
@@ -147,67 +162,66 @@ void Batcher::StartSession(flush_fn const & flusher)
 void Batcher::EndSession()
 {
   Flush();
-  m_flushInterface = flush_fn();
+  m_flushInterface = TFlushFn();
 }
 
-void Batcher::ChangeBuffer(RefPointer<CallbacksWrapper> wrapper, bool checkFilledBuffer)
+void Batcher::ChangeBuffer(ref_ptr<CallbacksWrapper> wrapper)
 {
-  if (wrapper->IsVAOFilled() || checkFilledBuffer == false)
-  {
-    GLState const & state = wrapper->GetState();
-    FinalizeBucket(state);
+  GLState const & state = wrapper->GetState();
+  FinalizeBucket(state);
 
-    RefPointer<RenderBucket> bucket = GetBucket(state);
-    wrapper->SetVAO(bucket->GetBuffer());
-  }
+  ref_ptr<RenderBucket> bucket = GetBucket(state);
+  wrapper->SetVAO(bucket->GetBuffer());
 }
 
-RefPointer<RenderBucket> Batcher::GetBucket(GLState const & state)
+ref_ptr<RenderBucket> Batcher::GetBucket(GLState const & state)
 {
-  buckets_t::iterator it = m_buckets.find(state);
+  TBuckets::iterator it = m_buckets.find(state);
   if (it != m_buckets.end())
-    return it->second.GetRefPointer();
+    return make_ref(it->second);
 
-  MasterPointer<VertexArrayBuffer> vao(new VertexArrayBuffer(m_indexBufferSize, m_vertexBufferSize));
-  MasterPointer<RenderBucket> buffer(new RenderBucket(vao.Move()));
-  m_buckets.insert(make_pair(state, buffer));
-  return buffer.GetRefPointer();
+  drape_ptr<VertexArrayBuffer> vao = make_unique_dp<VertexArrayBuffer>(m_indexBufferSize, m_vertexBufferSize);
+  drape_ptr<RenderBucket> buffer = make_unique_dp<RenderBucket>(move(vao));
+  ref_ptr<RenderBucket> result = make_ref(buffer);
+  m_buckets.emplace(state, move(buffer));
+
+  return result;
 }
 
 void Batcher::FinalizeBucket(GLState const & state)
 {
-  ASSERT(m_buckets.find(state) != m_buckets.end(), ("Have no bucket for finalize with given state"));
-  MasterPointer<RenderBucket> bucket = m_buckets[state];
+  TBuckets::iterator it = m_buckets.find(state);
+  ASSERT(it != m_buckets.end(), ("Have no bucket for finalize with given state"));
+  drape_ptr<RenderBucket> bucket = move(it->second);
   m_buckets.erase(state);
   bucket->GetBuffer()->Preflush();
-  m_flushInterface(state, bucket.Move());
+  m_flushInterface(state, move(bucket));
 }
 
 void Batcher::Flush()
 {
   ASSERT(m_flushInterface != NULL, ());
-  for (buckets_t::iterator it = m_buckets.begin(); it != m_buckets.end(); ++it)
+  for_each(m_buckets.begin(), m_buckets.end(), [this](TBuckets::value_type & bucket)
   {
-    it->second->GetBuffer()->Preflush();
-    m_flushInterface(it->first, it->second.Move());
-  }
+    ASSERT(bucket.second != nullptr, ());
+    bucket.second->GetBuffer()->Preflush();
+    m_flushInterface(bucket.first, move(bucket.second));
+  });
 
   m_buckets.clear();
 }
 
 template <typename TBatcher>
-void Batcher::InsertTriangles(GLState const & state,
-                              RefPointer<AttributeProvider> params,
-                              TransferPointer<OverlayHandle> transferHandle,
-                              uint8_t vertexStride)
+IndicesRange Batcher::InsertTriangles(GLState const & state, ref_ptr<AttributeProvider> params,
+                                      drape_ptr<OverlayHandle> && transferHandle, uint8_t vertexStride)
 {
-  RefPointer<RenderBucket> bucket = GetBucket(state);
-  RefPointer<VertexArrayBuffer> vao = bucket->GetBuffer();
+  ref_ptr<VertexArrayBuffer> vao = GetBucket(state)->GetBuffer();
+  IndicesRange range;
 
-  MasterPointer<OverlayHandle> handle(transferHandle);
+  drape_ptr<OverlayHandle> handle = move(transferHandle);
 
   {
-    Batcher::CallbacksWrapper wrapper(state, handle.GetRefPointer());
+    Batcher::CallbacksWrapper wrapper(state, make_ref(handle));
     wrapper.SetVAO(vao);
 
     BatchCallbacks callbacks;
@@ -216,16 +230,38 @@ void Batcher::InsertTriangles(GLState const & state,
     callbacks.m_submitIndex = bind(&CallbacksWrapper::SubmitIndexes, &wrapper);
     callbacks.m_getAvailableVertex = bind(&CallbacksWrapper::GetAvailableVertexCount, &wrapper);
     callbacks.m_getAvailableIndex = bind(&CallbacksWrapper::GetAvailableIndexCount, &wrapper);
-    callbacks.m_changeBuffer = bind(&Batcher::ChangeBuffer, this, MakeStackRefPointer(&wrapper), _1);
+    callbacks.m_changeBuffer = bind(&Batcher::ChangeBuffer, this, make_ref(&wrapper));
 
     TBatcher batch(callbacks);
-    batch.SetIsCanDevideStreams(handle.IsNull());
+    batch.SetIsCanDevideStreams(handle == nullptr);
     batch.SetVertexStride(vertexStride);
     batch.BatchData(params);
+
+    range = wrapper.Finish();
   }
 
-  if (!handle.IsNull())
-    bucket->AddOverlayHandle(handle.Move());
+  if (handle != nullptr)
+    GetBucket(state)->AddOverlayHandle(move(handle));
+
+  return range;
+}
+
+Batcher * BatcherFactory::GetNew() const
+{
+  uint32_t const kIndexBufferSize = 5000;
+  uint32_t const kVertexBufferSize = 5000;
+  return new Batcher(kIndexBufferSize, kVertexBufferSize);
+}
+
+SessionGuard::SessionGuard(Batcher & batcher, const Batcher::TFlushFn & flusher)
+  : m_batcher(batcher)
+{
+  m_batcher.StartSession(flusher);
+}
+
+SessionGuard::~SessionGuard()
+{
+  m_batcher.EndSession();
 }
 
 } // namespace dp

@@ -103,6 +103,16 @@ inline T clamp(T x, TMin xmin, TMax xmax)
   return x;
 }
 
+template <typename T>
+inline T cyclicClamp(T x, T xmin, T xmax)
+{
+  if (x > xmax)
+    return xmin;
+  if (x < xmin)
+    return xmax;
+  return x;
+}
+
 template <typename T> inline bool between_s(T a, T b, T x)
 {
   return (a <= x && x <= b);

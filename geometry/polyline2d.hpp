@@ -89,10 +89,7 @@ public:
     return m_points[idx];
   }
 
-  vector<Point<T>> const & GetPoints() const
-  {
-    return m_points;
-  }
+  vector<Point<T> > const & GetPoints() const { return m_points; }
 
   friend string DebugPrint(PolylineT<T> const & p)
   {

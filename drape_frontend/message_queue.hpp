@@ -6,7 +6,9 @@
 
 #include "base/condition.hpp"
 
-#include "std/list.hpp"
+#include "std/condition_variable.hpp"
+#include "std/deque.hpp"
+#include "std/mutex.hpp"
 
 namespace df
 {
@@ -14,20 +16,23 @@ namespace df
 class MessageQueue
 {
 public:
+  MessageQueue();
   ~MessageQueue();
 
-  /// if queue is empty than return NULL
-  dp::TransferPointer<Message> PopMessage(unsigned maxTimeWait);
-  void PushMessage(dp::TransferPointer<Message> message);
+  /// if queue is empty then return NULL
+  drape_ptr<Message> PopMessage(bool waitForMessage);
+  void PushMessage(drape_ptr<Message> && message, MessagePriority priority);
   void CancelWait();
   void ClearQuery();
+  bool IsEmpty();
 
 private:
-  void WaitMessage(unsigned maxTimeWait);
+  void CancelWaitImpl();
 
-private:
-  threads::Condition m_condition;
-  list<dp::MasterPointer<Message> > m_messages;
+  mutex m_mutex;
+  condition_variable m_condition;
+  bool m_isWaiting;
+  deque<drape_ptr<Message> > m_messages;
 };
 
 } // namespace df

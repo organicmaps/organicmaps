@@ -15,6 +15,8 @@ namespace df
 struct CommonViewParams
 {
   float m_depth;
+  int m_minVisibleScale;
+  uint8_t m_rank;
 };
 
 struct PoiSymbolViewParams : CommonViewParams
@@ -23,6 +25,7 @@ struct PoiSymbolViewParams : CommonViewParams
 
   FeatureID m_id;
   string m_symbolName;
+  uint32_t m_extendingSize;
 };
 
 struct CircleViewParams : CommonViewParams
@@ -49,34 +52,25 @@ struct LineViewParams : CommonViewParams
   float m_baseGtoPScale;
 };
 
-struct FontDecl
-{
-  FontDecl() = default;
-  FontDecl(dp::Color const & color, float size, dp::Color const & outlineColor = dp::Color::Transparent())
-    : m_color(color)
-    , m_outlineColor(outlineColor)
-    , m_size(size)
-  {
-  }
-
-  dp::Color m_color = dp::Color::Transparent();
-  dp::Color m_outlineColor = dp::Color::Transparent();
-  float m_size = 0;
-};
-
 struct TextViewParams : CommonViewParams
 {
+  TextViewParams() : m_extendingSize(0) {}
+
   FeatureID m_featureID;
-  FontDecl m_primaryTextFont;
+  dp::FontDecl m_primaryTextFont;
   string m_primaryText;
-  FontDecl m_secondaryTextFont;
+  dp::FontDecl m_secondaryTextFont;
   string m_secondaryText;
   dp::Anchor m_anchor;
+  m2::PointF m_primaryOffset;
+  bool m_primaryOptional;
+  bool m_secondaryOptional;
+  uint32_t m_extendingSize;
 };
 
 struct PathTextViewParams : CommonViewParams
 {
-  FontDecl m_textFont;
+  dp::FontDecl m_textFont;
   string m_text;
   float m_baseGtoPScale;
 };

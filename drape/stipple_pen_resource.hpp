@@ -11,6 +11,7 @@
 #include "geometry/rect2d.hpp"
 
 #include "std/map.hpp"
+#include "std/mutex.hpp"
 
 namespace dp
 {
@@ -90,27 +91,29 @@ public:
 
 private:
   m2::PointU m_canvasSize;
-  buffer_vector<uint32_t, 4> m_columns;
-  uint32_t m_currentColumn;
+  uint32_t m_currentRow;
 };
 
 class StipplePenIndex
 {
 public:
   StipplePenIndex(m2::PointU const & canvasSize) : m_packer(canvasSize) {}
-  RefPointer<Texture::ResourceInfo> MapResource(StipplePenKey const & key);
-  void UploadResources(RefPointer<Texture> texture);
-  glConst GetMinFilter() const;
-  glConst GetMagFilter() const;
+  ref_ptr<Texture::ResourceInfo> ReserveResource(bool predefined, StipplePenKey const & key, bool & newResource);
+  ref_ptr<Texture::ResourceInfo> MapResource(StipplePenKey const & key, bool & newResource);
+  void UploadResources(ref_ptr<Texture> texture);
 
 private:
   typedef map<StipplePenHandle, StipplePenResourceInfo> TResourceMapping;
   typedef pair<m2::RectU, StipplePenRasterizator> TPendingNode;
   typedef buffer_vector<TPendingNode, 32> TPendingNodes;
 
+  TResourceMapping m_predefinedResourceMapping;
   TResourceMapping m_resourceMapping;
   TPendingNodes m_pendingNodes;
   StipplePenPacker m_packer;
+
+  mutex m_lock;
+  mutex m_mappingLock;
 };
 
 string DebugPrint(StipplePenHandle const & key);
@@ -119,14 +122,16 @@ class StipplePenTexture : public DynamicTexture<StipplePenIndex, StipplePenKey, 
 {
   typedef DynamicTexture<StipplePenIndex, StipplePenKey, Texture::StipplePen> TBase;
 public:
-  StipplePenTexture(m2::PointU const & size)
+  StipplePenTexture(m2::PointU const & size, ref_ptr<HWTextureAllocator> allocator)
     : m_index(size)
   {
-    TBase::TextureParams params{ size, TextureFormat::ALPHA, gl_const::GLNearest, gl_const::GLNearest };
-    TBase::Init(MakeStackRefPointer(&m_index), params);
+    TBase::TextureParams params{ size, TextureFormat::ALPHA, gl_const::GLNearest };
+    TBase::Init(allocator, make_ref(&m_index), params);
   }
 
   ~StipplePenTexture() { TBase::Reset(); }
+
+  void ReservePattern(buffer_vector<uint8_t, 8> const & pattern);
 
 private:
   StipplePenIndex m_index;

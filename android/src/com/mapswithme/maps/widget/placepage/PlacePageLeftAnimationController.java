@@ -61,8 +61,8 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
   {
     mGestureDetector = new GestureDetectorCompat(mPlacePage.getContext(), new GestureDetector.SimpleOnGestureListener()
     {
-      private final int X_MIN = UiUtils.dp(30);
-      private final int X_MAX = UiUtils.dp(100);
+      private final int X_MIN = UiUtils.toPx(30);
+      private final int X_MAX = UiUtils.toPx(100);
       private static final int X_TO_Y_SCROLL_RATIO = 2;
 
       @Override

@@ -49,7 +49,6 @@ private:
   uint32_t m_size;
 };
 
-#ifdef DEBUG
 void mock_glGetActiveUniform(uint32_t programID,
                              uint32_t index,
                              int32_t * size,
@@ -77,7 +76,6 @@ void mock_glGetActiveUniform(uint32_t programID,
   else
     ASSERT(false, ("Undefined index:", index));
 }
-#endif
 
 } // namespace
 
@@ -85,7 +83,7 @@ UNIT_TEST(UniformValueTest)
 {
   uint32_t const VertexShaderID = 1;
   uint32_t const FragmentShaderID = 2;
-  uint32_t const ProgramID = 3;
+  uint32_t const ProgramID = 2;
 
   int32_t const positionLoc = 10;
   int32_t const modelViewLoc = 11;
@@ -105,12 +103,11 @@ UNIT_TEST(UniformValueTest)
     InSequence seq;
     // vertexShader->Ref()
     EXPECTGL(glCreateShader(gl_const::GLVertexShader)).WillOnce(Return(VertexShaderID));
-    //EXPECTGL(glGetInteger(gl_const::GLMaxFragmentTextures)).WillOnce(Return(8));
     EXPECTGL(glShaderSource(VertexShaderID, _)).Times(1);
     EXPECTGL(glCompileShader(VertexShaderID, _)).WillOnce(Return(true));
     // fragmentShader->Ref()
     EXPECTGL(glCreateShader(gl_const::GLFragmentShader)).WillOnce(Return(FragmentShaderID));
-    EXPECTGL(glGetInteger(gl_const::GLMaxFragmentTextures)).WillOnce(Return(8));
+    //EXPECTGL(glGetInteger(gl_const::GLMaxFragmentTextures)).WillOnce(Return(8));
     EXPECTGL(glShaderSource(FragmentShaderID, _)).Times(1);
     EXPECTGL(glCompileShader(FragmentShaderID, _)).WillOnce(Return(true));
 
@@ -120,53 +117,44 @@ UNIT_TEST(UniformValueTest)
 
     EXPECTGL(glLinkProgram(ProgramID, _)).WillOnce(Return(true));
 
+    EXPECTGL(glGetProgramiv(ProgramID, gl_const::GLActiveUniforms)).WillOnce(Return(9));
+    for (int i = 0; i < 9; i++)
+    {
+      EXPECTGL(glGetActiveUniform(ProgramID, _, _, _, _)).WillOnce(Invoke(mock_glGetActiveUniform));
+      EXPECTGL(glGetUniformLocation(ProgramID, _)).WillOnce(Return(i == 8 ? modelViewLoc : positionLoc));
+    }
+
     EXPECTGL(glDetachShader(ProgramID, VertexShaderID));
     EXPECTGL(glDetachShader(ProgramID, FragmentShaderID));
 
-#ifdef DEBUG
-    EXPECTGL(glGetProgramiv(ProgramID, gl_const::GLActiveUniforms)).WillOnce(Return(9));
-    EXPECTGL(glGetActiveUniform(ProgramID, _, _, _, _)).Times(9).WillRepeatedly(Invoke(mock_glGetActiveUniform));
-#endif
-
     EXPECTGL(glUseProgram(ProgramID));
 
-    EXPECTGL(glGetUniformLocation(ProgramID, "position0")).WillOnce(Return(positionLoc));
     EXPECTGL(glUniformValuei(positionLoc, 1));
 
-    EXPECTGL(glGetUniformLocation(ProgramID, "position1")).WillOnce(Return(positionLoc));
     EXPECTGL(glUniformValuei(positionLoc, 1, 2));
 
-    EXPECTGL(glGetUniformLocation(ProgramID, "position2")).WillOnce(Return(positionLoc));
     EXPECTGL(glUniformValuei(positionLoc, 1, 2, 3));
 
-    EXPECTGL(glGetUniformLocation(ProgramID, "position3")).WillOnce(Return(positionLoc));
     EXPECTGL(glUniformValuei(positionLoc, 1, 2, 3, 4));
 
-    EXPECTGL(glGetUniformLocation(ProgramID, "position4")).WillOnce(Return(positionLoc));
     EXPECTGL(glUniformValuef(positionLoc, 1.0f));
 
-    EXPECTGL(glGetUniformLocation(ProgramID, "position5")).WillOnce(Return(positionLoc));
     EXPECTGL(glUniformValuef(positionLoc, 1.0f, 2.0f));
 
-    EXPECTGL(glGetUniformLocation(ProgramID, "position6")).WillOnce(Return(positionLoc));
     EXPECTGL(glUniformValuef(positionLoc, 1.0f, 2.0f, 3.0f));
 
-    EXPECTGL(glGetUniformLocation(ProgramID, "position7")).WillOnce(Return(positionLoc));
     EXPECTGL(glUniformValuef(positionLoc, 1.0f, 2.0f, 3.0f, 4.0f));
 
-    EXPECTGL(glGetUniformLocation(ProgramID, "viewModel")).WillOnce(Return(modelViewLoc));
     EXPECTGL(glUniformMatrix4x4Value(modelViewLoc, _))
         .WillOnce(Invoke(&comparer, &MemoryComparer<float>::Compare));
 
     EXPECTGL(glUseProgram(0));
     EXPECTGL(glDeleteProgram(ProgramID));
-
-    EXPECTGL(glDeleteShader(VertexShaderID));
-    EXPECTGL(glDeleteShader(FragmentShaderID));
+    EXPECTGL(glDeleteShader(AnyOf(VertexShaderID, FragmentShaderID))).Times(2);
   }
 
-  GpuProgramManager * manager = new GpuProgramManager();
-  RefPointer<GpuProgram> program = manager->GetProgram(gpu::TEXTURING_PROGRAM);
+  drape_ptr<GpuProgramManager> manager = make_unique_dp<GpuProgramManager>();
+  ref_ptr<GpuProgram> program = manager->GetProgram(gpu::TEXTURING_PROGRAM);
 
   program->Bind();
 
@@ -214,7 +202,4 @@ UNIT_TEST(UniformValueTest)
     UniformValue v("viewModel", matrix);
     v.Apply(program);
   }
-
-  program = RefPointer<GpuProgram>();
-  delete manager;
 }

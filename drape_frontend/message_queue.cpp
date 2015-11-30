@@ -3,56 +3,87 @@
 #include "base/assert.hpp"
 #include "base/stl_add.hpp"
 
+#include "std/chrono.hpp"
+
 namespace df
 {
 
+MessageQueue::MessageQueue()
+  : m_isWaiting(false)
+{
+}
+
 MessageQueue::~MessageQueue()
 {
-  CancelWait();
+  CancelWaitImpl();
   ClearQuery();
 }
 
-dp::TransferPointer<Message> MessageQueue::PopMessage(unsigned maxTimeWait)
+drape_ptr<Message> MessageQueue::PopMessage(bool waitForMessage)
 {
-  threads::ConditionGuard guard(m_condition);
+  unique_lock<mutex> lock(m_mutex);
+  if (waitForMessage && m_messages.empty())
+  {
+    m_isWaiting = true;
+    m_condition.wait(lock, [this]() { return !m_isWaiting; });
+    m_isWaiting = false;
+  }
 
-  WaitMessage(maxTimeWait);
-
-  /// even waitNonEmpty == true m_messages can be empty after WaitMessage call
-  /// if application preparing to close and CancelWait been called
   if (m_messages.empty())
-    return dp::MovePointer<Message>(NULL);
+    return nullptr;
 
-  dp::MasterPointer<Message> msg = m_messages.front();
+  drape_ptr<Message> msg = move(m_messages.front());
   m_messages.pop_front();
-  return msg.Move();
+  return msg;
 }
 
-void MessageQueue::PushMessage(dp::TransferPointer<Message> message)
+void MessageQueue::PushMessage(drape_ptr<Message> && message, MessagePriority priority)
 {
-  threads::ConditionGuard guard(m_condition);
+  lock_guard<mutex> lock(m_mutex);
 
-  bool wasEmpty = m_messages.empty();
-  m_messages.push_back(dp::MasterPointer<Message>(message));
+  switch (priority)
+  {
+  case MessagePriority::Normal:
+    {
+      m_messages.emplace_back(move(message));
+      break;
+    }
+  case MessagePriority::High:
+    {
+      m_messages.emplace_front(move(message));
+      break;
+    }
+  default:
+    ASSERT(false, ("Unknown message priority type"));
+  }
 
-  if (wasEmpty)
-    guard.Signal();
+  CancelWaitImpl();
 }
 
-void MessageQueue::WaitMessage(unsigned maxTimeWait)
+bool MessageQueue::IsEmpty()
 {
-  if (m_messages.empty())
-    m_condition.Wait(maxTimeWait);
+  lock_guard<mutex> lock(m_mutex);
+  return m_messages.empty();
 }
 
 void MessageQueue::CancelWait()
 {
-  m_condition.Signal();
+  lock_guard<mutex> lock(m_mutex);
+  CancelWaitImpl();
+}
+
+void MessageQueue::CancelWaitImpl()
+{
+  if (m_isWaiting)
+  {
+    m_isWaiting = false;
+    m_condition.notify_all();
+  }
 }
 
 void MessageQueue::ClearQuery()
 {
-  DeleteRange(m_messages, dp::MasterPointerDeleter());
+  m_messages.clear();
 }
 
 } // namespace df

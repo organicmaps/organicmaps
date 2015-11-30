@@ -2,6 +2,7 @@
 #include "platform.hpp"
 
 #include "defines.hpp"
+#include "location.hpp"
 
 #include "coding/reader_streambuf.hpp"
 #include "coding/file_writer.hpp"
@@ -330,6 +331,37 @@ namespace Settings
       v = Metric;
     else if (s == "Foot")
       v = Foot;
+    else
+      return false;
+
+    return true;
+  }
+
+  template <> string ToString<location::EMyPositionMode>(location::EMyPositionMode const & v)
+  {
+    switch (v)
+    {
+    case location::MODE_UNKNOWN_POSITION: return "Unknown";
+    case location::MODE_PENDING_POSITION: return "Pending";
+    case location::MODE_NOT_FOLLOW: return "NotFollow";
+    case location::MODE_FOLLOW: return "Follow";
+    case location::MODE_ROTATE_AND_FOLLOW: return "RotateAndFollow";
+    default: return "Unknown";
+    }
+  }
+
+  template <> bool FromString<location::EMyPositionMode>(string const & s, location::EMyPositionMode & v)
+  {
+    if (s == "Unknown")
+      v = location::MODE_UNKNOWN_POSITION;
+    else if (s == "Pending")
+      v = location::MODE_PENDING_POSITION;
+    else if (s == "NotFollow")
+      v = location::MODE_NOT_FOLLOW;
+    else if (s == "Follow")
+      v = location::MODE_FOLLOW;
+    else if (s == "RotateAndFollow")
+      v = location::MODE_ROTATE_AND_FOLLOW;
     else
       return false;
 

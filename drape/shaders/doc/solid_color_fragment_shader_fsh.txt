@@ -1,4 +1,0 @@
-Translate input uniform color into output gl_FragColor
-
-Uniforms:
- - color (vec4)

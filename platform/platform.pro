@@ -29,23 +29,19 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
                wifi_info_windows.cpp
   } else:macx-* {
     OBJECTIVE_SOURCES += platform_mac.mm \
-                         apple_video_timer.mm \
                          apple_location_service.mm
   } else:linux* {
     SOURCES += platform_linux.cpp
   }
 } else:iphone* {
-  OBJECTIVE_SOURCES += ios_video_timer.mm \
-                       platform_ios.mm
+  OBJECTIVE_SOURCES += platform_ios.mm
 } else:android* {
   SOURCES += platform_android.cpp \
-             pthread_video_timer.cpp
 } else:tizen* {
   HEADERS += tizen_utils.hpp \
     http_thread_tizen.hpp
   SOURCES += platform_tizen.cpp \
     tizen_utils.cpp \
-    pthread_video_timer.cpp \
     http_thread_tizen.cpp \
 }
 
@@ -79,7 +75,6 @@ HEADERS += \
     preferred_languages.hpp \
     servers_list.hpp \
     settings.hpp \
-    video_timer.hpp \
 
 SOURCES += \
     chunks_download_strategy.cpp \
@@ -96,4 +91,3 @@ SOURCES += \
     preferred_languages.cpp \
     servers_list.cpp \
     settings.cpp \
-    video_timer.cpp \

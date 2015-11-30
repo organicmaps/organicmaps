@@ -22,7 +22,7 @@ public:
   void SetFloatValue(string const & name, float v1, float v2, float v3);
   void SetFloatValue(string const & name, float v1, float v2, float v3, float v4);
 
-  void SetMatrix4x4Value(string const & name, float * matrixValue);
+  void SetMatrix4x4Value(string const & name, float const * matrixValue);
 
   typedef function<void (UniformValue const & )> enum_uniforms_fn;
   void ForeachValue(enum_uniforms_fn action) const;

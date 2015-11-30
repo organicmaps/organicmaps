@@ -10,9 +10,20 @@ namespace gpu
 
 struct BaseVertex
 {
-  typedef glsl::vec3 TPosition;
-  typedef glsl::vec2 TNormal;
-  typedef glsl::vec2 TTexCoord;
+  using TPosition = glsl::vec3;
+  using TNormal = glsl::vec2;
+  using TTexCoord = glsl::vec2;
+};
+
+struct AreaVertex : BaseVertex
+{
+  AreaVertex();
+  AreaVertex(TPosition const & position, TTexCoord const & colorTexCoord);
+
+  TPosition m_position;
+  TTexCoord m_colorTexCoord;
+
+  static dp::BindingInfo const & GetBindingInfo();
 };
 
 struct SolidTexturingVertex : BaseVertex
@@ -61,16 +72,45 @@ typedef buffer_vector<TextDynamicVertex, 128> TTextDynamicVertexBuffer;
 
 struct LineVertex : BaseVertex
 {
+  using TNormal = glsl::vec3;
+
   LineVertex();
-  LineVertex(TPosition const & position, TNormal const & normal,
-             TTexCoord const & color, TTexCoord const & mask,
-             TNormal const & dxdy);
+  LineVertex(TPosition const & position, TNormal const & normal, TTexCoord const & color);
 
   TPosition m_position;
   TNormal m_normal;
   TTexCoord m_colorTexCoord;
-  TTexCoord m_maskTexCoord;
-  TNormal m_dxdy;
+
+  static dp::BindingInfo const & GetBindingInfo();
+};
+
+struct DashedLineVertex : BaseVertex
+{
+  using TNormal = glsl::vec3;
+  using TMaskTexCoord = glsl::vec4;
+
+  DashedLineVertex();
+  DashedLineVertex(TPosition const & position, TNormal const & normal,
+                   TTexCoord const & color, TMaskTexCoord const & mask);
+
+  TPosition m_position;
+  TNormal m_normal;
+  TTexCoord m_colorTexCoord;
+  TMaskTexCoord m_maskTexCoord;
+
+  static dp::BindingInfo const & GetBindingInfo();
+};
+
+struct RouteVertex : BaseVertex
+{
+  typedef glsl::vec3 TLength;
+
+  RouteVertex();
+  RouteVertex(TPosition const & position, TNormal const & normal, TLength const & length);
+
+  TPosition m_position;
+  TNormal m_normal;
+  TLength m_length;
 
   static dp::BindingInfo const & GetBindingInfo();
 };

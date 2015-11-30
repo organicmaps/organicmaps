@@ -12,7 +12,7 @@
 #include "indexer/string_file.hpp"
 #include "indexer/string_file_values.hpp"
 
-#include "../search/search_common.hpp"    // for MAX_TOKENS constant
+#include "search/search_common.hpp"    // for MAX_TOKENS constant
 
 #include "defines.hpp"
 

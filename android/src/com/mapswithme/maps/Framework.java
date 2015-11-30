@@ -20,13 +20,6 @@ public class Framework
   public static final int ROUTER_TYPE_VEHICLE = 0;
   public static final int ROUTER_TYPE_PEDESTRIAN = 1;
 
-  // should correspond to values from 'information_display.hpp' in core
-  public static final int MAP_WIDGET_RULER = 0;
-  public static final int MAP_WIDGET_COPYRIGHT = 1;
-  public static final int MAP_WIDGET_COUNTRY_STATUS = 2;
-  public static final int MAP_WIDGET_COMPASS = 3;
-  public static final int MAP_WIDGET_DEBUG_LABEL = 4;
-
   @SuppressWarnings("unused")
   public interface OnBalloonListener
   {
@@ -87,8 +80,6 @@ public class Framework
 
   public native static MapObject nativeGetMapObjectForPoint(double lat, double lon);
 
-  public native static void nativeActivateUserMark(double lat, double lon);
-
   public native static void nativeSetBalloonListener(OnBalloonListener listener);
 
   public native static void nativeRemoveBalloonListener();
@@ -102,8 +93,6 @@ public class Framework
   public native static void nativeClearApiPoints();
 
   public native static void injectData(SearchResult searchResult, long index);
-
-  public native static void invalidate();
 
   public native static void deactivatePopup();
 
@@ -181,8 +170,6 @@ public class Framework
   public native static void nativeSetRouteStartPoint(double lat, double lon, boolean valid);
 
   public native static void nativeSetRouteEndPoint(double lat, double lon, boolean valid);
-
-  public native static void setWidgetPivot(int widget, int pivotX, int pivotY);
 
   /**
    * Registers all maps(.mwms). Adds them to the models, generates indexes and does all necessary stuff.

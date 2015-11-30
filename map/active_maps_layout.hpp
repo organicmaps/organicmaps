@@ -35,6 +35,7 @@ public:
   class ActiveMapsListener
   {
   public:
+    virtual ~ActiveMapsListener(){}
     /// if some country been inserted than oldGroup == newGroup, and oldPosition == -1
     /// if some country been deleted than oldGroup == newGroup, and newPosition == -1
     /// if group of country been changed. than oldGroup != newGroup, oldPosition >= 0 and newPosition >= 0
@@ -82,7 +83,7 @@ public:
   void RetryDownloading(TGroup const & group, int position);
   void RetryDownloading(TIndex const & index);
 
-  ///@{ For CountryStatusDisplay only
+  ///@{ For CountryStatus only
   TIndex const & GetCoreIndex(TGroup const & group, int position) const;
   string const GetFormatedCountryName(TIndex const & index) const;
   ///@}
@@ -95,14 +96,15 @@ public:
 
   void ShowMap(TGroup const & group, int position);
 
+  /// @param[in]  Sorted vector of current .mwm files.
+  using TLocalFilePtr = shared_ptr<platform::LocalCountryFile>;
+  void Init(vector<TLocalFilePtr> const & files);
+  void Clear();
+
 private:
   friend class CountryTree;
   Storage const & GetStorage() const;
   Storage & GetStorage();
-
-  using TLocalFilePtr = shared_ptr<platform::LocalCountryFile>;
-  void Init(vector<TLocalFilePtr> const & files);
-  void Clear();
 
   void ShowMap(TIndex const & index);
 

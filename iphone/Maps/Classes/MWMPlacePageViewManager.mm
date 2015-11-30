@@ -67,12 +67,14 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)dismissPlacePage
 {
+  if (!m_userMark)
+    return;
   [self.delegate placePageDidClose];
   self.state = MWMPlacePageManagerStateClosed;
   [self.placePage dismiss];
   [[MapsAppDelegate theApp].m_locationManager stop:self];
-  GetFramework().GetBalloonManager().RemovePin();
   m_userMark = nullptr;
+  GetFramework().DeactivateUserMark();
   self.entity = nil;
   self.placePage = nil;
 }
@@ -193,12 +195,11 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
                    withParameters:@{kStatValue : kStatDestination}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppRoute"];
-  m2::PointD const & destination = m_userMark->GetUserMark()->GetOrg();
-
-  auto const mode = GetFramework().GetLocationState()->GetMode();
-  m2::PointD const myPosition {MapsAppDelegate.theApp.m_locationManager.lastLocation.mercator};
+  m2::PointD const & destination = m_userMark->GetUserMark()->GetPivot();
+  m2::PointD const myPosition([MapsAppDelegate theApp].m_locationManager.lastLocation.mercator);
   using namespace location;
-  [self.delegate buildRouteFrom:mode != State::Mode::UnknownPosition && mode != State::Mode::PendingPosition ?
+  EMyPositionMode mode = self.delegate.myPositionMode;
+  [self.delegate buildRouteFrom:mode != EMyPositionMode::MODE_UNKNOWN_POSITION && mode != EMyPositionMode::MODE_PENDING_POSITION ?
                                                      MWMRoutePoint(myPosition) :
                                               MWMRoutePoint::MWMRoutePointZero()
             to:{destination, self.placePage.basePlacePageView.titleLabel.text}];
@@ -225,7 +226,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 - (MWMRoutePoint)target
 {
   UserMark const * m = m_userMark->GetUserMark();
-  m2::PointD const & org = m->GetOrg();
+  m2::PointD const & org = m->GetPivot();
   return m->GetMarkType() == UserMark::Type::MY_POSITION ?
                           MWMRoutePoint(org) :
                           MWMRoutePoint(org, self.placePage.basePlacePageView.titleLabel.text);
@@ -257,8 +258,9 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)changeBookmarkCategory:(BookmarkAndCategory)bac;
 {
-  BookmarkCategory const * category = GetFramework().GetBmCategory(bac.first);
-  Bookmark const * bookmark = category->GetBookmark(bac.second);
+  BookmarkCategory * category = GetFramework().GetBmCategory(bac.first);
+  BookmarkCategory::Guard guard(*category);
+  UserMark const * bookmark = guard.m_controller.GetUserMark(bac.second);
   m_userMark.reset(new UserMarkCopy(bookmark, false));
 }
 
@@ -269,15 +271,14 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   Framework & f = GetFramework();
   BookmarkData data = BookmarkData(self.entity.title.UTF8String, f.LastEditedBMType());
   size_t const categoryIndex = f.LastEditedBMCategory();
-  size_t const bookmarkIndex =
-      f.GetBookmarkManager().AddBookmark(categoryIndex, m_userMark->GetUserMark()->GetOrg(), data);
+  size_t const bookmarkIndex = f.GetBookmarkManager().AddBookmark(categoryIndex, m_userMark->GetUserMark()->GetPivot(), data);
   self.entity.bac = make_pair(categoryIndex, bookmarkIndex);
   self.entity.type = MWMPlacePageEntityTypeBookmark;
-  BookmarkCategory const * category = f.GetBmCategory(categoryIndex);
-  Bookmark const * bookmark = category->GetBookmark(bookmarkIndex);
+
+  BookmarkCategory::Guard guard(*f.GetBmCategory(categoryIndex));
+
+  UserMark const * bookmark = guard.m_controller.GetUserMark(bookmarkIndex);
   m_userMark.reset(new UserMarkCopy(bookmark, false));
-  f.ActivateUserMark(bookmark);
-  f.Invalidate();
   [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
                                                     object:nil
                                                   userInfo:nil];
@@ -289,19 +290,24 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatBookmarks)
                    withParameters:@{kStatValue : kStatRemove}];
   Framework & f = GetFramework();
-  BookmarkCategory * bookmarkCategory = f.GetBookmarkManager().GetBmCategory(self.entity.bac.first);
-  UserMark const * bookmark = bookmarkCategory->GetBookmark(self.entity.bac.second);
-  BookmarkAndCategory const bookmarkAndCategory = f.FindBookmark(bookmark);
+  BookmarkAndCategory bookmarkAndCategory = self.entity.bac;
+  BookmarkCategory * bookmarkCategory = f.GetBookmarkManager().GetBmCategory(bookmarkAndCategory.first);
+  if (!bookmarkCategory)
+    return;
+
+  UserMark const * bookmark = bookmarkCategory->GetUserMark(bookmarkAndCategory.second);
+  ASSERT_EQUAL(bookmarkAndCategory, f.FindBookmark(bookmark), ());
+
   self.entity.type = MWMPlacePageEntityTypeRegular;
-  PoiMarkPoint const * poi = f.GetAddressMark(bookmark->GetOrg());
+
+  PoiMarkPoint const * poi = f.GetAddressMark(bookmark->GetPivot());
   m_userMark.reset(new UserMarkCopy(poi, false));
-  f.ActivateUserMark(poi);
   if (bookmarkCategory)
   {
-    bookmarkCategory->DeleteBookmark(bookmarkAndCategory.second);
+    BookmarkCategory::Guard guard(*bookmarkCategory);
+    guard.m_controller.DeleteUserMark(bookmarkAndCategory.second);
     bookmarkCategory->SaveToKMLFile();
   }
-  f.Invalidate();
   [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
                                                     object:nil
                                                   userInfo:nil];
@@ -340,7 +346,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
     return @"";
   string distance;
   CLLocationCoordinate2D const coord = location.coordinate;
-  ms::LatLon const target = MercatorBounds::ToLatLon(m_userMark->GetUserMark()->GetOrg());
+  ms::LatLon const target = MercatorBounds::ToLatLon(m_userMark->GetUserMark()->GetPivot());
   MeasurementUtils::FormatDistance(ms::DistanceOnEarth(coord.latitude, coord.longitude,
                                                        target.lat, target.lon), distance);
   return @(distance.c_str());
@@ -352,7 +358,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   if (!location || !m_userMark)
     return;
 
-  CGFloat const angle = ang::AngleTo(location.mercator, m_userMark->GetUserMark()->GetOrg()) + info.m_bearing;
+  CGFloat const angle = ang::AngleTo(location.mercator, m_userMark->GetUserMark()->GetPivot()) + info.m_bearing;
   CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI_2 - angle);
   [self.placePage setDirectionArrowTransform:transform];
   [self.directionView setDirectionArrowTransform:transform];

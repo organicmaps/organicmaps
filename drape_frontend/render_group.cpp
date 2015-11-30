@@ -1,54 +1,107 @@
 #include "drape_frontend/render_group.hpp"
+#include "drape_frontend/visual_params.hpp"
+
+#include "drape/debug_rect_renderer.hpp"
+#include "drape/shader_def.hpp"
+
+#include "geometry/screenbase.hpp"
 
 #include "base/stl_add.hpp"
-#include "geometry/screenbase.hpp"
 
 #include "std/bind.hpp"
 
 namespace df
 {
 
+void BaseRenderGroup::SetRenderParams(ref_ptr<dp::GpuProgram> shader, ref_ptr<dp::UniformValuesStorage> generalUniforms)
+{
+  m_shader = shader;
+  m_generalUniforms = generalUniforms;
+}
+
+void BaseRenderGroup::UpdateAnimation()
+{
+  m_uniforms.SetFloatValue("u_opacity", 1.0);
+}
+
+void BaseRenderGroup::Render(const ScreenBase &)
+{
+  ASSERT(m_shader != nullptr, ());
+  ASSERT(m_generalUniforms != nullptr, ());
+
+  m_shader->Bind();
+  dp::ApplyState(m_state, m_shader);
+  dp::ApplyUniforms(*(m_generalUniforms.get()), m_shader);
+}
+
 RenderGroup::RenderGroup(dp::GLState const & state, df::TileKey const & tileKey)
-  : m_state(state)
-  , m_tileKey(tileKey)
+  : TBase(state, tileKey)
   , m_pendingOnDelete(false)
 {
 }
 
 RenderGroup::~RenderGroup()
 {
-  DeleteRange(m_renderBuckets, dp::MasterPointerDeleter());
+  m_renderBuckets.clear();
 }
 
 void RenderGroup::Update(ScreenBase const & modelView)
 {
-  for_each(m_renderBuckets.begin(), m_renderBuckets.end(), bind(&dp::RenderBucket::Update,
-                                                                bind(&dp::NonConstGetter<dp::RenderBucket>, _1),
-                                                                modelView));
+  ASSERT(m_shader != nullptr, ());
+  ASSERT(m_generalUniforms != nullptr, ());
+  for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
+    renderBucket->Update(modelView);
 }
 
-void RenderGroup::CollectOverlay(dp::RefPointer<dp::OverlayTree> tree)
+void RenderGroup::CollectOverlay(ref_ptr<dp::OverlayTree> tree)
 {
-  for_each(m_renderBuckets.begin(), m_renderBuckets.end(), bind(&dp::RenderBucket::CollectOverlayHandles,
-                                                                bind(&dp::NonConstGetter<dp::RenderBucket>, _1),
-                                                                tree));
+  if (m_pendingOnDelete)
+    return;
+
+  ASSERT(m_shader != nullptr, ());
+  ASSERT(m_generalUniforms != nullptr, ());
+  for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
+    renderBucket->CollectOverlayHandles(tree, GetOpacity() < 1.0);
 }
 
 void RenderGroup::Render(ScreenBase const & screen)
 {
-  ASSERT(m_pendingOnDelete == false, ());
-  for_each(m_renderBuckets.begin(), m_renderBuckets.end(), bind(&dp::RenderBucket::Render,
-                                                                bind(&dp::NonConstGetter<dp::RenderBucket>, _1), screen));
+  BaseRenderGroup::Render(screen);
+
+  if (m_state.GetProgramIndex() == gpu::TEXT_PROGRAM)
+  {
+    auto const & params = df::VisualParams::Instance().GetGlyphVisualParams();
+
+    m_uniforms.SetFloatValue("u_contrastGamma", params.m_outlineContrast, params.m_outlineGamma);
+    m_uniforms.SetFloatValue("u_isOutlinePass", 1.0f);
+    dp::ApplyUniforms(m_uniforms, m_shader);
+
+    for(auto & renderBucket : m_renderBuckets)
+      renderBucket->Render(screen);
+
+    m_uniforms.SetFloatValue("u_contrastGamma", params.m_contrast, params.m_gamma);
+    m_uniforms.SetFloatValue("u_isOutlinePass", 0.0f);
+    dp::ApplyUniforms(m_uniforms, m_shader);
+    for(auto & renderBucket : m_renderBuckets)
+      renderBucket->Render(screen);
+  }
+  else
+  {
+    dp::ApplyUniforms(m_uniforms, m_shader);
+
+    for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
+      renderBucket->Render(screen);
+  }
+
+#ifdef RENDER_DEBUG_RECTS
+  for(auto const & renderBucket : m_renderBuckets)
+    renderBucket->RenderDebug(screen);
+#endif
 }
 
-void RenderGroup::PrepareForAdd(size_t countForAdd)
+void RenderGroup::AddBucket(drape_ptr<dp::RenderBucket> && bucket)
 {
-  m_renderBuckets.reserve(m_renderBuckets.size() + countForAdd);
-}
-
-void RenderGroup::AddBucket(dp::TransferPointer<dp::RenderBucket> bucket)
-{
-  m_renderBuckets.push_back(dp::MasterPointer<dp::RenderBucket>(bucket));
+  m_renderBuckets.push_back(move(bucket));
 }
 
 bool RenderGroup::IsLess(RenderGroup const & other) const
@@ -56,46 +109,131 @@ bool RenderGroup::IsLess(RenderGroup const & other) const
   return m_state < other.m_state;
 }
 
-RenderBucketComparator::RenderBucketComparator(set<TileKey> const & activeTiles)
-  : m_activeTiles(activeTiles)
-  , m_needGroupMergeOperation(false)
-  , m_needBucketsMergeOperation(false)
+void RenderGroup::UpdateAnimation()
 {
+  double const opactity = GetOpacity();
+  m_uniforms.SetFloatValue("u_opacity", opactity);
 }
 
-void RenderBucketComparator::ResetInternalState()
+double RenderGroup::GetOpacity() const
 {
-  m_needBucketsMergeOperation = false;
-  m_needGroupMergeOperation = false;
+  if (m_appearAnimation != nullptr)
+    return m_appearAnimation->GetOpacity();
+
+  if (m_disappearAnimation != nullptr)
+    return m_disappearAnimation->GetOpacity();
+
+  return 1.0;
 }
 
-bool RenderBucketComparator::operator()(RenderGroup const * l, RenderGroup const * r)
+bool RenderGroup::IsAnimating() const
+{
+  if (m_appearAnimation && !m_appearAnimation->IsFinished())
+    return true;
+
+  if (m_disappearAnimation && !m_disappearAnimation->IsFinished())
+    return true;
+
+  return false;
+}
+
+void RenderGroup::Appear()
+{
+  if (m_state.GetDepthLayer() == dp::GLState::OverlayLayer)
+  {
+    m_appearAnimation = make_unique<OpacityAnimation>(0.25 /* duration */, 0.0 /* delay */,
+                                                      0.0 /* startOpacity */, 1.0 /* endOpacity */);
+  }
+}
+
+void RenderGroup::Disappear()
+{
+  if (m_state.GetDepthLayer() == dp::GLState::OverlayLayer)
+  {
+    m_disappearAnimation = make_unique<OpacityAnimation>(0.1 /* duration */, 0.1 /* delay */,
+                                                         1.0 /* startOpacity */, 0.0 /* endOpacity */);
+  }
+  else
+  {
+    // Create separate disappearing animation for area objects to eliminate flickering.
+    if (m_state.GetProgramIndex() == gpu::AREA_PROGRAM)
+      m_disappearAnimation = make_unique<OpacityAnimation>(0.01 /* duration */, 0.25 /* delay */,
+                                                           1.0 /* startOpacity */, 1.0 /* endOpacity */);
+  }
+}
+
+bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_ptr<RenderGroup> const & r)
 {
   dp::GLState const & lState = l->GetState();
   dp::GLState const & rState = r->GetState();
 
-  TileKey const & lKey = l->GetTileKey();
-  TileKey const & rKey = r->GetTileKey();
-
-  if (!l->IsPendingOnDelete() && (l->IsEmpty() || m_activeTiles.find(lKey) == m_activeTiles.end()))
+  if (!l->IsPendingOnDelete() && l->IsEmpty())
     l->DeleteLater();
 
-  if (!r->IsPendingOnDelete() && (r->IsEmpty() || m_activeTiles.find(rKey) == m_activeTiles.end()))
+  if (!r->IsPendingOnDelete() && r->IsEmpty())
     r->DeleteLater();
 
   bool lPendingOnDelete = l->IsPendingOnDelete();
   bool rPendingOnDelete = r->IsPendingOnDelete();
 
-  if (lState == rState && lKey == rKey && !lPendingOnDelete)
-    m_needGroupMergeOperation = true;
-
   if (rPendingOnDelete == lPendingOnDelete)
-    return lState < rState;
+  {
+    dp::GLState::DepthLayer lDepth = lState.GetDepthLayer();
+    dp::GLState::DepthLayer rDepth = rState.GetDepthLayer();
+    if (lDepth != rDepth)
+      return lDepth < rDepth;
+
+    if (my::AlmostEqualULPs(l->GetOpacity(), r->GetOpacity()))
+      return lState < rState;
+    else
+      return l->GetOpacity() > r->GetOpacity();
+  }
 
   if (rPendingOnDelete)
     return true;
 
   return false;
+}
+
+UserMarkRenderGroup::UserMarkRenderGroup(dp::GLState const & state,
+                                         TileKey const & tileKey,
+                                         drape_ptr<dp::RenderBucket> && bucket)
+  : TBase(state, tileKey)
+  , m_renderBucket(move(bucket))
+  , m_animation(new OpacityAnimation(0.25 /*duration*/, 0.0 /* minValue */, 1.0 /* maxValue*/))
+{
+  m_mapping.AddRangePoint(0.6, 1.3);
+  m_mapping.AddRangePoint(0.85, 0.8);
+  m_mapping.AddRangePoint(1.0, 1.0);
+}
+
+UserMarkRenderGroup::~UserMarkRenderGroup()
+{
+}
+
+void UserMarkRenderGroup::UpdateAnimation()
+{
+  BaseRenderGroup::UpdateAnimation();
+  float t = 1.0;
+  if (m_animation)
+    t = m_animation->GetOpacity();
+
+  m_uniforms.SetFloatValue("u_interpolationT", m_mapping.GetValue(t));
+}
+
+void UserMarkRenderGroup::Render(ScreenBase const & screen)
+{
+  BaseRenderGroup::Render(screen);
+  dp::ApplyUniforms(m_uniforms, m_shader);
+  if (m_renderBucket != nullptr)
+    m_renderBucket->Render(screen);
+}
+
+string DebugPrint(RenderGroup const & group)
+{
+  ostringstream out;
+  out << DebugPrint(group.GetTileKey());
+  return out.str();
 }
 
 } // namespace df

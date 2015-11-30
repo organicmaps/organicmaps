@@ -6,8 +6,14 @@
 class DummyTexture : public dp::Texture
 {
 public:
-  virtual dp::RefPointer<ResourceInfo> FindResource(Key const & /*key*/) const
+  ref_ptr<ResourceInfo> FindResource(Key const & key)
   {
-    return dp::RefPointer<ResourceInfo>();
+    bool dummy = false;
+    return FindResource(key, dummy);
+  }
+
+  virtual ref_ptr<ResourceInfo> FindResource(Key const & /*key*/, bool & /*newResource*/)
+  {
+    return nullptr;
   }
 };

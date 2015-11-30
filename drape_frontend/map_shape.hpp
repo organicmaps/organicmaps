@@ -1,7 +1,7 @@
 #pragma once
 
 #include "drape_frontend/message.hpp"
-#include "drape_frontend/tile_info.hpp"
+#include "drape_frontend/tile_key.hpp"
 
 #include "drape/pointers.hpp"
 
@@ -14,34 +14,43 @@ namespace dp
 namespace df
 {
 
+// Priority of shapes' processing (descending order).
+enum MapShapePriority
+{
+  AreaPriority = 0,
+  TextAndPoiPriority,
+  LinePriority,
+
+  PrioritiesCount
+};
+
 class MapShape
 {
 public:
   virtual ~MapShape(){}
-  virtual void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const = 0;
+  virtual void Prepare(ref_ptr<dp::TextureManager> textures) const {}
+  virtual void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const = 0;
+  virtual MapShapePriority GetPriority() const { return MapShapePriority::AreaPriority; }
 };
+
+using TMapShapes = vector<drape_ptr<MapShape>>;
 
 class MapShapeReadedMessage : public Message
 {
 public:
-  MapShapeReadedMessage(TileKey const & key, dp::TransferPointer<MapShape> shape)
-    : m_key(key), m_shape(shape)
-  {
-    SetType(MapShapeReaded);
-  }
+  MapShapeReadedMessage(TileKey const & key, TMapShapes && shapes)
+    : m_key(key), m_shapes(move(shapes))
+  {}
 
-  ~MapShapeReadedMessage()
-  {
-    m_shape.Destroy();
-  }
+  Type GetType() const override { return Message::MapShapeReaded; }
 
   TileKey const & GetKey() const { return m_key; }
-  /// return non const reference for correct construct MasterPointer
-  dp::TransferPointer<MapShape> & GetShape() { return m_shape; }
+
+  TMapShapes const & GetShapes() { return m_shapes; }
 
 private:
   TileKey m_key;
-  dp::TransferPointer<MapShape> m_shape;
+  TMapShapes m_shapes;
 };
 
 } // namespace df

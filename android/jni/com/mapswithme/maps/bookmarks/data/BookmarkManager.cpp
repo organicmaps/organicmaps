@@ -17,8 +17,11 @@ extern "C"
       JNIEnv * env, jobject thiz, jint c, jint b)
   {
     BookmarkAndCategory bnc = BookmarkAndCategory(c,b);
-    frm()->ShowBookmark(bnc);
-    frm()->SaveState();
+    g_framework->PostDrapeTask([bnc]()
+    {
+      frm()->ShowBookmark(bnc);
+      frm()->SaveState();
+    });
   }
 
   JNIEXPORT void JNICALL
@@ -54,7 +57,8 @@ extern "C"
     BookmarkCategory * pCat = frm()->GetBmCategory(cat);
     if (pCat)
     {
-      pCat->DeleteBookmark(bmk);
+      BookmarkCategory::Guard guard(*pCat);
+      guard.m_controller.DeleteUserMark(bmk);
       pCat->SaveToKMLFile();
     }
   }

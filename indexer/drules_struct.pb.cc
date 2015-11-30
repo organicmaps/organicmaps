@@ -1751,6 +1751,7 @@ void AreaRuleProto::Swap(AreaRuleProto* other) {
 const int SymbolRuleProto::kNameFieldNumber;
 const int SymbolRuleProto::kApplyForTypeFieldNumber;
 const int SymbolRuleProto::kPriorityFieldNumber;
+const int SymbolRuleProto::kMinDistanceFieldNumber;
 #endif  // !_MSC_VER
 
 SymbolRuleProto::SymbolRuleProto()
@@ -1775,6 +1776,7 @@ void SymbolRuleProto::SharedCtor() {
   name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   apply_for_type_ = 0;
   priority_ = 0;
+  min_distance_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -1826,8 +1828,8 @@ void SymbolRuleProto::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 7) {
-    ZR_(apply_for_type_, priority_);
+  if (_has_bits_[0 / 32] & 15) {
+    ZR_(apply_for_type_, min_distance_);
     if (has_name()) {
       if (name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         name_->clear();
@@ -1894,6 +1896,21 @@ bool SymbolRuleProto::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(32)) goto parse_min_distance;
+        break;
+      }
+
+      // optional int32 min_distance = 4;
+      case 4: {
+        if (tag == 32) {
+         parse_min_distance:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &min_distance_)));
+          set_has_min_distance();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -1939,6 +1956,11 @@ void SymbolRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->priority(), output);
   }
 
+  // optional int32 min_distance = 4;
+  if (has_min_distance()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->min_distance(), output);
+  }
+
   output->WriteRaw(unknown_fields().data(),
                    unknown_fields().size());
   // @@protoc_insertion_point(serialize_end:SymbolRuleProto)
@@ -1969,6 +1991,13 @@ int SymbolRuleProto::ByteSize() const {
           this->priority());
     }
 
+    // optional int32 min_distance = 4;
+    if (has_min_distance()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->min_distance());
+    }
+
   }
   total_size += unknown_fields().size();
 
@@ -1995,6 +2024,9 @@ void SymbolRuleProto::MergeFrom(const SymbolRuleProto& from) {
     if (from.has_priority()) {
       set_priority(from.priority());
     }
+    if (from.has_min_distance()) {
+      set_min_distance(from.min_distance());
+    }
   }
   mutable_unknown_fields()->append(from.unknown_fields());
 }
@@ -2016,6 +2048,7 @@ void SymbolRuleProto::Swap(SymbolRuleProto* other) {
     std::swap(name_, other->name_);
     std::swap(apply_for_type_, other->apply_for_type_);
     std::swap(priority_, other->priority_);
+    std::swap(min_distance_, other->min_distance_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
@@ -2036,6 +2069,7 @@ const int CaptionDefProto::kStrokeColorFieldNumber;
 const int CaptionDefProto::kOffsetXFieldNumber;
 const int CaptionDefProto::kOffsetYFieldNumber;
 const int CaptionDefProto::kTextFieldNumber;
+const int CaptionDefProto::kIsOptionalFieldNumber;
 #endif  // !_MSC_VER
 
 CaptionDefProto::CaptionDefProto()
@@ -2063,6 +2097,7 @@ void CaptionDefProto::SharedCtor() {
   offset_x_ = 0;
   offset_y_ = 0;
   text_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  is_optional_ = false;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -2114,9 +2149,9 @@ void CaptionDefProto::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 63) {
+  if (_has_bits_[0 / 32] & 127) {
     ZR_(height_, offset_x_);
-    offset_y_ = 0;
+    ZR_(offset_y_, is_optional_);
     if (has_text()) {
       if (text_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         text_->clear();
@@ -2228,6 +2263,21 @@ bool CaptionDefProto::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(56)) goto parse_is_optional;
+        break;
+      }
+
+      // optional bool is_optional = 7;
+      case 7: {
+        if (tag == 56) {
+         parse_is_optional:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &is_optional_)));
+          set_has_is_optional();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -2288,6 +2338,11 @@ void CaptionDefProto::SerializeWithCachedSizes(
       6, this->text(), output);
   }
 
+  // optional bool is_optional = 7;
+  if (has_is_optional()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(7, this->is_optional(), output);
+  }
+
   output->WriteRaw(unknown_fields().data(),
                    unknown_fields().size());
   // @@protoc_insertion_point(serialize_end:CaptionDefProto)
@@ -2339,6 +2394,11 @@ int CaptionDefProto::ByteSize() const {
           this->text());
     }
 
+    // optional bool is_optional = 7;
+    if (has_is_optional()) {
+      total_size += 1 + 1;
+    }
+
   }
   total_size += unknown_fields().size();
 
@@ -2374,6 +2434,9 @@ void CaptionDefProto::MergeFrom(const CaptionDefProto& from) {
     if (from.has_text()) {
       set_text(from.text());
     }
+    if (from.has_is_optional()) {
+      set_is_optional(from.is_optional());
+    }
   }
   mutable_unknown_fields()->append(from.unknown_fields());
 }
@@ -2398,6 +2461,7 @@ void CaptionDefProto::Swap(CaptionDefProto* other) {
     std::swap(offset_x_, other->offset_x_);
     std::swap(offset_y_, other->offset_y_);
     std::swap(text_, other->text_);
+    std::swap(is_optional_, other->is_optional_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
@@ -3302,6 +3366,7 @@ const int ShieldRuleProto::kHeightFieldNumber;
 const int ShieldRuleProto::kColorFieldNumber;
 const int ShieldRuleProto::kStrokeColorFieldNumber;
 const int ShieldRuleProto::kPriorityFieldNumber;
+const int ShieldRuleProto::kMinDistanceFieldNumber;
 #endif  // !_MSC_VER
 
 ShieldRuleProto::ShieldRuleProto()
@@ -3326,6 +3391,7 @@ void ShieldRuleProto::SharedCtor() {
   color_ = 0u;
   stroke_color_ = 0u;
   priority_ = 0;
+  min_distance_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -3374,7 +3440,9 @@ void ShieldRuleProto::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  ZR_(height_, priority_);
+  if (_has_bits_[0 / 32] & 31) {
+    ZR_(height_, min_distance_);
+  }
 
 #undef OFFSET_OF_FIELD_
 #undef ZR_
@@ -3452,6 +3520,21 @@ bool ShieldRuleProto::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(40)) goto parse_min_distance;
+        break;
+      }
+
+      // optional int32 min_distance = 5;
+      case 5: {
+        if (tag == 40) {
+         parse_min_distance:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &min_distance_)));
+          set_has_min_distance();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -3501,6 +3584,11 @@ void ShieldRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->priority(), output);
   }
 
+  // optional int32 min_distance = 5;
+  if (has_min_distance()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->min_distance(), output);
+  }
+
   output->WriteRaw(unknown_fields().data(),
                    unknown_fields().size());
   // @@protoc_insertion_point(serialize_end:ShieldRuleProto)
@@ -3538,6 +3626,13 @@ int ShieldRuleProto::ByteSize() const {
           this->priority());
     }
 
+    // optional int32 min_distance = 5;
+    if (has_min_distance()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->min_distance());
+    }
+
   }
   total_size += unknown_fields().size();
 
@@ -3567,6 +3662,9 @@ void ShieldRuleProto::MergeFrom(const ShieldRuleProto& from) {
     if (from.has_priority()) {
       set_priority(from.priority());
     }
+    if (from.has_min_distance()) {
+      set_min_distance(from.min_distance());
+    }
   }
   mutable_unknown_fields()->append(from.unknown_fields());
 }
@@ -3589,6 +3687,7 @@ void ShieldRuleProto::Swap(ShieldRuleProto* other) {
     std::swap(color_, other->color_);
     std::swap(stroke_color_, other->stroke_color_);
     std::swap(priority_, other->priority_);
+    std::swap(min_distance_, other->min_distance_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

@@ -10,6 +10,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.widget.FlatProgressView;
+import com.mapswithme.util.Animations;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -75,11 +76,11 @@ public class NavigationController
 
     if (info.vehicleNextTurnDirection.containsNextTurn())
     {
-      UiUtils.appearSlidingDown(mNextTurnFrame, null);
+      Animations.appearSliding(mNextTurnFrame, Animations.TOP, null);
       info.vehicleNextTurnDirection.setNextTurnDrawable(mNextTurnImage);
     }
     else
-      UiUtils.disappearSlidingUp(mNextTurnFrame, null);
+      Animations.disappearSliding(mNextTurnFrame, Animations.BOTTOM, null);
   }
 
   private void updatePedestrian(RoutingInfo info)

@@ -123,7 +123,12 @@
 		34F45E8E1B96E88100AC93F8 /* MWMSearchTabButtonsView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F45E8D1B96E88100AC93F8 /* MWMSearchTabButtonsView.mm */; };
 		34F45E901B96E8B100AC93F8 /* MWMSearchTabButtonsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34F45E8F1B96E8B100AC93F8 /* MWMSearchTabButtonsView.xib */; };
 		34F8ADD91B97229A004184CC /* MWMSearchTableView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F8ADD81B97229A004184CC /* MWMSearchTableView.mm */; };
+		34FE4C451BCC013500066718 /* MWMMapWidgets.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34FE4C441BCC013500066718 /* MWMMapWidgets.mm */; };
 		45159BF91B0CA2D5009BFA85 /* resources-6plus in Resources */ = {isa = PBXBuildFile; fileRef = 45159BF81B0CA2D5009BFA85 /* resources-6plus */; };
+		4519503A1B7A3E070085DA05 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 451950391B7A3E070085DA05 /* patterns.txt */; };
+		4519503B1B7A3E390085DA05 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 451950391B7A3E070085DA05 /* patterns.txt */; };
+		452FCA3B1B6A3DF7007019AB /* colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 452FCA3A1B6A3DF7007019AB /* colors.txt */; };
+		452FCA3E1B6A3E83007019AB /* colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 452FCA3A1B6A3DF7007019AB /* colors.txt */; };
 		454040621AD2D75E007A9B12 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26C7210F61FD600ECCA39 /* OpenGLES.framework */; };
 		454040631AD2D83A007A9B12 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98655186C734000AF7E9E /* AVFoundation.framework */; };
 		454040641AD2D862007A9B12 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -134,7 +139,6 @@
 		4540406C1AD2D92D007A9B12 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98651186C5EF000AF7E9E /* iAd.framework */; };
 		4540406D1AD2D958007A9B12 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; };
 		4540406F1AD2D9C5007A9B12 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4540406E1AD2D9C5007A9B12 /* WatchKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		454040701AD2DB30007A9B12 /* RenderContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297E1219ECA300EB67A9 /* RenderContext.mm */; };
 		454040761AD2DD73007A9B12 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		4579C8951AD2F98B001D6B90 /* synonyms.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAEA7D0161BD26600CCD661 /* synonyms.txt */; };
 		4579C8961AD2F9A1001D6B90 /* categories.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAFD696139D9BE2000AE70C /* categories.txt */; };
@@ -153,7 +157,6 @@
 		4579C8A41AD2FAB1001D6B90 /* 04_padauk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E8134C4968003A9827 /* 04_padauk.ttf */; };
 		4579C8A51AD2FAB1001D6B90 /* 05_khmeros.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E9134C4968003A9827 /* 05_khmeros.ttf */; };
 		4579C8A61AD2FAB1001D6B90 /* 06_code2000.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE164810135CEE49003B8A3E /* 06_code2000.ttf */; };
-		45FE96831AD315EF00CB7560 /* RenderBuffer.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297D1219ECA300EB67A9 /* RenderBuffer.mm */; };
 		46F26C7310F61FD600ECCA39 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26C7210F61FD600ECCA39 /* OpenGLES.framework */; };
 		46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46F26CD710F623BA00ECCA39 /* EAGLView.mm */; };
 		46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
@@ -605,7 +608,9 @@
 		9DF04B241B71010E00DACAF1 /* 02_droidsans-fallback.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */; };
 		A32B6D4C1A14980500E54A65 /* iosOGLContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = A32B6D491A14980500E54A65 /* iosOGLContext.mm */; };
 		A32B6D4D1A14980500E54A65 /* iosOGLContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = A32B6D4B1A14980500E54A65 /* iosOGLContextFactory.mm */; };
+		A367C93B1B17334800E2B6E7 /* resources-default in Resources */ = {isa = PBXBuildFile; fileRef = A367C93A1B17334800E2B6E7 /* resources-default */; };
 		A3CC2CD41A1C723900B832E1 /* LocationPredictor.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3CC2CD21A1C723900B832E1 /* LocationPredictor.mm */; };
+		A3F402FB1B81F537008E5F65 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454040681AD2D8D2007A9B12 /* CoreVideo.framework */; };
 		B00510FB1A11015900A61AA4 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972CDCC51887F1B7006641CA /* CFNetwork.framework */; };
 		B00511021A1101E000A61AA4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98655186C734000AF7E9E /* AVFoundation.framework */; };
 		B00511041A1101F600A61AA4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511031A1101F600A61AA4 /* CoreData.framework */; };
@@ -616,14 +621,15 @@
 		B0DFE6311A1B78A200B6C35E /* LocalNotifications.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0DFE62F1A1B78A200B6C35E /* LocalNotifications.plist */; };
 		B0FBFA271A515AFD0086819E /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B0FBFA261A515AFD0086819E /* ViewController.mm */; };
 		B0FBFA2B1A515B4C0086819E /* TableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B0FBFA2A1A515B4C0086819E /* TableViewController.mm */; };
+		BB3E6EDE1C0327F8007EF3F8 /* resources-hdpi in Resources */ = {isa = PBXBuildFile; fileRef = BB3E6ED21C03229C007EF3F8 /* resources-hdpi */; };
+		BB3E6EDF1C0327FB007EF3F8 /* resources-hdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = BB3E6ED31C03229C007EF3F8 /* resources-hdpi_clear */; };
+		BB3E6EE01C0327FE007EF3F8 /* resources-hdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = BB3E6ED41C03229C007EF3F8 /* resources-hdpi_dark */; };
 		CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
 		ED48BBB517C267F5003E7E92 /* ColorPickerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */; };
 		ED48BBBA17C2B1E2003E7E92 /* CircleView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB917C2B1E2003E7E92 /* CircleView.mm */; };
 		EE026F0611D6AC0D00645242 /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
 		EE164811135CEE4A003B8A3E /* 06_code2000.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE164810135CEE49003B8A3E /* 06_code2000.ttf */; };
 		EE583CBB12F773F00042CBE3 /* unicode_blocks.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */; };
-		EE7F29811219ECA300EB67A9 /* RenderBuffer.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297D1219ECA300EB67A9 /* RenderBuffer.mm */; };
-		EE7F29821219ECA300EB67A9 /* RenderContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297E1219ECA300EB67A9 /* RenderContext.mm */; };
 		EEA61601134C496A003A9827 /* 01_dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */; };
 		EEA61603134C496A003A9827 /* 03_jomolhari-id-a3d.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */; };
 		EEA61604134C496A003A9827 /* 04_padauk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E8134C4968003A9827 /* 04_padauk.ttf */; };
@@ -1010,8 +1016,12 @@
 		34F45E8F1B96E8B100AC93F8 /* MWMSearchTabButtonsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMSearchTabButtonsView.xib; sourceTree = "<group>"; };
 		34F8ADD71B97229A004184CC /* MWMSearchTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchTableView.h; sourceTree = "<group>"; };
 		34F8ADD81B97229A004184CC /* MWMSearchTableView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchTableView.mm; sourceTree = "<group>"; };
+		34FE4C431BCC013500066718 /* MWMMapWidgets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapWidgets.h; sourceTree = "<group>"; };
+		34FE4C441BCC013500066718 /* MWMMapWidgets.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapWidgets.mm; sourceTree = "<group>"; };
 		3D443C9C19E421EE0025C2FC /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		45159BF81B0CA2D5009BFA85 /* resources-6plus */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-6plus"; path = "../../data/resources-6plus"; sourceTree = "<group>"; };
+		451950391B7A3E070085DA05 /* patterns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = patterns.txt; path = ../../data/patterns.txt; sourceTree = "<group>"; };
+		452FCA3A1B6A3DF7007019AB /* colors.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = colors.txt; path = ../../data/colors.txt; sourceTree = "<group>"; };
 		454040681AD2D8D2007A9B12 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		4540406E1AD2D9C5007A9B12 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = System/Library/Frameworks/WatchKit.framework; sourceTree = SDKROOT; };
 		458287C21AD3BE2000BA8940 /* DownloadIndicatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadIndicatorProtocol.h; sourceTree = "<group>"; };
@@ -1149,6 +1159,7 @@
 		A32B6D491A14980500E54A65 /* iosOGLContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iosOGLContext.mm; path = Platform/opengl/iosOGLContext.mm; sourceTree = "<group>"; };
 		A32B6D4A1A14980500E54A65 /* iosOGLContextFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iosOGLContextFactory.h; path = Platform/opengl/iosOGLContextFactory.h; sourceTree = "<group>"; };
 		A32B6D4B1A14980500E54A65 /* iosOGLContextFactory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iosOGLContextFactory.mm; path = Platform/opengl/iosOGLContextFactory.mm; sourceTree = "<group>"; };
+		A367C93A1B17334800E2B6E7 /* resources-default */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-default"; path = "../../data/resources-default"; sourceTree = "<group>"; };
 		A3CC2CD21A1C723900B832E1 /* LocationPredictor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LocationPredictor.mm; sourceTree = "<group>"; };
 		A3CC2CD31A1C723900B832E1 /* LocationPredictor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationPredictor.h; sourceTree = "<group>"; };
 		B00511031A1101F600A61AA4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -1160,6 +1171,9 @@
 		B0FBFA261A515AFD0086819E /* ViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ViewController.mm; path = ../ViewController.mm; sourceTree = "<group>"; };
 		B0FBFA291A515B4C0086819E /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableViewController.h; path = ../TableViewController.h; sourceTree = "<group>"; };
 		B0FBFA2A1A515B4C0086819E /* TableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TableViewController.mm; path = ../TableViewController.mm; sourceTree = "<group>"; };
+		BB3E6ED21C03229C007EF3F8 /* resources-hdpi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-hdpi"; path = "../../data/resources-hdpi"; sourceTree = "<group>"; };
+		BB3E6ED31C03229C007EF3F8 /* resources-hdpi_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-hdpi_clear"; path = "../../data/resources-hdpi_clear"; sourceTree = "<group>"; };
+		BB3E6ED41C03229C007EF3F8 /* resources-hdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-hdpi_dark"; path = "../../data/resources-hdpi_dark"; sourceTree = "<group>"; };
 		CB252D6B16FF82C8001E41E9 /* Statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statistics.h; sourceTree = "<group>"; };
 		CB252D6C16FF82C8001E41E9 /* Statistics.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Statistics.mm; sourceTree = "<group>"; };
 		ED48BBB317C267F5003E7E92 /* ColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerView.h; sourceTree = "<group>"; };
@@ -1167,12 +1181,8 @@
 		ED48BBB817C2B1E2003E7E92 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
 		ED48BBB917C2B1E2003E7E92 /* CircleView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CircleView.mm; sourceTree = "<group>"; };
 		EE026F0511D6AC0D00645242 /* classificator.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = classificator.txt; path = ../../data/classificator.txt; sourceTree = SOURCE_ROOT; };
-		EE16192B126E374500622BD0 /* RenderContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RenderContext.hpp; path = Classes/RenderContext.hpp; sourceTree = SOURCE_ROOT; };
 		EE164810135CEE49003B8A3E /* 06_code2000.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 06_code2000.ttf; path = ../../data/06_code2000.ttf; sourceTree = SOURCE_ROOT; };
 		EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = unicode_blocks.txt; path = ../../data/unicode_blocks.txt; sourceTree = "<group>"; };
-		EE7F297C1219ECA300EB67A9 /* RenderBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RenderBuffer.hpp; path = Classes/RenderBuffer.hpp; sourceTree = SOURCE_ROOT; };
-		EE7F297D1219ECA300EB67A9 /* RenderBuffer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = RenderBuffer.mm; path = Classes/RenderBuffer.mm; sourceTree = SOURCE_ROOT; };
-		EE7F297E1219ECA300EB67A9 /* RenderContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = RenderContext.mm; path = Classes/RenderContext.mm; sourceTree = SOURCE_ROOT; };
 		EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 01_dejavusans.ttf; path = ../../data/01_dejavusans.ttf; sourceTree = SOURCE_ROOT; };
 		EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "03_jomolhari-id-a3d.ttf"; path = "../../data/03_jomolhari-id-a3d.ttf"; sourceTree = SOURCE_ROOT; };
 		EEA615E8134C4968003A9827 /* 04_padauk.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 04_padauk.ttf; path = ../../data/04_padauk.ttf; sourceTree = SOURCE_ROOT; };
@@ -1575,6 +1585,7 @@
 			isa = PBXGroup;
 			children = (
 				F607C18B1C047FCA00B53A87 /* Segue */,
+				34FE4C421BCC013500066718 /* Widgets */,
 				346EDAD81B9F0E15004F8DB5 /* Components */,
 				340837101B7243B500B5C185 /* Share */,
 				340F24601B1490ED00F874CD /* RouteState */,
@@ -1592,10 +1603,6 @@
 				B0FBFA2A1A515B4C0086819E /* TableViewController.mm */,
 				978F9251183BD530000D6C7C /* NavigationController.h */,
 				978F9252183BD530000D6C7C /* NavigationController.mm */,
-				EE7F297C1219ECA300EB67A9 /* RenderBuffer.hpp */,
-				EE7F297D1219ECA300EB67A9 /* RenderBuffer.mm */,
-				EE16192B126E374500622BD0 /* RenderContext.hpp */,
-				EE7F297E1219ECA300EB67A9 /* RenderContext.mm */,
 				46F26CD610F623BA00ECCA39 /* EAGLView.h */,
 				46F26CD710F623BA00ECCA39 /* EAGLView.mm */,
 				1D3623240D0F684500981E51 /* MapsAppDelegate.h */,
@@ -1680,7 +1687,6 @@
 				34921F691BFA0CDC00737D6E /* MyTargetSDKCorp.framework */,
 				6741AAA21BF356B9002C974C /* libagg.a */,
 				6741AAA31BF356B9002C974C /* libalohalitics.a */,
-				6741AAA41BF356B9002C974C /* libanim.a */,
 				6741AAA51BF356B9002C974C /* libapi.a */,
 				6741AAA61BF356B9002C974C /* libbase.a */,
 				6741AAA71BF356B9002C974C /* libcoding.a */,
@@ -1688,8 +1694,6 @@
 				6741AAA91BF356B9002C974C /* libfreetype.a */,
 				6741AAAA1BF356B9002C974C /* libfribidi.a */,
 				6741AAAB1BF356B9002C974C /* libgeometry.a */,
-				6741AAAC1BF356B9002C974C /* libgraphics.a */,
-				6741AAAD1BF356B9002C974C /* libgui.a */,
 				6741AAAE1BF356B9002C974C /* libindexer.a */,
 				6741AAAF1BF356B9002C974C /* libjansson.a */,
 				6741AAB01BF356B9002C974C /* liblodepng.a */,
@@ -1699,7 +1703,6 @@
 				6741AAB41BF356B9002C974C /* libosrm.a */,
 				6741AAB51BF356B9002C974C /* libplatform.a */,
 				6741AAB61BF356BA002C974C /* libprotobuf.a */,
-				6741AAB71BF356BA002C974C /* librender.a */,
 				6741AAB81BF356BA002C974C /* librouting.a */,
 				6741AAB91BF356BA002C974C /* libsearch.a */,
 				6741AABA1BF356BA002C974C /* libstorage.a */,
@@ -2147,6 +2150,15 @@
 				F64A7B861BB2CD3D00CB03B0 /* RoutePointCell */,
 			);
 			path = RoutePreview;
+			sourceTree = "<group>";
+		};
+		34FE4C421BCC013500066718 /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				34FE4C431BCC013500066718 /* MWMMapWidgets.h */,
+				34FE4C441BCC013500066718 /* MWMMapWidgets.mm */,
+			);
+			path = Widgets;
 			sourceTree = "<group>";
 		};
 		560634EF1B787EBE00F3D670 /* Sound */ = {
@@ -2727,6 +2739,7 @@
 				F607C1841C032A8800B53A87 /* resources-hdpi_dark */,
 				4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */,
 				4A7D89C41B2EBF3B00AC843E /* resources-xxhdpi_dark */,
+				A367C93A1B17334800E2B6E7 /* resources-default */,
 				45159BF81B0CA2D5009BFA85 /* resources-6plus */,
 				4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */,
 				97A5967E19B9CD47007A963F /* copyright.html */,
@@ -2739,6 +2752,8 @@
 				97FC99DB19C1A2CD00C1CF98 /* resources-xxhdpi */,
 				FAAFD696139D9BE2000AE70C /* categories.txt */,
 				FA64D9A813F975AD00350ECF /* types.txt */,
+				452FCA3A1B6A3DF7007019AB /* colors.txt */,
+				451950391B7A3E070085DA05 /* patterns.txt */,
 				FAF30A94173AB23900818BF6 /* 00_roboto_regular.ttf */,
 				EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */,
 				9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */,
@@ -3037,7 +3052,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4519503A1B7A3E070085DA05 /* patterns.txt in Resources */,
 				5605022F1B6211E100169CAD /* sound-strings in Resources */,
+				452FCA3B1B6A3DF7007019AB /* colors.txt in Resources */,
 				F67BC26F1B254B2000FE1D7B /* MWMPlacePageDescriptionView.xib in Resources */,
 				342BB7AB1BC7CC5C00DF6443 /* PlacePageBookmarkCell.xib in Resources */,
 				EE026F0611D6AC0D00645242 /* classificator.txt in Resources */,
@@ -3064,6 +3081,7 @@
 				EEA61605134C496A003A9827 /* 05_khmeros.ttf in Resources */,
 				347274731B0F4EE000756B37 /* me.maps.entitlements in Resources */,
 				3476B8E01BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */,
+				A367C93B1B17334800E2B6E7 /* resources-default in Resources */,
 				EE164811135CEE4A003B8A3E /* 06_code2000.ttf in Resources */,
 				FAAFD697139D9BE2000AE70C /* categories.txt in Resources */,
 				FA64D9A913F975AD00350ECF /* types.txt in Resources */,
@@ -3196,8 +3214,10 @@
 				6741A9461BF340DE002C974C /* MWMSearchTabbedViewController.xib in Resources */,
 				6741A9471BF340DE002C974C /* MWMSearchCategoryCell.xib in Resources */,
 				6741A9481BF340DE002C974C /* MWMSearchTabbedCollectionViewCell.xib in Resources */,
+				BB3E6EDF1C0327FB007EF3F8 /* resources-hdpi_clear in Resources */,
 				6741A9491BF340DE002C974C /* countries.txt in Resources */,
 				6741A94A1BF340DE002C974C /* resources-6plus_clear in Resources */,
+				BB3E6EE01C0327FE007EF3F8 /* resources-hdpi_dark in Resources */,
 				6741A94B1BF340DE002C974C /* unicode_blocks.txt in Resources */,
 				6741A94C1BF340DE002C974C /* fonts_blacklist.txt in Resources */,
 				6741A94D1BF340DE002C974C /* resources-xxhdpi_clear in Resources */,
@@ -3277,6 +3297,7 @@
 				6741A9921BF340DE002C974C /* PlacePageActionBar.xib in Resources */,
 				6741A9931BF340DE002C974C /* MWMSearchTabButtonsView.xib in Resources */,
 				6741A9941BF340DE002C974C /* MWMPortraitNavigationDashboard.xib in Resources */,
+				BB3E6EDE1C0327F8007EF3F8 /* resources-hdpi in Resources */,
 				6741A9951BF340DE002C974C /* MWMDownloaderDialogCell.xib in Resources */,
 				6741A9961BF340DE002C974C /* MWMSearchTableViewController.xib in Resources */,
 				6741A9971BF340DE002C974C /* MWMBookmarkDescriptionViewController.xib in Resources */,
@@ -3295,6 +3316,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				452FCA3E1B6A3E83007019AB /* colors.txt in Resources */,
+				4519503B1B7A3E390085DA05 /* patterns.txt in Resources */,
 				F6C7B7141BA8443C004233F4 /* drules_proto_clear.bin in Resources */,
 				F6C7B7121BA840A4004233F4 /* resources-xhdpi_clear in Resources */,
 				F6C7B7131BA840A4004233F4 /* resources-xhdpi_dark in Resources */,
@@ -3401,11 +3424,11 @@
 				F61579341AC2CE9A0032D8E9 /* MWMRateAlert.mm in Sources */,
 				F6BB6CC61BB18C0900DF1DF2 /* MWMRoutePointCell.m in Sources */,
 				A3CC2CD41A1C723900B832E1 /* LocationPredictor.mm in Sources */,
-				EE7F29811219ECA300EB67A9 /* RenderBuffer.mm in Sources */,
 				6C93FAEC1AD8063900A2C4AE /* MWMWatchNotification.mm in Sources */,
 				F62404FB1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.mm in Sources */,
 				34CC4C0E1B82069C00E44C1F /* MWMSearchTabbedCollectionViewCell.mm in Sources */,
 				F6588E2C1B15C26700EE1E58 /* MWMTextView.mm in Sources */,
+				34FE4C451BCC013500066718 /* MWMMapWidgets.mm in Sources */,
 				F61B0F2C1B8B82DB00C08258 /* MWMNextTurnPanel.mm in Sources */,
 				F6F722F81AE1572400DA3DA1 /* MWMiPhonePortraitPlacePage.mm in Sources */,
 				F6CB21681AEFC6AA00FB8963 /* MWMPlacePageActionBar.mm in Sources */,
@@ -3422,7 +3445,6 @@
 				34CFFE8B1B7DE6FD009D0C9F /* MWMSearchManager.mm in Sources */,
 				F6BBF2C61B4FFB72000CF8E2 /* MWMLocationAlert.mm in Sources */,
 				F66A8FB01B09F268001B9C97 /* MWMPlacePage.mm in Sources */,
-				EE7F29821219ECA300EB67A9 /* RenderContext.mm in Sources */,
 				F6ED13911B1EF96B0095C6DE /* MWMBookmarkDescriptionViewController.mm in Sources */,
 				349A35851B53E967009677EE /* MWMDownloadMapRequestView.mm in Sources */,
 				F64F19991AB81A00006EAF7E /* MWMAlertViewController.mm in Sources */,
@@ -3723,8 +3745,6 @@
 				F6C6FE201AD6BEA0009FDED7 /* MWMWatchLocationTracker.mm in Sources */,
 				34DF4D111AE77B9F0012702D /* MWMWKInterfaceController.mm in Sources */,
 				343F262E1AEFC4A300388A6D /* MWMFrameworkUtils.mm in Sources */,
-				45FE96831AD315EF00CB7560 /* RenderBuffer.mm in Sources */,
-				454040701AD2DB30007A9B12 /* RenderContext.mm in Sources */,
 				345C31791AE799B600EA0CC2 /* MWMSearchResultController.mm in Sources */,
 				345C31721AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.mm in Sources */,
 			);
@@ -3963,43 +3983,6 @@
 			};
 			name = Debug;
 		};
-		6741A8E61BF3407C002C974C /* Drape Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IBSC_MODULE = maps_me_beta_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
-			};
-			name = "Drape Debug";
-		};
 		6741A8E71BF3407C002C974C /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4074,43 +4057,6 @@
 				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
 			};
 			name = Release;
-		};
-		6741A8E91BF3407C002C974C /* Drape Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IBSC_MODULE = maps_me_beta_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
-			};
-			name = "Drape Release";
 		};
 		6741A8EA1BF3407C002C974C /* Production Full */ = {
 			isa = XCBuildConfiguration;
@@ -4201,23 +4147,6 @@
 			};
 			name = Debug;
 		};
-		6741A9361BF340D1002C974C /* Drape Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/Entitlements/me.maps.watchkitextension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitextension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-			};
-			name = "Drape Debug";
-		};
 		6741A9371BF340D1002C974C /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4252,23 +4181,6 @@
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
-		};
-		6741A9391BF340D1002C974C /* Drape Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/Entitlements/me.maps.watchkitextension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitextension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-			};
-			name = "Drape Release";
 		};
 		6741A93A1BF340D1002C974C /* Production Full */ = {
 			isa = XCBuildConfiguration;
@@ -4383,38 +4295,6 @@
 			};
 			name = Debug;
 		};
-		6741AA581BF340DE002C974C /* Drape Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/me.maps.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/PushNotifications",
-					"$(PROJECT_DIR)/Statistics",
-					"$(PROJECT_DIR)",
-				);
-				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "$(SRCROOT)/MAPSME.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/MyTracker",
-					"$(PROJECT_DIR)/Statistics",
-				);
-				OTHER_CFLAGS = (
-					"-Wall",
-					"-Wno-unused-local-typedef",
-					"-Wimplicit-retain-self",
-				);
-				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-			};
-			name = "Drape Debug";
-		};
 		6741AA591BF340DE002C974C /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4479,38 +4359,6 @@
 			};
 			name = Release;
 		};
-		6741AA5B1BF340DE002C974C /* Drape Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/me.maps.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/PushNotifications",
-					"$(PROJECT_DIR)/Statistics",
-					"$(PROJECT_DIR)",
-				);
-				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "$(SRCROOT)/MAPSME.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/MyTracker",
-					"$(PROJECT_DIR)/Statistics",
-				);
-				OTHER_CFLAGS = (
-					"-Wall",
-					"-Wno-unused-local-typedef",
-					"-Wimplicit-retain-self",
-				);
-				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-			};
-			name = "Drape Release";
-		};
 		6741AA5C1BF340DE002C974C /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4542,257 +4390,6 @@
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Production Full";
-		};
-		A32B6D4E1A14A7B700E54A65 /* Drape Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_IDENTIFIER = com.mapswithme.full.release;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 5.2;
-				ENABLE_BITCODE = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Statistics";
-				GCC_ENABLE_PASCAL_STRINGS = NO;
-				GCC_FAST_MATH = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					NDEBUG,
-					RELEASE,
-					_RELEASE,
-					TARGET_OS_IPHONE,
-					"NS_BLOCK_ASSERTIONS=1",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_UNROLL_LOOPS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_LABEL = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					../../3party/boost,
-					../../,
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../../../omim-iphone-release-drape-$(CURRENT_ARCH)/out/release\"",
-					"$(PROJECT_DIR)/MyTracker",
-					"$(PROJECT_DIR)/Statistics",
-				);
-				OTHER_CFLAGS = (
-					"-Wall",
-					"-Wno-unused-local-typedef",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-DUSE_DRAPE",
-				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-lmap",
-					"-lrender",
-					"-lsearch",
-					"-lgui",
-					"-ldrape_frontend",
-					"-ldrape",
-					"-lgraphics",
-					"-lstorage",
-					"-lrouting",
-					"-lindexer",
-					"-lanim",
-					"-lplatform",
-					"-lgeometry",
-					"-lcoding",
-					"-lbase",
-					"-lfreetype",
-					"-lfribidi",
-					"-lminizip",
-					"-ljansson",
-					"-ltomcrypt",
-					"-lexpat",
-					"-lprotobuf",
-					"-losrm",
-					"-lsuccinct",
-					"-ObjC",
-					"-lopening_hours",
-				);
-				PRODUCT_NAME = "maps.me drape rel";
-				SDKROOT = iphoneos;
-				STRIP_INSTALLED_PRODUCT = NO;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = "Drape Release";
-		};
-		A32B6D4F1A14A7B700E54A65 /* Drape Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/me.maps.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/PushNotifications",
-					"$(PROJECT_DIR)/Statistics",
-					"$(PROJECT_DIR)",
-				);
-				INFOPLIST_FILE = MAPSME.plist;
-				OTHER_CFLAGS = (
-					"-Wall",
-					"-Wno-unused-local-typedef",
-					"-Wimplicit-retain-self",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
-				PROVISIONING_PROFILE = "";
-			};
-			name = "Drape Release";
-		};
-		A32B6D5F1A14C16500E54A65 /* Drape Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_IDENTIFIER = com.mapswithme.full.debug;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 5.2;
-				ENABLE_BITCODE = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Statistics";
-				GCC_ENABLE_PASCAL_STRINGS = NO;
-				GCC_FAST_MATH = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					DEBUG,
-					_DEBUG,
-					TARGET_OS_IPHONE,
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_LABEL = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					../../3party/boost,
-					../../,
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../../../omim-iphone-debug-drape-$(CURRENT_ARCH)/out/debug\"",
-					"$(PROJECT_DIR)/MyTracker",
-					"$(PROJECT_DIR)/Statistics",
-				);
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = (
-					"-Wall",
-					"-Wno-unused-local-typedef",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-DUSE_DRAPE",
-				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-lmap",
-					"-lrender",
-					"-ldrape_frontend",
-					"-ldrape",
-					"-lsearch",
-					"-lgui",
-					"-lgraphics",
-					"-lstorage",
-					"-lrouting",
-					"-lindexer",
-					"-lanim",
-					"-lplatform",
-					"-lgeometry",
-					"-lcoding",
-					"-lbase",
-					"-lfreetype",
-					"-lfribidi",
-					"-lminizip",
-					"-ljansson",
-					"-ltomcrypt",
-					"-lexpat",
-					"-lprotobuf",
-					"-losrm",
-					"-lsuccinct",
-					"-ObjC",
-					"-lopening_hours",
-				);
-				PRODUCT_NAME = "maps.me drape dbg";
-				SDKROOT = iphoneos;
-				STRIP_INSTALLED_PRODUCT = NO;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = "Drape Debug";
-		};
-		A32B6D601A14C16500E54A65 /* Drape Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/me.maps.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/PushNotifications",
-					"$(PROJECT_DIR)/Statistics",
-					"$(PROJECT_DIR)",
-				);
-				INFOPLIST_FILE = MAPSME.plist;
-				OTHER_CFLAGS = (
-					"-Wall",
-					"-Wno-unused-local-typedef",
-					"-Wimplicit-retain-self",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
-				PROVISIONING_PROFILE = "";
-			};
-			name = "Drape Debug";
 		};
 		F6D434601AD2AB97007C7728 /* Simulator */ = {
 			isa = XCBuildConfiguration;
@@ -4839,21 +4436,6 @@
 			};
 			name = Debug;
 		};
-		F6D434631AD2AB97007C7728 /* Drape Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/Entitlements/me.maps.watchkitextension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitextension";
-				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-			};
-			name = "Drape Debug";
-		};
 		F6D434641AD2AB97007C7728 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4883,21 +4465,6 @@
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
-		};
-		F6D434661AD2AB97007C7728 /* Drape Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/Entitlements/me.maps.watchkitextension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitextension";
-				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-			};
-			name = "Drape Release";
 		};
 		F6D434671AD2AB97007C7728 /* Production Full */ = {
 			isa = XCBuildConfiguration;
@@ -5030,42 +4597,6 @@
 			};
 			name = Debug;
 		};
-		F6D4346B1AD2AB97007C7728 /* Drape Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IBSC_MODULE = maps_me_beta_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
-			};
-			name = "Drape Debug";
-		};
 		F6D4346C1AD2AB97007C7728 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -5137,42 +4668,6 @@
 				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
 			};
 			name = Release;
-		};
-		F6D4346E1AD2AB97007C7728 /* Drape Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IBSC_MODULE = maps_me_beta_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
-			};
-			name = "Drape Release";
 		};
 		F6D4346F1AD2AB97007C7728 /* Production Full */ = {
 			isa = XCBuildConfiguration;
@@ -5255,6 +4750,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					../../3party/boost,
+					../../3party/glm,
 					../../,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -5271,14 +4767,12 @@
 				OTHER_LDFLAGS = (
 					"-lstats_client",
 					"-lmap",
-					"-lrender",
 					"-lsearch",
-					"-lgui",
-					"-lgraphics",
+					"-ldrape_frontend",
+					"-ldrape",
 					"-lstorage",
 					"-lrouting",
 					"-lindexer",
-					"-lanim",
 					"-lplatform",
 					"-lgeometry",
 					"-lcoding",
@@ -5375,6 +4869,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					../../3party/boost,
+					../../3party/glm,
 					../../,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -5392,14 +4887,12 @@
 				OTHER_LDFLAGS = (
 					"-lstats_client",
 					"-lmap",
-					"-lrender",
 					"-lsearch",
-					"-lgui",
-					"-lgraphics",
+					"-ldrape_frontend",
+					"-ldrape",
 					"-lstorage",
 					"-lrouting",
 					"-lindexer",
-					"-lanim",
 					"-lplatform",
 					"-lgeometry",
 					"-lcoding",
@@ -5499,6 +4992,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					../../3party/boost,
+					../../3party/glm,
 					../../,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -5515,14 +5009,12 @@
 				OTHER_LDFLAGS = (
 					"-lstats_client",
 					"-lmap",
-					"-lrender",
 					"-lsearch",
-					"-lgui",
-					"-lgraphics",
+					"-ldrape_frontend",
+					"-ldrape",
 					"-lstorage",
 					"-lrouting",
 					"-lindexer",
-					"-lanim",
 					"-lplatform",
 					"-lgeometry",
 					"-lcoding",
@@ -5623,6 +5115,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					../../3party/boost,
+					../../3party/glm,
 					../../,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -5639,14 +5132,12 @@
 				OTHER_LDFLAGS = (
 					"-lstats_client",
 					"-lmap",
-					"-lrender",
 					"-lsearch",
-					"-lgui",
-					"-lgraphics",
+					"-ldrape_frontend",
+					"-ldrape",
 					"-lstorage",
 					"-lrouting",
 					"-lindexer",
-					"-lanim",
 					"-lplatform",
 					"-lgeometry",
 					"-lcoding",
@@ -5745,6 +5236,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					../../3party/boost,
+					../../3party/glm,
 					../../,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -5762,14 +5254,12 @@
 				OTHER_LDFLAGS = (
 					"-lstats_client",
 					"-lmap",
-					"-lrender",
 					"-lsearch",
-					"-lgui",
-					"-lgraphics",
+					"-ldrape_frontend",
+					"-ldrape",
 					"-lstorage",
 					"-lrouting",
 					"-lindexer",
-					"-lanim",
 					"-lplatform",
 					"-lgeometry",
 					"-lcoding",
@@ -5867,6 +5357,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					../../3party/boost,
+					../../3party/glm,
 					../../,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -5883,14 +5374,12 @@
 				OTHER_LDFLAGS = (
 					"-lstats_client",
 					"-lmap",
-					"-lrender",
 					"-lsearch",
-					"-lgui",
-					"-lgraphics",
+					"-ldrape_frontend",
+					"-ldrape",
 					"-lstorage",
 					"-lrouting",
 					"-lindexer",
-					"-lanim",
 					"-lplatform",
 					"-lgeometry",
 					"-lcoding",
@@ -5950,10 +5439,8 @@
 				FAAB411A149BA83500C245B1 /* Simulator */,
 				FACFE54515F8F35600CE8B20 /* Simulator Release */,
 				FAAB411C149BA84700C245B1 /* Debug */,
-				A32B6D601A14C16500E54A65 /* Drape Debug */,
 				FAAB411E149BA85500C245B1 /* AdHoc */,
 				FABB561F149CD957006969C0 /* Release */,
-				A32B6D4F1A14A7B700E54A65 /* Drape Release */,
 				FAAB4120149BA86000C245B1 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -5965,10 +5452,8 @@
 				6741A8E31BF3407C002C974C /* Simulator */,
 				6741A8E41BF3407C002C974C /* Simulator Release */,
 				6741A8E51BF3407C002C974C /* Debug */,
-				6741A8E61BF3407C002C974C /* Drape Debug */,
 				6741A8E71BF3407C002C974C /* AdHoc */,
 				6741A8E81BF3407C002C974C /* Release */,
-				6741A8E91BF3407C002C974C /* Drape Release */,
 				6741A8EA1BF3407C002C974C /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -5980,10 +5465,8 @@
 				6741A9331BF340D1002C974C /* Simulator */,
 				6741A9341BF340D1002C974C /* Simulator Release */,
 				6741A9351BF340D1002C974C /* Debug */,
-				6741A9361BF340D1002C974C /* Drape Debug */,
 				6741A9371BF340D1002C974C /* AdHoc */,
 				6741A9381BF340D1002C974C /* Release */,
-				6741A9391BF340D1002C974C /* Drape Release */,
 				6741A93A1BF340D1002C974C /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -5995,10 +5478,8 @@
 				6741AA551BF340DE002C974C /* Simulator */,
 				6741AA561BF340DE002C974C /* Simulator Release */,
 				6741AA571BF340DE002C974C /* Debug */,
-				6741AA581BF340DE002C974C /* Drape Debug */,
 				6741AA591BF340DE002C974C /* AdHoc */,
 				6741AA5A1BF340DE002C974C /* Release */,
-				6741AA5B1BF340DE002C974C /* Drape Release */,
 				6741AA5C1BF340DE002C974C /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -6010,10 +5491,8 @@
 				FAAB4119149BA83500C245B1 /* Simulator */,
 				FACFE54415F8F35600CE8B20 /* Simulator Release */,
 				FAAB411B149BA84700C245B1 /* Debug */,
-				A32B6D5F1A14C16500E54A65 /* Drape Debug */,
 				FAAB411D149BA85500C245B1 /* AdHoc */,
 				FABB561E149CD957006969C0 /* Release */,
-				A32B6D4E1A14A7B700E54A65 /* Drape Release */,
 				FAAB411F149BA86000C245B1 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -6025,10 +5504,8 @@
 				F6D434681AD2AB97007C7728 /* Simulator */,
 				F6D434691AD2AB97007C7728 /* Simulator Release */,
 				F6D4346A1AD2AB97007C7728 /* Debug */,
-				F6D4346B1AD2AB97007C7728 /* Drape Debug */,
 				F6D4346C1AD2AB97007C7728 /* AdHoc */,
 				F6D4346D1AD2AB97007C7728 /* Release */,
-				F6D4346E1AD2AB97007C7728 /* Drape Release */,
 				F6D4346F1AD2AB97007C7728 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -6040,10 +5517,8 @@
 				F6D434601AD2AB97007C7728 /* Simulator */,
 				F6D434611AD2AB97007C7728 /* Simulator Release */,
 				F6D434621AD2AB97007C7728 /* Debug */,
-				F6D434631AD2AB97007C7728 /* Drape Debug */,
 				F6D434641AD2AB97007C7728 /* AdHoc */,
 				F6D434651AD2AB97007C7728 /* Release */,
-				F6D434661AD2AB97007C7728 /* Drape Release */,
 				F6D434671AD2AB97007C7728 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;

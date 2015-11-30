@@ -142,7 +142,7 @@
 "country_status_added_to_queue" = "^\n는 다운로드 대기열에추가됩니다";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "다운로드 중\n^\n^%";
+"country_status_downloading" = "다운로드 중\n^\n^";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "지도 다운로드\n(^ ^)";

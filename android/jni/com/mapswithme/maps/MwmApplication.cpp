@@ -4,10 +4,6 @@
 
 #include "../platform/Platform.hpp"
 
-#include "map/information_display.hpp"
-#include "map/location_state.hpp"
-
-
 extern "C"
 {
   JNIEXPORT void JNICALL
@@ -16,6 +12,7 @@ extern "C"
       jstring apkPath, jstring storagePath, jstring tmpPath, jstring obbGooglePath,
       jstring flavorName, jstring buildType, jboolean isYota, jboolean isTablet)
   {
+    android::Platform::Instance().InitAppMethodRefs(thiz);
     android::Platform::Instance().Initialize(
         env, apkPath, storagePath, tmpPath, obbGooglePath, flavorName, buildType, isYota, isTablet);
   }
@@ -27,10 +24,10 @@ extern "C"
       g_framework = new android::Framework();
   }
 
-  JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_MwmApplication_nativeIsBenchmarking(JNIEnv * env, jobject thiz)
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MwmApplication_runNativeFunctor(JNIEnv * env, jobject thiz, jlong functorPointer)
   {
-    return static_cast<jboolean>(g_framework->NativeFramework()->IsBenchmarking());
+    android::Platform::Instance().CallNativeFunctor(functorPointer);
   }
 
   JNIEXPORT jboolean JNICALL

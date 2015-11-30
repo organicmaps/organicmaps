@@ -30,8 +30,6 @@ extern "C"
     g_jvm = jvm;
     jni::InitSystemLog();
     jni::InitAssertLog();
-    // @TODO remove line below after refactoring
-    InitNVEvent(jvm);
 
     JNIEnv * env = jni::GetEnv();
     // TODO

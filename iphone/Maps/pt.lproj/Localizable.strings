@@ -142,7 +142,7 @@
 "country_status_added_to_queue" = "^\né adicionado à fila de descargas";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "A descarregar\n^\n^%";
+"country_status_downloading" = "A descarregar\n^\n^";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Descarregar Mapa\n(^ ^)";

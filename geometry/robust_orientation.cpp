@@ -9,10 +9,10 @@ extern "C"
 #if defined(__clang__)
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wconditional-uninitialized"
-#include "../3party/robust/predicates.c"
+#include "3party/robust/predicates.c"
 #pragma clang diagnostic pop
 #else
-#include "../3party/robust/predicates.c"
+#include "3party/robust/predicates.c"
 #endif
 }
 

@@ -138,6 +138,11 @@ void Trim(string & s)
   boost::trim(s);
 }
 
+void Trim(string & s, char const * anyOf)
+{
+  boost::trim_if(s, boost::is_any_of(anyOf));
+}
+
 bool EqualNoCase(string const & s1, string const & s2)
 {
   return MakeLowerCase(s1) == MakeLowerCase(s2);

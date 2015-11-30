@@ -1,10 +1,14 @@
 #pragma once
 
+#include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/tile_key.hpp"
+
+#include "drape/pointers.hpp"
 
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
+#include "std/array.hpp"
 #include "std/function.hpp"
 #include "std/set.hpp"
 #include "std/string.hpp"
@@ -16,25 +20,25 @@ namespace df
 
 class EngineContext;
 class Stylist;
-typedef function<void (FeatureType const &, Stylist &)> drawer_callback_fn;
 
 class RuleDrawer
 {
 public:
-  RuleDrawer(drawer_callback_fn const & fn,
-             TileKey const & tileKey,
-             EngineContext & context);
+  using TDrawerCallback = function<void (FeatureType const &, Stylist &)>;
+  RuleDrawer(TDrawerCallback const & fn, ref_ptr<EngineContext> context);
+  ~RuleDrawer();
 
   void operator() (FeatureType const & f);
 
 private:
-  drawer_callback_fn m_callback;
-  TileKey m_tileKey;
-  EngineContext & m_context;
+  TDrawerCallback m_callback;
+  ref_ptr<EngineContext> m_context;
   m2::RectD m_globalRect;
   ScreenBase m_geometryConvertor;
   double m_currentScaleGtoP;
   set<string> m_coastlines;
+
+  array<TMapShapes, df::PrioritiesCount> m_mapShapes;
 };
 
 } // namespace dfo

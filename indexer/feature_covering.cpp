@@ -206,8 +206,9 @@ void CoverViewportAndAppendLowerLevels(m2::RectD const & r, int cellDepth, Inter
 RectId GetRectIdAsIs(m2::RectD const & r)
 {
   double const eps = MercatorBounds::GetCellID2PointAbsEpsilon();
+  using TConverter = CellIdConverter<MercatorBounds, RectId>;
 
-  return CellIdConverter<MercatorBounds, RectId>::Cover2PointsWithCell(
+  return TConverter::Cover2PointsWithCell(
     MercatorBounds::ClampX(r.minX() + eps),
     MercatorBounds::ClampY(r.minY() + eps),
     MercatorBounds::ClampX(r.maxX() - eps),
@@ -241,6 +242,16 @@ IntervalsT const & CoveringGetter::Get(int scale)
       while (id.Level() >= cellDepth)
         id = id.Parent();
       AppendLowerLevels(id, cellDepth, m_res[ind]);
+
+      // Check for optimal result intervals.
+#if 0
+      size_t oldSize = m_res[ind].size();
+      IntervalsT res;
+      SortAndMergeIntervals(m_res[ind], res);
+      if (res.size() != oldSize)
+        LOG(LINFO, ("Old =", oldSize, "; New =", res.size()));
+      res.swap(m_res[ind]);
+#endif
       break;
     }
 

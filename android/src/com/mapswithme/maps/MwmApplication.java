@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -41,6 +43,9 @@ public class MwmApplication extends Application
 
   private boolean mAreCountersInitialized;
   private boolean mIsFrameworkInitialized;
+
+  private Handler mMainLoopHandler;
+  private Object mMainQueueToken = new Object();
 
   public MwmApplication()
   {
@@ -93,6 +98,7 @@ public class MwmApplication extends Application
   public void onCreate()
   {
     super.onCreate();
+    mMainLoopHandler = new Handler(getMainLooper());
 
     initPaths();
     nativeInitPlatform(getApkPath(), getDataStoragePath(), getTempPath(), getObbGooglePath(),
@@ -169,7 +175,7 @@ public class MwmApplication extends Application
       return cacheDir.getAbsolutePath();
 
     return Environment.getExternalStorageDirectory().getAbsolutePath() +
-        String.format(Constants.STORAGE_PATH, BuildConfig.APPLICATION_ID, Constants.CACHE_DIR);
+            String.format(Constants.STORAGE_PATH, BuildConfig.APPLICATION_ID, Constants.CACHE_DIR);
   }
 
   private String getObbGooglePath()
@@ -191,9 +197,14 @@ public class MwmApplication extends Application
 
   private native void nativeInitFramework();
 
-  public native boolean nativeIsBenchmarking();
-
   private native void nativeAddLocalization(String name, String value);
+
+  /**
+   * Check if device have at least {@code size} bytes free.
+   */
+  public native boolean hasFreeSpace(long size);
+
+  private native void runNativeFunctor(final long functorPointer);
 
   /*
    * init Parse SDK
@@ -217,8 +228,8 @@ public class MwmApplication extends Application
           org.alohalytics.Statistics.logEvent(AlohaHelper.PARSE_INSTALLATION_ID, newId);
           org.alohalytics.Statistics.logEvent(AlohaHelper.PARSE_DEVICE_TOKEN, newToken);
           prefs.edit()
-               .putString(PREF_PARSE_INSTALLATION_ID, newId)
-               .putString(PREF_PARSE_DEVICE_TOKEN, newToken).apply();
+                  .putString(PREF_PARSE_INSTALLATION_ID, newId)
+                  .putString(PREF_PARSE_DEVICE_TOKEN, newToken).apply();
         }
       }
     });
@@ -237,5 +248,24 @@ public class MwmApplication extends Application
   public void onUpgrade()
   {
     Config.resetAppSessionCounters();
+  }
+
+  public void runNativeFunctorOnUiThread(final long functorPointer)
+  {
+    Message m = Message.obtain(mMainLoopHandler, new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        runNativeFunctor(functorPointer);
+      }
+    });
+    m.obj = mMainQueueToken;
+    mMainLoopHandler.sendMessage(m);
+  }
+
+  public void clearFunctorsOnUiThread()
+  {
+    mMainLoopHandler.removeCallbacksAndMessages(mMainQueueToken);
   }
 }

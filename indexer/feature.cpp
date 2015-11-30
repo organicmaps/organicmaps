@@ -8,7 +8,7 @@
 
 #include "platform/preferred_languages.hpp"
 
-#include "../defines.hpp" // just for file extensions
+#include "defines.hpp" // just for file extensions
 
 
 using namespace feature;

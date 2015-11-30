@@ -17,6 +17,10 @@ extern const glConst GLMaxTextureSize;
 extern const glConst GLArrayBuffer;
 extern const glConst GLElementArrayBuffer;
 
+/// Buffer params
+extern const glConst GLBufferSize;
+extern const glConst GLBufferUsage;
+
 /// VBO Access
 extern const glConst GLWriteOnly;
 
@@ -109,6 +113,16 @@ extern const glConst GLOneMinusDstAlfa;
 /// OpenGL states
 extern const glConst GLDepthTest;
 extern const glConst GLBlending;
+extern const glConst GLCullFace;
+
+/// Triangle faces order
+extern const glConst GLClockwise;
+extern const glConst GLCounterClockwise;
+
+/// Triangle face
+extern const glConst GLFront;
+extern const glConst GLBack;
+extern const glConst GLFrontAndBack;
 
 /// OpenGL depth functions
 extern const glConst GLNever;
@@ -122,5 +136,8 @@ extern const glConst GLAlways;
 
 /// Program object parameter names
 extern const glConst GLActiveUniforms;
+
+/// Draw primitives
+extern const glConst GLLineStrip;
 
 } // namespace GLConst

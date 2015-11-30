@@ -14,17 +14,21 @@ class StraightTextLayout;
 class TextShape : public MapShape
 {
 public:
-  TextShape(m2::PointF const & basePoint, TextViewParams const & params);
+  TextShape(m2::PointF const & basePoint, TextViewParams const & params, bool hasPOI);
 
-  void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const;
-private:
-  void DrawSubString(StraightTextLayout const & layout, df::FontDecl const & font,
-                     glsl::vec2 const & baseOffset, dp::RefPointer<dp::Batcher> batcher,
-                     dp::RefPointer<dp::TextureManager> textures) const;
+  void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const override;
+  MapShapePriority GetPriority() const override { return MapShapePriority::TextAndPoiPriority; }
 
 private:
+  void DrawSubString(StraightTextLayout const & layout, dp::FontDecl const & font,
+                     glsl::vec2 const & baseOffset, ref_ptr<dp::Batcher> batcher,
+                     ref_ptr<dp::TextureManager> textures, bool isPrimary, bool isOptional) const;
+
+  uint64_t GetOverlayPriority() const;
+
   m2::PointF m_basePoint;
   TextViewParams m_params;
+  bool m_hasPOI;
 };
 
 } // namespace df

@@ -1,40 +1,71 @@
 #include "map/bookmark.hpp"
 #include "map/track.hpp"
-#include "map/anim_phase_chain.hpp"
 
 #include "map/framework.hpp"
 
-#include "anim/controller.hpp"
-
 #include "base/scope_guard.hpp"
-
-#include "graphics/depth_constants.hpp"
 
 #include "indexer/mercator.hpp"
 
 #include "coding/file_reader.hpp"
-#include "../coding/parse_xml.hpp"  // LoadFromKML
+#include "coding/parse_xml.hpp"  // LoadFromKML
 #include "coding/internal/file_data.hpp"
 #include "coding/hex.hpp"
+
+#include "drape/drape_global.hpp"
+#include "drape/color.hpp"
 
 #include "platform/platform.hpp"
 
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/fstream.hpp"
 #include "std/algorithm.hpp"
 #include "std/auto_ptr.hpp"
+#include "std/fstream.hpp"
+#include "std/iterator.hpp"
+
+Bookmark::Bookmark(m2::PointD const & ptOrg, UserMarkContainer * container)
+  : TBase(ptOrg, container)
+  , m_runCreationAnim(true)
+{
+}
+
+Bookmark::Bookmark(BookmarkData const & data, m2::PointD const & ptOrg, UserMarkContainer * container)
+  : TBase(ptOrg, container)
+  , m_data(data)
+  , m_runCreationAnim(true)
+{
+}
+
+void Bookmark::SetData(BookmarkData const & data)
+{
+  m_data = data;
+}
+
+BookmarkData const & Bookmark::GetData() const
+{
+  return m_data;
+}
+
+dp::Anchor Bookmark::GetAnchor() const
+{
+  return dp::Bottom;
+}
+
+string Bookmark::GetSymbolName() const
+{
+  return GetType();
+}
+
+UserMark::Type Bookmark::GetMarkType() const
+{
+  return UserMark::Type::BOOKMARK;
+}
 
 unique_ptr<UserMarkCopy> Bookmark::Copy() const
 {
   return unique_ptr<UserMarkCopy>(new UserMarkCopy(this, false));
-}
-
-shared_ptr<anim::Task> Bookmark::CreateAnimTask(Framework & fm)
-{
-  m_animScaleFactor = 0.0;
-  return CreateDefaultPinAnim(fm, m_animScaleFactor);
 }
 
 void Bookmark::FillLogEvent(TEventContainer & details) const
@@ -44,136 +75,125 @@ void Bookmark::FillLogEvent(TEventContainer & details) const
   details.emplace("name", GetData().GetName());
 }
 
-void BookmarkCategory::AddTrack(Track & track)
+bool Bookmark::RunCreationAnim() const
 {
-  m_tracks.push_back(track.CreatePersistent());
+  bool result = m_runCreationAnim;
+  m_runCreationAnim = false;
+  return result;
+}
+
+string const & Bookmark::GetName() const
+{
+  return m_data.GetName();
+}
+
+void Bookmark::SetName(string const & name)
+{
+  m_data.SetName(name);
+}
+
+string const & Bookmark::GetType() const
+{
+  return m_data.GetType();
+}
+
+void Bookmark::SetType(string const & type)
+{
+  m_data.SetType(type);
+}
+
+m2::RectD Bookmark::GetViewport() const
+{
+  return m2::RectD(GetPivot(), GetPivot());
+}
+
+string const & Bookmark::GetDescription() const
+{
+  return m_data.GetDescription();
+}
+
+void Bookmark::SetDescription(string const & description)
+{
+  m_data.SetDescription(description);
+}
+
+time_t Bookmark::GetTimeStamp() const
+{
+  return m_data.GetTimeStamp();
+}
+
+void Bookmark::SetTimeStamp(time_t timeStamp)
+{
+  m_data.SetTimeStamp(timeStamp);
+}
+
+double Bookmark::GetScale() const
+{
+  return m_data.GetScale();
+}
+
+void Bookmark::SetScale(double scale)
+{
+  m_data.SetScale(scale);
+}
+
+void BookmarkCategory::AddTrack(unique_ptr<Track> && track)
+{
+  SetDirty();
+  m_tracks.push_back(move(track));
 }
 
 Track const * BookmarkCategory::GetTrack(size_t index) const
 {
-  return (index < m_tracks.size() ? m_tracks[index] : 0);
+  return (index < m_tracks.size() ? m_tracks[index].get() : 0);
 }
 
-Bookmark * BookmarkCategory::AddBookmark(m2::PointD const & ptOrg, BookmarkData const & bm)
-{
-  Bookmark * bookmark = static_cast<Bookmark *>(base_t::GetController().CreateUserMark(ptOrg));
-  bookmark->SetData(bm);
-  return bookmark;
-}
-
-void BookmarkCategory::ReplaceBookmark(size_t index, BookmarkData const & bm)
-{
-  Controller & c = base_t::GetController();
-  ASSERT_LESS (index, c.GetUserMarkCount(), ());
-  if (index < c.GetUserMarkCount())
-  {
-    Bookmark * mark = static_cast<Bookmark *>(c.GetUserMarkForEdit(index));
-    mark->SetData(bm);
-  }
-}
-
-BookmarkCategory::BookmarkCategory(const string & name, Framework & framework)
-  : base_t(graphics::bookmarkDepth, framework)
+BookmarkCategory::BookmarkCategory(string const & name, Framework & framework)
+  : TBase(0.0 /* bookmarkDepth */, UserMarkType::BOOKMARK_MARK, framework)
   , m_name(name)
-  , m_blockAnimation(false)
 {
 }
 
 BookmarkCategory::~BookmarkCategory()
 {
-  ClearBookmarks();
   ClearTracks();
 }
 
-void BookmarkCategory::ClearBookmarks()
+size_t BookmarkCategory::GetUserLineCount() const
 {
-  base_t::Clear();
+  return m_tracks.size();
+}
+
+df::UserLineMark const * BookmarkCategory::GetUserLineMark(size_t index) const
+{
+  ASSERT_LESS(index, m_tracks.size(), ());
+  return m_tracks[index].get();
 }
 
 void BookmarkCategory::ClearTracks()
 {
-  for_each(m_tracks.begin(), m_tracks.end(), DeleteFunctor());
   m_tracks.clear();
-}
-
-namespace
-{
-
-template <class T> void DeleteItem(vector<T> & v, size_t i)
-{
-  if (i < v.size())
-  {
-    delete v[i];
-    v.erase(v.begin() + i);
-  }
-  else
-  {
-    LOG(LWARNING, ("Trying to delete non-existing item at index", i));
-  }
-}
-
-}
-
-void BookmarkCategory::DeleteBookmark(size_t index)
-{
-  base_t::Controller & c = base_t::GetController();
-  ASSERT_LESS(index, c.GetUserMarkCount(), ());
-  UserMark const * markForDelete = c.GetUserMark(index);
-
-  size_t animIndex = 0;
-  for (; animIndex < m_anims.size(); ++animIndex)
-  {
-    TAnimNode const & anim = m_anims[animIndex];
-    if (anim.first == markForDelete)
-    {
-      anim.second->Cancel();
-      break;
-    }
-  }
-
-  if (animIndex < m_anims.size())
-    m_anims.erase(m_anims.begin() + animIndex);
-
-  c.DeleteUserMark(index);
 }
 
 void BookmarkCategory::DeleteTrack(size_t index)
 {
-  DeleteItem(m_tracks, index);
-}
-
-size_t BookmarkCategory::GetBookmarksCount() const
-{
-  return base_t::GetController().GetUserMarkCount();
-}
-
-Bookmark const * BookmarkCategory::GetBookmark(size_t index) const
-{
-  base_t::Controller const & c = base_t::GetController();
-  return static_cast<Bookmark const *>(index < c.GetUserMarkCount() ? c.GetUserMark(index) : nullptr);
-}
-
-Bookmark * BookmarkCategory::GetBookmark(size_t index)
-{
-  base_t::Controller & c = base_t::GetController();
-  return static_cast<Bookmark *>(index < c.GetUserMarkCount() ? c.GetUserMarkForEdit(index) : nullptr);
-}
-
-size_t BookmarkCategory::FindBookmark(Bookmark const * bookmark) const
-{
-  return base_t::GetController().FindUserMark(bookmark);
+  RequestController();
+  SetDirty();
+  ASSERT_LESS(index, m_tracks.size(), ());
+  m_tracks.erase(next(m_tracks.begin(), index));
+  ReleaseController();
 }
 
 namespace
 {
-string const kPlacemark = "Placemark";
-string const kStyle = "Style";
-string const kDocument = "Document";
-string const kStyleMap = "StyleMap";
-string const kStyleUrl = "styleUrl";
-string const kPair = "Pair";
+  string const kPlacemark = "Placemark";
+  string const kStyle = "Style";
+  string const kDocument = "Document";
+  string const kStyleMap = "StyleMap";
+  string const kStyleUrl = "styleUrl";
+  string const kPair = "Pair";
 
-graphics::Color const kDefaultTrackColor = graphics::Color::fromARGB(0xFF33CCFF);
+  dp::Color const kDefaultTrackColor = dp::Extract(0xFF33CCFF);
 
   string PointToString(m2::PointD const & org)
   {
@@ -206,16 +226,17 @@ graphics::Color const kDefaultTrackColor = graphics::Color::fromARGB(0xFF33CCFF)
     }
 
     BookmarkCategory & m_category;
+    UserMarksController & m_controller;
 
     vector<string> m_tags;
     GeometryType m_geometryType;
     m2::PolylineD m_points;
-    graphics::Color m_trackColor;
+    dp::Color m_trackColor;
 
     string m_styleId;
     string m_mapStyleId;
     string m_styleUrlKey;
-    map<string, graphics::Color> m_styleUrl2Color;
+    map<string, dp::Color> m_styleUrl2Color;
     map<string, string> m_mapStyle2Style;
 
     string m_name;
@@ -286,7 +307,10 @@ graphics::Color const kDefaultTrackColor = graphics::Color::fromARGB(0xFF33CCFF)
       {
         m2::PointD pt;
         if (ParsePoint(*cortegeIter, coordSeparator, pt))
-          m_points.Add(pt);
+        {
+          if (m_points.GetSize() == 0 || !(pt - m_points.Back()).IsAlmostZero())
+            m_points.Add(pt);
+        }
         ++cortegeIter;
       }
     }
@@ -322,10 +346,10 @@ graphics::Color const kDefaultTrackColor = graphics::Color::fromARGB(0xFF33CCFF)
       string fromHex = FromHex(value);
       ASSERT(fromHex.size() == 4, ("Invalid color passed"));
       // Color positions in HEX – aabbggrr
-      m_trackColor = graphics::Color(fromHex[3], fromHex[2], fromHex[1], fromHex[0]);
+      m_trackColor = dp::Color(fromHex[3], fromHex[2], fromHex[1], fromHex[0]);
     }
 
-    bool GetColorForStyle(string const & styleUrl, graphics::Color & color)
+    bool GetColorForStyle(string const & styleUrl, dp::Color & color)
     {
       if (styleUrl.empty())
         return false;
@@ -341,9 +365,16 @@ graphics::Color const kDefaultTrackColor = graphics::Color::fromARGB(0xFF33CCFF)
     }
 
   public:
-    KMLParser(BookmarkCategory & cat) : m_category(cat)
+    KMLParser(BookmarkCategory & cat)
+      : m_category(cat)
+      , m_controller(m_category.RequestController())
     {
       Reset();
+    }
+
+    ~KMLParser()
+    {
+      m_category.ReleaseController();
     }
 
     bool Push(string const & name)
@@ -383,17 +414,19 @@ graphics::Color const kDefaultTrackColor = graphics::Color::fromARGB(0xFF33CCFF)
         if (MakeValid())
         {
           if (GEOMETRY_TYPE_POINT == m_geometryType)
-            m_category.AddBookmark(m_org, BookmarkData(m_name, m_type, m_description, m_scale, m_timeStamp));
+          {
+            Bookmark * bm = static_cast<Bookmark *>(m_controller.CreateUserMark(m_org));
+            bm->SetData(BookmarkData(m_name, m_type, m_description, m_scale, m_timeStamp));
+            bm->RunCreationAnim();
+          }
           else if (GEOMETRY_TYPE_LINE == m_geometryType)
           {
-            Track track(m_points);
-            track.SetName(m_name);
-
-            Track::TrackOutline trackOutline { 5.0f, m_trackColor };
-            track.AddOutline(&trackOutline, 1);
+            Track::Params params;
+            params.m_colors.push_back({ 5.0f, m_trackColor });
+            params.m_name = m_name;
 
             /// @todo Add description, style, timestamp
-            m_category.AddTrack(track);
+            m_category.AddTrack(make_unique<Track>(m_points, params));
           }
         }
         Reset();
@@ -429,7 +462,7 @@ graphics::Color const kDefaultTrackColor = graphics::Color::fromARGB(0xFF33CCFF)
           if (currTag == "name")
             m_category.SetName(value);
           else if (currTag == "visibility")
-            m_category.SetVisible(value == "0" ? false : true);
+            m_controller.SetIsVisible(value == "0" ? false : true);
         }
         else if (prevTag == kPlacemark)
         {
@@ -541,31 +574,8 @@ string BookmarkCategory::GetDefaultType()
   return style::GetDefaultStyle();
 }
 
-namespace
-{
-  struct AnimBlockGuard
-  {
-  public:
-    AnimBlockGuard(bool & block)
-      : m_block(block)
-    {
-      m_block = true;
-    }
-
-    ~AnimBlockGuard()
-    {
-      m_block = false;
-    }
-
-  private:
-    bool & m_block;
-  };
-}
-
 bool BookmarkCategory::LoadFromKML(ReaderPtr<Reader> const & reader)
 {
-  AnimBlockGuard g(m_blockAnimation);
-
   ReaderSource<ReaderPtr<Reader> > src(reader);
   KMLParser parser(*this);
   if (ParseXML(src, parser, true))
@@ -701,10 +711,10 @@ void BookmarkCategory::SaveToKML(ostream & s)
   // processed during the iteration. That's why i is initially set to
   // GetBookmarksCount() - 1, i.e. to the last bookmark in the
   // bookmarks list.
-  for (size_t count = 0, i = GetBookmarksCount() - 1;
-       count < GetBookmarksCount(); ++count, --i)
+  for (size_t count = 0, i = GetUserMarkCount() - 1;
+       count < GetUserPointCount(); ++count, --i)
   {
-    Bookmark const * bm = GetBookmark(i);
+    Bookmark const * bm = static_cast<Bookmark const *>(GetUserMark(i));
     s << "  <Placemark>\n";
     s << "    <name>";
     SaveStringWithCDATA(s, bm->GetName());
@@ -726,7 +736,7 @@ void BookmarkCategory::SaveToKML(ostream & s)
     }
 
     s << "    <styleUrl>#" << bm->GetType() << "</styleUrl>\n"
-      << "    <Point><coordinates>" << PointToString(bm->GetOrg()) << "</coordinates></Point>\n";
+      << "    <Point><coordinates>" << PointToString(bm->GetPivot()) << "</coordinates></Point>\n";
 
     double const scale = bm->GetScale();
     if (scale != -1.0)
@@ -750,17 +760,19 @@ void BookmarkCategory::SaveToKML(ostream & s)
     SaveStringWithCDATA(s, track->GetName());
     s << "</name>\n";
 
+    ASSERT_GREATER(track->GetLayerCount(), 0, ());
+
     s << "<Style><LineStyle>";
-    graphics::Color const & col = track->GetMainColor();
+    dp::Color const & col = track->GetColor(0);
     s << "<color>"
-      << NumToHex(col.a)
-      << NumToHex(col.b)
-      << NumToHex(col.g)
-      << NumToHex(col.r);
+      << NumToHex(col.GetAlfa())
+      << NumToHex(col.GetBlue())
+      << NumToHex(col.GetGreen())
+      << NumToHex(col.GetRed());
     s << "</color>\n";
 
     s << "<width>"
-      << track->GetMainWidth();
+      << track->GetWidth(0);
     s << "</width>\n";
 
     s << "</LineStyle></Style>\n";
@@ -823,33 +835,9 @@ string BookmarkCategory::GenerateUniqueFileName(const string & path, string name
   return (path + name + suffix + kmlExt);
 }
 
-void BookmarkCategory::ReleaseAnimations()
-{
-  vector<TAnimNode> tempAnims;
-  for (size_t i = 0; i < m_anims.size(); ++i)
-  {
-    TAnimNode const & anim = m_anims[i];
-    if (!anim.second->IsEnded() &&
-        !anim.second->IsCancelled())
-    {
-      tempAnims.push_back(m_anims[i]);
-    }
-  }
-
-  swap(m_anims, tempAnims);
-}
-
 UserMark * BookmarkCategory::AllocateUserMark(m2::PointD const & ptOrg)
 {
-  Bookmark * b = new Bookmark(ptOrg, this);
-  if (!m_blockAnimation)
-  {
-    shared_ptr<anim::Task> animTask = b->CreateAnimTask(m_framework);
-    animTask->AddCallback(anim::Task::EEnded, bind(&BookmarkCategory::ReleaseAnimations, this));
-    m_anims.push_back(make_pair((UserMark *)b, animTask));
-    m_framework.GetAnimController()->AddTask(animTask);
-  }
-  return b;
+  return new Bookmark(ptOrg, this);
 }
 
 bool BookmarkCategory::SaveToKMLFile()

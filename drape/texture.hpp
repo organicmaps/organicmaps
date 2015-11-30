@@ -3,6 +3,7 @@
 #include "drape/pointers.hpp"
 #include "drape/glconstants.hpp"
 #include "drape/drape_global.hpp"
+#include "drape/hw_texture.hpp"
 
 #include "geometry/rect2d.hpp"
 
@@ -47,16 +48,16 @@ public:
   Texture();
   virtual ~Texture();
 
-  void Create(uint32_t width, uint32_t height, TextureFormat format);
-  void Create(uint32_t width, uint32_t height, TextureFormat format, RefPointer<void> data);
-  void SetFilterParams(glConst minFilter, glConst magFilter);
-  void SetWrapMode(glConst sMode, glConst tMode);
-
-  void UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height, TextureFormat format,
-                  RefPointer<void> data);
-
-  virtual RefPointer<ResourceInfo> FindResource(Key const & key) const = 0;
+  virtual ref_ptr<ResourceInfo> FindResource(Key const & key, bool & newResource) = 0;
   virtual void UpdateState() {}
+  virtual bool HasAsyncRoutines() const { return false; }
+
+  using Params = HWTexture::Params;
+
+  void Create(Params const & params);
+  void Create(Params const & params, ref_ptr<void> data);
+
+  void UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height, ref_ptr<void> data);
 
   TextureFormat GetFormat() const;
   uint32_t GetWidth() const;
@@ -66,17 +67,17 @@ public:
 
   void Bind() const;
 
+  // Texture must be bound before calling this method.
+  void SetFilter(glConst filter);
+
   static uint32_t GetMaxTextureSize();
 
-private:
-  void UnpackFormat(TextureFormat format, glConst & layout, glConst & pixelType);
-  int32_t GetID() const;
+protected:
+  void Destroy();
+  bool AllocateTexture(ref_ptr<HWTextureAllocator> allocator);
 
 private:
-  int32_t m_textureID;
-  uint32_t m_width;
-  uint32_t m_height;
-  TextureFormat m_format;
+  drape_ptr<HWTexture> m_hwTexture;
 };
 
 } // namespace dp

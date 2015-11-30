@@ -239,9 +239,8 @@ int32_t GLFunctions::glGetInteger(glConst pname)
   return MOCK_CALL(glGetInteger(pname));
 }
 
-void CheckGLError() {}
+void CheckGLError(my::SrcPoint const & /*srcPt*/) {}
 
-// @TODO add actual unit tests
 void GLFunctions::glEnable(glConst mode) {}
 
 void GLFunctions::glBlendEquation(glConst function) {}
@@ -256,6 +255,13 @@ void * GLFunctions::glMapBuffer(glConst target) { return 0; }
 
 void GLFunctions::glUnmapBuffer(glConst target) {}
 
-void GLFunctions::glDrawElements(uint16_t indexCount) {}
+void GLFunctions::glDrawElements(uint32_t sizeOfIndex, uint32_t indexCount, uint32_t startIndex) {}
+
+void GLFunctions::glDrawArrays(glConst mode, int32_t first, uint32_t count) {}
 
 void GLFunctions::glPixelStore(glConst name, uint32_t value) {}
+
+int32_t GLFunctions::glGetBufferParameter(glConst target, glConst name)
+{
+  return MOCK_CALL(glGetBufferParameter(target, name));
+}

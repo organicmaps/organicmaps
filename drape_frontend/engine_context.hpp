@@ -1,32 +1,41 @@
 #pragma once
 
+#include "drape_frontend/map_shape.hpp"
+#include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/threads_commutator.hpp"
 
 #include "drape/pointers.hpp"
+
+namespace dp
+{
+class TextureManager;
+} // namespace dp
 
 namespace df
 {
 
 class Message;
-class MapShape;
-struct TileKey;
 
 class EngineContext
 {
 public:
-  EngineContext(dp::RefPointer<ThreadsCommutator> commutator);
+  EngineContext(TileKey tileKey, ref_ptr<ThreadsCommutator> commutator,
+                ref_ptr<dp::TextureManager> texMng);
 
-  void BeginReadTile(TileKey const & key);
-  /// If you call this method, you may forget about shape.
-  /// It will be proccessed and delete later
-  void InsertShape(TileKey const & key, dp::TransferPointer<MapShape> shape);
-  void EndReadTile(TileKey const & key);
+  TileKey const & GetTileKey() const { return m_tileKey; }
+
+  ref_ptr<dp::TextureManager> GetTextureManager() const;
+
+  void BeginReadTile();
+  void Flush(TMapShapes && shapes);
+  void EndReadTile();
 
 private:
-  void PostMessage(Message * message);
+  void PostMessage(drape_ptr<Message> && message);
 
-private:
-  dp::RefPointer<ThreadsCommutator> m_commutator;
+  TileKey m_tileKey;
+  ref_ptr<ThreadsCommutator> m_commutator;
+  ref_ptr<dp::TextureManager> m_texMng;
 };
 
 } // namespace df

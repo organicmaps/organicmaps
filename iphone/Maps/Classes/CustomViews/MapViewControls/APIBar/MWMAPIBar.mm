@@ -53,12 +53,10 @@ static NSString * const kKeyPath = @"subviews";
 - (IBAction)back
 {
   [[Statistics instance] logEvent:kStatEventName(kStatAPI, kStatBack)];
-  auto & f = GetFramework();
-  auto & bm = f.GetBalloonManager();
-  bm.RemovePin();
-  bm.Dismiss();
-  f.GetBookmarkManager().UserMarksClear(UserMarkContainer::API_MARK);
-  f.Invalidate();
+  Framework & f = GetFramework();
+  f.ActivateUserMark(nullptr, true);
+  UserMarkControllerGuard guard(f.GetBookmarkManager(), UserMarkType::API_MARK);
+  guard.m_controller.Clear();
   self.isVisible = NO;
   NSURL * url = [NSURL URLWithString:@(f.GetApiDataHolder().GetGlobalBackUrl().c_str())];
   [[UIApplication sharedApplication] openURL:url];

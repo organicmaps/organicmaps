@@ -60,6 +60,7 @@ message SymbolRuleProto
   required string name = 1;
   optional int32 apply_for_type = 2;  // 1 - for nodes, 2 - for ways, default - for all
   required int32 priority = 3;
+  optional int32 min_distance = 4;
 }
 
 message CaptionDefProto
@@ -70,6 +71,7 @@ message CaptionDefProto
   optional int32 offset_x = 4;
   optional int32 offset_y = 5;
   optional string text = 6;
+  optional bool is_optional = 7;
 }
 
 message CaptionRuleProto
@@ -100,6 +102,7 @@ message ShieldRuleProto
   required uint32 color = 2;
   optional uint32 stroke_color = 3;
   required int32 priority = 4;
+  optional int32 min_distance = 5;
 }
 
 message DrawElementProto

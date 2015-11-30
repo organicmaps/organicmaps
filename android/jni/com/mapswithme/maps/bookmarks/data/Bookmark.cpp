@@ -11,8 +11,7 @@ namespace
   {
     BookmarkCategory const * pCat = frm()->GetBmCategory(c);
     ASSERT(pCat, ("Category not found", c));
-    Bookmark const * pBmk = pCat->GetBookmark(b);
-    ASSERT(pBmk, ("Bookmark not found", c, b));
+    Bookmark const * pBmk = static_cast<Bookmark const *>(pCat->GetUserMark(b));
     return pBmk;
   }
 }
@@ -68,7 +67,7 @@ extern "C"
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_getXY(
        JNIEnv * env, jobject thiz, jint cat, jlong bmk)
   {
-    return jni::GetNewParcelablePointD(env, getBookmark(cat, bmk)->GetOrg());
+    return jni::GetNewParcelablePointD(env, getBookmark(cat, bmk)->GetPivot());
   }
 
   JNIEXPORT jdouble JNICALL

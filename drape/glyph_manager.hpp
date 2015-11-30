@@ -12,6 +12,8 @@
 namespace dp
 {
 
+struct UnicodeBlock;
+
 class GlyphManager
 {
 public:
@@ -24,6 +26,7 @@ public:
     vector<string> m_fonts;
 
     uint32_t m_baseGlyphHeight = 20;
+    uint32_t m_sdfScale = 4;
   };
 
   struct GlyphMetrics
@@ -39,16 +42,23 @@ public:
   {
     ~GlyphImage()
     {
-      ASSERT(!m_data.unique(), ());
+      ASSERT(!m_data.unique(), ("Probably you forgot to call Destroy()"));
     }
 
     void Destroy()
     {
-      SharedBufferManager::instance().freeSharedBuffer(m_data->size(), m_data);
+      if (m_data != nullptr)
+      {
+        SharedBufferManager::instance().freeSharedBuffer(m_data->size(), m_data);
+        m_data = nullptr;
+      }
     }
 
     int m_width;
     int m_height;
+
+    int m_bitmapRows;
+    int m_bitmapPitch;
 
     SharedBufferManager::shared_buffer_ptr_t m_data;
   };
@@ -57,18 +67,29 @@ public:
   {
     GlyphMetrics m_metrics;
     GlyphImage m_image;
+    int m_fontIndex;
+    strings::UniChar m_code;
   };
 
   GlyphManager(Params const & params);
   ~GlyphManager();
 
   Glyph GetGlyph(strings::UniChar unicodePoints);
+  Glyph GenerateGlyph(Glyph const & glyph) const;
+
+  void MarkGlyphReady(Glyph const & glyph);
+  bool AreGlyphsReady(strings::UniString const & str) const;
 
   typedef function<void (strings::UniChar start, strings::UniChar end)> TUniBlockCallback;
   void ForEachUnicodeBlock(TUniBlockCallback const & fn) const;
 
-private:
   Glyph GetInvalidGlyph() const;
+
+private:
+  int GetFontIndex(strings::UniChar unicodePoint);
+  // Immutable version can be called from any thread and doesn't require internal synchronization.
+  int GetFontIndexImmutable(strings::UniChar unicodePoint) const;
+  int FindFontIndexInBlock(UnicodeBlock const & block, strings::UniChar unicodePoint) const;
 
 private:
   struct Impl;

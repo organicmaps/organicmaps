@@ -8,30 +8,51 @@ class Message
 public:
   enum Type
   {
-    // in perfect world GetType never return this type
-    // for this you need call SetType on subclass constructor
     Unknown,
     TileReadStarted,
     TileReadEnded,
+    FinishReading,
     FlushTile,
     MapShapeReaded,
-    UpdateModelView,
     UpdateReadManager,
     InvalidateRect,
     InvalidateReadManagerRect,
-    Resize,
-    Rotate
+    ClearUserMarkLayer,
+    ChangeUserMarkLayerVisibility,
+    UpdateUserMarkLayer,
+    GuiLayerRecached,
+    GuiRecache,
+    GuiLayerLayout,
+    MyPositionShape,
+    CountryInfoUpdate,
+    CountryStatusRecache,
+    StopRendering,
+    ChangeMyPostitionMode,
+    CompassInfo,
+    GpsInfo,
+    FindVisiblePOI,
+    SelectObject,
+    GetSelectedObject,
+    GetMyPosition,
+    AddRoute,
+    CacheRouteSign,
+    RemoveRoute,
+    FlushRoute,
+    FlushRouteSign,
+    DeactivateRouteFollowing,
+    UpdateMapStyle,
+    InvalidateTextures,
+    Invalidate
   };
 
-  Message();
   virtual ~Message() {}
-  Type GetType() const;
+  virtual Type GetType() const { return Unknown; }
+};
 
-protected:
-  void SetType(Type t);
-
-private:
-  Type m_type;
+enum class MessagePriority
+{
+  Normal,
+  High
 };
 
 } // namespace df

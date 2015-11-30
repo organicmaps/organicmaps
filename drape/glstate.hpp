@@ -8,9 +8,20 @@
 namespace dp
 {
 
+struct BlendingParams
+{
+  BlendingParams();
+
+  void Apply() const;
+
+  glConst m_blendFunction;
+  glConst m_blendSrcFactor;
+  glConst m_blendDstFactor;
+};
+
 struct Blending
 {
-  Blending(bool isEnabled = false);
+  Blending(bool isEnabled = true);
 
   void Apply() const;
 
@@ -18,9 +29,6 @@ struct Blending
   bool operator == (Blending const & other) const;
 
   bool m_isEnabled;
-  glConst m_blendFunction;
-  glConst m_blendSrcFactor;
-  glConst m_blendDstFactor;
 };
 
 class GLState
@@ -31,23 +39,31 @@ public:
     /// Do not change order
     GeometryLayer,
     DynamicGeometry,
-    OverlayLayer
+    OverlayLayer,
+    UserMarkLayer,
+    Gui
   };
 
   GLState(uint32_t gpuProgramIndex, DepthLayer depthLayer);
 
   DepthLayer const & GetDepthLayer() const { return m_depthLayer; }
 
-  void SetColorTexture(RefPointer<Texture> tex) { m_colorTexture = tex; }
-  RefPointer<Texture> GetColorTexture() const { return m_colorTexture; }
+  void SetColorTexture(ref_ptr<Texture> tex) { m_colorTexture = tex; }
+  ref_ptr<Texture> GetColorTexture() const { return m_colorTexture; }
 
-  void SetMaskTexture(RefPointer<Texture> tex) { m_maskTexture = tex; }
-  RefPointer<Texture> GetMaskTexture() const { return m_maskTexture; }
+  void SetMaskTexture(ref_ptr<Texture> tex) { m_maskTexture = tex; }
+  ref_ptr<Texture> GetMaskTexture() const { return m_maskTexture; }
 
   void SetBlending(Blending const & blending) { m_blending = blending; }
   Blending const & GetBlending() const { return m_blending; }
 
   int GetProgramIndex() const { return m_gpuProgramIndex; }
+
+  glConst GetDepthFunction() const;
+  void SetDepthFunction(glConst functionName);
+
+  glConst GetTextureFilter() const;
+  void SetTextureFilter(glConst filter);
 
   bool operator<(GLState const & other) const;
   bool operator==(GLState const & other) const;
@@ -56,12 +72,16 @@ private:
   uint32_t m_gpuProgramIndex;
   DepthLayer m_depthLayer;
   Blending m_blending;
+  glConst m_depthFunction;
+  glConst m_textureFilter;
 
-  RefPointer<Texture> m_colorTexture;
-  RefPointer<Texture> m_maskTexture;
+  ref_ptr<Texture> m_colorTexture;
+  ref_ptr<Texture> m_maskTexture;
 };
 
-void ApplyUniforms(UniformValuesStorage const & uniforms, RefPointer<GpuProgram> program);
-void ApplyState(GLState state, RefPointer<GpuProgram> program);
+void ApplyUniforms(UniformValuesStorage const & uniforms, ref_ptr<GpuProgram> program);
+void ApplyState(GLState state, ref_ptr<GpuProgram> program);
+void ApplyTextures(GLState state, ref_ptr<GpuProgram> program);
+void ApplyBlending(GLState state, ref_ptr<GpuProgram> program);
 
 } // namespace dp

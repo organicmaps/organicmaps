@@ -90,14 +90,16 @@ public:
   bool IsOnRoute() const { return (m_state == OnRoute); }
   void Reset();
 
-  State OnLocationPositionChanged(m2::PointD const & position, location::GpsInfo const & info,
-                                  Index const & index);
+  Route const & GetRoute() const { return m_route; }
+
+  State OnLocationPositionChanged(location::GpsInfo const & info, Index const & index);
   void GetRouteFollowingInfo(location::FollowingInfo & info) const;
 
   void MatchLocationToRoute(location::GpsInfo & location,
                             location::RouteMatchingInfo & routeMatchingInfo) const;
 
-  bool GetMercatorDistanceFromBegin(double & distance) const;
+  void SetUserCurrentPosition(m2::PointD const & position);
+  m2::PointD const & GetUserCurrentPosition() const;
 
   void ActivateAdditionalFeatures() {}
 
@@ -163,6 +165,7 @@ private:
   double m_lastDistance;
   int m_moveAwayCounter;
   m2::PointD m_lastGoodPosition;
+  m2::PointD m_userCurrentPosition;
 
   // Sound turn notification parameters.
   turns::sound::NotificationManager m_turnNotificationsMgr;

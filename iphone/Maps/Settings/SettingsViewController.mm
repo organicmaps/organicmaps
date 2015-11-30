@@ -62,7 +62,6 @@ typedef NS_ENUM(NSUInteger, Section)
 - (void)viewWillDisappear:(BOOL)animated
 {
   [super viewWillDisappear:animated];
-  GetFramework().Invalidate(true);
 }
 
 #pragma mark - Table view data source
@@ -224,7 +223,7 @@ Settings::Units unitsForIndex(NSInteger index)
         withParameters:@{kStatValue : (units == Settings::Units::Metric ? kStatKilometers : kStatMiles)}];
     Settings::Set("Units", units);
     [tableView reloadSections:[NSIndexSet indexSetWithIndex:SectionMetrics] withRowAnimation:UITableViewRowAnimationFade];
-    [[MapsAppDelegate theApp].mapViewController setupMeasurementSystem];
+    GetFramework().SetupMeasurementSystem();
   }
   else if (section == SectionRouting && indexPath.row == 1)
   {

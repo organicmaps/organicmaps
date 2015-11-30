@@ -45,10 +45,14 @@ public:
 
 public:
   Spline() {}
+  Spline(size_t reservedSize);
   Spline(vector<PointD> const & path);
   Spline const & operator = (Spline const & spl);
 
   void AddPoint(PointD const & pt);
+  void ReplacePoint(PointD const & pt);
+  bool IsPrelonging(PointD const & pt);
+  size_t GetSize() const;
   vector<PointD> const & GetPath() const { return m_position; }
 
   template <typename TFunctor>

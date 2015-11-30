@@ -1,35 +1,35 @@
 area|z14[building]
 {
   fill-color: @building;
-  fill-opacity: 0.4;
-  z-index: 200;
+  fill-opacity: 0.5;
+  z-index: 150;
 }
 area|z15[building]
 {
   fill-color: @building;
   fill-opacity: 0.6;
-  z-index: 200;
+  z-index: 150;
 }
 
 area|z16[building]
 {
   fill-color: @building;
   fill-opacity: 0.8;
-  z-index: 200;
+  z-index: 150;
 }
 
 area|z17[building]
 {
-  fill-color: @building;
-  opacity: 1;
-  z-index: 200;
+  fill-color: @building_dark;
+  opacity: 0.9;
+  z-index: 150;
 }
 
 area|z18-[building]
 {
   fill-color: @building_dark;
   opacity: 1;
-  z-index: 200;
+  z-index: 150;
 }
 
 /*
@@ -43,8 +43,13 @@ node|z18-[entrance] {
 }
 
 /* AIRPORTS */
-area|z14[aeroway=terminal] { fill-color: @building; fill-opacity: 0.8; z-index: 300; }
-area|z15[aeroway=terminal] { fill-color: @building; fill-opacity: 0.8; text: name; font-size: 9; text-color: @building_label; text-position: center; z-index: 300; }
-area|z16[aeroway=terminal] { fill-color: @building; fill-opacity: 1; text: name; font-size: 9; text-color: @building_label; text-position: center; z-index: 300; }
-area|z17[aeroway=terminal] { fill-color: @building_dark; opacity: 0.8; text: name; font-size: 9; text-color: @building_label; text-position: center; z-index: 300; }
-area|z18-[aeroway=terminal] { fill-color: @building_dark; opacity: 1; text: name; font-size: 9; text-color: @building_label; text-position: center; z-index: 300; }
+area|z14[aeroway=terminal]
+{ fill-color: @building; fill-opacity: 0.8; z-index: 160; }
+area|z15[aeroway=terminal]
+{ fill-color: @building; fill-opacity: 0.8; text: name; font-size: 9; text-color: @building_label; text-position: center; z-index: 160; }
+area|z16[aeroway=terminal]
+{ fill-color: @building; fill-opacity: 1; text: name; font-size: 9; text-color: @building_label; text-position: center; z-index: 160; }
+area|z17[aeroway=terminal]
+{ fill-color: @building_dark; opacity: 1; text: name; font-size: 9; text-color: @building_label; text-position: center; z-index: 160; }
+area|z18-[aeroway=terminal]
+{ fill-color: @building_dark; opacity: 1; text: name; font-size: 9; text-color: @building_label; text-position: center; z-index: 160; }

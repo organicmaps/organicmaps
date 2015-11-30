@@ -1,4 +1,3 @@
-
 /* land */
 
 area|z0-9[natural=land]
@@ -20,12 +19,12 @@ area|z10-[natural=land]
 /* glacier */
 area|z0-[natural=glacier]
 {
-	fill-color: @glacier;
+  fill-color: @glacier;
 	fill-position: background;
   z-index: 1;
 }
 
-/*water */
+/* water */
 
 area|z0-10[natural=coastline]
 {
@@ -49,7 +48,6 @@ area|z10-19[natural=coastline]
 	fill-position: background;
   z-index: -10;
 }
-
 area|z16-[amenity=fountain],
 area|z12-[landuse=basin],
 area|z12-[landuse=reservoir],
@@ -80,44 +78,49 @@ area|z11-[natural=wetland] {
 
 line|z10[waterway=river],
 line|z10[waterway=riverbank] {
-	width: 0.5;
-	opacity: 0.5;
+	width: 0.6;
+	opacity: 1;
 	color: @river;
 	z-index: 50;
 }
 
 line|z11-12[waterway=river],
 line|z11-12[waterway=riverbank] {
-	width: 0.7;
-	opacity: 0.8;
+	width: 0.8;
+	opacity: 1;
 	color: @river;
 	z-index: 50;
 }
 
-line|z13-14[waterway=stream] {
-	width: 0.1;
-	opacity: 0.6;
+line|z13-14[waterway=stream],
+line|z13-14[waterway=canal]{
+	width: 0.2;
+	opacity: 1;
 	color: @river;
 	z-index: 50;
 }
 
 line|z13-14[waterway=stream][intermittent=yes] {
-	dashes: 3,3;
+	dashes: 2.7,2.7;
+	z-index: 49;
 }
 
 line|z13-14[waterway=river] {
-	width: 1;
+	width: 1.2;
 	opacity: 1;
 	color: @river;
 	z-index: 50;
 }
 
 line|z13-14[waterway=riverbank] {
-	width: 1;
+	width: 1.2;
+	opacity: 1;
 	color: @river;
 	z-index: 50;
 }
-line|z15-[waterway=stream] {
+line|z15-[waterway=stream],
+line|z15-[waterway=canal]
+ {
 	width: 1;
 	opacity: 1;
 	color: @river;
@@ -125,11 +128,11 @@ line|z15-[waterway=stream] {
 }
 
 line|z15-[waterway=stream][intermittent=yes] {
-	dashes: 5.5;
+	dashes: 4.95;
 	width: 1;
 	opacity: 1;
 	color: @river;
-	z-index: 50;
+	z-index: 49;
 }
 line|z15-[waterway=river] {
 	width: 1.8;
@@ -144,120 +147,178 @@ line|z15-[waterway=riverbank] {
 }
 
 
-line|z17-[waterway=ditch] {
-	width: 1;
-	opacity: 1;
-	color: @river;
-	z-index: 50;
-	dashes: 1,1;
-}
-
 area|z15-[waterway=dam],
 line|z15-[waterway=dam],
 line|z15-[waterway=wair],
  {
 	width: 1;
-	opacity: 0.8;
+	opacity: 1;
 	color: @bridge_casing;
-	z-index: 283;
+	z-index: 110;
+}
+line|z16-[waterway=canal]
+{
+	width: 1.5;
+	color: @river;
+	z-index: 50;
+}
+line|z17-[waterway=ditch] {
+	width: 1.8;
+	opacity: 1;
+	color: @river;
+	z-index: 50;
+	dashes: 0.9,0.9;
 }
 
-
 /* VEGETATION */
-
 
 area|z10[natural=wood],
 area|z10[landuse=forest],
 area|z10[leisure=nature_reserve]
 {
-  fill-color: @forest;
-  fill-opacity: 0.5;
-  z-index: 30;
+  fill-color: @green1;
 	fill-position: background;
+  fill-opacity: 1;
+  z-index: 30;
 }
 area|z11[natural=wood],
 area|z11[landuse=forest],
 area|z11[leisure=nature_reserve]
 {
-  fill-color: @forest;
-  fill-opacity: 0.65;
-  z-index: 30;
+  fill-color: @green2;
 	fill-position: background;
+  fill-opacity: 1;
+  z-index: 30;
 }
 area|z12[natural=wood],
 area|z12[landuse=forest],
 area|z12[leisure=nature_reserve]
 {
-  fill-color: @forest;
-  fill-opacity: 0.75;
-  z-index: 30;
+  fill-color: @green2;
 	fill-position: background;
-
+  fill-opacity: 1;
+  z-index: 30;
 }
 
-area|z13-14[natural=wood],
-area|z13-14[landuse=forest],
-area|z13-14[leisure=nature_reserve]
+area|z13-[natural=wood],
+area|z13-[landuse=forest],
+area|z13-[leisure=nature_reserve]
 {
-  fill-color: @forest;
-  fill-opacity: 0.85;
-  z-index: 30;
+  fill-color: @green3;
 	fill-position: background;
+  fill-opacity: 1;
+  z-index: 30;
+}
+area|z14-[natural=wood],
+area|z14-[landuse=forest],
+area|z14-[leisure=nature_reserve]
+{
+  fill-color: @green4;
+	fill-position: background;
+  fill-opacity: 1;
+  z-index: 30;
 }
 
 area|z15-[natural=wood],
 area|z15-[landuse=forest],
 area|z15-[leisure=nature_reserve]
 {
-  fill-color: @forest;
+  fill-color: @green5;
+	fill-position: background;
   fill-opacity: 1;
   z-index: 30;
+}
+area|z16-[natural=wood],
+area|z16-[landuse=forest],
+area|z16-[leisure=nature_reserve]
+{
+  fill-color: @forest;
 	fill-position: background;
+  fill-opacity: 1;
+  z-index: 30;
 }
 
+
 area|z10[leisure=park] {
-  fill-color: @park;
-  fill-opacity: 0.4;
-  z-index: 40;
+  fill-color: @green2;
 	fill-position: background;
+  fill-opacity: 1;
+  z-index: 40;
 }
 
 area|z11[leisure=park] {
-  fill-color: @park;
-  fill-opacity: 0.5;
-  z-index: 40;
+  fill-color: @green2;
 	fill-position: background;
+  fill-opacity: 1;
+  z-index: 40;
 }
 
 
 area|z12[leisure=park], area|z12[leisure=garden] {
-  fill-color: @park;
-  fill-opacity: 0.7;
-  z-index: 40;
+  fill-color: @green2;
 	fill-position: background;
+  fill-opacity: 1;
+  z-index: 40;
 }
 
 area|z13[leisure=park], area|z13[leisure=garden] {
-  fill-color: @park;
-  fill-opacity: 0.8;
-  z-index: 40;
+  fill-color: @green3;
 	fill-position: background;
-}
-area|z14[leisure=park], area|z14[leisure=garden] {
-  fill-color: @park;
-  fill-opacity: 0.85;
-  z-index: 40;
-	fill-position: background;
-}
-area|z15-[leisure=park], area|z15-[leisure=garden]  {
-  fill-color: @park;
   fill-opacity: 1;
   z-index: 40;
+}
+area|z14[leisure=park], area|z14[leisure=garden] {
+  fill-color: @green4;
+	fill-position: background;
+  fill-opacity: 1;
+  z-index: 40;
+}
+area|z15[leisure=park], area|z15[leisure=garden]  {
+  fill-color: @green5;
+	fill-position: background;
+  fill-opacity: 1;
+  z-index: 40;
+}
+area|z16-[leisure=park], area|z16-[leisure=garden]  {
+  fill-color: @forest;
+	fill-position: background;
+  fill-opacity: 1;
+  z-index: 40;
+}
+
+area|z13-[landuse=grass],
+area|z13-[natural=grassland],
+area|z13-[leisure=golf_course]
+
+{
+  fill-color: @green0;
+  fill-opacity: 1;
+  z-index: 45;
 	fill-position: background;
 }
-area|z15-[landuse=grass]
+
+area|z13-[landuse=farmland],
+area|z13-[landuse=allotments],
+area|z13-[natural=scrub],
+area|z13-[landuse=orchard],
+area|z13-[landuse=vineyard],
+area|z13-[landuse=meadow],
+area|z13-[landuse=recreation_ground],
+area|z13-[landuse=village_green],
+
 {
-  fill-color: @forest;
+  fill-color: @green0;
+  fill-opacity: 1;
+  z-index: 42;
+	fill-position: background;
+}
+
+area|z14-[landuse=grass],
+area|z14-[natural=grassland],
+area|z14-[leisure=golf_course]
+
+{
+  fill-color: @green1;
   fill-opacity: 1;
   z-index: 45;
 	fill-position: background;
@@ -274,37 +335,35 @@ area|z14-[landuse=village_green],
 
 
 {
-  fill-color: @forest;
+  fill-color: @green1;
   fill-opacity: 1;
   z-index: 42;
 	fill-position: background;
 }
 
-
 /*  BEACH */
-
 
 area|z10-14[leisure=beach_resort],
 area|z10-14[natural=beach],
 {
   fill-color: @beach;
-  fill-opacity: 0.7;
-  z-index: 1;
 	fill-position: background;
+  fill-opacity: 1;
+	z-index: 1;
 }
 area|z15-[leisure=beach_resort],
 area|z15-[natural=beach],
 {
   fill-color: @beach;
-  fill-opacity: 0.85;
-  z-index: 1;
 	fill-position: background;
+  fill-opacity: 1;
+	z-index: 1;
 }
 area|z17-[leisure=beach_resort],
 area|z17-[natural=beach],
 {
   fill-color: @beach;
   fill-opacity: 1;
-  z-index: 1;
 	fill-position: background;
+	z-index: 1;
 }

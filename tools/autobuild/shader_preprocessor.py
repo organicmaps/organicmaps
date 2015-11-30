@@ -27,6 +27,7 @@ def formatShaderDocName(shaderName):
 def readIndexFile(filePath):
     f = open(filePath)
     gpuPrograms = dict()
+    index = 0
     for line in f:
         lineParts = line.strip().split()
         if len(lineParts) != 3:
@@ -48,15 +49,13 @@ def readIndexFile(filePath):
             print("More than one difinition of %s gpu program" % lineParts[0])
             exit(13)
 
-        gpuPrograms[lineParts[0]] = (vertexShader, fragmentShader)
+        gpuPrograms[index] = (vertexShader, fragmentShader, lineParts[0])
+        index += 1
 
     return gpuPrograms
 
 def generateShaderIndexes(shaders):
     return dict((v, k) for k, v in enumerate(shaders))
-
-def generateProgramIndex(programs):
-    return dict((v, k) for k, v in enumerate(programs))
 
 def definitionChanged(newHeaderContent, defFilePath):
     if not os.path.isfile(defFilePath):
@@ -104,7 +103,7 @@ def writeDefinitionFile(programIndex):
     result += "};\n\n"
 
     for programName in programIndex.keys():
-        result += "extern int const %s;\n" % (programName)
+        result += "extern int const %s;\n" % (programIndex[programName][2])
 
     result += "\n"
     result += "void InitGpuProgramsLib(map<int, ProgramInfo> & gpuIndex);\n\n"
@@ -140,12 +139,12 @@ def writeShadersIndex(outputFile, shaderIndex):
     for shader in shaderIndex:
         outputFile.write("#define %s %s\n" % (formatShaderIndexName(shader), shaderIndex[shader]))
 
-def writeImplementationFile(programsDef, programIndex, shaderIndex, shaderDir, implFile, defFile, shaders):
+def writeImplementationFile(programsDef, shaderIndex, shaderDir, implFile, defFile, shaders):
     vertexShaders = [s for s in shaders if s.endswith(".vsh")]
     fragmentShaders = [s for s in shaders if s.endswith(".fsh")]
     file = open(formatOutFilePath(shaderDir, implFile), 'w')
     file.write("#include \"%s\"\n\n" % (defFile))
-    file.write("#include \"../std/utility.hpp\"\n\n")
+    file.write("#include \"std/utility.hpp\"\n\n")
 
     file.write("namespace gpu\n")
     file.write("{\n\n")
@@ -161,8 +160,8 @@ def writeImplementationFile(programsDef, programIndex, shaderIndex, shaderDir, i
     file.write("vector<string> FragmentEnum;\n\n")
     file.write("#endif\n")
     file.write("//---------------------------------------------//\n")
-    for program in programIndex:
-        file.write("const int %s = %s;\n" % (program, programIndex[program]));
+    for program in programsDef:
+        file.write("const int %s = %s;\n" % (programsDef[program][2], program));
     file.write("//---------------------------------------------//\n")
     file.write("\n")
     file.write("ProgramInfo::ProgramInfo()\n")
@@ -207,17 +206,8 @@ def writeImplementationFile(programsDef, programIndex, shaderIndex, shaderDir, i
     file.write("} // namespace gpu\n")
     file.close()
 
-def validateDocumentation(shaders, shaderDir):
-    docFiles = [file for file in os.listdir(os.path.join(shaderDir, "doc"))]
 
-    undocumentedShaders = []
-    for shader in shaders:
-        if formatShaderDocName(shader) not in docFiles:
-            undocumentedShaders.append(shader)
-    # TODO(AlexZ): Commented out lines below to avoid qtcreator console spamming.
-    #if undocumentedShaders:
-        #print("no documentation for shaders:", undocumentedShaders)
-        #exit(20)
+###############################
 
 if len(sys.argv) < 4:
   print("Usage : " + sys.argv[0] + " <shader_dir> <index_file_name> <generate_file_name>")
@@ -232,15 +222,10 @@ shaders = [file for file in os.listdir(shaderDir) if os.path.isfile(os.path.join
 shaderIndex = generateShaderIndexes(shaders)
 
 programDefinition = readIndexFile(os.path.join(shaderDir, indexFileName))
-programIndex = generateProgramIndex(programDefinition)
 
-headerFile = writeDefinitionFile(programIndex)
+headerFile = writeDefinitionFile(programDefinition)
 if definitionChanged(headerFile, formatOutFilePath(shaderDir, definesFile)):
     f = open(formatOutFilePath(shaderDir, definesFile), 'w')
     f.write(headerFile)
     f.close()
-# TODO(AlexZ): Commented out lines below to avoid qtcreator console spamming.
-#else:
-    #print("No need to update definition file")
-writeImplementationFile(programDefinition, programIndex, shaderIndex, shaderDir, implFile, definesFile, shaders)
-validateDocumentation(shaders, shaderDir)
+writeImplementationFile(programDefinition, shaderIndex, shaderDir, implFile, definesFile, shaders)

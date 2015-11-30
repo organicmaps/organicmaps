@@ -1,125 +1,102 @@
 #pragma once
 
-#include "user_mark.hpp"
-#include "user_mark_dl_cache.hpp"
+#include "map/user_mark.hpp"
 
-#include "render/events.hpp"
+#include "drape_frontend/user_marks_provider.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
+#include "geometry/any_rect2d.hpp"
 
 #include "std/deque.hpp"
+#include "std/bitset.hpp"
+
 #include "std/noncopyable.hpp"
 #include "std/unique_ptr.hpp"
 
 class Framework;
 
-namespace anim
+enum class UserMarkType
 {
-  class Task;
-}
+  SEARCH_MARK,
+  API_MARK,
+  DEBUG_MARK,
+  BOOKMARK_MARK
+};
 
-namespace graphics
-{
-  class DisplayList;
-  class Screen;
-}
-
-class UserMarkContainer : private noncopyable
+class UserMarksController
 {
 public:
-  using UserMarksListT = deque<unique_ptr<UserMark>>;
+  virtual size_t GetUserMarkCount() const = 0;
+  virtual UserMarkType GetType() const = 0;
+  virtual void SetIsDrawable(bool isDrawable) = 0;
+  virtual void SetIsVisible(bool isVisible) = 0;
 
-  class Controller
-  {
-  public:
-    Controller(UserMarkContainer * container)
-      : m_container(container) {}
+  virtual UserMark * CreateUserMark(m2::PointD const & ptOrg) = 0;
+  virtual UserMark const * GetUserMark(size_t index) const = 0;
+  virtual UserMark * GetUserMarkForEdit(size_t index) = 0;
+  virtual void DeleteUserMark(size_t index) = 0;
+  virtual void Clear(size_t skipCount = 0) = 0;
+  virtual void Update() = 0;
+};
 
-    UserMark * CreateUserMark(m2::PointD const & ptOrg) { return m_container->CreateUserMark(ptOrg); }
-    size_t GetUserMarkCount() const { return m_container->GetUserMarkCount(); }
-    UserMark const * GetUserMark(size_t index) const { return m_container->GetUserMark(index); }
-    UserMark * GetUserMarkForEdit(size_t index) { return m_container->GetUserMark(index); }
-    void DeleteUserMark(size_t index) { m_container->DeleteUserMark(index); }
-    void DeleteUserMark(UserMark const * mark) { m_container->DeleteUserMark(mark); }
+class UserMarkContainer : public df::UserMarksProvider
+                        , protected UserMarksController
+                        , private noncopyable
+{
+public:
+  using TUserMarksList = deque<unique_ptr<UserMark>>;
 
-    // Returns index of the mark if exists, otherwise returns
-    // number of user marks.
-    size_t FindUserMark(UserMark const * mark) const { return m_container->FindUserMark(mark); }
-
-  private:
-    UserMarkContainer * m_container;
-  };
-
-  enum Type
-  {
-    SEARCH_MARK,
-    API_MARK,
-    DEBUG_MARK,
-    BOOKMARK_MARK
-  };
-
-  UserMarkContainer(double layerDepth, Framework & fm);
+  UserMarkContainer(double layerDepth, UserMarkType type, Framework & fm);
   virtual ~UserMarkContainer();
 
-  void SetScreen(graphics::Screen * cacheScreen);
-  virtual Type GetType() const = 0;
-
-  bool IsVisible() const { return m_isVisible; }
-  void SetVisible(bool isVisible) { m_isVisible = isVisible; }
-
-  bool IsDrawable() const { return m_isDrawable; }
-  void SetIsDrawable(bool isDrawable) { m_isDrawable = isDrawable; }
-
-  // If not found mark on rect result is NULL
+  // If not found mark on rect result is nullptr
   // If mark is found in "d" return distance from rect center
   // In multiple select choose mark with min(d)
   UserMark const * FindMarkInRect(m2::AnyRectD const & rect, double & d) const;
-
-  void Draw(PaintOverlayEvent const & e, UserMarkDLCache * cache) const;
-  void ActivateMark(UserMark const * mark);
-  void DiactivateMark();
-
-  void Clear(size_t skipCount = 0);
-
-  double GetDepth() const { return m_layerDepth; }
-
-  virtual UserMarkDLCache::Key GetDefaultKey() const;
 
   static void InitStaticMarks(UserMarkContainer * container);
   static PoiMarkPoint * UserMarkForPoi();
   static MyPositionMarkPoint * UserMarkForMyPostion();
 
-  Controller const & GetController() const { return m_controller; }
-  Controller & GetController() { return m_controller; }
+  /// never save reference on UserMarksController
+  UserMarksController & RequestController();
+  void ReleaseController();
 
-  virtual string GetActiveTypeName() const = 0;
+  /// Render info
+  size_t GetUserPointCount() const override;
+  df::UserPointMark const * GetUserPointMark(size_t index) const override;
+
+  size_t GetUserLineCount() const override;
+  df::UserLineMark const * GetUserLineMark(size_t index) const override;
+
+  float GetPointDepth() const;
+
+  bool IsVisible() const;
+  bool IsDrawable() const override;
+  size_t GetUserMarkCount() const override;
+  UserMark const * GetUserMark(size_t index) const override;
+  UserMarkType GetType() const override final;
 
 protected:
-  virtual string GetTypeName() const = 0;
+  /// UserMarksController implementation
+  UserMark * CreateUserMark(m2::PointD const & ptOrg) override;
+  UserMark * GetUserMarkForEdit(size_t index) override;
+  void DeleteUserMark(size_t index) override;
+  void Clear(size_t skipCount = 0) override;
+  void SetIsDrawable(bool isDrawable) override;
+  void SetIsVisible(bool isVisible) override;
+  void Update() override;
+
   virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg) = 0;
 
-private:
-  friend class Controller;
-  UserMark * CreateUserMark(m2::PointD const & ptOrg);
-  size_t GetUserMarkCount() const;
-  UserMark const * GetUserMark(size_t index) const;
-  UserMark * GetUserMark(size_t index);
-  void DeleteUserMark(size_t index);
-  void DeleteUserMark(UserMark const * mark);
-  size_t FindUserMark(UserMark const * mark);
-
-  template <class ToDo> void ForEachInRect(m2::RectD const & rect, ToDo toDo) const;
-
-protected:
   Framework & m_framework;
 
 private:
-  Controller m_controller;
-  bool m_isVisible;
-  bool m_isDrawable;
+  bitset<4> m_flags;
   double m_layerDepth;
-  UserMarksListT m_userMarks;
+  TUserMarksList m_userMarks;
+  UserMarkType m_type;
 };
 
 class SearchUserMarkContainer : public UserMarkContainer
@@ -127,12 +104,8 @@ class SearchUserMarkContainer : public UserMarkContainer
 public:
   SearchUserMarkContainer(double layerDepth, Framework & framework);
 
-  virtual Type GetType() const { return SEARCH_MARK; }
-
-  virtual string GetActiveTypeName() const;
 protected:
-  virtual string GetTypeName() const;
-  virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg);
+  UserMark * AllocateUserMark(m2::PointD const & ptOrg) override;
 };
 
 class DebugUserMarkContainer : public UserMarkContainer
@@ -140,34 +113,6 @@ class DebugUserMarkContainer : public UserMarkContainer
 public:
   DebugUserMarkContainer(double layerDepth, Framework & framework);
 
-  virtual Type GetType() const { return DEBUG_MARK; }
-
-  virtual string GetActiveTypeName() const;
 protected:
-  virtual string GetTypeName() const;
-  virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg);
-};
-
-class SelectionContainer
-{
-public:
-  SelectionContainer(Framework & fm);
-
-  void ActivateMark(UserMark const * userMark, bool needAnim);
-  void Draw(PaintOverlayEvent const & e, UserMarkDLCache * cache) const;
-  bool IsActive() const;
-
-private:
-  /// animation support
-  void StartActivationAnim();
-  void KillActivationAnim();
-  double GetActiveMarkScale() const;
-
-  shared_ptr<anim::Task> m_animTask;
-
-private:
-  friend class BookmarkManager;
-  UserMarkContainer const * m_container;
-  m2::PointD m_ptOrg;
-  Framework & m_fm;
+  UserMark * AllocateUserMark(m2::PointD const & ptOrg) override;
 };

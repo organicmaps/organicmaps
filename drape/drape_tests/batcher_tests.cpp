@@ -4,6 +4,7 @@
 #include "drape/glconstants.hpp"
 #include "drape/batcher.hpp"
 #include "drape/gpu_program_manager.hpp"
+#include "drape/index_storage.hpp"
 #include "drape/shader_def.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
@@ -31,12 +32,12 @@ namespace
 
 struct VAOAcceptor
 {
-  virtual void FlushFullBucket(GLState const & /*state*/, TransferPointer<RenderBucket> bucket)
+  virtual void FlushFullBucket(GLState const & /*state*/, drape_ptr<RenderBucket> && bucket)
   {
-    m_vao.push_back(MasterPointer<RenderBucket>(bucket));
+    m_vao.push_back(move(bucket));
   }
 
-  vector<MasterPointer<RenderBucket> > m_vao;
+  vector<drape_ptr<RenderBucket> > m_vao;
 };
 
 class BatcherExpectations
@@ -48,14 +49,14 @@ public:
   {
   }
 
-  typedef function<void (Batcher *, GLState const &, RefPointer<AttributeProvider>)> TBatcherCallFn;
-  void RunTest(float * vertexes, uint16_t * indexes,
-               uint16_t vertexCount, uint16_t vertexComponentCount,
-               uint16_t indexCount, TBatcherCallFn const & fn)
+  template <typename TBatcherCall>
+  void RunTest(float * vertexes, void * indexes,
+               uint32_t vertexCount, uint32_t vertexComponentCount,
+               uint32_t indexCount, TBatcherCall const & fn)
   {
     int const vertexSize = vertexCount * vertexComponentCount;
     MemoryComparer const dataCmp(vertexes, vertexSize * sizeof(float));
-    MemoryComparer const indexCmp(indexes, indexCount * sizeof(uint16_t));
+    MemoryComparer const indexCmp(indexes, indexCount * dp::IndexStorage::SizeOfIndex());
 
     ExpectBufferCreation(vertexSize, indexCount, indexCmp, dataCmp);
 
@@ -70,44 +71,36 @@ public:
     decl.m_stride = 0;
 
     AttributeProvider provider(1, vertexCount);
-    provider.InitStream(0, binding, MakeStackRefPointer(vertexes));
+    provider.InitStream(0, binding, make_ref(vertexes));
 
     VAOAcceptor vaoAcceptor;
-    Batcher batcher;
+    Batcher batcher(65000, 65000);
     batcher.StartSession(bind(&VAOAcceptor::FlushFullBucket, &vaoAcceptor, _1, _2));
-    fn(&batcher, state, MakeStackRefPointer(&provider));
+    fn(&batcher, state, make_ref(&provider));
     batcher.EndSession();
 
     ExpectBufferDeletion();
 
     for (size_t i = 0; i < vaoAcceptor.m_vao.size(); ++i)
-      vaoAcceptor.m_vao[i].Destroy();
+      vaoAcceptor.m_vao[i].reset();
   }
 
-  void ExpectBufferCreation(uint16_t vertxeCount, uint16_t indexCount,
+  void ExpectBufferCreation(uint32_t vertexCount, uint32_t indexCount,
                             MemoryComparer const & indexCmp, MemoryComparer const & vertexCmp)
   {
     InSequence seq;
 
-    // Index buffer creation
-    EXPECTGL(glGenBuffer()).WillOnce(Return(m_indexBufferID));
-    EXPECTGL(glBindBuffer(m_indexBufferID, gl_const::GLElementArrayBuffer));
-    EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer, _, NULL, _));
-
-    // upload indexes
-    EXPECTGL(glBindBuffer(m_indexBufferID, gl_const::GLElementArrayBuffer));
-    EXPECTGL(glBufferSubData(gl_const::GLElementArrayBuffer, indexCount * sizeof(unsigned short), _, 0))
-        .WillOnce(Invoke(&indexCmp, &MemoryComparer::cmpSubBuffer));
-
     // data buffer creation
     EXPECTGL(glGenBuffer()).WillOnce(Return(m_dataBufferID));
     EXPECTGL(glBindBuffer(m_dataBufferID, gl_const::GLArrayBuffer));
-    EXPECTGL(glBufferData(gl_const::GLArrayBuffer, _, NULL, _));
-
-    // upload data
-    EXPECTGL(glBindBuffer(m_dataBufferID, gl_const::GLArrayBuffer));
-    EXPECTGL(glBufferSubData(gl_const::GLArrayBuffer, vertxeCount * sizeof(float), _, 0))
+    EXPECTGL(glBufferData(gl_const::GLArrayBuffer, vertexCount * sizeof(float), _, gl_const::GLDynamicDraw))
         .WillOnce(Invoke(&vertexCmp, &MemoryComparer::cmpSubBuffer));
+
+    // Index buffer creation
+    EXPECTGL(glGenBuffer()).WillOnce(Return(m_indexBufferID));
+    EXPECTGL(glBindBuffer(m_indexBufferID, gl_const::GLElementArrayBuffer));
+    EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer, indexCount * dp::IndexStorage::SizeOfIndex(), _, gl_const::GLDynamicDraw))
+        .WillOnce(Invoke(&indexCmp, &MemoryComparer::cmpSubBuffer));
 
     EXPECTGL(glBindBuffer(0, gl_const::GLElementArrayBuffer));
     EXPECTGL(glBindBuffer(0, gl_const::GLArrayBuffer));
@@ -137,16 +130,17 @@ UNIT_TEST(BatchLists_Test)
   for (int i = 0; i < FLOAT_COUNT; ++i)
     data[i] = (float)i;
 
-  unsigned short indexes[VERTEX_COUNT];
+  vector<uint32_t> indexesRaw(VERTEX_COUNT);
   for (int i = 0; i < VERTEX_COUNT; ++i)
-    indexes[i] = i;
+    indexesRaw[i] = i;
+  dp::IndexStorage indexes(move(indexesRaw));
 
   BatcherExpectations expectations;
-  // @TODO Avoid std::bind overload compile error in the better way
-  void (Batcher::*fn)(GLState const &,
-                      RefPointer<AttributeProvider>) = &Batcher::InsertTriangleList;
-  expectations.RunTest(data, indexes, VERTEX_COUNT, 3, VERTEX_COUNT,
-                       bind(fn, _1, _2, _3));
+  auto fn = [](Batcher * batcher, GLState const & state, ref_ptr<AttributeProvider> p)
+  {
+    batcher->InsertTriangleList(state, p);
+  };
+  expectations.RunTest(data, indexes.GetRaw(), VERTEX_COUNT, 3, VERTEX_COUNT, fn);
 }
 
 UNIT_TEST(BatchListOfStript_4stride)
@@ -158,13 +152,16 @@ UNIT_TEST(BatchListOfStript_4stride)
   for (int i = 0; i < VERTEX_COUNT * 3; ++i)
     data[i] = (float)i;
 
-  unsigned short indexes[INDEX_COUNT] =
-    { 0, 1, 2, 1, 2, 3, 4, 5, 6, 5, 6, 7, 8, 9, 10, 9, 10, 11};
+  vector<uint32_t> indexesRaw = { 0, 1, 2, 1, 3, 2, 4, 5, 6, 5, 7, 6, 8, 9, 10, 9, 11, 10};
+  dp::IndexStorage indexes(move(indexesRaw));
 
   BatcherExpectations expectations;
-  // @TODO Avoid std::bind overload compile error in the better way
-  void (Batcher::*fn)(GLState const &, RefPointer<AttributeProvider>, uint8_t) = &Batcher::InsertListOfStrip;
-  expectations.RunTest(data, indexes, VERTEX_COUNT, 3, INDEX_COUNT, bind(fn, _1, _2, _3, 4));
+  auto fn = [](Batcher * batcher, GLState const & state, ref_ptr<AttributeProvider> p)
+  {
+    batcher->InsertListOfStrip(state, p, dp::Batcher::VertexPerQuad);
+  };
+
+  expectations.RunTest(data, indexes.GetRaw(), VERTEX_COUNT, 3, INDEX_COUNT, fn);
 }
 
 UNIT_TEST(BatchListOfStript_5stride)
@@ -176,21 +173,24 @@ UNIT_TEST(BatchListOfStript_5stride)
   for (int i = 0; i < VERTEX_COUNT * 3; ++i)
     data[i] = (float)i;
 
-  unsigned short indexes[INDEX_COUNT] =
+  vector<uint32_t> indexesRaw =
     { 0, 1, 2,
-      1, 2, 3,
+      1, 3, 2,
       2, 3, 4,
       5, 6, 7,
-      6, 7, 8,
+      6, 8, 7,
       7, 8, 9,
       10, 11, 12,
-      11, 12, 13,
+      11, 13, 12,
       12, 13, 14 };
+  dp::IndexStorage indexes(move(indexesRaw));
 
   BatcherExpectations expectations;
-  // @TODO Avoid std::bind overload compile error in the better way
-  void (Batcher::*fn)(GLState const &, RefPointer<AttributeProvider>, uint8_t) = &Batcher::InsertListOfStrip;
-  expectations.RunTest(data, indexes, VERTEX_COUNT, 3, INDEX_COUNT, bind(fn, _1, _2, _3, 5));
+  auto fn = [](Batcher * batcher, GLState const & state, ref_ptr<AttributeProvider> p)
+  {
+    batcher->InsertListOfStrip(state, p, 5);
+  };
+  expectations.RunTest(data, indexes.GetRaw(), VERTEX_COUNT, 3, INDEX_COUNT, fn);
 }
 
 UNIT_TEST(BatchListOfStript_6stride)
@@ -202,24 +202,27 @@ UNIT_TEST(BatchListOfStript_6stride)
   for (int i = 0; i < VERTEX_COUNT * 3; ++i)
     data[i] = (float)i;
 
-  unsigned short indexes[INDEX_COUNT] =
+  vector<uint32_t> indexesRaw =
     { 0, 1, 2,
-      1, 2, 3,
+      1, 3, 2,
       2, 3, 4,
-      3, 4, 5,
+      3, 5, 4,
       6, 7, 8,
-      7, 8, 9,
+      7, 9, 8,
       8, 9, 10,
-      9, 10, 11,
+      9, 11, 10,
       12, 13, 14,
-      13, 14, 15,
+      13, 15, 14,
       14, 15, 16,
-      15, 16, 17};
+      15, 17, 16};
+  dp::IndexStorage indexes(move(indexesRaw));
 
   BatcherExpectations expectations;
-  // @TODO Avoid std::bind overload compile error in the better way
-  void (Batcher::*fn)(GLState const &, RefPointer<AttributeProvider>, uint8_t) = &Batcher::InsertListOfStrip;
-  expectations.RunTest(data, indexes, VERTEX_COUNT, 3, INDEX_COUNT, bind(fn, _1, _2, _3, 6));
+  auto fn = [](Batcher * batcher, GLState const & state, ref_ptr<AttributeProvider> p)
+  {
+    batcher->InsertListOfStrip(state, p, 6);
+  };
+  expectations.RunTest(data, indexes.GetRaw(), VERTEX_COUNT, 3, INDEX_COUNT, fn);
 }
 
 namespace
@@ -265,29 +268,25 @@ namespace
       currentNode.m_indexBufferID = m_bufferIDCounter++;
       currentNode.m_vertexBufferID = m_bufferIDCounter++;
 
-      // Index buffer creation
-      EXPECTGL(glGenBuffer()).WillOnce(Return(currentNode.m_indexBufferID));
-      EXPECTGL(glBindBuffer(currentNode.m_indexBufferID, gl_const::GLElementArrayBuffer));
-      EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer, _, NULL, _));
-
-      m_comparators.push_back(new MemoryComparer(currentNode.m_indexData, currentNode.m_indexByteCount));
-      MemoryComparer * indexComparer = m_comparators.back();
-      // upload indexes
-      EXPECTGL(glBindBuffer(currentNode.m_indexBufferID, gl_const::GLElementArrayBuffer));
-      EXPECTGL(glBufferSubData(gl_const::GLElementArrayBuffer, currentNode.m_indexByteCount, _, 0))
-          .WillOnce(Invoke(indexComparer, &MemoryComparer::cmpSubBuffer));
-
       // data buffer creation
       EXPECTGL(glGenBuffer()).WillOnce(Return(currentNode.m_vertexBufferID));
       EXPECTGL(glBindBuffer(currentNode.m_vertexBufferID, gl_const::GLArrayBuffer));
-      EXPECTGL(glBufferData(gl_const::GLArrayBuffer, _, NULL, _));
 
       m_comparators.push_back(new MemoryComparer(currentNode.m_vertexData, currentNode.m_vertexByteCount));
       MemoryComparer * vertexComparer = m_comparators.back();
-      // upload data
-      EXPECTGL(glBindBuffer(currentNode.m_vertexBufferID, gl_const::GLArrayBuffer));
-      EXPECTGL(glBufferSubData(gl_const::GLArrayBuffer, currentNode.m_vertexByteCount, _, 0))
+
+      EXPECTGL(glBufferData(gl_const::GLArrayBuffer, currentNode.m_vertexByteCount, _, gl_const::GLDynamicDraw))
               .WillOnce(Invoke(vertexComparer, &MemoryComparer::cmpSubBuffer));
+
+      // Index buffer creation
+      EXPECTGL(glGenBuffer()).WillOnce(Return(currentNode.m_indexBufferID));
+      EXPECTGL(glBindBuffer(currentNode.m_indexBufferID, gl_const::GLElementArrayBuffer));
+
+      m_comparators.push_back(new MemoryComparer(currentNode.m_indexData, currentNode.m_indexByteCount));
+      MemoryComparer * indexComparer = m_comparators.back();
+
+      EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer, currentNode.m_indexByteCount, _, gl_const::GLDynamicDraw))
+          .WillOnce(Invoke(indexComparer, &MemoryComparer::cmpSubBuffer));
 
       EXPECTGL(glBindBuffer(0, gl_const::GLElementArrayBuffer));
       EXPECTGL(glBindBuffer(0, gl_const::GLArrayBuffer));
@@ -328,23 +327,24 @@ UNIT_TEST(BatchListOfStript_partial)
   for (uint32_t i = 0; i < VertexArraySize; ++i)
     vertexData[i] = (float)i;
 
-  uint16_t indexData[IndexCount] =
+  vector<uint32_t> indexDataRaw =
     { 0, 1, 2,
-      1, 2, 3,
+      1, 3, 2,
       4, 5, 6,
-      5, 6, 7,
+      5, 7, 6,
       8, 9, 10,
-      9, 10, 11,
+      9, 11, 10,
       0, 1, 2, // start new buffer
-      1, 2, 3};
+      1, 3, 2};
+  dp::IndexStorage indexData(move(indexDataRaw));
 
-  PartialBatcherTest::BufferNode node1(FirstBufferIndexPortion * sizeof(uint16_t),
+  PartialBatcherTest::BufferNode node1(FirstBufferIndexPortion * dp::IndexStorage::SizeOfIndex(),
                                        FirstBufferVertexPortion * ComponentCount * sizeof(float),
-                                       indexData, vertexData);
+                                       indexData.GetRaw(), vertexData);
 
-  PartialBatcherTest::BufferNode node2(SecondBufferIndexPortion * sizeof(uint16_t),
+  PartialBatcherTest::BufferNode node2(SecondBufferIndexPortion * dp::IndexStorage::SizeOfIndex(),
                                        SecondBufferVertexPortion * ComponentCount * sizeof(float),
-                                       indexData + FirstBufferIndexPortion,
+                                       indexData.GetRaw(FirstBufferIndexPortion),
                                        vertexData + FirstBufferVertexPortion * ComponentCount);
 
   typedef pair<uint32_t, uint32_t> IndexVertexCount;
@@ -373,15 +373,15 @@ UNIT_TEST(BatchListOfStript_partial)
     decl.m_stride = 0;
 
     AttributeProvider provider(1, VertexCount);
-    provider.InitStream(0, binding, MakeStackRefPointer(vertexData));
+    provider.InitStream(0, binding, make_ref(vertexData));
 
     VAOAcceptor vaoAcceptor;
     Batcher batcher(srcData[i].first, srcData[i].second);
     batcher.StartSession(bind(&VAOAcceptor::FlushFullBucket, &vaoAcceptor, _1, _2));
-    batcher.InsertListOfStrip(state, MakeStackRefPointer(&provider), 4);
+    batcher.InsertListOfStrip(state, make_ref(&provider), 4);
     batcher.EndSession();
 
     for (size_t i = 0; i < vaoAcceptor.m_vao.size(); ++i)
-      vaoAcceptor.m_vao[i].Destroy();
+      vaoAcceptor.m_vao[i].reset();
   }
 }

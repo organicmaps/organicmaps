@@ -5,8 +5,8 @@
 namespace df
 {
 
-TileKey::TileKey() :
-  m_x(-1), m_y(-1), m_zoomLevel(-1)
+TileKey::TileKey()
+  : m_x(-1), m_y(-1), m_zoomLevel(-1)
 {
 }
 
@@ -28,8 +28,8 @@ bool TileKey::operator <(TileKey const & other) const
 bool TileKey::operator ==(TileKey const & other) const
 {
   return m_x == other.m_x &&
-      m_y == other.m_y &&
-      m_zoomLevel == other.m_zoomLevel;
+         m_y == other.m_y &&
+         m_zoomLevel == other.m_zoomLevel;
 }
 
 m2::RectD TileKey::GetGlobalRect() const
@@ -42,6 +42,31 @@ m2::RectD TileKey::GetGlobalRect() const
   double const startY = m_y * rectSize;
 
   return m2::RectD (startX, startY, startX + rectSize, startY + rectSize);
+}
+
+string DebugPrint(TileKey const & key)
+{
+  ostringstream out;
+  out << "[x = " << key.m_x << ", y = " << key.m_y << ", zoomLevel = " << key.m_zoomLevel << "]";
+  return out.str();
+}
+
+string DebugPrint(TileStatus status)
+{
+  switch (status)
+  {
+    case TileStatus::Unknown:
+      return "Unknown";
+    case TileStatus::Rendered:
+      return "Rendered";
+    case TileStatus::Requested:
+      return "Requested";
+    case TileStatus::Deferred:
+      return "Deferred";
+    default:
+      ASSERT(false, ());
+  }
+  return "";
 }
 
 } //namespace df

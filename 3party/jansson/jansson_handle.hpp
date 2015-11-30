@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../std/algorithm.hpp"
+#include "std/algorithm.hpp"
 
 
 struct json_struct_t;

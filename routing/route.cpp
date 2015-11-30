@@ -12,9 +12,6 @@
 #include "base/logging.hpp"
 
 #include "std/numeric.hpp"
-#include "std/utility.hpp"
-#include "std/algorithm.hpp"
-
 
 namespace routing
 {
@@ -263,7 +260,7 @@ void Route::MatchLocationToRoute(location::GpsInfo & location, location::RouteMa
       if (m_routingSettings.m_matchRoute)
         location.m_bearing = location::AngleToBearing(GetPolySegAngle(iter.m_ind));
 
-      routeMatchingInfo.Set(iter.m_pt, iter.m_ind);
+      routeMatchingInfo.Set(iter.m_pt, iter.m_ind, GetMercatorDistanceFromBegin());
     }
   }
 }

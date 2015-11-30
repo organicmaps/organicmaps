@@ -1,7 +1,0 @@
-Transfer color from texture into gl_FragColor
-
-uniforms:
- - textureUnit (sampler2D)
-
-varying:
- - varTexCoords (vec4) coordinates of result color on texture “textureUnit”

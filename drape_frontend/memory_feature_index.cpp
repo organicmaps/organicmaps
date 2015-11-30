@@ -3,29 +3,27 @@
 namespace df
 {
 
-void MemoryFeatureIndex::ReadFeaturesRequest(vector<FeatureInfo> & features, vector<size_t> & indexes)
+void MemoryFeatureIndex::ReadFeaturesRequest(TFeaturesInfo & features, vector<FeatureID> & featuresToRead)
 {
-  threads::MutexGuard lock(m_mutex);
+  ASSERT(m_isLocked, ());
 
-  for (size_t i = 0; i < features.size(); ++i)
+  for (FeatureInfo & info : features)
   {
-    FeatureInfo & info = features[i];
     ASSERT(m_features.find(info.m_id) != m_features.end() || !info.m_isOwner,());
     if (!info.m_isOwner && m_features.insert(info.m_id).second)
     {
-      indexes.push_back(i);
+      featuresToRead.push_back(info.m_id);
       info.m_isOwner = true;
     }
   }
 }
 
-void MemoryFeatureIndex::RemoveFeatures(vector<FeatureInfo> & features)
+void MemoryFeatureIndex::RemoveFeatures(TFeaturesInfo & features)
 {
-  threads::MutexGuard lock(m_mutex);
+  ASSERT(m_isLocked, ());
 
-  for (size_t i = 0; i < features.size(); ++i)
+  for (FeatureInfo & info : features)
   {
-    FeatureInfo & info = features[i];
     if (info.m_isOwner)
     {
       VERIFY(m_features.erase(info.m_id) == 1, ());

@@ -8,7 +8,7 @@
 
 using std::tuple;
 using std::make_tuple;
-//using std::get; // "get" is very common name, use "get" member function
+using std::get;
 
 #ifdef DEBUG_NEW
 #define new DEBUG_NEW

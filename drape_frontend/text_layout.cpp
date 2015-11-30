@@ -1,8 +1,7 @@
 #include "drape_frontend/text_layout.hpp"
-#include "drape_frontend/fribidi.hpp"
 
+#include "drape/fribidi.hpp"
 #include "drape/glsl_func.hpp"
-
 #include "drape/overlay_handle.hpp"
 
 #include "std/numeric.hpp"
@@ -25,8 +24,7 @@ public:
                         dp::TextureManager::ColorRegion const & color,
                         dp::TextureManager::ColorRegion const & outline,
                         gpu::TTextStaticVertexBuffer & buffer)
-    : m_depthShift(0.0f, 0.0f, 0.0f)
-    , m_pivot(pivot)
+    : m_pivot(pivot)
     , m_colorCoord(glsl::ToVec2(color.GetTexRect().Center()))
     , m_outlineCoord(glsl::ToVec2(outline.GetTexRect().Center()))
     , m_buffer(buffer)
@@ -36,16 +34,13 @@ public:
   void operator() (dp::TextureManager::GlyphRegion const & glyph)
   {
     m2::RectF const & mask = glyph.GetTexRect();
-    glsl::vec3 pivot = m_pivot + m_depthShift;
-    m_buffer.push_back(gpu::TextStaticVertex(pivot, m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftBottom())));
-    m_buffer.push_back(gpu::TextStaticVertex(pivot, m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftTop())));
-    m_buffer.push_back(gpu::TextStaticVertex(pivot, m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.RightBottom())));
-    m_buffer.push_back(gpu::TextStaticVertex(pivot, m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.RightTop())));
-    m_depthShift += glsl::vec3(0.0f, 0.0f, 1.0f);
+    m_buffer.push_back(gpu::TextStaticVertex(m_pivot, m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftTop())));
+    m_buffer.push_back(gpu::TextStaticVertex(m_pivot, m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftBottom())));
+    m_buffer.push_back(gpu::TextStaticVertex(m_pivot, m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.RightTop())));
+    m_buffer.push_back(gpu::TextStaticVertex(m_pivot, m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.RightBottom())));
   }
 
 protected:
-  glsl::vec3 m_depthShift;
   glsl::vec3 const & m_pivot;
   glsl::vec2 m_colorCoord;
   glsl::vec2 m_outlineCoord;
@@ -71,6 +66,8 @@ public:
 
   void operator()(dp::TextureManager::GlyphRegion const & glyph)
   {
+    if (!glyph.IsValid())
+      return;
     m2::PointF pixelSize = m2::PointF(glyph.GetPixelSize()) * m_textRatio;
 
     float const xOffset = glyph.GetOffsetX() * m_textRatio;
@@ -79,11 +76,16 @@ public:
     float const upVector = -static_cast<int32_t>(pixelSize.y) - yOffset;
     float const bottomVector = -yOffset;
 
-    m_buffer.push_back(gpu::TextDynamicVertex(m_penPosition + glsl::vec2(xOffset, upVector)));
-    m_buffer.push_back(gpu::TextDynamicVertex(m_penPosition + glsl::vec2(xOffset, bottomVector)));
-    m_buffer.push_back(gpu::TextDynamicVertex(m_penPosition + glsl::vec2(pixelSize.x + xOffset, upVector)));
-    m_buffer.push_back(gpu::TextDynamicVertex(m_penPosition + glsl::vec2(pixelSize.x + xOffset, bottomVector)));
+    if (m_isFirstGlyph)
+    {
+      m_isFirstGlyph = false;
+      m_penPosition += glsl::vec2(-xOffset, 0.0f);
+    }
 
+    m_buffer.push_back(gpu::TextDynamicVertex(m_penPosition + glsl::vec2(xOffset, bottomVector)));
+    m_buffer.push_back(gpu::TextDynamicVertex(m_penPosition + glsl::vec2(xOffset, upVector)));
+    m_buffer.push_back(gpu::TextDynamicVertex(m_penPosition + glsl::vec2(pixelSize.x + xOffset, bottomVector)));
+    m_buffer.push_back(gpu::TextDynamicVertex(m_penPosition + glsl::vec2(pixelSize.x + xOffset, upVector)));
     m_penPosition += glsl::vec2(glyph.GetAdvanceX() * m_textRatio, glyph.GetAdvanceY() * m_textRatio);
 
     TBase::operator()(glyph);
@@ -92,7 +94,8 @@ public:
 private:
   glsl::vec2 m_penPosition;
   gpu::TTextDynamicVertexBuffer & m_buffer;
-  float m_textRatio = 0.0;
+  float m_textRatio = 0.0f;
+  bool m_isFirstGlyph = true;
 };
 
 ///Old code
@@ -223,11 +226,17 @@ void CalculateOffsets(dp::Anchor anchor,
     ASSERT_NOT_EQUAL(start, end, ());
     lengthAndHeight.push_back(TLengthAndHeight(0, 0));
     TLengthAndHeight & node = lengthAndHeight.back();
-    for (size_t glyphIndex = start; glyphIndex < end; ++glyphIndex)
+    for (size_t glyphIndex = start; glyphIndex < end && glyphIndex < glyphs.size(); ++glyphIndex)
     {
       dp::TextureManager::GlyphRegion const & glyph = glyphs[glyphIndex];
-      node.first += (glyph.GetAdvanceX() * textRatio);
-      node.second = max(node.second, (glyph.GetPixelHeight() + glyph.GetAdvanceY()) * textRatio);
+      if (!glyph.IsValid())
+        continue;
+
+      if (glyphIndex == start)
+        node.first += glyph.GetOffsetX();
+
+      node.first += glyph.GetAdvanceX();
+      node.second = max(node.second, glyph.GetPixelHeight() + glyph.GetAdvanceY());
     }
     maxLength = max(maxLength, node.first);
     summaryHeight += node.second;
@@ -236,34 +245,40 @@ void CalculateOffsets(dp::Anchor anchor,
 
   ASSERT_EQUAL(delimIndexes.size(), lengthAndHeight.size(), ());
 
+  maxLength *= textRatio;
+  summaryHeight *= textRatio;
+
   XLayouter xL(anchor);
   YLayouter yL(anchor, summaryHeight);
   for (size_t index = 0; index < delimIndexes.size(); ++index)
   {
     TLengthAndHeight const & node = lengthAndHeight[index];
-    result.push_back(make_pair(delimIndexes[index], glsl::vec2(xL(node.first, maxLength),
-                                                               yL(node.second))));
+    result.push_back(make_pair(delimIndexes[index], glsl::vec2(xL(node.first * textRatio, maxLength),
+                                                               yL(node.second * textRatio))));
   }
 
-  pixelSize = m2::PointU(maxLength, summaryHeight);
+  pixelSize = m2::PointU(my::rounds(maxLength), my::rounds(summaryHeight));
 }
 
 } // namespace
 
 void TextLayout::Init(strings::UniString const & text, float fontSize,
-                      dp::RefPointer<dp::TextureManager> textures)
+                      ref_ptr<dp::TextureManager> textures)
 {
+  m_text = text;
   m_textSizeRatio = fontSize / BASE_HEIGHT;
   textures->GetGlyphRegions(text, m_metrics);
 }
 
-dp::RefPointer<dp::Texture> TextLayout::GetMaskTexture() const
+ref_ptr<dp::Texture> TextLayout::GetMaskTexture() const
 {
   ASSERT(!m_metrics.empty(), ());
 #ifdef DEBUG
-  dp::RefPointer<dp::Texture> tex = m_metrics[0].GetTexture();
+  ref_ptr<dp::Texture> tex = m_metrics[0].GetTexture();
   for (GlyphRegion const & g : m_metrics)
+  {
     ASSERT(g.GetTexture() == tex, ());
+  }
 #endif
 
   return m_metrics[0].GetTexture();
@@ -287,8 +302,13 @@ float TextLayout::GetPixelHeight() const
   return m_textSizeRatio * BASE_HEIGHT;
 }
 
+strings::UniString const & TextLayout::GetText() const
+{
+  return m_text;
+}
+
 StraightTextLayout::StraightTextLayout(strings::UniString const & text, float fontSize,
-                                       dp::RefPointer<dp::TextureManager> textures, dp::Anchor anchor)
+                                       ref_ptr<dp::TextureManager> textures, dp::Anchor anchor)
 {
   strings::UniString visibleText = fribidi::log2vis(text);
   buffer_vector<size_t, 2> delimIndexes;
@@ -313,7 +333,7 @@ void StraightTextLayout::Cache(glm::vec3 const & pivot, glm::vec2 const & pixelO
     size_t endOffset = node.first;
     StraigthTextGeometryGenerator generator(pivot, pixelOffset + node.second, m_textSizeRatio,
                                             colorRegion, outlineRegion, staticBuffer, dynamicBuffer);
-    for (size_t index = beginOffset; index < endOffset; ++index)
+    for (size_t index = beginOffset; index < endOffset && index < m_metrics.size(); ++index)
       generator(m_metrics[index]);
 
     beginOffset = endOffset;
@@ -321,7 +341,7 @@ void StraightTextLayout::Cache(glm::vec3 const & pivot, glm::vec2 const & pixelO
 }
 
 PathTextLayout::PathTextLayout(strings::UniString const & text, float fontSize,
-                               dp::RefPointer<dp::TextureManager> textures)
+                               ref_ptr<dp::TextureManager> textures)
 {
   Init(fribidi::log2vis(text), fontSize, textures);
 }
@@ -379,10 +399,10 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, Scr
 
     size_t baseIndex = 4 * i;
 
-    buffer[baseIndex + 0] = gpu::TextDynamicVertex(formingVector + normal * upVector + tangent * xOffset);
-    buffer[baseIndex + 1] = gpu::TextDynamicVertex(formingVector + normal * bottomVector + tangent * xOffset);
-    buffer[baseIndex + 2] = gpu::TextDynamicVertex(formingVector + normal * upVector + tangent * (pxSize.x + xOffset));
-    buffer[baseIndex + 3] = gpu::TextDynamicVertex(formingVector + normal * bottomVector + tangent * (pxSize.x + xOffset));
+    buffer[baseIndex + 0] = gpu::TextDynamicVertex(formingVector + normal * bottomVector + tangent * xOffset);
+    buffer[baseIndex + 1] = gpu::TextDynamicVertex(formingVector + normal * upVector + tangent * xOffset);
+    buffer[baseIndex + 2] = gpu::TextDynamicVertex(formingVector + normal * bottomVector + tangent * (pxSize.x + xOffset));
+    buffer[baseIndex + 3] = gpu::TextDynamicVertex(formingVector + normal * upVector + tangent * (pxSize.x + xOffset));
 
 
     float const xAdvance = g.GetAdvanceX() * m_textSizeRatio;

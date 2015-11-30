@@ -21,7 +21,7 @@ PathSymbolShape::PathSymbolShape(m2::SharedSpline const & spline,
 {
 }
 
-void PathSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const
+void PathSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
 {
   dp::TextureManager::SymbolRegion region;
   textures->GetSymbolRegion(m_params.m_symbolName, region);
@@ -48,23 +48,22 @@ void PathSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<d
     n = nLength * glsl::normalize(n);
     d = dLength * glsl::normalize(d);
 
-    buffer.push_back(gpu::SolidTexturingVertex(glsl::vec3(pivot - d + n, m_params.m_depth), dummy, glsl::ToVec2(rect.LeftTop())));
-    buffer.push_back(gpu::SolidTexturingVertex(glsl::vec3(pivot - d - n, m_params.m_depth), dummy, glsl::ToVec2(rect.LeftBottom())));
-    buffer.push_back(gpu::SolidTexturingVertex(glsl::vec3(pivot + d + n, m_params.m_depth), dummy, glsl::ToVec2(rect.RightTop())));
-    buffer.push_back(gpu::SolidTexturingVertex(glsl::vec3(pivot + d - n, m_params.m_depth), dummy, glsl::ToVec2(rect.RightBottom())));
+    buffer.push_back(gpu::SolidTexturingVertex(glsl::vec3(pivot, m_params.m_depth), - d - n, glsl::ToVec2(rect.LeftTop())));
+    buffer.push_back(gpu::SolidTexturingVertex(glsl::vec3(pivot, m_params.m_depth), - d + n, glsl::ToVec2(rect.LeftBottom())));
+    buffer.push_back(gpu::SolidTexturingVertex(glsl::vec3(pivot, m_params.m_depth), d - n, glsl::ToVec2(rect.RightTop())));
+    buffer.push_back(gpu::SolidTexturingVertex(glsl::vec3(pivot, m_params.m_depth), d + n, glsl::ToVec2(rect.RightBottom())));
     splineIter.Advance(step);
   }
 
   if (buffer.empty())
     return;
 
-  dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::GeometryLayer);
+  dp::GLState state(gpu::PATH_SYMBOL_LINE, dp::GLState::GeometryLayer);
   state.SetColorTexture(region.GetTexture());
-  state.SetBlending(dp::Blending(true));
 
-  dp::AttributeProvider provider(1, 4 * buffer.size());
-  provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(buffer.data()));
-  batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), 4);
+  dp::AttributeProvider provider(1, buffer.size());
+  provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref(buffer.data()));
+  batcher->InsertListOfStrip(state, make_ref(&provider), 4);
 }
 
 }

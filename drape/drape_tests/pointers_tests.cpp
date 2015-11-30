@@ -1,367 +1,97 @@
 #include "testing/testing.hpp"
-
 #include "drape/pointers.hpp"
 
-#include "base/assert.hpp"
+#include "base/base.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/string.hpp"
-#include "std/shared_ptr.hpp"
-
-#include <gmock/gmock.h>
-
-using ::testing::_;
-using ::testing::MatcherInterface;
-using ::testing::MatchResultListener;
-using ::testing::Matcher;
-
-using my::SrcPoint;
-using namespace dp;
 
 namespace
 {
-
-template<typename T>
-void EmptyFunction(RefPointer<T> p){}
-
-template<typename T, typename ToDo>
-void EmptyFunction(TransferPointer<T> p, ToDo & toDo)
-{
-  toDo(p);
-}
-
-template<typename T>
-void PointerDeleter(TransferPointer<T> p)
-{
-  p.Destroy();
-}
-
-#ifdef DEBUG
-#ifdef CHECK_POINTERS
-class MockAssertExpector
-{
-public:
-  MOCK_CONST_METHOD2(Assert, void(SrcPoint const &, string const &));
-};
-
-MockAssertExpector * g_asserter;
-my::AssertFailedFn m_defaultAssertFn;
-void MyOnAssertFailed(SrcPoint const & src, string const & msg)
-{
-  g_asserter->Assert(src, msg);
-}
-
-MockAssertExpector * InitAsserter()
-{
-  if (g_asserter != NULL)
-    delete g_asserter;
-
-  g_asserter = new MockAssertExpector();
-
-  m_defaultAssertFn = my::SetAssertFunction(&MyOnAssertFailed);
-
-  return g_asserter;
-}
-
-void DestroyAsserter()
-{
-  my::SetAssertFunction(m_defaultAssertFn);
-  delete g_asserter;
-  g_asserter = NULL;
-}
-#endif
-
-SrcPoint ConstructSrcPoint(char const * fileName, char const * function)
-{
-#ifndef __OBJC__
-  return SrcPoint(fileName, 0, function, "()");
-#else
-  return SrcPoint(fileName, 0, function);
-#endif
-}
-#endif
-
-} // namespace
-
-#ifdef DEBUG
-
-class SrcPointMatcher : public MatcherInterface<SrcPoint const &>
-{
-public:
-  SrcPointMatcher(char const * fileName, char const * function)
-    : m_srcPoint(ConstructSrcPoint(fileName, function))
+  class Tester
   {
-  }
+  public:
+    Tester() = default;
+  };
 
-  virtual bool MatchAndExplain(SrcPoint const & x, MatchResultListener * listener) const
+#if defined(TRACK_POINTERS)
+  bool g_assertRaised = false;
+  void OnAssertRaised(my::SrcPoint const & /*srcPoint*/, string const & /*msg*/)
   {
-    bool res = strcmp(x.FileName(), m_srcPoint.FileName()) == 0 &&
-               strcmp(x.Function(), m_srcPoint.Function()) == 0;
-
-    if (res == false)
-      (*listener) << "Actual parameter : " << DebugPrint(x);
-
-    return res;
-  }
-
-  virtual void DescribeTo(::std::ostream * os) const
-  {
-    *os << "Expected assert : " << DebugPrint(m_srcPoint);
-  }
-
-  virtual void DescribeNegationTo(::std::ostream * os) const
-  {
-    *os << "Unexpected assert. Expect this : " << DebugPrint(m_srcPoint);
-  }
-
-private:
-  SrcPoint m_srcPoint;
-};
-
-inline Matcher<SrcPoint const &> SrcPointEq(char const * fileName, char const * function)
-{
-  return ::testing::MakeMatcher(new SrcPointMatcher(fileName, function));
-}
-
-#endif
-
-UNIT_TEST(RefPointer_Positive)
-{
-  MasterPointer<int> p(new int);
-  RefPointer<int> refP = p.GetRefPointer();
-
-  TEST_EQUAL(p.IsNull(), false, ());
-  TEST_EQUAL(p.GetRaw(), refP.GetRaw(), ());
-
-  RefPointer<int> refP2(refP);
-
-  TEST_EQUAL(p.IsNull(), false, ());
-  TEST_EQUAL(p.GetRaw(), refP.GetRaw(), ());
-  TEST_EQUAL(refP2.GetRaw(), refP.GetRaw(), ());
-
-  *refP.GetRaw() = 10;
-
-  EmptyFunction(refP);
-  TEST_EQUAL(p.IsNull(), false, ());
-  TEST_EQUAL(p.GetRaw(), refP.GetRaw(), ());
-  TEST_EQUAL(refP2.GetRaw(), refP.GetRaw(), ());
-
-  EmptyFunction(refP2);
-  TEST_EQUAL(p.IsNull(), false, ());
-  TEST_EQUAL(p.GetRaw(), refP.GetRaw(), ());
-  TEST_EQUAL(refP2.GetRaw(), refP.GetRaw(), ());
-
-  refP2 = refP = RefPointer<int>();
-
-  TEST_EQUAL(p.IsNull(), false, ());
-  TEST_EQUAL(refP.IsNull(), true, ());
-  TEST_EQUAL(refP2.GetRaw(), refP.GetRaw(), ());
-
-  p.Destroy();
-  TEST_EQUAL(p.IsNull(), true, ());
-}
-
-#if defined(CHECK_POINTERS)
-  UNIT_TEST(MasterPointerDestroy_Negative)
-  {
-    MockAssertExpector * asserter = InitAsserter();
-
-    EXPECT_CALL(*asserter, Assert(SrcPointEq("drape/pointers.cpp", "Destroy"), _)).Times(1);
-
-    MasterPointer<int> p(new int);
-    RefPointer<int> refP(p.GetRefPointer());
-    p.Destroy();
-
-    DestroyAsserter();
-  }
-
-  UNIT_TEST(MasterPointer_Leak)
-  {
-    MockAssertExpector * asserter = InitAsserter();
-
-    ::testing::InSequence s;
-
-    EXPECT_CALL(*asserter, Assert(SrcPointEq("drape/pointers.cpp", "Deref"), _));
-
-    {
-      MasterPointer<int> p(new int);
-    }
-
-    DestroyAsserter();
+    g_assertRaised = true;
   }
 #endif
-
-UNIT_TEST(TransferPointerConvertion_Positive)
-{
-  MasterPointer<int> p(new int);
-  TEST_EQUAL(p.IsNull(), false, ());
-
-  int * rawP = p.GetRaw();
-
-  TransferPointer<int> trP = p.Move();
-  TEST_EQUAL(p.IsNull(), true, ());
-  TEST_EQUAL(trP.IsNull(), false, ());
-
-  MasterPointer<int> p2(trP);
-  TEST_EQUAL(p.IsNull(), true, ());
-  TEST_EQUAL(trP.IsNull(), true, ());
-  TEST_EQUAL(p2.GetRaw(), rawP, ());
-
-  p2.Destroy();
 }
 
-UNIT_TEST(TransferPointer_Positive)
+UNIT_TEST(PointersTrackingTest)
 {
-  MasterPointer<int> p(new int);
-  TEST_EQUAL(p.IsNull(), false, ());
+#if defined(TRACK_POINTERS)
 
-  TransferPointer<int> trP = p.Move();
-  TEST_EQUAL(p.IsNull(), true, ());
-  TEST_EQUAL(trP.IsNull(), false, ());
-  PointerDeleter(trP);
-}
+  DpPointerTracker::TAlivePointers const & alivePointers = DpPointerTracker::Instance().GetAlivePointers();
 
-namespace
-{
+  drape_ptr<Tester> ptr = make_unique_dp<Tester>();
+  void * ptrAddress = ptr.get();
+  string const ptrTypeName = typeid(Tester*).name();
 
-template <typename T>
-struct MasterPointerAccum
-{
-public:
-  MasterPointer<T> m_p;
+  // no references
+  TEST(alivePointers.find(ptrAddress) == alivePointers.end(), ());
 
-  void operator() (TransferPointer<T> p)
+  // create a reference
+  ref_ptr<Tester> refPtr = make_ref(ptr);
+
+  DpPointerTracker::TAlivePointers::const_iterator found = alivePointers.find(ptrAddress);
+  TEST(found != alivePointers.end(), ());
+  TEST_EQUAL(found->second.first, 1, ());
+  TEST_EQUAL(found->second.second, ptrTypeName, ());
+
+  // copy reference
+  ref_ptr<Tester> refPtr2 = refPtr;
+
+  found = alivePointers.find(ptrAddress);
+  TEST_EQUAL(found->second.first, 2, ());
+
+  // remove reference
   {
-    TEST_EQUAL(p.IsNull(), false, ());
-    m_p = MasterPointer<T>(p);
-    TEST_EQUAL(p.IsNull(), true, ());
+    ref_ptr<Tester> refPtrInScope = refPtr2;
+    TEST_EQUAL(found->second.first, 3, ());
   }
-};
+  TEST_EQUAL(found->second.first, 2, ());
 
-} // namespace
+  // move reference
+  ref_ptr<Tester> refPtr3 = move(refPtr2);
+  TEST_EQUAL(found->second.first, 2, ());
 
-UNIT_TEST(TransferPointerConvertion2_Positive)
-{
-  MasterPointer<int> p(new int);
-  TEST_EQUAL(p.IsNull(), false, ());
+  // assign reference
+  ref_ptr<Tester> refPtr4;
+  refPtr4 = refPtr3;
+  TEST_EQUAL(found->second.first, 3, ());
 
-  int * rawP = p.GetRaw();
+  // move-assign reference
+  refPtr4 = move(refPtr3);
+  TEST_EQUAL(found->second.first, 2, ());
 
-  MasterPointerAccum<int> accum;
-  EmptyFunction(p.Move(), accum);
-  TEST_EQUAL(p.IsNull(), true, ());
-  TEST_EQUAL(accum.m_p.GetRaw(), rawP, ());
-
-  accum.m_p.Destroy();
-}
-
-#if defined(CHECK_POINTERS)
-
-namespace
-{
-
-template <typename T>
-struct EmptyTransferAccepter
-{
-public:
-  void operator() (TransferPointer<T> p)
-  {
-    TEST_EQUAL(p.IsNull(), false, ());
-    TransferPointer<T> p2(p);
-    TEST_EQUAL(p.IsNull(), true, ());
-    TEST_EQUAL(p2.IsNull(), false, ());
-  }
-};
-
-}
-
-UNIT_TEST(TransferPointer_Leak)
-{
-  MockAssertExpector * asserter = InitAsserter();
-  MasterPointer<int> p(new int);
-  TEST_EQUAL(p.IsNull(), false, ());
-
-  EXPECT_CALL(*asserter, Assert(SrcPointEq("drape/pointers.hpp", "~TransferPointer"), _));
-
-  EmptyTransferAccepter<int> toDo;
-  EmptyFunction(p.Move(), toDo);
-  TEST_EQUAL(p.IsNull(), true, ());
-
-  DestroyAsserter();
-}
-
-UNIT_TEST(PointerConversionAndLeak)
-{
-  MockAssertExpector * asserter = InitAsserter();
-
-  EXPECT_CALL(*asserter, Assert(SrcPointEq("drape/pointers.cpp", "Deref"), _));
-
-  {
-    MasterPointer<int> p(new int);
-    TEST_EQUAL(p.IsNull(), false, ());
-
-    int * rawP = p.GetRaw();
-
-    MasterPointerAccum<int> accum;
-    EmptyFunction(p.Move(), accum);
-    TEST_EQUAL(p.IsNull(), true, ());
-    TEST_EQUAL(accum.m_p.GetRaw(), rawP, ());
-  }
-
-  DestroyAsserter();
-}
+  // create another reference
+  ref_ptr<Tester> refPtr5 = make_ref(ptr);
+  TEST_EQUAL(found->second.first, 3, ());
 
 #endif
-
-class Base
-{
-public:
-  Base() {}
-  virtual ~Base() {}
-};
-
-class Derived : public Base
-{
-public:
-  Derived() {}
-};
-
-UNIT_TEST(RefPointerCast)
-{
-  MasterPointer<Derived> p(new Derived());
-  TEST_EQUAL(p.IsNull(), false, ());
-
-  {
-    RefPointer<Derived> refP(p.GetRefPointer());
-    TEST_EQUAL(p.IsNull(), false, ());
-    TEST_EQUAL(p.GetRaw(), refP.GetRaw(), ());
-
-    RefPointer<Base> refBaseP(refP);
-    TEST_EQUAL(p.IsNull(), false, ());
-    TEST_EQUAL(p.GetRaw(), refP.GetRaw(), ());
-    TEST_EQUAL(p.GetRaw(), refBaseP.GetRaw(), ());
-  }
-
-  p.Destroy();
 }
 
-UNIT_TEST(StackPointers)
+UNIT_TEST(RefPointerExpiringTest)
 {
-  int data[10];
-  {
-    RefPointer<int> p = MakeStackRefPointer(data);
-    TEST_EQUAL(p.GetRaw(), data, ());
-  }
-}
+#if defined(TRACK_POINTERS)
 
-UNIT_TEST(MoveFreePointers)
-{
-  int * data = new int;
-  TransferPointer<int> p = MovePointer(data);
-  TEST_EQUAL(p.IsNull(), false, ());
+  g_assertRaised = false;
+  my::AssertFailedFn prevFn = my::SetAssertFunction(OnAssertRaised);
 
-  MasterPointer<int> mP(p);
-  TEST_EQUAL(p.IsNull(), true, ());
-  TEST_EQUAL(mP.GetRaw(), data, ());
+  drape_ptr<Tester> ptr = make_unique_dp<Tester>();
+  ref_ptr<Tester> refPtr1 = make_ref(ptr);
+  ref_ptr<Tester> refPtr2 = make_ref(ptr);
+  ptr.reset();
 
-  mP.Destroy();
+  my::SetAssertFunction(prevFn);
+
+  TEST(g_assertRaised, ());
+
+#endif
 }

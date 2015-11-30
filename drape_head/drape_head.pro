@@ -1,6 +1,6 @@
 # Head project for drape develop and debuging
 ROOT_DIR = ..
-DEPENDENCIES = map render drape_frontend anim drape indexer platform geometry coding base \
+DEPENDENCIES = map drape_frontend drape indexer storage platform geometry coding base \
                freetype expat protobuf jansson fribidi tomcrypt
 
 include($$ROOT_DIR/common.pri)
@@ -29,15 +29,11 @@ macx-* {
 
 HEADERS += \
     mainwindow.hpp \
-    qtoglcontext.hpp \
-    qtoglcontextfactory.hpp \
     drape_surface.hpp \
     testing_engine.hpp \
 
 SOURCES += \
     mainwindow.cpp \
     main.cpp \
-    qtoglcontext.cpp \
-    qtoglcontextfactory.cpp \
     drape_surface.cpp \
     testing_engine.cpp \

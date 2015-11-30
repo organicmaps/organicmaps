@@ -2,6 +2,7 @@
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_visibility.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/drules_include.hpp"
 #include "indexer/scales.hpp"
@@ -66,16 +67,14 @@ bool IsMiddleTunnel(int const layer, double const depth)
   return layer != feature::LAYER_EMPTY && depth < 19000;
 }
 
-double CalcPopulationRank(FeatureType const & f)
+void FilterRulesByRuntimeSelector(FeatureType const & f, int zoomLevel, drule::KeysT & keys)
 {
-  uint32_t population = f.GetPopulation();
-  if (population != 1)
+  keys.erase_if([&f, zoomLevel](drule::Key const & key)->bool
   {
-    double const maxPopulation = 3.0E6;
-    return min(maxPopulation, (double)population) / (maxPopulation * 4);
-  }
-
-  return 0.0;
+    drule::BaseRule const * const rule = drule::rules().Find(key);
+    ASSERT(rule != nullptr, ());
+    return !rule->TestFeature(f, zoomLevel);
+  });
 }
 
 class KeyFunctor
@@ -86,11 +85,12 @@ public:
              int const zoomLevel,
              int const keyCount,
              bool isNameExists)
-    : m_pointStyleFinded(false)
-    , m_lineStyleFinded(false)
-    , m_iconFinded(false)
-    , m_captionWithoutOffsetFinded(false)
-    , m_auxCaptionFinded(false)
+    : m_pointStyleFound(false)
+    , m_lineStyleFound(false)
+    , m_iconFound(false)
+    , m_captionWithoutOffsetFound(false)
+    , m_auxCaptionFound(false)
+    , m_mainTextType(drule::text_type_name)
     , m_f(f)
     , m_geomType(type)
     , m_zoomLevel(zoomLevel)
@@ -123,17 +123,21 @@ public:
     m_rules.push_back(make_pair(dRule, depth));
 
     bool isNonEmptyCaption = IsTypeOf(key, Caption) && m_isNameExists;
-    m_pointStyleFinded |= (IsTypeOf(key, Symbol | Circle) || isNonEmptyCaption);
-    m_lineStyleFinded  |= IsTypeOf(key, Line);
-    m_auxCaptionFinded |= (dRule->GetCaption(1) != 0);
+    m_pointStyleFound |= (IsTypeOf(key, Symbol | Circle) || isNonEmptyCaption);
+    m_lineStyleFound  |= IsTypeOf(key, Line);
+    m_auxCaptionFound |= (dRule->GetCaption(1) != nullptr);
+
+    if (dRule->GetCaption(0) != nullptr)
+      m_mainTextType = dRule->GetCaptionTextType(0);
   }
 
-  bool m_pointStyleFinded;
-  bool m_lineStyleFinded;
-  bool m_iconFinded;
-  bool m_captionWithoutOffsetFinded;
-  bool m_auxCaptionFinded;
-  buffer_vector<Stylist::rule_wrapper_t, 8> m_rules;
+  bool m_pointStyleFound;
+  bool m_lineStyleFound;
+  bool m_iconFound;
+  bool m_captionWithoutOffsetFound;
+  bool m_auxCaptionFound;
+  buffer_vector<Stylist::TRuleWrapper, 8> m_rules;
+  drule::text_type_t m_mainTextType;
 
 private:
   void Init()
@@ -169,9 +173,6 @@ const uint8_t PointStyleFlag = 1 << 3;
 
 // ==================================== //
 
-CaptionDescription::CaptionDescription()
-  : m_populationRank(0.0) {}
-
 void CaptionDescription::Init(FeatureType const & f,
                               int const zoomLevel)
 {
@@ -179,7 +180,13 @@ void CaptionDescription::Init(FeatureType const & f,
 
   m_roadNumber = f.GetRoadNumber();
   m_houseNumber = f.GetHouseNumber();
-  m_populationRank = CalcPopulationRank(f);
+
+  if (ftypes::IsBuildingChecker::Instance()(f))
+  {
+    // Mark houses without names/numbers so user can select them by single tap.
+    if (m_houseNumber.empty() && m_mainText.empty())
+      m_houseNumber = "·";
+  }
 
   SwapCaptions(zoomLevel);
   DiscardLongCaption(zoomLevel);
@@ -187,6 +194,7 @@ void CaptionDescription::Init(FeatureType const & f,
 
 void CaptionDescription::FormatCaptions(FeatureType const & f,
                                         feature::EGeomType type,
+                                        drule::text_type_t mainTextType,
                                         bool auxCaptionExists)
 {
   if (!auxCaptionExists && !m_auxText.empty() && type != feature::GEOM_LINE)
@@ -196,12 +204,19 @@ void CaptionDescription::FormatCaptions(FeatureType const & f,
       m_auxText.clear();
   }
 
-  if (!m_houseNumber.empty())
+  if (mainTextType == drule::text_type_housenumber)
   {
-    if (m_mainText.empty() || m_houseNumber.find(m_mainText) != string::npos)
-      m_houseNumber.swap(m_mainText);
-    else
-      m_mainText += ("(" + m_houseNumber + ")");
+    m_mainText = move(m_houseNumber);
+  }
+  else if (mainTextType == drule::text_type_name)
+  {
+    if (!m_houseNumber.empty())
+    {
+      if (m_mainText.empty() || m_houseNumber.find(m_mainText) != string::npos)
+        m_houseNumber.swap(m_mainText);
+      else
+        m_mainText += (" (" + m_houseNumber + ")");
+    }
   }
 }
 
@@ -227,11 +242,6 @@ string CaptionDescription::GetPathName() const
     return m_mainText;
   else
     return m_mainText + "   " + m_auxText;
-}
-
-double CaptionDescription::GetPopulationRank() const
-{
-  return m_populationRank;
 }
 
 bool CaptionDescription::IsNameExists() const
@@ -286,7 +296,7 @@ CaptionDescription const & Stylist::GetCaptionDescription() const
   return m_captionDescriptor;
 }
 
-void Stylist::ForEachRule(Stylist::rule_callback_t const & fn)
+void Stylist::ForEachRule(Stylist::TRuleCallback const & fn) const
 {
   typedef rules_t::const_iterator const_iter;
   for (const_iter it = m_rules.begin(); it != m_rules.end(); ++it)
@@ -323,14 +333,12 @@ CaptionDescription & Stylist::GetCaptionDescriptionImpl()
   return m_captionDescriptor;
 }
 
-// ==================================== //
-
-bool InitStylist(FeatureType const & f,
-                 int const zoomLevel,
-                 Stylist & s)
+bool InitStylist(FeatureType const & f, int const zoomLevel, Stylist & s)
 {
   drule::KeysT keys;
   pair<int, bool> geomType = feature::GetDrawRule(f, zoomLevel, keys);
+
+  FilterRulesByRuntimeSelector(f, zoomLevel, keys);
 
   if (keys.empty())
     return false;
@@ -341,7 +349,8 @@ bool InitStylist(FeatureType const & f,
 
   feature::EGeomType mainGeomType = feature::EGeomType(geomType.first);
 
-  switch (mainGeomType) {
+  switch (mainGeomType)
+  {
   case feature::GEOM_POINT:
     s.RaisePointStyleFlag();
     break;
@@ -362,13 +371,13 @@ bool InitStylist(FeatureType const & f,
   KeyFunctor keyFunctor(f, mainGeomType, zoomLevel, keys.size(), descr.IsNameExists());
   for_each(keys.begin(), keys.end(), bind(&KeyFunctor::ProcessKey, &keyFunctor, _1));
 
-  if (keyFunctor.m_pointStyleFinded)
+  if (keyFunctor.m_pointStyleFound)
     s.RaisePointStyleFlag();
-  if (keyFunctor.m_lineStyleFinded)
+  if (keyFunctor.m_lineStyleFound)
     s.RaiseLineStyleFlag();
 
   s.m_rules.swap(keyFunctor.m_rules);
-  descr.FormatCaptions(f, mainGeomType, keyFunctor.m_auxCaptionFinded);
+  descr.FormatCaptions(f, mainGeomType, keyFunctor.m_mainTextType, keyFunctor.m_auxCaptionFound);
   return true;
 }
 

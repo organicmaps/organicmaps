@@ -1,6 +1,7 @@
 #pragma once
 
 #include "indexer/feature_data.hpp"
+#include "indexer/drawing_rule_def.hpp"
 
 #include "base/buffer_vector.hpp"
 
@@ -16,20 +17,18 @@ namespace df
 
 struct CaptionDescription
 {
-  CaptionDescription();
-
   void Init(FeatureType const & f,
             int const zoomLevel);
 
   void FormatCaptions(FeatureType const & f,
                       feature::EGeomType type,
+                      drule::text_type_t mainTextType,
                       bool auxCaptionExists);
 
   string const & GetMainText() const;
   string const & GetAuxText() const;
   string const & GetRoadNumber() const;
   string GetPathName() const;
-  double GetPopulationRank() const;
   bool IsNameExists() const;
 
 private:
@@ -41,7 +40,6 @@ private:
   string m_auxText;
   string m_roadNumber;
   string m_houseNumber;
-  double m_populationRank;
 };
 
 class Stylist
@@ -56,9 +54,9 @@ public:
 
   CaptionDescription const & GetCaptionDescription() const;
 
-  typedef pair<drule::BaseRule const *, double> rule_wrapper_t;
-  typedef function<void (rule_wrapper_t const &)> rule_callback_t;
-  void ForEachRule(rule_callback_t const & fn);
+  using TRuleWrapper = pair<drule::BaseRule const *, double>;
+  using TRuleCallback = function<void (TRuleWrapper const &)>;
+  void ForEachRule(TRuleCallback const & fn) const;
 
   bool IsEmpty() const;
 
@@ -75,7 +73,7 @@ private:
   CaptionDescription & GetCaptionDescriptionImpl();
 
 private:
-  typedef buffer_vector<rule_wrapper_t, 8> rules_t;
+  typedef buffer_vector<TRuleWrapper, 8> rules_t;
   rules_t m_rules;
 
   uint8_t m_state;

@@ -52,6 +52,12 @@
       <FileRef
          location = "group:tess2/tess2.xcodeproj">
       </FileRef>
+      <FileRef
+         location = "group:sdf_image/sdf_image.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:stb_image/stb_image.xcodeproj">
+      </FileRef>
    </Group>
    <FileRef
       location = "container:anim/anim.xcodeproj">
@@ -67,6 +73,9 @@
    </FileRef>
    <FileRef
       location = "container:drape/drape.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:drape_frontend/drape_frontend.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:geometry/geometry.xcodeproj">
@@ -114,4 +123,7 @@
          location = "group:../iphone/Maps/Maps.xcodeproj">
       </FileRef>
    </Group>
+   <FileRef
+      location = "group:mapshot/mapshot.xcodeproj">
+   </FileRef>
 </Workspace>

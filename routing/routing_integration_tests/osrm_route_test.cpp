@@ -2,7 +2,7 @@
 
 #include "routing/routing_integration_tests/routing_test_tools.hpp"
 
-#include "../../indexer/mercator.hpp"
+#include "indexer/mercator.hpp"
 
 using namespace routing;
 

@@ -88,6 +88,10 @@ world  +
         toilets  -
         townhall  -
         university  -
+        vending_machine  +
+            parking_tickets  -
+            public_transport_tickets  -
+            {}
         waste_disposal  -
         {}
     area:highway  +

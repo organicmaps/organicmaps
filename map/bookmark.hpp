@@ -66,90 +66,92 @@ private:
   time_t m_timeStamp;
 };
 
-class Bookmark : public style::StyledPoint
+class Bookmark : public UserMark
 {
-  BookmarkData m_data;
-  double m_animScaleFactor;
-
+  using TBase = UserMark;
 public:
-  Bookmark(m2::PointD const & ptOrg, UserMarkContainer * container)
-    : StyledPoint(ptOrg, container), m_animScaleFactor(1.0)
-  {
-  }
+  Bookmark(m2::PointD const & ptOrg, UserMarkContainer * container);
 
-  Bookmark(BookmarkData const & data, m2::PointD const & ptOrg, UserMarkContainer * container)
-    : StyledPoint(ptOrg, container), m_data(data), m_animScaleFactor(1.0)
-  {
-  }
+  Bookmark(BookmarkData const & data, m2::PointD const & ptOrg,
+           UserMarkContainer * container);
 
-  void SetData(BookmarkData const & data) { m_data = data; }
+  void SetData(BookmarkData const & data);
+  BookmarkData const & GetData() const;
 
-  BookmarkData const & GetData() const { return m_data; }
+  dp::Anchor GetAnchor() const override;
+  string GetSymbolName() const override;
 
-  virtual Type GetMarkType() const override { return UserMark::Type::BOOKMARK; }
-  virtual void FillLogEvent(TEventContainer & details) const override;
+  Type GetMarkType() const override;
+  void FillLogEvent(TEventContainer & details) const override;
+  bool RunCreationAnim() const override;
 
-  string const & GetName() const { return m_data.GetName(); }
-  void SetName(string const & name) { m_data.SetName(name); }
+  string const & GetName() const;
+  void SetName(string const & name);
   /// @return Now its a bookmark color - name of icon file
-  string const & GetType() const { return m_data.GetType(); }
+  string const & GetType() const;
+  void SetType(string const & type);
+  m2::RectD GetViewport() const;
 
-  void SetType(string const & type) { m_data.SetType(type); }
-
-  m2::RectD GetViewport() const { return m2::RectD(GetOrg(), GetOrg()); }
-
-  string const & GetDescription() const { return m_data.GetDescription(); }
-  void SetDescription(string const & description) { m_data.SetDescription(description); }
+  string const & GetDescription() const;
+  void SetDescription(string const & description);
 
   /// @return my::INVALID_TIME_STAMP if bookmark has no timestamp
-  time_t GetTimeStamp() const { return m_data.GetTimeStamp(); }
-  void SetTimeStamp(time_t timeStamp) { m_data.SetTimeStamp(timeStamp); }
+  time_t GetTimeStamp() const;
+  void SetTimeStamp(time_t timeStamp);
 
-  double GetScale() const { return m_data.GetScale(); }
-  void SetScale(double scale) { m_data.SetScale(scale); }
+  double GetScale() const;
+  void SetScale(double scale);
 
   unique_ptr<UserMarkCopy> Copy() const override;
 
-  shared_ptr<anim::Task> CreateAnimTask(Framework & fm);
-
-  // StyledPoint overrides:
-  string const & GetStyle() const override { return m_data.GetType(); }
+private:
+  BookmarkData m_data;
+  mutable bool m_runCreationAnim;
 };
 
 class BookmarkCategory : public UserMarkContainer
 {
-  typedef UserMarkContainer base_t;
-  /// @name Data
-  //@{
-  /// TODO move track into UserMarkContainer as a IDrawable custom data
-  vector<Track *> m_tracks;
-  //@}
+  typedef UserMarkContainer TBase;
+  vector<unique_ptr<Track>> m_tracks;
 
   string m_name;
   /// Stores file name from which category was loaded
   string m_file;
 
 public:
+  class Guard
+  {
+  public:
+    Guard(BookmarkCategory & cat)
+      : m_controller(cat.RequestController())
+      , m_cat(cat)
+    {
+    }
+
+    ~Guard()
+    {
+      m_cat.ReleaseController();
+    }
+
+    UserMarksController & m_controller;
+
+  private:
+    BookmarkCategory & m_cat;
+  };
+
   BookmarkCategory(string const & name, Framework & framework);
   ~BookmarkCategory();
 
-  virtual Type GetType() const { return BOOKMARK_MARK; }
-
-  void ClearBookmarks();
-  void ClearTracks();
+  size_t GetUserLineCount() const override;
+  df::UserLineMark const * GetUserLineMark(size_t index) const override;
 
   static string GetDefaultType();
 
-  /// @name Theese functions are called from Framework only.
-  //@{
-  Bookmark* AddBookmark(m2::PointD const & ptOrg, BookmarkData const & bm);
-  void ReplaceBookmark(size_t index, BookmarkData const & bm);
-  //@}
+  void ClearTracks();
 
   /// @name Tracks routine.
   //@{
-  /// @note Move semantics is used here.
-  void AddTrack(Track & track);
+  void AddTrack(unique_ptr<Track> && track);
   Track const * GetTrack(size_t index) const;
   inline size_t GetTracksCount() const { return m_tracks.size(); }
   void DeleteTrack(size_t index);
@@ -158,16 +160,6 @@ public:
   void SetName(string const & name) { m_name = name; }
   string const & GetName() const { return m_name; }
   string const & GetFileName() const { return m_file; }
-
-  size_t GetBookmarksCount() const;
-
-  Bookmark const * GetBookmark(size_t index) const;
-  Bookmark * GetBookmark(size_t index);
-  void DeleteBookmark(size_t index);
-
-  // Returns index of the bookmark if exists, otherwise returns
-  // total number of bookmarks.
-  size_t FindBookmark(Bookmark const * bookmark) const;
 
   /// @name Theese fuctions are public for unit tests only.
   /// You don't need to call them from client code.
@@ -189,17 +181,7 @@ public:
   //@}
 
 protected:
-  virtual string GetTypeName() const { return "search-result"; }
-  virtual string GetActiveTypeName() const { return "search-result-active"; }
-  virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg);
-
-private:
-  void ReleaseAnimations();
-  
-private:
-  bool m_blockAnimation;
-  using TAnimNode = pair<UserMark *, shared_ptr<anim::Task>>;
-  vector<TAnimNode> m_anims;
+  UserMark * AllocateUserMark(m2::PointD const & ptOrg) override;
 };
 
 /// <category index, bookmark index>

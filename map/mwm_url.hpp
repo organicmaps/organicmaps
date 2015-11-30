@@ -1,12 +1,13 @@
 #pragma once
 
-#include "api_mark_container.hpp"
+#include "map/user_mark.hpp"
 
 #include "geometry/rect2d.hpp"
 
 #include "std/string.hpp"
 
 class ScalesProcessor;
+class BookmarkManager;
 
 namespace url_scheme
 {
@@ -28,7 +29,7 @@ class ParsedMapApi
 public:
   ParsedMapApi();
 
-  void SetController(UserMarkContainer::Controller * controller);
+  void SetBookmarkManager(BookmarkManager * manager);
 
   bool SetUriAndParse(string const & url);
   bool IsValid() const;
@@ -39,14 +40,14 @@ public:
   bool GoBackOnBalloonClick() const { return m_goBackOnBalloonClick; }
 
   /// @name Used in settings map viewport after invoking API.
-  bool GetViewportRect(ScalesProcessor const & scales, m2::RectD & rect) const;
+  bool GetViewportRect(m2::RectD & rect) const;
   UserMark const * GetSinglePoint() const;
 
 private:
   bool Parse(Uri const & uri);
   void AddKeyValue(string key, string const & value, vector<ApiPoint> & points);
 
-  UserMarkContainer::Controller * m_controller;
+  BookmarkManager * m_bmManager;
   string m_globalBackUrl;
   string m_appTitle;
   int m_version;

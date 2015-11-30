@@ -2,7 +2,7 @@
 
 #include "jansson_handle.hpp"
 
-#include "../../base/exception.hpp"
+#include "base/exception.hpp"
 
 #include <jansson.h>
 

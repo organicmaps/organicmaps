@@ -8,7 +8,7 @@
   #include <signal.h>
   #include <unistd.h>
 #else
-  #include "../std/windows.hpp"
+  #include "std/windows.hpp"
 #endif
 
 

@@ -247,7 +247,6 @@ void SearchPanel::OnSearchPanelItemClicked(int row, int)
 void SearchPanel::hideEvent(QHideEvent *)
 {
   m_pDrawWidget->GetFramework().CancelInteractiveSearch();
-  m_pDrawWidget->CloseSearch();
 }
 
 void SearchPanel::OnAnimationTimer()

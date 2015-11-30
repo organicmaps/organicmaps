@@ -1,7 +1,7 @@
-#include "../../testing/testing.hpp"
-#include "../search_string_utils.hpp"
+#include "testing/testing.hpp"
+#include "indexer/search_string_utils.hpp"
 
-#include "../../base/string_utils.hpp"
+#include "base/string_utils.hpp"
 
 UNIT_TEST(FeatureTypeToString)
 {

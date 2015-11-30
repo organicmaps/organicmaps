@@ -12,29 +12,24 @@ class Viewport
 {
 public:
   // x0, y0, w, h is device-independent pixels
-  Viewport(float pixelRatio,
-           uint32_t x0, uint32_t y0,
+  Viewport(uint32_t x0, uint32_t y0,
            uint32_t w, uint32_t h);
 
-  ///@{ Device-independent pixels
+  ///@{ in surface pixels
+  /// on iOS we must mul this on scaleFactor
+  /// on android we get true size from surface
   void SetViewport(uint32_t x0, uint32_t y0, uint32_t w, uint32_t h);
-  uint32_t GetLogicX0() const;
-  uint32_t GetLogicY0() const;
-  uint32_t GetLogicWidth() const;
-  uint32_t GetLogicHeight() const;
-  ///@}
 
   uint32_t GetX0() const;
   uint32_t GetY0() const;
   uint32_t GetWidth() const;
   uint32_t GetHeight() const;
-  float GetPixelRatio() const;
+  ///@}
   // Apply viewport to graphics pipeline
   // with convert start poin and size to physical pixels
   void Apply() const;
 
 private:
-  float m_pixelRatio;
   m2::PointU m_zero;
   m2::PointU m_size;
 };

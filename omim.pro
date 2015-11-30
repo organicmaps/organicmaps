@@ -4,7 +4,6 @@
 #   gtool: build only generator_tool
 #   map_designer: enable designer-related flags
 #   no-tests: do not build tests for desktop
-#   drape: include drape libraries
 #
 # There are no supported options in CONFIG for mobile platforms.
 # Please use XCode or gradle/Android Studio.
@@ -19,11 +18,6 @@ cache()
 TEMPLATE = subdirs
 
 HEADERS += defines.hpp
-
-# TODO(AlexZ): Why is it here? Drape should build on win32 too.
-win32:CONFIG(drape) {
-  CONFIG -= drape
-}
 
 !iphone*:!tizen*:!android* {
   CONFIG *= desktop
@@ -54,24 +48,22 @@ SUBDIRS = 3party base coding geometry indexer routing
 }
 
 !CONFIG(gtool):!CONFIG(osrm) {
-  SUBDIRS *= anim graphics gui render search map
+  SUBDIRS *= drape drape_frontend search map
 
   CONFIG(map_designer):CONFIG(desktop) {
     SUBDIRS *= skin_generator
   }
 
-  CONFIG(drape) {
-    SUBDIRS *= drape drape_frontend
-    CONFIG(desktop) {
-      drape_head.depends = $$SUBDIRS
-      SUBDIRS *= drape_head
-    }
+
+  CONFIG(desktop) {
+    drape_head.depends = $$SUBDIRS
+    SUBDIRS *= drape_head
   }
 
   CONFIG(desktop) {
     benchmark_tool.subdir = map/benchmark_tool
     benchmark_tool.depends = 3party base coding geometry platform indexer map
-    SUBDIRS *= benchmark_tool
+    SUBDIRS *= benchmark_tool mapshot
 
     qt.depends = $$SUBDIRS
     SUBDIRS *= qt
@@ -116,7 +108,7 @@ SUBDIRS = 3party base coding geometry indexer routing
     SUBDIRS *= search_tests
 
     MapDepLibs = 3party base coding geometry platform storage indexer search map \
-                 routing anim render gui graphics
+                 routing drape drape_frontend
 
     map_tests.subdir = map/map_tests
     map_tests.depends = $$MapDepLibs
@@ -158,21 +150,14 @@ SUBDIRS = 3party base coding geometry indexer routing
     generator_tests.depends = $$MapDepLibs routing generator generator_tests_support
     SUBDIRS *= generator_tests
 
-    # TODO(AlexZ): Do we really need them?
-    #SUBDIRS += render/render_tests
-    #SUBDIRS += graphics/graphics_tests
-    #SUBDIRS += gui/gui_tests
+    SUBDIRS *= qt_tstfrm
 
-    CONFIG(drape) {
-      SUBDIRS *= qt_tstfrm
+    drape_tests.subdir = drape/drape_tests
+    drape_tests.depends = 3party base coding platform qt_tstfrm
+    SUBDIRS *= drape_tests
 
-      drape_tests.subdir = drape/drape_tests
-      drape_tests.depends = 3party base coding platform qt_tstfrm
-      SUBDIRS *= drape_tests
-
-      drape_frontend_tests.subdir = drape_frontend/drape_frontend_tests
-      drape_frontend_tests.depends = 3party base coding platform drape drape_frontend
-      SUBDIRS *= drape_frontend_tests
-    }
+    drape_frontend_tests.subdir = drape_frontend/drape_frontend_tests
+    drape_frontend_tests.depends = 3party base coding platform drape drape_frontend
+    SUBDIRS *= drape_frontend_tests
   } # !no-tests
 } # !gtool

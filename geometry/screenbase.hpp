@@ -116,7 +116,8 @@ public:
 
   /// Compute arbitrary pixel transformation, that translates the (oldPt1, oldPt2) -> (newPt1, newPt2)
   static MatrixT const CalcTransform(m2::PointD const & oldPt1, m2::PointD const & oldPt2,
-                                     m2::PointD const & newPt1, m2::PointD const & newPt2);
+                                     m2::PointD const & newPt1, m2::PointD const & newPt2,
+                                     bool allowRotate);
 
   /// Setting GtoP matrix extracts the Angle and m_Org parameters, leaving PixelRect intact
   void SetGtoPMatrix(MatrixT const & m);

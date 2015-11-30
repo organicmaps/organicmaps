@@ -1,11 +1,6 @@
 #include "qt/mainwindow.hpp"
 
-#ifndef USE_DRAPE
 #include "qt/draw_widget.hpp"
-#else
-#include "qt/drape_surface.hpp"
-#endif
-
 #include "qt/slider_ctrl.hpp"
 #include "qt/about.hpp"
 #include "qt/preferences_dialog.hpp"
@@ -22,12 +17,14 @@
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
   #include <QtGui/QAction>
+  #include <QtGui/QDesktopWidget>
   #include <QtGui/QDockWidget>
   #include <QtGui/QMenu>
   #include <QtGui/QMenuBar>
   #include <QtGui/QToolBar>
 #else
   #include <QtWidgets/QAction>
+  #include <QtWidgets/QDesktopWidget>
   #include <QtWidgets/QDockWidget>
   #include <QtWidgets/QMenu>
   #include <QtWidgets/QMenuBar>
@@ -54,24 +51,33 @@ namespace qt
 
 MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this))
 {
-#ifndef USE_DRAPE
-  m_pDrawWidget = new DrawWidget(this);
-  setCentralWidget(m_pDrawWidget);
-#else
-  m_pDrawWidget = new DrapeSurface();
-  QSurfaceFormat format = m_pDrawWidget->requestedFormat();
-  format.setDepthBufferSize(16);
-  m_pDrawWidget->setFormat(format);
-  QWidget * w = QWidget::createWindowContainer(m_pDrawWidget, this);
-  w->setMouseTracking(true);
-  setCentralWidget(w);
-#endif // USE_DRAPE
+  // Always runs on the first desktop
+  QDesktopWidget const * desktop(QApplication::desktop());
+  setGeometry(desktop->screenGeometry(desktop->primaryScreen()));
 
-  shared_ptr<location::State> locState = m_pDrawWidget->GetFramework().GetLocationState();
-  locState->AddStateModeListener([this] (location::State::Mode mode)
-                                 {
-                                    LocationStateModeChanged(mode);
-                                 });
+  m_pDrawWidget = new DrawWidget(this);
+  QSurfaceFormat format = m_pDrawWidget->format();
+
+  format.setMajorVersion(2);
+  format.setMinorVersion(1);
+
+  format.setAlphaBufferSize(8);
+  format.setBlueBufferSize(8);
+  format.setGreenBufferSize(8);
+  format.setRedBufferSize(8);
+  format.setStencilBufferSize(0);
+  format.setSamples(0);
+  format.setSwapBehavior(QSurfaceFormat::DoubleBuffer);
+  format.setSwapInterval(1);
+  format.setDepthBufferSize(16);
+
+  format.setProfile(QSurfaceFormat::CompatibilityProfile);
+  //format.setOption(QSurfaceFormat::DebugContext);
+  m_pDrawWidget->setFormat(format);
+  m_pDrawWidget->setMouseTracking(true);
+  setCentralWidget(m_pDrawWidget);
+
+  QObject::connect(m_pDrawWidget, SIGNAL(BeforeEngineCreation()), this, SLOT(OnBeforeEngineCreation()));
 
   CreateNavigationBar();
   CreateSearchBarAndPanel();
@@ -141,10 +147,7 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
   }
 #endif // NO_DOWNLOADER
 
-#ifndef USE_DRAPE
   m_pDrawWidget->UpdateAfterSettingsChanged();
-#endif // USE_DRAPE
-  locState->InvalidatePosition();
 }
 
 #if defined(Q_WS_WIN)
@@ -187,12 +190,11 @@ void MainWindow::LoadState()
 {
   // do always show on full screen
   showMaximized();
-  m_pDrawWidget->LoadState();
 }
 
-void MainWindow::LocationStateModeChanged(location::State::Mode mode)
+void MainWindow::LocationStateModeChanged(location::EMyPositionMode mode)
 {
-  if (mode == location::State::PendingPosition)
+  if (mode == location::MODE_PENDING_POSITION)
   {
     m_locationService->Start();
     m_pMyPositionAction->setIcon(QIcon(":/navig64/location-search.png"));
@@ -200,7 +202,7 @@ void MainWindow::LocationStateModeChanged(location::State::Mode mode)
     return;
   }
 
-  if (mode == location::State::UnknownPosition)
+  if (mode == location::MODE_UNKNOWN_POSITION)
     m_locationService->Stop();
 
   m_pMyPositionAction->setIcon(QIcon(":/navig64/location.png"));
@@ -240,20 +242,14 @@ void MainWindow::CreateNavigationBar()
   pToolBar->setOrientation(Qt::Vertical);
   pToolBar->setIconSize(QSize(32, 32));
 
-#ifndef USE_DRAPE
   {
     // add navigation hot keys
     hotkey_t arr[] = {
-      { Qt::Key_Left, SLOT(MoveLeft()) },
-      { Qt::Key_Right, SLOT(MoveRight()) },
-      { Qt::Key_Up, SLOT(MoveUp()) },
-      { Qt::Key_Down, SLOT(MoveDown()) },
       { Qt::Key_Equal, SLOT(ScalePlus()) },
       { Qt::Key_Minus, SLOT(ScaleMinus()) },
       { Qt::ALT + Qt::Key_Equal, SLOT(ScalePlusLight()) },
       { Qt::ALT + Qt::Key_Minus, SLOT(ScaleMinusLight()) },
-      { Qt::Key_A, SLOT(ShowAll()) },
-      { Qt::Key_S, SLOT(QueryMaxScaleMode()) }
+      { Qt::Key_A, SLOT(ShowAll()) }
     };
 
     for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
@@ -264,7 +260,6 @@ void MainWindow::CreateNavigationBar()
       addAction(pAct);
     }
   }
-#endif // USE_DRAPE
 
   {
     // add search button with "checked" behavior
@@ -289,7 +284,6 @@ void MainWindow::CreateNavigationBar()
     m_pMyPositionAction->setToolTip(tr("My Position"));
 // #endif
 
-#ifndef USE_DRAPE
     // add view actions 1
     button_t arr[] = {
       { QString(), 0, 0 },
@@ -297,10 +291,8 @@ void MainWindow::CreateNavigationBar()
       { tr("Scale +"), ":/navig64/plus.png", SLOT(ScalePlus()) }
     };
     add_buttons(pToolBar, arr, ARRAY_SIZE(arr), m_pDrawWidget);
-#endif // USE_DRAPE
   }
 
-#ifndef USE_DRAPE
   // add scale slider
   QScaleSlider * pScale = new QScaleSlider(Qt::Vertical, this, 20);
   pScale->SetRange(2, scales::GetUpperScale());
@@ -316,7 +308,6 @@ void MainWindow::CreateNavigationBar()
     };
     add_buttons(pToolBar, arr, ARRAY_SIZE(arr), m_pDrawWidget);
   }
-#endif // USE_DRAPE
 
 #ifndef NO_DOWNLOADER
   {
@@ -362,7 +353,7 @@ void MainWindow::OnLocationUpdated(location::GpsInfo const & info)
 void MainWindow::OnMyPosition()
 {
   if (m_pMyPositionAction->isEnabled())
-    m_pDrawWidget->GetFramework().GetLocationState()->SwitchToNextMode();
+    m_pDrawWidget->GetFramework().SwitchMyPositionNextMode();
 }
 
 void MainWindow::OnSearchButtonClicked()
@@ -379,12 +370,21 @@ void MainWindow::OnSearchButtonClicked()
   }
 }
 
+void MainWindow::OnBeforeEngineCreation()
+{
+  m_pDrawWidget->GetFramework().SetMyPositionModeListener([this](location::EMyPositionMode mode)
+  {
+    LocationStateModeChanged(mode);
+  });
+}
+
 void MainWindow::OnPreferences()
 {
   PreferencesDialog dlg(this);
   dlg.exec();
 
   m_pDrawWidget->GetFramework().SetupMeasurementSystem();
+  m_pDrawWidget->GetFramework().EnterForeground();
 }
 
 #ifndef NO_DOWNLOADER
@@ -398,12 +398,10 @@ void MainWindow::ShowUpdateDialog()
 
 void MainWindow::CreateSearchBarAndPanel()
 {
-#ifndef USE_DRAPE
   CreatePanelImpl(0, Qt::RightDockWidgetArea, tr("Search"), QKeySequence(), 0);
 
   SearchPanel * panel = new SearchPanel(m_pDrawWidget, m_Docks[0]);
   m_Docks[0]->setWidget(panel);
-#endif // USE_DRAPE
 }
 
 void MainWindow::CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString const & name,
@@ -429,11 +427,7 @@ void MainWindow::CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString cons
 
 void MainWindow::closeEvent(QCloseEvent * e)
 {
-#ifndef USE_DRAPE
   m_pDrawWidget->PrepareShutdown();
-#else
-  m_pDrawWidget->GetFramework().PrepareToShutdown();
-#endif // USE_DRAPE
   e->accept();
 }
 

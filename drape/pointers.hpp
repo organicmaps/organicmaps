@@ -4,298 +4,209 @@
 #include "base/mutex.hpp"
 
 #include "std/map.hpp"
+#include "std/mutex.hpp"
+#include "std/type_traits.hpp"
 #include "std/typeinfo.hpp"
 
-namespace dp
-{
+//#define TRACK_POINTERS
 
-class PointerTracker
+/// This class tracks usage of drape_ptr's and ref_ptr's
+class DpPointerTracker
 {
 public:
-  ~PointerTracker();
+  typedef map<void *, pair<int, string> > TAlivePointers;
+
+  static DpPointerTracker & Instance();
 
   template <typename T>
-  void Ref(T * p, bool needDestroyCheck)
+  void RefPtr(T * refPtr)
   {
-    threads::MutexGuard g(m_mutex);
-    if (p == NULL)
-      return;
-
-    map_t::iterator it = m_countMap.find(p);
-    if (it == m_countMap.end())
-    {
-      m_countMap.insert(make_pair((void *)p, make_pair(1, typeid(p).name())));
-      if (needDestroyCheck)
-        m_alivePointers.insert(p);
-    }
-    else
-      it->second.first++;
+    RefPtrNamed(static_cast<void*>(refPtr), typeid(refPtr).name());
   }
 
-  void Deref(void * p);
-  void Destroy(void * p);
+  void DerefPtr(void * p);
+
+  void DestroyPtr(void * p);
+
+  TAlivePointers const & GetAlivePointers() const;
 
 private:
-  typedef map<void *, pair<int, string> > map_t;
-  map_t m_countMap;
-  typedef set<void *> alive_pointers_t;
-  alive_pointers_t m_alivePointers;
-  threads::Mutex m_mutex;
+  DpPointerTracker() = default;
+  ~DpPointerTracker();
+
+  void RefPtrNamed(void * refPtr, string const & name);
+
+  TAlivePointers m_alivePointers;
+  mutex m_mutex;
 };
 
-#define DISABLE_DEBUG_PRT_TRACKING
+// Custom deleter for unique_ptr
+class DpPointerDeleter
+{
+public:
+  template <typename T>
+  void operator()(T * p)
+  {
+    DpPointerTracker::Instance().DestroyPtr(p);
+    delete p;
+  }
+};
 
-#if defined(DEBUG) && !defined(DISABLE_DEBUG_PRT_TRACKING)
-  #define CHECK_POINTERS
-#endif
-
-#if defined(CHECK_POINTERS)
-  extern PointerTracker g_tracker;
-
-  #define REF_POINTER(p, c) g_tracker.Ref(p, c)
-  #define DEREF_POINTER(p) g_tracker.Deref(p)
-  #define DESTROY_POINTER(p) g_tracker.Destroy(p)
-
-  #define DECLARE_CHECK bool m_checkOnDestroy
-  #define DECLARE_CHECK_GET bool IsCheckOnDestroy() const { return m_checkOnDestroy; }
-  #define DECLARE_CHECK_SET void SetCheckOnDestroy(bool doCheck) { m_checkOnDestroy = doCheck; }
-  #define SET_CHECK_FLAG(x) SetCheckOnDestroy(x)
-  #define GET_CHECK_FLAG(x) (x).IsCheckOnDestroy()
-  #define ASSERT_CHECK_FLAG(x) ASSERT(GET_CHECK_FLAG(x), ())
+#if defined(TRACK_POINTERS)
+template<typename T> using drape_ptr = unique_ptr<T, DpPointerDeleter>;
 #else
-  #define REF_POINTER(p, c)
-  #define DEREF_POINTER(p)
-  #define DESTROY_POINTER(p)
-
-  #define DECLARE_CHECK
-  #define DECLARE_CHECK_GET
-  #define DECLARE_CHECK_SET
-  #define SET_CHECK_FLAG(x)
-  #define GET_CHECK_FLAG(x) false
-  #define ASSERT_CHECK_FLAG(x)
+template<typename T> using drape_ptr = unique_ptr<T>;
 #endif
 
-template <typename T>
-class DrapePointer
+template <typename T, typename... Args>
+drape_ptr<T> make_unique_dp(Args &&... args)
+{
+  return drape_ptr<T>(new T(std::forward<Args>(args)...));
+}
+
+template<typename T>
+class ref_ptr
 {
 public:
-  DrapePointer() : m_p(NULL) { SET_CHECK_FLAG(true); }
+  ref_ptr()
+    : m_ptr(nullptr), m_isOwnerUnique(false)
+  {}
 
-  bool operator==(DrapePointer<T> const & other) const
+  ref_ptr(T * ptr, bool isOwnerUnique = false)
+    : m_ptr(ptr), m_isOwnerUnique(isOwnerUnique)
   {
-    return m_p == other.m_p;
+#if defined(TRACK_POINTERS)
+    if (m_isOwnerUnique)
+      DpPointerTracker::Instance().RefPtr(m_ptr);
+#endif
   }
 
-protected:
-  DrapePointer(T * p, bool needDestroyedCheck = true)
-    : m_p(p)
+  ref_ptr(ref_ptr const & rhs)
+    : m_ptr(rhs.m_ptr), m_isOwnerUnique(rhs.m_isOwnerUnique)
   {
-    SET_CHECK_FLAG(needDestroyedCheck);
-    REF_POINTER(m_p, GET_CHECK_FLAG(*this));
+#if defined(TRACK_POINTERS)
+    if (m_isOwnerUnique)
+      DpPointerTracker::Instance().RefPtr(m_ptr);
+#endif
   }
 
-  DrapePointer(DrapePointer<T> const & other)
-    : m_p(NULL)
+  ref_ptr(ref_ptr && rhs)
   {
-    SET_CHECK_FLAG(GET_CHECK_FLAG(other));
-    Reset(other.GetNonConstRaw());
+    m_ptr = rhs.m_ptr;
+    rhs.m_ptr = nullptr;
+
+    m_isOwnerUnique = rhs.m_isOwnerUnique;
+    rhs.m_isOwnerUnique = false;
   }
 
-  DrapePointer<T> & operator=(DrapePointer<T> const & other)
+  ~ref_ptr()
   {
-    SET_CHECK_FLAG(GET_CHECK_FLAG(other));
-    Reset(other.GetNonConstRaw());
+#if defined(TRACK_POINTERS)
+    if (m_isOwnerUnique)
+      DpPointerTracker::Instance().DerefPtr(m_ptr);
+#endif
+    m_ptr = nullptr;
+  }
+
+  T * operator->() const { return m_ptr; }
+
+  template<typename TResult>
+  operator ref_ptr<TResult>() const
+  {
+    static_assert(is_base_of<TResult, T>::value || is_base_of<T, TResult>::value ||
+                  is_void<T>::value || is_void<TResult>::value, "");
+    return ref_ptr<TResult>(static_cast<TResult *>(m_ptr), m_isOwnerUnique);
+  }
+
+  template<typename TResult>
+  ref_ptr<TResult> downcast() const
+  {
+    ASSERT(dynamic_cast<TResult *>(m_ptr) != nullptr, ());
+    return ref_ptr<TResult>(static_cast<TResult *>(m_ptr), m_isOwnerUnique);
+  }
+
+  operator bool() const { return m_ptr != nullptr; }
+
+  bool operator==(ref_ptr const & rhs) const { return m_ptr == rhs.m_ptr; }
+
+  bool operator==(T * rhs) const { return m_ptr == rhs; }
+
+  bool operator!=(ref_ptr const & rhs) const { return !operator==(rhs); }
+
+  bool operator!=(T * rhs) const { return !operator==(rhs); }
+
+  bool operator<(ref_ptr const & rhs) const { return m_ptr < rhs.m_ptr; }
+
+  template<typename TResult, class = typename enable_if<!is_void<TResult>::value>::type>
+  TResult & operator*() const
+  {
+    return *m_ptr;
+  }
+
+  ref_ptr & operator=(ref_ptr const & rhs)
+  {
+    if (this == &rhs)
+      return *this;
+
+#if defined(TRACK_POINTERS)
+    if (m_isOwnerUnique)
+      DpPointerTracker::Instance().DerefPtr(m_ptr);
+#endif
+
+    m_ptr = rhs.m_ptr;
+    m_isOwnerUnique = rhs.m_isOwnerUnique;
+
+#if defined(TRACK_POINTERS)
+    if (m_isOwnerUnique)
+      DpPointerTracker::Instance().RefPtr(m_ptr);
+#endif
+
     return *this;
   }
 
-  void Destroy()
+  ref_ptr & operator=(ref_ptr && rhs)
   {
-    DESTROY_POINTER(m_p);
-    delete m_p;
-    DEREF_POINTER(m_p);
-    m_p = NULL;
-  }
+    if (this == &rhs)
+      return *this;
 
-  void Reset(T * p)
-  {
-    ResetImpl(p);
-  }
+#if defined(TRACK_POINTERS)
+    if (m_isOwnerUnique)
+      DpPointerTracker::Instance().DerefPtr(m_ptr);
+#endif
 
-  T * GetRaw()                { return m_p; }
-  T const * GetRaw() const    { return m_p; }
-  T * GetNonConstRaw() const  { return m_p; }
+    m_ptr = rhs.m_ptr;
+    rhs.m_ptr = nullptr;
 
-  DECLARE_CHECK_GET;
-  DECLARE_CHECK_SET;
+    m_isOwnerUnique = rhs.m_isOwnerUnique;
+    rhs.m_isOwnerUnique = false;
 
-  // Need to be const for copy constructor and assigment operator of TransfromPointer
-  void SetToNull() const
-  {
-    ResetImpl(NULL);
-  }
-
-private:
-  void ResetImpl(T * p) const
-  {
-    DEREF_POINTER(m_p);
-    m_p = p;
-    REF_POINTER(m_p, GET_CHECK_FLAG(*this));
-  }
-
-private:
-  // Mutable for Move method
-  mutable T * m_p;
-  DECLARE_CHECK;
-};
-
-template <typename T> class MasterPointer;
-
-template <typename T>
-class TransferPointer : public DrapePointer<T>
-{
-  typedef DrapePointer<T> base_t;
-public:
-  TransferPointer(TransferPointer<T> const & other)
-    : base_t(other)
-  {
-    ASSERT_CHECK_FLAG(other);
-    other.SetToNull();
-  }
-
-  TransferPointer<T> & operator=(TransferPointer<T> const & other)
-  {
-    ASSERT_CHECK_FLAG(other);
-    base_t::operator =(other);
-    other.SetToNull();
     return *this;
   }
 
-  ~TransferPointer()
-  {
-    ASSERT(base_t::GetRaw() == NULL, ());
-    Destroy();
-  }
-  void Destroy() { base_t::Destroy(); }
-  // IsNull need for test
-  bool IsNull()  { return base_t::GetRaw() == NULL; }
+  T * get() const { return m_ptr; }
 
 private:
-  friend class MasterPointer<T>;
-  TransferPointer() {}
-  explicit TransferPointer(T * p) : base_t(p) {}
-};
+  T* m_ptr;
+  bool m_isOwnerUnique;
 
-template <typename T> class RefPointer;
-template <typename T> RefPointer<T> MakeStackRefPointer(T * p);
-
-template<typename T>
-class RefPointer : public DrapePointer<T>
-{
-  typedef DrapePointer<T> base_t;
-public:
-  RefPointer() : base_t() {}
-  ~RefPointer() { base_t::Reset(NULL); }
-
-  template <typename Y>
-  RefPointer(RefPointer<Y> const & p) : base_t(p.GetNonConstRaw(), GET_CHECK_FLAG(p)) {}
-
-  bool IsContentLess(RefPointer<T> const & other) const { return *GetRaw() < *other.GetRaw(); }
-  bool IsNull() const          { return base_t::GetRaw() == NULL; }
-  T * operator->()             { return base_t::GetRaw(); }
-  T const * operator->() const { return base_t::GetRaw(); }
-  T * GetRaw()                 { return base_t::GetRaw(); }
-  T const * GetRaw() const     { return base_t::GetRaw(); }
-
-private:
-  template <typename Y> friend class RefPointer;
-  friend class MasterPointer<T>;
-  friend RefPointer<T> MakeStackRefPointer<T>(T *);
-  explicit RefPointer(T * p, bool needDestroyedCheck = true) : base_t(p, needDestroyedCheck) {}
+  template <typename TResult>
+  friend inline string DebugPrint(ref_ptr<TResult> const & v);
 };
 
 template <typename T>
-RefPointer<T> MakeStackRefPointer(T * p) { return RefPointer<T>(p, false); }
-
-template <typename T>
-class MasterPointer : public DrapePointer<T>
+inline string DebugPrint(ref_ptr<T> const & v)
 {
-  typedef DrapePointer<T> base_t;
-public:
-  MasterPointer() : base_t() {}
-  explicit MasterPointer(T * p) : base_t(p) {}
-  explicit MasterPointer(TransferPointer<T> & transferPointer)
-  {
-    Reset(transferPointer.GetRaw());
-    transferPointer.Reset(NULL);
-  }
-
-  ~MasterPointer()
-  {
-    base_t::Reset(NULL);
-  }
-
-  RefPointer<T> GetRefPointer() const
-  {
-    return RefPointer<T>(base_t::GetNonConstRaw());
-  }
-
-  TransferPointer<T> Move()
-  {
-    TransferPointer<T> result(GetRaw());
-    base_t::Reset(NULL);
-    return result;
-  }
-
-  void Destroy()
-  {
-    Reset(NULL);
-  }
-
-  void Reset(T * p)
-  {
-    base_t::Destroy();
-    base_t::Reset(p);
-  }
-
-  bool IsNull() const          { return base_t::GetRaw() == NULL; }
-  T * operator->()             { return base_t::GetRaw(); }
-  T const * operator->() const { return base_t::GetRaw(); }
-  T * GetRaw()                 { return base_t::GetRaw(); }
-  T const * GetRaw() const     { return base_t::GetRaw(); }
-};
-
-template<typename T>
-TransferPointer<T> MovePointer(T * p)
-{
-  return MasterPointer<T>(p).Move();
+  return DebugPrint(v.m_ptr);
 }
 
 template <typename T>
-T * NonConstGetter(dp::MasterPointer<T> & p)
+ref_ptr<T> make_ref(drape_ptr<T> const & drapePtr)
 {
-  return p.GetRaw();
+  return ref_ptr<T>(drapePtr.get(), true);
 }
 
-struct MasterPointerDeleter
+template <typename T>
+ref_ptr<T> make_ref(T* ptr)
 {
-  template <typename Y, typename T>
-  void operator() (pair<Y, MasterPointer<T> > & value)
-  {
-    Destroy(value.second);
-  }
-
-  template <typename T>
-  void operator() (MasterPointer<T> & value)
-  {
-    Destroy(value);
-  }
-
-private:
-  template <typename T>
-  void Destroy(MasterPointer<T> & value)
-  {
-    value.Destroy();
-  }
-};
-
-} // namespace dp
+  return ref_ptr<T>(ptr, false);
+}

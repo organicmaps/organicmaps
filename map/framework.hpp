@@ -1,33 +1,20 @@
 #pragma once
 
-#include "map/feature_vec_model.hpp"
-#include "map/information_display.hpp"
-#include "map/location_state.hpp"
-#include "map/navigator.hpp"
-#include "map/animator.hpp"
-
-#include "map/api_mark_container.hpp"
+#include "map/active_maps_layout.hpp"
 #include "map/api_mark_point.hpp"
 #include "map/bookmark.hpp"
 #include "map/bookmark_manager.hpp"
-#include "map/pin_click_manager.hpp"
-
-#include "map/mwm_url.hpp"
-#include "map/move_screen_task.hpp"
-#include "map/track.hpp"
 #include "map/country_tree.hpp"
+#include "map/feature_vec_model.hpp"
+#include "map/mwm_url.hpp"
+#include "map/track.hpp"
 
-#include "routing/routing_session.hpp"
+#include "drape_frontend/gui/skin.hpp"
+#include "drape_frontend/drape_engine.hpp"
+#include "drape_frontend/user_event_stream.hpp"
+#include "drape_frontend/watch/frame_image.hpp"
 
-#include "render/events.hpp"
-#include "render/scales_processor.hpp"
-#ifndef USE_DRAPE
-  #include "render/render_policy.hpp"
-  #include "render/window_handle.hpp"
-#else
-  #include "drape/oglcontextfactory.hpp"
-  #include "drape_frontend/drape_engine.hpp"
-#endif // USE_DRAPE
+#include "drape/oglcontextfactory.hpp"
 
 #include "indexer/data_header.hpp"
 #include "indexer/map_style.hpp"
@@ -40,11 +27,8 @@
 #include "platform/country_defines.hpp"
 #include "platform/location.hpp"
 
-#ifndef USE_DRAPE
-  #include "graphics/defines.hpp"
-  #include "graphics/screen.hpp"
-  #include "graphics/color.hpp"
-#endif // USE_DRAPE
+#include "routing/router.hpp"
+#include "routing/routing_session.hpp"
 
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
@@ -71,14 +55,17 @@ namespace storage
 class CountryInfoGetter;
 }
 
-namespace gui { class Controller; }
-namespace anim { class Controller; }
 namespace routing { namespace turns{ class Settings; } }
 
-class CountryStatusDisplay;
-class BenchmarkEngine;
-struct FrameImage;
-class CPUDrawer;
+class StorageBridge;
+
+namespace df
+{
+  namespace watch
+  {
+    class CPUDrawer;
+  }
+}
 
 /// Uncomment line to make fixed position settings and
 /// build version for screenshots.
@@ -108,7 +95,8 @@ class Framework
 #endif
 
 protected:
-  friend class BenchmarkEngine;
+  using TDrapeFunction = function<void (df::DrapeEngine *)>;
+  using TDownloadCountryListener = function<void(storage::TIndex const &, int)>;
 
   StringsBundle m_stringsBundle;
 
@@ -119,39 +107,25 @@ protected:
   search::QuerySaver m_searchQuerySaver;
 
   model::FeaturesFetcher m_model;
-  ScalesProcessor m_scales;
-  Navigator m_navigator;
-  Animator m_animator;
+  ScreenBase m_currentMovelView;
 
   routing::RoutingSession m_routingSession;
 
-  typedef vector<BookmarkCategory *>::iterator CategoryIter;
-
-#ifndef USE_DRAPE
-  unique_ptr<RenderPolicy> m_renderPolicy;
-#else
-  dp::MasterPointer<df::DrapeEngine> m_drapeEngine;
-#endif
-
-  unique_ptr<CPUDrawer> m_cpuDrawer;
+  drape_ptr<StorageBridge> m_storageBridge;
+  drape_ptr<df::DrapeEngine> m_drapeEngine;
+  drape_ptr<df::watch::CPUDrawer> m_cpuDrawer;
 
   double m_startForegroundTime;
 
-  bool m_queryMaxScaleMode;
-
-  int m_width;
-  int m_height;
-
-  void StopLocationFollow();
+  TDownloadCountryListener m_downloadCountryListener;
 
   storage::Storage m_storage;
-  storage::CountryTree m_countryTree;
-  unique_ptr<gui::Controller> m_guiController;
-  unique_ptr<anim::Controller> m_animController;
-  InformationDisplay m_informationDisplay;
+  shared_ptr<storage::ActiveMapsLayout> m_activeMaps;
+  storage::CountryTree m_globalCntTree;
 
-  /// How many pixels around touch point are used to get bookmark or POI
-  static const int TOUCH_PIXEL_RADIUS = 20;
+  location::TMyPositionModeChanged m_myPositionListener;
+
+  BookmarkManager m_bmManager;
 
   /// This function is called by m_storage when latest local files
   /// were changed.
@@ -160,37 +134,19 @@ protected:
   /// This function is called by m_model when the map file is deregistered.
   void OnMapDeregistered(platform::LocalCountryFile const & localFile);
 
-  //my::Timer m_timer;
-  inline double ElapsedSeconds() const
-  {
-    //return m_timer.ElapsedSeconds();
-    return 0.0;
-  }
-#ifndef USE_DRAPE
-  void DrawAdditionalInfo(shared_ptr<PaintEvent> const & e);
-#endif // USE_DRAPE
-
-  BenchmarkEngine * m_benchmarkEngine;
-
-  BookmarkManager m_bmManager;
-  PinClickManager m_balloonManager;
-
   void ClearAllCaches();
+
+  void StopLocationFollow();
+
+  void CallDrapeFunction(TDrapeFunction const & fn);
 
 public:
   Framework();
   virtual ~Framework();
 
-  struct SingleFrameSymbols
-  {
-    m2::PointD m_searchResult;
-    bool m_showSearchResult = false;
-    int m_bottomZoom = -1;
-  };
+  void InitWatchFrameRenderer(float visualScale);
 
-  /// @param density - for Retina Display you must use EDensityXHDPI
-  void InitSingleFrameRenderer(graphics::EDensity density, int exactDensityDPI);
-  /// @param center - map center in ercator
+  /// @param center - map center in Mercator
   /// @param zoomModifier - result zoom calculate like "base zoom" + zoomModifier
   ///                       if we are have search result "base zoom" calculate that my position and search result
   ///                       will be see with some bottom clamp.
@@ -199,12 +155,14 @@ public:
   ///                  It must be equal render buffer width. For retina it's equal 2.0 * displayWidth
   /// @param pxHeight - result image height.
   ///                   It must be equal render buffer height. For retina it's equal 2.0 * displayHeight
+  /// @param symbols - configuration for symbols on the frame
   /// @param image [out] - result image
-  void DrawSingleFrame(m2::PointD const & center, int zoomModifier,
-                       uint32_t pxWidth, uint32_t pxHeight, FrameImage & image,
-                       SingleFrameSymbols const & symbols);
-  void ReleaseSingleFrameRenderer();
-  bool IsSingleFrameRendererInited() const;
+  void DrawWatchFrame(m2::PointD const & center, int zoomModifier,
+                      uint32_t pxWidth, uint32_t pxHeight,
+                      df::watch::FrameSymbols const & symbols,
+                      df::watch::FrameImage & image);
+  void ReleaseWatchFrameRenderer();
+  bool IsWatchFrameRendererInited() const;
 
   /// Registers all local map files in internal indexes.
   void RegisterAllMaps();
@@ -226,6 +184,8 @@ public:
   /// options - flags that signal about parts of map that must be downloaded
   void DownloadCountry(storage::TIndex const & index, MapOptions opt);
 
+  void SetDownloadCountryListener(TDownloadCountryListener const & listener);
+
   storage::TStatus GetCountryStatus(storage::TIndex const & index) const;
   string GetCountryName(storage::TIndex const & index) const;
 
@@ -235,8 +195,32 @@ public:
   m2::RectD GetCountryBounds(storage::TIndex const & index) const;
 
   void ShowCountry(storage::TIndex const & index);
+
+  /// Checks, whether the country which contains
+  /// the specified point is loaded
+  bool IsCountryLoaded(m2::PointD const & pt) const;
   //@}
 
+  void InvalidateRect(m2::RectD const & rect);
+
+  /// @name Get any country info by point.
+  //@{
+  storage::TIndex GetCountryIndex(m2::PointD const & pt) const;
+
+  string GetCountryName(m2::PointD const & pt) const;
+  /// @param[in] id Country file name without an extension.
+  string GetCountryName(string const & id) const;
+
+  /// @return country code in ISO 3166-1 alpha-2 format (two small letters) or empty string
+  string GetCountryCode(m2::PointD const & pt) const;
+  //@}
+
+  storage::Storage & Storage() { return m_storage; }
+  shared_ptr<storage::ActiveMapsLayout> & GetActiveMaps() { return m_activeMaps; }
+  storage::CountryTree & GetCountryTree() { return m_globalCntTree; }
+
+  /// @name Bookmarks, Tracks and other UserMarks
+  //@{
   /// Scans and loads all kml files with bookmarks in WritableDir.
   void LoadBookmarks();
 
@@ -262,72 +246,82 @@ public:
   void ShowBookmark(BookmarkAndCategory const & bnc);
   void ShowTrack(Track const & track);
 
+  void ClearBookmarks();
+
   bool AddBookmarksFile(string const & filePath);
 
-  inline m2::PointD PtoG(m2::PointD const & p) const { return m_navigator.PtoG(p); }
-  inline m2::PointD GtoP(m2::PointD const & p) const { return m_navigator.GtoP(p); }
+  BookmarkAndCategory FindBookmark(UserMark const * mark) const;
+  BookmarkManager & GetBookmarkManager() { return m_bmManager; }
 
-  storage::Storage & Storage() { return m_storage; }
-  storage::CountryTree & GetCountryTree() { return m_countryTree; }
+  void ActivateUserMark(UserMark const * mark, bool needAnim);
+  void DeactivateUserMark();
+  bool HasActiveUserMark();
+  void InvalidateUserMarks();
+  PoiMarkPoint * GetAddressMark(m2::PointD const & globalPoint) const;
+
+  using TActivateCallbackFn = function<void (unique_ptr<UserMarkCopy> mark)>;
+  void SetUserMarkActivationListener(TActivateCallbackFn const & fn) { m_activateUserMarkFn = fn; }
+
+  void ResetLastTapEvent();
+
+  void InvalidateRendering();
+
+private:
+  struct TapEventData
+  {
+    m2::PointD m_pxPoint;
+    bool m_isLong;
+    bool m_isMyPosition;
+    FeatureID m_feature;
+  };
+  unique_ptr<TapEventData> m_lastTapEvent;
+
+  void OnTapEvent(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID feature);
+  UserMark const * OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID feature);
+  //@}
+
+  TActivateCallbackFn m_activateUserMarkFn;
+
+public:
 
   /// @name GPS location updates routine.
   //@{
   void OnLocationError(location::TLocationError error);
   void OnLocationUpdate(location::GpsInfo const & info);
   void OnCompassUpdate(location::CompassInfo const & info);
+  void SwitchMyPositionNextMode();
+  void InvalidateMyPosition();
+  void SetMyPositionModeListener(location::TMyPositionModeChanged const & fn);
+
+private:
+  void OnUserPositionChanged(m2::PointD const & position);
   //@}
 
-#ifndef USE_DRAPE
-  void SetRenderPolicy(RenderPolicy * renderPolicy);
-  void InitGuiSubsystem();
-  RenderPolicy * GetRenderPolicy() const;
-#else
-  void CreateDrapeEngine(dp::RefPointer<dp::OGLContextFactory> contextFactory, float vs, int w, int h);
-#endif // USE_DRAPE
+public:
+  struct DrapeCreationParams
+  {
+    float m_visualScale = 1.0f;
+    int m_surfaceWidth = 0;
+    int m_surfaceHeight = 0;
+    gui::TWidgetsInitInfo m_widgetsInitInfo;
+
+    bool m_hasMyPositionState = false;
+    location::EMyPositionMode m_initialMyPositionState = location::MODE_UNKNOWN_POSITION;
+  };
+
+  void CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory, DrapeCreationParams && params);
+  ref_ptr<df::DrapeEngine> GetDrapeEngine();
+  void DestroyDrapeEngine();
 
   void SetMapStyle(MapStyle mapStyle);
   MapStyle GetMapStyle() const;
 
-  InformationDisplay & GetInformationDisplay();
-  CountryStatusDisplay * GetCountryStatusDisplay() const;
-  ScalesProcessor & GetScalesProcessor() { return m_scales; }
-
-  /*!
-   * \brief SetWidgetPivot() places widgets on the screen.
-   * \param widget is a widget ID.
-   * \param pivot is a pivot point of a widget in framebuffer coordinates.
-   * That means pivot points are measured in pixels.
-   * \note The default pivot points of the widgets on the map are set by
-   * InformationDisplay::SetWidgetPivotsByDefault() method. If you decide
-   * to change the default behavior by calling the method
-   * you should take into account that SetWidgetPivot() shall be called:
-   * - on the start of the program;
-   * - when the screen orientation is changed;
-   * - when the screen size is changed;
-   * A caller of Framework::OnSize() is a good place for it.
-   * \note SetWidgetPivot() shall be called only after RenderPolicy is created
-   * and set to the Framework.
-   */
-  void SetWidgetPivot(InformationDisplay::WidgetType widget, m2::PointD const & pivot);
-  m2::PointD GetWidgetSize(InformationDisplay::WidgetType widget) const;
-
-  /// Safe function to get current visual scale.
-  /// Call it when you need do calculate pixel rect (not matter if m_renderPolicy == 0).
-  /// @return 1.0 if m_renderPolicy == 0 (possible for Android).
-  double GetVisualScale() const;
-
-  void PrepareToShutdown();
-
   void SetupMeasurementSystem();
 
-#ifndef USE_DRAPE
-  RenderPolicy::TRenderFn DrawModelFn();
+  void SetWidgetLayout(gui::TWidgetsLayoutInfo && layout);
+  const gui::TWidgetsSizeInfo & GetWidgetSizes();
 
-  void DrawModel(shared_ptr<PaintEvent> const & e,
-                 ScreenBase const & screen,
-                 m2::RectD const & renderRect,
-                 int baseScale, bool isTilingQuery);
-#endif // USE_DRAPE
+  void PrepareToShutdown();
 
 private:
   void InitCountryInfoGetter();
@@ -336,12 +330,19 @@ private:
   search::SearchParams m_lastSearch;
   uint8_t m_fixedSearchResults;
 
+  void OnSearchResultsCallback(search::Results const & results);
+  void OnSearchResultsCallbackUI(search::Results const & results);
   void FillSearchResultsMarks(search::Results const & results);
+
+  void OnDownloadMapCallback(storage::TIndex const & countryIndex);
+  void OnDownloadMapRoutingCallback(storage::TIndex const & countryIndex);
+  void OnDownloadRetryCallback(storage::TIndex const & countryIndex);
+
+  void OnUpdateCountryIndex(storage::TIndex const & currentIndex, m2::PointF const & pt);
+  void UpdateCountryInfo(storage::TIndex const & countryIndex, bool isCurrentCountry);
 
 public:
   using TSearchRequest = search::QuerySaver::TSearchRequest;
-
-  m2::RectD GetCurrentViewport() const;
 
   void UpdateUserViewportChanged();
 
@@ -375,54 +376,59 @@ public:
                             double lat, double lon, double north,
                             string & distance, double & azimut);
 
-  /// @name Get any country info by point.
+  /// @name Manipulating with model view
   //@{
-  storage::TIndex GetCountryIndex(m2::PointD const & pt) const;
-
-  string GetCountryName(m2::PointD const & pt) const;
-  /// @param[in] id Country file name without an extension.
-  string GetCountryName(string const & id) const;
-
-  /// @return country code in ISO 3166-1 alpha-2 format (two small letters) or empty string
-  string GetCountryCode(m2::PointD const & pt) const;
-  //@}
-
-  void SetMaxWorldRect();
-
-  void Invalidate(bool doForceUpdate = false);
-  void InvalidateRect(m2::RectD const & rect, bool doForceUpdate = false);
+  inline m2::PointD PtoG(m2::PointD const & p) const { return m_currentMovelView.PtoG(p); }
+  inline m2::PointD GtoP(m2::PointD const & p) const { return m_currentMovelView.GtoP(p); }
 
   void SaveState();
-  bool LoadState();
+  void LoadState();
 
-  /// Resize event from window.
-  virtual void OnSize(int w, int h);
+  /// Show all model by it's world rect.
+  void ShowAll();
 
-  bool SetUpdatesEnabled(bool doEnable);
-
-  int GetDrawScale() const;
+  m2::PointD GetPixelCenter() const;
 
   m2::PointD const & GetViewportCenter() const;
   void SetViewportCenter(m2::PointD const & pt);
-  shared_ptr<MoveScreenTask> SetViewportCenterAnimated(m2::PointD const & endPt);
+
+  m2::RectD GetCurrentViewport() const;
+
+  /// Show rect for point and needed draw scale.
+  void ShowRect(double lat, double lon, double zoom);
+  /// - Check minimal visible scale according to downloaded countries.
+  void ShowRect(m2::RectD const & rect, int maxScale = -1);
+  void ShowRect(m2::AnyRectD const & rect);
+
+  void GetTouchRect(m2::PointD const & center, uint32_t pxRadius, m2::AnyRectD & rect);
+
+  using TViewportChanged = df::DrapeEngine::TModelViewListenerFn;
+  int AddViewportListener(TViewportChanged const & fn);
+  void RemoveViewportListener(int slotID);
+
+  /// Resize event from window.
+  void OnSize(int w, int h);
+
+  enum EScaleMode
+  {
+    SCALE_MAG,
+    SCALE_MAG_LIGHT,
+    SCALE_MIN,
+    SCALE_MIN_LIGHT
+  };
+
+  void Scale(EScaleMode mode, bool isAnim);
+  void Scale(EScaleMode mode, m2::PointD const & pxPoint, bool isAnim);
+  void Scale(double factor, bool isAnim);
+  void Scale(double factor, m2::PointD const & pxPoint, bool isAnim);
+
+  void TouchEvent(df::TouchEvent const & touch);
+  //@}
+
+  int GetDrawScale() const;
 
   /// Set correct viewport, parse API, show balloon.
   bool ShowMapForURL(string const & url);
-
-  bool NeedRedraw() const;
-  void SetNeedRedraw(bool flag);
-
-  inline void XorQueryMaxScaleMode()
-  {
-    m_queryMaxScaleMode = !m_queryMaxScaleMode;
-    Invalidate(true);
-  }
-
-  inline void SetQueryMaxScaleMode(bool mode)
-  {
-    m_queryMaxScaleMode = mode;
-    Invalidate(true);
-  }
 
   /// Get classificator types for nearest features.
   /// @param[in] pxPoint Current touch point in device pixel coordinates.
@@ -440,85 +446,13 @@ private:
   void GetLocality(m2::PointD const & pt, search::AddressInfo & info) const;
 
 public:
-  bool GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, search::AddressInfo & info, feature::Metadata & metadata) const;
+  bool GetVisiblePOI(m2::PointD const & glbPoint, search::AddressInfo & info, feature::Metadata & metadata) const;
+  m2::PointD GetVisiblePOI(FeatureID id, search::AddressInfo & info, feature::Metadata & metadata) const;
   void FindClosestPOIMetadata(m2::PointD const & pt, feature::Metadata & metadata) const;
-
-#ifndef USE_DRAPE
-  virtual void BeginPaint(shared_ptr<PaintEvent> const & e);
-  /// Function for calling from platform dependent-paint function.
-  virtual void DoPaint(shared_ptr<PaintEvent> const & e);
-
-  virtual void EndPaint(shared_ptr<PaintEvent> const & e);
-#endif // USE_DRAPE
-
-private:
-  /// Always check rect in public function for minimal draw scale.
-  void CheckMinGlobalRect(m2::RectD & rect) const;
-  /// Check for minimal draw scale and maximal logical scale (country is not loaded).
-  void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale = -1) const;
-
-  void ShowRectFixed(m2::RectD const & rect);
-  void ShowRectFixedAR(m2::AnyRectD const & rect);
-
-public:
-  /// Show rect for point and needed draw scale.
-  void ShowRect(double lat, double lon, double zoom);
-  void ShowRect(m2::PointD const & pt, double zoom);
-
-  /// Set navigator viewport by rect as-is (rect should be in screen viewport).
-  void ShowRect(m2::RectD rect);
-
-  /// - Use navigator rotate angle.
-  /// - Check for fixed scales (rect scale matched on draw tile scale).
-  void ShowRectEx(m2::RectD rect);
-  /// - Check minimal visible scale according to downloaded countries.
-  void ShowRectExVisibleScale(m2::RectD rect, int maxScale = -1);
 
   void MemoryWarning();
   void EnterBackground();
   void EnterForeground();
-
-  /// Show all model by it's world rect.
-  void ShowAll();
-
-  /// @name Drag implementation.
-  //@{
-public:
-  m2::PointD GetPixelCenter() const;
-
-  void StartDrag(DragEvent const & e);
-  void DoDrag(DragEvent const & e);
-  void StopDrag(DragEvent const & e);
-  void Move(double azDir, double factor);
-  //@}
-
-  /// @name Rotation implementation
-  //@{
-  void StartRotate(RotateEvent const & e);
-  void DoRotate(RotateEvent const & e);
-  void StopRotate(RotateEvent const & e);
-  //@}
-
-  /// @name Scaling.
-  //@{
-  void ScaleToPoint(ScaleToPointEvent const & e, bool anim = true);
-  void ScaleDefault(bool enlarge);
-  void Scale(double scale);
-
-private:
-  void CalcScalePoints(ScaleEvent const & e, m2::PointD & pt1, m2::PointD & pt2) const;
-
-public:
-  void StartScale(ScaleEvent const & e);
-  void DoScale(ScaleEvent const & e);
-  void StopScale(ScaleEvent const & e);
-  //@}
-
-  gui::Controller * GetGuiController() const;
-  anim::Controller * GetAnimController() const;
-
-  Animator & GetAnimator();
-  Navigator & GetNavigator();
 
   /// Set the localized strings bundle
   inline void AddString(string const & name, string const & value)
@@ -526,23 +460,7 @@ public:
     m_stringsBundle.SetString(name, value);
   }
 
-  bool IsBenchmarking() const;
-
   StringsBundle const & GetStringsBundle();
-
-  PinClickManager & GetBalloonManager() { return m_balloonManager; }
-
-  /// Checks, whether the country which contains
-  /// the specified point is loaded
-  bool IsCountryLoaded(m2::PointD const & pt) const;
-
-  shared_ptr<location::State> const & GetLocationState() const;
-  void ActivateUserMark(UserMark const * mark, bool needAnim = true);
-  bool HasActiveUserMark() const;
-  UserMark const * GetUserMarkWithoutLogging(m2::PointD const & pxPoint, bool isLongPress);
-  UserMark const * GetUserMark(m2::PointD const & pxPoint, bool isLongPress);
-  PoiMarkPoint * GetAddressMark(m2::PointD const & globalPoint) const;
-  BookmarkAndCategory FindBookmark(UserMark const * mark) const;
 
   /// [in] lat, lon - last known location
   /// [out] lat, lon - predicted location
@@ -560,11 +478,6 @@ public:
 
 private:
   url_scheme::ParsedMapApi m_ParsedMapApi;
-  void SetViewPortASync(m2::RectD const & rect);
-
-  void UpdateSelectedMyPosition(m2::PointD const & pt);
-  void DisconnectMyPositionUpdate();
-  int m_locationChangedSlotID;
 
 public:
   //@}
@@ -574,8 +487,6 @@ public:
   bool IsDataVersionUpdated();
   void UpdateSavedDataVersion();
   //@}
-
-  BookmarkManager & GetBookmarkManager() { return m_bmManager; }
 
 public:
   using TRouteBuildingCallback = function<void(routing::IRouter::ResultCode, 
@@ -592,6 +503,7 @@ public:
   bool IsRouteBuilding() const { return m_routingSession.IsBuilding(); }
   bool IsOnRoute() const { return m_routingSession.IsOnRoute(); }
   bool IsRouteNavigable() const { return m_routingSession.IsNavigable(); }
+  void BuildRoute(m2::PointD const & finish, uint32_t timeoutSec);
   void BuildRoute(m2::PointD const & start, m2::PointD const & finish, uint32_t timeoutSec);
   // FollowRoute has a bug where the router follows the route even if the method hads't been called.
   // This method was added because we do not want to break the behaviour that is familiar to our users.
@@ -636,27 +548,19 @@ public:
 
 private:
   void SetRouterImpl(routing::RouterType type);
-  void RemoveRoute();
+  void RemoveRoute(bool deactivateFollowing);
+
   void InsertRoute(routing::Route const & route);
   void CheckLocationForRouting(location::GpsInfo const & info);
-  void MatchLocationToRoute(location::GpsInfo & info, location::RouteMatchingInfo & routeMatchingInfo,
-                            bool & hasDistanceFromBegin, double & distanceFromBegin) const;
   void CallRouteBuilded(routing::IRouter::ResultCode code,
                         vector<storage::TIndex> const & absentCountries,
                         vector<storage::TIndex> const & absentRoutingFiles);
+  void MatchLocationToRoute(location::GpsInfo & info, location::RouteMatchingInfo & routeMatchingInfo) const;
   string GetRoutingErrorMessage(routing::IRouter::ResultCode code);
 
   TRouteBuildingCallback m_routingCallback;
   TRouteProgressCallback m_progressCallback;
   routing::RouterType m_currentRouterType;
-  //@}
-
-public:
-  /// @name Full screen mode
-  //@{
-  void SetFullScreenMode(bool enable) { m_isFullScreenMode = enable; }
-private:
-  bool m_isFullScreenMode = false;
   //@}
 
   DECLARE_THREAD_CHECKER(m_threadChecker);
