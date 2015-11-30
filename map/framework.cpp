@@ -885,12 +885,6 @@ void Framework::UpdateCountryInfo(storage::TIndex const & countryIndex, bool isC
   m_drapeEngine->SetCountryInfo(countryInfo, isCurrentCountry);
 }
 
-void Framework::OnUpdateGpsTrackPoints(vector<df::GpsTrackPoint> && toAdd, vector<uint32_t> && toRemove)
-{
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->UpdateGpsTrackPoints(move(toAdd), move(toRemove));
-}
-
 void Framework::MemoryWarning()
 {
   LOG(LINFO, ("MemoryWarning"));
@@ -1312,7 +1306,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   }
 
   if (m_gpsTrackingEnabled)
-    m_gpsTrack.SetCallback(bind(&Framework::OnUpdateGpsTrackPoints, this, _1, _2), true /* sendAll */);
+    m_gpsTrack.SetCallback(bind(&df::DrapeEngine::UpdateGpsTrackPoints, m_drapeEngine.get(), _1, _2), true /* sendAll */);
 }
 
 ref_ptr<df::DrapeEngine> Framework::GetDrapeEngine()
@@ -1339,18 +1333,19 @@ void Framework::EnableGpsTracking(bool enabled)
 
   m_gpsTrackingEnabled = enabled;
 
-  if (m_drapeEngine)
-    m_drapeEngine->ClearGpsTrackPoints();
-
   if (enabled)
   {
-    m_gpsTrack.SetCallback(bind(&Framework::OnUpdateGpsTrackPoints, this, _1, _2), true /* sendAll */);
+    if (m_drapeEngine)
+      m_gpsTrack.SetCallback(bind(&df::DrapeEngine::UpdateGpsTrackPoints, m_drapeEngine.get(), _1, _2), true /* sendAll */);
   }
   else
   {
     // Reset callback first to prevent notification about removed points on Clear
     m_gpsTrack.SetCallback(nullptr, false /* sendAll */);
     m_gpsTrack.Clear();
+
+    if (m_drapeEngine)
+      m_drapeEngine->ClearGpsTrackPoints();
   }
 }
 

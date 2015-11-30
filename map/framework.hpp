@@ -348,8 +348,6 @@ private:
   void OnUpdateCountryIndex(storage::TIndex const & currentIndex, m2::PointF const & pt);
   void UpdateCountryInfo(storage::TIndex const & countryIndex, bool isCurrentCountry);
 
-  void OnUpdateGpsTrackPoints(vector<df::GpsTrackPoint> && toAdd, vector<uint32_t> && toRemove);
-
 public:
   using TSearchRequest = search::QuerySaver::TSearchRequest;
 
