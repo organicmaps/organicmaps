@@ -39,7 +39,7 @@ struct OverlayTraits
 
   inline m2::RectD const LimitRect(OverlayInfo const & info)
   {
-    return info.m_handle->GetPixelRect(m_modelView);
+    return info.m_handle->GetExtendedPixelRect(m_modelView);
   }
 };
 
@@ -52,7 +52,7 @@ class OverlayTree : public m4::Tree<detail::OverlayInfo, detail::OverlayTraits>
 public:
   OverlayTree();
 
-  void Frame();
+  bool Frame();
   bool IsNeedUpdate() const;
   void ForceUpdate();
 

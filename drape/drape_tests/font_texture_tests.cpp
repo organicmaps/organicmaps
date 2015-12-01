@@ -95,7 +95,7 @@ UNIT_TEST(UploadingGlyphs)
   GetPlatform().GetFontNames(args.m_fonts);
 
   GlyphManager mng(args);
-  DummyGlyphIndex index(m2::PointU(64, 64), make_ref(&mng));
+  DummyGlyphIndex index(m2::PointU(128, 128), make_ref(&mng));
   index.MapResource(GlyphKey(0x58));
   index.MapResource(GlyphKey(0x59));
   index.MapResource(GlyphKey(0x61));
@@ -104,7 +104,7 @@ UNIT_TEST(UploadingGlyphs)
   Texture::Params p;
   p.m_allocator = GetDefaultAllocator();
   p.m_format = dp::ALPHA;
-  p.m_width = p.m_height = 64;
+  p.m_width = p.m_height = 128;
 
   DummyTexture tex;
   tex.Create(p);

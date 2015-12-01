@@ -60,13 +60,13 @@ void RenderGroup::Update(ScreenBase const & modelView)
 
 void RenderGroup::CollectOverlay(ref_ptr<dp::OverlayTree> tree)
 {
-  if (m_pendingOnDelete)
+  if (m_pendingOnDelete || GetOpacity() < 1.0)
     return;
 
   ASSERT(m_shader != nullptr, ());
   ASSERT(m_generalUniforms != nullptr, ());
-  for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
-    renderBucket->CollectOverlayHandles(tree, GetOpacity() < 1.0);
+  for (auto & renderBucket : m_renderBuckets)
+    renderBucket->CollectOverlayHandles(tree, false /* isTransparent */);
 }
 
 void RenderGroup::Render(ScreenBase const & screen)

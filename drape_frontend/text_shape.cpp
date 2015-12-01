@@ -151,20 +151,18 @@ void TextShape::DrawSubString(StraightTextLayout const & layout, dp::FontDecl co
 
   m2::PointU const & pixelSize = layout.GetPixelSize();
 
-  m2::PointU const size = pixelSize + m2::PointU(m_params.m_extendingSize,
-                                                 m_params.m_extendingSize) * 2;
-
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<StraightTextHandle>(m_params.m_featureID,
                                                                            layout.GetText(),
                                                                            m_params.m_anchor,
                                                                            glsl::ToVec2(m_basePoint),
-                                                                           glsl::vec2(size.x, size.y),
+                                                                           glsl::vec2(pixelSize.x, pixelSize.y),
                                                                            baseOffset,
                                                                            GetOverlayPriority(),
                                                                            textures,
                                                                            isOptional,
                                                                            move(dynamicBuffer));
   handle->SetOverlayRank(m_hasPOI ? (isPrimary ? dp::OverlayRank1 : dp::OverlayRank2) : dp::OverlayRank0);
+  handle->SetExtendingSize(m_params.m_extendingSize);
 
   dp::AttributeProvider provider(2, staticBuffer.size());
   provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));

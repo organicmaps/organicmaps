@@ -50,13 +50,11 @@ void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManag
   dp::AttributeProvider provider(1, 4);
   provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref(vertexes));
 
-  m2::PointU const size = pixelSize + m2::PointU(m_params.m_extendingSize,
-                                                 m_params.m_extendingSize) * 2;
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<dp::SquareHandle>(m_params.m_id,
                                                                          dp::Center,
-                                                                         m_pt, size,
+                                                                         m_pt, pixelSize,
                                                                          GetOverlayPriority());
-
+  handle->SetExtendingSize(m_params.m_extendingSize);
   batcher->InsertTriangleStrip(state, make_ref(&provider), move(handle));
 }
 
