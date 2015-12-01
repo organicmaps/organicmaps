@@ -15,7 +15,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -46,13 +48,13 @@ public enum LocationHelper implements SensorEventListener
   public interface LocationListener
   {
     void onLocationUpdated(final Location l);
-
     void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy);
-
     void onLocationError(int errorCode);
   }
 
-  private final Set<LocationListener> mListeners = new HashSet<>();
+  private final Set<LocationListener> mListeners = new LinkedHashSet<>();
+  private final List<LocationListener> mListenersToRemove = new ArrayList<>();
+  private boolean mIteratingListener;
 
   private Location mLastLocation;
   private MapObject.MyPosition mMyPosition;
@@ -166,27 +168,49 @@ public enum LocationHelper implements SensorEventListener
     notifyLocationUpdated();
   }
 
+  private void startIteratingListeners()
+  {
+    mIteratingListener = true;
+  }
+
+  private void finishIteratingListeners()
+  {
+    mIteratingListener = false;
+    if (!mListenersToRemove.isEmpty())
+    {
+      mListeners.removeAll(mListenersToRemove);
+      mListenersToRemove.clear();
+    }
+  }
+
   void notifyLocationUpdated()
   {
     if (mLastLocation == null)
       return;
 
+    startIteratingListeners();
     for (LocationListener listener : mListeners)
       listener.onLocationUpdated(mLastLocation);
+    finishIteratingListeners();
   }
 
   void notifyLocationError(int errCode)
   {
+    startIteratingListeners();
     for (LocationListener listener : mListeners)
       listener.onLocationError(errCode);
+    finishIteratingListeners();
   }
 
   private void notifyCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
+    startIteratingListeners();
     for (LocationListener listener : mListeners)
       listener.onCompassUpdated(time, magneticNorth, trueNorth, accuracy);
+    finishIteratingListeners();
   }
 
+  @android.support.annotation.UiThread
   public void addLocationListener(LocationListener listener)
   {
     UiThread.cancelDelayedTasks(mStopLocationTask);
@@ -196,10 +220,25 @@ public enum LocationHelper implements SensorEventListener
     notifyLocationUpdated();
   }
 
+  @android.support.annotation.UiThread
   public void removeLocationListener(LocationListener listener)
   {
-    mListeners.remove(listener);
-    if (mListeners.isEmpty())
+    boolean empty = false;
+    if (mIteratingListener)
+    {
+      if (mListeners.contains(listener))
+      {
+        mListenersToRemove.add(listener);
+        empty = (mListeners.size() == 1);
+      }
+    }
+    else
+    {
+      mListeners.remove(listener);
+      empty = mListeners.isEmpty();
+    }
+
+    if (empty)
       // Make a delay with disconnection from location providers, so that orientation changes and short app sleeps
       // doesn't take long time to connect again.
       UiThread.runLater(mStopLocationTask, STOP_DELAY);
