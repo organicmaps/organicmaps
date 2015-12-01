@@ -107,7 +107,7 @@ protected:
   search::QuerySaver m_searchQuerySaver;
 
   model::FeaturesFetcher m_model;
-  ScreenBase m_currentMovelView;
+  ScreenBase m_currentModelView;
 
   routing::RoutingSession m_routingSession;
 
@@ -378,8 +378,8 @@ public:
 
   /// @name Manipulating with model view
   //@{
-  inline m2::PointD PtoG(m2::PointD const & p) const { return m_currentMovelView.PtoG(p); }
-  inline m2::PointD GtoP(m2::PointD const & p) const { return m_currentMovelView.GtoP(p); }
+  inline m2::PointD PtoG(m2::PointD const & p) const { return m_currentModelView.PtoG(p); }
+  inline m2::PointD GtoP(m2::PointD const & p) const { return m_currentModelView.GtoP(p); }
 
   void SaveState();
   void LoadState();

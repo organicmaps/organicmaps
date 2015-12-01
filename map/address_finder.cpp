@@ -165,7 +165,7 @@ namespace
 void Framework::GetFeatureTypes(m2::PointD const & pxPoint, vector<string> & types) const
 {
   m2::AnyRectD rect;
-  m_currentMovelView.GetTouchRect(pxPoint, df::VisualParams::Instance().GetTouchRectRadius(), rect);
+  m_currentModelView.GetTouchRect(pxPoint, df::VisualParams::Instance().GetTouchRectRadius(), rect);
 
   // This scale should fit in geometry scales range.
   int const scale = min(GetDrawScale(), scales::GetUpperScale());

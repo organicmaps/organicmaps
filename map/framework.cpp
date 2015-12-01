@@ -623,7 +623,7 @@ void Framework::PrepareToShutdown()
 
 void Framework::SaveState()
 {
-  Settings::Set("ScreenClipRect", m_currentMovelView.GlobalRect());
+  Settings::Set("ScreenClipRect", m_currentModelView.GlobalRect());
 }
 
 void Framework::LoadState()
@@ -642,12 +642,12 @@ void Framework::ShowAll()
 
 m2::PointD Framework::GetPixelCenter() const
 {
-  return m_currentMovelView.PixelRect().Center();
+  return m_currentModelView.PixelRect().Center();
 }
 
 m2::PointD const & Framework::GetViewportCenter() const
 {
-  return m_currentMovelView.GetOrg();
+  return m_currentModelView.GetOrg();
 }
 
 void Framework::SetViewportCenter(m2::PointD const & pt)
@@ -657,7 +657,7 @@ void Framework::SetViewportCenter(m2::PointD const & pt)
 
 m2::RectD Framework::GetCurrentViewport() const
 {
-  return m_currentMovelView.ClipRect();
+  return m_currentModelView.ClipRect();
 }
 
 void Framework::ShowRect(double lat, double lon, double zoom)
@@ -678,7 +678,7 @@ void Framework::ShowRect(m2::AnyRectD const & rect)
 
 void Framework::GetTouchRect(m2::PointD const & center, uint32_t pxRadius, m2::AnyRectD & rect)
 {
-  m_currentMovelView.GetTouchRect(center, static_cast<double>(pxRadius), rect);
+  m_currentModelView.GetTouchRect(center, static_cast<double>(pxRadius), rect);
 }
 
 int Framework::AddViewportListener(TViewportChanged const & fn)
@@ -721,7 +721,7 @@ void Framework::Scale(Framework::EScaleMode mode, m2::PointD const & pxPoint, bo
 
 void Framework::Scale(double factor, bool isAnim)
 {
-  Scale(factor, m_currentMovelView.PixelRect().Center(), isAnim);
+  Scale(factor, m_currentModelView.PixelRect().Center(), isAnim);
 }
 
 void Framework::Scale(double factor, m2::PointD const & pxPoint, bool isAnim)
@@ -736,7 +736,7 @@ void Framework::TouchEvent(df::TouchEvent const & touch)
 
 int Framework::GetDrawScale() const
 {
-  return df::GetDrawTileScale(m_currentMovelView);
+  return df::GetDrawTileScale(m_currentModelView);
 }
 
 bool Framework::IsCountryLoaded(m2::PointD const & pt) const
@@ -1096,7 +1096,7 @@ size_t Framework::ShowAllSearchResults(search::Results const & results)
   m_fixedSearchResults = count;
 
   // Setup viewport according to results.
-  m2::AnyRectD viewport = m_currentMovelView.GlobalRect();
+  m2::AnyRectD viewport = m_currentModelView.GlobalRect();
   m2::PointD const center = viewport.Center();
 
   double minDistance = numeric_limits<double>::max();
@@ -1250,7 +1250,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(move(p));
   AddViewportListener([this](ScreenBase const & screen)
   {
-    m_currentMovelView = screen;
+    m_currentModelView = screen;
   });
   m_drapeEngine->SetTapEventInfoListener(bind(&Framework::OnTapEvent, this, _1, _2, _3, _4));
   m_drapeEngine->SetUserPositionListener(bind(&Framework::OnUserPositionChanged, this, _1));
@@ -1658,13 +1658,13 @@ UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool
 
   m2::AnyRectD rect;
   uint32_t const touchRadius = vp.GetTouchRectRadius();
-  m_currentMovelView.GetTouchRect(pxPoint, touchRadius, rect);
+  m_currentModelView.GetTouchRect(pxPoint, touchRadius, rect);
 
   m2::AnyRectD bmSearchRect;
   double const bmAddition = BM_TOUCH_PIXEL_INCREASE * vp.GetVisualScale();
   double const pxWidth  =  touchRadius;
   double const pxHeight = touchRadius + bmAddition;
-  m_currentMovelView.GetTouchRect(pxPoint + m2::PointD(0, bmAddition),
+  m_currentModelView.GetTouchRect(pxPoint + m2::PointD(0, bmAddition),
                                   pxWidth, pxHeight, bmSearchRect);
   UserMark const * mark = m_bmManager.FindNearestUserMark(
         [&rect, &bmSearchRect](UserMarkType type) -> m2::AnyRectD const &
@@ -1695,7 +1695,7 @@ UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool
   if (needMark)
   {
     PoiMarkPoint * poiMark = UserMarkContainer::UserMarkForPoi();
-    poiMark->SetPtOrg(m_currentMovelView.PtoG(pxPivot));
+    poiMark->SetPtOrg(m_currentModelView.PtoG(pxPivot));
     poiMark->SetInfo(info);
     poiMark->SetMetadata(move(metadata));
     return poiMark;
