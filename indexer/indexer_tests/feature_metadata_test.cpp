@@ -10,6 +10,16 @@
 
 using feature::Metadata;
 
+namespace
+{
+map<Metadata::EType, string> const kKeyValues =
+{
+  {Metadata::FMD_ELE, "12345"},
+  {Metadata::FMD_CUISINE, "greek;mediterranean"},
+  {Metadata::FMD_EMAIL, "cool@email.at"}
+};
+} // namespace
+
 UNIT_TEST(Feature_Metadata_GetSet)
 {
   Metadata m;
@@ -29,50 +39,46 @@ UNIT_TEST(Feature_Metadata_GetSet)
   TEST(m.Empty(), ());
 }
 
-static map<Metadata::EType, string> const kPairs = { {Metadata::FMD_ELE, "12345"},
-                                                     {Metadata::FMD_CUISINE, "greek;mediterranean"},
-                                                     {Metadata::FMD_EMAIL, "cool@email.at"} };
-
 UNIT_TEST(Feature_Metadata_PresentTypes)
 {
   Metadata m;
-  for (auto const & value : kPairs)
+  for (auto const & value : kKeyValues)
     m.Set(value.first, value.second);
-  TEST_EQUAL(m.Size(), kPairs.size(), ());
+  TEST_EQUAL(m.Size(), kKeyValues.size(), ());
 
   auto const types = m.GetPresentTypes();
   TEST_EQUAL(types.size(), m.Size(), ());
   for (auto const & type : types)
-    TEST_EQUAL(m.Get(type), kPairs.find(type)->second, ());
+    TEST_EQUAL(m.Get(type), kKeyValues.find(type)->second, ());
 }
 
 UNIT_TEST(Feature_Serialization)
 {
   Metadata original;
-  for (auto const & value : kPairs)
+  for (auto const & value : kKeyValues)
     original.Set(value.first, value.second);
-  TEST_EQUAL(original.Size(), kPairs.size(), ());
+  TEST_EQUAL(original.Size(), kKeyValues.size(), ());
 
   {
     Metadata serialized;
     vector<char> buffer;
-    MemWriter<vector<char> > writer(buffer);
+    MemWriter<decltype(buffer)> writer(buffer);
     original.Serialize(writer);
 
     MemReader reader(buffer.data(), buffer.size());
     ReaderSource<MemReader> src(reader);
     serialized.Deserialize(src);
 
-    for (auto const & value : kPairs)
+    for (auto const & value : kKeyValues)
       TEST_EQUAL(serialized.Get(value.first), value.second, ());
     TEST_EQUAL(serialized.Get(Metadata::FMD_OPERATOR), "", ());
-    TEST_EQUAL(serialized.Size(), kPairs.size(), ());
+    TEST_EQUAL(serialized.Size(), kKeyValues.size(), ());
   }
 
   {
     Metadata serialized;
     vector<char> buffer;
-    MemWriter<vector<char> > writer(buffer);
+    MemWriter<decltype(buffer)> writer(buffer);
     // Here is the difference.
     original.SerializeToMWM(writer);
 
@@ -81,10 +87,11 @@ UNIT_TEST(Feature_Serialization)
     // Here is another difference.
     serialized.DeserializeFromMWM(src);
 
-    for (auto const & value : kPairs)
+    for (auto const & value : kKeyValues)
       TEST_EQUAL(serialized.Get(value.first), value.second, ());
+
     TEST_EQUAL(serialized.Get(Metadata::FMD_OPERATOR), "", ());
-    TEST_EQUAL(serialized.Size(), kPairs.size(), ());
+    TEST_EQUAL(serialized.Size(), kKeyValues.size(), ());
   }
 }
 

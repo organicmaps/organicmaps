@@ -1,10 +1,13 @@
 #include "testing/testing.hpp"
-#include "base/logging.hpp"
+
+#include "generator/osm2meta.hpp"
 
 #include "indexer/classificator_loader.hpp"
-#include "generator/osm2meta.hpp"
+
 #include "coding/writer.hpp"
 #include "coding/reader.hpp"
+
+#include "base/logging.hpp"
 
 #include "std/target_os.hpp"
 
@@ -16,7 +19,7 @@ UNIT_TEST(Metadata_ValidateAndFormat_stars)
   MetadataTagProcessor p(params);
   Metadata & md = params.GetMetadata();
 
-  // ignore incorrect values
+  // Ignore incorrect values.
   p("stars", "0");
   TEST(md.Empty(), ());
   p("stars", "-1");
@@ -32,7 +35,7 @@ UNIT_TEST(Metadata_ValidateAndFormat_stars)
   p("stars", "100");
   TEST(md.Empty(), ());
 
-  // check correct values
+  // Check correct values.
   p("stars", "1");
   TEST_EQUAL(md.Get(Metadata::FMD_STARS), "1", ())
   md.Drop(Metadata::FMD_STARS);
@@ -61,7 +64,7 @@ UNIT_TEST(Metadata_ValidateAndFormat_stars)
   TEST_EQUAL(md.Get(Metadata::FMD_STARS), "7", ())
   md.Drop(Metadata::FMD_STARS);
 
-  // check almost correct values
+  // Check almost correct values.
   p("stars", "4+");
   TEST_EQUAL(md.Get(Metadata::FMD_STARS), "4", ())
   md.Drop(Metadata::FMD_STARS);
@@ -83,7 +86,7 @@ UNIT_TEST(Metadata_ValidateAndFormat_operator)
   MetadataTagProcessor p(params);
   Metadata & md = params.GetMetadata();
 
-  // ignore tag 'operator' if feature have inappropriate type
+  // Ignore tag 'operator' if feature have inappropriate type.
   p("operator", "Some");
   TEST(md.Empty(), ());
 
@@ -114,7 +117,7 @@ UNIT_TEST(Metadata_ValidateAndFormat_ele)
   MetadataTagProcessor p(params);
   Metadata & md = params.GetMetadata();
 
-  // ignore tag 'operator' if feature have inappropriate type
+  // Ignore tag 'operator' if feature have inappropriate type.
   p("ele", "123");
   TEST(md.Empty(), ());
 
@@ -136,12 +139,6 @@ UNIT_TEST(Metadata_ValidateAndFormat_ele)
   md.Drop(Metadata::FMD_ELE);
 }
 
-#ifdef OMIM_OS_MOBILE
-  #define WIKIHOST "m.wikipedia.org"
-#else
-  #define WIKIHOST "wikipedia.org"
-#endif
-
 UNIT_TEST(Metadata_ValidateAndFormat_wikipedia)
 {
   char const * kWikiKey = "wikipedia";
@@ -149,6 +146,12 @@ UNIT_TEST(Metadata_ValidateAndFormat_wikipedia)
   FeatureParams params;
   MetadataTagProcessor p(params);
   Metadata & md = params.GetMetadata();
+
+#ifdef OMIM_OS_MOBILE
+  #define WIKIHOST "m.wikipedia.org"
+#else
+  #define WIKIHOST "wikipedia.org"
+#endif
 
   p(kWikiKey, "en:Bad %20Data");
   TEST_EQUAL(md.Get(Metadata::FMD_WIKIPEDIA), "en:Bad %20Data", ());
@@ -196,4 +199,6 @@ UNIT_TEST(Metadata_ValidateAndFormat_wikipedia)
 
   p(kWikiKey, "http://ru.google.com/wiki/wutlol");
   TEST(md.Empty(), ("Not a wikipedia site."));
+
+#undef WIKIHOST
 }

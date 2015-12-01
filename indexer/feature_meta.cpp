@@ -6,12 +6,15 @@
 namespace feature
 {
 
-static char constexpr const * kBaseWikiUrl =
+namespace
+{
+char constexpr const * kBaseWikiUrl =
 #ifdef OMIM_OS_MOBILE
     ".m.wikipedia.org/wiki/";
 #else
     ".wikipedia.org/wiki/";
 #endif
+} // namespace
 
 string Metadata::GetWikiURL() const
 {
