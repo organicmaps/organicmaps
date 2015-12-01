@@ -87,7 +87,7 @@ Edge Edge::MakeFake(Junction const & startJunction, Junction const & endJunction
   return Edge(FeatureID(), true /* forward */, 0 /* segId */, startJunction, endJunction);
 }
 
-Edge::Edge(FeatureID featureId, bool forward, uint32_t segId, Junction const & startJunction, Junction const & endJunction)
+Edge::Edge(FeatureID const & featureId, bool forward, uint32_t segId, Junction const & startJunction, Junction const & endJunction)
   : m_featureId(featureId), m_forward(forward), m_segId(segId), m_startJunction(startJunction), m_endJunction(endJunction)
 {
   ASSERT_LESS(segId, numeric_limits<uint32_t>::max(), ());

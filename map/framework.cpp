@@ -1444,7 +1444,7 @@ bool Framework::GetVisiblePOI(m2::PointD const & glbPoint, search::AddressInfo &
   return true;
 }
 
-m2::PointD Framework::GetVisiblePOI(FeatureID id, search::AddressInfo & info, feature::Metadata & metadata) const
+m2::PointD Framework::GetVisiblePOI(FeatureID const & id, search::AddressInfo & info, feature::Metadata & metadata) const
 {
   ASSERT(id.IsValid(), ());
   Index::FeaturesLoaderGuard guard(m_model.GetIndex(), id.m_mwmId);
@@ -1609,7 +1609,7 @@ void Framework::InvalidateUserMarks()
   }
 }
 
-void Framework::OnTapEvent(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID feature)
+void Framework::OnTapEvent(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID const & feature)
 {
   // Back up last tap event to recover selection in case of Drape reinitialization.
   if (!m_lastTapEvent)
@@ -1642,7 +1642,7 @@ void Framework::InvalidateRendering()
     m_drapeEngine->Invalidate();
 }
 
-UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID feature)
+UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID const & feature)
 {
   if (isMyPosition)
   {
