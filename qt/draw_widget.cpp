@@ -329,7 +329,7 @@ void DrawWidget::mousePressEvent(QMouseEvent * e)
     }
   }
   else if (IsRightButton(e))
-    ShowInfoPopup(pt);
+    ShowInfoPopup(e, pt);
 }
 
 void DrawWidget::mouseDoubleClickEvent(QMouseEvent * e)
@@ -461,7 +461,7 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
     m_framework->BuildRoute(m_framework->PtoG(pt), 0 /* timeoutSec */);
 }
 
-void DrawWidget::ShowInfoPopup(m2::PointD const & pt)
+void DrawWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
 {
   // show feature types
   QMenu menu;
@@ -487,7 +487,7 @@ void DrawWidget::ShowInfoPopup(m2::PointD const & pt)
   addStringFn(info.FormatAddress());
   addStringFn(info.FormatTypes());
 
-  menu.exec();
+  menu.exec(e->pos());
 }
 
 void DrawWidget::OnViewportChanged(ScreenBase const & screen)
