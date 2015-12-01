@@ -144,7 +144,7 @@ void FeatureType::ParseMetadata() const
   m_pLoader->ParseMetadata();
 
   if (HasInternet())
-    m_metadata.Add(Metadata::FMD_INTERNET, "wlan");
+    m_metadata.Set(Metadata::FMD_INTERNET, "wlan");
 
   m_bMetadataParsed = true;
 }

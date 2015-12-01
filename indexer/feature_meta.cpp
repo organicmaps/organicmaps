@@ -1,9 +1,20 @@
 #include "indexer/feature_meta.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/target_os.hpp"
 
 namespace feature
 {
+
+namespace
+{
+char constexpr const * kBaseWikiUrl =
+#ifdef OMIM_OS_MOBILE
+    ".m.wikipedia.org/wiki/";
+#else
+    ".wikipedia.org/wiki/";
+#endif
+} // namespace
 
 string Metadata::GetWikiURL() const
 {
@@ -27,7 +38,7 @@ string Metadata::GetWikiURL() const
   // Trying to avoid redirects by constructing the right link.
   // TODO: Wikipedia article could be opened it a user's language, but need
   // generator level support to check for available article languages first.
-  return "https://" + v.substr(0, colon) + ".m.wikipedia.org/wiki/" + v.substr(colon + 1);
+  return "https://" + v.substr(0, colon) + kBaseWikiUrl + v.substr(colon + 1);
 }
 
 }  // namespace feature

@@ -31,97 +31,97 @@ public:
     {
       string const & value = ValidateAndFormat_cuisine(v);
       if (!value.empty())
-        md.Add(Metadata::FMD_CUISINE, value);
+        md.Set(Metadata::FMD_CUISINE, value);
     }
     else if (k == "phone" || k == "contact:phone")
     {
       string const & value = ValidateAndFormat_phone(v);
       if (!value.empty())
-        md.Add(Metadata::FMD_PHONE_NUMBER, value);
+        md.Set(Metadata::FMD_PHONE_NUMBER, value);
     }
     else if (k == "maxspeed")
     {
       string const & value = ValidateAndFormat_maxspeed(v);
       if (!value.empty())
-        md.Add(Metadata::FMD_MAXSPEED, value);
+        md.Set(Metadata::FMD_MAXSPEED, value);
     }
     else if (k == "stars")
     {
       string const & value = ValidateAndFormat_stars(v);
       if (!value.empty())
-        md.Add(Metadata::FMD_STARS, value);
+        md.Set(Metadata::FMD_STARS, value);
     }
     else if (k == "addr:postcode")
     {
       string const & value = ValidateAndFormat_postcode(v);
       if (!value.empty())
-        md.Add(Metadata::FMD_POSTCODE, value);
+        md.Set(Metadata::FMD_POSTCODE, value);
     }
     else if (k == "url")
     {
       string const & value = ValidateAndFormat_url(v);
       if (!value.empty())
-        md.Add(Metadata::FMD_URL, value);
+        md.Set(Metadata::FMD_URL, value);
     }
     else if (k == "website" || k == "contact:website")
     {
       string const & value = ValidateAndFormat_url(v);
       if (!value.empty())
-        md.Add(Metadata::FMD_WEBSITE, value);
+        md.Set(Metadata::FMD_WEBSITE, value);
     }
     else if (k == "operator")
     {
       string const & value = ValidateAndFormat_operator(v);
       if (!value.empty())
-        md.Add(Metadata::FMD_OPERATOR, value);
+        md.Set(Metadata::FMD_OPERATOR, value);
     }
     else if (k == "opening_hours")
     {
       string const & value = ValidateAndFormat_opening_hours(v);
       if (!value.empty())
-        md.Add(Metadata::FMD_OPEN_HOURS, value);
+        md.Set(Metadata::FMD_OPEN_HOURS, value);
     }
     else if (k == "ele")
     {
       string const & value = ValidateAndFormat_ele(v);
       if (!value.empty())
-        md.Add(Metadata::FMD_ELE, value);
+        md.Set(Metadata::FMD_ELE, value);
     }
     else if (k == "turn:lanes")
     {
       string const & value = ValidateAndFormat_turn_lanes(v);
       if (!value.empty())
-        md.Add(Metadata::FMD_TURN_LANES, value);
+        md.Set(Metadata::FMD_TURN_LANES, value);
     }
     else if (k == "turn:lanes:forward")
     {
       string const & value = ValidateAndFormat_turn_lanes_forward(v);
       if (!value.empty())
-        md.Add(Metadata::FMD_TURN_LANES_FORWARD, value);
+        md.Set(Metadata::FMD_TURN_LANES_FORWARD, value);
     }
     else if (k == "turn:lanes:backward")
     {
       string const & value = ValidateAndFormat_turn_lanes_backward(v);
       if (!value.empty())
-        md.Add(Metadata::FMD_TURN_LANES_BACKWARD, value);
+        md.Set(Metadata::FMD_TURN_LANES_BACKWARD, value);
     }
     else if (k == "email" || k == "contact:email")
     {
       string const & value = ValidateAndFormat_email(v);
       if (!value.empty())
-        md.Add(Metadata::FMD_EMAIL, value);
+        md.Set(Metadata::FMD_EMAIL, value);
     }
     else if (k == "wikipedia")
     {
       string const & value = ValidateAndFormat_wikipedia(v);
       if (!value.empty())
-        md.Add(Metadata::FMD_WIKIPEDIA, value);
+        md.Set(Metadata::FMD_WIKIPEDIA, value);
     }
     else if (k == "addr:flats")
     {
       string const & value = ValidateAndFormat_flats(v);
       if (!value.empty())
-        md.Add(Metadata::FMD_FLATS, value);
+        md.Set(Metadata::FMD_FLATS, value);
     }
     return false;
   }
