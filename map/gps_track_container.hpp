@@ -7,7 +7,7 @@
 #include "std/function.hpp"
 #include "std/mutex.hpp"
 
-class GpsTrackContainer
+class GpsTrackContainer final
 {
 public:
 
@@ -26,10 +26,16 @@ public:
   /// By default, duration is 24h.
   void SetDuration(hours duration);
 
+  /// Returns track duraion in hours
+  hours GetDuration() const;
+
   /// Sets max number of points in the track.
   /// @note Callback is called with 'toRemove' points, if some points were removed.
   /// By default, max size is 100k.
   void SetMaxSize(size_t maxSize);
+
+  /// Returns max number of points in the track
+  size_t GetMaxSize() const;
 
   /// Sets callback on change of gps track.
   /// @param callback - callback callable object

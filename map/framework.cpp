@@ -1335,6 +1335,8 @@ void Framework::EnableGpsTracking(bool enabled)
 
   if (enabled)
   {
+    m_gpsTrack.Clear();
+
     if (m_drapeEngine)
       m_gpsTrack.SetCallback(bind(&df::DrapeEngine::UpdateGpsTrackPoints, m_drapeEngine.get(), _1, _2), true /* sendAll */);
   }
@@ -1347,6 +1349,21 @@ void Framework::EnableGpsTracking(bool enabled)
     if (m_drapeEngine)
       m_drapeEngine->ClearGpsTrackPoints();
   }
+}
+
+bool Framework::IsGpsTrackingEnabled() const
+{
+  return m_gpsTrackingEnabled;
+}
+
+void Framework::SetGpsTrackingDuration(hours duration)
+{
+  m_gpsTrack.SetDuration(duration);
+}
+
+hours Framework::GetGpsTrackingDuration() const
+{
+  return m_gpsTrack.GetDuration();
 }
 
 void Framework::SetMapStyle(MapStyle mapStyle)

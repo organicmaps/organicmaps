@@ -321,6 +321,9 @@ public:
   void DestroyDrapeEngine();
 
   void EnableGpsTracking(bool enabled);
+  bool IsGpsTrackingEnabled() const;
+  void SetGpsTrackingDuration(hours duration);
+  hours GetGpsTrackingDuration() const;
 
   void SetMapStyle(MapStyle mapStyle);
   MapStyle GetMapStyle() const;

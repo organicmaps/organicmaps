@@ -32,6 +32,13 @@ void GpsTrackContainer::SetDuration(hours duration)
     m_callback(vector<df::GpsTrackPoint>(), move(removed));
 }
 
+hours GpsTrackContainer::GetDuration() const
+{
+  lock_guard<mutex> lg(m_guard);
+
+  return m_trackDuration;
+}
+
 void GpsTrackContainer::SetMaxSize(size_t maxSize)
 {
   lock_guard<mutex> lg(m_guard);
@@ -43,6 +50,13 @@ void GpsTrackContainer::SetMaxSize(size_t maxSize)
 
   if (m_callback && !removed.empty())
     m_callback(vector<df::GpsTrackPoint>(), move(removed));
+}
+
+size_t GpsTrackContainer::GetMaxSize() const
+{
+  lock_guard<mutex> lg(m_guard);
+
+  return m_maxSize;
 }
 
 void GpsTrackContainer::SetCallback(TGpsTrackDiffCallback callback, bool sendAll)
@@ -165,8 +179,5 @@ void GpsTrackContainer::CopyPoints(vector<df::GpsTrackPoint> & points) const
 {
   // Must be called under m_guard lock
 
-  vector<df::GpsTrackPoint> tmp;
-  tmp.reserve(m_points.size());
-  copy(m_points.begin(), m_points.end(), back_inserter(tmp));
-  points.swap(tmp);
+  points = vector<df::GpsTrackPoint>(m_points.begin(), m_points.end());
 }
