@@ -7,9 +7,9 @@
 #include "geometry/rect2d.hpp"
 
 #include "base/cancellable.hpp"
+#include "base/exception.hpp"
 #include "base/macros.hpp"
 
-#include "std/exception.hpp"
 #include "std/function.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
@@ -29,9 +29,7 @@ namespace search
 //
 // TODO (@gorshenin): after merge to master, move this class to
 // base/cancellable.hpp.
-struct CancelException : public exception
-{
-};
+DECLARE_EXCEPTION(CancelException, RootException);
 
 class Retrieval : public my::Cancellable
 {

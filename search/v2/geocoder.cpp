@@ -48,6 +48,9 @@ void Geocoder::SetSearchQueryParams(SearchQueryParams const & params)
 
 void Geocoder::Go(vector<FeatureID> & results)
 {
+  if (m_numTokens == 0)
+    return;
+
   m_results = &results;
 
   try
@@ -69,7 +72,7 @@ void Geocoder::Go(vector<FeatureID> & results)
       m_mwmId = handle.GetId();
 
       MY_SCOPE_GUARD(cleanup, [&]()
-                     {
+      {
         m_finder.reset();
         m_loader.reset();
         m_cache.clear();
@@ -87,15 +90,18 @@ void Geocoder::Go(vector<FeatureID> & results)
   }
 }
 
-void Geocoder::PrepareParams(size_t from, size_t to)
+void Geocoder::PrepareParams(size_t curToken, size_t endToken)
 {
-  ASSERT_LESS(from, to, ());
-  ASSERT_LESS_OR_EQUAL(to, m_numTokens, ());
+  ASSERT_LESS(curToken, endToken, ());
+  ASSERT_LESS_OR_EQUAL(endToken, m_numTokens, ());
 
   m_retrievalParams.m_tokens.clear();
   m_retrievalParams.m_prefixTokens.clear();
 
-  for (size_t i = from; i < to; ++i)
+  // TODO (@y): possibly it's not cheap to copy vectors of strings.
+  // Profile it, and in case of serious performance loss, refactor
+  // SearchQueryParams to support subsets of tokens.
+  for (size_t i = curToken; i < endToken; ++i)
   {
     if (i < m_params.m_tokens.size())
       m_retrievalParams.m_tokens.push_back(m_params.m_tokens[i]);
@@ -108,8 +114,9 @@ void Geocoder::DoGeocoding(size_t curToken)
 {
   if (curToken == m_numTokens)
   {
-    // All tokens were consumed, intersect layers, emit features.
-    IntersectLayers();
+    // All tokens were consumed, find paths through layers, emit
+    // features.
+    FindPaths();
     return;
   }
 
@@ -127,6 +134,9 @@ void Geocoder::DoGeocoding(size_t curToken)
       layer.m_endToken = curToken + n;
     }
 
+    // TODO (@y, @m): as |n| increases, good optimization is to update
+    // |features| incrementally, from [curToken, curToken + n) to
+    // [curToken, curToken + n + 1).
     auto features = RetrieveAddressFeatures(curToken, curToken + n);
     if (!features || features->PopCount() == 0)
       continue;
@@ -208,7 +218,7 @@ bool Geocoder::LooksLikeHouseNumber(size_t curToken, size_t endToken) const
   return false;
 }
 
-void Geocoder::IntersectLayers()
+void Geocoder::FindPaths()
 {
   ASSERT(!m_layers.empty(), ());
 
@@ -225,7 +235,7 @@ void Geocoder::IntersectLayers()
   sort(sortedLayers.begin(), sortedLayers.end(), compareByType);
 
   m_finder->ForEachReachableVertex(sortedLayers, [this](uint32_t featureId)
-                                   {
+  {
     m_results->emplace_back(m_mwmId, featureId);
   });
 }

@@ -37,6 +37,8 @@ public:
       return;
     }
 
+    // TODO (y@): match POI with streets separately.
+
     vector<m2::PointD> childCenters;
     for (uint32_t featureId : child.m_features)
     {

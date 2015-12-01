@@ -52,10 +52,7 @@ UNIT_TEST(SearchQueryV2_Smoke)
   m2::RectD viewport(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0));
 
   Cleanup(map);
-  MY_SCOPE_GUARD(cleanup, [&]()
-                 {
-    Cleanup(map);
-  });
+  MY_SCOPE_GUARD(cleanup, [&]() { Cleanup(map); });
 
   vector<storage::CountryDef> countries;
   countries.emplace_back(map.GetCountryName(), viewport);
@@ -108,5 +105,11 @@ UNIT_TEST(SearchQueryV2_Smoke)
         make_shared<ExactMatch>(regResult.first, quantumCafe),
         make_shared<ExactMatch>(regResult.first, quantumTeleport1)};
     TEST(MatchResults(engine, rules, request.Results()), ());
+  }
+
+  {
+    TestSearchRequest request(engine, "     ", "en", search::SearchParams::ALL, viewport);
+    request.Wait();
+    TEST_EQUAL(0, request.Results().size(), ());
   }
 }

@@ -14,7 +14,7 @@ namespace search
 {
 namespace v2
 {
-// This class is used to map our types to a restricted set of
+// This class is used to map feature types to a restricted set of
 // different search classes (do not confuse these classes with search
 // categories - they are completely different things).
 class SearchModel
