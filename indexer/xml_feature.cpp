@@ -13,6 +13,7 @@ namespace
 string ToString(m2::PointD const & p)
 {
   ostringstream out;
+  out << fixed;
   out.precision(7);
   out << p.x << ", " << p.y;
   return out.str();
@@ -30,23 +31,19 @@ bool FromString(string const & str, m2::PointD & p)
   return true;
 }
 
-void AddTag(string const & key, string const & value, pugi::xml_node & node)
+pugi::xml_node FindTag(pugi::xml_document const & document, string const & key)
 {
-  auto tag = node.append_child("tag");
-  tag.append_attribute("k") = key.data();
-  tag.append_attribute("v") = value.data();
-}
-
-pugi::xpath_node FindTag(pugi::xml_document const & document, string const & key)
-{
-  return document.select_node(("//tag[@k='" + key + "']").data());
+  return document.select_node(("//tag[@k='" + key + "']").data()).node();
 }
 } // namespace
 
 
 namespace indexer
 {
-XMLFeature::XMLFeature(): m_documentPtr(new pugi::xml_document) {}
+XMLFeature::XMLFeature(): m_documentPtr(new pugi::xml_document)
+{
+  m_documentPtr->append_child("node");
+}
 
 XMLFeature::XMLFeature(string const & xml):
     XMLFeature()
@@ -69,9 +66,15 @@ XMLFeature::XMLFeature(string const & xml):
     MYTHROW(XMLFeatureError, ("Node has no timestamp attribute"));
 }
 
-pugi::xml_document const & XMLFeature::GetXMLDocument() const
+XMLFeature::XMLFeature(pugi::xml_document const & xml):
+    XMLFeature()
 {
-  return *m_documentPtr;
+  m_documentPtr->reset(xml);
+}
+
+void XMLFeature::Save(ostream & ost) const
+{
+  m_documentPtr->save(ost, "\t", pugi::format_indent_attributes);
 }
 
 m2::PointD XMLFeature::GetCenter() const
@@ -82,9 +85,14 @@ m2::PointD XMLFeature::GetCenter() const
   return center;
 }
 
+void XMLFeature::SetCenter(m2::PointD const & center)
+{
+  SetAttribute("center", ToString(center));
+}
+
 string const XMLFeature::GetName(string const & lang) const
 {
-  auto const suffix = lang == "default" || lang.empty() ? "" : "::" + lang;
+  auto const suffix = lang == "default" || lang.empty() ? "" : ":" + lang;
   return GetTagValue("name" + suffix);
 }
 
@@ -93,9 +101,30 @@ string const XMLFeature::GetName(uint8_t const langCode) const
   return GetName(StringUtf8Multilang::GetLangByCode(langCode));
 }
 
+void XMLFeature::SetName(string const & name)
+{
+  SetName("default", name);
+}
+
+void XMLFeature::SetName(string const & lang, string const & name)
+{
+  auto const suffix = lang == "default" || lang.empty() ? "" : ":" + lang;
+  SetTagValue("name" + suffix, name);
+}
+
+void XMLFeature::SetName(uint8_t const langCode, string const & name)
+{
+  SetName(StringUtf8Multilang::GetLangByCode(langCode), name);
+}
+
 string const XMLFeature::GetHouse() const
 {
   return GetTagValue("addr:housenumber");
+}
+
+void XMLFeature::SetHouse(string const & house)
+{
+  SetTagValue("addr:housenumber", house);
 }
 
 time_t XMLFeature::GetModificationTime() const
@@ -104,38 +133,63 @@ time_t XMLFeature::GetModificationTime() const
   return my::StringToTimestamp(node.attribute("timestamp").value());
 }
 
+void XMLFeature::SetModificationTime(time_t const time)
+{
+  SetAttribute("timestamp", my::TimestampToString(time));
+}
+
 bool XMLFeature::HasTag(string const & key) const
 {
   return FindTag(*m_documentPtr, key);
 }
 
+bool XMLFeature::HasAttribute(string const & key) const
+{
+  return GetRootNode().attribute(key.data());
+}
+
+bool XMLFeature::HasKey(string const & key) const
+{
+  return HasTag(key) || HasAttribute(key);
+}
+
 string XMLFeature::GetTagValue(string const & key) const
 {
   auto const tag = FindTag(*m_documentPtr, key);
-  return tag.node().attribute("v").value();
+  return tag.attribute("v").value();
 }
 
-// bool XMLFeature::ToXMLDocument(pugi::xml_document & document) const
-// {
-//   auto node = document.append_child("node");
-//   node.append_attribute("center") = ToString(GetCenter()).data();
-//   node.append_attribute("timestamp") = my::TimestampToString(GetModificationTime()).data();
+void XMLFeature::SetTagValue(string const & key, string const value)
+{
+  auto tag = FindTag(*m_documentPtr, key);
+  if (!tag)
+  {
+    tag = GetRootNode().append_child("tag");
+    tag.append_attribute("k") = key.data();
+    tag.append_attribute("v") = value.data();
+  }
+  else
+  {
+    tag.attribute("v") = value.data();
+  }
+}
 
-//   AddTag("name", GetInternationalName(), node);
+string XMLFeature::GetAttribute(string const & key) const
+{
+  return GetRootNode().attribute(key.data()).value();
+}
 
-//   GetMultilangName().ForEachRef([&node](int8_t lang, string const & name) {
-//       AddTag("name::" + string(StringUtf8Multilang::GetLangByCode(lang)), name, node);
-//       return true;
-//     });
+void XMLFeature::SetAttribute(string const & key, string const & value)
+{
+  auto node = HasAttribute(key)
+      ? GetRootNode().attribute(key.data())
+      : GetRootNode().append_attribute(key.data());
 
-//   if (!GetHouse().Get().empty())
-//     AddTag("addr:housenumber", GetHouse().Get(), node);
+  node = value.data();
+}
 
-//   for (auto const & tag : m_tags)
-//     AddTag(tag.first, tag.second, node);
-
-//   return true;
-// }
-
-
+pugi::xml_node XMLFeature::GetRootNode() const
+{
+  return m_documentPtr->child("node");
+}
 } // namespace indexer
