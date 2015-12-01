@@ -29,7 +29,7 @@ void GpsTrackContainer::SetDuration(hours duration)
   RemoveOldPoints(removed);
 
   if (m_callback && !removed.empty())
-    m_callback(vector<df::GpsTrackPoint>(), move(removed));
+    m_callback(vector<GpsTrackPoint>(), move(removed));
 }
 
 hours GpsTrackContainer::GetDuration() const
@@ -49,7 +49,7 @@ void GpsTrackContainer::SetMaxSize(size_t maxSize)
   RemoveOldPoints(removed);
 
   if (m_callback && !removed.empty())
-    m_callback(vector<df::GpsTrackPoint>(), move(removed));
+    m_callback(vector<GpsTrackPoint>(), move(removed));
 }
 
 size_t GpsTrackContainer::GetMaxSize() const
@@ -68,7 +68,7 @@ void GpsTrackContainer::SetCallback(TGpsTrackDiffCallback callback, bool sendAll
   if (!m_callback || !sendAll || m_points.empty())
     return;
 
-  vector<df::GpsTrackPoint> added;
+  vector<GpsTrackPoint> added;
   CopyPoints(added);
 
   m_callback(move(added), vector<uint32_t>());
@@ -86,15 +86,16 @@ uint32_t GpsTrackContainer::AddPoint(m2::PointD const & point, double speedMPS, 
     return kInvalidId;
   }
 
-  df::GpsTrackPoint gtp;
+  GpsTrackPoint gtp;
   gtp.m_timestamp = timestamp;
   gtp.m_point = point;
   gtp.m_speedMPS = speedMPS;
-  gtp.m_id = ++m_counter;
+  gtp.m_id = m_counter;
 
   m_points.push_back(gtp);
+  ++m_counter;
 
-  vector<df::GpsTrackPoint> added;
+  vector<GpsTrackPoint> added;
   added.emplace_back(gtp);
 
   vector<uint32_t> removed;
@@ -106,7 +107,7 @@ uint32_t GpsTrackContainer::AddPoint(m2::PointD const & point, double speedMPS, 
   return gtp.m_id;
 }
 
-void GpsTrackContainer::GetPoints(vector<df::GpsTrackPoint> & points) const
+void GpsTrackContainer::GetPoints(vector<GpsTrackPoint> & points) const
 {
   lock_guard<mutex> lg(m_guard);
 
@@ -122,15 +123,15 @@ void GpsTrackContainer::Clear()
   if (m_callback)
   {
     removed.reserve(m_points.size());
-    for_each(m_points.begin(), m_points.end(), [&](df::GpsTrackPoint const & pt){ removed.emplace_back(pt.m_id); });
+    for_each(m_points.begin(), m_points.end(), [&](GpsTrackPoint const & pt){ removed.emplace_back(pt.m_id); });
   }
 
   // We do not use 'clear' because it does not guarantee memory cleaning,
   // Instead, we use move from an empty queue
-  m_points = deque<df::GpsTrackPoint>();
+  m_points = deque<GpsTrackPoint>();
 
   if (m_callback && !removed.empty())
-    m_callback(vector<df::GpsTrackPoint>(), move(removed));
+    m_callback(vector<GpsTrackPoint>(), move(removed));
 }
 
 void GpsTrackContainer::RemoveOldPoints(vector<uint32_t> & removedIds)
@@ -144,11 +145,11 @@ void GpsTrackContainer::RemoveOldPoints(vector<uint32_t> & removedIds)
 
   if (m_points.front().m_timestamp < lowerBorder)
   {
-    df::GpsTrackPoint pt;
+    GpsTrackPoint pt;
     pt.m_timestamp = lowerBorder;
 
     auto const itr = lower_bound(m_points.begin(), m_points.end(), pt,
-                                 [](df::GpsTrackPoint const & a, df::GpsTrackPoint const & b) -> bool
+                                 [](GpsTrackPoint const & a, GpsTrackPoint const & b) -> bool
     {
         return a.m_timestamp < b.m_timestamp;
     });
@@ -175,9 +176,9 @@ void GpsTrackContainer::RemoveOldPoints(vector<uint32_t> & removedIds)
   }
 }
 
-void GpsTrackContainer::CopyPoints(vector<df::GpsTrackPoint> & points) const
+void GpsTrackContainer::CopyPoints(vector<GpsTrackPoint> & points) const
 {
   // Must be called under m_guard lock
 
-  points = vector<df::GpsTrackPoint>(m_points.begin(), m_points.end());
+  points = vector<GpsTrackPoint>(m_points.begin(), m_points.end());
 }

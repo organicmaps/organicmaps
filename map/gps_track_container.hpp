@@ -1,5 +1,9 @@
 #pragma once
 
+// NOTE!
+// Temporary, to avoid cyclic dependencies between map and drape projects,
+// we declared GpsTrackPoint in the drape project.
+// Ideally, drape must use declaration GpsTrackPoint, instead of declaring it there.
 #include "drape_frontend/gps_track_point.hpp"
 
 #include "std/chrono.hpp"
@@ -10,6 +14,24 @@
 class GpsTrackContainer final
 {
 public:
+  using GpsTrackPoint = df::GpsTrackPoint;
+  // See note above
+  /*
+  struct GpsTrackPoint
+  {
+    // Timestamp of the point, seconds from 1st Jan 1970
+    double m_timestamp;
+
+    // Point in the Mercator projection
+    m2::PointD m_point;
+
+    // Speed in the point, M/S
+    double m_speedMPS;
+
+    // Unique identifier of the point
+    uint32_t m_id;
+  };
+  */
 
   static uint32_t constexpr kInvalidId = numeric_limits<uint32_t>::max();
 
@@ -17,7 +39,7 @@ public:
   /// @param toAdd - collection of points to add.
   /// @param toRemove - collection of point indices to remove.
   /// @note Calling of a GpsTrackContainer's function from the callback causes deadlock.
-  using TGpsTrackDiffCallback = std::function<void(vector<df::GpsTrackPoint> && toAdd, vector<uint32_t> && toRemove)>;
+  using TGpsTrackDiffCallback = std::function<void(vector<GpsTrackPoint> && toAdd, vector<uint32_t> && toRemove)>;
 
   GpsTrackContainer();
 
@@ -56,7 +78,7 @@ public:
 
   /// Returns points snapshot from the container.
   /// @param points - output for collection of points.
-  void GetPoints(vector<df::GpsTrackPoint> & points) const;
+  void GetPoints(vector<GpsTrackPoint> & points) const;
 
   /// Clears collection of point in the track.
   /// @note Callback is called with 'toRemove' points, if need.
@@ -64,7 +86,7 @@ public:
 
 private:
   void RemoveOldPoints(vector<uint32_t> & removedIds);
-  void CopyPoints(vector<df::GpsTrackPoint> & points) const;
+  void CopyPoints(vector<GpsTrackPoint> & points) const;
 
   mutable mutex m_guard;
 
@@ -78,7 +100,7 @@ private:
 
   // Collection of points, by nature is asc. sorted by m_timestamp.
   // Max size of m_points is adjusted by m_trackDuration and m_maxSize.
-  deque<df::GpsTrackPoint> m_points;
+  deque<GpsTrackPoint> m_points;
 
   // Simple counter which is used to generate point unique ids.
   uint32_t m_counter;
