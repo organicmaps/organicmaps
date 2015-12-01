@@ -103,12 +103,22 @@ void MyPosition::RenderMyPosition(ScreenBase const & screen,
                                   ref_ptr<dp::GpuProgramManager> mng,
                                   dp::UniformValuesStorage const & commonUniforms)
 {
-  dp::UniformValuesStorage uniforms = commonUniforms;
-  uniforms.SetFloatValue("u_position", m_position.x, m_position.y, dp::depth::MY_POSITION_MARK);
-  uniforms.SetFloatValue("u_azimut", -(m_azimuth + screen.GetAngle()));
-  uniforms.SetFloatValue("u_opacity", 1.0);
-  RenderPart(mng, uniforms, (m_showAzimuth == true) ?
-             (m_isRoutingMode ? MY_POSITION_ROUTING_ARROW : MY_POSITION_ARROW) : MY_POSITION_POINT);
+  if (screen.isPerspective() && m_isRoutingMode && m_showAzimuth)
+  {
+    m_arrow3d.SetPosition(m_position);
+    m_arrow3d.SetAzimuth(m_azimuth);
+
+    m_arrow3d.Render(screen, mng);
+  }
+  else
+  {
+    dp::UniformValuesStorage uniforms = commonUniforms;
+    uniforms.SetFloatValue("u_position", m_position.x, m_position.y, dp::depth::MY_POSITION_MARK);
+    uniforms.SetFloatValue("u_azimut", -(m_azimuth + screen.GetAngle()));
+    uniforms.SetFloatValue("u_opacity", 1.0);
+    RenderPart(mng, uniforms, (m_showAzimuth == true) ?
+               (m_isRoutingMode ? MY_POSITION_ROUTING_ARROW : MY_POSITION_ARROW) : MY_POSITION_POINT);
+  }
 }
 
 void MyPosition::CacheAccuracySector(ref_ptr<dp::TextureManager> mng)
@@ -187,6 +197,8 @@ void MyPosition::CachePointPosition(ref_ptr<dp::TextureManager> mng)
 
   m2::RectF const & routingArrowTexRect = routingArrowSymbol.GetTexRect();
   m2::PointF routingArrowHalfSize = m2::PointF(routingArrowSymbol.GetPixelSize()) * 0.5f;
+
+  m_arrow3d.SetSize(routingArrowSymbol.GetPixelSize().x, routingArrowSymbol.GetPixelSize().y);
 
   Vertex routingArrowData[4]=
   {

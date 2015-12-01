@@ -1,5 +1,6 @@
 #pragma once
 
+#include "arrow3d.hpp"
 #include "render_node.hpp"
 
 #include "drape/vertex_array_buffer.hpp"
@@ -63,6 +64,8 @@ private:
 
   vector<TPart> m_parts;
   vector<RenderNode> m_nodes;
+
+  Arrow3d m_arrow3d;
 };
 
 }

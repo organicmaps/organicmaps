@@ -33,6 +33,7 @@ SOURCES += \
     gui/skin.cpp \
     apply_feature_functors.cpp \
     area_shape.cpp \
+    arrow3d.cpp \
     backend_renderer.cpp \
     base_renderer.cpp \
     batchers_pool.cpp \
@@ -114,6 +115,7 @@ HEADERS += \
     gui/skin.hpp \
     apply_feature_functors.hpp \
     area_shape.hpp \
+    arrow3d.hpp \
     backend_renderer.hpp \
     base_renderer.hpp \
     batchers_pool.hpp \
