@@ -15,6 +15,7 @@
 #include "drape_frontend/my_position_controller.hpp"
 #include "drape_frontend/navigator.hpp"
 #include "drape_frontend/render_group.hpp"
+#include "drape_frontend/requested_tiles.hpp"
 #include "drape_frontend/route_renderer.hpp"
 #include "drape_frontend/threads_commutator.hpp"
 #include "drape_frontend/tile_info.hpp"
@@ -76,7 +77,8 @@ public:
            TTapEventInfoFn const & tapEventFn,
            TUserPositionChangedFn const & positionChangedFn,
            location::TMyPositionModeChanged myPositionModeCallback,
-           location::EMyPositionMode initMode)
+           location::EMyPositionMode initMode,
+           ref_ptr<RequestedTiles> requestedTiles)
       : BaseRenderer::Params(commutator, factory, texMng)
       , m_viewport(viewport)
       , m_modelViewChangedFn(modelViewChangedFn)
@@ -85,6 +87,7 @@ public:
       , m_positionChangedFn(positionChangedFn)
       , m_myPositionModeCallback(myPositionModeCallback)
       , m_initMyPositionMode(initMode)
+      , m_requestedTiles(requestedTiles)
     {}
 
     Viewport m_viewport;
@@ -94,6 +97,7 @@ public:
     TUserPositionChangedFn m_positionChangedFn;
     location::TMyPositionModeChanged m_myPositionModeCallback;
     location::EMyPositionMode m_initMyPositionMode;
+    ref_ptr<RequestedTiles> m_requestedTiles;
   };
 
   FrontendRenderer(Params const & params);
@@ -161,13 +165,13 @@ private:
 
   class Routine : public threads::IRoutine
   {
-   public:
+  public:
     Routine(FrontendRenderer & renderer);
 
     // threads::IRoutine overrides:
     void Do() override;
 
-   private:
+  private:
     FrontendRenderer & m_renderer;
   };
 
@@ -219,6 +223,7 @@ private:
 
   unique_ptr<TileTree> m_tileTree;
   int m_currentZoomLevel = -1;
+  ref_ptr<RequestedTiles> m_requestedTiles;
 };
 
 } // namespace df

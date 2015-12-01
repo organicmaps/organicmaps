@@ -28,4 +28,6 @@ bool IsTileBelow(TileKey const & tileKey, TileKey const & targetTileKey);
 /// This function returns parent tile on specified zoom level.
 TileKey GetParentTile(TileKey const & tileKey, int targetZoom);
 
+bool IsNeighbours(TileKey const & tileKey1, TileKey const & tileKey2);
+
 } // namespace df

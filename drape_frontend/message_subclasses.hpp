@@ -154,19 +154,8 @@ private:
 class UpdateReadManagerMessage : public Message
 {
 public:
-  UpdateReadManagerMessage(ScreenBase const & screen, TTilesCollection && tiles)
-    : m_tiles(move(tiles))
-    , m_screen(screen)
-  {}
-
+  UpdateReadManagerMessage(){}
   Type GetType() const override { return Message::UpdateReadManager; }
-
-  TTilesCollection const & GetTiles() const { return m_tiles; }
-  ScreenBase const & GetScreen() const { return m_screen; }
-
-private:
-  TTilesCollection m_tiles;
-  ScreenBase m_screen;
 };
 
 class InvalidateReadManagerRectMessage : public Message

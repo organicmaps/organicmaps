@@ -40,13 +40,15 @@ public:
   {
     m_centerPointIter = m_spline.CreateIterator();
     m_centerPointIter.Advance(mercatorOffset);
-    m_normals.resize(4 * m_layout->GetGlyphCount());
   }
 
   bool Update(ScreenBase const & screen) override
   {
     if (!df::TextHandle::Update(screen))
       return false;
+
+    if (m_normals.empty())
+      m_normals.resize(4 * m_layout->GetGlyphCount());
 
     return m_layout->CacheDynamicGeometry(m_centerPointIter, screen, m_normals);
   }

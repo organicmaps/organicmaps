@@ -52,7 +52,8 @@ public:
 enum class MessagePriority
 {
   Normal,
-  High
+  High,
+  UberHighSingleton
 };
 
 } // namespace df

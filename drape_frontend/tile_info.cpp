@@ -70,7 +70,9 @@ void TileInfo::ReadFeatures(MapDataProvider const & model, MemoryFeatureIndex & 
 
   if (!featuresToRead.empty())
   {
-    RuleDrawer drawer(bind(&TileInfo::InitStylist, this, _1 ,_2), make_ref(m_context));
+    RuleDrawer drawer(bind(&TileInfo::InitStylist, this, _1 ,_2),
+                      bind(&TileInfo::IsCancelled, this),
+                      make_ref(m_context));
     model.ReadFeatures(bind<void>(ref(drawer), _1), featuresToRead);
   }
 }

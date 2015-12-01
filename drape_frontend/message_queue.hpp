@@ -13,6 +13,8 @@
 namespace df
 {
 
+//#define DEBUG_MESSAGE_QUEUE
+
 class MessageQueue
 {
 public:
@@ -24,15 +26,20 @@ public:
   void PushMessage(drape_ptr<Message> && message, MessagePriority priority);
   void CancelWait();
   void ClearQuery();
-  bool IsEmpty();
+
+#ifdef DEBUG_MESSAGE_QUEUE
+  bool IsEmpty() const;
+  size_t GetSize() const;
+#endif
 
 private:
   void CancelWaitImpl();
 
-  mutex m_mutex;
+  mutable mutex m_mutex;
   condition_variable m_condition;
   bool m_isWaiting;
-  deque<drape_ptr<Message> > m_messages;
+  using TMessageNode = pair<drape_ptr<Message>, MessagePriority>;
+  deque<TMessageNode> m_messages;
 };
 
 } // namespace df

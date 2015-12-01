@@ -34,6 +34,8 @@ public:
   void Invalidate(TTilesCollection const & keyStorage);
   void Stop();
 
+  bool CheckTileKey(TileKey const & tileKey) const;
+
   static size_t ReadCount();
 
 private:

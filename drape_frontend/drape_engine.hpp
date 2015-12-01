@@ -130,6 +130,7 @@ private:
   drape_ptr<BackendRenderer> m_backend;
   drape_ptr<ThreadsCommutator> m_threadCommutator;
   drape_ptr<dp::TextureManager> m_textureManager;
+  drape_ptr<RequestedTiles> m_requestedTiles;
 
   Viewport m_viewport;
 

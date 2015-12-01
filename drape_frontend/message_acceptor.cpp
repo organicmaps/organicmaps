@@ -45,9 +45,18 @@ bool MessageAcceptor::IsInInfinityWaiting() const
   return m_infinityWaiting;
 }
 
-bool MessageAcceptor::IsQueueEmpty()
+#ifdef DEBUG_MESSAGE_QUEUE
+
+bool MessageAcceptor::IsQueueEmpty() const
 {
   return m_messageQueue.IsEmpty();
 }
+
+size_t MessageAcceptor::GetQueueSize() const
+{
+  return m_messageQueue.GetSize();
+}
+
+#endif
 
 } // namespace df
