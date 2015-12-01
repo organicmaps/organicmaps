@@ -7,8 +7,6 @@
 #include "drape/pointers.hpp"
 #include "drape/uniform_values_storage.hpp"
 
-#include "map/gps_track_container.hpp"
-
 #include "geometry/screenbase.hpp"
 #include "geometry/spline.hpp"
 
