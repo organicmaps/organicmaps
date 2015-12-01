@@ -128,9 +128,9 @@ void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> m
   if (m_VAO == 0)
     Build(prg);
 
-  double scaleX = m_pixelWidth * kArrow3dScale * 2.0 / screen.PixelRect().SizeX() / kArrowSizeX;
-  double scaleY = m_pixelHeight * kArrow3dScale * 2.0 / screen.PixelRect().SizeY() / kArrowSizeY;
-  double scaleZ = scaleX;
+  double const scaleX = m_pixelWidth * kArrow3dScale * 2.0 / screen.PixelRect().SizeX() / kArrowSizeX;
+  double const scaleY = m_pixelHeight * kArrow3dScale * 2.0 / screen.PixelRect().SizeY() / kArrowSizeY;
+  double const scaleZ = scaleX;
 
   m2::PointD const pos = screen.GtoP(m_position);
   double const dX = 2.0 * pos.x / screen.PixelRect().SizeX() - 1.0;
