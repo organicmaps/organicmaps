@@ -276,8 +276,8 @@ private:
   };
   unique_ptr<TapEventData> m_lastTapEvent;
 
-  void OnTapEvent(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID feature);
-  UserMark const * OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID feature);
+  void OnTapEvent(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID const & feature);
+  UserMark const * OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID const & feature);
   //@}
 
   TActivateCallbackFn m_activateUserMarkFn;
@@ -447,7 +447,7 @@ private:
 
 public:
   bool GetVisiblePOI(m2::PointD const & glbPoint, search::AddressInfo & info, feature::Metadata & metadata) const;
-  m2::PointD GetVisiblePOI(FeatureID id, search::AddressInfo & info, feature::Metadata & metadata) const;
+  m2::PointD GetVisiblePOI(FeatureID const & id, search::AddressInfo & info, feature::Metadata & metadata) const;
   void FindClosestPOIMetadata(m2::PointD const & pt, feature::Metadata & metadata) const;
 
   void MemoryWarning();

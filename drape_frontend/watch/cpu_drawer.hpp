@@ -132,7 +132,7 @@ private:
 
   struct ComplexShape : BaseShape
   {
-    ComplexShape(FeatureID geomID, DrawRule const & rule, int generation, EShapeType type)
+    ComplexShape(FeatureID const & geomID, DrawRule const & rule, int generation, EShapeType type)
       : BaseShape(rule, generation, type)
       , m_geomID(geomID)
     {
