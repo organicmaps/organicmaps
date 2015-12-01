@@ -1,3 +1,4 @@
+#import "Common.h"
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
@@ -23,6 +24,9 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
     m_locationManager.delegate = self;
     [UIDevice currentDevice].batteryMonitoringEnabled = YES;
     [self refreshAccuracy];
+    if (!isIOSVersionLessThan(9))
+      m_locationManager.allowsBackgroundLocationUpdates = YES;
+    m_locationManager.pausesLocationUpdatesAutomatically = YES;
     m_locationManager.headingFilter = 3.0;
     //    m_locationManager.distanceFilter = 3.0;
     m_isStarted = NO;

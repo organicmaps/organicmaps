@@ -2,33 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIApplicationShortcutItems</key>
-	<array>
-		<dict>
-			<key>UIApplicationShortcutItemType</key>
-			<string>me.maps.3daction.search</string>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>search</string>
-			<key>UIApplicationShortcutItemIconFile</key>
-			<string>ic_3dtouch_search</string>
-		</dict>
-		<dict>
-			<key>UIApplicationShortcutItemType</key>
-			<string>me.maps.3daction.bookmarks</string>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>bookmarks</string>
-			<key>UIApplicationShortcutItemIconFile</key>
-			<string>ic_3dtouch_bookmarks</string>
-		</dict>
-		<dict>
-			<key>UIApplicationShortcutItemType</key>
-			<string>me.maps.3daction.route</string>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>route</string>
-			<key>UIApplicationShortcutItemIconFile</key>
-			<string>ic_3dtouch_planing_route</string>
-		</dict>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -131,10 +104,38 @@
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string></string>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>ic_3dtouch_search</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>search</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>me.maps.3daction.search</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>ic_3dtouch_bookmarks</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>bookmarks</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>me.maps.3daction.bookmarks</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>ic_3dtouch_planing_route</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>route</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>me.maps.3daction.route</string>
+		</dict>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>remote-notification</string>
 		<string>fetch</string>
+		<string>location</string>
+		<string>remote-notification</string>
 	</array>
 	<key>UIFileSharingEnabled</key>
 	<true/>
