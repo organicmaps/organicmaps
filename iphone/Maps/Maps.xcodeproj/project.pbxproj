@@ -535,6 +535,7 @@
 		674A7E2A1C0DA579003D48E1 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E211C0DA55E003D48E1 /* libdrape.a */; };
 		674A7E2B1C0DA57C003D48E1 /* libdrape_frontend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E201C0DA55E003D48E1 /* libdrape_frontend.a */; };
 		674A7E301C0DB10B003D48E1 /* MWMMapWidgets.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34FE4C441BCC013500066718 /* MWMMapWidgets.mm */; };
+		677A2DE21C0DD50900635A00 /* resources-default in Resources */ = {isa = PBXBuildFile; fileRef = A367C93A1B17334800E2B6E7 /* resources-default */; };
 		67E504401BFA355B001F34BA /* libagg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA21BF356B9002C974C /* libagg.a */; };
 		67E504411BFA355B001F34BA /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA31BF356B9002C974C /* libalohalitics.a */; };
 		67E504431BFA355B001F34BA /* libapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA51BF356B9002C974C /* libapi.a */; };
@@ -3234,6 +3235,7 @@
 				6741A9571BF340DE002C974C /* 03_jomolhari-id-a3d.ttf in Resources */,
 				6741A9581BF340DE002C974C /* 04_padauk.ttf in Resources */,
 				6741A9591BF340DE002C974C /* 05_khmeros.ttf in Resources */,
+				677A2DE21C0DD50900635A00 /* resources-default in Resources */,
 				6741A95A1BF340DE002C974C /* me.maps.entitlements in Resources */,
 				3476B8E11BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */,
 				6741A95B1BF340DE002C974C /* 06_code2000.ttf in Resources */,
