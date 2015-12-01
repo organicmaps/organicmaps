@@ -188,8 +188,6 @@
 		6741A8FD1BF340D1002C974C /* MWMWatchLocationTracker.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6C6FE1F1AD6BEA0009FDED7 /* MWMWatchLocationTracker.mm */; };
 		6741A8FE1BF340D1002C974C /* MWMWKInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34DF4D101AE77B9F0012702D /* MWMWKInterfaceController.mm */; };
 		6741A8FF1BF340D1002C974C /* MWMFrameworkUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343F262D1AEFC4A300388A6D /* MWMFrameworkUtils.mm */; };
-		6741A9001BF340D1002C974C /* RenderBuffer.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297D1219ECA300EB67A9 /* RenderBuffer.mm */; };
-		6741A9011BF340D1002C974C /* RenderContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297E1219ECA300EB67A9 /* RenderContext.mm */; };
 		6741A9021BF340D1002C974C /* MWMSearchResultController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345C31771AE799B600EA0CC2 /* MWMSearchResultController.mm */; };
 		6741A9031BF340D1002C974C /* MWMCategoriesInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345C31701AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.mm */; };
 		6741A9051BF340D1002C974C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A3A1B13222600E6D4FD /* libz.dylib */; };
@@ -356,7 +354,6 @@
 		6741A9B91BF340DE002C974C /* MWMRateAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F61579331AC2CE9A0032D8E9 /* MWMRateAlert.mm */; };
 		6741A9BA1BF340DE002C974C /* MWMRoutePointCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F6BB6CC51BB18C0900DF1DF2 /* MWMRoutePointCell.m */; };
 		6741A9BB1BF340DE002C974C /* LocationPredictor.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3CC2CD21A1C723900B832E1 /* LocationPredictor.mm */; };
-		6741A9BC1BF340DE002C974C /* RenderBuffer.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297D1219ECA300EB67A9 /* RenderBuffer.mm */; };
 		6741A9BD1BF340DE002C974C /* MWMWatchNotification.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C93FAEB1AD8063900A2C4AE /* MWMWatchNotification.mm */; };
 		6741A9BE1BF340DE002C974C /* UILabel+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = F62404FA1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.mm */; };
 		6741A9BF1BF340DE002C974C /* MWMSearchTabbedCollectionViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34CC4C0C1B82069C00E44C1F /* MWMSearchTabbedCollectionViewCell.mm */; };
@@ -377,7 +374,6 @@
 		6741A9CE1BF340DE002C974C /* MWMSearchManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34CFFE8A1B7DE6FD009D0C9F /* MWMSearchManager.mm */; };
 		6741A9CF1BF340DE002C974C /* MWMLocationAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BBF2C51B4FFB72000CF8E2 /* MWMLocationAlert.mm */; };
 		6741A9D01BF340DE002C974C /* MWMPlacePage.mm in Sources */ = {isa = PBXBuildFile; fileRef = F66A8FAF1B09F268001B9C97 /* MWMPlacePage.mm */; };
-		6741A9D11BF340DE002C974C /* RenderContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297E1219ECA300EB67A9 /* RenderContext.mm */; };
 		6741A9D21BF340DE002C974C /* MWMBookmarkDescriptionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6ED13901B1EF96B0095C6DE /* MWMBookmarkDescriptionViewController.mm */; };
 		6741A9D31BF340DE002C974C /* MWMDownloadMapRequestView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349A35821B53E967009677EE /* MWMDownloadMapRequestView.mm */; };
 		6741A9D41BF340DE002C974C /* MWMAlertViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64F19821AB81A00006EAF7E /* MWMAlertViewController.mm */; };
@@ -509,7 +505,6 @@
 		6741AA611BF350A1002C974C /* xcmaps.me WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 6741A8EB1BF3407C002C974C /* xcmaps.me WatchKit App.app */; };
 		6741AABD1BF356BA002C974C /* libagg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA21BF356B9002C974C /* libagg.a */; };
 		6741AABE1BF356BA002C974C /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA31BF356B9002C974C /* libalohalitics.a */; };
-		6741AABF1BF356BA002C974C /* libanim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA41BF356B9002C974C /* libanim.a */; };
 		6741AAC01BF356BA002C974C /* libapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA51BF356B9002C974C /* libapi.a */; };
 		6741AAC11BF356BA002C974C /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA61BF356B9002C974C /* libbase.a */; };
 		6741AAC21BF356BA002C974C /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA71BF356B9002C974C /* libcoding.a */; };
@@ -517,8 +512,6 @@
 		6741AAC41BF356BA002C974C /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA91BF356B9002C974C /* libfreetype.a */; };
 		6741AAC51BF356BA002C974C /* libfribidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAAA1BF356B9002C974C /* libfribidi.a */; };
 		6741AAC61BF356BA002C974C /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAAB1BF356B9002C974C /* libgeometry.a */; };
-		6741AAC71BF356BA002C974C /* libgraphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAAC1BF356B9002C974C /* libgraphics.a */; };
-		6741AAC81BF356BA002C974C /* libgui.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAAD1BF356B9002C974C /* libgui.a */; };
 		6741AAC91BF356BA002C974C /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAAE1BF356B9002C974C /* libindexer.a */; };
 		6741AACA1BF356BA002C974C /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAAF1BF356B9002C974C /* libjansson.a */; };
 		6741AACB1BF356BA002C974C /* liblodepng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB01BF356B9002C974C /* liblodepng.a */; };
@@ -528,15 +521,22 @@
 		6741AACF1BF356BA002C974C /* libosrm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB41BF356B9002C974C /* libosrm.a */; };
 		6741AAD01BF356BA002C974C /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB51BF356B9002C974C /* libplatform.a */; };
 		6741AAD11BF356BA002C974C /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB61BF356BA002C974C /* libprotobuf.a */; };
-		6741AAD21BF356BA002C974C /* librender.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB71BF356BA002C974C /* librender.a */; };
 		6741AAD31BF356BA002C974C /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB81BF356BA002C974C /* librouting.a */; };
 		6741AAD41BF356BA002C974C /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB91BF356BA002C974C /* libsearch.a */; };
 		6741AAD51BF356BA002C974C /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AABA1BF356BA002C974C /* libstorage.a */; };
 		6741AAD61BF356BA002C974C /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AABB1BF356BA002C974C /* libsuccinct.a */; };
 		6741AAD71BF356BA002C974C /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AABC1BF356BA002C974C /* libtomcrypt.a */; };
+		674A7E241C0DA55E003D48E1 /* libdrape_frontend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E201C0DA55E003D48E1 /* libdrape_frontend.a */; };
+		674A7E251C0DA55E003D48E1 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E211C0DA55E003D48E1 /* libdrape.a */; };
+		674A7E261C0DA55E003D48E1 /* libsdf_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E221C0DA55E003D48E1 /* libsdf_image.a */; };
+		674A7E271C0DA55E003D48E1 /* libstb_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E231C0DA55E003D48E1 /* libstb_image.a */; };
+		674A7E281C0DA573003D48E1 /* libstb_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E231C0DA55E003D48E1 /* libstb_image.a */; };
+		674A7E291C0DA576003D48E1 /* libsdf_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E221C0DA55E003D48E1 /* libsdf_image.a */; };
+		674A7E2A1C0DA579003D48E1 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E211C0DA55E003D48E1 /* libdrape.a */; };
+		674A7E2B1C0DA57C003D48E1 /* libdrape_frontend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E201C0DA55E003D48E1 /* libdrape_frontend.a */; };
+		674A7E301C0DB10B003D48E1 /* MWMMapWidgets.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34FE4C441BCC013500066718 /* MWMMapWidgets.mm */; };
 		67E504401BFA355B001F34BA /* libagg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA21BF356B9002C974C /* libagg.a */; };
 		67E504411BFA355B001F34BA /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA31BF356B9002C974C /* libalohalitics.a */; };
-		67E504421BFA355B001F34BA /* libanim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA41BF356B9002C974C /* libanim.a */; };
 		67E504431BFA355B001F34BA /* libapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA51BF356B9002C974C /* libapi.a */; };
 		67E504441BFA355B001F34BA /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA61BF356B9002C974C /* libbase.a */; };
 		67E504451BFA355B001F34BA /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA71BF356B9002C974C /* libcoding.a */; };
@@ -544,8 +544,6 @@
 		67E504471BFA355B001F34BA /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA91BF356B9002C974C /* libfreetype.a */; };
 		67E504481BFA355B001F34BA /* libfribidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAAA1BF356B9002C974C /* libfribidi.a */; };
 		67E504491BFA355B001F34BA /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAAB1BF356B9002C974C /* libgeometry.a */; };
-		67E5044A1BFA355B001F34BA /* libgraphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAAC1BF356B9002C974C /* libgraphics.a */; };
-		67E5044B1BFA355B001F34BA /* libgui.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAAD1BF356B9002C974C /* libgui.a */; };
 		67E5044C1BFA355B001F34BA /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAAE1BF356B9002C974C /* libindexer.a */; };
 		67E5044D1BFA355B001F34BA /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAAF1BF356B9002C974C /* libjansson.a */; };
 		67E5044E1BFA355B001F34BA /* liblodepng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB01BF356B9002C974C /* liblodepng.a */; };
@@ -555,7 +553,6 @@
 		67E504521BFA355B001F34BA /* libosrm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB41BF356B9002C974C /* libosrm.a */; };
 		67E504531BFA355B001F34BA /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB51BF356B9002C974C /* libplatform.a */; };
 		67E504541BFA355B001F34BA /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB61BF356BA002C974C /* libprotobuf.a */; };
-		67E504551BFA355B001F34BA /* librender.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB71BF356BA002C974C /* librender.a */; };
 		67E504561BFA355B001F34BA /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB81BF356BA002C974C /* librouting.a */; };
 		67E504571BFA355B001F34BA /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB91BF356BA002C974C /* libsearch.a */; };
 		67E504581BFA355B001F34BA /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AABA1BF356BA002C974C /* libstorage.a */; };
@@ -610,7 +607,6 @@
 		A32B6D4D1A14980500E54A65 /* iosOGLContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = A32B6D4B1A14980500E54A65 /* iosOGLContextFactory.mm */; };
 		A367C93B1B17334800E2B6E7 /* resources-default in Resources */ = {isa = PBXBuildFile; fileRef = A367C93A1B17334800E2B6E7 /* resources-default */; };
 		A3CC2CD41A1C723900B832E1 /* LocationPredictor.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3CC2CD21A1C723900B832E1 /* LocationPredictor.mm */; };
-		A3F402FB1B81F537008E5F65 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454040681AD2D8D2007A9B12 /* CoreVideo.framework */; };
 		B00510FB1A11015900A61AA4 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972CDCC51887F1B7006641CA /* CFNetwork.framework */; };
 		B00511021A1101E000A61AA4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98655186C734000AF7E9E /* AVFoundation.framework */; };
 		B00511041A1101F600A61AA4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511031A1101F600A61AA4 /* CoreData.framework */; };
@@ -1049,7 +1045,6 @@
 		6741AA5F1BF34185002C974C /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../../xcode/defaults.xcconfig; sourceTree = "<group>"; };
 		6741AAA21BF356B9002C974C /* libagg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libagg.a; path = "../../../omim-xcode-build/Debug/libagg.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AAA31BF356B9002C974C /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-xcode-build/Debug/libalohalitics.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6741AAA41BF356B9002C974C /* libanim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libanim.a; path = "../../../omim-xcode-build/Debug/libanim.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AAA51BF356B9002C974C /* libapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libapi.a; path = "../../../omim-xcode-build/Debug/libapi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AAA61BF356B9002C974C /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AAA71BF356B9002C974C /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-xcode-build/Debug/libcoding.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1057,8 +1052,6 @@
 		6741AAA91BF356B9002C974C /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = "../../../omim-xcode-build/Debug/libfreetype.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AAAA1BF356B9002C974C /* libfribidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfribidi.a; path = "../../../omim-xcode-build/Debug/libfribidi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AAAB1BF356B9002C974C /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgeometry.a; path = "../../../omim-xcode-build/Debug/libgeometry.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6741AAAC1BF356B9002C974C /* libgraphics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgraphics.a; path = "../../../omim-xcode-build/Debug/libgraphics.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6741AAAD1BF356B9002C974C /* libgui.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgui.a; path = "../../../omim-xcode-build/Debug/libgui.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AAAE1BF356B9002C974C /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-xcode-build/Debug/libindexer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AAAF1BF356B9002C974C /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = "../../../omim-xcode-build/Debug/libjansson.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AAB01BF356B9002C974C /* liblodepng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblodepng.a; path = "../../../omim-xcode-build/Debug/liblodepng.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1068,12 +1061,15 @@
 		6741AAB41BF356B9002C974C /* libosrm.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosrm.a; path = "../../../omim-xcode-build/Debug/libosrm.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AAB51BF356B9002C974C /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "../../../omim-xcode-build/Debug/libplatform.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AAB61BF356BA002C974C /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libprotobuf.a; path = "../../../omim-xcode-build/Debug/libprotobuf.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6741AAB71BF356BA002C974C /* librender.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librender.a; path = "../../../omim-xcode-build/Debug/librender.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AAB81BF356BA002C974C /* librouting.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting.a; path = "../../../omim-xcode-build/Debug/librouting.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AAB91BF356BA002C974C /* libsearch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsearch.a; path = "../../../omim-xcode-build/Debug/libsearch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AABA1BF356BA002C974C /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstorage.a; path = "../../../omim-xcode-build/Debug/libstorage.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AABB1BF356BA002C974C /* libsuccinct.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsuccinct.a; path = "../../../omim-xcode-build/Debug/libsuccinct.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AABC1BF356BA002C974C /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-xcode-build/Debug/libtomcrypt.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		674A7E201C0DA55E003D48E1 /* libdrape_frontend.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape_frontend.a; path = "../../../omim-xcode-build/Debug/libdrape_frontend.a"; sourceTree = "<group>"; };
+		674A7E211C0DA55E003D48E1 /* libdrape.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape.a; path = "../../../omim-xcode-build/Debug/libdrape.a"; sourceTree = "<group>"; };
+		674A7E221C0DA55E003D48E1 /* libsdf_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsdf_image.a; path = "../../../omim-xcode-build/Debug/libsdf_image.a"; sourceTree = "<group>"; };
+		674A7E231C0DA55E003D48E1 /* libstb_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstb_image.a; path = "../../../omim-xcode-build/Debug/libstb_image.a"; sourceTree = "<group>"; };
 		6BA0BCCF1B74DDBA00CC9969 /* MWMCustomFacebookEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCustomFacebookEvents.h; sourceTree = "<group>"; };
 		6BA0BCD01B74DDBA00CC9969 /* MWMCustomFacebookEvents.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCustomFacebookEvents.mm; sourceTree = "<group>"; };
 		6C24A3B01AD7D65500A47B99 /* MWMWatchEventInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMWatchEventInfo.h; sourceTree = "<group>"; };
@@ -1446,6 +1442,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				674A7E241C0DA55E003D48E1 /* libdrape_frontend.a in Frameworks */,
+				674A7E251C0DA55E003D48E1 /* libdrape.a in Frameworks */,
+				674A7E261C0DA55E003D48E1 /* libsdf_image.a in Frameworks */,
+				674A7E271C0DA55E003D48E1 /* libstb_image.a in Frameworks */,
 				6741A9051BF340D1002C974C /* libz.dylib in Frameworks */,
 				6741A9061BF340D1002C974C /* SystemConfiguration.framework in Frameworks */,
 				67E504431BFA355B001F34BA /* libapi.a in Frameworks */,
@@ -1460,9 +1460,7 @@
 				67E504561BFA355B001F34BA /* librouting.a in Frameworks */,
 				67E504541BFA355B001F34BA /* libprotobuf.a in Frameworks */,
 				67E504411BFA355B001F34BA /* libalohalitics.a in Frameworks */,
-				67E5044A1BFA355B001F34BA /* libgraphics.a in Frameworks */,
 				67E504491BFA355B001F34BA /* libgeometry.a in Frameworks */,
-				67E504421BFA355B001F34BA /* libanim.a in Frameworks */,
 				67E5044D1BFA355B001F34BA /* libjansson.a in Frameworks */,
 				67E504501BFA355B001F34BA /* libminizip.a in Frameworks */,
 				6741A9081BF340D1002C974C /* UIKit.framework in Frameworks */,
@@ -1475,7 +1473,6 @@
 				6741A90C1BF340D1002C974C /* QuartzCore.framework in Frameworks */,
 				6741A90D1BF340D1002C974C /* CoreData.framework in Frameworks */,
 				67E504461BFA355B001F34BA /* libexpat.a in Frameworks */,
-				67E504551BFA355B001F34BA /* librender.a in Frameworks */,
 				67E504451BFA355B001F34BA /* libcoding.a in Frameworks */,
 				6741A90E1BF340D1002C974C /* CoreMedia.framework in Frameworks */,
 				67E504511BFA355B001F34BA /* libopening_hours.a in Frameworks */,
@@ -1485,7 +1482,6 @@
 				6741A9111BF340D1002C974C /* AVFoundation.framework in Frameworks */,
 				67E504401BFA355B001F34BA /* libagg.a in Frameworks */,
 				6741A9121BF340D1002C974C /* OpenGLES.framework in Frameworks */,
-				67E5044B1BFA355B001F34BA /* libgui.a in Frameworks */,
 				67E504591BFA355B001F34BA /* libsuccinct.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1497,7 +1493,6 @@
 				34921F6B1BFA0CDC00737D6E /* MyTargetSDKCorp.framework in Frameworks */,
 				6741AABD1BF356BA002C974C /* libagg.a in Frameworks */,
 				6741AABE1BF356BA002C974C /* libalohalitics.a in Frameworks */,
-				6741AABF1BF356BA002C974C /* libanim.a in Frameworks */,
 				6741AAC01BF356BA002C974C /* libapi.a in Frameworks */,
 				6741AAC11BF356BA002C974C /* libbase.a in Frameworks */,
 				6741AAC21BF356BA002C974C /* libcoding.a in Frameworks */,
@@ -1505,8 +1500,7 @@
 				6741AAC41BF356BA002C974C /* libfreetype.a in Frameworks */,
 				6741AAC51BF356BA002C974C /* libfribidi.a in Frameworks */,
 				6741AAC61BF356BA002C974C /* libgeometry.a in Frameworks */,
-				6741AAC71BF356BA002C974C /* libgraphics.a in Frameworks */,
-				6741AAC81BF356BA002C974C /* libgui.a in Frameworks */,
+				674A7E291C0DA576003D48E1 /* libsdf_image.a in Frameworks */,
 				6741AAC91BF356BA002C974C /* libindexer.a in Frameworks */,
 				6741AACA1BF356BA002C974C /* libjansson.a in Frameworks */,
 				6741AACB1BF356BA002C974C /* liblodepng.a in Frameworks */,
@@ -1516,8 +1510,8 @@
 				6741AACF1BF356BA002C974C /* libosrm.a in Frameworks */,
 				6741AAD01BF356BA002C974C /* libplatform.a in Frameworks */,
 				6741AAD11BF356BA002C974C /* libprotobuf.a in Frameworks */,
-				6741AAD21BF356BA002C974C /* librender.a in Frameworks */,
 				6741AAD31BF356BA002C974C /* librouting.a in Frameworks */,
+				674A7E281C0DA573003D48E1 /* libstb_image.a in Frameworks */,
 				6741AAD41BF356BA002C974C /* libsearch.a in Frameworks */,
 				6741AAD51BF356BA002C974C /* libstorage.a in Frameworks */,
 				6741AAD61BF356BA002C974C /* libsuccinct.a in Frameworks */,
@@ -1528,6 +1522,7 @@
 				6741AA351BF340DE002C974C /* libsqlite3.dylib in Frameworks */,
 				6741AA361BF340DE002C974C /* libz.dylib in Frameworks */,
 				6741AA371BF340DE002C974C /* AudioToolbox.framework in Frameworks */,
+				674A7E2B1C0DA57C003D48E1 /* libdrape_frontend.a in Frameworks */,
 				6741AA381BF340DE002C974C /* Bolts.framework in Frameworks */,
 				6741AA391BF340DE002C974C /* Parse.framework in Frameworks */,
 				6741AA3A1BF340DE002C974C /* ParseFacebookUtilsV4.framework in Frameworks */,
@@ -1538,6 +1533,7 @@
 				6741AA3F1BF340DE002C974C /* PassKit.framework in Frameworks */,
 				6741AA401BF340DE002C974C /* libFlurry_7.1.0.a in Frameworks */,
 				6741AA411BF340DE002C974C /* CoreMedia.framework in Frameworks */,
+				674A7E2A1C0DA579003D48E1 /* libdrape.a in Frameworks */,
 				6741AA421BF340DE002C974C /* CoreData.framework in Frameworks */,
 				6741AA431BF340DE002C974C /* AVFoundation.framework in Frameworks */,
 				6741AA441BF340DE002C974C /* CFNetwork.framework in Frameworks */,
@@ -1684,6 +1680,10 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				674A7E201C0DA55E003D48E1 /* libdrape_frontend.a */,
+				674A7E211C0DA55E003D48E1 /* libdrape.a */,
+				674A7E221C0DA55E003D48E1 /* libsdf_image.a */,
+				674A7E231C0DA55E003D48E1 /* libstb_image.a */,
 				34921F691BFA0CDC00737D6E /* MyTargetSDKCorp.framework */,
 				6741AAA21BF356B9002C974C /* libagg.a */,
 				6741AAA31BF356B9002C974C /* libalohalitics.a */,
@@ -3566,8 +3566,6 @@
 				6741A8FD1BF340D1002C974C /* MWMWatchLocationTracker.mm in Sources */,
 				6741A8FE1BF340D1002C974C /* MWMWKInterfaceController.mm in Sources */,
 				6741A8FF1BF340D1002C974C /* MWMFrameworkUtils.mm in Sources */,
-				6741A9001BF340D1002C974C /* RenderBuffer.mm in Sources */,
-				6741A9011BF340D1002C974C /* RenderContext.mm in Sources */,
 				6741A9021BF340D1002C974C /* MWMSearchResultController.mm in Sources */,
 				6741A9031BF340D1002C974C /* MWMCategoriesInterfaceController.mm in Sources */,
 			);
@@ -3604,7 +3602,6 @@
 				6741A9B91BF340DE002C974C /* MWMRateAlert.mm in Sources */,
 				6741A9BA1BF340DE002C974C /* MWMRoutePointCell.m in Sources */,
 				6741A9BB1BF340DE002C974C /* LocationPredictor.mm in Sources */,
-				6741A9BC1BF340DE002C974C /* RenderBuffer.mm in Sources */,
 				6741A9BD1BF340DE002C974C /* MWMWatchNotification.mm in Sources */,
 				6741A9BE1BF340DE002C974C /* UILabel+RuntimeAttributes.mm in Sources */,
 				6741A9BF1BF340DE002C974C /* MWMSearchTabbedCollectionViewCell.mm in Sources */,
@@ -3626,7 +3623,6 @@
 				6741A9CE1BF340DE002C974C /* MWMSearchManager.mm in Sources */,
 				6741A9CF1BF340DE002C974C /* MWMLocationAlert.mm in Sources */,
 				6741A9D01BF340DE002C974C /* MWMPlacePage.mm in Sources */,
-				6741A9D11BF340DE002C974C /* RenderContext.mm in Sources */,
 				6741A9D21BF340DE002C974C /* MWMBookmarkDescriptionViewController.mm in Sources */,
 				6741A9D31BF340DE002C974C /* MWMDownloadMapRequestView.mm in Sources */,
 				3476B8CC1BFDCB6700874594 /* MWMTTSSettingsViewController.mm in Sources */,
@@ -3711,6 +3707,7 @@
 				6741AA211BF340DE002C974C /* ViewController.mm in Sources */,
 				6741AA221BF340DE002C974C /* MWMNavigationView.mm in Sources */,
 				6741AA231BF340DE002C974C /* UIFont+MapsMeFonts.mm in Sources */,
+				674A7E301C0DB10B003D48E1 /* MWMMapWidgets.mm in Sources */,
 				6741AA241BF340DE002C974C /* UIButton+RuntimeAttributes.mm in Sources */,
 				6741AA251BF340DE002C974C /* MWMBottomMenuView.mm in Sources */,
 				6741AA261BF340DE002C974C /* MWMSearchDownloadMapRequest.mm in Sources */,
@@ -4101,6 +4098,7 @@
 				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/Entitlements/me.maps.watchkitextension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LIBRARY_SEARCH_PATHS = "";
@@ -4118,6 +4116,7 @@
 				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/Entitlements/me.maps.watchkitextension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LIBRARY_SEARCH_PATHS = "";
@@ -4136,6 +4135,11 @@
 				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/Entitlements/me.maps.watchkitextension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				HEADER_SEARCH_PATHS = (
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/glm",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LIBRARY_SEARCH_PATHS = "";
@@ -4153,6 +4157,7 @@
 				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/Entitlements/me.maps.watchkitextension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LIBRARY_SEARCH_PATHS = "";
@@ -4171,6 +4176,11 @@
 				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/Entitlements/me.maps.watchkitextension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				HEADER_SEARCH_PATHS = (
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/glm",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LIBRARY_SEARCH_PATHS = "";
@@ -4188,6 +4198,7 @@
 				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/Entitlements/me.maps.watchkitextension.production.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LIBRARY_SEARCH_PATHS = "";
@@ -4278,6 +4289,11 @@
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/glm",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/MAPSME.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/MyTracker",
@@ -4341,6 +4357,11 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/glm",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/MAPSME.plist";
 				LIBRARY_SEARCH_PATHS = (

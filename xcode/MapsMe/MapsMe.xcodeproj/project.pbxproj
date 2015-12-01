@@ -23,8 +23,8 @@
 		6714E5E71BD13F67008AB603 /* drules_proto_dark.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6714E5E11BD13F67008AB603 /* drules_proto_dark.txt */; };
 		6714E5E81BD13F67008AB603 /* drules_proto-bw.bin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6714E5E21BD13F67008AB603 /* drules_proto-bw.bin */; };
 		6714E5E91BD13F67008AB603 /* drules_proto-bw.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6714E5E31BD13F67008AB603 /* drules_proto-bw.txt */; };
-		6714E6021BD14016008AB603 /* resources-mdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 6714E6001BD14016008AB603 /* resources-mdpi_clear */; settings = {ASSET_TAGS = (); }; };
-		6714E6031BD14016008AB603 /* resources-mdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 6714E6011BD14016008AB603 /* resources-mdpi_dark */; settings = {ASSET_TAGS = (); }; };
+		6714E6021BD14016008AB603 /* resources-mdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 6714E6001BD14016008AB603 /* resources-mdpi_clear */; };
+		6714E6031BD14016008AB603 /* resources-mdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 6714E6011BD14016008AB603 /* resources-mdpi_dark */; };
 		671F59021B8755FE0032311E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 671F59011B8755FE0032311E /* libz.dylib */; };
 		671F59301B8759460032311E /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671F592F1B8759460032311E /* libminizip.a */; };
 		6729A5C11A693014007D5872 /* categories.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A5B91A693013007D5872 /* categories.txt */; };
@@ -55,9 +55,7 @@
 		6729A66E1A695C70007D5872 /* eula.html in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A66B1A695C70007D5872 /* eula.html */; };
 		6729A66F1A695C70007D5872 /* welcome.html in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A66C1A695C70007D5872 /* welcome.html */; };
 		6729A6711A695CA8007D5872 /* languages.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A6701A695CA8007D5872 /* languages.txt */; };
-		674A298F1B26EB5D001A525C /* librender.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A298E1B26EB5D001A525C /* librender.a */; };
 		674A29AB1B26F0AE001A525C /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29901B26F0AE001A525C /* libalohalitics.a */; };
-		674A29AC1B26F0AE001A525C /* libanim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29911B26F0AE001A525C /* libanim.a */; };
 		674A29AD1B26F0AE001A525C /* libapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29921B26F0AE001A525C /* libapi.a */; };
 		674A29AE1B26F0AE001A525C /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29931B26F0AE001A525C /* libbase.a */; };
 		674A29AF1B26F0AE001A525C /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29941B26F0AE001A525C /* libcoding.a */; };
@@ -65,10 +63,7 @@
 		674A29B21B26F0AE001A525C /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29971B26F0AE001A525C /* libfreetype.a */; };
 		674A29B31B26F0AE001A525C /* libfribidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29981B26F0AE001A525C /* libfribidi.a */; };
 		674A29B41B26F0AE001A525C /* libgenerator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29991B26F0AE001A525C /* libgenerator.a */; };
-		674A29B51B26F0AE001A525C /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A299A1B26F0AE001A525C /* libgeometry.a */; };
 		674A29B61B26F0AE001A525C /* libgflags.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A299B1B26F0AE001A525C /* libgflags.a */; };
-		674A29B71B26F0AE001A525C /* libgraphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A299C1B26F0AE001A525C /* libgraphics.a */; };
-		674A29B81B26F0AE001A525C /* libgui.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A299D1B26F0AE001A525C /* libgui.a */; };
 		674A29B91B26F0AE001A525C /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A299E1B26F0AE001A525C /* libindexer.a */; };
 		674A29BA1B26F0AE001A525C /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A299F1B26F0AE001A525C /* libjansson.a */; };
 		674A29BB1B26F0AE001A525C /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29A01B26F0AE001A525C /* libmap.a */; };
@@ -81,6 +76,13 @@
 		674A29C21B26F0AE001A525C /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29A71B26F0AE001A525C /* libstorage.a */; };
 		674A29C31B26F0AE001A525C /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29A81B26F0AE001A525C /* libsuccinct.a */; };
 		674A29C41B26F0AE001A525C /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29A91B26F0AE001A525C /* libtomcrypt.a */; };
+		674A7E311C0DB727003D48E1 /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A299A1B26F0AE001A525C /* libgeometry.a */; };
+		674A7E361C0DB727003D48E1 /* libdrape_frontend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E321C0DB727003D48E1 /* libdrape_frontend.a */; };
+		674A7E371C0DB727003D48E1 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E331C0DB727003D48E1 /* libdrape.a */; };
+		674A7E381C0DB727003D48E1 /* libsdf_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E341C0DB727003D48E1 /* libsdf_image.a */; };
+		674A7E391C0DB727003D48E1 /* libstb_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E351C0DB727003D48E1 /* libstb_image.a */; };
+		674A7E411C0DB7D6003D48E1 /* qtoglcontext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A7E3C1C0DB7D6003D48E1 /* qtoglcontext.cpp */; };
+		674A7E421C0DB7D6003D48E1 /* qtoglcontextfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A7E3E1C0DB7D6003D48E1 /* qtoglcontextfactory.cpp */; };
 		675345861A404CB200A0A8C3 /* about.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753456C1A404CB200A0A8C3 /* about.cpp */; };
 		675345881A404CB200A0A8C3 /* draw_widget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345701A404CB200A0A8C3 /* draw_widget.cpp */; };
 		675345891A404CB200A0A8C3 /* info_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345721A404CB200A0A8C3 /* info_dialog.cpp */; };
@@ -237,6 +239,14 @@
 		674A29A81B26F0AE001A525C /* libsuccinct.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsuccinct.a; path = "../../../omim-xcode-build/Debug/libsuccinct.a"; sourceTree = "<group>"; };
 		674A29A91B26F0AE001A525C /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-xcode-build/Debug/libtomcrypt.a"; sourceTree = "<group>"; };
 		674A29AA1B26F0AE001A525C /* libzlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libzlib.a; path = "../../../omim-xcode-build/Debug/libzlib.a"; sourceTree = "<group>"; };
+		674A7E321C0DB727003D48E1 /* libdrape_frontend.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape_frontend.a; path = "../../../omim-xcode-build/Debug/libdrape_frontend.a"; sourceTree = "<group>"; };
+		674A7E331C0DB727003D48E1 /* libdrape.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape.a; path = "../../../omim-xcode-build/Debug/libdrape.a"; sourceTree = "<group>"; };
+		674A7E341C0DB727003D48E1 /* libsdf_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsdf_image.a; path = "../../../omim-xcode-build/Debug/libsdf_image.a"; sourceTree = "<group>"; };
+		674A7E351C0DB727003D48E1 /* libstb_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstb_image.a; path = "../../../omim-xcode-build/Debug/libstb_image.a"; sourceTree = "<group>"; };
+		674A7E3C1C0DB7D6003D48E1 /* qtoglcontext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = qtoglcontext.cpp; sourceTree = "<group>"; };
+		674A7E3D1C0DB7D6003D48E1 /* qtoglcontext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = qtoglcontext.hpp; sourceTree = "<group>"; };
+		674A7E3E1C0DB7D6003D48E1 /* qtoglcontextfactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = qtoglcontextfactory.cpp; sourceTree = "<group>"; };
+		674A7E3F1C0DB7D6003D48E1 /* qtoglcontextfactory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = qtoglcontextfactory.hpp; sourceTree = "<group>"; };
 		675345491A404C6100A0A8C3 /* MapsMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapsMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6753454D1A404C6100A0A8C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6753456C1A404CB200A0A8C3 /* about.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = about.cpp; sourceTree = "<group>"; };
@@ -274,12 +284,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				674A7E361C0DB727003D48E1 /* libdrape_frontend.a in Frameworks */,
+				674A7E371C0DB727003D48E1 /* libdrape.a in Frameworks */,
+				674A7E381C0DB727003D48E1 /* libsdf_image.a in Frameworks */,
+				674A7E391C0DB727003D48E1 /* libstb_image.a in Frameworks */,
+				674A7E311C0DB727003D48E1 /* libgeometry.a in Frameworks */,
 				67E8DC931BBC1D3F0053C5BA /* libagg.a in Frameworks */,
 				67E8DC941BBC1D3F0053C5BA /* liblodepng.a in Frameworks */,
 				671F59301B8759460032311E /* libminizip.a in Frameworks */,
 				671F59021B8755FE0032311E /* libz.dylib in Frameworks */,
 				674A29AB1B26F0AE001A525C /* libalohalitics.a in Frameworks */,
-				674A29AC1B26F0AE001A525C /* libanim.a in Frameworks */,
 				674A29AD1B26F0AE001A525C /* libapi.a in Frameworks */,
 				674A29AE1B26F0AE001A525C /* libbase.a in Frameworks */,
 				674A29AF1B26F0AE001A525C /* libcoding.a in Frameworks */,
@@ -287,10 +301,7 @@
 				674A29B21B26F0AE001A525C /* libfreetype.a in Frameworks */,
 				674A29B31B26F0AE001A525C /* libfribidi.a in Frameworks */,
 				674A29B41B26F0AE001A525C /* libgenerator.a in Frameworks */,
-				674A29B51B26F0AE001A525C /* libgeometry.a in Frameworks */,
 				674A29B61B26F0AE001A525C /* libgflags.a in Frameworks */,
-				674A29B71B26F0AE001A525C /* libgraphics.a in Frameworks */,
-				674A29B81B26F0AE001A525C /* libgui.a in Frameworks */,
 				674A29B91B26F0AE001A525C /* libindexer.a in Frameworks */,
 				674A29BA1B26F0AE001A525C /* libjansson.a in Frameworks */,
 				674A29BB1B26F0AE001A525C /* libmap.a in Frameworks */,
@@ -303,7 +314,6 @@
 				674A29C21B26F0AE001A525C /* libstorage.a in Frameworks */,
 				674A29C31B26F0AE001A525C /* libsuccinct.a in Frameworks */,
 				674A29C41B26F0AE001A525C /* libtomcrypt.a in Frameworks */,
-				674A298F1B26EB5D001A525C /* librender.a in Frameworks */,
 				67534D271A40AA4300A0A8C3 /* CoreLocation.framework in Frameworks */,
 				67534C421A4097D000A0A8C3 /* OpenGL.framework in Frameworks */,
 				675345A81A40535E00A0A8C3 /* Cocoa.framework in Frameworks */,
@@ -326,6 +336,10 @@
 		6729A4591A684401007D5872 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				674A7E321C0DB727003D48E1 /* libdrape_frontend.a */,
+				674A7E331C0DB727003D48E1 /* libdrape.a */,
+				674A7E341C0DB727003D48E1 /* libsdf_image.a */,
+				674A7E351C0DB727003D48E1 /* libstb_image.a */,
 				67E8DC911BBC1D3F0053C5BA /* libagg.a */,
 				67E8DC921BBC1D3F0053C5BA /* liblodepng.a */,
 				671F592F1B8759460032311E /* libminizip.a */,
@@ -431,6 +445,10 @@
 		6753454B1A404C6100A0A8C3 /* MapsMe */ = {
 			isa = PBXGroup;
 			children = (
+				674A7E3C1C0DB7D6003D48E1 /* qtoglcontext.cpp */,
+				674A7E3D1C0DB7D6003D48E1 /* qtoglcontext.hpp */,
+				674A7E3E1C0DB7D6003D48E1 /* qtoglcontextfactory.cpp */,
+				674A7E3F1C0DB7D6003D48E1 /* qtoglcontextfactory.hpp */,
 				670D055E1B0C9A900013A7AC /* res */,
 				6753456C1A404CB200A0A8C3 /* about.cpp */,
 				6753456D1A404CB200A0A8C3 /* about.hpp */,
@@ -547,6 +565,7 @@
 				670D05931B0CBD320013A7AC /* about.hpp in Sources */,
 				670D05941B0CBD320013A7AC /* info_dialog.hpp in Sources */,
 				670D05951B0CBD320013A7AC /* preferences_dialog.hpp in Sources */,
+				674A7E411C0DB7D6003D48E1 /* qtoglcontext.cpp in Sources */,
 				670D05961B0CBD320013A7AC /* search_panel.hpp in Sources */,
 				670D05971B0CBD320013A7AC /* slider_ctrl.hpp in Sources */,
 				670D05981B0CBD320013A7AC /* update_dialog.hpp in Sources */,
@@ -558,6 +577,7 @@
 				675345921A404CB200A0A8C3 /* update_dialog.cpp in Sources */,
 				6753458B1A404CB200A0A8C3 /* mainwindow.cpp in Sources */,
 				675345881A404CB200A0A8C3 /* draw_widget.cpp in Sources */,
+				674A7E421C0DB7D6003D48E1 /* qtoglcontextfactory.cpp in Sources */,
 				6753458C1A404CB200A0A8C3 /* preferences_dialog.cpp in Sources */,
 				6753458A1A404CB200A0A8C3 /* main.cpp in Sources */,
 				675345891A404CB200A0A8C3 /* info_dialog.cpp in Sources */,
@@ -608,6 +628,7 @@
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/freetype/include",
 					"$(QT_PATH)/include",
+					"$(OMIM_ROOT)/3party/glm",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -668,6 +689,7 @@
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/freetype/include",
 					"$(QT_PATH)/include",
+					"$(OMIM_ROOT)/3party/glm",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;

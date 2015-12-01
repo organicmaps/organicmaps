@@ -60,9 +60,6 @@
       </FileRef>
    </Group>
    <FileRef
-      location = "container:anim/anim.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "container:api/api.xcodeproj">
    </FileRef>
    <FileRef
@@ -84,12 +81,6 @@
       location = "container:generator/generator.xcodeproj">
    </FileRef>
    <FileRef
-      location = "container:graphics/graphics.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "container:gui/gui.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "container:indexer/indexer.xcodeproj">
    </FileRef>
    <FileRef
@@ -97,9 +88,6 @@
    </FileRef>
    <FileRef
       location = "container:platform/platform.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "container:render/render.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:routing/routing.xcodeproj">

@@ -50,7 +50,7 @@ CVPixelBufferRef HWTextureAllocatorApple::CVCreatePixelBuffer(uint32_t width, ui
                             [NSNumber numberWithBool:YES], kCVPixelBufferOpenGLESCompatibilityKey,
                             nil];
 
-  CFDictionaryRef attrsRef = (CFDictionaryRef)attrs;
+  CFDictionaryRef attrsRef = (__bridge CFDictionaryRef)attrs;
 
   CVPixelBufferRef result;
   CVReturn cvRetval;
