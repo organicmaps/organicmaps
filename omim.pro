@@ -63,10 +63,10 @@ SUBDIRS = 3party base coding geometry indexer routing
   CONFIG(desktop) {
     benchmark_tool.subdir = map/benchmark_tool
     benchmark_tool.depends = 3party base coding geometry platform indexer map
-    SUBDIRS *= benchmark_tool mapshot
-
+    mapshot.depends = $$SUBDIRS
     qt.depends = $$SUBDIRS
-    SUBDIRS *= qt
+
+    SUBDIRS *= benchmark_tool mapshot qt
   }
 
   CONFIG(desktop):!CONFIG(no-tests) {
