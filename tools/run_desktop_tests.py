@@ -131,15 +131,10 @@ class TestRunner:
         
 
     def test_file_with_keys(self, test_file):
-        # omim-build-debug/out/debug/opening_hours_tests --report_format=xml --report_level=detailed --log_level=test_suite --log_format=xml 1> boostlog.xml 2> boosterr.xml
-
         if self.boost_tests:
             return "{test_file}  --report_format=xml --report_level=detailed --log_level=test_suite --log_format=xml {data}{resources}".format(test_file=test_file, data=self.data_path, resources=self.user_resource_path)
 
         return "{test_file}{data}{resources}".format(test_file=test_file, data=self.data_path, resources=self.user_resource_path)
-
-
-        pass
 
 
     def run_tests(self, tests_to_run):
@@ -149,8 +144,6 @@ class TestRunner:
         for test_file in tests_to_run:
             
             self.log_exec_file(test_file)
-
-
 
             test_file_with_keys = self.test_file_with_keys(test_file)
         
