@@ -61,6 +61,16 @@ namespace location
     bool HasSpeed() const    { return m_speed >= 0.0; }
   };
 
+  /// GpsTrackInfo struct describes a point for GPS tracking
+  /// It is similar to the GpsInfo but contains only needed fields.
+  struct GpsTrackInfo
+  {
+    double m_timestamp; //!< seconds from 1st Jan 1970
+    double m_latitude;  //!< degrees
+    double m_longitude; //!< degrees
+    double m_speed;     //!< meters per second
+  };
+
   class CompassInfo
   {
   public:
