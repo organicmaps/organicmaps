@@ -561,9 +561,7 @@ FeatureID FrontendRenderer::GetVisiblePOI(m2::RectD const & pixelRect) const
 
 void FrontendRenderer::BeginUpdateOverlayTree(ScreenBase const & modelView)
 {
-  m_overlayTree->Frame();
-
-  if (m_overlayTree->IsNeedUpdate())
+  if (m_overlayTree->Frame())
     m_overlayTree->StartOverlayPlacing(modelView);
 }
 

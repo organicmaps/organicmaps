@@ -110,7 +110,7 @@ void RenderBucket::RenderDebug(ScreenBase const & screen) const
     for (auto const & handle : m_overlay)
     {
       OverlayHandle::Rects rects;
-      handle->GetPixelShape(screen, rects);
+      handle->GetExtendedPixelShape(screen, rects);
       for (auto const & rect : rects)
         DebugRectRenderer::Instance().DrawRect(screen, rect);
     }

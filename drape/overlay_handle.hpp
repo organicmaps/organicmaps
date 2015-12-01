@@ -48,8 +48,12 @@ public:
 
   virtual bool Update(ScreenBase const & /*screen*/) { return true; }
   virtual m2::RectD GetPixelRect(ScreenBase const & screen) const = 0;
-
   virtual void GetPixelShape(ScreenBase const & screen, Rects & rects) const = 0;
+
+  double GetExtendingSize() const { return m_extendingSize; }
+  void SetExtendingSize(double extendingSize) { m_extendingSize = extendingSize; }
+  m2::RectD GetExtendedPixelRect(ScreenBase const & screen) const;
+  void GetExtendedPixelShape(ScreenBase const & screen, Rects & rects) const;
 
   bool IsIntersect(ScreenBase const & screen, ref_ptr<OverlayHandle> const h) const;
 
@@ -78,6 +82,7 @@ protected:
   uint64_t const m_priority;
 
   int m_overlayRank;
+  double m_extendingSize;
 
   typedef pair<BindingInfo, MutateRegion> TOffsetNode;
   TOffsetNode const & GetOffsetNode(uint8_t bufferID) const;

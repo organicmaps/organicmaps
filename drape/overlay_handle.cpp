@@ -24,6 +24,7 @@ OverlayHandle::OverlayHandle(FeatureID const & id, dp::Anchor anchor, uint64_t p
   , m_anchor(anchor)
   , m_priority(priority)
   , m_overlayRank(OverlayRank0)
+  , m_extendingSize(0)
   , m_isVisible(false)
 {
 }
@@ -62,8 +63,8 @@ bool OverlayHandle::IsIntersect(ScreenBase const & screen, ref_ptr<OverlayHandle
   Rects ar1;
   Rects ar2;
 
-  GetPixelShape(screen, ar1);
-  h->GetPixelShape(screen, ar2);
+  GetExtendedPixelShape(screen, ar1);
+  h->GetExtendedPixelShape(screen, ar2);
 
   for (size_t i = 0; i < ar1.size(); ++i)
     for (size_t j = 0; j < ar2.size(); ++j)
@@ -119,6 +120,20 @@ OverlayHandle::TOffsetNode const & OverlayHandle::GetOffsetNode(uint8_t bufferID
   set<TOffsetNode>::const_iterator it = find_if(m_offsets.begin(), m_offsets.end(), OffsetNodeFinder(bufferID));
   ASSERT(it != m_offsets.end(), ());
   return *it;
+}
+
+m2::RectD OverlayHandle::GetExtendedPixelRect(ScreenBase const & screen) const
+{
+  m2::RectD rect = GetPixelRect(screen);
+  rect.Inflate(m_extendingSize, m_extendingSize);
+  return rect;
+}
+
+void OverlayHandle::GetExtendedPixelShape(ScreenBase const & screen, Rects & rects) const
+{
+  GetPixelShape(screen, rects);
+  for (auto & rect : rects)
+    rect.Inflate(m_extendingSize, m_extendingSize);
 }
 
 SquareHandle::SquareHandle(FeatureID const & id, dp::Anchor anchor,

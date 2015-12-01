@@ -54,11 +54,16 @@ OverlayTree::OverlayTree()
     m_handles[i].reserve(kAverageHandlesCount[i]);
 }
 
-void OverlayTree::Frame()
+bool OverlayTree::Frame()
 {
+  if (IsNeedUpdate())
+    return true;
+
   m_frameCounter++;
   if (m_frameCounter >= kFrameUpdarePeriod)
     m_frameCounter = -1;
+
+  return IsNeedUpdate();
 }
 
 bool OverlayTree::IsNeedUpdate() const
@@ -68,7 +73,6 @@ bool OverlayTree::IsNeedUpdate() const
 
 void OverlayTree::ForceUpdate()
 {
-  Clear();
   m_frameCounter = -1;
 }
 
@@ -81,6 +85,8 @@ void OverlayTree::StartOverlayPlacing(ScreenBase const & screen)
 
 void OverlayTree::Add(ref_ptr<OverlayHandle> handle, bool isTransparent)
 {
+  ASSERT(IsNeedUpdate(), ());
+
   ScreenBase const & modelView = GetModelView();
 
   handle->SetIsVisible(false);
@@ -88,7 +94,7 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle, bool isTransparent)
   if (!handle->Update(modelView))
     return;
 
-  m2::RectD const pixelRect = handle->GetPixelRect(modelView);
+  m2::RectD const pixelRect = handle->GetExtendedPixelRect(modelView);
   if (!m_traits.m_modelView.PixelRect().IsIntersect(pixelRect))
   {
     handle->SetIsVisible(false);
@@ -103,8 +109,10 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle, bool isTransparent)
 void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, bool isTransparent,
                                detail::OverlayInfo const & parentOverlay)
 {
+  ASSERT(IsNeedUpdate(), ());
+
   ScreenBase const & modelView = GetModelView();
-  m2::RectD const pixelRect = handle->GetPixelRect(modelView);
+  m2::RectD const pixelRect = handle->GetExtendedPixelRect(modelView);
 
   TOverlayContainer elements;
 
@@ -155,6 +163,8 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, bool isTransparent
 
 void OverlayTree::EndOverlayPlacing()
 {
+  ASSERT(IsNeedUpdate(), ());
+
   HandleComparator comparator;
 
   for (int rank = 0; rank < dp::OverlayRanksCount; rank++)
@@ -176,6 +186,8 @@ void OverlayTree::EndOverlayPlacing()
   {
     info.m_handle->SetIsVisible(true);
   });
+
+  m_frameCounter = 0;
 }
 
 bool OverlayTree::CheckHandle(ref_ptr<OverlayHandle> handle, int currentRank,
