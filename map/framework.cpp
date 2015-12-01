@@ -145,7 +145,7 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
 
   if (m_gpsTrackingEnabled)
   {
-    m2::PointD const point = MercatorBounds::FromLatLon(ms::LatLon(info.m_latitude, info.m_latitude));
+    m2::PointD const point = MercatorBounds::FromLatLon(ms::LatLon(info.m_latitude, info.m_longitude));
     m_gpsTrack.AddPoint(point, info.m_speed, info.m_timestamp);
   }
 }
