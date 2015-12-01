@@ -94,7 +94,7 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, TTilesCollection con
                    tiles.begin(), tiles.end(),
                    back_inserter(outdatedTiles), LessCoverageCell());
 
-    // Find rects that go in into viewport
+    // Find rects that go in into viewport.
     buffer_vector<TileKey, 8> inputRects;
 #ifdef _MSC_VER
     vs_bug::
@@ -103,20 +103,24 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, TTilesCollection con
                    m_tileInfos.begin(), m_tileInfos.end(),
                    back_inserter(inputRects), LessCoverageCell());
 
-    IncreaseCounter(static_cast<int>(inputRects.size() + (m_tileInfos.size() - outdatedTiles.size())));
-
-    for_each(outdatedTiles.begin(), outdatedTiles.end(), bind(&ReadManager::ClearTileInfo, this, _1));
+    // Find tiles which must be re-read.
+    buffer_vector<shared_ptr<TileInfo>, 8> rereadTiles;
     for (shared_ptr<TileInfo> const & tile : m_tileInfos)
     {
       for (shared_ptr<TileInfo> & outTile : outdatedTiles)
       {
         if (IsNeighbours(tile->GetTileKey(), outTile->GetTileKey()))
         {
-            PushTaskFront(tile);
+            rereadTiles.push_back(tile);
             break;
         }
       }
     }
+
+    IncreaseCounter(static_cast<int>(inputRects.size() + rereadTiles.size()));
+
+    for_each(outdatedTiles.begin(), outdatedTiles.end(), bind(&ReadManager::ClearTileInfo, this, _1));
+    for_each(rereadTiles.begin(), rereadTiles.end(), bind(&ReadManager::PushTaskFront, this, _1));
     for_each(inputRects.begin(), inputRects.end(), bind(&ReadManager::PushTaskBackForTileKey, this, _1, texMng));
   }
   m_currentViewport = screen;
