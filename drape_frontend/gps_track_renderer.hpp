@@ -40,7 +40,7 @@ private:
   double CalculateTrackLength() const;
   void UpdateSpeedsAndColors();
   size_t GetAvailablePointsCount() const;
-  double PlacePoints(size_t & cacheIndex,
+  double PlacePoints(size_t & cacheIndex, bool unknownDistance,
                      m2::PointD const & start, m2::PointD const & end,
                      double startSpeed, double endSpeed,
                      float radius, double diameterMercator,
