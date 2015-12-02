@@ -131,7 +131,7 @@ class TestRunner:
         
 
     def test_file_with_keys(self, test_file):
-        boost_keys = "  --report_format=xml --report_level=detailed --log_level=test_suite --log_format=xml " if self.boost_tests else ""
+        boost_keys = " --report_format=xml --report_level=detailed --log_level=test_suite --log_format=xml " if self.boost_tests else ""
         return "{test_file}{boost_keys}{data}{resources}".format(test_file=test_file, boost_keys=boost_keys, data=self.data_path, resources=self.user_resource_path)
 
 
