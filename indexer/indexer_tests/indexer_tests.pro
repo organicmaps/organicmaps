@@ -37,4 +37,3 @@ SOURCES += \
     test_type.cpp \
     trie_test.cpp \
     visibility_test.cpp \
-    xml_feature_test.cpp \

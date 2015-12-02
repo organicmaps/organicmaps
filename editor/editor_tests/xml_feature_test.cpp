@@ -1,13 +1,12 @@
 #include "testing/testing.hpp"
 
-#include "indexer/xml_feature.hpp"
-
-#include "3party/pugixml/src/pugixml.hpp"
+#include "editor/xml_feature.hpp"
 
 #include "base/timer.hpp"
 
 #include "std/sstream.hpp"
 
+#include "3party/pugixml/src/pugixml.hpp"
 
 using namespace indexer;
 
@@ -31,10 +30,10 @@ UNIT_TEST(XMLFeature_RawGetSet)
 
   auto const expected = R"(<?xml version="1.0"?>
 <node
-	FooBar="foofoo">
-	<tag
-		k="opening_hours"
-		v="18:20-19:21" />
+  FooBar="foofoo">
+  <tag
+    k="opening_hours"
+    v="18:20-19:21" />
 </node>
 )";
 
@@ -63,23 +62,23 @@ UNIT_TEST(XMLFeature_Setters)
 
   auto const expectedString = R"(<?xml version="1.0"?>
 <node
-	center="64.2342340, 53.3124200"
-	timestamp="2015-11-27T21:13:32Z">
-	<tag
-		k="name"
-		v="Gorki Park" />
-	<tag
-		k="name:en"
-		v="Gorki Park" />
-	<tag
-		k="name:ru"
-		v="Парк Горького" />
-	<tag
-		k="addr:housenumber"
-		v="10" />
-	<tag
-		k="opening_hours"
-		v="Mo-Fr 08:15-17:30" />
+  center="64.2342340, 53.3124200"
+  timestamp="2015-11-27T21:13:32Z">
+  <tag
+    k="name"
+    v="Gorki Park" />
+  <tag
+    k="name:en"
+    v="Gorki Park" />
+  <tag
+    k="name:ru"
+    v="Парк Горького" />
+  <tag
+    k="addr:housenumber"
+    v="10" />
+  <tag
+    k="opening_hours"
+    v="Mo-Fr 08:15-17:30" />
 </node>
 )";
 
@@ -90,23 +89,23 @@ UNIT_TEST(XMLFeatureFromXml)
 {
   auto const srcString = R"(<?xml version="1.0"?>
 <node
-	center="64.2342340, 53.3124200"
-	timestamp="2015-11-27T21:13:32Z">
-	<tag
-		k="name"
-		v="Gorki Park" />
-	<tag
-		k="name:en"
-		v="Gorki Park" />
-	<tag
-		k="name:ru"
-		v="Парк Горького" />
-	<tag
-		k="addr:housenumber"
-		v="10" />
-	<tag
-		k="opening_hours"
-		v="Mo-Fr 08:15-17:30" />
+  center="64.2342340, 53.3124200"
+  timestamp="2015-11-27T21:13:32Z">
+  <tag
+    k="name"
+    v="Gorki Park" />
+  <tag
+    k="name:en"
+    v="Gorki Park" />
+  <tag
+    k="name:ru"
+    v="Парк Горького" />
+  <tag
+    k="addr:housenumber"
+    v="10" />
+  <tag
+    k="opening_hours"
+    v="Mo-Fr 08:15-17:30" />
 </node>
 )";
 

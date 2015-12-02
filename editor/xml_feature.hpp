@@ -2,19 +2,13 @@
 
 #include "geometry/point2d.hpp"
 
-#include "coding/multilang_utf8_string.hpp"
-#include "coding/value_opt_string.hpp"
-
 #include "std/ctime.hpp"
 #include "std/iostream.hpp"
 #include "std/map.hpp"
 #include "std/unique_ptr.hpp"
 
-namespace pugi
-{
-class xml_document;
-class xml_node;
-}
+#include "3party/pugixml/src/pugixml.hpp"
+
 
 namespace indexer
 {
@@ -33,8 +27,11 @@ public:
   m2::PointD GetCenter() const;
   void SetCenter(m2::PointD const & center);
 
-  string const GetName(string const & lang = "") const;
-  string const GetName(uint8_t const langCode) const;
+  string GetType() const;
+  void SetType(string const & type);
+
+  string const GetName(string const & lang) const;
+  string const GetName(uint8_t const langCode = StringUtf8Multilang::DEFAULT_CODE) const;
 
   void SetName(string const & name);
   void SetName(string const & lang, string const & name);
@@ -58,7 +55,6 @@ public:
 
 private:
   pugi::xml_node GetRootNode() const;
-
-  unique_ptr<pugi::xml_document> m_documentPtr;
+  pugi::xml_document m_document;
 };
 } // namespace indexer

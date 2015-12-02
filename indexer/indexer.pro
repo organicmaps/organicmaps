@@ -47,7 +47,6 @@ SOURCES += \
     scales.cpp \
     types_mapping.cpp \
     types_skipper.cpp \
-    xml_feature.cpp \
 
 HEADERS += \
     cell_coverer.hpp \
@@ -105,7 +104,6 @@ HEADERS += \
     types_mapping.hpp \
     types_skipper.hpp \
     unique_index.hpp \
-    xml_feature.hpp \
 
 OTHER_FILES += drules_struct.proto
 

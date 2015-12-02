@@ -1,4 +1,4 @@
-#include "indexer/xml_feature.hpp"
+#include "editor/xml_feature.hpp"
 
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
@@ -40,17 +40,16 @@ pugi::xml_node FindTag(pugi::xml_document const & document, string const & key)
 
 namespace indexer
 {
-XMLFeature::XMLFeature(): m_documentPtr(new pugi::xml_document)
+XMLFeature::XMLFeature()
 {
-  m_documentPtr->append_child("node");
+  m_document.append_child("node");
 }
 
-XMLFeature::XMLFeature(string const & xml):
-    XMLFeature()
+XMLFeature::XMLFeature(string const & xml)
 {
-  m_documentPtr->load(xml.data());
+  m_document.load(xml.data());
 
-  auto const node = m_documentPtr->child("node");
+  auto const node = GetRootNode();
   if (!node)
     MYTHROW(XMLFeatureError, ("Document has no node"));
 
@@ -66,20 +65,19 @@ XMLFeature::XMLFeature(string const & xml):
     MYTHROW(XMLFeatureError, ("Node has no timestamp attribute"));
 }
 
-XMLFeature::XMLFeature(pugi::xml_document const & xml):
-    XMLFeature()
+XMLFeature::XMLFeature(pugi::xml_document const & xml)
 {
-  m_documentPtr->reset(xml);
+  m_document.reset(xml);
 }
 
 void XMLFeature::Save(ostream & ost) const
 {
-  m_documentPtr->save(ost, "\t", pugi::format_indent_attributes);
+  m_document.save(ost, "  ", pugi::format_indent_attributes);
 }
 
 m2::PointD XMLFeature::GetCenter() const
 {
-  auto const node = m_documentPtr->child("node");
+  auto const node = m_document.child("node");
   m2::PointD center;
   FromString(node.attribute("center").value(), center);
   return center;
@@ -129,7 +127,7 @@ void XMLFeature::SetHouse(string const & house)
 
 time_t XMLFeature::GetModificationTime() const
 {
-  auto const node = m_documentPtr->child("node");
+  auto const node = GetRootNode();
   return my::StringToTimestamp(node.attribute("timestamp").value());
 }
 
@@ -140,7 +138,7 @@ void XMLFeature::SetModificationTime(time_t const time)
 
 bool XMLFeature::HasTag(string const & key) const
 {
-  return FindTag(*m_documentPtr, key);
+  return FindTag(m_document, key);
 }
 
 bool XMLFeature::HasAttribute(string const & key) const
@@ -155,13 +153,13 @@ bool XMLFeature::HasKey(string const & key) const
 
 string XMLFeature::GetTagValue(string const & key) const
 {
-  auto const tag = FindTag(*m_documentPtr, key);
+  auto const tag = FindTag(m_document, key);
   return tag.attribute("v").value();
 }
 
 void XMLFeature::SetTagValue(string const & key, string const value)
 {
-  auto tag = FindTag(*m_documentPtr, key);
+  auto tag = FindTag(m_document, key);
   if (!tag)
   {
     tag = GetRootNode().append_child("tag");
@@ -190,6 +188,6 @@ void XMLFeature::SetAttribute(string const & key, string const & value)
 
 pugi::xml_node XMLFeature::GetRootNode() const
 {
-  return m_documentPtr->child("node");
+  return m_document.child("node");
 }
 } // namespace indexer
