@@ -61,7 +61,7 @@ class TestRunner:
         parser.add_option("-u", "--user_resource_path", dest="resource_path", help="Path to resources, styles and classificators (passed to the test executables as --user_resource_path=<value>)")
         parser.add_option("-i", "--include", dest="runlist", action="append", default=[], help="Include test into execution, comma separated list with no spaces or individual tests, or both. E.g.: -i one -i two -i three,four,five")
         parser.add_option("-e", "--exclude", dest="skiplist", action="append", default=[], help="Exclude test from execution, comma separated list with no spaces or individual tests, or both. E.g.: -i one -i two -i three,four,five")
-        parser.add_option("-b", "--boost_tests", dest="boost_tests", action="store_true", default=False, help="Treat all the tests as boost tests (their output is different and it must be processed differently.")
+        parser.add_option("-b", "--boost_tests", dest="boost_tests", action="store_true", default=False, help="Treat all the tests as boost tests (their output is different and it must be processed differently).")
 
         (options, args) = parser.parse_args()
 
@@ -78,7 +78,7 @@ class TestRunner:
         self.boost_tests = options.boost_tests
 
         if self.runlist:
-            logging.warn("-i or -b options found, the -e option will be ignored")
+            logging.warn("-i or -b option found, the -e option will be ignored")
         
         self.workspace_path = options.folder
         self.logfile = options.output
@@ -131,10 +131,8 @@ class TestRunner:
         
 
     def test_file_with_keys(self, test_file):
-        if self.boost_tests:
-            return "{test_file}  --report_format=xml --report_level=detailed --log_level=test_suite --log_format=xml {data}{resources}".format(test_file=test_file, data=self.data_path, resources=self.user_resource_path)
-
-        return "{test_file}{data}{resources}".format(test_file=test_file, data=self.data_path, resources=self.user_resource_path)
+        boost_keys = "  --report_format=xml --report_level=detailed --log_level=test_suite --log_format=xml " if self.boost_tests else ""
+        return "{test_file}{boost_keys}{data}{resources}".format(test_file=test_file, boost_keys=boost_keys, data=self.data_path, resources=self.user_resource_path)
 
 
     def run_tests(self, tests_to_run):
@@ -205,9 +203,7 @@ class TestRunner:
 
 
     def execute(self):
-
         categorized_tests = self.categorize_tests()
-
 
         to_run_and_with_server_keys = [TO_RUN, WITH_SERVER]
         random.shuffle(to_run_and_with_server_keys)
