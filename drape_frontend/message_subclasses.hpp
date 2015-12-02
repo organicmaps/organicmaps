@@ -158,11 +158,13 @@ public:
   Type GetType() const override { return Message::UpdateReadManager; }
 };
 
-class InvalidateReadManagerRectMessage : public Message
+class InvalidateReadManagerRectMessage : public BaseBlockingMessage
 {
 public:
-  InvalidateReadManagerRectMessage(TTilesCollection const & tiles)
-    : m_tiles(tiles) {}
+  InvalidateReadManagerRectMessage(Blocker & blocker, TTilesCollection const & tiles)
+    : BaseBlockingMessage(blocker)
+    , m_tiles(tiles)
+  {}
 
   Type GetType() const override { return Message::InvalidateReadManagerRect; }
 
