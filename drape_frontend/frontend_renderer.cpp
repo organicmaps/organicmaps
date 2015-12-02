@@ -748,17 +748,18 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   m_myPositionController->Render(MyPositionController::RenderAccuracy,
                                  modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
+  GLFunctions::glEnable(gl_const::GLDepthTest);
+  if (isPerspective)
+    GLFunctions::glClearDepth();
   for (; currentRenderGroup < m_renderGroups.size(); ++currentRenderGroup)
   {
     drape_ptr<RenderGroup> const & group = m_renderGroups[currentRenderGroup];
     RenderSingleGroup(modelView, make_ref(group));
   }
 
-  GLFunctions::glClearDepth();
+  GLFunctions::glDisable(gl_const::GLDepthTest);
   if (m_selectionShape != nullptr && m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_USER_MARK)
     m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
-
-  GLFunctions::glDisable(gl_const::GLDepthTest);
 
   m_routeRenderer->RenderRoute(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
