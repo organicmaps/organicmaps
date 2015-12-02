@@ -159,10 +159,6 @@ void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> m
 
   dp::ApplyUniforms(uniforms, prg);
 
-  GLFunctions::glEnable(gl_const::GLDepthTest);
-  GLFunctions::glClearDepth();
-  GLFunctions::glViewport(0, 0, screen.PixelRectIn3d().SizeX(), screen.PixelRectIn3d().SizeY());
-
   GLFunctions::glBindVertexArray(m_VAO);
   GLFunctions::glDrawArrays(gl_const::GLTriangles, 0, m_vertices.size() / 3);
 
