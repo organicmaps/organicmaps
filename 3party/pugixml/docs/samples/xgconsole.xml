@@ -2,7 +2,7 @@
 <Profile FormatVersion="1">
     <Tools>
         <Tool Filename="jam" AllowIntercept="true">
-		<Description>Jamplus build system</Description>
+        	<Description>Jamplus build system</Description>
         </Tool>
         <Tool Filename="mayabatch.exe" AllowRemote="true" OutputFileMasks="*.dae" DeriveCaptionFrom="lastparam" Timeout="40" />
         <Tool Filename="meshbuilder_*.exe" AllowRemote="false" OutputFileMasks="*.mesh" DeriveCaptionFrom="lastparam" Timeout="10" />

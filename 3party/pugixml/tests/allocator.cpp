@@ -2,6 +2,14 @@
 
 #include <string.h>
 #include <assert.h>
+#include <stdlib.h>
+
+// Address sanitizer
+#if defined(__has_feature)
+#	define ADDRESS_SANITIZER __has_feature(address_sanitizer)
+#else
+#	define ADDRESS_SANITIZER defined(__SANITIZE_ADDRESS__)
+#endif
 
 // Low-level allocation functions
 #if defined(_WIN32) || defined(_WIN64)
@@ -66,7 +74,7 @@ namespace
 		VirtualProtect(rptr, aligned_size + page_size, PAGE_NOACCESS, &old_flags);
 	}
 }
-#elif defined(__APPLE__) || defined(__linux__)
+#elif (defined(__APPLE__) || defined(__linux__)) && (defined(__i386) || defined(__x86_64)) && !ADDRESS_SANITIZER
 #	include <sys/mman.h>
 
 namespace
@@ -80,7 +88,9 @@ namespace
 
 	void* allocate_page_aligned(size_t size)
 	{
-		return mmap(0, size + page_size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANON, -1, 0);
+		void* result = malloc(size + page_size);
+
+		return reinterpret_cast<void*>(align_to_page(reinterpret_cast<size_t>(result)));
 	}
 
 	void* allocate(size_t size)
@@ -111,8 +121,6 @@ namespace
 	}
 }
 #else
-#	include <stdlib.h>
-
 namespace
 {
 	void* allocate(size_t size)
@@ -130,14 +138,16 @@ namespace
 #endif
 
 // High-level allocation functions
+const size_t memory_alignment = sizeof(double) > sizeof(void*) ? sizeof(double) : sizeof(void*);
+
 void* memory_allocate(size_t size)
 {
-	void* result = allocate(size + sizeof(size_t));
+	void* result = allocate(size + memory_alignment);
 	if (!result) return 0;
 
 	memcpy(result, &size, sizeof(size_t));
 
-	return static_cast<size_t*>(result) + 1;
+	return static_cast<char*>(result) + memory_alignment;
 }
 
 size_t memory_size(void* ptr)
@@ -145,7 +155,7 @@ size_t memory_size(void* ptr)
 	assert(ptr);
 
 	size_t result;
-	memcpy(&result, static_cast<size_t*>(ptr) - 1, sizeof(size_t));
+	memcpy(&result, static_cast<char*>(ptr) - memory_alignment, sizeof(size_t));
 
 	return result;
 }
@@ -156,5 +166,6 @@ void memory_deallocate(void* ptr)
 
 	size_t size = memory_size(ptr);
 
-	deallocate(static_cast<size_t*>(ptr) - 1, size + sizeof(size_t));
+	deallocate(static_cast<char*>(ptr) - memory_alignment, size + memory_alignment);
 }
+

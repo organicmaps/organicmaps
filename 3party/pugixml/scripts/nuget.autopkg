@@ -1,0 +1,32 @@
+nuget {
+	nuspec {
+		id = pugixml;
+		version: 1.7.0-appveyor;
+
+		authors: {Arseny Kapoulkine};
+		owners: {Arseny Kapoulkine};
+
+		projectUrl: "http://pugixml.org/";
+		iconUrl: "https://github.com/zeux/pugixml/logo.svg";
+
+		title: pugixml;
+		summary: "Light-weight, simple and fast XML parser for C++ with XPath support";
+		releaseNotes: "http://pugixml.org/docs/manual.html#changes";
+		copyright: "Copyright (c) 2006-2015 Arseny Kapoulkine";
+		licenseUrl: "http://pugixml.org/license.html";
+		requireLicenseAcceptance: false;
+
+		description: @"pugixml is a C++ XML processing library, which consists of a DOM-like interface with rich traversal/modification capabilities, an extremely fast XML parser which constructs the DOM tree from an XML file/buffer, and an XPath 1.0 implementation for complex data-driven tree queries. Full Unicode support is also available, with Unicode interface variants and conversions between different Unicode encodings (which happen automatically during parsing/saving).
+		pugixml is used by a lot of projects, both open-source and proprietary, for performance and easy-to-use interface.";
+
+		tags: { native };
+	}
+	files {
+		include: { "..\src\*.hpp" };
+		
+		[x86,release] { lib: vs2015\Win32_Release\pugixml.lib; }
+		[x86,debug] { lib: vs2015\Win32_Debug\pugixml.lib; }
+		[x64,release] { lib: vs2015\x64_Release\pugixml.lib; }
+		[x64,debug] { lib: vs2015\x64_Debug\pugixml.lib; }
+	}
+}

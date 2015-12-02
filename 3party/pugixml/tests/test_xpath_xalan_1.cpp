@@ -363,7 +363,7 @@ TEST_XML(xpath_xalan_math_8, "<k>0.0004</k>")
 	CHECK_XPATH_NUMBER(doc, STR("number(4 div 10000)"), 0.0004);
 
 	// +0 works around extended precision in div on x86 (this is needed for some configurations in MinGW 3.4)
-	CHECK_XPATH_BOOLEAN(doc, STR("(number(k) = (4 div 10000 + 0))"), true);
+	CHECK_XPATH_BOOLEAN(doc, STR("(number(k) = (4 div 10000 + 0))"), true); 
 	CHECK_XPATH_NUMBER(doc, STR("number(0.0001 * 4)"), 0.0004);
 	CHECK_XPATH_BOOLEAN(doc, STR("(number(k) = (0.0001 * 4))"), true);
 }

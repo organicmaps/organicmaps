@@ -27,11 +27,13 @@ const char* test_runner::_temp_path;
 
 static size_t g_memory_total_size = 0;
 static size_t g_memory_total_count = 0;
+static size_t g_memory_fail_triggered = false;
 
 static void* custom_allocate(size_t size)
 {
 	if (test_runner::_memory_fail_threshold > 0 && test_runner::_memory_fail_threshold < g_memory_total_size + size)
 	{
+		g_memory_fail_triggered = true;
 		test_runner::_memory_fail_triggered = true;
 
 		return 0;
@@ -43,10 +45,22 @@ static void* custom_allocate(size_t size)
 
 		g_memory_total_size += memory_size(ptr);
 		g_memory_total_count++;
-
+		
 		return ptr;
 	}
 }
+
+#ifndef PUGIXML_NO_EXCEPTIONS
+static void* custom_allocate_throw(size_t size)
+{
+	void* result = custom_allocate(size);
+
+	if (!result)
+		throw std::bad_alloc();
+
+	return result;
+}
+#endif
 
 static void custom_deallocate(void* ptr)
 {
@@ -54,7 +68,7 @@ static void custom_deallocate(void* ptr)
 
 	g_memory_total_size -= memory_size(ptr);
 	g_memory_total_count--;
-
+	
 	memory_deallocate(ptr);
 }
 
@@ -80,7 +94,7 @@ namespace std
 }
 #endif
 
-static bool run_test(test_runner* test)
+static bool run_test(test_runner* test, const char* test_name, pugi::allocation_function allocate)
 {
 #ifndef PUGIXML_NO_EXCEPTIONS
 	try
@@ -88,11 +102,12 @@ static bool run_test(test_runner* test)
 #endif
 		g_memory_total_size = 0;
 		g_memory_total_count = 0;
+		g_memory_fail_triggered = false;
 		test_runner::_memory_fail_threshold = 0;
 		test_runner::_memory_fail_triggered = false;
-
-		pugi::set_memory_management_functions(custom_allocate, custom_deallocate);
-
+	
+		pugi::set_memory_management_functions(allocate, custom_deallocate);
+		
 #ifdef _MSC_VER
 #	pragma warning(push)
 #	pragma warning(disable: 4611) // interaction between _setjmp and C++ object destruction is non-portable
@@ -100,22 +115,28 @@ static bool run_test(test_runner* test)
 #endif
 
 		volatile int result = setjmp(test_runner::_failure_buffer);
-
+	
 #ifdef _MSC_VER
 #	pragma warning(pop)
 #endif
 
 		if (result)
 		{
-			printf("Test %s failed: %s\n", test->_name, test_runner::_failure_message);
+			printf("Test %s failed: %s\n", test_name, test_runner::_failure_message);
 			return false;
 		}
 
 		test->run();
 
+		if (test_runner::_memory_fail_triggered)
+		{
+			printf("Test %s failed: unguarded memory fail triggered\n", test_name);
+			return false;
+		}
+
 		if (g_memory_total_size != 0 || g_memory_total_count != 0)
 		{
-			printf("Test %s failed: memory leaks found (%u bytes in %u allocations)\n", test->_name, static_cast<unsigned int>(g_memory_total_size), static_cast<unsigned int>(g_memory_total_count));
+			printf("Test %s failed: memory leaks found (%u bytes in %u allocations)\n", test_name, static_cast<unsigned int>(g_memory_total_size), static_cast<unsigned int>(g_memory_total_count));
 			return false;
 		}
 
@@ -124,12 +145,12 @@ static bool run_test(test_runner* test)
 	}
 	catch (const std::exception& e)
 	{
-		printf("Test %s failed: exception %s\n", test->_name, e.what());
+		printf("Test %s failed: exception %s\n", test_name, e.what());
 		return false;
 	}
 	catch (...)
 	{
-		printf("Test %s failed for unknown reason\n", test->_name);
+		printf("Test %s failed for unknown reason\n", test_name);
 		return false;
 	}
 #endif
@@ -156,7 +177,7 @@ int main(int, char** argv)
 	temp.erase((slash != std::string::npos) ? slash + 1 : 0);
 
 	test_runner::_temp_path = temp.c_str();
-
+	
 	replace_memory_management();
 
 	unsigned int total = 0;
@@ -167,7 +188,15 @@ int main(int, char** argv)
 	for (test = test_runner::_tests; test; test = test->_next)
 	{
 		total++;
-		passed += run_test(test);
+		passed += run_test(test, test->_name, custom_allocate);
+
+	#ifndef PUGIXML_NO_EXCEPTIONS
+		if (g_memory_fail_triggered)
+		{
+			total++;
+			passed += run_test(test, (test->_name + std::string(" (throw)")).c_str(), custom_allocate_throw);
+		}
+	#endif
 	}
 
 	unsigned int failed = total - passed;

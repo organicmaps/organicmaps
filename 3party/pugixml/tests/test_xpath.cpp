@@ -196,7 +196,7 @@ TEST(xpath_long_numbers_parse)
 {
 	const pugi::char_t* str_flt_max = STR("340282346638528860000000000000000000000");
 	const pugi::char_t* str_flt_max_dec = STR("340282346638528860000000000000000000000.000000");
-
+	
 	const pugi::char_t* str_dbl_max = STR("179769313486231570000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
 	const pugi::char_t* str_dbl_max_dec = STR("179769313486231570000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.000000");
 
@@ -225,7 +225,7 @@ TEST(xpath_long_numbers_stringize)
 {
 	const pugi::char_t* str_flt_max = STR("340282346638528860000000000000000000000");
 	const pugi::char_t* str_flt_max_dec = STR("340282346638528860000000000000000000000.000000");
-
+	
 	const pugi::char_t* str_dbl_max = STR("179769313486231570000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
 	const pugi::char_t* str_dbl_max_dec = STR("179769313486231570000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.000000");
 
@@ -378,19 +378,7 @@ TEST(xpath_out_of_memory_evaluate_concat)
 
 	pugi::xpath_query q(query.c_str());
 
-#ifdef PUGIXML_NO_EXCEPTIONS
-	CHECK(q.evaluate_string(0, 0, xml_node()) == 1);
-#else
-	try
-	{
-		q.evaluate_string(0, 0, xml_node());
-
-		CHECK_FORCE_FAIL("Expected out of memory exception");
-	}
-	catch (const std::bad_alloc&)
-	{
-	}
-#endif
+	CHECK_ALLOC_FAIL(CHECK(q.evaluate_string(0, 0, xml_node()) == 1));
 }
 
 TEST(xpath_out_of_memory_evaluate_substring)
@@ -404,19 +392,7 @@ TEST(xpath_out_of_memory_evaluate_substring)
 
 	pugi::xpath_query q(query.c_str());
 
-#ifdef PUGIXML_NO_EXCEPTIONS
-	CHECK(q.evaluate_string(0, 0, xml_node()) == 1);
-#else
-	try
-	{
-		q.evaluate_string(0, 0, xml_node());
-
-		CHECK_FORCE_FAIL("Expected out of memory exception");
-	}
-	catch (const std::bad_alloc&)
-	{
-	}
-#endif
+	CHECK_ALLOC_FAIL(CHECK(q.evaluate_string(0, 0, xml_node()) == 1));
 }
 
 TEST_XML(xpath_out_of_memory_evaluate_union, "<node><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/></node>")
@@ -425,19 +401,7 @@ TEST_XML(xpath_out_of_memory_evaluate_union, "<node><a/><a/><a/><a/><a/><a/><a/>
 
 	pugi::xpath_query q(STR("a|(a|(a|(a|(a|(a|(a|(a|(a|(a|(a|(a|(a|(a|(a|(a|(a|(a|(a|(a|a)))))))))))))))))))"));
 
-#ifdef PUGIXML_NO_EXCEPTIONS
-	CHECK(q.evaluate_node_set(doc.child(STR("node"))).empty());
-#else
-	try
-	{
-		q.evaluate_node_set(doc.child(STR("node")));
-
-		CHECK_FORCE_FAIL("Expected out of memory exception");
-	}
-	catch (const std::bad_alloc&)
-	{
-	}
-#endif
+	CHECK_ALLOC_FAIL(CHECK(q.evaluate_node_set(doc.child(STR("node"))).empty()));
 }
 
 TEST_XML(xpath_out_of_memory_evaluate_predicate, "<node><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/></node>")
@@ -446,19 +410,7 @@ TEST_XML(xpath_out_of_memory_evaluate_predicate, "<node><a/><a/><a/><a/><a/><a/>
 
 	pugi::xpath_query q(STR("//a[//a[//a[//a[//a[//a[//a[//a[//a[//a[//a[//a[//a[//a[true()]]]]]]]]]]]]]]"));
 
-#ifdef PUGIXML_NO_EXCEPTIONS
-	CHECK(q.evaluate_node_set(doc).empty());
-#else
-	try
-	{
-		q.evaluate_node_set(doc);
-
-		CHECK_FORCE_FAIL("Expected out of memory exception");
-	}
-	catch (const std::bad_alloc&)
-	{
-	}
-#endif
+	CHECK_ALLOC_FAIL(CHECK(q.evaluate_node_set(doc).empty()));
 }
 
 TEST(xpath_memory_concat_massive)
@@ -634,20 +586,8 @@ TEST(xpath_allocate_string_out_of_memory)
 
 	test_runner::_memory_fail_threshold = 8*1024;
 
-#ifdef PUGIXML_NO_EXCEPTIONS
-	CHECK(!xpath_query(query.c_str()));
-#else
-	try
-	{
-	#ifndef __DMC__ // DigitalMars exception handling crashes instead of catching the exception...
-		xpath_query q(query.c_str());
-
-		CHECK_FORCE_FAIL("Expected out of memory exception");
-	#endif
-	}
-	catch (const std::bad_alloc&)
-	{
-	}
+#ifndef __DMC__ // DigitalMars exception handling crashes instead of catching the exception...
+	CHECK_ALLOC_FAIL(CHECK(!xpath_query(query.c_str())));
 #endif
 }
 

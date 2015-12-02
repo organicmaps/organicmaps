@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.2">
 <meta name="author" content="website, repository">
-<title>pugixml 1.6 manual</title>
+<title>pugixml 1.7 manual</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -477,7 +477,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>pugixml 1.6 manual</h1>
+<h1>pugixml 1.7 manual</h1>
 <div class="details">
 <span id="author" class="author">website</span><br>
 <span id="email" class="email"><a href="http://pugixml.org" class="bare">http://pugixml.org</a></span><br>
@@ -572,6 +572,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#changes">9. Changelog</a>
 <ul class="sectlevel2">
+<li><a href="#v1.7">v1.7 <sup>19.10.2015</sup></a></li>
 <li><a href="#v1.6">v1.6 <sup>10.04.2015</sup></a></li>
 <li><a href="#v1.5">v1.5 <sup>27.11.2014</sup></a></li>
 <li><a href="#v1.4">v1.4 <sup>27.02.2014</sup></a></li>
@@ -659,7 +660,7 @@ No documentation is perfect; neither is this one. If you find errors or omission
 <p>Thanks to <strong>Artyom Palvelev</strong> for suggesting a lazy gap contraction approach.</p>
 </div>
 <div class="paragraph">
-<p>Thanks to <strong>Vyacheslav Egorov</strong> for documentation proofreading.</p>
+<p>Thanks to <strong>Vyacheslav Egorov</strong> for documentation proofreading and fuzz testing.</p>
 </div>
 </div>
 <div class="sect2">
@@ -719,9 +720,9 @@ pugixml is Copyright (C) 2006-2015 Arseny Kapoulkine.</pre>
 <p>You can download the latest source distribution as an archive:</p>
 </div>
 <div class="paragraph">
-<p><a href="https://github.com/zeux/pugixml/releases/download/v1.6/pugixml-1.6.zip">pugixml-1.6.zip</a> (Windows line endings)
+<p><a href="https://github.com/zeux/pugixml/releases/download/v1.7/pugixml-1.7.zip">pugixml-1.7.zip</a> (Windows line endings)
 /
-<a href="https://github.com/zeux/pugixml/releases/download/v1.6/pugixml-1.6.tar.gz">pugixml-1.6.tar.gz</a> (Unix line endings)</p>
+<a href="https://github.com/zeux/pugixml/releases/download/v1.7/pugixml-1.7.tar.gz">pugixml-1.7.tar.gz</a> (Unix line endings)</p>
 </div>
 <div class="paragraph">
 <p>The distribution contains library source, documentation (the manual you&#8217;re reading now and the quick start guide) and some code examples. After downloading the distribution, install pugixml by extracting all files from the compressed archive.</p>
@@ -742,7 +743,7 @@ pugixml is Copyright (C) 2006-2015 Arseny Kapoulkine.</pre>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="bash">git clone https://github.com/zeux/pugixml
 cd pugixml
-git checkout v1.6</code></pre>
+git checkout v1.7</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -759,8 +760,33 @@ git checkout v1.6</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash">svn checkout https://github.com/zeux/pugixml/tags/v1.6 pugixml</code></pre>
+<pre class="pygments highlight"><code data-lang="bash">svn checkout https://github.com/zeux/pugixml/tags/v1.7 pugixml</code></pre>
 </div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="install.getting.packages"><a class="anchor" href="#install.getting.packages"></a>2.1.4. Packages</h4>
+<div class="paragraph">
+<p>pugixml is available as a package via various package managers. Note that most packages are maintained separately from the main repository so they do not necessarily contain the latest version.</p>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s an incomplete list of pugixml packages in various systems:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Linux (<a href="http://packages.ubuntu.com/search?keywords=pugixml">Ubuntu</a>, <a href="https://tracker.debian.org/pkg/pugixml">Debian</a>, <a href="https://apps.fedoraproject.org/packages/pugixml">Fedora</a>, <a href="https://aur.archlinux.org/packages/pugixml/">Arch Linux</a>, other <a href="http://pkgs.org/search/pugixml">distributions</a>)</p>
+</li>
+<li>
+<p><a href="http://fbsdmon.org/ports/textproc/pugixml">FreeBSD</a></p>
+</li>
+<li>
+<p>OSX, via <a href="http://brewformulas.org/Pugixml">Homebrew</a></p>
+</li>
+<li>
+<p>Windows, via <a href="https://www.nuget.org/packages/pugixml/">NuGet</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -930,6 +956,9 @@ can include pugixml.cpp in your project (see <a href="#install.building.embed">B
 <p><a id="PUGIXML_WCHAR_MODE"></a><code>PUGIXML_WCHAR_MODE</code> define toggles between UTF-8 style interface (the in-memory text encoding is assumed to be UTF-8, most functions use <code>char</code> as character type) and UTF-16/32 style interface (the in-memory text encoding is assumed to be UTF-16/32, depending on <code>wchar_t</code> size, most functions use <code>wchar_t</code> as character type). See <a href="#dom.unicode">Unicode interface</a> for more details.</p>
 </div>
 <div class="paragraph">
+<p><a id="PUGIXML_COMPACT"></a><code>PUGIXML_COMPACT</code> define activates a different internal representation of document storage that is much more memory efficient for documents with a lot of markup (i.e. nodes and attributes), but is slightly slower to parse and access. For details see <a href="#dom.memory.compact">Compact mode</a>.</p>
+</div>
+<div class="paragraph">
 <p><a id="PUGIXML_NO_XPATH"></a><code>PUGIXML_NO_XPATH</code> define disables XPath. Both XPath interfaces and XPath implementation are excluded from compilation. This option is provided in case you do not need XPath functionality and need to save code space.</p>
 </div>
 <div class="paragraph">
@@ -964,63 +993,19 @@ In that example <code>PUGIXML_API</code> is inconsistent between several source 
 <div class="sect2">
 <h3 id="install.portability"><a class="anchor" href="#install.portability"></a>2.3. Portability</h3>
 <div class="paragraph">
-<p>pugixml is written in standard-compliant C&#43;&#43; with some compiler-specific workarounds where appropriate. pugixml is compatible with the C&#43;&#43;11 standard, but does not require C&#43;&#43;11 support. Each version is tested with a unit test suite (with code coverage about 99%) on the following platforms:</p>
+<p>pugixml is written in standard-compliant C&#43;&#43; with some compiler-specific workarounds where appropriate. pugixml is compatible with the C&#43;&#43;11 standard, but does not require C&#43;&#43;11 support. Each version is tested with a unit test suite with code coverage exceeding 99%.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Microsoft Windows:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Borland C&#43;&#43; Compiler 5.82</p>
-</li>
-<li>
-<p>Digital Mars C&#43;&#43; Compiler 8.51</p>
-</li>
-<li>
-<p>Intel C&#43;&#43; Compiler 8.0, 9.0 x86/x64, 10.0 x86/x64, 11.0 x86/x64</p>
-</li>
-<li>
-<p>Metrowerks CodeWarrior 8.0</p>
-</li>
-<li>
-<p>Microsoft Visual C&#43;&#43; 6.0, 7.0 (2002), 7.1 (2003), 8.0 (2005) x86/x64, 9.0 (2008) x86/x64, 10.0 (2010) x86/x64, 11.0 (2011) x86/x64/ARM, 12.0 (2013) x86/x64/ARM and some CLR versions</p>
-</li>
-<li>
-<p>MinGW (GCC) 3.4, 4.4, 4.5, 4.6 x64</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>pugixml runs on a variety of desktop platforms (including Microsoft Windows, Linux, FreeBSD, Apple MacOSX and Sun Solaris), game consoles (inclusing Microsoft Xbox 360, Microsoft Xbox One, Nintendo Wii, Sony Playstation Portable and Sony Playstation 3) and mobile platforms (including Android, iOS, BlackBerry, Samsung bada and Microsoft Windows CE).</p>
 </div>
-</li>
-<li>
-<p>Linux (GCC 4.4.3 x86/x64, GCC 4.8.1 x64, Clang 3.2 x64)</p>
-</li>
-<li>
-<p>FreeBSD (GCC 4.2.1 x86/x64)</p>
-</li>
-<li>
-<p>Apple MacOSX (GCC 4.0.1 x86/x64/PowerPC, Clang 3.5 x64)</p>
-</li>
-<li>
-<p>Sun Solaris (sunCC x86/x64)</p>
-</li>
-<li>
-<p>Microsoft Xbox 360</p>
-</li>
-<li>
-<p>Nintendo Wii (Metrowerks CodeWarrior 4.1)</p>
-</li>
-<li>
-<p>Sony Playstation Portable (GCC 3.4.2)</p>
-</li>
-<li>
-<p>Sony Playstation 3 (GCC 4.1.1, SNC 310.1)</p>
-</li>
-<li>
-<p>Various portable platforms (Android NDK, BlackBerry NDK, Samsung bada, Windows CE)</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>pugixml supports various architectures, such as x86/x86-64, PowerPC, ARM, MIPS and SPARC. In general it should run on any architecture since it does not use architecture-specific code and does not rely on features such as unaligned memory access.</p>
+</div>
+<div class="paragraph">
+<p>pugixml can be compiled using any C++ compiler; it was tested with all versions of Microsoft Visual C&#43;&#43; from 6.0 up to 2015, GCC from 3.4 up to 5.2, Clang from 3.2 up to 3.7, as well as a variety of other compilers (e.g. Borland C&#43;&#43;, Digital Mars C&#43;&#43;, Intel C&#43;&#43;, Metrowerks CodeWarrior and PathScale). The code is written to avoid compilation warnings even on reasonably high warning levels.</p>
+</div>
+<div class="paragraph">
+<p>Note that some platforms may have very bare-bones support of C++; in some cases you&#8217;ll have to use <code>PUGIXML_NO_STL</code> and/or <code>PUGIXML_NO_EXCEPTIONS</code> to compile without issues. This mostly applies to old game consoles and embedded systems.</p>
 </div>
 </div>
 </div>
@@ -1070,7 +1055,7 @@ In that example <code>PUGIXML_API</code> is inconsistent between several source 
 <p>Character data nodes (<a id="node_cdata"></a><code>node_cdata</code>) represent text in XML that is quoted in a special way. CDATA nodes do not differ from PCDATA nodes except in XML representation - the above text example looks like this with CDATA:</p>
 <div class="listingblock">
 <div class="content">
-<pre>&lt;node&gt; &lt;![CDATA[[text1]]&gt; &lt;child/&gt; &lt;![CDATA[[text2]]&gt; &lt;/node&gt;</pre>
+<pre>&lt;node&gt; &lt;![CDATA[text1]]&gt; &lt;child/&gt; &lt;![CDATA[text2]]&gt; &lt;/node&gt;</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1215,7 +1200,7 @@ Both <code>xml_node</code> and <code>xml_attribute</code> have the default const
 </div>
 <div class="paragraph">
 <p><a id="xml_attribute::hash_value"></a><a id="xml_node::hash_value"></a>
-If you want to use <code>xml_node</code> or <code>xml_attribute</code> objects as keys in hash-based associative containers, you can use the <code>hash_value</code> member functions. They return the hash values that are guaranteed to be the same for all handles to the same underlying object. The hash value for null handles is 0.</p>
+If you want to use <code>xml_node</code> or <code>xml_attribute</code> objects as keys in hash-based associative containers, you can use the <code>hash_value</code> member functions. They return the hash values that are guaranteed to be the same for all handles to the same underlying object. The hash value for null handles is 0. Note that hash value does not depend on the content of the node, only on the location of the underlying structure in memory - this means that loading the same document twice will likely produce different hash values, and copying the node will not preserve the hash.</p>
 </div>
 <div class="paragraph">
 <p><a id="xml_attribute::unspecified_bool_type"></a><a id="xml_node::unspecified_bool_type"></a><a id="xml_attribute::empty"></a><a id="xml_node::empty"></a>
@@ -1271,7 +1256,7 @@ If the size of <code>wchar_t</code> is 2, pugixml assumes UTF-16 encoding instea
 There is a special type, <code>pugi::char_t</code>, that is defined as the character type and depends on the library configuration; it will be also used in the documentation hereafter. There is also a type <code>pugi::string_t</code>, which is defined as the STL string of the character type; it corresponds to <code>std::string</code> in char mode and to <code>std::wstring</code> in wchar_t mode.</p>
 </div>
 <div class="paragraph">
-<p>In addition to the interface, the internal implementation changes to store XML data as <code>pugi::char_t</code>; this means that these two modes have different memory usage characteristics. The conversion to <code>pugi::char_t</code> upon document loading and from <code>pugi::char_t</code> upon document saving happen automatically, which also carries minor performance penalty. The general advice however is to select the character mode based on usage scenario, i.e. if UTF-8 is inconvenient to process and most of your XML data is non-ASCII, wchar_t mode is probably a better choice.</p>
+<p>In addition to the interface, the internal implementation changes to store XML data as <code>pugi::char_t</code>; this means that these two modes have different memory usage characteristics - generally UTF-8 mode is more memory and performance efficient, especially if <code>sizeof(wchar_t)</code> is 4. The conversion to <code>pugi::char_t</code> upon document loading and from <code>pugi::char_t</code> upon document saving happen automatically, which also carries minor performance penalty. The general advice however is to select the character mode based on usage scenario, i.e. if UTF-8 is inconvenient to process and most of your XML data is non-ASCII, wchar_t mode is probably a better choice.</p>
 </div>
 <div class="paragraph">
 <p><a id="as_utf8"></a><a id="as_wide"></a>
@@ -1382,7 +1367,7 @@ You can use the following accessor functions to change or get current memory man
 </div>
 </div>
 <div class="paragraph">
-<p>Allocation function is called with the size (in bytes) as an argument and should return a pointer to a memory block with alignment that is suitable for storage of primitive types (usually a maximum of <code>void*</code> and <code>double</code> types alignment is sufficient) and size that is greater than or equal to the requested one. If the allocation fails, the function has to return null pointer (throwing an exception from allocation function results in undefined behavior).</p>
+<p>Allocation function is called with the size (in bytes) as an argument and should return a pointer to a memory block with alignment that is suitable for storage of primitive types (usually a maximum of <code>void*</code> and <code>double</code> types alignment is sufficient) and size that is greater than or equal to the requested one. If the allocation fails, the function has to either return null pointer or to throw an exception.</p>
 </div>
 <div class="paragraph">
 <p>Deallocation function is called with the pointer that was returned by some call to allocation function; it is never called with a null pointer. If memory management functions are not thread-safe, library thread safety is not guaranteed.</p>
@@ -1444,6 +1429,21 @@ You can use the following accessor functions to change or get current memory man
 </div>
 <div class="paragraph">
 <p>All additional memory, such as memory for document structure (node/attribute objects) and memory for node/attribute names/values is allocated in pages on the order of 32 Kb; actual objects are allocated inside the pages using a memory management scheme optimized for fast allocation/deallocation of many small objects. Because of the scheme specifics, the pages are only destroyed if all objects inside them are destroyed; also, generally destroying an object does not mean that subsequent object creation will reuse the same memory. This means that it is possible to devise a usage scheme which will lead to higher memory usage than expected; one example is adding a lot of nodes, and them removing all even numbered ones; not a single page is reclaimed in the process. However this is an example specifically crafted to produce unsatisfying behavior; in all practical usage scenarios the memory consumption is less than that of a general-purpose allocator because allocation meta-data is very small in size.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="dom.memory.compact"><a class="anchor" href="#dom.memory.compact"></a>3.6.4. Compact mode</h4>
+<div class="paragraph">
+<p>By default nodes and attributes are optimized for efficiency of access. This can cause them to take a significant amount of memory - for documents with a lot of nodes and not a lot of contents (short attribute values/node text), and depending on the pointer size, the document structure can take noticeably more memory than the document itself (e.g. on a 64-bit platform in UTF-8 mode a markup-heavy document with the file size of 2.1 Mb can use 2.1 Mb for document buffer and 8.3 Mb for document structure).</p>
+</div>
+<div class="paragraph">
+<p>If you are processing big documents or your platform is memory constrained and you&#8217;re willing to sacrifice a bit of performance for memory, you can compile pugixml with <code>PUGIXML_COMPACT</code> define which will activate compact mode. Compact mode uses a different representation of the document structure that assumes locality of reference between nodes and attributes to optimize memory usage. As a result you get significantly smaller node/attribute objects; usually most objects in most documents don&#8217;t require additional storage, but in the worst case - if assumptions about locality of reference don&#8217;t hold - additional memory will be allocated to store the extra data required.</p>
+</div>
+<div class="paragraph">
+<p>The compact storage supports all existing operations - including tree modification - with the same amortized complexity (that is, all basic document manipulations are still O(1) on average). The operations are slightly slower; you can usually expect 10-50% slowdown in terms of processing time unless your processing was memory-bound.</p>
+</div>
+<div class="paragraph">
+<p>On 32-bit architectures document structure in compact mode is typically reduced by around 2.5x; on 64-bit architectures the ratio is around 5x. Thus for big markup-heavy documents compact mode can make the difference between the processing of a multi-gigabyte document running completely from RAM vs requiring swapping to disk. Even if the document fits into memory, compact storage can use CPU caches more efficiently by taking less space and causing less cache/TLB misses.</p>
 </div>
 </div>
 </div>
@@ -3295,7 +3295,10 @@ You should use the usual bitwise arithmetics to manipulate the bitmask: to enabl
 <div class="ulist">
 <ul>
 <li>
-<p><a id="format_indent"></a><code>format_indent</code> determines if all nodes should be indented with the indentation string (this is an additional parameter for all saving functions, and is <code>"\t"</code> by default). If this flag is on, before every node the indentation string is output several times, where the amount of indentation depends on the node&#8217;s depth relative to the output subtree. This flag has no effect if <a href="#format_raw">format_raw</a> is enabled. This flag is <strong>on</strong> by default.</p>
+<p><a id="format_indent"></a><code>format_indent</code> determines if all nodes should be indented with the indentation string (this is an additional parameter for all saving functions, and is <code>"\t"</code> by default). If this flag is on, the indentation string is printed several times before every node, where the amount of indentation depends on the node&#8217;s depth relative to the output subtree. This flag has no effect if <a href="#format_raw">format_raw</a> is enabled. This flag is <strong>on</strong> by default.</p>
+</li>
+<li>
+<p><a id="format_indent_attributes"></a><code>format_indent_attributes</code> determines if all attributes should be printed on a new line, indented with the indentation string according to the attribute&#8217;s depth. This flag implies <a href="#format_indent">format_indent</a>. This flag has no effect if <a href="#format_raw">format_raw</a> is enabled. This flag is <strong>off</strong> by default.</p>
 </li>
 <li>
 <p><a id="format_raw"></a><code>format_raw</code> switches between formatted and raw output. If this flag is on, the nodes are not indented in any way, and also no newlines that are not part of document text are printed. Raw mode can be used for serialization where the result is not intended to be read by humans; also it can be useful if the document was parsed with <a href="#parse_ws_pcdata">parse_ws_pcdata</a> flag, to preserve the original document formatting as much as possible. This flag is <strong>off</strong> by default.</p>
@@ -3634,7 +3637,7 @@ While compiling expressions is fast, the compilation time can introduce a signif
 </ul>
 </div>
 <div class="paragraph">
-<p>Query objects correspond to <code>xpath_query</code> type. They are immutable and non-copyable: they are bound to the expression at creation time and can not be cloned. If you want to put query objects in a container, allocate them on heap via <code>new</code> operator and store pointers to <code>xpath_query</code> in the container.</p>
+<p>Query objects correspond to <code>xpath_query</code> type. They are immutable and non-copyable: they are bound to the expression at creation time and can not be cloned. If you want to put query objects in a container, either allocate them on heap via <code>new</code> operator and store pointers to <code>xpath_query</code> in the container, or use a C11 compiler (query objects are movable in C11).</p>
 </div>
 <div id="xpath_query::ctor" class="paragraph">
 <p>You can create a query object with the constructor that takes XPath expression as an argument:</p>
@@ -4000,6 +4003,80 @@ If exceptions are disabled, then in the event of parsing failure the query is in
 <div class="sect1">
 <h2 id="changes"><a class="anchor" href="#changes"></a>9. Changelog</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="v1.7"><a class="anchor" href="#v1.7"></a>v1.7 <sup>19.10.2015</sup></h3>
+<div class="paragraph">
+<p>Major release, featuring performance and memory improvements along with some new features. Changes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Compact mode:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Introduced a new tree storage mode that takes significantly less memory (2-5x smaller DOM) at some performance cost.</p>
+</li>
+<li>
+<p>The mode can be enabled using <code>PUGIXML_COMPACT</code> define.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>New integer parsing/formatting implementation:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Functions that convert from and to integers (e.g. <code>as_int</code>/<code>set_value</code>) do not rely on CRT any more.</p>
+</li>
+<li>
+<p>New implementation is 3-5x faster and is always correct wrt overflow or underflow. This is a behavior change - where previously <code>as_uint()</code> would return UINT_MAX on a value "-1", it now returns 0.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>New features:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>XPath objects (<code>xpath_query</code>, <code>xpath_node_set</code>, <code>xpath_variable_set</code>) are now movable if your compiler supports C++11. Additionally, <code>xpath_variable_set</code> is copyable.</p>
+</li>
+<li>
+<p>Added <code>format_indent_attributes</code> that makes the resulting XML friendlier to line diff/merge tools.</p>
+</li>
+<li>
+<p>Added a variant of <code>xml_node::attribute</code> function with a hint that can improve lookup performance.</p>
+</li>
+<li>
+<p>Custom allocation functions are now allowed (but not required) to throw instead of returning a null pointer.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Bug fixes:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Fix Clang 3.7 crashes in out-of-memory cases (C++ DR 1748)</p>
+</li>
+<li>
+<p>Fix XPath crashes on SPARC64 (and other 32-bit architectures where doubles have to be aligned to 8 bytes)</p>
+</li>
+<li>
+<p>Fix xpath_node_set assignment to provide strong exception guarantee</p>
+</li>
+<li>
+<p>Fix saving for custom xml_writer implementations that can throw from write()</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</div>
 <div class="sect2">
 <h3 id="v1.6"><a class="anchor" href="#v1.6"></a>v1.6 <sup>10.04.2015</sup></h3>
 <div class="paragraph">
@@ -5028,6 +5105,7 @@ If exceptions are disabled, then in the event of parsing failure the query is in
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="c++"><span class="tok-cp">#define <a href="#PUGIXML_WCHAR_MODE">PUGIXML_WCHAR_MODE</a></span>
+<span class="tok-cp">#define <a href="#PUGIXML_COMPACT">PUGIXML_COMPACT</a></span>
 <span class="tok-cp">#define <a href="#PUGIXML_NO_XPATH">PUGIXML_NO_XPATH</a></span>
 <span class="tok-cp">#define <a href="#PUGIXML_NO_STL">PUGIXML_NO_STL</a></span>
 <span class="tok-cp">#define <a href="#PUGIXML_NO_EXCEPTIONS">PUGIXML_NO_EXCEPTIONS</a></span>
@@ -5115,6 +5193,7 @@ If exceptions are disabled, then in the event of parsing failure the query is in
 <pre class="pygments highlight"><code data-lang="c++"><span class="tok-c1">// Formatting options bit flags:</span>
 <span class="tok-k">const</span> <span class="tok-kt">unsigned</span> <span class="tok-kt">int</span> <a href="#format_default">format_default</a>
 <span class="tok-k">const</span> <span class="tok-kt">unsigned</span> <span class="tok-kt">int</span> <a href="#format_indent">format_indent</a>
+<span class="tok-k">const</span> <span class="tok-kt">unsigned</span> <span class="tok-kt">int</span> <a href="#format_indent_attributes">format_indent_attributes</a>
 <span class="tok-k">const</span> <span class="tok-kt">unsigned</span> <span class="tok-kt">int</span> <a href="#format_no_declaration">format_no_declaration</a>
 <span class="tok-k">const</span> <span class="tok-kt">unsigned</span> <span class="tok-kt">int</span> <a href="#format_no_escapes">format_no_escapes</a>
 <span class="tok-k">const</span> <span class="tok-kt">unsigned</span> <span class="tok-kt">int</span> <a href="#format_raw">format_raw</a>
@@ -5509,7 +5588,7 @@ If exceptions are disabled, then in the event of parsing failure the query is in
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-04-10 20:49:27 PDT
+Last updated 2015-10-19 20:55:20 PDT
 </div>
 </div>
 </body>

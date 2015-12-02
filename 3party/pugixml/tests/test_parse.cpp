@@ -82,7 +82,7 @@ TEST(parse_pi_error)
 		CHECK(doc.load_string(STR("<?name&"), flags).status == status_bad_pi);
 		CHECK(doc.load_string(STR("<?name&?"), flags).status == status_bad_pi);
 	}
-
+	
 	CHECK(doc.load_string(STR("<?xx#?>"), parse_fragment | parse_pi).status == status_bad_pi);
 	CHECK(doc.load_string(STR("<?name&?>"), parse_fragment | parse_pi).status == status_bad_pi);
 	CHECK(doc.load_string(STR("<?name& x?>"), parse_fragment | parse_pi).status == status_bad_pi);
@@ -235,9 +235,9 @@ TEST(parse_ws_pcdata_skip)
 	CHECK(!doc.first_child());
 
 	CHECK(doc.load_string(STR("<root>  <node>  </node>  </root>"), parse_minimal));
-
+	
 	xml_node root = doc.child(STR("root"));
-
+	
 	CHECK(root.first_child() == root.last_child());
 	CHECK(!root.first_child().first_child());
 }
@@ -436,21 +436,21 @@ TEST(parse_pcdata_trim)
 
     test_data_t test_data[] =
     {
-	{ STR("<node> text</node>"), STR("text"), 0 },
-	{ STR("<node>\t\n text</node>"), STR("text"), 0 },
-	{ STR("<node>text </node>"), STR("text"), 0 },
-	{ STR("<node>text \t\n</node>"), STR("text"), 0 },
-	{ STR("<node>\r\n\t text \t\n\r</node>"), STR("text"), 0 },
-	{ STR(" text"), STR("text"), parse_fragment },
-	{ STR("\t\n text"), STR("text"), parse_fragment },
-	{ STR("text "), STR("text"), parse_fragment },
-	{ STR("text \t\n"), STR("text"), parse_fragment },
-	{ STR("\r\n\t text \t\n\r"), STR("text"), parse_fragment },
-	{ STR("<node>\r\n\t text \t\n\r more \r\n\t</node>"), STR("text \t\n\r more"), 0 },
-	{ STR("<node>\r\n\t text \t\n\r more \r\n\t</node>"), STR("text \t\n\n more"), parse_eol },
-	{ STR("<node>\r\n\t text \r\n\r\n\r\n\r\n\r\n\r\n\r\n more \r\n\t</node>"), STR("text \n\n\n\n\n\n\n more"), parse_eol },
-	{ STR("<node>     test&amp;&amp;&amp;&amp;&amp;&amp;&amp;    </node>"), STR("test&amp;&amp;&amp;&amp;&amp;&amp;&amp;"), 0 },
-	{ STR("<node>     test&amp;&amp;&amp;&amp;&amp;&amp;&amp;    </node>"), STR("test&&&&&&&"), parse_escapes },
+    	{ STR("<node> text</node>"), STR("text"), 0 },
+    	{ STR("<node>\t\n text</node>"), STR("text"), 0 },
+    	{ STR("<node>text </node>"), STR("text"), 0 },
+    	{ STR("<node>text \t\n</node>"), STR("text"), 0 },
+    	{ STR("<node>\r\n\t text \t\n\r</node>"), STR("text"), 0 },
+    	{ STR(" text"), STR("text"), parse_fragment },
+    	{ STR("\t\n text"), STR("text"), parse_fragment },
+    	{ STR("text "), STR("text"), parse_fragment },
+    	{ STR("text \t\n"), STR("text"), parse_fragment },
+    	{ STR("\r\n\t text \t\n\r"), STR("text"), parse_fragment },
+    	{ STR("<node>\r\n\t text \t\n\r more \r\n\t</node>"), STR("text \t\n\r more"), 0 },
+    	{ STR("<node>\r\n\t text \t\n\r more \r\n\t</node>"), STR("text \t\n\n more"), parse_eol },
+    	{ STR("<node>\r\n\t text \r\n\r\n\r\n\r\n\r\n\r\n\r\n more \r\n\t</node>"), STR("text \n\n\n\n\n\n\n more"), parse_eol },
+    	{ STR("<node>     test&amp;&amp;&amp;&amp;&amp;&amp;&amp;    </node>"), STR("test&amp;&amp;&amp;&amp;&amp;&amp;&amp;"), 0 },
+    	{ STR("<node>     test&amp;&amp;&amp;&amp;&amp;&amp;&amp;    </node>"), STR("test&&&&&&&"), parse_escapes },
         { STR("     test&amp;&amp;&amp;&amp;&amp;&amp;&amp;    "), STR("test&&&&&&&"), parse_fragment | parse_escapes },
         { STR("<node>\r\n\t text \t\n\r m&amp;&amp;e \r\n\t</node>"), STR("text \t\n\n m&&e"), parse_eol | parse_escapes }
     };
@@ -855,7 +855,7 @@ TEST(parse_declaration_error)
 		CHECK(doc.load_string(STR("<?xml>"), flags).status == status_bad_pi);
 		CHECK(doc.load_string(STR("<?xml version='1>"), flags).status == status_bad_pi);
 	}
-
+	
 	CHECK(doc.load_string(STR("<?xml version='1?>"), parse_fragment | parse_declaration).status == status_bad_attribute);
 	CHECK(doc.load_string(STR("<foo><?xml version='1'?></foo>"), parse_fragment | parse_declaration).status == status_bad_pi);
 }
@@ -873,7 +873,7 @@ TEST(parse_out_of_memory)
 	test_runner::_memory_fail_threshold = 256;
 
 	xml_document doc;
-	CHECK(doc.load_string(STR("<foo a='1'/>")).status == status_out_of_memory);
+	CHECK_ALLOC_FAIL(CHECK(doc.load_string(STR("<foo a='1'/>")).status == status_out_of_memory));
 	CHECK(!doc.first_child());
 }
 
@@ -893,7 +893,7 @@ TEST(parse_out_of_memory_halfway_node)
 	test_runner::_memory_fail_threshold = 65536;
 
 	xml_document doc;
-	CHECK(doc.load_buffer_inplace(text, count * 4).status == status_out_of_memory);
+	CHECK_ALLOC_FAIL(CHECK(doc.load_buffer_inplace(text, count * 4).status == status_out_of_memory));
 	CHECK_NODE(doc.first_child(), STR("<n />"));
 }
 
@@ -920,10 +920,44 @@ TEST(parse_out_of_memory_halfway_attr)
 	test_runner::_memory_fail_threshold = 65536;
 
 	xml_document doc;
-	CHECK(doc.load_buffer_inplace(text, count * 5 + 4).status == status_out_of_memory);
+	CHECK_ALLOC_FAIL(CHECK(doc.load_buffer_inplace(text, count * 5 + 4).status == status_out_of_memory));
 	CHECK_STRING(doc.first_child().name(), STR("n"));
 	CHECK_STRING(doc.first_child().first_attribute().name(), STR("a"));
 	CHECK_STRING(doc.first_child().last_attribute().name(), STR("a"));
+}
+
+TEST(parse_out_of_memory_conversion)
+{
+	test_runner::_memory_fail_threshold = 256;
+
+	xml_document doc;
+	CHECK_ALLOC_FAIL(CHECK(doc.load_buffer("<foo\x90/>", 7, parse_default, encoding_latin1).status == status_out_of_memory));
+	CHECK(!doc.first_child());
+}
+
+TEST(parse_out_of_memory_allocator_state_sync)
+{
+	const unsigned int count = 10000;
+	static char_t text[count * 4];
+
+	for (unsigned int i = 0; i < count; ++i)
+	{
+		text[4*i + 0] = '<';
+		text[4*i + 1] = 'n';
+		text[4*i + 2] = '/';
+		text[4*i + 3] = '>';
+	}
+
+	test_runner::_memory_fail_threshold = 65536;
+
+	xml_document doc;
+	CHECK_ALLOC_FAIL(CHECK(doc.load_buffer_inplace(text, count * 4).status == status_out_of_memory));
+	CHECK_NODE(doc.first_child(), STR("<n />"));
+
+	test_runner::_memory_fail_threshold = 0;
+
+	for (unsigned int j = 0; j < count; ++j)
+		CHECK(doc.append_child(STR("n")));
 }
 
 static bool test_offset(const char_t* contents, unsigned int options, pugi::xml_parse_status status, ptrdiff_t offset)
@@ -941,7 +975,7 @@ TEST(parse_error_offset)
 	CHECK_OFFSET("<node/>", parse_default, status_ok, 0);
 
 	test_runner::_memory_fail_threshold = 1;
-	CHECK_OFFSET("<node/>", parse_default, status_out_of_memory, 0);
+	CHECK_ALLOC_FAIL(CHECK_OFFSET("<node/>", parse_default, status_out_of_memory, 0));
 	test_runner::_memory_fail_threshold = 0;
 
 	CHECK_OFFSET("<3d/>", parse_default, status_unrecognized_tag, 1);

@@ -303,7 +303,7 @@ TEST_XML(dom_text_set_value, "<node/>")
 TEST_XML(dom_text_assign_llong, "<node/>")
 {
 	xml_node node = doc.child(STR("node"));
-
+	
 	node.append_child(STR("text1")).text() = -9223372036854775807ll;
 	node.append_child(STR("text2")).text() = -9223372036854775807ll - 1;
 	xml_text() = -9223372036854775807ll - 1;
@@ -311,14 +311,14 @@ TEST_XML(dom_text_assign_llong, "<node/>")
 	node.append_child(STR("text3")).text() = 18446744073709551615ull;
 	node.append_child(STR("text4")).text() = 18446744073709551614ull;
 	xml_text() = 18446744073709551615ull;
-
+	
 	CHECK_NODE(node, STR("<node><text1>-9223372036854775807</text1><text2>-9223372036854775808</text2><text3>18446744073709551615</text3><text4>18446744073709551614</text4></node>"));
 }
 
 TEST_XML(dom_text_set_value_llong, "<node/>")
 {
 	xml_node node = doc.child(STR("node"));
-
+	
 	CHECK(node.append_child(STR("text1")).text().set(-9223372036854775807ll));
 	CHECK(node.append_child(STR("text2")).text().set(-9223372036854775807ll - 1));
 	CHECK(!xml_text().set(-9223372036854775807ll - 1));

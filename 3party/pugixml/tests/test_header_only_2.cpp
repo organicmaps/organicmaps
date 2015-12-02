@@ -7,7 +7,7 @@
 #include "../src/pugixml.hpp"
 #include "../src/pugixml.hpp"
 
-TEST(header_only)
+TEST(header_only_2)
 {
 	xml_document doc;
 	CHECK(doc.load_string(STR("<node/>")));

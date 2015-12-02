@@ -1,4 +1,4 @@
-pugixml [![Build Status](https://travis-ci.org/zeux/pugixml.png?branch=master)](https://travis-ci.org/zeux/pugixml)
+pugixml [![Build Status](https://travis-ci.org/zeux/pugixml.svg?branch=master)](https://travis-ci.org/zeux/pugixml) [![Build status](https://ci.appveyor.com/api/projects/status/9hdks1doqvq8pwe7/branch/master?svg=true)](https://ci.appveyor.com/project/zeux/pugixml) [![codecov.io](http://codecov.io/github/zeux/pugixml/coverage.svg?branch=master)](http://codecov.io/github/zeux/pugixml?branch=master)
 =======
 
 pugixml is a C++ XML processing library, which consists of a DOM-like interface with rich traversal/modification
@@ -12,8 +12,8 @@ pugixml is used by a lot of projects, both open-source and proprietary, for perf
 
 Documentation for the current release of pugixml is available on-line as two separate documents:
 
-* [Quick-start guide](http://cdn.rawgit.com/zeux/pugixml/v1.5/docs/quickstart.html), that aims to provide enough information to start using the library;
-* [Complete reference manual](http://cdn.rawgit.com/zeux/pugixml/v1.5/docs/manual.html), that describes all features of the library in detail.
+* [Quick-start guide](http://pugixml.org/docs/quickstart.html), that aims to provide enough information to start using the library;
+* [Complete reference manual](http://pugixml.org/docs/manual.html), that describes all features of the library in detail.
 
 You’re advised to start with the quick-start guide; however, many important library features are either not described in it at all or only mentioned briefly; if you require more information you should read the complete manual.
 
