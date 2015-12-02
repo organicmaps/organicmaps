@@ -3,6 +3,7 @@
 
 #include "base/stl_add.hpp"
 #include "base/assert.hpp"
+#include "base/logging.hpp"
 
 namespace dp
 {
@@ -39,6 +40,15 @@ GpuProgramManager::~GpuProgramManager()
   m_shaders.clear();
 }
 
+void GpuProgramManager::Init()
+{
+  if (GLFunctions::glGetInteger(gl_const::GLMaxVertexTextures) > 0)
+  {
+    LOG(LINFO, ("VTF enabled"));
+    globalDefines = "#define ENABLE_VTF\n"; // VTF == Vetrex Texture Fetch
+  }
+}
+
 ref_ptr<GpuProgram> GpuProgramManager::GetProgram(int index)
 {
   program_map_t::iterator it = m_programs.find(index);
@@ -65,7 +75,7 @@ ref_ptr<Shader> GpuProgramManager::GetShader(int index, string const & source, S
   shader_map_t::iterator it = m_shaders.find(index);
   if (it == m_shaders.end())
   {
-    drape_ptr<Shader> shader = make_unique_dp<Shader>(source, t);
+    drape_ptr<Shader> shader = make_unique_dp<Shader>(source, globalDefines, t);
     ref_ptr<Shader> result = make_ref(shader);
     m_shaders.emplace(index, move(shader));
     return result;

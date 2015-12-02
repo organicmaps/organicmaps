@@ -57,7 +57,7 @@ uint32_t GLFunctions::glCreateShader(glConst type)
   return MOCK_CALL(glCreateShader(type));
 }
 
-void GLFunctions::glShaderSource(uint32_t shaderID, string const & src)
+void GLFunctions::glShaderSource(uint32_t shaderID, string const & src, string const & defines)
 {
   MOCK_CALL(glShaderSource(shaderID, src));
 }

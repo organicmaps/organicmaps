@@ -5,8 +5,13 @@ attribute vec2 a_colorTexCoord;
 uniform mat4 modelView;
 uniform mat4 projection;
 
+#ifdef ENABLE_VTF
+uniform sampler2D u_colorTex;
+varying lowp vec4 v_color;
+#else
 varying vec2 v_colorTexCoord;
-varying vec2 v_maskTexCoord;
+#endif
+
 varying vec2 v_halfLength;
 
 void main(void)
@@ -21,7 +26,11 @@ void main(void)
     transformedAxisPos = transformedAxisPos + normalize(shiftPos - transformedAxisPos) * halfWidth;
   }
 
+#ifdef ENABLE_VTF
+  v_color = texture2D(u_colorTex, a_colorTexCoord);
+#else
   v_colorTexCoord = a_colorTexCoord;
+#endif
   v_halfLength = vec2(sign(a_normal.z) * halfWidth, abs(a_normal.z));
   gl_Position = vec4(transformedAxisPos, a_position.z, 1.0) * projection;
 }

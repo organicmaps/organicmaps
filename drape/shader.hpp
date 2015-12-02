@@ -17,14 +17,12 @@ public:
     FragmentShader
   };
 
-  Shader(string const & shaderSource, Type type);
+  Shader(string const & shaderSource, string const & defines, Type type);
   ~Shader();
 
   int GetID() const;
 
 private:
-  string m_source;
-  Type m_type;
   uint32_t m_glID;
 };
 

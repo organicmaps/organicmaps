@@ -598,6 +598,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
   BeginUpdateOverlayTree(modelView);
   size_t eraseCount = 0;
+  GLFunctions::glEnable(gl_const::GLDepthTest);
   for (size_t i = 0; i < m_renderGroups.size(); ++i)
   {
     drape_ptr<RenderGroup> & group = m_renderGroups[i];
@@ -644,7 +645,8 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     RenderSingleGroup(modelView, make_ref(group));
   }
 
-  GLFunctions::glClearDepth();
+  //GLFunctions::glClearDepth();
+  GLFunctions::glDisable(gl_const::GLDepthTest);
   if (m_selectionShape != nullptr)
   {
     SelectionShape::ESelectedObject selectedObject = m_selectionShape->GetSelectedObject();
@@ -902,6 +904,8 @@ void FrontendRenderer::Routine::Do()
   GLFunctions::glFrontFace(gl_const::GLClockwise);
   GLFunctions::glCullFace(gl_const::GLBack);
   GLFunctions::glEnable(gl_const::GLCullFace);
+
+  m_renderer.m_gpuProgramManager->Init();
 
   dp::BlendingParams blendingParams;
   blendingParams.Apply();
