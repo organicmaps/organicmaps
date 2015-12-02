@@ -25,6 +25,7 @@ struct Touch
 {
   m2::PointF m_location = m2::PointF::Zero();
   int64_t m_id = -1; // if id == -1 then touch is invalid
+  float m_force = 0.0; // relative force of touch [0.0 - 1.0]
 };
 
 struct TouchEvent
@@ -204,6 +205,7 @@ public:
     virtual ~Listener() {}
 
     virtual void OnTap(m2::PointD const & pt, bool isLong) = 0;
+    virtual void OnForceTap(m2::PointD const & pt) = 0;
     virtual void OnDoubleTap(m2::PointD const & pt) = 0;
     virtual void OnTwoFingersTap() = 0;
     virtual bool OnSingleTouchFiltrate(m2::PointD const & pt, TouchEvent::ETouchType type) = 0;
@@ -283,6 +285,7 @@ private:
   void DetectShortTap(Touch const & touch);
   void DetectLongTap(Touch const & touch);
   bool DetectDoubleTap(Touch const & touch);
+  bool DetectForceTap(Touch const & touch);
   void EndTapDetector(Touch const & touch);
   void CancelTapDetector();
 

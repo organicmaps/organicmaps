@@ -270,12 +270,16 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   e.m_type = type;
   e.m_touches[0].m_id = reinterpret_cast<int64_t>(touch);
   e.m_touches[0].m_location = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
+  if ([self hasForceTouch])
+    e.m_touches[0].m_force = touch.force / touch.maximumPossibleForce;
   if (allTouches.count > 1)
   {
     UITouch * touch = [allTouches objectAtIndex:1];
     CGPoint const pt = [touch locationInView:v];
     e.m_touches[1].m_id = reinterpret_cast<int64_t>(touch);
     e.m_touches[1].m_location = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
+    if ([self hasForceTouch])
+      e.m_touches[1].m_force = touch.force / touch.maximumPossibleForce;
   }
 
   NSArray * toggledTouches = [touches allObjects];

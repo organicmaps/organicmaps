@@ -22,6 +22,8 @@ uint64_t const kKineticDelayMs = 500;
 
 double const kMaxAnimationTimeSec = 1.5; // in seconds
 
+float const kForceTapThreshold = 0.75;
+
 size_t GetValidTouchesCount(array<Touch, 2> const & touches)
 {
   size_t result = 0;
@@ -742,25 +744,32 @@ void UserEventStream::BeginTapDetector()
 
 void UserEventStream::DetectShortTap(Touch const & touch)
 {
+  if (DetectForceTap(touch))
+    return;
+
   uint64_t const ms = m_touchTimer.TimeElapsedAs<milliseconds>().count();
   if (ms > kDoubleTapPauseMs)
   {
     m_state = STATE_EMPTY;
     if (m_listener)
-      m_listener->OnTap(touch.m_location, false);
+      m_listener->OnTap(touch.m_location, false /* isLongTap */);
   }
 }
 
 void UserEventStream::DetectLongTap(Touch const & touch)
 {
   ASSERT_EQUAL(m_state, STATE_TAP_DETECTION, ());
+
+  if (DetectForceTap(touch))
+    return;
+
   uint64_t const ms = m_touchTimer.TimeElapsedAs<milliseconds>().count();
   if (ms > kLongTouchMs)
   {
     TEST_CALL(LONG_TAP_DETECTED);
     m_state = STATE_EMPTY;
     if (m_listener)
-      m_listener->OnTap(touch.m_location, true);
+      m_listener->OnTap(touch.m_location, true /* isLongTap */);
   }
 }
 
@@ -775,6 +784,19 @@ bool UserEventStream::DetectDoubleTap(Touch const & touch)
     m_listener->OnDoubleTap(touch.m_location);
 
   return true;
+}
+
+bool UserEventStream::DetectForceTap(Touch const & touch)
+{
+  if (touch.m_force >= kForceTapThreshold)
+  {
+    m_state = STATE_EMPTY;
+    if (m_listener)
+      m_listener->OnForceTap(touch.m_location);
+    return true;
+  }
+
+  return false;
 }
 
 void UserEventStream::EndTapDetector(Touch const & touch)

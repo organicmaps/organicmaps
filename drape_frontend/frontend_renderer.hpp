@@ -150,6 +150,7 @@ private:
   void ResolveZoomLevel(ScreenBase const & screen);
 
   void OnTap(m2::PointD const & pt, bool isLong) override;
+  void OnForceTap(m2::PointD const & pt) override;
   void OnDoubleTap(m2::PointD const & pt) override;
   void OnTwoFingersTap() override;
   bool OnSingleTouchFiltrate(m2::PointD const & pt, TouchEvent::ETouchType type) override;
