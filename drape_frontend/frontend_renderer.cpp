@@ -757,6 +757,12 @@ void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
   m_tapEventInfoFn(pt, isLongTap, isMyPosition, GetVisiblePOI(selectRect));
 }
 
+void FrontendRenderer::OnForceTap(m2::PointD const & pt)
+{
+  // Emulate long tap on force tap.
+  OnTap(pt, true /* isLongTap */);
+}
+
 void FrontendRenderer::OnDoubleTap(m2::PointD const & pt)
 {
   m_userEventStream.AddEvent(ScaleEvent(2.0 /* scale factor */, pt, true /* animated */));
