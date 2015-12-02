@@ -85,6 +85,12 @@ public class RoutingController
 
   private int mLastBuildProgress;
   private int mLastRouterType = Framework.nativeGetLastUsedRouter();
+
+  private boolean mHasContainerSavedState;
+  private boolean mContainsCachedResult;
+  private int mLastResultCode;
+  private MapStorage.Index[] mLastMissingCountries;
+  private MapStorage.Index[] mLastMissingRoutes;
   private RoutingInfo mCachedRoutingInfo;
 
   @SuppressWarnings("FieldCanBeLocal")
@@ -100,53 +106,19 @@ public class RoutingController
         @Override
         public void run()
         {
-          if (resultCode == ResultCodesHelper.NO_ERROR)
+          mLastResultCode = resultCode;
+          mLastMissingCountries = missingCountries;
+          mLastMissingRoutes = missingRoutes;
+          mContainsCachedResult = true;
+
+          if (mLastResultCode == ResultCodesHelper.NO_ERROR)
           {
             mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
             setBuildState(BuildState.BUILT);
             mLastBuildProgress = 100;
-            updatePlan();
-            return;
           }
 
-          if (mContainer == null)
-            return;
-
-          setBuildState(BuildState.ERROR);
-          mLastBuildProgress = 0;
-          updateProgress();
-
-          RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(resultCode, missingCountries, missingRoutes);
-          fragment.setListener(new RoutingErrorDialogFragment.Listener()
-          {
-            @Override
-            public void onDownload()
-            {
-              cancel();
-
-              if (missingCountries != null && missingCountries.length != 0)
-                ActiveCountryTree.downloadMapsForIndex(missingCountries, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
-              if (missingRoutes != null && missingRoutes.length != 0)
-                ActiveCountryTree.downloadMapsForIndex(missingRoutes, StorageOptions.MAP_OPTION_CAR_ROUTING);
-
-              if (mContainer != null)
-                mContainer.showDownloader(true);
-            }
-
-            @Override
-            public void onOk()
-            {
-              if (ResultCodesHelper.isDownloadable(resultCode))
-              {
-                cancel();
-
-                if (mContainer != null)
-                  mContainer.showDownloader(false);
-              }
-            }
-          });
-
-          fragment.show(mContainer.getActivity().getSupportFragmentManager(), fragment.getClass().getSimpleName());
+          processRoutingEvent();
         }
       });
     }
@@ -169,6 +141,56 @@ public class RoutingController
       });
     }
   };
+
+  private void processRoutingEvent()
+  {
+    if (!mContainsCachedResult ||
+        mContainer == null ||
+        mHasContainerSavedState)
+      return;
+
+    mContainsCachedResult = false;
+
+    if (mLastResultCode == ResultCodesHelper.NO_ERROR)
+    {
+      updatePlan();
+      return;
+    }
+
+    setBuildState(BuildState.ERROR);
+    mLastBuildProgress = 0;
+    updateProgress();
+
+    RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(mLastResultCode, mLastMissingCountries, mLastMissingRoutes);
+    fragment.setListener(new RoutingErrorDialogFragment.Listener()
+    {
+      @Override
+      public void onDownload()
+      {
+        cancel();
+
+        ActiveCountryTree.downloadMapsForIndices(mLastMissingCountries, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
+        ActiveCountryTree.downloadMapsForIndices(mLastMissingRoutes, StorageOptions.MAP_OPTION_CAR_ROUTING);
+
+        if (mContainer != null)
+          mContainer.showDownloader(true);
+      }
+
+      @Override
+      public void onOk()
+      {
+        if (ResultCodesHelper.isDownloadable(mLastResultCode))
+        {
+          cancel();
+
+          if (mContainer != null)
+            mContainer.showDownloader(false);
+        }
+      }
+    });
+
+    fragment.show(mContainer.getActivity().getSupportFragmentManager(), fragment.getClass().getSimpleName());
+  }
 
   private RoutingController()
   {
@@ -229,21 +251,28 @@ public class RoutingController
     mContainer = container;
   }
 
-  public void restore()
-  {
-    if (isPlanning())
-      showRoutePlan();
-
-    mContainer.showNavigation(isNavigating());
-    mContainer.updateMenu();
-  }
-
   public void detach()
   {
     Log.d(TAG, "detach");
 
     mContainer = null;
     mStartButton = null;
+  }
+
+  public void restore()
+  {
+    mHasContainerSavedState = false;
+    if (isPlanning())
+      showRoutePlan();
+
+    mContainer.showNavigation(isNavigating());
+    mContainer.updateMenu();
+    processRoutingEvent();
+  }
+
+  public void onSaveState()
+  {
+    mHasContainerSavedState = true;
   }
 
   private void build()
