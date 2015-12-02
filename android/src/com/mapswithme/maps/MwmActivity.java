@@ -560,10 +560,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
       outState.putBoolean(STATE_PP_OPENED, true);
       outState.putParcelable(STATE_MAP_OBJECT, mPlacePage.getMapObject());
     }
-
     if (!mIsFragmentContainer && RoutingController.get().isPlanning())
       mRoutingPlanInplaceController.onSaveState(outState);
-
+    RoutingController.get().onSaveState();
     super.onSaveInstanceState(outState);
   }
 
@@ -929,7 +928,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return false;
 
     if (animate)
-    {
       mPanelAnimator.hide(new Runnable()
       {
         @Override
@@ -938,7 +936,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           removeFragmentImmediate(fragment);
         }
       });
-    } else
+    else
       removeFragmentImmediate(fragment);
 
     return true;

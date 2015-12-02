@@ -75,9 +75,11 @@ public class ActiveCountryTree
 
   public static native void downloadMapForIndex(Index index, int options);
 
-  public static void downloadMapsForIndex(Index[] indexes, int options)
+  public static void downloadMapsForIndices(Index[] indices, int options)
   {
-    for (Index index : indexes)
+    if (indices == null)
+      return;
+    for (Index index : indices)
       downloadMapForIndex(index, options);
   }
 }
