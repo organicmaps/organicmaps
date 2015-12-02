@@ -40,7 +40,6 @@ int main(int argc, char *argv[])
 
   gen.renderPages();
 
-  gen.writeToFile(FLAGS_skinName + FLAGS_skinSuffix);
   QString newSkin(FLAGS_skinName.c_str());
   newSkin.replace("basic", "symbols");
   gen.writeToFileNewStyle(newSkin.toStdString() + FLAGS_skinSuffix);
