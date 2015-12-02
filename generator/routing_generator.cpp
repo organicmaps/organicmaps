@@ -52,7 +52,6 @@ uint8_t GetWarningRank(FeatureType const & ft)
   if (types.Has(c.GetTypeByPath({"highway", "primary"})) ||
       types.Has(c.GetTypeByPath({"highway", "primary_link"})) ||
       types.Has(c.GetTypeByPath({"highway", "secondary"})) ||
-      types.Has(c.GetTypeByPath({"highway", "road"})) ||
       types.Has(c.GetTypeByPath({"highway", "secondary_link"})))
     return 2;
   return 3;
