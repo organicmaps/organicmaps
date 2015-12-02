@@ -1,5 +1,5 @@
 #include "qt/draw_widget.hpp"
-
+#include "qt/editor_dialog.hpp"
 #include "qt/slider_ctrl.hpp"
 #include "qt/qtoglcontext.hpp"
 
@@ -79,8 +79,15 @@ DrawWidget::DrawWidget(QWidget * parent)
     m_enableScaleUpdate(true),
     m_emulatingLocation(false)
 {
-  m_framework->SetUserMarkActivationListener([](unique_ptr<UserMarkCopy> mark)
+  m_framework->SetUserMarkActivationListener([this](unique_ptr<UserMarkCopy> mark)
   {
+    // TODO: Why do we get empty mark in some cases?
+    if (mark)
+    {
+      auto const * m = mark->GetUserMark();
+      if (m->GetMarkType() == UserMark::Type::POI)
+        ShowPOIEditor(m->GetPivot());
+    }
   });
 
   m_framework->SetRouteBuildingListener([](routing::IRouter::ResultCode,
@@ -323,10 +330,7 @@ void DrawWidget::mousePressEvent(QMouseEvent * e)
     else if (IsLocationEmulation(e))
       SubmitFakeLocationPoint(pt);
     else
-    {
       m_framework->TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_DOWN));
-      setCursor(Qt::CrossCursor);
-    }
   }
   else if (IsRightButton(e))
     ShowInfoPopup(e, pt);
@@ -459,6 +463,40 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
     m_framework->CloseRouting();
   else
     m_framework->BuildRoute(m_framework->PtoG(pt), 0 /* timeoutSec */);
+}
+
+void DrawWidget::ShowPOIEditor(m2::PointD const & pt)
+{
+  FeatureType feature;
+  if (!m_framework->GetVisiblePOI(pt, feature))
+    return;
+
+  // Show Edit POI dialog.
+  EditorDialog(this, feature).exec();
+/*
+  int const result = dlg.exec();
+  if (result == QDialog::Accepted)
+  {
+    // TODO(AlexZ): Uncomment and finish the code below.
+    // Save edited data.
+    string const editedName = lineEditName->text().toStdString();
+    if (editedName != info.m_name)
+      m_framework->EditFeatureName(feature.GetID(), editedName);
+    // TODO: Compare with
+    // 1) osm::EditFeatureName(feature, editedName);
+    // 2) feature.EditName(editedName);
+    // 3) m_framework->EditFeature(feature.EditName(editedName));
+
+    // Save edited metadata (if any).
+    size_t index = 0;
+    for (auto const field : editableMetadataFields)
+      metadata.Set(field, metaFieldEditors[index]->text().toStdString());
+  }
+  else if (result == QDialogButtonBox::DestructiveRole)
+  {
+    m_framework->DeleteFeature(feature.GetID());
+  }
+*/
 }
 
 void DrawWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
