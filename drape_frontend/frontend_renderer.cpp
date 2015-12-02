@@ -161,9 +161,11 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         eraseFunction(m_renderGroups);
         eraseFunction(m_deferredRenderGroups);
 
+        BaseBlockingMessage::Blocker blocker;
         m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<InvalidateReadManagerRectMessage>(tiles),
-                                  MessagePriority::Normal);
+                                  make_unique_dp<InvalidateReadManagerRectMessage>(blocker, tiles),
+                                  MessagePriority::High);
+        blocker.Wait();
 
         m_requestedTiles->Set(screen, move(tiles));
         m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
@@ -383,16 +385,22 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_deferredRenderGroups.clear();
 
       // Invalidate read manager.
-      m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                make_unique_dp<InvalidateReadManagerRectMessage>(tiles),
-                                MessagePriority::Normal);
+      {
+        BaseBlockingMessage::Blocker blocker;
+        m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<InvalidateReadManagerRectMessage>(blocker, tiles),
+                                  MessagePriority::High);
+        blocker.Wait();
+      }
 
       // Invalidate textures and wait for completion.
-      BaseBlockingMessage::Blocker blocker;
-      m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                make_unique_dp<InvalidateTexturesMessage>(blocker),
-                                MessagePriority::Normal);
-      blocker.Wait();
+      {
+        BaseBlockingMessage::Blocker blocker;
+        m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<InvalidateTexturesMessage>(blocker),
+                                  MessagePriority::High);
+        blocker.Wait();
+      }
 
       // Invalidate route.
       if (m_routeRenderer->GetStartPoint())
