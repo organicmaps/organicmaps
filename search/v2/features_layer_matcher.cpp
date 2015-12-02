@@ -4,8 +4,13 @@ namespace search
 {
 namespace v2
 {
-FeaturesLayerMatcher::FeaturesLayerMatcher(FeaturesVector const & featuresVector)
-  : m_featuresVector(featuresVector)
+namespace
+{
+static double constexpr kDefaultRadiusMeters = 200;
+}  // namespace
+
+FeaturesLayerMatcher::FeaturesLayerMatcher(MwmValue & value, FeaturesVector const & featuresVector)
+  : m_featuresVector(featuresVector), m_loader(value, featuresVector, kDefaultRadiusMeters)
 {
 }
 }  // namespace v2

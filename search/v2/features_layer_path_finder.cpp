@@ -8,8 +8,9 @@ namespace search
 {
 namespace v2
 {
-FeaturesLayerPathFinder::FeaturesLayerPathFinder(FeaturesVector const & featuresVector)
-  : m_matcher(featuresVector)
+FeaturesLayerPathFinder::FeaturesLayerPathFinder(MwmValue & value,
+                                                 FeaturesVector const & featuresVector)
+  : m_matcher(value, featuresVector)
 {
 }
 
@@ -23,7 +24,7 @@ void FeaturesLayerPathFinder::BuildGraph(vector<FeaturesLayer *> const & layers)
     auto & parent = (*layers[i + 1]);
     auto addEdges = [&](uint32_t from, uint32_t to)
     {
-      m_graph[parent.m_features[to]].push_back(child.m_features[from]);
+      m_graph[parent.m_sortedFeatures[to]].push_back(child.m_sortedFeatures[from]);
     };
     m_matcher.Match(child, parent, addEdges);
   }

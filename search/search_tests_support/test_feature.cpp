@@ -15,6 +15,8 @@ namespace search
 {
 namespace tests_support
 {
+TestFeature::TestFeature(string const & name, string const & lang) : m_name(name), m_lang(lang) {}
+
 TestFeature::TestFeature(m2::PointD const & center, string const & name, string const & lang)
   : m_center(center), m_name(name), m_lang(lang)
 {
@@ -33,6 +35,7 @@ bool TestFeature::Matches(FeatureType const & feature) const
   return feature.GetName(langIndex, name) && m_name == name;
 }
 
+// TestPOI -----------------------------------------------------------------------------------------
 TestPOI::TestPOI(m2::PointD const & center, string const & name, string const & lang)
   : TestFeature(center, name, lang)
 {
@@ -52,6 +55,7 @@ string TestPOI::ToString() const
   return os.str();
 }
 
+// TestCity ----------------------------------------------------------------------------------------
 TestCity::TestCity(m2::PointD const & center, string const & name, string const & lang,
                    uint8_t rank)
   : TestFeature(center, name, lang), m_rank(rank)
@@ -70,6 +74,31 @@ string TestCity::ToString() const
 {
   ostringstream os;
   os << "TestCity [" << m_name << ", " << m_lang << ", " << DebugPrint(m_center) << "]";
+  return os.str();
+}
+
+// TestStreet --------------------------------------------------------------------------------------
+TestStreet::TestStreet(vector<m2::PointD> const & points, string const & name, string const & lang)
+  : TestFeature(name, lang), m_points(points)
+{
+}
+
+void TestStreet::Serialize(FeatureBuilder1 & fb) const
+{
+  CHECK(fb.AddName(m_lang, m_name), ("Can't set feature name:", m_name, "(", m_lang, ")"));
+
+  auto const & classificator = classif();
+  fb.SetType(classificator.GetTypeByPath({"highway", "living_street"}));
+
+  for (auto const & point : m_points)
+    fb.AddPoint(point);
+  fb.SetLinear(false /* reverseGeometry */);
+}
+
+string TestStreet::ToString() const
+{
+  ostringstream os;
+  os << "TestStreet [" << m_name << ", " << m_lang << ", " << ::DebugPrint(m_points) << "]";
   return os.str();
 }
 

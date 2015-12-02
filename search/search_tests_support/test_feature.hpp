@@ -3,6 +3,7 @@
 #include "geometry/point2d.hpp"
 
 #include "std/string.hpp"
+#include "std/vector.hpp"
 
 class FeatureBuilder1;
 class FeatureType;
@@ -21,6 +22,7 @@ public:
   virtual string ToString() const = 0;
 
 protected:
+  TestFeature(string const & name, string const & lang);
   TestFeature(m2::PointD const & center, string const & name, string const & lang);
 
   m2::PointD const m_center;
@@ -49,6 +51,19 @@ public:
 
 private:
   uint8_t const m_rank;
+};
+
+class TestStreet : public TestFeature
+{
+public:
+  TestStreet(vector<m2::PointD> const & points, string const & name, string const & lang);
+
+  // TestFeature overrides:
+  void Serialize(FeatureBuilder1 & fb) const override;
+  string ToString() const override;
+
+private:
+  vector<m2::PointD> m_points;
 };
 
 string DebugPrint(TestFeature const & feature);

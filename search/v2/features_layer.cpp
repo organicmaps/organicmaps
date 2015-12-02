@@ -12,7 +12,7 @@ FeaturesLayer::FeaturesLayer() { Clear(); }
 
 void FeaturesLayer::Clear()
 {
-  m_features.clear();
+  m_sortedFeatures.clear();
   m_startToken = 0;
   m_endToken = 0;
   m_type = SearchModel::SEARCH_TYPE_COUNT;
@@ -21,7 +21,7 @@ void FeaturesLayer::Clear()
 string DebugPrint(FeaturesLayer const & layer)
 {
   ostringstream os;
-  os << "FeaturesLayer [ m_features: " << ::DebugPrint(layer.m_features)
+  os << "FeaturesLayer [ m_sortedFeatures: " << ::DebugPrint(layer.m_sortedFeatures)
      << ", m_startToken: " << layer.m_startToken << ", m_endToken: " << layer.m_endToken
      << ", m_type: " << DebugPrint(layer.m_type) << " ]";
   return os.str();

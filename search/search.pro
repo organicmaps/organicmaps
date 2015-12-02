@@ -47,6 +47,7 @@ HEADERS += \
     v2/geocoder.hpp \
     v2/search_model.hpp \
     v2/search_query_v2.hpp \
+    v2/street_vicinity_loader.hpp \
 
 SOURCES += \
     approximate_string_match.cpp \
@@ -77,3 +78,4 @@ SOURCES += \
     v2/geocoder.cpp \
     v2/search_model.cpp \
     v2/search_query_v2.cpp \
+    v2/street_vicinity_loader.cpp \

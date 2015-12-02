@@ -6,6 +6,7 @@
 #include "search/search_string_utils.hpp"
 
 #include "indexer/feature_decl.hpp"
+#include "indexer/feature_impl.hpp"
 #include "indexer/index.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
@@ -25,6 +26,30 @@ namespace search
 {
 namespace v2
 {
+namespace
+{
+void JoinQueryTokens(SearchQueryParams const & params, size_t curToken, size_t endToken,
+                     string const & sep, string & res)
+{
+  ASSERT_LESS_OR_EQUAL(curToken, endToken, ());
+  for (size_t i = curToken; i < endToken; ++i)
+  {
+    if (i < params.m_tokens.size())
+    {
+      res.append(strings::ToUtf8(params.m_tokens[i].front()));
+    }
+    else
+    {
+      ASSERT_EQUAL(i, params.m_tokens.size(), ());
+      res.append(strings::ToUtf8(params.m_prefixTokens.front()));
+    }
+
+    if (i + 1 != endToken)
+      res.append(sep);
+  }
+}
+}  // namespace
+
 Geocoder::Geocoder(Index & index)
   : m_index(index)
   , m_numTokens(0)
@@ -79,7 +104,7 @@ void Geocoder::Go(vector<FeatureID> & results)
       });
 
       m_loader.reset(new Index::FeaturesLoaderGuard(m_index, m_mwmId));
-      m_finder.reset(new FeaturesLayerPathFinder(m_loader->GetFeaturesVector()));
+      m_finder.reset(new FeaturesLayerPathFinder(*m_value, m_loader->GetFeaturesVector()));
       m_cache.clear();
 
       DoGeocoding(0 /* curToken */);
@@ -172,7 +197,8 @@ void Geocoder::DoGeocoding(size_t curToken)
       // DoGeocoding().  This may lead to use-after-free.
       auto & layer = m_layers.back();
 
-      layer.m_features.swap(clusters[i]);
+      layer.m_sortedFeatures.swap(clusters[i]);
+      ASSERT(is_sorted(layer.m_sortedFeatures.begin(), layer.m_sortedFeatures.end()), ());
       layer.m_type = static_cast<SearchModel::SearchType>(i);
       if (IsLayerSequenceSane())
         DoGeocoding(curToken + n);
@@ -213,9 +239,11 @@ bool Geocoder::IsLayerSequenceSane() const
 
 bool Geocoder::LooksLikeHouseNumber(size_t curToken, size_t endToken) const
 {
-  // TODO (@y): implement this.
-  // NOTIMPLEMENTED();
-  return false;
+  string res;
+  JoinQueryTokens(m_params, curToken, endToken, " " /* sep */, res);
+
+  // TODO (@y): we need to implement a better check here.
+  return feature::IsHouseNumber(res);
 }
 
 void Geocoder::FindPaths()

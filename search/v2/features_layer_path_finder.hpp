@@ -7,6 +7,7 @@
 #include "std/vector.hpp"
 
 class FeaturesVector;
+class MwmValue;
 
 namespace search
 {
@@ -20,7 +21,7 @@ public:
   using TAdjList = vector<uint32_t>;
   using TLayerGraph = unordered_map<uint32_t, TAdjList>;
 
-  FeaturesLayerPathFinder(FeaturesVector const & featuresVector);
+  FeaturesLayerPathFinder(MwmValue & value, FeaturesVector const & featuresVector);
 
   template <typename TFn>
   void ForEachReachableVertex(vector<FeaturesLayer *> const & layers, TFn && fn)
@@ -31,10 +32,10 @@ public:
     BuildGraph(layers);
 
     m_visited.clear();
-    for (uint32_t featureId : (*layers.back()).m_features)
+    for (uint32_t featureId : (*layers.back()).m_sortedFeatures)
       Dfs(featureId);
 
-    for (uint32_t featureId : (*layers.front()).m_features)
+    for (uint32_t featureId : (*layers.front()).m_sortedFeatures)
     {
       if (m_visited.count(featureId) != 0)
         fn(featureId);
