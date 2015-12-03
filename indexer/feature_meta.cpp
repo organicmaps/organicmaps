@@ -42,3 +42,32 @@ string Metadata::GetWikiURL() const
 }
 
 }  // namespace feature
+
+string DebugPrint(feature::Metadata::EType type)
+{
+  using feature::Metadata;
+  switch (type)
+  {
+  case Metadata::FMD_CUISINE: return "Cuisine";
+  case Metadata::FMD_OPEN_HOURS: return "Open Hours";
+  case Metadata::FMD_PHONE_NUMBER: return "Phone";
+  case Metadata::FMD_FAX_NUMBER: return "Fax";
+  case Metadata::FMD_STARS: return "Stars";
+  case Metadata::FMD_OPERATOR: return "Operator";
+  case Metadata::FMD_URL: return "URL";
+  case Metadata::FMD_WEBSITE: return "Website";
+  case Metadata::FMD_INTERNET: return "Internet";
+  case Metadata::FMD_ELE: return "Elevation";
+  case Metadata::FMD_TURN_LANES: return "Turn Lanes";
+  case Metadata::FMD_TURN_LANES_FORWARD: return "Turn Lanes Forward";
+  case Metadata::FMD_TURN_LANES_BACKWARD: return "Turn Lanes Backward";
+  case Metadata::FMD_EMAIL: return "Email";
+  case Metadata::FMD_POSTCODE: return "Postcode";
+  case Metadata::FMD_WIKIPEDIA: return "Wikipedia";
+  case Metadata::FMD_MAXSPEED: return "Maxspeed";
+  case Metadata::FMD_FLATS: return "Flats";
+  case Metadata::FMD_COUNT: CHECK(false, ("FMD_COUNT can not be used as a type."));
+  };
+
+  return string();
+}
