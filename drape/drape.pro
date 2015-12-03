@@ -47,6 +47,8 @@ OTHER_FILES += \
     shaders/texturing_billboard_vertex_shader.vsh \
     shaders/texturing_fragment_shader.fsh \
     shaders/texturing_vertex_shader.vsh \
+    shaders/trackpoint_vertex_shader.vsh \
+    shaders/trackpoint_fragment_shader.fsh \
     shaders/transparent_layer_fragment_shader.fsh \
     shaders/transparent_layer_vertex_shader.vsh \
     shaders/user_mark.vsh \
