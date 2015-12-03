@@ -290,8 +290,6 @@ public class MapFragment extends BaseMwmFragment
 
   private native void nativeConnectDownloadButton();
   private static native void nativeDownloadCountry(MapStorage.Index index, int options);
-  static native void nativeOnLocationError(int errorCode);
-  static native void nativeLocationUpdated(long time, double lat, double lon, float accuracy, double altitude, float speed, float bearing);
   static native void nativeCompassUpdated(double magneticNorth, double trueNorth, boolean forceRedraw);
   static native void nativeScalePlus();
   static native void nativeScaleMinus();
