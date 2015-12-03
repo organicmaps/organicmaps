@@ -131,7 +131,7 @@ namespace qt
     if (st.CountriesCount(countryIndex) > 0)
       return;
 
-    switch (m_framework.GetCountryStatus(countryIndex))
+    switch (m_framework.GetActiveMaps()->GetCountryStatus(countryIndex))
     {
     case TStatus::EOnDiskOutOfDate:
       {
@@ -150,10 +150,10 @@ namespace qt
         QAbstractButton * res = ask.clickedButton();
 
         if (res == btns[0])
-          m_framework.DownloadCountry(countryIndex, MapOptions::MapWithCarRouting);
+          m_framework.GetActiveMaps()->DownloadMap(countryIndex, MapOptions::MapWithCarRouting);
 
         if (res == btns[1])
-          m_framework.DeleteCountry(countryIndex, MapOptions::MapWithCarRouting);
+          m_framework.GetActiveMaps()->DeleteMap(countryIndex, MapOptions::MapWithCarRouting);
       }
       break;
 
@@ -167,18 +167,18 @@ namespace qt
         ask.setDefaultButton(QMessageBox::No);
 
         if (ask.exec() == QMessageBox::Yes)
-          m_framework.DeleteCountry(countryIndex, MapOptions::MapWithCarRouting);
+          m_framework.GetActiveMaps()->DeleteMap(countryIndex, MapOptions::MapWithCarRouting);
       }
       break;
 
     case TStatus::ENotDownloaded:
     case TStatus::EDownloadFailed:
-      m_framework.DownloadCountry(countryIndex, MapOptions::MapWithCarRouting);
+      m_framework.GetActiveMaps()->DownloadMap(countryIndex, MapOptions::MapWithCarRouting);
       break;
 
     case TStatus::EInQueue:
     case TStatus::EDownloading:
-      m_framework.DeleteCountry(countryIndex, MapOptions::MapWithCarRouting);
+      m_framework.GetActiveMaps()->DeleteMap(countryIndex, MapOptions::MapWithCarRouting);
       break;
 
     default:
