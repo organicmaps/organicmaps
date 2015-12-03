@@ -23,7 +23,7 @@ namespace scales
   /// Default navigation 3d mode scale
   inline int GetNavigation3dScale() { return UPPER_STYLE_SCALE - 2; }
   /// Default pedestrian navigation 3d mode scale
-  inline int GetPedestrianNavigation3dScale() { return UPPER_STYLE_SCALE; }
+  inline int GetPedestrianNavigation3dScale() { return UPPER_STYLE_SCALE - 1; }
   /// Minimal allowable scale in 3d mode
   inline int GetMinAllowableIn3dScale() { return 17; }
 

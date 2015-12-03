@@ -132,9 +132,12 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       drape_ptr<dp::RenderBucket> bucket = msg->AcceptBuffer();
       ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
       ref_ptr<dp::GpuProgram> program3d = m_gpuProgramManager->GetProgram(state.GetProgram3dIndex());
-      program->Bind();
-      bucket->GetBuffer()->Build(m_userEventStream.GetCurrentScreen().isPerspective() ? program3d
-                                                                                      : program);
+      bool const isPerspective = m_userEventStream.GetCurrentScreen().isPerspective();
+      if (isPerspective)
+        program3d->Bind();
+      else
+        program->Bind();
+      bucket->GetBuffer()->Build(isPerspective ? program3d : program);
       if (!IsUserMarkLayer(key))
       {
         if (CheckTileGenerations(key))

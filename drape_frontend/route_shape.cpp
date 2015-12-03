@@ -299,6 +299,8 @@ void RouteShape::CacheRouteSign(ref_ptr<dp::TextureManager> mng, RouteSignData &
   };
 
   dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::OverlayLayer);
+  if (!routeSignData.m_isStart)
+    state.SetProgram3dIndex(gpu::TEXTURING_BILLBOARD_PROGRAM);
   state.SetColorTexture(symbol.GetTexture());
 
   {
