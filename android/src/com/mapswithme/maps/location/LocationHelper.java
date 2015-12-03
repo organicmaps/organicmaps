@@ -42,7 +42,7 @@ public enum LocationHelper implements SensorEventListener
   public static final String LOCATION_PREDICTOR_PROVIDER = "LocationPredictorProvider";
   private static final float DISTANCE_TO_RECREATE_MAGNETIC_FIELD_M = 1000;
   private static final long UPDATE_INTERVAL_FOREGROUND = 500;
-  private static final long UPDATE_INTERVAL_BACKGROUND = 10000;
+  private static final long UPDATE_INTERVAL_BACKGROUND = 20000;
   private static final long STOP_DELAY = 5000;
 
   public interface LocationListener
