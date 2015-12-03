@@ -5550,6 +5550,43 @@
     nl = Hoe stel je de stem in
     pt = Como configurar a voz
 
+  [pref_track_record_enabled_title]
+     tags = ios,android
+     comment = Settings «Map» category: «Record track» title
+     en = Record GPS track
+     ru = Запись маршрута
+
+  [pref_track_record_length_title]
+     tags = ios,android
+     comment = Settings «Map» category: «Length of recorded track» title
+     en = Record length
+     ru = Длительность записи
+
+  [duration_1_hour]
+     tags = ios,android
+     en = 1 hour
+     ru = 1 час
+
+  [duration_2_hours]
+     tags = ios,android
+     en = 2 hours
+     ru = 2 часа
+
+  [duration_6_hours]
+     tags = ios,android
+     en = 6 hours
+     ru = 6 часов
+
+  [duration_12_hours]
+     tags = ios,android
+     en = 12 hours
+     ru = 12 часов
+
+  [duration_1_day]
+     tags = ios,android
+     en = 1 day
+     ru = 1 день
+
   [placepage_distance]
     en = Distance
     fr = Distance
