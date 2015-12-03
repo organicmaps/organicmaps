@@ -1841,6 +1841,7 @@ void Framework::FollowRoute()
                      scales::GetNavigationScale();
 
   m_drapeEngine->FollowRoute(scale);
+  m_drapeEngine->SetRoutePoint(m2::PointD(), true /* isStart */, false /* isValid */);
 }
 
 bool Framework::DisableFollowMode()
