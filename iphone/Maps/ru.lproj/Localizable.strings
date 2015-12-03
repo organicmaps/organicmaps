@@ -533,6 +533,22 @@
 
 "pref_tts_how_to_set_up_voice" = "Как настроить голос";
 
+/* Settings «Map» category: «Record track» title */
+"pref_track_record_enabled_title" = "Запись маршрута";
+
+/* Settings «Map» category: «Length of recorded track» title */
+"pref_track_record_length_title" = "Длительность записи";
+
+"duration_1_hour" = "1 час";
+
+"duration_2_hours" = "2 часа";
+
+"duration_6_hours" = "6 часов";
+
+"duration_12_hours" = "12 часов";
+
+"duration_1_day" = "1 день";
+
 "placepage_distance" = "Расстояние";
 
 "placepage_coordinates" = "Координаты";

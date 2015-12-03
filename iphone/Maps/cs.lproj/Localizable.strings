@@ -533,6 +533,22 @@
 
 "pref_tts_how_to_set_up_voice" = "Jak nastavit hlas";
 
+/* Settings «Map» category: «Record track» title */
+"pref_track_record_enabled_title" = "Record GPS track";
+
+/* Settings «Map» category: «Length of recorded track» title */
+"pref_track_record_length_title" = "Record length";
+
+"duration_1_hour" = "1 hour";
+
+"duration_2_hours" = "2 hours";
+
+"duration_6_hours" = "6 hours";
+
+"duration_12_hours" = "12 hours";
+
+"duration_1_day" = "1 day";
+
 "placepage_distance" = "Vzdálenost";
 
 "placepage_coordinates" = "Souřadnice";

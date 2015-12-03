@@ -345,6 +345,15 @@
 	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">Other</string>
 	<string name="pref_tts_how_to_set_up_voice">How to set up voice</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_enabled_title">Record GPS track</string>
+	<!-- Settings «Map» category: «Length of recorded track» title -->
+	<string name="pref_track_record_length_title">Record length</string>
+	<string name="duration_1_hour">1 hour</string>
+	<string name="duration_2_hours">2 hours</string>
+	<string name="duration_6_hours">6 hours</string>
+	<string name="duration_12_hours">12 hours</string>
+	<string name="duration_1_day">1 day</string>
 	<string name="placepage_distance">Distance</string>
 	<string name="placepage_coordinates">Coordinates</string>
 	<string name="placepage_unsorted">Unsorted</string>
