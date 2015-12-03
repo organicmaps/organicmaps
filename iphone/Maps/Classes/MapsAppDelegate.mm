@@ -221,6 +221,12 @@ void InitLocalizedStrings()
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  if (launchOptions[UIApplicationLaunchOptionsLocationKey])
+  {
+    _m_locationManager = [[LocationManager alloc] init];
+    [self.m_locationManager onDaemonMode];
+    return YES;
+  }
   // Initialize all 3party engines.
   BOOL returnValue = [self initStatistics:application didFinishLaunchingWithOptions:launchOptions];
 
@@ -238,9 +244,9 @@ void InitLocalizedStrings()
   
   [self.mapViewController onEnterForeground];
 
-  [Preferences setup:self.mapViewController];
+  [Preferences setup];
   _m_locationManager = [[LocationManager alloc] init];
-
+  [self.m_locationManager onForeground];
   [self subscribeToStorage];
 
   [self customizeAppearance];
@@ -297,6 +303,7 @@ void InitLocalizedStrings()
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+  [self.m_locationManager beforeTerminate];
   [self.mapViewController onTerminate];
 }
 
@@ -320,7 +327,7 @@ void InitLocalizedStrings()
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-  [self.m_locationManager orientationChanged];
+  [self.m_locationManager onForeground];
   [self.mapViewController onEnterForeground];
   [MWMTextToSpeech activateAudioSession];
 }

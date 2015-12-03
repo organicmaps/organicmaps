@@ -1,44 +1,23 @@
 #import "Preferences.h"
-#import "../Classes/MapViewController.h"
 
 #include "Framework.h"
 
 #include "platform/settings.hpp"
 
-//********************* Helper delegate to handle async dialog message ******************
-@interface PrefDelegate : NSObject
-@property (nonatomic, weak) id m_controller;
-@end
-
-@implementation PrefDelegate
-
-@end
-//***************************************************************************************
-
 @implementation Preferences
 
 // TODO: Export this logic to C++
 
-+ (void)setup:(id)controller
++ (void)setup
 {
   Settings::Units u;
-  if (!Settings::Get("Units", u))
+  string const units = "Units";
+  if (!Settings::Get(units, u))
   {
     // get system locale preferences
     BOOL const isMetric = [[[NSLocale autoupdatingCurrentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue];
-    if (isMetric)
-    {
-      u = Settings::Metric;
-    }
-    else
-    {
-      u = Settings::Foot;
-      // Will be released in delegate's callback itself
-      PrefDelegate * d = [[PrefDelegate alloc] init];
-      d.m_controller = controller;
-    }
-    
-    Settings::Set("Units", u);
+    u = isMetric ? Settings::Metric : Settings::Foot;
+    Settings::Set(units, u);
   }
   GetFramework().SetupMeasurementSystem();
 }

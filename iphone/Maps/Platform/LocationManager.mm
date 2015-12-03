@@ -14,6 +14,12 @@
 static CLAuthorizationStatus const kRequestAuthStatus = kCLAuthorizationStatusAuthorizedAlways;
 static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlwaysRequestErrorDenied";
 
+@interface LocationManager ()
+
+@property (nonatomic) BOOL isDaemonMode;
+
+@end
+
 @implementation LocationManager
 
 - (id)init
@@ -28,7 +34,6 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
       m_locationManager.allowsBackgroundLocationUpdates = YES;
     m_locationManager.pausesLocationUpdatesAutomatically = YES;
     m_locationManager.headingFilter = 3.0;
-    //    m_locationManager.distanceFilter = 3.0;
     m_isStarted = NO;
     m_observers = [[NSMutableSet alloc] init];
     m_lastLocationTime = nil;
@@ -54,6 +59,28 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
 {
   m_locationManager.delegate = nil;
   [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)onDaemonMode
+{
+  self.isDaemonMode = YES;
+  [m_locationManager startMonitoringSignificantLocationChanges];
+  m_locationManager.activityType = CLActivityTypeFitness;
+  [m_locationManager startUpdatingLocation];
+}
+
+- (void)beforeTerminate
+{
+  [m_locationManager startMonitoringSignificantLocationChanges];
+}
+
+- (void)onForeground
+{
+  self.isDaemonMode = NO;
+  [m_locationManager stopMonitoringSignificantLocationChanges];
+  [m_locationManager disallowDeferredLocationUpdates];
+  m_locationManager.activityType = CLActivityTypeOther;
+  [self orientationChanged];
 }
 
 - (void)start:(id <LocationObserver>)observer
@@ -171,15 +198,11 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
   [self notifyCompassUpdate:info];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
-  [self processLocation:newLocation];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
-  CLLocation * newLocation = [locations lastObject];
-  [self processLocation:newLocation];
+  [self processLocation:locations.lastObject];
+  if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground)
+    [m_locationManager allowDeferredLocationUpdatesUntilTraveled:300 timeout:15];
 }
 
 - (void)processLocation:(CLLocation *)newLocation
@@ -214,6 +237,8 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
 
 - (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager
 {
+  if (self.isDaemonMode)
+    return NO;
   bool on = false;
   Settings::Get("CompassCalibrationEnabled", on);
   if (!on)

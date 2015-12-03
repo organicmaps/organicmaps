@@ -41,6 +41,10 @@
 - (BOOL)enabledOnMap;
 - (void)triggerCompass;
 
+- (void)onDaemonMode;
+- (void)onForeground;
+- (void)beforeTerminate;
+
 @end
 
 @interface CLLocation (Mercator)
