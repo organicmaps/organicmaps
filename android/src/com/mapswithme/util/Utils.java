@@ -21,15 +21,19 @@ import android.util.Log;
 import android.view.Window;
 import android.widget.Toast;
 
+import java.io.Closeable;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.util.statistics.AlohaHelper;
-
-import java.io.*;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 public class Utils
 {
@@ -182,7 +186,7 @@ public class Utils
    */
   public static String saveLogToFile()
   {
-    String fullName = MwmApplication.get().getDataStoragePath() + "log.txt";
+    String fullName = MwmApplication.getDataStoragePath() + "log.txt";
     File file = new File(fullName);
     InputStreamReader reader = null;
     FileWriter writer = null;

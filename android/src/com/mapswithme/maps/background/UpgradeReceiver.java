@@ -11,6 +11,6 @@ public class UpgradeReceiver extends BroadcastReceiver
   @Override
   public void onReceive(Context context, Intent intent)
   {
-    MwmApplication.get().onUpgrade();
+    MwmApplication.onUpgrade();
   }
 }
