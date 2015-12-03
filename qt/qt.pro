@@ -111,6 +111,7 @@ SOURCES += \
     update_dialog.cpp \
     qtoglcontext.cpp \
     qtoglcontextfactory.cpp \
+    editor_dialog.cpp \
 
 HEADERS += \
     mainwindow.hpp \
@@ -124,5 +125,6 @@ HEADERS += \
     update_dialog.hpp \
     qtoglcontext.hpp \
     qtoglcontextfactory.hpp \
+    editor_dialog.hpp \
 
 RESOURCES += res/resources.qrc
