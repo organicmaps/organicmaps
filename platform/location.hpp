@@ -69,6 +69,20 @@ namespace location
     double m_latitude;  //!< degrees
     double m_longitude; //!< degrees
     double m_speed;     //!< meters per second
+
+    GpsTrackInfo() = default;
+    GpsTrackInfo(GpsTrackInfo const &) = default;
+    GpsTrackInfo & operator=(GpsTrackInfo const &) = default;
+    GpsTrackInfo(GpsInfo const & info)
+      : m_timestamp(info.m_timestamp)
+      , m_latitude(info.m_latitude)
+      , m_longitude(info.m_longitude)
+      , m_speed(info.m_speed)
+    {}
+    GpsTrackInfo & operator=(GpsInfo const & info)
+    {
+      return operator=(GpsTrackInfo(info));
+    }
   };
 
   class CompassInfo
