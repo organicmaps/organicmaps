@@ -95,7 +95,7 @@ public class DirectionFragment extends DialogFragment implements LocationHelper.
   public void onResume()
   {
     super.onResume();
-    LocationHelper.INSTANCE.addLocationListener(this);
+    LocationHelper.INSTANCE.addLocationListener(this, true);
     refreshViews();
   }
 

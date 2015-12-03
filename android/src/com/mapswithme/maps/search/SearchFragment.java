@@ -263,7 +263,7 @@ public class SearchFragment extends BaseMwmFragment
   public void onResume()
   {
     super.onResume();
-    LocationHelper.INSTANCE.addLocationListener(this);
+    LocationHelper.INSTANCE.addLocationListener(this, true);
   }
 
   @Override

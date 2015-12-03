@@ -4,17 +4,16 @@ package com.mapswithme.maps.location;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Bundle;
-
-import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.util.LocationUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AndroidNativeProvider extends BaseLocationProvider implements android.location.LocationListener
+import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.util.LocationUtils;
+
+public class AndroidNativeProvider extends BaseLocationProvider
 {
-  private LocationManager mLocationManager;
+  private final LocationManager mLocationManager;
   private boolean mIsActive;
 
   public AndroidNativeProvider()
@@ -36,7 +35,7 @@ public class AndroidNativeProvider extends BaseLocationProvider implements andro
     {
       mIsActive = true;
       for (final String provider : providers)
-        mLocationManager.requestLocationUpdates(provider, LOCATION_UPDATE_INTERVAL, 0, this);
+        mLocationManager.requestLocationUpdates(provider, LocationHelper.INSTANCE.getUpdateInterval(), 0, this);
 
       LocationHelper.INSTANCE.registerSensorListeners();
 
@@ -96,37 +95,5 @@ public class AndroidNativeProvider extends BaseLocationProvider implements andro
     }
 
     return acceptedProviders;
-  }
-
-  @Override
-  public void onLocationChanged(Location l)
-  {
-    // Completely ignore locations without lat and lon
-    if (l.getAccuracy() <= 0.0)
-      return;
-
-    if (isLocationBetterThanLast(l))
-    {
-      LocationHelper.INSTANCE.initMagneticField(l);
-      LocationHelper.INSTANCE.setLastLocation(l);
-    }
-  }
-
-  @Override
-  public void onProviderDisabled(String provider)
-  {
-    mLogger.d("Disabled location provider: ", provider);
-  }
-
-  @Override
-  public void onProviderEnabled(String provider)
-  {
-    mLogger.d("Enabled location provider: ", provider);
-  }
-
-  @Override
-  public void onStatusChanged(String provider, int status, Bundle extras)
-  {
-    mLogger.d("Status changed for location provider: ", provider, status);
   }
 }

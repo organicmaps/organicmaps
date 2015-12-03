@@ -17,6 +17,7 @@ import com.mapswithme.country.CountryItem;
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.Constants;
@@ -114,6 +115,7 @@ public class MwmApplication extends Application
     initParse();
     mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
     mBackgroundTracker = new AppBackgroundTracker();
+    TrackRecorder.init();
   }
 
   public void initNativeCore()
@@ -263,6 +265,7 @@ public class MwmApplication extends Application
     Config.resetAppSessionCounters();
   }
 
+  @SuppressWarnings("unused")
   public void runNativeFunctorOnUiThread(final long functorPointer)
   {
     Message m = Message.obtain(mMainLoopHandler, new Runnable()

@@ -15,10 +15,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import com.mapswithme.country.StorageOptions;
+import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.MwmActivity.MapTask;
 import com.mapswithme.maps.MwmActivity.OpenUrlTask;
-import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
@@ -32,11 +37,6 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.statistics.Statistics;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 @SuppressLint("StringFormatMatches")
 public class DownloadResourcesActivity extends BaseMwmFragmentActivity
@@ -115,7 +115,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   {
     super.onResume();
 
-    LocationHelper.INSTANCE.addLocationListener(this);
+    LocationHelper.INSTANCE.addLocationListener(this, true);
   }
 
   @Override

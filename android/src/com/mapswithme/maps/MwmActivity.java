@@ -624,7 +624,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onLocationError(int errorCode)
   {
-    MapFragment.nativeOnLocationError(errorCode);
+    LocationHelper.nativeOnLocationError(errorCode);
 
     if (errorCode == LocationHelper.ERROR_DENIED)
     {
@@ -665,13 +665,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!location.getProvider().equals(LocationHelper.LOCATION_PREDICTOR_PROVIDER))
       mLocationPredictor.reset(location);
 
-    MapFragment.nativeLocationUpdated(location.getTime(),
-                                       location.getLatitude(),
-                                       location.getLongitude(),
-                                       location.getAccuracy(),
-                                       location.getAltitude(),
-                                       location.getSpeed(),
-                                       location.getBearing());
+    LocationHelper.onLocationUpdated(location);
 
     if (mPlacePage.getState() != State.HIDDEN)
       mPlacePage.refreshLocation(location);
@@ -816,7 +810,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void resumeLocation()
   {
-    LocationHelper.INSTANCE.addLocationListener(this);
+    LocationHelper.INSTANCE.addLocationListener(this, true);
     // Do not turn off the screen while displaying position
     Utils.keepScreenOn(true, getWindow());
     mLocationPredictor.resume();
