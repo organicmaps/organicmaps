@@ -186,7 +186,7 @@ void RouteRenderer::RenderRoute(ScreenBase const & screen, ref_ptr<dp::GpuProgra
     // set up shaders and apply uniforms
     ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::ROUTE_PROGRAM);
     prg->Bind();
-    dp::ApplyBlending(state, prg);
+    dp::ApplyState(state, prg);
     dp::ApplyUniforms(uniforms, prg);
 
     // render routes
@@ -273,7 +273,7 @@ void RouteRenderer::RenderArrow(ref_ptr<dp::GpuProgram> prg, drape_ptr<ArrowRend
   {
     borders[index++] = m_arrowBorders[i].m_startDistance;
     borders[index++] = m_arrowBorders[i].m_startTexCoord;
-    borders[index++] = m_arrowBorders[i].m_endDistance;
+    borders[index++] = m_arrowBorders[i].m_endDistance - m_arrowBorders[i].m_startDistance;
     borders[index++] = m_arrowBorders[i].m_endTexCoord;
 
     // render arrow's parts
