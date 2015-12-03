@@ -166,6 +166,13 @@ struct DisablePerspectiveEvent
   DisablePerspectiveEvent() {}
 };
 
+struct SwitchViewModeEvent
+{
+  SwitchViewModeEvent(bool to2d): m_to2d(to2d) {}
+
+  bool m_to2d;
+};
+
 struct RotateEvent
 {
   RotateEvent(double targetAzimut) : m_targetAzimut(targetAzimut) {}
@@ -194,7 +201,8 @@ struct UserEvent
     EVENT_ROTATE,
     EVENT_FOLLOW_AND_ROTATE,
     EVENT_ENABLE_PERSPECTIVE,
-    EVENT_DISABLE_PERSPECTIVE
+    EVENT_DISABLE_PERSPECTIVE,
+    EVENT_SWITCH_VIEW_MODE
   };
 
   UserEvent(TouchEvent const & e) : m_type(EVENT_TOUCH) { m_touchEvent = e; }
@@ -207,6 +215,7 @@ struct UserEvent
   UserEvent(FollowAndRotateEvent const & e) : m_type(EVENT_FOLLOW_AND_ROTATE) { m_followAndRotate = e; }
   UserEvent(EnablePerspectiveEvent const & e) : m_type(EVENT_ENABLE_PERSPECTIVE) { m_enable3dMode = e; }
   UserEvent(DisablePerspectiveEvent const & e) : m_type(EVENT_DISABLE_PERSPECTIVE) { m_disable3dMode = e; }
+  UserEvent(SwitchViewModeEvent const & e) : m_type(EVENT_SWITCH_VIEW_MODE) { m_switchViewMode = e; }
 
   EEventType m_type;
   union
@@ -221,6 +230,7 @@ struct UserEvent
     FollowAndRotateEvent m_followAndRotate;
     EnablePerspectiveEvent m_enable3dMode;
     DisablePerspectiveEvent m_disable3dMode;
+    SwitchViewModeEvent m_switchViewMode;
   };
 };
 
@@ -291,7 +301,7 @@ private:
                           double azimuth, int preferredZoomLevel, bool isAnim);
 
   bool FilterEventWhile3dAnimation(UserEvent::EEventType type) const;
-  void SetEnable3dModeAnimation(double maxRotationAngle);
+  void SetEnable3dMode(double maxRotationAngle, double angleFOV, bool isAnim, bool & viewportChanged);
   void SetDisable3dModeAnimation();
 
   m2::AnyRectD GetCurrentRect() const;
@@ -352,8 +362,12 @@ private:
   array<Touch, 2> m_touches;
 
   unique_ptr<BaseModelViewAnimation> m_animation;
+
   unique_ptr<PerspectiveAnimation> m_perspectiveAnimation;
   unique_ptr<UserEvent> m_pendingEvent;
+  double m_discardedFOV = 0.0;
+  double m_discardedAngle = 0.0;
+
   ref_ptr<Listener> m_listener;
 
 #ifdef DEBUG

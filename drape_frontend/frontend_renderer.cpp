@@ -384,7 +384,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       {
         m_myPositionController->DeactivateRouting();
         if (m_enable3dInNavigation)
-          DiscardPerspective();
+          DisablePerspective();
       }
       break;
     }
@@ -404,7 +404,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       m_myPositionController->DeactivateRouting();
       if (m_enable3dInNavigation)
-        DiscardPerspective();
+        DisablePerspective();
       break;
     }
 
@@ -861,45 +861,33 @@ int FrontendRenderer::GetCurrentZoomLevelForData() const
   return (m_currentZoomLevel <= upperScale ? m_currentZoomLevel : upperScale);
 }
 
-void FrontendRenderer::DiscardPerspective(ScreenBase const & screen)
+void FrontendRenderer::DisablePerspective()
 {
-  if (!screen.isPerspective())
-    return;
-
-  m_discardedFOV = screen.GetAngleFOV();
-  m_discardedAngle = screen.GetRotationAngle();
+  m_perspectiveDiscarded = false;
   AddUserEvent(DisablePerspectiveEvent());
 }
 
-void FrontendRenderer::DiscardPerspective()
+void FrontendRenderer::CheckMinAllowableIn3dScale()
 {
-  m_discardedFOV = 0.0;
-  m_discardedAngle = 0.0;
-  AddUserEvent(DisablePerspectiveEvent());
-}
-
-void FrontendRenderer::RecoverPerspective()
-{
-  if (m_discardedFOV <= 0.0)
+  if (!m_enable3dInNavigation ||
+      m_userEventStream.IsInPerspectiveAnimation())
     return;
 
-  AddUserEvent(EnablePerspectiveEvent(m_discardedAngle, m_discardedFOV,
-                                      true /* animated */, true /* immediately start */));
-  m_discardedFOV = 0.0;
-  m_discardedAngle = 0.0;
+  bool const switchTo2d = m_currentZoomLevel < scales::GetMinAllowableIn3dScale();
+
+  if ((!switchTo2d && !m_perspectiveDiscarded) ||
+      (switchTo2d && !m_userEventStream.GetCurrentScreen().isPerspective()))
+    return;
+
+  m_perspectiveDiscarded = switchTo2d;
+  AddUserEvent(SwitchViewModeEvent(switchTo2d));
 }
 
 void FrontendRenderer::ResolveZoomLevel(ScreenBase const & screen)
 {
   m_currentZoomLevel = GetDrawTileScale(screen);
 
-  if (m_enable3dInNavigation && !m_userEventStream.IsInPerspectiveAnimation())
-  {
-    if (m_currentZoomLevel < m_min3dZoomLevel)
-      DiscardPerspective(screen);
-    else
-      RecoverPerspective();
-  }
+  CheckMinAllowableIn3dScale();
 }
 
 void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)

@@ -1057,7 +1057,10 @@ void Framework::ShowSearchResult(search::Result const & res)
   }
 
   StopLocationFollow();
-  ShowRect(df::GetRectForDrawScale(scale, center));
+  if (m_currentModelView.isPerspective())
+    CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewCenter, _1, center, scale, true));
+  else
+    ShowRect(df::GetRectForDrawScale(scale, center));
 
   search::AddressInfo info;
   info.MakeFrom(res);
@@ -1115,10 +1118,18 @@ size_t Framework::ShowAllSearchResults(search::Results const & results)
   if (minInd != -1)
   {
     m2::PointD const pt = results.GetResult(minInd).GetFeatureCenter();
+
+    if (m_currentModelView.isPerspective())
+    {
+      StopLocationFollow();
+      SetViewportCenter(pt);
+      return count;
+    }
+
     if (!viewport.IsPointInside(pt))
     {
       viewport.SetSizesToIncludePoint(pt);
-      CallDrapeFunction(bind(&df::DrapeEngine::StopLocationFollow, _1));
+      StopLocationFollow();
     }
   }
 
@@ -1846,11 +1857,10 @@ void Framework::FollowRoute()
 {
   ASSERT(m_drapeEngine != nullptr, ());
 
-  int const scale = (m_currentRouterType == RouterType::Pedestrian) ?
-                     scales::GetUpperComfortScale() :
-                     scales::GetNavigationScale();
-  int const scale3d = (m_currentRouterType == RouterType::Pedestrian) ? scale + 1 : scale + 2;
-  
+  int const scale = (m_currentRouterType == RouterType::Pedestrian) ? scales::GetUpperComfortScale()
+                                                                    : scales::GetNavigationScale();
+  int const scale3d = (m_currentRouterType == RouterType::Pedestrian) ? scales::GetPedestrianNavigation3dScale()
+                                                                      : scales::GetNavigation3dScale();
   m_drapeEngine->FollowRoute(scale, scale3d, kRotationAngle, kAngleFOV);
   m_drapeEngine->SetRoutePoint(m2::PointD(), true /* isStart */, false /* isValid */);
 }

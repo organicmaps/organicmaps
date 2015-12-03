@@ -1,6 +1,8 @@
 #include "drape_frontend/user_event_stream.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "indexer/scales.hpp"
+
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
@@ -188,29 +190,30 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       TouchCancel(m_touches);
       break;
     case UserEvent::EVENT_ENABLE_PERSPECTIVE:
-      if (e.m_enable3dMode.m_isAnim)
-      {
-        if (e.m_enable3dMode.m_immediatelyStart)
-        {
-          SetEnable3dModeAnimation(e.m_enable3dMode.m_rotationAngle);
-          m_navigator.Enable3dMode(0.0 /* current rotation angle */,
-                                   e.m_enable3dMode.m_rotationAngle,
-                                   e.m_enable3dMode.m_angleFOV);
-          viewportChanged = true;
-        }
+      if (!e.m_enable3dMode.m_immediatelyStart)
         m_pendingEvent.reset(new UserEvent(e.m_enable3dMode));
-      }
       else
-      {
-        m_navigator.Enable3dMode(e.m_enable3dMode.m_rotationAngle,
-                                 e.m_enable3dMode.m_rotationAngle,
-                                 e.m_enable3dMode.m_angleFOV);
-        viewportChanged = true;
-      }
+        SetEnable3dMode(e.m_enable3dMode.m_rotationAngle, e.m_enable3dMode.m_angleFOV,
+                        e.m_enable3dMode.m_isAnim, viewportChanged);
+      m_discardedFOV = m_discardedAngle = 0.0;
       break;
     case UserEvent::EVENT_DISABLE_PERSPECTIVE:
       if (m_navigator.Screen().isPerspective())
         SetDisable3dModeAnimation();
+      m_discardedFOV = m_discardedAngle = 0.0;
+      break;
+    case UserEvent::EVENT_SWITCH_VIEW_MODE:
+      if (e.m_switchViewMode.m_to2d)
+      {
+        m_discardedFOV = m_navigator.Screen().GetAngleFOV();
+        m_discardedAngle = m_navigator.Screen().GetRotationAngle();
+        SetDisable3dModeAnimation();
+      }
+      else if (m_discardedFOV > 0.0)
+      {
+        SetEnable3dMode(m_discardedAngle, m_discardedFOV, true /* isAnim */, viewportChanged);
+        m_discardedFOV = m_discardedAngle = 0.0;
+      }
       break;
     default:
       ASSERT(false, ());
@@ -234,11 +237,10 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       if (m_animation->GetType() == ModelViewAnimationType::FollowAndRotate &&
           m_pendingEvent != nullptr && m_pendingEvent->m_type == UserEvent::EVENT_ENABLE_PERSPECTIVE)
       {
-        SetEnable3dModeAnimation(m_pendingEvent->m_enable3dMode.m_rotationAngle);
-        m_navigator.Enable3dMode(0.0 /* current rotation angle */,
-                                 m_pendingEvent->m_enable3dMode.m_rotationAngle,
-                                 m_pendingEvent->m_enable3dMode.m_angleFOV);
-        viewportChanged = true;
+        SetEnable3dMode(m_pendingEvent->m_enable3dMode.m_rotationAngle,
+                        m_pendingEvent->m_enable3dMode.m_angleFOV,
+                        m_pendingEvent->m_enable3dMode.m_isAnim,
+                        viewportChanged);
 
         m_pendingEvent.reset();
       }
@@ -325,7 +327,17 @@ bool UserEventStream::SetCenter(m2::PointD const & center, int zoom, bool isAnim
   ang::AngleD angle;
   m2::RectD localRect;
 
-  ScreenBase const &screen = GetCurrentScreen();
+  ScreenBase const & currentScreen = GetCurrentScreen();
+
+  bool const finishIn3d = m_discardedFOV > 0.0 && zoom >= scales::GetMinAllowableIn3dScale();
+  bool const finishIn2d = currentScreen.isPerspective() && zoom < scales::GetMinAllowableIn3dScale();
+
+  ScreenBase screen = currentScreen;
+  if (finishIn3d)
+    screen.ApplyPerspective(m_discardedAngle, m_discardedAngle, m_discardedFOV);
+  else if (finishIn2d)
+    screen.ResetPerspective();
+
   double const scale3d = screen.PixelRect().SizeX() / screen.PixelRectIn3d().SizeX();
   if (zoom == -1)
   {
@@ -355,6 +367,18 @@ bool UserEventStream::SetCenter(m2::PointD const & center, int zoom, bool isAnim
   {
     double const centerOffset3d = localRect.SizeY() * (1.0 - 1.0 / (scale3d * cos(screen.GetRotationAngle()))) / 2.0;
     targetCenter = targetCenter.Move(centerOffset3d, angle.cos(), -angle.sin());
+  }
+
+  if (finishIn2d || finishIn3d)
+  {
+    double const scaleToCurrent =
+        finishIn2d ? currentScreen.PixelRect().SizeX() / currentScreen.PixelRectIn3d().SizeX()
+                   : 1.0 / scale3d;
+
+    double const currentGSizeY = localRect.SizeY() * scaleToCurrent;
+    targetCenter = targetCenter.Move((currentGSizeY - localRect.SizeY()) / 2.0,
+                                     angle.cos(), -angle.sin());
+    localRect.Scale(scaleToCurrent);
   }
 
   return SetRect(m2::AnyRectD(targetCenter, angle, localRect), isAnim);
@@ -458,20 +482,27 @@ bool UserEventStream::FilterEventWhile3dAnimation(UserEvent::EEventType type) co
       type != UserEvent::EVENT_SET_RECT;
 }
 
-void UserEventStream::SetEnable3dModeAnimation(double maxRotationAngle)
+void UserEventStream::SetEnable3dMode(double maxRotationAngle, double angleFOV, bool isAnim, bool & viewportChanged)
 {
-  ResetCurrentAnimation();
+  bool const finishAnimation = m_animation != nullptr && m_animation->GetType() == ModelViewAnimationType::Default;
+  ResetCurrentAnimation(finishAnimation);
 
-  double const startAngle = 0.0;
-  double const endAngle = maxRotationAngle;
-  double const rotateDuration = PerspectiveAnimation::GetRotateDuration(startAngle, endAngle);
-  m_perspectiveAnimation.reset(
-        new PerspectiveAnimation(rotateDuration, 0.0 /* delay */, startAngle, endAngle));
+  double const startAngle = isAnim ? 0.0 : maxRotationAngle;
+  if (isAnim)
+  {
+    double const endAngle = maxRotationAngle;
+    double const rotateDuration = PerspectiveAnimation::GetRotateDuration(startAngle, endAngle);
+    m_perspectiveAnimation.reset(
+          new PerspectiveAnimation(rotateDuration, 0.0 /* delay */, startAngle, endAngle));
+  }
+  m_navigator.Enable3dMode(startAngle, maxRotationAngle, angleFOV);
+  viewportChanged = true;
 }
 
 void UserEventStream::SetDisable3dModeAnimation()
 {
-  ResetCurrentAnimation();
+  bool const finishAnimation = m_animation != nullptr && m_animation->GetType() == ModelViewAnimationType::Default;
+  ResetCurrentAnimation(finishAnimation);
 
   double const startAngle = m_navigator.Screen().GetRotationAngle();
   double const endAngle = 0.0;

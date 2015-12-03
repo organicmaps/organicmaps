@@ -152,10 +152,9 @@ private:
   int GetCurrentZoomLevel() const;
   int GetCurrentZoomLevelForData() const;
   void ResolveZoomLevel(ScreenBase const & screen);
+  void CheckMinAllowableIn3dScale();
 
-  void DiscardPerspective(ScreenBase const & screen);
-  void DiscardPerspective();
-  void RecoverPerspective();
+  void DisablePerspective();
 
   void OnTap(m2::PointD const & pt, bool isLong) override;
   void OnForceTap(m2::PointD const & pt) override;
@@ -241,11 +240,8 @@ private:
 
   unique_ptr<TileTree> m_tileTree;
   int m_currentZoomLevel = -1;
-  // TODO: Calculate min zoom level based on the device capabilities.
-  int const m_min3dZoomLevel = 17;
 
-  double m_discardedFOV = 0.0;
-  double m_discardedAngle = 0.0;
+  bool m_perspectiveDiscarded = false;
   
   ref_ptr<RequestedTiles> m_requestedTiles;
   uint64_t m_maxGeneration;
