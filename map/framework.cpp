@@ -1627,6 +1627,23 @@ bool Framework::GetVisiblePOI(m2::PointD const & glbPoint, search::AddressInfo &
   return true;
 }
 
+bool Framework::GetVisiblePOI(m2::PointD const & ptMercator, FeatureType & outPOI) const
+{
+  ASSERT(m_drapeEngine != nullptr, ());
+  FeatureID const fid = m_drapeEngine->GetVisiblePOI(ptMercator);
+  if (!fid.IsValid())
+    return false;
+
+  // Note: all parse methods should be called with guard alive.
+  Index::FeaturesLoaderGuard guard(m_model.GetIndex(), fid.m_mwmId);
+  guard.GetFeatureByIndex(fid.m_index, outPOI);
+  outPOI.ParseHeader2();
+  outPOI.ParseGeometry(FeatureType::BEST_GEOMETRY);
+  outPOI.ParseTriangles(FeatureType::BEST_GEOMETRY);
+  outPOI.ParseMetadata();
+  return true;
+}
+
 m2::PointD Framework::GetVisiblePOI(FeatureID const & id, search::AddressInfo & info, feature::Metadata & metadata) const
 {
   ASSERT(id.IsValid(), ());

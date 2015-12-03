@@ -486,6 +486,8 @@ private:
 
 public:
   bool GetVisiblePOI(m2::PointD const & glbPoint, search::AddressInfo & info, feature::Metadata & metadata) const;
+  // TODO(AlexZ): Refactor similar getters to share common interface.
+  bool GetVisiblePOI(m2::PointD const & ptMercator, FeatureType & outPOI) const;
   m2::PointD GetVisiblePOI(FeatureID const & id, search::AddressInfo & info, feature::Metadata & metadata) const;
   void FindClosestPOIMetadata(m2::PointD const & pt, feature::Metadata & metadata) const;
 
