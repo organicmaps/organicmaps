@@ -9,6 +9,7 @@
 #include "routing/osrm_engine.hpp"
 #include "routing/cross_routing_context.hpp"
 
+#include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_header.hpp"
 #include "indexer/feature.hpp"
@@ -39,6 +40,22 @@ namespace routing
 using RawRouteResult = InternalRouteResult;
 
 static double const EQUAL_POINT_RADIUS_M = 2.0;
+
+// For debug purposes only. So I do not use constanst or string representations.
+uint8_t GetWarningRank(FeatureType const & ft)
+{
+  feature::TypesHolder types(ft);
+  Classificator const & c = classif();
+  if (types.Has(c.GetTypeByPath({"highway", "trunk"})) ||
+      types.Has(c.GetTypeByPath({"highway", "trunk_link"})))
+    return 1;
+  if (types.Has(c.GetTypeByPath({"highway", "primary"})) ||
+      types.Has(c.GetTypeByPath({"highway", "primary_link"})) ||
+      types.Has(c.GetTypeByPath({"highway", "secondary"})) ||
+      types.Has(c.GetTypeByPath({"highway", "secondary_link"})))
+    return 2;
+  return 3;
+}
 
 bool LoadIndexes(string const & mwmFile, string const & osrmFile, osrm::NodeDataVectorT & nodeData, gen::OsmID2FeatureID & osm2ft)
 {
@@ -81,6 +98,7 @@ bool CheckBBoxCrossingBorder(m2::RegionD const & border, osrm::NodeData const & 
 
 void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID const & osm2ft,
                     borders::CountriesContainerT const & countries, string const & countryName,
+                    Index const & index, MwmSet::MwmId mwmId,
                     routing::CrossRoutingContextWriter & crossContext)
 {
   vector<m2::RegionD> regionBorders;
@@ -157,7 +175,12 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
             }
           }
           if (intersectionCount > 1)
-            LOG(LINFO, ("Double border intersection", wgsIntersection));
+          {
+            FeatureType ft;
+            Index::FeaturesLoaderGuard loader(index, mwmId);
+            loader.GetFeatureByIndex(osm2ft.GetFeatureID(startSeg.wayId), ft);
+            LOG(LINFO, ("Double border intersection", wgsIntersection, "rank:", GetWarningRank(ft)));
+          }
         }
       }
     }
@@ -214,10 +237,18 @@ void BuildCrossRoutingIndex(string const & baseDir, string const & countryName,
                             string const & osrmFile)
 {
   LOG(LINFO, ("Cross mwm routing section builder"));
+  classificator::Load();
 
   CountryFile countryFile(countryName);
   LocalCountryFile localFile(baseDir, countryFile, 0 /* version */);
   localFile.SyncWithDisk();
+  Index index;
+  auto p = index.Register(localFile);
+  if (p.second != MwmSet::RegResult::Success)
+  {
+    LOG(LCRITICAL, ("MWM file not found"));
+    return;
+  }
 
   LOG(LINFO, ("Loading indexes..."));
   osrm::NodeDataVectorT nodeData;
@@ -232,7 +263,7 @@ void BuildCrossRoutingIndex(string const & baseDir, string const & countryName,
 
   LOG(LINFO, ("Finding cross nodes..."));
   routing::CrossRoutingContextWriter crossContext;
-  FindCrossNodes(nodeData, osm2ft, countries, countryName, crossContext);
+  FindCrossNodes(nodeData, osm2ft, countries, countryName, index, p.first, crossContext);
 
   string const mwmRoutingPath = localFile.GetPath(MapOptions::CarRouting);
   CalculateCrossAdjacency(mwmRoutingPath, crossContext);
