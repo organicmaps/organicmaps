@@ -508,12 +508,13 @@ void TestingEngine::DrawImpl()
   {
     vector<m2::PointF> trg{ m2::PointD(110.0f, 30.0f), m2::PointD(112.0f, 30.0f), m2::PointD(112.0f, 28.0f),
                             m2::PointD(110.0f, 30.0f), m2::PointD(112.0f, 28.0f), m2::PointD(110.0f, 28.0f) };
+    vector<df::BuildingEdge> edges;
     AreaViewParams p;
     p.m_color = dp::Color::White();
     p.m_depth = 0.0f;
     params.m_minVisibleScale = 1;
     params.m_rank = 0;
-    AreaShape(move(trg), p).Draw(make_ref(m_batcher), make_ref(m_textures));
+    AreaShape(move(trg), move(edges), p).Draw(make_ref(m_batcher), make_ref(m_textures));
   }
   m_batcher->EndSession();
 

@@ -15,8 +15,10 @@
 namespace df
 {
 
-AreaShape::AreaShape(vector<m2::PointF> && triangleList, AreaViewParams const & params)
-  : m_vertexes(triangleList)
+AreaShape::AreaShape(vector<m2::PointF> && triangleList, vector<BuildingEdge> && buildingEdges,
+                     AreaViewParams const & params)
+  : m_vertexes(move(triangleList))
+  , m_buildingEdges(move(buildingEdges))
   , m_params(params)
 {
 }

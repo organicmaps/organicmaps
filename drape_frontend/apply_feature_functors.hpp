@@ -10,6 +10,8 @@
 #include "geometry/point2d.hpp"
 #include "geometry/spline.hpp"
 
+#include "std/unordered_map.hpp"
+
 class CaptionDefProto;
 class CircleRuleProto;
 class ShieldRuleProto;
@@ -22,6 +24,7 @@ namespace df
 
 struct TextViewParams;
 class MapShape;
+struct BuildingEdge;
 
 using TInsertShapeFn = function<void(drape_ptr<MapShape> && shape)>;
 
@@ -71,7 +74,7 @@ class ApplyAreaFeature : public ApplyPointFeature
   using TBase = ApplyPointFeature;
 
 public:
-  ApplyAreaFeature(TInsertShapeFn const & insertShape, FeatureID const & id,
+  ApplyAreaFeature(TInsertShapeFn const & insertShape, FeatureID const & id, bool isBuilding,
                    int minVisibleScale, uint8_t rank, CaptionDescription const & captions);
 
   using TBase::operator ();
@@ -80,7 +83,20 @@ public:
   void ProcessRule(Stylist::TRuleWrapper const & rule);
 
 private:
+  using TEdge = pair<int, int>;
+
+  void CalculateBuildingEdges(vector<BuildingEdge> & edges);
+  int GetIndex(m2::PointD const & pt);
+  void BuildEdges(int vertexIndex1, int vertexIndex2, int vertexIndex3);
+  bool EqualEdges(TEdge const & edge1, TEdge const & edge2) const;
+  bool FindEdge(TEdge const & edge) const;
+  m2::PointD CalculateNormal(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3) const;
+
   vector<m2::PointF> m_triangles;
+
+  unordered_map<int, m2::PointD> m_indices;
+  vector<pair<TEdge, int>> m_edges;
+  bool const m_isBuilding;
 };
 
 class ApplyLineFeature : public BaseApplyFeature
