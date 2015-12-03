@@ -23,4 +23,21 @@
     <item>1</item>
     <item>2</item>
   </string-array>
+
+  <string-array name="track_lengths">
+    <item>@string/duration_1_hour</item>
+    <item>@string/duration_2_hours</item>
+    <item>@string/duration_6_hours</item>
+    <item>@string/duration_12_hours</item>
+    <item>@string/duration_1_day</item>
+  </string-array>
+
+  <string-array name="track_lengths_values"
+                translatable="false">
+    <item>1</item>
+    <item>2</item>
+    <item>6</item>
+    <item>12</item>
+    <item>24</item>
+  </string-array>
 </resources>

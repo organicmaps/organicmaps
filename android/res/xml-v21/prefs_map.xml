@@ -43,4 +43,19 @@
     android:title="@string/yopme_pref_title"
     android:summary="@string/yopme_pref_summary"
     android:order="6"/>
+
+  <SwitchPreference
+    android:key="@string/pref_track_record_enabled"
+    android:title="@string/pref_track_record_enabled_title"
+    android:order="7"
+    android:switchTextOn=""
+    android:switchTextOff=""/>
+
+  <ListPreference
+    android:key="@string/pref_track_record_length"
+    android:title="@string/pref_track_record_length_title"
+    android:dependency="@string/pref_track_record_enabled"
+    android:entries="@array/track_lengths"
+    android:entryValues="@array/track_lengths_values"
+    android:order="8"/>
 </PreferenceScreen>

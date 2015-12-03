@@ -14,8 +14,10 @@ import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.Yota;
+import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -151,6 +153,40 @@ public class MapPrefsFragment extends BaseXmlSettingsFragment
       });
     else
       getPreferenceScreen().removePreference(pref);
+
+    pref = findPreference(getString(R.string.pref_track_record_enabled));
+    ((TwoStatePreference)pref).setChecked(TrackRecorder.isEnabled());
+    pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+    {
+      @Override
+      public boolean onPreferenceChange(Preference preference, Object newValue)
+      {
+        TrackRecorder.setEnabled((Boolean)newValue);
+        return true;
+      }
+    });
+
+    pref = findPreference(getString(R.string.pref_track_record_length));
+    String value = String.valueOf(TrackRecorder.getDuration());
+    ((ListPreference)pref).setValue(value);
+    pref.setSummary(((ListPreference)pref).getEntry());
+    pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+    {
+      @Override
+      public boolean onPreferenceChange(final Preference preference, Object newValue)
+      {
+        TrackRecorder.setDuration(Integer.valueOf((String)newValue));
+        UiThread.runLater(new Runnable()
+        {
+          @Override
+          public void run()
+          {
+            preference.setSummary(((ListPreference)preference).getEntry());
+          }
+        });
+        return true;
+      }
+    });
   }
 
   @Override
