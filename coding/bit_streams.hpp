@@ -1,10 +1,12 @@
 #pragma once
 
+#include "base/assert.hpp"
+#include "base/logging.hpp"
+
+#include "std/algorithm.hpp"
 #include "std/cstdint.hpp"
 #include "std/limits.hpp"
 
-#include "base/assert.hpp"
-#include "base/logging.hpp"
 
 namespace
 {
@@ -39,7 +41,7 @@ public:
   // Writes n bits starting with the least significant bit.
   // They are written one byte at a time so endianness is of no concern.
   // All the other bits except for the first n must be set to zero.
-  void Write(uint8_t bits, uint32_t n)
+  void Write(uint8_t bits, uint8_t n)
   {
     if (n == 0)
       return;
@@ -66,6 +68,17 @@ public:
       }
       m_buf = bits;
     }
+  }
+
+  // Same as Write but accept up to 32 bits to write.
+  void WriteAtMost32Bits(uint32_t bits, uint8_t n)
+  {
+    ASSERT_LESS_OR_EQUAL(n, 32, ());
+
+    uint8_t constexpr kMinBits = CHAR_BIT;
+    Write(static_cast<uint8_t>(bits), min(n, kMinBits));
+    if (n > kMinBits)
+      WriteAtMost32Bits(bits >> kMinBits, n - kMinBits);
   }
 
 private:
@@ -96,7 +109,7 @@ public:
   // The underlying m_src is supposed to be byte-aligned (which is the
   // case when it reads from the place that was written to using BitWriter).
   // Read may use one lookahead byte.
-  uint8_t Read(uint32_t n)
+  uint8_t Read(uint8_t n)
   {
     if (n == 0)
       return 0;

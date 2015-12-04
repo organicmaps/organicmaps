@@ -27,6 +27,7 @@ SOURCES += ../../testing/testingmain.cpp \
     file_data_test.cpp \
     file_sort_test.cpp \
     file_utils_test.cpp \
+    fixed_bits_ddvector_test.cpp \
     hex_test.cpp \
     huffman_test.cpp \
     mem_file_reader_test.cpp \

@@ -67,10 +67,12 @@ HEADERS += \
     file_sort.hpp \
     file_writer.hpp \
     file_writer_stream.hpp \
+    fixed_bits_ddvector.hpp \
     hex.hpp \
     huffman.hpp \
     internal/file64_api.hpp \
     internal/file_data.hpp \
+    internal/xmlparser.hpp \
     matrix_traversal.hpp \
     mmap_reader.hpp \
     multilang_utf8_string.hpp \
@@ -101,4 +103,3 @@ HEADERS += \
     writer.hpp \
     zip_creator.hpp \
     zip_reader.hpp \
-    internal/xmlparser.hpp \
