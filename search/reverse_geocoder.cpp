@@ -80,8 +80,9 @@ void ReverseGeocoder::GetNearbyStreets(FeatureType const & addrFt, string const 
     string key;
     search::GetStreetNameAsKey(name, key);
     strings::UniString const uniKey2 = strings::MakeUniString(key);
+    /// @todo Transforming street name into street name key may produce empty strings.
+    //ASSERT(!uniKey2.empty(), ());
 
-    ASSERT(!uniKey2.empty(), ());
     return { strings::EditDistance(uniKey1.begin(), uniKey1.end(), uniKey2.begin(), uniKey2.end()),
              uniKey2.size() };
   }, streets);
@@ -99,6 +100,8 @@ size_t ReverseGeocoder::GetMatchedStreetIndex(vector<Street> const & streets)
   {
     if (streets[i].m_editDistance.first == 0)
       return i;
+    if (streets[i].m_editDistance.second == 0)
+      continue;
 
     size_t const p = streets[i].m_editDistance.first * 100 / streets[i].m_editDistance.second;
     if (p < minPercent)
