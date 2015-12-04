@@ -145,8 +145,9 @@ public class MapFragment extends BaseMwmFragment
     final Rect rect = surfaceHolder.getSurfaceFrame();
     setupWidgets(rect.width(), rect.height());
 
-    final DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
-    final float exactDensityDpi = (dm.xdpi + dm.ydpi) / 2;
+    final DisplayMetrics metrics = new DisplayMetrics();
+    getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+    final float exactDensityDpi = metrics.densityDpi;
 
     mEngineCreated = nativeCreateEngine(surface, (int)exactDensityDpi);
     if (mEngineCreated)
