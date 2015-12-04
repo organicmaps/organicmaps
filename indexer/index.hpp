@@ -209,13 +209,35 @@ public:
     ForEachInIntervals(implFunctor, covering::FullCover, m2::RectD::GetInfiniteRect(), scale);
   }
 
-  // "features" must be sorted using FeatureID::operator< as predicate
+  // "features" must be sorted using FeatureID::operator< as predicate.
   template <typename F>
   void ReadFeatures(F & f, vector<FeatureID> const & features) const
   {
-    size_t currentIndex = 0;
-    while (currentIndex < features.size())
-      currentIndex = ReadFeatureRange(f, features, currentIndex);
+    auto fidIter = features.begin();
+    auto const endIter = features.end();
+    while (fidIter != endIter)
+    {
+      MwmId const & id = fidIter->m_mwmId;
+      MwmHandle const handle = GetMwmHandleById(id);
+      if (handle.IsAlive())
+      {
+        MwmValue const * pValue = handle.GetValue<MwmValue>();
+        FeaturesVector const featureReader(pValue->m_cont, pValue->GetHeader(), pValue->m_table);
+        do
+        {
+          FeatureType featureType;
+          featureReader.GetByIndex(fidIter->m_index, featureType);
+          featureType.SetID(*fidIter);
+          f(featureType);
+        }
+        while (++fidIter != endIter && id == fidIter->m_mwmId);
+      }
+      else
+      {
+        // Skip unregistered mwm files.
+        while (++fidIter != endIter && id == fidIter->m_mwmId);
+      }
+    }
   }
 
   /// Guard for loading features from particular MWM by demand.
@@ -247,52 +269,6 @@ public:
   }
 
 private:
-
-  // "features" must be sorted using FeatureID::operator< as predicate
-  template <typename F>
-  size_t ReadFeatureRange(F & f, vector<FeatureID> const & features, size_t index) const
-  {
-    ASSERT_LESS(index, features.size(), ());
-    size_t result = index;
-    MwmId id = features[index].m_mwmId;
-
-    if (!id.IsAlive())
-    {
-      while (features[result].m_mwmId == id)
-        ++result;
-
-      return result;
-    }
-
-    MwmHandle const handle = GetMwmHandleById(id);
-    MwmValue const * pValue = handle.GetValue<MwmValue>();
-    if (pValue)
-    {
-      FeaturesVector featureReader(pValue->m_cont, pValue->GetHeader(), pValue->m_table);
-      while (result < features.size() && id == features[result].m_mwmId)
-      {
-        FeatureID const & featureId = features[result];
-        FeatureType featureType;
-
-        featureReader.GetByIndex(featureId.m_index, featureType);
-        featureType.SetID(featureId);
-
-        f(featureType);
-        ++result;
-      }
-    }
-    else
-    {
-      // Fake feature identifier which is used to determine the right
-      // bound of all features in an mwm corresponding to id, because
-      // it's greater than any other feature in the mwm in accordance
-      // with FeatureID::operator<().
-      FeatureID const fakeID(id, numeric_limits<uint32_t>::max());
-      result = distance(features.cbegin(), upper_bound(features.cbegin(), features.cend(), fakeID));
-    }
-
-    return result;
-  }
 
   template <typename F>
   void ForEachInIntervals(F & f, covering::CoveringMode mode, m2::RectD const & rect,
