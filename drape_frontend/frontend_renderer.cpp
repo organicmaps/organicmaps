@@ -655,7 +655,7 @@ FeatureID FrontendRenderer::GetVisiblePOI(m2::RectD const & pixelRect) const
 
 void FrontendRenderer::BeginUpdateOverlayTree(ScreenBase const & modelView)
 {
-  if (m_overlayTree->Frame())
+  if (m_overlayTree->Frame(modelView.isPerspective()))
     m_overlayTree->StartOverlayPlacing(modelView);
 }
 
@@ -876,7 +876,9 @@ void FrontendRenderer::CheckMinAllowableIn3dScale()
       m_userEventStream.IsInPerspectiveAnimation())
     return;
 
-  bool const switchTo2d = m_currentZoomLevel < scales::GetMinAllowableIn3dScale();
+  int const minScale = scales::GetMinAllowableIn3dScale() -
+      (df::VisualParams::Instance().GetVisualScale() <= 1.0 ? 1 : 0);
+  bool const switchTo2d = m_currentZoomLevel < minScale;
 
   if ((!switchTo2d && !m_perspectiveDiscarded) ||
       (switchTo2d && !m_userEventStream.GetCurrentScreen().isPerspective()))

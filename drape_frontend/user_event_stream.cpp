@@ -329,8 +329,10 @@ bool UserEventStream::SetCenter(m2::PointD const & center, int zoom, bool isAnim
 
   ScreenBase const & currentScreen = GetCurrentScreen();
 
-  bool const finishIn3d = m_discardedFOV > 0.0 && zoom >= scales::GetMinAllowableIn3dScale();
-  bool const finishIn2d = currentScreen.isPerspective() && zoom < scales::GetMinAllowableIn3dScale();
+  int const minScale = scales::GetMinAllowableIn3dScale() -
+      df::VisualParams::Instance().GetVisualScale() <= 1.0 ? 1 : 0;
+  bool const finishIn3d = m_discardedFOV > 0.0 && zoom >= minScale;
+  bool const finishIn2d = currentScreen.isPerspective() && zoom < minScale;
 
   ScreenBase screen = currentScreen;
   if (finishIn3d)

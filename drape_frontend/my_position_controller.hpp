@@ -145,6 +145,7 @@ private:
 
   m2::RectD m_pixelRect;
   m2::PointD m_pixelPositionRaF;
+  double m_positionYOffset;
 
   bool m_isVisible;
   bool m_isDirtyViewport;

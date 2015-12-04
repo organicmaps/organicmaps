@@ -50,7 +50,7 @@ class OverlayTree : public m4::Tree<detail::OverlayInfo, detail::OverlayTraits>
 public:
   OverlayTree();
 
-  bool Frame();
+  bool Frame(bool is3d);
   bool IsNeedUpdate() const;
   void ForceUpdate();
 

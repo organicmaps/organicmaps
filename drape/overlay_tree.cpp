@@ -7,6 +7,7 @@ namespace dp
 {
 
 int const kFrameUpdarePeriod = 10;
+int const kFrameUpdarePeriodIn3d = 30;
 int const kAverageHandlesCount[dp::OverlayRanksCount] = { 300, 200, 100 };
 
 using TOverlayContainer = buffer_vector<detail::OverlayInfo, 8>;
@@ -54,13 +55,13 @@ OverlayTree::OverlayTree()
     m_handles[i].reserve(kAverageHandlesCount[i]);
 }
 
-bool OverlayTree::Frame()
+bool OverlayTree::Frame(bool is3d)
 {
   if (IsNeedUpdate())
     return true;
 
   m_frameCounter++;
-  if (m_frameCounter >= kFrameUpdarePeriod)
+  if (m_frameCounter >= (is3d ? kFrameUpdarePeriodIn3d : kFrameUpdarePeriod))
     m_frameCounter = -1;
 
   return IsNeedUpdate();

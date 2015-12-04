@@ -16,7 +16,7 @@ namespace df
 
 double const kArrowSizeX = 2.0;
 double const kArrowSizeY = 3.0;
-double const kArrow3dScale = 1.5;
+double const kArrow3dScale = 1.2;
 
 Arrow3d::Arrow3d()
 {

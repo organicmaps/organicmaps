@@ -17,6 +17,7 @@ namespace
 {
 
 int const POSITION_Y_OFFSET = 75;
+int const POSITION_Y_OFFSET_3D = 80;
 double const GPS_BEARING_LIFETIME_S = 5.0;
 double const MIN_SPEED_THRESHOLD_MPS = 1.0;
 
@@ -93,6 +94,7 @@ MyPositionController::MyPositionController(location::EMyPositionMode initMode)
   , m_position(m2::PointD::Zero())
   , m_drawDirection(0.0)
   , m_lastGPSBearing(false)
+  , m_positionYOffset(POSITION_Y_OFFSET)
   , m_isVisible(false)
   , m_isDirtyViewport(false)
 {
@@ -115,6 +117,7 @@ void MyPositionController::SetPixelRect(m2::RectD const & pixelRect)
 
 void MyPositionController::UpdatePixelPosition(ScreenBase const & screen)
 {
+  m_positionYOffset = screen.isPerspective() ? POSITION_Y_OFFSET_3D : POSITION_Y_OFFSET;
   m_pixelPositionRaF = screen.P3dtoP(GetRaFPixelBinding());
 }
 
@@ -519,7 +522,7 @@ void MyPositionController::Follow(int preferredZoomLevel)
 m2::PointD MyPositionController::GetRaFPixelBinding() const
 {
   return m2::PointD(m_pixelRect.Center().x,
-                    m_pixelRect.maxY() - POSITION_Y_OFFSET * VisualParams::Instance().GetVisualScale());
+                    m_pixelRect.maxY() - m_positionYOffset * VisualParams::Instance().GetVisualScale());
 }
 
 m2::PointD MyPositionController::GetCurrentPixelBinding() const

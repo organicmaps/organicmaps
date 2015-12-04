@@ -2086,7 +2086,7 @@ void Framework::Save3dMode(bool allow)
 
 bool Framework::Load3dMode()
 {
-  bool allow = false;
+  bool allow = true;
   Settings::Get(kAllow3dKey, allow);
   return allow;
 }
