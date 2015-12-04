@@ -119,7 +119,7 @@ public:
   NotificationManager()
     : m_enabled(false)
     , m_speedMetersPerSecond(0.)
-    , m_settings(5 /* m_startBeforeSeconds */, 25 /* m_minStartBeforeMeters */,
+    , m_settings(8 /* m_startBeforeSeconds */, 35 /* m_minStartBeforeMeters */,
                  150 /* m_maxStartBeforeMeters */, 170 /* m_minDistToSayNotificationMeters */)
     , m_nextTurnNotificationProgress(PronouncedNotification::Nothing)
     , m_turnNotificationWithThen(false)
