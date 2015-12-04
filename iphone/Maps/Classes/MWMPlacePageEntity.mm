@@ -138,7 +138,7 @@ using feature::Metadata;
   self.title = name.length > 0 ? name : L(@"dropped_pin");
   self.category = @(info.GetPinType().c_str());
 
-  vector<Metadata::EType> const presentTypes = metadata.GetPresentTypes();
+  auto const presentTypes = metadata.GetPresentTypes();
 
   NSMutableArray const * types = [NSMutableArray array];
   NSMutableArray const * values = [NSMutableArray array];
@@ -259,7 +259,7 @@ using feature::Metadata;
   [self.metadata[kTypesKey] removeObject:@(MWMPlacePageMetadataTypeBookmark)];
 }
 
-- (NSNumber *)typeFromMetadata:(Metadata::EType)type
+- (NSNumber *)typeFromMetadata:(uint8_t)type
 {
   switch (type)
   {

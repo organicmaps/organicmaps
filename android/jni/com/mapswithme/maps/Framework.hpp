@@ -106,11 +106,6 @@ namespace android
 
     void Touch(int action, Finger const & f1, Finger const & f2, uint8_t maskedPointer);
 
-    /// Show rect from another activity. Ensure that no LoadState will be called,
-    /// when main map activity will become active.
-    void ShowSearchResult(search::Result const & r);
-    void ShowAllSearchResults(search::Results const & results);
-
     bool Search(search::SearchParams const & params);
     string GetLastSearchQuery() { return m_searchQuery; }
     void ClearLastSearchQuery() { m_searchQuery.clear(); }

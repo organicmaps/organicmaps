@@ -263,16 +263,6 @@ void Framework::Touch(int action, Finger const & f1, Finger const & f2, uint8_t 
   m_work.TouchEvent(event);
 }
 
-void Framework::ShowSearchResult(search::Result const & r)
-{
-  m_work.ShowSearchResult(r);
-}
-
-void Framework::ShowAllSearchResults(search::Results const & results)
-{
-  m_work.ShowAllSearchResults(results);
-}
-
 TIndex Framework::GetCountryIndex(double lat, double lon) const
 {
   return m_work.GetCountryIndex(MercatorBounds::FromLatLon(lat, lon));
@@ -602,7 +592,7 @@ pair<jintArray, jobjectArray> NativeMetadataToJavaMetadata(JNIEnv * env, feature
 {
   using feature::Metadata;
 
-  vector<Metadata::EType> const metaTypes = metadata.GetPresentTypes();
+  auto const metaTypes = metadata.GetPresentTypes();
   // FIXME arrays, allocated through New<Type>Array should be deleted manually in the method.
   // refactor that to delete refs locally or pass arrays from outside context
   const jintArray j_metaTypes = env->NewIntArray(metadata.Size());
