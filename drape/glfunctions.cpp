@@ -669,12 +669,21 @@ uint32_t GLFunctions::glCreateShader(glConst type)
   return result;
 }
 
-void GLFunctions::glShaderSource(uint32_t shaderID, string const & src)
+void GLFunctions::glShaderSource(uint32_t shaderID, string const & src, string const & defines)
 {
   ASSERT(glShaderSourceFn != nullptr, ());
-  GLchar const * source = src.c_str();
-  GLint length = src.size();
-  GLCHECK(glShaderSourceFn(shaderID, 1, &source, &length));
+  GLchar const * source[2] =
+  {
+    defines.c_str(),
+    src.c_str()
+  };
+
+  GLint lengths[2] =
+  {
+    static_cast<GLint>(defines.size()),
+    static_cast<GLint>(src.size())
+  };
+  GLCHECK(glShaderSourceFn(shaderID, 2, source, lengths));
 }
 
 bool GLFunctions::glCompileShader(uint32_t shaderID, string &errorLog)

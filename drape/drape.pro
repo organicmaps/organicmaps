@@ -27,6 +27,7 @@ OTHER_FILES += \
     shaders/my_position_shader.vsh \
     shaders/path_symbol_vertex_shader.vsh \
     shaders/position_accuracy_shader.vsh \
+    shaders/solid_color_fragment_shader.fsh \
     shaders/route_arrow_fragment_shader.fsh \
     shaders/route_fragment_shader.fsh \
     shaders/route_vertex_shader.vsh \

@@ -66,7 +66,7 @@ public:
 
   /// Shaders support
   static uint32_t glCreateShader(glConst type);
-  static void glShaderSource(uint32_t shaderID, string const & src);
+  static void glShaderSource(uint32_t shaderID, string const & src, string const & defines);
   static bool glCompileShader(uint32_t shaderID, string & errorLog);
   static void glDeleteShader(uint32_t shaderID);
 

@@ -71,14 +71,13 @@ void PreprocessShaderSource(string & src)
   src.replace(pos, replacement.length(), injector);
 }
 
-Shader::Shader(string const & shaderSource, Type type)
-  : m_source(shaderSource)
-  , m_type(type)
-  , m_glID(0)
+Shader::Shader(string const & shaderSource, string const & defines, Type type)
+  : m_glID(0)
 {
-  m_glID = GLFunctions::glCreateShader(convert(m_type));
-  PreprocessShaderSource(m_source);
-  GLFunctions::glShaderSource(m_glID, m_source);
+  m_glID = GLFunctions::glCreateShader(convert(type));
+  string source = shaderSource;
+  PreprocessShaderSource(source);
+  GLFunctions::glShaderSource(m_glID, source, defines);
   string errorLog;
   bool result = GLFunctions::glCompileShader(m_glID, errorLog);
   CHECK(result, ("Shader compile error : ", errorLog));
