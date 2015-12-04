@@ -5,7 +5,7 @@ uniform mat4 m_transform;
 
 varying float v_intensity;
 
-const vec4 lightDir = vec4(1.0, 0.0, 1.0, 0.0);
+const vec4 lightDir = vec4(1.0, 0.0, 3.0, 0.0);
 
 void main()
 {

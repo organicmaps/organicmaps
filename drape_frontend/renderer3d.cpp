@@ -66,7 +66,7 @@ void Renderer3d::Build(ref_ptr<dp::GpuProgram> prg)
 
 void Renderer3d::Render(ScreenBase const & screen, uint32_t textureId, ref_ptr<dp::GpuProgramManager> mng)
 {
-  ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::TEXTURING_3D_PROGRAM);
+  ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::PLANE_3D_PROGRAM);
   prg->Bind();
 
   if (m_VAO == 0)

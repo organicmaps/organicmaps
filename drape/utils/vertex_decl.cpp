@@ -9,6 +9,7 @@ namespace
 enum VertexType
 {
   Area,
+  Area3d,
   SolidTexturing,
   TextStatic,
   TextOutlinedStatic,
@@ -33,8 +34,22 @@ dp::BindingInfo AreaBindingInit()
                                        sizeof(AreaVertex::TTexCoord)), "");
 
   dp::BindingFiller<AreaVertex> filler(2);
-  filler.FillDecl<SolidTexturingVertex::TPosition>("a_position");
-  filler.FillDecl<SolidTexturingVertex::TTexCoord>("a_colorTexCoords");
+  filler.FillDecl<AreaVertex::TPosition>("a_position");
+  filler.FillDecl<AreaVertex::TTexCoord>("a_colorTexCoords");
+
+  return filler.m_info;
+}
+
+dp::BindingInfo Area3dBindingInit()
+{
+  static_assert(sizeof(Area3dVertex) == (sizeof(Area3dVertex::TPosition) +
+                                         sizeof(Area3dVertex::TNormal3d) +
+                                       sizeof(Area3dVertex::TTexCoord)), "");
+
+  dp::BindingFiller<Area3dVertex> filler(3);
+  filler.FillDecl<Area3dVertex::TPosition>("a_position");
+  filler.FillDecl<Area3dVertex::TNormal3d>("a_normal");
+  filler.FillDecl<Area3dVertex::TTexCoord>("a_colorTexCoords");
 
   return filler.m_info;
 }
@@ -135,6 +150,7 @@ BindingNode g_bindingNodes[TypeCount];
 TInitFunction g_initFunctions[TypeCount] =
 {
   &AreaBindingInit,
+  &Area3dBindingInit,
   &SolidTexturingBindingInit,
   &TextStaticBindingInit,
   &TextOutlinedStaticBindingInit,
@@ -173,6 +189,26 @@ AreaVertex::AreaVertex(TPosition const & position, TTexCoord const & colorTexCoo
 dp::BindingInfo const & AreaVertex::GetBindingInfo()
 {
   return GetBinding(Area);
+}
+
+Area3dVertex::Area3dVertex()
+  : m_position(0.0, 0.0, 0.0)
+  , m_normal(0.0, 0.0, 0.0)
+  , m_colorTexCoord(0.0, 0.0)
+{
+}
+
+Area3dVertex::Area3dVertex(TPosition const & position, TPosition const & normal,
+                           TTexCoord const & colorTexCoord)
+  : m_position(position)
+  , m_normal(normal)
+  , m_colorTexCoord(colorTexCoord)
+{
+}
+
+dp::BindingInfo const & Area3dVertex::GetBindingInfo()
+{
+  return GetBinding(Area3d);
 }
 
 SolidTexturingVertex::SolidTexturingVertex()

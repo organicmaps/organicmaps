@@ -12,6 +12,7 @@ struct BaseVertex
 {
   using TPosition = glsl::vec3;
   using TNormal = glsl::vec2;
+  using TNormal3d = glsl::vec3;
   using TTexCoord = glsl::vec2;
 };
 
@@ -21,6 +22,18 @@ struct AreaVertex : BaseVertex
   AreaVertex(TPosition const & position, TTexCoord const & colorTexCoord);
 
   TPosition m_position;
+  TTexCoord m_colorTexCoord;
+
+  static dp::BindingInfo const & GetBindingInfo();
+};
+
+struct Area3dVertex : BaseVertex
+{
+  Area3dVertex();
+  Area3dVertex(TPosition const & position, const TPosition & normal, TTexCoord const & colorTexCoord);
+
+  TPosition m_position;
+  TNormal3d m_normal;
   TTexCoord m_colorTexCoord;
 
   static dp::BindingInfo const & GetBindingInfo();

@@ -6,6 +6,7 @@
 #include "drape_frontend/user_mark_shapes.hpp"
 
 #include "drape/debug_rect_renderer.hpp"
+#include "drape/shader_def.hpp"
 #include "drape/support_manager.hpp"
 
 #include "drape/utils/glyph_usage_tracker.hpp"
@@ -494,6 +495,16 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Allow3dMode:
     {
       ref_ptr<Allow3dModeMessage> const msg = message;
+#ifdef OMIM_OS_DESKTOP
+      if (m_enable3dInNavigation == msg->Enable())
+      {
+        if (m_enable3dInNavigation)
+          AddUserEvent(EnablePerspectiveEvent(M_PI / 4.0, M_PI / 3.0,
+                                              false /* animated */, true /* immediately start */));
+        else
+          AddUserEvent(DisablePerspectiveEvent());
+      }
+#endif
       m_enable3dInNavigation = msg->Enable();
       break;
     }
@@ -725,6 +736,10 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     drape_ptr<RenderGroup> const & group = m_renderGroups[currentRenderGroup];
 
     dp::GLState const & state = group->GetState();
+
+    if (isPerspective && state.GetProgram3dIndex() == gpu::AREA_3D_PROGRAM)
+      continue;
+
     dp::GLState::DepthLayer layer = state.GetDepthLayer();
     if (prevLayer != layer && layer == dp::GLState::OverlayLayer)
       break;
@@ -752,8 +767,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
                                  modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
   GLFunctions::glEnable(gl_const::GLDepthTest);
-  if (isPerspective)
-    GLFunctions::glClearDepth();
+  GLFunctions::glClearDepth();
   for (; currentRenderGroup < m_renderGroups.size(); ++currentRenderGroup)
   {
     drape_ptr<RenderGroup> const & group = m_renderGroups[currentRenderGroup];
@@ -774,6 +788,19 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   }
 
   m_routeRenderer->RenderRouteSigns(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+
+
+  if (isPerspective)
+  {
+    GLFunctions::glEnable(gl_const::GLDepthTest);
+    for (currentRenderGroup = 0; currentRenderGroup < m_renderGroups.size(); ++currentRenderGroup)
+    {
+      drape_ptr<RenderGroup> const & group = m_renderGroups[currentRenderGroup];
+
+      if (isPerspective && group->GetState().GetProgram3dIndex() == gpu::AREA_3D_PROGRAM)
+        RenderSingleGroup(modelView, make_ref(group));
+    }
+  }
 
   m_myPositionController->Render(MyPositionController::RenderMyPosition,
                                  modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
@@ -836,10 +863,6 @@ void FrontendRenderer::RefreshPivotTransform(ScreenBase const & screen)
   if (screen.isPerspective())
   {
     math::Matrix<float, 4, 4> transform(screen.Pto3dMatrix());
-    math::Matrix<float, 4, 4> scaleM = math::Identity<float, 4>();
-    scaleM(2, 2) = 0.0;
-
-    transform = scaleM * transform;
     m_generalUniforms.SetMatrix4x4Value("pivotTransform", transform.m_data);
   }
   else

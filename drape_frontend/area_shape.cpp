@@ -29,20 +29,59 @@ void AreaShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
   textures->GetColorRegion(m_params.m_color, region);
   glsl::vec2 const colorPoint = glsl::ToVec2(region.GetTexRect().Center());
 
-  buffer_vector<gpu::AreaVertex, 128> vertexes;
-  vertexes.resize(m_vertexes.size());
-  transform(m_vertexes.begin(), m_vertexes.end(), vertexes.begin(), [&colorPoint, this](m2::PointF const & vertex)
+  if (!m_buildingEdges.empty())
   {
-    return gpu::AreaVertex(glsl::vec3(glsl::ToVec2(vertex), m_params.m_depth),
-                                     colorPoint);
-  });
+    vector<gpu::Area3dVertex> vertexes;
+    vertexes.reserve(m_vertexes.size() + m_buildingEdges.size() * 6);
 
-  dp::GLState state(gpu::AREA_PROGRAM, dp::GLState::GeometryLayer);
-  state.SetColorTexture(region.GetTexture());
+    float const kBuildingHeight = 0.0008 * (1.0 + 2.0 * rand() / RAND_MAX);//(m_buildingEdges[0].m_startVertex - m_buildingEdges[0].m_endVertex).Length();
+    for (auto const & edge : m_buildingEdges)
+    {
+      glsl::vec3 normal(glsl::ToVec2(edge.m_normal), 0.0f);
+      vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(edge.m_startVertex), 0.0f),
+                                           normal, colorPoint));
+      vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(edge.m_endVertex), 0.0f),
+                                           normal, colorPoint));
+      vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(edge.m_startVertex), -kBuildingHeight),
+                                           normal, colorPoint));
 
-  dp::AttributeProvider provider(1, m_vertexes.size());
-  provider.InitStream(0, gpu::AreaVertex::GetBindingInfo(), make_ref(vertexes.data()));
-  batcher->InsertTriangleList(state, make_ref(&provider));
+      vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(edge.m_startVertex), -kBuildingHeight),
+                                           normal, colorPoint));
+      vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(edge.m_endVertex), 0.0f),
+                                           normal, colorPoint));
+      vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(edge.m_endVertex), -kBuildingHeight),
+                                           normal, colorPoint));
+    }
+
+    glsl::vec3 normal(0.0f, 0.0f, -1.0f);
+    for (auto const & vertex : m_vertexes)
+      vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(vertex), -kBuildingHeight),
+                                           normal, colorPoint));
+
+    dp::GLState state(gpu::AREA_3D_PROGRAM, dp::GLState::GeometryLayer);
+    state.SetColorTexture(region.GetTexture());
+
+    dp::AttributeProvider provider(1, vertexes.size());
+    provider.InitStream(0, gpu::Area3dVertex::GetBindingInfo(), make_ref(vertexes.data()));
+    batcher->InsertTriangleList(state, make_ref(&provider));
+  }
+  else
+  {
+    buffer_vector<gpu::AreaVertex, 128> vertexes;
+    vertexes.resize(m_vertexes.size());
+    transform(m_vertexes.begin(), m_vertexes.end(), vertexes.begin(), [&colorPoint, this](m2::PointF const & vertex)
+    {
+      return gpu::AreaVertex(glsl::vec3(glsl::ToVec2(vertex), m_params.m_depth),
+                                       colorPoint);
+    });
+
+    dp::GLState state(gpu::AREA_PROGRAM, dp::GLState::GeometryLayer);
+    state.SetColorTexture(region.GetTexture());
+
+    dp::AttributeProvider provider(1, m_vertexes.size());
+    provider.InitStream(0, gpu::AreaVertex::GetBindingInfo(), make_ref(vertexes.data()));
+    batcher->InsertTriangleList(state, make_ref(&provider));
+  }
 }
 
 } // namespace df

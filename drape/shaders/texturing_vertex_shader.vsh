@@ -16,7 +16,7 @@ void main(void)
   highp vec4 shiftedPos = vec4(a_normal, 0, 0) + pos;
   shiftedPos = shiftedPos * projection;
   float w = shiftedPos.w;
-  shiftedPos.xyw = (pivotTransform * shiftedPos).xyw;
+  shiftedPos.xyw = (pivotTransform * vec4(shiftedPos.xy, 0.0, w)).xyw;
   shiftedPos.z *= shiftedPos.w / w;
   gl_Position = shiftedPos;
   v_colorTexCoords = a_colorTexCoords;

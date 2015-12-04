@@ -16,7 +16,7 @@ void main(void)
   vec4 normal = vec4(normalize(a_normal) * u_accuracy, 0.0, 0.0);
   position = (position + normal) * projection;
   float w = position.w;
-  position.xyw = (pivotTransform * position).xyw;
+  position.xyw = (pivotTransform * vec4(position.xy, 0.0, w)).xyw;
   position.z *= position.w / w;
   gl_Position = position;
 

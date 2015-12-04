@@ -89,7 +89,7 @@ private:
   int GetIndex(m2::PointD const & pt);
   void BuildEdges(int vertexIndex1, int vertexIndex2, int vertexIndex3);
   bool EqualEdges(TEdge const & edge1, TEdge const & edge2) const;
-  bool FindEdge(TEdge const & edge) const;
+  bool FindEdge(TEdge const & edge);
   m2::PointD CalculateNormal(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3) const;
 
   vector<m2::PointF> m_triangles;

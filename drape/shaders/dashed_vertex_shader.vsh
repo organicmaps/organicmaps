@@ -29,7 +29,7 @@ void main(void)
   v_halfLength = vec2(sign(a_normal.z) * halfWidth, abs(a_normal.z));
   vec4 pos = vec4(transformedAxisPos, a_position.z, 1.0) * projection;
   float w = pos.w;
-  pos.xyw = (pivotTransform * pos).xyw;
+  pos.xyw = (pivotTransform * vec4(pos.xy, 0.0, w)).xyw;
   pos.z *= pos.w / w;
   gl_Position = pos;
 }

@@ -364,12 +364,15 @@ bool ApplyAreaFeature::EqualEdges(TEdge const & edge1, TEdge const & edge2) cons
          (edge1.first == edge2.second && edge1.second == edge2.first);
 }
 
-bool ApplyAreaFeature::FindEdge(TEdge const & edge) const
+bool ApplyAreaFeature::FindEdge(TEdge const & edge)
 {
   for (size_t i = 0; i < m_edges.size(); i++)
   {
     if (EqualEdges(m_edges[i].first, edge))
+    {
+      m_edges[i].second = -1;
       return true;
+    }
   }
   return false;
 }
@@ -379,7 +382,7 @@ m2::PointD ApplyAreaFeature::CalculateNormal(m2::PointD const & p1, m2::PointD c
   m2::PointD const tangent = (p2 - p1).Normalize();
   m2::PointD normal = m2::PointD(-tangent.y, tangent.x);
   m2::PointD const v = ((p1 + p2) * 0.5 - p3).Normalize();
-  if (m2::CrossProduct(normal, v) < 0.0)
+  if (m2::DotProduct(normal, v) < 0.0)
     normal = -normal;
 
   return normal;
@@ -408,6 +411,8 @@ void ApplyAreaFeature::CalculateBuildingEdges(vector<BuildingEdge> & edges)
 {
   for (auto & e : m_edges)
   {
+    if (e.second < 0)
+      continue;
     BuildingEdge edge;
     edge.m_startVertex = m_indices[e.first.first];
     edge.m_endVertex = m_indices[e.first.second];
