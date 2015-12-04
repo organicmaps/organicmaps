@@ -23,6 +23,7 @@
 #include "platform/platform.hpp"
 
 #include "coding/file_name_utils.hpp"
+#include "coding/fixed_bits_ddvector.hpp"
 #include "coding/reader_writer_ops.hpp"
 #include "coding/writer.hpp"
 
@@ -262,7 +263,8 @@ public:
 };
 
 template <typename TKey, typename TValue>
-void AddFeatureNameIndexPairs(FeaturesVectorTest & features, CategoriesHolder & categoriesHolder,
+void AddFeatureNameIndexPairs(FeaturesVectorTest const & features,
+                              CategoriesHolder & categoriesHolder,
                               vector<pair<TKey, TValue>> & keyValuePairs)
 {
   feature::DataHeader const & header = features.GetHeader();
@@ -275,54 +277,62 @@ void AddFeatureNameIndexPairs(FeaturesVectorTest & features, CategoriesHolder & 
 
   features.GetVector().ForEach(FeatureInserter<TKey, TValue>(
       synonyms.get(), keyValuePairs, categoriesHolder, header.GetScaleRange(), valueBuilder));
+}
 
-  ReaderSource<ModelReaderPtr> src = features.GetReader(SEARCH_TOKENS_FILE_TAG);
-  uint64_t index = 0;
-  uint64_t address = 0, missing = 0;
+void BuildAddressTable(FilesContainerR & container, Writer & writer)
+{
+  ReaderSource<ModelReaderPtr> src = container.GetReader(SEARCH_TOKENS_FILE_TAG);
+  uint32_t index = 0;
+  uint32_t address = 0, missing = 0;
   map<size_t, size_t> bounds;
 
   Index mwmIndex;
   /// @ todo Make some better solution, or legalize MakeTemporary.
-  mwmIndex.RegisterMap(platform::LocalCountryFile::MakeTemporary(features.GetFilePath()));
+  mwmIndex.RegisterMap(platform::LocalCountryFile::MakeTemporary(container.GetFileName()));
   search::ReverseGeocoder rgc(mwmIndex);
 
-  while (src.Size() > 0)
   {
-    feature::AddressData data;
-    data.Deserialize(src);
+    FixedBitsDDVector<3, FileReader>::Builder<Writer> b2sBuilder(writer);
 
-    string street;
-    search::GetStreetNameAsKey(data.Get(feature::AddressData::STREET), street);
-    if (!street.empty())
+    FeaturesVectorTest features(container);
+    while (src.Size() > 0)
     {
-      FeatureType ft;
-      features.GetVector().GetByIndex(index, ft);
+      feature::AddressData data;
+      data.Deserialize(src);
 
-      using TStreet = search::ReverseGeocoder::Street;
-      vector<TStreet> streets;
-      rgc.GetNearbyStreets(ft, street, streets);
-
-      size_t const ind = rgc.GetMatchedStreetIndex(streets);
-      if (ind == streets.size())
+      size_t ind = 0;
+      string street;
+      search::GetStreetNameAsKey(data.Get(feature::AddressData::STREET), street);
+      if (!street.empty())
       {
-        ++missing;
-        //LOG(LWARNING, ("No street found for address", street, ft));
-      }
-      else
-      {
-        ++bounds[ind];
+        FeatureType ft;
+        features.GetVector().GetByIndex(index, ft);
+
+        using TStreet = search::ReverseGeocoder::Street;
+        vector<TStreet> streets;
+        rgc.GetNearbyStreets(ft, street, streets);
+
+        ind = rgc.GetMatchedStreetIndex(streets);
+        if (ind == streets.size())
+        {
+          ++missing;
+          ind = 0;
+        }
+        else
+          ++bounds[ind];
+
+        ++address;
       }
 
-      ++address;
+      ++index;
+      b2sBuilder.PushBack(ind);
     }
 
-    ++index;
+    LOG(LINFO, ("Address: Building -> Street (opt, all)", b2sBuilder.GetCount()));
   }
 
   LOG(LINFO, ("Address: Matched percent", 100 * (1.0 - missing/double(address))));
   LOG(LINFO, ("Address: Upper bounds", bounds));
-
-  /// @todo Delete SEARCH_TOKENS_FILE_TAG section in production code.
 }
 }  // namespace
 
@@ -339,20 +349,35 @@ bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild)
   string mwmName = filename;
   my::GetNameFromFullPath(mwmName);
   my::GetNameWithoutExt(mwmName);
+
   string const indexFilePath = platform.WritablePathForFile(mwmName + "." + string(SEARCH_INDEX_FILE_TAG) + ".tmp");
   MY_SCOPE_GUARD(indexFileGuard, bind(&FileWriter::DeleteFileX, indexFilePath));
+
+  string const addrFilePath = platform.WritablePathForFile(mwmName + "." + string(SEARCH_ADDRESS_FILE_TAG) + ".tmp");
+  MY_SCOPE_GUARD(addrFileGuard, bind(&FileWriter::DeleteFileX, addrFilePath));
 
   try
   {
     {
-      FileWriter indexWriter(indexFilePath);
-      BuildSearchIndex(readContainer, indexWriter);
-      LOG(LINFO, ("Search index size =", indexWriter.Size()));
+      FileWriter writer(indexFilePath);
+      BuildSearchIndex(readContainer, writer);
+      LOG(LINFO, ("Search index size =", writer.Size()));
+    }
+    {
+      FileWriter writer(addrFilePath);
+      BuildAddressTable(readContainer, writer);
+      LOG(LINFO, ("Search address table size =", writer.Size()));
     }
     {
       FilesContainerW writeContainer(readContainer.GetFileName(), FileWriter::OP_WRITE_EXISTING);
-      FileWriter writer = writeContainer.GetWriter(SEARCH_INDEX_FILE_TAG);
-      rw_ops::Reverse(FileReader(indexFilePath), writer);
+      writeContainer.DeleteSection(SEARCH_TOKENS_FILE_TAG);
+
+      {
+        FileWriter writer = writeContainer.GetWriter(SEARCH_INDEX_FILE_TAG);
+        rw_ops::Reverse(FileReader(indexFilePath), writer);
+      }
+
+      writeContainer.Write(addrFilePath, SEARCH_ADDRESS_FILE_TAG);
     }
   }
   catch (Reader::Exception const & e)
