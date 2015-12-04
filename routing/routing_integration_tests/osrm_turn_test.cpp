@@ -396,3 +396,16 @@ UNIT_TEST(SwitzerlandSamstagernBergstrasseTest)
   TEST_EQUAL(result, IRouter::NoError, ());
   integration::TestTurnCount(route, 0);
 }
+
+UNIT_TEST(RussiaMoscowMikoiankNoUTurnTest)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetOsrmComponents(), MercatorBounds::FromLatLon(55.79041, 37.53770), {0., 0.},
+      MercatorBounds::FromLatLon(55.79182, 37.53008));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 0);
+}
