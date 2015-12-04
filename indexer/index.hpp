@@ -214,13 +214,6 @@ public:
   }
 
   template <typename F>
-  void ForEachInRect_TileDrawing(F & f, m2::RectD const & rect, uint32_t scale) const
-  {
-    ReadMWMFunctor<F> implFunctor(f);
-    ForEachInIntervals(implFunctor, covering::LowLevelsOnly, rect, scale);
-  }
-
-  template <typename F>
   void ForEachFeatureIDInRect(F & f, m2::RectD const & rect, uint32_t scale) const
   {
     ReadFeatureIndexFunctor<F> implFunctor(f);

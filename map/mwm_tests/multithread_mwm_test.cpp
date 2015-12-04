@@ -46,7 +46,7 @@ namespace
         m2::RectD const r = GetRandomRect();
         m_scale = scales::GetScaleLevel(r);
 
-        m_src.ForEachFeature_TileDrawing(r, *this, m_scale);
+        m_src.ForEachFeature(r, *this, m_scale);
       }
     }
 

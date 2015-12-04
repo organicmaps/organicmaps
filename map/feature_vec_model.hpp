@@ -75,12 +75,6 @@ class FeaturesFetcher : public Index::Observer
     }
 
     template <class ToDo>
-    void ForEachFeature_TileDrawing(m2::RectD const & rect, ToDo & toDo, int scale) const
-    {
-      m_multiIndex.ForEachInRect_TileDrawing(toDo, rect, scale);
-    }
-
-    template <class ToDo>
     void ForEachFeatureID(m2::RectD const & rect, ToDo & toDo, int scale) const
     {
       m_multiIndex.ForEachFeatureIDInRect(toDo, rect, scale);
