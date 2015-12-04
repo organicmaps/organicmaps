@@ -11,14 +11,14 @@
 namespace dp
 {
 
-uint32_t const MAX_STIPPLE_PEN_LENGTH = 512;
-uint32_t const STIPPLE_HEIGHT = 1;
+uint32_t const kMaxStipplePenLength = 512;
+uint32_t const kStippleHeight = 1;
 
 StipplePenPacker::StipplePenPacker(m2::PointU const & canvasSize)
   : m_canvasSize(canvasSize)
   , m_currentRow(0)
 {
-  ASSERT_LESS_OR_EQUAL(canvasSize.x, MAX_STIPPLE_PEN_LENGTH, ());
+  ASSERT_GREATER_OR_EQUAL(canvasSize.x, kMaxStipplePenLength, ());
 }
 
 m2::RectU StipplePenPacker::PackResource(uint32_t width)
@@ -26,8 +26,8 @@ m2::RectU StipplePenPacker::PackResource(uint32_t width)
   ASSERT_LESS(m_currentRow, m_canvasSize.y, ());
   ASSERT_LESS_OR_EQUAL(width, m_canvasSize.x, ());
   uint32_t yOffset = m_currentRow;
-  m_currentRow += STIPPLE_HEIGHT;
-  return m2::RectU(0, yOffset, width, yOffset + STIPPLE_HEIGHT);
+  m_currentRow += kStippleHeight;
+  return m2::RectU(0, yOffset, width, yOffset + kStippleHeight);
 }
 
 m2::RectF StipplePenPacker::MapTextureCoords(m2::RectU const & pixelRect) const
@@ -79,8 +79,9 @@ StipplePenRasterizator::StipplePenRasterizator(StipplePenKey const & key)
   : m_key(key)
 {
   m_patternLength = accumulate(m_key.m_pattern.begin(), m_key.m_pattern.end(), 0);
-  ASSERT_LESS(m_patternLength, MAX_STIPPLE_PEN_LENGTH, ());
-  uint32_t count = floor(MAX_STIPPLE_PEN_LENGTH / m_patternLength);
+  uint32_t const availableSize = kMaxStipplePenLength - 2; // the first and the last pixel reserved
+  ASSERT_LESS(m_patternLength, availableSize, ());
+  uint32_t const count = floor(availableSize / m_patternLength);
   m_pixelLength = count * m_patternLength;
 }
 
@@ -92,11 +93,6 @@ uint32_t StipplePenRasterizator::GetSize() const
 uint32_t StipplePenRasterizator::GetPatternSize() const
 {
   return m_patternLength;
-}
-
-uint32_t StipplePenRasterizator::GetBufferSize() const
-{
-  return m_pixelLength;
 }
 
 void StipplePenRasterizator::Rasterize(void * buffer)
@@ -120,6 +116,8 @@ void StipplePenRasterizator::Rasterize(void * buffer)
     memcpy(pixels + offset, pixels + 1, period);
     offset += period;
   }
+
+  ASSERT_LESS(offset, kMaxStipplePenLength, ());
 
   pixels[0] = pixels[1];
   pixels[offset] = pixels[offset - 1];
@@ -178,7 +176,7 @@ void StipplePenIndex::UploadResources(ref_ptr<Texture> texture)
   }
 
   SharedBufferManager & mng = SharedBufferManager::instance();
-  uint32_t const bytesPerNode = MAX_STIPPLE_PEN_LENGTH * STIPPLE_HEIGHT;
+  uint32_t const bytesPerNode = kMaxStipplePenLength * kStippleHeight;
   uint32_t reserveBufferSize = my::NextPowOf2(pendingNodes.size() * bytesPerNode);
   SharedBufferManager::shared_buffer_ptr_t ptr = mng.reserveSharedBuffer(reserveBufferSize);
   uint8_t * rawBuffer = SharedBufferManager::GetRawPointer(ptr);
@@ -187,7 +185,7 @@ void StipplePenIndex::UploadResources(ref_ptr<Texture> texture)
     pendingNodes[i].second.Rasterize(rawBuffer + i * bytesPerNode);
 
   texture->UploadData(0, pendingNodes.front().first.minY(),
-                      MAX_STIPPLE_PEN_LENGTH, pendingNodes.size() * STIPPLE_HEIGHT, make_ref(rawBuffer));
+                      kMaxStipplePenLength, pendingNodes.size() * kStippleHeight, make_ref(rawBuffer));
 
   mng.freeSharedBuffer(reserveBufferSize, ptr);
 }
