@@ -159,6 +159,7 @@ void IndexScales(feature::DataHeader const & header, TFeaturesVector const & fea
     vector<uint32_t> featuresInBucket(bucketsCount);
     vector<uint32_t> cellsInBucket(bucketsCount);
     features.ForEach(FeatureCoverer<TDisplacementManager>(header, manager, featuresInBucket, cellsInBucket));
+    manager.Displace();
     sorter.SortAndFinish();
 
     for (uint32_t bucket = 0; bucket < bucketsCount; ++bucket)
