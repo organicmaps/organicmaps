@@ -2,11 +2,13 @@
 
 #include "editor/opening_hours_ui.hpp"
 
-#include "3party/opening_hours/opening_hours.hpp"
-
+namespace osmoh
+{
+class OpeningHours;
+} // namespace osmoh
 
 namespace editor
 {
-osmoh::OpeningHours ConvertOpeningHours(ui::TTimeTables const & tt);
-ui::TTimeTables ConvertOpeningHours(osmoh::OpeningHours const & oh);
+osmoh::OpeningHours ConvertOpeningHours(ui::TimeTableSet const & tt);
+ui::TimeTableSet ConvertOpeningHours(osmoh::OpeningHours const & oh);
 } // namespace editor

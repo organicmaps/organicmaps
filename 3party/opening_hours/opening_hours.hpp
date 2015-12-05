@@ -40,8 +40,8 @@ public:
   using TMinutes = std::chrono::minutes;
 
   HourMinutes() = default;
-  explicit HourMinutes(THours const duration) { SetDuration(duration); }
-  explicit HourMinutes(TMinutes const duration) { SetDuration(duration); }
+  HourMinutes(THours const duration) { SetDuration(duration); }
+  HourMinutes(TMinutes const duration) { SetDuration(duration); }
 
   bool IsEmpty() const { return m_empty; }
   bool IsExtended() const;
@@ -195,6 +195,11 @@ std::ostream & operator<<(std::ostream & ost, TimespanPeriod const p);
 class Timespan
 {
 public:
+  Timespan() = default;
+  Timespan(Time const & start, Time const & end): m_start(start), m_end(end) {}
+  Timespan(HourMinutes::TMinutes const & start,
+           HourMinutes::TMinutes const & end): m_start(start), m_end(end) {}
+
   bool IsEmpty() const { return !HasStart() && !HasEnd(); }
   bool IsOpen() const { return HasStart() && !HasEnd(); }
   bool HasStart() const { return !GetStart().IsEmpty(); }

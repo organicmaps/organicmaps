@@ -3,13 +3,13 @@
 TARGET = editor
 TEMPLATE = lib
 CONFIG += staticlib warn_on
-INCLUDEPATH += ../3party/opening_hours/src
 
 ROOT_DIR = ..
 
 include($$ROOT_DIR/common.pri)
 
 SOURCES += \
+  opening_hours_ui.cpp \
   ui2oh.cpp
 
 HEADERS += \

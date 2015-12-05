@@ -159,6 +159,10 @@ SUBDIRS = 3party base coding geometry indexer search routing editor
     generator_tests.depends = $$MapDepLibs routing generator
     SUBDIRS *= generator_tests
 
+    editor_tests.subdir = editor/editor_tests
+    editor_tests.depends = 3party editor
+    SUBDIRS *= editor_tests
+
     SUBDIRS *= qt_tstfrm
 
     drape_tests.subdir = drape/drape_tests
