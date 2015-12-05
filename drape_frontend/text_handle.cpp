@@ -67,7 +67,7 @@ bool TextHandle::Update(ScreenBase const & screen)
 
 bool TextHandle::IndexesRequired() const
 {
-  return false;
+  return true;
 }
 
 void TextHandle::SetForceUpdateNormals(bool forceUpdate) const

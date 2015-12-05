@@ -163,7 +163,7 @@ uint32_t VertexArrayBuffer::GetAvailableVertexCount() const
   TBuffersMap::const_iterator it = m_staticBuffers.begin();
   uint32_t prev = it->second->GetBuffer()->GetAvailableSize();
   for (; it != m_staticBuffers.end(); ++it)
-    ASSERT(prev == it->second->GetBuffer()->GetAvailableSize(), ());
+    ASSERT_EQUAL(prev, it->second->GetBuffer()->GetAvailableSize(), ());
 #endif
 
   return m_staticBuffers.begin()->second->GetBuffer()->GetAvailableSize();

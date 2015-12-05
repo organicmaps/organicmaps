@@ -114,6 +114,86 @@ uint64_t PathTextShape::GetOverlayPriority() const
   return dp::CalculateOverlayPriority(m_params.m_minVisibleScale, m_params.m_rank, m_params.m_depth);
 }
 
+void PathTextShape::DrawPathTextPlain(ref_ptr<dp::TextureManager> textures,
+                                      ref_ptr<dp::Batcher> batcher,
+                                      unique_ptr<PathTextLayout> && layout,
+                                      buffer_vector<float, 32> const & offsets) const
+{
+  dp::TextureManager::ColorRegion color;
+  textures->GetColorRegion(m_params.m_textFont.m_color, color);
+
+  dp::GLState state(gpu::TEXT_PROGRAM, dp::GLState::OverlayLayer);
+  state.SetColorTexture(color.GetTexture());
+  state.SetMaskTexture(layout->GetMaskTexture());
+
+  ASSERT(!offsets.empty(), ());
+  gpu::TTextStaticVertexBuffer staticBuffer;
+  gpu::TTextDynamicVertexBuffer dynBuffer;
+  SharedTextLayout layoutPtr(layout.release());
+  for (float offset : offsets)
+  {
+    staticBuffer.clear();
+    dynBuffer.clear();
+
+    Spline::iterator iter = m_spline.CreateIterator();
+    iter.Advance(offset);
+    layoutPtr->CacheStaticGeometry(glsl::vec3(glsl::ToVec2(iter.m_pos), m_params.m_depth),
+                                   color, staticBuffer);
+
+    dynBuffer.resize(staticBuffer.size(), gpu::TextDynamicVertex(glsl::vec2(0.0, 0.0)));
+
+    dp::AttributeProvider provider(2, staticBuffer.size());
+    provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));
+    provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(dynBuffer.data()));
+
+    drape_ptr<dp::OverlayHandle> handle = make_unique_dp<PathTextHandle>(m_spline, layoutPtr, offset,
+                                                                         GetOverlayPriority(),
+                                                                         textures);
+    batcher->InsertListOfStrip(state, make_ref(&provider), move(handle), 4);
+  }
+}
+
+void PathTextShape::DrawPathTextOutlined(ref_ptr<dp::TextureManager> textures,
+                                         ref_ptr<dp::Batcher> batcher,
+                                         unique_ptr<PathTextLayout> && layout,
+                                         buffer_vector<float, 32> const & offsets) const
+{
+  dp::TextureManager::ColorRegion color;
+  dp::TextureManager::ColorRegion outline;
+  textures->GetColorRegion(m_params.m_textFont.m_color, color);
+  textures->GetColorRegion(m_params.m_textFont.m_outlineColor, outline);
+
+  dp::GLState state(gpu::TEXT_OUTLINED_PROGRAM, dp::GLState::OverlayLayer);
+  state.SetColorTexture(color.GetTexture());
+  state.SetMaskTexture(layout->GetMaskTexture());
+
+  ASSERT(!offsets.empty(), ());
+  gpu::TTextOutlinedStaticVertexBuffer staticBuffer;
+  gpu::TTextDynamicVertexBuffer dynBuffer;
+  SharedTextLayout layoutPtr(layout.release());
+  for (float offset : offsets)
+  {
+    staticBuffer.clear();
+    dynBuffer.clear();
+
+    Spline::iterator iter = m_spline.CreateIterator();
+    iter.Advance(offset);
+    layoutPtr->CacheStaticGeometry(glsl::vec3(glsl::ToVec2(iter.m_pos), m_params.m_depth),
+                                   color, outline, staticBuffer);
+
+    dynBuffer.resize(staticBuffer.size(), gpu::TextDynamicVertex(glsl::vec2(0.0, 0.0)));
+
+    dp::AttributeProvider provider(2, staticBuffer.size());
+    provider.InitStream(0, gpu::TextOutlinedStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));
+    provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(dynBuffer.data()));
+
+    drape_ptr<dp::OverlayHandle> handle = make_unique_dp<PathTextHandle>(m_spline, layoutPtr, offset,
+                                                                         GetOverlayPriority(),
+                                                                         textures);
+    batcher->InsertListOfStrip(state, make_ref(&provider), move(handle), 4);
+  }
+}
+
 void PathTextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
 {
   unique_ptr<PathTextLayout> layout = make_unique<PathTextLayout>(strings::MakeUniString(m_params.m_text),
@@ -177,40 +257,10 @@ void PathTextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManage
       offsets.push_back((textHalfLength + (textLength + offset) * (i + 1)) * scalePtoG);
   }
 
-  dp::TextureManager::ColorRegion color;
-  dp::TextureManager::ColorRegion outline;
-  textures->GetColorRegion(m_params.m_textFont.m_color, color);
-  textures->GetColorRegion(m_params.m_textFont.m_outlineColor, outline);
-
-  dp::GLState state(gpu::TEXT_PROGRAM, dp::GLState::OverlayLayer);
-  state.SetColorTexture(color.GetTexture());
-  state.SetMaskTexture(layout->GetMaskTexture());
-
-  ASSERT(!offsets.empty(), ());
-  gpu::TTextStaticVertexBuffer staticBuffer;
-  gpu::TTextDynamicVertexBuffer dynBuffer;
-  SharedTextLayout layoutPtr(layout.release());
-  for (float offset : offsets)
-  {
-    staticBuffer.clear();
-    dynBuffer.clear();
-
-    Spline::iterator iter = m_spline.CreateIterator();
-    iter.Advance(offset);
-    layoutPtr->CacheStaticGeometry(glsl::vec3(glsl::ToVec2(iter.m_pos), m_params.m_depth),
-                                   color, outline, staticBuffer);
-
-    dynBuffer.resize(staticBuffer.size(), gpu::TextDynamicVertex(glsl::vec2(0.0, 0.0)));
-
-    dp::AttributeProvider provider(2, staticBuffer.size());
-    provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));
-    provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(dynBuffer.data()));
-
-    drape_ptr<dp::OverlayHandle> handle = make_unique_dp<PathTextHandle>(m_spline, layoutPtr, offset,
-                                                                         GetOverlayPriority(),
-                                                                         textures);
-    batcher->InsertListOfStrip(state, make_ref(&provider), move(handle), 4);
-  }
+  if (m_params.m_textFont.m_outlineColor == dp::Color::Transparent())
+    DrawPathTextPlain(textures, batcher, move(layout), offsets);
+  else
+    DrawPathTextOutlined(textures, batcher, move(layout), offsets);
 }
 
 }

@@ -22,11 +22,9 @@ class TextGeometryGenerator
 public:
   TextGeometryGenerator(glsl::vec3 const & pivot,
                         dp::TextureManager::ColorRegion const & color,
-                        dp::TextureManager::ColorRegion const & outline,
                         gpu::TTextStaticVertexBuffer & buffer)
     : m_pivot(pivot)
     , m_colorCoord(glsl::ToVec2(color.GetTexRect().Center()))
-    , m_outlineCoord(glsl::ToVec2(outline.GetTexRect().Center()))
     , m_buffer(buffer)
   {
   }
@@ -34,16 +32,15 @@ public:
   void operator() (dp::TextureManager::GlyphRegion const & glyph)
   {
     m2::RectF const & mask = glyph.GetTexRect();
-    m_buffer.push_back(gpu::TextStaticVertex(m_pivot, m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftTop())));
-    m_buffer.push_back(gpu::TextStaticVertex(m_pivot, m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftBottom())));
-    m_buffer.push_back(gpu::TextStaticVertex(m_pivot, m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.RightTop())));
-    m_buffer.push_back(gpu::TextStaticVertex(m_pivot, m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.RightBottom())));
+    m_buffer.push_back(gpu::TextStaticVertex(m_pivot, m_colorCoord, glsl::ToVec2(mask.LeftTop())));
+    m_buffer.push_back(gpu::TextStaticVertex(m_pivot, m_colorCoord, glsl::ToVec2(mask.LeftBottom())));
+    m_buffer.push_back(gpu::TextStaticVertex(m_pivot, m_colorCoord, glsl::ToVec2(mask.RightTop())));
+    m_buffer.push_back(gpu::TextStaticVertex(m_pivot, m_colorCoord, glsl::ToVec2(mask.RightBottom())));
   }
 
 protected:
   glsl::vec3 const & m_pivot;
   glsl::vec2 m_colorCoord;
-  glsl::vec2 m_outlineCoord;
   gpu::TTextStaticVertexBuffer & m_buffer;
 };
 
@@ -54,8 +51,88 @@ public:
   StraigthTextGeometryGenerator(glsl::vec3 const & pivot, glsl::vec2 const & pixelOffset,
                                 float textRatio,
                                 dp::TextureManager::ColorRegion const & color,
-                                dp::TextureManager::ColorRegion const & outline,
                                 gpu::TTextStaticVertexBuffer & staticBuffer,
+                                gpu::TTextDynamicVertexBuffer & dynBuffer)
+    : TBase(pivot, color, staticBuffer)
+    , m_penPosition(pixelOffset)
+    , m_buffer(dynBuffer)
+    , m_textRatio(textRatio)
+  {
+  }
+
+  void operator()(dp::TextureManager::GlyphRegion const & glyph)
+  {
+    if (!glyph.IsValid())
+      return;
+    m2::PointF pixelSize = m2::PointF(glyph.GetPixelSize()) * m_textRatio;
+
+    float const xOffset = glyph.GetOffsetX() * m_textRatio;
+    float const yOffset = glyph.GetOffsetY() * m_textRatio;
+
+    float const upVector = -static_cast<int32_t>(pixelSize.y) - yOffset;
+    float const bottomVector = -yOffset;
+
+    if (m_isFirstGlyph)
+    {
+      m_isFirstGlyph = false;
+      m_penPosition += glsl::vec2(-xOffset, 0.0f);
+    }
+
+    m_buffer.push_back(gpu::TextDynamicVertex(m_penPosition + glsl::vec2(xOffset, bottomVector)));
+    m_buffer.push_back(gpu::TextDynamicVertex(m_penPosition + glsl::vec2(xOffset, upVector)));
+    m_buffer.push_back(gpu::TextDynamicVertex(m_penPosition + glsl::vec2(pixelSize.x + xOffset, bottomVector)));
+    m_buffer.push_back(gpu::TextDynamicVertex(m_penPosition + glsl::vec2(pixelSize.x + xOffset, upVector)));
+    m_penPosition += glsl::vec2(glyph.GetAdvanceX() * m_textRatio, glyph.GetAdvanceY() * m_textRatio);
+
+    TBase::operator()(glyph);
+  }
+
+private:
+  glsl::vec2 m_penPosition;
+  gpu::TTextDynamicVertexBuffer & m_buffer;
+  float m_textRatio = 0.0f;
+  bool m_isFirstGlyph = true;
+};
+
+class TextOutlinedGeometryGenerator
+{
+public:
+  TextOutlinedGeometryGenerator(glsl::vec3 const & pivot,
+                        dp::TextureManager::ColorRegion const & color,
+                        dp::TextureManager::ColorRegion const & outline,
+                        gpu::TTextOutlinedStaticVertexBuffer & buffer)
+    : m_pivot(pivot)
+    , m_colorCoord(glsl::ToVec2(color.GetTexRect().Center()))
+    , m_outlineCoord(glsl::ToVec2(outline.GetTexRect().Center()))
+    , m_buffer(buffer)
+  {
+  }
+
+  void operator() (dp::TextureManager::GlyphRegion const & glyph)
+  {
+    m2::RectF const & mask = glyph.GetTexRect();
+    m_buffer.push_back(gpu::TextOutlinedStaticVertex(m_pivot, m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftTop())));
+    m_buffer.push_back(gpu::TextOutlinedStaticVertex(m_pivot, m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftBottom())));
+    m_buffer.push_back(gpu::TextOutlinedStaticVertex(m_pivot, m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.RightTop())));
+    m_buffer.push_back(gpu::TextOutlinedStaticVertex(m_pivot, m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.RightBottom())));
+  }
+
+protected:
+  glsl::vec3 const & m_pivot;
+  glsl::vec2 m_colorCoord;
+  glsl::vec2 m_outlineCoord;
+  gpu::TTextOutlinedStaticVertexBuffer & m_buffer;
+};
+
+class StraigthTextOutlinedGeometryGenerator : public TextOutlinedGeometryGenerator
+{
+  typedef TextOutlinedGeometryGenerator TBase;
+public:
+  StraigthTextOutlinedGeometryGenerator(glsl::vec3 const & pivot, glsl::vec2 const & pixelOffset,
+                                float textRatio,
+                                dp::TextureManager::ColorRegion const & color,
+                                dp::TextureManager::ColorRegion const & outline,
+                                gpu::TTextOutlinedStaticVertexBuffer & staticBuffer,
                                 gpu::TTextDynamicVertexBuffer & dynBuffer)
     : TBase(pivot, color, outline, staticBuffer)
     , m_penPosition(pixelOffset)
@@ -324,6 +401,24 @@ StraightTextLayout::StraightTextLayout(strings::UniString const & text, float fo
 void StraightTextLayout::Cache(glm::vec3 const & pivot, glm::vec2 const & pixelOffset,
                                dp::TextureManager::ColorRegion const & colorRegion,
                                dp::TextureManager::ColorRegion const & outlineRegion,
+                               gpu::TTextOutlinedStaticVertexBuffer & staticBuffer,
+                               gpu::TTextDynamicVertexBuffer & dynamicBuffer) const
+{
+  size_t beginOffset = 0;
+  for (pair<size_t, glsl::vec2> const & node : m_offsets)
+  {
+    size_t endOffset = node.first;
+    StraigthTextOutlinedGeometryGenerator generator(pivot, pixelOffset + node.second, m_textSizeRatio,
+                                            colorRegion, outlineRegion, staticBuffer, dynamicBuffer);
+    for (size_t index = beginOffset; index < endOffset && index < m_metrics.size(); ++index)
+      generator(m_metrics[index]);
+
+    beginOffset = endOffset;
+  }
+}
+
+void StraightTextLayout::Cache(glm::vec3 const & pivot, glm::vec2 const & pixelOffset,
+                               dp::TextureManager::ColorRegion const & color,
                                gpu::TTextStaticVertexBuffer & staticBuffer,
                                gpu::TTextDynamicVertexBuffer & dynamicBuffer) const
 {
@@ -332,7 +427,7 @@ void StraightTextLayout::Cache(glm::vec3 const & pivot, glm::vec2 const & pixelO
   {
     size_t endOffset = node.first;
     StraigthTextGeometryGenerator generator(pivot, pixelOffset + node.second, m_textSizeRatio,
-                                            colorRegion, outlineRegion, staticBuffer, dynamicBuffer);
+                                            color, staticBuffer, dynamicBuffer);
     for (size_t index = beginOffset; index < endOffset && index < m_metrics.size(); ++index)
       generator(m_metrics[index]);
 
@@ -349,9 +444,16 @@ PathTextLayout::PathTextLayout(strings::UniString const & text, float fontSize,
 void PathTextLayout::CacheStaticGeometry(glm::vec3 const & pivot,
                                          dp::TextureManager::ColorRegion const & colorRegion,
                                          dp::TextureManager::ColorRegion const & outlineRegion,
+                                         gpu::TTextOutlinedStaticVertexBuffer & staticBuffer) const
+{
+  TextOutlinedGeometryGenerator gen(pivot, colorRegion, outlineRegion, staticBuffer);
+  for_each(m_metrics.begin(), m_metrics.end(), gen);
+}
+
+void PathTextLayout::CacheStaticGeometry(glm::vec3 const & pivot, dp::TextureManager::ColorRegion const & colorRegion,
                                          gpu::TTextStaticVertexBuffer & staticBuffer) const
 {
-  TextGeometryGenerator gen(pivot, colorRegion, outlineRegion, staticBuffer);
+  TextGeometryGenerator gen(pivot, colorRegion, staticBuffer);
   for_each(m_metrics.begin(), m_metrics.end(), gen);
 }
 

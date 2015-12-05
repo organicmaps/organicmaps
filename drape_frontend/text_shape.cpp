@@ -126,8 +126,26 @@ void TextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
 }
 
 void TextShape::DrawSubString(StraightTextLayout const & layout, dp::FontDecl const & font,
-                              glsl::vec2 const & baseOffset, ref_ptr<dp::Batcher> batcher,
-                              ref_ptr<dp::TextureManager> textures, bool isPrimary, bool isOptional) const
+                              glm::vec2 const & baseOffset, ref_ptr<dp::Batcher> batcher,
+                              ref_ptr<dp::TextureManager> textures,
+                              bool isPrimary, bool isOptional) const
+{
+  dp::Color outlineColor = isPrimary ? m_params.m_primaryTextFont.m_outlineColor
+                                     : m_params.m_secondaryTextFont.m_outlineColor;
+
+  if (outlineColor == dp::Color::Transparent())
+  {
+    DrawSubStringPlain(layout, font, baseOffset,batcher, textures, isPrimary, isOptional);
+  }
+  else
+  {
+    DrawSubStringOutlined(layout, font, baseOffset, batcher, textures, isPrimary, isOptional);
+  }
+}
+
+void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDecl const & font,
+                                   glm::vec2 const & baseOffset, ref_ptr<dp::Batcher> batcher,
+                                   ref_ptr<dp::TextureManager> textures, bool isPrimary, bool isOptional) const
 {
   gpu::TTextStaticVertexBuffer staticBuffer;
   gpu::TTextDynamicVertexBuffer dynamicBuffer;
@@ -137,10 +155,7 @@ void TextShape::DrawSubString(StraightTextLayout const & layout, dp::FontDecl co
   textures->GetColorRegion(font.m_outlineColor, outline);
 
   layout.Cache(glsl::vec3(glsl::ToVec2(m_basePoint), m_params.m_depth),
-               baseOffset,
-               color, outline,
-               staticBuffer,
-               dynamicBuffer);
+               baseOffset, color, staticBuffer, dynamicBuffer);
 
   dp::GLState state(gpu::TEXT_PROGRAM, dp::GLState::OverlayLayer);
   ASSERT(color.GetTexture() == outline.GetTexture(), ());
@@ -169,6 +184,49 @@ void TextShape::DrawSubString(StraightTextLayout const & layout, dp::FontDecl co
   provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(initialDynBuffer.data()));
   batcher->InsertListOfStrip(state, make_ref(&provider), move(handle), 4);
 }
+
+void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::FontDecl const & font,
+                                      glm::vec2 const & baseOffset, ref_ptr<dp::Batcher> batcher,
+                                      ref_ptr<dp::TextureManager> textures, bool isPrimary, bool isOptional) const
+{
+  gpu::TTextOutlinedStaticVertexBuffer staticBuffer;
+  gpu::TTextDynamicVertexBuffer dynamicBuffer;
+
+  dp::TextureManager::ColorRegion color, outline;
+  textures->GetColorRegion(font.m_color, color);
+  textures->GetColorRegion(font.m_outlineColor, outline);
+
+  layout.Cache(glsl::vec3(glsl::ToVec2(m_basePoint), m_params.m_depth),
+               baseOffset, color, outline, staticBuffer, dynamicBuffer);
+
+  dp::GLState state(gpu::TEXT_OUTLINED_PROGRAM, dp::GLState::OverlayLayer);
+  ASSERT(color.GetTexture() == outline.GetTexture(), ());
+  state.SetColorTexture(color.GetTexture());
+  state.SetMaskTexture(layout.GetMaskTexture());
+
+  gpu::TTextDynamicVertexBuffer initialDynBuffer(dynamicBuffer.size());
+
+  m2::PointU const & pixelSize = layout.GetPixelSize();
+
+  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<StraightTextHandle>(m_params.m_featureID,
+                                                                           layout.GetText(),
+                                                                           m_params.m_anchor,
+                                                                           glsl::ToVec2(m_basePoint),
+                                                                           glsl::vec2(pixelSize.x, pixelSize.y),
+                                                                           baseOffset,
+                                                                           GetOverlayPriority(),
+                                                                           textures,
+                                                                           isOptional,
+                                                                           move(dynamicBuffer));
+  handle->SetOverlayRank(m_hasPOI ? (isPrimary ? dp::OverlayRank1 : dp::OverlayRank2) : dp::OverlayRank0);
+  handle->SetExtendingSize(m_params.m_extendingSize);
+
+  dp::AttributeProvider provider(2, staticBuffer.size());
+  provider.InitStream(0, gpu::TextOutlinedStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));
+  provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(initialDynBuffer.data()));
+  batcher->InsertListOfStrip(state, make_ref(&provider), move(handle), 4);
+}
+
 
 uint64_t TextShape::GetOverlayPriority() const
 {
