@@ -11,7 +11,7 @@
 class GpsTrackCollection final
 {
 public:
-  static size_t const kInvalidId = numeric_limits<size_t>::max();
+  static size_t const kInvalidId; // = numeric_limits<size_t>::max();
 
   using TItem = location::GpsTrackInfo;
 
@@ -25,7 +25,7 @@ public:
   /// @param poppedIds - output, which contains range of identifiers popped items or
   /// pair(kInvalidId,kInvalidId) if nothing was removed
   /// @returns the item unique identifier or kInvalidId if point has incorrect time.
-  size_t Add(TItem const & items, pair<size_t, size_t> & poppedIds);
+  size_t Add(TItem const & item, pair<size_t, size_t> & poppedIds);
 
   /// Adds set of new points in the collection.
   /// @param items - set of items to be added.
@@ -33,7 +33,7 @@ public:
   /// pair(kInvalidId,kInvalidId) if nothing was removed
   /// @returns range of identifiers of added items or pair(kInvalidId,kInvalidId) if nothing was added
   /// @note items which does not conform to timestamp sequence, is not added.
-  pair<size_t, size_t> Add(vector<TItem> const & item, pair<size_t, size_t> & poppedIds);
+  pair<size_t, size_t> Add(vector<TItem> const & items, pair<size_t, size_t> & poppedIds);
 
   /// Get current duration in hours
   /// @returns current duration in hours

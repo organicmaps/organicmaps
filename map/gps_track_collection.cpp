@@ -31,6 +31,8 @@ private:
 
 } // namespace
 
+size_t const GpsTrackCollection::kInvalidId = numeric_limits<size_t>::max();
+
 GpsTrackCollection::GpsTrackCollection(size_t maxSize, hours duration)
   : m_maxSize(maxSize)
   , m_duration(duration)
