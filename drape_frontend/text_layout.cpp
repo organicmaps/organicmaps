@@ -526,14 +526,13 @@ void PathTextLayout::CalculatePositions(vector<float> & offsets, float splineLen
   //remove the comparison for equality of spline portions
   float const kTextBorder = 4.0f;
   float const textLength = kTextBorder + textPixelLength;
-  float const pathGlbLength = splineLength;
 
   // on next readable scale m_scaleGtoP will be twice
-  if (textLength > pathGlbLength * 2.0 * splineScaleToPixel)
+  if (textLength > splineLength * 2.0 * splineScaleToPixel)
     return;
 
   float const kPathLengthScalar = 0.75;
-  float const pathLength = kPathLengthScalar * splineScaleToPixel * pathGlbLength;
+  float const pathLength = kPathLengthScalar * splineScaleToPixel * splineLength;
 
   float const etalonEmpty = max(300 * df::VisualParams::Instance().GetVisualScale(), (double)textLength);
   float const minPeriodSize = etalonEmpty + textLength;
@@ -543,13 +542,13 @@ void PathTextLayout::CalculatePositions(vector<float> & offsets, float splineLen
   {
     // if we can't place 2 text and empty part on path
     // we place only one text on center of path
-    offsets.push_back(pathGlbLength / 2.0f);
+    offsets.push_back(splineLength / 2.0f);
   }
   else
   {
     double const textCount = max(floor(pathLength / minPeriodSize), 1.0);
-    double const glbTextLen = pathGlbLength / textCount;
-    for (double offset = 0.5 * glbTextLen; offset < pathGlbLength; offset += glbTextLen)
+    double const glbTextLen = splineLength / textCount;
+    for (double offset = 0.5 * glbTextLen; offset < splineLength; offset += glbTextLen)
       offsets.push_back(offset);
   }
 }
