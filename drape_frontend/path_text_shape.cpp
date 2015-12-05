@@ -111,7 +111,15 @@ PathTextShape::PathTextShape(m2::SharedSpline const & spline,
 
 uint64_t PathTextShape::GetOverlayPriority() const
 {
-  return dp::CalculateOverlayPriority(m_params.m_minVisibleScale, m_params.m_rank, m_params.m_depth);
+  // Overlay priority for path text shapes considers length of the text.
+  // Greater test length has more priority, because smaller texts have more chances to be shown along the road.
+  // [6 bytes - standard overlay priority][1 byte - reserved][1 byte - length].
+  static uint64_t constexpr kMask = ~static_cast<uint64_t>(0xFF);
+  uint64_t priority = dp::CalculateOverlayPriority(m_params.m_minVisibleScale, m_params.m_rank, m_params.m_depth);
+  priority &= kMask;
+  priority |= (static_cast<uint8_t>(m_params.m_text.size()));
+
+  return priority;
 }
 
 void PathTextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
@@ -125,56 +133,34 @@ void PathTextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManage
 
   //we leave a little space on either side of the text that would
   //remove the comparison for equality of spline portions
-  float const TextBorder = 4.0f;
-  float const textLength = TextBorder + layout->GetPixelLength();
-  float const textHalfLength = textLength / 2.0f;
+  float const kTextBorder = 4.0f;
+  float const textLength = kTextBorder + layout->GetPixelLength();
   float const pathGlbLength = m_spline->GetLength();
 
   // on next readable scale m_scaleGtoP will be twice
-  if (textLength > pathGlbLength * 2 * m_params.m_baseGtoPScale)
+  if (textLength > pathGlbLength * 2.0 * m_params.m_baseGtoPScale)
     return;
 
-  float const pathLength = m_params.m_baseGtoPScale * m_spline->GetLength();
+  float const kPathLengthScalar = 0.75;
+  float const pathLength = kPathLengthScalar * m_params.m_baseGtoPScale * pathGlbLength;
 
-  /// copied from old code
-  /// @todo Choose best constant for minimal space.
-  float const etalonEmpty = max(200 * df::VisualParams::Instance().GetVisualScale(), (double)textLength);
+  float const etalonEmpty = max(300 * df::VisualParams::Instance().GetVisualScale(), (double)textLength);
   float const minPeriodSize = etalonEmpty + textLength;
   float const twoTextAndEmpty = minPeriodSize + textLength;
 
   buffer_vector<float, 32> offsets;
-
-  float const scalePtoG = 1.0f / m_params.m_baseGtoPScale;
-
   if (pathLength < twoTextAndEmpty)
   {
     // if we can't place 2 text and empty part on path
     // we place only one text on center of path
     offsets.push_back(pathGlbLength / 2.0f);
-
-  }
-  else if (pathLength < twoTextAndEmpty + minPeriodSize)
-  {
-    // if we can't place 3 text and 2 empty path
-    // we place 2 text with empty space beetwen
-    // and some offset from path end
-    float const endOffset = (pathLength - (2 * textLength + etalonEmpty)) / 2;
-
-    // division on m_scaleGtoP give as global coord frame (Mercator)
-    offsets.push_back((endOffset + textHalfLength) * scalePtoG);
-    offsets.push_back((pathLength - (textHalfLength + endOffset)) * scalePtoG);
   }
   else
   {
-    // here we place 2 text on the ends of path
-    // then we place as much as possible text on center path uniformly
-    offsets.push_back(textHalfLength * scalePtoG);
-    offsets.push_back((pathLength - textHalfLength) * scalePtoG);
-    float const emptySpace = pathLength - 2 * textLength;
-    uint32_t textCount = static_cast<uint32_t>(ceil(emptySpace / minPeriodSize));
-    float const offset = (emptySpace - textCount * textLength) / (textCount + 1);
-    for (size_t i = 0; i < textCount; ++i)
-      offsets.push_back((textHalfLength + (textLength + offset) * (i + 1)) * scalePtoG);
+    double const textCount = max(floor(pathLength / minPeriodSize), 1.0);
+    double const glbTextLen = pathGlbLength / textCount;
+    for (double offset = 0.5 * glbTextLen; offset < pathGlbLength; offset += glbTextLen)
+      offsets.push_back(offset);
   }
 
   dp::TextureManager::ColorRegion color;
