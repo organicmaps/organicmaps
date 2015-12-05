@@ -149,8 +149,8 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
     for (auto const & info : elements)
     {
       bool const rejectByDepth = is3dMode ? posY > info.m_handle->GetPivot(modelView, is3dMode).y : false;
-      bool const timeReject = !info.m_handle->IsMinVisibilityTimeUp();
-      if (timeReject || rejectByDepth || comparator.IsGreater(info.m_handle, handleToCompare))
+      bool const rejectByTime = !info.m_handle->IsMinVisibilityTimeUp();
+      if (rejectByDepth || rejectByTime || comparator.IsGreater(info.m_handle, handleToCompare))
       {
         // Handle is displaced and bound to its parent, parent will be displaced too.
         if (boundToParent)
