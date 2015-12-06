@@ -2,13 +2,15 @@
 
 #include "editor/xml_feature.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/timer.hpp"
 
 #include "std/sstream.hpp"
 
 #include "3party/pugixml/src/pugixml.hpp"
 
-using namespace indexer;
+using namespace editor;
 
 UNIT_TEST(XMLFeature_RawGetSet)
 {
@@ -47,7 +49,7 @@ UNIT_TEST(XMLFeature_Setters)
 {
   XMLFeature feature;
 
-  feature.SetCenter(m2::PointD(64.2342340, 53.3124200));
+  feature.SetCenter(MercatorBounds::FromLatLon(55.7978998, 37.4745280));
   feature.SetModificationTime(my::StringToTimestamp("2015-11-27T21:13:32Z"));
 
   feature.SetName("Gorki Park");
@@ -62,7 +64,8 @@ UNIT_TEST(XMLFeature_Setters)
 
   auto const expectedString = R"(<?xml version="1.0"?>
 <node
-  center="64.2342340, 53.3124200"
+  lat="55.7978998"
+  lon="37.474528"
   timestamp="2015-11-27T21:13:32Z">
   <tag
     k="name"
@@ -89,7 +92,8 @@ UNIT_TEST(XMLFeatureFromXml)
 {
   auto const srcString = R"(<?xml version="1.0"?>
 <node
-  center="64.2342340, 53.3124200"
+  lat="55.7978998"
+  lon="37.474528"
   timestamp="2015-11-27T21:13:32Z">
   <tag
     k="name"
@@ -116,12 +120,12 @@ UNIT_TEST(XMLFeatureFromXml)
   TEST_EQUAL(srcString, sstr.str(), ());
 
   TEST(feature.HasKey("opening_hours"), ());
-  TEST(feature.HasKey("center"), ());
+  TEST(feature.HasKey("lat"), ());
+  TEST(feature.HasKey("lon"), ());
   TEST(!feature.HasKey("FooBarBaz"), ());
 
   TEST_EQUAL(feature.GetHouse(), "10", ());
-  TEST_EQUAL(feature.GetCenter(), m2::PointD(64.2342340, 53.3124200), ());
-
+  TEST_EQUAL(feature.GetCenter(), MercatorBounds::FromLatLon(55.7978998, 37.4745280), ());
   TEST_EQUAL(feature.GetName(), "Gorki Park", ());
   TEST_EQUAL(feature.GetName("default"), "Gorki Park", ());
   TEST_EQUAL(feature.GetName("en"), "Gorki Park", ());

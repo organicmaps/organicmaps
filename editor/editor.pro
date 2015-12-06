@@ -10,7 +10,7 @@ include($$ROOT_DIR/common.pri)
 
 SOURCES += \
   opening_hours_ui.cpp \
-  ui2oh.cpp
+  ui2oh.cpp \
   xml_feature.cpp \
 
 HEADERS += \

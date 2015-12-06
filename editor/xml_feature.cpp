@@ -3,42 +3,53 @@
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "std/cstring.hpp"
 
 #include "3party/pugixml/src/pugixml.hpp"
 
-
 namespace
 {
-string ToString(m2::PointD const & p)
-{
-  ostringstream out;
-  out << fixed;
-  out.precision(7);
-  out << p.x << ", " << p.y;
-  return out.str();
-}
-
-bool FromString(string const & str, m2::PointD & p)
-{
-  double x, y;
-  istringstream sstr(str);
-  sstr >> x;
-  sstr.get();
-  sstr.get();
-  sstr >> y;
-  p = {x, y};
-  return true;
-}
+auto constexpr kLatLonTolerance = 7;
 
 pugi::xml_node FindTag(pugi::xml_document const & document, string const & key)
 {
   return document.select_node(("//tag[@k='" + key + "']").data()).node();
 }
+
+m2::PointD PointFromLatLon(pugi::xml_node const node)
+{
+  double lat, lon;
+  if (!strings::to_double(node.attribute("lat").value(), lat))
+    MYTHROW(editor::XMLFeatureNoLatLonError,
+            ("Can't parse lat attribute: " + string(node.attribute("lat").value())));
+ if (!strings::to_double(node.attribute("lon").value(), lon))
+   MYTHROW(editor::XMLFeatureNoLatLonError,
+           ("Can't parse lon attribute: " + string(node.attribute("lon").value())));
+  return MercatorBounds::FromLatLon(lat, lon);
+}
+
+void ValidateNode(pugi::xml_node const & node)
+{
+  if (!node)
+    MYTHROW(editor::XMLFeatureNoNodeError, ("Document has no node"));
+
+  try
+  {
+    PointFromLatLon(node);
+  }
+  catch(editor::XMLFeatureError)
+  {
+    throw;
+  }
+
+  if (!node.attribute("timestamp"))
+    MYTHROW(editor::XMLFeatureNoTimestampError, ("Node has no timestamp attribute"));
+}
 } // namespace
 
-
-namespace indexer
+namespace editor
 {
 XMLFeature::XMLFeature()
 {
@@ -48,26 +59,20 @@ XMLFeature::XMLFeature()
 XMLFeature::XMLFeature(string const & xml)
 {
   m_document.load(xml.data());
-
-  auto const node = GetRootNode();
-  if (!node)
-    MYTHROW(XMLFeatureError, ("Document has no node"));
-
-  auto attr = node.attribute("center");
-  if (!attr)
-    MYTHROW(XMLFeatureError, ("Node has no center attribute"));
-
-  m2::PointD center;
-  if (!FromString(attr.value(), center))
-    MYTHROW(XMLFeatureError, ("Can't parse center attribute: " + string(attr.value())));
-
-  if (!(attr = node.attribute("timestamp")))
-    MYTHROW(XMLFeatureError, ("Node has no timestamp attribute"));
+  ValidateNode(GetRootNode());
 }
 
 XMLFeature::XMLFeature(pugi::xml_document const & xml)
 {
   m_document.reset(xml);
+  ValidateNode(GetRootNode());
+}
+
+XMLFeature::XMLFeature(pugi::xml_node const & xml)
+{
+  m_document.reset();
+  m_document.append_copy(xml);
+  ValidateNode(GetRootNode());
 }
 
 void XMLFeature::Save(ostream & ost) const
@@ -77,24 +82,24 @@ void XMLFeature::Save(ostream & ost) const
 
 m2::PointD XMLFeature::GetCenter() const
 {
-  auto const node = m_document.child("node");
-  m2::PointD center;
-  FromString(node.attribute("center").value(), center);
-  return center;
+  return PointFromLatLon(GetRootNode());
 }
 
-void XMLFeature::SetCenter(m2::PointD const & center)
+void XMLFeature::SetCenter(m2::PointD const & mercatorCenter)
 {
-  SetAttribute("center", ToString(center));
+  SetAttribute("lat", strings::to_string_dac(MercatorBounds::YToLat(mercatorCenter.y),
+                                             kLatLonTolerance));
+  SetAttribute("lon", strings::to_string_dac(MercatorBounds::XToLon(mercatorCenter.x),
+                                             kLatLonTolerance));
 }
 
-string const XMLFeature::GetName(string const & lang) const
+string XMLFeature::GetName(string const & lang) const
 {
   auto const suffix = lang == "default" || lang.empty() ? "" : ":" + lang;
   return GetTagValue("name" + suffix);
 }
 
-string const XMLFeature::GetName(uint8_t const langCode) const
+string XMLFeature::GetName(uint8_t const langCode) const
 {
   return GetName(StringUtf8Multilang::GetLangByCode(langCode));
 }
@@ -115,7 +120,7 @@ void XMLFeature::SetName(uint8_t const langCode, string const & name)
   SetName(StringUtf8Multilang::GetLangByCode(langCode), name);
 }
 
-string const XMLFeature::GetHouse() const
+string XMLFeature::GetHouse() const
 {
   return GetTagValue("addr:housenumber");
 }
@@ -190,4 +195,4 @@ pugi::xml_node XMLFeature::GetRootNode() const
 {
   return m_document.child("node");
 }
-} // namespace indexer
+} // namespace editor
