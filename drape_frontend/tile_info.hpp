@@ -31,6 +31,9 @@ public:
   void Cancel(MemoryFeatureIndex & memIndex);
   bool IsCancelled() const;
 
+  void Set3dMode(bool mode) { m_is3d = mode; }
+  bool Get3dMode() const { return m_is3d; }
+
   m2::RectD GetGlobalRect() const;
   TileKey const & GetTileKey() const { return m_context->GetTileKey(); }
   bool operator <(TileInfo const & other) const { return GetTileKey() < other.GetTileKey(); }
@@ -47,6 +50,7 @@ private:
 private:
   drape_ptr<EngineContext> m_context;
   TFeaturesInfo m_featureInfo;
+  bool m_is3d;
 
   atomic<bool> m_isCanceled;
 };

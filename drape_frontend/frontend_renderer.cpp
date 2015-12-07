@@ -731,6 +731,9 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
   dp::GLState::DepthLayer prevLayer = dp::GLState::GeometryLayer;
   size_t currentRenderGroup = 0;
+  bool has3dAreas = false;
+  size_t area3dRenderGroupStart = 0;
+  size_t area3dRenderGroupEnd = 0;
   for (; currentRenderGroup < m_renderGroups.size(); ++currentRenderGroup)
   {
     drape_ptr<RenderGroup> const & group = m_renderGroups[currentRenderGroup];
@@ -738,7 +741,15 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     dp::GLState const & state = group->GetState();
 
     if (isPerspective && state.GetProgram3dIndex() == gpu::AREA_3D_PROGRAM)
+    {
+      if (!has3dAreas)
+      {
+        area3dRenderGroupStart = currentRenderGroup;
+        has3dAreas = true;
+      }
+      area3dRenderGroupEnd = currentRenderGroup;
       continue;
+    }
 
     dp::GLState::DepthLayer layer = state.GetDepthLayer();
     if (prevLayer != layer && layer == dp::GLState::OverlayLayer)
@@ -760,7 +771,9 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
       m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
     }
     else if (selectedObject == SelectionShape::OBJECT_POI)
+    {
       m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+    }
   }
 
   m_myPositionController->Render(MyPositionController::RenderAccuracy,
@@ -768,6 +781,18 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
   GLFunctions::glEnable(gl_const::GLDepthTest);
   GLFunctions::glClearDepth();
+
+  if (isPerspective && has3dAreas)
+  {
+    for (size_t index = area3dRenderGroupStart; index <= area3dRenderGroupEnd; ++index)
+    {
+      drape_ptr<RenderGroup> const & group = m_renderGroups[index];
+      if (group->GetState().GetProgram3dIndex() == gpu::AREA_3D_PROGRAM)
+        RenderSingleGroup(modelView, make_ref(group));
+    }
+    GLFunctions::glClearDepth();
+  }
+
   for (; currentRenderGroup < m_renderGroups.size(); ++currentRenderGroup)
   {
     drape_ptr<RenderGroup> const & group = m_renderGroups[currentRenderGroup];
@@ -789,19 +814,6 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
   m_routeRenderer->RenderRouteSigns(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
-
-  if (isPerspective)
-  {
-    GLFunctions::glEnable(gl_const::GLDepthTest);
-    for (currentRenderGroup = 0; currentRenderGroup < m_renderGroups.size(); ++currentRenderGroup)
-    {
-      drape_ptr<RenderGroup> const & group = m_renderGroups[currentRenderGroup];
-
-      if (isPerspective && group->GetState().GetProgram3dIndex() == gpu::AREA_3D_PROGRAM)
-        RenderSingleGroup(modelView, make_ref(group));
-    }
-  }
-
   m_myPositionController->Render(MyPositionController::RenderMyPosition,
                                  modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
@@ -814,7 +826,9 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
       m_guiRenderer->Render(make_ref(m_gpuProgramManager), modelView2d);
     }
     else
+    {
       m_guiRenderer->Render(make_ref(m_gpuProgramManager), modelView);
+    }
   }
 
   GLFunctions::glEnable(gl_const::GLDepthTest);

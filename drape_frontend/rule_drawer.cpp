@@ -38,11 +38,12 @@ size_t kMinFlushSizes[df::PrioritiesCount] =
 RuleDrawer::RuleDrawer(TDrawerCallback const & fn,
                        TCheckCancelledCallback const & checkCancelled,
                        TIsCountryLoadedByNameFn const & isLoadedFn,
-                       ref_ptr<EngineContext> context)
+                       ref_ptr<EngineContext> context, bool is3d)
   : m_callback(fn)
   , m_checkCancelled(checkCancelled)
   , m_isLoadedFn(isLoadedFn)
   , m_context(context)
+  , m_is3d(is3d)
   , m_wasCancelled(false)
 {
   ASSERT(m_callback != nullptr, ());
@@ -133,9 +134,8 @@ void RuleDrawer::operator()(FeatureType const & f)
 
   if (s.AreaStyleExists())
   {
-    // TODO: isBuilding can be true ONLY if 3D houses mode is on
-    bool const isBuilding = ftypes::IsBuildingChecker::Instance()(f);
-    ApplyAreaFeature apply(insertShape, f.GetID(), isBuilding,
+    bool const is3dBuilding = m_is3d ? ftypes::IsBuildingChecker::Instance()(f) : false;
+    ApplyAreaFeature apply(insertShape, f.GetID(), is3dBuilding,
                            minVisibleScale, f.GetRank(), s.GetCaptionDescription());
     f.ForEachTriangleRef(apply, zoomLevel);
 

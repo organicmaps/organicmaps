@@ -30,7 +30,8 @@ class ReadManager
 public:
   ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model);
 
-  void UpdateCoverage(ScreenBase const & screen, TTilesCollection const & tiles, ref_ptr<dp::TextureManager> texMng);
+  void UpdateCoverage(ScreenBase const & screen, TTilesCollection const & tiles,
+                      ref_ptr<dp::TextureManager> texMng);
   void Invalidate(TTilesCollection const & keyStorage);
   void Stop();
 
@@ -55,6 +56,7 @@ private:
 
   ScreenBase m_currentViewport;
   bool m_forceUpdate;
+  bool m_is3d;
 
   struct LessByTileInfo
   {
