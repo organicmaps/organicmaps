@@ -67,9 +67,9 @@ You shouldn't need this on newer versions.
 
 Then:
 
-    sudo apt-get install clang-3.5 libc++-dev libboost-iostreams-dev libglu1-mesa-dev
-    sudo ln -s /usr/lib/llvm-3.5/bin/clang /usr/bin/clang
-    sudo ln -s /usr/lib/llvm-3.5/bin/clang++ /usr/bin/clang++
+    sudo apt-get install clang-3.6 libc++-dev libboost-iostreams-dev libglu1-mesa-dev
+    sudo ln -s /usr/lib/llvm-3.6/bin/clang /usr/bin/clang
+    sudo ln -s /usr/lib/llvm-3.6/bin/clang++ /usr/bin/clang++
     tools/unix/build_omim.sh
 
 Prepend with `CONFIG=gtool` if only generator_tool is needed. You would need 1.5 GB of memory
