@@ -81,6 +81,8 @@ public:
 
   virtual bool IsBound() const { return false; }
 
+  virtual bool Enable3dExtention() const { return true; }
+
   int GetOverlayRank() const { return m_overlayRank; }
   void SetOverlayRank(int overlayRank) { m_overlayRank = overlayRank; }
 

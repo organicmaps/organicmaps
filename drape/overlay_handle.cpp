@@ -142,7 +142,7 @@ m2::RectD OverlayHandle::GetExtendedPixelRect(ScreenBase const & screen) const
 {
   m2::RectD rect = GetPixelRect(screen, screen.isPerspective());
   rect.Inflate(m_extendingSize, m_extendingSize);
-  if (screen.isPerspective())
+  if (Enable3dExtention() && screen.isPerspective())
     rect.Scale(k3dAdditionalExtention);
   return rect;
 }
@@ -153,7 +153,7 @@ void OverlayHandle::GetExtendedPixelShape(ScreenBase const & screen, Rects & rec
   for (auto & rect : rects)
   {
     rect.Inflate(m_extendingSize, m_extendingSize);
-    if (screen.isPerspective())
+    if (Enable3dExtention() && screen.isPerspective())
       rect.Scale(k3dAdditionalExtention);
   }
 }

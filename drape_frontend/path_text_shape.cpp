@@ -167,6 +167,12 @@ public:
     return dp::kPriorityMaskManual | dp::kPriorityMaskRank;
   }
 
+  bool Enable3dExtention() const override
+  {
+    // Do not extend overlays for path texts.
+    return false;
+  }
+
 private:
   m2::SharedSpline m_spline;
   df::SharedTextLayout m_layout;
