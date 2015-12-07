@@ -303,8 +303,8 @@ int LoaderCurrent::GetScaleIndex(int scale) const
 
   switch (scale)
   {
-  case -2: return 0;
-  case -1: return count-1;
+  case FeatureType::WORST_GEOMETRY: return 0;
+  case FeatureType::BEST_GEOMETRY: return count - 1;
   default:
     for (int i = 0; i < count; ++i)
       if (scale <= m_Info.GetScale(i))
@@ -325,13 +325,13 @@ int LoaderCurrent::GetScaleIndex(int scale, offsets_t const & offsets) const
 
   switch (scale)
   {
-  case -1:
+  case FeatureType::BEST_GEOMETRY:
     // Choose the best existing geometry for the last visible scale.
-    ind = count-1;
+    ind = count - 1;
     while (ind >= 0 && offsets[ind] == s_InvalidOffset) --ind;
     break;
 
-  case -2:
+  case FeatureType::WORST_GEOMETRY:
     // Choose the worst existing geometry for the first visible scale.
     ind = 0;
     while (ind < count && offsets[ind] == s_InvalidOffset) ++ind;

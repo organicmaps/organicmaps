@@ -185,7 +185,8 @@ void LoaderImpl::ParseCommon()
 int LoaderImpl::GetScaleIndex(int scale) const
 {
   int const count = m_Info.GetScalesCount();
-  if (scale == -1) return count-1;
+  if (scale == FeatureType::BEST_GEOMETRY)
+    return count - 1;
 
   for (int i = 0; i < count; ++i)
     if (scale <= m_Info.GetScale(i))
@@ -195,7 +196,7 @@ int LoaderImpl::GetScaleIndex(int scale) const
 
 int LoaderImpl::GetScaleIndex(int scale, offsets_t const & offsets) const
 {
-  if (scale == -1)
+  if (scale == FeatureType::BEST_GEOMETRY)
   {
     // Choose the best geometry for the last visible scale.
     int i = static_cast<int>(offsets.size()-1);
