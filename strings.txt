@@ -15040,3 +15040,40 @@
     comment = «Edit place» button in place page.
     en = Edit place
     ru = Редактировать место
+
+  [editor_time_add]
+    tags = ios, android
+    en = Add schedule
+
+  [editor_time_delete]
+    tags = ios, android
+    en = Delete schedule
+
+  [editor_time_allday]
+    tags = ios, android
+    comment = Text for allday switch.
+    en = All day(24 hours)
+
+  [editor_time_open]
+    tags = ios, android
+    en = Open time
+
+  [editor_time_close]
+    tags = ios, android
+    en = Close time
+
+  [editor_time_add_closed]
+    tags = ios, android
+    en = Add hours closed
+
+  [editor_time_title]
+    tags = ios, android
+    en = Opening hours
+
+  [editor_time_advanced]
+    tags = ios, android
+    en = Advanced mode
+
+  [editor_time_simple]
+    tags = ios, android
+    en = Simple mode
