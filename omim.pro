@@ -35,7 +35,9 @@ SUBDIRS = 3party base coding geometry indexer routing
 
     routing_integration_tests.subdir = routing/routing_integration_tests
     routing_integration_tests.depends = $$SUBDIRS
-    SUBDIRS *= routing_integration_tests
+    routing_consistency_tests.subdir = routing/routing_consistency_tests
+    routing_consistency_tests.depends = $$SUBDIRS
+    SUBDIRS *= routing_integration_tests routing_consistency_tests
   }
 
   CONFIG(desktop) {
