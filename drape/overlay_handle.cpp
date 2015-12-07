@@ -37,6 +37,8 @@ bool OverlayHandle::IsVisible() const
 void OverlayHandle::SetIsVisible(bool isVisible)
 {
   m_isVisible = isVisible;
+  if (m_isVisible && IsMinVisibilityTimeUp())
+    m_visibilityTimestamp = steady_clock::now();
 }
 
 m2::PointD OverlayHandle::GetPivot(ScreenBase const & screen) const
@@ -134,6 +136,13 @@ void OverlayHandle::GetExtendedPixelShape(ScreenBase const & screen, Rects & rec
   GetPixelShape(screen, rects);
   for (auto & rect : rects)
     rect.Inflate(m_extendingSize, m_extendingSize);
+}
+
+bool OverlayHandle::IsMinVisibilityTimeUp() const
+{
+  uint32_t const kMinVisibilityTimeMs = 500;
+  uint32_t const t = duration_cast<milliseconds>(steady_clock::now() - m_visibilityTimestamp).count();
+  return t > kMinVisibilityTimeMs;
 }
 
 SquareHandle::SquareHandle(FeatureID const & id, dp::Anchor anchor,
