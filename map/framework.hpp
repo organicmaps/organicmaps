@@ -6,13 +6,12 @@
 #include "map/bookmark_manager.hpp"
 #include "map/country_tree.hpp"
 #include "map/feature_vec_model.hpp"
-#include "map/gps_track_container.hpp"
+#include "map/gps_track.hpp"
 #include "map/mwm_url.hpp"
 #include "map/track.hpp"
 
 #include "drape_frontend/gui/skin.hpp"
 #include "drape_frontend/drape_engine.hpp"
-#include "drape_frontend/gps_track_point.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 #include "drape_frontend/watch/frame_image.hpp"
 
@@ -130,8 +129,8 @@ protected:
 
   BookmarkManager m_bmManager;
 
-  GpsTrackContainer m_gpsTrack;
   atomic<bool> m_gpsTrackingEnabled;
+  GpsTrack & m_gpsTrack;
 
   /// This function is called by m_storage when latest local files
   /// were changed.
@@ -350,6 +349,9 @@ private:
 
   void OnUpdateCountryIndex(storage::TIndex const & currentIndex, m2::PointF const & pt);
   void UpdateCountryInfo(storage::TIndex const & countryIndex, bool isCurrentCountry);
+
+  void OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::GpsTrackInfo>> && toAdd,
+                                      pair<size_t, size_t> const & toRemove);
 
 public:
   using TSearchRequest = search::QuerySaver::TSearchRequest;

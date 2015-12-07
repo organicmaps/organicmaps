@@ -17,6 +17,7 @@
 #include "search/search_engine.hpp"
 #include "search/search_query_factory.hpp"
 
+#include "drape_frontend/gps_track_point.hpp"
 #include "drape_frontend/gui/country_status_helper.hpp"
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/watch/cpu_drawer.hpp"
@@ -148,10 +149,7 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
                          m_routingSession.IsNavigable(), routeMatchingInfo));
 
   if (m_gpsTrackingEnabled)
-  {
-    m2::PointD const point = MercatorBounds::FromLatLon(ms::LatLon(info.m_latitude, info.m_longitude));
-    m_gpsTrack.AddPoint(point, info.m_speed, info.m_timestamp);
-  }
+    m_gpsTrack.AddPoint(info);
 }
 
 void Framework::OnCompassUpdate(CompassInfo const & info)
@@ -204,6 +202,7 @@ void Framework::StopLocationFollow()
 Framework::Framework()
   : m_bmManager(*this)
   , m_gpsTrackingEnabled(false)
+  , m_gpsTrack(GetDefaultGpsTrack())
   , m_fixedSearchResults(0)
 {
   m_activeMaps.reset(new ActiveMapsLayout(*this));
@@ -1320,7 +1319,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   }
 
   if (m_gpsTrackingEnabled)
-    m_gpsTrack.SetCallback(bind(&df::DrapeEngine::UpdateGpsTrackPoints, m_drapeEngine.get(), _1, _2), true /* sendAll */);
+    m_gpsTrack.SetCallback(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2));
 }
 
 ref_ptr<df::DrapeEngine> Framework::GetDrapeEngine()
@@ -1330,7 +1329,7 @@ ref_ptr<df::DrapeEngine> Framework::GetDrapeEngine()
 
 void Framework::DestroyDrapeEngine()
 {
-  m_gpsTrack.SetCallback(nullptr, false /* sendAll */);
+  m_gpsTrack.SetCallback(nullptr);
 
   m_drapeEngine.reset();
 }
@@ -1354,12 +1353,12 @@ void Framework::EnableGpsTracking(bool enabled)
     m_gpsTrack.Clear();
 
     if (m_drapeEngine)
-      m_gpsTrack.SetCallback(bind(&df::DrapeEngine::UpdateGpsTrackPoints, m_drapeEngine.get(), _1, _2), true /* sendAll */);
+      m_gpsTrack.SetCallback(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2));
   }
   else
   {
     // Reset callback first to prevent notification about removed points on Clear
-    m_gpsTrack.SetCallback(nullptr, false /* sendAll */);
+    m_gpsTrack.SetCallback(nullptr);
     m_gpsTrack.Clear();
 
     if (m_drapeEngine)
@@ -1380,6 +1379,35 @@ void Framework::SetGpsTrackingDuration(hours duration)
 hours Framework::GetGpsTrackingDuration() const
 {
   return m_gpsTrack.GetDuration();
+}
+
+void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::GpsTrackInfo>> && toAdd,
+                                               pair<size_t, size_t> const & toRemove)
+{
+  ASSERT(m_drapeEngine.get() != nullptr, ());
+
+  vector<df::GpsTrackPoint> pointsAdd;
+  pointsAdd.reserve(toAdd.size());
+  for (auto const & ip : toAdd)
+  {
+    df::GpsTrackPoint pt;
+    pt.m_id = ip.first;
+    pt.m_speedMPS = ip.second.m_speed;
+    pt.m_timestamp = ip.second.m_timestamp;
+    pt.m_point = MercatorBounds::FromLatLon(ip.second.m_latitude, ip.second.m_longitude);
+    pointsAdd.emplace_back(pt);
+  }
+
+  vector<uint32_t> indicesRemove;
+  if (toRemove.first != GpsTrack::kInvalidId)
+  {
+    ASSERT_LESS_OR_EQUAL(toRemove.first, toRemove.second, ());
+    indicesRemove.reserve(toRemove.second - toRemove.first + 1);
+    for (size_t i = toRemove.first; i <= toRemove.second; ++i)
+      indicesRemove.emplace_back(i);
+  }
+
+  m_drapeEngine->UpdateGpsTrackPoints(move(pointsAdd), move(indicesRemove));
 }
 
 void Framework::SetMapStyle(MapStyle mapStyle)

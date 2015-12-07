@@ -16,7 +16,6 @@ public:
   DECLARE_EXCEPTION(ReadFileException, RootException);
   DECLARE_EXCEPTION(CorruptedFileException, RootException);
 
-  /// Invalid identifier for point
   static size_t const kInvalidId; // = numeric_limits<size_t>::max();
 
   using TItem = location::GpsTrackInfo;
