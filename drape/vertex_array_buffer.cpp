@@ -206,6 +206,11 @@ void VertexArrayBuffer::ApplyMutation(ref_ptr<IndexBufferMutator> indexMutator,
   if (indexMutator != nullptr)
   {
     ASSERT(m_indexBuffer != nullptr, ());
+    if (indexMutator->GetCapacity() > m_indexBuffer->GetBuffer()->GetCapacity())
+    {
+      m_indexBuffer = make_unique_dp<IndexBuffer>(indexMutator->GetCapacity());
+      m_indexBuffer->MoveToGPU(GPUBuffer::IndexBuffer);
+    }
     m_indexBuffer->UpdateData(indexMutator->GetIndexes(), indexMutator->GetIndexCount());
   }
 
