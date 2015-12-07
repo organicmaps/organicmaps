@@ -292,7 +292,7 @@ void BuildAddressTable(FilesContainerR & container, Writer & writer)
   search::ReverseGeocoder rgc(mwmIndex);
 
   {
-    FixedBitsDDVector<3, FileReader>::Builder<Writer> b2sBuilder(writer);
+    FixedBitsDDVector<3, FileReader>::Builder<Writer> building2Street(writer);
 
     FeaturesVectorTest features(container);
     while (src.Size() > 0)
@@ -325,10 +325,10 @@ void BuildAddressTable(FilesContainerR & container, Writer & writer)
       }
 
       ++index;
-      b2sBuilder.PushBack(ind);
+      building2Street.PushBack(ind);
     }
 
-    LOG(LINFO, ("Address: Building -> Street (opt, all)", b2sBuilder.GetCount()));
+    LOG(LINFO, ("Address: Building -> Street (opt, all)", building2Street.GetCount()));
   }
 
   LOG(LINFO, ("Address: Matched percent", 100 * (1.0 - missing/double(address))));
@@ -350,10 +350,12 @@ bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild)
   my::GetNameFromFullPath(mwmName);
   my::GetNameWithoutExt(mwmName);
 
-  string const indexFilePath = platform.WritablePathForFile(mwmName + "." + string(SEARCH_INDEX_FILE_TAG) + ".tmp");
+  string const indexFilePath = platform.WritablePathForFile(
+        mwmName + "." SEARCH_INDEX_FILE_TAG EXTENSION_TMP);
   MY_SCOPE_GUARD(indexFileGuard, bind(&FileWriter::DeleteFileX, indexFilePath));
 
-  string const addrFilePath = platform.WritablePathForFile(mwmName + "." + string(SEARCH_ADDRESS_FILE_TAG) + ".tmp");
+  string const addrFilePath = platform.WritablePathForFile(
+        mwmName + "." SEARCH_ADDRESS_FILE_TAG EXTENSION_TMP);
   MY_SCOPE_GUARD(addrFileGuard, bind(&FileWriter::DeleteFileX, addrFilePath));
 
   try

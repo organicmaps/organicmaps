@@ -32,8 +32,8 @@ template <size_t Bits> void TestWithData(vector<uint32_t> const & lst)
       builder.PushBack(v);
     }
 
-    pair<uint32_t, uint32_t> exp(optCount, lst.size());
-    TEST_EQUAL(builder.GetCount(), exp, ());
+    pair<uint32_t, uint32_t> expected(optCount, lst.size());
+    TEST_EQUAL(builder.GetCount(), expected, ());
   }
 
   MemReader reader(buf.data(), buf.size());

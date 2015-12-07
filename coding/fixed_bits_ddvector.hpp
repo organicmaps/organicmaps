@@ -19,7 +19,7 @@
 /// - value (1 << Bits) - 1 tells that actual value is stored in the exceptions table below.
 /// Buffer with exceptions table, e.g. vector of (index, value) pairs till the end of the reader,
 /// sorted by index parameter.
-/// Component works in little endian without any host conversions.
+/// Component is stored and used in host's endianness, without any conversions.
 
 template
 <
