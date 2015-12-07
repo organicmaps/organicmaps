@@ -94,6 +94,9 @@ namespace
   char const kRouterTypeKey[] = "router";
   char const kMapStyleKey[] = "MapStyleKeyV1";
   char const kGpsTrackingEnabledKey[] = "GpsTrackingEnabled";
+  char const kGpsTrackingDurationHours[] = "GpsTrackingDuration";
+  uint32_t const kDefaultGpsTrackingMaxDurationHours = 24;
+
   char const kAllow3dKey[] = "Allow3d";
   char const kAllow3dBuildingsKey[] = "Buildings3d";
 
@@ -218,6 +221,12 @@ Framework::Framework()
   if (!Settings::Get(kGpsTrackingEnabledKey, gpsTrackingEnabled))
     gpsTrackingEnabled = false;
   m_gpsTrackingEnabled = gpsTrackingEnabled;
+
+  // Restore gps tracking duration, hours
+  uint32_t duration = kDefaultGpsTrackingMaxDurationHours;
+  if (!Settings::Get(kGpsTrackingDurationHours, duration))
+    duration = kDefaultGpsTrackingMaxDurationHours;
+  m_gpsTrack.SetDuration(hours(duration));
 
   m_ParsedMapApi.SetBookmarkManager(&m_bmManager);
 
