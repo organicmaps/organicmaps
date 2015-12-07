@@ -33,4 +33,9 @@ uint32_t IndexBufferMutator::GetIndexCount() const
   return m_activeSize;
 }
 
+uint32_t IndexBufferMutator::GetCapacity() const
+{
+  return m_buffer.Size();
+}
+
 } // namespace dp
