@@ -2,6 +2,8 @@
 
 #include "map/gps_track_collection.hpp"
 
+#include "base/logging.hpp"
+
 #include "std/map.hpp"
 
 namespace
@@ -21,7 +23,9 @@ location::GpsTrackInfo MakeGpsTrackInfo(double timestamp, ms::LatLon const & ll,
 
 UNIT_TEST(GpsTrackCollection_Simple)
 {
-  double const timestamp = system_clock::to_time_t(system_clock::now());
+  time_t const t = system_clock::to_time_t(system_clock::now());
+  double const timestamp = t;
+  LOG(LINFO, ("Timestamp", ctime(&t), timestamp));
 
   GpsTrackCollection collection(100, hours(24));
 
@@ -62,7 +66,10 @@ UNIT_TEST(GpsTrackCollection_Simple)
 
 UNIT_TEST(GpsTrackCollection_EvictedByTimestamp)
 {
-  double const timestamp = system_clock::to_time_t(system_clock::now());
+  time_t const t = system_clock::to_time_t(system_clock::now());
+  double const timestamp = t;
+  LOG(LINFO, ("Timestamp", ctime(&t), timestamp));
+
   double const timestamp_1h = timestamp + 60 * 60;
   double const timestamp_25h = timestamp + 25 * 60 * 60;
 
@@ -108,7 +115,9 @@ UNIT_TEST(GpsTrackCollection_EvictedByTimestamp)
 
 UNIT_TEST(GpsTrackCollection_EvictedByCount)
 {
-  double const timestamp = system_clock::to_time_t(system_clock::now());
+  time_t const t = system_clock::to_time_t(system_clock::now());
+  double const timestamp = t;
+  LOG(LINFO, ("Timestamp", ctime(&t), timestamp));
 
   GpsTrackCollection collection(100, hours(24));
 
@@ -161,7 +170,10 @@ UNIT_TEST(GpsTrackCollection_EvictedByCount)
 
 UNIT_TEST(GpsTrackCollection_EvictedByTimestamp2)
 {
-  double const timestamp = 0;
+  time_t const t = system_clock::to_time_t(system_clock::now());
+  double const timestamp = t;
+  LOG(LINFO, ("Timestamp", ctime(&t), timestamp));
+
   double const timestamp_12h = timestamp + 12 * 60 * 60;
   double const timestamp_35h = timestamp + 35 * 60 * 60;
 
