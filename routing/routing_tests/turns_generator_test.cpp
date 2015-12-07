@@ -4,7 +4,7 @@
 #include "routing/turns.hpp"
 #include "routing/turns_generator.hpp"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "geometry/point2d.hpp"
 

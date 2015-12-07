@@ -5,7 +5,7 @@
 
 #include "storage/country_decl.hpp"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "geometry/point2d.hpp"
 

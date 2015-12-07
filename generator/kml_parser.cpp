@@ -11,7 +11,7 @@
 #include "generator/geometry/cellid.hpp"
 
 #include "generator/indexer/cell_id.hpp"
-#include "generator/indexer/mercator.hpp"
+#include "generator/geometry/mercator.hpp"
 #include "generator/indexer/feature.hpp"
 #include "generator/indexer/covering.hpp"
 

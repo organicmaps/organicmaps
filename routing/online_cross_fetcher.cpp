@@ -7,7 +7,7 @@
 
 #include "3party/jansson/myjansson.hpp"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "std/bind.hpp"
 

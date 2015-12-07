@@ -1,6 +1,6 @@
 #include "drape_frontend/tile_key.hpp"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 namespace df
 {

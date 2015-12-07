@@ -6,7 +6,7 @@
 #include "platform/settings.hpp"
 #include "platform/measurement_utils.hpp"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 #include "geometry/screenbase.hpp"
 
 #include "base/macros.hpp"

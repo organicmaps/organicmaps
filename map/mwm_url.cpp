@@ -3,7 +3,7 @@
 #include "map/api_mark_point.hpp"
 #include "map/bookmark_manager.hpp"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 #include "indexer/scales.hpp"
 
 #include "drape_frontend/visual_params.hpp"

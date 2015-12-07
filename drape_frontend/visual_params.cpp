@@ -4,7 +4,7 @@
 #include "base/math.hpp"
 #include "base/assert.hpp"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "std/limits.hpp"
 #include "std/algorithm.hpp"

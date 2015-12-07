@@ -6,7 +6,7 @@
 
 #include "indexer/cell_id.hpp"
 #include "indexer/data_header.hpp"
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "coding/varint.hpp"
 

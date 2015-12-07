@@ -84,7 +84,7 @@ SUBDIRS = 3party base coding geometry indexer routing
     SUBDIRS *= coding_tests
 
     geometry_tests.subdir = geometry/geometry_tests
-    geometry_tests.depends = 3party base geometry indexer
+    geometry_tests.depends = 3party base geometry
     SUBDIRS *= geometry_tests
 
     indexer_tests.subdir = indexer/indexer_tests

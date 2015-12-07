@@ -1,7 +1,7 @@
 #include "platform/measurement_utils.hpp"
 #include "platform/settings.hpp"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/string_utils.hpp"
 #include "base/math.hpp"

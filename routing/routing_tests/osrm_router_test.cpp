@@ -3,7 +3,7 @@
 #include "routing/osrm_router.hpp"
 
 #include "indexer/features_offsets_table.hpp"
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"

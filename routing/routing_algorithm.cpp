@@ -5,7 +5,7 @@
 
 #include "base/assert.hpp"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 namespace routing
 {

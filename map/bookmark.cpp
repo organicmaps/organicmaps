@@ -5,7 +5,7 @@
 
 #include "base/scope_guard.hpp"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "coding/file_reader.hpp"
 #include "coding/parse_xml.hpp"  // LoadFromKML

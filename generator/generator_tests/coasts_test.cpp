@@ -4,7 +4,7 @@
 #include "generator/feature_sorter.hpp"
 #include "generator/feature_generator.hpp"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 #include "indexer/cell_id.hpp"
 #include "indexer/scales.hpp"
 

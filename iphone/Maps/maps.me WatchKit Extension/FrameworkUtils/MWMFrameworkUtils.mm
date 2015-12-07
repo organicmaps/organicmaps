@@ -3,7 +3,7 @@
 #include "Framework.h"
 
 #include "indexer/scales.hpp"
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "drape_frontend/watch/frame_image.hpp"
 
