@@ -218,14 +218,12 @@ Framework::Framework()
 
   // Restore gps tracking enabled
   bool gpsTrackingEnabled = false;
-  if (!Settings::Get(kGpsTrackingEnabledKey, gpsTrackingEnabled))
-    gpsTrackingEnabled = false;
+  Settings::Get(kGpsTrackingEnabledKey, gpsTrackingEnabled);
   m_gpsTrackingEnabled = gpsTrackingEnabled;
 
   // Restore gps tracking duration, hours
   uint32_t duration = kDefaultGpsTrackingMaxDurationHours;
-  if (!Settings::Get(kGpsTrackingDurationHours, duration))
-    duration = kDefaultGpsTrackingMaxDurationHours;
+  Settings::Get(kGpsTrackingDurationHours, duration);
   m_gpsTrack.SetDuration(hours(duration));
 
   m_ParsedMapApi.SetBookmarkManager(&m_bmManager);
