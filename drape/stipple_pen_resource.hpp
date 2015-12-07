@@ -52,7 +52,6 @@ public:
 
   uint32_t GetSize() const;
   uint32_t GetPatternSize() const;
-  uint32_t GetBufferSize() const;
 
   void Rasterize(void * buffer);
 
