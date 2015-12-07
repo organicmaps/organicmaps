@@ -36,8 +36,8 @@ public class GoogleFusedLocationProvider extends BaseLocationProvider
     {
       mLocationRequest = LocationRequest.create();
       mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-      mLocationRequest.setInterval(LocationHelper.INSTANCE.getUpdateInterval());
-      mLocationRequest.setFastestInterval(LocationHelper.INSTANCE.getUpdateInterval() / 2);
+      mLocationRequest.setInterval(LocationHelper.getUpdateInterval());
+      mLocationRequest.setFastestInterval(LocationHelper.getUpdateInterval() / 2);
 
       mGoogleApiClient.connect();
     }

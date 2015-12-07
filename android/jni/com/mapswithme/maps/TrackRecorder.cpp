@@ -1,5 +1,4 @@
 #include "Framework.hpp"
-#include "../platform/Platform.hpp"
 
 #include "std/chrono.hpp"
 

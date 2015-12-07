@@ -35,7 +35,7 @@ public class AndroidNativeProvider extends BaseLocationProvider
     {
       mIsActive = true;
       for (final String provider : providers)
-        mLocationManager.requestLocationUpdates(provider, LocationHelper.INSTANCE.getUpdateInterval(), 0, this);
+        mLocationManager.requestLocationUpdates(provider, LocationHelper.getUpdateInterval(), 0, this);
 
       LocationHelper.INSTANCE.registerSensorListeners();
 

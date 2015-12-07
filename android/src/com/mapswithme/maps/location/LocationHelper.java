@@ -55,7 +55,6 @@ public enum LocationHelper implements SensorEventListener
   private final Listeners<LocationListener> mListeners = new Listeners<>();
 
   private boolean mActive;
-  private boolean mForegroundMode;
 
   private Location mLastLocation;
   private MapObject.MyPosition mMyPosition;
@@ -104,7 +103,7 @@ public enum LocationHelper implements SensorEventListener
       @Override
       public void onTransit(boolean foreground)
       {
-        setForegroundMode(foreground);
+        setForegroundMode();
       }
     });
   }
@@ -305,9 +304,8 @@ public enum LocationHelper implements SensorEventListener
     }
   }
 
-  private void setForegroundMode(boolean set)
+  private void setForegroundMode()
   {
-    mForegroundMode = set;
     if (!mActive)
       return;
 
@@ -316,13 +314,13 @@ public enum LocationHelper implements SensorEventListener
       mLocationProvider.startUpdates();
   }
 
-  public long getUpdateInterval()
+  public static long getUpdateInterval()
   {
-    return (mForegroundMode ? UPDATE_INTERVAL_FOREGROUND_MS
-                            : UPDATE_INTERVAL_BACKGROUND_MS);
+    return (MwmApplication.backgroundTracker().isForeground() ? UPDATE_INTERVAL_FOREGROUND_MS
+                                                              : UPDATE_INTERVAL_BACKGROUND_MS);
   }
 
-  public static void onLocationUpdated(Location location)
+  public static void onLocationUpdated(@NonNull Location location)
   {
     nativeLocationUpdated(location.getTime(),
                           location.getLatitude(),

@@ -56,7 +56,7 @@ public final class TrackRecorder
       TrackRecorderWakeService.stop();
     }
     else
-      sAlarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + LocationHelper.INSTANCE.getUpdateInterval(), getAlarmIntent());
+      sAlarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + LocationHelper.getUpdateInterval(), getAlarmIntent());
   }
 
   private static PendingIntent getAlarmIntent()

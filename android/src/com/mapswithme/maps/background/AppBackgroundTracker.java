@@ -13,7 +13,7 @@ import com.mapswithme.util.concurrency.UiThread;
 
 /**
  * Helper class that detects when the application goes to background and back to foreground.
- * <br/>Must be created as early as possible, i.e. in Application.Create().
+ * <br/>Must be created as early as possible, i.e. in Application.onCreate().
  */
 public final class AppBackgroundTracker
 {
@@ -102,7 +102,7 @@ public final class AppBackgroundTracker
 
   private void notifyListeners()
   {
-    for (OnTransitionListener listener: mListeners)
+    for (OnTransitionListener listener : mListeners)
       listener.onTransit(mForeground);
     mListeners.finishIterate();
   }
