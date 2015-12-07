@@ -134,7 +134,7 @@ void RuleDrawer::operator()(FeatureType const & f)
 
   if (s.AreaStyleExists())
   {
-    bool const is3dBuilding = m_is3d ? ftypes::IsBuildingChecker::Instance()(f) : false;
+    bool const is3dBuilding = m_is3d ? (ftypes::IsBuildingChecker::Instance()(f) && f.GetLayer() >= 0) : false;
     ApplyAreaFeature apply(insertShape, f.GetID(), is3dBuilding,
                            minVisibleScale, f.GetRank(), s.GetCaptionDescription());
     f.ForEachTriangleRef(apply, zoomLevel);

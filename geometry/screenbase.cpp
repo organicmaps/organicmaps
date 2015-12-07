@@ -14,7 +14,7 @@ ScreenBase::ScreenBase() :
     m_Angle(0.0),
     m_Org(320, 240),
     m_3dFOV(0.0),
-    m_3dNearZ(0.0),
+    m_3dNearZ(0.001),
     m_3dFarZ(0.0),
     m_3dAngleX(0.0),
     m_3dMaxAngleX(0.0),
@@ -325,9 +325,8 @@ void ScreenBase::SetRotationAngle(double rotationAngle)
   translateM(3, 2) = offsetZ;
 
   Matrix3dT projectionM = math::Zero<double, 4>();
-  m_3dNearZ = cameraZ;
   m_3dFarZ = cameraZ + 2.0 * sin(m_3dAngleX) * m_3dScaleY;
-  projectionM(0, 0) = projectionM(1, 1) = m_3dNearZ;
+  projectionM(0, 0) = projectionM(1, 1) = cameraZ;
   projectionM(2, 2) = m_3dAngleX != 0.0 ? (m_3dFarZ + m_3dNearZ) / (m_3dFarZ - m_3dNearZ)
                                         : 0.0;
   projectionM(2, 3) = 1.0;
@@ -384,9 +383,12 @@ m2::PointD ScreenBase::P3dtoP(m2::PointD const & pt) const
   double normalizedZ = 0.0;
   if (m_3dAngleX != 0.0)
   {
+    double const halfFOV = m_3dFOV / 2.0;
+    double const cameraZ = 1.0 / tan(halfFOV);
+
     double const tanX = tan(m_3dAngleX);
     double const cameraDistanceZ =
-        m_3dNearZ * (1.0 + (normalizedY + 1.0) * tanX / (m_3dNearZ - normalizedY * tanX));
+        cameraZ * (1.0 + (normalizedY + 1.0) * tanX / (cameraZ - normalizedY * tanX));
 
     double const a = (m_3dFarZ + m_3dNearZ) / (m_3dFarZ - m_3dNearZ);
     double const b = -2.0 * m_3dFarZ * m_3dNearZ / (m_3dFarZ - m_3dNearZ);
