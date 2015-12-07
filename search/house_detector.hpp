@@ -1,5 +1,6 @@
 #pragma once
 #include "search/indexed_value.hpp"
+#include "search/projection_on_street.hpp"
 
 #include "indexer/feature_decl.hpp"
 #include "indexer/index.hpp"
@@ -71,15 +72,14 @@ public:
   bool GetNearbyMatch(ParsedNumber const & number) const;
 };
 
-struct HouseProjection
+// NOTE: DO NOT DELETE instances of this class by a pointer/reference
+// to ProjectionOnStreet, because both classes have non-virtual destructors.
+struct HouseProjection : public ProjectionOnStreet
 {
   House const * m_house;
-  m2::PointD m_proj;
-  double m_distance;
+
   /// Distance in mercator, from street beginning to projection on street
   double m_streetDistance;
-  /// false - to the left, true - to the right from projection segment
-  bool m_projectionSign;
 
   inline bool IsOdd() const { return (m_house->GetIntNumber() % 2 == 1); }
 
@@ -87,7 +87,7 @@ struct HouseProjection
   {
     bool operator() (HouseProjection const * p1, HouseProjection const * p2) const
     {
-      return p1->m_distance < p2->m_distance;
+      return p1->m_distMeters < p2->m_distMeters;
     }
   };
 
@@ -122,6 +122,10 @@ public:
 
   /// Get limit rect for street with ortho offset to the left and right.
   m2::RectD GetLimitRect(double offsetMeters) const;
+
+  double GetLength() const;
+
+  double GetPrefixLength(size_t numSegs) const;
 
   inline static bool IsSameStreets(Street const * s1, Street const * s2)
   {
@@ -255,7 +259,7 @@ public:
   /// @return number of different joined streets.
   int MergeStreets();
 
-  static int const DEFAULT_OFFSET_M = 200;
+  static int const DEFAULT_OFFSET_M = ProjectionOnStreetCalculator::kDefaultMaxDistMeters;
   void ReadAllHouses(double offsetMeters = DEFAULT_OFFSET_M);
 
   void GetHouseForName(string const & houseNumber, vector<HouseResult> & res);

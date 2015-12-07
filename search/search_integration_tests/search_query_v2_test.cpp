@@ -72,9 +72,9 @@ UNIT_TEST(SearchQueryV2_Smoke)
   auto const quantumTeleport2 =
       make_shared<TestPOI>(m2::PointD(10, 10), "Quantum teleport 2", "en");
   auto const quantumCafe = make_shared<TestPOI>(m2::PointD(-0.0002, -0.0002), "Quantum cafe", "en");
-  auto const faynmannStreet = make_shared<TestStreet>(
+  auto const feynmanStreet = make_shared<TestStreet>(
       vector<m2::PointD>{m2::PointD(9.999, 9.999), m2::PointD(10, 10), m2::PointD(10.001, 10.001)},
-      "Faynmann street", "en");
+      "Feynman street", "en");
 
   {
     TestMwmBuilder builder(map, feature::DataHeader::country);
@@ -84,7 +84,7 @@ UNIT_TEST(SearchQueryV2_Smoke)
     builder.Add(*quantumTeleport1);
     builder.Add(*quantumTeleport2);
     builder.Add(*quantumCafe);
-    builder.Add(*faynmannStreet);
+    builder.Add(*feynmanStreet);
   }
 
   auto const regResult = engine.RegisterMap(map);
@@ -123,7 +123,7 @@ UNIT_TEST(SearchQueryV2_Smoke)
   }
 
   {
-    TestSearchRequest request(engine, "teleport faynmann street", "en", search::SearchParams::ALL,
+    TestSearchRequest request(engine, "teleport feynman street", "en", search::SearchParams::ALL,
                               viewport);
     request.Wait();
     vector<shared_ptr<MatchingRule>> rules = {

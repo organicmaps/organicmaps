@@ -8,7 +8,6 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/scales.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
@@ -17,6 +16,7 @@
 #include "base/macros.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/bind.hpp"
 #include "std/vector.hpp"
 
 class MwmValue;
@@ -81,18 +81,8 @@ private:
 
     for (size_t j = 0; j < parent.m_sortedFeatures.size(); ++j)
     {
-      auto match = [&](uint32_t poiId)
-      {
-        auto const it =
-            lower_bound(child.m_sortedFeatures.begin(), child.m_sortedFeatures.end(), poiId);
-        if (it != child.m_sortedFeatures.end() && *it == poiId)
-        {
-          size_t i = distance(child.m_sortedFeatures.begin(), it);
-          fn(i, j);
-        }
-      };
-
-      m_loader.ForEachInVicinity(parent.m_sortedFeatures[j], scales::GetUpperScale(), match);
+      uint32_t streetId = parent.m_sortedFeatures[j];
+      m_loader.ForEachInVicinity(streetId, child.m_sortedFeatures, bind(fn, _1, j));
     }
   }
 

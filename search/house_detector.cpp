@@ -266,6 +266,23 @@ m2::RectD Street::GetLimitRect(double offsetMeters) const
   return rect;
 }
 
+double Street::GetLength() const
+{
+  if (m_points.size() < 2)
+    return 0.0;
+  return GetPrefixLength(m_points.size() - 1);
+}
+
+double Street::GetPrefixLength(size_t numSegs) const
+{
+  ASSERT_LESS(numSegs, m_points.size(), ());
+
+  double length = 0.0;
+  for (size_t i = 0; i < numSegs; ++i)
+    length += m_points[i].Length(m_points[i + 1]);
+  return length;
+}
+
 void Street::SetName(string const & name)
 {
   m_name = name;
@@ -514,91 +531,6 @@ int HouseDetector::MergeStreets()
   return m_streetNum;
 }
 
-namespace
-{
-
-class ProjectionCalcToStreet
-{
-  vector<m2::PointD> const & m_points;
-  double m_distanceMeters;
-
-  typedef m2::ProjectionToSection<m2::PointD> ProjectionT;
-  vector<ProjectionT> m_calcs;
-
-public:
-  ProjectionCalcToStreet(Street const * st, double distanceMeters)
-    : m_points(st->m_points), m_distanceMeters(distanceMeters)
-  {
-    ASSERT_GREATER(m_points.size(), 1, ());
-  }
-
-  void Initialize()
-  {
-    if (m_calcs.empty())
-    {
-      size_t const count = m_points.size() - 1;
-      m_calcs.resize(count);
-      for (size_t i = 0; i < count; ++i)
-        m_calcs[i].SetBounds(m_points[i], m_points[i+1]);
-    }
-  }
-
-  double GetLength(size_t ind) const
-  {
-    double length = 0.0;
-    for (size_t i = 0; i < ind; ++i)
-      length += m_calcs[i].GetLength();
-    return length;
-  }
-
-  double GetLength()
-  {
-    Initialize();
-    return GetLength(m_calcs.size());
-  }
-
-  void CalculateProjectionParameters(m2::PointD const & pt,
-                                     m2::PointD & resPt, double & dist, double & resDist, size_t & ind)
-  {
-    for (size_t i = 0; i < m_calcs.size(); ++i)
-    {
-      m2::PointD const proj = m_calcs[i](pt);
-      dist = GetDistanceMeters(pt, proj);
-      if (dist < resDist)
-      {
-        resPt = proj;
-        resDist = dist;
-        ind = i;
-      }
-    }
-  }
-
-  bool GetProjection(m2::PointD const & pt, HouseProjection & proj)
-  {
-    Initialize();
-
-    m2::PointD resPt;
-    double dist = numeric_limits<double>::max();
-    double resDist = numeric_limits<double>::max();
-    size_t ind;
-
-    CalculateProjectionParameters(pt, resPt, dist, resDist, ind);
-
-    if (resDist <= m_distanceMeters)
-    {
-      proj.m_proj = resPt;
-      proj.m_distance = resDist;
-      proj.m_streetDistance = GetLength(ind) + m_points[ind].Length(proj.m_proj);
-      proj.m_projectionSign = m2::GetOrientation(m_points[ind], m_points[ind+1], pt) >= 0;
-      return true;
-    }
-    else
-      return false;
-  }
-};
-
-}
-
 string const & MergedStreet::GetDbgName() const
 {
   ASSERT(!m_cont.empty(), ());
@@ -661,7 +593,7 @@ void MergedStreet::FinishReadingHouses()
       HouseProjection const & p2 = Get(j);
       if (p1.m_house == p2.m_house)
       {
-        if (p1.m_distance < p2.m_distance)
+        if (p1.m_distMeters < p2.m_distMeters)
         {
           Erase(j);
         }
@@ -697,11 +629,11 @@ HouseProjection const * MergedStreet::GetHousePivot(bool isOdd, bool & sign) con
   for (QueueT::const_iterator i = q.begin(); i != q.end(); ++i)
   {
     size_t ind = (*i)->m_house->GetIntNumber() % 2;
-    if ((*i)->m_projectionSign)
+    if ((*i)->m_projSign)
       ind += 2;
 
     // Needed min summary distance, but process max function.
-    counter[ind] += (1.0 / (*i)->m_distance);
+    counter[ind] += (1.0 / (*i)->m_distMeters);
   }
 
   // Get best odd-sign pair.
@@ -714,7 +646,7 @@ HouseProjection const * MergedStreet::GetHousePivot(bool isOdd, bool & sign) con
   while (!q.empty())
   {
     HouseProjection const * p = q.top();
-    if ((p->m_projectionSign == sign) && (p->IsOdd() == isOdd))
+    if ((p->m_projSign == sign) && (p->IsOdd() == isOdd))
       return p;
     q.pop();
   }
@@ -738,6 +670,9 @@ void HouseDetector::ReadHouse(FeatureType const & f, Street * st, ProjectionCalc
     HouseProjection pr;
     if (calc.GetProjection(pt, pr))
     {
+      pr.m_streetDistance =
+          st->GetPrefixLength(pr.m_segIndex) + st->m_points[pr.m_segIndex].Length(pr.m_proj);
+
       House * p;
       if (isNew)
       {
@@ -763,11 +698,11 @@ void HouseDetector::ReadHouses(Street * st, double offsetMeters)
 
   //offsetMeters = max(HN_MIN_READ_OFFSET_M, min(GetApprLengthMeters(st->m_number) / 2, offsetMeters));
 
-  ProjectionCalcToStreet calcker(st, offsetMeters);
+  ProjectionOnStreetCalculator calc(st->m_points, offsetMeters);
   m_loader.ForEachInRect(st->GetLimitRect(offsetMeters),
-                         bind(&HouseDetector::ReadHouse<ProjectionCalcToStreet>, this, _1, st, ref(calcker)));
+                         bind(&HouseDetector::ReadHouse<ProjectionOnStreetCalculator>, this, _1, st, ref(calc)));
 
-  st->m_length = calcker.GetLength();
+  st->m_length = st->GetLength();
   st->SortHousesProjection();
 }
 
@@ -923,7 +858,7 @@ public:
 
   bool IsOurSide(HouseProjection const & p) const
   {
-    if (m_sign != p.m_projectionSign)
+    if (m_sign != p.m_projSign)
       return false;
     return (!m_useOdd || m_isOdd == p.IsOdd());
   }
@@ -945,8 +880,8 @@ public:
         return;
     }
 
-    if (IsBetter(ind, p.m_distance))
-      m_results[ind] = ScoredHouse(p.m_house, p.m_distance);
+    if (IsBetter(ind, p.m_distMeters))
+      m_results[ind] = ScoredHouse(p.m_house, p.m_distMeters);
   }
 
   template <class TCont>
@@ -1061,7 +996,7 @@ struct HouseChain
     score = 0;
     size_t const scoreNumber = 3;
     for (size_t i = 0; i < scoreNumber; ++i)
-      score += i < size ? houses[i]->m_distance : houses.back()->m_distance;
+      score += i < size ? houses[i]->m_distMeters : houses.back()->m_distMeters;
     score /= scoreNumber;
   }
 
@@ -1223,7 +1158,7 @@ void GetBestHouseWithNumber(MergedStreet const & st, double offsetMeters, Result
   for (MergedStreet::Index i = st.Begin(); !st.IsEnd(i); st.Inc(i))
   {
     HouseProjection const & p = st.Get(i);
-    if (p.m_distance <= offsetMeters && acc.IsOurSide(p))
+    if (p.m_distMeters <= offsetMeters && acc.IsOurSide(p))
       v.push_back(&p);
   }
 

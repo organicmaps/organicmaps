@@ -1,50 +1,53 @@
 #include "search/v2/street_vicinity_loader.hpp"
 
-#include "indexer/feature.hpp"
+#include "indexer/feature_covering.hpp"
 #include "indexer/feature_decl.hpp"
-#include "indexer/features_vector.hpp"
 #include "indexer/index.hpp"
 
 #include "geometry/mercator.hpp"
 
+#include "base/math.hpp"
+#include "base/stl_add.hpp"
+
 namespace search
 {
-namespace
-{
-m2::RectD GetStreetLimitRect(FeatureType const & feature, double offsetMeters)
-{
-  m2::RectD rect;
-  if (feature.GetFeatureType() != feature::GEOM_LINE)
-    return rect;
-
-  auto expandRect = [&rect, &offsetMeters](m2::PointD const & point)
-  {
-    rect.Add(MercatorBounds::RectByCenterXYAndSizeInMeters(point, offsetMeters));
-  };
-  feature.ForEachPoint(expandRect, FeatureType::BEST_GEOMETRY);
-  return rect;
-}
-}  // namespace
-
 StreetVicinityLoader::StreetVicinityLoader(MwmValue & value, FeaturesVector const & featuresVector,
-                                           double offsetMeters)
+                                           int scale, double offsetMeters)
   : m_index(value.m_cont.GetReader(INDEX_FILE_TAG), value.m_factory)
-  , m_scaleRange(value.GetHeader().GetScaleRange())
   , m_featuresVector(featuresVector)
   , m_offsetMeters(offsetMeters)
 {
+  auto const scaleRange = value.GetHeader().GetScaleRange();
+  m_scale = my::clamp(scale, scaleRange.first, scaleRange.second);
 }
 
-m2::RectD StreetVicinityLoader::GetLimitRect(uint32_t featureId)
+StreetVicinityLoader::Street const & StreetVicinityLoader::GetStreet(uint32_t featureId)
 {
   auto it = m_cache.find(featureId);
   if (it != m_cache.end())
     return it->second;
 
+  LoadStreet(featureId, m_cache[featureId]);
+  return m_cache[featureId];
+}
+
+void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
+{
   FeatureType feature;
   m_featuresVector.GetByIndex(featureId, feature);
-  m2::RectD rect = GetStreetLimitRect(feature, m_offsetMeters);
-  m_cache[featureId] = rect;
-  return rect;
+
+  if (feature.GetFeatureType() != feature::GEOM_LINE)
+    return;
+
+  feature.ForEachPoint(MakeBackInsertFunctor(street.m_points), FeatureType::BEST_GEOMETRY);
+
+  for (auto const & point : street.m_points)
+    street.m_rect.Add(MercatorBounds::RectByCenterXYAndSizeInMeters(point, m_offsetMeters));
+
+  covering::CoveringGetter coveringGetter(street.m_rect, covering::ViewportWithLowLevels);
+  auto const & intervals = coveringGetter.Get(m_scale);
+  for (auto const & interval : intervals)
+    m_index.ForEachInIntervalAndScale(MakeBackInsertFunctor(street.m_features), interval.first,
+                                      interval.second, m_scale);
 }
 }  // namespace search
