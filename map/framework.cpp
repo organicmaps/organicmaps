@@ -93,6 +93,7 @@ namespace
 
   char const kRouterTypeKey[] = "router";
   char const kMapStyleKey[] = "MapStyleKeyV1";
+  char const kGpsTrackingEnabledKey[] = "GpsTrackingEnabled";
   char const kAllow3dKey[] = "Allow3d";
   char const kAllow3dBuildingsKey[] = "Buildings3d";
 
@@ -211,6 +212,12 @@ Framework::Framework()
   if (!Settings::Get(kMapStyleKey, mapStyle))
     mapStyle = MapStyleClear;
   GetStyleReader().SetCurrentStyle(static_cast<MapStyle>(mapStyle));
+
+  // Restore gps tracking enabled
+  bool gpsTrackingEnabled = false;
+  if (!Settings::Get(kGpsTrackingEnabledKey, gpsTrackingEnabled))
+    gpsTrackingEnabled = false;
+  m_gpsTrackingEnabled = gpsTrackingEnabled;
 
   m_ParsedMapApi.SetBookmarkManager(&m_bmManager);
 
@@ -1332,6 +1339,8 @@ void Framework::EnableGpsTracking(bool enabled)
     return;
 
   m_gpsTrackingEnabled = enabled;
+
+  Settings::Set(kGpsTrackingEnabledKey, enabled);
 
   if (enabled)
   {
