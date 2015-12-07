@@ -116,13 +116,13 @@ pair<size_t, size_t> GpsTrackCollection::Clear(bool resetIds)
     return make_pair(kInvalidId, kInvalidId);
   }
 
-  ASSERT(m_lastId >= m_items.size(), ());
+  ASSERT_GREATER_OR_EQUAL(m_lastId, m_items.size(), ());
 
   // Range of evicted items
   auto const res = make_pair(m_lastId - m_items.size(), m_lastId - 1);
 
-  // Use move from an empty deque to free memory.
-  m_items = deque<TItem>();
+  m_items.clear();
+  m_items.shrink_to_fit();
 
   if (resetIds)
     m_lastId = 0;
@@ -150,7 +150,7 @@ pair<double, double> GpsTrackCollection::GetTimestampRange() const
   if (m_items.empty())
     return make_pair(0, 0);
 
-  ASSERT(m_items.front().m_timestamp <= m_items.back().m_timestamp, ());
+  ASSERT_LESS_OR_EQUAL(m_items.front().m_timestamp, m_items.back().m_timestamp, ());
 
   return make_pair(m_items.front().m_timestamp, m_items.back().m_timestamp);
 }
@@ -170,7 +170,7 @@ pair<size_t, size_t> GpsTrackCollection::RemoveExtraItems()
 
   double const lowerBound = m_items.back().m_timestamp - m_duration.count() * kSecondsPerHour;
 
-  ASSERT(m_lastId >= m_items.size(), ());
+  ASSERT_GREATER_OR_EQUAL(m_lastId, m_items.size(), ());
 
   if (m_items.front().m_timestamp >= lowerBound)
   {
