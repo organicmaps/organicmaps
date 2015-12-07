@@ -41,9 +41,9 @@ public enum LocationHelper implements SensorEventListener
 
   public static final String LOCATION_PREDICTOR_PROVIDER = "LocationPredictorProvider";
   private static final float DISTANCE_TO_RECREATE_MAGNETIC_FIELD_M = 1000;
-  private static final long UPDATE_INTERVAL_FOREGROUND = 500;
-  private static final long UPDATE_INTERVAL_BACKGROUND = 20000;
-  private static final long STOP_DELAY = 5000;
+  private static final long UPDATE_INTERVAL_FOREGROUND_MS = 500;
+  private static final long UPDATE_INTERVAL_BACKGROUND_MS = 20000;
+  private static final long STOP_DELAY_MS = 5000;
 
   public interface LocationListener
   {
@@ -232,7 +232,7 @@ public enum LocationHelper implements SensorEventListener
     if (!wasEmpty && mListeners.isEmpty())
       // Make a delay with disconnection from location providers, so that orientation changes and short app sleeps
       // doesn't take long time to connect again.
-      UiThread.runLater(mStopLocationTask, STOP_DELAY);
+      UiThread.runLater(mStopLocationTask, STOP_DELAY_MS);
   }
 
   void registerSensorListeners()
@@ -318,8 +318,8 @@ public enum LocationHelper implements SensorEventListener
 
   public long getUpdateInterval()
   {
-    return (mForegroundMode ? UPDATE_INTERVAL_FOREGROUND
-                            : UPDATE_INTERVAL_BACKGROUND);
+    return (mForegroundMode ? UPDATE_INTERVAL_FOREGROUND_MS
+                            : UPDATE_INTERVAL_BACKGROUND_MS);
   }
 
   public static void onLocationUpdated(Location location)
