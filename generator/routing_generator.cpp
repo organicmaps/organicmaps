@@ -15,7 +15,7 @@
 #include "indexer/feature.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
 

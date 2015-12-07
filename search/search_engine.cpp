@@ -7,7 +7,7 @@
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/search_string_utils.hpp"
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/classificator.hpp"
 

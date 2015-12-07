@@ -12,6 +12,7 @@ SOURCES += \
   angles.cpp \
   distance_on_sphere.cpp \
   latlon.cpp \
+  mercator.cpp \
   packer.cpp \
   region2d/binary_operators.cpp \
   robust_orientation.cpp \
@@ -28,6 +29,7 @@ HEADERS += \
   distance.hpp \
   distance_on_sphere.hpp \
   latlon.hpp \
+  mercator.hpp \
   packer.hpp \
   point2d.hpp \
   pointu_to_uint64.hpp \

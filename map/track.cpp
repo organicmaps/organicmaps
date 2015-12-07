@@ -1,6 +1,6 @@
 #include "map/track.hpp"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "drape/color.hpp"
 

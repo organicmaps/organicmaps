@@ -2,7 +2,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIApplication.h>
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 #include "platform/location.hpp"
 #include "std/utility.hpp"
 

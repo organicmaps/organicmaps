@@ -4,7 +4,7 @@
 #include "../../../map/navigator.hpp"
 #include "../../../map/yopme_render_policy.hpp"
 
-#include "../../../indexer/mercator.hpp"
+#include "../../../geometry/mercator.hpp"
 
 #include "../../../platform/platform.hpp"
 

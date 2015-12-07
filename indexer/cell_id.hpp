@@ -1,5 +1,5 @@
 #pragma once
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 #include "indexer/point_to_int64.hpp"
 
 #include "base/assert.hpp"

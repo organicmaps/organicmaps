@@ -1,6 +1,6 @@
 #pragma once
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/polyline2d.hpp"

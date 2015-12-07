@@ -1,6 +1,6 @@
 #include "map/framework.hpp"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/string_utils.hpp"
 

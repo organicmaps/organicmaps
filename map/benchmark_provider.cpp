@@ -1,6 +1,6 @@
 #include "base/SRC_FIRST.hpp"
 #include "map/benchmark_provider.hpp"
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 BenchmarkRectProvider::BenchmarkRectProvider(int startLevel, m2::RectD const & startRect, int endLevel)
   : m_endLevel(endLevel)

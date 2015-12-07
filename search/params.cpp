@@ -1,6 +1,6 @@
 #include "params.hpp"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
 

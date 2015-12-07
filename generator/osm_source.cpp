@@ -11,7 +11,7 @@
 #include "generator/osm_element.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "coding/parse_xml.hpp"
 

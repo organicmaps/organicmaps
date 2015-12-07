@@ -6,7 +6,7 @@
 #import "Macros.h"
 #import "Common.h"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 extern NSString * const kNoMapControllerIdentifier = @"NoMapController";
 static NSUInteger const kMaxPercent = 100;

@@ -3,7 +3,7 @@
 #include "storage/country_info_getter.hpp"
 #include "storage/country.hpp"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "platform/platform.hpp"
 

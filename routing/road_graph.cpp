@@ -3,7 +3,7 @@
 
 #include "routing/route.hpp"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
 
