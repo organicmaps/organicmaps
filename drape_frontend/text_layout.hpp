@@ -65,6 +65,11 @@ public:
   void Cache(glsl::vec3 const & pivot, glsl::vec2 const & pixelOffset,
              dp::TextureManager::ColorRegion const & colorRegion,
              dp::TextureManager::ColorRegion const & outlineRegion,
+             gpu::TTextOutlinedStaticVertexBuffer & staticBuffer,
+             gpu::TTextDynamicVertexBuffer & dynamicBuffer) const;
+
+  void Cache(glsl::vec3 const & pivot, glsl::vec2 const & pixelOffset,
+             dp::TextureManager::ColorRegion const & color,
              gpu::TTextStaticVertexBuffer & staticBuffer,
              gpu::TTextDynamicVertexBuffer & dynamicBuffer) const;
 
@@ -85,6 +90,10 @@ public:
   void CacheStaticGeometry(glsl::vec3 const & pivot,
                            dp::TextureManager::ColorRegion const & colorRegion,
                            dp::TextureManager::ColorRegion const & outlineRegion,
+                           gpu::TTextOutlinedStaticVertexBuffer & staticBuffer) const;
+
+  void CacheStaticGeometry(glsl::vec3 const & pivot,
+                           dp::TextureManager::ColorRegion const & colorRegion,
                            gpu::TTextStaticVertexBuffer & staticBuffer) const;
 
   bool CacheDynamicGeometry(m2::Spline::iterator const & iter,

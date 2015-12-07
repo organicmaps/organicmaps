@@ -24,6 +24,13 @@ private:
                      glsl::vec2 const & baseOffset, ref_ptr<dp::Batcher> batcher,
                      ref_ptr<dp::TextureManager> textures, bool isPrimary, bool isOptional) const;
 
+  void DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDecl const & font,
+                          glsl::vec2 const & baseOffset, ref_ptr<dp::Batcher> batcher,
+                          ref_ptr<dp::TextureManager> textures, bool isPrimary, bool isOptional) const;
+  void DrawSubStringOutlined(StraightTextLayout const & layout, dp::FontDecl const & font,
+                             glsl::vec2 const & baseOffset, ref_ptr<dp::Batcher> batcher,
+                             ref_ptr<dp::TextureManager> textures, bool isPrimary, bool isOptional) const;
+
   uint64_t GetOverlayPriority() const;
 
   m2::PointF m_basePoint;

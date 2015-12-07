@@ -34,7 +34,8 @@ OTHER_FILES += \
     shaders/ruler_vertex_shader.vsh \
     shaders/shader_index.txt \
     shaders/text_fragment_shader.fsh \
-    shaders/text_vertex_shader.vsh \
     shaders/texturing_fragment_shader.fsh \
     shaders/texturing_vertex_shader.vsh \
     shaders/user_mark.vsh \
+    shaders/text_outlined_vertex_shader.vsh \
+    shaders/text_vertex_shader.vsh \
