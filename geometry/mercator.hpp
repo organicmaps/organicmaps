@@ -1,10 +1,3 @@
-// @todo(vbykoianko) the mercator compilation unit is located in the indexer module for the time
-// being.
-// On the other hand it is not connected with indexer anywhere.
-// The mercator unit is based on base, geometry.
-// I guess indexer is not the best place for this compilation unit.
-// I sugest considering moving this compiation unit to another place. Probably to geometry.
-
 #pragma once
 #include "geometry/latlon.hpp"
 #include "geometry/point2d.hpp"
