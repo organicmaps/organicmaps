@@ -34,11 +34,6 @@ public class TrackRecorderWakeService extends IntentService
     super("TrackRecorderWakeService");
   }
 
-  protected void cancel()
-  {
-    mWaitMonitor.countDown();
-  }
-
   @Override
   protected final void onHandleIntent(Intent intent)
   {
@@ -58,7 +53,7 @@ public class TrackRecorderWakeService extends IntentService
       mWaitMonitor.await(TIMEOUT_MS, TimeUnit.MILLISECONDS);
     } catch (InterruptedException ignored) {}
 
-    synchronized (getClass())
+    synchronized (TrackRecorderWakeService.class)
     {
       sServiceRef = null;
     }
@@ -77,6 +72,6 @@ public class TrackRecorderWakeService extends IntentService
   {
     TrackRecorderWakeService svc = getService();
     if (svc != null)
-      svc.cancel();
+      svc.mWaitMonitor.countDown();
   }
 }
