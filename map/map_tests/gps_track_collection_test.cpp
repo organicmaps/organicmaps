@@ -32,11 +32,11 @@ UNIT_TEST(GpsTrackCollection_Simple)
   for (size_t i = 0; i < 50; ++i)
   {
     auto info = MakeGpsTrackInfo(timestamp + i, ms::LatLon(-90 + i, -180 + i), i);
-    pair<size_t, size_t> poppedId;
-    size_t addedId = collection.Add(info, poppedId);
+    pair<size_t, size_t> evictedIds;
+    size_t addedId = collection.Add(info, evictedIds);
     TEST_EQUAL(addedId, i, ());
-    TEST_EQUAL(poppedId.first, GpsTrackCollection::kInvalidId, ());
-    TEST_EQUAL(poppedId.second, GpsTrackCollection::kInvalidId, ());
+    TEST_EQUAL(evictedIds.first, GpsTrackCollection::kInvalidId, ());
+    TEST_EQUAL(evictedIds.second, GpsTrackCollection::kInvalidId, ());
     data[addedId] = info;
   }
 
@@ -60,7 +60,7 @@ UNIT_TEST(GpsTrackCollection_Simple)
   TEST_EQUAL(0, collection.GetSize(), ());
 }
 
-UNIT_TEST(GpsTrackCollection_PopByTimestamp)
+UNIT_TEST(GpsTrackCollection_EvictedByTimestamp)
 {
   double const timestamp = system_clock::to_time_t(system_clock::now());
   double const timestamp_1h = timestamp + 60 * 60;
@@ -68,24 +68,24 @@ UNIT_TEST(GpsTrackCollection_PopByTimestamp)
 
   GpsTrackCollection collection(100, hours(24));
 
-  pair<size_t, size_t> poppedId;
-  size_t addedId = collection.Add(MakeGpsTrackInfo(timestamp, ms::LatLon(-90, -180), 1), poppedId);
+  pair<size_t, size_t> evictedIds;
+  size_t addedId = collection.Add(MakeGpsTrackInfo(timestamp, ms::LatLon(-90, -180), 1), evictedIds);
   TEST_EQUAL(addedId, 0, ());
-  TEST_EQUAL(poppedId.first, GpsTrackCollection::kInvalidId, ());
-  TEST_EQUAL(poppedId.second, GpsTrackCollection::kInvalidId, ());
+  TEST_EQUAL(evictedIds.first, GpsTrackCollection::kInvalidId, ());
+  TEST_EQUAL(evictedIds.second, GpsTrackCollection::kInvalidId, ());
 
-  addedId = collection.Add(MakeGpsTrackInfo(timestamp_1h, ms::LatLon(90, 180), 2), poppedId);
+  addedId = collection.Add(MakeGpsTrackInfo(timestamp_1h, ms::LatLon(90, 180), 2), evictedIds);
   TEST_EQUAL(addedId, 1, ());
-  TEST_EQUAL(poppedId.first, GpsTrackCollection::kInvalidId, ());
-  TEST_EQUAL(poppedId.second, GpsTrackCollection::kInvalidId, ());
+  TEST_EQUAL(evictedIds.first, GpsTrackCollection::kInvalidId, ());
+  TEST_EQUAL(evictedIds.second, GpsTrackCollection::kInvalidId, ());
 
   TEST_EQUAL(2, collection.GetSize(), ());
 
   auto lastInfo = MakeGpsTrackInfo(timestamp_25h, ms::LatLon(45, 60), 3);
-  addedId = collection.Add(lastInfo, poppedId);
+  addedId = collection.Add(lastInfo, evictedIds);
   TEST_EQUAL(addedId, 2, ());
-  TEST_EQUAL(poppedId.first, 0, ());
-  TEST_EQUAL(poppedId.second, 1, ());
+  TEST_EQUAL(evictedIds.first, 0, ());
+  TEST_EQUAL(evictedIds.second, 1, ());
 
   TEST_EQUAL(1, collection.GetSize(), ());
 
@@ -106,7 +106,7 @@ UNIT_TEST(GpsTrackCollection_PopByTimestamp)
   TEST_EQUAL(0, collection.GetSize(), ());
 }
 
-UNIT_TEST(GpsTrackCollection_PopByCount)
+UNIT_TEST(GpsTrackCollection_EvictedByCount)
 {
   double const timestamp = system_clock::to_time_t(system_clock::now());
 
@@ -119,22 +119,22 @@ UNIT_TEST(GpsTrackCollection_PopByCount)
   for (size_t i = 0; i < 100; ++i)
   {
     auto info = MakeGpsTrackInfo(timestamp + i, ms::LatLon(-90 + i, -180 + i), i);
-    pair<size_t, size_t> poppedId;
-    size_t addedId = collection.Add(info, poppedId);
+    pair<size_t, size_t> evictedIds;
+    size_t addedId = collection.Add(info, evictedIds);
     TEST_EQUAL(addedId, i, ());
-    TEST_EQUAL(poppedId.first, GpsTrackCollection::kInvalidId, ());
-    TEST_EQUAL(poppedId.second, GpsTrackCollection::kInvalidId, ());
+    TEST_EQUAL(evictedIds.first, GpsTrackCollection::kInvalidId, ());
+    TEST_EQUAL(evictedIds.second, GpsTrackCollection::kInvalidId, ());
     data[addedId] = info;
   }
 
   TEST_EQUAL(100, collection.GetSize(), ());
 
   auto info = MakeGpsTrackInfo(timestamp + 100, ms::LatLon(45, 60), 110);
-  pair<size_t, size_t> poppedId;
-  size_t addedId = collection.Add(info, poppedId);
+  pair<size_t, size_t> evictedIds;
+  size_t addedId = collection.Add(info, evictedIds);
   TEST_EQUAL(addedId, 100, ());
-  TEST_EQUAL(poppedId.first, 0, ());
-  TEST_EQUAL(poppedId.second, 0, ());
+  TEST_EQUAL(evictedIds.first, 0, ());
+  TEST_EQUAL(evictedIds.second, 0, ());
   data[addedId] = info;
 
   TEST_EQUAL(100, collection.GetSize(), ());
@@ -159,7 +159,7 @@ UNIT_TEST(GpsTrackCollection_PopByCount)
   TEST_EQUAL(0, collection.GetSize(), ());
 }
 
-UNIT_TEST(GpsTrackCollection_PopByTimestamp2)
+UNIT_TEST(GpsTrackCollection_EvictedByTimestamp2)
 {
   double const timestamp = 0;
   double const timestamp_12h = timestamp + 12 * 60 * 60;
@@ -172,11 +172,11 @@ UNIT_TEST(GpsTrackCollection_PopByTimestamp2)
   for (size_t i = 0; i < 500; ++i)
   {
     auto info = MakeGpsTrackInfo(timestamp + i, ms::LatLon(-90 + i, -180 + i), i);
-    pair<size_t, size_t> poppedId;
-    size_t addedId = collection.Add(info, poppedId);
+    pair<size_t, size_t> evictedIds;
+    size_t addedId = collection.Add(info, evictedIds);
     TEST_EQUAL(addedId, i, ());
-    TEST_EQUAL(poppedId.first, GpsTrackCollection::kInvalidId, ());
-    TEST_EQUAL(poppedId.second, GpsTrackCollection::kInvalidId, ());
+    TEST_EQUAL(evictedIds.first, GpsTrackCollection::kInvalidId, ());
+    TEST_EQUAL(evictedIds.second, GpsTrackCollection::kInvalidId, ());
   }
 
   auto time = collection.GetTimestampRange();
@@ -186,11 +186,11 @@ UNIT_TEST(GpsTrackCollection_PopByTimestamp2)
   for (size_t i = 0; i < 500; ++i)
   {
     auto info = MakeGpsTrackInfo(timestamp_12h + i, ms::LatLon(-90 + i, -180 + i), i);
-    pair<size_t, size_t> poppedId;
-    size_t addedId = collection.Add(info, poppedId);
+    pair<size_t, size_t> evictedIds;
+    size_t addedId = collection.Add(info, evictedIds);
     TEST_EQUAL(addedId, 500 + i, ());
-    TEST_EQUAL(poppedId.first, GpsTrackCollection::kInvalidId, ());
-    TEST_EQUAL(poppedId.second, GpsTrackCollection::kInvalidId, ());
+    TEST_EQUAL(evictedIds.first, GpsTrackCollection::kInvalidId, ());
+    TEST_EQUAL(evictedIds.second, GpsTrackCollection::kInvalidId, ());
   }
 
   time = collection.GetTimestampRange();
@@ -198,11 +198,11 @@ UNIT_TEST(GpsTrackCollection_PopByTimestamp2)
   TEST_EQUAL(1000, collection.GetSize(), ());
 
   auto info = MakeGpsTrackInfo(timestamp_35h, ms::LatLon(45, 60), 110);
-  pair<size_t, size_t> poppedId;
-  size_t addedId = collection.Add(info, poppedId);
+  pair<size_t, size_t> evictedIds;
+  size_t addedId = collection.Add(info, evictedIds);
   TEST_EQUAL(addedId, 1000, ());
-  TEST_EQUAL(poppedId.first, 0, ());
-  TEST_EQUAL(poppedId.second, 499, ());
+  TEST_EQUAL(evictedIds.first, 0, ());
+  TEST_EQUAL(evictedIds.second, 499, ());
 
   auto res = collection.Clear();
   TEST_EQUAL(res.first, 500, ());

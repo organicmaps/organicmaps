@@ -22,18 +22,18 @@ public:
 
   /// Adds new point in the collection.
   /// @param item - item to be added.
-  /// @param poppedIds - output, which contains range of identifiers popped items or
+  /// @param evictedIds - output, which contains range of identifiers evicted items or
   /// pair(kInvalidId,kInvalidId) if nothing was removed
   /// @returns the item unique identifier or kInvalidId if point has incorrect time.
-  size_t Add(TItem const & item, pair<size_t, size_t> & poppedIds);
+  size_t Add(TItem const & item, pair<size_t, size_t> & evictedIds);
 
   /// Adds set of new points in the collection.
   /// @param items - set of items to be added.
-  /// @param poppedIds - output, which contains range of identifiers popped items or
+  /// @param evictedIds - output, which contains range of identifiers evicted items or
   /// pair(kInvalidId,kInvalidId) if nothing was removed
   /// @returns range of identifiers of added items or pair(kInvalidId,kInvalidId) if nothing was added
   /// @note items which does not conform to timestamp sequence, is not added.
-  pair<size_t, size_t> Add(vector<TItem> const & items, pair<size_t, size_t> & poppedIds);
+  pair<size_t, size_t> Add(vector<TItem> const & items, pair<size_t, size_t> & evictedIds);
 
   /// Get current duration in hours
   /// @returns current duration in hours

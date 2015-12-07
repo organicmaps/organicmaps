@@ -16,7 +16,8 @@ class Rollbacker
 {
 public:
   Rollbacker(deque<T> & cont)
-    : m_cont(&cont) , m_size(cont.size())
+    : m_cont(&cont)
+    , m_size(cont.size())
   {}
   ~Rollbacker()
   {
@@ -40,24 +41,24 @@ GpsTrackCollection::GpsTrackCollection(size_t maxSize, hours duration)
 {
 }
 
-size_t GpsTrackCollection::Add(TItem const & item, pair<size_t, size_t> & poppedIds)
+size_t GpsTrackCollection::Add(TItem const & item, pair<size_t, size_t> & evictedIds)
 {
   if (!m_items.empty() && m_items.back().m_timestamp > item.m_timestamp)
   {
     // Invalid timestamp order
-    poppedIds = make_pair(kInvalidId, kInvalidId); // Nothing was popped
+    evictedIds = make_pair(kInvalidId, kInvalidId); // Nothing was evicted
     return kInvalidId; // Nothing was added
   }
 
   m_items.emplace_back(item);
   ++m_lastId;
 
-  poppedIds = RemoveExtraItems();
+  evictedIds = RemoveExtraItems();
 
   return m_lastId - 1;
 }
 
-pair<size_t, size_t> GpsTrackCollection::Add(vector<TItem> const & items, pair<size_t, size_t> & poppedIds)
+pair<size_t, size_t> GpsTrackCollection::Add(vector<TItem> const & items, pair<size_t, size_t> & evictedIds)
 {
   size_t startId = m_lastId;
   size_t added = 0;
@@ -79,13 +80,13 @@ pair<size_t, size_t> GpsTrackCollection::Add(vector<TItem> const & items, pair<s
   if (0 == added)
   {
     // Invalid timestamp order
-    poppedIds = make_pair(kInvalidId, kInvalidId); // Nothing was popped
+    evictedIds = make_pair(kInvalidId, kInvalidId); // Nothing was evicted
     return make_pair(kInvalidId, kInvalidId); // Nothing was added
   }
 
   m_lastId += added;
 
-  poppedIds = RemoveExtraItems();
+  evictedIds = RemoveExtraItems();
 
   return make_pair(startId, startId + added - 1);
 }
@@ -117,7 +118,7 @@ pair<size_t, size_t> GpsTrackCollection::Clear(bool resetIds)
 
   ASSERT(m_lastId >= m_items.size(), ());
 
-  // Range of popped items
+  // Range of evicted items
   auto const res = make_pair(m_lastId - m_items.size(), m_lastId - 1);
 
   // Use move from an empty deque to free memory.
@@ -190,7 +191,7 @@ pair<size_t, size_t> GpsTrackCollection::RemoveExtraItems()
   auto i = m_items.begin();
 
   // First, try linear search for short distance. It is common case for sliding window
-  // when new items will pop up old items.
+  // when new items will evict old items.
   for (size_t j = 0; j < kLinearSearchCount && !found; ++i, ++j)
   {
     ASSERT(i != m_items.end(), ());
