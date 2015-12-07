@@ -104,11 +104,14 @@ public:
   GlyphIndex(m2::PointU size, ref_ptr<GlyphManager> mng);
   ~GlyphIndex();
 
-  /// can return nullptr
+  // This function can return nullptr.
   ref_ptr<Texture::ResourceInfo> MapResource(GlyphKey const & key, bool & newResource);
   void UploadResources(ref_ptr<Texture> texture);
 
   bool HasAsyncRoutines() const;
+
+  // ONLY for unit-tests. DO NOT use this function anywhere else.
+  size_t GetPendingNodesCount();
 
 private:
   void OnGlyphGenerationCompletion(m2::RectU const & rect, GlyphManager::Glyph const & glyph);

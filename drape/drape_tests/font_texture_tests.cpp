@@ -96,10 +96,11 @@ UNIT_TEST(UploadingGlyphs)
 
   GlyphManager mng(args);
   DummyGlyphIndex index(m2::PointU(128, 128), make_ref(&mng));
-  index.MapResource(GlyphKey(0x58));
-  index.MapResource(GlyphKey(0x59));
-  index.MapResource(GlyphKey(0x61));
-  while(index.HasAsyncRoutines());
+  size_t count = 1; // invalid symbol glyph has mapped internally.
+  count += (index.MapResource(GlyphKey(0x58)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x59)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x61)) != nullptr) ? 1 : 0;
+  while (index.GetPendingNodesCount() < count);
 
   Texture::Params p;
   p.m_allocator = GetDefaultAllocator();
@@ -111,13 +112,14 @@ UNIT_TEST(UploadingGlyphs)
   EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _)).WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage));
   index.UploadResources(make_ref(&tex));
 
-  index.MapResource(GlyphKey(0x68));
-  index.MapResource(GlyphKey(0x30));
-  index.MapResource(GlyphKey(0x62));
-  index.MapResource(GlyphKey(0x65));
-  index.MapResource(GlyphKey(0x400));
-  index.MapResource(GlyphKey(0x401));
-  while(index.HasAsyncRoutines());
+  count = 0;
+  count += (index.MapResource(GlyphKey(0x68)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x30)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x62)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x65)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x400)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x401)) != nullptr) ? 1 : 0;
+  while (index.GetPendingNodesCount() < count);
 
   EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _)).WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage))
                                                 .WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage));

@@ -199,6 +199,12 @@ bool GlyphIndex::HasAsyncRoutines() const
   return !m_generator->IsSuspended();
 }
 
+size_t GlyphIndex::GetPendingNodesCount()
+{
+  threads::MutexGuard g(m_lock);
+  return m_pendingNodes.size();
+}
+
 void GlyphIndex::OnGlyphGenerationCompletion(m2::RectU const & rect, GlyphManager::Glyph const & glyph)
 {
   threads::MutexGuard g(m_lock);
