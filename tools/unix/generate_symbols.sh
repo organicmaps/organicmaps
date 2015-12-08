@@ -76,26 +76,26 @@ done
 
 BuildSkin legacy yota  yota   19 true
 
-BuildSkin legacy light ldpi   16 false
-BuildSkin legacy light mdpi   16 false
-BuildSkin legacy light hdpi   24 false
+BuildSkin legacy light ldpi   18 false
+BuildSkin legacy light mdpi   18 false
+BuildSkin legacy light hdpi   27 false
 BuildSkin legacy light xhdpi  36 false
-BuildSkin legacy light xxhdpi 48 false
-BuildSkin legacy light 6plus  48 false
+BuildSkin legacy light xxhdpi 54 false
+BuildSkin legacy light 6plus  54 false
 
-BuildSkin clear  night ldpi   16 false _dark
-BuildSkin clear  night mdpi   16 false _dark
-BuildSkin clear  night hdpi   24 false _dark
+BuildSkin clear  night ldpi   18 false _dark
+BuildSkin clear  night mdpi   18 false _dark
+BuildSkin clear  night hdpi   27 false _dark
 BuildSkin clear  night xhdpi  36 false _dark
-BuildSkin clear  night xxhdpi 48 false _dark
-BuildSkin clear  night 6plus  48 false _dark
+BuildSkin clear  night xxhdpi 54 false _dark
+BuildSkin clear  night 6plus  54 false _dark
 
-BuildSkin clear  clear ldpi   16 false _clear
-BuildSkin clear  clear mdpi   16 false _clear
-BuildSkin clear  clear hdpi   24 false _clear
+BuildSkin clear  clear ldpi   18 false _clear
+BuildSkin clear  clear mdpi   18 false _clear
+BuildSkin clear  clear hdpi   27 false _clear
 BuildSkin clear  clear xhdpi  36 false _clear
-BuildSkin clear  clear xxhdpi 48 false _clear
-BuildSkin clear  clear 6plus  48 false _clear
+BuildSkin clear  clear xxhdpi 54 false _clear
+BuildSkin clear  clear 6plus  54 false _clear
 
 # Success
 echo "Done"
