@@ -61,7 +61,7 @@ feature::EGeomType FeatureBase::GetFeatureType() const
 
 string FeatureBase::DebugString() const
 {
-  ASSERT(m_bCommonParsed, ());
+  ParseCommon();
 
   Classificator const & c = classif();
 
