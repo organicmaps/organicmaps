@@ -114,6 +114,21 @@ UNIT_TEST(TestTimeTable_ExcludeTime)
     TEST(!tt.ReplaceExcludeTime({10_h + 30_min, 14_h}, 1), ());
     TEST_EQUAL(tt.GetExcludeTime().size(), 3, ());
   }
+  {
+    auto tt = TimeTable::GetPredefinedTimeTable();
+    tt.SetTwentyFourHours(false);
+
+    tt.SetOpeningTime({8_h + 15_min, 23_h + 30_min});
+    TEST(tt.AddExcludeTime({10_h, 11_h}), ());
+    TEST(tt.AddExcludeTime({12_h, 13_h}), ());
+    TEST(tt.AddExcludeTime({15_h, 17_h}), ());
+    TEST_EQUAL(tt.GetPredefinedExcludeTime().GetStart().GetHourMinutes().GetHoursCount(), 19, ());
+    TEST_EQUAL(tt.GetPredefinedExcludeTime().GetEnd().GetHourMinutes().GetHoursCount(), 20, ());
+
+    TEST(tt.AddExcludeTime({18_h, 23_h}), ());
+    TEST_EQUAL(tt.GetPredefinedExcludeTime().GetStart().GetHourMinutes().GetHoursCount(), 1, ());
+    TEST_EQUAL(tt.GetPredefinedExcludeTime().GetEnd().GetHourMinutes().GetHoursCount(), 2, ());
+  }
 }
 
 UNIT_TEST(TestAppendTimeTable)

@@ -208,8 +208,18 @@ osmoh::Timespan TimeTable::GetPredefinedOpeningTime() const
 osmoh::Timespan TimeTable::GetPredefinedExcludeTime() const
 {
   using osmoh::operator""_h;
-  // TODO(mgsergio): Genarate next span with start = end of the last once + 1_h
-  return {12_h, 13_h};
+  if (GetExcludeTime().empty())
+    return {12_h, 13_h};
+
+  auto nextExcludeTimeStart = GetExcludeTime().back().GetEnd().GetHourMinutes();
+  nextExcludeTimeStart.AddDuration(2_h);
+  if (nextExcludeTimeStart.GetDuration() >= 24_h - 1_h)
+    nextExcludeTimeStart.AddDuration(-24_h);
+
+  auto nextExcludeTimeEnd = nextExcludeTimeStart;
+  nextExcludeTimeEnd.AddDuration(1_h);
+
+  return {nextExcludeTimeStart, nextExcludeTimeEnd};
 }
 
 // TimeTableSet ------------------------------------------------------------------------------------
