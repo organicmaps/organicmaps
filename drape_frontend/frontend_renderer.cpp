@@ -876,10 +876,7 @@ void FrontendRenderer::CheckMinAllowableIn3dScale()
       m_userEventStream.IsInPerspectiveAnimation())
     return;
 
-  int const minScale = scales::GetMinAllowableIn3dScale() -
-      (df::VisualParams::Instance().GetVisualScale() <= 1.0 ? 1 : 0);
-  bool const switchTo2d = m_currentZoomLevel < minScale;
-
+  bool const switchTo2d = !UserEventStream::IsScaleAllowableIn3d(m_currentZoomLevel);
   if ((!switchTo2d && !m_perspectiveDiscarded) ||
       (switchTo2d && !m_userEventStream.GetCurrentScreen().isPerspective()))
     return;

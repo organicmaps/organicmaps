@@ -5,7 +5,7 @@
 namespace dp
 {
 
-double const k3dAdditionalExtention = 3.0;
+double const k3dAdditionalExtention = 2.0;
 
 struct OverlayHandle::OffsetNodeFinder
 {

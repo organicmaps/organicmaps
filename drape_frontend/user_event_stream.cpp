@@ -3,6 +3,8 @@
 
 #include "indexer/scales.hpp"
 
+#include "platform/platform.hpp"
+
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
@@ -321,6 +323,17 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
   return true;
 }
 
+// static
+bool UserEventStream::IsScaleAllowableIn3d(int scale)
+{
+  int minScale = scales::GetMinAllowableIn3dScale();
+  if (df::VisualParams::Instance().GetVisualScale() <= 1.0)
+    minScale -= 1;
+  if (GetPlatform().IsTablet())
+    minScale += 1;
+  return scale >= minScale;
+}
+
 bool UserEventStream::SetCenter(m2::PointD const & center, int zoom, bool isAnim)
 {
   m2::PointD targetCenter = center;
@@ -329,10 +342,9 @@ bool UserEventStream::SetCenter(m2::PointD const & center, int zoom, bool isAnim
 
   ScreenBase const & currentScreen = GetCurrentScreen();
 
-  int const minScale = scales::GetMinAllowableIn3dScale() -
-      df::VisualParams::Instance().GetVisualScale() <= 1.0 ? 1 : 0;
-  bool const finishIn3d = m_discardedFOV > 0.0 && zoom >= minScale;
-  bool const finishIn2d = currentScreen.isPerspective() && zoom < minScale;
+  bool const isScaleAllowableIn3d = IsScaleAllowableIn3d(zoom);
+  bool const finishIn3d = m_discardedFOV > 0.0 && isScaleAllowableIn3d;
+  bool const finishIn2d = currentScreen.isPerspective() && !isScaleAllowableIn3d;
 
   ScreenBase screen = currentScreen;
   if (finishIn3d)
