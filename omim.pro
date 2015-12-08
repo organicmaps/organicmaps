@@ -23,7 +23,7 @@ HEADERS += defines.hpp
   CONFIG *= desktop
 }
 
-SUBDIRS = 3party base coding geometry indexer routing
+SUBDIRS = 3party base coding geometry indexer search routing
 
 !CONFIG(osrm) {
   SUBDIRS *= platform stats storage
@@ -31,7 +31,7 @@ SUBDIRS = 3party base coding geometry indexer routing
   # Integration tests dependencies for gtool.
   # TODO(AlexZ): Avoid duplication for routing_integration_tests.
   CONFIG(gtool):!CONFIG(no-tests) {
-    SUBDIRS *= search map
+    SUBDIRS *= map
 
     routing_integration_tests.subdir = routing/routing_integration_tests
     routing_integration_tests.depends = $$SUBDIRS
@@ -50,7 +50,7 @@ SUBDIRS = 3party base coding geometry indexer routing
 }
 
 !CONFIG(gtool):!CONFIG(osrm) {
-  SUBDIRS *= drape drape_frontend search map
+  SUBDIRS *= drape drape_frontend map
 
   CONFIG(map_designer):CONFIG(desktop) {
     SUBDIRS *= skin_generator
@@ -64,7 +64,7 @@ SUBDIRS = 3party base coding geometry indexer routing
 
   CONFIG(desktop) {
     benchmark_tool.subdir = map/benchmark_tool
-    benchmark_tool.depends = 3party base coding geometry platform indexer map
+    benchmark_tool.depends = 3party base coding geometry platform indexer search map
     mapshot.depends = $$SUBDIRS
     qt.depends = $$SUBDIRS
 

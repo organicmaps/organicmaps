@@ -1,13 +1,13 @@
 #include "testing/testing.hpp"
 
 #include "search/house_detector.hpp"
+#include "search/search_string_utils.hpp"
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_header.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
 #include "indexer/scales.hpp"
-#include "indexer/search_string_utils.hpp"
 
 #include "platform/platform.hpp"
 

@@ -1,4 +1,4 @@
-#include "indexer/search_delimiters.hpp"
+#include "search_delimiters.hpp"
 
 namespace search
 {

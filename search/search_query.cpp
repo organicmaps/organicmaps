@@ -1,5 +1,6 @@
-#include "search/search_query.hpp"
+#include "search_query.hpp"
 
+#include "search/categories_holder.hpp"
 #include "search/dummy_rank_table.hpp"
 #include "search/feature_offset_match.hpp"
 #include "search/geometry_utils.hpp"
@@ -8,14 +9,15 @@
 #include "search/locality.hpp"
 #include "search/region.hpp"
 #include "search/search_common.hpp"
+#include "search/search_delimiters.hpp"
+#include "search/search_index_values.hpp"
 #include "search/search_query_params.hpp"
 #include "search/search_string_intersection.hpp"
+#include "search/search_string_utils.hpp"
 
 #include "storage/country_info_getter.hpp"
 
-#include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
-
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_covering.hpp"
@@ -23,9 +25,7 @@
 #include "indexer/features_vector.hpp"
 #include "indexer/index.hpp"
 #include "indexer/scales.hpp"
-#include "indexer/search_delimiters.hpp"
-#include "indexer/search_index_values.hpp"
-#include "indexer/search_string_utils.hpp"
+#include "indexer/trie_reader.hpp"
 
 #include "platform/mwm_version.hpp"
 #include "platform/preferred_languages.hpp"

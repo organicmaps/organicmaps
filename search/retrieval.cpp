@@ -1,14 +1,14 @@
-#include "search/retrieval.hpp"
-
-#include "search/feature_offset_match.hpp"
-#include "search/interval_set.hpp"
+#include "feature_offset_match.hpp"
+#include "interval_set.hpp"
+#include "retrieval.hpp"
+#include "search_index_values.hpp"
+#include "search_trie.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/index.hpp"
 #include "indexer/scales.hpp"
-#include "indexer/search_index_values.hpp"
-#include "indexer/search_trie.hpp"
+#include "indexer/trie_reader.hpp"
 
 #include "platform/mwm_version.hpp"
 

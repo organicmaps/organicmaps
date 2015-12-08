@@ -13,6 +13,7 @@
 #include "routing/route.hpp"
 #include "routing/routing_algorithm.hpp"
 
+#include "search/categories_holder.hpp"
 #include "search/geometry_utils.hpp"
 #include "search/intermediate_result.hpp"
 #include "search/result.hpp"
@@ -27,7 +28,6 @@
 #include "drape_frontend/watch/cpu_drawer.hpp"
 #include "drape_frontend/watch/feature_processor.hpp"
 
-#include "indexer/categories_holder.hpp"
 #include "indexer/classificator_loader.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/feature.hpp"

@@ -1,11 +1,7 @@
 #pragma once
 
-#include "indexer/geometry_serialization.hpp"
-#include "indexer/search_index_values.hpp"
-#include "indexer/trie.hpp"
-#include "indexer/trie_reader.hpp"
-
-#include "coding/reader.hpp"
+#include "indexer/coding_params.hpp"
+#include "indexer/point_to_int64.hpp"
 
 namespace search
 {

@@ -1,10 +1,14 @@
-#include "search/search_integration_tests/test_results_matching.hpp"
+#include "search/search_tests_support/test_results_matching.hpp"
 
 #include "indexer/feature_decl.hpp"
 #include "indexer/index.hpp"
 
 #include "std/sstream.hpp"
 
+namespace search
+{
+namespace tests_support
+{
 ExactMatch::ExactMatch(MwmSet::MwmId const & mwmId, shared_ptr<TestFeature> feature)
   : m_mwmId(mwmId), m_feature(feature)
 {
@@ -92,3 +96,5 @@ bool MatchResults(Index const & index, vector<shared_ptr<MatchingRule>> rules,
 }
 
 string DebugPrint(MatchingRule const & rule) { return rule.ToString(); }
+}  // namespace tests_support
+}  // namespace search

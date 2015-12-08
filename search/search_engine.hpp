@@ -1,13 +1,12 @@
 #pragma once
 
+#include "categories_holder.hpp"
 #include "params.hpp"
 #include "result.hpp"
 #include "search_query_factory.hpp"
 #include "suggest.hpp"
 
 #include "geometry/rect2d.hpp"
-
-#include "indexer/categories_holder.hpp"
 
 #include "coding/reader.hpp"
 

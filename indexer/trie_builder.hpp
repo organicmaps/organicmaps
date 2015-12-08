@@ -1,4 +1,5 @@
 #pragma once
+#include "trie.hpp"
 
 #include "coding/byte_stream.hpp"
 #include "coding/varint.hpp"
@@ -8,6 +9,7 @@
 
 #include "std/algorithm.hpp"
 #include "std/vector.hpp"
+
 
 // Trie format:
 // [1: header]

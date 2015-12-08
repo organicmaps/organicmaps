@@ -2,14 +2,14 @@
 
 #include "search/search_tests_support/test_feature.hpp"
 
-#include "indexer/data_header.hpp"
-#include "indexer/features_offsets_table.hpp"
-#include "indexer/index_builder.hpp"
-#include "indexer/search_index_builder.hpp"
-
 #include "generator/feature_builder.hpp"
 #include "generator/feature_generator.hpp"
 #include "generator/feature_sorter.hpp"
+#include "generator/search_index_builder.hpp"
+
+#include "indexer/data_header.hpp"
+#include "indexer/features_offsets_table.hpp"
+#include "indexer/index_builder.hpp"
 
 #include "platform/local_country_file.hpp"
 

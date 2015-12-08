@@ -1,4 +1,4 @@
-#include "indexer/search_string_utils.hpp"
+#include "search_string_utils.hpp"
 
 #include "base/macros.hpp"
 

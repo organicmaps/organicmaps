@@ -2,12 +2,12 @@
 #include "search/intermediate_result.hpp"
 #include "search/keyword_lang_matcher.hpp"
 #include "search/retrieval.hpp"
+#include "search/search_trie.hpp"
 #include "search/suggest.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
 #include "indexer/rank_table.hpp"
-#include "indexer/search_trie.hpp"
 
 #include "geometry/rect2d.hpp"
 

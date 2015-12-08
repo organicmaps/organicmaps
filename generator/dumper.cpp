@@ -1,10 +1,13 @@
 #include "generator/dumper.hpp"
 
+#include "search/search_delimiters.hpp"
+#include "search/search_index_values.hpp"
+#include "search/search_string_utils.hpp"
+#include "search/search_trie.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/feature_processor.hpp"
-#include "indexer/search_delimiters.hpp"
-#include "indexer/search_string_utils.hpp"
-#include "indexer/search_trie.hpp"
+#include "indexer/trie_reader.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
 

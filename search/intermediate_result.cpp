@@ -1,3 +1,4 @@
+#include "categories_holder.hpp"
 #include "intermediate_result.hpp"
 #include "geometry_utils.hpp"
 
@@ -7,7 +8,6 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/scales.hpp"
-#include "indexer/categories_holder.hpp"
 
 #include "geometry/angles.hpp"
 

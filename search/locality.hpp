@@ -1,7 +1,7 @@
 #pragma once
-
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/search_trie.hpp"
+
+#include "geometry/point2d.hpp"
 
 #include "base/buffer_vector.hpp"
 #include "base/string_utils.hpp"

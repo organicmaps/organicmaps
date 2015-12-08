@@ -1,11 +1,12 @@
 #include "map/framework.hpp"
 
+#include "search/categories_holder.hpp"
 #include "search/result.hpp"
+
 #include "drape_frontend/visual_params.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_visibility.hpp"
-#include "indexer/categories_holder.hpp"
 
 #include "platform/preferred_languages.hpp"
 

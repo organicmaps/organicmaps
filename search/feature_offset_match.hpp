@@ -1,9 +1,10 @@
 #pragma once
 #include "search/search_common.hpp"
+#include "search/search_index_values.hpp"
 #include "search/search_query.hpp"
 #include "search/search_query_params.hpp"
 
-#include "indexer/search_trie.hpp"
+#include "indexer/trie.hpp"
 
 #include "base/mutex.hpp"
 #include "base/scope_guard.hpp"

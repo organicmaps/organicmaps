@@ -3,7 +3,6 @@
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
-#include "indexer/search_trie.hpp"
 #include "indexer/succinct_trie_builder.hpp"
 #include "indexer/succinct_trie_reader.hpp"
 #include "indexer/trie.hpp"

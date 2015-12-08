@@ -1,10 +1,10 @@
 #include "testing/testing.hpp"
 
-#include "search/search_integration_tests/test_feature.hpp"
-#include "search/search_integration_tests/test_mwm_builder.hpp"
-#include "search/search_integration_tests/test_results_matching.hpp"
-#include "search/search_integration_tests/test_search_engine.hpp"
-#include "search/search_integration_tests/test_search_request.hpp"
+#include "search/search_tests_support/test_feature.hpp"
+#include "search/search_tests_support/test_mwm_builder.hpp"
+#include "search/search_tests_support/test_results_matching.hpp"
+#include "search/search_tests_support/test_search_engine.hpp"
+#include "search/search_tests_support/test_search_request.hpp"
 
 #include "search/search_query_factory.hpp"
 #include "search/v2/search_query_v2.hpp"
@@ -23,6 +23,8 @@
 #include "platform/platform.hpp"
 
 #include "base/scope_guard.hpp"
+
+using namespace search::tests_support;
 
 namespace
 {

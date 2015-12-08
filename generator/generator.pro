@@ -29,6 +29,7 @@ SOURCES += \
     osm_id.cpp \
     osm_source.cpp \
     routing_generator.cpp \
+    search_index_builder.cpp \
     statistics.cpp \
     tesselator.cpp \
     unpack_mwm.cpp \
@@ -58,6 +59,7 @@ HEADERS += \
     osm_xml_source.hpp \
     polygonizer.hpp \
     routing_generator.hpp \
+    search_index_builder.hpp \
     statistics.hpp \
     tesselator.hpp \
     unpack_mwm.hpp \

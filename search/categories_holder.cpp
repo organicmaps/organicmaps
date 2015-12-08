@@ -1,6 +1,7 @@
-#include "indexer/categories_holder.hpp"
-#include "indexer/search_delimiters.hpp"
-#include "indexer/search_string_utils.hpp"
+#include "categories_holder.hpp"
+#include "search_delimiters.hpp"
+#include "search_string_utils.hpp"
+
 #include "indexer/classificator.hpp"
 
 #include "coding/reader.hpp"

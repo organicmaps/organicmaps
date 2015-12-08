@@ -1,7 +1,6 @@
-#include "search/keyword_matcher.hpp"
-
-#include "indexer/search_delimiters.hpp"
-#include "indexer/search_string_utils.hpp"
+#include "keyword_matcher.hpp"
+#include "search_delimiters.hpp"
+#include "search_string_utils.hpp"
 
 #include "base/stl_add.hpp"
 

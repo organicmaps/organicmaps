@@ -1,11 +1,11 @@
 #include "reverse_geocoder.hpp"
+#include "search_string_utils.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
 #include "indexer/scales.hpp"
-#include "indexer/search_string_utils.hpp"
 
 
 namespace search
