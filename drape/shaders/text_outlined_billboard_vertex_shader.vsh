@@ -34,7 +34,7 @@ void main()
   vec4 offset = vec4(a_normal, Zero, Zero) * projection;
   
   vec4 projectedPivot = pivot * projection;
-  vec4 transformedPivot = pivotTransform * projectedPivot;
+  vec4 transformedPivot = pivotTransform * vec4(projectedPivot.xy, 0.0, 1.0);
   
   vec4 scale = pivotTransform * vec4(One, -One, Zero, One);
   gl_Position = transformedPivot + vec4(offset.xy * transformedPivot.w / scale.w * scale.x, Zero, Zero);
