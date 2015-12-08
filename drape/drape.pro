@@ -13,6 +13,7 @@ SOURCES += glfunctions.cpp
 
 OTHER_FILES += \
     shaders/area_vertex_shader.vsh \
+    shaders/area3d_vertex_shader.vsh \
     shaders/button_fragment_shader.fsh \
     shaders/button_vertex_shader.vsh \
     shaders/circle_shader.fsh \

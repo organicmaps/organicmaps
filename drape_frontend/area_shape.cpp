@@ -60,6 +60,7 @@ void AreaShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
 
     dp::GLState state(gpu::AREA_3D_PROGRAM, dp::GLState::GeometryLayer);
     state.SetColorTexture(region.GetTexture());
+    state.SetBlending(dp::Blending(false /* isEnabled */));
 
     dp::AttributeProvider provider(1, vertexes.size());
     provider.InitStream(0, gpu::Area3dVertex::GetBindingInfo(), make_ref(vertexes.data()));
