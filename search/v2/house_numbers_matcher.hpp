@@ -9,9 +9,9 @@ namespace search
 {
 namespace v2
 {
-// This class splits a string representing a house number to a groups
-// of symbols from the same class (separators, digits or other
-// symbols, hope, letters).
+// This class splits a string representing a house number to groups of
+// symbols from the same class (separators, digits or other symbols,
+// hope, letters).
 class HouseNumberTokenizer
 {
 public:
@@ -32,6 +32,8 @@ public:
     CharClass m_klass;
   };
 
+  // Performs greedy split of |s| by character classes. Note that this
+  // function never emits Tokens corresponding to Separator classes.
   static void Tokenize(strings::UniString const & s, vector<Token> & ts);
 };
 

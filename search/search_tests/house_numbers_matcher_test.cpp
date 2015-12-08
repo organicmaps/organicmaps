@@ -39,9 +39,8 @@ void CheckNormalizer(string const & utf8s, string const & expected)
 UNIT_TEST(HouseNumberTokenizer_Smoke)
 {
   CheckTokenizer("123Б", {"123", "Б"});
-  CheckTokenizer("123/Б", {"123", "/", "Б"});
-  CheckTokenizer("123/34 корп. 4 стр1",
-                 {"123", "/", "34", " ", "корп", ". ", "4", " ", "стр", "1"});
+  CheckTokenizer("123/Б", {"123", "Б"});
+  CheckTokenizer("123/34 корп. 4 стр1", {"123", "34", "корп", "4", "стр", "1"});
 }
 
 UNIT_TEST(HouseNumberNormalizer_Smoke)
@@ -69,4 +68,5 @@ UNIT_TEST(HouseNumbersMatcher_Smoke)
   TEST(!HouseNumbersMatch("127а корпус 2", "127"), ());
   TEST(!HouseNumbersMatch("6 корпус 2", "7"), ());
   TEST(!HouseNumbersMatch("10/42 корпус 2", "42"), ());
+  TEST(!HouseNumbersMatch("--...--.-", "--.....-"), ());
 }
