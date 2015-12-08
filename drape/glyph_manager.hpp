@@ -25,7 +25,7 @@ public:
 
     vector<string> m_fonts;
 
-    uint32_t m_baseGlyphHeight = 20;
+    uint32_t m_baseGlyphHeight = 22;
     uint32_t m_sdfScale = 4;
   };
 
