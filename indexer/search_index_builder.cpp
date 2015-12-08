@@ -1,7 +1,5 @@
 #include "indexer/search_index_builder.hpp"
 
-#include "search/reverse_geocoder.hpp"
-
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/feature_algo.hpp"
@@ -9,6 +7,7 @@
 #include "indexer/feature_visibility.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/index.hpp"
+#include "indexer/reverse_geocoder.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_index_values.hpp"
 #include "indexer/search_string_utils.hpp"

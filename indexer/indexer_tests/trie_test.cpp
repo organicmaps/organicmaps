@@ -13,6 +13,7 @@
 #include "std/algorithm.hpp"
 #include "std/cstring.hpp"
 #include "std/string.hpp"
+#include "std/type_traits.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
@@ -44,7 +45,9 @@ template <typename TPrimitive>
 class SingleValueSerializer
 {
 public:
+#if !defined(OMIM_OS_LINUX)
   static_assert(is_trivially_copyable<TPrimitive>::value, "");
+#endif
 
   template <typename TWriter>
   void Serialize(TWriter & writer, TPrimitive const & v) const
@@ -60,7 +63,9 @@ public:
   using TValue = TPrimitive;
   using TSerializer = SingleValueSerializer<TValue>;
 
+#if !defined(OMIM_OS_LINUX)
   static_assert(is_trivially_copyable<TPrimitive>::value, "");
+#endif
 
   ValueList() = default;
 

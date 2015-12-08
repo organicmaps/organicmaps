@@ -44,6 +44,7 @@ SOURCES += \
     old/feature_loader_101.cpp \
     point_to_int64.cpp \
     rank_table.cpp \
+    reverse_geocoder.cpp \
     scales.cpp \
     search_delimiters.cpp \
     search_index_builder.cpp \
@@ -95,6 +96,7 @@ HEADERS += \
     old/interval_index_101.hpp \
     point_to_int64.hpp \
     rank_table.hpp \
+    reverse_geocoder.hpp \
     scale_index.hpp \
     scale_index_builder.hpp \
     scales.hpp \
