@@ -9,7 +9,7 @@
 
 #include "indexer/geometry_serialization.hpp"
 #include "indexer/scales.hpp"
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "geometry/simplification.hpp"
 #include "geometry/distance.hpp"

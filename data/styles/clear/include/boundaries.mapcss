@@ -50,6 +50,14 @@ line|z8[boundary=administrative][admin_level=2]
   z-index: 130;
 }
 
+line|z9-[boundary=administrative][admin_level=2]
+{
+  color: @border_country;
+  width: 1.4;
+  opacity: 1;
+  z-index: 130;
+}
+
 line|z4[boundary=administrative][admin_level=3]
 {
   color: @border_region;
@@ -108,6 +116,8 @@ line|z10-[boundary=administrative][admin_level=4]
   z-index: 130;
   dashes: 1.8,0.9;
 }
+
+
 /*
 line|z12-[boundary=administrative][admin_level=4]
 {

@@ -1,6 +1,6 @@
 #include "map/geourl_process.hpp"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 #include "indexer/scales.hpp"
 
 #include "coding/uri.hpp"

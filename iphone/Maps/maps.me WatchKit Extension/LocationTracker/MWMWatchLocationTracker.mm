@@ -1,6 +1,6 @@
 #import "MWMWatchLocationTracker.h"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 #include "platform/measurement_utils.hpp"
 
 static CLLocationDistance const kNoMovementThreshold = 5.0;

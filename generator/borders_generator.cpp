@@ -1,6 +1,6 @@
 #include "generator/borders_generator.hpp"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"

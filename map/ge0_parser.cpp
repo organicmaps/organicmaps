@@ -3,7 +3,7 @@
 
 #include "api/internal/c/api-client-internals.h"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "coding/url_encode.hpp"
 

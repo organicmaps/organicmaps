@@ -5,7 +5,7 @@
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 #include "platform/measurement_utils.hpp"
 
 static NSDictionary * const kSelectedAttributes = @{

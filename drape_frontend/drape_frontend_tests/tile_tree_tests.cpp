@@ -4,7 +4,7 @@
 
 #include "drape/glstate.hpp"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/logging.hpp"
 

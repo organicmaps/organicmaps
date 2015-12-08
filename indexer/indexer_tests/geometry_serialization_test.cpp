@@ -4,7 +4,7 @@
 
 #include "indexer/geometry_serialization.hpp"
 #include "indexer/coding_params.hpp"
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "coding/reader.hpp"
 #include "coding/byte_stream.hpp"

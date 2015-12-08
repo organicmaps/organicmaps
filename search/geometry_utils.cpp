@@ -1,6 +1,6 @@
 #include "geometry_utils.hpp"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 #include "indexer/scales.hpp"
 
 

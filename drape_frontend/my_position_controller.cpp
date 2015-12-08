@@ -4,7 +4,7 @@
 #include "animation/interpolations.hpp"
 #include "animation/model_view_animation.hpp"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/math.hpp"
 

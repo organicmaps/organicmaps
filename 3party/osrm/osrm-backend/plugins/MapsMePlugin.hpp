@@ -7,7 +7,7 @@
 #include "../../../../defines.hpp"
 #include "../../../../geometry/region2d.hpp"
 #include "../../../../indexer/geometry_serialization.hpp"
-#include "../../../../indexer/mercator.hpp"
+#include "../../../../geometry/mercator.hpp"
 #include "../../../../storage/country_decl.hpp"
 #include "../../../../storage/country_polygon.hpp"
 

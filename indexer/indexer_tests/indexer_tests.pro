@@ -29,7 +29,6 @@ SOURCES += \
     index_builder_test.cpp \
     index_test.cpp \
     interval_index_test.cpp \
-    mercator_test.cpp \
     mwm_set_test.cpp \
     point_to_int64_test.cpp \
     scales_test.cpp \

@@ -40,7 +40,6 @@ SOURCES += \
     index_builder.cpp \
     map_style.cpp \
     map_style_reader.cpp \
-    mercator.cpp \
     mwm_set.cpp \
     old/feature_loader_101.cpp \
     point_to_int64.cpp \
@@ -88,7 +87,6 @@ HEADERS += \
     interval_index_iface.hpp \
     map_style.hpp \
     map_style_reader.hpp \
-    mercator.hpp \
     mwm_set.hpp \
     old/feature_loader_101.hpp \
     old/interval_index_101.hpp \

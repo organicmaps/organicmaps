@@ -17,6 +17,8 @@ public:
 
   void AppendIndexes(void const * indexes, uint32_t count);
 
+  uint32_t GetCapacity() const;
+
 private:
   friend class VertexArrayBuffer;
   void const * GetIndexes() const;

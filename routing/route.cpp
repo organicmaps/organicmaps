@@ -1,7 +1,7 @@
 #include "route.hpp"
 #include "turns_generator.hpp"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "platform/location.hpp"
 

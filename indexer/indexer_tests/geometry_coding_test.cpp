@@ -2,7 +2,7 @@
 
 #include "indexer/geometry_coding.hpp"
 #include "indexer/point_to_int64.hpp"
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 #include "indexer/coding_params.hpp"
 
 #include "indexer/indexer_tests/test_polylines.hpp"

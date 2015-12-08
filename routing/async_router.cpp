@@ -7,7 +7,7 @@
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 namespace routing
 {

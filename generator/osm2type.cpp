@@ -4,7 +4,7 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_visibility.hpp"
-#include "indexer/mercator.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
