@@ -13,14 +13,31 @@ public abstract class MapObject implements Parcelable
   protected double mLon;
   protected String mTypeName;
   protected Metadata mMetadata;
+  private final boolean mDroppedPin;
 
   public MapObject(String name, double lat, double lon, String typeName)
+  {
+    this(name, lat, lon, typeName, new Metadata());
+  }
+
+  public MapObject(String name, double lat, double lon, String typeName, Metadata metadata)
   {
     mName = name;
     mLat = lat;
     mLon = lon;
     mTypeName = typeName;
-    mMetadata = new Metadata();
+    mMetadata = metadata;
+
+    mDroppedPin = TextUtils.isEmpty(mName);
+  }
+
+  protected MapObject(Parcel source)
+  {
+    this(source.readString(), // Name
+         source.readDouble(), // Lat
+         source.readDouble(), // Lon
+         source.readString(), // Type
+         (Metadata)source.readParcelable(Metadata.class.getClassLoader()));
   }
 
   public void setDefaultIfEmpty()
@@ -83,6 +100,11 @@ public abstract class MapObject implements Parcelable
   }
 
   public String getPoiTypeName() { return mTypeName; }
+
+  public boolean isDroppedPin()
+  {
+    return mDroppedPin;
+  }
 
   public void addMetadata(int type, String value)
   {
@@ -151,15 +173,6 @@ public abstract class MapObject implements Parcelable
       return new Bookmark(source);
     }
     return null;
-  }
-
-  protected MapObject(Parcel source)
-  {
-    mName = source.readString();
-    mLat = source.readDouble();
-    mLon = source.readDouble();
-    mTypeName = source.readString();
-    mMetadata = source.readParcelable(Metadata.class.getClassLoader());
   }
 
   public enum MapObjectType

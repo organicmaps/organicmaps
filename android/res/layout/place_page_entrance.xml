@@ -7,7 +7,6 @@
   tools:background="#40FF0000"
   tools:visibility="visible">
   <ImageView
-    android:id="@+id/iv__place_entrance"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginRight="@dimen/margin_base"

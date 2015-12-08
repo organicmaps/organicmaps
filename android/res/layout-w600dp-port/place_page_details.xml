@@ -10,7 +10,6 @@
       android:overScrollMode="never">
 
     <RelativeLayout
-        android:id="@+id/rl__place_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipChildren="false">
@@ -40,11 +39,11 @@
             android:layout_marginRight="@dimen/margin_base"/>
 
         <LinearLayout
-            android:id="@+id/ll__details_left"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@id/anchor_center"
             android:orientation="vertical">
+          <include layout="@layout/place_page_editor"/>
 
           <include layout="@layout/place_page_placename"/>
 
@@ -55,16 +54,13 @@
           <include layout="@layout/place_page_website"/>
 
           <include layout="@layout/place_page_wiki"/>
-
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ll__details_right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/anchor_center"
             android:orientation="vertical">
-
           <include layout="@layout/place_page_email"/>
 
           <include layout="@layout/place_page_schedule"/>
@@ -76,9 +72,7 @@
           <include layout="@layout/place_page_operator"/>
 
           <include layout="@layout/place_page_cuisine"/>
-
         </LinearLayout>
-
       </RelativeLayout>
 
       <include

@@ -9,7 +9,6 @@
       android:background="?ppBackground"
       android:overScrollMode="never">
     <LinearLayout
-        android:id="@+id/rl__place_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -22,6 +21,8 @@
           android:layout_height="1dp"
           android:layout_marginBottom="@dimen/margin_half"
           android:background="?attr/dividerHorizontal"/>
+
+      <include layout="@layout/place_page_editor"/>
 
       <include layout="@layout/place_page_placename"/>
 
