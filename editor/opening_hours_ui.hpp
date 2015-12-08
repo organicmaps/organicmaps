@@ -30,12 +30,13 @@ public:
   bool SetOpeningTime(osmoh::Timespan const & span);
 
   bool AddExcludeTime(osmoh::Timespan const & span);
+  bool ReplaceExcludeTime(osmoh::Timespan const & span, size_t const index);
   bool RemoveExcludeTime(size_t const index);
   osmoh::TTimespans const & GetExcludeTime() const { return m_excludeTime; }
 
   bool IsValid() const;
 
-  osmoh::Timespan GetPredifinedOpeningTime() const;
+  osmoh::Timespan GetPredefinedOpeningTime() const;
   osmoh::Timespan GetPredefinedExcludeTime() const;
 
 private:

@@ -115,7 +115,7 @@ TimeTable TimeTable::GetPredefinedTimeTable()
     osmoh::Weekday::Saturday
   };
 
-  tt.m_openingTime = tt.GetPredifinedOpeningTime();
+  tt.m_openingTime = tt.GetPredefinedOpeningTime();
 
   return tt;
 }
@@ -152,11 +152,19 @@ bool TimeTable::SetOpeningTime(osmoh::Timespan const & span)
 
 bool TimeTable::AddExcludeTime(osmoh::Timespan const & span)
 {
-  if (IsTwentyFourHours())
+  return ReplaceExcludeTime(span, GetExcludeTime().size());
+}
+
+bool TimeTable::ReplaceExcludeTime(osmoh::Timespan const & span, size_t const index)
+{
+  if (IsTwentyFourHours() || index > m_excludeTime.size())
     return false;
 
   auto copy = m_excludeTime;
-  copy.push_back(span);
+  if (index == m_excludeTime.size())
+    copy.push_back(span);
+  else
+    copy[index] = span;
 
   if (!FixTimeSpans(copy, m_openingTime))
     return false;
@@ -191,7 +199,7 @@ bool TimeTable::IsValid() const
   return true;
 }
 
-osmoh::Timespan TimeTable::GetPredifinedOpeningTime() const
+osmoh::Timespan TimeTable::GetPredefinedOpeningTime() const
 {
   using osmoh::operator""_h;
   return {10_h, 22_h};

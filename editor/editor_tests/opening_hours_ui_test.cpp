@@ -102,6 +102,18 @@ UNIT_TEST(TestTimeTable_ExcludeTime)
     tt.SetOpeningTime({8_h + 15_min, 15_h + 30_min});
     TEST(!tt.AddExcludeTime({7_h, 14_h}), ());
   }
+  {
+    auto tt = TimeTable::GetPredefinedTimeTable();
+    tt.SetTwentyFourHours(false);
+
+    tt.SetOpeningTime({8_h + 15_min, 18_h + 30_min});
+    TEST(tt.AddExcludeTime({10_h, 11_h}), ());
+    TEST(tt.AddExcludeTime({12_h, 13_h}), ());
+    TEST(tt.AddExcludeTime({15_h, 17_h}), ());
+    TEST(tt.ReplaceExcludeTime({13_h, 14_h}, 1), ());
+    TEST(!tt.ReplaceExcludeTime({10_h + 30_min, 14_h}, 1), ());
+    TEST_EQUAL(tt.GetExcludeTime().size(), 3, ());
+  }
 }
 
 UNIT_TEST(TestAppendTimeTable)
