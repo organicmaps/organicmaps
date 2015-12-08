@@ -39,3 +39,12 @@ OTHER_FILES += \
     shaders/user_mark.vsh \
     shaders/text_outlined_vertex_shader.vsh \
     shaders/text_vertex_shader.vsh \
+    shaders/arrow3d_vertex_shader.vsh \
+    shaders/arrow3d_fragment_shader.fsh \
+    shaders/text_billboard_vertex_shader.vsh \
+    shaders/text_outlined_billboard_vertex_shader.vsh \
+    shaders/text_outlined_gui_vertex_shader.vsh \
+    shaders/texturing_billboard_vertex_shader.vsh \
+    shaders/texturing3d_fragment_shader.fsh \
+    shaders/texturing3d_vertex_shader.vsh \
+    shaders/user_mark_billboard.vsh \
