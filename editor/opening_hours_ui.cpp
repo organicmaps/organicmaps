@@ -43,7 +43,7 @@ bool FixTimeSpans(osmoh::TTimespans & spans, osmoh::Timespan const & openingTime
   for (auto i = 1, j = 0; i < spans.size(); ++i)
   {
     auto const start2 = spans[i].GetStart().GetHourMinutes().GetDuration();
-    auto const end1 = spans[i - 1].GetEnd().GetHourMinutes().GetDuration();
+    auto const end1 = spans[j].GetEnd().GetHourMinutes().GetDuration();
     auto const end2 = spans[i].GetEnd().GetHourMinutes().GetDuration();
 
     // The first one includes the second.
@@ -52,12 +52,7 @@ bool FixTimeSpans(osmoh::TTimespans & spans, osmoh::Timespan const & openingTime
       continue;
     }
     // Two spans have non-empty intersection.
-    else if (start2 < end1)
-    {
-      return false;
-    }
-    // The second span continue the first one.
-    else if(start2 == end1)
+    else if (start2 <= end1)
     {
       result.back().SetEnd(spans[i].GetEnd());
     }

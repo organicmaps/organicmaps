@@ -48,7 +48,7 @@ UNIT_TEST(TestTimeTable_ExcludeTime)
 
     tt.SetOpeningTime({8_h + 15_min, 18_h + 30_min});
     TEST(tt.AddExcludeTime({10_h, 12_h}), ());
-    TEST(!tt.AddExcludeTime({11_h, 13_h}), ());
+    TEST(tt.AddExcludeTime({11_h, 13_h}), ());
     TEST(tt.AddExcludeTime({15_h, 17_h}), ());
     TEST_EQUAL(tt.GetExcludeTime().size(), 2, ());
   }
@@ -94,12 +94,6 @@ UNIT_TEST(TestTimeTable_ExcludeTime)
 
     tt.SetOpeningTime({8_h + 15_min, 15_h + 30_min});
     TEST(!tt.AddExcludeTime({10_h, 16_h}), ());
-  }
-  {
-    auto tt = TimeTable::GetPredefinedTimeTable();
-    tt.SetTwentyFourHours(false);
-
-    tt.SetOpeningTime({8_h + 15_min, 15_h + 30_min});
     TEST(!tt.AddExcludeTime({7_h, 14_h}), ());
   }
   {
@@ -111,8 +105,12 @@ UNIT_TEST(TestTimeTable_ExcludeTime)
     TEST(tt.AddExcludeTime({12_h, 13_h}), ());
     TEST(tt.AddExcludeTime({15_h, 17_h}), ());
     TEST(tt.ReplaceExcludeTime({13_h, 14_h}, 1), ());
-    TEST(!tt.ReplaceExcludeTime({10_h + 30_min, 14_h}, 1), ());
-    TEST_EQUAL(tt.GetExcludeTime().size(), 3, ());
+    TEST(tt.ReplaceExcludeTime({10_h + 30_min, 14_h}, 1), ());
+    TEST_EQUAL(tt.GetExcludeTime().size(), 2, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetStart().GetHourMinutes().GetHoursCount(), 10, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetHoursCount(), 14, ());
+    TEST_EQUAL(tt.GetExcludeTime()[1].GetStart().GetHourMinutes().GetHoursCount(), 15, ());
+    TEST_EQUAL(tt.GetExcludeTime()[1].GetEnd().GetHourMinutes().GetHoursCount(), 17, ());
   }
   {
     auto tt = TimeTable::GetPredefinedTimeTable();
