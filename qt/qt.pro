@@ -12,7 +12,12 @@ include($$ROOT_DIR/common.pri)
 
 INCLUDEPATH *= $$ROOT_DIR/3party/gflags/src
 
-TARGET = MAPS.ME
+map_designer {
+  TARGET = MAPS.ME.Designer
+} else {
+  TARGET = MAPS.ME
+}
+
 TEMPLATE = app
 CONFIG += warn_on
 QT *= core widgets gui opengl
@@ -46,7 +51,12 @@ macx-* {
   LIBS *= "-framework CoreLocation" "-framework CoreWLAN" \
           "-framework QuartzCore" "-framework IOKit" "-framework SystemConfiguration"
 
-  ICON = res/mac.icns
+  map_designer {
+    ICON = res/designer.icns
+  } else {
+    ICON = res/mac.icns
+  }
+
   PLIST_FILE = Info.plist
   # path to original plist, which will be processed by qmake and later by us
   QMAKE_INFO_PLIST = res/$${PLIST_FILE}
@@ -61,7 +71,7 @@ macx-* {
 
 OTHER_RES.path = $$DATADIR
 OTHER_RES.files = ../data/copyright.html ../data/eula.html ../data/welcome.html \
-                  ../data/countries.txt \
+                  ../data/countries.txt ../data/colors.txt ../data/patterns.txt \
                   ../data/languages.txt ../data/categories.txt \
                   ../data/packed_polygons.bin res/logo.png \
                   ../data/editor.config \
@@ -106,6 +116,25 @@ linux* {
 
 macx-* {
   QMAKE_BUNDLE_DATA += $$ALL_RESOURCES
+}
+
+map_designer {
+SOURCES += \
+    build_style/build_common.cpp \
+    build_style/build_drules.cpp \
+    build_style/build_skins.cpp \
+    build_style/build_style.cpp \
+    build_style/build_statistics.cpp \
+    build_style/run_tests.cpp \
+
+HEADERS += \
+    build_style/build_common.h \
+    build_style/build_drules.h \
+    build_style/build_skins.h \
+    build_style/build_style.h \
+    build_style/build_statistics.h \
+    build_style/run_tests.h \
+
 }
 
 SOURCES += \

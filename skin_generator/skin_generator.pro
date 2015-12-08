@@ -1,7 +1,10 @@
 TARGET = skin_generator
 TEMPLATE = app
 CONFIG   += console
-CONFIG   -= app_bundle
+
+!map_designer {
+  CONFIG   -= app_bundle
+}
 
 ROOT_DIR = ..
 include($$ROOT_DIR/common.pri)

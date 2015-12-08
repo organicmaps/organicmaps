@@ -28,11 +28,13 @@
   self.visualScale = p.m_visualScale;
   m_skin.reset(new gui::Skin(gui::ResolveGuiSkinFile("default"), p.m_visualScale));
   m_skin->Resize(p.m_surfaceWidth, p.m_surfaceHeight);
-  m_skin->ForEach(
-      [&p](gui::EWidget widget, gui::Position const & pos) { p.m_widgetsInitInfo[widget] = pos; });
-#ifdef DEBUG
+  m_skin->ForEach([&p](gui::EWidget widget, gui::Position const & pos)
+  {
+    p.m_widgetsInitInfo[widget] = pos;
+  });
+// #ifdef DEBUG
   p.m_widgetsInitInfo[gui::WIDGET_SCALE_LABEL] = gui::Position(dp::LeftBottom);
-#endif
+// #endif
 }
 
 - (void)resize:(CGSize)size

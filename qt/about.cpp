@@ -22,6 +22,10 @@
   #include <QtWidgets/QTextBrowser>
 #endif
 
+#ifdef BUILD_DESIGNER
+  #include "designer_version.h"
+#endif // BUILD_DESIGNER
+
 AboutDialog::AboutDialog(QWidget * parent)
   : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint)
 {
@@ -32,12 +36,24 @@ AboutDialog::AboutDialog(QWidget * parent)
   QLabel * labelIcon = new QLabel();
   labelIcon->setPixmap(icon.pixmap(128));
 
+#ifndef BUILD_DESIGNER
   // @todo insert version to bundle.
-  QLabel * labelVersion = new QLabel(QString::fromLocal8Bit("MAPS.ME"));
+  QLabel * labelVersion = new QLabel(qAppName());
 
   QHBoxLayout * hBox = new QHBoxLayout();
   hBox->addWidget(labelIcon);
   hBox->addWidget(labelVersion);
+#else // BUILD_DESIGNER
+  QVBoxLayout * versionBox = new QVBoxLayout();
+  versionBox->addWidget(new QLabel(qAppName()));
+  versionBox->addWidget(new QLabel(QString("Version: ") + DESIGNER_APP_VERSION));
+  versionBox->addWidget(new QLabel(QString("Commit: ") + DESIGNER_CODEBASE_SHA));
+  versionBox->addWidget(new QLabel(QString("Data: ") + DESIGNER_DATA_VERSION));
+
+  QHBoxLayout * hBox = new QHBoxLayout();
+  hBox->addWidget(labelIcon);
+  hBox->addLayout(versionBox);
+#endif
 
   string aboutText;
   try

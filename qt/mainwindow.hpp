@@ -38,8 +38,14 @@ class MainWindow : public QMainWindow, location::LocationObserver
   QAction * m_selectStartRoutePoint;
   QAction * m_selectFinishRoutePoint;
   QAction * m_selectIntermediateRoutePoint;
+#ifdef BUILD_DESIGNER
+  QAction * m_pBuildStyleAction;
+  QAction * m_pDrawDebugRectAction;
+  QAction * m_pGetStatisticsAction;
+  QAction * m_pRunTestsAction;
+#endif // BUILD_DESIGNER
   DrawWidget * m_pDrawWidget;
-
+    
   // TODO(mgsergio): Make indexing more informative.
   array<QDockWidget *, 2> m_Docks;
 
@@ -52,11 +58,13 @@ class MainWindow : public QMainWindow, location::LocationObserver
 
   // This object is managed by Qt memory system.
   TrafficMode * m_trafficMode = nullptr;
+    
+  QString const m_mapcssFilePath;
 
   Q_OBJECT
 
 public:
-  MainWindow(Framework & framework, bool apiOpenGLES3);
+  MainWindow(Framework & framework, bool apiOpenGLES3, QString const & mapcssFilePath = QString());
 
   virtual void OnLocationError(location::TLocationError errorCode);
   virtual void OnLocationUpdated(location::GpsInfo const & info);
@@ -116,5 +124,12 @@ protected Q_SLOTS:
   void OnIntermediatePointSelected();
   void OnFollowRoute();
   void OnClearRoute();
+    
+#ifdef BUILD_DESIGNER
+  void OnBuildStyle();
+  void OnDebugStyle();
+  void OnGetStatistics();
+  void OnRunTests();
+#endif // BUILD_DESIGNER
 };
 }

@@ -6,6 +6,7 @@
 #include "indexer/feature_covering.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/interval_index_builder.hpp"
+#include "indexer/scales_patch.hpp"
 
 #include "defines.hpp"
 

@@ -1,7 +1,10 @@
 TARGET = style_tests
-CONFIG += console warn_on
-CONFIG -= app_bundle
 TEMPLATE = app
+CONFIG += console warn_on
+
+!map_designer {
+  CONFIG   -= app_bundle
+}
 
 INCLUDEPATH += ../../3party/protobuf/src
 

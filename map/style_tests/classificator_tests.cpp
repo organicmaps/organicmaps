@@ -6,8 +6,22 @@
 #include "indexer/feature_visibility.hpp"
 #include "indexer/feature_data.hpp"
 
+#include "Platform/platform.hpp"
+
 #include "base/logging.hpp"
 
+namespace
+{
+void UnitTestInitPlatform()
+{
+  Platform & pl = GetPlatform();
+  CommandLineOptions const & options = GetTestingOptions();
+  if (options.m_dataPath)
+    pl.SetWritableDirForTests(options.m_dataPath);
+  if (options.m_resourcePath)
+    pl.SetResourceDir(options.m_resourcePath);
+}
+}
 
 namespace
 {
@@ -26,6 +40,7 @@ namespace
 
 UNIT_TEST(Classificator_CheckConsistency)
 {
+  UnitTestInitPlatform();
   styles::RunForEveryMapStyle([](MapStyle)
   {
     Classificator const & c = classif();
@@ -101,6 +116,7 @@ void CheckLineStyles(Classificator const & c, string const & name)
 
 UNIT_TEST(Classificator_DrawingRules)
 {
+  UnitTestInitPlatform();
   styles::RunForEveryMapStyle([](MapStyle)
   {
     Classificator const & c = classif();
@@ -165,6 +181,7 @@ string CombineArrT(StringIL const & arrT)
 
 void CheckPriority(vector<StringIL> const & arrT, vector<size_t> const & arrI, drule::rule_type_t ruleType)
 {
+  UnitTestInitPlatform();
   Classificator const & c = classif();
   vector<vector<uint32_t> > types;
   vector<vector<string> > typesInfo;

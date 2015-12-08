@@ -127,6 +127,7 @@ HEADERS += \
     string_slice.hpp \
     succinct_trie_builder.hpp \
     succinct_trie_reader.hpp \
+    scales_patch.hpp \
     tesselator_decl.hpp \
     tree_structure.hpp \
     trie.hpp \
