@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape/glstate.hpp"
 #include "drape/pointers.hpp"
 
 #include "geometry/rect2d.hpp"
@@ -38,12 +39,18 @@ private:
   uint32_t m_pixelWidth = 0;
   uint32_t m_pixelHeight = 0;
 
-  uint32_t m_VAO = 0;
   uint32_t m_bufferId = 0;
   uint32_t m_bufferNormalsId = 0;
 
+  int8_t m_attributePosition;
+  int8_t m_attributeNormal;
+
   vector<float> m_vertices;
   vector<float> m_normals;
+
+  dp::GLState m_state;
+
+  bool m_isInitialized = false;
 };
 
 }  // namespace df

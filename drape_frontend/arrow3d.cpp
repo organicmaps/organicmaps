@@ -19,6 +19,7 @@ double const kArrowSizeY = 3.0;
 double const kArrow3dScale = 1.2;
 
 Arrow3d::Arrow3d()
+  : m_state(gpu::ARROW_3D_PROGRAM, dp::GLState::OverlayLayer)
 {
   m_vertices = {  0.0f,  0.0f,  -1.0f,
                  -1.0f, -1.0f,  0.0f,
@@ -68,9 +69,6 @@ Arrow3d::~Arrow3d()
 
   if (m_bufferNormalsId != 0)
     GLFunctions::glDeleteBuffer(m_bufferNormalsId);
-
-  if (m_VAO != 0)
-    GLFunctions::glDeleteVertexArray(m_VAO);
 }
 
 void Arrow3d::SetPosition(const m2::PointD & position)
@@ -91,16 +89,11 @@ void Arrow3d::SetSize(uint32_t width, uint32_t height)
 
 void Arrow3d::Build(ref_ptr<dp::GpuProgram> prg)
 {
-  m_VAO = GLFunctions::glGenVertexArray();
-  GLFunctions::glBindVertexArray(m_VAO);
-
   m_bufferId = GLFunctions::glGenBuffer();
   GLFunctions::glBindBuffer(m_bufferId, gl_const::GLArrayBuffer);
 
-  int8_t attributeLocation = prg->GetAttributeLocation("a_pos");
-  ASSERT_NOT_EQUAL(attributeLocation, -1, ());
-  GLFunctions::glEnableVertexAttribute(attributeLocation);
-  GLFunctions::glVertexAttributePointer(attributeLocation, 3, gl_const::GLFloatType, false, 0, 0);
+  m_attributePosition = prg->GetAttributeLocation("a_pos");
+  ASSERT_NOT_EQUAL(m_attributePosition, -1, ());
 
   GLFunctions::glBufferData(gl_const::GLArrayBuffer, m_vertices.size() * sizeof(m_vertices[0]),
                             m_vertices.data(), gl_const::GLStaticDraw);
@@ -108,10 +101,8 @@ void Arrow3d::Build(ref_ptr<dp::GpuProgram> prg)
   m_bufferNormalsId = GLFunctions::glGenBuffer();
   GLFunctions::glBindBuffer(m_bufferNormalsId, gl_const::GLArrayBuffer);
 
-  attributeLocation = prg->GetAttributeLocation("a_normal");
-  ASSERT_NOT_EQUAL(attributeLocation, -1, ());
-  GLFunctions::glEnableVertexAttribute(attributeLocation);
-  GLFunctions::glVertexAttributePointer(attributeLocation, 3, gl_const::GLFloatType, false, 0, 0);
+  m_attributeNormal = prg->GetAttributeLocation("a_normal");
+  ASSERT_NOT_EQUAL(m_attributeNormal, -1, ());
 
   GLFunctions::glBufferData(gl_const::GLArrayBuffer, m_normals.size() * sizeof(m_normals[0]),
                             m_normals.data(), gl_const::GLStaticDraw);
@@ -125,8 +116,13 @@ void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> m
   ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::ARROW_3D_PROGRAM);
   prg->Bind();
 
-  if (m_VAO == 0)
+  if (!m_isInitialized)
+  {
     Build(prg);
+    m_isInitialized = true;
+  }
+
+  dp::ApplyState(m_state, prg);
 
   double const scaleX = m_pixelWidth * kArrow3dScale * 2.0 / screen.PixelRect().SizeX() / kArrowSizeX;
   double const scaleY = m_pixelHeight * kArrow3dScale * 2.0 / screen.PixelRect().SizeY() / kArrowSizeY;
@@ -159,11 +155,18 @@ void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> m
 
   dp::ApplyUniforms(uniforms, prg);
 
-  GLFunctions::glBindVertexArray(m_VAO);
+  GLFunctions::glBindBuffer(m_bufferId, gl_const::GLArrayBuffer);
+  GLFunctions::glEnableVertexAttribute(m_attributePosition);
+  GLFunctions::glVertexAttributePointer(m_attributePosition, 3, gl_const::GLFloatType, false, 0, 0);
+
+  GLFunctions::glBindBuffer(m_bufferNormalsId, gl_const::GLArrayBuffer);
+  GLFunctions::glEnableVertexAttribute(m_attributeNormal);
+  GLFunctions::glVertexAttributePointer(m_attributeNormal, 3, gl_const::GLFloatType, false, 0, 0);
+
   GLFunctions::glDrawArrays(gl_const::GLTriangles, 0, m_vertices.size() / 3);
 
   prg->Unbind();
-  GLFunctions::glBindVertexArray(0);
+  GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
 }
 
 }  // namespace df
