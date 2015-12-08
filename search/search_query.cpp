@@ -7,6 +7,7 @@
 #include "search/indexed_value.hpp"
 #include "search/latlon_match.hpp"
 #include "search/locality.hpp"
+#include "search/mwm_traits.hpp"
 #include "search/region.hpp"
 #include "search/search_common.hpp"
 #include "search/search_delimiters.hpp"
@@ -222,6 +223,7 @@ Query::Query(Index & index, CategoriesHolder const & categories, vector<Suggest>
   , m_locality(&index)
 #endif
   , m_worldSearch(true)
+  , m_keepHouseNumberInQuery(false)
 {
   // Results queue's initialization.
   static_assert(kQueuesCount == ARRAY_SIZE(g_arrCompare1), "");
@@ -497,24 +499,27 @@ void Query::SetQuery(string const & query)
 
   // Find most suitable token for house number.
 #ifdef HOUSE_SEARCH_TEST
-  int houseInd = static_cast<int>(m_tokens.size()) - 1;
-  while (houseInd >= 0)
+  if (!m_keepHouseNumberInQuery)
   {
-    if (feature::IsHouseNumberDeepCheck(m_tokens[houseInd]))
+    int houseInd = static_cast<int>(m_tokens.size()) - 1;
+    while (houseInd >= 0)
     {
-      if (m_tokens.size() > 1)
+      if (feature::IsHouseNumberDeepCheck(m_tokens[houseInd]))
       {
-        m_house.swap(m_tokens[houseInd]);
-        m_tokens[houseInd].swap(m_tokens.back());
-        m_tokens.pop_back();
+        if (m_tokens.size() > 1)
+        {
+          m_house.swap(m_tokens[houseInd]);
+          m_tokens[houseInd].swap(m_tokens.back());
+          m_tokens.pop_back();
+        }
+        break;
       }
-      break;
+      --houseInd;
     }
-    --houseInd;
-  }
 
-  // do check for prefix if last token is not a house number
-  checkPrefix = m_house.empty() || houseInd < m_tokens.size();
+    // do check for prefix if last token is not a house number
+    checkPrefix = m_house.empty() || houseInd < m_tokens.size();
+  }
 #endif
 
   // Assign prefix with last parsed token.

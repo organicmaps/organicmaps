@@ -23,18 +23,13 @@ public:
   struct Street
   {
     FeatureID m_id;
-
-    /// Min distance to the street in meters.
-    double m_distance;
-
-    /// first - edit distance between actual street name and passed key name.
-    /// second - length of the actual street name.
-    pair<size_t, size_t> m_editDistance;
+    double m_distanceMeters;
+    string m_name;
   };
 
-  void GetNearbyStreets(FeatureType const & ft, string const & keyName, vector<Street> & streets);
+  void GetNearbyStreets(FeatureType const & addrFt, vector<Street> & streets);
 
-  static size_t GetMatchedStreetIndex(vector<Street> const & streets);
+  static size_t GetMatchedStreetIndex(string const & keyName, vector<Street> const & streets);
 
 private:
   template <class TCompare>

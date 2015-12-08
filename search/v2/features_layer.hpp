@@ -18,6 +18,9 @@ struct FeaturesLayer
   void Clear();
 
   vector<uint32_t> m_sortedFeatures;
+
+  string m_subQuery;
+
   size_t m_startToken;
   size_t m_endToken;
   SearchModel::SearchType m_type;

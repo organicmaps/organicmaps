@@ -21,6 +21,8 @@ public:
   virtual bool Matches(FeatureType const & feature) const;
   virtual string ToString() const = 0;
 
+  inline string const & GetName() const { return m_name; }
+
 protected:
   TestFeature(string const & name, string const & lang);
   TestFeature(m2::PointD const & center, string const & name, string const & lang);
@@ -64,6 +66,24 @@ public:
 
 private:
   vector<m2::PointD> m_points;
+};
+
+class TestBuilding : public TestFeature
+{
+public:
+  TestBuilding(m2::PointD const & center, string const & name, string const & houseNumber,
+               string const & lang);
+  TestBuilding(m2::PointD const & center, string const & name, string const & houseNumber,
+               TestStreet const & street, string const & lang);
+
+  // TestFeature overrides:
+  void Serialize(FeatureBuilder1 & fb) const override;
+  bool Matches(FeatureType const & feature) const;
+  string ToString() const override;
+
+protected:
+  string const m_houseNumber;
+  string const m_streetName;
 };
 
 string DebugPrint(TestFeature const & feature);

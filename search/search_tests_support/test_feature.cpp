@@ -4,6 +4,7 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
 
@@ -86,6 +87,8 @@ TestStreet::TestStreet(vector<m2::PointD> const & points, string const & name, s
 void TestStreet::Serialize(FeatureBuilder1 & fb) const
 {
   CHECK(fb.AddName(m_lang, m_name), ("Can't set feature name:", m_name, "(", m_lang, ")"));
+  if (m_lang != "default")
+    CHECK(fb.AddName("default", m_name), ("Can't set feature name:", m_name, "( default "));
 
   auto const & classificator = classif();
   fb.SetType(classificator.GetTypeByPath({"highway", "living_street"}));
@@ -99,6 +102,51 @@ string TestStreet::ToString() const
 {
   ostringstream os;
   os << "TestStreet [" << m_name << ", " << m_lang << ", " << ::DebugPrint(m_points) << "]";
+  return os.str();
+}
+
+// TestBuilding ------------------------------------------------------------------------------------
+TestBuilding::TestBuilding(m2::PointD const & center, string const & name,
+                           string const & houseNumber, string const & lang)
+  : TestFeature(center, name, lang), m_houseNumber(houseNumber)
+{
+}
+
+TestBuilding::TestBuilding(m2::PointD const & center, string const & name,
+                           string const & houseNumber, TestStreet const & street,
+                           string const & lang)
+  : TestFeature(center, name, lang)
+  , m_houseNumber(houseNumber)
+  , m_streetName(street.GetName())
+{
+}
+
+void TestBuilding::Serialize(FeatureBuilder1 & fb) const
+{
+  TestFeature::Serialize(fb);
+  fb.AddHouseNumber(m_houseNumber);
+  if (!m_streetName.empty())
+    fb.AddStreet(m_streetName);
+
+  auto const & classificator = classif();
+  fb.SetType(classificator.GetTypeByPath({"building"}));
+
+  fb.PreSerialize();
+}
+
+bool TestBuilding::Matches(FeatureType const & feature) const
+{
+  static ftypes::IsBuildingChecker const & checker = ftypes::IsBuildingChecker::Instance();
+  if (!checker(feature))
+    return false;
+  return TestFeature::Matches(feature) && m_houseNumber == feature.GetHouseNumber();
+}
+
+string TestBuilding::ToString() const
+{
+  ostringstream os;
+  os << "TestBuilding [" << m_name << ", " << m_houseNumber << ", " << m_lang << ", "
+     << DebugPrint(m_center) << "]";
   return os.str();
 }
 

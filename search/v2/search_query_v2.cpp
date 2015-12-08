@@ -15,6 +15,7 @@ SearchQueryV2::SearchQueryV2(Index & index, CategoriesHolder const & categories,
                              storage::CountryInfoGetter const & infoGetter)
   : Query(index, categories, suggests, infoGetter), m_geocoder(index)
 {
+  m_keepHouseNumberInQuery = true;
 }
 
 void SearchQueryV2::Reset()

@@ -75,6 +75,15 @@ UNIT_TEST(SearchQueryV2_Smoke)
   auto const feynmanStreet = make_shared<TestStreet>(
       vector<m2::PointD>{m2::PointD(9.999, 9.999), m2::PointD(10, 10), m2::PointD(10.001, 10.001)},
       "Feynman street", "en");
+  auto const bohrStreet = make_shared<TestStreet>(
+      vector<m2::PointD>{m2::PointD(9.999, 10.001), m2::PointD(10, 10), m2::PointD(10.001, 9.999)},
+      "Bohr street", "en");
+  auto const feynmanHouse = make_shared<TestBuilding>(m2::PointD(10, 10), "Feynman house",
+                                                      "1 unit 1", *feynmanStreet, "en");
+  auto const bohrHouse =
+      make_shared<TestBuilding>(m2::PointD(10, 10), "Bohr house", "1 unit 1", *bohrStreet, "en");
+  auto const gilbertHouse = make_shared<TestBuilding>(m2::PointD(10.0005, 10.0005), "Gilbert house",
+                                                      "1 unit 2", *bohrStreet, "en");
 
   {
     TestMwmBuilder builder(map, feature::DataHeader::country);
@@ -85,6 +94,10 @@ UNIT_TEST(SearchQueryV2_Smoke)
     builder.Add(*quantumTeleport2);
     builder.Add(*quantumCafe);
     builder.Add(*feynmanStreet);
+    builder.Add(*bohrStreet);
+    builder.Add(*feynmanHouse);
+    builder.Add(*bohrHouse);
+    builder.Add(*gilbertHouse);
   }
 
   auto const regResult = engine.RegisterMap(map);
@@ -129,5 +142,30 @@ UNIT_TEST(SearchQueryV2_Smoke)
     vector<shared_ptr<MatchingRule>> rules = {
         make_shared<ExactMatch>(regResult.first, quantumTeleport2)};
     TEST(MatchResults(engine, rules, request.Results()), ());
+  }
+
+  {
+    TestSearchRequest request(engine, "feynman street 1", "en", search::SearchParams::ALL,
+                              viewport);
+    request.Wait();
+    vector<shared_ptr<MatchingRule>> rules = {
+        make_shared<ExactMatch>(regResult.first, feynmanHouse)};
+    TEST(MatchResults(engine, rules, request.Results()), ());
+  }
+
+  {
+    TestSearchRequest request(engine, "bohr street 1", "en", search::SearchParams::ALL, viewport);
+    request.Wait();
+    vector<shared_ptr<MatchingRule>> rules = {
+        make_shared<ExactMatch>(regResult.first, bohrHouse),
+        make_shared<ExactMatch>(regResult.first, gilbertHouse)};
+    TEST(MatchResults(engine, rules, request.Results()), ());
+  }
+
+  {
+    TestSearchRequest request(engine, "bohr street 1 unit 3", "en", search::SearchParams::ALL,
+                              viewport);
+    request.Wait();
+    TEST_EQUAL(0, request.Results().size(), ());
   }
 }

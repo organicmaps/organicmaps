@@ -1,6 +1,6 @@
 #pragma once
 
-#include "search/v2/features_layer_matcher.hpp"
+#include "search/v2/features_layer.hpp"
 
 #include "std/unordered_map.hpp"
 #include "std/unordered_set.hpp"
@@ -13,7 +13,7 @@ namespace search
 {
 namespace v2
 {
-struct FeaturesLayer;
+class FeaturesLayerMatcher;
 
 class FeaturesLayerPathFinder
 {
@@ -21,7 +21,7 @@ public:
   using TAdjList = vector<uint32_t>;
   using TLayerGraph = unordered_map<uint32_t, TAdjList>;
 
-  FeaturesLayerPathFinder(MwmValue & value, FeaturesVector const & featuresVector);
+  FeaturesLayerPathFinder(FeaturesLayerMatcher & matcher);
 
   template <typename TFn>
   void ForEachReachableVertex(vector<FeaturesLayer *> const & layers, TFn && fn)
@@ -47,7 +47,7 @@ private:
 
   void Dfs(uint32_t u);
 
-  FeaturesLayerMatcher m_matcher;
+  FeaturesLayerMatcher & m_matcher;
   TLayerGraph m_graph;
   unordered_set<uint32_t> m_visited;
 };

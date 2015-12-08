@@ -34,6 +34,7 @@ class RankTable;
 
 namespace v2
 {
+class FeaturesLayerMatcher;
 class FeaturesLayerPathFinder;
 class SearchModel;
 
@@ -86,9 +87,6 @@ private:
   // pre-check to cut off unnecessary work.
   bool IsLayerSequenceSane() const;
 
-  // Returns true if [curToken, endToken) subsequence looks like a house number.
-  bool LooksLikeHouseNumber(size_t curToken, size_t endToken) const;
-
   // Finds all paths through layers and emits reachable features from
   // the lowest layer.
   void FindPaths();
@@ -119,6 +117,9 @@ private:
 
   // Features loader.
   unique_ptr<Index::FeaturesLoaderGuard> m_loader;
+
+  // Features matcher for layers intersection.
+  unique_ptr<FeaturesLayerMatcher> m_matcher;
 
   // Path finder for interpretations.
   unique_ptr<FeaturesLayerPathFinder> m_finder;

@@ -1,6 +1,7 @@
 #include "search/v2/geocoder.hpp"
 
 #include "search/retrieval.hpp"
+#include "search/v2/features_layer_matcher.hpp"
 #include "search/v2/features_layer_path_finder.hpp"
 #include "search/search_delimiters.hpp"
 #include "search/search_string_utils.hpp"
@@ -99,13 +100,16 @@ void Geocoder::Go(vector<FeatureID> & results)
       MY_SCOPE_GUARD(cleanup, [&]()
       {
         m_finder.reset();
+        m_matcher.reset();
         m_loader.reset();
         m_cache.clear();
       });
 
-      m_loader.reset(new Index::FeaturesLoaderGuard(m_index, m_mwmId));
-      m_finder.reset(new FeaturesLayerPathFinder(*m_value, m_loader->GetFeaturesVector()));
       m_cache.clear();
+      m_loader.reset(new Index::FeaturesLoaderGuard(m_index, m_mwmId));
+      m_matcher.reset(
+          new FeaturesLayerMatcher(m_index, m_mwmId, *m_value, m_loader->GetFeaturesVector()));
+      m_finder.reset(new FeaturesLayerPathFinder(*m_matcher));
 
       DoGeocoding(0 /* curToken */);
     }
@@ -137,6 +141,9 @@ void Geocoder::PrepareParams(size_t curToken, size_t endToken)
 
 void Geocoder::DoGeocoding(size_t curToken)
 {
+  if (IsCancelled())
+    MYTHROW(CancelException, ("Cancelled."));
+
   if (curToken == m_numTokens)
   {
     // All tokens were consumed, find paths through layers, emit
@@ -157,14 +164,14 @@ void Geocoder::DoGeocoding(size_t curToken)
       layer.Clear();
       layer.m_startToken = curToken;
       layer.m_endToken = curToken + n;
+      JoinQueryTokens(m_params, layer.m_startToken, layer.m_endToken, " " /* sep */,
+                      layer.m_subQuery);
     }
 
     // TODO (@y, @m): as |n| increases, good optimization is to update
     // |features| incrementally, from [curToken, curToken + n) to
     // [curToken, curToken + n + 1).
     auto features = RetrieveAddressFeatures(curToken, curToken + n);
-    if (!features || features->PopCount() == 0)
-      continue;
 
     vector<uint32_t> clusters[SearchModel::SEARCH_TYPE_COUNT];
     auto clusterize = [&](uint64_t featureId)
@@ -177,12 +184,17 @@ void Geocoder::DoGeocoding(size_t curToken)
         clusters[searchType].push_back(featureId);
     };
 
-    coding::CompressedBitVectorEnumerator::ForEach(*features, clusterize);
+    if (features)
+      coding::CompressedBitVectorEnumerator::ForEach(*features, clusterize);
 
-    bool const looksLikeHouseNumber = LooksLikeHouseNumber(curToken, curToken + n);
+    bool const looksLikeHouseNumber = feature::IsHouseNumber(m_layers.back().m_subQuery);
 
     for (size_t i = 0; i != SearchModel::SEARCH_TYPE_COUNT; ++i)
     {
+      // ATTENTION: DO NOT USE layer after recursive calls to
+      // DoGeocoding().  This may lead to use-after-free.
+      auto & layer = m_layers.back();
+
       if (i == SearchModel::SEARCH_TYPE_BUILDING)
       {
         if (clusters[i].empty() && !looksLikeHouseNumber)
@@ -193,9 +205,13 @@ void Geocoder::DoGeocoding(size_t curToken)
         continue;
       }
 
-      // ATTENTION: DO NOT USE layer after recursive calls to
-      // DoGeocoding().  This may lead to use-after-free.
-      auto & layer = m_layers.back();
+      if (i == SearchModel::SEARCH_TYPE_STREET)
+      {
+        string key;
+        GetStreetNameAsKey(layer.m_subQuery, key);
+        if (key.empty())
+          continue;
+      }
 
       layer.m_sortedFeatures.swap(clusters[i]);
       ASSERT(is_sorted(layer.m_sortedFeatures.begin(), layer.m_sortedFeatures.end()), ());
@@ -235,15 +251,6 @@ bool Geocoder::IsLayerSequenceSane() const
     mask |= bit;
   }
   return true;
-}
-
-bool Geocoder::LooksLikeHouseNumber(size_t curToken, size_t endToken) const
-{
-  string res;
-  JoinQueryTokens(m_params, curToken, endToken, " " /* sep */, res);
-
-  // TODO (@y): we need to implement a better check here.
-  return feature::IsHouseNumber(res);
 }
 
 void Geocoder::FindPaths()

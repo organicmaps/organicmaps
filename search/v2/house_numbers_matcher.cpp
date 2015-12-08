@@ -169,11 +169,19 @@ bool HouseNumbersMatch(string const & houseNumber, string const & query)
   if (houseNumber == query)
     return true;
 
-  vector<string> houseNumberTokens;
-  NormalizeHouseNumber(houseNumber, houseNumberTokens);
-
   vector<string> queryTokens;
   NormalizeHouseNumber(query, queryTokens);
+
+  if (!queryTokens.empty())
+    sort(queryTokens.begin() + 1, queryTokens.end());
+
+  return HouseNumbersMatch(houseNumber, queryTokens);
+}
+
+bool HouseNumbersMatch(string const & houseNumber, vector<string> const & queryTokens)
+{
+  vector<string> houseNumberTokens;
+  NormalizeHouseNumber(houseNumber, houseNumberTokens);
 
   if (houseNumberTokens.empty() || queryTokens.empty())
     return false;
@@ -183,7 +191,6 @@ bool HouseNumbersMatch(string const & houseNumber, string const & query)
     return false;
 
   sort(houseNumberTokens.begin() + 1, houseNumberTokens.end());
-  sort(queryTokens.begin() + 1, queryTokens.end());
 
   size_t i = 1, j = 1;
   while (i != houseNumberTokens.size() && j != queryTokens.size())

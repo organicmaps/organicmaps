@@ -2,6 +2,7 @@
 
 #include "feature_offset_match.hpp"
 #include "interval_set.hpp"
+#include "mwm_traits.hpp"
 #include "search_index_values.hpp"
 #include "search_trie.hpp"
 
@@ -17,7 +18,7 @@
 #include "coding/reader_wrapper.hpp"
 
 #include "base/assert.hpp"
-#include "base/vector_operations.hpp"
+#include "base/stl_helpers.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/cmath.hpp"

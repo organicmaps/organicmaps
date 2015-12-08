@@ -33,6 +33,10 @@ public:
 
   void SetRank(uint8_t rank);
 
+  void AddHouseNumber(string const & houseNumber);
+
+  void AddStreet(string const & streetName);
+
   /// Add point to geometry.
   void AddPoint(m2::PointD const & p);
 

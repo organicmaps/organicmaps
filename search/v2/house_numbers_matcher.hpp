@@ -42,5 +42,8 @@ void NormalizeHouseNumber(string const & s, vector<string> & ts);
 
 // Returns true when |query| matches to |houseNumber|.
 bool HouseNumbersMatch(string const & houseNumber, string const & query);
+
+// Returns true when |queryTokens| match to |houseNumber|.
+bool HouseNumbersMatch(string const & houseNumber, vector<string> const & queryTokens);
 }  // namespace v2
 }  // namespace search

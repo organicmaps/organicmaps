@@ -283,6 +283,7 @@ protected:
   };
   TQueue m_results[kQueuesCount];
   size_t m_queuesCount;
+  bool m_keepHouseNumberInQuery;
   //@}
 };
 

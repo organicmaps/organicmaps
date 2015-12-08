@@ -7,8 +7,6 @@
 #include "indexer/coding_params.hpp"
 #include "indexer/geometry_serialization.hpp"
 
-#include "platform/mwm_version.hpp"
-
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
@@ -280,54 +278,4 @@ public:
 
 private:
   vector<TValue> m_values;
-};
-
-// This is a wrapper around mwm's version.
-// Search index does not have a separate version and
-// derives its format from the version of its mwm.
-// For now, the class provides a more readable way to
-// find out what is stored in the search index than by
-// staring at the mwm version number. Similar functionality
-// may be added to it later.
-class MwmTraits
-{
-public:
-  enum class SearchIndexFormat
-  {
-    // A list of features with their ranks and centers
-    // is stored behind every node of the search trie.
-    // This format corresponds to ValueList<FeatureWithRankAndCenter>.
-    FeaturesWithRankAndCenter,
-
-    // A compressed bit vector of feature indices is
-    // stored behind every node of the search trie.
-    // This format corresponds to ValueList<FeatureIndexValue>.
-    CompressedBitVector,
-
-    // The format of the search index is unknown. Most
-    // likely, an error has occured.
-    Unknown
-  };
-
-  MwmTraits(version::Format versionFormat)
-  {
-    if (versionFormat < version::v7)
-    {
-      m_format = SearchIndexFormat::FeaturesWithRankAndCenter;
-    }
-    else if (versionFormat == version::v7)
-    {
-      m_format = SearchIndexFormat::CompressedBitVector;
-    }
-    else
-    {
-      LOG(LWARNING, ("Unknown search index format."));
-      m_format = SearchIndexFormat::Unknown;
-    }
-  }
-
-  SearchIndexFormat GetSearchIndexFormat() const { return m_format; }
-
-private:
-  SearchIndexFormat m_format;
 };

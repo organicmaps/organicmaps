@@ -28,6 +28,7 @@ SOURCES += \
   rolling_hash_test.cpp \
   scope_guard_test.cpp \
   stl_add_test.cpp \
+  stl_helpers_test.cpp \
   string_format_test.cpp \
   string_utils_test.cpp \
   sunrise_sunset_test.cpp \
