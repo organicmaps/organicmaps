@@ -200,10 +200,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 - (void)restoreRoute
 {
   self.forceRoutingStateChange = ForceRoutingStateChangeStartFollowing;
-  auto & f = GetFramework();
-  m2::PointD const location = [MapsAppDelegate theApp].m_locationManager.lastLocation.mercator;
-  f.SetRouter(f.GetBestRouter(location, self.restoreRouteDestination));
-  GetFramework().BuildRoute(location, self.restoreRouteDestination, 0 /* timeoutSec */);
+  [self.controlsManager restoreRouteTo:self.restoreRouteDestination];
 }
 
 #pragma mark - Map Navigation
@@ -484,8 +481,8 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   {
     Framework & f = GetFramework();
 
-    typedef void (*UserMarkActivatedFnT)(id, SEL, unique_ptr<UserMarkCopy>);
-    typedef void (*PlacePageDismissedFnT)(id, SEL);
+    using UserMarkActivatedFnT = void (*)(id, SEL, unique_ptr<UserMarkCopy>);
+    using PlacePageDismissedFnT = void (*)(id, SEL);
 
     SEL userMarkSelector = @selector(onUserMarkClicked:);
     UserMarkActivatedFnT userMarkFn = (UserMarkActivatedFnT)[self methodForSelector:userMarkSelector];
@@ -543,11 +540,9 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
     f.SetRouteBuildingListener([self, &f](routing::IRouter::ResultCode code, vector<storage::TIndex> const & absentCountries, vector<storage::TIndex> const & absentRoutes)
     {
-      vector<storage::TIndex> countries = absentCountries;
-      vector<storage::TIndex> routes = absentRoutes;
-      dispatch_async(dispatch_get_main_queue(), ^
+      dispatch_async(dispatch_get_main_queue(), [=]
       {
-        [self processRoutingBuildingEvent:code countries:countries routes:routes];
+        [self processRoutingBuildingEvent:code countries:absentCountries routes:absentRoutes];
       });
     });
     
@@ -743,7 +738,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   if (self.popoverVC)
     f.ActivateUserMark(nullptr, true);
 
-  double const sf = self.view.contentScaleFactor;
+  CGFloat const sf = self.view.contentScaleFactor;
 
   m2::PointD tmp = m2::PointD(f.GtoP(m2::PointD(m_popoverPos.x, m_popoverPos.y)));
 
