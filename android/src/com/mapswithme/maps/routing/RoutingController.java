@@ -557,8 +557,8 @@ public class RoutingController
     {
       if (isWaitingPoiPick())
         showRoutePlan();
-      else
-        mContainer.updatePoints();
+
+      mContainer.updatePoints();
     }
 
     if (mStartPoint != null && mEndPoint != null)
