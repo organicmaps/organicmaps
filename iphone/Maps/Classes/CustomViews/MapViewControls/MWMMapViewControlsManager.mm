@@ -266,13 +266,13 @@ extern NSString * const kAlohalyticsTapEventKey;
     f.SetRouter(f.GetBestRouter(self.routeSource.Point(), self.routeDestination.Point()));
 }
 
-- (void)restoreRouteTo:(const m2::PointD &)to
+- (void)restoreRouteTo:(m2::PointD const &)to
 {
   auto & f = GetFramework();
   m2::PointD const myPosition = [MapsAppDelegate theApp].m_locationManager.lastLocation.mercator;
   f.SetRouter(f.GetBestRouter(myPosition, to));
   self.routeSource = MWMRoutePoint(myPosition);
-  self.routeDestination = {to, @"Destionation"};
+  self.routeDestination = {to, @"Destination"};
   GetFramework().BuildRoute(myPosition, to, 0 /* timeoutSec */);
 }
 
