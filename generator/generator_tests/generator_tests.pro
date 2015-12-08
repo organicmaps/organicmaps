@@ -18,7 +18,6 @@ HEADERS += \
 SOURCES += \
     ../../testing/testingmain.cpp \
     check_mwms.cpp \
-    classificator_tests.cpp \
     coasts_test.cpp \
     feature_builder_test.cpp \
     feature_merger_test.cpp \
