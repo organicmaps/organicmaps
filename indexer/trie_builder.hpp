@@ -10,7 +10,6 @@
 #include "std/algorithm.hpp"
 #include "std/vector.hpp"
 
-
 // Trie format:
 // [1: header]
 // [node] ... [node]

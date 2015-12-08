@@ -1,5 +1,6 @@
+#include "house_detector.hpp"
+
 #include "search/algos.hpp"
-#include "search/house_detector.hpp"
 #include "search/search_common.hpp"
 #include "search/search_string_utils.hpp"
 

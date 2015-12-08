@@ -1,4 +1,5 @@
 #include "locality.hpp"
+
 #include "search_delimiters.hpp"
 #include "search_string_utils.hpp"
 

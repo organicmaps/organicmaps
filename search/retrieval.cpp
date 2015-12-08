@@ -1,6 +1,7 @@
+#include "retrieval.hpp"
+
 #include "feature_offset_match.hpp"
 #include "interval_set.hpp"
-#include "retrieval.hpp"
 #include "search_index_values.hpp"
 #include "search_trie.hpp"
 

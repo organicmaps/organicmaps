@@ -1,4 +1,5 @@
 #include "categories_holder.hpp"
+
 #include "search_delimiters.hpp"
 #include "search_string_utils.hpp"
 
