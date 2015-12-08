@@ -1,31 +1,36 @@
-area|z14[building]
+area|z14[building],
+area|z14[landuse=garages]
 {
   fill-color: @building;
   fill-opacity: 0.5;
   z-index: 150;
 }
-area|z15[building]
+area|z15[building],
+area|z15[landuse=garages]
 {
   fill-color: @building;
   fill-opacity: 0.6;
   z-index: 150;
 }
 
-area|z16[building]
+area|z16[building],
+area|z16[landuse=garages]
 {
   fill-color: @building;
   fill-opacity: 0.8;
   z-index: 150;
 }
 
-area|z17[building]
+area|z17[building],
+area|z17[landuse=garages]
 {
   fill-color: @building_dark;
   opacity: 0.9;
   z-index: 150;
 }
 
-area|z18-[building]
+area|z18-[building],
+area|z18-[landuse=garages]
 {
   fill-color: @building_dark;
   opacity: 1;

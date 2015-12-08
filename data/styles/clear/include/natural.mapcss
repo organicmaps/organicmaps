@@ -1,3 +1,4 @@
+
 /* land */
 
 area|z0-9[natural=land]
@@ -8,7 +9,9 @@ area|z0-9[natural=land]
 	z-index: 0;
 }
 
-area|z10-[natural=land]
+area|z10-[natural=land],
+area|z10-[place=islet],
+area|z10-[place=islet]
 {
 	fill-opacity: 1;
 	fill-color: @background;
@@ -55,6 +58,8 @@ area|z13-[leisure=swimming_pool],
 area|z0-[natural=lake],
 area|z0-[natural=pond],
 area|z0-[natural=water],
+area|z0-[natural=salt_pond],
+area|z0-[landuse=salt_pond],
 area|z0-[waterway=dock],
 area|z0-[waterway=riverbank],
 area|z10-[waterway=river],
@@ -66,10 +71,11 @@ area|z10-[natural=bay],
 }
 
 
-area|z11-[natural=wetland] {
+area|z11-19[natural=wetland],
+area|z11-19[natural=marsh] {
 	z-index: 49;
-	fill-opacity: 0.3;
-	fill-color: @water;
+	fill-opacity: 1;
+	fill-color: @wetland;
 	fill-position: background;
 
 }
@@ -84,6 +90,10 @@ line|z10[waterway=riverbank] {
 	z-index: 50;
 }
 
+line|z10-19[waterway=river][tunnel?],
+ {
+}
+
 line|z11-12[waterway=river],
 line|z11-12[waterway=riverbank] {
 	width: 0.8;
@@ -92,6 +102,7 @@ line|z11-12[waterway=riverbank] {
 	z-index: 50;
 }
 
+
 line|z13-14[waterway=stream],
 line|z13-14[waterway=canal]{
 	width: 0.2;
@@ -99,6 +110,7 @@ line|z13-14[waterway=canal]{
 	color: @river;
 	z-index: 50;
 }
+
 
 line|z13-14[waterway=stream][intermittent=yes] {
 	dashes: 2.7,2.7;
@@ -149,20 +161,29 @@ line|z15-[waterway=riverbank] {
 
 area|z15-[waterway=dam],
 line|z15-[waterway=dam],
-line|z15-[waterway=wair],
+line|z15-[waterway=weir],
  {
 	width: 1;
 	opacity: 1;
 	color: @bridge_casing;
 	z-index: 110;
 }
-line|z16-[waterway=canal]
+line|z16-[waterway=canal],
+node|z16-[waterway=lock]
 {
 	width: 1.5;
 	color: @river;
 	z-index: 50;
 }
-line|z17-[waterway=ditch] {
+
+node|z16-[waterway=lock_gate],
+ {
+	icon-image: dot-m.svg;
+	z-index: 110;
+}
+
+line|z17-[waterway=ditch],
+line|z17-[waterway=drain] {
 	width: 1.8;
 	opacity: 1;
 	color: @river;
@@ -288,7 +309,8 @@ area|z16-[leisure=park], area|z16-[leisure=garden]  {
 
 area|z13-[landuse=grass],
 area|z13-[natural=grassland],
-area|z13-[leisure=golf_course]
+area|z13-[leisure=golf_course],
+area|z13-[natural=heath],
 
 {
   fill-color: @green0;
@@ -305,6 +327,7 @@ area|z13-[landuse=vineyard],
 area|z13-[landuse=meadow],
 area|z13-[landuse=recreation_ground],
 area|z13-[landuse=village_green],
+area|z13-[landuse=field],
 
 {
   fill-color: @green0;
@@ -315,7 +338,8 @@ area|z13-[landuse=village_green],
 
 area|z14-[landuse=grass],
 area|z14-[natural=grassland],
-area|z14-[leisure=golf_course]
+area|z14-[leisure=golf_course],
+area|z14-[natural=heath],
 
 {
   fill-color: @green1;
@@ -332,7 +356,7 @@ area|z14-[landuse=vineyard],
 area|z14-[landuse=meadow],
 area|z14-[landuse=recreation_ground],
 area|z14-[landuse=village_green],
-
+area|z14-[landuse=field]
 
 {
   fill-color: @green1;
@@ -349,7 +373,7 @@ area|z10-14[natural=beach],
   fill-color: @beach;
 	fill-position: background;
   fill-opacity: 1;
-	z-index: 1;
+	z-index: 46;
 }
 area|z15-[leisure=beach_resort],
 area|z15-[natural=beach],
@@ -357,7 +381,7 @@ area|z15-[natural=beach],
   fill-color: @beach;
 	fill-position: background;
   fill-opacity: 1;
-	z-index: 1;
+	z-index: 46;
 }
 area|z17-[leisure=beach_resort],
 area|z17-[natural=beach],

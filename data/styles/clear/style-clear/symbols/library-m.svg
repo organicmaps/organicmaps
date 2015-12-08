@@ -7,7 +7,7 @@
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="library-m" sketch:type="MSLayerGroup">
             <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#7F7D54" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-40" fill="#717065" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
             <path d="M12,17 L12,8 L17.038,6.03941465 C17.569,5.88173864 18,6.22337 18,6.80466891 L18,14.1628829 C18,14.7431306 17.569,15.3412483 17.038,15.4999755 L12,17 Z M5,6.80361774 C5,6.22337 5.431,5.88068746 5.962,6.03836348 L11,8 L11,17 L5.962,15.4999755 C5.431,15.3412483 5,14.7431306 5,14.1618317 L5,6.80361774 Z" id="Shape" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

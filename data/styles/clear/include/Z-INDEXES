@@ -1,6 +1,7 @@
 Z-INDEXES
 
-/*NATURE -1000 - 1 */
+
+/*NATURE -10 - 1 background */
 
 area|z0-[natural=coastline]
 {z-index: -10;}
@@ -10,7 +11,7 @@ area|z0-[natural=glacier]
 {z-index: 1;}
 area|z10-[leisure=beach_resort],
 area|z10-[natural=beach],
-{z-index: 1;}
+{z-index: 46;}
 
 /*LANDUSE 1- */
 
@@ -218,3 +219,24 @@ line|z17-[aerialway=mixed_lift]
 {z-index: 1050;}
 
 /*POI 2400-2900*/
+
+/* LABELS 2400 - 3100 */
+node|z1-[place=city][capital=2]
+{z-index: 1450;}
+node|z1-[place=city][capital=3],
+node|z1-[place=city][capital=4]
+{z-index: 1300;}
+node|z1-[place=city]
+{z-index: 1200;}
+node|z1-[place=town]
+{z-index: 1100;}
+node|z12[place=village]
+{z-index: 1010;}
+node|z13-[place=hamlet]
+{z-index: 1002;}
+node|z7[place=state]
+{z-index: 1001;}
+node|z3-[place=country]
+{z-index: 1000;}
+node|z1-[place=continent]
+{z-index: 999;}
