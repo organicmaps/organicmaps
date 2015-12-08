@@ -11,7 +11,31 @@ namespace
 {
 using namespace editor::ui;
 
-bool FixTimeSpans(osmoh::TTimespans & spans, osmoh::Timespan const & openingTime)
+size_t SpanLength(osmoh::Timespan const & span)
+{
+  using osmoh::operator""_h;
+  auto const start = span.GetStart().GetHourMinutes().GetDurationCount();
+  auto const end = span.GetEnd().GetHourMinutes().GetDurationCount();
+  return end - start + (span.HasExtendedHours() ? osmoh::HourMinutes::TMinutes(24_h).count() : 0);
+}
+
+bool DoesIncludeAll(osmoh::Timespan const & openingTime, osmoh::TTimespans const & spans)
+{
+  if (spans.empty())
+    return true;
+
+  auto const openingTimeStart = openingTime.GetStart().GetHourMinutes().GetDuration();
+  auto const openingTimeEnd = openingTime.GetEnd().GetHourMinutes().GetDuration();
+  auto const excludeTimeStart = spans.front().GetStart().GetHourMinutes().GetDuration();
+  auto const excludeTimeEnd = spans.back().GetEnd().GetHourMinutes().GetDuration();
+
+  if (excludeTimeStart < openingTimeStart || openingTimeEnd < excludeTimeEnd)
+    return false;
+
+  return true;
+}
+
+bool FixTimeSpans(osmoh::Timespan openingTime, osmoh::TTimespans & spans)
 {
   using osmoh::operator""_h;
 
@@ -29,12 +53,10 @@ bool FixTimeSpans(osmoh::TTimespans & spans, osmoh::Timespan const & openingTime
          {
            auto const start1 = s1.GetStart().GetHourMinutes().GetDuration();
            auto const start2 = s2.GetStart().GetHourMinutes().GetDuration();
-           auto const end1 = s1.GetEnd().GetHourMinutes().GetDuration();
-           auto const end2 = s2.GetEnd().GetHourMinutes().GetDuration();
 
            // If two spans start at the same point the longest span should be leftmost.
            if (start1 == start2)
-             return end1 - start1 > end2 - start2;
+             return SpanLength(s1) > SpanLength(s2);
 
            return start1 < start2;
          });
@@ -64,19 +86,12 @@ bool FixTimeSpans(osmoh::TTimespans & spans, osmoh::Timespan const & openingTime
     }
   }
 
-  {
-    // Check that all exclude time spans are included in opening time.
-    auto  openingTimeExtended = openingTime;
-    if (openingTimeExtended.HasExtendedHours())
-      openingTimeExtended.GetEnd().GetHourMinutes().AddDuration(24_h);
+  // Check that all exclude time spans are included in opening time.
+  if (openingTime.HasExtendedHours())
+    openingTime.GetEnd().GetHourMinutes().AddDuration(24_h);
 
-    auto const openingTimeStart = openingTimeExtended.GetStart().GetHourMinutes().GetDuration();
-    auto const openingTimeEnd = openingTimeExtended.GetEnd().GetHourMinutes().GetDuration();
-    auto const excludeTimeStart = spans.front().GetStart().GetHourMinutes().GetDuration();
-    auto const excludeTimeEnd = spans.back().GetEnd().GetHourMinutes().GetDuration();
-    if (excludeTimeStart < openingTimeStart || openingTimeEnd < excludeTimeEnd)
-      return false;
-  }
+  if (!DoesIncludeAll(openingTime, spans))
+    return false;
 
   for (auto & span : result)
   {
@@ -86,6 +101,23 @@ bool FixTimeSpans(osmoh::TTimespans & spans, osmoh::Timespan const & openingTime
 
   spans.swap(result);
   return true;
+}
+
+osmoh::Timespan GetLongetsOpenSpan(osmoh::Timespan const & openingTime,
+                                   osmoh::TTimespans const & excludeTime)
+{
+  if (excludeTime.empty())
+    return openingTime;
+
+  osmoh::Timespan longestSpan{openingTime.GetStart(), excludeTime.front().GetStart()};
+  for (auto i = 0; i < excludeTime.size() - 1; ++i)
+  {
+    osmoh::Timespan nextOpenSpan{excludeTime[i].GetEnd(), excludeTime[i + 1].GetStart()};
+    longestSpan = SpanLength(longestSpan) > SpanLength(nextOpenSpan) ? longestSpan : nextOpenSpan;
+  }
+
+  osmoh::Timespan lastSpan{excludeTime.back().GetEnd(), openingTime.GetEnd()};
+  return SpanLength(longestSpan) > SpanLength(lastSpan) ? longestSpan : lastSpan;
 }
 } // namespace
 
@@ -141,8 +173,29 @@ bool TimeTable::SetOpeningTime(osmoh::Timespan const & span)
 {
   if (IsTwentyFourHours())
     return false;
+
   m_openingTime = span;
+  osmoh::TTimespans excludeTime;
+  for (auto const & excludeSpan : GetExcludeTime())
+  {
+    auto const openingTimeStart = GetOpeningTime().GetStart().GetHourMinutes().GetDuration();
+    auto const openingTimeEnd = GetOpeningTime().GetEnd().GetHourMinutes().GetDuration();
+    auto const excludeSpanStart = excludeSpan.GetStart().GetHourMinutes().GetDuration();
+    auto const excludeSpanEnd = excludeSpan.GetEnd().GetHourMinutes().GetDuration();
+
+    if (excludeSpanStart < openingTimeStart || openingTimeEnd < excludeSpanEnd)
+      continue;
+
+    excludeTime.push_back(excludeSpan);
+  }
+
+  m_excludeTime.swap(excludeTime);
   return true;
+}
+
+bool TimeTable::CanAddExcludeTime() const
+{
+  return !GetPredefinedExcludeTime().IsEmpty();
 }
 
 bool TimeTable::AddExcludeTime(osmoh::Timespan const & span)
@@ -161,7 +214,7 @@ bool TimeTable::ReplaceExcludeTime(osmoh::Timespan const & span, size_t const in
   else
     copy[index] = span;
 
-  if (!FixTimeSpans(copy, m_openingTime))
+  if (!FixTimeSpans(m_openingTime, copy))
     return false;
 
   m_excludeTime.swap(copy);
@@ -187,7 +240,7 @@ bool TimeTable::IsValid() const
       return false;
 
     auto copy = GetExcludeTime();
-    if (!FixTimeSpans(copy, m_openingTime))
+    if (!FixTimeSpans(m_openingTime, copy))
       return false;
   }
 
@@ -203,18 +256,23 @@ osmoh::Timespan TimeTable::GetPredefinedOpeningTime() const
 osmoh::Timespan TimeTable::GetPredefinedExcludeTime() const
 {
   using osmoh::operator""_h;
-  if (GetExcludeTime().empty())
-    return {12_h, 13_h};
+  using osmoh::operator""_min;
+  auto longestOpenSpan = GetLongetsOpenSpan(GetOpeningTime(), GetExcludeTime());
 
-  auto nextExcludeTimeStart = GetExcludeTime().back().GetEnd().GetHourMinutes();
-  nextExcludeTimeStart.AddDuration(2_h);
-  if (nextExcludeTimeStart.GetDuration() >= 24_h - 1_h)
-    nextExcludeTimeStart.AddDuration(-24_h);
+  auto const longestOpenSpanLength = SpanLength(longestOpenSpan);
+  auto offset = longestOpenSpanLength / 4;
 
-  auto nextExcludeTimeEnd = nextExcludeTimeStart;
-  nextExcludeTimeEnd.AddDuration(1_h);
+  auto const remainder = offset % 10;
+  if (remainder && remainder != 5)
+    offset -= remainder;
 
-  return {nextExcludeTimeStart, nextExcludeTimeEnd};
+  longestOpenSpan.GetStart().GetHourMinutes().AddDuration(osmoh::HourMinutes::TMinutes(offset));
+  longestOpenSpan.GetEnd().GetHourMinutes().AddDuration(-osmoh::HourMinutes::TMinutes(offset));
+
+  if (SpanLength(longestOpenSpan) < (30_min).count())
+    return osmoh::Timespan{};
+
+  return longestOpenSpan;
 }
 
 // TimeTableSet ------------------------------------------------------------------------------------

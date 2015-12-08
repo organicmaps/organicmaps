@@ -29,6 +29,7 @@ public:
   osmoh::Timespan const & GetOpeningTime() const { return m_openingTime; }
   bool SetOpeningTime(osmoh::Timespan const & span);
 
+  bool CanAddExcludeTime() const;
   bool AddExcludeTime(osmoh::Timespan const & span);
   bool ReplaceExcludeTime(osmoh::Timespan const & span, size_t const index);
   bool RemoveExcludeTime(size_t const index);
