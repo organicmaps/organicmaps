@@ -256,6 +256,8 @@ void GLFunctions::glBlendFunc(glConst srcFactor, glConst dstFactor) {}
 
 void GLFunctions::glDisable(glConst mode) {}
 
+void GLFunctions::glDepthFunc(glConst depthFunc) {}
+
 void GLFunctions::glUniformValueiv(int8_t location, int32_t * v, uint32_t size) {}
 
 void * GLFunctions::glMapBuffer(glConst, glConst) { return 0; }
