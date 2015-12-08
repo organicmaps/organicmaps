@@ -43,8 +43,8 @@ public:
   void SetCallback(TGpsTrackDiffCallback callback);
 
 private:
-  void InitFile();
-  void InitCollection();
+  void LazyInitFile();
+  void LazyInitCollection();
   void SendInitialSnapshot();
 
   string const m_filePath;

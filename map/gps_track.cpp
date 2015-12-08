@@ -30,7 +30,7 @@ void GpsTrack::AddPoint(location::GpsTrackInfo const & info)
 {
   lock_guard<mutex> lg(m_guard);
 
-  InitFile();
+  LazyInitFile();
 
   // Write point to the file.
   // If file exception happens, then drop file.
@@ -73,7 +73,7 @@ void GpsTrack::AddPoints(vector<location::GpsTrackInfo> const & points)
 
   lock_guard<mutex> lg(m_guard);
 
-  InitFile();
+  LazyInitFile();
 
   // Write point to the file.
   // If file exception happens, then drop file.
@@ -127,7 +127,7 @@ void GpsTrack::Clear()
 {
   lock_guard<mutex> lg(m_guard);
 
-  InitFile();
+  LazyInitFile();
 
   if (m_file)
   {
@@ -190,12 +190,12 @@ void GpsTrack::SetCallback(TGpsTrackDiffCallback callback)
   if (!callback)
     return;
 
-  InitCollection();
+  LazyInitCollection();
 
   SendInitialSnapshot();
 }
 
-void GpsTrack::InitFile()
+void GpsTrack::LazyInitFile()
 {
   // Must be called under m_guard lock
 
@@ -250,7 +250,7 @@ void GpsTrack::InitFile()
   }
 }
 
-void GpsTrack::InitCollection()
+void GpsTrack::LazyInitCollection()
 {
   // Must be called under m_guard lock
 
@@ -259,7 +259,7 @@ void GpsTrack::InitCollection()
 
   m_collection = make_unique<GpsTrackCollection>(kGpsCollectionMaxItemCount, m_duration);
 
-  InitFile();
+  LazyInitFile();
 
   if (!m_file)
     return;
@@ -292,6 +292,8 @@ void GpsTrack::InitCollection()
 
 void GpsTrack::SendInitialSnapshot()
 {
+  // Must be called under m_guard lock
+
   if (!m_callback)
     return;
 
