@@ -194,7 +194,7 @@ line|z11[highway=primary]::case
 line|z11[highway=secondary]
 {
   color: @secondary;
-  width: 1.1;
+  width: 1.2;
   opacity: 1;
   z-index: 800;
 }
@@ -203,7 +203,7 @@ line|z11[highway=residential],
 line|z11[highway=tertiary]
 {
   color: @residential;
-  width: 0.4;
+  width: 0.8;
   opacity: 1;
   z-index: 750;
 }
@@ -272,7 +272,7 @@ line|z12[highway=road],
 line|z12[highway=living_street]
 {
   color: @residential;
-  width: 0.8;
+  width: 1.2;
   opacity: 1;
   z-index: 750;
 }
@@ -362,7 +362,8 @@ line|z13[highway=living_street]
   z-index: 700;
 }
 
-line|z13[highway=pedestrian]
+line|z13[highway=pedestrian],
+line|z13[highway=ford]
 {
   color: @pedestrian;
   width: 1;
@@ -381,7 +382,8 @@ line|z13[highway=cycleway]
   opacity: 0.8;*/
 }
 
-line|z13[highway=construction]
+line|z13[highway=construction],
+line|z13[highway=proposed]
 {
   color: @construction;
   opacity: 1;
@@ -498,11 +500,12 @@ line|z14[highway=road]
   z-index: 700;
 }
 
-line|z14[highway=pedestrian]
+line|z14[highway=pedestrian],
+line|z14[highway=ford]
 {
   color: @pedestrian;
   width: 1.6;
-  dashes: 3.6,1.44;/*dashes: 3.6,1.8;*/
+  dashes: 3.6,1.6;/*dashes: 3.6,1.8;*/
   opacity: 1;
   z-index: 660;
 }
@@ -516,6 +519,8 @@ line|z14[highway=service]
 }
 
 line|z14[highway=track][tracktype=grade1],
+line|z14[highway=raceway],
+line|z14[leisure=track]
 {
   color: @track;
   opacity: 1;
@@ -526,6 +531,7 @@ line|z14[highway=track],
 line|z14[highway=path],
 line|z14[route=hiking]
 {
+
   color: @track;
   opacity: 1;
   dashes: 2.52,1.35;
@@ -552,7 +558,8 @@ line|z14[highway=footway]
   z-index: 600;
 }
 
-line|z14[highway=construction]
+line|z14[highway=construction],
+line|z14[highway=proposed]
 {
   color: @construction;
   opacity: 1;
@@ -683,11 +690,12 @@ line|z15[highway=road]
   opacity: 1;
   z-index: 700;
 }
-line|z15[highway=pedestrian]
+line|z15[highway=pedestrian],
+line|z15[highway=ford]
 {
   color: @pedestrian;
   width: 2;
-  dashes: 5,2;/*dashes: 3.6,1.8;*/
+  dashes: 5,2.2;/*dashes: 3.6,1.8;*/
   opacity: 1;
   z-index: 660;
 }
@@ -706,6 +714,8 @@ line|z15[highway=service][service=driveway]
 }
 
 line|z15[highway=track][tracktype=grade1],
+line|z15[highway=raceway],
+line|z15[leisure=track]
 {
   color: @track;
   opacity: 1;
@@ -719,7 +729,7 @@ line|z15[route=hiking]
   color: @track;
   opacity: 1;
   dashes: 2.7,1.26;
-  width: 1.3;
+  width: 1.1;
   z-index: 600;
 }
 
@@ -750,7 +760,8 @@ line|z15[highway=cycleway]
   z-index: 1000;
 
 }
-line|z15[highway=construction]
+line|z15[highway=construction],
+line|z15[highway=proposed]
 {
   color: @construction;
   opacity: 1;
@@ -898,7 +909,8 @@ line|z16[highway=service]
   z-index: 650;
 }
 
-line|z16[highway=pedestrian]
+line|z16[highway=pedestrian],
+line|z16[highway=ford]
 {
   color: @pedestrian;
   width: 2.4;
@@ -933,6 +945,8 @@ line|z16[highway=service][service=driveway]
 }
 
 line|z16[highway=track][tracktype=grade1],
+line|z16[highway=raceway],
+line|z16[leisure=track]
 {
   color: @track;
   opacity: 1;
@@ -968,7 +982,8 @@ line|z16[highway=steps]
   z-index: 1000;
 }
 
-line|z16[highway=construction]
+line|z16[highway=construction],
+line|z16[highway=proposed]
 {
   color: @construction;
   opacity: 1;
@@ -1119,7 +1134,8 @@ line|z17[highway=road]
   z-index: 700;
 }
 
-line|z17[highway=pedestrian]
+line|z17[highway=pedestrian],
+line|z17[highway=ford]
 {
   color: @pedestrian;
   width: 3;
@@ -1171,6 +1187,8 @@ line|z17[highway=service]
 }
 
 line|z17[highway=track][tracktype=grade1],
+line|z17[highway=raceway],
+line|z17[leisure=track]
 {
   color: @track;
   opacity: 1;
@@ -1205,7 +1223,8 @@ line|z17[highway=steps]
   z-index: 1000;
 }
 
-line|z17[highway=construction]
+line|z17[highway=construction],
+line|z17[highway=proposed]
 {
   color: @construction;
   opacity: 1;
@@ -1354,7 +1373,8 @@ line|z18[highway=road]
   z-index: 700;
 }
 
-line|z18[highway=pedestrian]
+line|z18[highway=pedestrian],
+line|z18[highway=ford]
 {
   color: @pedestrian;
    width: 4;
@@ -1406,6 +1426,8 @@ line|z18[highway=service]
 }
 
 line|z18[highway=track][tracktype=grade1],
+line|z18[highway=raceway],
+line|z18[leisure=track]
 {
   color: @track;
   opacity: 1;
@@ -1441,7 +1463,8 @@ line|z18[highway=steps]
   z-index: 1000;
 }
 
-line|z18[highway=construction]
+line|z18[highway=construction],
+line|z18[highway=proposed]
 {
   color: @construction;
   opacity: 1;
@@ -1590,7 +1613,8 @@ line|z19-[highway=road]
   z-index: 700;
 }
 
-line|z19-[highway=pedestrian]
+line|z19-[highway=pedestrian],
+line|z19-[highway=ford]
 {
   color: @pedestrian;
    width: 5;
@@ -1643,6 +1667,8 @@ line|z19-[highway=service]
 }
 
 line|z19-[highway=track][tracktype=grade1],
+line|z19-[highway=raceway],
+line|z19-[leisure=track]
 {
   color: @track;
   opacity: 1;
@@ -1677,7 +1703,8 @@ line|z19-[highway=steps]
   z-index: 1000;
 }
 
-line|z19-[highway=construction]
+line|z19-[highway=construction],
+line|z19-[highway=proposed]
 {
   color: @construction;
   opacity: 1;
@@ -2015,14 +2042,32 @@ line|z16-[highway=footway][bridge?]::bridgeblack,
   casing-linecap: butt;
   casing-color: @bridge_casing;
 }
-line|z18-[highway=pedestrian][bridge?]::bridgewhite,
-line|z18-[highway=footway][bridge?]::bridgewhite
+line|z16-[highway=pedestrian][bridge?]::bridgewhite,
+line|z16-[highway=footway][bridge?]::bridgewhite
+{
+  z-index: 400;
+  casing-width: eval(prop("width")+0.2);
+  casing-linecap: butt;
+  casing-color: @bridge_background;
+}
+
+line|z17-[highway=pedestrian][bridge?]::bridgeblack,
+line|z17-[highway=footway][bridge?]::bridgeblack,
+{
+  z-index:390;
+  casing-width: eval(prop("width")+0.6);
+  casing-linecap: butt;
+  casing-color: @bridge_casing;
+}
+line|z17-[highway=pedestrian][bridge?]::bridgewhite,
+line|z17-[highway=footway][bridge?]::bridgewhite
 {
   z-index:400;
   casing-width: eval(prop("width")+0.2);
   casing-linecap: butt;
   casing-color: @bridge_background;
 }
+
 line|z18-[highway=pedestrian][bridge?]::bridgeblack,
 line|z18-[highway=footway][bridge?]::bridgeblack,
 {

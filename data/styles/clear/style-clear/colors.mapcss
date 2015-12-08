@@ -80,7 +80,7 @@
 @railway: #969586;
 @railway_dash: #EEEEEE;
 @railway_tunnel: #555555;
-@aerialway: #777777;
+@aerialway: #444444;
 @tram: #555555;
 @ferry: #4499Bb;
 
@@ -96,8 +96,10 @@
 @glacier: #FFFFFF;
 @water: #8BD3E0;
 @river: #36B0BF;
+@wetland: #c9ddd6;
 @forest: #AABF65;
 @park: #AABF65; /* A5BF60 #A4B275 #BCCC74*/
+@natpark: #3A7921;
 @beach: #FCEC7E;
 /*forest-park*/
 @green0: #CFD5A8;
@@ -116,8 +118,8 @@
 @pedestrian_area: #E3E1D2;
 @pedestrian_area_light: #EDEBDB;
 
-@unversity: #EBD8B0;
-@hospital: #EBCECE;/*FADCDB*/
+@unversity: #F8E4BA;
+@hospital: #F8D9D9;/*FADCDB*/
 @industrial: #E4E2EB;
 @sport: #D1CDA7;
 @parking: #F2F2CE;

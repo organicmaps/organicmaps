@@ -12,6 +12,7 @@ fill-color: @background;
 area|z12-[man_made=pier],
 area|z12-[man_made=breakwater],
 
+
  {
   fill-color: @background;
   fill-opacity: 1;
@@ -20,7 +21,9 @@ area|z12-[man_made=breakwater],
 }
 
 line|z14-[man_made=pier],
-line|z14-[man_made=breakwater]
+line|z14-[man_made=breakwater],
+line|z14-[man_made=cutline]
+
 { casing-width: 2;
   casing-color: @background;
   fill-color: @background;
@@ -29,7 +32,8 @@ line|z14-[man_made=breakwater]
  fill-position: background;
 }
 line|z17-[man_made=pier],
-line|z17-[man_made=breakwater]
+line|z17-[man_made=breakwater],
+line|z17-[man_made=cutline]
 { casing-width: 2;
   casing-color: @background;
   fill-color: @background;
@@ -45,12 +49,15 @@ area|z14-[area:highway=pedestrian],
 area|z14-[highway=footway][area?][!sac_scale],
 area|z14-[area:highway=footway],
 area|z14-[area:highway=living_street],
+area|z16-[public_transport=platform],
+area|z16-[railway=platform]
+
 {
   fill-color: @pedestrian_area;
   fill-position: background;
   fill-opacity: 1;
   z-index: 44;
-  
+
 }
 
 area|z16-[highway=pedestrian][area?],
@@ -71,7 +78,12 @@ area|z16-[area:highway=living_street],
 
 
 area|z15-[landuse=industrial],
-area|z15-[landuse=construction]{
+area|z15-[landuse=construction],
+area|z15-[landuse=landfill],
+area|z15-[landuse=railway],
+area|z15-[landuse=quarry]
+
+{
   fill-color: @industrial;
   fill-position: background;
   fill-opacity: 1;
@@ -137,10 +149,23 @@ area|z18-[amenity=university] {
   z-index: 1;
 }
 
-area|z16-[leisure=pitch],
+area|z15-[leisure=stadium],
+area|z17-[leisure=playground],
+area|z17-[sport=multi]
+  {
+  fill-color: @sport;
+  fill-position: background;
+  fill-opacity: 1;
+  z-index: 5;
+}
+
+
+area|z15-[leisure=pitch],
 area|z16-[sport=soccer],
 area|z15-[leisure=stadium],
-area|z17-[leisure=playground]  {
+area|z17-[leisure=playground],
+area|z17-[sport=multi]
+  {
   fill-color: @sport;
   fill-position: background;
   fill-opacity: 1;
