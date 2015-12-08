@@ -180,3 +180,5 @@
 @piste_intermadiate: #440000;
 @piste_expert: #333333;
 @piste_advanced: #333333;
+
+@wetland: #001721;
