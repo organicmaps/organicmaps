@@ -904,7 +904,10 @@ void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
   ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
   bool isMyPosition = false;
   if (m_myPositionController->IsModeHasPosition())
-    isMyPosition = selectRect.IsPointInside(screen.GtoP(m_myPositionController->Position()));
+  {
+    m2::PointD const pt = screen.PtoP3d(screen.GtoP(m_myPositionController->Position()));
+    isMyPosition = selectRect.IsPointInside(pt);
+  }
 
   m_tapEventInfoFn(pt, isLongTap, isMyPosition, GetVisiblePOI(selectRect));
 }
