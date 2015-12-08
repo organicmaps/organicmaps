@@ -1373,6 +1373,9 @@ bool Framework::IsGpsTrackingEnabled() const
 
 void Framework::SetGpsTrackingDuration(hours duration)
 {
+  uint32_t const hours = duration.count();
+  Settings::Set(kGpsTrackingDurationHours, hours);
+
   m_gpsTrack.SetDuration(duration);
 }
 
