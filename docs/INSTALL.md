@@ -82,6 +82,8 @@ To build and run OSRM binaries:
 
     sudo apt-get install libtbb2 libluabind0.9.1 liblua50 libstxxl1
     sudo apt-get install libtbb-dev libluabind-dev libstxxl-dev libosmpbf-dev libprotobuf-dev
+    sudo apt-get install libboost-thread-dev libboost-system-dev libboost-program-options-dev
+    sudo apt-get install libboost-filesystem-dev libboost-date-time-dev
     tools/unix/build_omim.sh -o
 
 ### Windows
