@@ -25,8 +25,8 @@
 /* ORANGE ROADS BUNDLE  */
  @trunk_orange: #FF5919;
  @trunk_orange_hard: #FF5E1F;
- @trunk_orange_medium: #FF6626;
- @trunk_orange_light: #FF7326;/*F57A45*/
+@trunk_orange_medium: #FF7326; /*FF6626*/
+ @trunk_orange_light: #FF7A26;/*F57A45*/
 @trunk_orange_case: #DDDDCC;
   @primary_orange:  #FF8726;
  @primary_orange_medium: #FF9440;
@@ -109,7 +109,8 @@
 @green4: #AEC26B;
 @green5: #B0C270;
 /* BUILDINGS */
-@housename: #7F7E76;
+@housename: #65655E;
+@building_label: #61615A;
 @building: #C9C8BB;
 @building_dark: #C2C0B3;
 
@@ -141,7 +142,7 @@
 
 
 /* PLACE LABELS */
-@city_label: #595959;
+@city_label: #666666;
 @city_label_light: #7F7F7F;
 @city_halo: #DDDDCC;
 @city_halo_light: #DDDDCC;
@@ -174,8 +175,6 @@
 /* UNIVERSAL HALO */
 @label_halo: #FFFFFF;
 
-/* OTHER LABELS */
-@building_label: #656565;
 
 /* PISTE */
 @piste: #C47AFF;
