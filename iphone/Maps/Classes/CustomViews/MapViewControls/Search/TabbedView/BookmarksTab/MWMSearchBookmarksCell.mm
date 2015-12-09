@@ -43,8 +43,10 @@
 {
   self.isVisible = !self.isVisible;
   BookmarkCategory * cat = GetFramework().GetBmCategory(self.index);
-  BookmarkCategory::Guard guard(*cat);
-  guard.m_controller.SetIsVisible(self.isVisible);
+  {
+    BookmarkCategory::Guard guard(*cat);
+    guard.m_controller.SetIsVisible(self.isVisible);
+  }
   cat->SaveToKMLFile();
 }
 

@@ -327,24 +327,26 @@ using feature::Metadata;
   if (!category)
     return;
 
-  BookmarkCategory::Guard guard(*category);
-  Bookmark * bookmark = static_cast<Bookmark *>(guard.m_controller.GetUserMarkForEdit(self.bac.second));
-  if (!bookmark)
-    return;
-  
-  if (self.bookmarkColor)
-    bookmark->SetType(self.bookmarkColor.UTF8String);
-
-  if (self.bookmarkDescription)
   {
-    string const description(self.bookmarkDescription.UTF8String);
-    _isHTMLDescription = strings::IsHTML(description);
-    bookmark->SetDescription(description);
+    BookmarkCategory::Guard guard(*category);
+    Bookmark * bookmark = static_cast<Bookmark *>(guard.m_controller.GetUserMarkForEdit(self.bac.second));
+    if (!bookmark)
+      return;
+  
+    if (self.bookmarkColor)
+      bookmark->SetType(self.bookmarkColor.UTF8String);
+
+    if (self.bookmarkDescription)
+    {
+      string const description(self.bookmarkDescription.UTF8String);
+      _isHTMLDescription = strings::IsHTML(description);
+      bookmark->SetDescription(description);
+    }
+
+    if (self.bookmarkTitle)
+      bookmark->SetName(self.bookmarkTitle.UTF8String);
   }
-
-  if (self.bookmarkTitle)
-    bookmark->SetName(self.bookmarkTitle.UTF8String);
-
+  
   category->SaveToKMLFile();
 }
 

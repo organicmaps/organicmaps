@@ -304,8 +304,10 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   m_userMark.reset(new UserMarkCopy(poi, false));
   if (bookmarkCategory)
   {
-    BookmarkCategory::Guard guard(*bookmarkCategory);
-    guard.m_controller.DeleteUserMark(bookmarkAndCategory.second);
+    {
+      BookmarkCategory::Guard guard(*bookmarkCategory);
+      guard.m_controller.DeleteUserMark(bookmarkAndCategory.second);
+    }
     bookmarkCategory->SaveToKMLFile();
   }
   [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
