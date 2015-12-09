@@ -17,7 +17,7 @@ static char const * gLangs[] = {
 
 int8_t StringUtf8Multilang::GetLangIndex(string const & lang)
 {
-  static_assert(ARRAY_SIZE(gLangs) == MAX_SUPPORTED_LANGUAGES, "");
+  static_assert(ARRAY_SIZE(gLangs) == MAX_SUPPORTED_LANGUAGES, "With current encoding we are limited to 64 languages max.");
 
   for (size_t i = 0; i < ARRAY_SIZE(gLangs); ++i)
     if (lang == gLangs[i])

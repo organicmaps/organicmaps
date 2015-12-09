@@ -35,8 +35,12 @@ class StringUtf8Multilang
   size_t GetNextIndex(size_t i) const;
 
 public:
-  static int8_t const UNSUPPORTED_LANGUAGE_CODE = -1;
-  static int8_t const DEFAULT_CODE = 0;
+  static int8_t constexpr UNSUPPORTED_LANGUAGE_CODE = -1;
+  static int8_t constexpr DEFAULT_CODE = 0;
+  /// How many languages we support on indexing stage. See full list in cpp file.
+  /// TODO(AlexZ): Review and replace invalid languages by valid ones.
+  static int8_t constexpr MAX_SUPPORTED_LANGUAGES = 64;
+
 
   /// @return UNSUPPORTED_LANGUAGE_CODE if language is not recognized
   static int8_t GetLangIndex(string const & lang);
