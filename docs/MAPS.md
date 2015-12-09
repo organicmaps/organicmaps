@@ -25,8 +25,6 @@ Specify `TARGET` variable for changing that (e.g. `TARGET=.`). The script runs `
 see `find_generator_tool.sh` script for an algorithm on how it finds it. All temporary files are created
 with `mktemp` and then removed.
 
-If you do not have osmconvert installed in ```$HOME/osmctools/osmconvert```, the script may compile it from source. In this case you need the following boost libraries: Thread, System, Program Options, Filesystem, Date Time, Atomic, Chrono, Serialization. On Ubuntu you may want to install them using ```apt-get install libboost-thread-dev libboost-system-dev libboost-program-options-dev libboost-filesystem-dev libboost-date-time-dev```
-
 The resulting file won't have any coastlines, though MAPS.ME will overlay zoomed-in map with a low-quality
 generalized coastline. To add a detailed coastline, you would need a `WorldCoasts.geom` file and
 a [border polygon](http://wiki.openstreetmap.org/wiki/Osmosis/Polygon_Filter_File_Format) for a source
