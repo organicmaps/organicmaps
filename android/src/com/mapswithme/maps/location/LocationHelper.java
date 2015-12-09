@@ -41,8 +41,6 @@ public enum LocationHelper implements SensorEventListener
 
   public static final String LOCATION_PREDICTOR_PROVIDER = "LocationPredictorProvider";
   private static final float DISTANCE_TO_RECREATE_MAGNETIC_FIELD_M = 1000;
-  private static final long UPDATE_INTERVAL_FOREGROUND_MS = 500;
-  private static final long UPDATE_INTERVAL_BACKGROUND_MS = 20000;
   private static final long STOP_DELAY_MS = 5000;
 
   public interface LocationListener
@@ -312,12 +310,6 @@ public enum LocationHelper implements SensorEventListener
     mLocationProvider.stopUpdates();
     if (!mListeners.isEmpty())
       mLocationProvider.startUpdates();
-  }
-
-  public static long getUpdateInterval()
-  {
-    return (MwmApplication.backgroundTracker().isForeground() ? UPDATE_INTERVAL_FOREGROUND_MS
-                                                              : UPDATE_INTERVAL_BACKGROUND_MS);
   }
 
   public static void onLocationUpdated(@NonNull Location location)

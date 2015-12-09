@@ -14,6 +14,7 @@ abstract class BaseLocationProvider implements LocationListener
   private static final double DEFAULT_SPEED_MPS = 5;
 
   protected static final Logger sLogger = SimpleLogger.get(BaseLocationProvider.class.getName());
+  protected static final long UPDATE_INTERVAL_MS = 500;
 
   protected abstract void startUpdates();
 

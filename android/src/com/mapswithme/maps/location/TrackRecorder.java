@@ -13,15 +13,15 @@ public final class TrackRecorder
 {
   private static final AlarmManager sAlarmManager = (AlarmManager)MwmApplication.get().getSystemService(Context.ALARM_SERVICE);
   private static final Intent sAlarmIntent = new Intent("com.mapswithme.maps.TRACK_RECORDER_ALARM");
+  private static final long WAKEUP_INTERVAL_MS = 20000;
 
-  private static final LocationHelper.LocationListener mLocationListener = new LocationHelper.LocationListener()
+  private static final LocationHelper.LocationListener sLocationListener = new LocationHelper.LocationListener()
   {
     @Override
     public void onLocationUpdated(Location location)
     {
       LocationHelper.onLocationUpdated(location);
       TrackRecorderWakeService.stop();
-      checkState();
     }
 
     @Override
@@ -43,25 +43,28 @@ public final class TrackRecorder
       @Override
       public void onTransit(boolean foreground)
       {
-        checkState();
+        if (foreground)
+          TrackRecorderWakeService.stop();
       }
     });
-  }
 
-  private static void checkState()
-  {
-    if (MwmApplication.backgroundTracker().isForeground() || !isEnabled())
-    {
-      sAlarmManager.cancel(getAlarmIntent());
-      TrackRecorderWakeService.stop();
-    }
-    else
-      sAlarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + LocationHelper.getUpdateInterval(), getAlarmIntent());
+    setEnabledInternal(nativeIsEnabled());
   }
 
   private static PendingIntent getAlarmIntent()
   {
     return PendingIntent.getBroadcast(MwmApplication.get(), 0, sAlarmIntent, 0);
+  }
+
+  private static void setEnabledInternal(boolean enabled)
+  {
+    if (enabled)
+      sAlarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + WAKEUP_INTERVAL_MS, WAKEUP_INTERVAL_MS, getAlarmIntent());
+    else
+    {
+      sAlarmManager.cancel(getAlarmIntent());
+      TrackRecorderWakeService.stop();
+    }
   }
 
   public static boolean isEnabled()
@@ -72,7 +75,7 @@ public final class TrackRecorder
   public static void setEnabled(boolean enabled)
   {
     nativeSetEnabled(enabled);
-    checkState();
+    setEnabledInternal(enabled);
   }
 
   public static int getDuration()
@@ -87,18 +90,24 @@ public final class TrackRecorder
 
   static void onWakeAlarm()
   {
-    if (nativeIsEnabled())
+    if (!nativeIsEnabled())
+    {
+      setEnabledInternal(false);
+      return;
+    }
+
+    if (!MwmApplication.backgroundTracker().isForeground())
       TrackRecorderWakeService.start();
   }
 
   static void onServiceStarted()
   {
-    LocationHelper.INSTANCE.addLocationListener(mLocationListener, false);
+    LocationHelper.INSTANCE.addLocationListener(sLocationListener, false);
   }
 
   static void onServiceStopped()
   {
-    LocationHelper.INSTANCE.removeLocationListener(mLocationListener);
+    LocationHelper.INSTANCE.removeLocationListener(sLocationListener);
   }
 
   private static native void nativeSetEnabled(boolean enable);

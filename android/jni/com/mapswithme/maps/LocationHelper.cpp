@@ -1,4 +1,5 @@
 #include "Framework.hpp"
+#include "map/gps_track.hpp"
 #include "platform/file_logging.hpp"
 
 extern "C"
@@ -37,7 +38,10 @@ extern "C"
       info.m_speed = speed;
 
     LOG_MEMORY_INFO();
-    g_framework->OnLocationUpdated(info);
+    if (g_framework)
+      g_framework->OnLocationUpdated(info);
+    else
+      GetDefaultGpsTrack().AddPoint(info);
   }
 
   JNIEXPORT jfloatArray JNICALL
