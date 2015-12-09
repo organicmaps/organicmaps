@@ -32,6 +32,7 @@
 #include "indexer/drawing_rules.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/map_style_reader.hpp"
+#include "indexer/osm_editor.hpp"
 #include "indexer/scales.hpp"
 
 /// @todo Probably it's better to join this functionality.
@@ -320,6 +321,8 @@ Framework::Framework()
   LOG(LDEBUG, ("Routing engine initialized"));
 
   LOG(LINFO, ("System languages:", languages::GetPreferred()));
+
+  osm::Editor::Instance().SetInvalidateFn([this](){ InvalidateRect(GetCurrentViewport()); });
 }
 
 Framework::~Framework()
