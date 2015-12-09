@@ -114,19 +114,20 @@ private:
         uint32_t const lastScale = header.GetLastScale();
 
         // In case of WorldCoasts we should pass correct scale in ForEachInIntervalAndScale.
-        if (scale > lastScale) scale = lastScale;
+        if (scale > lastScale)
+          scale = lastScale;
 
         // Use last coding scale for covering (see index_builder.cpp).
         covering::IntervalsT const & interval = cov.Get(lastScale);
 
-        // prepare features reading
-        FeaturesVector fv(pValue->m_cont, header, pValue->m_table);
+        // Prepare features reading.
+        FeaturesVector const fv(pValue->m_cont, header, pValue->m_table);
         ScaleIndex<ModelReaderPtr> index(pValue->m_cont.GetReader(INDEX_FILE_TAG),
                                          pValue->m_factory);
 
         // iterate through intervals
         CheckUniqueIndexes checkUnique(header.GetFormat() >= version::Format::v5);
-        MwmId const mwmID = handle.GetId();
+        MwmId const & mwmID = handle.GetId();
 
         for (auto const & i : interval)
         {
@@ -179,16 +180,16 @@ private:
         int const lastScale = header.GetLastScale();
 
         // In case of WorldCoasts we should pass correct scale in ForEachInIntervalAndScale.
-        if (scale > lastScale) scale = lastScale;
+        if (scale > lastScale)
+          scale = lastScale;
 
         // Use last coding scale for covering (see index_builder.cpp).
         covering::IntervalsT const & interval = cov.Get(lastScale);
-        ScaleIndex<ModelReaderPtr> index(pValue->m_cont.GetReader(INDEX_FILE_TAG),
-                                         pValue->m_factory);
+        ScaleIndex<ModelReaderPtr> const index(pValue->m_cont.GetReader(INDEX_FILE_TAG), pValue->m_factory);
 
-        // iterate through intervals
+        // Iterate through intervals.
         CheckUniqueIndexes checkUnique(header.GetFormat() >= version::Format::v5);
-        MwmId const mwmID = handle.GetId();
+        MwmId const & mwmID = handle.GetId();
 
         for (auto const & i : interval)
         {
@@ -275,7 +276,7 @@ public:
   public:
     FeaturesLoaderGuard(Index const & parent, MwmId id);
 
-    inline MwmSet::MwmId GetId() const { return m_handle.GetId(); }
+    inline MwmSet::MwmId const & GetId() const { return m_handle.GetId(); }
     string GetCountryFileName() const;
     bool IsWorld() const;
     void GetFeatureByIndex(uint32_t index, FeatureType & ft) const;
@@ -288,7 +289,7 @@ public:
   };
 
   template <typename F>
-  void ForEachInRectForMWM(F & f, m2::RectD const & rect, uint32_t scale, MwmId const id) const
+  void ForEachInRectForMWM(F & f, m2::RectD const & rect, uint32_t scale, MwmId const & id) const
   {
     MwmHandle const handle = GetMwmHandleById(id);
     if (handle.IsAlive())
@@ -319,7 +320,7 @@ private:
       if (info->m_minScale <= scale && scale <= info->m_maxScale &&
           rect.IsIntersect(info->m_limitRect))
       {
-        MwmId id(info);
+        MwmId const id(info);
         switch (info->GetType())
         {
           case MwmInfo::COUNTRY:
