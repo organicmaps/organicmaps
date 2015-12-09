@@ -18,9 +18,10 @@
 #include <QtGui/QOpenGLFunctions>
 #include <QtGui/QVector2D>
 
-#include <QtWidgets/QMenu>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDesktopWidget>
+#include <QtWidgets/QDialogButtonBox>
+#include <QtWidgets/QMenu>
 
 #include <QtCore/QLocale>
 #include <QtCore/QDateTime>
@@ -472,31 +473,21 @@ void DrawWidget::ShowPOIEditor(m2::PointD const & pt)
     return;
 
   // Show Edit POI dialog.
-  EditorDialog(this, feature).exec();
-/*
+  auto & editor = osm::Editor::Instance();
+  EditorDialog dlg(this, feature);
   int const result = dlg.exec();
   if (result == QDialog::Accepted)
   {
-    // TODO(AlexZ): Uncomment and finish the code below.
     // Save edited data.
-    string const editedName = lineEditName->text().toStdString();
-    if (editedName != info.m_name)
-      m_framework->EditFeatureName(feature.GetID(), editedName);
-    // TODO: Compare with
-    // 1) osm::EditFeatureName(feature, editedName);
-    // 2) feature.EditName(editedName);
-    // 3) m_framework->EditFeature(feature.EditName(editedName));
-
-    // Save edited metadata (if any).
-    size_t index = 0;
-    for (auto const field : editableMetadataFields)
-      metadata.Set(field, metaFieldEditors[index]->text().toStdString());
+    feature.SetNames(dlg.GetEditedNames());
+    // Save edited metadata.
+    feature.SetMetadata(dlg.GetEditedMetadata());
+    editor.EditFeature(feature);
   }
   else if (result == QDialogButtonBox::DestructiveRole)
   {
-    m_framework->DeleteFeature(feature.GetID());
+    editor.DeleteFeature(feature);
   }
-*/
 }
 
 void DrawWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
