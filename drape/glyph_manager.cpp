@@ -312,7 +312,7 @@ struct UnicodeBlock
     if (m_fontsWeight.empty())
       return kInvalidFont;
 
-    int maxWight = 0;
+    int maxWeight = 0;
     int upperBoundWeight = numeric_limits<int>::max();
     if (idx != kInvalidFont)
       upperBoundWeight = m_fontsWeight[idx];
@@ -321,9 +321,9 @@ struct UnicodeBlock
     for (size_t i = 0; i < m_fontsWeight.size(); ++i)
     {
       int w = m_fontsWeight[i];
-      if (w < upperBoundWeight && w > maxWight)
+      if (w < upperBoundWeight && w > maxWeight)
       {
-        maxWight = w;
+        maxWeight = w;
         index = i;
       }
     }
