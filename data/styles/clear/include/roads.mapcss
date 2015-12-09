@@ -79,7 +79,7 @@ line|z7-[highway=residential_link],
 line|z7[highway=trunk],
 line|z7[highway=motorway] {
     color: @trunk_orange_light;
-    width: 0.6;
+    width: 0.9;
 	  opacity: 1;
   	z-index: 900;
 
@@ -90,7 +90,7 @@ line|z7[highway=motorway] {
 line|z8[highway=trunk],
 line|z8[highway=motorway]
 {
-  width: 0.7;
+  width: 1.1;
   color: @trunk_orange_light;
   opacity: 1;
   z-index: 900;
@@ -98,7 +98,7 @@ line|z8[highway=motorway]
 line|z8[highway=primary]
 {
   color: @primary_orange;
-  width: 0.5;
+  width: 0.9;
   opacity: 1;
   z-index: 850;
 }
@@ -110,7 +110,7 @@ line|z9[highway=trunk],
 line|z9[highway=motorway]
 {
   color: @trunk_orange_medium;
-  width: 1;
+  width: 1.2;
   opacity: 1;
   z-index: 900;
 }
@@ -118,7 +118,7 @@ line|z9[highway=motorway]
 line|z9[highway=primary]
 {
   color: @primary_orange;
-  width: 0.7;
+  width: 0.8;
   opacity: 1;
   z-index: 850;
 }
@@ -131,7 +131,7 @@ line|z10[highway=trunk],
 line|z10[highway=motorway]
 {
   color: @trunk_orange_medium;
-  width: 1.3;
+  width: 1.5;
   opacity: 1;
   z-index: 900;
 }
@@ -139,7 +139,7 @@ line|z10[highway=motorway]
 line|z10[highway=primary]
 {
   color: @primary_orange;
-  width: 1;
+  width: 1.2;
   opacity: 1;
   z-index: 850;
 }
@@ -147,7 +147,7 @@ line|z10[highway=primary]
 line|z10[highway=secondary]
 {
   color: @secondary;
-  width: 0.8;
+  width: 1;
   opacity: 1;
   z-index: 800;
 }
@@ -159,7 +159,7 @@ line|z11[highway=trunk],
 line|z11[highway=motorway]
 {
   color: @trunk_orange_light;
-  width: 1.8;
+  width: 1.7;
   opacity: 1;
   z-index: 900;
 }
@@ -177,7 +177,7 @@ line|z11[highway=motorway]::case
 line|z11[highway=primary]
 {
   color: @primary_orange_medium;
-  width: 1.4;
+  width: 1.5;
   opacity: 1;
   z-index: 850;
 }
@@ -194,7 +194,7 @@ line|z11[highway=primary]::case
 line|z11[highway=secondary]
 {
   color: @secondary;
-  width: 1.2;
+  width: 1.3;
   opacity: 1;
   z-index: 800;
 }
@@ -215,7 +215,7 @@ line|z12[highway=trunk],
 line|z12[highway=motorway]
 {
   color: @trunk_orange_medium;
-  width: 2;
+  width: 1.9;
   opacity: 1;
   z-index: 900;
 }
@@ -242,8 +242,8 @@ line|z12[highway=trunk][tunnel?] {
 
 line|z12[highway=primary]
 {
-  color: @primary_orange;
-  width: 1.6;
+  color: @primary_orange_medium;
+  width: 1.7;
   opacity: 1;
   z-index: 850;
 }
@@ -319,7 +319,7 @@ line|z13[highway=trunk_link]
 
 line|z13[highway=primary]
 {
-  color: @primary_orange_light;
+  color: @primary_orange_medium;
   width: 2.4;
   opacity: 1;
   z-index: 850;
@@ -435,7 +435,7 @@ line|z14[highway=trunk_link][tunnel?] {
 line|z14[highway=primary]
 {
   color: @primary_orange_medium;
-  width: 2.9;
+  width: 3.2;
   opacity: 1;
   z-index: 850;
 }
@@ -452,7 +452,7 @@ line|z14[highway=primary]::case
 line|z14[highway=primary_link]
 {
   color: @primary_orange_medium;
-  width: 2.9;
+  width: 3.2;
   z-index: 840;
 }
 
