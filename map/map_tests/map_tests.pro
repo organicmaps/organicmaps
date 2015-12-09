@@ -7,7 +7,7 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 DEPENDENCIES = map drape_frontend routing search storage drape indexer platform geometry coding base \
-               freetype fribidi expat protobuf tomcrypt jansson osrm stats_client minizip succinct
+               freetype fribidi expat protobuf tomcrypt jansson osrm stats_client minizip succinct pugixml
 
 DEPENDENCIES *= opening_hours
 

@@ -5,7 +5,7 @@ TEMPLATE = app
 
 ROOT_DIR = ../
 DEPENDENCIES = map routing search storage indexer platform geometry coding base \
-               osrm jansson protobuf tomcrypt succinct
+               osrm jansson protobuf tomcrypt succinct pugixml
 
 macx-*: LIBS *= "-framework IOKit"
 

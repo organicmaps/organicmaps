@@ -11,7 +11,8 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = map routing search storage indexer platform geometry coding base osrm jansson protobuf tomcrypt succinct stats_client
+DEPENDENCIES = map routing search storage indexer platform geometry coding base \
+               osrm jansson protobuf tomcrypt succinct stats_client pugixml
 
 DEPENDENCIES += opening_hours
 

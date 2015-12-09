@@ -7,7 +7,7 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 DEPENDENCIES = map search storage indexer platform geometry coding base \
-               freetype fribidi expat protobuf tomcrypt jansson succinct
+               freetype fribidi expat protobuf tomcrypt jansson succinct pugixml
 
 include($$ROOT_DIR/common.pri)
 

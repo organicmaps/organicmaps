@@ -4,10 +4,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = indexer platform geometry coding base protobuf tomcrypt succinct
-!linux {
-DEPENDENCIES += opening_hours
-}
+DEPENDENCIES = indexer platform geometry coding base protobuf tomcrypt pugixml succinct opening_hours
 
 include($$ROOT_DIR/common.pri)
 
