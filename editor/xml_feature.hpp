@@ -5,7 +5,6 @@
 #include "std/ctime.hpp"
 #include "std/iostream.hpp"
 #include "std/map.hpp"
-#include "std/unique_ptr.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
 
@@ -60,7 +59,8 @@ public:
   void SetAttribute(string const & key, string const & value);
 
 private:
-  pugi::xml_node GetRootNode() const;
+  pugi::xml_node const GetRootNode() const;
+  pugi::xml_node GetRootNode();
 
   pugi::xml_document m_document;
 };

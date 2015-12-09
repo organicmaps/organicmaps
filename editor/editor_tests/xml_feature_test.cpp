@@ -59,6 +59,8 @@ UNIT_TEST(XMLFeature_Setters)
   feature.SetHouse("10");
   feature.SetTagValue("opening_hours", "Mo-Fr 08:15-17:30");
 
+  feature.SetType("amenity|atm");
+
   stringstream sstr;
   feature.Save(sstr);
 
@@ -82,6 +84,9 @@ UNIT_TEST(XMLFeature_Setters)
   <tag
     k="opening_hours"
     v="Mo-Fr 08:15-17:30" />
+  <tag
+    k="amenity"
+    v="atm" />
 </node>
 )";
 
@@ -110,6 +115,9 @@ UNIT_TEST(XMLFeatureFromXml)
   <tag
     k="opening_hours"
     v="Mo-Fr 08:15-17:30" />
+  <tag
+    k="amenity"
+    v="atm" />
 </node>
 )";
 
@@ -134,4 +142,6 @@ UNIT_TEST(XMLFeatureFromXml)
 
   TEST_EQUAL(feature.GetTagValue("opening_hours"), "Mo-Fr 08:15-17:30", ());
   TEST_EQUAL(my::TimestampToString(feature.GetModificationTime()), "2015-11-27T21:13:32Z", ());
+
+  TEST_EQUAL(feature.GetType(), "amenity|atm", ());
 }
