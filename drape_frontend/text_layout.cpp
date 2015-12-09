@@ -14,7 +14,7 @@ namespace df
 namespace
 {
 
-float const BASE_HEIGHT = 20.0f;
+float const BASE_HEIGHT = 22.0f;
 float const VALID_SPLINE_TURN = 0.96f;
 
 class TextGeometryGenerator
