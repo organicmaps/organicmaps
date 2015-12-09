@@ -96,7 +96,6 @@
 @glacier: #111111;
 @water: #002222;
 @river: #062026;
-@wetland: #001919;
 @forest: #1B2500;
 @park: #1B2500;
 @beach: #28281A;
@@ -126,7 +125,7 @@
 
 /* LABELS COLORS */
 @label_extra_dark: #EEEEEE;
-@label_dark: #B2B2B2;
+@label_dark: #888888;
 @label_medium: #777777;
 @label_light: #666666;
 @label_extra_light: #555555;
@@ -154,10 +153,13 @@
 @primary_road_label: #909090;
 @secondary_road_label: #707070;
 @road_label_halo: #000000;
-@shield: #FFFFFF;
+@shield: #909090;
 @shield_halo: #000000;
 /* blue - #2E89B0; #498F46; #598DBE; */
 
+@label_dark: #333333;
+@label_light: #444444;
+@dark:  #333333;
 
 /* NATURAL LABELS */
 @water_label: #004466;
@@ -178,3 +180,5 @@
 @piste_intermadiate: #440000;
 @piste_expert: #333333;
 @piste_advanced: #333333;
+
+@wetland: #001721;
