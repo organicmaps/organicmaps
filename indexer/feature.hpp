@@ -156,6 +156,12 @@ public:
   inline void SetID(FeatureID const & id) { m_id = id; }
   inline FeatureID GetID() const { return m_id; }
 
+  /// @name Editor functions.
+  //@{
+  void SetNames(StringUtf8Multilang const & newNames);
+  void SetMetadata(feature::Metadata const & newMetadata);
+  //@}
+
   /// @name Parse functions. Do simple dispatching to m_pLoader.
   //@{
   void ParseHeader2() const;

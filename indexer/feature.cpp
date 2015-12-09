@@ -151,6 +151,28 @@ void FeatureType::ParseMetadata() const
   m_bMetadataParsed = true;
 }
 
+void FeatureType::SetNames(StringUtf8Multilang const & newNames)
+{
+  m_params.name.Clear();
+  // Validate passed string to clean up empty names (if any).
+  newNames.ForEachRef([this](int8_t langCode, string const & name) -> bool
+  {
+    if (!name.empty())
+      m_params.name.AddString(langCode, name);
+    return true;
+  });
+
+  if (m_params.name.IsEmpty())
+    SetHeader(~feature::HEADER_HAS_NAME & Header());
+  else
+    SetHeader(feature::HEADER_HAS_NAME | Header());
+}
+
+void FeatureType::SetMetadata(feature::Metadata const & newMetadata)
+{
+  m_bMetadataParsed = true;
+  m_metadata = newMetadata;
+}
 
 namespace
 {
