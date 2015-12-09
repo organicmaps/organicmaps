@@ -60,7 +60,7 @@ public:
   }
 
   template <class T>
-  void ForEachRef(T & functor) const
+  void ForEachRef(T && functor) const
   {
     size_t i = 0;
     size_t const sz = m_s.size();
