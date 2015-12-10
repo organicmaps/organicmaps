@@ -3,6 +3,7 @@
 #include "platform/location.hpp"
 
 #include "base/exception.hpp"
+#include "base/macros.hpp"
 
 #include "std/fstream.hpp"
 #include "std/function.hpp"
@@ -39,6 +40,8 @@ public:
   void ForEach(std::function<bool(TItem const & item)> const & fn);
 
 private:
+  DISALLOW_COPY_AND_MOVE(GpsTrackStorage);
+
   void TruncFile();
   size_t GetFirstItemIndex() const;
 
