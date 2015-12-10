@@ -419,6 +419,14 @@ UNIT_TEST(StartsWith)
   TEST(!StartsWith(s, "xyzabc"), ());
   TEST(!StartsWith(s, "ayz"), ());
   TEST(!StartsWith(s, "axy"), ());
+
+  UniString const us = MakeUniString(s);
+  TEST(StartsWith(us, UniString()), ());
+  TEST(StartsWith(us, MakeUniString("x")), ());
+  TEST(StartsWith(us, MakeUniString("xyz")), ());
+  TEST(!StartsWith(us, MakeUniString("xyzabc")), ());
+  TEST(!StartsWith(us, MakeUniString("ayz")), ());
+  TEST(!StartsWith(us, MakeUniString("axy")), ());
 }
 
 UNIT_TEST(EndsWith)

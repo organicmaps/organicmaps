@@ -266,6 +266,8 @@ inline string to_string(uint64_t i)
 string to_string_dac(double d, int dac);
 //@}
 
+bool StartsWith(UniString const & s, UniString const & p);
+
 bool StartsWith(string const & s1, char const * s2);
 
 bool EndsWith(string const & s1, char const * s2);
