@@ -11,6 +11,7 @@ namespace gpu
 struct BaseVertex
 {
   using TPosition = glsl::vec3;
+  using TPosition3d = glsl::vec4;
   using TNormal = glsl::vec2;
   using TNormal3d = glsl::vec3;
   using TTexCoord = glsl::vec2;
@@ -42,9 +43,9 @@ struct Area3dVertex : BaseVertex
 struct SolidTexturingVertex : BaseVertex
 {
   SolidTexturingVertex();
-  SolidTexturingVertex(TPosition const & position, TNormal const & normal, TTexCoord const & colorTexCoord);
+  SolidTexturingVertex(TPosition3d const & position, TNormal const & normal, TTexCoord const & colorTexCoord);
 
-  TPosition m_position;
+  TPosition3d m_position;
   TNormal m_normal;
   TTexCoord m_colorTexCoord;
 
@@ -85,9 +86,9 @@ typedef buffer_vector<TextOutlinedStaticVertex, 128> TTextOutlinedStaticVertexBu
 struct TextDynamicVertex : BaseVertex
 {
   TextDynamicVertex();
-  TextDynamicVertex(TPosition const & position, TNormal const & normal);
+  TextDynamicVertex(TPosition3d const & position, TNormal const & normal);
 
-  TPosition m_position;
+  TPosition3d m_position;
   TNormal m_normal;
 
   static dp::BindingInfo const & GetBindingInfo();

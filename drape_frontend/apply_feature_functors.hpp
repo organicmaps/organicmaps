@@ -54,11 +54,15 @@ class ApplyPointFeature : public BaseApplyFeature
 
 public:
   ApplyPointFeature(TInsertShapeFn const & insertShape, FeatureID const & id,
-                    int minVisibleScale, uint8_t rank, CaptionDescription const & captions);
+                    int minVisibleScale, uint8_t rank, CaptionDescription const & captions,
+                    float posZ);
 
   void operator()(m2::PointD const & point);
   void ProcessRule(Stylist::TRuleWrapper const & rule);
   void Finish();
+
+protected:
+  float const m_posZ;
 
 private:
   bool m_hasPoint;
@@ -74,7 +78,7 @@ class ApplyAreaFeature : public ApplyPointFeature
   using TBase = ApplyPointFeature;
 
 public:
-  ApplyAreaFeature(TInsertShapeFn const & insertShape, FeatureID const & id, bool isBuilding,
+  ApplyAreaFeature(TInsertShapeFn const & insertShape, FeatureID const & id, float posZ,
                    int minVisibleScale, uint8_t rank, CaptionDescription const & captions);
 
   using TBase::operator ();

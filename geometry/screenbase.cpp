@@ -356,11 +356,17 @@ void ScreenBase::ResetPerspective()
 
 m2::PointD ScreenBase::PtoP3d(m2::PointD const & pt) const
 {
+  return PtoP3d(pt, 0.0);
+}
+
+m2::PointD ScreenBase::PtoP3d(m2::PointD const & pt, double ptZ) const
+{
   if (!m_isPerspective)
     return pt;
 
   Vector3dT const normalizedPoint{float(2.0 * pt.x / m_PixelRect.SizeX() - 1.0),
-                                  -float(2.0 * pt.y / m_PixelRect.SizeY() - 1.0), 0.0, 1.0};
+                                  -float(2.0 * pt.y / m_PixelRect.SizeY() - 1.0),
+                                  float(2.0 * ptZ / m_PixelRect.SizeX()), 1.0};
 
   Vector3dT const perspectivePoint = normalizedPoint * m_Pto3d;
 

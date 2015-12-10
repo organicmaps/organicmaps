@@ -135,7 +135,9 @@ void RuleDrawer::operator()(FeatureType const & f)
   if (s.AreaStyleExists())
   {
     bool const is3dBuilding = m_is3d ? (ftypes::IsBuildingChecker::Instance()(f) && f.GetLayer() >= 0) : false;
-    ApplyAreaFeature apply(insertShape, f.GetID(), is3dBuilding,
+    float const kBuildingHeight = 0.0008f * (1.0f + 2.0f * rand() / RAND_MAX);
+
+    ApplyAreaFeature apply(insertShape, f.GetID(), is3dBuilding ? kBuildingHeight : 0.0f,
                            minVisibleScale, f.GetRank(), s.GetCaptionDescription());
     f.ForEachTriangleRef(apply, zoomLevel);
 
@@ -166,7 +168,7 @@ void RuleDrawer::operator()(FeatureType const & f)
   else
   {
     ASSERT(s.PointStyleExists(), ());
-    ApplyPointFeature apply(insertShape, f.GetID(), minVisibleScale, f.GetRank(), s.GetCaptionDescription());
+    ApplyPointFeature apply(insertShape, f.GetID(), minVisibleScale, f.GetRank(), s.GetCaptionDescription(), 0.0f /* posZ */);
     f.ForEachPointRef(apply, zoomLevel);
 
     if (CheckCancelled())

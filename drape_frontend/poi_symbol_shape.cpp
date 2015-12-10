@@ -25,7 +25,7 @@ void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManag
   m2::PointF const halfSize(pixelSize.x / 2.0, pixelSize.y / 2.0);
   m2::RectF const & texRect = region.GetTexRect();
 
-  glsl::vec3 position = glsl::vec3(glsl::ToVec2(m_pt), m_params.m_depth);
+  glsl::vec4 position = glsl::vec4(glsl::ToVec2(m_pt), m_params.m_depth, -m_params.m_posZ);
 
   gpu::SolidTexturingVertex vertexes[] =
   {
@@ -56,6 +56,7 @@ void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManag
                                                                          m_pt, pixelSize,
                                                                          GetOverlayPriority(),
                                                                          true);
+  handle->SetPivotZ(m_params.m_posZ);
   handle->SetExtendingSize(m_params.m_extendingSize);
   batcher->InsertTriangleStrip(state, make_ref(&provider), move(handle));
 }

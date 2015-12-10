@@ -30,7 +30,7 @@ void main()
 
   // Here we intentionally decrease precision of 'pos' calculation
   // to eliminate jittering effect in process of billboard reconstruction.
-  lowp vec4 pos = (a_position + vec4(Zero, Zero, depthShift, Zero)) * modelView;
+  lowp vec4 pos = (vec4(a_position.xyz, 1) + vec4(Zero, Zero, depthShift, Zero)) * modelView;
   highp vec4 shiftedPos = vec4(a_normal, Zero, Zero) + pos;
   shiftedPos = shiftedPos * projection;
   float w = shiftedPos.w;

@@ -34,7 +34,6 @@ void AreaShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
     vector<gpu::Area3dVertex> vertexes;
     vertexes.reserve(m_vertexes.size() + m_buildingEdges.size() * 6);
 
-    float const kBuildingHeight = 0.0008 * (1.0 + 2.0 * rand() / RAND_MAX);//(m_buildingEdges[0].m_startVertex - m_buildingEdges[0].m_endVertex).Length();
     for (auto const & edge : m_buildingEdges)
     {
       glsl::vec3 normal(glsl::ToVec2(edge.m_normal), 0.0f);
@@ -42,20 +41,20 @@ void AreaShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
                                            normal, colorPoint));
       vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(edge.m_endVertex), 0.0f),
                                            normal, colorPoint));
-      vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(edge.m_startVertex), -kBuildingHeight),
+      vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(edge.m_startVertex), -m_params.m_posZ),
                                            normal, colorPoint));
 
-      vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(edge.m_startVertex), -kBuildingHeight),
+      vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(edge.m_startVertex), -m_params.m_posZ),
                                            normal, colorPoint));
       vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(edge.m_endVertex), 0.0f),
                                            normal, colorPoint));
-      vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(edge.m_endVertex), -kBuildingHeight),
+      vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(edge.m_endVertex), -m_params.m_posZ),
                                            normal, colorPoint));
     }
 
     glsl::vec3 normal(0.0f, 0.0f, -1.0f);
     for (auto const & vertex : m_vertexes)
-      vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(vertex), -kBuildingHeight),
+      vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(vertex), -m_params.m_posZ),
                                            normal, colorPoint));
 
     dp::GLState state(gpu::AREA_3D_PROGRAM, dp::GLState::GeometryLayer);

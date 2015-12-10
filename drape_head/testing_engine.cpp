@@ -135,8 +135,8 @@ public:
     m2::RectF const & rect = region.GetTexRect();
     uint32_t length = region.GetMaskPixelLength();
 
-    glsl::vec3 startPos(m_base.x, m_base.y, 0.0f);
-    glsl::vec3 endPos = startPos + glsl::vec3(length, 0.0f, 0.0f);
+    glsl::vec4 startPos(m_base.x, m_base.y, 0.0f, 0.0f);
+    glsl::vec4 endPos = startPos + glsl::vec4(length, 0.0f, 0.0f, 0.0f);
 
     gpu::SolidTexturingVertex vertexes[4] =
     {
@@ -172,7 +172,7 @@ public:
 
     m2::RectF const & rect = region.GetTexRect();
 
-    glsl::vec3 const basePoint(900.0f, 700.0f, 0.0f);
+    glsl::vec4 const basePoint(900.0f, 700.0f, 0.0f, 0.0f);
     float const halfSize = 12.0f;
     glsl::vec2 texCoord = glsl::ToVec2(rect.Center());
     gpu::SolidTexturingVertex vertexes[4] =

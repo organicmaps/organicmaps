@@ -235,8 +235,10 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
 }
 
 ApplyPointFeature::ApplyPointFeature(TInsertShapeFn const & insertShape, FeatureID const & id,
-                                     int minVisibleScale, uint8_t rank, CaptionDescription const & captions)
+                                     int minVisibleScale, uint8_t rank, CaptionDescription const & captions,
+                                     float posZ)
   : TBase(insertShape, id, minVisibleScale, rank, captions)
+  , m_posZ(posZ)
   , m_hasPoint(false)
   , m_symbolDepth(dp::minDepth)
   , m_circleDepth(dp::minDepth)
@@ -282,6 +284,7 @@ void ApplyPointFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     ExtractCaptionParams(capRule, pRule->GetCaption(1), depth, params);
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
+    params.m_posZ = m_posZ;
     if(!params.m_primaryText.empty() || !params.m_secondaryText.empty())
       m_insertShape(make_unique_dp<TextShape>(m_centerPoint, params, hasPOI));
   }
@@ -312,14 +315,15 @@ void ApplyPointFeature::Finish()
     params.m_symbolName = m_symbolRule->name();
     float const mainScale = df::VisualParams::Instance().GetVisualScale();
     params.m_extendingSize = m_symbolRule->has_min_distance() ? mainScale * m_symbolRule->min_distance() : 0;
+    params.m_posZ = m_posZ;
     m_insertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params));
   }
 }
 
-ApplyAreaFeature::ApplyAreaFeature(TInsertShapeFn const & insertShape, FeatureID const & id, bool isBuilding,
+ApplyAreaFeature::ApplyAreaFeature(TInsertShapeFn const & insertShape, FeatureID const & id, float posZ,
                                    int minVisibleScale, uint8_t rank, CaptionDescription const & captions)
-  : TBase(insertShape, id, minVisibleScale, rank, captions)
-  , m_isBuilding(isBuilding)
+  : TBase(insertShape, id, minVisibleScale, rank, captions, posZ)
+  , m_isBuilding(posZ > 0.0f)
 {}
 
 void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
@@ -434,6 +438,7 @@ void ApplyAreaFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     params.m_color = ToDrapeColor(areaRule->color());
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
+    params.m_posZ = m_posZ;
 
     vector<BuildingEdge> edges;
     if (m_isBuilding)

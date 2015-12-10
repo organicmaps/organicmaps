@@ -18,26 +18,28 @@ varying vec2 v_colorTexCoord;
 
 varying vec2 v_maskTexCoord;
 
-const float Zero = 0.0;
-const float One = 1.0;
 const float BaseDepthShift = -10.0;
 
 void main()
 {
   float isOutline = step(0.5, u_isOutlinePass);
-  float notOutline = One - isOutline;
+  float notOutline = 1.0 - isOutline;
   float depthShift = BaseDepthShift * isOutline;
-
-  // Here we intentionally decrease precision of 'pos' calculation
+  
+  // Here we intentionally decrease precision of 'pivot' calculation
   // to eliminate jittering effect in process of billboard reconstruction.
-  lowp vec4 pivot = a_position * modelView;
-  vec4 offset = vec4(a_normal, Zero, Zero) * projection;
+  lowp vec4 pivot = (vec4(a_position.xyz, 1.0) + vec4(0.0, 0.0, depthShift, 0.0)) * modelView;
+  vec4 offset = vec4(a_normal, 0.0, 0.0) * projection;
+  
+  float pivotZ = a_position.w;
+  float zScale = projection[0][0] * length(vec4(1.0, 0.0, 0.0, 0.0) * modelView);
   
   vec4 projectedPivot = pivot * projection;
-  vec4 transformedPivot = pivotTransform * vec4(projectedPivot.xy, 0.0, 1.0);
+  float logicZ = projectedPivot.z / projectedPivot.w;
+  vec4 transformedPivot = pivotTransform * vec4(projectedPivot.xy, pivotZ * zScale, projectedPivot.w);
   
-  vec4 scale = pivotTransform * vec4(One, -One, Zero, One);
-  gl_Position = transformedPivot + vec4(offset.xy * transformedPivot.w / scale.w * scale.x, Zero, Zero);
+  vec4 scale = pivotTransform * vec4(1.0, -1.0, 0.0, 1.0);
+  gl_Position = vec4(transformedPivot.xy / transformedPivot.w, logicZ, 1.0) + vec4(offset.xy / scale.w * scale.x, 0.0, 0.0);
   
   vec2 colorTexCoord = a_colorTexCoord * notOutline + a_outlineColorTexCoord * isOutline;
 #ifdef ENABLE_VTF

@@ -48,7 +48,7 @@ class StraigthTextGeometryGenerator : public TextGeometryGenerator
 {
   typedef TextGeometryGenerator TBase;
 public:
-  StraigthTextGeometryGenerator(glsl::vec3 const & pivot, glsl::vec2 const & pixelOffset,
+  StraigthTextGeometryGenerator(glsl::vec4 const & pivot, glsl::vec2 const & pixelOffset,
                                 float textRatio,
                                 dp::TextureManager::ColorRegion const & color,
                                 gpu::TTextStaticVertexBuffer & staticBuffer,
@@ -89,7 +89,7 @@ public:
   }
 
 private:
-  glsl::vec3 const & m_pivot;
+  glsl::vec4 const & m_pivot;
   glsl::vec2 m_penPosition;
   gpu::TTextDynamicVertexBuffer & m_buffer;
   float m_textRatio = 0.0f;
@@ -127,7 +127,7 @@ class StraigthTextOutlinedGeometryGenerator : public TextOutlinedGeometryGenerat
 {
   typedef TextOutlinedGeometryGenerator TBase;
 public:
-  StraigthTextOutlinedGeometryGenerator(glsl::vec3 const & pivot, glsl::vec2 const & pixelOffset,
+  StraigthTextOutlinedGeometryGenerator(glsl::vec4 const & pivot, glsl::vec2 const & pixelOffset,
                                 float textRatio,
                                 dp::TextureManager::ColorRegion const & color,
                                 dp::TextureManager::ColorRegion const & outline,
@@ -169,7 +169,7 @@ public:
   }
 
 private:
-  glsl::vec3 const & m_pivot;
+  glsl::vec4 const & m_pivot;
   glsl::vec2 m_penPosition;
   gpu::TTextDynamicVertexBuffer & m_buffer;
   float m_textRatio = 0.0f;
@@ -399,7 +399,7 @@ StraightTextLayout::StraightTextLayout(strings::UniString const & text, float fo
   CalculateOffsets(anchor, m_textSizeRatio, m_metrics, delimIndexes, m_offsets, m_pixelSize);
 }
 
-void StraightTextLayout::Cache(glm::vec3 const & pivot, glm::vec2 const & pixelOffset,
+void StraightTextLayout::Cache(glm::vec4 const & pivot, glm::vec2 const & pixelOffset,
                                dp::TextureManager::ColorRegion const & colorRegion,
                                dp::TextureManager::ColorRegion const & outlineRegion,
                                gpu::TTextOutlinedStaticVertexBuffer & staticBuffer,
@@ -418,7 +418,7 @@ void StraightTextLayout::Cache(glm::vec3 const & pivot, glm::vec2 const & pixelO
   }
 }
 
-void StraightTextLayout::Cache(glm::vec3 const & pivot, glm::vec2 const & pixelOffset,
+void StraightTextLayout::Cache(glm::vec4 const & pivot, glm::vec2 const & pixelOffset,
                                dp::TextureManager::ColorRegion const & color,
                                gpu::TTextStaticVertexBuffer & staticBuffer,
                                gpu::TTextDynamicVertexBuffer & dynamicBuffer) const
@@ -501,7 +501,7 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
 
     size_t baseIndex = 4 * i;
 
-    glsl::vec3 pivot(glsl::ToVec2(globalPivot), depth);
+    glsl::vec4 pivot(glsl::ToVec2(globalPivot), depth, 0.0f);
     buffer[baseIndex + 0] = gpu::TextDynamicVertex(pivot, formingVector + normal * bottomVector + tangent * xOffset);
     buffer[baseIndex + 1] = gpu::TextDynamicVertex(pivot, formingVector + normal * upVector + tangent * xOffset);
     buffer[baseIndex + 2] = gpu::TextDynamicVertex(pivot, formingVector + normal * bottomVector + tangent * (pxSize.x + xOffset));

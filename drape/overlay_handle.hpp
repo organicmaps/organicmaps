@@ -58,6 +58,8 @@ public:
   virtual m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const = 0;
   virtual void GetPixelShape(ScreenBase const & screen, Rects & rects, bool perspective) const = 0;
 
+  void SetPivotZ(double pivotZ) { m_pivotZ = pivotZ; }
+
   double GetExtendingSize() const { return m_extendingSize; }
   void SetExtendingSize(double extendingSize) { m_extendingSize = extendingSize; }
   m2::RectD GetExtendedPixelRect(ScreenBase const & screen) const;
@@ -96,6 +98,7 @@ protected:
 
   int m_overlayRank;
   double m_extendingSize;
+  double m_pivotZ;
 
   steady_clock::time_point m_visibilityTimestamp;
 

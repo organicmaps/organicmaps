@@ -62,13 +62,13 @@ public:
                      ref_ptr<dp::TextureManager> textures,
                      dp::Anchor anchor);
 
-  void Cache(glsl::vec3 const & pivot, glsl::vec2 const & pixelOffset,
+  void Cache(const glm::vec4 & pivot, glsl::vec2 const & pixelOffset,
              dp::TextureManager::ColorRegion const & colorRegion,
              dp::TextureManager::ColorRegion const & outlineRegion,
              gpu::TTextOutlinedStaticVertexBuffer & staticBuffer,
              gpu::TTextDynamicVertexBuffer & dynamicBuffer) const;
 
-  void Cache(glsl::vec3 const & pivot, glsl::vec2 const & pixelOffset,
+  void Cache(const glm::vec4 & pivot, glsl::vec2 const & pixelOffset,
              dp::TextureManager::ColorRegion const & color,
              gpu::TTextStaticVertexBuffer & staticBuffer,
              gpu::TTextDynamicVertexBuffer & dynamicBuffer) const;

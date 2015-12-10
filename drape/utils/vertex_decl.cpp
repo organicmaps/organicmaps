@@ -56,12 +56,12 @@ dp::BindingInfo Area3dBindingInit()
 
 dp::BindingInfo SolidTexturingBindingInit()
 {
-  static_assert(sizeof(SolidTexturingVertex) == (sizeof(SolidTexturingVertex::TPosition) +
+  static_assert(sizeof(SolidTexturingVertex) == (sizeof(SolidTexturingVertex::TPosition3d) +
                                                  sizeof(SolidTexturingVertex::TNormal) +
                                                  sizeof(SolidTexturingVertex::TTexCoord)), "");
 
   dp::BindingFiller<SolidTexturingVertex> filler(3);
-  filler.FillDecl<SolidTexturingVertex::TPosition>("a_position");
+  filler.FillDecl<SolidTexturingVertex::TPosition3d>("a_position");
   filler.FillDecl<SolidTexturingVertex::TNormal>("a_normal");
   filler.FillDecl<SolidTexturingVertex::TTexCoord>("a_colorTexCoords");
 
@@ -93,11 +93,11 @@ dp::BindingInfo TextOutlinedStaticBindingInit()
 
 dp::BindingInfo TextDynamicBindingInit()
 {
-  static_assert(sizeof(TextDynamicVertex) == (sizeof(TextStaticVertex::TPosition) +
+  static_assert(sizeof(TextDynamicVertex) == (sizeof(TextStaticVertex::TPosition3d) +
                                               sizeof(TextDynamicVertex::TNormal)), "");
 
   dp::BindingFiller<TextDynamicVertex> filler(2, TextDynamicVertex::GetDynamicStreamID());
-  filler.FillDecl<TextStaticVertex::TPosition>("a_position");
+  filler.FillDecl<TextStaticVertex::TPosition3d>("a_position");
   filler.FillDecl<TextDynamicVertex::TNormal>("a_normal");
 
   return filler.m_info;
@@ -212,13 +212,13 @@ dp::BindingInfo const & Area3dVertex::GetBindingInfo()
 }
 
 SolidTexturingVertex::SolidTexturingVertex()
-  : m_position(0.0, 0.0, 0.0)
+  : m_position(0.0, 0.0, 0.0, 0.0)
   , m_normal(0.0, 0.0)
   , m_colorTexCoord(0.0, 0.0)
 {
 }
 
-SolidTexturingVertex::SolidTexturingVertex(TPosition const & position, TNormal const & normal,
+SolidTexturingVertex::SolidTexturingVertex(const TPosition3d & position, TNormal const & normal,
                                            TTexCoord const & colorTexCoord)
   : m_position(position)
   , m_normal(normal)
@@ -253,12 +253,12 @@ dp::BindingInfo const & TextOutlinedStaticVertex::GetBindingInfo()
 }
 
 TextDynamicVertex::TextDynamicVertex()
-  : m_position(0.0, 0.0, 0.0)
+  : m_position(0.0, 0.0, 0.0, 0.0)
   , m_normal(0.0, 0.0)
 {
 }
 
-TextDynamicVertex::TextDynamicVertex(TPosition const & position, TNormal const & normal)
+TextDynamicVertex::TextDynamicVertex(const TPosition3d & position, TNormal const & normal)
   : m_position(position),
     m_normal(normal)
 {
