@@ -252,5 +252,5 @@ public:
       m_bucket(fb);
   }
 
-  inline FeatureOutT const & Parent() const { return m_bucket; }
+  inline FeatureOutT & Parent() { return m_bucket; }
 };

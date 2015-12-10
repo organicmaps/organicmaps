@@ -18,13 +18,15 @@ public:
   using TReadFeaturesFn = function<void (TReadCallback<FeatureType> const & , vector<FeatureID> const &)>;
   using TReadIDsFn = function<void (TReadCallback<FeatureID> const & , m2::RectD const &, int)>;
   using TUpdateCountryIndexFn = function<void (storage::TIndex const & , m2::PointF const &)>;
-  using TIsCountryLoadedFn = function<bool (m2::PointD const & pt)>;
-  using TDownloadFn = function<void (storage::TIndex const & countryIndex)>;
+  using TIsCountryLoadedFn = function<bool (m2::PointD const &)>;
+  using TIsCountryLoadedByNameFn = function<bool (string const &)>;
+  using TDownloadFn = function<void (storage::TIndex const &)>;
 
   MapDataProvider(TReadIDsFn const & idsReader,
                   TReadFeaturesFn const & featureReader,
                   TUpdateCountryIndexFn const & countryIndexUpdater,
                   TIsCountryLoadedFn const & isCountryLoadedFn,
+                  TIsCountryLoadedByNameFn const & isCountryLoadedByNameFn,
                   TDownloadFn const & downloadMapHandler,
                   TDownloadFn const & downloadMapRoutingHandler,
                   TDownloadFn const & downloadRetryHandler);
@@ -47,6 +49,9 @@ private:
   TDownloadFn m_downloadMapHandler;
   TDownloadFn m_downloadMapRoutingHandler;
   TDownloadFn m_downloadRetryHandler;
+
+public:
+  TIsCountryLoadedByNameFn m_isCountryLoadedByNameFn;
 };
 
 }

@@ -7,6 +7,7 @@
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
+#include "indexer/scales.hpp"
 
 #include "base/assert.hpp"
 #include "std/bind.hpp"
@@ -35,9 +36,11 @@ size_t kMinFlushSizes[df::PrioritiesCount] =
 
 RuleDrawer::RuleDrawer(TDrawerCallback const & fn,
                        TCheckCancelledCallback const & checkCancelled,
+                       TIsCountryLoadedByNameFn const & isLoadedFn,
                        ref_ptr<EngineContext> context)
   : m_callback(fn)
   , m_checkCancelled(checkCancelled)
+  , m_isLoadedFn(isLoadedFn)
   , m_context(context)
   , m_wasCancelled(false)
 {
@@ -86,8 +89,25 @@ void RuleDrawer::operator()(FeatureType const & f)
   if (s.IsEmpty())
     return;
 
-  if (s.IsCoastLine() && (!m_coastlines.insert(s.GetCaptionDescription().GetMainText()).second))
-    return;
+  int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
+
+  if (s.IsCoastLine() &&
+      zoomLevel > scales::GetUpperWorldScale() &&
+      f.GetID().m_mwmId.GetInfo()->GetType() == MwmInfo::COASTS)
+  {
+    string name;
+    if (f.GetName(StringUtf8Multilang::DEFAULT_CODE, name))
+    {
+      ASSERT(!name.empty(), ());
+      strings::SimpleTokenizer iter(name, ";");
+      while (iter)
+      {
+        if (m_isLoadedFn(*iter))
+          return;
+        ++iter;
+      }
+    }
+  }
 
 #ifdef DEBUG
   // Validate on feature styles
@@ -99,7 +119,6 @@ void RuleDrawer::operator()(FeatureType const & f)
   }
 #endif
 
-  int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
   int const minVisibleScale = feature::GetMinDrawableScale(f);
 
   auto insertShape = [this](drape_ptr<MapShape> && shape)

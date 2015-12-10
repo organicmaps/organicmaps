@@ -752,6 +752,11 @@ bool Framework::IsCountryLoaded(m2::PointD const & pt) const
   return m_model.IsLoaded(fName);
 }
 
+bool Framework::IsCountryLoadedByName(string const & name) const
+{
+  return m_model.IsLoaded(name);
+}
+
 void Framework::InvalidateRect(m2::RectD const & rect)
 {
   CallDrapeFunction(bind(&df::DrapeEngine::InvalidateRect, _1, rect));
@@ -1222,6 +1227,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   };
 
   TIsCountryLoadedFn isCountryLoadedFn = bind(&Framework::IsCountryLoaded, this, _1);
+  auto isCountryLoadedByNameFn = bind(&Framework::IsCountryLoadedByName, this, _1);
 
   TDownloadFn downloadMapFn = [this](storage::TIndex const & countryIndex)
   {
@@ -1241,8 +1247,10 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   df::DrapeEngine::Params p(contextFactory,
                             make_ref(&m_stringsBundle),
                             df::Viewport(0, 0, params.m_surfaceWidth, params.m_surfaceHeight),
-                            df::MapDataProvider(idReadFn, featureReadFn, updateCountryIndex, isCountryLoadedFn,
-                                                downloadMapFn, downloadMapWithoutRoutingFn, downloadRetryFn),
+                            df::MapDataProvider(idReadFn, featureReadFn, updateCountryIndex,
+                                                isCountryLoadedFn, isCountryLoadedByNameFn,
+                                                downloadMapFn, downloadMapWithoutRoutingFn,
+                                                downloadRetryFn),
                             params.m_visualScale,
                             move(params.m_widgetsInitInfo),
                             make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState));

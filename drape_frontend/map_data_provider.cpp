@@ -7,6 +7,7 @@ MapDataProvider::MapDataProvider(TReadIDsFn const & idsReader,
                                  TReadFeaturesFn const & featureReader,
                                  TUpdateCountryIndexFn const & countryIndexUpdater,
                                  TIsCountryLoadedFn const & isCountryLoadedFn,
+                                 TIsCountryLoadedByNameFn const & isCountryLoadedByNameFn,
                                  TDownloadFn const & downloadMapHandler,
                                  TDownloadFn const & downloadMapRoutingHandler,
                                  TDownloadFn const & downloadRetryHandler)
@@ -14,6 +15,7 @@ MapDataProvider::MapDataProvider(TReadIDsFn const & idsReader,
   , m_idsReader(idsReader)
   , m_countryIndexUpdater(countryIndexUpdater)
   , m_isCountryLoadedFn(isCountryLoadedFn)
+  , m_isCountryLoadedByNameFn(isCountryLoadedByNameFn)
   , m_downloadMapHandler(downloadMapHandler)
   , m_downloadMapRoutingHandler(downloadMapRoutingHandler)
   , m_downloadRetryHandler(downloadRetryHandler)
