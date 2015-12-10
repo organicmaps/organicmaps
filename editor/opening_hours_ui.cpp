@@ -306,6 +306,9 @@ TOpeningDays TimeTableSet::GetUnhandledDays() const
 TimeTable TimeTableSet::GetComplementTimeTable() const
 {
   TimeTable tt;
+  // Set predefined opening time before set 24 hours, otherwise
+  // it has no effect.
+  tt.SetOpeningTime(tt.GetPredefinedOpeningTime());
   tt.SetTwentyFourHours(true);
   tt.SetWorkingDays(GetUnhandledDays());
   return tt;
