@@ -202,4 +202,23 @@ UNIT_TEST(TestAppendTimeTable)
 
     TEST(!tts.GetComplementTimeTable().IsValid(), ());
   }
+  {
+    TimeTableSet tts;
+    auto tt = tts.GetComplementTimeTable();
+    tt.AddWorkingDay(osmoh::Weekday::Friday);
+
+    TEST(tts.Append(tt), ());
+
+    TEST_EQUAL(tts.size(), 2, ());
+    TEST_EQUAL(tts.front().GetWorkingDays().size(), 6, ());
+    TEST_EQUAL(tts.back().GetWorkingDays().size(), 1, ());
+
+    TEST(!tts.GetComplementTimeTable().IsValid(), ());
+
+    tt = tts[0];
+    tt.AddWorkingDay(osmoh::Weekday::Friday);
+    TEST(!tts.Append(tt), ());
+    TEST_EQUAL(tts.front().GetWorkingDays().size(), 6, ());
+    TEST_EQUAL(tts.back().GetWorkingDays().size(), 1, ());
+  }
 }

@@ -150,7 +150,7 @@ TimeTable TimeTable::GetPredefinedTimeTable()
 bool TimeTable::SetWorkingDays(TOpeningDays const & days)
 {
   if (days.empty())
-    return true;
+    return false;
   m_weekdays = days;
   return true;
 }
