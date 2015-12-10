@@ -9,18 +9,13 @@ include($$ROOT_DIR/common.pri)
 
 SOURCES += \
     base.cpp \
-    commands_queue.cpp \
     condition.cpp \
-    deferred_task.cpp \
     exception.cpp \
-    fence_manager.cpp \
     internal/message.cpp \
     logging.cpp \
     lower_case.cpp \
     normalize_unicode.cpp \
     object_tracker.cpp \
-    resource_pool.cpp \
-    runner.cpp \
     shared_buffer_manager.cpp \
     src_point.cpp \
     string_format.cpp \
@@ -42,12 +37,9 @@ HEADERS += \
     buffer_vector.hpp \
     cache.hpp \
     cancellable.hpp \
-    commands_queue.hpp \
     condition.hpp \
     const_helper.hpp \
-    deferred_task.hpp \
     exception.hpp \
-    fence_manager.hpp \
     internal/message.hpp \
     limited_priority_queue.hpp \
     logging.hpp \
@@ -55,14 +47,11 @@ HEADERS += \
     math.hpp \
     matrix.hpp \
     mem_trie.hpp \
-    mru_cache.hpp \
     mutex.hpp \
     object_tracker.hpp \
     observer_list.hpp \
     regexp.hpp \
-    resource_pool.hpp \
     rolling_hash.hpp \
-    runner.hpp \
     scope_guard.hpp \
     set_operations.hpp \
     shared_buffer_manager.hpp \

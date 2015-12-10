@@ -11,7 +11,6 @@
 #include "geometry/point2d.hpp"
 #include "geometry/polyline2d.hpp"
 
-#include "base/deferred_task.hpp"
 #include "base/mutex.hpp"
 
 #include "std/atomic.hpp"

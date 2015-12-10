@@ -16,17 +16,13 @@ SOURCES += \
   bits_test.cpp \
   buffer_vector_test.cpp \
   cache_test.cpp \
-  commands_queue_test.cpp \
   condition_test.cpp \
   const_helper.cpp \
   containers_test.cpp \
-  deferred_task_test.cpp \
-  fence_manager_test.cpp \
   logging_test.cpp \
   math_test.cpp \
   matrix_test.cpp \
   mem_trie_test.cpp \
-  mru_cache_test.cpp \
   observer_list_test.cpp \
   regexp_test.cpp \
   rolling_hash_test.cpp \
