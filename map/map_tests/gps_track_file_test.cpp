@@ -34,378 +34,193 @@ inline string GetGpsTrackFilePath()
 
 } // namespace
 
-UNIT_TEST(GpsTrackFile_SimpleWriteRead)
+UNIT_TEST(GpsTrackFile_WriteReadWithoutTrunc)
 {
-  string const filePath = GetGpsTrackFilePath();
-  MY_SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
-
   time_t const t = system_clock::to_time_t(system_clock::now());
   double const timestamp = t;
   LOG(LINFO, ("Timestamp", ctime(&t), timestamp));
 
-  size_t const fileMaxItemCount = 100000;
-
-  // Write GPS tracks.
-  // (write only half of max items to do not do recycling)
-  {
-    GpsTrackFile file;
-    file.Create(filePath, fileMaxItemCount);
-
-    TEST(file.IsOpen(), ());
-
-    TEST_EQUAL(fileMaxItemCount, file.GetMaxCount(), ());
-
-    TEST_EQUAL(0, file.GetCount(), ());
-
-    for (size_t i = 0; i < fileMaxItemCount / 2; ++i)
-    {
-      size_t evictedId;
-      size_t addedId = file.Append(Make(timestamp + i, ms::LatLon(i + 1000, i + 2000), i + 3000), evictedId);
-      TEST_EQUAL(i, addedId, ());
-      TEST_EQUAL(GpsTrackFile::kInvalidId, evictedId, ());
-    }
-
-    TEST_EQUAL(fileMaxItemCount / 2, file.GetCount(), ());
-
-    file.Close();
-
-    TEST(!file.IsOpen(), ());
-  }
-
-  // Read GPS tracks.
-  {
-    GpsTrackFile file;
-    file.Open(filePath, fileMaxItemCount);
-
-    TEST(file.IsOpen(), ());
-    TEST(!file.IsEmpty(), ());
-
-    TEST_EQUAL(fileMaxItemCount, file.GetMaxCount(), ());
-
-    TEST_EQUAL(fileMaxItemCount/2, file.GetCount(), ());
-
-    size_t i = 0;
-    file.ForEach([&i,timestamp](location::GpsTrackInfo const & info, size_t id)->bool
-    {
-      TEST_EQUAL(id, i, ());
-      TEST_EQUAL(info.m_timestamp, timestamp + i, ());
-      TEST_EQUAL(info.m_latitude, i + 1000, ());
-      TEST_EQUAL(info.m_longitude, i + 2000, ());
-      TEST_EQUAL(info.m_speed, i + 3000, ());
-      ++i;
-      return true;
-    });
-
-    TEST_EQUAL(i, fileMaxItemCount / 2, ());
-
-    auto res = file.Clear();
-    TEST_EQUAL(res.first, 0, ());
-    TEST_EQUAL(res.second, fileMaxItemCount / 2 - 1, ());
-
-    TEST(file.IsEmpty(), ());
-
-    file.Close();
-
-    TEST(!file.IsOpen(), ());
-  }
-}
-
-UNIT_TEST(GpsTrackFile_WriteReadWithEvicting)
-{
   string const filePath = GetGpsTrackFilePath();
   MY_SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
 
-  time_t const t = system_clock::to_time_t(system_clock::now());
-  double const timestamp = t;
-  LOG(LINFO, ("Timestamp", ctime(&t), timestamp));
-
   size_t const fileMaxItemCount = 100000;
 
-  // Write GPS tracks.
-  // 2 x fileMaxItemCount more items are written in cyclic file, first half will be evicted
+  vector<location::GpsTrackInfo> points;
+  points.reserve(fileMaxItemCount);
+  for (size_t i = 0; i < fileMaxItemCount; ++i)
+    points.emplace_back(Make(timestamp + i, ms::LatLon(-90 + i, -180 + i), 60 + i));
+
+  // Create file, write data and check written data
   {
     GpsTrackFile file;
-    file.Create(filePath, fileMaxItemCount);
-
+    TEST(file.Create(filePath, fileMaxItemCount), ());
     TEST(file.IsOpen(), ());
 
-    TEST_EQUAL(fileMaxItemCount, file.GetMaxCount(), ());
-
-    TEST_EQUAL(0, file.GetCount(), ());
-
-    for (size_t i = 0; i < 2 * fileMaxItemCount; ++i)
-    {
-      size_t evictedId;
-      size_t addedId = file.Append(Make(timestamp + i, ms::LatLon(i + 1000, i + 2000), i + 3000), evictedId);
-      TEST_EQUAL(i, addedId, ());
-      if (i >= fileMaxItemCount)
-      {
-        TEST_EQUAL(i - fileMaxItemCount, evictedId, ());
-      }
-      else
-      {
-        TEST_EQUAL(GpsTrackFile::kInvalidId, evictedId, ());
-      }
-    }
-
-    TEST_EQUAL(fileMaxItemCount, file.GetCount(), ());
-
-    file.Close();
-
-    TEST(!file.IsOpen(), ());
-  }
-
-  // Read GPS tracks
-  // Only last fileMaxItemCount must be in cyclic buffer
-  {
-    GpsTrackFile file;
-    file.Open(filePath, fileMaxItemCount);
-
-    TEST(file.IsOpen(), ());
-    TEST(!file.IsEmpty(), ());
-
-    TEST_EQUAL(fileMaxItemCount, file.GetMaxCount(), ());
-    TEST_EQUAL(fileMaxItemCount, file.GetCount(), ());
+    file.Append(points);
 
     size_t i = 0;
-    file.ForEach([&i,timestamp](location::GpsTrackInfo const & info, size_t id)->bool
+    file.ForEach(0, [&](location::GpsTrackInfo const & point)->bool
     {
-      TEST_EQUAL(id, i + fileMaxItemCount, ());
-      TEST_EQUAL(info.m_timestamp, timestamp + i + fileMaxItemCount, ());
-      TEST_EQUAL(info.m_latitude, i + 1000 + fileMaxItemCount, ());
-      TEST_EQUAL(info.m_longitude, i + 2000 + fileMaxItemCount, ());
-      TEST_EQUAL(info.m_speed, i + 3000 + fileMaxItemCount, ());
+      TEST_EQUAL(point.m_latitude, points[i].m_latitude, ());
+      TEST_EQUAL(point.m_longitude, points[i].m_longitude, ());
+      TEST_EQUAL(point.m_timestamp, points[i].m_timestamp, ());
+      TEST_EQUAL(point.m_speed, points[i].m_speed, ());
       ++i;
       return true;
     });
-
     TEST_EQUAL(i, fileMaxItemCount, ());
 
     file.Close();
+    TEST(!file.IsOpen(), ());
+  }
 
+  // Open file and check previously written data
+  {
+    GpsTrackFile file;
+    TEST(file.Open(filePath, fileMaxItemCount), ());
+    TEST(file.IsOpen(), ());
+
+    size_t i = 0;
+    file.ForEach(0, [&](location::GpsTrackInfo const & point)->bool
+    {
+      TEST_EQUAL(point.m_latitude, points[i].m_latitude, ());
+      TEST_EQUAL(point.m_longitude, points[i].m_longitude, ());
+      TEST_EQUAL(point.m_timestamp, points[i].m_timestamp, ());
+      TEST_EQUAL(point.m_speed, points[i].m_speed, ());
+      ++i;
+      return true;
+    });
+    TEST_EQUAL(i, fileMaxItemCount, ());
+
+    // Clear data
+    file.Clear();
+
+    file.Close();
+    TEST(!file.IsOpen(), ());
+  }
+
+  // Open file and check there is no data
+  {
+    GpsTrackFile file;
+    TEST(file.Open(filePath, fileMaxItemCount), ());
+    TEST(file.IsOpen(), ());
+
+    size_t i = 0;
+    file.ForEach(0, [&](location::GpsTrackInfo const & point)->bool{ ++i; return true; });
+    TEST_EQUAL(i, 0, ());
+
+    file.Close();
     TEST(!file.IsOpen(), ());
   }
 }
 
-UNIT_TEST(GpsTrackFile_DropInTail)
+UNIT_TEST(GpsTrackFile_WriteReadWithTrunc)
 {
-  string const filePath = GetGpsTrackFilePath();
-  MY_SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
-
   time_t const t = system_clock::to_time_t(system_clock::now());
   double const timestamp = t;
   LOG(LINFO, ("Timestamp", ctime(&t), timestamp));
 
-  GpsTrackFile file;
-  file.Create(filePath, 100);
+  string const filePath = GetGpsTrackFilePath();
+  MY_SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
 
-  TEST(file.IsOpen(), ());
+  size_t const fileMaxItemCount = 100000;
 
-  TEST_EQUAL(100, file.GetMaxCount(), ());
-
-  for (size_t i = 0; i < 50; ++i)
+  vector<location::GpsTrackInfo> points1, points2;
+  points1.reserve(fileMaxItemCount);
+  points2.reserve(fileMaxItemCount);
+  for (size_t i = 0; i < fileMaxItemCount; ++i)
   {
-    size_t evictedId;
-    size_t addedId = file.Append(Make(timestamp + i, ms::LatLon(i + 1000, i + 2000), i + 3000), evictedId);
-    TEST_EQUAL(i, addedId, ());
-    TEST_EQUAL(GpsTrackFile::kInvalidId, evictedId, ());
+    points1.emplace_back(Make(timestamp + i, ms::LatLon(-90 + i, -180 + i), 60 + i));
+    points2.emplace_back(Make(timestamp + i + fileMaxItemCount, ms::LatLon(-45 + i, -30 + i), 15 + i));
   }
 
-  TEST_EQUAL(50, file.GetCount(), ());
+  vector<location::GpsTrackInfo> points3;
+  points3.reserve(fileMaxItemCount/2);
+  for (size_t i = 0; i < fileMaxItemCount/2; ++i)
+    points3.emplace_back(Make(timestamp + i, ms::LatLon(-30 + i, -60 + i), 90 + i));
 
-  auto res = file.DropEarlierThan(timestamp + 4.5); // drop points 0,1,2,3,4
-  TEST_EQUAL(res.first, 0, ());
-  TEST_EQUAL(res.second, 4, ());
-
-  TEST_EQUAL(45, file.GetCount(), ());
-
-  size_t i = 5; // new first
-  file.ForEach([&i,timestamp](location::GpsTrackInfo const & info, size_t id)->bool
-  {
-    TEST_EQUAL(info.m_timestamp, timestamp + i, ());
-    TEST_EQUAL(info.m_latitude, i + 1000, ());
-    TEST_EQUAL(info.m_longitude, i + 2000, ());
-    TEST_EQUAL(info.m_speed, i + 3000, ());
-    ++i;
-    return true;
-  });
-
-  res = file.Clear();
-  TEST_EQUAL(res.first, 5, ());
-  TEST_EQUAL(res.second, 49, ());
-
-  TEST(file.IsEmpty(), ())
-
-  file.Close();
-
-  TEST(!file.IsOpen(), ());
-}
-
-UNIT_TEST(GpsTrackFile_DropInMiddle)
-{
-  string const filePath = GetGpsTrackFilePath();
-  MY_SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
-
-  time_t const t = system_clock::to_time_t(system_clock::now());
-  double const timestamp = t;
-  LOG(LINFO, ("Timestamp", ctime(&t), timestamp));
-
-  GpsTrackFile file;
-  file.Create(filePath, 100);
-
-  TEST(file.IsOpen(), ());
-
-  TEST_EQUAL(100, file.GetMaxCount(), ());
-
-  for (size_t i = 0; i < 50; ++i)
-  {
-    size_t evictedId;
-    size_t addedId = file.Append(Make(timestamp + i, ms::LatLon(i + 1000,i + 2000), i + 3000), evictedId);
-    TEST_EQUAL(i, addedId, ());
-    TEST_EQUAL(GpsTrackFile::kInvalidId, evictedId, ());
-  }
-
-  TEST_EQUAL(50, file.GetCount(), ());
-
-  auto res = file.DropEarlierThan(timestamp + 48.5); // drop all except last
-  TEST_EQUAL(res.first, 0, ());
-  TEST_EQUAL(res.second, 48, ());
-
-  TEST_EQUAL(1, file.GetCount(), ());
-
-  size_t i = 49; // new first
-  file.ForEach([&i,timestamp](location::GpsTrackInfo const & info, size_t id)->bool
-  {
-    TEST_EQUAL(info.m_timestamp, timestamp + i, ());
-    TEST_EQUAL(info.m_latitude, i + 1000, ());
-    TEST_EQUAL(info.m_longitude, i + 2000, ());
-    TEST_EQUAL(info.m_speed, i + 3000, ());
-    ++i;
-    return true;
-  });
-
-  file.Close();
-
-  TEST(!file.IsOpen(), ());
-}
-
-UNIT_TEST(GpsTrackFile_DropAll)
-{
-  string const filePath = GetGpsTrackFilePath();
-  MY_SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
-
-  time_t const t = system_clock::to_time_t(system_clock::now());
-  double const timestamp = t;
-  LOG(LINFO, ("Timestamp", ctime(&t), timestamp));
-
-  GpsTrackFile file;
-  file.Create(filePath, 100);
-
-  TEST(file.IsOpen(), ());
-
-  TEST_EQUAL(100, file.GetMaxCount(), ());
-
-  for (size_t i = 0; i < 50; ++i)
-  {
-    size_t evictedId;
-    size_t addedId = file.Append(Make(timestamp + i, ms::LatLon(i + 1000, i + 2000), i + 3000), evictedId);
-    TEST_EQUAL(i, addedId, ());
-    TEST_EQUAL(GpsTrackFile::kInvalidId, evictedId, ());
-  }
-
-  TEST_EQUAL(50, file.GetCount(), ());
-
-  auto res = file.DropEarlierThan(timestamp + 51); // drop all
-  TEST_EQUAL(res.first, 0, ());
-  TEST_EQUAL(res.second, 49, ());
-
-  TEST(file.IsEmpty(), ());
-
-  TEST_EQUAL(0, file.GetCount(), ());
-
-  file.Close();
-
-  TEST(!file.IsOpen(), ());
-}
-
-UNIT_TEST(GpsTrackFile_Clear)
-{
-  string const filePath = GetGpsTrackFilePath();
-  MY_SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
-
-  time_t const t = system_clock::to_time_t(system_clock::now());
-  double const timestamp = t;
-  LOG(LINFO, ("Timestamp", ctime(&t), timestamp));
-
-  GpsTrackFile file;
-  file.Create(filePath, 100);
-
-  TEST(file.IsOpen(), ());
-
-  TEST_EQUAL(100, file.GetMaxCount(), ());
-
-  for (size_t i = 0; i < 50; ++i)
-  {
-    size_t evictedId;
-    size_t addedId = file.Append(Make(timestamp + i, ms::LatLon(i + 1000, i + 2000), i + 3000), evictedId);
-    TEST_EQUAL(i, addedId, ());
-    TEST_EQUAL(GpsTrackFile::kInvalidId, evictedId, ());
-  }
-
-  TEST_EQUAL(50, file.GetCount(), ());
-
-  auto res = file.Clear();
-  TEST_EQUAL(res.first, 0, ());
-  TEST_EQUAL(res.second, 49, ());
-
-  TEST(file.IsEmpty(), ());
-
-  TEST_EQUAL(0, file.GetCount(), ());
-
-  file.Close();
-
-  TEST(!file.IsOpen(), ());
-}
-
-UNIT_TEST(GpsTrackFile_CreateOpenClose)
-{
-  string const filePath = GetGpsTrackFilePath();
-  MY_SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
-
-  time_t const t = system_clock::to_time_t(system_clock::now());
-  double const timestamp = t;
-  LOG(LINFO, ("Timestamp", ctime(&t), timestamp));
-
+  // Create file and write blob 1
   {
     GpsTrackFile file;
-    file.Create(filePath, 100);
-
+    TEST(file.Create(filePath, fileMaxItemCount), ());
     TEST(file.IsOpen(), ());
 
-    TEST_EQUAL(100, file.GetMaxCount(), ());
-    TEST_EQUAL(0, file.GetCount(), ());
+    file.Append(points1);
 
     file.Close();
-
     TEST(!file.IsOpen(), ());
   }
 
+  // Create file and write blob 2
   {
     GpsTrackFile file;
-    file.Open(filePath, 100);
-
+    TEST(file.Open(filePath, fileMaxItemCount), ());
     TEST(file.IsOpen(), ());
 
-    TEST(file.IsEmpty(), ());
-    TEST_EQUAL(100, file.GetMaxCount(), ());
-    TEST_EQUAL(0, file.GetCount(), ());
-
-    auto res = file.Clear();
-    TEST_EQUAL(res.first, GpsTrackFile::kInvalidId, ());
-    TEST_EQUAL(res.second, GpsTrackFile::kInvalidId, ());
+    file.Append(points2);
 
     file.Close();
+    TEST(!file.IsOpen(), ());
+  }
 
+  // Create file and write blob 3
+  {
+    GpsTrackFile file;
+    TEST(file.Open(filePath, fileMaxItemCount), ());
+    TEST(file.IsOpen(), ());
+
+    file.Append(points3); // trunc happens here
+
+    file.Close();
+    TEST(!file.IsOpen(), ());
+  }
+
+  // Check file must contain second half of points2 and points3
+  {
+    GpsTrackFile file;
+    TEST(file.Open(filePath, fileMaxItemCount), ());
+    TEST(file.IsOpen(), ());
+
+    size_t i = 0;
+    file.ForEach(0, [&](location::GpsTrackInfo const & point)->bool
+    {
+      if (i < fileMaxItemCount/2)
+      {
+        TEST_EQUAL(point.m_latitude, points2[fileMaxItemCount/2 + i].m_latitude, ());
+        TEST_EQUAL(point.m_longitude, points2[fileMaxItemCount/2 + i].m_longitude, ());
+        TEST_EQUAL(point.m_timestamp, points2[fileMaxItemCount/2 + i].m_timestamp, ());
+        TEST_EQUAL(point.m_speed, points2[fileMaxItemCount/2 + i].m_speed, ());
+      }
+      else
+      {
+        TEST_EQUAL(point.m_latitude, points3[i - fileMaxItemCount/2].m_latitude, ());
+        TEST_EQUAL(point.m_longitude, points3[i - fileMaxItemCount/2].m_longitude, ());
+        TEST_EQUAL(point.m_timestamp, points3[i - fileMaxItemCount/2].m_timestamp, ());
+        TEST_EQUAL(point.m_speed, points3[i - fileMaxItemCount/2].m_speed, ());
+      }
+      ++i;
+      return true;
+    });
+    TEST_EQUAL(i, fileMaxItemCount, ());
+
+    // Clear data
+    file.Clear();
+
+    file.Close();
+    TEST(!file.IsOpen(), ());
+  }
+
+  // Check no data in file
+  {
+    GpsTrackFile file;
+    TEST(file.Open(filePath, fileMaxItemCount), ());
+    TEST(file.IsOpen(), ());
+
+    size_t i = 0;
+    file.ForEach(0, [&](location::GpsTrackInfo const & point)->bool{ ++i; return true; });
+    TEST_EQUAL(i, 0, ());
+
+    file.Close();
     TEST(!file.IsOpen(), ());
   }
 }
