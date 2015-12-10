@@ -2,7 +2,7 @@
 
 namespace dp
 {
-inline double VisualScale(double exactDensityDPI) noexcept
+inline double VisualScale(double exactDensityDPI)
 {
   double constexpr kMdpiDensityDPI = 160.;
   double const tabletFactor = 1.2;
