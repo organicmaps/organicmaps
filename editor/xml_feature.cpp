@@ -45,7 +45,7 @@ void ValidateNode(pugi::xml_node const & node)
   {
     PointFromLatLon(node);
   }
-  catch(editor::XMLFeatureError)
+  catch(editor::XMLFeatureError const &)
   {
     throw;
   }
@@ -54,10 +54,11 @@ void ValidateNode(pugi::xml_node const & node)
     MYTHROW(editor::XMLFeatureNoTimestampError, ("Node has no timestamp attribute"));
 }
 
-bool IsConvertable(string const & k, string const & v)
+bool IsConvertible(string const & k, string const & v)
 {
-  static unordered_set<pair<string, string>, boost::hash<pair<string, string>>> const
-      convertableTypePairs =
+  using TStringPair = pair<string, string>;
+  static unordered_set<TStringPair, boost::hash<TStringPair>> const
+      convertibleTypePairs =
   {
     { "aeroway", "aerodrome" },
     { "aeroway", "airport" },
@@ -189,14 +190,14 @@ bool IsConvertable(string const & k, string const & v)
     { "waterway", "waterfall" }
   };
 
-  return convertableTypePairs.find(make_pair(k, v)) != end(convertableTypePairs);
+  return convertibleTypePairs.find(make_pair(k, v)) != end(convertibleTypePairs);
 }
 
 pair<string, string> SplitMapsmeType(string const & type)
 {
   vector<string> parts;
   boost::split(parts, type, boost::is_any_of("|"));
-  // Current implementations supports only types with one pipe
+  // Current implementations supports only types with one pipe.
   ASSERT(parts.size() == 2, ("Too many parts in type: " + type));
   return make_pair(parts[0], parts[1]);
 }
@@ -239,8 +240,8 @@ string XMLFeature::GetType() const
   {
     string const key = tag.node().attribute("k").value();
     string const val = tag.node().attribute("v").value();
-    // Handle only the first appropriate tag in first version
-    if (IsConvertable(key, val))
+    // Handle only the first appropriate tag in first version.
+    if (IsConvertible(key, val))
       return key + '|' + val;
   }
 
@@ -250,7 +251,7 @@ string XMLFeature::GetType() const
 void XMLFeature::SetType(string const & type)
 {
   auto const p = SplitMapsmeType(type);
-  if (IsConvertable(p.first, p.second))
+  if (IsConvertible(p.first, p.second))
     SetTagValue(p.first, p.second);
 }
 

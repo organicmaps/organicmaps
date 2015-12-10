@@ -4,9 +4,11 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES += editor base coding geometry opening_hours pugixml
+DEPENDENCIES = editor base coding geometry opening_hours pugixml
 
 include($$ROOT_DIR/common.pri)
+
+QT *= core
 
 HEADERS += \
 
