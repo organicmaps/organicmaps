@@ -53,6 +53,8 @@ public:
   void SetCallback(TGpsTrackDiffCallback callback);
 
 private:
+  DISALLOW_COPY_AND_MOVE(GpsTrack);
+
   void ScheduleTask();
   void ProcessPoints(); // called on the worker thread
   bool HasCallback();
