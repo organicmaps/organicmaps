@@ -59,7 +59,9 @@ private:
   void InitStorageIfNeed();
   void InitCollection(hours duration);
   void UpdateStorage(bool needClear, vector<TItem> const & points);
-  void UpdateCollection(hours duration, bool needClear, vector<TItem> const & points);
+  void UpdateCollection(hours duration, bool needClear, vector<TItem> const & points,
+                        pair<size_t, size_t> & addedIds, pair<size_t, size_t> & evictedIds);
+  void NotifyCallback(pair<size_t, size_t> const & addedIds, pair<size_t, size_t> const & evictedIds);
 
   size_t const m_maxItemCount;
   string const m_filePath;

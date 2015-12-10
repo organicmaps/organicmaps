@@ -212,7 +212,11 @@ void GpsTrack::ProcessPoints()
   if (!m_collection)
     return;
 
-  UpdateCollection(duration, needClear, points);
+  pair<size_t, size_t> addedIds;
+  pair<size_t, size_t> evictedIds;
+  UpdateCollection(duration, needClear, points, addedIds, evictedIds);
+
+  NotifyCallback(addedIds, evictedIds);
 }
 
 bool GpsTrack::HasCallback()
@@ -241,7 +245,8 @@ void GpsTrack::UpdateStorage(bool needClear, vector<TItem> const & points)
   }
 }
 
-void GpsTrack::UpdateCollection(hours duration, bool needClear, vector<TItem> const & points)
+void GpsTrack::UpdateCollection(hours duration, bool needClear, vector<TItem> const & points,
+                                pair<size_t, size_t> & addedIds, pair<size_t, size_t> & evictedIds)
 {
   // Apply Clear, SetDuration and Add points
 
@@ -257,17 +262,17 @@ void GpsTrack::UpdateCollection(hours duration, bool needClear, vector<TItem> co
     evictedIdsByDuration = m_collection->SetDuration(duration);
 
   // Add points to the collection, if need
-  pair<size_t, size_t> evictedIds = make_pair(kInvalidId, kInvalidId);
-  pair<size_t, size_t> addedIds = make_pair(kInvalidId, kInvalidId);
+  pair<size_t, size_t> evictedIdsByAdd = make_pair(kInvalidId, kInvalidId);
   if (!points.empty())
     addedIds = m_collection->Add(points, evictedIds);
+  else
+    addedIds = make_pair(kInvalidId, kInvalidId);
 
-  // Result evicted is
-  evictedIds = UnionRanges(evictedIds, UnionRanges(evictedIdsByClear, evictedIdsByDuration));
+  evictedIds = UnionRanges(evictedIdsByAdd, UnionRanges(evictedIdsByClear, evictedIdsByDuration));
+}
 
-  // Send callback notification.
-  // Callback must be protected by m_callbackGuard
-
+void GpsTrack::NotifyCallback(pair<size_t, size_t> const & addedIds, pair<size_t, size_t> const & evictedIds)
+{
   lock_guard<mutex> lg(m_callbackGuard);
 
   if (!m_callback)
@@ -277,7 +282,6 @@ void GpsTrack::UpdateCollection(hours duration, bool needClear, vector<TItem> co
   {
     m_needSendSnapshop = false;
 
-    // Get all points from collection to send them to the callback
     vector<pair<size_t, TItem>> toAdd;
     toAdd.reserve(m_collection->GetSize());
     m_collection->ForEach([&toAdd](TItem const & point, size_t id)->bool
@@ -298,10 +302,6 @@ void GpsTrack::UpdateCollection(hours duration, bool needClear, vector<TItem> co
     {
       size_t const addedCount = addedIds.second - addedIds.first + 1;
       ASSERT_GREATER_OR_EQUAL(m_collection->GetSize(), addedCount, ());
-
-      // Not all points from infos could be added to collection due to timestamp consequence restriction.
-      // Get added points from collection - take last <addedCount> points from collection, these points
-      // were added this time.
       toAdd.reserve(addedCount);
       m_collection->ForEach([&toAdd](TItem const & point, size_t id)->bool
       {
