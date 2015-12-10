@@ -239,8 +239,7 @@ bool TileTree::ProcessNode(TNodePtr const & node, TileKey const & tileKey, int c
     {
       // skip unknown tiles and tiles from different zoom level
       // A tile can get Unknown status if it becomes invalid before BR finished its processing
-      if (childNode->m_tileStatus == TileStatus::Unknown ||
-          childNode->m_tileKey.m_zoomLevel != zoomLevel)
+      if (childNode->m_tileStatus == TileStatus::Unknown || tileKey.m_zoomLevel != zoomLevel)
         return false;
 
       // remove all tiles below current
@@ -251,14 +250,14 @@ bool TileTree::ProcessNode(TNodePtr const & node, TileKey const & tileKey, int c
       {
         childNode->m_tileStatus = TileStatus::Deferred;
         if (m_deferRenderGroupHandler != nullptr)
-          m_deferRenderGroupHandler(childNode->m_tileKey, state, move(bucket));
+          m_deferRenderGroupHandler(tileKey, state, move(bucket));
         childNode->m_isRemoved = false;
       }
       else
       {
         childNode->m_tileStatus = TileStatus::Rendered;
         if (m_addRenderGroupHandler != nullptr)
-          m_addRenderGroupHandler(childNode->m_tileKey, state, move(bucket));
+          m_addRenderGroupHandler(tileKey, state, move(bucket));
         childNode->m_isRemoved = false;
       }
 

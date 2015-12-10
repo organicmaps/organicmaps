@@ -21,6 +21,7 @@ struct TileKey
 {
   TileKey();
   TileKey(int x, int y, int zoomLevel);
+  TileKey(TileKey const & key, uint64_t generation);
 
   bool operator < (TileKey const & other) const;
   bool operator == (TileKey const & other) const;
@@ -30,6 +31,7 @@ struct TileKey
   int m_x;
   int m_y;
   int m_zoomLevel;
+  uint64_t m_generation;
 };
 
 string DebugPrint(TileKey const & key);

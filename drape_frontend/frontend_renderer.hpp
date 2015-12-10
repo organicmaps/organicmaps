@@ -194,6 +194,11 @@ private:
   void OnActivateTile(TileKey const & tileKey);
   void OnRemoveTile(TileKey const & tileKey);
 
+  using TRenderGroupRemovePredicate = function<bool(drape_ptr<RenderGroup> const &)>;
+  void RemoveRenderGroups(TRenderGroupRemovePredicate const & predicate);
+
+  void CheckTileGenerations(TileKey const & tileKey);
+
   void OnCompassTapped();
 
   FeatureID GetVisiblePOI(m2::PointD const & pixelPoint) const;

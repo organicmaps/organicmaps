@@ -6,19 +6,24 @@ namespace df
 {
 
 TileKey::TileKey()
-  : m_x(-1), m_y(-1), m_zoomLevel(-1)
-{
-}
+  : m_x(-1), m_y(-1), m_zoomLevel(-1), m_generation(0)
+{}
 
 TileKey::TileKey(int x, int y, int zoomLevel)
-  : m_x(x), m_y(y), m_zoomLevel(zoomLevel)
-{
-}
+  : m_x(x), m_y(y), m_zoomLevel(zoomLevel), m_generation(0)
+{}
+
+TileKey::TileKey(TileKey const & key, uint64_t generation)
+  : m_x(key.m_x), m_y(key.m_y),
+    m_zoomLevel(key.m_zoomLevel),
+    m_generation(generation)
+{}
 
 bool TileKey::operator <(TileKey const & other) const
 {
   if (m_zoomLevel != other.m_zoomLevel)
     return m_zoomLevel < other.m_zoomLevel;
+
   if (m_y != other.m_y)
     return m_y < other.m_y;
 
@@ -47,7 +52,8 @@ m2::RectD TileKey::GetGlobalRect() const
 string DebugPrint(TileKey const & key)
 {
   ostringstream out;
-  out << "[x = " << key.m_x << ", y = " << key.m_y << ", zoomLevel = " << key.m_zoomLevel << "]";
+  out << "[x = " << key.m_x << ", y = " << key.m_y << ", zoomLevel = "
+      << key.m_zoomLevel << ", gen = " << key.m_generation << "]";
   return out.str();
 }
 

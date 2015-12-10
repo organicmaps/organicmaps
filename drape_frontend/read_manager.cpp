@@ -38,6 +38,7 @@ ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider 
   , m_forceUpdate(true)
   , myPool(64, ReadMWMTaskFactory(m_memIndex, m_model))
   , m_counter(0)
+  , m_generationCounter(0)
 {
 }
 
@@ -78,6 +79,7 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, TTilesCollection con
   if (MustDropAllTiles(screen))
   {
     IncreaseCounter(static_cast<int>(tiles.size()));
+    m_generationCounter++;
 
     for_each(m_tileInfos.begin(), m_tileInfos.end(), bind(&ReadManager::CancelTileInfo, this, _1));
     m_tileInfos.clear();
@@ -176,7 +178,8 @@ bool ReadManager::MustDropAllTiles(ScreenBase const & screen) const
 
 void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey, ref_ptr<dp::TextureManager> texMng)
 {
-  shared_ptr<TileInfo> tileInfo(new TileInfo(make_unique_dp<EngineContext>(tileKey, m_commutator, texMng)));
+  shared_ptr<TileInfo> tileInfo(new TileInfo(make_unique_dp<EngineContext>(TileKey(tileKey, m_generationCounter),
+                                                                           m_commutator, texMng)));
   m_tileInfos.insert(tileInfo);
   ReadMWMTask * task = myPool.Get();
   task->Init(tileInfo);
