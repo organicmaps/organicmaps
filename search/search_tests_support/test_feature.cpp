@@ -88,7 +88,7 @@ void TestStreet::Serialize(FeatureBuilder1 & fb) const
 {
   CHECK(fb.AddName(m_lang, m_name), ("Can't set feature name:", m_name, "(", m_lang, ")"));
   if (m_lang != "default")
-    CHECK(fb.AddName("default", m_name), ("Can't set feature name:", m_name, "( default "));
+    CHECK(fb.AddName("default", m_name), ("Can't set feature name:", m_name, "( default )"));
 
   auto const & classificator = classif();
   fb.SetType(classificator.GetTypeByPath({"highway", "living_street"}));
@@ -136,7 +136,7 @@ void TestBuilding::Serialize(FeatureBuilder1 & fb) const
 
 bool TestBuilding::Matches(FeatureType const & feature) const
 {
-  static ftypes::IsBuildingChecker const & checker = ftypes::IsBuildingChecker::Instance();
+  auto const & checker = ftypes::IsBuildingChecker::Instance();
   if (!checker(feature))
     return false;
   return TestFeature::Matches(feature) && m_houseNumber == feature.GetHouseNumber();

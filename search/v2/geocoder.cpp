@@ -2,7 +2,6 @@
 
 #include "search/retrieval.hpp"
 #include "search/v2/features_layer_matcher.hpp"
-#include "search/v2/features_layer_path_finder.hpp"
 #include "search/search_delimiters.hpp"
 #include "search/search_string_utils.hpp"
 
@@ -99,7 +98,6 @@ void Geocoder::Go(vector<FeatureID> & results)
 
       MY_SCOPE_GUARD(cleanup, [&]()
       {
-        m_finder.reset();
         m_matcher.reset();
         m_loader.reset();
         m_cache.clear();
@@ -109,7 +107,6 @@ void Geocoder::Go(vector<FeatureID> & results)
       m_loader.reset(new Index::FeaturesLoaderGuard(m_index, m_mwmId));
       m_matcher.reset(
           new FeaturesLayerMatcher(m_index, m_mwmId, *m_value, m_loader->GetFeaturesVector()));
-      m_finder.reset(new FeaturesLayerPathFinder(*m_matcher));
 
       DoGeocoding(0 /* curToken */);
     }
@@ -269,7 +266,7 @@ void Geocoder::FindPaths()
     sortedLayers.push_back(&layer);
   sort(sortedLayers.begin(), sortedLayers.end(), compareByType);
 
-  m_finder->ForEachReachableVertex(sortedLayers, [this](uint32_t featureId)
+  m_finder.ForEachReachableVertex(*m_matcher, sortedLayers, [this](uint32_t featureId)
   {
     m_results->emplace_back(m_mwmId, featureId);
   });

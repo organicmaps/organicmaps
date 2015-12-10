@@ -21,18 +21,20 @@ ProjectionOnStreetCalculator::ProjectionOnStreetCalculator(vector<m2::PointD> co
                                                            double maxDistMeters)
   : m_points(points), m_maxDistMeters(maxDistMeters)
 {
-  if (m_points.empty())
-    return;
+  Init();
+}
 
-  m_segProjs.resize(m_points.size() - 1);
-  for (size_t i = 0; i + 1 != m_points.size(); ++i)
-    m_segProjs[i].SetBounds(m_points[i], m_points[i + 1]);
+ProjectionOnStreetCalculator::ProjectionOnStreetCalculator(vector<m2::PointD> && points,
+                                                           double maxDistMeters)
+  : m_points(move(points)), m_maxDistMeters(maxDistMeters)
+{
+  Init();
 }
 
 bool ProjectionOnStreetCalculator::GetProjection(m2::PointD const & point,
-                                                 ProjectionOnStreet & proj)
+                                                 ProjectionOnStreet & proj) const
 {
-  static size_t const kInvalidIndex = m_points.size();
+  size_t const kInvalidIndex = m_segProjs.size();
 
   m2::PointD bestProj;
   size_t bestIndex = kInvalidIndex;
@@ -58,5 +60,15 @@ bool ProjectionOnStreetCalculator::GetProjection(m2::PointD const & point,
   proj.m_segIndex = bestIndex;
   proj.m_projSign = m2::GetOrientation(m_points[bestIndex], m_points[bestIndex + 1], point);
   return true;
+}
+
+void ProjectionOnStreetCalculator::Init()
+{
+  if (m_points.empty())
+    return;
+
+  m_segProjs.resize(m_points.size() - 1);
+  for (size_t i = 0; i + 1 != m_points.size(); ++i)
+    m_segProjs[i].SetBounds(m_points[i], m_points[i + 1]);
 }
 }  // namespace search

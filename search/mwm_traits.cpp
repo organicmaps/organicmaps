@@ -10,11 +10,7 @@ MwmTraits::SearchIndexFormat MwmTraits::GetSearchIndexFormat() const
 {
   if (m_versionFormat < version::v7)
     return SearchIndexFormat::FeaturesWithRankAndCenter;
-  if (m_versionFormat == version::v7)
-    return SearchIndexFormat::CompressedBitVector;
-
-  LOG(LWARNING, ("Unknown search index format."));
-  return SearchIndexFormat::Unknown;
+  return SearchIndexFormat::CompressedBitVector;
 }
 
 MwmTraits::HouseToStreetTableFormat MwmTraits::GetHouseToStreetTableFormat() const
@@ -32,8 +28,6 @@ string DebugPrint(MwmTraits::SearchIndexFormat format)
     return "FeaturesWithRankAndCenter";
   case MwmTraits::SearchIndexFormat::CompressedBitVector:
     return "CompressedBitVector";
-  case MwmTraits::SearchIndexFormat::Unknown:
-    return "Unknown";
   }
 }
 

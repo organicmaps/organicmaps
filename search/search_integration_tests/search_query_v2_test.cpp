@@ -82,7 +82,7 @@ UNIT_TEST(SearchQueryV2_Smoke)
                                                       "1 unit 1", *feynmanStreet, "en");
   auto const bohrHouse =
       make_shared<TestBuilding>(m2::PointD(10, 10), "Bohr house", "1 unit 1", *bohrStreet, "en");
-  auto const gilbertHouse = make_shared<TestBuilding>(m2::PointD(10.0005, 10.0005), "Gilbert house",
+  auto const hilbertHouse = make_shared<TestBuilding>(m2::PointD(10.0005, 10.0005), "Hilbert house",
                                                       "1 unit 2", *bohrStreet, "en");
 
   {
@@ -97,7 +97,7 @@ UNIT_TEST(SearchQueryV2_Smoke)
     builder.Add(*bohrStreet);
     builder.Add(*feynmanHouse);
     builder.Add(*bohrHouse);
-    builder.Add(*gilbertHouse);
+    builder.Add(*hilbertHouse);
   }
 
   auto const regResult = engine.RegisterMap(map);
@@ -158,7 +158,7 @@ UNIT_TEST(SearchQueryV2_Smoke)
     request.Wait();
     vector<shared_ptr<MatchingRule>> rules = {
         make_shared<ExactMatch>(regResult.first, bohrHouse),
-        make_shared<ExactMatch>(regResult.first, gilbertHouse)};
+        make_shared<ExactMatch>(regResult.first, hilbertHouse)};
     TEST(MatchResults(engine, rules, request.Results()), ());
   }
 

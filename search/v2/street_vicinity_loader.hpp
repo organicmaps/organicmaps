@@ -27,11 +27,11 @@ public:
     Street() = default;
     Street(Street && street) = default;
 
-    inline bool IsEmpty() const { return m_points.empty() || m_rect.IsEmptyInterior(); }
+    inline bool IsEmpty() const { return !m_calculator || m_rect.IsEmptyInterior(); }
 
-    vector<m2::PointD> m_points;
     vector<uint32_t> m_features;
     m2::RectD m_rect;
+    unique_ptr<ProjectionOnStreetCalculator> m_calculator;
 
     DISALLOW_COPY(Street);
   };
@@ -48,9 +48,8 @@ public:
     if (street.IsEmpty())
       return;
 
-    ProjectionOnStreetCalculator calculator(street.m_points, m_offsetMeters);
+    ProjectionOnStreetCalculator const & calculator = *street.m_calculator;
     ProjectionOnStreet proj;
-
     for (uint32_t id : street.m_features)
     {
       // Load center and check projection only when |id| is in |sortedIds|.
@@ -73,9 +72,8 @@ public:
     if (street.IsEmpty())
       return;
 
-    ProjectionOnStreetCalculator calculator(street.m_points, m_offsetMeters);
+    ProjectionOnStreetCalculator const & calculator = *street.m_calculator;
     ProjectionOnStreet proj;
-
     for (uint32_t id : street.m_features)
     {
       FeatureType ft;

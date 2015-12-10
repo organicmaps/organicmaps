@@ -2,6 +2,7 @@
 
 #include "search/search_query_params.hpp"
 #include "search/v2/features_layer.hpp"
+#include "search/v2/features_layer_path_finder.hpp"
 #include "search/v2/search_model.hpp"
 
 #include "indexer/mwm_set.hpp"
@@ -35,7 +36,6 @@ class RankTable;
 namespace v2
 {
 class FeaturesLayerMatcher;
-class FeaturesLayerPathFinder;
 class SearchModel;
 
 // This class is used to retrieve all features corresponding to a
@@ -122,7 +122,7 @@ private:
   unique_ptr<FeaturesLayerMatcher> m_matcher;
 
   // Path finder for interpretations.
-  unique_ptr<FeaturesLayerPathFinder> m_finder;
+  FeaturesLayerPathFinder m_finder;
 
   // Search query params prepared for retrieval.
   SearchQueryParams m_retrievalParams;

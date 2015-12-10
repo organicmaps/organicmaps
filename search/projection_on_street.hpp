@@ -32,15 +32,18 @@ public:
   static int constexpr kDefaultMaxDistMeters = 200;
 
   ProjectionOnStreetCalculator(vector<m2::PointD> const & points, double maxDistMeters);
+  ProjectionOnStreetCalculator(vector<m2::PointD> && points, double maxDistMeters);
 
   // Finds nearest point on the street to the |point|. If such point
   // is located within |m_maxDistMeters|, stores projection in |proj|
   // and returns true. Otherwise, returns false and does not modify
   // |proj|.
-  bool GetProjection(m2::PointD const & point, ProjectionOnStreet & proj);
+  bool GetProjection(m2::PointD const & point, ProjectionOnStreet & proj) const;
 
 private:
-  vector<m2::PointD> const & m_points;
+  void Init();
+
+  vector<m2::PointD> const m_points;
   vector<m2::ProjectionToSection<m2::PointD>> m_segProjs;
   double const m_maxDistMeters;
 };

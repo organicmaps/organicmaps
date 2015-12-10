@@ -22,10 +22,6 @@ public:
     // stored behind every node of the search trie.
     // This format corresponds to ValueList<FeatureIndexValue>.
     CompressedBitVector,
-
-    // The format of the search index is unknown. Most
-    // likely, an error has occured.
-    Unknown
   };
 
   enum class HouseToStreetTableFormat

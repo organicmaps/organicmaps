@@ -6,6 +6,8 @@
 
 #include "geometry/mercator.hpp"
 
+#include "geometry/point2d.hpp"
+
 #include "base/math.hpp"
 #include "base/stl_add.hpp"
 
@@ -39,9 +41,10 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
   if (feature.GetFeatureType() != feature::GEOM_LINE)
     return;
 
-  feature.ForEachPoint(MakeBackInsertFunctor(street.m_points), FeatureType::BEST_GEOMETRY);
+  vector<m2::PointD> points;
+  feature.ForEachPoint(MakeBackInsertFunctor(points), FeatureType::BEST_GEOMETRY);
 
-  for (auto const & point : street.m_points)
+  for (auto const & point : points)
     street.m_rect.Add(MercatorBounds::RectByCenterXYAndSizeInMeters(point, m_offsetMeters));
 
   covering::CoveringGetter coveringGetter(street.m_rect, covering::ViewportWithLowLevels);
@@ -49,5 +52,8 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
   for (auto const & interval : intervals)
     m_index.ForEachInIntervalAndScale(MakeBackInsertFunctor(street.m_features), interval.first,
                                       interval.second, m_scale);
+
+  if (!points.empty())
+    street.m_calculator = make_unique<ProjectionOnStreetCalculator>(move(points), m_offsetMeters);
 }
 }  // namespace search

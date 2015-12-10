@@ -21,15 +21,14 @@ public:
   using TAdjList = vector<uint32_t>;
   using TLayerGraph = unordered_map<uint32_t, TAdjList>;
 
-  FeaturesLayerPathFinder(FeaturesLayerMatcher & matcher);
-
   template <typename TFn>
-  void ForEachReachableVertex(vector<FeaturesLayer *> const & layers, TFn && fn)
+  void ForEachReachableVertex(FeaturesLayerMatcher & matcher,
+                              vector<FeaturesLayer *> const & layers, TFn && fn)
   {
     if (layers.empty())
       return;
 
-    BuildGraph(layers);
+    BuildGraph(matcher, layers);
 
     m_visited.clear();
     for (uint32_t featureId : (*layers.back()).m_sortedFeatures)
@@ -43,11 +42,10 @@ public:
   }
 
 private:
-  void BuildGraph(vector<FeaturesLayer *> const & layers);
+  void BuildGraph(FeaturesLayerMatcher & matcher, vector<FeaturesLayer *> const & layers);
 
   void Dfs(uint32_t u);
 
-  FeaturesLayerMatcher & m_matcher;
   TLayerGraph m_graph;
   unordered_set<uint32_t> m_visited;
 };
