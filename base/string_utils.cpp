@@ -170,6 +170,18 @@ bool IsASCIIString(string const & str)
   return true;
 }
 
+bool StartsWith(UniString const & s, UniString const & p)
+{
+  if (p.size() > s.size())
+    return false;
+  for (size_t i = 0; i < p.size(); ++i)
+  {
+    if (s[i] != p[i])
+      return false;
+  }
+  return true;
+}
+
 bool StartsWith(string const & s1, char const * s2)
 {
   return (s1.compare(0, strlen(s2), s2) == 0);
