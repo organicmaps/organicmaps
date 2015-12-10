@@ -55,9 +55,8 @@ public:
 
   /// Reads file and calls functor for each item with timestamp not earlier than specified
   /// @param fn - callable function, return true to stop ForEach
-  /// @param timestampSince - timestamp to read data since
   /// @exceptions ReadFileException if read fails.
-  void ForEach(double timestampSince, std::function<bool(TItem const & item)> const & fn);
+  void ForEach(std::function<bool(TItem const & item)> const & fn);
 
 private:
   void TruncFile();

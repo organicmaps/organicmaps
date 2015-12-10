@@ -92,7 +92,7 @@ void GpsTrackFile::Append(vector<TItem> const & items)
 {
   ASSERT(m_stream.is_open(), ());
 
-  bool const needTrunc = (m_itemCount + items.size()) > (m_maxItemCount * 2); // see NOTE in class declaration
+  bool const needTrunc = (m_itemCount + items.size()) > (m_maxItemCount * 2); // see NOTE in declaration
 
   if (needTrunc)
     TruncFile();
@@ -121,7 +121,7 @@ void GpsTrackFile::Clear()
   ASSERT_EQUAL(m_stream.tellp(), 0, ());
 }
 
-void GpsTrackFile::ForEach(double timestampSince, std::function<bool(TItem const & item)> const & fn)
+void GpsTrackFile::ForEach(std::function<bool(TItem const & item)> const & fn)
 {
   ASSERT(m_stream.is_open(), ());
 
@@ -139,11 +139,8 @@ void GpsTrackFile::ForEach(double timestampSince, std::function<bool(TItem const
     if (0 != (m_stream.rdstate() & (ios::failbit | ios::badbit | ios::eofbit)))
       MYTHROW(ReadFileException, ("File:", m_filePath));
 
-    if (item.m_timestamp >= timestampSince)
-    {
-      if (!fn(item))
-        break;
-    }
+    if (!fn(item))
+      break;
   }
 }
 
@@ -153,7 +150,7 @@ void GpsTrackFile::TruncFile()
 
   fstream tmp = fstream(tmpFilePath, ios::in|ios::out|ios::binary|ios::trunc);
   if (!tmp)
-    MYTHROW(WriteFileException, ("File:", m_filePath));
+    MYTHROW(WriteFileException, ("Unable to create temporary file:", m_filePath));
 
   size_t i = GetFirstItemIndex();
 
@@ -196,5 +193,5 @@ void GpsTrackFile::TruncFile()
 
 size_t GpsTrackFile::GetFirstItemIndex() const
 {
-  return (m_itemCount > m_maxItemCount) ? (m_itemCount - m_maxItemCount) : 0; // see NOTE in class declaration
+  return (m_itemCount > m_maxItemCount) ? (m_itemCount - m_maxItemCount) : 0; // see NOTE in declaration
 }

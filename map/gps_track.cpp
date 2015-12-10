@@ -207,8 +207,7 @@ void GpsTrack::InitCollection(hours duration)
 
   try
   {
-    // Get all data from the file
-    m_file->ForEach(0 /* timestampSince */ , [this](TItem const & info)->bool
+    m_file->ForEach([this](TItem const & info)->bool
     {
       pair<size_t, size_t> evictedIds;
       m_collection->Add(info, evictedIds);

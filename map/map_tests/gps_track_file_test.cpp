@@ -59,7 +59,7 @@ UNIT_TEST(GpsTrackFile_WriteReadWithoutTrunc)
     file.Append(points);
 
     size_t i = 0;
-    file.ForEach(0, [&](location::GpsTrackInfo const & point)->bool
+    file.ForEach([&](location::GpsTrackInfo const & point)->bool
     {
       TEST_EQUAL(point.m_latitude, points[i].m_latitude, ());
       TEST_EQUAL(point.m_longitude, points[i].m_longitude, ());
@@ -81,7 +81,7 @@ UNIT_TEST(GpsTrackFile_WriteReadWithoutTrunc)
     TEST(file.IsOpen(), ());
 
     size_t i = 0;
-    file.ForEach(0, [&](location::GpsTrackInfo const & point)->bool
+    file.ForEach([&](location::GpsTrackInfo const & point)->bool
     {
       TEST_EQUAL(point.m_latitude, points[i].m_latitude, ());
       TEST_EQUAL(point.m_longitude, points[i].m_longitude, ());
@@ -106,7 +106,7 @@ UNIT_TEST(GpsTrackFile_WriteReadWithoutTrunc)
     TEST(file.IsOpen(), ());
 
     size_t i = 0;
-    file.ForEach(0, [&](location::GpsTrackInfo const & point)->bool{ ++i; return true; });
+    file.ForEach([&](location::GpsTrackInfo const & point)->bool{ ++i; return true; });
     TEST_EQUAL(i, 0, ());
 
     file.Close();
@@ -182,7 +182,7 @@ UNIT_TEST(GpsTrackFile_WriteReadWithTrunc)
     TEST(file.IsOpen(), ());
 
     size_t i = 0;
-    file.ForEach(0, [&](location::GpsTrackInfo const & point)->bool
+    file.ForEach([&](location::GpsTrackInfo const & point)->bool
     {
       if (i < fileMaxItemCount/2)
       {
@@ -217,7 +217,7 @@ UNIT_TEST(GpsTrackFile_WriteReadWithTrunc)
     TEST(file.IsOpen(), ());
 
     size_t i = 0;
-    file.ForEach(0, [&](location::GpsTrackInfo const & point)->bool{ ++i; return true; });
+    file.ForEach([&](location::GpsTrackInfo const & point)->bool{ ++i; return true; });
     TEST_EQUAL(i, 0, ());
 
     file.Close();
