@@ -23,7 +23,7 @@ HEADERS += \
     geourl_process.hpp \
     gps_track.hpp \
     gps_track_collection.hpp \
-    gps_track_file.hpp \
+    gps_track_storage.hpp \
     mwm_url.hpp \
     storage_bridge.hpp \
     styled_point.hpp \
@@ -45,7 +45,7 @@ SOURCES += \
     geourl_process.cpp \
     gps_track.cpp \
     gps_track_collection.cpp \
-    gps_track_file.cpp \
+    gps_track_storage.cpp \
     mwm_url.cpp \
     storage_bridge.cpp \
     styled_point.cpp \

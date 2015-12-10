@@ -9,62 +9,42 @@
 #include "std/limits.hpp"
 #include "std/string.hpp"
 
-class GpsTrackFile final
+class GpsTrackStorage final
 {
 public:
-  DECLARE_EXCEPTION(WriteFileException, RootException);
-  DECLARE_EXCEPTION(ReadFileException, RootException);
+  DECLARE_EXCEPTION(OpenException, RootException);
+  DECLARE_EXCEPTION(WriteException, RootException);
+  DECLARE_EXCEPTION(ReadException, RootException);
 
   using TItem = location::GpsTrackInfo;
 
-  GpsTrackFile();
-  ~GpsTrackFile();
-
-  /// Opens file with track data.
+  /// Opens storage with track data.
   /// @param filePath - path to the file on disk
   /// @param maxItemCount - max number of items in recycling file
-  /// @return If file does not exist then returns false, if everything is ok then returns true.
-  /// @exception WriteFileException if seek fails.
-  bool Open(string const & filePath, size_t maxItemCount);
+  /// @exception OpenException if seek fails.
+  GpsTrackStorage(string const & filePath, size_t maxItemCount);
 
-  /// Creates new file
-  /// @param filePath - path to the file on disk
-  /// @param maxItemCount - max number of items in recycling file
-  /// @return If file cannot be created then returns false, if everything is ok then returns true.
-  bool Create(string const & filePath, size_t maxItemCount);
-
-  /// Returns true if file is open, otherwise returns false
-  bool IsOpen() const;
-
-  /// Flushes all changes and closes file
-  /// @exception WriteFileException if write fails
-  void Close();
-
-  /// Flushes all changes in file
-  /// @exception WriteFileException if write fails
-  void Flush();
-
-  /// Appends new point in the file
+  /// Appends new point to the storage
   /// @param items - collection of gps track points.
-  /// @exceptions WriteFileException if write fails.
+  /// @exceptions WriteException if write fails or ReadException if read fails.
   void Append(vector<TItem> const & items);
 
-  /// Removes all data from file
-  /// @exceptions WriteFileException if write fails.
+  /// Removes all data from the storage
+  /// @exceptions WriteException if write fails.
   void Clear();
 
-  /// Reads file and calls functor for each item with timestamp not earlier than specified
+  /// Reads the storage and calls functor for each item
   /// @param fn - callable function, return true to stop ForEach
-  /// @exceptions ReadFileException if read fails.
+  /// @exceptions ReadException if read fails.
   void ForEach(std::function<bool(TItem const & item)> const & fn);
 
 private:
   void TruncFile();
   size_t GetFirstItemIndex() const;
 
-  string m_filePath;
+  string const m_filePath;
+  size_t const m_maxItemCount;
   fstream m_stream;
-  size_t m_maxItemCount; // max count valid items in file, read note
   size_t m_itemCount; // current number of items in file, read note
 
   // NOTE

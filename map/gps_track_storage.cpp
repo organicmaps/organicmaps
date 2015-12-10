@@ -1,4 +1,4 @@
-#include "map/gps_track_file.hpp"
+#include "map/gps_track_storage.hpp"
 
 #include "coding/internal/file_data.hpp"
 
@@ -12,90 +12,38 @@ namespace
 size_t constexpr kItemBlockSize = 1000;
 } // namespace
 
-GpsTrackFile::GpsTrackFile()
-  : m_maxItemCount(0)
+GpsTrackStorage::GpsTrackStorage(string const & filePath, size_t maxItemCount)
+  : m_filePath(filePath)
+  , m_maxItemCount(maxItemCount)
   , m_itemCount(0)
 {
+  ASSERT_GREATER(m_maxItemCount, 0, ());
+
+  m_stream = fstream(m_filePath, ios::in|ios::out|ios::binary|ios::ate);
+
+  if (m_stream)
+  {
+    size_t const fileSize = m_stream.tellp();
+
+    m_itemCount = fileSize / sizeof(TItem);
+
+    // Set write position after last item position
+    m_stream.seekp(m_itemCount * sizeof(TItem), ios::beg);
+    if (0 != (m_stream.rdstate() & (ios::failbit | ios::badbit)))
+      MYTHROW(OpenException, ("File:", m_filePath));
+  }
+  else
+  {
+    m_stream = fstream(m_filePath, ios::in|ios::out|ios::binary|ios::trunc);
+
+    if (!m_stream)
+      MYTHROW(OpenException, ("File:", m_filePath));
+
+    m_itemCount = 0;
+  }
 }
 
-GpsTrackFile::~GpsTrackFile()
-{
-}
-
-bool GpsTrackFile::Open(string const & filePath, size_t maxItemCount)
-{
-  ASSERT(!m_stream.is_open(), ());
-  ASSERT(maxItemCount > 0, ());
-
-  m_stream = fstream(filePath, ios::in|ios::out|ios::binary|ios::ate);
-
-  if (!m_stream)
-    return false;
-
-  m_filePath = filePath;
-
-  size_t const fileSize = m_stream.tellp();
-
-  m_itemCount = fileSize / sizeof(TItem);
-  m_maxItemCount = maxItemCount;
-
-  // Set write position after last item position
-  m_stream.seekp(m_itemCount * sizeof(TItem), ios::beg);
-  if (0 != (m_stream.rdstate() & (ios::failbit | ios::badbit)))
-    MYTHROW(WriteFileException, ("File:", m_filePath));
-
-  return true;
-}
-
-bool GpsTrackFile::Create(string const & filePath, size_t maxItemCount)
-{
-  ASSERT(!m_stream.is_open(), ());
-  ASSERT(maxItemCount > 0, ());
-
-  m_stream = fstream(filePath, ios::in|ios::out|ios::binary|ios::trunc);
-
-  if (!m_stream)
-    return false;
-
-  m_filePath = filePath;
-
-  m_itemCount = 0;
-  m_maxItemCount = maxItemCount;
-
-  // Write position is set to the begin of file
-  ASSERT_EQUAL(m_stream.tellp(), 0, ());
-
-  return true;
-}
-
-bool GpsTrackFile::IsOpen() const
-{
-  return m_stream.is_open();
-}
-
-void GpsTrackFile::Close()
-{
-  ASSERT(m_stream.is_open(), ());
-
-  m_stream.close();
-  if (0 != (m_stream.rdstate() & (ios::failbit | ios::badbit)))
-    MYTHROW(WriteFileException, ("File:", m_filePath));
-
-  m_filePath.clear();
-  m_itemCount = 0;
-  m_maxItemCount = 0;
-}
-
-void GpsTrackFile::Flush()
-{
-  ASSERT(m_stream.is_open(), ());
-
-  m_stream.flush();
-  if (0 != (m_stream.rdstate() & (ios::failbit | ios::badbit)))
-    MYTHROW(WriteFileException, ("File:", m_filePath));
-}
-
-void GpsTrackFile::Append(vector<TItem> const & items)
+void GpsTrackStorage::Append(vector<TItem> const & items)
 {
   ASSERT(m_stream.is_open(), ());
 
@@ -109,26 +57,32 @@ void GpsTrackFile::Append(vector<TItem> const & items)
 
   m_stream.write(reinterpret_cast<char const *>(&items[0]), items.size() * sizeof(TItem));
   if (0 != (m_stream.rdstate() & (ios::failbit | ios::badbit )))
-    MYTHROW(WriteFileException, ("File:", m_filePath));
+    MYTHROW(WriteException, ("File:", m_filePath));
+
+  m_stream.flush();
+  if (0 != (m_stream.rdstate() & (ios::failbit | ios::badbit )))
+    MYTHROW(WriteException, ("File:", m_filePath));
 
   m_itemCount += items.size();
 }
 
-void GpsTrackFile::Clear()
+void GpsTrackStorage::Clear()
 {
+  ASSERT(m_stream.is_open(), ());
+
   m_itemCount = 0;
 
   m_stream.close();
   m_stream = fstream(m_filePath, ios::in|ios::out|ios::binary|ios::trunc);
 
   if (!m_stream)
-    MYTHROW(WriteFileException, ("File:", m_filePath));
+    MYTHROW(WriteException, ("File:", m_filePath));
 
   // Write position is set to the begin of file
   ASSERT_EQUAL(m_stream.tellp(), 0, ());
 }
 
-void GpsTrackFile::ForEach(std::function<bool(TItem const & item)> const & fn)
+void GpsTrackStorage::ForEach(std::function<bool(TItem const & item)> const & fn)
 {
   ASSERT(m_stream.is_open(), ());
 
@@ -137,7 +91,7 @@ void GpsTrackFile::ForEach(std::function<bool(TItem const & item)> const & fn)
   // Set read position to the first item
   m_stream.seekg(i * sizeof(TItem), ios::beg);
   if (0 != (m_stream.rdstate() & (ios::failbit | ios::badbit)))
-    MYTHROW(ReadFileException, ("File:", m_filePath));
+    MYTHROW(ReadException, ("File:", m_filePath));
 
   vector<TItem> items(kItemBlockSize);
   for (; i < m_itemCount;)
@@ -145,7 +99,7 @@ void GpsTrackFile::ForEach(std::function<bool(TItem const & item)> const & fn)
     size_t const n = min(m_itemCount - i, items.size());
     m_stream.read(reinterpret_cast<char *>(&items[0]), n * sizeof(TItem));
     if (0 != (m_stream.rdstate() & (ios::failbit | ios::badbit | ios::eofbit)))
-      MYTHROW(ReadFileException, ("File:", m_filePath));
+      MYTHROW(ReadException, ("File:", m_filePath));
 
     for (size_t j = 0; j < n; ++j)
     {
@@ -158,20 +112,20 @@ void GpsTrackFile::ForEach(std::function<bool(TItem const & item)> const & fn)
   }
 }
 
-void GpsTrackFile::TruncFile()
+void GpsTrackStorage::TruncFile()
 {
   string const tmpFilePath = m_filePath + ".tmp";
 
   fstream tmp = fstream(tmpFilePath, ios::in|ios::out|ios::binary|ios::trunc);
   if (!tmp)
-    MYTHROW(WriteFileException, ("Unable to create temporary file:", m_filePath));
+    MYTHROW(WriteException, ("Unable to create temporary file:", m_filePath));
 
   size_t i = GetFirstItemIndex();
 
   // Set read position to the first item
   m_stream.seekg(i * sizeof(TItem), ios::beg);
   if (0 != (m_stream.rdstate() & (ios::failbit | ios::badbit)))
-    MYTHROW(ReadFileException, ("File:", m_filePath));
+    MYTHROW(ReadException, ("File:", m_filePath));
 
   size_t newItemCount = 0;
 
@@ -183,11 +137,11 @@ void GpsTrackFile::TruncFile()
 
     m_stream.read(reinterpret_cast<char *>(&items[0]), n * sizeof(TItem));
     if (0 != (m_stream.rdstate() & (ios::failbit | ios::badbit | ios::eofbit)))
-      MYTHROW(ReadFileException, ("File:", m_filePath));
+      MYTHROW(ReadException, ("File:", m_filePath));
 
     tmp.write(reinterpret_cast<char const *>(&items[0]), n * sizeof(TItem));
     if (0 != (tmp.rdstate() & (ios::failbit | ios::badbit)))
-      MYTHROW(WriteFileException, ("File:", tmpFilePath));
+      MYTHROW(WriteException, ("File:", tmpFilePath));
 
     i += n;
     newItemCount += n;
@@ -202,12 +156,13 @@ void GpsTrackFile::TruncFile()
   if (!my::DeleteFileX(m_filePath) ||
       !my::RenameFileX(tmpFilePath, m_filePath))
   {
-    MYTHROW(WriteFileException, ("File:", m_filePath));
+    MYTHROW(WriteException, ("File:", m_filePath));
   }
 
+  // Reopen stream
   m_stream = fstream(m_filePath, ios::in|ios::out|ios::binary|ios::ate);
   if (!m_stream)
-    MYTHROW(WriteFileException, ("File:", m_filePath));
+    MYTHROW(WriteException, ("File:", m_filePath));
 
   m_itemCount = newItemCount;
 
@@ -215,7 +170,7 @@ void GpsTrackFile::TruncFile()
   ASSERT_EQUAL(m_stream.tellp(), m_itemCount * sizeof(TItem), ());
 }
 
-size_t GpsTrackFile::GetFirstItemIndex() const
+size_t GpsTrackStorage::GetFirstItemIndex() const
 {
   return (m_itemCount > m_maxItemCount) ? (m_itemCount - m_maxItemCount) : 0; // see NOTE in declaration
 }

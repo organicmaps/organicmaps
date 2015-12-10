@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "map/gps_track_file.hpp"
+#include "map/gps_track_storage.hpp"
 
 #include "platform/platform.hpp"
 
@@ -34,7 +34,7 @@ inline string GetGpsTrackFilePath()
 
 } // namespace
 
-UNIT_TEST(GpsTrackFile_WriteReadWithoutTrunc)
+UNIT_TEST(GpsTrackStorage_WriteReadWithoutTrunc)
 {
   time_t const t = system_clock::to_time_t(system_clock::now());
   double const timestamp = t;
@@ -42,6 +42,7 @@ UNIT_TEST(GpsTrackFile_WriteReadWithoutTrunc)
 
   string const filePath = GetGpsTrackFilePath();
   MY_SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
+  FileWriter::DeleteFileX(filePath);
 
   size_t const fileMaxItemCount = 100000;
 
@@ -50,16 +51,14 @@ UNIT_TEST(GpsTrackFile_WriteReadWithoutTrunc)
   for (size_t i = 0; i < fileMaxItemCount; ++i)
     points.emplace_back(Make(timestamp + i, ms::LatLon(-90 + i, -180 + i), 60 + i));
 
-  // Create file, write data and check written data
+  // Open storage, write data and check written data
   {
-    GpsTrackFile file;
-    TEST(file.Create(filePath, fileMaxItemCount), ());
-    TEST(file.IsOpen(), ());
+    GpsTrackStorage stg(filePath, fileMaxItemCount);
 
-    file.Append(points);
+    stg.Append(points);
 
     size_t i = 0;
-    file.ForEach([&](location::GpsTrackInfo const & point)->bool
+    stg.ForEach([&](location::GpsTrackInfo const & point)->bool
     {
       TEST_EQUAL(point.m_latitude, points[i].m_latitude, ());
       TEST_EQUAL(point.m_longitude, points[i].m_longitude, ());
@@ -69,19 +68,14 @@ UNIT_TEST(GpsTrackFile_WriteReadWithoutTrunc)
       return true;
     });
     TEST_EQUAL(i, fileMaxItemCount, ());
-
-    file.Close();
-    TEST(!file.IsOpen(), ());
   }
 
-  // Open file and check previously written data
+  // Open storage and check previously written data
   {
-    GpsTrackFile file;
-    TEST(file.Open(filePath, fileMaxItemCount), ());
-    TEST(file.IsOpen(), ());
+    GpsTrackStorage stg(filePath, fileMaxItemCount);
 
     size_t i = 0;
-    file.ForEach([&](location::GpsTrackInfo const & point)->bool
+    stg.ForEach([&](location::GpsTrackInfo const & point)->bool
     {
       TEST_EQUAL(point.m_latitude, points[i].m_latitude, ());
       TEST_EQUAL(point.m_longitude, points[i].m_longitude, ());
@@ -93,28 +87,20 @@ UNIT_TEST(GpsTrackFile_WriteReadWithoutTrunc)
     TEST_EQUAL(i, fileMaxItemCount, ());
 
     // Clear data
-    file.Clear();
-
-    file.Close();
-    TEST(!file.IsOpen(), ());
+    stg.Clear();
   }
 
-  // Open file and check there is no data
+  // Open storage and check there is no data
   {
-    GpsTrackFile file;
-    TEST(file.Open(filePath, fileMaxItemCount), ());
-    TEST(file.IsOpen(), ());
+    GpsTrackStorage stg(filePath, fileMaxItemCount);
 
     size_t i = 0;
-    file.ForEach([&](location::GpsTrackInfo const & point)->bool{ ++i; return true; });
+    stg.ForEach([&](location::GpsTrackInfo const & point)->bool{ ++i; return true; });
     TEST_EQUAL(i, 0, ());
-
-    file.Close();
-    TEST(!file.IsOpen(), ());
   }
 }
 
-UNIT_TEST(GpsTrackFile_WriteReadWithTrunc)
+UNIT_TEST(GpsTrackStorage_WriteReadWithTrunc)
 {
   time_t const t = system_clock::to_time_t(system_clock::now());
   double const timestamp = t;
@@ -122,6 +108,7 @@ UNIT_TEST(GpsTrackFile_WriteReadWithTrunc)
 
   string const filePath = GetGpsTrackFilePath();
   MY_SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
+  FileWriter::DeleteFileX(filePath);
 
   size_t const fileMaxItemCount = 100000;
 
@@ -139,50 +126,30 @@ UNIT_TEST(GpsTrackFile_WriteReadWithTrunc)
   for (size_t i = 0; i < fileMaxItemCount/2; ++i)
     points3.emplace_back(Make(timestamp + i, ms::LatLon(-30 + i, -60 + i), 90 + i));
 
-  // Create file and write blob 1
+  // Open storage and write blob 1
   {
-    GpsTrackFile file;
-    TEST(file.Create(filePath, fileMaxItemCount), ());
-    TEST(file.IsOpen(), ());
-
-    file.Append(points1);
-
-    file.Close();
-    TEST(!file.IsOpen(), ());
+    GpsTrackStorage stg(filePath, fileMaxItemCount);
+    stg.Append(points1);
   }
 
-  // Create file and write blob 2
+  // Open storage and write blob 2
   {
-    GpsTrackFile file;
-    TEST(file.Open(filePath, fileMaxItemCount), ());
-    TEST(file.IsOpen(), ());
-
-    file.Append(points2);
-
-    file.Close();
-    TEST(!file.IsOpen(), ());
+    GpsTrackStorage stg(filePath, fileMaxItemCount);
+    stg.Append(points2);
   }
 
-  // Create file and write blob 3
+  // Open storage and write blob 3
   {
-    GpsTrackFile file;
-    TEST(file.Open(filePath, fileMaxItemCount), ());
-    TEST(file.IsOpen(), ());
-
-    file.Append(points3); // trunc happens here
-
-    file.Close();
-    TEST(!file.IsOpen(), ());
+    GpsTrackStorage stg(filePath, fileMaxItemCount);
+    stg.Append(points3);
   }
 
-  // Check file must contain second half of points2 and points3
+  // Check storage must contain second half of points2 and points3
   {
-    GpsTrackFile file;
-    TEST(file.Open(filePath, fileMaxItemCount), ());
-    TEST(file.IsOpen(), ());
+    GpsTrackStorage stg(filePath, fileMaxItemCount);
 
     size_t i = 0;
-    file.ForEach([&](location::GpsTrackInfo const & point)->bool
+    stg.ForEach([&](location::GpsTrackInfo const & point)->bool
     {
       if (i < fileMaxItemCount/2)
       {
@@ -204,23 +171,15 @@ UNIT_TEST(GpsTrackFile_WriteReadWithTrunc)
     TEST_EQUAL(i, fileMaxItemCount, ());
 
     // Clear data
-    file.Clear();
-
-    file.Close();
-    TEST(!file.IsOpen(), ());
+    stg.Clear();
   }
 
-  // Check no data in file
+  // Check no data in storage
   {
-    GpsTrackFile file;
-    TEST(file.Open(filePath, fileMaxItemCount), ());
-    TEST(file.IsOpen(), ());
+    GpsTrackStorage stg(filePath, fileMaxItemCount);
 
     size_t i = 0;
-    file.ForEach([&](location::GpsTrackInfo const & point)->bool{ ++i; return true; });
+    stg.ForEach([&](location::GpsTrackInfo const & point)->bool{ ++i; return true; });
     TEST_EQUAL(i, 0, ());
-
-    file.Close();
-    TEST(!file.IsOpen(), ());
   }
 }

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "map/gps_track_collection.hpp"
-#include "map/gps_track_file.hpp"
+#include "map/gps_track_storage.hpp"
 
 #include "std/condition_variable.hpp"
 #include "std/mutex.hpp"
@@ -56,10 +56,9 @@ private:
   void ScheduleTask();
   void ProcessPoints(); // called on the worker thread
   bool HasCallback();
-  void LazyInitFile();
-  void CloseFile();
+  void InitStorageIfNeed();
   void InitCollection(hours duration);
-  void UpdateFile(bool needClear, vector<TItem> const & points);
+  void UpdateStorage(bool needClear, vector<TItem> const & points);
   void UpdateCollection(hours duration, bool needClear, vector<TItem> const & points);
 
   size_t const m_maxItemCount;
@@ -77,7 +76,7 @@ private:
   TGpsTrackDiffCallback m_callback;
   bool m_needSendSnapshop; // need send initial snapshot
 
-  unique_ptr<GpsTrackFile> m_file; // used in the worker thread
+  unique_ptr<GpsTrackStorage> m_storage; // used in the worker thread
   unique_ptr<GpsTrackCollection> m_collection; // used in the worker thread
 
   mutex m_threadGuard;
