@@ -8,8 +8,8 @@
 namespace df
 {
 
-double const kKineticDuration = 0.6;
-double const kKineticFadeoff = 1.5;
+double const kKineticDuration = 1.5;
+double const kKineticFadeoff = 4.0;
 double const kKineticThreshold = 50.0;
 double const kKineticAcceleration = 0.4;
 double const kKineticMaxSpeedStart = 1000.0; // pixels per second
