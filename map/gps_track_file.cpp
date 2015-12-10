@@ -2,8 +2,15 @@
 
 #include "coding/internal/file_data.hpp"
 
+#include "std/algorithm.hpp"
+
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+
+namespace
+{
+size_t constexpr kItemBlockSize = 1000;
+} // namespace
 
 GpsTrackFile::GpsTrackFile()
   : m_maxItemCount(0)
@@ -100,7 +107,7 @@ void GpsTrackFile::Append(vector<TItem> const & items)
   // Write position must be after last item position
   ASSERT_EQUAL(m_stream.tellp(), m_itemCount * sizeof(TItem), ());
 
-  m_stream.write(reinterpret_cast<const char *>(&items[0]), items.size() * sizeof(TItem));
+  m_stream.write(reinterpret_cast<char const *>(&items[0]), items.size() * sizeof(TItem));
   if (0 != (m_stream.rdstate() & (ios::failbit | ios::badbit )))
     MYTHROW(WriteFileException, ("File:", m_filePath));
 
@@ -132,15 +139,22 @@ void GpsTrackFile::ForEach(std::function<bool(TItem const & item)> const & fn)
   if (0 != (m_stream.rdstate() & (ios::failbit | ios::badbit)))
     MYTHROW(ReadFileException, ("File:", m_filePath));
 
-  for (; i < m_itemCount; ++i)
+  vector<TItem> items(kItemBlockSize);
+  for (; i < m_itemCount;)
   {
-    TItem item;
-    m_stream.read(reinterpret_cast<char *>(&item), sizeof(TItem));
+    size_t const n = min(m_itemCount - i, items.size());
+    m_stream.read(reinterpret_cast<char *>(&items[0]), n * sizeof(TItem));
     if (0 != (m_stream.rdstate() & (ios::failbit | ios::badbit | ios::eofbit)))
       MYTHROW(ReadFileException, ("File:", m_filePath));
 
-    if (!fn(item))
-      break;
+    for (size_t j = 0; j < n; ++j)
+    {
+      TItem const & item = items[j];
+      if (!fn(item))
+        return;
+    }
+
+    i += n;
   }
 }
 
@@ -159,22 +173,32 @@ void GpsTrackFile::TruncFile()
   if (0 != (m_stream.rdstate() & (ios::failbit | ios::badbit)))
     MYTHROW(ReadFileException, ("File:", m_filePath));
 
-  size_t itemCount = 0;
-  for (; i < m_itemCount; ++i, ++itemCount)
+  size_t newItemCount = 0;
+
+  // Copy items
+  vector<TItem> items(kItemBlockSize);
+  for (; i < m_itemCount;)
   {
-    TItem item;
-    m_stream.read(reinterpret_cast<char *>(&item), sizeof(TItem));
+    size_t const n = min(m_itemCount - i, items.size());
+
+    m_stream.read(reinterpret_cast<char *>(&items[0]), n * sizeof(TItem));
     if (0 != (m_stream.rdstate() & (ios::failbit | ios::badbit | ios::eofbit)))
       MYTHROW(ReadFileException, ("File:", m_filePath));
 
-    tmp.write(reinterpret_cast<char *>(&item), sizeof(TItem));
+    tmp.write(reinterpret_cast<char const *>(&items[0]), n * sizeof(TItem));
     if (0 != (tmp.rdstate() & (ios::failbit | ios::badbit)))
       MYTHROW(WriteFileException, ("File:", tmpFilePath));
+
+    i += n;
+    newItemCount += n;
   }
+  items.clear();
+  items.shrink_to_fit();
 
   tmp.close();
   m_stream.close();
 
+  // Replace file
   if (!my::DeleteFileX(m_filePath) ||
       !my::RenameFileX(tmpFilePath, m_filePath))
   {
@@ -185,7 +209,7 @@ void GpsTrackFile::TruncFile()
   if (!m_stream)
     MYTHROW(WriteFileException, ("File:", m_filePath));
 
-  m_itemCount = itemCount;
+  m_itemCount = newItemCount;
 
   // Write position must be after last item position (end of file)
   ASSERT_EQUAL(m_stream.tellp(), m_itemCount * sizeof(TItem), ());
