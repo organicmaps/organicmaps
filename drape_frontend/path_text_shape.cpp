@@ -31,10 +31,9 @@ class PathTextHandle : public df::TextHandle
 public:
   PathTextHandle(m2::SharedSpline const & spl,
                  df::SharedTextLayout const & layout,
-                 float mercatorOffset,
-                 float depth,
-                 uint32_t textIndex,
-                 uint64_t priority,
+                 float mercatorOffset, float depth,
+                 uint32_t textIndex, uint64_t priority,
+                 uint64_t priorityFollowingMode,
                  ref_ptr<dp::TextureManager> textureManager,
                  bool isBillboard)
     : TextHandle(FeatureID(), layout->GetText(), dp::Center, priority, textureManager, isBillboard)
@@ -43,6 +42,7 @@ public:
     , m_textIndex(textIndex)
     , m_globalOffset(mercatorOffset)
     , m_depth(depth)
+    , m_priorityFollowingMode(priorityFollowingMode)
   {
 
     m2::Spline::iterator centerPointIter = m_spline.CreateIterator();
@@ -81,6 +81,9 @@ public:
 
     if (screen.isPerspective())
     {
+      if (pixelSpline.GetSize() < 2)
+        return false;
+
       vector<float> offsets;
       df::PathTextLayout::CalculatePositions(offsets, pixelSpline.GetLength(), 1.0,
                                              m_layout->GetPixelLength());
@@ -173,6 +176,11 @@ public:
     return false;
   }
 
+  uint64_t GetPriorityInFollowingMode() const override
+  {
+    return m_priorityFollowingMode;
+  }
+
 private:
   m2::SharedSpline m_spline;
   df::SharedTextLayout m_layout;
@@ -180,6 +188,7 @@ private:
   m2::PointD m_globalPivot;
   float const m_globalOffset;
   float const m_depth;
+  uint64_t const m_priorityFollowingMode;
 };
 
 }
@@ -193,13 +202,15 @@ PathTextShape::PathTextShape(m2::SharedSpline const & spline,
   , m_params(params)
 {}
 
-uint64_t PathTextShape::GetOverlayPriority() const
+uint64_t PathTextShape::GetOverlayPriority(bool followingMode) const
 {
   // Overlay priority for path text shapes considers length of the text.
   // Greater test length has more priority, because smaller texts have more chances to be shown along the road.
   // [6 bytes - standard overlay priority][1 byte - reserved][1 byte - length].
   static uint64_t constexpr kMask = ~static_cast<uint64_t>(0xFF);
-  uint64_t priority = dp::CalculateOverlayPriority(m_params.m_minVisibleScale, m_params.m_rank, m_params.m_depth);
+  uint64_t priority = dp::kPriorityMaskAll;
+  if (!followingMode)
+    priority = dp::CalculateOverlayPriority(m_params.m_minVisibleScale, m_params.m_rank, m_params.m_depth);
   priority &= kMask;
   priority |= (static_cast<uint8_t>(m_params.m_text.size()));
 
@@ -237,11 +248,10 @@ void PathTextShape::DrawPathTextPlain(ref_ptr<dp::TextureManager> textures,
     provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(dynBuffer.data()));
 
     drape_ptr<dp::OverlayHandle> handle = make_unique_dp<PathTextHandle>(m_spline, layoutPtr, offset,
-                                                                         m_params.m_depth,
-                                                                         textIndex,
-                                                                         GetOverlayPriority(),
-                                                                         textures,
-                                                                         true);
+                                                                         m_params.m_depth, textIndex,
+                                                                         GetOverlayPriority(false /* followingMode */),
+                                                                         GetOverlayPriority(true /* followingMode */),
+                                                                         textures, true);
     batcher->InsertListOfStrip(state, make_ref(&provider), move(handle), 4);
   }
 }
@@ -279,11 +289,10 @@ void PathTextShape::DrawPathTextOutlined(ref_ptr<dp::TextureManager> textures,
     provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(dynBuffer.data()));
 
     drape_ptr<dp::OverlayHandle> handle = make_unique_dp<PathTextHandle>(m_spline, layoutPtr, offset,
-                                                                         m_params.m_depth,
-                                                                         textIndex,
-                                                                         GetOverlayPriority(),
-                                                                         textures,
-                                                                         true);
+                                                                         m_params.m_depth, textIndex,
+                                                                         GetOverlayPriority(false /* followingMode */),
+                                                                         GetOverlayPriority(true /* followingMode */),
+                                                                         textures, true);
     batcher->InsertListOfStrip(state, make_ref(&provider), move(handle), 4);
   }
 }

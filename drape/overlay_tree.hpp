@@ -61,6 +61,8 @@ public:
   using TSelectResult = buffer_vector<ref_ptr<OverlayHandle>, 8>;
   void Select(m2::RectD const & rect, TSelectResult & result) const;
 
+  void SetFollowingMode(bool mode);
+
 private:
   ScreenBase const & GetModelView() const { return m_traits.m_modelView; }
   void InsertHandle(ref_ptr<OverlayHandle> handle,
@@ -72,6 +74,7 @@ private:
   int m_frameCounter;
   array<vector<ref_ptr<OverlayHandle>>, dp::OverlayRanksCount> m_handles;
   vector<detail::OverlayInfo> m_handlesToDelete;
+  bool m_followingMode;
 };
 
 } // namespace dp

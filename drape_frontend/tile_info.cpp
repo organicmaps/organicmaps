@@ -16,8 +16,8 @@ namespace df
 
 TileInfo::TileInfo(drape_ptr<EngineContext> && context)
   : m_context(move(context))
-  , m_isCanceled(false)
   , m_is3d(false)
+  , m_isCanceled(false)
 {
 }
 

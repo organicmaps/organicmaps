@@ -18,6 +18,8 @@ namespace
 class HandleComparator
 {
 public:
+  HandleComparator(bool followingMode) : m_followingMode(followingMode) {}
+
   bool operator()(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const
   {  
     return IsGreater(l, r);
@@ -26,8 +28,10 @@ public:
   bool IsGreater(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const
   {
     uint64_t const mask = l->GetPriorityMask() & r->GetPriorityMask();
-    uint64_t const priorityLeft = l->GetPriority() & mask;
-    uint64_t const priorityRight = r->GetPriority() & mask;
+    uint64_t const priorityLeft = (m_followingMode ? l->GetPriorityInFollowingMode() :
+                                                     l->GetPriority()) & mask;
+    uint64_t const priorityRight = (m_followingMode ? r->GetPriorityInFollowingMode() :
+                                                      r->GetPriority()) & mask;
     if (priorityLeft > priorityRight)
       return true;
 
@@ -44,12 +48,16 @@ public:
 
     return false;
   }
+
+private:
+  bool m_followingMode;
 };
 
 } // namespace
 
 OverlayTree::OverlayTree()
   : m_frameCounter(-1)
+  , m_followingMode(false)
 {
   for (size_t i = 0; i < m_handles.size(); i++)
     m_handles[i].reserve(kAverageHandlesCount[i]);
@@ -145,7 +153,7 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
     // If input element "handle" more priority than all "Intersected elements"
     // than we remove all "Intersected elements" and insert input element "handle".
     // But if some of already inserted elements more priority than we don't insert "handle".
-    HandleComparator comparator;
+    HandleComparator comparator(m_followingMode);
     for (auto const & info : elements)
     {
       bool const rejectByDepth = is3dMode ? posY > info.m_handle->GetPivot(modelView, is3dMode).y : false;
@@ -176,7 +184,7 @@ void OverlayTree::EndOverlayPlacing()
 {
   ASSERT(IsNeedUpdate(), ());
 
-  HandleComparator comparator;
+  HandleComparator comparator(m_followingMode);
 
   for (int rank = 0; rank < dp::OverlayRanksCount; rank++)
   {
@@ -261,6 +269,11 @@ void OverlayTree::Select(m2::RectD const & rect, TSelectResult & result) const
       }
     }
   });
+}
+
+void OverlayTree::SetFollowingMode(bool mode)
+{
+  m_followingMode = mode;
 }
 
 } // namespace dp

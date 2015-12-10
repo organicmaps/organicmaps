@@ -78,6 +78,7 @@ public:
   uint64_t const & GetPriority() const;
 
   virtual uint64_t GetPriorityMask() const { return kPriorityMaskAll; }
+  virtual uint64_t GetPriorityInFollowingMode() const;
 
   virtual bool IsBound() const { return false; }
 

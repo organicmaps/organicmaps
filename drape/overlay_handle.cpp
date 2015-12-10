@@ -193,6 +193,11 @@ bool OverlayHandle::IsMinVisibilityTimeUp() const
   return t > kMinVisibilityTimeMs;
 }
 
+uint64_t OverlayHandle::GetPriorityInFollowingMode() const
+{
+  return GetPriority();
+}
+
 
 SquareHandle::SquareHandle(FeatureID const & id, dp::Anchor anchor,
                            m2::PointD const & gbPivot, m2::PointD const & pxSize,
