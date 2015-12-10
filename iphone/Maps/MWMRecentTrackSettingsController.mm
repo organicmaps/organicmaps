@@ -3,6 +3,8 @@
 
 #include "Framework.h"
 
+#include "map/gps_tracker.hpp"
+
 typedef NS_ENUM(NSUInteger, DurationInHours)
 {
   One = 1,
@@ -30,15 +32,14 @@ typedef NS_ENUM(NSUInteger, DurationInHours)
 {
   [super viewDidLoad];
   self.title = L(@"recent_track");
-  auto & f = GetFramework();
 
-  if (!f.IsGpsTrackingEnabled())
+  if (!GpsTracker::Instance().IsEnabled())
   {
     _selectedCell = self.none;
   }
   else
   {
-    switch (f.GetGpsTrackingDuration().count())
+    switch (GpsTracker::Instance().GetDuration().count())
     {
     case One:
       _selectedCell = self.oneHour;
@@ -68,22 +69,25 @@ typedef NS_ENUM(NSUInteger, DurationInHours)
   _selectedCell = selectedCell;
   auto & f = GetFramework();
   if ([selectedCell isEqual:self.none])
-    f.EnableGpsTracking(false);
+  {
+    f.DisconnectFromGpsTracker();
+    GpsTracker::Instance().SetEnabled(false);
+  }
   else
   {
-    if (!f.IsGpsTrackingEnabled())
-      f.EnableGpsTracking(true);
+    GpsTracker::Instance().SetEnabled(true);
+    f.ConnectToGpsTracker();
 
     if ([selectedCell isEqual:self.oneHour])
-      f.SetGpsTrackingDuration(hours(One));
+      GpsTracker::Instance().SetDuration(hours(One));
     else if ([selectedCell isEqual:self.twoHours])
-      f.SetGpsTrackingDuration(hours(Two));
+      GpsTracker::Instance().SetDuration(hours(Two));
     else if ([selectedCell isEqual:self.sixHours])
-      f.SetGpsTrackingDuration(hours(Six));
+      GpsTracker::Instance().SetDuration(hours(Six));
     else if ([selectedCell isEqual:self.twelveHours])
-      f.SetGpsTrackingDuration(hours(Twelve));
+      GpsTracker::Instance().SetDuration(hours(Twelve));
     else
-      f.SetGpsTrackingDuration(hours(Day));
+      GpsTracker::Instance().SetDuration(hours(Day));
   }
   selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
 }

@@ -90,5 +90,3 @@ private:
   bool m_threadWakeup; // need wakeup thread
   condition_variable m_cv;
 };
-
-GpsTrack & GetDefaultGpsTrack();

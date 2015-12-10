@@ -6,7 +6,6 @@
 #include "map/bookmark_manager.hpp"
 #include "map/country_tree.hpp"
 #include "map/feature_vec_model.hpp"
-#include "map/gps_track.hpp"
 #include "map/mwm_url.hpp"
 #include "map/track.hpp"
 
@@ -38,7 +37,6 @@
 #include "base/strings_bundle.hpp"
 #include "base/thread_checker.hpp"
 
-#include "std/atomic.hpp"
 #include "std/list.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/target_os.hpp"
@@ -128,9 +126,6 @@ protected:
   location::TMyPositionModeChanged m_myPositionListener;
 
   BookmarkManager m_bmManager;
-
-  atomic<bool> m_gpsTrackingEnabled;
-  GpsTrack & m_gpsTrack;
 
   /// This function is called by m_storage when latest local files
   /// were changed.
@@ -319,10 +314,8 @@ public:
   ref_ptr<df::DrapeEngine> GetDrapeEngine();
   void DestroyDrapeEngine();
 
-  void EnableGpsTracking(bool enabled);
-  bool IsGpsTrackingEnabled() const;
-  void SetGpsTrackingDuration(hours duration);
-  hours GetGpsTrackingDuration() const;
+  void ConnectToGpsTracker();
+  void DisconnectFromGpsTracker();
 
   void SetMapStyle(MapStyle mapStyle);
   MapStyle GetMapStyle() const;
@@ -340,6 +333,8 @@ private:
 
   search::SearchParams m_lastSearch;
   uint8_t m_fixedSearchResults;
+
+  bool m_connectToGpsTrack; // need to connect to tracker when Drape is being constructed
 
   void FillSearchResultsMarks(search::Results const & results);
 
@@ -501,7 +496,7 @@ public:
   //@}
 
 public:
-  using TRouteBuildingCallback = function<void(routing::IRouter::ResultCode, 
+  using TRouteBuildingCallback = function<void(routing::IRouter::ResultCode,
                                                vector<storage::TIndex> const &,
                                                vector<storage::TIndex> const &)>;
   using TRouteProgressCallback = function<void(float)>;

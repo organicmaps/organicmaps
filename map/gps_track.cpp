@@ -1,19 +1,10 @@
 #include "map/gps_track.hpp"
 
-#include "coding/file_name_utils.hpp"
-
-#include "platform/platform.hpp"
-
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
-#include "defines.hpp"
-
 namespace
 {
-
-size_t const kMaxItemCount = 100000;
-hours const kDefaultDuration = hours(24);
 
 inline pair<size_t, size_t> UnionRanges(pair<size_t, size_t> const & a, pair<size_t, size_t> const & b)
 {
@@ -319,10 +310,4 @@ void GpsTrack::NotifyCallback(pair<size_t, size_t> const & addedIds, pair<size_t
 
     m_callback(move(toAdd), evictedIds);
   }
-}
-
-GpsTrack & GetDefaultGpsTrack()
-{
-  static GpsTrack instance(my::JoinFoldersToPath(GetPlatform().WritableDir(), GPS_TRACK_FILENAME), kMaxItemCount, kDefaultDuration);
-  return instance;
 }

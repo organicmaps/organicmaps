@@ -25,6 +25,7 @@ HEADERS += \
     gps_track_collection.hpp \
     gps_track_filter.hpp \
     gps_track_storage.hpp \
+    gps_tracker.hpp \
     mwm_url.hpp \
     storage_bridge.hpp \
     styled_point.hpp \
@@ -48,6 +49,7 @@ SOURCES += \
     gps_track_filter.cpp \
     gps_track_collection.cpp \
     gps_track_storage.cpp \
+    gps_tracker.cpp \
     mwm_url.cpp \
     storage_bridge.cpp \
     styled_point.cpp \

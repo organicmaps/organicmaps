@@ -1,5 +1,7 @@
 #include "Framework.hpp"
 
+#include "map/gps_tracker.hpp"
+
 #include "std/chrono.hpp"
 
 namespace
@@ -7,7 +9,6 @@ namespace
 
 ::Framework * frm()
 {
-  // TODO (trashkalmar): Temp solution until the GPS tracker is uncoupled from the framework.
   return (g_framework ? g_framework->NativeFramework() : nullptr);
 }
 
@@ -18,49 +19,31 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_location_TrackRecorder_nativeSetEnabled(JNIEnv * env, jclass clazz, jboolean enable)
   {
-    // TODO (trashkalmar): Temp solution until the GPS tracker is uncoupled from the framework.
-
-    ::Framework * const framework = frm();
-    if (framework)
-    {
-      framework->EnableGpsTracking(enable);
+    GpsTracker::Instance().SetEnabled(enable);
+    Framework * const f = frm();
+    if (f == nullptr)
       return;
-    }
-
-    Settings::Set("GpsTrackingEnabled", static_cast<bool>(enable));
+    if (enable)
+      f->ConnectToGpsTracker();
+    else
+      f->DisconnectFromGpsTracker();
   }
 
   JNIEXPORT jboolean JNICALL
   Java_com_mapswithme_maps_location_TrackRecorder_nativeIsEnabled(JNIEnv * env, jclass clazz)
   {
-    // TODO (trashkalmar): Temp solution until the GPS tracker is uncoupled from the framework.
-
-    ::Framework * const framework = frm();
-    if (framework)
-      return framework->IsGpsTrackingEnabled();
-
-    bool res = false;
-    Settings::Get("GpsTrackingEnabled", res);
-    return res;
+    return GpsTracker::Instance().IsEnabled();
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_location_TrackRecorder_nativeSetDuration(JNIEnv * env, jclass clazz, jint durationHours)
   {
-    frm()->SetGpsTrackingDuration(hours(durationHours));
+    return GpsTracker::Instance().SetDuration(hours(durationHours));
   }
 
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_location_TrackRecorder_nativeGetDuration(JNIEnv * env, jclass clazz)
   {
-    // TODO (trashkalmar): Temp solution until the GPS tracker is uncoupled from the framework.
-
-    ::Framework * const framework = frm();
-    if (framework)
-      return framework->GetGpsTrackingDuration().count();
-
-    uint32_t res = 24;
-    Settings::Get("GpsTrackingDuration", res);
-    return res;
+    return GpsTracker::Instance().GetDuration().count();
   }
 }

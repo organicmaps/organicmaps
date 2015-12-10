@@ -9,7 +9,7 @@
 
 #include "Framework.h"
 
-#include "map/gps_track.hpp"
+#include "map/gps_tracker.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/settings.hpp"
 #include "base/math.hpp"
@@ -74,7 +74,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
 
 - (void)beforeTerminate
 {
-  if (GetFramework().IsGpsTrackingEnabled())
+  if (GpsTracker::Instance().IsEnabled())
     [m_locationManager startMonitoringSignificantLocationChanges];
 }
 
@@ -184,16 +184,13 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
   m_lastLocationTime = [NSDate date];
   [[Statistics instance] logLocation:location];
   auto const newInfo = gpsInfoFromLocation(location);
-  if (self.isDaemonMode)
-  {
-    GetDefaultGpsTrack().AddPoint(newInfo);
-  }
-  else
+  if (!self.isDaemonMode)
   {
     for (id observer in m_observers)
        [observer onLocationUpdate:newInfo];
     // TODO(AlexZ): Temporary, remove in the future.
   }
+  GpsTracker::Instance().OnLocationUpdated(newInfo);
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
