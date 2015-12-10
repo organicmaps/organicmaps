@@ -157,33 +157,38 @@ UNIT_TEST(TestAppendTimeTable)
 {
   {
     TimeTableSet tts;
-    TEST(!tts.empty(), ());
+    TEST(!tts.Empty(), ());
 
-    auto tt = tts.back();
+    {
+      auto tt = tts.Back();
 
-    TEST(tt.RemoveWorkingDay(osmoh::Weekday::Sunday), ());
-    TEST(tt.RemoveWorkingDay(osmoh::Weekday::Saturday), ());
-    TEST(tts.Replace(tt, 0), ());
+      TEST(tt.RemoveWorkingDay(osmoh::Weekday::Sunday), ());
+      TEST(tt.RemoveWorkingDay(osmoh::Weekday::Saturday), ());
+      TEST(tt.Commit(), ());
+
+      TEST(tts.Append(tts.GetComplementTimeTable()), ());
+      TEST_EQUAL(tts.Back().GetWorkingDays(), (set<osmoh::Weekday>{osmoh::Weekday::Sunday,
+                osmoh::Weekday::Saturday}), ());
+    }
+
+    {
+      auto tt = tts.Front();
+      TEST(tt.RemoveWorkingDay(osmoh::Weekday::Monday), ());
+      TEST(tt.RemoveWorkingDay(osmoh::Weekday::Tuesday), ());
+      TEST(tt.Commit(), ());
+    }
 
     TEST(tts.Append(tts.GetComplementTimeTable()), ());
-    TEST_EQUAL(tts.back().GetWorkingDays(), (set<osmoh::Weekday>{osmoh::Weekday::Sunday,
-              osmoh::Weekday::Saturday}), ());
-    tt = tts.front();
-    TEST(tt.RemoveWorkingDay(osmoh::Weekday::Monday), ());
-    TEST(tt.RemoveWorkingDay(osmoh::Weekday::Tuesday), ());
-    TEST(tts.Replace(tt, 0), ());
-
-    TEST(tts.Append(tts.GetComplementTimeTable()), ());
-    TEST_EQUAL(tts.back().GetWorkingDays(), (set<osmoh::Weekday>{osmoh::Weekday::Monday,
+    TEST_EQUAL(tts.Back().GetWorkingDays(), (set<osmoh::Weekday>{osmoh::Weekday::Monday,
               osmoh::Weekday::Tuesday}), ());
 
     TEST(!tts.GetComplementTimeTable().IsValid(), ());
     TEST(!tts.Append(tts.GetComplementTimeTable()), ());
-    TEST_EQUAL(tts.size(), 3, ());
+    TEST_EQUAL(tts.Size(), 3, ());
 
     TEST(!tts.Remove(0), ());
     TEST(tts.Remove(1), ());
-    TEST_EQUAL(tts.size(), 2, ());
+    TEST_EQUAL(tts.Size(), 2, ());
     TEST_EQUAL(tts.GetUnhandledDays(), (set<osmoh::Weekday>{osmoh::Weekday::Sunday,
               osmoh::Weekday::Saturday}), ());
   }
@@ -196,9 +201,9 @@ UNIT_TEST(TestAppendTimeTable)
 
     TEST(tts.Append(tt), ());
 
-    TEST_EQUAL(tts.size(), 2, ());
-    TEST_EQUAL(tts.front().GetWorkingDays().size(), 4, ());
-    TEST_EQUAL(tts.back().GetWorkingDays().size(), 3, ());
+    TEST_EQUAL(tts.Size(), 2, ());
+    TEST_EQUAL(tts.Front().GetWorkingDays().size(), 4, ());
+    TEST_EQUAL(tts.Back().GetWorkingDays().size(), 3, ());
 
     TEST(!tts.GetComplementTimeTable().IsValid(), ());
   }
@@ -209,16 +214,33 @@ UNIT_TEST(TestAppendTimeTable)
 
     TEST(tts.Append(tt), ());
 
-    TEST_EQUAL(tts.size(), 2, ());
-    TEST_EQUAL(tts.front().GetWorkingDays().size(), 6, ());
-    TEST_EQUAL(tts.back().GetWorkingDays().size(), 1, ());
+    TEST_EQUAL(tts.Size(), 2, ());
+    TEST_EQUAL(tts.Front().GetWorkingDays().size(), 6, ());
+    TEST_EQUAL(tts.Back().GetWorkingDays().size(), 1, ());
 
     TEST(!tts.GetComplementTimeTable().IsValid(), ());
 
-    tt = tts[0];
+    tt = tts.Front();
     tt.AddWorkingDay(osmoh::Weekday::Friday);
     TEST(!tts.Append(tt), ());
-    TEST_EQUAL(tts.front().GetWorkingDays().size(), 6, ());
-    TEST_EQUAL(tts.back().GetWorkingDays().size(), 1, ());
+    TEST_EQUAL(tts.Front().GetWorkingDays().size(), 6, ());
+    TEST_EQUAL(tts.Back().GetWorkingDays().size(), 1, ());
+  }
+  {
+    TimeTableSet tts;
+
+    {
+      auto tt = tts.GetComplementTimeTable();
+      tt.AddWorkingDay(osmoh::Weekday::Friday);
+      TEST(tts.Append(tt), ());
+    }
+
+    TEST_EQUAL(tts.Size(), 2, ());
+    TEST_EQUAL(tts.Front().GetWorkingDays().size(), 6, ());
+    TEST_EQUAL(tts.Back().GetWorkingDays().size(), 1, ());
+
+    auto tt = tts.Front();
+    tt.AddWorkingDay(osmoh::Weekday::Friday);
+    TEST(!tt.Commit(), ());
   }
 }

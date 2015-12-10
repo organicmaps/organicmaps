@@ -47,7 +47,28 @@ private:
   osmoh::TTimespans m_excludeTime;
 };
 
-class TimeTableSet : public vector<TimeTable>
+template <typename TTimeTableSet>
+class TimeTableProxyBase : public TimeTable
+{
+public:
+  TimeTableProxyBase(TTimeTableSet & tts, size_t const index, TimeTable const & tt):
+      TimeTable(tt),
+      m_index(index),
+      m_tts(tts)
+  {
+  }
+
+  bool Commit() { return m_tts.Replace(*this, m_index); } // Slice base class on copy.
+
+private:
+  size_t const m_index;
+  TTimeTableSet & m_tts;
+};
+
+class TimeTableSet;
+using TTimeTableProxy = TimeTableProxyBase<TimeTableSet>;
+
+class TimeTableSet : vector<TimeTable>
 {
 public:
   using vector<TimeTable>::vector;
@@ -58,6 +79,13 @@ public:
 
   TimeTable GetComplementTimeTable() const;
 
+  TTimeTableProxy Get(size_t const index) { return TTimeTableProxy(*this, index, (*this)[index]); }
+  TTimeTableProxy Front() { return Get(0); }
+  TTimeTableProxy Back() { return Get(Size() - 1); }
+
+  size_t Size() const { return size(); }
+  bool Empty() const { return empty(); }
+
   bool Append(TimeTable const & tt);
   bool Remove(size_t const index);
 
@@ -65,6 +93,7 @@ public:
 
 private:
   static bool UpdateByIndex(TimeTableSet & ttSet, size_t const index);
+
 };
 } // namespace ui
 } // namespace editor
