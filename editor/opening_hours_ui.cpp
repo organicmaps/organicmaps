@@ -195,7 +195,9 @@ bool TimeTable::SetOpeningTime(osmoh::Timespan const & span)
 
 bool TimeTable::CanAddExcludeTime() const
 {
-  return !GetPredefinedExcludeTime().IsEmpty();
+  auto copy = *this;
+  return copy.AddExcludeTime(GetPredefinedExcludeTime()) &&
+         copy.GetExcludeTime().size() == GetExcludeTime().size() + 1;
 }
 
 bool TimeTable::AddExcludeTime(osmoh::Timespan const & span)
