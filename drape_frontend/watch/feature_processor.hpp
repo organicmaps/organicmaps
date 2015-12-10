@@ -46,10 +46,8 @@ public:
 private:
   ref_ptr<CPUDrawer> m_drawer;
   m2::RectD m_rect;
-  set<string> m_coasts;
   ScreenBase const & m_convertor;
   int m_zoom;
-  bool m_hasNonCoast;
   bool m_hasAnyFeature;
 
   void PreProcessKeys(vector<drule::Key> & keys) const;
