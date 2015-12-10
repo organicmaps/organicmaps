@@ -450,14 +450,6 @@ int FeatureBuilder1::GetMinFeatureDrawScale() const
   return (minScale == -1 ? 1000 : minScale);
 }
 
-void FeatureBuilder1::SetCoastCell(int64_t iCell, string const & strCell)
-{
-  m_coastCell = iCell;
-
-  ASSERT(m_params.name.IsEmpty(), ());
-  m_params.name.AddString(0, strCell);
-}
-
 bool FeatureBuilder1::AddName(string const & lang, string const & name)
 {
   return m_params.AddName(lang, name);

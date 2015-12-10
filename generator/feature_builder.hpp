@@ -158,26 +158,15 @@ public:
 
   uint64_t GetWayIDForRouting() const;
 
-
-  bool AddName(string const & lang, string const & name);
-
   int GetMinFeatureDrawScale() const;
-
   bool IsDrawableInRange(int lowScale, int highScale) const;
 
-  void SetCoastCell(int64_t iCell, string const & strCell);
+  void SetCoastCell(int64_t iCell) { m_coastCell = iCell; }
   inline bool IsCoastCell() const { return (m_coastCell != -1); }
-  inline bool GetCoastCell(int64_t & cell) const
-  {
-    if (m_coastCell != -1)
-    {
-      cell = m_coastCell;
-      return true;
-    }
-    else return false;
-  }
 
+  bool AddName(string const & lang, string const & name);
   string GetName(int8_t lang = StringUtf8Multilang::DEFAULT_CODE) const;
+
   uint8_t GetRank() const { return m_params.rank; }
 
   /// @name For diagnostic use only.

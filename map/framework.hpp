@@ -196,9 +196,10 @@ public:
 
   void ShowCountry(storage::TIndex const & index);
 
-  /// Checks, whether the country which contains
-  /// the specified point is loaded
+  /// Checks, whether the country which contains the specified point is loaded.
   bool IsCountryLoaded(m2::PointD const & pt) const;
+  /// Checks, whether the country is loaded.
+  bool IsCountryLoadedByName(string const & name) const;
   //@}
 
   void InvalidateRect(m2::RectD const & rect);

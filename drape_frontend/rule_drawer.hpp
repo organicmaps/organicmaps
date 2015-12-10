@@ -26,8 +26,10 @@ class RuleDrawer
 public:
   using TDrawerCallback = function<void (FeatureType const &, Stylist &)>;
   using TCheckCancelledCallback = function<bool ()>;
-  RuleDrawer(TDrawerCallback const & fn, TCheckCancelledCallback const & checkCancelled,
-             ref_ptr<EngineContext> context);
+  using TIsCountryLoadedByNameFn = function<bool (string const &)>;
+
+  RuleDrawer(TDrawerCallback const & drawerFn, TCheckCancelledCallback const & checkCancelled,
+             TIsCountryLoadedByNameFn const & isLoadedFn, ref_ptr<EngineContext> context);
   ~RuleDrawer();
 
   void operator() (FeatureType const & f);
@@ -37,11 +39,12 @@ private:
 
   TDrawerCallback m_callback;
   TCheckCancelledCallback m_checkCancelled;
+  TIsCountryLoadedByNameFn m_isLoadedFn;
+
   ref_ptr<EngineContext> m_context;
   m2::RectD m_globalRect;
   ScreenBase m_geometryConvertor;
   double m_currentScaleGtoP;
-  set<string> m_coastlines;
 
   array<TMapShapes, df::PrioritiesCount> m_mapShapes;
   bool m_wasCancelled;

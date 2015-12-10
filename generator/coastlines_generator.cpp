@@ -208,7 +208,7 @@ public:
 
   static int constexpr kStartLevel = 4;
   static int constexpr kHighLevel = 10;
-  static int constexpr kMaxPoints = 20000;
+  static int constexpr kMaxPoints = 1000;
 
 protected:
   struct Context
@@ -318,7 +318,7 @@ void CoastlineFeaturesGenerator::GetFeatures(vector<FeatureBuilder1> & features)
       [&features, &featuresMutex, this](RegionInCellSplitter::TCell const & cell, DoDifference & cellData)
       {
         FeatureBuilder1 fb;
-        fb.SetCoastCell(cell.ToInt64(RegionInCellSplitter::kHighLevel + 1), cell.ToString());
+        fb.SetCoastCell(cell.ToInt64(RegionInCellSplitter::kHighLevel + 1));
 
         cellData.AssignGeometry(fb);
         fb.SetArea();

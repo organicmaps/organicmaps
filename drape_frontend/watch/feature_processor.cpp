@@ -40,8 +40,9 @@ FeatureProcessor::FeatureProcessor(ref_ptr<CPUDrawer> drawer,
   , m_rect(r)
   , m_convertor(convertor)
   , m_zoom(zoomLevel)
-  , m_hasNonCoast(false)
 {
+  /// @todo This class is used for watches only where m_zoom >= 10.
+//  ASSERT_GREATER(m_zoom, scales::GetUpperWorldScale(), ());
 }
 
 bool FeatureProcessor::operator()(FeatureType const & f)
@@ -54,14 +55,11 @@ bool FeatureProcessor::operator()(FeatureType const & f)
   if (data.m_styler.IsEmpty())
     return true;
 
-  // Draw coastlines features only once.
-  if (data.m_styler.m_isCoastline)
+  if (data.m_styler.m_isCoastline &&
+      f.GetID().m_mwmId.GetInfo()->GetType() == MwmInfo::COASTS)
   {
-    if (!m_coasts.insert(data.m_styler.m_primaryText).second)
-      return true;
+    return true;
   }
-  else
-    m_hasNonCoast = true;
 
   bool isExist = false;
 
