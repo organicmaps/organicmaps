@@ -24,8 +24,8 @@
 		675343191A3F5A2600A0A8C3 /* storage_defines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675343021A3F5A2600A0A8C3 /* storage_defines.hpp */; };
 		6753431A1A3F5A2600A0A8C3 /* storage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343031A3F5A2600A0A8C3 /* storage.cpp */; };
 		6753431B1A3F5A2600A0A8C3 /* storage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675343041A3F5A2600A0A8C3 /* storage.hpp */; };
-		67AF4A001BC579DD0048B1ED /* country_info_getter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67AF49FE1BC579DD0048B1ED /* country_info_getter.cpp */; settings = {ASSET_TAGS = (); }; };
-		67AF4A011BC579DD0048B1ED /* country_info_getter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67AF49FF1BC579DD0048B1ED /* country_info_getter.hpp */; settings = {ASSET_TAGS = (); }; };
+		67AF4A001BC579DD0048B1ED /* country_info_getter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67AF49FE1BC579DD0048B1ED /* country_info_getter.cpp */; };
+		67AF4A011BC579DD0048B1ED /* country_info_getter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67AF49FF1BC579DD0048B1ED /* country_info_getter.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */

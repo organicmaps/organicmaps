@@ -312,7 +312,6 @@
 					"$(OMIM_ROOT)/3party/glm",
 					"$(OMIM_ROOT)/3party/gflags/src/",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -371,7 +370,6 @@
 					"$(OMIM_ROOT)/3party/glm",
 					"$(OMIM_ROOT)/3party/gflags/src/",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -424,6 +422,7 @@
 				675D213A1BFB6F3D00717E4F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
