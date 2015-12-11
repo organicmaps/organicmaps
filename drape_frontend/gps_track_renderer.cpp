@@ -176,29 +176,31 @@ size_t GpsTrackRenderer::GetAvailablePointsCount() const
   return pointsCount;
 }
 
-double GpsTrackRenderer::PlacePoints(size_t & cacheIndex, bool unknownDistance,
-                                     m2::PointD const & start, m2::PointD const & end,
-                                     double startSpeed, double endSpeed,
+double GpsTrackRenderer::PlacePoints(size_t & cacheIndex,
+                                     GpsTrackPoint const & start, GpsTrackPoint const & end,
+                                     double clipStart, double clipEnd,
                                      float radius, double diameterMercator,
                                      double offset, double trackLengthMercator,
                                      double lengthFromStart, bool & gap)
 {
   double const kDistanceScalar = 0.65;
 
-  m2::PointD const delta = end - start;
+  bool const unknownDistance = (end.m_timestamp - start.m_timestamp) > kUnknownDistanceTime;
+
+  m2::PointD const delta = end.m_point - start.m_point;
   double const length = delta.Length();
   m2::PointD const dir = delta.Normalize();
   double pos = offset;
   while (pos < length)
   {
-    if (gap)
+    if (gap && pos >= clipStart && pos <= clipEnd)
     {
       double const dist = pos + diameterMercator * 0.5;
       dp::Color color = kUnknownDistanceColor;
       if (!unknownDistance)
       {
         double const td = my::clamp(dist / length, 0.0, 1.0);
-        double const speed = max(startSpeed * (1.0 - td) + endSpeed * td, 0.0);
+        double const speed = max(start.m_speedMPS * (1.0 - td) + end.m_speedMPS * td, 0.0);
         double const ts = my::clamp((speed - m_startSpeed) / (m_endSpeed - m_startSpeed), 0.0, 1.0);
         color = InterpolateColors(m_startColor, kMaxSpeedColor, ts);
         double const ta = my::clamp((lengthFromStart + dist) / trackLengthMercator, 0.0, 1.0);
@@ -206,7 +208,7 @@ double GpsTrackRenderer::PlacePoints(size_t & cacheIndex, bool unknownDistance,
         color = dp::Color(color.GetRed(), color.GetGreen(), color.GetBlue(), alpha);
       }
 
-      m2::PointD const p = start + dir * dist;
+      m2::PointD const p = start.m_point + dir * dist;
       m_handlesCache[cacheIndex].first->SetPoint(m_handlesCache[cacheIndex].second, p, radius, color);
       m_handlesCache[cacheIndex].second++;
       if (m_handlesCache[cacheIndex].second >= m_handlesCache[cacheIndex].first->GetPointsCount())
@@ -301,18 +303,11 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
           continue;
         }
 
-        // Interpolate speeds.
-        double const startOffset = (p1 - m_points[i].m_point).Length();
-        double const t1 = startOffset / dist;
-        double const t2 = 1.0 - (m_points[i + 1].m_point - p2).Length() / dist;
-        double startSpeed = m_points[i].m_speedMPS * (1.0 - t1) + m_points[i + 1].m_speedMPS * t1;
-        double endSpeed = m_points[i].m_speedMPS * (1.0 - t2) + m_points[i + 1].m_speedMPS * t2;
-
-        bool const unknownDist = (m_points[i + 1].m_timestamp - m_points[i].m_timestamp) > kUnknownDistanceTime;
-
         // Place points.
-        offset = PlacePoints(cacheIndex, unknownDist, p1, p2, startSpeed, endSpeed, m_radius, diameterMercator,
-                             offset, trackLengthMercator, lengthFromStart + startOffset, gap);
+        double const clipStart = (p1 - m_points[i].m_point).Length();
+        double const clipEnd = (p2 - m_points[i].m_point).Length();
+        offset = PlacePoints(cacheIndex, m_points[i], m_points[i + 1], clipStart, clipEnd, m_radius,
+                             diameterMercator, offset, trackLengthMercator, lengthFromStart, gap);
         if (offset < 0.0)
           return;
 

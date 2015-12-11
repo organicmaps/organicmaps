@@ -40,9 +40,9 @@ private:
   double CalculateTrackLength() const;
   void UpdateSpeedsAndColors();
   size_t GetAvailablePointsCount() const;
-  double PlacePoints(size_t & cacheIndex, bool unknownDistance,
-                     m2::PointD const & start, m2::PointD const & end,
-                     double startSpeed, double endSpeed,
+  double PlacePoints(size_t & cacheIndex,
+                     GpsTrackPoint const & start, GpsTrackPoint const & end,
+                     double clipStart, double clipEnd,
                      float radius, double diameterMercator,
                      double offset, double trackLengthMercator,
                      double lengthFromStart, bool & gap);
