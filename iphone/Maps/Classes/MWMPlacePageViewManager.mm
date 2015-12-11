@@ -198,7 +198,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   m2::PointD const & destination = m_userMark->GetUserMark()->GetPivot();
   m2::PointD const myPosition([MapsAppDelegate theApp].m_locationManager.lastLocation.mercator);
   using namespace location;
-  EMyPositionMode mode = self.delegate.myPositionMode;
+  EMyPositionMode mode = self.myPositionMode;
   [self.delegate buildRouteFrom:mode != EMyPositionMode::MODE_UNKNOWN_POSITION && mode != EMyPositionMode::MODE_PENDING_POSITION ?
                                                      MWMRoutePoint(myPosition) :
                                               MWMRoutePoint::MWMRoutePointZero()
@@ -416,6 +416,11 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 - (void)setLeftBound:(CGFloat)leftBound
 {
   _leftBound = self.placePage.leftBound = leftBound;
+}
+
+- (location::EMyPositionMode)myPositionMode
+{
+  return self.delegate.myPositionMode;
 }
 
 @end
