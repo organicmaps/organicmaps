@@ -27,7 +27,7 @@ public final class TrackRecorder
     @Override
     public void onLocationError(int errorCode)
     {
-      setEnabled(false);
+      TrackRecorderWakeService.stop();
     }
 
     @Override
