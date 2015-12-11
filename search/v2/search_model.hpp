@@ -3,6 +3,8 @@
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
+#include "base/macros.hpp"
+
 class FeatureType;
 
 namespace ftypes
@@ -31,14 +33,14 @@ public:
     SEARCH_TYPE_COUNT
   };
 
-  SearchModel();
-
   static SearchModel const & Instance();
 
   SearchType GetSearchType(FeatureType const & feature) const;
 
 private:
-  vector<ftypes::BaseChecker const *> m_poiCheckers;
+  SearchModel() = default;
+
+  DISALLOW_COPY_AND_MOVE(SearchModel);
 };
 
 string DebugPrint(SearchModel::SearchType type);

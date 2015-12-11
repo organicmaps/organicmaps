@@ -4,6 +4,8 @@
 
 #include "std/vector.hpp"
 
+#include "base/macros.hpp"
+
 namespace search
 {
 namespace v2
@@ -14,6 +16,7 @@ namespace v2
 struct FeaturesLayer
 {
   FeaturesLayer();
+  FeaturesLayer(FeaturesLayer && layer) = default;
 
   void Clear();
 
@@ -24,6 +27,8 @@ struct FeaturesLayer
   size_t m_startToken;
   size_t m_endToken;
   SearchModel::SearchType m_type;
+
+  DISALLOW_COPY(FeaturesLayer);
 };
 
 string DebugPrint(FeaturesLayer const & layer);

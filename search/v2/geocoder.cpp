@@ -260,7 +260,7 @@ void Geocoder::FindPaths()
   };
 
   // Layers ordered by a search type.
-  vector<FeaturesLayer *> sortedLayers;
+  vector<FeaturesLayer const *> sortedLayers;
   sortedLayers.reserve(m_layers.size());
   for (auto & layer : m_layers)
     sortedLayers.push_back(&layer);

@@ -11,14 +11,6 @@ namespace search
 {
 namespace v2
 {
-SearchModel::SearchModel()
-{
-  m_poiCheckers.push_back(&IsPeakChecker::Instance());
-  m_poiCheckers.push_back(&IsATMChecker::Instance());
-  m_poiCheckers.push_back(&IsFuelStationChecker::Instance());
-  m_poiCheckers.push_back(&IsRailwayStationChecker::Instance());
-}
-
 // static
 SearchModel const & SearchModel::Instance()
 {
@@ -31,12 +23,6 @@ SearchModel::SearchType SearchModel::GetSearchType(FeatureType const & feature) 
   static auto const & buildingChecker = IsBuildingChecker::Instance();
   static auto const & streetChecker = IsStreetChecker::Instance();
   static auto const & localityChecker = IsLocalityChecker::Instance();
-
-  for (auto const * checker : m_poiCheckers)
-  {
-    if ((*checker)(feature))
-      return SEARCH_TYPE_POI;
-  }
 
   if (buildingChecker(feature))
     return SEARCH_TYPE_BUILDING;
@@ -64,7 +50,7 @@ SearchModel::SearchType SearchModel::GetSearchType(FeatureType const & feature) 
     }
   }
 
-  return SEARCH_TYPE_COUNT;
+  return SEARCH_TYPE_POI;
 }
 
 string DebugPrint(SearchModel::SearchType type)

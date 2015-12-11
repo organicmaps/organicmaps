@@ -50,8 +50,10 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
   covering::CoveringGetter coveringGetter(street.m_rect, covering::ViewportWithLowLevels);
   auto const & intervals = coveringGetter.Get(m_scale);
   for (auto const & interval : intervals)
+  {
     m_index.ForEachInIntervalAndScale(MakeBackInsertFunctor(street.m_features), interval.first,
                                       interval.second, m_scale);
+  }
 
   if (!points.empty())
     street.m_calculator = make_unique<ProjectionOnStreetCalculator>(move(points), m_offsetMeters);

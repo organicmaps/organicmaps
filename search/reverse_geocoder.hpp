@@ -18,6 +18,8 @@ class ReverseGeocoder
   Index & m_index;
 
 public:
+  static double const kLookupRadiusM;
+
   ReverseGeocoder(Index & index) : m_index(index) {}
 
   struct Street

@@ -2,8 +2,6 @@
 
 #include "search/v2/features_layer.hpp"
 
-#include "std/unordered_map.hpp"
-#include "std/unordered_set.hpp"
 #include "std/vector.hpp"
 
 class FeaturesVector;
@@ -18,36 +16,23 @@ class FeaturesLayerMatcher;
 class FeaturesLayerPathFinder
 {
 public:
-  using TAdjList = vector<uint32_t>;
-  using TLayerGraph = unordered_map<uint32_t, TAdjList>;
-
   template <typename TFn>
   void ForEachReachableVertex(FeaturesLayerMatcher & matcher,
-                              vector<FeaturesLayer *> const & layers, TFn && fn)
+                              vector<FeaturesLayer const *> const & layers, TFn && fn)
   {
     if (layers.empty())
       return;
 
-    BuildGraph(matcher, layers);
+    vector<uint32_t> reachable;
+    BuildGraph(matcher, layers, reachable);
 
-    m_visited.clear();
-    for (uint32_t featureId : (*layers.back()).m_sortedFeatures)
-      Dfs(featureId);
-
-    for (uint32_t featureId : (*layers.front()).m_sortedFeatures)
-    {
-      if (m_visited.count(featureId) != 0)
-        fn(featureId);
-    }
+    for (uint32_t featureId : reachable)
+      fn(featureId);
   }
 
 private:
-  void BuildGraph(FeaturesLayerMatcher & matcher, vector<FeaturesLayer *> const & layers);
-
-  void Dfs(uint32_t u);
-
-  TLayerGraph m_graph;
-  unordered_set<uint32_t> m_visited;
+  void BuildGraph(FeaturesLayerMatcher & matcher, vector<FeaturesLayer const *> const & layers,
+                  vector<uint32_t> & reachable);
 };
 }  // namespace v2
 }  // namespace search

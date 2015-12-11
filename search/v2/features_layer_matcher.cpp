@@ -1,6 +1,6 @@
 #include "search/v2/features_layer_matcher.hpp"
 
-#include "search/projection_on_street.hpp"
+#include "search/reverse_geocoder.hpp"
 
 #include "indexer/scales.hpp"
 
@@ -16,8 +16,7 @@ FeaturesLayerMatcher::FeaturesLayerMatcher(Index & index, MwmSet::MwmId const & 
   , m_reverseGeocoder(index)
   , m_houseToStreetTable(HouseToStreetTable::Load(value))
   , m_featuresVector(featuresVector)
-  , m_loader(value, featuresVector, scales::GetUpperScale(),
-             ProjectionOnStreetCalculator::kDefaultMaxDistMeters)
+  , m_loader(value, featuresVector, scales::GetUpperScale(), ReverseGeocoder::kLookupRadiusM)
 {
   ASSERT(m_houseToStreetTable.get(), ("Can't load HouseToStreetTable"));
 }

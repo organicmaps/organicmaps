@@ -202,7 +202,7 @@ bool HouseNumbersMatch(string const & houseNumber, vector<string> const & queryT
     ++i;
     ++j;
   }
-  return true;
+  return j == queryTokens.size();
 }
 }  // namespace v2
 }  // namespace search

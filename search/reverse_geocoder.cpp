@@ -13,7 +13,6 @@ namespace search
 {
 namespace
 {
-double constexpr kLookupRadiusM = 500.0;
 size_t constexpr kMaxStreetIndex = 16;
 size_t constexpr kSimilarityThresholdPercent = 10;
 
@@ -33,6 +32,9 @@ double CalculateMinDistance(FeatureType const & ft, m2::PointD const & pt)
   return res;
 }
 } // namespace
+
+// static
+double const ReverseGeocoder::kLookupRadiusM = 500.0;
 
 void ReverseGeocoder::GetNearbyStreets(FeatureType const & addrFt, vector<Street> & streets)
 {

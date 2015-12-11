@@ -9,37 +9,32 @@ namespace search
 namespace v2
 {
 void FeaturesLayerPathFinder::BuildGraph(FeaturesLayerMatcher & matcher,
-                                         vector<FeaturesLayer *> const & layers)
+                                         vector<FeaturesLayer const *> const & layers,
+                                         vector<uint32_t> & reachable)
 {
-  m_graph.clear();
-
   if (layers.empty())
     return;
+
+  FeaturesLayer child;
+
+  reachable = layers.back()->m_sortedFeatures;
+
+  vector<uint32_t> tmpBuffer;
 
   // The order matters here, as we need to intersect BUILDINGs with
   // STREETs first, and then POIs with BUILDINGs.
   for (size_t i = layers.size() - 1; i != 0; --i)
   {
-    auto & child = (*layers[i - 1]);
-    auto & parent = (*layers[i]);
-    auto addEdges = [&](uint32_t from, uint32_t to)
+    tmpBuffer.clear();
+    auto addEdge = [&](uint32_t childFeature, uint32_t /* parentFeature */)
     {
-      m_graph[to].push_back(from);
+      tmpBuffer.push_back(childFeature);
     };
-    matcher.Match(child, parent, addEdges);
-  }
-}
 
-void FeaturesLayerPathFinder::Dfs(uint32_t u)
-{
-  m_visited.insert(u);
-  auto const adj = m_graph.find(u);
-  if (adj == m_graph.end())
-    return;
-  for (uint32_t v : adj->second)
-  {
-    if (m_visited.count(v) == 0)
-      Dfs(v);
+    matcher.Match(*layers[i - 1], reachable, layers[i]->m_type, addEdge);
+
+    my::SortUnique(tmpBuffer);
+    reachable.swap(tmpBuffer);
   }
 }
 }  // namespace v2

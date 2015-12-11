@@ -65,6 +65,7 @@ UNIT_TEST(HouseNumbersMatcher_Smoke)
   TEST(HouseNumbersMatch("1234abcdef", "1234  abcdef"), ());
   TEST(HouseNumbersMatch("10/42 корпус 2", "10"), ());
 
+  TEST(!HouseNumbersMatch("39", "39 с 79"), ());
   TEST(!HouseNumbersMatch("127а корпус 2", "127"), ());
   TEST(!HouseNumbersMatch("6 корпус 2", "7"), ());
   TEST(!HouseNumbersMatch("10/42 корпус 2", "42"), ());
