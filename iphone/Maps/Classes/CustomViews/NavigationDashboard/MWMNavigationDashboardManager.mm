@@ -348,6 +348,9 @@ extern NSString * const kTTSStatusWasChangedNotification;
   [self.routePreview remove];
   MWMTextToSpeech * tts = [MWMTextToSpeech tts];
   BOOL const isNeedToEnable = tts.isNeedToEnable;
+  BOOL const soundButtonHidden = GetFramework().GetRouter() == routing::RouterType::Pedestrian;
+  self.navigationDashboardLandscape.soundButton.hidden = soundButtonHidden;
+  self.navigationDashboardPortrait.soundButton.hidden = soundButtonHidden;
   self.navigationDashboardPortrait.soundButton.selected = isNeedToEnable;
   self.navigationDashboardLandscape.soundButton.selected = isNeedToEnable;
   if (isNeedToEnable)
