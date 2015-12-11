@@ -72,9 +72,13 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
 
   BOOL const isMyPosition = type == MWMPlacePageEntityTypeMyPosition;
   BOOL const isHeadingAvaible = [CLLocationManager headingAvailable];
-  self.distanceLabel.hidden = isMyPosition;
-  self.directionArrow.hidden = isMyPosition || !isHeadingAvaible;
-  self.directionButton.hidden = isMyPosition || !isHeadingAvaible;
+  using namespace location;
+  EMyPositionMode const mode = self.ownerPlacePage.manager.myPositionMode;
+  BOOL const noLocation = (mode == EMyPositionMode::MODE_UNKNOWN_POSITION || mode == EMyPositionMode::MODE_PENDING_POSITION);
+  self.distanceLabel.hidden = noLocation || isMyPosition;
+  BOOL const hideDirection = noLocation || isMyPosition || !isHeadingAvaible;
+  self.directionArrow.hidden = hideDirection;
+  self.directionButton.hidden = hideDirection;
 
   [self.featureTable reloadData];
   [self layoutSubviews];
