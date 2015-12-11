@@ -41,15 +41,16 @@ extern NSString * const kUserDafaultsNeedToEnableTTS = @"UserDefaultsNeedToEnabl
     _availableLanguages = availableLanguages();
 
     NSString * saved = self.savedLanguage;
-    string preferedLanguage;
+    NSString * preferedLanguageBcp47;
     if (saved.length)
-      preferedLanguage = saved.UTF8String;
+      preferedLanguageBcp47 = saved;
     else
-      preferedLanguage = tts::bcp47ToTwineLanguage([AVSpeechSynthesisVoice currentLanguageCode]);
+      preferedLanguageBcp47 = [AVSpeechSynthesisVoice currentLanguageCode];
 
-    pair<string, string> const lan {preferedLanguage, tts::translatedTwine(preferedLanguage)};
+    string preferedLanguageTwine = tts::bcp47ToTwineLanguage(preferedLanguageBcp47);
+    pair<string, string> const lan {preferedLanguageTwine, tts::translatedTwine(preferedLanguageTwine)};
     if (find(_availableLanguages.begin(), _availableLanguages.end(), lan) != _availableLanguages.end())
-      [self setNotificationsLocale:@(preferedLanguage.c_str())];
+      [self setNotificationsLocale:@([preferedLanguageBcp47 UTF8String])];
     else
       [self setNotificationsLocale:@"en"];
     // Before 9.0 version iOS has an issue with speechRate. AVSpeechUtteranceDefaultSpeechRate does not work correctly.
