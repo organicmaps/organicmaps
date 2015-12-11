@@ -16,6 +16,10 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.CountrySuggestFragment;
 import com.mapswithme.maps.Framework;
@@ -33,9 +37,6 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class SearchFragment extends BaseMwmFragment
@@ -67,8 +68,6 @@ public class SearchFragment extends BaseMwmFragment
     public ToolbarController(View root)
     {
       super(root, getActivity());
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-        mToolbar.setElevation(0.0f);
     }
 
     @Override
