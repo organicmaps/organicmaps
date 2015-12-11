@@ -14,9 +14,9 @@ namespace
 
 char const kEnabledKey[] = "GpsTrackingEnabled";
 char const kDurationHours[] = "GpsTrackingDuration";
-uint32_t const kDefaultDurationHours = 24;
+uint32_t constexpr kDefaultDurationHours = 24;
 
-size_t const kMaxItemCount = 100000; // > 24h with 1point/s
+size_t constexpr kMaxItemCount = 100000; // > 24h with 1point/s
 
 inline string GetFilePath()
 {
