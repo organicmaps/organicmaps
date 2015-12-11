@@ -50,6 +50,10 @@ void ValidateNode(pugi::xml_node const & node)
     throw;
   }
 
+  // TODO(mgsergio): try parse header.
+  if (!node.child("mapswithme:header"))
+    MYTHROW(editor::XMLFeatureNoHeaderError, ("Node has no mapswithme:header child"));
+
   if (!node.attribute("timestamp"))
     MYTHROW(editor::XMLFeatureNoTimestampError, ("Node has no timestamp attribute"));
 }
@@ -201,7 +205,25 @@ pair<string, string> SplitMapsmeType(string const & type)
   ASSERT(parts.size() == 2, ("Too many parts in type: " + type));
   return make_pair(parts[0], parts[1]);
 }
+
+bool ReadHexByte(string const & str, uint8_t & byte)
+{
+  stringstream sstr(str);
+  uint32_t result;
+  sstr >> std::hex >> result;
+  byte = static_cast<uint8_t>(result);
+  return !sstr.fail();
+}
+
+bool WriteHexByte(uint8_t const byte, string & str)
+{
+  stringstream sstr;
+  sstr << std::hex << std::showbase << std::showbase << static_cast<uint32_t>(byte);
+  str = sstr.str();
+  return !sstr.fail();
+}
 } // namespace
+
 
 namespace editor
 {
@@ -253,6 +275,23 @@ void XMLFeature::SetType(string const & type)
   auto const p = SplitMapsmeType(type);
   if (IsConvertible(p.first, p.second))
     SetTagValue(p.first, p.second);
+}
+
+uint8_t XMLFeature::GetHeader() const
+{
+  auto const node = GetRootNode().select_node("mapswithme:header");
+  uint8_t result;
+  ReadHexByte(node.node().text().get(), result);
+  return result;
+}
+
+void XMLFeature::SetHeader(uint8_t const header)
+{
+  auto node = GetRootNode().child("mapswithme:header");
+  node = node ? node : GetRootNode().append_child("mapswithme:header");
+  string hex;
+  WriteHexByte(header, hex);
+  node.text() = hex.data();
 }
 
 m2::PointD XMLFeature::GetCenter() const

@@ -60,6 +60,7 @@ UNIT_TEST(XMLFeature_Setters)
   feature.SetTagValue("opening_hours", "Mo-Fr 08:15-17:30");
 
   feature.SetType("amenity|atm");
+  feature.SetHeader(0xaf);
 
   stringstream sstr;
   feature.Save(sstr);
@@ -87,6 +88,7 @@ UNIT_TEST(XMLFeature_Setters)
   <tag
     k="amenity"
     v="atm" />
+  <mapswithme:header>0xaf</mapswithme:header>
 </node>
 )";
 
@@ -118,6 +120,7 @@ UNIT_TEST(XMLFeatureFromXml)
   <tag
     k="amenity"
     v="atm" />
+  <mapswithme:header>0xaf</mapswithme:header>
 </node>
 )";
 
@@ -144,4 +147,5 @@ UNIT_TEST(XMLFeatureFromXml)
   TEST_EQUAL(my::TimestampToString(feature.GetModificationTime()), "2015-11-27T21:13:32Z", ());
 
   TEST_EQUAL(feature.GetType(), "amenity|atm", ());
+  TEST_EQUAL(feature.GetHeader(), 0xaf, ());
 }

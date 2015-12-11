@@ -18,6 +18,7 @@ DECLARE_EXCEPTION(XMLFeatureError, RootException);
 DECLARE_EXCEPTION(XMLFeatureNoNodeError, XMLFeatureError);
 DECLARE_EXCEPTION(XMLFeatureNoLatLonError, XMLFeatureError);
 DECLARE_EXCEPTION(XMLFeatureNoTimestampError, XMLFeatureError);
+DECLARE_EXCEPTION(XMLFeatureNoHeaderError, XMLFeatureError);
 
 class XMLFeature
 {
@@ -35,8 +36,17 @@ public:
   string GetType() const;
   void SetType(string const & type);
 
+  uint8_t GetHeader() const;
+  void SetHeader(uint8_t const header);
+
   string GetName(string const & lang) const;
   string GetName(uint8_t const langCode = StringUtf8Multilang::DEFAULT_CODE) const;
+
+  template <typename TFunc>
+  void ForEachName(TFunc && func) const
+  {
+    //TODO(mgsergio): implement me :)
+  }
 
   void SetName(string const & name);
   void SetName(string const & lang, string const & name);
