@@ -58,8 +58,7 @@ GpsTracker & GpsTracker::Instance()
 
 GpsTracker::GpsTracker()
   : m_enabled(GetSettingsIsEnabled())
-  , m_duration(GetSettingsDuration())
-  , m_track(GetFilePath(), kMaxItemCount, m_duration)
+  , m_track(GetFilePath(), kMaxItemCount, GetSettingsDuration())
 {
 }
 
@@ -83,12 +82,12 @@ bool GpsTracker::IsEnabled() const
 void GpsTracker::SetDuration(hours duration)
 {
   SetSettingsDuration(duration);
-  m_duration = duration;
+  m_track.SetDuration(duration);
 }
 
 hours GpsTracker::GetDuration() const
 {
-  return m_duration;
+  return m_track.GetDuration();
 }
 
 void GpsTracker::Connect(TGpsTrackDiffCallback const & fn)

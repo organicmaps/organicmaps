@@ -27,6 +27,5 @@ private:
   GpsTracker();
 
   atomic<bool> m_enabled;
-  hours m_duration;
   GpsTrack m_track;
 };
