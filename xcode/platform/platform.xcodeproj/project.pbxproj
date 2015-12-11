@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		670E8C751BB318AB00094197 /* platform_ios.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670E8C731BB318AB00094197 /* platform_ios.hpp */; settings = {ASSET_TAGS = (); }; };
-		670E8C761BB318AB00094197 /* platform_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 670E8C741BB318AB00094197 /* platform_ios.mm */; settings = {ASSET_TAGS = (); }; };
-		670E8C911BB31A2F00094197 /* ios_video_timer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 670E8C901BB31A2F00094197 /* ios_video_timer.mm */; settings = {ASSET_TAGS = (); }; };
+		670E8C751BB318AB00094197 /* platform_ios.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670E8C731BB318AB00094197 /* platform_ios.hpp */; };
+		670E8C761BB318AB00094197 /* platform_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 670E8C741BB318AB00094197 /* platform_ios.mm */; };
+		670E8C911BB31A2F00094197 /* ios_video_timer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 670E8C901BB31A2F00094197 /* ios_video_timer.mm */; };
 		671C62061AE9014C00076BD0 /* measurement_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671C62041AE9014C00076BD0 /* measurement_utils.cpp */; };
 		671C62071AE9014C00076BD0 /* measurement_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 671C62051AE9014C00076BD0 /* measurement_utils.hpp */; };
 		674125081B4C00CC00A3E828 /* country_defines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674125001B4C00CC00A3E828 /* country_defines.cpp */; };
@@ -48,8 +48,8 @@
 		675343D91A3F5D5A00A0A8C3 /* wifi_info_windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343AE1A3F5D5A00A0A8C3 /* wifi_info_windows.cpp */; };
 		675343DA1A3F5D5A00A0A8C3 /* wifi_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675343AF1A3F5D5A00A0A8C3 /* wifi_info.hpp */; };
 		675343DB1A3F5D5A00A0A8C3 /* wifi_location_service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343B01A3F5D5A00A0A8C3 /* wifi_location_service.cpp */; };
-		67A2526A1BB40E100063F8A8 /* platform_qt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753439C1A3F5D5A00A0A8C3 /* platform_qt.cpp */; settings = {ASSET_TAGS = (); }; };
-		67A2526B1BB40E520063F8A8 /* platform_mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6753439B1A3F5D5A00A0A8C3 /* platform_mac.mm */; settings = {ASSET_TAGS = (); }; };
+		67A2526A1BB40E100063F8A8 /* platform_qt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753439C1A3F5D5A00A0A8C3 /* platform_qt.cpp */; };
+		67A2526B1BB40E520063F8A8 /* platform_mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6753439B1A3F5D5A00A0A8C3 /* platform_mac.mm */; };
 		67AB92DC1B7B3D7300AB5194 /* mwm_version.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67AB92DA1B7B3D7300AB5194 /* mwm_version.cpp */; };
 		67AB92DD1B7B3D7300AB5194 /* mwm_version.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67AB92DB1B7B3D7300AB5194 /* mwm_version.hpp */; };
 		67AB92EA1B7B3E9100AB5194 /* get_text_by_id.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67AB92E81B7B3E9100AB5194 /* get_text_by_id.cpp */; };

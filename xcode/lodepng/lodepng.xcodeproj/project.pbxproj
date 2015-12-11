@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		67E8DB031BBC13690053C5BA /* lodepng_io_private.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67E8DAFF1BBC13690053C5BA /* lodepng_io_private.hpp */; settings = {ASSET_TAGS = (); }; };
-		67E8DB041BBC13690053C5BA /* lodepng_io.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67E8DB001BBC13690053C5BA /* lodepng_io.hpp */; settings = {ASSET_TAGS = (); }; };
-		67E8DB051BBC13690053C5BA /* lodepng.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E8DB011BBC13690053C5BA /* lodepng.cpp */; settings = {ASSET_TAGS = (); }; };
-		67E8DB061BBC13690053C5BA /* lodepng.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67E8DB021BBC13690053C5BA /* lodepng.hpp */; settings = {ASSET_TAGS = (); }; };
+		67E8DB031BBC13690053C5BA /* lodepng_io_private.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67E8DAFF1BBC13690053C5BA /* lodepng_io_private.hpp */; };
+		67E8DB041BBC13690053C5BA /* lodepng_io.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67E8DB001BBC13690053C5BA /* lodepng_io.hpp */; };
+		67E8DB051BBC13690053C5BA /* lodepng.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E8DB011BBC13690053C5BA /* lodepng.cpp */; };
+		67E8DB061BBC13690053C5BA /* lodepng.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67E8DB021BBC13690053C5BA /* lodepng.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -253,6 +253,7 @@
 				67E8DAFC1BBC12560053C5BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
