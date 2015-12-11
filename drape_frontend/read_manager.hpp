@@ -72,6 +72,7 @@ private:
   int m_counter;
   set<TileKey> m_finishedTiles;
   mutex m_finishedTilesMutex;
+  uint64_t m_generationCounter;
 
   void CancelTileInfo(shared_ptr<TileInfo> const & tileToCancel);
   void ClearTileInfo(shared_ptr<TileInfo> const & tileToClear);

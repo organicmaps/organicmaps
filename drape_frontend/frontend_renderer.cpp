@@ -119,7 +119,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       program->Bind();
       bucket->GetBuffer()->Build(program);
       if (!IsUserMarkLayer(key))
+      {
+        CheckTileGenerations(key);
         m_tileTree->ProcessTile(key, GetCurrentZoomLevel(), state, move(bucket));
+      }
       else
       {
         m_userMarkRenderGroups.emplace_back(make_unique_dp<UserMarkRenderGroup>(state, key, move(bucket)));
@@ -510,24 +513,40 @@ void FrontendRenderer::OnActivateTile(TileKey const & tileKey)
 
 void FrontendRenderer::OnRemoveTile(TileKey const & tileKey)
 {
+  auto removePredicate = [&tileKey](drape_ptr<RenderGroup> const & group)
+  {
+    return group->GetTileKey() == tileKey;
+  };
+  RemoveRenderGroups(removePredicate);
+}
+
+void FrontendRenderer::RemoveRenderGroups(TRenderGroupRemovePredicate const & predicate)
+{
+  ASSERT(predicate != nullptr, ());
   m_overlayTree->ForceUpdate();
+
   for(auto const & group : m_renderGroups)
   {
-    if (group->GetTileKey() == tileKey)
+    if (predicate(group))
     {
       group->DeleteLater();
       group->Disappear();
     }
   }
 
-  auto removePredicate = [&tileKey](drape_ptr<RenderGroup> const & group)
-  {
-    return group->GetTileKey() == tileKey;
-  };
   m_deferredRenderGroups.erase(remove_if(m_deferredRenderGroups.begin(),
                                          m_deferredRenderGroups.end(),
-                                         removePredicate),
+                                         predicate),
                                m_deferredRenderGroups.end());
+}
+
+void FrontendRenderer::CheckTileGenerations(TileKey const & tileKey)
+{
+  auto removePredicate = [&tileKey](drape_ptr<RenderGroup> const & group)
+  {
+    return group->GetTileKey() == tileKey && group->GetTileKey().m_generation < tileKey.m_generation;
+  };
+  RemoveRenderGroups(removePredicate);
 }
 
 void FrontendRenderer::OnCompassTapped()
@@ -1054,23 +1073,11 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
   TTilesCollection tiles;
   ResolveTileKeys(modelView, tiles);
 
-  m_overlayTree->ForceUpdate();
   auto removePredicate = [this](drape_ptr<RenderGroup> const & group)
   {
     return group->IsOverlay() && group->GetTileKey().m_zoomLevel > GetCurrentZoomLevel();
   };
-  for (auto const & group : m_renderGroups)
-  {
-    if (removePredicate(group))
-    {
-      group->DeleteLater();
-      group->Disappear();
-    }
-  }
-  m_deferredRenderGroups.erase(remove_if(m_deferredRenderGroups.begin(),
-                                         m_deferredRenderGroups.end(),
-                                         removePredicate),
-                               m_deferredRenderGroups.end());
+  RemoveRenderGroups(removePredicate);
 
   m_requestedTiles->Set(modelView, move(tiles));
   m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
