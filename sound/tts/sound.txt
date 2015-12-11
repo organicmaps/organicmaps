@@ -33,7 +33,7 @@
     en = Turn right.
     ru = Поворот направо.
     pl = Jedź w prawo.
-    sv = Sväng vänster.
+    sv = Sväng höger.
     tr = Sağa dönün.
     fr = Tournez à droite.
     nl = Sla rechtsaf.
@@ -55,9 +55,9 @@
     pt = Vire à direita.
     sk = Odbočte doprava.
     sw = Zunguka upande wa kulia.
-    th = เลี้ยวซ้าย
+    th = เลี้ยวขวา
     zh-Hant = 右轉。
-    zh-Hans = 向左转。
+    zh-Hans = 右转。
 
   [make_a_sharp_right_turn]
     en = Sharp right.
@@ -183,7 +183,7 @@
     en = Turn left. 
     ru = Поворот налево.
     pl = Jedź w lewo.
-    sv = Sväng höger.
+    sv = Sväng vänster.
     tr = Sola dönün.
     fr = Tournez à gauche.
     nl = Sla linksaf.
@@ -205,9 +205,9 @@
     pt = Vire à esquerda.
     sk = Odbočte doľava.
     sw = Zunguka upande wa kushoto.
-    th = เลี้ยวขวา
+    th = เลี้ยวซ้าย
     zh-Hant = 左轉。
-    zh-Hans = 向右转。
+    zh-Hans = 左转。
 
   [make_a_sharp_left_turn]
     en = Sharp left.
