@@ -139,6 +139,79 @@ UNIT_TEST(Metadata_ValidateAndFormat_ele)
   md.Drop(Metadata::FMD_ELE);
 }
 
+UNIT_TEST(Metadata_ValidateAndFormat_height)
+{
+  FeatureParams params;
+  MetadataTagProcessor p(params);
+  Metadata & md = params.GetMetadata();
+
+  p("height", "0");
+  TEST(md.Empty(), ());
+
+  p("height", "0,0000");
+  TEST(md.Empty(), ());
+
+  p("height", "0.0");
+  TEST(md.Empty(), ());
+
+  p("height", "123");
+  TEST_EQUAL(md.Get(Metadata::FMD_HEIGHT), "123.0", ());
+  md.Drop(Metadata::FMD_HEIGHT);
+
+  p("height", "123.2");
+  TEST_EQUAL(md.Get(Metadata::FMD_HEIGHT), "123.2", ());
+  md.Drop(Metadata::FMD_HEIGHT);
+
+  p("height", "2 m");
+  TEST_EQUAL(md.Get(Metadata::FMD_HEIGHT), "2.0", ());
+  md.Drop(Metadata::FMD_HEIGHT);
+
+  p("height", "3-6");
+  TEST(md.Empty(), ());
+}
+
+UNIT_TEST(Metadata_ValidateAndFormat_building_levels)
+{
+  FeatureParams params;
+  MetadataTagProcessor p(params);
+  Metadata & md = params.GetMetadata();
+
+  p("building:levels", "0");
+  TEST(md.Empty(), ());
+
+  p("building:levels", "0,0000");
+  TEST(md.Empty(), ());
+
+  p("building:levels", "0.0");
+  TEST(md.Empty(), ());
+
+  p("building:levels", "1");
+  TEST_EQUAL(md.Get(Metadata::FMD_HEIGHT), "3.0", ());
+  md.Drop(Metadata::FMD_HEIGHT);
+
+  p("building:levels", "3.2");
+  TEST_EQUAL(md.Get(Metadata::FMD_HEIGHT), "9.6", ());
+  md.Drop(Metadata::FMD_HEIGHT);
+
+  p("building:levels", "1.0");
+  TEST_EQUAL(md.Get(Metadata::FMD_HEIGHT), "3.0", ());
+  md.Drop(Metadata::FMD_HEIGHT);
+
+
+  p("building:levels", "1.0");
+  p("height", "4.0");
+  TEST_EQUAL(md.Get(Metadata::FMD_HEIGHT), "4.0", ());
+  md.Drop(Metadata::FMD_HEIGHT);
+
+  p("height", "4.0");
+  p("building:levels", "1.0");
+  TEST_EQUAL(md.Get(Metadata::FMD_HEIGHT), "4.0", ());
+  md.Drop(Metadata::FMD_HEIGHT);
+
+  p("building:levels", "Level 1");
+  TEST(md.Empty(), ());
+}
+
 UNIT_TEST(Metadata_ValidateAndFormat_wikipedia)
 {
   char const * kWikiKey = "wikipedia";
