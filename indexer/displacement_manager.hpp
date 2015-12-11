@@ -17,8 +17,8 @@
 
 namespace
 {
-double constexpr kPOIperTileSizeCoint = 6;
-double constexpr kPointLookupDeltaDegrees = 0.000001;
+double constexpr kPOIPerTileSizeCount = 6;
+double constexpr kPointLookupDeltaDegrees = 1e-6;
 }  //  namespace
 
 namespace covering
@@ -87,7 +87,7 @@ public:
   template <class TFeature>
   void Add(vector<int64_t> const & cells, uint32_t bucket, TFeature const & ft, uint32_t index)
   {
-    if (bucket != scales::GetUpperScale() && IsDisplacable(ft))
+    if (bucket != scales::GetUpperScale() && IsDisplaceable(ft))
     {
       m_storage[bucket].emplace_back(cells, ft, index, bucket);
       return;
@@ -99,36 +99,34 @@ public:
 
   void Displace()
   {
-    m4::Tree<DisplacableNode> acceptedNodes;
-    list<DisplacableNode> deferredNodes;
-    for (uint32_t zoom = 0; zoom < scales::GetUpperScale(); ++zoom)
+    m4::Tree<DisplaceableNode> acceptedNodes;
+    list<DisplaceableNode> deferredNodes;
+    for (uint32_t scale = 0; scale < scales::GetUpperScale(); ++scale)
     {
       // Initialize queue.
-      priority_queue<DisplacableNode> displacableQueue;
-      for (auto const & node : m_storage[zoom])
-        displacableQueue.push(node);
+      priority_queue<DisplaceableNode> displaceableQueue;
+      for (auto const & node : m_storage[scale])
+        displaceableQueue.push(node);
       for (auto const & node : deferredNodes)
-        displacableQueue.push(node);
+        displaceableQueue.push(node);
       deferredNodes.clear();
 
-      float const delta = CalculateDeltaForZoom(zoom);
+      float const delta = CalculateDeltaForZoom(scale);
       size_t accepted = 0;
 
       // Process queue.
-      while (!displacableQueue.empty())
+      while (!displaceableQueue.empty())
       {
-        ASSERT(!displacableQueue.empty(), ());
-        DisplacableNode const maxNode = displacableQueue.top();
-        displacableQueue.pop();
+        DisplaceableNode const maxNode = displaceableQueue.top();
+        displaceableQueue.pop();
 
         // Check if this node was displaced by higher features.
-        m2::RectD const displacementRect(maxNode.center.x - delta, maxNode.center.y - delta,
-                                         maxNode.center.x + delta, maxNode.center.y + delta);
+        m2::RectD const displacementRect(maxNode.center, maxNode.center);
         bool isDisplacing = false;
-        acceptedNodes.ForEachInRect(
-            displacementRect, [&isDisplacing, &maxNode, &delta, &zoom](DisplacableNode const & node)
+        acceptedNodes.ForEachInRect( m2::Inflate(displacementRect, {delta, delta}),
+            [&isDisplacing, &maxNode, &delta, &scale](DisplaceableNode const & node)
             {
-              if ((maxNode.center - node.center).Length() < delta && node.maxZoomLevel > zoom)
+              if ((maxNode.center - node.center).Length() < delta && node.maxZoomLevel > scale)
                 isDisplacing = true;
             });
         if (isDisplacing)
@@ -139,17 +137,17 @@ public:
 
         // Add feature to index otherwise.
         for (auto const & cell : maxNode.cells)
-          m_sorter.Add(CellFeatureBucketTuple(CellFeaturePair(cell, maxNode.index), zoom));
+          m_sorter.Add(CellFeatureBucketTuple(CellFeaturePair(cell, maxNode.index), scale));
         acceptedNodes.Add(maxNode);
         accepted++;
       }
-      LOG(LINFO, ("Displacement for zoom", zoom, "Features accepted:", accepted,
-                  "Features discarted:", deferredNodes.size()));
+      LOG(LINFO, ("Displacement for scale", scale, "Features accepted:", accepted,
+                  "Features discarded:", deferredNodes.size()));
     }
   }
 
 private:
-  struct DisplacableNode
+  struct DisplaceableNode
   {
     uint32_t index;
     m2::PointD center;
@@ -158,9 +156,9 @@ private:
     int maxZoomLevel;
     uint32_t priority;
 
-    DisplacableNode() : index(0), maxZoomLevel(0), priority(0) {}
+    DisplaceableNode() : index(0), maxZoomLevel(0), priority(0) {}
     template <class TFeature>
-    DisplacableNode(vector<int64_t> const & cells, TFeature const & ft, uint32_t index,
+    DisplaceableNode(vector<int64_t> const & cells, TFeature const & ft, uint32_t index,
                     int zoomLevel)
       : index(index), center(ft.GetCenter()), cells(cells)
     {
@@ -182,34 +180,32 @@ private:
 
       float const kMinDepth = -100000.0f;
       float const kMaxDepth = 100000.0f;
-      float const d = my::clamp(depth, kMinDepth, kMaxDepth) + kMaxDepth;
-      uint64_t rank = ft.GetRank();
-      priority = (static_cast<uint32_t>(d) << 8) || rank;
+      float const d = my::clamp(depth, kMinDepth, kMaxDepth) - kMinDepth;
+      uint8_t rank = ft.GetRank();
+      priority = (static_cast<uint32_t>(d) << 8) | rank;
     }
 
-    bool operator<(DisplacableNode const & node) const { return priority < node.priority; }
-    bool operator==(DisplacableNode const & node) const { return index == node.index; }
+    bool operator<(DisplaceableNode const & node) const { return priority < node.priority; }
+    bool operator==(DisplaceableNode const & node) const { return index == node.index; }
     m2::RectD const GetLimitRect() const { return m2::RectD(center, center); }
   };
 
   template <class TFeature>
-  bool IsDisplacable(TFeature const & ft) const noexcept
+  bool IsDisplaceable(TFeature const & ft) const noexcept
   {
     feature::TypesHolder const types(ft);
-    if (types.GetGeoType() == feature::GEOM_POINT)
-      return true;
-    return false;
+    return types.GetGeoType() == feature::GEOM_POINT;
   }
 
   float CalculateDeltaForZoom(int32_t zoom)
   {
-    double const worldSizeDevisor = 1 << zoom;
+    double const worldSizeDivisor = 1 << zoom;
     // Mercator SizeX and SizeY is equal
-    double const rectSize = (MercatorBounds::maxX - MercatorBounds::minX) / worldSizeDevisor;
-    return rectSize / kPOIperTileSizeCoint;
+    double const rectSize = (MercatorBounds::maxX - MercatorBounds::minX) / worldSizeDivisor;
+    return rectSize / kPOIPerTileSizeCount;
   }
 
   TSorter & m_sorter;
-  map<uint32_t, vector<DisplacableNode>> m_storage;
+  map<uint32_t, vector<DisplaceableNode>> m_storage;
 };
 }  // namespace indexer
