@@ -60,6 +60,7 @@ public:
 
   using TSelectResult = buffer_vector<ref_ptr<OverlayHandle>, 8>;
   void Select(m2::RectD const & rect, TSelectResult & result) const;
+  void Select(m2::PointD const & glbPoint, TSelectResult & result) const;
 
   void SetFollowingMode(bool mode);
 

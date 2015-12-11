@@ -322,10 +322,21 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         break;
 
       if (msg->IsDismiss())
+      {
         m_selectionShape->Hide();
+      }
       else
-        m_selectionShape->Show(msg->GetSelectedObject(), msg->GetPosition(), msg->IsAnim());
-
+      {
+        double offsetZ = 0.0;
+        if (m_userEventStream.GetCurrentScreen().isPerspective())
+        {
+          dp::OverlayTree::TSelectResult selectResult;
+          m_overlayTree->Select(msg->GetPosition(), selectResult);
+          for (ref_ptr<dp::OverlayHandle> handle : selectResult)
+            offsetZ = max(offsetZ, handle->GetPivotZ());
+        }
+        m_selectionShape->Show(msg->GetSelectedObject(), msg->GetPosition(), offsetZ, msg->IsAnim());
+      }
       break;
     }
 
@@ -764,6 +775,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
   //GLFunctions::glClearDepth();
   GLFunctions::glDisable(gl_const::GLDepthTest);
+  bool hasSelectedPOI = false;
   if (m_selectionShape != nullptr)
   {
     SelectionShape::ESelectedObject selectedObject = m_selectionShape->GetSelectedObject();
@@ -775,7 +787,9 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     }
     else if (selectedObject == SelectionShape::OBJECT_POI)
     {
-      m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+      hasSelectedPOI = true;
+      if (!isPerspective)
+        m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
     }
   }
 
@@ -794,6 +808,13 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
         RenderSingleGroup(modelView, make_ref(group));
     }
     GLFunctions::glClearDepth();
+  }
+
+  if (isPerspective && hasSelectedPOI)
+  {
+    GLFunctions::glDisable(gl_const::GLDepthTest);
+    m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+    GLFunctions::glEnable(gl_const::GLDepthTest);
   }
 
   for (; currentRenderGroup < m_renderGroups.size(); ++currentRenderGroup)

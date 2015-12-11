@@ -58,6 +58,7 @@ public:
   virtual m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const = 0;
   virtual void GetPixelShape(ScreenBase const & screen, Rects & rects, bool perspective) const = 0;
 
+  double GetPivotZ() const { return m_pivotZ; }
   void SetPivotZ(double pivotZ) { m_pivotZ = pivotZ; }
 
   double GetExtendingSize() const { return m_extendingSize; }

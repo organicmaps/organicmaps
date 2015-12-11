@@ -250,6 +250,22 @@ void OverlayTree::AddHandleToDelete(detail::OverlayInfo const & overlay)
   }
 }
 
+void OverlayTree::Select(m2::PointD const & glbPoint, TSelectResult & result) const
+{
+  ScreenBase const & screen = m_traits.m_modelView;
+  m2::PointD const pxPoint = screen.GtoP(glbPoint);
+
+  double const kSearchRectHalfSize = 10.0;
+  m2::RectD rect(pxPoint, pxPoint);
+  rect.Inflate(kSearchRectHalfSize, kSearchRectHalfSize);
+
+  ForEach([&](detail::OverlayInfo const & info)
+  {
+    if (rect.IsPointInside(info.m_handle->GetPivot(screen, false)))
+      result.push_back(info.m_handle);
+  });
+}
+
 void OverlayTree::Select(m2::RectD const & rect, TSelectResult & result) const
 {
   ScreenBase screen = m_traits.m_modelView;
