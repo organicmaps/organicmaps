@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="HelveticaNeue.ttc">
@@ -30,7 +30,6 @@
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s0b-7N-YrO" userLabel="Location">
                             <rect key="frame" x="0.0" y="0.0" width="64" height="48"/>
-                            <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <accessibility key="accessibilityConfiguration" identifier="locationButton"/>
                             <constraints>
@@ -43,7 +42,6 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xQ0-ZK-UXk" userLabel="P2P">
                             <rect key="frame" x="64" y="0.0" width="64" height="48"/>
-                            <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <accessibility key="accessibilityConfiguration" identifier="p2pButton"/>
                             <state key="normal" image="ic_menu_point_to_point"/>
@@ -55,7 +53,6 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IzQ-aQ-aPH" userLabel="Search">
                             <rect key="frame" x="128" y="0.0" width="64" height="48"/>
-                            <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <accessibility key="accessibilityConfiguration" identifier="searchButton"/>
                             <constraints>
@@ -70,7 +67,6 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qVh-dm-DDH" userLabel="Bookmarks">
                             <rect key="frame" x="192" y="0.0" width="64" height="48"/>
-                            <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <accessibility key="accessibilityConfiguration" identifier="bookmarksButton"/>
                             <state key="normal" image="ic_menu_bookmark_list_light"/>
@@ -81,7 +77,6 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YLY-C4-SBu" userLabel="Menu">
                             <rect key="frame" x="256" y="0.0" width="64" height="48"/>
-                            <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <accessibility key="accessibilityConfiguration" identifier="menuButton"/>
                             <constraints>
@@ -94,7 +89,6 @@
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WLn-2O-Ivv" userLabel="DownloadBadge">
                             <rect key="frame" x="291" y="11" width="10" height="10"/>
-                            <animations/>
                             <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="10" id="ToN-Zr-4oh"/>
@@ -109,7 +103,6 @@
                         </view>
                         <button hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pLD-sZ-ejH" userLabel="Go">
                             <rect key="frame" x="100" y="8" width="120" height="32"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" identifier="goButton"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="120" id="mDy-2S-lW3"/>
@@ -136,7 +129,6 @@
                         </button>
                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="192" translatesAutoresizingMaskIntoConstraints="NO" id="xr9-L5-hTa" userLabel="Street">
                             <rect key="frame" x="64" y="0.0" width="192" height="48"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" identifier="streetLabel"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
@@ -147,7 +139,6 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="xr9-L5-hTa" firstAttribute="top" secondItem="kbJ-If-gUR" secondAttribute="top" id="0d8-WF-k28"/>
@@ -182,7 +173,6 @@
                 </view>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nYy-JN-hGA" userLabel="Separator">
                     <rect key="frame" x="0.0" y="48" width="320" height="1"/>
-                    <animations/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="Kgm-bO-O6Q"/>
@@ -194,7 +184,6 @@
                 </view>
                 <collectionView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="hSd-fM-qKd" userLabel="AdditionalButtons">
                     <rect key="frame" x="0.0" y="49" width="320" height="148"/>
-                    <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="148" id="fsD-HQ-mF9"/>
@@ -207,7 +196,6 @@
                     </connections>
                 </collectionView>
             </subviews>
-            <animations/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="hSd-fM-qKd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="2jm-k3-CLB"/>
@@ -232,6 +220,7 @@
                 <outlet property="mainButtonWidth" destination="uiw-IQ-xob" id="7T4-Xe-VlE"/>
                 <outlet property="mainButtons" destination="kbJ-If-gUR" id="1sk-bi-6xl"/>
                 <outlet property="menuButton" destination="YLY-C4-SBu" id="A5G-Bc-IlQ"/>
+                <outlet property="owner" destination="-1" id="qBx-4k-WvI"/>
                 <outlet property="p2pButton" destination="xQ0-ZK-UXk" id="9m1-MT-C9s"/>
                 <outlet property="searchButton" destination="IzQ-aQ-aPH" id="2dy-QI-T39"/>
                 <outlet property="separator" destination="nYy-JN-hGA" id="z8u-tH-WGu"/>

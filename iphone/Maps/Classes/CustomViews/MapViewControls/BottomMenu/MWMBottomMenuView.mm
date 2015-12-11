@@ -1,7 +1,8 @@
 #import "Common.h"
-#import "MapsAppDelegate.h"
 #import "EAGLView.h"
 #import "MWMBottomMenuView.h"
+#import "MWMBottomMenuViewController.h"
+#import "MapsAppDelegate.h"
 #import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
@@ -32,6 +33,8 @@
 @property(weak, nonatomic) IBOutlet UILabel * streetLabel;
 
 @property(nonatomic) CGFloat layoutDuration;
+
+@property (weak, nonatomic) IBOutlet MWMBottomMenuViewController * owner;
 
 @end
 
@@ -277,7 +280,7 @@
     return;
   BOOL const isPortrait = self.superview.width < self.superview.height;
   if (isPortrait)
-    self.leftBound = 0.0;
+    self.owner.leftBound = 0.0;
 }
 
 - (void)refreshLayout

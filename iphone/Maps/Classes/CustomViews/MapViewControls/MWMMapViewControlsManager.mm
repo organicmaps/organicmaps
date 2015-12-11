@@ -273,7 +273,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   f.SetRouter(f.GetBestRouter(myPosition, to));
   self.routeSource = MWMRoutePoint(myPosition);
   self.routeDestination = {to, @"Destination"};
-  GetFramework().BuildRoute(myPosition, to, 0 /* timeoutSec */);
+  f.BuildRoute(myPosition, to, 0 /* timeoutSec */);
 }
 
 - (void)buildRouteFrom:(MWMRoutePoint const &)from to:(MWMRoutePoint const &)to
@@ -291,9 +291,10 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.routeDestination = to;
   [self setupBestRouter];
   [self buildRoute];
-  
-  GetFramework().SetRouteStartPoint(from.Point(), true /* isValid */);
-  GetFramework().SetRouteFinishPoint(to.Point(), to != MWMRoutePoint::MWMRoutePointZero());
+
+  auto & f = GetFramework();
+  f.SetRouteStartPoint(from.Point(), true /* isValid */);
+  f.SetRouteFinishPoint(to.Point(), to != MWMRoutePoint::MWMRoutePointZero());
 }
 
 - (void)buildRouteFrom:(MWMRoutePoint const &)from
@@ -481,12 +482,13 @@ extern NSString * const kAlohalyticsTapEventKey;
   [[Statistics instance] logEvent:kStatEventName(kStatPointToPoint, kStatSwapRoutingPoints)];
   swap(_routeSource, _routeDestination);
   [self buildRoute];
-  
-  GetFramework().SetRouteStartPoint(self.routeSource.Point(),
-                                    self.routeSource != MWMRoutePoint::MWMRoutePointZero());
-  
-  GetFramework().SetRouteFinishPoint(self.routeDestination.Point(),
-                                     self.routeDestination != MWMRoutePoint::MWMRoutePointZero());
+
+  auto & f = GetFramework();
+  f.SetRouteStartPoint(self.routeSource.Point(),
+                       self.routeSource != MWMRoutePoint::MWMRoutePointZero());
+
+  f.SetRouteFinishPoint(self.routeDestination.Point(),
+                        self.routeDestination != MWMRoutePoint::MWMRoutePointZero());
 }
 
 - (void)didStartEditingRoutePoint:(BOOL)isSource
