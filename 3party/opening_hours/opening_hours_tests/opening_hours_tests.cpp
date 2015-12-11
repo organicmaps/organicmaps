@@ -312,7 +312,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestTimespan)
     span.SetStart(HourMinutes(10_h));
     span.SetEnd(HourMinutes(00_h));
 
-    BOOST_CHECK(!span.HasExtendedHours());
+    BOOST_CHECK(span.HasExtendedHours());
     BOOST_CHECK_EQUAL(ToString(span), "10:00-00:00");
   }
 

@@ -299,7 +299,7 @@ bool Timespan::HasExtendedHours() const
   if (endHM.IsExtended())
     return true;
 
-  return endHM.GetDurationCount() != 0 && (endHM.GetDuration() < startHM.GetDuration());
+  return endHM.GetDuration() <= startHM.GetDuration();
 }
 
 std::ostream & operator<<(std::ostream & ost, Timespan const & span)
