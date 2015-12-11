@@ -14,6 +14,24 @@ namespace feature
 {
   class MetadataBase
   {
+  protected:
+    void Set(uint8_t type, string const & value)
+    {
+      auto found = m_metadata.find(type);
+      if (found == m_metadata.end())
+      {
+        if (!value.empty())
+          m_metadata[type] = value;
+      }
+      else
+      {
+        if (value.empty())
+          m_metadata.erase(found);
+        else
+          found->second = value;
+      }
+    }
+
   public:
     string Get(uint8_t type) const
     {
@@ -97,22 +115,10 @@ namespace feature
 
     void Set(EType type, string const & value)
     {
-      auto found = m_metadata.find(type);
-      if (found == m_metadata.end())
-      {
-        if (!value.empty())
-          m_metadata[type] = value;
-      }
-      else
-      {
-        if (value.empty())
-          m_metadata.erase(found);
-        else
-          found->second = value;
-      }
+      MetadataBase::Set(type, value);
     }
 
-    void Drop(EType type) { Set(type, ""); }
+    void Drop(EType type) { Set(type, string()); }
 
     string GetWikiURL() const;
 
@@ -153,7 +159,7 @@ namespace feature
     void Add(Type type, string const & s)
     {
       /// @todo Probably, we need to add separator here and store multiple values.
-      m_metadata[type] = s;
+      MetadataBase::Set(type, s);
     }
   };
 }

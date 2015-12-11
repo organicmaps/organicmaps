@@ -200,7 +200,6 @@ bool FeatureParams::AddHouseName(string const & s)
   return false;
 }
 
-
 bool FeatureParams::AddHouseNumber(string const & ss)
 {
   if (!feature::IsHouseNumber(ss))
