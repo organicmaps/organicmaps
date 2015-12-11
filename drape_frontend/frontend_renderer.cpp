@@ -293,17 +293,14 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<SelectObjectMessage> msg = message;
 
+      if (m_selectionShape == nullptr)
+        break;
+
       if (msg->IsDismiss())
-      {
-        // m_selectionShape can be null in case of deselection
-        if (m_selectionShape != nullptr)
-          m_selectionShape->Hide();
-      }
+        m_selectionShape->Hide();
       else
-      {
-        ASSERT(m_selectionShape != nullptr, ());
         m_selectionShape->Show(msg->GetSelectedObject(), msg->GetPosition(), msg->IsAnim());
-      }
+
       break;
     }
 
