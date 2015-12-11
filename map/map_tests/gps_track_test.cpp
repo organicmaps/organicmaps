@@ -20,13 +20,14 @@
 namespace
 {
 
-inline location::GpsTrackInfo Make(double timestamp, ms::LatLon const & ll, double speed)
+inline location::GpsInfo Make(double timestamp, ms::LatLon const & ll, double speed)
 {
-  location::GpsTrackInfo info;
+  location::GpsInfo info;
   info.m_timestamp = timestamp;
   info.m_speed = speed;
   info.m_latitude = ll.lat;
   info.m_longitude = ll.lon;
+  info.m_horizontalAccuracy = 15;
   return info;
 }
 
@@ -92,7 +93,7 @@ UNIT_TEST(GpsTrack_Simple)
   size_t const maxItemCount = 100000;
   size_t const writeItemCount = 50000;
 
-  vector<location::GpsTrackInfo> points;
+  vector<location::GpsInfo> points;
   points.reserve(writeItemCount);
   for (size_t i = 0; i < writeItemCount; ++i)
     points.emplace_back(Make(timestamp + i, ms::LatLon(-90 + i, -180 + i), 10 + i));

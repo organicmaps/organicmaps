@@ -63,7 +63,7 @@ GpsTrack::~GpsTrack()
   }
 }
 
-void GpsTrack::AddPoint(TItem const & point)
+void GpsTrack::AddPoint(location::GpsInfo const & point)
 {
   {
     lock_guard<mutex> lg(m_dataGuard);
@@ -72,7 +72,7 @@ void GpsTrack::AddPoint(TItem const & point)
   ScheduleTask();
 }
 
-void GpsTrack::AddPoints(vector<TItem> const & points)
+void GpsTrack::AddPoints(vector<location::GpsInfo> const & points)
 {
   {
     lock_guard<mutex> lg(m_dataGuard);
@@ -174,10 +174,10 @@ void GpsTrack::InitCollection(hours duration)
 
   try
   {
-    m_storage->ForEach([this](TItem const & info)->bool
+    m_storage->ForEach([this](location::GpsTrackInfo const & point)->bool
     {
       pair<size_t, size_t> evictedIds;
-      m_collection->Add(info, evictedIds);
+      m_collection->Add(point, evictedIds);
       return true;
     });
   }
@@ -191,17 +191,20 @@ void GpsTrack::InitCollection(hours duration)
 
 void GpsTrack::ProcessPoints()
 {
-  vector<TItem> points;
+  vector<location::GpsInfo> originPoints;
   hours duration;
   bool needClear;
   // Steal data for processing
   {
     lock_guard<mutex> lg(m_dataGuard);
-    points.swap(m_points);
+    originPoints.swap(m_points);
     duration = m_duration;
     needClear = m_needClear;
     m_needClear = false;
   }
+
+  vector<location::GpsTrackInfo> points;
+  m_filter.Process(originPoints, points);
 
   // Create collection only if callback appears
   if (!m_collection && HasCallback())
@@ -225,7 +228,7 @@ bool GpsTrack::HasCallback()
   return m_callback != nullptr;
 }
 
-void GpsTrack::UpdateStorage(bool needClear, vector<TItem> const & points)
+void GpsTrack::UpdateStorage(bool needClear, vector<location::GpsTrackInfo> const & points)
 {
   InitStorageIfNeed();
   if (!m_storage)
@@ -245,7 +248,7 @@ void GpsTrack::UpdateStorage(bool needClear, vector<TItem> const & points)
   }
 }
 
-void GpsTrack::UpdateCollection(hours duration, bool needClear, vector<TItem> const & points,
+void GpsTrack::UpdateCollection(hours duration, bool needClear, vector<location::GpsTrackInfo> const & points,
                                 pair<size_t, size_t> & addedIds, pair<size_t, size_t> & evictedIds)
 {
   // Apply Clear, SetDuration and Add points
@@ -282,9 +285,9 @@ void GpsTrack::NotifyCallback(pair<size_t, size_t> const & addedIds, pair<size_t
   {
     m_needSendSnapshop = false;
 
-    vector<pair<size_t, TItem>> toAdd;
+    vector<pair<size_t, location::GpsTrackInfo>> toAdd;
     toAdd.reserve(m_collection->GetSize());
-    m_collection->ForEach([&toAdd](TItem const & point, size_t id)->bool
+    m_collection->ForEach([&toAdd](location::GpsTrackInfo const & point, size_t id)->bool
     {
       toAdd.emplace_back(id, point);
       return true;
@@ -297,13 +300,13 @@ void GpsTrack::NotifyCallback(pair<size_t, size_t> const & addedIds, pair<size_t
   }
   else
   {
-    vector<pair<size_t, TItem>> toAdd;
+    vector<pair<size_t, location::GpsTrackInfo>> toAdd;
     if (addedIds.first != kInvalidId)
     {
       size_t const addedCount = addedIds.second - addedIds.first + 1;
       ASSERT_GREATER_OR_EQUAL(m_collection->GetSize(), addedCount, ());
       toAdd.reserve(addedCount);
-      m_collection->ForEach([&toAdd](TItem const & point, size_t id)->bool
+      m_collection->ForEach([&toAdd](location::GpsTrackInfo const & point, size_t id)->bool
       {
         toAdd.emplace_back(id, point);
         return true;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "map/gps_track_collection.hpp"
+#include "map/gps_track_filter.hpp"
 #include "map/gps_track_storage.hpp"
 
 #include "std/condition_variable.hpp"
@@ -13,18 +14,17 @@ class GpsTrack final
 public:
   static size_t const kInvalidId; // = numeric_limits<size_t>::max();
 
-  using TItem = location::GpsTrackInfo;
-
   /// @param filePath - path to the file on disk to persist track
+  /// @param maxItemCount - number of points to store on disk
+  /// @param duration - initial value of track duration
   GpsTrack(string const & filePath, size_t maxItemCount, hours duration);
-
   ~GpsTrack();
 
   /// Adds point or collection of points to gps tracking
   /// @note Callback is called with 'toAdd' and 'toRemove' points, if some points were added or removed.
   /// @note Only points with good timestamp will be added, other will be skipped.
-  void AddPoint(TItem const & point);
-  void AddPoints(vector<TItem> const & points);
+  void AddPoint(location::GpsInfo const & point);
+  void AddPoints(vector<location::GpsInfo> const & points);
 
   /// Clears any previous tracking info
   /// @note Callback is called with 'toRemove' points, if some points were removed.
@@ -42,7 +42,7 @@ public:
   /// @param toAdd - collection of points and ids to add.
   /// @param toRemove - range of point indices to remove, or pair(kInvalidId,kInvalidId) if nothing to remove
   /// @note Calling of a GpsTrack.SetCallback function from the callback causes deadlock.
-  using TGpsTrackDiffCallback = std::function<void(vector<pair<size_t, TItem>> && toAdd,
+  using TGpsTrackDiffCallback = std::function<void(vector<pair<size_t, location::GpsTrackInfo>> && toAdd,
                                                    pair<size_t, size_t> const & toRemove)>;
 
   /// Sets callback on change of gps track.
@@ -60,8 +60,8 @@ private:
   bool HasCallback();
   void InitStorageIfNeed();
   void InitCollection(hours duration);
-  void UpdateStorage(bool needClear, vector<TItem> const & points);
-  void UpdateCollection(hours duration, bool needClear, vector<TItem> const & points,
+  void UpdateStorage(bool needClear, vector<location::GpsTrackInfo> const & points);
+  void UpdateCollection(hours duration, bool needClear, vector<location::GpsTrackInfo> const & points,
                         pair<size_t, size_t> & addedIds, pair<size_t, size_t> & evictedIds);
   void NotifyCallback(pair<size_t, size_t> const & addedIds, pair<size_t, size_t> const & evictedIds);
 
@@ -69,7 +69,7 @@ private:
   string const m_filePath;
 
   mutable mutex m_dataGuard; // protects data for stealing
-  vector<TItem> m_points; // accumulated points to adding
+  vector<location::GpsInfo> m_points; // accumulated points for adding
   hours m_duration;
   bool m_needClear; // need clear file
 
@@ -82,6 +82,7 @@ private:
 
   unique_ptr<GpsTrackStorage> m_storage; // used in the worker thread
   unique_ptr<GpsTrackCollection> m_collection; // used in the worker thread
+  GpsTrackFilter m_filter;
 
   mutex m_threadGuard;
   thread m_thread;
