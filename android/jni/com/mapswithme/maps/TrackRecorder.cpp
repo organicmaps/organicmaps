@@ -38,7 +38,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_location_TrackRecorder_nativeSetDuration(JNIEnv * env, jclass clazz, jint durationHours)
   {
-    return GpsTracker::Instance().SetDuration(hours(durationHours));
+    GpsTracker::Instance().SetDuration(hours(durationHours));
   }
 
   JNIEXPORT jint JNICALL
