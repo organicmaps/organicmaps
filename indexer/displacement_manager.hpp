@@ -17,8 +17,8 @@
 
 namespace
 {
-  double constexpr kPOIperTileSizeCoint = 6;
-  double constexpr kPointLookupDeltaDegrees = 0.000001;
+double constexpr kPOIperTileSizeCoint = 6;
+double constexpr kPointLookupDeltaDegrees = 0.000001;
 }  //  namespace
 
 namespace covering
@@ -84,7 +84,6 @@ class DisplacementManager
 {
 public:
   DisplacementManager(TSorter & sorter) : m_sorter(sorter) {}
-
   template <class TFeature>
   void Add(vector<int64_t> const & cells, uint32_t bucket, TFeature const & ft, uint32_t index)
   {
@@ -102,7 +101,7 @@ public:
   {
     m4::Tree<DisplacableNode> acceptedNodes;
     list<DisplacableNode> deferredNodes;
-    for(uint32_t zoom = 0; zoom < scales::GetUpperScale(); ++zoom)
+    for (uint32_t zoom = 0; zoom < scales::GetUpperScale(); ++zoom)
     {
       // Initialize queue.
       priority_queue<DisplacableNode> displacableQueue;
@@ -126,11 +125,12 @@ public:
         m2::RectD const displacementRect(maxNode.center.x - delta, maxNode.center.y - delta,
                                          maxNode.center.x + delta, maxNode.center.y + delta);
         bool isDisplacing = false;
-        acceptedNodes.ForEachInRect(displacementRect,
-                                    [&isDisplacing, &maxNode, &delta, &zoom](DisplacableNode const & node){
-          if ((maxNode.center - node.center).Length() < delta && node.maxZoomLevel > zoom)
-            isDisplacing = true;
-        });
+        acceptedNodes.ForEachInRect(
+            displacementRect, [&isDisplacing, &maxNode, &delta, &zoom](DisplacableNode const & node)
+            {
+              if ((maxNode.center - node.center).Length() < delta && node.maxZoomLevel > zoom)
+                isDisplacing = true;
+            });
         if (isDisplacing)
         {
           deferredNodes.push_back(maxNode);
@@ -143,8 +143,7 @@ public:
         acceptedNodes.Add(maxNode);
         accepted++;
       }
-      LOG(LINFO, ("Displacement for zoom", zoom,
-                  "Features accepted:", accepted,
+      LOG(LINFO, ("Displacement for zoom", zoom, "Features accepted:", accepted,
                   "Features discarted:", deferredNodes.size()));
     }
   }
@@ -160,9 +159,10 @@ private:
     uint32_t priority;
 
     DisplacableNode() : index(0), maxZoomLevel(0), priority(0) {}
-
-    template<class TFeature>
-    DisplacableNode(vector<int64_t> const & cells, TFeature const & ft, uint32_t index, int zoomLevel): index(index), center(ft.GetCenter()), cells(cells)
+    template <class TFeature>
+    DisplacableNode(vector<int64_t> const & cells, TFeature const & ft, uint32_t index,
+                    int zoomLevel)
+      : index(index), center(ft.GetCenter()), cells(cells)
     {
       feature::TypesHolder const types(ft);
       auto scaleRange = feature::GetDrawableScaleRange(types);
@@ -187,15 +187,8 @@ private:
       priority = (static_cast<uint32_t>(d) << 8) || rank;
     }
 
-    bool operator < (DisplacableNode const & node) const
-    {
-      return priority < node.priority;
-    }
-
-    bool operator == (DisplacableNode const & node) const
-    {
-      return index == node.index;
-    }
+    bool operator<(DisplacableNode const & node) const { return priority < node.priority; }
+    bool operator==(DisplacableNode const & node) const { return index == node.index; }
     m2::RectD const GetLimitRect() const { return m2::RectD(center, center); }
   };
 

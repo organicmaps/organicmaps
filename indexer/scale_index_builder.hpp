@@ -33,13 +33,13 @@ class FeatureCoverer
 public:
   FeatureCoverer(feature::DataHeader const & header, TDisplacementManager & manager,
                  vector<uint32_t> & featuresInBucket, vector<uint32_t> & cellsInBucket)
-      : m_header(header),
-        m_scalesIdx(0),
-        m_bucketsCount(header.GetLastScale() + 1),
-        m_displacement(manager),
-        m_codingDepth(covering::GetCodingDepth(header.GetLastScale())),
-        m_featuresInBucket(featuresInBucket),
-        m_cellsInBucket(cellsInBucket)
+    : m_header(header)
+    , m_scalesIdx(0)
+    , m_bucketsCount(header.GetLastScale() + 1)
+    , m_displacement(manager)
+    , m_codingDepth(covering::GetCodingDepth(header.GetLastScale()))
+    , m_featuresInBucket(featuresInBucket)
+    , m_cellsInBucket(cellsInBucket)
   {
     m_featuresInBucket.resize(m_bucketsCount);
     m_cellsInBucket.resize(m_bucketsCount);
@@ -158,7 +158,8 @@ void IndexScales(feature::DataHeader const & header, TFeaturesVector const & fea
     TDisplacementManager manager(sorter);
     vector<uint32_t> featuresInBucket(bucketsCount);
     vector<uint32_t> cellsInBucket(bucketsCount);
-    features.ForEach(FeatureCoverer<TDisplacementManager>(header, manager, featuresInBucket, cellsInBucket));
+    features.ForEach(
+        FeatureCoverer<TDisplacementManager>(header, manager, featuresInBucket, cellsInBucket));
     manager.Displace();
     sorter.SortAndFinish();
 
