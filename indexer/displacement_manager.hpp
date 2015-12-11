@@ -6,8 +6,8 @@
 #include "indexer/feature_visibility.hpp"
 #include "indexer/scales.hpp"
 
-#include "geometry/any_rect2d.hpp"
 #include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 #include "geometry/tree4d.hpp"
 
@@ -19,7 +19,7 @@ namespace
 {
 double constexpr kPOIPerTileSizeCount = 6;
 double constexpr kPointLookupDeltaDegrees = 1e-6;
-}  //  namespace
+}  // namespace
 
 namespace covering
 {
@@ -120,30 +120,34 @@ public:
         DisplaceableNode const maxNode = displaceableQueue.top();
         displaceableQueue.pop();
 
-        // Check if this node was displaced by higher features.
+        // Check if this node is displaced by higher features.
         m2::RectD const displacementRect(maxNode.center, maxNode.center);
-        bool isDisplacing = false;
+        bool isDisplaced = false;
         acceptedNodes.ForEachInRect( m2::Inflate(displacementRect, {delta, delta}),
-            [&isDisplacing, &maxNode, &delta, &scale](DisplaceableNode const & node)
+            [&isDisplaced, &maxNode, &delta, &scale](DisplaceableNode const & node)
             {
-              if ((maxNode.center - node.center).Length() < delta && node.maxZoomLevel > scale)
-                isDisplacing = true;
+              if (maxNode.center.SquareLength(node.center) < delta * delta && node.maxScale > scale)
+                isDisplaced = true;
             });
-        if (isDisplacing)
+        if (isDisplaced)
         {
           deferredNodes.push_back(maxNode);
           continue;
         }
 
         // Add feature to index otherwise.
-        for (auto const & cell : maxNode.cells)
-          m_sorter.Add(CellFeatureBucketTuple(CellFeaturePair(cell, maxNode.index), scale));
+        AddNodeToSorter(maxNode, scale);
         acceptedNodes.Add(maxNode);
         accepted++;
       }
+
       LOG(LINFO, ("Displacement for scale", scale, "Features accepted:", accepted,
                   "Features discarded:", deferredNodes.size()));
     }
+
+    // Add all fully displaced features to the bottom scale.
+    for (auto const & node : deferredNodes)
+      AddNodeToSorter(node, scales::GetUpperScale());
   }
 
 private:
@@ -153,10 +157,10 @@ private:
     m2::PointD center;
     vector<int64_t> cells;
 
-    int maxZoomLevel;
+    int maxScale;
     uint32_t priority;
 
-    DisplaceableNode() : index(0), maxZoomLevel(0), priority(0) {}
+    DisplaceableNode() : index(0), maxScale(0), priority(0) {}
     template <class TFeature>
     DisplaceableNode(vector<int64_t> const & cells, TFeature const & ft, uint32_t index,
                     int zoomLevel)
@@ -164,15 +168,14 @@ private:
     {
       feature::TypesHolder const types(ft);
       auto scaleRange = feature::GetDrawableScaleRange(types);
-      maxZoomLevel = scaleRange.second;
+      maxScale = scaleRange.second;
 
       // Calculate depth field
       drule::KeysT keys;
       feature::GetDrawRule(ft, zoomLevel, keys);
       drule::MakeUnique(keys);
       float depth = 0;
-      size_t count = keys.size();
-      for (size_t i = 0; i < count; ++i)
+      for (size_t i = 0, count = keys.size(); i < count; ++i)
       {
         if (depth < keys[i].m_priority)
           depth = keys[i].m_priority;
@@ -197,12 +200,18 @@ private:
     return types.GetGeoType() == feature::GEOM_POINT;
   }
 
-  float CalculateDeltaForZoom(int32_t zoom)
+  float CalculateDeltaForZoom(int32_t zoom) const
   {
     double const worldSizeDivisor = 1 << zoom;
     // Mercator SizeX and SizeY is equal
     double const rectSize = (MercatorBounds::maxX - MercatorBounds::minX) / worldSizeDivisor;
     return rectSize / kPOIPerTileSizeCount;
+  }
+
+  void AddNodeToSorter(DisplaceableNode const & node, uint32_t scale)
+  {
+    for (auto const & cell : node.cells)
+      m_sorter.Add(CellFeatureBucketTuple(CellFeaturePair(cell, node.index), scale));
   }
 
   TSorter & m_sorter;

@@ -155,6 +155,9 @@ void IndexScales(feature::DataHeader const & header, TFeaturesVector const & fea
     using TDisplacementManager = DisplacementManager<TSorter>;
     WriterFunctor<FileWriter> out(cellsToFeaturesAllBucketsWriter);
     TSorter sorter(1024 * 1024 /* bufferBytes */, tmpFilePrefix + CELL2FEATURE_TMP_EXT, out);
+    // Heuristically rearrange and filter single-point features to simplify
+    // the runtime decision of whether we should draw a feature
+    // or sacrifice it for the sake of more important ones.
     TDisplacementManager manager(sorter);
     vector<uint32_t> featuresInBucket(bucketsCount);
     vector<uint32_t> cellsInBucket(bucketsCount);
