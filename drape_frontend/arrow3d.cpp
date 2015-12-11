@@ -107,12 +107,14 @@ void Arrow3d::Build(ref_ptr<dp::GpuProgram> prg)
   GLFunctions::glBufferData(gl_const::GLArrayBuffer, m_normals.size() * sizeof(m_normals[0]),
                             m_normals.data(), gl_const::GLStaticDraw);
 
-  GLFunctions::glBindVertexArray(0);
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
 }
 
 void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng)
 {
+  // Unbind current VAO, because glVertexAttributePointer and glEnableVertexAttribute can affect it.
+  GLFunctions::glBindVertexArray(0);
+
   ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::ARROW_3D_PROGRAM);
   prg->Bind();
 
