@@ -218,7 +218,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     CGSize const ownerViewSize = self.ownerController.view.size;
     if (ownerViewSize.width > ownerViewSize.height)
-      [self.placePageManager hidePlacePage];
+      [self dismissPlacePage];
   }
 }
 
