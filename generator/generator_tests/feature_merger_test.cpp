@@ -2,6 +2,7 @@
 
 #include "generator/feature_merger.hpp"
 
+#include "indexer/classificator_loader.hpp"
 
 namespace
 {
@@ -32,6 +33,8 @@ namespace
 
 UNIT_TEST(FeatureMerger_MultipleTypes)
 {
+  classificator::Load();
+
   P arrPt[] = { P(0, 0), P(1, 1), P(2, 2), P(3, 3) };
   size_t const count = ARRAY_SIZE(arrPt)-1;
 
@@ -75,6 +78,8 @@ UNIT_TEST(FeatureMerger_MultipleTypes)
 
 UNIT_TEST(FeatureMerger_Branches)
 {
+  classificator::Load();
+
   /* Try to unite next configuration
           o
          /\
@@ -135,6 +140,8 @@ UNIT_TEST(FeatureMerger_Branches)
 
 UNIT_TEST(FeatureMerger_Rounds)
 {
+  classificator::Load();
+
   vector<FeatureBuilder1> vF;
 
   vF.push_back(FeatureBuilder1());
