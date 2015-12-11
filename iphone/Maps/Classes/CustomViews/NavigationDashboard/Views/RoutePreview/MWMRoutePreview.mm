@@ -98,7 +98,7 @@ static CGFloat const kAdditionalHeight = 20.;
                                                                    dateByAddingTimeInterval:entity.timeToTarget]
                                                         dateStyle:NSDateFormatterNoStyle
                                                         timeStyle:NSDateFormatterShortStyle];
-  self.arriveLabel.text = [NSString stringWithFormat:@"%@ %@", L(@"routing_arrive"), arriveStr];
+  self.arriveLabel.text = [NSString stringWithFormat:L(@"routing_arrive"), arriveStr.UTF8String];
 }
 
 - (void)statePrepare
