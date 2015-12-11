@@ -433,6 +433,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 {
   [super viewWillDisappear:animated];
   self.menuRestoreState = self.controlsManager.menuState;
+  [self dismissPlacePage];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
