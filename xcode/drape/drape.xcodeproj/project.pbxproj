@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3413E33F1C0DCA4100D14D24 /* debug_rect_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3413E33D1C0DCA4100D14D24 /* debug_rect_renderer.cpp */; };
+		3413E3401C0DCA4100D14D24 /* debug_rect_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3413E33E1C0DCA4100D14D24 /* debug_rect_renderer.hpp */; };
 		670947231BDF9A4F005014C0 /* data_buffer_impl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947151BDF9A4F005014C0 /* data_buffer_impl.hpp */; };
 		670947241BDF9A4F005014C0 /* depth_constants.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947161BDF9A4F005014C0 /* depth_constants.hpp */; };
 		670947251BDF9A4F005014C0 /* fribidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947171BDF9A4F005014C0 /* fribidi.cpp */; };
@@ -118,6 +120,8 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXFileReference section */
+		3413E33D1C0DCA4100D14D24 /* debug_rect_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = debug_rect_renderer.cpp; sourceTree = "<group>"; };
+		3413E33E1C0DCA4100D14D24 /* debug_rect_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = debug_rect_renderer.hpp; sourceTree = "<group>"; };
 		670947151BDF9A4F005014C0 /* data_buffer_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = data_buffer_impl.hpp; sourceTree = "<group>"; };
 		670947161BDF9A4F005014C0 /* depth_constants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = depth_constants.hpp; sourceTree = "<group>"; };
 		670947171BDF9A4F005014C0 /* fribidi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fribidi.cpp; sourceTree = "<group>"; };
@@ -451,6 +455,7 @@
 				6729A5AB1A69213A007D5872 /* texture.hpp in Headers */,
 				6729A57F1A69213A007D5872 /* glIncludes.hpp in Headers */,
 				6729A5A91A69213A007D5872 /* texture_of_colors.hpp in Headers */,
+				3413E3401C0DCA4100D14D24 /* debug_rect_renderer.hpp in Headers */,
 				6729A5871A69213A007D5872 /* gpu_buffer.hpp in Headers */,
 				6729A56E1A69213A007D5872 /* buffer_base.hpp in Headers */,
 				6729A58F1A69213A007D5872 /* index_buffer.hpp in Headers */,
@@ -516,6 +521,7 @@
 			files = (
 				670D059D1B0CC8A70013A7AC /* shader_index.txt in Sources */,
 				6729A5711A69213A007D5872 /* cpu_buffer.cpp in Sources */,
+				3413E33F1C0DCA4100D14D24 /* debug_rect_renderer.cpp in Sources */,
 				6729A5631A69213A007D5872 /* attribute_buffer_mutator.cpp in Sources */,
 				6729A56B1A69213A007D5872 /* binding_info.cpp in Sources */,
 				6729A5791A69213A007D5872 /* glconstants.cpp in Sources */,

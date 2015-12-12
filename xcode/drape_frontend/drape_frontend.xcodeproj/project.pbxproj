@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3413E3431C0DCAB800D14D24 /* requested_tiles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3413E3411C0DCAB800D14D24 /* requested_tiles.cpp */; };
+		3413E3441C0DCAB800D14D24 /* requested_tiles.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3413E3421C0DCAB800D14D24 /* requested_tiles.hpp */; };
 		670947911BDF9BE1005014C0 /* intrusive_vector.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947421BDF9BE0005014C0 /* intrusive_vector.hpp */; };
 		670947921BDF9BE1005014C0 /* kinetic_scroller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947431BDF9BE0005014C0 /* kinetic_scroller.cpp */; };
 		670947931BDF9BE1005014C0 /* kinetic_scroller.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947441BDF9BE0005014C0 /* kinetic_scroller.hpp */; };
@@ -191,6 +193,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3413E3411C0DCAB800D14D24 /* requested_tiles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = requested_tiles.cpp; sourceTree = "<group>"; };
+		3413E3421C0DCAB800D14D24 /* requested_tiles.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = requested_tiles.hpp; sourceTree = "<group>"; };
 		6709473A1BDF9B82005014C0 /* libdrape_frontend.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libdrape_frontend.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		670947421BDF9BE0005014C0 /* intrusive_vector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = intrusive_vector.hpp; sourceTree = "<group>"; };
 		670947431BDF9BE0005014C0 /* kinetic_scroller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kinetic_scroller.cpp; sourceTree = "<group>"; };

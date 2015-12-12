@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		340DF9D01C1FF04D00B5C7EC /* osm_editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 340DF9CF1C1FF04D00B5C7EC /* osm_editor.cpp */; };
+		340DF9D21C1FF09400B5C7EC /* osm_editor.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 340DF9D11C1FF09400B5C7EC /* osm_editor.hpp */; };
 		670C610C1AB065B100C38A8C /* categories_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670C60F91AB065B100C38A8C /* categories_test.cpp */; };
 		670C610D1AB065B100C38A8C /* cell_coverer_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670C60FA1AB065B100C38A8C /* cell_coverer_test.cpp */; };
 		670C610E1AB065B100C38A8C /* cell_id_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670C60FB1AB065B100C38A8C /* cell_id_test.cpp */; };
@@ -151,6 +153,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		340DF9CF1C1FF04D00B5C7EC /* osm_editor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = osm_editor.cpp; sourceTree = "<group>"; };
+		340DF9D11C1FF09400B5C7EC /* osm_editor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = osm_editor.hpp; path = ../../indexer/osm_editor.hpp; sourceTree = "<group>"; };
 		670C60F91AB065B100C38A8C /* categories_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = categories_test.cpp; sourceTree = "<group>"; };
 		670C60FA1AB065B100C38A8C /* cell_coverer_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cell_coverer_test.cpp; sourceTree = "<group>"; };
 		670C60FB1AB065B100C38A8C /* cell_id_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cell_id_test.cpp; sourceTree = "<group>"; };
@@ -377,6 +381,7 @@
 		675340911A3F53CB00A0A8C3 = {
 			isa = PBXGroup;
 			children = (
+				340DF9D11C1FF09400B5C7EC /* osm_editor.hpp */,
 				670D05AB1B0E07040013A7AC /* defaults.xcconfig */,
 				670C60F81AB0657700C38A8C /* indexer_tests */,
 				6753409C1A3F53CB00A0A8C3 /* indexer */,
@@ -472,6 +477,7 @@
 				675340E31A3F540F00A0A8C3 /* mercator.hpp */,
 				675340E41A3F540F00A0A8C3 /* mwm_set.cpp */,
 				675340E51A3F540F00A0A8C3 /* mwm_set.hpp */,
+				340DF9CF1C1FF04D00B5C7EC /* osm_editor.cpp */,
 				675340E91A3F540F00A0A8C3 /* point_to_int64.cpp */,
 				675340EA1A3F540F00A0A8C3 /* point_to_int64.hpp */,
 				675340EB1A3F540F00A0A8C3 /* scale_index_builder.hpp */,
@@ -649,6 +655,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				340DF9D21C1FF09400B5C7EC /* osm_editor.hpp in Sources */,
+				340DF9D01C1FF04D00B5C7EC /* osm_editor.cpp in Sources */,
 				670C610C1AB065B100C38A8C /* categories_test.cpp in Sources */,
 				67F183731BD4FCF500AB1840 /* map_style.cpp in Sources */,
 				675341461A3F540F00A0A8C3 /* search_string_utils.cpp in Sources */,
