@@ -29,6 +29,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="8E8-0f-UV9"/>
                     <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <segue destination="Ld6-gM-2hk" kind="custom" identifier="Map2PlacePageEditor" customClass="MWMSegue" id="VzH-mq-fOy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cKg-Q7-bFd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -697,7 +700,53 @@
                 <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="3rq-dW-j5f" customClass="MWMPageController" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OgA-jC-E1h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1143" y="1224"/>
+            <point key="canvasLocation" x="1134" y="1224"/>
+        </scene>
+        <!--Opening Hours Editor View Controller-->
+        <scene sceneID="UAI-uc-U5w">
+            <objects>
+                <viewController id="Ld6-gM-2hk" customClass="MWMOpeningHoursEditorViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wuP-x3-Syp"/>
+                        <viewControllerLayoutGuide type="bottom" id="qqk-Uc-qcN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="U1f-hD-9rl">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="X1H-IB-Nv1">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
+                                    <userDefinedRuntimeAttribute type="rect" keyPath="contentInset">
+                                        <rect key="value" x="20" y="0.0" width="0.0" height="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Ld6-gM-2hk" id="ai8-Pg-tCM"/>
+                                    <outlet property="delegate" destination="Ld6-gM-2hk" id="ZEW-mV-BbV"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="qqk-Uc-qcN" firstAttribute="top" secondItem="X1H-IB-Nv1" secondAttribute="bottom" id="38o-wZ-zgw"/>
+                            <constraint firstItem="X1H-IB-Nv1" firstAttribute="leading" secondItem="U1f-hD-9rl" secondAttribute="leading" id="T7G-8Z-Mbh"/>
+                            <constraint firstAttribute="trailing" secondItem="X1H-IB-Nv1" secondAttribute="trailing" id="V1v-FX-agC"/>
+                            <constraint firstItem="X1H-IB-Nv1" firstAttribute="top" secondItem="wuP-x3-Syp" secondAttribute="bottom" id="dQa-Ak-qfa"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="X1H-IB-Nv1" id="9jh-Ds-VNe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zeH-cr-FVE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1134" y="2001"/>
         </scene>
         <!--Whats New Controller-->
         <scene sceneID="BHc-6D-CJw">
