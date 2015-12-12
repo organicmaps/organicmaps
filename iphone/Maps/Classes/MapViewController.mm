@@ -7,7 +7,9 @@
 #import "MWMAlertViewController.h"
 #import "MWMAPIBar.h"
 #import "MWMMapViewControlsManager.h"
+#import "MWMOpeningHoursEditorViewController.h"
 #import "MWMPageController.h"
+#import "MWMPlacePageEntity.h"
 #import "MWMTextToSpeech.h"
 #import "RouteState.h"
 #import "Statistics.h"
@@ -786,6 +788,18 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     [[MapsAppDelegate theApp] disableStandby];
   else
     [[MapsAppDelegate theApp] enableStandby];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+  if ([segue.identifier isEqualToString:@"Map2PlacePageEditor"])
+  {
+    MWMPlacePageEntity * entity = sender;
+    NSUInteger const timeIndex = [entity.metadataTypes indexOfObject:@(MWMPlacePageMetadataTypeOpenHours)];
+    BOOL const haveTime = (timeIndex != NSNotFound);
+    MWMOpeningHoursEditorViewController * dvc = segue.destinationViewController;
+    dvc.openingHours = haveTime ? entity.metadataValues[timeIndex] : @"";
+  }
 }
 
 #pragma mark - Properties
