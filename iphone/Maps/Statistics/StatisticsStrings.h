@@ -47,6 +47,7 @@ static NSString * const kStatDownloadRequest = @"Download request";
 static NSString * const kStatDownloaderDialog = @"Downloader dialog";
 static NSString * const kStatDownloadRoute = @"Download route";
 static NSString * const kStatError = @"Error";
+static NSString * const kStatEdit = @"Edit";
 static NSString * const kStatExpand = @"Expand";
 static NSString * const kStatExpandCategory = @"Expand category";
 static NSString * const kStatExpandLargeCountry = @"Expand large country";
