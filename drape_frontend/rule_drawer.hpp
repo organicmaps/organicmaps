@@ -43,7 +43,6 @@ private:
 
   ref_ptr<EngineContext> m_context;
   m2::RectD m_globalRect;
-  ScreenBase m_geometryConvertor;
   double m_currentScaleGtoP;
 
   array<TMapShapes, df::PrioritiesCount> m_mapShapes;

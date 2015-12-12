@@ -6,16 +6,23 @@ namespace df
 {
 
 TileKey::TileKey()
-  : m_x(-1), m_y(-1), m_zoomLevel(-1), m_generation(0)
+  : m_x(-1), m_y(-1),
+    m_zoomLevel(-1),
+    m_styleZoomLevel(-1),
+    m_generation(0)
 {}
 
 TileKey::TileKey(int x, int y, int zoomLevel)
-  : m_x(x), m_y(y), m_zoomLevel(zoomLevel), m_generation(0)
+  : m_x(x), m_y(y),
+    m_zoomLevel(zoomLevel),
+    m_styleZoomLevel(zoomLevel),
+    m_generation(0)
 {}
 
 TileKey::TileKey(TileKey const & key, uint64_t generation)
   : m_x(key.m_x), m_y(key.m_y),
     m_zoomLevel(key.m_zoomLevel),
+    m_styleZoomLevel(key.m_styleZoomLevel),
     m_generation(generation)
 {}
 
@@ -37,9 +44,9 @@ bool TileKey::operator ==(TileKey const & other) const
          m_zoomLevel == other.m_zoomLevel;
 }
 
-m2::RectD TileKey::GetGlobalRect() const
+m2::RectD TileKey::GetGlobalRect(bool considerStyleZoom) const
 {
-  double const worldSizeDevisor = 1 << m_zoomLevel;
+  double const worldSizeDevisor = 1 << (considerStyleZoom ? m_styleZoomLevel : m_zoomLevel);
   // Mercator SizeX and SizeY is equal
   double const rectSize = (MercatorBounds::maxX - MercatorBounds::minX) / worldSizeDevisor;
 
@@ -53,7 +60,8 @@ string DebugPrint(TileKey const & key)
 {
   ostringstream out;
   out << "[x = " << key.m_x << ", y = " << key.m_y << ", zoomLevel = "
-      << key.m_zoomLevel << ", gen = " << key.m_generation << "]";
+      << key.m_zoomLevel << ", styleZoomLevel = " << key.m_styleZoomLevel
+      << ", gen = " << key.m_generation << "]";
   return out.str();
 }
 

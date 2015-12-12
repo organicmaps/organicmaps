@@ -50,9 +50,11 @@ RuleDrawer::RuleDrawer(TDrawerCallback const & fn,
   m_globalRect = m_context->GetTileKey().GetGlobalRect();
 
   int32_t tileSize = df::VisualParams::Instance().GetTileSize();
-  m_geometryConvertor.OnSize(0, 0, tileSize, tileSize);
-  m_geometryConvertor.SetFromRect(m2::AnyRectD(m_globalRect));
-  m_currentScaleGtoP = 1.0f / m_geometryConvertor.GetScale();
+  m2::RectD const r = m_context->GetTileKey().GetGlobalRect(true /* considerStyleZoom */);
+  ScreenBase geometryConvertor;
+  geometryConvertor.OnSize(0, 0, tileSize, tileSize);
+  geometryConvertor.SetFromRect(m2::AnyRectD(r));
+  m_currentScaleGtoP = 1.0f / geometryConvertor.GetScale();
 
   for (size_t i = 0; i < m_mapShapes.size(); i++)
     m_mapShapes[i].reserve(kMinFlushSizes[i] + 1);
