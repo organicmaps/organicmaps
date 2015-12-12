@@ -50,6 +50,7 @@ extern NSString * const kUserDefaultsLatLonAsDMSKey;
       typeName = @"wifi";
       break;
     case MWMPlacePageMetadataTypeBookmark:
+    case MWMPlacePageMetadataTypeEditButton:
       NSAssert(false, @"Incorrect type!");
       break;
   }

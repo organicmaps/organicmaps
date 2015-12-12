@@ -84,6 +84,9 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   m_userMark = move(userMark);
   [[MapsAppDelegate theApp].m_locationManager start:self];
   self.entity = [[MWMPlacePageEntity alloc] initWithUserMark:m_userMark->GetUserMark()];
+
+  [self.entity enableEditing];
+
   self.state = MWMPlacePageManagerStateOpen;
   if (IPAD)
     [self setPlacePageForiPad];
@@ -272,6 +275,11 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   BookmarkCategory::Guard guard(*category);
   UserMark const * bookmark = guard.m_controller.GetUserMark(bac.second);
   m_userMark.reset(new UserMarkCopy(bookmark, false));
+}
+
+- (void)editPlace
+{
+  [self.ownerViewController performSegueWithIdentifier:@"Map2PlacePageEditor" sender:self.entity];
 }
 
 - (void)addBookmark

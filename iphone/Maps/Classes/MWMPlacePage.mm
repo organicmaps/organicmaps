@@ -129,6 +129,11 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
   [self.manager removeBookmark];
 }
 
+- (void)editPlace
+{
+  [self.manager editPlace];
+}
+
 - (void)share
 {
   [self.manager share];

@@ -27,6 +27,7 @@
 - (void)changeBookmarkColor;
 - (void)changeBookmarkCategory;
 - (void)changeBookmarkDescription;
+- (void)editPlace;
 - (void)share;
 - (void)route;
 - (void)reloadBookmark;

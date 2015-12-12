@@ -7,14 +7,12 @@ extern NSArray * const kBookmarkColorsVariant = @[@"placemark-red", @"placemark-
 extern NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 static NSArray * const kPatternTypesArray = @[@(MWMPlacePageMetadataTypePostcode), @(MWMPlacePageMetadataTypePhoneNumber), @(MWMPlacePageMetadataTypeWebsite), @(MWMPlacePageMetadataTypeURL), @(MWMPlacePageMetadataTypeEmail), @(MWMPlacePageMetadataTypeOpenHours), @(MWMPlacePageMetadataTypeWiFi), @(MWMPlacePageMetadataTypeCoordinate)];
 
-static NSString * const kTypesKey = @"types";
-static NSString * const kValuesKey = @"values";
-
 using feature::Metadata;
 
 @interface MWMPlacePageEntity ()
 
-@property (nonatomic) NSDictionary * metadata;
+@property (nonatomic) NSMutableArray * metaTypes;
+@property (nonatomic) NSMutableArray * metaValues;
 
 @end
 
@@ -24,7 +22,11 @@ using feature::Metadata;
 {
   self = [super init];
   if (self)
+  {
+    self.metaTypes = [NSMutableArray array];
+    self.metaValues = [NSMutableArray array];
     [self configureWithUserMark:mark];
+  }
 
   return self;
 }
@@ -107,14 +109,10 @@ using feature::Metadata;
 {
   self.title = L(@"my_position");
   self.type = MWMPlacePageEntityTypeMyPosition;
-  NSMutableArray * types = [NSMutableArray array];
-  NSMutableArray * values = [NSMutableArray array];
-  [types addObject:kPatternTypesArray.lastObject];
+  [self.metaTypes addObject:kPatternTypesArray.lastObject];
   BOOL const isLatLonAsDMS = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLatLonAsDMSKey];
   NSString * latLonStr = isLatLonAsDMS ? @(MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()): @( MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str());
-  [values addObject:latLonStr];
-
-  self.metadata = @{kTypesKey : types, kValuesKey : values};
+  [self.metaValues addObject:latLonStr];
 }
 
 - (void)configureForApi:(ApiMarkPoint const *)apiMark
@@ -122,14 +120,11 @@ using feature::Metadata;
   self.type = MWMPlacePageEntityTypeAPI;
   self.title = @(apiMark->GetName().c_str());
   self.category = @(GetFramework().GetApiDataHolder().GetAppTitle().c_str());
-  NSMutableArray const * types = [NSMutableArray array];
-  NSMutableArray const * values = [NSMutableArray array];
-  [types addObject:kPatternTypesArray.lastObject];
+  [self.metaTypes addObject:kPatternTypesArray.lastObject];
   BOOL const isLatLonAsDMS = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLatLonAsDMSKey];
   NSString * latLonStr = isLatLonAsDMS ? @(MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()) : @(MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str());
   latLonStr = isLatLonAsDMS ? @(MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()) : @(MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str());
-  [values addObject:latLonStr];
-  self.metadata = @{kTypesKey : types, kValuesKey : values};
+  [self.metaValues addObject:latLonStr];
 }
 
 - (void)configureEntityWithMetadata:(Metadata const &)metadata addressInfo:(search::AddressInfo const &)info
@@ -139,9 +134,6 @@ using feature::Metadata;
   self.category = @(info.FormatAddress().c_str());
 
   auto const presentTypes = metadata.GetPresentTypes();
-
-  NSMutableArray const * types = [NSMutableArray array];
-  NSMutableArray const * values = [NSMutableArray array];
 
   for (auto const & type : presentTypes)
   {
@@ -207,8 +199,8 @@ using feature::Metadata;
           v = @(metadata.Get(type).c_str());
 
         NSNumber const * t = [self typeFromMetadata:type];
-        [types addObject:t];
-        [values addObject:v];
+        [self.metaTypes addObject:t];
+        [self.metaValues addObject:v];
         break;
       }
 
@@ -220,43 +212,48 @@ using feature::Metadata;
   NSUInteger swappedIndex = 0;
   for (NSNumber * pattern in kPatternTypesArray)
   {
-    NSUInteger const index = [types indexOfObject:pattern];
+    NSUInteger const index = [self.metaTypes indexOfObject:pattern];
     if (index == NSNotFound)
       continue;
-    [types exchangeObjectAtIndex:index withObjectAtIndex:swappedIndex];
-    [values exchangeObjectAtIndex:index withObjectAtIndex:swappedIndex];
+    [self.metaTypes exchangeObjectAtIndex:index withObjectAtIndex:swappedIndex];
+    [self.metaValues exchangeObjectAtIndex:index withObjectAtIndex:swappedIndex];
     swappedIndex++;
   }
 
-  [types addObject:kPatternTypesArray.lastObject];
+  [self.metaTypes addObject:kPatternTypesArray.lastObject];
   BOOL const isLatLonAsDMS = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLatLonAsDMSKey];
   NSString * latLonStr = isLatLonAsDMS ? @(MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()) : @( MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str());
   latLonStr = isLatLonAsDMS ? @(MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()) : @( MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str());
-  [values addObject:latLonStr];
-  
-  self.metadata = @{kTypesKey : types, kValuesKey : values};
+  [self.metaValues addObject:latLonStr];
 }
 
 - (NSArray *)metadataTypes
 {
-  return (NSArray *)self.metadata[kTypesKey];
+  return (NSArray *)self.metaTypes;
 }
 
 - (NSArray *)metadataValues
 {
-  return (NSArray *)self.metadata[kValuesKey];
+  return (NSArray *)self.metaValues;
+}
+
+- (void)enableEditing
+{
+  NSNumber * editType = @(MWMPlacePageMetadataTypeEditButton);
+  if (![self.metaTypes containsObject:editType])
+    [self.metaTypes addObject:editType];
 }
 
 - (void)insertBookmarkInTypes
 {
-  if ([self.metadataTypes containsObject:@(MWMPlacePageMetadataTypeBookmark)])
-    return;
-  [self.metadata[kTypesKey] insertObject:@(MWMPlacePageMetadataTypeBookmark) atIndex:self.metadataTypes.count];
+  NSNumber * bookmarkType = @(MWMPlacePageMetadataTypeBookmark);
+  if (![self.metaTypes containsObject:bookmarkType])
+    [self.metaTypes addObject:bookmarkType];
 }
 
 - (void)removeBookmarkFromTypes
 {
-  [self.metadata[kTypesKey] removeObject:@(MWMPlacePageMetadataTypeBookmark)];
+  [self.metaTypes removeObject:@(MWMPlacePageMetadataTypeBookmark)];
 }
 
 - (NSNumber *)typeFromMetadata:(uint8_t)type

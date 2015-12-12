@@ -14,7 +14,8 @@ typedef NS_ENUM (NSUInteger, MWMPlacePageMetadataType)
   MWMPlacePageMetadataTypeOpenHours,
   MWMPlacePageMetadataTypeCoordinate,
   MWMPlacePageMetadataTypeWiFi,
-  MWMPlacePageMetadataTypeBookmark
+  MWMPlacePageMetadataTypeBookmark,
+  MWMPlacePageMetadataTypeEditButton
 };
 
 typedef NS_ENUM (NSUInteger, MWMPlacePageEntityType)
@@ -49,6 +50,7 @@ typedef NS_ENUM (NSUInteger, MWMPlacePageEntityType)
 
 - (NSArray *)metadataTypes;
 - (NSArray *)metadataValues;
+- (void)enableEditing;
 - (void)insertBookmarkInTypes;
 - (void)removeBookmarkFromTypes;
 

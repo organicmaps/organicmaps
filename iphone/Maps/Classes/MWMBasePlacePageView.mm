@@ -2,6 +2,7 @@
 #import "MWMPlacePage.h"
 #import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageBookmarkCell.h"
+#import "MWMPlacePageButtonCell.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageInfoCell.h"
 #import "MWMPlacePageTypeDescription.h"
@@ -11,6 +12,7 @@
 static NSString * const kPlacePageLinkCellIdentifier = @"PlacePageLinkCell";
 static NSString * const kPlacePageInfoCellIdentifier = @"PlacePageInfoCell";
 static NSString * const kPlacePageBookmarkCellIdentifier = @"PlacePageBookmarkCell";
+static NSString * const kPlacePageButtonCellIdentifier = @"MWMPlacePageButtonCell";
 
 static CGFloat const kPlacePageTitleKoefficient = 0.63;
 static CGFloat const kLeftOffset = 16.;
@@ -45,6 +47,8 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
           forCellReuseIdentifier:kPlacePageLinkCellIdentifier];
   [self.featureTable registerNib:[UINib nibWithNibName:kPlacePageBookmarkCellIdentifier bundle:nil]
           forCellReuseIdentifier:kPlacePageBookmarkCellIdentifier];
+  [self.featureTable registerNib:[UINib nibWithNibName:kPlacePageButtonCellIdentifier bundle:nil]
+          forCellReuseIdentifier:kPlacePageButtonCellIdentifier];
 }
 
 - (void)configureWithEntity:(MWMPlacePageEntity *)entity
@@ -210,7 +214,9 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
 - (MWMPlacePageBookmarkCell *)bookmarkSizingCell
 {
   if (!_bookmarkSizingCell)
-    _bookmarkSizingCell = [self.featureTable dequeueReusableCellWithIdentifier:kPlacePageBookmarkCellIdentifier];
+    _bookmarkSizingCell = [[[NSBundle mainBundle] loadNibNamed:kPlacePageBookmarkCellIdentifier
+                                                         owner:nil
+                                                       options:nil] firstObject];
   return _bookmarkSizingCell;
 }
 
@@ -220,12 +226,18 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSNumber * const currentType = self.entity.metadataTypes[indexPath.row];
-  if (currentType.integerValue == MWMPlacePageMetadataTypeBookmark)
+
+  MWMPlacePageMetadataType currentType = (MWMPlacePageMetadataType)[self.entity.metadataTypes[indexPath.row] integerValue];
+
+  if (currentType == MWMPlacePageMetadataTypeBookmark)
   {
     [self.bookmarkSizingCell config:self.ownerPlacePage forHeight:YES];
     CGFloat height = self.bookmarkSizingCell.cellHeight;
     return height;
+  }
+  else if (currentType == MWMPlacePageMetadataTypeEditButton)
+  {
+    return [MWMPlacePageButtonCell height];
   }
 
   CGFloat const defaultCellHeight = 44.;
@@ -254,6 +266,12 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
     MWMPlacePageBookmarkCell * cell = (MWMPlacePageBookmarkCell *)[tableView dequeueReusableCellWithIdentifier:kPlacePageBookmarkCellIdentifier];
 
     [cell config:self.ownerPlacePage forHeight:NO];
+    return cell;
+  }
+  else if (currentType == MWMPlacePageMetadataTypeEditButton)
+  {
+    MWMPlacePageButtonCell * cell = (MWMPlacePageButtonCell *)[tableView dequeueReusableCellWithIdentifier:kPlacePageButtonCellIdentifier];
+    [cell config:self.ownerPlacePage];
     return cell;
   }
 
