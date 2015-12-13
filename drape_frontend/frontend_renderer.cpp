@@ -1,7 +1,9 @@
 #include "drape_frontend/animation/interpolation_holder.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
+#include "drape_frontend/framebuffer.hpp"
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/message_subclasses.hpp"
+#include "drape_frontend/renderer3d.hpp"
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
 
@@ -42,6 +44,8 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   : BaseRenderer(ThreadsCommutator::RenderThread, params)
   , m_gpuProgramManager(new dp::GpuProgramManager())
   , m_routeRenderer(new RouteRenderer())
+  , m_framebuffer(new Framebuffer())
+  , m_renderer3d(new Renderer3d())
   , m_overlayTree(new dp::OverlayTree())
   , m_enable3dInNavigation(false)
   , m_viewport(params.m_viewport)
@@ -550,6 +554,9 @@ void FrontendRenderer::OnResize(ScreenBase const & screen)
   m_contextFactory->getDrawContext()->resize(viewportRect.SizeX(), viewportRect.SizeY());
   RefreshProjection(screen);
   RefreshPivotTransform(screen);
+
+  if (screen.isPerspective())
+    m_framebuffer->SetSize(viewportRect.SizeX(), viewportRect.SizeY());
 }
 
 void FrontendRenderer::AddToRenderGroup(vector<drape_ptr<RenderGroup>> & groups,
@@ -801,6 +808,9 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
   if (isPerspective && has3dAreas)
   {
+    m_framebuffer->Enable();
+    GLFunctions::glClear();
+
     for (size_t index = area3dRenderGroupStart; index <= area3dRenderGroupEnd; ++index)
     {
       drape_ptr<RenderGroup> const & group = m_renderGroups[index];
@@ -808,6 +818,8 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
         RenderSingleGroup(modelView, make_ref(group));
     }
     GLFunctions::glClearDepth();
+    m_framebuffer->Disable();
+    m_renderer3d->Render(m_framebuffer->GetTextureId(), make_ref(m_gpuProgramManager));
   }
 
   if (isPerspective && hasSelectedPOI)
@@ -911,7 +923,8 @@ void FrontendRenderer::RefreshBgColor()
 {
   uint32_t color = drule::rules().GetBgColor(df::GetDrawTileScale(m_userEventStream.GetCurrentScreen()));
   dp::Color c = dp::Extract(color, 255 - (color >> 24));
-  GLFunctions::glClearColor(c.GetRedF(), c.GetGreenF(), c.GetBlueF(), 1.0f);
+  // TODO: Make sure that zero alpha doesn't affect anything.
+  GLFunctions::glClearColor(c.GetRedF(), c.GetGreenF(), c.GetBlueF(), 0.0f);
 }
 
 int FrontendRenderer::GetCurrentZoomLevel() const
@@ -1106,6 +1119,7 @@ void FrontendRenderer::Routine::Do()
 
   dp::OGLContext * context = m_renderer.m_contextFactory->getDrawContext();
   context->makeCurrent();
+  m_renderer.m_framebuffer->SetDefaultContext(context);
   GLFunctions::Init();
   GLFunctions::AttachCache(this_thread::get_id());
 
