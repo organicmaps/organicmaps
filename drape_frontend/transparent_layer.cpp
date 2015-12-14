@@ -1,4 +1,4 @@
-#include "renderer3d.hpp"
+#include "transparent_layer.hpp"
 
 #include "drape/data_buffer.hpp"
 #include "drape/glconstants.hpp"
@@ -15,7 +15,7 @@
 namespace df
 {
 
-Renderer3d::Renderer3d()
+TransparentLayer::TransparentLayer()
 {
   m_vertices = { -1.0f,  1.0f, 0.0f, 1.0f,
                   1.0f,  1.0f, 1.0f, 1.0f,
@@ -23,13 +23,13 @@ Renderer3d::Renderer3d()
                   1.0f, -1.0f, 1.0f, 0.0f };
 }
 
-Renderer3d::~Renderer3d()
+TransparentLayer::~TransparentLayer()
 {
   if (m_bufferId != 0)
     GLFunctions::glDeleteBuffer(m_bufferId);
 }
 
-void Renderer3d::Build(ref_ptr<dp::GpuProgram> prg)
+void TransparentLayer::Build(ref_ptr<dp::GpuProgram> prg)
 {
   m_attributePosition = prg->GetAttributeLocation("a_pos");
   ASSERT_NOT_EQUAL(m_attributePosition, -1, ());
@@ -44,18 +44,16 @@ void Renderer3d::Build(ref_ptr<dp::GpuProgram> prg)
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
 }
 
-void Renderer3d::Render(uint32_t textureId, ref_ptr<dp::GpuProgramManager> mng)
+void TransparentLayer::Render(uint32_t textureId, ref_ptr<dp::GpuProgramManager> mng)
 {
   // Unbind current VAO, because glVertexAttributePointer and glEnableVertexAttribute can affect it.
   GLFunctions::glBindVertexArray(0);
 
-  ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::PLANE_3D_PROGRAM);
+  ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::TRANSPARENT_LAYER_PROGRAM);
   prg->Bind();
 
   if (m_bufferId == 0)
     Build(prg);
-
-  GLFunctions::glDisable(gl_const::GLDepthTest);
 
   GLFunctions::glActiveTexture(gl_const::GLTexture0);
   GLFunctions::glBindTexture(textureId);

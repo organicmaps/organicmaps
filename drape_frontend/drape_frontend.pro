@@ -58,7 +58,6 @@ SOURCES += \
     read_mwm_task.cpp \
     render_group.cpp \
     render_node.cpp \
-    renderer3d.cpp \
     requested_tiles.cpp \
     route_builder.cpp \
     route_renderer.cpp \
@@ -75,6 +74,7 @@ SOURCES += \
     tile_tree.cpp \
     tile_tree_builder.cpp \
     tile_utils.cpp \
+    transparent_layer.cpp \
     user_event_stream.cpp \
     user_mark_shapes.cpp \
     user_marks_provider.cpp \
@@ -144,7 +144,6 @@ HEADERS += \
     read_mwm_task.hpp \
     render_group.hpp \
     render_node.hpp \
-    renderer3d.hpp \
     requested_tiles.hpp \
     route_builder.hpp \
     route_renderer.hpp \
@@ -162,6 +161,7 @@ HEADERS += \
     tile_tree.hpp \
     tile_tree_builder.hpp \
     tile_utils.hpp \
+    transparent_layer.hpp \
     user_event_stream.hpp \
     user_mark_shapes.hpp \
     user_marks_provider.hpp \

@@ -47,7 +47,7 @@ namespace df
 
 class SelectionShape;
 class Framebuffer;
-class Renderer3d;
+class TransparentLayer;
 
 struct TapInfo
 {
@@ -228,7 +228,7 @@ private:
   drape_ptr<SelectionShape> m_selectionShape;
   drape_ptr<RouteRenderer> m_routeRenderer;
   drape_ptr<Framebuffer> m_framebuffer;
-  drape_ptr<Renderer3d> m_renderer3d;
+  drape_ptr<TransparentLayer> m_transparentLayer;
 
   drape_ptr<dp::OverlayTree> m_overlayTree;
 

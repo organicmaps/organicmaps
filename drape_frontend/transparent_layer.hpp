@@ -15,11 +15,11 @@ class ScreenBase;
 namespace df
 {
 
-class Renderer3d
+class TransparentLayer
 {
 public:
-  Renderer3d();
-  ~Renderer3d();
+  TransparentLayer();
+  ~TransparentLayer();
 
   void Render(uint32_t textureId, ref_ptr<dp::GpuProgramManager> mng);
 
