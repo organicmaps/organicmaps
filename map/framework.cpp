@@ -101,7 +101,30 @@ namespace
 
   double const kRotationAngle = math::pi4;
   double const kAngleFOV = math::pi / 3.0;
-}
+
+  // TODO!
+  // To adjust GpsTrackFilter was added secret command "?gpsaccuracy:xxx;"
+  // where xxx is a new value for horizontal accuracy.
+  // This is temporary solution while we don't have a good filter.
+  void ParseSetMinGpsAccuracyCommand(string const & query)
+  {
+    const char  kGpsAccuracy[] = "?gpsaccuracy:";
+    if (strings::StartsWith(query, kGpsAccuracy))
+    {
+      size_t const end = query.find(';', sizeof(kGpsAccuracy) - 1);
+      if (end != string::npos)
+      {
+        string s(query.begin() + sizeof(kGpsAccuracy) - 1, query.begin() + end);
+        double value;
+        if (strings::to_double(s, value))
+        {
+          GpsTrackFilter::StoreMinHorizontalAccuracy(value);
+        }
+      }
+    }
+  }
+
+}  // namespace
 
 pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(
     LocalCountryFile const & localFile)
@@ -986,6 +1009,8 @@ bool Framework::Search(search::SearchParams const & params)
 #else
   search::SearchParams const & rParams = params;
 #endif
+
+  ParseSetMinGpsAccuracyCommand(params.m_query);
 
   return m_searchEngine->Search(rParams, GetCurrentViewport());
 }
