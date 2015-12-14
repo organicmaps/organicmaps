@@ -94,6 +94,8 @@ double getExactDPI(double contentScaleFactor)
   [self.widgetsManager setupWidgets:p];
   GetFramework().CreateDrapeEngine(make_ref<dp::OGLContextFactory>(m_factory), move(p));
 
+  _drapeEngineCreated = YES;
+
   NSLog(@"EAGLView createDrapeEngine Ended");
 }
 

@@ -1,12 +1,13 @@
 #import "AppInfo.h"
 #import "Common.h"
+#import "EAGLView.h"
 #import "LocalNotificationManager.h"
 #import "LocationManager.h"
-#import "MapsAppDelegate.h"
-#import "MapViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMTextToSpeech.h"
 #import "MWMWatchEventInfo.h"
+#import "MapViewController.h"
+#import "MapsAppDelegate.h"
 #import "Preferences.h"
 #import "RouteState.h"
 #import "Statistics.h"
@@ -165,6 +166,59 @@ void InitLocalizedStrings()
   return YES;
 }
 
+- (void)handleURLs
+{
+  if (!((EAGLView *)self.mapViewController.view).drapeEngineCreated)
+  {
+    dispatch_async(dispatch_get_main_queue(), ^{ [self handleURLs]; });
+    return;
+  }
+  Framework & f = GetFramework();
+  if (m_geoURL)
+  {
+    if (f.ShowMapForURL([m_geoURL UTF8String]))
+    {
+      [[Statistics instance] logEvent:kStatEventName(kStatApplication, kStatImport)
+                       withParameters:@{kStatValue : m_scheme}];
+      [self showMap];
+    }
+  }
+  else if (m_mwmURL)
+  {
+    if (f.ShowMapForURL([m_mwmURL UTF8String]))
+    {
+      [[Statistics instance] logApiUsage:m_sourceApplication];
+      [self showMap];
+      [self.mapViewController showAPIBar];
+    }
+  }
+  else if (m_fileURL)
+  {
+    if (!f.AddBookmarksFile([m_fileURL UTF8String]))
+      [self showLoadFileAlertIsSuccessful:NO];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"KML file added" object:nil];
+    [self showLoadFileAlertIsSuccessful:YES];
+    [[Statistics instance] logEvent:kStatEventName(kStatApplication, kStatImport)
+                     withParameters:@{kStatValue : kStatKML}];
+  }
+  else
+  {
+    UIPasteboard * pasteboard = [UIPasteboard generalPasteboard];
+    if ([pasteboard.string length])
+    {
+      if (f.ShowMapForURL([pasteboard.string UTF8String]))
+      {
+        [self showMap];
+        pasteboard.string = @"";
+      }
+    }
+  }
+  m_geoURL = nil;
+  m_mwmURL = nil;
+  m_fileURL = nil;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   // Initialize all 3party engines.
@@ -273,50 +327,7 @@ void InitLocalizedStrings()
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-  Framework & f = GetFramework();
-  if (m_geoURL)
-  {
-    if (f.ShowMapForURL([m_geoURL UTF8String]))
-    {
-      [[Statistics instance] logEvent:kStatEventName(kStatApplication, kStatImport)
-                       withParameters:@{kStatValue : m_scheme}];
-      [self showMap];
-    }
-  }
-  else if (m_mwmURL)
-  {
-    if (f.ShowMapForURL([m_mwmURL UTF8String]))
-    {
-      [[Statistics instance] logApiUsage:m_sourceApplication];
-      [self showMap];
-      [self.mapViewController showAPIBar];
-    }
-  }
-  else if (m_fileURL)
-  {
-    if (!f.AddBookmarksFile([m_fileURL UTF8String]))
-      [self showLoadFileAlertIsSuccessful:NO];
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"KML file added" object:nil];
-    [self showLoadFileAlertIsSuccessful:YES];
-    [[Statistics instance] logEvent:kStatEventName(kStatApplication, kStatImport)
-                     withParameters:@{kStatValue : kStatKML}];
-  }
-  else
-  {
-    UIPasteboard * pasteboard = [UIPasteboard generalPasteboard];
-    if ([pasteboard.string length])
-    {
-      if (f.ShowMapForURL([pasteboard.string UTF8String]))
-      {
-        [self showMap];
-        pasteboard.string = @"";
-      }
-    }
-  }
-  m_geoURL = nil;
-  m_mwmURL = nil;
-  m_fileURL = nil;
+  [self handleURLs];
 
   [self restoreRouteState];
 
