@@ -9,6 +9,11 @@ static CGFloat const kHeight = 40.;
 {
   if (IPAD)
   {
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
+      [self.parentView setNeedsLayout];
+      [self.parentView layoutIfNeeded];
+    });
     if (!hidden)
       [super setHidden:hidden];
     [UIView animateWithDuration:kDefaultAnimationDuration animations:^
