@@ -208,7 +208,7 @@ public:
 
   static int constexpr kStartLevel = 4;
   static int constexpr kHighLevel = 10;
-  static int constexpr kMaxPoints = 1000;
+  static int constexpr kMaxPoints = 20000;
 
 protected:
   struct Context
