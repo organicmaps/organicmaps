@@ -407,7 +407,9 @@ void InitLocalizedStrings()
   navBar.shadowImage = [UIImage imageWithColor:[UIColor fadeBackground]];
   navBar.titleTextAttributes = attributes;
 
-  [[UIBarButtonItem appearance] setTitleTextAttributes:attributes forState:UIControlStateNormal];
+  UIBarButtonItem * barBtn = [UIBarButtonItem appearance];
+  [barBtn setTitleTextAttributes:attributes forState:UIControlStateNormal];
+  barBtn.tintColor = [UIColor whiteColor];
 
   UIPageControl * pageControl = [UIPageControl appearance];
   pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
