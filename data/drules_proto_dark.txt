@@ -56790,8 +56790,8 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-m"
-      priority: 16851
+      name: "alcohol-l"
+      priority: 16837
     }
     caption {
       primary {
@@ -56799,7 +56799,7 @@ cont {
         color: 5592405
         offset_y: 10
       }
-      priority: 15851
+      priority: 15837
     }
   }
 }
@@ -57679,8 +57679,8 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-m"
-      priority: 16851
+      name: "laundry-l"
+      priority: 16972
     }
     caption {
       primary {
@@ -57688,7 +57688,7 @@ cont {
         color: 5592405
         offset_y: 10
       }
-      priority: 15851
+      priority: 15972
     }
   }
 }
@@ -57745,16 +57745,16 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-m"
-      priority: 16851
+      name: "shop-l"
+      priority: 16864
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 5592405
         offset_y: 10
       }
-      priority: 15851
+      priority: 15864
     }
   }
 }
@@ -57927,12 +57927,12 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-m"
+      name: "grocery-l"
       priority: 16851
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 5592405
         offset_y: 10
       }
