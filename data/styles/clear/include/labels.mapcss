@@ -1517,6 +1517,7 @@ line|z11-[waterway=river] {
   text-halo-opacity: 0.1;
   text-halo-color: @halo_water_lable;
   text-halo-radius: 0;
+  z-index: 10000;
 }
 
 line|z11-[waterway=riverbank] {
@@ -1526,12 +1527,24 @@ line|z11-[waterway=riverbank] {
   text-halo-opacity: 0.1;
   text-halo-color: @halo_water_lable;
   text-halo-radius: 0;
+  z-index: 10000;
+}
+
+line|z13-[waterway=riverbank],
+line|z13-[waterway=river] {
+  text: name;
+  font-size: 10;
+  text-color: @water_label;
+  text-halo-opacity: 0.1;
+  text-halo-color: @halo_water_lable;
+  text-halo-radius: 0;
+  z-index: 10000;
 }
 
 line|z13-[waterway=stream],
 line|z13-[waterway=canal] {
   text: name;
-  font-size: 11;
+  font-size: 10;
   text-color: @water_label;
   text-halo-opacity: 0.1;
   text-halo-color: @halo_water_lable;
@@ -1540,26 +1553,28 @@ line|z13-[waterway=canal] {
 }
 line|z15-[waterway=river] {
   text: name;
-  font-size: 10;
+  font-size: 12;
   text-color: @water_label;
   text-halo-opacity: 0.1;
   text-halo-color: @halo_water_lable;
   text-halo-radius: 0;
+  z-index: 10000;
 }
 
 line|z15-[waterway=riverbank] {
   text: name;
-  font-size: 10;
+  font-size: 12;
   text-color: @water_label;
   text-halo-opacity: 0.1;
   text-halo-color: @halo_water_lable;
   text-halo-radius: 0;
+  z-index: 10000;
 }
 
 line|z15-[waterway=stream],
 line|z15-[waterway=canal] {
   text: name;
-  font-size: 10;
+  font-size: 11;
   text-color: @water_label;
   text-halo-opacity: 0.1;
   text-halo-color: @halo_water_lable;
@@ -1568,20 +1583,22 @@ line|z15-[waterway=canal] {
 }
 line|z17-[waterway=river] {
   text: name;
-  font-size: 11;
+  font-size: 12;
   text-color: @water_label;
   text-halo-opacity: 0.1;
   text-halo-color: @halo_water_lable;
   text-halo-radius: 0;
+  z-index: 10000;
 }
 
 line|z17-[waterway=riverbank] {
   text: name;
-  font-size: 11;
+  font-size: 12;
   text-color: @water_label;
   text-halo-opacity: 0.1;
   text-halo-color: @halo_water_lable;
   text-halo-radius: 0;
+  z-index: 10000;
 }
 
 line|z17-[waterway=stream],
@@ -1601,6 +1618,7 @@ line|z18-[waterway=river] {
   text-halo-opacity: 0.1;
   text-halo-color: @halo_water_lable;
   text-halo-radius: 0;
+  z-index: 10000;
 }
 
 line|z18-[waterway=riverbank] {
@@ -1610,6 +1628,7 @@ line|z18-[waterway=riverbank] {
   text-halo-opacity: 0.1;
   text-halo-color: @halo_water_lable;
   text-halo-radius: 0;
+  z-index: 10000;
 }
 
 line|z18-[waterway=stream],
