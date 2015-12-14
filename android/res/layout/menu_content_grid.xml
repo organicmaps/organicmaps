@@ -55,6 +55,7 @@
     style="@style/MwmTheme.Menu.Content.GridItem.Text"
     android:drawableTop="@drawable/ic_showcase"
     android:visibility="gone"
+    android:text="@string/showcase_more_apps"
     tools:background="#200000FF"
     tools:visibility="visible"/>
 

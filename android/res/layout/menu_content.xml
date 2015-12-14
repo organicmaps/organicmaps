@@ -53,6 +53,7 @@
     style="@style/MwmTheme.Menu.Content.ListItem"
     android:drawableLeft="@drawable/ic_showcase"
     android:visibility="gone"
+    android:text="@string/showcase_more_apps"
     tools:visibility="visible"
     tools:background="#20FF0000"/>
 
