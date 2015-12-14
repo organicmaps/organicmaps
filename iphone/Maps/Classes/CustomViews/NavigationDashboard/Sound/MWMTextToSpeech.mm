@@ -6,7 +6,7 @@
 #include "Framework.h"
 #include "sound/tts/languages.hpp"
 
-extern NSString * const kUserDefaultsTTSLanguage = @"UserDefaultsTTSLanguage";
+extern NSString * const kUserDefaultsTTSLanguageBcp47 = @"UserDefaultsTTSLanguageBcp47";
 extern NSString * const kUserDafaultsNeedToEnableTTS = @"UserDefaultsNeedToEnableTTS";
 
 @interface MWMTextToSpeech()
@@ -83,7 +83,7 @@ extern NSString * const kUserDafaultsNeedToEnableTTS = @"UserDefaultsNeedToEnabl
   [[Statistics instance] logEvent:kStatEventName(kStatTTSSettings, kStatChangeLanguage)
                    withParameters:@{kStatValue : locale}];
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-  [ud setObject:locale forKey:kUserDefaultsTTSLanguage];
+  [ud setObject:locale forKey:kUserDefaultsTTSLanguageBcp47];
   [ud synchronize];
   [self createVoice:locale];
 }
@@ -126,7 +126,7 @@ extern NSString * const kUserDafaultsNeedToEnableTTS = @"UserDefaultsNeedToEnabl
 
 - (NSString *)savedLanguage
 {
-  return [[NSUserDefaults standardUserDefaults] stringForKey:kUserDefaultsTTSLanguage];
+  return [[NSUserDefaults standardUserDefaults] stringForKey:kUserDefaultsTTSLanguageBcp47];
 }
 
 - (void)createSynthesizer
