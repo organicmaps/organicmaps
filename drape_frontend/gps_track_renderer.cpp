@@ -19,6 +19,8 @@ namespace df
 namespace
 {
 
+//#define SHOW_RAW_POINTS
+
 int const kMinVisibleZoomLevel = 15;
 
 size_t const kAveragePointsCount = 512;
@@ -313,6 +315,23 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
 
         lengthFromStart += dist;
       }
+
+#ifdef SHOW_RAW_POINTS
+      for (size_t i = 0; i < m_points.size(); i++)
+      {
+        m_handlesCache[cacheIndex].first->SetPoint(m_handlesCache[cacheIndex].second, m_points[i].m_point, m_radius * 1.2, dp::Color(0, 0, 255, 255));
+        m_handlesCache[cacheIndex].second++;
+        if (m_handlesCache[cacheIndex].second >= m_handlesCache[cacheIndex].first->GetPointsCount())
+          cacheIndex++;
+
+        if (cacheIndex >= m_handlesCache.size())
+        {
+          m_dataRequestFn(kAveragePointsCount);
+          m_waitForRenderData = true;
+          return;
+        }
+      }
+#endif
     }
     m_needUpdate = false;
   }
@@ -322,7 +341,7 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
 
   GLFunctions::glClearDepth();
 
-  ASSERT_EQUAL(m_renderData.size(), m_handlesCache.size(), ());
+  ASSERT_LESS_OR_EQUAL(m_renderData.size(), m_handlesCache.size(), ());
 
   // Render points.
   dp::UniformValuesStorage uniforms = commonUniforms;
