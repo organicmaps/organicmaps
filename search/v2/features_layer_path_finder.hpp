@@ -13,6 +13,15 @@ namespace v2
 {
 class FeaturesLayerMatcher;
 
+// This class is able to find all paths through a layered graph, with
+// vertices as features, and edges as pairs of vertices satisfying
+// belongs-to relation. For more details on belongs-to relation see
+// documentation for FeaturesLayerMatcher.
+//
+// In short, this class is able to find all features matching to a
+// given interpretation of a search query.
+//
+// NOTE: this class *IS* thread-safe.
 class FeaturesLayerPathFinder
 {
 public:

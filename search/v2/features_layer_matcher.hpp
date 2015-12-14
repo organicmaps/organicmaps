@@ -31,6 +31,21 @@ namespace search
 {
 namespace v2
 {
+// This class performs pairwise intersection between two layers of
+// features, where the first (child) layer is geographically smaller
+// than the second (parent) one.  It emits all pairs
+// (feature-from-child-layer, feature-from-parent-layer) of matching
+// features, where feature-from-child-layer belongs-to
+// feature-from-parent-layer.  Belongs-to is a partial relation on
+// features, and has different meaning for different search classes:
+//
+// * BUILDING belongs-to STREET iff the building is located on the street;
+// * BUILDING belongs-to CITY iff the building is located in the city;
+// * POI belongs-to BUILDING iff the poi is (roughly) located near or inside the building;
+// * STREET belongs-to CITY iff the street is (roughly) located in the city;
+// * etc.
+//
+// NOTE: this class *IS NOT* thread-safe.
 class FeaturesLayerMatcher
 {
 public:
