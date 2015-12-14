@@ -11,6 +11,7 @@ include($$ROOT_DIR/common.pri)
 HEADERS += \
     algos.hpp \
     approximate_string_match.hpp \
+    cancel_exception.hpp \
     categories_holder.hpp \
     dummy_rank_table.hpp \
     feature_offset_match.hpp \

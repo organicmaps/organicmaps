@@ -1,9 +1,10 @@
 #include "search/v2/geocoder.hpp"
 
+#include "search/cancel_exception.hpp"
 #include "search/retrieval.hpp"
-#include "search/v2/features_layer_matcher.hpp"
 #include "search/search_delimiters.hpp"
 #include "search/search_string_utils.hpp"
+#include "search/v2/features_layer_matcher.hpp"
 
 #include "indexer/feature_decl.hpp"
 #include "indexer/feature_impl.hpp"
@@ -55,6 +56,7 @@ Geocoder::Geocoder(Index & index)
   , m_numTokens(0)
   , m_model(SearchModel::Instance())
   , m_value(nullptr)
+  , m_finder(static_cast<my::Cancellable const &>(*this))
   , m_results(nullptr)
 {
 }
@@ -105,8 +107,8 @@ void Geocoder::Go(vector<FeatureID> & results)
 
       m_cache.clear();
       m_loader.reset(new Index::FeaturesLoaderGuard(m_index, m_mwmId));
-      m_matcher.reset(
-          new FeaturesLayerMatcher(m_index, m_mwmId, *m_value, m_loader->GetFeaturesVector()));
+      m_matcher.reset(new FeaturesLayerMatcher(
+          m_index, m_mwmId, *m_value, m_loader->GetFeaturesVector(), *this /* cancellable */));
 
       DoGeocoding(0 /* curToken */);
     }
@@ -138,8 +140,7 @@ void Geocoder::PrepareParams(size_t curToken, size_t endToken)
 
 void Geocoder::DoGeocoding(size_t curToken)
 {
-  if (IsCancelled())
-    MYTHROW(CancelException, ("Cancelled."));
+  BailIfCancelled(static_cast<my::Cancellable const &>(*this));
 
   if (curToken == m_numTokens)
   {
@@ -155,6 +156,8 @@ void Geocoder::DoGeocoding(size_t curToken)
   // Try to consume first n tokens starting at |curToken|.
   for (size_t n = 1; curToken + n <= m_numTokens; ++n)
   {
+    BailIfCancelled(static_cast<my::Cancellable const &>(*this));
+
     PrepareParams(curToken, curToken + n);
     {
       auto & layer = m_layers.back();

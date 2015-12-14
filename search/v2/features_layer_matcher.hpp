@@ -1,5 +1,6 @@
 #pragma once
 
+#include "search/cancel_exception.hpp"
 #include "search/reverse_geocoder.hpp"
 #include "search/v2/features_layer.hpp"
 #include "search/v2/house_numbers_matcher.hpp"
@@ -17,6 +18,7 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "base/cancellable.hpp"
 #include "base/macros.hpp"
 #include "base/stl_helpers.hpp"
 
@@ -50,7 +52,7 @@ class FeaturesLayerMatcher
 {
 public:
   FeaturesLayerMatcher(Index & index, MwmSet::MwmId const & mwmId, MwmValue & value,
-                       FeaturesVector const & featuresVector);
+                       FeaturesVector const & featuresVector, my::Cancellable const & cancellable);
 
   template <typename TFn>
   void Match(FeaturesLayer const & child, vector<uint32_t> const & sortedParentFeatures,
@@ -75,6 +77,8 @@ public:
       childCenters.push_back(feature::GetCenter(ft, FeatureType::WORST_GEOMETRY));
     }
 
+    BailIfCancelled(m_cancellable);
+
     vector<m2::RectD> parentRects;
     for (uint32_t featureId : sortedParentFeatures)
     {
@@ -87,6 +91,8 @@ public:
 
     for (size_t j = 0; j < sortedParentFeatures.size(); ++j)
     {
+      BailIfCancelled(m_cancellable);
+
       for (size_t i = 0; i < child.m_sortedFeatures.size(); ++i)
       {
         if (parentRects[j].IsPointInside(childCenters[i]))
@@ -105,7 +111,10 @@ private:
     ASSERT_EQUAL(parentType, SearchModel::SEARCH_TYPE_STREET, ());
 
     for (uint32_t streetId : sortedParentFeatures)
+    {
+      BailIfCancelled(m_cancellable);
       m_loader.ForEachInVicinity(streetId, child.m_sortedFeatures, bind(fn, _1, streetId));
+    }
   }
 
   template <typename TFn>
@@ -126,8 +135,13 @@ private:
     vector<string> queryTokens;
     NormalizeHouseNumber(child.m_subQuery, queryTokens);
 
+    uint32_t numFilterInvocations = 0;
     auto filter = [&](uint32_t id, FeatureType & feature) -> bool
     {
+      ++numFilterInvocations;
+      if ((numFilterInvocations & 0xFF) == 0)
+        BailIfCancelled(m_cancellable);
+
       if (!checker(feature))
         return false;
       if (binary_search(child.m_sortedFeatures.begin(), child.m_sortedFeatures.end(), id))
@@ -149,7 +163,10 @@ private:
     };
 
     for (uint32_t streetId : sortedParentFeatures)
+    {
+      BailIfCancelled(m_cancellable);
       m_loader.FilterFeaturesInVicinity(streetId, filter, bind(addEdge, _1, _2, streetId));
+    }
   }
 
   MwmSet::MwmId m_mwmId;
@@ -157,6 +174,7 @@ private:
   unique_ptr<HouseToStreetTable> m_houseToStreetTable;
   FeaturesVector const & m_featuresVector;
   StreetVicinityLoader m_loader;
+  my::Cancellable const & m_cancellable;
 };
 }  // namespace v2
 }  // namespace search

@@ -7,6 +7,11 @@
 class FeaturesVector;
 class MwmValue;
 
+namespace my
+{
+class Cancellable;
+}
+
 namespace search
 {
 namespace v2
@@ -25,6 +30,8 @@ class FeaturesLayerMatcher;
 class FeaturesLayerPathFinder
 {
 public:
+  FeaturesLayerPathFinder(my::Cancellable const & cancellable);
+
   template <typename TFn>
   void ForEachReachableVertex(FeaturesLayerMatcher & matcher,
                               vector<FeaturesLayer const *> const & layers, TFn && fn)
@@ -42,6 +49,8 @@ public:
 private:
   void BuildGraph(FeaturesLayerMatcher & matcher, vector<FeaturesLayer const *> const & layers,
                   vector<uint32_t> & reachable);
+
+  my::Cancellable const & m_cancellable;
 };
 }  // namespace v2
 }  // namespace search

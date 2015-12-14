@@ -1,5 +1,6 @@
 #include "retrieval.hpp"
 
+#include "cancel_exception.hpp"
 #include "feature_offset_match.hpp"
 #include "interval_set.hpp"
 #include "mwm_traits.hpp"

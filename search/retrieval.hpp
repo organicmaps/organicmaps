@@ -7,7 +7,6 @@
 #include "geometry/rect2d.hpp"
 
 #include "base/cancellable.hpp"
-#include "base/exception.hpp"
 #include "base/macros.hpp"
 
 #include "std/function.hpp"
@@ -24,13 +23,6 @@ class CompressedBitVector;
 
 namespace search
 {
-// This exception can be thrown by callbacks from deeps of search and
-// geometry retrieval for fast cancellation of time-consuming tasks.
-//
-// TODO (@gorshenin): after merge to master, move this class to
-// base/cancellable.hpp.
-DECLARE_EXCEPTION(CancelException, RootException);
-
 class Retrieval : public my::Cancellable
 {
 public:
