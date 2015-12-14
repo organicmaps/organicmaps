@@ -14059,6 +14059,36 @@
     nl = Laat de aanbiedingen van partners zien
     pt = Mostrar anúncios
 
+  [showcase_more_apps]
+    tags = ios, android
+    en = More My.com Apps
+    ru = Другие приложения My.com
+    fr = Plus d'applications My.com
+    da = Flere My.com apps
+    id = Lebih Banyak Aplikasi My.com
+    ko = 기타 My.com 앱
+    sv = Mai multe aplicații My.com
+    tr = Daha fazla My.com uygulamaları
+    uk = Інші додатки My.com
+    vi = Thêm Ứng dụng My.com
+    hu = Több My.com alkalmazás
+    de = Weitere My.com Apps
+    fi = Lisää My.com sovelluksia
+    cs = Více aplikací My.com
+    it = Altre app su My.com
+    nb = Flere apper fra My.com
+    zh-Hant = 更多My.com 應用
+    zh-Hans = 更多My.com应用
+    th = แอป My.com เพิ่มเติม
+    ja = 他のMy.comアプリ
+    ro = Mai multe aplicații My.com
+    ar = المزيد من تطبيقات My.com
+    sk = Ďalšie My.com aplikácie
+    es = Más apps de My.com
+    pl = Więcej aplikacji My.com
+    nl = Meer My.com apps
+    pt = Mais aplicativos do My.com
+
   [read_in_wikipedia]
     tags = ios, android
     comment = Place Page link to Wikipedia article (if map object has it).
