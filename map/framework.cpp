@@ -108,7 +108,7 @@ namespace
   // This is temporary solution while we don't have a good filter.
   void ParseSetGpsTrackMinAccuracyCommand(string const & query)
   {
-    const char  kGpsAccuracy[] = "?gpstrackaccuracy:";
+    const char kGpsAccuracy[] = "?gpstrackaccuracy:";
     if (strings::StartsWith(query, kGpsAccuracy))
     {
       size_t const end = query.find(';', sizeof(kGpsAccuracy) - 1);
