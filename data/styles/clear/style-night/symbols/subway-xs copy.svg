@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="9px" height="9px" viewBox="0 0 9 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+    <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>subway-xs copy</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="Transport" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="subway-xs-copy" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-139-Copy" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="4.4607938" cy="4.4601378" rx="4.4607938" ry="4.4601378"></ellipse>
-            <ellipse id="Oval-139" fill="#21405C" sketch:type="MSShapeGroup" cx="4.4607938" cy="4.4601378" rx="3.46950629" ry="3.46899606"></ellipse>
-            <rect id="Rectangle-307" opacity="0.41" fill="#FFFFFF" sketch:type="MSShapeGroup" x="2.97386254" y="2.9734252" width="2.97386254" height="2.9734252"></rect>
+            <ellipse id="Oval-139-Copy" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="4.4607938" cy="4.4601378" rx="4.4607938" ry="4.4601378"></ellipse>
+            <ellipse id="Oval-139" fill="#133655" sketch:type="MSShapeGroup" cx="4.4607938" cy="4.4601378" rx="3.46950629" ry="3.46899606"></ellipse>
+            <rect id="Rectangle-307" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup" x="2.97386254" y="2.9734252" width="2.97386254" height="2.9734252"></rect>
         </g>
     </g>
 </svg>

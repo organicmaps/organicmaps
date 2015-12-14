@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+    <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>airport-s</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="Transport" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="airport-s" sketch:type="MSLayerGroup" transform="translate(0.239109, 0.590551)">
-            <ellipse id="Oval-1-Copy-51" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.42594385" cy="8.42470472" rx="8.42594385" ry="8.42470472"></ellipse>
-            <ellipse id="Oval-1-Copy-50" fill="#21405C" sketch:type="MSShapeGroup" cx="8.42594385" cy="8.42470472" rx="7.43465634" ry="7.43356299"></ellipse>
-            <path d="M12.8867377,8.71292874 L12.8867377,9.27926713 L9.91287512,9.27926692 L9.91287512,10.7659797 L10.9041626,11.8122289 L10.9041626,12.2526923 L6.93901258,12.2526923 L6.93901258,11.8122289 L7.9303001,10.7659797 L7.9303001,9.27926692 L4.95643756,9.27926713 L4.95643756,8.71292874 L7.9303001,7.29698366 L7.9303001,5.3147002 C7.9303001,4.87423681 8.47917438,4.03223664 8.91970255,4.03223664 C9.36027037,4.03223664 9.91287512,4.87423681 9.91287512,5.3147002 L9.91287512,7.29698366 L12.8867377,8.71292874 Z" id="path7712-0-5" opacity="0.41" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <ellipse id="Oval-1-Copy-51" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.42594385" cy="8.42470472" rx="8.42594385" ry="8.42470472"></ellipse>
+            <ellipse id="Oval-1-Copy-50" fill="#133655" sketch:type="MSShapeGroup" cx="8.42594385" cy="8.42470472" rx="7.43465634" ry="7.43356299"></ellipse>
+            <path d="M12.8867377,8.71292874 L12.8867377,9.27926713 L9.91287512,9.27926692 L9.91287512,10.7659797 L10.9041626,11.8122289 L10.9041626,12.2526923 L6.93901258,12.2526923 L6.93901258,11.8122289 L7.9303001,10.7659797 L7.9303001,9.27926692 L4.95643756,9.27926713 L4.95643756,8.71292874 L7.9303001,7.29698366 L7.9303001,5.3147002 C7.9303001,4.87423681 8.47917438,4.03223664 8.91970255,4.03223664 C9.36027037,4.03223664 9.91287512,4.87423681 9.91287512,5.3147002 L9.91287512,7.29698366 L12.8867377,8.71292874 Z" id="path7712-0-5" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>
 </svg>

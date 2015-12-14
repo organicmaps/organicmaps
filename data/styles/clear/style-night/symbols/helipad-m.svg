@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+    <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>helipad-m</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="Transport" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="helipad-m" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" r="11.5"></circle>
-            <circle id="Oval-1-Copy-40" fill="#21405C" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" r="8.5"></circle>
+            <circle id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" r="11.5"></circle>
+            <circle id="Oval-1-Copy-40" fill="#133655" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" r="8.5"></circle>
             <path d="M11.5,22 C17.2989899,22 22,17.2989899 22,11.5 C22,5.70101013 17.2989899,1 11.5,1 C5.70101013,1 1,5.70101013 1,11.5 C1,17.2989899 5.70101013,22 11.5,22 Z M11.5,20 C16.1944204,20 20,16.1944204 20,11.5 C20,6.80557963 16.1944204,3 11.5,3 C6.80557963,3 3,6.80557963 3,11.5 C3,16.1944204 6.80557963,20 11.5,20 Z" id="Oval-1-Copy-53" fill="#F8E81C" sketch:type="MSShapeGroup"></path>
-            <path d="M10,11 L10,7 L8,7 L8,17 L10,17 L10,13 L13,13 L13,11 L10,11 Z M13,7 L15,7 L15,17 L13,17 L13,7 Z" id="Rectangle-53-Copy-2" opacity="0.41" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path d="M10,11 L10,7 L8,7 L8,17 L10,17 L10,13 L13,13 L13,11 L10,11 Z M13,7 L15,7 L15,17 L13,17 L13,7 Z" id="Rectangle-53-Copy-2" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>
 </svg>
