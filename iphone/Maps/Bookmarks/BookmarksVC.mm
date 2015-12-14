@@ -120,9 +120,11 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
         [cell layoutIfNeeded];
         CGRect const leftR = cell.textLabel.frame;
         CGFloat const padding = leftR.origin.x;
-        CGRect r = CGRectMake(padding + leftR.size.width + padding, leftR.origin.y,
-                              cell.contentView.frame.size.width - 3 * padding - leftR.size.width, leftR.size.height);
-        UITextField * f = [[UITextField alloc] initWithFrame:r];
+
+        UITextField * f = [[UITextField alloc] initWithFrame:{{padding + leftR.size.width + padding + leftR.origin.x,
+                                                              leftR.origin.y},
+                                                              {cell.contentView.frame.size.width - 3 * padding - leftR.size.width,
+                                                              leftR.size.height}}];
         f.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         f.enablesReturnKeyAutomatically = YES;
         f.returnKeyType = UIReturnKeyDone;
