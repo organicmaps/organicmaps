@@ -475,6 +475,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   [RouteState remove];
   [self.menuController setInactive];
   [self resetRoutingPoint];
+  [self navigationDashBoardDidUpdate];
 }
 
 - (void)swapPointsAndRebuildRouteIfPossible
