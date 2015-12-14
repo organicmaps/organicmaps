@@ -22,6 +22,8 @@ namespace dp
 
 @property (nonatomic) MWMMapWidgets * widgetsManager;
 
+@property (nonatomic, readonly) BOOL drapeEngineCreated;
+
 - (void)deallocateNative;
 - (CGPoint)viewPoint2GlobalPoint:(CGPoint)pt;
 - (CGPoint)globalPoint2ViewPoint:(CGPoint)pt;
