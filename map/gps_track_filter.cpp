@@ -7,7 +7,7 @@ namespace
 
 double constexpr kMinHorizontalAccuracyMeters = 50;
 
-char const kMinHorizontalAccuracyKey[] = "GpsTrackinMinAccuracy";
+char const kMinHorizontalAccuracyKey[] = "GpsTrackingMinAccuracy";
 
 } // namespace
 
