@@ -48,6 +48,7 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_userPositionChangedFn(params.m_positionChangedFn)
   , m_tileTree(new TileTree())
   , m_requestedTiles(params.m_requestedTiles)
+  , m_maxGeneration(0)
 {
 #ifdef DRAW_INFO
   m_tpf = 0.0;
@@ -120,8 +121,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       bucket->GetBuffer()->Build(program);
       if (!IsUserMarkLayer(key))
       {
-        CheckTileGenerations(key);
-        m_tileTree->ProcessTile(key, GetCurrentZoomLevel(), state, move(bucket));
+        if (CheckTileGenerations(key))
+          m_tileTree->ProcessTile(key, GetCurrentZoomLevelForData(), state, move(bucket));
       }
       else
       {
@@ -134,7 +135,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::FinishReading:
     {
       ref_ptr<FinishReadingMessage> msg = message;
-      m_tileTree->FinishTiles(msg->GetTiles(), GetCurrentZoomLevel());
+      for (auto const & tileKey : msg->GetTiles())
+        CheckTileGenerations(tileKey);
+      m_tileTree->FinishTiles(msg->GetTiles(), GetCurrentZoomLevelForData());
       break;
     }
 
@@ -537,13 +540,20 @@ void FrontendRenderer::RemoveRenderGroups(TRenderGroupRemovePredicate const & pr
                                m_deferredRenderGroups.end());
 }
 
-void FrontendRenderer::CheckTileGenerations(TileKey const & tileKey)
+bool FrontendRenderer::CheckTileGenerations(TileKey const & tileKey)
 {
+  bool const result = (tileKey.m_generation >= m_maxGeneration);
+
+  if (tileKey.m_generation > m_maxGeneration)
+    m_maxGeneration = tileKey.m_generation;
+
   auto removePredicate = [&tileKey](drape_ptr<RenderGroup> const & group)
   {
     return group->GetTileKey() == tileKey && group->GetTileKey().m_generation < tileKey.m_generation;
   };
   RemoveRenderGroups(removePredicate);
+
+  return result;
 }
 
 void FrontendRenderer::OnCompassTapped()
@@ -756,6 +766,12 @@ int FrontendRenderer::GetCurrentZoomLevel() const
   return m_currentZoomLevel;
 }
 
+int FrontendRenderer::GetCurrentZoomLevelForData() const
+{
+  int const upperScale = scales::GetUpperScale();
+  return (m_currentZoomLevel <= upperScale ? m_currentZoomLevel : upperScale);
+}
+
 void FrontendRenderer::ResolveZoomLevel(ScreenBase const & screen)
 {
   m_currentZoomLevel = GetDrawTileScale(screen);
@@ -864,9 +880,10 @@ void FrontendRenderer::ResolveTileKeys(ScreenBase const & screen, TTilesCollecti
 void FrontendRenderer::ResolveTileKeys(m2::RectD const & rect, TTilesCollection & tiles)
 {
   // equal for x and y
-  int const tileScale = GetCurrentZoomLevel();
+  int const zoomLevel = GetCurrentZoomLevelForData();
+
   double const range = MercatorBounds::maxX - MercatorBounds::minX;
-  double const rectSize = range / (1 << tileScale);
+  double const rectSize = range / (1 << zoomLevel);
 
   int const minTileX = static_cast<int>(floor(rect.minX() / rectSize));
   int const maxTileX = static_cast<int>(ceil(rect.maxX() / rectSize));
@@ -874,14 +891,15 @@ void FrontendRenderer::ResolveTileKeys(m2::RectD const & rect, TTilesCollection 
   int const maxTileY = static_cast<int>(ceil(rect.maxY() / rectSize));
 
   // request new tiles
-  m_tileTree->BeginRequesting(tileScale, rect);
+  m_tileTree->BeginRequesting(zoomLevel, rect);
   for (int tileY = minTileY; tileY < maxTileY; ++tileY)
   {
     for (int tileX = minTileX; tileX < maxTileX; ++tileX)
     {
-      TileKey key(tileX, tileY, tileScale);
+      TileKey key(tileX, tileY, zoomLevel);
       if (rect.IsIntersect(key.GetGlobalRect()))
       {
+        key.m_styleZoomLevel = GetCurrentZoomLevel();
         tiles.insert(key);
         m_tileTree->RequestTile(key);
       }
@@ -1072,7 +1090,7 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
 
   auto removePredicate = [this](drape_ptr<RenderGroup> const & group)
   {
-    return group->IsOverlay() && group->GetTileKey().m_zoomLevel > GetCurrentZoomLevel();
+    return group->IsOverlay() && group->GetTileKey().m_styleZoomLevel > GetCurrentZoomLevel();
   };
   RemoveRenderGroups(removePredicate);
 

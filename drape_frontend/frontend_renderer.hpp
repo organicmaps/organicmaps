@@ -147,6 +147,7 @@ private:
   void ResolveTileKeys(ScreenBase const & screen, TTilesCollection & tiles);
   void ResolveTileKeys(m2::RectD const & rect, TTilesCollection & tiles);
   int GetCurrentZoomLevel() const;
+  int GetCurrentZoomLevelForData() const;
   void ResolveZoomLevel(ScreenBase const & screen);
 
   void OnTap(m2::PointD const & pt, bool isLong) override;
@@ -197,7 +198,7 @@ private:
   using TRenderGroupRemovePredicate = function<bool(drape_ptr<RenderGroup> const &)>;
   void RemoveRenderGroups(TRenderGroupRemovePredicate const & predicate);
 
-  void CheckTileGenerations(TileKey const & tileKey);
+  bool CheckTileGenerations(TileKey const & tileKey);
 
   void OnCompassTapped();
 
@@ -230,6 +231,7 @@ private:
   unique_ptr<TileTree> m_tileTree;
   int m_currentZoomLevel = -1;
   ref_ptr<RequestedTiles> m_requestedTiles;
+  uint64_t m_maxGeneration;
 };
 
 } // namespace df

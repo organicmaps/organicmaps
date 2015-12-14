@@ -26,11 +26,12 @@ struct TileKey
   bool operator < (TileKey const & other) const;
   bool operator == (TileKey const & other) const;
 
-  m2::RectD GetGlobalRect() const;
+  m2::RectD GetGlobalRect(bool considerStyleZoom = false) const;
 
   int m_x;
   int m_y;
   int m_zoomLevel;
+  int m_styleZoomLevel;
   uint64_t m_generation;
 };
 

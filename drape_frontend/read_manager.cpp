@@ -171,8 +171,8 @@ size_t ReadManager::ReadCount()
 
 bool ReadManager::MustDropAllTiles(ScreenBase const & screen) const
 {
-  int const oldScale = df::GetTileScaleBase(m_currentViewport);
-  int const newScale = df::GetTileScaleBase(screen);
+  int const oldScale = df::GetDrawTileScale(m_currentViewport);
+  int const newScale = df::GetDrawTileScale(screen);
   return (oldScale != newScale) || !m_currentViewport.GlobalRect().IsIntersect(screen.GlobalRect());
 }
 
