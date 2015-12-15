@@ -140,6 +140,12 @@ public:
           md.Set(Metadata::FMD_HEIGHT, value);
       }
     }
+    else if (k == "denomination")
+    {
+      string const & value = ValidateAndFormat_denomination(v);
+      if (!value.empty())
+        md.Set(Metadata::FMD_DENOMINATION, value);
+    }
     return false;
   }
 
@@ -248,6 +254,10 @@ protected:
     stringstream ss;
     ss << fixed << setw(2) << setprecision(1) << (val * 3 /*levels multiplied by 3 meters per level*/);
     return ss.str();
+  }
+  string ValidateAndFormat_denomination(string const & v) const
+  {
+    return v;
   }
   string ValidateAndFormat_wikipedia(string v) const;
 };

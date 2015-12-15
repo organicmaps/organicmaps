@@ -38,6 +38,7 @@ namespace feature
       FMD_MAXSPEED = 17,
       FMD_FLATS = 18,
       FMD_HEIGHT = 19,
+      FMD_DENOMINATION = 20,
       FMD_COUNT
     };
 
