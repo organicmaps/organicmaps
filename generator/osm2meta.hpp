@@ -140,6 +140,23 @@ public:
           md.Set(Metadata::FMD_HEIGHT, value);
       }
     }
+    else if (k == "min_height")
+    {
+      string const & value = ValidateAndFormat_height(v);
+      if (!value.empty())
+        md.Set(Metadata::FMD_MIN_HEIGHT, value);
+    }
+    else if (k == "building:min_level")
+    {
+      // Ignoring if FMD_HEIGHT already set
+      if (md.Get(Metadata::FMD_HEIGHT).empty())
+      {
+        // Converting this attribute into height
+        string const & value = ValidateAndFormat_building_levels(v);
+        if (!value.empty())
+          md.Set(Metadata::FMD_MIN_HEIGHT, value);
+      }
+    }
     else if (k == "denomination")
     {
       string const & value = ValidateAndFormat_denomination(v);
