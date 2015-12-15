@@ -192,12 +192,15 @@ pair<size_t, size_t> GpsTrackCollection::RemoveExtraItems()
 
   // First, try linear search for short distance. It is common case for sliding window
   // when new items will evict old items.
-  for (size_t j = 0; j < kLinearSearchCount && !found; ++i, ++j)
+  for (size_t j = 0; j < kLinearSearchCount; ++i, ++j)
   {
     ASSERT(i != m_items.end(), ());
 
-    if (i->m_timestamp >= lowerBound)
+    if (i->m_timestamp > lowerBound)
+    {
       found = true;
+      break;
+    }
   }
 
   // If item wasn't found by linear search, since m_items are sorted by timestamp, use lower_bound to find bound

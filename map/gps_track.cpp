@@ -258,7 +258,7 @@ void GpsTrack::UpdateCollection(hours duration, bool needClear, vector<location:
   // Add points to the collection, if need
   pair<size_t, size_t> evictedIdsByAdd = make_pair(kInvalidId, kInvalidId);
   if (!points.empty())
-    addedIds = m_collection->Add(points, evictedIds);
+    addedIds = m_collection->Add(points, evictedIdsByAdd);
   else
     addedIds = make_pair(kInvalidId, kInvalidId);
 

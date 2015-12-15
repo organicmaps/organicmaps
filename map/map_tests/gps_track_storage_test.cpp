@@ -29,7 +29,7 @@ location::GpsTrackInfo Make(double timestamp, ms::LatLon const & ll, double spee
 
 inline string GetGpsTrackFilePath()
 {
-  return my::JoinFoldersToPath(GetPlatform().WritableDir(), "gpstrack.bin");
+  return my::JoinFoldersToPath(GetPlatform().WritableDir(), "gpstrack_test.bin");
 }
 
 } // namespace
