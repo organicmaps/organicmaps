@@ -1040,3 +1040,11 @@ barrier|border_control
 shop|laundry
 amenity|vending_machine|parking_tickets
 amenity|vending_machine|public_transport_tickets
+building:part
+amenity|place_of_worship|christian
+amenity|place_of_worship|muslim
+amenity|place_of_worship|buddhist
+amenity|place_of_worship|hindu
+amenity|place_of_worship|shinto
+amenity|place_of_worship|jewish
+amenity|place_of_worship|taoist

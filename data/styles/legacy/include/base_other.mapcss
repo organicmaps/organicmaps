@@ -574,6 +574,7 @@ node|z15-[leisure=nature_reserve]
 {
   icon-image: bird.svg;
 }
+area|z15-[building:part],
 area|z15-[building],
 node|z15-[building]
 {

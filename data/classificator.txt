@@ -69,7 +69,15 @@ world  +
                 {}
             {}
         pharmacy  -
-        place_of_worship  -
+        place_of_worship  +
+            buddhist  -
+            christian  -
+            hindu  -
+            jewish  -
+            muslim  -
+            shinto  -
+            taoist  -
+            {}
         police  -
         post_box  -
         post_office  -
@@ -155,6 +163,7 @@ world  +
     building  +
         address  -
         {}
+    building:part  -
     communication  +
         line  +
             underground  -

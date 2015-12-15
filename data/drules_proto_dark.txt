@@ -4145,6 +4145,559 @@ cont {
   }
 }
 cont {
+  name: "amenity-place_of_worship-buddhist"
+  element {
+    scale: 16
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-m"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-l"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-l"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-l"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+}
+cont {
+  name: "amenity-place_of_worship-christian"
+  element {
+    scale: 16
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-m"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-l"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-l"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-l"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+}
+cont {
+  name: "amenity-place_of_worship-hindu"
+  element {
+    scale: 16
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-m"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-l"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-l"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-l"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+}
+cont {
+  name: "amenity-place_of_worship-jewish"
+  element {
+    scale: 16
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-m"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-l"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-l"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-l"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+}
+cont {
+  name: "amenity-place_of_worship-muslim"
+  element {
+    scale: 16
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-m"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-l"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-l"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-l"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+}
+cont {
+  name: "amenity-place_of_worship-shinto"
+  element {
+    scale: 16
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-m"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-l"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-l"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-l"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+}
+cont {
+  name: "amenity-place_of_worship-taoist"
+  element {
+    scale: 16
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-m"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-l"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-l"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 3355426
+      priority: -15136
+    }
+    symbol {
+      name: "place-of-worship-l"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+}
+cont {
   name: "amenity-police"
   element {
     scale: 17
