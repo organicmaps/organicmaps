@@ -47,7 +47,7 @@ extern NSString * const kUserDafaultsNeedToEnableTTS = @"UserDefaultsNeedToEnabl
     else
       preferedLanguageBcp47 = [AVSpeechSynthesisVoice currentLanguageCode];
 
-    string preferedLanguageTwine = tts::bcp47ToTwineLanguage(preferedLanguageBcp47);
+    string const preferedLanguageTwine = tts::bcp47ToTwineLanguage(preferedLanguageBcp47);
     pair<string, string> const lan {preferedLanguageTwine, tts::translatedTwine(preferedLanguageTwine)};
     if (find(_availableLanguages.begin(), _availableLanguages.end(), lan) != _availableLanguages.end())
       [self setNotificationsLocale:@([preferedLanguageBcp47 UTF8String])];
