@@ -13,7 +13,7 @@ node|z15[tourism=zoo], area|z15[tourism=zoo]
 { icon-image: zoo-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2700;  }
 node|z15[amenity=university][name]
 { icon-image: college-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 1; icon-min-distance: 12; -x-me-text-priority:16000;}
-node|z15[amenity=university][!name]{};
+node|z15[amenity=university][!name] { }
 node|z15[amenity=hospital]
 { icon-image: hospital-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2700; }
 
@@ -208,7 +208,7 @@ node|z16[amenity=college], area|z16[amenity=college] { icon-image: college-m.svg
 node|z16[amenity=hospital], area|z16[amenity=hospital] { icon-image: hospital-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2700;}
 node|z16[amenity=clinic], area|z16[amenity=clinic] { icon-image: hospital-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
 node|z16[amenity=university][name], area|z16[amenity=university][name] { icon-image: college-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 1;icon-min-distance: 11; -x-me-text-priority:16000;}
-node|z16[amenity=university][!name], area|z16[amenity=university][!name]{};
+node|z16[amenity=university][!name], area|z16[amenity=university][!name] { }
 node|z16[amenity=fuel], area|z16[amenity=fuel] { icon-image: fuel-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; }
 node|z16-[natural=spring],area|z16-[natural=spring]{ icon-image: drinking-water-m.svg; z-index: 1000; text-offset:8; font-size: 10;  text: name; text-color: @poi_label; z-index: 100; z-index: 2700; }
 node|z16[amenity=cafe], area|z16[amenity=cafe] { icon-image: cafe-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; icon-min-distance: 10;}
@@ -225,7 +225,7 @@ node|z17[amenity=college], area|z17[amenity=college] { icon-image: college-l.svg
 node|z17[amenity=hospital], area|z17[amenity=hospital] { icon-image: hospital-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2700; }
 node|z17[amenity=clinic], area|z17[amenity=clinic] { icon-image: hospital-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2400;}
 node|z17[amenity=university][name], area|z17[amenity=university][name] { icon-image: college-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; icon-min-distance: 10; -x-me-text-priority:16000;}
-node|z17[amenity=university][!name], area|z17[amenity=university][!name]{};
+node|z17[amenity=university][!name], area|z17[amenity=university][!name] { }
 node|z17[amenity=cinema], area|z17[amenity=cinema] { icon-image: cinema-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
 node|z17[amenity=bank], area|z17[amenity=bank] { z-index: 4500; icon-image: bank-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;}
 node|z17[amenity=fuel], area|z17[amenity=fuel] { icon-image: fuel-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; }
@@ -257,7 +257,7 @@ node|z18-[amenity=college], area|z18-[amenity=college] { icon-image: college-l.s
 node|z18-[amenity=hospital], area|z18-[amenity=hospital] { icon-image: hospital-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2700; }
 node|z18-[amenity=clinic], area|z18-[amenity=clinic] { icon-image: hospital-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400;}
 node|z18-[amenity=university][name], area|z18-[amenity=university][name] { icon-image: college-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; -x-me-text-priority:16000;}
-node|z18-[amenity=university][!name], area|z18-[amenity=university][!name]{};
+node|z18-[amenity=university][!name], area|z18-[amenity=university][!name] { } 
 node|z18-[amenity=cinema], area|z18-[amenity=cinema] { icon-image: cinema-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2600;}
 node|z18-[amenity=bank], area|z18-[amenity=bank] { z-index: 4500; icon-image: bank-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2600;}
 node|z18-[amenity=fuel], area|z18-[amenity=fuel] { icon-image: fuel-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2600; }

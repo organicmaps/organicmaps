@@ -2364,10 +2364,25 @@ cont {
 cont {
   name: "amenity-cinema"
   element {
-    scale: 19
+    scale: 17
     symbol {
-      name: "none"
-      priority: 16000
+      name: "cinema-l"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "cinema-l"
+      priority: 16864
     }
     caption {
       primary {
@@ -2375,7 +2390,22 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 15000
+      priority: 15864
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "cinema-l"
+      priority: 16864
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15864
     }
   }
 }
@@ -2843,6 +2873,21 @@ cont {
 cont {
   name: "amenity-fuel"
   element {
+    scale: 16
+    symbol {
+      name: "fuel-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "fuel-l"
@@ -3063,7 +3108,20 @@ cont {
     scale: 15
     area {
       color: 16308697
-      priority: -15973
+      priority: -15122
+    }
+    symbol {
+      name: "hospital-m"
+      apply_for_type: 1
+      priority: 16878
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15878
     }
   }
   element {
@@ -5386,15 +5444,7 @@ cont {
     scale: 15
     area {
       color: 16311482
-      priority: -15122
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 15878
+      priority: -15987
     }
     apply_if: "!name"
   }
@@ -5425,14 +5475,6 @@ cont {
       color: 16311482
       priority: -15987
     }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 15013
-    }
     apply_if: "!name"
   }
   element {
@@ -5462,9 +5504,155 @@ cont {
       color: 16311482
       priority: -15987
     }
+    apply_if: "!name"
+  }
+  element {
+    scale: 17
+    area {
+      color: 16311482
+      priority: -15987
+    }
+    symbol {
+      name: "college-l"
+      priority: 16013
+      min_distance: 10
+    }
     caption {
       primary {
         height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 16000
+    }
+    apply_if: "name"
+  }
+  element {
+    scale: 17
+    area {
+      color: 16311482
+      priority: -15987
+    }
+    apply_if: "!name"
+  }
+  element {
+    scale: 17
+    area {
+      color: 16311482
+      priority: -15987
+    }
+    symbol {
+      name: "college-l"
+      priority: 16013
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 16000
+    }
+    apply_if: "name"
+  }
+  element {
+    scale: 17
+    area {
+      color: 16311482
+      priority: -15987
+    }
+    apply_if: "!name"
+  }
+  element {
+    scale: 18
+    area {
+      color: 16311482
+      priority: -15987
+    }
+    symbol {
+      name: "college-l"
+      priority: 16013
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 16000
+    }
+    apply_if: "name"
+  }
+  element {
+    scale: 18
+    area {
+      color: 16311482
+      priority: -15987
+    }
+    apply_if: "!name"
+  }
+  element {
+    scale: 18
+    area {
+      color: 16311482
+      priority: -15987
+    }
+    symbol {
+      name: "college-l"
+      priority: 16013
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 16000
+    }
+    apply_if: "name"
+  }
+  element {
+    scale: 18
+    area {
+      color: 16311482
+      priority: -15987
+    }
+    apply_if: "!name"
+  }
+  element {
+    scale: 19
+    area {
+      color: 16311482
+      priority: -15987
+    }
+    symbol {
+      name: "college-l"
+      priority: 16013
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 16000
+    }
+    apply_if: "name"
+  }
+  element {
+    scale: 19
+    area {
+      color: 16311482
+      priority: -15987
+    }
+    symbol {
+      name: "none"
+      priority: 16013
+    }
+    caption {
+      primary {
+        height: 11
         color: 4473924
         offset_y: 10
       }
@@ -5473,152 +5661,6 @@ cont {
     apply_if: "!name"
   }
   element {
-    scale: 17
-    area {
-      color: 16311482
-      priority: -15987
-    }
-    symbol {
-      name: "college-l"
-      priority: 16013
-      min_distance: 10
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 16000
-    }
-    apply_if: "name"
-  }
-  element {
-    scale: 17
-    area {
-      color: 16311482
-      priority: -15136
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 15864
-    }
-    apply_if: "!name"
-  }
-  element {
-    scale: 17
-    area {
-      color: 16311482
-      priority: -15987
-    }
-    symbol {
-      name: "college-l"
-      priority: 16013
-      min_distance: 10
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 16000
-    }
-    apply_if: "name"
-  }
-  element {
-    scale: 17
-    area {
-      color: 16311482
-      priority: -15136
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 15864
-    }
-    apply_if: "!name"
-  }
-  element {
-    scale: 18
-    area {
-      color: 16311482
-      priority: -15987
-    }
-    symbol {
-      name: "college-l"
-      priority: 16013
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 16000
-    }
-    apply_if: "name"
-  }
-  element {
-    scale: 18
-    area {
-      color: 16311482
-      priority: -15136
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 15864
-    }
-    apply_if: "!name"
-  }
-  element {
-    scale: 18
-    area {
-      color: 16311482
-      priority: -15987
-    }
-    symbol {
-      name: "college-l"
-      priority: 16013
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 16000
-    }
-    apply_if: "name"
-  }
-  element {
-    scale: 18
-    area {
-      color: 16311482
-      priority: -15136
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 15864
-    }
-    apply_if: "!name"
-  }
-  element {
     scale: 19
     area {
       color: 16311482
@@ -5642,30 +5684,10 @@ cont {
     scale: 19
     area {
       color: 16311482
-      priority: -15136
+      priority: -15987
     }
     symbol {
       name: "none"
-      priority: 16864
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 15864
-    }
-    apply_if: "!name"
-  }
-  element {
-    scale: 19
-    area {
-      color: 16311482
-      priority: -15987
-    }
-    symbol {
-      name: "college-l"
       priority: 16013
     }
     caption {
@@ -5674,27 +5696,7 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 16000
-    }
-    apply_if: "name"
-  }
-  element {
-    scale: 19
-    area {
-      color: 16311482
-      priority: -15136
-    }
-    symbol {
-      name: "none"
-      priority: 16864
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 15864
+      priority: 15013
     }
     apply_if: "!name"
   }
