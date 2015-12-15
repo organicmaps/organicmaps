@@ -353,7 +353,7 @@
     id = Anda sudah sampai.
     ko = 도착했습니다.
     pt = Chegou.
-    sk = Ostro doľava.
+    sk = Dorazili ste do cieľa.
     sw = Umewasili mwisho wa safari.
     th = คุณมาถึงแล้ว
     zh-Hant = 您已抵達
@@ -1158,7 +1158,7 @@
     da = Tag den niende afkørsel.
     es = Tome la novena salida.
     fi = Poistu yhdeksännessä liittymässä.
-    hi = नौंवाँ एग्जिट लें।
+    hi = नौवें निकास को लें।
     hr = Izađite na devetom izlazu.
     id = Ambil jalan keluar kesembilan.
     ko = 아홉 번째 출구입니다.
@@ -1187,7 +1187,7 @@
     ja = 十番目の出口です。
     da = Tag den tiende afkørsel.
     es = Tome la décima salida.
-    fi = Poistu kymmenennessäliittymässä.
+    fi = Poistu kymmenennessä liittymässä.
     hi = दसवाँ एग्जिट लें।
     hr = Izađite na desetom izlazu.
     id = Ambil jalan keluar kesepuluh.
@@ -1208,7 +1208,7 @@
     fr = Prenez la onzième sortie.
     nl = Neem de elfde afslag.
     de = Nehmen Sie die elfte Ausfahrt.
-    ar = اسلك المخرج الحادي عشر.
+    ar = اسلك المَخْرَج الحادي عشر.
     el = Πάρτε την ενδέκατη έξοδο.
     it = Prendi l'undicesima uscita.
     cs = Vyjeďte jedenáctým výjezdem.
@@ -1837,7 +1837,7 @@
     tr = Bir buçuk mil sonra
     fr = Dans un virgule cinq mile
     nl = Over anderhalve mijl
-    de = In dreieinhalb Kilometern
+    de = In anderthalb Meilen
     ar = بعد ميل ونصف
     el = Σε ενάμιση μίλι
     it = Tra un miglio e mezzo
