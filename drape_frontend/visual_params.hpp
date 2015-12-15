@@ -38,10 +38,13 @@ public:
     float m_gamma;
     float m_outlineContrast;
     float m_outlineGamma;
+    float m_guiContrast;
+    float m_guiGamma;
   };
 
   GlyphVisualParams const & GetGlyphVisualParams() const;
   uint32_t GetGlyphSdfScale() const;
+  uint32_t GetGlyphBaseSize() const;
 
 private:
   int m_tileSize;
