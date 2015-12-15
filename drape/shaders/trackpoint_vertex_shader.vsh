@@ -5,6 +5,11 @@ attribute vec4 a_color;
 uniform mat4 modelView;
 uniform mat4 projection;
 
+#ifdef SAMSUNG_GOOGLE_NEXUS
+uniform sampler2D u_colorTex;
+varying lowp vec4 v_fakeColor;
+#endif
+
 varying vec3 v_radius;
 varying vec4 v_color;
 
@@ -18,4 +23,9 @@ void main(void)
   gl_Position = shiftedPos * projection;
   v_radius = radius;
   v_color = a_color;
+
+#ifdef SAMSUNG_GOOGLE_NEXUS
+  // Because of a bug in OpenGL driver on Samsung Google Nexus this workaround is here.
+  v_fakeColor = texture2D(u_colorTex, vec2(0.0, 0.0));
+#endif
 }

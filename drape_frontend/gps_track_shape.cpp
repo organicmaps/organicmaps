@@ -5,6 +5,7 @@
 #include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
 #include "drape/shader_def.hpp"
+#include "drape/texture_manager.hpp"
 
 #include "base/logging.hpp"
 
@@ -26,9 +27,10 @@ struct GpsTrackStaticVertex
   TNormal m_normal;
 };
 
-dp::GLState GetGpsTrackState()
+dp::GLState GetGpsTrackState(ref_ptr<dp::TextureManager> texMng)
 {
   dp::GLState state(gpu::TRACK_POINT_PROGRAM, dp::GLState::OverlayLayer);
+  state.SetColorTexture(texMng->GetSymbolsTexture());
   return state;
 }
 
@@ -136,7 +138,7 @@ size_t GpsTrackHandle::GetPointsCount() const
   return m_buffer.size() / dp::Batcher::VertexPerQuad;
 }
 
-void GpsTrackShape::Draw(GpsTrackRenderData & data)
+void GpsTrackShape::Draw(ref_ptr<dp::TextureManager> texMng, GpsTrackRenderData & data)
 {
   ASSERT_NOT_EQUAL(data.m_pointsCount, 0, ());
 
@@ -167,7 +169,7 @@ void GpsTrackShape::Draw(GpsTrackRenderData & data)
   dp::AttributeProvider provider(2 /* stream count */, staticVertexData.size());
   provider.InitStream(0 /* stream index */, GetGpsTrackStaticBindingInfo(), make_ref(staticVertexData.data()));
   provider.InitStream(1 /* stream index */, GetGpsTrackDynamicBindingInfo(), make_ref(dynamicVertexData.data()));
-  batcher.InsertListOfStrip(GetGpsTrackState(), make_ref(&provider), move(handle), kVerticesInPoint);
+  batcher.InsertListOfStrip(GetGpsTrackState(texMng), make_ref(&provider), move(handle), kVerticesInPoint);
 }
 
 } // namespace df

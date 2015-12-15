@@ -11,6 +11,11 @@
 
 #include "std/vector.hpp"
 
+namespace dp
+{
+  class TextureManager;
+}
+
 namespace df
 {
 
@@ -63,7 +68,7 @@ private:
 class GpsTrackShape
 {
 public:
-  static void Draw(GpsTrackRenderData & data);
+  static void Draw(ref_ptr<dp::TextureManager> texMng, GpsTrackRenderData & data);
 };
 
 } // namespace df

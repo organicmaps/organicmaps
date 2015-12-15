@@ -239,7 +239,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<CacheGpsTrackPointsMessage> msg = message;
       drape_ptr<GpsTrackRenderData> data = make_unique_dp<GpsTrackRenderData>();
       data->m_pointsCount = msg->GetPointsCount();
-      GpsTrackShape::Draw(*data.get());
+      GpsTrackShape::Draw(m_texMng, *data.get());
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                                 make_unique_dp<FlushGpsTrackPointsMessage>(move(data)),
                                 MessagePriority::Normal);
