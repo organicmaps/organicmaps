@@ -148,8 +148,8 @@ public:
     }
     else if (k == "building:min_level")
     {
-      // Ignoring if FMD_HEIGHT already set
-      if (md.Get(Metadata::FMD_HEIGHT).empty())
+      // Ignoring if min_height was already set
+      if (md.Get(Metadata::FMD_MIN_HEIGHT).empty())
       {
         // Converting this attribute into height
         string const & value = ValidateAndFormat_building_levels(v);
