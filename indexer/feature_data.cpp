@@ -3,6 +3,7 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 
+#include "base/assert.hpp"
 #include "base/stl_add.hpp"
 
 #include "std/bind.hpp"
@@ -97,7 +98,45 @@ public:
   }
 };
 
+}  // namespace
+
+namespace feature
+{
+uint8_t CalculateHeader(uint32_t const typesCount, uint8_t const geomType,
+                        FeatureParamsBase const & params)
+{
+  ASSERT(typesCount != 0, ("Feature should have at least one type."));
+  uint8_t header = static_cast<uint8_t>(typesCount - 1);
+
+  if (!params.name.IsEmpty())
+    header |= HEADER_HAS_NAME;
+
+  if (params.layer != 0)
+    header |= HEADER_HAS_LAYER;
+
+  header |= geomType;
+
+  // Geometry type for additional info is only one.
+  switch (geomType)
+  {
+  case HEADER_GEOM_POINT:
+    if (params.rank != 0)
+      header |= HEADER_HAS_ADDINFO;
+    break;
+  case HEADER_GEOM_LINE:
+    if (!params.ref.empty())
+      header |= HEADER_HAS_ADDINFO;
+    break;
+  case HEADER_GEOM_AREA:
+  case HEADER_GEOM_POINT_EX:
+    if (!params.house.IsEmpty())
+      header |= HEADER_HAS_ADDINFO;
+    break;
+  }
+
+  return header;
 }
+}  // namespace feature
 
 void TypesHolder::SortBySpec()
 {
@@ -447,28 +486,7 @@ bool FeatureParams::CheckValid() const
 
 uint8_t FeatureParams::GetHeader() const
 {
-  uint8_t header = static_cast<uint8_t>(m_Types.size() - 1);
-
-  if (!name.IsEmpty())
-    header |= HEADER_HAS_NAME;
-
-  if (layer != 0)
-    header |= HEADER_HAS_LAYER;
-
-  uint8_t const typeMask = GetTypeMask();
-  header |= typeMask;
-
-  // Geometry type for additional info is only one.
-  switch (GetTypeMask())
-  {
-  case HEADER_GEOM_POINT: if (rank != 0) header |= HEADER_HAS_ADDINFO; break;
-  case HEADER_GEOM_LINE: if (!ref.empty()) header |= HEADER_HAS_ADDINFO; break;
-  case HEADER_GEOM_AREA:
-  case HEADER_GEOM_POINT_EX:
-    if (!house.IsEmpty()) header |= HEADER_HAS_ADDINFO; break;
-  }
-
-  return header;
+  return CalculateHeader(m_Types.size(), GetTypeMask(), *this);
 }
 
 uint32_t FeatureParams::GetIndexForType(uint32_t t)

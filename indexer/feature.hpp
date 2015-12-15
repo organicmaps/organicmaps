@@ -7,6 +7,8 @@
 
 #include "base/buffer_vector.hpp"
 
+#include "editor/xml_feature.hpp"
+
 #include "std/string.hpp"
 
 
@@ -85,7 +87,7 @@ public:
       return false;
 
     ParseCommon();
-    m_params.name.ForEachRef(functor);
+    m_params.name.ForEachRef(forward<T>(functor));
     return true;
   }
 
@@ -151,6 +153,11 @@ class FeatureType : public FeatureBase
 
 public:
   void Deserialize(feature::LoaderBase * pLoader, TBuffer buffer);
+
+  static FeatureType FromXML(string const & xml);
+  static FeatureType FromXML(editor::XMLFeature const & xml);
+
+  editor::XMLFeature ToXML() const;
 
   inline void SetID(FeatureID const & id) { m_id = id; }
   inline FeatureID GetID() const { return m_id; }

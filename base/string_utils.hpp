@@ -110,7 +110,7 @@ public:
     move();
   }
 
-  /// Use default-constructed iterator for operator == to determin an end of a token stream.
+  /// Use default-constructed iterator for operator == to determine an end of a token stream.
   TokenizeIterator() = default;
 
   /// Explicitly disabled, because we're storing iterators for string
@@ -288,16 +288,15 @@ bool IsHTML(string const & utf8);
 /// Compare str1 and str2 and return if they are equal except for mismatchedSymbolsNum symbols
 bool AlmostEqual(string const & str1, string const & str2, size_t mismatchedCount);
 
-/*
-template <typename ItT, typename DelimiterT>
-typename ItT::value_type JoinStrings(ItT begin, ItT end, DelimiterT const & delimiter)
+template <typename TIterator, typename TDelimiter>
+typename TIterator::value_type JoinStrings(TIterator begin, TIterator end,
+                                           TDelimiter const & delimiter)
 {
-  typedef typename ItT::value_type StringT;
+  if (begin == end)
+    return {};
 
-  if (begin == end) return StringT();
-
-  StringT result = *begin++;
-  for (ItT it = begin; it != end; ++it)
+  auto result = *begin++;
+  for (TIterator it = begin; it != end; ++it)
   {
     result += delimiter;
     result += *it;
@@ -306,13 +305,12 @@ typename ItT::value_type JoinStrings(ItT begin, ItT end, DelimiterT const & deli
   return result;
 }
 
-template <typename ContainerT, typename DelimiterT>
-typename ContainerT::value_type JoinStrings(ContainerT const & container,
-                                            DelimiterT const & delimiter)
+template <typename TContainer, typename TDelimiter>
+typename TContainer::value_type JoinStrings(TContainer const & container,
+                                            TDelimiter const & delimiter)
 {
   return JoinStrings(container.begin(), container.end(), delimiter);
 }
-*/
 
 template <typename TFn>
 void ForEachMatched(string const & s, regex const & regex, TFn && fn)

@@ -6,7 +6,7 @@
 
 UNIT_TEST(RangeIterator)
 {
-  using namespace base;
+  using namespace my;
 
   {
     vector<int> result;
@@ -37,7 +37,7 @@ UNIT_TEST(RangeIterator)
   }
 
   {
-    TEST_EQUAL(std::vector<int>(MakeRangeIterator(0), MakeRangeIterator(5)),
-               (std::vector<int>{0, 1, 2, 3, 4}), ());
+    TEST_EQUAL(vector<int>(MakeRangeIterator(0), MakeRangeIterator(5)),
+               (vector<int>{0, 1, 2, 3, 4}), ());
   }
 }

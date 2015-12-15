@@ -13,6 +13,7 @@
 
 #include "indexer/feature_meta.hpp"
 
+struct FeatureParamsBase;
 class FeatureBase;
 
 namespace feature
@@ -113,6 +114,8 @@ namespace feature
   {
     return t.DebugPrint();
   }
+  uint8_t CalculateHeader(uint32_t const typesCount, uint8_t const geomType,
+                          FeatureParamsBase const & params);
 }
 
 /// Feature description struct.

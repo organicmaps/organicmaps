@@ -6,6 +6,7 @@
 
 #include "base/timer.hpp"
 
+#include "std/map.hpp"
 #include "std/sstream.hpp"
 
 #include "3party/pugixml/src/pugixml.hpp"
@@ -58,9 +59,7 @@ UNIT_TEST(XMLFeature_Setters)
 
   feature.SetHouse("10");
   feature.SetTagValue("opening_hours", "Mo-Fr 08:15-17:30");
-
-  feature.SetType("amenity|atm");
-  feature.SetHeader(0xaf);
+  feature.SetTagValue("amenity", "atm");
 
   stringstream sstr;
   feature.Save(sstr);
@@ -88,14 +87,13 @@ UNIT_TEST(XMLFeature_Setters)
   <tag
     k="amenity"
     v="atm" />
-  <mapswithme:header>0xaf</mapswithme:header>
 </node>
 )";
 
   TEST_EQUAL(sstr.str(), expectedString, ());
 }
 
-UNIT_TEST(XMLFeatureFromXml)
+UNIT_TEST(XMLFeature_FromXml)
 {
   auto const srcString = R"(<?xml version="1.0"?>
 <node
@@ -120,7 +118,6 @@ UNIT_TEST(XMLFeatureFromXml)
   <tag
     k="amenity"
     v="atm" />
-  <mapswithme:header>0xaf</mapswithme:header>
 </node>
 )";
 
@@ -144,8 +141,47 @@ UNIT_TEST(XMLFeatureFromXml)
   TEST_EQUAL(feature.GetName("No such language"), "", ());
 
   TEST_EQUAL(feature.GetTagValue("opening_hours"), "Mo-Fr 08:15-17:30", ());
+  TEST_EQUAL(feature.GetTagValue("amenity"), "atm", ());
   TEST_EQUAL(my::TimestampToString(feature.GetModificationTime()), "2015-11-27T21:13:32Z", ());
+}
 
-  TEST_EQUAL(feature.GetType(), "amenity|atm", ());
-  TEST_EQUAL(feature.GetHeader(), 0xaf, ());
+UNIT_TEST(XMLFeature_ForEachName)
+{
+  auto const srcString = R"(<?xml version="1.0"?>
+<node
+  lat="55.7978998"
+  lon="37.474528"
+  timestamp="2015-11-27T21:13:32Z">
+  <tag
+    k="name"
+    v="Gorki Park" />
+  <tag
+    k="name:en"
+    v="Gorki Park" />
+  <tag
+    k="name:ru"
+    v="Парк Горького" />
+  <tag
+    k="addr:housenumber"
+    v="10" />
+  <tag
+    k="opening_hours"
+    v="Mo-Fr 08:15-17:30" />
+  <tag
+    k="amenity"
+    v="atm" />
+</node>
+)";
+
+  XMLFeature feature(srcString);
+  map<string, string> names;
+
+  feature.ForEachName([&names](string const & lang, string const & name)
+                      {
+                        names.emplace(lang, name);
+                      });
+
+  TEST_EQUAL(names, (map<string, string>{
+                        {"default", "Gorki Park"}, {"en", "Gorki Park"}, {"ru", "Парк Горького"}}),
+             ());
 }

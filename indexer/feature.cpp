@@ -10,8 +10,7 @@
 
 #include "platform/preferred_languages.hpp"
 
-#include "defines.hpp" // just for file extensions
-
+#include "base/range_iterator.hpp"
 
 using namespace feature;
 
@@ -27,6 +26,96 @@ void FeatureBase::Deserialize(feature::LoaderBase * pLoader, TBuffer buffer)
   m_limitRect = m2::RectD::GetEmptyRect();
   m_bTypesParsed = m_bCommonParsed = false;
   m_header = m_pLoader->GetHeader();
+}
+
+FeatureType FeatureType::FromXML(string const & xml)
+{
+  pugi::xml_document document;
+  document.load(xml.data());
+  return FromXML(document);
+}
+
+FeatureType FeatureType::FromXML(editor::XMLFeature const & xml)
+{
+  FeatureType feature;
+  feature.m_bTrianglesParsed = false;
+  feature.m_bPointsParsed = false;
+
+  feature.m_center = xml.GetCenter();
+
+  xml.ForEachName([&feature](string const & lang, string const & name)
+                  {
+                    feature.m_params.name.AddString(lang, name);
+                  });
+  feature.m_params.house.Set(xml.GetHouse());
+
+  // TODO(mgsergio):
+  // feature.m_params.ref =
+  // feature.m_params.layer =
+  // feature.m_params.rank =
+  feature.m_bCommonParsed = true;
+
+  // EGeomType
+
+  // for (auto const i : range(feature.GetTypesCount()))
+  //   m_types[i] =
+  // Does the order matter? If so what order should be?
+  // TODO(mgsergio): Only features with single type are currently supported.
+  // TODO(mgsergio): Replace hardcode with real values.
+  feature.m_types[0] = classif().GetTypeByPath({"amenity", "atm"});
+  feature.m_bTypesParsed = true;
+
+  for (auto const i : my::range(1u, static_cast<uint32_t>(feature::Metadata::FMD_COUNT)))
+  {
+    auto const type = static_cast<feature::Metadata::EType>(i);
+    auto const attributeName = DebugPrint(type);
+    if (xml.HasTag(attributeName))
+      feature.m_metadata.Set(type, xml.GetTagValue(attributeName));
+  }
+  feature.m_bMetadataParsed = true;
+
+  // TODO(mgsergio): Get types count and GeomType from xml.
+  // Only feature::GEOM_POINT is now supported.
+  auto constexpr kOnlyOneTypeCount = 1;
+  feature.m_header = CalculateHeader(kOnlyOneTypeCount, feature::GEOM_POINT, feature.m_params);
+  feature.m_bHeader2Parsed = true;
+
+  return feature;
+}
+
+editor::XMLFeature FeatureType::ToXML() const
+{
+  editor::XMLFeature feature;
+
+  feature.SetCenter(GetCenter());
+
+  ForEachNameRef([&feature](uint8_t const & lang, string const & name)
+                 {
+                   feature.SetName(lang, name);
+                   return true;
+                 });
+
+  feature.SetHouse(GetHouseNumber());
+
+  // TODO(mgsergio):
+  // feature.m_params.ref =
+  // feature.m_params.layer =
+  // feature.m_params.rank =
+
+  // for (auto const i : range(feature.GetTypesCount()))
+  //   m_types[i] =
+  // Does the order matter? If so what order should be?
+  // TODO(mgsergio): Only features with single type are currently supported.
+  ParseTypes();
+  feature.SetTagValue("amenity", "atm");  // TODO(mgsergio): Replace hardcode with real values.
+
+  for (auto const type : m_metadata.GetPresentTypes())
+  {
+    auto const attributeName = DebugPrint(type);
+    feature.SetTagValue(attributeName, m_metadata.Get(type));
+  }
+
+  return feature;
 }
 
 void FeatureBase::ParseTypes() const

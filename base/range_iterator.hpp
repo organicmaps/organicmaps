@@ -1,19 +1,23 @@
 #include "std/iterator.hpp"
 #include "std/type_traits.hpp"
 
-namespace base
+namespace my
 {
+// RagneItrator allows to write for loops as follows:
+// for (auto const i : range(N))
+//   ...
+// for (auto const i : range(M, N))
+//   ...
+// And initialize stl containers like this:
+// vector<int> mySequence(MakeRangeIterator(0), MakeRangeIterator(10));
 template <typename TCounter>
 struct RangeIterator
 {
-  explicit RangeIterator(TCounter const current):
-      m_current(current)
-  {
-  }
-
+  explicit RangeIterator(TCounter const current) : m_current(current) {}
   RangeIterator & operator++() { ++m_current; return *this; }
+  RangeIterator operator++(int) { return RangeIterator(m_current++); }
   RangeIterator & operator--() { --m_current; return *this; }
-
+  RangeIterator operator--(int) { return RangeIterator(m_current--); }
   bool operator==(RangeIterator const & it) const { return m_current == it.m_current; }
   bool operator!=(RangeIterator const & it) const { return !(*this == it); }
 
@@ -21,12 +25,12 @@ struct RangeIterator
 
   TCounter m_current;
 };
-} // namespace base
+}  // namespace my
 
 namespace std
 {
 template <typename T>
-struct iterator_traits<base::RangeIterator<T>>
+struct iterator_traits<my::RangeIterator<T>>
 {
   using difference_type = T;
   using value_type = T;
@@ -36,17 +40,15 @@ struct iterator_traits<base::RangeIterator<T>>
 };
 } // namespace std
 
-namespace base
+namespace my
 {
 template <typename TCounter, bool forward>
 struct RangeWrapper
 {
-
   using value_type = typename std::remove_cv<TCounter>::type;
   using iterator_base = RangeIterator<value_type>;
-  using iterator = typename std::conditional<forward,
-                                             iterator_base,
-                                             std::reverse_iterator<iterator_base>>::type;
+  using iterator =
+      typename std::conditional<forward, iterator_base, std::reverse_iterator<iterator_base>>::type;
 
   RangeWrapper(TCounter const from, TCounter const to):
       m_begin(from),
@@ -61,24 +63,28 @@ struct RangeWrapper
   value_type const m_end;
 };
 
+// Use this helper to iterate through 0 to `to'.
 template <typename TCounter>
 RangeWrapper<TCounter, true> range(TCounter const to)
 {
   return {{}, to};
 }
 
+// Use this helper to iterate through `from' to `to'.
 template <typename TCounter>
 RangeWrapper<TCounter, true> range(TCounter const from, TCounter const to)
 {
   return {from, to};
 }
 
+// Use this helper to iterate through `from' to 0.
 template <typename TCounter>
-RangeWrapper<TCounter, false> reverse_range(TCounter const to)
+RangeWrapper<TCounter, false> reverse_range(TCounter const from)
 {
-  return {to, {}};
+  return {from, {}};
 }
 
+// Use this helper to iterate through `from' to `to'.
 template <typename TCounter>
 RangeWrapper<TCounter, false> reverse_range(TCounter const from, TCounter const to)
 {
@@ -90,4 +96,4 @@ RangeIterator<TCounter> MakeRangeIterator(TCounter const counter)
 {
   return RangeIterator<TCounter>(counter);
 }
-} // namespace base
+}  // namespace my
