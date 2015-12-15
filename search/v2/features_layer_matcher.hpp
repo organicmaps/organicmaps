@@ -10,6 +10,7 @@
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/feature_impl.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/mwm_set.hpp"
@@ -19,11 +20,14 @@
 #include "geometry/rect2d.hpp"
 
 #include "base/cancellable.hpp"
+#include "base/logging.hpp"
 #include "base/macros.hpp"
 #include "base/stl_helpers.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
+#include "std/limits.hpp"
+#include "std/unordered_map.hpp"
 #include "std/vector.hpp"
 
 class Index;
@@ -51,26 +55,27 @@ namespace v2
 class FeaturesLayerMatcher
 {
 public:
+  static uint32_t const kInvalidId = numeric_limits<uint32_t>::max();
+
   FeaturesLayerMatcher(Index & index, MwmSet::MwmId const & mwmId, MwmValue & value,
                        FeaturesVector const & featuresVector, my::Cancellable const & cancellable);
 
   template <typename TFn>
-  void Match(FeaturesLayer const & child, vector<uint32_t> const & sortedParentFeatures,
-             SearchModel::SearchType parentType, TFn && fn)
+  void Match(FeaturesLayer const & child, FeaturesLayer const & parent, TFn && fn)
   {
-    if (child.m_type >= parentType)
+    if (child.m_type >= parent.m_type)
       return;
-    if (parentType == SearchModel::SEARCH_TYPE_STREET)
+    if (parent.m_type == SearchModel::SEARCH_TYPE_STREET)
     {
       if (child.m_type == SearchModel::SEARCH_TYPE_POI)
-        MatchPOIsWithStreets(child, sortedParentFeatures, parentType, forward<TFn>(fn));
+        MatchPOIsWithStreets(child, parent, forward<TFn>(fn));
       else if (child.m_type == SearchModel::SEARCH_TYPE_BUILDING)
-        MatchBuildingsWithStreets(child, sortedParentFeatures, parentType, forward<TFn>(fn));
+        MatchBuildingsWithStreets(child, parent, forward<TFn>(fn));
       return;
     }
 
     vector<m2::PointD> childCenters;
-    for (uint32_t featureId : child.m_sortedFeatures)
+    for (uint32_t featureId : *child.m_sortedFeatures)
     {
       FeatureType ft;
       m_featuresVector.GetByIndex(featureId, ft);
@@ -79,48 +84,41 @@ public:
 
     BailIfCancelled(m_cancellable);
 
-    vector<m2::RectD> parentRects;
-    for (uint32_t featureId : sortedParentFeatures)
-    {
-      FeatureType feature;
-      m_featuresVector.GetByIndex(featureId, feature);
-      m2::PointD center = feature::GetCenter(feature, FeatureType::WORST_GEOMETRY);
-      double radius = ftypes::GetRadiusByPopulation(feature.GetPopulation());
-      parentRects.push_back(MercatorBounds::RectByCenterXYAndSizeInMeters(center, radius));
-    }
-
-    for (size_t j = 0; j < sortedParentFeatures.size(); ++j)
+    for (size_t j = 0; j < parent.m_sortedFeatures->size(); ++j)
     {
       BailIfCancelled(m_cancellable);
 
-      for (size_t i = 0; i < child.m_sortedFeatures.size(); ++i)
+      FeatureType ft;
+      m_featuresVector.GetByIndex((*parent.m_sortedFeatures)[j], ft);
+      m2::PointD const center = feature::GetCenter(ft, FeatureType::WORST_GEOMETRY);
+      double const radius = ftypes::GetRadiusByPopulation(ft.GetPopulation());
+      m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(center, radius);
+
+      for (size_t i = 0; i < child.m_sortedFeatures->size(); ++i)
       {
-        if (parentRects[j].IsPointInside(childCenters[i]))
-          fn(child.m_sortedFeatures[i], sortedParentFeatures[j]);
+        if (rect.IsPointInside(childCenters[i]))
+          fn((*child.m_sortedFeatures)[i], (*parent.m_sortedFeatures)[j]);
       }
     }
   }
 
 private:
   template <typename TFn>
-  void MatchPOIsWithStreets(FeaturesLayer const & child,
-                            vector<uint32_t> const & sortedParentFeatures,
-                            SearchModel::SearchType parentType, TFn && fn)
+  void MatchPOIsWithStreets(FeaturesLayer const & child, FeaturesLayer const & parent, TFn && fn)
   {
     ASSERT_EQUAL(child.m_type, SearchModel::SEARCH_TYPE_POI, ());
-    ASSERT_EQUAL(parentType, SearchModel::SEARCH_TYPE_STREET, ());
+    ASSERT_EQUAL(parent.m_type, SearchModel::SEARCH_TYPE_STREET, ());
 
-    for (uint32_t streetId : sortedParentFeatures)
+    for (uint32_t streetId : *parent.m_sortedFeatures)
     {
       BailIfCancelled(m_cancellable);
-      m_loader.ForEachInVicinity(streetId, child.m_sortedFeatures, bind(fn, _1, streetId));
+      m_loader.ForEachInVicinity(streetId, *child.m_sortedFeatures, bind(fn, _1, streetId));
     }
   }
 
   template <typename TFn>
-  void MatchBuildingsWithStreets(FeaturesLayer const & child,
-                                 vector<uint32_t> const & sortedParentFeatures,
-                                 SearchModel::SearchType parentType, TFn && fn)
+  void MatchBuildingsWithStreets(FeaturesLayer const & child, FeaturesLayer const & parent,
+                                 TFn && fn)
   {
     // child.m_sortedFeatures contains only buildings matched by name,
     // not by house number.  So, we need to add to
@@ -130,10 +128,12 @@ private:
     auto const & checker = ftypes::IsBuildingChecker::Instance();
 
     ASSERT_EQUAL(child.m_type, SearchModel::SEARCH_TYPE_BUILDING, ());
-    ASSERT_EQUAL(parentType, SearchModel::SEARCH_TYPE_STREET, ());
+    ASSERT_EQUAL(parent.m_type, SearchModel::SEARCH_TYPE_STREET, ());
 
     vector<string> queryTokens;
     NormalizeHouseNumber(child.m_subQuery, queryTokens);
+    bool const queryLooksLikeHouseNumber =
+        feature::IsHouseNumber(child.m_subQuery) && !queryTokens.empty();
 
     uint32_t numFilterInvocations = 0;
     auto filter = [&](uint32_t id, FeatureType & feature) -> bool
@@ -144,34 +144,58 @@ private:
 
       if (!checker(feature))
         return false;
-      if (binary_search(child.m_sortedFeatures.begin(), child.m_sortedFeatures.end(), id))
+      if (binary_search(child.m_sortedFeatures->begin(), child.m_sortedFeatures->end(), id))
         return true;
+
+      // HouseNumbersMatch() calls are expensive, so following code
+      // tries to reduce number of calls. The most important
+      // optimization: as first tokens from the house-number part of
+      // the query and feature's house numbers must be numbers, their
+      // first symbols must be the same.
+      string const houseNumber = feature.GetHouseNumber();
+      if (!queryLooksLikeHouseNumber || !feature::IsHouseNumber(houseNumber))
+        return false;
+      if (queryTokens[0][0] != houseNumber[0])
+        return false;
       return HouseNumbersMatch(feature.GetHouseNumber(), queryTokens);
     };
 
     auto addEdge = [&](uint32_t houseId, FeatureType & houseFeature, uint32_t streetId)
     {
-      vector<ReverseGeocoder::Street> streets;
-      m_reverseGeocoder.GetNearbyStreets(houseFeature, streets);
-      uint32_t streetIndex = m_houseToStreetTable->Get(houseId);
-
-      if (streetIndex < streets.size() && streets[streetIndex].m_id.m_mwmId == m_mwmId &&
-          streets[streetIndex].m_id.m_index == streetId)
-      {
+      if (GetMatchingStreet(houseId, houseFeature) == streetId)
         fn(houseId, streetId);
-      }
     };
 
-    for (uint32_t streetId : sortedParentFeatures)
+    for (uint32_t streetId : *parent.m_sortedFeatures)
     {
       BailIfCancelled(m_cancellable);
       m_loader.FilterFeaturesInVicinity(streetId, filter, bind(addEdge, _1, _2, streetId));
     }
   }
 
+  // Returns id of a street feature corresponding to a |houseId|, or
+  // kInvalidId if there're not such street.
+  uint32_t GetMatchingStreet(uint32_t houseId, FeatureType & houseFeature);
+
+  vector<ReverseGeocoder::Street> const & GetNearbyStreets(uint32_t featureId);
+
+  vector<ReverseGeocoder::Street> const & GetNearbyStreets(uint32_t featureId,
+                                                           FeatureType & feature);
+
   MwmSet::MwmId m_mwmId;
   ReverseGeocoder m_reverseGeocoder;
+
+  // Cache of streets in a feature's vicinity. All lists in the cache
+  // are ordered by a distance.
+  unordered_map<uint32_t, vector<ReverseGeocoder::Street>> m_nearbyStreetsCache;
+
+  // Cache of correct streets for buildings. Current search algorithm
+  // supports only one street for a building, whereas buildings can be
+  // located on multiple streets.
+  unordered_map<uint32_t, uint32_t> m_matchingStreetsCache;
+
   unique_ptr<HouseToStreetTable> m_houseToStreetTable;
+
   FeaturesVector const & m_featuresVector;
   StreetVicinityLoader m_loader;
   my::Cancellable const & m_cancellable;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "search/search_query_params.hpp"
+#include "search/v2/features_filter.hpp"
 #include "search/v2/features_layer.hpp"
 #include "search/v2/features_layer_path_finder.hpp"
 #include "search/v2/search_model.hpp"
@@ -14,6 +15,7 @@
 
 #include "base/buffer_vector.hpp"
 #include "base/cancellable.hpp"
+#include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/set.hpp"
@@ -31,8 +33,6 @@ class CompressedBitVector;
 
 namespace search
 {
-class RankTable;
-
 namespace v2
 {
 class FeaturesLayerMatcher;
@@ -56,31 +56,51 @@ class SearchModel;
 class Geocoder : public my::Cancellable
 {
 public:
+  struct Params : public SearchQueryParams
+  {
+    Params();
+
+    m2::RectD m_viewport;
+    size_t m_maxNumResults;
+  };
+
   Geocoder(Index & index);
 
   ~Geocoder() override;
 
   // Sets search query params.
-  void SetSearchQueryParams(SearchQueryParams const & params);
+  void SetParams(Params const & params);
 
   // Starts geocoding, retrieved features will be appended to
   // |results|.
   void Go(vector<FeatureID> & results);
 
+  void ClearCaches();
+
 private:
+  struct Partition
+  {
+    Partition();
+
+    Partition(Partition &&) = default;
+
+    void FromFeatures(unique_ptr<coding::CompressedBitVector> features,
+                      Index::FeaturesLoaderGuard & loader, SearchModel const & model);
+
+    vector<uint32_t> m_clusters[SearchModel::SEARCH_TYPE_COUNT];
+    size_t m_size;
+
+    DISALLOW_COPY(Partition);
+  };
+
   // Fills |m_retrievalParams| with [curToken, endToken) subsequence
   // of search query tokens.
-  void PrepareParams(size_t curToken, size_t endToken);
+  void PrepareRetrievalParams(size_t curToken, size_t endToken);
 
   // Tries to find all paths in a search tree, where each edge is
   // marked with some substring of the query tokens. These paths are
   // called "layer sequence" and current path is stored in |m_layers|.
   void DoGeocoding(size_t curToken);
-
-  // Returns CBV of features corresponding to [curToken, endToken)
-  // subsequence of search query tokens. This method caches results of
-  // previous requests.
-  coding::CompressedBitVector * RetrieveAddressFeatures(size_t curToken, size_t endToken);
 
   // Returns true if current path in the search tree (see comment for
   // DoGeocoding()) looks sane. This method is used as a fast
@@ -93,8 +113,8 @@ private:
 
   Index & m_index;
 
-  // Initial search query params.
-  SearchQueryParams m_params;
+  // Geocoder params.
+  Params m_params;
 
   // Total number of search query tokens.
   size_t m_numTokens;
@@ -112,14 +132,19 @@ private:
   // Id of a current mwm.
   MwmSet::MwmId m_mwmId;
 
-  // Cache of posting list of features.
-  unordered_map<uint64_t, unique_ptr<coding::CompressedBitVector>> m_cache;
+  // Cache of posting lists for each token in the query.  TODO (@y,
+  // @m, @vng): consider to update this cache lazily, as user inputs
+  // tokens one-by-one.
+  vector<Partition> m_partitions;
 
   // Features loader.
   unique_ptr<Index::FeaturesLoaderGuard> m_loader;
 
   // Features matcher for layers intersection.
   unique_ptr<FeaturesLayerMatcher> m_matcher;
+
+  // Features filter for interpretations.
+  FeaturesFilter m_filter;
 
   // Path finder for interpretations.
   FeaturesLayerPathFinder m_finder;

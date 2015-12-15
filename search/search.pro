@@ -44,12 +44,14 @@ HEADERS += \
     search_string_utils.hpp \
     search_trie.hpp \
     suggest.hpp \
+    v2/features_filter.hpp \
     v2/features_layer.hpp \
     v2/features_layer_matcher.hpp \
     v2/features_layer_path_finder.hpp \
     v2/geocoder.hpp \
     v2/house_numbers_matcher.hpp \
     v2/house_to_street_table.hpp \
+    v2/rank_table_cache.hpp \
     v2/search_model.hpp \
     v2/search_query_v2.hpp \
     v2/street_vicinity_loader.hpp \
@@ -79,12 +81,14 @@ SOURCES += \
     search_query.cpp \
     search_query_params.cpp \
     search_string_utils.cpp \
+    v2/features_filter.cpp \
     v2/features_layer.cpp \
     v2/features_layer_matcher.cpp \
     v2/features_layer_path_finder.cpp \
     v2/geocoder.cpp \
     v2/house_numbers_matcher.cpp \
     v2/house_to_street_table.cpp \
+    v2/rank_table_cache.cpp \
     v2/search_model.cpp \
     v2/search_query_v2.cpp \
     v2/street_vicinity_loader.cpp \

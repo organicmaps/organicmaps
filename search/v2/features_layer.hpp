@@ -4,8 +4,6 @@
 
 #include "std/vector.hpp"
 
-#include "base/macros.hpp"
-
 namespace search
 {
 namespace v2
@@ -16,19 +14,17 @@ namespace v2
 struct FeaturesLayer
 {
   FeaturesLayer();
-  FeaturesLayer(FeaturesLayer && layer) = default;
 
   void Clear();
 
-  vector<uint32_t> m_sortedFeatures;
+  // Non-owning ptr to a sorted vector of features.
+  vector<uint32_t> const * m_sortedFeatures;
 
   string m_subQuery;
 
   size_t m_startToken;
   size_t m_endToken;
   SearchModel::SearchType m_type;
-
-  DISALLOW_COPY(FeaturesLayer);
 };
 
 string DebugPrint(FeaturesLayer const & layer);

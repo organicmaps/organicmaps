@@ -20,6 +20,7 @@ public:
   // Query overrides:
   void Search(Results & res, size_t resCount) override;
   void SearchViewportPoints(Results & res) override;
+  void ClearCaches() override;
 
 protected:
   // Adds a bunch of features as PreResult1.

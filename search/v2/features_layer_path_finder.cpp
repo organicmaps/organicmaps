@@ -2,6 +2,7 @@
 
 #include "search/cancel_exception.hpp"
 #include "search/v2/features_layer_matcher.hpp"
+#include "search/v2/features_filter.hpp"
 
 #include "indexer/features_vector.hpp"
 
@@ -16,18 +17,16 @@ FeaturesLayerPathFinder::FeaturesLayerPathFinder(my::Cancellable const & cancell
 {
 }
 
-void FeaturesLayerPathFinder::BuildGraph(FeaturesLayerMatcher & matcher,
+void FeaturesLayerPathFinder::BuildGraph(FeaturesLayerMatcher & matcher, FeaturesFilter & filter,
                                          vector<FeaturesLayer const *> const & layers,
                                          vector<uint32_t> & reachable)
 {
   if (layers.empty())
     return;
 
-  FeaturesLayer child;
+  reachable = *(layers.back()->m_sortedFeatures);
 
-  reachable = layers.back()->m_sortedFeatures;
-
-  vector<uint32_t> tmpBuffer;
+  vector<uint32_t> buffer;
 
   // The order matters here, as we need to intersect BUILDINGs with
   // STREETs first, and then POIs with BUILDINGs.
@@ -35,16 +34,29 @@ void FeaturesLayerPathFinder::BuildGraph(FeaturesLayerMatcher & matcher,
   {
     BailIfCancelled(m_cancellable);
 
-    tmpBuffer.clear();
+    if (reachable.empty())
+      break;
+
+    if (filter.NeedToFilter(reachable))
+    {
+      buffer.clear();
+      filter.Filter(reachable, MakeBackInsertFunctor(buffer));
+      reachable.swap(buffer);
+      my::SortUnique(reachable);
+    }
+
+    buffer.clear();
     auto addEdge = [&](uint32_t childFeature, uint32_t /* parentFeature */)
     {
-      tmpBuffer.push_back(childFeature);
+      buffer.push_back(childFeature);
     };
 
-    matcher.Match(*layers[i - 1], reachable, layers[i]->m_type, addEdge);
+    FeaturesLayer parent(*layers[i]);
+    parent.m_sortedFeatures = &reachable;
+    matcher.Match(*layers[i - 1], parent, addEdge);
 
-    my::SortUnique(tmpBuffer);
-    reachable.swap(tmpBuffer);
+    reachable.swap(buffer);
+    my::SortUnique(reachable);
   }
 }
 }  // namespace v2

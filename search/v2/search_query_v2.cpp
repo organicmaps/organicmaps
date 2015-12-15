@@ -37,9 +37,11 @@ void SearchQueryV2::Search(Results & res, size_t resCount)
   if (m_tokens.empty())
     SuggestStrings(res);
 
-  SearchQueryParams params;
+  Geocoder::Params params;
   InitParams(false /* localitySearch */, params);
-  m_geocoder.SetSearchQueryParams(params);
+  params.m_viewport = m_viewport[CURRENT_V];
+  params.m_maxNumResults = max(resCount, kPreResultsCount);
+  m_geocoder.SetParams(params);
 
   vector<FeatureID> results;
   m_geocoder.Go(results);
@@ -49,6 +51,12 @@ void SearchQueryV2::Search(Results & res, size_t resCount)
 }
 
 void SearchQueryV2::SearchViewportPoints(Results & res) { NOTIMPLEMENTED(); }
+
+void SearchQueryV2::ClearCaches()
+{
+  Query::ClearCaches();
+  m_geocoder.ClearCaches();
+}
 
 void SearchQueryV2::AddPreResults1(vector<FeatureID> & results)
 {

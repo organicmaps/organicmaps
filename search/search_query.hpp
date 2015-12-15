@@ -65,6 +65,9 @@ namespace impl
 class Query : public my::Cancellable
 {
 public:
+  // Maximum result candidates count for each viewport/criteria.
+  static size_t const kPreResultsCount = 200;
+
   Query(Index & index, CategoriesHolder const & categories, vector<Suggest> const & suggests,
         storage::CountryInfoGetter const & infoGetter);
 
@@ -105,7 +108,7 @@ public:
   // Get scale level to make geometry index query for current viewport.
   virtual int GetQueryIndexScale(m2::RectD const & viewport) const;
 
-  void ClearCaches();
+  virtual void ClearCaches();
 
   struct CancelException {};
 

@@ -19,6 +19,7 @@
 #include "base/macros.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/iterator.hpp"
@@ -51,11 +52,44 @@ void JoinQueryTokens(SearchQueryParams const & params, size_t curToken, size_t e
 }
 }  // namespace
 
+// Geocoder::Partition
+Geocoder::Partition::Partition() : m_size(0) {}
+
+void Geocoder::Partition::FromFeatures(unique_ptr<coding::CompressedBitVector> features,
+                                       Index::FeaturesLoaderGuard & loader,
+                                       SearchModel const & model)
+{
+  for (auto & cluster : m_clusters)
+    cluster.clear();
+
+  auto clusterize = [&](uint64_t featureId)
+  {
+    FeatureType feature;
+    loader.GetFeatureByIndex(featureId, feature);
+    feature.ParseTypes();
+    SearchModel::SearchType searchType = model.GetSearchType(feature);
+    if (searchType != SearchModel::SEARCH_TYPE_COUNT)
+      m_clusters[searchType].push_back(featureId);
+  };
+
+  if (features)
+    coding::CompressedBitVectorEnumerator::ForEach(*features, clusterize);
+
+  m_size = 0;
+  for (auto const & cluster : m_clusters)
+    m_size += cluster.size();
+}
+
+// Geocoder::Params --------------------------------------------------------------------------------
+Geocoder::Params::Params() : m_maxNumResults(0) {}
+
+// Geocoder::Geocoder ------------------------------------------------------------------------------
 Geocoder::Geocoder(Index & index)
   : m_index(index)
   , m_numTokens(0)
   , m_model(SearchModel::Instance())
   , m_value(nullptr)
+  , m_filter(static_cast<my::Cancellable const &>(*this))
   , m_finder(static_cast<my::Cancellable const &>(*this))
   , m_results(nullptr)
 {
@@ -63,10 +97,14 @@ Geocoder::Geocoder(Index & index)
 
 Geocoder::~Geocoder() {}
 
-void Geocoder::SetSearchQueryParams(SearchQueryParams const & params)
+void Geocoder::SetParams(Params const & params)
 {
   m_params = params;
   m_retrievalParams = params;
+
+  m_filter.SetViewport(m_params.m_viewport);
+  m_filter.SetMaxNumResults(m_params.m_maxNumResults);
+  m_filter.SetScale(m_params.m_scale);
 
   m_numTokens = m_params.m_tokens.size();
   if (!m_params.m_prefixTokens.empty())
@@ -99,16 +137,26 @@ void Geocoder::Go(vector<FeatureID> & results)
       m_mwmId = handle.GetId();
 
       MY_SCOPE_GUARD(cleanup, [&]()
-      {
-        m_matcher.reset();
-        m_loader.reset();
-        m_cache.clear();
-      });
+                     {
+                       m_matcher.reset();
+                       m_loader.reset();
+                       m_partitions.clear();
+                     });
 
-      m_cache.clear();
+      m_partitions.clear();
       m_loader.reset(new Index::FeaturesLoaderGuard(m_index, m_mwmId));
       m_matcher.reset(new FeaturesLayerMatcher(
           m_index, m_mwmId, *m_value, m_loader->GetFeaturesVector(), *this /* cancellable */));
+      m_filter.SetValue(m_value, m_mwmId);
+
+      m_partitions.resize(m_numTokens);
+      for (size_t i = 0; i < m_numTokens; ++i)
+      {
+        PrepareRetrievalParams(i, i + 1);
+        m_partitions[i].FromFeatures(Retrieval::RetrieveAddressFeatures(
+                                         *m_value, *this /* cancellable */, m_retrievalParams),
+                                     *m_loader, m_model);
+      }
 
       DoGeocoding(0 /* curToken */);
     }
@@ -118,7 +166,13 @@ void Geocoder::Go(vector<FeatureID> & results)
   }
 }
 
-void Geocoder::PrepareParams(size_t curToken, size_t endToken)
+void Geocoder::ClearCaches()
+{
+  m_partitions.clear();
+  m_matcher.reset();
+}
+
+void Geocoder::PrepareRetrievalParams(size_t curToken, size_t endToken)
 {
   ASSERT_LESS(curToken, endToken, ());
   ASSERT_LESS_OR_EQUAL(endToken, m_numTokens, ());
@@ -158,7 +212,6 @@ void Geocoder::DoGeocoding(size_t curToken)
   {
     BailIfCancelled(static_cast<my::Cancellable const &>(*this));
 
-    PrepareParams(curToken, curToken + n);
     {
       auto & layer = m_layers.back();
       layer.Clear();
@@ -168,26 +221,15 @@ void Geocoder::DoGeocoding(size_t curToken)
                       layer.m_subQuery);
     }
 
-    // TODO (@y, @m): as |n| increases, good optimization is to update
-    // |features| incrementally, from [curToken, curToken + n) to
-    // [curToken, curToken + n + 1).
-    auto features = RetrieveAddressFeatures(curToken, curToken + n);
-
-    vector<uint32_t> clusters[SearchModel::SEARCH_TYPE_COUNT];
-    auto clusterize = [&](uint64_t featureId)
-    {
-      FeatureType feature;
-      m_loader->GetFeatureByIndex(featureId, feature);
-      feature.ParseTypes();
-      SearchModel::SearchType searchType = m_model.GetSearchType(feature);
-      if (searchType != SearchModel::SEARCH_TYPE_COUNT)
-        clusters[searchType].push_back(featureId);
-    };
-
-    if (features)
-      coding::CompressedBitVectorEnumerator::ForEach(*features, clusterize);
+    BailIfCancelled(static_cast<my::Cancellable const &>(*this));
 
     bool const looksLikeHouseNumber = feature::IsHouseNumber(m_layers.back().m_subQuery);
+    auto const & partition = m_partitions[curToken + n - 1];
+    if (partition.m_size == 0 && !looksLikeHouseNumber)
+      break;
+
+    vector<uint32_t> clusters[SearchModel::SEARCH_TYPE_COUNT];
+    vector<uint32_t> buffer;
 
     for (size_t i = 0; i != SearchModel::SEARCH_TYPE_COUNT; ++i)
     {
@@ -195,12 +237,37 @@ void Geocoder::DoGeocoding(size_t curToken)
       // DoGeocoding().  This may lead to use-after-free.
       auto & layer = m_layers.back();
 
+      // Following code intersects posting lists for tokens [curToken,
+      // curToken + n). This can be done incrementally, as we have
+      // |clusters| to store intersections.
+      if (n == 1)
+      {
+        layer.m_sortedFeatures = &partition.m_clusters[i];
+      }
+      else if (n == 2)
+      {
+        clusters[i].clear();
+        auto const & first = m_partitions[curToken].m_clusters[i];
+        auto const & second = m_partitions[curToken + 1].m_clusters[i];
+        set_intersection(first.begin(), first.end(), second.begin(), second.end(),
+                         back_inserter(clusters[i]));
+        layer.m_sortedFeatures = &clusters[i];
+      }
+      else
+      {
+        buffer.clear();
+        set_intersection(clusters[i].begin(), clusters[i].end(), partition.m_clusters[i].begin(),
+                         partition.m_clusters[i].end(), back_inserter(buffer));
+        clusters[i].swap(buffer);
+        layer.m_sortedFeatures = &clusters[i];
+      }
+
       if (i == SearchModel::SEARCH_TYPE_BUILDING)
       {
-        if (clusters[i].empty() && !looksLikeHouseNumber)
+        if (layer.m_sortedFeatures->empty() && !looksLikeHouseNumber)
           continue;
       }
-      else if (clusters[i].empty())
+      else if (layer.m_sortedFeatures->empty())
       {
         continue;
       }
@@ -213,24 +280,11 @@ void Geocoder::DoGeocoding(size_t curToken)
           continue;
       }
 
-      layer.m_sortedFeatures.swap(clusters[i]);
-      ASSERT(is_sorted(layer.m_sortedFeatures.begin(), layer.m_sortedFeatures.end()), ());
       layer.m_type = static_cast<SearchModel::SearchType>(i);
       if (IsLayerSequenceSane())
         DoGeocoding(curToken + n);
     }
   }
-}
-
-coding::CompressedBitVector * Geocoder::RetrieveAddressFeatures(size_t curToken, size_t endToken)
-{
-  uint64_t const key = (static_cast<uint64_t>(curToken) << 32) | static_cast<uint64_t>(endToken);
-  if (m_cache.find(key) == m_cache.end())
-  {
-    m_cache[key] =
-        Retrieval::RetrieveAddressFeatures(m_value, *this /* cancellable */, m_retrievalParams);
-  }
-  return m_cache[key].get();
 }
 
 bool Geocoder::IsLayerSequenceSane() const
@@ -239,17 +293,35 @@ bool Geocoder::IsLayerSequenceSane() const
   static_assert(SearchModel::SEARCH_TYPE_COUNT <= 32,
                 "Select a wider type to represent search types mask.");
   uint32_t mask = 0;
-  for (auto const & layer : m_layers)
+  size_t buildingIndex = m_layers.size();
+  size_t streetIndex = m_layers.size();
+
+  // Following loop returns false iff there're two different layers
+  // of the same search type.
+  for (size_t i = 0; i < m_layers.size(); ++i)
   {
+    auto const & layer = m_layers[i];
     ASSERT_NOT_EQUAL(layer.m_type, SearchModel::SEARCH_TYPE_COUNT, ());
 
     // TODO (@y): probably it's worth to check belongs-to-locality here.
-
     uint32_t bit = 1U << layer.m_type;
     if (mask & bit)
       return false;
     mask |= bit;
+
+    if (layer.m_type == SearchModel::SEARCH_TYPE_BUILDING)
+      buildingIndex = i;
+    if (layer.m_type == SearchModel::SEARCH_TYPE_STREET)
+      streetIndex = i;
+
+    // Checks that building and street layers are neighbours.
+    if (buildingIndex != m_layers.size() && streetIndex != m_layers.size() &&
+        buildingIndex != streetIndex + 1 && streetIndex != buildingIndex + 1)
+    {
+      return false;
+    }
   }
+
   return true;
 }
 
@@ -257,22 +329,17 @@ void Geocoder::FindPaths()
 {
   ASSERT(!m_layers.empty(), ());
 
-  auto const compareByType = [](FeaturesLayer const * lhs, FeaturesLayer const * rhs)
-  {
-    return lhs->m_type < rhs->m_type;
-  };
-
   // Layers ordered by a search type.
   vector<FeaturesLayer const *> sortedLayers;
   sortedLayers.reserve(m_layers.size());
   for (auto & layer : m_layers)
     sortedLayers.push_back(&layer);
-  sort(sortedLayers.begin(), sortedLayers.end(), compareByType);
+  sort(sortedLayers.begin(), sortedLayers.end(), my::CompareBy(&FeaturesLayer::m_type));
 
-  m_finder.ForEachReachableVertex(*m_matcher, sortedLayers, [this](uint32_t featureId)
-  {
-    m_results->emplace_back(m_mwmId, featureId);
-  });
+  m_finder.ForEachReachableVertex(*m_matcher, m_filter, sortedLayers, [this](uint32_t featureId)
+                                  {
+                                    m_results->emplace_back(m_mwmId, featureId);
+                                  });
 }
 }  // namespace v2
 }  // namespace search

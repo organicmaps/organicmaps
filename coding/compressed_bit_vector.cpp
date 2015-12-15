@@ -259,8 +259,7 @@ uint64_t SparseCBV::PopCount() const { return m_positions.size(); }
 
 bool SparseCBV::GetBit(uint64_t pos) const
 {
-  auto const it = lower_bound(m_positions.begin(), m_positions.end(), pos);
-  return it != m_positions.end() && *it == pos;
+  return binary_search(m_positions.begin(), m_positions.end(), pos);
 }
 
 CompressedBitVector::StorageStrategy SparseCBV::GetStorageStrategy() const

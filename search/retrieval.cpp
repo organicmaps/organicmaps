@@ -57,11 +57,10 @@ void CoverRect(m2::RectD const & rect, int scale, covering::IntervalsT & result)
 // features matching to |params|.
 template <typename TValue>
 unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
-    MwmValue * value, my::Cancellable const & cancellable, SearchQueryParams const & params)
+    MwmValue & value, my::Cancellable const & cancellable, SearchQueryParams const & params)
 {
-  ASSERT(value, ());
-  serial::CodingParams codingParams(trie::GetCodingParams(value->GetHeader().GetDefCodingParams()));
-  ModelReaderPtr searchReader = value->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
+  serial::CodingParams codingParams(trie::GetCodingParams(value.GetHeader().GetDefCodingParams()));
+  ModelReaderPtr searchReader = value.m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
 
   auto emptyFilter = [](uint32_t /* featureId */)
   {
@@ -87,13 +86,10 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
 
 // Retrieves from the geometry index corresponding to handle all
 // features from |coverage|.
-unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeatures(
-    MwmSet::MwmHandle const & handle, my::Cancellable const & cancellable,
-    covering::IntervalsT const & coverage, int scale)
+unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeaturesImpl(
+    MwmValue & value, my::Cancellable const & cancellable, covering::IntervalsT const & coverage,
+    int scale)
 {
-  auto * value = handle.GetValue<MwmValue>();
-  ASSERT(value, ());
-
   // TODO (@y, @m): remove this code as soon as geometry index will
   // have native support for bit vectors.
   vector<uint64_t> features;
@@ -104,7 +100,7 @@ unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeatures(
     features.push_back(featureId);
   };
 
-  ScaleIndex<ModelReaderPtr> index(value->m_cont.GetReader(INDEX_FILE_TAG), value->m_factory);
+  ScaleIndex<ModelReaderPtr> index(value.m_cont.GetReader(INDEX_FILE_TAG), value.m_factory);
   for (auto const & interval : coverage)
     index.ForEachInIntervalAndScale(collector, interval.first, interval.second, scale);
   return SortFeaturesAndBuildCBV(move(features));
@@ -235,8 +231,8 @@ public:
       {
         covering::IntervalsT coverage;
         CoverRect(currViewport, m_coverageScale, coverage);
-        geometryFeatures =
-            RetrieveGeometryFeatures(m_handle, cancellable, coverage, m_coverageScale);
+        geometryFeatures = RetrieveGeometryFeaturesImpl(*m_handle.GetValue<MwmValue>(), cancellable,
+                                                        coverage, m_coverageScale);
         for (auto const & interval : coverage)
           m_visited.Add(interval);
       }
@@ -269,8 +265,8 @@ public:
         for (auto const & interval : coverage)
           m_visited.SubtractFrom(interval, reducedCoverage);
 
-        geometryFeatures =
-            RetrieveGeometryFeatures(m_handle, cancellable, reducedCoverage, m_coverageScale);
+        geometryFeatures = RetrieveGeometryFeaturesImpl(*m_handle.GetValue<MwmValue>(), cancellable,
+                                                        reducedCoverage, m_coverageScale);
 
         for (auto const & interval : reducedCoverage)
           m_visited.Add(interval);
@@ -369,11 +365,9 @@ Retrieval::Retrieval() : m_index(nullptr), m_featuresReported(0) {}
 
 // static
 unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeatures(
-    MwmValue * value, my::Cancellable const & cancellable, SearchQueryParams const & params)
+    MwmValue & value, my::Cancellable const & cancellable, SearchQueryParams const & params)
 {
-  ASSERT(value, ());
-
-  MwmTraits mwmTraits(value->GetMwmVersion().format);
+  MwmTraits mwmTraits(value.GetMwmVersion().format);
 
   if (mwmTraits.GetSearchIndexFormat() ==
       MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter)
@@ -388,6 +382,15 @@ unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeatures(
     return RetrieveAddressFeaturesImpl<TValue>(value, cancellable, params);
   }
   return unique_ptr<coding::CompressedBitVector>();
+}
+
+// static
+unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveGeometryFeatures(
+    MwmValue & value, my::Cancellable const & cancellable, m2::RectD const & rect, int scale)
+{
+  covering::IntervalsT coverage;
+  CoverRect(rect, scale, coverage);
+  return RetrieveGeometryFeaturesImpl(value, cancellable, coverage, scale);
 }
 
 void Retrieval::Init(Index & index, vector<shared_ptr<MwmInfo>> const & infos,
@@ -520,7 +523,7 @@ bool Retrieval::InitBucketStrategy(Bucket & bucket, double scale)
 
   try
   {
-    addressFeatures = RetrieveAddressFeatures(bucket.m_handle.GetValue<MwmValue>(),
+    addressFeatures = RetrieveAddressFeatures(*bucket.m_handle.GetValue<MwmValue>(),
                                               *this /* cancellable */, m_params);
   }
   catch (CancelException &)

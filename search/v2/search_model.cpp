@@ -37,10 +37,6 @@ SearchModel::SearchType SearchModel::GetSearchType(FeatureType const & feature) 
     {
     case NONE:
       return SEARCH_TYPE_COUNT;
-    case COUNTRY:
-      return SEARCH_TYPE_COUNTRY;
-    case STATE:
-      return SEARCH_TYPE_STATE;
     case CITY:
     case TOWN:
     case VILLAGE:
@@ -65,10 +61,6 @@ string DebugPrint(SearchModel::SearchType type)
     return "STREET";
   case SearchModel::SEARCH_TYPE_CITY:
     return "CITY";
-  case SearchModel::SEARCH_TYPE_STATE:
-    return "STATE";
-  case SearchModel::SEARCH_TYPE_COUNTRY:
-    return "COUNTRY";
   case SearchModel::SEARCH_TYPE_COUNT:
     return "COUNT";
   }

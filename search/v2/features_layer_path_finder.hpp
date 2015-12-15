@@ -16,6 +16,7 @@ namespace search
 {
 namespace v2
 {
+class FeaturesFilter;
 class FeaturesLayerMatcher;
 
 // This class is able to find all paths through a layered graph, with
@@ -33,22 +34,22 @@ public:
   FeaturesLayerPathFinder(my::Cancellable const & cancellable);
 
   template <typename TFn>
-  void ForEachReachableVertex(FeaturesLayerMatcher & matcher,
+  void ForEachReachableVertex(FeaturesLayerMatcher & matcher, FeaturesFilter & filter,
                               vector<FeaturesLayer const *> const & layers, TFn && fn)
   {
     if (layers.empty())
       return;
 
     vector<uint32_t> reachable;
-    BuildGraph(matcher, layers, reachable);
+    BuildGraph(matcher, filter, layers, reachable);
 
     for (uint32_t featureId : reachable)
       fn(featureId);
   }
 
 private:
-  void BuildGraph(FeaturesLayerMatcher & matcher, vector<FeaturesLayer const *> const & layers,
-                  vector<uint32_t> & reachable);
+  void BuildGraph(FeaturesLayerMatcher & matcher, FeaturesFilter & filter,
+                  vector<FeaturesLayer const *> const & layers, vector<uint32_t> & reachable);
 
   my::Cancellable const & m_cancellable;
 };

@@ -61,9 +61,6 @@ namespace
 using TCompareFunction1 = function<bool(impl::PreResult1 const &, impl::PreResult1 const &)>;
 using TCompareFunction2 = function<bool(impl::PreResult2 const &, impl::PreResult2 const &)>;
 
-// Maximum result candidates count for each viewport/criteria.
-size_t const kPreResultsCount = 200;
-
 TCompareFunction1 const g_arrCompare1[] = {
     &impl::PreResult1::LessPriority, &impl::PreResult1::LessRank,
 };
@@ -209,6 +206,9 @@ RankTable const * Query::RetrievalCallback::LoadTable(MwmSet::MwmId const & id)
 }
 
 void Query::RetrievalCallback::UnloadTable(MwmSet::MwmId const & id) { m_rankTables.erase(id); }
+
+// static
+size_t const Query::kPreResultsCount;
 
 Query::Query(Index & index, CategoriesHolder const & categories, vector<Suggest> const & suggests,
              storage::CountryInfoGetter const & infoGetter)
