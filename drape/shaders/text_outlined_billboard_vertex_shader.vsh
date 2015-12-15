@@ -8,6 +8,7 @@ uniform mat4 modelView;
 uniform mat4 projection;
 uniform mat4 pivotTransform;
 uniform float u_isOutlinePass;
+uniform float zScale;
 
 #ifdef ENABLE_VTF
 uniform sampler2D u_colorTex;
@@ -32,7 +33,6 @@ void main()
   vec4 offset = vec4(a_normal, 0.0, 0.0) * projection;
   
   float pivotZ = a_position.w;
-  float zScale = projection[0][0] * length(vec4(1.0, 0.0, 0.0, 0.0) * modelView);
   
   vec4 projectedPivot = pivot * projection;
   float logicZ = projectedPivot.z / projectedPivot.w;

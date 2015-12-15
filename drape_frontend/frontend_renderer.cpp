@@ -912,6 +912,9 @@ void FrontendRenderer::RefreshModelView(ScreenBase const & screen)
   mv(3, 0) = m(0, 2); mv(3, 1) = m(1, 2); mv(3, 2) = 0; mv(3, 3) = m(2, 2);
 
   m_generalUniforms.SetMatrix4x4Value("modelView", mv.m_data);
+
+  float const zScale = 2.0f / (screen.GetWidth() * screen.GetScale());
+  m_generalUniforms.SetFloatValue("zScale", zScale);
 }
 
 void FrontendRenderer::RefreshPivotTransform(ScreenBase const & screen)
