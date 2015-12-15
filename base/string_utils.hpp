@@ -75,9 +75,6 @@ class TokenizeIterator
   UniCharIterT m_beg, m_end, m_finish;
   DelimFuncT m_delimFunc;
 
-  /// Explicitly disabled, because we're storing iterators for string
-  TokenizeIterator(char const *, DelimFuncT const &);
-
   void move()
   {
     m_beg = m_end;
@@ -113,6 +110,12 @@ public:
     move();
   }
 
+  /// Use default-constructed iterator for operator == to determin an end of a token stream.
+  TokenizeIterator() = default;
+
+  /// Explicitly disabled, because we're storing iterators for string
+  TokenizeIterator(char const *, DelimFuncT const &) = delete;
+
   string operator*() const
   {
     ASSERT( m_beg != m_finish, ("dereferencing of empty iterator") );
@@ -141,6 +144,11 @@ public:
   {
     return UniString(m_beg, m_end);
   }
+
+  /// Same as operator bool() in expression it == end(...)
+  bool operator==(TokenizeIterator const &) { return !(*this); }
+  /// Same as operator bool() in expression it != end(...)
+  bool operator!=(TokenizeIterator const &) { return (*this); }
 };
 
 class SimpleDelimiter
@@ -148,6 +156,8 @@ class SimpleDelimiter
   UniString m_delims;
 public:
   SimpleDelimiter(char const * delimChars);
+  // Used in TokenizeIterator to allow past the end iterator construction.
+  SimpleDelimiter() = default;
   /// @return true if c is delimiter
   bool operator()(UniChar c) const;
 };
@@ -349,3 +359,16 @@ size_t EditDistance(TIter const & b1, TIter const & e1, TIter const & b2, TIter 
   return prev[m];
 }
 }  // namespace strings
+
+namespace std
+{
+template <typename ... Args>
+struct iterator_traits<strings::TokenizeIterator<Args...>>
+{
+  using difference_type = std::ptrdiff_t;
+  using value_type = string;
+  using pointer = void;
+  using reference = string;
+  using iterator_category = std::input_iterator_tag;
+};
+} // namespace std
