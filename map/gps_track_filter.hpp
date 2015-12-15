@@ -2,7 +2,7 @@
 
 #include "platform/location.hpp"
 
-#include "geometry/point2d.hpp"
+#include "geometry/latlon.hpp"
 
 #include "std/vector.hpp"
 
@@ -19,7 +19,7 @@ public:
 
 private:
   double m_minAccuracy;
-  m2::PointD m_lastPt;
-  bool m_hasLast;
+  ms::LatLon m_lastLl;
+  bool m_hasLastLl;
 };
 

@@ -1,6 +1,6 @@
 #include "map/gps_track_filter.hpp"
 
-#include "geometry/mercator.hpp"
+#include "geometry/distance_on_sphere.hpp"
 
 #include "platform/settings.hpp"
 
@@ -24,8 +24,8 @@ void GpsTrackFilter::StoreMinHorizontalAccuracy(double value)
 
 GpsTrackFilter::GpsTrackFilter()
   : m_minAccuracy(kMinHorizontalAccuracyMeters)
-  , m_lastPt(0, 0)
-  , m_hasLast(false)
+  , m_lastLl(0, 0)
+  , m_hasLastLl(false)
 {
   Settings::Get(kMinHorizontalAccuracyKey, m_minAccuracy);
 }
@@ -45,12 +45,12 @@ void GpsTrackFilter::Process(vector<location::GpsInfo> const & inPoints,
       continue;
 
     // Filter point by close distance
-    m2::PointD const & pt = MercatorBounds::FromLatLon(originPt.m_latitude, originPt.m_longitude);
-    if (m_hasLast && MercatorBounds::DistanceOnEarth(pt, m_lastPt) < kClosePointDistanceMeters)
+    ms::LatLon const ll(originPt.m_latitude, originPt.m_longitude);
+    if (m_hasLastLl && ms::DistanceOnEarth(m_lastLl, ll) < kClosePointDistanceMeters)
       continue;
 
-    m_lastPt = pt;
-    m_hasLast = true;
+    m_lastLl = ll;
+    m_hasLastLl = true;
 
     outPoints.emplace_back(originPt);
   }
