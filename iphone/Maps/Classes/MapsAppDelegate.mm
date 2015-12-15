@@ -51,7 +51,7 @@ static NSString * const kBundleVersion = @"BundleVersion";
 extern string const kCountryCodeKey;
 extern string const kUniqueIdKey;
 extern string const kLanguageKey;
-extern NSString * const kUserDefaultsTTSLanguage;
+extern NSString * const kUserDefaultsTTSLanguageBcp47;
 extern NSString * const kUserDafaultsNeedToEnableTTS;
 
 extern char const * kAdServerForbiddenKey;
@@ -575,7 +575,7 @@ void InitLocalizedStrings()
 - (void)enableTTSForTheFirstTime
 {
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-  if ([ud stringForKey:kUserDefaultsTTSLanguage].length)
+  if ([ud stringForKey:kUserDefaultsTTSLanguageBcp47].length)
     return;
   [ud setBool:YES forKey:kUserDafaultsNeedToEnableTTS];
   [ud synchronize];
