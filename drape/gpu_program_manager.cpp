@@ -42,15 +42,27 @@ GpuProgramManager::~GpuProgramManager()
 
 void GpuProgramManager::Init()
 {
+  string const renderer = GLFunctions::glGetString(gl_const::GLRenderer);
+  string const version = GLFunctions::glGetString(gl_const::GLVersion);
+  LOG(LINFO, ("Renderer =", renderer, "Version =", version));
+
   // This feature is not supported on some Android devices (especially on Android 4.x version).
   // Since we can't predict on which devices it'll work fine, we have to turn off for all devices.
 #if !defined(OMIM_OS_ANDROID)
   if (GLFunctions::glGetInteger(gl_const::GLMaxVertexTextures) > 0)
   {
     LOG(LINFO, ("VTF enabled"));
-    globalDefines = "#define ENABLE_VTF\n"; // VTF == Vetrex Texture Fetch
+    m_globalDefines.append("#define ENABLE_VTF\n"); // VTF == Vetrex Texture Fetch
   }
 #endif
+
+  bool const isSamsungGoogleNexus = (renderer == "PowerVR SGX 540" &&
+                                     version.find("GOOGLENEXUS.ED945322") != string::npos);
+  if (isSamsungGoogleNexus)
+  {
+    LOG(LINFO, ("Samsung Google Nexus detected."));
+    m_globalDefines.append("#define SAMSUNG_GOOGLE_NEXUS\n");
+  }
 }
 
 ref_ptr<GpuProgram> GpuProgramManager::GetProgram(int index)
@@ -79,7 +91,7 @@ ref_ptr<Shader> GpuProgramManager::GetShader(int index, string const & source, S
   shader_map_t::iterator it = m_shaders.find(index);
   if (it == m_shaders.end())
   {
-    drape_ptr<Shader> shader = make_unique_dp<Shader>(source, globalDefines, t);
+    drape_ptr<Shader> shader = make_unique_dp<Shader>(source, m_globalDefines, t);
     ref_ptr<Shader> result = make_ref(shader);
     m_shaders.emplace(index, move(shader));
     return result;

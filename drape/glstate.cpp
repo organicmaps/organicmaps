@@ -113,9 +113,9 @@ void ApplyUniforms(UniformValuesStorage const & uniforms, ref_ptr<GpuProgram> pr
 void ApplyTextures(GLState state, ref_ptr<GpuProgram> program)
 {
   ref_ptr<Texture> tex = state.GetColorTexture();
-  if (tex != nullptr)
+  int8_t colorTexLoc = -1;
+  if (tex != nullptr && (colorTexLoc = program->GetUniformLocation("u_colorTex")) >= 0)
   {
-    int8_t const colorTexLoc = program->GetUniformLocation("u_colorTex");
     GLFunctions::glActiveTexture(gl_const::GLTexture0);
     tex->Bind();
     GLFunctions::glUniformValuei(colorTexLoc, 0);
@@ -136,9 +136,9 @@ void ApplyTextures(GLState state, ref_ptr<GpuProgram> program)
   }
 
   tex = state.GetMaskTexture();
-  if (tex != nullptr)
+  int8_t maskTexLoc = -1;
+  if (tex != nullptr && (maskTexLoc = program->GetUniformLocation("u_maskTex")) >= 0)
   {
-    int8_t const maskTexLoc = program->GetUniformLocation("u_maskTex");
     GLFunctions::glActiveTexture(gl_const::GLTexture0 + 1);
     tex->Bind();
     GLFunctions::glUniformValuei(maskTexLoc, 1);

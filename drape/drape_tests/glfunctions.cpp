@@ -3,6 +3,8 @@
 
 #include "base/assert.hpp"
 
+#include "std/string.hpp"
+
 using namespace emul;
 
 #define MOCK_CALL(f) GLMockFunctions::Instance().f;
@@ -237,6 +239,11 @@ void GLFunctions::glTexParameter(glConst param, glConst value)
 int32_t GLFunctions::glGetInteger(glConst pname)
 {
   return MOCK_CALL(glGetInteger(pname));
+}
+
+string GLFunctions::glGetString(glConst pname)
+{
+  return MOCK_CALL(glGetString(pname));
 }
 
 void CheckGLError(my::SrcPoint const & /*srcPt*/) {}

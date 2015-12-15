@@ -37,6 +37,8 @@ public:
   /// name = { gl_const::GLBufferSize, gl_const::GLBufferUsage }
   static int32_t glGetBufferParameter(glConst target, glConst name);
 
+  static string glGetString(glConst pname);
+
   static void glEnable(glConst mode);
   static void glDisable(glConst mode);
   static void glClearDepthValue(double depth);

@@ -474,6 +474,11 @@ bool TextureManager::AreGlyphsReady(strings::UniString const & str) const
   return m_glyphManager->AreGlyphsReady(str);
 }
 
+ref_ptr<Texture> TextureManager::GetSymbolsTexture() const
+{
+  return make_ref(m_symbolTexture);
+}
+
 constexpr size_t TextureManager::GetInvalidGlyphGroup()
 {
   return kInvalidGlyphGroup;

@@ -27,7 +27,7 @@ private:
   typedef map<int, drape_ptr<Shader> > shader_map_t;
   program_map_t m_programs;
   shader_map_t m_shaders;
-  string globalDefines;
+  string m_globalDefines;
 };
 
 } // namespace dp
