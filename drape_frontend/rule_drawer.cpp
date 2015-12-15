@@ -135,9 +135,27 @@ void RuleDrawer::operator()(FeatureType const & f)
   if (s.AreaStyleExists())
   {
     bool const is3dBuilding = m_is3d ? (ftypes::IsBuildingChecker::Instance()(f) && f.GetLayer() >= 0) : false;
-    float const kBuildingHeight = 0.0008f * (1.0f + 2.0f * rand() / RAND_MAX);
 
-    ApplyAreaFeature apply(insertShape, f.GetID(), is3dBuilding ? kBuildingHeight : 0.0f,
+    float areaHeight = 0.0f;
+    if (is3dBuilding)
+    {
+      f.ParseMetadata();
+      feature::Metadata const & md = f.GetMetadata();
+      string const & height = md.Get(feature::Metadata::FMD_HEIGHT);
+
+      double const kDefaultHeightInMeters = 0.0;
+      double heightInMeters = kDefaultHeightInMeters;
+      if (!height.empty())
+        strings::to_double(height, heightInMeters);
+
+      m2::PointD const pt = feature::GetCenter(f, zoomLevel);
+      m2::RectD const rectMercator = MercatorBounds::MetresToXY(MercatorBounds::XToLon(pt.x),
+                                                          MercatorBounds::YToLat(pt.y),
+                                                          heightInMeters);
+      areaHeight = m2::PointD(rectMercator.SizeX(), rectMercator.SizeY()).Length();
+    }
+
+    ApplyAreaFeature apply(insertShape, f.GetID(), areaHeight,
                            minVisibleScale, f.GetRank(), s.GetCaptionDescription());
     f.ForEachTriangleRef(apply, zoomLevel);
 
