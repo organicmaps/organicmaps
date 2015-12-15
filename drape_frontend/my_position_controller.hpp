@@ -83,6 +83,8 @@ public:
   void Render(uint32_t renderMode, ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
               dp::UniformValuesStorage const & commonUniforms);
 
+  bool IsFollowingActive() const;
+
 private:
   void AnimateStateTransition(location::EMyPositionMode oldMode, location::EMyPositionMode newMode);
 
