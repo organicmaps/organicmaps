@@ -31052,17 +31052,9 @@ cont {
     scale: 12
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     apply_if: "bbox_area<4000000"
-  }
-  element {
-    scale: 12
-    area {
-      color: 9163744
-      priority: -15041
-    }
-    apply_if: "bbox_area<10000000"
   }
   element {
     scale: 13
@@ -31083,17 +31075,9 @@ cont {
     scale: 13
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     apply_if: "bbox_area<4000000"
-  }
-  element {
-    scale: 13
-    area {
-      color: 9163744
-      priority: -15041
-    }
-    apply_if: "bbox_area<10000000"
   }
   element {
     scale: 14
@@ -31114,17 +31098,9 @@ cont {
     scale: 14
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     apply_if: "bbox_area<4000000"
-  }
-  element {
-    scale: 14
-    area {
-      color: 9163744
-      priority: -15041
-    }
-    apply_if: "bbox_area<10000000"
   }
   element {
     scale: 15
@@ -31145,17 +31121,9 @@ cont {
     scale: 15
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     apply_if: "bbox_area<4000000"
-  }
-  element {
-    scale: 15
-    area {
-      color: 9163744
-      priority: -15041
-    }
-    apply_if: "bbox_area<10000000"
   }
   element {
     scale: 16
@@ -31176,17 +31144,9 @@ cont {
     scale: 16
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     apply_if: "bbox_area<4000000"
-  }
-  element {
-    scale: 16
-    area {
-      color: 9163744
-      priority: -15041
-    }
-    apply_if: "bbox_area<10000000"
   }
   element {
     scale: 17
@@ -31207,17 +31167,9 @@ cont {
     scale: 17
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     apply_if: "bbox_area<4000000"
-  }
-  element {
-    scale: 17
-    area {
-      color: 9163744
-      priority: -15041
-    }
-    apply_if: "bbox_area<10000000"
   }
   element {
     scale: 18
@@ -31238,17 +31190,9 @@ cont {
     scale: 18
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     apply_if: "bbox_area<4000000"
-  }
-  element {
-    scale: 18
-    area {
-      color: 9163744
-      priority: -15041
-    }
-    apply_if: "bbox_area<10000000"
   }
   element {
     scale: 19
@@ -31269,17 +31213,9 @@ cont {
     scale: 19
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     apply_if: "bbox_area<4000000"
-  }
-  element {
-    scale: 19
-    area {
-      color: 9163744
-      priority: -15041
-    }
-    apply_if: "bbox_area<10000000"
   }
 }
 cont {
@@ -37818,7 +37754,7 @@ cont {
     scale: 10
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     apply_if: "bbox_area<4000000"
   }
@@ -37841,7 +37777,7 @@ cont {
     scale: 11
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     apply_if: "bbox_area<4000000"
   }
@@ -37864,17 +37800,9 @@ cont {
     scale: 12
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     apply_if: "bbox_area<4000000"
-  }
-  element {
-    scale: 12
-    area {
-      color: 9163744
-      priority: -15041
-    }
-    apply_if: "bbox_area<10000000"
   }
   element {
     scale: 13
@@ -37895,17 +37823,9 @@ cont {
     scale: 13
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     apply_if: "bbox_area<4000000"
-  }
-  element {
-    scale: 13
-    area {
-      color: 9163744
-      priority: -15041
-    }
-    apply_if: "bbox_area<10000000"
   }
   element {
     scale: 14
@@ -37926,17 +37846,9 @@ cont {
     scale: 14
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     apply_if: "bbox_area<4000000"
-  }
-  element {
-    scale: 14
-    area {
-      color: 9163744
-      priority: -15041
-    }
-    apply_if: "bbox_area<10000000"
   }
   element {
     scale: 15
@@ -37957,17 +37869,9 @@ cont {
     scale: 15
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     apply_if: "bbox_area<4000000"
-  }
-  element {
-    scale: 15
-    area {
-      color: 9163744
-      priority: -15041
-    }
-    apply_if: "bbox_area<10000000"
   }
   element {
     scale: 16
@@ -37988,17 +37892,9 @@ cont {
     scale: 16
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     apply_if: "bbox_area<4000000"
-  }
-  element {
-    scale: 16
-    area {
-      color: 9163744
-      priority: -15041
-    }
-    apply_if: "bbox_area<10000000"
   }
   element {
     scale: 17
@@ -38019,17 +37915,9 @@ cont {
     scale: 17
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     apply_if: "bbox_area<4000000"
-  }
-  element {
-    scale: 17
-    area {
-      color: 9163744
-      priority: -15041
-    }
-    apply_if: "bbox_area<10000000"
   }
   element {
     scale: 18
@@ -38050,17 +37938,9 @@ cont {
     scale: 18
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     apply_if: "bbox_area<4000000"
-  }
-  element {
-    scale: 18
-    area {
-      color: 9163744
-      priority: -15041
-    }
-    apply_if: "bbox_area<10000000"
   }
   element {
     scale: 19
@@ -38081,17 +37961,9 @@ cont {
     scale: 19
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     apply_if: "bbox_area<4000000"
-  }
-  element {
-    scale: 19
-    area {
-      color: 9163744
-      priority: -15041
-    }
-    apply_if: "bbox_area<10000000"
   }
 }
 cont {
@@ -39254,7 +39126,7 @@ cont {
     scale: 10
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     apply_if: "bbox_area<4000000"
   }
@@ -39277,7 +39149,7 @@ cont {
     scale: 11
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     apply_if: "bbox_area<4000000"
   }
@@ -39300,17 +39172,9 @@ cont {
     scale: 12
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     apply_if: "bbox_area<4000000"
-  }
-  element {
-    scale: 12
-    area {
-      color: 9163744
-      priority: -15041
-    }
-    apply_if: "bbox_area<10000000"
   }
   element {
     scale: 13
@@ -39331,17 +39195,9 @@ cont {
     scale: 13
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     apply_if: "bbox_area<4000000"
-  }
-  element {
-    scale: 13
-    area {
-      color: 9163744
-      priority: -15041
-    }
-    apply_if: "bbox_area<10000000"
   }
   element {
     scale: 14
@@ -39362,31 +39218,16 @@ cont {
     scale: 14
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     caption {
       primary {
         height: 10
         color: 4495803
       }
-      priority: 15351
+      priority: 15229
     }
     apply_if: "bbox_area<4000000"
-  }
-  element {
-    scale: 14
-    area {
-      color: 9163744
-      priority: -15041
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 15959
-    }
-    apply_if: "bbox_area<10000000"
   }
   element {
     scale: 15
@@ -39407,31 +39248,16 @@ cont {
     scale: 15
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     caption {
       primary {
         height: 10
         color: 4495803
       }
-      priority: 15351
+      priority: 15229
     }
     apply_if: "bbox_area<4000000"
-  }
-  element {
-    scale: 15
-    area {
-      color: 9163744
-      priority: -15041
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 15959
-    }
-    apply_if: "bbox_area<10000000"
   }
   element {
     scale: 16
@@ -39452,31 +39278,16 @@ cont {
     scale: 16
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     caption {
       primary {
         height: 11
         color: 4495803
       }
-      priority: 15351
+      priority: 15229
     }
     apply_if: "bbox_area<4000000"
-  }
-  element {
-    scale: 16
-    area {
-      color: 9163744
-      priority: -15041
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 15959
-    }
-    apply_if: "bbox_area<10000000"
   }
   element {
     scale: 17
@@ -39497,31 +39308,16 @@ cont {
     scale: 17
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     caption {
       primary {
         height: 11
         color: 4495803
       }
-      priority: 15351
+      priority: 15229
     }
     apply_if: "bbox_area<4000000"
-  }
-  element {
-    scale: 17
-    area {
-      color: 9163744
-      priority: -15041
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 15959
-    }
-    apply_if: "bbox_area<10000000"
   }
   element {
     scale: 18
@@ -39542,31 +39338,16 @@ cont {
     scale: 18
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     caption {
       primary {
         height: 11
         color: 4495803
       }
-      priority: 15351
+      priority: 15229
     }
     apply_if: "bbox_area<4000000"
-  }
-  element {
-    scale: 18
-    area {
-      color: 9163744
-      priority: -15041
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 15959
-    }
-    apply_if: "bbox_area<10000000"
   }
   element {
     scale: 19
@@ -39587,31 +39368,16 @@ cont {
     scale: 19
     area {
       color: 9163744
-      priority: -15649
+      priority: -15771
     }
     caption {
       primary {
         height: 11
         color: 4495803
       }
-      priority: 15351
+      priority: 15229
     }
     apply_if: "bbox_area<4000000"
-  }
-  element {
-    scale: 19
-    area {
-      color: 9163744
-      priority: -15041
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 15959
-    }
-    apply_if: "bbox_area<10000000"
   }
 }
 cont {
@@ -60916,7 +60682,7 @@ cont {
         dd: 1.0
         dd: 1.0
       }
-      priority: 1216
+      priority: 1959
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -60930,7 +60696,7 @@ cont {
         dd: 1.0
         dd: 1.0
       }
-      priority: 1216
+      priority: 1959
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -60944,7 +60710,7 @@ cont {
         dd: 1.0
         dd: 1.0
       }
-      priority: 1216
+      priority: 1959
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -60961,7 +60727,7 @@ cont {
         dd: 1.0
         dd: 1.0
       }
-      priority: 1216
+      priority: 1959
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -60975,7 +60741,7 @@ cont {
         dd: 1.0
         dd: 1.0
       }
-      priority: 1216
+      priority: 1959
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -60989,7 +60755,7 @@ cont {
         dd: 1.0
         dd: 1.0
       }
-      priority: 1216
+      priority: 1959
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -61001,140 +60767,140 @@ cont {
     scale: 0
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 1
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 2
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 3
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 4
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 5
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 6
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 7
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 8
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 9
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 10
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 11
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 12
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 13
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 14
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 15
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 16
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 17
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 18
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 19
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
 }
@@ -61149,7 +60915,7 @@ cont {
         dd: 1.0
         dd: 1.0
       }
-      priority: 1216
+      priority: 1959
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -61163,7 +60929,7 @@ cont {
         dd: 1.0
         dd: 1.0
       }
-      priority: 1216
+      priority: 1959
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -61177,7 +60943,7 @@ cont {
         dd: 1.0
         dd: 1.0
       }
-      priority: 1216
+      priority: 1959
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -61194,7 +60960,7 @@ cont {
         dd: 1.0
         dd: 1.0
       }
-      priority: 1216
+      priority: 1959
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -61208,7 +60974,7 @@ cont {
         dd: 1.0
         dd: 1.0
       }
-      priority: 1216
+      priority: 1959
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -61222,7 +60988,7 @@ cont {
         dd: 1.0
         dd: 1.0
       }
-      priority: 1216
+      priority: 1959
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -61319,7 +61085,7 @@ cont {
     }
     area {
       color: 9163744
-      priority: -15784
+      priority: -15041
     }
   }
   element {
@@ -61525,7 +61291,7 @@ cont {
     }
     area {
       color: 9163744
-      priority: -15784
+      priority: -15041
     }
   }
   element {
@@ -61724,70 +61490,70 @@ cont {
     scale: 0
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 1
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 2
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 3
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 4
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 5
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 6
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 7
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 8
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
     scale: 9
     area {
       color: 9163744
-      priority: -15771
+      priority: -15041
     }
   }
   element {
@@ -61801,7 +61567,7 @@ cont {
     }
     area {
       color: 9163744
-      priority: -15784
+      priority: -15041
     }
   }
   element {
@@ -62635,7 +62401,7 @@ cont {
     lines {
       width: 1.0
       color: 8421504
-      priority: 1243
+      priority: 1959
       join: ROUNDJOIN
       cap: BUTTCAP
     }
@@ -62645,7 +62411,7 @@ cont {
     lines {
       width: 1.0
       color: 8421504
-      priority: 1243
+      priority: 1959
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -62655,7 +62421,7 @@ cont {
     lines {
       width: 1.0
       color: 8421504
-      priority: 1243
+      priority: 1959
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -62665,7 +62431,7 @@ cont {
     lines {
       width: 1.0
       color: 8421504
-      priority: 1243
+      priority: 1959
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -62675,7 +62441,7 @@ cont {
     lines {
       width: 1.0
       color: 8421504
-      priority: 1243
+      priority: 1959
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
