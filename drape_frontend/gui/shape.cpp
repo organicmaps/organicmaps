@@ -26,7 +26,7 @@ bool Handle::Update(ScreenBase const & screen)
     m_uniforms.SetFloatValue("u_opacity", 1.0);
 
     auto const & params = df::VisualParams::Instance().GetGlyphVisualParams();
-    m_uniforms.SetFloatValue("u_contrastGamma", params.m_contrast, params.m_gamma);
+    m_uniforms.SetFloatValue("u_contrastGamma", params.m_guiContrast, params.m_guiGamma);
     m_uniforms.SetFloatValue("u_isOutlinePass", 0.0f);
   }
 

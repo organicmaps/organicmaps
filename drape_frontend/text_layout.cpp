@@ -1,5 +1,7 @@
 #include "drape_frontend/text_layout.hpp"
 
+#include "drape_frontend/visual_params.hpp"
+
 #include "drape/fribidi.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/overlay_handle.hpp"
@@ -14,8 +16,7 @@ namespace df
 namespace
 {
 
-float const BASE_HEIGHT = 22.0f;
-float const VALID_SPLINE_TURN = 0.96f;
+float const kValidSplineTurn = 0.96f;
 
 class TextGeometryGenerator
 {
@@ -343,7 +344,7 @@ void TextLayout::Init(strings::UniString const & text, float fontSize,
                       ref_ptr<dp::TextureManager> textures)
 {
   m_text = text;
-  m_textSizeRatio = fontSize / BASE_HEIGHT;
+  m_textSizeRatio = fontSize / VisualParams::Instance().GetGlyphBaseSize();
   textures->GetGlyphRegions(text, m_metrics);
 }
 
@@ -376,7 +377,7 @@ float TextLayout::GetPixelLength() const
 
 float TextLayout::GetPixelHeight() const
 {
-  return m_textSizeRatio * BASE_HEIGHT;
+  return m_textSizeRatio * VisualParams::Instance().GetGlyphBaseSize();
 }
 
 strings::UniString const & TextLayout::GetText() const
@@ -511,7 +512,7 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, Scr
     glsl::vec2 currentTangent = glsl::ToVec2(penIter.m_dir);
     penIter.Advance(advanceSign * xAdvance * scalePtoG);
     float const dotProduct = glsl::dot(currentTangent, glsl::ToVec2(penIter.m_dir));
-    if (dotProduct < VALID_SPLINE_TURN)
+    if (dotProduct < kValidSplineTurn)
       return false;
   }
 

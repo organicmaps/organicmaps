@@ -19,8 +19,6 @@ namespace gui
 namespace
 {
 
-static float const BASE_GLYPH_HEIGHT = 20.0f;
-
 glsl::vec2 GetNormalsAndMask(dp::TextureManager::GlyphRegion const & glyph, float textRatio,
                              array<glsl::vec2, 4> & normals, array<glsl::vec2, 4> & maskTexCoord)
 {
@@ -156,7 +154,8 @@ void StaticLabel::CacheStaticText(string const & text, char const * delim,
   glsl::vec2 colorTex = glsl::ToVec2(color.GetTexRect().Center());
   glsl::vec2 outlineTex = glsl::ToVec2(outline.GetTexRect().Center());
 
-  float textRatio = font.m_size * df::VisualParams::Instance().GetVisualScale() / BASE_GLYPH_HEIGHT;
+  df::VisualParams const & vparams = df::VisualParams::Instance();
+  float const textRatio = font.m_size * vparams.GetVisualScale() / vparams.GetGlyphBaseSize();
 
   buffer_vector<float, 4> lineLengths;
   lineLengths.reserve(buffers.size());
@@ -325,7 +324,8 @@ void MutableLabel::Precache(PrecacheParams const & params, PrecacheResult & resu
 {
   SetMaxLength(params.m_maxLength);
   result.m_state.SetMaskTexture(SetAlphabet(params.m_alphabet, mng));
-  m_textRatio = params.m_font.m_size * df::VisualParams::Instance().GetVisualScale() / BASE_GLYPH_HEIGHT;
+  df::VisualParams const & vparams = df::VisualParams::Instance();
+  m_textRatio = params.m_font.m_size * vparams.GetVisualScale() / vparams.GetGlyphBaseSize();
 
   dp::TextureManager::ColorRegion color;
   dp::TextureManager::ColorRegion outlineColor;
