@@ -2,6 +2,8 @@
 
 #include "platform/location.hpp"
 
+#include "geometry/point2d.hpp"
+
 #include "std/vector.hpp"
 
 class GpsTrackFilter
@@ -17,5 +19,7 @@ public:
 
 private:
   double m_minAccuracy;
+  m2::PointD m_lastPt;
+  bool m_hasLast;
 };
 
