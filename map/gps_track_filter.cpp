@@ -12,7 +12,7 @@ char const kMinHorizontalAccuracyKey[] = "GpsTrackingMinAccuracy";
 // Minimal horizontal accuracy is required to skip 'bad' points.
 double constexpr kMinHorizontalAccuracyMeters = 50;
 
-// Requires for points decimation to reduce number of close points.
+// Required for points decimation to reduce number of close points.
 double constexpr kClosePointDistanceMeters = 15;
 
 } // namespace
