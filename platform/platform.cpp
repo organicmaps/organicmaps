@@ -94,7 +94,7 @@ void Platform::GetFontNames(FilesList & res) const
   /// We can take it from data/external_resources.txt
   char const * arrDef[] = {
 #ifndef OMIM_OS_ANDROID
-    "00_roboto_regular.ttf",
+    "00_roboto_medium.ttf",
 #endif
     "01_dejavusans.ttf",
     "02_droidsans-fallback.ttf",

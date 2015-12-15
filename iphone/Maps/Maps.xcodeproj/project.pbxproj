@@ -151,7 +151,7 @@
 		4579C89D1AD2F9E6001D6B90 /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */; };
 		4579C89E1AD2F9E6001D6B90 /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = F7FDD822147F30CC005900FA /* drules_proto.bin */; };
 		4579C89F1AD2FA36001D6B90 /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = FA85F632145DDDC20090E1A0 /* packed_polygons.bin */; };
-		4579C8A01AD2FAB1001D6B90 /* 00_roboto_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 00_roboto_regular.ttf */; };
+		4579C8A01AD2FAB1001D6B90 /* 00_roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 00_roboto_medium.ttf */; };
 		4579C8A11AD2FAB1001D6B90 /* 01_dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */; };
 		4579C8A31AD2FAB1001D6B90 /* 03_jomolhari-id-a3d.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */; };
 		4579C8A41AD2FAB1001D6B90 /* 04_padauk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E8134C4968003A9827 /* 04_padauk.ttf */; };
@@ -209,7 +209,7 @@
 		6741A9161BF340D1002C974C /* resources-xhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */; };
 		6741A9171BF340D1002C974C /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99DA19C1A2CD00C1CF98 /* resources-xhdpi */; };
 		6741A9181BF340D1002C974C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA99CB71147089B100689A9A /* Localizable.strings */; };
-		6741A9191BF340D1002C974C /* 00_roboto_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 00_roboto_regular.ttf */; };
+		6741A9191BF340D1002C974C /* 00_roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 00_roboto_medium.ttf */; };
 		6741A91A1BF340D1002C974C /* 01_dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */; };
 		6741A91B1BF340D1002C974C /* 02_droidsans-fallback.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */; };
 		6741A91C1BF340D1002C974C /* 03_jomolhari-id-a3d.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */; };
@@ -326,7 +326,7 @@
 		6741A99C1BF340DE002C974C /* resources-6plus in Resources */ = {isa = PBXBuildFile; fileRef = 45159BF81B0CA2D5009BFA85 /* resources-6plus */; };
 		6741A99D1BF340DE002C974C /* MWMPedestrianShareAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347BAC681B733D540010FF78 /* MWMPedestrianShareAlert.xib */; };
 		6741A99E1BF340DE002C974C /* MWMNextTurnPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6FF2E2A1B8C5C020063FD1F /* MWMNextTurnPanel.xib */; };
-		6741A99F1BF340DE002C974C /* 00_roboto_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 00_roboto_regular.ttf */; };
+		6741A99F1BF340DE002C974C /* 00_roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 00_roboto_medium.ttf */; };
 		6741A9A11BF340DE002C974C /* MWMSearchDownloadView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 344825961B8DCEC400757B1B /* MWMSearchDownloadView.mm */; };
 		6741A9A21BF340DE002C974C /* CommunityVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 978D4A241996B0EC00D72CA7 /* CommunityVC.mm */; };
 		6741A9A31BF340DE002C974C /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.mm */; };
@@ -752,7 +752,7 @@
 		FAAEA7D1161BD26600CCD661 /* synonyms.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAEA7D0161BD26600CCD661 /* synonyms.txt */; };
 		FAAEA7D5161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAAEA7D3161D8D3100CCD661 /* BookmarksRootVC.mm */; };
 		FAAFD697139D9BE2000AE70C /* categories.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAFD696139D9BE2000AE70C /* categories.txt */; };
-		FAF30A95173AB23900818BF6 /* 00_roboto_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 00_roboto_regular.ttf */; };
+		FAF30A95173AB23900818BF6 /* 00_roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 00_roboto_medium.ttf */; };
 		FAF457E715597D4600DCCC49 /* Framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF457E615597D4600DCCC49 /* Framework.cpp */; };
 		FAFCB63613366E78001A5C59 /* WebViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAFCB63513366E78001A5C59 /* WebViewController.mm */; };
 		FAFF422A1347F101009BBB14 /* World.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FAFF42291347F101009BBB14 /* World.mwm */; };
@@ -1386,7 +1386,7 @@
 		FAB09895148E2F1500892860 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FAB0FC6019251E85003B396F /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FAB9D5D91992B981003F6A52 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		FAF30A94173AB23900818BF6 /* 00_roboto_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 00_roboto_regular.ttf; path = ../../data/00_roboto_regular.ttf; sourceTree = "<group>"; };
+		FAF30A94173AB23900818BF6 /* 00_roboto_medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 00_roboto_medium.ttf; path = ../../data/00_roboto_medium.ttf; sourceTree = "<group>"; };
 		FAF457E415597BC100DCCC49 /* Framework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Framework.h; sourceTree = "<group>"; };
 		FAF457E615597D4600DCCC49 /* Framework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Framework.cpp; sourceTree = "<group>"; };
 		FAF8E2EC1752E0F100D41090 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2753,7 +2753,7 @@
 				FA64D9A813F975AD00350ECF /* types.txt */,
 				452FCA3A1B6A3DF7007019AB /* colors.txt */,
 				451950391B7A3E070085DA05 /* patterns.txt */,
-				FAF30A94173AB23900818BF6 /* 00_roboto_regular.ttf */,
+				FAF30A94173AB23900818BF6 /* 00_roboto_medium.ttf */,
 				EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */,
 				9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */,
 				EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */,
@@ -3152,7 +3152,7 @@
 				45159BF91B0CA2D5009BFA85 /* resources-6plus in Resources */,
 				347BAC691B733D540010FF78 /* MWMPedestrianShareAlert.xib in Resources */,
 				F6FF2E2B1B8C5C020063FD1F /* MWMNextTurnPanel.xib in Resources */,
-				FAF30A95173AB23900818BF6 /* 00_roboto_regular.ttf in Resources */,
+				FAF30A95173AB23900818BF6 /* 00_roboto_medium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3175,7 +3175,7 @@
 				6741A9161BF340D1002C974C /* resources-xhdpi_dark in Resources */,
 				6741A9171BF340D1002C974C /* resources-xhdpi in Resources */,
 				6741A9181BF340D1002C974C /* Localizable.strings in Resources */,
-				6741A9191BF340D1002C974C /* 00_roboto_regular.ttf in Resources */,
+				6741A9191BF340D1002C974C /* 00_roboto_medium.ttf in Resources */,
 				6741A91A1BF340D1002C974C /* 01_dejavusans.ttf in Resources */,
 				6741A91B1BF340D1002C974C /* 02_droidsans-fallback.ttf in Resources */,
 				6741A91C1BF340D1002C974C /* 03_jomolhari-id-a3d.ttf in Resources */,
@@ -3307,7 +3307,7 @@
 				6741A99C1BF340DE002C974C /* resources-6plus in Resources */,
 				6741A99D1BF340DE002C974C /* MWMPedestrianShareAlert.xib in Resources */,
 				6741A99E1BF340DE002C974C /* MWMNextTurnPanel.xib in Resources */,
-				6741A99F1BF340DE002C974C /* 00_roboto_regular.ttf in Resources */,
+				6741A99F1BF340DE002C974C /* 00_roboto_medium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3322,7 +3322,7 @@
 				F6C7B7131BA840A4004233F4 /* resources-xhdpi_dark in Resources */,
 				343F26311AEFDF3E00388A6D /* resources-xhdpi in Resources */,
 				6C47C8BF1AD6C47E000C52C1 /* Localizable.strings in Resources */,
-				4579C8A01AD2FAB1001D6B90 /* 00_roboto_regular.ttf in Resources */,
+				4579C8A01AD2FAB1001D6B90 /* 00_roboto_medium.ttf in Resources */,
 				4579C8A11AD2FAB1001D6B90 /* 01_dejavusans.ttf in Resources */,
 				9DF04B241B71010E00DACAF1 /* 02_droidsans-fallback.ttf in Resources */,
 				4579C8A31AD2FAB1001D6B90 /* 03_jomolhari-id-a3d.ttf in Resources */,

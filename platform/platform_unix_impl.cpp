@@ -39,7 +39,7 @@ void Platform::GetSystemFontNames(FilesList & res) const
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE)
 #else
   char const * fontsWhitelist[] = {
-    "Roboto-Regular.ttf",
+    "Roboto-Medium.ttf",
     "DroidSansFallback.ttf",
     "DroidSansFallbackFull.ttf",
     "DroidSans.ttf",
