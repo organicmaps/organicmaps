@@ -32,6 +32,20 @@ UNIT_TEST(RussiaMoscowNagatinoUturnTurnTest)
   integration::TestRouteLength(route, 561.);
 }
 
+UNIT_TEST(StPetersburgSideRoadPenaltyTest)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetOsrmComponents(),
+      MercatorBounds::FromLatLon(59.85157, 30.28033), {0., 0.},
+      MercatorBounds::FromLatLon(59.84268, 30.27589));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+  TEST_EQUAL(result, IRouter::NoError, ());
+
+  integration::TestTurnCount(route, 0);
+}
+
 UNIT_TEST(RussiaMoscowLenigradskiy39UturnTurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
