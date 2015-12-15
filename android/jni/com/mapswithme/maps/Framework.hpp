@@ -156,7 +156,7 @@ namespace android
     location::EMyPositionMode GetMyPositionMode() const;
     void SetMyPositionMode(location::EMyPositionMode mode);
 
-    void Allow3dMode(bool allow);
+    void Allow3dMode(bool allow3d, bool allow3dBuildings);
 
     void SetupWidget(gui::EWidget widget, float x, float y, dp::Anchor anchor);
     void ApplyWidgets();

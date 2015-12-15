@@ -237,6 +237,12 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       ProcessStopRenderingMessage();
       break;
     }
+  case Message::Allow3dBuildings:
+    {
+      ref_ptr<Allow3dBuildingsMessage> msg = message;
+      m_readManager->Allow3dBuildings(msg->Allow3dBuildings());
+      break;
+    }
   default:
     ASSERT(false, ());
     break;

@@ -188,9 +188,9 @@ MapStyle Framework::GetMapStyle() const
   return m_work.GetMapStyle();
 }
 
-void Framework::Allow3dMode(bool allow)
+void Framework::Allow3dMode(bool allow3d, bool allow3dBuildings)
 {
-  m_work.Allow3dMode(allow);
+  m_work.Allow3dMode(allow3d, allow3dBuildings);
 }
 
 Storage & Framework::Storage()
@@ -1319,13 +1319,14 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeAllow3dMode(JNIEnv * env, jclass thiz, jboolean allow)
+  Java_com_mapswithme_maps_Framework_nativeAllow3dMode(JNIEnv * env, jclass thiz, jboolean allow, jboolean allowBuildings)
   {
     bool const allow3d = static_cast<bool>(allow);
+    bool const allow3dBuildings = static_cast<bool>(allowBuildings);
 
-    g_framework->PostDrapeTask([allow3d]()
+    g_framework->PostDrapeTask([allow3d, allow3dBuildings]()
     {
-      g_framework->Allow3dMode(allow3d);
+      g_framework->Allow3dMode(allow3d, allow3dBuildings);
     });
   }
 } // extern "C"

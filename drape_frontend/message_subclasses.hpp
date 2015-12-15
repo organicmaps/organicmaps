@@ -656,15 +656,29 @@ public:
 class Allow3dModeMessage : public Message
 {
 public:
-  Allow3dModeMessage(bool enable)
-    : m_enable(enable)
+  Allow3dModeMessage(bool allow)
+    : m_allow(allow)
   {}
 
   Type GetType() const override { return Message::Allow3dMode; }
-  bool Enable() const { return m_enable; }
+  bool Allow() const { return m_allow; }
 
 private:
-  bool const m_enable;
+  bool const m_allow;
+};
+
+class Allow3dBuildingsMessage : public Message
+{
+public:
+  Allow3dBuildingsMessage(bool allow3dBuildings)
+    : m_allow3dBuildings(allow3dBuildings)
+  {}
+
+  Type GetType() const override { return Message::Allow3dBuildings; }
+  bool Allow3dBuildings() const { return m_allow3dBuildings; }
+
+private:
+  bool const m_allow3dBuildings;
 };
 
 class EnablePerspectiveMessage : public Message

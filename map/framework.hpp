@@ -544,9 +544,9 @@ public:
   void SetRouteStartPoint(m2::PointD const & pt, bool isValid);
   void SetRouteFinishPoint(m2::PointD const & pt, bool isValid);
 
-  void Allow3dMode(bool allow);
-  void Save3dMode(bool allow);
-  bool Load3dMode();
+  void Allow3dMode(bool allow3d, bool allow3dBuildings);
+  void Save3dMode(bool allow3d, bool allow3dBuildings);
+  void Load3dMode(bool & allow3d, bool & allow3dBuildings);
 
 private:
   void SetRouterImpl(routing::RouterType type);

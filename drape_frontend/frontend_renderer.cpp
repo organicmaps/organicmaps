@@ -514,8 +514,11 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<Allow3dModeMessage> const msg = message;
 #ifdef OMIM_OS_DESKTOP
-      if (m_enable3dInNavigation == msg->Enable())
+      bool const isPerspective = m_userEventStream.GetCurrentScreen().isPerspective();
+      if (m_enable3dInNavigation == msg->Allow() &&
+          m_enable3dInNavigation != isPerspective)
       {
+
         if (m_enable3dInNavigation)
           AddUserEvent(EnablePerspectiveEvent(M_PI / 4.0, M_PI / 3.0,
                                               false /* animated */, true /* immediately start */));
@@ -523,7 +526,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
           AddUserEvent(DisablePerspectiveEvent());
       }
 #endif
-      m_enable3dInNavigation = msg->Enable();
+      m_enable3dInNavigation = msg->Allow();
       break;
     }
 

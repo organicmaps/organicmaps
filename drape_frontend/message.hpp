@@ -45,6 +45,7 @@ public:
     InvalidateTextures,
     Invalidate,
     Allow3dMode,
+    Allow3dBuildings,
     EnablePerspective
   };
 

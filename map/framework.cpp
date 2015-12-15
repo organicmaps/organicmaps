@@ -94,6 +94,7 @@ namespace
   char const kRouterTypeKey[] = "router";
   char const kMapStyleKey[] = "MapStyleKeyV1";
   char const kAllow3dKey[] = "Allow3d";
+  char const kAllow3dBuildingsKey[] = "Buildings3d";
 
   double const kRotationAngle = math::pi4;
   double const kAngleFOV = math::pi / 3.0;
@@ -1282,8 +1283,10 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
       ActivateUserMark(mark, true);
   }
 
-  bool const allow3d = Load3dMode();
-  Allow3dMode(allow3d);
+  bool allow3d = true;
+  bool allow3dBuildings = true;
+  Load3dMode(allow3d, allow3dBuildings);
+  Allow3dMode(allow3d, allow3dBuildings);
 
   // In case of the engine reinitialization recover route.
   if (m_routingSession.IsActive())
@@ -2073,20 +2076,20 @@ void Framework::SetRouteFinishPoint(m2::PointD const & pt, bool isValid)
     m_drapeEngine->SetRoutePoint(pt, false /* isStart */, isValid);
 }
 
-void Framework::Allow3dMode(bool allow)
+void Framework::Allow3dMode(bool allow3d, bool allow3dBuildings)
 {
-  Save3dMode(allow);
-  CallDrapeFunction(bind(&df::DrapeEngine::Allow3dMode, _1, allow));
+  Save3dMode(allow3d, allow3dBuildings);
+  CallDrapeFunction(bind(&df::DrapeEngine::Allow3dMode, _1, allow3d, allow3dBuildings));
 }
 
-void Framework::Save3dMode(bool allow)
+void Framework::Save3dMode(bool allow3d, bool allow3dBuildings)
 {
-  Settings::Set(kAllow3dKey, allow);
+  Settings::Set(kAllow3dKey, allow3d);
+  Settings::Set(kAllow3dBuildingsKey, allow3dBuildings);
 }
 
-bool Framework::Load3dMode()
+void Framework::Load3dMode(bool &allow3d, bool &allow3dBuildings)
 {
-  bool allow = true;
-  Settings::Get(kAllow3dKey, allow);
-  return allow;
+  Settings::Get(kAllow3dKey, allow3d);
+  Settings::Get(kAllow3dBuildingsKey, allow3dBuildings);
 }

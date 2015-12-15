@@ -339,13 +339,14 @@ public class SearchFragment extends BaseMwmFragment
   private boolean try3dMode(String str)
   {
     final boolean is3d = str.equals("?3d");
+    final boolean is3dBuildings = str.equals("?b3d");
     final boolean is2d = str.equals("?2d");
 
-    if (!is3d && !is2d)
+    if (!is3d && !is3dBuildings && !is2d)
       return false;
 
     hideSearch();
-    Framework.nativeAllow3dMode(is3d);
+    Framework.nativeAllow3dMode(is3d || is3dBuildings, is3dBuildings);
 
     return true;
   }

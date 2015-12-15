@@ -36,6 +36,7 @@ public:
   void Stop();
 
   bool CheckTileKey(TileKey const & tileKey) const;
+  void Allow3dBuildings(bool allow3dBuildings);
 
   static size_t ReadCount();
 
@@ -57,6 +58,8 @@ private:
   ScreenBase m_currentViewport;
   bool m_forceUpdate;
   bool m_is3d;
+  bool m_is3dBuildings;
+  bool m_modeChanged;
 
   struct LessByTileInfo
   {

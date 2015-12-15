@@ -38,12 +38,12 @@ size_t kMinFlushSizes[df::PrioritiesCount] =
 RuleDrawer::RuleDrawer(TDrawerCallback const & fn,
                        TCheckCancelledCallback const & checkCancelled,
                        TIsCountryLoadedByNameFn const & isLoadedFn,
-                       ref_ptr<EngineContext> context, bool is3d)
+                       ref_ptr<EngineContext> context, bool is3dBuildings)
   : m_callback(fn)
   , m_checkCancelled(checkCancelled)
   , m_isLoadedFn(isLoadedFn)
   , m_context(context)
-  , m_is3d(is3d)
+  , m_is3dBuidings(is3dBuildings)
   , m_wasCancelled(false)
 {
   ASSERT(m_callback != nullptr, ());
@@ -134,7 +134,7 @@ void RuleDrawer::operator()(FeatureType const & f)
 
   if (s.AreaStyleExists())
   {
-    bool const is3dBuilding = m_is3d ? (ftypes::IsBuildingChecker::Instance()(f) && f.GetLayer() >= 0) : false;
+    bool const is3dBuilding = m_is3dBuidings ? (ftypes::IsBuildingChecker::Instance()(f) && f.GetLayer() >= 0) : false;
 
     float areaHeight = 0.0f;
     if (is3dBuilding)

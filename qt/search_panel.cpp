@@ -195,12 +195,13 @@ bool SearchPanel::TryChangeRouterCmd(QString const & str)
 bool SearchPanel::Try3dModeCmd(QString const & str)
 {
   bool const is3dModeOn = (str == "?3d");
+  bool const is3dBuildingsOn = (str == "?b3d");
   bool const is3dModeOff = (str == "?2d");
 
-  if (!is3dModeOn && !is3dModeOff)
+  if (!is3dModeOn && !is3dBuildingsOn && !is3dModeOff)
     return false;
 
-  m_pDrawWidget->GetFramework().Allow3dMode(is3dModeOn);
+  m_pDrawWidget->GetFramework().Allow3dMode(is3dModeOn || is3dBuildingsOn, is3dBuildingsOn);
 
   return true;
 }

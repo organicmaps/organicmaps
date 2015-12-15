@@ -36,13 +36,14 @@
 {
   // Hook for shell command on change 3d mode
   BOOL const is3d = [cmd isEqualToString:@"?3d"];
+  BOOL const is3dBuildings = [cmd isEqualToString:@"?b3d"];
   BOOL const is2d = [cmd isEqualToString:@"?2d"];
   
-  if (!is3d && !is2d)
+  if (!is3d && !is3dBuildings && !is2d)
     return NO;
   
   Framework & frm = GetFramework();
-  frm.Allow3dMode(is3d);
+  frm.Allow3dMode(is3d || is3dBuildings, is3dBuildings);
   
   return YES;
 }

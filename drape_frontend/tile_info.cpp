@@ -16,7 +16,7 @@ namespace df
 
 TileInfo::TileInfo(drape_ptr<EngineContext> && context)
   : m_context(move(context))
-  , m_is3d(false)
+  , m_is3dBuidings(false)
   , m_isCanceled(false)
 {
 }
@@ -74,7 +74,7 @@ void TileInfo::ReadFeatures(MapDataProvider const & model, MemoryFeatureIndex & 
     RuleDrawer drawer(bind(&TileInfo::InitStylist, this, _1 ,_2),
                       bind(&TileInfo::IsCancelled, this),
                       model.m_isCountryLoadedByNameFn,
-                      make_ref(m_context), m_is3d);
+                      make_ref(m_context), m_is3dBuidings);
     model.ReadFeatures(bind<void>(ref(drawer), _1), featuresToRead);
   }
 }
