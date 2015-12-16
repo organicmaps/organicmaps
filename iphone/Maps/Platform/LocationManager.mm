@@ -14,12 +14,14 @@
 #include "platform/settings.hpp"
 #include "base/math.hpp"
 
+#include "platform/file_logging.hpp"
+
 static CLAuthorizationStatus const kRequestAuthStatus = kCLAuthorizationStatusAuthorizedAlways;
 static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlwaysRequestErrorDenied";
 
 @interface LocationManager ()
 
-@property (nonatomic) BOOL isDaemonMode;
+@property (nonatomic, readwrite) BOOL isDaemonMode;
 
 @end
 
@@ -67,15 +69,14 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
 - (void)onDaemonMode
 {
   self.isDaemonMode = YES;
-  [m_locationManager startMonitoringSignificantLocationChanges];
-  m_locationManager.activityType = CLActivityTypeFitness;
   [m_locationManager startUpdatingLocation];
 }
 
 - (void)beforeTerminate
 {
-  if (GpsTracker::Instance().IsEnabled())
-    [m_locationManager startMonitoringSignificantLocationChanges];
+  if (!GpsTracker::Instance().IsEnabled())
+    return;
+  [m_locationManager startMonitoringSignificantLocationChanges];
 }
 
 - (void)onForeground
@@ -83,7 +84,6 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
   self.isDaemonMode = NO;
   [m_locationManager stopMonitoringSignificantLocationChanges];
   [m_locationManager disallowDeferredLocationUpdates];
-  m_locationManager.activityType = CLActivityTypeOther;
   [self orientationChanged];
 }
 

@@ -23,6 +23,8 @@
   BOOL m_isCourse;
 }
 
+@property (nonatomic, readonly) BOOL isDaemonMode;
+
 - (void)start:(id <LocationObserver>)observer;
 - (void)stop:(id <LocationObserver>)observer;
 - (CLLocation *)lastLocation;

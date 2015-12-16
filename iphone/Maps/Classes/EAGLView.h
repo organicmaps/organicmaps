@@ -27,5 +27,6 @@ namespace dp
 - (void)deallocateNative;
 - (CGPoint)viewPoint2GlobalPoint:(CGPoint)pt;
 - (CGPoint)globalPoint2ViewPoint:(CGPoint)pt;
+- (void)initialize;
 
 @end

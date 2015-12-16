@@ -36,6 +36,8 @@
 
 - (void)layoutWidgets
 {
+  if (m_skin == nullptr)
+    return;
   gui::TWidgetsLayoutInfo layout;
   if (self.fullScreen)
   {

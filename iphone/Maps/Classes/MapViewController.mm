@@ -380,6 +380,8 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 - (void)onEnterForeground
 {
+  if (MapsAppDelegate.theApp.m_locationManager.isDaemonMode)
+    return;
   // Notify about entering foreground (should be called on the first launch too).
   GetFramework().EnterForeground();
 
@@ -392,6 +394,8 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
+  if (MapsAppDelegate.theApp.m_locationManager.isDaemonMode)
+    return;
   [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 
   self.controlsManager.menuState = self.menuRestoreState;
@@ -405,6 +409,8 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  if (MapsAppDelegate.theApp.m_locationManager.isDaemonMode)
+    return;
   self.view.clipsToBounds = YES;
   [MTRGManager setMyCom:YES];
   self.controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
@@ -480,87 +486,89 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 - (id)initWithCoder:(NSCoder *)coder
 {
   NSLog(@"MapViewController initWithCoder Started");
-
-  if ((self = [super initWithCoder:coder]))
-  {
-    Framework & f = GetFramework();
-
-    using UserMarkActivatedFnT = void (*)(id, SEL, unique_ptr<UserMarkCopy>);
-    using PlacePageDismissedFnT = void (*)(id, SEL);
-
-    SEL userMarkSelector = @selector(onUserMarkClicked:);
-    UserMarkActivatedFnT userMarkFn = (UserMarkActivatedFnT)[self methodForSelector:userMarkSelector];
-    f.SetUserMarkActivationListener(bind(userMarkFn, self, userMarkSelector, _1));
-    m_predictor = [[LocationPredictor alloc] initWithObserver:self];
-
-    self.forceRoutingStateChange = ForceRoutingStateChangeNone;
-    self.userTouchesAction = UserTouchesActionNone;
-    self.menuRestoreState = MWMBottomMenuStateInactive;
-
-    f.LoadBookmarks();
-
-    using TLocationStateModeFn = void (*)(id, SEL, location::EMyPositionMode);
-    SEL locationStateModeSelector = @selector(onLocationStateModeChanged:);
-    TLocationStateModeFn locationStateModeFn = (TLocationStateModeFn)[self methodForSelector:locationStateModeSelector];
-    f.SetMyPositionModeListener(bind(locationStateModeFn, self, locationStateModeSelector, _1));
-
-    f.SetDownloadCountryListener([self, &f](storage::TIndex const & idx, int opt)
-    {
-      ActiveMapsLayout & layout = f.GetCountryTree().GetActiveMapLayout();
-      if (opt == -1)
-      {
-        layout.RetryDownloading(idx);
-      }
-      else
-      {
-        LocalAndRemoteSizeT sizes = layout.GetRemoteCountrySizes(idx);
-        uint64_t sizeToDownload = sizes.first;
-        MapOptions options = static_cast<MapOptions>(opt);
-        if(HasOptions(options, MapOptions::CarRouting))
-          sizeToDownload += sizes.second;
-
-        NSString * name = @(layout.GetCountryName(idx).c_str());
-        Platform::EConnectionType const connection = Platform::ConnectionStatus();
-        if (connection != Platform::EConnectionType::CONNECTION_NONE)
-        {
-          if (connection == Platform::EConnectionType::CONNECTION_WWAN && sizeToDownload > 50 * MB)
-          {
-            [self.alertController presentnoWiFiAlertWithName:name downloadBlock:^
-            {
-              layout.DownloadMap(idx, static_cast<MapOptions>(opt));
-            }];
-            return;
-          }
-        }
-        else
-        {
-          [self.alertController presentNoConnectionAlert];
-          return;
-        }
-
-        layout.DownloadMap(idx, static_cast<MapOptions>(opt));
-      }
-    });
-
-    f.SetRouteBuildingListener([self, &f](routing::IRouter::ResultCode code, vector<storage::TIndex> const & absentCountries, vector<storage::TIndex> const & absentRoutes)
-    {
-      dispatch_async(dispatch_get_main_queue(), [=]
-      {
-        [self processRoutingBuildingEvent:code countries:absentCountries routes:absentRoutes];
-      });
-    });
-    
-    f.SetRouteProgressListener([self](float progress)
-    {
-      dispatch_async(dispatch_get_main_queue(), ^
-      {
-        self.controlsManager.routeBuildingProgress = progress;
-      });
-    });
-  }
+  BOOL const isDaemon = MapsAppDelegate.theApp.m_locationManager.isDaemonMode;
+  self = [super initWithCoder:coder];
+  if (self && !isDaemon)
+    [self initialize];
 
   NSLog(@"MapViewController initWithCoder Ended");
   return self;
+}
+
+- (void)initialize
+{
+  Framework & f = GetFramework();
+
+  using UserMarkActivatedFnT = void (*)(id, SEL, unique_ptr<UserMarkCopy>);
+  using PlacePageDismissedFnT = void (*)(id, SEL);
+
+  SEL userMarkSelector = @selector(onUserMarkClicked:);
+  UserMarkActivatedFnT userMarkFn = (UserMarkActivatedFnT)[self methodForSelector:userMarkSelector];
+  f.SetUserMarkActivationListener(bind(userMarkFn, self, userMarkSelector, _1));
+  m_predictor = [[LocationPredictor alloc] initWithObserver:self];
+  self.forceRoutingStateChange = ForceRoutingStateChangeNone;
+  self.userTouchesAction = UserTouchesActionNone;
+  self.menuRestoreState = MWMBottomMenuStateInactive;
+  f.LoadBookmarks();
+
+  using TLocationStateModeFn = void (*)(id, SEL, location::EMyPositionMode);
+  SEL locationStateModeSelector = @selector(onLocationStateModeChanged:);
+  TLocationStateModeFn locationStateModeFn = (TLocationStateModeFn)[self methodForSelector:locationStateModeSelector];
+  f.SetMyPositionModeListener(bind(locationStateModeFn, self, locationStateModeSelector, _1));
+
+  f.SetDownloadCountryListener([self, &f](storage::TIndex const & idx, int opt)
+  {
+    ActiveMapsLayout & layout = f.GetCountryTree().GetActiveMapLayout();
+    if (opt == -1)
+    {
+      layout.RetryDownloading(idx);
+    }
+    else
+    {
+      LocalAndRemoteSizeT sizes = layout.GetRemoteCountrySizes(idx);
+      uint64_t sizeToDownload = sizes.first;
+      MapOptions options = static_cast<MapOptions>(opt);
+      if(HasOptions(options, MapOptions::CarRouting))
+        sizeToDownload += sizes.second;
+
+      NSString * name = @(layout.GetCountryName(idx).c_str());
+      Platform::EConnectionType const connection = Platform::ConnectionStatus();
+      if (connection != Platform::EConnectionType::CONNECTION_NONE)
+      {
+        if (connection == Platform::EConnectionType::CONNECTION_WWAN && sizeToDownload > 50 * MB)
+        {
+          [self.alertController presentnoWiFiAlertWithName:name downloadBlock:^
+          {
+            layout.DownloadMap(idx, static_cast<MapOptions>(opt));
+          }];
+          return;
+        }
+      }
+      else
+      {
+        [self.alertController presentNoConnectionAlert];
+        return;
+      }
+
+      layout.DownloadMap(idx, static_cast<MapOptions>(opt));
+    }
+  });
+
+  f.SetRouteBuildingListener([self, &f](routing::IRouter::ResultCode code, vector<storage::TIndex> const & absentCountries, vector<storage::TIndex> const & absentRoutes)
+  {
+    dispatch_async(dispatch_get_main_queue(), [=]
+    {
+      [self processRoutingBuildingEvent:code countries:absentCountries routes:absentRoutes];
+    });
+  });
+  
+  f.SetRouteProgressListener([self](float progress)
+  {
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
+      self.controlsManager.routeBuildingProgress = progress;
+    });
+  });
 }
 
 - (void)processRoutingBuildingEvent:(routing::IRouter::ResultCode)code
