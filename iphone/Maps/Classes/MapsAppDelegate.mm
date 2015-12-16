@@ -300,13 +300,12 @@ void InitLocalizedStrings()
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-//  [self.m_locationManager beforeTerminate];
+  [self.m_locationManager beforeTerminate];
   [self.mapViewController onTerminate];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-  [self.m_locationManager beforeTerminate];
   [self.mapViewController onEnterBackground];
   if (m_activeDownloadsCounter)
   {

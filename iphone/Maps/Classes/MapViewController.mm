@@ -380,7 +380,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 - (void)onEnterForeground
 {
-  if (MapsAppDelegate.theApp.m_locationManager.isDaemonMode)
+  if (self.isDaemon)
     return;
   // Notify about entering foreground (should be called on the first launch too).
   GetFramework().EnterForeground();
@@ -394,7 +394,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  if (MapsAppDelegate.theApp.m_locationManager.isDaemonMode)
+  if (self.isDaemon)
     return;
   [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 
@@ -409,7 +409,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  if (MapsAppDelegate.theApp.m_locationManager.isDaemonMode)
+  if (self.isDaemon)
     return;
   self.view.clipsToBounds = YES;
   [MTRGManager setMyCom:YES];
@@ -483,12 +483,16 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   [self setNeedsStatusBarAppearanceUpdate];
 }
 
+- (BOOL)isDaemon
+{
+  return MapsAppDelegate.theApp.m_locationManager.isDaemonMode;
+}
+
 - (id)initWithCoder:(NSCoder *)coder
 {
   NSLog(@"MapViewController initWithCoder Started");
-  BOOL const isDaemon = MapsAppDelegate.theApp.m_locationManager.isDaemonMode;
   self = [super initWithCoder:coder];
-  if (self && !isDaemon)
+  if (self && !self.isDaemon)
     [self initialize];
 
   NSLog(@"MapViewController initWithCoder Ended");
