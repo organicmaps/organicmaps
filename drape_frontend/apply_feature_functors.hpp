@@ -78,7 +78,7 @@ class ApplyAreaFeature : public ApplyPointFeature
   using TBase = ApplyPointFeature;
 
 public:
-  ApplyAreaFeature(TInsertShapeFn const & insertShape, FeatureID const & id, float posZ,
+  ApplyAreaFeature(TInsertShapeFn const & insertShape, FeatureID const & id, float minPosZ, float posZ,
                    int minVisibleScale, uint8_t rank, CaptionDescription const & captions);
 
   using TBase::operator ();
@@ -100,6 +100,7 @@ private:
 
   unordered_map<int, m2::PointD> m_indices;
   vector<pair<TEdge, int>> m_edges;
+  float const m_minPosZ;
   bool const m_isBuilding;
 };
 

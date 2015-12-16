@@ -137,25 +137,35 @@ void RuleDrawer::operator()(FeatureType const & f)
     bool const is3dBuilding = m_is3dBuidings ? (ftypes::IsBuildingChecker::Instance()(f) && f.GetLayer() >= 0) : false;
 
     float areaHeight = 0.0f;
+    float areaMinHeight = 0.0f;
     if (is3dBuilding)
     {
       f.ParseMetadata();
       feature::Metadata const & md = f.GetMetadata();
-      string const & height = md.Get(feature::Metadata::FMD_HEIGHT);
+      string value = md.Get(feature::Metadata::FMD_HEIGHT);
 
       double const kDefaultHeightInMeters = 0.0;
       double heightInMeters = kDefaultHeightInMeters;
-      if (!height.empty())
-        strings::to_double(height, heightInMeters);
+      if (!value.empty())
+        strings::to_double(value, heightInMeters);
+
+      value = md.Get(feature::Metadata::FMD_MIN_HEIGHT);
+      double minHeigthInMeters = 0.0;
+      if (!value.empty())
+        strings::to_double(value, minHeigthInMeters);
 
       m2::PointD const pt = feature::GetCenter(f, zoomLevel);
-      m2::RectD const rectMercator = MercatorBounds::MetresToXY(MercatorBounds::XToLon(pt.x),
-                                                          MercatorBounds::YToLat(pt.y),
-                                                          heightInMeters);
+      double const lon = MercatorBounds::XToLon(pt.x);
+      double const lat = MercatorBounds::YToLat(pt.y);
+
+      m2::RectD rectMercator = MercatorBounds::MetresToXY(lon, lat, heightInMeters);
       areaHeight = m2::PointD(rectMercator.SizeX(), rectMercator.SizeY()).Length();
+
+      rectMercator = MercatorBounds::MetresToXY(lon, lat, minHeigthInMeters);
+      areaMinHeight = m2::PointD(rectMercator.SizeX(), rectMercator.SizeY()).Length();
     }
 
-    ApplyAreaFeature apply(insertShape, f.GetID(), areaHeight,
+    ApplyAreaFeature apply(insertShape, f.GetID(), areaMinHeight, areaHeight,
                            minVisibleScale, f.GetRank(), s.GetCaptionDescription());
     f.ForEachTriangleRef(apply, zoomLevel);
 

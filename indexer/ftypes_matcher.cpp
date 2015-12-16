@@ -172,6 +172,7 @@ IsBuildingChecker::IsBuildingChecker()
   Classificator const & c = classif();
 
   m_types.push_back(c.GetTypeByPath({ "building" }));
+  m_types.push_back(c.GetTypeByPath({ "building:part" }));
   m_types.push_back(c.GetTypeByPath({ "building", "address" }));
 }
 

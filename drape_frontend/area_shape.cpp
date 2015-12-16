@@ -37,16 +37,16 @@ void AreaShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
     for (auto const & edge : m_buildingEdges)
     {
       glsl::vec3 normal(glsl::ToVec2(edge.m_normal), 0.0f);
-      vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(edge.m_startVertex), 0.0f),
+      vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(edge.m_startVertex), -m_params.m_minPosZ),
                                            normal, colorPoint));
-      vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(edge.m_endVertex), 0.0f),
+      vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(edge.m_endVertex), -m_params.m_minPosZ),
                                            normal, colorPoint));
       vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(edge.m_startVertex), -m_params.m_posZ),
                                            normal, colorPoint));
 
       vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(edge.m_startVertex), -m_params.m_posZ),
                                            normal, colorPoint));
-      vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(edge.m_endVertex), 0.0f),
+      vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(edge.m_endVertex), -m_params.m_minPosZ),
                                            normal, colorPoint));
       vertexes.push_back(gpu::Area3dVertex(glsl::vec3(glsl::ToVec2(edge.m_endVertex), -m_params.m_posZ),
                                            normal, colorPoint));

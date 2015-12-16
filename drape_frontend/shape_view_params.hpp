@@ -41,6 +41,7 @@ struct CircleViewParams : CommonViewParams
 struct AreaViewParams : CommonViewParams
 {
   dp::Color m_color;
+  float m_minPosZ;
   float m_posZ;
 };
 

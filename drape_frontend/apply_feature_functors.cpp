@@ -320,9 +320,10 @@ void ApplyPointFeature::Finish()
   }
 }
 
-ApplyAreaFeature::ApplyAreaFeature(TInsertShapeFn const & insertShape, FeatureID const & id, float posZ,
+ApplyAreaFeature::ApplyAreaFeature(TInsertShapeFn const & insertShape, FeatureID const & id, float minPosZ, float posZ,
                                    int minVisibleScale, uint8_t rank, CaptionDescription const & captions)
   : TBase(insertShape, id, minVisibleScale, rank, captions, posZ)
+  , m_minPosZ(minPosZ)
   , m_isBuilding(posZ > 0.0f)
 {}
 
@@ -438,6 +439,7 @@ void ApplyAreaFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     params.m_color = ToDrapeColor(areaRule->color());
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
+    params.m_minPosZ = m_minPosZ;
     params.m_posZ = m_posZ;
 
     vector<BuildingEdge> edges;
