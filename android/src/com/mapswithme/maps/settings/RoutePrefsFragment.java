@@ -153,7 +153,7 @@ public class RoutePrefsFragment extends PreferenceFragment
     mPrefLanguages = (ListPreference) findPreference(getString(R.string.pref_tts_language));
     update();
 
-    Framework._3dModeParams _3d = new Framework._3dModeParams();
+    Framework.Params3dMode _3d = new Framework.Params3dMode();
     Framework.nativeGet3dMode(_3d);
 
     final TwoStatePreference pref3d = (TwoStatePreference)findPreference(getString(R.string.pref_3d));

@@ -48,7 +48,7 @@ public class Framework
     void onRouteBuildingProgress(float progress);
   }
 
-  public static class _3dModeParams
+  public static class Params3dMode
   {
     public boolean enabled;
     public boolean buildings;
@@ -184,7 +184,7 @@ public class Framework
 
   public native static void nativeDeregisterMaps();
 
-  public native static void nativeGet3dMode(_3dModeParams result);
+  public native static void nativeGet3dMode(Params3dMode result);
 
   public native static void nativeSet3dMode(boolean allow3d, boolean allow3dBuildings);
 }
