@@ -76,6 +76,9 @@ SUBDIRS = 3party base coding geometry indexer search routing
     platform_tests_support.subdir = platform/platform_tests_support
     SUBDIRS *= platform_tests_support
 
+    search_tests_support.subdir = search/search_tests_support
+    SUBDIRS *= search_tests_support
+
     # Tests binaries.
     base_tests.subdir = base/base_tests
     base_tests.depends = base
