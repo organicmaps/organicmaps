@@ -7491,37 +7491,6 @@ cont {
   }
 }
 cont {
-  name: "building:part"
-  element {
-    scale: 16
-    area {
-      color: 868862139
-      priority: 1298
-    }
-  }
-  element {
-    scale: 17
-    area {
-      color: 12763315
-      priority: 1298
-    }
-  }
-  element {
-    scale: 18
-    area {
-      color: 12763315
-      priority: 1298
-    }
-  }
-  element {
-    scale: 19
-    area {
-      color: 12763315
-      priority: 1298
-    }
-  }
-}
-cont {
   name: "craft-brewery"
   element {
     scale: 18
