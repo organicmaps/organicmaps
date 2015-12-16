@@ -71,9 +71,9 @@ m2::RectF GlyphPacker::MapTextureCoords(const m2::RectU & pixelRect) const
   float fHeight = static_cast<float>(m_size.y);
 
   // Half-pixel offset to eliminate arfefacts on fetching from texture.
-  float offset = 0.0;
+  float offset = 0.0f;
   if (pixelRect.SizeX() != 0 && pixelRect.SizeY() != 0)
-    offset = 0.5;
+    offset = 0.5f;
 
   return m2::RectF((pixelRect.minX() + offset) / fWidth,
                    (pixelRect.minY() + offset) / fHeight,
