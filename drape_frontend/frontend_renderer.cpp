@@ -1012,7 +1012,7 @@ void FrontendRenderer::Routine::Do()
     timer.Reset();
 
     // Limit fps in following mode.
-    double const kFrameTime = 1.0 / 30.0;
+    double constexpr kFrameTime = 1.0 / 30.0;
     if (m_renderer.m_myPositionController->IsFollowingActive() && frameTime < kFrameTime)
     {
       uint32_t const ms = static_cast<uint32_t>((kFrameTime - frameTime) * 1000);
