@@ -21,7 +21,7 @@ namespace
 
 //#define SHOW_RAW_POINTS
 
-int const kMinVisibleZoomLevel = 15;
+int const kMinVisibleZoomLevel = 10;
 
 size_t const kAveragePointsCount = 512;
 
@@ -29,14 +29,14 @@ size_t const kAveragePointsCount = 512;
 float const kRadiusInPixel[] =
 {
   // 1   2     3     4     5     6     7     8     9     10
-  1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+  1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 3.0f, 3.0f,
   //11   12    13    14    15    16    17    18    19     20
-  1.0f, 1.0f, 1.0f, 1.5f, 3.0f, 4.0f, 5.0f, 5.0f, 5.0f, 6.0f
+  3.0f, 3.0f, 3.0f, 3.0f, 3.0f, 4.0f, 5.0f, 5.0f, 5.0f, 6.0f
 };
 
-double const kMinSpeed = 1.0; // meters per second
-double const kAvgSpeed = 2.0; // meters per second
-double const kMaxSpeed = 5.0; // meters per second
+double const kMinSpeed = 1.4; // meters per second
+double const kAvgSpeed = 3.3; // meters per second
+double const kMaxSpeed = 5.5; // meters per second
 dp::Color const kMinSpeedColor = dp::Color(255, 0, 0, 255);
 dp::Color const kAvgSpeedColor = dp::Color(251, 192, 45, 255);
 dp::Color const kMaxSpeedColor = dp::Color(44, 120, 47, 255);
