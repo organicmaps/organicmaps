@@ -48,6 +48,12 @@ public class Framework
     void onRouteBuildingProgress(float progress);
   }
 
+  public static class _3dModeParams
+  {
+    public boolean enabled;
+    public boolean buildings;
+  }
+
   // this class is just bridge between Java and C++ worlds, we must not create it
   private Framework() {}
 
@@ -178,5 +184,7 @@ public class Framework
 
   public native static void nativeDeregisterMaps();
 
-  public native static void nativeAllow3dMode(boolean allow3d, boolean allow3dBuildings);
+  public native static void nativeGet3dMode(_3dModeParams result);
+
+  public native static void nativeSet3dMode(boolean allow3d, boolean allow3dBuildings);
 }

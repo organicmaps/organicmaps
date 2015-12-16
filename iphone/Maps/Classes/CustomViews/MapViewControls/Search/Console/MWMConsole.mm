@@ -43,8 +43,9 @@
     return NO;
   
   Framework & frm = GetFramework();
+  frm.Save3dMode(is3d || is3dBuildings, is3dBuildings);
   frm.Allow3dMode(is3d || is3dBuildings, is3dBuildings);
-  
+
   return YES;
 }
 

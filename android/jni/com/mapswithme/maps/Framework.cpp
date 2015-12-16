@@ -188,9 +188,19 @@ MapStyle Framework::GetMapStyle() const
   return m_work.GetMapStyle();
 }
 
-void Framework::Allow3dMode(bool allow3d, bool allow3dBuildings)
+void Framework::Save3dMode(bool allow3d, bool allow3dBuildings)
+{
+  m_work.Save3dMode(allow3d, allow3dBuildings);
+}
+
+void Framework::Set3dMode(bool allow3d, bool allow3dBuildings)
 {
   m_work.Allow3dMode(allow3d, allow3dBuildings);
+}
+
+void Framework::Get3dMode(bool & allow3d, bool & allow3dBuildings)
+{
+  m_work.Load3dMode(allow3d, allow3dBuildings);
 }
 
 Storage & Framework::Storage()
@@ -1319,14 +1329,31 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeAllow3dMode(JNIEnv * env, jclass thiz, jboolean allow, jboolean allowBuildings)
+  Java_com_mapswithme_maps_Framework_nativeSet3dMode(JNIEnv * env, jclass thiz, jboolean allow, jboolean allowBuildings)
   {
     bool const allow3d = static_cast<bool>(allow);
     bool const allow3dBuildings = static_cast<bool>(allowBuildings);
 
+    g_framework->Save3dMode(allow3d, allow3dBuildings);
     g_framework->PostDrapeTask([allow3d, allow3dBuildings]()
     {
-      g_framework->Allow3dMode(allow3d, allow3dBuildings);
+      g_framework->Set3dMode(allow3d, allow3dBuildings);
     });
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGet3dMode(JNIEnv * env, jclass thiz, jobject result)
+  {
+    bool enabled;
+    bool buildings;
+    g_framework->Get3dMode(enabled, buildings);
+
+    jclass const resultClass = env->GetObjectClass(result);
+
+    static jfieldID const enabledField = env->GetFieldID(resultClass, "enabled", "Z");
+    env->SetBooleanField(result, enabledField, enabled);
+
+    static jfieldID const buildingsField = env->GetFieldID(resultClass, "buildings", "Z");
+    env->SetBooleanField(result, buildingsField, buildings);
   }
 } // extern "C"
