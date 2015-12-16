@@ -14,7 +14,6 @@ area|z15[landuse=garages]
 }
 
 area|z16[building],
-area|z16[building:part],
 area|z16[landuse=garages]
 {
   fill-color: @building;
@@ -23,7 +22,6 @@ area|z16[landuse=garages]
 }
 
 area|z17[building],
-area|z17[building:part],
 area|z17[landuse=garages]
 {
   fill-color: @building_dark;
@@ -32,7 +30,6 @@ area|z17[landuse=garages]
 }
 
 area|z18-[building],
-area|z18-[building:part],
 area|z18-[landuse=garages]
 {
   fill-color: @building_dark;
