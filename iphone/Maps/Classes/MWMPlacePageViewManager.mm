@@ -75,7 +75,6 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   [[MapsAppDelegate theApp].m_locationManager stop:self];
   m_userMark = nullptr;
   GetFramework().DeactivateUserMark();
-  self.entity = nil;
   self.placePage = nil;
 }
 
