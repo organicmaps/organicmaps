@@ -31,8 +31,8 @@ public:
   void Cancel(MemoryFeatureIndex & memIndex);
   bool IsCancelled() const;
 
-  void Set3dBuildings(bool buildings3d) { m_is3dBuidings = buildings3d; }
-  bool Get3dBuildings() const { return m_is3dBuidings; }
+  void Set3dBuildings(bool buildings3d) { m_is3dBuildings = buildings3d; }
+  bool Get3dBuildings() const { return m_is3dBuildings; }
 
   m2::RectD GetGlobalRect() const;
   TileKey const & GetTileKey() const { return m_context->GetTileKey(); }
@@ -50,7 +50,7 @@ private:
 private:
   drape_ptr<EngineContext> m_context;
   TFeaturesInfo m_featureInfo;
-  bool m_is3dBuidings;
+  bool m_is3dBuildings;
 
   atomic<bool> m_isCanceled;
 };

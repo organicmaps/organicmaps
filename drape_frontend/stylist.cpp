@@ -333,8 +333,12 @@ CaptionDescription & Stylist::GetCaptionDescriptionImpl()
   return m_captionDescriptor;
 }
 
-bool InitStylist(FeatureType const & f, int const zoomLevel, Stylist & s)
+bool InitStylist(FeatureType const & f, int const zoomLevel, bool buildings3d, Stylist & s)
 {
+  if (!buildings3d && ftypes::IsBuildingPartChecker::Instance()(f) &&
+      !ftypes::IsBuildingChecker::Instance()(f))
+    return false;
+
   drule::KeysT keys;
   pair<int, bool> geomType = feature::GetDrawRule(f, zoomLevel, keys);
 
