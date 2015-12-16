@@ -10,6 +10,7 @@
 #include "search/v2/search_query_v2.hpp"
 
 #include "indexer/classificator_loader.hpp"
+#include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "storage/country_decl.hpp"

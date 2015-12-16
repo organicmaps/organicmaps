@@ -14,6 +14,7 @@
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
 
+#include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_add.hpp"
 
@@ -267,6 +268,7 @@ void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
   }
   catch (Query::CancelException const &)
   {
+    LOG(LDEBUG, ("Search has been cancelled."));
   }
 
   if (!viewportSearch && !m_query->IsCancelled())
