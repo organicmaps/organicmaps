@@ -81,7 +81,7 @@ public:
 
   // TestFeature overrides:
   void Serialize(FeatureBuilder1 & fb) const override;
-  bool Matches(FeatureType const & feature) const;
+  bool Matches(FeatureType const & feature) const override;
   string ToString() const override;
 
 protected:
