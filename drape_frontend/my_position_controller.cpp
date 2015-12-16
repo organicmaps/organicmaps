@@ -334,6 +334,11 @@ void MyPositionController::Render(uint32_t renderMode, ScreenBase const & screen
   CheckAnimFinished();
 }
 
+bool MyPositionController::IsFollowingActive() const
+{
+  return IsInRouting() && GetMode() == location::MODE_ROTATE_AND_FOLLOW;
+}
+
 void MyPositionController::AnimateStateTransition(location::EMyPositionMode oldMode, location::EMyPositionMode newMode)
 {
   if (oldMode == location::MODE_PENDING_POSITION && newMode == location::MODE_FOLLOW)

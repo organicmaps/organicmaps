@@ -1011,6 +1011,14 @@ void FrontendRenderer::Routine::Do()
     frameTime = timer.ElapsedSeconds();
     timer.Reset();
 
+    // Limit fps in following mode.
+    double constexpr kFrameTime = 1.0 / 30.0;
+    if (m_renderer.m_myPositionController->IsFollowingActive() && frameTime < kFrameTime)
+    {
+      uint32_t const ms = static_cast<uint32_t>((kFrameTime - frameTime) * 1000);
+      this_thread::sleep_for(milliseconds(ms));
+    }
+
     m_renderer.CheckRenderingEnabled();
   }
 
