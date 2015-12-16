@@ -331,8 +331,6 @@ private:
   search::SearchParams m_lastSearch;
   uint8_t m_fixedSearchResults;
 
-  void OnSearchResultsCallback(search::Results const & results);
-  void OnSearchResultsCallbackUI(search::Results const & results);
   void FillSearchResultsMarks(search::Results const & results);
 
   void OnDownloadMapCallback(storage::TIndex const & countryIndex);
@@ -355,9 +353,7 @@ public:
 
   void LoadSearchResultMetadata(search::Result & res) const;
   void ShowSearchResult(search::Result const & res);
-
   size_t ShowAllSearchResults(search::Results const & results);
-  void UpdateSearchResults(search::Results const & results);
 
   void StartInteractiveSearch(search::SearchParams const & params);
   bool IsISActive() const { return !m_lastSearch.m_query.empty(); }

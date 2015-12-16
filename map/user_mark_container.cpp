@@ -219,7 +219,7 @@ void UserMarkContainer::Clear(size_t skipCount/* = 0*/)
 {
   SetDirty();
   if (skipCount < m_userMarks.size())
-    m_userMarks.erase(m_userMarks.begin() + skipCount, m_userMarks.end());
+    m_userMarks.erase(m_userMarks.begin(), m_userMarks.end() - skipCount);
 }
 
 void UserMarkContainer::SetIsDrawable(bool isDrawable)

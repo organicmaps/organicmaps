@@ -772,10 +772,13 @@ void Framework::StartInteractiveSearch(search::SearchParams const & params)
   m_lastSearch.m_callback = [this](Results const & results)
   {
     if (!results.IsEndMarker())
+    {
       GetPlatform().RunOnGuiThread([this, results]()
       {
-        UpdateSearchResults(results);
+        if (IsISActive())
+          FillSearchResultsMarks(results);
       });
+    }
   };
 }
 
@@ -787,22 +790,6 @@ void Framework::UpdateUserViewportChanged()
 
     m_searchEngine->Search(m_lastSearch, GetCurrentViewport());
   }
-}
-
-void Framework::UpdateSearchResults(search::Results const & results)
-{
-  if (!results.IsEndMarker() && results.GetCount() > 0)
-  {
-    // Got here from search thread. Need to switch into GUI thread to modify search mark container.
-    // Do copy the results structure to pass into GUI thread.
-    GetPlatform().RunOnGuiThread(bind(&Framework::OnSearchResultsCallbackUI, this, results));
-  }
-}
-
-void Framework::OnSearchResultsCallbackUI(search::Results const & results)
-{
-  if (IsISActive())
-    FillSearchResultsMarks(results);
 }
 
 void Framework::ClearAllCaches()
@@ -1025,13 +1012,12 @@ void Framework::LoadSearchResultMetadata(search::Result & res) const
 
 void Framework::ShowSearchResult(search::Result const & res)
 {
+  CancelInteractiveSearch();
+
   UserMarkControllerGuard guard(m_bmManager, UserMarkType::SEARCH_MARK);
   guard.m_controller.SetIsDrawable(false);
   guard.m_controller.Clear();
   guard.m_controller.SetIsVisible(true);
-
-  m_lastSearch.Clear();
-  m_fixedSearchResults = 0;
 
   int scale;
   m2::PointD center;
@@ -1258,6 +1244,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(move(p));
   AddViewportListener([this](ScreenBase const & screen)
   {
+    UpdateUserViewportChanged();
     m_currentModelView = screen;
   });
   m_drapeEngine->SetTapEventInfoListener(bind(&Framework::OnTapEvent, this, _1, _2, _3, _4));
