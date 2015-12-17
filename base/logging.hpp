@@ -25,6 +25,19 @@ namespace my
 
   void LogMessageDefault(LogLevel level, SrcPoint const & srcPoint, string const & msg);
   void LogMessageTests(LogLevel level, SrcPoint const & srcPoint, string const & msg);
+
+  /// Scope Guard to temporarily suppress specific log level, for example, in unit tests:
+  /// ...
+  /// {
+  ///   LogLevelSuppressor onlyLERRORAndLCriticalLogsAreEnabled;
+  ///   TEST(SomeFunctionWhichHasDebugOrInfoOrWarningLogs(), ());
+  /// }
+  struct LogLevelSuppressor
+  {
+    LogLevel m_old = g_LogLevel;
+    LogLevelSuppressor(LogLevel temporaryLogLevel = LERROR) { g_LogLevel = temporaryLogLevel; }
+    ~LogLevelSuppressor() { g_LogLevel = m_old; }
+  };
 }
 
 using ::my::LDEBUG;
