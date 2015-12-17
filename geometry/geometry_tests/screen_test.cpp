@@ -62,22 +62,24 @@ UNIT_TEST(ScreenBase_3dTransform)
   TEST(screen.PixelRectIn3d().SizeX() < screen.PixelRect().SizeX(), ());
   TEST(screen.PixelRectIn3d().SizeY() < screen.PixelRect().SizeY(), ());
 
+  double const kEps = 1.0e-3;
+
   m2::PointD pp(screen.PixelRect().SizeX() / 2.0, screen.PixelRect().SizeY());
   m2::PointD p3d = screen.PtoP3d(pp);
-  TEST(p3d.EqualDxDy(m2::PointD(screen.PixelRectIn3d().SizeX() / 2.0, screen.PixelRectIn3d().SizeY()), 1.0e-3), ());
+  TEST(p3d.EqualDxDy(m2::PointD(screen.PixelRectIn3d().SizeX() / 2.0, screen.PixelRectIn3d().SizeY()), kEps), ());
 
   p3d = m2::PointD(screen.PixelRectIn3d().SizeX() / 2.0, screen.PixelRectIn3d().SizeY() / 2.0);
   pp = screen.P3dtoP(p3d);
   TEST(pp.EqualDxDy(m2::PointD(screen.PixelRect().SizeX() / 2.0,
-                               screen.PixelRect().SizeY() - screen.PixelRectIn3d().SizeY() / (2.0 * cos(rotationAngle))), 1.0e-3), ());
+                               screen.PixelRect().SizeY() - screen.PixelRectIn3d().SizeY() / (2.0 * cos(rotationAngle))), kEps), ());
 
   p3d = m2::PointD(0, 0);
   pp = screen.P3dtoP(p3d);
-  TEST(pp.x < 0.001, ());
+  TEST(pp.x < kEps, ());
 
   p3d = m2::PointD(screen.PixelRectIn3d().SizeX(), 0);
   pp = screen.P3dtoP(p3d);
-  TEST(fabs(pp.x - screen.PixelRect().maxX()) < 0.001, ());
+  TEST(fabs(pp.x - screen.PixelRect().maxX()) < kEps, ());
 }
 
 UNIT_TEST(ScreenBase_P2P3d2P)
@@ -87,15 +89,17 @@ UNIT_TEST(ScreenBase_P2P3d2P)
   screen.SetFromRects(m2::AnyRectD(m2::RectD(50, 25, 55, 30)), m2::RectD(0, 0, 600, 400));
   screen.ApplyPerspective(math::pi4, math::pi4, math::pi / 3.0);
 
+  double const kEps = 1.0e-3;
+
   // checking that P3dtoP(PtoP3d(p)) == p
   m2::PointD pp(500, 300);
   m2::PointD p3d = screen.PtoP3d(pp);
-  TEST(pp.EqualDxDy(screen.P3dtoP(p3d), 1.0e-3), ());
+  TEST(pp.EqualDxDy(screen.P3dtoP(p3d), kEps), ());
 
   // checking that PtoP3(P3dtoP(p)) == p
   p3d = m2::PointD(400, 300);
   pp = screen.P3dtoP(p3d);
-  TEST(p3d.EqualDxDy(screen.PtoP3d(pp), 1.0e-3), ());
+  TEST(p3d.EqualDxDy(screen.PtoP3d(pp), kEps), ());
 }
 
 UNIT_TEST(ScreenBase_AxisOrientation)
