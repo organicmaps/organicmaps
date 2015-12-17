@@ -73,7 +73,7 @@ node|z5[place=country]::int_name
   text-color: @country_label;
   z-index: 1000;
 }
-node|z6-[place=country]
+node|z6[place=country]
 {
   text: name;
   font-size: 15;
@@ -87,7 +87,48 @@ node|z6[place=country]::int_name
   text-color: @country_label;
   z-index: 1000;
 }
-
+node|z7[place=country]
+{
+  text: name;
+  font-size: 17;
+  text-color: @country_label;
+  z-index: 1000;
+}
+node|z7[place=country]::int_name
+{
+  text: int_name;
+  font-size: 15;
+  text-color: @country_label;
+  z-index: 1000;
+}
+node|z8[place=country]
+{
+  text: name;
+  font-size: 19;
+  text-color: @country_label;
+  z-index: 1000;
+}
+node|z8[place=country]::int_name
+{
+  text: int_name;
+  font-size: 17;
+  text-color: @country_label;
+  z-index: 1000;
+}
+node|z9-[place=country]
+{
+  text: name;
+  font-size: 21;
+  text-color: @country_label;
+  z-index: 1000;
+}
+node|z9-[place=country]::int_name
+{
+  text: int_name;
+  font-size: 19;
+  text-color: @country_label;
+  z-index: 1000;
+}
 /* Z-INDEXES */
 
 node|z1-[place=city][capital=2]

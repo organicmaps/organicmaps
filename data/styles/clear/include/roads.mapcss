@@ -1139,7 +1139,7 @@ line|z17[highway=ford]
 {
   color: @pedestrian;
   width: 3;
-  dashes: 5,2;/*dashes: 7.2,3.6;*/
+  dashes: 5,2;
   z-index: 660;
 }
 
@@ -1723,107 +1723,9 @@ line|z19-[highway=cycleway]
 
 
 
+
 /* BRIDGES */
 
-/* CASING FOR PRIMARY ROADS */
-/* LAST VERSION
-line|z15-[highway=primary]::casingBackground {
-  z-index: 30;
-  casing-width: eval(prop("width")+0.2);
-  casing-linecap: butt;
-  casing-color: @background;
-}
-
-
-
-line|z13[highway=motorway][bridge?]::bridgewhite,
-line|z13[highway=trunk][bridge?]::bridgewhite {
-  z-index: 30;
-  casing-width: eval(prop("width")+0.2);
-  casing-linecap: butt;
-  casing-color: @bridge_background;
-}
-
-line|z13[highway=motorway][bridge?]::bridgeblack,
-line|z13[highway=trunk][bridge?]::bridgeblack {
-  z-index: 25;
-  casing-width: eval(prop("width")+0.5);
-  casing-linecap: butt;
-  casing-color: @bridge_casing;
-}
-
-line|z14-[highway=motorway][bridge?]::bridgewhite,
-line|z14-[highway=trunk][bridge?]::bridgewhite,
-line|z14-[highway=primary][bridge?]::bridgewhite,
-line|z15-[highway=secondary][bridge?]::bridgewhite,
-line|z16-[highway=tertiary][bridge?]::bridgewhite,
-line|z16-[highway=residential][bridge?]::bridgewhite,
-line|z16-[highway=unclassified][bridge?]::bridgewhite,
-line|z16-[highway=pedestrian][bridge?]::bridgewhite,
-line|z16-[highway=footway][bridge?]::bridgewhite,
-line|z17-[highway=steps][bridge?]::bridgewhite,
-line|z17-[highway=road][bridge?]::bridgewhite,
-line|z17-[highway=service][bridge?]::bridgewhite {
-  z-index: 510;
-  casing-width: eval(prop("width"));
-  casing-linecap: butt;
-  casing-color: @bridge_background;
-}
-
-line|z14-[highway=motorway][bridge?]::bridgeblack,
-line|z14-[highway=trunk][bridge?]::bridgeblack,
-line|z14-[highway=primary][bridge?]::bridgeblack,
-line|z15-[highway=secondary][bridge?]::bridgeblack,
-line|z16-[highway=tertiary][bridge?]::bridgeblack,
-line|z16-[highway=residential][bridge?]::bridgeblack,
-line|z16-[highway=unclassified][bridge?]::bridgeblack,
-line|z16-[highway=pedestrian][bridge?]::bridgeblack,
-line|z16-[highway=footway][bridge?]::bridgeblack,
-line|z17-[highway=steps][bridge?]::bridgeblack,
-line|z17-[highway=road][bridge?]::bridgeblack,
-line|z17-[highway=service][bridge?]::bridgeblack
-{
-  z-index: 500;
-  casing-width: eval(prop("width")+0.4);
-  casing-linecap: butt;
-  casing-color: @bridge_casing;
-}
-
-line|z15-[highway=motorway_link][bridge?]::bridgewhite,
-line|z15-[highway=trunk_link][bridge?]::bridgewhite,
-line|z15-[highway=primary_link][bridge?]::bridgewhite,
-line|z16-[highway=secondary_link][bridge?]::bridgewhite,
-line|z16-[highway=tertiary_link][bridge?]::bridgewhite
-{
-  z-index: 30;
-  casing-width: eval(prop("width")+0.5);
-  casing-linecap: butt;
-  casing-color: @bridge_background;
-}
-
-line|z15-[highway=motorway_link][bridge?]::bridgeblack,
-line|z15-[highway=trunk_link][bridge?]::bridgeblack,
-line|z15-[highway=primary_link][bridge?]::bridgeblack,
-line|z16-[highway=secondary_link][bridge?]::bridgeblack,
-line|z16-[highway=tertiary_link][bridge?]::bridgeblack
-{
-  z-index: 25;
-  casing-width: eval(prop("width")+1);
-  casing-linecap: butt;
-  casing-color: @bridge_casing;
-}
-*/
-/* BRIDGES */
-
-/* CASING FOR PRIMARY ROADS */
-/*
-line|z15-[highway=primary]::casingBackground {
-  z-index: 30;
-  casing-width: eval(prop("width")+0.2);
-  casing-linecap: butt;
-  casing-color: @background;
-}
-*/
 
 
 line|z13[highway=motorway][bridge?]::bridgewhite,
