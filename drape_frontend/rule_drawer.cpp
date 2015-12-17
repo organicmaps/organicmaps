@@ -134,10 +134,13 @@ void RuleDrawer::operator()(FeatureType const & f)
 
   if (s.AreaStyleExists())
   {
-    bool const is3dBuilding =
-        m_is3dBuidings ? ((ftypes::IsBuildingChecker::Instance()(f) ||
-                           ftypes::IsBuildingPartChecker::Instance()(f)) && f.GetLayer() >= 0)
-                       : false;
+    bool is3dBuilding = false;
+    if (m_is3dBuidings && f.GetLayer() >= 0)
+    {
+      is3dBuilding = (ftypes::IsBuildingChecker::Instance()(f) || ftypes::IsBuildingPartChecker::Instance()(f)) &&
+          !ftypes::IsBridgeChecker::Instance()(f) &&
+          !ftypes::IsTunnelChecker::Instance()(f);
+    }
 
     float areaHeight = 0.0f;
     float areaMinHeight = 0.0f;
