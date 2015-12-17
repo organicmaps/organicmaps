@@ -61,7 +61,7 @@ public:
 
       FeatureType ft;
       m_featuresVector.GetByIndex(id, ft);
-      if (!calculator.GetProjection(ft.GetCenter(), proj))
+      if (!calculator.GetProjection(feature::GetCenter(ft, FeatureType::WORST_GEOMETRY), proj))
         continue;
 
       fn(id);

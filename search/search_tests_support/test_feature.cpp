@@ -16,16 +16,21 @@ namespace search
 {
 namespace tests_support
 {
-TestFeature::TestFeature(string const & name, string const & lang) : m_name(name), m_lang(lang) {}
+// TestFeature -------------------------------------------------------------------------------------
+TestFeature::TestFeature(string const & name, string const & lang)
+  : m_center(0, 0), m_hasCenter(false), m_name(name), m_lang(lang)
+{
+}
 
 TestFeature::TestFeature(m2::PointD const & center, string const & name, string const & lang)
-  : m_center(center), m_name(name), m_lang(lang)
+  : m_center(center), m_hasCenter(true), m_name(name), m_lang(lang)
 {
 }
 
 void TestFeature::Serialize(FeatureBuilder1 & fb) const
 {
-  fb.SetCenter(m_center);
+  if (m_hasCenter)
+    fb.SetCenter(m_center);
   CHECK(fb.AddName(m_lang, m_name), ("Can't set feature name:", m_name, "(", m_lang, ")"));
 }
 
@@ -121,9 +126,25 @@ TestBuilding::TestBuilding(m2::PointD const & center, string const & name,
 {
 }
 
+TestBuilding::TestBuilding(vector<m2::PointD> const & boundary, string const & name,
+                           string const & houseNumber, TestStreet const & street,
+                           string const & lang)
+  : TestFeature(name, lang)
+  , m_boundary(boundary)
+  , m_houseNumber(houseNumber)
+  , m_streetName(street.GetName())
+{
+}
+
 void TestBuilding::Serialize(FeatureBuilder1 & fb) const
 {
   TestFeature::Serialize(fb);
+  if (!m_hasCenter)
+  {
+    for (auto const & point : m_boundary)
+      fb.AddPoint(point);
+    fb.SetArea();
+  }
   fb.AddHouseNumber(m_houseNumber);
   if (!m_streetName.empty())
     fb.AddStreet(m_streetName);

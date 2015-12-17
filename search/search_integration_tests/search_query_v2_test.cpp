@@ -82,8 +82,11 @@ UNIT_TEST(SearchQueryV2_Smoke)
                                                       "1 unit 1", *feynmanStreet, "en");
   auto const bohrHouse =
       make_shared<TestBuilding>(m2::PointD(10, 10), "Bohr house", "1 unit 1", *bohrStreet, "en");
-  auto const hilbertHouse = make_shared<TestBuilding>(m2::PointD(10.0005, 10.0005), "Hilbert house",
-                                                      "1 unit 2", *bohrStreet, "en");
+
+  auto const hilbertHouse = make_shared<TestBuilding>(
+      vector<m2::PointD>{
+          {10.0005, 10.0005}, {10.0006, 10.0005}, {10.0006, 10.0006}, {10.0005, 10.0006}},
+      "Hilbert house", "1 unit 2", *bohrStreet, "en");
 
   {
     TestMwmBuilder builder(map, feature::DataHeader::country);
