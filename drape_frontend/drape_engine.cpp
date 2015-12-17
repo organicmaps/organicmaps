@@ -432,7 +432,7 @@ gui::TWidgetsSizeInfo const & DrapeEngine::GetWidgetSizes()
 void DrapeEngine::Allow3dMode(bool allow3d, bool allow3dBuildings)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<Allow3dBuildingsMessage>(allow3dBuildings),
+                                  make_unique_dp<Allow3dBuildingsMessage>(allow3d && allow3dBuildings),
                                   MessagePriority::Normal);
 
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
