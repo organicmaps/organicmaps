@@ -65,19 +65,9 @@ version/version.hpp
 tools/win/MapsWithMe*
 GeneratedFiles
 
-# bada
-bada/.metadata
-bada/repository
-bada/Maps/.settings
-bada/Maps/.Simulator-Debug
-bada/Maps/.Simulator-Release
-bada/Maps/Res
-bada/Maps/Home
-bada/Maps/*.zip
-
 # data
 data/intermediate_data
-data/**/*.mwm
+data/[0-9][0-9][0-9][0-9][0-9][0-9]
 !data/World.mwm
 !data/WorldCoasts.mwm
 # temporary files for downloader
@@ -95,9 +85,6 @@ data/index.stamp
 # local statistics storage
 data/stats
 # generated routing indices
-data/*/*.bftsegbits
-data/*/*.bftsegnodes
-data/*/*.offsets
 
 # benchmark results
 data/benchmarks/*.trace
