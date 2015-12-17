@@ -26,6 +26,7 @@ inline location::GpsInfo Make(double timestamp, ms::LatLon const & ll, double sp
   info.m_latitude = ll.lat;
   info.m_longitude = ll.lon;
   info.m_horizontalAccuracy = 15;
+  info.m_source = location::EAndroidNative;
   return info;
 }
 

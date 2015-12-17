@@ -24,6 +24,7 @@ location::GpsInfo Make(double timestamp, ms::LatLon const & ll, double speed)
   info.m_speed = speed;
   info.m_latitude = ll.lat;
   info.m_longitude = ll.lon;
+  info.m_source = location::EAndroidNative;
   return info;
 }
 
