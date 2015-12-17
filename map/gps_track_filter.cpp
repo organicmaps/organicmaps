@@ -22,8 +22,9 @@ size_t const kWifiAreaGpsPeriodicyCheckSec = 30;
 // Max acceptable moving speed in wifi area, required to prevent jumping between wifi, m/s
 double const kWifiAreaAcceptableMovingSpeedMps = 3;
 
-inline bool IsRealGpsPoint(location::GpsInfo const & info)
+bool IsRealGpsPoint(location::GpsInfo const & info)
 {
+  // TODO use flag from device about gps type (real gps/wifi/cellular)
   // we guess real gps says speed and bearing other than zero
   return info.m_speed > 0 && info.m_bearing > 0;
 }
