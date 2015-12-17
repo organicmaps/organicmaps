@@ -46529,6 +46529,10 @@ cont {
     scale: 13
     caption {
       primary {
+        height: 12
+        color: 5592405
+      }
+      secondary {
         height: 10
         color: 5592405
         offset_y: 20
@@ -46640,6 +46644,10 @@ cont {
     scale: 13
     caption {
       primary {
+        height: 12
+        color: 5592405
+      }
+      secondary {
         height: 10
         color: 5592405
         offset_y: 20
@@ -61152,212 +61160,6 @@ cont {
 }
 cont {
   name: "waterway-river"
-  element {
-    scale: 10
-    lines {
-      width: 1.0
-      color: 401446
-      priority: -15800
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-    area {
-      color: 8738
-      priority: -15041
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 1.2
-      color: 401446
-      priority: -15800
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-    area {
-      color: 8738
-      priority: -15041
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 17510
-      }
-      priority: 16959
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 1.2
-      color: 401446
-      priority: -15800
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-    area {
-      color: 8738
-      priority: -15041
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 17510
-      }
-      priority: 16959
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 1.6
-      color: 401446
-      priority: -15800
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    area {
-      color: 8738
-      priority: -15041
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 17510
-      }
-      priority: 16959
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.8
-      color: 401446
-      priority: -15800
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    area {
-      color: 8738
-      priority: -15041
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 17510
-      }
-      priority: 16959
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 2.2
-      color: 401446
-      priority: -15800
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    area {
-      color: 8738
-      priority: -15041
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 17510
-      }
-      priority: 16959
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 2.2
-      color: 401446
-      priority: -15800
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    area {
-      color: 8738
-      priority: -15041
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 17510
-      }
-      priority: 16959
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 2.2
-      color: 401446
-      priority: -15800
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    area {
-      color: 8738
-      priority: -15041
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 17510
-      }
-      priority: 16959
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 2.2
-      color: 401446
-      priority: -15800
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    area {
-      color: 8738
-      priority: -15041
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 17510
-      }
-      priority: 16959
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 2.2
-      color: 401446
-      priority: -15800
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    area {
-      color: 8738
-      priority: -15041
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 17510
-      }
-      priority: 16959
-    }
-  }
-}
-cont {
-  name: "waterway-river-tunnel"
   element {
     scale: 10
     lines {
