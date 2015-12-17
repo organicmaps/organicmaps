@@ -791,7 +791,7 @@
 	<string name="search_history_text">Rýchlo pristupujte k nedávnym hľadaným výrazom.</string>
 	<string name="clear_search">Vymazať históriu vyhľadávania</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Ukázať reklamu</string>
+	<string name="showcase_settings_title">Zobraziť ponuku našich partnerov</string>
 	<string name="p2p_route_planning">Plánovanie trasy</string>
 	<string name="p2p_your_location">Vaša poloha</string>
 	<string name="p2p_from">Východiskový bod</string>

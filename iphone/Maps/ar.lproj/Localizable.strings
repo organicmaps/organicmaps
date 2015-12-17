@@ -1286,7 +1286,7 @@
 "clear_search" = "مسح تاريخ البحث";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "إظهار الإعلانات";
+"showcase_settings_title" = "إظهار عروض شركائنا";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";

@@ -1286,7 +1286,7 @@
 "clear_search" = "Rensa sökhistorik";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Visa reklam";
+"showcase_settings_title" = "Visa våra partners erbjudanden";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";

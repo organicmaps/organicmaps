@@ -781,7 +781,7 @@
 	<string name="search_history_text">Acceder rápidamente a las consultas de búsquedas recientes.</string>
 	<string name="clear_search">Eliminar el historial de búsqueda</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Mostrar publicidad</string>
+	<string name="showcase_settings_title">Mostrar las ofertas de socios</string>
 	<string name="p2p_route_planning">Planificación de ruta</string>
 	<string name="p2p_your_location">Tu ubicación</string>
 	<string name="p2p_from">El punto de origen</string>

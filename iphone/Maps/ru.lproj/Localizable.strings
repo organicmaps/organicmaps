@@ -1286,7 +1286,7 @@
 "clear_search" = "Очистить историю поиска";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Показывать рекламу";
+"showcase_settings_title" = "Показывать предложения партнёров";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";

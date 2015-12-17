@@ -789,7 +789,7 @@
 	<string name="search_history_text">Uzyskaj szybki dostęp do ostatniego hasła wyszukiwania.</string>
 	<string name="clear_search">Wyczyść historię wyszukiwania</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Pokaż reklamy</string>
+	<string name="showcase_settings_title">Wyświetl oferty partnerów</string>
 	<string name="p2p_route_planning">Planowanie trasy</string>
 	<string name="p2p_your_location">Twoja lokalizacja</string>
 	<string name="p2p_from">Miejsce wyjazdu</string>

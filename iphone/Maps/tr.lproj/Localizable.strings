@@ -1286,7 +1286,7 @@
 "clear_search" = "Arama geçmişini temizle";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Reklamı göster";
+"showcase_settings_title" = "Ortakların tekliflerini göster";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";

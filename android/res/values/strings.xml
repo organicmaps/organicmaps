@@ -827,7 +827,7 @@
 	<string name="search_history_text">View recent searches.</string>
 	<string name="clear_search">Clear Search History</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Show Advertising</string>
+	<string name="showcase_settings_title">Show partners\&#39; offers</string>
 	<!-- Place Page link to Wikipedia article (if map object has it). -->
 	<string name="read_in_wikipedia">Wikipedia</string>
 	<string name="p2p_route_planning">Route Planning</string>

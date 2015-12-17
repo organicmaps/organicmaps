@@ -1286,7 +1286,7 @@
 "clear_search" = "検索履歴を消去";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "広告を表示";
+"showcase_settings_title" = "パートナーのオファーを表示";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";

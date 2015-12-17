@@ -1286,7 +1286,7 @@
 "clear_search" = "Ștergere istoric de căutare";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Afișare reclame";
+"showcase_settings_title" = "Afișare oferte parteneri";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";

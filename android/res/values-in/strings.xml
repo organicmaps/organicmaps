@@ -787,7 +787,7 @@
 	<string name="search_history_text">Akses kueri pencarian terbaru dengan cepat.</string>
 	<string name="clear_search">Bersihkan riwayat pencarian</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Tampilkan Iklan</string>
+	<string name="showcase_settings_title">Tunjukkan penawaran dari para mitra</string>
 	<string name="p2p_route_planning">Perencana Rute</string>
 	<string name="p2p_your_location">Lokasi Anda</string>
 	<string name="p2p_from">Titik keberangkatan</string>
