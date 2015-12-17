@@ -37,7 +37,7 @@ public:
 
 private:
   double m_minAccuracy;
-  ms::LatLon m_lastLl;
-  bool m_hasLastLl;
+  location::GpsInfo m_lastInfo;
+  bool m_hasLastInfo;
 };
 
