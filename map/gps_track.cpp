@@ -23,6 +23,8 @@ inline pair<size_t, size_t> UnionRanges(pair<size_t, size_t> const & a, pair<siz
   return make_pair(min(a.first, b.first), max(a.second, b.second));
 }
 
+size_t constexpr kItemBlockSize = 1000;
+
 } // namespace
 
 size_t const GpsTrack::kInvalidId = GpsTrackCollection::kInvalidId;
@@ -165,12 +167,36 @@ void GpsTrack::InitCollection(hours duration)
 
   try
   {
-    m_storage->ForEach([this](location::GpsTrackInfo const & point)->bool
+    // All origin points have been written in the storage,
+    // and filtered points are inserted in the runtime collection.
+
+    vector<location::GpsInfo> originPoints;
+    originPoints.reserve(kItemBlockSize);
+
+    m_storage->ForEach([this, &originPoints](location::GpsInfo const & originPoint)->bool
     {
-      pair<size_t, size_t> evictedIds;
-      m_collection->Add(point, evictedIds);
+      originPoints.emplace_back(originPoint);
+      if (originPoints.size() == originPoints.capacity())
+      {
+        vector<location::GpsTrackInfo> points;
+        m_filter.Process(originPoints, points);
+
+        pair<size_t, size_t> evictedIds;
+        m_collection->Add(points, evictedIds);
+
+        originPoints.clear();
+      }
       return true;
     });
+
+    if (!originPoints.empty())
+    {
+      vector<location::GpsTrackInfo> points;
+      m_filter.Process(originPoints, points);
+
+      pair<size_t, size_t> evictedIds;
+      m_collection->Add(points, evictedIds);
+    }
   }
   catch (RootException & e)
   {
@@ -194,17 +220,20 @@ void GpsTrack::ProcessPoints()
     m_needClear = false;
   }
 
-  vector<location::GpsTrackInfo> points;
-  m_filter.Process(originPoints, points);
-
   // Create collection only if callback appears
   if (!m_collection && HasCallback())
     InitCollection(duration);
 
-  UpdateStorage(needClear, points);
+  // All origin points are written in the storage,
+  // and filtered points are inserted in the runtime collection.
+
+  UpdateStorage(needClear, originPoints);
 
   if (!m_collection)
     return;
+
+  vector<location::GpsTrackInfo> points;
+  m_filter.Process(originPoints, points);
 
   pair<size_t, size_t> addedIds;
   pair<size_t, size_t> evictedIds;
@@ -219,7 +248,7 @@ bool GpsTrack::HasCallback()
   return m_callback != nullptr;
 }
 
-void GpsTrack::UpdateStorage(bool needClear, vector<location::GpsTrackInfo> const & points)
+void GpsTrack::UpdateStorage(bool needClear, vector<location::GpsInfo> const & points)
 {
   InitStorageIfNeed();
   if (!m_storage)

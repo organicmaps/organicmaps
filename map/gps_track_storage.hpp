@@ -17,7 +17,7 @@ public:
   DECLARE_EXCEPTION(WriteException, RootException);
   DECLARE_EXCEPTION(ReadException, RootException);
 
-  using TItem = location::GpsTrackInfo;
+  using TItem = location::GpsInfo;
 
   /// Opens storage with track data.
   /// @param filePath - path to the file on disk

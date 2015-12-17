@@ -17,9 +17,9 @@
 namespace
 {
 
-location::GpsTrackInfo Make(double timestamp, ms::LatLon const & ll, double speed)
+location::GpsInfo Make(double timestamp, ms::LatLon const & ll, double speed)
 {
-  location::GpsTrackInfo info;
+  location::GpsInfo info;
   info.m_timestamp = timestamp;
   info.m_speed = speed;
   info.m_latitude = ll.lat;
@@ -46,7 +46,7 @@ UNIT_TEST(GpsTrackStorage_WriteReadWithoutTrunc)
 
   size_t const fileMaxItemCount = 100000;
 
-  vector<location::GpsTrackInfo> points;
+  vector<location::GpsInfo> points;
   points.reserve(fileMaxItemCount);
   for (size_t i = 0; i < fileMaxItemCount; ++i)
     points.emplace_back(Make(timestamp + i, ms::LatLon(-90 + i, -180 + i), 60 + i));
@@ -112,7 +112,7 @@ UNIT_TEST(GpsTrackStorage_WriteReadWithTrunc)
 
   size_t const fileMaxItemCount = 100000;
 
-  vector<location::GpsTrackInfo> points1, points2;
+  vector<location::GpsInfo> points1, points2;
   points1.reserve(fileMaxItemCount);
   points2.reserve(fileMaxItemCount);
   for (size_t i = 0; i < fileMaxItemCount; ++i)
@@ -121,7 +121,7 @@ UNIT_TEST(GpsTrackStorage_WriteReadWithTrunc)
     points2.emplace_back(Make(timestamp + i + fileMaxItemCount, ms::LatLon(-45 + i, -30 + i), 15 + i));
   }
 
-  vector<location::GpsTrackInfo> points3;
+  vector<location::GpsInfo> points3;
   points3.reserve(fileMaxItemCount/2);
   for (size_t i = 0; i < fileMaxItemCount/2; ++i)
     points3.emplace_back(Make(timestamp + i, ms::LatLon(-30 + i, -60 + i), 90 + i));
@@ -149,7 +149,7 @@ UNIT_TEST(GpsTrackStorage_WriteReadWithTrunc)
     GpsTrackStorage stg(filePath, fileMaxItemCount);
 
     size_t i = 0;
-    stg.ForEach([&](location::GpsTrackInfo const & point)->bool
+    stg.ForEach([&](location::GpsInfo const & point)->bool
     {
       if (i < fileMaxItemCount/2)
       {
@@ -179,7 +179,7 @@ UNIT_TEST(GpsTrackStorage_WriteReadWithTrunc)
     GpsTrackStorage stg(filePath, fileMaxItemCount);
 
     size_t i = 0;
-    stg.ForEach([&](location::GpsTrackInfo const & point)->bool{ ++i; return true; });
+    stg.ForEach([&](location::GpsInfo const & point)->bool{ ++i; return true; });
     TEST_EQUAL(i, 0, ());
   }
 }

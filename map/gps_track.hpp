@@ -60,7 +60,7 @@ private:
   bool HasCallback();
   void InitStorageIfNeed();
   void InitCollection(hours duration);
-  void UpdateStorage(bool needClear, vector<location::GpsTrackInfo> const & points);
+  void UpdateStorage(bool needClear, vector<location::GpsInfo> const & points);
   void UpdateCollection(hours duration, bool needClear, vector<location::GpsTrackInfo> const & points,
                         pair<size_t, size_t> & addedIds, pair<size_t, size_t> & evictedIds);
   void NotifyCallback(pair<size_t, size_t> const & addedIds, pair<size_t, size_t> const & evictedIds);
