@@ -62,7 +62,7 @@ area|z0-[natural=salt_pond],
 area|z0-[landuse=salt_pond],
 area|z0-[waterway=dock],
 area|z0-[waterway=riverbank],
-area|z10-[waterway=river],
+area|z10-[waterway=river][!tunnel?],
 area|z10-[natural=bay],
 {
   fill-color: @water;
@@ -82,7 +82,7 @@ area|z11-19[natural=marsh] {
 
 /* rivers */
 
-line|z10[waterway=river],
+line|z10[waterway=river][!tunnel?],
 line|z10[waterway=riverbank] {
 	width: 1;
 	opacity: 1;
@@ -91,11 +91,8 @@ line|z10[waterway=riverbank] {
 	-x-me-line-priority: -15800;
 }
 
-line|z10-19[waterway=river][tunnel?],
- {
-}
 
-line|z11-12[waterway=river],
+line|z11-12[waterway=river][!tunnel?],
 line|z11-12[waterway=riverbank] {
 	width: 1.2;
 	opacity: 1;
@@ -124,7 +121,7 @@ line|z13[waterway=stream][intermittent=yes] {
 	-x-me-line-priority: -15800;
 }
 
-line|z13[waterway=river] {
+line|z13[waterway=river][!tunnel?] {
 	width: 1.6;
 	opacity: 1;
 	color: @river;
@@ -158,7 +155,7 @@ line|z14[waterway=stream][intermittent=yes] {
 	-x-me-line-priority: -15800;
 }
 
-line|z14[waterway=river] {
+line|z14[waterway=river][!tunnel?]{
 	width: 1.8;
 	opacity: 1;
 	color: @river;
@@ -191,7 +188,7 @@ line|z15-[waterway=stream][intermittent=yes] {
 	z-index: 49;
 	-x-me-line-priority: -15800;
 }
-line|z15-[waterway=river] {
+line|z15-[waterway=river][!tunnel?] {
 	width: 2.2;
 	color: @river;
 	z-index: 50;

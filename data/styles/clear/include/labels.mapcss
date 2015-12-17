@@ -1289,8 +1289,8 @@ node|z13-14[place=suburb]::int_name
 }
 /* SMALL LOCALITIES */
 
-node|z14-[place=locality],
-node|z14-[place=neighbourhood],
+node|z13-[place=locality],
+node|z13-[place=neighbourhood],
 node|z14-[place=farm],
 node|z14-[place=isolated_dwelling],
 node|z8-9[place=region],
@@ -1551,7 +1551,7 @@ line[waterway] {
     z-index:10000;
 }
 
-line|z11-[waterway=river] {
+line|z11-[waterway=river][!tunnel?] {
   text: name;
   font-size: 10;
   text-color: @water_label;
@@ -1572,7 +1572,7 @@ line|z11-[waterway=riverbank] {
 }
 
 line|z13-[waterway=riverbank],
-line|z13-[waterway=river] {
+line|z13-[waterway=river][!tunnel?] {
   text: name;
   font-size: 10;
   text-color: @water_label;
@@ -1592,7 +1592,7 @@ line|z13-[waterway=canal] {
   text-halo-radius: 0;
   z-index: 10000;
 }
-line|z15-[waterway=river] {
+line|z15-[waterway=river][!tunnel?] {
   text: name;
   font-size: 12;
   text-color: @water_label;
@@ -1622,7 +1622,7 @@ line|z15-[waterway=canal] {
   text-halo-radius: 0;
   z-index: 10000;
 }
-line|z17-[waterway=river] {
+line|z17-[waterway=river][!tunnel?] {
   text: name;
   font-size: 12;
   text-color: @water_label;
@@ -1652,7 +1652,7 @@ line|z17-[waterway=canal] {
   text-halo-radius: 0;
   z-index: 10000;
 }
-line|z18-[waterway=river] {
+line|z18-[waterway=river][!tunnel?] {
   text: name;
   font-size: 12;
   text-color: @water_label;
