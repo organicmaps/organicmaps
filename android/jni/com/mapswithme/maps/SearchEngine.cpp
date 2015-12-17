@@ -212,7 +212,7 @@ extern "C"
   Java_com_mapswithme_maps_search_SearchEngine_nativeShowAllResults(JNIEnv * env, jclass clazz)
   {
     lock_guard<mutex> guard(g_resultsMutex);
-    auto results = g_results;
+    auto const & results = g_results;
     g_framework->PostDrapeTask([results]()
     {
       g_framework->NativeFramework()->ShowAllSearchResults(results);
