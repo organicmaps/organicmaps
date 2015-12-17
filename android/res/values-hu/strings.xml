@@ -789,7 +789,7 @@
 	<string name="search_history_text">Aktuális keresés gyors elérése.</string>
 	<string name="clear_search">A keresési előzmények törlése</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Hirdetés mutatása</string>
+	<string name="showcase_settings_title">Partnerek ajánlatainak mutatása</string>
 	<string name="p2p_route_planning">Útvonaltervezés</string>
 	<string name="p2p_your_location">Az Ön helyzete</string>
 	<string name="p2p_from">Az indulás helye</string>

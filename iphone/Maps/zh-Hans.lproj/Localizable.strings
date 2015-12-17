@@ -1286,7 +1286,7 @@
 "clear_search" = "清除历史搜索";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "显示广告";
+"showcase_settings_title" = "顯示合作夥伴的優惠";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";

@@ -1286,7 +1286,7 @@
 "clear_search" = "Xóa Lịch sử Tìm kiếm";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Hiển thị Quảng cáo";
+"showcase_settings_title" = "Hiển thị các giảm giá của đối tác";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";

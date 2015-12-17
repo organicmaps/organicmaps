@@ -799,7 +799,7 @@
 	<string name="search_history_text">Accédez rapidement aux dernières recherches.</string>
 	<string name="clear_search">Effacer l\&#39;historique de recherche</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Afficher publicité</string>
+	<string name="showcase_settings_title">Afficher les offres des partenaires</string>
 	<string name="p2p_route_planning">Planification d’itinéraire</string>
 	<string name="p2p_your_location">Votre emplacement</string>
 	<string name="p2p_from">Le lieu de départ</string>

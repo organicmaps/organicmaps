@@ -788,7 +788,7 @@
 	<string name="search_history_text">Få snabbare åtkomst till senaste sökförfrågan.</string>
 	<string name="clear_search">Rensa sökhistorik</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Visa reklam</string>
+	<string name="showcase_settings_title">Visa våra partners erbjudanden</string>
 	<string name="p2p_route_planning">Ruttplanering</string>
 	<string name="p2p_your_location">Din plats</string>
 	<string name="p2p_from">Startplats</string>

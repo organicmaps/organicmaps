@@ -778,7 +778,7 @@
 	<string name="search_history_text">최근 검색 쿼리에 신속하게 액세스할 수 있습니다.</string>
 	<string name="clear_search">이력 검색 지우기</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">광고 보기</string>
+	<string name="showcase_settings_title">파트너 광고 보기</string>
 	<string name="p2p_route_planning">경로 계획 중</string>
 	<string name="p2p_your_location">위치</string>
 	<string name="p2p_from">출발 지점</string>

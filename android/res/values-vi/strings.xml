@@ -788,7 +788,7 @@
 	<string name="search_history_text">Truy cập nhanh chóng đến câu hỏi tìm kiếm gần đây.</string>
 	<string name="clear_search">Xóa Lịch sử Tìm kiếm</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Hiển thị Quảng cáo</string>
+	<string name="showcase_settings_title">Hiển thị các giảm giá của đối tác</string>
 	<string name="p2p_route_planning">Hoạch định đường đi</string>
 	<string name="p2p_your_location">Vị trí của bạn</string>
 	<string name="p2p_from">Điểm khởi hành</string>

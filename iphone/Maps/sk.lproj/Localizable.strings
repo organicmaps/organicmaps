@@ -1286,7 +1286,7 @@
 "clear_search" = "Vymazať históriu vyhľadávania";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Ukázať reklamu";
+"showcase_settings_title" = "Zobraziť ponuku našich partnerov";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";

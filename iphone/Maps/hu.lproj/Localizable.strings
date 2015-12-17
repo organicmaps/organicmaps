@@ -1286,7 +1286,7 @@
 "clear_search" = "A keresési előzmények törlése";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Hirdetés mutatása";
+"showcase_settings_title" = "Partnerek ajánlatainak mutatása";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";

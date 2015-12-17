@@ -1286,7 +1286,7 @@
 "clear_search" = "이력 검색 지우기";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "광고 보기";
+"showcase_settings_title" = "파트너 광고 보기";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";

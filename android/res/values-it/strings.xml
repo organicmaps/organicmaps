@@ -785,7 +785,7 @@
 	<string name="search_history_text">Accedi velocemente alle stringhe di ricerca recenti.</string>
 	<string name="clear_search">Cancella сronologia ricerche</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Mostra pubblicità</string>
+	<string name="showcase_settings_title">Mostra offerte dei partner</string>
 	<string name="p2p_route_planning">Pianificazione percorso</string>
 	<string name="p2p_your_location">La tua posizione</string>
 	<string name="p2p_from">Il punto di partenza</string>

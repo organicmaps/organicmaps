@@ -1286,7 +1286,7 @@
 "clear_search" = "Zoekgeschiedenis wissen";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Advertentie weergeven";
+"showcase_settings_title" = "Laat de aanbiedingen van partners zien";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
