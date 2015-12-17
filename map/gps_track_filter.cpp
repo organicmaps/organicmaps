@@ -16,6 +16,12 @@ double constexpr kMinHorizontalAccuracyMeters = 250;
 // Required for points decimation to reduce number of close points.
 double constexpr kClosePointDistanceMeters = 15;
 
+// Periodicy to check points in wifi afea, sec
+size_t const kWifiAreaGpsPeriodicyCheckSec = 30;
+
+// Max acceptable moving speed in wifi area, required to prevent jumping between wifi, m/s
+double const kWifiAreaAcceptableMovingSpeedMps = 3;
+
 inline bool IsRealGpsPoint(location::GpsInfo const & info)
 {
   // we guess real gps says speed and bearing other than zero
@@ -61,13 +67,6 @@ void GpsTrackFilter::Process(vector<location::GpsInfo> const & inPoints,
       continue;
     }
 
-    bool const lastRealGps = IsRealGpsPoint(m_lastInfo);
-    bool const currRealGps = IsRealGpsPoint(currInfo);
-
-    bool const gpsToWifi = lastRealGps && !currRealGps;
-    bool const wifiToWifi = !lastRealGps && !currRealGps;
-    bool const wifiToGps = !lastRealGps && currRealGps;
-
     // Distance in meters between last and current point is, meters:
     double const distance = ms::DistanceOnEarth(m_lastInfo.m_latitude, m_lastInfo.m_longitude,
                                                 currInfo.m_latitude, currInfo.m_longitude);
@@ -75,15 +74,6 @@ void GpsTrackFilter::Process(vector<location::GpsInfo> const & inPoints,
     // Filter point by close distance
     if (distance < kClosePointDistanceMeters)
       continue;
-
-    // If gps appears after wifi then accept gps point
-    if (wifiToGps)
-    {
-      m_lastGoodGpsTime = timeNow;
-      m_lastInfo = currInfo;
-      outPoints.emplace_back(currInfo);
-      continue;
-    }
 
     // Filter point if accuracy areas are intersected
     if (distance < m_lastInfo.m_horizontalAccuracy && distance < currInfo.m_horizontalAccuracy)
@@ -93,18 +83,24 @@ void GpsTrackFilter::Process(vector<location::GpsInfo> const & inPoints,
     if (currInfo.m_horizontalAccuracy > m_minAccuracy)
       continue;
 
+    bool const lastRealGps = IsRealGpsPoint(m_lastInfo);
+    bool const currRealGps = IsRealGpsPoint(currInfo);
+
+    bool const gpsToWifi = lastRealGps && !currRealGps;
+    bool const wifiToWifi = !lastRealGps && !currRealGps;
+
     if (gpsToWifi || wifiToWifi)
     {
       auto const elapsedTimeSinceGoodGps = duration_cast<seconds>(timeNow - m_lastGoodGpsTime);
 
       // Wait before switch gps to wifi or switch between wifi points
-      if (elapsedTimeSinceGoodGps.count() < 30 /* seconds */)
+      if (elapsedTimeSinceGoodGps.count() < kWifiAreaGpsPeriodicyCheckSec)
         continue;
 
-      // For wifi we expect pedestrian walker with average speed 5 km/h or 1.4 m/s.
+      // Skip point if moving to it was too fast, we guess it was a jump from wifi to another wifi
       double const speed = distance / elapsedTimeSinceGoodGps.count();
-      if (speed > 3 /* m/s */)
-        continue; // we guess it is jump to another gps
+      if (speed > kWifiAreaAcceptableMovingSpeedMps)
+        continue;
     }
 
     m_lastGoodGpsTime = timeNow;
