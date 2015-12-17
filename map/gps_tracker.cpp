@@ -58,7 +58,7 @@ GpsTracker & GpsTracker::Instance()
 
 GpsTracker::GpsTracker()
   : m_enabled(GetSettingsIsEnabled())
-  , m_track(GetFilePath(), kMaxItemCount, GetSettingsDuration())
+  , m_track(GetFilePath(), kMaxItemCount, GetSettingsDuration(), make_unique<GpsTrackFilter>())
 {
 }
 

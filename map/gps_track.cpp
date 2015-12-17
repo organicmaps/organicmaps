@@ -29,15 +29,20 @@ size_t constexpr kItemBlockSize = 1000;
 
 size_t const GpsTrack::kInvalidId = GpsTrackCollection::kInvalidId;
 
-GpsTrack::GpsTrack(string const & filePath, size_t maxItemCount, hours duration)
+GpsTrack::GpsTrack(string const & filePath, size_t maxItemCount, hours duration,
+                   unique_ptr<IGpsTrackFilter> && filter)
   : m_maxItemCount(maxItemCount)
   , m_filePath(filePath)
   , m_duration(duration)
   , m_needClear(false)
   , m_needSendSnapshop(false)
+  , m_filter(move(filter))
   , m_threadExit(false)
   , m_threadWakeup(false)
 {
+  if (!m_filter)
+    m_filter = make_unique<GpsTrackNullFilter>();
+
   ASSERT_GREATER(m_maxItemCount, 0, ());
   ASSERT(!m_filePath.empty(), ());
   ASSERT_GREATER(m_duration.count(), 0, ());
@@ -179,7 +184,7 @@ void GpsTrack::InitCollection(hours duration)
       if (originPoints.size() == originPoints.capacity())
       {
         vector<location::GpsTrackInfo> points;
-        m_filter.Process(originPoints, points);
+        m_filter->Process(originPoints, points);
 
         pair<size_t, size_t> evictedIds;
         m_collection->Add(points, evictedIds);
@@ -192,7 +197,7 @@ void GpsTrack::InitCollection(hours duration)
     if (!originPoints.empty())
     {
       vector<location::GpsTrackInfo> points;
-      m_filter.Process(originPoints, points);
+      m_filter->Process(originPoints, points);
 
       pair<size_t, size_t> evictedIds;
       m_collection->Add(points, evictedIds);
@@ -233,7 +238,7 @@ void GpsTrack::ProcessPoints()
     return;
 
   vector<location::GpsTrackInfo> points;
-  m_filter.Process(originPoints, points);
+  m_filter->Process(originPoints, points);
 
   pair<size_t, size_t> addedIds;
   pair<size_t, size_t> evictedIds;

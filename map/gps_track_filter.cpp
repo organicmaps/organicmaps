@@ -4,6 +4,8 @@
 
 #include "platform/settings.hpp"
 
+#include "std/algorithm.hpp"
+
 namespace
 {
 
@@ -16,6 +18,13 @@ double constexpr kMinHorizontalAccuracyMeters = 50;
 double constexpr kClosePointDistanceMeters = 15;
 
 } // namespace
+
+void GpsTrackNullFilter::Process(vector<location::GpsInfo> const & inPoints,
+                                 vector<location::GpsTrackInfo> & outPoints)
+{
+  outPoints.reserve(inPoints.size());
+  copy(inPoints.begin(), inPoints.end(), back_inserter(outPoints));
+}
 
 void GpsTrackFilter::StoreMinHorizontalAccuracy(double value)
 {

@@ -17,7 +17,9 @@ public:
   /// @param filePath - path to the file on disk to persist track
   /// @param maxItemCount - number of points to store on disk
   /// @param duration - initial value of track duration
-  GpsTrack(string const & filePath, size_t maxItemCount, hours duration);
+  /// @param filter - filter object used for filtering points, GpsTrackNullFilter is created by default
+  GpsTrack(string const & filePath, size_t maxItemCount, hours duration,
+           unique_ptr<IGpsTrackFilter> && filter = unique_ptr<IGpsTrackFilter>());
   ~GpsTrack();
 
   /// Adds point or collection of points to gps tracking
@@ -82,7 +84,7 @@ private:
 
   unique_ptr<GpsTrackStorage> m_storage; // used in the worker thread
   unique_ptr<GpsTrackCollection> m_collection; // used in the worker thread
-  GpsTrackFilter m_filter;
+  unique_ptr<IGpsTrackFilter> m_filter; // used in the worker thread
 
   mutex m_threadGuard;
   thread m_thread;
