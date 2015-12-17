@@ -10,10 +10,17 @@ namespace
 char const kMinHorizontalAccuracyKey[] = "GpsTrackingMinAccuracy";
 
 // Minimal horizontal accuracy is required to skip 'bad' points.
+// Use 250 meters to allow points from a pure GPS + GPS through wifi.
 double constexpr kMinHorizontalAccuracyMeters = 250;
 
 // Required for points decimation to reduce number of close points.
 double constexpr kClosePointDistanceMeters = 15;
+
+inline bool IsRealGpsPoint(location::GpsInfo const & info)
+{
+  // we guess real gps says speed and bearing other than zero
+  return info.m_speed > 0 && info.m_bearing > 0;
+}
 
 } // namespace
 
@@ -38,21 +45,28 @@ GpsTrackFilter::GpsTrackFilter()
 void GpsTrackFilter::Process(vector<location::GpsInfo> const & inPoints,
                              vector<location::GpsTrackInfo> & outPoints)
 {
+  steady_clock::time_point const timeNow = steady_clock::now();
+
   outPoints.reserve(inPoints.size());
 
   for (location::GpsInfo const & currInfo : inPoints)
   {
     if (!m_hasLastInfo)
     {
+      // Accept first point
       m_hasLastInfo = true;
       m_lastInfo = currInfo;
+      m_lastGoodGpsTime = timeNow;
       outPoints.emplace_back(currInfo);
       continue;
     }
 
-    // Filter points which happens earlier than first point
-    if (currInfo.m_timestamp <= m_lastInfo.m_timestamp)
-      continue;
+    bool const lastRealGps = IsRealGpsPoint(m_lastInfo);
+    bool const currRealGps = IsRealGpsPoint(currInfo);
+
+    bool const gpsToWifi = lastRealGps && !currRealGps;
+    bool const wifiToWifi = !lastRealGps && !currRealGps;
+    bool const wifiToGps = !lastRealGps && currRealGps;
 
     // Distance in meters between last and current point is, meters:
     double const distance = ms::DistanceOnEarth(m_lastInfo.m_latitude, m_lastInfo.m_longitude,
@@ -62,6 +76,15 @@ void GpsTrackFilter::Process(vector<location::GpsInfo> const & inPoints,
     if (distance < kClosePointDistanceMeters)
       continue;
 
+    // If gps appears after wifi then accept gps point
+    if (wifiToGps)
+    {
+      m_lastGoodGpsTime = timeNow;
+      m_lastInfo = currInfo;
+      outPoints.emplace_back(currInfo);
+      continue;
+    }
+
     // Filter point if accuracy areas are intersected
     if (distance < m_lastInfo.m_horizontalAccuracy && distance < currInfo.m_horizontalAccuracy)
       continue;
@@ -70,18 +93,21 @@ void GpsTrackFilter::Process(vector<location::GpsInfo> const & inPoints,
     if (currInfo.m_horizontalAccuracy > m_minAccuracy)
       continue;
 
-    // Time elapsed since last info is, sec:
-    double const elapsedTime = currInfo.m_timestamp - m_lastInfo.m_speed;
-
-    // Prevent jumping between wifi points
-    // We use following heuristics: if suddenly point jumps over long
-    // distance in short time then we skip point
-    if (m_lastInfo.m_speed == 0 && currInfo.m_speed == 0)
+    if (gpsToWifi || wifiToWifi)
     {
-      if (distance > 25 && elapsedTime < 10)
-        continue; // we guess it is jump between wifi points
+      auto const elapsedTimeSinceGoodGps = duration_cast<seconds>(timeNow - m_lastGoodGpsTime);
+
+      // Wait before switch gps to wifi or switch between wifi points
+      if (elapsedTimeSinceGoodGps.count() < 30 /* seconds */)
+        continue;
+
+      // For wifi we expect pedestrian walker with average speed 5 km/h or 1.4 m/s.
+      double const speed = distance / elapsedTimeSinceGoodGps.count();
+      if (speed > 3 /* m/s */)
+        continue; // we guess it is jump to another gps
     }
 
+    m_lastGoodGpsTime = timeNow;
     m_lastInfo = currInfo;
     outPoints.emplace_back(currInfo);
   }
