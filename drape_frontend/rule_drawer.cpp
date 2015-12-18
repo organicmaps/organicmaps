@@ -150,7 +150,7 @@ void RuleDrawer::operator()(FeatureType const & f)
       feature::Metadata const & md = f.GetMetadata();
       string value = md.Get(feature::Metadata::FMD_HEIGHT);
 
-      double const kDefaultHeightInMeters = 0.0;
+      double const kDefaultHeightInMeters = 3.0;
       double heightInMeters = kDefaultHeightInMeters;
       if (!value.empty())
         strings::to_double(value, heightInMeters);
