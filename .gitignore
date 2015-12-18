@@ -15,6 +15,7 @@ screenlog.0
 data/*.mwm.osm2ft
 data/*.mwm.routing
 data/*.mwmmeta
+data/[!W]*.mwm
 
 # Compiled Python
 crawler/*.pyc
@@ -68,8 +69,6 @@ GeneratedFiles
 # data
 data/intermediate_data
 data/[0-9][0-9][0-9][0-9][0-9][0-9]
-!data/World.mwm
-!data/WorldCoasts.mwm
 # temporary files for downloader
 data/*.mwm.downloading2
 data/*.mwm.resume2
@@ -85,6 +84,9 @@ data/index.stamp
 # local statistics storage
 data/stats
 # generated routing indices
+data/*/*.bftsegbits
+data/*/*.bftsegnodes
+data/*/*.offsets
 
 # benchmark results
 data/benchmarks/*.trace
