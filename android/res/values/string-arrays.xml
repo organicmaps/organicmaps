@@ -30,6 +30,8 @@
     <item>@string/duration_6_hours</item>
     <item>@string/duration_12_hours</item>
     <item>@string/duration_1_day</item>
+    <!-- TODO: Remove in release -->
+    <item>2 days</item>
   </string-array>
 
   <string-array name="track_lengths_values"
@@ -39,5 +41,7 @@
     <item>6</item>
     <item>12</item>
     <item>24</item>
+    <!-- TODO: Remove in release -->
+    <item>48</item>
   </string-array>
 </resources>
