@@ -84,6 +84,27 @@ UNIT_TEST(RussiaMoscowTrikotagniAndPohodniRoundaboutTurnTest)
   integration::TestRouteLength(route, 387.);
 }
 
+UNIT_TEST(SwedenBarlangeRoundaboutTurnTest)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+    integration::GetOsrmComponents(),
+    MercatorBounds::FromLatLon(60.48278, 15.42356), {0., 0.},
+    MercatorBounds::FromLatLon(60.48462, 15.42120));
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 2);
+
+  integration::GetNthTurn(route, 0)
+      .TestValid()
+      .TestDirection(TurnDirection::EnterRoundAbout)
+      .TestRoundAboutExitNum(2);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(TurnDirection::LeaveRoundAbout);
+
+  integration::TestRouteLength(route, 255.);
+}
+
 UNIT_TEST(RussiaMoscowPlanetnaiTurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
@@ -231,11 +252,11 @@ UNIT_TEST(RussiaHugeRoundaboutTurnTest)
   integration::GetNthTurn(route, 0)
       .TestValid()
       .TestDirection(TurnDirection::EnterRoundAbout)
-      .TestRoundAboutExitNum(4);
+      .TestRoundAboutExitNum(5);
   integration::GetNthTurn(route, 1)
       .TestValid()
       .TestDirection(TurnDirection::LeaveRoundAbout)
-      .TestRoundAboutExitNum(4);
+      .TestRoundAboutExitNum(5);
 }
 
 UNIT_TEST(BelarusMiskProspNezavisimostiMKADTurnTest)
