@@ -10,7 +10,6 @@
     android:paddingBottom="@dimen/margin_base"
     android:visibility="invisible"
     tools:visibility="visible">
-
   <View android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="?attr/dividerHorizontal"/>
@@ -54,7 +53,7 @@
         android:paddingBottom="@dimen/margin_half"
         android:paddingRight="@dimen/margin_half"
         android:paddingTop="@dimen/margin_half"
-        android:textColor="@color/text_place_page"
+        android:textColor="?ppText"
         android:textSize="@dimen/text_size_body_1"/>
 
     <View

@@ -11,22 +11,21 @@
   android:paddingTop="@dimen/margin_half"
   android:visibility="gone"
   android:clickable="true"
-  tools:background="#6000FF00"
+  tools:background="#40FF0000"
   tools:visibility="visible">
-
   <ImageView
     android:id="@+id/iv__place_entrance"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginRight="@dimen/margin_base"
-    android:src="@drawable/ic_entrance"/>
+    android:src="@drawable/ic_entrance"
+    android:tint="?iconTint"/>
 
   <TextView
     android:id="@+id/tv__place_entrance"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textColor="@color/text_place_page"
+    android:textColor="?ppText"
     android:textSize="@dimen/text_size_body_1"
     tools:text="150 - 200"/>
-
 </LinearLayout>

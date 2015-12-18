@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout style="@style/PlacePagePreview"
               xmlns:android="http://schemas.android.com/apk/res/android"
-              android:background="@drawable/bg_place_page_back">
+              android:background="?ppPreviewHead">
   <include layout="@layout/place_page_preview_common"/>
 </LinearLayout>
 

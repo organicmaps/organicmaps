@@ -6,7 +6,7 @@
       android:id="@+id/pp__details"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@color/bg_top_panels"
+      android:background="?ppBackground"
       android:overScrollMode="never">
     <LinearLayout
         android:id="@+id/rl__place_details"
@@ -45,10 +45,9 @@
 
       <include layout="@layout/place_page_cuisine"/>
 
-      <View
+      <Space
           android:layout_width="match_parent"
-          android:layout_height="0px"
-          android:layout_marginBottom="@dimen/margin_half"/>
+          android:layout_height="@dimen/margin_half"/>
 
       <include
           layout="@layout/place_page_bookmark_details"

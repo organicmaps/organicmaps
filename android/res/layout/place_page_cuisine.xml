@@ -14,19 +14,19 @@
   android:visibility="gone"
   android:clickable="true"
   tools:visibility="visible">
-
   <ImageView
     android:id="@+id/iv__place_cuisine"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginRight="@dimen/margin_base"
+    android:tint="?iconTint"
     android:src="@drawable/ic_cuisine"/>
 
   <TextView
     android:id="@+id/tv__place_cuisine"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textColor="@color/text_place_page"
+    android:textColor="?ppText"
     android:textSize="@dimen/text_size_body_1"
     tools:text="Japan, European"/>
 </LinearLayout>

@@ -12,7 +12,7 @@
       android:layout_height="wrap_content"
       android:ellipsize="end"
       android:maxLines="@integer/pp_title_lines"
-      android:textColor="@color/text_place_page"
+      android:textColor="?ppText"
       android:textSize="@dimen/text_size_headline"/>
 
     <TextView
@@ -21,7 +21,7 @@
       android:layout_height="wrap_content"
       android:layout_below="@id/tv__title"
       android:layout_marginRight="@dimen/margin_base"
-      android:textColor="@color/text_place_page_subtitle"
+      android:textColor="?android:textColorSecondary"
       android:textSize="@dimen/text_size_body_1"/>
 
     <TextView
@@ -30,7 +30,7 @@
       android:layout_height="wrap_content"
       android:layout_below="@id/tv__subtitle"
       android:gravity="center_vertical"
-      android:textColor="@color/text_place_page_subtitle"
+      android:textColor="?android:textColorSecondary"
       android:textSize="@dimen/text_size_body_1"
       android:visibility="gone"/>
 
@@ -54,7 +54,7 @@
       android:layout_alignBottom="@id/tv__subtitle"
       android:layout_toRightOf="@id/tv__subtitle"
       android:drawableLeft="@drawable/ic_high_mountain"
-      android:textColor="@color/text_place_page_subtitle"
+      android:textColor="?android:textColorSecondary"
       android:textSize="@dimen/text_size_body_1"
       android:visibility="gone"/>
 
@@ -65,7 +65,7 @@
     android:layout_width="72dp"
     android:layout_height="wrap_content"
     android:gravity="right"
-    android:textColor="@color/text_place_page"
+    android:textColor="?ppText"
     android:textSize="@dimen/text_size_body_1"/>
 
   <com.mapswithme.maps.widget.ArrowView

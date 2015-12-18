@@ -10,7 +10,7 @@
   android:paddingBottom="@dimen/margin_half"
   android:paddingTop="@dimen/margin_half"
   android:visibility="gone"
-  tools:background="#6000FF00"
+  tools:background="#2000FF00"
   tools:visibility="visible">
 
   <ImageView
@@ -19,14 +19,15 @@
     android:layout_height="wrap_content"
     android:layout_centerVertical="true"
     android:layout_marginRight="@dimen/margin_base"
-    android:src="@drawable/ic_adress"/>
+    android:tint="?iconTint"
+    android:src="@drawable/ic_address"/>
 
   <TextView
     android:id="@+id/tv__place_address"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_toRightOf="@id/iv__place_name"
-    android:textColor="@color/text_place_page"
+    android:textColor="?ppText"
     android:textSize="@dimen/text_size_body_1"
     tools:text="Sample place"/>
 
