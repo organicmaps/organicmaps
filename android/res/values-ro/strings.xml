@@ -786,6 +786,7 @@
 	<string name="clear_search">Ștergere istoric de căutare</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">Afișare oferte parteneri</string>
+	<string name="showcase_more_apps">Mai multe aplicații My.com</string>
 	<string name="p2p_route_planning">Planificare rută</string>
 	<string name="p2p_your_location">Locația dvs.</string>
 	<string name="p2p_from">Punctul de plecare</string>

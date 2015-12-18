@@ -1056,7 +1056,7 @@ extern "C"
                                                       jdouble finishLon)
   {
     frm()->BuildRoute(MercatorBounds::FromLatLon(startLat, startLon),
-				  MercatorBounds::FromLatLon(finishLat, finishLon), 0 /* timeoutSec */);
+                      MercatorBounds::FromLatLon(finishLat, finishLon), 0 /* timeoutSec */);
   }
 
   JNIEXPORT void JNICALL

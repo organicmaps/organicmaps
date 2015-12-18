@@ -1288,6 +1288,8 @@
 /* Title for settings to enable/disable showcase menu button */
 "showcase_settings_title" = "Tunjukkan penawaran dari para mitra";
 
+"showcase_more_apps" = "Lebih Banyak Aplikasi My.com";
+
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
 

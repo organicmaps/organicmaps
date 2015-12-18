@@ -2,7 +2,6 @@ package com.mapswithme.maps.widget.menu;
 
 import android.animation.Animator;
 import android.app.Activity;
-import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
@@ -14,6 +13,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
@@ -23,11 +27,6 @@ import com.mapswithme.maps.routing.RoutingInfo;
 import com.mapswithme.maps.widget.RotateByAlphaDrawable;
 import com.mapswithme.maps.widget.TrackedTransitionDrawable;
 import com.mapswithme.util.UiUtils;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class MainMenu
 {
@@ -543,18 +542,6 @@ public class MainMenu
   public void showShowcase(boolean show)
   {
     UiUtils.showIf(show, mItemViews.get(Item.SHOWCASE));
-  }
-
-  public void setShowcaseText(String text)
-  {
-    ((TextView)mItemViews.get(Item.SHOWCASE)).setText(text);
-  }
-
-  public void setShowcaseDrawable(Bitmap bitmap)
-  {
-    // TODO d.yunitsky uncomment or delete in future, when decision with dynamic vs static icons will be made
-//    final Drawable drawable = new BitmapDrawable(mFrame.getResources(), Bitmap.createScaledBitmap(bitmap, UiUtils.dp(48), UiUtils.dp(48), true));
-//    ((TextView) mItemViews.get(Item.SHOWCASE)).setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
   }
 
   public Button getRouteStartButton()

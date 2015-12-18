@@ -786,6 +786,7 @@
 	<string name="clear_search">検索履歴を消去</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">パートナーのオファーを表示</string>
+	<string name="showcase_more_apps">他のMy.comアプリ</string>
 	<string name="p2p_route_planning">ルート作成</string>
 	<string name="p2p_your_location">現在位置</string>
 	<string name="p2p_from">出発地</string>

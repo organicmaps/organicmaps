@@ -49,17 +49,18 @@
     tools:background="#20FF0000"/>
 
   <TextView
-    android:id="@+id/showcase"
-    style="@style/MwmTheme.Menu.Content.ListItem"
-    android:drawableLeft="@drawable/ic_showcase"
-    android:visibility="gone"
-    tools:visibility="visible"
-    tools:background="#20FF0000"/>
-
-  <TextView
     android:id="@+id/share"
     style="@style/MwmTheme.Menu.Content.ListItem"
     android:drawableLeft="@drawable/ic_menu_share"
     android:text="@string/share_my_location"
     tools:background="#400FF000"/>
+
+  <TextView
+    android:id="@+id/showcase"
+    style="@style/MwmTheme.Menu.Content.ListItem"
+    android:drawableLeft="@drawable/ic_showcase"
+    android:visibility="gone"
+    android:text="@string/showcase_more_apps"
+    tools:visibility="visible"
+    tools:background="#20FF0000"/>
 </LinearLayout>
