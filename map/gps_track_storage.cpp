@@ -18,7 +18,7 @@ size_t constexpr kItemBlockSize = 1000;
 // Now GpsInfo written as planar values, but values can be compressed.
 
 // Size of point in bytes to write in file of read from file
-size_t const kPointSize = 8 * sizeof(double) + sizeof(uint8_t);
+size_t constexpr kPointSize = 8 * sizeof(double) + sizeof(uint8_t);
 
 // Writes value in memory in LittleEndian
 template <typename T>
