@@ -1288,6 +1288,8 @@
 /* Title for settings to enable/disable showcase menu button */
 "showcase_settings_title" = "顯示合作夥伴的優惠";
 
+"showcase_more_apps" = "更多My.com 應用";
+
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
 

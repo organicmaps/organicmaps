@@ -796,6 +796,7 @@
 	<string name="clear_search">Vymazat historii vyhledávání</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">Zobrazit nabídky partnerů</string>
+	<string name="showcase_more_apps">Více aplikací My.com</string>
 	<string name="p2p_route_planning">Plánování trasy</string>
 	<string name="p2p_your_location">Vaše umístění</string>
 	<string name="p2p_from">Počátek cesty</string>

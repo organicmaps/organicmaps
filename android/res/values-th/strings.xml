@@ -791,6 +791,7 @@
 	<string name="clear_search">ล้างการค้นหาประวัติ</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">แสดงข้อเสนอของพันธมิตร</string>
+	<string name="showcase_more_apps">แอป My.com เพิ่มเติม</string>
 	<string name="p2p_route_planning">การวางแผนเส้นทาง</string>
 	<string name="p2p_your_location">ตำแหน่งที่ตั้งของคุณ</string>
 	<string name="p2p_from">จุดที่ออกเดินทาง</string>

@@ -1288,6 +1288,8 @@
 /* Title for settings to enable/disable showcase menu button */
 "showcase_settings_title" = "파트너 광고 보기";
 
+"showcase_more_apps" = "기타 My.com 앱";
+
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
 

@@ -789,6 +789,7 @@
 	<string name="clear_search">Ryd historiksøgning</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">Vis reklame</string>
+	<string name="showcase_more_apps">Flere My.com apps</string>
 	<string name="p2p_route_planning">Ruteplanlægning</string>
 	<string name="p2p_your_location">Din lokalitet</string>
 	<string name="p2p_from">Afgangssted</string>

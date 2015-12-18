@@ -1288,6 +1288,8 @@
 /* Title for settings to enable/disable showcase menu button */
 "showcase_settings_title" = "Mostrar las ofertas de socios";
 
+"showcase_more_apps" = "Más apps de My.com";
+
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
 

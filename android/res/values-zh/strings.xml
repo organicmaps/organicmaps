@@ -793,6 +793,7 @@
 	<string name="clear_search">清除历史搜索</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">顯示合作夥伴的優惠</string>
+	<string name="showcase_more_apps">更多My.com应用</string>
 	<string name="p2p_route_planning">路线计划</string>
 	<string name="p2p_your_location">您的位置</string>
 	<string name="p2p_from">出发地点</string>
