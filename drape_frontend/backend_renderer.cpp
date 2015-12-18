@@ -65,14 +65,14 @@ void BackendRenderer::RecacheGui(gui::TWidgetsInitInfo const & initInfo, gui::TW
 {
   drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheWidgets(initInfo, sizeInfo, m_texMng);
   drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(move(layerRenderer));
-  m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(outputMsg), MessagePriority::High);
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(outputMsg), MessagePriority::Normal);
 }
 
 void BackendRenderer::RecacheCountryStatus()
 {
   drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheCountryStatus(m_texMng);
   drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(move(layerRenderer));
-  m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(outputMsg), MessagePriority::High);
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(outputMsg), MessagePriority::Normal);
 }
 
 void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
