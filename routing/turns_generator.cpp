@@ -937,6 +937,10 @@ size_t CheckUTurnOnRoute(vector<LoadedPathSegment> const & segments, size_t curr
       if (checkedSegment.m_name.empty())
         return 0;
 
+      // Avoid returning to the same edge after uturn somewere else.
+      if (path[path.size() - 2] == checkedSegment.m_path[1])
+        return 0;
+
       m2::PointD const v1 = path[path.size() - 1] - path[path.size() - 2];
       m2::PointD const v2 = checkedSegment.m_path[1] - checkedSegment.m_path[0];
 
