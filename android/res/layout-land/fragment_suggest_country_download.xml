@@ -3,8 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:layout_height="match_parent">
 
   <ScrollView
       android:layout_width="match_parent"
@@ -128,7 +127,7 @@
         android:layout_marginTop="@dimen/margin_half_plus"
         android:background="?clickableBackground"
         wheel:wheelProgressColor="@color/base_green"
-        wheel:wheelSecondaryColor="@color/downloader_progress_bg"
+        wheel:wheelSecondaryColor="@color/downloader_progress_secondary"
         wheel:wheelThickness="@dimen/margin_quarter"/>
   </LinearLayout>
 

@@ -168,11 +168,6 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
     return mUpdatedCount != 0;
   }
 
-  protected boolean containsInProgress()
-  {
-    return mInProgressCount != 0;
-  }
-
   private int getGroupByAbsPosition(int position)
   {
     final int newGroupEnd = mInProgressCount;
