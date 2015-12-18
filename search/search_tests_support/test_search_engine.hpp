@@ -15,8 +15,9 @@ class Platform;
 namespace search
 {
 class SearchParams;
-}
 
+namespace tests_support
+{
 class TestSearchEngine : public Index
 {
 public:
@@ -29,3 +30,5 @@ private:
   storage::CountryInfoGetter m_infoGetter;
   search::Engine m_engine;
 };
+}  // namespace tests_support
+}  // namespace search

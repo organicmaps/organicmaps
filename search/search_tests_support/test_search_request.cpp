@@ -1,10 +1,14 @@
-#include "search/search_integration_tests/test_search_request.hpp"
+#include "search/search_tests_support/test_search_request.hpp"
 
-#include "search/search_integration_tests/test_search_engine.hpp"
+#include "search/search_tests_support/test_search_engine.hpp"
 #include "search/params.hpp"
 
 #include "base/logging.hpp"
 
+namespace search
+{
+namespace tests_support
+{
 TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & query,
                                      string const & locale, m2::RectD const & viewport)
     : m_done(false)
@@ -49,3 +53,5 @@ void TestSearchRequest::Done(search::Results const & results)
     m_results.assign(results.Begin(), results.End());
   }
 }
+}  // namespace tests_support
+}  // namespace search
