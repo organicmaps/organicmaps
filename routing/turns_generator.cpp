@@ -182,8 +182,8 @@ bool KeepTurnByHighwayClass(TurnDirection turn, TTurnCandidates const & possible
  * \brief Returns false when other possible turns leads to service roads;
  */
 bool KeepRoundaboutTurnByHighwayClass(TurnDirection turn, TTurnCandidates const & possibleTurns,
-                            TurnInfo const & turnInfo, Index const & index,
-                            RoutingMapping & mapping)
+                                      TurnInfo const & turnInfo, Index const & index,
+                                      RoutingMapping & mapping)
 {
   for (auto const & t : possibleTurns)
   {
@@ -881,7 +881,7 @@ void GetTurnDirection(Index const & index, RoutingMapping & mapping, TurnInfo & 
 
   if (turnInfo.m_ingoing.m_onRoundabout || turnInfo.m_outgoing.m_onRoundabout)
   {
-  bool const keepTurnByHighwayClass = KeepRoundaboutTurnByHighwayClass(turn.m_turn, nodes, turnInfo, index, mapping);
+    bool const keepTurnByHighwayClass = KeepRoundaboutTurnByHighwayClass(turn.m_turn, nodes, turnInfo, index, mapping);
     turn.m_turn = GetRoundaboutDirection(turnInfo.m_ingoing.m_onRoundabout,
                                          turnInfo.m_outgoing.m_onRoundabout, hasMultiTurns,
                                          keepTurnByHighwayClass);

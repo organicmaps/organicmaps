@@ -87,9 +87,8 @@ UNIT_TEST(RussiaMoscowTrikotagniAndPohodniRoundaboutTurnTest)
 UNIT_TEST(SwedenBarlangeRoundaboutTurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
-    integration::GetOsrmComponents(),
-    MercatorBounds::FromLatLon(60.48278, 15.42356), {0., 0.},
-    MercatorBounds::FromLatLon(60.48462, 15.42120));
+      integration::GetOsrmComponents(), MercatorBounds::FromLatLon(60.48278, 15.42356), {0., 0.},
+      MercatorBounds::FromLatLon(60.48462, 15.42120));
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
 
