@@ -323,13 +323,11 @@
 	<!-- Settings «Map» category: «Map style» title -->
 	<string name="pref_map_style_title">Map style</string>
 	<!-- Settings «Map» category: «Map style» summary -->
-	<string name="pref_map_style_summary">Change map presentation</string>
+	<string name="pref_map_style_summary">Map and interface presentation</string>
 	<!-- «Map style» entry value -->
-	<string name="pref_map_style_classic_light">Classic light</string>
+	<string name="pref_map_style_default">Default</string>
 	<!-- «Map style» entry value -->
-	<string name="pref_map_style_classic_dark">Classic dark</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_modern_light">Modern light</string>
+	<string name="pref_map_style_night">Night</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Perspective view</string>
 	<!-- Settings «Map» category: «3D buildings» title -->

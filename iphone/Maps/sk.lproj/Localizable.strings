@@ -499,16 +499,13 @@
 "pref_map_style_title" = "Map style";
 
 /* Settings «Map» category: «Map style» summary */
-"pref_map_style_summary" = "Change map presentation";
+"pref_map_style_summary" = "Map and interface presentation";
 
 /* «Map style» entry value */
-"pref_map_style_classic_light" = "Classic light";
+"pref_map_style_default" = "Default";
 
 /* «Map style» entry value */
-"pref_map_style_classic_dark" = "Classic dark";
-
-/* «Map style» entry value */
-"pref_map_style_modern_light" = "Modern light";
+"pref_map_style_night" = "Night";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Perspektívne zobrazenie";

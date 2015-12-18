@@ -321,13 +321,11 @@
 	<!-- Settings «Map» category: «Map style» title -->
 	<string name="pref_map_style_title">Стиль карты</string>
 	<!-- Settings «Map» category: «Map style» summary -->
-	<string name="pref_map_style_summary">Стиль отображения карты</string>
+	<string name="pref_map_style_summary">Стиль отображения карты и интерфейса</string>
 	<!-- «Map style» entry value -->
-	<string name="pref_map_style_classic_light">Классическая светлая</string>
+	<string name="pref_map_style_default">По умолчанию</string>
 	<!-- «Map style» entry value -->
-	<string name="pref_map_style_classic_dark">Классическая тёмная</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_modern_light">Современная светлая</string>
+	<string name="pref_map_style_night">Ночная</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Перспективный вид</string>
 	<!-- Settings «Map» category: «3D buildings» title -->

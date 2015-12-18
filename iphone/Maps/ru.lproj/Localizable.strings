@@ -499,16 +499,13 @@
 "pref_map_style_title" = "Стиль карты";
 
 /* Settings «Map» category: «Map style» summary */
-"pref_map_style_summary" = "Стиль отображения карты";
+"pref_map_style_summary" = "Стиль отображения карты и интерфейса";
 
 /* «Map style» entry value */
-"pref_map_style_classic_light" = "Классическая светлая";
+"pref_map_style_default" = "По умолчанию";
 
 /* «Map style» entry value */
-"pref_map_style_classic_dark" = "Классическая тёмная";
-
-/* «Map style» entry value */
-"pref_map_style_modern_light" = "Современная светлая";
+"pref_map_style_night" = "Ночная";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Перспективный вид";
