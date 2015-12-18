@@ -72,13 +72,13 @@ XHDPI_SKIN_RES.path = $$DATADIR/resources-xhdpi
 XHDPI_SKIN_RES.files = ../data/resources-xhdpi/symbols.sdf ../data/resources-xhdpi/symbols.png
 
 FONT_RES.path = $$FONTSDIR
-FONT_RES.files = ../data/00_roboto_medium.ttf \
-                 ../data/01_dejavusans.ttf \
+FONT_RES.files = ../data/01_dejavusans.ttf \
                  ../data/02_droidsans-fallback.ttf \
                  ../data/03_jomolhari-id-a3d.ttf \
                  ../data/04_padauk.ttf \
                  ../data/05_khmeros.ttf \
-                 ../data/06_code2000.ttf
+                 ../data/06_code2000.ttf \
+                 ../data/07_roboto_medium.ttf
 
 OTHER_RES.files += ../data/fonts_blacklist.txt \
                    ../data/fonts_whitelist.txt \
