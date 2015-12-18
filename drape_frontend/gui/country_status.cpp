@@ -176,6 +176,16 @@ drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex,
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher::TFlushFn flushFn = bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2);
 
+  // Precache progress symbols.
+  {
+    CountryStatusHelper & helper = DrapeGui::GetCountryStatusHelper();
+    string alphabet;
+    size_t maxLength;
+    helper.GetProgressInfo(alphabet, maxLength);
+    dp::TextureManager::TGlyphsBuffer buffer;
+    tex->GetGlyphRegions(strings::MakeUniString(alphabet), buffer);
+  }
+
   // Create labels.
   ForEachComponent(helper, CountryStatusHelper::CONTROL_TYPE_LABEL,
                    [this, &tex, &flushFn, &state](CountryStatusHelper::Control const & control)
