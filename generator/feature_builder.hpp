@@ -45,7 +45,10 @@ public:
   inline bool IsArea() const { return (GetGeomType() == feature::GEOM_AREA); }
 
   void AddPolygon(vector<m2::PointD> & poly);
+
+  void ResetGeometry();
   //@}
+
 
   inline feature::Metadata const & GetMetadata() const { return m_params.GetMetadata(); }
   inline TGeometry const & GetGeometry() const { return m_polygons; }

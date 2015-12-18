@@ -131,6 +131,13 @@ void FeatureBuilder1::AddPolygon(vector<m2::PointD> & poly)
   m_polygons.back().swap(poly);
 }
 
+void FeatureBuilder1::ResetGeometry()
+{
+  m_polygons.clear();
+  m_polygons.push_back(TPointSeq());
+  m_limitRect.MakeEmpty();
+}
+
 bool FeatureBuilder1::RemoveInvalidTypes()
 {
   if (!m_params.FinishAddingTypes())
