@@ -1,5 +1,6 @@
 #include "map/gps_track_storage.hpp"
 
+#include "coding/endianness.hpp"
 #include "coding/internal/file_data.hpp"
 
 #include "std/algorithm.hpp"
@@ -14,38 +15,54 @@ namespace
 size_t constexpr kItemBlockSize = 1000;
 
 // TODO
-// GpsInfo can be compressed
+// Now GpsInfo written as planar values, but values can be compressed.
 
-// Size of point in bytes
+// Size of point in bytes to write in file of read from file
 size_t const kPointSize = 8 * sizeof(double) + sizeof(uint8_t);
+
+// Writes value in memory in LittleEndian
+template <typename T>
+void MemWrite(void * ptr, T value)
+{
+  value = SwapIfBigEndian(value);
+  memcpy(ptr, &value, sizeof(T));
+}
+
+// Read value from memory, which is LittleEndian in memory
+template <typename T>
+T MemRead(void const * ptr)
+{
+  T value;
+  memcpy(&value, ptr, sizeof(T));
+  return SwapIfBigEndian(value);
+}
 
 void Pack(char * p, location::GpsInfo const & info)
 {  
-  memcpy(p + 0 * sizeof(double), &info.m_timestamp, sizeof(double));
-  memcpy(p + 1 * sizeof(double), &info.m_latitude, sizeof(double));
-  memcpy(p + 2 * sizeof(double), &info.m_longitude, sizeof(double));
-  memcpy(p + 3 * sizeof(double), &info.m_altitude, sizeof(double));
-  memcpy(p + 4 * sizeof(double), &info.m_speed, sizeof(double));
-  memcpy(p + 5 * sizeof(double), &info.m_bearing, sizeof(double));
-  memcpy(p + 6 * sizeof(double), &info.m_horizontalAccuracy, sizeof(double));
-  memcpy(p + 7 * sizeof(double), &info.m_verticalAccuracy, sizeof(double));
+  MemWrite<double>(p + 0 * sizeof(double), info.m_timestamp);
+  MemWrite<double>(p + 1 * sizeof(double), info.m_latitude);
+  MemWrite<double>(p + 2 * sizeof(double), info.m_longitude);
+  MemWrite<double>(p + 3 * sizeof(double), info.m_altitude);
+  MemWrite<double>(p + 4 * sizeof(double), info.m_speed);
+  MemWrite<double>(p + 5 * sizeof(double), info.m_bearing);
+  MemWrite<double>(p + 6 * sizeof(double), info.m_horizontalAccuracy);
+  MemWrite<double>(p + 7 * sizeof(double), info.m_verticalAccuracy);
   ASSERT_LESS_OR_EQUAL(static_cast<int>(info.m_source), 255, ());
   uint8_t const source = static_cast<uint8_t>(info.m_source);
-  memcpy(p + 8 * sizeof(double), &source, sizeof(uint8_t));
+  MemWrite<uint8_t>(p + 8 * sizeof(double), source);
 }
 
 void Unpack(char const * p, location::GpsInfo & info)
 {
-  memcpy(&info.m_timestamp, p + 0 * sizeof(double), sizeof(double));
-  memcpy(&info.m_latitude, p + 1 * sizeof(double), sizeof(double));
-  memcpy(&info.m_longitude, p + 2 * sizeof(double), sizeof(double));
-  memcpy(&info.m_altitude, p + 3 * sizeof(double), sizeof(double));
-  memcpy(&info.m_speed, p + 4 * sizeof(double), sizeof(double));
-  memcpy(&info.m_bearing, p + 5 * sizeof(double), sizeof(double));
-  memcpy(&info.m_horizontalAccuracy, p + 6 * sizeof(double), sizeof(double));
-  memcpy(&info.m_verticalAccuracy, p + 7 * sizeof(double), sizeof(double));
-  uint8_t source;
-  memcpy(&source, p + 8 * sizeof(double), sizeof(uint8_t));
+  info.m_timestamp = MemRead<double>(p + 0 * sizeof(double));
+  info.m_latitude = MemRead<double>(p + 1 * sizeof(double));
+  info.m_longitude = MemRead<double>(p + 2 * sizeof(double));
+  info.m_altitude = MemRead<double>(p + 3 * sizeof(double));
+  info.m_speed = MemRead<double>(p + 4 * sizeof(double));
+  info.m_bearing = MemRead<double>(p + 5 * sizeof(double));
+  info.m_horizontalAccuracy = MemRead<double>(p + 6 * sizeof(double));
+  info.m_verticalAccuracy = MemRead<double>(p + 7 * sizeof(double));
+  uint8_t const source = MemRead<uint8_t>(p + 8 * sizeof(double));
   info.m_source = static_cast<location::TLocationSource>(source);
 }
 
