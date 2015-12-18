@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.SearchToolbarController;
+import com.mapswithme.util.Graphics;
 
 class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.ViewHolder>
 {
@@ -86,6 +88,7 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
         throw new IllegalArgumentException("Unsupported ViewHolder type given");
     }
 
+    Graphics.tintDrawable(res.mText);
     return res;
   }
 

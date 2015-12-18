@@ -25,6 +25,7 @@ public final class Config
   private static final String KEY_MISC_DISCLAIMER_ACCEPTED = "IsDisclaimerApproved";
   private static final String KEY_MISC_KITKAT_MIGRATED = "KitKatMigrationCompleted";
   private static final String KEY_MISC_NEWS_LAST_VERSION = "WhatsNewShownVersion";
+  private static final String KEY_MISC_UI_THEME = "UiTheme";
 
   private Config() {}
 
@@ -258,6 +259,16 @@ public final class Config
   public static void setWhatsNewShown()
   {
     setInt(KEY_MISC_NEWS_LAST_VERSION, BuildConfig.VERSION_CODE);
+  }
+
+  public static String getUiTheme()
+  {
+    return getString(KEY_MISC_UI_THEME, ThemeUtils.THEME_DEFAULT);
+  }
+
+  public static void setUiTheme(String theme)
+  {
+    setString(KEY_MISC_UI_THEME, theme);
   }
 
   private static native boolean nativeGetBoolean(String name, boolean defaultValue);

@@ -170,7 +170,6 @@
     <activity
         android:name="com.mapswithme.maps.MwmActivity"
         android:launchMode="singleTask"
-        android:theme="@style/MwmTheme.MainActivity"
         android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
 
     <activity

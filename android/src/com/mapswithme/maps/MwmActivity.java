@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -65,6 +67,7 @@ import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.LocationUtils;
+import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
@@ -291,6 +294,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onCreate(savedInstanceState);
 
+    mIsFragmentContainer = getResources().getBoolean(R.bool.tabletLayout);
+
+    if (!mIsFragmentContainer && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP))
+      getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
     setContentView(R.layout.activity_map);
     initViews();
 
@@ -302,7 +310,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mLocationPredictor = new LocationPredictor(new Handler(), this);
     processIntent(getIntent());
     SharingHelper.prepare();
-    RoutingController.get().attach(this);
   }
 
   private void initViews()
@@ -312,15 +319,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     initPlacePage();
     initNavigationButtons();
 
-    if (findViewById(R.id.fragment_container) != null)
-      mIsFragmentContainer = true;
-    else
+    if (!mIsFragmentContainer)
     {
       mRoutingPlanInplaceController = new RoutingPlanInplaceController(this);
       removeCurrentFragment(false);
     }
 
     mNavigationController = new NavigationController(this);
+    RoutingController.get().attach(this);
     initMenu();
   }
 

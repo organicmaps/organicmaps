@@ -4,7 +4,6 @@
     <attr name="wheelProgressColor" format="color"/>
     <attr name="wheelSecondaryColor" format="color"/>
     <attr name="wheelThickness" format="dimension"/>
-    <attr name="clickableBackground" format="reference"/>
     <attr name="centerDrawable" format="reference" />
   </declare-styleable>
 
@@ -32,4 +31,5 @@
   <!-- 10 inch tablet -->
   <bool name="isBigTablet">false</bool>
 
+  <bool name="tabletLayout">false</bool>
 </resources>

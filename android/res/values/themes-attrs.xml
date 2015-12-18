@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="ThemeAttrs">
+    <attr name="fullscreenDialogTheme" format="reference"/>
+
+    <attr name="clickableBackground" format="reference"/>
+    <attr name="statusBar" format="color"/>
+    <attr name="secondary" format="color"/>
+    <attr name="panel" format="color"/>
+    <attr name="sidePanel" format="color"/>
+    <attr name="iconTint" format="color"/>
+
+    <attr name="zoomPlus" format="reference"/>
+    <attr name="zoomMinus" format="reference"/>
+
+    <attr name="ppBackground" format="color"/>
+    <attr name="ppPreviewHead" format="reference"/>
+    <attr name="ppText" format="color"/>
+    <attr name="ppTextAccent" format="color"/>
+    <attr name="ppButtonBackground" format="color"/>
+
+    <attr name="routingAccent" format="color"/>
+    <attr name="routingSlot" format="reference"/>
+    <attr name="routingSlotPressed" format="reference"/>
+    <attr name="routingSlotMarker" format="reference"/>
+    <attr name="routingStartButton" format="reference"/>
+    <attr name="routingStartButtonText" format="color"/>
+    <attr name="routingStartButtonTextDisabled" format="color"/>
+
+    <attr name="menuBackgroundClosed" format="color"/>
+    <attr name="menuBackgroundOpen" format="color"/>
+  </declare-styleable>
+
+  <declare-styleable name="CountryDownloaderAttrs">
+    <attr name="countrySeparator" format="color"/>
+
+    <attr name="countryDownloaded" format="color"/>
+    <attr name="countryOutdated" format="color"/>
+    <attr name="countryNotDownloaded" format="color"/>
+    <attr name="countryFailed" format="color"/>
+  </declare-styleable>
+</resources>

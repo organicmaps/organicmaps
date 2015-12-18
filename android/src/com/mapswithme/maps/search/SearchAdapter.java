@@ -1,6 +1,7 @@
 package com.mapswithme.maps.search;
 
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
@@ -12,8 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.routing.RoutingController;
+import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 
 class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
@@ -24,6 +27,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
 
   private final SearchFragment mSearchFragment;
   private SearchResult[] mResults;
+  private Drawable mClosedMarkerBackground;
 
   protected static abstract class BaseViewHolder extends RecyclerView.ViewHolder
   {
@@ -170,6 +174,8 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
       mDescription = (TextView) view.findViewById(R.id.description);
       mRegion = (TextView) view.findViewById(R.id.region);
       mDistance = (TextView) view.findViewById(R.id.distance);
+
+      mClosedMarker.setBackgroundDrawable(mClosedMarkerBackground);
     }
 
     @Override
@@ -199,6 +205,8 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
   public SearchAdapter(SearchFragment fragment)
   {
     mSearchFragment = fragment;
+    mClosedMarkerBackground = fragment.getResources().getDrawable(ThemeUtils.isNightTheme() ? R.drawable.search_closed_marker_night
+                                                                                            : R.drawable.search_closed_marker);
   }
 
   @Override
