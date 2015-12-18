@@ -18,7 +18,7 @@
 
   <FrameLayout android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:background="@android:color/white">
+               android:background="?android:windowBackground">
     <include layout="@layout/menu_route_plan_line"/>
   </FrameLayout>
 </LinearLayout>

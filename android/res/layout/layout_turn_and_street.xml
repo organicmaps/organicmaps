@@ -25,7 +25,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:textAppearance="@style/MwmTextAppearance.Title"
-      android:textColor="@color/routing_blue"
+      android:textColor="?routingAccent"
       android:visibility="gone"
       tools:text="2"
       tools:visibility="visible"/>
@@ -37,8 +37,7 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/margin_base"
     android:layout_toRightOf="@+id/turn"
-    android:textAppearance="@style/MwmTextAppearance.Display1.Plus"
-    android:textColor="@color/routing_blue"
+    android:textAppearance="@style/MwmTextAppearance.RoutingDirection"
     tools:text="300 m"/>
 
   <TextView

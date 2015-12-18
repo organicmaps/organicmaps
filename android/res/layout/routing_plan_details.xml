@@ -22,8 +22,8 @@
       style="@style/MwmWidget.ProgressWheel.RoutingPlan"
       tools:visibility="visible"
       wheel:centerDrawable="@android:color/transparent"
-      wheel:wheelProgressColor="@color/routing_blue"
-      wheel:wheelSecondaryColor="@color/base_black_divider"
+      wheel:wheelProgressColor="?routingAccent"
+      wheel:wheelSecondaryColor="?dividerHorizontal"
       wheel:wheelThickness="@dimen/margin_eighth"/>
 
     <com.mapswithme.maps.widget.WheelProgressView
@@ -31,8 +31,8 @@
       style="@style/MwmWidget.ProgressWheel.RoutingPlan"
       tools:visibility="visible"
       wheel:centerDrawable="@android:color/transparent"
-      wheel:wheelProgressColor="@color/routing_blue"
-      wheel:wheelSecondaryColor="@color/base_black_divider"
+      wheel:wheelProgressColor="?routingAccent"
+      wheel:wheelSecondaryColor="?dividerHorizontal"
       wheel:wheelThickness="@dimen/margin_eighth"/>
   </LinearLayout>
 
@@ -70,12 +70,10 @@
     <TextView
       android:id="@+id/time"
       style="@style/MwmWidget.TextView.PlanDetail.Number"
-      android:textColor="@color/base_black"
       tools:text="2d 23h 59m"/>
 
     <TextView
-      style="@style/MwmWidget.TextView.PlanDetail.Number"
-      android:textColor="@color/base_black_hint"
+      style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
       android:text="•"
       android:layout_marginLeft="6dp"
       android:layout_marginRight="6dp"
@@ -84,8 +82,7 @@
 
     <TextView
       android:id="@+id/distance"
-      style="@style/MwmWidget.TextView.PlanDetail.Number"
-      android:textColor="@color/base_black_hint"
+      style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
       tools:text="1024 km"/>
   </LinearLayout>
 
@@ -95,7 +92,7 @@
     android:layout_toRightOf="@id/progress_frame"
     android:layout_alignParentRight="true"
     android:text="@string/p2p_planning"
-    android:textColor="@color/text_dark_hint"
+    android:textColor="?secondary"
     android:gravity="right"
     android:visibility="gone"
     tools:visibility="visible"
