@@ -11,7 +11,8 @@ typedef NS_ENUM(NSUInteger, DurationInHours)
   Two = 2,
   Six = 6,
   Twelve = 12,
-  Day = 24
+  Day = 24,
+  TwoDays = 48
 };
 
 @interface MWMRecentTrackSettingsController ()
@@ -22,6 +23,7 @@ typedef NS_ENUM(NSUInteger, DurationInHours)
 @property (weak, nonatomic) IBOutlet SelectableCell * sixHours;
 @property (weak, nonatomic) IBOutlet SelectableCell * twelveHours;
 @property (weak, nonatomic) IBOutlet SelectableCell * oneDay;
+@property (weak, nonatomic) IBOutlet SelectableCell * twoDays;
 @property (weak, nonatomic) SelectableCell * selectedCell;
 
 @end
@@ -56,6 +58,9 @@ typedef NS_ENUM(NSUInteger, DurationInHours)
     case Day:
       _selectedCell = self.oneDay;
       break;
+    case TwoDays:
+      _selectedCell = self.twoDays;
+      break;
     default:
       NSAssert(false, @"Incorrect hours value");
       break;
@@ -86,8 +91,10 @@ typedef NS_ENUM(NSUInteger, DurationInHours)
       GpsTracker::Instance().SetDuration(hours(Six));
     else if ([selectedCell isEqual:self.twelveHours])
       GpsTracker::Instance().SetDuration(hours(Twelve));
-    else
+    else if ([selectedCell isEqual:self.oneDay])
       GpsTracker::Instance().SetDuration(hours(Day));
+    else
+      GpsTracker::Instance().SetDuration(hours(TwoDays));
   }
   selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
 }
