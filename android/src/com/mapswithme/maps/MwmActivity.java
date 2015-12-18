@@ -290,6 +290,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
+  public int getThemeResourceId(String theme)
+  {
+    if (ThemeUtils.THEME_DEFAULT.equals(theme))
+      return R.style.MwmTheme_MainActivity;
+
+    if (ThemeUtils.THEME_NIGHT.equals(theme))
+      return R.style.MwmTheme_Night_MainActivity;
+
+    return super.getThemeResourceId(theme);
+  }
+
+  @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);

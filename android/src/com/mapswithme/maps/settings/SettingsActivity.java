@@ -1,5 +1,6 @@
 package com.mapswithme.maps.settings;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.res.Configuration;
 import android.media.AudioManager;
@@ -13,25 +14,48 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.OnBackPressListener;
-import com.mapswithme.util.FragmentListHelper;
-import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.ViewServer;
-import com.mapswithme.util.statistics.AlohaHelper;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.R;
+import com.mapswithme.maps.base.BaseActivity;
+import com.mapswithme.maps.base.BaseDelegate;
+import com.mapswithme.maps.base.OnBackPressListener;
+import com.mapswithme.util.FragmentListHelper;
+import com.mapswithme.util.ThemeUtils;
+import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.statistics.AlohaHelper;
+import com.mapswithme.util.statistics.Statistics;
+
 public class SettingsActivity extends PreferenceActivity
+                           implements BaseActivity
 {
+  private final BaseDelegate mBaseDelegate = new BaseDelegate(this);
   private final FragmentListHelper mFragmentListHelper = new FragmentListHelper();
   private AppCompatDelegate mDelegate;
   private CharSequence mNextBreadcrumb;
   private final Map<Long, Header> mHeaders = new HashMap<>();
+
+  @Override
+  public Activity get()
+  {
+    return this;
+  }
+
+  @Override
+  public int getThemeResourceId(String theme)
+  {
+    if (ThemeUtils.THEME_DEFAULT.equals(theme))
+      return R.style.MwmTheme_Settings;
+
+    if (ThemeUtils.THEME_NIGHT.equals(theme))
+      return R.style.MwmTheme_Night_Settings;
+
+    throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
+  }
 
   private AppCompatDelegate getDelegate()
   {
@@ -83,6 +107,7 @@ public class SettingsActivity extends PreferenceActivity
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
+    mBaseDelegate.onCreate();
     getDelegate().installViewFactory();
     getDelegate().onCreate(savedInstanceState);
 
@@ -102,13 +127,13 @@ public class SettingsActivity extends PreferenceActivity
 
     MwmApplication.get().initNativeCore();
     MwmApplication.get().initCounters();
-    ViewServer.get(this).addWindow(this);
   }
 
   @Override
   protected void onPostCreate(Bundle savedInstanceState)
   {
     super.onPostCreate(savedInstanceState);
+    mBaseDelegate.onPostCreate();
     getDelegate().onPostCreate(savedInstanceState);
   }
 
@@ -161,8 +186,8 @@ public class SettingsActivity extends PreferenceActivity
   protected void onDestroy()
   {
     super.onDestroy();
+    mBaseDelegate.onDestroy();
     getDelegate().onDestroy();
-    ViewServer.get(this).removeWindow(this);
   }
 
   @Override
@@ -175,30 +200,29 @@ public class SettingsActivity extends PreferenceActivity
   protected void onStart()
   {
     super.onStart();
-    Statistics.INSTANCE.startActivity(this);
+    mBaseDelegate.onStart();
   }
 
   @Override
   protected void onStop()
   {
     super.onStop();
+    mBaseDelegate.onStop();
     getDelegate().onStop();
-    Statistics.INSTANCE.stopActivity(this);
   }
 
   @Override
   protected void onResume()
   {
     super.onResume();
-
-    org.alohalytics.Statistics.logEvent("$onResume", getClass().getSimpleName());
-    ViewServer.get(this).setFocusedWindow(this);
+    mBaseDelegate.onResume();
   }
 
   @Override
   protected void onPostResume()
   {
     super.onPostResume();
+    mBaseDelegate.onPostResume();
     getDelegate().onPostResume();
   }
 
@@ -206,8 +230,7 @@ public class SettingsActivity extends PreferenceActivity
   protected void onPause()
   {
     super.onPause();
-
-    org.alohalytics.Statistics.logEvent("$onPause", getClass().getSimpleName());
+    mBaseDelegate.onPause();
   }
 
   @Override
