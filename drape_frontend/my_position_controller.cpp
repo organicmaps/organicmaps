@@ -357,13 +357,18 @@ void MyPositionController::AnimateStateTransition(location::EMyPositionMode oldM
   }
 }
 
-bool MyPositionController::AlmostEqualToTheCurrent(const m2::PointD &pos, double azimut) const
+bool MyPositionController::AlmostCurrentPosition(const m2::PointD & pos) const
 {
   double const kPositionEqualityDelta = 1e-5;
+
+  return pos.EqualDxDy(m_position, kPositionEqualityDelta);
+}
+
+bool MyPositionController::AlmostCurrentAzimut(double azimut) const
+{
   double const kDirectionEqualityDelta = 1e-5;
 
-  return pos.EqualDxDy(m_position, kPositionEqualityDelta) &&
-      my::AlmostEqualAbs(azimut, m_drawDirection, kDirectionEqualityDelta);
+  return my::AlmostEqualAbs(azimut, m_drawDirection, kDirectionEqualityDelta);
 }
 
 void MyPositionController::Assign(location::GpsInfo const & info, bool isNavigable, ScreenBase const & screen)
@@ -388,7 +393,7 @@ void MyPositionController::Assign(location::GpsInfo const & info, bool isNavigab
   if (m_listener)
     m_listener->PositionChanged(Position());
 
-  if (!AlmostEqualToTheCurrent(oldPos, oldAzimut))
+  if (!AlmostCurrentPosition(oldPos) || !AlmostCurrentAzimut(oldAzimut) )
   {
     CreateAnim(oldPos, oldAzimut, screen);
     m_isDirtyViewport = true;
@@ -397,7 +402,6 @@ void MyPositionController::Assign(location::GpsInfo const & info, bool isNavigab
 
 void MyPositionController::Assign(location::CompassInfo const & info, ScreenBase const & screen)
 {
-  m2::PointD oldPos = GetDrawablePosition();
   double oldAzimut = GetDrawableAzimut();
 
   if ((IsInRouting() && GetMode() >= location::MODE_FOLLOW) ||
@@ -408,9 +412,10 @@ void MyPositionController::Assign(location::CompassInfo const & info, ScreenBase
 
   SetDirection(info.m_bearing);
 
-  if (!AlmostEqualToTheCurrent(oldPos, oldAzimut))
+  if (!AlmostCurrentAzimut(oldAzimut) &&
+      GetMode() == location::MODE_ROTATE_AND_FOLLOW)
   {
-    CreateAnim(oldPos, oldAzimut, screen);
+    CreateAnim(GetDrawablePosition(), oldAzimut, screen);
     m_isDirtyViewport = true;
   }
 }

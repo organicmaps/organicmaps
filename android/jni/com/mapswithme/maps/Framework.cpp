@@ -89,7 +89,7 @@ void Framework::OnCompassUpdated(location::CompassInfo const & info, bool forceR
 {
   static double const COMPASS_THRESHOLD = my::DegToRad(1.0);
 
-  /// @todo Do not emit compass bearing too often while we are passing it through nv-queue.
+  /// @todo Do not emit compass bearing too often.
   /// Need to make more experiments in future.
   if (forceRedraw || fabs(ang::GetShortestDistance(m_lastCompass, info.m_bearing)) >= COMPASS_THRESHOLD)
   {
