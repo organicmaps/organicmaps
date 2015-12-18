@@ -15,5 +15,5 @@
       android:textAppearance="@style/MwmTextAppearance.Body1"
       android:fontFamily="@string/robotoMedium"
       android:textAllCaps="true"
-      android:background="@drawable/routing_start_button"/>
+      android:background="?routingStartButton"/>
 </FrameLayout>

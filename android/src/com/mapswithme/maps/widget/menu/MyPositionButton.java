@@ -7,10 +7,16 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.util.Graphics;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
-import static com.mapswithme.maps.LocationState.*;
+import static com.mapswithme.maps.LocationState.FOLLOW;
+import static com.mapswithme.maps.LocationState.INSTANCE;
+import static com.mapswithme.maps.LocationState.NOT_FOLLOW;
+import static com.mapswithme.maps.LocationState.PENDING_POSITION;
+import static com.mapswithme.maps.LocationState.ROTATE_AND_FOLLOW;
+import static com.mapswithme.maps.LocationState.UNKNOWN_POSITION;
 
 public class MyPositionButton
 {
@@ -45,7 +51,9 @@ public class MyPositionButton
   @SuppressWarnings("deprecation")
   public void update(int state)
   {
-    Drawable image = mButton.getResources().getDrawable(STATE_RESOURCES.get(state));
+    int resId = STATE_RESOURCES.get(state);
+    Drawable image = ((state == UNKNOWN_POSITION || state == NOT_FOLLOW) ? Graphics.tintDrawable(mButton.getContext(), resId)
+                                                                         : mButton.getResources().getDrawable(resId));
     mButton.setImageDrawable(image);
 
     if (image instanceof AnimationDrawable)

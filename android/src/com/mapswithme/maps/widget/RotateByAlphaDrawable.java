@@ -1,11 +1,13 @@
 package com.mapswithme.maps.widget;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 
-import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.util.Graphics;
 
 public class RotateByAlphaDrawable extends Drawable
 {
@@ -15,10 +17,10 @@ public class RotateByAlphaDrawable extends Drawable
   private float mBaseAngle;
 
 
-  public RotateByAlphaDrawable(int resId, boolean transparent)
+  public RotateByAlphaDrawable(Context context, @DrawableRes int resId, boolean transparent)
   {
     super();
-    mBaseDrawable = MwmApplication.get().getResources().getDrawable(resId);
+    mBaseDrawable = Graphics.tintDrawable(context, resId);
     computeAngle(transparent ? 0x00 : 0xFF);
   }
 

@@ -33,7 +33,7 @@
 
     <TextView
       android:id="@+id/counter"
-      style="@style/MwmTextAppearance.Counter"
+      style="@style/MwmWidget.Counter"
       android:layout_gravity="right|center_vertical"
       android:layout_marginRight="@dimen/margin_base"
       android:visibility="gone"
