@@ -68,7 +68,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/margin_half"
         android:layout_marginRight="@dimen/margin_quadruple"
-        android:background="@color/base_black_divider"/>
+        android:background="@color/divider"/>
 
     <ImageView
         android:id="@+id/iv__bookmark_color"

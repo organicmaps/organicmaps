@@ -9,11 +9,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 
+import java.lang.ref.WeakReference;
+
 import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.widget.ListShadowController;
-
-import java.lang.ref.WeakReference;
 
 public final class BottomSheetHelper
 {
@@ -56,6 +56,8 @@ public final class BottomSheetHelper
     {
       super(context);
       setOnDismissListener(null);
+      if (ThemeUtils.isNightTheme())
+        darkTheme();
     }
 
     @Override
