@@ -5280,28 +5280,22 @@
     ru = Стиль карты
 
   [pref_map_style_summary]
-    tags = android
-    comment = Settings «Map» category: «Map style» summary
-    en = Change map presentation
-    ru = Стиль отображения карты
+     tags = android
+     comment = Settings «Map» category: «Map style» summary
+     en = Map and interface presentation
+     ru = Стиль отображения карты и интерфейса
 
-  [pref_map_style_classic_light]
-    tags = android
-    comment = «Map style» entry value
-    en = Classic light
-    ru = Классическая светлая
+  [pref_map_style_default]
+     tags = android
+     comment = «Map style» entry value
+     en = Default
+     ru = По умолчанию
 
-  [pref_map_style_classic_dark]
-    tags = android
-    comment = «Map style» entry value
-    en = Classic dark
-    ru = Классическая тёмная
-
-  [pref_map_style_modern_light]
-    tags = android
-    comment = «Map style» entry value
-    en = Modern light
-    ru = Современная светлая
+  [pref_map_style_night]
+     tags = android
+     comment = «Map style» entry value
+     en = Night
+     ru = Ночная
 
   [pref_map_3d_title]
     comment = Settings «Map» category: «Perspective view» title
