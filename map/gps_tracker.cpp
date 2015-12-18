@@ -14,9 +14,9 @@ namespace
 
 char const kEnabledKey[] = "GpsTrackingEnabled";
 char const kDurationHours[] = "GpsTrackingDuration";
-uint32_t constexpr kDefaultDurationHours = 24;
+uint32_t constexpr kDefaultDurationHours = 48;
 
-size_t constexpr kMaxItemCount = 100000; // > 24h with 1point/s
+size_t constexpr kMaxItemCount = 200000; // > 48h with 1point/s
 
 inline string GetFilePath()
 {
@@ -25,7 +25,7 @@ inline string GetFilePath()
 
 inline bool GetSettingsIsEnabled()
 {
-  bool enabled = false;
+  bool enabled = true;
   Settings::Get(kEnabledKey, enabled);
   return enabled;
 }
