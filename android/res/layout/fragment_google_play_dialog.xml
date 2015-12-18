@@ -2,69 +2,68 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="wrap_content"
               android:layout_height="match_parent"
+              xmlns:tools="http://schemas.android.com/tools"
               android:orientation="vertical">
+  <TextView
+    android:id="@+id/tv__title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_half"
+    android:layout_marginLeft="@dimen/margin_base_plus"
+    android:layout_marginRight="@dimen/margin_base_plus"
+    android:layout_marginTop="@dimen/margin_base_plus"
+    android:fontFamily="@string/robotoMedium"
+    android:text="@string/rating_do_like_maps"
+    android:textColor="?android:textColorPrimary"
+    android:textSize="20sp"
+    android:textStyle="bold"/>
 
   <TextView
-      android:id="@+id/tv__title"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/margin_half"
-      android:layout_marginLeft="@dimen/margin_base_plus"
-      android:layout_marginRight="@dimen/margin_base_plus"
-      android:layout_marginTop="@dimen/margin_base_plus"
-      android:fontFamily="@string/robotoMedium"
-      android:text="@string/rating_do_like_maps"
-      android:textColor="@color/text_dark"
-      android:textSize="20sp"
-      android:textStyle="bold"/>
-
-  <TextView
-      android:id="@+id/tv__subtitle"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/margin_base_plus"
-      android:layout_marginLeft="@dimen/margin_base_plus"
-      android:layout_marginRight="@dimen/margin_base_plus"
-      android:fontFamily="@string/robotoRegular"
-      android:text="@string/rating_tap_star"
-      android:textColor="@color/text_dark_subtitle"
-      android:textSize="14sp"/>
+    android:id="@+id/tv__subtitle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_base_plus"
+    android:layout_marginLeft="@dimen/margin_base_plus"
+    android:layout_marginRight="@dimen/margin_base_plus"
+    android:fontFamily="@string/robotoRegular"
+    android:text="@string/rating_tap_star"
+    android:textColor="?android:textColorSecondary"
+    android:textSize="14sp"/>
 
   <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <RatingBar
-        android:id="@+id/rb__play_rate"
-        style="@style/MwmWidget.RatingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center_vertical"
-        android:numStars="5"
-        android:stepSize="1"/>
+      android:id="@+id/rb__play_rate"
+      style="@style/MwmWidget.RatingBar"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      android:gravity="center_vertical"
+      android:numStars="5"
+      android:stepSize="1"/>
 
     <View
-        android:id="@+id/v__divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?attr/dividerHorizontal"
-        android:visibility="gone"/>
+      android:id="@+id/v__divider"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="?dividerHorizontal"
+      android:visibility="gone"/>
 
     <Button
-        android:id="@+id/btn__explain_bad_rating"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/clickableBackground"
-        android:drawableLeft="@drawable/ic_rate_send"
-        android:fontFamily="@string/robotoRegular"
-        android:gravity="center_vertical"
-        android:padding="@dimen/margin_base"
-        android:text="@string/rating_send_feedback"
-        android:textColor="@color/text_dark"
-        android:visibility="gone"/>
-
-
+      android:id="@+id/btn__explain_bad_rating"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="?clickableBackground"
+      android:drawableLeft="@drawable/ic_edit"
+      android:drawablePadding="@dimen/margin_half"
+      android:layout_marginLeft="@dimen/margin_half"
+      android:fontFamily="@string/robotoRegular"
+      android:gravity="center_vertical"
+      android:padding="@dimen/margin_base"
+      android:text="@string/rating_send_feedback"
+      android:textColor="?android:textColorPrimary"
+      android:visibility="gone"
+      tools:visibility="visible"/>
   </RelativeLayout>
-
 </LinearLayout>

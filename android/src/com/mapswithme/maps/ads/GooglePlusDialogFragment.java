@@ -17,26 +17,25 @@ import com.mapswithme.util.statistics.Statistics;
 
 public class GooglePlusDialogFragment extends BaseMwmDialogFragment
 {
-
   @Override
   public void onResume()
   {
     super.onResume();
 
     final PlusOneButton plusButton = (PlusOneButton) getDialog().findViewById(R.id.btn__gplus);
-    if (plusButton != null)
+    if (plusButton == null)
+      return;
+
+    plusButton.initialize(Constants.Url.PLAY_MARKET_HTTPS_APP_PREFIX + Constants.Package.MWM_PRO_PACKAGE, new PlusOneButton.OnPlusOneClickListener()
     {
-      plusButton.initialize(Constants.Url.PLAY_MARKET_HTTPS_APP_PREFIX + Constants.Package.MWM_PRO_PACKAGE, new PlusOneButton.OnPlusOneClickListener()
+      @Override
+      public void onPlusOneClick(Intent intent)
       {
-        @Override
-        public void onPlusOneClick(Intent intent)
-        {
-          Config.setRatingApplied(GooglePlusDialogFragment.class);
-          dismiss();
-          startActivityForResult(intent, 0);
-        }
-      });
-    }
+        Config.setRatingApplied(GooglePlusDialogFragment.class);
+        dismiss();
+        startActivityForResult(intent, 0);
+      }
+    });
   }
 
   @NonNull
