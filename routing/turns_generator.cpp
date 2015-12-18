@@ -178,6 +178,24 @@ bool KeepTurnByHighwayClass(TurnDirection turn, TTurnCandidates const & possible
   return true;
 }
 
+/*!
+ * \brief Returns false when other possible turns leads to service roads;
+ */
+bool KeepRoundaboutTurnByHighwayClass(TurnDirection turn, TTurnCandidates const & possibleTurns,
+                                      TurnInfo const & turnInfo, Index const & index,
+                                      RoutingMapping & mapping)
+{
+  for (auto const & t : possibleTurns)
+  {
+    if (t.node == turnInfo.m_outgoing.m_nodeId)
+      continue;
+    ftypes::HighwayClass const highwayClass = GetOutgoingHighwayClass(t.node, mapping, index);
+    if (static_cast<int>(highwayClass) != static_cast<int>(ftypes::HighwayClass::Service))
+      return true;
+  }
+  return false;
+}
+
 bool DiscardTurnByIngoingAndOutgoingEdges(TurnDirection intermediateDirection,
                                           TurnInfo const & turnInfo, TurnItem const & turn)
 {
@@ -861,15 +879,16 @@ void GetTurnDirection(Index const & index, RoutingMapping & mapping, TurnInfo & 
       turn.m_turn = intermediateDirection;
   }
 
-  bool const keepTurnByHighwayClass =  KeepTurnByHighwayClass(turn.m_turn, nodes, turnInfo, index, mapping);
   if (turnInfo.m_ingoing.m_onRoundabout || turnInfo.m_outgoing.m_onRoundabout)
   {
+    bool const keepTurnByHighwayClass = KeepRoundaboutTurnByHighwayClass(turn.m_turn, nodes, turnInfo, index, mapping);
     turn.m_turn = GetRoundaboutDirection(turnInfo.m_ingoing.m_onRoundabout,
                                          turnInfo.m_outgoing.m_onRoundabout, hasMultiTurns,
                                          keepTurnByHighwayClass);
     return;
   }
 
+  bool const keepTurnByHighwayClass = KeepTurnByHighwayClass(turn.m_turn, nodes, turnInfo, index, mapping);
   if (!turn.m_keepAnyway && !keepTurnByHighwayClass)
   {
     turn.m_turn = TurnDirection::NoTurn;
