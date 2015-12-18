@@ -5,8 +5,7 @@
               style="@style/MwmWidget.Floating"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:background="@android:color/white">
+              android:orientation="vertical">
   <include
       android:id="@+id/toolbar"
       layout="@layout/toolbar_with_search"
@@ -27,9 +26,8 @@
           android:theme="@style/ThemeOverlay.AppCompat"
           android:layout_width="match_parent"
           android:layout_height="@dimen/tabs_height"
-          android:background="@android:color/white"
           android:elevation="@dimen/appbar_elevation"
-          app:tabIndicatorColor="@color/base_blue_light"
+          app:tabIndicatorColor="?colorAccent"
           app:tabMode="fixed"
           app:tabGravity="fill"/>
 
@@ -51,7 +49,7 @@
         android:id="@+id/results_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white">
+        android:background="?android:windowBackground">
       <include layout="@layout/recycler_default"/>
 
       <!-- "Nothing found" placeholder -->

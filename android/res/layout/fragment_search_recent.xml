@@ -3,8 +3,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              style="@style/MwmWidget.FrameLayout.Elevation"
              android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:background="@android:color/white">
+             android:layout_height="match_parent">
   <include layout="@layout/recycler_default"/>
 
   <com.mapswithme.maps.widget.HeightLimitedFrameLayout
