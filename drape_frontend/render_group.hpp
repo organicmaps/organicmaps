@@ -50,6 +50,7 @@ private:
 class RenderGroup : public BaseRenderGroup
 {
   typedef BaseRenderGroup TBase;
+  friend class BatchMergeHelper;
 public:
   RenderGroup(dp::GLState const & state, TileKey const & tileKey);
   ~RenderGroup();

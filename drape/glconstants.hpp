@@ -27,6 +27,15 @@ extern const glConst GLBufferUsage;
 
 /// VBO Access
 extern const glConst GLWriteOnly;
+extern const glConst GLReadOnly;
+
+/// MapBufferRange
+extern const glConst GLWriteBufferBit;
+extern const glConst GLReadBufferBit;
+extern const glConst GLInvalidateRange;
+extern const glConst GLInvalidateBuffer;
+extern const glConst GLFlushExplicit;
+extern const glConst GLUnsynchronized;
 
 /// BufferUsage
 extern const glConst GLStaticDraw;

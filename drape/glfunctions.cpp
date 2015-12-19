@@ -56,6 +56,8 @@ typedef void (DP_APIENTRY *TglBufferDataFn)(GLenum target, GLsizeiptr size, GLvo
 typedef void (DP_APIENTRY *TglBufferSubDataFn)(GLenum target, GLintptr offset, GLsizeiptr size, GLvoid const * data);
 typedef void * (DP_APIENTRY *TglMapBufferFn)(GLenum target, GLenum access);
 typedef GLboolean(DP_APIENTRY *TglUnmapBufferFn)(GLenum target);
+typedef void * (DP_APIENTRY *TglMapBufferRangeFn)(GLenum target, GLintptr offset, GLsizeiptr length, GLbitfield access);
+typedef void (DP_APIENTRY *TglFlushMappedBufferRangeFn)(GLenum target, GLintptr offset, GLsizeiptr length);
 
 typedef GLuint(DP_APIENTRY *TglCreateShaderFn)(GLenum type);
 typedef void (DP_APIENTRY *TglShaderSourceFn)(GLuint shaderID, GLsizei count, GLchar const ** string, GLint const * length);
@@ -122,6 +124,8 @@ TglBufferDataFn glBufferDataFn = nullptr;
 TglBufferSubDataFn glBufferSubDataFn = nullptr;
 TglMapBufferFn glMapBufferFn = nullptr;
 TglUnmapBufferFn glUnmapBufferFn = nullptr;
+TglMapBufferRangeFn glMapBufferRangeFn = nullptr;
+TglFlushMappedBufferRangeFn glFlushMappedBufferRangeFn = nullptr;
 
 /// Shaders
 TglCreateShaderFn glCreateShaderFn = nullptr;
@@ -383,6 +387,8 @@ void GLFunctions::Init()
   glDeleteVertexArrayFn = &glDeleteVertexArraysOES;
   glMapBufferFn = &::glMapBufferOES;
   glUnmapBufferFn = &::glUnmapBufferOES;
+  glMapBufferRangeFn = &::glMapBufferRangeEXT;
+  glFlushMappedBufferRangeFn = &::glFlushMappedBufferRangeEXT;
 #elif defined(OMIM_OS_WINDOWS)
   if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
   {
@@ -667,10 +673,10 @@ void GLFunctions::glBufferSubData(glConst target, uint32_t size, void const * da
   GLCHECK(glBufferSubDataFn(target, offset, size, data));
 }
 
-void * GLFunctions::glMapBuffer(glConst target)
+void * GLFunctions::glMapBuffer(glConst target, glConst access)
 {
   ASSERT(glMapBufferFn != nullptr, ());
-  void * result = glMapBufferFn(target, gl_const::GLWriteOnly);
+  void * result = glMapBufferFn(target, access);
   GLCHECKCALL();
   return result;
 }
@@ -680,6 +686,20 @@ void GLFunctions::glUnmapBuffer(glConst target)
   ASSERT(glUnmapBufferFn != nullptr, ());
   VERIFY(glUnmapBufferFn(target) == GL_TRUE, ());
   GLCHECKCALL();
+}
+
+void * GLFunctions::glMapBufferRange(glConst target, uint32_t offset, uint32_t length, glConst access)
+{
+  ASSERT(glMapBufferRangeFn != nullptr, ());
+  void * result = glMapBufferRangeFn(target, offset, length, access);
+  GLCHECKCALL();
+  return result;
+}
+
+void GLFunctions::glFlushMappedBufferRange(glConst target, uint32_t offset, uint32_t length)
+{
+  ASSERT(glFlushMappedBufferRangeFn != nullptr, ());
+  GLCHECK(glFlushMappedBufferRangeFn(target, offset, length));
 }
 
 uint32_t GLFunctions::glCreateShader(glConst type)

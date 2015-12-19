@@ -10,6 +10,11 @@
 
 #include "std/map.hpp"
 
+namespace df
+{
+class BatchMergeHelper;
+}
+
 namespace dp
 {
 
@@ -32,6 +37,7 @@ struct IndicesRange
 class VertexArrayBuffer
 {
   typedef map<BindingInfo, drape_ptr<DataBuffer> > TBuffersMap;
+  friend class df::BatchMergeHelper;
 public:
   VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBufferSize);
   ~VertexArrayBuffer();

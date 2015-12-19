@@ -85,6 +85,8 @@ bool GLState::operator<(GLState const & other) const
     return m_gpuProgramIndex < other.m_gpuProgramIndex;
   if (m_gpuProgram3dIndex != other.m_gpuProgram3dIndex)
     return m_gpuProgram3dIndex < other.m_gpuProgram3dIndex;
+  if (m_depthFunction != other.m_depthFunction)
+    return m_depthFunction < other.m_depthFunction;
   if (m_colorTexture != other.m_colorTexture)
     return m_colorTexture < other.m_colorTexture;
 
