@@ -8,6 +8,7 @@
 
 extern NSString * const kUserDefaultsTTSLanguageBcp47 = @"UserDefaultsTTSLanguageBcp47";
 extern NSString * const kUserDafaultsNeedToEnableTTS = @"UserDefaultsNeedToEnableTTS";
+static NSString * const DEFAULT_LANG = @"en-US";
 
 @interface MWMTextToSpeech()
 {
@@ -47,12 +48,15 @@ extern NSString * const kUserDafaultsNeedToEnableTTS = @"UserDefaultsNeedToEnabl
     else
       preferedLanguageBcp47 = [AVSpeechSynthesisVoice currentLanguageCode];
 
-    string const preferedLanguageTwine = tts::bcp47ToTwineLanguage(preferedLanguageBcp47);
-    pair<string, string> const lan {preferedLanguageTwine, tts::translatedTwine(preferedLanguageTwine)};
+    pair<string, string> const lan =
+        make_pair([preferedLanguageBcp47 UTF8String],
+                  tts::translatedTwine(tts::bcp47ToTwineLanguage(preferedLanguageBcp47)));
+
     if (find(_availableLanguages.begin(), _availableLanguages.end(), lan) != _availableLanguages.end())
-      [self setNotificationsLocale:@([preferedLanguageBcp47 UTF8String])];
+      [self setNotificationsLocale:preferedLanguageBcp47];
     else
-      [self setNotificationsLocale:@"en"];
+      [self setNotificationsLocale:DEFAULT_LANG];
+
     // Before 9.0 version iOS has an issue with speechRate. AVSpeechUtteranceDefaultSpeechRate does not work correctly.
     // It's a work around for iOS 7.x and 8.x.
     _speechRate = isIOSVersionLessThan(@"7.1.1") ? 0.3 : (isIOSVersionLessThan(@"9.0.0") ? 0.15 : AVSpeechUtteranceDefaultSpeechRate);
@@ -142,8 +146,6 @@ extern NSString * const kUserDafaultsNeedToEnableTTS = @"UserDefaultsNeedToEnabl
 
 - (void)createVoice:(NSString *)locale
 {
-  NSString * const DEFAULT_LANG = @"en-US";
-
   if (!locale)
   {
     LOG(LERROR, ("locale is nil. Trying default locale."));
@@ -211,17 +213,23 @@ extern NSString * const kUserDafaultsNeedToEnableTTS = @"UserDefaultsNeedToEnabl
 static vector<pair<string, string>> availableLanguages()
 {
   NSArray<AVSpeechSynthesisVoice *> * voices = [AVSpeechSynthesisVoice speechVoices];
-  vector<string> native(voices.count);
+  vector<pair<string, string>> native(voices.count);
   for (AVSpeechSynthesisVoice * v in voices)
-    native.push_back(tts::bcp47ToTwineLanguage(v.language));
+    native.emplace_back(make_pair(tts::bcp47ToTwineLanguage(v.language), [v.language UTF8String]));
 
-  sort(native.begin(), native.end());
   using namespace routing::turns::sound;
   vector<pair<string, string>> result;
   for (auto const & p : kLanguageList)
   {
-    if (find(native.begin(), native.end(), p.first) != native.end())
-      result.push_back(p);
+    for (pair<string, string> const & lang : native)
+    {
+      if (lang.first == p.first)
+      {
+        // Twine names are equal. Make a pair: bcp47 name, localized name.
+        result.emplace_back(make_pair(lang.second, p.second));
+        break;
+      }
+    }
   }
   return result;
 }

@@ -35,19 +35,21 @@ using namespace std;
   _languages.push_back(standart);
 
   using namespace tts;
-  string const current = bcp47ToTwineLanguage([AVSpeechSynthesisVoice currentLanguageCode]);
-  if (current != standart.first && !current.empty())
+  NSString * currentBcp47 = [AVSpeechSynthesisVoice currentLanguageCode];
+  string const currentBcp47Str = [currentBcp47 UTF8String];
+  string const currentTwineStr = bcp47ToTwineLanguage(currentBcp47);
+  if (currentBcp47Str != standart.first && !currentBcp47Str.empty())
   {
-    string const translated = translatedTwine(current);
-    pair<string, string> const cur {current, translated};
+    string const translated = translatedTwine(currentTwineStr);
+    pair<string, string> const cur {currentBcp47Str, translated};
     if (translated.empty() || find(v.begin(), v.end(), cur) != v.end())
       _languages.push_back(cur);
     else
       self.isLocaleLanguageAbsent = YES;
   }
   string const savedLanguage = tts.savedLanguage.UTF8String;
-  if (savedLanguage != current && savedLanguage != standart.first && !savedLanguage.empty())
-    _languages.push_back({savedLanguage, translatedTwine(savedLanguage)});
+  if (savedLanguage != currentBcp47Str && savedLanguage != standart.first && !savedLanguage.empty())
+    _languages.emplace_back(make_pair(savedLanguage, translatedTwine(bcp47ToTwineLanguage(tts.savedLanguage))));
 }
 
 - (IBAction)unwind:(id)sender
