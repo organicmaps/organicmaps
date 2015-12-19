@@ -8,7 +8,7 @@
 
 extern NSString * const kUserDefaultsTTSLanguageBcp47 = @"UserDefaultsTTSLanguageBcp47";
 extern NSString * const kUserDafaultsNeedToEnableTTS = @"UserDefaultsNeedToEnableTTS";
-NSString * const DEFAULT_LANG = @"en-US";
+static NSString * const DEFAULT_LANG = @"en-US";
 
 @interface MWMTextToSpeech()
 {
@@ -215,7 +215,7 @@ static vector<pair<string, string>> availableLanguages()
   NSArray<AVSpeechSynthesisVoice *> * voices = [AVSpeechSynthesisVoice speechVoices];
   vector<pair<string, string>> native(voices.count);
   for (AVSpeechSynthesisVoice * v in voices)
-    native.push_back(make_pair(tts::bcp47ToTwineLanguage(v.language), [v.language UTF8String]));
+    native.emplace_back(make_pair(tts::bcp47ToTwineLanguage(v.language), [v.language UTF8String]));
 
   using namespace routing::turns::sound;
   vector<pair<string, string>> result;
@@ -226,7 +226,7 @@ static vector<pair<string, string>> availableLanguages()
       if (lang.first == p.first)
       {
         // Twine names are equal. Make a pair: bcp47 name, localized name.
-        result.push_back(make_pair(lang.second, p.second));
+        result.emplace_back(make_pair(lang.second, p.second));
         break;
       }
     }

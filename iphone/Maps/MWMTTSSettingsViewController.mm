@@ -49,7 +49,7 @@ using namespace std;
   }
   string const savedLanguage = tts.savedLanguage.UTF8String;
   if (savedLanguage != currentBcp47Str && savedLanguage != standart.first && !savedLanguage.empty())
-    _languages.push_back({savedLanguage, translatedTwine(bcp47ToTwineLanguage(tts.savedLanguage))});
+    _languages.emplace_back(make_pair(savedLanguage, translatedTwine(bcp47ToTwineLanguage(tts.savedLanguage))));
 }
 
 - (IBAction)unwind:(id)sender
