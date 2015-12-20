@@ -665,7 +665,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!location.getProvider().equals(LocationHelper.LOCATION_PREDICTOR_PROVIDER))
       mLocationPredictor.reset(location);
 
-    mMapFragment.nativeLocationUpdated(location.getTime(),
+    MapFragment.nativeLocationUpdated(location.getTime(),
                                        location.getLatitude(),
                                        location.getLongitude(),
                                        location.getAccuracy(),
@@ -693,7 +693,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mLastCompassData = new LastCompassData();
 
     mLastCompassData.update(getWindowManager().getDefaultDisplay().getRotation(), magneticNorth, trueNorth);
-    mMapFragment.nativeCompassUpdated(mLastCompassData.magneticNorth, mLastCompassData.trueNorth, false);
+    MapFragment.nativeCompassUpdated(mLastCompassData.magneticNorth, mLastCompassData.trueNorth, false);
 
     mPlacePage.refreshAzimuth(mLastCompassData.north);
     mNavigationController.updateNorth(mLastCompassData.north);
@@ -775,7 +775,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void adjustZoomButtons()
   {
-    boolean show = (RoutingController.get().isNavigating() || Config.showZoomButtons());
+    final boolean show = showZoomButtons();
     UiUtils.showIf(show, mBtnZoomIn, mBtnZoomOut);
 
     if (!show)
@@ -797,6 +797,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
         mBtnZoomOut.setLayoutParams(lp);
       }
     });
+  }
+
+  private boolean showZoomButtons()
+  {
+    return RoutingController.get().isNavigating() || Config.showZoomButtons();
   }
 
   @Override
@@ -1045,8 +1050,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
           adjustRuler(0, menuHeight);
         }
       });
-      Animations.disappearSliding(mBtnZoomOut, Animations.RIGHT, null);
-      Animations.disappearSliding(mBtnZoomIn, Animations.RIGHT, null);
+      if (showZoomButtons())
+      {
+        Animations.disappearSliding(mBtnZoomOut, Animations.RIGHT, null);
+        Animations.disappearSliding(mBtnZoomIn, Animations.RIGHT, null);
+      }
     }
     else
     {
@@ -1059,8 +1067,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
           adjustRuler(0, 0);
         }
       });
-      Animations.appearSliding(mBtnZoomOut, Animations.RIGHT, null);
-      Animations.appearSliding(mBtnZoomIn, Animations.RIGHT, null);
+      if (showZoomButtons())
+      {
+        Animations.appearSliding(mBtnZoomOut, Animations.RIGHT, null);
+        Animations.appearSliding(mBtnZoomIn, Animations.RIGHT, null);
+      }
     }
   }
 
