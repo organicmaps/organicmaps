@@ -67,6 +67,9 @@ string DebugPrint(feature::Metadata::EType type)
   case Metadata::FMD_WIKIPEDIA: return "wikipedia";
   case Metadata::FMD_MAXSPEED: return "maxspeed";
   case Metadata::FMD_FLATS: return "addr:flats";
+  case Metadata::FMD_HEIGHT: return "height";
+  case Metadata::FMD_MIN_HEIGHT: return "min_height";
+  case Metadata::FMD_DENOMINATION: return "denomination";
   case Metadata::FMD_COUNT: CHECK(false, ("FMD_COUNT can not be used as a type."));
   };
 
