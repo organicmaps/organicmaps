@@ -50,29 +50,40 @@ void Editor::Load(string const & fullFilePath)
   {
     LOG(LERROR, ("Can't load XML Edits from disk:", fullFilePath));
   }
-  // TODO(mgsergio): Implement XML deserialization into m_[deleted|edited|created]Features.
+  // TODO(mgsergio): Implement XML deserialization into m_features.
 }
 
 void Editor::Save(string const & /*fullFilePath*/) const
 {
-  // Do not save empty xml file if no any edits were made.
-  if (m_deletedFeatures.empty() && m_editedFeatures.empty() && m_createdFeatures.empty())
-    return;
-  // TODO(mgsergio): Implement XML serialization from m_[deleted|edited|created]Features.
+  // TODO(mgsergio): Implement XML serialization from m_features.
 }
 
-bool Editor::IsFeatureDeleted(FeatureID const & fid) const
+Editor::FeatureStatus Editor::GetFeatureStatus(MwmSet::MwmId const & mwmId, uint32_t offset) const
 {
   // Most popular case optimization.
-  if (m_deletedFeatures.empty())
-    return false;
+  if (m_features.empty())
+    return EUntouched;
 
-  return m_deletedFeatures.find(fid) != m_deletedFeatures.end();
+  auto const mwmMatched = m_features.find(mwmId);
+  if (mwmMatched == m_features.end())
+    return EUntouched;
+
+  auto const offsetMatched = mwmMatched->second.find(offset);
+  if (offsetMatched == mwmMatched->second.end())
+    return EUntouched;
+
+  return offsetMatched->second.m_status;
 }
 
 void Editor::DeleteFeature(FeatureType const & feature)
 {
-  m_deletedFeatures.insert(feature.GetID());
+  FeatureID const fid = feature.GetID();
+  FeatureTypeInfo & ftInfo = m_features[fid.m_mwmId][fid.m_index];
+  ftInfo.m_status = EDeleted;
+  ftInfo.m_feature = feature;
+  // TODO: What if local client time is absolutely wrong?
+  ftInfo.m_modificationTimestamp = time(nullptr);
+
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
   Save(GetEditorFilePath());
 
@@ -92,7 +103,14 @@ void Editor::DeleteFeature(FeatureType const & feature)
 
 void Editor::EditFeature(FeatureType & editedFeature)
 {
-  m_editedFeatures[editedFeature.GetID()] = editedFeature;
+  // TODO(AlexZ): Check if feature has not changed and reset status.
+  FeatureID const fid = editedFeature.GetID();
+  FeatureTypeInfo & ftInfo = m_features[fid.m_mwmId][fid.m_index];
+  ftInfo.m_status = EModified;
+  ftInfo.m_feature = editedFeature;
+  // TODO: What if local client time is absolutely wrong?
+  ftInfo.m_modificationTimestamp = time(nullptr);
+
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
   Save(GetEditorFilePath());
 
@@ -100,43 +118,56 @@ void Editor::EditFeature(FeatureType & editedFeature)
     m_invalidateFn();
 }
 
-bool Editor::IsFeatureEdited(FeatureID const & fid) const
-{
-  return m_editedFeatures.find(fid) != m_editedFeatures.end();
-}
-
 void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
                                              function<void(FeatureID const &)> const & f,
-                                             m2::RectD const & /*rect*/,
+                                             m2::RectD const & rect,
                                              uint32_t /*scale*/)
 {
-  // TODO(AlexZ): Check that features are in the rect and are visible at this scale.
-  for (auto & feature : m_createdFeatures)
+  auto const mwmFound = m_features.find(id);
+  if (mwmFound == m_features.end())
+    return;
+
+  // TODO(AlexZ): Check that features are visible at this scale.
+  // Process only new (created) features.
+  for (auto const & offset : mwmFound->second)
   {
-    if (feature.first.m_mwmId == id)
-      f(feature.first);
+    FeatureTypeInfo const & ftInfo = offset.second;
+    if (ftInfo.m_status == ECreated && rect.IsPointInside(ftInfo.m_feature.GetCenter()))
+      f(FeatureID(id, offset.first));
   }
 }
 
 void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
                                              function<void(FeatureType &)> const & f,
-                                             m2::RectD const & /*rect*/,
+                                             m2::RectD const & rect,
                                              uint32_t /*scale*/)
 {
-  // TODO(AlexZ): Check that features are in the rect and are visible at this scale.
-  for (auto & feature : m_createdFeatures)
+  auto mwmFound = m_features.find(id);
+  if (mwmFound == m_features.end())
+    return;
+
+  // TODO(AlexZ): Check that features are visible at this scale.
+  // Process only new (created) features.
+  for (auto & offset : mwmFound->second)
   {
-    if (feature.first.m_mwmId == id)
-      f(feature.second);
+    FeatureTypeInfo & ftInfo = offset.second;
+    if (ftInfo.m_status == ECreated && rect.IsPointInside(ftInfo.m_feature.GetCenter()))
+      f(ftInfo.m_feature);
   }
 }
 
-bool Editor::GetEditedFeature(FeatureID const & fid, FeatureType & outFeature) const
+bool Editor::GetEditedFeature(MwmSet::MwmId const & mwmId, uint32_t offset, FeatureType & outFeature) const
 {
-  auto found = m_editedFeatures.find(fid);
-  if (found == m_editedFeatures.end())
+  auto const mwmMatched = m_features.find(mwmId);
+  if (mwmMatched == m_features.end())
     return false;
-  outFeature = found->second;
+
+  auto const offsetMatched = mwmMatched->second.find(offset);
+  if (offsetMatched == mwmMatched->second.end())
+    return false;
+
+  // TODO(AlexZ): Should we process deleted/created features as well?
+  outFeature = offsetMatched->second.m_feature;
   return true;
 }
 

@@ -134,19 +134,21 @@ private:
           index.ForEachInIntervalAndScale(
               [&](uint32_t index)
               {
-                FeatureID const fid(mwmID, index);
-                if (m_editor.IsFeatureDeleted(fid))
-                  return;
                 FeatureType feature;
-                if (m_editor.GetEditedFeature(fid, feature))
+                switch (m_editor.GetFeatureStatus(mwmID, index))
                 {
+                case osm::Editor::EDeleted: return;
+                case osm::Editor::EModified:
+                  VERIFY(m_editor.GetEditedFeature(mwmID, index, feature), ());
                   m_f(feature);
                   return;
+                case osm::Editor::ECreated: CHECK(false, ("Created features index should be generated."));
+                case osm::Editor::EUntouched: break;
                 }
                 if (checkUnique(index))
                 {
                   fv.GetByIndex(index, feature);
-                  feature.SetID(fid);
+                  feature.SetID(FeatureID(mwmID, index));
                   m_f(feature);
                 }
               },
@@ -195,9 +197,8 @@ private:
         {
           index.ForEachInIntervalAndScale([&] (uint32_t index)
           {
-            FeatureID const fid(mwmID, index);
-            if (!m_editor.IsFeatureDeleted(fid) && checkUnique(index))
-              m_f(fid);
+            if (osm::Editor::EDeleted != m_editor.GetFeatureStatus(mwmID, index) && checkUnique(index))
+              m_f(FeatureID(mwmID, index));
           }, i.first, i.second, scale);
         }
       }
@@ -244,9 +245,14 @@ public:
         FeaturesVector const featureReader(pValue->m_cont, pValue->GetHeader(), pValue->m_table);
         do
         {
-          ASSERT(!editor.IsFeatureDeleted(*fidIter), ("Deleted feature was cached. Please review your code."));
+          osm::Editor::FeatureStatus const fts = editor.GetFeatureStatus(id, fidIter->m_index);
+          ASSERT_NOT_EQUAL(osm::Editor::EDeleted, fts, ("Deleted feature was cached. Please review your code."));
           FeatureType featureType;
-          if (!editor.GetEditedFeature(*fidIter, featureType))
+          if (fts == osm::Editor::EModified)
+          {
+            VERIFY(editor.GetEditedFeature(id, fidIter->m_index, featureType), ());
+          }
+          else
           {
             featureReader.GetByIndex(fidIter->m_index, featureType);
             featureType.SetID(*fidIter);

@@ -5,6 +5,7 @@
 #include "indexer/feature_meta.hpp"
 #include "indexer/mwm_set.hpp"
 
+#include "std/ctime.hpp"
 #include "std/function.hpp"
 #include "std/map.hpp"
 #include "std/set.hpp"
@@ -24,6 +25,14 @@ class Editor final
 public:
   using TInvalidateFn = function<void()>;
 
+  enum FeatureStatus
+  {
+    EUntouched,
+    EDeleted,
+    EModified,
+    ECreated
+  };
+
   static Editor & Instance();
 
   void SetInvalidateFn(TInvalidateFn && fn) { m_invalidateFn = move(fn); }
@@ -41,17 +50,15 @@ public:
                                        m2::RectD const & rect,
                                        uint32_t scale);
 
-  /// True if feature was deleted by user.
-  bool IsFeatureDeleted(FeatureID const & fid) const;
+  /// Easy way to check if feature was deleted, modified, created or not changed at all.
+  FeatureStatus GetFeatureStatus(MwmSet::MwmId const & mwmId, uint32_t offset) const;
 
   /// Marks feature as "deleted" from MwM file.
   void DeleteFeature(FeatureType const & feature);
 
-  /// True if feature was edited by user.
-  bool IsFeatureEdited(FeatureID const & fid) const;
   /// @returns false if feature wasn't edited.
   /// @param outFeature is valid only if true was returned.
-  bool GetEditedFeature(FeatureID const & fid, FeatureType & outFeature) const;
+  bool GetEditedFeature(MwmSet::MwmId const & mwmId, uint32_t offset, FeatureType & outFeature) const;
 
   /// Original feature with same FeatureID as newFeature is replaced by newFeature.
   void EditFeature(FeatureType & editedFeature);
@@ -59,10 +66,20 @@ public:
   vector<feature::Metadata::EType> EditableMetadataForType(uint32_t type) const;
 
 private:
-  // TODO(AlexZ): Synchronize multithread access to these structures.
-  set<FeatureID> m_deletedFeatures;
-  map<FeatureID, FeatureType> m_editedFeatures;
-  map<FeatureID, FeatureType> m_createdFeatures;
+  struct FeatureTypeInfo
+  {
+    FeatureStatus m_status;
+    FeatureType m_feature;
+    time_t m_modificationTimestamp = 0;
+    time_t m_uploadAttemptTimestamp = 0;
+    /// "" | "ok" | "repeat" | "failed"
+    string m_uploadStatus;
+    string m_uploadError;
+  };
+
+  // TODO(AlexZ): Synchronize multithread access.
+  /// Deleted, edited and created features.
+  map<MwmSet::MwmId, map<uint32_t, FeatureTypeInfo>> m_features;
 
   /// Invalidate map viewport after edits.
   TInvalidateFn m_invalidateFn;
