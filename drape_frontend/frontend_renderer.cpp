@@ -931,7 +931,7 @@ void FrontendRenderer::MergeBuckets()
     if (state.GetDepthLayer() == dp::GLState::GeometryLayer &&
         group->IsPendingOnDelete() == false)
     {
-      TGroup key = make_pair(state, group->GetTileKey());
+      TGroup const key = make_pair(state, group->GetTileKey());
       forMerge[key].push_back(move(m_renderGroups[i]));
     }
     else
@@ -941,7 +941,6 @@ void FrontendRenderer::MergeBuckets()
   for (TGroupMap::value_type & node : forMerge)
       BatchMergeHelper::MergeBatches(node.second, newGroups);
 
-  LOG(LINFO, ("Batches have been merged : ", m_renderGroups.size() - newGroups.size()));
   m_renderGroups = move(newGroups);
 }
 
