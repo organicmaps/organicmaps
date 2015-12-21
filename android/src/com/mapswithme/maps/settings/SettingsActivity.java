@@ -22,7 +22,7 @@ import java.util.Map;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseActivity;
-import com.mapswithme.maps.base.BaseDelegate;
+import com.mapswithme.maps.base.BaseActivityDelegate;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.util.FragmentListHelper;
 import com.mapswithme.util.ThemeUtils;
@@ -33,7 +33,7 @@ import com.mapswithme.util.statistics.Statistics;
 public class SettingsActivity extends PreferenceActivity
                            implements BaseActivity
 {
-  private final BaseDelegate mBaseDelegate = new BaseDelegate(this);
+  private final BaseActivityDelegate mActivityDelegate = new BaseActivityDelegate(this);
   private final FragmentListHelper mFragmentListHelper = new FragmentListHelper();
   private AppCompatDelegate mDelegate;
   private CharSequence mNextBreadcrumb;
@@ -57,7 +57,7 @@ public class SettingsActivity extends PreferenceActivity
     throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
   }
 
-  private AppCompatDelegate getDelegate()
+  private AppCompatDelegate getAppDelegate()
   {
     if (mDelegate == null)
       mDelegate = AppCompatDelegate.create(this, null);
@@ -107,9 +107,9 @@ public class SettingsActivity extends PreferenceActivity
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
-    mBaseDelegate.onCreate();
-    getDelegate().installViewFactory();
-    getDelegate().onCreate(savedInstanceState);
+    mActivityDelegate.onCreate();
+    getAppDelegate().installViewFactory();
+    getAppDelegate().onCreate(savedInstanceState);
 
     super.onCreate(savedInstanceState);
     setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -123,7 +123,7 @@ public class SettingsActivity extends PreferenceActivity
     // First, add toolbar view to UI.
     root.addView(toolbarHolder, 0);
     // Second, attach it as ActionBar (it does not add view, so we need previous step).
-    getDelegate().setSupportActionBar(toolbar);
+    getAppDelegate().setSupportActionBar(toolbar);
 
     MwmApplication.get().initNativeCore();
     MwmApplication.get().initCounters();
@@ -133,61 +133,61 @@ public class SettingsActivity extends PreferenceActivity
   protected void onPostCreate(Bundle savedInstanceState)
   {
     super.onPostCreate(savedInstanceState);
-    mBaseDelegate.onPostCreate();
-    getDelegate().onPostCreate(savedInstanceState);
+    mActivityDelegate.onPostCreate();
+    getAppDelegate().onPostCreate(savedInstanceState);
   }
 
   @Override
   public void setContentView(int layoutResID)
   {
-    getDelegate().setContentView(layoutResID);
+    getAppDelegate().setContentView(layoutResID);
   }
 
   @Override
   public void setContentView(View view)
   {
-    getDelegate().setContentView(view);
+    getAppDelegate().setContentView(view);
   }
 
   @Override
   public void setContentView(View view, ViewGroup.LayoutParams params)
   {
-    getDelegate().setContentView(view, params);
+    getAppDelegate().setContentView(view, params);
   }
 
   @Override
   public void addContentView(View view, ViewGroup.LayoutParams params)
   {
-    getDelegate().addContentView(view, params);
+    getAppDelegate().addContentView(view, params);
   }
 
   @Override
   protected void onTitleChanged(CharSequence title, int color)
   {
     super.onTitleChanged(title, color);
-    getDelegate().setTitle(title);
+    getAppDelegate().setTitle(title);
   }
 
   @Override
   public void invalidateOptionsMenu()
   {
     super.invalidateOptionsMenu();
-    getDelegate().invalidateOptionsMenu();
+    getAppDelegate().invalidateOptionsMenu();
   }
 
   @Override
   public void onConfigurationChanged(Configuration newConfig)
   {
     super.onConfigurationChanged(newConfig);
-    getDelegate().onConfigurationChanged(newConfig);
+    getAppDelegate().onConfigurationChanged(newConfig);
   }
 
   @Override
   protected void onDestroy()
   {
     super.onDestroy();
-    mBaseDelegate.onDestroy();
-    getDelegate().onDestroy();
+    mActivityDelegate.onDestroy();
+    getAppDelegate().onDestroy();
   }
 
   @Override
@@ -200,37 +200,37 @@ public class SettingsActivity extends PreferenceActivity
   protected void onStart()
   {
     super.onStart();
-    mBaseDelegate.onStart();
+    mActivityDelegate.onStart();
   }
 
   @Override
   protected void onStop()
   {
     super.onStop();
-    mBaseDelegate.onStop();
-    getDelegate().onStop();
+    mActivityDelegate.onStop();
+    getAppDelegate().onStop();
   }
 
   @Override
   protected void onResume()
   {
     super.onResume();
-    mBaseDelegate.onResume();
+    mActivityDelegate.onResume();
   }
 
   @Override
   protected void onPostResume()
   {
     super.onPostResume();
-    mBaseDelegate.onPostResume();
-    getDelegate().onPostResume();
+    mActivityDelegate.onPostResume();
+    getAppDelegate().onPostResume();
   }
 
   @Override
   protected void onPause()
   {
     super.onPause();
-    mBaseDelegate.onPause();
+    mActivityDelegate.onPause();
   }
 
   @Override

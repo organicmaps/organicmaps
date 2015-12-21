@@ -432,8 +432,8 @@ public class RoutingController
       return;
 
     mStartButton.setEnabled(mState == State.PREPARE && mBuildState == BuildState.BUILT);
-    mStartButton.setTextColor(ThemeUtils.getColor(mContainer.getActivity(), mStartButton.isEnabled() ? R.attr.routingStartButtonText
-                                                                                                     : R.attr.routingStartButtonTextDisabled));
+    mStartButton.setTextColor(ThemeUtils.getColor(mContainer.getActivity(), mStartButton.isEnabled() ? R.attr.routingStartButtonTextColor
+                                                                                                     : R.attr.routingStartButtonTextColorDisabled));
   }
 
   public void setStartButton(@Nullable Button button)

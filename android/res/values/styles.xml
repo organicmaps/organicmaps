@@ -43,10 +43,9 @@
 
   <style name="MwmWidget.PlacePage.EditText" parent="Widget.AppCompat.EditText">
     <item name="android:imeOptions">actionDone</item>
-    <item name="android:textColor">?ppText</item>
+    <item name="android:textAppearance">@style/MwmTextAppearance.PlacePage</item>
     <item name="android:textColorHint">?secondary</item>
     <item name="android:textCursorDrawable">@null</item>
-    <item name="android:textSize">@dimen/text_size_body_1</item>
     <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoRegular</item>
   </style>
 

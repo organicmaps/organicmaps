@@ -21,8 +21,7 @@
       android:layout_height="wrap_content"
       android:layout_below="@id/tv__title"
       android:layout_marginRight="@dimen/margin_base"
-      android:textColor="?android:textColorSecondary"
-      android:textSize="@dimen/text_size_body_1"/>
+      android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"/>
 
     <TextView
       android:id="@+id/tv__opened_till"
@@ -30,8 +29,7 @@
       android:layout_height="wrap_content"
       android:layout_below="@id/tv__subtitle"
       android:gravity="center_vertical"
-      android:textColor="?android:textColorSecondary"
-      android:textSize="@dimen/text_size_body_1"
+      android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
       android:visibility="gone"/>
 
     <RatingBar
@@ -54,8 +52,7 @@
       android:layout_alignBottom="@id/tv__subtitle"
       android:layout_toRightOf="@id/tv__subtitle"
       android:drawableLeft="@drawable/ic_high_mountain"
-      android:textColor="?android:textColorSecondary"
-      android:textSize="@dimen/text_size_body_1"
+      android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
       android:visibility="gone"/>
 
   </RelativeLayout>
@@ -65,8 +62,7 @@
     android:layout_width="72dp"
     android:layout_height="wrap_content"
     android:gravity="right"
-    android:textColor="?ppText"
-    android:textSize="@dimen/text_size_body_1"/>
+    android:textAppearance="@style/MwmTextAppearance.PlacePage"/>
 
   <com.mapswithme.maps.widget.ArrowView
     android:id="@+id/av__direction"

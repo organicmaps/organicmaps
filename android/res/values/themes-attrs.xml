@@ -25,8 +25,8 @@
     <attr name="routingSlotPressed" format="reference"/>
     <attr name="routingSlotMarker" format="reference"/>
     <attr name="routingStartButton" format="reference"/>
-    <attr name="routingStartButtonText" format="color"/>
-    <attr name="routingStartButtonTextDisabled" format="color"/>
+    <attr name="routingStartButtonTextColor" format="color"/>
+    <attr name="routingStartButtonTextColorDisabled" format="color"/>
 
     <attr name="menuBackgroundClosed" format="color"/>
     <attr name="menuBackgroundOpen" format="color"/>

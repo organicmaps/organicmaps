@@ -43,8 +43,8 @@
     <item name="routingSlotPressed">@drawable/routing_slot_background_pressed</item>
     <item name="routingSlotMarker">@drawable/routing_slot_marker</item>
     <item name="routingStartButton">@drawable/routing_start_button</item>
-    <item name="routingStartButtonText">@color/routing_start_text</item>
-    <item name="routingStartButtonTextDisabled">@color/routing_start_text_disabled</item>
+    <item name="routingStartButtonTextColor">@color/routing_start_text</item>
+    <item name="routingStartButtonTextColorDisabled">@color/routing_start_text_disabled</item>
 
     <item name="menuBackgroundClosed">@color/bg_menu_closed</item>
     <item name="menuBackgroundOpen">@color/bg_menu_open</item>
@@ -93,8 +93,8 @@
     <item name="routingSlotPressed">@drawable/routing_slot_background_pressed_night</item>
     <item name="routingSlotMarker">@drawable/routing_slot_marker_night</item>
     <item name="routingStartButton">@drawable/routing_start_button_night</item>
-    <item name="routingStartButtonText">@color/routing_start_text_night</item>
-    <item name="routingStartButtonTextDisabled">@color/routing_start_text_disabled_night</item>
+    <item name="routingStartButtonTextColor">@color/routing_start_text_night</item>
+    <item name="routingStartButtonTextColorDisabled">@color/routing_start_text_disabled_night</item>
 
     <item name="menuBackgroundClosed">@color/bg_menu_closed_night</item>
     <item name="menuBackgroundOpen">@color/bg_menu_open_night</item>

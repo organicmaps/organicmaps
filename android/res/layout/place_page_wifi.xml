@@ -26,7 +26,6 @@
     android:id="@+id/tv__place_wifi"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textColor="?ppText"
-    android:textSize="@dimen/text_size_body_1"
+    android:textAppearance="@style/MwmTextAppearance.PlacePage"
     android:text="@string/WiFi_available"/>
 </LinearLayout>

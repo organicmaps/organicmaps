@@ -27,6 +27,10 @@
     <item name="android:textColor">?android:textColorPrimary</item>
   </style>
 
+  <style name="MwmTextAppearance.Body1.Secondary">
+    <item name="android:textColor">?android:textColorSecondary</item>
+  </style>
+
   <style name="MwmTextAppearance.Body1.Light">
     <item name="android:textColor">?android:textColorPrimaryInverse</item>
   </style>
@@ -93,5 +97,14 @@
 
   <style name="MwmTextAppearance.RoutingDetail.Secondary">
     <item name="android:textColor">?secondary</item>
+  </style>
+
+  <style name="MwmTextAppearance.PlacePage">
+    <item name="android:textSize">@dimen/text_size_body_1</item>
+    <item name="android:textColor">?ppText</item>
+  </style>
+
+  <style name="MwmTextAppearance.PlacePage.Accent">
+    <item name="android:textColor">?ppTextAccent</item>
   </style>
 </resources>

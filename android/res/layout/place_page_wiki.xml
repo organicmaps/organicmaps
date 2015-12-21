@@ -25,7 +25,6 @@
     android:id="@+id/tv__place_wiki"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textColor="?ppTextAccent"
-    android:textSize="@dimen/text_size_body_1"
+    android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
     android:text="@string/read_in_wikipedia"/>
 </LinearLayout>

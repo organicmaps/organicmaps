@@ -6,12 +6,12 @@ import com.mapswithme.util.ViewServer;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.statistics.Statistics;
 
-public class BaseDelegate
+public class BaseActivityDelegate
 {
   private final BaseActivity mActivity;
   private String mThemeName;
 
-  public BaseDelegate(BaseActivity activity)
+  public BaseActivityDelegate(BaseActivity activity)
   {
     mActivity = activity;
   }

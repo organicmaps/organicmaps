@@ -53,8 +53,7 @@
         android:paddingBottom="@dimen/margin_half"
         android:paddingRight="@dimen/margin_half"
         android:paddingTop="@dimen/margin_half"
-        android:textColor="?ppText"
-        android:textSize="@dimen/text_size_body_1"/>
+        android:textAppearance="@style/MwmTextAppearance.PlacePage"/>
 
     <View
         android:layout_width="match_parent"

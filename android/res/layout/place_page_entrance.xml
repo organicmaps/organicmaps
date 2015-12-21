@@ -25,7 +25,6 @@
     android:id="@+id/tv__place_entrance"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textColor="?ppText"
-    android:textSize="@dimen/text_size_body_1"
+    android:textAppearance="@style/MwmTextAppearance.PlacePage"
     tools:text="150 - 200"/>
 </LinearLayout>

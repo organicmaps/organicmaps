@@ -25,7 +25,6 @@
     android:id="@+id/tv__place_phone"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textColor="?ppTextAccent"
-    android:textSize="@dimen/text_size_body_1"
+    android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
     tools:text="+1 234 567-89-00"/>
 </LinearLayout>

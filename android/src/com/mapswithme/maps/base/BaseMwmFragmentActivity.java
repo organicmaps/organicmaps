@@ -17,7 +17,7 @@ import com.mapswithme.util.Utils;
 public class BaseMwmFragmentActivity extends AppCompatActivity
                                   implements BaseActivity
 {
-  private final BaseDelegate mBaseDelegate = new BaseDelegate(this);
+  private final BaseActivityDelegate mBaseDelegate = new BaseActivityDelegate(this);
 
   @Override
   public Activity get()
