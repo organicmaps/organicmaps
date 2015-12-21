@@ -2,9 +2,11 @@ package com.mapswithme.util;
 
 import android.animation.Animator;
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Point;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.DimenRes;
@@ -16,6 +18,7 @@ import android.text.TextUtils;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.TextView;
@@ -26,6 +29,7 @@ import com.mapswithme.maps.R;
 public final class UiUtils
 {
   private static float sScreenDensity;
+  private static Boolean sIsTablet;
 
   public static class SimpleAnimationListener implements AnimationListener
   {
@@ -300,19 +304,17 @@ public final class UiUtils
     return rotation;
   }
 
-  public static boolean isSmallTablet()
-  {
-    return MwmApplication.get().getResources().getBoolean(R.bool.isSmallTablet);
-  }
-
-  public static boolean isBigTablet()
-  {
-    return MwmApplication.get().getResources().getBoolean(R.bool.isBigTablet);
-  }
-
   public static boolean isTablet()
   {
-    return isSmallTablet() || isBigTablet();
+    if (sIsTablet == null)
+    {
+      WindowManager wm = (WindowManager)MwmApplication.get().getSystemService(Context.WINDOW_SERVICE);
+      Point sz = new Point();
+      wm.getDefaultDisplay().getSize(sz);
+      sIsTablet = (Math.min(sz.x, sz.y) >= toPx(600));
+    }
+
+    return sIsTablet;
   }
 
   public static int dimen(@DimenRes int id)

@@ -111,7 +111,7 @@ public class MwmApplication extends Application
     initPaths();
     nativeInitPlatform(getApkPath(), getDataStoragePath(), getTempPath(), getObbGooglePath(),
                        BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE,
-                       Yota.isFirstYota(), UiUtils.isSmallTablet() || UiUtils.isBigTablet());
+                       Yota.isFirstYota(), UiUtils.isTablet());
     initParse();
     mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
     mBackgroundTracker = new AppBackgroundTracker();
