@@ -4760,7 +4760,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../omim-iphone-debug-i386/out/debug\"",
-					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/Statistics",
 				);
 				OTHER_CFLAGS = (
@@ -4880,7 +4879,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../omim-iphone-debug-$(CURRENT_ARCH)/out/debug\"",
-					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/Statistics",
 				);
 				ONLY_ACTIVE_ARCH = YES;
@@ -5004,7 +5002,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../omim-iphone-production-$(CURRENT_ARCH)/out/production\"",
-					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/Statistics",
 				);
 				OTHER_CFLAGS = (
@@ -5128,7 +5125,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../omim-iphone-production-$(CURRENT_ARCH)/out/production\"",
-					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/Statistics",
 				);
 				OTHER_CFLAGS = (
@@ -5250,7 +5246,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../omim-iphone-release-$(CURRENT_ARCH)/out/release\"",
-					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/Statistics",
 				);
 				ONLY_ACTIVE_ARCH = YES;
@@ -5372,7 +5367,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../omim-iphone-release-i386/out/release\"",
-					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/Statistics",
 				);
 				OTHER_CFLAGS = (
