@@ -21,7 +21,7 @@ namespace
 
 //#define SHOW_RAW_POINTS
 
-int const kMinVisibleZoomLevel = 10;
+int const kMinVisibleZoomLevel = 5;
 
 size_t const kAveragePointsCount = 512;
 
@@ -29,7 +29,7 @@ size_t const kAveragePointsCount = 512;
 float const kRadiusInPixel[] =
 {
   // 1   2     3     4     5     6     7     8     9     10
-  1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 3.0f, 3.0f,
+  1.0f, 1.0f, 1.0f, 3.0f, 3.0f, 3.0f, 3.0f, 3.0f, 3.0f, 3.0f,
   //11   12    13    14    15    16    17    18    19     20
   3.0f, 3.0f, 3.0f, 3.0f, 3.0f, 4.0f, 5.0f, 5.0f, 5.0f, 6.0f
 };
@@ -143,6 +143,10 @@ void GpsTrackRenderer::UpdateSpeedsAndColors()
   m_endSpeed = 0.0;
   for (size_t i = 0; i < m_points.size(); i++)
   {
+    // Filter unknown points.
+    if (i > 0 && (m_points[i].m_timestamp - m_points[i - 1].m_timestamp) > kUnknownDistanceTime)
+      continue;
+
     if (m_points[i].m_speedMPS < m_startSpeed)
       m_startSpeed = m_points[i].m_speedMPS;
 
