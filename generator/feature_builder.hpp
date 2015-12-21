@@ -156,6 +156,7 @@ public:
   void AddOsmId(osm::Id id);
   void SetOsmId(osm::Id id);
   osm::Id GetLastOsmId() const;
+  bool HasOsmId(osm::Id const & id) const;
   string GetOsmIdsString() const;
   //@}
 

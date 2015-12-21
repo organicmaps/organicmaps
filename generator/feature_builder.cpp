@@ -438,6 +438,14 @@ osm::Id FeatureBuilder1::GetLastOsmId() const
   return m_osmIds.back();
 }
 
+bool FeatureBuilder1::HasOsmId(osm::Id const & id) const
+{
+  for (auto const & cid : m_osmIds)
+    if (cid == id)
+      return true;
+  return false;
+}
+
 string FeatureBuilder1::GetOsmIdsString() const
 {
   if (m_osmIds.empty())
