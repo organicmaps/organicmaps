@@ -16,18 +16,8 @@ double constexpr kMinHorizontalAccuracyMeters = 250;
 // Required for points decimation to reduce number of close points.
 double constexpr kClosePointDistanceMeters = 15;
 
-// Periodicy to check points in wifi afea, sec
-size_t const kWifiAreaGpsPeriodicyCheckSec = 30;
-
-// Max acceptable moving speed in wifi area, required to prevent jumping between wifi, m/s
-double const kWifiAreaAcceptableMovingSpeedMps = 3;
-
-bool IsRealGpsPoint(location::GpsInfo const & info)
-{
-  // TODO use flag from device about gps type (real gps/wifi/cellular)
-  // we guess real gps says speed and bearing other than zero
-  return info.m_speed > 0 && info.m_bearing > 0;
-}
+// Max acceptable acceleration to filter gps jumps
+double const kMaxAcceptableAcceleration = 2; // m / sec ^ 2
 
 } // namespace
 
@@ -52,60 +42,74 @@ GpsTrackFilter::GpsTrackFilter()
 void GpsTrackFilter::Process(vector<location::GpsInfo> const & inPoints,
                              vector<location::GpsTrackInfo> & outPoints)
 {
-  steady_clock::time_point const timeNow = steady_clock::now();
-
   outPoints.reserve(inPoints.size());
+
+  if (m_minAccuracy == 0)
+  {
+    // Debugging trick to turn off filtering
+    outPoints.insert(outPoints.end(), inPoints.begin(), inPoints.end());
+    return;
+  }
 
   for (location::GpsInfo const & currInfo : inPoints)
   {
-    if (!m_hasLastInfo)
+    // Do not accept points from the predictor
+    if (currInfo.m_source == location::EPredictor)
+      continue;
+
+    // Skip any function without speed
+    if (!currInfo.HasSpeed())
+      continue;
+
+    if (!m_hasLastInfo || currInfo.m_timestamp < m_lastAcceptedInfo.m_timestamp)
     {
-      // Accept first point
       m_hasLastInfo = true;
-      m_lastInfo = currInfo;
-      m_lastGoodGpsTime = timeNow;
-      outPoints.emplace_back(currInfo);
-      continue;
+      m_lastAcceptedInfo = currInfo;
     }
-
-    // Distance in meters between last and current point is, meters:
-    double const distance = ms::DistanceOnEarth(m_lastInfo.m_latitude, m_lastInfo.m_longitude,
-                                                currInfo.m_latitude, currInfo.m_longitude);
-
-    // Filter point by close distance
-    if (distance < kClosePointDistanceMeters)
-      continue;
-
-    // Filter point if accuracy areas are intersected
-    if (distance < m_lastInfo.m_horizontalAccuracy && distance < currInfo.m_horizontalAccuracy)
-      continue;
-
-    // Filter by point accuracy
-    if (currInfo.m_horizontalAccuracy > m_minAccuracy)
-      continue;
-
-    bool const lastRealGps = IsRealGpsPoint(m_lastInfo);
-    bool const currRealGps = IsRealGpsPoint(currInfo);
-
-    bool const gpsToWifi = lastRealGps && !currRealGps;
-    bool const wifiToWifi = !lastRealGps && !currRealGps;
-
-    if (gpsToWifi || wifiToWifi)
+    else if (IsGoodPoint(currInfo))
     {
-      auto const elapsedTimeSinceGoodGps = duration_cast<seconds>(timeNow - m_lastGoodGpsTime);
-
-      // Wait before switch gps to wifi or switch between wifi points
-      if (elapsedTimeSinceGoodGps.count() < kWifiAreaGpsPeriodicyCheckSec)
-        continue;
-
-      // Skip point if moving to it was too fast, we guess it was a jump from wifi to another wifi
-      double const speed = distance / elapsedTimeSinceGoodGps.count();
-      if (speed > kWifiAreaAcceptableMovingSpeedMps)
-        continue;
+      outPoints.emplace_back(currInfo);
     }
 
-    m_lastGoodGpsTime = timeNow;
     m_lastInfo = currInfo;
-    outPoints.emplace_back(currInfo);
   }
+}
+
+bool GpsTrackFilter::IsGoodPoint(location::GpsInfo const & info) const
+{
+  // Filter by point accuracy
+  if (info.m_horizontalAccuracy > m_minAccuracy)
+    return false;
+
+  // Distance in meters between last accepted and current point is, meters:
+  double const distanceFromLastAccepted = ms::DistanceOnEarth(m_lastAcceptedInfo.m_latitude, m_lastAcceptedInfo.m_longitude,
+                                                              info.m_latitude, info.m_longitude);
+
+  // Filter point by close distance
+  if (distanceFromLastAccepted < kClosePointDistanceMeters)
+    return false;
+
+  // Filter point if accuracy areas are intersected
+  if (distanceFromLastAccepted < m_lastAcceptedInfo.m_horizontalAccuracy &&
+      info.m_horizontalAccuracy > 0.5 * m_lastAcceptedInfo.m_horizontalAccuracy)
+    return false;
+
+  // Distance in meters between last and current point is, meters:
+  double const distanceFromLast = ms::DistanceOnEarth(m_lastInfo.m_latitude, m_lastInfo.m_longitude,
+                                                      info.m_latitude, info.m_longitude);
+
+  // Time spend to move from the last point to the current point, sec:
+  double const timeFromLast = info.m_timestamp - m_lastInfo.m_timestamp;
+  if (timeFromLast <= 0.0)
+    return false;
+
+  // Speed to move from the last point to the current point
+  double const speedFromLast = distanceFromLast / timeFromLast;
+
+  // Filter by acceleration: skip point it jumps too far in short time
+  double const accelerationFromLast = (speedFromLast - m_lastInfo.m_speed) / timeFromLast;
+  if (accelerationFromLast > kMaxAcceptableAcceleration)
+    return false;
+
+  return true;
 }

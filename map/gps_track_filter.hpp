@@ -4,7 +4,6 @@
 
 #include "geometry/latlon.hpp"
 
-#include "std/chrono.hpp"
 #include "std/vector.hpp"
 
 class IGpsTrackFilter
@@ -37,10 +36,11 @@ public:
                vector<location::GpsTrackInfo> & outPoints) override;
 
 private:
+  bool IsGoodPoint(location::GpsInfo const & info) const;
+
   double m_minAccuracy;
 
   bool m_hasLastInfo;
   location::GpsInfo m_lastInfo;
-  steady_clock::time_point m_lastGoodGpsTime;
+  location::GpsInfo m_lastAcceptedInfo;
 };
-
