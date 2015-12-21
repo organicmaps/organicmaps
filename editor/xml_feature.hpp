@@ -21,10 +21,8 @@ DECLARE_EXCEPTION(XMLFeatureNoHeaderError, XMLFeatureError);
 
 class XMLFeature
 {
-  static char const * const kLastModified;
-  static char const * const kHouseNumber;
-  static char const * const kDefaultName;
-  static char const * const kLocalName;
+  static constexpr char const * kDefaultName = "name";
+  static constexpr char const * kLocalName = "name:";
   static char const * const kDefaultLang;
 
 public:
@@ -67,8 +65,18 @@ public:
   string GetHouse() const;
   void SetHouse(string const & house);
 
+  /// Our and OSM modification time are equal.
   time_t GetModificationTime() const;
-  void SetModificationTime(time_t const time = ::time(nullptr));
+  void SetModificationTime(time_t const time);
+
+  time_t GetUploadTime() const;
+  void SetUploadTime(time_t const time);
+
+  string GetUploadStatus() const;
+  void SetUploadStatus(string const & status);
+
+  string GetUploadError() const;
+  void SetUploadError(string const & error);
 
   bool HasTag(string const & key) const;
   bool HasAttribute(string const & key) const;
@@ -85,6 +93,8 @@ public:
 
   string GetAttribute(string const & key) const;
   void SetAttribute(string const & key, string const & value);
+
+  bool AttachToParentNode(pugi::xml_node parent) const;
 
 private:
   pugi::xml_node const GetRootNode() const;

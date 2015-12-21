@@ -5,6 +5,8 @@
 
 #include "platform/platform.hpp"
 
+#include "editor/xml_feature.hpp"
+
 #include "base/logging.hpp"
 
 #include "std/map.hpp"
@@ -16,7 +18,11 @@ using namespace pugi;
 using feature::EGeomType;
 using feature::Metadata;
 
-static char constexpr const * kEditorXMLFileName = "edits.xml";
+constexpr char const * kEditorXMLFileName = "edits.xml";
+constexpr char const * kXmlRootNode = "mapsme";
+constexpr char const * kDeleteSection = "delete";
+constexpr char const * kModifySection = "modify";
+constexpr char const * kCreateSection = "create";
 
 namespace osm
 {
@@ -53,9 +59,47 @@ void Editor::Load(string const & fullFilePath)
   // TODO(mgsergio): Implement XML deserialization into m_features.
 }
 
-void Editor::Save(string const & /*fullFilePath*/) const
+void Editor::Save(string const & fullFilePath) const
 {
-  // TODO(mgsergio): Implement XML serialization from m_features.
+  // Should we delete edits file if user has canceled all changes?
+  if (m_features.empty())
+    return;
+
+  xml_document doc;
+  xml_node root = doc.append_child(kXmlRootNode);
+  // Use format_version for possible future format changes.
+  root.append_attribute("format_version") = 1;
+  for (auto const & mwm : m_features)
+  {
+    xml_node mwmNode = root.append_child("mwm");
+    mwmNode.append_attribute("name") = mwm.first.GetInfo()->GetCountryName().c_str();
+    mwmNode.append_attribute("version") = mwm.first.GetInfo()->GetVersion();
+    xml_node deleted = mwmNode.append_child(kDeleteSection);
+    xml_node modified = mwmNode.append_child(kModifySection);
+    xml_node created = mwmNode.append_child(kCreateSection);
+    for (auto const & offset : mwm.second)
+    {
+      FeatureTypeInfo const & fti = offset.second;
+      editor::XMLFeature xf = fti.m_feature.ToXML();
+      xf.SetModificationTime(fti.m_modificationTimestamp);
+      if (fti.m_uploadAttemptTimestamp)
+      {
+        xf.SetUploadTime(fti.m_uploadAttemptTimestamp);
+        xf.SetUploadStatus(fti.m_uploadStatus);
+        xf.SetUploadError(fti.m_uploadError);
+      }
+      switch (fti.m_status)
+      {
+      case EDeleted: VERIFY(xf.AttachToParentNode(deleted), ()); break;
+      case EModified: VERIFY(xf.AttachToParentNode(modified), ()); break;
+      case ECreated: VERIFY(xf.AttachToParentNode(created), ()); break;
+      case EUntouched: CHECK(false, ("Not edited features shouldn't be here."));
+      }
+    }
+  }
+
+  if (doc && !doc.save_file(fullFilePath.c_str(), "  "))
+    LOG(LERROR, ("Can't save map edits into", fullFilePath));
 }
 
 Editor::FeatureStatus Editor::GetFeatureStatus(MwmSet::MwmId const & mwmId, uint32_t offset) const

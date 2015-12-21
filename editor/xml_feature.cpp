@@ -16,7 +16,12 @@
 
 namespace
 {
-auto constexpr kLatLonTolerance = 7;
+constexpr int const kLatLonTolerance = 7;
+constexpr char const * kTimestamp = "timestamp";
+constexpr char const * kUploadTimestamp = "upload_timestamp";
+constexpr char const * kUploadStatus = "upload_status";
+constexpr char const * kUploadError = "upload_error";
+constexpr char const * kHouseNumber = "addr:housenumber";
 
 pugi::xml_node FindTag(pugi::xml_document const & document, string const & key)
 {
@@ -47,20 +52,16 @@ void ValidateNode(pugi::xml_node const & node)
   // Check if point can be parsed. Throws if it's can't.
   UNUSED_VALUE(PointFromLatLon(node));
 
-  if (!node.attribute("timestamp"))
+  if (!node.attribute(kTimestamp))
     MYTHROW(editor::XMLFeatureNoTimestampError, ("Node has no timestamp attribute"));
 }
 } // namespace
 
 namespace editor
 {
-char const * const XMLFeature::kLastModified = "timestamp";
-char const * const XMLFeature::kHouseNumber = "addr:housenumber";
-char const * const XMLFeature::kDefaultName = "name";
-char const * const XMLFeature::kLocalName = "name:";
+
 char const * const XMLFeature::kDefaultLang =
     StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::DEFAULT_CODE);
-;
 
 XMLFeature::XMLFeature()
 {
@@ -107,7 +108,7 @@ void XMLFeature::SetCenter(m2::PointD const & mercatorCenter)
 string XMLFeature::GetName(string const & lang) const
 {
   auto const suffix = (lang == kDefaultLang || lang.empty()) ? "" : ":" + lang;
-  return GetTagValue("name" + suffix);
+  return GetTagValue(kDefaultName + suffix);
 }
 
 string XMLFeature::GetName(uint8_t const langCode) const
@@ -123,7 +124,7 @@ void XMLFeature::SetName(string const & name)
 void XMLFeature::SetName(string const & lang, string const & name)
 {
   auto const suffix = (lang == kDefaultLang || lang.empty()) ? "" : ":" + lang;
-  SetTagValue("name" + suffix, name);
+  SetTagValue(kDefaultName + suffix, name);
 }
 
 void XMLFeature::SetName(uint8_t const langCode, string const & name)
@@ -143,12 +144,42 @@ void XMLFeature::SetHouse(string const & house)
 
 time_t XMLFeature::GetModificationTime() const
 {
-  return my::StringToTimestamp(GetRootNode().attribute("timestamp").value());
+  return my::StringToTimestamp(GetRootNode().attribute(kTimestamp).value());
 }
 
 void XMLFeature::SetModificationTime(time_t const time)
 {
-  SetAttribute(kLastModified, my::TimestampToString(time));
+  SetAttribute(kTimestamp, my::TimestampToString(time));
+}
+
+time_t XMLFeature::GetUploadTime() const
+{
+  return my::StringToTimestamp(GetRootNode().attribute(kUploadTimestamp).value());
+}
+
+void XMLFeature::SetUploadTime(time_t const time)
+{
+  SetAttribute(kUploadTimestamp, my::TimestampToString(time));
+}
+
+string XMLFeature::GetUploadStatus() const
+{
+  return GetRootNode().attribute(kUploadStatus).value();
+}
+
+void XMLFeature::SetUploadStatus(string const & status)
+{
+  SetAttribute(kUploadStatus, status);
+}
+
+string XMLFeature::GetUploadError() const
+{
+  return GetRootNode().attribute(kUploadError).value();
+}
+
+void XMLFeature::SetUploadError(string const & error)
+{
+  SetAttribute(kUploadError, error);
 }
 
 bool XMLFeature::HasTag(string const & key) const
@@ -209,5 +240,10 @@ pugi::xml_node const XMLFeature::GetRootNode() const
 pugi::xml_node XMLFeature::GetRootNode()
 {
   return m_document.child("node");
+}
+
+bool XMLFeature::AttachToParentNode(pugi::xml_node parent) const
+{
+  return !parent.append_copy(GetRootNode()).empty();
 }
 } // namespace editor
