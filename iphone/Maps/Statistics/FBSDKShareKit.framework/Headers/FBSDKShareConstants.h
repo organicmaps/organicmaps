@@ -47,4 +47,9 @@ typedef NS_ENUM(NSInteger, FBSDKShareErrorCode)
    @discussion Use the canShare methods to check for this case before calling show.
    */
   FBSDKShareDialogNotAvailableErrorCode,
+
+  /*!
+   @The error code for unknown errors.
+   */
+  FBSDKShareUnknownErrorCode,
 };

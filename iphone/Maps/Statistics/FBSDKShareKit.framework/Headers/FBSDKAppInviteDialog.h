@@ -17,6 +17,7 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 #import <FBSDKShareKit/FBSDKAppInviteContent.h>
 
@@ -29,10 +30,26 @@
 
 /*!
  @abstract Convenience method to show a FBSDKAppInviteDialog
+ @param viewController A UIViewController to present the dialog from.
  @param content The content for the app invite.
  @param delegate The receiver's delegate.
+*/
++ (instancetype)showFromViewController:(UIViewController *)viewController
+                           withContent:(FBSDKAppInviteContent *)content
+                              delegate:(id<FBSDKAppInviteDialogDelegate>)delegate;
+
+
+/*!
+ @deprecated use showFromViewController:withContent:delegate: instead
  */
-+ (instancetype)showWithContent:(FBSDKAppInviteContent *)content delegate:(id<FBSDKAppInviteDialogDelegate>)delegate;
++ (instancetype)showWithContent:(FBSDKAppInviteContent *)content delegate:(id<FBSDKAppInviteDialogDelegate>)delegate
+__attribute__ ((deprecated("use showFromViewController:withContent:delegate: instead")));
+
+/*!
+ @abstract A UIViewController to present the dialog from.
+ @discussion If not specified, the top most view controller will be automatically determined as best as possible.
+ */
+@property (nonatomic, weak) UIViewController *fromViewController;
 
 /*!
  @abstract The receiver's delegate or nil if it doesn't have a delegate.
