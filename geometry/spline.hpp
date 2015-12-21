@@ -28,10 +28,11 @@ public:
     double GetLength() const;
     double GetFullLength() const;
 
+    int GetIndex() const;
+
   private:
     friend class Spline;
     double GetDistance() const;
-    int GetIndex() const;
 
     void AdvanceForward(double step);
     void AdvanceBackward(double step);

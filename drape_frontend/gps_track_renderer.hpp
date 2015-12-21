@@ -37,19 +37,15 @@ public:
 
 private:
   float CalculateRadius(ScreenBase const & screen) const;
-  double CalculateTrackLength() const;
-  void UpdateSpeedsAndColors();
   size_t GetAvailablePointsCount() const;
-  double PlacePoints(size_t & cacheIndex,
-                     GpsTrackPoint const & start, GpsTrackPoint const & end,
-                     double clipStart, double clipEnd,
-                     float radius, double diameterMercator,
-                     double offset, double trackLengthMercator,
-                     double lengthFromStart, bool & gap);
+  dp::Color CalculatePointColor(size_t pointIndex, m2::PointD const & curPoint,
+                                double lengthFromStart, double fullLength) const;
+  void UpdateSpeedsAndColors();
 
   TRenderDataRequestFn m_dataRequestFn;
   vector<drape_ptr<GpsTrackRenderData>> m_renderData;
   vector<GpsTrackPoint> m_points;
+  m2::Spline m_pointsSpline;
   bool m_needUpdate;
   bool m_waitForRenderData;
   vector<pair<GpsTrackHandle*, size_t>> m_handlesCache;

@@ -7,8 +7,6 @@
 
 #include "indexer/scales.hpp"
 
-#include "geometry/rect_intersect.hpp"
-
 #include "base/logging.hpp"
 
 #include "std/algorithm.hpp"
@@ -48,10 +46,12 @@ float const kOutlineRadiusScalar = 0.3f;
 double const kUnknownDistanceTime = 5 * 60; // seconds
 dp::Color const kUnknownDistanceColor = dp::Color(127, 127, 127, 127);
 
+#ifdef DEBUG
 bool GpsPointsSortPredicate(GpsTrackPoint const & pt1, GpsTrackPoint const & pt2)
 {
   return pt1.m_id < pt2.m_id;
 }
+#endif
 
 dp::Color InterpolateColors(dp::Color const & color1, dp::Color const & color2, double t)
 {
@@ -108,6 +108,7 @@ void GpsTrackRenderer::AddRenderData(ref_ptr<dp::GpuProgramManager> mng,
 
 void GpsTrackRenderer::UpdatePoints(vector<GpsTrackPoint> const & toAdd, vector<uint32_t> const & toRemove)
 {
+  bool wasChanged = false;
   if (!toRemove.empty())
   {
     auto removePredicate = [&toRemove](GpsTrackPoint const & pt)
@@ -115,6 +116,7 @@ void GpsTrackRenderer::UpdatePoints(vector<GpsTrackPoint> const & toAdd, vector<
       return find(toRemove.begin(), toRemove.end(), pt.m_id) != toRemove.end();
     };
     m_points.erase(remove_if(m_points.begin(), m_points.end(), removePredicate), m_points.end());
+    wasChanged = true;
   }
 
   if (!toAdd.empty())
@@ -123,18 +125,19 @@ void GpsTrackRenderer::UpdatePoints(vector<GpsTrackPoint> const & toAdd, vector<
     if (!m_points.empty())
       ASSERT(GpsPointsSortPredicate(m_points.back(), toAdd.front()), ());
     m_points.insert(m_points.end(), toAdd.begin(), toAdd.end());
+    wasChanged = true;
+  }
+
+  if (wasChanged)
+  {
+    vector<m2::PointD> path;
+    path.reserve(m_points.size());
+    for (size_t i = 0; i < m_points.size(); i++)
+      path.push_back(m_points[i].m_point);
+    m_pointsSpline = m2::Spline(path);
   }
 
   m_needUpdate = true;
-}
-
-double GpsTrackRenderer::CalculateTrackLength() const
-{
-  double len = 0.0;
-  for (size_t i = 0; i + 1 < m_points.size(); i++)
-    len += (m_points[i + 1].m_point - m_points[i].m_point).Length();
-
-  return len;
 }
 
 void GpsTrackRenderer::UpdateSpeedsAndColors()
@@ -182,56 +185,29 @@ size_t GpsTrackRenderer::GetAvailablePointsCount() const
   return pointsCount;
 }
 
-double GpsTrackRenderer::PlacePoints(size_t & cacheIndex,
-                                     GpsTrackPoint const & start, GpsTrackPoint const & end,
-                                     double clipStart, double clipEnd,
-                                     float radius, double diameterMercator,
-                                     double offset, double trackLengthMercator,
-                                     double lengthFromStart, bool & gap)
+dp::Color GpsTrackRenderer::CalculatePointColor(size_t pointIndex, m2::PointD const & curPoint,
+                                                double lengthFromStart, double fullLength) const
 {
-  double const kDistanceScalar = 0.65;
+  ASSERT_LESS(pointIndex, m_points.size(), ());
+  if (pointIndex + 1 == m_points.size())
+    return dp::Color::Transparent();
 
-  bool const unknownDistance = (end.m_timestamp - start.m_timestamp) > kUnknownDistanceTime;
+  GpsTrackPoint const & start = m_points[pointIndex];
+  GpsTrackPoint const & end = m_points[pointIndex + 1];
+  if ((end.m_timestamp - start.m_timestamp) > kUnknownDistanceTime)
+    return kUnknownDistanceColor;
 
-  m2::PointD const delta = end.m_point - start.m_point;
-  double const length = delta.Length();
-  m2::PointD const dir = delta.Normalize();
-  double pos = offset;
-  while (pos < length)
-  {
-    if (gap && pos >= clipStart && pos <= clipEnd)
-    {
-      double const dist = pos + diameterMercator * 0.5;
-      dp::Color color = kUnknownDistanceColor;
-      if (!unknownDistance)
-      {
-        double const td = my::clamp(dist / length, 0.0, 1.0);
-        double const speed = max(start.m_speedMPS * (1.0 - td) + end.m_speedMPS * td, 0.0);
-        double const ts = my::clamp((speed - m_startSpeed) / (m_endSpeed - m_startSpeed), 0.0, 1.0);
-        color = InterpolateColors(m_startColor, kMaxSpeedColor, ts);
-        double const ta = my::clamp((lengthFromStart + dist) / trackLengthMercator, 0.0, 1.0);
-        double const alpha = kMinAlpha * (1.0 - ta) + kMaxAlpha * ta;
-        color = dp::Color(color.GetRed(), color.GetGreen(), color.GetBlue(), alpha);
-      }
+  double const length = (end.m_point - start.m_point).Length();
+  double const dist = (curPoint - start.m_point).Length();
+  double const td = my::clamp(dist / length, 0.0, 1.0);
 
-      m2::PointD const p = start.m_point + dir * dist;
-      m_handlesCache[cacheIndex].first->SetPoint(m_handlesCache[cacheIndex].second, p, radius, color);
-      m_handlesCache[cacheIndex].second++;
-      if (m_handlesCache[cacheIndex].second >= m_handlesCache[cacheIndex].first->GetPointsCount())
-        cacheIndex++;
+  double const speed = max(start.m_speedMPS * (1.0 - td) + end.m_speedMPS * td, 0.0);
+  double const ts = my::clamp((speed - m_startSpeed) / (m_endSpeed - m_startSpeed), 0.0, 1.0);
+  dp::Color color = InterpolateColors(m_startColor, kMaxSpeedColor, ts);
 
-      if (cacheIndex >= m_handlesCache.size())
-      {
-        m_dataRequestFn(kAveragePointsCount);
-        m_waitForRenderData = true;
-        return -1.0;
-      }
-    }
-    gap = !gap;
-    pos += (diameterMercator * kDistanceScalar);
-  }
-
-  return pos - length;
+  double const ta = my::clamp(lengthFromStart / fullLength, 0.0, 1.0);
+  double const alpha = kMinAlpha * (1.0 - ta) + kMaxAlpha * ta;
+  return dp::Color(color.GetRed(), color.GetGreen(), color.GetBlue(), alpha);
 }
 
 void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
@@ -261,9 +237,9 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
       return;
 
     m_radius = CalculateRadius(screen);
-    float const diameter = 2.0f * m_radius;
-    float const currentScaleGtoP = 1.0f / screen.GetScale();
-    double const trackLengthMercator = CalculateTrackLength();
+    double const currentScaleGtoP = 1.0 / screen.GetScale();
+    double const radiusMercator = m_radius / currentScaleGtoP;
+    double const diameterMercator = 2.0 * radiusMercator;
 
     // Update points' positions and colors.
     ASSERT(!m_renderData.empty(), ());
@@ -278,7 +254,6 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
     UpdateSpeedsAndColors();
 
     size_t cacheIndex = 0;
-    double lengthFromStart = 0.0;
     if (m_points.size() == 1)
     {
       m_handlesCache[cacheIndex].first->SetPoint(0, m_points.front().m_point, m_radius, kMaxSpeedColor);
@@ -286,38 +261,31 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
     }
     else
     {
-      bool gap = true;
-      double const diameterMercator = diameter / currentScaleGtoP;
-      double offset = 0.0;
-      for (size_t i = 0; i + 1 < m_points.size(); i++)
+      double const kDistanceScalar = 0.4;
+
+      m2::Spline::iterator it;
+      it.Attach(m_pointsSpline);
+      while (!it.BeginAgain())
       {
-        // Clip points outside visible rect.
-        m2::PointD p1 = m_points[i].m_point;
-        m2::PointD p2 = m_points[i + 1].m_point;
-        double const dist = (m_points[i + 1].m_point - m_points[i].m_point).Length();
-        if (!m2::Intersect(screen.ClipRect(), p1, p2))
+        m2::PointD const pt = it.m_pos;
+        m2::RectD pointRect(pt.x - radiusMercator, pt.y - radiusMercator,
+                            pt.x + radiusMercator, pt.y + radiusMercator);
+        if (screen.ClipRect().IsIntersect(pointRect))
         {
-          lengthFromStart += dist;
-          offset = 0.0;
-          continue;
+          dp::Color color = CalculatePointColor(static_cast<size_t>(it.GetIndex()), pt, it.GetLength(), it.GetFullLength());
+          m_handlesCache[cacheIndex].first->SetPoint(m_handlesCache[cacheIndex].second, pt, m_radius, color);
+          m_handlesCache[cacheIndex].second++;
+          if (m_handlesCache[cacheIndex].second >= m_handlesCache[cacheIndex].first->GetPointsCount())
+            cacheIndex++;
+
+          if (cacheIndex >= m_handlesCache.size())
+          {
+            m_dataRequestFn(kAveragePointsCount);
+            m_waitForRenderData = true;
+            return;
+          }
         }
-
-        // Check points equality.
-        if (p1.EqualDxDy(p2, 1e-5))
-        {
-          lengthFromStart += dist;
-          continue;
-        }
-
-        // Place points.
-        double const clipStart = (p1 - m_points[i].m_point).Length();
-        double const clipEnd = (p2 - m_points[i].m_point).Length();
-        offset = PlacePoints(cacheIndex, m_points[i], m_points[i + 1], clipStart, clipEnd, m_radius,
-                             diameterMercator, offset, trackLengthMercator, lengthFromStart, gap);
-        if (offset < 0.0)
-          return;
-
-        lengthFromStart += dist;
+        it.Advance(diameterMercator + kDistanceScalar * diameterMercator);
       }
 
 #ifdef SHOW_RAW_POINTS
