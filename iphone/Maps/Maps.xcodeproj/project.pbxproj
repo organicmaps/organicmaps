@@ -18,6 +18,8 @@
 		340E10631B949D1900D975D5 /* MWMSearchBookmarksManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340E10621B949D1900D975D5 /* MWMSearchBookmarksManager.mm */; };
 		340F24631B14910500F874CD /* RouteState.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340F24621B14910500F874CD /* RouteState.mm */; };
 		341522BF1B666A550077AA8F /* MWMAPIBarView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 341522BE1B666A550077AA8F /* MWMAPIBarView.mm */; };
+		341876B41C28026D005A0C9A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454040681AD2D8D2007A9B12 /* CoreVideo.framework */; };
+		341876B51C280272005A0C9A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454040681AD2D8D2007A9B12 /* CoreVideo.framework */; };
 		341C2A571B72092A00AD41A1 /* 02_droidsans-fallback.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */; };
 		341C2A5B1B720B8A00AD41A1 /* MWMAPIBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 341C2A5A1B720B8A00AD41A1 /* MWMAPIBarView.xib */; };
 		342AD76F1B53D30C00E0B997 /* UIButton+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342AD76E1B53D30C00E0B997 /* UIButton+RuntimeAttributes.mm */; };
@@ -1400,6 +1402,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				341876B41C28026D005A0C9A /* CoreVideo.framework in Frameworks */,
 				34751E9E1BFB8E73005299B7 /* MediaPlayer.framework in Frameworks */,
 				34570A411B13229300E6D4FD /* FBSDKLoginKit.framework in Frameworks */,
 				B08AA8D61A25E58C00810B1C /* Social.framework in Frameworks */,
@@ -1501,6 +1504,7 @@
 				6741AAC61BF356BA002C974C /* libgeometry.a in Frameworks */,
 				674A7E291C0DA576003D48E1 /* libsdf_image.a in Frameworks */,
 				6741AAC91BF356BA002C974C /* libindexer.a in Frameworks */,
+				341876B51C280272005A0C9A /* CoreVideo.framework in Frameworks */,
 				6741AACA1BF356BA002C974C /* libjansson.a in Frameworks */,
 				6741AACB1BF356BA002C974C /* liblodepng.a in Frameworks */,
 				6741AACC1BF356BA002C974C /* libmap.a in Frameworks */,
