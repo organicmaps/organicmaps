@@ -47,7 +47,9 @@ FeatureType FeatureType::FromXML(editor::XMLFeature const & xml)
                   {
                     feature.m_params.name.AddString(lang, name);
                   });
-  feature.m_params.house.Set(xml.GetHouse());
+  string const house = xml.GetHouse();
+  if (!house.empty())
+    feature.m_params.house.Set(house);
 
   // TODO(mgsergio):
   // feature.m_params.ref =
@@ -95,7 +97,9 @@ editor::XMLFeature FeatureType::ToXML() const
                    return true;
                  });
 
-  feature.SetHouse(GetHouseNumber());
+  string const house = GetHouseNumber();
+  if (!house.empty())
+    feature.SetHouse(house);
 
   // TODO(mgsergio):
   // feature.m_params.ref =
