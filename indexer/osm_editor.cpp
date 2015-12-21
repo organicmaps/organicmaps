@@ -119,7 +119,7 @@ void Editor::EditFeature(FeatureType & editedFeature)
 }
 
 void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
-                                             function<void(FeatureID const &)> const & f,
+                                             TFeatureIDFunctor const & f,
                                              m2::RectD const & rect,
                                              uint32_t /*scale*/)
 {
@@ -138,7 +138,7 @@ void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
 }
 
 void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
-                                             function<void(FeatureType &)> const & f,
+                                             TFeatureTypeFunctor const & f,
                                              m2::RectD const & rect,
                                              uint32_t /*scale*/)
 {

@@ -41,12 +41,14 @@ public:
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
   void Save(string const & fullFilePath) const;
 
+  using TFeatureIDFunctor = function<void(FeatureID const &)>;
+  using TFeatureTypeFunctor = function<void(FeatureType &)>;
   void ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
-                                       function<void(FeatureID const &)> const & f,
+                                       TFeatureIDFunctor const & f,
                                        m2::RectD const & rect,
                                        uint32_t scale);
   void ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
-                                       function<void(FeatureType &)> const & f,
+                                       TFeatureTypeFunctor const & f,
                                        m2::RectD const & rect,
                                        uint32_t scale);
 
