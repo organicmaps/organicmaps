@@ -21,6 +21,7 @@
 
     <attr name="routingAccent" format="color"/>
     <attr name="routingSlot" format="reference"/>
+    <attr name="routingSlotFrame" format="color"/>
     <attr name="routingSlotPressed" format="reference"/>
     <attr name="routingSlotMarker" format="reference"/>
     <attr name="routingStartButton" format="reference"/>

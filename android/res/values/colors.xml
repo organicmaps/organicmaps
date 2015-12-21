@@ -24,11 +24,13 @@
 
   <!-- Backgrounds -->
   <color name="bg_window">#FFFFFFFF</color>
-  <color name="bg_window_night">#FF161616</color>
+  <color name="bg_window_night">#FF32363A</color>
+  <color name="bg_primary">@color/base_green</color>
+  <color name="bg_primary_night">#FF14181C</color>
   <color name="bg_secondary">#FFF5F5F5</color>
-  <color name="bg_secondary_night">#FF262626</color>
+  <color name="bg_secondary_night">#FF32363A</color>
   <color name="bg_panel">#FFF4F4F4</color>
-  <color name="bg_panel_night">#FF2D3237</color>
+  <color name="bg_panel_night">#FF3C4044</color>
   <color name="bg_side_panel">#FFFFFFFF</color>
   <color name="bg_side_panel_night">@color/bg_panel_night</color>
 

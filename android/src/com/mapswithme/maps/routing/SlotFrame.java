@@ -221,7 +221,7 @@ public class SlotFrame extends LinearLayout
 
     mTextColor = ThemeUtils.getColor(getContext(), android.R.attr.textColorPrimary);
     mHintColor = ThemeUtils.getColor(getContext(), R.attr.secondary);
-    setBackgroundColor(ThemeUtils.getColor(getContext(), R.attr.colorPrimary));
+    setBackgroundColor(ThemeUtils.getColor(getContext(), R.attr.routingSlotFrame));
 
     setBaselineAligned(false);
     setClipChildren(false);

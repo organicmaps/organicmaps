@@ -2,5 +2,5 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
           style="@style/MwmWidget.TextView.Search"
           android:text="@string/search_show_on_map"
-          android:textColor="@color/base_accent"
+          android:textColor="?colorAccent"
           android:textAppearance="@style/MwmTextAppearance.Body1"/>

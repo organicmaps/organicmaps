@@ -20,7 +20,7 @@
     <item name="fullscreenDialogTheme">@style/MwmTheme.DialogFragment.Fullscreen</item>
 
     <item name="statusBar">@color/bg_status_bar</item>
-    <item name="colorPrimary">@color/base_green</item>
+    <item name="colorPrimary">@color/bg_primary</item>
     <item name="colorControlNormal">?secondary</item>
     <item name="colorAccent">@color/base_accent</item>
     <item name="panel">@color/bg_panel</item>
@@ -39,6 +39,7 @@
 
     <item name="routingAccent">@color/routing_accent</item>
     <item name="routingSlot">@drawable/routing_slot_background</item>
+    <item name="routingSlotFrame">?colorPrimary</item>
     <item name="routingSlotPressed">@drawable/routing_slot_background_pressed</item>
     <item name="routingSlotMarker">@drawable/routing_slot_marker</item>
     <item name="routingStartButton">@drawable/routing_start_button</item>
@@ -58,7 +59,7 @@
     <item name="android:textColorPrimaryInverse">@color/text_dark</item>
     <item name="android:textColorSecondary">@color/text_light_subtitle</item>
     <item name="android:windowBackground">@color/bg_window_night</item>
-    <item name="android:colorPrimaryDark" tools:targetApi="lollipop">@color/bg_panel_night</item>
+    <item name="android:colorPrimaryDark" tools:targetApi="lollipop">?statusBar</item>
     <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="lollipop">true</item>
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
@@ -69,7 +70,7 @@
     <item name="fullscreenDialogTheme">@style/MwmTheme.DialogFragment.Fullscreen</item>
 
     <item name="statusBar">@color/bg_status_bar_night</item>
-    <item name="colorPrimary">@color/bg_panel_night</item>
+    <item name="colorPrimary">@color/bg_primary_night</item>
     <item name="colorControlNormal">?secondary</item>
     <item name="colorAccent">@color/base_accent_night</item>
     <item name="panel">@color/bg_panel_night</item>
@@ -88,6 +89,7 @@
 
     <item name="routingAccent">@color/routing_accent_night</item>
     <item name="routingSlot">@drawable/routing_slot_background_night</item>
+    <item name="routingSlotFrame">?panel</item>
     <item name="routingSlotPressed">@drawable/routing_slot_background_pressed_night</item>
     <item name="routingSlotMarker">@drawable/routing_slot_marker_night</item>
     <item name="routingStartButton">@drawable/routing_start_button_night</item>
