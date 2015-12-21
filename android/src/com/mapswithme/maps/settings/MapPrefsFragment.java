@@ -117,10 +117,12 @@ public class MapPrefsFragment extends BaseXmlSettingsFragment
       @Override
       public boolean onPreferenceChange(Preference preference, Object newValue)
       {
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.MAP_STYLE);
         Framework.setMapStyle(Integer.parseInt((String) newValue));
 
-        Config.setUiTheme(String.valueOf(Framework.MAP_STYLE_DARK).equals(newValue) ? ThemeUtils.THEME_NIGHT : ThemeUtils.THEME_DEFAULT);
+        String themeName = (String.valueOf(Framework.MAP_STYLE_DARK).equals(newValue) ? ThemeUtils.THEME_NIGHT : ThemeUtils.THEME_DEFAULT);
+        Config.setUiTheme(themeName);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.MAP_STYLE,
+                                       new Statistics.ParameterBuilder().add(Statistics.EventParam.NAME, themeName));
         getActivity().recreate();
         return true;
       }

@@ -146,6 +146,7 @@ public enum Statistics
     public static final String MY_POSITION = "my position";
     public static final String POINT = "point";
     public static final String LANGUAGE = "language";
+    public static final String NAME = "Name";
 
     private EventParam() {}
   }
