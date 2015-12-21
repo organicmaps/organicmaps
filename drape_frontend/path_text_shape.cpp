@@ -55,50 +55,48 @@ public:
   {
     if (!df::TextHandle::Update(screen))
       return false;
-
-    if (m_buffer.empty())
-      m_buffer.resize(4 * m_layout->GetGlyphCount());
     
-    m2::Spline pixelSpline(m_spline->GetSize());
-
     vector<m2::PointD> const & globalPoints = m_spline->GetPath();
-    for (auto pos : globalPoints)
-    {
-      pos = screen.GtoP(pos);
-
-      if (screen.isPerspective())
-      {
-        if (!screen.PixelRect().IsPointInside(pos))
-          continue;
-        pos = screen.PtoP3d(pos);
-      }
-
-      pixelSpline.AddPoint(pos);
-    }
-
+    m2::Spline pixelSpline(m_spline->GetSize());
     m2::Spline::iterator centerPointIter;
-    centerPointIter.Attach(pixelSpline);
 
     if (screen.isPerspective())
     {
-      if (pixelSpline.GetSize() < 2)
+      float pixelOffset = 0.0f;
+      uint32_t startIndex = 0;
+      for (auto pos : globalPoints)
+      {
+        pos = screen.GtoP(pos);
+        if (!screen.PixelRect().IsPointInside(pos))
+        {
+          if (CalculateOffsets(pixelSpline, startIndex, pixelOffset))
+            break;
+
+          pixelSpline = m2::Spline(m_spline->GetSize());
+          continue;
+        }
+        pixelSpline.AddPoint(screen.PtoP3d(pos));
+      }
+
+      if (pixelOffset == 0.0f && !CalculateOffsets(pixelSpline, startIndex, pixelOffset))
         return false;
 
-      vector<float> offsets;
-      df::PathTextLayout::CalculatePositions(offsets, pixelSpline.GetLength(), 1.0,
-                                             m_layout->GetPixelLength());
-
-      if (offsets.size() <= m_textIndex)
-        return false;
-
-      centerPointIter.Advance(offsets[m_textIndex]);
+      centerPointIter.Attach(pixelSpline);
+      centerPointIter.Advance(pixelOffset);
       m_globalPivot = screen.PtoG(screen.P3dtoP(centerPointIter.m_pos));
     }
     else
     {
+      for (auto pos : globalPoints)
+        pixelSpline.AddPoint(screen.GtoP(pos));
+
+      centerPointIter.Attach(pixelSpline);
       centerPointIter.Advance(m_globalOffset / screen.GetScale());
       m_globalPivot = screen.PtoG(centerPointIter.m_pos);
     }
+
+    if (m_buffer.empty())
+      m_buffer.resize(4 * m_layout->GetGlyphCount());
     return m_layout->CacheDynamicGeometry(centerPointIter, m_depth, m_globalPivot, m_buffer);
   }
 
@@ -179,6 +177,26 @@ public:
   uint64_t GetPriorityInFollowingMode() const override
   {
     return m_priorityFollowingMode;
+  }
+
+private:
+  bool CalculateOffsets(const m2::Spline & pixelSpline, uint32_t & startIndex, float & pixelOffset) const
+  {
+    if (pixelSpline.GetSize() < 2)
+      return false;
+
+    vector<float> offsets;
+    df::PathTextLayout::CalculatePositions(offsets, pixelSpline.GetLength(), 1.0,
+                                           m_layout->GetPixelLength());
+
+    if (startIndex + offsets.size() <= m_textIndex)
+    {
+      startIndex += offsets.size();
+      return false;
+    }
+
+    pixelOffset = offsets[m_textIndex - startIndex];
+    return true;
   }
 
 private:
