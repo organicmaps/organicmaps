@@ -8,6 +8,30 @@
 using namespace routing;
 using namespace routing::turns;
 
+UNIT_TEST(RussiaMoscowNagatinoUturnTurnTest)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetOsrmComponents(),
+      MercatorBounds::FromLatLon(55.67251, 37.63604), {-0.004, -0.01},
+      MercatorBounds::FromLatLon(55.67293, 37.63507));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+  TEST_EQUAL(result, IRouter::NoError, ());
+
+  integration::TestTurnCount(route, 3);
+
+  integration::GetNthTurn(route, 0)
+      .TestValid()
+      .TestDirection(TurnDirection::TurnRight);
+  integration::GetNthTurn(route, 1)
+      .TestValid()
+      .TestDirection(TurnDirection::UTurnLeft);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(TurnDirection::TurnLeft);
+
+  integration::TestRouteLength(route, 561.);
+}
+
 UNIT_TEST(RussiaMoscowLenigradskiy39UturnTurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
