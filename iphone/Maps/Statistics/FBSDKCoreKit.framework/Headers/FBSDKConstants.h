@@ -93,6 +93,16 @@ typedef NS_ENUM(NSInteger, FBSDKErrorCode)
    @abstract Indicates an operation failed because a required access token was not found.
    */
   FBSDKAccessTokenRequiredErrorCode,
+
+  /*!
+   @abstract Indicates an app switch (typically for a dialog) failed because the destination app is out of date.
+   */
+  FBSDKAppVersionUnsupportedErrorCode,
+
+  /*!
+   @abstract Indicates an app switch to the browser (typically for a dialog) failed.
+   */
+  FBSDKBrowswerUnavailableErrorCode,
 };
 
 /*!

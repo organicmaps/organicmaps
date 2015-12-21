@@ -172,6 +172,20 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite;
 @property (nonatomic, retain, readonly) NSHTTPURLResponse *URLResponse;
 
 /*!
+ @methodgroup Class methods
+ */
+
+/*!
+ @method
+
+ @abstract
+ This method sets the default timeout on all FBSDKGraphRequestConnection instances. Defaults to 60 seconds.
+
+ @param defaultConnectionTimeout     The timeout interval.
+ */
++ (void)setDefaultConnectionTimeout:(NSTimeInterval)defaultConnectionTimeout;
+
+/*!
  @methodgroup Adding requests
  */
 

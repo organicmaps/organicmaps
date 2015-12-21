@@ -124,12 +124,21 @@ FBSDK_EXTERN NSString *const FBSDKProfileChangeNewKey;
 + (void)enableUpdatesOnAccessTokenChange:(BOOL)enable;
 
 /*!
+ @abstract A convenience method for returning a complete `NSURL` for retrieving the user's profile image.
+ @param mode The picture mode
+ @param size The height and width. This will be rounded to integer precision.
+ */
+- (NSURL *)imageURLForPictureMode:(FBSDKProfilePictureMode)mode size:(CGSize)size;
+
+/*!
  @abstract A convenience method for returning a Graph API path for retrieving the user's profile image.
+ @deprecated use `imageURLForPictureMode:size:` instead
  @discussion You can pass this to a `FBSDKGraphRequest` instance to download the image.
  @param mode The picture mode
  @param size The height and width. This will be rounded to integer precision.
  */
-- (NSString *)imagePathForPictureMode:(FBSDKProfilePictureMode)mode size:(CGSize)size;
+- (NSString *)imagePathForPictureMode:(FBSDKProfilePictureMode)mode size:(CGSize)size
+__attribute__ ((deprecated("use imageURLForPictureMode:size: instead")));
 
 /*!
  @abstract Returns YES if the profile is equivalent to the receiver.
