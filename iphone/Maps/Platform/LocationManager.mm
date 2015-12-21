@@ -92,8 +92,8 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
   self.isDaemonMode = NO;
   [m_locationManager stopMonitoringSignificantLocationChanges];
   [m_locationManager disallowDeferredLocationUpdates];
-  [m_locationManager startUpdatingLocation];
   self.deferringUpdates = NO;
+  [m_locationManager startUpdatingLocation];
   [self orientationChanged];
 }
 
