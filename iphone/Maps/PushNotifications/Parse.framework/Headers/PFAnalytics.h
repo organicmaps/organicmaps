@@ -15,7 +15,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/*!
+/**
  `PFAnalytics` provides an interface to Parse's logging and analytics backend.
 
  Methods will return immediately and cache the request (+ timestamp) to be
@@ -28,27 +28,27 @@ NS_ASSUME_NONNULL_BEGIN
 /// @name App-Open / Push Analytics
 ///--------------------------------------
 
-/*!
- @abstract Tracks this application being launched. If this happened as the result of the
+/**
+ Tracks this application being launched. If this happened as the result of the
  user opening a push notification, this method sends along information to
  correlate this open with that push.
 
- @discussion Pass in `nil` to track a standard "application opened" event.
+ Pass in `nil` to track a standard "application opened" event.
 
  @param launchOptions The `NSDictionary` indicating the reason the application was
  launched, if any. This value can be found as a parameter to various
  `UIApplicationDelegate` methods, and can be empty or `nil`.
 
- @returns Returns the task encapsulating the work being done.
+ @return Returns the task encapsulating the work being done.
  */
 + (BFTask PF_GENERIC(NSNumber *)*)trackAppOpenedWithLaunchOptions:(nullable NSDictionary *)launchOptions;
 
-/*!
- @abstract Tracks this application being launched.
+/**
+ Tracks this application being launched.
  If this happened as the result of the user opening a push notification,
  this method sends along information to correlate this open with that push.
 
- @discussion Pass in `nil` to track a standard "application opened" event.
+ Pass in `nil` to track a standard "application opened" event.
 
  @param launchOptions The dictionary indicating the reason the application was
  launched, if any. This value can be found as a parameter to various
@@ -59,8 +59,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)trackAppOpenedWithLaunchOptionsInBackground:(nullable NSDictionary *)launchOptions
                                               block:(nullable PFBooleanResultBlock)block;
 
-/*!
- @abstract Tracks this application being launched. If this happened as the result of the
+/**
+ Tracks this application being launched. If this happened as the result of the
  user opening a push notification, this method sends along information to
  correlate this open with that push.
 
@@ -69,12 +69,12 @@ NS_ASSUME_NONNULL_BEGIN
  or as a parameter to `application:didReceiveRemoteNotification:`.
  This can be empty or `nil`.
 
- @returns Returns the task encapsulating the work being done.
+ @return Returns the task encapsulating the work being done.
  */
 + (BFTask PF_GENERIC(NSNumber *)*)trackAppOpenedWithRemoteNotificationPayload:(nullable NSDictionary *)userInfo;
 
-/*!
- @abstract Tracks this application being launched. If this happened as the result of the
+/**
+ Tracks this application being launched. If this happened as the result of the
  user opening a push notification, this method sends along information to
  correlate this open with that push.
 
@@ -91,19 +91,19 @@ NS_ASSUME_NONNULL_BEGIN
 /// @name Custom Analytics
 ///--------------------------------------
 
-/*!
- @abstract Tracks the occurrence of a custom event.
+/**
+ Tracks the occurrence of a custom event.
 
- @discussion Parse will store a data point at the time of invocation with the given event name.
+ Parse will store a data point at the time of invocation with the given event name.
 
  @param name The name of the custom event to report to Parse as having happened.
 
- @returns Returns the task encapsulating the work being done.
+ @return Returns the task encapsulating the work being done.
  */
 + (BFTask PF_GENERIC(NSNumber *)*)trackEvent:(NSString *)name;
 
-/*!
- @abstract Tracks the occurrence of a custom event. Parse will store a data point at the
+/**
+ Tracks the occurrence of a custom event. Parse will store a data point at the
  time of invocation with the given event name. The event will be sent at some
  unspecified time in the future, even if Parse is currently inaccessible.
 
@@ -113,11 +113,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (void)trackEventInBackground:(NSString *)name block:(nullable PFBooleanResultBlock)block;
 
-/*!
- @abstract Tracks the occurrence of a custom event with additional dimensions. Parse will
+/**
+ Tracks the occurrence of a custom event with additional dimensions. Parse will
  store a data point at the time of invocation with the given event name.
 
- @discussion Dimensions will allow segmentation of the occurrences of this custom event.
+ Dimensions will allow segmentation of the occurrences of this custom event.
  Keys and values should be NSStrings, and will throw otherwise.
 
  To track a user signup along with additional metadata, consider the following:
@@ -132,13 +132,13 @@ NS_ASSUME_NONNULL_BEGIN
  @param name The name of the custom event to report to Parse as having happened.
  @param dimensions The `NSDictionary` of information by which to segment this event.
 
- @returns Returns the task encapsulating the work being done.
+ @return Returns the task encapsulating the work being done.
  */
 + (BFTask PF_GENERIC(NSNumber *)*)trackEvent:(NSString *)name
                                   dimensions:(nullable NSDictionary PF_GENERIC(NSString *, NSString *)*)dimensions;
 
-/*!
- @abstract Tracks the occurrence of a custom event with additional dimensions. Parse will
+/**
+ Tracks the occurrence of a custom event with additional dimensions. Parse will
  store a data point at the time of invocation with the given event name. The
  event will be sent at some unspecified time in the future, even if Parse is currently inaccessible.
 

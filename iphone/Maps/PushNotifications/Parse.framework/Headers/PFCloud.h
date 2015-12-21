@@ -15,49 +15,49 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/*!
+/**
  The `PFCloud` class provides methods for interacting with Parse Cloud Functions.
  */
 @interface PFCloud : NSObject
 
-/*!
- @abstract Calls the given cloud function *synchronously* with the parameters provided.
+/**
+ Calls the given cloud function *synchronously* with the parameters provided.
 
  @param function The function name to call.
  @param parameters The parameters to send to the function.
 
- @returns The response from the cloud function.
+ @return The response from the cloud function.
  */
 + (nullable id)callFunction:(NSString *)function withParameters:(nullable NSDictionary *)parameters PF_SWIFT_UNAVAILABLE;
 
-/*!
- @abstract Calls the given cloud function *synchronously* with the parameters provided and
+/**
+ Calls the given cloud function *synchronously* with the parameters provided and
  sets the error if there is one.
 
  @param function The function name to call.
  @param parameters The parameters to send to the function.
  @param error Pointer to an `NSError` that will be set if necessary.
 
- @returns The response from the cloud function.
+ @return The response from the cloud function.
  This result could be a `NSDictionary`, an `NSArray`, `NSNumber` or `NSString`.
  */
 + (nullable id)callFunction:(NSString *)function
              withParameters:(nullable NSDictionary *)parameters
                       error:(NSError **)error;
 
-/*!
- @abstract Calls the given cloud function *asynchronously* with the parameters provided.
+/**
+ Calls the given cloud function *asynchronously* with the parameters provided.
 
  @param function The function name to call.
  @param parameters The parameters to send to the function.
 
- @returns The task, that encapsulates the work being done.
+ @return The task, that encapsulates the work being done.
  */
 + (BFTask PF_GENERIC(id) *)callFunctionInBackground:(NSString *)function
                                      withParameters:(nullable NSDictionary *)parameters;
 
-/*!
- @abstract Calls the given cloud function *asynchronously* with the parameters provided
+/**
+ Calls the given cloud function *asynchronously* with the parameters provided
  and executes the given block when it is done.
 
  @param function The function name to call.
@@ -70,7 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
                            block:(nullable PFIdResultBlock)block;
 
 /*
- @abstract Calls the given cloud function *asynchronously* with the parameters provided
+ Calls the given cloud function *asynchronously* with the parameters provided
  and then executes the given selector when it is done.
 
  @param function The function name to call.

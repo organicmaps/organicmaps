@@ -20,26 +20,26 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^PFSessionResultBlock)(PFSession *__nullable session, NSError *__nullable error);
 
-/*!
+/**
  `PFSession` is a local representation of a session.
- This class is a subclass of a <PFObject>,
- and retains the same functionality as any other subclass of <PFObject>.
+ This class is a subclass of a `PFObject`,
+ and retains the same functionality as any other subclass of `PFObject`.
  */
 @interface PFSession : PFObject<PFSubclassing>
 
-/*!
- @abstract The session token string for this session.
+/**
+ The session token string for this session.
  */
 @property (nullable, nonatomic, copy, readonly) NSString *sessionToken;
 
-/*!
+/**
  *Asynchronously* fetches a `PFSession` object related to the current user.
 
- @returns A task that is `completed` with an instance of `PFSession` class or is `faulted` if the operation fails.
+ @return A task that is `completed` with an instance of `PFSession` class or is `faulted` if the operation fails.
  */
 + (BFTask PF_GENERIC(PFSession *)*)getCurrentSessionInBackground;
 
-/*!
+/**
  *Asynchronously* fetches a `PFSession` object related to the current user.
 
  @param block The block to execute when the operation completes.

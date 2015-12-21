@@ -13,20 +13,20 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/*!
- Provides a general interface for delegation of third party authentication with <PFUser>s.
+/**
+ Provides a general interface for delegation of third party authentication with `PFUser`s.
  */
 @protocol PFUserAuthenticationDelegate <NSObject>
 
-/*!
- @abstract Called when restoring third party authentication credentials that have been serialized,
+/**
+ Called when restoring third party authentication credentials that have been serialized,
  such as session keys, user id, etc.
 
  @note This method will be executed on a background thread.
 
  @param authData The auth data for the provider. This value may be `nil` when unlinking an account.
 
- @returns `YES` - if the `authData` was succesfully synchronized,
+ @return `YES` - if the `authData` was succesfully synchronized,
  or `NO` if user should not longer be associated because of bad `authData`.
  */
 - (BOOL)restoreAuthenticationWithAuthData:(nullable NSDictionary PF_GENERIC(NSString *, NSString *)*)authData;
