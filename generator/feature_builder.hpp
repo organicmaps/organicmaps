@@ -87,7 +87,7 @@ public:
   /// @name Serialization.
   //@{
   void Serialize(TBuffer & data) const;
-  void SerializeBase(TBuffer & data, serial::CodingParams const & params, bool needSearializeAdditionalInfo = true) const;
+  void SerializeBase(TBuffer & data, serial::CodingParams const & params, bool saveAddInfo) const;
 
   void Deserialize(TBuffer & data);
   //@}

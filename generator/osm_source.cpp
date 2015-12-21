@@ -519,9 +519,9 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
 
     bucketer.GetNames(info.m_bucketNames);
   }
-  catch (Reader::Exception const & e)
+  catch (Reader::Exception const & ex)
   {
-    LOG(LCRITICAL, ("Error with file ", e.what()));
+    LOG(LCRITICAL, ("Error with file", ex.Msg()));
   }
 
   return true;
