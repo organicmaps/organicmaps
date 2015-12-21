@@ -309,6 +309,7 @@ void InitLocalizedStrings()
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+  [self.m_locationManager onBackground];
   [self.mapViewController onEnterBackground];
   if (m_activeDownloadsCounter)
   {
@@ -336,6 +337,10 @@ void InitLocalizedStrings()
     [self.mapViewController.view layoutIfNeeded];
     [self commonInit];
     [self incrementSessionsCountAndCheckForAlert];
+  }
+  else
+  {
+    [self.m_locationManager onForeground];
   }
   [self.mapViewController onEnterForeground];
   [MWMTextToSpeech activateAudioSession];

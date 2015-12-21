@@ -45,6 +45,7 @@
 
 - (void)onDaemonMode;
 - (void)onForeground;
+- (void)onBackground;
 - (void)beforeTerminate;
 
 @end

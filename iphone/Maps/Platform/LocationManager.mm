@@ -74,6 +74,12 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
   [m_locationManager startUpdatingLocation];
 }
 
+- (void)onBackground
+{
+  if (!GpsTracker::Instance().IsEnabled())
+    [m_locationManager stopUpdatingLocation];
+}
+
 - (void)beforeTerminate
 {
   if (!GpsTracker::Instance().IsEnabled())
@@ -86,6 +92,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
   self.isDaemonMode = NO;
   [m_locationManager stopMonitoringSignificantLocationChanges];
   [m_locationManager disallowDeferredLocationUpdates];
+  [m_locationManager startUpdatingLocation];
   self.deferringUpdates = NO;
   [self orientationChanged];
 }
@@ -172,7 +179,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
   [self processLocation:locations.lastObject];
-  if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground || !self.deferringUpdates)
+  if (!self.deferringUpdates)
     return;
   [m_locationManager allowDeferredLocationUpdatesUntilTraveled:300 timeout:15];
   self.deferringUpdates = NO;
@@ -180,7 +187,8 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
 
 - (BOOL)deferringUpdates
 {
-  return _deferringUpdates && [CLLocationManager deferredLocationUpdatesAvailable];
+  return _deferringUpdates && [CLLocationManager deferredLocationUpdatesAvailable] &&
+                              [UIApplication sharedApplication].applicationState == UIApplicationStateBackground;
 }
 
 - (void)processLocation:(CLLocation *)location
