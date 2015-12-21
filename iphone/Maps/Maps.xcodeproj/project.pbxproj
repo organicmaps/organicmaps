@@ -480,7 +480,6 @@
 		6741AA381BF340DE002C974C /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A331B13217C00E6D4FD /* Bolts.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		6741AA391BF340DE002C974C /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A341B13217C00E6D4FD /* Parse.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		6741AA3A1BF340DE002C974C /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A351B13217C00E6D4FD /* ParseFacebookUtilsV4.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		6741AA3B1BF340DE002C974C /* libMyTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F69A16A21AF24A3300EF43F0 /* libMyTracker.a */; };
 		6741AA3C1BF340DE002C974C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		6741AA3D1BF340DE002C974C /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BC1E4B1ACBE96100EF0360 /* FBSDKCoreKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		6741AA3E1BF340DE002C974C /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BC1E4C1ACBE96100EF0360 /* FBSDKShareKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -686,7 +685,7 @@
 		F6830F111B85F6B900C42AAE /* MWMLanesPanel.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6830F101B85F6B900C42AAE /* MWMLanesPanel.mm */; };
 		F68CEF741AD8852A00563FBA /* MWMMapController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68CEF731AD8852A00563FBA /* MWMMapController.mm */; };
 		F68E6BD21B8DB7AE0040566D /* MWMRouteHelperPanel.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68E6BD11B8DB7AE0040566D /* MWMRouteHelperPanel.mm */; };
-		F69A16A31AF24A3300EF43F0 /* libMyTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F69A16A21AF24A3300EF43F0 /* libMyTracker.a */; };
+		F696CCBB1C2816FB00150DFD /* MyTrackerSDKCorp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F696CCBA1C2816FB00150DFD /* MyTrackerSDKCorp.framework */; };
 		F6A750B91BE8C74400981B41 /* MWMSearchHistoryMyPositionCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6A750B81BE8C74400981B41 /* MWMSearchHistoryMyPositionCell.mm */; };
 		F6A750BB1BE8C7BA00981B41 /* MWMSearchHistoryMyPositionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6A750BA1BE8C7BA00981B41 /* MWMSearchHistoryMyPositionCell.xib */; };
 		F6BB6CBE1BB15A5E00DF1DF2 /* MWMRoutePreview.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BB6CBD1BB15A5E00DF1DF2 /* MWMRoutePreview.xib */; };
@@ -1269,13 +1268,7 @@
 		F68CEF731AD8852A00563FBA /* MWMMapController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapController.mm; sourceTree = "<group>"; };
 		F68E6BD01B8DB7AE0040566D /* MWMRouteHelperPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRouteHelperPanel.h; sourceTree = "<group>"; };
 		F68E6BD11B8DB7AE0040566D /* MWMRouteHelperPanel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRouteHelperPanel.mm; sourceTree = "<group>"; };
-		F69A16A21AF24A3300EF43F0 /* libMyTracker.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMyTracker.a; path = MyTracker/libMyTracker.a; sourceTree = "<group>"; };
-		F69A16A51AF24A9000EF43F0 /* MRAbstractDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MRAbstractDataProvider.h; path = MyTracker/MRAbstractDataProvider.h; sourceTree = "<group>"; };
-		F69A16A61AF24A9000EF43F0 /* MRCustomParamsProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MRCustomParamsProvider.h; path = MyTracker/MRCustomParamsProvider.h; sourceTree = "<group>"; };
-		F69A16A71AF24A9000EF43F0 /* MRMyTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MRMyTracker.h; path = MyTracker/MRMyTracker.h; sourceTree = "<group>"; };
-		F69A16A81AF24A9000EF43F0 /* MRTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MRTracker.h; path = MyTracker/MRTracker.h; sourceTree = "<group>"; };
-		F69A16A91AF24A9000EF43F0 /* MRTrackerParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MRTrackerParams.h; path = MyTracker/MRTrackerParams.h; sourceTree = "<group>"; };
-		F69A16AA1AF24A9000EF43F0 /* MRTrackerParams+Corp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MRTrackerParams+Corp.h"; path = "MyTracker/MRTrackerParams+Corp.h"; sourceTree = "<group>"; };
+		F696CCBA1C2816FB00150DFD /* MyTrackerSDKCorp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MyTrackerSDKCorp.framework; path = MyTracker/MyTrackerSDKCorp.framework; sourceTree = "<group>"; };
 		F6A750B71BE8C74400981B41 /* MWMSearchHistoryMyPositionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchHistoryMyPositionCell.h; sourceTree = "<group>"; };
 		F6A750B81BE8C74400981B41 /* MWMSearchHistoryMyPositionCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchHistoryMyPositionCell.mm; sourceTree = "<group>"; };
 		F6A750BA1BE8C7BA00981B41 /* MWMSearchHistoryMyPositionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMSearchHistoryMyPositionCell.xib; sourceTree = "<group>"; };
@@ -1402,6 +1395,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F696CCBB1C2816FB00150DFD /* MyTrackerSDKCorp.framework in Frameworks */,
 				341876B41C28026D005A0C9A /* CoreVideo.framework in Frameworks */,
 				34751E9E1BFB8E73005299B7 /* MediaPlayer.framework in Frameworks */,
 				34570A411B13229300E6D4FD /* FBSDKLoginKit.framework in Frameworks */,
@@ -1413,7 +1407,6 @@
 				34570A361B13217C00E6D4FD /* Bolts.framework in Frameworks */,
 				34570A371B13217C00E6D4FD /* Parse.framework in Frameworks */,
 				34570A381B13217C00E6D4FD /* ParseFacebookUtilsV4.framework in Frameworks */,
-				F69A16A31AF24A3300EF43F0 /* libMyTracker.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				F6BC1E4D1ACBE96100EF0360 /* FBSDKCoreKit.framework in Frameworks */,
 				F6BC1E4E1ACBE96100EF0360 /* FBSDKShareKit.framework in Frameworks */,
@@ -1529,7 +1522,6 @@
 				6741AA381BF340DE002C974C /* Bolts.framework in Frameworks */,
 				6741AA391BF340DE002C974C /* Parse.framework in Frameworks */,
 				6741AA3A1BF340DE002C974C /* ParseFacebookUtilsV4.framework in Frameworks */,
-				6741AA3B1BF340DE002C974C /* libMyTracker.a in Frameworks */,
 				6741AA3C1BF340DE002C974C /* Foundation.framework in Frameworks */,
 				6741AA3D1BF340DE002C974C /* FBSDKCoreKit.framework in Frameworks */,
 				6741AA3E1BF340DE002C974C /* FBSDKShareKit.framework in Frameworks */,
@@ -1659,7 +1651,6 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				F69A16AB1AF24A9400EF43F0 /* MyTracker */,
 				28A0AB4B0D9B1048005BE974 /* Maps_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.mm */,
 			);
@@ -1683,6 +1674,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F696CCBA1C2816FB00150DFD /* MyTrackerSDKCorp.framework */,
 				674A7E201C0DA55E003D48E1 /* libdrape_frontend.a */,
 				674A7E211C0DA55E003D48E1 /* libdrape.a */,
 				674A7E221C0DA55E003D48E1 /* libsdf_image.a */,
@@ -1719,7 +1711,6 @@
 				34570A331B13217C00E6D4FD /* Bolts.framework */,
 				34570A341B13217C00E6D4FD /* Parse.framework */,
 				34570A351B13217C00E6D4FD /* ParseFacebookUtilsV4.framework */,
-				F69A16A21AF24A3300EF43F0 /* libMyTracker.a */,
 				4540406E1AD2D9C5007A9B12 /* WatchKit.framework */,
 				454040681AD2D8D2007A9B12 /* CoreVideo.framework */,
 				F673E9151AD2B65B0064EB7F /* GLKit.framework */,
@@ -2552,19 +2543,6 @@
 				F6830F0E1B85DD7600C42AAE /* Lanes */,
 			);
 			name = Panels;
-			sourceTree = "<group>";
-		};
-		F69A16AB1AF24A9400EF43F0 /* MyTracker */ = {
-			isa = PBXGroup;
-			children = (
-				F69A16A51AF24A9000EF43F0 /* MRAbstractDataProvider.h */,
-				F69A16A61AF24A9000EF43F0 /* MRCustomParamsProvider.h */,
-				F69A16A71AF24A9000EF43F0 /* MRMyTracker.h */,
-				F69A16A81AF24A9000EF43F0 /* MRTracker.h */,
-				F69A16A91AF24A9000EF43F0 /* MRTrackerParams.h */,
-				F69A16AA1AF24A9000EF43F0 /* MRTrackerParams+Corp.h */,
-			);
-			name = MyTracker;
 			sourceTree = "<group>";
 		};
 		F6BBF2C31B4FFB56000CF8E2 /* LocationAlert */ = {
@@ -4782,7 +4760,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../omim-iphone-debug-i386/out/debug\"",
-					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/Statistics",
 				);
 				OTHER_CFLAGS = (
@@ -4837,6 +4814,7 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/MyTracker",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
 				OTHER_CFLAGS = (
@@ -4901,7 +4879,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../omim-iphone-debug-$(CURRENT_ARCH)/out/debug\"",
-					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/Statistics",
 				);
 				ONLY_ACTIVE_ARCH = YES;
@@ -4956,6 +4933,7 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/MyTracker",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
 				OTHER_CFLAGS = (
@@ -5024,7 +5002,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../omim-iphone-production-$(CURRENT_ARCH)/out/production\"",
-					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/Statistics",
 				);
 				OTHER_CFLAGS = (
@@ -5079,6 +5056,7 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/MyTracker",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
 				OTHER_CFLAGS = (
@@ -5147,7 +5125,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../omim-iphone-production-$(CURRENT_ARCH)/out/production\"",
-					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/Statistics",
 				);
 				OTHER_CFLAGS = (
@@ -5202,6 +5179,7 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/MyTracker",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
 				OTHER_CFLAGS = (
@@ -5268,7 +5246,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../omim-iphone-release-$(CURRENT_ARCH)/out/release\"",
-					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/Statistics",
 				);
 				ONLY_ACTIVE_ARCH = YES;
@@ -5323,6 +5300,7 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/MyTracker",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
 				OTHER_CFLAGS = (
@@ -5389,7 +5367,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../omim-iphone-release-i386/out/release\"",
-					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/Statistics",
 				);
 				OTHER_CFLAGS = (
@@ -5444,6 +5421,7 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/MyTracker",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
 				OTHER_CFLAGS = (

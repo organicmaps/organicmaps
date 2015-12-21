@@ -4,8 +4,8 @@
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 #import "Flurry.h"
-#import "MRMyTracker.h"
-#import "MRTrackerParams.h"
+#import <MyTrackerSDKCorp/MRMyTracker.h>
+#import <MyTrackerSDKCorp/MRTrackerParams.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 #include "platform/settings.hpp"
