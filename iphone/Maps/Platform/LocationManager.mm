@@ -22,6 +22,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
 @interface LocationManager ()
 
 @property (nonatomic, readwrite) BOOL isDaemonMode;
+@property (nonatomic) BOOL deferringUpdates;
 
 @end
 
@@ -69,6 +70,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
 - (void)onDaemonMode
 {
   self.isDaemonMode = YES;
+  [m_locationManager stopMonitoringSignificantLocationChanges];
   [m_locationManager startUpdatingLocation];
 }
 
@@ -84,6 +86,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
   self.isDaemonMode = NO;
   [m_locationManager stopMonitoringSignificantLocationChanges];
   [m_locationManager disallowDeferredLocationUpdates];
+  self.deferringUpdates = NO;
   [self orientationChanged];
 }
 
@@ -169,8 +172,15 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
   [self processLocation:locations.lastObject];
-  if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground)
-    [m_locationManager allowDeferredLocationUpdatesUntilTraveled:300 timeout:15];
+  if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground || !self.deferringUpdates)
+    return;
+  [m_locationManager allowDeferredLocationUpdatesUntilTraveled:300 timeout:15];
+  self.deferringUpdates = NO;
+}
+
+- (BOOL)deferringUpdates
+{
+  return _deferringUpdates && [CLLocationManager deferredLocationUpdatesAvailable];
 }
 
 - (void)processLocation:(CLLocation *)location
@@ -191,6 +201,11 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
     // TODO(AlexZ): Temporary, remove in the future.
   }
   GpsTracker::Instance().OnLocationUpdated(newInfo);
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFinishDeferredUpdatesWithError:(NSError *)error
+{
+  self.deferringUpdates = YES;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
