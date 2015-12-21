@@ -40,6 +40,7 @@ HEADERS += \
     cancellable.hpp \
     condition.hpp \
     const_helper.hpp \
+    enumerate.hpp \
     exception.hpp \
     internal/message.hpp \
     limited_priority_queue.hpp \
