@@ -405,8 +405,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   self.view.clipsToBounds = YES;
   [MTRGManager setMyCom:YES];
   self.controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
-  if (!isIOSVersionLessThan(8))
-    [self showWhatsNewIfNeeded];
 }
 
 - (void)showWhatsNewIfNeeded
