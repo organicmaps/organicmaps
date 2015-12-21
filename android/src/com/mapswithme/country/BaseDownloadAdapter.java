@@ -652,16 +652,16 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
     switch (status)
     {
       case MapStorage.ON_DISK_OUT_OF_DATE:
-        return mColorOutdated;// 0xFF666666;
+        return mColorOutdated;
 
       case MapStorage.NOT_DOWNLOADED:
-        return mColorNotDownloaded;// 0xFF333333;
+        return mColorNotDownloaded;
 
       case MapStorage.DOWNLOAD_FAILED:
-        return mColorFailed;// 0xFFFF0000;
+        return mColorFailed;
 
       default:
-        return mColorDownloaded;// 0xFF000000;
+        return mColorDownloaded;
     }
   }
 
