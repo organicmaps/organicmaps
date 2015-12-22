@@ -64,12 +64,13 @@ public:
     {
       float pixelOffset = 0.0f;
       uint32_t startIndex = 0;
+      bool foundOffset = false;
       for (auto pos : globalPoints)
       {
         pos = screen.GtoP(pos);
         if (!screen.PixelRect().IsPointInside(pos))
         {
-          if (CalculateOffsets(pixelSpline, startIndex, pixelOffset))
+          if (foundOffset = CalculateOffsets(pixelSpline, startIndex, pixelOffset))
             break;
 
           pixelSpline = m2::Spline(m_spline->GetSize());
@@ -78,7 +79,7 @@ public:
         pixelSpline.AddPoint(screen.PtoP3d(pos));
       }
 
-      if (pixelOffset == 0.0f && !CalculateOffsets(pixelSpline, startIndex, pixelOffset))
+      if (!foundOffset && !CalculateOffsets(pixelSpline, startIndex, pixelOffset))
         return false;
 
       centerPointIter.Attach(pixelSpline);
@@ -87,7 +88,7 @@ public:
     }
     else
     {
-      for (auto pos : globalPoints)
+      for (auto const & pos : globalPoints)
         pixelSpline.AddPoint(screen.GtoP(pos));
 
       centerPointIter.Attach(pixelSpline);
@@ -195,6 +196,7 @@ private:
       return false;
     }
 
+    ASSERT_LESS_OR_EQUAL(startIndex, m_textIndex, ());
     pixelOffset = offsets[m_textIndex - startIndex];
     return true;
   }
