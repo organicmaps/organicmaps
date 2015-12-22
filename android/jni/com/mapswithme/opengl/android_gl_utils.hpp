@@ -15,6 +15,7 @@ public:
 
   int operator()(EGLConfig const & l, EGLConfig const & r) const;
   int configWeight(EGLConfig const & config) const;
+  int configAlphaSize(EGLConfig const & config) const;
 
 private:
   EGLDisplay m_display;

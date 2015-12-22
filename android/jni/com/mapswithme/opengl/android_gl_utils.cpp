@@ -13,7 +13,11 @@ ConfigComparator::ConfigComparator(EGLDisplay display)
 
 int ConfigComparator::operator()(EGLConfig const & l, EGLConfig const & r) const
 {
-  return configWeight(l) - configWeight(r);
+  int const weight = configWeight(l) - configWeight(r);
+  if (weight == 0)
+    return configAlphaSize(l) - configAlphaSize(r);
+
+  return weight;
 }
 
 int ConfigComparator::configWeight(EGLConfig const & config) const
@@ -32,6 +36,13 @@ int ConfigComparator::configWeight(EGLConfig const & config) const
     default:
       return 0;
   }
+}
+
+int ConfigComparator::configAlphaSize(EGLConfig const & config) const
+{
+  int val = 0;
+  eglGetConfigAttrib(m_display, config, EGL_ALPHA_SIZE, &val);
+  return val;
 }
 
 namespace
