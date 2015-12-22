@@ -156,7 +156,10 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
     HandleComparator comparator(m_followingMode);
     for (auto const & info : elements)
     {
-      bool const rejectByDepth = is3dMode ? posY > info.m_handle->GetPivot(modelView, is3dMode).y : false;
+      bool const pathTextComparation = handle->HasDynamicAttributes() || info.m_handle->HasDynamicAttributes();
+      bool const rejectByDepth = is3dMode ? !pathTextComparation &&
+                                            posY > info.m_handle->GetPivot(modelView, is3dMode).y
+                                          : false;
       bool const rejectByTime = !info.m_handle->IsMinVisibilityTimeUp();
       if (rejectByDepth || rejectByTime || comparator.IsGreater(info.m_handle, handleToCompare))
       {
