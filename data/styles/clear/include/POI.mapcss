@@ -209,7 +209,7 @@ node|z16[amenity=hospital], area|z16[amenity=hospital] { icon-image: hospital-m.
 node|z16[amenity=clinic], area|z16[amenity=clinic] { icon-image: hospital-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
 node|z16[amenity=university][name], area|z16[amenity=university][name] { icon-image: college-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 1;icon-min-distance: 11; -x-me-text-priority:16000;}
 node|z16[amenity=university][!name], area|z16[amenity=university][!name] { }
-node|z16[amenity=fuel], area|z16[amenity=fuel] { icon-image: fuel-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; }
+node|z16[amenity=fuel], area|z16[amenity=fuel] { icon-image: fuel-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; -x-me-text-priority:15500; }
 node|z16-[natural=spring],area|z16-[natural=spring]{ icon-image: drinking-water-m.svg; z-index: 1000; text-offset:8; font-size: 10;  text: name; text-color: @poi_label; z-index: 100; z-index: 2700; }
 node|z16[amenity=cafe], area|z16[amenity=cafe] { icon-image: cafe-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2600; icon-min-distance: 10;}
 node|z16[amenity=restaurant], area|z16[amenity=restaurant] { icon-image: restaurant-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2600;icon-min-distance: 10;}
