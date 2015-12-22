@@ -92,16 +92,16 @@
 		671C621A1AE9227C00076BD0 /* string_intersection_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = string_intersection_test.cpp; sourceTree = "<group>"; };
 		671C621B1AE9227C00076BD0 /* string_match_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = string_match_test.cpp; sourceTree = "<group>"; };
 		671C62241AE9229A00076BD0 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
-		671C62271AE9233200076BD0 /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = ../../../../../../Volumes/AltHD/Xcode/DerivedData/Build/Products/Debug/libindexer.a; sourceTree = "<group>"; };
-		671C62291AE9233C00076BD0 /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = ../../../../../../Volumes/AltHD/Xcode/DerivedData/Build/Products/Debug/libplatform.a; sourceTree = "<group>"; };
+		671C62271AE9233200076BD0 /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-xcode-build/Debug-iphonesimulator/libindexer.a"; sourceTree = "<group>"; };
+		671C62291AE9233C00076BD0 /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "../../../omim-xcode-build/Debug-iphonesimulator/libplatform.a"; sourceTree = "<group>"; };
 		671C622B1AE9238B00076BD0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		671C622D1AE923A300076BD0 /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = ../../../../../../Volumes/AltHD/Xcode/DerivedData/Build/Products/Debug/libcoding.a; sourceTree = "<group>"; };
+		671C622D1AE923A300076BD0 /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-xcode-build/Debug-iphonesimulator/libcoding.a"; sourceTree = "<group>"; };
 		671C622F1AE9243E00076BD0 /* QtCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtCore.framework; path = ../../../../../../usr/local/Cellar/qt5/5.3.2/lib/QtCore.framework; sourceTree = "<group>"; };
 		671C62311AE9245900076BD0 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
-		671C62331AE924AB00076BD0 /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libprotobuf.a; path = ../../../../../../usr/local/Cellar/protobuf/2.6.1/lib/libprotobuf.a; sourceTree = "<group>"; };
-		671C62351AE924BD00076BD0 /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = ../../../../../../Volumes/AltHD/Xcode/DerivedData/Build/Products/Debug/libtomcrypt.a; sourceTree = "<group>"; };
-		671C62371AE924CE00076BD0 /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = ../../../../../../Volumes/AltHD/Xcode/DerivedData/Build/Products/Debug/libbase.a; sourceTree = "<group>"; };
-		671C62391AE924E600076BD0 /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgeometry.a; path = ../../../../../../Volumes/AltHD/Xcode/DerivedData/Build/Products/Debug/libgeometry.a; sourceTree = "<group>"; };
+		671C62331AE924AB00076BD0 /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libprotobuf.a; path = "../../../omim-xcode-build/Debug-iphonesimulator/libprotobuf.a"; sourceTree = "<group>"; };
+		671C62351AE924BD00076BD0 /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-xcode-build/Debug-iphonesimulator/libtomcrypt.a"; sourceTree = "<group>"; };
+		671C62371AE924CE00076BD0 /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug-iphonesimulator/libbase.a"; sourceTree = "<group>"; };
+		671C62391AE924E600076BD0 /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgeometry.a; path = "../../../omim-xcode-build/Debug-iphonesimulator/libgeometry.a"; sourceTree = "<group>"; };
 		675346B01A4055CF00A0A8C3 /* libsearch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsearch.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		675346BE1A40560D00A0A8C3 /* algos.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = algos.hpp; sourceTree = "<group>"; };
 		675346BF1A40560D00A0A8C3 /* approximate_string_match.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = approximate_string_match.cpp; sourceTree = "<group>"; };
@@ -425,11 +425,6 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_SHADOW = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					/Volumes/AltHD/Xcode/DerivedData/Build/Products/Debug,
-					/usr/local/Cellar/protobuf/2.6.1/lib,
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -446,11 +441,6 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_SHADOW = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					/Volumes/AltHD/Xcode/DerivedData/Build/Products/Debug,
-					/usr/local/Cellar/protobuf/2.6.1/lib,
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

@@ -111,6 +111,8 @@
 		34C659471BD12A77009DC20A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34C659451BD12A77009DC20A /* InfoPlist.strings */; };
 		34C659481BD12A77009DC20A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34C659451BD12A77009DC20A /* InfoPlist.strings */; };
 		34C6594C1BD12A89009DC20A /* sound-strings in Resources */ = {isa = PBXBuildFile; fileRef = 5605022E1B6211E100169CAD /* sound-strings */; };
+		34CA57181C292F17004D9C89 /* MyTrackerSDKCorp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F696CCBA1C2816FB00150DFD /* MyTrackerSDKCorp.framework */; };
+		34CA57191C292F50004D9C89 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864B186C5EAA00AF7E9E /* MediaPlayer.framework */; };
 		34CC4C091B81F3B500E44C1F /* MWMSearchTabbedViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34CC4C071B81F3B500E44C1F /* MWMSearchTabbedViewController.mm */; };
 		34CC4C0A1B81F3B500E44C1F /* MWMSearchTabbedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34CC4C081B81F3B500E44C1F /* MWMSearchTabbedViewController.xib */; };
 		34CC4C0E1B82069C00E44C1F /* MWMSearchTabbedCollectionViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34CC4C0C1B82069C00E44C1F /* MWMSearchTabbedCollectionViewCell.mm */; };
@@ -1130,8 +1132,6 @@
 		97A5967E19B9CD47007A963F /* copyright.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = copyright.html; path = ../../data/copyright.html; sourceTree = "<group>"; };
 		97C98520186AE3CF00AF7E9E /* AppInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppInfo.mm; sourceTree = "<group>"; };
 		97C98521186AE3CF00AF7E9E /* AppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInfo.h; sourceTree = "<group>"; };
-		97C98647186C5E9900AF7E9E /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
-		97C98648186C5E9900AF7E9E /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		97C9864B186C5EAA00AF7E9E /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		97C9864D186C5ED300AF7E9E /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		97C9864F186C5EDE00AF7E9E /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
@@ -1145,7 +1145,6 @@
 		97ECD87718362B3D00F77A46 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		97ECD87918362B5400F77A46 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		97ECD87E1836594400F77A46 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		97EDDCE418A299C000AEFB7A /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		97F0817C19AF72590098FB0B /* BadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BadgeView.h; path = Classes/BadgeView.h; sourceTree = "<group>"; };
 		97F0817D19AF72590098FB0B /* BadgeView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = BadgeView.mm; path = Classes/BadgeView.mm; sourceTree = "<group>"; };
 		97F6178F183E742E009919E2 /* LinkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LinkCell.h; path = Settings/LinkCell.h; sourceTree = "<group>"; };
@@ -1495,7 +1494,9 @@
 				6741AAC41BF356BA002C974C /* libfreetype.a in Frameworks */,
 				6741AAC51BF356BA002C974C /* libfribidi.a in Frameworks */,
 				6741AAC61BF356BA002C974C /* libgeometry.a in Frameworks */,
+				34CA57191C292F50004D9C89 /* MediaPlayer.framework in Frameworks */,
 				674A7E291C0DA576003D48E1 /* libsdf_image.a in Frameworks */,
+				34CA57181C292F17004D9C89 /* MyTrackerSDKCorp.framework in Frameworks */,
 				6741AAC91BF356BA002C974C /* libindexer.a in Frameworks */,
 				341876B51C280272005A0C9A /* CoreVideo.framework in Frameworks */,
 				6741AACA1BF356BA002C974C /* libjansson.a in Frameworks */,
@@ -1718,7 +1719,6 @@
 				F6BC1E4C1ACBE96100EF0360 /* FBSDKShareKit.framework */,
 				B00511051A1101FC00A61AA4 /* CoreMedia.framework */,
 				B00511031A1101F600A61AA4 /* CoreData.framework */,
-				97EDDCE418A299C000AEFB7A /* Twitter.framework */,
 				972CDCC51887F1B7006641CA /* CFNetwork.framework */,
 				97C98655186C734000AF7E9E /* AVFoundation.framework */,
 				97C98653186C5F0500AF7E9E /* AudioToolbox.framework */,
@@ -1726,8 +1726,6 @@
 				97C9864F186C5EDE00AF7E9E /* PassKit.framework */,
 				97C9864D186C5ED300AF7E9E /* Social.framework */,
 				97C9864B186C5EAA00AF7E9E /* MediaPlayer.framework */,
-				97C98647186C5E9900AF7E9E /* EventKit.framework */,
-				97C98648186C5E9900AF7E9E /* EventKitUI.framework */,
 				97719D471843B6F200BDD815 /* Security.framework */,
 				97719D441843B6DC00BDD815 /* MessageUI.framework */,
 				97ECD87E1836594400F77A46 /* StoreKit.framework */,
@@ -4206,6 +4204,7 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/MyTracker",
 				);
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/MAPSME.plist";
@@ -4238,6 +4237,7 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/MyTracker",
 				);
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/MAPSME.plist";
@@ -4271,6 +4271,7 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/MyTracker",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(OMIM_ROOT)",
@@ -4307,6 +4308,7 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/MyTracker",
 				);
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/MAPSME.plist";
@@ -4340,6 +4342,7 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/MyTracker",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(OMIM_ROOT)",
@@ -4376,6 +4379,7 @@
 					"$(PROJECT_DIR)/PushNotifications",
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/MyTracker",
 				);
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/MAPSME.plist";
