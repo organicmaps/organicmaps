@@ -38,8 +38,7 @@ FeatureType FeatureType::FromXML(string const & xml)
 FeatureType FeatureType::FromXML(editor::XMLFeature const & xml)
 {
   FeatureType feature;
-  feature.m_bTrianglesParsed = false;
-  feature.m_bPointsParsed = false;
+  feature.m_bTrianglesParsed = feature.m_bPointsParsed = true;
 
   feature.m_center = xml.GetCenter();
 
