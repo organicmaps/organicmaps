@@ -306,7 +306,7 @@ class WeekdayRange
   using TNths = std::vector<NthWeekdayOfTheMonthEntry>;
 
 public:
-  bool HasWday(Weekday const & wday) const;
+  bool HasWday(Weekday const wday) const;
 
   bool HasSunday() const { return HasWday(Weekday::Sunday); }
   bool HasMonday() const { return HasWday(Weekday::Monday); }

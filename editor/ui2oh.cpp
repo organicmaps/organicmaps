@@ -64,6 +64,9 @@ osmoh::OpeningHours ConvertOpeningHours(ui::TimeTableSet const & tt)
 
 bool ConvertOpeningHours(osmoh::OpeningHours const & oh, ui::TimeTableSet & tts)
 {
+  if (!oh.IsValid())
+    return false;
+
   if (oh.HasYearSelector() || oh.HasWeekSelector() || oh.HasMonthSelector())
     return false;
 
@@ -91,5 +94,11 @@ bool ConvertOpeningHours(osmoh::OpeningHours const & oh, ui::TimeTableSet & tts)
   }
 
   return true;
+}
+
+bool ConvertOpeningHours(string oh, ui::TimeTableSet & tts)
+{
+  replace(begin(oh), end(oh), '\n', ';');
+  return ConvertOpeningHours(osmoh::OpeningHours(oh), tts);
 }
 } // namespace editor

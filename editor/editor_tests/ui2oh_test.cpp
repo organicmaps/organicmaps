@@ -110,4 +110,37 @@ UNIT_TEST(ConvertOpeningHours)
 
     TEST(!ConvertOpeningHours(oh, tts), ());
   }
+  {
+    OpeningHours oh("Mo-Su 11:00-24:00");
+    TEST(oh.IsValid(), ());
+
+    TimeTableSet tts;
+
+    TEST(ConvertOpeningHours(oh, tts), ());
+    TEST_EQUAL(tts.Size(), 1, ());
+
+    auto const tt = tts.Front();
+    TEST(!tt.IsTwentyFourHours(), ());
+    TEST_EQUAL(tt.GetWorkingDays().size(), 7, ());
+    TEST_EQUAL(tt.GetOpeningTime().GetStart().GetHourMinutes().GetHoursCount(), 11, ());
+    TEST_EQUAL(tt.GetOpeningTime().GetEnd().GetHourMinutes().GetHoursCount(), 24, ());
+  }
+  {
+    TimeTableSet tts;
+
+    TEST(ConvertOpeningHours("Mo-Fr 08:00-10:00\n Su, Sa 13:00-22:00", tts), ());
+    TEST_EQUAL(tts.Size(), 2, ());
+
+    {
+      auto const tt = tts.Get(0);
+      TEST(!tt.IsTwentyFourHours(), ());
+      TEST_EQUAL(tt.GetWorkingDays().size(), 5, ());
+    }
+
+    {
+      auto const tt = tts.Get(1);
+      TEST(!tt.IsTwentyFourHours(), ());
+      TEST_EQUAL(tt.GetWorkingDays().size(), 2, ());
+    }
+  }
 }

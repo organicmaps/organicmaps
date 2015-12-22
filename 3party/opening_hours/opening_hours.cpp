@@ -335,7 +335,7 @@ std::ostream & operator<<(std::ostream & ost, NthWeekdayOfTheMonthEntry const en
 }
 
 // WeekdayRange ------------------------------------------------------------------------------------
-bool WeekdayRange::HasWday(Weekday const & wday) const
+bool WeekdayRange::HasWday(Weekday const wday) const
 {
   if (IsEmpty() || wday == Weekday::None)
     return false;
@@ -343,9 +343,10 @@ bool WeekdayRange::HasWday(Weekday const & wday) const
   if (!HasEnd())
     return GetStart() == wday;
 
-  return GetStart() <= wday && wday <= GetEnd();
+  return (GetStart() <= GetEnd())
+      ? GetStart() <= wday && wday <= GetEnd()
+      : wday >= GetEnd() || GetStart() <= wday;
 }
-
 
 std::ostream & operator<<(std::ostream & ost, Weekday const wday)
 {
