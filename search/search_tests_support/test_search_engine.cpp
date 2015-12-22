@@ -33,12 +33,13 @@ public:
   }
 };
 
-class TestSearchQueryFactory : public search::SearchQueryFactory
+class TestSearchQueryFactory : public ::search::SearchQueryFactory
 {
   // search::SearchQueryFactory overrides:
-  unique_ptr<search::Query> BuildSearchQuery(Index & index, CategoriesHolder const & categories,
-                                             vector<search::Suggest> const & suggests,
-                                             storage::CountryInfoGetter const & infoGetter) override
+  unique_ptr<::search::Query> BuildSearchQuery(
+      Index & index, CategoriesHolder const & categories,
+      vector<::search::Suggest> const & suggests,
+      storage::CountryInfoGetter const & infoGetter) override
   {
     return make_unique<TestQuery>(index, categories, suggests, infoGetter);
   }
@@ -69,7 +70,7 @@ TestSearchEngine::TestSearchEngine(string const & locale,
 
 TestSearchEngine::TestSearchEngine(string const & locale,
                                    unique_ptr<storage::CountryInfoGetter> && infoGetter,
-                                   unique_ptr<search::SearchQueryFactory> && factory)
+                                   unique_ptr<::search::SearchQueryFactory> && factory)
   : m_platform(GetPlatform())
   , m_infoGetter(move(infoGetter))
   , m_engine(*this, m_platform.GetReader(SEARCH_CATEGORIES_FILE_NAME), *m_infoGetter, locale,
@@ -79,8 +80,8 @@ TestSearchEngine::TestSearchEngine(string const & locale,
 
 TestSearchEngine::~TestSearchEngine() {}
 
-weak_ptr<search::QueryHandle> TestSearchEngine::Search(search::SearchParams const & params,
-                                                       m2::RectD const & viewport)
+weak_ptr<::search::QueryHandle> TestSearchEngine::Search(::search::SearchParams const & params,
+                                                         m2::RectD const & viewport)
 {
   return m_engine.Search(params, viewport);
 }
