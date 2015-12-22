@@ -66,8 +66,9 @@ typedef NS_ENUM(NSUInteger, Section)
   switch (sections[section])
   {
   case SectionMetrics:
-  case SectionRouting:
     return 2;
+  case SectionRouting:
+    return 3;
   case SectionMap:
   case SectionAd:
   case SectionStatistics:
@@ -136,19 +137,34 @@ typedef NS_ENUM(NSUInteger, Section)
   }
   case SectionRouting:
   {
-    if (indexPath.row == 0)
+    switch (indexPath.row)
+    {
+    case 0:
+    {
+      cell = [tableView dequeueReusableCellWithIdentifier:[LinkCell className]];
+      LinkCell * customCell = (LinkCell *)cell;
+      customCell.titleLabel.text = L(@"prefs_map_view_title");
+      break;
+    }
+    case 1:
     {
       cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
       SwitchCell * customCell = (SwitchCell *)cell;
       customCell.switchButton.on = [[MWMTextToSpeech tts] isNeedToEnable];
       customCell.titleLabel.text = L(@"pref_tts_enable_title");
       customCell.delegate = self;
+      break;
     }
-    else
+    case 2:
     {
       cell = [tableView dequeueReusableCellWithIdentifier:[LinkCell className]];
       LinkCell * customCell = (LinkCell *)cell;
       customCell.titleLabel.text = L(@"pref_tts_language_title");
+      break;
+    }
+    default:
+      NSAssert(false, @"Incorrect index path!");
+      break;
     }
     break;
   }
@@ -241,7 +257,11 @@ Settings::Units unitsForIndex(NSInteger index)
     break;
   }
   case SectionRouting:
-    if (indexPath.row == 1)
+    if (indexPath.row == 0)
+    {
+      [self performSegueWithIdentifier:@"SettingsToMapViewSegue" sender:nil];
+    }
+    else if (indexPath.row == 2)
     {
       [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatTTS)
                      withParameters:@{kStatAction : kStatChangeLanguage}];
