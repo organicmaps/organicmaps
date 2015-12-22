@@ -24,7 +24,7 @@ extern NSString * const kTTSStatusWasChangedNotification = @"TTFStatusWasChanged
 typedef NS_ENUM(NSUInteger, Section)
 {
   SectionMetrics,
-  SectionZoomButtons,
+  SectionMap,
   SectionRouting,
   SectionCalibration,
   SectionAd,
@@ -49,19 +49,9 @@ typedef NS_ENUM(NSUInteger, Section)
   bool adServerForbidden = false;
   (void)Settings::Get(kAdServerForbiddenKey, adServerForbidden);
   if (isIOSVersionLessThan(8) || adServerForbidden)
-    sections = {SectionMetrics, SectionZoomButtons, SectionRouting, SectionCalibration, SectionStatistics};
+    sections = {SectionMetrics, SectionMap, SectionRouting, SectionCalibration, SectionStatistics};
   else
-    sections = {SectionMetrics, SectionZoomButtons, SectionRouting, SectionCalibration, SectionAd, SectionStatistics};
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-  [super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-  [super viewWillDisappear:animated];
+    sections = {SectionMetrics, SectionMap, SectionRouting, SectionCalibration, SectionAd, SectionStatistics};
 }
 
 #pragma mark - Table view data source
@@ -73,28 +63,36 @@ typedef NS_ENUM(NSUInteger, Section)
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  if (sections[section] == SectionMetrics || sections[section] == SectionRouting)
+  switch (sections[section])
+  {
+  case SectionMetrics:
+  case SectionRouting:
     return 2;
-  else
+  case SectionMap:
+  case SectionAd:
+  case SectionStatistics:
+  case SectionCalibration:
     return 1;
+  }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell * cell = nil;
-  Section section = sections[indexPath.section];
-  if (section == SectionMetrics)
+  switch (sections[indexPath.section])
+  {
+  case SectionMetrics:
   {
     cell = [tableView dequeueReusableCellWithIdentifier:[SelectableCell className]];
     Settings::Units units = Settings::Metric;
     (void)Settings::Get("Units", units);
-    BOOL selected = units == unitsForIndex(indexPath.row);
-
+    BOOL const selected = units == unitsForIndex(indexPath.row);
     SelectableCell * customCell = (SelectableCell *)cell;
     customCell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     customCell.titleLabel.text = indexPath.row == 0 ? L(@"kilometres") : L(@"miles");
+    break;
   }
-  else if (section == SectionAd)
+  case SectionAd:
   {
     cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
     SwitchCell * customCell = (SwitchCell *)cell;
@@ -103,8 +101,9 @@ typedef NS_ENUM(NSUInteger, Section)
     customCell.switchButton.on = !forbidden;
     customCell.titleLabel.text = L(@"showcase_settings_title");
     customCell.delegate = self;
+    break;
   }
-  else if (section == SectionStatistics)
+  case SectionStatistics:
   {
     cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
     SwitchCell * customCell = (SwitchCell *)cell;
@@ -113,28 +112,29 @@ typedef NS_ENUM(NSUInteger, Section)
     customCell.switchButton.on = on;
     customCell.titleLabel.text = L(@"allow_statistics");
     customCell.delegate = self;
+    break;
   }
-  else if (section == SectionZoomButtons)
+  case SectionMap:
   {
-    cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
-    SwitchCell * customCell = (SwitchCell *)cell;
-    bool on = true;
-    (void)Settings::Get("ZoomButtonsEnabled", on);
-    customCell.switchButton.on = on;
-    customCell.titleLabel.text = L(@"pref_zoom_title");
-    customCell.delegate = self;
+//    if (indexPath.row == 0)
+//    {
+//      cell = [tableView dequeueReusableCellWithIdentifier:[LinkCell className]];
+//      LinkCell * linkCell = static_cast<LinkCell *>(cell);
+//      linkCell.titleLabel.text = L(@"recent_track");
+//    }
+//    else
+//    {
+      cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
+      SwitchCell * customCell = (SwitchCell *)cell;
+      bool on = true;
+      (void)Settings::Get("ZoomButtonsEnabled", on);
+      customCell.switchButton.on = on;
+      customCell.titleLabel.text = L(@"pref_zoom_title");
+      customCell.delegate = self;
+//    }
+    break;
   }
-  else if (section == SectionCalibration)
-  {
-    cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
-    SwitchCell * customCell = (SwitchCell *)cell;
-    bool on = false;
-    (void)Settings::Get("CompassCalibrationEnabled", on);
-    customCell.switchButton.on = on;
-    customCell.titleLabel.text = L(@"pref_calibration_title");
-    customCell.delegate = self;
-  }
-  else if (section == SectionRouting)
+  case SectionRouting:
   {
     if (indexPath.row == 0)
     {
@@ -150,6 +150,19 @@ typedef NS_ENUM(NSUInteger, Section)
       LinkCell * customCell = (LinkCell *)cell;
       customCell.titleLabel.text = L(@"pref_tts_language_title");
     }
+    break;
+  }
+  case SectionCalibration:
+  {
+    cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
+    SwitchCell * customCell = (SwitchCell *)cell;
+    bool on = false;
+    (void)Settings::Get("CompassCalibrationEnabled", on);
+    customCell.switchButton.on = on;
+    customCell.titleLabel.text = L(@"pref_calibration_title");
+    customCell.delegate = self;
+    break;
+  }
   }
   return cell;
 }
@@ -158,8 +171,6 @@ typedef NS_ENUM(NSUInteger, Section)
 {
   if (section == SectionStatistics)
     return L(@"allow_statistics_hint");
-  else if (section == SectionZoomButtons)
-    return L(@"pref_zoom_summary");
   return nil;
 }
 
@@ -167,44 +178,46 @@ typedef NS_ENUM(NSUInteger, Section)
 {
   NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
   Statistics * stat = [Statistics instance];
-  Section section = sections[indexPath.section];
-  if (section == SectionAd)
+  switch (sections[indexPath.section])
   {
+  case SectionAd:
     [stat logEvent:kStatSettings
-        withParameters:@{kStatAction : kStatMoreApps, kStatValue : (value ? kStatOn : kStatOff)}];
+      withParameters:@{kStatAction : kStatMoreApps, kStatValue : (value ? kStatOn : kStatOff)}];
     Settings::Set(kAdForbiddenSettingsKey, (bool)!value);
-  }
-  else if (section == SectionStatistics)
-  {
+    break;
+
+  case SectionStatistics:
     [stat logEvent:kStatEventName(kStatSettings, kStatToggleStatistics)
-        withParameters:
-            @{kStatAction : kStatToggleStatistics, kStatValue : (value ? kStatOn : kStatOff)}];
+        withParameters: @{kStatAction : kStatToggleStatistics, kStatValue : (value ? kStatOn : kStatOff)}];
     if (value)
       [stat enableOnNextAppLaunch];
     else
       [stat disableOnNextAppLaunch];
-  }
-  else if (section == SectionZoomButtons)
-  {
+    break;
+
+  case SectionMap:
     [stat logEvent:kStatEventName(kStatSettings, kStatToggleZoomButtonsVisibility)
         withParameters:@{kStatValue : (value ? kStatVisible : kStatHidden)}];
     Settings::Set("ZoomButtonsEnabled", (bool)value);
     [MapsAppDelegate theApp].mapViewController.controlsManager.zoomHidden = !value;
-  }
-  else if (section == SectionCalibration)
-  {
+    break;
+
+  case SectionCalibration:
     [stat logEvent:kStatEventName(kStatSettings, kStatToggleCompassCalibration)
         withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
     Settings::Set("CompassCalibrationEnabled", (bool)value);
-  }
-  else if (section == SectionRouting)
-  {
+    break;
+
+  case SectionRouting:
     [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatTTS)
                      withParameters:@{kStatValue : value ? kStatOn : kStatOff}];
     [[MWMTextToSpeech tts] setNeedToEnable:value];
     [[NSNotificationCenter defaultCenter] postNotificationName:kTTSStatusWasChangedNotification
-                                                        object:nil
-                                                      userInfo:@{@"on" : @(value)}];
+                                                        object:nil userInfo:@{@"on" : @(value)}];
+    break;
+
+  case SectionMetrics:
+    break;
   }
 }
 
@@ -215,8 +228,9 @@ Settings::Units unitsForIndex(NSInteger index)
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  Section section = sections[indexPath.section];
-  if (section == SectionMetrics)
+  switch (sections[indexPath.section])
+  {
+  case SectionMetrics:
   {
     Settings::Units units = unitsForIndex(indexPath.row);
     [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatChangeMeasureUnits)
@@ -224,22 +238,43 @@ Settings::Units unitsForIndex(NSInteger index)
     Settings::Set("Units", units);
     [tableView reloadSections:[NSIndexSet indexSetWithIndex:SectionMetrics] withRowAnimation:UITableViewRowAnimationFade];
     GetFramework().SetupMeasurementSystem();
+    break;
   }
-  else if (section == SectionRouting && indexPath.row == 1)
-  {
-    [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatTTS)
+  case SectionRouting:
+    if (indexPath.row == 1)
+    {
+      [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatTTS)
                      withParameters:@{kStatAction : kStatChangeLanguage}];
+      [self performSegueWithIdentifier:@"SettingsToTTSSegue" sender:nil];
+    }
+    break;
+
+  case SectionMap:
+//    if (indexPath.row == 0)
+//      [self performSegueWithIdentifier:@"SettingsToRecentTrackSegue" sender:nil];
+//    break;
+  case SectionAd:
+  case SectionCalibration:
+  case SectionStatistics:
+    break;
   }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-  if (section == SectionMetrics)
+  switch (sections[section])
+  {
+  case SectionMetrics:
     return L(@"measurement_units");
-  else if (section == SectionRouting)
+  case SectionRouting:
     return L(@"prefs_group_route");
-  else
+  case SectionMap:
+    return L(@"prefs_group_map");
+  case SectionCalibration:
+  case SectionAd:
+  case SectionStatistics:
     return nil;
+  }
 }
 
 @end
