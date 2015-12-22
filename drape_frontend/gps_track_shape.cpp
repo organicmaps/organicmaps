@@ -170,6 +170,8 @@ void GpsTrackShape::Draw(ref_ptr<dp::TextureManager> texMng, GpsTrackRenderData 
   provider.InitStream(0 /* stream index */, GetGpsTrackStaticBindingInfo(), make_ref(staticVertexData.data()));
   provider.InitStream(1 /* stream index */, GetGpsTrackDynamicBindingInfo(), make_ref(dynamicVertexData.data()));
   batcher.InsertListOfStrip(GetGpsTrackState(texMng), make_ref(&provider), move(handle), kVerticesInPoint);
+
+  GLFunctions::glFlush();
 }
 
 } // namespace df

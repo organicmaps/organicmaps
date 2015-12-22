@@ -130,11 +130,9 @@ void GpsTrackRenderer::UpdatePoints(vector<GpsTrackPoint> const & toAdd, vector<
 
   if (wasChanged)
   {
-    vector<m2::PointD> path;
-    path.reserve(m_points.size());
+    m_pointsSpline = m2::Spline(m_points.size());
     for (size_t i = 0; i < m_points.size(); i++)
-      path.push_back(m_points[i].m_point);
-    m_pointsSpline = m2::Spline(path);
+      m_pointsSpline.AddPoint(m_points[i].m_point);
   }
 
   m_needUpdate = true;
@@ -272,7 +270,7 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
                             pt.x + radiusMercator, pt.y + radiusMercator);
         if (screen.ClipRect().IsIntersect(pointRect))
         {
-          dp::Color color = CalculatePointColor(static_cast<size_t>(it.GetIndex()), pt, it.GetLength(), it.GetFullLength());
+          dp::Color const color = CalculatePointColor(static_cast<size_t>(it.GetIndex()), pt, it.GetLength(), it.GetFullLength());
           m_handlesCache[cacheIndex].first->SetPoint(m_handlesCache[cacheIndex].second, pt, m_radius, color);
           m_handlesCache[cacheIndex].second++;
           if (m_handlesCache[cacheIndex].second >= m_handlesCache[cacheIndex].first->GetPointsCount())
