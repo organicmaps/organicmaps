@@ -911,7 +911,7 @@ void FrontendRenderer::RefreshModelView(ScreenBase const & screen)
 
   m_generalUniforms.SetMatrix4x4Value("modelView", mv.m_data);
 
-  float const zScale = 2.0f / (screen.GetWidth() * screen.GetScale());
+  float const zScale = 2.0f / (screen.GetHeight() * screen.GetScale());
   m_generalUniforms.SetFloatValue("zScale", zScale);
 }
 
