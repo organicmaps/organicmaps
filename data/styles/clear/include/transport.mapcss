@@ -461,14 +461,8 @@ node|z17-[railway=halt]::int_name {
   text-halo-color: @label_halo_light;
 }
 
-/* node|z16-[railway=level_crossing]	 { icon-image: railway-crossing.svg; } */
-/* SUBWAY STATIONS - GENERIC STYLES  */
 
-/*
-node|z13[railway=station][transport=subway] {
-	icon-image: subway-xs.svg;
-}
-*/
+/* SUBWAY STATIONS - GENERIC STYLES  */
 
 
 node|z14[railway=station][transport=subway] {
@@ -1505,4 +1499,4 @@ node|z18[aerialway=mixed_lift] {
 }
 
 
-node|z17-[railway=crossing] { icon-image: railway-crossing.svg; z-index: 2600;}
+node|z17-[railway=level_crossing]{ icon-image: railway-crossing.svg; z-index: 2600;}
