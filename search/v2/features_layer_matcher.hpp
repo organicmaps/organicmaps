@@ -133,7 +133,7 @@ private:
     vector<string> queryTokens;
     NormalizeHouseNumber(child.m_subQuery, queryTokens);
     bool const queryLooksLikeHouseNumber =
-        feature::IsHouseNumber(child.m_subQuery) && !queryTokens.empty();
+        !queryTokens.empty() && feature::IsHouseNumber(child.m_subQuery);
 
     uint32_t numFilterInvocations = 0;
     auto filter = [&](uint32_t id, FeatureType & feature) -> bool
@@ -186,7 +186,7 @@ private:
   ReverseGeocoder m_reverseGeocoder;
 
   // Cache of streets in a feature's vicinity. All lists in the cache
-  // are ordered by a distance.
+  // are ordered by distance.
   unordered_map<uint32_t, vector<ReverseGeocoder::Street>> m_nearbyStreetsCache;
 
   // Cache of correct streets for buildings. Current search algorithm

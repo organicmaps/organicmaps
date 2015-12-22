@@ -237,9 +237,8 @@ void Geocoder::DoGeocoding(size_t curToken)
       // DoGeocoding().  This may lead to use-after-free.
       auto & layer = m_layers.back();
 
-      // Following code intersects posting lists for tokens [curToken,
-      // curToken + n). This can be done incrementally, as we have
-      // |clusters| to store intersections.
+      // Following code intersects posting lists for [curToken, curToken + n).
+      // This can be done incrementally, as we store intersections in |clusters|.
       if (n == 1)
       {
         layer.m_sortedFeatures = &partition.m_clusters[i];
