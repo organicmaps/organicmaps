@@ -40,8 +40,6 @@ public:
   void SetInvalidateFn(TInvalidateFn && fn) { m_invalidateFn = move(fn); }
 
   void Load(string const & fullFilePath);
-  // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
-  void Save(string const & fullFilePath) const;
 
   using TFeatureIDFunctor = function<void(FeatureID const &)>;
   using TFeatureTypeFunctor = function<void(FeatureType &)>;
@@ -70,6 +68,9 @@ public:
   vector<feature::Metadata::EType> EditableMetadataForType(uint32_t type) const;
 
 private:
+  // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
+  void Save(string const & fullFilePath) const;
+
   struct FeatureTypeInfo
   {
     FeatureStatus m_status;
