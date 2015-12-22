@@ -322,7 +322,12 @@ Framework::Framework()
 
   LOG(LINFO, ("System languages:", languages::GetPreferred()));
 
-  osm::Editor::Instance().SetInvalidateFn([this](){ InvalidateRect(GetCurrentViewport()); });
+  osm::Editor & editor = osm::Editor::Instance();
+  editor.SetMwmIdByNameAndVersionFn([this](string const & name) -> MwmSet::MwmId
+  {
+    return m_model.GetIndex().GetMwmIdByCountryFile(platform::CountryFile(name));
+  });
+  editor.SetInvalidateFn([this](){ InvalidateRect(GetCurrentViewport()); });
 }
 
 Framework::~Framework()

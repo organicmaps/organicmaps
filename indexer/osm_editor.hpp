@@ -23,6 +23,7 @@ class Editor final
   Editor();
 
 public:
+  using TMwmIdByMapNameFn = function<MwmSet::MwmId(string const & /*map*/)>;
   using TInvalidateFn = function<void()>;
 
   enum FeatureStatus
@@ -35,6 +36,7 @@ public:
 
   static Editor & Instance();
 
+  void SetMwmIdByNameAndVersionFn(TMwmIdByMapNameFn && fn) { m_mwmIdByMapNameFn = move(fn); }
   void SetInvalidateFn(TInvalidateFn && fn) { m_invalidateFn = move(fn); }
 
   void Load(string const & fullFilePath);
@@ -83,6 +85,8 @@ private:
   /// Deleted, edited and created features.
   map<MwmSet::MwmId, map<uint32_t, FeatureTypeInfo>> m_features;
 
+  /// Get MwmId for each map, used in FeatureIDs and to check if edits are up-to-date.
+  TMwmIdByMapNameFn m_mwmIdByMapNameFn;
   /// Invalidate map viewport after edits.
   TInvalidateFn m_invalidateFn;
 };  // class Editor
