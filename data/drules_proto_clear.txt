@@ -36355,7 +36355,7 @@ cont {
     }
     area {
       color: 14934482
-      priority: -15338
+      priority: 16000
     }
     caption {
       primary {
@@ -36376,7 +36376,7 @@ cont {
     }
     area {
       color: 14934482
-      priority: -15338
+      priority: 16000
     }
     caption {
       primary {
@@ -36397,7 +36397,7 @@ cont {
     }
     area {
       color: 14934482
-      priority: -15338
+      priority: 16000
     }
     caption {
       primary {
@@ -36642,7 +36642,7 @@ cont {
     }
     area {
       color: 14934482
-      priority: -15338
+      priority: 16000
     }
     caption {
       primary {
@@ -36663,7 +36663,7 @@ cont {
     }
     area {
       color: 14934482
-      priority: -15338
+      priority: 16000
     }
     caption {
       primary {
@@ -36684,7 +36684,7 @@ cont {
     }
     area {
       color: 14934482
-      priority: -15338
+      priority: 16000
     }
     caption {
       primary {
@@ -48111,33 +48111,6 @@ cont {
   }
 }
 cont {
-  name: "railway-crossing"
-  element {
-    scale: 17
-    symbol {
-      name: "railway-crossing"
-      apply_for_type: 1
-      priority: 16864
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "railway-crossing"
-      apply_for_type: 1
-      priority: 16864
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "railway-crossing"
-      apply_for_type: 1
-      priority: 16864
-    }
-  }
-}
-cont {
   name: "railway-disused"
   element {
     scale: 18
@@ -48579,6 +48552,33 @@ cont {
         text: "int_name"
       }
       priority: 15891
+    }
+  }
+}
+cont {
+  name: "railway-level_crossing"
+  element {
+    scale: 17
+    symbol {
+      name: "railway-crossing"
+      apply_for_type: 1
+      priority: 16864
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "railway-crossing"
+      apply_for_type: 1
+      priority: 16864
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "railway-crossing"
+      apply_for_type: 1
+      priority: 16864
     }
   }
 }

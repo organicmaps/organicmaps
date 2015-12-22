@@ -2019,6 +2019,7 @@ node|z17-[man_made=breakwater]
   text-color:@poi_label;
   fill-opacity: 1;
   z-index: 1000;
+  -x-me-area-priority:16000;
 }
 
 area|z15-[waterway=dam],
