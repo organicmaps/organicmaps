@@ -2884,7 +2884,7 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 15000
+      priority: 15500
     }
   }
   element {
