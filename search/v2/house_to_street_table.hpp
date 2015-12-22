@@ -14,6 +14,8 @@ class HouseToStreetTable
 public:
   virtual ~HouseToStreetTable() = default;
 
+  /// @todo Actually, value may be nullptr in the very common case .
+  /// It's better to construct a table from MwmHandle.
   static unique_ptr<HouseToStreetTable> Load(MwmValue & value);
 
   // Returns an index number of a correct street corresponding to a

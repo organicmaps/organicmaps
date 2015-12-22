@@ -101,13 +101,13 @@ public:
 
 m2::PointD GetCenter(FeatureType const & f, int scale)
 {
-  feature::EGeomType const type = f.GetFeatureType();
+  EGeomType const type = f.GetFeatureType();
   switch (type)
   {
-  case feature::GEOM_POINT:
+  case GEOM_POINT:
     return f.GetCenter();
 
-  case feature::GEOM_LINE:
+  case GEOM_LINE:
     {
       CalculateLineCenter doCalc;
       f.ForEachPointRef(doCalc, scale);
@@ -116,7 +116,7 @@ m2::PointD GetCenter(FeatureType const & f, int scale)
 
   default:
     {
-      ASSERT_EQUAL ( type, feature::GEOM_AREA, () );
+      ASSERT_EQUAL(type, GEOM_AREA, ());
       CalculatePointOnSurface doCalc(f.GetLimitRect(scale));
       f.ForEachTriangleRef(doCalc, scale);
       return doCalc.GetCenter();
@@ -124,6 +124,50 @@ m2::PointD GetCenter(FeatureType const & f, int scale)
   }
 }
 
-m2::PointD GetCenter(FeatureType const & f) { return GetCenter(f, FeatureType::BEST_GEOMETRY); }
+m2::PointD GetCenter(FeatureType const & f)
+{
+  return GetCenter(f, FeatureType::BEST_GEOMETRY);
+}
+
+double GetMinDistance(FeatureType const & ft, m2::PointD const & pt, int scale)
+{
+  double res = numeric_limits<double>::max();
+  auto distanceFn = [&] (m2::PointD const & p)
+  {
+    double const d = MercatorBounds::DistanceOnEarth(p, pt);
+    if (d < res)
+      res = d;
+  };
+
+  /// @todo Need to check projection here?
+  EGeomType const type = ft.GetFeatureType();
+  switch (type)
+  {
+  case GEOM_POINT:
+    distanceFn(ft.GetCenter());
+    break;
+
+  case GEOM_LINE:
+    ft.ForEachPoint(distanceFn, scale);
+    break;
+
+  default:
+    ASSERT_EQUAL(type, GEOM_AREA, ());
+    ft.ForEachTriangle([&] (m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+    {
+      distanceFn(p1);
+      distanceFn(p2);
+      distanceFn(p3);
+    }, scale);
+    break;
+  }
+
+  return res;
+}
+
+double GetMinDistance(FeatureType const & ft, m2::PointD const & pt)
+{
+  return GetMinDistance(ft, pt, FeatureType::BEST_GEOMETRY);
+}
 
 }

@@ -53,9 +53,9 @@ unique_ptr<HouseToStreetTable> HouseToStreetTable::Load(MwmValue & value)
     if (format == MwmTraits::HouseToStreetTableFormat::Fixed3BitsDDVector)
       result.reset(new Fixed3BitsTable(value));
   }
-  catch (Reader::OpenException & e)
+  catch (Reader::OpenException const & ex)
   {
-    LOG(LWARNING, (e.Msg()));
+    LOG(LWARNING, (ex.Msg()));
   }
 
   if (!result)
