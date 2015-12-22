@@ -39,10 +39,14 @@ public class TrackRecorderWakeService extends IntentService
   {
     synchronized (TrackRecorderWakeService.class)
     {
+      TrackRecorder.log("SVC.onHandleIntent()");
+
       TrackRecorderWakeService svc = getService();
       if (svc != null)
+      {
+        TrackRecorder.log("SVC.onHandleIntent() SKIPPED because getService() returned something");
         return;
-
+      }
       sServiceRef = new WeakReference<>(this);
     }
 
@@ -50,7 +54,8 @@ public class TrackRecorderWakeService extends IntentService
 
     try
     {
-      mWaitMonitor.await(TIMEOUT_MS, TimeUnit.MILLISECONDS);
+      if (!mWaitMonitor.await(TIMEOUT_MS, TimeUnit.MILLISECONDS))
+        TrackRecorder.log("TIMEOUT awaiting coordinates");
     } catch (InterruptedException ignored) {}
 
     synchronized (TrackRecorderWakeService.class)
@@ -64,14 +69,22 @@ public class TrackRecorderWakeService extends IntentService
 
   public synchronized static void start()
   {
+    TrackRecorder.log("SVC.start()");
+
     if (getService() == null)
       WakefulBroadcastReceiver.startWakefulService(MwmApplication.get(), new Intent(MwmApplication.get(), TrackRecorderWakeService.class));
+    else
+      TrackRecorder.log("SVC.start() SKIPPED because getService() returned something");
   }
 
   public synchronized static void stop()
   {
+    TrackRecorder.log("SVC.stop()");
+
     TrackRecorderWakeService svc = getService();
     if (svc != null)
       svc.mWaitMonitor.countDown();
+    else
+      TrackRecorder.log("SVC.stop() SKIPPED because getService() returned nothing");
   }
 }

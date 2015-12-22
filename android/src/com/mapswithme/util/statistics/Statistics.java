@@ -21,9 +21,6 @@ import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.SimpleLogger;
-import com.mapswithme.util.log.StubLogger;
 import ru.mail.android.mytracker.MRMyTracker;
 import ru.mail.android.mytracker.MRMyTrackerParams;
 
