@@ -14,7 +14,6 @@
 		34921F681BFA0A6900737D6E /* styled_point.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34921F631BFA0A6900737D6E /* styled_point.hpp */; };
 		674A29F01B26FD6F001A525C /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A29EE1B26FD5F001A525C /* testingmain.cpp */; };
 		674A2A0D1B26FE62001A525C /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29F11B26FE62001A525C /* libalohalitics.a */; };
-		674A2A0E1B26FE62001A525C /* libanim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29F21B26FE62001A525C /* libanim.a */; };
 		674A2A0F1B26FE62001A525C /* libapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29F31B26FE62001A525C /* libapi.a */; };
 		674A2A101B26FE62001A525C /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29F41B26FE62001A525C /* libbase.a */; };
 		674A2A111B26FE62001A525C /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29F51B26FE62001A525C /* libcoding.a */; };
@@ -29,7 +28,6 @@
 		674A2A1E1B26FE62001A525C /* libosrm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A2A021B26FE62001A525C /* libosrm.a */; };
 		674A2A1F1B26FE62001A525C /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A2A031B26FE62001A525C /* libplatform.a */; };
 		674A2A201B26FE62001A525C /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A2A041B26FE62001A525C /* libprotobuf.a */; };
-		674A2A211B26FE62001A525C /* librender.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A2A051B26FE62001A525C /* librender.a */; };
 		674A2A221B26FE62001A525C /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A2A061B26FE62001A525C /* librouting.a */; };
 		674A2A231B26FE62001A525C /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A2A071B26FE62001A525C /* libsearch.a */; };
 		674A2A251B26FE62001A525C /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A2A091B26FE62001A525C /* libstorage.a */; };
@@ -39,8 +37,6 @@
 		674A2A2C1B26FF38001A525C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A2A2B1B26FF38001A525C /* IOKit.framework */; };
 		674A2A2E1B26FF4F001A525C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A2A2D1B26FF4F001A525C /* Cocoa.framework */; };
 		674A2A2F1B26FF7B001A525C /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675345BB1A4054AD00A0A8C3 /* libmap.a */; };
-		674A2A301B26FFA6001A525C /* libgraphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29FD1B26FE62001A525C /* libgraphics.a */; };
-		674A2A311B26FFB5001A525C /* libgui.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29FE1B26FE62001A525C /* libgui.a */; };
 		674A2A331B26FFE9001A525C /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A2A321B26FFE9001A525C /* OpenGL.framework */; };
 		674A2A361B27011A001A525C /* working_time_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A2A351B27011A001A525C /* working_time_tests.cpp */; };
 		674A2A381B2715FB001A525C /* osm_opening_hours.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674A2A371B2715FB001A525C /* osm_opening_hours.hpp */; };
@@ -113,7 +109,6 @@
 		674A29DF1B26FD1C001A525C /* map_tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = map_tests; sourceTree = BUILT_PRODUCTS_DIR; };
 		674A29EE1B26FD5F001A525C /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
 		674A29F11B26FE62001A525C /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-xcode-build/Debug/libalohalitics.a"; sourceTree = "<group>"; };
-		674A29F21B26FE62001A525C /* libanim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libanim.a; path = "../../../omim-xcode-build/Debug/libanim.a"; sourceTree = "<group>"; };
 		674A29F31B26FE62001A525C /* libapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libapi.a; path = "../../../omim-xcode-build/Debug/libapi.a"; sourceTree = "<group>"; };
 		674A29F41B26FE62001A525C /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
 		674A29F51B26FE62001A525C /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-xcode-build/Debug/libcoding.a"; sourceTree = "<group>"; };
@@ -124,18 +119,15 @@
 		674A29FA1B26FE62001A525C /* libgenerator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgenerator.a; path = "../../../omim-xcode-build/Debug/libgenerator.a"; sourceTree = "<group>"; };
 		674A29FB1B26FE62001A525C /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgeometry.a; path = "../../../omim-xcode-build/Debug/libgeometry.a"; sourceTree = "<group>"; };
 		674A29FC1B26FE62001A525C /* libgflags.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgflags.a; path = "../../../omim-xcode-build/Debug/libgflags.a"; sourceTree = "<group>"; };
-		674A29FD1B26FE62001A525C /* libgraphics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgraphics.a; path = "../../../omim-xcode-build/Debug/libgraphics.a"; sourceTree = "<group>"; };
-		674A29FE1B26FE62001A525C /* libgui.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgui.a; path = "../../../omim-xcode-build/Debug/libgui.a"; sourceTree = "<group>"; };
 		674A29FF1B26FE62001A525C /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-xcode-build/Debug/libindexer.a"; sourceTree = "<group>"; };
 		674A2A001B26FE62001A525C /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = "../../../omim-xcode-build/Debug/libjansson.a"; sourceTree = "<group>"; };
 		674A2A011B26FE62001A525C /* libopening_hours.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopening_hours.a; path = "../../../omim-xcode-build/Debug/libopening_hours.a"; sourceTree = "<group>"; };
 		674A2A021B26FE62001A525C /* libosrm.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosrm.a; path = "../../../omim-xcode-build/Debug/libosrm.a"; sourceTree = "<group>"; };
 		674A2A031B26FE62001A525C /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "../../../omim-xcode-build/Debug/libplatform.a"; sourceTree = "<group>"; };
 		674A2A041B26FE62001A525C /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libprotobuf.a; path = "../../../omim-xcode-build/Debug/libprotobuf.a"; sourceTree = "<group>"; };
-		674A2A051B26FE62001A525C /* librender.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librender.a; path = "../../../omim-xcode-build/Debug/librender.a"; sourceTree = "<group>"; };
 		674A2A061B26FE62001A525C /* librouting.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting.a; path = "../../../omim-xcode-build/Debug/librouting.a"; sourceTree = "<group>"; };
 		674A2A071B26FE62001A525C /* libsearch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsearch.a; path = "../../../omim-xcode-build/Debug/libsearch.a"; sourceTree = "<group>"; };
-		674A2A081B26FE62001A525C /* libsgitess.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsgitess.a; path = "/Volumes/AltHD/omim/xcode/sgitess/../../../omim-xcode-build/Debug/libsgitess.a"; sourceTree = "<absolute>"; };
+		674A2A081B26FE62001A525C /* libsgitess.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsgitess.a; path = "../../../omim-xcode-build/Debug/libsgitess.a"; sourceTree = "<group>"; };
 		674A2A091B26FE62001A525C /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstorage.a; path = "../../../omim-xcode-build/Debug/libstorage.a"; sourceTree = "<group>"; };
 		674A2A0A1B26FE62001A525C /* libsuccinct.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsuccinct.a; path = "../../../omim-xcode-build/Debug/libsuccinct.a"; sourceTree = "<group>"; };
 		674A2A0B1B26FE62001A525C /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-xcode-build/Debug/libtomcrypt.a"; sourceTree = "<group>"; };
@@ -178,7 +170,7 @@
 		67F1837D1BD5049500AB1840 /* libagg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libagg.a; path = "../../../omim-xcode-build/Debug/libagg.a"; sourceTree = "<group>"; };
 		67F1837E1BD5049500AB1840 /* liblodepng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblodepng.a; path = "../../../omim-xcode-build/Debug/liblodepng.a"; sourceTree = "<group>"; };
 		67F1837F1BD5049500AB1840 /* libminizip.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libminizip.a; path = "../../../omim-xcode-build/Debug/libminizip.a"; sourceTree = "<group>"; };
-		67F183801BD5049500AB1840 /* libtess2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtess2.a; path = "/Volumes/AltHD/mapsme/omim/xcode/tess2/../../../omim-xcode-build/Debug/libtess2.a"; sourceTree = "<absolute>"; };
+		67F183801BD5049500AB1840 /* libtess2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtess2.a; path = "../../../omim-xcode-build/Debug/libtess2.a"; sourceTree = "<group>"; };
 		67F183851BD504ED00AB1840 /* libsystem_configuration.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsystem_configuration.tbd; path = usr/lib/system/libsystem_configuration.tbd; sourceTree = SDKROOT; };
 		67F183871BD5050900AB1840 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -195,14 +187,11 @@
 				67F183841BD5049500AB1840 /* libtess2.a in Frameworks */,
 				67F183751BD5041700AB1840 /* libz.tbd in Frameworks */,
 				674A2A331B26FFE9001A525C /* OpenGL.framework in Frameworks */,
-				674A2A311B26FFB5001A525C /* libgui.a in Frameworks */,
-				674A2A301B26FFA6001A525C /* libgraphics.a in Frameworks */,
 				674A2A2F1B26FF7B001A525C /* libmap.a in Frameworks */,
 				674A2A2E1B26FF4F001A525C /* Cocoa.framework in Frameworks */,
 				674A2A2C1B26FF38001A525C /* IOKit.framework in Frameworks */,
 				674A2A2A1B26FF24001A525C /* CoreFoundation.framework in Frameworks */,
 				674A2A0D1B26FE62001A525C /* libalohalitics.a in Frameworks */,
-				674A2A0E1B26FE62001A525C /* libanim.a in Frameworks */,
 				674A2A0F1B26FE62001A525C /* libapi.a in Frameworks */,
 				674A2A101B26FE62001A525C /* libbase.a in Frameworks */,
 				674A2A111B26FE62001A525C /* libcoding.a in Frameworks */,
@@ -217,7 +206,6 @@
 				674A2A1E1B26FE62001A525C /* libosrm.a in Frameworks */,
 				674A2A1F1B26FE62001A525C /* libplatform.a in Frameworks */,
 				674A2A201B26FE62001A525C /* libprotobuf.a in Frameworks */,
-				674A2A211B26FE62001A525C /* librender.a in Frameworks */,
 				674A2A221B26FE62001A525C /* librouting.a in Frameworks */,
 				674A2A231B26FE62001A525C /* libsearch.a in Frameworks */,
 				674A2A251B26FE62001A525C /* libstorage.a in Frameworks */,
@@ -260,7 +248,6 @@
 				674A2A2B1B26FF38001A525C /* IOKit.framework */,
 				674A2A291B26FF24001A525C /* CoreFoundation.framework */,
 				674A29F11B26FE62001A525C /* libalohalitics.a */,
-				674A29F21B26FE62001A525C /* libanim.a */,
 				674A29F31B26FE62001A525C /* libapi.a */,
 				674A29F41B26FE62001A525C /* libbase.a */,
 				674A29F51B26FE62001A525C /* libcoding.a */,
@@ -271,15 +258,12 @@
 				674A29FA1B26FE62001A525C /* libgenerator.a */,
 				674A29FB1B26FE62001A525C /* libgeometry.a */,
 				674A29FC1B26FE62001A525C /* libgflags.a */,
-				674A29FD1B26FE62001A525C /* libgraphics.a */,
-				674A29FE1B26FE62001A525C /* libgui.a */,
 				674A29FF1B26FE62001A525C /* libindexer.a */,
 				674A2A001B26FE62001A525C /* libjansson.a */,
 				674A2A011B26FE62001A525C /* libopening_hours.a */,
 				674A2A021B26FE62001A525C /* libosrm.a */,
 				674A2A031B26FE62001A525C /* libplatform.a */,
 				674A2A041B26FE62001A525C /* libprotobuf.a */,
-				674A2A051B26FE62001A525C /* librender.a */,
 				674A2A061B26FE62001A525C /* librouting.a */,
 				674A2A071B26FE62001A525C /* libsearch.a */,
 				674A2A081B26FE62001A525C /* libsgitess.a */,
