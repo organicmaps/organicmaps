@@ -17,9 +17,11 @@
 using namespace pugi;
 using feature::EGeomType;
 using feature::Metadata;
+using editor::XMLFeature;
 
 constexpr char const * kEditorXMLFileName = "edits.xml";
 constexpr char const * kXmlRootNode = "mapsme";
+constexpr char const * kXmlMwmNode = "mwm";
 constexpr char const * kDeleteSection = "delete";
 constexpr char const * kModifySection = "modify";
 constexpr char const * kCreateSection = "create";
@@ -35,28 +37,77 @@ namespace
 string GetEditorFilePath() { return GetPlatform().WritablePathForFile(kEditorXMLFileName); }
 } // namespace
 
-Editor::Editor()
-{
-  // Load all previous edits from persistent storage.
-  Load(GetEditorFilePath());
-}
-
 Editor & Editor::Instance()
 {
   static Editor instance;
   return instance;
 }
 
-void Editor::Load(string const & fullFilePath)
+void Editor::LoadMapEdits()
 {
-  xml_document xml;
-  xml_parse_result res = xml.load_file(fullFilePath.c_str());
-  // Note: status_file_not_found is ok if user has never made any edits.
-  if (res != status_ok && res != status_file_not_found)
+  if (!m_mwmIdByMapNameFn)
   {
-    LOG(LERROR, ("Can't load XML Edits from disk:", fullFilePath));
+    LOG(LERROR, ("Can't load any map edits, MwmIdByNameAndVersionFn has not been set."));
+    return;
   }
-  // TODO(mgsergio): Implement XML deserialization into m_features.
+
+  xml_document doc;
+  {
+    string const fullFilePath = GetEditorFilePath();
+    xml_parse_result const res = doc.load_file(fullFilePath.c_str());
+    // Note: status_file_not_found is ok if user has never made any edits.
+    if (res != status_ok && res != status_file_not_found)
+    {
+      LOG(LERROR, ("Can't load map edits from disk:", fullFilePath));
+      return;
+    }
+  }
+
+  array<pair<FeatureStatus, char const *>, 3> const sections =
+  {{
+    {EDeleted, kDeleteSection}, {EModified, kModifySection}, {ECreated, kCreateSection}
+  }};
+  int deleted = 0, modified = 0, created = 0;
+  for (xml_node mwm : doc.child(kXmlRootNode).children(kXmlMwmNode))
+  {
+    string const mapName = mwm.attribute("name").as_string("");
+    int64_t const mapVersion = mwm.attribute("version").as_llong(0);
+    MwmSet::MwmId const id = m_mwmIdByMapNameFn(mapName);
+    if (!id.IsAlive())
+    {
+      // TODO(AlexZ): Handle case when map was upgraded and edits should migrate to fresh map data.
+      LOG(LWARNING, (mapName, "version", mapVersion, "references not existing MWM file."));
+      continue;
+    }
+
+    for (size_t i = 0; i < sections.size(); ++i)
+    {
+      for (xml_node node : mwm.child(sections[i].second).children("node"))
+      {
+        try
+        {
+          XMLFeature const xml(node);
+          FeatureID const fid(id, xml.GetOffset());
+          auto & fti = m_features[id][fid.m_index];
+          fti.m_feature = FeatureType::FromXML(xml);
+          fti.m_feature.SetID(fid);
+          fti.m_modificationTimestamp = xml.GetModificationTime();
+          fti.m_uploadAttemptTimestamp = xml.GetUploadTime();
+          fti.m_uploadStatus = xml.GetUploadStatus();
+          fti.m_uploadError = xml.GetUploadError();
+          fti.m_status = sections[i].first;
+        }
+        catch (editor::XMLFeatureError const & ex)
+        {
+          ostringstream s;
+          node.print(s, "  ");
+          LOG(LERROR, (ex.what(), "Can't create XMLFeature in section", sections[i].second, s.str()));
+        }
+      } // for nodes
+    } // for sections
+  } // for mwms
+
+  LOG(LINFO, ("Loaded", modified, "modified,", created, "created and", deleted, "deleted features."));
 }
 
 void Editor::Save(string const & fullFilePath) const
@@ -71,7 +122,7 @@ void Editor::Save(string const & fullFilePath) const
   root.append_attribute("format_version") = 1;
   for (auto const & mwm : m_features)
   {
-    xml_node mwmNode = root.append_child("mwm");
+    xml_node mwmNode = root.append_child(kXmlMwmNode);
     mwmNode.append_attribute("name") = mwm.first.GetInfo()->GetCountryName().c_str();
     mwmNode.append_attribute("version") = mwm.first.GetInfo()->GetVersion();
     xml_node deleted = mwmNode.append_child(kDeleteSection);
@@ -80,13 +131,16 @@ void Editor::Save(string const & fullFilePath) const
     for (auto const & offset : mwm.second)
     {
       FeatureTypeInfo const & fti = offset.second;
-      editor::XMLFeature xf = fti.m_feature.ToXML();
+      XMLFeature xf = fti.m_feature.ToXML();
+      xf.SetOffset(offset.first);
       xf.SetModificationTime(fti.m_modificationTimestamp);
       if (fti.m_uploadAttemptTimestamp)
       {
         xf.SetUploadTime(fti.m_uploadAttemptTimestamp);
+        ASSERT(!fti.m_uploadStatus.empty(), ("Upload status updates with upload timestamp."));
         xf.SetUploadStatus(fti.m_uploadStatus);
-        xf.SetUploadError(fti.m_uploadError);
+        if (!fti.m_uploadError.empty())
+          xf.SetUploadError(fti.m_uploadError);
       }
       switch (fti.m_status)
       {

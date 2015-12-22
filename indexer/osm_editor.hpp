@@ -20,7 +20,7 @@ namespace osm
 
 class Editor final
 {
-  Editor();
+  Editor() = default;
 
 public:
   using TMwmIdByMapNameFn = function<MwmSet::MwmId(string const & /*map*/)>;
@@ -39,7 +39,7 @@ public:
   void SetMwmIdByNameAndVersionFn(TMwmIdByMapNameFn && fn) { m_mwmIdByMapNameFn = move(fn); }
   void SetInvalidateFn(TInvalidateFn && fn) { m_invalidateFn = move(fn); }
 
-  void Load(string const & fullFilePath);
+  void LoadMapEdits();
 
   using TFeatureIDFunctor = function<void(FeatureID const &)>;
   using TFeatureTypeFunctor = function<void(FeatureType &)>;
