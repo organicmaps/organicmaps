@@ -70,7 +70,7 @@ void ReverseGeocoder::GetNearbyBuildings(m2::PointD const & center, vector<Build
     if (!ftypes::IsBuildingChecker::Instance()(ft))
       return;
 
-    // Skip empty house nubers.
+    // Skip empty house numbers.
     string const number = ft.GetHouseNumber();
     if (number.empty())
       return;
@@ -120,24 +120,25 @@ size_t ReverseGeocoder::GetMatchedStreetIndex(string const & keyName,
   return result;
 }
 
-void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center,
-                                       Building & building, Street & street)
+void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, Address & addr)
 {
   vector<Building> buildings;
   GetNearbyBuildings(center, buildings);
 
   vector<Street> streets;
   unique_ptr<search::v2::HouseToStreetTable> table;
-  MwmSet::MwmId mwmId;
+  MwmSet::MwmHandle mwmHandle;
 
   for (auto const & b : buildings)
   {
-    if (!table || mwmId != b.m_id.m_mwmId)
+    if (!table || mwmHandle.GetId() != b.m_id.m_mwmId)
     {
-      auto handle = m_index.GetMwmHandleById(b.m_id.m_mwmId);
-      auto value = handle.GetValue<MwmValue>();
+      mwmHandle = m_index.GetMwmHandleById(b.m_id.m_mwmId);
+      auto value = mwmHandle.GetValue<MwmValue>();
       if (value)
         table = search::v2::HouseToStreetTable::Load(*value);
+      else
+        continue;
     }
 
     GetNearbyStreets(b.m_center, streets);
@@ -145,8 +146,8 @@ void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center,
     uint32_t const ind = table->Get(b.m_id.m_index);
     if (ind < streets.size())
     {
-      building = b;
-      street = streets[ind];
+      addr.m_building = b;
+      addr.m_street = streets[ind];
       return;
     }
   }

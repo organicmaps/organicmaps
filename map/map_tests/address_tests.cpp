@@ -6,33 +6,35 @@
 #include "indexer/index.hpp"
 
 
+using namespace search;
+using namespace platform;
+
 namespace
 {
 
-void TestAddress(search::ReverseGeocoder & coder,
-                 ms::LatLon const & ll, string const & stName, string const & hName)
+void TestAddress(ReverseGeocoder & coder, ms::LatLon const & ll,
+                 string const & stName, string const & hNumber)
 {
-  search::ReverseGeocoder::Street street;
-  search::ReverseGeocoder::Building building;
-  coder.GetNearbyAddress(MercatorBounds::FromLatLon(ll), building, street);
+  ReverseGeocoder::Address addr;
+  coder.GetNearbyAddress(MercatorBounds::FromLatLon(ll), addr);
 
   string key;
-  search::GetStreetNameAsKey(street.m_name, key);
+  GetStreetNameAsKey(addr.m_street.m_name, key);
 
   TEST_EQUAL(stName, key, ());
-  TEST_EQUAL(hName, building.m_name, ());
+  TEST_EQUAL(hNumber, addr.m_building.m_name, ());
 }
 
 } // namespace
 
 UNIT_TEST(ReverseGeocoder_Smoke)
 {
-  platform::LocalCountryFile file = platform::LocalCountryFile::MakeForTesting("minsk-pass");
+  LocalCountryFile file = LocalCountryFile::MakeForTesting("minsk-pass");
 
   Index index;
   TEST_EQUAL(index.RegisterMap(file).second, MwmSet::RegResult::Success, ());
 
-  search::ReverseGeocoder coder(index);
+  ReverseGeocoder coder(index);
 
   TestAddress(coder, {53.89815, 27.54265}, "мясникова", "32");
   TestAddress(coder, {53.89953, 27.54189}, "немига", "42");

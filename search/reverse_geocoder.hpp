@@ -43,8 +43,8 @@ public:
     m2::PointD m_center;
 
     Building() = default;
-    Building(FeatureID const & id, double dist, string const & hn, m2::PointD const & center)
-      : Object(id, dist, hn), m_center(center)
+    Building(FeatureID const & id, double dist, string const & number, m2::PointD const & center)
+      : Object(id, dist, number), m_center(center)
     {
     }
   };
@@ -53,8 +53,13 @@ public:
 
   static size_t GetMatchedStreetIndex(string const & keyName, vector<Street> const & streets);
 
-  void GetNearbyAddress(m2::PointD const & center,
-                        Building & building, Street & street);
+  struct Address
+  {
+    Building m_building;
+    Street m_street;
+  };
+
+  void GetNearbyAddress(m2::PointD const & center, Address & addr);
 
 private:
   void GetNearbyStreets(m2::PointD const & center, vector<Street> & streets);

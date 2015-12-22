@@ -132,7 +132,7 @@ m2::PointD GetCenter(FeatureType const & f)
 double GetMinDistance(FeatureType const & ft, m2::PointD const & pt, int scale)
 {
   double res = numeric_limits<double>::max();
-  auto distanceFn = [&] (m2::PointD const & p)
+  auto updateDistanceFn = [&] (m2::PointD const & p)
   {
     double const d = MercatorBounds::DistanceOnEarth(p, pt);
     if (d < res)
@@ -144,20 +144,20 @@ double GetMinDistance(FeatureType const & ft, m2::PointD const & pt, int scale)
   switch (type)
   {
   case GEOM_POINT:
-    distanceFn(ft.GetCenter());
+    updateDistanceFn(ft.GetCenter());
     break;
 
   case GEOM_LINE:
-    ft.ForEachPoint(distanceFn, scale);
+    ft.ForEachPoint(updateDistanceFn, scale);
     break;
 
   default:
     ASSERT_EQUAL(type, GEOM_AREA, ());
     ft.ForEachTriangle([&] (m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
     {
-      distanceFn(p1);
-      distanceFn(p2);
-      distanceFn(p3);
+      updateDistanceFn(p1);
+      updateDistanceFn(p2);
+      updateDistanceFn(p3);
     }, scale);
     break;
   }
