@@ -39,7 +39,7 @@ static NSString * const kStatisticsEvent = @"Facebook Alert";
   FBSDKAppInviteContent * const content = [[FBSDKAppInviteContent alloc] init];
   content.appLinkURL = [NSURL URLWithString:kFacebookAppName];
   content.appInvitePreviewImageURL = [NSURL URLWithString:kFacebookAlertPreviewImage];
-  [FBSDKAppInviteDialog showWithContent:content delegate:nil];
+  [FBSDKAppInviteDialog showFromViewController:self.alertController.ownerViewController withContent:content delegate:nil];
 }
 
 - (IBAction)notNowButtonTap:(id)sender
