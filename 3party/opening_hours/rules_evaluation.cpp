@@ -196,6 +196,7 @@ std::tm MakeTimetuple(time_t const timestamp)
 
 namespace osmoh
 {
+// ADL shadows ::operator==.
 using ::operator==;
 
 bool IsActive(Timespan const & span, std::tm const & time)

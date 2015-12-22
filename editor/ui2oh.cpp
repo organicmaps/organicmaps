@@ -71,7 +71,7 @@ bool ConvertOpeningHours(osmoh::OpeningHours const & oh, ui::TimeTableSet & tts)
   if (oh.IsTwentyFourHours())
     return true;
 
-  for (auto const & p : my::enumerate(oh.GetRule()))
+  for (auto const & p : my::Enumerate(oh.GetRule()))
   {
     auto const & rulePart = p.item;
     ui::TimeTable tt;

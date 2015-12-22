@@ -8,53 +8,51 @@ namespace my
 namespace details
 {
 template <typename TCollection>
-struct const_respective_iterator
+struct ConstRespectiveIterator
 {
-  using hint = int;
   using type = typename TCollection::iterator;
 };
 
 template <typename TCollection>
-struct const_respective_iterator<TCollection const>
+struct ConstRespectiveIterator<TCollection const>
 {
-  using hint = double;
   using type = typename TCollection::const_iterator;
 };
 
 template <typename TCollection>
-using const_respective_iterator_t =
-    typename const_respective_iterator<typename std::remove_reference<TCollection>::type>::type;
+using ConstRespectiveIteratorT =
+    typename ConstRespectiveIterator<typename std::remove_reference<TCollection>::type>::type;
 }  // namespace details
 
-template <typename TCounter, typename TElement>
-struct IndexedElement : std::pair<TCounter, TElement>
+template <typename TIndex, typename TElement>
+struct IndexedElement : std::pair<TIndex, TElement>
 {
-  using base = std::pair<TCounter, TElement>;
-  using base::base;
+  using TBase = std::pair<TIndex, TElement>;
+  using TBase::TBase;
 
-  TCounter const index{base::first};
-  TElement & item{base::second};
+  TIndex const index{TBase::first};
+  TElement & item{TBase::second};
 };
 
-template <typename TCounter, typename TElement>
-IndexedElement<TCounter, TElement> MakeIndexedElement(TElement && item, TCounter counter = {})
+template <typename TIndex, typename TElement>
+IndexedElement<TIndex, TElement> MakeIndexedElement(TElement && item, TIndex counter = {})
 {
-  return IndexedElement<TCounter, TElement>(counter, item);
+  return IndexedElement<TIndex, TElement>(counter, item);
 }
 
-template <typename TIterator, typename TCounter>
+template <typename TIterator, typename TIndex>
 struct EnumeratingIterator
 {
   using original_iterator = TIterator;
   using original_reference = typename std::iterator_traits<original_iterator>::reference;
 
   using difference_type = typename std::iterator_traits<original_iterator>::difference_type;
-  using value_type = IndexedElement<TCounter, original_reference>;
+  using value_type = IndexedElement<TIndex, original_reference>;
   using pointer = value_type *;
   using reference = value_type &;
   using iterator_category = std::forward_iterator_tag;
 
-  EnumeratingIterator(original_iterator const it, TCounter const counter)
+  EnumeratingIterator(original_iterator const it, TIndex const counter)
     : m_iterator(it), m_counter(counter)
   {
   }
@@ -70,18 +68,18 @@ struct EnumeratingIterator
   bool operator==(EnumeratingIterator const & it) const { return m_iterator == it.m_iterator; }
   bool operator!=(EnumeratingIterator const & it) const { return !(*this == it); }
   original_iterator m_iterator;
-  TCounter m_counter;
+  TIndex m_counter;
 };
 
-template <typename TIterator, typename TCounter>
+template <typename TIterator, typename TIndex>
 struct EnumeratorWrapper
 {
   using original_iterator = TIterator;
-  using iterator = EnumeratingIterator<original_iterator, TCounter>;
+  using iterator = EnumeratingIterator<original_iterator, TIndex>;
   using value_type = typename std::iterator_traits<iterator>::value_type;
 
   EnumeratorWrapper(original_iterator const begin, original_iterator const end,
-                    TCounter const countFrom)
+                    TIndex const countFrom)
     : m_begin(begin), m_end(end), m_countFrom(countFrom)
   {
   }
@@ -90,12 +88,12 @@ struct EnumeratorWrapper
   iterator end() { return {m_end, {}}; }
   original_iterator const m_begin;
   original_iterator const m_end;
-  TCounter const m_countFrom;
+  TIndex const m_countFrom;
 };
 
-template <typename TCollection, typename TCounter = size_t>
-auto enumerate(TCollection && collection, TCounter const counter = {})
-    -> EnumeratorWrapper<details::const_respective_iterator_t<TCollection>, TCounter>
+template <typename TCollection, typename TIndex = size_t>
+auto Enumerate(TCollection && collection, TIndex const counter = {})
+    -> EnumeratorWrapper<details::ConstRespectiveIteratorT<TCollection>, TIndex>
 {
   return {begin(collection), end(collection), counter};
 }

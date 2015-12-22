@@ -10,28 +10,28 @@ UNIT_TEST(RangeIterator)
 
   {
     vector<int> result;
-    for (auto const i : range(5))
+    for (auto const i : Range(5))
       result.push_back(i);
     TEST_EQUAL(result, (vector<int>{0, 1, 2, 3, 4}), ());
   }
 
   {
     vector<int> result;
-    for (auto const i : range(2, 5))
+    for (auto const i : Range(2, 5))
       result.push_back(i);
     TEST_EQUAL(result, (vector<int>{2, 3, 4}), ());
   }
 
   {
     vector<int> result;
-    for (auto const i : reverse_range(5))
+    for (auto const i : ReverseRange(5))
       result.push_back(i);
     TEST_EQUAL(result, (vector<int>{4, 3, 2, 1, 0}), ());
   }
 
   {
     vector<int> result;
-    for (auto const i : reverse_range(2, 5))
+    for (auto const i : ReverseRange(2, 5))
       result.push_back(i);
     TEST_EQUAL(result, (vector<int>{4, 3, 2}), ());
   }

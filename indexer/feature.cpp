@@ -57,7 +57,7 @@ FeatureType FeatureType::FromXML(editor::XMLFeature const & xml)
 
   // EGeomType
 
-  // for (auto const i : range(feature.GetTypesCount()))
+  // for (auto const i : my::Range(feature.GetTypesCount()))
   //   m_types[i] =
   // Does the order matter? If so what order should be?
   // TODO(mgsergio): Only features with single type are currently supported.
@@ -65,7 +65,7 @@ FeatureType FeatureType::FromXML(editor::XMLFeature const & xml)
   feature.m_types[0] = classif().GetTypeByPath({"amenity", "atm"});
   feature.m_bTypesParsed = true;
 
-  for (auto const i : my::range(1u, static_cast<uint32_t>(feature::Metadata::FMD_COUNT)))
+  for (auto const i : my::Range(1u, static_cast<uint32_t>(feature::Metadata::FMD_COUNT)))
   {
     auto const type = static_cast<feature::Metadata::EType>(i);
     auto const attributeName = DebugPrint(type);
@@ -102,7 +102,7 @@ editor::XMLFeature FeatureType::ToXML() const
   // feature.m_params.layer =
   // feature.m_params.rank =
 
-  // for (auto const i : range(feature.GetTypesCount()))
+  // for (auto const i : my::Range(feature.GetTypesCount()))
   //   m_types[i] =
   // Does the order matter? If so what order should be?
   // TODO(mgsergio): Only features with single type are currently supported.
