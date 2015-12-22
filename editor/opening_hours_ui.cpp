@@ -48,18 +48,17 @@ bool FixTimeSpans(osmoh::Timespan openingTime, osmoh::TTimespans & spans)
       span.GetEnd().GetHourMinutes().AddDuration(24_h);
   }
 
-  sort(begin(spans), end(spans),
-       [](osmoh::Timespan const & s1, osmoh::Timespan const s2)
-         {
-           auto const start1 = s1.GetStart().GetHourMinutes().GetDuration();
-           auto const start2 = s2.GetStart().GetHourMinutes().GetDuration();
+  sort(begin(spans), end(spans), [](osmoh::Timespan const & s1, osmoh::Timespan const s2)
+       {
+         auto const start1 = s1.GetStart().GetHourMinutes();
+         auto const start2 = s2.GetStart().GetHourMinutes();
 
-           // If two spans start at the same point the longest span should be leftmost.
-           if (start1 == start2)
-             return SpanLength(s1) > SpanLength(s2);
+         // If two spans start at the same point the longest span should be leftmost.
+         if (start1 == start2)
+           return SpanLength(s1) > SpanLength(s2);
 
-           return start1 < start2;
-         });
+         return start1 < start2;
+       });
 
   osmoh::TTimespans result{spans.front()};
   for (auto i = 1, j = 0; i < spans.size(); ++i)

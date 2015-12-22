@@ -69,6 +69,16 @@ private:
 HourMinutes operator-(HourMinutes const & hm);
 std::ostream & operator<<(std::ostream & ost, HourMinutes const & hm);
 
+inline bool operator<(HourMinutes const & a, HourMinutes const & b)
+{
+  return a.GetDuration() < b.GetDuration();
+}
+
+inline bool operator==(HourMinutes const & a, HourMinutes const & b)
+{
+  return a.GetDuration() == b.GetDuration();
+}
+
 class Time;
 
 class TimeEvent
@@ -661,6 +671,13 @@ public:
 
   bool IsValid() const;
 
+  bool IsTwentyFourHours() const;
+  bool HasWeekdaySelector() const;
+  bool HasMonthSelector() const;
+  bool HasWeekSelector() const;
+  bool HasYearSelector() const;
+
+  TRuleSequences const & GetRule() const { return m_rule; }
 private:
   TRuleSequences m_rule;
   bool const m_valid;

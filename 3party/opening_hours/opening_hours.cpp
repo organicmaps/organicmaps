@@ -26,7 +26,9 @@
 #include "rules_evaluation.hpp"
 #include "parse_opening_hours.hpp"
 
+#include <algorithm>
 #include <cstdlib>
+#include <functional>
 #include <iomanip>
 #include <ios>
 #include <ostream>
@@ -747,5 +749,29 @@ bool OpeningHours::IsUnknown(time_t const dateTime) const
 bool OpeningHours::IsValid() const
 {
   return m_valid;
+}
+bool OpeningHours::IsTwentyFourHours() const
+{
+  return m_rule.size() == 1 && m_rule[0].IsTwentyFourHours();
+}
+
+bool OpeningHours::HasWeekdaySelector() const
+{
+  return std::any_of(begin(m_rule), end(m_rule), std::mem_fn(&osmoh::RuleSequence::HasWeekdays));
+}
+
+bool OpeningHours::HasMonthSelector() const
+{
+  return std::any_of(begin(m_rule), end(m_rule), std::mem_fn(&osmoh::RuleSequence::HasMonths));
+}
+
+bool OpeningHours::HasWeekSelector() const
+{
+  return std::any_of(begin(m_rule), end(m_rule), std::mem_fn(&osmoh::RuleSequence::HasWeeks));
+}
+
+bool OpeningHours::HasYearSelector() const
+{
+  return std::any_of(begin(m_rule), end(m_rule), std::mem_fn(&osmoh::RuleSequence::HasYears));
 }
 } // namespace osmoh

@@ -9,6 +9,6 @@ class OpeningHours;
 
 namespace editor
 {
-osmoh::OpeningHours ConvertOpeningHours(ui::TimeTableSet const & tt);
-ui::TimeTableSet ConvertOpeningHours(osmoh::OpeningHours const & oh);
+osmoh::OpeningHours ConvertOpeningHours(ui::TimeTableSet const & tts);
+bool ConvertOpeningHours(osmoh::OpeningHours const & oh, ui::TimeTableSet & tts);
 } // namespace editor

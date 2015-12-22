@@ -196,6 +196,8 @@ std::tm MakeTimetuple(time_t const timestamp)
 
 namespace osmoh
 {
+using ::operator==;
+
 bool IsActive(Timespan const & span, std::tm const & time)
 {
   // Timespan with e.h. should be split into parts with no e.h.
