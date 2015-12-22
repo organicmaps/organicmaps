@@ -63,3 +63,4 @@
 #define MAX_SUPPORTED_LANGUAGES 64
 
 #define GPS_TRACK_FILENAME "gps_track.bin"
+#define GPS_TRACK_VERSION "2" // Suffix for gps track filename. Add +1 when file format is changed.
