@@ -345,7 +345,7 @@ bool WeekdayRange::HasWday(Weekday const wday) const
 
   return (GetStart() <= GetEnd())
       ? GetStart() <= wday && wday <= GetEnd()
-      : wday >= GetEnd() || GetStart() <= wday;
+      : wday <= GetEnd() || GetStart() <= wday;
 }
 
 std::ostream & operator<<(std::ostream & ost, Weekday const wday)
