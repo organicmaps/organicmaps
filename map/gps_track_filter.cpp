@@ -17,7 +17,7 @@ double constexpr kMinHorizontalAccuracyMeters = 250;
 double constexpr kClosePointDistanceMeters = 15;
 
 // Max acceptable acceleration to filter gps jumps
-double const kMaxAcceptableAcceleration = 2; // m / sec ^ 2
+double constexpr kMaxAcceptableAcceleration = 2; // m / sec ^ 2
 
 } // namespace
 
