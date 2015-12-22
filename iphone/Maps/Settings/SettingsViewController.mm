@@ -259,6 +259,8 @@ Settings::Units unitsForIndex(NSInteger index)
   case SectionRouting:
     if (indexPath.row == 0)
     {
+      [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatMapViewStyle)
+                     withParameters:@{kStatAction : kStatChangeMapViewStyle}];
       [self performSegueWithIdentifier:@"SettingsToMapViewSegue" sender:nil];
     }
     else if (indexPath.row == 2)

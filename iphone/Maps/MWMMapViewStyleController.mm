@@ -1,5 +1,6 @@
 #import "MWMMapViewStyleController.h"
 #import "SelectableCell.h"
+#import "Statistics.h"
 
 #include "Framework.h"
 
@@ -50,11 +51,24 @@
   _selectedCell = selectedCell;
   auto & f = GetFramework();
   bool is3d = false, is3dWithBuildings = false;
-
+  NSString * value = nil;
   if ([selectedCell isEqual:self.threeDimension])
+  {
+    value = kStat3DWithBuildings;
     is3d = true;
+  }
   else if ([selectedCell isEqual:self.threeDimensionWithBuildings])
+  {
+    value = kStat3D;
     is3d = is3dWithBuildings = true;
+  }
+  else
+  {
+    value = kStat2D;
+  }
+
+  [[Statistics instance] logEvent:kStatEventName(kStatMapViewStyleSettings, kStatMapViewStyle)
+                     withParameters:@{kStatValue : value}];
 
   f.Save3dMode(is3d, is3dWithBuildings);
   f.Allow3dMode(is3d, is3dWithBuildings);
