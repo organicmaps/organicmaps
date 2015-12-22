@@ -9,6 +9,8 @@ for [iOS](https://itunes.apple.com/app/id510623322) and
 
 This repository contains submodules. Clone it with `git clone --recursive`. If you forgot,
 run `git submodule update --init --recursive`.
+Please due to some hard coded paths for development environment do not use custom names
+for a repository root directory. At the moment it MUST remain "omim".
 
 ## Compilation
 
