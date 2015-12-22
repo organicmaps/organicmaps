@@ -18,6 +18,7 @@ namespace
 {
 constexpr int const kLatLonTolerance = 7;
 constexpr char const * kTimestamp = "timestamp";
+constexpr char const * kOffset = "offset";
 constexpr char const * kUploadTimestamp = "upload_timestamp";
 constexpr char const * kUploadStatus = "upload_status";
 constexpr char const * kUploadError = "upload_error";
@@ -150,6 +151,17 @@ time_t XMLFeature::GetModificationTime() const
 void XMLFeature::SetModificationTime(time_t const time)
 {
   SetAttribute(kTimestamp, my::TimestampToString(time));
+}
+
+uint32_t XMLFeature::GetOffset() const
+{
+  // Always cast to uint32_t to avoid warnings on different platforms.
+  return static_cast<uint32_t>(GetRootNode().attribute(kOffset).as_uint(0));
+}
+
+void XMLFeature::SetOffset(uint32_t featureOffset)
+{
+  SetAttribute(kOffset, strings::to_string(featureOffset));
 }
 
 time_t XMLFeature::GetUploadTime() const

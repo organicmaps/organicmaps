@@ -69,6 +69,11 @@ public:
   time_t GetModificationTime() const;
   void SetModificationTime(time_t const time);
 
+  /// @name XML storage format helpers.
+  //@{
+  uint32_t GetOffset() const;
+  void SetOffset(uint32_t featureOffset);
+
   time_t GetUploadTime() const;
   void SetUploadTime(time_t const time);
 
@@ -77,6 +82,7 @@ public:
 
   string GetUploadError() const;
   void SetUploadError(string const & error);
+  //@}
 
   bool HasTag(string const & key) const;
   bool HasAttribute(string const & key) const;
