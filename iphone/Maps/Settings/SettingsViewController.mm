@@ -67,8 +67,8 @@ typedef NS_ENUM(NSUInteger, Section)
   {
   case SectionMetrics:
   case SectionRouting:
-  case SectionMap:
     return 2;
+  case SectionMap:
   case SectionAd:
   case SectionStatistics:
   case SectionCalibration:
@@ -116,14 +116,14 @@ typedef NS_ENUM(NSUInteger, Section)
   }
   case SectionMap:
   {
-    if (indexPath.row == 0)
-    {
-      cell = [tableView dequeueReusableCellWithIdentifier:[LinkCell className]];
-      LinkCell * linkCell = static_cast<LinkCell *>(cell);
-      linkCell.titleLabel.text = L(@"recent_track");
-    }
-    else
-    {
+//    if (indexPath.row == 0)
+//    {
+//      cell = [tableView dequeueReusableCellWithIdentifier:[LinkCell className]];
+//      LinkCell * linkCell = static_cast<LinkCell *>(cell);
+//      linkCell.titleLabel.text = L(@"recent_track");
+//    }
+//    else
+//    {
       cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
       SwitchCell * customCell = (SwitchCell *)cell;
       bool on = true;
@@ -131,7 +131,7 @@ typedef NS_ENUM(NSUInteger, Section)
       customCell.switchButton.on = on;
       customCell.titleLabel.text = L(@"pref_zoom_title");
       customCell.delegate = self;
-    }
+//    }
     break;
   }
   case SectionRouting:
@@ -250,9 +250,9 @@ Settings::Units unitsForIndex(NSInteger index)
     break;
 
   case SectionMap:
-    if (indexPath.row == 0)
-      [self performSegueWithIdentifier:@"SettingsToRecentTrackSegue" sender:nil];
-    break;
+//    if (indexPath.row == 0)
+//      [self performSegueWithIdentifier:@"SettingsToRecentTrackSegue" sender:nil];
+//    break;
   case SectionAd:
   case SectionCalibration:
   case SectionStatistics:
@@ -269,7 +269,7 @@ Settings::Units unitsForIndex(NSInteger index)
   case SectionRouting:
     return L(@"prefs_group_route");
   case SectionMap:
-    return L(@"pref_group_map");
+    return L(@"prefs_group_map");
   case SectionCalibration:
   case SectionAd:
   case SectionStatistics:
