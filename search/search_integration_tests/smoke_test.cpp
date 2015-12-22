@@ -2,8 +2,8 @@
 
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
-#include "search/search_integration_tests/test_search_engine.hpp"
-#include "search/search_integration_tests/test_search_request.hpp"
+#include "search/search_tests_support/test_search_engine.hpp"
+#include "search/search_tests_support/test_search_request.hpp"
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/scales.hpp"
@@ -13,6 +13,8 @@
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
+
+using namespace search::tests_support;
 
 namespace
 {
@@ -38,6 +40,8 @@ private:
 };
 }  // namespace
 
+namespace search
+{
 void TestFeaturesCount(TestSearchEngine const & engine, m2::RectD const & rect,
                        size_t expectedCount)
 {
@@ -131,3 +135,4 @@ UNIT_TEST(GenerateTestMwm_NotPrefixFreeNames)
     TEST_EQUAL(3, request.Results().size(), ());
   }
 }
+}  // namespace search

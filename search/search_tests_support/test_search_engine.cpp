@@ -1,4 +1,4 @@
-#include "search/search_integration_tests/test_search_engine.hpp"
+#include "search/search_tests_support/test_search_engine.hpp"
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/scales.hpp"
@@ -40,6 +40,10 @@ class TestSearchQueryFactory : public search::SearchQueryFactory
 };
 }  // namespace
 
+namespace search
+{
+namespace tests_support
+{
 TestSearchEngine::TestSearchEngine(string const & locale)
   : m_platform(GetPlatform())
   , m_infoGetter(m_platform.GetReader(PACKED_POLYGONS_FILE), m_platform.GetReader(COUNTRIES_FILE))
@@ -52,3 +56,5 @@ bool TestSearchEngine::Search(search::SearchParams const & params, m2::RectD con
 {
   return m_engine.Search(params, viewport);
 }
+}  // namespace tests_support
+}  // namespace search
