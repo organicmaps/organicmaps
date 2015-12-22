@@ -287,6 +287,7 @@ void BackendRenderer::RecacheMyPosition()
   auto msg = make_unique_dp<MyPositionShapeMessage>(make_unique_dp<MyPosition>(m_texMng),
                                                     make_unique_dp<SelectionShape>(m_texMng));
 
+  GLFunctions::glFlush();
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(msg), MessagePriority::High);
 }
 

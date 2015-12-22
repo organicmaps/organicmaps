@@ -176,6 +176,9 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheWidgets(TWidgetsInitInfo const & in
       sizeInfo[node.first] = cacheFunction->second(node.second, make_ref(renderer), textures);
   }
 
+  // Flush gui geometry.
+  GLFunctions::glFlush();
+
   return renderer;
 }
 
@@ -191,6 +194,10 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheCountryStatus(ref_ptr<dp::TextureMa
   RegisterButtonHandler(handlers, CountryStatusHelper::BUTTON_TRY_AGAIN);
 
   renderer->AddShapeRenderer(WIDGET_COUNTRY_STATUS, countryStatus.Draw(textures, handlers));
+
+  // Flush gui geometry.
+  GLFunctions::glFlush();
+
   return renderer;
 }
 
