@@ -810,6 +810,10 @@ void FrontendRenderer::OnTwoFingersTap()
 
 bool FrontendRenderer::OnSingleTouchFiltrate(m2::PointD const & pt, TouchEvent::ETouchType type)
 {
+  // This method can be called before gui rendererer initialization.
+  if (m_guiRenderer == nullptr)
+    return false;
+
   float const rectHalfSize = df::VisualParams::Instance().GetTouchRectRadius();
   m2::RectD r(-rectHalfSize, -rectHalfSize, rectHalfSize, rectHalfSize);
   r.SetCenter(pt);
