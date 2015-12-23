@@ -25,6 +25,9 @@ void RouteBuilder::Build(m2::PolylineD const & routePolyline, vector<double> con
   routeData->m_sourceTurns = turns;
   RouteShape(params).Draw(textures, *routeData.get());
 
+  // Flush route geometry.
+  GLFunctions::glFlush();
+
   if (m_flushRouteFn != nullptr)
     m_flushRouteFn(move(routeData));
 }
@@ -44,6 +47,9 @@ void RouteBuilder::BuildSign(m2::PointD const & pos, bool isStart, bool isValid,
     params.m_depth = 0.0f;
     RouteShape(params).CacheRouteSign(textures, *routeSignData.get());
   }
+
+  // Flush route sign geometry.
+  GLFunctions::glFlush();
 
   if (m_flushRouteSignFn != nullptr)
     m_flushRouteSignFn(move(routeSignData));

@@ -33,15 +33,12 @@ public:
   struct ButtonVertex
   {
     ButtonVertex() = default;
-    ButtonVertex(glsl::vec3 const & position, glsl::vec2 const & normal)
-      : m_position(position)
-      , m_normal(normal)
-    {
-    }
+    ButtonVertex(glsl::vec2 const & normal)
+      : m_normal(normal)
+    {}
 
     static dp::BindingInfo const & GetBindingInfo();
 
-    glsl::vec3 m_position;
     glsl::vec2 m_normal;
   };
 

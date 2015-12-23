@@ -36,15 +36,13 @@ uint32_t BuildRect(vector<Button::ButtonVertex> & vertices,
                    glsl::vec2 const & v3, glsl::vec2 const & v4)
 
 {
-  glsl::vec3 const position(0.0f, 0.0f, 0.0f);
+  vertices.push_back(Button::ButtonVertex(v1));
+  vertices.push_back(Button::ButtonVertex(v2));
+  vertices.push_back(Button::ButtonVertex(v3));
 
-  vertices.push_back(Button::ButtonVertex(position, v1));
-  vertices.push_back(Button::ButtonVertex(position, v2));
-  vertices.push_back(Button::ButtonVertex(position, v3));
-
-  vertices.push_back(Button::ButtonVertex(position, v3));
-  vertices.push_back(Button::ButtonVertex(position, v2));
-  vertices.push_back(Button::ButtonVertex(position, v4));
+  vertices.push_back(Button::ButtonVertex(v3));
+  vertices.push_back(Button::ButtonVertex(v2));
+  vertices.push_back(Button::ButtonVertex(v4));
 
   return dp::Batcher::IndexPerQuad;
 }
@@ -53,23 +51,21 @@ uint32_t BuildCorner(vector<Button::ButtonVertex> & vertices,
                      glsl::vec2 const & pt, double radius,
                      double angleStart, double angleFinish)
 {
-  glsl::vec3 const position(0.0f, 0.0f, 0.0f);
-
-  int const trianglesCount = 8;
-  double const sector = (angleFinish - angleStart) / static_cast<double>(trianglesCount);
+  int const kTrianglesCount = 8;
+  double const sector = (angleFinish - angleStart) / kTrianglesCount;
   m2::PointD startNormal(0.0f, radius);
 
-  for (size_t i = 0; i < trianglesCount; ++i)
+  for (size_t i = 0; i < kTrianglesCount; ++i)
   {
     m2::PointD normal = m2::Rotate(startNormal, angleStart + i * sector);
     m2::PointD nextNormal = m2::Rotate(startNormal, angleStart + (i + 1) * sector);
 
-    vertices.push_back(Button::ButtonVertex(position, pt));
-    vertices.push_back(Button::ButtonVertex(position, pt - glsl::ToVec2(normal)));
-    vertices.push_back(Button::ButtonVertex(position, pt - glsl::ToVec2(nextNormal)));
+    vertices.push_back(Button::ButtonVertex(pt));
+    vertices.push_back(Button::ButtonVertex(pt - glsl::ToVec2(normal)));
+    vertices.push_back(Button::ButtonVertex(pt - glsl::ToVec2(nextNormal)));
   }
 
-  return trianglesCount * dp::Batcher::IndexPerTriangle;
+  return kTrianglesCount * dp::Batcher::IndexPerTriangle;
 }
 
 }
@@ -189,21 +185,14 @@ dp::BindingInfo const & Button::ButtonVertex::GetBindingInfo()
 
   if (info == nullptr)
   {
-    info.reset(new dp::BindingInfo(2));
+    info.reset(new dp::BindingInfo(1));
 
-    dp::BindingDecl & posDecl = info->GetBindingDecl(0);
-    posDecl.m_attributeName = "a_position";
-    posDecl.m_componentCount = 3;
-    posDecl.m_componentType = gl_const::GLFloatType;
-    posDecl.m_offset = 0;
-    posDecl.m_stride = sizeof(ButtonVertex);
-
-    dp::BindingDecl & normalDecl = info->GetBindingDecl(1);
+    dp::BindingDecl & normalDecl = info->GetBindingDecl(0);
     normalDecl.m_attributeName = "a_normal";
     normalDecl.m_componentCount = 2;
     normalDecl.m_componentType = gl_const::GLFloatType;
-    normalDecl.m_offset = sizeof(glsl::vec3);
-    normalDecl.m_stride = posDecl.m_stride;
+    normalDecl.m_offset = 0;
+    normalDecl.m_stride = sizeof(ButtonVertex);
   }
 
   return *info.get();
