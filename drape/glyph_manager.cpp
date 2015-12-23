@@ -124,8 +124,11 @@ void ParseFontList(string const & fontListFile, ToDo toDo)
 class Font
 {
 public:
+  DECLARE_EXCEPTION(InvalidFontException, RootException);
+
   Font(uint32_t sdfScale, ReaderPtr<Reader> fontReader, FT_Library lib)
     : m_fontReader(fontReader)
+    , m_fontFace(nullptr)
     , m_sdfScale(sdfScale)
   {
     m_stream.base = 0;
@@ -149,13 +152,27 @@ public:
     args.num_params = 0;
     args.params = 0;
 
-    FREETYPE_CHECK(FT_Open_Face(lib, &args, 0, &m_fontFace));
+    FT_Error const err = FT_Open_Face(lib, &args, 0, &m_fontFace);
+#ifdef DEBUG
+    if (err)
+      LOG(LWARNING, ("Freetype:", g_FT_Errors[err].m_code, g_FT_Errors[err].m_message));
+#endif
+    if (err || !IsValid())
+      MYTHROW(InvalidFontException, ());
+  }
+
+  bool IsValid() const
+  {
+    return m_fontFace != nullptr && m_fontFace->num_glyphs > 0;
   }
 
   void DestroyFont()
   {
-    FREETYPE_CHECK(FT_Done_Face(m_fontFace));
-    m_fontFace = nullptr;
+    if (m_fontFace != nullptr)
+    {
+      FREETYPE_CHECK(FT_Done_Face(m_fontFace));
+      m_fontFace = nullptr;
+    }
   }
 
   bool HasGlyph(strings::UniChar unicodePoint) const
@@ -402,6 +419,7 @@ GlyphManager::GlyphManager(GlyphManager::Params const & params)
     catch(RootException const & e)
     {
       LOG(LWARNING, ("Error read font file : ", e.what()));
+      continue;
     }
 
     typedef size_t TBlockIndex;
