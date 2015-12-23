@@ -366,7 +366,7 @@ m2::PointD ScreenBase::PtoP3d(m2::PointD const & pt, double ptZ) const
 
   Vector3dT const normalizedPoint{float(2.0 * pt.x / m_PixelRect.SizeX() - 1.0),
                                   -float(2.0 * pt.y / m_PixelRect.SizeY() - 1.0),
-                                  float(2.0 * ptZ / m_PixelRect.SizeX()), 1.0};
+                                  float(2.0 * ptZ / m_PixelRect.SizeY()), 1.0};
 
   Vector3dT const perspectivePoint = normalizedPoint * m_Pto3d;
 
