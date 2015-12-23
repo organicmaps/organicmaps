@@ -25,7 +25,7 @@ public final class TrackRecorder
     @Override
     public void run()
     {
-      setEnabledInternal(true);
+      start();
     }
   };
 
@@ -65,15 +65,18 @@ public final class TrackRecorder
       {
         TrackRecorder.log("Transit to foreground: " + foreground);
 
+        UiThread.cancelDelayedTasks(sStartupAwaitProc);
         if (foreground)
           TrackRecorderWakeService.stop();
+        else
+          start();
       }
     });
 
     if (nativeIsEnabled())
       UiThread.runLater(sStartupAwaitProc, STARTUP_AWAIT_INTERVAL_MS);
     else
-      setEnabledInternal(false);
+      stop();
   }
 
   private static PendingIntent getAlarmIntent()
@@ -81,20 +84,18 @@ public final class TrackRecorder
     return PendingIntent.getBroadcast(MwmApplication.get(), 0, sAlarmIntent, 0);
   }
 
-  private static void setEnabledInternal(boolean enabled)
+  private static void start()
   {
-    if (enabled)
-    {
-      TrackRecorder.log("Reschedule awake timer");
-      sAlarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + WAKEUP_INTERVAL_MS,
-                                 WAKEUP_INTERVAL_MS, getAlarmIntent());
-    }
-    else
-    {
-      TrackRecorder.log("Cancel awake timer");
-      sAlarmManager.cancel(getAlarmIntent());
-      TrackRecorderWakeService.stop();
-    }
+    TrackRecorder.log("Reschedule awake timer");
+    sAlarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + WAKEUP_INTERVAL_MS,
+                               WAKEUP_INTERVAL_MS, getAlarmIntent());
+  }
+
+  private static void stop()
+  {
+    TrackRecorder.log("Cancel awake timer");
+    sAlarmManager.cancel(getAlarmIntent());
+    TrackRecorderWakeService.stop();
   }
 
   public static boolean isEnabled()
@@ -107,7 +108,7 @@ public final class TrackRecorder
     log("setEnabled(): " + enabled);
 
     nativeSetEnabled(enabled);
-    setEnabledInternal(enabled);
+    stop();
   }
 
   public static int getDuration()
@@ -126,14 +127,10 @@ public final class TrackRecorder
 
     UiThread.cancelDelayedTasks(sStartupAwaitProc);
 
-    if (!nativeIsEnabled())
-    {
-      setEnabledInternal(false);
-      return;
-    }
-
-    if (!MwmApplication.backgroundTracker().isForeground())
+    if (nativeIsEnabled() && !MwmApplication.backgroundTracker().isForeground())
       TrackRecorderWakeService.start();
+    else
+      stop();
   }
 
   static void onServiceStarted()

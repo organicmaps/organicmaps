@@ -17,7 +17,7 @@ import com.mapswithme.util.concurrency.UiThread;
  */
 public final class AppBackgroundTracker
 {
-  private static final int TRANSITION_DELAY_MS = 3000;
+  private static final int TRANSITION_DELAY_MS = 1000;
 
   private final Listeners<OnTransitionListener> mListeners = new Listeners<>();
   private SparseArray<WeakReference<Activity>> mActivities = new SparseArray<>();
@@ -33,7 +33,8 @@ public final class AppBackgroundTracker
       {
         int key = mActivities.keyAt(i);
         WeakReference<Activity> ref = mActivities.get(key);
-        if (ref.get() != null)
+        Activity activity = ref.get();
+        if (activity != null && !activity.isFinishing())
           newArray.put(key, ref);
       }
 
