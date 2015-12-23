@@ -416,8 +416,11 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
                                                                : msg->GetPreferredZoomLevelIn3d());
       m_overlayTree->SetFollowingMode(true);
       if (m_enable3dInNavigation)
+      {
+        bool immediatelyStart = !m_myPositionController->IsRotationActive();
         AddUserEvent(EnablePerspectiveEvent(msg->GetRotationAngle(), msg->GetAngleFOV(),
-                                            true /* animated */, false /* immediately start*/));
+                                            true /* animated */, immediatelyStart));
+      }
       break;
     }
 

@@ -342,17 +342,23 @@ bool UserEventStream::SetCenter(m2::PointD const & center, int zoom, bool isAnim
 
   ScreenBase const & currentScreen = GetCurrentScreen();
 
-  bool const isScaleAllowableIn3d = IsScaleAllowableIn3d(zoom);
-  bool const finishIn3d = m_discardedFOV > 0.0 && isScaleAllowableIn3d;
-  bool const finishIn2d = currentScreen.isPerspective() && !isScaleAllowableIn3d;
-
   ScreenBase screen = currentScreen;
-  if (finishIn3d)
-    screen.ApplyPerspective(m_discardedAngle, m_discardedAngle, m_discardedFOV);
-  else if (finishIn2d)
-    screen.ResetPerspective();
+  bool finishIn2d = false;
+  bool finishIn3d = false;
+  if (zoom != -1)
+  {
+    bool const isScaleAllowableIn3d = IsScaleAllowableIn3d(zoom);
+    finishIn3d = m_discardedFOV > 0.0 && isScaleAllowableIn3d;
+    finishIn2d = currentScreen.isPerspective() && !isScaleAllowableIn3d;
+
+    if (finishIn3d)
+      screen.ApplyPerspective(m_discardedAngle, m_discardedAngle, m_discardedFOV);
+    else if (finishIn2d)
+      screen.ResetPerspective();
+  }
 
   double const scale3d = screen.PixelRect().SizeX() / screen.PixelRectIn3d().SizeX();
+
   if (zoom == -1)
   {
     m2::AnyRectD const r = GetTargetRect();
