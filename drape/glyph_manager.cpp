@@ -126,6 +126,7 @@ class Font
 public:
   Font(uint32_t sdfScale, ReaderPtr<Reader> fontReader, FT_Library lib)
     : m_fontReader(fontReader)
+    , m_fontFace(nullptr)
     , m_sdfScale(sdfScale)
   {
     m_stream.base = 0;
@@ -152,10 +153,18 @@ public:
     FREETYPE_CHECK(FT_Open_Face(lib, &args, 0, &m_fontFace));
   }
 
+  bool IsValid() const
+  {
+    return m_fontFace != nullptr;
+  }
+
   void DestroyFont()
   {
-    FREETYPE_CHECK(FT_Done_Face(m_fontFace));
-    m_fontFace = nullptr;
+    if (m_fontFace != nullptr)
+    {
+      FREETYPE_CHECK(FT_Done_Face(m_fontFace));
+      m_fontFace = nullptr;
+    }
   }
 
   bool HasGlyph(strings::UniChar unicodePoint) const
@@ -396,12 +405,22 @@ GlyphManager::GlyphManager(GlyphManager::Params const & params)
     vector<FT_ULong> charCodes;
     try
     {
-      m_impl->m_fonts.emplace_back(make_unique<Font>(params.m_sdfScale, GetPlatform().GetReader(fontName), m_impl->m_library));
-      m_impl->m_fonts.back()->GetCharcodes(charCodes);
+      auto fontPtr = make_unique<Font>(params.m_sdfScale, GetPlatform().GetReader(fontName), m_impl->m_library);
+      if (fontPtr->IsValid())
+      {
+        fontPtr->GetCharcodes(charCodes);
+        m_impl->m_fonts.push_back(move(fontPtr));
+      }
+      else
+      {
+        // A font is not valid, skip it.
+        continue;
+      }
     }
     catch(RootException const & e)
     {
       LOG(LWARNING, ("Error read font file : ", e.what()));
+      continue;
     }
 
     typedef size_t TBlockIndex;
