@@ -1,18 +1,45 @@
 #include "testing/testing.hpp"
 
 #include "geometry/robust_orientation.hpp"
+#include "geometry/triangle2d.hpp"
 
 
-typedef m2::PointD P;
+using namespace m2::robust;
 
 namespace
 {
+  typedef m2::PointD P;
+
   template <typename IterT> void CheckSelfIntersections(IterT beg, IterT end, bool res)
   {
-    TEST_EQUAL(m2::robust::CheckPolygonSelfIntersections(beg, end), res, ());
+    TEST_EQUAL(CheckPolygonSelfIntersections(beg, end), res, ());
     typedef std::reverse_iterator<IterT> ReverseIterT;
-    TEST_EQUAL(m2::robust::CheckPolygonSelfIntersections(ReverseIterT(end), ReverseIterT(beg)), res, ());
+    TEST_EQUAL(CheckPolygonSelfIntersections(ReverseIterT(end), ReverseIterT(beg)), res, ());
   }
+}
+
+UNIT_TEST(OrientedS_Smoke)
+{
+  m2::PointD arr[] = {{-1, -1}, {0, 0}, {1, -1}};
+  TEST(OrientedS(arr[0], arr[2], arr[1]) > 0, ());
+  TEST(OrientedS(arr[2], arr[0], arr[1]) < 0, ());
+}
+
+UNIT_TEST(Triangle_Smoke)
+{
+  m2::PointD arr[] = {{0, 0}, {0, 3}, {3, 0}};
+
+  TEST(IsPointInsideTriangle(arr[0], arr[0], arr[1], arr[2]), ());
+  TEST(IsPointInsideTriangle(arr[1], arr[0], arr[1], arr[2]), ());
+  TEST(IsPointInsideTriangle(arr[2], arr[0], arr[1], arr[2]), ());
+  TEST(IsPointInsideTriangle({1, 1}, arr[0], arr[1], arr[2]), ());
+  TEST(IsPointInsideTriangle({1, 2}, arr[0], arr[1], arr[2]), ());
+  TEST(IsPointInsideTriangle({2, 1}, arr[0], arr[1], arr[2]), ());
+
+  double constexpr eps = 1.0E-10;
+  TEST(!IsPointInsideTriangle({-eps, -eps}, arr[0], arr[1], arr[2]), ());
+  TEST(!IsPointInsideTriangle({1 + eps, 2}, arr[0], arr[1], arr[2]), ());
+  TEST(!IsPointInsideTriangle({2, 1 + eps}, arr[0], arr[1], arr[2]), ());
 }
 
 UNIT_TEST(PolygonSelfIntersections_IntersectSmoke)

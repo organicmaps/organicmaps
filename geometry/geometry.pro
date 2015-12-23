@@ -18,6 +18,7 @@ SOURCES += \
   robust_orientation.cpp \
   screenbase.cpp \
   spline.cpp \
+  triangle2d.cpp \
 
 HEADERS += \
   angles.hpp \

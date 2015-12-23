@@ -2,7 +2,10 @@
 
 #include "geometry/mercator.hpp"
 
+#include "geometry/robust_orientation.hpp"
+
 #include "base/assert.hpp"
+
 
 namespace search
 {
@@ -58,7 +61,7 @@ bool ProjectionOnStreetCalculator::GetProjection(m2::PointD const & point,
   proj.m_proj = bestProj;
   proj.m_distMeters = bestDistMeters;
   proj.m_segIndex = bestIndex;
-  proj.m_projSign = m2::GetOrientation(m_points[bestIndex], m_points[bestIndex + 1], point);
+  proj.m_projSign = m2::robust::OrientedS(m_points[bestIndex], m_points[bestIndex + 1], point) <= 0.0;
   return true;
 }
 

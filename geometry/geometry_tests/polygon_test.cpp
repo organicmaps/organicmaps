@@ -9,10 +9,9 @@
 #include "std/algorithm.hpp"
 
 
-namespace
-{
-  typedef m2::PointD P;
-}
+namespace { typedef m2::PointD P; }
+
+using namespace m2::robust;
 
 UNIT_TEST(IsSegmentInCone)
 {

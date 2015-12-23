@@ -1,18 +1,20 @@
 #include "testing/testing.hpp"
-#include "geometry/point2d.hpp"
+
+#include "geometry/robust_orientation.hpp"
+
 
 typedef m2::PointD P;
 
 bool SegmentsIntersect(P a, P b, P c, P d)
 {
-  bool res = m2::SegmentsIntersect(a, b, c, d);
-  TEST_EQUAL(res, m2::SegmentsIntersect(a, b, d, c), (a, b, c, d));
-  TEST_EQUAL(res, m2::SegmentsIntersect(b, a, c, d), (a, b, c, d));
-  TEST_EQUAL(res, m2::SegmentsIntersect(b, a, d, c), (a, b, c, d));
-  TEST_EQUAL(res, m2::SegmentsIntersect(c, d, a, b), (a, b, c, d));
-  TEST_EQUAL(res, m2::SegmentsIntersect(c, d, b, a), (a, b, c, d));
-  TEST_EQUAL(res, m2::SegmentsIntersect(d, c, a, b), (a, b, c, d));
-  TEST_EQUAL(res, m2::SegmentsIntersect(d, c, b, a), (a, b, c, d));
+  bool const res = m2::robust::SegmentsIntersect(a, b, c, d);
+  TEST_EQUAL(res, m2::robust::SegmentsIntersect(a, b, d, c), (a, b, c, d));
+  TEST_EQUAL(res, m2::robust::SegmentsIntersect(b, a, c, d), (a, b, c, d));
+  TEST_EQUAL(res, m2::robust::SegmentsIntersect(b, a, d, c), (a, b, c, d));
+  TEST_EQUAL(res, m2::robust::SegmentsIntersect(c, d, a, b), (a, b, c, d));
+  TEST_EQUAL(res, m2::robust::SegmentsIntersect(c, d, b, a), (a, b, c, d));
+  TEST_EQUAL(res, m2::robust::SegmentsIntersect(d, c, a, b), (a, b, c, d));
+  TEST_EQUAL(res, m2::robust::SegmentsIntersect(d, c, b, a), (a, b, c, d));
   return res;
 }
 

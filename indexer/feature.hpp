@@ -266,8 +266,6 @@ public:
   inline feature::Metadata const & GetMetadata() const { return m_metadata; }
   inline feature::Metadata & GetMetadata() { return m_metadata; }
 
-  double GetDistance(m2::PointD const & pt, int scale) const;
-
   /// @name Statistic functions.
   //@{
   inline void ParseBeforeStatistic() const

@@ -6,6 +6,7 @@
 #include "drape_frontend/visual_params.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
 
 #include "platform/preferred_languages.hpp"
@@ -96,7 +97,8 @@ namespace
       feature::TypesHolder types(f);
       if (!types.Has(m_coastType) && NeedProcess(types))
       {
-        double const d = f.GetDistance(m_pt, m_scale);
+        // Convert from meters to degrees for backward compatibility.
+        double const d = feature::GetMinDistanceMeters(f, m_pt, m_scale) * MercatorBounds::degreeInMetres;
         ASSERT_GREATER_OR_EQUAL(d, 0.0, ());
 
         if (IsInclude(d, types))

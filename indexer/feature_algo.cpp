@@ -1,6 +1,9 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature.hpp"
 
+#include "geometry/distance.hpp"
+#include "geometry/triangle2d.hpp"
+
 #include "base/logging.hpp"
 
 
@@ -129,7 +132,7 @@ m2::PointD GetCenter(FeatureType const & f)
   return GetCenter(f, FeatureType::BEST_GEOMETRY);
 }
 
-double GetMinDistance(FeatureType const & ft, m2::PointD const & pt, int scale)
+double GetMinDistanceMeters(FeatureType const & ft, m2::PointD const & pt, int scale)
 {
   double res = numeric_limits<double>::max();
   auto updateDistanceFn = [&] (m2::PointD const & p)
@@ -139,7 +142,6 @@ double GetMinDistance(FeatureType const & ft, m2::PointD const & pt, int scale)
       res = d;
   };
 
-  /// @todo Need to check projection here?
   EGeomType const type = ft.GetFeatureType();
   switch (type)
   {
@@ -148,16 +150,42 @@ double GetMinDistance(FeatureType const & ft, m2::PointD const & pt, int scale)
     break;
 
   case GEOM_LINE:
-    ft.ForEachPoint(updateDistanceFn, scale);
+  {
+    ft.ParseGeometry(scale);
+    size_t const count = ft.GetPointsCount();
+    for (size_t i = 1; i < count; ++i)
+    {
+      m2::ProjectionToSection<m2::PointD> calc;
+      calc.SetBounds(ft.GetPoint(i - 1), ft.GetPoint(i));
+      updateDistanceFn(calc(pt));
+    }
     break;
+  }
 
   default:
     ASSERT_EQUAL(type, GEOM_AREA, ());
     ft.ForEachTriangle([&] (m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
     {
-      updateDistanceFn(p1);
-      updateDistanceFn(p2);
-      updateDistanceFn(p3);
+      if (res == 0.0)
+        return;
+
+      if (m2::IsPointInsideTriangle(pt, p1, p2, p3))
+      {
+        res = 0.0;
+        return;
+      }
+
+      auto fn = [&] (m2::PointD const & x1, m2::PointD const & x2)
+      {
+        m2::ProjectionToSection<m2::PointD> calc;
+        calc.SetBounds(x1, x2);
+        updateDistanceFn(calc(pt));
+      };
+
+      fn(p1, p2);
+      fn(p2, p3);
+      fn(p3, p1);
+
     }, scale);
     break;
   }
@@ -165,9 +193,9 @@ double GetMinDistance(FeatureType const & ft, m2::PointD const & pt, int scale)
   return res;
 }
 
-double GetMinDistance(FeatureType const & ft, m2::PointD const & pt)
+double GetMinDistanceMeters(FeatureType const & ft, m2::PointD const & pt)
 {
-  return GetMinDistance(ft, pt, FeatureType::BEST_GEOMETRY);
+  return GetMinDistanceMeters(ft, pt, FeatureType::BEST_GEOMETRY);
 }
 
 }

@@ -51,7 +51,7 @@ void ReverseGeocoder::GetNearbyStreets(m2::PointD const & center, vector<Street>
       return;
 
     ASSERT(!name.empty(), ());
-    streets.push_back({ft.GetID(), feature::GetMinDistance(ft, center), name});
+    streets.push_back({ft.GetID(), feature::GetMinDistanceMeters(ft, center), name});
   };
 
   m_index.ForEachInRect(addStreet, rect, kQueryScale);
@@ -65,7 +65,7 @@ void ReverseGeocoder::GetNearbyBuildings(m2::PointD const & center, vector<Build
 
   m2::RectD const rect = GetLookupRect(center);
 
-  auto const addBld = [&](FeatureType const & ft)
+  auto const addBuilding = [&](FeatureType const & ft)
   {
     if (!ftypes::IsBuildingChecker::Instance()(ft))
       return;
@@ -75,11 +75,11 @@ void ReverseGeocoder::GetNearbyBuildings(m2::PointD const & center, vector<Build
     if (number.empty())
       return;
 
-    buildings.push_back({ft.GetID(), feature::GetMinDistance(ft, center),
+    buildings.push_back({ft.GetID(), feature::GetMinDistanceMeters(ft, center),
                          number, feature::GetCenter(ft)});
   };
 
-  m_index.ForEachInRect(addBld, rect, kQueryScale);
+  m_index.ForEachInRect(addBuilding, rect, kQueryScale);
   sort(buildings.begin(), buildings.end(), my::CompareBy(&Building::m_distanceMeters));
 }
 
