@@ -36,8 +36,8 @@ public:
 
   static Editor & Instance();
 
-  void SetMwmIdByNameAndVersionFn(TMwmIdByMapNameFn && fn) { m_mwmIdByMapNameFn = move(fn); }
-  void SetInvalidateFn(TInvalidateFn && fn) { m_invalidateFn = move(fn); }
+  void SetMwmIdByNameAndVersionFn(TMwmIdByMapNameFn const & fn) { m_mwmIdByMapNameFn = fn; }
+  void SetInvalidateFn(TInvalidateFn const & fn) { m_invalidateFn = fn; }
 
   void LoadMapEdits();
 
