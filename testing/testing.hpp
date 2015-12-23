@@ -42,6 +42,7 @@ struct CommandLineOptions
   char const * m_resourcePath;
 
   bool m_help;
+  bool m_listTests;
 };
 CommandLineOptions const & GetTestingOptions();
 
