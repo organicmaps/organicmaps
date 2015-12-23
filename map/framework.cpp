@@ -2078,7 +2078,7 @@ void Framework::SetRouteFinishPoint(m2::PointD const & pt, bool isValid)
 
 void Framework::Allow3dMode(bool allow3d, bool allow3dBuildings)
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::Allow3dMode, _1, allow3d, allow3dBuildings));
+  CallDrapeFunction(bind(&df::DrapeEngine::Allow3dMode, _1, allow3d, allow3dBuildings, kRotationAngle, kAngleFOV));
 }
 
 void Framework::Save3dMode(bool allow3d, bool allow3dBuildings)

@@ -656,15 +656,21 @@ public:
 class Allow3dModeMessage : public Message
 {
 public:
-  Allow3dModeMessage(bool allow)
+  Allow3dModeMessage(bool allow, double rotationAngle, double angleFOV)
     : m_allow(allow)
+    , m_rotationAngle(rotationAngle)
+    , m_angleFOV(angleFOV)
   {}
 
   Type GetType() const override { return Message::Allow3dMode; }
   bool Allow() const { return m_allow; }
+  double GetRotationAngle() const { return m_rotationAngle; }
+  double GetAngleFOV() const { return m_angleFOV; }
 
 private:
   bool const m_allow;
+  double const m_rotationAngle;
+  double const m_angleFOV;
 };
 
 class Allow3dBuildingsMessage : public Message

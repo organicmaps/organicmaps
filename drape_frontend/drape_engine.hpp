@@ -114,7 +114,7 @@ public:
   void SetWidgetLayout(gui::TWidgetsLayoutInfo && info);
   gui::TWidgetsSizeInfo const & GetWidgetSizes();
 
-  void Allow3dMode(bool allow3d, bool allow3dBuildings);
+  void Allow3dMode(bool allow3d, bool allow3dBuildings, double rotationAngle, double angleFOV);
   void EnablePerspective(double rotationAngle, double angleFOV);
 
 private:

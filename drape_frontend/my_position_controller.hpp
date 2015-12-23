@@ -85,6 +85,7 @@ public:
               dp::UniformValuesStorage const & commonUniforms);
 
   bool IsFollowingActive() const;
+  bool IsInRouting() const;
 
 private:
   void AnimateStateTransition(location::EMyPositionMode oldMode, location::EMyPositionMode newMode);
@@ -97,7 +98,6 @@ private:
   location::EMyPositionMode GetMode() const;
   void CallModeListener(uint32_t mode);
 
-  bool IsInRouting() const;
   bool IsRotationActive() const;
 
   bool IsVisible() const { return m_isVisible; }

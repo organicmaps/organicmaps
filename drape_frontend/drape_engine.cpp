@@ -429,14 +429,14 @@ gui::TWidgetsSizeInfo const & DrapeEngine::GetWidgetSizes()
   return m_widgetSizes;
 }
 
-void DrapeEngine::Allow3dMode(bool allow3d, bool allow3dBuildings)
+void DrapeEngine::Allow3dMode(bool allow3d, bool allow3dBuildings, double rotationAngle, double angleFOV)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<Allow3dBuildingsMessage>(allow3d && allow3dBuildings),
                                   MessagePriority::Normal);
 
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<Allow3dModeMessage>(allow3d),
+                                  make_unique_dp<Allow3dModeMessage>(allow3d, rotationAngle, angleFOV),
                                   MessagePriority::Normal);
 }
 
