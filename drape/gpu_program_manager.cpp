@@ -42,11 +42,15 @@ GpuProgramManager::~GpuProgramManager()
 
 void GpuProgramManager::Init()
 {
+  // This feature is not supported on some Android devices (especially on Android 4.x version).
+  // Since we can't predict on which devices it'll work fine, we have to turn off for all devices.
+#if !defined(OMIM_OS_ANDROID)
   if (GLFunctions::glGetInteger(gl_const::GLMaxVertexTextures) > 0)
   {
     LOG(LINFO, ("VTF enabled"));
     globalDefines = "#define ENABLE_VTF\n"; // VTF == Vetrex Texture Fetch
   }
+#endif
 }
 
 ref_ptr<GpuProgram> GpuProgramManager::GetProgram(int index)
