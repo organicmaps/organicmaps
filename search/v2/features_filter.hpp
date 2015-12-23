@@ -1,69 +1,32 @@
 #pragma once
 
-#include "indexer/mwm_set.hpp"
-
 #include "coding/compressed_bit_vector.hpp"
 
-#include "geometry/rect2d.hpp"
-
-#include "base/cancellable.hpp"
-
-#include "std/algorithm.hpp"
 #include "std/unique_ptr.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
-
-class MwmValue;
 
 namespace search
 {
 namespace v2
 {
+// A lightweight filter of features.
+//
+// NOTE: this class *IS NOT* thread-safe.
 class FeaturesFilter
 {
 public:
-  FeaturesFilter(my::Cancellable const & cancellable);
+  FeaturesFilter();
 
-  void SetValue(MwmValue * value, MwmSet::MwmId const & id);
-  void SetViewport(m2::RectD const & viewport);
-  void SetMaxNumResults(size_t maxNumResults);
-  void SetScale(int scale);
+  FeaturesFilter(unique_ptr<coding::CompressedBitVector> filter, uint32_t threshold);
 
-  bool NeedToFilter(vector<uint32_t> const & features) const;
+  inline void SetFilter(unique_ptr<coding::CompressedBitVector> filter) { m_filter = move(filter); }
+  inline void SetThreshold(uint32_t threshold) { m_threshold = threshold; }
 
-  template <typename TFn>
-  void Filter(vector<uint32_t> const & features, TFn && fn)
-  {
-    using TRankAndFeature = pair<uint8_t, uint32_t>;
-    using TComparer = std::greater<TRankAndFeature>;
-
-    UpdateCache();
-
-    if (!m_featuresCache || m_featuresCache->PopCount() == 0)
-      return;
-    ASSERT(m_featuresCache.get(), ());
-
-    // Emit all features from the viewport.
-    for (uint32_t feature : features)
-    {
-      if (m_featuresCache->GetBit(feature))
-        fn(feature);
-    }
-  }
+  bool NeedToFilter(coding::CompressedBitVector & features) const;
+  unique_ptr<coding::CompressedBitVector> Filter(coding::CompressedBitVector & cbv) const;
 
 private:
-  void UpdateCache();
-
-  m2::RectD m_viewport;
-  size_t m_maxNumResults;
-  int m_scale;
-
-  unique_ptr<coding::CompressedBitVector> m_featuresCache;
-  bool m_cacheIsValid;
-
-  MwmValue * m_value;
-  MwmSet::MwmId m_id;
-  my::Cancellable const & m_cancellable;
+  unique_ptr<coding::CompressedBitVector> m_filter;
+  uint32_t m_threshold;
 };
 }  // namespace v2
 }  // namespace search

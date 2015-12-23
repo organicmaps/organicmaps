@@ -43,6 +43,14 @@ public:
   static unique_ptr<CompressedBitVector> Subtract(CompressedBitVector const & lhs,
                                                   CompressedBitVector const & rhs);
 
+  // Unites two bit vectors.
+  static unique_ptr<CompressedBitVector> Union(CompressedBitVector const & lhs,
+                                               CompressedBitVector const & rhs);
+
+  static bool IsEmpty(unique_ptr<CompressedBitVector> const & cbv);
+
+  static bool IsEmpty(CompressedBitVector const * cbv);
+
   // Returns the number of set bits (population count).
   virtual uint64_t PopCount() const = 0;
 

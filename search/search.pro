@@ -51,6 +51,7 @@ HEADERS += \
     v2/geocoder.hpp \
     v2/house_numbers_matcher.hpp \
     v2/house_to_street_table.hpp \
+    v2/mwm_context.hpp \
     v2/rank_table_cache.hpp \
     v2/search_model.hpp \
     v2/search_query_v2.hpp \
@@ -88,6 +89,7 @@ SOURCES += \
     v2/geocoder.cpp \
     v2/house_numbers_matcher.cpp \
     v2/house_to_street_table.cpp \
+    v2/mwm_context.cpp \
     v2/rank_table_cache.cpp \
     v2/search_model.cpp \
     v2/search_query_v2.cpp \

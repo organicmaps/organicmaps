@@ -118,6 +118,96 @@ struct SubtractOp
   }
 };
 
+struct UnionOp
+{
+  UnionOp() {}
+
+  unique_ptr<coding::CompressedBitVector> operator()(coding::DenseCBV const & a,
+                                                     coding::DenseCBV const & b) const
+  {
+    size_t sizeA = a.NumBitGroups();
+    size_t sizeB = b.NumBitGroups();
+
+    size_t commonSize = min(sizeA, sizeB);
+    size_t resultSize = max(sizeA, sizeB);
+    vector<uint64_t> resGroups(resultSize);
+    for (size_t i = 0; i < commonSize; ++i)
+      resGroups[i] = a.GetBitGroup(i) | b.GetBitGroup(i);
+    if (a.NumBitGroups() == resultSize)
+    {
+      for (size_t i = commonSize; i < resultSize; ++i)
+        resGroups[i] = a.GetBitGroup(i);
+    }
+    else
+    {
+      for (size_t i = commonSize; i < resultSize; ++i)
+        resGroups[i] = b.GetBitGroup(i);
+    }
+    return CompressedBitVectorBuilder::FromBitGroups(move(resGroups));
+  }
+
+  unique_ptr<coding::CompressedBitVector> operator()(coding::DenseCBV const & a,
+                                                     coding::SparseCBV const & b) const
+  {
+    size_t sizeA = a.NumBitGroups();
+    size_t sizeB = b.PopCount() == 0 ? 0 : (b.Select(b.PopCount() - 1) + DenseCBV::kBlockSize - 1) /
+                                               DenseCBV::kBlockSize;
+    if (sizeB > sizeA)
+    {
+      vector<uint64_t> resPos;
+      auto j = b.Begin();
+      auto merge = [&](uint64_t va)
+      {
+        while (j < b.End() && *j < va)
+        {
+          resPos.push_back(*j);
+          ++j;
+        }
+        resPos.push_back(va);
+      };
+      a.ForEach(merge);
+      for (; j < b.End(); ++j)
+        resPos.push_back(*j);
+      return CompressedBitVectorBuilder::FromBitPositions(move(resPos));
+    }
+
+    vector<uint64_t> resGroups(sizeA);
+
+    size_t i = 0;
+    auto j = b.Begin();
+    for (; i < sizeA || j < b.End(); ++i)
+    {
+      uint64_t const kBitsBegin = i * DenseCBV::kBlockSize;
+      uint64_t const kBitsEnd = (i + 1) * DenseCBV::kBlockSize;
+
+      uint64_t mask = i < sizeA ? a.GetBitGroup(i) : 0;
+      for (; j < b.End() && *j < kBitsEnd; ++j)
+      {
+        ASSERT_GREATER_OR_EQUAL(*j, kBitsBegin, ());
+        mask |= static_cast<uint64_t>(1) << (*j - kBitsBegin);
+      }
+
+      resGroups[i] = mask;
+    }
+
+    return CompressedBitVectorBuilder::FromBitGroups(move(resGroups));
+  }
+
+  unique_ptr<coding::CompressedBitVector> operator()(coding::SparseCBV const & a,
+                                                     coding::DenseCBV const & b) const
+  {
+    return operator()(b, a);
+  }
+
+  unique_ptr<coding::CompressedBitVector> operator()(coding::SparseCBV const & a,
+                                                     coding::SparseCBV const & b) const
+  {
+    vector<uint64_t> resPos;
+    set_union(a.Begin(), a.End(), b.Begin(), b.End(), back_inserter(resPos));
+    return CompressedBitVectorBuilder::FromBitPositions(move(resPos));
+  }
+};
+
 template <typename TBinaryOp>
 unique_ptr<coding::CompressedBitVector> Apply(TBinaryOp const & op, CompressedBitVector const & lhs,
                                               CompressedBitVector const & rhs)
@@ -341,15 +431,35 @@ string DebugPrint(CompressedBitVector::StorageStrategy strat)
 unique_ptr<CompressedBitVector> CompressedBitVector::Intersect(CompressedBitVector const & lhs,
                                                                CompressedBitVector const & rhs)
 {
-  static IntersectOp const intersectOp;
-  return Apply(intersectOp, lhs, rhs);
+  static IntersectOp const op;
+  return Apply(op, lhs, rhs);
 }
 
 // static
 unique_ptr<CompressedBitVector> CompressedBitVector::Subtract(CompressedBitVector const & lhs,
                                                               CompressedBitVector const & rhs)
 {
-  static SubtractOp const subtractOp;
-  return Apply(subtractOp, lhs, rhs);
+  static SubtractOp const op;
+  return Apply(op, lhs, rhs);
+}
+
+// static
+unique_ptr<CompressedBitVector> CompressedBitVector::Union(CompressedBitVector const & lhs,
+                                                           CompressedBitVector const & rhs)
+{
+  static UnionOp const op;
+  return Apply(op, lhs, rhs);
+}
+
+// static
+bool CompressedBitVector::IsEmpty(unique_ptr<CompressedBitVector> const & cbv)
+{
+  return !cbv || cbv->PopCount() == 0;
+}
+
+// static
+bool CompressedBitVector::IsEmpty(CompressedBitVector const * cbv)
+{
+  return !cbv || cbv->PopCount() == 0;
 }
 }  // namespace coding

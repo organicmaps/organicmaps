@@ -4,6 +4,7 @@
 #include "search/v2/features_filter.hpp"
 #include "search/v2/features_layer.hpp"
 #include "search/v2/features_layer_path_finder.hpp"
+#include "search/v2/mwm_context.hpp"
 #include "search/v2/search_model.hpp"
 
 #include "indexer/mwm_set.hpp"
@@ -78,24 +79,32 @@ public:
   void ClearCaches();
 
 private:
-  struct Partition
+  struct Locality
   {
-    Partition();
+    Locality() : m_featureId(0), m_startToken(0), m_endToken(0) {}
 
-    Partition(Partition &&) = default;
-
-    void FromFeatures(unique_ptr<coding::CompressedBitVector> features,
-                      Index::FeaturesLoaderGuard & loader, SearchModel const & model);
-
-    vector<uint32_t> m_clusters[SearchModel::SEARCH_TYPE_COUNT];
-    size_t m_size;
-
-    DISALLOW_COPY(Partition);
+    uint32_t m_featureId;
+    size_t m_startToken;
+    size_t m_endToken;
+    m2::RectD m_rect;
   };
 
   // Fills |m_retrievalParams| with [curToken, endToken) subsequence
   // of search query tokens.
   void PrepareRetrievalParams(size_t curToken, size_t endToken);
+
+  void FillLocalitiesTable(MwmContext const & context);
+
+  template <typename TFn>
+  void ForEachCountry(vector<shared_ptr<MwmInfo>> const & infos, TFn && fn);
+
+  // Tries to find all localities in a search query and then performs
+  // geocoding in found localities.
+  //
+  // *NOTE* that localities will be looked for in a World.mwm, so, for
+  // now, villages won't be found on this stage.
+  // TODO (@y, @m, @vng): try to add villages to World.mwm.
+  void DoGeocodingWithLocalities();
 
   // Tries to find all paths in a search tree, where each edge is
   // marked with some substring of the query tokens. These paths are
@@ -126,25 +135,28 @@ private:
   // Following fields are set up by Search() method and can be
   // modified and used only from Search() or its callees.
 
-  // Value of a current mwm.
-  MwmValue * m_value;
+  MwmSet::MwmId m_worldId;
 
-  // Id of a current mwm.
-  MwmSet::MwmId m_mwmId;
+  // Context of the currently processed mwm.
+  unique_ptr<MwmContext> m_context;
+
+  // Map from [curToken, endToken) to matching localities list.
+  map<pair<size_t, size_t>, vector<Locality>> m_localities;
 
   // Cache of posting lists for each token in the query.  TODO (@y,
   // @m, @vng): consider to update this cache lazily, as user inputs
   // tokens one-by-one.
-  vector<Partition> m_partitions;
+  vector<unique_ptr<coding::CompressedBitVector>> m_features;
 
-  // Features loader.
-  unique_ptr<Index::FeaturesLoaderGuard> m_loader;
+  // This vector is used to indicate what tokens were matched by
+  // locality and can't be re-used during the geocoding process.
+  vector<bool> m_usedTokens;
+
+  // This filter is used to throw away excess features.
+  FeaturesFilter m_filter;
 
   // Features matcher for layers intersection.
   unique_ptr<FeaturesLayerMatcher> m_matcher;
-
-  // Features filter for interpretations.
-  FeaturesFilter m_filter;
 
   // Path finder for interpretations.
   FeaturesLayerPathFinder m_finder;

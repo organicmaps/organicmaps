@@ -10,14 +10,13 @@ namespace search
 {
 namespace v2
 {
-FeaturesLayerMatcher::FeaturesLayerMatcher(Index & index, MwmSet::MwmId const & mwmId,
-                                           MwmValue & value, FeaturesVector const & featuresVector,
+FeaturesLayerMatcher::FeaturesLayerMatcher(Index & index, MwmContext & context,
                                            my::Cancellable const & cancellable)
-  : m_mwmId(mwmId)
+  : m_context(context)
   , m_reverseGeocoder(index)
-  , m_houseToStreetTable(HouseToStreetTable::Load(value))
-  , m_featuresVector(featuresVector)
-  , m_loader(value, featuresVector, scales::GetUpperScale(), ReverseGeocoder::kLookupRadiusM)
+  , m_houseToStreetTable(HouseToStreetTable::Load(m_context.m_value))
+  , m_loader(context.m_value, context.m_vector, scales::GetUpperScale(),
+             ReverseGeocoder::kLookupRadiusM)
   , m_cancellable(cancellable)
 {
   ASSERT(m_houseToStreetTable.get(), ("Can't load HouseToStreetTable"));
@@ -33,7 +32,7 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreet(uint32_t houseId, FeatureType &
   uint32_t const streetIndex = m_houseToStreetTable->Get(houseId);
 
   uint32_t streetId = kInvalidId;
-  if (streetIndex < streets.size() && streets[streetIndex].m_id.m_mwmId == m_mwmId)
+  if (streetIndex < streets.size() && streets[streetIndex].m_id.m_mwmId == m_context.m_id)
     streetId = streets[streetIndex].m_id.m_index;
   m_matchingStreetsCache[houseId] = streetId;
   return streetId;
@@ -46,7 +45,7 @@ vector<ReverseGeocoder::Street> const & FeaturesLayerMatcher::GetNearbyStreets(u
     return it->second;
 
   FeatureType feature;
-  m_featuresVector.GetByIndex(featureId, feature);
+  m_context.m_vector.GetByIndex(featureId, feature);
 
   auto & streets = m_nearbyStreetsCache[featureId];
   m_reverseGeocoder.GetNearbyStreets(feature, streets);

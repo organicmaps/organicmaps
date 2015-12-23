@@ -50,17 +50,24 @@ UNIT_TEST(SearchQueryV2_Smoke)
 {
   classificator::Load();
   Platform & platform = GetPlatform();
-  platform::LocalCountryFile map(platform.WritableDir(), platform::CountryFile("map"), 0);
+  platform::LocalCountryFile wonderland(platform.WritableDir(), platform::CountryFile("wonderland"),
+                                        0);
+  platform::LocalCountryFile testWorld(platform.WritableDir(), platform::CountryFile("testWorld"),
+                                       0);
+  m2::RectD wonderlandRect(m2::PointD(-1.0, -1.0), m2::PointD(10.1, 10.1));
   m2::RectD viewport(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0));
 
-  Cleanup(map);
-  MY_SCOPE_GUARD(cleanup, [&]()
+  auto cleanup = [&]()
   {
-    Cleanup(map);
-  });
+    Cleanup(wonderland);
+    Cleanup(testWorld);
+  };
+
+  cleanup();
+  MY_SCOPE_GUARD(cleanupAtExit, cleanup);
 
   vector<storage::CountryDef> countries;
-  countries.emplace_back(map.GetCountryName(), viewport);
+  countries.emplace_back(wonderland.GetCountryName(), wonderlandRect);
 
   TestSearchEngine engine("en", make_unique<storage::CountryInfoGetterForTesting>(countries),
                           make_unique<TestSearchQueryFactory>());
@@ -89,7 +96,7 @@ UNIT_TEST(SearchQueryV2_Smoke)
       "Hilbert house", "1 unit 2", *bohrStreet, "en");
 
   {
-    TestMwmBuilder builder(map, feature::DataHeader::country);
+    TestMwmBuilder builder(wonderland, feature::DataHeader::country);
     builder.Add(*mskCity);
     builder.Add(*busStop);
     builder.Add(*tramStop);
@@ -103,13 +110,23 @@ UNIT_TEST(SearchQueryV2_Smoke)
     builder.Add(*hilbertHouse);
   }
 
-  auto const regResult = engine.RegisterMap(map);
-  TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
+  {
+    TestMwmBuilder builder(testWorld, feature::DataHeader::world);
+    builder.Add(*mskCity);
+  }
+
+  auto const wonderlandResult = engine.RegisterMap(wonderland);
+  TEST_EQUAL(wonderlandResult.second, MwmSet::RegResult::Success, ());
+
+  auto const testWorldResult = engine.RegisterMap(testWorld);
+  TEST_EQUAL(testWorldResult.second, MwmSet::RegResult::Success, ());
+
+  auto wonderlandId = wonderlandResult.first;
 
   {
     TestSearchRequest request(engine, "Bus stop", "en", search::SearchParams::ALL, viewport);
     request.Wait();
-    vector<shared_ptr<MatchingRule>> rules = {make_shared<ExactMatch>(regResult.first, busStop)};
+    vector<shared_ptr<MatchingRule>> rules = {make_shared<ExactMatch>(wonderlandId, busStop)};
     TEST(MatchResults(engine, rules, request.Results()), ());
   }
 
@@ -117,9 +134,9 @@ UNIT_TEST(SearchQueryV2_Smoke)
     TestSearchRequest request(engine, "quantum", "en", search::SearchParams::ALL, viewport);
     request.Wait();
     vector<shared_ptr<MatchingRule>> rules = {
-        make_shared<ExactMatch>(regResult.first, quantumCafe),
-        make_shared<ExactMatch>(regResult.first, quantumTeleport1),
-        make_shared<ExactMatch>(regResult.first, quantumTeleport2)};
+        make_shared<ExactMatch>(wonderlandId, quantumCafe),
+        make_shared<ExactMatch>(wonderlandId, quantumTeleport1),
+        make_shared<ExactMatch>(wonderlandId, quantumTeleport2)};
     TEST(MatchResults(engine, rules, request.Results()), ());
   }
 
@@ -127,8 +144,8 @@ UNIT_TEST(SearchQueryV2_Smoke)
     TestSearchRequest request(engine, "quantum Moscow ", "en", search::SearchParams::ALL, viewport);
     request.Wait();
     vector<shared_ptr<MatchingRule>> rules = {
-        make_shared<ExactMatch>(regResult.first, quantumCafe),
-        make_shared<ExactMatch>(regResult.first, quantumTeleport1)};
+        make_shared<ExactMatch>(wonderlandId, quantumCafe),
+        make_shared<ExactMatch>(wonderlandId, quantumTeleport1)};
     TEST(MatchResults(engine, rules, request.Results()), ());
   }
 
@@ -143,7 +160,7 @@ UNIT_TEST(SearchQueryV2_Smoke)
                               viewport);
     request.Wait();
     vector<shared_ptr<MatchingRule>> rules = {
-        make_shared<ExactMatch>(regResult.first, quantumTeleport2)};
+        make_shared<ExactMatch>(wonderlandId, quantumTeleport2)};
     TEST(MatchResults(engine, rules, request.Results()), ());
   }
 
@@ -151,17 +168,15 @@ UNIT_TEST(SearchQueryV2_Smoke)
     TestSearchRequest request(engine, "feynman street 1", "en", search::SearchParams::ALL,
                               viewport);
     request.Wait();
-    vector<shared_ptr<MatchingRule>> rules = {
-        make_shared<ExactMatch>(regResult.first, feynmanHouse)};
+    vector<shared_ptr<MatchingRule>> rules = {make_shared<ExactMatch>(wonderlandId, feynmanHouse)};
     TEST(MatchResults(engine, rules, request.Results()), ());
   }
 
   {
     TestSearchRequest request(engine, "bohr street 1", "en", search::SearchParams::ALL, viewport);
     request.Wait();
-    vector<shared_ptr<MatchingRule>> rules = {
-        make_shared<ExactMatch>(regResult.first, bohrHouse),
-        make_shared<ExactMatch>(regResult.first, hilbertHouse)};
+    vector<shared_ptr<MatchingRule>> rules = {make_shared<ExactMatch>(wonderlandId, bohrHouse),
+                                              make_shared<ExactMatch>(wonderlandId, hilbertHouse)};
     TEST(MatchResults(engine, rules, request.Results()), ());
   }
 

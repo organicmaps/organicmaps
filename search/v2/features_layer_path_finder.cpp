@@ -2,7 +2,6 @@
 
 #include "search/cancel_exception.hpp"
 #include "search/v2/features_layer_matcher.hpp"
-#include "search/v2/features_filter.hpp"
 
 #include "indexer/features_vector.hpp"
 
@@ -17,7 +16,7 @@ FeaturesLayerPathFinder::FeaturesLayerPathFinder(my::Cancellable const & cancell
 {
 }
 
-void FeaturesLayerPathFinder::BuildGraph(FeaturesLayerMatcher & matcher, FeaturesFilter & filter,
+void FeaturesLayerPathFinder::BuildGraph(FeaturesLayerMatcher & matcher,
                                          vector<FeaturesLayer const *> const & layers,
                                          vector<uint32_t> & reachable)
 {
@@ -36,14 +35,6 @@ void FeaturesLayerPathFinder::BuildGraph(FeaturesLayerMatcher & matcher, Feature
 
     if (reachable.empty())
       break;
-
-    if (filter.NeedToFilter(reachable))
-    {
-      buffer.clear();
-      filter.Filter(reachable, MakeBackInsertFunctor(buffer));
-      reachable.swap(buffer);
-      my::SortUnique(reachable);
-    }
 
     buffer.clear();
     auto addEdge = [&](uint32_t childFeature, uint32_t /* parentFeature */)

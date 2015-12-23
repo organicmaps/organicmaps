@@ -5,6 +5,7 @@
 #include "search/v2/features_layer.hpp"
 #include "search/v2/house_numbers_matcher.hpp"
 #include "search/v2/house_to_street_table.hpp"
+#include "search/v2/mwm_context.hpp"
 #include "search/v2/search_model.hpp"
 #include "search/v2/street_vicinity_loader.hpp"
 
@@ -31,7 +32,6 @@
 #include "std/vector.hpp"
 
 class Index;
-class MwmValue;
 
 namespace search
 {
@@ -57,8 +57,7 @@ class FeaturesLayerMatcher
 public:
   static uint32_t const kInvalidId = numeric_limits<uint32_t>::max();
 
-  FeaturesLayerMatcher(Index & index, MwmSet::MwmId const & mwmId, MwmValue & value,
-                       FeaturesVector const & featuresVector, my::Cancellable const & cancellable);
+  FeaturesLayerMatcher(Index & index, MwmContext & context, my::Cancellable const & cancellable);
 
   template <typename TFn>
   void Match(FeaturesLayer const & child, FeaturesLayer const & parent, TFn && fn)
@@ -78,7 +77,7 @@ public:
     for (uint32_t featureId : *child.m_sortedFeatures)
     {
       FeatureType ft;
-      m_featuresVector.GetByIndex(featureId, ft);
+      m_context.m_vector.GetByIndex(featureId, ft);
       childCenters.push_back(feature::GetCenter(ft, FeatureType::WORST_GEOMETRY));
     }
 
@@ -89,7 +88,7 @@ public:
       BailIfCancelled(m_cancellable);
 
       FeatureType ft;
-      m_featuresVector.GetByIndex((*parent.m_sortedFeatures)[j], ft);
+      m_context.m_vector.GetByIndex((*parent.m_sortedFeatures)[j], ft);
       m2::PointD const center = feature::GetCenter(ft, FeatureType::WORST_GEOMETRY);
       double const radius = ftypes::GetRadiusByPopulation(ft.GetPopulation());
       m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(center, radius);
@@ -182,7 +181,8 @@ private:
   vector<ReverseGeocoder::Street> const & GetNearbyStreets(uint32_t featureId,
                                                            FeatureType & feature);
 
-  MwmSet::MwmId m_mwmId;
+  MwmContext & m_context;
+
   ReverseGeocoder m_reverseGeocoder;
 
   // Cache of streets in a feature's vicinity. All lists in the cache
@@ -196,7 +196,6 @@ private:
 
   unique_ptr<HouseToStreetTable> m_houseToStreetTable;
 
-  FeaturesVector const & m_featuresVector;
   StreetVicinityLoader m_loader;
   my::Cancellable const & m_cancellable;
 };

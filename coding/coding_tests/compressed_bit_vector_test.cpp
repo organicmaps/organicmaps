@@ -25,6 +25,14 @@ void Subtract(vector<uint64_t> & setBits1, vector<uint64_t> & setBits2, vector<u
                  back_inserter(result));
 }
 
+void Union(vector<uint64_t> & setBits1, vector<uint64_t> & setBits2, vector<uint64_t> & result)
+{
+  sort(setBits1.begin(), setBits1.end());
+  sort(setBits2.begin(), setBits2.end());
+  set_union(setBits1.begin(), setBits1.end(), setBits2.begin(), setBits2.end(),
+            back_inserter(result));
+}
+
 template <typename TBinaryOp>
 void CheckBinaryOp(TBinaryOp op, vector<uint64_t> & setBits1, vector<uint64_t> & setBits2,
                    coding::CompressedBitVector const & cbv)
@@ -33,14 +41,8 @@ void CheckBinaryOp(TBinaryOp op, vector<uint64_t> & setBits1, vector<uint64_t> &
   op(setBits1, setBits2, expected);
   TEST_EQUAL(expected.size(), cbv.PopCount(), ());
 
-  vector<bool> expectedBitmap;
-  if (!expected.empty())
-    expectedBitmap.resize(expected.back() + 1);
-
   for (size_t i = 0; i < expected.size(); ++i)
-    expectedBitmap[expected[i]] = true;
-  for (size_t i = 0; i < expectedBitmap.size(); ++i)
-    TEST_EQUAL(cbv.GetBit(i), expectedBitmap[i], ());
+    TEST(cbv.GetBit(expected[i]), ());
 }
 
 void CheckIntersection(vector<uint64_t> & setBits1, vector<uint64_t> & setBits2,
@@ -53,6 +55,12 @@ void CheckSubtraction(vector<uint64_t> & setBits1, vector<uint64_t> & setBits2,
                       coding::CompressedBitVector const & cbv)
 {
   CheckBinaryOp(&Subtract, setBits1, setBits2, cbv);
+}
+
+void CheckUnion(vector<uint64_t> & setBits1, vector<uint64_t> & setBits2,
+                coding::CompressedBitVector const & cbv)
+{
+  CheckBinaryOp(&Union, setBits1, setBits2, cbv);
 }
 }  // namespace
 
@@ -212,6 +220,103 @@ UNIT_TEST(CompressedBitVector_Subtract4)
   TEST(cbv3.get(), ());
   TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Sparse, cbv3->GetStorageStrategy(), ());
   CheckSubtraction(setBits1, setBits2, *cbv3);
+}
+
+UNIT_TEST(CompressedBitVector_Union_Smoke)
+{
+  vector<uint64_t> setBits1 = {};
+  vector<uint64_t> setBits2 = {};
+
+  auto cbv1 = coding::CompressedBitVectorBuilder::FromBitPositions(setBits1);
+  auto cbv2 = coding::CompressedBitVectorBuilder::FromBitPositions(setBits2);
+  TEST(cbv1.get(), ());
+  TEST(cbv2.get(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Sparse, cbv1->GetStorageStrategy(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Sparse, cbv2->GetStorageStrategy(), ());
+
+  auto cbv3 = coding::CompressedBitVector::Union(*cbv1, *cbv2);
+  TEST(cbv3.get(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Sparse, cbv3->GetStorageStrategy(), ());
+  CheckUnion(setBits1, setBits2, *cbv3);
+}
+
+UNIT_TEST(CompressedBitVector_Union1)
+{
+  vector<uint64_t> setBits1 = {};
+  vector<uint64_t> setBits2 = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+  auto cbv1 = coding::CompressedBitVectorBuilder::FromBitPositions(setBits1);
+  auto cbv2 = coding::CompressedBitVectorBuilder::FromBitPositions(setBits2);
+  TEST(cbv1.get(), ());
+  TEST(cbv2.get(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Sparse, cbv1->GetStorageStrategy(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Dense, cbv2->GetStorageStrategy(), ());
+
+  auto cbv3 = coding::CompressedBitVector::Union(*cbv1, *cbv2);
+  TEST(cbv3.get(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Dense, cbv3->GetStorageStrategy(), ());
+  CheckUnion(setBits1, setBits2, *cbv3);
+}
+
+UNIT_TEST(CompressedBitVector_Union2)
+{
+  vector<uint64_t> setBits1 = {256, 1024};
+  vector<uint64_t> setBits2 = {0, 32, 64};
+
+  auto cbv1 = coding::CompressedBitVectorBuilder::FromBitPositions(setBits1);
+  auto cbv2 = coding::CompressedBitVectorBuilder::FromBitPositions(setBits2);
+  TEST(cbv1.get(), ());
+  TEST(cbv2.get(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Sparse, cbv1->GetStorageStrategy(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Sparse, cbv2->GetStorageStrategy(), ());
+
+  auto cbv3 = coding::CompressedBitVector::Union(*cbv1, *cbv2);
+  TEST(cbv3.get(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Sparse, cbv3->GetStorageStrategy(), ());
+  CheckUnion(setBits1, setBits2, *cbv3);
+}
+
+UNIT_TEST(CompressedBitVector_Union3)
+{
+  vector<uint64_t> setBits1 = {0, 1, 2, 3, 4, 5, 6};
+
+  vector<uint64_t> setBits2;
+  for (int i = 0; i < 256; ++i)
+    setBits2.push_back(i);
+
+  auto cbv1 = coding::CompressedBitVectorBuilder::FromBitPositions(setBits1);
+  auto cbv2 = coding::CompressedBitVectorBuilder::FromBitPositions(setBits2);
+  TEST(cbv1.get(), ());
+  TEST(cbv2.get(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Dense, cbv1->GetStorageStrategy(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Dense, cbv2->GetStorageStrategy(), ());
+
+  auto cbv3 = coding::CompressedBitVector::Union(*cbv1, *cbv2);
+  TEST(cbv3.get(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Dense, cbv3->GetStorageStrategy(), ());
+  CheckUnion(setBits1, setBits2, *cbv3);
+}
+
+UNIT_TEST(CompressedBitVector_Union4)
+{
+  vector<uint64_t> setBits1;
+  for (int i = 0; i < coding::DenseCBV::kBlockSize; ++i)
+    setBits1.push_back(i);
+
+  vector<uint64_t> setBits2 = {1000000000};
+
+  auto cbv1 = coding::CompressedBitVectorBuilder::FromBitPositions(setBits1);
+  auto cbv2 = coding::CompressedBitVectorBuilder::FromBitPositions(setBits2);
+  TEST(cbv1.get(), ());
+  TEST(cbv2.get(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Dense, cbv1->GetStorageStrategy(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Sparse, cbv2->GetStorageStrategy(), ());
+
+  auto cbv3 = coding::CompressedBitVector::Union(*cbv1, *cbv2);
+  TEST(cbv3.get(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Sparse, cbv3->GetStorageStrategy(), ());
+
+  CheckUnion(setBits1, setBits2, *cbv3);
 }
 
 UNIT_TEST(CompressedBitVector_SerializationDense)
