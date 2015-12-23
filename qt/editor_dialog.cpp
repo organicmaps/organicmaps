@@ -6,6 +6,8 @@
 #include "indexer/feature.hpp"
 #include "indexer/osm_editor.hpp"
 
+#include "base/collection_cast.hpp"
+
 #include "std/set.hpp"
 #include "std/vector.hpp"
 
@@ -65,13 +67,9 @@ EditorDialog::EditorDialog(QWidget * parent, FeatureType const & feature) : QDia
   // All  metadata rows.
   QVBoxLayout * metaRows = new QVBoxLayout();
   // TODO(mgsergio): Load editable fields from metadata. Features can have several types, so we merge all editable fields here.
-  set<Metadata::EType> editableMetadataFields;
-  // Merge editable fields for all feature's types.
-  feature.ForEachType([&editableMetadataFields](uint32_t type)
-  {
-    auto const editableFields = osm::Editor::Instance().EditableMetadataForType(type);
-    editableMetadataFields.insert(editableFields.begin(), editableFields.end());
-  });
+  set<Metadata::EType> const  editableMetadataFields =
+      my::collection_cast<set>(osm::Editor::Instance().EditableMetadataForType(feature));
+
   for (Metadata::EType const field : editableMetadataFields)
   {
     QString const fieldName = QString::fromStdString(DebugPrint(field));

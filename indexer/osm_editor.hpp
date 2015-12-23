@@ -5,6 +5,8 @@
 #include "indexer/feature_meta.hpp"
 #include "indexer/mwm_set.hpp"
 
+#include "editor/xml_feature.hpp"
+
 #include "std/ctime.hpp"
 #include "std/function.hpp"
 #include "std/map.hpp"
@@ -17,6 +19,7 @@ class Index;
 
 namespace osm
 {
+using TStringPair = pair<string, string>;
 
 class Editor final
 {
@@ -33,6 +36,9 @@ public:
     EModified,
     ECreated
   };
+
+  using TTypes = vector<uint32_t>;
+  using TTags = vector<TStringPair>;
 
   static Editor & Instance();
 
@@ -65,7 +71,11 @@ public:
   /// Original feature with same FeatureID as newFeature is replaced by newFeature.
   void EditFeature(FeatureType & editedFeature);
 
-  vector<feature::Metadata::EType> EditableMetadataForType(uint32_t type) const;
+  vector<feature::Metadata::EType> EditableMetadataForType(FeatureType const & feature) const;
+
+  TTypes GetTypesOfFeature(editor::XMLFeature const & xmlFeature) const;
+
+  TTags GetTagsForType(uint32_t type) const;
 
 private:
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.

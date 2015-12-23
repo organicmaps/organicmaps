@@ -1,9 +1,11 @@
+#include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_loader_base.hpp"
 #include "indexer/feature_visibility.hpp"
+#include "indexer/osm_editor.hpp"
 
 #include "geometry/distance.hpp"
 #include "geometry/robust_orientation.hpp"
@@ -11,6 +13,8 @@
 #include "platform/preferred_languages.hpp"
 
 #include "base/range_iterator.hpp"
+
+#include "std/algorithm.hpp"
 
 using namespace feature;
 
@@ -58,12 +62,8 @@ FeatureType FeatureType::FromXML(editor::XMLFeature const & xml)
 
   // EGeomType
 
-  // for (auto const i : my::Range(feature.GetTypesCount()))
-  //   m_types[i] =
-  // Does the order matter? If so what order should be?
-  // TODO(mgsergio): Only features with single type are currently supported.
-  // TODO(mgsergio): Replace hardcode with real values.
-  feature.m_types[0] = classif().GetTypeByPath({"amenity", "atm"});
+  auto const & types = osm::Editor::Instance().GetTypesOfFeature(xml);
+  copy(begin(types), end(types), begin(feature.m_types));
   feature.m_bTypesParsed = true;
 
   for (auto const i : my::Range(1u, static_cast<uint32_t>(feature::Metadata::FMD_COUNT)))
@@ -105,12 +105,12 @@ editor::XMLFeature FeatureType::ToXML() const
   // feature.m_params.layer =
   // feature.m_params.rank =
 
-  // for (auto const i : my::Range(feature.GetTypesCount()))
-  //   m_types[i] =
-  // Does the order matter? If so what order should be?
-  // TODO(mgsergio): Only features with single type are currently supported.
   ParseTypes();
-  feature.SetTagValue("amenity", "atm");  // TODO(mgsergio): Replace hardcode with real values.
+  for (auto const i : my::Range(GetTypesCount()))
+  {
+    for (auto const & tag : osm::Editor::Instance().GetTagsForType(m_types[i]))
+      feature.SetTagValue(tag.first, tag.second);
+  }
 
   for (auto const type : m_metadata.GetPresentTypes())
   {

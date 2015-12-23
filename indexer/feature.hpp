@@ -105,7 +105,7 @@ public:
   }
 
   template <typename ToDo>
-  void ForEachType(ToDo f) const
+  void ForEachType(ToDo && f) const
   {
     ParseTypes();
 

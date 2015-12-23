@@ -1,7 +1,5 @@
 #include "editor/ui2oh.hpp"
 
-#include "base/enumerate.hpp"
-
 #include "std/algorithm.hpp"
 #include "std/array.hpp"
 #include "std/string.hpp"
@@ -74,9 +72,9 @@ bool ConvertOpeningHours(osmoh::OpeningHours const & oh, ui::TimeTableSet & tts)
   if (oh.IsTwentyFourHours())
     return true;
 
-  for (auto const & p : my::Enumerate(oh.GetRule()))
+  bool first = true;
+  for (auto const & rulePart : oh.GetRule())
   {
-    auto const & rulePart = p.item;
     ui::TimeTable tt;
 
     if (rulePart.HasWeekdays())
@@ -87,8 +85,13 @@ bool ConvertOpeningHours(osmoh::OpeningHours const & oh, ui::TimeTableSet & tts)
       tt.SetTwentyFourHours(false);
       SetUpTimeTable(rulePart.GetTimes(), tt);
     }
+    else
+    {
+      tt.SetTwentyFourHours(true);
+    }
 
-    bool const appended = p.index == 0 ? tts.Replace(tt, 0) : tts.Append(tt);
+    bool const appended = first ? tts.Replace(tt, 0) : tts.Append(tt);
+    first = false;
     if (!appended)
       return false;
   }

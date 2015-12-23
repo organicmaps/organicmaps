@@ -16,10 +16,10 @@ SOURCES += \
   bits_test.cpp \
   buffer_vector_test.cpp \
   cache_test.cpp \
+  collection_cast_test.cpp \
   condition_test.cpp \
   const_helper.cpp \
   containers_test.cpp \
-  enumerate_test.cpp \
   logging_test.cpp \
   math_test.cpp \
   matrix_test.cpp \

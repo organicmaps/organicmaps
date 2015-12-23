@@ -38,9 +38,9 @@ HEADERS += \
     buffer_vector.hpp \
     cache.hpp \
     cancellable.hpp \
+    collection_cast.hpp \
     condition.hpp \
     const_helper.hpp \
-    enumerate.hpp \
     exception.hpp \
     internal/message.hpp \
     limited_priority_queue.hpp \
