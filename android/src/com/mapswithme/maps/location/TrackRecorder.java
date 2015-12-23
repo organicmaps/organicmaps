@@ -20,12 +20,16 @@ public final class TrackRecorder
   private static final long WAKEUP_INTERVAL_MS = 20000;
   private static final long STARTUP_AWAIT_INTERVAL_MS = 5000;
 
+  private static final String LOCATION_TIMEOUT_STORED_KEY = "TrackRecordLastAwaitTimeout";
+  private static final long LOCATION_TIMEOUT_MIN_MS = 5000;
+  private static final long LOCATION_TIMEOUT_MAX_MS = 80000;
+
   private static final Runnable sStartupAwaitProc = new Runnable()
   {
     @Override
     public void run()
     {
-      start();
+      restartAlarm();
     }
   };
 
@@ -37,6 +41,7 @@ public final class TrackRecorder
     public void onLocationUpdated(Location location)
     {
       log("onLocationUpdated()");
+      setAwaitTimeout(LOCATION_TIMEOUT_MIN_MS);
       LocationHelper.onLocationUpdated(location);
       TrackRecorderWakeService.stop();
     }
@@ -45,7 +50,9 @@ public final class TrackRecorder
     public void onLocationError(int errorCode)
     {
       log("onLocationError() errorCode: " + errorCode);
-      TrackRecorderWakeService.stop();
+
+      // Unrecoverable error occured: GPS disabled or inaccessible
+      setEnabled(false);
     }
 
     @Override
@@ -56,6 +63,7 @@ public final class TrackRecorder
 
   public static void init()
   {
+    log("--------------------------------");
     log("init()");
 
     MwmApplication.backgroundTracker().addListener(new AppBackgroundTracker.OnTransitionListener()
@@ -69,7 +77,7 @@ public final class TrackRecorder
         if (foreground)
           TrackRecorderWakeService.stop();
         else
-          start();
+          restartAlarm();
       }
     });
 
@@ -84,16 +92,15 @@ public final class TrackRecorder
     return PendingIntent.getBroadcast(MwmApplication.get(), 0, sAlarmIntent, 0);
   }
 
-  private static void start()
+  private static void restartAlarm()
   {
-    TrackRecorder.log("Reschedule awake timer");
-    sAlarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + WAKEUP_INTERVAL_MS,
-                               WAKEUP_INTERVAL_MS, getAlarmIntent());
+    TrackRecorder.log("restartAlarm()");
+    sAlarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + WAKEUP_INTERVAL_MS, getAlarmIntent());
   }
 
   private static void stop()
   {
-    TrackRecorder.log("Cancel awake timer");
+    TrackRecorder.log("stop(). Cancel awake timer");
     sAlarmManager.cancel(getAlarmIntent());
     TrackRecorderWakeService.stop();
   }
@@ -107,8 +114,13 @@ public final class TrackRecorder
   {
     log("setEnabled(): " + enabled);
 
+    setAwaitTimeout(LOCATION_TIMEOUT_MIN_MS);
     nativeSetEnabled(enabled);
-    stop();
+
+    if (enabled)
+      restartAlarm();
+    else
+      stop();
   }
 
   public static int getDuration()
@@ -133,6 +145,30 @@ public final class TrackRecorder
       stop();
   }
 
+  static long getAwaitTimeout()
+  {
+    return MwmApplication.prefs().getLong(LOCATION_TIMEOUT_STORED_KEY, LOCATION_TIMEOUT_MIN_MS);
+  }
+
+  private static void setAwaitTimeout(long timeout)
+  {
+    log("setAwaitTimeout(): " + timeout);
+
+    if (timeout != getAwaitTimeout())
+      MwmApplication.prefs().edit().putLong(LOCATION_TIMEOUT_STORED_KEY, timeout).apply();
+  }
+
+  static void incrementAwaitTimeout()
+  {
+    long current = getAwaitTimeout();
+    long next = current * 2;
+    if (next > LOCATION_TIMEOUT_MAX_MS)
+      next = LOCATION_TIMEOUT_MAX_MS;
+
+    if (next != current)
+      setAwaitTimeout(next);
+  }
+
   static void onServiceStarted()
   {
     TrackRecorder.log("onServiceStarted()");
@@ -143,6 +179,9 @@ public final class TrackRecorder
   {
     TrackRecorder.log("onServiceStopped()");
     LocationHelper.INSTANCE.removeLocationListener(sLocationListener);
+
+    if (nativeIsEnabled() && !MwmApplication.backgroundTracker().isForeground())
+      restartAlarm();
   }
 
   static void log(String message)

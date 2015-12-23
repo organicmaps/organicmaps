@@ -13,7 +13,6 @@ import com.mapswithme.maps.MwmApplication;
 
 public class TrackRecorderWakeService extends IntentService
 {
-  private static final long TIMEOUT_MS = 30000;
   private static WeakReference<TrackRecorderWakeService> sServiceRef;
   private final CountDownLatch mWaitMonitor = new CountDownLatch(1);
 
@@ -54,8 +53,14 @@ public class TrackRecorderWakeService extends IntentService
 
     try
     {
-      if (!mWaitMonitor.await(TIMEOUT_MS, TimeUnit.MILLISECONDS))
+      long timeout = TrackRecorder.getAwaitTimeout();
+      TrackRecorder.log("Timeout: " + timeout);
+
+      if (!mWaitMonitor.await(timeout, TimeUnit.MILLISECONDS))
+      {
         TrackRecorder.log("TIMEOUT awaiting coordinates");
+        TrackRecorder.incrementAwaitTimeout();
+      }
     } catch (InterruptedException ignored) {}
 
     synchronized (TrackRecorderWakeService.class)
