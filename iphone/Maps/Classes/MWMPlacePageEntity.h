@@ -45,8 +45,11 @@ typedef NS_ENUM (NSUInteger, MWMPlacePageEntityType)
 @property (nonatomic) int typeDescriptionValue;
 
 @property (nonatomic) BookmarkAndCategory bac;
-@property (nonatomic) m2::PointD point;
+@property (nonatomic) ms::LatLon ll;
 @property (weak, nonatomic) MWMPlacePageViewManager * manager;
+
+// Automatically checks if DMS format should be used.
+- (NSString *)coordinates;
 
 - (NSArray *)metadataTypes;
 - (NSArray *)metadataValues;

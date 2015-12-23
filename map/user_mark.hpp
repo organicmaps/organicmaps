@@ -6,6 +6,7 @@
 
 #include "indexer/feature.hpp"
 
+#include "geometry/latlon.hpp"
 #include "geometry/point2d.hpp"
 
 #include "base/macros.hpp"
@@ -46,7 +47,7 @@ public:
   ///////////////////////////////////////////////////////
 
   UserMarkContainer const * GetContainer() const;
-  void GetLatLon(double & lat, double & lon) const;
+  ms::LatLon GetLatLon() const;
   virtual Type GetMarkType() const = 0;
   virtual unique_ptr<UserMarkCopy> Copy() const = 0;
   // Need it to calculate POI rank from all taps to features via statistics.

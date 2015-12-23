@@ -34,9 +34,7 @@ using feature::Metadata;
 - (void)configureWithUserMark:(UserMark const *)mark
 {
   UserMark::Type const type = mark->GetMarkType();
-  double x, y;
-  mark->GetLatLon(x, y);
-  self.point = m2::PointD(x, y);
+  self.ll = mark->GetLatLon();
 
   typedef UserMark::Type Type;
   switch (type)
@@ -110,9 +108,7 @@ using feature::Metadata;
   self.title = L(@"my_position");
   self.type = MWMPlacePageEntityTypeMyPosition;
   [self.metaTypes addObject:kPatternTypesArray.lastObject];
-  BOOL const isLatLonAsDMS = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLatLonAsDMSKey];
-  NSString * latLonStr = isLatLonAsDMS ? @(MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()): @( MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str());
-  [self.metaValues addObject:latLonStr];
+  [self.metaValues addObject:[self coordinates]];
 }
 
 - (void)configureForApi:(ApiMarkPoint const *)apiMark
@@ -121,10 +117,7 @@ using feature::Metadata;
   self.title = @(apiMark->GetName().c_str());
   self.category = @(GetFramework().GetApiDataHolder().GetAppTitle().c_str());
   [self.metaTypes addObject:kPatternTypesArray.lastObject];
-  BOOL const isLatLonAsDMS = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLatLonAsDMSKey];
-  NSString * latLonStr = isLatLonAsDMS ? @(MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()) : @(MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str());
-  latLonStr = isLatLonAsDMS ? @(MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()) : @(MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str());
-  [self.metaValues addObject:latLonStr];
+  [self.metaValues addObject:[self coordinates]];
 }
 
 - (void)configureEntityWithMetadata:(Metadata const &)metadata addressInfo:(search::AddressInfo const &)info
@@ -221,10 +214,7 @@ using feature::Metadata;
   }
 
   [self.metaTypes addObject:kPatternTypesArray.lastObject];
-  BOOL const isLatLonAsDMS = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLatLonAsDMSKey];
-  NSString * latLonStr = isLatLonAsDMS ? @(MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()) : @( MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str());
-  latLonStr = isLatLonAsDMS ? @(MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()) : @( MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str());
-  [self.metaValues addObject:latLonStr];
+  [self.metaValues addObject:[self coordinates]];
 }
 
 - (NSArray *)metadataTypes
@@ -277,6 +267,13 @@ using feature::Metadata;
     default:
       return nil;
   }
+}
+
+- (NSString *)coordinates
+{
+  BOOL const useDMSFormat = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLatLonAsDMSKey];
+  return @((useDMSFormat ? MeasurementUtils::FormatLatLon(self.ll.lat, self.ll.lon).c_str()
+                         : MeasurementUtils::FormatLatLonAsDMS(self.ll.lat, self.ll.lon, 2).c_str()));
 }
 
 #pragma mark - Bookmark editing

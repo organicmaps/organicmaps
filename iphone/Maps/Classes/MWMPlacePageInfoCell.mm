@@ -113,10 +113,11 @@ extern NSString * const kUserDefaultsLatLonAsDMSKey;
     return;
   NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
   BOOL const showLatLonAsDMS = [defaults boolForKey:kUserDefaultsLatLonAsDMSKey];
-  m2::PointD const point = self.currentEntity.point;
-  [self.textContainer setText:@((showLatLonAsDMS ? MeasurementUtils::FormatLatLon(point.x, point.y).c_str() : MeasurementUtils::FormatLatLonAsDMS(point.x, point.y, 2).c_str()))];
   [defaults setBool:!showLatLonAsDMS forKey:kUserDefaultsLatLonAsDMSKey];
   [defaults synchronize];
+
+  // @NOTE: coordinates method depends on kUserDefaultsLatLonAsDMSKey value above.
+  [self.textContainer setText:[self.currentEntity coordinates]];
 }
 
 - (void)longTap:(UILongPressGestureRecognizer *)sender

@@ -1859,10 +1859,10 @@ UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool
   {
     search::AddressInfo info;
     info.m_name = m_stringsBundle.GetString("my_position");
-    MyPositionMarkPoint * myPostition = UserMarkContainer::UserMarkForMyPostion();
-    myPostition->SetInfo(info);
+    MyPositionMarkPoint * myPosition = UserMarkContainer::UserMarkForMyPostion();
+    myPosition->SetInfo(info);
 
-    return myPostition;
+    return myPosition;
   }
 
   df::VisualParams const & vp = df::VisualParams::Instance();
@@ -1957,9 +1957,8 @@ string Framework::GenerateApiBackUrl(ApiMarkPoint const & point)
   string res = m_ParsedMapApi.GetGlobalBackUrl();
   if (!res.empty())
   {
-    double lat, lon;
-    point.GetLatLon(lat, lon);
-    res += "pin?ll=" + strings::to_string(lat) + "," + strings::to_string(lon);
+    ms::LatLon const ll = point.GetLatLon();
+    res += "pin?ll=" + strings::to_string(ll.lat) + "," + strings::to_string(ll.lon);
     if (!point.GetName().empty())
       res += "&n=" + UrlEncode(point.GetName());
     if (!point.GetID().empty())

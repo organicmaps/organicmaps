@@ -56,18 +56,16 @@ UserMarkContainer const * UserMark::GetContainer() const
   return m_container;
 }
 
-void UserMark::GetLatLon(double & lat, double & lon) const
+ms::LatLon UserMark::GetLatLon() const
 {
-  lon = MercatorBounds::XToLon(m_ptOrg.x);
-  lat = MercatorBounds::YToLat(m_ptOrg.y);
+  return MercatorBounds::ToLatLon(m_ptOrg);
 }
 
 void UserMark::FillLogEvent(UserMark::TEventContainer & details) const
 {
-  double lat, lon;
-  GetLatLon(lat, lon);
-  details.emplace("lat", strings::to_string(lat));
-  details.emplace("lon", strings::to_string(lon));
+  ms::LatLon const ll = GetLatLon();
+  details.emplace("lat", strings::to_string(ll.lat));
+  details.emplace("lon", strings::to_string(ll.lon));
   details.emplace("markType", ToString(GetMarkType()));
 }
 

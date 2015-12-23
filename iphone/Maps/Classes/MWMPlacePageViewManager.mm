@@ -251,7 +251,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppShare"];
   MWMPlacePageEntity * entity = self.entity;
   NSString * title = entity.bookmarkTitle ? entity.bookmarkTitle : entity.title;
-  CLLocationCoordinate2D const coord = CLLocationCoordinate2DMake(entity.point.x, entity.point.y);
+  CLLocationCoordinate2D const coord = CLLocationCoordinate2DMake(entity.ll.lat, entity.ll.lon);
   MWMActivityViewController * shareVC =
       [MWMActivityViewController shareControllerForLocationTitle:title
                                                         location:coord
