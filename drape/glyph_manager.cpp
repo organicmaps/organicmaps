@@ -124,6 +124,8 @@ void ParseFontList(string const & fontListFile, ToDo toDo)
 class Font
 {
 public:
+  DECLARE_EXCEPTION(InvalidFontException, RootException);
+
   Font(uint32_t sdfScale, ReaderPtr<Reader> fontReader, FT_Library lib)
     : m_fontReader(fontReader)
     , m_fontFace(nullptr)
@@ -150,12 +152,18 @@ public:
     args.num_params = 0;
     args.params = 0;
 
-    FREETYPE_CHECK(FT_Open_Face(lib, &args, 0, &m_fontFace));
+    FT_Error const err = FT_Open_Face(lib, &args, 0, &m_fontFace);
+#ifdef DEBUG
+    if (err)
+      LOG(LWARNING, ("Freetype:", g_FT_Errors[err].m_code, g_FT_Errors[err].m_message));
+#endif
+    if (err || !IsValid())
+      MYTHROW(InvalidFontException, ());
   }
 
   bool IsValid() const
   {
-    return m_fontFace != nullptr;
+    return m_fontFace != nullptr && m_fontFace->num_glyphs > 0;
   }
 
   void DestroyFont()
@@ -405,17 +413,8 @@ GlyphManager::GlyphManager(GlyphManager::Params const & params)
     vector<FT_ULong> charCodes;
     try
     {
-      auto fontPtr = make_unique<Font>(params.m_sdfScale, GetPlatform().GetReader(fontName), m_impl->m_library);
-      if (fontPtr->IsValid())
-      {
-        fontPtr->GetCharcodes(charCodes);
-        m_impl->m_fonts.push_back(move(fontPtr));
-      }
-      else
-      {
-        // A font is not valid, skip it.
-        continue;
-      }
+      m_impl->m_fonts.emplace_back(make_unique<Font>(params.m_sdfScale, GetPlatform().GetReader(fontName), m_impl->m_library));
+      m_impl->m_fonts.back()->GetCharcodes(charCodes);
     }
     catch(RootException const & e)
     {
