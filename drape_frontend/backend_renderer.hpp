@@ -45,6 +45,8 @@ public:
   BackendRenderer(Params const & params);
   ~BackendRenderer() override;
 
+  void Teardown();
+
 protected:
   unique_ptr<threads::IRoutine> CreateRoutine() override;
 
@@ -79,6 +81,10 @@ private:
   gui::LayerCacher m_guiCacher;
 
   ref_ptr<RequestedTiles> m_requestedTiles;
+
+#ifdef DEBUG
+  bool m_isTeardowned;
+#endif
 };
 
 } // namespace df

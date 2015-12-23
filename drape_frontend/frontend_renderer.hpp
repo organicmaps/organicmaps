@@ -103,6 +103,8 @@ public:
   FrontendRenderer(Params const & params);
   ~FrontendRenderer() override;
 
+  void Teardown();
+
 #ifdef DRAW_INFO
   double m_tpf;
   double m_fps;
@@ -232,6 +234,10 @@ private:
   int m_currentZoomLevel = -1;
   ref_ptr<RequestedTiles> m_requestedTiles;
   uint64_t m_maxGeneration;
+
+#ifdef DEBUG
+  bool m_isTeardowned;
+#endif
 };
 
 } // namespace df
