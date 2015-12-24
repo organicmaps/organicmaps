@@ -134,6 +134,24 @@ private:
     bool const queryLooksLikeHouseNumber =
         !queryTokens.empty() && feature::IsHouseNumber(child.m_subQuery);
 
+    // When building name does not look like a house number it's
+    // faster to check nearby streets for each building instead of
+    // street vicinities loading.
+    if (!queryLooksLikeHouseNumber &&
+        child.m_sortedFeatures->size() < parent.m_sortedFeatures->size())
+    {
+      for (uint32_t houseId : *child.m_sortedFeatures)
+      {
+        uint32_t streetId = GetMatchingStreet(houseId);
+        if (binary_search(parent.m_sortedFeatures->begin(), parent.m_sortedFeatures->end(),
+                          streetId))
+        {
+          fn(houseId, streetId);
+        }
+      }
+      return;
+    }
+
     uint32_t numFilterInvocations = 0;
     auto filter = [&](uint32_t id, FeatureType & feature) -> bool
     {
@@ -174,12 +192,19 @@ private:
 
   // Returns id of a street feature corresponding to a |houseId|, or
   // kInvalidId if there're not such street.
+  uint32_t GetMatchingStreet(uint32_t houseId);
+
   uint32_t GetMatchingStreet(uint32_t houseId, FeatureType & houseFeature);
 
   vector<ReverseGeocoder::Street> const & GetNearbyStreets(uint32_t featureId);
 
   vector<ReverseGeocoder::Street> const & GetNearbyStreets(uint32_t featureId,
                                                            FeatureType & feature);
+
+  uint32_t GetMatchingStreetImpl(uint32_t houseId, FeatureType & houseFeature);
+
+  vector<ReverseGeocoder::Street> const & GetNearbyStreetsImpl(uint32_t featureId,
+                                                               FeatureType & feature);
 
   MwmContext & m_context;
 
