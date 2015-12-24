@@ -360,6 +360,11 @@ bool FeatureParams::FinishAddingTypes()
     newTypes.push_back(candidate);
   }
 
+  // Remove duplicated types.
+  sort(newTypes.begin(), newTypes.end());
+  auto last = unique(newTypes.begin(), newTypes.end());
+  newTypes.erase(last, newTypes.end());
+
   m_Types.swap(newTypes);
 
   if (m_Types.size() > max_types_count)
