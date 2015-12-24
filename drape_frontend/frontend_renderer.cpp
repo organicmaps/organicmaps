@@ -55,6 +55,10 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   m_fps = 0.0;
 #endif
 
+#ifdef DEBUG
+  m_isTeardowned = false;
+#endif
+
   ASSERT(m_tapEventInfoFn, ());
   ASSERT(m_userPositionChangedFn, ());
 
@@ -66,7 +70,15 @@ FrontendRenderer::FrontendRenderer(Params const & params)
 
 FrontendRenderer::~FrontendRenderer()
 {
+  ASSERT(m_isTeardowned, ());
+}
+
+void FrontendRenderer::Teardown()
+{
   StopThread();
+#ifdef DEBUG
+  m_isTeardowned = true;
+#endif
 }
 
 #ifdef DRAW_INFO

@@ -18,7 +18,6 @@ protected:
   virtual ~MessageAcceptor(){}
 
   virtual void AcceptMessage(ref_ptr<Message> message) = 0;
-  virtual bool CanReceiveMessage() = 0;
 
   /// Must be called by subclass on message target thread
   bool ProcessSingleMessage(bool waitForMessage = true);

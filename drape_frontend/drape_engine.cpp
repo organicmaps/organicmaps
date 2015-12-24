@@ -82,9 +82,13 @@ DrapeEngine::DrapeEngine(Params && params)
 
 DrapeEngine::~DrapeEngine()
 {
-  // reset pointers explicitly! We must wait for threads completion
+  // Call Teardown and reset pointers explicitly! We must wait for threads completion.
+  m_frontend->Teardown();
   m_frontend.reset();
+
+  m_backend->Teardown();
   m_backend.reset();
+
   m_threadCommutator.reset();
 
   gui::DrapeGui::Instance().Destroy();

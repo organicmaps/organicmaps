@@ -25,8 +25,7 @@ bool MessageAcceptor::ProcessSingleMessage(bool waitForMessage)
 
 void MessageAcceptor::PostMessage(drape_ptr<Message> && message, MessagePriority priority)
 {
-  if (CanReceiveMessage())
-    m_messageQueue.PushMessage(move(message), priority);
+  m_messageQueue.PushMessage(move(message), priority);
 }
 
 void MessageAcceptor::CloseQueue()

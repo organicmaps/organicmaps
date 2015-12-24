@@ -38,6 +38,8 @@ public:
 
   BaseRenderer(ThreadsCommutator::ThreadName name, Params const & params);
 
+  bool CanReceiveMessages();
+
   void SetRenderingEnabled(bool const isEnabled);
 
 protected:
@@ -54,11 +56,8 @@ protected:
   virtual unique_ptr<threads::IRoutine> CreateRoutine() = 0;
 
 private:
-  bool CanReceiveMessage() override;
-
   using TCompletionHandler = function<void()>;
 
-private:
   threads::Thread m_selfThread;
   ThreadsCommutator::ThreadName m_threadName;
 

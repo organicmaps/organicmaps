@@ -135,7 +135,7 @@ void BaseRenderer::ProcessStopRenderingMessage()
   CloseQueue();
 }
 
-bool BaseRenderer::CanReceiveMessage()
+bool BaseRenderer::CanReceiveMessages()
 {
   return !m_selfThread.GetRoutine()->IsCancelled();
 }
