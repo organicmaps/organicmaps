@@ -38982,6 +38982,44 @@ cont {
   }
 }
 cont {
+  name: "man_made-water_tower"
+  element {
+    scale: 15
+    symbol {
+      name: "hunting_closed_high"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "hunting_closed_high"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "hunting_closed_high"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "hunting_closed_high"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "hunting_closed_high"
+      priority: 16000
+    }
+  }
+}
+cont {
   name: "man_made-windmill"
   element {
     scale: 17
