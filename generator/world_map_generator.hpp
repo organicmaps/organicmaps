@@ -122,20 +122,25 @@ public:
         if (inWater)
         {
           state = ProcessState::Water;
-          break;
         }
-
-        points.push_back(p);
-        state = ProcessState::Earth;
+        else
+        {
+          points.push_back(p);
+          state = ProcessState::Earth;
+        }
         break;
       }
       case ProcessState::Water:
       {
         if (inWater)
-          break;
-
-        points.push_back(p);
-        state = ProcessState::Earth;
+        {
+          // do nothing
+        }
+        else
+        {
+          points.push_back(p);
+          state = ProcessState::Earth;
+        }
         break;
       }
       case ProcessState::Earth:
@@ -151,10 +156,11 @@ public:
           }
           points.clear();
           state = ProcessState::Water;
-          break;
         }
-
-        points.push_back(p);
+        else
+        {
+          points.push_back(p);
+        }
         break;
       }
       }
