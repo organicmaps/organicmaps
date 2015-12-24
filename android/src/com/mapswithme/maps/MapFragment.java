@@ -94,7 +94,7 @@ public class MapFragment extends BaseMwmFragment
                       UiUtils.dimen(R.dimen.margin_compass_left) + offsetX,
                       mHeight - UiUtils.dimen(R.dimen.margin_compass_bottom) + offsetY,
                       ANCHOR_CENTER);
-    if (forceRedraw)
+    if (forceRedraw && mEngineCreated)
       nativeApplyWidgets();
   }
 
@@ -104,7 +104,7 @@ public class MapFragment extends BaseMwmFragment
                       mWidth - UiUtils.dimen(R.dimen.margin_ruler_right) + offsetX,
                       mHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom) + offsetY,
                       ANCHOR_RIGHT_BOTTOM);
-    if (forceRedraw)
+    if (forceRedraw && mEngineCreated)
       nativeApplyWidgets();
   }
 
@@ -149,11 +149,14 @@ public class MapFragment extends BaseMwmFragment
     getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
     final float exactDensityDpi = metrics.densityDpi;
 
-    mEngineCreated = nativeCreateEngine(surface, (int)exactDensityDpi);
-    if (mEngineCreated)
-      onRenderingInitialized();
-    else
+    mEngineCreated = nativeCreateEngine(surface, (int) exactDensityDpi);
+    if (!mEngineCreated)
+    {
       reportUnsupported();
+      return;
+    }
+
+    onRenderingInitialized();
   }
 
   @Override
