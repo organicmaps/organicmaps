@@ -62,6 +62,7 @@ public:
     Params();
 
     m2::RectD m_viewport;
+    m2::PointD m_position;
     size_t m_maxNumResults;
   };
 

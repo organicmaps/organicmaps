@@ -222,6 +222,7 @@ Query::Query(Index & index, CategoriesHolder const & categories, vector<Suggest>
 #ifdef FIND_LOCALITY_TEST
   , m_locality(&index)
 #endif
+  , m_position(0, 0)
   , m_worldSearch(true)
   , m_keepHouseNumberInQuery(false)
 {

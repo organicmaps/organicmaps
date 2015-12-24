@@ -34,9 +34,6 @@ namespace v2
 {
 namespace
 {
-// 50km maximum viewport radius.
-double const kMaxViewportRadiusM = 50.0 * 1000;
-
 void JoinQueryTokens(SearchQueryParams const & params, size_t curToken, size_t endToken,
                      string const & sep, string & res)
 {
@@ -78,7 +75,7 @@ MwmSet::MwmHandle FindWorld(Index & index, vector<shared_ptr<MwmInfo>> & infos)
 }  // namespace
 
 // Geocoder::Params --------------------------------------------------------------------------------
-Geocoder::Params::Params() : m_maxNumResults(0) {}
+Geocoder::Params::Params() : m_position(0, 0), m_maxNumResults(0) {}
 
 // Geocoder::Geocoder ------------------------------------------------------------------------------
 Geocoder::Geocoder(Index & index)
@@ -301,18 +298,54 @@ void Geocoder::DoGeocodingWithLocalities()
 
 void Geocoder::DoGeocodingWithoutLocalities()
 {
-  // TODO (@y, @m, @vng): consider to add user position here, to
-  // inflate viewport if too small number of results is found, etc.
-  // Limits viewport by kMaxViewportRadiusM.
-  m2::RectD const viewportLimit = MercatorBounds::RectByCenterXYAndSizeInMeters(
-      m_params.m_viewport.Center(), kMaxViewportRadiusM);
-  m2::RectD rect = m_params.m_viewport;
-  rect.Intersect(viewportLimit);
-  if (rect.IsEmptyInterior())
-    return;
+  // 50km maximum viewport radius.
+  double constexpr kMaxViewportRadiusM = 50.0 * 1000;
 
-  m_filter.SetFilter(Retrieval::RetrieveGeometryFeatures(
-      m_context->m_value, static_cast<my::Cancellable const &>(*this), rect, m_params.m_scale));
+  // 50km radius around position.
+  double constexpr kMaxPositionRadiusM = 50.0 * 1000;
+
+  double constexpr kEps = 1.0e-5;
+
+  m2::RectD const & viewport = m_params.m_viewport;
+  m2::PointD const & position = m_params.m_position;
+
+  // Extracts features in viewport.
+  unique_ptr<coding::CompressedBitVector> viewportFeatures;
+  {
+    // Limits viewport by kMaxViewportRadiusM.
+    m2::RectD const viewportLimit =
+        MercatorBounds::RectByCenterXYAndSizeInMeters(viewport.Center(), kMaxViewportRadiusM);
+    m2::RectD rect = viewport;
+    rect.Intersect(viewportLimit);
+    if (!rect.IsEmptyInterior())
+    {
+      viewportFeatures = Retrieval::RetrieveGeometryFeatures(
+          m_context->m_value, static_cast<my::Cancellable const &>(*this), rect, m_params.m_scale);
+    }
+  }
+
+  // Extracts features around user position.
+  unique_ptr<coding::CompressedBitVector> positionFeatures;
+  if (!position.EqualDxDy(viewport.Center(), kEps))
+  {
+    m2::RectD const rect =
+        MercatorBounds::RectByCenterXYAndSizeInMeters(position, kMaxPositionRadiusM);
+    positionFeatures = Retrieval::RetrieveGeometryFeatures(
+        m_context->m_value, static_cast<my::Cancellable const &>(*this), rect, m_params.m_scale);
+  }
+
+  if (coding::CompressedBitVector::IsEmpty(viewportFeatures) &&
+      coding::CompressedBitVector::IsEmpty(positionFeatures))
+  {
+    return;
+  }
+
+  if (coding::CompressedBitVector::IsEmpty(viewportFeatures))
+    m_filter.SetFilter(move(positionFeatures));
+  else if (coding::CompressedBitVector::IsEmpty(positionFeatures))
+    m_filter.SetFilter(move(viewportFeatures));
+  else
+    m_filter.SetFilter(coding::CompressedBitVector::Union(*viewportFeatures, *positionFeatures));
 
   // Filter will be applied only for large bit vectors.
   m_filter.SetThreshold(m_params.m_maxNumResults);
@@ -497,8 +530,8 @@ void Geocoder::FindPaths()
 
   m_finder.ForEachReachableVertex(*m_matcher, sortedLayers, [this](uint32_t featureId)
                                   {
-    m_results->emplace_back(m_context->m_id, featureId);
-  });
+                                    m_results->emplace_back(m_context->m_id, featureId);
+                                  });
 }
 }  // namespace v2
 }  // namespace search

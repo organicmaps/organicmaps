@@ -84,6 +84,7 @@ public:
   void SetViewport(m2::RectD const & viewport, bool forceUpdate);
   void SetRankPivot(m2::PointD const & pivot);
   inline string const & GetPivotRegion() const { return m_region; }
+  inline void SetPosition(m2::PointD const & position) { m_position = position; }
 
   inline void SetSearchInWorld(bool b) { m_worldSearch = b; }
 
@@ -231,6 +232,7 @@ protected:
 
   m2::RectD m_viewport[COUNT_V];
   m2::PointD m_pivot;
+  m2::PointD m_position;
   bool m_worldSearch;
   Retrieval m_retrieval;
 

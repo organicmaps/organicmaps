@@ -233,6 +233,12 @@ void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
   }
 
   SetRankPivot(params, viewport, viewportSearch);
+
+  if (params.IsValidPosition())
+    m_query->SetPosition(MercatorBounds::FromLatLon(params.m_lat, params.m_lon));
+  else
+    m_query->SetPosition(viewport.Center());
+
   m_query->SetSearchInWorld(params.HasSearchMode(SearchParams::SEARCH_WORLD));
   m_query->SetInputLocale(params.m_inputLocale);
 
