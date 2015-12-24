@@ -43,6 +43,10 @@ See [INSTALL.md](INSTALL.md) for command-line compilation instructions.
 Debugging may not work in Qt Creator. To enable it, try creating a Build & Run kit in
 preferences with XCode's lldb as a debugger and a clang compiler.
 
+At the moment configuration assumes you've cloned repository into omim (also a default name) directory.
+If you are using shadow-dir for building artifacts (default behavior) and custom directory for repo - 
+you'll need to create a "data" symlink in the shadow-dir path to the /repo/data directory.
+
 ### XCode
 
 * Install [Homebrew](http://brew.sh/) and run `brew install qt5`.
