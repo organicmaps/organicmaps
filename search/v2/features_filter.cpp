@@ -11,13 +11,13 @@ FeaturesFilter::FeaturesFilter(unique_ptr<coding::CompressedBitVector> filter, u
 {
 }
 
-bool FeaturesFilter::NeedToFilter(coding::CompressedBitVector & cbv) const
+bool FeaturesFilter::NeedToFilter(coding::CompressedBitVector const & cbv) const
 {
   return cbv.PopCount() > m_threshold;
 }
 
 unique_ptr<coding::CompressedBitVector> FeaturesFilter::Filter(
-    coding::CompressedBitVector & cbv) const
+    coding::CompressedBitVector const & cbv) const
 {
   if (!m_filter)
     return make_unique<coding::SparseCBV>();

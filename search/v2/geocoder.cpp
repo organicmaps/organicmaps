@@ -125,7 +125,7 @@ void Geocoder::Go(vector<FeatureID> & results)
         // it's ok to save MwmId.
         m_worldId = handle.GetId();
         if (HasSearchIndex(value))
-          FillLocalitiesTable(MwmContext(value, m_worldId));
+          FillLocalitiesTable(move(handle));
       }
     }
 
@@ -240,7 +240,7 @@ void Geocoder::ForEachCountry(vector<shared_ptr<MwmInfo>> const & infos, TFn && 
     auto & value = *handle.GetValue<MwmValue>();
     if (!HasSearchIndex(value) || !HasGeometryIndex(value))
       continue;
-    fn(make_unique<MwmContext>(value, handle.GetId()));
+    fn(make_unique<MwmContext>(move(handle)));
   }
 }
 
@@ -360,9 +360,9 @@ void Geocoder::DoGeocoding(size_t curToken)
   // Try to consume first n tokens starting at |curToken|.
   for (size_t n = 1; curToken + n <= m_numTokens && !m_usedTokens[curToken + n - 1]; ++n)
   {
-    // At this point |intersection| is an intersection of
+    // At this point |intersection| is the intersection of
     // m_features[curToken], m_features[curToken + 1], ...,
-    // m_features[curToken + n - 1], except the case when n equals to 1.
+    // m_features[curToken + n - 2], iff n > 2.
 
     BailIfCancelled(static_cast<my::Cancellable const &>(*this));
 
@@ -386,7 +386,8 @@ void Geocoder::DoGeocoding(size_t curToken)
       intersection = coding::CompressedBitVector::Intersect(*m_features[curToken + n - 2],
                                                             *m_features[curToken + n - 1]);
       features = intersection.get();
-    } else
+    }
+    else
     {
       intersection =
           coding::CompressedBitVector::Intersect(*intersection, *m_features[curToken + n - 1]);

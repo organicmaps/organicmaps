@@ -13,10 +13,11 @@ namespace v2
 {
 struct MwmContext
 {
-  MwmContext(MwmValue & value, MwmSet::MwmId const & id);
+  MwmContext(MwmSet::MwmHandle handle);
 
+  MwmSet::MwmHandle m_handle;
   MwmValue & m_value;
-  MwmSet::MwmId const m_id;
+  MwmSet::MwmId const & m_id;
   FeaturesVector m_vector;
 
   DISALLOW_COPY_AND_MOVE(MwmContext);

@@ -21,8 +21,8 @@ public:
   inline void SetFilter(unique_ptr<coding::CompressedBitVector> filter) { m_filter = move(filter); }
   inline void SetThreshold(uint32_t threshold) { m_threshold = threshold; }
 
-  bool NeedToFilter(coding::CompressedBitVector & features) const;
-  unique_ptr<coding::CompressedBitVector> Filter(coding::CompressedBitVector & cbv) const;
+  bool NeedToFilter(coding::CompressedBitVector const & features) const;
+  unique_ptr<coding::CompressedBitVector> Filter(coding::CompressedBitVector const & cbv) const;
 
 private:
   unique_ptr<coding::CompressedBitVector> m_filter;
