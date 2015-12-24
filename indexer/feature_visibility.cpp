@@ -248,11 +248,14 @@ bool IsDrawableForIndexGeometryOnly(FeatureBase const & f, int level)
 {
   Classificator const & c = classif();
 
+  static uint32_t const buildingPartType = c.GetTypeByPath({"building:part"});
+
   TypesHolder const types(f);
 
-  if (types.GetGeoType() == GEOM_AREA && !types.Has(c.GetCoastType()) &&
-      !scales::IsGoodForLevel(level, f.GetLimitRect()))
-      return false;
+  if (types.GetGeoType() == GEOM_AREA
+      && !types.Has(c.GetCoastType()) && !types.Has(buildingPartType)
+      && !scales::IsGoodForLevel(level, f.GetLimitRect()))
+    return false;
 
   return true;
 }
