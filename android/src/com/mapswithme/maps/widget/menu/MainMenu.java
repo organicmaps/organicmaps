@@ -191,14 +191,14 @@ public class MainMenu
       int sz = UiUtils.dimen(R.dimen.menu_line_height);
       Rect bounds = new Rect(0, 0, sz, sz);
 
-      mOpenImage = new TrackedTransitionDrawable(new Drawable[] { new RotateByAlphaDrawable(frame.getContext(), R.drawable.ic_menu_open, false)
+      mOpenImage = new TrackedTransitionDrawable(new Drawable[] { new RotateByAlphaDrawable(frame.getContext(), R.drawable.ic_menu_open, R.attr.iconTint, false)
                                                                       .setInnerBounds(bounds),
-                                                                  new RotateByAlphaDrawable(frame.getContext(), R.drawable.ic_menu_close, true)
+                                                                  new RotateByAlphaDrawable(frame.getContext(), R.drawable.ic_menu_close, R.attr.iconTintLight, true)
                                                                       .setInnerBounds(bounds)
                                                                       .setBaseAngle(-90) });
-      mCollapseImage = new TrackedTransitionDrawable(new Drawable[] { new RotateByAlphaDrawable(frame.getContext(), R.drawable.ic_menu_open, false)
+      mCollapseImage = new TrackedTransitionDrawable(new Drawable[] { new RotateByAlphaDrawable(frame.getContext(), R.drawable.ic_menu_open, R.attr.iconTint, false)
                                                                           .setInnerBounds(bounds),
-                                                                      new RotateByAlphaDrawable(frame.getContext(), R.drawable.ic_menu_close, true)
+                                                                      new RotateByAlphaDrawable(frame.getContext(), R.drawable.ic_menu_close, R.attr.iconTintLight, true)
                                                                           .setInnerBounds(bounds) });
       mOpenImage.setCrossFadeEnabled(true);
       mCollapseImage.setCrossFadeEnabled(true);
@@ -264,7 +264,7 @@ public class MainMenu
     mItemViews.put(item, view);
 
     if (view != null)
-      Graphics.tintDrawable((TextView)view);
+      Graphics.tint((TextView)view);
   }
 
   private void adjustCollapsedItems()
@@ -312,7 +312,7 @@ public class MainMenu
     });
   }
 
-  public void updateMarker()
+  private void updateMarker()
   {
     int count = ActiveCountryTree.getOutOfDateCount();
     UiUtils.showIf((!mCollapsed || mCollapseViews.isEmpty()) && (count > 0) && !isOpen(), mNewsMarker);

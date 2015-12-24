@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-  android:id="@+id/ll__place_name"
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:background="?attr/clickableBackground"
-  android:gravity="center_vertical"
-  android:paddingBottom="@dimen/margin_half"
-  android:paddingTop="@dimen/margin_half"
-  android:visibility="gone"
+  android:id="@+id/ll__place_name"
+  style="@style/PlacePageItemFrame"
   tools:background="#2000FF00"
   tools:visibility="visible">
-
   <ImageView
     android:id="@+id/iv__place_name"
     android:layout_width="wrap_content"

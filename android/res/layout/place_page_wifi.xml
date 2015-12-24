@@ -3,15 +3,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/ll__place_wifi"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:background="?attr/clickableBackground"
-  android:gravity="center_vertical"
-  android:orientation="horizontal"
-  android:paddingBottom="@dimen/margin_half"
-  android:paddingTop="@dimen/margin_half"
-  android:visibility="gone"
-  android:clickable="true"
+  style="@style/PlacePageItemFrame"
   tools:visibility="visible"
   tools:background="#40FF0000">
   <ImageView

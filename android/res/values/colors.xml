@@ -7,17 +7,19 @@
   <color name="text_light">#FFFFFFFF</color>
   <color name="text_light_subtitle">#B3FFFFFF</color>
   <color name="text_light_hint">#4CFFFFFF</color>
-  <color name="text_green">#DE1F9952</color>
-  <color name="text_accent">#FF209852</color>
-  <color name="text_pp_accent">@color/base_accent</color>
-  <color name="text_pp_accent_night">#FF0288D1</color>
 
   <color name="base_green">#FF209852</color>
-  <color name="base_green_darker">#FF188044</color>
+  <color name="darker_green">#FF188044</color>
 
   <color name="base_accent">#FF1E96F0</color>
   <color name="base_accent_night">#FFFFE68C</color>
   <color name="base_red">#FFF54137</color>
+
+  <color name="icon_tint">#FF757575</color>
+  <color name="icon_tint_night">#FFC4C6C7</color>
+
+  <color name="icon_tint_light">#FFBDBDBD</color>
+  <color name="icon_tint_light_night">#FF76797C</color>
 
   <color name="divider">#1E000000</color>
   <color name="divider_night">#1EFFFFFF</color>
@@ -27,8 +29,6 @@
   <color name="bg_window_night">#FF32363A</color>
   <color name="bg_primary">@color/base_green</color>
   <color name="bg_primary_night">#FF14181C</color>
-  <color name="bg_secondary">#FFF5F5F5</color>
-  <color name="bg_secondary_night">#FF32363A</color>
   <color name="bg_panel">#FFF4F4F4</color>
   <color name="bg_panel_night">#FF3C4044</color>
   <color name="bg_side_panel">#FFFFFFFF</color>
@@ -42,8 +42,8 @@
   <color name="bg_menu_closed">#CCFFFFFF</color>
   <color name="bg_menu_closed_night">#CC2D3237</color>
 
-  <color name="bg_status_bar">@color/base_green_darker</color>
-  <color name="bg_status_bar_night">#FF181C21</color>
+  <color name="bg_statusbar">@color/darker_green</color>
+  <color name="bg_statusbar_night">#FF181C21</color>
 
   <color name="bg_azimut_arrow">#1D414651</color>
   <color name="fg_azimut_arrow">#FFFFFFFF</color>

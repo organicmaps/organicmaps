@@ -172,7 +172,7 @@ class TabAdapter extends FragmentPagerAdapter
 
       ColorStateList colors = getTabTextColor(context);
       tabView.setTextColor(colors);
-      Graphics.tintDrawable(tabView, colors);
+      Graphics.tint(tabView, colors);
 
       tabs.addTab(tabs.newTab().setCustomView(tabView), true);
     }

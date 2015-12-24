@@ -7,7 +7,7 @@
     android:layout_marginTop="@dimen/margin_base"
     android:paddingLeft="@dimen/margin_half_plus"
     android:paddingRight="@dimen/margin_half_plus"
-    android:background="?ppButtonBackground"
+    android:background="?panel"
     android:clickable="true">
   <LinearLayout
       android:id="@+id/general"
@@ -22,7 +22,7 @@
       <ImageView
           style="@style/PlacePageButtonImage"
           android:contentDescription="@string/back"
-          android:src="@drawable/ic_back_api"/>
+          android:src="?homeAsUpIndicator"/>
 
       <TextView
           style="@style/PlacePageButtonText"
@@ -48,6 +48,7 @@
       <ImageView
           android:id="@+id/iv__bookmark"
           style="@style/PlacePageButtonImage"
+          android:tint="@null"
           android:contentDescription="@string/bookmark"
           android:src="@drawable/ic_bookmarks_off"/>
 

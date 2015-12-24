@@ -78,7 +78,7 @@ public class RateStoreDialogFragment extends BaseMwmDialogFragment implements Vi
             {
               final Button button = (Button) root.findViewById(R.id.btn__explain_bad_rating);
               UiUtils.show(button);
-              Graphics.tintDrawable(button);
+              Graphics.tint(button);
 
               button.setOnClickListener(RateStoreDialogFragment.this);
               ((TextView) root.findViewById(R.id.tv__title)).setText(getString(R.string.rating_thanks));

@@ -71,7 +71,7 @@
         android:layout_centerVertical="true"
         android:background="?attr/clickableBackground"
         android:padding="@dimen/margin_half"
-        android:src="@drawable/color_picker_red_on"/>
+        tools:src="@drawable/ic_bookmark_marker_red_on"/>
   </RelativeLayout>
 
   <TextView

@@ -71,7 +71,7 @@
       android:layout_weight="1"
       android:maxLines="1"
       android:textAppearance="@style/MwmTextAppearance.Body3"
-      android:textColor="?colorPrimary"
+      android:textColor="?colorAccent"
       tools:text="100%"/>
 
     <TextView

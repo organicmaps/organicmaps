@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.AttrRes;
 import android.support.annotation.DrawableRes;
 
 import com.mapswithme.util.Graphics;
@@ -17,10 +18,10 @@ public class RotateByAlphaDrawable extends Drawable
   private float mBaseAngle;
 
 
-  public RotateByAlphaDrawable(Context context, @DrawableRes int resId, boolean transparent)
+  public RotateByAlphaDrawable(Context context, @DrawableRes int resId, @AttrRes int tintAttr, boolean transparent)
   {
     super();
-    mBaseDrawable = Graphics.tintDrawable(context, resId);
+    mBaseDrawable = Graphics.tint(context, resId, tintAttr);
     computeAngle(transparent ? 0x00 : 0xFF);
   }
 

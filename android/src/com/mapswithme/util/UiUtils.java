@@ -262,7 +262,7 @@ public final class UiUtils
 
   public static void showHomeUpButton(Toolbar toolbar)
   {
-    toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+    toolbar.setNavigationIcon(ThemeUtils.getResource(toolbar.getContext(), R.attr.homeAsUpIndicator));
   }
 
   public static AlertDialog buildAlertDialog(Activity activity, int titleId)

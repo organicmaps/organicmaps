@@ -3,15 +3,8 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/ll__place_operator"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:background="?attr/clickableBackground"
-  android:gravity="center_vertical"
-  android:orientation="horizontal"
-  android:paddingBottom="@dimen/margin_half"
-  android:paddingTop="@dimen/margin_half"
+  style="@style/PlacePageItemFrame"
   android:tag="operator"
-  android:visibility="gone"
   tools:visibility="visible"
   tools:background="#4000FFFF">
   <ImageView

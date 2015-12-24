@@ -41,19 +41,20 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:layout_alignLeft="@id/progress_frame"
-    android:orientation="horizontal"
-    tools:background="#8000FF00">
+    android:orientation="horizontal">
     <RadioButton
       android:id="@+id/vehicle"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
-      android:button="@drawable/selector_vehicle"/>
+      tools:button="@drawable/ic_drive"
+      tools:buttonTint="?colorAccent"/>
 
     <RadioButton
       android:id="@+id/pedestrian"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
-      android:button="@drawable/selector_pedestrian"/>
+      tools:button="@drawable/ic_walk"
+      tools:buttonTint="?iconTintLight"/>
   </RadioGroup>
 
   <LinearLayout

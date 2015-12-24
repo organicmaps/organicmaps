@@ -148,5 +148,6 @@
     <item name="android:gravity">center</item>
     <item name="android:background">@drawable/counter</item>
     <item name="android:textAppearance">@style/MwmTextAppearance.Body3.Light</item>
+    <item name="android:textColor">@color/text_light</item>
   </style>
 </resources>

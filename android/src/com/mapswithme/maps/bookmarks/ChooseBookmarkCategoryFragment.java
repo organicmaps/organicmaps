@@ -37,7 +37,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment implem
   @Override
   protected int getStyle()
   {
-    return STYLE_NO_FRAME;
+    return STYLE_NO_TITLE;
   }
 
   @Nullable

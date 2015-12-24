@@ -18,30 +18,59 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.*;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.webkit.WebView;
-import android.widget.*;
-import com.mapswithme.maps.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupMenu;
+import android.widget.RatingBar;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MwmActivity;
+import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryFragment;
-import com.mapswithme.maps.bookmarks.data.*;
+import com.mapswithme.maps.bookmarks.data.Bookmark;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
+import com.mapswithme.maps.bookmarks.data.Icon;
+import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.MapObjectType;
 import com.mapswithme.maps.bookmarks.data.MapObject.Poi;
+import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.maps.widget.BaseShadowController;
 import com.mapswithme.maps.widget.ObservableScrollView;
 import com.mapswithme.maps.widget.ScrollViewShadowController;
-import com.mapswithme.util.*;
+import com.mapswithme.util.Graphics;
+import com.mapswithme.util.InputUtils;
+import com.mapswithme.util.LocationUtils;
+import com.mapswithme.util.StringUtils;
+import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class PlacePageView extends RelativeLayout implements View.OnClickListener, View.OnLongClickListener
@@ -147,7 +176,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mTvDistance = (TextView) ppPreview.findViewById(R.id.tv__straight_distance);
     mAvDirection = (ArrowView) ppPreview.findViewById(R.id.av__direction);
     mAvDirection.setOnClickListener(this);
-    mAvDirection.setImageResource(R.drawable.selector_direction);
+    mAvDirection.setImageResource(R.drawable.direction);
     mRbStars = (RatingBar) ppPreview.findViewById(R.id.rb__stars);
     mTvElevation = (TextView) ppPreview.findViewById(R.id.tv__peak_elevation);
 
@@ -443,7 +472,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   private void hideBookmarkDetails()
   {
-    mIvBookmark.setImageResource(R.drawable.ic_bookmarks_off);
+    mIvBookmark.setImageDrawable(Graphics.tint(getContext(), R.drawable.ic_bookmarks_off, R.attr.iconTint));
   }
 
   private void showBookmarkDetails()

@@ -33,7 +33,7 @@ public class AboutFragment extends BaseSettingsFragment
     TextView view = (TextView)mFrame.findViewById(id);
     view.setOnClickListener(this);
     if (tint)
-      Graphics.tintDrawable(view);
+      Graphics.tint(view);
   }
 
   @Override

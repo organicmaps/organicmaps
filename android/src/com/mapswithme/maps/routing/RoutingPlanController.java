@@ -2,10 +2,14 @@ package com.mapswithme.maps.routing;
 
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
+import android.support.annotation.DrawableRes;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -15,6 +19,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.RotateDrawable;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.maps.widget.WheelProgressView;
+import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
@@ -42,6 +47,17 @@ public class RoutingPlanController extends ToolbarController
   private int mToolbarHeight;
   private boolean mOpen;
 
+  private Drawable createSelector(@DrawableRes int iconRes)
+  {
+    StateListDrawable res = new StateListDrawable();
+    res.addState(new int[] { android.R.attr.state_checked },
+                 Graphics.tint(mActivity, iconRes, R.attr.colorAccent));
+    res.addState(new int[] {},
+                 Graphics.tint(mActivity, iconRes, R.attr.iconTintLight));
+
+    return res;
+  }
+
   public RoutingPlanController(View root, Activity activity)
   {
     super(root, activity);
@@ -61,7 +77,10 @@ public class RoutingPlanController extends ToolbarController
     View planFrame = root.findViewById(R.id.planning_frame);
 
     mRouterTypes = (RadioGroup) planFrame.findViewById(R.id.route_type);
-    mRouterTypes.findViewById(R.id.vehicle).setOnClickListener(new View.OnClickListener()
+
+    RadioButton rb = (RadioButton)mRouterTypes.findViewById(R.id.vehicle);
+    rb.setButtonDrawable(createSelector(R.drawable.ic_drive));
+    rb.setOnClickListener(new View.OnClickListener()
     {
       @Override
       public void onClick(View v)
@@ -72,7 +91,9 @@ public class RoutingPlanController extends ToolbarController
       }
     });
 
-    mRouterTypes.findViewById(R.id.pedestrian).setOnClickListener(new View.OnClickListener()
+    rb = (RadioButton)mRouterTypes.findViewById(R.id.pedestrian);
+    rb.setButtonDrawable(createSelector(R.drawable.ic_walk));
+    rb.setOnClickListener(new View.OnClickListener()
     {
       @Override
       public void onClick(View v)

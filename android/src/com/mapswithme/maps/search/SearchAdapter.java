@@ -2,6 +2,7 @@ package com.mapswithme.maps.search;
 
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.routing.RoutingController;
+import com.mapswithme.util.Graphics;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 
@@ -38,6 +40,17 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
     BaseViewHolder(View view)
     {
       super(view);
+      if (view instanceof TextView)
+      {
+        int tintAttr = getTintAttr();
+        if (tintAttr != 0)
+          Graphics.tint((TextView)view, tintAttr);
+      }
+    }
+
+    @AttrRes int getTintAttr()
+    {
+      return R.attr.colorAccent;
     }
 
     void bind(@NonNull SearchResult result, int order)
@@ -134,6 +147,11 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
     final TextView mRegion;
     final TextView mDistance;
 
+    @Override
+    int getTintAttr()
+    {
+      return 0;
+    }
 
     // FIXME: Better format based on result type
     private CharSequence formatDescription(SearchResult result)

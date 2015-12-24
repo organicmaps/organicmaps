@@ -65,7 +65,7 @@
 
   <style name="MwmTextAppearance.Button">
     <item name="android:textSize">@dimen/text_size_button</item>
-    <item name="android:textColor">@color/text_green</item>
+    <item name="android:textColor">?colorAccent</item>
     <item name="android:textAllCaps">true</item>
   </style>
 
@@ -99,12 +99,10 @@
     <item name="android:textColor">?secondary</item>
   </style>
 
-  <style name="MwmTextAppearance.PlacePage">
-    <item name="android:textSize">@dimen/text_size_body_1</item>
-    <item name="android:textColor">?ppText</item>
-  </style>
+  <style name="MwmTextAppearance.PlacePage"
+         parent="MwmTextAppearance.Body1"/>
 
   <style name="MwmTextAppearance.PlacePage.Accent">
-    <item name="android:textColor">?ppTextAccent</item>
+    <item name="android:textColor">?colorAccent</item>
   </style>
 </resources>

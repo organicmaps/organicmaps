@@ -13,6 +13,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.maps.widget.recycler.RecyclerLongClickListener;
+import com.mapswithme.util.ThemeUtils;
 
 public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<BookmarkCategoriesAdapter.ViewHolder>
 {
@@ -129,8 +130,10 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Bookm
 
     void setVisibilityState(boolean visible)
     {
-      visibilityMarker.setImageResource(visible ? R.drawable.ic_bookmark_show
-                                                : R.drawable.ic_bookmark_hide);
+      visibilityMarker.setImageResource(ThemeUtils.isNightTheme() ? visible ? R.drawable.ic_bookmark_show_night
+                                                                            : R.drawable.ic_bookmark_hide_night
+                                                                  : visible ? R.drawable.ic_bookmark_show
+                                                                            : R.drawable.ic_bookmark_hide);
     }
   }
 }

@@ -51,14 +51,12 @@
         android:id="@+id/vehicle"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginRight="32dp"
-        android:button="@drawable/selector_vehicle"/>
+        android:layout_marginRight="32dp"/>
 
       <RadioButton
         android:id="@+id/pedestrian"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:button="@drawable/selector_pedestrian"/>
+        android:layout_height="match_parent"/>
     </RadioGroup>
   </FrameLayout>
 

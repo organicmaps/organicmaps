@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
-
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:tools="http://schemas.android.com/tools">
   <RelativeLayout
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_weight="1">
-
     <TextView
       android:id="@+id/tv__title"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:ellipsize="end"
       android:maxLines="@integer/pp_title_lines"
-      android:textColor="?ppText"
+      android:textAppearance="@style/MwmTextAppearance.Title"
       android:textSize="@dimen/text_size_headline"/>
 
     <TextView
@@ -43,7 +42,8 @@
       android:numStars="5"
       android:progressDrawable="@drawable/rating_bar_stars"
       android:stepSize="1"
-      android:visibility="gone"/>
+      android:visibility="gone"
+      tools:visibility="visible"/>
 
     <TextView
       android:id="@+id/tv__peak_elevation"
@@ -53,8 +53,9 @@
       android:layout_toRightOf="@id/tv__subtitle"
       android:drawableLeft="@drawable/ic_high_mountain"
       android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
-      android:visibility="gone"/>
-
+      android:visibility="gone"
+      tools:text="Das ist Mountain!"
+      tools:visibility="visible"/>
   </RelativeLayout>
 
   <TextView
@@ -71,6 +72,4 @@
     android:layout_marginRight="-8dp"
     android:clickable="true"
     android:padding="@dimen/margin_half"/>
-
 </merge>
-

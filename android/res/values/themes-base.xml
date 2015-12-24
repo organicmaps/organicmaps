@@ -9,7 +9,7 @@
     <item name="android:textColorPrimaryInverse">@color/text_light</item>
     <item name="android:textColorSecondary">@color/text_dark_subtitle</item>
     <item name="android:windowBackground">@color/bg_window</item>
-    <item name="android:colorPrimaryDark" tools:targetApi="lollipop">@color/base_green_darker</item>
+    <item name="android:colorPrimaryDark" tools:targetApi="lollipop">@color/darker_green</item>
     <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="lollipop">true</item>
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
@@ -19,23 +19,21 @@
     <item name="alertDialogTheme">@style/MwmTheme.DialogFragment</item>
     <item name="fullscreenDialogTheme">@style/MwmTheme.DialogFragment.Fullscreen</item>
 
-    <item name="statusBar">@color/bg_status_bar</item>
+    <item name="statusBar">@color/bg_statusbar</item>
     <item name="colorPrimary">@color/bg_primary</item>
     <item name="colorControlNormal">?secondary</item>
     <item name="colorAccent">@color/base_accent</item>
     <item name="panel">@color/bg_panel</item>
     <item name="sidePanel">@color/bg_side_panel</item>
-    <!-- item name="iconTint">@android:color/transparent</item -->
-    <item name="iconTint">#8A000000</item>
+    <item name="iconTint">@color/icon_tint</item>
+    <item name="iconTintLight">@color/icon_tint_light</item>
+    <item name="counterTextColor">?android:textColorPrimaryInverse</item>
 
     <item name="secondary">@color/text_dark_hint</item>
     <item name="dividerHorizontal">@color/divider</item>
 
     <item name="ppBackground">@color/bg_window</item>
     <item name="ppPreviewHead">@drawable/bg_place_page_back</item>
-    <item name="ppText">@color/text_dark</item>
-    <item name="ppTextAccent">@color/text_pp_accent</item>
-    <item name="ppButtonBackground">@color/bg_secondary</item>
 
     <item name="routingAccent">@color/routing_accent</item>
     <item name="routingSlot">@drawable/routing_slot_background</item>
@@ -48,6 +46,8 @@
 
     <item name="menuBackgroundClosed">@color/bg_menu_closed</item>
     <item name="menuBackgroundOpen">@color/bg_menu_open</item>
+
+    <item name="myPositionButtonAnimation">@drawable/anim_myposition_pending</item>
   </style>
 
   <!-- Night theme -->
@@ -69,23 +69,21 @@
     <item name="alertDialogTheme">@style/MwmTheme.Night.DialogFragment</item>
     <item name="fullscreenDialogTheme">@style/MwmTheme.DialogFragment.Fullscreen</item>
 
-    <item name="statusBar">@color/bg_status_bar_night</item>
+    <item name="statusBar">@color/bg_statusbar_night</item>
     <item name="colorPrimary">@color/bg_primary_night</item>
     <item name="colorControlNormal">?secondary</item>
     <item name="colorAccent">@color/base_accent_night</item>
     <item name="panel">@color/bg_panel_night</item>
     <item name="sidePanel">@color/bg_side_panel_night</item>
-    <!-- item name="iconTint">@android:color/white</item -->
-    <item name="iconTint">#4C000000</item>
+    <item name="iconTint">@color/icon_tint_night</item>
+    <item name="iconTintLight">@color/icon_tint_light_night</item>
+    <item name="counterTextColor">?android:textColorPrimary</item>
 
     <item name="secondary">@color/text_light_hint</item>
     <item name="dividerHorizontal">@color/divider_night</item>
 
     <item name="ppBackground">@color/bg_window_night</item>
-    <item name="ppPreviewHead">@drawable/bg_place_page_back</item>
-    <item name="ppText">@color/text_light</item>
-    <item name="ppTextAccent">@color/text_pp_accent_night</item>
-    <item name="ppButtonBackground">@color/bg_secondary_night</item>
+    <item name="ppPreviewHead">@drawable/bg_place_page_back_night</item>
 
     <item name="routingAccent">@color/routing_accent_night</item>
     <item name="routingSlot">@drawable/routing_slot_background_night</item>
@@ -98,5 +96,7 @@
 
     <item name="menuBackgroundClosed">@color/bg_menu_closed_night</item>
     <item name="menuBackgroundOpen">@color/bg_menu_open_night</item>
+
+    <item name="myPositionButtonAnimation">@drawable/anim_myposition_pending_night</item>
   </style>
 </resources>

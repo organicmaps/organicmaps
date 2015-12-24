@@ -16,7 +16,7 @@
       android:layout_height="wrap_content"
       android:layout_weight="1"
       android:textAppearance="@style/MwmTextAppearance.Body1"
-      android:textColor="@color/text_green"
+      android:textColor="?colorAccent"
       tools:text="Country name"/>
 
   <TextView
@@ -26,7 +26,7 @@
       android:layout_marginRight="@dimen/margin_base_plus"
       android:maxLines="1"
       android:textAppearance="@style/MwmTextAppearance.Body1"
-      android:textColor="@color/text_green"
+      android:textColor="?colorAccent"
       tools:text="256 MB"/>
 </LinearLayout>
 

@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -35,31 +36,51 @@ public final class Graphics
     return new BitmapDrawable(res, bmp);
   }
 
-  public static void tintDrawable(TextView view)
+  public static void tint(TextView view)
+  {
+    tint(view, R.attr.iconTint);
+  }
+
+  public static void tint(TextView view, @AttrRes int tintAttr)
   {
     final Drawable[] dlist = view.getCompoundDrawables();
     for (int i = 0; i < dlist.length; i++)
-      dlist[i] = tintDrawable(dlist[i], ThemeUtils.getColor(view.getContext(), R.attr.iconTint));
+      dlist[i] = tint(view.getContext(), dlist[i], tintAttr);
 
     view.setCompoundDrawablesWithIntrinsicBounds(dlist[0], dlist[1], dlist[2], dlist[3]);
   }
 
-  public static void tintDrawable(TextView view, ColorStateList tintColors)
+  public static void tint(TextView view, ColorStateList tintColors)
   {
     final Drawable[] dlist = view.getCompoundDrawables();
     for (int i = 0; i < dlist.length; i++)
-      dlist[i] = tintDrawable(dlist[i], tintColors);
+      dlist[i] = tint(dlist[i], tintColors);
 
     view.setCompoundDrawablesWithIntrinsicBounds(dlist[0], dlist[1], dlist[2], dlist[3]);
   }
 
-  public static Drawable tintDrawable(Context context, @DrawableRes int resId)
+  public static Drawable tint(Context context, @DrawableRes int resId)
   {
-    Drawable d = context.getResources().getDrawable(resId);
-    return tintDrawable(d, ThemeUtils.getColor(context, R.attr.iconTint));
+    return tint(context, resId, R.attr.iconTint);
   }
 
-  public static Drawable tintDrawable(Drawable src, @ColorInt int color)
+  public static Drawable tint(Context context, @DrawableRes int resId, @AttrRes int tintAttr)
+  {
+    //noinspection deprecation
+    return tint(context, context.getResources().getDrawable(resId), tintAttr);
+  }
+
+  public static Drawable tint(Context context, Drawable drawable)
+  {
+    return tint(context, drawable, R.attr.iconTint);
+  }
+
+  public static Drawable tint(Context context, Drawable drawable, @AttrRes int tintAttr)
+  {
+    return tint(drawable, ThemeUtils.getColor(context, tintAttr));
+  }
+
+  public static Drawable tint(Drawable src, @ColorInt int color)
   {
     if (src == null)
       return null;
@@ -74,7 +95,7 @@ public final class Graphics
     return res;
   }
 
-  public static Drawable tintDrawable(Drawable src, ColorStateList tintColors)
+  public static Drawable tint(Drawable src, ColorStateList tintColors)
   {
     if (src == null)
       return null;

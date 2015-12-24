@@ -29,6 +29,7 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
     {
       super(itemView);
       mText = (TextView) itemView;
+      Graphics.tint(mText);
     }
   }
 
@@ -88,7 +89,7 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
         throw new IllegalArgumentException("Unsupported ViewHolder type given");
     }
 
-    Graphics.tintDrawable(res.mText);
+    Graphics.tint(res.mText);
     return res;
   }
 
