@@ -148,6 +148,7 @@ private:
 
   bool m_isVisible;
   bool m_isDirtyViewport;
+  bool m_needAnimation;
 
   class MyPositionAnim;
   mutable drape_ptr<MyPositionAnim> m_anim;

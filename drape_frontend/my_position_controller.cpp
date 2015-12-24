@@ -97,6 +97,7 @@ MyPositionController::MyPositionController(location::EMyPositionMode initMode)
   , m_positionYOffset(POSITION_Y_OFFSET)
   , m_isVisible(false)
   , m_isDirtyViewport(false)
+  , m_needAnimation(false)
 {
   if (initMode > location::MODE_UNKNOWN_POSITION)
     m_afterPendingMode = initMode;
@@ -156,6 +157,8 @@ void MyPositionController::DragEnded(m2::PointD const & distance)
   SetModeInfo(ResetModeBit(m_modeInfo, BlockAnimation));
   if (distance.Length() > 0.2 * min(m_pixelRect.SizeX(), m_pixelRect.SizeY()))
     StopLocationFollow();
+  else if (IsModeChangeViewport())
+    m_needAnimation = true;
 
   Follow();
 }
@@ -201,6 +204,10 @@ void MyPositionController::ScaleEnded()
   {
     SetModeInfo(ResetModeBit(m_modeInfo, StopFollowOnActionEnd));
     StopLocationFollow();
+  }
+  else if (IsModeChangeViewport())
+  {
+    m_needAnimation = true;
   }
   Follow();
 }
@@ -326,7 +333,14 @@ void MyPositionController::Render(uint32_t renderMode, ScreenBase const & screen
       m_isDirtyViewport = false;
     }
 
-    m_shape->SetPosition(GetDrawablePosition());
+    bool const fixedPixelPos = IsModeChangeViewport() && !TestModeBit(m_modeInfo, BlockAnimation) &&
+        !m_needAnimation && !(m_anim != nullptr && m_anim->IsMovingActive());
+
+    if (fixedPixelPos)
+      m_shape->SetPosition(screen.PtoG(screen.P3dtoP(GetCurrentPixelBinding())));
+    else
+      m_shape->SetPosition(GetDrawablePosition());
+
     m_shape->SetAzimuth(GetDrawableAzimut());
     m_shape->SetIsValidAzimuth(IsRotationActive());
     m_shape->SetAccuracy(m_errorRadius);
@@ -401,9 +415,13 @@ void MyPositionController::Assign(location::GpsInfo const & info, bool isNavigab
   if (m_listener)
     m_listener->PositionChanged(Position());
 
-  if (!AlmostCurrentPosition(oldPos) || !AlmostCurrentAzimut(oldAzimut) )
+  if (!AlmostCurrentPosition(oldPos) || !AlmostCurrentAzimut(oldAzimut))
   {
-    CreateAnim(oldPos, oldAzimut, screen);
+    if (m_needAnimation || !IsModeChangeViewport())
+    {
+      CreateAnim(oldPos, oldAzimut, screen);
+      m_needAnimation = false;
+    }
     m_isDirtyViewport = true;
   }
 }
