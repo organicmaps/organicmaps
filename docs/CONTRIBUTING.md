@@ -43,10 +43,9 @@ See [INSTALL.md](INSTALL.md) for command-line compilation instructions.
 Debugging may not work in Qt Creator. To enable it, try creating a Build & Run kit in
 preferences with XCode's lldb as a debugger and a clang compiler.
 
-For now configuration assumes you've cloned repository into omim (also a default name) directory.
-Default QtCreator's building behavior uses shadow-dir for artifacts. That is why if you break the first assumption
-and haven't changed the second setting you'll need to create a "data" symlink in the shadow-dir path
-to the /repo/data directory.
+At the moment configuration assumes you've cloned repository into omim (also a default name) directory.
+If you are using shadow-dir for building artifacts (default behavior) and custom directory for repo - 
+you'll need to create a "data" symlink in the shadow-dir path to the /repo/data directory.
 
 ### XCode
 
