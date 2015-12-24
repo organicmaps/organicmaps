@@ -131,12 +131,11 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   m_work.CreateDrapeEngine(make_ref(m_contextFactory), move(p));
   m_work.EnterForeground();
 
-  // Load initial state of the map or execute drape tasks which set up custom state.
+  // Load initial state of the map and execute drape tasks which set up custom state.
+  LoadState();
   {
     lock_guard<mutex> lock(m_drapeQueueMutex);
-    if (m_drapeTasksQueue.empty())
-      LoadState();
-    else
+    if (!m_drapeTasksQueue.empty())
       ExecuteDrapeTasks();
   }
 
