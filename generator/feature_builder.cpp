@@ -131,6 +131,13 @@ void FeatureBuilder1::AddPolygon(vector<m2::PointD> & poly)
   m_polygons.back().swap(poly);
 }
 
+void FeatureBuilder1::ResetGeometry()
+{
+  m_polygons.clear();
+  m_polygons.push_back(TPointSeq());
+  m_limitRect.MakeEmpty();
+}
+
 bool FeatureBuilder1::RemoveInvalidTypes()
 {
   if (!m_params.FinishAddingTypes())
@@ -429,6 +436,14 @@ osm::Id FeatureBuilder1::GetLastOsmId() const
 {
   ASSERT(!m_osmIds.empty(), ());
   return m_osmIds.back();
+}
+
+bool FeatureBuilder1::HasOsmId(osm::Id const & id) const
+{
+  for (auto const & cid : m_osmIds)
+    if (cid == id)
+      return true;
+  return false;
 }
 
 string FeatureBuilder1::GetOsmIdsString() const

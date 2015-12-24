@@ -74,7 +74,7 @@ public:
     LOG_SHORT(LINFO, ("Load", total, "water geometries"));
   }
 
-  bool IsWaterBoundaries(FeatureBuilder1 const & fb)
+  bool IsBoundaries(FeatureBuilder1 const & fb)
   {
     ++m_totalFeatures;
 
@@ -83,44 +83,102 @@ public:
 
     ++m_totalBorders;
 
-    array<m2::PointD, 3> pts = {{{0, 0}, {0, 0}, {0, 0}}};
-    array<size_t, 3> hits = {{0, 0, 0}};
+    return true;
+  }
 
-    // For check we select first, last and middle point in line.
-    auto const & line = fb.GetGeometry().front();
-    pts[0] = line.front();
-    pts[1] = *(line.cbegin() + line.size() / 2);
-    pts[2] = line.back();
+  enum class ProcessState
+  {
+    Initial,
+    Water,
+    Earth
+  };
+
+  void ProcessBoundary(FeatureBuilder1 const & boundary, vector<FeatureBuilder1> & parts)
+  {
+    auto const & line = boundary.GetGeometry().front();
 
     double constexpr kExtension = 0.01;
+    ProcessState state = ProcessState::Initial;
 
-    for (size_t i = 0; i < pts.size(); ++i)
+    FeatureBuilder1::TPointSeq points;
+
+    for (size_t i = 0; i < line.size(); ++i)
     {
-      m2::PointD const & p = pts[i];
+      m2::PointD const & p = line[i];
       m2::RectD r(p.x - kExtension, p.y - kExtension, p.x + kExtension, p.y + kExtension);
+      size_t hits = 0;
       m_tree.ForEachInRect(r, [&](m2::RegionD const & rgn)
       {
         ++m_selectedPolygons;
-        hits[i] += rgn.Contains(p) ? 1 : 0;
+        hits += rgn.Contains(p) ? 1 : 0;
       });
+
+      bool inWater = (hits & 0x01) == 1;
+
+      switch (state)
+      {
+      case ProcessState::Initial:
+      {
+        if (inWater)
+        {
+          state = ProcessState::Water;
+        }
+        else
+        {
+          points.push_back(p);
+          state = ProcessState::Earth;
+        }
+        break;
+      }
+      case ProcessState::Water:
+      {
+        if (inWater)
+        {
+          // do nothing
+        }
+        else
+        {
+          points.push_back(p);
+          state = ProcessState::Earth;
+        }
+        break;
+      }
+      case ProcessState::Earth:
+      {
+        if (inWater)
+        {
+          if (points.size() > 1)
+          {
+            parts.push_back(boundary);
+            parts.back().ResetGeometry();
+            for (auto const & pt : points)
+              parts.back().AddPoint(pt);
+          }
+          points.clear();
+          state = ProcessState::Water;
+        }
+        else
+        {
+          points.push_back(p);
+        }
+        break;
+      }
+      }
     }
 
-    size_t const state = (hits[0] & 0x01) + (hits[1] & 0x01) + (hits[2] & 0x01);
-
-    // whole border on water
-    if (state == 3)
+    if (points.size() > 1)
     {
-      LOG_SHORT(LINFO, ("Boundary", (state == 3 ? "deleted." : "kept."), "Hits:", hits,
-                  DebugPrint(fb.GetParams()), fb.GetOsmIdsString()));
-      ++m_skippedBorders;
-      return true;
+      parts.push_back(boundary);
+      parts.back().ResetGeometry();
+      for (auto const & pt : points)
+        parts.back().AddPoint(pt);
     }
 
-    // state == 0 whole border on land, else partial intersection
-    return false;
+    if (parts.empty())
+      m_skippedBorders++;
   }
 };
-}
+} // namespace
 
 /// Process FeatureBuilder1 for world map. Main functions:
 /// - check for visibility in world map
@@ -206,29 +264,39 @@ public:
 
     m_worldBucket.CalcStatistics(fb);
 
-    // skip visible water boundary
-    if (m_boundaryChecker.IsWaterBoundaries(fb))
+    if (!m_boundaryChecker.IsBoundaries(fb))
+    {
+      PushFeature(fb);
       return;
+    }
 
+    vector<FeatureBuilder1> boundaryParts;
+    m_boundaryChecker.ProcessBoundary(fb, boundaryParts);
+    for (auto & f : boundaryParts)
+      PushFeature(f);
+  }
+
+  void PushFeature(FeatureBuilder1 & fb)
+  {
     switch (fb.GetGeomType())
     {
-      case feature::GEOM_LINE:
-      {
-        MergedFeatureBuilder1 * p = m_typesCorrector(fb);
-        if (p)
-          m_merger(p);
+    case feature::GEOM_LINE:
+    {
+      MergedFeatureBuilder1 * p = m_typesCorrector(fb);
+      if (p)
+        m_merger(p);
+      return;
+    }
+    case feature::GEOM_AREA:
+    {
+      // This constant is set according to size statistics.
+      // Added approx 4Mb of data to the World.mwm
+      auto const & geometry = fb.GetOuterGeometry();
+      if (GetPolygonArea(geometry.begin(), geometry.end()) < 0.01)
         return;
-      }
-      case feature::GEOM_AREA:
-      {
-        // This constant is set according to size statistics.
-        // Added approx 4Mb of data to the World.mwm
-        auto const & geometry = fb.GetOuterGeometry();
-        if (GetPolygonArea(geometry.begin(), geometry.end()) < 0.01)
-          return;
-      }
-      default:
-        break;
+    }
+    default:
+      break;
     }
 
     if (feature::PreprocessForWorldMap(fb))
