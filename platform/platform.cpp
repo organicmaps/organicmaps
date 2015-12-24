@@ -24,6 +24,12 @@ bool IsSpecialDirName(string const & dirName)
 }
 } // namespace
 
+// TODO (@y, @m, @vng): DO NOT FORGET TO REMOVE THESE RE-DEFINES
+// BEFORE MERGE TO MASTER. THESE CHANGES ARE FOR TESTING PURPOSES
+// ONLY.
+#define METASERVER_URL ""
+#define DEFAULT_URLS_JSON "[\"http://new-search.mapswithme.com/\"]"
+
 // static
 Platform::EError Platform::ErrnoToError()
 {
