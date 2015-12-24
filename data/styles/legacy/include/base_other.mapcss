@@ -646,6 +646,8 @@ node|z16-[historic=battlefield]
 {
   icon-image: cannon.svg;
 }
+area|z15-[man_made=water_tower],
+node|z15-[man_made=water_tower],
 area|z16-[amenity=hunting_stand],
 node|z16-[amenity=hunting_stand]
 {

@@ -444,6 +444,7 @@ world  +
             {}
         survey_point  -
         wastewater_plant  -
+        water_tower  -
         windmill  -
         {}
     mapswithme  +
