@@ -173,15 +173,15 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
           Erase(parentOverlay);
 
         #ifdef COLLECT_DISPLACEMENT_INFO
-          m_displacementInfo.emplace_back(DisplacementData(handle->GetPixelRect(modelView).Center(),
-                                                           parentOverlay.m_handle->GetPixelRect(modelView).Center(),
+          m_displacementInfo.emplace_back(DisplacementData(handle->GetPixelRect(modelView, is3dMode).Center(),
+                                                           parentOverlay.m_handle->GetPixelRect(modelView, is3dMode).Center(),
                                                            dp::Color(0, 255, 0, 255)));
         #endif
         }
 
       #ifdef COLLECT_DISPLACEMENT_INFO
-        m_displacementInfo.emplace_back(DisplacementData(info.m_handle->GetPixelRect(modelView).Center(),
-                                                         handle->GetPixelRect(modelView).Center(),
+        m_displacementInfo.emplace_back(DisplacementData(info.m_handle->GetPixelRect(modelView, is3dMode).Center(),
+                                                         handle->GetPixelRect(modelView, is3dMode).Center(),
                                                          dp::Color(0, 0, 255, 255)));
       #endif
         return;
@@ -198,8 +198,8 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
     Erase(handleToDelete);
 
 #ifdef COLLECT_DISPLACEMENT_INFO
-  m_displacementInfo.emplace_back(DisplacementData(handle->GetPixelRect(modelView).Center(),
-                                                   handleToDelete.m_handle->GetPixelRect(modelView).Center(),
+  m_displacementInfo.emplace_back(DisplacementData(handle->GetPixelRect(modelView, is3dMode).Center(),
+                                                   handleToDelete.m_handle->GetPixelRect(modelView, is3dMode).Center(),
                                                    dp::Color(0, 0, 255, 255)));
 #endif
   }

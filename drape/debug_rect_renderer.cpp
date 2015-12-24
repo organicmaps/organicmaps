@@ -139,8 +139,8 @@ void DebugRectRenderer::DrawArrow(ScreenBase const & screen, OverlayTree::Displa
   GLFunctions::glDisable(gl_const::GLDepthTest);
 
   array<m2::PointF, 5> vertices;
-  m2::PointF dir = (data.m_arrowEnd - data.m_arrowStart).Normalize();
-  m2::PointF side = m2::PointF(-dir.y, dir.x);
+  m2::PointF const dir = (data.m_arrowEnd - data.m_arrowStart).Normalize();
+  m2::PointF const side = m2::PointF(-dir.y, dir.x);
   vertices[0] = PixelPointToScreenSpace(screen, data.m_arrowStart);
   vertices[1] = PixelPointToScreenSpace(screen, data.m_arrowEnd);
   vertices[2] = PixelPointToScreenSpace(screen, data.m_arrowEnd - dir * 20 + side * 10);

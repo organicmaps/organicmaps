@@ -7,7 +7,7 @@
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
-#define RENDER_DEBUG_RECTS
+//#define RENDER_DEBUG_RECTS
 
 namespace dp
 {
