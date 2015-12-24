@@ -362,8 +362,7 @@ bool FeatureParams::FinishAddingTypes()
 
   // Remove duplicated types.
   sort(newTypes.begin(), newTypes.end());
-  auto last = unique(newTypes.begin(), newTypes.end());
-  newTypes.erase(last, newTypes.end());
+  newTypes.erase(unique(newTypes.begin(), newTypes.end()), newTypes.end());
 
   m_Types.swap(newTypes);
 
