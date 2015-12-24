@@ -6,7 +6,7 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
-import com.cocosw.bottomsheet.BottomSheet;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
@@ -109,18 +109,16 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
     mSelectedPosition = position;
 
     BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(mSelectedPosition);
-    BottomSheet bs = BottomSheetHelper.create(getActivity())
-        .title(category.getName())
-        .sheet(R.menu.menu_bookmark_categories)
-        .listener(this)
-        .build();
-
+    BottomSheetHelper.Builder bs = BottomSheetHelper.create(getActivity())
+                                                    .title(category.getName())
+                                                    .sheet(R.menu.menu_bookmark_categories)
+                                                    .listener(this);
     MenuItem show = bs.getMenu().getItem(0);
     show.setIcon(category.isVisible() ? R.drawable.ic_hide
                                       : R.drawable.ic_show);
     show.setTitle(category.isVisible() ? R.string.hide
                                        : R.string.show);
-    bs.show();
+    bs.tint().show();
   }
 
   @Override

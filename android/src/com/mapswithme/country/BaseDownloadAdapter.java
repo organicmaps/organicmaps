@@ -21,7 +21,6 @@ import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
-import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.DownloadHelper;
@@ -33,7 +32,7 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
-public abstract class BaseDownloadAdapter extends BaseAdapter
+abstract class BaseDownloadAdapter extends BaseAdapter
 {
   static final int TYPE_GROUP = 0;
   static final int TYPE_COUNTRY_GROUP = 1;
@@ -43,7 +42,7 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
   static final int TYPES_COUNT = 5;
 
   private int mActiveAnimationsCount;
-  public static final String PROPERTY_TRANSLATION_X = "translationX";
+  private static final String PROPERTY_TRANSLATION_X = "translationX";
   private static final long ANIMATION_LENGTH = 250;
   private final Handler mHandler = new Handler();
   private ListView mListView;
@@ -52,7 +51,7 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
   {
     private final WeakReference<BaseDownloadAdapter> mAdapterReference;
 
-    public SafeAdapterRunnable(BaseDownloadAdapter adapter)
+    private SafeAdapterRunnable(BaseDownloadAdapter adapter)
     {
       mAdapterReference = new WeakReference<>(adapter);
     }
@@ -73,22 +72,22 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
 
   private final SafeAdapterRunnable mDatasetChangedRunnable = new SafeAdapterRunnable(this);
 
-  protected final LayoutInflater mInflater;
-  protected final DownloadFragment mFragment;
-  protected final boolean mHasGoogleStore;
+  final LayoutInflater mInflater;
+  final DownloadFragment mFragment;
+  private final boolean mHasGoogleStore;
 
-  protected final String mStatusDownloaded;
-  protected final String mStatusFailed;
-  protected final String mStatusOutdated;
-  protected final String mStatusNotDownloaded;
-  protected final String mMapOnly;
+  private final String mStatusDownloaded;
+  private final String mStatusFailed;
+  private final String mStatusOutdated;
+  private final String mStatusNotDownloaded;
+  private final String mMapOnly;
 
   private final int mColorDownloaded;
   private final int mColorOutdated;
   private final int mColorNotDownloaded;
   private final int mColorFailed;
 
-  public BaseDownloadAdapter(DownloadFragment fragment)
+  BaseDownloadAdapter(DownloadFragment fragment)
   {
     mFragment = fragment;
     mInflater = mFragment.getLayoutInflater();
@@ -142,7 +141,7 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
   @Override
   public abstract CountryItem getItem(int position);
 
-  protected void processNotDownloaded(final String name, final int position, final int newOptions, final ViewHolder holder)
+  private void processNotDownloaded(final String name, final int position, final int newOptions, final ViewHolder holder)
   {
     final long[] remoteSizes = getRemoteItemSizes(position);
     final long size = newOptions > StorageOptions.MAP_OPTION_MAP_ONLY ? remoteSizes[0] : remoteSizes[1];
@@ -157,7 +156,7 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
     });
   }
 
-  protected void confirmDownloadCancellation(final ViewHolder holder, final int position, final String name)
+  private void confirmDownloadCancellation(final ViewHolder holder, final int position, final String name)
   {
     final Dialog dlg = new AlertDialog.Builder(mFragment.getActivity())
         .setTitle(name)
@@ -176,7 +175,7 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
     dlg.show();
   }
 
-  protected void processOutOfDate(final String name, final int position, final int newOptions)
+  private void processOutOfDate(final String name, final int position, final int newOptions)
   {
     final long[] remoteSizes = getRemoteItemSizes(position);
     final long size = newOptions > StorageOptions.MAP_OPTION_MAP_ONLY ? remoteSizes[0] : remoteSizes[1];
@@ -191,7 +190,7 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
     });
   }
 
-  protected void processOnDisk(final String name, final int position, final int newOptions)
+  private void processOnDisk(final String name, final int position, final int newOptions)
   {
     new AlertDialog.Builder(mFragment.getActivity())
         .setTitle(name)
@@ -401,7 +400,7 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
       sizes = getDownloadableItemSizes(position);
       setHolderSizeString(holder, 0, sizes[1]);
       setHolderPercentText(holder, mStatusOutdated);
-      setHolderPercentColor(holder, ThemeUtils.getColor(mListView.getContext(), R.attr.colorPrimary));
+      setHolderPercentColor(holder, ThemeUtils.getColor(mListView.getContext(), R.attr.colorAccent));
       break;
 
     case MapStorage.ON_DISK:
@@ -787,9 +786,9 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
 
     long[] remoteSizes = getRemoteItemSizes(position);
 
-    BottomSheet.Builder bs = BottomSheetHelper.create(mFragment.getActivity())
-                                              .title(name)
-                                              .listener(menuItemClickListener);
+    BottomSheetHelper.Builder bs = BottomSheetHelper.create(mFragment.getActivity())
+                                                    .title(name)
+                                                    .listener(menuItemClickListener);
 
     if (status == MapStorage.ON_DISK_OUT_OF_DATE)
     {
@@ -851,6 +850,6 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
       break;
     }
 
-    bs.show();
+    bs.tint().show();
   }
 }
