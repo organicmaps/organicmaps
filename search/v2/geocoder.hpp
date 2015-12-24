@@ -106,6 +106,11 @@ private:
   // TODO (@y, @m, @vng): try to add villages to World.mwm.
   void DoGeocodingWithLocalities();
 
+  // Tries to do geocoding without localities. If during the geocoding
+  // too many features are retrieved, viewport is used to throw away
+  // excess features.
+  void DoGeocodingWithoutLocalities();
+
   // Tries to find all paths in a search tree, where each edge is
   // marked with some substring of the query tokens. These paths are
   // called "layer sequence" and current path is stored in |m_layers|.

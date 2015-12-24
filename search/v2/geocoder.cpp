@@ -149,9 +149,11 @@ void Geocoder::Go(vector<FeatureID> & results)
         PrepareRetrievalParams(i, i + 1);
         m_features[i] = Retrieval::RetrieveAddressFeatures(
             m_context->m_value, *this /* cancellable */, m_retrievalParams);
+        ASSERT(m_features[i], ());
       }
 
       DoGeocodingWithLocalities();
+      DoGeocodingWithoutLocalities();
     };
 
     // Iterates through all alive mwms and performs geocoding.
@@ -295,27 +297,26 @@ void Geocoder::DoGeocodingWithLocalities()
     DoGeocoding(0 /* curToken */);
     fill(m_usedTokens.begin() + startToken, m_usedTokens.begin() + endToken, false);
   }
+}
 
-  // Tries to do geocoding by viewport only.
-  //
+void Geocoder::DoGeocodingWithoutLocalities()
+{
   // TODO (@y, @m, @vng): consider to add user position here, to
   // inflate viewport if too small number of results is found, etc.
-  {
-    // Limits viewport by kMaxViewportRadiusM.
-    m2::RectD const viewportLimit = MercatorBounds::RectByCenterXYAndSizeInMeters(
-        m_params.m_viewport.Center(), kMaxViewportRadiusM);
-    m2::RectD rect = m_params.m_viewport;
-    rect.Intersect(viewportLimit);
-    if (!rect.IsEmptyInterior())
-    {
-      m_filter.SetFilter(Retrieval::RetrieveGeometryFeatures(
-          m_context->m_value, static_cast<my::Cancellable const &>(*this), rect, m_params.m_scale));
+  // Limits viewport by kMaxViewportRadiusM.
+  m2::RectD const viewportLimit = MercatorBounds::RectByCenterXYAndSizeInMeters(
+      m_params.m_viewport.Center(), kMaxViewportRadiusM);
+  m2::RectD rect = m_params.m_viewport;
+  rect.Intersect(viewportLimit);
+  if (rect.IsEmptyInterior())
+    return;
 
-      // Filter will be applied only for large bit vectors.
-      m_filter.SetThreshold(m_params.m_maxNumResults);
-      DoGeocoding(0 /* curToken */);
-    }
-  }
+  m_filter.SetFilter(Retrieval::RetrieveGeometryFeatures(
+      m_context->m_value, static_cast<my::Cancellable const &>(*this), rect, m_params.m_scale));
+
+  // Filter will be applied only for large bit vectors.
+  m_filter.SetThreshold(m_params.m_maxNumResults);
+  DoGeocoding(0 /* curToken */);
 }
 
 void Geocoder::DoGeocoding(size_t curToken)
@@ -337,13 +338,32 @@ void Geocoder::DoGeocoding(size_t curToken)
   m_layers.emplace_back();
   MY_SCOPE_GUARD(cleanupGuard, bind(&vector<FeaturesLayer>::pop_back, &m_layers));
 
+  // Clusters of features by search type. Each cluster is a sorted
+  // list of ids.
   vector<uint32_t> clusters[SearchModel::SEARCH_TYPE_CITY];
-  vector<uint32_t> loopClusters[SearchModel::SEARCH_TYPE_CITY];
-  vector<uint32_t> buffer;
+
+  auto clusterize = [&](uint32_t featureId)
+  {
+    FeatureType feature;
+    m_context->m_vector.GetByIndex(featureId, feature);
+    feature.ParseTypes();
+    SearchModel::SearchType searchType = m_model.GetSearchType(feature);
+
+    // All SEARCH_TYPE_CITY features were filtered in DoGeocodingWithLocalities().
+    if (searchType < SearchModel::SEARCH_TYPE_CITY)
+      clusters[searchType].push_back(featureId);
+  };
+
+  unique_ptr<coding::CompressedBitVector> intersection;
+  unique_ptr<coding::CompressedBitVector> filteredIntersection;
 
   // Try to consume first n tokens starting at |curToken|.
   for (size_t n = 1; curToken + n <= m_numTokens && !m_usedTokens[curToken + n - 1]; ++n)
   {
+    // At this point |intersection| is an intersection of
+    // m_features[curToken], m_features[curToken + 1], ...,
+    // m_features[curToken + n - 1], except the case when n equals to 1.
+
     BailIfCancelled(static_cast<my::Cancellable const &>(*this));
 
     {
@@ -355,64 +375,48 @@ void Geocoder::DoGeocoding(size_t curToken)
                       layer.m_subQuery);
     }
 
-    PrepareRetrievalParams(curToken, curToken + n);
-
-    BailIfCancelled(static_cast<my::Cancellable const &>(*this));
+    // Non-owning ptr.
+    coding::CompressedBitVector * features = nullptr;
+    if (n == 1)
+    {
+      features = m_features[curToken + n - 1].get();
+    }
+    else if (n == 2)
+    {
+      intersection = coding::CompressedBitVector::Intersect(*m_features[curToken + n - 2],
+                                                            *m_features[curToken + n - 1]);
+      features = intersection.get();
+    } else
+    {
+      intersection =
+          coding::CompressedBitVector::Intersect(*intersection, *m_features[curToken + n - 1]);
+      features = intersection.get();
+    }
+    ASSERT(features, ());
 
     bool const looksLikeHouseNumber = feature::IsHouseNumber(m_layers.back().m_subQuery);
-    auto const & features = m_features[curToken + n - 1];
+
     if (coding::CompressedBitVector::IsEmpty(features) && !looksLikeHouseNumber)
       break;
 
-    unique_ptr<coding::CompressedBitVector> cbv;
-
     // Non-owning ptr.
-    coding::CompressedBitVector * filteredFeatures = features.get();
-
-    if (m_filter.NeedToFilter(*features))
+    coding::CompressedBitVector * filtered = features;
+    if (features && m_filter.NeedToFilter(*features))
     {
-      cbv = m_filter.Filter(*features);
-      filteredFeatures = cbv.get();
+      filteredIntersection = m_filter.Filter(*features);
+      filtered = filteredIntersection.get();
     }
+    ASSERT(filtered, ());
 
-    if (!coding::CompressedBitVector::IsEmpty(filteredFeatures))
-    {
-      for (auto & cluster : loopClusters)
-        cluster.clear();
-
-      auto clusterize = [&](uint32_t featureId)
-      {
-        FeatureType feature;
-        m_context->m_vector.GetByIndex(featureId, feature);
-        feature.ParseTypes();
-        SearchModel::SearchType searchType = m_model.GetSearchType(feature);
-
-        // All SEARCH_TYPE_CITY features were filtered in DoGeocodingWithLocalities().
-        if (searchType < SearchModel::SEARCH_TYPE_CITY)
-          loopClusters[searchType].push_back(featureId);
-      };
-      coding::CompressedBitVectorEnumerator::ForEach(*filteredFeatures, clusterize);
-    }
+    for (auto & cluster : clusters)
+      cluster.clear();
+    coding::CompressedBitVectorEnumerator::ForEach(*filtered, clusterize);
 
     for (size_t i = 0; i != SearchModel::SEARCH_TYPE_CITY; ++i)
     {
       // ATTENTION: DO NOT USE layer after recursive calls to
       // DoGeocoding().  This may lead to use-after-free.
       auto & layer = m_layers.back();
-
-      // Following code intersects posting lists for [curToken, curToken + n).
-      // This can be done incrementally, as we store intersections in |clusters|.
-      if (n == 1)
-      {
-        clusters[i].swap(loopClusters[i]);
-      }
-      else
-      {
-        buffer.clear();
-        set_intersection(clusters[i].begin(), clusters[i].end(), loopClusters[i].begin(),
-                         loopClusters[i].end(), back_inserter(buffer));
-        clusters[i].swap(buffer);
-      }
       layer.m_sortedFeatures = &clusters[i];
 
       if (i == SearchModel::SEARCH_TYPE_BUILDING)
