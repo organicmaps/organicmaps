@@ -134,11 +134,9 @@ void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, Address & addr
     if (!table || mwmHandle.GetId() != b.m_id.m_mwmId)
     {
       mwmHandle = m_index.GetMwmHandleById(b.m_id.m_mwmId);
-      auto value = mwmHandle.GetValue<MwmValue>();
-      if (value)
-        table = search::v2::HouseToStreetTable::Load(*value);
-      else
+      if (!mwmHandle.IsAlive())
         continue;
+      table = search::v2::HouseToStreetTable::Load(*mwmHandle.GetValue<MwmValue>());
     }
 
     GetNearbyStreets(b.m_center, streets);

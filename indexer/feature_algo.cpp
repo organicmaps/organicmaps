@@ -164,7 +164,7 @@ double GetMinDistanceMeters(FeatureType const & ft, m2::PointD const & pt, int s
 
   default:
     ASSERT_EQUAL(type, GEOM_AREA, ());
-    ft.ForEachTriangle([&] (m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+    ft.ForEachTriangle([&](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
     {
       if (res == 0.0)
         return;
@@ -175,7 +175,7 @@ double GetMinDistanceMeters(FeatureType const & ft, m2::PointD const & pt, int s
         return;
       }
 
-      auto fn = [&] (m2::PointD const & x1, m2::PointD const & x2)
+      auto fn = [&](m2::PointD const & x1, m2::PointD const & x2)
       {
         m2::ProjectionToSection<m2::PointD> calc;
         calc.SetBounds(x1, x2);

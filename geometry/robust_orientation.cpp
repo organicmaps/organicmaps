@@ -50,15 +50,15 @@ namespace m2 { namespace robust
       return OrientedS(vPrev, vNext, v1) > 0.0;
     }
 
-    if (cpLR < 0)
+    if (cpLR < 0.0)
     {
       // vertex is concave
-      return OrientedS(v, vPrev, v1) < 0 && OrientedS(v, vNext, v1) > 0.0;
+      return OrientedS(v, vPrev, v1) < 0.0 && OrientedS(v, vNext, v1) > 0.0;
     }
     else
     {
       // vertex is convex
-      return OrientedS(v, vPrev, v1) < 0 || OrientedS(v, vNext, v1) > 0.0;
+      return OrientedS(v, vPrev, v1) < 0.0 || OrientedS(v, vNext, v1) > 0.0;
     }
   }
 

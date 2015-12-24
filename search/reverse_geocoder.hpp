@@ -23,11 +23,13 @@ class ReverseGeocoder
     double m_distanceMeters;
     string m_name;
 
-    Object() = default;
+    Object() : m_distanceMeters(0.0) {}
     Object(FeatureID const & id, double dist, string const & name)
       : m_id(id), m_distanceMeters(dist), m_name(name)
     {
     }
+
+    inline bool IsValid() const { return m_id.IsValid(); }
   };
 
 public:
@@ -42,7 +44,10 @@ public:
   {
     m2::PointD m_center;
 
-    Building() = default;
+    // To investigate possible errors.
+    // There are no houses in (0, 0) coordinates.
+    Building() : m_center(0, 0) {}
+
     Building(FeatureID const & id, double dist, string const & number, m2::PointD const & center)
       : Object(id, dist, number), m_center(center)
     {

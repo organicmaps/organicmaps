@@ -8,26 +8,26 @@ using namespace m2::robust;
 
 namespace
 {
-  typedef m2::PointD P;
+  using P = m2::PointD;
 
   template <typename IterT> void CheckSelfIntersections(IterT beg, IterT end, bool res)
   {
     TEST_EQUAL(CheckPolygonSelfIntersections(beg, end), res, ());
-    typedef std::reverse_iterator<IterT> ReverseIterT;
+    using ReverseIterT = reverse_iterator<IterT>;
     TEST_EQUAL(CheckPolygonSelfIntersections(ReverseIterT(end), ReverseIterT(beg)), res, ());
   }
 }
 
 UNIT_TEST(OrientedS_Smoke)
 {
-  m2::PointD arr[] = {{-1, -1}, {0, 0}, {1, -1}};
+  P arr[] = {{-1, -1}, {0, 0}, {1, -1}};
   TEST(OrientedS(arr[0], arr[2], arr[1]) > 0, ());
   TEST(OrientedS(arr[2], arr[0], arr[1]) < 0, ());
 }
 
 UNIT_TEST(Triangle_Smoke)
 {
-  m2::PointD arr[] = {{0, 0}, {0, 3}, {3, 0}};
+  P arr[] = {{0, 0}, {0, 3}, {3, 0}};
 
   TEST(IsPointInsideTriangle(arr[0], arr[0], arr[1], arr[2]), ());
   TEST(IsPointInsideTriangle(arr[1], arr[0], arr[1], arr[2]), ());

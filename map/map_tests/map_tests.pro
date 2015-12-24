@@ -28,6 +28,7 @@ macx-*: LIBS *= "-framework IOKit" "-framework SystemConfiguration"
 
 SOURCES += \
   ../../testing/testingmain.cpp \
+  address_tests.cpp \
   bookmarks_test.cpp \
   ge0_parser_tests.cpp  \
   geourl_test.cpp \
@@ -36,7 +37,6 @@ SOURCES += \
   gps_track_test.cpp \
   kmz_unarchive_test.cpp \
   mwm_url_tests.cpp \
-  address_tests.cpp \
 
 !linux* {
   SOURCES += working_time_tests.cpp \
