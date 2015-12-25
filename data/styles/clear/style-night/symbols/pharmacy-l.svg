@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>pharmacy-l</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="13.5" cy="13.5" r="12.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="pharmacy-l-copy" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" rx="13.5" ry="13.5"></ellipse>
-            <circle id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="12.5"></circle>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" rx="13.5" ry="13.5"></ellipse>
+            <g id="Oval-1-Copy-40">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M13.6088328,15.2221062 L19.0047692,15.2221062 C19.8372528,15.2221062 20.5024476,14.4307366 20.5024476,13.4442123 C20.5024476,12.4646326 19.8305064,11.6663185 19.0047692,11.6663185 L13.5767344,11.6663185 L13.6088328,15.2221062 Z M5.02773961,13.4442123 C5.02773961,11.480405 6.35952442,9.88842468 8.02297041,9.88842468 L19.0047692,9.88842468 C20.6589895,9.88842468 22,11.484401 22,13.4442123 C22,15.4080196 20.6682152,17 19.0047692,17 L8.02297041,17 C6.36875012,17 5.02773961,15.4040237 5.02773961,13.4442123 L5.02773961,13.4442123 Z" id="Shape-Copy-5" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup" transform="translate(13.513870, 13.444212) rotate(-45.000000) translate(-13.513870, -13.444212) "></path>
         </g>
     </g>

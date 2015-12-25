@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>power-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="12.5" cy="12.5" r="11.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="power-m" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-38" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="12.5" cy="12.5" r="12.5"></circle>
-            <circle id="Oval-1-Copy-47" fill="#3D3D37" sketch:type="MSShapeGroup" cx="12.5" cy="12.5" r="11.5"></circle>
+            <circle id="Oval-1-Copy-38" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="12.5" cy="12.5" r="12.5"></circle>
+            <g id="Oval-1-Copy-47">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M13,5 L18,5 L13,11 L18,11 L8,20 L12,13 L7,13 L13,5 Z" id="Path-1152" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

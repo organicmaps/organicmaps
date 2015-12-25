@@ -6,8 +6,8 @@
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="cafe-l-copy" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-39" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
-            <circle id="Oval-1-Copy-38" fill="#3D3D37" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="12.5"></circle>
+            <circle id="Oval-1-Copy-39" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
+            <circle id="Oval-1-Copy-38" fill="#5E491A" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="12.5"></circle>
             <path d="M8,7 C7.44599,7 7,7.446 7,8 L7,17 C7,17.554 7.44599,18 8,18 L19,18 C19.55401,18 20,17.554 20,17 L20,16 L20.5,16 C21,16 21,15.5 21,15.5 L21,15 L22,15 C23,15 24,14 24,13 L24,12 L24,10 C24,9.5 23.5,9 23,9 L20,9 L20,8 C20,7.446 19.55401,7 19,7 L8,7 Z M20,10 L22.5,10 C23,10 23,10.5 23,10.5 L23,13 C23,13.5 22.5,14 22,14 L21,14 L20,14 L20,10 Z M5,19 L6,20 L7,21 L20,21 L21,20 L22,19 L5,19 Z" id="rect9826-2-1" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

@@ -3,11 +3,20 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>heliport-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <ellipse id="path-1" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+        <circle id="path-2" cx="5.75" cy="9.75" r="0.75"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-        <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+        <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+        <g id="Oval-1-Copy-40">
+            <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+            <use fill="none" xlink:href="#path-1"></use>
+        </g>
         <path d="M17.1618468,16 C17.5809234,16 18,15.5678889 18,15.1357778 L18,12.5432222 C18,11.679 17.5970554,11.2635556 17.1618468,10.8147778 C17.1618468,10.8147778 16.603078,10.2386667 16.3236936,9.95066667 C16.04432,9.66255556 15.4946433,9.00191157 14.6564901,9.00191157 L12.0087546,9.00191164 L11.9996624,7.0083074 L15.011649,7.00830734 C15.4759749,7.00830734 15.9978548,6.97255556 15.9978548,6.49377778 C15.9978548,6.01511112 15.6084122,6 15.011649,6 L8.10908776,6 C7.77718829,6 7.11687224,6.01555556 7.11687224,6.49377778 C7.11687224,6.97255556 7.64744507,6.95675178 8.10908776,7.00830734 L10.9228786,7.00830726 L10.9319707,9.00191149 L7.11687214,9.00191157 C6.82684082,8.48602269 6.29619797,8.13768935 5.67630641,8.13768935 C4.75051017,8.13768935 4,8.91146713 4,9.8661338 C4,10.8206894 4.75051017,11.5944671 5.67630641,11.5944671 C6.15994338,11.5944671 6.57518365,11.3652449 6.88114222,11.027356 L9.85795875,14.2715556 C10.7304235,15.1226667 11.3247322,16 11.7437981,16 L17.1618468,16 Z" id="rect9361-7" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
-        <circle id="Oval-410" fill="#3D3D37" sketch:type="MSShapeGroup" cx="5.75" cy="9.75" r="0.75"></circle>
+        <g id="Oval-410">
+            <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-2"></use>
+            <use fill="none" xlink:href="#path-2"></use>
+        </g>
     </g>
 </svg>

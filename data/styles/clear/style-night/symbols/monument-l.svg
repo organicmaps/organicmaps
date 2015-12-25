@@ -3,16 +3,21 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>monument-l</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="13.5" cy="13.5" r="12.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="monument-l-copy" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-39" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
-            <circle id="Oval-1-Copy-38" fill="#3D3D37" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="12.5"></circle>
+            <circle id="Oval-1-Copy-39" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
+            <g id="Oval-1-Copy-38">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M11,7 L11,16 L9,16 C8.44599,16 8,16.446 8,17 L8,19 L7,19 C6.44601,19 6,19.446 6,20 L6,21 L21,21 L21,20 C21,19.446 20.55399,19 20,19 L19,19 L19,17 C19,16.446 18.55401,16 18,16 L16,16 L16,7 C16,6 13.5,4 13.5,4 C13.5,4 10.90946,6.0041 11,7 Z" id="path11719" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
         <g id="monument-l-copy-2" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-39" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
-            <circle id="Oval-1-Copy-38" fill="#3D3D37" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="12.5"></circle>
+            <circle id="Oval-1-Copy-39" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
+            <circle id="Oval-1-Copy-38" fill="#59310E" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="12.5"></circle>
             <path d="M11,7 L11,16 L9,16 C8.44599,16 8,16.446 8,17 L8,19 L7,19 C6.44601,19 6,19.446 6,20 L6,21 L21,21 L21,20 C21,19.446 20.55399,19 20,19 L19,19 L19,17 C19,16.446 18.55401,16 18,16 L16,16 L16,7 C16,6 13.5,4 13.5,4 C13.5,4 10.90946,6.0041 11,7 Z" id="path11719" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

@@ -6,7 +6,7 @@
     <defs></defs>
     <g id="Transport" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="subway-xs" sketch:type="MSLayerGroup" transform="translate(0.012585, 0.000000)">
-            <circle id="Oval-139-Copy" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="5" cy="5" r="5"></circle>
+            <circle id="Oval-139-Copy" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="5" cy="5" r="5"></circle>
             <circle id="Oval-139" fill="#133655" sketch:type="MSShapeGroup" cx="5" cy="5" r="4"></circle>
             <rect id="Rectangle-307" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup" x="3" y="3" width="4" height="4" rx="1"></rect>
         </g>

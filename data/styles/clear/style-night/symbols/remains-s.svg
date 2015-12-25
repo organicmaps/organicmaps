@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>remains-s</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="8.5" cy="8.5" r="7.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="fort-s" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
-            <circle id="Oval-1-Copy-42" fill="#3D3D37" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
+            <circle id="Oval-1-Copy-43" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
+            <g id="Oval-1-Copy-42">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M7,3.9999999 L7.01171875,4.9749596 L8,4.9749596 L8,3.9999999 L9,3.9999999 L9,4.9749596 L10,4.9749596 L10,4 L12,4 L12,5.9499192 L5,5.9999999 L5,4 L7,3.9999999 Z" id="Shape-Copy-18" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
             <path d="M6.00228357,7 L11,7 L12,13 L5,13 L6.00228357,7 Z" id="Shape-Copy-17" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>

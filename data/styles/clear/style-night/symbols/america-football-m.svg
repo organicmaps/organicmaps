@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>america-football-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <ellipse id="path-1" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="america-football-m" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <g id="Oval-1-Copy-40">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M11.5,7 C6.71053,7 5,11.5 5,11.5 C5,11.5 6.71053,16 11.5,16 C16.28947,16 18,11.5 18,11.5 C18,11.5 16.28947,7 11.5,7 L11.5,7 Z M9.25,10 C9.3885,10 9.5,10.1115 9.5,10.25 L9.5,11 L11.25,11 L11.25,10.25 C11.25,10.1115 11.3615,10 11.5,10 C11.6385,10 11.75,10.1115 11.75,10.25 L11.75,11 L13.5,11 L13.5,10.25 C13.5,10.1115 13.6115,10 13.75,10 C13.8885,10 14.03359,10.1156 14,10.25 L14,11 L14.5625,11 C14.80872,11 15,11.223 15,11.5 C15,11.777 14.80872,12 14.5625,12 L14,12 L14,12.75 C14,12.8885 13.8885,13 13.75,13 C13.6115,13 13.53359,12.8844 13.5,12.75 L13.5,12 L11.75,12 L11.75,12.75 C11.75,12.8885 11.6385,13 11.5,13 C11.3615,13 11.25,12.8885 11.25,12.75 L11.25,12 L9.5,12 L9.5,12.75 C9.5,12.8885 9.3885,13 9.25,13 C9.1115,13 9,12.8885 9,12.75 L9,12 L8.4375,12 C8.19128,12 8,11.777 8,11.5 C8,11.223 8.19128,11 8.4375,11 L9,11 L9,10.25 C9,10.1115 9.1115,10 9.25,10 L9.25,10 Z" id="path11300-2-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

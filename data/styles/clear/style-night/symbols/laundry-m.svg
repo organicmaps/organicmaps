@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>laundry-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <path id="path-1" d="M22,11.5 C22,17.299 17.299,22 11.5,22 C5.701,22 1,17.299 1,11.5 C1,5.701 5.701,1 11.5,1 C17.299,1 22,5.701 22,11.5 L22,11.5 Z"></path>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="Layer_2" sketch:type="MSLayerGroup">
-            <path d="M11.5,23 C5.159,23 0,17.841 0,11.5 C0,5.159 5.159,0 11.5,0 C17.841,0 23,5.159 23,11.5 C23,17.841 17.841,23 11.5,23 L11.5,23 Z" id="Shape" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
-            <path d="M22,11.5 C22,17.299 17.299,22 11.5,22 C5.701,22 1,17.299 1,11.5 C1,5.701 5.701,1 11.5,1 C17.299,1 22,5.701 22,11.5 L22,11.5 Z" id="Shape" fill="#3D3D37" sketch:type="MSShapeGroup"></path>
+            <path d="M11.5,23 C5.159,23 0,17.841 0,11.5 C0,5.159 5.159,0 11.5,0 C17.841,0 23,5.159 23,11.5 C23,17.841 17.841,23 11.5,23 L11.5,23 Z" id="Shape" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <g id="Shape">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
         </g>
         <g id="Layer_1" sketch:type="MSLayerGroup" transform="translate(7.000000, 5.000000)" fill="#FFFFFF" opacity="0.7">
             <path d="M8.1,0 L0.9,0 C0.405,0 0,0.45 0,1 L0,12 C0,12.55 0.405,13 0.9,13 L8.1,13 C8.595,13 9,12.55 9,12 L9,1 C9,0.45 8.595,0 8.1,0 L8.1,0 Z M1,2 L4,2 L4,3 L1,3 L1,2 L1,2 Z M4.5,11 C2.8453125,11 1.5,9.65375 1.5,8 C1.5,6.34625 2.84625,5 4.5,5 C6.15375,5 7.5,6.34625 7.5,8 C7.5,9.65375 6.1546875,11 4.5,11 L4.5,11 Z M4.5,10 C5.32666667,10 6,9.55166667 6,9 L3,9 C3,9.55166667 3.67333333,10 4.5,10 L4.5,10 Z" id="Shape" sketch:type="MSShapeGroup"></path>

@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>swimming-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <ellipse id="path-1" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="swimming-m" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <g id="Oval-1-Copy-40">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M13.75,7 C13.63577,7 13.43667,7.048 13.34375,7.094 L10.46875,8.5003 C10.08422,8.6823 9.9339,9.2524 10.1875,9.594 L11.0625,10.7815 L7.34375,12.9378 L9.34375,13.7503 L11.5,12.8753 L13.65625,13.7503 L14.5,12.8753 L11.90625,9.4065 L14.09375,8.2815 C14.52851,8.0641 14.51381,7.6913 14.46875,7.469 C14.42605,7.2583 14.14702,7.0003 13.75,7.0003 L13.75,7 Z M15.5,9.375 C14.67157,9.375 14,10.0466 14,10.875 C14,11.7034 14.67157,12.375 15.5,12.375 C16.32843,12.375 17,11.7034 17,10.875 C17,10.0466 16.32843,9.375 15.5,9.375 L15.5,9.375 Z M11.5,13.875 L9.5,14.875 L7,13.9375 L5,14.875 L5,16.375 L7,15.375 L9.5,16.375 L11.5,15.3125 L13.5,16.375 L15.5,15.3125 L18,16.375 L18,14.875 L15.5,13.875 L13.5,14.875 L11.5,13.875 L11.5,13.875 Z" id="path16388" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

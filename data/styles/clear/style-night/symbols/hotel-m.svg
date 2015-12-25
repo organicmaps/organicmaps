@@ -6,8 +6,8 @@
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="hotel-m-copy" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <ellipse id="Oval-1-Copy-40" fill="#59310E" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
             <path d="M6.49999,7.75 C5.67157,7.75 5,8.4215 5,9.25 C5,10.0784 5.67157,10.7499 6.49999,10.7499 C7.32842,10.7499 7.99998,10.0784 7.99998,9.25 C7.99998,8.4215 7.32842,7.75 6.49999,7.75 L6.49999,7.75 Z M9,8.9999 C9,10.9999 8,11.9999 6.5,11.9999 L5.5,11.9999 C5,11.9999 5,12.4999 5,12.4999 C5,12.4999 5,12.9999 5.5,12.9999 L18,12.9999 L18,11.2498 C18,10.4998 18,8.9999 14.25003,8.9999 L9,8.9999 Z M5.74999,13.9999 C5.37499,13.9999 4.99999,14.3749 4.99999,14.7499 C4.99981,15.4929 4.99999,15.6083 4.99999,16.2499 C4.99999,16.6249 5.37499,16.9999 5.74999,16.9999 C6.12499,16.9999 6.49998,16.6249 6.49998,16.2499 L6.5,14.9999 L16.50002,14.9999 L16.5,16.2499 C16.49999,16.6249 16.875,16.9999 17.25,16.9999 C17.625,16.9999 17.99999,16.6249 17.99999,16.2499 L17.99999,14.7499 C17.99999,14.3749 17.625,13.9999 17.25,13.9999 L5.74999,13.9999 Z" id="path4536-7" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

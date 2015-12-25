@@ -6,7 +6,7 @@
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="garden-s" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
+            <circle id="Oval-1-Copy-43" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
             <circle id="Oval-1-Copy-42" fill="#1B430B" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
             <path d="M6,4 L6,6 C6,6.86708 6.9353,7.75357 8,7.96875 L8,12 C7.5,11 6.5,10 5,11 C5,11 6,13 8.5,13 C11,13 12,11 12,11 C10.5,10 9.5,11 9,12 L9,7.96875 C10.0647,7.75357 11,6.86708 11,6 L11,4 L9.4375,5.25 L8.5,4 L7.5625,5.25 L6,4 L6,4 Z" id="path6080-4-3" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>

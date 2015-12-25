@@ -3,16 +3,21 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>monument-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <ellipse id="path-1" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="monument-m-copy" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <g id="Oval-1-Copy-40">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M10,6.5 L10,14 L9,14 C8.56908,14 8,14.5136 8,14.9445 L8,16.5 L7,16.5 C6.5,16.5 6,17 6,17.5 L6,18 L17,18 L17,17.5 C17,17 16.5,16.5 16,16.5 L15,16.5 L15,15 C15,14.5 14.5,14 14,14 L13,14 L13,6.5 C13,5.7223 11.44444,4 11.44444,4 C11.44444,4 10,5.7223 10,6.5 Z" id="path11719-5" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
         <g id="monument-m-copy-2" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <ellipse id="Oval-1-Copy-40" fill="#59310E" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
             <path d="M10,6.5 L10,14 L9,14 C8.56908,14 8,14.5136 8,14.9445 L8,16.5 L7,16.5 C6.5,16.5 6,17 6,17.5 L6,18 L17,18 L17,17.5 C17,17 16.5,16.5 16,16.5 L15,16.5 L15,15 C15,14.5 14.5,14 14,14 L13,14 L13,6.5 C13,5.7223 11.44444,4 11.44444,4 C11.44444,4 10,5.7223 10,6.5 Z" id="path11719-5" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

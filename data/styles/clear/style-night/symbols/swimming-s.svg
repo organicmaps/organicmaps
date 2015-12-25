@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>swimming-s</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="8.5" cy="8.5" r="7.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="swimming-s" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
-            <circle id="Oval-1-Copy-42" fill="#3D3D37" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
+            <circle id="Oval-1-Copy-43" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
+            <g id="Oval-1-Copy-42">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M10.5,4.3622 L10,4.666 L7.78125,5.956 C7.51504,6.082 7.41818,6.4694 7.59375,6.706 L8.20312,7.5341 L6,9.3622 L7,9.5966 L8.5,9.1281 L10,9.5966 L11,9.3622 L8.78125,6.581 L11.01562,5.1903 L11.00002,4.3622 L10.5,4.3622 Z M11.5,6.4092 C10.94772,6.4092 10.5,6.8569 10.5,7.4092 C10.5,7.9614 10.94772,8.4092 11.5,8.4092 C12.05228,8.4092 12.5,7.9614 12.5,7.4092 C12.5,6.8569 12.05228,6.4092 11.5,6.4092 L11.5,6.4092 Z M5.5,10.3623 L4,10.8308 L4,11.862 L4.15625,11.815 L5.5,11.3619 L7,11.8617 L8.5,11.3619 L10,11.8617 L11.5,11.3619 L13,11.8619 L13,10.8307 L11.5,10.3622 L10,10.8307 L8.5,10.3622 L7,10.8307 L5.5,10.3622 L5.5,10.3623 Z" id="path8421-9-1-0-7-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

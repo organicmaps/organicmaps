@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>toilets-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <ellipse id="path-1" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="toilets-m" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <g id="Oval-1-Copy-40">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M8.00001,4 C6.89544,4 6.00001,4.8954 6.00001,6 C6.00001,7.1046 6.89544,8 8.00001,8 C9.10458,8 10.00001,7.1046 10.00001,6 C10.00001,4.8954 9.10458,4 8.00001,4 L8.00001,4 Z M15,4 C13.89543,4 13,4.8954 13,6 C13,7.1046 13.89543,8 15,8 C16.10457,8 17,7.1046 17,6 C17,4.8954 16.10457,4 15,4 L15,4 Z M7.50001,9 L6.00001,10.5 L6.00001,13 L4.50001,15.5 L5.00001,16 L7.00001,16 L7.00001,19 L9.00001,19 L9.00001,16 L11.00001,16 L11.50001,15.5 L10.00001,13 L10.00001,10.5 L8.50001,9 L7.50001,9 Z M13,9 L12.00001,10 L14,14.5 L14,19 L16,19 L16,14.5 L18.00001,10 L17,9 L13,9 Z" id="path7660-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

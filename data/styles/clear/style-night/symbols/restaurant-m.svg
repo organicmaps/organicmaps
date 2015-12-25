@@ -6,8 +6,8 @@
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="restaurant-m-copy" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <ellipse id="Oval-1-Copy-40" fill="#5E491A" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
             <path d="M8,5 L7,5 L7,9.5 C7,10.2777 8,10.2222 8,11 L8,18 C8,18.3889 8.5,19 9,19 C9.5,19 10,18.5 10,18 L10,11 C10,10.2222 11,10.2777 11,9.5 L11,5 L10,5 L10,8 L9.5,8 L9.5,5 L8.5,5 L8.5,8 L8,8 L8,5 Z M16,5 C15.22222,5 13.99192,5.5162 13.5,6.5 C13.11111,7.2777 13,9 13,10 L13,13 C13,13.5 13.61111,14 14,14 L14,18 C14,18.5 14.5,19 15,19 C15.5,19 16,18.5 16,18 L16,5 Z" id="rect6396-83" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

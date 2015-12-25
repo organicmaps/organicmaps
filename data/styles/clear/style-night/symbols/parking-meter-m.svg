@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>parking-meter-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <path id="path-1" d="M22,11.5 C22,17.299 17.299,22 11.5,22 C5.701,22 1,17.299 1,11.5 C1,5.701 5.701,1 11.5,1 C17.299,1 22,5.701 22,11.5 L22,11.5 Z"></path>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="parking-meter-m" sketch:type="MSLayerGroup">
-            <path d="M11.5,23 C5.159,23 0,17.841 0,11.5 C0,5.159 5.159,0 11.5,0 C17.841,0 23,5.159 23,11.5 C23,17.841 17.841,23 11.5,23 L11.5,23 Z" id="Shape" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
-            <path d="M22,11.5 C22,17.299 17.299,22 11.5,22 C5.701,22 1,17.299 1,11.5 C1,5.701 5.701,1 11.5,1 C17.299,1 22,5.701 22,11.5 L22,11.5 Z" id="Shape" fill="#3D3D37" sketch:type="MSShapeGroup"></path>
+            <path d="M11.5,23 C5.159,23 0,17.841 0,11.5 C0,5.159 5.159,0 11.5,0 C17.841,0 23,5.159 23,11.5 C23,17.841 17.841,23 11.5,23 L11.5,23 Z" id="Shape" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <g id="Shape">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M12.464,12 L11,12 L11,13.07 L12.464,13.07 C12.759,13.07 13,12.83 13,12.535 C13,12.24 12.76,12 12.464,12 L12.464,12 Z M17.134,7 L16,7 L16,9 L7,9 L7,7 L5.867,7 C5.388,7 5,7.389 5,7.867 L5,16.267 C5,17.224 5.776,17.999 6.733,17.999 L16.266,17.999 C17.224,17.999 17.999,17.224 17.999,16.267 L17.999,7.867 C18,7.389 17.612,7 17.134,7 L17.134,7 Z M12.464,15.07 L11,15.07 L11,17 L9,17 L9,10 L12.464,10 C13.862,10 15,11.138 15,12.535 C15,13.932 13.862,15.07 12.464,15.07 L12.464,15.07 Z M9.511,8 C9.195,7.581 9,7.065 9,6.5 C9,5.12 10.12,4 11.5,4 C12.881,4 14,5.12 14,6.5 C14,7.065 13.806,7.581 13.489,8 L9.511,8 L9.511,8 Z" id="Shape" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

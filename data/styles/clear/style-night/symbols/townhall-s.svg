@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>townhall-s</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="8.5" cy="8.5" r="7.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="bank-s" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
-            <circle id="Oval-1-Copy-42" fill="#3D3D37" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
+            <circle id="Oval-1-Copy-43" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
+            <g id="Oval-1-Copy-42">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M8.5,4 C8.5,4 4.0045,5.86921429 4.00286364,6.23654762 L4,7 L13,7 L13,6.24107143 C12.9955,5.86921429 8.5,4 8.5,4 Z M11.5365553,11.5 L9.9600668,11.5 L9.05531693,11.5 L7.98708868,11.5 L7.05106163,11.5 L5.54839683,11.5 L5.25077269,11.5 C4.83613238,11.5 4.5,11.8328986 4.5,12.25 L4.5,13 L12.5,13 L12.5,12.25 C12.5,11.8357864 12.1738216,11.5 11.7408771,11.5 L11.5365553,11.5 Z M6,7.5 L7,7.5 L7,11 L6,11 L6,7.5 Z M8,7.5 L9,7.5 L9,11 L8,11 L8,7.5 Z M10,7.5 L11,7.5 L11,11 L10,11 L10,7.5 Z" id="Imported-Layers-Copy-2" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

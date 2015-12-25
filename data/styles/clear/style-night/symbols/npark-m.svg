@@ -6,7 +6,7 @@
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="npark-m" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
             <ellipse id="Oval-1-Copy-40" fill="#1B430B" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
             <path d="M16,12 C16,11 15,10 14.5,10 C14.80686,9.6563 15.11108,8.9972 15.11108,8.5001 C15.11108,7.4263 14,6.5 13,6.5 C13,5.5 12.5,5 11.5,5 C10.5,5 10,5.5 10,6.5 C9,6.5 7.88892,7.4266 7.88892,8.5005 C7.88892,8.9976 8.19314,9.6563 8.5,10 C8,10 7,11 7,12 C7,13 7.5,14.056 9.05557,14.056 L9.44446,14.056 L9.49996,15 L10.99996,16.5 L10.99992,19 L11.99992,19 L11.99996,16.4996 L13.49996,15 L13.55546,14.056 L14.11448,14.044 C15.5,14 16,13 16,12 L16,12 Z M10.5,14 L12.5,14 L12.5,14.5 L11.5,15.5 L10.5,14.5 L10.5,14 Z" id="path4390-3-6" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>

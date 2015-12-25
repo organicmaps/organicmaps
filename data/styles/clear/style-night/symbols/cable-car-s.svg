@@ -6,7 +6,7 @@
     <defs></defs>
     <g id="Transport" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="cable-car-s" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
+            <circle id="Oval-1-Copy-43" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
             <circle id="Oval-1-Copy-42" fill="#133655" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
             <path d="M5.69730425,6.61157772 L5.80269575,6.53127943 C5.35937913,6.86904447 5,7.59491021 5,8.15276589 L5,12.4285714 C5,12.7142857 5.25,13 5.5,13 L6.75,13 L9,13 L10.25,13 L11.5,13 C11.75,13 12,12.7142857 12,12.4285714 L12,8.15276589 C12,7.59500869 11.6368918,6.86620331 11.1973042,6.53127943 L11.3026958,6.61157772 C10.8593791,6.27381267 10.0566468,6 9.4906311,6 L7.5093689,6 C6.95190985,6 6.13689184,6.27665383 5.69730425,6.61157772 Z M7,7.14285714 L10,7.14285714 L11,7.71428571 L11,9.42857143 L6,9.42857143 L6,7.71428571 L7,7.14285714 L7,7.14285714 Z" id="path24879" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
             <rect id="Rectangle-58" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup" x="8" y="7" width="1" height="3"></rect>

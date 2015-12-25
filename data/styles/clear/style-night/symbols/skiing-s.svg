@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>skiing-s</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="8.5" cy="8.5" r="7.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="skiing-s" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
-            <circle id="Oval-1-Copy-42" fill="#3D3D37" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
+            <circle id="Oval-1-Copy-43" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
+            <g id="Oval-1-Copy-42">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M8,5 C7.5,5 7,6 7,6.5 L7,8.5 L5.375,9.2813 L4,8.5 L4,9 L11,13 L11,12.5 L6.3125,9.8125 L8,9.1875 L8,7 L8.5,7 L9,7 L10,8.5 L10,10 L11,11 L12,11 L12,10 L11,10 L11,8.5 L10.5,6 L9,5 L8,5 L8,5 Z M12.5,6.5 C11.94773,6.5 11.5,6.9477 11.5,7.5 C11.5,8.0523 11.94773,8.5 12.5,8.5 C12.68732,8.5 12.85013,8.433 13,8.3438 L13,6.6563 C12.85013,6.5663 12.68732,6.5 12.5,6.5 L12.5,6.5 Z" id="rect10364-5-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

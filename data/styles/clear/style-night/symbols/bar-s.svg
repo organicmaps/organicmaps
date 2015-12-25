@@ -6,8 +6,8 @@
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="bar-s-copy" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
-            <circle id="Oval-1-Copy-42" fill="#3D3D37" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
+            <circle id="Oval-1-Copy-43" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
+            <circle id="Oval-1-Copy-42" fill="#5E491A" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
             <path d="M4.5,5 C4.21875,5 4,5.0003 4,5.1406 C4,5.2816 4.19283,5.4488 4.28125,5.5625 L8,10 L8,12.5 C7,13 5.5,13.5 5.5,14 L11.5,14 C11.5,13.5 10,13 9,12.5 L9,10 L12.71875,5.5625 C12.80715,5.4488 13,5.2816 13,5.1406 C13,5.0003 12.78125,5 12.5,5 L4.5,5 Z" id="path15601-4-2" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

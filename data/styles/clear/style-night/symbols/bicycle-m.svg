@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>bicycle-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <ellipse id="path-1" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="bicycle-m-copy" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <g id="Oval-1-Copy-40">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <g id="bicycle-18-copy" transform="translate(2.000000, 2.000000)" sketch:type="MSShapeGroup">
                 <path d="M12,3.3622 L12,4.3622 L13,4.8622 L13,6.3622 L8,6.3622 L8,5.3622 L9,5.3622 L9,4.8622 L8,4.3622 L6,4.3622 L6,5.3622 L7,5.3622 L7,6.3622 L5.75,8.4872 C5.50461,8.42232 5.26579,8.3622 5,8.3622 C3.34314,8.3622 2,9.70534 2,11.3622 C2,13.01906 3.34314,14.3622 5,14.3622 C6.65686,14.3622 8,13.01906 8,11.3622 L9,11.3622 L11.5,7.3622 L13,7.3622 L13.53125,8.4247 C12.10342,8.65517 11,9.86933 11,11.3622 C11,13.01905 12.34315,14.3622 14,14.3622 C15.65685,14.3622 17,13.01905 17,11.3622 C17,9.92281 15.97744,8.71559 14.625,8.4247 L14,6.8622 L14,4.3622 L13.5,3.8622 L12,3.3622 L12,3.3622 Z M7.5,7.3622 L10.5,7.3622 L8.5,10.3622 L7.8125,10.3622 C7.60043,9.77101 7.22517,9.24652 6.71875,8.89345 L7.5,7.3622 L7.5,7.3622 Z M5,9.6122 C5.9665,9.6122 6.75,10.3957 6.75,11.3622 C6.75,12.3287 5.9665,13.1122 5,13.1122 C4.0335,13.1122 3.25,12.3287 3.25,11.3622 C3.25,10.3957 4.0335,9.6122 5,9.6122 L5,9.6122 Z M14,9.6122 C14.9665,9.6122 15.75,10.3957 15.75,11.3622 C15.75,12.3287 14.9665,13.1122 14,13.1122 C13.0335,13.1122 12.25,12.3287 12.25,11.3622 C12.25,10.3957 13.0335,9.6122 14,9.6122 L14,9.6122 Z" id="path5430" opacity="0.7" fill="#FFFFFF"></path>
                 <rect id="rect15834-7" opacity="0.3" x="0" y="0.3622" width="18" height="17.999969"></rect>

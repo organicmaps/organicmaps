@@ -3,10 +3,15 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>office-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <ellipse id="path-1" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-        <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+        <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+        <g id="Oval-1-Copy-40">
+            <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+            <use fill="none" xlink:href="#path-1"></use>
+        </g>
         <path d="M17,7 L14,7 L14,6 C14,5.447 13.552,5 13,5 L10,5 C9.448,5 9,5.447 9,6 L9,7 L6,7 C5.448,7 5,7.447 5,8 L5,15 C5,15.553 5.448,16 6,16 L17,16 C17.552,16 18,15.553 18,15 L18,8 C18,7.447 17.552,7 17,7 L17,7 Z M10,6 L13,6 L13,7 L10,7 L10,6 Z M8,15 L7,15 L7,8 L8,8 L8,15 Z M16,15 L15,15 L15,8 L16,8 L16,15 Z" id="path17" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
     </g>
 </svg>

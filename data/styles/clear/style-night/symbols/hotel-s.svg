@@ -6,8 +6,8 @@
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="hotel-s-copy" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
-            <circle id="Oval-1-Copy-42" fill="#3D3D37" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
+            <circle id="Oval-1-Copy-43" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
+            <circle id="Oval-1-Copy-42" fill="#59310E" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
             <path d="M5,6 C4.44771,6 4,6.4477 4,7 C4,7.5523 4.44771,8 5,8 C5.55228,8 6,7.5523 6,7 C6,6.4477 5.55228,6 5,6 L5,6 Z M7,7 C7,8 6.5,9 5,9 L4.25,9 C4.1237,9 3.99935,9 4,9.25 C4.00017,9.318 4,9.5579 4,9.75 C4,10 4.19428,10 4.25,10 L13,10 L13,8.5 C13,8 13,7 10.5,7 L7,7 Z M4.5,11 C4.25,11 4,11.25 4,11.5 C3.99988,11.9954 4,12.0723 4,12.5 C4,12.75 4.25,13 4.5,13 C4.75,13 5,12.75 5,12.5 L5,12 L12,12 L12,12.5 C12,12.75 12.25,13 12.5,13 C12.75,13 13,12.75 13,12.5 L13,11.5 C13,11.25 12.75,11 12.5,11 L4.5,11 Z" id="path4536-6" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>townhall-l</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="13.5" cy="13.5" r="12.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="bank-l-copy" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-39" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
-            <circle id="Oval-1-Copy-38" fill="#3D3D37" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="12.5"></circle>
+            <circle id="Oval-1-Copy-39" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
+            <g id="Oval-1-Copy-38">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M21.4018182,7.39104762 L14,4 L6.59818182,7.39104762 C6.23090909,7.52404762 6.005,7.86921429 6.00318182,8.23654762 L6,9 L22,9 L22,8.24107143 C21.995,7.86921429 21.7690909,7.52404762 21.4018182,7.39104762 Z M19.5,18 L19,10 L17,10 L16.5,18 L15.5,18 L14.9090909,10 L13.0909091,10 L12.5,18 L11.5,18 L11,10 L9,10 L8.5,18 L7.00244075,18 C6.44880801,18 6,18.4426603 6,18.9989566 L6,21 L22,21 L22,18.9989566 C22,18.4472481 21.5530501,18 20.9975592,18 L19.5,18 Z" id="Imported-Layers" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

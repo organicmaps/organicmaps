@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>america-football-s</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="8.5" cy="8.5" r="7.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="america-football-s" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
-            <circle id="Oval-1-Copy-42" fill="#3D3D37" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
+            <circle id="Oval-1-Copy-43" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
+            <g id="Oval-1-Copy-42">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M8.5,6 C5.25,6 4,9 4,9 C4,9 5.25,12 8.5,12 C11.75,12 13,9 13,9 C13,9 11.75,6 8.5,6 L8.5,6 Z M7.5,8.5 L8.5,8.5 L9,8.5 L10,8.5 L10.5,8.5 L11,8.5 C11.1385,8.5 11.25,8.6115 11.25,8.75 C11.25,8.8885 11.1385,9 11,9 L10.5,9 L10,9 L9,9 L8.5,9 L7.5,9 L7,9 L6.25,9 C6.1115,9 6,8.8885 6,8.75 C6,8.6115 6.1115,8.5 6.25,8.5 L7,8.5 L7.5,8.5 Z" id="path11300-6-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

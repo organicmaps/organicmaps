@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>shop-s</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="8.5" cy="8.5" r="7.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="shop-s" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
-            <circle id="Oval-1-Copy-42" fill="#3D3D37" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
+            <circle id="Oval-1-Copy-43" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
+            <g id="Oval-1-Copy-42">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M7.17188,3.8622 C6.67188,3.8622 6.24623,4.3678 6.17188,4.8622 L6,6.3622 L5,6.3622 C4.75,6.3622 4.5,6.6122 4.5,6.8622 L4,11.8622 C4,12.1122 4.25,12.3622 4.5,12.3622 L12.5,12.3622 C12.75,12.3622 13,12.1122 13,11.8622 L12.5,6.8622 C12.5,6.6122 12.25,6.3622 12,6.3622 L11,6.3622 L10.82813,4.8622 C10.77123,4.3655 10.32813,3.8622 9.82813,3.8622 L7.17188,3.8622 Z M7.17188,4.3622 L9.82813,4.3622 C10.07813,4.3622 10.29603,4.5821 10.32813,4.8622 L10.5,6.3622 L6.5,6.3622 L6.67188,4.8622 C6.70038,4.6139 6.92188,4.3622 7.17188,4.3622 L7.17188,4.3622 Z" id="rect13131-6-6-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

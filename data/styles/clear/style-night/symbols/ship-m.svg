@@ -6,7 +6,7 @@
     <defs></defs>
     <g id="Transport" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="ship-m" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" r="11.5"></circle>
+            <circle id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" r="11.5"></circle>
             <circle id="Oval-1-Copy-40" fill="#133655" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" r="10.5"></circle>
             <path d="M10,4 C9.5,4 9,4.5 9,5 L7.82354,5 C7.3673,5 6.9706,5.5438 6.9706,6 L7,9.5 L5,10.5 L7,14 L7,15.5 L9.5,16.5 L11.5,15.5 L13.5,16.5 L16,15.5 L16,14 L18,10.5 L16,9.5 L16,6 C16,5.5438 15.63271,5 15.17647,5 L14,5 C14,4.5 13.5,4 13,4 L10,4 Z M8,6 L15,6 L15,9.0441 L11.5,7 L8,9.0441 L8,6 Z M7,17 L5,18 L5,19.5 L7,18.5 L9.5,19.5 L11.5,18.5 L13.5,19.5 L16,18.6466 L18,19.5 L18,18 L16,17 L13.5,18 L11.5,17 L9.5,18 L7,17 Z" id="path30964-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>

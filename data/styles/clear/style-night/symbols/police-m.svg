@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>police-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <ellipse id="path-1" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="police-m-copy" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <g id="Oval-1-Copy-40">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M10,4 L9,4.5 L9,5.5 L14,5.5 L14,4.5 L13,4 L10,4 Z M9,6.5 C8.9667,6.6627 9,6.8274 9,7 C9,8.3807 10.11931,9.5 11.5,9.5 C12.88069,9.5 14,8.3807 14,7 L14,6.5 L9,6.5 Z M9,10.5 C7.91667,10.5 7.01415,12.2917 7,13.375 L7,17.5 L8.53125,17.5 L13,10.5 L9,10.5 Z M14.5,10.5 L10.03125,17.5 L16,17.5 L16,13.375 C16,12.2916 15.58334,10.5 14.5,10.5 L14.5,10.5 Z" id="rect7805-5-4-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

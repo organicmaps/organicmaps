@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>skiing-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <ellipse id="path-1" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="skiing-m" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <g id="Oval-1-Copy-40">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M10,6 C9,6 8.5,6.5 8.5,7.5 C8.5,7.8954 8.63581,8.1569 8.71875,8.5 L9.5,10.5 L6.6875,12.46875 L4,11 L4,12 L15,18 L16,18 L17,17 L16.5,16.5 L16,16 L16,17 L15,17 L8,13.1875 L10.46875,11.53125 C10.71392,11.36325 11.07056,11.2887 11,11 L10.46875,9.53125 L13,11 L13.625,12.96875 C13.6818,13.18085 13.83039,13.38015 14.03125,13.46875 L15.71875,14.1875 C16.90217,14.7062 17.06588,13.5765 16.3125,13.25 L14.9375,12.65625 L14,10 L14,8 L11.5,6.59375 C10.92064,6.25935 10.5,6 10,6 L10,6 Z M16.5,7.5 C15.6861,7.5 15,8.1861 15,9 C15,9.814 15.6861,10.5 16.5,10.5 C17.31389,10.5 18,9.814 18,9 C18,8.1861 17.31389,7.5 16.5,7.5 L16.5,7.5 Z" id="rect10364-0-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

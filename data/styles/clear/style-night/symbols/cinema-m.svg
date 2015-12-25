@@ -6,8 +6,8 @@
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="cinema-m-copy" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <ellipse id="Oval-1-Copy-40" fill="#59310E" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
             <path d="M16.23529,4.65997314 L14.5147,5.16177314 L15.3511,7.43207314 L17,6.95407314 L16.23529,4.65997314 Z M13.46323,5.44857314 L11.21691,6.09377314 L12.0772,8.36397314 L14.32353,7.71877314 L13.46323,5.44857314 Z M10.18933,6.38057314 L8.20588,6.95407314 L9.06617,9.22427314 L11.04963,8.65077314 L10.18933,6.38057314 Z M7.17831,7.24087314 L5,8.01107314 L6,10.0110731 L8.0147,9.51107314 L7.17831,7.24087314 Z M6,10.0110731 L6,17.0110731 C6,17.5110731 6.5,18.0110731 7,18.0110731 L17,18.0110731 C17.5,18.0110731 18,17.5110731 18,17.0110731 L18,10.0110731 L6,10.0110731 Z M8,12.0110731 L16,12.0110731 L16,14.0110731 L8,14.0110731 L8,12.0110731 Z" id="rect7568-8-4-7-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

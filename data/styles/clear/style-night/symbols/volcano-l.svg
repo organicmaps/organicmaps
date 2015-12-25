@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>volcano-l</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <ellipse id="path-1" cx="13.5" cy="13.5" rx="12.5" ry="12.5"></ellipse>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="volcano-l-copy" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-39" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" rx="13.5" ry="13.5"></ellipse>
-            <ellipse id="Oval-1-Copy-38" fill="#3D3D37" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" rx="12.5" ry="12.5"></ellipse>
+            <ellipse id="Oval-1-Copy-39" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" rx="13.5" ry="13.5"></ellipse>
+            <g id="Oval-1-Copy-38">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M13.4999998,11.1570941 C12.902949,11.1570941 11.7512537,10.5975741 11.7512537,10.5975741 L7.08552632,17.96875 C7.02524737,18.0748312 7,18.1938375 7,18.3125 C7,18.828125 7.34210526,19.0001375 7.68421053,19 L19.3157895,19 C19.6578947,19.0001375 20,18.828125 20,18.3125 C20,18.1938375 19.9747868,18.0748312 19.9144737,17.96875 L15.3358539,10.5975741 C15.3358539,10.5975741 14.0978158,11.1570941 13.4999998,11.1570941 Z" id="path11349" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
             <rect id="Rectangle-35" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup" x="12.9130435" y="7.04347826" width="2.34782609" height="2.34782609"></rect>
             <rect id="Rectangle-35-Copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup" x="15.2608696" y="4.69565217" width="2.34782609" height="2.34782609"></rect>

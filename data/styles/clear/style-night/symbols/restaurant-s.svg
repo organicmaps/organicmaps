@@ -6,8 +6,8 @@
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="restaurant-s-copy" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
-            <circle id="Oval-1-Copy-42" fill="#3D3D37" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
+            <circle id="Oval-1-Copy-43" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
+            <circle id="Oval-1-Copy-42" fill="#5E491A" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
             <path d="M5.5,4 L5,4 L5,7 C5,7.5 6,7.5 6,8 L6,14 L7,14 L7,8 C7,7.5 8,7.5 8,7 L8,4 L7.5,4 L7.5,6 L6.75,6 L6.75,4 L6.25,4 L6.25,6 L5.5,6 L5.5,4 Z M12,4 C11.5,4 10.56623,4.1176 10.25,4.75 C10,5.25 10,6 10,7 L10,9.5 L11,9.5 L11,14 L12,14 L12,4 Z" id="rect6396-8-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>recycling-l</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="13.5" cy="13.5" r="12.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="recycling-l" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-39" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
-            <circle id="Oval-1-Copy-38" fill="#3D3D37" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="12.5"></circle>
+            <circle id="Oval-1-Copy-39" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
+            <g id="Oval-1-Copy-38">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M11.5,5 C11.223,5 11,5.223 11,5.5 L11,7 L8,7 C7.446,7 7,7.446 7,8 C7,8.554 7.446,9 8,9 L19,9 C19.554,9 20,8.554 20,8 C20,7.446 19.554,7 19,7 L16,7 L16,5.5 C16,5.223 15.77701,5 15.5,5 L11.5,5 Z M12,6 L15,6 L15,7 L12,7 L12,6 Z M8,10 C7.446,10 6.92453,10.4212 7.01563,10.9285714 L9,22.0714286 C9.0904,22.5788929 9.446,23 10,23 L17,23 C17.554,23 17.9089,22.5788 18,22.0714286 L19.98437,10.9285714 C20.07477,10.4211071 19.554,10 19,10 L8,10 Z" id="rect5636-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

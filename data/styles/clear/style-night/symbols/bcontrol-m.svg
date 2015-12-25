@@ -3,10 +3,15 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>bcontrol-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <ellipse id="path-1" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-        <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+        <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+        <g id="Oval-1-Copy-40">
+            <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+            <use fill="none" xlink:href="#path-1"></use>
+        </g>
         <g id="Rectangle-22-+-Group" sketch:type="MSLayerGroup" transform="translate(3.000000, 4.000000)">
             <path d="M9,7 L9,9 L8,9 L8,7 L9,7 Z M9,6 L9,1 L8,1 L8,6 L9,6 Z M9,10 L9,14 L8,14 L8,10 L9,10 Z M10,1 L10,0 L7,0 L7,4 L2.81231689,4 L2,4 L0.983093262,5 L2,6 L7,6 L7,15 L10,15 L10,9 L14,9 L15.0058594,8 L14,7 L10,7 L10,3 L14,3 L15.0452881,2 L14,1 L10,1 Z" id="Rectangle-22" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
             <g id="Group" transform="translate(7.000000, 3.000000)"></g>

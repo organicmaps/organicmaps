@@ -6,7 +6,7 @@
     <defs></defs>
     <g id="Transport" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="funicular-s" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
+            <circle id="Oval-1-Copy-43" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
             <path d="M8.5,16 C12.6421356,16 16,12.6421356 16,8.5 C16,4.35786438 12.6421356,1 8.5,1 C4.35786438,1 1,4.35786438 1,8.5 C1,12.6421356 4.35786438,16 8.5,16 Z" id="Oval-1-Copy-42" fill="#133655" sketch:type="MSShapeGroup"></path>
             <path d="M3,7.99077797 C3,7.44358641 3.4296875,6.85820312 3.95884204,6.68358213 L12.041158,4.01641787 C12.5707118,3.8416651 13,4.15097518 13,4.69077796 L13,8.70922203 C13,9.25641359 12.5703125,9.84179687 12.041158,10.0164179 L3.95884204,12.6835821 C3.4292882,12.8583349 3,12.5490248 3,12.009222 L3,7.99077797 Z M4,8 L6,7.3 L6,9.3 L4,10 L4,8 Z M7,6.89999998 L9,6.19999999 L9,8.19999999 L7,8.89999998 L7,6.89999998 Z M10,5.99999998 L12,5.29999999 L12,7.29999999 L10,7.99999998 L10,5.99999998 Z" id="Rectangle-49" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>

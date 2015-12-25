@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>toilets-l</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="13.5" cy="13.5" r="12.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="toilets-l" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-39" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
-            <circle id="Oval-1-Copy-38" fill="#3D3D37" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="12.5"></circle>
+            <circle id="Oval-1-Copy-39" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
+            <g id="Oval-1-Copy-38">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M9.5,4 C8.11929,4 7,5.11929 7,6.5 C7,7.88071 8.11929,9 9.5,9 C10.88071,9 12,7.88071 12,6.5 C12,5.11929 10.88071,4 9.5,4 L9.5,4 Z M17.5,4 C16.11929,4 15,5.11929 15,6.5 C15,7.88071 16.11929,9 17.5,9 C18.88071,9 20,7.88071 20,6.5 C20,5.11929 18.88071,4 17.5,4 L17.5,4 Z M9,10 C8,10 7,11 7,12 L7,14 L5.5,18.5 C5.5,19 6,19 6.5,19 L8,19 L8,23 L11,23 L11,19 L12.5,19 C13,19 13.5,19 13.5,18.5 L12,14 L12,12 C12,11 11,10 10,10 L9,10 Z M15,10 C14.5,10 14,10.5 14,11 L16,17 L16,19 L16,23 L19,23 L19,19 L19,17 L21,11 C21,10.5 20.5,10 20,10 L15,10 Z" id="path16479-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>
