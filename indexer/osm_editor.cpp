@@ -239,6 +239,7 @@ void Editor::LoadMapEdits()
           fti.m_feature = FeatureType::FromXML(xml);
           fti.m_feature.SetID(fid);
           fti.m_modificationTimestamp = xml.GetModificationTime();
+          ASSERT_NOT_EQUAL(my::INVALID_TIME_STAMP, fti.m_modificationTimestamp, ());
           fti.m_uploadAttemptTimestamp = xml.GetUploadTime();
           fti.m_uploadStatus = xml.GetUploadStatus();
           fti.m_uploadError = xml.GetUploadError();
@@ -280,8 +281,9 @@ void Editor::Save(string const & fullFilePath) const
       FeatureTypeInfo const & fti = offset.second;
       XMLFeature xf = fti.m_feature.ToXML();
       xf.SetOffset(offset.first);
+      ASSERT_NOT_EQUAL(0, fti.m_modificationTimestamp, ());
       xf.SetModificationTime(fti.m_modificationTimestamp);
-      if (fti.m_uploadAttemptTimestamp)
+      if (fti.m_uploadAttemptTimestamp != my::INVALID_TIME_STAMP)
       {
         xf.SetUploadTime(fti.m_uploadAttemptTimestamp);
         ASSERT(!fti.m_uploadStatus.empty(), ("Upload status updates with upload timestamp."));

@@ -7,6 +7,8 @@
 
 #include "editor/xml_feature.hpp"
 
+#include "base/timer.hpp"
+
 #include "std/ctime.hpp"
 #include "std/function.hpp"
 #include "std/map.hpp"
@@ -85,8 +87,8 @@ private:
   {
     FeatureStatus m_status;
     FeatureType m_feature;
-    time_t m_modificationTimestamp = 0;
-    time_t m_uploadAttemptTimestamp = 0;
+    time_t m_modificationTimestamp = my::INVALID_TIME_STAMP;
+    time_t m_uploadAttemptTimestamp = my::INVALID_TIME_STAMP;
     /// "" | "ok" | "repeat" | "failed"
     string m_uploadStatus;
     string m_uploadError;

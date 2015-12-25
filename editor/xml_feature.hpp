@@ -74,6 +74,7 @@ public:
   uint32_t GetOffset() const;
   void SetOffset(uint32_t featureOffset);
 
+  /// @returns my::INVALID_TIME_STAMP if there were no any upload attempt.
   time_t GetUploadTime() const;
   void SetUploadTime(time_t const time);
 
