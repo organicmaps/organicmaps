@@ -425,9 +425,7 @@ vector<Metadata::EType> Editor::EditableMetadataForType(FeatureType const & feat
   TTypes types;
   feature.ForEachType([&types](uint32_t type) { types.push_back(type); });
   // TODO(mgsergio): Only one-typed features are now supported.
-  if (types.size() != 1 ||
-      feature.GetFeatureType() != feature::HEADER_GEOM_POINT ||
-      feature.GetFeatureType() != feature::HEADER_GEOM_POINT_EX)
+  if (types.size() != 1 || feature.GetFeatureType() != feature::GEOM_POINT)
     return {};
 
   // Enable opening hours for the first release.
