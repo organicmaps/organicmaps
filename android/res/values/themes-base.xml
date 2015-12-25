@@ -8,7 +8,7 @@
     <item name="android:textColorPrimary">@color/text_dark</item>
     <item name="android:textColorPrimaryInverse">@color/text_light</item>
     <item name="android:textColorSecondary">@color/text_dark_subtitle</item>
-    <item name="android:windowBackground">@color/bg_window</item>
+    <item name="android:windowBackground">?windowBackgroundForced</item>
     <item name="android:colorPrimaryDark" tools:targetApi="lollipop">@color/darker_green</item>
     <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="lollipop">true</item>
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
@@ -17,6 +17,7 @@
     <item name="clickableBackground">?attr/selectableItemBackground</item>
 
     <item name="alertDialogTheme">@style/MwmTheme.DialogFragment</item>
+    <item name="windowBackgroundForced">@color/bg_window</item>
     <item name="fullscreenDialogTheme">@style/MwmTheme.DialogFragment.Fullscreen</item>
 
     <item name="statusBar">@color/bg_statusbar</item>
@@ -58,7 +59,7 @@
     <item name="android:textColorPrimary">@color/text_light</item>
     <item name="android:textColorPrimaryInverse">@color/text_dark</item>
     <item name="android:textColorSecondary">@color/text_light_subtitle</item>
-    <item name="android:windowBackground">@color/bg_window_night</item>
+    <item name="android:windowBackground">?windowBackgroundForced</item>
     <item name="android:colorPrimaryDark" tools:targetApi="lollipop">?statusBar</item>
     <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="lollipop">true</item>
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
@@ -67,6 +68,7 @@
     <item name="clickableBackground">?attr/selectableItemBackground</item>
 
     <item name="alertDialogTheme">@style/MwmTheme.Night.DialogFragment</item>
+    <item name="windowBackgroundForced">@color/bg_window_night</item>
     <item name="fullscreenDialogTheme">@style/MwmTheme.DialogFragment.Fullscreen</item>
 
     <item name="statusBar">@color/bg_statusbar_night</item>

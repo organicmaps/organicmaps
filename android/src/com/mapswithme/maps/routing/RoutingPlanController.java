@@ -2,12 +2,12 @@ package com.mapswithme.maps.routing;
 
 import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -47,15 +47,24 @@ public class RoutingPlanController extends ToolbarController
   private int mToolbarHeight;
   private boolean mOpen;
 
-  private Drawable createSelector(@DrawableRes int iconRes)
+  private RadioButton setupRouterButton(@IdRes int buttonId, final @DrawableRes int iconRes, View.OnClickListener clickListener)
   {
-    StateListDrawable res = new StateListDrawable();
-    res.addState(new int[] { android.R.attr.state_checked },
-                 Graphics.tint(mActivity, iconRes, R.attr.colorAccent));
-    res.addState(new int[] {},
-                 Graphics.tint(mActivity, iconRes, R.attr.iconTintLight));
+    CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener()
+    {
+      @Override
+      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+      {
+        buttonView.setButtonDrawable(Graphics.tint(mActivity, iconRes, isChecked ? R.attr.colorAccent
+                                                                                 : R.attr.iconTintLight));
+      }
+    };
 
-    return res;
+    RadioButton rb = (RadioButton)mRouterTypes.findViewById(buttonId);
+    listener.onCheckedChanged(rb, false);
+    rb.setOnCheckedChangeListener(listener);
+    rb.setOnClickListener(clickListener);
+
+    return rb;
   }
 
   public RoutingPlanController(View root, Activity activity)
@@ -78,9 +87,7 @@ public class RoutingPlanController extends ToolbarController
 
     mRouterTypes = (RadioGroup) planFrame.findViewById(R.id.route_type);
 
-    RadioButton rb = (RadioButton)mRouterTypes.findViewById(R.id.vehicle);
-    rb.setButtonDrawable(createSelector(R.drawable.ic_drive));
-    rb.setOnClickListener(new View.OnClickListener()
+    setupRouterButton(R.id.vehicle, R.drawable.ic_drive, new View.OnClickListener()
     {
       @Override
       public void onClick(View v)
@@ -91,9 +98,7 @@ public class RoutingPlanController extends ToolbarController
       }
     });
 
-    rb = (RadioButton)mRouterTypes.findViewById(R.id.pedestrian);
-    rb.setButtonDrawable(createSelector(R.drawable.ic_walk));
-    rb.setOnClickListener(new View.OnClickListener()
+    setupRouterButton(R.id.pedestrian, R.drawable.ic_walk, new View.OnClickListener()
     {
       @Override
       public void onClick(View v)

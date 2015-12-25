@@ -3,6 +3,4 @@
   <dimen name="menu_line_button_inset_edge">-12dp</dimen>
   <dimen name="menu_line_button_width_edge">72dp</dimen>
   <dimen name="menu_line_button_width">80dp</dimen>
-
-  <dimen name="routing_selector_size">56dp</dimen>
 </resources>

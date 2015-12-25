@@ -2,6 +2,7 @@
 <resources>
   <declare-styleable name="ThemeAttrs">
     <attr name="fullscreenDialogTheme" format="reference"/>
+    <attr name="windowBackgroundForced" format="reference|color"/>
 
     <attr name="clickableBackground" format="reference"/>
     <attr name="statusBar" format="color"/>

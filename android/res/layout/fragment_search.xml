@@ -50,7 +50,7 @@
       android:id="@+id/results_frame"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="?android:windowBackground">
+      android:background="?windowBackgroundForced">
       <include layout="@layout/recycler_default"/>
 
       <!-- "Nothing found" placeholder -->

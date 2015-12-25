@@ -49,14 +49,18 @@
       android:orientation="horizontal">
       <RadioButton
         android:id="@+id/vehicle"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginRight="32dp"/>
+        android:layout_width="@dimen/routing_selector_size"
+        android:layout_height="@dimen/routing_selector_size"
+        android:layout_marginRight="32dp"
+        tools:button="@drawable/ic_drive"
+        tools:buttonTint="?colorAccent"/>
 
       <RadioButton
         android:id="@+id/pedestrian"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"/>
+        android:layout_width="@dimen/routing_selector_size"
+        android:layout_height="@dimen/routing_selector_size"
+        tools:button="@drawable/ic_walk"
+        tools:buttonTint="?colorAccent"/>
     </RadioGroup>
   </FrameLayout>
 
@@ -72,7 +76,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
-    android:background="?android:windowBackground"
+    android:background="?windowBackgroundForced"
     android:visibility="gone"
     tools:visibility="visible">
     <View android:layout_width="match_parent"
