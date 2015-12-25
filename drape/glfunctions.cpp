@@ -453,7 +453,7 @@ void GLFunctions::AttachCache(thread::id const & threadId)
 
 bool GLFunctions::glHasExtension(string const & name)
 {
-  char const * extensions = reinterpret_cast<char const * >(glGetString(GL_EXTENSIONS));
+  char const * extensions = reinterpret_cast<char const * >(::glGetString(GL_EXTENSIONS));
   GLCHECKCALL();
   if (extensions == nullptr)
     return false;
@@ -527,6 +527,16 @@ int32_t GLFunctions::glGetInteger(glConst pname)
   GLint value;
   GLCHECK(::glGetIntegerv(pname, &value));
   return (int32_t)value;
+}
+
+string GLFunctions::glGetString(glConst pname)
+{
+  char const * str = reinterpret_cast<char const * >(::glGetString(pname));
+  GLCHECKCALL();
+  if (str == nullptr)
+    return "";
+
+  return string(str);
 }
 
 int32_t GLFunctions::glGetBufferParameter(glConst target, glConst name)

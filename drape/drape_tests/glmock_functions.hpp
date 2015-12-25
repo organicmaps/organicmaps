@@ -81,6 +81,7 @@ public:
   MOCK_METHOD2(glTexParameter, void(glConst, glConst));
 
   MOCK_METHOD1(glGetInteger, int32_t(glConst));
+  MOCK_METHOD1(glGetString, string(glConst));
 
 private:
   static GLMockFunctions * m_mock;

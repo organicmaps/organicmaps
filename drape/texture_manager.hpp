@@ -101,6 +101,8 @@ public:
   /// This method must be called only on Frontend renderer's thread.
   bool AreGlyphsReady(strings::UniString const & str) const;
 
+  ref_ptr<Texture> GetSymbolsTexture() const;
+
 private:
   struct GlyphGroup
   {

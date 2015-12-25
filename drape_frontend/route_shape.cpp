@@ -328,6 +328,7 @@ void RouteShape::Draw(ref_ptr<dp::TextureManager> textures, RouteData & routeDat
                     geometry, joinsGeometry, bounds, routeData.m_length);
 
     dp::GLState state = dp::GLState(gpu::ROUTE_PROGRAM, dp::GLState::GeometryLayer);
+    state.SetColorTexture(textures->GetSymbolsTexture());
     BatchGeometry(state, geometry, joinsGeometry, routeData.m_route);
   }
 

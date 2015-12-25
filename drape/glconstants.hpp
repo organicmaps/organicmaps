@@ -8,6 +8,10 @@ namespace gl_const
 {
 extern const glConst GLUnpackAlignment;
 
+extern const glConst GLRenderer;
+extern const glConst GLVendor;
+extern const glConst GLVersion;
+
 /// Hardware specific params
 extern const glConst GLMaxFragmentTextures;
 extern const glConst GLMaxVertexTextures;
