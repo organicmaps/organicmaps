@@ -50,10 +50,10 @@ BuildQt() {
 
     mkdir -p "$SHADOW_DIR"
     cd "$SHADOW_DIR"
-    if [ ! -f "$SHADOW_DIR/Makefile" ]; then
-      echo "Launching qmake..."
-      "$QMAKE" CONFIG-=sdk "$QMAKE_PARAMS" -spec "$(StripCygwinPrefix $MKSPEC)" "$(StripCygwinPrefix $MY_PATH)/../../omim.pro"
-    fi
+    echo "Launching qmake..."
+    # This call is needed to correctly rebuild c++ sources after switching between branches with added or removed source files.
+    # Otherwise we get build errors.
+    "$QMAKE" -r CONFIG-=sdk "$QMAKE_PARAMS" -spec "$(StripCygwinPrefix $MKSPEC)" "$(StripCygwinPrefix $MY_PATH)/../../omim.pro"
 #    make clean > /dev/null || true
     make -j $(GetCPUCores)
   )
