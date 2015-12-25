@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>basketball-s</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="8.5" cy="8.5" r="7.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="basketball-s" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
-            <circle id="Oval-1-Copy-42" fill="#3D3D37" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
+            <circle id="Oval-1-Copy-43" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
+            <g id="Oval-1-Copy-42">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M6,4.3622 L4,6.3622 L4,10.8622 C4,11.1122 4.25,11.3622 4.5,11.3622 L6,11.3622 L7,12.3622 L8,13.3622 L9,13.3622 L10,12.3622 L11,11.3622 L12.5,11.3622 C12.75,11.3622 13,11.1122 13,10.8622 L13,6.3622 L11,4.3622 L6,4.3622 L6,4.3622 Z M6,6.3622 L11,6.3622 L11,9.3622 L6,9.3622 L6,6.3622 L6,6.3622 Z M6.6875,7.0497 L6.6875,8.6747 L10.3125,8.6747 L10.3125,7.0497 L6.6875,7.0497 L6.6875,7.0497 Z M7,10.3622 L8,10.3622 L8,11.3622 L9,11.3622 L9,10.3622 L10,10.3622 L10,11.3622 L9,12.3622 L8,12.3622 L7,11.3622 L7,10.3622 L7,10.3622 Z" id="rect5769-7-3-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

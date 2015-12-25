@@ -6,13 +6,13 @@
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="banknote-l-copy" sketch:type="MSLayerGroup" transform="translate(0.000000, 0.500000)">
-            <circle id="Oval-1-Copy-39" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
-            <circle id="Oval-1-Copy-38" fill="#3D3D37" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="12.5"></circle>
+            <circle id="Oval-1-Copy-39" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
+            <circle id="Oval-1-Copy-38" fill="#59310E" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="12.5"></circle>
             <path d="M5,9 L22,9 L22,18 L5,18 L5,9 Z M12.5,17 C13.8807119,17 15,15.4329966 15,13.5 C15,11.5670034 13.8807119,10 12.5,10 C11.1192881,10 10,11.5670034 10,13.5 C10,15.4329966 11.1192881,17 12.5,17 Z" id="Rectangle-12-Copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
-            <path d="M19.5,19 C20.8807119,19 22,18.5522847 22,18 C22,17.4477153 20.8807119,17 19.5,17 C18.1192881,17 17,17.4477153 17,18 C17,18.5522847 18.1192881,19 19.5,19 L19.5,19 Z M19.5,20 L19.5,20 C17.6125116,20 16,19.3549954 16,18 C16,16.6450046 17.6125116,16 19.5,16 C21.3874884,16 23,16.6450046 23,18 C23,19.3549954 21.3874884,20 19.5,20 L19.5,20 Z" id="Shape-Copy-4" fill="#3D3D37" sketch:type="MSShapeGroup"></path>
+            <path d="M19.5,19 C20.8807119,19 22,18.5522847 22,18 C22,17.4477153 20.8807119,17 19.5,17 C18.1192881,17 17,17.4477153 17,18 C17,18.5522847 18.1192881,19 19.5,19 L19.5,19 Z M19.5,20 L19.5,20 C17.6125116,20 16,19.3549954 16,18 C16,16.6450046 17.6125116,16 19.5,16 C21.3874884,16 23,16.6450046 23,18 C23,19.3549954 21.3874884,20 19.5,20 L19.5,20 Z" id="Shape-Copy-4" fill="#59310E" sketch:type="MSShapeGroup"></path>
             <ellipse id="Oval-304-Copy-2" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="19.5" cy="16" rx="2.5" ry="1"></ellipse>
             <ellipse id="Oval-304-Copy-3" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="19.5" cy="18" rx="2.5" ry="1"></ellipse>
-            <path d="M19.5,17 C20.8807119,17 22,16.5522847 22,16 C22,15.4477153 20.8807119,15 19.5,15 C18.1192881,15 17,15.4477153 17,16 C17,16.5522847 18.1192881,17 19.5,17 L19.5,17 Z M19.5,18 L19.5,18 C17.6125116,18 16,17.3549954 16,16 C16,14.6450046 17.6125116,14 19.5,14 C21.3874884,14 23,14.6450046 23,16 C23,17.3549954 21.3874884,18 19.5,18 L19.5,18 Z" id="Shape-Copy-3" fill="#3D3D37" sketch:type="MSShapeGroup"></path>
+            <path d="M19.5,17 C20.8807119,17 22,16.5522847 22,16 C22,15.4477153 20.8807119,15 19.5,15 C18.1192881,15 17,15.4477153 17,16 C17,16.5522847 18.1192881,17 19.5,17 L19.5,17 Z M19.5,18 L19.5,18 C17.6125116,18 16,17.3549954 16,16 C16,14.6450046 17.6125116,14 19.5,14 C21.3874884,14 23,14.6450046 23,16 C23,17.3549954 21.3874884,18 19.5,18 L19.5,18 Z" id="Shape-Copy-3" fill="#59310E" sketch:type="MSShapeGroup"></path>
         </g>
     </g>
 </svg>

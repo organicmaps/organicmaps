@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>phone-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <ellipse id="path-1" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="phone-m-copy" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <g id="Oval-1-Copy-40">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M13.4999986,5.27166656 L4.99999863,13.7716665 L4.99999863,16.2716665 L6.31249862,17.5841665 L9.3124986,14.5841665 L8.4999986,13.7716665 L13.4999986,8.77166653 L14.3124986,9.58416653 L17.3124985,6.58416655 L15.9999985,5.27166656 L13.4999986,5.27166656 L13.4999986,5.27166656 Z M17.6874985,6.95916655 L14.6874986,9.95916652 L14.9999985,10.2716665 L15.9999985,10.2716665 L17.9999985,8.27166654 L17.9999985,7.27166654 L17.6874985,6.95916655 L17.6874985,6.95916655 Z M9.68749859,14.9591665 L6.68749862,17.9591665 L6.99999862,18.2716665 L7.99999861,18.2716665 L9.99999859,16.2716665 L9.99999859,15.2716665 L9.68749859,14.9591665 L9.68749859,14.9591665 Z" id="path5849-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

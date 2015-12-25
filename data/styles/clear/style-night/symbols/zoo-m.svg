@@ -6,8 +6,8 @@
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="zoo-m-copy" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <ellipse id="Oval-1-Copy-40" fill="#59310E" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
             <path d="M15,6 C13.66667,8 13.47719,9.6701 12,11 C10.58891,12.2703 8,11.8342 8,13.6667 L8,14.3333 C8,15 8.66667,15.6343 8.66667,16.3333 L8.66667,17 C8.66667,18 8.33333,18 8,19 L8.66667,19 L10,17 L10,19 L11,19 L11,15 L12,15 L12,19 L13,19 L13,16 L14,19 L14.66667,19 L13.64583,14.8125 C14.03883,14.5727 14,14.1294 14,13.6667 L14,11.6667 L15.5,8 L17,8.5 C17,8.453 16.99948,8.038 17,8 C17,8 16.75649,7.7565 16.66667,7.6667 L15,6 Z" id="path10847-43-3-9-9" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

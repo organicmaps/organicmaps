@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>sports-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <path id="path-1" d="M22,11.5 C22,17.299 17.299,22 11.5,22 C5.701,22 1,17.299 1,11.5 C1,5.701 5.701,1 11.5,1 C17.299,1 22,5.701 22,11.5 L22,11.5 Z"></path>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="sports-m" sketch:type="MSLayerGroup">
-            <path d="M11.5,23 C5.159,23 0,17.841 0,11.5 C0,5.159 5.159,0 11.5,0 C17.841,0 23,5.159 23,11.5 C23,17.841 17.841,23 11.5,23 L11.5,23 Z" id="Shape" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
-            <path d="M22,11.5 C22,17.299 17.299,22 11.5,22 C5.701,22 1,17.299 1,11.5 C1,5.701 5.701,1 11.5,1 C17.299,1 22,5.701 22,11.5 L22,11.5 Z" id="Shape" fill="#3D3D37" sketch:type="MSShapeGroup"></path>
+            <path d="M11.5,23 C5.159,23 0,17.841 0,11.5 C0,5.159 5.159,0 11.5,0 C17.841,0 23,5.159 23,11.5 C23,17.841 17.841,23 11.5,23 L11.5,23 Z" id="Shape" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <g id="Shape">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M5,6 L5,11.4 C5,12.284 5.717,13 6.6,13 L8.007,13 C8.045,13.828 8.68,14.706 9.462,14.988 L10.662,15.585 L10.301,17.56 L8,18.2 L8,19 L15,19 L15,18.199 L12.7,17.559 L12.338,15.583 L13.538,14.987 C14.321,14.705 14.956,13.827 14.993,12.999 L16.4,12.999 C17.283,12.999 18,12.282 18,11.399 L18,6 L5,6 L5,6 Z M6,11.4 L6,7 L8,7 L8,12 L6.6,12 C6.269,12 6,11.731 6,11.4 L6,11.4 Z M17,11.4 C17,11.731 16.731,12 16.4,12 L15,12 L15,7 L17,7 L17,11.4 L17,11.4 Z" id="Shape" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

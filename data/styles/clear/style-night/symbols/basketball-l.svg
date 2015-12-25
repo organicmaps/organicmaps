@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>basketball-l</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="13.5" cy="13.5" r="12.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="basketball-l" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-39" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
-            <circle id="Oval-1-Copy-38" fill="#3D3D37" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="12.5"></circle>
+            <circle id="Oval-1-Copy-39" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
+            <g id="Oval-1-Copy-38">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M9.5,6 L5,10 L5,18 C5,18.5 5.5,19 6,19 L9.5625,19 L11.5,22.5 C11.77778,23 12,23 12.5,23 L14.5,23 C15,23 15.22222,23 15.5,22.5 L17.4375,19 L21,19 C21.5,19 22,18.5 22,18 L22,10 L17.5,6 L9.5,6 L9.5,6 Z M9,10 L18,10 L18,16 L9,16 L9,10 L9,10 Z M10,11 L10,15 L17,15 L17,11 L10,11 L10,11 Z M10.5625,19 L12,19 L12,20 L13,20 L13,19 L14,19 L14,20 L15,20 L15,19 L16.4375,19 L15.875,20 L15,20 L15,21 L15.34375,21 L15,21.625 L15,21 L14,21 L14,22 L13,22 L13,21 L12,21 L12,21.625 L11.65625,21 L12,21 L12,20 L11.125,20 L10.5625,19 L10.5625,19 Z M13,21 L14,21 L14,20 L13,20 L13,21 L13,21 Z" id="rect5769-7-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

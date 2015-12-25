@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>place-of-worship-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <ellipse id="path-1" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="place-of-worship-m" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <g id="Oval-1-Copy-40">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M11.5,5 L10,6.5 L10,8 L8,10 L8,16.5 L15,16.5 L15,10 L13,8 L13,6.5 L11.5,5 Z M5,11 L5,16.5 L6.5,16.5 L6.5,11 L5,11 Z M16.5,11 L16.5,16.5 L18,16.5 L18,11 L16.5,11 Z" id="path9064-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>grocery-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <ellipse id="path-1" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="grocery-m-copy" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <g id="Oval-1-Copy-40">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
         </g>
         <g id="g21554-copy" sketch:type="MSLayerGroup" transform="translate(5.000000, 7.000000)" fill="#FFFFFF" opacity="0.7">
             <path d="M11.5,0 C10.5,0 10,0.5 10,1.5 L0,1.5 L1.05882,7.5 L10.23529,7.5 L10.23529,8.5 L1.82353,8.5 C1.05882,8.5 1.05918,9.2411 1.82353,9.2647 L2.97059,9.2647 L9.08823,9.2647 L10.23529,9.2647 C10.61765,9.2647 11,8.8823 11,8.5 L11,7.5 L11,2.5588 L11,1.5 C11,1 11.23836,0.7647 11.7647,0.7647 L13,0.7647 L13,0 L11.5,0 Z M9,9.2059 C8.3665,9.2059 7.85294,9.7195 7.85294,10.3529 C7.85294,10.9864 8.3665,11.5 9,11.5 C9.63351,11.5 10.14706,10.9864 10.14706,10.3529 C10.14706,9.7195 9.63351,9.2059 9,9.2059 L9,9.2059 Z M3,9.2059 C2.36649,9.2059 1.85294,9.7195 1.85294,10.3529 C1.85294,10.9864 2.36649,11.5 3,11.5 C3.6335,11.5 4.14706,10.9864 4.14706,10.3529 C4.14706,9.7195 3.6335,9.2059 3,9.2059 L3,9.2059 Z" id="rect7842-0" sketch:type="MSShapeGroup"></path>

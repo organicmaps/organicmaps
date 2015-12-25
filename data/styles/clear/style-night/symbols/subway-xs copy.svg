@@ -6,7 +6,7 @@
     <defs></defs>
     <g id="Transport" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="subway-xs-copy" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-139-Copy" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="4.4607938" cy="4.4601378" rx="4.4607938" ry="4.4601378"></ellipse>
+            <ellipse id="Oval-139-Copy" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="4.4607938" cy="4.4601378" rx="4.4607938" ry="4.4601378"></ellipse>
             <ellipse id="Oval-139" fill="#133655" sketch:type="MSShapeGroup" cx="4.4607938" cy="4.4601378" rx="3.46950629" ry="3.46899606"></ellipse>
             <rect id="Rectangle-307" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup" x="2.97386254" y="2.9734252" width="2.97386254" height="2.9734252"></rect>
         </g>

@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>hand-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="12.5" cy="12.5" r="11.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="hand-m" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-38" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="12.5" cy="12.5" r="12.5"></circle>
-            <circle id="Oval-1-Copy-47" fill="#3D3D37" sketch:type="MSShapeGroup" cx="12.5" cy="12.5" r="11.5"></circle>
+            <circle id="Oval-1-Copy-38" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="12.5" cy="12.5" r="12.5"></circle>
+            <g id="Oval-1-Copy-47">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M8.84615385,15.8519018 L8,14 L8,8 C8,8 8.375,7.5 8.75,7.5 C9.125,7.5 9.5,8 9.5,8 L9.5,11 L10,11 L10,6 C10,6 10.375,5.5 10.75,5.5 C11.125,5.5 11.5,6 11.5,6 L11.5,11 L12,11 L12,5 C12,5 12.375,4.50264525 12.75,4.50264525 C13.125,4.50264525 13.5,5 13.5,5 L13.5,11 L14,11 L14,6 C14,6 14.375,5.5 14.75,5.5 C15.125,5.5 15.5,6 15.5,6 L15.5,13.2974828 L16.5,10.9999998 C16.5,10.9999998 16.875,10.4999998 17.25,10.4999998 C17.625,10.4999998 18,10.9999998 18,10.9999998 L15,19 L15.0143576,19.9999998 L10,20 L10,19 L8.84615385,15.8519018 Z" id="Path-1150" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

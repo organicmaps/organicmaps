@@ -6,7 +6,7 @@
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="drinking-water-s-copy" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
+            <circle id="Oval-1-Copy-43" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
             <circle id="Oval-1-Copy-42" fill="#133655" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
             <path d="M8.5,12 C7.34687857,12 6,11.3 6,9.55 C6,8.325 7.96428571,5.7 8.5,5 C9.03571429,5.7 11,8.325 11,9.55 C11,11.3 9.65312143,12 8.5,12 L8.5,12 Z" id="path4133-5-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>

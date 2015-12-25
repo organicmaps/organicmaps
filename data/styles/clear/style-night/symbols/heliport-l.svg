@@ -3,10 +3,15 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>heliport-l</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="13.5" cy="13.5" r="12.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <circle id="Oval-1-Copy-39" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
-        <circle id="Oval-1-Copy-38" fill="#3D3D37" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="12.5"></circle>
+        <circle id="Oval-1-Copy-39" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
+        <g id="Oval-1-Copy-38">
+            <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+            <use fill="none" xlink:href="#path-1"></use>
+        </g>
         <path d="M20.0526316,19 C20.5263158,19 21,18.5 21,18 L21,15 C21,14 20.5445432,13.5192 20.0526316,13 C20.0526316,13 19.4210495,12.3333 19.1052632,12 C18.7894768,11.6667 18.1578947,11 17.2105263,11 L14.009058,11 L14.009058,9 L18.1578947,9 L19.0526316,9 C19.5774642,9 20,8.554 20,8 C20,7.446 19.5774642,7 19.0526316,7 L18.1578947,7 L14.8421053,7 L13.8947368,7 L9.63157895,7 L7.9853363,7 C7.46049894,7 7.03796788,7.446 7.03796788,8 C7.03796788,8.554 7.46049894,9 7.9853363,9 L9.63157895,9 L12.9962654,9 L12.9962654,11 L10.5789474,11 L6.52302632,11 C6.19519611,10.4031 5.59541432,10 4.89473684,10 C4.28049615,10 3.73452162,10.3085111 3.38830818,10.7867518 C3.14470488,11.1232524 3,11.5437834 3,12 C3,13.1046 3.84830305,14 4.89473684,14 C5.44140821,14 5.91075253,13.7347 6.25657895,13.3438 L9.63157895,17 C10.5789474,18.0263 11.2894737,19 11.7631579,19 L20.0526316,19 Z M5.84210526,12 C5.84210526,12.5523 5.41795421,13 4.89473684,13 C4.37151947,13 3.94736842,12.5523 3.94736842,12 C3.94736842,11.4477 4.37151947,11 4.89473684,11 C5.41795421,11 5.84210526,11.4477 5.84210526,12 Z" id="rect9361" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
     </g>
 </svg>

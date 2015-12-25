@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>electronics-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <path id="path-1" d="M22,11.5 C22,17.299 17.299,22 11.5,22 C5.701,22 1,17.299 1,11.5 C1,5.701 5.701,1 11.5,1 C17.299,1 22,5.701 22,11.5 L22,11.5 Z"></path>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="electronics-m" sketch:type="MSLayerGroup">
-            <path d="M11.5,23 C5.159,23 0,17.841 0,11.5 C0,5.159 5.159,0 11.5,0 C17.841,0 23,5.159 23,11.5 C23,17.841 17.841,23 11.5,23 L11.5,23 Z" id="Shape" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
-            <path d="M22,11.5 C22,17.299 17.299,22 11.5,22 C5.701,22 1,17.299 1,11.5 C1,5.701 5.701,1 11.5,1 C17.299,1 22,5.701 22,11.5 L22,11.5 Z" id="Shape" fill="#3D3D37" sketch:type="MSShapeGroup"></path>
+            <path d="M11.5,23 C5.159,23 0,17.841 0,11.5 C0,5.159 5.159,0 11.5,0 C17.841,0 23,5.159 23,11.5 C23,17.841 17.841,23 11.5,23 L11.5,23 Z" id="Shape" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <g id="Shape">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M17,13.601 L17,16.4 C17,17.284 16.463,18.001 15.8,18.001 L14,18.001 L14,12.001 L15.8,12.001 C16.463,12.001 17,12.716 17,13.601 L17,13.601 Z M7.2,18 L9,18 L9,12 L7.2,12 C6.537,12 6,12.717 6,13.601 L6,16.4 C6,17.284 6.537,18 7.2,18 L7.2,18 Z M11.5,4 C7.31,4 4,7.409 4,11.601 L4,15 L5,15 L5,11.2 L5.021,11.2 C5.228,8.078 8.326,5.6 11.5,5.6 C14.674,5.6 17.771,8.078 17.979,11.2 L18,11.2 L18,15 L19,15 L18.982,11.773 L19,11.6 C19,7.409 15.691,4 11.5,4 L11.5,4 Z" id="Shape" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

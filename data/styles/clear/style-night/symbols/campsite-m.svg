@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>campsite-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <ellipse id="path-1" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="campsite-m-copy" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <g id="Oval-1-Copy-40">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M11.5,6.00040004 C11.13889,6.00030004 10.9756,6.17330004 10.86806,6.36150004 L7,14.5 L5.5,14.5 C5,14.5 5,15.2778 5,15.2778 C5,15.2778 5,16 5.5,16 L17.5,16 C18,16 18,15.2778 18,15.2778 C18,15.2778 18,14.5001 17.5,14.5 L16,14.4996 L12.13194,6.36110004 C12.0244,6.17290004 11.86111,5.99990004 11.5,6.00000004 L11.5,6.00040004 Z M11.5,9.00000004 L14,14.5 L9,14.5 L11.5,9.00000004 Z" id="path11349-0-7-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

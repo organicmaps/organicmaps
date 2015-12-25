@@ -6,7 +6,7 @@
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="drinking-water-m-copy" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
             <ellipse id="Oval-1-Copy-40" fill="#133655" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
             <path d="M11.5,18 C9.16814,18 7,16 7,13.5 C7,10.9722 10.41667,6.4444 11.5,5 C12.58334,6.4444 16,10.9722 16,13.5 C16,16 13.83187,18 11.5,18 L11.5,18 Z" id="path12622-2-4-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>

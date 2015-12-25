@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>recycling-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <ellipse id="path-1" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="recycling-m" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <g id="Oval-1-Copy-40">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M9.518,5 C9.31389,5 9.25,5.1643 9.25,5.3684 L9.25,7 L6.73685,7 C6.32863,7 6,7.092 6,7.5 C6,7.9083 6.32863,8 6.73685,8 L16.26316,8 C16.67137,8 17,7.908 17,7.5 C17,7.0918 16.67137,7 16.26316,7 L13.75,7 L13.75,5.3684 C13.75,5.1643 13.58611,5 13.382,5 L9.518,5 Z M10,5.7368 L13,5.7368 L13,7 L10,7 L10,5.7368 Z M6.73685,9 C6.32863,9 5.94851,9.3343 6.01563,9.7369 L7.42105,18.2632 C7.48745,18.6659 7.74968,19 8.1579,19 L14.78947,19 C15.19769,19 15.45919,18.6658 15.52632,18.2632 L16.98437,9.7369 C17.05317,9.3346 16.67137,9 16.26316,9 L6.73685,9 Z" id="path5652-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

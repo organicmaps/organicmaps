@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>police-s</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="8.5" cy="8.5" r="7.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="police-s-copy" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
-            <circle id="Oval-1-Copy-42" fill="#3D3D37" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
+            <circle id="Oval-1-Copy-43" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
+            <g id="Oval-1-Copy-42">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M7,5 L10,5 L10,4 L7,4 L7,5 Z M7,5.75 C7,6.7165 7.53351,7.5 8.5,7.5 C9.46649,7.5 10,6.7165 10,5.75 L10,5.5 L7,5.5 L7,5.75 Z M6,8 C5.5,8 5,9.5 5,10 L5,13 L6.59375,13 L10,8 L6,8 Z M11,8 L7.59375,13 L12,13 L12,10 C12,9.5 11.5,8 11,8 L11,8 Z" id="path5442-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

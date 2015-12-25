@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>tennis-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <ellipse id="path-1" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="tennis-m" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <g id="Oval-1-Copy-40">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M9.5,5 C6.96598,5 5,6.966 5,9.5 C5,12.034 7.14246,13.9984 9.67648,14 L13,14 L17,18 L18,18 L18,17 L14,13 L14,9.6764 C14,7.1424 12.03401,5 9.5,5 L9.5,5 Z M13,10.7058 L13,13 L10.5,13 L13,10.7058 Z M6.14706,14 C5.51355,14 5,14.5135 5,15.147 C5,15.7805 5.51355,16.2941 6.14706,16.2941 C6.78056,16.2941 7.29412,15.7805 7.29412,15.147 C7.29412,14.5135 6.78056,14 6.14706,14 L6.14706,14 Z" id="path11507-7-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

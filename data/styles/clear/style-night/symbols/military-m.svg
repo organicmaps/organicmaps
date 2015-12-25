@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>military-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <ellipse id="path-1" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="military-m" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <g id="Oval-1-Copy-40">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M14.5688918,10.122 L17.4065,10.122 C18.6245,10.122 19.6125,11.511375 19.6125,13.227 L17.9542398,13.227 C17.9841874,13.337818 18,13.4531213 18,13.5715 C18,14.4277969 17.0678353,15.4963591 16.0480196,15.4963591 L6.45869491,15.4963591 C5.43887921,15.4963591 4.6115,14.4277969 4.6115,13.5715 C4.6115,13.4531123 4.6272847,13.3378103 4.65718096,13.227 L3.6115,13.227 C3.6115,11.511375 4.5995,10.122 5.8185,10.122 L6.6115,10.122 L6.6115,6.019 L13.2945,6.019 L13.9157,8.019 L20.0532028,8.019 L20.0532028,9.00950677 L14.2233514,9.00950677 L14.5688918,10.122 Z" id="Shape" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

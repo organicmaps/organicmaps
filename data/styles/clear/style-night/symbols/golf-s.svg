@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>golf-s</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="8.5" cy="8.5" r="7.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="golf-s" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
-            <circle id="Oval-1-Copy-42" fill="#3D3D37" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
+            <circle id="Oval-1-Copy-43" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
+            <g id="Oval-1-Copy-42">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M7,4 C6.80487,4 6.5,4.2143 6.5,4.5 L6.5,11.25 C5.35714,11.285 5,12.1429 5,12.7143 C5,13 5.28571,13 5.28571,13 L11.71429,13 C11.71429,13 12,13 12,12.7143 C12,11.2857 11.35714,10.1429 10.5,10.1429 C9.60152,10.1429 9.31823,11.7316 8.42857,11.8571 C8.03845,11.9121 7.37578,11.6598 7,11.4643 L7,7.5 L11,6 L7,4 Z" id="rect8138-7-8-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

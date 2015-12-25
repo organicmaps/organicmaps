@@ -3,10 +3,15 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>office-s</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="8.5" cy="8.5" r="7.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
-        <circle id="Oval-1-Copy-42" fill="#3D3D37" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
+        <circle id="Oval-1-Copy-43" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
+        <g id="Oval-1-Copy-42">
+            <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+            <use fill="none" xlink:href="#path-1"></use>
+        </g>
         <path d="M11,6 L11,4.5 L10.5,4 L6.5,4 L6,4.5 L6,6 L4.5,6 L4,6.5 L4,11.5 L4.5,12 L12.5,12 L13,11.499 L13,6.5 L12.5,6 L11,6 Z M7,5 L10,5 L10,6 L7,6 L7,5 Z M6,7 L7,7 L7,11 L6,11 L6,7 Z M11,11 L10,11 L10,7 L11,7 L11,11 Z" id="path17" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
     </g>
 </svg>

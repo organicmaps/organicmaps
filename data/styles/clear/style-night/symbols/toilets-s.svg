@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>toilets-s</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="8.5" cy="8.5" r="7.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="toilets-s" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
-            <circle id="Oval-1-Copy-42" fill="#3D3D37" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
+            <circle id="Oval-1-Copy-43" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
+            <g id="Oval-1-Copy-42">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M6,4 C5.30964,4 4.75,4.55964 4.75,5.25 C4.75,5.94036 5.30964,6.5 6,6.5 C6.69036,6.5 7.25,5.94036 7.25,5.25 C7.25,4.55964 6.69036,4 6,4 L6,4 Z M11,4 C10.30964,4 9.75,4.55964 9.75,5.25 C9.75,5.94036 10.30964,6.5 11,6.5 C11.69036,6.5 12.25,5.94036 12.25,5.25 C12.25,4.55964 11.69036,4 11,4 L11,4 Z M5,7 L5,8.5 L3.5,11 L5,11 L5,13 L7,13 L7,11 L8.5,11 L7,8.5 L7,7 L5,7 L5,7 Z M9,7 L10,10.5 L10,13 L12,13 L12,10.5 L13,7 L9,7 L9,7 Z" id="path7660-7-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

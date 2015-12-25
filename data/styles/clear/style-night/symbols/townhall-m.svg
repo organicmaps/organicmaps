@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>townhall-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <ellipse id="path-1" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="bank-m-copy" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <g id="Oval-1-Copy-40">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M11.5,4 C11.5,4 4.505,6.86921429 4.50318182,7.23654762 L4.5,8 L18.5,8 L18.5,7.24107143 C18.495,6.86921429 11.5,4 11.5,4 Z M16.0365553,16 L15.0112953,9 L13.9175005,9 L13.4600668,16 L12.5553169,16 L12,9 L11,9 L10.4870887,16 L9.55106163,16 L9.0292325,9 L7.91749907,9 L7.04839683,16 L6.00019572,16 C5.44780288,16 5,16.4438648 5,17 L5,18 L18,18 L18,17 C18,16.4477153 17.5446112,16 16.9952704,16 L16.0365553,16 Z" id="Imported-Layers-Copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

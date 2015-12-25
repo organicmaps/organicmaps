@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>military-l</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="13.5" cy="13.5" r="12.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="military-l-copy" sketch:type="MSLayerGroup" transform="translate(0.000000, 0.019000)">
-            <circle id="Oval-1-Copy-39" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
-            <circle id="Oval-1-Copy-38" fill="#3D3D37" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="12.5"></circle>
+            <circle id="Oval-1-Copy-39" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
+            <g id="Oval-1-Copy-38">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M17.1029057,12.3396 L20.0072222,12.3396 C21.3605556,12.3396 22.4583333,14.1457875 22.4583333,16.3761 L20.615822,16.3761 C20.6490971,16.5201634 20.6666667,16.6700577 20.6666667,16.82395 C20.6666667,17.937136 19.6530546,19.4607756 18.519926,19.4607756 L7.8651208,19.4607756 C6.73199224,19.4607756 5.79055556,17.937136 5.79055556,16.82395 C5.79055556,16.670046 5.80809411,16.5201534 5.84131218,16.3761 L4.67944444,16.3761 C4.67944444,14.1457875 5.77722222,12.3396 7.13166667,12.3396 L8.02733294,12.3396 L8.02733294,6.94850297 L15.4141499,6.94850297 L16.2465142,9.6057 L22.9912688,9.6057 L22.9912688,10.981 L16.6773256,10.981 L17.1029057,12.3396 Z" id="Shape" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

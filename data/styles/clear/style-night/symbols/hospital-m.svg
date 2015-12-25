@@ -6,7 +6,7 @@
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="hospital-m-copy" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
             <ellipse id="Oval-1-Copy-40" fill="#C15746" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
             <path d="M10,5 C9.446,5 9,5.446 9,6 L9,9 L6,9 C5.446,9 5,9.446 5,10 L5,13 C5,13.554 5.474429,14.1752 6,14 L9,14 L9,17 C9,17.554 9.446,18 10,18 L13,18 C13.554,18 14,17.554 14,17 L14,14 L17,14 C17.554,14 18,13.554 18,13 L18,10 C18,9.446 17.554,9 17,9 L14,9 L14,6 C14,5.446 13.554,5 13,5 L10,5 Z" id="rect8206-4-3-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>

@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>remains-l</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="13.5" cy="13.5" r="12.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="fort-l" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-39" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
-            <circle id="Oval-1-Copy-38" fill="#3D3D37" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="12.5"></circle>
+            <circle id="Oval-1-Copy-39" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
+            <g id="Oval-1-Copy-38">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M10,6.01147485 L10,9 L10.9974258,9 L10.9974258,6.01147487 L13,6 L13,9 L14,9 L14.007736,6 L16,6.01147487 L16,9 L17,9 L17.021636,6.01147485 L19.0299747,6.0233339 L19.0299747,10 L8,10 L8,6 L10,6.01147485 Z" id="Shape-Copy-20" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
             <path d="M10.0013914,11 L17,11 L19,21 L8,21 L10.0013914,11 Z" id="Shape-Copy-19" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>

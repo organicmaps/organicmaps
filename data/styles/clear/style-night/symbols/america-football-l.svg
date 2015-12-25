@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>america-football-l</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="13.5" cy="13.5" r="12.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="america-football-l" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-39" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
-            <circle id="Oval-1-Copy-38" fill="#3D3D37" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="12.5"></circle>
+            <circle id="Oval-1-Copy-39" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
+            <g id="Oval-1-Copy-38">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M13.5,7 C7,7 4,13.5 4,13.5 C4,13.5 7,20 13.5,20 C20,20 23,13.5 23,13.5 C23,13.5 20,7 13.5,7 L13.5,7 Z M10.5,12 C10.777,12 11,12.223 11,12.5 L11,13 L13,13 L13,12.5 C13,12.223 13.223,12 13.5,12 C13.777,12 14,12.223 14,12.5 L14,13 L16,13 L16,12.5 C16,12.223 16.223,12 16.5,12 C16.777,12 17,12.223 17,12.5 L17,13 L18.5,13 C18.777,13 19,13.223 19,13.5 C19,13.777 18.777,14 18.5,14 L17,14 L17,14.5 C17,14.777 16.777,15 16.5,15 C16.223,15 16,14.777 16,14.5 L16,14 L14,14 L14,14.5 C14,14.777 13.777,15 13.5,15 C13.223,15 13,14.777 13,14.5 L13,14 L11,14 L11,14.5 C11,14.777 10.777,15 10.5,15 C10.223,15 10,14.777 10,14.5 L10,14 L8.5,14 C8.223,14 8,13.777 8,13.5 C8,13.223 8.223,13 8.5,13 L10,13 L10,12.5 C10,12.223 10.223,12 10.5,12 L10.5,12 Z" id="path14961-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

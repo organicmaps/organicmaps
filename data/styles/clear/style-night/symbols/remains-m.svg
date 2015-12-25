@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>remains-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <ellipse id="path-1" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="fort-m" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <g id="Oval-1-Copy-40">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M14,9 L14,7 L13,7 L13,8.99999998 L12,8.99999998 L12,7 L11,7 L11,8.99999998 L9.95655274,8.99999998 L9.95655276,7 L9,7 L9,9 L7,8.99108016 L7,6 L16,6 L16,9 L14,9 Z" id="Shape-Copy-16" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup" transform="translate(11.500000, 7.500000) rotate(-180.000000) translate(-11.500000, -7.500000) "></path>
             <path d="M14,18 L8.87660587,18 L7,10 L16,10 L14,18 Z" id="Shape-Copy-15" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup" transform="translate(11.500000, 14.000000) rotate(-180.000000) translate(-11.500000, -14.000000) "></path>
         </g>

@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>shop-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <ellipse id="path-1" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="shop-m" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <g id="Oval-1-Copy-40">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M10.26471,4 C9.5,4 8.64996,4.7502 8.5,5.5 L8,8 L7,8 C6.61765,8 6,8.6177 6,9 L5,17.2353 C5,17.6176 5.5,18 6,18 L17,18 C17.5,18 18,17.6176 18,17.2353 L17,9 C17,8.6177 16.38235,8 16,8 L15,8 L14.5,5.5 C14.35004,4.7502 13.50001,4 12.7353,4 L10.26471,4 Z M10.26471,4.7647 L12.7353,4.7647 C13.11766,4.7647 13.66033,5.1251 13.7353,5.5 L14.2353,8 L8.7647,8 L9.26471,5.5 C9.33971,5.1251 9.88235,4.7647 10.26471,4.7647 L10.26471,4.7647 Z" id="rect13131-6-2-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

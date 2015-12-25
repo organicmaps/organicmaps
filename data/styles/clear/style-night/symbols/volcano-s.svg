@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>volcano-s</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="8.5" cy="8.5" r="7.87037037"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="volcano-s-copy" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-39" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
-            <circle id="Oval-1-Copy-38" fill="#3D3D37" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.87037037"></circle>
+            <circle id="Oval-1-Copy-39" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
+            <g id="Oval-1-Copy-38">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M8.4999999,7.02483701 C8.12407903,7.02483701 7.39893749,6.67254666 7.39893749,6.67254666 L4.46125731,11.3136574 C4.4233039,11.3804493 4.40740741,11.4553792 4.40740741,11.5300926 C4.40740741,11.8547454 4.62280702,11.9630495 4.83820663,11.962963 L12.1617934,11.962963 C12.377193,11.9630495 12.5925926,11.8547454 12.5925926,11.5300926 C12.5925926,11.4553792 12.5767176,11.3804493 12.5387427,11.3136574 L9.655908,6.67254666 C9.655908,6.67254666 8.87640253,7.02483701 8.4999999,7.02483701 Z" id="path11349" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
             <rect id="Rectangle-35" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup" x="8.13043478" y="4.43478261" width="1.47826087" height="1.47826087"></rect>
             <rect id="Rectangle-35-Copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup" x="9.60869565" y="2.95652174" width="1.47826087" height="1.47826087"></rect>

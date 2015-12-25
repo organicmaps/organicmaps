@@ -6,8 +6,8 @@
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="restaurant-l-copy" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-39" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
-            <circle id="Oval-1-Copy-38" fill="#3D3D37" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="12.5"></circle>
+            <circle id="Oval-1-Copy-39" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
+            <circle id="Oval-1-Copy-38" fill="#5E491A" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="12.5"></circle>
             <path d="M8.5,4 C8,4 8,4.5 8,4.5 L8,10.5 C8,11 8.5,11.5 9,12 C9.5,12.5 9.5,13 9.5,13.5 L9.5,15 C9.5,15.5 9,21.5 9,21.5 C8.9617,21.9985 9.5,23 10.5,23 C11.5,23 12.03846,22 12,21.5 C12,21.5 11.5,15.5 11.5,15 L11.5,13.5 C11.5,13 11.5,12.5 12,12 C12.46054,11.539461 13,11 13,10.5 L13,4.5 C13,4.5 13,4 12.5,4 C12,4 12,4.5 12,4.5 L12,9 C12,9 12,9.5 11.5,9.5 C11,9.5 11,9 11,9 L11,4.5 C11,4.5 11,4 10.5,4 C10,4 10,4.5 10,4.5 L10,9 C10,9 10,9.5 9.5,9.5 C9,9.5 9,9 9,9 L9,4.5 C9,4.5 9,4 8.5,4 L8.5,4 Z M19,4 C18,4 16.13246,4.2351 15.5,5.5 C15,6.5 15,9 15,10 L15,15 C15,15.5 15.5,16 16,16 L17,16 L17,22 C17,22.5 17.5,23 18,23 C18.5,23 19,22.5 19,22 L19,4 Z" id="path5304" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

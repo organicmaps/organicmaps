@@ -3,12 +3,17 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>cave-l</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="13.5" cy="13.5" r="12.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="cave-l-copy" sketch:type="MSLayerGroup">
-            <g id="peak-l-copy" sketch:type="MSShapeGroup">
-                <circle id="Oval-1-Copy-39" fill="#FFFFFF" cx="13.5" cy="13.5" r="13.5"></circle>
-                <circle id="Oval-1-Copy-38" fill="#3D3D37" cx="13.5" cy="13.5" r="12.5"></circle>
+            <g id="peak-l-copy">
+                <circle id="Oval-1-Copy-39" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
+                <g id="Oval-1-Copy-38">
+                    <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                    <use fill="none" xlink:href="#path-1"></use>
+                </g>
             </g>
             <path d="M13.5012442,19 C9.74937728,19 6,14.0836163 6,8.01400679 C6,7.32151952 6.05228215,6.65662139 6.12448132,6 L10.8946054,6 C10.877178,6.44418506 10.8497921,6.88285229 10.8497921,7.34083192 C10.8497921,13.0352292 11.6464726,15.6479202 13.5012442,15.6479202 C15.3560158,15.6479202 16.1526963,13.0352292 16.1526963,7.34083192 C16.1526963,6.88285229 16.1278,6.44418506 16.107883,6 L20.8755174,6 C20.9502062,6.65662139 20.9999988,7.32151952 20.9999988,8.01400679 C21.0024884,14.0836163 17.2556007,19 13.5012442,19 L13.5012442,19 Z" id="Shape" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup" transform="translate(13.500000, 12.500000) rotate(-180.000000) translate(-13.500000, -12.500000) "></path>
         </g>

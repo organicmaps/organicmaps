@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>shop-bicycle-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <path id="path-1" d="M22,11.5 C22,17.299 17.299,22 11.5,22 C5.701,22 1,17.299 1,11.5 C1,5.701 5.701,1 11.5,1 C17.299,1 22,5.701 22,11.5 L22,11.5 Z"></path>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="shop-bicycle-m" sketch:type="MSLayerGroup">
-            <path d="M11.5,23 C5.159,23 0,17.841 0,11.5 C0,5.159 5.159,0 11.5,0 C17.841,0 23,5.159 23,11.5 C23,17.841 17.841,23 11.5,23 L11.5,23 Z" id="Shape" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
-            <path d="M22,11.5 C22,17.299 17.299,22 11.5,22 C5.701,22 1,17.299 1,11.5 C1,5.701 5.701,1 11.5,1 C17.299,1 22,5.701 22,11.5 L22,11.5 Z" id="Shape" fill="#3D3D37" sketch:type="MSShapeGroup"></path>
+            <path d="M11.5,23 C5.159,23 0,17.841 0,11.5 C0,5.159 5.159,0 11.5,0 C17.841,0 23,5.159 23,11.5 C23,17.841 17.841,23 11.5,23 L11.5,23 Z" id="Shape" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <g id="Shape">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M14,6 L14,7 L15,7.5 L15,9 L10,9 L10,8 L11,8 L11,7.5 L10,7 L8,7 L8,8 L9,8 L9,9 L7.75,11.125 C7.504,11.061 7.266,11 7,11 C5.344,11 4,12.344 4,14 C4,15.656 5.344,17 7,17 C8.656,17 10,15.656 10,14 L11,14 L13.5,10 L15,10 L15.531,11.062 C14.103,11.292 13,12.507 13,14 C13,15.656 14.344,17 16,17 C17.656,17 19,15.656 19,14 C19,12.561 17.978,11.354 16.625,11.062 L16,9.5 L16,7 L15.5,6.5 L14,6 L14,6 Z M9.5,10 L12.5,10 L10.5,13 L9.812,13 C9.6,12.408 9.224,11.885 8.718,11.531 L9.5,10 L9.5,10 Z M7,12.25 C7.967,12.25 8.75,13.033 8.75,14 C8.75,14.967 7.967,15.75 7,15.75 C6.033,15.75 5.25,14.967 5.25,14 C5.25,13.033 6.033,12.25 7,12.25 L7,12.25 Z M16,12.25 C16.967,12.25 17.75,13.033 17.75,14 C17.75,14.967 16.967,15.75 16,15.75 C15.033,15.75 14.25,14.967 14.25,14 C14.25,13.033 15.033,12.25 16,12.25 L16,12.25 Z" id="Shape" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>tennis-s</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="8.5" cy="8.5" r="7.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="tennis-s" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
-            <circle id="Oval-1-Copy-42" fill="#3D3D37" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
+            <circle id="Oval-1-Copy-43" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
+            <g id="Oval-1-Copy-42">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M4.00003,6.9999 C4.00003,8.6568 5.34317,9.9999 7.00003,9.9999 L9.50003,9.9999 L12.5,13 L13,13 L12.99997,12.5001 L10,9.5 L10,7 C10,5.3431 8.65685,4 7.00001,4 C5.34317,3.9999 4.00003,5.343 4.00003,6.9999 L4.00003,6.9999 Z M9,7.5 L9,9 L7.5,9 L9,7.5 Z M4.75003,10.5 C4.33581,10.5 4.00003,10.8358 4.00003,11.25 C4.00003,11.6642 4.33581,12 4.75003,12 C5.16424,12 5.50003,11.6642 5.50003,11.25 C5.50003,10.8358 5.16424,10.5 4.75003,10.5 L4.75003,10.5 Z" id="path11507-3-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

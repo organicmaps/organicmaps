@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>fuel-s</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="8.5" cy="8.5" r="7.5"></circle>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="fuel-s" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
-            <circle id="Oval-1-Copy-42" fill="#3D3D37" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
+            <circle id="Oval-1-Copy-43" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
+            <g id="Oval-1-Copy-42">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M5.5,4 C5.22299,4 5,4.223 5,4.5 L5,12.5 C5,12.75 5.25,13 5.5,13 L9.5,13 C9.75,13 10,12.75 10,12.5 L10,12 L11.25,12 C11.75,12 12,11.75 12,11.25 L12,8.5 C12,8 11,7.5 11,7 L11,6.75 L11,6 L10,5 L10,4.5 C10,4.223 9.777,4 9.5,4 L5.5,4 L5.5,4 Z M6,5 L9,5 L9,7 L6,7 L6,5 L6,5 Z M10,6.5 L10.5,6.5 L10.5,7.25 C10.5,7.75 11.5,8.25 11.5,8.75 L11.5,11 L11.5,11.25 C11.5,11.5 11.25,11.5 11.25,11.5 L10.5,11.5 L10.5,10 L10,10 L10,6.5 L10,6.5 Z" id="rect7223-2-4-9-3-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

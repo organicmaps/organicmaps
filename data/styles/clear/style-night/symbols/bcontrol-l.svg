@@ -3,14 +3,23 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>bcontrol-l</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <circle id="path-1" cx="13.5" cy="13.5" r="12.5"></circle>
+        <rect id="path-2" x="7" y="1" width="1" height="16"></rect>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="bcontrol-l-copy" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-39" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
-            <circle id="Oval-1-Copy-38" fill="#3D3D37" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="12.5"></circle>
-            <g id="Rectangle-22-+-Group-Copy" transform="translate(6.000000, 5.000000)" sketch:type="MSShapeGroup">
-                <path d="M6.00000002,7 L6,18 L9,18 L8.99437037,10 L14.0472255,10 L14.9880238,9 L14.0472255,8 L8.99296296,8 L8.98944444,3 L14.0472255,3 L14.9880238,2 L14.0472255,1 L8.98803704,1 L8.98733333,0 L6.00000002,0 L6.00000002,5 L1,5 L0,6 L1,7 L6.00000002,7 Z" id="Rectangle-22" opacity="0.7" fill="#FFFFFF"></path>
-                <rect id="Rectangle-52" fill="#3D3D37" x="7" y="1" width="1" height="16"></rect>
+            <circle id="Oval-1-Copy-39" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
+            <g id="Oval-1-Copy-38">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
+            <g id="Rectangle-22-+-Group-Copy" transform="translate(6.000000, 5.000000)">
+                <path d="M6.00000002,7 L6,18 L9,18 L8.99437037,10 L14.0472255,10 L14.9880238,9 L14.0472255,8 L8.99296296,8 L8.98944444,3 L14.0472255,3 L14.9880238,2 L14.0472255,1 L8.98803704,1 L8.98733333,0 L6.00000002,0 L6.00000002,5 L1,5 L0,6 L1,7 L6.00000002,7 Z" id="Rectangle-22" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+                <g id="Rectangle-52">
+                    <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-2"></use>
+                    <use fill="none" xlink:href="#path-2"></use>
+                </g>
             </g>
         </g>
         <rect id="Rectangle-53" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup" x="13" y="9" width="1" height="1"></rect>

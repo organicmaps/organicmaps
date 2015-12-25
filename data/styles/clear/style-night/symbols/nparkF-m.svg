@@ -6,7 +6,7 @@
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="nparkF-m" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-54" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" r="11.5"></circle>
+            <circle id="Oval-1-Copy-54" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" r="11.5"></circle>
             <circle id="Oval-1-Copy-49" fill="#1B430B" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" r="10.5"></circle>
             <path d="M11.5,5 L7.5,9 L10,9 L7,12 L9.5,12 L7,15 L11,15 L11,18 L12,18 L12,15 L16,15 L13.5,12 L16,12 L13,9 L15.5,9 L11.5,5 Z" id="rect4152-3-3-5" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>

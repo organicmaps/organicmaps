@@ -6,8 +6,8 @@
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="tourism-m-copy" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <ellipse id="Oval-1-Copy-40" fill="#59310E" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
             <polygon id="Star-1-Copy-2" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup" points="11.5 14.75 7.67939586 16.7586105 8.40906632 12.5043052 5.31813264 9.49138954 9.58969793 8.87069477 11.5 5 13.4103021 8.87069477 17.6818674 9.49138954 14.5909337 12.5043052 15.3206041 16.7586105 "></polygon>
         </g>
     </g>

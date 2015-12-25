@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>pharmacy-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <ellipse id="path-1" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="pharmacy-m-copy" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <g id="Oval-1-Copy-40">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
         </g>
         <g id="Shape-+-Rectangle-10" sketch:type="MSLayerGroup" transform="translate(11.804626, 11.704650) rotate(-45.000000) translate(-11.804626, -11.704650) translate(4.304626, 8.704650)" fill="#FFFFFF" opacity="0.7">
             <path d="M7.56643381,4.5 L12.3528298,4.5 C13.0885747,4.5 13.6764706,3.83232553 13.6764706,3 C13.6764706,2.17353354 13.0826123,1.5 12.3528298,1.5 L7.56431598,1.5 L7.56643381,4.5 Z M2.27373675e-13,3 C2.27373675e-13,1.34314575 1.17702484,2.27373675e-13 2.6471702,2.27373675e-13 L12.3528298,2.27373675e-13 C13.8148215,2.27373675e-13 15,1.34651712 15,3 C15,4.65685425 13.8229752,6 12.3528298,6 L2.6471702,6 C1.18517847,6 2.27373675e-13,4.65348288 2.27373675e-13,3 L2.27373675e-13,3 Z" id="Shape" sketch:type="MSShapeGroup"></path>

@@ -3,11 +3,16 @@
     <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
     <title>basketball-m</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <ellipse id="path-1" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+    </defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="basketball-m" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#3D3D37" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <g id="Oval-1-Copy-40">
+                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
             <path d="M8,6 L5,8 L5,15 C5,15.5 5.5,16 6,16 L8.5,16 L10.5,19 L11.5,19 L12.5,19 L14.5,16 L17,16 C17.5,16 18,15.5 18,15 L18,8.5 L15,6 L8,6 L8,6 Z M8,9 L15,9 L15,14 L8,14 L8,9 L8,9 Z M9,10 L9,13 L14,13 L14,10 L9,10 L9,10 Z M9.5,16 L11,16 L11,17 L12,17 L12,16 L13.5,16 L12.8125,17 L12,17 L12,18 L11,18 L11,17 L10.1875,17 L9.5,16 L9.5,16 Z" id="rect5769-7-5-copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>
