@@ -29,7 +29,7 @@ public final class TrackRecorder
     @Override
     public void run()
     {
-      restartAlarm();
+      restartAlarmIfEnabled();
     }
   };
 
@@ -77,7 +77,7 @@ public final class TrackRecorder
         if (foreground)
           TrackRecorderWakeService.stop();
         else
-          restartAlarm();
+          restartAlarmIfEnabled();
       }
     });
 
@@ -92,10 +92,11 @@ public final class TrackRecorder
     return PendingIntent.getBroadcast(MwmApplication.get(), 0, sAlarmIntent, 0);
   }
 
-  private static void restartAlarm()
+  private static void restartAlarmIfEnabled()
   {
-    TrackRecorder.log("restartAlarm()");
-    sAlarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + WAKEUP_INTERVAL_MS, getAlarmIntent());
+    TrackRecorder.log("restartAlarmIfEnabled()");
+    if (nativeIsEnabled())
+      sAlarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + WAKEUP_INTERVAL_MS, getAlarmIntent());
   }
 
   private static void stop()
@@ -118,7 +119,7 @@ public final class TrackRecorder
     nativeSetEnabled(enabled);
 
     if (enabled)
-      restartAlarm();
+      restartAlarmIfEnabled();
     else
       stop();
   }
@@ -180,8 +181,8 @@ public final class TrackRecorder
     TrackRecorder.log("onServiceStopped()");
     LocationHelper.INSTANCE.removeLocationListener(sLocationListener);
 
-    if (nativeIsEnabled() && !MwmApplication.backgroundTracker().isForeground())
-      restartAlarm();
+    if (!MwmApplication.backgroundTracker().isForeground())
+      restartAlarmIfEnabled();
   }
 
   static void log(String message)
