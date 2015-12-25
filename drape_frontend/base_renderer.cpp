@@ -137,7 +137,8 @@ void BaseRenderer::ProcessStopRenderingMessage()
 
 bool BaseRenderer::CanReceiveMessages()
 {
-  return !m_selfThread.GetRoutine()->IsCancelled();
+  threads::IRoutine * routine = m_selfThread.GetRoutine();
+  return routine != nullptr && !routine->IsCancelled();
 }
 
 } // namespace df
