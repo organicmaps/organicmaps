@@ -146,7 +146,7 @@ TimeTable TimeTable::GetPredefinedTimeTable()
   return tt;
 }
 
-bool TimeTable::SetWorkingDays(TOpeningDays const & days)
+bool TimeTable::SetOpeningDays(TOpeningDays const & days)
 {
   if (days.empty())
     return false;
@@ -296,7 +296,7 @@ TOpeningDays TimeTableSet::GetUnhandledDays() const
   };
 
   for (auto const tt : *this)
-    for (auto const day : tt.GetWorkingDays())
+    for (auto const day : tt.GetOpeningDays())
       days.erase(day);
 
   return days;
@@ -309,7 +309,7 @@ TimeTable TimeTableSet::GetComplementTimeTable() const
   // it has no effect.
   tt.SetOpeningTime(tt.GetPredefinedOpeningTime());
   tt.SetTwentyFourHours(true);
-  tt.SetWorkingDays(GetUnhandledDays());
+  tt.SetOpeningDays(GetUnhandledDays());
   return tt;
 }
 
@@ -364,11 +364,11 @@ bool TimeTableSet::UpdateByIndex(TimeTableSet & ttSet, size_t const index)
 
     // Remove all days of updated timetable from all other timetables.
     TOpeningDays days;
-    set_difference(std::begin(ttSet[i].GetWorkingDays()), std::end(ttSet[i].GetWorkingDays()),
-                   std::begin(updated.GetWorkingDays()), std::end(updated.GetWorkingDays()),
+    set_difference(std::begin(ttSet[i].GetOpeningDays()), std::end(ttSet[i].GetOpeningDays()),
+                   std::begin(updated.GetOpeningDays()), std::end(updated.GetOpeningDays()),
                    inserter(days, std::end(days)));
 
-    if (!ttSet[i].SetWorkingDays(days))
+    if (!ttSet[i].SetOpeningDays(days))
       return false;
   }
 

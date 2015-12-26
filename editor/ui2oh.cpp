@@ -10,25 +10,25 @@ namespace
 {
 void SetUpWeekdays(osmoh::Weekdays const & wds, editor::ui::TimeTable & tt)
 {
-  set<osmoh::Weekday> workingDays;
+  set<osmoh::Weekday> openingDays;
   for (auto const & wd : wds.GetWeekdayRanges())
   {
     if (wd.HasSunday())
-      workingDays.insert(osmoh::Weekday::Sunday);
+      openingDays.insert(osmoh::Weekday::Sunday);
     if (wd.HasMonday())
-      workingDays.insert(osmoh::Weekday::Monday);
+      openingDays.insert(osmoh::Weekday::Monday);
     if (wd.HasTuesday())
-      workingDays.insert(osmoh::Weekday::Tuesday);
+      openingDays.insert(osmoh::Weekday::Tuesday);
     if (wd.HasWednesday())
-      workingDays.insert(osmoh::Weekday::Wednesday);
+      openingDays.insert(osmoh::Weekday::Wednesday);
     if (wd.HasThursday())
-      workingDays.insert(osmoh::Weekday::Thursday);
+      openingDays.insert(osmoh::Weekday::Thursday);
     if (wd.HasFriday())
-      workingDays.insert(osmoh::Weekday::Friday);
+      openingDays.insert(osmoh::Weekday::Friday);
     if (wd.HasSaturday())
-      workingDays.insert(osmoh::Weekday::Saturday);
+      openingDays.insert(osmoh::Weekday::Saturday);
   }
-  tt.SetWorkingDays(workingDays);
+  tt.SetOpeningDays(openingDays);
 }
 
 void SetUpTimeTable(osmoh::TTimespans spans, editor::ui::TimeTable & tt)
@@ -51,13 +51,108 @@ void SetUpTimeTable(osmoh::TTimespans spans, editor::ui::TimeTable & tt)
   for (auto i = 0; i + 1 < spans.size(); ++i)
     tt.AddExcludeTime({spans[i].GetEnd(), spans[i + 1].GetStart()});
 }
+
+int32_t WeekdayNumber(osmoh::Weekday const wd) { return static_cast<int32_t>(wd); }
+
+constexpr uint32_t kDaysInWeek = 7;
+int32_t NextWeekdayNumber(osmoh::Weekday const wd)
+{
+  auto dayNumber = WeekdayNumber(wd);
+  return (dayNumber + kDaysInWeek) % kDaysInWeek + 1;
+}
+
+vector<osmoh::Weekday> RemoveInversion(editor::ui::TOpeningDays const & days)
+{
+  vector<osmoh::Weekday> result(begin(days), end(days));
+  if (NextWeekdayNumber(result.back()) != WeekdayNumber(result.front()))
+    return result;
+
+  auto inversion = adjacent_find(begin(result), end(result),
+                [](osmoh::Weekday const a, osmoh::Weekday const b)
+                {
+                  return NextWeekdayNumber(a) != WeekdayNumber(b) ||
+                         a == osmoh::Weekday::Sunday;
+                });
+
+  if (inversion != end(result) && ++inversion != end(result))
+    rotate(begin(result), inversion, end(result));
+
+  return result;
+}
+
+using TWeekdays = vector<osmoh::Weekday>;
+
+vector<TWeekdays> SplitIntoIntervals(editor::ui::TOpeningDays const & days)
+{
+  vector<TWeekdays> result;
+  auto const & noInversionDays = RemoveInversion(days);
+
+  auto previous = *begin(noInversionDays);
+  result.push_back({previous});
+
+  for (auto it = next(begin(noInversionDays)); it != end(noInversionDays); ++it)
+  {
+    if (NextWeekdayNumber(previous) != WeekdayNumber(*it))
+      result.push_back({});
+    result.back().push_back(*it);
+    previous = *it;
+  }
+
+  return result;
+}
+
+osmoh::Weekdays MakeWeekdays(editor::ui::TimeTable const & tt)
+{
+  osmoh::Weekdays wds;
+
+  for (auto const & daysInterval : SplitIntoIntervals(tt.GetOpeningDays()))
+  {
+    osmoh::WeekdayRange wdr;
+    wdr.SetStart(*begin(daysInterval));
+    if (daysInterval.size() > 1)
+      wdr.SetEnd(*(prev(end(daysInterval))));
+
+    wds.AddWeekdayRange(wdr);
+  }
+
+  return wds;
+}
+
+osmoh::TTimespans MakeTimespans(editor::ui::TimeTable const & tt)
+{
+
+  if (tt.IsTwentyFourHours())
+    return {};
+
+  auto const & excludeTime = tt.GetExcludeTime();
+  if (excludeTime.empty())
+    return {tt.GetOpeningTime()};
+
+  osmoh::TTimespans spans{{tt.GetOpeningTime().GetStart(), excludeTime[0].GetStart()}};
+
+  for (auto i = 0; i + 1 < excludeTime.size(); ++i)
+    spans.emplace_back(excludeTime[i].GetEnd(), excludeTime[i + 1].GetStart());
+
+  spans.emplace_back(excludeTime.back().GetEnd(), tt.GetOpeningTime().GetEnd());
+
+  return spans;
+}
 }  // namespace
 
 namespace editor
 {
-osmoh::OpeningHours ConvertOpeningHours(ui::TimeTableSet const & tt)
+osmoh::OpeningHours ConvertOpeningHours(ui::TimeTableSet const & tts)
 {
-  return string();  // TODO(mgsergio): Implement me.
+  osmoh::TRuleSequences rule;
+  for (auto const & tt : tts)
+  {
+    osmoh::RuleSequence rulePart;
+    rulePart.SetWeekdays(MakeWeekdays(tt));
+    rulePart.SetTimes(MakeTimespans(tt));
+    rule.push_back(rulePart);
+  }
+
+  return rule;
 }
 
 bool ConvertOpeningHours(osmoh::OpeningHours const & oh, ui::TimeTableSet & tts)
@@ -76,6 +171,14 @@ bool ConvertOpeningHours(osmoh::OpeningHours const & oh, ui::TimeTableSet & tts)
   for (auto const & rulePart : oh.GetRule())
   {
     ui::TimeTable tt;
+
+    // TODO(mgsergio): We don't handle cases with speciffic time off.
+    // I.e. Mo-Fr 08-20; Fr 18:00-17:00 off.
+    // Can be implemented later.
+    if (rulePart.GetModifier() == osmoh::RuleSequence::Modifier::Closed ||
+        rulePart.GetModifier() == osmoh::RuleSequence::Modifier::Unknown ||
+        rulePart.GetModifier() == osmoh::RuleSequence::Modifier::Comment)
+      continue;
 
     if (rulePart.HasWeekdays())
       SetUpWeekdays(rulePart.GetWeekdays(), tt);
@@ -97,11 +200,5 @@ bool ConvertOpeningHours(osmoh::OpeningHours const & oh, ui::TimeTableSet & tts)
   }
 
   return true;
-}
-
-bool ConvertOpeningHours(string oh, ui::TimeTableSet & tts)
-{
-  replace(begin(oh), end(oh), '\n', ';');
-  return ConvertOpeningHours(osmoh::OpeningHours(oh), tts);
 }
 } // namespace editor

@@ -230,9 +230,9 @@ using namespace osmoh;
 - (void)addSelectedDay:(Weekday)day
 {
   TTimeTableProxy timeTable = [self getTimeTableProxy];
-  TOpeningDays openingDays(timeTable.GetWorkingDays());
+  TOpeningDays openingDays(timeTable.GetOpeningDays());
   openingDays.insert(day);
-  timeTable.SetWorkingDays(openingDays);
+  timeTable.SetOpeningDays(openingDays);
   timeTable.Commit();
   [self refresh:YES];
 }
@@ -240,9 +240,9 @@ using namespace osmoh;
 - (void)removeSelectedDay:(Weekday)day
 {
   TTimeTableProxy timeTable = [self getTimeTableProxy];
-  TOpeningDays openingDays(timeTable.GetWorkingDays());
+  TOpeningDays openingDays(timeTable.GetOpeningDays());
   openingDays.erase(day);
-  timeTable.SetWorkingDays(openingDays);
+  timeTable.SetOpeningDays(openingDays);
   timeTable.Commit();
   [self refresh:YES];
 }
@@ -250,7 +250,7 @@ using namespace osmoh;
 - (BOOL)containsSelectedDay:(Weekday)day
 {
   TTimeTableProxy timeTable = [self getTimeTableProxy];
-  TOpeningDays const & openingDays = timeTable.GetWorkingDays();
+  TOpeningDays const & openingDays = timeTable.GetOpeningDays();
   return openingDays.find(day) != openingDays.end();
 }
 

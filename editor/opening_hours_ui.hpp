@@ -20,8 +20,8 @@ public:
   bool IsTwentyFourHours() const { return m_isTwentyFourHours; }
   void SetTwentyFourHours(bool const on) { m_isTwentyFourHours = on; }
 
-  TOpeningDays const & GetWorkingDays() const { return m_weekdays; }
-  bool SetWorkingDays(TOpeningDays const & days);
+  TOpeningDays const & GetOpeningDays() const { return m_weekdays; }
+  bool SetOpeningDays(TOpeningDays const & days);
 
   void AddWorkingDay(osmoh::Weekday const wd);
   bool RemoveWorkingDay(osmoh::Weekday const wd);
@@ -71,7 +71,8 @@ using TTimeTableProxy = TimeTableProxyBase<TimeTableSet>;
 class TimeTableSet : vector<TimeTable>
 {
 public:
-  using vector<TimeTable>::vector;
+  using TBase = vector<TimeTable>;
+  using TBase::TBase;
 
   TimeTableSet();
 
@@ -91,9 +92,11 @@ public:
 
   bool Replace(TimeTable const & tt, size_t const index);
 
+  TBase::const_iterator begin() const { return TBase::begin(); }
+  TBase::const_iterator end() const { return TBase::end(); }
+
 private:
   static bool UpdateByIndex(TimeTableSet & ttSet, size_t const index);
-
 };
 } // namespace ui
 } // namespace editor
