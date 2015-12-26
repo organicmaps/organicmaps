@@ -24,7 +24,7 @@ UNIT_TEST(OpeningHours2TimeTableSt)
 
     TimeTableSet tts;
 
-    TEST(ConvertOpeningHours(oh, tts), ());
+    TEST(MakeTimeTableSet(oh, tts), ());
     TEST_EQUAL(tts.Size(), 1, ());
 
     auto const tt = tts.Front();
@@ -39,7 +39,7 @@ UNIT_TEST(OpeningHours2TimeTableSt)
 
     TimeTableSet tts;
 
-    TEST(ConvertOpeningHours(oh, tts), ());
+    TEST(MakeTimeTableSet(oh, tts), ());
     TEST_EQUAL(tts.Size(), 1, ());
 
     auto const tt = tts.Front();
@@ -58,7 +58,7 @@ UNIT_TEST(OpeningHours2TimeTableSt)
 
     TimeTableSet tts;
 
-    TEST(ConvertOpeningHours(oh, tts), ());
+    TEST(MakeTimeTableSet(oh, tts), ());
     TEST_EQUAL(tts.Size(), 1, ());
 
     auto const tt = tts.Front();
@@ -81,7 +81,7 @@ UNIT_TEST(OpeningHours2TimeTableSt)
 
     TimeTableSet tts;
 
-    TEST(ConvertOpeningHours(oh, tts), ());
+    TEST(MakeTimeTableSet(oh, tts), ());
     TEST_EQUAL(tts.Size(), 2, ());
 
     {
@@ -102,7 +102,7 @@ UNIT_TEST(OpeningHours2TimeTableSt)
 
     TimeTableSet tts;
 
-    TEST(!ConvertOpeningHours(oh, tts), ());
+    TEST(!MakeTimeTableSet(oh, tts), ());
   }
   {
     OpeningHours oh("2016 Mo-Fr 08:00-10:00");
@@ -110,7 +110,7 @@ UNIT_TEST(OpeningHours2TimeTableSt)
 
     TimeTableSet tts;
 
-    TEST(!ConvertOpeningHours(oh, tts), ());
+    TEST(!MakeTimeTableSet(oh, tts), ());
   }
   {
     OpeningHours oh("week 30 Mo-Fr 08:00-10:00");
@@ -118,7 +118,7 @@ UNIT_TEST(OpeningHours2TimeTableSt)
 
     TimeTableSet tts;
 
-    TEST(!ConvertOpeningHours(oh, tts), ());
+    TEST(!MakeTimeTableSet(oh, tts), ());
   }
   {
     OpeningHours oh("Mo-Su 11:00-24:00");
@@ -126,7 +126,7 @@ UNIT_TEST(OpeningHours2TimeTableSt)
 
     TimeTableSet tts;
 
-    TEST(ConvertOpeningHours(oh, tts), ());
+    TEST(MakeTimeTableSet(oh, tts), ());
     TEST_EQUAL(tts.Size(), 1, ());
 
     auto const tt = tts.Front();
@@ -141,7 +141,7 @@ UNIT_TEST(OpeningHours2TimeTableSt)
 
     TimeTableSet tts;
 
-    TEST(ConvertOpeningHours(oh, tts), ());
+    TEST(MakeTimeTableSet(oh, tts), ());
     TEST_EQUAL(tts.Size(), 2, ());
 
     {
@@ -162,7 +162,7 @@ UNIT_TEST(OpeningHours2TimeTableSt)
 
     TimeTableSet tts;
 
-    TEST(ConvertOpeningHours(oh, tts), ());
+    TEST(MakeTimeTableSet(oh, tts), ());
     TEST_EQUAL(tts.Size(), 2, ());
 
     {
@@ -195,7 +195,7 @@ UNIT_TEST(TimeTableSt2OpeningHours)
     TEST(tt.SetOpeningTime({8_h, 22_h}), ());
     TEST(tt.Commit(), ());
 
-    TEST_EQUAL(ToString(ConvertOpeningHours(tts)), "Mo-Fr 08:00-22:00", ());
+    TEST_EQUAL(ToString(MakeOpeningHours(tts)), "Mo-Fr 08:00-22:00", ());
   }
   {
     TimeTableSet tts;
@@ -213,7 +213,7 @@ UNIT_TEST(TimeTableSt2OpeningHours)
     TEST(tt.AddExcludeTime({12_h, 13_h}), ());
     TEST(tt.Commit(), ());
 
-    TEST_EQUAL(ToString(ConvertOpeningHours(tts)), "Mo-Fr 08:00-12:00, 13:00-22:00", ());
+    TEST_EQUAL(ToString(MakeOpeningHours(tts)), "Mo-Fr 08:00-12:00, 13:00-22:00", ());
   }
   {
     TimeTableSet tts;
@@ -232,7 +232,7 @@ UNIT_TEST(TimeTableSt2OpeningHours)
     TEST(tt.AddExcludeTime({12_h + 30_min, 13_h}), ());
     TEST(tt.Commit(), ());
 
-    TEST_EQUAL(ToString(ConvertOpeningHours(tts)), "Mo-Fr 08:00-10:00, 11:00-12:30, 13:00-22:00", ());
+    TEST_EQUAL(ToString(MakeOpeningHours(tts)), "Mo-Fr 08:00-10:00, 11:00-12:30, 13:00-22:00", ());
   }
   {
     TimeTableSet tts;
@@ -240,11 +240,9 @@ UNIT_TEST(TimeTableSt2OpeningHours)
     {
       auto tt = tts.Front();
       TEST(tt.SetOpeningDays({
-            osmoh::Weekday::Monday,
             osmoh::Weekday::Tuesday,
             osmoh::Weekday::Wednesday,
             osmoh::Weekday::Thursday}), ());
-
 
       tt.SetTwentyFourHours(false);
       TEST(tt.SetOpeningTime({8_h, 10_h}), ());
@@ -253,6 +251,7 @@ UNIT_TEST(TimeTableSt2OpeningHours)
     {
       TimeTable tt;
       TEST(tt.SetOpeningDays({
+            osmoh::Weekday::Monday,
             osmoh::Weekday::Friday,
             osmoh::Weekday::Saturday,
             osmoh::Weekday::Sunday}), ());
@@ -262,7 +261,7 @@ UNIT_TEST(TimeTableSt2OpeningHours)
       TEST(tts.Append(tt), ());
     }
 
-    TEST_EQUAL(ToString(ConvertOpeningHours(tts)), "Mo-Th 08:00-10:00; Fr-Su 13:00-22:00", ());
+    TEST_EQUAL(ToString(MakeOpeningHours(tts)), "Tu-Th 08:00-10:00; Fr-Mo 13:00-22:00", ());
   }
   {
     TimeTableSet tts;
@@ -289,7 +288,7 @@ UNIT_TEST(TimeTableSt2OpeningHours)
       TEST(tts.Append(tt), ());
     }
 
-    TEST_EQUAL(ToString(ConvertOpeningHours(tts)), "Mo, We, Fr 08:00-10:00; Sa-Su 13:00-22:00", ());
+    TEST_EQUAL(ToString(MakeOpeningHours(tts)), "Mo, We, Fr 08:00-10:00; Sa-Su 13:00-22:00", ());
   }
   {
     TimeTableSet tts;
@@ -308,7 +307,7 @@ UNIT_TEST(TimeTableSt2OpeningHours)
     TEST(tt.SetOpeningTime({11_h, 24_h}), ());
     TEST(tt.Commit(), ());
 
-    TEST_EQUAL(ToString(ConvertOpeningHours(tts)), "Mo-Su 11:00-24:00", ());
+    TEST_EQUAL(ToString(MakeOpeningHours(tts)), "Mo-Su 11:00-24:00", ());
   }
   {
     TimeTableSet tts;
@@ -336,7 +335,7 @@ UNIT_TEST(TimeTableSt2OpeningHours)
       TEST(tts.Append(tt), ());
     }
 
-    TEST_EQUAL(ToString(ConvertOpeningHours(tts)),
+    TEST_EQUAL(ToString(MakeOpeningHours(tts)),
                "Mo, We-Th 08:00-13:00, 14:00-20:00; "
                "Sa 09:00-13:00, 14:00-18:00", ());
   }

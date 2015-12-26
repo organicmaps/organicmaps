@@ -55,27 +55,40 @@ void SetUpTimeTable(osmoh::TTimespans spans, editor::ui::TimeTable & tt)
 int32_t WeekdayNumber(osmoh::Weekday const wd) { return static_cast<int32_t>(wd); }
 
 constexpr uint32_t kDaysInWeek = 7;
+
+// Shifts values from 1 to 7 like this: 1 2 3 4 5 6 7 -> 2 3 4 5 6 7 1
 int32_t NextWeekdayNumber(osmoh::Weekday const wd)
 {
   auto dayNumber = WeekdayNumber(wd);
-  return (dayNumber + kDaysInWeek) % kDaysInWeek + 1;
+  // If first element of the gourp would be evaluated to 0
+  // the resulting formula whould be (dayNumber + 1) % kDaysInWeek.
+  // Since the first one evaluates to 1
+  // the formula is:
+  return dayNumber % kDaysInWeek + 1;
 }
 
+// Returns a vector of Weekdays with no gaps and with Sunday as the last day.
+// Exampls:
+// su, mo, we -> mo, we, su;
+// su, mo, fr, sa -> fr, sa, su, mo.
 vector<osmoh::Weekday> RemoveInversion(editor::ui::TOpeningDays const & days)
 {
   vector<osmoh::Weekday> result(begin(days), end(days));
-  if (NextWeekdayNumber(result.back()) != WeekdayNumber(result.front()))
+  if ((NextWeekdayNumber(result.back()) != WeekdayNumber(result.front()) &&
+       result.back() != osmoh::Weekday::Sunday) || result.size() < 2)
     return result;
 
   auto inversion = adjacent_find(begin(result), end(result),
                 [](osmoh::Weekday const a, osmoh::Weekday const b)
                 {
-                  return NextWeekdayNumber(a) != WeekdayNumber(b) ||
-                         a == osmoh::Weekday::Sunday;
+                  return NextWeekdayNumber(a) != WeekdayNumber(b);
                 });
 
-  if (inversion != end(result) && ++inversion != end(result))
-    rotate(begin(result), inversion, end(result));
+  if (inversion != end(result))
+    rotate(begin(result), ++inversion, end(result));
+
+  if (result.front() == osmoh::Weekday::Sunday)
+    rotate(begin(result), begin(result) + 1, end(result));
 
   return result;
 }
@@ -141,7 +154,7 @@ osmoh::TTimespans MakeTimespans(editor::ui::TimeTable const & tt)
 
 namespace editor
 {
-osmoh::OpeningHours ConvertOpeningHours(ui::TimeTableSet const & tts)
+osmoh::OpeningHours MakeOpeningHours(ui::TimeTableSet const & tts)
 {
   osmoh::TRuleSequences rule;
   for (auto const & tt : tts)
@@ -155,7 +168,7 @@ osmoh::OpeningHours ConvertOpeningHours(ui::TimeTableSet const & tts)
   return rule;
 }
 
-bool ConvertOpeningHours(osmoh::OpeningHours const & oh, ui::TimeTableSet & tts)
+bool MakeTimeTableSet(osmoh::OpeningHours const & oh, ui::TimeTableSet & tts)
 {
   if (!oh.IsValid())
     return false;
