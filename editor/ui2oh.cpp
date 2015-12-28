@@ -184,6 +184,7 @@ bool MakeTimeTableSet(osmoh::OpeningHours const & oh, ui::TimeTableSet & tts)
   for (auto const & rulePart : oh.GetRule())
   {
     ui::TimeTable tt;
+    tt.SetOpeningTime(tt.GetPredefinedOpeningTime());
 
     // TODO(mgsergio): We don't handle cases with speciffic time off.
     // I.e. Mo-Fr 08-20; Fr 18:00-17:00 off.
