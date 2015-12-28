@@ -1,5 +1,3 @@
-#import <UIKit/UIKit.h>
-
 @class MWMPlacePageEntity, MWMDirectionView;
 
 @interface MWMBasePlacePageView : UIView

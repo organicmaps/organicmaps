@@ -95,19 +95,24 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 - (void)reloadBookmark
 {
   [super reloadBookmark];
-  [self updateTargetPoint];
+  [self refresh];
 }
 
 - (void)updateMyPositionStatus:(NSString *)status
 {
   [super updateMyPositionStatus:status];
+  [self refresh];
+}
+
+- (void)refresh
+{
   [self updateTargetPoint];
 }
 
 - (void)setState:(MWMiPhonePortraitPlacePageState)state
 {
   _state = state;
-  [self updateTargetPoint];
+  [self refresh];
   switch (state)
   {
     case MWMiPhonePortraitPlacePageStateClosed:
@@ -116,6 +121,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
       [self.manager.ownerViewController.view endEditing:YES];
       break;
     case MWMiPhonePortraitPlacePageStatePreview:
+      self.isHover = NO;
       [MWMPlacePageNavigationBar remove];
       [self.manager.ownerViewController.view endEditing:YES];
       break;
@@ -299,7 +305,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 - (void)willFinishEditingBookmarkTitle:(NSString *)title
 {
   [super willFinishEditingBookmarkTitle:title];
-  [self updateTargetPoint];
+  [self refresh];
 }
 
 - (void)setAnchorImage

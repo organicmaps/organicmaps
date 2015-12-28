@@ -129,9 +129,9 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
   [self.manager removeBookmark];
 }
 
-- (void)editPlace
+- (void)editPlaceTime
 {
-  [self.manager editPlace];
+  [self.manager editPlaceTime];
 }
 
 - (void)share
@@ -199,7 +199,7 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
 - (void)willStartEditingBookmarkTitle
 {
   [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatRename)];
-// This method should be ovverriden.
+// This method should be overriden.
 }
 
 - (void)willFinishEditingBookmarkTitle:(NSString *)title
@@ -210,12 +210,17 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
 
 - (IBAction)didTap:(UITapGestureRecognizer *)sender
 {
-// This method should be ovverriden if you want to process custom tap.
+// This method should be overriden if you want to process custom tap.
 }
 
 - (IBAction)didPan:(UIPanGestureRecognizer *)sender
 {
-  // This method should be ovverriden if you want to process custom pan.
+  // This method should be overriden if you want to process custom pan.
+}
+
+- (void)refresh
+{
+  // This method should be overriden.
 }
 
 #pragma mark - Properties

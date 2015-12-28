@@ -1,6 +1,6 @@
+#import "MWMPlacePage.h"
 #import "MWMPlacePageButtonCell.h"
 #import "Statistics.h"
-#import "MWMPlacePage.h"
 
 @interface MWMPlacePageButtonCell ()
 
@@ -23,7 +23,6 @@
 - (IBAction)editPlaceButtonTouchUpIndide
 {
   [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatEdit)];
-  [self.placePage editPlace];
 }
 
 @end

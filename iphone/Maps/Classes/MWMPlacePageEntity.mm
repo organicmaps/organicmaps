@@ -3,9 +3,27 @@
 #import "MapViewController.h"
 #include "platform/measurement_utils.hpp"
 
-extern NSArray * const kBookmarkColorsVariant = @[@"placemark-red", @"placemark-yellow", @"placemark-blue", @"placemark-green", @"placemark-purple", @"placemark-orange", @"placemark-brown", @"placemark-pink"];
+extern NSArray * const kBookmarkColorsVariant = @[
+  @"placemark-red",
+  @"placemark-yellow",
+  @"placemark-blue",
+  @"placemark-green",
+  @"placemark-purple",
+  @"placemark-orange",
+  @"placemark-brown",
+  @"placemark-pink"
+];
 extern NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
-static NSArray * const kPatternTypesArray = @[@(MWMPlacePageMetadataTypePostcode), @(MWMPlacePageMetadataTypePhoneNumber), @(MWMPlacePageMetadataTypeWebsite), @(MWMPlacePageMetadataTypeURL), @(MWMPlacePageMetadataTypeEmail), @(MWMPlacePageMetadataTypeOpenHours), @(MWMPlacePageMetadataTypeWiFi), @(MWMPlacePageMetadataTypeCoordinate)];
+static NSArray * const kPatternTypesArray = @[
+  @(MWMPlacePageMetadataTypePostcode),
+  @(MWMPlacePageMetadataTypePhoneNumber),
+  @(MWMPlacePageMetadataTypeWebsite),
+  @(MWMPlacePageMetadataTypeURL),
+  @(MWMPlacePageMetadataTypeEmail),
+  @(MWMPlacePageMetadataTypeOpenHours),
+  @(MWMPlacePageMetadataTypeWiFi),
+  @(MWMPlacePageMetadataTypeCoordinate)
+];
 
 using feature::Metadata;
 
@@ -184,9 +202,7 @@ using feature::Metadata;
       case Metadata::FMD_INTERNET:
       {
         NSString * v;
-        if (type == Metadata::EType::FMD_OPEN_HOURS)
-          v = [self formattedOpenHoursFromString:metadata.Get(type)];
-        else if (type == Metadata::FMD_INTERNET)
+        if (type == Metadata::FMD_INTERNET)
           v = L(@"WiFi_available");
         else
           v = @(metadata.Get(type).c_str());
@@ -342,25 +358,6 @@ using feature::Metadata;
   }
   
   category->SaveToKMLFile();
-}
-
-#pragma mark - Open hours string formatter
-
-- (NSString *)formattedOpenHoursFromString:(string const &)s
-{
-//TODO (Vlad): Not the best solution, but this function is temporary and will be replaced in future.
-  NSMutableString * r = [NSMutableString stringWithUTF8String:s.c_str()];
-  [r replaceOccurrencesOfString:@"," withString:@", " options:NSCaseInsensitiveSearch range:NSMakeRange(0, r.length)];
-  while (YES)
-  {
-    NSRange const range = [r rangeOfString:@"  "];
-    if (range.location == NSNotFound)
-      break;
-    [r replaceCharactersInRange:range withString:@" "];
-  }
-  [r replaceOccurrencesOfString:@"; " withString:@"\n" options:NSCaseInsensitiveSearch range:NSMakeRange(0, r.length)];
-  [r replaceOccurrencesOfString:@";" withString:@"\n" options:NSCaseInsensitiveSearch range:NSMakeRange(0, r.length)];
-  return r.copy;
 }
 
 @end

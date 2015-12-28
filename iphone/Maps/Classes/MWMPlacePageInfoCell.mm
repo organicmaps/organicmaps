@@ -22,9 +22,19 @@ extern NSString * const kUserDefaultsLatLonAsDMSKey;
 
 @implementation MWMPlacePageInfoCell
 
+- (void)awakeFromNib
+{
+  [super awakeFromNib];
+  if ([self.textContainer isKindOfClass:[UITextView class]])
+  {
+    CGFloat const topInset = 12.0;
+    [self.textContainer setTextContainerInset:{topInset, 0, 0, 0}];
+  }
+}
+
 - (void)configureWithType:(MWMPlacePageMetadataType)type info:(NSString *)info;
 {
-  NSString * typeName = nil;
+  NSString * typeName;
   switch (type)
   {
     case MWMPlacePageMetadataTypeURL:
@@ -43,25 +53,27 @@ extern NSString * const kUserDefaultsLatLonAsDMSKey;
     case MWMPlacePageMetadataTypePostcode:
       typeName = @"postcode";
       break;
-    case MWMPlacePageMetadataTypeOpenHours:
-      typeName = @"open_hours";
-      break;
     case MWMPlacePageMetadataTypeWiFi:
       typeName = @"wifi";
       break;
     case MWMPlacePageMetadataTypeBookmark:
     case MWMPlacePageMetadataTypeEditButton:
+    case MWMPlacePageMetadataTypeOpenHours:
       NSAssert(false, @"Incorrect type!");
       break;
   }
-  
-  UIImage * image = [UIImage imageNamed:[NSString stringWithFormat:@"%@%@", @"ic_placepage_", typeName]];
+
+  UIImage * image =
+      [UIImage imageNamed:[NSString stringWithFormat:@"%@%@", @"ic_placepage_", typeName]];
   self.type = type;
   self.icon.image = image;
 
   if ([self.textContainer isKindOfClass:[UITextView class]])
   {
-    [self.textContainer setAttributedText:[[NSAttributedString alloc] initWithString:info attributes:@{NSFontAttributeName : [UIFont light16]}]];
+    [self.textContainer
+        setAttributedText:[[NSAttributedString alloc]
+                              initWithString:info
+                                  attributes:@{NSFontAttributeName : [UIFont regular17]}]];
     self.icon.mwm_coloring = MWMImageColoringBlue;
   }
   else
@@ -70,7 +82,8 @@ extern NSString * const kUserDefaultsLatLonAsDMSKey;
     self.icon.mwm_coloring = MWMImageColoringBlack;
   }
 
-  UILongPressGestureRecognizer * longTap = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTap:)];
+  UILongPressGestureRecognizer * longTap =
+      [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTap:)];
   longTap.minimumPressDuration = 0.3;
   [self.upperButton addGestureRecognizer:longTap];
 }
@@ -78,15 +91,6 @@ extern NSString * const kUserDefaultsLatLonAsDMSKey;
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
 {
   return YES;
-}
-
-- (void)layoutSubviews
-{
-  CGFloat const leftOffset = 16.;
-  CGFloat const topOffset = 8.;
-  CGFloat const textOffset= 60.;
-  self.icon.origin = {leftOffset, topOffset};
-  [self.textContainer setMinX:textOffset];
 }
 
 - (IBAction)cellTap

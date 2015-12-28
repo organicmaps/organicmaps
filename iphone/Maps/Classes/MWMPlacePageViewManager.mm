@@ -3,6 +3,7 @@
 #import "MapsAppDelegate.h"
 #import "MWMActivityViewController.h"
 #import "MWMAPIBar.h"
+#import "MWMAuthorizationCommon.h"
 #import "MWMBasePlacePageView.h"
 #import "MWMDirectionView.h"
 #import "MWMiPadPlacePage.h"
@@ -83,10 +84,16 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   NSAssert(userMark, @"userMark cannot be nil");
   m_userMark = move(userMark);
   [[MapsAppDelegate theApp].m_locationManager start:self];
+//  [self.entity enableEditing];
+
+  [self reloadPlacePage];
+}
+
+- (void)reloadPlacePage
+{
+  if (!m_userMark)
+    return;
   self.entity = [[MWMPlacePageEntity alloc] initWithUserMark:m_userMark->GetUserMark()];
-
-  [self.entity enableEditing];
-
   self.state = MWMPlacePageManagerStateOpen;
   if (IPAD)
     [self setPlacePageForiPad];
@@ -277,9 +284,23 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   m_userMark.reset(new UserMarkCopy(bookmark, false));
 }
 
-- (void)editPlace
+- (void)editPlaceTime
 {
-  [self.ownerViewController performSegueWithIdentifier:@"Map2PlacePageEditor" sender:self.entity];
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  NSString * username = [ud stringForKey:kOSMUsernameKey];
+  NSString * password = [ud stringForKey:kOSMPasswordKey];
+  if (!username || !password)
+  {
+    [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatEditTime)
+                     withParameters:@{kStatValue : kStatAuthorization}];
+    [self.ownerViewController performSegueWithIdentifier:@"Map2Login" sender:nil];
+  }
+  else
+  {
+    [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatEditTime)
+                     withParameters:@{kStatValue : kStatEdit}];
+    [self.ownerViewController performSegueWithIdentifier:@"Map2OpeningHoursEditor" sender:self.entity];
+  }
 }
 
 - (void)addBookmark

@@ -210,18 +210,23 @@ static CGFloat const kKeyboardOffset = 12.;
 - (void)addBookmark
 {
   [super addBookmark];
-  [self updatePlacePageLayoutAnimated:YES];
+  [self refresh];
 }
 
 - (void)removeBookmark
 {
   [super removeBookmark];
-  [self updatePlacePageLayoutAnimated:YES];
+  [self refresh];
 }
 
 - (void)reloadBookmark
 {
   [super reloadBookmark];
+  [self refresh];
+}
+
+- (void)refresh
+{
   [self updatePlacePageLayoutAnimated:YES];
 }
 
@@ -316,13 +321,13 @@ static CGFloat const kKeyboardOffset = 12.;
 - (void)keyboardWillShow:(NSNotification *)aNotification
 {
   [super keyboardWillShow:aNotification];
-  [self updatePlacePageLayoutAnimated:YES];
+  [self refresh];
 }
 
 - (void)keyboardWillHide
 {
   [super keyboardWillHide];
-  [self updatePlacePageLayoutAnimated:YES];
+  [self refresh];
 }
 
 - (CGFloat)getAvailableHeight

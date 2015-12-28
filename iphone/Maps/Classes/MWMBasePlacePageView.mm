@@ -5,6 +5,7 @@
 #import "MWMPlacePageButtonCell.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageInfoCell.h"
+#import "MWMPlacePageOpeningHoursCell.h"
 #import "MWMPlacePageTypeDescription.h"
 #import "MWMPlacePageViewManager.h"
 #import "Statistics.h"
@@ -13,6 +14,7 @@ static NSString * const kPlacePageLinkCellIdentifier = @"PlacePageLinkCell";
 static NSString * const kPlacePageInfoCellIdentifier = @"PlacePageInfoCell";
 static NSString * const kPlacePageBookmarkCellIdentifier = @"PlacePageBookmarkCell";
 static NSString * const kPlacePageButtonCellIdentifier = @"MWMPlacePageButtonCell";
+static NSString * const kPlacePageOpeningHoursCellIdentifier = @"MWMPlacePageOpeningHoursCell";
 
 static CGFloat const kPlacePageTitleKoefficient = 0.63;
 static CGFloat const kLeftOffset = 16.;
@@ -21,11 +23,14 @@ static CGFloat const kOffsetFromTitleToDistance = 12.;
 static CGFloat const kOffsetFromDistanceToArrow = 8.;
 extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
 
-@interface MWMBasePlacePageView ()
+@interface MWMBasePlacePageView () <MWMPlacePageOpeningHoursCellProtocol>
 
 @property (weak, nonatomic) MWMPlacePageEntity * entity;
 @property (weak, nonatomic) IBOutlet MWMPlacePage * ownerPlacePage;
 @property (nonatomic) MWMPlacePageBookmarkCell * bookmarkSizingCell;
+@property (nonatomic) MWMPlacePageOpeningHoursCell * openingHoursSizingCell;
+
+@property (nonatomic, readwrite) BOOL openingHoursCellExpanded;
 
 @end
 
@@ -49,6 +54,8 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
           forCellReuseIdentifier:kPlacePageBookmarkCellIdentifier];
   [self.featureTable registerNib:[UINib nibWithNibName:kPlacePageButtonCellIdentifier bundle:nil]
           forCellReuseIdentifier:kPlacePageButtonCellIdentifier];
+  [self.featureTable registerNib:[UINib nibWithNibName:kPlacePageOpeningHoursCellIdentifier bundle:nil]
+          forCellReuseIdentifier:kPlacePageOpeningHoursCellIdentifier];
 }
 
 - (void)configureWithEntity:(MWMPlacePageEntity *)entity
@@ -211,6 +218,32 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
   [self setNeedsLayout];
 }
 
+#pragma mark - MWMPlacePageOpeningHoursCellProtocol
+
+- (void)setOpeningHoursCellExpanded:(BOOL)openingHoursCellExpanded forCell:(UITableViewCell *)cell
+{
+  _openingHoursCellExpanded = openingHoursCellExpanded;
+  UITableView * tv = self.featureTable;
+  NSIndexPath * indexPath = [tv indexPathForCell:cell];
+  [CATransaction begin];
+  [tv beginUpdates];
+  [CATransaction setCompletionBlock:^
+  {
+    [self setNeedsLayout];
+    dispatch_async(dispatch_get_main_queue(), ^{ [self.ownerPlacePage refresh]; });
+  }];
+  [tv reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+  [tv endUpdates];
+  [CATransaction commit];
+}
+
+- (void)editPlaceTime
+{
+  [self.ownerPlacePage editPlaceTime];
+}
+
+#pragma mark - Properties
+
 - (MWMPlacePageBookmarkCell *)bookmarkSizingCell
 {
   if (!_bookmarkSizingCell)
@@ -218,6 +251,16 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
                                                          owner:nil
                                                        options:nil] firstObject];
   return _bookmarkSizingCell;
+}
+
+- (MWMPlacePageOpeningHoursCell *)openingHoursSizingCell
+{
+  if (!_openingHoursSizingCell)
+    _openingHoursSizingCell =
+        [[[NSBundle mainBundle] loadNibNamed:kPlacePageOpeningHoursCellIdentifier
+                                       owner:nil
+                                     options:nil] firstObject];
+  return _openingHoursSizingCell;
 }
 
 @end
@@ -232,8 +275,13 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
   if (currentType == MWMPlacePageMetadataTypeBookmark)
   {
     [self.bookmarkSizingCell config:self.ownerPlacePage forHeight:YES];
-    CGFloat height = self.bookmarkSizingCell.cellHeight;
-    return height;
+    return self.bookmarkSizingCell.cellHeight;
+  }
+  else if (currentType == MWMPlacePageMetadataTypeOpenHours)
+  {
+    [self.openingHoursSizingCell configWithInfo:self.entity.metadataValues[indexPath.row]
+                                       delegate:self];
+    return self.openingHoursSizingCell.cellHeight;
   }
   else if (currentType == MWMPlacePageMetadataTypeEditButton)
   {
@@ -266,6 +314,14 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
     MWMPlacePageBookmarkCell * cell = (MWMPlacePageBookmarkCell *)[tableView dequeueReusableCellWithIdentifier:kPlacePageBookmarkCellIdentifier];
 
     [cell config:self.ownerPlacePage forHeight:NO];
+    return cell;
+  }
+  else if (currentType == MWMPlacePageMetadataTypeOpenHours)
+  {
+    MWMPlacePageOpeningHoursCell * cell = (MWMPlacePageOpeningHoursCell *)
+        [tableView dequeueReusableCellWithIdentifier:kPlacePageOpeningHoursCellIdentifier];
+    [cell configWithInfo:self.entity.metadataValues[indexPath.row]
+                delegate:self];
     return cell;
   }
   else if (currentType == MWMPlacePageMetadataTypeEditButton)
