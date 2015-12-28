@@ -45,7 +45,7 @@ public class TrackRecorderWakeService extends IntentService
     WakefulBroadcastReceiver.completeWakefulIntent(intent);
   }
 
-  public synchronized static void start()
+  public static void start()
   {
     TrackRecorder.log("SVC.start()");
 
@@ -55,7 +55,7 @@ public class TrackRecorderWakeService extends IntentService
       TrackRecorder.log("SVC.start() SKIPPED because (sService != null)");
   }
 
-  public synchronized static void stop()
+  public static void stop()
   {
     TrackRecorder.log("SVC.stop()");
 

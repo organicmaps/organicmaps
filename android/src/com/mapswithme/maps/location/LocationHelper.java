@@ -52,7 +52,7 @@ public enum LocationHelper implements SensorEventListener
 
   private final Listeners<LocationListener> mListeners = new Listeners<>();
 
-  private volatile boolean mActive;
+  private boolean mActive;
 
   private Location mLastLocation;
   private MapObject.MyPosition mMyPosition;
@@ -146,11 +146,7 @@ public enum LocationHelper implements SensorEventListener
       mLocationProvider = new AndroidNativeProvider();
     }
 
-    synchronized (mListeners)
-    {
-      mActive = !mListeners.isEmpty();
-    }
-
+    mActive = !mListeners.isEmpty();
     if (mActive)
       mLocationProvider.startUpdates();
   }
@@ -184,70 +180,57 @@ public enum LocationHelper implements SensorEventListener
     notifyLocationUpdated();
   }
 
-  private void notifyLocationUpdated()
+  protected void notifyLocationUpdated()
   {
     if (mLastLocation == null)
       return;
 
-    synchronized (mListeners)
-    {
-      for (LocationListener listener : mListeners)
-        listener.onLocationUpdated(mLastLocation);
-      mListeners.finishIterate();
-    }
+    for (LocationListener listener : mListeners)
+      listener.onLocationUpdated(mLastLocation);
+    mListeners.finishIterate();
   }
 
   protected void notifyLocationError(int errCode)
   {
-    synchronized (mListeners)
-    {
-      for (LocationListener listener : mListeners)
-        listener.onLocationError(errCode);
-      mListeners.finishIterate();
-    }
+    for (LocationListener listener : mListeners)
+      listener.onLocationError(errCode);
+    mListeners.finishIterate();
   }
 
   private void notifyCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
-    synchronized (mListeners)
-    {
-      for (LocationListener listener : mListeners)
-        listener.onCompassUpdated(time, magneticNorth, trueNorth, accuracy);
-      mListeners.finishIterate();
-    }
+    for (LocationListener listener : mListeners)
+      listener.onCompassUpdated(time, magneticNorth, trueNorth, accuracy);
+    mListeners.finishIterate();
   }
 
+  @android.support.annotation.UiThread
   public void addLocationListener(LocationListener listener, boolean forceUpdate)
   {
     UiThread.cancelDelayedTasks(mStopLocationTask);
 
-    synchronized (mListeners)
+    if (mListeners.isEmpty())
     {
-      if (mListeners.isEmpty())
-      {
-        mActive = true;
-        mLocationProvider.startUpdates();
-      }
-
-      mListeners.register(listener);
+      mActive = true;
+      mLocationProvider.startUpdates();
     }
+
+    mListeners.register(listener);
 
     if (forceUpdate)
       notifyLocationUpdated();
   }
 
+  @android.support.annotation.UiThread
   public void removeLocationListener(LocationListener listener)
   {
-    synchronized (mListeners)
-    {
-      boolean wasEmpty = mListeners.isEmpty();
-      mListeners.unregister(listener);
+    boolean wasEmpty = mListeners.isEmpty();
+    mListeners.unregister(listener);
 
-      if (!wasEmpty && mListeners.isEmpty())
-        // Make a delay with disconnection from location providers, so that orientation changes and short app sleeps
-        // doesn't take long time to connect again.
-        UiThread.runLater(mStopLocationTask, STOP_DELAY_MS);
-    }
+    if (!wasEmpty && mListeners.isEmpty())
+      // Make a delay with disconnection from location providers, so that orientation changes and short app sleeps
+      // doesn't take long time to connect again.
+      UiThread.runLater(mStopLocationTask, STOP_DELAY_MS);
   }
 
   void registerSensorListeners()
@@ -326,11 +309,8 @@ public enum LocationHelper implements SensorEventListener
       return;
 
     mLocationProvider.stopUpdates();
-    synchronized (mListeners)
-    {
-      if (!mListeners.isEmpty())
-        mLocationProvider.startUpdates();
-    }
+    if (!mListeners.isEmpty())
+      mLocationProvider.startUpdates();
   }
 
   public static void onLocationUpdated(@NonNull Location location)

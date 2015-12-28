@@ -172,17 +172,35 @@ public final class TrackRecorder
 
   static void onServiceStarted()
   {
-    TrackRecorder.log("onServiceStarted()");
-    LocationHelper.INSTANCE.addLocationListener(sLocationListener, false);
+    TrackRecorder.log("onServiceStarted(). Scheduled to be run on UI thread...");
+
+    UiThread.run(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        TrackRecorder.log("onServiceStarted(): actually runs here");
+        LocationHelper.INSTANCE.addLocationListener(sLocationListener, false);
+      }
+    });
   }
 
   static void onServiceStopped()
   {
-    TrackRecorder.log("onServiceStopped()");
-    LocationHelper.INSTANCE.removeLocationListener(sLocationListener);
+    TrackRecorder.log("onServiceStopped(). Scheduled to be run on UI thread...");
 
-    if (!MwmApplication.backgroundTracker().isForeground())
-      restartAlarmIfEnabled();
+    UiThread.run(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        TrackRecorder.log("onServiceStopped(): actually runs here");
+        LocationHelper.INSTANCE.removeLocationListener(sLocationListener);
+
+        if (!MwmApplication.backgroundTracker().isForeground())
+          restartAlarmIfEnabled();
+      }
+    });
   }
 
   static void log(String message)
