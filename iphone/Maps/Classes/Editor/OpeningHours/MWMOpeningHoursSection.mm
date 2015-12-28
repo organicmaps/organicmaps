@@ -1,3 +1,4 @@
+#import "MWMOpeningHoursCommon.h"
 #import "MWMOpeningHoursSection.h"
 #import "MWMOpeningHoursTableViewCell.h"
 
@@ -116,12 +117,7 @@ using namespace osmoh;
   TTimeTableProxy tt = [self getTimeTableProxy];
   NSUInteger const index = isClosed ? [self closedTimeIndex:row] : 0;
   Timespan span = isClosed ? tt.GetExcludeTime()[index] : tt.GetOpeningTime();
-  Time const & t = isStart ? span.GetStart() : span.GetEnd();
-
-  NSDateComponents * time = [[NSDateComponents alloc] init];
-  time.hour = t.GetHoursCount();
-  time.minute = t.GetMinutesCount();
-  return time;
+  return dateComponentsFromTime(isStart ? span.GetStart() : span.GetEnd());
 }
 
 - (void)setTime:(NSDateComponents *)time isStart:(BOOL)isStart isClosed:(BOOL)isClosed

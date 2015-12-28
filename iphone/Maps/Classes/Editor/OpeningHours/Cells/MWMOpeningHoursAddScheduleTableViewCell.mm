@@ -1,4 +1,5 @@
 #import "MWMOpeningHoursAddScheduleTableViewCell.h"
+#import "MWMOpeningHoursCommon.h"
 #import "MWMOpeningHoursEditorViewController.h"
 
 @interface MWMOpeningHoursAddScheduleTableViewCell ()
@@ -14,6 +15,13 @@
   return 84.0;
 }
 
+- (void)refresh
+{
+  NSString * title = [NSString stringWithFormat:@"%@ %@", L(@"add_schedule_for"),
+                      stringFromOpeningDays([self.model unhandledDays])];
+  [self.addScheduleButton setTitle:title forState:UIControlStateNormal];
+}
+
 #pragma mark - Actions
 
 - (IBAction)addScheduleTap
@@ -26,9 +34,7 @@
 - (void)setModel:(MWMOpeningHoursModel *)model
 {
   _model = model;
-  NSString * unhandledDays = [model.unhandledDays componentsJoinedByString:@", "];
-  NSString * title = [NSString stringWithFormat:@"%@ %@", L(@"add_schedule_for"), unhandledDays];
-  [self.addScheduleButton setTitle:title forState:UIControlStateNormal];
+  [self refresh];
 }
 
 @end

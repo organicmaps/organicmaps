@@ -1,24 +1,26 @@
+#import "MWMOpeningHoursCommon.h"
 #import "MWMOpeningHoursModel.h"
 #import "MWMOpeningHoursSection.h"
 
 #include "editor/opening_hours_ui.hpp"
+#include "editor/ui2oh.hpp"
 
 extern UITableViewRowAnimation const kMWMOpeningHoursEditorRowAnimation = UITableViewRowAnimationFade;
 
 @interface MWMOpeningHoursModel () <MWMOpeningHoursSectionProtocol>
 
-@property (weak, nonatomic, readwrite) UITableView * tableView;
+@property (weak, nonatomic) id<MWMOpeningHoursModelProtocol> delegate;
 
 @property (nonatomic) NSMutableArray<MWMOpeningHoursSection *> * sections;
 
 @end
 
-using namespace editor::ui;
+using namespace editor;
 using namespace osmoh;
 
 @implementation MWMOpeningHoursModel
 {
-  TimeTableSet timeTableSet;
+  ui::TimeTableSet timeTableSet;
 }
 
 - (instancetype _Nullable)initWithDelegate:(id<MWMOpeningHoursModelProtocol> _Nonnull)delegate
@@ -26,10 +28,8 @@ using namespace osmoh;
   self = [super init];
   if (self)
   {
-    _tableView = delegate.tableView;
-    _sections = [NSMutableArray arrayWithCapacity:timeTableSet.Size()];
-    while (self.sections.count < timeTableSet.Size())
-      [self addSection];
+    self.delegate = delegate;
+    self.isSimpleMode = self.isSimpleModeCapable;
   }
   return self;
 }
@@ -38,8 +38,6 @@ using namespace osmoh;
 {
   [self.sections addObject:[[MWMOpeningHoursSection alloc] initWithDelegate:self]];
   [self refreshSectionsIndexes];
-  NSIndexSet * set = [[NSIndexSet alloc] initWithIndex:self.count - 1];
-  [self.tableView reloadSections:set withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
 }
 
 - (void)refreshSectionsIndexes
@@ -56,6 +54,8 @@ using namespace osmoh;
   NSAssert(self.canAddSection, @"Can not add schedule");
   timeTableSet.Append(timeTableSet.GetComplementTimeTable());
   [self addSection];
+  [self.tableView reloadSections:[[NSIndexSet alloc] initWithIndex:self.sections.count - 1]
+                withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
   NSAssert(timeTableSet.Size() == self.sections.count, @"Inconsistent state");
   [self.sections[self.sections.count - 1] scrollIntoView];
 }
@@ -69,13 +69,16 @@ using namespace osmoh;
   [self refreshSectionsIndexes];
   if (needRealDelete)
   {
-    NSIndexSet * set = [[NSIndexSet alloc] initWithIndex:index];
-    [self.tableView deleteSections:set withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
+    [self.tableView deleteSections:[[NSIndexSet alloc] initWithIndex:index]
+                  withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
+    [self.tableView reloadSections:[[NSIndexSet alloc] initWithIndex:self.count]
+                  withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
   }
   else
   {
-    NSIndexSet * set = [[NSIndexSet alloc] initWithIndexesInRange:{index, self.count - index + 1}];
-    [self.tableView reloadSections:set withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
+    NSRange reloadRange = {index, self.count - index + 1};
+    [self.tableView reloadSections:[[NSIndexSet alloc] initWithIndexesInRange:reloadRange]
+                  withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
   }
 }
 
@@ -88,7 +91,7 @@ using namespace osmoh;
   }
 }
 
-- (TTimeTableProxy)getTimeTableProxy:(NSUInteger)index
+- (ui::TTimeTableProxy)getTimeTableProxy:(NSUInteger)index
 {
   NSAssert(index < self.count, @"Invalid section index");
   return timeTableSet.Get(index);
@@ -122,6 +125,18 @@ using namespace osmoh;
   return self.sections[section].numberOfRows;
 }
 
+- (ui::TOpeningDays)unhandledDays
+{
+  return timeTableSet.GetUnhandledDays();
+}
+
+- (void)updateOpeningHours
+{
+  stringstream sstr;
+  sstr << MakeOpeningHours(timeTableSet).GetRule();
+  self.delegate.openingHours = @(sstr.str().c_str());
+}
+
 #pragma mark - Properties
 
 - (NSUInteger)count
@@ -135,30 +150,50 @@ using namespace osmoh;
   return !timeTableSet.GetUnhandledDays().empty();
 }
 
-- (NSArray<NSString *> *)unhandledDays
+- (UITableView *)tableView
 {
-  auto const unhandledDays = timeTableSet.GetUnhandledDays();
-  NSCalendar * cal = [NSCalendar currentCalendar];
-  cal.locale = [NSLocale currentLocale];
-  NSUInteger const firstWeekday = [cal firstWeekday] - 1;
-  Weekday (^day2Weekday)(NSUInteger) = ^Weekday(NSUInteger day)
-  {
-    NSUInteger idx = day + 1;
-    if (idx > static_cast<NSUInteger>(Weekday::Saturday))
-      idx -= static_cast<NSUInteger>(Weekday::Saturday);
-    return static_cast<Weekday>(idx);
-  };
+  return self.delegate.tableView;
+}
 
-  NSArray<NSString *> * weekdaySymbols = cal.shortStandaloneWeekdaySymbols;
-  NSMutableArray<NSString *> * dayNames = [NSMutableArray arrayWithCapacity:unhandledDays.size()];
-  NSUInteger const weekDaysCount = 7;
-  for (NSUInteger i = 0, day = firstWeekday; i < weekDaysCount; ++i, ++day)
+- (BOOL)isValid
+{
+  return osmoh::OpeningHours(self.delegate.openingHours.UTF8String).IsValid();
+}
+
+- (void)setIsSimpleMode:(BOOL)isSimpleMode
+{
+  if (_isSimpleMode == isSimpleMode)
+    return;
+  _isSimpleMode = isSimpleMode;
+  id<MWMOpeningHoursModelProtocol> delegate = self.delegate;
+  if (isSimpleMode && MakeTimeTableSet(osmoh::OpeningHours(delegate.openingHours.UTF8String), timeTableSet))
   {
-    Weekday const wd = day2Weekday(day);
-    if (unhandledDays.find(wd) != unhandledDays.end())
-      [dayNames addObject:weekdaySymbols[static_cast<NSInteger>(wd) - 1]];
+    _isSimpleMode = YES;
+    delegate.tableView.hidden = NO;
+    delegate.advancedEditor.hidden = YES;
+    [delegate.toggleModeButton setTitle:L(@"advanced_mode") forState:UIControlStateNormal];
+    _sections = [NSMutableArray arrayWithCapacity:timeTableSet.Size()];
+    while (self.sections.count < timeTableSet.Size())
+      [self addSection];
+    [delegate.tableView reloadData];
   }
-  return dayNames;
+  else
+  {
+    _isSimpleMode = NO;
+    [self updateOpeningHours];
+    delegate.tableView.hidden = YES;
+    delegate.advancedEditor.hidden = NO;
+    [delegate.toggleModeButton setTitle:L(@"simple_mode") forState:UIControlStateNormal];
+    MWMTextView * ev = delegate.editorView;
+    ev.text = delegate.openingHours;
+    [ev becomeFirstResponder];
+  }
+}
+
+- (BOOL)isSimpleModeCapable
+{
+  ui::TimeTableSet tts;
+  return MakeTimeTableSet(osmoh::OpeningHours(self.delegate.openingHours.UTF8String), tts);
 }
 
 @end
