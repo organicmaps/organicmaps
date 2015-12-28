@@ -2,6 +2,7 @@
 #include "drape/glfunctions.hpp"
 #include "drape/glextensions_list.hpp"
 #include "drape/index_storage.hpp"
+#include "drape/support_manager.hpp"
 
 #include "base/stl_add.hpp"
 #include "base/assert.hpp"
@@ -17,6 +18,10 @@ VertexArrayBuffer::VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBuff
   , m_moveToGpuOnBuild(false)
 {
   m_indexBuffer = make_unique_dp<IndexBuffer>(indexBufferSize);
+
+  // Adreno 200 GPUs aren't able to share OpenGL resources between 2 OGL-contexts correctly,
+  // so we have to create and destroy VBO on one context.
+  m_moveToGpuOnBuild = SupportManager::Instance().IsAdreno200Device();
 }
 
 VertexArrayBuffer::~VertexArrayBuffer()

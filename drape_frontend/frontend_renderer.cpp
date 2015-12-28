@@ -6,6 +6,7 @@
 #include "drape_frontend/user_mark_shapes.hpp"
 
 #include "drape/debug_rect_renderer.hpp"
+#include "drape/support_manager.hpp"
 
 #include "drape/utils/glyph_usage_tracker.hpp"
 #include "drape/utils/gpu_mem_tracker.hpp"
@@ -941,6 +942,8 @@ void FrontendRenderer::Routine::Do()
   context->makeCurrent();
   GLFunctions::Init();
   GLFunctions::AttachCache(this_thread::get_id());
+
+  dp::SupportManager::Instance().Init();
 
   GLFunctions::glPixelStore(gl_const::GLUnpackAlignment, 1);
   GLFunctions::glEnable(gl_const::GLDepthTest);
