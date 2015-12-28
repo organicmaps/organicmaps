@@ -512,21 +512,33 @@ void InitLocalizedStrings()
   [self.mapViewController setMapStyle: mapStyle];
 }
 
-+ (void)customizeAppearance
+ (NSDictionary *)navigationBarTextAttributes
 {
-  NSDictionary * attributes = @{
+  return @{
     NSForegroundColorAttributeName : [UIColor whitePrimaryText],
     NSFontAttributeName : [UIFont regular18]
   };
+}
 
-  UINavigationBar * navBar = [UINavigationBar appearance];
-  navBar.tintColor = [UIColor primary];
-  navBar.barTintColor = [UIColor primary];
-  navBar.shadowImage = [UIImage imageWithColor:[UIColor fadeBackground]];
-  navBar.titleTextAttributes = attributes;
+- (void)customizeAppearanceForNavigationBar:(UINavigationBar *)navigationBar
+{
+  navigationBar.tintColor = [UIColor primary];
+  navigationBar.barTintColor = [UIColor primary];
+  [navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+  navigationBar.shadowImage = [UIImage imageWithColor:[UIColor fadeBackground]];
+  navigationBar.titleTextAttributes = [self navigationBarTextAttributes];
+  navigationBar.translucent = NO;
+}
+
+- (void)customizeAppearance
+{
+  [self customizeAppearanceForNavigationBar:[UINavigationBar appearance]];
 
   UIBarButtonItem * barBtn = [UIBarButtonItem appearance];
-  [barBtn setTitleTextAttributes:attributes forState:UIControlStateNormal];
+  [barBtn setTitleTextAttributes:[self navigationBarTextAttributes] forState:UIControlStateNormal];
+  [barBtn setTitleTextAttributes:@{
+    NSForegroundColorAttributeName : [UIColor lightGrayColor],
+  } forState:UIControlStateDisabled];
   barBtn.tintColor = [UIColor whitePrimaryText];
 
   UIPageControl * pageControl = [UIPageControl appearance];
@@ -534,6 +546,7 @@ void InitLocalizedStrings()
   pageControl.currentPageIndicatorTintColor = [UIColor blackSecondaryText];
   pageControl.backgroundColor = [UIColor white];
 }
+
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
