@@ -9,12 +9,13 @@
 #include "indexer/feature_decl.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/index.hpp"
-#include "indexer/mercator.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
 
 #include "platform/preferred_languages.hpp"
+
+#include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
