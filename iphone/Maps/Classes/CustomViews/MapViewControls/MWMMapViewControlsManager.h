@@ -35,6 +35,7 @@
 
 - (void)dismissPlacePage;
 - (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark;
+- (void)reloadPlacePage;
 
 #pragma mark - MWMNavigationDashboardManager
 
