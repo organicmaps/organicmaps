@@ -182,6 +182,15 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       {
         m2::AnyRectD dstRect = GetTargetRect();
         dstRect.SetAngle(e.m_rotate.m_targetAzimut);
+        if (m_navigator.Screen().isPerspective())
+        {
+          ScreenBase const & screen = m_navigator.Screen();
+          ScreenBase screenNew = screen;
+          screenNew.SetAngle(e.m_rotate.m_targetAzimut);
+
+          m2::PointD const screenCenter = screen.P3dtoP(screen.PixelRectIn3d().Center());
+          dstRect.Offset(screen.PtoG(screenCenter) - screenNew.PtoG(screenCenter));
+        }
         breakAnim = SetRect(dstRect, true);
       }
       break;
