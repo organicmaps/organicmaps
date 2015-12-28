@@ -74,6 +74,8 @@ private:
 
   ref_ptr<DataBufferBase> GetIndexBuffer() const;
 
+  void PreflushImpl();
+
 private:
   /// m_VAO - VertexArrayObject name/identificator
   int m_VAO;
@@ -84,6 +86,9 @@ private:
   uint32_t m_dataBufferSize;
 
   ref_ptr<GpuProgram> m_program;
+
+  bool m_isPreflushed;
+  bool m_moveToGpuOnBuild;
 };
 
 } // namespace dp

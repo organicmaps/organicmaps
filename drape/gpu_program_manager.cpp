@@ -1,5 +1,6 @@
 #include "drape/gpu_program_manager.hpp"
 #include "drape/shader_def.hpp"
+#include "drape/support_manager.hpp"
 
 #include "base/stl_add.hpp"
 #include "base/assert.hpp"
@@ -42,10 +43,6 @@ GpuProgramManager::~GpuProgramManager()
 
 void GpuProgramManager::Init()
 {
-  string const renderer = GLFunctions::glGetString(gl_const::GLRenderer);
-  string const version = GLFunctions::glGetString(gl_const::GLVersion);
-  LOG(LINFO, ("Renderer =", renderer, "Version =", version));
-
   // This feature is not supported on some Android devices (especially on Android 4.x version).
   // Since we can't predict on which devices it'll work fine, we have to turn off for all devices.
 #if !defined(OMIM_OS_ANDROID)
@@ -56,13 +53,8 @@ void GpuProgramManager::Init()
   }
 #endif
 
-  bool const isSamsungGoogleNexus = (renderer == "PowerVR SGX 540" &&
-                                     version.find("GOOGLENEXUS.ED945322") != string::npos);
-  if (isSamsungGoogleNexus)
-  {
-    LOG(LINFO, ("Samsung Google Nexus detected."));
+  if (SupportManager::Instance().IsSamsungGoogleNexus())
     m_globalDefines.append("#define SAMSUNG_GOOGLE_NEXUS\n");
-  }
 }
 
 ref_ptr<GpuProgram> GpuProgramManager::GetProgram(int index)
