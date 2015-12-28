@@ -11,6 +11,10 @@
 		341138791C15AE42002E3B3E /* opening_hours_ui.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 341138751C15AE42002E3B3E /* opening_hours_ui.hpp */; };
 		3411387A1C15AE42002E3B3E /* ui2oh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 341138761C15AE42002E3B3E /* ui2oh.cpp */; };
 		3411387B1C15AE42002E3B3E /* ui2oh.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 341138771C15AE42002E3B3E /* ui2oh.hpp */; };
+		347C71281C295B1100BE9208 /* xml_feature.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 347C71261C295B1100BE9208 /* xml_feature.cpp */; };
+		347C71291C295B1100BE9208 /* xml_feature.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347C71271C295B1100BE9208 /* xml_feature.hpp */; };
+		34FFB34C1C316A7600BFF6C3 /* server_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34FFB34A1C316A7600BFF6C3 /* server_api.cpp */; };
+		34FFB34D1C316A7600BFF6C3 /* server_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34FFB34B1C316A7600BFF6C3 /* server_api.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +24,10 @@
 		341138751C15AE42002E3B3E /* opening_hours_ui.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opening_hours_ui.hpp; sourceTree = "<group>"; };
 		341138761C15AE42002E3B3E /* ui2oh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ui2oh.cpp; sourceTree = "<group>"; };
 		341138771C15AE42002E3B3E /* ui2oh.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ui2oh.hpp; sourceTree = "<group>"; };
+		347C71261C295B1100BE9208 /* xml_feature.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xml_feature.cpp; sourceTree = "<group>"; };
+		347C71271C295B1100BE9208 /* xml_feature.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = xml_feature.hpp; sourceTree = "<group>"; };
+		34FFB34A1C316A7600BFF6C3 /* server_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = server_api.cpp; sourceTree = "<group>"; };
+		34FFB34B1C316A7600BFF6C3 /* server_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = server_api.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +61,10 @@
 		341138731C15AE02002E3B3E /* Editor */ = {
 			isa = PBXGroup;
 			children = (
+				347C71261C295B1100BE9208 /* xml_feature.cpp */,
+				34FFB34A1C316A7600BFF6C3 /* server_api.cpp */,
+				34FFB34B1C316A7600BFF6C3 /* server_api.hpp */,
+				347C71271C295B1100BE9208 /* xml_feature.hpp */,
 				341138741C15AE42002E3B3E /* opening_hours_ui.cpp */,
 				341138751C15AE42002E3B3E /* opening_hours_ui.hpp */,
 				341138761C15AE42002E3B3E /* ui2oh.cpp */,
@@ -69,6 +81,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34FFB34D1C316A7600BFF6C3 /* server_api.hpp in Headers */,
+				347C71291C295B1100BE9208 /* xml_feature.hpp in Headers */,
 				3411387B1C15AE42002E3B3E /* ui2oh.hpp in Headers */,
 				341138791C15AE42002E3B3E /* opening_hours_ui.hpp in Headers */,
 			);
@@ -130,8 +144,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				347C71281C295B1100BE9208 /* xml_feature.cpp in Sources */,
 				341138781C15AE42002E3B3E /* opening_hours_ui.cpp in Sources */,
 				3411387A1C15AE42002E3B3E /* ui2oh.cpp in Sources */,
+				34FFB34C1C316A7600BFF6C3 /* server_api.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,6 +272,7 @@
 				341138711C15AD97002E3B3E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
