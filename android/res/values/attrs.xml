@@ -26,5 +26,6 @@
     <attr name="progress" format="integer"/>
   </declare-styleable>
 
+  <bool name="isTablet">false</bool>
   <bool name="tabletLayout">false</bool>
 </resources>
