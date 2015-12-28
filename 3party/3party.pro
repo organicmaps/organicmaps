@@ -7,7 +7,7 @@ TEMPLATE = subdirs
   CONFIG *= desktop
 }
 
-SUBDIRS = freetype fribidi minizip jansson tomcrypt protobuf osrm expat succinct pugixml
+SUBDIRS = freetype fribidi minizip jansson tomcrypt protobuf osrm expat succinct pugixml liboauthcpp
 
 # TODO(mgsrergio): Move opening hours out of 3party to the main project tree.
 # See https://trello.com/c/tWYSnXSS/22-opening-hours-3party-boost-test-framework.
