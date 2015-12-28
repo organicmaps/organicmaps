@@ -13,6 +13,8 @@ VertexArrayBuffer::VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBuff
   : m_VAO(0)
   , m_dataBufferSize(dataBufferSize)
   , m_program()
+  , m_isPreflushed(false)
+  , m_moveToGpuOnBuild(false)
 {
   m_indexBuffer = make_unique_dp<IndexBuffer>(indexBufferSize);
 }
@@ -35,7 +37,15 @@ VertexArrayBuffer::~VertexArrayBuffer()
 
 void VertexArrayBuffer::Preflush()
 {
-  /// buffers are ready, so moving them from CPU to GPU
+  if (!m_moveToGpuOnBuild)
+    PreflushImpl();
+}
+
+void VertexArrayBuffer::PreflushImpl()
+{
+  ASSERT(!m_isPreflushed, ());
+
+  // Buffers are ready, so moving them from CPU to GPU.
   for(auto & buffer : m_staticBuffers)
     buffer.second->MoveToGPU(GPUBuffer::ElementBuffer);
 
@@ -47,6 +57,8 @@ void VertexArrayBuffer::Preflush()
 
   GLFunctions::glBindBuffer(0, gl_const::GLElementArrayBuffer);
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
+
+  m_isPreflushed = true;
 }
 
 void VertexArrayBuffer::Render()
@@ -74,6 +86,9 @@ void VertexArrayBuffer::RenderRange(IndicesRange const & range)
 
 void VertexArrayBuffer::Build(ref_ptr<GpuProgram> program)
 {
+  if (m_moveToGpuOnBuild && !m_isPreflushed)
+    PreflushImpl();
+
   ASSERT(m_VAO == 0 && m_program == nullptr, ("No-no-no! You can't rebuild VertexArrayBuffer"));
   m_program = program;
   /// if OES_vertex_array_object not supported, than buffers will be bind on each Render call
