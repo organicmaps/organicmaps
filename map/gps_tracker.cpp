@@ -20,8 +20,7 @@ size_t constexpr kMaxItemCount = 200000; // > 48h with 1point/s
 
 inline string GetFilePath()
 {
-  string const fileName = string(GPS_TRACK_FILENAME) + "." + GPS_TRACK_VERSION;
-  return my::JoinFoldersToPath(GetPlatform().WritableDir(), fileName);
+  return my::JoinFoldersToPath(GetPlatform().WritableDir(), GPS_TRACK_FILENAME);
 }
 
 inline bool GetSettingsIsEnabled()
