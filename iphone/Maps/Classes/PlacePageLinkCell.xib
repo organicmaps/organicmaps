@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -14,48 +14,47 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="DT5-2i-vCG">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DT5-2i-vCG">
                         <rect key="frame" x="16" y="8" width="28" height="28"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlue"/>
-                        </userDefinedRuntimeAttributes>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="28" id="vLS-Ha-Cbl"/>
+                            <constraint firstAttribute="height" constant="28" id="vvn-a9-Lfo"/>
+                        </constraints>
                     </imageView>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" id="T5l-Sb-Hfo">
-                        <rect key="frame" x="60" y="4" width="244" height="35"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T5l-Sb-Hfo">
+                        <rect key="frame" x="60" y="0.0" width="228" height="42"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <inset key="contentInset" minX="-4" minY="2" maxX="0.0" maxY="0.0"/>
                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="tintColorName" value="linkBlue"/>
-                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="delegate" destination="DKh-ne-anv" id="KQo-Mn-gqx"/>
                         </connections>
                     </textView>
-                    <view contentMode="scaleToFill" id="ZSw-Rd-B64">
-                        <rect key="frame" x="60" y="43" width="260" height="1"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZSw-Rd-B64" userLabel="Separator">
+                        <rect key="frame" x="60" y="42" width="260" height="1"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
-                        </userDefinedRuntimeAttributes>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="hIQ-vD-PeI"/>
+                        </constraints>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                <userDefinedRuntimeAttributes>
-                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-                </userDefinedRuntimeAttributes>
+                <constraints>
+                    <constraint firstItem="ZSw-Rd-B64" firstAttribute="top" secondItem="T5l-Sb-Hfo" secondAttribute="bottom" id="9BA-P2-SVl"/>
+                    <constraint firstItem="T5l-Sb-Hfo" firstAttribute="leading" secondItem="M4j-cz-kSo" secondAttribute="leading" constant="60" id="9CI-ss-zAr"/>
+                    <constraint firstItem="DT5-2i-vCG" firstAttribute="centerY" secondItem="M4j-cz-kSo" secondAttribute="centerY" id="MX4-xc-kFl"/>
+                    <constraint firstItem="T5l-Sb-Hfo" firstAttribute="top" secondItem="M4j-cz-kSo" secondAttribute="top" id="Vw0-bf-uUe"/>
+                    <constraint firstAttribute="bottom" secondItem="ZSw-Rd-B64" secondAttribute="bottom" id="bJ8-qw-Eah"/>
+                    <constraint firstItem="ZSw-Rd-B64" firstAttribute="leading" secondItem="M4j-cz-kSo" secondAttribute="leading" constant="60" id="d7O-pD-dIE"/>
+                    <constraint firstItem="DT5-2i-vCG" firstAttribute="leading" secondItem="M4j-cz-kSo" secondAttribute="leading" constant="16" id="gle-Hg-xi1"/>
+                    <constraint firstAttribute="trailing" secondItem="ZSw-Rd-B64" secondAttribute="trailing" id="n1d-lY-EC3"/>
+                    <constraint firstAttribute="trailing" secondItem="T5l-Sb-Hfo" secondAttribute="trailing" constant="32" id="ot9-cN-XF3"/>
+                </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <inset key="separatorInset" minX="48" minY="0.0" maxX="0.0" maxY="0.0"/>
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="icon" destination="DT5-2i-vCG" id="Qu6-7I-lP5"/>
                 <outlet property="textContainer" destination="T5l-Sb-Hfo" id="K2l-dM-fky"/>
