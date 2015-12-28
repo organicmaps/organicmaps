@@ -39,6 +39,7 @@ char const kSuppressOption[] = "--suppress=";
 char const kHelpOption[] = "--help";
 char const kDataPathOptions[] = "--data_path=";
 char const kResourcePathOptions[] = "--user_resource_path=";
+char const kListAllTestsOption[] = "--list_tests";
 
 enum Status
 {
@@ -69,6 +70,7 @@ void Usage(char const * name)
                 "Do not run tests with names corresponding to regexp.");
   DisplayOption(cerr, kDataPathOptions, "<Path>", "Path to data files.");
   DisplayOption(cerr, kResourcePathOptions, "<Path>", "Path to resources, styles and classificators.");
+  DisplayOption(cerr, kListAllTestsOption, "List all the tests in the test suite and exit.");
   DisplayOption(cerr, kHelpOption, "Print this help message and exit.");
 }
 
@@ -87,6 +89,8 @@ void ParseOptions(int argc, char * argv[], CommandLineOptions & options)
       options.m_resourcePath = arg + sizeof(kResourcePathOptions) - 1;
     if (strcmp(arg, kHelpOption) == 0)
       options.m_help = true;
+    if (strcmp(arg, kListAllTestsOption) == 0)
+      options.m_listTests = true;
   }
 }
 }  // namespace
@@ -142,6 +146,13 @@ int main(int argc, char * argv[])
 
     testNames.push_back(fileName + "::" + testName);
     testResults.push_back(true);
+  }
+
+  if (GetTestingOptions().m_listTests)
+  {
+    for (auto const & name : testNames)
+      cout << name << endl;
+    return 0;
   }
 
   int iTest = 0;
