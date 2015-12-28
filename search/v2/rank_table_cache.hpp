@@ -1,13 +1,11 @@
 #pragma once
 
-#include "indexer/mwm_set.hpp"
-
-#include "std/map.hpp"
-#include "std/unique_ptr.hpp"
+#include "indexer/index.hpp"
 
 #include "base/macros.hpp"
 
-class MwmValue;
+#include "std/map.hpp"
+#include "std/unique_ptr.hpp"
 
 namespace search
 {
@@ -17,17 +15,41 @@ namespace v2
 {
 class RankTableCache
 {
+  using TId = MwmSet::MwmId;
+
+  struct TKey : public MwmSet::MwmHandle
+  {
+    TKey() = default;
+    TKey(TKey &&) = default;
+
+    explicit TKey(TId const & id)
+    {
+      this->m_mwmId = id;
+    }
+    explicit TKey(MwmSet::MwmHandle && handle)
+      : MwmSet::MwmHandle(move(handle))
+    {
+    }
+  };
+
 public:
-  RankTableCache();
+  RankTableCache() = default;
 
-  ~RankTableCache();
+  RankTable const & Get(Index & index, TId const & mwmId);
 
-  RankTable const & Get(MwmValue & value, MwmSet::MwmId const & mwmId);
-
+  void Remove(TId const & id);
   void Clear();
 
 private:
-  map<MwmSet::MwmId, unique_ptr<RankTable>> m_ranks;
+  struct Compare
+  {
+    bool operator() (TKey const & r1, TKey const & r2) const
+    {
+      return (r1.GetId() < r2.GetId());
+    }
+  };
+
+  map<TKey, unique_ptr<RankTable>, Compare> m_ranks;
 
   DISALLOW_COPY_AND_MOVE(RankTableCache);
 };

@@ -203,6 +203,7 @@ int main(int argc, char ** argv)
         LOG(LCRITICAL, ("Error generating search index."));
 
       LOG(LINFO, ("Generating rank table for", datFile));
+
       if (!search::RankTableBuilder::CreateIfNotExists(datFile))
         LOG(LCRITICAL, ("Error generating rank table."));
     }

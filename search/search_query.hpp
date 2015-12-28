@@ -4,6 +4,7 @@
 #include "search/retrieval.hpp"
 #include "search/search_trie.hpp"
 #include "search/suggest.hpp"
+#include "search/v2/rank_table_cache.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
@@ -142,14 +143,11 @@ protected:
     void OnMwmProcessed(MwmSet::MwmId const & id) override;
 
   private:
-    RankTable const * LoadTable(MwmSet::MwmId const & id);
-
-    void UnloadTable(MwmSet::MwmId const & id);
 
     Index & m_index;
     Query & m_query;
     ViewportID m_viewportId;
-    map<MwmSet::MwmId, unique_ptr<RankTable>> m_rankTables;
+    search::v2::RankTableCache m_rankTable;
   };
 
   friend class impl::FeatureLoader;

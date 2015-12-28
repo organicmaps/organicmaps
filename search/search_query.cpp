@@ -170,42 +170,21 @@ Query::RetrievalCallback::RetrievalCallback(Index & index, Query & query, Viewpo
 void Query::RetrievalCallback::OnFeaturesRetrieved(MwmSet::MwmId const & id, double scale,
                                                    coding::CompressedBitVector const & features)
 {
-  static DummyRankTable dummyTable;
-
-  auto const * table = LoadTable(id);
-  if (!table)
-  {
-    LOG(LWARNING, ("Can't get rank table for:", id));
-    table = &dummyTable;
-  }
+  auto const & table = m_rankTable.Get(m_index, id);
 
   coding::CompressedBitVectorEnumerator::ForEach(
       features, [&](uint64_t featureId)
       {
         ASSERT_LESS_OR_EQUAL(featureId, numeric_limits<uint32_t>::max(), ());
-        m_query.AddPreResult1(id, static_cast<uint32_t>(featureId), table->Get(featureId), scale,
+        m_query.AddPreResult1(id, static_cast<uint32_t>(featureId), table.Get(featureId), scale,
                               m_viewportId);
       });
 }
 
-void Query::RetrievalCallback::OnMwmProcessed(MwmSet::MwmId const & id) { UnloadTable(id); }
-
-RankTable const * Query::RetrievalCallback::LoadTable(MwmSet::MwmId const & id)
+void Query::RetrievalCallback::OnMwmProcessed(MwmSet::MwmId const & id)
 {
-  auto const it = m_rankTables.find(id);
-  if (it != m_rankTables.end())
-    return it->second.get();
-
-  MwmSet::MwmHandle handle = m_index.GetMwmHandleById(id);
-  ASSERT(handle.IsAlive(), ("Handle should already be held by a retrieval algorithm."));
-
-  auto newTable = RankTable::Load(handle.GetValue<MwmValue>()->m_cont);
-  auto const * table = newTable.get();
-  m_rankTables[id] = move(newTable);
-  return table;
+  m_rankTable.Remove(id);
 }
-
-void Query::RetrievalCallback::UnloadTable(MwmSet::MwmId const & id) { m_rankTables.erase(id); }
 
 // static
 size_t const Query::kPreResultsCount;

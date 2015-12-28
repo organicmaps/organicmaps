@@ -10,6 +10,7 @@
 #include "indexer/data_header.hpp"
 #include "indexer/features_offsets_table.hpp"
 #include "indexer/index_builder.hpp"
+#include "indexer/rank_table.hpp"
 
 #include "platform/local_country_file.hpp"
 
@@ -36,7 +37,6 @@ TestMwmBuilder::~TestMwmBuilder()
   if (m_collector)
     Finish();
   CHECK(!m_collector, ("Features weren't dumped on disk."));
-  FileWriter::DeleteFileX(m_file.GetPath(MapOptions::Map) + EXTENSION_TMP);
 }
 
 void TestMwmBuilder::Add(TestFeature const & feature)
@@ -63,6 +63,7 @@ void TestMwmBuilder::Finish()
   CHECK(indexer::BuildIndexFromDataFile(path, path), ("Can't build geometry index."));
   CHECK(indexer::BuildSearchIndexFromDataFile(path, true /* forceRebuild */),
         ("Can't build search index."));
+  CHECK(search::RankTableBuilder::CreateIfNotExists(path), ());
 
   m_file.SyncWithDisk();
 }

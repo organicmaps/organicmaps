@@ -71,6 +71,7 @@ void SearchQueryV2::AddPreResults1(vector<FeatureID> & results)
     while (ie != results.end() && ie->m_mwmId == ib->m_mwmId)
       ++ie;
 
+    /// @todo Add RankTableCache here?
     MwmSet::MwmHandle handle = m_index.GetMwmHandleById(ib->m_mwmId);
     if (handle.IsAlive())
     {
