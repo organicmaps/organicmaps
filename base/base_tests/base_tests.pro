@@ -30,6 +30,7 @@ SOURCES += \
   stl_add_test.cpp \
   string_format_test.cpp \
   string_utils_test.cpp \
+  sunrise_sunset_test.cpp \
   thread_pool_tests.cpp \
   threaded_list_test.cpp \
   threads_test.cpp \

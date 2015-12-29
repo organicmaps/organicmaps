@@ -21,6 +21,7 @@ SOURCES += \
     string_format.cpp \
     string_utils.cpp \
     strings_bundle.cpp \
+    sunrise_sunset.cpp \
     thread.cpp \
     thread_checker.cpp \
     thread_pool.cpp \
@@ -63,6 +64,7 @@ HEADERS += \
     string_format.hpp \
     string_utils.hpp \
     strings_bundle.hpp \
+    sunrise_sunset.hpp \
     swap.hpp \
     thread.hpp \
     thread_checker.hpp \
