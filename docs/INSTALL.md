@@ -46,7 +46,7 @@ directory, and from within it, run:
 
 Install Qt 5.5:
 
-    sudo add-apt-repository ppa:beineri/opt-qt55-trusty
+    sudo add-apt-repository ppa:beineri/opt-qt551-trusty
     sudo apt-get update
     sudo apt-get install qt55base
 
