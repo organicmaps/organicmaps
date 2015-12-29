@@ -19,17 +19,15 @@ namespace detail
 struct OverlayInfo
 {
   ref_ptr<OverlayHandle> m_handle;
-  bool m_isTransparent = false;
 
   OverlayInfo() = default;
-  OverlayInfo(ref_ptr<OverlayHandle> handle, bool isTransparent)
+  OverlayInfo(ref_ptr<OverlayHandle> handle)
     : m_handle(handle)
-    , m_isTransparent(isTransparent)
   {}
 
   bool operator==(OverlayInfo const & rhs) const
   {
-    return m_handle == rhs.m_handle && m_isTransparent == rhs.m_isTransparent;
+    return m_handle == rhs.m_handle;
   }
 };
 
@@ -57,24 +55,22 @@ public:
   void ForceUpdate();
 
   void StartOverlayPlacing(ScreenBase const & screen);
-  void Add(ref_ptr<OverlayHandle> handle, bool isTransparent);
+  void Add(ref_ptr<OverlayHandle> handle);
   void EndOverlayPlacing();
 
   using TSelectResult = buffer_vector<ref_ptr<OverlayHandle>, 8>;
   void Select(m2::RectD const & rect, TSelectResult & result) const;
 
-  using THandle = pair<ref_ptr<OverlayHandle>, bool>;
-
 private:
   ScreenBase const & GetModelView() const { return m_traits.m_modelView; }
-  void InsertHandle(ref_ptr<OverlayHandle> handle, bool isTransparent,
+  void InsertHandle(ref_ptr<OverlayHandle> handle,
                     detail::OverlayInfo const & parentOverlay);
   bool CheckHandle(ref_ptr<OverlayHandle> handle, int currentRank,
                    detail::OverlayInfo & parentOverlay) const;
   void AddHandleToDelete(detail::OverlayInfo const & overlay);
 
   int m_frameCounter;
-  array<vector<THandle>, dp::OverlayRanksCount> m_handles;
+  array<vector<ref_ptr<OverlayHandle>>, dp::OverlayRanksCount> m_handles;
   vector<detail::OverlayInfo> m_handlesToDelete;
 };
 

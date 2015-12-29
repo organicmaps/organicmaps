@@ -65,10 +65,10 @@ void RenderBucket::Update(ScreenBase const & modelView)
   }
 }
 
-void RenderBucket::CollectOverlayHandles(ref_ptr<OverlayTree> tree, bool isTransparent)
+void RenderBucket::CollectOverlayHandles(ref_ptr<OverlayTree> tree)
 {
   for (drape_ptr<OverlayHandle> const & overlayHandle : m_overlay)
-    tree->Add(make_ref(overlayHandle), isTransparent);
+    tree->Add(make_ref(overlayHandle));
 }
 
 void RenderBucket::Render(ScreenBase const & screen)

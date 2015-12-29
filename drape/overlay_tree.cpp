@@ -17,9 +17,9 @@ namespace
 class HandleComparator
 {
 public:
-  bool operator()(OverlayTree::THandle const & l, OverlayTree::THandle const & r) const
+  bool operator()(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const
   {  
-    return IsGreater(l.first, r.first);
+    return IsGreater(l, r);
   }
 
   bool IsGreater(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const
@@ -83,7 +83,7 @@ void OverlayTree::StartOverlayPlacing(ScreenBase const & screen)
   m_traits.m_modelView = screen;
 }
 
-void OverlayTree::Add(ref_ptr<OverlayHandle> handle, bool isTransparent)
+void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
 {
   ASSERT(IsNeedUpdate(), ());
 
@@ -103,10 +103,10 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle, bool isTransparent)
 
   int const rank = handle->GetOverlayRank();
   ASSERT_LESS(rank, m_handles.size(), ());
-  m_handles[rank].emplace_back(make_pair(handle, isTransparent));
+  m_handles[rank].emplace_back(handle);
 }
 
-void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, bool isTransparent,
+void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
                                detail::OverlayInfo const & parentOverlay)
 {
   ASSERT(IsNeedUpdate(), ());
@@ -121,8 +121,7 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, bool isTransparent
   ForEachInRect(pixelRect, [&] (detail::OverlayInfo const & info)
   {
     bool const isParent = (info == parentOverlay);
-    if (!isParent && isTransparent == info.m_isTransparent &&
-        handle->IsIntersect(modelView, info.m_handle))
+    if (!isParent && handle->IsIntersect(modelView, info.m_handle))
       elements.push_back(info);
   });
 
@@ -162,7 +161,7 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, bool isTransparent
 
   m_handlesToDelete.clear();
 
-  TBase::Add(detail::OverlayInfo(handle, isTransparent), pixelRect);
+  TBase::Add(detail::OverlayInfo(handle), pixelRect);
 }
 
 void OverlayTree::EndOverlayPlacing()
@@ -177,10 +176,10 @@ void OverlayTree::EndOverlayPlacing()
     for (auto const & handle : m_handles[rank])
     {
       detail::OverlayInfo parentOverlay;
-      if (!CheckHandle(handle.first, rank, parentOverlay))
+      if (!CheckHandle(handle, rank, parentOverlay))
         continue;
 
-      InsertHandle(handle.first, handle.second, parentOverlay);
+      InsertHandle(handle, parentOverlay);
     }
 
     m_handles[rank].clear();

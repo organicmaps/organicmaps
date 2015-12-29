@@ -66,7 +66,7 @@ void RenderGroup::CollectOverlay(ref_ptr<dp::OverlayTree> tree)
   ASSERT(m_shader != nullptr, ());
   ASSERT(m_generalUniforms != nullptr, ());
   for (auto & renderBucket : m_renderBuckets)
-    renderBucket->CollectOverlayHandles(tree, false /* isTransparent */);
+    renderBucket->CollectOverlayHandles(tree);
 }
 
 void RenderGroup::Render(ScreenBase const & screen)
