@@ -118,7 +118,6 @@ public class MapPrefsFragment extends BaseXmlSettingsFragment
           return true;
 
         ThemeSwitcher.restart();
-        getActivity().recreate();
         Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.MAP_STYLE,
                                        Statistics.params().add(Statistics.EventParam.NAME, themeName));
         return true;
