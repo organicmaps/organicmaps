@@ -51,7 +51,7 @@
 	<!-- Settings/Downloader - No internet connection dialog title -->
 	<string name="no_internet_connection_detected">Ingen internetanslutning upptäcktes</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<string name="no_wifi_ask_cellular_download">Ingen WiFi-anslutning upptäcktes. Vill du använda mobildata (GPRS, EDGE eller 3G) till att ladda ner %s?</string>
+	<string name="no_wifi_ask_cellular_download">Ingen WiFi-anslutning upptäcktes. Vill du använda mobildata (GPRS, EDGE, 3G eller LTE) till att ladda ner %s?</string>
 	<string name="ok">OK</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">Vänligen aktivera platstjänster</string>

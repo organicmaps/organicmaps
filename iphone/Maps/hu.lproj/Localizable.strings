@@ -83,7 +83,7 @@
 "no_internet_connection_detected" = "Nem találtam internet kapcsolatot";
 
 /* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "Nem találtam WiFi kapcsolatot. Használjunk mobil kapcsolatot (GPRS, EDGE vagy 3G) %@ letöltéséhez?";
+"no_wifi_ask_cellular_download" = "Nem találtam WiFi kapcsolatot. Használjunk mobil kapcsolatot (GPRS, EDGE, 3G vagy LTE) %@ letöltéséhez?";
 
 "ok" = "OK";
 

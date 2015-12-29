@@ -55,7 +55,7 @@
 	<!-- Settings/Downloader - No internet connection dialog title -->
 	<string name="no_internet_connection_detected">Không có kết nối Internet</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<string name="no_wifi_ask_cellular_download">Không có kết nối WiFi. Bạn có muốn sử dụng dữ liệu di động (GPRS, EDGE hoặc 3G) để tải xuống %s không?</string>
+	<string name="no_wifi_ask_cellular_download">Không có kết nối WiFi. Bạn có muốn sử dụng dữ liệu di động (GPRS, EDGE, 3G hoặc LTE) để tải xuống %s không?</string>
 	<string name="ok">OK</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">Bạn vui lòng bật Dịch vụ Định vị</string>

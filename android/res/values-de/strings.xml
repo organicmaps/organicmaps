@@ -51,7 +51,7 @@
 	<!-- Settings/Downloader - No internet connection dialog title -->
 	<string name="no_internet_connection_detected">Keine Internetverbindung</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<string name="no_wifi_ask_cellular_download">Keine WLAN-Verbindung. Möchten Sie %s über das Mobilnetz (GPRS, EDGE oder 3G) herunterladen?</string>
+	<string name="no_wifi_ask_cellular_download">Keine WLAN-Verbindung. Möchten Sie %s über das Mobilnetz (GPRS, EDGE, 3G oder LTE) herunterladen?</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">Aktivieren Sie bitte Ortungsdienste in den Einstellungen Ihres Geräts</string>
 	<!-- Settings/Downloader - No free space dialog message -->

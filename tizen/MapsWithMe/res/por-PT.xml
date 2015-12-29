@@ -20,7 +20,7 @@
 	<!-- Settings/Downloader - No internet connection dialog title -->
 	<text id="IDS_NO_INTERNET_CONNECTION_DETECTED">Não foi detetada uma ligação à Internet</text>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<text id="IDS_NO_WIFI_ASK_CELLULAR_DOWNLOAD">Não detetada uma ligação WiFi. Pretende utilizar os dados por pacotes (GPRS, EDGE or 3G) para descarregar %s?</text>
+	<text id="IDS_NO_WIFI_ASK_CELLULAR_DOWNLOAD">Não detetada uma ligação WiFi. Pretende utilizar os dados por pacotes (GPRS, EDGE, 3G or LTE) para descarregar %s?</text>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<text id="IDS_USE_WIFI_RECOMMENDATION_TEXT">Recomendamos a utilização de WiFi para descarregar grandes mapas</text>
 	<text id="IDS_DOWNLOAD">Descarga</text>

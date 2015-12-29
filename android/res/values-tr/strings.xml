@@ -55,7 +55,7 @@
 	<!-- Settings/Downloader - No internet connection dialog title -->
 	<string name="no_internet_connection_detected">İnternet bağlantısı bulunamadı</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<string name="no_wifi_ask_cellular_download">WiFi bağlantısı bulunamadı. %s indirmek için hücresel veri (GPRS, EDGE veya 3G) kullanmak ister misiniz?</string>
+	<string name="no_wifi_ask_cellular_download">WiFi bağlantısı bulunamadı. %s indirmek için hücresel veri (GPRS, EDGE, 3G veya LTE) kullanmak ister misiniz?</string>
 	<string name="ok">Tamam</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">Lütfen Yer Hizmetlerini etkinleştirin</string>

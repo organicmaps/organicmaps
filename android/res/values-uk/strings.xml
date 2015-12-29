@@ -55,7 +55,7 @@
 	<!-- Settings/Downloader - No internet connection dialog title -->
 	<string name="no_internet_connection_detected">Відсутнє підключення до інтернету</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<string name="no_wifi_ask_cellular_download">Відсутнє WiFi з\&#39;єднання. Ви бажаєте завантажити %s через стільникового оператора (GPRS, EDGE або 3G)?</string>
+	<string name="no_wifi_ask_cellular_download">Відсутнє WiFi з\&#39;єднання. Ви бажаєте завантажити %s через стільникового оператора (GPRS, EDGE, 3G або LTE)?</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">Будь ласка, увімкніть геолокацію в налаштуваннях телефону</string>
 	<!-- Settings/Downloader - No free space dialog message -->

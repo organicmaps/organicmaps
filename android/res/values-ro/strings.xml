@@ -55,7 +55,7 @@
 	<!-- Settings/Downloader - No internet connection dialog title -->
 	<string name="no_internet_connection_detected">Nu a fost detectată nicio conexiune la internet.</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<string name="no_wifi_ask_cellular_download">Nu a fost detectată nicio conexiune WiFi. Doriți să utilizați datele mobile (GPRS, EDGE sau 3G) pentru a descărca %s?</string>
+	<string name="no_wifi_ask_cellular_download">Nu a fost detectată nicio conexiune WiFi. Doriți să utilizați datele mobile (GPRS, EDGE, 3G sau LTE) pentru a descărca %s?</string>
 	<string name="ok">OK</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">Vă rugăm să activați serviciile de localizare</string>

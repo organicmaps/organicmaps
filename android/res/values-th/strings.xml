@@ -55,7 +55,7 @@
 	<!-- Settings/Downloader - No internet connection dialog title -->
 	<string name="no_internet_connection_detected">ไม่สามารถตรวจพบการเชื่อมต่ออินเทอร์เน็ต</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<string name="no_wifi_ask_cellular_download">ไม่สามารถตรวจพบการเชื่อมต่อ WiFi คุณต้องการใช้ข้อมูลโทรศัพท์มือถือ (GPRS, EDGE หรือ 3G) เพื่อดาวน์โหลด %s?</string>
+	<string name="no_wifi_ask_cellular_download">ไม่สามารถตรวจพบการเชื่อมต่อ WiFi คุณต้องการใช้ข้อมูลโทรศัพท์มือถือ (GPRS, EDGE, 3G หรือ LTE) เพื่อดาวน์โหลด %s?</string>
 	<string name="ok">ตกลง</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">โปรดเปิดการใช้งานการบริการตำแหน่งที่ตั้ง</string>

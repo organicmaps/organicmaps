@@ -83,7 +83,7 @@
 "no_internet_connection_detected" = "لم يتم اكتشاف أي اتصال مع الانترنت";
 
 /* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "لم يتم العثور على أي اتصال واي فاي. هل ترغب باستخدام حزمة البيانات الخليوية (GPRS ، EDGE أو 3G) من أجل تنزيل %@؟";
+"no_wifi_ask_cellular_download" = "لم يتم العثور على أي اتصال واي فاي. هل ترغب باستخدام حزمة البيانات الخليوية (GPRS ، EDGE ، 3G أو LTE) من أجل تنزيل %@؟";
 
 "ok" = "موافق";
 

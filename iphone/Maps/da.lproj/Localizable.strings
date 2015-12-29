@@ -83,7 +83,7 @@
 "no_internet_connection_detected" = "Ingen internetforbindelse registreret";
 
 /* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "Ingen WiFi forbindelse registreret. Vil du bruge mobildata (GPRS, EDGE eller 3G) til download %@?";
+"no_wifi_ask_cellular_download" = "Ingen WiFi forbindelse registreret. Vil du bruge mobildata (GPRS, EDGE, 3G eller LTE) til download %@?";
 
 "ok" = "Ok";
 

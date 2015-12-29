@@ -53,7 +53,7 @@
 	<!-- Settings/Downloader - No internet connection dialog title -->
 	<string name="no_internet_connection_detected">Nie wykryto połączenia z Internetem</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<string name="no_wifi_ask_cellular_download">Nie wykryto połączenia z siecią WiFi. Czy chciałbyś skorzystać z trybu sieci danych (GPRS, EDGE lub 3G), aby pobrać %s?</string>
+	<string name="no_wifi_ask_cellular_download">Nie wykryto połączenia z siecią WiFi. Czy chciałbyś skorzystać z trybu sieci danych (GPRS, EDGE, 3G lub LTE), aby pobrać %s?</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">Proszę włączyć usługi lokalizacji</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->

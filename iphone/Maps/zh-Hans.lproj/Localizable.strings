@@ -83,7 +83,7 @@
 "no_internet_connection_detected" = "未检测到互联网连接";
 
 /* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "未检测到 WiFi 连接。您想使用蜂窝数据 (GPRS, EDGE 或 3G)下载%@吗?";
+"no_wifi_ask_cellular_download" = "未检测到 WiFi 连接。您想使用蜂窝数据 (GPRS, EDGE, 3G 或 LTE)下载%@吗?";
 
 "ok" = "好";
 

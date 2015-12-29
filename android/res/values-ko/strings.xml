@@ -51,7 +51,7 @@
 	<!-- Settings/Downloader - No internet connection dialog title -->
 	<string name="no_internet_connection_detected">인터넷이 연결되지 않았습니다.</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<string name="no_wifi_ask_cellular_download">WiFi 연결이 감지되지 않았습니다. %s를 다운로드하기 위해 휴대 자료(GPRS, EDGE 혹은 3G)를 사용하시겠습니까?</string>
+	<string name="no_wifi_ask_cellular_download">WiFi 연결이 감지되지 않았습니다. %s를 다운로드하기 위해 휴대 자료(GPRS, EDGE, 3G 혹은 LTE)를 사용하시겠습니까?</string>
 	<string name="ok">승인</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">위치 서비스를 작동시켜 주십시요.</string>

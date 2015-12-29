@@ -83,7 +83,7 @@
 "no_internet_connection_detected" = "Não foi detetada uma ligação à Internet";
 
 /* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "Não detetada uma ligação WiFi. Pretende utilizar os dados por pacotes (GPRS, EDGE or 3G) para descarregar %@?";
+"no_wifi_ask_cellular_download" = "Não detetada uma ligação WiFi. Pretende utilizar os dados por pacotes (GPRS, EDGE, 3G or LTE) para descarregar %@?";
 
 "ok" = "OK";
 

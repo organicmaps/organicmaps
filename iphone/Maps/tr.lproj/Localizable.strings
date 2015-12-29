@@ -83,7 +83,7 @@
 "no_internet_connection_detected" = "İnternet bağlantısı bulunamadı";
 
 /* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "WiFi bağlantısı bulunamadı. %@ indirmek için hücresel veri (GPRS, EDGE veya 3G) kullanmak ister misiniz?";
+"no_wifi_ask_cellular_download" = "WiFi bağlantısı bulunamadı. %@ indirmek için hücresel veri (GPRS, EDGE, 3G veya LTE) kullanmak ister misiniz?";
 
 "ok" = "Tamam";
 

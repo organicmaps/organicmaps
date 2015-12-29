@@ -22,7 +22,7 @@
 	<!-- Settings/Downloader - No internet connection dialog title -->
 	<text id="IDS_NO_INTERNET_CONNECTION_DETECTED">Aucune connexion Internet détectée</text>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<text id="IDS_NO_WIFI_ASK_CELLULAR_DOWNLOAD">Aucun connexion Wi-Fi détectée. Désirez-vous utiliser les données mobiles (GPRS, EDGE ou 3G) pour télécharger %s ?</text>
+	<text id="IDS_NO_WIFI_ASK_CELLULAR_DOWNLOAD">Aucun connexion Wi-Fi détectée. Désirez-vous utiliser les données mobiles (GPRS, EDGE, 3G ou LTE) pour télécharger %s ?</text>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<text id="IDS_USE_WIFI_RECOMMENDATION_TEXT">Nous recommandons d\&#39;utiliser une connexion Wi-Fi pour télécharger de grandes cartes</text>
 	<text id="IDS_DOWNLOAD">Télécharger</text>

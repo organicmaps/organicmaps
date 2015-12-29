@@ -83,7 +83,7 @@
 "no_internet_connection_detected" = "Nenájdené pripojenie k Internetu";
 
 /* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "Nenájdené pripojenie k WiFi. Chcete použiť mobilnú sieť (GPRS, EDGE alebo 3G) k stiahnutiu %@?";
+"no_wifi_ask_cellular_download" = "Nenájdené pripojenie k WiFi. Chcete použiť mobilnú sieť (GPRS, EDGE, 3G alebo LTE) k stiahnutiu %@?";
 
 "ok" = "OK";
 
