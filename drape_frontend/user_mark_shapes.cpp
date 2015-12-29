@@ -141,7 +141,7 @@ void CacheUserPoints(UserMarksProvider const * provider,
     m2::RectF const & texRect = region.GetTexRect();
     m2::PointF pxSize = region.GetPixelSize();
     dp::Anchor anchor = pointMark->GetAnchor();
-    glsl::vec3 pos = glsl::vec3(glsl::ToVec2(pointMark->GetPivot()), pointMark->GetDepth() + 10 * (markCount - i));
+    glsl::vec3 pos = glsl::vec3(glsl::ToVec2(pointMark->GetPivot()), pointMark->GetDepth());
     bool runAnim = pointMark->RunCreationAnim();
 
     glsl::vec2 left, right, up, down;
