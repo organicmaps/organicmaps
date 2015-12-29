@@ -22,7 +22,7 @@
       style="@style/MwmWidget.ProgressWheel.RoutingPlan"
       tools:visibility="visible"
       wheel:centerDrawable="@android:color/transparent"
-      wheel:wheelProgressColor="?routingAccent"
+      wheel:wheelProgressColor="?colorAccent"
       wheel:wheelSecondaryColor="?dividerHorizontal"
       wheel:wheelThickness="@dimen/margin_eighth"/>
 
@@ -31,7 +31,7 @@
       style="@style/MwmWidget.ProgressWheel.RoutingPlan"
       tools:visibility="visible"
       wheel:centerDrawable="@android:color/transparent"
-      wheel:wheelProgressColor="?routingAccent"
+      wheel:wheelProgressColor="?colorAccent"
       wheel:wheelSecondaryColor="?dividerHorizontal"
       wheel:wheelThickness="@dimen/margin_eighth"/>
   </LinearLayout>

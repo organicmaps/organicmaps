@@ -60,8 +60,6 @@
   <color name="downloader_spacer_night">@color/divider_night</color>
 
   <!-- Routing-->
-  <color name="routing_accent">@color/base_accent</color>
-  <color name="routing_accent_night">@color/base_accent_night</color>
   <color name="routing_progress">#FF757575</color>
   <color name="routing_slot_background">#FFFFFFFF</color>
   <color name="routing_slot_background_night">#FF191E23</color>

@@ -19,7 +19,6 @@
     <attr name="ppBackground" format="color"/>
     <attr name="ppPreviewHead" format="reference"/>
 
-    <attr name="routingAccent" format="color"/>
     <attr name="routingSlot" format="reference"/>
     <attr name="routingSlotFrame" format="color"/>
     <attr name="routingSlotPressed" format="reference"/>

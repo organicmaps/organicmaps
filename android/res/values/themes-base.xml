@@ -36,7 +36,6 @@
     <item name="ppBackground">@color/bg_window</item>
     <item name="ppPreviewHead">@drawable/bg_place_page_back</item>
 
-    <item name="routingAccent">@color/routing_accent</item>
     <item name="routingSlot">@drawable/routing_slot_background</item>
     <item name="routingSlotFrame">?colorPrimary</item>
     <item name="routingSlotPressed">@drawable/routing_slot_background_pressed</item>
@@ -87,7 +86,6 @@
     <item name="ppBackground">@color/bg_window_night</item>
     <item name="ppPreviewHead">@drawable/bg_place_page_back_night</item>
 
-    <item name="routingAccent">@color/routing_accent_night</item>
     <item name="routingSlot">@drawable/routing_slot_background_night</item>
     <item name="routingSlotFrame">?panel</item>
     <item name="routingSlotPressed">@drawable/routing_slot_background_pressed_night</item>

@@ -85,7 +85,7 @@
 
   <style name="MwmTextAppearance.RoutingDirection">
     <item name="android:textSize">@dimen/text_size_display_2</item>
-    <item name="android:textColor">?routingAccent</item>
+    <item name="android:textColor">?colorAccent</item>
     <item name="android:textStyle">bold</item>
   </style>
 
