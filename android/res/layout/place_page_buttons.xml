@@ -7,7 +7,7 @@
     android:layout_marginTop="@dimen/margin_base"
     android:paddingLeft="@dimen/margin_half_plus"
     android:paddingRight="@dimen/margin_half_plus"
-    android:background="?panel"
+    android:background="?ppButtonsBackground"
     android:clickable="true">
   <LinearLayout
       android:id="@+id/general"

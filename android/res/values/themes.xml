@@ -16,12 +16,10 @@
   <style name="MwmTheme.Settings"/>
 
   <style name="MwmTheme.Night.Settings">
-    <item name="colorAccent">?android:textColorPrimary</item>
     <item name="colorSwitchThumbNormal">?android:colorControlNormal</item>
   </style>
 
   <style name="MwmTheme.Downloader">
-    <item name="colorAccent">@color/downloader_accent</item>
     <item name="countrySeparator">@color/downloader_spacer</item>
     <item name="countryDownloaded">?android:textColorPrimary</item>
     <item name="countryOutdated">?android:textColorSecondary</item>
@@ -30,7 +28,6 @@
   </style>
 
   <style name="MwmTheme.Night.Downloader">
-    <item name="colorAccent">@color/downloader_accent_night</item>
     <item name="countrySeparator">@color/downloader_spacer_night</item>
     <item name="countryDownloaded">?android:textColorPrimary</item>
     <item name="countryOutdated">?android:textColorSecondary</item>
@@ -87,5 +84,16 @@
     <item name="android:colorPrimaryDark" tools:targetApi="lollipop">@android:color/black</item>
     <item name="android:windowBackground">@color/bg_dialog_translucent</item>
     <item name="android:windowIsTranslucent">true</item>
+  </style>
+
+  <style name="BottomSheet.Dialog.Dark">
+    <item name="android:textColorPrimary">@color/text_light</item>
+    <item name="android:textColorSecondary">@color/text_light</item>
+    <item name="android:textColorHint">@color/text_light_subtitle</item>
+    <item name="bs_dialogBackground">?panel</item>
+    <item name="bs_dividerColor">@color/bs_dark_divider_color</item>
+    <item name="bs_listStyle">@style/BottomSheet.List.Dark</item>
+    <item name="bs_closeDrawable">@drawable/bs_ic_clear</item>
+    <item name="bs_moreDrawable">@drawable/bs_ic_more</item>
   </style>
 </resources>

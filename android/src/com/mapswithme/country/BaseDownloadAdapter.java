@@ -475,9 +475,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       sizes = getRemoteItemSizes(position);
       setHolderSizeString(holder, sizes[0], sizes[1]);
       setHolderPercentText(holder, mStatusNotDownloaded);
-      setHolderPercentColor(holder, mFragment.getResources().getColor(R.color.downloader_accent));
+      setHolderPercentColor(holder, ThemeUtils.getColor(mListView.getContext(), R.attr.colorAccent));
       break;
-
     }
   }
 

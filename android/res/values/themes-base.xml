@@ -34,10 +34,10 @@
     <item name="dividerHorizontal">@color/divider</item>
 
     <item name="ppBackground">@color/bg_window</item>
+    <item name="ppButtonsBackground">?panel</item>
     <item name="ppPreviewHead">@drawable/bg_place_page_back</item>
 
     <item name="routingSlot">@drawable/routing_slot_background</item>
-    <item name="routingSlotFrame">?colorPrimary</item>
     <item name="routingSlotPressed">@drawable/routing_slot_background_pressed</item>
     <item name="routingSlotMarker">@drawable/routing_slot_marker</item>
     <item name="routingStartButton">@drawable/routing_start_button</item>
@@ -83,11 +83,11 @@
     <item name="secondary">@color/text_light_hint</item>
     <item name="dividerHorizontal">@color/divider_night</item>
 
-    <item name="ppBackground">@color/bg_window_night</item>
+    <item name="ppBackground">?panel</item>
+    <item name="ppButtonsBackground">@color/bg_window_night</item>
     <item name="ppPreviewHead">@drawable/bg_place_page_back_night</item>
 
     <item name="routingSlot">@drawable/routing_slot_background_night</item>
-    <item name="routingSlotFrame">?panel</item>
     <item name="routingSlotPressed">@drawable/routing_slot_background_pressed_night</item>
     <item name="routingSlotMarker">@drawable/routing_slot_marker_night</item>
     <item name="routingStartButton">@drawable/routing_start_button_night</item>

@@ -55,7 +55,7 @@ public class RoutingPlanController extends ToolbarController
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
       {
         buttonView.setButtonDrawable(Graphics.tint(mActivity, iconRes, isChecked ? R.attr.colorAccent
-                                                                                 : R.attr.iconTintLight));
+                                                                                 : R.attr.iconTint));
       }
     };
 
@@ -74,14 +74,6 @@ public class RoutingPlanController extends ToolbarController
 
     mToggle = (ImageView) mToolbar.findViewById(R.id.toggle);
     mSlotFrame = (SlotFrame) root.findViewById(R.id.slots);
-    mSlotFrame.setOnSlotClickListener(new SlotFrame.OnSlotClickListener()
-    {
-      @Override
-      public void OnSlotClick(int slotId)
-      {
-        RoutingController.get().searchPoi(slotId);
-      }
-    });
 
     View planFrame = root.findViewById(R.id.planning_frame);
 

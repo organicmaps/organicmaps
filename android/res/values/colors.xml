@@ -8,8 +8,8 @@
   <color name="text_light_subtitle">#B3FFFFFF</color>
   <color name="text_light_hint">#4CFFFFFF</color>
 
-  <color name="base_green">#FF209852</color>
-  <color name="darker_green">#FF188044</color>
+  <color name="base_green">#FF1F9952</color>
+  <color name="darker_green">#FF197E46</color>
 
   <color name="base_accent">#FF1E96F0</color>
   <color name="base_accent_night">#FFFFE68C</color>
@@ -28,8 +28,8 @@
   <color name="bg_window">#FFFFFFFF</color>
   <color name="bg_window_night">#FF32363A</color>
   <color name="bg_primary">@color/base_green</color>
-  <color name="bg_primary_night">#FF14181C</color>
-  <color name="bg_panel">#FFF4F4F4</color>
+  <color name="bg_primary_night">#FF1E2226</color>
+  <color name="bg_panel">#FFF5F5F5</color>
   <color name="bg_panel_night">#FF3C4044</color>
   <color name="bg_side_panel">#FFFFFFFF</color>
   <color name="bg_side_panel_night">@color/bg_panel_night</color>
@@ -43,14 +43,12 @@
   <color name="bg_menu_closed_night">#CC2D3237</color>
 
   <color name="bg_statusbar">@color/darker_green</color>
-  <color name="bg_statusbar_night">#FF181C21</color>
+  <color name="bg_statusbar_night">#FF000000</color>
 
   <color name="bg_azimut_arrow">#1D414651</color>
   <color name="fg_azimut_arrow">#FFFFFFFF</color>
 
   <!-- Downloader -->
-  <color name="downloader_accent">#FF179E4D</color>
-  <color name="downloader_accent_night">@color/base_accent_night</color>
   <color name="downloader_progress_primary">@color/base_accent</color>
   <color name="downloader_progress_secondary">#FFF0F0F0</color>
   <color name="downloader_gray">#FF999999</color>
@@ -62,9 +60,9 @@
   <!-- Routing-->
   <color name="routing_progress">#FF757575</color>
   <color name="routing_slot_background">#FFFFFFFF</color>
-  <color name="routing_slot_background_night">#FF191E23</color>
+  <color name="routing_slot_background_night">@color/bg_panel_night</color>
   <color name="routing_slot_background_pressed">#FFF0F0F0</color>
-  <color name="routing_slot_background_pressed_night">#FF111411</color>
+  <color name="routing_slot_background_pressed_night">@color/bg_window_night</color>
   <color name="routing_slot_shadow">#3D000000</color>
 
   <color name="routing_start">@color/base_accent</color>

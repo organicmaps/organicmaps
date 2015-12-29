@@ -17,10 +17,10 @@
     <attr name="zoomMinus" format="reference"/>
 
     <attr name="ppBackground" format="color"/>
+    <attr name="ppButtonsBackground" format="color"/>
     <attr name="ppPreviewHead" format="reference"/>
 
     <attr name="routingSlot" format="reference"/>
-    <attr name="routingSlotFrame" format="color"/>
     <attr name="routingSlotPressed" format="reference"/>
     <attr name="routingSlotMarker" format="reference"/>
     <attr name="routingStartButton" format="reference"/>

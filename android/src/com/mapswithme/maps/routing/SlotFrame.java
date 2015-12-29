@@ -23,7 +23,6 @@ public class SlotFrame extends LinearLayout
 {
   private static final int ANIM_SWAP = MwmApplication.get().getResources().getInteger(R.integer.anim_slots_swap);
 
-  private OnSlotClickListener mClickListener;
   private Slot mSlotFrom;
   private Slot mSlotTo;
 
@@ -34,11 +33,6 @@ public class SlotFrame extends LinearLayout
 
   private int mTextColor;
   private int mHintColor;
-
-  public interface OnSlotClickListener
-  {
-    void OnSlotClick(int slotId);
-  }
 
   private class Slot
   {
@@ -79,7 +73,7 @@ public class SlotFrame extends LinearLayout
         @Override
         public void onClick(View v)
         {
-          mClickListener.OnSlotClick(mOrder);
+          RoutingController.get().searchPoi(mOrder);
         }
       });
 
@@ -221,7 +215,6 @@ public class SlotFrame extends LinearLayout
 
     mTextColor = ThemeUtils.getColor(getContext(), android.R.attr.textColorPrimary);
     mHintColor = ThemeUtils.getColor(getContext(), R.attr.secondary);
-    setBackgroundColor(ThemeUtils.getColor(getContext(), R.attr.routingSlotFrame));
 
     setBaselineAligned(false);
     setClipChildren(false);
@@ -330,11 +323,6 @@ public class SlotFrame extends LinearLayout
   public SlotFrame(Context context, AttributeSet attrs, int defStyleAttr)
   {
     super(context, attrs, defStyleAttr);
-  }
-
-  public void setOnSlotClickListener(OnSlotClickListener clickListener)
-  {
-    mClickListener = clickListener;
   }
 
   public void update()
