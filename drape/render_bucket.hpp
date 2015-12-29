@@ -26,7 +26,7 @@ public:
   void AddOverlayHandle(drape_ptr<OverlayHandle> && handle);
 
   void Update(ScreenBase const & modelView);
-  void CollectOverlayHandles(ref_ptr<OverlayTree> tree, bool isTransparent);
+  void CollectOverlayHandles(ref_ptr<OverlayTree> tree);
   void Render(ScreenBase const & screen);
 
   // Only for testing! Don't use this function in production code!

@@ -396,7 +396,7 @@ void TestingEngine::Draw()
     dp::OverlayTree tree;
     tree.StartOverlayPlacing(m_modelView);
     for (size_t i = 0; i < buckets.size(); ++i)
-      buckets[i]->CollectOverlayHandles(make_ref(&tree), false);
+      buckets[i]->CollectOverlayHandles(make_ref(&tree));
     for (size_t i = 0; i < buckets.size(); ++i)
       buckets[i]->Render(m_modelView);
     tree.EndOverlayPlacing();
