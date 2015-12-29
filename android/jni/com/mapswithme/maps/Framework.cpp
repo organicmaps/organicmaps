@@ -32,6 +32,7 @@
 
 #include "base/math.hpp"
 #include "base/logging.hpp"
+#include "base/sunrise_sunset.hpp"
 
 android::Framework * g_framework = 0;
 
@@ -1331,8 +1332,8 @@ extern "C"
   JNIEXPORT jboolean JNICALL
   Java_com_mapswithme_maps_Framework_nativeIsDayTime(JNIEnv * env, jclass thiz, jlong currentTimeUtc, jdouble lat, jdouble lon)
   {
-    // TODO: Link to actual implementation
-    return false;
+    DayTimeType const dt = GetDayTime(static_cast<time_t>(currentTimeUtc), lat, lon);
+    return (dt == DayTimeType::Day || dt == DayTimeType::PolarDay);
   }
 
   JNIEXPORT void JNICALL

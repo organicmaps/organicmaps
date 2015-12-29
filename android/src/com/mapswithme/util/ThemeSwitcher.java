@@ -14,13 +14,40 @@ public final class ThemeSwitcher
 
   private static final Runnable sCheckProc = new Runnable()
   {
+    private final LocationHelper.LocationListener mLocationListener = new LocationHelper.LocationListener()
+    {
+      @Override
+      public void onLocationUpdated(Location l)
+      {
+        LocationHelper.INSTANCE.removeLocationListener(this);
+        run();
+      }
+
+      @Override
+      public void onLocationError(int errorCode)
+      {
+        LocationHelper.INSTANCE.removeLocationListener(this);
+      }
+
+      @Override
+      public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
+      {}
+    };
+
     @Override
     public void run()
     {
+      String theme;
       Location last = LocationHelper.INSTANCE.getLastLocation();
-      String theme = ThemeUtils.THEME_DEFAULT;
-      if (last != null)
+      if (last == null)
       {
+        LocationHelper.INSTANCE.addLocationListener(mLocationListener);
+        theme = Config.getCurrentUiTheme();
+      }
+      else
+      {
+        LocationHelper.INSTANCE.removeLocationListener(mLocationListener);
+
         boolean day = Framework.nativeIsDayTime(System.currentTimeMillis(), last.getLatitude(), last.getLongitude());
         theme = (day ? ThemeUtils.THEME_DEFAULT : ThemeUtils.THEME_NIGHT);
       }
