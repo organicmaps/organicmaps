@@ -28,7 +28,6 @@
 - (void)changeBookmarkCategory;
 - (void)changeBookmarkDescription;
 - (void)editPlaceTime;
-- (void)login;
 - (void)share;
 - (void)route;
 - (void)reloadBookmark;

@@ -81,11 +81,9 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark
 {
-  NSAssert(userMark, @"userMark cannot be nil");
+  NSAssert(userMark, @"userMark can not be nil.");
   m_userMark = move(userMark);
   [[MapsAppDelegate theApp].m_locationManager start:self];
-//  [self.entity enableEditing];
-
   [self reloadPlacePage];
 }
 
@@ -258,7 +256,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppShare"];
   MWMPlacePageEntity * entity = self.entity;
   NSString * title = entity.bookmarkTitle ? entity.bookmarkTitle : entity.title;
-  CLLocationCoordinate2D const coord = CLLocationCoordinate2DMake(entity.ll.lat, entity.ll.lon);
+  CLLocationCoordinate2D const coord = CLLocationCoordinate2DMake(entity.latlon.lat, entity.latlon.lon);
   MWMActivityViewController * shareVC =
       [MWMActivityViewController shareControllerForLocationTitle:title
                                                         location:coord

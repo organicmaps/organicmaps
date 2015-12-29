@@ -3,74 +3,54 @@
 #import "MapViewController.h"
 #include "platform/measurement_utils.hpp"
 
-extern NSArray * const kBookmarkColorsVariant = @[
-  @"placemark-red",
-  @"placemark-yellow",
-  @"placemark-blue",
-  @"placemark-green",
-  @"placemark-purple",
-  @"placemark-orange",
-  @"placemark-brown",
-  @"placemark-pink"
-];
-extern NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
-static NSArray * const kPatternTypesArray = @[
-  @(MWMPlacePageMetadataTypePostcode),
-  @(MWMPlacePageMetadataTypePhoneNumber),
-  @(MWMPlacePageMetadataTypeWebsite),
-  @(MWMPlacePageMetadataTypeURL),
-  @(MWMPlacePageMetadataTypeEmail),
-  @(MWMPlacePageMetadataTypeOpenHours),
-  @(MWMPlacePageMetadataTypeWiFi),
-  @(MWMPlacePageMetadataTypeCoordinate)
-];
-
 using feature::Metadata;
 
-@interface MWMPlacePageEntity ()
+extern NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
-@property (nonatomic) NSMutableArray * metaTypes;
-@property (nonatomic) NSMutableArray * metaValues;
+static array<MWMPlacePageMetadataType, 8> const kPatternTypesArray{
+    {MWMPlacePageMetadataTypePostcode, MWMPlacePageMetadataTypePhoneNumber,
+     MWMPlacePageMetadataTypeWebsite, MWMPlacePageMetadataTypeURL, MWMPlacePageMetadataTypeEmail,
+     MWMPlacePageMetadataTypeOpenHours, MWMPlacePageMetadataTypeWiFi,
+     MWMPlacePageMetadataTypeCoordinate}};
 
-@end
+static map<Metadata::EType, MWMPlacePageMetadataType> const kMetaTypesMap{
+    {Metadata::FMD_URL, MWMPlacePageMetadataTypeURL},
+    {Metadata::FMD_WEBSITE, MWMPlacePageMetadataTypeWebsite},
+    {Metadata::FMD_PHONE_NUMBER, MWMPlacePageMetadataTypePhoneNumber},
+    {Metadata::FMD_OPEN_HOURS, MWMPlacePageMetadataTypeOpenHours},
+    {Metadata::FMD_EMAIL, MWMPlacePageMetadataTypeEmail},
+    {Metadata::FMD_POSTCODE, MWMPlacePageMetadataTypePostcode},
+    {Metadata::FMD_INTERNET, MWMPlacePageMetadataTypeWiFi}};
 
 @implementation MWMPlacePageEntity
-
-- (instancetype)initWithUserMark:(UserMark const *)mark
 {
+  vector<MWMPlacePageMetadataType> m_types;
+  map<MWMPlacePageMetadataType, string> m_values;
+}
+
+- (instancetype)initWithUserMark:(UserMark const *)userMark
+{
+  NSAssert(userMark, @"userMark can not be nil.");
   self = [super init];
   if (self)
-  {
-    self.metaTypes = [NSMutableArray array];
-    self.metaValues = [NSMutableArray array];
-    [self configureWithUserMark:mark];
-  }
-
+    [self configureWithUserMark:userMark];
   return self;
 }
 
 - (void)configureWithUserMark:(UserMark const *)mark
 {
-  UserMark::Type const type = mark->GetMarkType();
-  self.ll = mark->GetLatLon();
-
-  typedef UserMark::Type Type;
-  switch (type)
+  _latlon = mark->GetLatLon();
+  using Type = UserMark::Type;
+  switch (mark->GetMarkType())
   {
     case Type::API:
-    {
-      ApiMarkPoint const * apiMark = static_cast<ApiMarkPoint const *>(mark);
-      [self configureForApi:apiMark];
+      [self configureForApi:static_cast<ApiMarkPoint const *>(mark)];
       break;
-    }
     case Type::DEBUG_MARK:
       break;
     case Type::MY_POSITION:
-    {
-      MyPositionMarkPoint const * myPositionMark = static_cast<MyPositionMarkPoint const *>(mark);
-      [self configureForMyPosition:myPositionMark];
+      [self configureForMyPosition:static_cast<MyPositionMarkPoint const *>(mark)];
       break;
-    }
     case Type::SEARCH:
       [self configureForSearch:static_cast<SearchMarkPoint const *>(mark)];
       break;
@@ -81,6 +61,25 @@ using feature::Metadata;
       [self configureForBookmark:mark];
       break;
   }
+}
+
+- (void)addMetaType:(MWMPlacePageMetadataType)type
+{
+  if (find(m_types.begin(), m_types.end(), type) == m_types.end())
+    m_types.emplace_back(type);
+}
+
+- (void)removeMetaType:(MWMPlacePageMetadataType)type
+{
+  auto it = find(m_types.begin(), m_types.end(), type);
+  if (it != m_types.end())
+    m_types.erase(it);
+}
+
+- (void)addMetaType:(MWMPlacePageMetadataType)type value:(string const &)value
+{
+  [self addMetaType:type];
+  m_values.emplace(type, value);
 }
 
 - (void)configureForBookmark:(UserMark const *)bookmark
@@ -125,8 +124,7 @@ using feature::Metadata;
 {
   self.title = L(@"my_position");
   self.type = MWMPlacePageEntityTypeMyPosition;
-  [self.metaTypes addObject:kPatternTypesArray.lastObject];
-  [self.metaValues addObject:[self coordinates]];
+  [self addMetaType:MWMPlacePageMetadataTypeCoordinate];
 }
 
 - (void)configureForApi:(ApiMarkPoint const *)apiMark
@@ -134,8 +132,7 @@ using feature::Metadata;
   self.type = MWMPlacePageEntityTypeAPI;
   self.title = @(apiMark->GetName().c_str());
   self.category = @(GetFramework().GetApiDataHolder().GetAppTitle().c_str());
-  [self.metaTypes addObject:kPatternTypesArray.lastObject];
-  [self.metaValues addObject:[self coordinates]];
+  [self addMetaType:MWMPlacePageMetadataTypeCoordinate];
 }
 
 - (void)configureEntityWithMetadata:(Metadata const &)metadata addressInfo:(search::AddressInfo const &)info
@@ -201,95 +198,83 @@ using feature::Metadata;
       case Metadata::FMD_POSTCODE:
       case Metadata::FMD_INTERNET:
       {
-        NSString * v;
-        if (type == Metadata::FMD_INTERNET)
-          v = L(@"WiFi_available");
+        auto metaType = kMetaTypesMap.find(type);
+        if (metaType != kMetaTypesMap.end())
+        {
+          BOOL const internet = (type == Metadata::FMD_INTERNET);
+          [self addMetaType:metaType->second value:internet ? L(@"WiFi_available").UTF8String : metadata.Get(type)];
+        }
         else
-          v = @(metadata.Get(type).c_str());
-
-        NSNumber const * t = [self typeFromMetadata:type];
-        [self.metaTypes addObject:t];
-        [self.metaValues addObject:v];
-        break;
+        {
+          NSAssert(false, @"Unhandled meta type, see kMetaTypesMap.");
+        }
       }
-
       default:
         break;
     }
   }
 
-  NSUInteger swappedIndex = 0;
-  for (NSNumber * pattern in kPatternTypesArray)
+  auto begin = kPatternTypesArray.begin();
+  auto end = kPatternTypesArray.end();
+  sort(m_types.begin(), m_types.end(), [&](MWMPlacePageMetadataType a, MWMPlacePageMetadataType b)
   {
-    NSUInteger const index = [self.metaTypes indexOfObject:pattern];
-    if (index == NSNotFound)
-      continue;
-    [self.metaTypes exchangeObjectAtIndex:index withObjectAtIndex:swappedIndex];
-    [self.metaValues exchangeObjectAtIndex:index withObjectAtIndex:swappedIndex];
-    swappedIndex++;
-  }
+    return find(begin, end, a) < find(begin, end, b);
+  });
 
-  [self.metaTypes addObject:kPatternTypesArray.lastObject];
-  [self.metaValues addObject:[self coordinates]];
-}
-
-- (NSArray *)metadataTypes
-{
-  return (NSArray *)self.metaTypes;
-}
-
-- (NSArray *)metadataValues
-{
-  return (NSArray *)self.metaValues;
+  [self addMetaType:MWMPlacePageMetadataTypeCoordinate];
 }
 
 - (void)enableEditing
 {
-  NSNumber * editType = @(MWMPlacePageMetadataTypeEditButton);
-  if (![self.metaTypes containsObject:editType])
-    [self.metaTypes addObject:editType];
+  [self addMetaType:MWMPlacePageMetadataTypeEditButton];
 }
 
 - (void)insertBookmarkInTypes
 {
-  NSNumber * bookmarkType = @(MWMPlacePageMetadataTypeBookmark);
-  if (![self.metaTypes containsObject:bookmarkType])
-    [self.metaTypes addObject:bookmarkType];
+  [self addMetaType:MWMPlacePageMetadataTypeBookmark];
 }
 
 - (void)removeBookmarkFromTypes
 {
-  [self.metaTypes removeObject:@(MWMPlacePageMetadataTypeBookmark)];
+  [self removeMetaType:MWMPlacePageMetadataTypeBookmark];
 }
 
-- (NSNumber *)typeFromMetadata:(uint8_t)type
+- (void)toggleCoordinateSystem
 {
-  switch (type)
-  {
-    case Metadata::FMD_URL:
-      return @(MWMPlacePageMetadataTypeURL);
-    case Metadata::FMD_WEBSITE:
-      return @(MWMPlacePageMetadataTypeWebsite);
-    case Metadata::FMD_PHONE_NUMBER:
-      return @(MWMPlacePageMetadataTypePhoneNumber);
-    case Metadata::FMD_OPEN_HOURS:
-      return @(MWMPlacePageMetadataTypeOpenHours);
-    case Metadata::FMD_EMAIL:
-      return @(MWMPlacePageMetadataTypeEmail);
-    case Metadata::FMD_POSTCODE:
-      return @(MWMPlacePageMetadataTypePostcode);
-    case Metadata::FMD_INTERNET:
-      return @(MWMPlacePageMetadataTypeWiFi);
-    default:
-      return nil;
-  }
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  [ud setBool:![ud boolForKey:kUserDefaultsLatLonAsDMSKey] forKey:kUserDefaultsLatLonAsDMSKey];
+  [ud synchronize];
 }
 
-- (NSString *)coordinates
+#pragma mark - Getters
+
+- (NSUInteger)getTypesCount
 {
-  BOOL const useDMSFormat = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLatLonAsDMSKey];
-  return @((useDMSFormat ? MeasurementUtils::FormatLatLon(self.ll.lat, self.ll.lon).c_str()
-                         : MeasurementUtils::FormatLatLonAsDMS(self.ll.lat, self.ll.lon, 2).c_str()));
+  return m_types.size();
+}
+
+- (MWMPlacePageMetadataType)getType:(NSUInteger)index
+{
+  NSAssert(index < [self getTypesCount], @"Invalid meta index");
+  return m_types[index];
+}
+
+- (NSString *)getValue:(MWMPlacePageMetadataType)type
+{
+  if (type == MWMPlacePageMetadataTypeCoordinate)
+    return [self coordinate];
+  auto it = m_values.find(type);
+  return it != m_values.end() ? @(it->second.c_str()) : @"";
+}
+
+- (NSString *)coordinate
+{
+  BOOL const useDMSFormat =
+      [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLatLonAsDMSKey];
+  ms::LatLon const latlon = self.latlon;
+  return @((useDMSFormat ? MeasurementUtils::FormatLatLon(latlon.lat, latlon.lon)
+                         : MeasurementUtils::FormatLatLonAsDMS(latlon.lat, latlon.lon, 2))
+               .c_str());
 }
 
 #pragma mark - Bookmark editing

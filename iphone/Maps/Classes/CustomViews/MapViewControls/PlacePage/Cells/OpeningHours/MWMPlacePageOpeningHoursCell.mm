@@ -72,7 +72,7 @@ WeekDayView getWeekDayView()
     BOOL const isExpanded = delegate.openingHoursCellExpanded;
     self.middleSeparator.hidden = !isExpanded;
     self.weekDaysView.hidden = !isExpanded;
-    self.editButton.hidden = NO;
+    self.editButton.hidden = !isExpanded;
     self.expandImage.image = [UIImage imageNamed:isExpanded ? @"ic_arrow_gray_up" : @"ic_arrow_gray_down"];
   }
   else
@@ -93,11 +93,11 @@ WeekDayView getWeekDayView()
   Weekday currentDay = static_cast<Weekday>([cal component:NSCalendarUnitWeekday fromDate:[NSDate date]]);
   BOOL haveCurrentDay = NO;
   size_t timeTablesCount = timeTableSet.Size();
-  BOOL const canExpand = (timeTablesCount > 1);
+  BOOL const haveExpandSchedule = (timeTablesCount > 1);
   BOOL const isExpanded = self.delegate.openingHoursCellExpanded;
   self.weekDaysViewEstimatedHeight = 0.0;
   [self.weekDaysView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-  [self.currentDay setCanExpand:canExpand];
+  [self.currentDay setCanExpand:YES];
   for (size_t idx = 0; idx < timeTablesCount; ++idx)
   {
     ui::TTimeTableProxy tt = timeTableSet.Get(idx);
@@ -107,12 +107,12 @@ WeekDayView getWeekDayView()
       haveCurrentDay = YES;
       [self addCurrentDay:tt];
     }
-    if (canExpand && isExpanded)
+    if (haveExpandSchedule && isExpanded)
       [self addWeekDays:tt];
   }
   if (!haveCurrentDay)
     [self addEmptyCurrentDay];
-  if (canExpand && isExpanded)
+  if (haveExpandSchedule && isExpanded)
     [self addClosedDays];
   self.weekDaysViewHeight.constant = ceil(self.weekDaysViewEstimatedHeight);
 }
@@ -186,9 +186,7 @@ WeekDayView getWeekDayView()
 {
   CGFloat height = self.currentDay.viewHeight;
   if (!self.currentDay.isCompatibility && self.delegate.openingHoursCellExpanded)
-    height += self.weekDaysViewHeight.constant;
-  if (!self.editButton.hidden)
-    height += self.editButton.height;
+    height += self.weekDaysViewHeight.constant + self.editButton.height;
   return ceil(height);
 }
 

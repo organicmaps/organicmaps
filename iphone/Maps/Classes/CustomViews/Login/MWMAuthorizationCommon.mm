@@ -23,7 +23,7 @@ UIColor * MWMAuthorizationButtonBackgroundColor(MWMAuthorizationButtonType type)
     case MWMAuthorizationButtonTypeFacebook:
       return [UIColor colorWithRed:72. / 255. green:97. / 255. blue:163. / 255. alpha:1.];
     case MWMAuthorizationButtonTypeOSM:
-      return [UIColor colorWithRed:3. / 255. green:122. / 255. blue:1. alpha:1.];
+      return [UIColor colorWithRed:30. / 255. green:150. / 255. blue:240. / 255. alpha:1.];
   }
   return [UIColor clearColor];
 }

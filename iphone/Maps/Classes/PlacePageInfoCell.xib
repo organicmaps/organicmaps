@@ -82,6 +82,7 @@
             <connections>
                 <outlet property="icon" destination="xwC-DR-6Il" id="vcm-nJ-D7N"/>
                 <outlet property="textContainer" destination="viE-zJ-wsl" id="0bz-b0-s3h"/>
+                <outlet property="toggleImage" destination="RZw-oW-agi" id="0md-TS-JkM"/>
                 <outlet property="upperButton" destination="vu9-VL-9jn" id="MPi-9Q-hFZ"/>
             </connections>
             <point key="canvasLocation" x="120" y="300"/>

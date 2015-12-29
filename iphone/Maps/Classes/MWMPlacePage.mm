@@ -35,15 +35,18 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
                                       options:NSKeyValueObservingOptionNew
                                       context:nullptr];
     }
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
+      [[NSNotificationCenter defaultCenter] addObserver:self
+                                               selector:@selector(keyboardWillShow:)
+                                                   name:UIKeyboardWillShowNotification
+                                                 object:nil];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
+      [[NSNotificationCenter defaultCenter] addObserver:self
+                                               selector:@selector(keyboardWillHide)
+                                                   name:UIKeyboardWillHideNotification
+                                                 object:nil];
+    });
   }
   return self;
 }
@@ -199,7 +202,7 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
 - (void)willStartEditingBookmarkTitle
 {
   [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatRename)];
-// This method should be overriden.
+// This method should be оverridden.
 }
 
 - (void)willFinishEditingBookmarkTitle:(NSString *)title
@@ -210,17 +213,17 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
 
 - (IBAction)didTap:(UITapGestureRecognizer *)sender
 {
-// This method should be overriden if you want to process custom tap.
+// This method should be оverridden if you want to process custom tap.
 }
 
 - (IBAction)didPan:(UIPanGestureRecognizer *)sender
 {
-  // This method should be overriden if you want to process custom pan.
+  // This method should be оverridden if you want to process custom pan.
 }
 
 - (void)refresh
 {
-  // This method should be overriden.
+  // This method should be оverridden.
 }
 
 #pragma mark - Properties

@@ -14,6 +14,7 @@
     return [[MWMInputPasswordValidator alloc] init];
   if ([validator isEqualToString:[MWMInputEmailValidator className]])
     return [[MWMInputEmailValidator alloc] init];
+  NSAssert(false, @"Invalid validator requested.");
   return [[MWMInputValidator alloc] init];
 }
 

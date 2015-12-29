@@ -15,7 +15,7 @@ static NSString * const kEmailRegexPattern = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\
                                                   error:&err];
   NSAssert(!err, @"Invalid regular expression");
   NSMutableArray<NSString *> * matches = [@[] mutableCopy];
-  NSRange const range = {0, string.length};
+  NSRange const range{0, string.length};
   [regex enumerateMatchesInString:string
                           options:NSMatchingReportProgress
                             range:range

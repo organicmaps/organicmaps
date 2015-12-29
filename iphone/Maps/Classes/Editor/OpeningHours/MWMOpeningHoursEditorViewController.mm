@@ -31,6 +31,7 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 @property (weak, nonatomic, readwrite) IBOutlet UIButton * toggleModeButton;
 
 @property (nonatomic) BOOL exampleExpanded;
+@property (nonatomic) BOOL isSimpleMode;
 
 @property (nonatomic) MWMOpeningHoursModel * model;
 
@@ -71,13 +72,13 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 
 - (void)configAdvancedEditor
 {
-  [self.editorView setTextContainerInset:{12, 10, 12, 10}];
-  [self setExampleExpanded:NO];
+  [self.editorView setTextContainerInset:{.top = 12, .left = 10, .bottom = 12, .right = 10}];
 }
 
 - (void)configData
 {
   self.model = [[MWMOpeningHoursModel alloc] initWithDelegate:self];
+  self.isSimpleMode = self.model.isSimpleModeCapable;
 }
 
 #pragma mark - Actions
@@ -183,7 +184,7 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 
 - (IBAction)toggleMode
 {
-  self.model.isSimpleMode = !self.model.isSimpleMode;
+  self.isSimpleMode = !self.isSimpleMode;
 }
 
 #pragma mark - UITextViewDelegate
@@ -193,6 +194,20 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
   self.openingHours = textView.text;
   self.navigationItem.rightBarButtonItem.enabled = self.model.isValid;
   self.toggleModeButton.enabled = self.model.isSimpleModeCapable;
+}
+
+#pragma mark - Properties
+
+- (void)setIsSimpleMode:(BOOL)isSimpleMode
+{
+  self.model.isSimpleMode = isSimpleMode;
+  if (!isSimpleMode)
+    self.exampleExpanded = NO;
+}
+
+- (BOOL)isSimpleMode
+{
+  return self.model.isSimpleMode;
 }
 
 @end

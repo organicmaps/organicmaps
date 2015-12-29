@@ -801,10 +801,8 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   {
     self.skipDismissOnViewDisappear = YES;
     MWMPlacePageEntity * entity = sender;
-    NSUInteger const timeIndex = [entity.metadataTypes indexOfObject:@(MWMPlacePageMetadataTypeOpenHours)];
-    BOOL const haveTime = (timeIndex != NSNotFound);
     MWMOpeningHoursEditorViewController * dvc = segue.destinationViewController;
-    dvc.openingHours = haveTime ? entity.metadataValues[timeIndex] : @"";
+    dvc.openingHours = [entity getValue:MWMPlacePageMetadataTypeOpenHours];
   }
 }
 

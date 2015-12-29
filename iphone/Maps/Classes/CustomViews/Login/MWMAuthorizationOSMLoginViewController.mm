@@ -111,8 +111,8 @@ typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
     // TODO: Add async loader spinner
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^
     {
-      string username = self.loginTextField.text.UTF8String;
-      string password = self.passwordTextField.text.UTF8String;
+      string const username = self.loginTextField.text.UTF8String;
+      string const password = self.passwordTextField.text.UTF8String;
       BOOL const credentialsOK = osm::ServerApi06(username, password).CheckUserAndPassword();
       dispatch_async(dispatch_get_main_queue(), ^
       {

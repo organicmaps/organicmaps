@@ -20,10 +20,6 @@
 {
   [super viewDidLoad];
   self.backgroundImage.image = [UIImage imageWithColor:[UIColor primary]];
-
-  MWMAuthorizationConfigButton(self.loginGoogleButton, MWMAuthorizationButtonTypeGoogle);
-  MWMAuthorizationConfigButton(self.loginFacebookButton, MWMAuthorizationButtonTypeFacebook);
-  MWMAuthorizationConfigButton(self.loginOSMButton, MWMAuthorizationButtonTypeOSM);
   [self checkConnection];
 }
 
@@ -57,6 +53,16 @@
   self.loginGoogleButton.enabled = isConnected;
   self.loginFacebookButton.enabled = isConnected;
   self.signupButton.enabled = isConnected;
+
+  MWMAuthorizationConfigButton(self.loginGoogleButton, MWMAuthorizationButtonTypeGoogle);
+  MWMAuthorizationConfigButton(self.loginFacebookButton, MWMAuthorizationButtonTypeFacebook);
+  MWMAuthorizationConfigButton(self.loginOSMButton, MWMAuthorizationButtonTypeOSM);
+
+  if (!isConnected)
+  {
+    self.loginGoogleButton.layer.borderColor = [UIColor clearColor].CGColor;
+    self.loginFacebookButton.layer.borderColor = [UIColor clearColor].CGColor;
+  }
 }
 
 #pragma mark - Actions
