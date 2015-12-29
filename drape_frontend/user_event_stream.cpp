@@ -495,7 +495,6 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches, double timestam
     break;
   case STATE_TAP_DETECTION:
   case STATE_WAIT_DOUBLE_TAP:
-    ASSERT_EQUAL(touchCount, 1, ());
     if (m_startDragOrg.SquareLength(touches[0].m_location) > dragThreshold)
       CancelTapDetector();
     else

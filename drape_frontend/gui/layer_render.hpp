@@ -46,6 +46,7 @@ private:
   TRenderers m_renderers;
 
   ref_ptr<gui::Handle> m_activeOverlay;
+  EWidget m_activeOverlayWidget = EWidget::WIDGET_RULER;
 };
 
 class LayerCacher
