@@ -328,6 +328,8 @@
 	<string name="pref_map_style_default">Default</string>
 	<!-- «Map style» entry value -->
 	<string name="pref_map_style_night">Night</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_auto">Auto</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Perspective view</string>
 	<!-- Settings «Map» category: «3D buildings» title -->

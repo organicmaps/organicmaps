@@ -326,6 +326,8 @@
 	<string name="pref_map_style_default">По умолчанию</string>
 	<!-- «Map style» entry value -->
 	<string name="pref_map_style_night">Ночная</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_auto">Автоматическое переключение</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Перспективный вид</string>
 	<!-- Settings «Map» category: «3D buildings» title -->

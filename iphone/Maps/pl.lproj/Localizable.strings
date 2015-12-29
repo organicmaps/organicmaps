@@ -507,6 +507,9 @@
 /* «Map style» entry value */
 "pref_map_style_night" = "Night";
 
+/* «Map style» entry value */
+"pref_map_style_auto" = "Auto";
+
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Widok z perspektywy";
 
