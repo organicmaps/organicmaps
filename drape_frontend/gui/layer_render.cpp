@@ -46,7 +46,7 @@ void LayerRenderer::Merge(ref_ptr<LayerRenderer> other)
     if (it != m_renderers.end())
     {
       it->second = move(r.second);
-      if (m_activeOverlay != nullptr && m_activeOverlayRenderer == r.first)
+      if (m_activeOverlay != nullptr && m_activeOverlayWidget == r.first)
       {
         m_activeOverlay->OnTapEnd();
         m_activeOverlay = nullptr;
@@ -91,7 +91,7 @@ bool LayerRenderer::OnTouchDown(m2::RectD const & touchArea)
     m_activeOverlay = r.second->ProcessTapEvent(touchArea);
     if (m_activeOverlay != nullptr)
     {
-      m_activeOverlayRenderer = r.first;
+      m_activeOverlayWidget = r.first;
       m_activeOverlay->OnTapBegin();
       return true;
     }
