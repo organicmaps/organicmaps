@@ -370,9 +370,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     View frame = findViewById(R.id.navigation_buttons);
     mBtnZoomIn = (ImageButton) frame.findViewById(R.id.map_button_plus);
+    mBtnZoomIn.setImageResource(ThemeUtils.isNightTheme() ? R.drawable.zoom_in_night
+                                                          : R.drawable.zoom_in);
     mBtnZoomIn.setOnClickListener(this);
     mBtnZoomOut = (ImageButton) frame.findViewById(R.id.map_button_minus);
     mBtnZoomOut.setOnClickListener(this);
+    mBtnZoomOut.setImageResource(ThemeUtils.isNightTheme() ? R.drawable.zoom_out_night
+                                                           : R.drawable.zoom_out);
   }
 
   private void initPlacePage()
