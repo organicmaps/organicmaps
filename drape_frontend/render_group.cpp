@@ -181,7 +181,8 @@ void RenderGroup::Disappear()
   //else
   {
     // Create separate disappearing animation for area objects to eliminate flickering.
-    if (m_state.GetProgramIndex() == gpu::AREA_PROGRAM)
+    if (m_state.GetProgramIndex() == gpu::AREA_PROGRAM ||
+        m_state.GetProgramIndex() == gpu::AREA_3D_PROGRAM)
       m_disappearAnimation = make_unique<OpacityAnimation>(0.01 /* duration */, 0.25 /* delay */,
                                                            1.0 /* startOpacity */, 1.0 /* endOpacity */);
   }

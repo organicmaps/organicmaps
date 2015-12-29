@@ -234,7 +234,9 @@ private:
 
   dp::UniformValuesStorage m_generalUniforms;
 
-  bool m_enable3dInNavigation;
+  bool m_enablePerspectiveInNavigation;
+  bool m_enable3dBuildings;
+  bool m_isIsometry;
 
   Viewport m_viewport;
   UserEventStream m_userEventStream;

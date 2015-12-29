@@ -47,7 +47,9 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_framebuffer(new Framebuffer())
   , m_transparentLayer(new TransparentLayer())
   , m_overlayTree(new dp::OverlayTree())
-  , m_enable3dInNavigation(false)
+  , m_enablePerspectiveInNavigation(false)
+  , m_enable3dBuildings(false)
+  , m_isIsometry(false)
   , m_viewport(params.m_viewport)
   , m_userEventStream(params.m_isCountryLoadedFn)
   , m_modelViewChangedFn(params.m_modelViewChangedFn)
@@ -197,7 +199,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
                                   MessagePriority::High);
         blocker.Wait();
 
-        m_requestedTiles->Set(screen, move(tiles));
+        m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(), move(tiles));
         m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<UpdateReadManagerMessage>(),
                                   MessagePriority::UberHighSingleton);
@@ -403,7 +405,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       {
         m_myPositionController->DeactivateRouting();
         m_overlayTree->SetFollowingMode(false);
-        if (m_enable3dInNavigation)
+        if (m_enablePerspectiveInNavigation)
           DisablePerspective();
       }
       break;
@@ -412,10 +414,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::FollowRoute:
     {
       ref_ptr<FollowRouteMessage> const msg = message;
-      m_myPositionController->NextMode(!m_enable3dInNavigation ? msg->GetPreferredZoomLevel()
+      m_myPositionController->NextMode(!m_enablePerspectiveInNavigation ? msg->GetPreferredZoomLevel()
                                                                : msg->GetPreferredZoomLevelIn3d());
       m_overlayTree->SetFollowingMode(true);
-      if (m_enable3dInNavigation)
+      if (m_enablePerspectiveInNavigation)
       {
         bool immediatelyStart = !m_myPositionController->IsRotationActive();
         AddUserEvent(EnablePerspectiveEvent(msg->GetRotationAngle(), msg->GetAngleFOV(),
@@ -428,7 +430,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       m_myPositionController->DeactivateRouting();
       m_overlayTree->SetFollowingMode(false);
-      if (m_enable3dInNavigation)
+      if (m_enablePerspectiveInNavigation)
         DisablePerspective();
       break;
     }
@@ -495,7 +497,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       }
 
       // Request new tiles.
-      m_requestedTiles->Set(screen, move(tiles));
+      m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(), move(tiles));
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                 make_unique_dp<UpdateReadManagerMessage>(),
                                 MessagePriority::UberHighSingleton);
@@ -518,27 +520,28 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<Allow3dModeMessage> const msg = message;
       bool const isPerspective = m_userEventStream.GetCurrentScreen().isPerspective();
 #ifdef OMIM_OS_DESKTOP
-      if (m_enable3dInNavigation == msg->Allow() &&
-          m_enable3dInNavigation != isPerspective)
+      if (m_enablePerspectiveInNavigation == msg->AllowPerspective() &&
+          m_enablePerspectiveInNavigation != isPerspective)
       {
 
-        if (m_enable3dInNavigation)
+        if (m_enablePerspectiveInNavigation)
           AddUserEvent(EnablePerspectiveEvent(msg->GetRotationAngle(), msg->GetAngleFOV(),
                                               false /* animated */, true /* immediately start */));
         else
           AddUserEvent(DisablePerspectiveEvent());
       }
 #endif
-      m_enable3dInNavigation = msg->Allow();
+      m_enablePerspectiveInNavigation = msg->AllowPerspective();
+      m_enable3dBuildings = msg->Allow3dBuildings();
 
       if (m_myPositionController->IsInRouting())
       {
-        if (m_enable3dInNavigation && !isPerspective && !m_perspectiveDiscarded)
+        if (m_enablePerspectiveInNavigation && !isPerspective && !m_perspectiveDiscarded)
         {
           AddUserEvent(EnablePerspectiveEvent(msg->GetRotationAngle(), msg->GetAngleFOV(),
                                               true /* animated */, true /* immediately start */));
         }
-        else if (!m_enable3dInNavigation && (isPerspective || m_perspectiveDiscarded))
+        else if (!m_enablePerspectiveInNavigation && (isPerspective || m_perspectiveDiscarded))
         {
           DisablePerspective();
         }
@@ -574,8 +577,7 @@ void FrontendRenderer::OnResize(ScreenBase const & screen)
   RefreshProjection(screen);
   RefreshPivotTransform(screen);
 
-  if (screen.isPerspective())
-    m_framebuffer->SetSize(viewportRect.SizeX(), viewportRect.SizeY());
+  m_framebuffer->SetSize(viewportRect.SizeX(), viewportRect.SizeY());
 }
 
 void FrontendRenderer::AddToRenderGroup(vector<drape_ptr<RenderGroup>> & groups,
@@ -780,7 +782,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
     dp::GLState const & state = group->GetState();
 
-    if (isPerspective && state.GetProgram3dIndex() == gpu::AREA_3D_PROGRAM)
+    if ((isPerspective || m_isIsometry) && state.GetProgram3dIndex() == gpu::AREA_3D_PROGRAM)
     {
       if (!has3dAreas)
       {
@@ -822,7 +824,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   m_myPositionController->Render(MyPositionController::RenderAccuracy,
                                  modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
-  if (isPerspective && has3dAreas)
+  if (has3dAreas)
   {
     m_framebuffer->Enable();
     GLFunctions::glClear();
@@ -938,8 +940,18 @@ void FrontendRenderer::RefreshPivotTransform(ScreenBase const & screen)
     math::Matrix<float, 4, 4> transform(screen.Pto3dMatrix());
     m_generalUniforms.SetMatrix4x4Value("pivotTransform", transform.m_data);
   }
+  else if (m_isIsometry)
+  {
+    math::Matrix<float, 4, 4> transform(math::Identity<float, 4>());
+    transform(2, 1) = -1.0f/tan(M_PI * 80.0f / 180.0f);
+    transform(2, 2) = 1.0f / screen.GetHeight();
+    m_generalUniforms.SetMatrix4x4Value("pivotTransform", transform.m_data);
+  }
   else
-    m_generalUniforms.SetMatrix4x4Value("pivotTransform", math::Identity<float, 4>().m_data);
+  {
+    math::Matrix<float, 4, 4> transform(math::Identity<float, 4>());
+    m_generalUniforms.SetMatrix4x4Value("pivotTransform", transform.m_data);
+  }
 }
 
 void FrontendRenderer::RefreshBgColor()
@@ -968,11 +980,13 @@ void FrontendRenderer::DisablePerspective()
 
 void FrontendRenderer::CheckMinAllowableIn3dScale()
 {
-  if (!m_enable3dInNavigation ||
-      m_userEventStream.IsInPerspectiveAnimation())
+  bool const isScaleAllowableIn3d = UserEventStream::IsScaleAllowableIn3d(m_currentZoomLevel);
+  m_isIsometry = m_enable3dBuildings && isScaleAllowableIn3d;
+
+  if (!m_enablePerspectiveInNavigation || m_userEventStream.IsInPerspectiveAnimation())
     return;
 
-  bool const switchTo2d = !UserEventStream::IsScaleAllowableIn3d(m_currentZoomLevel);
+  bool const switchTo2d = !isScaleAllowableIn3d;
   if ((!switchTo2d && !m_perspectiveDiscarded) ||
       (switchTo2d && !m_userEventStream.GetCurrentScreen().isPerspective()))
     return;
@@ -1328,7 +1342,7 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
   };
   RemoveRenderGroups(removePredicate);
 
-  m_requestedTiles->Set(modelView, move(tiles));
+  m_requestedTiles->Set(modelView, m_isIsometry || modelView.isPerspective(), move(tiles));
   m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                             make_unique_dp<UpdateReadManagerMessage>(),
                             MessagePriority::UberHighSingleton);

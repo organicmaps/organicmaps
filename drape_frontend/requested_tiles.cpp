@@ -3,11 +3,12 @@
 namespace df
 {
 
-void RequestedTiles::Set(ScreenBase const & screen, TTilesCollection && tiles)
+void RequestedTiles::Set(ScreenBase const & screen, bool is3dBuildings, TTilesCollection && tiles)
 {
   lock_guard<mutex> lock(m_mutex);
   m_tiles = move(tiles);
   m_screen = screen;
+  m_is3dBuildings = is3dBuildings;
 }
 
 TTilesCollection RequestedTiles::GetTiles()

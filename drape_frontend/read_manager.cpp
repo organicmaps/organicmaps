@@ -36,8 +36,8 @@ ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider 
   , m_model(model)
   , m_pool(make_unique_dp<threads::ThreadPool>(ReadCount(), bind(&ReadManager::OnTaskFinished, this, _1)))
   , m_forceUpdate(true)
-  , m_is3d(false)
-  , m_is3dBuildings(false)
+  , m_need3dBuildings(false)
+  , m_allow3dBuildings(false)
   , m_modeChanged(false)
   , myPool(64, ReadMWMTaskFactory(m_memIndex, m_model))
   , m_counter(0)
@@ -73,14 +73,15 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
   myPool.Return(t);
 }
 
-void ReadManager::UpdateCoverage(ScreenBase const & screen, TTilesCollection const & tiles, ref_ptr<dp::TextureManager> texMng)
+void ReadManager::UpdateCoverage(ScreenBase const & screen, bool is3dBuildings,
+                                 TTilesCollection const & tiles, ref_ptr<dp::TextureManager> texMng)
 {
   if (screen == m_currentViewport && !m_forceUpdate)
     return;
 
   m_forceUpdate = false;
-  m_is3d = screen.isPerspective();
-  m_modeChanged |= m_is3dBuildings && (m_is3d != m_currentViewport.isPerspective());
+  m_modeChanged |= m_need3dBuildings != is3dBuildings;
+  m_need3dBuildings = is3dBuildings;
 
   if (m_modeChanged || MustDropAllTiles(screen))
   {
@@ -188,7 +189,7 @@ void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey, ref_ptr<dp::Te
 {
   shared_ptr<TileInfo> tileInfo(new TileInfo(make_unique_dp<EngineContext>(TileKey(tileKey, m_generationCounter),
                                                                            m_commutator, texMng)));
-  tileInfo->Set3dBuildings(m_is3d && m_is3dBuildings);
+  tileInfo->Set3dBuildings(m_need3dBuildings && m_allow3dBuildings);
   m_tileInfos.insert(tileInfo);
   ReadMWMTask * task = myPool.Get();
   task->Init(tileInfo);
@@ -197,7 +198,7 @@ void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey, ref_ptr<dp::Te
 
 void ReadManager::PushTaskFront(shared_ptr<TileInfo> const & tileToReread)
 {
-  tileToReread->Set3dBuildings(m_is3d && m_is3dBuildings);
+  tileToReread->Set3dBuildings(m_need3dBuildings && m_allow3dBuildings);
   ReadMWMTask * task = myPool.Get();
   task->Init(tileToReread);
   m_pool->PushFront(task);
@@ -222,11 +223,11 @@ void ReadManager::IncreaseCounter(int value)
 
 void ReadManager::Allow3dBuildings(bool allow3dBuildings)
 {
-  if (m_is3dBuildings != allow3dBuildings)
+  if (m_allow3dBuildings != allow3dBuildings)
   {
     m_modeChanged = true;
     m_forceUpdate = true;
-    m_is3dBuildings = allow3dBuildings;
+    m_allow3dBuildings = allow3dBuildings;
   }
 }
 
