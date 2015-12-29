@@ -64,44 +64,63 @@ public:
   {
     if (child.m_type >= parent.m_type)
       return;
-    if (parent.m_type == SearchModel::SEARCH_TYPE_STREET)
+    switch (parent.m_type)
     {
+    case SearchModel::SEARCH_TYPE_POI:
+    case SearchModel::SEARCH_TYPE_CITY:
+    case SearchModel::SEARCH_TYPE_COUNT:
+      ASSERT(false, ("Invalid parent layer type:", parent.m_type));
+      break;
+    case SearchModel::SEARCH_TYPE_BUILDING:
+      MatchPOIsWithBuildings(child, parent, forward<TFn>(fn));
+      break;
+    case SearchModel::SEARCH_TYPE_STREET:
       if (child.m_type == SearchModel::SEARCH_TYPE_POI)
         MatchPOIsWithStreets(child, parent, forward<TFn>(fn));
-      else if (child.m_type == SearchModel::SEARCH_TYPE_BUILDING)
+      else
         MatchBuildingsWithStreets(child, parent, forward<TFn>(fn));
-      return;
-    }
-
-    vector<m2::PointD> childCenters;
-    for (uint32_t featureId : *child.m_sortedFeatures)
-    {
-      FeatureType ft;
-      m_context.m_vector.GetByIndex(featureId, ft);
-      childCenters.push_back(feature::GetCenter(ft, FeatureType::WORST_GEOMETRY));
-    }
-
-    BailIfCancelled(m_cancellable);
-
-    for (size_t j = 0; j < parent.m_sortedFeatures->size(); ++j)
-    {
-      BailIfCancelled(m_cancellable);
-
-      FeatureType ft;
-      m_context.m_vector.GetByIndex((*parent.m_sortedFeatures)[j], ft);
-      m2::PointD const center = feature::GetCenter(ft, FeatureType::WORST_GEOMETRY);
-      double const radius = ftypes::GetRadiusByPopulation(ft.GetPopulation());
-      m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(center, radius);
-
-      for (size_t i = 0; i < child.m_sortedFeatures->size(); ++i)
-      {
-        if (rect.IsPointInside(childCenters[i]))
-          fn((*child.m_sortedFeatures)[i], (*parent.m_sortedFeatures)[j]);
-      }
+      break;
     }
   }
 
 private:
+  template <typename TFn>
+  void MatchPOIsWithBuildings(FeaturesLayer const & child, FeaturesLayer const & parent, TFn && fn)
+  {
+    static const double kBuildingRadiusMeters = 50;
+
+    ASSERT_EQUAL(child.m_type, SearchModel::SEARCH_TYPE_POI, ());
+    ASSERT_EQUAL(parent.m_type, SearchModel::SEARCH_TYPE_BUILDING, ());
+
+    BailIfCancelled(m_cancellable);
+
+    vector<m2::PointD> poiCenters(child.m_sortedFeatures->size());
+    for (size_t i = 0; i < child.m_sortedFeatures->size(); ++i)
+    {
+      FeatureType poiFt;
+      GetByIndex((*child.m_sortedFeatures)[i], poiFt);
+      poiCenters[i] = feature::GetCenter(poiFt, FeatureType::WORST_GEOMETRY);
+    }
+
+    for (size_t i = 0; i < parent.m_sortedFeatures->size(); ++i)
+    {
+      BailIfCancelled(m_cancellable);
+
+      FeatureType buildingFt;
+      GetByIndex((*parent.m_sortedFeatures)[i], buildingFt);
+
+      for (size_t j = 0; j < child.m_sortedFeatures->size(); ++j)
+      {
+        double const distM = feature::GetMinDistanceMeters(buildingFt, poiCenters[j]);
+        if (distM <= kBuildingRadiusMeters)
+        {
+          fn((*child.m_sortedFeatures)[j], (*parent.m_sortedFeatures)[i]);
+          break;
+        }
+      }
+    }
+  }
+
   template <typename TFn>
   void MatchPOIsWithStreets(FeaturesLayer const & child, FeaturesLayer const & parent, TFn && fn)
   {
@@ -123,8 +142,6 @@ private:
     // not by house number.  So, we need to add to
     // child.m_sortedFeatures all buildings match by house number
     // here.
-
-    auto const & checker = ftypes::IsBuildingChecker::Instance();
 
     ASSERT_EQUAL(child.m_type, SearchModel::SEARCH_TYPE_BUILDING, ());
     ASSERT_EQUAL(parent.m_type, SearchModel::SEARCH_TYPE_STREET, ());
@@ -152,15 +169,14 @@ private:
       return;
     }
 
+    auto const & checker = ftypes::IsBuildingChecker::Instance();
     uint32_t numFilterInvocations = 0;
-    auto filter = [&](uint32_t id, FeatureType & feature) -> bool
+    auto houseNumberFilter = [&](uint32_t id, FeatureType & feature, bool & loaded) -> bool
     {
       ++numFilterInvocations;
       if ((numFilterInvocations & 0xFF) == 0)
         BailIfCancelled(m_cancellable);
 
-      if (!checker(feature))
-        return false;
       if (binary_search(child.m_sortedFeatures->begin(), child.m_sortedFeatures->end(), id))
         return true;
 
@@ -169,24 +185,61 @@ private:
       // optimization: as first tokens from the house-number part of
       // the query and feature's house numbers must be numbers, their
       // first symbols must be the same.
+
+      if (!loaded)
+      {
+        GetByIndex(id, feature);
+        loaded = true;
+      }
+      if (!checker(feature))
+        return false;
+
       string const houseNumber = feature.GetHouseNumber();
       if (!queryLooksLikeHouseNumber || !feature::IsHouseNumber(houseNumber))
         return false;
       if (queryTokens[0][0] != houseNumber[0])
         return false;
-      return HouseNumbersMatch(feature.GetHouseNumber(), queryTokens);
+      return HouseNumbersMatch(houseNumber, queryTokens);
     };
 
-    auto addEdge = [&](uint32_t houseId, FeatureType & houseFeature, uint32_t streetId)
+    unordered_map<uint32_t, bool> cache;
+    auto cachingHouseNumberFilter = [&](uint32_t id, FeatureType & feature, bool & loaded) -> bool
     {
-      if (GetMatchingStreet(houseId, houseFeature) == streetId)
-        fn(houseId, streetId);
+      auto const it = cache.find(id);
+      if (it != cache.cend())
+        return it->second;
+      bool const result = houseNumberFilter(id, feature, loaded);
+      cache[id] = result;
+      return result;
     };
 
+    ProjectionOnStreet proj;
     for (uint32_t streetId : *parent.m_sortedFeatures)
     {
       BailIfCancelled(m_cancellable);
-      m_loader.FilterFeaturesInVicinity(streetId, filter, bind(addEdge, _1, _2, streetId));
+      StreetVicinityLoader::Street const & street = m_loader.GetStreet(streetId);
+      if (street.IsEmpty())
+        continue;
+
+      auto const & calculator = *street.m_calculator;
+
+      for (uint32_t houseId : street.m_features)
+      {
+        FeatureType feature;
+        bool loaded = false;
+        if (!cachingHouseNumberFilter(houseId, feature, loaded))
+          continue;
+
+        if (!loaded)
+          GetByIndex(houseId, feature);
+
+        m2::PointD const center = feature::GetCenter(feature, FeatureType::WORST_GEOMETRY);
+        if (!calculator.GetProjection(center, proj))
+          continue;
+
+        if (GetMatchingStreet(houseId, feature) == streetId)
+          fn(houseId, streetId);
+      }
     }
   }
 
@@ -205,6 +258,11 @@ private:
 
   vector<ReverseGeocoder::Street> const & GetNearbyStreetsImpl(uint32_t featureId,
                                                                FeatureType & feature);
+
+  inline void GetByIndex(uint32_t id, FeatureType & ft) const
+  {
+    m_context.m_vector.GetByIndex(id, ft);
+  }
 
   MwmContext & m_context;
 

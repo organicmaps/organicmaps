@@ -68,42 +68,11 @@ public:
     }
   }
 
-  // Calls |fn| on each feature belonging to the street's vicinity.
-  // Note that the distance from the feature to the street is
-  // calculated iff |filter| accepts the feature. This is a hacky
-  // solution and some kind of leaky abstraction. Probably we do not
-  // need this filter at all, but it allows us to early throw out all
-  // uninteresting features with complex geometry.
-  //
-  // TODO (@y, @m): fix this design.
-  template <typename TFilter, typename TFn>
-  void FilterFeaturesInVicinity(uint32_t streetId, TFilter && filter, TFn && fn)
-  {
-    Street const & street = GetStreet(streetId);
-    if (street.IsEmpty())
-      return;
-
-    ProjectionOnStreetCalculator const & calculator = *street.m_calculator;
-    ProjectionOnStreet proj;
-    for (uint32_t id : street.m_features)
-    {
-      FeatureType ft;
-      m_featuresVector.GetByIndex(id, ft);
-      if (!filter(id, ft))
-        continue;
-
-      if (!calculator.GetProjection(feature::GetCenter(ft, FeatureType::WORST_GEOMETRY), proj))
-        continue;
-
-      fn(id, ft);
-    }
-  }
+  Street const & GetStreet(uint32_t featureId);
 
   inline void ClearCache() { m_cache.clear(); }
 
 private:
-  Street const & GetStreet(uint32_t featureId);
-
   void LoadStreet(uint32_t featureId, Street & street);
 
   ScaleIndex<ModelReaderPtr> m_index;
