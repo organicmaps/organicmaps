@@ -21,6 +21,7 @@ import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.Constants;
+import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -128,6 +129,7 @@ public class MwmApplication extends Application
     initNativeStrings();
     BookmarkManager.getIcons(); // init BookmarkManager (automatically loads bookmarks)
     TtsPlayer.INSTANCE.init(this);
+    ThemeSwitcher.restart();
     mIsFrameworkInitialized = true;
   }
 

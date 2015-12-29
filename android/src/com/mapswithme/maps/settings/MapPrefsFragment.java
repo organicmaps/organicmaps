@@ -15,7 +15,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.util.Config;
-import com.mapswithme.util.ThemeUtils;
+import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.Yota;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -106,24 +106,21 @@ public class MapPrefsFragment extends BaseXmlSettingsFragment
       }
     });
 
-    int style = Framework.getMapStyle();
-    if (style == Framework.MAP_STYLE_LIGHT)
-      style = Framework.MAP_STYLE_CLEAR;
-
     pref = findPreference(getString(R.string.pref_map_style));
-    ((ListPreference) pref).setValue(String.valueOf(style));
+    ((ListPreference) pref).setValue(Config.getUiThemeSettings());
     pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
     {
       @Override
       public boolean onPreferenceChange(Preference preference, Object newValue)
       {
-        Framework.setMapStyle(Integer.parseInt((String) newValue));
+        String themeName = (String)newValue;
+        if (!Config.setUiThemeSettings(themeName))
+          return true;
 
-        String themeName = (String.valueOf(Framework.MAP_STYLE_DARK).equals(newValue) ? ThemeUtils.THEME_NIGHT : ThemeUtils.THEME_DEFAULT);
-        Config.setUiTheme(themeName);
+        ThemeSwitcher.restart();
+        getActivity().recreate();
         Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.MAP_STYLE,
                                        Statistics.params().add(Statistics.EventParam.NAME, themeName));
-        getActivity().recreate();
         return true;
       }
     });

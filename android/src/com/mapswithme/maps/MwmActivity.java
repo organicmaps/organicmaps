@@ -292,10 +292,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public int getThemeResourceId(String theme)
   {
-    if (ThemeUtils.THEME_DEFAULT.equals(theme))
+    if (ThemeUtils.isDefaultTheme(theme))
       return R.style.MwmTheme_MainActivity;
 
-    if (ThemeUtils.THEME_NIGHT.equals(theme))
+    if (ThemeUtils.isNightTheme(theme))
       return R.style.MwmTheme_Night_MainActivity;
 
     return super.getThemeResourceId(theme);

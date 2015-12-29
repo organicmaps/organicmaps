@@ -48,10 +48,10 @@ public class SettingsActivity extends PreferenceActivity
   @Override
   public int getThemeResourceId(String theme)
   {
-    if (ThemeUtils.THEME_DEFAULT.equals(theme))
+    if (ThemeUtils.isDefaultTheme(theme))
       return R.style.MwmTheme_Settings;
 
-    if (ThemeUtils.THEME_NIGHT.equals(theme))
+    if (ThemeUtils.isNightTheme(theme))
       return R.style.MwmTheme_Night_Settings;
 
     throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);

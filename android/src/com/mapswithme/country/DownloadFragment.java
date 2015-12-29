@@ -33,11 +33,11 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
 
   private static int getTheme()
   {
-    String theme = Config.getUiTheme();
-    if (ThemeUtils.THEME_DEFAULT.equals(theme))
+    String theme = Config.getCurrentUiTheme();
+    if (ThemeUtils.isDefaultTheme(theme))
       return R.style.MwmTheme_Downloader;
 
-    if (ThemeUtils.THEME_NIGHT.equals(theme))
+    if (ThemeUtils.isNightTheme(theme))
       return R.style.MwmTheme_Night_Downloader;
 
     throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);

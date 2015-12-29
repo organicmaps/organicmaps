@@ -18,7 +18,7 @@ public class BaseActivityDelegate
 
   public void onCreate()
   {
-    mThemeName = Config.getUiTheme();
+    mThemeName = Config.getCurrentUiTheme();
     mActivity.get().setTheme(mActivity.getThemeResourceId(mThemeName));
   }
 
@@ -56,7 +56,7 @@ public class BaseActivityDelegate
 
   public void onPostResume()
   {
-    if (mThemeName.equals(Config.getUiTheme()))
+    if (mThemeName.equals(Config.getCurrentUiTheme()))
       return;
 
     // Workaround described in https://code.google.com/p/android/issues/detail?id=93731

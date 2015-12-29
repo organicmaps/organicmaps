@@ -11,12 +11,15 @@ import android.view.LayoutInflater;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 
-public class ThemeUtils
+public final class ThemeUtils
 {
   public static final String THEME_DEFAULT = MwmApplication.get().getString(R.string.theme_default);
   public static final String THEME_NIGHT = MwmApplication.get().getString(R.string.theme_night);
+  public static final String THEME_AUTO = MwmApplication.get().getString(R.string.theme_auto);
 
   private static final TypedValue VALUE_BUFFER = new TypedValue();
+
+  private ThemeUtils() {}
 
   public static @ColorInt int getColor(Context context, @AttrRes int attr)
   {
@@ -40,8 +43,39 @@ public class ThemeUtils
     return src.cloneInContext(wrapper);
   }
 
+  public static boolean isDefaultTheme()
+  {
+    return isDefaultTheme(Config.getCurrentUiTheme());
+  }
+
+  public static boolean isDefaultTheme(String theme)
+  {
+    return THEME_DEFAULT.equals(theme);
+  }
+
   public static boolean isNightTheme()
   {
-    return THEME_NIGHT.equals(Config.getUiTheme());
+    return isNightTheme(Config.getCurrentUiTheme());
+  }
+
+  public static boolean isNightTheme(String theme)
+  {
+    return THEME_NIGHT.equals(theme);
+  }
+
+  public static boolean isAutoTheme()
+  {
+    return THEME_AUTO.equals(Config.getUiThemeSettings());
+  }
+
+  public static boolean isAutoTheme(String theme)
+  {
+    return THEME_AUTO.equals(theme);
+  }
+
+  public static boolean isValidTheme(String theme)
+  {
+    return (THEME_DEFAULT.equals(theme) ||
+            THEME_NIGHT.equals(theme));
   }
 }

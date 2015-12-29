@@ -1273,16 +1273,11 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_setMapStyle(JNIEnv * env, jclass thiz, jint mapStyle)
+  Java_com_mapswithme_maps_Framework_nativeSetMapStyle(JNIEnv * env, jclass thiz, jint mapStyle)
   {
     MapStyle const val = static_cast<MapStyle>(mapStyle);
-    g_framework->SetMapStyle(val);
-  }
-
-  JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_Framework_getMapStyle(JNIEnv * env, jclass thiz)
-  {
-    return static_cast<jint>(g_framework->GetMapStyle());
+    if (val != g_framework->GetMapStyle())
+      g_framework->SetMapStyle(val);
   }
 
   JNIEXPORT void JNICALL
@@ -1331,6 +1326,13 @@ extern "C"
   Java_com_mapswithme_maps_Framework_nativeDeregisterMaps(JNIEnv * env, jclass thiz)
   {
     frm()->DeregisterAllMaps();
+  }
+
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_Framework_nativeIsDayTime(JNIEnv * env, jclass thiz, jlong currentTimeUtc, jdouble lat, jdouble lon)
+  {
+    // TODO: Link to actual implementation
+    return false;
   }
 
   JNIEXPORT void JNICALL

@@ -3,6 +3,7 @@ package com.mapswithme.util;
 import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
+
 import com.mapswithme.maps.BuildConfig;
 
 public final class Config
@@ -26,6 +27,7 @@ public final class Config
   private static final String KEY_MISC_KITKAT_MIGRATED = "KitKatMigrationCompleted";
   private static final String KEY_MISC_NEWS_LAST_VERSION = "WhatsNewShownVersion";
   private static final String KEY_MISC_UI_THEME = "UiTheme";
+  private static final String KEY_MISC_UI_THEME_SETTINGS = "UiThemeSettings";
 
   private Config() {}
 
@@ -261,14 +263,40 @@ public final class Config
     setInt(KEY_MISC_NEWS_LAST_VERSION, BuildConfig.VERSION_CODE);
   }
 
-  public static String getUiTheme()
+  public static String getCurrentUiTheme()
   {
-    return getString(KEY_MISC_UI_THEME, ThemeUtils.THEME_DEFAULT);
+    String res = getString(KEY_MISC_UI_THEME, ThemeUtils.THEME_DEFAULT);
+    if (!ThemeUtils.isValidTheme(res))
+      res = ThemeUtils.THEME_DEFAULT;
+
+    return res;
   }
 
-  public static void setUiTheme(String theme)
+  public static void setCurrentUiTheme(String theme)
   {
+    if (getCurrentUiTheme().equals(theme))
+      return;
+
     setString(KEY_MISC_UI_THEME, theme);
+    ThemeSwitcher.changeMapStyle(theme);
+  }
+
+  public static String getUiThemeSettings()
+  {
+    String res = getString(KEY_MISC_UI_THEME_SETTINGS, ThemeUtils.THEME_DEFAULT);
+    if (!ThemeUtils.isValidTheme(res) && !ThemeUtils.isAutoTheme(res))
+      res = ThemeUtils.THEME_DEFAULT;
+
+    return res;
+  }
+
+  public static boolean setUiThemeSettings(String theme)
+  {
+    if (getUiThemeSettings().equals(theme))
+      return false;
+
+    setString(KEY_MISC_UI_THEME_SETTINGS, theme);
+    return true;
   }
 
   private static native boolean nativeGetBoolean(String name, boolean defaultValue);

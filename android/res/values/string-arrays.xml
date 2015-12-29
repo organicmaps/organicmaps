@@ -14,12 +14,14 @@
   <string-array name="map_style">
     <item>@string/pref_map_style_default</item>
     <item>@string/pref_map_style_night</item>
+    <item>@string/pref_map_style_auto</item>
   </string-array>
 
   <string-array name="map_style_values"
                 translatable="false">
-    <item>2</item>
-    <item>1</item>
+    <item>@string/theme_default</item>
+    <item>@string/theme_night</item>
+    <item>@string/theme_auto</item>
   </string-array>
 
   <string-array name="track_lengths">
