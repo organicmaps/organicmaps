@@ -51,7 +51,7 @@
 	<!-- Settings/Downloader - No internet connection dialog title -->
 	<string name="no_internet_connection_detected">無網路連線</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<string name="no_wifi_ask_cellular_download">未發現WiFi訊號!您想使用其他的網路連線方式(GPRS, EDGE 或 3G)來下載嗎 %s？</string>
+	<string name="no_wifi_ask_cellular_download">未發現WiFi訊號!您想使用其他的網路連線方式(GPRS, EDGE, 3G 或 LTE)來下載嗎 %s？</string>
 	<string name="ok">好</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">請啟動位置服務</string>

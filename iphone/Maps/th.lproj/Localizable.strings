@@ -83,7 +83,7 @@
 "no_internet_connection_detected" = "ไม่สามารถตรวจพบการเชื่อมต่ออินเทอร์เน็ต";
 
 /* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "ไม่สามารถตรวจพบการเชื่อมต่อ WiFi คุณต้องการใช้ข้อมูลโทรศัพท์มือถือ (GPRS, EDGE หรือ 3G) เพื่อดาวน์โหลด %@?";
+"no_wifi_ask_cellular_download" = "ไม่สามารถตรวจพบการเชื่อมต่อ WiFi คุณต้องการใช้ข้อมูลโทรศัพท์มือถือ (GPRS, EDGE, 3G หรือ LTE) เพื่อดาวน์โหลด %@?";
 
 "ok" = "ตกลง";
 

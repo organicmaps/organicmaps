@@ -22,7 +22,7 @@
 	<!-- Settings/Downloader - No internet connection dialog title -->
 	<text id="IDS_NO_INTERNET_CONNECTION_DETECTED">Відсутнє підключення до інтернету</text>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<text id="IDS_NO_WIFI_ASK_CELLULAR_DOWNLOAD">Відсутнє WiFi з\&#39;єднання. Ви бажаєте завантажити %s через стільникового оператора (GPRS, EDGE або 3G)?</text>
+	<text id="IDS_NO_WIFI_ASK_CELLULAR_DOWNLOAD">Відсутнє WiFi з\&#39;єднання. Ви бажаєте завантажити %s через стільникового оператора (GPRS, EDGE, 3G або LTE)?</text>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<text id="IDS_USE_WIFI_RECOMMENDATION_TEXT">Ми рекомендуємо завантажувати великі країни через WiFi</text>
 	<text id="IDS_DOWNLOAD">Завантажити</text>

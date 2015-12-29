@@ -83,7 +83,7 @@
 "no_internet_connection_detected" = "無網路連線";
 
 /* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "未發現WiFi訊號!您想使用其他的網路連線方式(GPRS, EDGE 或 3G)來下載嗎 %@？";
+"no_wifi_ask_cellular_download" = "未發現WiFi訊號!您想使用其他的網路連線方式(GPRS, EDGE, 3G 或 LTE)來下載嗎 %@？";
 
 "ok" = "好";
 

@@ -83,7 +83,7 @@
 "no_internet_connection_detected" = "Tidak ada koneksi internet yang terdeteksi";
 
 /* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "Tidak ada koneksi WiFi yang terdeteksi. Apakah Anda ingin menggunakan paket data seluler (GPRS, EDGE or 3G) untuk mengunduh %@?";
+"no_wifi_ask_cellular_download" = "Tidak ada koneksi WiFi yang terdeteksi. Apakah Anda ingin menggunakan paket data seluler (GPRS, EDGE, 3G or LTE) untuk mengunduh %@?";
 
 "ok" = "OK";
 

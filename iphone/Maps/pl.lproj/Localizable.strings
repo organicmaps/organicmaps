@@ -83,7 +83,7 @@
 "no_internet_connection_detected" = "Nie wykryto połączenia z Internetem";
 
 /* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "Nie wykryto połączenia z siecią WiFi. Czy chciałbyś skorzystać z trybu sieci danych (GPRS, EDGE lub 3G), aby pobrać %@?";
+"no_wifi_ask_cellular_download" = "Nie wykryto połączenia z siecią WiFi. Czy chciałbyś skorzystać z trybu sieci danych (GPRS, EDGE, 3G lub LTE), aby pobrać %@?";
 
 "ok" = "OK";
 

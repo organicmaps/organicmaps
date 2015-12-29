@@ -83,7 +83,7 @@
 "no_internet_connection_detected" = "Internet-yhteyttä ei havaittu";
 
 /* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "WiFi-yhteyttä ei havaittu. Haluatko käyttää mobiilidataa (GPRS, EDGE tai 3G) ladataksesi tiedoston %@?";
+"no_wifi_ask_cellular_download" = "WiFi-yhteyttä ei havaittu. Haluatko käyttää mobiilidataa (GPRS, EDGE, 3G tai LTE) ladataksesi tiedoston %@?";
 
 "ok" = "OK";
 

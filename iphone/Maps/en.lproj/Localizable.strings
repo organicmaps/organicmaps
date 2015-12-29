@@ -83,7 +83,7 @@
 "no_internet_connection_detected" = "No Internet connection detected";
 
 /* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "No WiFi connection detected. Would you like to use cellular data (GPRS, EDGE or 3G) to download %@?";
+"no_wifi_ask_cellular_download" = "No WiFi connection detected. Would you like to use cellular data (GPRS, EDGE, 3G or LTE) to download %@?";
 
 "ok" = "OK";
 

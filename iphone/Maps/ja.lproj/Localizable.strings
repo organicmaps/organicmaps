@@ -83,7 +83,7 @@
 "no_internet_connection_detected" = "インターネットに接続されていません";
 
 /* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "WiFi接続が見つかりません。GPRS、EDGE、3G等の携帯電話回線で%@をダウンロードしますか？";
+"no_wifi_ask_cellular_download" = "WiFi接続が見つかりません。GPRS、EDGE、3G、LTE等の携帯電話回線で%@をダウンロードしますか？";
 
 "ok" = "OK";
 

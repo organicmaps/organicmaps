@@ -55,7 +55,7 @@
 	<!-- Settings/Downloader - No internet connection dialog title -->
 	<string name="no_internet_connection_detected">Internet-yhteyttä ei havaittu</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<string name="no_wifi_ask_cellular_download">WiFi-yhteyttä ei havaittu. Haluatko käyttää mobiilidataa (GPRS, EDGE tai 3G) ladataksesi tiedoston %s?</string>
+	<string name="no_wifi_ask_cellular_download">WiFi-yhteyttä ei havaittu. Haluatko käyttää mobiilidataa (GPRS, EDGE, 3G tai LTE) ladataksesi tiedoston %s?</string>
 	<string name="ok">OK</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">Ota sijaintipalvelut käyttöön</string>

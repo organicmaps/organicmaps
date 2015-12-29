@@ -83,7 +83,7 @@
 "no_internet_connection_detected" = "Отсутствует подключение к интернету";
 
 /* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "Нет WiFi соединения. Вы хотите загрузить %@ через сотового оператора (GPRS, EDGE или 3G)?";
+"no_wifi_ask_cellular_download" = "Нет WiFi соединения. Вы хотите загрузить %@ через сотового оператора (GPRS, EDGE, 3G или LTE)?";
 
 "ok" = "OK";
 

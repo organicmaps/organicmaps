@@ -83,7 +83,7 @@
 "no_internet_connection_detected" = "Keine Internetverbindung";
 
 /* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "Keine WLAN-Verbindung. Möchten Sie %@ über das Mobilnetz (GPRS, EDGE oder 3G) herunterladen?";
+"no_wifi_ask_cellular_download" = "Keine WLAN-Verbindung. Möchten Sie %@ über das Mobilnetz (GPRS, EDGE, 3G oder LTE) herunterladen?";
 
 "ok" = "OK";
 

@@ -83,7 +83,7 @@
 "no_internet_connection_detected" = "Připojení k Internetu nenalezeno";
 
 /* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "Připojení k WiFi nenalezeno. Chcete použít mobilní sítě (GPRS, EDGE nebo 3G) pro stažení %@?";
+"no_wifi_ask_cellular_download" = "Připojení k WiFi nenalezeno. Chcete použít mobilní sítě (GPRS, EDGE, 3G nebo LTE) pro stažení %@?";
 
 "ok" = "OK";
 

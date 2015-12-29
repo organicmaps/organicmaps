@@ -20,7 +20,7 @@
 	<!-- Settings/Downloader - No internet connection dialog title -->
 	<text id="IDS_NO_INTERNET_CONNECTION_DETECTED">Připojení k Internetu nenalezeno</text>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<text id="IDS_NO_WIFI_ASK_CELLULAR_DOWNLOAD">Připojení k WiFi nenalezeno. Chcete použít mobilní sítě (GPRS, EDGE nebo 3G) pro stažení %s?</text>
+	<text id="IDS_NO_WIFI_ASK_CELLULAR_DOWNLOAD">Připojení k WiFi nenalezeno. Chcete použít mobilní sítě (GPRS, EDGE, 3G nebo LTE) pro stažení %s?</text>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<text id="IDS_USE_WIFI_RECOMMENDATION_TEXT">Pro stahování větších map doporučujeme používat WiFi</text>
 	<text id="IDS_DOWNLOAD">Stáhnout</text>

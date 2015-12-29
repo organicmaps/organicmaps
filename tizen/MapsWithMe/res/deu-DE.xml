@@ -20,7 +20,7 @@
 	<!-- Settings/Downloader - No internet connection dialog title -->
 	<text id="IDS_NO_INTERNET_CONNECTION_DETECTED">Keine Internetverbindung</text>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<text id="IDS_NO_WIFI_ASK_CELLULAR_DOWNLOAD">Keine WLAN-Verbindung. Möchten Sie %s über das Mobilnetz (GPRS, EDGE oder 3G) herunterladen?</text>
+	<text id="IDS_NO_WIFI_ASK_CELLULAR_DOWNLOAD">Keine WLAN-Verbindung. Möchten Sie %s über das Mobilnetz (GPRS, EDGE, 3G oder LTE) herunterladen?</text>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<text id="IDS_USE_WIFI_RECOMMENDATION_TEXT">Wir empfehlen Ihnen, grosse Länder über eine WLAN-Verbindung herunterzuladen</text>
 	<text id="IDS_DOWNLOAD">Herunterladen</text>

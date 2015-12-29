@@ -49,7 +49,7 @@
 	<!-- Settings/Downloader - No internet connection dialog title -->
 	<string name="no_internet_connection_detected">Geen Internet verbinding gedetecteerd</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<string name="no_wifi_ask_cellular_download">Geen WiFi verbinding gedetecteerd. Wilt u mobiele data (GPRS, EDGE of 3G) gebruiken om %s te downloaden?</string>
+	<string name="no_wifi_ask_cellular_download">Geen WiFi verbinding gedetecteerd. Wilt u mobiele data (GPRS, EDGE, 3G of LTE) gebruiken om %s te downloaden?</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">Schakel Locatie Services in</string>
 	<!-- Settings/Downloader - No free space dialog message -->

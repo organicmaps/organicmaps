@@ -83,7 +83,7 @@
 "no_internet_connection_detected" = "Không có kết nối Internet";
 
 /* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "Không có kết nối WiFi. Bạn có muốn sử dụng dữ liệu di động (GPRS, EDGE hoặc 3G) để tải xuống %@ không?";
+"no_wifi_ask_cellular_download" = "Không có kết nối WiFi. Bạn có muốn sử dụng dữ liệu di động (GPRS, EDGE, 3G hoặc LTE) để tải xuống %@ không?";
 
 "ok" = "OK";
 
