@@ -104,6 +104,7 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
   [self.model updateOpeningHours];
   std::string str = self.openingHours.UTF8String;
   // TODO (AlexZ): Store edited opening time
+  [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Table
@@ -219,6 +220,7 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
   self.model.isSimpleMode = isSimpleMode;
   if (!isSimpleMode)
     self.exampleExpanded = NO;
+  self.toggleModeButton.enabled = self.model.isSimpleModeCapable;
 }
 
 - (BOOL)isSimpleMode

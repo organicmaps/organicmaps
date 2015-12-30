@@ -141,15 +141,16 @@
 {
   _mode = mode;
   BOOL const isRegular = (mode == MWMPlacePageOpeningHoursDayViewModeRegular);
+  BOOL const isEmpty = (mode == MWMPlacePageOpeningHoursDayViewModeEmpty);
   self.compatibilityLabel.hidden = isRegular;
   self.label.hidden = !isRegular;
   self.openTime.hidden = !isRegular;
   self.breakLabel.hidden = !isRegular;
   self.breaksHolder.hidden = !isRegular;
   self.closedLabel.hidden = !isRegular;
-  self.expandImage.hidden = !isRegular;
+  self.expandImage.hidden = isEmpty;
 
-  if (mode == MWMPlacePageOpeningHoursDayViewModeEmpty)
+  if (isEmpty)
     self.compatibilityLabel.text = L(@"add_opening_hours");
 }
 
