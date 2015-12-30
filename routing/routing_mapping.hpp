@@ -25,7 +25,7 @@ struct RoutingMapping
 
   /// Default constructor to create invalid instance for existing client code.
   /// @postcondition IsValid() == false.
-  RoutingMapping() : m_pIndex(nullptr), m_error(IRouter::ResultCode::RouteFileNotExist) {}
+  RoutingMapping() : m_error(IRouter::ResultCode::RouteFileNotExist), m_pIndex(nullptr) {}
   /// @param countryFile Country file name without extension.
   RoutingMapping(string const & countryFile, MwmSet & index);
   ~RoutingMapping();
