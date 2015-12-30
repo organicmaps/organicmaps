@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = editor geometry coding base stats_client opening_hours pugixml
+DEPENDENCIES = editor geometry coding base stats_client opening_hours pugixml oauthcpp
 
 include($$ROOT_DIR/common.pri)
 
@@ -18,3 +18,4 @@ SOURCES += \
     server_api_test.cpp \
     xml_feature_test.cpp \
     ui2oh_test.cpp \
+    osm_auth_test.cpp \
