@@ -1420,7 +1420,6 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="whiteColor"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="buttonEnabledBlueText"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="clearColor"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="login"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="login" destination="4R7-Vk-fQr" eventType="touchUpInside" id="IIp-Wz-gj1"/>
@@ -1443,9 +1442,18 @@
                                     <segue destination="oZQ-Rp-tGs" kind="custom" customClass="MWMSegue" id="aZN-Th-ilh"/>
                                 </connections>
                             </button>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jMt-5d-INe">
+                                <rect key="frame" x="290" y="160" width="20" height="20"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="9HJ-T7-PfS"/>
+                                    <constraint firstAttribute="width" constant="20" id="cgc-jq-2QK"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="jMt-5d-INe" firstAttribute="centerX" secondItem="QoF-Wv-nc2" secondAttribute="centerX" id="2Kv-5N-0Cj"/>
                             <constraint firstItem="2p5-BG-sgS" firstAttribute="top" secondItem="diV-OZ-JSc" secondAttribute="bottom" constant="20" id="4Ka-53-cIL"/>
                             <constraint firstItem="2p5-BG-sgS" firstAttribute="leading" secondItem="S9T-iq-RN6" secondAttribute="leading" id="Ch6-8Q-5GT"/>
                             <constraint firstAttribute="trailing" secondItem="dOX-WF-oyI" secondAttribute="trailing" constant="16" id="Gc8-5a-YG2"/>
@@ -1454,6 +1462,7 @@
                             <constraint firstItem="dOX-WF-oyI" firstAttribute="leading" secondItem="S9T-iq-RN6" secondAttribute="leading" constant="16" id="RhA-2F-rfW"/>
                             <constraint firstAttribute="trailing" secondItem="QoF-Wv-nc2" secondAttribute="trailing" constant="16" id="agP-PG-A0J"/>
                             <constraint firstItem="QoF-Wv-nc2" firstAttribute="leading" secondItem="S9T-iq-RN6" secondAttribute="leading" constant="16" id="s3b-o3-XfX"/>
+                            <constraint firstItem="jMt-5d-INe" firstAttribute="centerY" secondItem="QoF-Wv-nc2" secondAttribute="centerY" id="t4E-xp-u3E"/>
                             <constraint firstAttribute="trailing" secondItem="2p5-BG-sgS" secondAttribute="trailing" id="wDK-U5-BEZ"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -1472,6 +1481,7 @@
                         <outlet property="loginButton" destination="QoF-Wv-nc2" id="KfJ-7W-yr1"/>
                         <outlet property="loginTextField" destination="NyD-Tz-Vq4" id="hUR-bj-DSY"/>
                         <outlet property="passwordTextField" destination="e51-Qs-t6a" id="h5w-aQ-WYh"/>
+                        <outlet property="spinnerView" destination="jMt-5d-INe" id="pnF-tq-p2h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cdo-Ng-y40" userLabel="First Responder" sceneMemberID="firstResponder"/>

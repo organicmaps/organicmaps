@@ -1,5 +1,7 @@
+#import "Common.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationOSMLoginViewController.h"
+#import "MWMCircularProgress.h"
 #import "UIColor+MapsMeColor.h"
 #import "UITextField+RuntimeAttributes.h"
 
@@ -20,8 +22,11 @@ typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
 @property (weak, nonatomic) IBOutlet UITextField * passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton * loginButton;
 @property (weak, nonatomic) IBOutlet UIButton * forgotButton;
+@property (weak, nonatomic) IBOutlet UIView * spinnerView;
 
 @property (nonatomic) MWMFieldCorrect isCorrect;
+
+@property (nonatomic) MWMCircularProgress * spinner;
 
 @end
 
@@ -33,6 +38,7 @@ typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
   self.title = L(@"osm_login");
   self.isCorrect = MWMFieldCorrectNO;
   [self checkConnection];
+  [self stopSpinner];
 }
 
 - (BOOL)shouldAutorotate
@@ -100,15 +106,62 @@ typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
   [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)showInvalidCredentialsAlert
+{
+  NSString * title = L(@"invalid_username_or_password");
+  NSString * ok = L(@"ok");
+  if (isIOSVersionLessThan(8))
+  {
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:title
+                                                         message:nil
+                                                        delegate:nil
+                                               cancelButtonTitle:ok
+                                               otherButtonTitles:nil];
+    [alertView show];
+    return;
+  }
+  UIAlertController * alertController =
+      [UIAlertController alertControllerWithTitle:title
+                                          message:nil
+                                   preferredStyle:UIAlertControllerStyleAlert];
+  UIAlertAction * okAction =
+      [UIAlertAction actionWithTitle:ok style:UIAlertActionStyleCancel handler:nil];
+  [alertController addAction:okAction];
+  [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)startSpinner
+{
+  self.spinnerView.hidden = NO;
+  self.spinner = [[MWMCircularProgress alloc] initWithParentView:self.spinnerView];
+  [self.spinner startSpinner];
+  self.loginTextField.enabled = NO;
+  self.passwordTextField.enabled = NO;
+  self.forgotButton.enabled = NO;
+  [self.loginButton setTitle:@"" forState:UIControlStateNormal];
+}
+
+- (void)stopSpinner
+{
+  self.spinnerView.hidden = YES;
+  [self.spinnerView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+  [self.spinner stopSpinner];
+  self.spinner = nil;
+  self.loginTextField.enabled = YES;
+  self.passwordTextField.enabled = YES;
+  self.forgotButton.enabled = YES;
+  [self.loginButton setTitle:L(@"login") forState:UIControlStateNormal];
+}
+
 #pragma mark - Actions
 
 - (IBAction)login
 {
-  if (!self.loginButton.enabled)
+  if (!self.loginButton.enabled || self.spinner)
     return;
   if (Platform::IsConnected())
   {
-    // TODO: Add async loader spinner
+    [self startSpinner];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^
     {
       string const username = self.loginTextField.text.UTF8String;
@@ -116,14 +169,11 @@ typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
       BOOL const credentialsOK = osm::ServerApi06(username, password).CheckUserAndPassword();
       dispatch_async(dispatch_get_main_queue(), ^
       {
+        [self stopSpinner];
         if (credentialsOK)
-        {
           [self storeCredentials];
-        }
         else
-        {
-          // TODO: Add alert "wrong username or password"
-        }
+          [self showInvalidCredentialsAlert];
       });
     });
   }
