@@ -128,7 +128,7 @@
       android:layout_marginTop="@dimen/margin_half_plus"
       android:background="?clickableBackground"
       wheel:wheelProgressColor="@color/base_green"
-      wheel:wheelSecondaryColor="@color/downloader_progress_secondary"
+      wheel:wheelSecondaryColor="?dividerHorizontal"
       wheel:wheelThickness="@dimen/margin_quarter"/>
   </LinearLayout>
 </FrameLayout>

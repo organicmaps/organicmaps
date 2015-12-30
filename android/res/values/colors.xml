@@ -49,11 +49,7 @@
   <color name="fg_azimut_arrow">#FFFFFFFF</color>
 
   <!-- Downloader -->
-  <color name="downloader_progress_primary">@color/base_accent</color>
-  <color name="downloader_progress_secondary">#FFF0F0F0</color>
   <color name="downloader_gray">#FF999999</color>
-  <color name="downloader_country_downloaded">#FF000000</color>
-  <color name="downloader_country_downloaded_night">#FF000000</color>
   <color name="downloader_spacer">#FFEFEFF4</color>
   <color name="downloader_spacer_night">@color/divider_night</color>
 

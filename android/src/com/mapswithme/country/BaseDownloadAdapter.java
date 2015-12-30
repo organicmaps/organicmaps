@@ -209,7 +209,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
   private void processFailed(ViewHolder holder, int position)
   {
-    holder.mProgressSlided.setProgressColor(mFragment.getResources().getColor(R.color.downloader_progress_primary));
+    holder.mProgressSlided.setProgressColor(ThemeUtils.getColor(mListView.getContext(), R.attr.colorAccent));
     holder.mProgressSlided.setCenterDrawable(null);
     retryDownload(position);
   }
@@ -482,10 +482,12 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
   private static void bindCarRoutingIcon(ViewHolder holder, CountryItem item)
   {
-    if (item.getOptions() == StorageOptions.MAP_OPTION_MAP_ONLY)
-      holder.mImageRoutingStatus.setImageResource(R.drawable.ic_routing_get);
-    else
-      holder.mImageRoutingStatus.setImageResource(R.drawable.ic_routing_ok);
+    boolean night = ThemeUtils.isNightTheme();
+    int icon = (item.getOptions() == StorageOptions.MAP_OPTION_MAP_ONLY) ? night ? R.drawable.ic_routing_get_night
+                                                                                 : R.drawable.ic_routing_get
+                                                                         : night ? R.drawable.ic_routing_ok_night
+                                                                                 : R.drawable.ic_routing_ok;
+    holder.mImageRoutingStatus.setImageResource(icon);
   }
 
   private void startItemDownloading(final ViewHolder holder, final int position, int newOptions)

@@ -29,8 +29,8 @@
     android:layout_marginRight="@dimen/progress_wheel_width_neg"
     android:paddingLeft="@dimen/margin_quarter"
     android:paddingRight="@dimen/margin_quarter"
-    wheel:wheelProgressColor="@color/downloader_progress_primary"
-    wheel:wheelSecondaryColor="@color/downloader_progress_secondary"
+    wheel:wheelProgressColor="?colorAccent"
+    wheel:wheelSecondaryColor="?dividerHorizontal"
     wheel:wheelThickness="@dimen/margin_eighth"/>
 
   <ImageView
@@ -50,8 +50,8 @@
     android:layout_centerVertical="true"
     android:paddingLeft="@dimen/margin_quarter"
     android:paddingRight="@dimen/margin_quarter"
-    wheel:wheelProgressColor="@color/downloader_progress_primary"
-    wheel:wheelSecondaryColor="@color/downloader_progress_secondary"
+    wheel:wheelProgressColor="?colorAccent"
+    wheel:wheelSecondaryColor="?dividerHorizontal"
     wheel:wheelThickness="@dimen/margin_eighth"/>
 
   <LinearLayout
