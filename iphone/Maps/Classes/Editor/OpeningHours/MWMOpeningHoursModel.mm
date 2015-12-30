@@ -163,7 +163,10 @@ using namespace osmoh;
     return;
   _isSimpleMode = isSimpleMode;
   id<MWMOpeningHoursModelProtocol> delegate = self.delegate;
-  if (isSimpleMode && MakeTimeTableSet(osmoh::OpeningHours(delegate.openingHours.UTF8String), timeTableSet))
+  NSString * oh = delegate.openingHours;
+  BOOL const isSimpleCapable =
+      oh ? MakeTimeTableSet(osmoh::OpeningHours(oh.UTF8String), timeTableSet) : YES;
+  if (isSimpleMode && isSimpleCapable)
   {
     delegate.tableView.hidden = NO;
     delegate.advancedEditor.hidden = YES;
@@ -187,6 +190,9 @@ using namespace osmoh;
 
 - (BOOL)isSimpleModeCapable
 {
+  NSString * oh = self.delegate.openingHours;
+  if (!oh)
+    return YES;
   ui::TimeTableSet tts;
   return MakeTimeTableSet(osmoh::OpeningHours(self.delegate.openingHours.UTF8String), tts);
 }

@@ -62,27 +62,35 @@ WeekDayView getWeekDayView()
   WeekDayView cd = self.currentDay;
   cd.currentDay = YES;
 
-  osmoh::OpeningHours oh(info.UTF8String);
-  if (MakeTimeTableSet(oh, timeTableSet))
+  if (info)
   {
-    cd.isCompatibility = NO;
-    self.isClosed = oh.IsClosed(time(nullptr));
-    [self processSchedule];
+    osmoh::OpeningHours oh(info.UTF8String);
+    if (MakeTimeTableSet(oh, timeTableSet))
+    {
+      cd.mode = MWMPlacePageOpeningHoursDayViewModeRegular;
+      self.isClosed = oh.IsClosed(time(nullptr));
+      [self processSchedule];
 
-    BOOL const isExpanded = delegate.openingHoursCellExpanded;
-    self.middleSeparator.hidden = !isExpanded;
-    self.weekDaysView.hidden = !isExpanded;
-    self.editButton.hidden = !isExpanded;
-    self.expandImage.image = [UIImage imageNamed:isExpanded ? @"ic_arrow_gray_up" : @"ic_arrow_gray_down"];
+      BOOL const isExpanded = delegate.openingHoursCellExpanded;
+      self.middleSeparator.hidden = !isExpanded;
+      self.weekDaysView.hidden = !isExpanded;
+      self.editButton.hidden = !isExpanded;
+      self.expandImage.image = [UIImage imageNamed:isExpanded ? @"ic_arrow_gray_up" : @"ic_arrow_gray_down"];
+      [cd invalidate];
+      return;
+    }
+    cd.mode = MWMPlacePageOpeningHoursDayViewModeCompatibility;
+    [cd setCompatibilityText:info];
   }
   else
   {
-    cd.isCompatibility = YES;
-    [cd setCompatibilityText:info];
-    self.middleSeparator.hidden = YES;
-    self.weekDaysView.hidden = YES;
-    self.editButton.hidden = YES;
+    cd.mode = MWMPlacePageOpeningHoursDayViewModeEmpty;
   }
+
+  self.middleSeparator.hidden = YES;
+  self.weekDaysView.hidden = YES;
+  self.editButton.hidden = YES;
+  self.expandImage.hidden = YES;
   [cd invalidate];
 }
 
@@ -185,7 +193,8 @@ WeekDayView getWeekDayView()
 - (CGFloat)cellHeight
 {
   CGFloat height = self.currentDay.viewHeight;
-  if (!self.currentDay.isCompatibility && self.delegate.openingHoursCellExpanded)
+  BOOL const isRegular = (self.currentDay.mode == MWMPlacePageOpeningHoursDayViewModeRegular);
+  if (isRegular && self.delegate.openingHoursCellExpanded)
     height += self.weekDaysViewHeight.constant + self.editButton.height;
   return ceil(height);
 }
@@ -194,10 +203,18 @@ WeekDayView getWeekDayView()
 
 - (IBAction)toggleButtonTap
 {
-  if (self.currentDay.isCompatibility)
-    return;
-  [self.delegate setOpeningHoursCellExpanded:!self.delegate.openingHoursCellExpanded forCell:self];
+  switch (self.currentDay.mode) {
+    case MWMPlacePageOpeningHoursDayViewModeRegular:
+      [self.delegate setOpeningHoursCellExpanded:!self.delegate.openingHoursCellExpanded forCell:self];
+      break;
+    case MWMPlacePageOpeningHoursDayViewModeCompatibility:
+      break;
+    case MWMPlacePageOpeningHoursDayViewModeEmpty:
+      [self editButtonTap];
+      break;
+  }
 }
+
 - (IBAction)editButtonTap
 {
   [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatEditTime)];

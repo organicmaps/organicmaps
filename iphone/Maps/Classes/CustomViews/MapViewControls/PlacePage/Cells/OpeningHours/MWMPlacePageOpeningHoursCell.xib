@@ -11,19 +11,19 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="292"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="292"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="291.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="swk-um-XzG" customClass="MWMPlacePageOpeningHoursDayView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="126"/>
                         <subviews>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mo-Su 11:00-24:00" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="228" translatesAutoresizingMaskIntoConstraints="NO" id="ZdV-4y-cz4">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Mo-Su 11:00-24:00" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="228" translatesAutoresizingMaskIntoConstraints="NO" id="ZdV-4y-cz4">
                                 <rect key="frame" x="60" y="53" width="228" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular16"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
@@ -33,24 +33,24 @@
                                     <constraint firstAttribute="width" constant="68" id="5G1-mL-J4T"/>
                                     <constraint firstAttribute="height" constant="20" id="Uo2-AE-U2v"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular16"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00—20:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="180" translatesAutoresizingMaskIntoConstraints="NO" id="oTF-IZ-Un1">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="10:00—20:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="140" translatesAutoresizingMaskIntoConstraints="NO" id="oTF-IZ-Un1">
                                 <rect key="frame" x="166" y="12" width="140" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="140" id="up3-Kv-Z1P"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular16"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Перерыв" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="94" translatesAutoresizingMaskIntoConstraints="NO" id="hpw-oR-ZSb">
@@ -66,7 +66,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Oa-hg-icC">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Oa-hg-icC">
                                 <rect key="frame" x="166" y="36" width="140" height="58"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -115,13 +115,13 @@
                             <constraint firstAttribute="trailing" secondItem="3Fa-V6-tC5" secondAttribute="trailing" id="7pT-0E-9ir"/>
                             <constraint firstItem="oTF-IZ-Un1" firstAttribute="top" secondItem="swk-um-XzG" secondAttribute="top" constant="12" id="93j-yG-wF2"/>
                             <constraint firstItem="hpw-oR-ZSb" firstAttribute="top" secondItem="Ot5-QJ-jhp" secondAttribute="bottom" constant="4" id="9GL-pC-tse"/>
-                            <constraint firstItem="oTF-IZ-Un1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ot5-QJ-jhp" secondAttribute="trailing" constant="12" id="9QL-6i-a0L"/>
+                            <constraint firstItem="oTF-IZ-Un1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ot5-QJ-jhp" secondAttribute="trailing" constant="8" id="9QL-6i-a0L"/>
                             <constraint firstItem="EcD-Q8-7zu" firstAttribute="leading" secondItem="swk-um-XzG" secondAttribute="leading" constant="60" id="Bhv-rl-AUe"/>
                             <constraint firstAttribute="trailing" secondItem="mGc-k4-uvQ" secondAttribute="trailing" constant="8" id="CS2-Y7-odx"/>
                             <constraint firstItem="pa0-fe-w8W" firstAttribute="centerY" secondItem="swk-um-XzG" secondAttribute="centerY" id="CXB-0i-wxj"/>
                             <constraint firstItem="mGc-k4-uvQ" firstAttribute="centerY" secondItem="swk-um-XzG" secondAttribute="centerY" id="DQP-gP-Lv1"/>
                             <constraint firstItem="pa0-fe-w8W" firstAttribute="leading" secondItem="swk-um-XzG" secondAttribute="leading" constant="16" id="Dgv-BZ-60x"/>
-                            <constraint firstItem="oTF-IZ-Un1" firstAttribute="leading" secondItem="swk-um-XzG" secondAttribute="leading" priority="750" constant="60" id="KGY-T0-s0P"/>
+                            <constraint firstItem="oTF-IZ-Un1" firstAttribute="leading" secondItem="swk-um-XzG" secondAttribute="leading" priority="750" constant="48" id="KGY-T0-s0P"/>
                             <constraint firstItem="3Fa-V6-tC5" firstAttribute="leading" secondItem="swk-um-XzG" secondAttribute="leading" id="LUO-vn-JQ8"/>
                             <constraint firstItem="7Oa-hg-icC" firstAttribute="leading" secondItem="oTF-IZ-Un1" secondAttribute="leading" id="RBf-8S-CYY"/>
                             <constraint firstItem="7Oa-hg-icC" firstAttribute="top" secondItem="oTF-IZ-Un1" secondAttribute="bottom" constant="4" id="Urv-Lw-rBo"/>

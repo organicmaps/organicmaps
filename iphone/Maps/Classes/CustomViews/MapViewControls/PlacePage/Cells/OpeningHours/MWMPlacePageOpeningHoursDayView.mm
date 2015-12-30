@@ -90,13 +90,8 @@
 - (void)invalidate
 {
   CGFloat viewHeight;
-  if (self.isCompatibility)
-  {
-    [self.compatibilityLabel sizeToIntegralFit];
-    CGFloat const compatibilityLabelVerticalOffsets = 24.0;
-    viewHeight = self.compatibilityLabel.height + compatibilityLabelVerticalOffsets;
-  }
-  else
+  BOOL const isRegular = (self.mode == MWMPlacePageOpeningHoursDayViewModeRegular);
+  if (isRegular)
   {
     [self.label sizeToIntegralFit];
     self.labelWidth.constant = self.label.width;
@@ -111,6 +106,12 @@
     CGFloat const heightForClosedLabel = 20.0;
     if (!self.closedLabel.hidden)
       viewHeight += heightForClosedLabel;
+  }
+  else
+  {
+    [self.compatibilityLabel sizeToIntegralFit];
+    CGFloat const compatibilityLabelVerticalOffsets = 24.0;
+    viewHeight = self.compatibilityLabel.height + compatibilityLabelVerticalOffsets;
   }
 
   self.viewHeight = ceil(viewHeight);
@@ -136,16 +137,20 @@
   }
 }
 
-- (void)setIsCompatibility:(BOOL)isCompatibility
+- (void)setMode:(MWMPlacePageOpeningHoursDayViewMode)mode
 {
-  _isCompatibility = isCompatibility;
-  self.compatibilityLabel.hidden = !isCompatibility;
-  self.label.hidden = isCompatibility;
-  self.openTime.hidden = isCompatibility;
-  self.breakLabel.hidden = isCompatibility;
-  self.breaksHolder.hidden = isCompatibility;
-  self.closedLabel.hidden = isCompatibility;
-  self.expandImage.hidden = isCompatibility;
+  _mode = mode;
+  BOOL const isRegular = (mode == MWMPlacePageOpeningHoursDayViewModeRegular);
+  self.compatibilityLabel.hidden = isRegular;
+  self.label.hidden = !isRegular;
+  self.openTime.hidden = !isRegular;
+  self.breakLabel.hidden = !isRegular;
+  self.breaksHolder.hidden = !isRegular;
+  self.closedLabel.hidden = !isRegular;
+  self.expandImage.hidden = !isRegular;
+
+  if (mode == MWMPlacePageOpeningHoursDayViewModeEmpty)
+    self.compatibilityLabel.text = L(@"add_opening_hours");
 }
 
 @end

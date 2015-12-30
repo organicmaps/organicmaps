@@ -3,7 +3,6 @@
 #import "MapsAppDelegate.h"
 #import "MWMActivityViewController.h"
 #import "MWMAPIBar.h"
-#import "MWMAuthorizationCommon.h"
 #import "MWMBasePlacePageView.h"
 #import "MWMDirectionView.h"
 #import "MWMiPadPlacePage.h"
@@ -284,21 +283,9 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)editPlaceTime
 {
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-  NSString * username = [ud stringForKey:kOSMUsernameKey];
-  NSString * password = [ud stringForKey:kOSMPasswordKey];
-  if (!username || !password)
-  {
-    [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatEditTime)
-                     withParameters:@{kStatValue : kStatAuthorization}];
-    [self.ownerViewController performSegueWithIdentifier:@"Map2Login" sender:nil];
-  }
-  else
-  {
-    [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatEditTime)
-                     withParameters:@{kStatValue : kStatEdit}];
-    [self.ownerViewController performSegueWithIdentifier:@"Map2OpeningHoursEditor" sender:self.entity];
-  }
+  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatEditTime)
+                   withParameters:@{kStatValue : kStatEdit}];
+  [self.ownerViewController performSegueWithIdentifier:@"Map2OpeningHoursEditor" sender:self.entity];
 }
 
 - (void)addBookmark

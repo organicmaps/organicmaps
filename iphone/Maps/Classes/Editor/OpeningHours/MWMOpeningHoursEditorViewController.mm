@@ -1,8 +1,10 @@
+#import "MWMAuthorizationCommon.h"
 #import "MWMOpeningHoursAddScheduleTableViewCell.h"
 #import "MWMOpeningHoursEditorViewController.h"
 #import "MWMOpeningHoursModel.h"
 #import "MWMOpeningHoursSection.h"
 #import "MWMTextView.h"
+#import "Statistics.h"
 
 extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
   @(MWMOpeningHoursEditorDaysSelectorCell) : @"MWMOpeningHoursDaysSelectorTableViewCell",
@@ -42,10 +44,24 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  [self checkAuthorization];
   [self configNavBar];
   [self configTable];
   [self configAdvancedEditor];
   [self configData];
+}
+
+- (void)checkAuthorization
+{
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  NSString * username = [ud stringForKey:kOSMUsernameKey];
+  NSString * password = [ud stringForKey:kOSMPasswordKey];
+  if (!username || !password)
+  {
+    [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatEditTime)
+                     withParameters:@{kStatValue : kStatAuthorization}];
+    [self performSegueWithIdentifier:@"OpeningHoursEditor2Authorization" sender:nil];
+  }
 }
 
 #pragma mark - Configuration

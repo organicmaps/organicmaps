@@ -30,7 +30,6 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <segue destination="Ld6-gM-2hk" kind="custom" identifier="Map2OpeningHoursEditor" customClass="MWMSegue" id="VzH-mq-fOy"/>
-                        <segue destination="2fX-ws-Tuc" kind="custom" identifier="Map2Login" customClass="MWMSegue" id="ezg-7i-mi5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cKg-Q7-bFd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -979,6 +978,7 @@
                         <outlet property="ohTextViewHeight" destination="oBv-SK-cOU" id="8yB-hb-hml"/>
                         <outlet property="tableView" destination="X1H-IB-Nv1" id="9jh-Ds-VNe"/>
                         <outlet property="toggleModeButton" destination="fB1-w2-lJI" id="hSt-55-5S2"/>
+                        <segue destination="2fX-ws-Tuc" kind="custom" identifier="OpeningHoursEditor2Authorization" customClass="MWMSegue" id="zSu-Mv-oPV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zeH-cr-FVE" userLabel="First Responder" sceneMemberID="firstResponder"/>

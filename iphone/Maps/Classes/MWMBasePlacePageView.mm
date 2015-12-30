@@ -270,7 +270,7 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   MWMPlacePageEntity * entity = self.entity;
-  MWMPlacePageMetadataType const currentType = [entity getType:indexPath.row];
+  MWMPlacePageMetadataType const currentType = [entity getFeatureType:indexPath.row];
   if (currentType == MWMPlacePageMetadataTypeBookmark)
   {
     [self.bookmarkSizingCell config:self.ownerPlacePage forHeight:YES];
@@ -278,7 +278,7 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
   }
   else if (currentType == MWMPlacePageMetadataTypeOpenHours)
   {
-    [self.openingHoursSizingCell configWithInfo:[entity getValue:currentType] delegate:self];
+    [self.openingHoursSizingCell configWithInfo:[entity getFeatureValue:currentType] delegate:self];
     return self.openingHoursSizingCell.cellHeight;
   }
   else if (currentType == MWMPlacePageMetadataTypeEditButton)
@@ -292,7 +292,7 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
   CGFloat const rightOffset = 22.;
   UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0., 0., defaultWidth - leftOffset - rightOffset, 10.)];
   label.numberOfLines = 0;
-  label.text = [entity getValue:currentType];
+  label.text = [entity getFeatureValue:currentType];
   [label sizeToFit];
   CGFloat const defaultCellOffset = 24.;
   return MAX(label.height + defaultCellOffset, defaultCellHeight);
@@ -300,13 +300,13 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  return [self.entity getTypesCount];
+  return [self.entity getFeatureTypesCount];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   MWMPlacePageEntity * entity = self.entity;
-  MWMPlacePageMetadataType const currentType = [entity getType:indexPath.row];
+  MWMPlacePageMetadataType const currentType = [entity getFeatureType:indexPath.row];
   if (currentType == MWMPlacePageMetadataTypeBookmark)
   {
     MWMPlacePageBookmarkCell * cell = (MWMPlacePageBookmarkCell *)[tableView dequeueReusableCellWithIdentifier:kPlacePageBookmarkCellIdentifier];
@@ -318,7 +318,7 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
   {
     MWMPlacePageOpeningHoursCell * cell = (MWMPlacePageOpeningHoursCell *)
         [tableView dequeueReusableCellWithIdentifier:kPlacePageOpeningHoursCellIdentifier];
-    [cell configWithInfo:[entity getValue:currentType] delegate:self];
+    [cell configWithInfo:[entity getFeatureValue:currentType] delegate:self];
     return cell;
   }
   else if (currentType == MWMPlacePageMetadataTypeEditButton)
@@ -334,7 +334,7 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
   MWMPlacePageInfoCell * cell = (MWMPlacePageInfoCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
 
   cell.currentEntity = self.entity;
-  [cell configureWithType:currentType info:[entity getValue:currentType]];
+  [cell configureWithType:currentType info:[entity getFeatureValue:currentType]];
   return cell;
 }
 

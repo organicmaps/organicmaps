@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -35,6 +35,7 @@
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="name"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular16"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="delegate" destination="jfp-wb-Z7G" id="00o-sa-QS2"/>
@@ -96,7 +97,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XF8-Ny-HSu" userLabel="Title">
-                                <rect key="frame" x="16" y="13" width="31" height="17"/>
+                                <rect key="frame" x="16" y="13" width="30" height="16"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -157,14 +158,14 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="44" id="5rE-hZ-GLl"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                         <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="9" maxY="0.0"/>
                         <state key="normal" title="Edit Bookmark">
                             <color key="titleColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular16"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
@@ -194,7 +195,6 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
-                    <constraint firstItem="VLh-WI-T7X" firstAttribute="leading" secondItem="NJ3-lK-ziZ" secondAttribute="trailing" constant="16" id="6qf-Bl-HGm"/>
                     <constraint firstItem="8KR-m1-j51" firstAttribute="width" secondItem="f8i-PA-TJb" secondAttribute="width" id="7FM-xU-xDL"/>
                     <constraint firstItem="Wax-9r-T5y" firstAttribute="leading" secondItem="VLh-WI-T7X" secondAttribute="trailing" constant="12" id="7mj-gk-N51"/>
                     <constraint firstItem="Sx9-cz-Scg" firstAttribute="top" secondItem="8KR-m1-j51" secondAttribute="bottom" id="9Kr-d5-TnV"/>
@@ -208,6 +208,7 @@
                     <constraint firstItem="Sx9-cz-Scg" firstAttribute="centerX" secondItem="8KR-m1-j51" secondAttribute="centerX" id="R2v-D5-fHw"/>
                     <constraint firstAttribute="bottom" secondItem="Sx9-cz-Scg" secondAttribute="bottom" id="SuF-wy-cAu"/>
                     <constraint firstItem="6e1-wr-Alw" firstAttribute="centerX" secondItem="VLh-WI-T7X" secondAttribute="centerX" id="UjZ-c7-pSl"/>
+                    <constraint firstItem="VLh-WI-T7X" firstAttribute="leading" secondItem="kUu-ao-FYN" secondAttribute="leading" constant="60" id="XuD-Lr-D6H"/>
                     <constraint firstItem="NJ3-lK-ziZ" firstAttribute="leading" secondItem="kUu-ao-FYN" secondAttribute="leading" constant="16" id="Z9y-hZ-0pk"/>
                     <constraint firstItem="meU-rN-T7y" firstAttribute="trailing" secondItem="8KR-m1-j51" secondAttribute="trailing" constant="-8" id="f7Q-08-8Ix"/>
                     <constraint firstItem="f8i-PA-TJb" firstAttribute="top" secondItem="jxG-Qv-eKF" secondAttribute="bottom" id="jP6-dp-yga"/>

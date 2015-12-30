@@ -1,7 +1,9 @@
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageViewManager.h"
 #import "MapViewController.h"
+
 #include "platform/measurement_utils.hpp"
+#include "indexer/osm_editor.hpp"
 
 using feature::Metadata;
 
@@ -61,6 +63,18 @@ static map<Metadata::EType, MWMPlacePageMetadataType> const kMetaTypesMap{
       [self configureForBookmark:mark];
       break;
   }
+  [self addEditableTypes];
+  [self sortMeta];
+}
+
+- (void)sortMeta
+{
+  auto begin = kPatternTypesArray.begin();
+  auto end = kPatternTypesArray.end();
+  sort(m_types.begin(), m_types.end(), [&](MWMPlacePageMetadataType a, MWMPlacePageMetadataType b)
+  {
+    return find(begin, end, a) < find(begin, end, b);
+  });
 }
 
 - (void)addMetaType:(MWMPlacePageMetadataType)type
@@ -196,30 +210,15 @@ static map<Metadata::EType, MWMPlacePageMetadataType> const kMetaTypesMap{
       case Metadata::FMD_OPEN_HOURS:
       case Metadata::FMD_EMAIL:
       case Metadata::FMD_POSTCODE:
+        [self addMetaType:kMetaTypesMap.at(type) value:metadata.Get(type)];
+        break;
       case Metadata::FMD_INTERNET:
-      {
-        auto metaType = kMetaTypesMap.find(type);
-        if (metaType != kMetaTypesMap.end())
-        {
-          BOOL const internet = (type == Metadata::FMD_INTERNET);
-          [self addMetaType:metaType->second value:internet ? L(@"WiFi_available").UTF8String : metadata.Get(type)];
-        }
-        else
-        {
-          NSAssert(false, @"Unhandled meta type, see kMetaTypesMap.");
-        }
-      }
+        [self addMetaType:kMetaTypesMap.at(type) value:L(@"WiFi_available").UTF8String];
+        break;
       default:
         break;
     }
   }
-
-  auto begin = kPatternTypesArray.begin();
-  auto end = kPatternTypesArray.end();
-  sort(m_types.begin(), m_types.end(), [&](MWMPlacePageMetadataType a, MWMPlacePageMetadataType b)
-  {
-    return find(begin, end, a) < find(begin, end, b);
-  });
 
   [self addMetaType:MWMPlacePageMetadataTypeCoordinate];
 }
@@ -246,25 +245,32 @@ static map<Metadata::EType, MWMPlacePageMetadataType> const kMetaTypesMap{
   [ud synchronize];
 }
 
+#pragma mark - Editing
+
+- (void)addEditableTypes
+{
+  // TODO: Add real logic
+}
+
 #pragma mark - Getters
 
-- (NSUInteger)getTypesCount
+- (NSUInteger)getFeatureTypesCount
 {
   return m_types.size();
 }
 
-- (MWMPlacePageMetadataType)getType:(NSUInteger)index
+- (MWMPlacePageMetadataType)getFeatureType:(NSUInteger)index
 {
-  NSAssert(index < [self getTypesCount], @"Invalid meta index");
+  NSAssert(index < [self getFeatureTypesCount], @"Invalid meta index");
   return m_types[index];
 }
 
-- (NSString *)getValue:(MWMPlacePageMetadataType)type
+- (NSString *)getFeatureValue:(MWMPlacePageMetadataType)type
 {
   if (type == MWMPlacePageMetadataTypeCoordinate)
     return [self coordinate];
   auto it = m_values.find(type);
-  return it != m_values.end() ? @(it->second.c_str()) : @"";
+  return it != m_values.end() ? @(it->second.c_str()) : nil;
 }
 
 - (NSString *)coordinate

@@ -58,8 +58,8 @@ typedef NS_ENUM (NSUInteger, MWMPlacePageEntityType)
 
 - (void)toggleCoordinateSystem;
 
-- (NSUInteger)getTypesCount;
-- (MWMPlacePageMetadataType)getType:(NSUInteger)index;
-- (NSString *)getValue:(MWMPlacePageMetadataType)type;
+- (NSUInteger)getFeatureTypesCount;
+- (MWMPlacePageMetadataType)getFeatureType:(NSUInteger)index;
+- (NSString *)getFeatureValue:(MWMPlacePageMetadataType)type;
 
 @end

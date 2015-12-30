@@ -1,8 +1,15 @@
+typedef NS_ENUM(NSUInteger, MWMPlacePageOpeningHoursDayViewMode)
+{
+  MWMPlacePageOpeningHoursDayViewModeRegular,
+  MWMPlacePageOpeningHoursDayViewModeCompatibility,
+  MWMPlacePageOpeningHoursDayViewModeEmpty
+};
+
 @interface MWMPlacePageOpeningHoursDayView : UIView
 
 @property (nonatomic) BOOL currentDay;
 @property (nonatomic) CGFloat viewHeight;
-@property (nonatomic) BOOL isCompatibility;
+@property (nonatomic) MWMPlacePageOpeningHoursDayViewMode mode;
 
 - (void)setLabelText:(NSString *)text isRed:(BOOL)isRed;
 - (void)setOpenTimeText:(NSString *)text;
