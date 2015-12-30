@@ -26,7 +26,7 @@
 {
   [super awakeFromNib];
   if ([self.textContainer isKindOfClass:[UITextView class]])
-    [self.textContainer setTextContainerInset:{.top = 12, 0, 0, 0}];
+    [(UITextView *)self.textContainer setTextContainerInset:{.top = 12, 0, 0, 0}];
 }
 
 - (void)configureWithType:(MWMPlacePageMetadataType)type info:(NSString *)info;
@@ -70,25 +70,31 @@
       [UIImage imageNamed:[NSString stringWithFormat:@"%@%@", @"ic_placepage_", typeName]];
   self.type = type;
   self.icon.image = image;
-
-  if ([self.textContainer isKindOfClass:[UITextView class]])
-  {
-    [self.textContainer
-        setAttributedText:[[NSAttributedString alloc]
-                              initWithString:info
-                                  attributes:@{NSFontAttributeName : [UIFont regular17]}]];
-    self.icon.mwm_coloring = MWMImageColoringBlue;
-  }
-  else
-  {
-    [self.textContainer setText:info];
-    self.icon.mwm_coloring = MWMImageColoringBlack;
-  }
-
+  self.icon.mwm_coloring = [self.textContainer isKindOfClass:[UITextView class]] ? MWMImageColoringBlue : MWMImageColoringBlack;
+  [self changeText:info];
   UILongPressGestureRecognizer * longTap =
       [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTap:)];
   longTap.minimumPressDuration = 0.3;
   [self.upperButton addGestureRecognizer:longTap];
+}
+
+- (void)changeText:(NSString *)text
+{
+  if ([self.textContainer isKindOfClass:[UITextView class]])
+  {
+    UITextView * tv = (UITextView *)self.textContainer;
+    [tv setAttributedText:[[NSAttributedString alloc]
+                              initWithString:text
+                                  attributes:@{NSFontAttributeName : [UIFont regular16]}]];
+  }
+  else
+  {
+    UILabel * lb = (UILabel *)self.textContainer;
+    [lb setText:text];
+    [lb sizeToIntegralFit];
+    CGFloat const trailingOffset = self.width - lb.maxX;
+    lb.font = trailingOffset < 32 ? [UIFont regular15] : [UIFont regular16];
+  }
 }
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
@@ -113,7 +119,7 @@
     case MWMPlacePageMetadataTypeCoordinate:
       [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatToggleCoordinates)];
       [self.currentEntity toggleCoordinateSystem];
-      [self.textContainer setText:[self.currentEntity getFeatureValue:MWMPlacePageMetadataTypeCoordinate]];
+      [self changeText:[self.currentEntity getFeatureValue:MWMPlacePageMetadataTypeCoordinate]];
       break;
     default:
       break;
