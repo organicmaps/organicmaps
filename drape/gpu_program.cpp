@@ -1,5 +1,6 @@
 #include "drape/gpu_program.hpp"
 #include "drape/glfunctions.hpp"
+#include "drape/support_manager.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -12,10 +13,12 @@ namespace dp
 {
 
 GpuProgram::GpuProgram(ref_ptr<Shader> vertexShader, ref_ptr<Shader> fragmentShader)
+  : m_vertexShader(vertexShader)
+  , m_fragmentShader(fragmentShader)
 {
   m_programID = GLFunctions::glCreateProgram();
-  GLFunctions::glAttachShader(m_programID, vertexShader->GetID());
-  GLFunctions::glAttachShader(m_programID, fragmentShader->GetID());
+  GLFunctions::glAttachShader(m_programID, m_vertexShader->GetID());
+  GLFunctions::glAttachShader(m_programID, m_fragmentShader->GetID());
 
   string errorLog;
   if (!GLFunctions::glLinkProgram(m_programID, errorLog))
@@ -25,13 +28,25 @@ GpuProgram::GpuProgram(ref_ptr<Shader> vertexShader, ref_ptr<Shader> fragmentSha
   // on Tegra3, glGetActiveUniform will not work if you detach shaders after linking
   LoadUniformLocations();
 
-  GLFunctions::glDetachShader(m_programID, vertexShader->GetID());
-  GLFunctions::glDetachShader(m_programID, fragmentShader->GetID());
+  // On Tegra2 we cannot detach shaders at all.
+  // https://devtalk.nvidia.com/default/topic/528941/alpha-blending-not-working-on-t20-and-t30-under-ice-cream-sandwich/
+  if (!SupportManager::Instance().IsTegraDevice())
+  {
+    GLFunctions::glDetachShader(m_programID, m_vertexShader->GetID());
+    GLFunctions::glDetachShader(m_programID, m_fragmentShader->GetID());
+  }
 }
 
 GpuProgram::~GpuProgram()
 {
   Unbind();
+
+  if (SupportManager::Instance().IsTegraDevice())
+  {
+    GLFunctions::glDetachShader(m_programID, m_vertexShader->GetID());
+    GLFunctions::glDetachShader(m_programID, m_fragmentShader->GetID());
+  }
+
   GLFunctions::glDeleteProgram(m_programID);
 }
 
