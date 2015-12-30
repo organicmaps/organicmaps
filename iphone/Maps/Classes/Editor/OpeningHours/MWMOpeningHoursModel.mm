@@ -159,15 +159,15 @@ using namespace osmoh;
 
 - (void)setIsSimpleMode:(BOOL)isSimpleMode
 {
-  if (_isSimpleMode == isSimpleMode)
-    return;
-  _isSimpleMode = isSimpleMode;
   id<MWMOpeningHoursModelProtocol> delegate = self.delegate;
   NSString * oh = delegate.openingHours;
-  BOOL const isSimpleCapable =
-      oh ? MakeTimeTableSet(osmoh::OpeningHours(oh.UTF8String), timeTableSet) : YES;
-  if (isSimpleMode && isSimpleCapable)
+  if (!oh)
+    isSimpleMode = YES;
+  if (_isSimpleMode == isSimpleMode)
+    return;
+  if (isSimpleMode && MakeTimeTableSet(osmoh::OpeningHours(oh.UTF8String), timeTableSet))
   {
+    _isSimpleMode = YES;
     delegate.tableView.hidden = NO;
     delegate.advancedEditor.hidden = YES;
     [delegate.toggleModeButton setTitle:L(@"advanced_mode") forState:UIControlStateNormal];
@@ -178,6 +178,7 @@ using namespace osmoh;
   }
   else
   {
+    _isSimpleMode = NO;
     [self updateOpeningHours];
     delegate.tableView.hidden = YES;
     delegate.advancedEditor.hidden = NO;
