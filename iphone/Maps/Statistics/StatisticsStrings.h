@@ -1,6 +1,5 @@
-static NSString * const kStat2D = @"2D";
 static NSString * const kStat3D = @"3D";
-static NSString * const kStat3DWithBuildings= @"3D with buildings";
+static NSString * const kStat3DBuildings= @"3D buildings";
 static NSString * const kStatAPI = @"API";
 static NSString * const kStatAbout = @"About";
 static NSString * const kStatAction = @"Action";

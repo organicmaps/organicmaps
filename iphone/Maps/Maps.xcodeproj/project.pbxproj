@@ -646,8 +646,6 @@
 		F607C1891C032A8800B53A87 /* resources-hdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = F607C1841C032A8800B53A87 /* resources-hdpi_dark */; };
 		F607C18A1C032A8800B53A87 /* resources-hdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = F607C1841C032A8800B53A87 /* resources-hdpi_dark */; };
 		F607C18E1C047FDC00B53A87 /* MWMSegue.mm in Sources */ = {isa = PBXBuildFile; fileRef = F607C18D1C047FDC00B53A87 /* MWMSegue.mm */; };
-		F61052561C297A6400B7EB45 /* MWMMapViewStyleController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F61052551C297A6400B7EB45 /* MWMMapViewStyleController.mm */; };
-		F61052571C297FD300B7EB45 /* MWMMapViewStyleController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F61052551C297A6400B7EB45 /* MWMMapViewStyleController.mm */; };
 		F61579341AC2CE9A0032D8E9 /* MWMRateAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F61579331AC2CE9A0032D8E9 /* MWMRateAlert.mm */; };
 		F61579361AC2CEB60032D8E9 /* MWMRateAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F61579351AC2CEB60032D8E9 /* MWMRateAlert.xib */; };
 		F6172FA51BBD5A3E0081D325 /* MWMiPadRoutePreview.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6172FA41BBD5A3E0081D325 /* MWMiPadRoutePreview.xib */; };
@@ -1200,8 +1198,6 @@
 		F607C1841C032A8800B53A87 /* resources-hdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-hdpi_dark"; path = "../../data/resources-hdpi_dark"; sourceTree = "<group>"; };
 		F607C18C1C047FDC00B53A87 /* MWMSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSegue.h; sourceTree = "<group>"; };
 		F607C18D1C047FDC00B53A87 /* MWMSegue.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSegue.mm; sourceTree = "<group>"; };
-		F61052541C297A6400B7EB45 /* MWMMapViewStyleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapViewStyleController.h; sourceTree = "<group>"; };
-		F61052551C297A6400B7EB45 /* MWMMapViewStyleController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapViewStyleController.mm; sourceTree = "<group>"; };
 		F61579321AC2CE9A0032D8E9 /* MWMRateAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRateAlert.h; sourceTree = "<group>"; };
 		F61579331AC2CE9A0032D8E9 /* MWMRateAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRateAlert.mm; sourceTree = "<group>"; };
 		F61579351AC2CEB60032D8E9 /* MWMRateAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMRateAlert.xib; sourceTree = "<group>"; };
@@ -2806,8 +2802,6 @@
 				F63BA3701BCD5B520044C504 /* MWMTTSLanguageViewController.mm */,
 				F6C641AE1C15BBE6008FCAF3 /* MWMRecentTrackSettingsController.h */,
 				F6C641AF1C15BBE6008FCAF3 /* MWMRecentTrackSettingsController.mm */,
-				F61052541C297A6400B7EB45 /* MWMMapViewStyleController.h */,
-				F61052551C297A6400B7EB45 /* MWMMapViewStyleController.mm */,
 				97508421199522D300A7457D /* SettingsAndMoreVC.h */,
 				97508422199522D300A7457D /* SettingsAndMoreVC.mm */,
 				978D4A231996B0EC00D72CA7 /* CommunityVC.h */,
@@ -3407,7 +3401,6 @@
 				341522BF1B666A550077AA8F /* MWMAPIBarView.mm in Sources */,
 				349A35831B53E967009677EE /* MWMDownloadMapRequest.mm in Sources */,
 				349C26B51BB02C6F0005DF2F /* MWMBottomMenuViewController.mm in Sources */,
-				F61052561C297A6400B7EB45 /* MWMMapViewStyleController.mm in Sources */,
 				3438CDF41B85F1170051AA78 /* MWMConsole.mm in Sources */,
 				A32B6D4C1A14980500E54A65 /* iosOGLContext.mm in Sources */,
 				560634F21B78806100F3D670 /* MWMTextToSpeech.mm in Sources */,
@@ -3587,7 +3580,6 @@
 				6741A9B11BF340DE002C974C /* MWMAPIBarView.mm in Sources */,
 				6741A9B21BF340DE002C974C /* MWMDownloadMapRequest.mm in Sources */,
 				6741A9B31BF340DE002C974C /* MWMBottomMenuViewController.mm in Sources */,
-				F61052571C297FD300B7EB45 /* MWMMapViewStyleController.mm in Sources */,
 				6741A9B41BF340DE002C974C /* MWMConsole.mm in Sources */,
 				6741A9B51BF340DE002C974C /* iosOGLContext.mm in Sources */,
 				6741A9B61BF340DE002C974C /* MWMTextToSpeech.mm in Sources */,
