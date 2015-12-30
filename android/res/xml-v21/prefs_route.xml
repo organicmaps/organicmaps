@@ -21,7 +21,6 @@
   <SwitchPreference
     android:key="@string/pref_3d_buildings"
     android:title="3D buildings"
-    android:dependency="@string/pref_3d"
     android:switchTextOn=""
     android:switchTextOff=""/>
 </PreferenceScreen>
