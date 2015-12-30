@@ -137,13 +137,14 @@ private:
                 FeatureType feature;
                 switch (m_editor.GetFeatureStatus(mwmID, index))
                 {
-                case osm::Editor::EDeleted: return;
-                case osm::Editor::EModified:
-                  VERIFY(m_editor.GetEditedFeature(mwmID, index, feature), ());
-                  m_f(feature);
-                  return;
-                case osm::Editor::ECreated: CHECK(false, ("Created features index should be generated."));
-                case osm::Editor::EUntouched: break;
+                  case osm::Editor::FeatureStatus::Deleted: return;
+                  case osm::Editor::FeatureStatus::Modified:
+                    VERIFY(m_editor.GetEditedFeature(mwmID, index, feature), ());
+                    m_f(feature);
+                    return;
+                  case osm::Editor::FeatureStatus::Created:
+                    CHECK(false, ("Created features index should be generated."));
+                  case osm::Editor::FeatureStatus::Untouched: break;
                 }
                 if (checkUnique(index))
                 {
@@ -197,7 +198,8 @@ private:
         {
           index.ForEachInIntervalAndScale([&] (uint32_t index)
           {
-            if (osm::Editor::EDeleted != m_editor.GetFeatureStatus(mwmID, index) && checkUnique(index))
+            if (osm::Editor::FeatureStatus::Deleted != m_editor.GetFeatureStatus(mwmID, index) &&
+                checkUnique(index))
               m_f(FeatureID(mwmID, index));
           }, i.first, i.second, scale);
         }
@@ -246,9 +248,9 @@ public:
         do
         {
           osm::Editor::FeatureStatus const fts = editor.GetFeatureStatus(id, fidIter->m_index);
-          ASSERT_NOT_EQUAL(osm::Editor::EDeleted, fts, ("Deleted feature was cached. Please review your code."));
+          ASSERT_NOT_EQUAL(osm::Editor::FeatureStatus::Deleted, fts, ("Deleted feature was cached. Please review your code."));
           FeatureType featureType;
-          if (fts == osm::Editor::EModified)
+          if (fts == osm::Editor::FeatureStatus::Modified)
           {
             VERIFY(editor.GetEditedFeature(id, fidIter->m_index, featureType), ());
           }
@@ -280,6 +282,7 @@ public:
     bool IsWorld() const;
     void GetFeatureByIndex(uint32_t index, FeatureType & ft) const;
     inline FeaturesVector const & GetFeaturesVector() const { return m_vector; }
+    void GetFeatureByIndexIgnoringEditor(uint32_t index, FeatureType & ft) const;
 
   private:
     MwmHandle m_handle;

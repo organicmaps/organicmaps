@@ -212,9 +212,12 @@ void Editor::LoadMapEdits()
 
   array<pair<FeatureStatus, char const *>, 3> const sections =
   {{
-    {EDeleted, kDeleteSection}, {EModified, kModifySection}, {ECreated, kCreateSection}
+      {FeatureStatus::Deleted, kDeleteSection},
+      {FeatureStatus::Modified, kModifySection},
+      {FeatureStatus::Created, kCreateSection}
   }};
   int deleted = 0, modified = 0, created = 0;
+
   for (xml_node mwm : doc.child(kXmlRootNode).children(kXmlMwmNode))
   {
     string const mapName = mwm.attribute("name").as_string("");
@@ -227,29 +230,31 @@ void Editor::LoadMapEdits()
       continue;
     }
 
-    for (size_t i = 0; i < sections.size(); ++i)
+    for (auto const & section : sections)
     {
-      for (xml_node node : mwm.child(sections[i].second).children("node"))
+      for (xml_node node : mwm.child(section.second).children("node"))
       {
         try
         {
           XMLFeature const xml(node);
           FeatureID const fid(id, xml.GetOffset());
           auto & fti = m_features[id][fid.m_index];
+
           fti.m_feature = FeatureType::FromXML(xml);
           fti.m_feature.SetID(fid);
+
           fti.m_modificationTimestamp = xml.GetModificationTime();
           ASSERT_NOT_EQUAL(my::INVALID_TIME_STAMP, fti.m_modificationTimestamp, ());
           fti.m_uploadAttemptTimestamp = xml.GetUploadTime();
           fti.m_uploadStatus = xml.GetUploadStatus();
           fti.m_uploadError = xml.GetUploadError();
-          fti.m_status = sections[i].first;
+          fti.m_status = section.first;
         }
         catch (editor::XMLFeatureError const & ex)
         {
           ostringstream s;
           node.print(s, "  ");
-          LOG(LERROR, (ex.what(), "Can't create XMLFeature in section", sections[i].second, s.str()));
+          LOG(LERROR, (ex.what(), "Can't create XMLFeature in section", section.second, s.str()));
         }
       } // for nodes
     } // for sections
@@ -293,10 +298,10 @@ void Editor::Save(string const & fullFilePath) const
       }
       switch (fti.m_status)
       {
-      case EDeleted: VERIFY(xf.AttachToParentNode(deleted), ()); break;
-      case EModified: VERIFY(xf.AttachToParentNode(modified), ()); break;
-      case ECreated: VERIFY(xf.AttachToParentNode(created), ()); break;
-      case EUntouched: CHECK(false, ("Not edited features shouldn't be here."));
+        case FeatureStatus::Deleted: VERIFY(xf.AttachToParentNode(deleted), ()); break;
+        case FeatureStatus::Modified: VERIFY(xf.AttachToParentNode(modified), ()); break;
+        case FeatureStatus::Created: VERIFY(xf.AttachToParentNode(created), ()); break;
+        case FeatureStatus::Untouched: CHECK(false, ("Not edited features shouldn't be here."));
       }
     }
   }
@@ -309,15 +314,15 @@ Editor::FeatureStatus Editor::GetFeatureStatus(MwmSet::MwmId const & mwmId, uint
 {
   // Most popular case optimization.
   if (m_features.empty())
-    return EUntouched;
+    return FeatureStatus::Untouched;
 
   auto const mwmMatched = m_features.find(mwmId);
   if (mwmMatched == m_features.end())
-    return EUntouched;
+    return FeatureStatus::Untouched;
 
   auto const offsetMatched = mwmMatched->second.find(offset);
   if (offsetMatched == mwmMatched->second.end())
-    return EUntouched;
+    return FeatureStatus::Untouched;
 
   return offsetMatched->second.m_status;
 }
@@ -326,7 +331,7 @@ void Editor::DeleteFeature(FeatureType const & feature)
 {
   FeatureID const fid = feature.GetID();
   FeatureTypeInfo & ftInfo = m_features[fid.m_mwmId][fid.m_index];
-  ftInfo.m_status = EDeleted;
+  ftInfo.m_status = FeatureStatus::Deleted;
   ftInfo.m_feature = feature;
   // TODO: What if local client time is absolutely wrong?
   ftInfo.m_modificationTimestamp = time(nullptr);
@@ -353,7 +358,7 @@ void Editor::EditFeature(FeatureType & editedFeature)
   // TODO(AlexZ): Check if feature has not changed and reset status.
   FeatureID const fid = editedFeature.GetID();
   FeatureTypeInfo & ftInfo = m_features[fid.m_mwmId][fid.m_index];
-  ftInfo.m_status = EModified;
+  ftInfo.m_status = FeatureStatus::Modified;
   ftInfo.m_feature = editedFeature;
   // TODO: What if local client time is absolutely wrong?
   ftInfo.m_modificationTimestamp = time(nullptr);
@@ -379,7 +384,8 @@ void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
   for (auto const & offset : mwmFound->second)
   {
     FeatureTypeInfo const & ftInfo = offset.second;
-    if (ftInfo.m_status == ECreated && rect.IsPointInside(ftInfo.m_feature.GetCenter()))
+    if (ftInfo.m_status == FeatureStatus::Created &&
+        rect.IsPointInside(ftInfo.m_feature.GetCenter()))
       f(FeatureID(id, offset.first));
   }
 }
@@ -398,7 +404,8 @@ void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
   for (auto & offset : mwmFound->second)
   {
     FeatureTypeInfo & ftInfo = offset.second;
-    if (ftInfo.m_status == ECreated && rect.IsPointInside(ftInfo.m_feature.GetCenter()))
+    if (ftInfo.m_status == FeatureStatus::Created &&
+        rect.IsPointInside(ftInfo.m_feature.GetCenter()))
       f(ftInfo.m_feature);
   }
 }

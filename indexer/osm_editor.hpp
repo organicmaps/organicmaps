@@ -32,12 +32,12 @@ public:
   using TInvalidateFn = function<void()>;
   using TFeatureLoaderFn = function<unique_ptr<FeatureType> (FeatureID const & /*fid*/)>;
 
-  enum FeatureStatus
+  enum class FeatureStatus
   {
-    EUntouched,
-    EDeleted,
-    EModified,
-    ECreated
+    Untouched,
+    Deleted,
+    Modified,
+    Created
   };
 
   using TTypes = vector<uint32_t>;
@@ -106,5 +106,16 @@ private:
   TInvalidateFn m_invalidateFn;
   TFeatureLoaderFn m_featureLoaderFn;
 };  // class Editor
+
+inline string DebugPrint(Editor::FeatureStatus fs)
+{
+  switch(fs)
+  {
+    case Editor::FeatureStatus::Untouched: return "Untouched";
+    case Editor::FeatureStatus::Deleted: return "Deleted";
+    case Editor::FeatureStatus::Modified: return "Modified";
+    case Editor::FeatureStatus::Created: return "Created";
+  };
+}
 
 }  // namespace osm
