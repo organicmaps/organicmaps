@@ -16,9 +16,9 @@ FeaturesLayerPathFinder::FeaturesLayerPathFinder(my::Cancellable const & cancell
 {
 }
 
-void FeaturesLayerPathFinder::BuildGraph(FeaturesLayerMatcher & matcher,
-                                         vector<FeaturesLayer const *> const & layers,
-                                         vector<uint32_t> & reachable)
+void FeaturesLayerPathFinder::FindReachableVertices(FeaturesLayerMatcher & matcher,
+                                                    vector<FeaturesLayer const *> const & layers,
+                                                    vector<uint32_t> & reachable)
 {
   if (layers.empty())
     return;

@@ -94,6 +94,8 @@ UNIT_TEST(SearchQueryV2_Smoke)
       vector<m2::PointD>{
           {10.0005, 10.0005}, {10.0006, 10.0005}, {10.0006, 10.0006}, {10.0005, 10.0006}},
       "Hilbert house", "1 unit 2", *bohrStreet, "en");
+  auto const lantern1 = make_shared<TestPOI>(m2::PointD(10.0005, 10.0005), "lantern 1", "en");
+  auto const lantern2 = make_shared<TestPOI>(m2::PointD(10.0006, 10.0005), "lantern 2", "en");
 
   {
     TestMwmBuilder builder(wonderland, feature::DataHeader::country);
@@ -107,7 +109,10 @@ UNIT_TEST(SearchQueryV2_Smoke)
     builder.Add(*bohrStreet);
     builder.Add(*feynmanHouse);
     builder.Add(*bohrHouse);
+
     builder.Add(*hilbertHouse);
+    builder.Add(*lantern1);
+    builder.Add(*lantern2);
   }
 
   {
@@ -168,7 +173,8 @@ UNIT_TEST(SearchQueryV2_Smoke)
     TestSearchRequest request(engine, "feynman street 1", "en", search::SearchParams::ALL,
                               viewport);
     request.Wait();
-    vector<shared_ptr<MatchingRule>> rules = {make_shared<ExactMatch>(wonderlandId, feynmanHouse)};
+    vector<shared_ptr<MatchingRule>> rules = {make_shared<ExactMatch>(wonderlandId, feynmanHouse),
+                                              make_shared<ExactMatch>(wonderlandId, lantern1)};
     TEST(MatchResults(engine, rules, request.Results()), ());
   }
 
@@ -176,7 +182,8 @@ UNIT_TEST(SearchQueryV2_Smoke)
     TestSearchRequest request(engine, "bohr street 1", "en", search::SearchParams::ALL, viewport);
     request.Wait();
     vector<shared_ptr<MatchingRule>> rules = {make_shared<ExactMatch>(wonderlandId, bohrHouse),
-                                              make_shared<ExactMatch>(wonderlandId, hilbertHouse)};
+                                              make_shared<ExactMatch>(wonderlandId, hilbertHouse),
+                                              make_shared<ExactMatch>(wonderlandId, lantern1)};
     TEST(MatchResults(engine, rules, request.Results()), ());
   }
 
@@ -185,5 +192,14 @@ UNIT_TEST(SearchQueryV2_Smoke)
                               viewport);
     request.Wait();
     TEST_EQUAL(0, request.Results().size(), ());
+  }
+
+  {
+    TestSearchRequest request(engine, "bohr street 1 unit 2 lantern ", "en",
+                              search::SearchParams::ALL, viewport);
+    request.Wait();
+    vector<shared_ptr<MatchingRule>> rules = {make_shared<ExactMatch>(wonderlandId, lantern1),
+                                              make_shared<ExactMatch>(wonderlandId, lantern2)};
+    TEST(MatchResults(engine, rules, request.Results()), ());
   }
 }

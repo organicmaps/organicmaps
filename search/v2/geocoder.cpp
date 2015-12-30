@@ -26,8 +26,18 @@
 
 #include "std/algorithm.hpp"
 #include "std/iterator.hpp"
+#include "std/target_os.hpp"
 
 #include "defines.hpp"
+
+#if defined(DEBUG)
+#include "base/timer.hpp"
+#include "std/cstdio.hpp"
+#endif
+
+#if defined(USE_GOOGLE_PROFILER) && defined(OMIM_OS_LINUX)
+#include <gperftools/profiler.h>
+#endif
 
 namespace search
 {
@@ -101,6 +111,20 @@ void Geocoder::SetParams(Params const & params)
 
 void Geocoder::Go(vector<FeatureID> & results)
 {
+  // TODO (@y): remove following code as soon as Geocoder::Go() will
+  // work fast for most cases (significanly less than 1 second).
+#if defined(DEBUG)
+  my::Timer timer;
+  MY_SCOPE_GUARD(printDuration, [&timer]()
+                 {
+                   fprintf(stderr, "Total geocoding time: %lf seconds.\n", timer.ElapsedSeconds());
+                 });
+#endif
+#if defined(USE_GOOGLE_PROFILER) && defined(OMIM_OS_LINUX)
+  ProfilerStart("/tmp/geocoder.prof");
+  MY_SCOPE_GUARD(stopProfiler, &ProfilerStop);
+#endif
+
   if (m_numTokens == 0)
     return;
 

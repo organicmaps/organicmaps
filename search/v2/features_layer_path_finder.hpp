@@ -4,6 +4,11 @@
 
 #include "std/vector.hpp"
 
+#if defined(DEBUG)
+#include "base/timer.hpp"
+#include "std/cstdio.hpp"
+#endif  // defined(DEBUG)
+
 class FeaturesVector;
 class MwmValue;
 
@@ -39,16 +44,31 @@ public:
     if (layers.empty())
       return;
 
+    // TODO (@y): remove following code as soon as
+    // FindReachableVertices() will work fast for most cases
+    // (significanly less than 1 second).
+#if defined(DEBUG)
+    fprintf(stderr, "FeaturesLayerPathFinder()\n");
+    for (auto const * layer : layers)
+      fprintf(stderr, "Layer: %s\n", DebugPrint(*layer).c_str());
+    my::Timer timer;
+#endif  // defined(DEBUG)
+
     vector<uint32_t> reachable;
-    BuildGraph(matcher, layers, reachable);
+    FindReachableVertices(matcher, layers, reachable);
+
+#if defined(DEBUG)
+    fprintf(stderr, "Found: %zu, elapsed: %lf seconds\n", reachable.size(), timer.ElapsedSeconds());
+#endif  // defined(DEBUG)
 
     for (uint32_t featureId : reachable)
       fn(featureId);
   }
 
 private:
-  void BuildGraph(FeaturesLayerMatcher & matcher, vector<FeaturesLayer const *> const & layers,
-                  vector<uint32_t> & reachable);
+  void FindReachableVertices(FeaturesLayerMatcher & matcher,
+                             vector<FeaturesLayer const *> const & layers,
+                             vector<uint32_t> & reachable);
 
   my::Cancellable const & m_cancellable;
 };
