@@ -170,7 +170,7 @@ Query::RetrievalCallback::RetrievalCallback(Index & index, Query & query, Viewpo
 void Query::RetrievalCallback::OnFeaturesRetrieved(MwmSet::MwmId const & id, double scale,
                                                    coding::CompressedBitVector const & features)
 {
-  auto const & table = m_rankTable.Get(m_index, id);
+  auto const & table = m_rankTableCache.Get(m_index, id);
 
   coding::CompressedBitVectorEnumerator::ForEach(
       features, [&](uint64_t featureId)
@@ -183,7 +183,7 @@ void Query::RetrievalCallback::OnFeaturesRetrieved(MwmSet::MwmId const & id, dou
 
 void Query::RetrievalCallback::OnMwmProcessed(MwmSet::MwmId const & id)
 {
-  m_rankTable.Remove(id);
+  m_rankTableCache.Remove(id);
 }
 
 // static

@@ -147,7 +147,7 @@ protected:
     Index & m_index;
     Query & m_query;
     ViewportID m_viewportId;
-    search::v2::RankTableCache m_rankTable;
+    search::v2::RankTableCache m_rankTableCache;
   };
 
   friend class impl::FeatureLoader;
