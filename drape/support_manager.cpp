@@ -29,6 +29,10 @@ void SupportManager::Init()
       }
     }
   }
+
+  m_isTegra = (renderer.find("Tegra") != string::npos);
+  if (m_isTegra)
+    LOG(LINFO, ("NVidia Tegra device detected."));
 }
 
 bool SupportManager::IsSamsungGoogleNexus() const
@@ -39,6 +43,11 @@ bool SupportManager::IsSamsungGoogleNexus() const
 bool SupportManager::IsAdreno200Device() const
 {
   return m_isAdreno200;
+}
+
+bool SupportManager::IsTegraDevice() const
+{
+  return m_isTegra;
 }
 
 SupportManager & SupportManager::Instance()

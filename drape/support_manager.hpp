@@ -15,6 +15,7 @@ public:
 
   bool IsSamsungGoogleNexus() const;
   bool IsAdreno200Device() const;
+  bool IsTegraDevice() const;
 
 private:
   SupportManager() = default;
@@ -22,6 +23,7 @@ private:
 
   bool m_isSamsungGoogleNexus = false;
   bool m_isAdreno200 = false;
+  bool m_isTegra = false;
 };
 
 } // namespace dp

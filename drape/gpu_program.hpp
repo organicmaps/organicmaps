@@ -32,6 +32,9 @@ private:
 private:
   uint32_t m_programID;
 
+  ref_ptr<Shader> m_vertexShader;
+  ref_ptr<Shader> m_fragmentShader;
+
   using TUniformLocations = map<string, int8_t>;
   TUniformLocations m_uniforms;
 };
