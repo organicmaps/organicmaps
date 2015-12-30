@@ -72,9 +72,13 @@ public:
       ASSERT(false, ("Invalid parent layer type:", parent.m_type));
       break;
     case SearchModel::SEARCH_TYPE_BUILDING:
+      ASSERT_EQUAL(child.m_type, SearchModel::SEARCH_TYPE_POI, ());
       MatchPOIsWithBuildings(child, parent, forward<TFn>(fn));
       break;
     case SearchModel::SEARCH_TYPE_STREET:
+      ASSERT(child.m_type == SearchModel::SEARCH_TYPE_POI ||
+                 child.m_type == SearchModel::SEARCH_TYPE_BUILDING,
+             ("Invalid child layer type:", child.m_type));
       if (child.m_type == SearchModel::SEARCH_TYPE_POI)
         MatchPOIsWithStreets(child, parent, forward<TFn>(fn));
       else
@@ -87,7 +91,7 @@ private:
   template <typename TFn>
   void MatchPOIsWithBuildings(FeaturesLayer const & child, FeaturesLayer const & parent, TFn && fn)
   {
-    static const double kBuildingRadiusMeters = 50;
+    static double const kBuildingRadiusMeters = 50;
 
     ASSERT_EQUAL(child.m_type, SearchModel::SEARCH_TYPE_POI, ());
     ASSERT_EQUAL(parent.m_type, SearchModel::SEARCH_TYPE_BUILDING, ());
@@ -111,8 +115,8 @@ private:
 
       for (size_t j = 0; j < child.m_sortedFeatures->size(); ++j)
       {
-        double const distM = feature::GetMinDistanceMeters(buildingFt, poiCenters[j]);
-        if (distM <= kBuildingRadiusMeters)
+        double const distMeters = feature::GetMinDistanceMeters(buildingFt, poiCenters[j]);
+        if (distMeters <= kBuildingRadiusMeters)
         {
           fn((*child.m_sortedFeatures)[j], (*parent.m_sortedFeatures)[i]);
           break;
