@@ -17,4 +17,5 @@ QT *= core
 SOURCES += \
   ../../testing/testingmain.cpp \
   classificator_tests.cpp \
+  dashes_test.cpp \
   style_symbols_consistency_test.cpp \
