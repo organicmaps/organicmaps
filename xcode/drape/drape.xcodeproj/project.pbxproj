@@ -97,6 +97,8 @@
 		6729A5B31A69213A007D5872 /* vertex_decl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6729A5601A69213A007D5872 /* vertex_decl.hpp */; };
 		6729A5B41A69213A007D5872 /* vertex_array_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6729A5611A69213A007D5872 /* vertex_array_buffer.cpp */; };
 		6729A5B51A69213A007D5872 /* vertex_array_buffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6729A5621A69213A007D5872 /* vertex_array_buffer.hpp */; };
+		6743D3441C3533AE0095054B /* support_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6743D3421C3533AE0095054B /* support_manager.cpp */; };
+		6743D3451C3533AE0095054B /* support_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6743D3431C3533AE0095054B /* support_manager.hpp */; };
 		675D21991BFB876E00717E4F /* projection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675D21971BFB876E00717E4F /* projection.cpp */; };
 		675D219A1BFB876E00717E4F /* projection.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675D21981BFB876E00717E4F /* projection.hpp */; };
 /* End PBXBuildFile section */
@@ -221,6 +223,8 @@
 		6729A5601A69213A007D5872 /* vertex_decl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vertex_decl.hpp; sourceTree = "<group>"; };
 		6729A5611A69213A007D5872 /* vertex_array_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vertex_array_buffer.cpp; sourceTree = "<group>"; };
 		6729A5621A69213A007D5872 /* vertex_array_buffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vertex_array_buffer.hpp; sourceTree = "<group>"; };
+		6743D3421C3533AE0095054B /* support_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = support_manager.cpp; sourceTree = "<group>"; };
+		6743D3431C3533AE0095054B /* support_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = support_manager.hpp; sourceTree = "<group>"; };
 		675D21971BFB876E00717E4F /* projection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = projection.cpp; sourceTree = "<group>"; };
 		675D21981BFB876E00717E4F /* projection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = projection.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -256,6 +260,8 @@
 		6729A4F31A691F6A007D5872 /* drape */ = {
 			isa = PBXGroup;
 			children = (
+				6743D3421C3533AE0095054B /* support_manager.cpp */,
+				6743D3431C3533AE0095054B /* support_manager.hpp */,
 				6729A53E1A69213A007D5872 /* shaders */,
 				6729A55C1A69213A007D5872 /* utils */,
 				670947151BDF9A4F005014C0 /* data_buffer_impl.hpp */,
@@ -422,6 +428,7 @@
 				6729A5831A69213A007D5872 /* glstate.hpp in Headers */,
 				6729A5741A69213A007D5872 /* data_buffer.hpp in Headers */,
 				6729A58B1A69213A007D5872 /* gpu_program.hpp in Headers */,
+				6743D3451C3533AE0095054B /* support_manager.hpp in Headers */,
 				6729A5B31A69213A007D5872 /* vertex_decl.hpp in Headers */,
 				6729A5721A69213A007D5872 /* cpu_buffer.hpp in Headers */,
 				6729A5AD1A69213A007D5872 /* uniform_value.hpp in Headers */,
@@ -525,6 +532,7 @@
 				6729A5A41A69213A007D5872 /* symbols_texture.cpp in Sources */,
 				675D21991BFB876E00717E4F /* projection.cpp in Sources */,
 				6729A56D1A69213A007D5872 /* buffer_base.cpp in Sources */,
+				6743D3441C3533AE0095054B /* support_manager.cpp in Sources */,
 				6729A5A01A69213A007D5872 /* shader.cpp in Sources */,
 				6709472F1BDF9A4F005014C0 /* shader_def.cpp in Sources */,
 				6729A5A21A69213A007D5872 /* stipple_pen_resource.cpp in Sources */,
