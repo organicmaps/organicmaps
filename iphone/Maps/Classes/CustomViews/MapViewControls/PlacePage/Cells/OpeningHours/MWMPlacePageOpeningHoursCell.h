@@ -9,7 +9,7 @@
 
 @interface MWMPlacePageOpeningHoursCell : UITableViewCell
 
-- (void)configWithInfo:(NSString *)info delegate:(id<MWMPlacePageOpeningHoursCellProtocol>)delegate;
+- (void)configWithInfo:(NSString *)info editable:(BOOL)editable delegate:(id<MWMPlacePageOpeningHoursCellProtocol>)delegate;
 
 - (CGFloat)cellHeight;
 

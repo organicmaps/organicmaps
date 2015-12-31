@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIButton * upperButton;
 @property (weak, nonatomic) IBOutlet UIImageView * toggleImage;
 
-@property (nonatomic) MWMPlacePageMetadataType type;
+@property (nonatomic) MWMPlacePageMetadataField type;
 
 @end
 
@@ -29,39 +29,39 @@
     [(UITextView *)self.textContainer setTextContainerInset:{.top = 12, 0, 0, 0}];
 }
 
-- (void)configureWithType:(MWMPlacePageMetadataType)type info:(NSString *)info;
+- (void)configureWithType:(MWMPlacePageMetadataField)type info:(NSString *)info;
 {
   NSString * typeName;
   switch (type)
   {
-    case MWMPlacePageMetadataTypeURL:
-    case MWMPlacePageMetadataTypeWebsite:
+    case MWMPlacePageMetadataFieldURL:
+    case MWMPlacePageMetadataFieldWebsite:
       self.toggleImage.hidden = YES;
       typeName = @"website";
       break;
-    case MWMPlacePageMetadataTypeEmail:
+    case MWMPlacePageMetadataFieldEmail:
       self.toggleImage.hidden = YES;
       typeName = @"email";
       break;
-    case MWMPlacePageMetadataTypePhoneNumber:
+    case MWMPlacePageMetadataFieldPhoneNumber:
       self.toggleImage.hidden = YES;
       typeName = @"phone_number";
       break;
-    case MWMPlacePageMetadataTypeCoordinate:
+    case MWMPlacePageMetadataFieldCoordinate:
       self.toggleImage.hidden = NO;
       typeName = @"coordinate";
       break;
-    case MWMPlacePageMetadataTypePostcode:
+    case MWMPlacePageMetadataFieldPostcode:
       self.toggleImage.hidden = YES;
       typeName = @"postcode";
       break;
-    case MWMPlacePageMetadataTypeWiFi:
+    case MWMPlacePageMetadataFieldWiFi:
       self.toggleImage.hidden = YES;
       typeName = @"wifi";
       break;
-    case MWMPlacePageMetadataTypeBookmark:
-    case MWMPlacePageMetadataTypeEditButton:
-    case MWMPlacePageMetadataTypeOpenHours:
+    case MWMPlacePageMetadataFieldBookmark:
+    case MWMPlacePageMetadataFieldEditButton:
+    case MWMPlacePageMetadataFieldOpenHours:
       NSAssert(false, @"Incorrect type!");
       break;
   }
@@ -106,20 +106,20 @@
 {
   switch (self.type)
   {
-    case MWMPlacePageMetadataTypeURL:
-    case MWMPlacePageMetadataTypeWebsite:
+    case MWMPlacePageMetadataFieldURL:
+    case MWMPlacePageMetadataFieldWebsite:
       [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatOpenSite)];
       break;
-    case MWMPlacePageMetadataTypeEmail:
+    case MWMPlacePageMetadataFieldEmail:
       [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatSendEmail)];
       break;
-    case MWMPlacePageMetadataTypePhoneNumber:
+    case MWMPlacePageMetadataFieldPhoneNumber:
       [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatCallPhoneNumber)];
       break;
-    case MWMPlacePageMetadataTypeCoordinate:
+    case MWMPlacePageMetadataFieldCoordinate:
       [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatToggleCoordinates)];
       [self.currentEntity toggleCoordinateSystem];
-      [self changeText:[self.currentEntity getFeatureValue:MWMPlacePageMetadataTypeCoordinate]];
+      [self changeText:[self.currentEntity getFieldValue:MWMPlacePageMetadataFieldCoordinate]];
       break;
     default:
       break;

@@ -27,8 +27,8 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
 
 @property (weak, nonatomic) MWMPlacePageEntity * entity;
 @property (weak, nonatomic) IBOutlet MWMPlacePage * ownerPlacePage;
-@property (nonatomic) MWMPlacePageBookmarkCell * bookmarkSizingCell;
-@property (nonatomic) MWMPlacePageOpeningHoursCell * openingHoursSizingCell;
+
+@property (nonatomic) NSMutableDictionary<NSString *, UITableViewCell *> * offscreenCells;
 
 @property (nonatomic, readwrite) BOOL openingHoursCellExpanded;
 
@@ -242,100 +242,117 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
   [self.ownerPlacePage editPlaceTime];
 }
 
-#pragma mark - Properties
-
-- (MWMPlacePageBookmarkCell *)bookmarkSizingCell
+- (UITableViewCell *)offscreenCellForIdentifier:(NSString *)reuseIdentifier
 {
-  if (!_bookmarkSizingCell)
-    _bookmarkSizingCell = [[[NSBundle mainBundle] loadNibNamed:kPlacePageBookmarkCellIdentifier
-                                                         owner:nil
-                                                       options:nil] firstObject];
-  return _bookmarkSizingCell;
-}
-
-- (MWMPlacePageOpeningHoursCell *)openingHoursSizingCell
-{
-  if (!_openingHoursSizingCell)
-    _openingHoursSizingCell =
-        [[[NSBundle mainBundle] loadNibNamed:kPlacePageOpeningHoursCellIdentifier
-                                       owner:nil
-                                     options:nil] firstObject];
-  return _openingHoursSizingCell;
+  UITableViewCell * cell = self.offscreenCells[reuseIdentifier];
+  if (!cell)
+  {
+    cell = [[[NSBundle mainBundle] loadNibNamed:reuseIdentifier owner:nil options:nil] firstObject];
+    self.offscreenCells[reuseIdentifier] = cell;
+  }
+  return cell;
 }
 
 @end
 
 @implementation MWMBasePlacePageView (UITableView)
 
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  return 44.0;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   MWMPlacePageEntity * entity = self.entity;
-  MWMPlacePageMetadataType const currentType = [entity getFeatureType:indexPath.row];
-  if (currentType == MWMPlacePageMetadataTypeBookmark)
+  MWMPlacePageMetadataField const field = [entity getFieldType:indexPath.row];
+  UITableViewCell * cell = [self offscreenCellForIdentifier:[self cellIdentifierForField:field]];
+  if (field == MWMPlacePageMetadataFieldBookmark)
   {
-    [self.bookmarkSizingCell config:self.ownerPlacePage forHeight:YES];
-    return self.bookmarkSizingCell.cellHeight;
+    MWMPlacePageBookmarkCell * tCell = (MWMPlacePageBookmarkCell *)cell;
+    [tCell config:self.ownerPlacePage forHeight:YES];
+    return tCell.cellHeight;
   }
-  else if (currentType == MWMPlacePageMetadataTypeOpenHours)
+  else if (field == MWMPlacePageMetadataFieldOpenHours)
   {
-    [self.openingHoursSizingCell configWithInfo:[entity getFeatureValue:currentType] delegate:self];
-    return self.openingHoursSizingCell.cellHeight;
+    MWMPlacePageOpeningHoursCell * tCell = (MWMPlacePageOpeningHoursCell *)cell;
+    [tCell configWithInfo:[entity getFieldValue:field]
+                 editable:[entity isFieldEditable:field]
+                 delegate:self];
+    return tCell.cellHeight;
   }
-  else if (currentType == MWMPlacePageMetadataTypeEditButton)
+  else if (field == MWMPlacePageMetadataFieldEditButton)
   {
     return [MWMPlacePageButtonCell height];
   }
-
-  CGFloat const defaultCellHeight = 44.;
-  CGFloat const defaultWidth = tableView.width;
-  CGFloat const leftOffset = 40.;
-  CGFloat const rightOffset = 22.;
-  UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0., 0., defaultWidth - leftOffset - rightOffset, 10.)];
-  label.numberOfLines = 0;
-  label.text = [entity getFeatureValue:currentType];
-  [label sizeToFit];
-  CGFloat const defaultCellOffset = 24.;
-  return MAX(label.height + defaultCellOffset, defaultCellHeight);
+  else
+  {
+    MWMPlacePageInfoCell * tCell = (MWMPlacePageInfoCell *)cell;
+    tCell.currentEntity = self.entity;
+    [tCell configureWithType:field info:[entity getFieldValue:field]];
+    [tCell setNeedsUpdateConstraints];
+    [tCell updateConstraintsIfNeeded];
+    tCell.bounds = {{}, {CGRectGetWidth(tableView.bounds), CGRectGetHeight(tCell.bounds)}};
+    [tCell setNeedsLayout];
+    [tCell layoutIfNeeded];
+    CGSize const size = [tCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return size.height;
+  }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  return [self.entity getFeatureTypesCount];
+  return [self.entity getFieldsCount];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   MWMPlacePageEntity * entity = self.entity;
-  MWMPlacePageMetadataType const currentType = [entity getFeatureType:indexPath.row];
-  if (currentType == MWMPlacePageMetadataTypeBookmark)
+  MWMPlacePageMetadataField const field = [entity getFieldType:indexPath.row];
+  UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:[self cellIdentifierForField:field]];
+  if (field == MWMPlacePageMetadataFieldBookmark)
   {
-    MWMPlacePageBookmarkCell * cell = (MWMPlacePageBookmarkCell *)[tableView dequeueReusableCellWithIdentifier:kPlacePageBookmarkCellIdentifier];
-
-    [cell config:self.ownerPlacePage forHeight:NO];
-    return cell;
+    [(MWMPlacePageBookmarkCell *)cell config:self.ownerPlacePage forHeight:NO];
   }
-  else if (currentType == MWMPlacePageMetadataTypeOpenHours)
+  else if (field == MWMPlacePageMetadataFieldOpenHours)
   {
-    MWMPlacePageOpeningHoursCell * cell = (MWMPlacePageOpeningHoursCell *)
-        [tableView dequeueReusableCellWithIdentifier:kPlacePageOpeningHoursCellIdentifier];
-    [cell configWithInfo:[entity getFeatureValue:currentType] delegate:self];
-    return cell;
+    [(MWMPlacePageOpeningHoursCell *)cell configWithInfo:[entity getFieldValue:field]
+                editable:[entity isFieldEditable:field]
+                delegate:self];
   }
-  else if (currentType == MWMPlacePageMetadataTypeEditButton)
+  else if (field == MWMPlacePageMetadataFieldEditButton)
   {
-    MWMPlacePageButtonCell * cell = (MWMPlacePageButtonCell *)[tableView dequeueReusableCellWithIdentifier:kPlacePageButtonCellIdentifier];
-    [cell config:self.ownerPlacePage];
-    return cell;
+    [(MWMPlacePageButtonCell *)cell config:self.ownerPlacePage];
   }
-
-  BOOL const isLinkTypeCell = (currentType == MWMPlacePageMetadataTypePhoneNumber || currentType == MWMPlacePageMetadataTypeEmail || currentType == MWMPlacePageMetadataTypeWebsite || currentType == MWMPlacePageMetadataTypeURL);
-  NSString * const cellIdentifier =  isLinkTypeCell ? kPlacePageLinkCellIdentifier : kPlacePageInfoCellIdentifier;
-
-  MWMPlacePageInfoCell * cell = (MWMPlacePageInfoCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-
-  cell.currentEntity = self.entity;
-  [cell configureWithType:currentType info:[entity getFeatureValue:currentType]];
+  else
+  {
+    MWMPlacePageInfoCell * tCell = (MWMPlacePageInfoCell *)cell;
+    tCell.currentEntity = self.entity;
+    [tCell configureWithType:field info:[entity getFieldValue:field]];
+  }
   return cell;
+}
+
+- (NSString *)cellIdentifierForField:(MWMPlacePageMetadataField)field
+{
+  switch (field)
+  {
+    case MWMPlacePageMetadataFieldWiFi:
+    case MWMPlacePageMetadataFieldCoordinate:
+    case MWMPlacePageMetadataFieldPostcode:
+      return kPlacePageInfoCellIdentifier;
+    case MWMPlacePageMetadataFieldURL:
+    case MWMPlacePageMetadataFieldWebsite:
+    case MWMPlacePageMetadataFieldEmail:
+    case MWMPlacePageMetadataFieldPhoneNumber:
+      return kPlacePageLinkCellIdentifier;
+    case MWMPlacePageMetadataFieldOpenHours:
+      return kPlacePageOpeningHoursCellIdentifier;
+    case MWMPlacePageMetadataFieldBookmark:
+      return kPlacePageBookmarkCellIdentifier;
+    case MWMPlacePageMetadataFieldEditButton:
+      return kPlacePageButtonCellIdentifier;
+  }
 }
 
 @end

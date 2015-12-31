@@ -216,6 +216,7 @@
                 <outlet property="editButton" destination="acu-oR-Ylj" id="e0k-BO-Ske"/>
                 <outlet property="expandImage" destination="mGc-k4-uvQ" id="ohq-Yq-hLX"/>
                 <outlet property="middleSeparator" destination="q9R-jU-fIk" id="vcZ-Lb-HgY"/>
+                <outlet property="toggleButton" destination="3Fa-V6-tC5" id="8FI-Je-uFy"/>
                 <outlet property="weekDaysView" destination="fNU-1q-AiR" id="zM3-OD-vBA"/>
                 <outlet property="weekDaysViewHeight" destination="Ifb-EB-LIb" id="sEe-Y1-ubY"/>
             </connections>

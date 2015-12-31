@@ -1,24 +1,22 @@
-#import <Foundation/Foundation.h>
-
 #include "Framework.h"
 
 #include "map/user_mark.hpp"
 
-typedef NS_ENUM (NSUInteger, MWMPlacePageMetadataType)
+typedef NS_ENUM(NSUInteger, MWMPlacePageMetadataField)
 {
-  MWMPlacePageMetadataTypePostcode,
-  MWMPlacePageMetadataTypePhoneNumber,
-  MWMPlacePageMetadataTypeWebsite,
-  MWMPlacePageMetadataTypeURL,
-  MWMPlacePageMetadataTypeEmail,
-  MWMPlacePageMetadataTypeOpenHours,
-  MWMPlacePageMetadataTypeCoordinate,
-  MWMPlacePageMetadataTypeWiFi,
-  MWMPlacePageMetadataTypeBookmark,
-  MWMPlacePageMetadataTypeEditButton
+  MWMPlacePageMetadataFieldPostcode,
+  MWMPlacePageMetadataFieldPhoneNumber,
+  MWMPlacePageMetadataFieldWebsite,
+  MWMPlacePageMetadataFieldURL,
+  MWMPlacePageMetadataFieldEmail,
+  MWMPlacePageMetadataFieldOpenHours,
+  MWMPlacePageMetadataFieldCoordinate,
+  MWMPlacePageMetadataFieldWiFi,
+  MWMPlacePageMetadataFieldBookmark,
+  MWMPlacePageMetadataFieldEditButton
 };
 
-typedef NS_ENUM (NSUInteger, MWMPlacePageEntityType)
+typedef NS_ENUM(NSUInteger, MWMPlacePageEntityType)
 {
   MWMPlacePageEntityTypeRegular,
   MWMPlacePageEntityTypeBookmark,
@@ -58,8 +56,9 @@ typedef NS_ENUM (NSUInteger, MWMPlacePageEntityType)
 
 - (void)toggleCoordinateSystem;
 
-- (NSUInteger)getFeatureTypesCount;
-- (MWMPlacePageMetadataType)getFeatureType:(NSUInteger)index;
-- (NSString *)getFeatureValue:(MWMPlacePageMetadataType)type;
+- (NSUInteger)getFieldsCount;
+- (MWMPlacePageMetadataField)getFieldType:(NSUInteger)index;
+- (NSString *)getFieldValue:(MWMPlacePageMetadataField)field;
+- (BOOL)isFieldEditable:(MWMPlacePageMetadataField)field;
 
 @end

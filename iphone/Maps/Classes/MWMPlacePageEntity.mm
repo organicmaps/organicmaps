@@ -9,25 +9,26 @@ using feature::Metadata;
 
 extern NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
-static array<MWMPlacePageMetadataType, 8> const kPatternTypesArray{
-    {MWMPlacePageMetadataTypePostcode, MWMPlacePageMetadataTypePhoneNumber,
-     MWMPlacePageMetadataTypeWebsite, MWMPlacePageMetadataTypeURL, MWMPlacePageMetadataTypeEmail,
-     MWMPlacePageMetadataTypeOpenHours, MWMPlacePageMetadataTypeWiFi,
-     MWMPlacePageMetadataTypeCoordinate}};
+static array<MWMPlacePageMetadataField, 8> const kPatternFieldsArray{
+    {MWMPlacePageMetadataFieldPostcode, MWMPlacePageMetadataFieldPhoneNumber,
+     MWMPlacePageMetadataFieldWebsite, MWMPlacePageMetadataFieldURL, MWMPlacePageMetadataFieldEmail,
+     MWMPlacePageMetadataFieldOpenHours, MWMPlacePageMetadataFieldWiFi,
+     MWMPlacePageMetadataFieldCoordinate}};
 
-static map<Metadata::EType, MWMPlacePageMetadataType> const kMetaTypesMap{
-    {Metadata::FMD_URL, MWMPlacePageMetadataTypeURL},
-    {Metadata::FMD_WEBSITE, MWMPlacePageMetadataTypeWebsite},
-    {Metadata::FMD_PHONE_NUMBER, MWMPlacePageMetadataTypePhoneNumber},
-    {Metadata::FMD_OPEN_HOURS, MWMPlacePageMetadataTypeOpenHours},
-    {Metadata::FMD_EMAIL, MWMPlacePageMetadataTypeEmail},
-    {Metadata::FMD_POSTCODE, MWMPlacePageMetadataTypePostcode},
-    {Metadata::FMD_INTERNET, MWMPlacePageMetadataTypeWiFi}};
+static map<Metadata::EType, MWMPlacePageMetadataField> const kMetaFieldsMap{
+    {Metadata::FMD_URL, MWMPlacePageMetadataFieldURL},
+    {Metadata::FMD_WEBSITE, MWMPlacePageMetadataFieldWebsite},
+    {Metadata::FMD_PHONE_NUMBER, MWMPlacePageMetadataFieldPhoneNumber},
+    {Metadata::FMD_OPEN_HOURS, MWMPlacePageMetadataFieldOpenHours},
+    {Metadata::FMD_EMAIL, MWMPlacePageMetadataFieldEmail},
+    {Metadata::FMD_POSTCODE, MWMPlacePageMetadataFieldPostcode},
+    {Metadata::FMD_INTERNET, MWMPlacePageMetadataFieldWiFi}};
 
 @implementation MWMPlacePageEntity
 {
-  vector<MWMPlacePageMetadataType> m_types;
-  map<MWMPlacePageMetadataType, string> m_values;
+  vector<MWMPlacePageMetadataField> m_fields;
+  set<MWMPlacePageMetadataField> m_editableFields;
+  map<MWMPlacePageMetadataField, string> m_values;
 }
 
 - (instancetype)initWithUserMark:(UserMark const *)userMark
@@ -63,37 +64,37 @@ static map<Metadata::EType, MWMPlacePageMetadataType> const kMetaTypesMap{
       [self configureForBookmark:mark];
       break;
   }
-  [self addEditableTypes];
-  [self sortMeta];
+  [self setEditableFields];
+  [self sortMetaFields];
 }
 
-- (void)sortMeta
+- (void)sortMetaFields
 {
-  auto begin = kPatternTypesArray.begin();
-  auto end = kPatternTypesArray.end();
-  sort(m_types.begin(), m_types.end(), [&](MWMPlacePageMetadataType a, MWMPlacePageMetadataType b)
+  auto begin = kPatternFieldsArray.begin();
+  auto end = kPatternFieldsArray.end();
+  sort(m_fields.begin(), m_fields.end(), [&](MWMPlacePageMetadataField a, MWMPlacePageMetadataField b)
   {
     return find(begin, end, a) < find(begin, end, b);
   });
 }
 
-- (void)addMetaType:(MWMPlacePageMetadataType)type
+- (void)addMetaField:(MWMPlacePageMetadataField)field
 {
-  if (find(m_types.begin(), m_types.end(), type) == m_types.end())
-    m_types.emplace_back(type);
+  if (find(m_fields.begin(), m_fields.end(), field) == m_fields.end())
+    m_fields.emplace_back(field);
 }
 
-- (void)removeMetaType:(MWMPlacePageMetadataType)type
+- (void)removeMetaField:(MWMPlacePageMetadataField)field
 {
-  auto it = find(m_types.begin(), m_types.end(), type);
-  if (it != m_types.end())
-    m_types.erase(it);
+  auto it = find(m_fields.begin(), m_fields.end(), field);
+  if (it != m_fields.end())
+    m_fields.erase(it);
 }
 
-- (void)addMetaType:(MWMPlacePageMetadataType)type value:(string const &)value
+- (void)addMetaField:(MWMPlacePageMetadataField)field value:(string const &)value
 {
-  [self addMetaType:type];
-  m_values.emplace(type, value);
+  [self addMetaField:field];
+  m_values.emplace(field, value);
 }
 
 - (void)configureForBookmark:(UserMark const *)bookmark
@@ -138,7 +139,7 @@ static map<Metadata::EType, MWMPlacePageMetadataType> const kMetaTypesMap{
 {
   self.title = L(@"my_position");
   self.type = MWMPlacePageEntityTypeMyPosition;
-  [self addMetaType:MWMPlacePageMetadataTypeCoordinate];
+  [self addMetaField:MWMPlacePageMetadataFieldCoordinate];
 }
 
 - (void)configureForApi:(ApiMarkPoint const *)apiMark
@@ -146,7 +147,7 @@ static map<Metadata::EType, MWMPlacePageMetadataType> const kMetaTypesMap{
   self.type = MWMPlacePageEntityTypeAPI;
   self.title = @(apiMark->GetName().c_str());
   self.category = @(GetFramework().GetApiDataHolder().GetAppTitle().c_str());
-  [self addMetaType:MWMPlacePageMetadataTypeCoordinate];
+  [self addMetaField:MWMPlacePageMetadataFieldCoordinate];
 }
 
 - (void)configureEntityWithMetadata:(Metadata const &)metadata addressInfo:(search::AddressInfo const &)info
@@ -210,32 +211,32 @@ static map<Metadata::EType, MWMPlacePageMetadataType> const kMetaTypesMap{
       case Metadata::FMD_OPEN_HOURS:
       case Metadata::FMD_EMAIL:
       case Metadata::FMD_POSTCODE:
-        [self addMetaType:kMetaTypesMap.at(type) value:metadata.Get(type)];
+        [self addMetaField:kMetaFieldsMap.at(type) value:metadata.Get(type)];
         break;
       case Metadata::FMD_INTERNET:
-        [self addMetaType:kMetaTypesMap.at(type) value:L(@"WiFi_available").UTF8String];
+        [self addMetaField:kMetaFieldsMap.at(type) value:L(@"WiFi_available").UTF8String];
         break;
       default:
         break;
     }
   }
 
-  [self addMetaType:MWMPlacePageMetadataTypeCoordinate];
+  [self addMetaField:MWMPlacePageMetadataFieldCoordinate];
 }
 
 - (void)enableEditing
 {
-  [self addMetaType:MWMPlacePageMetadataTypeEditButton];
+  [self addMetaField:MWMPlacePageMetadataFieldEditButton];
 }
 
 - (void)insertBookmarkInTypes
 {
-  [self addMetaType:MWMPlacePageMetadataTypeBookmark];
+  [self addMetaField:MWMPlacePageMetadataFieldBookmark];
 }
 
 - (void)removeBookmarkFromTypes
 {
-  [self removeMetaType:MWMPlacePageMetadataTypeBookmark];
+  [self removeMetaField:MWMPlacePageMetadataFieldBookmark];
 }
 
 - (void)toggleCoordinateSystem
@@ -247,29 +248,42 @@ static map<Metadata::EType, MWMPlacePageMetadataType> const kMetaTypesMap{
 
 #pragma mark - Editing
 
-- (void)addEditableTypes
+- (void)setEditableFields
 {
-  // TODO: Add real logic
+  // TODO: Replace with real array
+  vector<Metadata::EType> const editableTypes {Metadata::FMD_OPEN_HOURS};
+  //osm::Editor::Instance().EditableMetadataForType(<#const FeatureType &feature#>);
+  for (auto const & type : editableTypes)
+  {
+    MWMPlacePageMetadataField uiType = kMetaFieldsMap.at(type);
+    [self addMetaField:uiType];
+    m_editableFields.insert(uiType);
+  }
+}
+
+- (BOOL)isFieldEditable:(MWMPlacePageMetadataField)field
+{
+  return m_editableFields.count(field) == 1;
 }
 
 #pragma mark - Getters
 
-- (NSUInteger)getFeatureTypesCount
+- (NSUInteger)getFieldsCount
 {
-  return m_types.size();
+  return m_fields.size();
 }
 
-- (MWMPlacePageMetadataType)getFeatureType:(NSUInteger)index
+- (MWMPlacePageMetadataField)getFieldType:(NSUInteger)index
 {
-  NSAssert(index < [self getFeatureTypesCount], @"Invalid meta index");
-  return m_types[index];
+  NSAssert(index < [self getFieldsCount], @"Invalid meta index");
+  return m_fields[index];
 }
 
-- (NSString *)getFeatureValue:(MWMPlacePageMetadataType)type
+- (NSString *)getFieldValue:(MWMPlacePageMetadataField)field
 {
-  if (type == MWMPlacePageMetadataTypeCoordinate)
+  if (field == MWMPlacePageMetadataFieldCoordinate)
     return [self coordinate];
-  auto it = m_values.find(type);
+  auto it = m_values.find(field);
   return it != m_values.end() ? @(it->second.c_str()) : nil;
 }
 

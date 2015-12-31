@@ -148,7 +148,6 @@
   self.breakLabel.hidden = !isRegular;
   self.breaksHolder.hidden = !isRegular;
   self.closedLabel.hidden = !isRegular;
-  self.expandImage.hidden = isEmpty;
 
   if (isEmpty)
     self.compatibilityLabel.text = L(@"add_opening_hours");

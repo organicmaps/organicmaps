@@ -19,6 +19,7 @@ using WeekDayView = MWMPlacePageOpeningHoursDayView *;
 @property (weak, nonatomic) IBOutlet UIView * weekDaysView;
 @property (weak, nonatomic) IBOutlet UIButton * editButton;
 @property (weak, nonatomic) IBOutlet UIImageView * expandImage;
+@property (weak, nonatomic) IBOutlet UIButton * toggleButton;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * weekDaysViewHeight;
 @property (nonatomic) CGFloat weekDaysViewEstimatedHeight;
@@ -56,8 +57,9 @@ WeekDayView getWeekDayView()
   ui::TimeTableSet timeTableSet;
 }
 
-- (void)configWithInfo:(NSString *)info delegate:(id<MWMPlacePageOpeningHoursCellProtocol>)delegate
+- (void)configWithInfo:(NSString *)info editable:(BOOL)editable delegate:(id<MWMPlacePageOpeningHoursCellProtocol>)delegate
 {
+  self.toggleButton.hidden = !editable;
   self.delegate = delegate;
   WeekDayView cd = self.currentDay;
   cd.currentDay = YES;
@@ -79,7 +81,8 @@ WeekDayView getWeekDayView()
     BOOL const isExpanded = delegate.openingHoursCellExpanded;
     self.middleSeparator.hidden = !isExpanded;
     self.weekDaysView.hidden = !isExpanded;
-    self.editButton.hidden = !isExpanded;
+    self.editButton.hidden = !editable || !isExpanded;
+    self.expandImage.hidden = !editable;
     self.expandImage.image = [UIImage imageNamed:isExpanded ? @"ic_arrow_gray_up" : @"ic_arrow_gray_down"];
   }
   else
@@ -88,6 +91,7 @@ WeekDayView getWeekDayView()
     self.middleSeparator.hidden = YES;
     self.weekDaysView.hidden = YES;
     self.editButton.hidden = YES;
+    self.expandImage.hidden = YES;
   }
   [cd invalidate];
 }
@@ -194,7 +198,7 @@ WeekDayView getWeekDayView()
   if (self.delegate.openingHoursCellExpanded)
   {
     MWMPlacePageOpeningHoursDayViewMode const mode = self.currentDay.mode;
-    if (mode != MWMPlacePageOpeningHoursDayViewModeEmpty)
+    if (mode != MWMPlacePageOpeningHoursDayViewModeEmpty && !self.toggleButton.hidden)
       height += self.editButton.height;
     if (mode == MWMPlacePageOpeningHoursDayViewModeRegular)
       height += self.weekDaysViewHeight.constant;
@@ -206,7 +210,8 @@ WeekDayView getWeekDayView()
 
 - (IBAction)toggleButtonTap
 {
-  switch (self.currentDay.mode) {
+  switch (self.currentDay.mode)
+  {
     case MWMPlacePageOpeningHoursDayViewModeRegular:
     case MWMPlacePageOpeningHoursDayViewModeCompatibility:
       [self.delegate setOpeningHoursCellExpanded:!self.delegate.openingHoursCellExpanded forCell:self];

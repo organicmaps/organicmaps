@@ -802,7 +802,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     self.skipDismissOnViewDisappear = YES;
     MWMPlacePageEntity * entity = sender;
     MWMOpeningHoursEditorViewController * dvc = segue.destinationViewController;
-    dvc.openingHours = [entity getFeatureValue:MWMPlacePageMetadataTypeOpenHours];
+    dvc.openingHours = [entity getFieldValue:MWMPlacePageMetadataFieldOpenHours];
   }
 }
 
