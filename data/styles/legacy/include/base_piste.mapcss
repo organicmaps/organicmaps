@@ -173,7 +173,7 @@ line|z15-[piste:lift=t-bar]::d2p2
 {
   color: @dark_gray_20;
   width: 8;
-  dashes: 0.8,40;
+  dashes: 0.8,32;
   linecap: butt;
 }
 line|z15-[piste:lift=platter]
@@ -193,7 +193,7 @@ line|z15-[piste:lift=j-bar]::d2p2
   color: @dark_gray_20;
   width: 8;
   z-index: 605;
-  dashes: 0.8,40;
+  dashes: 0.8,32;
   linecap: butt;
 }
 line|z15[aerialway=gondola]
@@ -232,7 +232,7 @@ line|z15-[piste:lift=platter]::d1p2
 {
   color: @dark_gray_20;
   width: 8;
-  dashes: 1,40;
+  dashes: 1,32;
   linecap: butt;
 }
 line|z15[piste:type=sled]
