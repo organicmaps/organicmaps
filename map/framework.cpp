@@ -1367,7 +1367,6 @@ bool Framework::ShowMapForURL(string const & url)
       // set up controller guard to show api marks
       {
         UserMarkControllerGuard guard(m_bmManager, UserMarkType::API_MARK);
-        guard.m_controller.Clear();
         guard.m_controller.SetIsVisible(true);
         guard.m_controller.SetIsDrawable(true);
       }
