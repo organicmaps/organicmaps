@@ -1,5 +1,6 @@
-#include "selection_shape.hpp"
-#include "visual_params.hpp"
+#include "drape_frontend/selection_shape.hpp"
+#include "drape_frontend/color_constants.hpp"
+#include "drape_frontend/visual_params.hpp"
 
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
@@ -10,6 +11,8 @@
 #include "drape/shader_def.hpp"
 #include "drape/texture_manager.hpp"
 #include "drape/uniform_values_storage.hpp"
+
+#include "indexer/map_style_reader.hpp"
 
 namespace df
 {
@@ -63,7 +66,7 @@ SelectionShape::SelectionShape(ref_ptr<dp::TextureManager> mng)
   float const etalonSector = math::twicePi / static_cast<double>(TriangleCount);
 
   dp::TextureManager::ColorRegion color;
-  mng->GetColorRegion(dp::Color(0x17, 0xBF, 0x8E, 0x6F), color);
+  mng->GetColorRegion(df::GetColorConstant(GetStyleReader().GetCurrentStyle(), df::Selection), color);
   glsl::vec2 colorCoord = glsl::ToVec2(color.GetTexRect().Center());
 
   buffer_vector<Vertex, TriangleCount> buffer;

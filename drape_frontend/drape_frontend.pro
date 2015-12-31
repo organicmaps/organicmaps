@@ -38,6 +38,7 @@ SOURCES += \
     base_renderer.cpp \
     batchers_pool.cpp \
     circle_shape.cpp \
+    color_constants.cpp \
     drape_engine.cpp \
     engine_context.cpp \
     framebuffer.cpp \
@@ -124,6 +125,7 @@ HEADERS += \
     base_renderer.hpp \
     batchers_pool.hpp \
     circle_shape.hpp \
+    color_constants.hpp \
     drape_engine.hpp \
     engine_context.hpp \
     framebuffer.hpp \

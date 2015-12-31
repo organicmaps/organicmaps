@@ -2,7 +2,10 @@
 #include "drape_gui.hpp"
 #include "ruler_helper.hpp"
 
+#include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/visual_params.hpp"
+
+#include "indexer/map_style_reader.hpp"
 
 #include "base/assert.hpp"
 
@@ -42,10 +45,9 @@ CountryStatusHelper & DrapeGui::GetCountryStatusHelper()
   return Instance().GetCountryStatusHelperImpl();
 }
 
-dp::FontDecl const & DrapeGui::GetGuiTextFont()
+dp::FontDecl DrapeGui::GetGuiTextFont()
 {
-  static dp::FontDecl font(dp::Color(0x4D, 0x4D, 0x4D, 0xDD), 14);
-  return font;
+  return dp::FontDecl(df::GetColorConstant(GetStyleReader().GetCurrentStyle(), df::GuiText), 14);
 }
 
 void DrapeGui::Destroy()

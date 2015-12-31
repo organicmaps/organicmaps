@@ -18,9 +18,11 @@
 #include "search/search_engine.hpp"
 #include "search/search_query_factory.hpp"
 
+#include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/gps_track_point.hpp"
 #include "drape_frontend/gui/country_status_helper.hpp"
 #include "drape_frontend/visual_params.hpp"
+#include "drape_frontend/gui/country_status_helper.hpp"
 #include "drape_frontend/watch/cpu_drawer.hpp"
 #include "drape_frontend/watch/feature_processor.hpp"
 
@@ -2043,9 +2045,9 @@ void Framework::InsertRoute(Route const & route)
 
   dp::Color routeColor;
   if (m_currentRouterType == RouterType::Pedestrian)
-    routeColor = dp::Color(5, 105, 175, 204);
+    routeColor = df::GetColorConstant(GetMapStyle(), df::RoutePedestrian);
   else
-    routeColor = dp::Color(30, 150, 240, 204);
+    routeColor = df::GetColorConstant(GetMapStyle(), df::Route);
 
   m_drapeEngine->AddRoute(route.GetPoly(), turns, routeColor);
 }

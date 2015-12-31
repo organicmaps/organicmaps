@@ -1,4 +1,5 @@
-#include "my_position.hpp"
+#include "drape_frontend/my_position.hpp"
+#include "drape_frontend/color_constants.hpp"
 
 #include "drape/depth_constants.hpp"
 #include "drape/glsl_func.hpp"
@@ -6,6 +7,8 @@
 #include "drape/overlay_handle.hpp"
 #include "drape/render_bucket.hpp"
 #include "drape/shader_def.hpp"
+
+#include "indexer/map_style_reader.hpp"
 
 namespace df
 {
@@ -128,7 +131,7 @@ void MyPosition::CacheAccuracySector(ref_ptr<dp::TextureManager> mng)
   float const etalonSector = math::twicePi / static_cast<double>(TriangleCount);
 
   dp::TextureManager::ColorRegion color;
-  mng->GetColorRegion(dp::Color(30, 150, 240, 20), color);
+  mng->GetColorRegion(df::GetColorConstant(GetStyleReader().GetCurrentStyle(), df::MyPositionAccuracy), color);
   glsl::vec2 colorCoord = glsl::ToVec2(color.GetTexRect().Center());
 
   buffer_vector<Vertex, TriangleCount> buffer;

@@ -3,10 +3,13 @@
 #include "drape_gui.hpp"
 #include "gui_text.hpp"
 
+#include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/batcher.hpp"
 #include "drape/glsl_func.hpp"
+
+#include "indexer/map_style_reader.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
@@ -211,12 +214,13 @@ drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex,
     params.m_margin = 5.0f * visualScale;
     params.m_facet = 8.0f * visualScale;
 
-    auto color = dp::Color(0, 0, 0, 0.44 * 255);
-    auto pressedColor = dp::Color(0, 0, 0, 0.72 * 255);
+    MapStyle style = GetStyleReader().GetCurrentStyle();
+    auto color = df::GetColorConstant(style, df::DownloadButton);
+    auto pressedColor = df::GetColorConstant(style, df::DownloadButtonPressed);
     if (control.m_buttonType == CountryStatusHelper::BUTTON_TYPE_MAP_ROUTING)
     {
-      color = dp::Color(32, 152, 82, 255);
-      pressedColor = dp::Color(24, 128, 68, 255);
+      color = df::GetColorConstant(style, df::DownloadButtonRouting);
+      pressedColor = df::GetColorConstant(style, df::DownloadButtonRoutingPressed);
     }
 
     auto const buttonHandlerIt = buttonHandlers.find(control.m_buttonType);
