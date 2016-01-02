@@ -481,14 +481,15 @@ public:
   //@}
 
 private:
-  void GetAddressInfo(FeatureType const & ft, m2::PointD const & pt, search::AddressInfo & info) const;
+  search::AddressInfo GetPOIAddressInfo(FeatureType const & ft) const;
   void GetLocality(m2::PointD const & pt, search::AddressInfo & info) const;
 
 public:
   bool GetVisiblePOI(m2::PointD const & glbPoint, search::AddressInfo & info, feature::Metadata & metadata) const;
   // TODO(AlexZ): Refactor similar getters to share common interface.
   bool GetVisiblePOI(m2::PointD const & ptMercator, FeatureType & outPOI) const;
-  m2::PointD GetVisiblePOI(FeatureID const & id, search::AddressInfo & info, feature::Metadata & metadata) const;
+  // TODO(AlexZ): Do we really need to avoid linear features?
+  FeatureType GetPOIByID(FeatureID const & fid) const;
   void FindClosestPOIMetadata(m2::PointD const & pt, feature::Metadata & metadata) const;
 
   void MemoryWarning();

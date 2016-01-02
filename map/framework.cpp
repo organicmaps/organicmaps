@@ -1628,11 +1628,13 @@ bool Framework::ShowMapForURL(string const & url)
 bool Framework::GetVisiblePOI(m2::PointD const & glbPoint, search::AddressInfo & info, feature::Metadata & metadata) const
 {
   ASSERT(m_drapeEngine != nullptr, ());
-  FeatureID id = m_drapeEngine->GetVisiblePOI(glbPoint);
+  FeatureID const id = m_drapeEngine->GetVisiblePOI(glbPoint);
   if (!id.IsValid())
     return false;
 
-  GetVisiblePOI(id, info, metadata);
+  FeatureType const feature = GetPOIByID(id);
+  metadata = feature.GetMetadata();
+  info = GetPOIAddressInfo(feature);
   return true;
 }
 
@@ -1643,33 +1645,25 @@ bool Framework::GetVisiblePOI(m2::PointD const & ptMercator, FeatureType & outPO
   if (!fid.IsValid())
     return false;
 
-  // Note: all parse methods should be called with guard alive.
-  Index::FeaturesLoaderGuard guard(m_model.GetIndex(), fid.m_mwmId);
-  guard.GetFeatureByIndex(fid.m_index, outPOI);
-  outPOI.ParseHeader2();
-  outPOI.ParseGeometry(FeatureType::BEST_GEOMETRY);
-  outPOI.ParseTriangles(FeatureType::BEST_GEOMETRY);
-  outPOI.ParseMetadata();
+  outPOI = GetPOIByID(fid);
+
   return true;
 }
 
-m2::PointD Framework::GetVisiblePOI(FeatureID const & id, search::AddressInfo & info, feature::Metadata & metadata) const
+FeatureType Framework::GetPOIByID(FeatureID const & fid) const
 {
-  ASSERT(id.IsValid(), ());
-  Index::FeaturesLoaderGuard guard(m_model.GetIndex(), id.m_mwmId);
+  ASSERT(fid.IsValid(), ());
 
-  FeatureType ft;
-  guard.GetFeatureByIndex(id.m_index, ft);
+  FeatureType feature;
+  // Note: all parse methods should be called with guard alive.
+  Index::FeaturesLoaderGuard guard(m_model.GetIndex(), fid.m_mwmId);
+  guard.GetFeatureByIndex(fid.m_index, feature);
+  feature.ParseHeader2();
+  feature.ParseGeometry(FeatureType::BEST_GEOMETRY);
+  feature.ParseTriangles(FeatureType::BEST_GEOMETRY);
+  feature.ParseMetadata();
 
-  ft.ParseMetadata();
-  metadata = ft.GetMetadata();
-
-  ASSERT_NOT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE, ());
-  m2::PointD const center = feature::GetCenter(ft);
-
-  GetAddressInfo(ft, center, info);
-
-  return m_currentModelView.isPerspective() ? GtoP3d(center) : GtoP(center);
+  return feature;
 }
 
 namespace
@@ -1818,7 +1812,7 @@ void Framework::InvalidateUserMarks()
   }
 }
 
-void Framework::OnTapEvent(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID const & feature)
+void Framework::OnTapEvent(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID const & fid)
 {
   // Back up last tap event to recover selection in case of Drape reinitialization.
   if (!m_lastTapEvent)
@@ -1826,9 +1820,9 @@ void Framework::OnTapEvent(m2::PointD pxPoint, bool isLong, bool isMyPosition, F
   m_lastTapEvent->m_pxPoint = pxPoint;
   m_lastTapEvent->m_isLong = isLong;
   m_lastTapEvent->m_isMyPosition = isMyPosition;
-  m_lastTapEvent->m_feature = feature;
+  m_lastTapEvent->m_feature = fid;
 
-  UserMark const * mark = OnTapEventImpl(pxPoint, isLong, isMyPosition, feature);
+  UserMark const * mark = OnTapEventImpl(pxPoint, isLong, isMyPosition, fid);
 
   {
     alohalytics::TStringMap details {{"isLongPress", isLong ? "1" : "0"}};
@@ -1851,7 +1845,7 @@ void Framework::InvalidateRendering()
     m_drapeEngine->Invalidate();
 }
 
-UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID const & feature)
+UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID const & fid)
 {
   m2::PointD const pxPoint2d = m_currentModelView.P3dtoP(pxPoint);
 
@@ -1887,26 +1881,29 @@ UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool
     return mark;
 
   bool needMark = false;
-  m2::PointD pxPivot;
+  m2::PointD mercatorPivot;
   search::AddressInfo info;
   feature::Metadata metadata;
 
-  if (feature.IsValid())
+  if (fid.IsValid())
   {
-    pxPivot = GetVisiblePOI(feature, info, metadata);
+    FeatureType const feature = GetPOIByID(fid);
+    mercatorPivot = feature::GetCenter(feature);
+    info = GetPOIAddressInfo(feature);
+    metadata = feature.GetMetadata();
     needMark = true;
   }
   else if (isLong)
   {
-    GetAddressInfoForPixelPoint(pxPoint2d, info);
-    pxPivot = pxPoint;
+    GetAddressInfoForPixelPoint(pxPoint, info);
+    mercatorPivot = m_currentModelView.PtoG(pxPoint);
     needMark = true;
   }
 
   if (needMark)
   {
     PoiMarkPoint * poiMark = UserMarkContainer::UserMarkForPoi();
-    poiMark->SetPtOrg(m_currentModelView.PtoG(m_currentModelView.P3dtoP(pxPivot)));
+    poiMark->SetPtOrg(mercatorPivot);
     poiMark->SetInfo(info);
     poiMark->SetMetadata(move(metadata));
     return poiMark;
