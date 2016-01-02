@@ -30,6 +30,7 @@ class Editor final
 public:
   using TMwmIdByMapNameFn = function<MwmSet::MwmId(string const & /*map*/)>;
   using TInvalidateFn = function<void()>;
+  using TFeatureLoaderFn = function<FeatureType (FeatureID const & /*fid*/)>;
 
   enum FeatureStatus
   {
@@ -46,6 +47,7 @@ public:
 
   void SetMwmIdByNameAndVersionFn(TMwmIdByMapNameFn const & fn) { m_mwmIdByMapNameFn = fn; }
   void SetInvalidateFn(TInvalidateFn const & fn) { m_invalidateFn = fn; }
+  void SetFeatureLoaderFn(TFeatureLoaderFn const & fn) { m_featureLoaderFn = fn; }
 
   void LoadMapEdits();
 
@@ -102,6 +104,7 @@ private:
   TMwmIdByMapNameFn m_mwmIdByMapNameFn;
   /// Invalidate map viewport after edits.
   TInvalidateFn m_invalidateFn;
+  TFeatureLoaderFn m_featureLoaderFn;
 };  // class Editor
 
 }  // namespace osm

@@ -328,6 +328,10 @@ Framework::Framework()
     return m_model.GetIndex().GetMwmIdByCountryFile(platform::CountryFile(name));
   });
   editor.SetInvalidateFn([this](){ InvalidateRect(GetCurrentViewport()); });
+  editor.SetFeatureLoaderFn([this](FeatureID const & fid) -> FeatureType
+  {
+    return GetPOIByID(fid);
+  });
   editor.LoadMapEdits();
 }
 
