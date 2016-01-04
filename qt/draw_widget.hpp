@@ -89,7 +89,7 @@ namespace qt
     void SubmitFakeLocationPoint(m2::PointD const & pt);
     void SubmitRoutingPoint(m2::PointD const & pt);
     void ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt);
-    void ShowPOIEditor(m2::PointD const & pt);
+    void ShowPOIEditor(FeatureType & feature);
 
     void OnViewportChanged(ScreenBase const & screen);
     void UpdateScaleControl();

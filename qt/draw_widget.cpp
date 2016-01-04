@@ -85,9 +85,9 @@ DrawWidget::DrawWidget(QWidget * parent)
     // TODO: Why do we get empty mark in some cases?
     if (mark)
     {
-      auto const * m = mark->GetUserMark();
-      if (m->GetMarkType() == UserMark::Type::POI)
-        ShowPOIEditor(m->GetPivot());
+      FeatureType * feature = mark->GetUserMark()->GetFeature();
+      if (feature)
+        ShowPOIEditor(*feature);
     }
   });
 
@@ -466,12 +466,8 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
     m_framework->BuildRoute(m_framework->PtoG(pt), 0 /* timeoutSec */);
 }
 
-void DrawWidget::ShowPOIEditor(m2::PointD const & pt)
+void DrawWidget::ShowPOIEditor(FeatureType & feature)
 {
-  FeatureType feature;
-  if (!m_framework->GetVisiblePOI(pt, feature))
-    return;
-
   // Show Edit POI dialog.
   auto & editor = osm::Editor::Instance();
   EditorDialog dlg(this, feature);
