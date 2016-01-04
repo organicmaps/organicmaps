@@ -24,6 +24,16 @@ UserMark::UserMark(m2::PointD const & ptOrg, UserMarkContainer * container)
 {
 }
 
+FeatureType * UserMark::GetFeature() const
+{
+  return m_feature.get();
+}
+
+void UserMark::SetFeature(unique_ptr<FeatureType> feature)
+{
+  m_feature = move(feature);
+}
+
 m2::PointD const & UserMark::GetPivot() const
 {
   return m_ptOrg;

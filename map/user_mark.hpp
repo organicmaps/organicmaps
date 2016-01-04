@@ -35,6 +35,10 @@ public:
 
   UserMark(m2::PointD const & ptOrg, UserMarkContainer * container);
 
+  /// @returns nullptr if no feature was set.
+  FeatureType * GetFeature() const;
+  void SetFeature(unique_ptr<FeatureType> feature);
+
   virtual ~UserMark() {}
 
   ///////////////////////////////////////////////////////
@@ -57,6 +61,9 @@ public:
 protected:
   m2::PointD m_ptOrg;
   mutable UserMarkContainer * m_container;
+  /// Feature which is displayed (and edited) in Place Page.
+  /// It is initialized after user touches this UserMark.
+  unique_ptr<FeatureType> m_feature;
 };
 
 class UserMarkCopy
