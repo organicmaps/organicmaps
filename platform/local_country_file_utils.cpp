@@ -3,6 +3,7 @@
 #include "platform/country_file.hpp"
 #include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
+#include "platform/settings.hpp"
 
 #include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
@@ -23,6 +24,25 @@
 
 namespace platform
 {
+namespace migrate
+{
+  // Set of functions to support migration between different versions of MWM
+  // with totaly incompatible formats.
+  // 151218 - Migrate to small single file MWM
+  uint64_t constexpr kRequiredVersion = 151218;
+  bool NeedMigrate()
+  {
+    uint32_t version;
+    if (!Settings::Get("LastMigration", version))
+      return true;
+
+    if (version >= kRequiredVersion)
+      return false;
+
+    return true;
+  }
+}  // namespace migrate
+
 namespace
 {
 char const kBitsExt[] = ".bftsegbits";
@@ -210,7 +230,8 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, vector<LocalCountryFile> 
 
   // World and WorldCoasts can be stored in app bundle or in resources
   // directory, thus it's better to get them via Platform.
-  for (string const & file : { WORLD_FILE_NAME, WORLD_COASTS_FILE_NAME })
+  for (string const & file : { WORLD_FILE_NAME,
+        (migrate::NeedMigrate() ? WORLD_COASTS_FILE_NAME : WORLD_COASTS_MIGRATE_FILE_NAME) })
   {
     auto i = localFiles.begin();
     for (; i != localFiles.end(); ++i)
