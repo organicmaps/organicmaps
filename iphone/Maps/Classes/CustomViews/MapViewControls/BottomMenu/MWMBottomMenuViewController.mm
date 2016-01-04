@@ -286,10 +286,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   {
     MTRGNativeAppwallBanner * banner = [self.controller.appWallAd.banners firstObject];
     [self.controller.appWallAd handleShow:banner];
-    UIImage * image = banner.icon.image;
-    UIImage * highlightedImage = banner.itemHighlightIcon.image;
-    NSString * title = banner.title;
-    [cell configureWithImage:image highlightedImage:highlightedImage label:title badgeCount:0];
+    [cell configureWithImageName:@"ic_menu_showcase" label:L(@"showcase_more_apps") badgeCount:0];
   }
     break;
   case MWMBottomMenuViewCellCount:
@@ -381,10 +378,11 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 
 - (void)menuActionOpenAd
 {
-  NSAssert(self.controller.appWallAd.banners.count != 0, @"Banners collection can not be empty!");
+  NSArray<MTRGNativeAppwallBanner *> * banners = self.controller.appWallAd.banners;
+  NSAssert(banners.count != 0, @"Banners collection can not be empty!");
   [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatMoreApps}];
   self.state = self.restoreState;
-  [self.controller.appWallAd handleClick:[self.controller.appWallAd.banners firstObject]
+  [self.controller.appWallAd handleClick:[banners firstObject]
                           withController:self.controller];
 }
 
