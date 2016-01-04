@@ -69,7 +69,7 @@ class FeaturesFetcher : public Index::Observer
     /// @name Features enumeration.
     //@{
     template <class ToDo>
-    void ForEachFeature(m2::RectD const & rect, ToDo & toDo, int scale) const
+    void ForEachFeature(m2::RectD const & rect, ToDo && toDo, int scale) const
     {
       m_multiIndex.ForEachInRect(toDo, rect, scale);
     }
