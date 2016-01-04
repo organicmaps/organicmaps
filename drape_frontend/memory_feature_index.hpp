@@ -33,8 +33,10 @@ struct FeatureInfo
   bool m_isOwner;
 };
 
-size_t const AverageFeaturesCount = 2048;
-using TFeaturesInfo = buffer_vector<FeatureInfo, AverageFeaturesCount>;
+// It is better for TileInfo to have size that is equal or slightly less
+// than several memory pages.
+size_t const kAverageFeaturesCount = 2040;
+using TFeaturesInfo = buffer_vector<FeatureInfo, kAverageFeaturesCount>;
 
 class MemoryFeatureIndex : private noncopyable
 {

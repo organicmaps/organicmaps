@@ -39,10 +39,14 @@ public:
     RemoveRoute,
     FlushRoute,
     FlushRouteSign,
+    FollowRoute,
     DeactivateRouteFollowing,
     UpdateMapStyle,
     InvalidateTextures,
-    Invalidate
+    Invalidate,
+    Allow3dMode,
+    Allow3dBuildings,
+    EnablePerspective
   };
 
   virtual ~Message() {}

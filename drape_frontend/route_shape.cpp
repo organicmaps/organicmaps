@@ -289,7 +289,7 @@ void RouteShape::CacheRouteSign(ref_ptr<dp::TextureManager> mng, RouteSignData &
   m2::PointF halfSize = m2::PointF(symbol.GetPixelSize()) * 0.5f;
 
   glsl::vec2 const pos = glsl::ToVec2(routeSignData.m_position);
-  glsl::vec3 const pivot = glsl::vec3(pos.x, pos.y, m_params.m_depth);
+  glsl::vec4 const pivot = glsl::vec4(pos.x, pos.y, m_params.m_depth, 0.0f);
   gpu::SolidTexturingVertex data[4]=
   {
     { pivot, glsl::vec2(-halfSize.x,  halfSize.y), glsl::ToVec2(texRect.LeftTop()) },
@@ -299,6 +299,8 @@ void RouteShape::CacheRouteSign(ref_ptr<dp::TextureManager> mng, RouteSignData &
   };
 
   dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::OverlayLayer);
+  if (!routeSignData.m_isStart)
+    state.SetProgram3dIndex(gpu::TEXTURING_BILLBOARD_PROGRAM);
   state.SetColorTexture(symbol.GetTexture());
 
   {

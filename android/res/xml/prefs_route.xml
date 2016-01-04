@@ -9,4 +9,12 @@
   <ListPreference
     android:key="@string/pref_tts_language"
     android:title="@string/pref_tts_language_title"/>
+
+  <CheckBoxPreference
+    android:key="@string/pref_3d"
+    android:title="3D mode"/>
+
+  <CheckBoxPreference
+    android:key="@string/pref_3d_buildings"
+    android:title="3D buildings"/>
 </PreferenceScreen>

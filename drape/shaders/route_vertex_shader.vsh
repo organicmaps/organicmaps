@@ -4,6 +4,7 @@ attribute vec3 a_length;
 
 uniform mat4 modelView;
 uniform mat4 projection;
+uniform mat4 pivotTransform;
 
 uniform vec3 u_routeParams;
 
@@ -28,5 +29,9 @@ void main(void)
   }
 
   v_length = vec3(len, u_routeParams.z);
-  gl_Position = vec4(transformedAxisPos, a_position.z, 1.0) * projection;
+  vec4 pos = vec4(transformedAxisPos, a_position.z, 1.0) * projection;
+  float w = pos.w;
+  pos.xyw = (pivotTransform * vec4(pos.xy, 0.0, w)).xyw;
+  pos.z *= pos.w / w;
+  gl_Position = pos;
 }

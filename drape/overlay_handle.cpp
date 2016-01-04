@@ -5,6 +5,8 @@
 namespace dp
 {
 
+double const k3dAdditionalExtention = 2.0;
+
 struct OverlayHandle::OffsetNodeFinder
 {
 public:
@@ -19,12 +21,17 @@ private:
   uint8_t m_bufferID;
 };
 
-OverlayHandle::OverlayHandle(FeatureID const & id, dp::Anchor anchor, uint64_t priority)
+OverlayHandle::OverlayHandle(FeatureID const & id,
+                             dp::Anchor anchor,
+                             uint64_t priority,
+                             bool isBillboard)
   : m_id(id)
   , m_anchor(anchor)
   , m_priority(priority)
   , m_overlayRank(OverlayRank0)
-  , m_extendingSize(0)
+  , m_extendingSize(0.0)
+  , m_pivotZ(0.0)
+  , m_isBillboard(isBillboard)
   , m_isVisible(false)
 {
 }
@@ -41,9 +48,14 @@ void OverlayHandle::SetIsVisible(bool isVisible)
     m_visibilityTimestamp = steady_clock::now();
 }
 
-m2::PointD OverlayHandle::GetPivot(ScreenBase const & screen) const
+bool OverlayHandle::IsBillboard() const
 {
-  m2::RectD r = GetPixelRect(screen);
+  return m_isBillboard;
+}
+
+m2::PointD OverlayHandle::GetPivot(ScreenBase const & screen, bool perspective) const
+{
+  m2::RectD r = GetPixelRect(screen, false);
   m2::PointD size(0.5 * r.SizeX(), 0.5 * r.SizeY());
   m2::PointD result = r.Center();
 
@@ -56,6 +68,9 @@ m2::PointD OverlayHandle::GetPivot(ScreenBase const & screen) const
     result.y -= size.y;
   else if (m_anchor & dp::Bottom)
     result.y += size.y;
+
+  if (perspective)
+    result = screen.PtoP3d(result, -m_pivotZ / screen.GetScale());
 
   return result;
 }
@@ -126,16 +141,50 @@ OverlayHandle::TOffsetNode const & OverlayHandle::GetOffsetNode(uint8_t bufferID
 
 m2::RectD OverlayHandle::GetExtendedPixelRect(ScreenBase const & screen) const
 {
-  m2::RectD rect = GetPixelRect(screen);
+  m2::RectD rect = GetPixelRect(screen, screen.isPerspective());
   rect.Inflate(m_extendingSize, m_extendingSize);
+  if (Enable3dExtention() && screen.isPerspective())
+    rect.Scale(k3dAdditionalExtention);
   return rect;
 }
 
 void OverlayHandle::GetExtendedPixelShape(ScreenBase const & screen, Rects & rects) const
 {
-  GetPixelShape(screen, rects);
+  GetPixelShape(screen, rects, screen.isPerspective());
   for (auto & rect : rects)
+  {
     rect.Inflate(m_extendingSize, m_extendingSize);
+    if (Enable3dExtention() && screen.isPerspective())
+      rect.Scale(k3dAdditionalExtention);
+  }
+}
+
+m2::RectD OverlayHandle::GetPerspectiveRect(m2::RectD const & pixelRect, ScreenBase const & screen) const
+{
+  m2::PointD const tmpPoint = screen.PtoP3d(pixelRect.LeftTop());
+  m2::RectD perspectiveRect(tmpPoint, tmpPoint);
+  perspectiveRect.Add(screen.PtoP3d(pixelRect.LeftBottom()));
+  perspectiveRect.Add(screen.PtoP3d(pixelRect.RightBottom()));
+  perspectiveRect.Add(screen.PtoP3d(pixelRect.RightTop()));
+
+  return perspectiveRect;
+}
+
+m2::RectD OverlayHandle::GetPixelRectPerspective(ScreenBase const & screen) const
+{
+  if (m_isBillboard)
+  {
+    m2::PointD const pxPivot = GetPivot(screen, false);
+    m2::PointD const pxPivotPerspective = screen.PtoP3d(pxPivot, -m_pivotZ / screen.GetScale());
+
+    m2::RectD pxRectPerspective = GetPixelRect(screen, false);
+    pxRectPerspective.Offset(-pxPivot);
+    pxRectPerspective.Offset(pxPivotPerspective);
+
+    return pxRectPerspective;
+  }
+
+  return GetPerspectiveRect(GetPixelRect(screen, false), screen);
 }
 
 bool OverlayHandle::IsMinVisibilityTimeUp() const
@@ -145,16 +194,26 @@ bool OverlayHandle::IsMinVisibilityTimeUp() const
   return t > kMinVisibilityTimeMs;
 }
 
+uint64_t OverlayHandle::GetPriorityInFollowingMode() const
+{
+  return GetPriority();
+}
+
+
 SquareHandle::SquareHandle(FeatureID const & id, dp::Anchor anchor,
                            m2::PointD const & gbPivot, m2::PointD const & pxSize,
-                           uint64_t priority)
-  : TBase(id, anchor, priority)
+                           uint64_t priority,
+                           bool isBillboard)
+  : TBase(id, anchor, priority, isBillboard)
   , m_gbPivot(gbPivot)
   , m_pxHalfSize(pxSize.x / 2.0, pxSize.y / 2.0)
 {}
 
-m2::RectD SquareHandle::GetPixelRect(ScreenBase const & screen) const
+m2::RectD SquareHandle::GetPixelRect(ScreenBase const & screen, bool perspective) const
 {
+  if (perspective)
+    return GetPixelRectPerspective(screen);
+
   m2::PointD const pxPivot = screen.GtoP(m_gbPivot);
   m2::RectD  result(pxPivot - m_pxHalfSize, pxPivot + m_pxHalfSize);
   m2::PointD offset(0.0, 0.0);
@@ -173,10 +232,9 @@ m2::RectD SquareHandle::GetPixelRect(ScreenBase const & screen) const
   return result;
 }
 
-void SquareHandle::GetPixelShape(ScreenBase const & screen, Rects & rects) const
+void SquareHandle::GetPixelShape(ScreenBase const & screen, Rects & rects, bool perspective) const
 {
-  m2::RectD rd = GetPixelRect(screen);
-  rects.push_back(m2::RectF(rd.minX(), rd.minY(), rd.maxX(), rd.maxY()));
+  rects.emplace_back(GetPixelRect(screen, perspective));
 }
 
 uint64_t CalculateOverlayPriority(int minZoomLevel, uint8_t rank, float depth)

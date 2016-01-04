@@ -8,6 +8,7 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/scales.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "base/assert.hpp"
 #include "std/bind.hpp"
@@ -37,11 +38,12 @@ size_t kMinFlushSizes[df::PrioritiesCount] =
 RuleDrawer::RuleDrawer(TDrawerCallback const & fn,
                        TCheckCancelledCallback const & checkCancelled,
                        TIsCountryLoadedByNameFn const & isLoadedFn,
-                       ref_ptr<EngineContext> context)
+                       ref_ptr<EngineContext> context, bool is3dBuildings)
   : m_callback(fn)
   , m_checkCancelled(checkCancelled)
   , m_isLoadedFn(isLoadedFn)
   , m_context(context)
+  , m_is3dBuidings(is3dBuildings)
   , m_wasCancelled(false)
 {
   ASSERT(m_callback != nullptr, ());
@@ -132,7 +134,45 @@ void RuleDrawer::operator()(FeatureType const & f)
 
   if (s.AreaStyleExists())
   {
-    ApplyAreaFeature apply(insertShape, f.GetID(), minVisibleScale, f.GetRank(), s.GetCaptionDescription());
+    bool is3dBuilding = false;
+    if (m_is3dBuidings && f.GetLayer() >= 0)
+    {
+      is3dBuilding = (ftypes::IsBuildingChecker::Instance()(f) || ftypes::IsBuildingPartChecker::Instance()(f)) &&
+          !ftypes::IsBridgeChecker::Instance()(f) &&
+          !ftypes::IsTunnelChecker::Instance()(f);
+    }
+
+    float areaHeight = 0.0f;
+    float areaMinHeight = 0.0f;
+    if (is3dBuilding)
+    {
+      f.ParseMetadata();
+      feature::Metadata const & md = f.GetMetadata();
+      string value = md.Get(feature::Metadata::FMD_HEIGHT);
+
+      double const kDefaultHeightInMeters = 3.0;
+      double heightInMeters = kDefaultHeightInMeters;
+      if (!value.empty())
+        strings::to_double(value, heightInMeters);
+
+      value = md.Get(feature::Metadata::FMD_MIN_HEIGHT);
+      double minHeigthInMeters = 0.0;
+      if (!value.empty())
+        strings::to_double(value, minHeigthInMeters);
+
+      m2::PointD const pt = feature::GetCenter(f, zoomLevel);
+      double const lon = MercatorBounds::XToLon(pt.x);
+      double const lat = MercatorBounds::YToLat(pt.y);
+
+      m2::RectD rectMercator = MercatorBounds::MetresToXY(lon, lat, heightInMeters);
+      areaHeight = m2::PointD(rectMercator.SizeX(), rectMercator.SizeY()).Length();
+
+      rectMercator = MercatorBounds::MetresToXY(lon, lat, minHeigthInMeters);
+      areaMinHeight = m2::PointD(rectMercator.SizeX(), rectMercator.SizeY()).Length();
+    }
+
+    ApplyAreaFeature apply(insertShape, f.GetID(), areaMinHeight, areaHeight,
+                           minVisibleScale, f.GetRank(), s.GetCaptionDescription());
     f.ForEachTriangleRef(apply, zoomLevel);
 
     if (s.PointStyleExists())
@@ -162,7 +202,7 @@ void RuleDrawer::operator()(FeatureType const & f)
   else
   {
     ASSERT(s.PointStyleExists(), ());
-    ApplyPointFeature apply(insertShape, f.GetID(), minVisibleScale, f.GetRank(), s.GetCaptionDescription());
+    ApplyPointFeature apply(insertShape, f.GetID(), minVisibleScale, f.GetRank(), s.GetCaptionDescription(), 0.0f /* posZ */);
     f.ForEachPointRef(apply, zoomLevel);
 
     if (CheckCancelled())

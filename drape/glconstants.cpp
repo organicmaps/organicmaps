@@ -67,6 +67,7 @@ const glConst GLRGB                 = GL_RGB;
 const glConst GLAlpha               = GL_ALPHA;
 const glConst GLLuminance           = GL_LUMINANCE;
 const glConst GLAlphaLuminance      = GL_LUMINANCE_ALPHA;
+const glConst GLDepthComponent      = GL_DEPTH_COMPONENT;
 
 const glConst GLRGBA8               = GL_RGBA8_OES;
 const glConst GLRGBA4               = GL_RGBA4_OES;
@@ -150,5 +151,13 @@ const glConst GLAlways              = GL_ALWAYS;
 const glConst GLActiveUniforms      = GL_ACTIVE_UNIFORMS;
 
 const glConst GLLineStrip           = GL_LINE_STRIP;
+const glConst GLTriangles           = GL_TRIANGLES;
+const glConst GLTriangleStrip       = GL_TRIANGLE_STRIP;
+
+const glConst GLColorAttachment     = GL_COLOR_ATTACHMENT0;
+const glConst GLDepthAttachment     = GL_DEPTH_ATTACHMENT;
+const glConst GLStencilAttachment   = GL_STENCIL_ATTACHMENT;
+
+const glConst GLFramebufferComplete = GL_FRAMEBUFFER_COMPLETE;
 
 } // namespace GLConst

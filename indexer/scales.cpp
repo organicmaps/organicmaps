@@ -10,6 +10,11 @@ namespace scales
 {
   static const int INITIAL_LEVEL = 1;
 
+  int GetMinAllowableIn3dScale()
+  {
+    return min(16, min(GetNavigation3dScale(), GetPedestrianNavigation3dScale()));
+  }
+
   double GetScaleLevelD(double ratio)
   {
     double const level = min(static_cast<double>(GetUpperScale()), log(ratio) / log(2.0) + INITIAL_LEVEL);

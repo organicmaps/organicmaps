@@ -32,6 +32,7 @@ public:
 
   m2::PointD GtoP(m2::PointD const & pt) const;
   m2::PointD PtoG(m2::PointD const & pt) const;
+  m2::PointD P3dtoP(m2::PointD const & pt) const;
 
   void StartDrag(m2::PointD const & pt);
   void DoDrag(m2::PointD const & pt);
@@ -46,6 +47,10 @@ public:
   void Scale(m2::PointD const & pt, double factor);
   void CalculateScale(m2::PointD const & pt, double factor, ScreenBase & screen);
   bool InAction() const;
+
+  void Enable3dMode(double currentRotationAngle, double maxRotationAngle, double angleFOV);
+  void SetRotationIn3dMode(double rotationAngle);
+  void Disable3dMode();
 
 private:
   bool CheckMinScale(ScreenBase const & screen) const;
@@ -63,6 +68,7 @@ private:
   ScreenBase m_StartScreen;
   // Internal screen to do GtoP() and PtoG() calculations. It is always up to date with navigation.
   ScreenBase m_Screen;
+
   // Intial point for dragging and scaling.
   m2::PointD m_StartPt1;
   // Last point for dragging and scaling.

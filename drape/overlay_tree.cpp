@@ -7,6 +7,7 @@ namespace dp
 {
 
 int const kFrameUpdarePeriod = 10;
+int const kFrameUpdarePeriodIn3d = 30;
 int const kAverageHandlesCount[dp::OverlayRanksCount] = { 300, 200, 100 };
 
 using TOverlayContainer = buffer_vector<detail::OverlayInfo, 8>;
@@ -17,6 +18,8 @@ namespace
 class HandleComparator
 {
 public:
+  HandleComparator(bool followingMode) : m_followingMode(followingMode) {}
+
   bool operator()(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const
   {  
     return IsGreater(l, r);
@@ -25,8 +28,10 @@ public:
   bool IsGreater(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const
   {
     uint64_t const mask = l->GetPriorityMask() & r->GetPriorityMask();
-    uint64_t const priorityLeft = l->GetPriority() & mask;
-    uint64_t const priorityRight = r->GetPriority() & mask;
+    uint64_t const priorityLeft = (m_followingMode ? l->GetPriorityInFollowingMode() :
+                                                     l->GetPriority()) & mask;
+    uint64_t const priorityRight = (m_followingMode ? r->GetPriorityInFollowingMode() :
+                                                      r->GetPriority()) & mask;
     if (priorityLeft > priorityRight)
       return true;
 
@@ -43,24 +48,28 @@ public:
 
     return false;
   }
+
+private:
+  bool m_followingMode;
 };
 
 } // namespace
 
 OverlayTree::OverlayTree()
   : m_frameCounter(-1)
+  , m_followingMode(false)
 {
   for (size_t i = 0; i < m_handles.size(); i++)
     m_handles[i].reserve(kAverageHandlesCount[i]);
 }
 
-bool OverlayTree::Frame()
+bool OverlayTree::Frame(bool is3d)
 {
   if (IsNeedUpdate())
     return true;
 
   m_frameCounter++;
-  if (m_frameCounter >= kFrameUpdarePeriod)
+  if (m_frameCounter >= (is3d ? kFrameUpdarePeriodIn3d : kFrameUpdarePeriod))
     m_frameCounter = -1;
 
   return IsNeedUpdate();
@@ -88,6 +97,7 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
   ASSERT(IsNeedUpdate(), ());
 
   ScreenBase const & modelView = GetModelView();
+  bool const is3dMode = modelView.isPerspective();
 
   handle->SetIsVisible(false);
 
@@ -95,7 +105,9 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
     return;
 
   m2::RectD const pixelRect = handle->GetExtendedPixelRect(modelView);
-  if (!m_traits.m_modelView.PixelRect().IsIntersect(pixelRect))
+
+  if (!modelView.PixelRect().IsIntersect(handle->GetPixelRect(modelView, false)) ||
+      (is3dMode && !modelView.PixelRectIn3d().IsIntersect(pixelRect)))
   {
     handle->SetIsVisible(false);
     return;
@@ -112,6 +124,8 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
   ASSERT(IsNeedUpdate(), ());
 
   ScreenBase const & modelView = GetModelView();
+  bool const is3dMode = modelView.isPerspective();
+
   m2::RectD const pixelRect = handle->GetExtendedPixelRect(modelView);
 
   TOverlayContainer elements;
@@ -134,15 +148,20 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
     if (boundToParent)
       handleToCompare = parentOverlay.m_handle;
 
+    double const posY = handleToCompare->GetPivot(modelView, is3dMode).y;
     // In this loop we decide which element must be visible.
     // If input element "handle" more priority than all "Intersected elements"
     // than we remove all "Intersected elements" and insert input element "handle".
     // But if some of already inserted elements more priority than we don't insert "handle".
-    HandleComparator comparator;
+    HandleComparator comparator(m_followingMode);
     for (auto const & info : elements)
     {
-      bool const timeReject = !info.m_handle->IsMinVisibilityTimeUp();
-      if (timeReject || comparator.IsGreater(info.m_handle, handleToCompare))
+      bool const pathTextComparation = handle->HasDynamicAttributes() || info.m_handle->HasDynamicAttributes();
+      bool const rejectByDepth = is3dMode ? !pathTextComparation &&
+                                            posY > info.m_handle->GetPivot(modelView, is3dMode).y
+                                          : false;
+      bool const rejectByTime = !info.m_handle->IsMinVisibilityTimeUp();
+      if (rejectByDepth || rejectByTime || comparator.IsGreater(info.m_handle, handleToCompare))
       {
         // Handle is displaced and bound to its parent, parent will be displaced too.
         if (boundToParent)
@@ -168,7 +187,7 @@ void OverlayTree::EndOverlayPlacing()
 {
   ASSERT(IsNeedUpdate(), ());
 
-  HandleComparator comparator;
+  HandleComparator comparator(m_followingMode);
 
   for (int rank = 0; rank < dp::OverlayRanksCount; rank++)
   {
@@ -234,6 +253,22 @@ void OverlayTree::AddHandleToDelete(detail::OverlayInfo const & overlay)
   }
 }
 
+void OverlayTree::Select(m2::PointD const & glbPoint, TSelectResult & result) const
+{
+  ScreenBase const & screen = m_traits.m_modelView;
+  m2::PointD const pxPoint = screen.GtoP(glbPoint);
+
+  double const kSearchRectHalfSize = 10.0;
+  m2::RectD rect(pxPoint, pxPoint);
+  rect.Inflate(kSearchRectHalfSize, kSearchRectHalfSize);
+
+  ForEach([&](detail::OverlayInfo const & info)
+  {
+    if (rect.IsPointInside(info.m_handle->GetPivot(screen, false)))
+      result.push_back(info.m_handle);
+  });
+}
+
 void OverlayTree::Select(m2::RectD const & rect, TSelectResult & result) const
 {
   ScreenBase screen = m_traits.m_modelView;
@@ -242,7 +277,7 @@ void OverlayTree::Select(m2::RectD const & rect, TSelectResult & result) const
     if (info.m_handle->IsVisible() && info.m_handle->GetFeatureID().IsValid())
     {
       OverlayHandle::Rects shape;
-      info.m_handle->GetPixelShape(screen, shape);
+      info.m_handle->GetPixelShape(screen, shape, screen.isPerspective());
       for (m2::RectF const & rShape : shape)
       {
         if (rShape.IsIntersect(m2::RectF(rect)))
@@ -253,6 +288,11 @@ void OverlayTree::Select(m2::RectD const & rect, TSelectResult & result) const
       }
     }
   });
+}
+
+void OverlayTree::SetFollowingMode(bool mode)
+{
+  m_followingMode = mode;
 }
 
 } // namespace dp

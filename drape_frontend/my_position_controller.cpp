@@ -17,6 +17,7 @@ namespace
 {
 
 int const POSITION_Y_OFFSET = 75;
+int const POSITION_Y_OFFSET_3D = 80;
 double const GPS_BEARING_LIFETIME_S = 5.0;
 double const MIN_SPEED_THRESHOLD_MPS = 1.0;
 
@@ -93,8 +94,10 @@ MyPositionController::MyPositionController(location::EMyPositionMode initMode)
   , m_position(m2::PointD::Zero())
   , m_drawDirection(0.0)
   , m_lastGPSBearing(false)
+  , m_positionYOffset(POSITION_Y_OFFSET)
   , m_isVisible(false)
   , m_isDirtyViewport(false)
+  , m_needAnimation(false)
 {
   if (initMode > location::MODE_UNKNOWN_POSITION)
     m_afterPendingMode = initMode;
@@ -111,6 +114,12 @@ void MyPositionController::SetPixelRect(m2::RectD const & pixelRect)
 {
   m_pixelRect = pixelRect;
   Follow();
+}
+
+void MyPositionController::UpdatePixelPosition(ScreenBase const & screen)
+{
+  m_positionYOffset = screen.isPerspective() ? POSITION_Y_OFFSET_3D : POSITION_Y_OFFSET;
+  m_pixelPositionRaF = screen.P3dtoP(GetRaFPixelBinding());
 }
 
 void MyPositionController::SetListener(ref_ptr<MyPositionController::Listener> listener)
@@ -148,6 +157,8 @@ void MyPositionController::DragEnded(m2::PointD const & distance)
   SetModeInfo(ResetModeBit(m_modeInfo, BlockAnimation));
   if (distance.Length() > 0.2 * min(m_pixelRect.SizeX(), m_pixelRect.SizeY()))
     StopLocationFollow();
+  else if (IsModeChangeViewport())
+    m_needAnimation = true;
 
   Follow();
 }
@@ -193,6 +204,10 @@ void MyPositionController::ScaleEnded()
   {
     SetModeInfo(ResetModeBit(m_modeInfo, StopFollowOnActionEnd));
     StopLocationFollow();
+  }
+  else if (IsModeChangeViewport())
+  {
+    m_needAnimation = true;
   }
   Follow();
 }
@@ -318,7 +333,14 @@ void MyPositionController::Render(uint32_t renderMode, ScreenBase const & screen
       m_isDirtyViewport = false;
     }
 
-    m_shape->SetPosition(GetDrawablePosition());
+    bool const fixedPixelPos = IsModeChangeViewport() && !TestModeBit(m_modeInfo, BlockAnimation) &&
+        !m_needAnimation && !(m_anim != nullptr && m_anim->IsMovingActive());
+
+    if (fixedPixelPos)
+      m_shape->SetPosition(screen.PtoG(screen.P3dtoP(GetCurrentPixelBinding())));
+    else
+      m_shape->SetPosition(GetDrawablePosition());
+
     m_shape->SetAzimuth(GetDrawableAzimut());
     m_shape->SetIsValidAzimuth(IsRotationActive());
     m_shape->SetAccuracy(m_errorRadius);
@@ -393,9 +415,13 @@ void MyPositionController::Assign(location::GpsInfo const & info, bool isNavigab
   if (m_listener)
     m_listener->PositionChanged(Position());
 
-  if (!AlmostCurrentPosition(oldPos) || !AlmostCurrentAzimut(oldAzimut) )
+  if (!AlmostCurrentPosition(oldPos) || !AlmostCurrentAzimut(oldAzimut))
   {
-    CreateAnim(oldPos, oldAzimut, screen);
+    if (m_needAnimation || !IsModeChangeViewport())
+    {
+      CreateAnim(oldPos, oldAzimut, screen);
+      m_needAnimation = false;
+    }
     m_isDirtyViewport = true;
   }
 }
@@ -508,13 +534,13 @@ void MyPositionController::Follow(int preferredZoomLevel)
   if (currentMode == location::MODE_FOLLOW)
     ChangeModelView(m_position);
   else if (currentMode == location::MODE_ROTATE_AND_FOLLOW)
-    ChangeModelView(m_position, m_drawDirection, GetRaFPixelBinding(), preferredZoomLevel);
+    ChangeModelView(m_position, m_drawDirection, m_pixelPositionRaF, preferredZoomLevel);
 }
 
 m2::PointD MyPositionController::GetRaFPixelBinding() const
 {
-  return m2::PointD (m_pixelRect.Center().x,
-                     m_pixelRect.maxY() - POSITION_Y_OFFSET * VisualParams::Instance().GetVisualScale());
+  return m2::PointD(m_pixelRect.Center().x,
+                    m_pixelRect.maxY() - m_positionYOffset * VisualParams::Instance().GetVisualScale());
 }
 
 m2::PointD MyPositionController::GetCurrentPixelBinding() const

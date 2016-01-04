@@ -90,8 +90,14 @@ namespace
 {
   static const int BM_TOUCH_PIXEL_INCREASE = 20;
   static const int kKeepPedestrianDistanceMeters = 10000;
+
   char const kRouterTypeKey[] = "router";
   char const kMapStyleKey[] = "MapStyleKeyV1";
+  char const kAllow3dKey[] = "Allow3d";
+  char const kAllow3dBuildingsKey[] = "Buildings3d";
+
+  double const kRotationAngle = math::pi4;
+  double const kAngleFOV = math::pi / 3.0;
 }
 
 pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(
@@ -642,7 +648,8 @@ void Framework::ShowAll()
 
 m2::PointD Framework::GetPixelCenter() const
 {
-  return m_currentModelView.PixelRect().Center();
+  return m_currentModelView.isPerspective() ? m_currentModelView.PixelRectIn3d().Center()
+                                            : m_currentModelView.PixelRect().Center();
 }
 
 m2::PointD const & Framework::GetViewportCenter() const
@@ -721,7 +728,7 @@ void Framework::Scale(Framework::EScaleMode mode, m2::PointD const & pxPoint, bo
 
 void Framework::Scale(double factor, bool isAnim)
 {
-  Scale(factor, m_currentModelView.PixelRect().Center(), isAnim);
+  Scale(factor, GetPixelCenter(), isAnim);
 }
 
 void Framework::Scale(double factor, m2::PointD const & pxPoint, bool isAnim)
@@ -1051,7 +1058,10 @@ void Framework::ShowSearchResult(search::Result const & res)
   }
 
   StopLocationFollow();
-  ShowRect(df::GetRectForDrawScale(scale, center));
+  if (m_currentModelView.isPerspective())
+    CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewCenter, _1, center, scale, true));
+  else
+    ShowRect(df::GetRectForDrawScale(scale, center));
 
   search::AddressInfo info;
   info.MakeFrom(res);
@@ -1109,10 +1119,18 @@ size_t Framework::ShowAllSearchResults(search::Results const & results)
   if (minInd != -1)
   {
     m2::PointD const pt = results.GetResult(minInd).GetFeatureCenter();
+
+    if (m_currentModelView.isPerspective())
+    {
+      StopLocationFollow();
+      SetViewportCenter(pt);
+      return count;
+    }
+
     if (!viewport.IsPointInside(pt))
     {
       viewport.SetSizesToIncludePoint(pt);
-      CallDrapeFunction(bind(&df::DrapeEngine::StopLocationFollow, _1));
+      StopLocationFollow();
     }
   }
 
@@ -1265,9 +1283,18 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
       ActivateUserMark(mark, true);
   }
 
+  bool allow3d = true;
+  bool allow3dBuildings = true;
+  Load3dMode(allow3d, allow3dBuildings);
+  Allow3dMode(allow3d, allow3dBuildings);
+
   // In case of the engine reinitialization recover route.
   if (m_routingSession.IsActive())
+  {
     InsertRoute(m_routingSession.GetRoute());
+    if (allow3d)
+      m_drapeEngine->EnablePerspective(kRotationAngle, kAngleFOV);
+  }
 }
 
 ref_ptr<df::DrapeEngine> Framework::GetDrapeEngine()
@@ -1454,7 +1481,7 @@ m2::PointD Framework::GetVisiblePOI(FeatureID const & id, search::AddressInfo & 
 
   GetAddressInfo(ft, center, info);
 
-  return GtoP(center);
+  return m_currentModelView.isPerspective() ? GtoP3d(center) : GtoP(center);
 }
 
 namespace
@@ -1638,6 +1665,8 @@ void Framework::InvalidateRendering()
 
 UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID const & feature)
 {
+  m2::PointD const pxPoint2d = m_currentModelView.P3dtoP(pxPoint);
+
   if (isMyPosition)
   {
     search::AddressInfo info;
@@ -1652,13 +1681,13 @@ UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool
 
   m2::AnyRectD rect;
   uint32_t const touchRadius = vp.GetTouchRectRadius();
-  m_currentModelView.GetTouchRect(pxPoint, touchRadius, rect);
+  m_currentModelView.GetTouchRect(pxPoint2d, touchRadius, rect);
 
   m2::AnyRectD bmSearchRect;
   double const bmAddition = BM_TOUCH_PIXEL_INCREASE * vp.GetVisualScale();
-  double const pxWidth  =  touchRadius;
+  double const pxWidth = touchRadius;
   double const pxHeight = touchRadius + bmAddition;
-  m_currentModelView.GetTouchRect(pxPoint + m2::PointD(0, bmAddition),
+  m_currentModelView.GetTouchRect(pxPoint2d + m2::PointD(0, bmAddition),
                                   pxWidth, pxHeight, bmSearchRect);
   UserMark const * mark = m_bmManager.FindNearestUserMark(
         [&rect, &bmSearchRect](UserMarkType type) -> m2::AnyRectD const &
@@ -1681,7 +1710,7 @@ UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool
   }
   else if (isLong)
   {
-    GetAddressInfoForPixelPoint(pxPoint, info);
+    GetAddressInfoForPixelPoint(pxPoint2d, info);
     pxPivot = pxPoint;
     needMark = true;
   }
@@ -1689,7 +1718,7 @@ UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool
   if (needMark)
   {
     PoiMarkPoint * poiMark = UserMarkContainer::UserMarkForPoi();
-    poiMark->SetPtOrg(m_currentModelView.PtoG(pxPivot));
+    poiMark->SetPtOrg(m_currentModelView.PtoG(m_currentModelView.P3dtoP(pxPivot)));
     poiMark->SetInfo(info);
     poiMark->SetMetadata(move(metadata));
     return poiMark;
@@ -1830,11 +1859,11 @@ void Framework::FollowRoute()
 {
   ASSERT(m_drapeEngine != nullptr, ());
 
-  int const scale = (m_currentRouterType == RouterType::Pedestrian) ?
-                     scales::GetUpperComfortScale() :
-                     scales::GetNavigationScale();
-
-  m_drapeEngine->FollowRoute(scale);
+  int const scale = (m_currentRouterType == RouterType::Pedestrian) ? scales::GetUpperComfortScale()
+                                                                    : scales::GetNavigationScale();
+  int const scale3d = (m_currentRouterType == RouterType::Pedestrian) ? scales::GetPedestrianNavigation3dScale()
+                                                                      : scales::GetNavigation3dScale();
+  m_drapeEngine->FollowRoute(scale, scale3d, kRotationAngle, kAngleFOV);
   m_drapeEngine->SetRoutePoint(m2::PointD(), true /* isStart */, false /* isValid */);
 }
 
@@ -2044,4 +2073,21 @@ void Framework::SetRouteFinishPoint(m2::PointD const & pt, bool isValid)
 {
   if (m_drapeEngine != nullptr)
     m_drapeEngine->SetRoutePoint(pt, false /* isStart */, isValid);
+}
+
+void Framework::Allow3dMode(bool allow3d, bool allow3dBuildings)
+{
+  CallDrapeFunction(bind(&df::DrapeEngine::Allow3dMode, _1, allow3d, allow3dBuildings, kRotationAngle, kAngleFOV));
+}
+
+void Framework::Save3dMode(bool allow3d, bool allow3dBuildings)
+{
+  Settings::Set(kAllow3dKey, allow3d);
+  Settings::Set(kAllow3dBuildingsKey, allow3dBuildings);
+}
+
+void Framework::Load3dMode(bool &allow3d, bool &allow3dBuildings)
+{
+  Settings::Get(kAllow3dKey, allow3d);
+  Settings::Get(kAllow3dBuildingsKey, allow3dBuildings);
 }

@@ -11,4 +11,16 @@
   <ListPreference
     android:key="@string/pref_tts_language"
     android:title="@string/pref_tts_language_title"/>
+
+  <SwitchPreference
+    android:key="@string/pref_3d"
+    android:title="3D mode"
+    android:switchTextOn=""
+    android:switchTextOff=""/>
+
+  <SwitchPreference
+    android:key="@string/pref_3d_buildings"
+    android:title="3D buildings"
+    android:switchTextOn=""
+    android:switchTextOff=""/>
 </PreferenceScreen>

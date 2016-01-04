@@ -19,12 +19,14 @@ class TextHandle : public dp::OverlayHandle
 public:
   TextHandle(FeatureID const & id, strings::UniString const & text,
              dp::Anchor anchor, uint64_t priority,
-             ref_ptr<dp::TextureManager> textureManager);
+             ref_ptr<dp::TextureManager> textureManager,
+             bool isBillboard = false);
 
   TextHandle(FeatureID const & id, strings::UniString const & text,
              dp::Anchor anchor, uint64_t priority,
              ref_ptr<dp::TextureManager> textureManager,
-             gpu::TTextDynamicVertexBuffer && normals);
+             gpu::TTextDynamicVertexBuffer && normals,
+             bool IsBillboard = false);
 
   bool Update(ScreenBase const & screen) override;
 
@@ -36,7 +38,7 @@ public:
   void SetForceUpdateNormals(bool forceUpdate) const;
 
 protected:
-  gpu::TTextDynamicVertexBuffer m_normals;
+  gpu::TTextDynamicVertexBuffer m_buffer;
   mutable bool m_forceUpdateNormals;
 
 private:

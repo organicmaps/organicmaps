@@ -604,6 +604,29 @@ public:
   Type GetType() const override { return Message::UpdateMapStyle; }
 };
 
+class FollowRouteMessage : public Message
+{
+public:
+  FollowRouteMessage(int preferredZoomLevel, int preferredZoomLevelIn3d, double rotationAngle, double angleFOV)
+    : m_preferredZoomLevel(preferredZoomLevel)
+    , m_preferredZoomLevelIn3d(preferredZoomLevelIn3d)
+    , m_rotationAngle(rotationAngle)
+    , m_angleFOV(angleFOV)
+  {}
+
+  Type GetType() const override { return Message::FollowRoute; }
+  int GetPreferredZoomLevel() const { return m_preferredZoomLevel; }
+  int GetPreferredZoomLevelIn3d() const { return m_preferredZoomLevelIn3d; }
+  double GetRotationAngle() const { return m_rotationAngle; }
+  double GetAngleFOV() const { return m_angleFOV; }
+
+private:
+  int const m_preferredZoomLevel;
+  int const m_preferredZoomLevelIn3d;
+  double const m_rotationAngle;
+  double const m_angleFOV;
+};
+
 class InvalidateTexturesMessage : public BaseBlockingMessage
 {
 public:
@@ -628,6 +651,61 @@ public:
   DeactivateRouteFollowingMessage(){}
 
   Type GetType() const override { return Message::DeactivateRouteFollowing; }
+};
+
+class Allow3dModeMessage : public Message
+{
+public:
+  Allow3dModeMessage(bool allowPerspective, bool allow3dBuildings, double rotationAngle, double angleFOV)
+    : m_allowPerspective(allowPerspective)
+    , m_allow3dBuildings(allow3dBuildings)
+    , m_rotationAngle(rotationAngle)
+    , m_angleFOV(angleFOV)
+  {}
+
+  Type GetType() const override { return Message::Allow3dMode; }
+  bool AllowPerspective() const { return m_allowPerspective; }
+  bool Allow3dBuildings() const { return m_allow3dBuildings; }
+  double GetRotationAngle() const { return m_rotationAngle; }
+  double GetAngleFOV() const { return m_angleFOV; }
+
+private:
+  bool const m_allowPerspective;
+  bool const m_allow3dBuildings;
+  double const m_rotationAngle;
+  double const m_angleFOV;
+};
+
+class Allow3dBuildingsMessage : public Message
+{
+public:
+  Allow3dBuildingsMessage(bool allow3dBuildings)
+    : m_allow3dBuildings(allow3dBuildings)
+  {}
+
+  Type GetType() const override { return Message::Allow3dBuildings; }
+  bool Allow3dBuildings() const { return m_allow3dBuildings; }
+
+private:
+  bool const m_allow3dBuildings;
+};
+
+class EnablePerspectiveMessage : public Message
+{
+public:
+  EnablePerspectiveMessage(double rotationAngle, double angleFOV)
+    : m_rotationAngle(rotationAngle)
+    , m_angleFOV(angleFOV)
+  {}
+
+  Type GetType() const override { return Message::EnablePerspective; }
+
+  double GetRotationAngle() const { return m_rotationAngle; }
+  double GetAngleFOV() const { return m_angleFOV; }
+
+private:
+  double const m_rotationAngle;
+  double const m_angleFOV;
 };
 
 } // namespace df

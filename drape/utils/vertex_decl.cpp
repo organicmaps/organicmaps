@@ -9,6 +9,7 @@ namespace
 enum VertexType
 {
   Area,
+  Area3d,
   SolidTexturing,
   TextStatic,
   TextOutlinedStatic,
@@ -33,20 +34,34 @@ dp::BindingInfo AreaBindingInit()
                                        sizeof(AreaVertex::TTexCoord)), "");
 
   dp::BindingFiller<AreaVertex> filler(2);
-  filler.FillDecl<SolidTexturingVertex::TPosition>("a_position");
-  filler.FillDecl<SolidTexturingVertex::TTexCoord>("a_colorTexCoords");
+  filler.FillDecl<AreaVertex::TPosition>("a_position");
+  filler.FillDecl<AreaVertex::TTexCoord>("a_colorTexCoords");
+
+  return filler.m_info;
+}
+
+dp::BindingInfo Area3dBindingInit()
+{
+  static_assert(sizeof(Area3dVertex) == (sizeof(Area3dVertex::TPosition) +
+                                         sizeof(Area3dVertex::TNormal3d) +
+                                       sizeof(Area3dVertex::TTexCoord)), "");
+
+  dp::BindingFiller<Area3dVertex> filler(3);
+  filler.FillDecl<Area3dVertex::TPosition>("a_position");
+  filler.FillDecl<Area3dVertex::TNormal3d>("a_normal");
+  filler.FillDecl<Area3dVertex::TTexCoord>("a_colorTexCoords");
 
   return filler.m_info;
 }
 
 dp::BindingInfo SolidTexturingBindingInit()
 {
-  static_assert(sizeof(SolidTexturingVertex) == (sizeof(SolidTexturingVertex::TPosition) +
+  static_assert(sizeof(SolidTexturingVertex) == (sizeof(SolidTexturingVertex::TPosition3d) +
                                                  sizeof(SolidTexturingVertex::TNormal) +
                                                  sizeof(SolidTexturingVertex::TTexCoord)), "");
 
   dp::BindingFiller<SolidTexturingVertex> filler(3);
-  filler.FillDecl<SolidTexturingVertex::TPosition>("a_position");
+  filler.FillDecl<SolidTexturingVertex::TPosition3d>("a_position");
   filler.FillDecl<SolidTexturingVertex::TNormal>("a_normal");
   filler.FillDecl<SolidTexturingVertex::TTexCoord>("a_colorTexCoords");
 
@@ -55,11 +70,9 @@ dp::BindingInfo SolidTexturingBindingInit()
 
 dp::BindingInfo TextStaticBindingInit()
 {
-  static_assert(sizeof(TextStaticVertex) == (sizeof(TextOutlinedStaticVertex::TPosition) +
-                                             2 * sizeof(TextOutlinedStaticVertex::TTexCoord)), "");
+  static_assert(sizeof(TextStaticVertex) == (2 * sizeof(TextStaticVertex::TTexCoord)), "");
 
-  dp::BindingFiller<TextStaticVertex> filler(3);
-  filler.FillDecl<TextStaticVertex::TPosition>("a_position");
+  dp::BindingFiller<TextStaticVertex> filler(2);
   filler.FillDecl<TextStaticVertex::TTexCoord>("a_colorTexCoord");
   filler.FillDecl<TextStaticVertex::TTexCoord>("a_maskTexCoord");
 
@@ -68,11 +81,9 @@ dp::BindingInfo TextStaticBindingInit()
 
 dp::BindingInfo TextOutlinedStaticBindingInit()
 {
-  static_assert(sizeof(TextOutlinedStaticVertex) == (sizeof(TextOutlinedStaticVertex::TPosition) +
-                                             3 * sizeof(TextOutlinedStaticVertex::TTexCoord)), "");
+  static_assert(sizeof(TextOutlinedStaticVertex) == (3 * sizeof(TextOutlinedStaticVertex::TTexCoord)), "");
 
-  dp::BindingFiller<TextOutlinedStaticVertex> filler(4);
-  filler.FillDecl<TextOutlinedStaticVertex::TPosition>("a_position");
+  dp::BindingFiller<TextOutlinedStaticVertex> filler(3);
   filler.FillDecl<TextOutlinedStaticVertex::TTexCoord>("a_colorTexCoord");
   filler.FillDecl<TextOutlinedStaticVertex::TTexCoord>("a_outlineColorTexCoord");
   filler.FillDecl<TextOutlinedStaticVertex::TTexCoord>("a_maskTexCoord");
@@ -82,9 +93,11 @@ dp::BindingInfo TextOutlinedStaticBindingInit()
 
 dp::BindingInfo TextDynamicBindingInit()
 {
-  static_assert(sizeof(TextDynamicVertex) == sizeof(TextDynamicVertex::TNormal), "");
+  static_assert(sizeof(TextDynamicVertex) == (sizeof(TextStaticVertex::TPosition3d) +
+                                              sizeof(TextDynamicVertex::TNormal)), "");
 
-  dp::BindingFiller<TextDynamicVertex> filler(1, TextDynamicVertex::GetDynamicStreamID());
+  dp::BindingFiller<TextDynamicVertex> filler(2, TextDynamicVertex::GetDynamicStreamID());
+  filler.FillDecl<TextStaticVertex::TPosition3d>("a_position");
   filler.FillDecl<TextDynamicVertex::TNormal>("a_normal");
 
   return filler.m_info;
@@ -137,6 +150,7 @@ BindingNode g_bindingNodes[TypeCount];
 TInitFunction g_initFunctions[TypeCount] =
 {
   &AreaBindingInit,
+  &Area3dBindingInit,
   &SolidTexturingBindingInit,
   &TextStaticBindingInit,
   &TextOutlinedStaticBindingInit,
@@ -177,14 +191,34 @@ dp::BindingInfo const & AreaVertex::GetBindingInfo()
   return GetBinding(Area);
 }
 
-SolidTexturingVertex::SolidTexturingVertex()
+Area3dVertex::Area3dVertex()
   : m_position(0.0, 0.0, 0.0)
+  , m_normal(0.0, 0.0, 0.0)
+  , m_colorTexCoord(0.0, 0.0)
+{
+}
+
+Area3dVertex::Area3dVertex(TPosition const & position, TPosition const & normal,
+                           TTexCoord const & colorTexCoord)
+  : m_position(position)
+  , m_normal(normal)
+  , m_colorTexCoord(colorTexCoord)
+{
+}
+
+dp::BindingInfo const & Area3dVertex::GetBindingInfo()
+{
+  return GetBinding(Area3d);
+}
+
+SolidTexturingVertex::SolidTexturingVertex()
+  : m_position(0.0, 0.0, 0.0, 0.0)
   , m_normal(0.0, 0.0)
   , m_colorTexCoord(0.0, 0.0)
 {
 }
 
-SolidTexturingVertex::SolidTexturingVertex(TPosition const & position, TNormal const & normal,
+SolidTexturingVertex::SolidTexturingVertex(const TPosition3d & position, TNormal const & normal,
                                            TTexCoord const & colorTexCoord)
   : m_position(position)
   , m_normal(normal)
@@ -198,17 +232,16 @@ dp::BindingInfo const & SolidTexturingVertex::GetBindingInfo()
 }
 
 TextOutlinedStaticVertex::TextOutlinedStaticVertex()
-  : m_position(0.0, 0.0, 0.0)
-  , m_colorTexCoord(0.0, 0.0)
+  : m_colorTexCoord(0.0, 0.0)
   , m_outlineTexCoord(0.0, 0.0)
   , m_maskTexCoord(0.0, 0.0)
 {
 }
 
-TextOutlinedStaticVertex::TextOutlinedStaticVertex(TPosition const & position, TTexCoord const & colorTexCoord,
-                                   TTexCoord const & outlineTexCoord, TTexCoord const & maskTexCoord)
-  : m_position(position)
-  , m_colorTexCoord(colorTexCoord)
+TextOutlinedStaticVertex::TextOutlinedStaticVertex(TTexCoord const & colorTexCoord,
+                                                   TTexCoord const & outlineTexCoord,
+                                                   TTexCoord const & maskTexCoord)
+  : m_colorTexCoord(colorTexCoord)
   , m_outlineTexCoord(outlineTexCoord)
   , m_maskTexCoord(maskTexCoord)
 {
@@ -220,12 +253,14 @@ dp::BindingInfo const & TextOutlinedStaticVertex::GetBindingInfo()
 }
 
 TextDynamicVertex::TextDynamicVertex()
-  : m_normal(0.0, 0.0)
+  : m_position(0.0, 0.0, 0.0, 0.0)
+  , m_normal(0.0, 0.0)
 {
 }
 
-TextDynamicVertex::TextDynamicVertex(TNormal const & normal)
-  : m_normal(normal)
+TextDynamicVertex::TextDynamicVertex(const TPosition3d & position, TNormal const & normal)
+  : m_position(position),
+    m_normal(normal)
 {
 }
 
@@ -295,20 +330,15 @@ dp::BindingInfo const & RouteVertex::GetBindingInfo()
 }
 
 TextStaticVertex::TextStaticVertex()
-  : m_position(0.0, 0.0, 0.0)
-  , m_colorTexCoord(0.0, 0.0)
+  : m_colorTexCoord(0.0, 0.0)
   , m_maskTexCoord(0.0, 0.0)
 {
-
 }
 
-TextStaticVertex::TextStaticVertex(TPosition const & position, TTexCoord const & colorTexCoord,
-                                   TTexCoord const & maskTexCoord)
-  : m_position(position)
-  , m_colorTexCoord(colorTexCoord)
+TextStaticVertex::TextStaticVertex(TTexCoord const & colorTexCoord, TTexCoord const & maskTexCoord)
+  : m_colorTexCoord(colorTexCoord)
   , m_maskTexCoord(maskTexCoord)
 {
-
 }
 
 dp::BindingInfo const & TextStaticVertex::GetBindingInfo()

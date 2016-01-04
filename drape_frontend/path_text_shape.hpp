@@ -17,16 +17,16 @@ public:
   MapShapePriority GetPriority() const override { return MapShapePriority::LinePriority; }
 
 private:
-  uint64_t GetOverlayPriority() const;
+  uint64_t GetOverlayPriority(bool followingMode) const;
 
   void DrawPathTextPlain(ref_ptr<dp::TextureManager> textures,
                          ref_ptr<dp::Batcher> batcher,
                          unique_ptr<PathTextLayout> && layout,
-                         buffer_vector<float, 32> const & offests) const;
+                         vector<float> const & offests) const;
   void DrawPathTextOutlined(ref_ptr<dp::TextureManager> textures,
                             ref_ptr<dp::Batcher> batcher,
                             unique_ptr<PathTextLayout> && layout,
-                            buffer_vector<float, 32> const & offsets) const;
+                            vector<float> const & offsets) const;
 
   m2::SharedSpline m_spline;
   PathTextViewParams m_params;

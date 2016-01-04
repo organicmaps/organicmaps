@@ -46,6 +46,8 @@ namespace df
 {
 
 class SelectionShape;
+class Framebuffer;
+class TransparentLayer;
 
 struct TapInfo
 {
@@ -136,8 +138,9 @@ private:
   void OnResize(ScreenBase const & screen);
   void RenderScene(ScreenBase const & modelView);
   void RenderSingleGroup(ScreenBase const & modelView, ref_ptr<BaseRenderGroup> group);
-  void RefreshProjection();
+  void RefreshProjection(ScreenBase const & screen);
   void RefreshModelView(ScreenBase const & screen);
+  void RefreshPivotTransform(ScreenBase const & screen);
   void RefreshBgColor();
 
   ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged);
@@ -151,6 +154,9 @@ private:
   int GetCurrentZoomLevel() const;
   int GetCurrentZoomLevelForData() const;
   void ResolveZoomLevel(ScreenBase const & screen);
+  void CheckMinAllowableIn3dScale();
+
+  void DisablePerspective();
 
   void OnTap(m2::PointD const & pt, bool isLong) override;
   void OnForceTap(m2::PointD const & pt) override;
@@ -207,6 +213,8 @@ private:
   FeatureID GetVisiblePOI(m2::PointD const & pixelPoint) const;
   FeatureID GetVisiblePOI(m2::RectD const & pixelRect) const;
 
+  bool IsPerspective() const;
+
 private:
   drape_ptr<dp::GpuProgramManager> m_gpuProgramManager;
 
@@ -219,10 +227,16 @@ private:
   drape_ptr<MyPositionController> m_myPositionController;
   drape_ptr<SelectionShape> m_selectionShape;
   drape_ptr<RouteRenderer> m_routeRenderer;
+  drape_ptr<Framebuffer> m_framebuffer;
+  drape_ptr<TransparentLayer> m_transparentLayer;
 
   drape_ptr<dp::OverlayTree> m_overlayTree;
 
   dp::UniformValuesStorage m_generalUniforms;
+
+  bool m_enablePerspectiveInNavigation;
+  bool m_enable3dBuildings;
+  bool m_isIsometry;
 
   Viewport m_viewport;
   UserEventStream m_userEventStream;
@@ -232,6 +246,9 @@ private:
 
   unique_ptr<TileTree> m_tileTree;
   int m_currentZoomLevel = -1;
+
+  bool m_perspectiveDiscarded = false;
+  
   ref_ptr<RequestedTiles> m_requestedTiles;
   uint64_t m_maxGeneration;
 

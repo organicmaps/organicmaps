@@ -44,6 +44,7 @@ public:
   ~MyPositionController();
 
   void SetPixelRect(m2::RectD const & pixelRect);
+  void UpdatePixelPosition(ScreenBase const & screen);
   void SetListener(ref_ptr<Listener> listener);
 
   m2::PointD const & Position() const;
@@ -84,6 +85,8 @@ public:
               dp::UniformValuesStorage const & commonUniforms);
 
   bool IsFollowingActive() const;
+  bool IsRotationActive() const;
+  bool IsInRouting() const;
 
 private:
   void AnimateStateTransition(location::EMyPositionMode oldMode, location::EMyPositionMode newMode);
@@ -95,9 +98,6 @@ private:
   void SetModeInfo(uint32_t modeInfo, bool force = false);
   location::EMyPositionMode GetMode() const;
   void CallModeListener(uint32_t mode);
-
-  bool IsInRouting() const;
-  bool IsRotationActive() const;
 
   bool IsVisible() const { return m_isVisible; }
   void SetIsVisible(bool isVisible) { m_isVisible = isVisible; }
@@ -143,9 +143,12 @@ private:
   my::HighResTimer m_lastGPSBearing;
 
   m2::RectD m_pixelRect;
+  m2::PointD m_pixelPositionRaF;
+  double m_positionYOffset;
 
   bool m_isVisible;
   bool m_isDirtyViewport;
+  bool m_needAnimation;
 
   class MyPositionAnim;
   mutable drape_ptr<MyPositionAnim> m_anim;

@@ -11,10 +11,18 @@
 namespace df
 {
 
+struct BuildingEdge
+{
+  m2::PointD m_startVertex;
+  m2::PointD m_endVertex;
+  m2::PointD m_normal;
+};
+
 class AreaShape : public MapShape
 {
 public:
-  AreaShape(vector<m2::PointF> && triangleList, AreaViewParams const & params);
+  AreaShape(vector<m2::PointF> && triangleList, vector<BuildingEdge> && buildingEdges,
+            AreaViewParams const & params);
 
   void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const override;
 
@@ -22,6 +30,7 @@ public:
 
 private:
   vector<m2::PointF> m_vertexes;
+  vector<BuildingEdge> m_buildingEdges;
   AreaViewParams m_params;
 };
 

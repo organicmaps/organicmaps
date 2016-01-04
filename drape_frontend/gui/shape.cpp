@@ -10,7 +10,7 @@
 namespace gui
 {
 Handle::Handle(dp::Anchor anchor, const m2::PointF & pivot, const m2::PointF & size)
-  : dp::OverlayHandle(FeatureID(), anchor, 0)
+  : dp::OverlayHandle(FeatureID(), anchor, 0, false)
   , m_pivot(glsl::ToVec2(pivot)), m_size(size)
 {
 }
@@ -38,15 +38,18 @@ bool Handle::IndexesRequired() const
   return false;
 }
 
-m2::RectD Handle::GetPixelRect(const ScreenBase & screen) const
+m2::RectD Handle::GetPixelRect(const ScreenBase & screen, bool perspective) const
 {
+  // There is no need to check intersection of gui elements.
   return m2::RectD();
 }
 
-void Handle::GetPixelShape(const ScreenBase & screen, dp::OverlayHandle::Rects & rects) const
+void Handle::GetPixelShape(const ScreenBase & screen, dp::OverlayHandle::Rects & rects, bool perspective) const
 {
+  // There is no need to check intersection of gui elements.
   UNUSED_VALUE(screen);
   UNUSED_VALUE(rects);
+  UNUSED_VALUE(perspective);
 }
 
 bool TappableHandle::IsTapped(m2::RectD const & touchArea) const

@@ -2,6 +2,7 @@
 #include "geometry/transformations.hpp"
 #include "geometry/angles.hpp"
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
 
 #include "std/cmath.hpp"
@@ -12,6 +13,14 @@ ScreenBase::ScreenBase() :
     m_Scale(0.1),
     m_Angle(0.0),
     m_Org(320, 240),
+    m_3dFOV(0.0),
+    m_3dNearZ(0.001),
+    m_3dFarZ(0.0),
+    m_3dAngleX(0.0),
+    m_3dMaxAngleX(0.0),
+    m_3dScaleX(1.0),
+    m_3dScaleY(1.0),
+    m_isPerspective(false),
     m_GlobalRect(m_Org, ang::AngleD(0), m2::RectD(-320, -240, 320, 240)),
     m_ClipRect(m2::RectD(0, 0, 640, 480))
 {
@@ -243,4 +252,162 @@ void ScreenBase::ExtractGtoPParams(MatrixT const & m,
 
   dx = m(2, 0);
   dy = m(2, 1);
+}
+
+// Place the camera at the distance, where it gives the same view of plane as the
+// orthogonal projection does. Calculate what part of the map would be visible,
+// when it is rotated through maxRotationAngle around its near horizontal side.
+void ScreenBase::ApplyPerspective(double currentRotationAngle, double maxRotationAngle, double angleFOV)
+{
+  ASSERT_GREATER(angleFOV, 0.0, ());
+  ASSERT_LESS(angleFOV, math::pi2, ());
+  ASSERT_GREATER_OR_EQUAL(maxRotationAngle, 0.0, ());
+  ASSERT_LESS(maxRotationAngle, math::pi2, ());
+
+  if (m_isPerspective)
+    ResetPerspective();
+
+  m_isPerspective = true;
+
+  m_3dMaxAngleX = maxRotationAngle;
+  m_3dFOV = angleFOV;
+
+  double const halfFOV = m_3dFOV / 2.0;
+  double const cameraZ = 1.0 / tan(halfFOV);
+
+  // Ratio of the expanded plane's size to the original size.
+  m_3dScaleY = cos(m_3dMaxAngleX) + sin(m_3dMaxAngleX) * tan(halfFOV + m_3dMaxAngleX);
+  m_3dScaleX = 1.0 + 2 * sin(m_3dMaxAngleX) * cos(halfFOV) / (cameraZ * cos(halfFOV + m_3dMaxAngleX));
+
+  m_3dScaleX = m_3dScaleY = max(m_3dScaleX, m_3dScaleY);
+
+  double const dy = m_PixelRect.SizeY() * (m_3dScaleX - 1.0);
+
+  m_PixelRect.setMaxX(m_PixelRect.maxX() * m_3dScaleX);
+  m_PixelRect.setMaxY(m_PixelRect.maxY() * m_3dScaleY);
+
+  Move(0.0, dy / 2.0);
+
+  SetRotationAngle(currentRotationAngle);
+}
+
+// Place the camera at the distance, where it gives the same view of plane as the
+// orthogonal projection does and rotate the map plane around its near horizontal side.
+void ScreenBase::SetRotationAngle(double rotationAngle)
+{
+  ASSERT(m_isPerspective, ());
+  ASSERT_GREATER_OR_EQUAL(rotationAngle, 0.0, ());
+  ASSERT_LESS_OR_EQUAL(rotationAngle, m_3dMaxAngleX, ());
+
+  if (rotationAngle > m_3dMaxAngleX)
+    rotationAngle = m_3dMaxAngleX;
+
+  m_3dAngleX = rotationAngle;
+
+  double const halfFOV = m_3dFOV / 2.0;
+  double const cameraZ = 1.0 / tan(halfFOV);
+
+  double const offsetZ = cameraZ + sin(m_3dAngleX) * m_3dScaleY;
+  double const offsetY = cos(m_3dAngleX) * m_3dScaleX - 1.0;
+
+  Matrix3dT scaleM = math::Identity<double, 4>();
+  scaleM(0, 0) = m_3dScaleX;
+  scaleM(1, 1) = m_3dScaleY;
+
+  Matrix3dT rotateM = math::Identity<double, 4>();
+  rotateM(1, 1) = cos(m_3dAngleX);
+  rotateM(1, 2) = sin(m_3dAngleX);
+  rotateM(2, 1) = -sin(m_3dAngleX);
+  rotateM(2, 2) = cos(m_3dAngleX);
+
+  Matrix3dT translateM = math::Identity<double, 4>();
+  translateM(3, 1) = offsetY;
+  translateM(3, 2) = offsetZ;
+
+  Matrix3dT projectionM = math::Zero<double, 4>();
+  m_3dFarZ = cameraZ + 2.0 * sin(m_3dAngleX) * m_3dScaleY;
+  projectionM(0, 0) = projectionM(1, 1) = cameraZ;
+  projectionM(2, 2) = m_3dAngleX != 0.0 ? (m_3dFarZ + m_3dNearZ) / (m_3dFarZ - m_3dNearZ)
+                                        : 0.0;
+  projectionM(2, 3) = 1.0;
+  projectionM(3, 2) = m_3dAngleX != 0.0 ? -2.0 * m_3dFarZ * m_3dNearZ / (m_3dFarZ - m_3dNearZ)
+                                        : 0.0;
+
+  m_Pto3d = scaleM * rotateM * translateM * projectionM;
+  m_3dtoP = math::Inverse(m_Pto3d);
+}
+
+void ScreenBase::ResetPerspective()
+{
+  m_isPerspective = false;
+
+  double const dy = m_PixelRect.SizeY() * (1.0 - 1.0 / m_3dScaleX);
+
+  m_PixelRect.setMaxX(m_PixelRect.maxX() / m_3dScaleX);
+  m_PixelRect.setMaxY(m_PixelRect.maxY() / m_3dScaleY);
+
+  Move(0, -dy / 2.0);
+
+  m_3dScaleX = m_3dScaleY = 1.0;
+  m_3dAngleX = 0.0;
+  m_3dMaxAngleX = 0.0;
+  m_3dFOV = 0.0;
+}
+
+m2::PointD ScreenBase::PtoP3d(m2::PointD const & pt) const
+{
+  return PtoP3d(pt, 0.0);
+}
+
+m2::PointD ScreenBase::PtoP3d(m2::PointD const & pt, double ptZ) const
+{
+  if (!m_isPerspective)
+    return pt;
+
+  Vector3dT const normalizedPoint{float(2.0 * pt.x / m_PixelRect.SizeX() - 1.0),
+                                  -float(2.0 * pt.y / m_PixelRect.SizeY() - 1.0),
+                                  float(2.0 * ptZ / m_PixelRect.SizeY()), 1.0};
+
+  Vector3dT const perspectivePoint = normalizedPoint * m_Pto3d;
+
+  m2::RectD const viewport = PixelRectIn3d();
+  m2::PointD const pixelPointPerspective(
+      (perspectivePoint(0, 0) / perspectivePoint(0, 3) + 1.0) * viewport.SizeX() / 2.0,
+      (-perspectivePoint(0, 1) / perspectivePoint(0, 3) + 1.0) * viewport.SizeY() / 2.0);
+
+  return pixelPointPerspective;
+}
+
+m2::PointD ScreenBase::P3dtoP(m2::PointD const & pt) const
+{
+  if (!m_isPerspective)
+    return pt;
+
+  double const normalizedX = 2.0 * pt.x / PixelRectIn3d().SizeX() - 1.0;
+  double const normalizedY = -2.0 * pt.y / PixelRectIn3d().SizeY() + 1.0;
+
+  double normalizedZ = 0.0;
+  if (m_3dAngleX != 0.0)
+  {
+    double const halfFOV = m_3dFOV / 2.0;
+    double const cameraZ = 1.0 / tan(halfFOV);
+
+    double const tanX = tan(m_3dAngleX);
+    double const cameraDistanceZ =
+        cameraZ * (1.0 + (normalizedY + 1.0) * tanX / (cameraZ - normalizedY * tanX));
+
+    double const a = (m_3dFarZ + m_3dNearZ) / (m_3dFarZ - m_3dNearZ);
+    double const b = -2.0 * m_3dFarZ * m_3dNearZ / (m_3dFarZ - m_3dNearZ);
+    normalizedZ = a + b / cameraDistanceZ;
+  }
+
+  Vector3dT const normalizedPoint{normalizedX, normalizedY, normalizedZ, 1.0};
+
+  Vector3dT const originalPoint = normalizedPoint * m_3dtoP;
+
+  m2::PointD const pixelPointOriginal =
+      m2::PointD((originalPoint(0, 0) / originalPoint(0, 3) + 1.0) * PixelRect().SizeX() / 2.0,
+                 (-originalPoint(0, 1) / originalPoint(0, 3) + 1.0) * PixelRect().SizeY() / 2.0);
+
+  return pixelPointOriginal;
 }

@@ -235,8 +235,10 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
 }
 
 ApplyPointFeature::ApplyPointFeature(TInsertShapeFn const & insertShape, FeatureID const & id,
-                                     int minVisibleScale, uint8_t rank, CaptionDescription const & captions)
+                                     int minVisibleScale, uint8_t rank, CaptionDescription const & captions,
+                                     float posZ)
   : TBase(insertShape, id, minVisibleScale, rank, captions)
+  , m_posZ(posZ)
   , m_hasPoint(false)
   , m_symbolDepth(dp::minDepth)
   , m_circleDepth(dp::minDepth)
@@ -282,6 +284,7 @@ void ApplyPointFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     ExtractCaptionParams(capRule, pRule->GetCaption(1), depth, params);
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
+    params.m_posZ = m_posZ;
     if(!params.m_primaryText.empty() || !params.m_secondaryText.empty())
       m_insertShape(make_unique_dp<TextShape>(m_centerPoint, params, hasPOI));
   }
@@ -312,13 +315,16 @@ void ApplyPointFeature::Finish()
     params.m_symbolName = m_symbolRule->name();
     float const mainScale = df::VisualParams::Instance().GetVisualScale();
     params.m_extendingSize = m_symbolRule->has_min_distance() ? mainScale * m_symbolRule->min_distance() : 0;
+    params.m_posZ = m_posZ;
     m_insertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params));
   }
 }
 
-ApplyAreaFeature::ApplyAreaFeature(TInsertShapeFn const & insertShape, FeatureID const & id,
+ApplyAreaFeature::ApplyAreaFeature(TInsertShapeFn const & insertShape, FeatureID const & id, float minPosZ, float posZ,
                                    int minVisibleScale, uint8_t rank, CaptionDescription const & captions)
-  : TBase(insertShape, id, minVisibleScale, rank, captions)
+  : TBase(insertShape, id, minVisibleScale, rank, captions, posZ)
+  , m_minPosZ(minPosZ)
+  , m_isBuilding(posZ > 0.0f)
 {}
 
 void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
@@ -328,11 +334,95 @@ void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, 
   {
     m_triangles.push_back(p2);
     m_triangles.push_back(p3);
+    if (m_isBuilding)
+      BuildEdges(GetIndex(p1), GetIndex(p2), GetIndex(p3));
   }
   else
   {
     m_triangles.push_back(p3);
     m_triangles.push_back(p2);
+    if (m_isBuilding)
+      BuildEdges(GetIndex(p1), GetIndex(p3), GetIndex(p2));
+  }
+}
+
+int ApplyAreaFeature::GetIndex(m2::PointD const & pt)
+{
+  int maxIndex = -1;
+  for (auto it = m_indices.begin(); it != m_indices.end(); ++it)
+  {
+    if (it->first > maxIndex)
+      maxIndex = it->first;
+
+    if (pt.EqualDxDy(it->second, 1e-7))
+      return it->first;
+  }
+
+  int const newIndex = maxIndex + 1;
+  m_indices.insert(make_pair(newIndex, pt));
+  return newIndex;
+}
+
+bool ApplyAreaFeature::EqualEdges(TEdge const & edge1, TEdge const & edge2) const
+{
+  return (edge1.first == edge2.first && edge1.second == edge2.second) ||
+         (edge1.first == edge2.second && edge1.second == edge2.first);
+}
+
+bool ApplyAreaFeature::FindEdge(TEdge const & edge)
+{
+  for (size_t i = 0; i < m_edges.size(); i++)
+  {
+    if (EqualEdges(m_edges[i].first, edge))
+    {
+      m_edges[i].second = -1;
+      return true;
+    }
+  }
+  return false;
+}
+
+m2::PointD ApplyAreaFeature::CalculateNormal(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3) const
+{
+  m2::PointD const tangent = (p2 - p1).Normalize();
+  m2::PointD normal = m2::PointD(-tangent.y, tangent.x);
+  m2::PointD const v = ((p1 + p2) * 0.5 - p3).Normalize();
+  if (m2::DotProduct(normal, v) < 0.0)
+    normal = -normal;
+
+  return normal;
+}
+
+void ApplyAreaFeature::BuildEdges(int vertexIndex1, int vertexIndex2, int vertexIndex3)
+{
+  // Check if triangle is degenerate.
+  if (vertexIndex1 == vertexIndex2 || vertexIndex2 == vertexIndex3 || vertexIndex1 == vertexIndex3)
+    return;
+
+  TEdge edge1 = make_pair(vertexIndex1, vertexIndex2);
+  if (!FindEdge(edge1))
+    m_edges.push_back(make_pair(move(edge1), vertexIndex3));
+
+  TEdge edge2 = make_pair(vertexIndex2, vertexIndex3);
+  if (!FindEdge(edge2))
+    m_edges.push_back(make_pair(move(edge2), vertexIndex1));
+
+  TEdge edge3 = make_pair(vertexIndex3, vertexIndex1);
+  if (!FindEdge(edge3))
+    m_edges.push_back(make_pair(move(edge3), vertexIndex2));
+}
+
+void ApplyAreaFeature::CalculateBuildingEdges(vector<BuildingEdge> & edges)
+{
+  for (auto & e : m_edges)
+  {
+    if (e.second < 0)
+      continue;
+    BuildingEdge edge;
+    edge.m_startVertex = m_indices[e.first.first];
+    edge.m_endVertex = m_indices[e.first.second];
+    edge.m_normal = CalculateNormal(edge.m_startVertex, edge.m_endVertex, m_indices[e.second]);
+    edges.push_back(move(edge));
   }
 }
 
@@ -349,7 +439,17 @@ void ApplyAreaFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     params.m_color = ToDrapeColor(areaRule->color());
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
-    m_insertShape(make_unique_dp<AreaShape>(move(m_triangles), params));
+    params.m_minPosZ = m_minPosZ;
+    params.m_posZ = m_posZ;
+
+    vector<BuildingEdge> edges;
+    if (m_isBuilding)
+    {
+      edges.reserve(m_edges.size());
+      CalculateBuildingEdges(edges);
+    }
+
+    m_insertShape(make_unique_dp<AreaShape>(move(m_triangles), move(edges), params));
   }
   else
     TBase::ProcessRule(rule);

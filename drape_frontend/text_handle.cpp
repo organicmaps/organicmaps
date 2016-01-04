@@ -7,8 +7,9 @@ namespace df
 
 TextHandle::TextHandle(FeatureID const & id, strings::UniString const & text,
                        dp::Anchor anchor, uint64_t priority,
-                       ref_ptr<dp::TextureManager> textureManager)
-  : OverlayHandle(id, anchor, priority)
+                       ref_ptr<dp::TextureManager> textureManager,
+                       bool isBillboard)
+  : OverlayHandle(id, anchor, priority, isBillboard)
   , m_forceUpdateNormals(false)
   , m_isLastVisible(false)
   , m_text(text)
@@ -19,9 +20,10 @@ TextHandle::TextHandle(FeatureID const & id, strings::UniString const & text,
 TextHandle::TextHandle(FeatureID const & id, strings::UniString const & text,
                        dp::Anchor anchor, uint64_t priority,
                        ref_ptr<dp::TextureManager> textureManager,
-                       gpu::TTextDynamicVertexBuffer && normals)
-  : OverlayHandle(id, anchor, priority)
-  , m_normals(move(normals))
+                       gpu::TTextDynamicVertexBuffer && normals,
+                       bool isBillboard)
+  : OverlayHandle(id, anchor, priority, isBillboard)
+  , m_buffer(move(normals))
   , m_forceUpdateNormals(false)
   , m_isLastVisible(false)
   , m_text(text)
@@ -40,12 +42,12 @@ void TextHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutato
 
   TOffsetNode const & node = GetOffsetNode(gpu::TextDynamicVertex::GetDynamicStreamID());
   ASSERT(node.first.GetElementSize() == sizeof(gpu::TextDynamicVertex), ());
-  ASSERT(node.second.m_count == m_normals.size(), ());
+  ASSERT(node.second.m_count == m_buffer.size(), ());
 
-  uint32_t byteCount = m_normals.size() * sizeof(gpu::TextDynamicVertex);
+  uint32_t byteCount = m_buffer.size() * sizeof(gpu::TextDynamicVertex);
   void * buffer = mutator->AllocateMutationBuffer(byteCount);
   if (isVisible)
-    memcpy(buffer, m_normals.data(), byteCount);
+    memcpy(buffer, m_buffer.data(), byteCount);
   else
     memset(buffer, 0, byteCount);
 

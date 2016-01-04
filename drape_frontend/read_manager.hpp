@@ -30,11 +30,13 @@ class ReadManager
 public:
   ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model);
 
-  void UpdateCoverage(ScreenBase const & screen, TTilesCollection const & tiles, ref_ptr<dp::TextureManager> texMng);
+  void UpdateCoverage(ScreenBase const & screen, bool is3dBuildings, TTilesCollection const & tiles,
+                      ref_ptr<dp::TextureManager> texMng);
   void Invalidate(TTilesCollection const & keyStorage);
   void Stop();
 
   bool CheckTileKey(TileKey const & tileKey) const;
+  void Allow3dBuildings(bool allow3dBuildings);
 
   static size_t ReadCount();
 
@@ -55,6 +57,9 @@ private:
 
   ScreenBase m_currentViewport;
   bool m_forceUpdate;
+  bool m_need3dBuildings;
+  bool m_allow3dBuildings;
+  bool m_modeChanged;
 
   struct LessByTileInfo
   {

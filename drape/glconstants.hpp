@@ -44,6 +44,7 @@ extern const glConst GLRGB;
 extern const glConst GLAlpha;
 extern const glConst GLLuminance;
 extern const glConst GLAlphaLuminance;
+extern const glConst GLDepthComponent;
 
 /// Texture layout size
 extern const glConst GLRGBA8;
@@ -143,5 +144,15 @@ extern const glConst GLActiveUniforms;
 
 /// Draw primitives
 extern const glConst GLLineStrip;
+extern const glConst GLTriangles;
+extern const glConst GLTriangleStrip;
+
+/// Framebuffer attachment points
+extern const glConst GLColorAttachment;
+extern const glConst GLDepthAttachment;
+extern const glConst GLStencilAttachment;
+
+/// Framebuffer status
+extern const glConst GLFramebufferComplete;
 
 } // namespace GLConst

@@ -48,10 +48,10 @@ void PathSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureMana
     n = nLength * glsl::normalize(n);
     d = dLength * glsl::normalize(d);
 
-    buffer.push_back(gpu::SolidTexturingVertex(glsl::vec3(pivot, m_params.m_depth), - d - n, glsl::ToVec2(rect.LeftTop())));
-    buffer.push_back(gpu::SolidTexturingVertex(glsl::vec3(pivot, m_params.m_depth), - d + n, glsl::ToVec2(rect.LeftBottom())));
-    buffer.push_back(gpu::SolidTexturingVertex(glsl::vec3(pivot, m_params.m_depth), d - n, glsl::ToVec2(rect.RightTop())));
-    buffer.push_back(gpu::SolidTexturingVertex(glsl::vec3(pivot, m_params.m_depth), d + n, glsl::ToVec2(rect.RightBottom())));
+    buffer.emplace_back(gpu::SolidTexturingVertex(glsl::vec4(pivot, m_params.m_depth, 0.0f), - d - n, glsl::ToVec2(rect.LeftTop())));
+    buffer.emplace_back(gpu::SolidTexturingVertex(glsl::vec4(pivot, m_params.m_depth, 0.0f), - d + n, glsl::ToVec2(rect.LeftBottom())));
+    buffer.emplace_back(gpu::SolidTexturingVertex(glsl::vec4(pivot, m_params.m_depth, 0.0f), d - n, glsl::ToVec2(rect.RightTop())));
+    buffer.emplace_back(gpu::SolidTexturingVertex(glsl::vec4(pivot, m_params.m_depth, 0.0f), d + n, glsl::ToVec2(rect.RightBottom())));
     splineIter.Advance(step);
   }
 

@@ -22,21 +22,48 @@ namespace
 
 class StraightTextHandle : public TextHandle
 {
+  using TBase = TextHandle;
+
 public:
   StraightTextHandle(FeatureID const & id, strings::UniString const & text,
                      dp::Anchor anchor, glsl::vec2 const & pivot,
                      glsl::vec2 const & pxSize, glsl::vec2 const & offset,
                      uint64_t priority, ref_ptr<dp::TextureManager> textureManager,
-                     bool isOptional, gpu::TTextDynamicVertexBuffer && normals)
-    : TextHandle(id, text, anchor, priority, textureManager, move(normals))
+                     bool isOptional, gpu::TTextDynamicVertexBuffer && normals,
+                     bool isBillboard = false)
+    : TextHandle(id, text, anchor, priority, textureManager, move(normals), isBillboard)
     , m_pivot(glsl::ToPoint(pivot))
     , m_offset(glsl::ToPoint(offset))
     , m_size(glsl::ToPoint(pxSize))
     , m_isOptional(isOptional)
   {}
 
-  m2::RectD GetPixelRect(ScreenBase const & screen) const override
+  m2::PointD GetPivot(ScreenBase const & screen, bool perspective) const override
   {
+    m2::PointD pivot = TBase::GetPivot(screen, false);
+    if (perspective)
+      pivot = screen.PtoP3d(pivot - m_offset, -m_pivotZ / screen.GetScale()) + m_offset;
+    return pivot;
+  }
+
+  m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override
+  {
+    if (perspective)
+    {
+      if (IsBillboard())
+      {
+        m2::PointD const pxPivot = screen.GtoP(m_pivot);
+        m2::PointD const pxPivotPerspective = screen.PtoP3d(pxPivot, -m_pivotZ / screen.GetScale());
+
+        m2::RectD pxRectPerspective = GetPixelRect(screen, false);
+        pxRectPerspective.Offset(-pxPivot);
+        pxRectPerspective.Offset(pxPivotPerspective);
+
+        return pxRectPerspective;
+      }
+      return GetPixelRectPerspective(screen);
+    }
+
     m2::PointD pivot = screen.GtoP(m_pivot) + m_offset;
     double x = pivot.x;
     double y = pivot.y;
@@ -66,9 +93,9 @@ public:
                      max(x, pivot.x), max(y, pivot.y));
   }
 
-  void GetPixelShape(ScreenBase const & screen, Rects & rects) const override
+  void GetPixelShape(ScreenBase const & screen, Rects & rects, bool perspective) const override
   {
-    rects.push_back(m2::RectF(GetPixelRect(screen)));
+    rects.emplace_back(GetPixelRect(screen, perspective));
   }
 
   bool IsBound() const override
@@ -154,10 +181,11 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
   textures->GetColorRegion(font.m_color, color);
   textures->GetColorRegion(font.m_outlineColor, outline);
 
-  layout.Cache(glsl::vec3(glsl::ToVec2(m_basePoint), m_params.m_depth),
+  layout.Cache(glsl::vec4(glsl::ToVec2(m_basePoint), m_params.m_depth, -m_params.m_posZ),
                baseOffset, color, staticBuffer, dynamicBuffer);
 
   dp::GLState state(gpu::TEXT_PROGRAM, dp::GLState::OverlayLayer);
+  state.SetProgram3dIndex(gpu::TEXT_BILLBOARD_PROGRAM);
   ASSERT(color.GetTexture() == outline.GetTexture(), ());
   state.SetColorTexture(color.GetTexture());
   state.SetMaskTexture(layout.GetMaskTexture());
@@ -175,7 +203,9 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
                                                                            GetOverlayPriority(),
                                                                            textures,
                                                                            isOptional,
-                                                                           move(dynamicBuffer));
+                                                                           move(dynamicBuffer),
+                                                                           true);
+  handle->SetPivotZ(m_params.m_posZ);
   handle->SetOverlayRank(m_hasPOI ? (isPrimary ? dp::OverlayRank1 : dp::OverlayRank2) : dp::OverlayRank0);
   handle->SetExtendingSize(m_params.m_extendingSize);
 
@@ -196,10 +226,11 @@ void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::Fon
   textures->GetColorRegion(font.m_color, color);
   textures->GetColorRegion(font.m_outlineColor, outline);
 
-  layout.Cache(glsl::vec3(glsl::ToVec2(m_basePoint), m_params.m_depth),
+  layout.Cache(glsl::vec4(glsl::ToVec2(m_basePoint), m_params.m_depth, -m_params.m_posZ),
                baseOffset, color, outline, staticBuffer, dynamicBuffer);
 
   dp::GLState state(gpu::TEXT_OUTLINED_PROGRAM, dp::GLState::OverlayLayer);
+  state.SetProgram3dIndex(gpu::TEXT_OUTLINED_BILLBOARD_PROGRAM);
   ASSERT(color.GetTexture() == outline.GetTexture(), ());
   state.SetColorTexture(color.GetTexture());
   state.SetMaskTexture(layout.GetMaskTexture());
@@ -217,7 +248,9 @@ void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::Fon
                                                                            GetOverlayPriority(),
                                                                            textures,
                                                                            isOptional,
-                                                                           move(dynamicBuffer));
+                                                                           move(dynamicBuffer),
+                                                                           true);
+  handle->SetPivotZ(m_params.m_posZ);
   handle->SetOverlayRank(m_hasPOI ? (isPrimary ? dp::OverlayRank1 : dp::OverlayRank2) : dp::OverlayRank0);
   handle->SetExtendingSize(m_params.m_extendingSize);
 

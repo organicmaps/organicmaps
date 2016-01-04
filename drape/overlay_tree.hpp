@@ -50,7 +50,7 @@ class OverlayTree : public m4::Tree<detail::OverlayInfo, detail::OverlayTraits>
 public:
   OverlayTree();
 
-  bool Frame();
+  bool Frame(bool is3d);
   bool IsNeedUpdate() const;
   void ForceUpdate();
 
@@ -60,6 +60,9 @@ public:
 
   using TSelectResult = buffer_vector<ref_ptr<OverlayHandle>, 8>;
   void Select(m2::RectD const & rect, TSelectResult & result) const;
+  void Select(m2::PointD const & glbPoint, TSelectResult & result) const;
+
+  void SetFollowingMode(bool mode);
 
 private:
   ScreenBase const & GetModelView() const { return m_traits.m_modelView; }
@@ -72,6 +75,7 @@ private:
   int m_frameCounter;
   array<vector<ref_ptr<OverlayHandle>>, dp::OverlayRanksCount> m_handles;
   vector<detail::OverlayInfo> m_handlesToDelete;
+  bool m_followingMode;
 };
 
 } // namespace dp

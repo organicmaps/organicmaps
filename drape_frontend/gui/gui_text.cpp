@@ -105,7 +105,7 @@ dp::BindingInfo const & StaticLabel::Vertex::GetBindingInfo()
   return *info.get();
 }
 
-StaticLabel::LabelResult::LabelResult() : m_state(gpu::TEXT_OUTLINED_PROGRAM, dp::GLState::Gui) {}
+StaticLabel::LabelResult::LabelResult() : m_state(gpu::TEXT_OUTLINED_GUI_PROGRAM, dp::GLState::Gui) {}
 
 char const * StaticLabel::DefaultDelim = "\n";
 
@@ -281,7 +281,7 @@ dp::BindingInfo const & MutableLabel::DynamicVertex::GetBindingInfo()
   return *info.get();
 }
 
-MutableLabel::PrecacheResult::PrecacheResult() : m_state(gpu::TEXT_OUTLINED_PROGRAM, dp::GLState::Gui) {}
+MutableLabel::PrecacheResult::PrecacheResult() : m_state(gpu::TEXT_OUTLINED_GUI_PROGRAM, dp::GLState::Gui) {}
 
 MutableLabel::MutableLabel(dp::Anchor anchor)
   : m_anchor(anchor)

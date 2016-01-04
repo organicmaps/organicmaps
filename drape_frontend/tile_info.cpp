@@ -16,6 +16,7 @@ namespace df
 
 TileInfo::TileInfo(drape_ptr<EngineContext> && context)
   : m_context(move(context))
+  , m_is3dBuildings(false)
   , m_isCanceled(false)
 {
 }
@@ -64,7 +65,7 @@ void TileInfo::ReadFeatures(MapDataProvider const & model, MemoryFeatureIndex & 
 
     ReadFeatureIndex(model);
     CheckCanceled();
-    featuresToRead.reserve(AverageFeaturesCount);
+    featuresToRead.reserve(kAverageFeaturesCount);
     memIndex.ReadFeaturesRequest(m_featureInfo, featuresToRead);
   }
 
@@ -73,7 +74,7 @@ void TileInfo::ReadFeatures(MapDataProvider const & model, MemoryFeatureIndex & 
     RuleDrawer drawer(bind(&TileInfo::InitStylist, this, _1 ,_2),
                       bind(&TileInfo::IsCancelled, this),
                       model.m_isCountryLoadedByNameFn,
-                      make_ref(m_context));
+                      make_ref(m_context), m_is3dBuildings);
     model.ReadFeatures(bind<void>(ref(drawer), _1), featuresToRead);
   }
 }
@@ -99,7 +100,7 @@ void TileInfo::ProcessID(FeatureID const & id)
 void TileInfo::InitStylist(FeatureType const & f, Stylist & s)
 {
   CheckCanceled();
-  df::InitStylist(f, m_context->GetTileKey().m_styleZoomLevel, s);
+  df::InitStylist(f, m_context->GetTileKey().m_styleZoomLevel, m_is3dBuildings, s);
 }
 
 bool TileInfo::DoNeedReadIndex() const

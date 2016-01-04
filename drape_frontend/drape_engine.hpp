@@ -107,12 +107,15 @@ public:
 
   void AddRoute(m2::PolylineD const & routePolyline, vector<double> const & turns, dp::Color const & color);
   void RemoveRoute(bool deactivateFollowing);
-  void FollowRoute(int preferredZoomLevel);
+  void FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, double rotationAngle, double angleFOV);
   void DeactivateRouteFollowing();
   void SetRoutePoint(m2::PointD const & position, bool isStart, bool isValid);
 
   void SetWidgetLayout(gui::TWidgetsLayoutInfo && info);
   gui::TWidgetsSizeInfo const & GetWidgetSizes();
+
+  void Allow3dMode(bool allowPerspectiveInNavigation, bool allow3dBuildings, double rotationAngle, double angleFOV);
+  void EnablePerspective(double rotationAngle, double angleFOV);
 
 private:
   void AddUserEvent(UserEvent const & e);

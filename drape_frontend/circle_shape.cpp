@@ -29,7 +29,7 @@ void CircleShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager>
   buffer_vector<gpu::SolidTexturingVertex, 22> vertexes;
   vertexes.push_back(gpu::SolidTexturingVertex
   {
-    glsl::vec3(glsl::ToVec2(m_pt), m_params.m_depth),
+    glsl::vec4(glsl::ToVec2(m_pt), m_params.m_depth, 0.0f),
     glsl::vec2(0.0f, 0.0f),
     colorPoint
   });
@@ -41,7 +41,7 @@ void CircleShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager>
     m2::PointD rotatedNormal = m2::Rotate(startNormal, (i) * etalonSector);
     vertexes.push_back(gpu::SolidTexturingVertex
     {
-      glsl::vec3(glsl::ToVec2(m_pt), m_params.m_depth),
+      glsl::vec4(glsl::ToVec2(m_pt), m_params.m_depth, 0.0f),
       glsl::ToVec2(rotatedNormal),
       colorPoint
     });

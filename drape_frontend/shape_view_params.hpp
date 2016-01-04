@@ -26,6 +26,7 @@ struct PoiSymbolViewParams : CommonViewParams
   FeatureID m_id;
   string m_symbolName;
   uint32_t m_extendingSize;
+  float m_posZ;
 };
 
 struct CircleViewParams : CommonViewParams
@@ -40,6 +41,8 @@ struct CircleViewParams : CommonViewParams
 struct AreaViewParams : CommonViewParams
 {
   dp::Color m_color;
+  float m_minPosZ;
+  float m_posZ;
 };
 
 struct LineViewParams : CommonViewParams
@@ -66,6 +69,7 @@ struct TextViewParams : CommonViewParams
   bool m_primaryOptional;
   bool m_secondaryOptional;
   uint32_t m_extendingSize;
+  float m_posZ;
 };
 
 struct PathTextViewParams : CommonViewParams

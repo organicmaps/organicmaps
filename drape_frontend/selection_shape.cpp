@@ -54,6 +54,7 @@ dp::BindingInfo GetBindingInfo()
 
 SelectionShape::SelectionShape(ref_ptr<dp::TextureManager> mng)
   : m_position(m2::PointD::Zero())
+  , m_positionZ(0.0)
   , m_animation(false, 0.25)
   , m_selectedObject(OBJECT_EMPTY)
 {
@@ -103,10 +104,11 @@ SelectionShape::SelectionShape(ref_ptr<dp::TextureManager> mng)
   m_mapping.AddRangePoint(1.0, r);
 }
 
-void SelectionShape::Show(ESelectedObject obj, m2::PointD const & position, bool isAnimate)
+void SelectionShape::Show(ESelectedObject obj, m2::PointD const & position, double positionZ, bool isAnimate)
 {
   m_animation.Hide();
   m_position = position;
+  m_positionZ = positionZ;
   m_selectedObject = obj;
   if (isAnimate)
     m_animation.ShowAnimated();
@@ -123,14 +125,22 @@ void SelectionShape::Hide()
 void SelectionShape::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
                             dp::UniformValuesStorage const & commonUniforms)
 {
-  UNUSED_VALUE(screen);
   ShowHideAnimation::EState state = m_animation.GetState();
   if (state == ShowHideAnimation::STATE_VISIBLE ||
       state == ShowHideAnimation::STATE_SHOW_DIRECTION)
   {
     dp::UniformValuesStorage uniforms = commonUniforms;
-    uniforms.SetFloatValue("u_position", m_position.x, m_position.y, 0.0);
-    uniforms.SetFloatValue("u_accuracy", m_mapping.GetValue(m_animation.GetT()));
+    uniforms.SetFloatValue("u_position", m_position.x, m_position.y, -m_positionZ);
+
+    float accuracy = m_mapping.GetValue(m_animation.GetT());
+    if (screen.isPerspective())
+    {
+      m2::PointD const pt1 = screen.GtoP(m_position);
+      m2::PointD const pt2(pt1.x + 1, pt1.y);
+      float const scale = screen.PtoP3d(pt2).x - screen.PtoP3d(pt1).x;
+      accuracy /= scale;
+    }
+    uniforms.SetFloatValue("u_accuracy", accuracy);
     uniforms.SetFloatValue("u_opacity", 1.0f);
     m_renderNode->Render(mng, uniforms);
   }

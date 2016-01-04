@@ -20,6 +20,12 @@ namespace scales
   inline int GetNavigationScale() { return UPPER_STYLE_SCALE - 4; }
   /// Default pedestrian navigation mode scale
   inline int GetPedestrianNavigationScale() { return UPPER_STYLE_SCALE - 1; }
+  /// Default navigation 3d mode scale
+  inline int GetNavigation3dScale() { return UPPER_STYLE_SCALE - 3; }
+  /// Default pedestrian navigation 3d mode scale
+  inline int GetPedestrianNavigation3dScale() { return UPPER_STYLE_SCALE - 2; }
+
+  int GetMinAllowableIn3dScale();
 
   double GetScaleLevelD(double ratio);
   double GetScaleLevelD(m2::RectD const & r);

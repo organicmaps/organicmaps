@@ -10,7 +10,9 @@
 class ScreenBase
 {
 public:
-  typedef math::Matrix<double, 3, 3> MatrixT;
+  using MatrixT = math::Matrix<double, 3, 3>;
+  using Matrix3dT = math::Matrix<double, 4, 4>;
+  using Vector3dT = math::Matrix<double, 1, 4>;
 
 private:
   m2::RectD m_PixelRect;
@@ -18,6 +20,15 @@ private:
   double m_Scale;
   ang::AngleD m_Angle;
   m2::PointD m_Org;
+
+  double m_3dFOV;
+  double m_3dNearZ;
+  double m_3dFarZ;
+  double m_3dAngleX;
+  double m_3dMaxAngleX;
+  double m_3dScaleX;
+  double m_3dScaleY;
+  bool m_isPerspective;
 
 protected:
   /// @group Dependent parameters
@@ -38,6 +49,9 @@ protected:
   m2::RectD m_ClipRect;
 
   /// @}
+
+  Matrix3dT m_Pto3d;
+  Matrix3dT m_3dtoP;
 
   // Update dependent parameters from base parameters.
   // Must be called when base parameters changed.
@@ -111,6 +125,27 @@ public:
   m2::RectD const & PixelRect() const { return m_PixelRect; }
   m2::AnyRectD const & GlobalRect() const { return m_GlobalRect; }
   m2::RectD const & ClipRect() const { return m_ClipRect; }
+
+  void ApplyPerspective(double currentRotationAngle, double maxRotationAngle, double angleFOV);
+  void ResetPerspective();
+
+  void SetRotationAngle(double rotationAngle);
+  double GetRotationAngle() const { return m_3dAngleX; }
+
+  double GetAngleFOV() const { return m_3dFOV; }
+
+  m2::PointD P3dtoP(m2::PointD const & pt) const;
+
+  Matrix3dT const & Pto3dMatrix() const { return m_Pto3d; }
+  bool isPerspective() const { return m_isPerspective; }
+
+  m2::PointD PtoP3d(m2::PointD const & pt) const;
+  m2::PointD PtoP3d(m2::PointD const & pt, double ptZ) const;
+
+  m2::RectD PixelRectIn3d() const
+  {
+    return m2::RectD(0.0, 0.0, m_PixelRect.maxX() / m_3dScaleX, m_PixelRect.maxY() / m_3dScaleY);
+  }
 
   double GetMinPixelRectSize() const;
 

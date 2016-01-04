@@ -17,6 +17,7 @@ SOURCES += \
     animation/interpolations.cpp \
     animation/model_view_animation.cpp \
     animation/opacity_animation.cpp \
+    animation/perspective_animation.cpp \
     animation/show_hide_animation.cpp \
     gui/button.cpp \
     gui/compass.cpp \
@@ -32,12 +33,14 @@ SOURCES += \
     gui/skin.cpp \
     apply_feature_functors.cpp \
     area_shape.cpp \
+    arrow3d.cpp \
     backend_renderer.cpp \
     base_renderer.cpp \
     batchers_pool.cpp \
     circle_shape.cpp \
     drape_engine.cpp \
     engine_context.cpp \
+    framebuffer.cpp \
     frontend_renderer.cpp \
     line_shape.cpp \
     line_shape_helper.cpp \
@@ -71,6 +74,7 @@ SOURCES += \
     tile_tree.cpp \
     tile_tree_builder.cpp \
     tile_utils.cpp \
+    transparent_layer.cpp \
     user_event_stream.cpp \
     user_mark_shapes.cpp \
     user_marks_provider.cpp \
@@ -94,6 +98,7 @@ HEADERS += \
     animation/interpolations.hpp \
     animation/model_view_animation.hpp \
     animation/opacity_animation.hpp \
+    animation/perspective_animation.hpp \
     animation/show_hide_animation.hpp \
     animation/value_mapping.hpp \
     gui/button.hpp \
@@ -110,12 +115,14 @@ HEADERS += \
     gui/skin.hpp \
     apply_feature_functors.hpp \
     area_shape.hpp \
+    arrow3d.hpp \
     backend_renderer.hpp \
     base_renderer.hpp \
     batchers_pool.hpp \
     circle_shape.hpp \
     drape_engine.hpp \
     engine_context.hpp \
+    framebuffer.hpp \
     frontend_renderer.hpp \
     intrusive_vector.hpp \
     line_shape.hpp \
@@ -154,6 +161,7 @@ HEADERS += \
     tile_tree.hpp \
     tile_tree_builder.hpp \
     tile_utils.hpp \
+    transparent_layer.hpp \
     user_event_stream.hpp \
     user_mark_shapes.hpp \
     user_marks_provider.hpp \
