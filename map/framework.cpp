@@ -1629,6 +1629,52 @@ bool Framework::ShowMapForURL(string const & url)
   return false;
 }
 
+unique_ptr<FeatureType> Framework::GetFeatureAtMercatorPoint(m2::PointD const & mercator) const
+{
+  constexpr double const kRectWidthInMeters = 1.1;
+  int const kScale = scales::GetUpperScale();
+  m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(mercator, kRectWidthInMeters);
+  unique_ptr<FeatureType> pointFt, areaFt;
+  double minPointDistance = kRectWidthInMeters;
+  auto const & isBuilding = ftypes::IsBuildingChecker::Instance();
+  m_model.ForEachFeature(rect, [&](FeatureType const & ft)
+  {
+    switch (ft.GetFeatureType())
+    {
+      case feature::GEOM_POINT:
+      {
+        double const distance = MercatorBounds::DistanceOnEarth(ft.GetCenter(), mercator);
+        if (distance < minPointDistance)
+        {
+          pointFt.reset(new FeatureType(ft));
+          pointFt->ParseMetadata();
+          minPointDistance = distance;
+        }
+        break;
+      }
+      case feature::GEOM_AREA:
+      {
+        // Quick rough check.
+        if (!ft.GetLimitRect(kScale).IsPointInside(mercator))
+          return;
+        // Distance is 0.0 if point is inside area feature.
+        if (0.0 != feature::GetMinDistanceMeters(ft, mercator))
+          return;
+        // Buildings have higher priority over other types.
+        if (areaFt && isBuilding(*areaFt))
+          return;
+        areaFt.reset(new FeatureType(ft));
+        areaFt->ParseMetadata();
+        break;
+      }
+      // TODO(AlexZ): At the moment, ignore linear features.
+      default: return;
+    }
+  }, kScale);
+
+  return pointFt ? move(pointFt) : move(areaFt);
+}
+
 bool Framework::GetVisiblePOI(m2::PointD const & glbPoint, search::AddressInfo & info, feature::Metadata & metadata) const
 {
   ASSERT(m_drapeEngine != nullptr, ());

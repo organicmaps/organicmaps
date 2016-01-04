@@ -485,6 +485,10 @@ private:
   void GetLocality(m2::PointD const & pt, search::AddressInfo & info) const;
 
 public:
+  /// Get feature at given point even if it's invisible on the screen.
+  /// TODO(AlexZ): Refactor out other similar methods.
+  /// @returns nullptr if no feature was found at the given mercator point.
+  unique_ptr<FeatureType> GetFeatureAtMercatorPoint(m2::PointD const & mercator) const;
   bool GetVisiblePOI(m2::PointD const & glbPoint, search::AddressInfo & info, feature::Metadata & metadata) const;
   // TODO(AlexZ): Refactor similar getters to share common interface.
   bool GetVisiblePOI(m2::PointD const & ptMercator, FeatureType & outPOI) const;
