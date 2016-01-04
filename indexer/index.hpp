@@ -275,7 +275,7 @@ public:
   class FeaturesLoaderGuard
   {
   public:
-    FeaturesLoaderGuard(Index const & parent, MwmId id);
+    FeaturesLoaderGuard(Index const & parent, MwmId const & id);
 
     inline MwmSet::MwmId const & GetId() const { return m_handle.GetId(); }
     string GetCountryFileName() const;

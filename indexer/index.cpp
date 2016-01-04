@@ -96,7 +96,7 @@ void Index::OnMwmDeregistered(LocalCountryFile const & localFile)
 // Index::FeaturesLoaderGuard implementation
 //////////////////////////////////////////////////////////////////////////////////
 
-Index::FeaturesLoaderGuard::FeaturesLoaderGuard(Index const & parent, MwmId id)
+Index::FeaturesLoaderGuard::FeaturesLoaderGuard(Index const & parent, MwmId const & id)
     : m_handle(parent.GetMwmHandleById(id)),
       /// @note This guard is suitable when mwm is loaded
       m_vector(m_handle.GetValue<MwmValue>()->m_cont,
