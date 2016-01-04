@@ -2177,13 +2177,13 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "none"
+      name: "bus-l"
       priority: 16878
     }
     caption {
       primary {
-        height: 11
-        color: 5592405
+        height: 12
+        color: 11711154
         stroke_color: 437326080
         offset_y: 10
       }
@@ -2756,13 +2756,13 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "none"
+      name: "ship-l"
       priority: 16878
     }
     caption {
       primary {
-        height: 11
-        color: 5592405
+        height: 12
+        color: 11711154
         stroke_color: 437326080
         offset_y: 10
       }
@@ -3001,12 +3001,12 @@ cont {
       priority: -15433
     }
     symbol {
-      name: "none"
+      name: "cemetery-l"
       priority: 16567
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 5592405
         offset_y: 10
       }
@@ -3082,12 +3082,12 @@ cont {
       priority: -15433
     }
     symbol {
-      name: "none"
+      name: "cemetery-l"
       priority: 16567
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 5592405
         offset_y: 10
       }
@@ -30516,7 +30516,7 @@ cont {
     caption {
       primary {
         height: 10
-        color: 5592405
+        color: 10066329
         offset_y: 10
       }
       priority: 15851
@@ -30535,7 +30535,7 @@ cont {
     caption {
       primary {
         height: 10
-        color: 5592405
+        color: 10066329
         offset_y: 10
       }
       priority: 15851
@@ -30554,7 +30554,7 @@ cont {
     caption {
       primary {
         height: 10
-        color: 5592405
+        color: 10066329
         offset_y: 10
       }
       priority: 15851
@@ -30573,7 +30573,7 @@ cont {
     caption {
       primary {
         height: 10
-        color: 5592405
+        color: 10066329
         offset_y: 10
       }
       priority: 15851
@@ -30592,7 +30592,7 @@ cont {
     caption {
       primary {
         height: 10
-        color: 5592405
+        color: 10066329
         offset_y: 10
       }
       priority: 15851
@@ -37050,7 +37050,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 5592405
         offset_y: 10
       }
@@ -37069,7 +37069,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 5592405
         offset_y: 10
       }
@@ -37088,7 +37088,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 5592405
         offset_y: 10
       }
