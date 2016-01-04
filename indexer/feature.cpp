@@ -181,6 +181,15 @@ void FeatureType::Deserialize(feature::LoaderBase * pLoader, TBuffer buffer)
   m_innerStats.MakeZero();
 }
 
+void FeatureType::ParseEverything() const
+{
+  // Also calls ParseCommon() and ParseTypes().
+  ParseHeader2();
+  ParseGeometry(FeatureType::BEST_GEOMETRY);
+  ParseTriangles(FeatureType::BEST_GEOMETRY);
+  ParseMetadata();
+}
+
 void FeatureType::ParseHeader2() const
 {
   if (!m_bHeader2Parsed)

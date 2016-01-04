@@ -170,6 +170,8 @@ public:
 
   /// @name Parse functions. Do simple dispatching to m_pLoader.
   //@{
+  /// Super-method to call all possible Parse* methods.
+  void ParseEverything() const;
   void ParseHeader2() const;
 
   void ResetGeometry() const;

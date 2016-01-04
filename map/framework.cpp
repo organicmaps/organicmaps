@@ -1662,11 +1662,7 @@ FeatureType Framework::GetPOIByID(FeatureID const & fid) const
   // Note: all parse methods should be called with guard alive.
   Index::FeaturesLoaderGuard guard(m_model.GetIndex(), fid.m_mwmId);
   guard.GetFeatureByIndex(fid.m_index, feature);
-  feature.ParseHeader2();
-  feature.ParseGeometry(FeatureType::BEST_GEOMETRY);
-  feature.ParseTriangles(FeatureType::BEST_GEOMETRY);
-  feature.ParseMetadata();
-
+  feature.ParseEverything();
   return feature;
 }
 
