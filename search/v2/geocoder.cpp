@@ -112,7 +112,7 @@ void Geocoder::SetParams(Params const & params)
 void Geocoder::Go(vector<FeatureID> & results)
 {
   // TODO (@y): remove following code as soon as Geocoder::Go() will
-  // work fast for most cases (significanly less than 1 second).
+  // work fast for most cases (significantly less than 1 second).
 #if defined(DEBUG)
   my::Timer timer;
   MY_SCOPE_GUARD(printDuration, [&timer]()

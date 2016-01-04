@@ -100,9 +100,9 @@ private:
 
     vector<m2::PointD> poiCenters(child.m_sortedFeatures->size());
 
-    // Initially all features are not processed.
-    vector<bool> isPOIProcessed(child.m_sortedFeatures->size());
-    size_t notProcessedPOIs = isPOIProcessed.size();
+    size_t const numPOIs = child.m_sortedFeatures->size();
+    vector<bool> isPOIProcessed(numPOIs);
+    size_t processedPOIs = 0;
 
     for (size_t i = 0; i < child.m_sortedFeatures->size(); ++i)
     {
@@ -111,7 +111,7 @@ private:
       poiCenters[i] = feature::GetCenter(poiFt, FeatureType::WORST_GEOMETRY);
     }
 
-    for (size_t i = 0; i < parent.m_sortedFeatures->size() && notProcessedPOIs != 0; ++i)
+    for (size_t i = 0; i < parent.m_sortedFeatures->size() && processedPOIs != numPOIs; ++i)
     {
       BailIfCancelled(m_cancellable);
 
@@ -128,7 +128,7 @@ private:
         {
           fn((*child.m_sortedFeatures)[j], (*parent.m_sortedFeatures)[i]);
           isPOIProcessed[j] = true;
-          --notProcessedPOIs;
+          ++processedPOIs;
         }
       }
     }

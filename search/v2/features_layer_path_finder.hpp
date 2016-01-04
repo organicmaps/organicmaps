@@ -46,7 +46,7 @@ public:
 
     // TODO (@y): remove following code as soon as
     // FindReachableVertices() will work fast for most cases
-    // (significanly less than 1 second).
+    // (significantly less than 1 second).
 #if defined(DEBUG)
     fprintf(stderr, "FeaturesLayerPathFinder()\n");
     for (auto const * layer : layers)
