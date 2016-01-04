@@ -2790,7 +2790,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "none"
+      name: "fire_station-l"
       priority: 16851
     }
     caption {
@@ -5212,7 +5212,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "none"
+      name: "picnic-l"
       priority: 16851
     }
     caption {
