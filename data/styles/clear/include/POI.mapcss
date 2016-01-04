@@ -1,3 +1,9 @@
+/* AMENITY */
+
+/* NAMED AMENITIES BY DEFAULT  — TEMPORARY */
+node|z19-[amenity], area|z19-[amenity] { icon-image: none.svg;  text-offset: 10; font-size: 11; text: name; text-color: @poi_label; }
+
+
 /* ZOOM 15 */
 
 
@@ -185,12 +191,6 @@ text-halo-radius:0.5; z-index: 30; }
 node|z15-16[natural=beach], area|z15-16[natural=beach]{ icon-image: beach-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2400; }
 node|z17-[natural=beach], area|z17-[natural=beach]{ icon-image: beach-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label;z-index: 2400; }
 
-
-
-/* AMENITY */
-
-/* NAMED AMENITIES BY DEFAULT  — TEMPORARY */
-node|z19-[amenity], area|z19-[amenity] { icon-image: none.svg;  text-offset: 10; font-size: 11; text: name; text-color: @poi_label; }
 
 
 /* AMENITY */
