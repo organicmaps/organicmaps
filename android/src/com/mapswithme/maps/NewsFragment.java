@@ -8,7 +8,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.*;
+import android.support.v7.widget.SwitchCompat;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.Window;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,7 +26,9 @@ import com.mapswithme.util.UiUtils;
 public class NewsFragment extends BaseMwmDialogFragment
 {
   private ViewPager mPager;
-  private TextView mNext;
+  private View mPrevButton;
+  private View mNextButton;
+  private View mDoneButton;
   private ImageView[] mDots;
 
   private class Adapter extends PagerAdapter
@@ -27,6 +36,8 @@ public class NewsFragment extends BaseMwmDialogFragment
     private final int[] mImages;
     private final String[] mTitles = MwmApplication.get().getResources().getStringArray(R.array.news_titles);
     private final String[] mSubtitles = MwmApplication.get().getResources().getStringArray(R.array.news_subtitles);
+    private final String[] mSwitchTitles = MwmApplication.get().getResources().getStringArray(R.array.news_switch_titles);
+    private final String[] mSwitchSubtitles = MwmApplication.get().getResources().getStringArray(R.array.news_switch_subtitles);
 
     Adapter()
     {
@@ -64,6 +75,39 @@ public class NewsFragment extends BaseMwmDialogFragment
       ((TextView)res.findViewById(R.id.subtitle))
         .setText(mSubtitles[position]);
 
+      View switchBlock = res.findViewById(R.id.switch_block);
+      String text = mSwitchTitles[position];
+      if (TextUtils.isEmpty(text))
+        UiUtils.hide(switchBlock);
+      else
+      {
+        ((TextView)switchBlock.findViewById(R.id.switch_title))
+          .setText(text);
+
+        ((TextView)switchBlock.findViewById(R.id.switch_subtitle))
+          .setText(mSwitchSubtitles[position]);
+
+        final SwitchCompat checkBox = (SwitchCompat)switchBlock.findViewById(R.id.switch_box);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+          {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+
+            }
+          });
+
+        switchBlock.setOnClickListener(new View.OnClickListener()
+        {
+          @Override
+          public void onClick(View v)
+          {
+            checkBox.performClick();
+          }
+        });
+
+      }
+
       container.addView(res);
       return res;
     }
@@ -84,8 +128,9 @@ public class NewsFragment extends BaseMwmDialogFragment
                                          : R.drawable.news_marker_inactive);
     }
 
-    mNext.setText(cur + 1 == mDots.length ? R.string.done
-                                          : R.string.whats_new_next);
+    UiUtils.showIf(cur > 0, mPrevButton);
+    UiUtils.showIf(cur + 1 < mDots.length, mNextButton);
+    UiUtils.visibleIf(cur + 1 == mDots.length, mDoneButton);
   }
 
   private void fixPagerSize()
@@ -144,16 +189,34 @@ public class NewsFragment extends BaseMwmDialogFragment
     for (int i = 0; i < mDots.length; i++)
       mDots[i] = (ImageView)dots.getChildAt(i);
 
-    mNext = (TextView)content.findViewById(R.id.next);
-    mNext.setOnClickListener(new View.OnClickListener()
+    mPrevButton = content.findViewById(R.id.back);
+    mNextButton = content.findViewById(R.id.next);
+    mDoneButton = content.findViewById(R.id.done);
+
+    mPrevButton.setOnClickListener(new View.OnClickListener()
     {
       @Override
       public void onClick(View v)
       {
-        if (mPager.getCurrentItem() == mDots.length - 1)
-          dismiss();
-        else
-          mPager.setCurrentItem(mPager.getCurrentItem() + 1, true);
+        mPager.setCurrentItem(mPager.getCurrentItem() - 1, true);
+      }
+    });
+
+    mNextButton.setOnClickListener(new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        mPager.setCurrentItem(mPager.getCurrentItem() + 1, true);
+      }
+    });
+
+    mDoneButton.setOnClickListener(new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        dismiss();
       }
     });
 
