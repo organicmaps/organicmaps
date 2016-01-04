@@ -13,6 +13,8 @@ enum ColorConstant
   DownloadButtonRouting,
   DownloadButtonPressed,
   DownloadButtonRoutingPressed,
+  DownloadButtonText,
+  CountryStatusText,
   GuiText,
   MyPositionAccuracy,
   Selection,

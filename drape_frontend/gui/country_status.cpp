@@ -117,8 +117,8 @@ void DrawLabelControl(string const & text, dp::Anchor anchor, dp::Batcher::TFlus
                       ref_ptr<dp::TextureManager> mng, CountryStatusHelper::ECountryState state)
 {
   StaticLabel::LabelResult result;
-  StaticLabel::CacheStaticText(text, "\n", anchor, dp::FontDecl(dp::Color::Black(), 18), mng,
-                               result);
+  dp::Color const textColor = df::GetColorConstant(GetStyleReader().GetCurrentStyle(), df::CountryStatusText);
+  StaticLabel::CacheStaticText(text, "\n", anchor, dp::FontDecl(textColor, 18), mng, result);
   size_t vertexCount = result.m_buffer.size();
   ASSERT(vertexCount % dp::Batcher::VertexPerQuad == 0, ());
   size_t indexCount = dp::Batcher::IndexPerQuad * vertexCount / dp::Batcher::VertexPerQuad;
@@ -141,10 +141,11 @@ void DrawProgressControl(dp::Anchor anchor, dp::Batcher::TFlushFn const & flushF
   MutableLabelDrawer::Params params;
   CountryStatusHelper & helper = DrapeGui::GetCountryStatusHelper();
   helper.GetProgressInfo(params.m_alphabet, params.m_maxLength);
+  dp::Color const textColor = df::GetColorConstant(GetStyleReader().GetCurrentStyle(), df::CountryStatusText);
 
   params.m_anchor = anchor;
   params.m_pivot = m2::PointF::Zero();
-  params.m_font = dp::FontDecl(dp::Color::Black(), 18);
+  params.m_font = dp::FontDecl(textColor, 18);
   params.m_handleCreator = [state, mng](dp::Anchor anchor, m2::PointF const & /*pivot*/)
   {
     return make_unique_dp<CountryProgressHandle>(anchor, state, mng);
@@ -206,11 +207,12 @@ drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex,
                    &maxButtonWidth](CountryStatusHelper::Control const & control)
   {
     float const visualScale = df::VisualParams::Instance().GetVisualScale();
+    dp::Color const textColor = df::GetColorConstant(GetStyleReader().GetCurrentStyle(), df::DownloadButtonText);
 
     Button::Params params;
     params.m_anchor = m_position.m_anchor;
     params.m_label = control.m_label;
-    params.m_labelFont = dp::FontDecl(dp::Color::White(), 18);
+    params.m_labelFont = dp::FontDecl(textColor, 18);
     params.m_margin = 5.0f * visualScale;
     params.m_facet = 8.0f * visualScale;
 

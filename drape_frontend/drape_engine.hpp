@@ -1,6 +1,7 @@
 #pragma once
 
 #include "drape_frontend/backend_renderer.hpp"
+#include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/threads_commutator.hpp"
 #include "drape_frontend/selection_shape.hpp"
@@ -108,7 +109,8 @@ public:
   bool GetMyPosition(m2::PointD & myPosition);
   SelectionShape::ESelectedObject GetSelectedObject();
 
-  void AddRoute(m2::PolylineD const & routePolyline, vector<double> const & turns, dp::Color const & color);
+  void AddRoute(m2::PolylineD const & routePolyline, vector<double> const & turns,
+                df::ColorConstant color);
   void RemoveRoute(bool deactivateFollowing);
   void FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, double rotationAngle, double angleFOV);
   void DeactivateRouteFollowing();

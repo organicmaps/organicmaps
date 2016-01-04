@@ -12,7 +12,7 @@ RouteBuilder::RouteBuilder(TFlushRouteFn const & flushRouteFn,
 {}
 
 void RouteBuilder::Build(m2::PolylineD const & routePolyline, vector<double> const & turns,
-                         dp::Color const & color, ref_ptr<dp::TextureManager> textures)
+                         df::ColorConstant color, ref_ptr<dp::TextureManager> textures)
 {
   CommonViewParams params;
   params.m_minVisibleScale = 1;

@@ -4,6 +4,7 @@
 #include "drape_frontend/gui/layer_render.hpp"
 #include "drape_frontend/gui/skin.hpp"
 
+#include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/gps_track_point.hpp"
 #include "drape_frontend/gps_track_shape.hpp"
 #include "drape_frontend/route_builder.hpp"
@@ -514,7 +515,7 @@ private:
 class AddRouteMessage : public Message
 {
 public:
-  AddRouteMessage(m2::PolylineD const & routePolyline, vector<double> const & turns, dp::Color const & color)
+  AddRouteMessage(m2::PolylineD const & routePolyline, vector<double> const & turns, df::ColorConstant color)
     : m_routePolyline(routePolyline)
     , m_color(color)
     , m_turns(turns)
@@ -523,12 +524,12 @@ public:
   Type GetType() const override { return Message::AddRoute; }
 
   m2::PolylineD const & GetRoutePolyline() { return m_routePolyline; }
-  dp::Color const & GetColor() const { return m_color; }
+  df::ColorConstant GetColor() const { return m_color; }
   vector<double> const & GetTurns() const { return m_turns; }
 
 private:
   m2::PolylineD m_routePolyline;
-  dp::Color m_color;
+  df::ColorConstant m_color;
   vector<double> m_turns;
 };
 
