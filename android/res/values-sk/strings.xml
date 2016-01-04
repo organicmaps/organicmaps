@@ -803,9 +803,4 @@
 	<string name="p2p_to_here">Do</string>
 	<string name="p2p_only_from_current">Navigácia je dostupná iba z vašej aktuálnej polohy.</string>
 	<string name="p2p_reroute_from_current">Doriți să vă planificăm o rută având ca punct de pornire locația actuală?</string>
-	<string name="whats_new_where_to_turn">MAPS.ME vám dá vedieť, kde sa obrátiť</string>
-	<string name="whats_new_voice_instructions">Vážení priatelia, už dlhší čas požadujete hlasové pokyny počas navigácie - ma sme vám vyhoveli! Teraz vás náš navigátor včas upozorní na váš ďalší obrat.</string>
-	<string name="whats_new_between_any_points">Vytvorte si trasy medzi ľubovoľnými bodmi</string>
-	<string name="whats_new_happy_day">Naozaj šťastný deň! Plánujte si výlety napred s MAPS.ME.</string>
-	<string name="whats_new_next">Nasledujúca</string>
 </resources>

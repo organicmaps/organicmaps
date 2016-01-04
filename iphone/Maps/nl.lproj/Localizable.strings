@@ -1313,12 +1313,18 @@
 
 "p2p_reroute_from_current" = "Wilt u dat wij een route plannen vanaf uw huidige locatie?";
 
-"whats_new_where_to_turn" = "MAPS.ME zal u laten weten waar u moet afslaan";
+"whats_new_3d_title" = "MAPS.ME in 3D";
 
-"whats_new_voice_instructions" = "Beste vrienden, jullie vragen al lang om gesproken instructies voor tijdens het navigeren - dat hebben we gerealiseerd! Nu zal onze navigator u tijdig op de hoogte brengen van uw volgende afslag.";
+"whats_new_3d_subtitle" = "See 3D view!";
 
-"whats_new_between_any_points" = "Maak routes tussen alle punten";
+"whats_new_3d_switch_title" = "Enable";
 
-"whats_new_happy_day" = "Inderdaad een prettige dag! Plan uw reizen vooruit met MAPS.ME.";
+"whats_new_3d_switch_subtitle" = "Will increase battery usage";
 
-"whats_new_next" = "Volgende";
+"whats_new_3d_buildings_title" = "3D buildings";
+
+"whats_new_3d_buildings_subtitle" = "3D buildings!";
+
+"whats_new_3d_buildings_switch_title" = "Enable";
+
+"whats_new_3d_buildings_switch_subtitle" = "Will increase battery usage";

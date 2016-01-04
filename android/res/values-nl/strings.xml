@@ -790,9 +790,4 @@
 	<string name="p2p_to_here">Naar</string>
 	<string name="p2p_only_from_current">Navigatie is uitsluitend beschikbaar vanuit uw huidige locatie.</string>
 	<string name="p2p_reroute_from_current">Wilt u dat wij een route plannen vanaf uw huidige locatie?</string>
-	<string name="whats_new_where_to_turn">MAPS.ME zal u laten weten waar u moet afslaan</string>
-	<string name="whats_new_voice_instructions">Beste vrienden, jullie vragen al lang om gesproken instructies voor tijdens het navigeren - dat hebben we gerealiseerd! Nu zal onze navigator u tijdig op de hoogte brengen van uw volgende afslag.</string>
-	<string name="whats_new_between_any_points">Maak routes tussen alle punten</string>
-	<string name="whats_new_happy_day">Inderdaad een prettige dag! Plan uw reizen vooruit met MAPS.ME.</string>
-	<string name="whats_new_next">Volgende</string>
 </resources>

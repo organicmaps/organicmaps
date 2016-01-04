@@ -1313,12 +1313,18 @@
 
 "p2p_reroute_from_current" = "你是否想要规划当前位置的路线？";
 
-"whats_new_where_to_turn" = "MAPS.ME会告诉您在哪转弯";
+"whats_new_3d_title" = "MAPS.ME in 3D";
 
-"whats_new_voice_instructions" = "亲爱的朋友们，您一直都在要求导航中的声音指导——我们做到了！现在我们的导航会及时警告您下次转弯。";
+"whats_new_3d_subtitle" = "See 3D view!";
 
-"whats_new_between_any_points" = "在任何点中间构建路线";
+"whats_new_3d_switch_title" = "Enable";
 
-"whats_new_happy_day" = "真是快乐的一天！用MAPS.ME事先计划路程吧。";
+"whats_new_3d_switch_subtitle" = "Will increase battery usage";
 
-"whats_new_next" = "下一页";
+"whats_new_3d_buildings_title" = "3D buildings";
+
+"whats_new_3d_buildings_subtitle" = "3D buildings!";
+
+"whats_new_3d_buildings_switch_title" = "Enable";
+
+"whats_new_3d_buildings_switch_subtitle" = "Will increase battery usage";

@@ -1313,12 +1313,18 @@
 
 "p2p_reroute_from_current" = "你是否想要規劃當前位置的路線？";
 
-"whats_new_where_to_turn" = "MAPS.ME 會讓您知道應該在哪裡轉彎";
+"whats_new_3d_title" = "MAPS.ME in 3D";
 
-"whats_new_voice_instructions" = "親愛的朋友，您一直要求在導航時提供語音指示 - 我們已經做到了！現在，我們的導航儀會及時在您下一次轉變之前發出警示。";
+"whats_new_3d_subtitle" = "See 3D view!";
 
-"whats_new_between_any_points" = "創建任何點之間的路線";
+"whats_new_3d_switch_title" = "Enable";
 
-"whats_new_happy_day" = "真是愉快的一天！使用MAPS.ME提前計劃您的旅行。";
+"whats_new_3d_switch_subtitle" = "Will increase battery usage";
 
-"whats_new_next" = "下一頁";
+"whats_new_3d_buildings_title" = "3D buildings";
+
+"whats_new_3d_buildings_subtitle" = "3D buildings!";
+
+"whats_new_3d_buildings_switch_title" = "Enable";
+
+"whats_new_3d_buildings_switch_subtitle" = "Will increase battery usage";

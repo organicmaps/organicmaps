@@ -811,9 +811,4 @@
 	<string name="p2p_to_here">Jusqu\&#39;à</string>
 	<string name="p2p_only_from_current">La navigation est uniquement disponible à partir de votre emplacement actuel.</string>
 	<string name="p2p_reroute_from_current">Souhaitez-vous que nous planifiions un itinéraire à partir de votre emplacement actuel ?</string>
-	<string name="whats_new_where_to_turn">MAPS.ME vous dit quand tourner</string>
-	<string name="whats_new_voice_instructions">Chers amis, vous nous demandiez depuis longtemps d\&#39;inclure des instructions vocales au cours de la navigation – nous l\&#39;avons fait ! Désormais, notre navigateur vous préviendra à l\&#39;avance de votre prochain virage.</string>
-	<string name="whats_new_between_any_points">Obtenez des itinéraires entre n\&#39;importe quels points</string>
-	<string name="whats_new_happy_day">Nous vous souhaitons une bonne journée ! Préparez vos trajet en avance avec MAPS.ME</string>
-	<string name="whats_new_next">Neste</string>
 </resources>

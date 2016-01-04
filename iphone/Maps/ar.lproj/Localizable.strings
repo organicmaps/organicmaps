@@ -1313,12 +1313,18 @@
 
 "p2p_reroute_from_current" = "هل ترغب في أن نرسم مسار لك من موقعك الحالي؟";
 
-"whats_new_where_to_turn" = "سوف تمكنك MAPS.ME من معرفة أين تتجه";
+"whats_new_3d_title" = "MAPS.ME in 3D";
 
-"whats_new_voice_instructions" = "الأصدقاء الأعزاء، لطالما طالبتم بتوفير تعليمات صوتية أثناء التنقل – لقد قمنا بذلك! سوف يتولى الملاح الخاص بنا الآن تحذيريكم في الوقت المناسب عند قرب المنعطف القادم.";
+"whats_new_3d_subtitle" = "See 3D view!";
 
-"whats_new_between_any_points" = "إنشاء الطرق بين أي نقاط";
+"whats_new_3d_switch_title" = "Enable";
 
-"whats_new_happy_day" = "يوم سعيد حقا! قم بتخطيط رحلاتك مقدماً مع MAPS.ME.";
+"whats_new_3d_switch_subtitle" = "Will increase battery usage";
 
-"whats_new_next" = "التالي";
+"whats_new_3d_buildings_title" = "3D buildings";
+
+"whats_new_3d_buildings_subtitle" = "3D buildings!";
+
+"whats_new_3d_buildings_switch_title" = "Enable";
+
+"whats_new_3d_buildings_switch_subtitle" = "Will increase battery usage";

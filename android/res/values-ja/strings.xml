@@ -797,9 +797,4 @@
 	<string name="p2p_to_here">目的地</string>
 	<string name="p2p_only_from_current">ナビゲーションは現在位置からのみ利用できます。</string>
 	<string name="p2p_reroute_from_current">現在位置からのルートを作成しますか？</string>
-	<string name="whats_new_where_to_turn">MAPS.MEが道順をご案内します</string>
-	<string name="whats_new_voice_instructions">お友達の皆様へ。皆様が長い間待ち望んでいたナビゲーションの音声案内を、ついに実現しました！ナビゲーターがリアルタイムで次の道順をご案内します。</string>
-	<string name="whats_new_between_any_points">出発地から目的時までのルートを作成</string>
-	<string name="whats_new_happy_day">実にすがすがしい日ですね！MAPS.MEで旅程を立てましょう。</string>
-	<string name="whats_new_next">次へ</string>
 </resources>

@@ -841,9 +841,12 @@
 	<string name="p2p_to_here">To</string>
 	<string name="p2p_only_from_current">Navigation is available only from your current location.</string>
 	<string name="p2p_reroute_from_current">Do you want us to plan a route from your current location?</string>
-	<string name="whats_new_where_to_turn">MAPS.ME will let you know where to turn</string>
-	<string name="whats_new_voice_instructions">Dear friends, you have long been asking for voice instructions during navigation - we have done that! Now our navigator will timely warn you of your next turn.</string>
-	<string name="whats_new_between_any_points">Build routes between any points</string>
-	<string name="whats_new_happy_day">A happy day indeed! Plan your trips ahead with MAPS.ME.</string>
-	<string name="whats_new_next">Next</string>
+	<string name="whats_new_3d_title">MAPS.ME in 3D</string>
+	<string name="whats_new_3d_subtitle">See 3D view!</string>
+	<string name="whats_new_3d_switch_title">Enable</string>
+	<string name="whats_new_3d_switch_subtitle">Will increase battery usage</string>
+	<string name="whats_new_3d_buildings_title">3D buildings</string>
+	<string name="whats_new_3d_buildings_subtitle">3D buildings!</string>
+	<string name="whats_new_3d_buildings_switch_title">Enable</string>
+	<string name="whats_new_3d_buildings_switch_subtitle">Will increase battery usage</string>
 </resources>

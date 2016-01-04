@@ -1313,12 +1313,18 @@
 
 "p2p_reroute_from_current" = "Chcete, abychom naplánovali trasu z vašeho současného umístění?";
 
-"whats_new_where_to_turn" = "MAPS.ME vám řekne, kdy zatočit";
+"whats_new_3d_title" = "MAPS.ME in 3D";
 
-"whats_new_voice_instructions" = "Vážení přátelé, již dlouho jste žádali o mluvené instrukce při navádění – my jsme to udělali! Nyní vás náš navigátor včas varuje před další zatáčkou.";
+"whats_new_3d_subtitle" = "See 3D view!";
 
-"whats_new_between_any_points" = "Vytvořte cesty mezi dvěma body";
+"whats_new_3d_switch_title" = "Enable";
 
-"whats_new_happy_day" = "Přejeme vám opravdu hezký den! Naplánujte svůj výlet předem s aplikací MAPS.ME.";
+"whats_new_3d_switch_subtitle" = "Will increase battery usage";
 
-"whats_new_next" = "Další";
+"whats_new_3d_buildings_title" = "3D buildings";
+
+"whats_new_3d_buildings_subtitle" = "3D buildings!";
+
+"whats_new_3d_buildings_switch_title" = "Enable";
+
+"whats_new_3d_buildings_switch_subtitle" = "Will increase battery usage";

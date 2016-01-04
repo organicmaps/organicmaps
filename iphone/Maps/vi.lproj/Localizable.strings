@@ -1313,12 +1313,18 @@
 
 "p2p_reroute_from_current" = "Bạn có muốn chúng tôi vạch đường từ vị trí hiện tại của bạn không?";
 
-"whats_new_where_to_turn" = "MAPS.ME sẽ cho bạn biết chỗ rẽ";
+"whats_new_3d_title" = "MAPS.ME in 3D";
 
-"whats_new_voice_instructions" = "Bạn thân mến, các bạn đã yêu cầu từ lâu về việc chỉ dẫn bằng giọng nói trong khi điều hướng - chúng tôi đã thực hiện điều đó! Bây giờ bộ điều hướng của chúng tôi sẽ kịp thời cảnh báo cho bạn ngã rẽ tiếp theo của bạn.";
+"whats_new_3d_subtitle" = "See 3D view!";
 
-"whats_new_between_any_points" = "Lập đường đi giữa bất kỳ các điểm nào";
+"whats_new_3d_switch_title" = "Enable";
 
-"whats_new_happy_day" = "Một ngày thực sự hạnh phúc! Hãy lên kế hoạch trước chuyến đi của bạn với MAPS.ME.";
+"whats_new_3d_switch_subtitle" = "Will increase battery usage";
 
-"whats_new_next" = "Tiếp theo";
+"whats_new_3d_buildings_title" = "3D buildings";
+
+"whats_new_3d_buildings_subtitle" = "3D buildings!";
+
+"whats_new_3d_buildings_switch_title" = "Enable";
+
+"whats_new_3d_buildings_switch_subtitle" = "Will increase battery usage";

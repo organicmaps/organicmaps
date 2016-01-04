@@ -1313,12 +1313,18 @@
 
 "p2p_reroute_from_current" = "Apakah Anda ingin kami merencanakan sebuah rute dari lokasi Anda saat ini?";
 
-"whats_new_where_to_turn" = "MAPS.ME akan memberi tahu Anda tempat untuk berbelok";
+"whats_new_3d_title" = "MAPS.ME in 3D";
 
-"whats_new_voice_instructions" = "Teman-teman, Anda telah lama meminta petunjuk suara selama navigasi - kami telah menyelesaikannya! Sekarang navigator kami secara tepat waktu akan memperingatkan Anda tentang belokan berikutnya.";
+"whats_new_3d_subtitle" = "See 3D view!";
 
-"whats_new_between_any_points" = "Buat rute antar titik mana saja";
+"whats_new_3d_switch_title" = "Enable";
 
-"whats_new_happy_day" = "Memang hari yang membahagiakan! Rencanakan perjalanan Anda ke depan bersama MAPS.ME.";
+"whats_new_3d_switch_subtitle" = "Will increase battery usage";
 
-"whats_new_next" = "Berikut";
+"whats_new_3d_buildings_title" = "3D buildings";
+
+"whats_new_3d_buildings_subtitle" = "3D buildings!";
+
+"whats_new_3d_buildings_switch_title" = "Enable";
+
+"whats_new_3d_buildings_switch_subtitle" = "Will increase battery usage";

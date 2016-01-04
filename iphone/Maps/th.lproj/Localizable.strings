@@ -1313,12 +1313,18 @@
 
 "p2p_reroute_from_current" = "คุณต้องการให้เราาวงแผนเส้นทางจากสถานที่ตั้งปัจจุบันของคุณหรือไม่?";
 
-"whats_new_where_to_turn" = "MAPS.ME จะแจ้งให้คุณทราบถึงจุดเลี้ยว";
+"whats_new_3d_title" = "MAPS.ME in 3D";
 
-"whats_new_voice_instructions" = "เรียน เพื่อน ๆ จากที่คุณได้ร้องขอในเรื่องคำแนะนำด้วยเสียงพูดในระหว่างการนำทาง - เราได้ทำมันแล้ว! ต่อไปนี้ตัวนำทางของเราจะเตือนเกี่ยวกับการเลี้ยวครั้งถัดไปของคุณได้ทันเวลา";
+"whats_new_3d_subtitle" = "See 3D view!";
 
-"whats_new_between_any_points" = "สร้างเส้นทางระหว่างทุกจุด";
+"whats_new_3d_switch_title" = "Enable";
 
-"whats_new_happy_day" = "เป็นวันที่แสนสุขจริง ๆ! วางแผนทริปของคุณล่วงหน้าด้วย MAPS.ME";
+"whats_new_3d_switch_subtitle" = "Will increase battery usage";
 
-"whats_new_next" = "ถัดไป";
+"whats_new_3d_buildings_title" = "3D buildings";
+
+"whats_new_3d_buildings_subtitle" = "3D buildings!";
+
+"whats_new_3d_buildings_switch_title" = "Enable";
+
+"whats_new_3d_buildings_switch_subtitle" = "Will increase battery usage";

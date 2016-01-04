@@ -1313,12 +1313,18 @@
 
 "p2p_reroute_from_current" = "Vill du att vi planerar en färdväg från din nuvarande plats?";
 
-"whats_new_where_to_turn" = "MAPS.ME berättar var du ska svänga";
+"whats_new_3d_title" = "MAPS.ME in 3D";
 
-"whats_new_voice_instructions" = "Kära vänner, ni har länge frågat efter röstinstruktioner under navigering – vi har gjort det! Nu meddelar vår navigator dig lagom till nästa sväng.";
+"whats_new_3d_subtitle" = "See 3D view!";
 
-"whats_new_between_any_points" = "Skapa rutter mellan valfria punkter";
+"whats_new_3d_switch_title" = "Enable";
 
-"whats_new_happy_day" = "Definitivt en dag att fira! Planera dina resor i förväg med MAPS.ME.";
+"whats_new_3d_switch_subtitle" = "Will increase battery usage";
 
-"whats_new_next" = "Nästa";
+"whats_new_3d_buildings_title" = "3D buildings";
+
+"whats_new_3d_buildings_subtitle" = "3D buildings!";
+
+"whats_new_3d_buildings_switch_title" = "Enable";
+
+"whats_new_3d_buildings_switch_subtitle" = "Will increase battery usage";

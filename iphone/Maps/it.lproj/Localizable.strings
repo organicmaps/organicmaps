@@ -1313,12 +1313,18 @@
 
 "p2p_reroute_from_current" = "Vuoi che impostiamo il percorso dalla tua posizione corrente?";
 
-"whats_new_where_to_turn" = "MAPS.ME ti farà sapere dove girare";
+"whats_new_3d_title" = "MAPS.ME in 3D";
 
-"whats_new_voice_instructions" = "Cari amici, ci avete chiesto, per tanto tempo, di inserire le istruzioni vocali durante la navigazione; bene, lo abbiamo fatto! Ora, il nostro navigatore vi comunicherà, in tempo, quando dovrete girare.";
+"whats_new_3d_subtitle" = "See 3D view!";
 
-"whats_new_between_any_points" = "Crea percorsi fra punti qualsiasi";
+"whats_new_3d_switch_title" = "Enable";
 
-"whats_new_happy_day" = "Un giorno davvero felice! Pianifica in anticipo i tuoi viaggi con MAPS.ME.";
+"whats_new_3d_switch_subtitle" = "Will increase battery usage";
 
-"whats_new_next" = "Avanti";
+"whats_new_3d_buildings_title" = "3D buildings";
+
+"whats_new_3d_buildings_subtitle" = "3D buildings!";
+
+"whats_new_3d_buildings_switch_title" = "Enable";
+
+"whats_new_3d_buildings_switch_subtitle" = "Will increase battery usage";

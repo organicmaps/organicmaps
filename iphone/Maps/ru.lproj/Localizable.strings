@@ -1313,12 +1313,18 @@
 
 "p2p_reroute_from_current" = "Хотите перестроить маршрут от вашего местоположения?";
 
-"whats_new_where_to_turn" = "MAPS.ME подскажет, куда поворачивать";
+"whats_new_3d_title" = "MAPS.ME в 3D";
 
-"whats_new_voice_instructions" = "Друзья, вы давно просили голосовые подсказки во время навигации — мы сделали это! Ваш новый штурман вовремя предупредит о маневре.";
+"whats_new_3d_subtitle" = "Появился 3-D режим!";
 
-"whats_new_between_any_points" = "Стройте маршрут между любыми объектами";
+"whats_new_3d_switch_title" = "Включить";
 
-"whats_new_happy_day" = "Да, да, это правда! Сегодня счастливый день и еще одно улучшение. Планируйте свои путешествия заранее с MAPS.ME.";
+"whats_new_3d_switch_subtitle" = "Увеличит расход батареи";
 
-"whats_new_next" = "Далее";
+"whats_new_3d_buildings_title" = "Трёхмерные здания";
+
+"whats_new_3d_buildings_subtitle" = "Трёхмерные здания!";
+
+"whats_new_3d_buildings_switch_title" = "Включить";
+
+"whats_new_3d_buildings_switch_subtitle" = "Увеличит расход батареи";

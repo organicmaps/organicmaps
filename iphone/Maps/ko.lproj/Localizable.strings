@@ -1313,12 +1313,18 @@
 
 "p2p_reroute_from_current" = "현재 위치에서 경로를 계획하시겠습니까?";
 
-"whats_new_where_to_turn" = "MAPS.ME는 어디로 회전해야 하는지 알려 줍니다";
+"whats_new_3d_title" = "MAPS.ME in 3D";
 
-"whats_new_voice_instructions" = "친애하는 친구 여러분, 네비게이션 동안 음성 안내를 오랫동안 요구했습니다. 우리가 이를 해냈습니다! 이제 네비게이터는 적시에 다음 회전할 차례를 알려 줍니다.";
+"whats_new_3d_subtitle" = "See 3D view!";
 
-"whats_new_between_any_points" = "모든 지점 사이로 경로 구축";
+"whats_new_3d_switch_title" = "Enable";
 
-"whats_new_happy_day" = "정말로 행복한 하루되세요! MAPS.ME로 향후 여행을 계획하세요.";
+"whats_new_3d_switch_subtitle" = "Will increase battery usage";
 
-"whats_new_next" = "다음";
+"whats_new_3d_buildings_title" = "3D buildings";
+
+"whats_new_3d_buildings_subtitle" = "3D buildings!";
+
+"whats_new_3d_buildings_switch_title" = "Enable";
+
+"whats_new_3d_buildings_switch_subtitle" = "Will increase battery usage";
