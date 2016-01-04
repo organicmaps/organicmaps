@@ -142,8 +142,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
   bool breakAnim = false;
   for (UserEvent const & e : events)
   {
-    if (m_perspectiveAnimation != nullptr &&
-        FilterEventWhile3dAnimation(e.m_type))
+    if (m_perspectiveAnimation != nullptr && FilterEventWhile3dAnimation(e.m_type))
       continue;
 
     switch (e.m_type)
@@ -337,9 +336,9 @@ bool UserEventStream::IsScaleAllowableIn3d(int scale)
 {
   int minScale = scales::GetMinAllowableIn3dScale();
   if (df::VisualParams::Instance().GetVisualScale() <= 1.0)
-    minScale -= 1;
+    --minScale;
   if (GetPlatform().IsTablet())
-    minScale += 1;
+    ++minScale;
   return scale >= minScale;
 }
 
@@ -522,7 +521,7 @@ void UserEventStream::SetEnable3dMode(double maxRotationAngle, double angleFOV, 
     double const endAngle = maxRotationAngle;
     double const rotateDuration = PerspectiveAnimation::GetRotateDuration(startAngle, endAngle);
     m_perspectiveAnimation.reset(
-          new PerspectiveAnimation(rotateDuration, 0.0 /* delay */, startAngle, endAngle));
+        new PerspectiveAnimation(rotateDuration, 0.0 /* delay */, startAngle, endAngle));
   }
   m_navigator.Enable3dMode(startAngle, maxRotationAngle, angleFOV);
   viewportChanged = true;

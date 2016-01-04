@@ -16,7 +16,7 @@ public:
   void Set(ScreenBase const & screen, bool is3dBuildings, TTilesCollection && tiles);
   TTilesCollection GetTiles();
   ScreenBase GetScreen();
-  bool Is3dBuildings() const { return m_is3dBuildings; }
+  bool Is3dBuildings();
   bool CheckTileKey(TileKey const & tileKey) const;
 
 private:

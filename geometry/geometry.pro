@@ -47,4 +47,3 @@ HEADERS += \
   transformations.hpp \
   tree4d.hpp \
   triangle2d.hpp \
-    point3d.hpp

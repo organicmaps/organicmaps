@@ -33,10 +33,10 @@ public:
   {
     m2::RectF const & mask = glyph.GetTexRect();
 
-    m_buffer.push_back(gpu::TextStaticVertex(m_colorCoord, glsl::ToVec2(mask.LeftTop())));
-    m_buffer.push_back(gpu::TextStaticVertex(m_colorCoord, glsl::ToVec2(mask.LeftBottom())));
-    m_buffer.push_back(gpu::TextStaticVertex(m_colorCoord, glsl::ToVec2(mask.RightTop())));
-    m_buffer.push_back(gpu::TextStaticVertex(m_colorCoord, glsl::ToVec2(mask.RightBottom())));
+    m_buffer.emplace_back(gpu::TextStaticVertex(m_colorCoord, glsl::ToVec2(mask.LeftTop())));
+    m_buffer.emplace_back(gpu::TextStaticVertex(m_colorCoord, glsl::ToVec2(mask.LeftBottom())));
+    m_buffer.emplace_back(gpu::TextStaticVertex(m_colorCoord, glsl::ToVec2(mask.RightTop())));
+    m_buffer.emplace_back(gpu::TextStaticVertex(m_colorCoord, glsl::ToVec2(mask.RightBottom())));
   }
 
 protected:
@@ -79,10 +79,10 @@ public:
       m_penPosition += glsl::vec2(-xOffset, 0.0f);
     }
 
-    m_buffer.push_back(gpu::TextDynamicVertex(m_pivot, m_penPosition + glsl::vec2(xOffset, bottomVector)));
-    m_buffer.push_back(gpu::TextDynamicVertex(m_pivot, m_penPosition + glsl::vec2(xOffset, upVector)));
-    m_buffer.push_back(gpu::TextDynamicVertex(m_pivot, m_penPosition + glsl::vec2(pixelSize.x + xOffset, bottomVector)));
-    m_buffer.push_back(gpu::TextDynamicVertex(m_pivot, m_penPosition + glsl::vec2(pixelSize.x + xOffset, upVector)));
+    m_buffer.emplace_back(gpu::TextDynamicVertex(m_pivot, m_penPosition + glsl::vec2(xOffset, bottomVector)));
+    m_buffer.emplace_back(gpu::TextDynamicVertex(m_pivot, m_penPosition + glsl::vec2(xOffset, upVector)));
+    m_buffer.emplace_back(gpu::TextDynamicVertex(m_pivot, m_penPosition + glsl::vec2(pixelSize.x + xOffset, bottomVector)));
+    m_buffer.emplace_back(gpu::TextDynamicVertex(m_pivot, m_penPosition + glsl::vec2(pixelSize.x + xOffset, upVector)));
     m_penPosition += glsl::vec2(glyph.GetAdvanceX() * m_textRatio, glyph.GetAdvanceY() * m_textRatio);
 
     TBase::operator()(glyph);
@@ -111,10 +111,10 @@ public:
   void operator() (dp::TextureManager::GlyphRegion const & glyph)
   {
     m2::RectF const & mask = glyph.GetTexRect();
-    m_buffer.push_back(gpu::TextOutlinedStaticVertex(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftTop())));
-    m_buffer.push_back(gpu::TextOutlinedStaticVertex(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftBottom())));
-    m_buffer.push_back(gpu::TextOutlinedStaticVertex(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.RightTop())));
-    m_buffer.push_back(gpu::TextOutlinedStaticVertex(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.RightBottom())));
+    m_buffer.emplace_back(gpu::TextOutlinedStaticVertex(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftTop())));
+    m_buffer.emplace_back(gpu::TextOutlinedStaticVertex(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftBottom())));
+    m_buffer.emplace_back(gpu::TextOutlinedStaticVertex(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.RightTop())));
+    m_buffer.emplace_back(gpu::TextOutlinedStaticVertex(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.RightBottom())));
   }
 
 protected:
@@ -159,10 +159,10 @@ public:
       m_penPosition += glsl::vec2(-xOffset, 0.0f);
     }
 
-    m_buffer.push_back(gpu::TextDynamicVertex(m_pivot, m_penPosition + glsl::vec2(xOffset, bottomVector)));
-    m_buffer.push_back(gpu::TextDynamicVertex(m_pivot, m_penPosition + glsl::vec2(xOffset, upVector)));
-    m_buffer.push_back(gpu::TextDynamicVertex(m_pivot, m_penPosition + glsl::vec2(pixelSize.x + xOffset, bottomVector)));
-    m_buffer.push_back(gpu::TextDynamicVertex(m_pivot, m_penPosition + glsl::vec2(pixelSize.x + xOffset, upVector)));
+    m_buffer.emplace_back(gpu::TextDynamicVertex(m_pivot, m_penPosition + glsl::vec2(xOffset, bottomVector)));
+    m_buffer.emplace_back(gpu::TextDynamicVertex(m_pivot, m_penPosition + glsl::vec2(xOffset, upVector)));
+    m_buffer.emplace_back(gpu::TextDynamicVertex(m_pivot, m_penPosition + glsl::vec2(pixelSize.x + xOffset, bottomVector)));
+    m_buffer.emplace_back(gpu::TextDynamicVertex(m_pivot, m_penPosition + glsl::vec2(pixelSize.x + xOffset, upVector)));
     m_penPosition += glsl::vec2(glyph.GetAdvanceX() * m_textRatio, glyph.GetAdvanceY() * m_textRatio);
 
     TBase::operator()(glyph);

@@ -21,22 +21,23 @@ double const kArrow3dScale = 1.2;
 Arrow3d::Arrow3d()
   : m_state(gpu::ARROW_3D_PROGRAM, dp::GLState::OverlayLayer)
 {
-  m_vertices = {  0.0f,  0.0f,  -1.0f,
-                 -1.0f, -1.0f,  0.0f,
-                  0.0f,  2.0f,  0.0f,
+  m_vertices = {
+     0.0f,  0.0f,  -1.0f,
+    -1.0f, -1.0f,  0.0f,
+     0.0f,  2.0f,  0.0f,
 
-                  0.0f,  0.0f,  -1.0f,
-                  0.0f,  2.0f,  0.0f,
-                  1.0f, -1.0f,  0.0f,
+     0.0f,  0.0f,  -1.0f,
+     0.0f,  2.0f,  0.0f,
+     1.0f, -1.0f,  0.0f,
 
-                  0.0f,  0.0f,  -1.0f,
-                  0.0f, -0.5f,  0.0f,
-                 -1.0f, -1.0f,  0.0f,
+     0.0f,  0.0f,  -1.0f,
+     0.0f, -0.5f,  0.0f,
+    -1.0f, -1.0f,  0.0f,
 
-                  0.0f,  0.0f,  -1.0f,
-                  1.0f, -1.0f,  0.0f,
-                  0.0f, -0.5f,  0.0f
-               };
+     0.0f,  0.0f,  -1.0f,
+     1.0f, -1.0f,  0.0f,
+     0.0f, -0.5f,  0.0f
+  };
 
   m_normals.resize(m_vertices.size());
   for (size_t triangle = 0; triangle < m_vertices.size() / 9; ++triangle)

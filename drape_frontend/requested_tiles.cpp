@@ -27,6 +27,12 @@ ScreenBase RequestedTiles::GetScreen()
   return m_screen;
 }
 
+bool RequestedTiles::Is3dBuildings()
+{
+  lock_guard<mutex> lock(m_mutex);
+  return m_is3dBuildings;
+}
+
 bool RequestedTiles::CheckTileKey(TileKey const & tileKey) const
 {
   lock_guard<mutex> lock(m_mutex);

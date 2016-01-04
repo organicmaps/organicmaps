@@ -34,7 +34,7 @@ namespace df
 
 namespace
 {
-
+constexpr float kIsometryAngle = math::pi * 80.0f / 180.0f;
 const double VSyncInterval = 0.06;
 //const double VSyncInterval = 0.014;
 
@@ -523,7 +523,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       if (m_enablePerspectiveInNavigation == msg->AllowPerspective() &&
           m_enablePerspectiveInNavigation != isPerspective)
       {
-
         if (m_enablePerspectiveInNavigation)
           AddUserEvent(EnablePerspectiveEvent(msg->GetRotationAngle(), msg->GetAngleFOV(),
                                               false /* animated */, true /* immediately start */));
@@ -943,7 +942,7 @@ void FrontendRenderer::RefreshPivotTransform(ScreenBase const & screen)
   else if (m_isIsometry)
   {
     math::Matrix<float, 4, 4> transform(math::Identity<float, 4>());
-    transform(2, 1) = -1.0f/tan(M_PI * 80.0f / 180.0f);
+    transform(2, 1) = -1.0f / tan(kIsometryAngle);
     transform(2, 2) = 1.0f / screen.GetHeight();
     m_generalUniforms.SetMatrix4x4Value("pivotTransform", transform.m_data);
   }
@@ -957,7 +956,7 @@ void FrontendRenderer::RefreshPivotTransform(ScreenBase const & screen)
 void FrontendRenderer::RefreshBgColor()
 {
   uint32_t color = drule::rules().GetBgColor(df::GetDrawTileScale(m_userEventStream.GetCurrentScreen()));
-  dp::Color c = dp::Extract(color, 255 - (color >> 24));
+  dp::Color c = dp::Extract(color, 0 /*255 - (color >> 24)*/);
   GLFunctions::glClearColor(c.GetRedF(), c.GetGreenF(), c.GetBlueF(), 0.0f);
 }
 
@@ -1274,6 +1273,8 @@ void FrontendRenderer::ReleaseResources()
   m_myPositionController.reset();
   m_selectionShape.release();
   m_routeRenderer.reset();
+  m_framebuffer.reset();
+  m_transparentLayer.reset();
 
   m_gpuProgramManager.reset();
   m_contextFactory->getDrawContext()->doneCurrent();
