@@ -11,21 +11,22 @@
 {
   UICollectionViewLayoutAttributes * attr =
       [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
-  CGSize const size = self.collectionView.frame.size;
+  CGPoint origin = {};
+  CGSize size = self.collectionView.frame.size;
   CGFloat const position = (CGFloat)indexPath.item / self.buttonsCount;
   attr.hidden = (size.width == 0.0 || size.height == 0.0);
   if (size.width > self.layoutThreshold)
   {
-    CGFloat const xPos = nearbyint(position * size.width);
-    CGFloat const width = nearbyint(size.width / self.buttonsCount);
-    attr.frame = {{xPos, 0.0}, {width, size.height}};
+    origin = {nearbyint(position * size.width), 0.0};
+    size.width = nearbyint(size.width / self.buttonsCount);
   }
   else
   {
-    CGFloat const yPos = nearbyint(position * size.height);
-    CGFloat const height = nearbyint(size.height / self.buttonsCount);
-    attr.frame = {{0.0, yPos}, {size.width, height}};
+    origin = {0.0, nearbyint(position * size.height)};
+    size.height = nearbyint(size.height / self.buttonsCount);
   }
+  NSAssert(!CGSizeEqualToSize(size, CGSizeZero), @"Invalid cell size");
+  attr.frame = {origin, size};
   return attr;
 }
 
