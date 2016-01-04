@@ -278,8 +278,32 @@ namespace
 
 string FeatureType::DebugString(int scale) const
 {
-  return base_type::DebugString() + "; Center = " +
-         DebugPrint(MercatorBounds::ToLatLon(feature::GetCenter(*this, scale)));
+  ParseGeometryAndTriangles(scale);
+
+  string s = base_type::DebugString();
+
+  switch (GetFeatureType())
+  {
+  case GEOM_POINT:
+    s += (" Center:" + DebugPrint(m_center));
+    break;
+
+  case GEOM_LINE:
+    s += " Points:";
+    Points2String(s, m_points);
+    break;
+
+  case GEOM_AREA:
+    s += " Triangles:";
+    Points2String(s, m_triangles);
+    break;
+
+  case GEOM_UNDEFINED:
+    ASSERT(false, ("Assume that we have valid feature always"));
+    break;
+  }
+
+  return s;
 }
 
 string DebugPrint(FeatureType const & ft)
@@ -289,7 +313,7 @@ string DebugPrint(FeatureType const & ft)
 
 bool FeatureType::IsEmptyGeometry(int scale) const
 {
-  ParseAll(scale);
+  ParseGeometryAndTriangles(scale);
 
   switch (GetFeatureType())
   {
@@ -301,7 +325,7 @@ bool FeatureType::IsEmptyGeometry(int scale) const
 
 m2::RectD FeatureType::GetLimitRect(int scale) const
 {
-  ParseAll(scale);
+  ParseGeometryAndTriangles(scale);
 
   if (m_triangles.empty() && m_points.empty() && (GetFeatureType() != GEOM_POINT))
   {
@@ -314,7 +338,7 @@ m2::RectD FeatureType::GetLimitRect(int scale) const
   return m_limitRect;
 }
 
-void FeatureType::ParseAll(int scale) const
+void FeatureType::ParseGeometryAndTriangles(int scale) const
 {
   ParseGeometry(scale);
   ParseTriangles(scale);

@@ -322,7 +322,7 @@ public:
   }
 
 private:
-  void ParseAll(int scale) const;
+  void ParseGeometryAndTriangles(int scale) const;
 
   // For better result this value should be greater than 17
   // (number of points in inner triangle-strips).
