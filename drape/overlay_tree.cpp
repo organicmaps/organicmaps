@@ -90,6 +90,10 @@ void OverlayTree::StartOverlayPlacing(ScreenBase const & screen)
   ASSERT(IsNeedUpdate(), ());
   Clear();
   m_traits.m_modelView = screen;
+
+#ifdef COLLECT_DISPLACEMENT_INFO
+  m_displacementInfo.clear();
+#endif
 }
 
 void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
@@ -165,7 +169,21 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
       {
         // Handle is displaced and bound to its parent, parent will be displaced too.
         if (boundToParent)
+        {
           Erase(parentOverlay);
+
+        #ifdef COLLECT_DISPLACEMENT_INFO
+          m_displacementInfo.emplace_back(DisplacementData(handle->GetPixelRect(modelView, is3dMode).Center(),
+                                                           parentOverlay.m_handle->GetPixelRect(modelView, is3dMode).Center(),
+                                                           dp::Color(0, 255, 0, 255)));
+        #endif
+        }
+
+      #ifdef COLLECT_DISPLACEMENT_INFO
+        m_displacementInfo.emplace_back(DisplacementData(info.m_handle->GetPixelRect(modelView, is3dMode).Center(),
+                                                         handle->GetPixelRect(modelView, is3dMode).Center(),
+                                                         dp::Color(0, 0, 255, 255)));
+      #endif
         return;
       }
     }
@@ -175,8 +193,16 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
   for (auto const & info : elements)
     AddHandleToDelete(info);
 
-  for (auto const & handle : m_handlesToDelete)
-    Erase(handle);
+  for (auto const & handleToDelete : m_handlesToDelete)
+  {
+    Erase(handleToDelete);
+
+#ifdef COLLECT_DISPLACEMENT_INFO
+  m_displacementInfo.emplace_back(DisplacementData(handle->GetPixelRect(modelView, is3dMode).Center(),
+                                                   handleToDelete.m_handle->GetPixelRect(modelView, is3dMode).Center(),
+                                                   dp::Color(0, 0, 255, 255)));
+#endif
+  }
 
   m_handlesToDelete.clear();
 
@@ -294,5 +320,14 @@ void OverlayTree::SetFollowingMode(bool mode)
 {
   m_followingMode = mode;
 }
+
+#ifdef COLLECT_DISPLACEMENT_INFO
+
+OverlayTree::TDisplacementInfo const & OverlayTree::GetDisplacementInfo() const
+{
+  return m_displacementInfo;
+}
+
+#endif
 
 } // namespace dp

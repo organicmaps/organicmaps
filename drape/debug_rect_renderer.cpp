@@ -106,12 +106,65 @@ void DebugRectRenderer::DrawRect(ScreenBase const & screen, m2::RectF const & re
   GLFunctions::glBufferData(gl_const::GLArrayBuffer, vertices.size() * sizeof(vertices[0]),
                             vertices.data(), gl_const::GLStaticDraw);
 
+  int8_t const location = m_program->GetUniformLocation("u_color");
+  if (location >= 0)
+    GLFunctions::glUniformValuef(location, 1.0, 0.0, 0.0, 1.0);
+
   GLFunctions::glDrawArrays(gl_const::GLLineStrip, 0, vertices.size());
 
   GLFunctions::glEnable(gl_const::GLDepthTest);
 
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
   GLFunctions::glBindVertexArray(0);
+
+  m_program->Unbind();
 }
+
+#ifdef COLLECT_DISPLACEMENT_INFO
+
+void DebugRectRenderer::DrawArrow(ScreenBase const & screen, OverlayTree::DisplacementData const & data) const
+{
+  if (!m_isEnabled)
+    return;
+
+  if (data.m_arrowStart.EqualDxDy(data.m_arrowEnd, 1e-5))
+    return;
+
+  ASSERT(m_program != nullptr, ());
+  m_program->Bind();
+
+  GLFunctions::glBindBuffer(m_vertexBuffer, gl_const::GLArrayBuffer);
+  GLFunctions::glBindVertexArray(m_VAO);
+
+  GLFunctions::glDisable(gl_const::GLDepthTest);
+
+  array<m2::PointF, 5> vertices;
+  m2::PointF const dir = (data.m_arrowEnd - data.m_arrowStart).Normalize();
+  m2::PointF const side = m2::PointF(-dir.y, dir.x);
+  vertices[0] = PixelPointToScreenSpace(screen, data.m_arrowStart);
+  vertices[1] = PixelPointToScreenSpace(screen, data.m_arrowEnd);
+  vertices[2] = PixelPointToScreenSpace(screen, data.m_arrowEnd - dir * 20 + side * 10);
+  vertices[3] = vertices[1];
+  vertices[4] = PixelPointToScreenSpace(screen, data.m_arrowEnd - dir * 20 - side * 10);
+
+  GLFunctions::glBufferData(gl_const::GLArrayBuffer, vertices.size() * sizeof(vertices[0]),
+                            vertices.data(), gl_const::GLStaticDraw);
+
+  int8_t const location = m_program->GetUniformLocation("u_color");
+  if (location >= 0)
+    GLFunctions::glUniformValuef(location, data.m_arrowColor.GetRedF(), data.m_arrowColor.GetGreenF(),
+                                 data.m_arrowColor.GetBlueF(), data.m_arrowColor.GetAlfaF());
+
+  GLFunctions::glDrawArrays(gl_const::GLLineStrip, 0, vertices.size());
+
+  GLFunctions::glEnable(gl_const::GLDepthTest);
+
+  GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
+  GLFunctions::glBindVertexArray(0);
+
+  m_program->Unbind();
+}
+
+#endif
 
 } // namespace dp

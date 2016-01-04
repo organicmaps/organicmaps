@@ -890,6 +890,11 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
   GLFunctions::glEnable(gl_const::GLDepthTest);
 
+#if defined(RENDER_DEBUG_RECTS) && defined(COLLECT_DISPLACEMENT_INFO)
+  for (auto const & arrow : m_overlayTree->GetDisplacementInfo())
+    dp::DebugRectRenderer::Instance().DrawArrow(modelView, arrow);
+#endif
+
 #ifdef DRAW_INFO
   AfterDrawFrame();
 #endif

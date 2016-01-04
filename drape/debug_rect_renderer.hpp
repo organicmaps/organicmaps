@@ -1,6 +1,7 @@
 #pragma once
 
 #include "drape/gpu_program_manager.hpp"
+#include "drape/overlay_tree.hpp"
 #include "drape/pointers.hpp"
 
 #include "geometry/rect2d.hpp"
@@ -22,6 +23,10 @@ public:
   void SetEnabled(bool enabled);
 
   void DrawRect(ScreenBase const & screen, m2::RectF const & rect) const;
+
+#ifdef COLLECT_DISPLACEMENT_INFO
+  void DrawArrow(ScreenBase const & screen, OverlayTree::DisplacementData const & data) const;
+#endif
 
 private:
   DebugRectRenderer();
