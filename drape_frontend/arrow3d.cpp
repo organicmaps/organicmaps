@@ -7,6 +7,7 @@
 #include "drape/glstate.hpp"
 #include "drape/gpu_program_manager.hpp"
 #include "drape/shader_def.hpp"
+#include "drape/texture_manager.hpp"
 #include "drape/uniform_values_storage.hpp"
 
 #include "geometry/screenbase.hpp"
@@ -86,6 +87,11 @@ void Arrow3d::SetSize(uint32_t width, uint32_t height)
 {
   m_pixelWidth = width;
   m_pixelHeight = height;
+}
+
+void Arrow3d::SetTexture(ref_ptr<dp::TextureManager> texMng)
+{
+  m_state.SetColorTexture(texMng->GetSymbolsTexture());
 }
 
 void Arrow3d::Build(ref_ptr<dp::GpuProgram> prg)

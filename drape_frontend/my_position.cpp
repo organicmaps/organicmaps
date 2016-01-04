@@ -199,6 +199,7 @@ void MyPosition::CachePointPosition(ref_ptr<dp::TextureManager> mng)
   m2::PointF routingArrowHalfSize = m2::PointF(routingArrowSymbol.GetPixelSize()) * 0.5f;
 
   m_arrow3d.SetSize(routingArrowSymbol.GetPixelSize().x, routingArrowSymbol.GetPixelSize().y);
+  m_arrow3d.SetTexture(mng);
 
   Vertex routingArrowData[4]=
   {

@@ -70,7 +70,7 @@ public:
         pos = screen.GtoP(pos);
         if (!screen.PixelRect().IsPointInside(pos))
         {
-          if (foundOffset = CalculateOffsets(pixelSpline, startIndex, pixelOffset))
+          if ((foundOffset = CalculateOffsets(pixelSpline, startIndex, pixelOffset)))
             break;
 
           pixelSpline = m2::Spline(m_spline->GetSize());
