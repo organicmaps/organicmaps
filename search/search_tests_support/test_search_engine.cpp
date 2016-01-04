@@ -60,7 +60,7 @@ TestSearchEngine::TestSearchEngine(string const & locale)
 }
 
 TestSearchEngine::TestSearchEngine(string const & locale,
-                                   unique_ptr<storage::CountryInfoGetter> && infoGetter)
+                                   unique_ptr<storage::CountryInfoGetter> infoGetter)
   : m_platform(GetPlatform())
   , m_infoGetter(move(infoGetter))
   , m_engine(*this, m_platform.GetReader(SEARCH_CATEGORIES_FILE_NAME), *m_infoGetter, locale,
@@ -69,10 +69,20 @@ TestSearchEngine::TestSearchEngine(string const & locale,
 }
 
 TestSearchEngine::TestSearchEngine(string const & locale,
-                                   unique_ptr<storage::CountryInfoGetter> && infoGetter,
-                                   unique_ptr<::search::SearchQueryFactory> && factory)
+                                   unique_ptr<storage::CountryInfoGetter> infoGetter,
+                                   unique_ptr<::search::SearchQueryFactory> factory)
   : m_platform(GetPlatform())
   , m_infoGetter(move(infoGetter))
+  , m_engine(*this, m_platform.GetReader(SEARCH_CATEGORIES_FILE_NAME), *m_infoGetter, locale,
+             move(factory))
+{
+}
+
+TestSearchEngine::TestSearchEngine(string const & locale,
+                                   unique_ptr<::search::SearchQueryFactory> factory)
+  : m_platform(GetPlatform())
+  , m_infoGetter(new storage::CountryInfoReader(m_platform.GetReader(PACKED_POLYGONS_FILE),
+                                                m_platform.GetReader(COUNTRIES_FILE)))
   , m_engine(*this, m_platform.GetReader(SEARCH_CATEGORIES_FILE_NAME), *m_infoGetter, locale,
              move(factory))
 {

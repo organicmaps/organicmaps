@@ -16,10 +16,13 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
+#include "coding/file_name_utils.hpp"
+
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 
-#include "std/cstdio.hpp"
+#include "std/fstream.hpp"
+#include "std/iostream.hpp"
 #include "std/numeric.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
@@ -28,7 +31,6 @@
 
 using namespace search::tests_support;
 
-#pragma mark Define options
 DEFINE_string(data_path, "", "Path to data directory (resources dir)");
 DEFINE_string(locale, "en", "Locale of all the search queries");
 DEFINE_string(mwm_list_path, "", "Path to a file containing the names of available mwms, one per line");
@@ -36,8 +38,8 @@ DEFINE_string(mwm_path, "", "Path to mwm files (writable dir)");
 DEFINE_string(queries_path, "", "Path to the file with queries");
 DEFINE_int32(top, 1, "Number of top results to show for every query");
 
-size_t const kNumTopResults = 5;
 string const kDefaultQueriesPathSuffix = "/../search/search_quality_tests/queries.txt";
+string const kEmptyResult = "<empty>";
 
 class SearchQueryV2Factory : public search::SearchQueryFactory
 {
@@ -50,52 +52,43 @@ class SearchQueryV2Factory : public search::SearchQueryFactory
   }
 };
 
-unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter()
-{
-  Platform & platform = GetPlatform();
-  return make_unique<storage::CountryInfoReader>(platform.GetReader(PACKED_POLYGONS_FILE),
-                                                 platform.GetReader(COUNTRIES_FILE));
-}
-
 void ReadStringsFromFile(string const & path, vector<string> & result)
 {
-  FILE * f = fopen(path.data(), "r");
-  CHECK(f != nullptr, ("Error when reading strings from", path, ":", string(strerror(errno))));
-  MY_SCOPE_GUARD(cleanup, [&]
-                 {
-                   fclose(f);
-                 });
+  ifstream stream(path.c_str());
+  CHECK(stream.is_open(), ("Can't open", path));
 
-  int const kBufSize = 1 << 20;
-  char buf[kBufSize];
-  while (fgets(buf, sizeof(buf), f))
+  string s;
+  while (getline(stream, s))
   {
-    string s(buf);
     strings::Trim(s);
     if (!s.empty())
-      result.push_back(s);
+      result.emplace_back(s);
   }
 }
 
+// If n == 1, prints the query and the top result separated by a tab.
+// Otherwise, prints the query on a separate line
+// and then prints n top results on n lines starting with tabs.
 void PrintTopResults(string const & query, vector<search::Result> const & results, size_t n)
 {
-  printf("%s", query.data());
-  for (size_t i = 0; i < n; i++)
+  cout << query;
+  for (size_t i = 0; i < n; ++i)
   {
     if (n > 1)
-      printf("\n");
-    printf("\t");
+      cout << endl;
+    cout << "\t";
     if (i < results.size())
       // todo(@m) Print more information: coordinates, viewport, etc.
-      printf("%s", results[i].GetString());
+      cout << results[i].GetString();
     else
-      printf("<empty>");
+      cout << kEmptyResult;
   }
-  printf("\n");
+  cout << endl;
 }
 
 int main(int argc, char * argv[])
 {
+  ios_base::sync_with_stdio(false);
   Platform & platform = GetPlatform();
 
   google::SetUsageMessage("Search quality tests.");
@@ -111,9 +104,8 @@ int main(int argc, char * argv[])
   LOG(LINFO, ("resources dir =", platform.ResourcesDir()));
 
   classificator::Load();
-  auto infoGetter = CreateCountryInfoGetter();
 
-  TestSearchEngine engine(FLAGS_locale, move(infoGetter), make_unique<SearchQueryV2Factory>());
+  TestSearchEngine engine(FLAGS_locale, make_unique<SearchQueryV2Factory>());
 
   vector<platform::LocalCountryFile> mwms;
   if (!FLAGS_mwm_list_path.empty())
@@ -139,7 +131,7 @@ int main(int argc, char * argv[])
   vector<string> queries;
   string queriesPath = FLAGS_queries_path;
   if (queriesPath.empty())
-    queriesPath = platform.WritableDir() + kDefaultQueriesPathSuffix;
+    queriesPath = my::JoinFoldersToPath(platform.WritableDir(), kDefaultQueriesPathSuffix);
   ReadStringsFromFile(queriesPath, queries);
 
   for (string const & query : queries)

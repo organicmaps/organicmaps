@@ -14,6 +14,8 @@ using std::cerr;
 using std::istream;
 using std::ostream;
 
+using std::ios_base;
+
 #ifndef OMIM_OS_ANDROID
   using std::wcin;
   using std::wcout;
