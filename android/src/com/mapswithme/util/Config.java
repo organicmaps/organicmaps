@@ -266,10 +266,10 @@ public final class Config
   public static String getCurrentUiTheme()
   {
     String res = getString(KEY_MISC_UI_THEME, ThemeUtils.THEME_DEFAULT);
-    if (!ThemeUtils.isValidTheme(res))
-      res = ThemeUtils.THEME_DEFAULT;
+    if (ThemeUtils.isValidTheme(res))
+      return res;
 
-    return res;
+    return ThemeUtils.THEME_DEFAULT;
   }
 
   public static void setCurrentUiTheme(String theme)
@@ -284,10 +284,10 @@ public final class Config
   public static String getUiThemeSettings()
   {
     String res = getString(KEY_MISC_UI_THEME_SETTINGS, ThemeUtils.THEME_DEFAULT);
-    if (!ThemeUtils.isValidTheme(res) && !ThemeUtils.isAutoTheme(res))
-      res = ThemeUtils.THEME_DEFAULT;
+    if (ThemeUtils.isValidTheme(res) || ThemeUtils.isAutoTheme(res))
+      return res;
 
-    return res;
+    return ThemeUtils.THEME_DEFAULT;
   }
 
   public static boolean setUiThemeSettings(String theme)
