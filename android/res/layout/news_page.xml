@@ -3,45 +3,54 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="wrap_content"
-  android:layout_height="wrap_content">
+  android:layout_height="match_parent">
   <LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_gravity="center">
-    <TextView
-      android:id="@+id/title"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginLeft="@dimen/margin_base"
-      android:layout_marginRight="@dimen/margin_base"
-      android:layout_marginBottom="@dimen/margin_base_plus"
-      android:textAppearance="@style/MwmTextAppearance.Title"
-      android:layout_gravity="center_horizontal"
-      android:gravity="center_horizontal"
-      android:fontFamily="@string/robotoMedium"
-      tools:text="@string/whats_new_where_to_turn"/>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="0dp"
+                 android:layout_weight="1">
+      <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+        <TextView
+          android:id="@+id/title"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/margin_base"
+          android:layout_marginRight="@dimen/margin_base"
+          android:layout_marginBottom="@dimen/margin_base_plus"
+          android:textAppearance="@style/MwmTextAppearance.Title"
+          android:layout_gravity="center_horizontal"
+          android:gravity="center_horizontal"
+          android:fontFamily="@string/robotoMedium"
+          tools:text="@string/whats_new_3d_title"/>
 
-    <ImageView
-      android:id="@+id/image"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/margin_base_plus"
-      android:layout_gravity="center_horizontal"
-      android:tag="@string/tag_height_limited"
-      tools:src="@drawable/img_news_p2p"/>
+        <ImageView
+          android:id="@+id/image"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/margin_base_plus"
+          android:layout_gravity="center_horizontal"
+          android:tag="@string/tag_height_limited"
+          tools:src="@drawable/img_news_p2p"/>
 
-    <TextView
-      android:id="@+id/subtitle"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/margin_base_plus"
-      android:layout_marginLeft="@dimen/margin_base"
-      android:layout_marginRight="@dimen/margin_base"
-      android:textAppearance="@style/MwmTextAppearance.Body2"
-      android:layout_gravity="center_horizontal"
-      android:gravity="center_horizontal"
-      tools:text="@string/whats_new_voice_instructions"/>
+        <TextView
+          android:id="@+id/subtitle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_base_plus"
+          android:layout_marginLeft="@dimen/margin_base"
+          android:layout_marginRight="@dimen/margin_base"
+          android:textAppearance="@style/MwmTextAppearance.Body2"
+          android:layout_gravity="center_horizontal"
+          android:gravity="center_horizontal"
+          tools:text="@string/whats_new_3d_subtitle"/>
+      </LinearLayout>
+    </FrameLayout>
 
     <RelativeLayout
       android:id="@+id/switch_block"
@@ -57,7 +66,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        android:checked="true"/>
 
       <TextView
         android:id="@+id/switch_title"
@@ -71,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/switch_title"
-        android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
+        android:textAppearance="@style/MwmTextAppearance.Body2"
         tools:text="Switch block subtitle"/>
     </RelativeLayout>
   </LinearLayout>

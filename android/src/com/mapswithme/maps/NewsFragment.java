@@ -19,6 +19,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.UiUtils;
@@ -62,7 +63,7 @@ public class NewsFragment extends BaseMwmDialogFragment
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position)
+    public Object instantiateItem(ViewGroup container, final int position)
     {
       View res = LayoutInflater.from(getActivity()).inflate(R.layout.news_page, container, false);
 
@@ -93,7 +94,15 @@ public class NewsFragment extends BaseMwmDialogFragment
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
+              Framework.Params3dMode _3d = new Framework.Params3dMode();
+              Framework.nativeGet3dMode(_3d);
 
+              if (position == 0)
+                _3d.enabled = isChecked;
+              else
+                _3d.buildings = isChecked;
+
+              Framework.nativeSet3dMode(_3d.enabled, _3d.buildings);
             }
           });
 
@@ -239,6 +248,9 @@ public class NewsFragment extends BaseMwmDialogFragment
       return (activity.getSupportFragmentManager().findFragmentByTag(tag) != null);
 
     Config.setWhatsNewShown();
+
+    // Enable 3D by default
+    Framework.nativeSet3dMode(true, true);
 
     try
     {

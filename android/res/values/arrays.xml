@@ -47,22 +47,22 @@
   </integer-array>
 
   <string-array name="news_titles">
-    <item>@string/whats_new_where_to_turn</item>
-    <item>@string/whats_new_between_any_points</item>
+    <item>@string/whats_new_3d_title</item>
+    <item>@string/whats_new_3d_buildings_title</item>
   </string-array>
 
   <string-array name="news_subtitles">
-    <item>@string/whats_new_voice_instructions</item>
-    <item>@string/whats_new_happy_day</item>
+    <item>@string/whats_new_3d_subtitle</item>
+    <item>@string/whats_new_3d_buildings_subtitle</item>
   </string-array>
 
   <string-array name="news_switch_titles">
-    <item>Title</item>
-    <item></item>
+    <item>@string/whats_new_3d_switch_title</item>
+    <item>@string/whats_new_3d_buildings_switch_title</item>
   </string-array>
 
   <string-array name="news_switch_subtitles">
-    <item>Subtitle</item>
-    <item></item>
+    <item>@string/whats_new_3d_switch_subtitle</item>
+    <item>@string/whats_new_3d_buildings_switch_subtitle</item>
   </string-array>
 </resources>
