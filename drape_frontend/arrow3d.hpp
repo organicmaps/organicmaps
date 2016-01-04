@@ -11,6 +11,7 @@ namespace dp
 {
 class GpuProgram;
 class GpuProgramManager;
+class TextureManager;
 }
 
 class ScreenBase;
@@ -27,6 +28,7 @@ public:
   void SetPosition(m2::PointD const & position);
   void SetAzimuth(double azimuth);
   void SetSize(uint32_t width, uint32_t height);
+  void SetTexture(ref_ptr<dp::TextureManager> texMng);
 
   void Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng);
 
