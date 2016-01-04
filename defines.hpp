@@ -11,6 +11,7 @@
 #define NODES_FILE "nodes.dat"
 #define WAYS_FILE "ways.dat"
 #define RELATIONS_FILE "relations.dat"
+#define TOWNS_FILE "towns.csv"
 #define OFFSET_EXT ".offs"
 #define ID2REL_EXT ".id2rel"
 
