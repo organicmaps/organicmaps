@@ -87,11 +87,11 @@ UNIT_TEST(SearchQueryV2_Smoke)
       vector<m2::PointD>{m2::PointD(9.999, 10.001), m2::PointD(10, 10), m2::PointD(10.001, 9.999)},
       "Bohr street", "en");
   auto const bohrStreet2 = make_shared<TestStreet>(
-      vector<m2::PointD>{m2::PointD(10.001, 9.999), m2::PointD(10, 10), m2::PointD(10.002, 9.998)},
-      "Bohr street", "en");
+      vector<m2::PointD>{m2::PointD(10.001, 9.999), m2::PointD(10.002, 9.998)}, "Bohr street",
+      "en");
   auto const bohrStreet3 = make_shared<TestStreet>(
-      vector<m2::PointD>{m2::PointD(10.002, 9.998), m2::PointD(10, 10), m2::PointD(10.003, 9.997)},
-      "Bohr street", "en");
+      vector<m2::PointD>{m2::PointD(10.002, 9.998), m2::PointD(10.003, 9.997)}, "Bohr street",
+      "en");
   auto const feynmanHouse = make_shared<TestBuilding>(m2::PointD(10, 10), "Feynman house 1 unit 1",
                                                       "1 unit 1", *feynmanStreet, "en");
   auto const bohrHouse = make_shared<TestBuilding>(m2::PointD(10, 10), "Bohr house 1 unit 1 ",

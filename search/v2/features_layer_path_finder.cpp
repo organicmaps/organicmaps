@@ -23,10 +23,10 @@ uint64_t CalcPassCost(TIt begin, TIt end)
   if (begin == end)
     return cost;
 
-  uint64_t reachable = max((*begin)->m_sortedFeatures->size(), static_cast<uint64_t>(1));
+  uint64_t reachable = max((*begin)->m_sortedFeatures->size(), size_t(1));
   for (++begin; begin != end; ++begin)
   {
-    uint64_t const layer = max((*begin)->m_sortedFeatures->size(), static_cast<uint64_t>(1));
+    uint64_t const layer = max((*begin)->m_sortedFeatures->size(), size_t(1));
     cost += layer * reachable;
     reachable = min(reachable, layer);
   }
@@ -97,6 +97,11 @@ void FeaturesLayerPathFinder::FindReachableVerticesTopDown(
     {
       vector<string> tokens;
       NormalizeHouseNumber(child.m_subQuery, tokens);
+
+      // When first token of |child.m_subQuery| looks like house
+      // number, additional search of matching buildings must be
+      // performed during POI-BUILDING or BUILDING-STREET
+      // intersections.
       bool const looksLikeHouseNumber = !tokens.empty() && feature::IsHouseNumber(tokens.front());
       child.m_hasDelayedFeatures = looksLikeHouseNumber;
     }

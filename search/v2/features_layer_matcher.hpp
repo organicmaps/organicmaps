@@ -92,7 +92,7 @@ private:
   template <typename TFn>
   void MatchPOIsWithBuildings(FeaturesLayer const & child, FeaturesLayer const & parent, TFn && fn)
   {
-    // Following code initially loads centers of POIs, and, then, for
+    // Following code initially loads centers of POIs and then, for
     // each building, tries to find all POIs located at distance less
     // than kBuildingRadiusMeters.
 
@@ -142,18 +142,24 @@ private:
     if (!parent.m_hasDelayedFeatures)
       return;
 
-    // |buildings| do not contain buildings matching by house number, so
-    // following code reads buildings in POIs vicinities and checks
+    // |buildings| doesn't contain buildings matching by house number,
+    // so following code reads buildings in POIs vicinities and checks
     // house numbers.
     auto const & mwmId = m_context.m_handle.GetId();
     vector<string> queryTokens;
     NormalizeHouseNumber(parent.m_subQuery, queryTokens);
 
+    vector<ReverseGeocoder::Building> nearbyBuildings;
     for (size_t i = 0; i < pois.size(); ++i)
     {
-      for (auto const & building : GetNearbyBuildings(poiCenters[i]))
+      // TODO (@y, @m, @vng): implement a faster version
+      // ReverseGeocoder::GetNearbyBuildings() for only one (current)
+      // map.
+      nearbyBuildings.clear();
+      m_reverseGeocoder.GetNearbyBuildings(poiCenters[i], kBuildingRadiusMeters, nearbyBuildings);
+      for (auto const & building : nearbyBuildings)
       {
-        if (building.m_id.m_mwmId != mwmId)
+        if (building.m_id.m_mwmId != mwmId || building.m_distanceMeters > kBuildingRadiusMeters)
           continue;
         if (HouseNumbersMatch(building.m_name, queryTokens))
           fn(pois[i], building.m_id.m_index);
@@ -170,17 +176,23 @@ private:
     auto const & pois = *child.m_sortedFeatures;
     auto const & streets = *parent.m_sortedFeatures;
 
-    // When number of POIs less than number of STREETs, it's faster to
-    // check nearby streets for POIs.
+    // When the number of POIs is less than the number of STREETs,
+    // it's faster to check nearby streets for POIs.
     if (pois.size() < streets.size())
     {
       auto const & mwmId = m_context.m_handle.GetId();
       for (uint32_t poiId : pois)
       {
+        // TODO (@y, @m, @vng): implement a faster version
+        // ReverseGeocoder::GetNearbyStreets() for only one (current)
+        // map.
         for (auto const & street : GetNearbyStreets(poiId))
         {
-          if (street.m_id.m_mwmId != mwmId)
+          if (street.m_id.m_mwmId != mwmId ||
+              street.m_distanceMeters > ReverseGeocoder::kLookupRadiusM)
+          {
             continue;
+          }
 
           uint32_t const streetId = street.m_id.m_index;
           if (binary_search(streets.begin(), streets.end(), streetId))
@@ -207,10 +219,10 @@ private:
     auto const & buildings = *child.m_sortedFeatures;
     auto const & streets = *parent.m_sortedFeatures;
 
-    // When all buildings are in |buildings| and number of buildins
-    // less than number of streets, it's probably faster to check
-    // nearby streets for each building instead of street vicinities
-    // loading.
+    // When all buildings are in |buildings| and the number of
+    // buildings less than the number of streets, it's probably faster
+    // to check nearby streets for each building instead of street
+    // vicinities loading.
     if (!child.m_hasDelayedFeatures && buildings.size() < streets.size())
     {
       auto const & streets = *parent.m_sortedFeatures;
@@ -238,7 +250,7 @@ private:
         return true;
 
       // HouseNumbersMatch() calls are expensive, so following code
-      // tries to reduce number of calls. The most important
+      // tries to reduce the number of calls. The most important
       // optimization: as first tokens from the house-number part of
       // the query and feature's house numbers must be numbers, their
       // first symbols must be the same.
@@ -313,8 +325,6 @@ private:
   vector<ReverseGeocoder::Street> const & GetNearbyStreets(uint32_t featureId,
                                                            FeatureType & feature);
 
-  vector<ReverseGeocoder::Building> const & GetNearbyBuildings(m2::PointD const & center);
-
   uint32_t GetMatchingStreetImpl(uint32_t houseId, FeatureType & houseFeature);
 
   vector<ReverseGeocoder::Street> const & GetNearbyStreetsImpl(uint32_t featureId,
@@ -330,13 +340,8 @@ private:
   ReverseGeocoder m_reverseGeocoder;
 
   // Cache of streets in a feature's vicinity. All lists in the cache
-  // are ordered by distance from feature.
+  // are ordered by distance from the corresponding feature.
   unordered_map<uint32_t, vector<ReverseGeocoder::Street>> m_nearbyStreetsCache;
-
-  // Cache of buildings near in a POI's vicinity. All lists in the
-  // cache are ordered by distance from POI.
-  unordered_map<m2::PointD, vector<ReverseGeocoder::Building>, m2::PointD::Hash>
-      m_nearbyBuildingsCache;
 
   // Cache of correct streets for buildings. Current search algorithm
   // supports only one street for a building, whereas buildings can be

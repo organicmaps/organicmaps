@@ -68,18 +68,6 @@ vector<ReverseGeocoder::Street> const & FeaturesLayerMatcher::GetNearbyStreets(
   return GetNearbyStreetsImpl(featureId, feature);
 }
 
-vector<ReverseGeocoder::Building> const & FeaturesLayerMatcher::GetNearbyBuildings(
-    m2::PointD const & center)
-{
-  auto const it = m_nearbyBuildingsCache.find(center);
-  if (it != m_nearbyBuildingsCache.cend())
-    return it->second;
-
-  auto & buildings = m_nearbyBuildingsCache[center];
-  m_reverseGeocoder.GetNearbyBuildings(center, kBuildingRadiusMeters, buildings);
-  return buildings;
-}
-
 uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(uint32_t houseId, FeatureType & houseFeature)
 {
   auto const & streets = GetNearbyStreets(houseId, houseFeature);
