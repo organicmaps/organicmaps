@@ -650,7 +650,8 @@ void ApplyLineFeature::Finish()
     m2::Spline::iterator it = m_spline.CreateIterator();
     while (!it.BeginAgain())
     {
-      m_insertShape(make_unique_dp<TextShape>(it.m_pos, viewParams, false /* hasPOI */));
+      m_insertShape(make_unique_dp<TextShape>(it.m_pos, viewParams, false /* hasPOI */,
+                                              false /* affectedByZoomPriority */));
       it.Advance(splineStep);
     }
   }
