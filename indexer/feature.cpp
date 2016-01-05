@@ -42,53 +42,66 @@ FeatureType FeatureType::FromXML(string const & xml)
 FeatureType FeatureType::FromXML(editor::XMLFeature const & xml)
 {
   FeatureType feature;
+  // Should be set to true. Or later call to ParseGeometry will lead to crash.
   feature.m_bTrianglesParsed = feature.m_bPointsParsed = true;
-
   feature.m_center = xml.GetCenter();
 
-  xml.ForEachName([&feature](string const & lang, string const & name)
+  // Preset type for header calculation later in ApplyPatch.
+  feature.m_header = HEADER_GEOM_POINT;
+
+  feature.ApplyPatch(xml);
+
+  return feature;
+}
+
+void FeatureType::ApplyPatch(editor::XMLFeature const & xml)
+{
+  xml.ForEachName([this](string const & lang, string const & name)
                   {
-                    feature.m_params.name.AddString(lang, name);
+                    m_params.name.AddString(lang, name);
                   });
+
   string const house = xml.GetHouse();
   if (!house.empty())
-    feature.m_params.house.Set(house);
+    m_params.house.Set(house);
 
   // TODO(mgsergio):
-  // feature.m_params.ref =
-  // feature.m_params.layer =
-  // feature.m_params.rank =
-  feature.m_bCommonParsed = true;
-
-  // EGeomType
+  // m_params.ref =
+  // m_params.layer =
+  // m_params.rank =
+  m_bCommonParsed = true;
 
   auto const & types = osm::Editor::Instance().GetTypesOfFeature(xml);
-  copy(begin(types), end(types), begin(feature.m_types));
-  feature.m_bTypesParsed = true;
+  copy(begin(types), end(types), begin(m_types));
+  m_bTypesParsed = true;
 
   for (auto const i : my::Range(1u, static_cast<uint32_t>(feature::Metadata::FMD_COUNT)))
   {
     auto const type = static_cast<feature::Metadata::EType>(i);
     auto const attributeName = DebugPrint(type);
     if (xml.HasTag(attributeName))
-      feature.m_metadata.Set(type, xml.GetTagValue(attributeName));
+      m_metadata.Set(type, xml.GetTagValue(attributeName));
   }
-  feature.m_bMetadataParsed = true;
+  m_bMetadataParsed = true;
 
-  // TODO(mgsergio): Get types count and GeomType from xml.
-  // Only feature::GEOM_POINT is now supported.
+  // TODO(mgsergio): Get types count from xml.
   auto constexpr kOnlyOneTypeCount = 1;
-  feature.m_header = CalculateHeader(kOnlyOneTypeCount, feature::GEOM_POINT, feature.m_params);
-  feature.m_bHeader2Parsed = true;
-
-  return feature;
+  m_header = CalculateHeader(kOnlyOneTypeCount, Header() & HEADER_GEOTYPE_MASK, m_params);
+  m_bHeader2Parsed = true;
 }
 
 editor::XMLFeature FeatureType::ToXML() const
 {
   editor::XMLFeature feature;
 
-  feature.SetCenter(GetCenter());
+  // Save geom type to choose what to do later:
+  // deserialize or patch.
+  feature.SetGeomType(DebugPrint(GetFeatureType()));
+
+  // Only Poins are completely serialized and deserialized.
+  // Other types could only be patched.
+  if (GetFeatureType() == feature::GEOM_POINT)
+    feature.SetCenter(GetCenter());
 
   ForEachNameRef([&feature](uint8_t const & lang, string const & name)
                  {

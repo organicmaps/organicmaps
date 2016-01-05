@@ -114,7 +114,7 @@ namespace feature
   {
     return t.DebugPrint();
   }
-  uint8_t CalculateHeader(uint32_t const typesCount, uint8_t const geomType,
+  uint8_t CalculateHeader(uint32_t const typesCount, uint8_t const headerGeomType,
                           FeatureParamsBase const & params);
 }
 

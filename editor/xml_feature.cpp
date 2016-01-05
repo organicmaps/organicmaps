@@ -23,6 +23,7 @@ constexpr char const * kUploadTimestamp = "upload_timestamp";
 constexpr char const * kUploadStatus = "upload_status";
 constexpr char const * kUploadError = "upload_error";
 constexpr char const * kHouseNumber = "addr:housenumber";
+constexpr char const * kGeomType = "mapswithme:geom_type";
 
 pugi::xml_node FindTag(pugi::xml_document const & document, string const & key)
 {
@@ -86,6 +87,16 @@ XMLFeature::XMLFeature(pugi::xml_node const & xml)
   m_document.reset();
   m_document.append_copy(xml);
   ValidateNode(GetRootNode());
+}
+
+string XMLFeature::GetGeomType() const
+{
+  return GetTagValue(kGeomType);
+}
+
+void XMLFeature::SetGeomType(string const & type)
+{
+  SetTagValue(kGeomType, type);
 }
 
 void XMLFeature::Save(ostream & ost) const

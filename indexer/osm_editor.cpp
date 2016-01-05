@@ -38,8 +38,8 @@ namespace osm
 
 namespace
 {
-// TODO(mgsergio): Replace hard-coded value with reading from file.
 string GetEditorFilePath() { return GetPlatform().WritablePathForFile(kEditorXMLFileName); }
+// TODO(mgsergio): Replace hard-coded value with reading from file.
 static unordered_set<TStringPair, boost::hash<TStringPair>> const gConvertibleTypepairs = {
     {"aeroway", "aerodrome"},
     {"aeroway", "airport"},
@@ -238,9 +238,19 @@ void Editor::LoadMapEdits()
         {
           XMLFeature const xml(node);
           FeatureID const fid(id, xml.GetOffset());
-          auto & fti = m_features[id][fid.m_index];
+          FeatureTypeInfo fti;
 
-          fti.m_feature = FeatureType::FromXML(xml);
+          if (xml.GetGeomType() != DebugPrint(feature::GEOM_POINT))
+          {
+            // TODO(mgsergio): Check if feature can be read.
+            fti.m_feature = m_featureLoaderFn(fid);
+            fti.m_feature.ApplyPatch(xml);
+          }
+          else
+          {
+            fti.m_feature = FeatureType::FromXML(xml);
+          }
+
           fti.m_feature.SetID(fid);
 
           fti.m_modificationTimestamp = xml.GetModificationTime();
@@ -249,6 +259,12 @@ void Editor::LoadMapEdits()
           fti.m_uploadStatus = xml.GetUploadStatus();
           fti.m_uploadError = xml.GetUploadError();
           fti.m_status = section.first;
+
+          /// Install edited feature back to editor.
+          /// This instruction should be after calling m_featureLoaderFn cause
+          /// it'll try to return feature from editor first and if
+          /// it can't read it from disk.
+          m_features[id][fid.m_index] = fti;
         }
         catch (editor::XMLFeatureError const & ex)
         {
@@ -432,7 +448,7 @@ vector<Metadata::EType> Editor::EditableMetadataForType(FeatureType const & feat
   TTypes types;
   feature.ForEachType([&types](uint32_t type) { types.push_back(type); });
   // TODO(mgsergio): Only one-typed features are now supported.
-  if (types.size() != 1 || feature.GetFeatureType() != feature::GEOM_POINT)
+  if (types.size() != 1)
     return {};
 
   // Enable opening hours for the first release.

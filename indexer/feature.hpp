@@ -157,6 +157,9 @@ public:
   static FeatureType FromXML(string const & xml);
   static FeatureType FromXML(editor::XMLFeature const & xml);
 
+  /// Rewrites all but geometry.
+  void ApplyPatch(editor::XMLFeature const & xml);
+
   editor::XMLFeature ToXML() const;
 
   inline void SetID(FeatureID const & id) { m_id = id; }

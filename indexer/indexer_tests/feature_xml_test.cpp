@@ -73,6 +73,9 @@ UNIT_TEST(FeatureType_FromXMLAndBackToXML)
   <tag
     k="amenity"
     v="atm" />
+  <tag
+    k="mapswithme:geom_type"
+    v="GEOM_POINT" />
 </node>
 )";
 

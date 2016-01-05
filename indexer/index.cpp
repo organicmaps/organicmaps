@@ -120,17 +120,11 @@ bool Index::FeaturesLoaderGuard::IsWorld() const
 void Index::FeaturesLoaderGuard::GetFeatureByIndex(uint32_t index, FeatureType & ft) const
 {
   MwmId const & id = m_handle.GetId();
-  if (m_editor.GetFeatureStatus(id, index) == osm::Editor::FeatureStatus::Untouched)
-    GetFeatureByIndexIgnoringEditor(index, ft);
-  else
-    m_editor.GetEditedFeature(m_handle.GetId(), index, ft);
-}
-
-void Index::FeaturesLoaderGuard::GetFeatureByIndexIgnoringEditor(uint32_t index, FeatureType & ft) const
-{
-  MwmId const & id = m_handle.GetId();
   ASSERT_NOT_EQUAL(osm::Editor::FeatureStatus::Deleted, m_editor.GetFeatureStatus(id, index),
                    ("Deleted feature was cached. Please review your code."));
-  m_vector.GetByIndex(index, ft);
-  ft.SetID(FeatureID(id, index));
+  if (!m_editor.Instance().GetEditedFeature(id, index, ft))
+  {
+    m_vector.GetByIndex(index, ft);
+    ft.SetID(FeatureID(id, index));
+  }
 }

@@ -104,6 +104,7 @@ private:
   TMwmIdByMapNameFn m_mwmIdByMapNameFn;
   /// Invalidate map viewport after edits.
   TInvalidateFn m_invalidateFn;
+  /// Get FeatureType from mwm.
   TFeatureLoaderFn m_featureLoaderFn;
 };  // class Editor
 
@@ -117,5 +118,4 @@ inline string DebugPrint(Editor::FeatureStatus fs)
     case Editor::FeatureStatus::Created: return "Created";
   };
 }
-
 }  // namespace osm

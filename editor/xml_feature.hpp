@@ -33,11 +33,11 @@ public:
   XMLFeature(XMLFeature const & feature) : XMLFeature(feature.m_document) {}
   void Save(ostream & ost) const;
 
+  string GetGeomType() const;
+  void SetGeomType(string const & type);
+
   m2::PointD GetCenter() const;
   void SetCenter(m2::PointD const & mercatorCenter);
-
-  string GetType() const;
-  void SetType(string const & type);
 
   string GetName(string const & lang) const;
   string GetName(uint8_t const langCode = StringUtf8Multilang::DEFAULT_CODE) const;

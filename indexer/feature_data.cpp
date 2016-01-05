@@ -102,7 +102,7 @@ public:
 
 namespace feature
 {
-uint8_t CalculateHeader(uint32_t const typesCount, uint8_t const geomType,
+uint8_t CalculateHeader(uint32_t const typesCount, uint8_t const headerGeomType,
                         FeatureParamsBase const & params)
 {
   ASSERT(typesCount != 0, ("Feature should have at least one type."));
@@ -114,10 +114,10 @@ uint8_t CalculateHeader(uint32_t const typesCount, uint8_t const geomType,
   if (params.layer != 0)
     header |= HEADER_HAS_LAYER;
 
-  header |= geomType;
+  header |= headerGeomType;
 
   // Geometry type for additional info is only one.
-  switch (geomType)
+  switch (headerGeomType)
   {
   case HEADER_GEOM_POINT:
     if (params.rank != 0)

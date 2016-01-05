@@ -282,7 +282,6 @@ public:
     bool IsWorld() const;
     void GetFeatureByIndex(uint32_t index, FeatureType & ft) const;
     inline FeaturesVector const & GetFeaturesVector() const { return m_vector; }
-    void GetFeatureByIndexIgnoringEditor(uint32_t index, FeatureType & ft) const;
 
   private:
     MwmHandle m_handle;
