@@ -29,13 +29,14 @@ public:
                      dp::Anchor anchor, glsl::vec2 const & pivot,
                      glsl::vec2 const & pxSize, glsl::vec2 const & offset,
                      uint64_t priority, ref_ptr<dp::TextureManager> textureManager,
-                     bool isOptional, gpu::TTextDynamicVertexBuffer && normals,
-                     bool isBillboard = false)
+                     bool isOptional, bool affectedByZoomPriority,
+                     gpu::TTextDynamicVertexBuffer && normals, bool isBillboard = false)
     : TextHandle(id, text, anchor, priority, textureManager, move(normals), isBillboard)
     , m_pivot(glsl::ToPoint(pivot))
     , m_offset(glsl::ToPoint(offset))
     , m_size(glsl::ToPoint(pxSize))
     , m_isOptional(isOptional)
+    , m_affectedByZoomPriority(affectedByZoomPriority)
   {}
 
   m2::PointD GetPivot(ScreenBase const & screen, bool perspective) const override
@@ -98,6 +99,14 @@ public:
     rects.emplace_back(GetPixelRect(screen, perspective));
   }
 
+  uint64_t GetPriorityMask() const override
+  {
+    if (!m_affectedByZoomPriority)
+      return dp::kPriorityMaskManual | dp::kPriorityMaskRank;
+
+    return dp::kPriorityMaskAll;
+  }
+
   bool IsBound() const override
   {
     return !m_isOptional;
@@ -108,14 +117,17 @@ private:
   m2::PointF m_offset;
   m2::PointF m_size;
   bool m_isOptional;
+  bool m_affectedByZoomPriority;
 };
 
 } // namespace
 
-TextShape::TextShape(m2::PointF const & basePoint, TextViewParams const & params, bool hasPOI)
-  : m_basePoint(basePoint),
-    m_params(params),
-    m_hasPOI(hasPOI)
+TextShape::TextShape(m2::PointF const & basePoint, TextViewParams const & params,
+                     bool hasPOI, bool affectedByZoomPriority)
+  : m_basePoint(basePoint)
+  , m_params(params)
+  , m_hasPOI(hasPOI)
+  , m_affectedByZoomPriority(affectedByZoomPriority)
 {}
 
 void TextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
@@ -203,6 +215,7 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
                                                                            GetOverlayPriority(),
                                                                            textures,
                                                                            isOptional,
+                                                                           m_affectedByZoomPriority,
                                                                            move(dynamicBuffer),
                                                                            true);
   handle->SetPivotZ(m_params.m_posZ);
@@ -248,6 +261,7 @@ void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::Fon
                                                                            GetOverlayPriority(),
                                                                            textures,
                                                                            isOptional,
+                                                                           m_affectedByZoomPriority,
                                                                            move(dynamicBuffer),
                                                                            true);
   handle->SetPivotZ(m_params.m_posZ);

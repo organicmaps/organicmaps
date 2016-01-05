@@ -14,7 +14,8 @@ class StraightTextLayout;
 class TextShape : public MapShape
 {
 public:
-  TextShape(m2::PointF const & basePoint, TextViewParams const & params, bool hasPOI);
+  TextShape(m2::PointF const & basePoint, TextViewParams const & params,
+            bool hasPOI, bool affectedByZoomPriority = true);
 
   void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const override;
   MapShapePriority GetPriority() const override { return MapShapePriority::TextAndPoiPriority; }
@@ -36,6 +37,7 @@ private:
   m2::PointF m_basePoint;
   TextViewParams m_params;
   bool m_hasPOI;
+  bool m_affectedByZoomPriority;
 };
 
 } // namespace df
