@@ -85,8 +85,11 @@ public class NewsFragment extends BaseMwmDialogFragment
         ((TextView)switchBlock.findViewById(R.id.switch_title))
           .setText(text);
 
-        ((TextView)switchBlock.findViewById(R.id.switch_subtitle))
-          .setText(mSwitchSubtitles[position]);
+        TextView subtitle = (TextView)switchBlock.findViewById(R.id.switch_subtitle);
+        if (TextUtils.isEmpty(mSwitchSubtitles[position]))
+          UiUtils.hide(subtitle);
+        else
+          subtitle.setText(mSwitchSubtitles[position]);
 
         final SwitchCompat checkBox = (SwitchCompat)switchBlock.findViewById(R.id.switch_box);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()

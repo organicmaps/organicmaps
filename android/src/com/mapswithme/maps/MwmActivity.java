@@ -727,7 +727,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mSearchController.refreshToolbar();
     mPlacePage.onResume();
 
-//    if (!NewsFragment.showOn(this))
+    if (!NewsFragment.showOn(this))
       LikesManager.INSTANCE.showDialogs(this);
 
     mMainMenu.onResume();

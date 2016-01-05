@@ -43,10 +43,9 @@
           android:id="@+id/subtitle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/margin_base_plus"
           android:layout_marginLeft="@dimen/margin_base"
           android:layout_marginRight="@dimen/margin_base"
-          android:textAppearance="@style/MwmTextAppearance.Body2"
+          android:textAppearance="@style/MwmTextAppearance.Body1"
           android:layout_gravity="center_horizontal"
           android:gravity="center_horizontal"
           tools:text="@string/whats_new_3d_subtitle"/>
@@ -79,7 +78,7 @@
           android:id="@+id/switch_subtitle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:textAppearance="@style/MwmTextAppearance.Body2"
+          android:textAppearance="@style/MwmTextAppearance.Body3"
           android:singleLine="true"
           tools:text="Switch block subtitle"/>
       </LinearLayout>

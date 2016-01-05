@@ -31,12 +31,13 @@
 
   <CheckBoxPreference
     android:key="@string/pref_3d"
-    android:title="3D mode"
+    android:title="@string/pref_map_3d_title"
     android:order="5"/>
 
   <CheckBoxPreference
     android:key="@string/pref_3d_buildings"
-    android:title="3D buildings"
+    android:title="@string/pref_map_3d_buildings_title"
+    android:summary="@string/pref_map_3d_buildings_subtitle"
     android:order="6"/>
 
   <Preference
