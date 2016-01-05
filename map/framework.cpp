@@ -1283,8 +1283,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
       ActivateUserMark(mark, true);
   }
 
-  bool allow3d = true;
-  bool allow3dBuildings = true;
+  bool allow3d;
+  bool allow3dBuildings;
   Load3dMode(allow3d, allow3dBuildings);
   Allow3dMode(allow3d, allow3dBuildings);
 
@@ -2094,8 +2094,11 @@ void Framework::Save3dMode(bool allow3d, bool allow3dBuildings)
   Settings::Set(kAllow3dBuildingsKey, allow3dBuildings);
 }
 
-void Framework::Load3dMode(bool &allow3d, bool &allow3dBuildings)
+void Framework::Load3dMode(bool & allow3d, bool & allow3dBuildings)
 {
-  Settings::Get(kAllow3dKey, allow3d);
-  Settings::Get(kAllow3dBuildingsKey, allow3dBuildings);
+  if (!Settings::Get(kAllow3dKey, allow3d))
+    allow3d = true;
+
+  if (!Settings::Get(kAllow3dBuildingsKey, allow3dBuildings))
+    allow3dBuildings = true;
 }

@@ -96,21 +96,21 @@ public class NewsFragment extends BaseMwmDialogFragment
 
         final SwitchCompat checkBox = (SwitchCompat)switchBlock.findViewById(R.id.switch_box);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+          @Override
+          public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
           {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-            {
-              Framework.Params3dMode _3d = new Framework.Params3dMode();
-              Framework.nativeGet3dMode(_3d);
+            Framework.Params3dMode _3d = new Framework.Params3dMode();
+            Framework.nativeGet3dMode(_3d);
 
-              if (position == 0)
-                _3d.enabled = isChecked;
-              else
-                _3d.buildings = isChecked;
+            if (position == 0)
+              _3d.enabled = isChecked;
+            else
+              _3d.buildings = isChecked;
 
-              Framework.nativeSet3dMode(_3d.enabled, _3d.buildings);
-            }
-          });
+            Framework.nativeSet3dMode(_3d.enabled, _3d.buildings);
+          }
+        });
 
         switchBlock.setOnClickListener(new View.OnClickListener()
         {
@@ -120,7 +120,6 @@ public class NewsFragment extends BaseMwmDialogFragment
             checkBox.performClick();
           }
         });
-
       }
 
       container.addView(res);
@@ -254,9 +253,6 @@ public class NewsFragment extends BaseMwmDialogFragment
       return (activity.getSupportFragmentManager().findFragmentByTag(tag) != null);
 
     Config.setWhatsNewShown();
-
-    // Enable 3D by default
-    Framework.nativeSet3dMode(true, true);
 
     try
     {
