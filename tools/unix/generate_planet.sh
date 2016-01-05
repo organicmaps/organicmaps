@@ -33,6 +33,7 @@ usage() {
   echo -e "ASYNC_PBF\tGenerate PBF files asynchronously, not in a separate step"
   echo -e "MODE\tA mode to start with: coast, inter, routing, test, etc."
   echo -e "MAIL\tE-mail address to send notifications"
+  echo -e "OSRM_URL\tURL of the osrm server to build world roads."
   echo
 }
 
@@ -149,6 +150,7 @@ STATUS_FILE="$INTDIR/status"
 OSRM_FLAG="$INTDIR/osrm_done"
 SCRIPTS_PATH="$(dirname "$0")"
 ROUTING_SCRIPT="$SCRIPTS_PATH/generate_planet_routing.sh"
+ROADS_SCRIPT="$OMIM_PATH/tools/python/road_runner.py"
 TESTING_SCRIPT="$SCRIPTS_PATH/test_planet.sh"
 VERSION_FORMAT="%y%m%d"
 LOG_PATH="${LOG_PATH:-$TARGET/logs}"
@@ -252,10 +254,11 @@ if [ "$MODE" == "coast" ]; then
     if [ -n "$OPT_COAST" ]; then
       log "STATUS" "Step 2: Creating and processing new coastline in $COASTS_O5M"
       # Strip coastlines from the planet to speed up the process
-      "$OSMCTOOLS/osmfilter" "$PLANET" --keep= --keep-ways="natural=coastline" "-o=$COASTS_O5M"
+      "$OSMCTOOLS/osmfilter" "$PLANET" --keep= --keep-ways="natural=coastline" --keep-nodes="capital=yes place=town =city" "-o=$COASTS_O5M"
       # Preprocess coastlines to separate intermediate directory
       "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS_O5M" \
         -preprocess 2>> "$LOG_PATH/WorldCoasts.log"
+      python $ROADS_SCRIPT "$INTCOASTSDIR/" $OSRM_URL >>"$LOG_PATH"/road_runner.log
       # Generate temporary coastlines file in the coasts intermediate dir
       if ! "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS_O5M" \
         --user_resource_path="$DATA_PATH/" -make_coasts -fail_on_coasts 2>&1 | tee -a "$LOG_PATH/WorldCoasts.log" | { grep -i 'not merged\|coastline polygons' || true; }
@@ -275,6 +278,8 @@ if [ "$MODE" == "coast" ]; then
   # make a working copy of generated coastlines file
   [ -n "$OPT_COAST" ] && cp "$INTCOASTSDIR/WorldCoasts.rawgeom" "$INTDIR"
   [ -n "$OPT_COAST" ] && cp "$INTCOASTSDIR/WorldCoasts.geom" "$INTDIR"
+  [ -n "$OPT_COAST" ] && cp "$INTCOASTSDIR/ways.csv" "$INTDIR"
+  [ -n "$OPT_COAST" ] && cp "$INTCOASTSDIR/towns.csv" "$INTDIR"
   [ -z "$KEEP_INTDIR" ] && rm -r "$INTCOASTSDIR"
   if [ -n "$OPT_ROUTING" -o -n "$OPT_WORLD" -o -z "$NO_REGIONS" ]; then
     MODE=inter

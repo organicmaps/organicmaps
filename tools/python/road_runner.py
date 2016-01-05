@@ -6,10 +6,10 @@ import os
 import sys
 import urllib2
 
-road_delta = 400
+road_delta = 50
 
 def get_way_ids(point1, point2, server):
-    url = "http://{}/wayid?z=18&loc={},{}&loc={},{}".format(server, point1[0], point1[1], point2[0], point2[1])
+    url = "http://{0}/wayid?z=18&loc={1},{2}&loc={3},{4}".format(server, point1[0], point1[1], point2[0], point2[1])
     request = urllib2.urlopen(url)
     data = json.load(request)
     if "way_ids" in data:
@@ -37,7 +37,7 @@ if len(sys.argv) < 3:
     exit(1)
 
 towns = load_towns(os.path.join(sys.argv[1], "towns.csv"))
-print "Have {} towns".format(len(towns))
+print "Have {0} towns".format(len(towns))
 
 tasks = each_to_each(towns)
 filtered = []
@@ -58,8 +58,7 @@ for i, task in enumerate(tasks):
             way_ids[id] = 1
 
 with open(os.path.join(sys.argv[1], "ways.csv"),"w") as f:
-
     for way_id in way_ids.keys():
-        print >> f, "{};world_level".format(way_id)
+        print >> f, "{0};world_level".format(way_id)
 
 print "All done."
