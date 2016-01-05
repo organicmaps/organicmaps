@@ -328,7 +328,7 @@ Framework::Framework()
     return m_model.GetIndex().GetMwmIdByCountryFile(platform::CountryFile(name));
   });
   editor.SetInvalidateFn([this](){ InvalidateRect(GetCurrentViewport()); });
-  editor.SetFeatureLoaderFn([this](FeatureID const & fid) -> FeatureType
+  editor.SetFeatureLoaderFn([this](FeatureID const & fid) -> unique_ptr<FeatureType>
   {
     return GetPOIByID(fid);
   });
@@ -1687,33 +1687,28 @@ bool Framework::GetVisiblePOI(m2::PointD const & glbPoint, search::AddressInfo &
   if (!id.IsValid())
     return false;
 
-  FeatureType const feature = GetPOIByID(id);
-  metadata = feature.GetMetadata();
-  info = GetPOIAddressInfo(feature);
+  auto const feature = GetPOIByID(id);
+  metadata = feature->GetMetadata();
+  info = GetPOIAddressInfo(*feature);
   return true;
 }
 
-bool Framework::GetVisiblePOI(m2::PointD const & ptMercator, FeatureType & outPOI) const
+unique_ptr<FeatureType> Framework::GetVisiblePOI(m2::PointD const & ptMercator) const
 {
   ASSERT(m_drapeEngine != nullptr, ());
   FeatureID const fid = m_drapeEngine->GetVisiblePOI(ptMercator);
-  if (!fid.IsValid())
-    return false;
-
-  outPOI = GetPOIByID(fid);
-
-  return true;
+  return fid.IsValid() ? GetPOIByID(fid) : unique_ptr<FeatureType>();
 }
 
-FeatureType Framework::GetPOIByID(FeatureID const & fid) const
+unique_ptr<FeatureType> Framework::GetPOIByID(FeatureID const & fid) const
 {
   ASSERT(fid.IsValid(), ());
 
-  FeatureType feature;
+  unique_ptr<FeatureType> feature(new FeatureType);
   // Note: all parse methods should be called with guard alive.
   Index::FeaturesLoaderGuard guard(m_model.GetIndex(), fid.m_mwmId);
-  guard.GetFeatureByIndex(fid.m_index, feature);
-  feature.ParseEverything();
+  guard.GetFeatureByIndex(fid.m_index, *feature);
+  feature->ParseEverything();
   return feature;
 }
 
@@ -1938,8 +1933,7 @@ UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool
 
   if (fid.IsValid())
   {
-    feature.reset(new FeatureType);
-    *feature = GetPOIByID(fid);
+    feature = GetPOIByID(fid);
     mercatorPivot = feature::GetCenter(*feature);
     info = GetPOIAddressInfo(*feature);
     metadata = feature->GetMetadata();
@@ -1947,8 +1941,10 @@ UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool
   }
   else if (isLong)
   {
-    GetAddressInfoForPixelPoint(pxPoint, info);
     mercatorPivot = m_currentModelView.PtoG(pxPoint);
+    feature = GetFeatureAtMercatorPoint(mercatorPivot);
+    if (feature)
+      info = GetPOIAddressInfo(*feature);
     needMark = true;
   }
 

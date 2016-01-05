@@ -30,7 +30,7 @@ class Editor final
 public:
   using TMwmIdByMapNameFn = function<MwmSet::MwmId(string const & /*map*/)>;
   using TInvalidateFn = function<void()>;
-  using TFeatureLoaderFn = function<FeatureType (FeatureID const & /*fid*/)>;
+  using TFeatureLoaderFn = function<unique_ptr<FeatureType> (FeatureID const & /*fid*/)>;
 
   enum FeatureStatus
   {
