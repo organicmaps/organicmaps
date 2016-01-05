@@ -1107,6 +1107,11 @@ void FrontendRenderer::OnScaleEnded()
   m_myPositionController->ScaleEnded();
 }
 
+void FrontendRenderer::OnAnimationStarted()
+{
+  m_myPositionController->AnimationStarted();
+}
+
 void FrontendRenderer::ResolveTileKeys(ScreenBase const & screen, TTilesCollection & tiles)
 {
   m2::RectD const & clipRect = screen.ClipRect();
