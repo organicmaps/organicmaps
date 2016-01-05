@@ -10,11 +10,6 @@
 
 @implementation MWMPlacePageButtonCell
 
-+ (CGFloat)height
-{
-  return 44.0;
-}
-
 - (void)config:(MWMPlacePage *)placePage
 {
   self.placePage = placePage;

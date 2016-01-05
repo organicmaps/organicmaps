@@ -10,8 +10,8 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageMetadataField)
   MWMPlacePageMetadataFieldURL,
   MWMPlacePageMetadataFieldEmail,
   MWMPlacePageMetadataFieldOpenHours,
-  MWMPlacePageMetadataFieldCoordinate,
   MWMPlacePageMetadataFieldWiFi,
+  MWMPlacePageMetadataFieldCoordinate,
   MWMPlacePageMetadataFieldBookmark,
   MWMPlacePageMetadataFieldEditButton
 };
@@ -47,9 +47,8 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageEntityType)
 
 @property (nonatomic, readonly) ms::LatLon latlon;
 
-- (void)enableEditing;
-- (void)insertBookmarkInTypes;
-- (void)removeBookmarkFromTypes;
+- (void)addBookmarkField;
+- (void)removeBookmarkField;
 
 - (instancetype)initWithUserMark:(UserMark const *)mark;
 - (void)synchronize;

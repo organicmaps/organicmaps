@@ -8,10 +8,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="KGk-i7-Jjw" customClass="MWMPlacePageOpeningHoursCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="292"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="249"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="291.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="248.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="swk-um-XzG" customClass="MWMPlacePageOpeningHoursDayView">
@@ -143,7 +143,6 @@
                             <outlet property="breaksHolderHeight" destination="RWf-JS-tim" id="Pgt-3Q-cEG"/>
                             <outlet property="closedLabel" destination="EcD-Q8-7zu" id="hhh-Q4-9vo"/>
                             <outlet property="compatibilityLabel" destination="ZdV-4y-cz4" id="Jwu-Ux-lqO"/>
-                            <outlet property="expandImage" destination="mGc-k4-uvQ" id="6VJ-Xv-Knr"/>
                             <outlet property="height" destination="hsa-4B-Df0" id="he7-ZL-kOE"/>
                             <outlet property="label" destination="Ot5-QJ-jhp" id="zOc-Fe-grg"/>
                             <outlet property="labelWidth" destination="5G1-mL-J4T" id="esU-tO-DPm"/>
@@ -167,23 +166,8 @@
                             <constraint firstAttribute="height" constant="122" id="Ifb-EB-LIb"/>
                         </constraints>
                     </view>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="acu-oR-Ylj">
-                        <rect key="frame" x="60" y="248" width="260" height="44"/>
-                        <constraints>
-                            <constraint firstAttribute="height" priority="750" constant="44" id="GZv-lM-zKz"/>
-                        </constraints>
-                        <state key="normal" title="Edit time"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
-                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="edit_opening_time"/>
-                        </userDefinedRuntimeAttributes>
-                        <connections>
-                            <action selector="editButtonTap" destination="KGk-i7-Jjw" eventType="touchUpInside" id="dpE-up-9Wu"/>
-                        </connections>
-                    </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9WP-gb-0Hl" userLabel="Bottom Separator">
-                        <rect key="frame" x="60" y="291" width="260" height="1"/>
+                        <rect key="frame" x="60" y="248" width="260" height="1"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="ISb-za-hzz"/>
@@ -196,7 +180,6 @@
                 <constraints>
                     <constraint firstItem="fNU-1q-AiR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="08I-np-9jr"/>
                     <constraint firstAttribute="trailing" secondItem="fNU-1q-AiR" secondAttribute="trailing" id="2Hz-cA-KuN"/>
-                    <constraint firstItem="acu-oR-Ylj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="60" id="5s8-nY-ULm"/>
                     <constraint firstAttribute="trailing" secondItem="q9R-jU-fIk" secondAttribute="trailing" constant="32" id="GqM-0e-qyu"/>
                     <constraint firstItem="q9R-jU-fIk" firstAttribute="top" secondItem="swk-um-XzG" secondAttribute="bottom" id="HNR-8z-cc0"/>
                     <constraint firstItem="fNU-1q-AiR" firstAttribute="top" secondItem="q9R-jU-fIk" secondAttribute="bottom" id="JFR-YU-rAy"/>
@@ -205,15 +188,12 @@
                     <constraint firstItem="q9R-jU-fIk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="60" id="eUW-RI-gaa"/>
                     <constraint firstItem="9WP-gb-0Hl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="60" id="fCK-Qq-Hci"/>
                     <constraint firstItem="swk-um-XzG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="p14-Mi-kcR"/>
-                    <constraint firstAttribute="trailing" secondItem="acu-oR-Ylj" secondAttribute="trailing" id="sCm-Vb-stb"/>
-                    <constraint firstAttribute="bottom" secondItem="acu-oR-Ylj" secondAttribute="bottom" id="sey-To-H3h"/>
                     <constraint firstAttribute="trailing" secondItem="9WP-gb-0Hl" secondAttribute="trailing" id="vof-Qq-rXP"/>
                     <constraint firstAttribute="trailing" secondItem="swk-um-XzG" secondAttribute="trailing" id="zir-No-59Q"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="currentDay" destination="swk-um-XzG" id="CJG-LQ-Pu8"/>
-                <outlet property="editButton" destination="acu-oR-Ylj" id="e0k-BO-Ske"/>
                 <outlet property="expandImage" destination="mGc-k4-uvQ" id="ohq-Yq-hLX"/>
                 <outlet property="middleSeparator" destination="q9R-jU-fIk" id="vcZ-Lb-HgY"/>
                 <outlet property="toggleButton" destination="3Fa-V6-tC5" id="8FI-Je-uFy"/>

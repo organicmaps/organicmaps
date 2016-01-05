@@ -9,11 +9,17 @@ using feature::Metadata;
 
 extern NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
-static array<MWMPlacePageMetadataField, 8> const kPatternFieldsArray{
-    {MWMPlacePageMetadataFieldPostcode, MWMPlacePageMetadataFieldPhoneNumber,
-     MWMPlacePageMetadataFieldWebsite, MWMPlacePageMetadataFieldURL, MWMPlacePageMetadataFieldEmail,
-     MWMPlacePageMetadataFieldOpenHours, MWMPlacePageMetadataFieldWiFi,
-     MWMPlacePageMetadataFieldCoordinate}};
+static array<MWMPlacePageMetadataField, 10> const kPatternFieldsArray{
+    {MWMPlacePageMetadataFieldPostcode,
+     MWMPlacePageMetadataFieldPhoneNumber,
+     MWMPlacePageMetadataFieldWebsite,
+     MWMPlacePageMetadataFieldURL,
+     MWMPlacePageMetadataFieldEmail,
+     MWMPlacePageMetadataFieldOpenHours,
+     MWMPlacePageMetadataFieldWiFi,
+     MWMPlacePageMetadataFieldCoordinate,
+     MWMPlacePageMetadataFieldBookmark,
+     MWMPlacePageMetadataFieldEditButton}};
 
 static map<Metadata::EType, MWMPlacePageMetadataField> const kMetaFieldsMap{
     {Metadata::FMD_URL, MWMPlacePageMetadataFieldURL},
@@ -111,7 +117,7 @@ static map<Metadata::EType, MWMPlacePageMetadataField> const kMetaFieldsMap{
   self.bookmarkColor = @(data.GetType().c_str());
 
   [self configureEntityWithFeature:bookmark->GetFeature()];
-  [self insertBookmarkInTypes];
+  [self addBookmarkField];
 }
 
 - (void)configureForMyPosition:(MyPositionMarkPoint const *)myPositionMark
@@ -208,17 +214,18 @@ static map<Metadata::EType, MWMPlacePageMetadataField> const kMetaFieldsMap{
   [self addMetaField:MWMPlacePageMetadataFieldCoordinate];
 }
 
-- (void)enableEditing
+- (void)addEditField
 {
   [self addMetaField:MWMPlacePageMetadataFieldEditButton];
 }
 
-- (void)insertBookmarkInTypes
+- (void)addBookmarkField
 {
   [self addMetaField:MWMPlacePageMetadataFieldBookmark];
+  [self sortMetaFields];
 }
 
-- (void)removeBookmarkFromTypes
+- (void)removeBookmarkField
 {
   [self removeMetaField:MWMPlacePageMetadataFieldBookmark];
 }
@@ -237,12 +244,10 @@ static map<Metadata::EType, MWMPlacePageMetadataField> const kMetaFieldsMap{
   // TODO: Replace with real array
   vector<Metadata::EType> const editableTypes {Metadata::FMD_OPEN_HOURS};
   //osm::Editor::Instance().EditableMetadataForType(<#const FeatureType &feature#>);
+  if (!editableTypes.empty())
+    [self addEditField];
   for (auto const & type : editableTypes)
-  {
-    MWMPlacePageMetadataField uiType = kMetaFieldsMap.at(type);
-    [self addMetaField:uiType];
-    m_editableFields.insert(uiType);
-  }
+    m_editableFields.insert(kMetaFieldsMap.at(type));
 }
 
 - (BOOL)isFieldEditable:(MWMPlacePageMetadataField)field

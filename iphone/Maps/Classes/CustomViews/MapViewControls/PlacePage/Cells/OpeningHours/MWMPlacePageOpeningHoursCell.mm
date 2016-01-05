@@ -17,7 +17,6 @@ using WeekDayView = MWMPlacePageOpeningHoursDayView *;
 @property (weak, nonatomic) IBOutlet WeekDayView currentDay;
 @property (weak, nonatomic) IBOutlet UIView * middleSeparator;
 @property (weak, nonatomic) IBOutlet UIView * weekDaysView;
-@property (weak, nonatomic) IBOutlet UIButton * editButton;
 @property (weak, nonatomic) IBOutlet UIImageView * expandImage;
 @property (weak, nonatomic) IBOutlet UIButton * toggleButton;
 
@@ -57,42 +56,30 @@ WeekDayView getWeekDayView()
   ui::TimeTableSet timeTableSet;
 }
 
-- (void)configWithInfo:(NSString *)info editable:(BOOL)editable delegate:(id<MWMPlacePageOpeningHoursCellProtocol>)delegate
+- (void)configWithInfo:(NSString *)info delegate:(id<MWMPlacePageOpeningHoursCellProtocol>)delegate
 {
-  self.toggleButton.hidden = !editable;
   self.delegate = delegate;
   WeekDayView cd = self.currentDay;
   cd.currentDay = YES;
 
-  if (info)
+  self.toggleButton.hidden = YES;
+  self.expandImage.hidden = YES;
+  NSAssert(info, @"Schedule can not be empty");
+  osmoh::OpeningHours oh(info.UTF8String);
+  if (MakeTimeTableSet(oh, timeTableSet))
   {
-    osmoh::OpeningHours oh(info.UTF8String);
-    if (MakeTimeTableSet(oh, timeTableSet))
-    {
-      cd.mode = MWMPlacePageOpeningHoursDayViewModeRegular;
-      self.isClosed = oh.IsClosed(time(nullptr));
-      [self processSchedule];
-    }
-    else
-    {
-      cd.mode = MWMPlacePageOpeningHoursDayViewModeCompatibility;
-      [cd setCompatibilityText:info];
-    }
-    BOOL const isExpanded = delegate.openingHoursCellExpanded;
-    self.middleSeparator.hidden = !isExpanded;
-    self.weekDaysView.hidden = !isExpanded;
-    self.editButton.hidden = !editable || !isExpanded;
-    self.expandImage.hidden = !editable;
-    self.expandImage.image = [UIImage imageNamed:isExpanded ? @"ic_arrow_gray_up" : @"ic_arrow_gray_down"];
+    cd.isCompatibility = NO;
+    self.isClosed = oh.IsClosed(time(nullptr));
+    [self processSchedule];
   }
   else
   {
-    cd.mode = MWMPlacePageOpeningHoursDayViewModeEmpty;
-    self.middleSeparator.hidden = YES;
-    self.weekDaysView.hidden = YES;
-    self.editButton.hidden = YES;
-    self.expandImage.hidden = YES;
+    cd.isCompatibility = YES;
+    [cd setCompatibilityText:info];
   }
+  BOOL const isExpanded = delegate.openingHoursCellExpanded;
+  self.middleSeparator.hidden = !isExpanded;
+  self.weekDaysView.hidden = !isExpanded;
   [cd invalidate];
 }
 
@@ -107,7 +94,6 @@ WeekDayView getWeekDayView()
   BOOL const isExpanded = self.delegate.openingHoursCellExpanded;
   self.weekDaysViewEstimatedHeight = 0.0;
   [self.weekDaysView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-  [self.currentDay setCanExpand:YES];
   for (size_t idx = 0; idx < timeTablesCount; ++idx)
   {
     ui::TTimeTableProxy tt = timeTableSet.Get(idx);
@@ -122,8 +108,14 @@ WeekDayView getWeekDayView()
   }
   if (!haveCurrentDay)
     [self addEmptyCurrentDay];
-  if (haveExpandSchedule && isExpanded)
-    [self addClosedDays];
+  if (haveExpandSchedule)
+  {
+    self.toggleButton.hidden = NO;
+    self.expandImage.hidden = NO;
+    self.expandImage.image = [UIImage imageNamed:isExpanded ? @"ic_arrow_gray_up" : @"ic_arrow_gray_down"];
+    if (isExpanded)
+      [self addClosedDays];
+  }
   self.weekDaysViewHeight.constant = ceil(self.weekDaysViewEstimatedHeight);
 }
 
@@ -197,10 +189,9 @@ WeekDayView getWeekDayView()
   CGFloat height = self.currentDay.viewHeight;
   if (self.delegate.openingHoursCellExpanded)
   {
-    MWMPlacePageOpeningHoursDayViewMode const mode = self.currentDay.mode;
-    if (mode != MWMPlacePageOpeningHoursDayViewModeEmpty && !self.toggleButton.hidden)
-      height += self.editButton.height;
-    if (mode == MWMPlacePageOpeningHoursDayViewModeRegular)
+    CGFloat const bottomOffset = 12.0;
+    height += bottomOffset;
+    if (!self.currentDay.isCompatibility)
       height += self.weekDaysViewHeight.constant;
   }
   return ceil(height);
@@ -210,22 +201,7 @@ WeekDayView getWeekDayView()
 
 - (IBAction)toggleButtonTap
 {
-  switch (self.currentDay.mode)
-  {
-    case MWMPlacePageOpeningHoursDayViewModeRegular:
-    case MWMPlacePageOpeningHoursDayViewModeCompatibility:
-      [self.delegate setOpeningHoursCellExpanded:!self.delegate.openingHoursCellExpanded forCell:self];
-      break;
-    case MWMPlacePageOpeningHoursDayViewModeEmpty:
-      [self editButtonTap];
-      break;
-  }
-}
-
-- (IBAction)editButtonTap
-{
-  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatEditTime)];
-  [self.delegate editPlaceTime];
+  [self.delegate setOpeningHoursCellExpanded:!self.delegate.openingHoursCellExpanded forCell:self];
 }
 
 @end

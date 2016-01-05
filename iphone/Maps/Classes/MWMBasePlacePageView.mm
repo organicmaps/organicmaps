@@ -185,7 +185,7 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
   [self.typeDescriptionView removeFromSuperview];
   self.typeDescriptionView = nil;
   [self.typeLabel sizeToFit];
-  [self.entity insertBookmarkInTypes];
+  [self.entity addBookmarkField];
   [self configure];
 }
 
@@ -194,7 +194,7 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
   [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatToggleBookmark)
                    withParameters:@{kStatValue : kStatRemove}];
   self.entity.type = MWMPlacePageEntityTypeRegular;
-  [self.entity removeBookmarkFromTypes];
+  [self.entity removeBookmarkField];
   [self configure];
 }
 
@@ -257,47 +257,36 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
 
 @implementation MWMBasePlacePageView (UITableView)
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  return 44.0;
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   MWMPlacePageEntity * entity = self.entity;
   MWMPlacePageMetadataField const field = [entity getFieldType:indexPath.row];
   UITableViewCell * cell = [self offscreenCellForIdentifier:[self cellIdentifierForField:field]];
-  if (field == MWMPlacePageMetadataFieldBookmark)
+  if ([cell isKindOfClass:[MWMPlacePageBookmarkCell class]])
   {
     MWMPlacePageBookmarkCell * tCell = (MWMPlacePageBookmarkCell *)cell;
     [tCell config:self.ownerPlacePage forHeight:YES];
     return tCell.cellHeight;
   }
-  else if (field == MWMPlacePageMetadataFieldOpenHours)
+  else if ([cell isKindOfClass:[MWMPlacePageOpeningHoursCell class]])
   {
     MWMPlacePageOpeningHoursCell * tCell = (MWMPlacePageOpeningHoursCell *)cell;
-    [tCell configWithInfo:[entity getFieldValue:field]
-                 editable:[entity isFieldEditable:field]
-                 delegate:self];
+    [tCell configWithInfo:[entity getFieldValue:field] delegate:self];
     return tCell.cellHeight;
   }
-  else if (field == MWMPlacePageMetadataFieldEditButton)
-  {
-    return [MWMPlacePageButtonCell height];
-  }
-  else
+  else if ([cell isKindOfClass:[MWMPlacePageInfoCell class]])
   {
     MWMPlacePageInfoCell * tCell = (MWMPlacePageInfoCell *)cell;
     tCell.currentEntity = self.entity;
     [tCell configureWithType:field info:[entity getFieldValue:field]];
-    [tCell setNeedsUpdateConstraints];
-    [tCell updateConstraintsIfNeeded];
-    tCell.bounds = {{}, {CGRectGetWidth(tableView.bounds), CGRectGetHeight(tCell.bounds)}};
-    [tCell setNeedsLayout];
-    [tCell layoutIfNeeded];
-    CGSize const size = [tCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    return size.height;
   }
+  [cell setNeedsUpdateConstraints];
+  [cell updateConstraintsIfNeeded];
+  cell.bounds = {{}, {CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds)}};
+  [cell setNeedsLayout];
+  [cell layoutIfNeeded];
+  CGSize const size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+  return size.height;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -316,9 +305,7 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
   }
   else if (field == MWMPlacePageMetadataFieldOpenHours)
   {
-    [(MWMPlacePageOpeningHoursCell *)cell configWithInfo:[entity getFieldValue:field]
-                editable:[entity isFieldEditable:field]
-                delegate:self];
+    [(MWMPlacePageOpeningHoursCell *)cell configWithInfo:[entity getFieldValue:field] delegate:self];
   }
   else if (field == MWMPlacePageMetadataFieldEditButton)
   {

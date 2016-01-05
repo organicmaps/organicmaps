@@ -13,8 +13,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel * closedLabel;
 
-@property (weak, nonatomic) IBOutlet UIImageView * expandImage;
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * height;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * labelWidth;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * breakLabelWidth;
@@ -77,11 +75,6 @@
   self.closedLabel.hidden = !closed;
 }
 
-- (void)setCanExpand:(BOOL)canExpand
-{
-  self.expandImage.hidden = !canExpand;
-}
-
 - (void)setCompatibilityText:(NSString *)text
 {
   self.compatibilityLabel.text = text;
@@ -90,8 +83,13 @@
 - (void)invalidate
 {
   CGFloat viewHeight;
-  BOOL const isRegular = (self.mode == MWMPlacePageOpeningHoursDayViewModeRegular);
-  if (isRegular)
+  if (self.isCompatibility)
+  {
+    [self.compatibilityLabel sizeToIntegralFit];
+    CGFloat const compatibilityLabelVerticalOffsets = 24.0;
+    viewHeight = self.compatibilityLabel.height + compatibilityLabelVerticalOffsets;
+  }
+  else
   {
     [self.label sizeToIntegralFit];
     self.labelWidth.constant = self.label.width;
@@ -106,12 +104,6 @@
     CGFloat const heightForClosedLabel = 20.0;
     if (!self.closedLabel.hidden)
       viewHeight += heightForClosedLabel;
-  }
-  else
-  {
-    [self.compatibilityLabel sizeToIntegralFit];
-    CGFloat const compatibilityLabelVerticalOffsets = 24.0;
-    viewHeight = self.compatibilityLabel.height + compatibilityLabelVerticalOffsets;
   }
 
   self.viewHeight = ceil(viewHeight);
@@ -137,20 +129,15 @@
   }
 }
 
-- (void)setMode:(MWMPlacePageOpeningHoursDayViewMode)mode
+- (void)setIsCompatibility:(BOOL)isCompatibility
 {
-  _mode = mode;
-  BOOL const isRegular = (mode == MWMPlacePageOpeningHoursDayViewModeRegular);
-  BOOL const isEmpty = (mode == MWMPlacePageOpeningHoursDayViewModeEmpty);
-  self.compatibilityLabel.hidden = isRegular;
-  self.label.hidden = !isRegular;
-  self.openTime.hidden = !isRegular;
-  self.breakLabel.hidden = !isRegular;
-  self.breaksHolder.hidden = !isRegular;
-  self.closedLabel.hidden = !isRegular;
-
-  if (isEmpty)
-    self.compatibilityLabel.text = L(@"add_opening_hours");
+  _isCompatibility = isCompatibility;
+  self.compatibilityLabel.hidden = !isCompatibility;
+  self.label.hidden = isCompatibility;
+  self.openTime.hidden = isCompatibility;
+  self.breakLabel.hidden = isCompatibility;
+  self.breaksHolder.hidden = isCompatibility;
+  self.closedLabel.hidden = isCompatibility;
 }
 
 @end
