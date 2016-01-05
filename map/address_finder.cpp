@@ -2,6 +2,7 @@
 
 #include "search/categories_holder.hpp"
 #include "search/result.hpp"
+#include "search/reverse_geocoder.hpp"
 
 #include "drape_frontend/visual_params.hpp"
 
@@ -369,29 +370,18 @@ namespace
 
       for (size_t i = 0; i < m_cont.size(); ++i)
       {
-        bool const isStreet = m_checker.IsStreet(m_cont[i].m_types);
-
-        if (info.m_street.empty() && isStreet)
-          info.m_street = m_cont[i].m_name;
-
-        if (info.m_house.empty())
-          info.m_house = m_cont[i].m_house;
-
-        if (info.m_name.empty())
+        /// @todo Make logic better.
+        /// Now we skip linear objects to get only POI's here (don't mix with streets or roads).
+        /// But there are linear types that may be interesting for POI (rivers).
+        if (m_cont[i].m_types.GetGeoType() != feature::GEOM_LINE)
         {
-          /// @todo Make logic better.
-          /// Now we skip linear objects to get only POI's here (don't mix with streets or roads).
-          /// But there are linear types that may be interesting for POI (rivers).
-          if (m_cont[i].m_types.GetGeoType() != feature::GEOM_LINE)
-          {
-            info.m_name = m_cont[i].m_name;
+          info.m_name = m_cont[i].m_name;
 
-            GetReadableTypes(eng, locale, m_cont[i].m_types, info);
-          }
+          GetReadableTypes(eng, locale, m_cont[i].m_types, info);
+
+          if (!info.m_name.empty())
+            break;
         }
-
-        if (!(info.m_street.empty() || info.m_name.empty()))
-          break;
       }
     }
 
@@ -466,45 +456,27 @@ namespace
 
 void Framework::GetAddressInfoForGlobalPoint(m2::PointD const & pt, search::AddressInfo & info) const
 {
-  info.Clear();
+  /// @todo Do not returm MWM's name here.
+  //info.m_country = GetCountryName(pt);
+  //if (info.m_country.empty())
+  //{
+  //  LOG(LINFO, ("Can't find region for point ", pt));
+  //  return;
+  //}
 
-  info.m_country = GetCountryName(pt);
-  if (info.m_country.empty())
-  {
-    LOG(LINFO, ("Can't find region for point ", pt));
-    return;
-  }
+  search::ReverseGeocoder coder(m_model.GetIndex());
+  search::ReverseGeocoder::Address addr;
+  coder.GetNearbyAddress(pt, addr);
+  info.m_house = addr.GetHouseNumber();
+  info.m_street = addr.GetStreetName();
 
-  // use upper scale to get address by point (buildings, streets and POIs are visible).
-  int const scale = scales::GetUpperScale();
-
-  double const addressR[] = {
-    15.0,   // radius to search point POI's
-    100.0,  // radius to search street names
-    5.0     // radius to search building numbers (POI's)
-  };
-
-  // pass maximum value for all addressR
-  m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, addressR[1]);
-  DoGetAddressInfo getAddress(pt, scale, GetChecker(), addressR);
-
-  m_model.ForEachFeature(rect, getAddress, scale);
-  getAddress.FillAddress(m_searchEngine.get(), info);
-
-  // @todo Temporarily commented - it's slow and not used in UI
+  /// @todo Rewrite code to get it from LocalityFinder.
   //GetLocality(pt, info);
 }
 
 void Framework::GetAddressInfo(FeatureType const & ft, m2::PointD const & pt, search::AddressInfo & info) const
 {
   info.Clear();
-
-  info.m_country = GetCountryName(pt);
-  if (info.m_country.empty())
-  {
-    LOG(LINFO, ("Can't find region for point ", pt));
-    return;
-  }
 
   double const inf = numeric_limits<double>::max();
   double addressR[] = { inf, inf, inf };
@@ -514,8 +486,7 @@ void Framework::GetAddressInfo(FeatureType const & ft, m2::PointD const & pt, se
   getAddress(ft);
   getAddress.FillAddress(m_searchEngine.get(), info);
 
-  /// @todo Temporarily commented - it's slow and not used in UI
-  //GetLocality(pt, info);
+  GetAddressInfoForGlobalPoint(pt, info);
 }
 
 void Framework::GetLocality(m2::PointD const & pt, search::AddressInfo & info) const

@@ -470,12 +470,15 @@ public:
   /// @param[in] pxPoint Current touch point in device pixel coordinates.
   void GetFeatureTypes(m2::PointD const & pxPoint, vector<string> & types) const;
 
-  /// Get address information for point on map.
+  /// Get address information for the point on map.
+  /// Fill only house number and street name. All other params stay unchanged.
+  //@{
   inline void GetAddressInfoForPixelPoint(m2::PointD const & pxPoint, search::AddressInfo & info) const
   {
     GetAddressInfoForGlobalPoint(PtoG(pxPoint), info);
   }
   void GetAddressInfoForGlobalPoint(m2::PointD const & pt, search::AddressInfo & info) const;
+  //@}
 
 private:
   void GetAddressInfo(FeatureType const & ft, m2::PointD const & pt, search::AddressInfo & info) const;

@@ -15,7 +15,7 @@ namespace search
 
 class ReverseGeocoder
 {
-  Index & m_index;
+  Index const & m_index;
 
   struct Object
   {
@@ -36,7 +36,7 @@ public:
   static double const kLookupRadiusM;
   static m2::RectD GetLookupRect(m2::PointD const & center);
 
-  explicit ReverseGeocoder(Index & index) : m_index(index) {}
+  explicit ReverseGeocoder(Index const & index) : m_index(index) {}
 
   using Street = Object;
 
@@ -62,6 +62,9 @@ public:
   {
     Building m_building;
     Street m_street;
+
+    string GetHouseNumber() const { return m_building.m_name; }
+    string GetStreetName() const { return m_street.m_name; }
   };
 
   void GetNearbyAddress(m2::PointD const & center, Address & addr);

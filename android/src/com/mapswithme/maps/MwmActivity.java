@@ -999,7 +999,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onPoiActivated(final String name, final String type, final String address, final double lat, final double lon,
                              final int[] metaTypes, final String[] metaValues)
   {
-    final MapObject poi = new MapObject.Poi(name, lat, lon, type);
+    final MapObject poi = new MapObject.Poi(name, lat, lon, address);
     poi.addMetadata(metaTypes, metaValues);
     activateMapObject(poi);
   }

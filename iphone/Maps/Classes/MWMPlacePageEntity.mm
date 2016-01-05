@@ -136,7 +136,7 @@ using feature::Metadata;
 {
   NSString * const name = @(info.GetPinName().c_str());
   self.title = name.length > 0 ? name : L(@"dropped_pin");
-  self.category = @(info.GetPinType().c_str());
+  self.category = @(info.FormatAddress().c_str());
 
   auto const presentTypes = metadata.GetPresentTypes();
 
