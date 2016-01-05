@@ -19,8 +19,8 @@ namespace df
 
 double const kArrowSizeX = 2.0;
 double const kArrowSizeY = 3.0;
-double const kArrow3dScaleMin = 1.2;
-double const kArrow3dScaleMax = 2.0;
+double const kArrow3dScaleMin = 1.0;
+double const kArrow3dScaleMax = 2.2;
 double const kArrow3dMinZoom = 16;
 
 Arrow3d::Arrow3d()
