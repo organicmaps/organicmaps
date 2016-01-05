@@ -32,7 +32,6 @@
 
 #if defined(DEBUG)
 #include "base/timer.hpp"
-#include "std/cstdio.hpp"
 #endif
 
 #if defined(USE_GOOGLE_PROFILER) && defined(OMIM_OS_LINUX)
@@ -117,7 +116,7 @@ void Geocoder::Go(vector<FeatureID> & results)
   my::Timer timer;
   MY_SCOPE_GUARD(printDuration, [&timer]()
                  {
-                   fprintf(stderr, "Total geocoding time: %lf seconds.\n", timer.ElapsedSeconds());
+                   LOG(LINFO, ("Total geocoding time:", timer.ElapsedSeconds(), "seconds"));
                  });
 #endif
 #if defined(USE_GOOGLE_PROFILER) && defined(OMIM_OS_LINUX)
@@ -410,7 +409,7 @@ void Geocoder::DoGeocoding(size_t curToken)
     FeatureType feature;
     m_context->m_vector.GetByIndex(featureId, feature);
     feature.ParseTypes();
-    SearchModel::SearchType searchType = m_model.GetSearchType(feature);
+    SearchModel::SearchType const searchType = m_model.GetSearchType(feature);
 
     // All SEARCH_TYPE_CITY features were filtered in DoGeocodingWithLocalities().
     if (searchType < SearchModel::SEARCH_TYPE_CITY)

@@ -25,6 +25,15 @@ struct FeaturesLayer
   size_t m_startToken;
   size_t m_endToken;
   SearchModel::SearchType m_type;
+
+  // *NOTE* This field is meaningful only when m_type equals to
+  // SEARCH_TYPE_BUILDING.
+  //
+  // When true, m_sortedFeatures contains only features retrieved from
+  // search index by m_subQuery, and it's necessary for Geocoder to
+  // perform additional work to retrieve features matching by house
+  // number.
+  bool m_hasDelayedFeatures;
 };
 
 string DebugPrint(FeaturesLayer const & layer);

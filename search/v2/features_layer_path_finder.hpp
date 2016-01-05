@@ -5,8 +5,8 @@
 #include "std/vector.hpp"
 
 #if defined(DEBUG)
+#include "base/logging.hpp"
 #include "base/timer.hpp"
-#include "std/cstdio.hpp"
 #endif  // defined(DEBUG)
 
 class FeaturesVector;
@@ -48,9 +48,8 @@ public:
     // FindReachableVertices() will work fast for most cases
     // (significantly less than 1 second).
 #if defined(DEBUG)
-    fprintf(stderr, "FeaturesLayerPathFinder()\n");
     for (auto const * layer : layers)
-      fprintf(stderr, "Layer: %s\n", DebugPrint(*layer).c_str());
+      LOG(LINFO, (DebugPrint(*layer)));
     my::Timer timer;
 #endif  // defined(DEBUG)
 
@@ -58,7 +57,7 @@ public:
     FindReachableVertices(matcher, layers, reachable);
 
 #if defined(DEBUG)
-    fprintf(stderr, "Found: %zu, elapsed: %lf seconds\n", reachable.size(), timer.ElapsedSeconds());
+    LOG(LINFO, ("Found:", reachable.size(), "elapsed:", timer.ElapsedSeconds(), "seconds"));
 #endif  // defined(DEBUG)
 
     for (uint32_t featureId : reachable)
@@ -69,6 +68,18 @@ private:
   void FindReachableVertices(FeaturesLayerMatcher & matcher,
                              vector<FeaturesLayer const *> const & layers,
                              vector<uint32_t> & reachable);
+
+  // Tries to find all |reachable| features from the lowest layer in a
+  // high level -> low level pass.
+  void FindReachableVerticesTopDown(FeaturesLayerMatcher & matcher,
+                                    vector<FeaturesLayer const *> const & layers,
+                                    vector<uint32_t> & reachable);
+
+  // Tries to find all |reachable| features from the lowest layer in a
+  // low level -> high level pass.
+  void FindReachableVerticesBottomUp(FeaturesLayerMatcher & matcher,
+                                     vector<FeaturesLayer const *> const & layers,
+                                     vector<uint32_t> & reachable);
 
   my::Cancellable const & m_cancellable;
 };

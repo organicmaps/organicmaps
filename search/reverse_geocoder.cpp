@@ -22,11 +22,7 @@ int const kQueryScale = scales::GetUpperScale();
 // static
 double const ReverseGeocoder::kLookupRadiusM = 500.0;
 
-// static
-m2::RectD ReverseGeocoder::GetLookupRect(m2::PointD const & center)
-{
-  return MercatorBounds::RectByCenterXYAndSizeInMeters(center, kLookupRadiusM);
-}
+ReverseGeocoder::ReverseGeocoder(Index const & index) : m_index(index) {}
 
 void ReverseGeocoder::GetNearbyStreets(FeatureType const & addrFt, vector<Street> & streets)
 {
@@ -35,7 +31,7 @@ void ReverseGeocoder::GetNearbyStreets(FeatureType const & addrFt, vector<Street
 
 void ReverseGeocoder::GetNearbyStreets(m2::PointD const & center, vector<Street> & streets)
 {
-  m2::RectD const rect = GetLookupRect(center);
+  m2::RectD const rect = GetLookupRect(center, kLookupRadiusM);
 
   auto const addStreet = [&](FeatureType const & ft)
   {
@@ -51,36 +47,16 @@ void ReverseGeocoder::GetNearbyStreets(m2::PointD const & center, vector<Street>
       return;
 
     ASSERT(!name.empty(), ());
-    streets.push_back({ft.GetID(), feature::GetMinDistanceMeters(ft, center), name});
+
+    double const distanceM = feature::GetMinDistanceMeters(ft, center);
+    if (distanceM > kLookupRadiusM)
+      return;
+
+    streets.push_back({ft.GetID(), distanceM, name});
   };
 
   m_index.ForEachInRect(addStreet, rect, kQueryScale);
   sort(streets.begin(), streets.end(), my::CompareBy(&Street::m_distanceMeters));
-}
-
-void ReverseGeocoder::GetNearbyBuildings(m2::PointD const & center, vector<Building> & buildings)
-{
-  // Seems like a copy-paste here of the GetNearbyStreets function.
-  // Trying to factor out common logic will cause many variables logic.
-
-  m2::RectD const rect = GetLookupRect(center);
-
-  auto const addBuilding = [&](FeatureType const & ft)
-  {
-    if (!ftypes::IsBuildingChecker::Instance()(ft))
-      return;
-
-    // Skip empty house numbers.
-    string const number = ft.GetHouseNumber();
-    if (number.empty())
-      return;
-
-    buildings.push_back({ft.GetID(), feature::GetMinDistanceMeters(ft, center),
-                         number, feature::GetCenter(ft)});
-  };
-
-  m_index.ForEachInRect(addBuilding, rect, kQueryScale);
-  sort(buildings.begin(), buildings.end(), my::CompareBy(&Building::m_distanceMeters));
 }
 
 // static
@@ -151,4 +127,43 @@ void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, Address & addr
   }
 }
 
+void ReverseGeocoder::GetNearbyBuildings(m2::PointD const & center, vector<Building> & buildings)
+{
+  GetNearbyBuildings(center, kLookupRadiusM, buildings);
+}
+
+void ReverseGeocoder::GetNearbyBuildings(m2::PointD const & center, double radiusM,
+                                         vector<Building> & buildings)
+{
+  // Seems like a copy-paste here of the GetNearbyStreets function.
+  // Trying to factor out common logic will cause many variables logic.
+
+  m2::RectD const rect = GetLookupRect(center, radiusM);
+
+  auto const addBuilding = [&](FeatureType const & ft)
+  {
+    if (!ftypes::IsBuildingChecker::Instance()(ft))
+      return;
+
+    // Skip empty house numbers.
+    string const number = ft.GetHouseNumber();
+    if (number.empty())
+      return;
+
+    double const distanceM = feature::GetMinDistanceMeters(ft, center);
+    if (distanceM > radiusM)
+      return;
+
+    buildings.push_back({ft.GetID(), distanceM, number, feature::GetCenter(ft)});
+  };
+
+  m_index.ForEachInRect(addBuilding, rect, kQueryScale);
+  sort(buildings.begin(), buildings.end(), my::CompareBy(&Building::m_distanceMeters));
+}
+
+// static
+m2::RectD ReverseGeocoder::GetLookupRect(m2::PointD const & center, double radiusM)
+{
+  return MercatorBounds::RectByCenterXYAndSizeInMeters(center, radiusM);
+}
 } // namespace search

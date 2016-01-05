@@ -17,6 +17,7 @@ void FeaturesLayer::Clear()
   m_startToken = 0;
   m_endToken = 0;
   m_type = SearchModel::SEARCH_TYPE_COUNT;
+  m_hasDelayedFeatures = false;
 }
 
 string DebugPrint(FeaturesLayer const & layer)

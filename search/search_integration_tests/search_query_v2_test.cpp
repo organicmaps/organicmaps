@@ -83,18 +83,24 @@ UNIT_TEST(SearchQueryV2_Smoke)
   auto const feynmanStreet = make_shared<TestStreet>(
       vector<m2::PointD>{m2::PointD(9.999, 9.999), m2::PointD(10, 10), m2::PointD(10.001, 10.001)},
       "Feynman street", "en");
-  auto const bohrStreet = make_shared<TestStreet>(
+  auto const bohrStreet1 = make_shared<TestStreet>(
       vector<m2::PointD>{m2::PointD(9.999, 10.001), m2::PointD(10, 10), m2::PointD(10.001, 9.999)},
       "Bohr street", "en");
-  auto const feynmanHouse = make_shared<TestBuilding>(m2::PointD(10, 10), "Feynman house",
+  auto const bohrStreet2 = make_shared<TestStreet>(
+      vector<m2::PointD>{m2::PointD(10.001, 9.999), m2::PointD(10, 10), m2::PointD(10.002, 9.998)},
+      "Bohr street", "en");
+  auto const bohrStreet3 = make_shared<TestStreet>(
+      vector<m2::PointD>{m2::PointD(10.002, 9.998), m2::PointD(10, 10), m2::PointD(10.003, 9.997)},
+      "Bohr street", "en");
+  auto const feynmanHouse = make_shared<TestBuilding>(m2::PointD(10, 10), "Feynman house 1 unit 1",
                                                       "1 unit 1", *feynmanStreet, "en");
-  auto const bohrHouse =
-      make_shared<TestBuilding>(m2::PointD(10, 10), "Bohr house", "1 unit 1", *bohrStreet, "en");
+  auto const bohrHouse = make_shared<TestBuilding>(m2::PointD(10, 10), "Bohr house 1 unit 1 ",
+                                                   "1 unit 1", *bohrStreet1, "en");
 
   auto const hilbertHouse = make_shared<TestBuilding>(
       vector<m2::PointD>{
           {10.0005, 10.0005}, {10.0006, 10.0005}, {10.0006, 10.0006}, {10.0005, 10.0006}},
-      "Hilbert house", "1 unit 2", *bohrStreet, "en");
+      "Hilbert house 1 unit 2", "1 unit 2", *bohrStreet1, "en");
   auto const lantern1 = make_shared<TestPOI>(m2::PointD(10.0005, 10.0005), "lantern 1", "en");
   auto const lantern2 = make_shared<TestPOI>(m2::PointD(10.0006, 10.0005), "lantern 2", "en");
 
@@ -107,7 +113,9 @@ UNIT_TEST(SearchQueryV2_Smoke)
     builder.Add(*quantumTeleport2);
     builder.Add(*quantumCafe);
     builder.Add(*feynmanStreet);
-    builder.Add(*bohrStreet);
+    builder.Add(*bohrStreet1);
+    builder.Add(*bohrStreet2);
+    builder.Add(*bohrStreet3);
     builder.Add(*feynmanHouse);
     builder.Add(*bohrHouse);
 
@@ -196,7 +204,7 @@ UNIT_TEST(SearchQueryV2_Smoke)
   }
 
   {
-    TestSearchRequest request(engine, "bohr street 1 unit 2 lantern ", "en",
+    TestSearchRequest request(engine, "bohr street 1 lantern ", "en",
                               search::SearchParams::ALL, viewport);
     request.Wait();
     vector<shared_ptr<MatchingRule>> rules = {make_shared<ExactMatch>(wonderlandId, lantern1),

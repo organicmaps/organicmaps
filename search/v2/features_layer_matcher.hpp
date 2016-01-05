@@ -56,6 +56,7 @@ class FeaturesLayerMatcher
 {
 public:
   static uint32_t const kInvalidId = numeric_limits<uint32_t>::max();
+  static double const kBuildingRadiusMeters;
 
   FeaturesLayerMatcher(Index & index, MwmContext & context, my::Cancellable const & cancellable);
 
@@ -91,34 +92,39 @@ private:
   template <typename TFn>
   void MatchPOIsWithBuildings(FeaturesLayer const & child, FeaturesLayer const & parent, TFn && fn)
   {
-    static double const kBuildingRadiusMeters = 50;
+    // Following code initially loads centers of POIs, and, then, for
+    // each building, tries to find all POIs located at distance less
+    // than kBuildingRadiusMeters.
 
     ASSERT_EQUAL(child.m_type, SearchModel::SEARCH_TYPE_POI, ());
     ASSERT_EQUAL(parent.m_type, SearchModel::SEARCH_TYPE_BUILDING, ());
 
+    auto const & pois = *child.m_sortedFeatures;
+    auto const & buildings = *parent.m_sortedFeatures;
+
     BailIfCancelled(m_cancellable);
 
-    vector<m2::PointD> poiCenters(child.m_sortedFeatures->size());
+    vector<m2::PointD> poiCenters(pois.size());
 
-    size_t const numPOIs = child.m_sortedFeatures->size();
+    size_t const numPOIs = pois.size();
     vector<bool> isPOIProcessed(numPOIs);
     size_t processedPOIs = 0;
 
-    for (size_t i = 0; i < child.m_sortedFeatures->size(); ++i)
+    for (size_t i = 0; i < pois.size(); ++i)
     {
       FeatureType poiFt;
-      GetByIndex((*child.m_sortedFeatures)[i], poiFt);
+      GetByIndex(pois[i], poiFt);
       poiCenters[i] = feature::GetCenter(poiFt, FeatureType::WORST_GEOMETRY);
     }
 
-    for (size_t i = 0; i < parent.m_sortedFeatures->size() && processedPOIs != numPOIs; ++i)
+    for (size_t i = 0; i < buildings.size() && processedPOIs != numPOIs; ++i)
     {
       BailIfCancelled(m_cancellable);
 
       FeatureType buildingFt;
-      GetByIndex((*parent.m_sortedFeatures)[i], buildingFt);
+      GetByIndex(buildings[i], buildingFt);
 
-      for (size_t j = 0; j < child.m_sortedFeatures->size(); ++j)
+      for (size_t j = 0; j < pois.size(); ++j)
       {
         if (isPOIProcessed[j])
           continue;
@@ -126,10 +132,31 @@ private:
         double const distMeters = feature::GetMinDistanceMeters(buildingFt, poiCenters[j]);
         if (distMeters <= kBuildingRadiusMeters)
         {
-          fn((*child.m_sortedFeatures)[j], (*parent.m_sortedFeatures)[i]);
+          fn(pois[j], buildings[i]);
           isPOIProcessed[j] = true;
           ++processedPOIs;
         }
+      }
+    }
+
+    if (!parent.m_hasDelayedFeatures)
+      return;
+
+    // |buildings| do not contain buildings matching by house number, so
+    // following code reads buildings in POIs vicinities and checks
+    // house numbers.
+    auto const & mwmId = m_context.m_handle.GetId();
+    vector<string> queryTokens;
+    NormalizeHouseNumber(parent.m_subQuery, queryTokens);
+
+    for (size_t i = 0; i < pois.size(); ++i)
+    {
+      for (auto const & building : GetNearbyBuildings(poiCenters[i]))
+      {
+        if (building.m_id.m_mwmId != mwmId)
+          continue;
+        if (HouseNumbersMatch(building.m_name, queryTokens))
+          fn(pois[i], building.m_id.m_index);
       }
     }
   }
@@ -140,10 +167,33 @@ private:
     ASSERT_EQUAL(child.m_type, SearchModel::SEARCH_TYPE_POI, ());
     ASSERT_EQUAL(parent.m_type, SearchModel::SEARCH_TYPE_STREET, ());
 
-    for (uint32_t streetId : *parent.m_sortedFeatures)
+    auto const & pois = *child.m_sortedFeatures;
+    auto const & streets = *parent.m_sortedFeatures;
+
+    // When number of POIs less than number of STREETs, it's faster to
+    // check nearby streets for POIs.
+    if (pois.size() < streets.size())
+    {
+      auto const & mwmId = m_context.m_handle.GetId();
+      for (uint32_t poiId : pois)
+      {
+        for (auto const & street : GetNearbyStreets(poiId))
+        {
+          if (street.m_id.m_mwmId != mwmId)
+            continue;
+
+          uint32_t const streetId = street.m_id.m_index;
+          if (binary_search(streets.begin(), streets.end(), streetId))
+            fn(poiId, streetId);
+        }
+      }
+      return;
+    }
+
+    for (uint32_t streetId : streets)
     {
       BailIfCancelled(m_cancellable);
-      m_loader.ForEachInVicinity(streetId, *child.m_sortedFeatures, bind(fn, _1, streetId));
+      m_loader.ForEachInVicinity(streetId, pois, bind(fn, _1, streetId));
     }
   }
 
@@ -151,36 +201,30 @@ private:
   void MatchBuildingsWithStreets(FeaturesLayer const & child, FeaturesLayer const & parent,
                                  TFn && fn)
   {
-    // child.m_sortedFeatures contains only buildings matched by name,
-    // not by house number.  So, we need to add to
-    // child.m_sortedFeatures all buildings match by house number
-    // here.
-
     ASSERT_EQUAL(child.m_type, SearchModel::SEARCH_TYPE_BUILDING, ());
     ASSERT_EQUAL(parent.m_type, SearchModel::SEARCH_TYPE_STREET, ());
 
-    vector<string> queryTokens;
-    NormalizeHouseNumber(child.m_subQuery, queryTokens);
-    bool const queryLooksLikeHouseNumber =
-        !queryTokens.empty() && feature::IsHouseNumber(child.m_subQuery);
+    auto const & buildings = *child.m_sortedFeatures;
+    auto const & streets = *parent.m_sortedFeatures;
 
-    // When building name does not look like a house number it's
-    // faster to check nearby streets for each building instead of
-    // street vicinities loading.
-    if (!queryLooksLikeHouseNumber &&
-        child.m_sortedFeatures->size() < parent.m_sortedFeatures->size())
+    // When all buildings are in |buildings| and number of buildins
+    // less than number of streets, it's probably faster to check
+    // nearby streets for each building instead of street vicinities
+    // loading.
+    if (!child.m_hasDelayedFeatures && buildings.size() < streets.size())
     {
+      auto const & streets = *parent.m_sortedFeatures;
       for (uint32_t houseId : *child.m_sortedFeatures)
       {
         uint32_t streetId = GetMatchingStreet(houseId);
-        if (binary_search(parent.m_sortedFeatures->begin(), parent.m_sortedFeatures->end(),
-                          streetId))
-        {
+        if (binary_search(streets.begin(), streets.end(), streetId))
           fn(houseId, streetId);
-        }
       }
       return;
     }
+
+    vector<string> queryTokens;
+    NormalizeHouseNumber(child.m_subQuery, queryTokens);
 
     auto const & checker = ftypes::IsBuildingChecker::Instance();
     uint32_t numFilterInvocations = 0;
@@ -190,7 +234,7 @@ private:
       if ((numFilterInvocations & 0xFF) == 0)
         BailIfCancelled(m_cancellable);
 
-      if (binary_search(child.m_sortedFeatures->begin(), child.m_sortedFeatures->end(), id))
+      if (binary_search(buildings.begin(), buildings.end(), id))
         return true;
 
       // HouseNumbersMatch() calls are expensive, so following code
@@ -204,13 +248,15 @@ private:
         GetByIndex(id, feature);
         loaded = true;
       }
+
       if (!checker(feature))
         return false;
 
-      string const houseNumber = feature.GetHouseNumber();
-      if (!queryLooksLikeHouseNumber || !feature::IsHouseNumber(houseNumber))
+      if (!child.m_hasDelayedFeatures)
         return false;
-      if (queryTokens[0][0] != houseNumber[0])
+
+      string const houseNumber = feature.GetHouseNumber();
+      if (!feature::IsHouseNumber(houseNumber))
         return false;
       return HouseNumbersMatch(houseNumber, queryTokens);
     };
@@ -227,7 +273,7 @@ private:
     };
 
     ProjectionOnStreet proj;
-    for (uint32_t streetId : *parent.m_sortedFeatures)
+    for (uint32_t streetId : streets)
     {
       BailIfCancelled(m_cancellable);
       StreetVicinityLoader::Street const & street = m_loader.GetStreet(streetId);
@@ -267,6 +313,8 @@ private:
   vector<ReverseGeocoder::Street> const & GetNearbyStreets(uint32_t featureId,
                                                            FeatureType & feature);
 
+  vector<ReverseGeocoder::Building> const & GetNearbyBuildings(m2::PointD const & center);
+
   uint32_t GetMatchingStreetImpl(uint32_t houseId, FeatureType & houseFeature);
 
   vector<ReverseGeocoder::Street> const & GetNearbyStreetsImpl(uint32_t featureId,
@@ -282,8 +330,13 @@ private:
   ReverseGeocoder m_reverseGeocoder;
 
   // Cache of streets in a feature's vicinity. All lists in the cache
-  // are ordered by distance.
+  // are ordered by distance from feature.
   unordered_map<uint32_t, vector<ReverseGeocoder::Street>> m_nearbyStreetsCache;
+
+  // Cache of buildings near in a POI's vicinity. All lists in the
+  // cache are ordered by distance from POI.
+  unordered_map<m2::PointD, vector<ReverseGeocoder::Building>, m2::PointD::Hash>
+      m_nearbyBuildingsCache;
 
   // Cache of correct streets for buildings. Current search algorithm
   // supports only one street for a building, whereas buildings can be

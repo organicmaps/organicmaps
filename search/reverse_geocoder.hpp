@@ -34,9 +34,8 @@ class ReverseGeocoder
 
 public:
   static double const kLookupRadiusM;
-  static m2::RectD GetLookupRect(m2::PointD const & center);
 
-  explicit ReverseGeocoder(Index const & index) : m_index(index) {}
+  explicit ReverseGeocoder(Index const & index);
 
   using Street = Object;
 
@@ -69,9 +68,14 @@ public:
 
   void GetNearbyAddress(m2::PointD const & center, Address & addr);
 
-private:
-  void GetNearbyStreets(m2::PointD const & center, vector<Street> & streets);
   void GetNearbyBuildings(m2::PointD const & center, vector<Building> & buildings);
+
+  void GetNearbyBuildings(m2::PointD const & center, double radiusM, vector<Building> & buildings);
+
+private:
+  static m2::RectD GetLookupRect(m2::PointD const & center, double radiusM);
+
+  void GetNearbyStreets(m2::PointD const & center, vector<Street> & streets);
 };
 
 } // namespace search

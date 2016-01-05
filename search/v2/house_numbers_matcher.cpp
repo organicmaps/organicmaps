@@ -180,10 +180,15 @@ bool HouseNumbersMatch(string const & houseNumber, string const & query)
 
 bool HouseNumbersMatch(string const & houseNumber, vector<string> const & queryTokens)
 {
+  if (houseNumber.empty() || queryTokens.empty())
+    return false;
+  if (queryTokens[0][0] != houseNumber[0])
+    return false;
+
   vector<string> houseNumberTokens;
   NormalizeHouseNumber(houseNumber, houseNumberTokens);
 
-  if (houseNumberTokens.empty() || queryTokens.empty())
+  if (houseNumberTokens.empty())
     return false;
 
   // Check first tokens (hope, house numbers).

@@ -19,6 +19,8 @@ class MwmValue;
 
 namespace search
 {
+namespace v2
+{
 // This class is able to load features in a street's vicinity.
 //
 // NOTE: this class *IS NOT* thread-safe.
@@ -84,4 +86,5 @@ private:
 
   DISALLOW_COPY_AND_MOVE(StreetVicinityLoader);
 };
+}  // namespace v2
 }  // namespace search

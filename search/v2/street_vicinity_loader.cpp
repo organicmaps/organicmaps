@@ -13,6 +13,8 @@
 
 namespace search
 {
+namespace v2
+{
 StreetVicinityLoader::StreetVicinityLoader(MwmValue & value, FeaturesVector const & featuresVector,
                                            int scale, double offsetMeters)
   : m_index(value.m_cont.GetReader(INDEX_FILE_TAG), value.m_factory)
@@ -58,4 +60,5 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
   if (!points.empty())
     street.m_calculator = make_unique<ProjectionOnStreetCalculator>(move(points), m_offsetMeters);
 }
+}  // namespace v2
 }  // namespace search
