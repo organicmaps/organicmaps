@@ -16,8 +16,6 @@ constexpr char const * kApiVersion = "/api/0.6";
 
 namespace
 {
-string const kOSMSessionCookie = "_osm_session";
-
 string findAuthenticityToken(string const & body)
 {
   auto pos = body.find("name=\"authenticity_token\"");
@@ -59,16 +57,16 @@ OsmOAuth::AuthResult OsmOAuth::FetchSessionId(OsmOAuth::SessionID & sid) const
     return AuthResult::NetworkError;
   if (request.error_code() != 200)
     return AuthResult::ServerError;
-  sid.m_id = request.cookie_by_name(kOSMSessionCookie);
+  sid.m_cookies = request.combined_cookies();
   sid.m_token = findAuthenticityToken(request.server_response());
-  return !sid.m_id.empty() && !sid.m_token.empty() ? AuthResult::OK : AuthResult::FailCookie;
+  return !sid.m_cookies.empty() && !sid.m_token.empty() ? AuthResult::OK : AuthResult::FailCookie;
 }
 
 // Log a user out.
 OsmOAuth::AuthResult OsmOAuth::LogoutUser(SessionID const & sid) const
 {
   HTTPClientPlatformWrapper request(m_baseUrl + "/logout");
-  request.set_cookies(kOSMSessionCookie + "=" + sid.m_id);
+  request.set_cookies(sid.m_cookies);
   if (!request.RunHTTPRequest())
     return AuthResult::NetworkError;
   if (request.error_code() != 200)
@@ -87,7 +85,7 @@ OsmOAuth::AuthResult OsmOAuth::LoginUserPassword(string const & login, string co
   params["authenticity_token"] = sid.m_token;
   HTTPClientPlatformWrapper request(m_baseUrl + "/login");
   request.set_body_data(buildPostRequest(params), "application/x-www-form-urlencoded");
-  request.set_cookies(kOSMSessionCookie + "=" + sid.m_id);
+  request.set_cookies(sid.m_cookies);
   if (!request.RunHTTPRequest())
     return AuthResult::NetworkError;
   if (request.error_code() != 200)
@@ -103,7 +101,7 @@ OsmOAuth::AuthResult OsmOAuth::LoginFacebook(string const & facebookToken, Sessi
 {
   string const url = m_baseUrl + "/auth/facebook_access_token/callback?access_token=" + facebookToken;
   HTTPClientPlatformWrapper request(url);
-  request.set_cookies(kOSMSessionCookie + "=" + sid.m_id);
+  request.set_cookies(sid.m_cookies);
   if (!request.RunHTTPRequest())
     return AuthResult::NetworkError;
   if (request.error_code() != 200)
@@ -125,7 +123,7 @@ string OsmOAuth::SendAuthRequest(string const & requestTokenKey, SessionID const
   params["commit"] = "Save changes";
   HTTPClientPlatformWrapper request(m_baseUrl + "/oauth/authorize");
   request.set_body_data(buildPostRequest(params), "application/x-www-form-urlencoded");
-  request.set_cookies(kOSMSessionCookie + "=" + sid.m_id);
+  request.set_cookies(sid.m_cookies);
 
   if (!request.RunHTTPRequest())
     return string();

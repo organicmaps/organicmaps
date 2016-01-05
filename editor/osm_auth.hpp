@@ -47,7 +47,7 @@ public:
 private:
   struct SessionID
   {
-    string m_id;
+    string m_cookies;
     string m_token;
   };
 
