@@ -213,4 +213,23 @@ namespace feature
     }
   }
 
+  void DumpFeatureNames(string const & fPath, string const & lang)
+  {
+    int8_t const langIndex = StringUtf8Multilang::GetLangIndex(lang);
+    auto printName = [&](int8_t langCode, string const & name) -> bool
+    {
+      CHECK(!name.empty(), ("Feature name is empty"));
+      if (langIndex == StringUtf8Multilang::UNSUPPORTED_LANGUAGE_CODE)
+        cout << StringUtf8Multilang::GetLangByCode(langCode) << ' ' << name << endl;
+      else if (langCode == langIndex)
+        cout << name << endl;
+      return true;
+    };
+
+    feature::ForEachFromDat(fPath, [&](FeatureType & f, uint32_t)
+                            {
+                              f.ForEachNameRef(printName);
+                            });
+  }
+
 }  // namespace feature

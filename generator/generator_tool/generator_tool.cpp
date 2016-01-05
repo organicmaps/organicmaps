@@ -58,6 +58,7 @@ DEFINE_bool(split_by_polygons, false, "Use countries borders to split planet by 
 DEFINE_bool(dump_types, false, "Prints all types combinations and their total count");
 DEFINE_bool(dump_prefixes, false, "Prints statistics on feature's' name prefixes");
 DEFINE_bool(dump_search_tokens, false, "Print statistics on search tokens.");
+DEFINE_string(dump_feature_names, "", "Print all feature names by 2-letter locale.");
 DEFINE_bool(unpack_mwm, false, "Unpack each section of mwm into a separate file with name filePath.sectionName.");
 DEFINE_bool(generate_packed_borders, false, "Generate packed file with country polygons.");
 DEFINE_bool(check_mwm, false, "Check map file to be correct.");
@@ -126,9 +127,9 @@ int main(int argc, char ** argv)
 
   // Load classificator only when necessary.
   if (FLAGS_make_coasts || FLAGS_generate_features || FLAGS_generate_geometry ||
-      FLAGS_generate_index || FLAGS_generate_search_index ||
-      FLAGS_calc_statistics || FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
-      FLAGS_check_mwm)
+      FLAGS_generate_index || FLAGS_generate_search_index || FLAGS_calc_statistics ||
+      FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
+      FLAGS_dump_feature_names != "" || FLAGS_check_mwm)
   {
     classificator::Load();
     classif().SortClassificator();
@@ -247,6 +248,9 @@ int main(int argc, char ** argv)
 
   if (FLAGS_dump_search_tokens)
     feature::DumpSearchTokens(datFile, 100 /* maxTokensToShow */);
+
+  if (FLAGS_dump_feature_names != "")
+    feature::DumpFeatureNames(datFile, FLAGS_dump_feature_names);
 
   if (FLAGS_unpack_mwm)
     UnpackMwm(datFile);
