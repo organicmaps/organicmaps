@@ -10,6 +10,8 @@
 #include "drape/texture_manager.hpp"
 #include "drape/uniform_values_storage.hpp"
 
+#include "indexer/scales.hpp"
+
 #include "geometry/screenbase.hpp"
 
 namespace df
@@ -17,7 +19,9 @@ namespace df
 
 double const kArrowSizeX = 2.0;
 double const kArrowSizeY = 3.0;
-double const kArrow3dScale = 1.2;
+double const kArrow3dScaleMin = 1.0;
+double const kArrow3dScaleMax = 2.2;
+double const kArrow3dMinZoom = 16;
 
 Arrow3d::Arrow3d()
   : m_state(gpu::ARROW_3D_PROGRAM, dp::GLState::OverlayLayer)
@@ -133,8 +137,14 @@ void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> m
 
   dp::ApplyState(m_state, prg);
 
-  double const scaleX = m_pixelWidth * kArrow3dScale * 2.0 / screen.PixelRect().SizeX() / kArrowSizeX;
-  double const scaleY = m_pixelHeight * kArrow3dScale * 2.0 / screen.PixelRect().SizeY() / kArrowSizeY;
+  static double const kLog2 = log(2.0);
+  double const kMaxZoom = scales::UPPER_STYLE_SCALE + 1.0;
+  double const zoomLevel = my::clamp(fabs(log(screen.GetScale()) / kLog2), kArrow3dMinZoom, kMaxZoom);
+  double const t = (zoomLevel - kArrow3dMinZoom) / (kMaxZoom - kArrow3dMinZoom);
+  double const arrowScale = kArrow3dScaleMin * (1.0 - t) + kArrow3dScaleMax * t;
+
+  double const scaleX = m_pixelWidth * arrowScale * 2.0 / screen.PixelRect().SizeX() / kArrowSizeX;
+  double const scaleY = m_pixelHeight * arrowScale * 2.0 / screen.PixelRect().SizeY() / kArrowSizeY;
   double const scaleZ = scaleX;
 
   m2::PointD const pos = screen.GtoP(m_position);
