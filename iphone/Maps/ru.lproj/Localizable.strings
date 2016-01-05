@@ -507,6 +507,15 @@
 /* «Map style» entry value */
 "pref_map_style_modern_light" = "Современная светлая";
 
+/* Settings «Map» category: «Perspective view» title */
+"pref_map_3d_title" = "Перспектива";
+
+/* Settings «Map» category: «3D buildings» title */
+"pref_map_3d_buildings_title" = "Трёхмерные здания";
+
+/* Settings «Map» category: «3D buildings» summary */
+"pref_map_3d_buildings_subtitle" = "Увеличит расход батареи";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Голосовые инструкции";
 
@@ -1313,18 +1322,10 @@
 
 "p2p_reroute_from_current" = "Хотите перестроить маршрут от вашего местоположения?";
 
-"whats_new_3d_title" = "MAPS.ME в 3D";
+"whats_new_3d_title" = "Новый взгляд на ваши любимые карты";
 
-"whats_new_3d_subtitle" = "Появился 3-D режим!";
+"whats_new_3d_subtitle" = "Мы добавили перспективу в режиме навигации.";
 
-"whats_new_3d_switch_title" = "Включить";
+"whats_new_3d_buildings_title" = "Новое измерение в картах MAPS.ME";
 
-"whats_new_3d_switch_subtitle" = "Увеличит расход батареи";
-
-"whats_new_3d_buildings_title" = "Трёхмерные здания";
-
-"whats_new_3d_buildings_subtitle" = "Трёхмерные здания!";
-
-"whats_new_3d_buildings_switch_title" = "Включить";
-
-"whats_new_3d_buildings_switch_subtitle" = "Увеличит расход батареи";
+"whats_new_3d_buildings_subtitle" = "С трёхмерными зданиями карта стала более информативной и красивой.";
