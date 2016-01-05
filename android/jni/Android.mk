@@ -25,8 +25,8 @@ define add_prebuild_static_lib
   include $(PREBUILT_STATIC_LIBRARY)
 endef
 
-prebuild_static_libs := osrm protobuf tomcrypt jansson minizip fribidi freetype expat succinct opening_hours pugixml oauthcpp \
-    base coding geometry editor platform indexer storage search routing drape drape_frontend map stats_client
+prebuild_static_libs := map drape_frontend routing search storage indexer drape platform editor geometry coding base opening_hours
+prebuild_static_libs += pugixml oauthcpp expat freetype fribidi minizip jansson tomcrypt protobuf osrm stats_client succinct
 
 $(foreach item,$(prebuild_static_libs),$(eval $(call add_prebuild_static_lib,$(item))))
 
@@ -41,8 +41,7 @@ LOCAL_CPP_FEATURES += exceptions rtti
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../
 
 LOCAL_MODULE := mapswithme
-LOCAL_STATIC_LIBRARIES := map drape_frontend routing search storage indexer drape platform editor geometry coding base \
-    expat freetype fribidi minizip jansson tomcrypt protobuf osrm stats_client succinct opening_hours pugixml oauthcpp
+LOCAL_STATIC_LIBRARIES := $(prebuild_static_libs)
 
 LOCAL_CFLAGS := -ffunction-sections -fdata-sections -Wno-extern-c-compat
 
@@ -100,10 +99,11 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/platform/MethodRef.cpp \
 	com/mapswithme/platform/PThreadImpl.cpp \
 	com/mapswithme/util/StringUtils.cpp \
-    com/mapswithme/util/Config.cpp \
+	com/mapswithme/util/Config.cpp \
 	com/mapswithme/opengl/android_gl_utils.cpp \
 	com/mapswithme/opengl/androidoglcontext.cpp \
 	com/mapswithme/opengl/androidoglcontextfactory.cpp \
+	com/mapswithme/maps/editor/OpeningHours.cpp \
 
 LOCAL_LDLIBS := -llog -landroid -lEGL -lGLESv2 -latomic -lz
 
