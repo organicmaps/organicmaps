@@ -362,15 +362,20 @@ void Geocoder::DoGeocodingWithoutLocalities()
   if (coding::CompressedBitVector::IsEmpty(viewportFeatures) &&
       coding::CompressedBitVector::IsEmpty(positionFeatures))
   {
-    return;
+    m_filter.SetFilter(nullptr);
   }
-
-  if (coding::CompressedBitVector::IsEmpty(viewportFeatures))
+  else if (coding::CompressedBitVector::IsEmpty(viewportFeatures))
+  {
     m_filter.SetFilter(move(positionFeatures));
+  }
   else if (coding::CompressedBitVector::IsEmpty(positionFeatures))
+  {
     m_filter.SetFilter(move(viewportFeatures));
+  }
   else
+  {
     m_filter.SetFilter(coding::CompressedBitVector::Union(*viewportFeatures, *positionFeatures));
+  }
 
   // Filter will be applied only for large bit vectors.
   m_filter.SetThreshold(m_params.m_maxNumResults);
