@@ -5268,34 +5268,52 @@
     fi = Näytä ruudulla
 
   [pref_map_style_title]
-     tags = android
-     comment = Settings «Map» category: «Map style» title
-     en = Map style
-     ru = Стиль карты
+    tags = android
+    comment = Settings «Map» category: «Map style» title
+    en = Map style
+    ru = Стиль карты
 
   [pref_map_style_summary]
-     tags = android
-     comment = Settings «Map» category: «Map style» summary
-     en = Change map presentation
-     ru = Стиль отображения карты
+    tags = android
+    comment = Settings «Map» category: «Map style» summary
+    en = Change map presentation
+    ru = Стиль отображения карты
 
   [pref_map_style_classic_light]
-     tags = android
-     comment = «Map style» entry value
-     en = Classic light
-     ru = Классическая светлая
+    tags = android
+    comment = «Map style» entry value
+    en = Classic light
+    ru = Классическая светлая
 
   [pref_map_style_classic_dark]
-     tags = android
-     comment = «Map style» entry value
-     en = Classic dark
-     ru = Классическая тёмная
+    tags = android
+    comment = «Map style» entry value
+    en = Classic dark
+    ru = Классическая тёмная
 
   [pref_map_style_modern_light]
-     tags = android
-     comment = «Map style» entry value
-     en = Modern light
-     ru = Современная светлая
+    tags = android
+    comment = «Map style» entry value
+    en = Modern light
+    ru = Современная светлая
+
+  [pref_map_3d_title]
+    comment = Settings «Map» category: «Perspective view» title
+    tags = ios, android
+    en = Perspective view
+    ru = Перспектива
+
+  [pref_map_3d_buildings_title]
+    comment = Settings «Map» category: «3D buildings» title
+    tags = ios, android
+    en = 3D buildings
+    ru = Трёхмерные здания
+
+  [pref_map_3d_buildings_subtitle]
+    tags = ios, android
+    comment = Settings «Map» category: «3D buildings» summary
+    en = Increase battery usage
+    ru = Увеличит расход батареи
 
   [pref_tts_enable_title]
      tags = android,ios
@@ -14396,40 +14414,20 @@
 
   [whats_new_3d_title]
     tags = ios, android
-    en = MAPS.ME in 3D
-    ru = MAPS.ME в 3D
+    en = A new angle to your favorite maps
+    ru = Новый взгляд на ваши любимые карты
 
   [whats_new_3d_subtitle]
     tags = ios, android
-    en = See 3D view!
-    ru = Появился 3-D режим!
-
-  [whats_new_3d_switch_title]
-    tags = ios, android
-    en = Enable
-    ru = Включить
-
-  [whats_new_3d_switch_subtitle]
-    tags = ios, android
-    en = Will increase battery usage
-    ru = Увеличит расход батареи
+    en = We have added a perspective view to navigate mode.
+    ru = Мы добавили перспективу в режиме навигации.
 
   [whats_new_3d_buildings_title]
     tags = ios, android
-    en = 3D buildings
-    ru = Трёхмерные здания
+    en = A new dimension in MAPS.ME
+    ru = Новое измерение в картах MAPS.ME
 
   [whats_new_3d_buildings_subtitle]
     tags = ios, android
-    en = 3D buildings!
-    ru = Трёхмерные здания!
-
-  [whats_new_3d_buildings_switch_title]
-    tags = ios, android
-    en = Enable
-    ru = Включить
-
-  [whats_new_3d_buildings_switch_subtitle]
-    tags = ios, android
-    en = Will increase battery usage
-    ru = Увеличит расход батареи
+    en = With 3D buildings the map is now more informative and beautiful.
+    ru = С трёхмерными зданиями карта стала более информативной и красивой.
