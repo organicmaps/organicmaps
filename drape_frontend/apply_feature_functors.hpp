@@ -89,6 +89,7 @@ public:
 private:
   using TEdge = pair<int, int>;
 
+  void ProcessBuildingPolygon(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3);
   void CalculateBuildingEdges(vector<BuildingEdge> & edges);
   int GetIndex(m2::PointD const & pt);
   void BuildEdges(int vertexIndex1, int vertexIndex2, int vertexIndex3);

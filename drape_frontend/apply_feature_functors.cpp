@@ -329,20 +329,53 @@ ApplyAreaFeature::ApplyAreaFeature(TInsertShapeFn const & insertShape, FeatureID
 
 void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
 {
+  if (m_isBuilding)
+  {
+    ProcessBuildingPolygon(p1, p2, p3);
+    return;
+  }
+
   m_triangles.push_back(p1);
   if (m2::CrossProduct(p2 - p1, p3 - p1) < 0)
   {
     m_triangles.push_back(p2);
     m_triangles.push_back(p3);
-    if (m_isBuilding)
-      BuildEdges(GetIndex(p1), GetIndex(p2), GetIndex(p3));
   }
   else
   {
     m_triangles.push_back(p3);
     m_triangles.push_back(p2);
-    if (m_isBuilding)
-      BuildEdges(GetIndex(p1), GetIndex(p3), GetIndex(p2));
+  }
+}
+
+void ApplyAreaFeature::ProcessBuildingPolygon(m2::PointD const & p1, m2::PointD const & p2,
+                                              m2::PointD const & p3)
+{
+  // For building we must filter degenerate polygons because now we have to reconstruct
+  // building outline by bunch of polygons.
+  m2::PointD const v1 = p2 - p1;
+  m2::PointD const v2 = p3 - p1;
+  if (v1.IsAlmostZero() || v2.IsAlmostZero())
+    return;
+
+  double const crossProduct = m2::CrossProduct(v1.Normalize(), v2.Normalize());
+  double const kEps = 0.01;
+  if (fabs(crossProduct) < kEps)
+    return;
+
+  m_triangles.push_back(p1);
+
+  if (crossProduct < 0)
+  {
+    m_triangles.push_back(p2);
+    m_triangles.push_back(p3);
+    BuildEdges(GetIndex(p1), GetIndex(p2), GetIndex(p3));
+  }
+  else
+  {
+    m_triangles.push_back(p3);
+    m_triangles.push_back(p2);
+    BuildEdges(GetIndex(p1), GetIndex(p3), GetIndex(p2));
   }
 }
 
