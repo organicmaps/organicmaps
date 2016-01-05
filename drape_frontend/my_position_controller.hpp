@@ -15,6 +15,7 @@
 
 namespace df
 {
+class BaseModelViewAnimation;
 
 class MyPositionController
 {
@@ -58,7 +59,7 @@ public:
   void DragStarted();
   void DragEnded(m2::PointD const & distance);
 
-  void AnimationStarted();
+  void AnimationStarted(ref_ptr<BaseModelViewAnimation> anim);
   void ScaleStarted();
   void Rotated();
   void CorrectScalePoint(m2::PointD & pt) const;

@@ -1107,9 +1107,9 @@ void FrontendRenderer::OnScaleEnded()
   m_myPositionController->ScaleEnded();
 }
 
-void FrontendRenderer::OnAnimationStarted()
+void FrontendRenderer::OnAnimationStarted(ref_ptr<BaseModelViewAnimation> anim)
 {
-  m_myPositionController->AnimationStarted();
+  m_myPositionController->AnimationStarted(anim);
 }
 
 void FrontendRenderer::ResolveTileKeys(ScreenBase const & screen, TTilesCollection & tiles)

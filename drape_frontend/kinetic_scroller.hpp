@@ -2,6 +2,8 @@
 
 #include "animation/model_view_animation.hpp"
 
+#include "drape/pointers.hpp"
+
 #include "geometry/any_rect2d.hpp"
 
 namespace df
@@ -16,7 +18,7 @@ public:
   bool IsActive() const;
   void GrabViewRect(ScreenBase const & modelView, double timeStamp);
   void CancelGrab();
-  unique_ptr<BaseModelViewAnimation> CreateKineticAnimation(ScreenBase const & modelView);
+  drape_ptr<BaseModelViewAnimation> CreateKineticAnimation(ScreenBase const & modelView);
 
 private:
   double m_lastTimestamp;

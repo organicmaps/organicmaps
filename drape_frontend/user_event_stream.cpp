@@ -316,9 +316,10 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
     auto const creator = [this, &glbScaleCenter, &offset](m2::AnyRectD const & startRect, m2::AnyRectD const & endRect,
                                                           double aDuration, double mDuration, double sDuration)
     {
-      m_listener->OnAnimationStarted();
       m_animation.reset(new ScaleAnimation(startRect, endRect, aDuration, mDuration,
                                            sDuration, glbScaleCenter, offset));
+      if (m_listener)
+        m_listener->OnAnimationStarted(make_ref(m_animation));
     };
 
     ScreenBase screen = GetCurrentScreen();
@@ -428,8 +429,9 @@ bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim)
   return SetRect(rect, isAnim, [this](m2::AnyRectD const & startRect, m2::AnyRectD const & endRect,
                                       double aDuration, double mDuration, double sDuration)
   {
-    m_listener->OnAnimationStarted();
     m_animation.reset(new ModelViewAnimation(startRect, endRect, aDuration, mDuration, sDuration));
+    if (m_listener)
+      m_listener->OnAnimationStarted(make_ref(m_animation));
   });
 }
 
@@ -493,9 +495,10 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
     double const duration = max(angleDuration, moveDuration);
     if (duration > 0.0 && duration < kMaxAnimationTimeSec)
     {
-      m_listener->OnAnimationStarted();
       m_animation.reset(new FollowAndRotateAnimation(startRect, targetLocalRect, userPos,
                                                      screen.GtoP(userPos), pixelPos, azimuth, duration));
+      if (m_listener)
+        m_listener->OnAnimationStarted(make_ref(m_animation));
       return false;
     }
   }
@@ -852,6 +855,8 @@ bool UserEventStream::EndDrag(Touch const & t, bool cancelled)
   if (m_kineticTimer.TimeElapsedAs<milliseconds>().count() >= kKineticDelayMs)
   {
     m_animation = m_scroller.CreateKineticAnimation(m_navigator.Screen());
+    if (m_listener)
+      m_listener->OnAnimationStarted(make_ref(m_animation));
     m_scroller.CancelGrab();
     return false;
   }

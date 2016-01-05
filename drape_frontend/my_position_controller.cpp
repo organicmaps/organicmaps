@@ -571,9 +571,11 @@ void MyPositionController::CheckAnimFinished() const
     m_anim.reset();
 }
 
-void MyPositionController::AnimationStarted()
+void MyPositionController::AnimationStarted(ref_ptr<BaseModelViewAnimation> anim)
 {
-  if (m_isPendingAnimation && m_animCreator != nullptr)
+  if (m_isPendingAnimation && m_animCreator != nullptr && anim != nullptr &&
+      (anim->GetType() == ModelViewAnimationType::FollowAndRotate ||
+       anim->GetType() == ModelViewAnimationType::Default))
   {
     m_isPendingAnimation = false;
     m_animCreator();
@@ -589,8 +591,9 @@ void MyPositionController::CreateAnim(m2::PointD const & oldPos, double oldAzimu
   {
     if (IsModeChangeViewport())
     {
-      m_animCreator = [this, oldPos, moveDuration, oldAzimut, rotateDuration](){
-        m_anim.reset(new MyPositionAnim(oldPos, m_position, moveDuration, oldAzimut, m_drawDirection, rotateDuration));
+      m_animCreator = [this, oldPos, moveDuration, oldAzimut, rotateDuration]()
+      {
+        m_anim = make_unique_dp<MyPositionAnim>(oldPos, m_position, moveDuration, oldAzimut, m_drawDirection, rotateDuration);
       };
       m_oldPosition = oldPos;
       m_oldDrawDirection = oldAzimut;
@@ -598,7 +601,7 @@ void MyPositionController::CreateAnim(m2::PointD const & oldPos, double oldAzimu
     }
     else
     {
-      m_anim.reset(new MyPositionAnim(oldPos, m_position, moveDuration, oldAzimut, m_drawDirection, rotateDuration));
+      m_anim = make_unique_dp<MyPositionAnim>(oldPos, m_position, moveDuration, oldAzimut, m_drawDirection, rotateDuration);
     }
   }
 }

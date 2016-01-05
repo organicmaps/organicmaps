@@ -116,11 +116,11 @@ void KineticScroller::CancelGrab()
   m_direction = m2::PointD::Zero();
 }
 
-unique_ptr<BaseModelViewAnimation> KineticScroller::CreateKineticAnimation(ScreenBase const & modelView)
+drape_ptr<BaseModelViewAnimation> KineticScroller::CreateKineticAnimation(ScreenBase const & modelView)
 {
   static double kVelocityThreshold = kKineticThreshold * VisualParams::Instance().GetVisualScale();
   if (m_direction.Length() < kVelocityThreshold)
-    return unique_ptr<BaseModelViewAnimation>();
+    return drape_ptr<BaseModelViewAnimation>();
 
   // Before we start animation we have to convert length(m_direction) from pixel space to mercator space.
   m2::PointD center = m_lastRect.GlobalCenter();
@@ -129,9 +129,9 @@ unique_ptr<BaseModelViewAnimation> KineticScroller::CreateKineticAnimation(Scree
   m2::PointD const glbDirection = m_direction.Normalize() * glbLength;
   m2::PointD const targetCenter = center + glbDirection;
   if (!df::GetWorldRect().IsPointInside(targetCenter))
-    return unique_ptr<BaseModelViewAnimation>();
+    return drape_ptr<BaseModelViewAnimation>();
 
-  return unique_ptr<BaseModelViewAnimation>(new KineticScrollAnimation(m_lastRect, glbDirection, kKineticDuration));
+  return make_unique_dp<KineticScrollAnimation>(m_lastRect, glbDirection, kKineticDuration);
 }
 
 } // namespace df
