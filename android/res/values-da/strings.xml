@@ -800,9 +800,4 @@
 	<string name="p2p_to_here">Til</string>
 	<string name="p2p_only_from_current">Navigation er kun tilgængelig fra din nuværende lokalitet.</string>
 	<string name="p2p_reroute_from_current">Ønsker du, at vi planlægger en rute fra din nuværende placering?</string>
-	<string name="whats_new_where_to_turn">MAPS.ME vil fortælle dig, hvor du skal dreje</string>
-	<string name="whats_new_voice_instructions">Kære venner, I har længe bedt om stemmeinstruktioner under navigering - det har vi gjort! Nu vil vores navigatør varsle dit næste sving i tide.</string>
-	<string name="whats_new_between_any_points">Byg ruter mellem alle punkter</string>
-	<string name="whats_new_happy_day">En god dag ganske vidst! Planlæg dine rejser på forhånd med MAPS.ME.</string>
-	<string name="whats_new_next">Næste</string>
 </resources>

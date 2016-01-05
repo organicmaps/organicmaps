@@ -507,6 +507,15 @@
 /* «Map style» entry value */
 "pref_map_style_modern_light" = "Modern light";
 
+/* Settings «Map» category: «Perspective view» title */
+"pref_map_3d_title" = "Perspective view";
+
+/* Settings «Map» category: «3D buildings» title */
+"pref_map_3d_buildings_title" = "3D buildings";
+
+/* Settings «Map» category: «3D buildings» summary */
+"pref_map_3d_buildings_subtitle" = "Increase battery usage";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Gesproken instructies";
 
@@ -1313,12 +1322,10 @@
 
 "p2p_reroute_from_current" = "Wilt u dat wij een route plannen vanaf uw huidige locatie?";
 
-"whats_new_where_to_turn" = "MAPS.ME zal u laten weten waar u moet afslaan";
+"whats_new_3d_title" = "A new angle to your favorite maps";
 
-"whats_new_voice_instructions" = "Beste vrienden, jullie vragen al lang om gesproken instructies voor tijdens het navigeren - dat hebben we gerealiseerd! Nu zal onze navigator u tijdig op de hoogte brengen van uw volgende afslag.";
+"whats_new_3d_subtitle" = "We have added a perspective view to navigate mode.";
 
-"whats_new_between_any_points" = "Maak routes tussen alle punten";
+"whats_new_3d_buildings_title" = "A new dimension in MAPS.ME";
 
-"whats_new_happy_day" = "Inderdaad een prettige dag! Plan uw reizen vooruit met MAPS.ME.";
-
-"whats_new_next" = "Volgende";
+"whats_new_3d_buildings_subtitle" = "With 3D buildings the map is now more informative and beautiful.";

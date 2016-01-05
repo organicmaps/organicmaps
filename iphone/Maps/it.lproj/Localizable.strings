@@ -507,6 +507,15 @@
 /* «Map style» entry value */
 "pref_map_style_modern_light" = "Modern light";
 
+/* Settings «Map» category: «Perspective view» title */
+"pref_map_3d_title" = "Perspective view";
+
+/* Settings «Map» category: «3D buildings» title */
+"pref_map_3d_buildings_title" = "3D buildings";
+
+/* Settings «Map» category: «3D buildings» summary */
+"pref_map_3d_buildings_subtitle" = "Increase battery usage";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Istruzioni vocali";
 
@@ -1313,12 +1322,10 @@
 
 "p2p_reroute_from_current" = "Vuoi che impostiamo il percorso dalla tua posizione corrente?";
 
-"whats_new_where_to_turn" = "MAPS.ME ti farà sapere dove girare";
+"whats_new_3d_title" = "A new angle to your favorite maps";
 
-"whats_new_voice_instructions" = "Cari amici, ci avete chiesto, per tanto tempo, di inserire le istruzioni vocali durante la navigazione; bene, lo abbiamo fatto! Ora, il nostro navigatore vi comunicherà, in tempo, quando dovrete girare.";
+"whats_new_3d_subtitle" = "We have added a perspective view to navigate mode.";
 
-"whats_new_between_any_points" = "Crea percorsi fra punti qualsiasi";
+"whats_new_3d_buildings_title" = "A new dimension in MAPS.ME";
 
-"whats_new_happy_day" = "Un giorno davvero felice! Pianifica in anticipo i tuoi viaggi con MAPS.ME.";
-
-"whats_new_next" = "Avanti";
+"whats_new_3d_buildings_subtitle" = "With 3D buildings the map is now more informative and beautiful.";

@@ -507,6 +507,15 @@
 /* «Map style» entry value */
 "pref_map_style_modern_light" = "Modern light";
 
+/* Settings «Map» category: «Perspective view» title */
+"pref_map_3d_title" = "Perspective view";
+
+/* Settings «Map» category: «3D buildings» title */
+"pref_map_3d_buildings_title" = "3D buildings";
+
+/* Settings «Map» category: «3D buildings» summary */
+"pref_map_3d_buildings_subtitle" = "Increase battery usage";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "คำแนะนำด้วยเสียง";
 
@@ -1313,12 +1322,10 @@
 
 "p2p_reroute_from_current" = "คุณต้องการให้เราาวงแผนเส้นทางจากสถานที่ตั้งปัจจุบันของคุณหรือไม่?";
 
-"whats_new_where_to_turn" = "MAPS.ME จะแจ้งให้คุณทราบถึงจุดเลี้ยว";
+"whats_new_3d_title" = "A new angle to your favorite maps";
 
-"whats_new_voice_instructions" = "เรียน เพื่อน ๆ จากที่คุณได้ร้องขอในเรื่องคำแนะนำด้วยเสียงพูดในระหว่างการนำทาง - เราได้ทำมันแล้ว! ต่อไปนี้ตัวนำทางของเราจะเตือนเกี่ยวกับการเลี้ยวครั้งถัดไปของคุณได้ทันเวลา";
+"whats_new_3d_subtitle" = "We have added a perspective view to navigate mode.";
 
-"whats_new_between_any_points" = "สร้างเส้นทางระหว่างทุกจุด";
+"whats_new_3d_buildings_title" = "A new dimension in MAPS.ME";
 
-"whats_new_happy_day" = "เป็นวันที่แสนสุขจริง ๆ! วางแผนทริปของคุณล่วงหน้าด้วย MAPS.ME";
-
-"whats_new_next" = "ถัดไป";
+"whats_new_3d_buildings_subtitle" = "With 3D buildings the map is now more informative and beautiful.";

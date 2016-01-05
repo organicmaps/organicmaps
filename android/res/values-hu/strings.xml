@@ -801,9 +801,4 @@
 	<string name="p2p_to_here">Ide</string>
 	<string name="p2p_only_from_current">A navigáció csak a jelenlegi helyzetéből érhető el.</string>
 	<string name="p2p_reroute_from_current">Szeretne útvonaltervet készíttetni a jelenlegi pozíciójától?</string>
-	<string name="whats_new_where_to_turn">A MAPS.ME segítségével tudni fogod, hogy merre kanyarodj</string>
-	<string name="whats_new_voice_instructions">Kedves barátaink! Már régóta kértétek tőlünk a hangirányítás hozzáadását a navigációhoz, most végre kész lett! Most a navigátor időben figyelmeztet, hogy mikor kell legközelebb kanyarodnod.</string>
-	<string name="whats_new_between_any_points">Alakíts ki egy útvonalat két tetszőleges pont között</string>
-	<string name="whats_new_happy_day">Micsoda boldog nap ez! Tervezd meg az utaidat előre a MAPS.ME-vel!</string>
-	<string name="whats_new_next">Következő</string>
 </resources>

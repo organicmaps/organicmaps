@@ -5268,34 +5268,52 @@
     fi = Näytä ruudulla
 
   [pref_map_style_title]
-     tags = android
-     comment = Settings «Map» category: «Map style» title
-     en = Map style
-     ru = Стиль карты
+    tags = android
+    comment = Settings «Map» category: «Map style» title
+    en = Map style
+    ru = Стиль карты
 
   [pref_map_style_summary]
-     tags = android
-     comment = Settings «Map» category: «Map style» summary
-     en = Change map presentation
-     ru = Стиль отображения карты
+    tags = android
+    comment = Settings «Map» category: «Map style» summary
+    en = Change map presentation
+    ru = Стиль отображения карты
 
   [pref_map_style_classic_light]
-     tags = android
-     comment = «Map style» entry value
-     en = Classic light
-     ru = Классическая светлая
+    tags = android
+    comment = «Map style» entry value
+    en = Classic light
+    ru = Классическая светлая
 
   [pref_map_style_classic_dark]
-     tags = android
-     comment = «Map style» entry value
-     en = Classic dark
-     ru = Классическая тёмная
+    tags = android
+    comment = «Map style» entry value
+    en = Classic dark
+    ru = Классическая тёмная
 
   [pref_map_style_modern_light]
-     tags = android
-     comment = «Map style» entry value
-     en = Modern light
-     ru = Современная светлая
+    tags = android
+    comment = «Map style» entry value
+    en = Modern light
+    ru = Современная светлая
+
+  [pref_map_3d_title]
+    comment = Settings «Map» category: «Perspective view» title
+    tags = ios, android
+    en = Perspective view
+    ru = Перспектива
+
+  [pref_map_3d_buildings_title]
+    comment = Settings «Map» category: «3D buildings» title
+    tags = ios, android
+    en = 3D buildings
+    ru = Трёхмерные здания
+
+  [pref_map_3d_buildings_subtitle]
+    tags = ios, android
+    comment = Settings «Map» category: «3D buildings» summary
+    en = Increase battery usage
+    ru = Увеличит расход батареи
 
   [pref_tts_enable_title]
      tags = android,ios
@@ -14394,152 +14412,22 @@
     nl = Wilt u dat wij een route plannen vanaf uw huidige locatie?
     pt = Deseja planejar uma rota a partir da sua localização atual?
 
-  [whats_new_where_to_turn]
+  [whats_new_3d_title]
     tags = ios, android
-    en = MAPS.ME will let you know where to turn
-    ru = MAPS.ME подскажет, куда поворачивать
-    fr = MAPS.ME vous dit quand tourner
-    da = MAPS.ME vil fortælle dig, hvor du skal dreje
-    id = MAPS.ME akan memberi tahu Anda tempat untuk berbelok
-    ko = MAPS.ME는 어디로 회전해야 하는지 알려 줍니다
-    sv = MAPS.ME berättar var du ska svänga
-    tr = MAPS.ME nereye döneceğinizi bilmenizi sağlayacak
-    uk = MAPS.ME підкаже, куди повернути
-    vi = MAPS.ME sẽ cho bạn biết chỗ rẽ
-    hu = A MAPS.ME segítségével tudni fogod, hogy merre kanyarodj
-    de = MAPS.ME sagt euch, wo ihr abbiegen müsst
-    fi = MAPS.ME kertoo sinulle, minne kääntyä
-    cs = MAPS.ME vám řekne, kdy zatočit
-    it = MAPS.ME ti farà sapere dove girare
-    nb = MAPS.ME gir deg perfekte veibeskrivelser
-    zh-Hant = MAPS.ME 會讓您知道應該在哪裡轉彎
-    zh-Hans = MAPS.ME会告诉您在哪转弯
-    th = MAPS.ME จะแจ้งให้คุณทราบถึงจุดเลี้ยว
-    ja = MAPS.MEが道順をご案内します
-    ro = MAPS.ME vă va spune unde să cotiți
-    ar = سوف تمكنك MAPS.ME من معرفة أين تتجه
-    sk = MAPS.ME vám dá vedieť, kde sa obrátiť
-    es = MAPS.ME te permitirá saber dónde girar
-    pl = MAPS.ME powiadomią Cię, gdzie skręcić
-    nl = MAPS.ME zal u laten weten waar u moet afslaan
-    pt = MAPS.ME te permitirá saber dónde girar
+    en = A new angle to your favorite maps
+    ru = Новый взгляд на ваши любимые карты
 
-  [whats_new_voice_instructions]
+  [whats_new_3d_subtitle]
     tags = ios, android
-    en = Dear friends, you have long been asking for voice instructions during navigation - we have done that! Now our navigator will timely warn you of your next turn.
-    ru = Друзья, вы давно просили голосовые подсказки во время навигации — мы сделали это! Ваш новый штурман вовремя предупредит о маневре.
-    fr = Chers amis, vous nous demandiez depuis longtemps d'inclure des instructions vocales au cours de la navigation – nous l'avons fait ! Désormais, notre navigateur vous préviendra à l'avance de votre prochain virage.
-    da = Kære venner, I har længe bedt om stemmeinstruktioner under navigering - det har vi gjort! Nu vil vores navigatør varsle dit næste sving i tide.
-    id = Teman-teman, Anda telah lama meminta petunjuk suara selama navigasi - kami telah menyelesaikannya! Sekarang navigator kami secara tepat waktu akan memperingatkan Anda tentang belokan berikutnya.
-    ko = 친애하는 친구 여러분, 네비게이션 동안 음성 안내를 오랫동안 요구했습니다. 우리가 이를 해냈습니다! 이제 네비게이터는 적시에 다음 회전할 차례를 알려 줍니다.
-    sv = Kära vänner, ni har länge frågat efter röstinstruktioner under navigering – vi har gjort det! Nu meddelar vår navigator dig lagom till nästa sväng.
-    tr = Sevgili arkadaşlar, navigasyon sırasında sesli talimatları uzun süredir sormaktaydınız - Bunu yaptık! Artık navigatörümüz bir sonraki dönüşünüz için zamanı geldiğinde sizi uyaracak.
-    uk = Любі друзі, Ви давно просили додати голосові підказки під час навігації - і ми це зробили! Ваш новий штурман вчасно попередить про маневр.
-    vi = Bạn thân mến, các bạn đã yêu cầu từ lâu về việc chỉ dẫn bằng giọng nói trong khi điều hướng - chúng tôi đã thực hiện điều đó! Bây giờ bộ điều hướng của chúng tôi sẽ kịp thời cảnh báo cho bạn ngã rẽ tiếp theo của bạn.
-    hu = Kedves barátaink! Már régóta kértétek tőlünk a hangirányítás hozzáadását a navigációhoz, most végre kész lett! Most a navigátor időben figyelmeztet, hogy mikor kell legközelebb kanyarodnod.
-    de = Hallo Leute! Ihr habt lange nach Sprachausgabe für die GPS-Navigation gefragt - und wir haben es geschafft! Jetzt wird die Navigationssoftware rechtzeitig bescheid sagen, wenn es Zeit zum Abbiegen wird.
-    fi = Hyvät ystävät, olette pyytäneet ääniopastusta navigoinnin avuksi jo pitkän aikaa - toiveenne on kuultu! Nyt navigaattorimme varoittaa sinua hyvissä ajoin, ennen kuin sinun pitää kääntyä.
-    cs = Vážení přátelé, již dlouho jste žádali o mluvené instrukce při navádění – my jsme to udělali! Nyní vás náš navigátor včas varuje před další zatáčkou.
-    it = Cari amici, ci avete chiesto, per tanto tempo, di inserire le istruzioni vocali durante la navigazione; bene, lo abbiamo fatto! Ora, il nostro navigatore vi comunicherà, in tempo, quando dovrete girare.
-    nb = Kjære venner, vi har nå oppfylt deres ønske om tale av veibeskrivelser! Nå vil navigatøren vår gi deg veibeskrivelser i god tid.
-    zh-Hant = 親愛的朋友，您一直要求在導航時提供語音指示 - 我們已經做到了！現在，我們的導航儀會及時在您下一次轉變之前發出警示。
-    zh-Hans = 亲爱的朋友们，您一直都在要求导航中的声音指导——我们做到了！现在我们的导航会及时警告您下次转弯。
-    th = เรียน เพื่อน ๆ จากที่คุณได้ร้องขอในเรื่องคำแนะนำด้วยเสียงพูดในระหว่างการนำทาง - เราได้ทำมันแล้ว! ต่อไปนี้ตัวนำทางของเราจะเตือนเกี่ยวกับการเลี้ยวครั้งถัดไปของคุณได้ทันเวลา
-    ja = お友達の皆様へ。皆様が長い間待ち望んでいたナビゲーションの音声案内を、ついに実現しました！ナビゲーターがリアルタイムで次の道順をご案内します。
-    ro = Dragi prieteni, ați solicitat în repetate rânduri indicații audio în timpul navigării – iar noi am realizat acest lucru! Noul dvs. copilot vă va avertiza la timp despre manevre.
-    ar = الأصدقاء الأعزاء، لطالما طالبتم بتوفير تعليمات صوتية أثناء التنقل – لقد قمنا بذلك! سوف يتولى الملاح الخاص بنا الآن تحذيريكم في الوقت المناسب عند قرب المنعطف القادم.
-    sk = Vážení priatelia, už dlhší čas požadujete hlasové pokyny počas navigácie - ma sme vám vyhoveli! Teraz vás náš navigátor včas upozorní na váš ďalší obrat.
-    es = Estimados amigos: hace tiempo que solicitáis instrucciones de voz durante la navegación. ¡Lo hemos hecho posible! Ahora, nuestro navegador te indicará oportunamente dónde debes girar a continuación.
-    pl = Drodzy Użytkownicy! Od dawna prosiliście, aby podczas nawigowania udzielane były instrukcje głosowe. Właśnie wprowadziliśmy taką możliwość! Nasz nawigator w odpowiednim czasie poinformuje, kiedy należy skręcić.
-    nl = Beste vrienden, jullie vragen al lang om gesproken instructies voor tijdens het navigeren - dat hebben we gerealiseerd! Nu zal onze navigator u tijdig op de hoogte brengen van uw volgende afslag.
-    pt = Estimados amigos: hace tiempo que solicitáis instrucciones de voz durante la navegación. ¡Lo hemos hecho posible! Ahora, nuestro navegador te indicará oportunamente dónde debes girar a continuación.
+    en = We have added a perspective view to navigate mode.
+    ru = Мы добавили перспективу в режиме навигации.
 
-  [whats_new_between_any_points]
+  [whats_new_3d_buildings_title]
     tags = ios, android
-    en = Build routes between any points
-    ru = Стройте маршрут между любыми объектами
-    fr = Obtenez des itinéraires entre n'importe quels points
-    da = Byg ruter mellem alle punkter
-    id = Buat rute antar titik mana saja
-    ko = 모든 지점 사이로 경로 구축
-    sv = Skapa rutter mellan valfria punkter
-    tr = Herhangi noktalar arasında rotalar oluşturun
-    uk = Прокладіть маршрут між будь-якими об'єктами
-    vi = Lập đường đi giữa bất kỳ các điểm nào
-    hu = Alakíts ki egy útvonalat két tetszőleges pont között
-    de = Routenberechnung zwischen zwei frei wählbaren Zielen
-    fi = Luo reittejä minkä tahansa kohteiden välille
-    cs = Vytvořte cesty mezi dvěma body
-    it = Crea percorsi fra punti qualsiasi
-    nb = Sett sammen en reiserute mellom to steder
-    zh-Hant = 創建任何點之間的路線
-    zh-Hans = 在任何点中间构建路线
-    th = สร้างเส้นทางระหว่างทุกจุด
-    ja = 出発地から目的時までのルートを作成
-    ro = Elaborați un traseu între orice obiecte
-    ar = إنشاء الطرق بين أي نقاط
-    sk = Vytvorte si trasy medzi ľubovoľnými bodmi
-    es = Crea rutas entre los puntos que quieras
-    pl = Twórz trasy pomiędzy dowolnymi punktami
-    nl = Maak routes tussen alle punten
-    pt = Crea rutas entre los puntos que quieras
+    en = A new dimension in MAPS.ME
+    ru = Новое измерение в картах MAPS.ME
 
-  [whats_new_happy_day]
+  [whats_new_3d_buildings_subtitle]
     tags = ios, android
-    en = A happy day indeed! Plan your trips ahead with MAPS.ME.
-    ru = Да, да, это правда! Сегодня счастливый день и еще одно улучшение. Планируйте свои путешествия заранее с MAPS.ME.
-    fr = Nous vous souhaitons une bonne journée ! Préparez vos trajet en avance avec MAPS.ME
-    da = En god dag ganske vidst! Planlæg dine rejser på forhånd med MAPS.ME.
-    id = Memang hari yang membahagiakan! Rencanakan perjalanan Anda ke depan bersama MAPS.ME.
-    ko = 정말로 행복한 하루되세요! MAPS.ME로 향후 여행을 계획하세요.
-    sv = Definitivt en dag att fira! Planera dina resor i förväg med MAPS.ME.
-    tr = Çok mutlu bir gün öyle değil mi! Yolculuğunuzu önceden MAPS.ME ile planlayın.
-    uk = Так, це насправді! Сьогодні щасливий день і ще одне покращення. Заздалегідь заплануйте свої подорожі разом з MAPS.ME.
-    vi = Một ngày thực sự hạnh phúc! Hãy lên kế hoạch trước chuyến đi của bạn với MAPS.ME.
-    hu = Micsoda boldog nap ez! Tervezd meg az utaidat előre a MAPS.ME-vel!
-    de = Welch ein schöner Tag! Reiseplanung im Voraus mit MAPS.ME.
-    fi = Elämä hymyilee! Suunnittele matkasi etukäteen MAPS.ME -sovelluksen avulla.
-    cs = Přejeme vám opravdu hezký den! Naplánujte svůj výlet předem s aplikací MAPS.ME.
-    it = Un giorno davvero felice! Pianifica in anticipo i tuoi viaggi con MAPS.ME.
-    nb = I dag er en god dag! Planlegg reisene dine i forveien med MAPS.ME.
-    zh-Hant = 真是愉快的一天！使用MAPS.ME提前計劃您的旅行。
-    zh-Hans = 真是快乐的一天！用MAPS.ME事先计划路程吧。
-    th = เป็นวันที่แสนสุขจริง ๆ! วางแผนทริปของคุณล่วงหน้าด้วย MAPS.ME
-    ja = 実にすがすがしい日ですね！MAPS.MEで旅程を立てましょう。
-    ro = Da, da, e adevărat! Astăzi este o zi fericită cu încă o îmbunătățire! Planificați-vă călătoria din timp cu MAPS.ME.
-    ar = يوم سعيد حقا! قم بتخطيط رحلاتك مقدماً مع MAPS.ME.
-    sk = Naozaj šťastný deň! Plánujte si výlety napred s MAPS.ME.
-    es = ¡Que tengas un buen día! Planifica tus viajes por adelantado con MAPS.ME.
-    pl = To będzie dobry dzień! Planuj swoje podróże z MAPS.ME.
-    nl = Inderdaad een prettige dag! Plan uw reizen vooruit met MAPS.ME.
-    pt = ¡Que tengas un buen día! Planifica tus viajes por adelantado con MAPS.ME.
-
-  [whats_new_next]
-    tags = ios, android
-    en = Next
-    ru = Далее
-    fr = Neste
-    da = Næste
-    id = Berikut
-    ko = 다음
-    sv = Nästa
-    tr = Sonraki
-    uk = Далі
-    vi = Tiếp theo
-    hu = Következő
-    de = Weiter
-    fi = Seuraava
-    cs = Další
-    it = Avanti
-    nb = Neste
-    zh-Hant = 下一頁
-    zh-Hans = 下一页
-    th = ถัดไป
-    ja = 次へ
-    ro = Următoarea
-    ar = التالي
-    sk = Nasledujúca
-    es = Siguiente
-    pl = Dalej
-    nl = Volgende
-    pt = Próxima
+    en = With 3D buildings the map is now more informative and beautiful.
+    ru = С трёхмерными зданиями карта стала более информативной и красивой.

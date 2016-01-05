@@ -804,9 +804,4 @@
 	<string name="p2p_to_here">Hedef</string>
 	<string name="p2p_only_from_current">Navigasyon sadece şu anki konumunuzdan mevcut.</string>
 	<string name="p2p_reroute_from_current">Mevcut konumunuzdan bir rota planlamamızı ister misiniz?</string>
-	<string name="whats_new_where_to_turn">MAPS.ME nereye döneceğinizi bilmenizi sağlayacak</string>
-	<string name="whats_new_voice_instructions">Sevgili arkadaşlar, navigasyon sırasında sesli talimatları uzun süredir sormaktaydınız - Bunu yaptık! Artık navigatörümüz bir sonraki dönüşünüz için zamanı geldiğinde sizi uyaracak.</string>
-	<string name="whats_new_between_any_points">Herhangi noktalar arasında rotalar oluşturun</string>
-	<string name="whats_new_happy_day">Çok mutlu bir gün öyle değil mi! Yolculuğunuzu önceden MAPS.ME ile planlayın.</string>
-	<string name="whats_new_next">Sonraki</string>
 </resources>

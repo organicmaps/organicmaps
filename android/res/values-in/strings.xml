@@ -799,9 +799,4 @@
 	<string name="p2p_to_here">Ke</string>
 	<string name="p2p_only_from_current">Navigasi tersedia hanya dari lokasi Anda saat ini.</string>
 	<string name="p2p_reroute_from_current">Apakah Anda ingin kami merencanakan sebuah rute dari lokasi Anda saat ini?</string>
-	<string name="whats_new_where_to_turn">MAPS.ME akan memberi tahu Anda tempat untuk berbelok</string>
-	<string name="whats_new_voice_instructions">Teman-teman, Anda telah lama meminta petunjuk suara selama navigasi - kami telah menyelesaikannya! Sekarang navigator kami secara tepat waktu akan memperingatkan Anda tentang belokan berikutnya.</string>
-	<string name="whats_new_between_any_points">Buat rute antar titik mana saja</string>
-	<string name="whats_new_happy_day">Memang hari yang membahagiakan! Rencanakan perjalanan Anda ke depan bersama MAPS.ME.</string>
-	<string name="whats_new_next">Berikut</string>
 </resources>

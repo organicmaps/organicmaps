@@ -507,6 +507,15 @@
 /* «Map style» entry value */
 "pref_map_style_modern_light" = "Modern light";
 
+/* Settings «Map» category: «Perspective view» title */
+"pref_map_3d_title" = "Perspective view";
+
+/* Settings «Map» category: «3D buildings» title */
+"pref_map_3d_buildings_title" = "3D buildings";
+
+/* Settings «Map» category: «3D buildings» summary */
+"pref_map_3d_buildings_subtitle" = "Increase battery usage";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "語音指示";
 
@@ -1313,12 +1322,10 @@
 
 "p2p_reroute_from_current" = "你是否想要規劃當前位置的路線？";
 
-"whats_new_where_to_turn" = "MAPS.ME 會讓您知道應該在哪裡轉彎";
+"whats_new_3d_title" = "A new angle to your favorite maps";
 
-"whats_new_voice_instructions" = "親愛的朋友，您一直要求在導航時提供語音指示 - 我們已經做到了！現在，我們的導航儀會及時在您下一次轉變之前發出警示。";
+"whats_new_3d_subtitle" = "We have added a perspective view to navigate mode.";
 
-"whats_new_between_any_points" = "創建任何點之間的路線";
+"whats_new_3d_buildings_title" = "A new dimension in MAPS.ME";
 
-"whats_new_happy_day" = "真是愉快的一天！使用MAPS.ME提前計劃您的旅行。";
-
-"whats_new_next" = "下一頁";
+"whats_new_3d_buildings_subtitle" = "With 3D buildings the map is now more informative and beautiful.";

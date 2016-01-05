@@ -804,9 +804,4 @@
 	<string name="p2p_to_here">إلى</string>
 	<string name="p2p_only_from_current">تتوافر إمكانية التنقل فقط من خلال موقعك الحالي. هل تريد أن نخطط لك طريقاً بديلاً؟</string>
 	<string name="p2p_reroute_from_current">هل ترغب في أن نرسم مسار لك من موقعك الحالي؟</string>
-	<string name="whats_new_where_to_turn">سوف تمكنك MAPS.ME من معرفة أين تتجه</string>
-	<string name="whats_new_voice_instructions">الأصدقاء الأعزاء، لطالما طالبتم بتوفير تعليمات صوتية أثناء التنقل – لقد قمنا بذلك! سوف يتولى الملاح الخاص بنا الآن تحذيريكم في الوقت المناسب عند قرب المنعطف القادم.</string>
-	<string name="whats_new_between_any_points">إنشاء الطرق بين أي نقاط</string>
-	<string name="whats_new_happy_day">يوم سعيد حقا! قم بتخطيط رحلاتك مقدماً مع MAPS.ME.</string>
-	<string name="whats_new_next">التالي</string>
 </resources>

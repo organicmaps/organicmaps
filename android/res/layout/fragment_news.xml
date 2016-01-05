@@ -13,9 +13,24 @@
     android:layout_weight="1"
     tools:background="#200000FF"/>
 
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="?dividerHorizontal"/>
+
   <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+    <ImageView
+      android:id="@+id/back"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/ic_ab_left"
+      android:scaleType="centerCrop"
+      android:layout_gravity="center_vertical"
+      android:tint="?colorAccent"
+      android:background="?clickableBackground"/>
+
     <LinearLayout
       android:id="@+id/dots"
       android:layout_width="wrap_content"
@@ -26,22 +41,33 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="9dp"
         tools:src="@drawable/news_marker_active"/>
+
       <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:src="@drawable/news_marker_inactive"/>
     </LinearLayout>
 
-    <TextView
+    <ImageView
       android:id="@+id/next"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_gravity="right|center_vertical"
+      android:src="@drawable/ic_ab_right"
+      android:scaleType="centerCrop"
+      android:tint="?colorAccent"
+      android:background="?clickableBackground"/>
+
+    <TextView
+      android:id="@+id/done"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
       android:layout_gravity="right"
+      android:text="@string/done"
       android:textAppearance="@style/MwmTextAppearance.Body3"
-      android:textColor="@color/base_blue_light"
+      android:textColor="?colorAccent"
       android:textAllCaps="true"
       android:padding="@dimen/margin_base"
-      android:background="?clickableBackground"
-      tools:text="Next"/>
+      android:background="?clickableBackground"/>
   </FrameLayout>
 </LinearLayout>

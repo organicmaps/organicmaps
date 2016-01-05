@@ -328,6 +328,12 @@
 	<string name="pref_map_style_classic_dark">Classic dark</string>
 	<!-- «Map style» entry value -->
 	<string name="pref_map_style_modern_light">Modern light</string>
+	<!-- Settings «Map» category: «Perspective view» title -->
+	<string name="pref_map_3d_title">Perspective view</string>
+	<!-- Settings «Map» category: «3D buildings» title -->
+	<string name="pref_map_3d_buildings_title">3D buildings</string>
+	<!-- Settings «Map» category: «3D buildings» summary -->
+	<string name="pref_map_3d_buildings_subtitle">Increase battery usage</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Voice Instructions</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -841,9 +847,8 @@
 	<string name="p2p_to_here">To</string>
 	<string name="p2p_only_from_current">Navigation is available only from your current location.</string>
 	<string name="p2p_reroute_from_current">Do you want us to plan a route from your current location?</string>
-	<string name="whats_new_where_to_turn">MAPS.ME will let you know where to turn</string>
-	<string name="whats_new_voice_instructions">Dear friends, you have long been asking for voice instructions during navigation - we have done that! Now our navigator will timely warn you of your next turn.</string>
-	<string name="whats_new_between_any_points">Build routes between any points</string>
-	<string name="whats_new_happy_day">A happy day indeed! Plan your trips ahead with MAPS.ME.</string>
-	<string name="whats_new_next">Next</string>
+	<string name="whats_new_3d_title">A new angle to your favorite maps</string>
+	<string name="whats_new_3d_subtitle">We have added a perspective view to navigate mode.</string>
+	<string name="whats_new_3d_buildings_title">A new dimension in MAPS.ME</string>
+	<string name="whats_new_3d_buildings_subtitle">With 3D buildings the map is now more informative and beautiful.</string>
 </resources>
