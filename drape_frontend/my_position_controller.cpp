@@ -120,6 +120,7 @@ void MyPositionController::UpdatePixelPosition(ScreenBase const & screen)
 {
   m_positionYOffset = screen.isPerspective() ? POSITION_Y_OFFSET_3D : POSITION_Y_OFFSET;
   m_pixelPositionRaF = screen.P3dtoP(GetRaFPixelBinding());
+  m_pixelPositionF = screen.P3dtoP(m_pixelRect.Center());
 }
 
 void MyPositionController::SetListener(ref_ptr<MyPositionController::Listener> listener)
@@ -365,8 +366,7 @@ void MyPositionController::AnimateStateTransition(location::EMyPositionMode oldM
   else if (oldMode == location::MODE_ROTATE_AND_FOLLOW &&
            (newMode == location::MODE_FOLLOW || newMode == location::MODE_UNKNOWN_POSITION))
   {
-    ChangeModelView(0.0);
-    ChangeModelView(m_position);
+    ChangeModelView(m_position, 0.0, m_pixelPositionF, -1);
   }
 }
 
@@ -481,13 +481,15 @@ void MyPositionController::StopLocationFollow()
     m_afterPendingMode = location::MODE_NOT_FOLLOW;
 }
 
-void MyPositionController::StopCompassFollow()
+bool MyPositionController::StopCompassFollow()
 {
   if (GetMode() != location::MODE_ROTATE_AND_FOLLOW)
-    return;
+    return false;
 
   SetModeInfo(ChangeMode(m_modeInfo, location::MODE_FOLLOW));
   Follow();
+
+  return true;
 }
 
 void MyPositionController::ChangeModelView(m2::PointD const & center)
