@@ -11,8 +11,11 @@
 
 #include "base/timer.hpp"
 
+#include "std/function.hpp"
+
 namespace df
 {
+class BaseModelViewAnimation;
 
 class MyPositionController
 {
@@ -56,6 +59,7 @@ public:
   void DragStarted();
   void DragEnded(m2::PointD const & distance);
 
+  void AnimationStarted(ref_ptr<BaseModelViewAnimation> anim);
   void ScaleStarted();
   void Rotated();
   void CorrectScalePoint(m2::PointD & pt) const;
@@ -137,8 +141,8 @@ private:
   drape_ptr<MyPosition> m_shape;
   ref_ptr<Listener> m_listener;
 
-  double m_errorRadius;   //< error radius in mercator
-  m2::PointD m_position;  //< position in mercator
+  double m_errorRadius;  // error radius in mercator
+  m2::PointD m_position; // position in mercator
   double m_drawDirection;
   my::HighResTimer m_lastGPSBearing;
 
@@ -148,10 +152,16 @@ private:
 
   bool m_isVisible;
   bool m_isDirtyViewport;
-  bool m_needAnimation;
+  bool m_isPendingAnimation = false;
+
+  m2::PointD m_oldPosition; // position in mercator
+  double m_oldDrawDirection;
 
   class MyPositionAnim;
   mutable drape_ptr<MyPositionAnim> m_anim;
+
+  using TAnimationCreator = function<void()>;
+  TAnimationCreator m_animCreator;
 };
 
 }

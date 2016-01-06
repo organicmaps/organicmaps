@@ -1,4 +1,5 @@
 #include "drape_frontend/user_event_stream.hpp"
+#include "drape_frontend/animation_constants.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "indexer/scales.hpp"
@@ -23,8 +24,6 @@ namespace
 uint64_t const kDoubleTapPauseMs = 250;
 uint64_t const kLongTouchMs = 1000;
 uint64_t const kKineticDelayMs = 500;
-
-double const kMaxAnimationTimeSec = 1.5; // in seconds
 
 float const kForceTapThreshold = 0.75;
 
@@ -319,6 +318,8 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
     {
       m_animation.reset(new ScaleAnimation(startRect, endRect, aDuration, mDuration,
                                            sDuration, glbScaleCenter, offset));
+      if (m_listener)
+        m_listener->OnAnimationStarted(make_ref(m_animation));
     };
 
     ScreenBase screen = GetCurrentScreen();
@@ -429,6 +430,8 @@ bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim)
                                       double aDuration, double mDuration, double sDuration)
   {
     m_animation.reset(new ModelViewAnimation(startRect, endRect, aDuration, mDuration, sDuration));
+    if (m_listener)
+      m_listener->OnAnimationStarted(make_ref(m_animation));
   });
 }
 
@@ -494,6 +497,8 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
     {
       m_animation.reset(new FollowAndRotateAnimation(startRect, targetLocalRect, userPos,
                                                      screen.GtoP(userPos), pixelPos, azimuth, duration));
+      if (m_listener)
+        m_listener->OnAnimationStarted(make_ref(m_animation));
       return false;
     }
   }
@@ -850,6 +855,8 @@ bool UserEventStream::EndDrag(Touch const & t, bool cancelled)
   if (m_kineticTimer.TimeElapsedAs<milliseconds>().count() >= kKineticDelayMs)
   {
     m_animation = m_scroller.CreateKineticAnimation(m_navigator.Screen());
+    if (m_listener)
+      m_listener->OnAnimationStarted(make_ref(m_animation));
     m_scroller.CancelGrab();
     return false;
   }

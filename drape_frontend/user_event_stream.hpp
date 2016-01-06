@@ -256,6 +256,8 @@ public:
     virtual void CorrectGlobalScalePoint(m2::PointD & pt) const = 0;
     virtual void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const = 0;
     virtual void OnScaleEnded() = 0;
+
+    virtual void OnAnimationStarted(ref_ptr<BaseModelViewAnimation> anim) = 0;
   };
 
   UserEventStream(TIsCountryLoaded const & fn);
@@ -363,7 +365,7 @@ private:
 
   array<Touch, 2> m_touches;
 
-  unique_ptr<BaseModelViewAnimation> m_animation;
+  drape_ptr<BaseModelViewAnimation> m_animation;
 
   unique_ptr<PerspectiveAnimation> m_perspectiveAnimation;
   unique_ptr<UserEvent> m_pendingEvent;

@@ -113,6 +113,7 @@ HEADERS += \
     gui/ruler_helper.hpp \
     gui/shape.hpp \
     gui/skin.hpp \
+    animation_constants.hpp \
     apply_feature_functors.hpp \
     area_shape.hpp \
     arrow3d.hpp \
