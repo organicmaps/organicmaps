@@ -14,6 +14,6 @@ namespace feature
 
   // Writes the names of all features in the locale provided by lang
   // (e.g. "en", "ru", "sv"). If the locale is not recognized, writes all names
-  // preceded by locale.
+  // preceded by their locales.
   void DumpFeatureNames(string const & fPath, string const & lang);
 }

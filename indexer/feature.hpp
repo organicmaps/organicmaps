@@ -80,7 +80,7 @@ public:
   */
 
   template <class T>
-  inline bool ForEachNameRef(T & functor) const
+  inline bool ForEachNameRef(T && functor) const
   {
     if (!HasName())
       return false;

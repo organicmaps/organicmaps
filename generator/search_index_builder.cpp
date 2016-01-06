@@ -12,6 +12,7 @@
 #include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/features_vector.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
 #include "indexer/trie_builder.hpp"
 #include "indexer/types_skipper.hpp"
@@ -95,6 +96,30 @@ public:
   }
 };
 
+void GetCategoryTypes(CategoriesHolder const & categories, pair<int, int> const & scaleRange,
+                      feature::TypesHolder const & types, vector<uint32_t> & result)
+{
+  Classificator const & c = classif();
+
+  for (uint32_t t : types)
+  {
+    // Leave only 2 levels of types - for example, do not distinguish:
+    // highway-primary-bridge or amenity-parking-fee.
+    ftype::TruncValue(t, 2);
+
+    // Only categorized types will be added to index.
+    if (!categories.IsTypeExist(t))
+      continue;
+
+    // Index only those types that are visible.
+    pair<int, int> const r = feature::GetDrawableScaleRange(t);
+    CHECK(r.first <= r.second && r.first != -1, (c.GetReadableObjectName(t)));
+
+    if (r.second >= scaleRange.first && r.first <= scaleRange.second)
+      result.push_back(t);
+  }
+}
+
 template <typename TKey, typename TValue>
 struct FeatureNameInserter
 {
@@ -102,9 +127,14 @@ struct FeatureNameInserter
   vector<pair<TKey, TValue>> & m_keyValuePairs;
   TValue m_val;
 
-  FeatureNameInserter(SynonymsHolder * synonyms, vector<pair<TKey, TValue>> & keyValuePairs)
+  bool m_hasStreetType;
+
+  FeatureNameInserter(SynonymsHolder * synonyms, vector<pair<TKey, TValue>> & keyValuePairs,
+                      vector<uint32_t> const & categoryTypes)
     : m_synonyms(synonyms), m_keyValuePairs(keyValuePairs)
   {
+    auto const & streetChecker = ftypes::IsStreetChecker::Instance();
+    m_hasStreetType = streetChecker(categoryTypes);
   }
 
   void AddToken(signed char lang, strings::UniString const & s) const
@@ -117,21 +147,6 @@ struct FeatureNameInserter
     m_keyValuePairs.emplace_back(key, m_val);
   }
 
-private:
-  using TTokensArray = buffer_vector<strings::UniString, 32>;
-
-  class PushSynonyms
-  {
-    TTokensArray & m_tokens;
-
-  public:
-    PushSynonyms(TTokensArray & tokens) : m_tokens(tokens) {}
-    void operator() (string const & utf8str) const
-    {
-      m_tokens.push_back(search::NormalizeAndSimplifyString(utf8str));
-    }
-  };
-
 public:
   bool operator()(signed char lang, string const & name) const
   {
@@ -143,7 +158,12 @@ public:
 
     // add synonyms for input native string
     if (m_synonyms)
-      m_synonyms->ForEach(name, PushSynonyms(tokens));
+    {
+      m_synonyms->ForEach(name, [&](string const & utf8str)
+                          {
+                            tokens.push_back(search::NormalizeAndSimplifyString(utf8str));
+                          });
+    }
 
     int const maxTokensCount = search::MAX_TOKENS - 1;
     if (tokens.size() > maxTokensCount)
@@ -152,8 +172,32 @@ public:
       tokens.resize(maxTokensCount);
     }
 
+    // Streets are a special case: we do not add the token "street" and its
+    // synonyms when the feature's name contains it because in
+    // the search phase this part of the query will be matched against the
+    // "street" in the categories branch of the search index.
+    // However, we still add it when there are two or more street tokens
+    // ("industrial st", "улица набережная").
+    size_t numStreets = 0;
+    vector<bool> isStreet(tokens.size());
     for (size_t i = 0; i < tokens.size(); ++i)
+    {
+      if (search::IsStreetSynonym(strings::ToUtf8(tokens[i])))
+      {
+        isStreet[i] = true;
+        ++numStreets;
+      }
+    }
+
+    for (size_t i = 0; i < tokens.size(); ++i)
+    {
+      if (numStreets == 1 && isStreet[i] && m_hasStreetType)
+      {
+        LOG(LDEBUG, ("skipping street:", name));
+        continue;
+      }
       AddToken(lang, tokens[i]);
+    }
 
     return true;
   }
@@ -224,10 +268,13 @@ public:
     if (types.Empty())
       return;
 
+    vector<uint32_t> categoryTypes;
+    GetCategoryTypes(m_categories, m_scales, types, categoryTypes);
+
     // Init inserter with serialized value.
     // Insert synonyms only for countries and states (maybe will add cities in future).
     FeatureNameInserter<TKey, TValue> inserter(
-        skipIndex.IsCountryOrState(types) ? m_synonyms : nullptr, m_keyValuePairs);
+        skipIndex.IsCountryOrState(types) ? m_synonyms : nullptr, m_keyValuePairs, categoryTypes);
     m_valueBuilder.MakeValue(f, types, index, inserter.m_val);
 
     // Skip types for features without names.
@@ -238,27 +285,12 @@ public:
 
     Classificator const & c = classif();
 
+    categoryTypes.clear();
+    GetCategoryTypes(m_categories, m_scales, types, categoryTypes);
+
     // add names of categories of the feature
-    for (uint32_t t : types)
-    {
-      // Leave only 2 level of type - for example, do not distinguish:
-      // highway-primary-bridge or amenity-parking-fee.
-      ftype::TruncValue(t, 2);
-
-      // Push to index only categorized types.
-      if (m_categories.IsTypeExist(t))
-      {
-        // Do index only for visible types in mwm.
-        pair<int, int> const r = feature::GetDrawableScaleRange(t);
-        CHECK(r.first <= r.second && r.first != -1, (c.GetReadableObjectName(t)));
-
-        if (r.second >= m_scales.first && r.first <= m_scales.second)
-        {
-          inserter.AddToken(search::kCategoriesLang,
-                            search::FeatureTypeToString(c.GetIndexForType(t)));
-        }
-      }
-    }
+    for (uint32_t t : categoryTypes)
+      inserter.AddToken(search::kCategoriesLang, search::FeatureTypeToString(c.GetIndexForType(t)));
   }
 };
 
@@ -371,15 +403,31 @@ bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild)
       LOG(LINFO, ("Search address table size =", writer.Size()));
     }
     {
-      FilesContainerW writeContainer(readContainer.GetFileName(), FileWriter::OP_WRITE_EXISTING);
-      writeContainer.DeleteSection(SEARCH_TOKENS_FILE_TAG);
-
+      // The behaviour of generator_tool's generate_search_index
+      // is currently broken: this section is generated elsewhere
+      // and is deleted here before the final step of the mwm generation
+      // so it does not pollute the resulting mwm.
+      // So using and deleting this section is fine when generating
+      // an mwm from scratch but does not work when regenerating the
+      // search index section. Comment out the call to DeleteSection
+      // if you need to regenerate the search intex.
+      // todo(@m) Is it possible to make it work?
       {
+        FilesContainerW writeContainer(readContainer.GetFileName(), FileWriter::OP_WRITE_EXISTING);
+        writeContainer.DeleteSection(SEARCH_TOKENS_FILE_TAG);
+      }
+
+      // Separate scopes because FilesContainerW cannot write two sections at once.
+      {
+        FilesContainerW writeContainer(readContainer.GetFileName(), FileWriter::OP_WRITE_EXISTING);
         FileWriter writer = writeContainer.GetWriter(SEARCH_INDEX_FILE_TAG);
         rw_ops::Reverse(FileReader(indexFilePath), writer);
       }
 
-      writeContainer.Write(addrFilePath, SEARCH_ADDRESS_FILE_TAG);
+      {
+        FilesContainerW writeContainer(readContainer.GetFileName(), FileWriter::OP_WRITE_EXISTING);
+        writeContainer.Write(addrFilePath, SEARCH_ADDRESS_FILE_TAG);
+      }
     }
   }
   catch (Reader::Exception const & e)
