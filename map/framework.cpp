@@ -1386,17 +1386,18 @@ bool Framework::ShowMapForURL(string const & url)
   }
   else if (StartsWith(url, "mapswithme://") || StartsWith(url, "mwm://"))
   {
+    // clear every current API-mark.
+    {
+      UserMarkControllerGuard guard(m_bmManager, UserMarkType::API_MARK);
+      guard.m_controller.Clear();
+      guard.m_controller.SetIsVisible(true);
+      guard.m_controller.SetIsDrawable(true);
+    }
+
     if (m_ParsedMapApi.SetUriAndParse(url))
     {
       if (!m_ParsedMapApi.GetViewportRect(rect))
         rect = df::GetWorldRect();
-
-      // set up controller guard to show api marks
-      {
-        UserMarkControllerGuard guard(m_bmManager, UserMarkType::API_MARK);
-        guard.m_controller.SetIsVisible(true);
-        guard.m_controller.SetIsDrawable(true);
-      }
 
       if ((apiMark = m_ParsedMapApi.GetSinglePoint()))
         result = NEED_CLICK;
@@ -1406,7 +1407,6 @@ bool Framework::ShowMapForURL(string const & url)
     else
     {
       UserMarkControllerGuard guard(m_bmManager, UserMarkType::API_MARK);
-      guard.m_controller.Clear();
       guard.m_controller.SetIsVisible(false);
     }
   }
