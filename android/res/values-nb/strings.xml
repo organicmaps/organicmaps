@@ -311,6 +311,12 @@
 	<string name="prefs_group_route">Navigasjon</string>
 	<string name="pref_zoom_title">Zoom-knapper</string>
 	<string name="pref_zoom_summary">Vis på skjermen</string>
+	<!-- Settings «Map» category: «Perspective view» title -->
+	<string name="pref_map_3d_title">3D</string>
+	<!-- Settings «Map» category: «3D buildings» title -->
+	<string name="pref_map_3d_buildings_title">Bygninger i 3D</string>
+	<!-- Settings «Map» category: «3D buildings» summary -->
+	<string name="pref_map_3d_buildings_subtitle">Påvirker batteriets levetid</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Taleinstrukser</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -800,4 +806,8 @@
 	<string name="p2p_to_here">Til</string>
 	<string name="p2p_only_from_current">Navigering er kun tilgjengelig fra din nåværende beliggenhet.</string>
 	<string name="p2p_reroute_from_current">Vil du vi skal planlegge en rute fra din nåværende posisjon?</string>
+	<string name="whats_new_3d_title">Favorittkartene dine fra et nytt perspektiv</string>
+	<string name="whats_new_3d_subtitle">Vi har lagt til perspektivvisning i navigeringsmodusen.</string>
+	<string name="whats_new_3d_buildings_title">En ny dimensjon av MAPS.ME</string>
+	<string name="whats_new_3d_buildings_subtitle">Med bygninger i 3D, blir kartene våre enda mer informative og vakre.</string>
 </resources>

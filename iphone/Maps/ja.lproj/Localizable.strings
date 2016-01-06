@@ -467,6 +467,9 @@
 /* Prints version number in About dialog */
 "version" = "バージョン： %@";
 
+/* Data version in «About» screen */
+"data_version" = "Data version: %d";
+
 /* Confirmation in downloading countries dialog */
 "are_you_sure" = "本当に続けますか?";
 
@@ -508,13 +511,13 @@
 "pref_map_style_modern_light" = "Modern light";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "Perspective view";
+"pref_map_3d_title" = "3D";
 
 /* Settings «Map» category: «3D buildings» title */
-"pref_map_3d_buildings_title" = "3D buildings";
+"pref_map_3d_buildings_title" = "3Dビルディング";
 
 /* Settings «Map» category: «3D buildings» summary */
-"pref_map_3d_buildings_subtitle" = "Increase battery usage";
+"pref_map_3d_buildings_subtitle" = "電池の持ち時間に影響します";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "音声指示";
@@ -1322,10 +1325,10 @@
 
 "p2p_reroute_from_current" = "現在位置からのルートを作成しますか？";
 
-"whats_new_3d_title" = "A new angle to your favorite maps";
+"whats_new_3d_title" = "お気に入りの地図を新たな視点で";
 
-"whats_new_3d_subtitle" = "We have added a perspective view to navigate mode.";
+"whats_new_3d_subtitle" = "ナビゲーションモードに視点表示が追加されました。";
 
-"whats_new_3d_buildings_title" = "A new dimension in MAPS.ME";
+"whats_new_3d_buildings_title" = "MAPS.MEに新たな次元を追加";
 
-"whats_new_3d_buildings_subtitle" = "With 3D buildings the map is now more informative and beautiful.";
+"whats_new_3d_buildings_subtitle" = "建物を3Dで表示することで、地図がより詳細で美しくなりました。";

@@ -298,7 +298,7 @@
 "gps_is_disabled_long_text" = "GPS is disabled. Please enable it in Settings.";
 
 /* Measurement units title in settings activity */
-"measurement_units" = "Measurement Units";
+"measurement_units" = "Measurement units";
 
 /* Detailed description of Measurement Units settings button */
 "measurement_units_summary" = "Choose between miles and kilometres";
@@ -511,13 +511,13 @@
 "pref_map_style_modern_light" = "Modern light";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "Perspective view";
+"pref_map_3d_title" = "3D";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D buildings";
 
 /* Settings «Map» category: «3D buildings» summary */
-"pref_map_3d_buildings_subtitle" = "Increase battery usage";
+"pref_map_3d_buildings_subtitle" = "Affects battery life";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Voice Instructions";
@@ -1325,10 +1325,10 @@
 
 "p2p_reroute_from_current" = "Do you want us to plan a route from your current location?";
 
-"whats_new_3d_title" = "A new angle to your favorite maps";
+"whats_new_3d_title" = "Your favorite maps from a new perspective";
 
-"whats_new_3d_subtitle" = "We have added a perspective view to navigate mode.";
+"whats_new_3d_subtitle" = "We have added perspective view to the navigation mode.";
 
 "whats_new_3d_buildings_title" = "A new dimension in MAPS.ME";
 
-"whats_new_3d_buildings_subtitle" = "With 3D buildings the map is now more informative and beautiful.";
+"whats_new_3d_buildings_subtitle" = "With 3D buildings, our maps have become more informative and more beautiful.";

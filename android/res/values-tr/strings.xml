@@ -315,6 +315,12 @@
 	<string name="prefs_group_route">Navigasyon</string>
 	<string name="pref_zoom_title">Yakınlaştırma butonları</string>
 	<string name="pref_zoom_summary">Ekranda göster</string>
+	<!-- Settings «Map» category: «Perspective view» title -->
+	<string name="pref_map_3d_title">3 Boyutlu</string>
+	<!-- Settings «Map» category: «3D buildings» title -->
+	<string name="pref_map_3d_buildings_title">3 Boyutlu Binalar</string>
+	<!-- Settings «Map» category: «3D buildings» summary -->
+	<string name="pref_map_3d_buildings_subtitle">Pil ömrünü etkiler</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Sesli Talimatlar</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -804,4 +810,8 @@
 	<string name="p2p_to_here">Hedef</string>
 	<string name="p2p_only_from_current">Navigasyon sadece şu anki konumunuzdan mevcut.</string>
 	<string name="p2p_reroute_from_current">Mevcut konumunuzdan bir rota planlamamızı ister misiniz?</string>
+	<string name="whats_new_3d_title">En sevdiğiniz haritalar yeni bir perspektiften</string>
+	<string name="whats_new_3d_subtitle">Navigasyon moduna perspektif görünüm ekledik.</string>
+	<string name="whats_new_3d_buildings_title">MAPS.ME\&#39;de yeni bir boyut</string>
+	<string name="whats_new_3d_buildings_subtitle">3 boyutlu binalarla haritalarımız daha bilgilendirici ve daha güzel hale geldi.</string>
 </resources>

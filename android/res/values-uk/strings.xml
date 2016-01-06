@@ -316,6 +316,12 @@
 	<string name="prefs_group_route">Навігація</string>
 	<string name="pref_zoom_title">Кнопки трансфокації</string>
 	<string name="pref_zoom_summary">Відображення на екрані</string>
+	<!-- Settings «Map» category: «Perspective view» title -->
+	<string name="pref_map_3d_title">3D</string>
+	<!-- Settings «Map» category: «3D buildings» title -->
+	<string name="pref_map_3d_buildings_title">Будівлі у 3D</string>
+	<!-- Settings «Map» category: «3D buildings» summary -->
+	<string name="pref_map_3d_buildings_subtitle">Негативно впливає на ресурс акумулятора</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Голосові інструкції</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -803,4 +809,8 @@
 	<string name="p2p_to_here">Сюди</string>
 	<string name="p2p_only_from_current">Маршрут можна прокласти лише з поточного місцезнаходження.</string>
 	<string name="p2p_reroute_from_current">Хочете спланувати маршрут із поточного місцезнаходження?</string>
+	<string name="whats_new_3d_title">Улюблені карти під новим кутом</string>
+	<string name="whats_new_3d_subtitle">Ми додали переспективний огляд у режим навігації.</string>
+	<string name="whats_new_3d_buildings_title">Новий вимір в MAPS.ME</string>
+	<string name="whats_new_3d_buildings_subtitle">З 3D будівлями наші карти стали більш інформативними і гарними.</string>
 </resources>

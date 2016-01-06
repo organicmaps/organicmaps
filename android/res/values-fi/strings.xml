@@ -311,6 +311,12 @@
 	<string name="prefs_group_route">Navigaatio</string>
 	<string name="pref_zoom_title">Zoomauspainikkeet</string>
 	<string name="pref_zoom_summary">Näytä ruudulla</string>
+	<!-- Settings «Map» category: «Perspective view» title -->
+	<string name="pref_map_3d_title">3D</string>
+	<!-- Settings «Map» category: «3D buildings» title -->
+	<string name="pref_map_3d_buildings_title">3D-rakennukset</string>
+	<!-- Settings «Map» category: «3D buildings» summary -->
+	<string name="pref_map_3d_buildings_subtitle">Vaikuttaa akun kestoon</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Ääniohjeistukset</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -800,4 +806,8 @@
 	<string name="p2p_to_here">Määränpää</string>
 	<string name="p2p_only_from_current">Navigointi onnistuu vain nykyisestä sijainnistasi.</string>
 	<string name="p2p_reroute_from_current">Haluatko valita vaihtoehtoisen reitin?</string>
+	<string name="whats_new_3d_title">Suosikkikarttasi uudella perspektiivillä</string>
+	<string name="whats_new_3d_subtitle">Olemme lisänneet perspektiivinäkymän navigointitilaan.</string>
+	<string name="whats_new_3d_buildings_title">Uusi ulottuvuus MAPS.ME-sovellukseen</string>
+	<string name="whats_new_3d_buildings_subtitle">Karttamme ovat entistä informatiivisempia ja kauniimpia 3D-rakennusten avulla.</string>
 </resources>

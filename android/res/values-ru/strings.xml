@@ -329,11 +329,11 @@
 	<!-- «Map style» entry value -->
 	<string name="pref_map_style_modern_light">Современная светлая</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">Перспектива</string>
+	<string name="pref_map_3d_title">3D</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
-	<string name="pref_map_3d_buildings_title">Трёхмерные здания</string>
+	<string name="pref_map_3d_buildings_title">3D здания</string>
 	<!-- Settings «Map» category: «3D buildings» summary -->
-	<string name="pref_map_3d_buildings_subtitle">Увеличит расход батареи</string>
+	<string name="pref_map_3d_buildings_subtitle">Увеличивает расход батареи</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Голосовые инструкции</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -845,8 +845,8 @@
 	<string name="p2p_to_here">Сюда</string>
 	<string name="p2p_only_from_current">Навигация возможна только из текущего местоположения.</string>
 	<string name="p2p_reroute_from_current">Хотите перестроить маршрут от вашего местоположения?</string>
-	<string name="whats_new_3d_title">Новый взгляд на ваши любимые карты</string>
-	<string name="whats_new_3d_subtitle">Мы добавили перспективу в режиме навигации.</string>
-	<string name="whats_new_3d_buildings_title">Новое измерение в картах MAPS.ME</string>
-	<string name="whats_new_3d_buildings_subtitle">С трёхмерными зданиями карта стала более информативной и красивой.</string>
+	<string name="whats_new_3d_title">Любимые карты под новым углом</string>
+	<string name="whats_new_3d_subtitle">Мы добавили перспективный обзор в режим навигации.</string>
+	<string name="whats_new_3d_buildings_title">Новое измерение в MAPS.ME</string>
+	<string name="whats_new_3d_buildings_subtitle">С 3D зданиями наши карты стали более информативными и красивыми.</string>
 </resources>

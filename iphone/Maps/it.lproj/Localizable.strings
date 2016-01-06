@@ -467,6 +467,9 @@
 /* Prints version number in About dialog */
 "version" = "Versione: %@";
 
+/* Data version in «About» screen */
+"data_version" = "Data version: %d";
+
 /* Confirmation in downloading countries dialog */
 "are_you_sure" = "Sei sicuro di voler continuare?";
 
@@ -508,13 +511,13 @@
 "pref_map_style_modern_light" = "Modern light";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "Perspective view";
+"pref_map_3d_title" = "3D";
 
 /* Settings «Map» category: «3D buildings» title */
-"pref_map_3d_buildings_title" = "3D buildings";
+"pref_map_3d_buildings_title" = "Edifici in 3D";
 
 /* Settings «Map» category: «3D buildings» summary */
-"pref_map_3d_buildings_subtitle" = "Increase battery usage";
+"pref_map_3d_buildings_subtitle" = "Diminuisce la durata della batteria";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Istruzioni vocali";
@@ -1322,10 +1325,10 @@
 
 "p2p_reroute_from_current" = "Vuoi che impostiamo il percorso dalla tua posizione corrente?";
 
-"whats_new_3d_title" = "A new angle to your favorite maps";
+"whats_new_3d_title" = "Le tue mappe preferite in una nuova prospettiva";
 
-"whats_new_3d_subtitle" = "We have added a perspective view to navigate mode.";
+"whats_new_3d_subtitle" = "Abbiamo aggiunto la visualizzazione prospettica alla modalità di navigazione.";
 
-"whats_new_3d_buildings_title" = "A new dimension in MAPS.ME";
+"whats_new_3d_buildings_title" = "MAPS.ME ha una nuova dimensione";
 
-"whats_new_3d_buildings_subtitle" = "With 3D buildings the map is now more informative and beautiful.";
+"whats_new_3d_buildings_subtitle" = "Le nostre mappe ora sono ancora più efficaci e ricche di contenuti, grazie agli edifici in 3D.";

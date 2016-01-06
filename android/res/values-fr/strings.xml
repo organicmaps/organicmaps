@@ -316,6 +316,12 @@
 	<string name="prefs_group_route">Navigation</string>
 	<string name="pref_zoom_title">Boutons de zoom</string>
 	<string name="pref_zoom_summary">Afficher à l\&#39;écran</string>
+	<!-- Settings «Map» category: «Perspective view» title -->
+	<string name="pref_map_3d_title">3D</string>
+	<!-- Settings «Map» category: «3D buildings» title -->
+	<string name="pref_map_3d_buildings_title">Bâtiments en 3D</string>
+	<!-- Settings «Map» category: «3D buildings» summary -->
+	<string name="pref_map_3d_buildings_subtitle">Affecte la vie de la batterie</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Instructions vocales</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -811,4 +817,8 @@
 	<string name="p2p_to_here">Jusqu\&#39;à</string>
 	<string name="p2p_only_from_current">La navigation est uniquement disponible à partir de votre emplacement actuel.</string>
 	<string name="p2p_reroute_from_current">Souhaitez-vous que nous planifiions un itinéraire à partir de votre emplacement actuel ?</string>
+	<string name="whats_new_3d_title">Vos cartes préférées prennent de la profondeur</string>
+	<string name="whats_new_3d_subtitle">Nous avons ajouté de la perspective au mode navigation.</string>
+	<string name="whats_new_3d_buildings_title">La nouvelle dimension de MAPS.ME</string>
+	<string name="whats_new_3d_buildings_subtitle">Grâce à l\&#39;affichage des bâtiments en 3D, nos cartes sont désormais plus informatives et plus belles.</string>
 </resources>

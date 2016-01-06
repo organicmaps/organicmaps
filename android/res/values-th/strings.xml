@@ -313,6 +313,12 @@
 	<string name="prefs_group_route">การนำทาง</string>
 	<string name="pref_zoom_title">ปุ่มซูม</string>
 	<string name="pref_zoom_summary">แสดงบนหน้าจอ</string>
+	<!-- Settings «Map» category: «Perspective view» title -->
+	<string name="pref_map_3d_title">3D</string>
+	<!-- Settings «Map» category: «3D buildings» title -->
+	<string name="pref_map_3d_buildings_title">ตึก 3D</string>
+	<!-- Settings «Map» category: «3D buildings» summary -->
+	<string name="pref_map_3d_buildings_subtitle">มีผลกระทบต่ออายุการใช้งานแบตเตอรี่</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">คำแนะนำด้วยเสียง</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -802,4 +808,8 @@
 	<string name="p2p_to_here">ถึง</string>
 	<string name="p2p_only_from_current">สามารถใช้การนำทางได้เฉพาะจากตำแหน่งที่ตั้งปัจจุบันของคุณเท่านั้น</string>
 	<string name="p2p_reroute_from_current">คุณต้องการให้เราาวงแผนเส้นทางจากสถานที่ตั้งปัจจุบันของคุณหรือไม่?</string>
+	<string name="whats_new_3d_title">แผนที่โปรดของคุณจากมุมมองใหม่</string>
+	<string name="whats_new_3d_subtitle">เราได้เพิ่มมุมมองเพอร์สเปกทีฟในโหมดการนำทาง</string>
+	<string name="whats_new_3d_buildings_title">มิติใหม่ใน MAPS.ME</string>
+	<string name="whats_new_3d_buildings_subtitle">ด้วยตึกแบบ 3D แผนที่ของเราจะมอบข้อมูลให้มากขึ้นและสวยงามยิ่งขึ้น</string>
 </resources>

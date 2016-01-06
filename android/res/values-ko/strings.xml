@@ -301,6 +301,12 @@
 	<string name="prefs_group_route">네비게이션</string>
 	<string name="pref_zoom_title">확대/축소 버튼</string>
 	<string name="pref_zoom_summary">화면에 표시</string>
+	<!-- Settings «Map» category: «Perspective view» title -->
+	<string name="pref_map_3d_title">3D</string>
+	<!-- Settings «Map» category: «3D buildings» title -->
+	<string name="pref_map_3d_buildings_title">주변 건물 3D</string>
+	<!-- Settings «Map» category: «3D buildings» summary -->
+	<string name="pref_map_3d_buildings_subtitle">배터리 수명에 영향</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">음성 지침</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -790,4 +796,8 @@
 	<string name="p2p_to_here">도착지</string>
 	<string name="p2p_only_from_current">현재 위치에서만 네비게이션을 사용할 수 있습니다.</string>
 	<string name="p2p_reroute_from_current">현재 위치에서 경로를 계획하시겠습니까?</string>
+	<string name="whats_new_3d_title">새로운 관점에서 좋아하는 지도</string>
+	<string name="whats_new_3d_subtitle">배경도를 탐색 모드에 추가했습니다.</string>
+	<string name="whats_new_3d_buildings_title">MAPS.ME의 새로운 차원</string>
+	<string name="whats_new_3d_buildings_subtitle">3D 건물과 함께, 지도는 더 많은 정보로 더 아름답게 나타냅니다.</string>
 </resources>
