@@ -527,14 +527,9 @@ void Framework::DownloadingProgressUpdate(ActiveMapsLayout::TGroup const & group
   }
 }
 
-// Fills mapobject's metadata from UserMark
-void Framework::InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, UserMark const * userMark)
+// Fills mapobject's metadata
+void Framework::InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, feature::Metadata const & metadata)
 {
-  using feature::Metadata;
-
-  Metadata metadata;
-  frm()->FindClosestPOIMetadata(userMark->GetPivot(), metadata);
-
   static jmethodID const addId = env->GetMethodID(clazz, "addMetadata", "(ILjava/lang/String;)V");
   ASSERT ( addId, () );
 
@@ -542,7 +537,7 @@ void Framework::InjectMetadata(JNIEnv * env, jclass const clazz, jobject const m
   {
     // TODO: It is not a good idea to pass raw strings to UI. Calling separate getters should be a better way.
     // Upcoming change: how to pass opening hours (parsed) into Editor's UI? How to get edited changes back?
-    jstring metaString = t == Metadata::FMD_WIKIPEDIA ?
+    jstring metaString = t == feature::Metadata::FMD_WIKIPEDIA ?
                          jni::ToJavaString(env, metadata.GetWikiURL()) :
                          jni::ToJavaString(env, metadata.Get(t));
     env->CallVoidMethod(mapObject, addId, t, metaString);
@@ -722,6 +717,19 @@ extern "C"
 
     ::Framework * fm = frm();
     UserMark const * mark = markCopy->GetUserMark();
+    search::AddressInfo info;
+    feature::Metadata metadata;
+    auto const * feature = mark->GetFeature();
+    if (feature)
+    {
+      info = fm->GetPOIAddressInfo(*feature);
+      metadata = feature->GetMetadata();
+    }
+    else
+    {
+      // Calculate at least country name for a point. Can we provide more address information?
+      info.m_country = fm->GetCountryName(mark->GetPivot());
+    }
     switch (mark->GetMarkType())
     {
     case UserMark::Type::API:
@@ -741,17 +749,13 @@ extern "C"
 
     case UserMark::Type::POI:
       {
-        PoiMarkPoint const * poiMark = CastMark<PoiMarkPoint>(mark);
-        CallOnPoiActivatedListener(obj, mark->GetPivot(), poiMark->GetInfo(), poiMark->GetMetadata());
+        CallOnPoiActivatedListener(obj, mark->GetPivot(), info, metadata);
         break;
       }
 
     case UserMark::Type::SEARCH:
       {
-        SearchMarkPoint const * searchMark = CastMark<SearchMarkPoint>(mark);
-        feature::Metadata metadata;
-        fm->FindClosestPOIMetadata(mark->GetPivot(), metadata);
-        CallOnAdditionalLayerActivatedListener(obj, searchMark->GetPivot(), searchMark->GetInfo(), metadata);
+        CallOnAdditionalLayerActivatedListener(obj, mark->GetPivot(), info, metadata);
         break;
       }
 
@@ -959,33 +963,6 @@ extern "C"
     g_framework->ShowTrack(cat, track);
   }
 
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_injectData(JNIEnv * env, jclass clazz, jobject jsearchResult, jlong index)
-  {
-    const size_t nIndex = static_cast<size_t>(index);
-
-    UserMarkControllerGuard guard(frm()->GetBookmarkManager(), UserMarkType::SEARCH_MARK);
-    ASSERT_LESS(nIndex , guard.m_controller.GetUserMarkCount(), ("Invalid index", nIndex));
-    UserMark const * mark = guard.m_controller.GetUserMark(nIndex);
-    search::AddressInfo const & info= CastMark<SearchMarkPoint>(mark)->GetInfo();
-
-    jclass const javaClazz = env->GetObjectClass(jsearchResult);
-
-    static jfieldID const nameId = env->GetFieldID(javaClazz, "mName", "Ljava/lang/String;");
-    env->SetObjectField(jsearchResult, nameId, jni::ToJavaString(env, info.GetPinName()));
-
-    static jfieldID const typeId = env->GetFieldID(javaClazz, "mTypeName", "Ljava/lang/String;");
-    env->SetObjectField(jsearchResult, typeId, jni::ToJavaString(env, info.GetPinType()));
-
-    static jfieldID const latId = env->GetFieldID(javaClazz, "mLat", "D");
-    env->SetDoubleField(jsearchResult, latId, MercatorBounds::YToLat(mark->GetPivot().y));
-
-    static jfieldID const lonId = env->GetFieldID(javaClazz, "mLon", "D");
-    env->SetDoubleField(jsearchResult, lonId, MercatorBounds::XToLon(mark->GetPivot().x));
-
-    g_framework->InjectMetadata(env, javaClazz, jsearchResult, mark);
-  }
-
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_Framework_nativeGetBookmarkDir(JNIEnv * env, jclass thiz)
   {
@@ -1181,17 +1158,25 @@ extern "C"
   Java_com_mapswithme_maps_Framework_nativeGetMapObjectForPoint(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
   {
     PoiMarkPoint const * poiMark = frm()->GetAddressMark(MercatorBounds::FromLatLon(lat, lon));
+    search::AddressInfo info;
+    feature::Metadata metadata;
+    auto const * feature = poiMark->GetFeature();
+    if (feature)
+    {
+      metadata = feature->GetMetadata();
+      info = frm()->GetPOIAddressInfo(*feature);
+    }
+    // TODO(AlexZ): else case?
 
     static jclass const klass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/MapObject$Poi");
     // Java signature : Poi(String name, double lat, double lon, String typeName)
     static jmethodID const methodID = env->GetMethodID(klass, "<init>", "(Ljava/lang/String;DDLjava/lang/String;)V");
 
-    jobject const mapObject = env->NewObject(klass, methodID, jni::ToJavaString(env, poiMark->GetInfo().GetPinName()),
-                                             lat, lon, jni::ToJavaString(env, poiMark->GetInfo().GetPinType()));
+    jobject const mapObject = env->NewObject(klass, methodID, jni::ToJavaString(env, info.GetPinName()),
+                                             lat, lon, jni::ToJavaString(env, info.GetPinType()));
     ASSERT(mapObject, ());
 
-
-    g_framework->InjectMetadata(env, klass, mapObject, poiMark);
+    g_framework->InjectMetadata(env, klass, mapObject, metadata);
 
     return mapObject;
   }

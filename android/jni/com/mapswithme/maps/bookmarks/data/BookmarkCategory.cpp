@@ -85,13 +85,17 @@ extern "C"
 
     BookmarkCategory * category = getBmCategory(id);
     Bookmark const * nBookmark = static_cast<Bookmark const *>(category->GetUserMark(index));
+    feature::Metadata metadata;
+    auto const * feature = nBookmark->GetFeature();
+    if (feature)
+      metadata = feature->GetMetadata();
+    // TODO(AlexZ): else case?
 
     ASSERT(nBookmark, ("Bookmark must not be null with index:)", index));
 
-    jobject jBookmark = env->NewObject(bookmarkClazz, cId,
-                                id, index, jni::ToJavaString(env, nBookmark->GetName()));
-
-    g_framework->InjectMetadata(env, bookmarkClazz, jBookmark, nBookmark);
+    jobject jBookmark = env->NewObject(bookmarkClazz, cId, id, index,
+                                       jni::ToJavaString(env, nBookmark->GetName()));
+    g_framework->InjectMetadata(env, bookmarkClazz, jBookmark, metadata);
 
     return jBookmark;
   }

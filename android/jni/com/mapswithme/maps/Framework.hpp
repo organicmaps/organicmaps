@@ -161,7 +161,7 @@ namespace android
     void CleanWidgets();
 
     // Fills mapobject's metadata from UserMark
-    void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, UserMark const * userMark);
+    void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, feature::Metadata const & metadata);
 
     using TDrapeTask = function<void()>;
     // Posts a task which must be executed when Drape Engine is alive.

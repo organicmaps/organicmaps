@@ -267,7 +267,6 @@ Framework::Framework()
 
   m_stringsBundle.SetDefaultString("dropped_pin", "Dropped Pin");
   m_stringsBundle.SetDefaultString("my_places", "My Places");
-  m_stringsBundle.SetDefaultString("my_position", "My Position");
   m_stringsBundle.SetDefaultString("routes", "Routes");
 
   m_stringsBundle.SetDefaultString("routing_failed_unknown_my_position", "Current location is undefined. Please specify location to create route.");
@@ -1171,11 +1170,7 @@ void Framework::ShowSearchResult(search::Result const & res)
   else
     ShowRect(df::GetRectForDrawScale(scale, center));
 
-  search::AddressInfo info;
-  info.MakeFrom(res);
-
-  SearchMarkPoint * mark = static_cast<SearchMarkPoint *>(guard.m_controller.CreateUserMark(center));
-  mark->SetInfo(info);
+  UserMark * mark = guard.m_controller.CreateUserMark(center);
   if (ft)
     mark->SetFeature(move(ft));
   else
@@ -1266,14 +1261,7 @@ void Framework::FillSearchResultsMarks(search::Results const & results)
 
     Result const & r = results.GetResult(i);
     if (r.HasPoint())
-    {
-      AddressInfo info;
-      info.MakeFrom(r);
-
-      m2::PointD const pt = r.GetFeatureCenter();
-      SearchMarkPoint * mark = static_cast<SearchMarkPoint *>(guard.m_controller.CreateUserMark(pt));
-      mark->SetInfo(info);
-    }
+      guard.m_controller.CreateUserMark(r.GetFeatureCenter());
   }
 }
 
@@ -1621,9 +1609,9 @@ bool Framework::ShowMapForURL(string const & url)
       }
       else
       {
-        PoiMarkPoint * mark = GetAddressMark(point);
-        if (!name.empty())
-          mark->SetName(name);
+        PoiMarkPoint * mark = UserMarkContainer::UserMarkForPoi();
+        mark->SetPtOrg(point);
+        // TODO(AlexZ): Do we really have to set custom name here if it's not empty?
         ActivateUserMark(mark, false);
       }
     }
@@ -1800,11 +1788,9 @@ BookmarkAndCategory Framework::FindBookmark(UserMark const * mark) const
 
 PoiMarkPoint * Framework::GetAddressMark(m2::PointD const & globalPoint) const
 {
-  search::AddressInfo info;
-  GetAddressInfoForGlobalPoint(globalPoint, info);
   PoiMarkPoint * mark = UserMarkContainer::UserMarkForPoi();
   mark->SetPtOrg(globalPoint);
-  mark->SetInfo(info);
+  mark->SetFeature(GetFeatureAtMercatorPoint(globalPoint));
   return mark;
 }
 
@@ -1895,14 +1881,7 @@ UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool
   m2::PointD const pxPoint2d = m_currentModelView.P3dtoP(pxPoint);
 
   if (isMyPosition)
-  {
-    search::AddressInfo info;
-    info.m_name = m_stringsBundle.GetString("my_position");
-    MyPositionMarkPoint * myPosition = UserMarkContainer::UserMarkForMyPostion();
-    myPosition->SetInfo(info);
-
-    return myPosition;
-  }
+    return UserMarkContainer::UserMarkForMyPostion();
 
   df::VisualParams const & vp = df::VisualParams::Instance();
 
@@ -1927,24 +1906,19 @@ UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool
 
   bool needMark = false;
   m2::PointD mercatorPivot;
-  search::AddressInfo info;
-  feature::Metadata metadata;
   unique_ptr<FeatureType> feature;
 
   if (fid.IsValid())
   {
     feature = GetPOIByID(fid);
     mercatorPivot = feature::GetCenter(*feature);
-    info = GetPOIAddressInfo(*feature);
-    metadata = feature->GetMetadata();
     needMark = true;
   }
   else if (isLong)
   {
     mercatorPivot = m_currentModelView.PtoG(pxPoint);
+    // TODO(AlexZ): Should we change mercatorPivot to found feature's center?
     feature = GetFeatureAtMercatorPoint(mercatorPivot);
-    if (feature)
-      info = GetPOIAddressInfo(*feature);
     needMark = true;
   }
 
@@ -1952,8 +1926,6 @@ UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool
   {
     PoiMarkPoint * poiMark = UserMarkContainer::UserMarkForPoi();
     poiMark->SetPtOrg(mercatorPivot);
-    poiMark->SetInfo(info);
-    poiMark->SetMetadata(move(metadata));
     // Set or reset feature.
     poiMark->SetFeature(move(feature));
     return poiMark;

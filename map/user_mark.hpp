@@ -82,28 +82,12 @@ private:
 class SearchMarkPoint : public UserMark
 {
 public:
-  SearchMarkPoint(search::AddressInfo const & info,
-           m2::PointD const & ptOrg,
-           UserMarkContainer * container);
-
   SearchMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container);
 
   string GetSymbolName() const override;
   UserMark::Type GetMarkType() const override;
 
-  search::AddressInfo const & GetInfo() const;
-  void SetInfo(search::AddressInfo const & info);
-
-  feature::Metadata const & GetMetadata() const;
-  void SetMetadata(feature::Metadata && metadata);
-
   unique_ptr<UserMarkCopy> Copy() const override;
-
-  virtual void FillLogEvent(TEventContainer & details) const override;
-
-protected:
-  search::AddressInfo m_info;
-  feature::Metadata m_metadata;
 };
 
 class PoiMarkPoint : public SearchMarkPoint
@@ -114,7 +98,6 @@ public:
   unique_ptr<UserMarkCopy> Copy() const override;
 
   void SetPtOrg(m2::PointD const & ptOrg);
-  void SetName(string const & name);
 };
 
 class MyPositionMarkPoint : public PoiMarkPoint

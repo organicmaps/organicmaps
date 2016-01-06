@@ -55,10 +55,8 @@ static map<Metadata::EType, MWMPlacePageMetadataField> const kMetaFieldsMap{
       [self configureForMyPosition:static_cast<MyPositionMarkPoint const *>(mark)];
       break;
     case Type::SEARCH:
-      [self configureForSearch:static_cast<SearchMarkPoint const *>(mark)];
-      break;
     case Type::POI:
-      [self configureForPOI:static_cast<PoiMarkPoint const *>(mark)];
+      [self configureEntityWithFeature:mark->GetFeature()];
       break;
     case Type::BOOKMARK:
       [self configureForBookmark:mark];
@@ -104,11 +102,6 @@ static map<Metadata::EType, MWMPlacePageMetadataField> const kMetaFieldsMap{
   self.type = MWMPlacePageEntityTypeBookmark;
   BookmarkCategory * category = f.GetBmCategory(self.bac.first);
   BookmarkData const & data = static_cast<Bookmark const *>(bookmark)->GetData();
-  m2::PointD const & point = bookmark->GetPivot();
-  Metadata metadata;
-  search::AddressInfo info;
-  f.FindClosestPOIMetadata(point, metadata);
-  f.GetAddressInfoForGlobalPoint(point, info);
 
   self.bookmarkTitle = @(data.GetName().c_str());
   self.bookmarkCategory = @(category->GetName().c_str());
@@ -117,22 +110,8 @@ static map<Metadata::EType, MWMPlacePageMetadataField> const kMetaFieldsMap{
   _isHTMLDescription = strings::IsHTML(description);
   self.bookmarkColor = @(data.GetType().c_str());
 
-  [self configureEntityWithMetadata:metadata addressInfo:info];
+  [self configureEntityWithFeature:bookmark->GetFeature()];
   [self insertBookmarkInTypes];
-}
-
-- (void)configureForSearch:(SearchMarkPoint const *)searchMark
-{
-//Workaround for framework bug.
-//TODO: Make correct way to get search metadata.
-  Metadata metadata;
-  GetFramework().FindClosestPOIMetadata(searchMark->GetPivot(), metadata);
-  [self configureEntityWithMetadata:metadata addressInfo:searchMark->GetInfo()];
-}
-
-- (void)configureForPOI:(PoiMarkPoint const *)poiMark
-{
-  [self configureEntityWithMetadata:poiMark->GetMetadata() addressInfo:poiMark->GetInfo()];
 }
 
 - (void)configureForMyPosition:(MyPositionMarkPoint const *)myPositionMark
@@ -150,77 +129,82 @@ static map<Metadata::EType, MWMPlacePageMetadataField> const kMetaFieldsMap{
   [self addMetaField:MWMPlacePageMetadataFieldCoordinate];
 }
 
-- (void)configureEntityWithMetadata:(Metadata const &)metadata addressInfo:(search::AddressInfo const &)info
+// feature can be nullptr if user selected any empty area.
+- (void)configureEntityWithFeature:(FeatureType const *)feature
 {
-  NSString * const name = @(info.GetPinName().c_str());
-  self.title = name.length > 0 ? name : L(@"dropped_pin");
-  self.category = @(info.FormatAddress().c_str());
-
-  auto const presentTypes = metadata.GetPresentTypes();
-
-  for (auto const & type : presentTypes)
+  if (feature)
   {
-    switch (type)
+    search::AddressInfo const info = GetFramework().GetPOIAddressInfo(*feature);
+    feature::Metadata const & metadata = feature->GetMetadata();
+    NSString * const name = @(info.GetPinName().c_str());
+    self.title = name.length > 0 ? name : L(@"dropped_pin");
+    self.category = @(info.GetPinType().c_str());
+
+    vector<Metadata::EType> const presentTypes = metadata.GetPresentTypes();
+
+    for (auto const & type : presentTypes)
     {
-      case Metadata::FMD_CUISINE:
+      switch (type)
       {
-        NSString * result = @(metadata.Get(type).c_str());
-        NSString * cuisine = [NSString stringWithFormat:@"cuisine_%@", result];
-        NSString * localizedResult = L(cuisine);
-        NSString * currentCategory = self.category;
-        if (![localizedResult isEqualToString:currentCategory])
+        case Metadata::FMD_CUISINE:
         {
-          if ([localizedResult isEqualToString:cuisine])
+          NSString * result = @(metadata.Get(type).c_str());
+          NSString * cuisine = [NSString stringWithFormat:@"cuisine_%@", result];
+          NSString * localizedResult = L(cuisine);
+          NSString * currentCategory = self.category;
+          if (![localizedResult isEqualToString:currentCategory])
           {
-            if (![result isEqualToString:currentCategory])
-              self.category = [NSString stringWithFormat:@"%@, %@", self.category, result];
+            if ([localizedResult isEqualToString:cuisine])
+            {
+              if (![result isEqualToString:currentCategory])
+                self.category = [NSString stringWithFormat:@"%@, %@", self.category, result];
+            }
+            else
+            {
+              self.category = [NSString stringWithFormat:@"%@, %@", self.category, localizedResult];
+            }
           }
-          else
-          {
-            self.category = [NSString stringWithFormat:@"%@, %@", self.category, localizedResult];
-          }
+          break;
         }
-        break;
+        case Metadata::FMD_ELE:
+        {
+          self.typeDescriptionValue = atoi(metadata.Get(type).c_str());
+          if (self.type != MWMPlacePageEntityTypeBookmark)
+            self.type = MWMPlacePageEntityTypeEle;
+          break;
+        }
+        case Metadata::FMD_OPERATOR:
+        {
+          NSString const * bank = @(metadata.Get(type).c_str());
+          if (self.category.length)
+            self.category = [NSString stringWithFormat:@"%@, %@", self.category, bank];
+          else
+            self.category = [NSString stringWithFormat:@"%@", bank];
+          break;
+        }
+        case Metadata::FMD_STARS:
+        {
+          self.typeDescriptionValue = atoi(metadata.Get(type).c_str());
+          if (self.type != MWMPlacePageEntityTypeBookmark)
+            self.type = MWMPlacePageEntityTypeHotel;
+          break;
+        }
+        case Metadata::FMD_URL:
+        case Metadata::FMD_WEBSITE:
+        case Metadata::FMD_PHONE_NUMBER:
+        case Metadata::FMD_OPEN_HOURS:
+        case Metadata::FMD_EMAIL:
+        case Metadata::FMD_POSTCODE:
+          [self addMetaField:kMetaFieldsMap.at(type) value:metadata.Get(type)];
+          break;
+        case Metadata::FMD_INTERNET:
+          [self addMetaField:kMetaFieldsMap.at(type) value:L(@"WiFi_available").UTF8String];
+          break;
+        default:
+          break;
       }
-      case Metadata::FMD_ELE:
-      {
-        self.typeDescriptionValue = atoi(metadata.Get(type).c_str());
-        if (self.type != MWMPlacePageEntityTypeBookmark)
-          self.type = MWMPlacePageEntityTypeEle;
-        break;
-      }
-      case Metadata::FMD_OPERATOR:
-      {
-        NSString const * bank = @(metadata.Get(type).c_str());
-        if (self.category.length)
-          self.category = [NSString stringWithFormat:@"%@, %@", self.category, bank];
-        else
-          self.category = [NSString stringWithFormat:@"%@", bank];
-        break;
-      }
-      case Metadata::FMD_STARS:
-      {
-        self.typeDescriptionValue = atoi(metadata.Get(type).c_str());
-        if (self.type != MWMPlacePageEntityTypeBookmark)
-          self.type = MWMPlacePageEntityTypeHotel;
-        break;
-      }
-      case Metadata::FMD_URL:
-      case Metadata::FMD_WEBSITE:
-      case Metadata::FMD_PHONE_NUMBER:
-      case Metadata::FMD_OPEN_HOURS:
-      case Metadata::FMD_EMAIL:
-      case Metadata::FMD_POSTCODE:
-        [self addMetaField:kMetaFieldsMap.at(type) value:metadata.Get(type)];
-        break;
-      case Metadata::FMD_INTERNET:
-        [self addMetaField:kMetaFieldsMap.at(type) value:L(@"WiFi_available").UTF8String];
-        break;
-      default:
-        break;
     }
   }
-
   [self addMetaField:MWMPlacePageMetadataFieldCoordinate];
 }
 
