@@ -4,7 +4,7 @@ varying float v_intensity;
 uniform sampler2D u_colorTex;
 #endif
 
-const vec3 color = vec3(0.11, 0.59, 0.94);
+uniform vec4 u_color;
 
 void main()
 {
@@ -14,7 +14,7 @@ void main()
   lowp vec4 fakeColor = texture2D(u_colorTex, vec2(0.0, 0.0)) * kFakeColorScalar;
 #endif
 
-  vec4 resColor = vec4((v_intensity * 0.3 + 0.7) * color, 1.0);
+  vec4 resColor = vec4((v_intensity * 0.3 + 0.7) * u_color.rgb, u_color.a);
   
 #ifdef SAMSUNG_GOOGLE_NEXUS
   gl_FragColor = resColor + fakeColor;

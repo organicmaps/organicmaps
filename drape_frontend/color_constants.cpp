@@ -23,6 +23,7 @@ unordered_map<int, unordered_map<int, dp::Color>> kColorConstants =
       { Selection, dp::Color(30, 150, 240, 164) },
       { Route, dp::Color(30, 150, 240, 204) },
       { RoutePedestrian, dp::Color(5, 105, 175, 204) },
+      { Arrow3D, dp::Color(30, 150, 240, 255) },
     }
   },
   { MapStyleDark,
@@ -38,6 +39,7 @@ unordered_map<int, unordered_map<int, dp::Color>> kColorConstants =
       { Selection, dp::Color(255, 230, 140, 164) },
       { Route, dp::Color(255, 230, 140, 204) },
       { RoutePedestrian, dp::Color(250, 215, 80, 204) },
+      { Arrow3D, dp::Color(255, 230, 140, 255) },
     }
   },
 };
