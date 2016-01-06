@@ -48,7 +48,7 @@ public final class ThemeSwitcher
       {
         LocationHelper.INSTANCE.removeLocationListener(mLocationListener);
 
-        boolean day = Framework.nativeIsDayTime(System.currentTimeMillis(), last.getLatitude(), last.getLongitude());
+        boolean day = Framework.nativeIsDayTime(System.currentTimeMillis() / 1000, last.getLatitude(), last.getLongitude());
         theme = (day ? ThemeUtils.THEME_DEFAULT : ThemeUtils.THEME_NIGHT);
       }
 

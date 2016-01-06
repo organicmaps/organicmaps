@@ -185,7 +185,7 @@ public class Framework
 
   /**
    * Determines if currently is day or night at the given location. Used to switch day/night styles.
-   * @param currentTimeUtc current Unix time (returned by {@link System#currentTimeMillis()}).
+   * @param currentTimeUtc current Unix time (returned by {@link System#currentTimeMillis()} divided by 1000).
    * @param lat latitude of the current location.
    * @param lon longitude of the current location.
    * @return {@code true} if it is day now or {@code false} otherwise.
