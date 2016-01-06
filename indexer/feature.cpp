@@ -32,28 +32,34 @@ void FeatureBase::Deserialize(feature::LoaderBase * pLoader, TBuffer buffer)
   m_header = m_pLoader->GetHeader();
 }
 
-FeatureType FeatureType::FromXML(string const & xml)
-{
-  pugi::xml_document document;
-  document.load(xml.data());
-  return FromXML(document);
-}
+// TODO(mgsergio): No need to create feature from xml, can go with patchig for now.
+//@{
+// FeatureType FeatureType::FromXML(string const & xml)
+// {
+//   pugi::xml_document document;
+//   document.load(xml.data());
+//   return FromXML(document);
+// }
 
-FeatureType FeatureType::FromXML(editor::XMLFeature const & xml)
-{
-  FeatureType feature;
-  // Should be set to true. Or later call to ParseGeometry will lead to crash.
-  feature.m_bTrianglesParsed = feature.m_bPointsParsed = true;
-  feature.m_center = xml.GetCenter();
+// FeatureType FeatureType::FromXML(editor::XMLFeature const & xml)
+// {
+//   FeatureType feature;
+//   // Should be set to true. Or later call to ParseGeometry will lead to crash.
+//   feature.m_bTrianglesParsed = feature.m_bPointsParsed = true;
+//   feature.m_center = xml.GetCenter();
 
-  // Preset type for header calculation later in ApplyPatch.
-  feature.m_header = HEADER_GEOM_POINT;
+//   // Preset type for header calculation later in ApplyPatch.
+//   feature.m_header = HEADER_GEOM_POINT;
 
-  feature.ApplyPatch(xml);
+//   auto const & types = osm::Editor::Instance().GetTypesOfFeature(xml);
+//   copy(begin(types), end(types), begin(feature.m_types));
+//   feature.m_bTypesParsed = true;
 
-  return feature;
-}
+//   feature.ApplyPatch(xml);
 
+//   return feature;
+// }
+//@}
 void FeatureType::ApplyPatch(editor::XMLFeature const & xml)
 {
   xml.ForEachName([this](string const & lang, string const & name)
@@ -70,10 +76,6 @@ void FeatureType::ApplyPatch(editor::XMLFeature const & xml)
   // m_params.layer =
   // m_params.rank =
   m_bCommonParsed = true;
-
-  auto const & types = osm::Editor::Instance().GetTypesOfFeature(xml);
-  copy(begin(types), end(types), begin(m_types));
-  m_bTypesParsed = true;
 
   for (auto const i : my::Range(1u, static_cast<uint32_t>(feature::Metadata::FMD_COUNT)))
   {
@@ -92,11 +94,9 @@ void FeatureType::ApplyPatch(editor::XMLFeature const & xml)
 
 editor::XMLFeature FeatureType::ToXML() const
 {
-  editor::XMLFeature feature;
-
-  // Save geom type to choose what to do later:
-  // deserialize or patch.
-  feature.SetGeomType(DebugPrint(GetFeatureType()));
+  editor::XMLFeature feature(GetFeatureType() == feature::GEOM_POINT
+                                 ? editor::XMLFeature::Type::Node
+                                 : editor::XMLFeature::Type::Way);
 
   // Only Poins are completely serialized and deserialized.
   // Other types could only be patched.
@@ -118,12 +118,13 @@ editor::XMLFeature FeatureType::ToXML() const
   // feature.m_params.layer =
   // feature.m_params.rank =
 
-  ParseTypes();
-  for (auto const i : my::Range(GetTypesCount()))
-  {
-    for (auto const & tag : osm::Editor::Instance().GetTagsForType(m_types[i]))
-      feature.SetTagValue(tag.first, tag.second);
-  }
+  // TODO(mgsergio): Save/Load types when required by feature creation or type modification.
+  // ParseTypes();
+  // for (auto const i : my::Range(GetTypesCount()))
+  // {
+  //   for (auto const & tag : osm::Editor::Instance().GetTagsForType(m_types[i]))
+  //     feature.SetTagValue(tag.first, tag.second);
+  // }
 
   for (auto const type : m_metadata.GetPresentTypes())
   {

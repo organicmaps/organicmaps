@@ -15,8 +15,6 @@ enum EGeomType
   GEOM_LINE = 1,
   GEOM_AREA = 2
 };
-
-string DebugPrint(EGeomType type);
 }
 
 struct FeatureID

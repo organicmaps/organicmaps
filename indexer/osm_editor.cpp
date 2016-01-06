@@ -40,147 +40,146 @@ namespace
 {
 string GetEditorFilePath() { return GetPlatform().WritablePathForFile(kEditorXMLFileName); }
 // TODO(mgsergio): Replace hard-coded value with reading from file.
-static unordered_set<TStringPair, boost::hash<TStringPair>> const gConvertibleTypepairs = {
-    {"aeroway", "aerodrome"},
-    {"aeroway", "airport"},
-    {"amenity", "atm"},
-    {"amenity", "bank"},
-    {"amenity", "bar"},
-    {"amenity", "bbq"},
-    {"amenity", "bench"},
-    {"amenity", "bicycle_rental"},
-    {"amenity", "bureau_de_change"},
-    {"amenity", "bus_station"},
-    {"amenity", "cafe"},
-    {"amenity", "car_rental"},
-    {"amenity", "car_sharing"},
-    {"amenity", "casino"},
-    {"amenity", "cinema"},
-    {"amenity", "college"},
-    {"amenity", "doctors"},
-    {"amenity", "drinking_water"},
-    {"amenity", "embassy"},
-    {"amenity", "fast_food"},
-    {"amenity", "ferry_terminal"},
-    {"amenity", "fire_station"},
-    {"amenity", "fountain"},
-    {"amenity", "fuel"},
-    {"amenity", "grave_yard"},
-    {"amenity", "hospital"},
-    {"amenity", "hunting_stand"},
-    {"amenity", "kindergarten"},
-    {"amenity", "library"},
-    {"amenity", "marketplace"},
-    {"amenity", "nightclub"},
-    {"amenity", "parking"},
-    {"amenity", "pharmacy"},
-    {"amenity", "place_of_worship"},
-    {"amenity", "police"},
-    {"amenity", "post_box"},
-    {"amenity", "post_office"},
-    {"amenity", "pub"},
-    {"amenity", "recycling"},
-    {"amenity", "restaurant"},
-    {"amenity", "school"},
-    {"amenity", "shelter"},
-    {"amenity", "taxi"},
-    {"amenity", "telephone"},
-    {"amenity", "theatre"},
-    {"amenity", "toilets"},
-    {"amenity", "townhall"},
-    {"amenity", "university"},
-    {"amenity", "waste_disposal"},
-    {"highway", "bus_stop"},
-    {"highway", "speed_camera"},
-    {"historic", "archaeological_site"},
-    {"historic", "castle"},
-    {"historic", "memorial"},
-    {"historic", "monument"},
-    {"historic", "ruins"},
-    {"internet", "access"},
-    {"internet", "access|wlan"},
-    {"landuse", "cemetery"},
-    {"leisure", "garden"},
-    {"leisure", "pitch"},
-    {"leisure", "playground"},
-    {"leisure", "sports_centre"},
-    {"leisure", "stadium"},
-    {"leisure", "swimming_pool"},
-    {"natural", "peak"},
-    {"natural", "spring"},
-    {"natural", "waterfall"},
-    {"office", "company"},
-    {"office", "estate_agent"},
-    {"office", "government"},
-    {"office", "lawyer"},
-    {"office", "telecommunication"},
-    {"place", "farm"},
-    {"place", "hamlet"},
-    {"place", "village"},
-    {"railway", "halt"},
-    {"railway", "station"},
-    {"railway", "subway_entrance"},
-    {"railway", "tram_stop"},
-    {"shop", "alcohol"},
-    {"shop", "bakery"},
-    {"shop", "beauty"},
-    {"shop", "beverages"},
-    {"shop", "bicycle"},
-    {"shop", "books"},
-    {"shop", "butcher"},
-    {"shop", "car"},
-    {"shop", "car_repair"},
-    {"shop", "chemist"},
-    {"shop", "clothes"},
-    {"shop", "computer"},
-    {"shop", "confectionery"},
-    {"shop", "convenience"},
-    {"shop", "department_store"},
-    {"shop", "doityourself"},
-    {"shop", "electronics"},
-    {"shop", "florist"},
-    {"shop", "furniture"},
-    {"shop", "garden_centre"},
-    {"shop", "gift"},
-    {"shop", "greengrocer"},
-    {"shop", "hairdresser"},
-    {"shop", "hardware"},
-    {"shop", "jewelry"},
-    {"shop", "kiosk"},
-    {"shop", "laundry"},
-    {"shop", "mall"},
-    {"shop", "mobile_phone"},
-    {"shop", "optician"},
-    {"shop", "shoes"},
-    {"shop", "sports"},
-    {"shop", "supermarket"},
-    {"shop", "toys"},
-    {"tourism", "alpine_hut"},
-    {"tourism", "artwork"},
-    {"tourism", "attraction"},
-    {"tourism", "camp_site"},
-    {"tourism", "caravan_site"},
-    {"tourism", "guest_house"},
-    {"tourism", "hostel"},
-    {"tourism", "hotel"},
-    {"tourism", "information"},
-    {"tourism", "motel"},
-    {"tourism", "museum"},
-    {"tourism", "picnic_site"},
-    {"tourism", "viewpoint"},
-    {"waterway", "waterfall"}};
+static unordered_set<string> const gEditableTypes = {
+  {"aeroway-aerodrome"},
+  {"aeroway-airport"},
+  {"amenity-atm"},
+  {"amenity-bank"},
+  {"amenity-bar"},
+  {"amenity-bbq"},
+  {"amenity-bench"},
+  {"amenity-bicycle_rental"},
+  {"amenity-bureau_de_change"},
+  {"amenity-bus_station"},
+  {"amenity-cafe"},
+  {"amenity-car_rental"},
+  {"amenity-car_sharing"},
+  {"amenity-casino"},
+  {"amenity-cinema"},
+  {"amenity-college"},
+  {"amenity-doctors"},
+  {"amenity-drinking_water"},
+  {"amenity-embassy"},
+  {"amenity-fast_food"},
+  {"amenity-ferry_terminal"},
+  {"amenity-fire_station"},
+  {"amenity-fountain"},
+  {"amenity-fuel"},
+  {"amenity-grave_yard"},
+  {"amenity-hospital"},
+  {"amenity-hunting_stand"},
+  {"amenity-kindergarten"},
+  {"amenity-library"},
+  {"amenity-marketplace"},
+  {"amenity-nightclub"},
+  {"amenity-parking"},
+  {"amenity-pharmacy"},
+  {"amenity-place_of_worship"},
+  {"amenity-police"},
+  {"amenity-post_box"},
+  {"amenity-post_office"},
+  {"amenity-pub"},
+  {"amenity-recycling"},
+  {"amenity-restaurant"},
+  {"amenity-school"},
+  {"amenity-shelter"},
+  {"amenity-taxi"},
+  {"amenity-telephone"},
+  {"amenity-theatre"},
+  {"amenity-toilets"},
+  {"amenity-townhall"},
+  {"amenity-university"},
+  {"amenity-waste_disposal"},
+  {"highway-bus_stop"},
+  {"highway-speed_camera"},
+  {"historic-archaeological_site"},
+  {"historic-castle"},
+  {"historic-memorial"},
+  {"historic-monument"},
+  {"historic-ruins"},
+  {"internet-access"},
+  {"internet-access|wlan"},
+  {"landuse-cemetery"},
+  {"leisure-garden"},
+  {"leisure-pitch"},
+  {"leisure-playground"},
+  {"leisure-sports_centre"},
+  {"leisure-stadium"},
+  {"leisure-swimming_pool"},
+  {"natural-peak"},
+  {"natural-spring"},
+  {"natural-waterfall"},
+  {"office-company"},
+  {"office-estate_agent"},
+  {"office-government"},
+  {"office-lawyer"},
+  {"office-telecommunication"},
+  {"place-farm"},
+  {"place-hamlet"},
+  {"place-village"},
+  {"railway-halt"},
+  {"railway-station"},
+  {"railway-subway_entrance"},
+  {"railway-tram_stop"},
+  {"shop-alcohol"},
+  {"shop-bakery"},
+  {"shop-beauty"},
+  {"shop-beverages"},
+  {"shop-bicycle"},
+  {"shop-books"},
+  {"shop-butcher"},
+  {"shop-car"},
+  {"shop-car_repair"},
+  {"shop-chemist"},
+  {"shop-clothes"},
+  {"shop-computer"},
+  {"shop-confectionery"},
+  {"shop-convenience"},
+  {"shop-department_store"},
+  {"shop-doityourself"},
+  {"shop-electronics"},
+  {"shop-florist"},
+  {"shop-furniture"},
+  {"shop-garden_centre"},
+  {"shop-gift"},
+  {"shop-greengrocer"},
+  {"shop-hairdresser"},
+  {"shop-hardware"},
+  {"shop-jewelry"},
+  {"shop-kiosk"},
+  {"shop-laundry"},
+  {"shop-mall"},
+  {"shop-mobile_phone"},
+  {"shop-optician"},
+  {"shop-shoes"},
+  {"shop-sports"},
+  {"shop-supermarket"},
+  {"shop-toys"},
+  {"tourism-alpine_hut"},
+  {"tourism-artwork"},
+  {"tourism-attraction"},
+  {"tourism-camp_site"},
+  {"tourism-caravan_site"},
+  {"tourism-guest_house"},
+  {"tourism-hostel"},
+  {"tourism-hotel"},
+  {"tourism-information"},
+  {"tourism-motel"},
+  {"tourism-museum"},
+  {"tourism-picnic_site"},
+  {"tourism-viewpoint"},
+  {"waterway-waterfall"}};
 
-TStringPair MapsmeTypeToPair(string const & mapseType)
+template <typename TIterator>
+bool HasAtLeastOneEditableType(TIterator from, TIterator const to)
 {
-  vector<string> result(strings::SimpleTokenizer(mapseType, "|"), strings::SimpleTokenizer());
-  // TODO(mgsergio): Support only one type in the first version.
-  ASSERT_EQUAL(result.size(), 2, ("Too many parts in type string."));
-  return {result[0], result[1]};
-}
-
-bool IsTypeTag(TStringPair const & tag)
-{
-  return gConvertibleTypepairs.find(tag) != end(gConvertibleTypepairs);
+  while (from != to)
+  {
+    auto const & type = classif().GetReadableObjectName(*from++);
+    if (gEditableTypes.find(type) != end(gEditableTypes))
+      return true;
+  }
+  return false;
 }
 } // namespace
 
@@ -232,24 +231,26 @@ void Editor::LoadMapEdits()
 
     for (auto const & section : sections)
     {
-      for (xml_node node : mwm.child(section.second).children("node"))
+      for (auto const nodeOrWay : mwm.child(section.second).select_nodes("node|way"))
       {
         try
         {
-          XMLFeature const xml(node);
+          XMLFeature const xml(nodeOrWay.node());
           FeatureID const fid(id, xml.GetOffset());
           FeatureTypeInfo fti;
 
-          if (xml.GetGeomType() != DebugPrint(feature::GEOM_POINT))
-          {
-            // TODO(mgsergio): Check if feature can be read.
-            fti.m_feature = m_featureLoaderFn(fid);
-            fti.m_feature.ApplyPatch(xml);
-          }
-          else
-          {
-            fti.m_feature = FeatureType::FromXML(xml);
-          }
+          /// TODO(mgsergio): uncomment when feature creating will
+          /// be required
+          // if (xml.GetType() != XMLFeature::Type::Way)
+          // {
+          // TODO(mgsergio): Check if feature can be read.
+          fti.m_feature = m_featureLoaderFn(fid);
+          fti.m_feature.ApplyPatch(xml);
+          // }
+          // else
+          // {
+          //   fti.m_feature = FeatureType::FromXML(xml);
+          // }
 
           fti.m_feature.SetID(fid);
 
@@ -260,16 +261,15 @@ void Editor::LoadMapEdits()
           fti.m_uploadError = xml.GetUploadError();
           fti.m_status = section.first;
 
-          /// Install edited feature back to editor.
-          /// This instruction should be after calling m_featureLoaderFn cause
-          /// it'll try to return feature from editor first and if
-          /// it can't read it from disk.
+          /// Call to m_featureLoaderFn indirectly tries to load feature by
+          /// it's ID from the editor's m_features.
+          /// That's why insertion into m_features should go AFTER call to m_featureLoaderFn.
           m_features[id][fid.m_index] = fti;
         }
         catch (editor::XMLFeatureError const & ex)
         {
           ostringstream s;
-          node.print(s, "  ");
+          nodeOrWay.node().print(s, "  ");
           LOG(LERROR, (ex.what(), "Can't create XMLFeature in section", section.second, s.str()));
         }
       } // for nodes
@@ -314,10 +314,10 @@ void Editor::Save(string const & fullFilePath) const
       }
       switch (fti.m_status)
       {
-        case FeatureStatus::Deleted: VERIFY(xf.AttachToParentNode(deleted), ()); break;
-        case FeatureStatus::Modified: VERIFY(xf.AttachToParentNode(modified), ()); break;
-        case FeatureStatus::Created: VERIFY(xf.AttachToParentNode(created), ()); break;
-        case FeatureStatus::Untouched: CHECK(false, ("Not edited features shouldn't be here."));
+      case FeatureStatus::Deleted: VERIFY(xf.AttachToParentNode(deleted), ()); break;
+      case FeatureStatus::Modified: VERIFY(xf.AttachToParentNode(modified), ()); break;
+      case FeatureStatus::Created: VERIFY(xf.AttachToParentNode(created), ()); break;
+      case FeatureStatus::Untouched: CHECK(false, ("Not edited features shouldn't be here."));
       }
     }
   }
@@ -444,37 +444,12 @@ bool Editor::GetEditedFeature(MwmSet::MwmId const & mwmId, uint32_t offset, Feat
 vector<Metadata::EType> Editor::EditableMetadataForType(FeatureType const & feature) const
 {
   // TODO(mgsergio): Load editable fields into memory from XML and query them here.
-
   TTypes types;
   feature.ForEachType([&types](uint32_t type) { types.push_back(type); });
-  // TODO(mgsergio): Only one-typed features are now supported.
-  if (types.size() != 1)
-    return {};
 
   // Enable opening hours for the first release.
-  auto const & tags = GetTagsForType(types[0]);
-  if (tags.size() == 1 && IsTypeTag(tags[0]))
+  if (HasAtLeastOneEditableType(begin(types), end(types)))
     return {Metadata::FMD_OPEN_HOURS};
   return {};
-}
-
-Editor::TTypes Editor::GetTypesOfFeature(editor::XMLFeature const & xmlFeature) const
-{
-  TTags typeTags;
-  xmlFeature.ForEachTag([&typeTags](string const & key, string const & value)
-                        {
-                          if (IsTypeTag({key, value}))
-                            typeTags.emplace_back(key, value);
-                        });
-  ASSERT_GREATER(typeTags.size(), 0, ("Cannot determine type. Please review your code."));
-  // TODO(mgsergio): Only one-typed features are supported in the first version.
-  ASSERT_EQUAL(typeTags.size(), 1, ("Too many types for a feature."));
-  return {classif().GetTypeByPathSafe({typeTags[0].first, typeTags[0].second})};
-}
-
-Editor::TTags Editor::GetTagsForType(uint32_t type) const
-{
-  // TODO(mgsergio): Only one-typed features are supported in the first version.
-  return {MapsmeTypeToPair(classif().GetFullObjectName(type))};
 }
 }  // namespace osm

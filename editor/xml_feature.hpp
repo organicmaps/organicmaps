@@ -26,15 +26,20 @@ class XMLFeature
   static char const * const kDefaultLang;
 
 public:
-  XMLFeature();
+  enum class Type
+  {
+    Node,
+    Way
+  };
+
+  XMLFeature(Type const type);
   XMLFeature(string const & xml);
   XMLFeature(pugi::xml_document const & xml);
   XMLFeature(pugi::xml_node const & xml);
   XMLFeature(XMLFeature const & feature) : XMLFeature(feature.m_document) {}
   void Save(ostream & ost) const;
 
-  string GetGeomType() const;
-  void SetGeomType(string const & type);
+  Type GetType() const;
 
   m2::PointD GetCenter() const;
   void SetCenter(m2::PointD const & mercatorCenter);
