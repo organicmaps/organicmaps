@@ -24,6 +24,14 @@
                 android:textAppearance="@style/MwmTextAppearance.Body1"
                 tools:text="Version: 5.0.0"/>
 
+      <TextView
+        android:id="@+id/data_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textAppearance="@style/MwmTextAppearance.Body4"
+        tools:text="Data: 151215"/>
+
       <TextView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"

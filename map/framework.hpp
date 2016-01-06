@@ -480,10 +480,11 @@ private:
 public:
   //@}
 
-  /// @name Map updates
+  /// @name Data versions
   //@{
   bool IsDataVersionUpdated();
   void UpdateSavedDataVersion();
+  int64_t GetCurrentDataVersion();
   //@}
 
 public:

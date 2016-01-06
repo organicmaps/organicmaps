@@ -4957,6 +4957,12 @@
     nb = Versjon: %@
     fi = Versio: %@
 
+  [data_version]
+    tags = ios,android
+    comment = Data version in «About» screen
+    en = Data version: %d
+    ru = Версия данных: %d
+
   [are_you_sure]
     tags = android,tizen
     comment = Confirmation in downloading countries dialog

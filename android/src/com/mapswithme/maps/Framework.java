@@ -96,6 +96,8 @@ public class Framework
 
   public native static void nativeUpdateSavedDataVersion();
 
+  public native static long nativeGetDataVersion();
+
   public native static void nativeClearApiPoints();
 
   public native static void injectData(SearchResult searchResult, long index);

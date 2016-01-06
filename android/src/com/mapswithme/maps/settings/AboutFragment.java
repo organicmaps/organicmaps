@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.BaseShadowController;
 import com.mapswithme.maps.widget.ObservableScrollView;
@@ -45,6 +46,9 @@ public class AboutFragment extends BaseSettingsFragment
 
     ((TextView) mFrame.findViewById(R.id.version))
         .setText(getString(R.string.version, BuildConfig.VERSION_NAME));
+
+    ((TextView) mFrame.findViewById(R.id.data_version))
+        .setText(getString(R.string.data_version, Framework.nativeGetDataVersion()));
 
     mFrame.findViewById(R.id.web).setOnClickListener(this);
     mFrame.findViewById(R.id.blog).setOnClickListener(this);

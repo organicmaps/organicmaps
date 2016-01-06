@@ -301,6 +301,8 @@
 	<string name="show_on_backscreen">Показать на втором экране</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">Версия: %s</string>
+	<!-- Data version in «About» screen -->
+	<string name="data_version">Версия данных: %d</string>
 	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">Вы уверены, что хотите продолжить?</string>
 	<!-- Title for tracks category in bookmarks manager -->
