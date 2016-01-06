@@ -303,6 +303,8 @@
 	<string name="show_on_backscreen">Show on Back screen</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">Version: %s</string>
+	<!-- Data version in «About» screen -->
+	<string name="data_version">Data version: %d</string>
 	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">Are you sure you want to continue?</string>
 	<!-- Title for tracks category in bookmarks manager -->

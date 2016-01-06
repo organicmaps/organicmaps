@@ -467,6 +467,9 @@
 /* Prints version number in About dialog */
 "version" = "Версия: %@";
 
+/* Data version in «About» screen */
+"data_version" = "Версия данных: %d";
+
 /* Confirmation in downloading countries dialog */
 "are_you_sure" = "Вы уверены, что хотите продолжить?";
 
