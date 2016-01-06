@@ -75,7 +75,7 @@ public:
   void DeactivateRouting();
 
   void StopLocationFollow();
-  void StopCompassFollow();
+  bool StopCompassFollow();
   void NextMode(int preferredZoomLevel = -1);
   void TurnOff();
   void Invalidate();
@@ -148,6 +148,7 @@ private:
 
   m2::RectD m_pixelRect;
   m2::PointD m_pixelPositionRaF;
+  m2::PointD m_pixelPositionF;
   double m_positionYOffset;
 
   bool m_isVisible;

@@ -670,8 +670,8 @@ bool FrontendRenderer::CheckTileGenerations(TileKey const & tileKey)
 
 void FrontendRenderer::OnCompassTapped()
 {
-  m_myPositionController->StopCompassFollow();
-  m_userEventStream.AddEvent(RotateEvent(0.0));
+  if (!m_myPositionController->StopCompassFollow())
+    m_userEventStream.AddEvent(RotateEvent(0.0));
 }
 
 FeatureID FrontendRenderer::GetVisiblePOI(m2::PointD const & pixelPoint) const

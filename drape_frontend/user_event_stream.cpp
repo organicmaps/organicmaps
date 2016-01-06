@@ -178,18 +178,18 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       break;
     case UserEvent::EVENT_ROTATE:
       {
-        m2::AnyRectD dstRect = GetTargetRect();
-        dstRect.SetAngle(e.m_rotate.m_targetAzimut);
-        if (m_navigator.Screen().isPerspective())
+        ScreenBase const & screen = m_navigator.Screen();
+        if (screen.isPerspective())
         {
-          ScreenBase const & screen = m_navigator.Screen();
-          ScreenBase screenNew = screen;
-          screenNew.SetAngle(e.m_rotate.m_targetAzimut);
-
-          m2::PointD const screenCenter = screen.P3dtoP(screen.PixelRectIn3d().Center());
-          dstRect.Offset(screen.PtoG(screenCenter) - screenNew.PtoG(screenCenter));
+          m2::PointD pt = screen.P3dtoP(screen.PixelRectIn3d().Center());
+          breakAnim = SetFollowAndRotate(screen.PtoG(pt), pt, e.m_rotate.m_targetAzimut, -1, true);
         }
-        breakAnim = SetRect(dstRect, true);
+        else
+        {
+          m2::AnyRectD dstRect = GetTargetRect();
+          dstRect.SetAngle(e.m_rotate.m_targetAzimut);
+          breakAnim = SetRect(dstRect, true);
+        }
       }
       break;
     case UserEvent::EVENT_FOLLOW_AND_ROTATE:
