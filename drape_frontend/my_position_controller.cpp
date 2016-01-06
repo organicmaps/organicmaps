@@ -110,14 +110,14 @@ MyPositionController::~MyPositionController()
   m_anim.reset();
 }
 
-void MyPositionController::SetPixelRect(m2::RectD const & pixelRect)
+void MyPositionController::OnNewPixelRect()
 {
-  m_pixelRect = pixelRect;
   Follow();
 }
 
 void MyPositionController::UpdatePixelPosition(ScreenBase const & screen)
 {
+  m_pixelRect = screen.isPerspective() ? screen.PixelRectIn3d() : screen.PixelRect();
   m_positionYOffset = screen.isPerspective() ? POSITION_Y_OFFSET_3D : POSITION_Y_OFFSET;
   m_pixelPositionRaF = screen.P3dtoP(GetRaFPixelBinding());
   m_pixelPositionF = screen.P3dtoP(m_pixelRect.Center());
