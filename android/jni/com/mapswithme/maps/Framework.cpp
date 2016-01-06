@@ -1330,9 +1330,9 @@ extern "C"
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_Framework_nativeIsDayTime(JNIEnv * env, jclass thiz, jlong currentTimeUtc, jdouble lat, jdouble lon)
+  Java_com_mapswithme_maps_Framework_nativeIsDayTime(JNIEnv * env, jclass thiz, jlong utcTimeSeconds, jdouble lat, jdouble lon)
   {
-    DayTimeType const dt = GetDayTime(static_cast<time_t>(currentTimeUtc), lat, lon);
+    DayTimeType const dt = GetDayTime(static_cast<time_t>(utcTimeSeconds), lat, lon);
     return (dt == DayTimeType::Day || dt == DayTimeType::PolarDay);
   }
 

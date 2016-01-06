@@ -185,12 +185,12 @@ public class Framework
 
   /**
    * Determines if currently is day or night at the given location. Used to switch day/night styles.
-   * @param currentTimeUtc current Unix time (returned by {@link System#currentTimeMillis()} divided by 1000).
+   * @param utcTimeSeconds Unix time in seconds.
    * @param lat latitude of the current location.
    * @param lon longitude of the current location.
    * @return {@code true} if it is day now or {@code false} otherwise.
    */
-  public static native boolean nativeIsDayTime(long currentTimeUtc, double lat, double lon);
+  public static native boolean nativeIsDayTime(long utcTimeSeconds, double lat, double lon);
 
   public native static void nativeGet3dMode(Params3dMode result);
 
