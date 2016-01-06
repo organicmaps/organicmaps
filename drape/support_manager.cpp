@@ -14,12 +14,11 @@ void SupportManager::Init()
   string const version = GLFunctions::glGetString(gl_const::GLVersion);
   LOG(LINFO, ("Renderer =", renderer, "Version =", version));
 
-  // On Android the engine may be recreated. Here we guarantee that GPU info is sent once.
+  // On Android the engine may be recreated. Here we guarantee that GPU info is sent once per session.
   static bool gpuInfoSent = false;
   if (!gpuInfoSent)
   {
-    alohalytics::TStringMap details {{ "renderer", renderer }};
-    alohalytics::Stats::Instance().LogEvent("GPU", details);
+    alohalytics::Stats::Instance().LogEvent("GPU", renderer);
     gpuInfoSent = true;
   }
 
