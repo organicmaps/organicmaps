@@ -244,7 +244,7 @@ void Editor::LoadMapEdits()
           // if (xml.GetType() != XMLFeature::Type::Way)
           // {
           // TODO(mgsergio): Check if feature can be read.
-          fti.m_feature = m_featureLoaderFn(fid);
+          fti.m_feature = *m_featureLoaderFn(fid);
           fti.m_feature.ApplyPatch(xml);
           // }
           // else
