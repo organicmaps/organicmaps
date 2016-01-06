@@ -1,5 +1,7 @@
 #pragma once
 
+#include "editor/osm_auth.hpp"
+
 #include "geometry/rect2d.hpp"
 
 #include "std/map.hpp"
@@ -24,14 +26,9 @@ public:
     ECanNotBeDeleted
   };
 
-  ServerApi06(string const & user, string const & password, string const & baseUrl = "http://api.openstreetmap.org");
-  /// @returns true if connection with OSM server was established, and user+password are valid.
-  bool CheckUserAndPassword() const;
-  /// @returns http server code for given url or negative value in case of error.
+  ServerApi06(OsmOAuth & auth);
   /// This function can be used to check if user did not confirm email validation link after registration.
-  /// For example, for http://www.openstreetmap.org/user/UserName 200 is returned if UserName was registered.
-  static int HttpCodeForUrl(string const & url);
-
+  bool TestUserExists(string const & userName);
   /// Please use at least created_by=* and comment=* tags.
   bool CreateChangeSet(TKeyValueTags const & kvTags, uint64_t & outChangeSetId) const;
   /// nodeXml should be wrapped into <osm> ... </osm> tags.
@@ -47,9 +44,7 @@ public:
   string GetXmlNodeByLatLon(double lat, double lon) const;
 
 private:
-  string m_user;
-  string m_password;
-  string m_baseOsmServerUrl;
+  OsmOAuth m_auth;
 };
 
 } // namespace osm

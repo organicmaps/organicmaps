@@ -32,17 +32,18 @@ UNIT_TEST(OSM_Auth_Login)
   auto result = auth.AuthorizePassword(kTestUser, kTestPassword, token);
   TEST_EQUAL(result, OsmOAuth::AuthResult::OK, ("login to test server"));
   TEST(token.IsValid(), ("authorized"));
-  string const perm = auth.Request(token, "/permissions");
-  TEST(perm.find("write_api") != string::npos, ("can write to api"));
+  OsmOAuth::Response const perm = auth.Request(token, "/permissions");
+  TEST_EQUAL(perm.first, OsmOAuth::ResponseCode::OK, ("permission request ok"));
+  TEST(perm.second.find("write_api") != string::npos, ("can write to api"));
 }
 
 UNIT_TEST(OSM_Auth_Facebook)
 {
   OsmOAuth auth(kConsumerKey, kConsumerSecret, kTestServer, kTestServer);
-  ClientToken token;
-  auto result = auth.AuthorizeFacebook(kFacebookToken, token);
+  auto result = auth.AuthorizeFacebook(kFacebookToken);
   TEST_EQUAL(result, OsmOAuth::AuthResult::OK, ("login via facebook"));
-  TEST(token.IsValid(), ("authorized"));
-  string const perm = auth.Request(token, "/permissions");
-  TEST(perm.find("write_api") != string::npos, ("can write to api"));
+  TEST(auth.IsAuthorized(), ("authorized"));
+  OsmOAuth::Response const perm = auth.Request("/permissions");
+  TEST_EQUAL(perm.first, OsmOAuth::ResponseCode::OK, ("permission with stored token request ok"));
+  TEST(perm.second.find("write_api") != string::npos, ("can write to api"));
 }

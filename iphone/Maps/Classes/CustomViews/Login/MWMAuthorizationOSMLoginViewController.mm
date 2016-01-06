@@ -5,6 +5,7 @@
 #import "UIColor+MapsMeColor.h"
 #import "UITextField+RuntimeAttributes.h"
 
+#include "private.h"
 #include "editor/server_api.hpp"
 #include "platform/platform.hpp"
 
@@ -98,11 +99,13 @@ typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
   return YES;
 }
 
-- (void)storeCredentials
+- (void)storeCredentials:(osm::ClientToken const *)token
 {
+  NSString * requestToken = @(token->m_key.c_str());
+  NSString * requestSecret = @(token->m_secret.c_str());
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-  [ud setObject:self.loginTextField.text forKey:kOSMUsernameKey];
-  [ud setObject:self.passwordTextField.text forKey:kOSMPasswordKey];
+  [ud setObject:requestToken forKey:kOSMRequestToken];
+  [ud setObject:requestSecret forKey:kOSMRequestSecret];
   [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -166,12 +169,14 @@ typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
     {
       string const username = self.loginTextField.text.UTF8String;
       string const password = self.passwordTextField.text.UTF8String;
-      BOOL const credentialsOK = osm::ServerApi06(username, password).CheckUserAndPassword();
+      osm::OsmOAuth auth(OSM_CONSUMER_KEY, OSM_CONSUMER_SECRET);
+      osm::ClientToken token;
+      osm::OsmOAuth::AuthResult const result = auth.AuthorizePassword(username, password, token);
       dispatch_async(dispatch_get_main_queue(), ^
       {
         [self stopSpinner];
-        if (credentialsOK)
-          [self storeCredentials];
+        if (result == osm::OsmOAuth::AuthResult::OK)
+          [self storeCredentials:&token];
         else
           [self showInvalidCredentialsAlert];
       });
@@ -179,7 +184,8 @@ typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
   }
   else
   {
-    [self storeCredentials];
+    // Not connected, cannot validate login/password.
+    // TODO(@igrechuhin)
   }
 }
 

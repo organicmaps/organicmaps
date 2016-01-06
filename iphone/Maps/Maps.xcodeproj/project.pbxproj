@@ -5219,6 +5219,7 @@
 					"-ObjC",
 					"-lopening_hours",
 					"-lpugixml",
+					"-loauthcpp",
 					"-leditor",
 				);
 				PRODUCT_NAME = "maps.me dbg";
@@ -5341,6 +5342,7 @@
 					"-ObjC",
 					"-lopening_hours",
 					"-lpugixml",
+					"-loauthcpp",
 					"-leditor",
 				);
 				PRODUCT_NAME = "maps.me dbg";
@@ -5465,6 +5467,7 @@
 					"-ObjC",
 					"-lopening_hours",
 					"-lpugixml",
+					"-loauthcpp",
 					"-leditor",
 				);
 				PRODUCT_NAME = "maps.me beta";
@@ -5590,6 +5593,7 @@
 					"-ObjC",
 					"-lopening_hours",
 					"-lpugixml",
+					"-loauthcpp",
 					"-leditor",
 				);
 				PRODUCT_NAME = maps.me;
@@ -5714,6 +5718,7 @@
 					"-ObjC",
 					"-lopening_hours",
 					"-lpugixml",
+					"-loauthcpp",
 					"-leditor",
 				);
 				PRODUCT_NAME = "maps.me rel";
@@ -5836,6 +5841,7 @@
 					"-ObjC",
 					"-lopening_hours",
 					"-lpugixml",
+					"-loauthcpp",
 					"-leditor",
 				);
 				PRODUCT_NAME = "maps.me rel";

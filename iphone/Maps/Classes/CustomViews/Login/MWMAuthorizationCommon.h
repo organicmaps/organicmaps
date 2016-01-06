@@ -1,6 +1,6 @@
 
-static NSString * const kOSMUsernameKey = @"OSMUsernameKey";
-static NSString * const kOSMPasswordKey = @"OSMPasswordKey";
+static NSString * const kOSMRequestToken = @"OSMRequestToken";
+static NSString * const kOSMRequestSecret = @"OSMRequestSecret";
 
 typedef NS_OPTIONS(NSUInteger, MWMAuthorizationButtonType)
 {

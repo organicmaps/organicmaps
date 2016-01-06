@@ -49,6 +49,17 @@ bool isLoggedIn(string const & contents)
 }
 }  // namespace
 
+OsmOAuth::OsmOAuth(string const & consumerKey, string const & consumerSecret,
+         string const & baseUrl, string const & apiUrl):
+    m_consumerKey(consumerKey), m_consumerSecret(consumerSecret), m_baseUrl(baseUrl)
+{
+  // If base URL has been changed, but api URL is omitted, we use the same base URL for api calls.
+  if (apiUrl.empty() || (apiUrl == kDefaultApiURL && baseUrl != kDefaultBaseURL))
+    m_apiUrl = baseUrl;
+  else
+    m_apiUrl = apiUrl;
+}
+
 // Opens a login page and extract a cookie and a secret token.
 OsmOAuth::AuthResult OsmOAuth::FetchSessionId(OsmOAuth::SessionID & sid) const
 {
@@ -120,6 +131,8 @@ string OsmOAuth::SendAuthRequest(string const & requestTokenKey, SessionID const
   params["authenticity_token"] = sid.m_token;
   params["allow_read_prefs"] = "yes";
   params["allow_write_api"] = "yes";
+  params["allow_write_gpx"] = "yes";
+  params["allow_write_notes"] = "yes";
   params["commit"] = "Save changes";
   HTTPClientPlatformWrapper request(m_baseUrl + "/oauth/authorize");
   request.set_body_data(buildPostRequest(params), "application/x-www-form-urlencoded");
@@ -202,8 +215,9 @@ OsmOAuth::AuthResult OsmOAuth::AuthorizeFacebook(string const & facebookToken, C
   return FetchAccessToken(sid, token);
 }
 
-string OsmOAuth::Request(ClientToken const & token, string const & method, string const & httpMethod, string const & body) const
+OsmOAuth::Response OsmOAuth::Request(ClientToken const & token, string const & method, string const & httpMethod, string const & body) const
 {
+  CHECK(token.IsValid(), ("Empty request token"));
   OAuth::Consumer const consumer(m_consumerKey, m_consumerSecret);
   OAuth::Token const oatoken(token.m_key, token.m_secret);
   OAuth::Client oauth(&consumer, &oatoken);
@@ -215,22 +229,93 @@ string OsmOAuth::Request(ClientToken const & token, string const & method, strin
     reqType = OAuth::Http::Post;
   else if (httpMethod == "PUT")
     reqType = OAuth::Http::Put;
+  else if (httpMethod == "DELETE")
+    reqType = OAuth::Http::Delete;
   else
   {
     ASSERT(false, ("Unsupported OSM API request method", httpMethod));
-    return string();
+    return Response(ResponseCode::ServerError, string());
   }
 
   string const url = m_apiUrl + kApiVersion + method;
-  string const query = oauth.getURLQueryString(reqType, url, body);
+  string const query = oauth.getURLQueryString(reqType, url);
 
   HTTPClientPlatformWrapper request(url + "?" + query);
   if (httpMethod != "GET")
     request.set_body_data(body, "application/xml", httpMethod);
-  if (request.RunHTTPRequest() && request.error_code() == 200 && !request.was_redirected())
-    return request.server_response();
+  if (!request.RunHTTPRequest() || request.was_redirected())
+    return Response(ResponseCode::ServerError, string());
+  return Response(static_cast<ResponseCode>(request.error_code()), request.server_response());
+}
 
-  return string();
+OsmOAuth::Response OsmOAuth::DirectRequest(string const & method, bool api) const
+{
+  string const url = api ? m_apiUrl + kApiVersion + method : m_baseUrl + method;
+  HTTPClientPlatformWrapper request(url);
+  if (!request.RunHTTPRequest())
+    return Response(ResponseCode::ServerError, string());
+  return Response(static_cast<ResponseCode>(request.error_code()), request.server_response());
+}
+
+void OsmOAuth::SetToken(ClientToken const & token)
+{
+  m_token.m_key = token.m_key;
+  m_token.m_secret = token.m_secret;
+}
+
+OsmOAuth::AuthResult OsmOAuth::FetchAccessToken(SessionID const & sid)
+{
+  return FetchAccessToken(sid, m_token);
+}
+
+OsmOAuth::AuthResult OsmOAuth::AuthorizePassword(string const & login, string const & password)
+{
+  return AuthorizePassword(login, password, m_token);
+}
+
+OsmOAuth::AuthResult OsmOAuth::AuthorizeFacebook(string const & facebookToken)
+{
+  return AuthorizeFacebook(facebookToken, m_token);
+}
+
+OsmOAuth::Response OsmOAuth::Request(string const & method, string const & httpMethod, string const & body) const
+{
+  return Request(m_token, method, httpMethod, body);
+}
+
+string DebugPrint(OsmOAuth::AuthResult const res)
+{
+  switch (res)
+  {
+  case OsmOAuth::AuthResult::OK: return "OK";
+  case OsmOAuth::AuthResult::FailCookie: return "FailCookie";
+  case OsmOAuth::AuthResult::FailLogin: return "FailLogin";
+  case OsmOAuth::AuthResult::NoOAuth: return "NoOAuth";
+  case OsmOAuth::AuthResult::FailAuth: return "FailAuth";
+  case OsmOAuth::AuthResult::NoAccess: return "NoAccess";
+  case OsmOAuth::AuthResult::NetworkError: return "NetworkError";
+  case OsmOAuth::AuthResult::ServerError: return "ServerError";
+  }
+  return "Unknown";
+}
+
+string DebugPrint(OsmOAuth::ResponseCode const code)
+{
+  switch (code)
+  {
+  case OsmOAuth::ResponseCode::ServerError: return "ServerError";
+  case OsmOAuth::ResponseCode::OK: return "OK";
+  case OsmOAuth::ResponseCode::BadXML: return "BadXML";
+  case OsmOAuth::ResponseCode::Redacted: return "Redacted";
+  case OsmOAuth::ResponseCode::NotFound: return "NotFound";
+  case OsmOAuth::ResponseCode::WrongMethod: return "WrongMethod";
+  case OsmOAuth::ResponseCode::Conflict: return "Conflict";
+  case OsmOAuth::ResponseCode::Gone: return "Gone";
+  case OsmOAuth::ResponseCode::RefError: return "RefError";
+  case OsmOAuth::ResponseCode::URITooLong: return "URITooLong";
+  case OsmOAuth::ResponseCode::TooMuchData: return "TooMuchData";
+  }
+  return "Unknown";
 }
 
 }  // namespace osm

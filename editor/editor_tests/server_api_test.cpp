@@ -7,29 +7,36 @@
 #include "3party/pugixml/src/pugixml.hpp"
 
 using osm::ServerApi06;
+using osm::OsmOAuth;
 using namespace pugi;
 
 constexpr char const * kOsmDevServer = "http://master.apis.dev.openstreetmap.org";
+constexpr char const * kOsmConsumerKey = "eRtN6yKZZf34oVyBnyaVbsWtHIIeptLArQKdTwN3";
+constexpr char const * kOsmConsumerSecret = "lC124mtm2VqvKJjSh35qBpKfrkeIjpKuGe38Hd1H";
 constexpr char const * kValidOsmUser = "MapsMeTestUser";
 constexpr char const * kInvalidOsmUser = "qwesdxzcgretwr";
-ServerApi06 const kApi(kValidOsmUser, "12345678", kOsmDevServer);
+constexpr char const * kValidOsmPassword = "12345678";
 
-UNIT_TEST(OSM_ServerAPI_CheckUserAndPassword)
+UNIT_TEST(OSM_ServerAPI_TestUserExists)
 {
-  TEST(kApi.CheckUserAndPassword(), ());
-
-  my::LogLevelSuppressor s;
-  TEST(!ServerApi06(kInvalidOsmUser, "3345dfce2", kOsmDevServer).CheckUserAndPassword(), ());
-}
-
-UNIT_TEST(OSM_ServerAPI_HttpCodeForUrl)
-{
-  TEST_EQUAL(200, ServerApi06::HttpCodeForUrl(string(kOsmDevServer) + "/user/" + kValidOsmUser), ());
-  TEST_EQUAL(404, ServerApi06::HttpCodeForUrl(string(kOsmDevServer) + "/user/" + kInvalidOsmUser), ());
+  OsmOAuth auth(kOsmConsumerKey, kOsmConsumerSecret, kOsmDevServer);
+  ServerApi06 api(auth);
+  TEST(api.TestUserExists(kValidOsmUser), ());
+  TEST(!api.TestUserExists(kInvalidOsmUser), ());
 }
 
 namespace
 {
+ServerApi06 CreateAPI()
+{
+  OsmOAuth auth(kOsmConsumerKey, kOsmConsumerSecret, kOsmDevServer);
+  OsmOAuth::AuthResult result = auth.AuthorizePassword(kValidOsmUser, kValidOsmPassword);
+  TEST_EQUAL(result, OsmOAuth::AuthResult::OK, ());
+  TEST(auth.IsAuthorized(), ("OSM authorization"));
+  ServerApi06 api(auth);
+  return api;
+}
+
 // id attribute is set to -1.
 // version attribute is set to 1.
 void GenerateNodeXml(double lat, double lon, ServerApi06::TKeyValueTags const & tags, xml_document & outNode)
@@ -88,36 +95,38 @@ UNIT_TEST(SetAttributeForOsmNode)
 
 UNIT_TEST(OSM_ServerAPI_ChangesetActions)
 {
+  ServerApi06 api = CreateAPI();
+
   uint64_t changeSetId;
-  TEST(kApi.CreateChangeSet({{"created_by", "MAPS.ME Unit Test"}, {"comment", "For test purposes only."}}, changeSetId), ());
+  TEST(api.CreateChangeSet({{"created_by", "MAPS.ME Unit Test"}, {"comment", "For test purposes only."}}, changeSetId), ());
 
   xml_document node;
   GenerateNodeXml(11.11, 12.12, {{"testkey", "firstnode"}}, node);
   TEST(SetAttributeForOsmNode(node, "changeset", changeSetId), ());
 
   uint64_t nodeId;
-  TEST(kApi.CreateNode(XmlToString(node), nodeId), ());
+  TEST(api.CreateNode(XmlToString(node), nodeId), ());
   TEST(SetAttributeForOsmNode(node, "id", nodeId), ());
 
   TEST(SetAttributeForOsmNode(node, "lat", 10.10), ());
-  TEST(kApi.ModifyNode(XmlToString(node), nodeId), ());
+  TEST(api.ModifyNode(XmlToString(node), nodeId), ());
   // After modification, node version has increased.
   TEST(SetAttributeForOsmNode(node, "version", 2), ());
 
   // To retrieve created node, changeset should be closed first.
-  TEST(kApi.CloseChangeSet(changeSetId), ());
+  TEST(api.CloseChangeSet(changeSetId), ());
 
-  TEST(kApi.CreateChangeSet({{"created_by", "MAPS.ME Unit Test"}, {"comment", "For test purposes only."}}, changeSetId), ());
+  TEST(api.CreateChangeSet({{"created_by", "MAPS.ME Unit Test"}, {"comment", "For test purposes only."}}, changeSetId), ());
   // New changeset has new id.
   TEST(SetAttributeForOsmNode(node, "changeset", changeSetId), ());
 
-  string const serverReply = kApi.GetXmlNodeByLatLon(node.child("osm").child("node").attribute("lat").as_double(),
+  string const serverReply = api.GetXmlNodeByLatLon(node.child("osm").child("node").attribute("lat").as_double(),
                                                      node.child("osm").child("node").attribute("lon").as_double());
   xml_document reply;
   reply.load_string(serverReply.c_str());
   TEST_EQUAL(nodeId, reply.child("osm").child("node").attribute("id").as_ullong(), ());
 
-  TEST(ServerApi06::DeleteResult::ESuccessfullyDeleted == kApi.DeleteNode(XmlToString(node), nodeId), ());
+  TEST(ServerApi06::DeleteResult::ESuccessfullyDeleted == api.DeleteNode(XmlToString(node), nodeId), ());
 
-  TEST(kApi.CloseChangeSet(changeSetId), ());
+  TEST(api.CloseChangeSet(changeSetId), ());
 }
