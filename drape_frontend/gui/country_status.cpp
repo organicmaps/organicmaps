@@ -216,7 +216,7 @@ drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex,
     params.m_margin = 5.0f * visualScale;
     params.m_facet = 8.0f * visualScale;
 
-    MapStyle style = GetStyleReader().GetCurrentStyle();
+    MapStyle const style = GetStyleReader().GetCurrentStyle();
     auto color = df::GetColorConstant(style, df::DownloadButton);
     auto pressedColor = df::GetColorConstant(style, df::DownloadButtonPressed);
     if (control.m_buttonType == CountryStatusHelper::BUTTON_TYPE_MAP_ROUTING)

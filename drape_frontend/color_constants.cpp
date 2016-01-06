@@ -12,13 +12,13 @@ unordered_map<int, unordered_map<int, dp::Color>> kColorConstants =
 {
   { MapStyleClear,
     {
-      { DownloadButton, dp::Color(0, 0, 0, 0.44 * 255) },
+      { DownloadButton, dp::Color(0, 0, 0, 112) },
       { DownloadButtonRouting, dp::Color(32, 152, 82, 255) },
-      { DownloadButtonPressed, dp::Color(0, 0, 0, 0.72 * 255) },
+      { DownloadButtonPressed, dp::Color(0, 0, 0, 184) },
       { DownloadButtonRoutingPressed, dp::Color(24, 128, 68, 255) },
       { DownloadButtonText, dp::Color(255, 255, 255, 255) },
       { CountryStatusText, dp::Color(0, 0, 0, 255) },
-      { GuiText, dp::Color(0x4D, 0x4D, 0x4D, 0xDD) },
+      { GuiText, dp::Color(77, 77, 77, 221) },
       { MyPositionAccuracy, dp::Color(30, 150, 240, 20) },
       { Selection, dp::Color(30, 150, 240, 164) },
       { Route, dp::Color(30, 150, 240, 204) },
