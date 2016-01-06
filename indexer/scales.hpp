@@ -17,11 +17,11 @@ namespace scales
   /// Upper scale for user comfort view (e.g. location zoom).
   inline int GetUpperComfortScale() { return UPPER_STYLE_SCALE - 2; }
   /// Default navigation mode scale
-  inline int GetNavigationScale() { return UPPER_STYLE_SCALE - 4; }
+  inline int GetNavigationScale() { return UPPER_STYLE_SCALE - 3; }
   /// Default pedestrian navigation mode scale
-  inline int GetPedestrianNavigationScale() { return UPPER_STYLE_SCALE - 1; }
+  inline int GetPedestrianNavigationScale() { return UPPER_STYLE_SCALE - 2; }
   /// Default navigation 3d mode scale
-  inline int GetNavigation3dScale() { return UPPER_STYLE_SCALE - 3; }
+  inline int GetNavigation3dScale() { return UPPER_STYLE_SCALE - 2; }
   /// Default pedestrian navigation 3d mode scale
   inline int GetPedestrianNavigation3dScale() { return UPPER_STYLE_SCALE - 2; }
 
