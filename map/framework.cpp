@@ -1864,7 +1864,7 @@ void Framework::FollowRoute()
 {
   ASSERT(m_drapeEngine != nullptr, ());
 
-  int const scale = (m_currentRouterType == RouterType::Pedestrian) ? scales::GetUpperComfortScale()
+  int const scale = (m_currentRouterType == RouterType::Pedestrian) ? scales::GetPedestrianNavigationScale()
                                                                     : scales::GetNavigationScale();
   int const scale3d = (m_currentRouterType == RouterType::Pedestrian) ? scales::GetPedestrianNavigation3dScale()
                                                                       : scales::GetNavigation3dScale();
