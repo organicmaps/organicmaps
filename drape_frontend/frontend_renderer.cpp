@@ -569,7 +569,7 @@ void FrontendRenderer::OnResize(ScreenBase const & screen)
   m2::RectD const viewportRect = screen.isPerspective() ? screen.PixelRectIn3d() : screen.PixelRect();
 
   m_myPositionController->UpdatePixelPosition(screen);
-  m_myPositionController->SetPixelRect(viewportRect);
+  m_myPositionController->OnNewPixelRect();
 
   m_viewport.SetViewport(0, 0, viewportRect.SizeX(), viewportRect.SizeY());
   m_contextFactory->getDrawContext()->resize(viewportRect.SizeX(), viewportRect.SizeY());

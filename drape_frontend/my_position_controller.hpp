@@ -46,7 +46,7 @@ public:
   MyPositionController(location::EMyPositionMode initMode);
   ~MyPositionController();
 
-  void SetPixelRect(m2::RectD const & pixelRect);
+  void OnNewPixelRect();
   void UpdatePixelPosition(ScreenBase const & screen);
   void SetListener(ref_ptr<Listener> listener);
 
