@@ -935,6 +935,12 @@ extern "C"
     frm()->UpdateSavedDataVersion();
   }
 
+  JNIEXPORT jlong JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGetDataVersion(JNIEnv * env, jclass clazz)
+  {
+    return frm()->GetCurrentDataVersion();
+  }
+
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_Framework_getDrawScale(JNIEnv * env, jclass clazz)
   {

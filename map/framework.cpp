@@ -1796,6 +1796,11 @@ void Framework::UpdateSavedDataVersion()
   Settings::Set("DataVersion", m_storage.GetCurrentDataVersion());
 }
 
+int64_t Framework::GetCurrentDataVersion()
+{
+  return m_storage.GetCurrentDataVersion();
+}
+
 void Framework::BuildRoute(m2::PointD const & finish, uint32_t timeoutSec)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
