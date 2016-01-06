@@ -6,7 +6,7 @@
 #include "base/string_utils.hpp"
 
 #include "std/sstream.hpp"
-
+/*
 namespace
 {
 struct TestSetUp
@@ -48,43 +48,44 @@ void CompareFeatureXML(string const & d1, string const & d2)
 }
 }  // namespace
 
-// TODO(mgsergio): Unkomment when creation is required.
-// UNIT_TEST(FeatureType_FromXMLAndBackToXML)
-// {
-//   auto const xml = R"(<?xml version="1.0"?>
-// <node
-//   lat="55.7978998"
-//   lon="37.474528"
-//   timestamp="2015-11-27T21:13:32Z">
-//   <tag
-//     k="name"
-//     v="Gorki Park" />
-//   <tag
-//     k="name:en"
-//     v="Gorki Park" />
-//   <tag
-//     k="name:ru"
-//     v="Парк Горького" />
-//   <tag
-//     k="addr:housenumber"
-//     v="10" />
-//   <tag
-//     k="opening_hours"
-//     v="Mo-Fr 08:15-17:30" />
-//   <tag
-//     k="amenity"
-//     v="atm" />
-//   <tag
-//     k="mapswithme:geom_type"
-//     v="GEOM_POINT" />
-// </node>
-// )";
+ TODO(mgsergio): Unkomment when creation is required.
+ UNIT_TEST(FeatureType_FromXMLAndBackToXML)
+ {
+   auto const xml = R"(<?xml version="1.0"?>
+ <node
+   lat="55.7978998"
+   lon="37.474528"
+   timestamp="2015-11-27T21:13:32Z">
+   <tag
+     k="name"
+     v="Gorki Park" />
+   <tag
+     k="name:en"
+     v="Gorki Park" />
+   <tag
+     k="name:ru"
+     v="Парк Горького" />
+   <tag
+     k="addr:housenumber"
+     v="10" />
+   <tag
+     k="opening_hours"
+     v="Mo-Fr 08:15-17:30" />
+   <tag
+     k="amenity"
+     v="atm" />
+   <tag
+     k="mapswithme:geom_type"
+     v="GEOM_POINT" />
+ </node>
+ )";
 
-//   auto const feature = FeatureType::FromXML(xml);
-//   auto const xmlFeature = feature.ToXML();
+   auto const feature = FeatureType::FromXML(xml);
+   auto const xmlFeature = feature.ToXML();
 
-//   stringstream sstr;
-//   xmlFeature.Save(sstr);
+   stringstream sstr;
+   xmlFeature.Save(sstr);
 
-//   CompareFeatureXML(xml, sstr.str());
-// }
+   CompareFeatureXML(xml, sstr.str());
+ }
+*/
