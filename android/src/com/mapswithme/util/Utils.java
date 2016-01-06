@@ -12,6 +12,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.DimenRes;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NavUtils;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -308,7 +309,7 @@ public class Utils
     }
   }
 
-  public static void navigateToParent(Activity activity)
+  public static void navigateToParent(@NonNull Activity activity)
   {
     if (activity instanceof CustomNavigateUpListener)
       ((CustomNavigateUpListener) activity).customOnNavigateUp();

@@ -132,7 +132,7 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
       updateToolbar();
     }
     else
-      navigateUpToParent();
+      Utils.navigateToParent(getActivity());
 
     return true;
   }

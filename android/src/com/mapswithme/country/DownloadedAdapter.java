@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.R;
+import com.mapswithme.util.Utils;
 
 public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree.ActiveCountryListener
 {
@@ -289,7 +290,7 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
     {
       ActiveCountryTree.showOnMap(groupAndPosition.first, groupAndPosition.second);
       resetCountryListener();
-      mFragment.navigateUpToParent();
+      Utils.navigateToParent(mFragment.getActivity());
     }
   }
 
