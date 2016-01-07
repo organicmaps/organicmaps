@@ -501,9 +501,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                 make_unique_dp<UpdateReadManagerMessage>(),
                                 MessagePriority::UberHighSingleton);
-
-      RefreshBgColor();
-
       break;
     }
 
@@ -768,6 +765,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   m_renderGroups.resize(m_renderGroups.size() - eraseCount);
 
   m_viewport.Apply();
+  RefreshBgColor();
   GLFunctions::glClear();
 
   dp::GLState::DepthLayer prevLayer = dp::GLState::GeometryLayer;
@@ -800,7 +798,6 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     RenderSingleGroup(modelView, make_ref(group));
   }
 
-  //GLFunctions::glClearDepth();
   GLFunctions::glDisable(gl_const::GLDepthTest);
   bool hasSelectedPOI = false;
   if (m_selectionShape != nullptr)
@@ -826,6 +823,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   if (has3dAreas)
   {
     m_framebuffer->Enable();
+    GLFunctions::glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     GLFunctions::glClear();
     GLFunctions::glClearDepth();
 
@@ -962,7 +960,7 @@ void FrontendRenderer::RefreshBgColor()
 {
   uint32_t color = drule::rules().GetBgColor(df::GetDrawTileScale(m_userEventStream.GetCurrentScreen()));
   dp::Color c = dp::Extract(color, 0 /*255 - (color >> 24)*/);
-  GLFunctions::glClearColor(c.GetRedF(), c.GetGreenF(), c.GetBlueF(), 0.0f);
+  GLFunctions::glClearColor(c.GetRedF(), c.GetGreenF(), c.GetBlueF(), 1.0f);
 }
 
 int FrontendRenderer::GetCurrentZoomLevel() const
@@ -1173,8 +1171,6 @@ void FrontendRenderer::Routine::Do()
   GLFunctions::glPixelStore(gl_const::GLUnpackAlignment, 1);
   GLFunctions::glEnable(gl_const::GLDepthTest);
 
-  m_renderer.RefreshBgColor();
-
   GLFunctions::glClearDepthValue(1.0);
   GLFunctions::glDepthFunc(gl_const::GLLessOrEqual);
   GLFunctions::glDepthMask(true);
@@ -1334,7 +1330,6 @@ ScreenBase const & FrontendRenderer::ProcessEvents(bool & modelViewChanged, bool
 void FrontendRenderer::PrepareScene(ScreenBase const & modelView)
 {
   RefreshModelView(modelView);
-  RefreshBgColor();
   RefreshPivotTransform(modelView);
 
   m_myPositionController->UpdatePixelPosition(modelView);
