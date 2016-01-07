@@ -287,12 +287,6 @@ UNIT_TEST(PedestrianRouting_UK_Test4)
                 m2::PointD(0.06262, 60.30536));
 }
 
-UNIT_TEST(PedestrianRouting_UK_Test5)
-{
-  TestTwoPoints(m2::PointD(0.07362, 60.24965),
-                m2::PointD(0.06262, 60.30536));
-}
-
 UNIT_TEST(PedestrianRouting_UK_Test6)
 {
   TestTwoPoints(m2::PointD(0.12973, 60.28698),
@@ -303,12 +297,6 @@ UNIT_TEST(PedestrianRouting_UK_Test7)
 {
   TestTwoPoints(m2::PointD(0.24339, 60.22193),
                 m2::PointD(0.30297, 60.47235));
-}
-
-UNIT_TEST(PedestrianRouting_UK_Test8)
-{
-  TestTwoPoints(m2::PointD(-0.09007, 59.93887),
-                m2::PointD(-0.36591, 60.38306));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test9)
@@ -327,18 +315,6 @@ UNIT_TEST(PedestrianRouting_UK_Test11)
 {
   TestTwoPoints(m2::PointD(-1.26084, 60.68840),
                 m2::PointD(-1.34027, 60.37865));
-}
-
-UNIT_TEST(PedestrianRouting_UK_Test12)
-{
-  TestTwoPoints(m2::PointD(-0.41581, 60.05507),
-                m2::PointD(-0.00499, 60.55921));
-}
-
-UNIT_TEST(PedestrianRouting_UK_Test13)
-{
-  TestTwoPoints(m2::PointD(-0.00847, 60.17501),
-                m2::PointD(-0.38291, 60.48435));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test14)
@@ -363,12 +339,6 @@ UNIT_TEST(PedestrianRouting_UK_Test17)
 {
   TestTwoPoints(m2::PointD(0.60492, 60.36565),
                 m2::PointD(0.59411, 60.31529));
-}
-
-UNIT_TEST(PedestrianRouting_UK_Test18)
-{
-  TestTwoPoints(m2::PointD( 0.57712, 60.31156),
-                m2::PointD(-1.09911, 59.24341));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test19)
@@ -449,3 +419,35 @@ UNIT_TEST(PedestrianRouting_UK_Test31)
                 m2::PointD(-2.25378, 63.62744));
 }
 
+// This is very slow pedestrian tests (more than 20 minutes).
+#ifdef SLOW_TESTS
+UNIT_TEST(PedestrianRouting_UK_Test5)
+{
+  TestTwoPoints(m2::PointD(0.07362, 60.24965),
+                m2::PointD(0.06262, 60.30536));
+}
+
+UNIT_TEST(PedestrianRouting_UK_Test8)
+{
+  TestTwoPoints(m2::PointD(-0.09007, 59.93887),
+                m2::PointD(-0.36591, 60.38306));
+}
+
+UNIT_TEST(PedestrianRouting_UK_Test12)
+{
+  TestTwoPoints(m2::PointD(-0.41581, 60.05507),
+                m2::PointD(-0.00499, 60.55921));
+}
+
+UNIT_TEST(PedestrianRouting_UK_Test13)
+{
+  TestTwoPoints(m2::PointD(-0.00847, 60.17501),
+                m2::PointD(-0.38291, 60.48435));
+}
+
+UNIT_TEST(PedestrianRouting_UK_Test18)
+{
+  TestTwoPoints(m2::PointD( 0.57712, 60.31156),
+                m2::PointD(-1.09911, 59.24341));
+}
+#endif
