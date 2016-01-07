@@ -1,4 +1,5 @@
 #import "MWMInputValidatorFactory.h"
+#import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 #import "UITextField+RuntimeAttributes.h"
 #import <objc/runtime.h>
@@ -18,6 +19,11 @@
 - (void)setFontName:(NSString *)fontName
 {
   self.font = [UIFont fontWithName:fontName];
+}
+
+- (void)setColorName:(NSString *)colorName
+{
+  self.textColor = [UIColor colorWithName:colorName];
 }
 
 - (void)setValidator:(MWMInputValidator *)validator
