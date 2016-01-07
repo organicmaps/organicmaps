@@ -2,8 +2,8 @@
 
 #include "base/base.hpp"
 
-#include "std/vector.hpp"
 #include "std/string.hpp"
+#include "std/vector.hpp"
 
 namespace feature { class TypesHolder; }
 class FeatureType;
@@ -73,6 +73,8 @@ public:
 class IsStreetChecker : public BaseChecker
 {
 public:
+  static vector<vector<string>> const kPaths;
+
   IsStreetChecker();
 
   static IsStreetChecker const & Instance();

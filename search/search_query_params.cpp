@@ -114,6 +114,12 @@ void SearchQueryParams::ProcessAddressTokens()
   ForEachToken(DoAddStreetSynonyms(*this));
 }
 
+SearchQueryParams::TSynonymsVector const & SearchQueryParams::GetTokens(size_t i) const
+{
+  ASSERT_LESS_OR_EQUAL(i, m_tokens.size(), ());
+  return i < m_tokens.size() ? m_tokens[i] : m_prefixTokens;
+}
+
 template <class ToDo>
 void SearchQueryParams::ForEachToken(ToDo && toDo)
 {

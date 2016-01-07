@@ -114,4 +114,5 @@ bool TokenizeStringAndCheckIfLastTokenIsPrefix(string const & s,
 void GetStreetName(strings::SimpleTokenizer iter, string & streetName);
 void GetStreetNameAsKey(string const & name, string & res);
 
+bool IsStreetSynonym(string const & s);
 }  // namespace search

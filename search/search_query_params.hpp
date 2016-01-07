@@ -32,6 +32,8 @@ struct SearchQueryParams
   inline bool CanSuggest() const { return (m_tokens.empty() && !m_prefixTokens.empty()); }
   inline bool IsLangExist(int8_t l) const { return (m_langs.count(l) > 0); }
 
+  TSynonymsVector const & GetTokens(size_t i) const;
+
 private:
   template <class ToDo>
   void ForEachToken(ToDo && toDo);

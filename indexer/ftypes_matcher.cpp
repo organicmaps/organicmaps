@@ -107,24 +107,33 @@ IsRailwayStationChecker const & IsRailwayStationChecker::Instance()
   return inst;
 }
 
+// TODO (@y, @m, @vng): this list must be up-to-date with
+// data/categories.txt, so, it worth to generate or parse it from that
+// file.
+// static
+vector<vector<string>> const IsStreetChecker::kPaths = {{"highway", "living_street"},
+                                                        {"highway", "motorway"},
+                                                        {"highway", "motorway_link"},
+                                                        {"highway", "pedestrian"},
+                                                        {"highway", "primary"},
+                                                        {"highway", "primary_link"},
+                                                        {"highway", "residential"},
+                                                        {"highway", "road"},
+                                                        {"highway", "secondary"},
+                                                        {"highway", "secondary_link"},
+                                                        {"highway", "service"},
+                                                        {"highway", "tertiary"},
+                                                        {"highway", "tertiary_link"},
+                                                        {"highway", "track"},
+                                                        {"highway", "trunk"},
+                                                        {"highway", "trunk_link"},
+                                                        {"highway", "unclassified"}};
+
 IsStreetChecker::IsStreetChecker()
 {
   Classificator const & c = classif();
-  char const * arr[][2] = {
-    { "highway", "trunk" },
-    { "highway", "primary" },
-    { "highway", "secondary" },
-    { "highway", "residential" },
-    { "highway", "pedestrian" },
-    { "highway", "tertiary" },
-    { "highway", "construction" },
-    { "highway", "living_street" },
-    { "highway", "service" },
-    { "highway", "unclassified" }
-  };
-
-  for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
-    m_types.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2)));
+  for (auto const & path : kPaths)
+    m_types.push_back(c.GetTypeByPath(path));
 }
 
 IsStreetChecker const & IsStreetChecker::Instance()

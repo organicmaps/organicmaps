@@ -1,6 +1,17 @@
 #include "search_string_utils.hpp"
 
+#include "std/transform_iterator.hpp"
+#include "std/unordered_set.hpp"
+
 #include "base/macros.hpp"
+
+namespace
+{
+string NormalizeAndSimplifyRawString(char const * s)
+{
+  return strings::ToUtf8(search::NormalizeAndSimplifyString(s));
+}
+}  // namespace
 
 strings::UniString search::FeatureTypeToString(uint32_t type)
 {
@@ -101,4 +112,12 @@ void search::GetStreetNameAsKey(string const & name, string & res)
 {
   strings::SimpleTokenizer iter(name, STREET_TOKENS_SEPARATOR);
   GetStreetName(iter, res);
+}
+
+bool search::IsStreetSynonym(string const & s)
+{
+  static unordered_set<string> const kSynonyms(
+      make_transform_iterator(affics, &NormalizeAndSimplifyRawString),
+      make_transform_iterator(affics + ARRAY_SIZE(affics), &NormalizeAndSimplifyRawString));
+  return kSynonyms.count(s) != 0;
 }
