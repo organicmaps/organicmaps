@@ -137,6 +137,9 @@ UNIT_TEST(to_double)
   string s;
   double d;
 
+  s = "";
+  TEST(!strings::to_double(s, d), ());
+
   s = "0.123";
   TEST(strings::to_double(s, d), ());
   TEST_ALMOST_EQUAL_ULPS(0.123, d, ());
@@ -158,6 +161,9 @@ UNIT_TEST(to_double)
   TEST_ALMOST_EQUAL_ULPS(-2.0, d, ());
 
   s = "labuda";
+  TEST(!strings::to_double(s, d), ());
+
+  s = "123.456 we don't parse it.";
   TEST(!strings::to_double(s, d), ());
 }
 
