@@ -6,7 +6,17 @@ import os
 import sys
 import urllib2
 
+from Queue import Queue
+from threading import Thread
+
+'''
+World road map generation script.
+It takes city points from omim intermediate data and calculates roads between them.
+After all, it stores road features OSM way ids into csv text file.
+'''
+
 road_delta = 50
+WORKERS = 16
 
 def get_way_ids(point1, point2, server):
     url = "http://{0}/wayid?z=18&loc={1},{2}&loc={3},{4}".format(server, point1[0], point1[1], point2[0], point2[1])
@@ -31,6 +41,15 @@ def load_towns(path):
             result.append((float(data[0]), float(data[1])))
     return result
 
+def parallel_worker(tasks, result):
+    while True:
+        if not tasks.qsize() % 1000:
+           print tasks.qsize()
+        task = tasks.get()
+        ids = get_way_ids(task[0], task[1], sys.argv[2])
+        for id in ids:
+            result.add(id)
+        tasks.task_done()
 
 if len(sys.argv) < 3:
     print "road_runner.py <intermediate_dir> <osrm_addr>"
@@ -46,18 +65,20 @@ for p1, p2 in tasks:
         filtered.append((p1,p2))
 tasks = filtered
 
-way_ids = {}
-for i, task in enumerate(tasks):
-    if not i % 1000:
-        print i,"/", len(tasks)
-    ids = get_way_ids(task[0], task[1], sys.argv[2])
-    for id in ids:
-        if id in way_ids:
-            way_ids[id] += 1
-        else:
-            way_ids[id] = 1
+qtasks = Queue()
+result = set()
+
+for i in range(WORKERS):
+    t=Thread(target=parallel_worker, args=(qtasks,result))
+    t.daemon = True
+    t.start()
+
+for task in tasks:
+    qtasks.put(task)
+qtasks.join()
 
 with open(os.path.join(sys.argv[1], "ways.csv"),"w") as f:
+
     for way_id in way_ids.keys():
         print >> f, "{0};world_level".format(way_id)
 
