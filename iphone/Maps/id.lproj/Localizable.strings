@@ -1170,6 +1170,8 @@
 
 "dialog_routing_disclaimer_recommendations" = "— Rute yang disarankan hanya untuk digunakan sebagai rekomendasi;";
 
+"dialog_routing_disclaimer_borders" = "Berhati-hatilah dengan rute di zona perbatasan: rute yang dibuat oleh aplikasi kami terkadang mungkin saja melintasi batas negara di lokasi yang tidak sah.";
+
 "dialog_routing_disclaimer_beware" = "Jaga selalu kewaspadaan dan keselamatan di jalan!";
 
 "dialog_routing_check_gps" = "Periksa sinyal GPS";
@@ -1332,3 +1334,9 @@
 "whats_new_3d_buildings_title" = "Dimensi yang baru di MAPS.ME";
 
 "whats_new_3d_buildings_subtitle" = "Dengan bangunan 3D, peta kami telah menjadi lebih indah dan informatif.";
+
+"3d_new_update_maps" = "Untuk memaksimalkan pemanfaatan fitur ini, harap perbarui data peta Anda.";
+
+"3d_new_on" = "Aktifkan pandangan perspektif";
+
+"3d_new_buildings_on" = "Aktifkan Bangunan 3D";

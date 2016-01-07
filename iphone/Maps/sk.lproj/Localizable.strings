@@ -1170,6 +1170,8 @@
 
 "dialog_routing_disclaimer_recommendations" = "— Navrhované trasy by sa mali brať len ako odporúčania;";
 
+"dialog_routing_disclaimer_borders" = "Buďte opatrní na cestách v pohraničných oblastiach: trasy vytvorené aplikáciou môžu prekročiť hranice štátov na nepovolených miestach.";
+
 "dialog_routing_disclaimer_beware" = "Na cestách buďte vždy ostražitý a dbajte na bezpečnosť!";
 
 "dialog_routing_check_gps" = "Skontrolujte signál GPS";
@@ -1332,3 +1334,9 @@
 "whats_new_3d_buildings_title" = "Nová dimenzia v MAPS.ME";
 
 "whats_new_3d_buildings_subtitle" = "Vďaka budovám v 3D sú naše mapy prehľadnejšie a krajšie.";
+
+"3d_new_update_maps" = "Pre plné využitie tejto funkcie aktualizujte údaje k mape.";
+
+"3d_new_on" = "Povoliť perspektívne zobrazenie";
+
+"3d_new_buildings_on" = "Povoliť 3D budovy";

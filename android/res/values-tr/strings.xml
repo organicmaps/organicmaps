@@ -729,6 +729,7 @@
 	<string name="dialog_routing_disclaimer_priority">— Yol durumları, trafik kuralları ve trafik işaretleri, her zaman navigasyon tavsiyelerinden önceliklidir;</string>
 	<string name="dialog_routing_disclaimer_precision">— Harita doğru olmayabilir, önerilen güzergah da hedefinize ulaşmak için en uygun yol olmayabilir;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— Önerilen güzergahlar yalnızca tavsiye olarak kabul edilmelidir;</string>
+	<string name="dialog_routing_disclaimer_borders">Sınır bölgelerinde rotalar konusunda dikkatli olun: uygulamamız tarafından oluşturulan rotalar bazen izin verilmeyen yerlerdeki ülke sınırlarını geçebilir.</string>
 	<string name="dialog_routing_disclaimer_beware">Lütfen yolda dikkatli ve emniyetli olun!</string>
 	<string name="dialog_routing_check_gps">GPS sinyalini kontrol edin</string>
 	<string name="dialog_routing_error_location_not_found">Güzergah oluşturulamıyor. Mevcut GPS koordinatları tanımlanamadı.</string>
@@ -814,4 +815,7 @@
 	<string name="whats_new_3d_subtitle">Navigasyon moduna perspektif görünüm ekledik.</string>
 	<string name="whats_new_3d_buildings_title">MAPS.ME\&#39;de yeni bir boyut</string>
 	<string name="whats_new_3d_buildings_subtitle">3 boyutlu binalarla haritalarımız daha bilgilendirici ve daha güzel hale geldi.</string>
+	<string name="3d_new_update_maps">Bu özellikten tam anlamıyla faydalanabilmek için, lütfen harita verilerinizi güncelleyin.</string>
+	<string name="3d_new_on">Perspektif görünümü etkinleştir</string>
+	<string name="3d_new_buildings_on">3D Binalar seçeneğini etkinleştir</string>
 </resources>

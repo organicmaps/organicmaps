@@ -1170,6 +1170,8 @@
 
 "dialog_routing_disclaimer_recommendations" = "— De foreslåede ruter skal kun betragtes som anbefalinger;";
 
+"dialog_routing_disclaimer_borders" = "Vær forsigtig med ruter i grænseområder: de ruter, vores app har skabt, kan nogle gange krydse landegrænser på uautoriserede steder.";
+
 "dialog_routing_disclaimer_beware" = "Vær altid særligt opmærksom og årvågen, når du sidder bag rattet!";
 
 "dialog_routing_check_gps" = "Tjek GPS-signalet";
@@ -1332,3 +1334,9 @@
 "whats_new_3d_buildings_title" = "En ny dimension i MAPS.ME";
 
 "whats_new_3d_buildings_subtitle" = "Med 3D-bygninger er vores kort blevet smukkere og mere informative.";
+
+"3d_new_update_maps" = "For at udnytte denne funktion fuldt ud skal du opdatere dine kortdata.";
+
+"3d_new_on" = "Aktivér perspektivvisning";
+
+"3d_new_buildings_on" = "Aktivér 3D-bygninger";

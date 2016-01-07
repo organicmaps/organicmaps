@@ -732,6 +732,7 @@
 	<string name="dialog_routing_disclaimer_priority">• Situace na silnici, dopravní předpisy a dopravní značení mají vždy prioritu před pokyny navigace.</string>
 	<string name="dialog_routing_disclaimer_precision">— Mapa může být nepřesná a navrhovaná trasa nemusí být vždy optimální cestou, jak dojet do cíle;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— Navrhované trasy je třeba brát pouze jako doporučení;</string>
+	<string name="dialog_routing_disclaimer_borders">U tratí v hraničních zónách buďte opatrní: trasy vytvořené naší aplikací občas překračují hranice zemí na nepovolených místech.</string>
 	<string name="dialog_routing_disclaimer_beware">Na silnici buďte pozorní a chovejte se bezpečně!</string>
 	<string name="dialog_routing_check_gps">Zkontrolovat signál GPS</string>
 	<string name="dialog_routing_error_location_not_found">Trasu se nepodařilo vytvořit. Nelze zjistit aktuální souřadnice GPS.</string>
@@ -817,4 +818,7 @@
 	<string name="whats_new_3d_subtitle">Přidali jsme do navigačního režimu zobrazení perspektivy.</string>
 	<string name="whats_new_3d_buildings_title">Nová dimenze v MAPS.ME</string>
 	<string name="whats_new_3d_buildings_subtitle">Díky 3D budovám jsou naše mapy pěknější a více informativní.</string>
+	<string name="3d_new_update_maps">Využijte naplno tuto funkci, aktualizujte prosím svá mapová data.</string>
+	<string name="3d_new_on">Povolit zobrazení perspektivy</string>
+	<string name="3d_new_buildings_on">Povolit 3D Budovy</string>
 </resources>

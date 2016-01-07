@@ -722,6 +722,7 @@
 	<string name="dialog_routing_disclaimer_priority">— Condiţiile de drum, legile şi semnele rutiere sunt mai prioritare decât sfaturile de navigaţie;</string>
 	<string name="dialog_routing_disclaimer_precision">— Harta poate să conţină greşeli şi traseul sugerat poate să nu fie cel mai bun pentru a ajunge la destinaţie;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— Traseele sugerate au numai rol de recomandări;</string>
+	<string name="dialog_routing_disclaimer_borders">Aveți grijă în zonele de graniță: rutele create de aplicația noastră ar putea, ocazional, să treacă granița prin locuri nepermise.</string>
 	<string name="dialog_routing_disclaimer_beware">Rămâneţi vigilenţi şi conduceţi în siguranţă!</string>
 	<string name="dialog_routing_check_gps">Verificaţi semnalul GPS</string>
 	<string name="dialog_routing_error_location_not_found">Crearea traseului a eşuat. Coordonatele GPS curente nu au putut fi identificate.</string>
@@ -807,4 +808,7 @@
 	<string name="whats_new_3d_subtitle">Am adăugat modul de vizualizare în perspectivă la modul de navigație.</string>
 	<string name="whats_new_3d_buildings_title">O nouă dimensiune în MAPS.ME</string>
 	<string name="whats_new_3d_buildings_subtitle">Cu ajutorul clădirilor 3D, hărțile noastre conțin mai multe informații și sunt mai frumoase.</string>
+	<string name="3d_new_update_maps">Pentru a beneficia integral de această funcție, vă rugăm să actualizați datele hărții dvs.</string>
+	<string name="3d_new_on">Activare vizualizare în perspectivă</string>
+	<string name="3d_new_buildings_on">Activare Clădiri 3D</string>
 </resources>

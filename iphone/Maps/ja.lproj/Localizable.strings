@@ -1170,6 +1170,8 @@
 
 "dialog_routing_disclaimer_recommendations" = "— 表示されるルートはあくまでも推奨ルートとしてご利用ください。;";
 
+"dialog_routing_disclaimer_borders" = "国境付近のルートにご注意ください。アプリの作成したルートは時々入国の許可されていない国への国境を超える場合があります。";
+
 "dialog_routing_disclaimer_beware" = "よく注意して安全運転を心がけましょう！";
 
 "dialog_routing_check_gps" = "GPS信号をご確認ください";
@@ -1332,3 +1334,9 @@
 "whats_new_3d_buildings_title" = "MAPS.MEに新たな次元を追加";
 
 "whats_new_3d_buildings_subtitle" = "建物を3Dで表示することで、地図がより詳細で美しくなりました。";
+
+"3d_new_update_maps" = "この機能をフル活用するために、マップデータを更新してください。";
+
+"3d_new_on" = "パースペクティブ表示を有効化";
+
+"3d_new_buildings_on" = "3Dビルディングを有効化";

@@ -1170,6 +1170,8 @@
 
 "dialog_routing_disclaimer_recommendations" = "— Traseele sugerate au numai rol de recomandări;";
 
+"dialog_routing_disclaimer_borders" = "Aveți grijă în zonele de graniță: rutele create de aplicația noastră ar putea, ocazional, să treacă granița prin locuri nepermise.";
+
 "dialog_routing_disclaimer_beware" = "Rămâneţi vigilenţi şi conduceţi în siguranţă!";
 
 "dialog_routing_check_gps" = "Verificaţi semnalul GPS";
@@ -1332,3 +1334,9 @@
 "whats_new_3d_buildings_title" = "O nouă dimensiune în MAPS.ME";
 
 "whats_new_3d_buildings_subtitle" = "Cu ajutorul clădirilor 3D, hărțile noastre conțin mai multe informații și sunt mai frumoase.";
+
+"3d_new_update_maps" = "Pentru a beneficia integral de această funcție, vă rugăm să actualizați datele hărții dvs.";
+
+"3d_new_on" = "Activare vizualizare în perspectivă";
+
+"3d_new_buildings_on" = "Activare Clădiri 3D";

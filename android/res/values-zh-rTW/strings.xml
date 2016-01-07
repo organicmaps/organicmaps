@@ -711,6 +711,7 @@
 	<string name="dialog_routing_disclaimer_priority">— 道路情形、交通規則及號誌較導航意見更為優先；</string>
 	<string name="dialog_routing_disclaimer_precision">— 地圖可能有誤，建議的路線不盡然是最佳選擇；</string>
 	<string name="dialog_routing_disclaimer_recommendations">— 建議的路線僅供推薦參考；</string>
+	<string name="dialog_routing_disclaimer_borders">小心對待國界區的路線：我們應用創造的路線有時會在未經授權的地方跨越國界。</string>
 	<string name="dialog_routing_disclaimer_beware">祝您出外安全，自身多加注意！</string>
 	<string name="dialog_routing_check_gps">查看 GPS</string>
 	<string name="dialog_routing_error_location_not_found">未產生路線。 目前位置尚未定義。</string>
@@ -796,4 +797,7 @@
 	<string name="whats_new_3d_subtitle">我們添加了視角視圖到導航模式。</string>
 	<string name="whats_new_3d_buildings_title">MAPS.ME中的全新維度</string>
 	<string name="whats_new_3d_buildings_subtitle">有了3D大樓，我們的地圖信息量更豐富也更美了。</string>
+	<string name="3d_new_update_maps">要充分利用此功能，請更新您的地圖資料。</string>
+	<string name="3d_new_on">啟用透視圖</string>
+	<string name="3d_new_buildings_on">啟用3D建築</string>
 </resources>

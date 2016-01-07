@@ -1170,6 +1170,8 @@
 
 "dialog_routing_disclaimer_recommendations" = "— Suggested routes are to be taken only as recommendations;";
 
+"dialog_routing_disclaimer_borders" = "Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.";
+
 "dialog_routing_disclaimer_beware" = "Please stay alert and safe on the roads!";
 
 "dialog_routing_check_gps" = "Check GPS signal";
@@ -1332,3 +1334,9 @@
 "whats_new_3d_buildings_title" = "A new dimension in MAPS.ME";
 
 "whats_new_3d_buildings_subtitle" = "With 3D buildings, our maps have become more informative and more beautiful.";
+
+"3d_new_update_maps" = "To take full advantage of this feature, please, update your map data.";
+
+"3d_new_on" = "Enable Perspective View";
+
+"3d_new_buildings_on" = "Enable 3D Buildings";

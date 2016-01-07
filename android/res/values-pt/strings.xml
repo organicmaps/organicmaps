@@ -722,6 +722,7 @@
 	<string name="dialog_routing_disclaimer_priority">— As condições da estrada, as leis de trânsito e as sinalizações da pista sempre terão prioridade acima das sugestões de navegação;</string>
 	<string name="dialog_routing_disclaimer_precision">— O mapa pode estar desatualizado, e a rota indicada pode não ser a melhor maneira de chegar-se ao destino;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— As rotas indicadas devem ser tratadas apenas como sugestões;</string>
+	<string name="dialog_routing_disclaimer_borders">Use de cautela em rotas de zonas fronteiriças: as rotas criadas por nosso aplicativo podem algumas vezes cruzar fronteiras nacionais em locais não autorizados.</string>
 	<string name="dialog_routing_disclaimer_beware">Fique sempre alerta nas estradas!</string>
 	<string name="dialog_routing_check_gps">Verifique o sinal do GPS</string>
 	<string name="dialog_routing_error_location_not_found">A rota não foi traçada, pois não foi possível identificar as coordenadas do GPS.</string>
@@ -807,4 +808,7 @@
 	<string name="whats_new_3d_subtitle">Nós adicionamos a visão em perspectiva ao modo de navegação.</string>
 	<string name="whats_new_3d_buildings_title">Uma nova dimensão no MAPS.ME</string>
 	<string name="whats_new_3d_buildings_subtitle">Com os prédios em 3D, nossos mapas ficaram mais informativos e bonitos.</string>
+	<string name="3d_new_update_maps">Para aproveitar por completo este recurso, atualize os dados do seu mapa.</string>
+	<string name="3d_new_on">Habilitar visão em perspectiva</string>
+	<string name="3d_new_buildings_on">Habilitar Prédios em 3D</string>
 </resources>

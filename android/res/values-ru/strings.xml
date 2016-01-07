@@ -764,6 +764,7 @@
 	<string name="dialog_routing_disclaimer_priority">— Дорожная обстановка, ПДД и знаки приоритетнее советов приложения;</string>
 	<string name="dialog_routing_disclaimer_precision">— Карта может быть неточной, а предложенный маршрут не всегда оптимален;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— Предлагаемые маршруты — лишь рекомендации;</string>
+	<string name="dialog_routing_disclaimer_borders">Будьте внимательны с маршрутами в приграничных зонах: в построенных программой маршрутах иногда возможны пересечения границ в неположенных местах.</string>
 	<string name="dialog_routing_disclaimer_beware">Будьте внимательны на дорогах и берегите себя!</string>
 	<string name="dialog_routing_check_gps">Проверьте сигнал GPS</string>
 	<string name="dialog_routing_error_location_not_found">Маршрут не построен. Текущая геопозиция не определена.</string>
@@ -849,4 +850,7 @@
 	<string name="whats_new_3d_subtitle">Мы добавили перспективный обзор в режим навигации.</string>
 	<string name="whats_new_3d_buildings_title">Новое измерение в MAPS.ME</string>
 	<string name="whats_new_3d_buildings_subtitle">С 3D зданиями наши карты стали более информативными и красивыми.</string>
+	<string name="3d_new_update_maps">Для полноценной работы функции, пожалуйста, обновите карты.</string>
+	<string name="3d_new_on">Включить перспективный вид</string>
+	<string name="3d_new_buildings_on">Включить 3D здания</string>
 </resources>

@@ -718,6 +718,7 @@
 	<string name="dialog_routing_disclaimer_priority">— Las condiciones de la ruta, las reglas de tráfico y las señales de carretera siempre tienen prioridad sobre las sugerencias de navegación;</string>
 	<string name="dialog_routing_disclaimer_precision">— El mapa puede ser impreciso y sugerir una ruta que no siempre puede ser el mejor camino para llegar al destino;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— Las rutas sugeridas deben entenderse solo como recomendaciones;</string>
+	<string name="dialog_routing_disclaimer_borders">Actúa con cautela en las rutas con zonas fronterizas: las rutas creadas por nuestra aplicación en ocasiones pueden atravesar las fronteras de países en lugares no autorizados.</string>
 	<string name="dialog_routing_disclaimer_beware">¡Manténgase alerta y seguro en las rutas!</string>
 	<string name="dialog_routing_check_gps">Verificar la señal del GPS</string>
 	<string name="dialog_routing_error_location_not_found">No se puede crear la ruta. No se pudieron identificar las coordenadas actuales del GPS.</string>
@@ -803,4 +804,7 @@
 	<string name="whats_new_3d_subtitle">Hemos añadido la vista en perspectiva al modo de navegación.</string>
 	<string name="whats_new_3d_buildings_title">Una nueva dimensión en MAPS.ME</string>
 	<string name="whats_new_3d_buildings_subtitle">Con edificios en 3D, nuestros mapas ofrecen más información y son más atractivos.</string>
+	<string name="3d_new_update_maps">Para aprovechar al máximo esta característica, por favor, actualiza tus datos de mapa.</string>
+	<string name="3d_new_on">Habilitar vista de perspectiva</string>
+	<string name="3d_new_buildings_on">Habilitar edificios en 3D</string>
 </resources>

@@ -715,6 +715,7 @@
 	<string name="dialog_routing_disclaimer_priority">— 도로 상황, 교통법, 도로 표지판을 항상 내비게이션 안내보다 먼저 고려하세요;</string>
 	<string name="dialog_routing_disclaimer_precision">— 지도는 부정확할 수 있으며, 제안된 경로보다 나은 경로가 존재할 수도 있습니다;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— 제안된 경로는 권장 사항으로만 참고하세요;</string>
+	<string name="dialog_routing_disclaimer_borders">국경 지역에서 경로를 주의하십시오: 앱에 의해 생성된 경로는 허가받지 않은 장소에서 국가 경계에 걸쳐 종종 일어날 수 있습니다.</string>
 	<string name="dialog_routing_disclaimer_beware">항상 안전에 주의하세요!</string>
 	<string name="dialog_routing_check_gps">GPS 신호 확인</string>
 	<string name="dialog_routing_error_location_not_found">경로를 설정할 수 없습니다. 현재 GPS 좌표를 확인할 수 없습니다.</string>
@@ -800,4 +801,7 @@
 	<string name="whats_new_3d_subtitle">배경도를 탐색 모드에 추가했습니다.</string>
 	<string name="whats_new_3d_buildings_title">MAPS.ME의 새로운 차원</string>
 	<string name="whats_new_3d_buildings_subtitle">3D 건물과 함께, 지도는 더 많은 정보로 더 아름답게 나타냅니다.</string>
+	<string name="3d_new_update_maps">이 기능의 모든 장점을 취하세요, 당신의 맵 데이터를 업데이트 하세요.</string>
+	<string name="3d_new_on">원근 보기 활성</string>
+	<string name="3d_new_buildings_on">3D 빌딩 보기 활성</string>
 </resources>

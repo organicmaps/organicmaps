@@ -1170,6 +1170,8 @@
 
 "dialog_routing_disclaimer_recommendations" = "— Beschouw de voorgestelde routes enkel als aanbevelingen;";
 
+"dialog_routing_disclaimer_borders" = "Wees voorzichtig met de routes in de grenszones: de routes die door onze app gecreëerd zijn, gaan wellicht door landgrenzen in ongeautoriseerde plaatsen.";
+
 "dialog_routing_disclaimer_beware" = "Blijf alert en rij veilig!";
 
 "dialog_routing_check_gps" = "Controleer gps-signaal";
@@ -1332,3 +1334,9 @@
 "whats_new_3d_buildings_title" = "Een nieuwe dimensie in MAPS.ME";
 
 "whats_new_3d_buildings_subtitle" = "Met 3D-gebouwen zijn onze kaarten informatiever en mooier geworden.";
+
+"3d_new_update_maps" = "Werk uw kaartgegevens bij om volledig te kunnen profiteren van deze functie.";
+
+"3d_new_on" = "Perspectiefbeeld inschakelen";
+
+"3d_new_buildings_on" = "3D-Gebouwen inschakelen";

@@ -729,6 +729,7 @@
 	<string name="dialog_routing_disclaimer_priority">— دائمًا ما يكون لظروف الطريق وقوانين وإشارات المرور الأولوية على المشورة الملاحية;</string>
 	<string name="dialog_routing_disclaimer_precision">— قد تكون الخريطة غير دقيقة وقد لا يكون المسار المقترح هو المسار الأمثل دائمًا للوصول إلى الوجهة.;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— يتم التعامل مع المسارات المقترحة كتوصيات فقط;</string>
+	<string name="dialog_routing_disclaimer_borders">تحذير بشأن مسارات في منطقة حدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر حدود الدولة في أماكن غير مصرح بها في بعض الأحيان.</string>
 	<string name="dialog_routing_disclaimer_beware">يجب أن تظل يقظًا وآمنًا على الطريق!</string>
 	<string name="dialog_routing_check_gps">تحقق من إشارة نظام تحديد المواقع العالمي \&quot;GPS\&quot;</string>
 	<string name="dialog_routing_error_location_not_found">تعذر إنشاء مسار. لا يمكن تحديد إحداثيات GPS الحالية.</string>
@@ -814,4 +815,7 @@
 	<string name="whats_new_3d_subtitle">لقد أضفنا عرض المنظور إلى نمط الملاحة.</string>
 	<string name="whats_new_3d_buildings_title">بُعد جديد في MAPS.ME</string>
 	<string name="whats_new_3d_buildings_subtitle">مع المباني ثلاثية الأبعاد، أصبحت خرائطنا أكثر معلوماتية وجمالا.</string>
+	<string name="3d_new_update_maps">للتمتع بالمزايا الكاملة لهذه الخاصية، قم بتحديث بيانات الخرائط لديك.</string>
+	<string name="3d_new_on">تفعيل العرض المنظوري</string>
+	<string name="3d_new_buildings_on">قم بتفعيل المباني ثلاثية الأبعاد</string>
 </resources>

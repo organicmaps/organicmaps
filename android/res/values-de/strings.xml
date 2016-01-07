@@ -720,6 +720,7 @@
 	<string name="dialog_routing_disclaimer_priority">– Straßenverhältnisse, die Verkehrsordnung und Straßenschilder haben stets Vorrang vor Navigationsanweisungen;</string>
 	<string name="dialog_routing_disclaimer_precision">– Die Karte kann ungenau sein, und die vorgeschlagene Route ist möglicherweise nicht der optimalste Weg, um das Ziel zu erreichen;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— Die vorgeschlagenen Routen sind als Empfehlungen zu verstehen;</string>
+	<string name="dialog_routing_disclaimer_borders">Bitte seien Sie vorsichtig bei Routen in Grenzgebieten: die Routen, die unsere App erstellt, können manchmal Landesgrenzen überschreiten und durch Sperrgebiete führen.</string>
 	<string name="dialog_routing_disclaimer_beware">Bitte fahren Sie aufmerksam und sicher!</string>
 	<string name="dialog_routing_check_gps">GPS-Signal prüfen</string>
 	<string name="dialog_routing_error_location_not_found">Route kann nicht erstellt werden. Aktuelle GPS-Koordinaten konnten nicht identifiziert werden.</string>
@@ -805,4 +806,7 @@
 	<string name="whats_new_3d_subtitle">Wir haben dem Navigationsmodus perspektivische Ansichten hinzugefügt.</string>
 	<string name="whats_new_3d_buildings_title">Eine neue Dimension in MAPS.ME</string>
 	<string name="whats_new_3d_buildings_subtitle">Durch die 3D-Gebäude sind unsere Karten noch informativer und schöner geworden.</string>
+	<string name="3d_new_update_maps">Um alle Vorteile dieser Funktion nutzen zu können, aktualisieren Sie bitte Ihre Kartendaten.</string>
+	<string name="3d_new_on">Perspektivenansicht aktualisieren</string>
+	<string name="3d_new_buildings_on">3D-Gebäude aktivieren</string>
 </resources>

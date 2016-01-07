@@ -1170,6 +1170,8 @@
 
 "dialog_routing_disclaimer_recommendations" = "— Ehdotettuja reittejä tulee pitää vain suosituksina;";
 
+"dialog_routing_disclaimer_borders" = "Ole varovainen reittien suhteen raja-alueilla: sovelluksemme luomat reitit voivat toisinaan ylittää maiden rajoja luvattomissa paikoissa.";
+
 "dialog_routing_disclaimer_beware" = "Pysy tarkkana ja aja turvallisesti!";
 
 "dialog_routing_check_gps" = "Tarkista GPS-signaali";
@@ -1332,3 +1334,9 @@
 "whats_new_3d_buildings_title" = "Uusi ulottuvuus MAPS.ME-sovellukseen";
 
 "whats_new_3d_buildings_subtitle" = "Karttamme ovat entistä informatiivisempia ja kauniimpia 3D-rakennusten avulla.";
+
+"3d_new_update_maps" = "Päivitä karttatietosi voidaksesi käyttää tätä toimintoa täysimääräisesti.";
+
+"3d_new_on" = "Aktivoi perspektiivinäkymä";
+
+"3d_new_buildings_on" = "Aktivoi 3D-rakennukset";

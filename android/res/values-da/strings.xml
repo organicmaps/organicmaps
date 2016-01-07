@@ -725,6 +725,7 @@
 	<string name="dialog_routing_disclaimer_priority">— Vejforhold, færdselsregler og skiltning skal prioriteres højere end anvisningerne fra navigationsappen;</string>
 	<string name="dialog_routing_disclaimer_precision">— Kortet kan være unøjagtigt, og den foreslåede rute er ikke nødvendigvis altid den bedste måde at nå destinationen på;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— De foreslåede ruter skal kun betragtes som anbefalinger;</string>
+	<string name="dialog_routing_disclaimer_borders">Vær forsigtig med ruter i grænseområder: de ruter, vores app har skabt, kan nogle gange krydse landegrænser på uautoriserede steder.</string>
 	<string name="dialog_routing_disclaimer_beware">Vær altid særligt opmærksom og årvågen, når du sidder bag rattet!</string>
 	<string name="dialog_routing_check_gps">Tjek GPS-signalet</string>
 	<string name="dialog_routing_error_location_not_found">Det lykkedes ikke at planlægge en rute. GPS-koordinaterne kunne ikke identificeres korrekt.</string>
@@ -810,4 +811,7 @@
 	<string name="whats_new_3d_subtitle">Vi har tilføjet perspektivvisning til navigeringstilstanden.</string>
 	<string name="whats_new_3d_buildings_title">En ny dimension i MAPS.ME</string>
 	<string name="whats_new_3d_buildings_subtitle">Med 3D-bygninger er vores kort blevet smukkere og mere informative.</string>
+	<string name="3d_new_update_maps">For at udnytte denne funktion fuldt ud skal du opdatere dine kortdata.</string>
+	<string name="3d_new_on">Aktivér perspektivvisning</string>
+	<string name="3d_new_buildings_on">Aktivér 3D-bygninger</string>
 </resources>

@@ -1170,6 +1170,8 @@
 
 "dialog_routing_disclaimer_recommendations" = "— A javasolt útvonalakat mindössze javaslatoknak kell tekinteni;";
 
+"dialog_routing_disclaimer_borders" = "A határmenti útvonalakon közlekedjen óvatosan: az alkalmazásunk által létrehozott útvonalak néha olyan helyeken szelhetik át az országhatárokat, amelyek nem engedélyezettek.";
+
 "dialog_routing_disclaimer_beware" = "Kérjük, mindig maradjon éber és vezessen biztonságosan az utakon!";
 
 "dialog_routing_check_gps" = "Ellenőrizze a GPS jelet";
@@ -1332,3 +1334,9 @@
 "whats_new_3d_buildings_title" = "Új dimenzió a MAPS.ME-ben";
 
 "whats_new_3d_buildings_subtitle" = "A 3D-s épületeknek köszönhetően a térképeink még több információval szolgálnak, és még szebbek lettek.";
+
+"3d_new_update_maps" = "Ezen tulajdonság teljes körű kihasználásához, kérjük, frissítse térképének az adatát.";
+
+"3d_new_on" = "Távlati kép engedélyezése";
+
+"3d_new_buildings_on" = "3D Épületek engedélyezése";
