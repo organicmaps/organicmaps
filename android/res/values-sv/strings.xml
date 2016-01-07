@@ -312,7 +312,7 @@
 	<string name="pref_zoom_title">Zoom-knappar</string>
 	<string name="pref_zoom_summary">Visa på skärmen</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">3D</string>
+	<string name="pref_map_3d_title">Perspektivvy</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D-byggnader</string>
 	<!-- Settings «Map» category: «3D buildings» summary -->
@@ -795,7 +795,7 @@
 	<string name="search_history_text">Få snabbare åtkomst till senaste sökförfrågan.</string>
 	<string name="clear_search">Rensa sökhistorik</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Visa våra partners erbjudanden</string>
+	<string name="showcase_settings_title">Visa erbjudanden</string>
 	<string name="showcase_more_apps">Mai multe aplicații My.com</string>
 	<string name="p2p_route_planning">Ruttplanering</string>
 	<string name="p2p_your_location">Din plats</string>
@@ -811,7 +811,7 @@
 	<string name="whats_new_3d_subtitle">Vi har lagt till perspektivvy till navigeringsläget.</string>
 	<string name="whats_new_3d_buildings_title">En ny dimension av MAPS.ME</string>
 	<string name="whats_new_3d_buildings_subtitle">Med byggnader i 3D blir våra karter mer informativa och vackrare.</string>
-	<string name="3d_new_update_maps">Uppdatera dina kartdata för att kunna använda denna funktion fullt ut.</string>
-	<string name="3d_new_on">Aktivera perspektivvy</string>
-	<string name="3d_new_buildings_on">Aktivera 3D-byggnader</string>
+	<string name="whats_new_3d_update_maps">Uppdatera dina kartdata för att kunna använda denna funktion fullt ut.</string>
+	<string name="whats_new_3d_on">Aktivera perspektivvy</string>
+	<string name="whats_new_3d_buildings_on">Aktivera 3D-byggnader</string>
 </resources>

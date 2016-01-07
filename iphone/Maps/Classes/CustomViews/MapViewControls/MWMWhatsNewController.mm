@@ -37,8 +37,8 @@
 {
   self.image.image = [UIImage imageNamed:@"img_3d_buildings"];
   self.alertTitle.text = L(@"whats_new_3d_buildings_title");
-  self.alertText.text = [NSString stringWithFormat:@"%@\n\n%@", L(@"whats_new_3d_buildings_subtitle"), L(@"3d_new_update_maps")];
-  [self.enableButton setTitle:L(@"3d_new_buildings_on") forState:UIControlStateNormal];
+  self.alertText.text = [NSString stringWithFormat:@"%@\n\n%@", L(@"whats_new_3d_buildings_subtitle"), L(@"whats_new_3d_update_maps")];
+  [self.enableButton setTitle:L(@"whats_new_3d_buildings_on") forState:UIControlStateNormal];
   [self.nextPageButton setTitle:L(@"dialog_routing_not_now") forState:UIControlStateNormal];
   [self.nextPageButton addTarget:self.pageController action:@selector(skipFirst) forControlEvents:UIControlEventTouchUpInside];
   [self.enableButton addTarget:self.pageController action:@selector(enableFirst:) forControlEvents:UIControlEventTouchUpInside];
@@ -49,7 +49,7 @@
   self.image.image = [UIImage imageNamed:@"img_perspective_view"];
   self.alertTitle.text = L(@"whats_new_3d_title");
   self.alertText.text = L(@"whats_new_3d_subtitle");
-  [self.enableButton setTitle:L(@"3d_new_on") forState:UIControlStateNormal];
+  [self.enableButton setTitle:L(@"whats_new_3d_on") forState:UIControlStateNormal];
   [self.nextPageButton setTitle:L(@"dialog_routing_not_now") forState:UIControlStateNormal];
   [self.nextPageButton addTarget:self.pageController action:@selector(skipSecond) forControlEvents:UIControlEventTouchUpInside];
   [self.enableButton addTarget:self.pageController action:@selector(enableSecond) forControlEvents:UIControlEventTouchUpInside];

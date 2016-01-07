@@ -511,7 +511,7 @@
 "pref_map_style_modern_light" = "Modern light";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "3D";
+"pref_map_3d_title" = "มุมมองเพอร์สเปกทีฟ";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "ตึก 3D";
@@ -1300,7 +1300,7 @@
 "clear_search" = "ล้างการค้นหาประวัติ";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "แสดงข้อเสนอของพันธมิตร";
+"showcase_settings_title" = "แสดงข้อเสนอ";
 
 "showcase_more_apps" = "แอป My.com เพิ่มเติม";
 
@@ -1335,8 +1335,8 @@
 
 "whats_new_3d_buildings_subtitle" = "ด้วยตึกแบบ 3D แผนที่ของเราจะมอบข้อมูลให้มากขึ้นและสวยงามยิ่งขึ้น";
 
-"3d_new_update_maps" = "เพื่อรับประโยชน์อย่างเต็มที่สำหรับฟีเจอร์นี้ กรุณาอัปเดตข้อมูลแผนที่ของคุณ";
+"whats_new_3d_update_maps" = "เพื่อรับประโยชน์อย่างเต็มที่สำหรับฟีเจอร์นี้ กรุณาอัปเดตข้อมูลแผนที่ของคุณ";
 
-"3d_new_on" = "เปิดใช้งานมุมมองเพอร์สเปกทีฟ";
+"whats_new_3d_on" = "เปิดใช้งานมุมมองเพอร์สเปกทีฟ";
 
-"3d_new_buildings_on" = "เปิดใช้งานตึก 3D";
+"whats_new_3d_buildings_on" = "เปิดใช้งานตึก 3D";

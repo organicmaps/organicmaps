@@ -312,7 +312,7 @@
 	<string name="pref_zoom_title">缩放按钮</string>
 	<string name="pref_zoom_summary">在屏幕上显示</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">3D</string>
+	<string name="pref_map_3d_title">透视图</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D建筑</string>
 	<!-- Settings «Map» category: «3D buildings» summary -->
@@ -799,7 +799,7 @@
 	<string name="search_history_text">快速访问最近的搜索查询。</string>
 	<string name="clear_search">清除历史搜索</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">顯示合作夥伴的優惠</string>
+	<string name="showcase_settings_title">显示优惠</string>
 	<string name="showcase_more_apps">更多My.com应用</string>
 	<string name="p2p_route_planning">路线计划</string>
 	<string name="p2p_your_location">您的位置</string>
@@ -815,7 +815,7 @@
 	<string name="whats_new_3d_subtitle">我们添加了视角视图到导航模式。</string>
 	<string name="whats_new_3d_buildings_title">MAPS.ME中的全新维度</string>
 	<string name="whats_new_3d_buildings_subtitle">有了3D大楼，我们的地图信息量更丰富也更美了。</string>
-	<string name="3d_new_update_maps">要充分利用此功能，请更新您的地图数据。</string>
-	<string name="3d_new_on">启用透视图</string>
-	<string name="3d_new_buildings_on">启用3D建筑</string>
+	<string name="whats_new_3d_update_maps">要充分利用此功能，请更新您的地图数据。</string>
+	<string name="whats_new_3d_on">启用透视图</string>
+	<string name="whats_new_3d_buildings_on">启用3D建筑</string>
 </resources>

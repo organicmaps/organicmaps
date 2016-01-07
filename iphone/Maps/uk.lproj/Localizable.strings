@@ -511,7 +511,7 @@
 "pref_map_style_modern_light" = "Modern light";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "3D";
+"pref_map_3d_title" = "Перспективний вид";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "Будівлі у 3D";
@@ -1300,7 +1300,7 @@
 "clear_search" = "Очистити історію пошуку";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Показати пропозиції партнерів";
+"showcase_settings_title" = "Показати пропозиції";
 
 "showcase_more_apps" = "Інші додатки My.com";
 
@@ -1335,8 +1335,8 @@
 
 "whats_new_3d_buildings_subtitle" = "З 3D будівлями наші карти стали більш інформативними і гарними.";
 
-"3d_new_update_maps" = "Щоб повною мірою скористатися цією функцією, будь ласка, оновіть дані своєї карти.";
+"whats_new_3d_update_maps" = "Щоб повною мірою скористатися цією функцією, будь ласка, оновіть дані своєї карти.";
 
-"3d_new_on" = "Включити перспективний вид";
+"whats_new_3d_on" = "Включити перспективний вид";
 
-"3d_new_buildings_on" = "Включити 3D-будівлі";
+"whats_new_3d_buildings_on" = "Включити 3D-будівлі";

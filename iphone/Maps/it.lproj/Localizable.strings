@@ -511,7 +511,7 @@
 "pref_map_style_modern_light" = "Modern light";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "3D";
+"pref_map_3d_title" = "Vista in prospettiva";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "Edifici in 3D";
@@ -1300,7 +1300,7 @@
 "clear_search" = "Cancella сronologia ricerche";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Mostra offerte dei partner";
+"showcase_settings_title" = "Mostra offerte";
 
 "showcase_more_apps" = "Altre app su My.com";
 
@@ -1335,8 +1335,8 @@
 
 "whats_new_3d_buildings_subtitle" = "Le nostre mappe ora sono ancora più efficaci e ricche di contenuti, grazie agli edifici in 3D.";
 
-"3d_new_update_maps" = "Per sfruttare al massimo questa funzione, aggiorna i dati della tua mappa.";
+"whats_new_3d_update_maps" = "Per sfruttare al massimo questa funzione, aggiorna i dati della tua mappa.";
 
-"3d_new_on" = "Attiva vista in prospettiva";
+"whats_new_3d_on" = "Attiva vista in prospettiva";
 
-"3d_new_buildings_on" = "Attiva Edifici in 3D";
+"whats_new_3d_buildings_on" = "Attiva Edifici in 3D";

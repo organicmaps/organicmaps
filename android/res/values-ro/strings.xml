@@ -312,7 +312,7 @@
 	<string name="pref_zoom_title">Butoane zoom</string>
 	<string name="pref_zoom_summary">Afișare pe ecran</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">3D</string>
+	<string name="pref_map_3d_title">Vizualizare în perspectivă</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">Clădiri 3D</string>
 	<!-- Settings «Map» category: «3D buildings» summary -->
@@ -792,7 +792,7 @@
 	<string name="search_history_text">Accesare rapidă a căutărilor recente.</string>
 	<string name="clear_search">Ștergere istoric de căutare</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Afișare oferte parteneri</string>
+	<string name="showcase_settings_title">Afișare oferte</string>
 	<string name="showcase_more_apps">Mai multe aplicații My.com</string>
 	<string name="p2p_route_planning">Planificare rută</string>
 	<string name="p2p_your_location">Locația dvs.</string>
@@ -808,7 +808,7 @@
 	<string name="whats_new_3d_subtitle">Am adăugat modul de vizualizare în perspectivă la modul de navigație.</string>
 	<string name="whats_new_3d_buildings_title">O nouă dimensiune în MAPS.ME</string>
 	<string name="whats_new_3d_buildings_subtitle">Cu ajutorul clădirilor 3D, hărțile noastre conțin mai multe informații și sunt mai frumoase.</string>
-	<string name="3d_new_update_maps">Pentru a beneficia integral de această funcție, vă rugăm să actualizați datele hărții dvs.</string>
-	<string name="3d_new_on">Activare vizualizare în perspectivă</string>
-	<string name="3d_new_buildings_on">Activare Clădiri 3D</string>
+	<string name="whats_new_3d_update_maps">Pentru a beneficia integral de această funcție, vă rugăm să actualizați datele hărții dvs.</string>
+	<string name="whats_new_3d_on">Activare vizualizare în perspectivă</string>
+	<string name="whats_new_3d_buildings_on">Activare Clădiri 3D</string>
 </resources>

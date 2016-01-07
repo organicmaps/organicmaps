@@ -312,7 +312,7 @@
 	<string name="pref_zoom_title">Tombol perbesaran</string>
 	<string name="pref_zoom_summary">Tampilkan pada layar</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">3D</string>
+	<string name="pref_map_3d_title">Pandangan perspektif</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">Bangunan 3D</string>
 	<!-- Settings «Map» category: «3D buildings» summary -->
@@ -794,7 +794,7 @@
 	<string name="search_history_text">Akses kueri pencarian terbaru dengan cepat.</string>
 	<string name="clear_search">Bersihkan riwayat pencarian</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Tunjukkan penawaran dari para mitra</string>
+	<string name="showcase_settings_title">Tampilkan penawaran</string>
 	<string name="showcase_more_apps">Lebih Banyak Aplikasi My.com</string>
 	<string name="p2p_route_planning">Perencana Rute</string>
 	<string name="p2p_your_location">Lokasi Anda</string>
@@ -810,7 +810,7 @@
 	<string name="whats_new_3d_subtitle">Kami telah menambahkan tampilan perspektif ke mode navigasi.</string>
 	<string name="whats_new_3d_buildings_title">Dimensi yang baru di MAPS.ME</string>
 	<string name="whats_new_3d_buildings_subtitle">Dengan bangunan 3D, peta kami telah menjadi lebih indah dan informatif.</string>
-	<string name="3d_new_update_maps">Untuk memaksimalkan pemanfaatan fitur ini, harap perbarui data peta Anda.</string>
-	<string name="3d_new_on">Aktifkan pandangan perspektif</string>
-	<string name="3d_new_buildings_on">Aktifkan Bangunan 3D</string>
+	<string name="whats_new_3d_update_maps">Untuk memaksimalkan pemanfaatan fitur ini, harap perbarui data peta Anda.</string>
+	<string name="whats_new_3d_on">Aktifkan pandangan perspektif</string>
+	<string name="whats_new_3d_buildings_on">Aktifkan Bangunan 3D</string>
 </resources>

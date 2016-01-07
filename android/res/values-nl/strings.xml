@@ -304,7 +304,7 @@
 	<string name="pref_zoom_title">Zoomknoppen</string>
 	<string name="pref_zoom_summary">Weergave op het scherm</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">3D</string>
+	<string name="pref_map_3d_title">Perspectiefbeeld</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D-gebouwen</string>
 	<!-- Settings «Map» category: «3D buildings» summary -->
@@ -785,7 +785,7 @@
 	<string name="search_history_text">Snel toegang tot recente zoekopdrachten.</string>
 	<string name="clear_search">Zoekgeschiedenis wissen</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Laat de aanbiedingen van partners zien</string>
+	<string name="showcase_settings_title">Aanbiedingen weergeven</string>
 	<string name="showcase_more_apps">Meer My.com apps</string>
 	<string name="p2p_route_planning">Routeberekening</string>
 	<string name="p2p_your_location">Uw locatie</string>
@@ -801,7 +801,7 @@
 	<string name="whats_new_3d_subtitle">We hebben perspectief toegevoegd aan de navigatiestand.</string>
 	<string name="whats_new_3d_buildings_title">Een nieuwe dimensie in MAPS.ME</string>
 	<string name="whats_new_3d_buildings_subtitle">Met 3D-gebouwen zijn onze kaarten informatiever en mooier geworden.</string>
-	<string name="3d_new_update_maps">Werk uw kaartgegevens bij om volledig te kunnen profiteren van deze functie.</string>
-	<string name="3d_new_on">Perspectiefbeeld inschakelen</string>
-	<string name="3d_new_buildings_on">3D-Gebouwen inschakelen</string>
+	<string name="whats_new_3d_update_maps">Werk uw kaartgegevens bij om volledig te kunnen profiteren van deze functie.</string>
+	<string name="whats_new_3d_on">Perspectiefbeeld inschakelen</string>
+	<string name="whats_new_3d_buildings_on">3D-Gebouwen inschakelen</string>
 </resources>

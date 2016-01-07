@@ -314,7 +314,7 @@
 	<string name="pref_zoom_title">ปุ่มซูม</string>
 	<string name="pref_zoom_summary">แสดงบนหน้าจอ</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">3D</string>
+	<string name="pref_map_3d_title">มุมมองเพอร์สเปกทีฟ</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">ตึก 3D</string>
 	<!-- Settings «Map» category: «3D buildings» summary -->
@@ -797,7 +797,7 @@
 	<string name="search_history_text">เข้าถึงคำถามที่ใช้ในการค้นหาเมื่อเร็ว ๆ นี้ได้อย่างรวดเร็ว</string>
 	<string name="clear_search">ล้างการค้นหาประวัติ</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">แสดงข้อเสนอของพันธมิตร</string>
+	<string name="showcase_settings_title">แสดงข้อเสนอ</string>
 	<string name="showcase_more_apps">แอป My.com เพิ่มเติม</string>
 	<string name="p2p_route_planning">การวางแผนเส้นทาง</string>
 	<string name="p2p_your_location">ตำแหน่งที่ตั้งของคุณ</string>
@@ -813,7 +813,7 @@
 	<string name="whats_new_3d_subtitle">เราได้เพิ่มมุมมองเพอร์สเปกทีฟในโหมดการนำทาง</string>
 	<string name="whats_new_3d_buildings_title">มิติใหม่ใน MAPS.ME</string>
 	<string name="whats_new_3d_buildings_subtitle">ด้วยตึกแบบ 3D แผนที่ของเราจะมอบข้อมูลให้มากขึ้นและสวยงามยิ่งขึ้น</string>
-	<string name="3d_new_update_maps">เพื่อรับประโยชน์อย่างเต็มที่สำหรับฟีเจอร์นี้ กรุณาอัปเดตข้อมูลแผนที่ของคุณ</string>
-	<string name="3d_new_on">เปิดใช้งานมุมมองเพอร์สเปกทีฟ</string>
-	<string name="3d_new_buildings_on">เปิดใช้งานตึก 3D</string>
+	<string name="whats_new_3d_update_maps">เพื่อรับประโยชน์อย่างเต็มที่สำหรับฟีเจอร์นี้ กรุณาอัปเดตข้อมูลแผนที่ของคุณ</string>
+	<string name="whats_new_3d_on">เปิดใช้งานมุมมองเพอร์สเปกทีฟ</string>
+	<string name="whats_new_3d_buildings_on">เปิดใช้งานตึก 3D</string>
 </resources>

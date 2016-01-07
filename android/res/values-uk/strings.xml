@@ -317,7 +317,7 @@
 	<string name="pref_zoom_title">Кнопки трансфокації</string>
 	<string name="pref_zoom_summary">Відображення на екрані</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">3D</string>
+	<string name="pref_map_3d_title">Перспективний вид</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">Будівлі у 3D</string>
 	<!-- Settings «Map» category: «3D buildings» summary -->
@@ -798,7 +798,7 @@
 	<string name="search_history_text">Швидкий доступ до недавніх результатів пошуку.</string>
 	<string name="clear_search">Очистити історію пошуку</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Показати пропозиції партнерів</string>
+	<string name="showcase_settings_title">Показати пропозиції</string>
 	<string name="showcase_more_apps">Інші додатки My.com</string>
 	<string name="p2p_route_planning">Планування маршруту</string>
 	<string name="p2p_your_location">Ваше місцезнаходження</string>
@@ -814,7 +814,7 @@
 	<string name="whats_new_3d_subtitle">Ми додали переспективний огляд у режим навігації.</string>
 	<string name="whats_new_3d_buildings_title">Новий вимір в MAPS.ME</string>
 	<string name="whats_new_3d_buildings_subtitle">З 3D будівлями наші карти стали більш інформативними і гарними.</string>
-	<string name="3d_new_update_maps">Щоб повною мірою скористатися цією функцією, будь ласка, оновіть дані своєї карти.</string>
-	<string name="3d_new_on">Включити перспективний вид</string>
-	<string name="3d_new_buildings_on">Включити 3D-будівлі</string>
+	<string name="whats_new_3d_update_maps">Щоб повною мірою скористатися цією функцією, будь ласка, оновіть дані своєї карти.</string>
+	<string name="whats_new_3d_on">Включити перспективний вид</string>
+	<string name="whats_new_3d_buildings_on">Включити 3D-будівлі</string>
 </resources>

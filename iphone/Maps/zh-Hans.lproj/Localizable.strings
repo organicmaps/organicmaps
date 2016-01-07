@@ -511,7 +511,7 @@
 "pref_map_style_modern_light" = "Modern light";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "3D";
+"pref_map_3d_title" = "透视图";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D建筑";
@@ -1300,7 +1300,7 @@
 "clear_search" = "清除历史搜索";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "顯示合作夥伴的優惠";
+"showcase_settings_title" = "显示优惠";
 
 "showcase_more_apps" = "更多My.com应用";
 
@@ -1335,8 +1335,8 @@
 
 "whats_new_3d_buildings_subtitle" = "有了3D大楼，我们的地图信息量更丰富也更美了。";
 
-"3d_new_update_maps" = "要充分利用此功能，请更新您的地图数据。";
+"whats_new_3d_update_maps" = "要充分利用此功能，请更新您的地图数据。";
 
-"3d_new_on" = "启用透视图";
+"whats_new_3d_on" = "启用透视图";
 
-"3d_new_buildings_on" = "启用3D建筑";
+"whats_new_3d_buildings_on" = "启用3D建筑";

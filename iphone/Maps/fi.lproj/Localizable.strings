@@ -511,7 +511,7 @@
 "pref_map_style_modern_light" = "Modern light";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "3D";
+"pref_map_3d_title" = "Perspektiivinäkymä";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D-rakennukset";
@@ -1300,7 +1300,7 @@
 "clear_search" = "Poista hakuhistoria";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Näytä mainokset";
+"showcase_settings_title" = "Näytä tarjoukset";
 
 "showcase_more_apps" = "Lisää My.com sovelluksia";
 
@@ -1335,8 +1335,8 @@
 
 "whats_new_3d_buildings_subtitle" = "Karttamme ovat entistä informatiivisempia ja kauniimpia 3D-rakennusten avulla.";
 
-"3d_new_update_maps" = "Päivitä karttatietosi voidaksesi käyttää tätä toimintoa täysimääräisesti.";
+"whats_new_3d_update_maps" = "Päivitä karttatietosi voidaksesi käyttää tätä toimintoa täysimääräisesti.";
 
-"3d_new_on" = "Aktivoi perspektiivinäkymä";
+"whats_new_3d_on" = "Aktivoi perspektiivinäkymä";
 
-"3d_new_buildings_on" = "Aktivoi 3D-rakennukset";
+"whats_new_3d_buildings_on" = "Aktivoi 3D-rakennukset";

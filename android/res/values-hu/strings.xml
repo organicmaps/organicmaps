@@ -313,7 +313,7 @@
 	<string name="pref_zoom_title">Nagyítás/kicsinyítés gombok</string>
 	<string name="pref_zoom_summary">Mutassa a kijelzőn</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">3D</string>
+	<string name="pref_map_3d_title">Távlati kép</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D-s épületek</string>
 	<!-- Settings «Map» category: «3D buildings» summary -->
@@ -796,7 +796,7 @@
 	<string name="search_history_text">Aktuális keresés gyors elérése.</string>
 	<string name="clear_search">A keresési előzmények törlése</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Partnerek ajánlatainak mutatása</string>
+	<string name="showcase_settings_title">Ajánlatok mutatása</string>
 	<string name="showcase_more_apps">Több My.com alkalmazás</string>
 	<string name="p2p_route_planning">Útvonaltervezés</string>
 	<string name="p2p_your_location">Az Ön helyzete</string>
@@ -812,7 +812,7 @@
 	<string name="whats_new_3d_subtitle">A navigációs módban már perspektívikus nézet is választható.</string>
 	<string name="whats_new_3d_buildings_title">Új dimenzió a MAPS.ME-ben</string>
 	<string name="whats_new_3d_buildings_subtitle">A 3D-s épületeknek köszönhetően a térképeink még több információval szolgálnak, és még szebbek lettek.</string>
-	<string name="3d_new_update_maps">Ezen tulajdonság teljes körű kihasználásához, kérjük, frissítse térképének az adatát.</string>
-	<string name="3d_new_on">Távlati kép engedélyezése</string>
-	<string name="3d_new_buildings_on">3D Épületek engedélyezése</string>
+	<string name="whats_new_3d_update_maps">Ezen tulajdonság teljes körű kihasználásához, kérjük, frissítse térképének az adatát.</string>
+	<string name="whats_new_3d_on">Távlati kép engedélyezése</string>
+	<string name="whats_new_3d_buildings_on">3D Épületek engedélyezése</string>
 </resources>

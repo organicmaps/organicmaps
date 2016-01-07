@@ -511,7 +511,7 @@
 "pref_map_style_modern_light" = "Modern light";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "3D";
+"pref_map_3d_title" = "Zobrazení perspektivy";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D budovy";
@@ -1300,7 +1300,7 @@
 "clear_search" = "Vymazat historii vyhledávání";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Zobrazit nabídky partnerů";
+"showcase_settings_title" = "Zobrazit nabídky";
 
 "showcase_more_apps" = "Více aplikací My.com";
 
@@ -1335,8 +1335,8 @@
 
 "whats_new_3d_buildings_subtitle" = "Díky 3D budovám jsou naše mapy pěknější a více informativní.";
 
-"3d_new_update_maps" = "Využijte naplno tuto funkci, aktualizujte prosím svá mapová data.";
+"whats_new_3d_update_maps" = "Využijte naplno tuto funkci, aktualizujte prosím svá mapová data.";
 
-"3d_new_on" = "Povolit zobrazení perspektivy";
+"whats_new_3d_on" = "Povolit zobrazení perspektivy";
 
-"3d_new_buildings_on" = "Povolit 3D Budovy";
+"whats_new_3d_buildings_on" = "Povolit 3D Budovy";

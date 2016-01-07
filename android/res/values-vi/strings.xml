@@ -312,7 +312,7 @@
 	<string name="pref_zoom_title">Nút Phóng to/Thu nhỏ</string>
 	<string name="pref_zoom_summary">Hiển thị trên màn hình</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">3D</string>
+	<string name="pref_map_3d_title">Góc nhìn phối cảnh</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">Nhà cửa 3D</string>
 	<!-- Settings «Map» category: «3D buildings» summary -->
@@ -795,7 +795,7 @@
 	<string name="search_history_text">Truy cập nhanh chóng đến câu hỏi tìm kiếm gần đây.</string>
 	<string name="clear_search">Xóa Lịch sử Tìm kiếm</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Hiển thị các giảm giá của đối tác</string>
+	<string name="showcase_settings_title">Hiển thị lời mời</string>
 	<string name="showcase_more_apps">Thêm Ứng dụng My.com</string>
 	<string name="p2p_route_planning">Hoạch định đường đi</string>
 	<string name="p2p_your_location">Vị trí của bạn</string>
@@ -811,7 +811,7 @@
 	<string name="whats_new_3d_subtitle">Chúng tôi đã thêm góc nhìn phối cảnh cho chế độ điều hướng.</string>
 	<string name="whats_new_3d_buildings_title">Một chiều mới trong MAPS.ME</string>
 	<string name="whats_new_3d_buildings_subtitle">Với các tòa nhà 3 chiều, bản đồ của chúng tôi cung cấp thêm nhiều thông tin hơn và đẹp hơn.</string>
-	<string name="3d_new_update_maps">Để tận dụng tính năng này, vui lòng cập nhật dữ liệu bản đồ của bạn.</string>
-	<string name="3d_new_on">Kích hoạt góc nhìn phối cảnh</string>
-	<string name="3d_new_buildings_on">Kích hoạt Tòa nhà 3D</string>
+	<string name="whats_new_3d_update_maps">Để tận dụng tính năng này, vui lòng cập nhật dữ liệu bản đồ của bạn.</string>
+	<string name="whats_new_3d_on">Kích hoạt góc nhìn phối cảnh</string>
+	<string name="whats_new_3d_buildings_on">Kích hoạt Tòa nhà 3D</string>
 </resources>
