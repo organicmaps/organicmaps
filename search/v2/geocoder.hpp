@@ -1,5 +1,6 @@
 #pragma once
 
+#include "search/cancel_exception.hpp"
 #include "search/search_query_params.hpp"
 #include "search/v2/features_filter.hpp"
 #include "search/v2/features_layer.hpp"
@@ -101,8 +102,14 @@ private:
   template <typename TFn>
   void ForEachCountry(vector<shared_ptr<MwmInfo>> const & infos, TFn && fn);
 
+  // Throws CancelException if cancelled.
+  inline void BailIfCancelled()
+  {
+    ::search::BailIfCancelled(static_cast<my::Cancellable const &>(*this));
+  }
+
   // Tries to find all localities in a search query and then performs
-  // geocoding in found localities.
+  // matching of streets in found localities.
   //
   // *NOTE* that localities will be looked for in a World.mwm, so, for
   // now, villages won't be found on this stage.
@@ -114,12 +121,14 @@ private:
   // excess features.
   void DoGeocodingWithoutLocalities();
 
-  void GreedyMatchStreets();
+  // Tries to match some adjacent tokens in the query as streets and
+  // then performs geocoding in streets vicinities.
+  void GreedilyMatchStreets();
 
   // Tries to find all paths in a search tree, where each edge is
   // marked with some substring of the query tokens. These paths are
   // called "layer sequence" and current path is stored in |m_layers|.
-  void DoGeocoding(size_t curToken);
+  void MatchPOIsAndBuildings(size_t curToken);
 
   // Returns true if current path in the search tree (see comment for
   // DoGeocoding()) looks sane. This method is used as a fast

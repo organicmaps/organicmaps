@@ -2,7 +2,9 @@
 
 #include "base/base.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/string.hpp"
+#include "std/utility.hpp"
 #include "std/vector.hpp"
 
 namespace feature { class TypesHolder; }
@@ -73,9 +75,13 @@ public:
 class IsStreetChecker : public BaseChecker
 {
 public:
-  static vector<vector<string>> const kPaths;
-
   IsStreetChecker();
+
+  template <typename TFn>
+  void ForEachType(TFn && fn) const
+  {
+    for_each(m_types.cbegin(), m_types.cend(), forward<TFn>(fn));
+  }
 
   static IsStreetChecker const & Instance();
 };

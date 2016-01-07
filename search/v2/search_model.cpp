@@ -35,6 +35,8 @@ SearchModel::SearchType SearchModel::GetSearchType(FeatureType const & feature) 
     Type type = localityChecker.GetType(feature);
     switch (type)
     {
+    case COUNTRY:
+    case STATE:
     case NONE:
       return SEARCH_TYPE_COUNT;
     case CITY:

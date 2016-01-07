@@ -107,33 +107,31 @@ IsRailwayStationChecker const & IsRailwayStationChecker::Instance()
   return inst;
 }
 
-// TODO (@y, @m, @vng): this list must be up-to-date with
-// data/categories.txt, so, it worth to generate or parse it from that
-// file.
-// static
-vector<vector<string>> const IsStreetChecker::kPaths = {{"highway", "living_street"},
-                                                        {"highway", "motorway"},
-                                                        {"highway", "motorway_link"},
-                                                        {"highway", "pedestrian"},
-                                                        {"highway", "primary"},
-                                                        {"highway", "primary_link"},
-                                                        {"highway", "residential"},
-                                                        {"highway", "road"},
-                                                        {"highway", "secondary"},
-                                                        {"highway", "secondary_link"},
-                                                        {"highway", "service"},
-                                                        {"highway", "tertiary"},
-                                                        {"highway", "tertiary_link"},
-                                                        {"highway", "track"},
-                                                        {"highway", "trunk"},
-                                                        {"highway", "trunk_link"},
-                                                        {"highway", "unclassified"}};
-
 IsStreetChecker::IsStreetChecker()
 {
+  // TODO (@y, @m, @vng): this list must be up-to-date with
+  // data/categories.txt, so, it worth to generate or parse it from that
+  // file.
   Classificator const & c = classif();
-  for (auto const & path : kPaths)
-    m_types.push_back(c.GetTypeByPath(path));
+  char const * arr[][2] = {{"highway", "living_street"},
+                           {"highway", "motorway"},
+                           {"highway", "motorway_link"},
+                           {"highway", "pedestrian"},
+                           {"highway", "primary"},
+                           {"highway", "primary_link"},
+                           {"highway", "residential"},
+                           {"highway", "road"},
+                           {"highway", "secondary"},
+                           {"highway", "secondary_link"},
+                           {"highway", "service"},
+                           {"highway", "tertiary"},
+                           {"highway", "tertiary_link"},
+                           {"highway", "track"},
+                           {"highway", "trunk"},
+                           {"highway", "trunk_link"},
+                           {"highway", "unclassified"}};
+  for (auto const & p : arr)
+    m_types.push_back(c.GetTypeByPath({p[0], p[1]}));
 }
 
 IsStreetChecker const & IsStreetChecker::Instance()

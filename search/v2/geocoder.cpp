@@ -1,6 +1,5 @@
 #include "search/v2/geocoder.hpp"
 
-#include "search/cancel_exception.hpp"
 #include "search/retrieval.hpp"
 #include "search/search_delimiters.hpp"
 #include "search/search_string_utils.hpp"
@@ -66,18 +65,26 @@ void JoinQueryTokens(SearchQueryParams const & params, size_t curToken, size_t e
   }
 }
 
-template <typename TFn>
-void ForEachStreetCategory(TFn const & fn)
+vector<strings::UniString> GetStreetCategories()
 {
-  auto & classificator = classif();
+  vector<strings::UniString> categories;
 
-  for (auto const & path : ftypes::IsStreetChecker::kPaths)
+  auto const & classificator = classif();
+  auto addCategory = [&](uint32_t type)
   {
-    uint32_t const type = classificator.GetTypeByPath(path);
     uint32_t const index = classificator.GetIndexForType(type);
-    strings::UniString category = FeatureTypeToString(index);
-    fn(category);
-  }
+    categories.push_back(FeatureTypeToString(index));
+  };
+  ftypes::IsStreetChecker::Instance().ForEachType(addCategory);
+
+  return categories;
+}
+
+template <typename TFn>
+void ForEachStreetCategory(TFn && fn)
+{
+  static auto const kCategories = GetStreetCategories();
+  for_each(kCategories.begin(), kCategories.end(), forward<TFn>(fn));
 }
 
 bool HasSearchIndex(MwmValue const & value) { return value.m_cont.IsExist(SEARCH_INDEX_FILE_TAG); }
@@ -296,7 +303,7 @@ void Geocoder::DoGeocodingWithLocalities()
   // Localities are ordered my (m_startToken, m_endToken) pairs.
   for (auto const & p : m_localities)
   {
-    BailIfCancelled(static_cast<my::Cancellable const &>(*this));
+    BailIfCancelled();
 
     size_t const startToken = p.first.first;
     size_t const endToken = p.first.second;
@@ -337,7 +344,7 @@ void Geocoder::DoGeocodingWithLocalities()
 
     // Marks all tokens matched to localities as used and performs geocoding.
     fill(m_usedTokens.begin() + startToken, m_usedTokens.begin() + endToken, true);
-    GreedyMatchStreets();
+    GreedilyMatchStreets();
     fill(m_usedTokens.begin() + startToken, m_usedTokens.begin() + endToken, false);
   }
 }
@@ -400,12 +407,12 @@ void Geocoder::DoGeocodingWithoutLocalities()
 
   // Filter will be applied only for large bit vectors.
   m_filter.SetThreshold(m_params.m_maxNumResults);
-  GreedyMatchStreets();
+  GreedilyMatchStreets();
 }
 
-void Geocoder::GreedyMatchStreets()
+void Geocoder::GreedilyMatchStreets()
 {
-  DoGeocoding(0 /* curToken */);
+  MatchPOIsAndBuildings(0 /* curToken */);
 
   ASSERT(m_layers.empty(), ());
 
@@ -456,18 +463,18 @@ void Geocoder::GreedyMatchStreets()
     layer.m_sortedFeatures = &sortedFeatures;
 
     fill(m_usedTokens.begin() + startToken, m_usedTokens.begin() + curToken, true);
-    DoGeocoding(0 /* curToken */);
+    MatchPOIsAndBuildings(0 /* curToken */);
     fill(m_usedTokens.begin() + startToken, m_usedTokens.begin() + curToken, false);
   }
 }
 
-void Geocoder::DoGeocoding(size_t curToken)
+void Geocoder::MatchPOIsAndBuildings(size_t curToken)
 {
   // Skip used tokens.
   while (curToken != m_numTokens && m_usedTokens[curToken])
     ++curToken;
 
-  BailIfCancelled(static_cast<my::Cancellable const &>(*this));
+  BailIfCancelled();
 
   if (curToken == m_numTokens)
   {
@@ -510,7 +517,7 @@ void Geocoder::DoGeocoding(size_t curToken)
     // m_features[curToken], m_features[curToken + 1], ...,
     // m_features[curToken + n - 2], iff n > 2.
 
-    BailIfCancelled(static_cast<my::Cancellable const &>(*this));
+    BailIfCancelled();
 
     {
       auto & layer = m_layers.back();
@@ -566,7 +573,7 @@ void Geocoder::DoGeocoding(size_t curToken)
 
       layer.m_type = static_cast<SearchModel::SearchType>(i);
       if (IsLayerSequenceSane())
-        DoGeocoding(curToken + n);
+        MatchPOIsAndBuildings(curToken + n);
     }
   }
 }
