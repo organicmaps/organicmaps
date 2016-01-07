@@ -1170,6 +1170,8 @@
 
 "dialog_routing_disclaimer_recommendations" = "— L'itinéraire proposé doit être considéré comme une simple recommandation;";
 
+"dialog_routing_disclaimer_borders" = "Faites attention aux itinéraires traversant des zones frontalières : les itinéraires générés par l'application peuvent parfois franchir des frontières étatiques dans des zones interdites.";
+
 "dialog_routing_disclaimer_beware" = "Restez vigilant et soyez prudent sur la route !";
 
 "dialog_routing_check_gps" = "Vérifiez le signal GPS";
@@ -1332,3 +1334,9 @@
 "whats_new_3d_buildings_title" = "La nouvelle dimension de MAPS.ME";
 
 "whats_new_3d_buildings_subtitle" = "Grâce à l'affichage des bâtiments en 3D, nos cartes sont désormais plus informatives et plus belles.";
+
+"3d_new_update_maps" = "Pour profiter pleinement de cette fonction, veuillez mettre à jour les données de votre carte.";
+
+"3d_new_on" = "Activer la vue en perspective";
+
+"3d_new_buildings_on" = "Activer les bâtiments en 3D";

@@ -727,6 +727,7 @@
 	<string name="dialog_routing_disclaimer_priority">— สภาพถนน กฎจราจร และสัญลักษณ์บนถนนย่อมมีความสำคัญกว่าคำแนะนำเพื่อบอกทางเสมอ;</string>
 	<string name="dialog_routing_disclaimer_precision">— แผนที่อาจมีความคลาดเคลื่อนและเส้นทางที่แนะนำอาจไม่ใช่เส้นทางที่เหมาะสมที่สุดเสมอไปสำหรับการไปยังที่หมาย;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— เส้นทางที่แนะนำเป็นเพียงคำแนะนำเท่านั้น;</string>
+	<string name="dialog_routing_disclaimer_borders">โปรดระมัดระวังเมื่อใช้เส้นทางในพื้นที่ชายแดน: บางครั้งเส้นทางที่สร้างขึ้นโดยแอปของเรานั้นอาจข้ามผ่านชายแดนประเทศในพื้นที่ที่ไม่ได้รับการอนุญาต</string>
 	<string name="dialog_routing_disclaimer_beware">โปรดมีสติอยู่เสมอและยึดถือความปลอดภัยบนถนน!</string>
 	<string name="dialog_routing_check_gps">ตรวจสอบสัญญาณ GPS</string>
 	<string name="dialog_routing_error_location_not_found">ไม่สามารถสร้างเส้นทางได้ ไม่สามารถระบุพิกัด GPS ปัจจุบันได้</string>
@@ -812,4 +813,7 @@
 	<string name="whats_new_3d_subtitle">เราได้เพิ่มมุมมองเพอร์สเปกทีฟในโหมดการนำทาง</string>
 	<string name="whats_new_3d_buildings_title">มิติใหม่ใน MAPS.ME</string>
 	<string name="whats_new_3d_buildings_subtitle">ด้วยตึกแบบ 3D แผนที่ของเราจะมอบข้อมูลให้มากขึ้นและสวยงามยิ่งขึ้น</string>
+	<string name="3d_new_update_maps">เพื่อรับประโยชน์อย่างเต็มที่สำหรับฟีเจอร์นี้ กรุณาอัปเดตข้อมูลแผนที่ของคุณ</string>
+	<string name="3d_new_on">เปิดใช้งานมุมมองเพอร์สเปกทีฟ</string>
+	<string name="3d_new_buildings_on">เปิดใช้งานตึก 3D</string>
 </resources>

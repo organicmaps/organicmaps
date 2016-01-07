@@ -726,6 +726,7 @@
 	<string name="dialog_routing_disclaimer_priority">— Az útviszonyok, forgalmi törvények és jelzőtáblák mindig elsőbbséget élveznek a navigációs útmutatásokkal szemben;</string>
 	<string name="dialog_routing_disclaimer_precision">— A térkép pontatlan lehet és a javasolt útvonal lehetséges, hogy nem mindig a legoptimálisabb módja a célállomás elérésének;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— A javasolt útvonalakat mindössze javaslatoknak kell tekinteni;</string>
+	<string name="dialog_routing_disclaimer_borders">A határmenti útvonalakon közlekedjen óvatosan: az alkalmazásunk által létrehozott útvonalak néha olyan helyeken szelhetik át az országhatárokat, amelyek nem engedélyezettek.</string>
 	<string name="dialog_routing_disclaimer_beware">Kérjük, mindig maradjon éber és vezessen biztonságosan az utakon!</string>
 	<string name="dialog_routing_check_gps">Ellenőrizze a GPS jelet</string>
 	<string name="dialog_routing_error_location_not_found">Nem sikerült létrehozni az útvonalat. A jelenlegi GPS koordináták nem azonosíthatók.</string>
@@ -811,4 +812,7 @@
 	<string name="whats_new_3d_subtitle">A navigációs módban már perspektívikus nézet is választható.</string>
 	<string name="whats_new_3d_buildings_title">Új dimenzió a MAPS.ME-ben</string>
 	<string name="whats_new_3d_buildings_subtitle">A 3D-s épületeknek köszönhetően a térképeink még több információval szolgálnak, és még szebbek lettek.</string>
+	<string name="3d_new_update_maps">Ezen tulajdonság teljes körű kihasználásához, kérjük, frissítse térképének az adatát.</string>
+	<string name="3d_new_on">Távlati kép engedélyezése</string>
+	<string name="3d_new_buildings_on">3D Épületek engedélyezése</string>
 </resources>

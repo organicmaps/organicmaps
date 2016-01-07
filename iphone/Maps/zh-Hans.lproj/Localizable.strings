@@ -1170,6 +1170,8 @@
 
 "dialog_routing_disclaimer_recommendations" = "— 建议的路线仅作为推荐路线供您采纳。；";
 
+"dialog_routing_disclaimer_borders" = "小心对待国界区的路线：我们应用创造的路线有时会在未经授权的地方跨越国界。";
+
 "dialog_routing_disclaimer_beware" = "上路时请当心，祝您一路平安！";
 
 "dialog_routing_check_gps" = "检查 GPS 信号";
@@ -1332,3 +1334,9 @@
 "whats_new_3d_buildings_title" = "MAPS.ME中的全新维度";
 
 "whats_new_3d_buildings_subtitle" = "有了3D大楼，我们的地图信息量更丰富也更美了。";
+
+"3d_new_update_maps" = "要充分利用此功能，请更新您的地图数据。";
+
+"3d_new_on" = "启用透视图";
+
+"3d_new_buildings_on" = "启用3D建筑";

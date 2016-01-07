@@ -1170,6 +1170,8 @@
 
 "dialog_routing_disclaimer_recommendations" = "— Önerilen güzergahlar yalnızca tavsiye olarak kabul edilmelidir;";
 
+"dialog_routing_disclaimer_borders" = "Sınır bölgelerinde rotalar konusunda dikkatli olun: uygulamamız tarafından oluşturulan rotalar bazen izin verilmeyen yerlerdeki ülke sınırlarını geçebilir.";
+
 "dialog_routing_disclaimer_beware" = "Lütfen yolda dikkatli ve emniyetli olun!";
 
 "dialog_routing_check_gps" = "GPS sinyalini kontrol edin";
@@ -1332,3 +1334,9 @@
 "whats_new_3d_buildings_title" = "MAPS.ME'de yeni bir boyut";
 
 "whats_new_3d_buildings_subtitle" = "3 boyutlu binalarla haritalarımız daha bilgilendirici ve daha güzel hale geldi.";
+
+"3d_new_update_maps" = "Bu özellikten tam anlamıyla faydalanabilmek için, lütfen harita verilerinizi güncelleyin.";
+
+"3d_new_on" = "Perspektif görünümü etkinleştir";
+
+"3d_new_buildings_on" = "3D Binalar seçeneğini etkinleştir";

@@ -1170,6 +1170,8 @@
 
 "dialog_routing_disclaimer_recommendations" = "— Die vorgeschlagenen Routen sind als Empfehlungen zu verstehen;";
 
+"dialog_routing_disclaimer_borders" = "Bitte seien Sie vorsichtig bei Routen in Grenzgebieten: die Routen, die unsere App erstellt, können manchmal Landesgrenzen überschreiten und durch Sperrgebiete führen.";
+
 "dialog_routing_disclaimer_beware" = "Bitte fahren Sie aufmerksam und sicher!";
 
 "dialog_routing_check_gps" = "GPS-Signal prüfen";
@@ -1332,3 +1334,9 @@
 "whats_new_3d_buildings_title" = "Eine neue Dimension in MAPS.ME";
 
 "whats_new_3d_buildings_subtitle" = "Durch die 3D-Gebäude sind unsere Karten noch informativer und schöner geworden.";
+
+"3d_new_update_maps" = "Um alle Vorteile dieser Funktion nutzen zu können, aktualisieren Sie bitte Ihre Kartendaten.";
+
+"3d_new_on" = "Perspektivenansicht aktualisieren";
+
+"3d_new_buildings_on" = "3D-Gebäude aktivieren";

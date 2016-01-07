@@ -23,11 +23,12 @@ static NSString * const kStatisticsEvent = @"Routing Disclaimer Alert";
   MWMRoutingDisclaimerAlert * alert = [[[NSBundle mainBundle] loadNibNamed:[MWMRoutingDisclaimerAlert className]
                                                                      owner:nil
                                                                    options:nil] firstObject];
-  NSString * message = [NSString stringWithFormat:@"%@\n\n%@\n\n%@\n\n%@",
+  NSString * message = [NSString stringWithFormat:@"%@\n\n%@\n\n%@\n\n%@\n\n%@",
                         L(@"dialog_routing_disclaimer_priority"),
                         L(@"dialog_routing_disclaimer_precision"),
                         L(@"dialog_routing_disclaimer_recommendations"),
-                        L(@"dialog_routing_disclaimer_beware")];
+                        L(@"dialog_routing_disclaimer_beware"),
+                        L(@"dialog_routing_disclaimer_borders")];
   alert.textView.attributedText = [[NSAttributedString alloc] initWithString:message
                                                       attributes:@{NSFontAttributeName : UIFont.regular14,
                                                         NSForegroundColorAttributeName : UIColor.blackSecondaryText}];

@@ -715,6 +715,7 @@
 	<string name="dialog_routing_disclaimer_priority">— De toestand van het wegdek, de verkeersregels en de -borden hebben altijd voorrang op het advies van het navigatiesysteem;</string>
 	<string name="dialog_routing_disclaimer_precision">— De kaart kan onnauwkeurig zijn en de voorgestelde route is niet altijd de meest optimale manier om uw bestemming te bereiken;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— Beschouw de voorgestelde routes enkel als aanbevelingen;</string>
+	<string name="dialog_routing_disclaimer_borders">Wees voorzichtig met de routes in de grenszones: de routes die door onze app gecreëerd zijn, gaan wellicht door landgrenzen in ongeautoriseerde plaatsen.</string>
 	<string name="dialog_routing_disclaimer_beware">Blijf alert en rij veilig!</string>
 	<string name="dialog_routing_check_gps">Controleer gps-signaal</string>
 	<string name="dialog_routing_error_location_not_found">Route samenstellen mislukt. De huidige gps-coördinaten kunnen niet worden geïdentificeerd.</string>
@@ -800,4 +801,7 @@
 	<string name="whats_new_3d_subtitle">We hebben perspectief toegevoegd aan de navigatiestand.</string>
 	<string name="whats_new_3d_buildings_title">Een nieuwe dimensie in MAPS.ME</string>
 	<string name="whats_new_3d_buildings_subtitle">Met 3D-gebouwen zijn onze kaarten informatiever en mooier geworden.</string>
+	<string name="3d_new_update_maps">Werk uw kaartgegevens bij om volledig te kunnen profiteren van deze functie.</string>
+	<string name="3d_new_on">Perspectiefbeeld inschakelen</string>
+	<string name="3d_new_buildings_on">3D-Gebouwen inschakelen</string>
 </resources>
