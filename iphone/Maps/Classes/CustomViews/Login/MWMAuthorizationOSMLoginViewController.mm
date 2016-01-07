@@ -109,13 +109,12 @@ typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
   [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)showInvalidCredentialsAlert
+- (void)showAlert:(NSString *)text
 {
-  NSString * title = L(@"invalid_username_or_password");
   NSString * ok = L(@"ok");
   if (isIOSVersionLessThan(8))
   {
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:title
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:text
                                                          message:nil
                                                         delegate:nil
                                                cancelButtonTitle:ok
@@ -124,7 +123,7 @@ typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
     return;
   }
   UIAlertController * alertController =
-      [UIAlertController alertControllerWithTitle:title
+      [UIAlertController alertControllerWithTitle:text
                                           message:nil
                                    preferredStyle:UIAlertControllerStyleAlert];
   UIAlertAction * okAction =
@@ -178,14 +177,13 @@ typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
         if (result == osm::OsmOAuth::AuthResult::OK)
           [self storeCredentials:auth.GetToken()];
         else
-          [self showInvalidCredentialsAlert];
+          [self showAlert:L(@"invalid_username_or_password")];
       });
     });
   }
   else
   {
-    // Not connected, cannot validate login/password.
-    // TODO(@igrechuhin)
+    [self showAlert:L(@"no_internet_connection")];
   }
 }
 

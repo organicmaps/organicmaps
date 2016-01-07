@@ -12,11 +12,12 @@
 
 @property (weak, nonatomic, readwrite) IBOutlet UIImageView * icon;
 @property (weak, nonatomic, readwrite) IBOutlet id textContainer;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * textContainerHeight;
 
 @property (weak, nonatomic) IBOutlet UIButton * upperButton;
 @property (weak, nonatomic) IBOutlet UIImageView * toggleImage;
 
-@property (nonatomic) MWMPlacePageMetadataField type;
+@property (nonatomic) MWMPlacePageCellType type;
 
 @end
 
@@ -29,39 +30,37 @@
     [(UITextView *)self.textContainer setTextContainerInset:{.top = 12, 0, 0, 0}];
 }
 
-- (void)configureWithType:(MWMPlacePageMetadataField)type info:(NSString *)info;
+- (void)configureWithType:(MWMPlacePageCellType)type info:(NSString *)info;
 {
   NSString * typeName;
   switch (type)
   {
-    case MWMPlacePageMetadataFieldURL:
-    case MWMPlacePageMetadataFieldWebsite:
+    case MWMPlacePageCellTypeURL:
+    case MWMPlacePageCellTypeWebsite:
       self.toggleImage.hidden = YES;
       typeName = @"website";
       break;
-    case MWMPlacePageMetadataFieldEmail:
+    case MWMPlacePageCellTypeEmail:
       self.toggleImage.hidden = YES;
       typeName = @"email";
       break;
-    case MWMPlacePageMetadataFieldPhoneNumber:
+    case MWMPlacePageCellTypePhoneNumber:
       self.toggleImage.hidden = YES;
       typeName = @"phone_number";
       break;
-    case MWMPlacePageMetadataFieldCoordinate:
+    case MWMPlacePageCellTypeCoordinate:
       self.toggleImage.hidden = NO;
       typeName = @"coordinate";
       break;
-    case MWMPlacePageMetadataFieldPostcode:
+    case MWMPlacePageCellTypePostcode:
       self.toggleImage.hidden = YES;
       typeName = @"postcode";
       break;
-    case MWMPlacePageMetadataFieldWiFi:
+    case MWMPlacePageCellTypeWiFi:
       self.toggleImage.hidden = YES;
       typeName = @"wifi";
       break;
-    case MWMPlacePageMetadataFieldBookmark:
-    case MWMPlacePageMetadataFieldEditButton:
-    case MWMPlacePageMetadataFieldOpenHours:
+    default:
       NSAssert(false, @"Incorrect type!");
       break;
   }
@@ -86,6 +85,10 @@
     [tv setAttributedText:[[NSAttributedString alloc]
                               initWithString:text
                                   attributes:@{NSFontAttributeName : [UIFont regular16]}]];
+    [tv sizeToIntegralFit];
+    CGFloat const minTextContainerHeight = 42.0;
+    CGFloat const bottomOffset = 8.0;
+    self.textContainerHeight.constant = MAX(ceil(tv.contentSize.height) + bottomOffset, minTextContainerHeight);
   }
   else
   {
@@ -106,20 +109,20 @@
 {
   switch (self.type)
   {
-    case MWMPlacePageMetadataFieldURL:
-    case MWMPlacePageMetadataFieldWebsite:
+    case MWMPlacePageCellTypeURL:
+    case MWMPlacePageCellTypeWebsite:
       [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatOpenSite)];
       break;
-    case MWMPlacePageMetadataFieldEmail:
+    case MWMPlacePageCellTypeEmail:
       [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatSendEmail)];
       break;
-    case MWMPlacePageMetadataFieldPhoneNumber:
+    case MWMPlacePageCellTypePhoneNumber:
       [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatCallPhoneNumber)];
       break;
-    case MWMPlacePageMetadataFieldCoordinate:
+    case MWMPlacePageCellTypeCoordinate:
       [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatToggleCoordinates)];
       [self.currentEntity toggleCoordinateSystem];
-      [self changeText:[self.currentEntity getFieldValue:MWMPlacePageMetadataFieldCoordinate]];
+      [self changeText:[self.currentEntity getCellValue:MWMPlacePageCellTypeCoordinate]];
       break;
     default:
       break;

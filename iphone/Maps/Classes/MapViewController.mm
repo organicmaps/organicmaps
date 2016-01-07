@@ -6,8 +6,8 @@
 #import "MapViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMAPIBar.h"
+#import "MWMEditorViewController.h"
 #import "MWMMapViewControlsManager.h"
-#import "MWMOpeningHoursEditorViewController.h"
 #import "MWMPageController.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMTextToSpeech.h"
@@ -405,6 +405,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
   [self refreshAd];
 
+  [self updateStatusBarStyle];
   GetFramework().InvalidateRendering();
   [self showWhatsNewIfNeeded];
 }
@@ -797,12 +798,12 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-  if ([segue.identifier isEqualToString:@"Map2OpeningHoursEditor"])
+  if ([segue.identifier isEqualToString:@"Map2EditorSegue"])
   {
     self.skipDismissOnViewDisappear = YES;
-    MWMPlacePageEntity * entity = sender;
-    MWMOpeningHoursEditorViewController * dvc = segue.destinationViewController;
-    dvc.openingHours = [entity getFieldValue:MWMPlacePageMetadataFieldOpenHours];
+    UINavigationController * dvc = segue.destinationViewController;
+    MWMEditorViewController * editorVC = (MWMEditorViewController *)[dvc topViewController];
+    editorVC.entity = sender;
   }
 }
 

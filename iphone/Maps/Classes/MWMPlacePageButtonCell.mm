@@ -18,6 +18,7 @@
 - (IBAction)editPlaceButtonTouchUpIndide
 {
   [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatEdit)];
+  [self.placePage editPlace];
 }
 
 @end

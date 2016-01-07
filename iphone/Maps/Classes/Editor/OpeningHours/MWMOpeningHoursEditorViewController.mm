@@ -69,6 +69,10 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 - (void)configNavBar
 {
   self.title = L(@"opening_hours");
+  self.navigationItem.leftBarButtonItem =
+      [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                    target:self
+                                                    action:@selector(onCancel)];
   self.navigationItem.rightBarButtonItem =
       [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                     target:self
@@ -99,12 +103,16 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 
 #pragma mark - Actions
 
+- (void)onCancel
+{
+  [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)onDone
 {
   [self.model updateOpeningHours];
-  std::string str = self.openingHours.UTF8String;
-  // TODO (AlexZ): Store edited opening time
-  [self.navigationController popViewControllerAnimated:YES];
+  [self.delegate setOpeningHours:self.openingHours];
+  [self onCancel];
 }
 
 #pragma mark - Table

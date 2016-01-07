@@ -30,7 +30,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   MWMPlacePageManagerStateOpen
 };
 
-@interface MWMPlacePageViewManager () <LocationObserver>
+@interface MWMPlacePageViewManager () <LocationObserver, MWMPlacePageEntityProtocol>
 {
   unique_ptr<UserMarkCopy> m_userMark;
 }
@@ -90,13 +90,20 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 {
   if (!m_userMark)
     return;
-  self.entity = [[MWMPlacePageEntity alloc] initWithUserMark:m_userMark->GetUserMark()];
+  self.entity = [[MWMPlacePageEntity alloc] initWithDelegate:self];
   self.state = MWMPlacePageManagerStateOpen;
   if (IPAD)
     [self setPlacePageForiPad];
   else
     [self setPlacePageForiPhoneWithOrientation:self.ownerViewController.interfaceOrientation];
   [self configPlacePage];
+}
+
+#pragma mark - MWMPlacePageEntityProtocol
+
+- (UserMark const *)userMark
+{
+  return m_userMark->GetUserMark();
 }
 
 #pragma mark - Layout
@@ -281,11 +288,10 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   m_userMark.reset(new UserMarkCopy(bookmark, false));
 }
 
-- (void)editPlaceTime
+- (void)editPlace
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatEditTime)
-                   withParameters:@{kStatValue : kStatEdit}];
-  [self.ownerViewController performSegueWithIdentifier:@"Map2OpeningHoursEditor" sender:self.entity];
+  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatEdit)];
+  [self.ownerViewController performSegueWithIdentifier:@"Map2EditorSegue" sender:self.entity];
 }
 
 - (void)addBookmark

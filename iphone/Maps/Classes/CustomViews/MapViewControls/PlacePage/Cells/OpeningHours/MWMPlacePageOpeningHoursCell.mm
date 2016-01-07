@@ -20,12 +20,18 @@ using WeekDayView = MWMPlacePageOpeningHoursDayView *;
 @property (weak, nonatomic) IBOutlet UIImageView * expandImage;
 @property (weak, nonatomic) IBOutlet UIButton * toggleButton;
 
+@property (weak, nonatomic) IBOutlet UILabel * openTime;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * openTimeLeadingOffset;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * weekDaysViewHeight;
 @property (nonatomic) CGFloat weekDaysViewEstimatedHeight;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * bottomSeparatorLeadingOffset;
 @property (weak, nonatomic) id<MWMPlacePageOpeningHoursCellProtocol> delegate;
 
 @property (nonatomic) BOOL isClosed;
+@property (nonatomic, readonly) BOOL isExpanded;
+@property (nonatomic) BOOL haveExpandSchedule;
 
 @end
 
@@ -56,28 +62,35 @@ WeekDayView getWeekDayView()
   ui::TimeTableSet timeTableSet;
 }
 
-- (void)configWithInfo:(NSString *)info delegate:(id<MWMPlacePageOpeningHoursCellProtocol>)delegate
+- (void)configWithDelegate:(id<MWMPlacePageOpeningHoursCellProtocol>)delegate
+                      info:(NSString *)info
+                  lastCell:(BOOL)lastCell
 {
   self.delegate = delegate;
   WeekDayView cd = self.currentDay;
   cd.currentDay = YES;
 
-  self.toggleButton.hidden = YES;
-  self.expandImage.hidden = YES;
+  self.toggleButton.hidden = !delegate.forcedButton;
+  self.expandImage.hidden = !delegate.forcedButton;
+  self.expandImage.image = [UIImage imageNamed:@"ic_arrow_gray"];
+  self.bottomSeparatorLeadingOffset.constant = lastCell ? 0.0 : 60.0;
   NSAssert(info, @"Schedule can not be empty");
   osmoh::OpeningHours oh(info.UTF8String);
   if (MakeTimeTableSet(oh, timeTableSet))
   {
     cd.isCompatibility = NO;
-    self.isClosed = oh.IsClosed(time(nullptr));
+    if (delegate.isEditor)
+      self.isClosed = NO;
+    else
+      self.isClosed = oh.IsClosed(time(nullptr));
     [self processSchedule];
   }
   else
   {
     cd.isCompatibility = YES;
-    [cd setCompatibilityText:info];
+    [cd setCompatibilityText:info isPlaceholder:delegate.isPlaceholder];
   }
-  BOOL const isExpanded = delegate.openingHoursCellExpanded;
+  BOOL const isExpanded = self.isExpanded;
   self.middleSeparator.hidden = !isExpanded;
   self.weekDaysView.hidden = !isExpanded;
   [cd invalidate];
@@ -90,8 +103,7 @@ WeekDayView getWeekDayView()
   Weekday currentDay = static_cast<Weekday>([cal component:NSCalendarUnitWeekday fromDate:[NSDate date]]);
   BOOL haveCurrentDay = NO;
   size_t timeTablesCount = timeTableSet.Size();
-  BOOL const haveExpandSchedule = (timeTablesCount > 1);
-  BOOL const isExpanded = self.delegate.openingHoursCellExpanded;
+  self.haveExpandSchedule = (timeTablesCount > 1);
   self.weekDaysViewEstimatedHeight = 0.0;
   [self.weekDaysView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
   for (size_t idx = 0; idx < timeTablesCount; ++idx)
@@ -103,20 +115,26 @@ WeekDayView getWeekDayView()
       haveCurrentDay = YES;
       [self addCurrentDay:tt];
     }
-    if (haveExpandSchedule && isExpanded)
+    if (self.isExpanded)
       [self addWeekDays:tt];
   }
   if (!haveCurrentDay)
     [self addEmptyCurrentDay];
-  if (haveExpandSchedule)
+  if (self.haveExpandSchedule)
   {
     self.toggleButton.hidden = NO;
     self.expandImage.hidden = NO;
-    self.expandImage.image = [UIImage imageNamed:isExpanded ? @"ic_arrow_gray_up" : @"ic_arrow_gray_down"];
-    if (isExpanded)
+    if (self.delegate.forcedButton)
+      self.expandImage.image = [UIImage imageNamed:@"ic_arrow_gray"];
+    else if (self.isExpanded)
+      self.expandImage.image = [UIImage imageNamed:@"ic_arrow_gray_up"];
+    else
+      self.expandImage.image = [UIImage imageNamed:@"ic_arrow_gray_down"];
+    if (self.isExpanded)
       [self addClosedDays];
   }
   self.weekDaysViewHeight.constant = ceil(self.weekDaysViewEstimatedHeight);
+  [self alignTimeOffsets];
 }
 
 - (void)addCurrentDay:(ui::TTimeTableProxy)timeTable
@@ -135,6 +153,7 @@ WeekDayView getWeekDayView()
   else
   {
     BOOL const everyDay = (timeTable.GetOpeningDays().size() == 7);
+    self.haveExpandSchedule |= !everyDay;
     label = everyDay ? L(@"every_day") : L(@"today");
     openTime = stringFromTimeSpan(timeTable.GetOpeningTime());
     breaks = arrayFromClosedTimes(timeTable.GetExcludeTime());
@@ -184,12 +203,22 @@ WeekDayView getWeekDayView()
   self.weekDaysViewEstimatedHeight += wd.viewHeight;
 }
 
+- (void)alignTimeOffsets
+{
+  CGFloat offset = self.openTime.minX;
+  for (WeekDayView wd in self.weekDaysView.subviews)
+    offset = MAX(offset, wd.openTimeLeadingOffset);
+
+  for (WeekDayView wd in self.weekDaysView.subviews)
+    wd.openTimeLeadingOffset = offset;
+}
+
 - (CGFloat)cellHeight
 {
   CGFloat height = self.currentDay.viewHeight;
-  if (self.delegate.openingHoursCellExpanded)
+  if (self.isExpanded)
   {
-    CGFloat const bottomOffset = 12.0;
+    CGFloat const bottomOffset = 4.0;
     height += bottomOffset;
     if (!self.currentDay.isCompatibility)
       height += self.weekDaysViewHeight.constant;
@@ -202,6 +231,15 @@ WeekDayView getWeekDayView()
 - (IBAction)toggleButtonTap
 {
   [self.delegate setOpeningHoursCellExpanded:!self.delegate.openingHoursCellExpanded forCell:self];
+}
+
+#pragma mark - Properties
+
+- (BOOL)isExpanded
+{
+  if (self.currentDay.isCompatibility || !self.haveExpandSchedule)
+    return NO;
+  return self.delegate.openingHoursCellExpanded;
 }
 
 @end

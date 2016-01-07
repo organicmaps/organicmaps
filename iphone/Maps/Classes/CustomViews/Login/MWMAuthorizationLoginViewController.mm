@@ -28,6 +28,7 @@
   [super viewWillAppear:animated];
   self.title = L(@"login");
   UINavigationBar * navBar = self.navigationController.navigationBar;
+  navBar.barStyle = UIBarStyleBlack;
   navBar.tintColor = [UIColor clearColor];
   navBar.barTintColor = [UIColor clearColor];
   navBar.shadowImage = [UIImage imageWithColor:[UIColor clearColor]];

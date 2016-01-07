@@ -1,19 +1,26 @@
 #include "Framework.h"
 
 #include "map/user_mark.hpp"
+#include "indexer/feature_meta.hpp"
 
-typedef NS_ENUM(NSUInteger, MWMPlacePageMetadataField)
+typedef NS_ENUM(NSUInteger, MWMPlacePageCellType)
 {
-  MWMPlacePageMetadataFieldPostcode,
-  MWMPlacePageMetadataFieldPhoneNumber,
-  MWMPlacePageMetadataFieldWebsite,
-  MWMPlacePageMetadataFieldURL,
-  MWMPlacePageMetadataFieldEmail,
-  MWMPlacePageMetadataFieldOpenHours,
-  MWMPlacePageMetadataFieldWiFi,
-  MWMPlacePageMetadataFieldCoordinate,
-  MWMPlacePageMetadataFieldBookmark,
-  MWMPlacePageMetadataFieldEditButton
+  MWMPlacePageCellTypePostcode = feature::Metadata::EType::FMD_COUNT,
+  MWMPlacePageCellTypePhoneNumber,
+  MWMPlacePageCellTypeWebsite,
+  MWMPlacePageCellTypeURL,
+  MWMPlacePageCellTypeEmail,
+  MWMPlacePageCellTypeOpenHours,
+  MWMPlacePageCellTypeWiFi,
+  MWMPlacePageCellTypeCoordinate,
+  MWMPlacePageCellTypeBookmark,
+  MWMPlacePageCellTypeEditButton,
+  MWMPlacePageCellTypeName,
+  MWMPlacePageCellTypeStreet,
+  MWMPlacePageCellTypeBuilding,
+  MWMPlacePageCellTypeCuisine,
+  MWMPlacePageCellTypeSpacer,
+  MWMPlacePageCellTypeCount
 };
 
 typedef NS_ENUM(NSUInteger, MWMPlacePageEntityType)
@@ -26,7 +33,15 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageEntityType)
   MWMPlacePageEntityTypeMyPosition
 };
 
+using MWMPlacePageCellTypeValueMap = map<MWMPlacePageCellType, string>;
+
 @class MWMPlacePageViewManager;
+
+@protocol MWMPlacePageEntityProtocol <NSObject>
+
+- (UserMark const *)userMark;
+
+@end
 
 @interface MWMPlacePageEntity : NSObject
 
@@ -50,14 +65,15 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageEntityType)
 - (void)addBookmarkField;
 - (void)removeBookmarkField;
 
-- (instancetype)initWithUserMark:(UserMark const *)mark;
+- (instancetype)initWithDelegate:(id<MWMPlacePageEntityProtocol>)delegate;
 - (void)synchronize;
 
 - (void)toggleCoordinateSystem;
 
-- (NSUInteger)getFieldsCount;
-- (MWMPlacePageMetadataField)getFieldType:(NSUInteger)index;
-- (NSString *)getFieldValue:(MWMPlacePageMetadataField)field;
-- (BOOL)isFieldEditable:(MWMPlacePageMetadataField)field;
+- (NSUInteger)getCellsCount;
+- (MWMPlacePageCellType)getCellType:(NSUInteger)index;
+- (NSString *)getCellValue:(MWMPlacePageCellType)cellType;
+- (BOOL)isCellEditable:(MWMPlacePageCellType)cellType;
+- (void)saveEditedCells:(MWMPlacePageCellTypeValueMap const &)cells;
 
 @end

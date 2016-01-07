@@ -10,18 +10,36 @@
 #import "MWMPlacePageViewManager.h"
 #import "Statistics.h"
 
-static NSString * const kPlacePageLinkCellIdentifier = @"PlacePageLinkCell";
-static NSString * const kPlacePageInfoCellIdentifier = @"PlacePageInfoCell";
-static NSString * const kPlacePageBookmarkCellIdentifier = @"PlacePageBookmarkCell";
-static NSString * const kPlacePageButtonCellIdentifier = @"MWMPlacePageButtonCell";
-static NSString * const kPlacePageOpeningHoursCellIdentifier = @"MWMPlacePageOpeningHoursCell";
-
-static CGFloat const kPlacePageTitleKoefficient = 0.63;
-static CGFloat const kLeftOffset = 16.;
-static CGFloat const kDirectionArrowSide = 26.;
-static CGFloat const kOffsetFromTitleToDistance = 12.;
-static CGFloat const kOffsetFromDistanceToArrow = 8.;
 extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
+
+namespace
+{
+CGFloat const kPlacePageTitleKoefficient = 0.63;
+CGFloat const kLeftOffset = 16.;
+CGFloat const kDirectionArrowSide = 26.;
+CGFloat const kOffsetFromTitleToDistance = 12.;
+CGFloat const kOffsetFromDistanceToArrow = 8.;
+
+MWMPlacePageCellTypeValueMap const kCellType2ReuseIdentifier{
+    {MWMPlacePageCellTypeWiFi, "PlacePageInfoCell"},
+    {MWMPlacePageCellTypeCoordinate, "PlacePageInfoCell"},
+    {MWMPlacePageCellTypePostcode, "PlacePageInfoCell"},
+    {MWMPlacePageCellTypeURL, "PlacePageLinkCell"},
+    {MWMPlacePageCellTypeWebsite, "PlacePageLinkCell"},
+    {MWMPlacePageCellTypeEmail, "PlacePageLinkCell"},
+    {MWMPlacePageCellTypePhoneNumber, "PlacePageLinkCell"},
+    {MWMPlacePageCellTypeOpenHours, "MWMPlacePageOpeningHoursCell"},
+    {MWMPlacePageCellTypeBookmark, "PlacePageBookmarkCell"},
+    {MWMPlacePageCellTypeEditButton, "MWMPlacePageButtonCell"}};
+
+NSString * reuseIdentifier(MWMPlacePageCellType cellType)
+{
+  auto const it = kCellType2ReuseIdentifier.find(cellType);
+  BOOL const haveCell = (it != kCellType2ReuseIdentifier.end());
+  ASSERT(haveCell, ());
+  return haveCell ? @(it->second.c_str()) : @"";
+}
+} // namespace
 
 @interface MWMBasePlacePageView () <MWMPlacePageOpeningHoursCellProtocol>
 
@@ -42,20 +60,14 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
 - (void)awakeFromNib
 {
   [super awakeFromNib];
-
   self.featureTable.delegate = self;
   self.featureTable.dataSource = self;
-
-  [self.featureTable registerNib:[UINib nibWithNibName:kPlacePageInfoCellIdentifier bundle:nil]
-          forCellReuseIdentifier:kPlacePageInfoCellIdentifier];
-  [self.featureTable registerNib:[UINib nibWithNibName:kPlacePageLinkCellIdentifier bundle:nil]
-          forCellReuseIdentifier:kPlacePageLinkCellIdentifier];
-  [self.featureTable registerNib:[UINib nibWithNibName:kPlacePageBookmarkCellIdentifier bundle:nil]
-          forCellReuseIdentifier:kPlacePageBookmarkCellIdentifier];
-  [self.featureTable registerNib:[UINib nibWithNibName:kPlacePageButtonCellIdentifier bundle:nil]
-          forCellReuseIdentifier:kPlacePageButtonCellIdentifier];
-  [self.featureTable registerNib:[UINib nibWithNibName:kPlacePageOpeningHoursCellIdentifier bundle:nil]
-          forCellReuseIdentifier:kPlacePageOpeningHoursCellIdentifier];
+  for (auto const & type : kCellType2ReuseIdentifier)
+  {
+    NSString * identifier = @(type.second.c_str());
+    [self.featureTable registerNib:[UINib nibWithNibName:identifier bundle:nil]
+            forCellReuseIdentifier:identifier];
+  }
 }
 
 - (void)configureWithEntity:(MWMPlacePageEntity *)entity
@@ -220,6 +232,21 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
 
 #pragma mark - MWMPlacePageOpeningHoursCellProtocol
 
+- (BOOL)forcedButton
+{
+  return NO;
+}
+
+- (BOOL)isPlaceholder
+{
+  return NO;
+}
+
+- (BOOL)isEditor
+{
+  return NO;
+}
+
 - (void)setOpeningHoursCellExpanded:(BOOL)openingHoursCellExpanded forCell:(UITableViewCell *)cell
 {
   _openingHoursCellExpanded = openingHoursCellExpanded;
@@ -237,9 +264,9 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
   [CATransaction commit];
 }
 
-- (void)editPlaceTime
+- (void)editPlace
 {
-  [self.ownerPlacePage editPlaceTime];
+  [self.ownerPlacePage editPlace];
 }
 
 - (UITableViewCell *)offscreenCellForIdentifier:(NSString *)reuseIdentifier
@@ -257,89 +284,82 @@ extern CGFloat const kBasePlacePageViewTitleBottomOffset = 2.;
 
 @implementation MWMBasePlacePageView (UITableView)
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (MWMPlacePageCellType)cellTypeForIndexPath:(NSIndexPath *)indexPath
+{
+  MWMPlacePageCellType const cellType = [self.entity getCellType:indexPath.row];
+  return cellType;
+}
+
+- (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath
+{
+  MWMPlacePageCellType const cellType = [self cellTypeForIndexPath:indexPath];
+  return reuseIdentifier(cellType);
+}
+
+- (void)fillCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath * _Nonnull)indexPath forHeight:(BOOL)forHeight
 {
   MWMPlacePageEntity * entity = self.entity;
-  MWMPlacePageMetadataField const field = [entity getFieldType:indexPath.row];
-  UITableViewCell * cell = [self offscreenCellForIdentifier:[self cellIdentifierForField:field]];
-  if ([cell isKindOfClass:[MWMPlacePageBookmarkCell class]])
+  MWMPlacePageCellType const cellType = [self cellTypeForIndexPath:indexPath];
+  switch (cellType)
   {
-    MWMPlacePageBookmarkCell * tCell = (MWMPlacePageBookmarkCell *)cell;
-    [tCell config:self.ownerPlacePage forHeight:YES];
-    return tCell.cellHeight;
+    case MWMPlacePageCellTypeBookmark:
+      [(MWMPlacePageBookmarkCell *)cell config:self.ownerPlacePage forHeight:NO];
+      break;
+    case MWMPlacePageCellTypeOpenHours:
+      [(MWMPlacePageOpeningHoursCell *)cell configWithDelegate:self info:[entity getCellValue:cellType] lastCell:NO];
+      break;
+    case MWMPlacePageCellTypeEditButton:
+      [(MWMPlacePageButtonCell *)cell config:self.ownerPlacePage];
+      break;
+    default:
+    {
+      MWMPlacePageInfoCell * tCell = (MWMPlacePageInfoCell *)cell;
+      tCell.currentEntity = self.entity;
+      [tCell configureWithType:cellType info:[entity getCellValue:cellType]];
+      break;
+    }
   }
-  else if ([cell isKindOfClass:[MWMPlacePageOpeningHoursCell class]])
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  NSString * reuseIdentifier = [self cellIdentifierForIndexPath:indexPath];
+  UITableViewCell * cell = [self offscreenCellForIdentifier:reuseIdentifier];
+  [self fillCell:cell atIndexPath:indexPath forHeight:YES];
+  MWMPlacePageCellType const cellType = [self cellTypeForIndexPath:indexPath];
+  switch (cellType)
   {
-    MWMPlacePageOpeningHoursCell * tCell = (MWMPlacePageOpeningHoursCell *)cell;
-    [tCell configWithInfo:[entity getFieldValue:field] delegate:self];
-    return tCell.cellHeight;
+    case MWMPlacePageCellTypeBookmark:
+      return ((MWMPlacePageBookmarkCell *)cell).cellHeight;
+    case MWMPlacePageCellTypeOpenHours:
+      return ((MWMPlacePageOpeningHoursCell *)cell).cellHeight;
+    default:
+    {
+      [cell setNeedsUpdateConstraints];
+      [cell updateConstraintsIfNeeded];
+      cell.bounds = {{}, {CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds)}};
+      [cell setNeedsLayout];
+      [cell layoutIfNeeded];
+      CGSize const size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+      return size.height;
+    }
   }
-  else if ([cell isKindOfClass:[MWMPlacePageInfoCell class]])
-  {
-    MWMPlacePageInfoCell * tCell = (MWMPlacePageInfoCell *)cell;
-    tCell.currentEntity = self.entity;
-    [tCell configureWithType:field info:[entity getFieldValue:field]];
-  }
-  [cell setNeedsUpdateConstraints];
-  [cell updateConstraintsIfNeeded];
-  cell.bounds = {{}, {CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds)}};
-  [cell setNeedsLayout];
-  [cell layoutIfNeeded];
-  CGSize const size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-  return size.height;
+}
+
+- (void)tableView:(UITableView * _Nonnull)tableView willDisplayCell:(UITableViewCell * _Nonnull)cell forRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
+{
+  [self fillCell:cell atIndexPath:indexPath forHeight:NO];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  return [self.entity getFieldsCount];
+  return [self.entity getCellsCount];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  MWMPlacePageEntity * entity = self.entity;
-  MWMPlacePageMetadataField const field = [entity getFieldType:indexPath.row];
-  UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:[self cellIdentifierForField:field]];
-  if (field == MWMPlacePageMetadataFieldBookmark)
-  {
-    [(MWMPlacePageBookmarkCell *)cell config:self.ownerPlacePage forHeight:NO];
-  }
-  else if (field == MWMPlacePageMetadataFieldOpenHours)
-  {
-    [(MWMPlacePageOpeningHoursCell *)cell configWithInfo:[entity getFieldValue:field] delegate:self];
-  }
-  else if (field == MWMPlacePageMetadataFieldEditButton)
-  {
-    [(MWMPlacePageButtonCell *)cell config:self.ownerPlacePage];
-  }
-  else
-  {
-    MWMPlacePageInfoCell * tCell = (MWMPlacePageInfoCell *)cell;
-    tCell.currentEntity = self.entity;
-    [tCell configureWithType:field info:[entity getFieldValue:field]];
-  }
-  return cell;
-}
-
-- (NSString *)cellIdentifierForField:(MWMPlacePageMetadataField)field
-{
-  switch (field)
-  {
-    case MWMPlacePageMetadataFieldWiFi:
-    case MWMPlacePageMetadataFieldCoordinate:
-    case MWMPlacePageMetadataFieldPostcode:
-      return kPlacePageInfoCellIdentifier;
-    case MWMPlacePageMetadataFieldURL:
-    case MWMPlacePageMetadataFieldWebsite:
-    case MWMPlacePageMetadataFieldEmail:
-    case MWMPlacePageMetadataFieldPhoneNumber:
-      return kPlacePageLinkCellIdentifier;
-    case MWMPlacePageMetadataFieldOpenHours:
-      return kPlacePageOpeningHoursCellIdentifier;
-    case MWMPlacePageMetadataFieldBookmark:
-      return kPlacePageBookmarkCellIdentifier;
-    case MWMPlacePageMetadataFieldEditButton:
-      return kPlacePageButtonCellIdentifier;
-  }
+  NSString * reuseIdentifier = [self cellIdentifierForIndexPath:indexPath];
+  return [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
 }
 
 @end
