@@ -12311,6 +12311,37 @@
     nl = — Beschouw de voorgestelde routes enkel als aanbevelingen;
     pt = — As rotas indicadas devem ser tratadas apenas como sugestões;
 
+  [dialog_routing_disclaimer_borders]
+    tags = ios,android
+	en = Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.
+	ru = Будьте внимательны с маршрутами в приграничных зонах: в построенных программой маршрутах иногда возможны пересечения границ в неположенных местах.
+	fr = Faites attention aux itinéraires traversant des zones frontalières : les itinéraires générés par l'application peuvent parfois franchir des frontières étatiques dans des zones interdites.
+	da = Vær forsigtig med ruter i grænseområder: de ruter, vores app har skabt, kan nogle gange krydse landegrænser på uautoriserede steder.
+	id = Berhati-hatilah dengan rute di zona perbatasan: rute yang dibuat oleh aplikasi kami terkadang mungkin saja melintasi batas negara di lokasi yang tidak sah.
+	ko = 국경 지역에서 경로를 주의하십시오: 앱에 의해 생성된 경로는 허가받지 않은 장소에서 국가 경계에 걸쳐 종종 일어날 수 있습니다.
+	sv = Iakttag försiktighet med rutter i gränszoner: rutterna som vår app skapat kan ibland korsa landsgränser på otillåtna platser.
+	tr = Sınır bölgelerinde rotalar konusunda dikkatli olun: uygulamamız tarafından oluşturulan rotalar bazen izin verilmeyen yerlerdeki ülke sınırlarını geçebilir.
+	uk = Дотримуйтеся обережності з маршрутами у прикордонних зонах: маршрути, створені нашою програмою, іноді можуть перетинати кордони країн у несанкціонованих місцях.
+	vi = Chú ý khi thể dục theo những con đường gần đường biên giới: những con đường do ứng dụng của chúng tôi tạo ra đôi khi có khả năng vượt ra khỏi biên giới vào những địa điểm không được phép.
+	hu = A határmenti útvonalakon közlekedjen óvatosan: az alkalmazásunk által létrehozott útvonalak néha olyan helyeken szelhetik át az országhatárokat, amelyek nem engedélyezettek.
+	de = Bitte seien Sie vorsichtig bei Routen in Grenzgebieten: die Routen, die unsere App erstellt, können manchmal Landesgrenzen überschreiten und durch Sperrgebiete führen.
+	fi = Ole varovainen reittien suhteen raja-alueilla: sovelluksemme luomat reitit voivat toisinaan ylittää maiden rajoja luvattomissa paikoissa.
+	cs = U tratí v hraničních zónách buďte opatrní: trasy vytvořené naší aplikací občas překračují hranice zemí na nepovolených místech.
+	it = Fai attenzione ai percorsi nelle zone di confine: i percorsi creati dalla nostra app possono, a volte, attraversare i confini di stato in zone non autorizzate.
+	nb = Vær forsiktig når det gjelder ruter i grenseområder: rutene som appen vår oppretter kan komme til å krysse landegrenser i uatoriserte områder.
+	zh-Hant = 小心對待國界區的路線：我們應用創造的路線有時會在未經授權的地方跨越國界。
+	zh-Hans = 小心对待国界区的路线：我们应用创造的路线有时会在未经授权的地方跨越国界。
+	th = โปรดระมัดระวังเมื่อใช้เส้นทางในพื้นที่ชายแดน: บางครั้งเส้นทางที่สร้างขึ้นโดยแอปของเรานั้นอาจข้ามผ่านชายแดนประเทศในพื้นที่ที่ไม่ได้รับการอนุญาต
+	ja = 国境付近のルートにご注意ください。アプリの作成したルートは時々入国の許可されていない国への国境を超える場合があります。
+	ro = Aveți grijă în zonele de graniță: rutele create de aplicația noastră ar putea, ocazional, să treacă granița prin locuri nepermise.
+	ar = تحذير بشأن مسارات في منطقة حدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر حدود الدولة في أماكن غير مصرح بها في بعض الأحيان.
+	sk = Buďte opatrní na cestách v pohraničných oblastiach: trasy vytvorené aplikáciou môžu prekročiť hranice štátov na nepovolených miestach.
+	es = Actúa con cautela en las rutas con zonas fronterizas: las rutas creadas por nuestra aplicación en ocasiones pueden atravesar las fronteras de países en lugares no autorizados.
+	pl = Prosimy zachować ostrożność na trasach w strefie nadgranicznej: wyznaczone przez naszą aplikację trasy mogą przecinać granice państw w niedozwolonych do przekroczenia miejscach.
+	nl = Wees voorzichtig met de routes in de grenszones: de routes die door onze app gecreëerd zijn, gaan wellicht door landgrenzen in ongeautoriseerde plaatsen.
+	pt = Use de cautela em rotas de zonas fronteiriças: as rotas criadas por nosso aplicativo podem algumas vezes cruzar fronteiras nacionais em locais não autorizados.
+
+
   [dialog_routing_disclaimer_beware]
     tags = ios,android
     en = Please stay alert and safe on the roads!
@@ -14613,3 +14644,95 @@
     nl = Met 3D-gebouwen zijn onze kaarten informatiever en mooier geworden.
     pt = Com os prédios em 3D, nossos mapas ficaram mais informativos e bonitos.
     
+  [3d_new_update_maps]
+    tags = ios, android
+	en = To take full advantage of this feature, please, update your map data.
+	ru = Для полноценной работы функции, пожалуйста, обновите карты.
+	fr = Pour profiter pleinement de cette fonction, veuillez mettre à jour les données de votre carte.
+	da = For at udnytte denne funktion fuldt ud skal du opdatere dine kortdata.
+	id = Untuk memaksimalkan pemanfaatan fitur ini, harap perbarui data peta Anda.
+	ko = 이 기능의 모든 장점을 취하세요, 당신의 맵 데이터를 업데이트 하세요.
+	sv = Uppdatera dina kartdata för att kunna använda denna funktion fullt ut.
+	tr = Bu özellikten tam anlamıyla faydalanabilmek için, lütfen harita verilerinizi güncelleyin.
+	uk = Щоб повною мірою скористатися цією функцією, будь ласка, оновіть дані своєї карти.
+	vi = Để tận dụng tính năng này, vui lòng cập nhật dữ liệu bản đồ của bạn.
+	hu = Ezen tulajdonság teljes körű kihasználásához, kérjük, frissítse térképének az adatát.
+	de = Um alle Vorteile dieser Funktion nutzen zu können, aktualisieren Sie bitte Ihre Kartendaten.
+	fi = Päivitä karttatietosi voidaksesi käyttää tätä toimintoa täysimääräisesti.
+	cs = Využijte naplno tuto funkci, aktualizujte prosím svá mapová data.
+	it = Per sfruttare al massimo questa funzione, aggiorna i dati della tua mappa.
+	nb = Oppdater kartdata for å kunne bruke denne funksjonen fullt ut.
+	zh-Hant = 要充分利用此功能，請更新您的地圖資料。
+	zh-Hans = 要充分利用此功能，请更新您的地图数据。
+	th = เพื่อรับประโยชน์อย่างเต็มที่สำหรับฟีเจอร์นี้ กรุณาอัปเดตข้อมูลแผนที่ของคุณ
+	ja = この機能をフル活用するために、マップデータを更新してください。
+	ro = Pentru a beneficia integral de această funcție, vă rugăm să actualizați datele hărții dvs.
+	ar = للتمتع بالمزايا الكاملة لهذه الخاصية، قم بتحديث بيانات الخرائط لديك.
+	sk = Pre plné využitie tejto funkcie aktualizujte údaje k mape.
+	es = Para aprovechar al máximo esta característica, por favor, actualiza tus datos de mapa.
+	pl = Aby w pełni korzystać z tej funkcji, uaktualnij dane map.
+	nl = Werk uw kaartgegevens bij om volledig te kunnen profiteren van deze functie.
+	pt = Para aproveitar por completo este recurso, atualize os dados do seu mapa.  
+	
+	
+  [3d_new_on]	
+    tags = ios
+	en = Enable Perspective View
+	ru = Включить перспективный вид
+	fr = Activer la vue en perspective
+	da = Aktivér perspektivvisning
+	id = Aktifkan pandangan perspektif
+	ko = 원근 보기 활성
+	sv = Aktivera perspektivvy
+	tr = Perspektif görünümü etkinleştir
+	uk = Включити перспективний вид
+	vi = Kích hoạt góc nhìn phối cảnh
+	hu = Távlati kép engedélyezése
+	de = Perspektivenansicht aktualisieren
+	fi = Aktivoi perspektiivinäkymä
+	cs = Povolit zobrazení perspektivy
+	it = Attiva vista in prospettiva
+	nb = Aktiver perspektivvisning
+	zh-Hant = 啟用透視圖
+	zh-Hans = 启用透视图
+	th = เปิดใช้งานมุมมองเพอร์สเปกทีฟ
+	ja = パースペクティブ表示を有効化
+	ro = Activare vizualizare în perspectivă
+	ar = تفعيل العرض المنظوري
+	sk = Povoliť perspektívne zobrazenie
+	es = Habilitar vista de perspectiva
+	pl = Włącz widok z perspektywy
+	nl = Perspectiefbeeld inschakelen
+	pt = Habilitar visão em perspectiva	
+    
+    
+    
+  [3d_new_buildings_on]
+    tags = ios
+	en = Enable 3D Buildings
+	ru = Включить 3D здания
+	fr = Activer les bâtiments en 3D
+	da = Aktivér 3D-bygninger
+	id = Aktifkan Bangunan 3D
+	ko = 3D 빌딩 보기 활성
+	sv = Aktivera 3D-byggnader
+	tr = 3D Binalar seçeneğini etkinleştir
+	uk = Включити 3D-будівлі
+	vi = Kích hoạt Tòa nhà 3D
+	hu = 3D Épületek engedélyezése
+	de = 3D-Gebäude aktivieren
+	fi = Aktivoi 3D-rakennukset
+	cs = Povolit 3D Budovy
+	it = Attiva Edifici in 3D
+	nb = Aktiver 3D-bygninger
+	zh-Hant = 啟用3D建築
+	zh-Hans = 启用3D建筑
+	th = เปิดใช้งานตึก 3D
+	ja = 3Dビルディングを有効化
+	ro = Activare Clădiri 3D
+	ar = قم بتفعيل المباني ثلاثية الأبعاد
+	sk = Povoliť 3D budovy
+	es = Habilitar edificios en 3D
+	pl = Włącz budynki 3D
+	nl = 3D-Gebouwen inschakelen
+	pt = Habilitar Prédios em 3D    
