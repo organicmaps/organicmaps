@@ -6460,7 +6460,7 @@
     ar = تقييم التطبيق
     da = Bedøm appen
     tr = Uygulamayı değerlendir
-    sv = Get appen ett betyg
+    sv = Ge appen ett betyg
     he = דרגו את האפליקציה
     id = Beri nilai aplikasi
     vi = Cho điểm ứng dụng
@@ -6778,6 +6778,7 @@
     ro = Calibrare busolă
     nb = Kompasskalibrering
     fi = Kompassin kalibrointi
+    sv = Kompasskalibrering
 
   [wifi]
     tags = ios,android,tizen

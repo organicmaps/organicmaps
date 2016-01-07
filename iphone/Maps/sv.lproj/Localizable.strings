@@ -626,7 +626,7 @@
 "subscribe_to_news" = "Prenumerera på våra nyheter";
 
 /* Text in menu */
-"rate_the_app" = "Get appen ett betyg";
+"rate_the_app" = "Ge appen ett betyg";
 
 /* Rate in Google Play (Android only) */
 "rate_gp" = "Rate on Google Play";
@@ -665,7 +665,7 @@
 "email_error_title" = "Fel när mailet skulle skickas";
 
 /* Settings item title */
-"pref_calibration_title" = "Compass calibration";
+"pref_calibration_title" = "Kompasskalibrering";
 
 /* Search Suggestion */
 "wifi" = "WiFi";

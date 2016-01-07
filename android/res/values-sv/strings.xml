@@ -377,7 +377,7 @@
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">Prenumerera på våra nyheter</string>
 	<!-- Text in menu -->
-	<string name="rate_the_app">Get appen ett betyg</string>
+	<string name="rate_the_app">Ge appen ett betyg</string>
 	<!-- Text in menu -->
 	<string name="help">Hjälp</string>
 	<!-- Text in menu -->
@@ -394,6 +394,8 @@
 	<string name="email_error_body">E-mailklienten har inte konfigurerats. Konfigurera den eller använd ett annat sätt att kontakta oss på %s</string>
 	<!-- Alert title -->
 	<string name="email_error_title">Fel när mailet skulle skickas</string>
+	<!-- Settings item title -->
+	<string name="pref_calibration_title">Kompasskalibrering</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Uppdatera kartan för att skapa en rutt.</string>
 	<!-- Update maps suggestion -->
