@@ -258,7 +258,7 @@ if [ "$MODE" == "coast" ]; then
       # Preprocess coastlines to separate intermediate directory
       "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS_O5M" \
         -preprocess 2>> "$LOG_PATH/WorldCoasts.log"
-      python $ROADS_SCRIPT "$INTCOASTSDIR/" $OSRM_URL >>"$LOG_PATH"/road_runner.log
+      python "$ROADS_SCRIPT" "$INTCOASTSDIR/" "$OSRM_URL" >>"$LOG_PATH"/road_runner.log
       # Generate temporary coastlines file in the coasts intermediate dir
       if ! "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS_O5M" \
         --user_resource_path="$DATA_PATH/" -make_coasts -fail_on_coasts 2>&1 | tee -a "$LOG_PATH/WorldCoasts.log" | { grep -i 'not merged\|coastline polygons' || true; }
@@ -276,10 +276,10 @@ if [ "$MODE" == "coast" ]; then
     fi
   done
   # make a working copy of generated coastlines file
-  [ -n "$OPT_COAST" ] && cp "$INTCOASTSDIR/WorldCoasts.rawgeom" "$INTDIR"
-  [ -n "$OPT_COAST" ] && cp "$INTCOASTSDIR/WorldCoasts.geom" "$INTDIR"
-  [ -n "$OPT_COAST" ] && cp "$INTCOASTSDIR/ways.csv" "$INTDIR"
-  [ -n "$OPT_COAST" ] && cp "$INTCOASTSDIR/towns.csv" "$INTDIR"
+  if [ -n "$OPT_COAST" ]; then
+    cp "$INTCOASTSDIR"/WorldCoasts.*geom "$INTDIR"
+    cp "$INTCOASTSDIR"/*.csv "$INTDIR"
+  fi
   [ -z "$KEEP_INTDIR" ] && rm -r "$INTCOASTSDIR"
   if [ -n "$OPT_ROUTING" -o -n "$OPT_WORLD" -o -z "$NO_REGIONS" ]; then
     MODE=inter
