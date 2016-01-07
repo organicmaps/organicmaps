@@ -511,7 +511,7 @@
 "pref_map_style_modern_light" = "Modern light";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "3 Boyutlu";
+"pref_map_3d_title" = "Perspektif görünüm";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3 Boyutlu Binalar";
@@ -1300,7 +1300,7 @@
 "clear_search" = "Arama geçmişini temizle";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Ortakların tekliflerini göster";
+"showcase_settings_title" = "Teklifleri göster";
 
 "showcase_more_apps" = "Daha fazla My.com uygulamaları";
 
@@ -1335,8 +1335,8 @@
 
 "whats_new_3d_buildings_subtitle" = "3 boyutlu binalarla haritalarımız daha bilgilendirici ve daha güzel hale geldi.";
 
-"3d_new_update_maps" = "Bu özellikten tam anlamıyla faydalanabilmek için, lütfen harita verilerinizi güncelleyin.";
+"whats_new_3d_update_maps" = "Bu özellikten tam anlamıyla faydalanabilmek için, lütfen harita verilerinizi güncelleyin.";
 
-"3d_new_on" = "Perspektif görünümü etkinleştir";
+"whats_new_3d_on" = "Perspektif görünümü etkinleştir";
 
-"3d_new_buildings_on" = "3D Binalar seçeneğini etkinleştir";
+"whats_new_3d_buildings_on" = "3D Binalar seçeneğini etkinleştir";

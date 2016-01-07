@@ -511,7 +511,7 @@
 "pref_map_style_modern_light" = "Modern light";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "ثلاثية الأبعاد";
+"pref_map_3d_title" = "العرض المنظوري";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "مباني ثلاثية الأبعاد";
@@ -1300,7 +1300,7 @@
 "clear_search" = "مسح تاريخ البحث";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "إظهار عروض شركائنا";
+"showcase_settings_title" = "رؤية العروض";
 
 "showcase_more_apps" = "المزيد من تطبيقات My.com";
 
@@ -1335,8 +1335,8 @@
 
 "whats_new_3d_buildings_subtitle" = "مع المباني ثلاثية الأبعاد، أصبحت خرائطنا أكثر معلوماتية وجمالا.";
 
-"3d_new_update_maps" = "للتمتع بالمزايا الكاملة لهذه الخاصية، قم بتحديث بيانات الخرائط لديك.";
+"whats_new_3d_update_maps" = "للتمتع بالمزايا الكاملة لهذه الخاصية، قم بتحديث بيانات الخرائط لديك.";
 
-"3d_new_on" = "تفعيل العرض المنظوري";
+"whats_new_3d_on" = "تفعيل العرض المنظوري";
 
-"3d_new_buildings_on" = "قم بتفعيل المباني ثلاثية الأبعاد";
+"whats_new_3d_buildings_on" = "قم بتفعيل المباني ثلاثية الأبعاد";

@@ -511,7 +511,7 @@
 "pref_map_style_modern_light" = "Modern light";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "3D";
+"pref_map_3d_title" = "Perspektivvy";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D-byggnader";
@@ -1300,7 +1300,7 @@
 "clear_search" = "Rensa sökhistorik";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Visa våra partners erbjudanden";
+"showcase_settings_title" = "Visa erbjudanden";
 
 "showcase_more_apps" = "Mai multe aplicații My.com";
 
@@ -1335,8 +1335,8 @@
 
 "whats_new_3d_buildings_subtitle" = "Med byggnader i 3D blir våra karter mer informativa och vackrare.";
 
-"3d_new_update_maps" = "Uppdatera dina kartdata för att kunna använda denna funktion fullt ut.";
+"whats_new_3d_update_maps" = "Uppdatera dina kartdata för att kunna använda denna funktion fullt ut.";
 
-"3d_new_on" = "Aktivera perspektivvy";
+"whats_new_3d_on" = "Aktivera perspektivvy";
 
-"3d_new_buildings_on" = "Aktivera 3D-byggnader";
+"whats_new_3d_buildings_on" = "Aktivera 3D-byggnader";

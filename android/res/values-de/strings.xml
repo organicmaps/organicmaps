@@ -307,7 +307,7 @@
 	<string name="pref_zoom_title">Zoom-Tasten</string>
 	<string name="pref_zoom_summary">Auf dem Bildschirm anzeigen</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">3D</string>
+	<string name="pref_map_3d_title">Perspektivenansicht</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D-Gebäude</string>
 	<!-- Settings «Map» category: «3D buildings» summary -->
@@ -790,7 +790,7 @@
 	<string name="search_history_text">Schnell auf die letzten Suchanfragen zugreifen.</string>
 	<string name="clear_search">Suchhistorie löschen</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Partnerangebote anzeigen</string>
+	<string name="showcase_settings_title">Angebote anzeigen</string>
 	<string name="showcase_more_apps">Weitere My.com Apps</string>
 	<string name="p2p_route_planning">Routenplanung</string>
 	<string name="p2p_your_location">Ihr Standort</string>
@@ -806,7 +806,7 @@
 	<string name="whats_new_3d_subtitle">Wir haben dem Navigationsmodus perspektivische Ansichten hinzugefügt.</string>
 	<string name="whats_new_3d_buildings_title">Eine neue Dimension in MAPS.ME</string>
 	<string name="whats_new_3d_buildings_subtitle">Durch die 3D-Gebäude sind unsere Karten noch informativer und schöner geworden.</string>
-	<string name="3d_new_update_maps">Um alle Vorteile dieser Funktion nutzen zu können, aktualisieren Sie bitte Ihre Kartendaten.</string>
-	<string name="3d_new_on">Perspektivenansicht aktualisieren</string>
-	<string name="3d_new_buildings_on">3D-Gebäude aktivieren</string>
+	<string name="whats_new_3d_update_maps">Um alle Vorteile dieser Funktion nutzen zu können, aktualisieren Sie bitte Ihre Kartendaten.</string>
+	<string name="whats_new_3d_on">Perspektivenansicht aktualisieren</string>
+	<string name="whats_new_3d_buildings_on">3D-Gebäude aktivieren</string>
 </resources>

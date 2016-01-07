@@ -316,7 +316,7 @@
 	<string name="pref_zoom_title">Yakınlaştırma butonları</string>
 	<string name="pref_zoom_summary">Ekranda göster</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">3 Boyutlu</string>
+	<string name="pref_map_3d_title">Perspektif görünüm</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3 Boyutlu Binalar</string>
 	<!-- Settings «Map» category: «3D buildings» summary -->
@@ -799,7 +799,7 @@
 	<string name="search_history_text">En son yapılan arama sorgularına hızlı erişim.</string>
 	<string name="clear_search">Arama geçmişini temizle</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Ortakların tekliflerini göster</string>
+	<string name="showcase_settings_title">Teklifleri göster</string>
 	<string name="showcase_more_apps">Daha fazla My.com uygulamaları</string>
 	<string name="p2p_route_planning">Rota planlama</string>
 	<string name="p2p_your_location">Konumunuz</string>
@@ -815,7 +815,7 @@
 	<string name="whats_new_3d_subtitle">Navigasyon moduna perspektif görünüm ekledik.</string>
 	<string name="whats_new_3d_buildings_title">MAPS.ME\&#39;de yeni bir boyut</string>
 	<string name="whats_new_3d_buildings_subtitle">3 boyutlu binalarla haritalarımız daha bilgilendirici ve daha güzel hale geldi.</string>
-	<string name="3d_new_update_maps">Bu özellikten tam anlamıyla faydalanabilmek için, lütfen harita verilerinizi güncelleyin.</string>
-	<string name="3d_new_on">Perspektif görünümü etkinleştir</string>
-	<string name="3d_new_buildings_on">3D Binalar seçeneğini etkinleştir</string>
+	<string name="whats_new_3d_update_maps">Bu özellikten tam anlamıyla faydalanabilmek için, lütfen harita verilerinizi güncelleyin.</string>
+	<string name="whats_new_3d_on">Perspektif görünümü etkinleştir</string>
+	<string name="whats_new_3d_buildings_on">3D Binalar seçeneğini etkinleştir</string>
 </resources>

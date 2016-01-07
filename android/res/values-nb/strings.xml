@@ -312,7 +312,7 @@
 	<string name="pref_zoom_title">Zoom-knapper</string>
 	<string name="pref_zoom_summary">Vis på skjermen</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">3D</string>
+	<string name="pref_map_3d_title">Perspektivvisning</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">Bygninger i 3D</string>
 	<!-- Settings «Map» category: «3D buildings» summary -->
@@ -795,7 +795,7 @@
 	<string name="search_history_text">Vis de siste søkene raskt.</string>
 	<string name="clear_search">Tøm søkehistorikk</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Vis annonser</string>
+	<string name="showcase_settings_title">Vis tilbud</string>
 	<string name="showcase_more_apps">Flere apper fra My.com</string>
 	<string name="p2p_route_planning">Ruteplanlegging</string>
 	<string name="p2p_your_location">Din beliggenhet</string>
@@ -811,7 +811,7 @@
 	<string name="whats_new_3d_subtitle">Vi har lagt til perspektivvisning i navigeringsmodusen.</string>
 	<string name="whats_new_3d_buildings_title">En ny dimensjon av MAPS.ME</string>
 	<string name="whats_new_3d_buildings_subtitle">Med bygninger i 3D, blir kartene våre enda mer informative og vakre.</string>
-	<string name="3d_new_update_maps">Oppdater kartdata for å kunne bruke denne funksjonen fullt ut.</string>
-	<string name="3d_new_on">Aktiver perspektivvisning</string>
-	<string name="3d_new_buildings_on">Aktiver 3D-bygninger</string>
+	<string name="whats_new_3d_update_maps">Oppdater kartdata for å kunne bruke denne funksjonen fullt ut.</string>
+	<string name="whats_new_3d_on">Aktiver perspektivvisning</string>
+	<string name="whats_new_3d_buildings_on">Aktiver 3D-bygninger</string>
 </resources>

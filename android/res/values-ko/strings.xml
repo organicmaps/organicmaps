@@ -302,7 +302,7 @@
 	<string name="pref_zoom_title">확대/축소 버튼</string>
 	<string name="pref_zoom_summary">화면에 표시</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">3D</string>
+	<string name="pref_map_3d_title">원근 보기</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">주변 건물 3D</string>
 	<!-- Settings «Map» category: «3D buildings» summary -->
@@ -785,7 +785,7 @@
 	<string name="search_history_text">최근 검색 쿼리에 신속하게 액세스할 수 있습니다.</string>
 	<string name="clear_search">이력 검색 지우기</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">파트너 광고 보기</string>
+	<string name="showcase_settings_title">추천 보기</string>
 	<string name="showcase_more_apps">기타 My.com 앱</string>
 	<string name="p2p_route_planning">경로 계획 중</string>
 	<string name="p2p_your_location">위치</string>
@@ -801,7 +801,7 @@
 	<string name="whats_new_3d_subtitle">배경도를 탐색 모드에 추가했습니다.</string>
 	<string name="whats_new_3d_buildings_title">MAPS.ME의 새로운 차원</string>
 	<string name="whats_new_3d_buildings_subtitle">3D 건물과 함께, 지도는 더 많은 정보로 더 아름답게 나타냅니다.</string>
-	<string name="3d_new_update_maps">이 기능의 모든 장점을 취하세요, 당신의 맵 데이터를 업데이트 하세요.</string>
-	<string name="3d_new_on">원근 보기 활성</string>
-	<string name="3d_new_buildings_on">3D 빌딩 보기 활성</string>
+	<string name="whats_new_3d_update_maps">이 기능의 모든 장점을 취하세요, 당신의 맵 데이터를 업데이트 하세요.</string>
+	<string name="whats_new_3d_on">원근 보기 활성</string>
+	<string name="whats_new_3d_buildings_on">3D 빌딩 보기 활성</string>
 </resources>

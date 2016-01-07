@@ -313,7 +313,7 @@
 	<string name="pref_zoom_title">Przyciski powiększania</string>
 	<string name="pref_zoom_summary">Wyświetl na ekranie</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">3D</string>
+	<string name="pref_map_3d_title">Widok z perspektywy</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">Budynki w 3D</string>
 	<!-- Settings «Map» category: «3D buildings» summary -->
@@ -796,7 +796,7 @@
 	<string name="search_history_text">Uzyskaj szybki dostęp do ostatniego hasła wyszukiwania.</string>
 	<string name="clear_search">Wyczyść historię wyszukiwania</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Wyświetl oferty partnerów</string>
+	<string name="showcase_settings_title">Pokaż oferty</string>
 	<string name="showcase_more_apps">Więcej aplikacji My.com</string>
 	<string name="p2p_route_planning">Planowanie trasy</string>
 	<string name="p2p_your_location">Twoja lokalizacja</string>
@@ -812,7 +812,7 @@
 	<string name="whats_new_3d_subtitle">Do trybu nawigacji dodaliśmy widok z perspektywy.</string>
 	<string name="whats_new_3d_buildings_title">Nowy wymiar w MAPS.ME</string>
 	<string name="whats_new_3d_buildings_subtitle">Dzięki budynkom w 3D nasze mapy mają większą wartość informacyjną i są ładniejsze.</string>
-	<string name="3d_new_update_maps">Aby w pełni korzystać z tej funkcji, uaktualnij dane map.</string>
-	<string name="3d_new_on">Włącz widok z perspektywy</string>
-	<string name="3d_new_buildings_on">Włącz budynki 3D</string>
+	<string name="whats_new_3d_update_maps">Aby w pełni korzystać z tej funkcji, uaktualnij dane map.</string>
+	<string name="whats_new_3d_on">Włącz widok z perspektywy</string>
+	<string name="whats_new_3d_buildings_on">Włącz budynki 3D</string>
 </resources>

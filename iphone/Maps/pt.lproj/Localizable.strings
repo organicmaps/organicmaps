@@ -511,7 +511,7 @@
 "pref_map_style_modern_light" = "Modern light";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "3D";
+"pref_map_3d_title" = "Visão em Perspectiva";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "Prédios em 3D";
@@ -1300,7 +1300,7 @@
 "clear_search" = "Limpar histórico de pesquisa";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Mostrar anúncios";
+"showcase_settings_title" = "Mostrar ofertas";
 
 "showcase_more_apps" = "Mais aplicativos do My.com";
 
@@ -1335,8 +1335,8 @@
 
 "whats_new_3d_buildings_subtitle" = "Com os prédios em 3D, nossos mapas ficaram mais informativos e bonitos.";
 
-"3d_new_update_maps" = "Para aproveitar por completo este recurso, atualize os dados do seu mapa.";
+"whats_new_3d_update_maps" = "Para aproveitar por completo este recurso, atualize os dados do seu mapa.";
 
-"3d_new_on" = "Habilitar visão em perspectiva";
+"whats_new_3d_on" = "Habilitar visão em perspectiva";
 
-"3d_new_buildings_on" = "Habilitar Prédios em 3D";
+"whats_new_3d_buildings_on" = "Habilitar Prédios em 3D";

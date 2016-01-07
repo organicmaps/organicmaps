@@ -511,7 +511,7 @@
 "pref_map_style_modern_light" = "Modern light";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "3D";
+"pref_map_3d_title" = "Perspektivvisning";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "Bygninger i 3D";
@@ -1300,7 +1300,7 @@
 "clear_search" = "Tøm søkehistorikk";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Vis annonser";
+"showcase_settings_title" = "Vis tilbud";
 
 "showcase_more_apps" = "Flere apper fra My.com";
 
@@ -1335,8 +1335,8 @@
 
 "whats_new_3d_buildings_subtitle" = "Med bygninger i 3D, blir kartene våre enda mer informative og vakre.";
 
-"3d_new_update_maps" = "Oppdater kartdata for å kunne bruke denne funksjonen fullt ut.";
+"whats_new_3d_update_maps" = "Oppdater kartdata for å kunne bruke denne funksjonen fullt ut.";
 
-"3d_new_on" = "Aktiver perspektivvisning";
+"whats_new_3d_on" = "Aktiver perspektivvisning";
 
-"3d_new_buildings_on" = "Aktiver 3D-bygninger";
+"whats_new_3d_buildings_on" = "Aktiver 3D-bygninger";

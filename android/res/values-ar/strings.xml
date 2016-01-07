@@ -316,7 +316,7 @@
 	<string name="pref_zoom_title">أزرار التكبير</string>
 	<string name="pref_zoom_summary">عرض على الشاشة</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">ثلاثية الأبعاد</string>
+	<string name="pref_map_3d_title">العرض المنظوري</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">مباني ثلاثية الأبعاد</string>
 	<!-- Settings «Map» category: «3D buildings» summary -->
@@ -799,7 +799,7 @@
 	<string name="search_history_text">الوصول إلى استعلامات البحث الحديثة بسرعة.</string>
 	<string name="clear_search">مسح تاريخ البحث</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">إظهار عروض شركائنا</string>
+	<string name="showcase_settings_title">رؤية العروض</string>
 	<string name="showcase_more_apps">المزيد من تطبيقات My.com</string>
 	<string name="p2p_route_planning">تخطيط الطريق</string>
 	<string name="p2p_your_location">موقعك</string>
@@ -815,7 +815,7 @@
 	<string name="whats_new_3d_subtitle">لقد أضفنا عرض المنظور إلى نمط الملاحة.</string>
 	<string name="whats_new_3d_buildings_title">بُعد جديد في MAPS.ME</string>
 	<string name="whats_new_3d_buildings_subtitle">مع المباني ثلاثية الأبعاد، أصبحت خرائطنا أكثر معلوماتية وجمالا.</string>
-	<string name="3d_new_update_maps">للتمتع بالمزايا الكاملة لهذه الخاصية، قم بتحديث بيانات الخرائط لديك.</string>
-	<string name="3d_new_on">تفعيل العرض المنظوري</string>
-	<string name="3d_new_buildings_on">قم بتفعيل المباني ثلاثية الأبعاد</string>
+	<string name="whats_new_3d_update_maps">للتمتع بالمزايا الكاملة لهذه الخاصية، قم بتحديث بيانات الخرائط لديك.</string>
+	<string name="whats_new_3d_on">تفعيل العرض المنظوري</string>
+	<string name="whats_new_3d_buildings_on">قم بتفعيل المباني ثلاثية الأبعاد</string>
 </resources>

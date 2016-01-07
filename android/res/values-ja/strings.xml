@@ -303,7 +303,7 @@
 	<string name="pref_zoom_title">ズームボタン</string>
 	<string name="pref_zoom_summary">画面上に表示</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">3D</string>
+	<string name="pref_map_3d_title">パースペクティブ表示</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3Dビルディング</string>
 	<!-- Settings «Map» category: «3D buildings» summary -->
@@ -792,7 +792,7 @@
 	<string name="search_history_text">最近の検索クエリに素早くアクセス。</string>
 	<string name="clear_search">検索履歴を消去</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">パートナーのオファーを表示</string>
+	<string name="showcase_settings_title">オファーを表示</string>
 	<string name="showcase_more_apps">他のMy.comアプリ</string>
 	<string name="p2p_route_planning">ルート作成</string>
 	<string name="p2p_your_location">現在位置</string>
@@ -808,7 +808,7 @@
 	<string name="whats_new_3d_subtitle">ナビゲーションモードに視点表示が追加されました。</string>
 	<string name="whats_new_3d_buildings_title">MAPS.MEに新たな次元を追加</string>
 	<string name="whats_new_3d_buildings_subtitle">建物を3Dで表示することで、地図がより詳細で美しくなりました。</string>
-	<string name="3d_new_update_maps">この機能をフル活用するために、マップデータを更新してください。</string>
-	<string name="3d_new_on">パースペクティブ表示を有効化</string>
-	<string name="3d_new_buildings_on">3Dビルディングを有効化</string>
+	<string name="whats_new_3d_update_maps">この機能をフル活用するために、マップデータを更新してください。</string>
+	<string name="whats_new_3d_on">パースペクティブ表示を有効化</string>
+	<string name="whats_new_3d_buildings_on">3Dビルディングを有効化</string>
 </resources>

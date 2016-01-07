@@ -511,7 +511,7 @@
 "pref_map_style_modern_light" = "Modern light";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "3D";
+"pref_map_3d_title" = "Góc nhìn phối cảnh";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "Nhà cửa 3D";
@@ -1300,7 +1300,7 @@
 "clear_search" = "Xóa Lịch sử Tìm kiếm";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Hiển thị các giảm giá của đối tác";
+"showcase_settings_title" = "Hiển thị lời mời";
 
 "showcase_more_apps" = "Thêm Ứng dụng My.com";
 
@@ -1335,8 +1335,8 @@
 
 "whats_new_3d_buildings_subtitle" = "Với các tòa nhà 3 chiều, bản đồ của chúng tôi cung cấp thêm nhiều thông tin hơn và đẹp hơn.";
 
-"3d_new_update_maps" = "Để tận dụng tính năng này, vui lòng cập nhật dữ liệu bản đồ của bạn.";
+"whats_new_3d_update_maps" = "Để tận dụng tính năng này, vui lòng cập nhật dữ liệu bản đồ của bạn.";
 
-"3d_new_on" = "Kích hoạt góc nhìn phối cảnh";
+"whats_new_3d_on" = "Kích hoạt góc nhìn phối cảnh";
 
-"3d_new_buildings_on" = "Kích hoạt Tòa nhà 3D";
+"whats_new_3d_buildings_on" = "Kích hoạt Tòa nhà 3D";

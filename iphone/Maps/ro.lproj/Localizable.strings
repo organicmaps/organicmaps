@@ -511,7 +511,7 @@
 "pref_map_style_modern_light" = "Modern light";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "3D";
+"pref_map_3d_title" = "Vizualizare în perspectivă";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "Clădiri 3D";
@@ -1300,7 +1300,7 @@
 "clear_search" = "Ștergere istoric de căutare";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Afișare oferte parteneri";
+"showcase_settings_title" = "Afișare oferte";
 
 "showcase_more_apps" = "Mai multe aplicații My.com";
 
@@ -1335,8 +1335,8 @@
 
 "whats_new_3d_buildings_subtitle" = "Cu ajutorul clădirilor 3D, hărțile noastre conțin mai multe informații și sunt mai frumoase.";
 
-"3d_new_update_maps" = "Pentru a beneficia integral de această funcție, vă rugăm să actualizați datele hărții dvs.";
+"whats_new_3d_update_maps" = "Pentru a beneficia integral de această funcție, vă rugăm să actualizați datele hărții dvs.";
 
-"3d_new_on" = "Activare vizualizare în perspectivă";
+"whats_new_3d_on" = "Activare vizualizare în perspectivă";
 
-"3d_new_buildings_on" = "Activare Clădiri 3D";
+"whats_new_3d_buildings_on" = "Activare Clădiri 3D";

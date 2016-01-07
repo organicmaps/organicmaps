@@ -511,7 +511,7 @@
 "pref_map_style_modern_light" = "Modern light";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "3D";
+"pref_map_3d_title" = "Perspectiefbeeld";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D-gebouwen";
@@ -1300,7 +1300,7 @@
 "clear_search" = "Zoekgeschiedenis wissen";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Laat de aanbiedingen van partners zien";
+"showcase_settings_title" = "Aanbiedingen weergeven";
 
 "showcase_more_apps" = "Meer My.com apps";
 
@@ -1335,8 +1335,8 @@
 
 "whats_new_3d_buildings_subtitle" = "Met 3D-gebouwen zijn onze kaarten informatiever en mooier geworden.";
 
-"3d_new_update_maps" = "Werk uw kaartgegevens bij om volledig te kunnen profiteren van deze functie.";
+"whats_new_3d_update_maps" = "Werk uw kaartgegevens bij om volledig te kunnen profiteren van deze functie.";
 
-"3d_new_on" = "Perspectiefbeeld inschakelen";
+"whats_new_3d_on" = "Perspectiefbeeld inschakelen";
 
-"3d_new_buildings_on" = "3D-Gebouwen inschakelen";
+"whats_new_3d_buildings_on" = "3D-Gebouwen inschakelen";

@@ -511,7 +511,7 @@
 "pref_map_style_modern_light" = "Modern light";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "3D";
+"pref_map_3d_title" = "Pandangan perspektif";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "Bangunan 3D";
@@ -1300,7 +1300,7 @@
 "clear_search" = "Bersihkan riwayat pencarian";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Tunjukkan penawaran dari para mitra";
+"showcase_settings_title" = "Tampilkan penawaran";
 
 "showcase_more_apps" = "Lebih Banyak Aplikasi My.com";
 
@@ -1335,8 +1335,8 @@
 
 "whats_new_3d_buildings_subtitle" = "Dengan bangunan 3D, peta kami telah menjadi lebih indah dan informatif.";
 
-"3d_new_update_maps" = "Untuk memaksimalkan pemanfaatan fitur ini, harap perbarui data peta Anda.";
+"whats_new_3d_update_maps" = "Untuk memaksimalkan pemanfaatan fitur ini, harap perbarui data peta Anda.";
 
-"3d_new_on" = "Aktifkan pandangan perspektif";
+"whats_new_3d_on" = "Aktifkan pandangan perspektif";
 
-"3d_new_buildings_on" = "Aktifkan Bangunan 3D";
+"whats_new_3d_buildings_on" = "Aktifkan Bangunan 3D";

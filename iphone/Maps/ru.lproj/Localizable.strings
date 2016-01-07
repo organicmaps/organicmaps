@@ -511,7 +511,7 @@
 "pref_map_style_modern_light" = "Современная светлая";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "3D";
+"pref_map_3d_title" = "Перспективный вид";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D здания";
@@ -1300,7 +1300,7 @@
 "clear_search" = "Очистить историю поиска";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Показывать предложения партнёров";
+"showcase_settings_title" = "Показывать предложения";
 
 "showcase_more_apps" = "Другие приложения My.com";
 
@@ -1335,8 +1335,8 @@
 
 "whats_new_3d_buildings_subtitle" = "С 3D зданиями наши карты стали более информативными и красивыми.";
 
-"3d_new_update_maps" = "Для полноценной работы функции, пожалуйста, обновите карты.";
+"whats_new_3d_update_maps" = "Для полноценной работы функции, пожалуйста, обновите карты.";
 
-"3d_new_on" = "Включить перспективный вид";
+"whats_new_3d_on" = "Включить перспективный вид";
 
-"3d_new_buildings_on" = "Включить 3D здания";
+"whats_new_3d_buildings_on" = "Включить 3D здания";

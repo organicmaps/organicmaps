@@ -511,7 +511,7 @@
 "pref_map_style_modern_light" = "Modern light";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "3D";
+"pref_map_3d_title" = "원근 보기";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "주변 건물 3D";
@@ -1300,7 +1300,7 @@
 "clear_search" = "이력 검색 지우기";
 
 /* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "파트너 광고 보기";
+"showcase_settings_title" = "추천 보기";
 
 "showcase_more_apps" = "기타 My.com 앱";
 
@@ -1335,8 +1335,8 @@
 
 "whats_new_3d_buildings_subtitle" = "3D 건물과 함께, 지도는 더 많은 정보로 더 아름답게 나타냅니다.";
 
-"3d_new_update_maps" = "이 기능의 모든 장점을 취하세요, 당신의 맵 데이터를 업데이트 하세요.";
+"whats_new_3d_update_maps" = "이 기능의 모든 장점을 취하세요, 당신의 맵 데이터를 업데이트 하세요.";
 
-"3d_new_on" = "원근 보기 활성";
+"whats_new_3d_on" = "원근 보기 활성";
 
-"3d_new_buildings_on" = "3D 빌딩 보기 활성";
+"whats_new_3d_buildings_on" = "3D 빌딩 보기 활성";

@@ -317,7 +317,7 @@
 	<string name="pref_zoom_title">Boutons de zoom</string>
 	<string name="pref_zoom_summary">Afficher à l\&#39;écran</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">3D</string>
+	<string name="pref_map_3d_title">Vue en perspective</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">Bâtiments en 3D</string>
 	<!-- Settings «Map» category: «3D buildings» summary -->
@@ -806,7 +806,7 @@
 	<string name="search_history_text">Accédez rapidement aux dernières recherches.</string>
 	<string name="clear_search">Effacer l\&#39;historique de recherche</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Afficher les offres des partenaires</string>
+	<string name="showcase_settings_title">Afficher les offres</string>
 	<string name="showcase_more_apps">Plus d\&#39;applications My.com</string>
 	<string name="p2p_route_planning">Planification d’itinéraire</string>
 	<string name="p2p_your_location">Votre emplacement</string>
@@ -822,7 +822,7 @@
 	<string name="whats_new_3d_subtitle">Nous avons ajouté de la perspective au mode navigation.</string>
 	<string name="whats_new_3d_buildings_title">La nouvelle dimension de MAPS.ME</string>
 	<string name="whats_new_3d_buildings_subtitle">Grâce à l\&#39;affichage des bâtiments en 3D, nos cartes sont désormais plus informatives et plus belles.</string>
-	<string name="3d_new_update_maps">Pour profiter pleinement de cette fonction, veuillez mettre à jour les données de votre carte.</string>
-	<string name="3d_new_on">Activer la vue en perspective</string>
-	<string name="3d_new_buildings_on">Activer les bâtiments en 3D</string>
+	<string name="whats_new_3d_update_maps">Pour profiter pleinement de cette fonction, veuillez mettre à jour les données de votre carte.</string>
+	<string name="whats_new_3d_on">Activer la vue en perspective</string>
+	<string name="whats_new_3d_buildings_on">Activer les bâtiments en 3D</string>
 </resources>

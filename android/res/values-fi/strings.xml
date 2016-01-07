@@ -312,7 +312,7 @@
 	<string name="pref_zoom_title">Zoomauspainikkeet</string>
 	<string name="pref_zoom_summary">Näytä ruudulla</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">3D</string>
+	<string name="pref_map_3d_title">Perspektiivinäkymä</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D-rakennukset</string>
 	<!-- Settings «Map» category: «3D buildings» summary -->
@@ -795,7 +795,7 @@
 	<string name="search_history_text">Siirry nopeasti aikaisempaan hakuun.</string>
 	<string name="clear_search">Poista hakuhistoria</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Näytä mainokset</string>
+	<string name="showcase_settings_title">Näytä tarjoukset</string>
 	<string name="showcase_more_apps">Lisää My.com sovelluksia</string>
 	<string name="p2p_route_planning">Reittisuunnittelu</string>
 	<string name="p2p_your_location">Sijaintisi</string>
@@ -811,7 +811,7 @@
 	<string name="whats_new_3d_subtitle">Olemme lisänneet perspektiivinäkymän navigointitilaan.</string>
 	<string name="whats_new_3d_buildings_title">Uusi ulottuvuus MAPS.ME-sovellukseen</string>
 	<string name="whats_new_3d_buildings_subtitle">Karttamme ovat entistä informatiivisempia ja kauniimpia 3D-rakennusten avulla.</string>
-	<string name="3d_new_update_maps">Päivitä karttatietosi voidaksesi käyttää tätä toimintoa täysimääräisesti.</string>
-	<string name="3d_new_on">Aktivoi perspektiivinäkymä</string>
-	<string name="3d_new_buildings_on">Aktivoi 3D-rakennukset</string>
+	<string name="whats_new_3d_update_maps">Päivitä karttatietosi voidaksesi käyttää tätä toimintoa täysimääräisesti.</string>
+	<string name="whats_new_3d_on">Aktivoi perspektiivinäkymä</string>
+	<string name="whats_new_3d_buildings_on">Aktivoi 3D-rakennukset</string>
 </resources>
