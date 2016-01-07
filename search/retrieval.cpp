@@ -73,10 +73,11 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
   // TODO (@y, @m): This code may be optimized in the case where
   // bit vectors are sorted in the search index.
   vector<uint64_t> features;
+  uint32_t counter = 0;
   auto collector = [&](TValue const & value)
   {
-    if (cancellable.IsCancelled())
-      MYTHROW(CancelException, ("Search cancelled"));
+    if ((++counter & 0xFF) == 0)
+      BailIfCancelled(cancellable);
     features.push_back(value.m_featureId);
   };
 
@@ -93,10 +94,11 @@ unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeaturesImpl(
   // TODO (@y, @m): remove this code as soon as geometry index will
   // have native support for bit vectors.
   vector<uint64_t> features;
+  uint32_t counter = 0;
   auto collector = [&](uint64_t featureId)
   {
-    if (cancellable.IsCancelled())
-      MYTHROW(CancelException, ("Search cancelled"));
+    if ((++counter & 0xFF) == 0)
+      BailIfCancelled(cancellable);
     features.push_back(featureId);
   };
 
