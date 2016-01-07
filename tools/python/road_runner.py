@@ -78,8 +78,7 @@ for task in tasks:
 qtasks.join()
 
 with open(os.path.join(sys.argv[1], "ways.csv"),"w") as f:
-
-    for way_id in way_ids.keys():
+    for way_id in result:
         print >> f, "{0};world_level".format(way_id)
 
 print "All done."
