@@ -48,6 +48,9 @@ public class NewsFragment extends BaseMwmDialogFragment
         mImages[i] = images.getResourceId(i, 0);
 
       images.recycle();
+
+      // TODO: Temporary solution. Remove for the next WhatsNews
+      mSubtitles[0] += "\n\n" + MwmApplication.get().getString(R.string.whats_new_3d_update_maps);
     }
 
     @Override
