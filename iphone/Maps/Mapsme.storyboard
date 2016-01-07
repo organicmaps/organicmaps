@@ -29,7 +29,7 @@
                     <navigationItem key="navigationItem" id="8E8-0f-UV9"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <segue destination="Ld6-gM-2hk" kind="custom" identifier="Map2OpeningHoursEditor" customClass="MWMSegue" id="VzH-mq-fOy"/>
+                        <segue destination="zpf-N3-ANF" kind="custom" identifier="Map2EditorSegue" customClass="MWMSegue" id="qon-4w-MVP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cKg-Q7-bFd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -701,6 +701,67 @@
             </objects>
             <point key="canvasLocation" x="1143" y="1224"/>
         </scene>
+        <!--Editor View Controller-->
+        <scene sceneID="6jJ-Tq-Z1Z">
+            <objects>
+                <viewController id="2nM-Q9-E25" customClass="MWMEditorViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hRp-wa-ZHE"/>
+                        <viewControllerLayoutGuide type="bottom" id="sr6-JR-AwW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Lgz-Gb-F8I">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EH3-92-Tzz">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="2nM-Q9-E25" id="A5t-MA-cFT"/>
+                                    <outlet property="delegate" destination="2nM-Q9-E25" id="k0W-Eb-NFt"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="EH3-92-Tzz" firstAttribute="leading" secondItem="Lgz-Gb-F8I" secondAttribute="leading" id="Eq1-QR-49b"/>
+                            <constraint firstItem="sr6-JR-AwW" firstAttribute="top" secondItem="EH3-92-Tzz" secondAttribute="bottom" id="VXm-ke-yXK"/>
+                            <constraint firstItem="EH3-92-Tzz" firstAttribute="top" secondItem="hRp-wa-ZHE" secondAttribute="bottom" id="iRH-mb-23c"/>
+                            <constraint firstAttribute="trailing" secondItem="EH3-92-Tzz" secondAttribute="trailing" id="oQG-nn-0Dm"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <navigationItem key="navigationItem" id="SXI-s6-K6S"/>
+                    <connections>
+                        <outlet property="tableView" destination="EH3-92-Tzz" id="HAe-TD-KcI"/>
+                        <segue destination="IAA-1a-ZuZ" kind="custom" identifier="Editor2CuisineEditorSegue" customClass="MWMSegue" id="mPs-fC-nli"/>
+                        <segue destination="Ld6-gM-2hk" kind="custom" identifier="Editor2OpeningHoursEditorSegue" customClass="MWMSegue" id="iTp-yQ-ied"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DWN-06-Lmz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="352" y="2753"/>
+        </scene>
+        <!--Cuisine Editor View Controller-->
+        <scene sceneID="dIV-0o-2RN">
+            <objects>
+                <viewController id="IAA-1a-ZuZ" customClass="MWMCuisineEditorViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="z1V-lE-err"/>
+                        <viewControllerLayoutGuide type="bottom" id="9dL-CH-whb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="t1d-A1-7Yr">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O74-1p-da7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="352" y="3513"/>
+        </scene>
         <!--Opening Hours Editor View Controller-->
         <scene sceneID="UAI-uc-U5w">
             <objects>
@@ -983,7 +1044,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zeH-cr-FVE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1881" y="444"/>
+            <point key="canvasLocation" x="1134" y="2753"/>
         </scene>
         <!--Whats New Controller-->
         <scene sceneID="BHc-6D-CJw">
@@ -1337,6 +1398,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="email_or_username"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="validatorName" value="MWMInputLoginValidator"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="delegate" destination="4R7-Vk-fQr" id="koP-R3-XiP"/>
@@ -1360,6 +1422,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="password_8_chars_min"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="validatorName" value="MWMInputPasswordValidator"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="delegate" destination="4R7-Vk-fQr" id="QBg-oI-jcp"/>
@@ -2102,6 +2165,24 @@ the world. Join us!</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Gt-4P-ydf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1900" y="2753"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="5fh-b4-FOy">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zpf-N3-ANF" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="BWO-Pe-cEq">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="2nM-Q9-E25" kind="relationship" relationship="rootViewController" id="K0n-hr-hzp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nJK-jd-lsd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-460" y="2753"/>
         </scene>
     </scenes>
     <resources>

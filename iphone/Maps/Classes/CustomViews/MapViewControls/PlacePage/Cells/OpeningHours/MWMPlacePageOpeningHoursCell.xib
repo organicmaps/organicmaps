@@ -30,7 +30,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сегодня" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="68" translatesAutoresizingMaskIntoConstraints="NO" id="Ot5-QJ-jhp">
                                 <rect key="frame" x="60" y="12" width="68" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="68" id="5G1-mL-J4T"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="68" id="5G1-mL-J4T"/>
                                     <constraint firstAttribute="height" constant="20" id="Uo2-AE-U2v"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
@@ -41,7 +41,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00—20:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="140" translatesAutoresizingMaskIntoConstraints="NO" id="oTF-IZ-Un1">
-                                <rect key="frame" x="166" y="12" width="140" height="19"/>
+                                <rect key="frame" x="140" y="12" width="140" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="140" id="up3-Kv-Z1P"/>
                                 </constraints>
@@ -54,9 +54,9 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Перерыв" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="94" translatesAutoresizingMaskIntoConstraints="NO" id="hpw-oR-ZSb">
-                                <rect key="frame" x="60" y="36" width="94" height="17"/>
+                                <rect key="frame" x="60" y="36" width="68" height="17"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="94" id="Aji-QM-nRY"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="68" id="Aji-QM-nRY"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -67,7 +67,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Oa-hg-icC">
-                                <rect key="frame" x="166" y="35" width="140" height="58"/>
+                                <rect key="frame" x="140" y="35" width="140" height="58"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="58" id="RWf-JS-tim"/>
@@ -115,20 +115,20 @@
                             <constraint firstAttribute="trailing" secondItem="3Fa-V6-tC5" secondAttribute="trailing" id="7pT-0E-9ir"/>
                             <constraint firstItem="oTF-IZ-Un1" firstAttribute="top" secondItem="swk-um-XzG" secondAttribute="top" constant="12" id="93j-yG-wF2"/>
                             <constraint firstItem="hpw-oR-ZSb" firstAttribute="top" secondItem="Ot5-QJ-jhp" secondAttribute="bottom" constant="4" id="9GL-pC-tse"/>
-                            <constraint firstItem="oTF-IZ-Un1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ot5-QJ-jhp" secondAttribute="trailing" constant="8" id="9QL-6i-a0L"/>
+                            <constraint firstItem="oTF-IZ-Un1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ot5-QJ-jhp" secondAttribute="trailing" priority="310" constant="8" id="9QL-6i-a0L"/>
                             <constraint firstItem="EcD-Q8-7zu" firstAttribute="leading" secondItem="swk-um-XzG" secondAttribute="leading" constant="60" id="Bhv-rl-AUe"/>
                             <constraint firstAttribute="trailing" secondItem="mGc-k4-uvQ" secondAttribute="trailing" constant="8" id="CS2-Y7-odx"/>
                             <constraint firstItem="pa0-fe-w8W" firstAttribute="centerY" secondItem="swk-um-XzG" secondAttribute="centerY" id="CXB-0i-wxj"/>
                             <constraint firstItem="mGc-k4-uvQ" firstAttribute="centerY" secondItem="swk-um-XzG" secondAttribute="centerY" id="DQP-gP-Lv1"/>
                             <constraint firstItem="pa0-fe-w8W" firstAttribute="leading" secondItem="swk-um-XzG" secondAttribute="leading" constant="16" id="Dgv-BZ-60x"/>
-                            <constraint firstItem="oTF-IZ-Un1" firstAttribute="leading" secondItem="swk-um-XzG" secondAttribute="leading" priority="750" constant="48" id="KGY-T0-s0P"/>
+                            <constraint firstItem="oTF-IZ-Un1" firstAttribute="leading" secondItem="swk-um-XzG" secondAttribute="leading" priority="300" id="KGY-T0-s0P"/>
                             <constraint firstItem="3Fa-V6-tC5" firstAttribute="leading" secondItem="swk-um-XzG" secondAttribute="leading" id="LUO-vn-JQ8"/>
                             <constraint firstItem="7Oa-hg-icC" firstAttribute="leading" secondItem="oTF-IZ-Un1" secondAttribute="leading" id="RBf-8S-CYY"/>
                             <constraint firstItem="7Oa-hg-icC" firstAttribute="top" secondItem="oTF-IZ-Un1" secondAttribute="bottom" constant="4" id="Urv-Lw-rBo"/>
                             <constraint firstItem="ZdV-4y-cz4" firstAttribute="leading" secondItem="swk-um-XzG" secondAttribute="leading" constant="60" id="YId-0j-rvE"/>
                             <constraint firstItem="Ot5-QJ-jhp" firstAttribute="leading" secondItem="swk-um-XzG" secondAttribute="leading" constant="60" id="ZcQ-Ll-hiP"/>
                             <constraint firstItem="hpw-oR-ZSb" firstAttribute="leading" secondItem="Ot5-QJ-jhp" secondAttribute="leading" id="dpq-9g-Kme"/>
-                            <constraint firstItem="7Oa-hg-icC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hpw-oR-ZSb" secondAttribute="trailing" constant="12" id="efF-u9-Cqb"/>
+                            <constraint firstItem="7Oa-hg-icC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hpw-oR-ZSb" secondAttribute="trailing" priority="310" constant="12" id="efF-u9-Cqb"/>
                             <constraint firstAttribute="trailing" secondItem="ZdV-4y-cz4" secondAttribute="trailing" constant="32" id="hnz-zM-TYH"/>
                             <constraint firstAttribute="height" constant="126" id="hsa-4B-Df0"/>
                             <constraint firstItem="Ot5-QJ-jhp" firstAttribute="top" secondItem="swk-um-XzG" secondAttribute="top" constant="12" id="n1a-Y2-Nfo"/>
@@ -145,6 +145,8 @@
                             <outlet property="compatibilityLabel" destination="ZdV-4y-cz4" id="Jwu-Ux-lqO"/>
                             <outlet property="height" destination="hsa-4B-Df0" id="he7-ZL-kOE"/>
                             <outlet property="label" destination="Ot5-QJ-jhp" id="zOc-Fe-grg"/>
+                            <outlet property="labelOpenTimeLabelSpacing" destination="9QL-6i-a0L" id="ShG-5V-lOy"/>
+                            <outlet property="labelTopSpacing" destination="n1a-Y2-Nfo" id="upg-Ua-PDE"/>
                             <outlet property="labelWidth" destination="5G1-mL-J4T" id="esU-tO-DPm"/>
                             <outlet property="openTime" destination="oTF-IZ-Un1" id="oSf-bK-Va1"/>
                         </connections>
@@ -193,9 +195,12 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="bottomSeparatorLeadingOffset" destination="fCK-Qq-Hci" id="i0F-nq-2jd"/>
                 <outlet property="currentDay" destination="swk-um-XzG" id="CJG-LQ-Pu8"/>
                 <outlet property="expandImage" destination="mGc-k4-uvQ" id="ohq-Yq-hLX"/>
                 <outlet property="middleSeparator" destination="q9R-jU-fIk" id="vcZ-Lb-HgY"/>
+                <outlet property="openTime" destination="oTF-IZ-Un1" id="hsY-uV-wWE"/>
+                <outlet property="openTimeLeadingOffset" destination="KGY-T0-s0P" id="rHG-56-gHg"/>
                 <outlet property="toggleButton" destination="3Fa-V6-tC5" id="8FI-Je-uFy"/>
                 <outlet property="weekDaysView" destination="fNU-1q-AiR" id="zM3-OD-vBA"/>
                 <outlet property="weekDaysViewHeight" destination="Ifb-EB-LIb" id="sEe-Y1-ubY"/>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="MWMEditorTextTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5uK-5Q-cg0">
+                        <rect key="frame" x="16" y="8" width="28" height="28"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="28" id="6Kb-wI-H3V"/>
+                            <constraint firstAttribute="width" constant="28" id="nbm-T8-Yob"/>
+                        </constraints>
+                    </imageView>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="krN-k2-9qO">
+                        <rect key="frame" x="60" y="0.0" width="252" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="44" id="RYF-oc-ZOx"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="validatorName" value="MWMInputValidator"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="delegate" destination="KGk-i7-Jjw" id="GO4-EB-MG9"/>
+                        </connections>
+                    </textField>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yfK-ST-aDJ" userLabel="Bottom Separator">
+                        <rect key="frame" x="60" y="43" width="260" height="1"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="Uiq-GY-b3X"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="5uK-5Q-cg0" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="6CB-Dy-pnd"/>
+                    <constraint firstItem="krN-k2-9qO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="M6R-qw-860"/>
+                    <constraint firstAttribute="trailing" secondItem="krN-k2-9qO" secondAttribute="trailing" constant="8" id="O2l-xa-4ZO"/>
+                    <constraint firstItem="yfK-ST-aDJ" firstAttribute="leading" secondItem="krN-k2-9qO" secondAttribute="leading" priority="500" id="PIx-U4-iav"/>
+                    <constraint firstAttribute="trailing" secondItem="yfK-ST-aDJ" secondAttribute="trailing" id="d9m-E2-LLW"/>
+                    <constraint firstItem="yfK-ST-aDJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" priority="250" id="jNX-Rx-eHb"/>
+                    <constraint firstAttribute="bottom" secondItem="yfK-ST-aDJ" secondAttribute="bottom" id="lH1-Vh-Ioo"/>
+                    <constraint firstAttribute="bottom" secondItem="krN-k2-9qO" secondAttribute="bottom" id="mfl-oM-QaP"/>
+                    <constraint firstItem="5uK-5Q-cg0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="ufn-3T-MOd"/>
+                    <constraint firstItem="krN-k2-9qO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="60" id="w8z-Hi-yGr"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="bottomSeparatorLeadingOffset" destination="jNX-Rx-eHb" id="BAI-td-cnF"/>
+                <outlet property="icon" destination="5uK-5Q-cg0" id="5du-LU-RmA"/>
+                <outlet property="textField" destination="krN-k2-9qO" id="Fqg-H9-JpU"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

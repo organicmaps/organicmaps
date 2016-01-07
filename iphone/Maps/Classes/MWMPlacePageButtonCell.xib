@@ -17,7 +17,7 @@
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jmU-dJ-aRH">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="44" id="gfO-mi-8yS"/>
+                            <constraint firstAttribute="height" priority="750" constant="44" id="gfO-mi-8yS"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                         <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="9" maxY="0.0"/>
