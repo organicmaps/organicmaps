@@ -94,7 +94,7 @@ struct MercatorBounds
 
   static m2::PointD GetSmPoint(m2::PointD const & pt, double lonMetresR, double latMetresR);
 
-  static double GetCellID2PointAbsEpsilon() { return 1.0E-4; }
+  static double constexpr GetCellID2PointAbsEpsilon() { return 1.0E-4; }
 
   inline static m2::PointD FromLatLon(double lat, double lon)
   {

@@ -10,6 +10,7 @@
 #include "indexer/feature_impl.hpp"
 #include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
+#include "indexer/rank_table.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
 
@@ -44,6 +45,10 @@ namespace v2
 {
 namespace
 {
+
+size_t const kMaxLocalitiesCount = 5;
+double constexpr kComparePoints = MercatorBounds::GetCellID2PointAbsEpsilon();
+
 void JoinQueryTokens(SearchQueryParams const & params, size_t curToken, size_t endToken,
                      string const & sep, string & res)
 {
@@ -181,20 +186,20 @@ void Geocoder::Go(vector<FeatureID> & results)
                      {
                        m_matcher.reset();
                        m_context.reset();
-                       m_features.clear();
+                       m_addressFeatures.clear();
                        m_streets = nullptr;
                      });
 
       m_matcher.reset(new FeaturesLayerMatcher(m_index, *m_context, *this /* cancellable */));
 
       // Creates a cache of posting lists for each token.
-      m_features.resize(m_numTokens);
+      m_addressFeatures.resize(m_numTokens);
       for (size_t i = 0; i < m_numTokens; ++i)
       {
         PrepareRetrievalParams(i, i + 1);
-        m_features[i] = Retrieval::RetrieveAddressFeatures(
+        m_addressFeatures[i] = Retrieval::RetrieveAddressFeatures(
             m_context->m_value, *this /* cancellable */, m_retrievalParams);
-        ASSERT(m_features[i], ());
+        ASSERT(m_addressFeatures[i], ());
       }
 
       m_streets = LoadStreets(*m_context);
@@ -213,7 +218,8 @@ void Geocoder::Go(vector<FeatureID> & results)
 
 void Geocoder::ClearCaches()
 {
-  m_features.clear();
+  m_geometryFeatures.clear();
+  m_addressFeatures.clear();
   m_matcher.reset();
   m_streetsCache.clear();
 }
@@ -242,35 +248,114 @@ void Geocoder::FillLocalitiesTable(MwmContext const & context)
 {
   m_localities.clear();
 
-  auto addLocality = [&](size_t curToken, size_t endToken, uint32_t featureId)
+  // 1. Get cbv for every single token and prefix.
+  vector<unique_ptr<coding::CompressedBitVector>> tokensCBV;
+  for (size_t i = 0; i < m_numTokens; ++i)
   {
-    FeatureType ft;
-    context.m_vector.GetByIndex(featureId, ft);
-    if (m_model.GetSearchType(ft) != SearchModel::SEARCH_TYPE_CITY)
-      return;
+    PrepareRetrievalParams(i, i + 1);
+    tokensCBV.push_back(Retrieval::RetrieveAddressFeatures(
+          context.m_value, static_cast<my::Cancellable const &>(*this), m_retrievalParams));
+  }
 
-    m2::PointD const center = feature::GetCenter(ft, FeatureType::WORST_GEOMETRY);
-    double const radiusM = ftypes::GetRadiusByPopulation(ft.GetPopulation());
+  // 2. Get all locality candidates with all the token ranges.
+  vector<Locality> preLocalities;
 
-    Locality locality;
-    locality.m_featureId = featureId;
-    locality.m_startToken = curToken;
-    locality.m_endToken = endToken;
-    locality.m_rect = MercatorBounds::RectByCenterXYAndSizeInMeters(center, radiusM);
-    m_localities[make_pair(curToken, endToken)].push_back(locality);
+  for (size_t i = 0; i < m_numTokens; ++i)
+  {
+    CBVPtr intersection;
+    intersection.Set(tokensCBV[i].get(), false);
+    if (intersection.IsEmpty())
+      continue;
+
+    for (size_t j = i + 1; j <= m_numTokens; ++j)
+    {
+      coding::CompressedBitVectorEnumerator::ForEach(*intersection.Get(),
+               [&](uint32_t featureId)
+               {
+                 Locality l;
+                 l.m_featureId = featureId;
+                 l.m_startToken = i;
+                 l.m_endToken = j;
+                 preLocalities.push_back(l);
+               });
+
+      if (j < m_numTokens)
+      {
+        intersection.Intersect(tokensCBV[j].get());
+        if (intersection.IsEmpty())
+          break;
+      }
+    }
+  }
+
+  auto const tokensCountFn = [&](Locality const & l)
+  {
+    // Important! Don't take into account matched prefix for locality comparison.
+    size_t d = l.m_endToken - l.m_startToken;
+    ASSERT_GREATER(d, 0, ());
+    if (l.m_endToken == m_numTokens && !m_params.m_prefixTokens.empty())
+      --d;
+    return d;
   };
 
-  for (size_t curToken = 0; curToken < m_numTokens; ++curToken)
+  // 3. Unique preLocalities with featureId but leave the longest range if equal.
+  sort(preLocalities.begin(), preLocalities.end(),
+        [&](Locality const & l1, Locality const & l2)
+        {
+          if (l1.m_featureId != l2.m_featureId)
+            return l1.m_featureId < l2.m_featureId;
+          return tokensCountFn(l1) > tokensCountFn(l2);
+        });
+
+  preLocalities.erase(unique(preLocalities.begin(), preLocalities.end(),
+                              [](Locality const & l1, Locality const & l2)
+                              {
+                                return l1.m_featureId == l2.m_featureId;
+                              }), preLocalities.end());
+
+  // 4. Leave most popular localities.
+  // Use 2*kMaxLocalitiesCount because there can be countries, states, ...
+  if (preLocalities.size() > 2*kMaxLocalitiesCount)
   {
-    for (size_t endToken = curToken + 1; endToken <= m_numTokens; ++endToken)
+    auto rankTable = search::RankTable::Load(context.m_value.m_cont);
+
+    sort(preLocalities.begin(), preLocalities.end(),
+          [&] (Locality const & l1, Locality const & l2)
+          {
+            auto const d1 = tokensCountFn(l1);
+            auto const d2 = tokensCountFn(l2);
+            if (d1 != d2)
+              return d1 > d2;
+            return rankTable->Get(l1.m_featureId) > rankTable->Get(l2.m_featureId);
+          });
+    preLocalities.resize(2*kMaxLocalitiesCount);
+  }
+
+  // 5. Fill result container.
+  size_t count = 0;
+  for (auto & l : preLocalities)
+  {
+    FeatureType ft;
+    context.m_vector.GetByIndex(l.m_featureId, ft);
+
+    if (count < kMaxLocalitiesCount &&
+        ft.GetFeatureType() == feature::GEOM_POINT &&
+        m_model.GetSearchType(ft) == SearchModel::SEARCH_TYPE_CITY)
     {
-      PrepareRetrievalParams(curToken, endToken);
-      auto localities = Retrieval::RetrieveAddressFeatures(
-          context.m_value, static_cast<my::Cancellable const &>(*this), m_retrievalParams);
-      if (coding::CompressedBitVector::IsEmpty(localities))
-        break;
-      coding::CompressedBitVectorEnumerator::ForEach(*localities,
-                                                     bind(addLocality, curToken, endToken, _1));
+      ++count;
+      l.m_rect = MercatorBounds::RectByCenterXYAndSizeInMeters(
+                    ft.GetCenter(), ftypes::GetRadiusByPopulation(ft.GetPopulation()));
+
+      m_localities[make_pair(l.m_startToken, l.m_endToken)].push_back(l);
+    }
+    else
+    {
+      /// @todo Process not only cities but states and countries.
+      /// We can limit the MWM's scope for search.
+
+      // Push to results only full tokens match.
+      if (l.m_endToken - l.m_startToken == m_numTokens)
+        m_results->emplace_back(m_worldId, l.m_featureId);
     }
   }
 }
@@ -317,27 +402,21 @@ void Geocoder::DoGeocodingWithLocalities()
 
     // Unites features from all localities and uses the resulting bit
     // vector as a filter for features retrieved during geocoding.
-    unique_ptr<coding::CompressedBitVector> allFeatures;
+    CBVPtr allFeatures;
     for (auto const & locality : p.second)
     {
-      m2::RectD rect = countryBounds;
-      if (!rect.Intersect(locality.m_rect))
-        continue;
-      auto features = Retrieval::RetrieveGeometryFeatures(
-          m_context->m_value, static_cast<my::Cancellable const &>(*this), rect, m_params.m_scale);
-      if (!features)
+      m2::RectD rect = locality.m_rect;
+      if (!rect.Intersect(countryBounds))
         continue;
 
-      if (!allFeatures)
-        allFeatures = move(features);
-      else
-        allFeatures = coding::CompressedBitVector::Union(*allFeatures, *features);
+      allFeatures.Union(RetrieveGeometryFeatures(*m_context, rect, locality.m_featureId));
     }
 
-    if (coding::CompressedBitVector::IsEmpty(allFeatures))
+    if (allFeatures.IsEmpty())
       continue;
 
-    m_filter.SetFilter(move(allFeatures));
+    m_filter.SetFilter(allFeatures.Get());
+    MY_SCOPE_GUARD(resetFilter, [&]() { m_filter.SetFilter(nullptr); });
 
     // Filter will be applied for all non-empty bit vectors.
     m_filter.SetThreshold(0);
@@ -357,53 +436,32 @@ void Geocoder::DoGeocodingWithoutLocalities()
   // 50km radius around position.
   double constexpr kMaxPositionRadiusM = 50.0 * 1000;
 
-  double constexpr kEps = 1.0e-5;
-
-  m2::RectD const & viewport = m_params.m_viewport;
+  m2::RectD viewport = m_params.m_viewport;
   m2::PointD const & position = m_params.m_position;
 
+  CBVPtr allFeatures;
+
   // Extracts features in viewport.
-  unique_ptr<coding::CompressedBitVector> viewportFeatures;
   {
     // Limits viewport by kMaxViewportRadiusM.
     m2::RectD const viewportLimit =
         MercatorBounds::RectByCenterXYAndSizeInMeters(viewport.Center(), kMaxViewportRadiusM);
-    m2::RectD rect = viewport;
-    rect.Intersect(viewportLimit);
-    if (!rect.IsEmptyInterior())
-    {
-      viewportFeatures = Retrieval::RetrieveGeometryFeatures(
-          m_context->m_value, static_cast<my::Cancellable const &>(*this), rect, m_params.m_scale);
-    }
+    VERIFY(viewport.Intersect(viewportLimit), ());
+
+    allFeatures.Union(RetrieveGeometryFeatures(*m_context, viewport, VIEWPORT_ID));
   }
 
   // Extracts features around user position.
-  unique_ptr<coding::CompressedBitVector> positionFeatures;
-  if (!position.EqualDxDy(viewport.Center(), kEps))
+  if (!position.EqualDxDy(viewport.Center(), kComparePoints))
   {
     m2::RectD const rect =
         MercatorBounds::RectByCenterXYAndSizeInMeters(position, kMaxPositionRadiusM);
-    positionFeatures = Retrieval::RetrieveGeometryFeatures(
-        m_context->m_value, static_cast<my::Cancellable const &>(*this), rect, m_params.m_scale);
+
+    allFeatures.Union(RetrieveGeometryFeatures(*m_context, rect, POSITION_ID));
   }
 
-  if (coding::CompressedBitVector::IsEmpty(viewportFeatures) &&
-      coding::CompressedBitVector::IsEmpty(positionFeatures))
-  {
-    m_filter.SetFilter(nullptr);
-  }
-  else if (coding::CompressedBitVector::IsEmpty(viewportFeatures))
-  {
-    m_filter.SetFilter(move(positionFeatures));
-  }
-  else if (coding::CompressedBitVector::IsEmpty(positionFeatures))
-  {
-    m_filter.SetFilter(move(viewportFeatures));
-  }
-  else
-  {
-    m_filter.SetFilter(coding::CompressedBitVector::Union(*viewportFeatures, *positionFeatures));
-  }
+  m_filter.SetFilter(allFeatures.Get());
+  MY_SCOPE_GUARD(resetFilter, [&]() { m_filter.SetFilter(nullptr); });
 
   // Filter will be applied only for large bit vectors.
   m_filter.SetThreshold(m_params.m_maxNumResults);
@@ -434,13 +492,13 @@ void Geocoder::GreedilyMatchStreets()
         continue;
       if (startToken == curToken || coding::CompressedBitVector::IsEmpty(allFeatures))
       {
-        buffer = coding::CompressedBitVector::Intersect(*m_streets, *m_features[curToken]);
+        buffer = coding::CompressedBitVector::Intersect(*m_streets, *m_addressFeatures[curToken]);
         if (m_filter.NeedToFilter(*buffer))
           buffer = m_filter.Filter(*buffer);
       }
       else
       {
-        buffer = coding::CompressedBitVector::Intersect(*allFeatures, *m_features[curToken]);
+        buffer = coding::CompressedBitVector::Intersect(*allFeatures, *m_addressFeatures[curToken]);
       }
       if (coding::CompressedBitVector::IsEmpty(buffer))
           break;
@@ -510,12 +568,12 @@ void Geocoder::MatchPOIsAndBuildings(size_t curToken)
   unique_ptr<coding::CompressedBitVector> intersection;
   coding::CompressedBitVector * features = nullptr;
 
-  // Try to consume first n tokens starting at |curToken|.
+  // Try to consume [curToken, m_numTokens) tokens range.
   for (size_t n = 1; curToken + n <= m_numTokens && !m_usedTokens[curToken + n - 1]; ++n)
   {
     // At this point |intersection| is the intersection of
-    // m_features[curToken], m_features[curToken + 1], ...,
-    // m_features[curToken + n - 2], iff n > 2.
+    // m_addressFeatures[curToken], m_addressFeatures[curToken + 1], ...,
+    // m_addressFeatures[curToken + n - 2], iff n > 2.
 
     BailIfCancelled();
 
@@ -530,7 +588,7 @@ void Geocoder::MatchPOIsAndBuildings(size_t curToken)
 
     if (n == 1)
     {
-      features = m_features[curToken].get();
+      features = m_addressFeatures[curToken].get();
       if (m_filter.NeedToFilter(*features))
       {
         intersection = m_filter.Filter(*features);
@@ -540,7 +598,7 @@ void Geocoder::MatchPOIsAndBuildings(size_t curToken)
     else
     {
       intersection =
-          coding::CompressedBitVector::Intersect(*features, *m_features[curToken + n - 1]);
+          coding::CompressedBitVector::Intersect(*features, *m_addressFeatures[curToken + n - 1]);
       features = intersection.get();
     }
     ASSERT(features, ());
@@ -688,5 +746,28 @@ coding::CompressedBitVector const * Geocoder::LoadStreets(MwmContext & context)
   m_streetsCache[mwmId] = move(streetsList[0]);
   return result;
 }
+
+coding::CompressedBitVector const * Geocoder::RetrieveGeometryFeatures(
+    MwmContext const & context, m2::RectD const & rect, int id)
+{
+  /// @todo
+  /// - Implement more smart strategy according to id.
+  /// - Move all rect limits here
+
+  auto & featuresV = m_geometryFeatures[context.m_id];
+  for (auto const & v : featuresV)
+  {
+    if (v.m_rect.IsRectInside(rect))
+      return v.m_cbv.get();
+  }
+
+  auto features = Retrieval::RetrieveGeometryFeatures(
+      context.m_value, static_cast<my::Cancellable const &>(*this), rect, m_params.m_scale);
+
+  auto const * result = features.get();
+  featuresV.push_back({ m2::Inflate(rect, kComparePoints, kComparePoints), move(features), id });
+  return result;
+}
+
 }  // namespace v2
 }  // namespace search

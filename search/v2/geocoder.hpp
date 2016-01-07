@@ -83,11 +83,9 @@ public:
 private:
   struct Locality
   {
-    Locality() : m_featureId(0), m_startToken(0), m_endToken(0) {}
-
-    uint32_t m_featureId;
-    size_t m_startToken;
-    size_t m_endToken;
+    uint32_t m_featureId = 0;
+    size_t m_startToken = 0;
+    size_t m_endToken = 0;
     m2::RectD m_rect;
   };
 
@@ -141,6 +139,12 @@ private:
 
   coding::CompressedBitVector const * LoadStreets(MwmContext & context);
 
+  enum { VIEWPORT_ID = -1, POSITION_ID = -2 };
+  /// A caching wrapper around Retrieval::RetrieveGeometryFeatures.
+  /// param[in] Optional query id. Use VIEWPORT_ID, POSITION_ID or feature index for locality.
+  coding::CompressedBitVector const * RetrieveGeometryFeatures(
+      MwmContext const & context, m2::RectD const & rect, int id);
+
   Index & m_index;
 
   // Geocoder params.
@@ -164,10 +168,19 @@ private:
   // Map from [curToken, endToken) to matching localities list.
   map<pair<size_t, size_t>, vector<Locality>> m_localities;
 
+  // Cache of geometry features.
+  struct FeaturesInRect
+  {
+    m2::RectD m_rect;
+    unique_ptr<coding::CompressedBitVector> m_cbv;
+    int m_id;
+  };
+  map<MwmSet::MwmId, vector<FeaturesInRect>> m_geometryFeatures;
+
   // Cache of posting lists for each token in the query.  TODO (@y,
   // @m, @vng): consider to update this cache lazily, as user inputs
   // tokens one-by-one.
-  vector<unique_ptr<coding::CompressedBitVector>> m_features;
+  vector<unique_ptr<coding::CompressedBitVector>> m_addressFeatures;
 
   // Cache of street ids in mwms.
   map<MwmSet::MwmId, unique_ptr<coding::CompressedBitVector>> m_streetsCache;
