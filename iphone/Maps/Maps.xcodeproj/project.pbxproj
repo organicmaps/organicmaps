@@ -33,6 +33,10 @@
 		340C20E31C3E565600111D22 /* MWMCuisineEditorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340C20E21C3E565600111D22 /* MWMCuisineEditorViewController.mm */; };
 		340C20E41C3E565600111D22 /* MWMCuisineEditorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340C20E21C3E565600111D22 /* MWMCuisineEditorViewController.mm */; };
 		340C210D1C3E5F1A00111D22 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 340C210C1C3E5F1A00111D22 /* liboauthcpp.a */; };
+		340C21111C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340C210F1C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.mm */; };
+		340C21121C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340C210F1C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.mm */; };
+		340C21131C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 340C21101C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.xib */; };
+		340C21141C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 340C21101C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.xib */; };
 		340E10601B944DAB00D975D5 /* MWMSearchHistoryManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340E105F1B944DAB00D975D5 /* MWMSearchHistoryManager.mm */; };
 		340E10631B949D1900D975D5 /* MWMSearchBookmarksManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340E10621B949D1900D975D5 /* MWMSearchBookmarksManager.mm */; };
 		340F24631B14910500F874CD /* RouteState.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340F24621B14910500F874CD /* RouteState.mm */; };
@@ -973,6 +977,9 @@
 		340C20E21C3E565600111D22 /* MWMCuisineEditorViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCuisineEditorViewController.mm; sourceTree = "<group>"; };
 		340C20E51C3E58B000111D22 /* MWMEditorCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMEditorCommon.h; sourceTree = "<group>"; };
 		340C210C1C3E5F1A00111D22 /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "/Users/igrechuhin/Repo/omim/xcode/oauthcpp/../../../omim-xcode-build/Debug/liboauthcpp.a"; sourceTree = "<absolute>"; };
+		340C210E1C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCuisineEditorTableViewCell.h; sourceTree = "<group>"; };
+		340C210F1C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCuisineEditorTableViewCell.mm; sourceTree = "<group>"; };
+		340C21101C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMCuisineEditorTableViewCell.xib; sourceTree = "<group>"; };
 		340E105E1B944DAB00D975D5 /* MWMSearchHistoryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchHistoryManager.h; sourceTree = "<group>"; };
 		340E105F1B944DAB00D975D5 /* MWMSearchHistoryManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchHistoryManager.mm; sourceTree = "<group>"; };
 		340E10611B949D1900D975D5 /* MWMSearchBookmarksManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchBookmarksManager.h; sourceTree = "<group>"; };
@@ -2004,6 +2011,9 @@
 			children = (
 				340C20E11C3E565600111D22 /* MWMCuisineEditorViewController.h */,
 				340C20E21C3E565600111D22 /* MWMCuisineEditorViewController.mm */,
+				340C210E1C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.h */,
+				340C210F1C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.mm */,
+				340C21101C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.xib */,
 			);
 			path = Cuisine;
 			sourceTree = "<group>";
@@ -3524,6 +3534,7 @@
 				349A358D1B53EABC009677EE /* MWMSearchDownloadMapRequest.xib in Resources */,
 				9DA46A121C47E95700EF52BA /* drules_proto_legacy.bin in Resources */,
 				4A23D15B1B8B4DD700D4EB6F /* drules_proto_clear.bin in Resources */,
+				340C21131C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.xib in Resources */,
 				341C2A5B1B720B8A00AD41A1 /* MWMAPIBarView.xib in Resources */,
 				34B82AC51B84608600180497 /* MWMSearchHistoryClearCell.xib in Resources */,
 				F6BB6CC01BB17D7000DF1DF2 /* MWMRoutePointCell.xib in Resources */,
@@ -3699,6 +3710,7 @@
 				6741A9851BF340DE002C974C /* MWMBottomMenuCollectionViewPortraitCell.xib in Resources */,
 				6741A9861BF340DE002C974C /* MWMSearchDownloadMapRequest.xib in Resources */,
 				9DA46A131C47E95700EF52BA /* drules_proto_legacy.bin in Resources */,
+				340C21141C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.xib in Resources */,
 				6741A9871BF340DE002C974C /* drules_proto_clear.bin in Resources */,
 				6741A9881BF340DE002C974C /* MWMAPIBarView.xib in Resources */,
 				6741A9891BF340DE002C974C /* MWMSearchHistoryClearCell.xib in Resources */,
@@ -3883,6 +3895,7 @@
 				F64F19991AB81A00006EAF7E /* MWMAlertViewController.mm in Sources */,
 				FAFCB63613366E78001A5C59 /* WebViewController.mm in Sources */,
 				34181EA11C0ECF210081B586 /* MWMOpeningHoursDeleteScheduleTableViewCell.mm in Sources */,
+				340C21111C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.mm in Sources */,
 				F63BA3711BCD5B520044C504 /* MWMTTSLanguageViewController.mm in Sources */,
 				F607C18E1C047FDC00B53A87 /* MWMSegue.mm in Sources */,
 				F6FE2C0F1B03A006009814AA /* MWMPlacePageNavigationBar.mm in Sources */,
@@ -4102,6 +4115,7 @@
 				6741A9D41BF340DE002C974C /* MWMAlertViewController.mm in Sources */,
 				6741A9D51BF340DE002C974C /* WebViewController.mm in Sources */,
 				6741A9D61BF340DE002C974C /* MWMPlacePageNavigationBar.mm in Sources */,
+				340C21121C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.mm in Sources */,
 				6741A9D71BF340DE002C974C /* MWMRouteHelperPanelsDrawer.mm in Sources */,
 				F6D5822F1BFDCA03009409E8 /* MWMPageController.mm in Sources */,
 				6741A9D81BF340DE002C974C /* RouteState.mm in Sources */,

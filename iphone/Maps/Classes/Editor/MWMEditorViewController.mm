@@ -1,3 +1,4 @@
+#import "MWMCuisineEditorViewController.h"
 #import "MWMEditorCommon.h"
 #import "MWMEditorSelectTableViewCell.h"
 #import "MWMEditorSwitchTableViewCell.h"
@@ -55,10 +56,11 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 } // namespace
 
 static NSString * const kOpeningHoursEditorSegue = @"Editor2OpeningHoursEditorSegue";
+static NSString * const kCuisineEditorSegue = @"Editor2CuisineEditorSegue";
 
 @interface MWMEditorViewController ()<UITableViewDelegate, UITableViewDataSource,
                                       UITextFieldDelegate, MWMPlacePageOpeningHoursCellProtocol,
-                                      MWMEditorCellProtocol>
+                                      MWMEditorCellProtocol, MWMCuisineEditorProtocol>
 
 @property (weak, nonatomic) IBOutlet UITableView * tableView;
 
@@ -440,7 +442,7 @@ static NSString * const kOpeningHoursEditorSegue = @"Editor2OpeningHoursEditorSe
 //      [self performSegueWithIdentifier:@"Editor2StreetEditorSegue" sender:nil];
       break;
     case MWMPlacePageCellTypeCuisine:
-//      [self performSegueWithIdentifier:@"Editor2CuisineEditorSegue" sender:nil];
+      [self performSegueWithIdentifier:kCuisineEditorSegue sender:nil];
       break;
     case MWMPlacePageCellTypeSpacer:
       break;
@@ -458,6 +460,23 @@ static NSString * const kOpeningHoursEditorSegue = @"Editor2OpeningHoursEditorSe
     [self setCell:MWMPlacePageCellTypeOpenHours value:openingHours];
 }
 
+#pragma mark - MWMCuisineEditorProtocol
+
+- (NSSet<NSString *> *)getCuisines
+{
+  return self.entity.cuisines;
+}
+
+- (void)setCuisines:(NSSet<NSString *> *)cuisines
+{
+  if ([[self getCuisines] isEqualToSet:cuisines])
+    return;
+  self.entity.cuisines = cuisines;
+  // To get updated value we use [self.entity getCellValue:] not [self getCellValue:]
+  NSString * updatedValue = [self.entity getCellValue:MWMPlacePageCellTypeCuisine];
+  [self setCell:MWMPlacePageCellTypeCuisine value:updatedValue];
+}
+
 #pragma mark - Segue
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -466,6 +485,11 @@ static NSString * const kOpeningHoursEditorSegue = @"Editor2OpeningHoursEditorSe
   {
     MWMOpeningHoursEditorViewController * dvc = segue.destinationViewController;
     dvc.openingHours = [self getCellValue:MWMPlacePageCellTypeOpenHours];
+    dvc.delegate = self;
+  }
+  else if ([segue.identifier isEqualToString:kCuisineEditorSegue])
+  {
+    MWMCuisineEditorViewController * dvc = segue.destinationViewController;
     dvc.delegate = self;
   }
 }
