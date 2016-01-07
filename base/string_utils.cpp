@@ -81,7 +81,7 @@ bool to_double(char const * s, double & d)
 {
   char * stop;
   d = strtod(s, &stop);
-  return stop && *stop == 0;
+  return stop && *stop == 0 && s != stop;
 }
 
 UniString MakeLowerCase(UniString const & s)
