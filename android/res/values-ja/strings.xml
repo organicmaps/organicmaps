@@ -302,6 +302,12 @@
 	<string name="prefs_group_route">ナビゲーション</string>
 	<string name="pref_zoom_title">ズームボタン</string>
 	<string name="pref_zoom_summary">画面上に表示</string>
+	<!-- Settings «Map» category: «Perspective view» title -->
+	<string name="pref_map_3d_title">3D</string>
+	<!-- Settings «Map» category: «3D buildings» title -->
+	<string name="pref_map_3d_buildings_title">3Dビルディング</string>
+	<!-- Settings «Map» category: «3D buildings» summary -->
+	<string name="pref_map_3d_buildings_subtitle">電池の持ち時間に影響します</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">音声指示</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -797,4 +803,8 @@
 	<string name="p2p_to_here">目的地</string>
 	<string name="p2p_only_from_current">ナビゲーションは現在位置からのみ利用できます。</string>
 	<string name="p2p_reroute_from_current">現在位置からのルートを作成しますか？</string>
+	<string name="whats_new_3d_title">お気に入りの地図を新たな視点で</string>
+	<string name="whats_new_3d_subtitle">ナビゲーションモードに視点表示が追加されました。</string>
+	<string name="whats_new_3d_buildings_title">MAPS.MEに新たな次元を追加</string>
+	<string name="whats_new_3d_buildings_subtitle">建物を3Dで表示することで、地図がより詳細で美しくなりました。</string>
 </resources>

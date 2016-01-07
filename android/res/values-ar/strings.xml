@@ -315,6 +315,12 @@
 	<string name="prefs_group_route">الملاحة</string>
 	<string name="pref_zoom_title">أزرار التكبير</string>
 	<string name="pref_zoom_summary">عرض على الشاشة</string>
+	<!-- Settings «Map» category: «Perspective view» title -->
+	<string name="pref_map_3d_title">ثلاثية الأبعاد</string>
+	<!-- Settings «Map» category: «3D buildings» title -->
+	<string name="pref_map_3d_buildings_title">مباني ثلاثية الأبعاد</string>
+	<!-- Settings «Map» category: «3D buildings» summary -->
+	<string name="pref_map_3d_buildings_subtitle">تؤثر على عمر البطارية</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">تعليمات صوتية</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -804,4 +810,8 @@
 	<string name="p2p_to_here">إلى</string>
 	<string name="p2p_only_from_current">تتوافر إمكانية التنقل فقط من خلال موقعك الحالي. هل تريد أن نخطط لك طريقاً بديلاً؟</string>
 	<string name="p2p_reroute_from_current">هل ترغب في أن نرسم مسار لك من موقعك الحالي؟</string>
+	<string name="whats_new_3d_title">خرائطك المفضلة من منظور جديد</string>
+	<string name="whats_new_3d_subtitle">لقد أضفنا عرض المنظور إلى نمط الملاحة.</string>
+	<string name="whats_new_3d_buildings_title">بُعد جديد في MAPS.ME</string>
+	<string name="whats_new_3d_buildings_subtitle">مع المباني ثلاثية الأبعاد، أصبحت خرائطنا أكثر معلوماتية وجمالا.</string>
 </resources>

@@ -311,6 +311,12 @@
 	<string name="prefs_group_route">Navigație</string>
 	<string name="pref_zoom_title">Butoane zoom</string>
 	<string name="pref_zoom_summary">Afișare pe ecran</string>
+	<!-- Settings «Map» category: «Perspective view» title -->
+	<string name="pref_map_3d_title">3D</string>
+	<!-- Settings «Map» category: «3D buildings» title -->
+	<string name="pref_map_3d_buildings_title">Clădiri 3D</string>
+	<!-- Settings «Map» category: «3D buildings» summary -->
+	<string name="pref_map_3d_buildings_subtitle">Afectează durata de funcționare a bateriei</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Instrucțiuni vocale</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -797,4 +803,8 @@
 	<string name="p2p_to_here">În</string>
 	<string name="p2p_only_from_current">Navigația este disponibilă doar având ca punct de pornire locațiacctuală.</string>
 	<string name="p2p_reroute_from_current">Doriți să vă planificăm o rută având ca punct de pornire locația actuală?</string>
+	<string name="whats_new_3d_title">Hărțile dvs. preferate dintr-o nouă perspectivă</string>
+	<string name="whats_new_3d_subtitle">Am adăugat modul de vizualizare în perspectivă la modul de navigație.</string>
+	<string name="whats_new_3d_buildings_title">O nouă dimensiune în MAPS.ME</string>
+	<string name="whats_new_3d_buildings_subtitle">Cu ajutorul clădirilor 3D, hărțile noastre conțin mai multe informații și sunt mai frumoase.</string>
 </resources>

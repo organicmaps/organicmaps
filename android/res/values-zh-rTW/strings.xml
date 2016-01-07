@@ -295,6 +295,12 @@
 	<string name="prefs_group_route">導航</string>
 	<string name="pref_zoom_title">縮放按鈕</string>
 	<string name="pref_zoom_summary">在螢幕上顯示</string>
+	<!-- Settings «Map» category: «Perspective view» title -->
+	<string name="pref_map_3d_title">3D</string>
+	<!-- Settings «Map» category: «3D buildings» title -->
+	<string name="pref_map_3d_buildings_title">3D建築</string>
+	<!-- Settings «Map» category: «3D buildings» summary -->
+	<string name="pref_map_3d_buildings_subtitle">影響電池壽命</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">語音指示</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -786,4 +792,8 @@
 	<string name="p2p_to_here">到</string>
 	<string name="p2p_only_from_current">導航只能從您目前的位置開始。</string>
 	<string name="p2p_reroute_from_current">你是否想要規劃當前位置的路線？</string>
+	<string name="whats_new_3d_title">從全新的角度看您最愛的地圖</string>
+	<string name="whats_new_3d_subtitle">我們添加了視角視圖到導航模式。</string>
+	<string name="whats_new_3d_buildings_title">MAPS.ME中的全新維度</string>
+	<string name="whats_new_3d_buildings_subtitle">有了3D大樓，我們的地圖信息量更豐富也更美了。</string>
 </resources>

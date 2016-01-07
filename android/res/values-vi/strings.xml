@@ -311,6 +311,12 @@
 	<string name="prefs_group_route">Điều hướng</string>
 	<string name="pref_zoom_title">Nút Phóng to/Thu nhỏ</string>
 	<string name="pref_zoom_summary">Hiển thị trên màn hình</string>
+	<!-- Settings «Map» category: «Perspective view» title -->
+	<string name="pref_map_3d_title">3D</string>
+	<!-- Settings «Map» category: «3D buildings» title -->
+	<string name="pref_map_3d_buildings_title">Nhà cửa 3D</string>
+	<!-- Settings «Map» category: «3D buildings» summary -->
+	<string name="pref_map_3d_buildings_subtitle">Ảnh hưởng tới tuổi thọ của pin</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Hướng dẫn bằng Giọng nói</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -800,4 +806,8 @@
 	<string name="p2p_to_here">Đến</string>
 	<string name="p2p_only_from_current">Chức năng tìm đường chỉ có sẵn từ vị trí hiện tại của bạn.</string>
 	<string name="p2p_reroute_from_current">Bạn có muốn chúng tôi vạch đường từ vị trí hiện tại của bạn không?</string>
+	<string name="whats_new_3d_title">Bản đồ yêu thích của bạn từ một góc nhìn mới</string>
+	<string name="whats_new_3d_subtitle">Chúng tôi đã thêm góc nhìn phối cảnh cho chế độ điều hướng.</string>
+	<string name="whats_new_3d_buildings_title">Một chiều mới trong MAPS.ME</string>
+	<string name="whats_new_3d_buildings_subtitle">Với các tòa nhà 3 chiều, bản đồ của chúng tôi cung cấp thêm nhiều thông tin hơn và đẹp hơn.</string>
 </resources>

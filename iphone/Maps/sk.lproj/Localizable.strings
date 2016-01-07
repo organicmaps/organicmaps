@@ -467,6 +467,9 @@
 /* Prints version number in About dialog */
 "version" = "Verzia: %@";
 
+/* Data version in «About» screen */
+"data_version" = "Data version: %d";
+
 /* Confirmation in downloading countries dialog */
 "are_you_sure" = "Naozaj chcete pokračovať?";
 
@@ -508,13 +511,13 @@
 "pref_map_style_modern_light" = "Modern light";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "Perspective view";
+"pref_map_3d_title" = "3D";
 
 /* Settings «Map» category: «3D buildings» title */
-"pref_map_3d_buildings_title" = "3D buildings";
+"pref_map_3d_buildings_title" = "3D budovy";
 
 /* Settings «Map» category: «3D buildings» summary */
-"pref_map_3d_buildings_subtitle" = "Increase battery usage";
+"pref_map_3d_buildings_subtitle" = "Ovplyvňuje životnosť batérie";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Hlasové povely";
@@ -1322,10 +1325,10 @@
 
 "p2p_reroute_from_current" = "Doriți să vă planificăm o rută având ca punct de pornire locația actuală?";
 
-"whats_new_3d_title" = "A new angle to your favorite maps";
+"whats_new_3d_title" = "Vaše obľúbené mapy z nového uhla pohľadu";
 
-"whats_new_3d_subtitle" = "We have added a perspective view to navigate mode.";
+"whats_new_3d_subtitle" = "Do navigačného režimu sme pridali perspektívny pohľad.";
 
-"whats_new_3d_buildings_title" = "A new dimension in MAPS.ME";
+"whats_new_3d_buildings_title" = "Nová dimenzia v MAPS.ME";
 
-"whats_new_3d_buildings_subtitle" = "With 3D buildings the map is now more informative and beautiful.";
+"whats_new_3d_buildings_subtitle" = "Vďaka budovám v 3D sú naše mapy prehľadnejšie a krajšie.";

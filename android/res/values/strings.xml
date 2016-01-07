@@ -191,7 +191,7 @@
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPS is disabled. Please enable it in Settings.</string>
 	<!-- Measurement units title in settings activity -->
-	<string name="measurement_units">Measurement Units</string>
+	<string name="measurement_units">Measurement units</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Choose between miles and kilometres</string>
 	<!-- Do search in all sources -->
@@ -331,11 +331,11 @@
 	<!-- «Map style» entry value -->
 	<string name="pref_map_style_modern_light">Modern light</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">Perspective view</string>
+	<string name="pref_map_3d_title">3D</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D buildings</string>
 	<!-- Settings «Map» category: «3D buildings» summary -->
-	<string name="pref_map_3d_buildings_subtitle">Increase battery usage</string>
+	<string name="pref_map_3d_buildings_subtitle">Affects battery life</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Voice Instructions</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -849,8 +849,8 @@
 	<string name="p2p_to_here">To</string>
 	<string name="p2p_only_from_current">Navigation is available only from your current location.</string>
 	<string name="p2p_reroute_from_current">Do you want us to plan a route from your current location?</string>
-	<string name="whats_new_3d_title">A new angle to your favorite maps</string>
-	<string name="whats_new_3d_subtitle">We have added a perspective view to navigate mode.</string>
+	<string name="whats_new_3d_title">Your favorite maps from a new perspective</string>
+	<string name="whats_new_3d_subtitle">We have added perspective view to the navigation mode.</string>
 	<string name="whats_new_3d_buildings_title">A new dimension in MAPS.ME</string>
-	<string name="whats_new_3d_buildings_subtitle">With 3D buildings the map is now more informative and beautiful.</string>
+	<string name="whats_new_3d_buildings_subtitle">With 3D buildings, our maps have become more informative and more beautiful.</string>
 </resources>

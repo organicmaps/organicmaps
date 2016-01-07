@@ -467,6 +467,9 @@
 /* Prints version number in About dialog */
 "version" = "Phiên bản: %@";
 
+/* Data version in «About» screen */
+"data_version" = "Data version: %d";
+
 /* Confirmation in downloading countries dialog */
 "are_you_sure" = "Bạn có chắc muốn tiếp tục không?";
 
@@ -508,13 +511,13 @@
 "pref_map_style_modern_light" = "Modern light";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "Perspective view";
+"pref_map_3d_title" = "3D";
 
 /* Settings «Map» category: «3D buildings» title */
-"pref_map_3d_buildings_title" = "3D buildings";
+"pref_map_3d_buildings_title" = "Nhà cửa 3D";
 
 /* Settings «Map» category: «3D buildings» summary */
-"pref_map_3d_buildings_subtitle" = "Increase battery usage";
+"pref_map_3d_buildings_subtitle" = "Ảnh hưởng tới tuổi thọ của pin";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Hướng dẫn bằng Giọng nói";
@@ -1322,10 +1325,10 @@
 
 "p2p_reroute_from_current" = "Bạn có muốn chúng tôi vạch đường từ vị trí hiện tại của bạn không?";
 
-"whats_new_3d_title" = "A new angle to your favorite maps";
+"whats_new_3d_title" = "Bản đồ yêu thích của bạn từ một góc nhìn mới";
 
-"whats_new_3d_subtitle" = "We have added a perspective view to navigate mode.";
+"whats_new_3d_subtitle" = "Chúng tôi đã thêm góc nhìn phối cảnh cho chế độ điều hướng.";
 
-"whats_new_3d_buildings_title" = "A new dimension in MAPS.ME";
+"whats_new_3d_buildings_title" = "Một chiều mới trong MAPS.ME";
 
-"whats_new_3d_buildings_subtitle" = "With 3D buildings the map is now more informative and beautiful.";
+"whats_new_3d_buildings_subtitle" = "Với các tòa nhà 3 chiều, bản đồ của chúng tôi cung cấp thêm nhiều thông tin hơn và đẹp hơn.";

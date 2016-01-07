@@ -467,6 +467,9 @@
 /* Prints version number in About dialog */
 "version" = "Sürüm: %@";
 
+/* Data version in «About» screen */
+"data_version" = "Data version: %d";
+
 /* Confirmation in downloading countries dialog */
 "are_you_sure" = "Devam etmek istediğinizden emin misiniz?";
 
@@ -508,13 +511,13 @@
 "pref_map_style_modern_light" = "Modern light";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "Perspective view";
+"pref_map_3d_title" = "3 Boyutlu";
 
 /* Settings «Map» category: «3D buildings» title */
-"pref_map_3d_buildings_title" = "3D buildings";
+"pref_map_3d_buildings_title" = "3 Boyutlu Binalar";
 
 /* Settings «Map» category: «3D buildings» summary */
-"pref_map_3d_buildings_subtitle" = "Increase battery usage";
+"pref_map_3d_buildings_subtitle" = "Pil ömrünü etkiler";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Sesli Talimatlar";
@@ -1322,10 +1325,10 @@
 
 "p2p_reroute_from_current" = "Mevcut konumunuzdan bir rota planlamamızı ister misiniz?";
 
-"whats_new_3d_title" = "A new angle to your favorite maps";
+"whats_new_3d_title" = "En sevdiğiniz haritalar yeni bir perspektiften";
 
-"whats_new_3d_subtitle" = "We have added a perspective view to navigate mode.";
+"whats_new_3d_subtitle" = "Navigasyon moduna perspektif görünüm ekledik.";
 
-"whats_new_3d_buildings_title" = "A new dimension in MAPS.ME";
+"whats_new_3d_buildings_title" = "MAPS.ME'de yeni bir boyut";
 
-"whats_new_3d_buildings_subtitle" = "With 3D buildings the map is now more informative and beautiful.";
+"whats_new_3d_buildings_subtitle" = "3 boyutlu binalarla haritalarımız daha bilgilendirici ve daha güzel hale geldi.";

@@ -39,7 +39,7 @@
 	<!-- Show bookmarks from this category on a map or not -->
 	<text id="IDS_VISIBLE">Visible</text>
 	<!-- Measurement units title in settings activity -->
-	<text id="IDS_MEASUREMENT_UNITS">Measurement Units</text>
+	<text id="IDS_MEASUREMENT_UNITS">Measurement units</text>
 	<!-- Detailed description of Measurement Units settings button -->
 	<text id="IDS_MEASUREMENT_UNITS_SUMMARY">Choose between miles and kilometres</text>
 	<!-- Search Suggestion -->

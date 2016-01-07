@@ -308,6 +308,12 @@
 	<string name="prefs_group_route">Navigazione</string>
 	<string name="pref_zoom_title">Pulsanti per lo zoom</string>
 	<string name="pref_zoom_summary">Condividi la mia location</string>
+	<!-- Settings «Map» category: «Perspective view» title -->
+	<string name="pref_map_3d_title">3D</string>
+	<!-- Settings «Map» category: «3D buildings» title -->
+	<string name="pref_map_3d_buildings_title">Edifici in 3D</string>
+	<!-- Settings «Map» category: «3D buildings» summary -->
+	<string name="pref_map_3d_buildings_subtitle">Diminuisce la durata della batteria</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Istruzioni vocali</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -797,4 +803,8 @@
 	<string name="p2p_to_here">A</string>
 	<string name="p2p_only_from_current">La navigazione è disponibile solo dalla tua posizione attuale.</string>
 	<string name="p2p_reroute_from_current">Vuoi che impostiamo il percorso dalla tua posizione corrente?</string>
+	<string name="whats_new_3d_title">Le tue mappe preferite in una nuova prospettiva</string>
+	<string name="whats_new_3d_subtitle">Abbiamo aggiunto la visualizzazione prospettica alla modalità di navigazione.</string>
+	<string name="whats_new_3d_buildings_title">MAPS.ME ha una nuova dimensione</string>
+	<string name="whats_new_3d_buildings_subtitle">Le nostre mappe ora sono ancora più efficaci e ricche di contenuti, grazie agli edifici in 3D.</string>
 </resources>

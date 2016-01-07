@@ -312,6 +312,12 @@
 	<string name="prefs_group_route">Navigace</string>
 	<string name="pref_zoom_title">Tlačítka přiblížení/oddálení</string>
 	<string name="pref_zoom_summary">Zobrazit na obrazovce</string>
+	<!-- Settings «Map» category: «Perspective view» title -->
+	<string name="pref_map_3d_title">3D</string>
+	<!-- Settings «Map» category: «3D buildings» title -->
+	<string name="pref_map_3d_buildings_title">3D budovy</string>
+	<!-- Settings «Map» category: «3D buildings» summary -->
+	<string name="pref_map_3d_buildings_subtitle">Ovlivňuje výdrž baterie</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Hlasové instrukce</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -807,4 +813,8 @@
 	<string name="p2p_to_here">Do</string>
 	<string name="p2p_only_from_current">Navigace je dostupná pouze z vašeho současného umístění.</string>
 	<string name="p2p_reroute_from_current">Chcete, abychom naplánovali trasu z vašeho současného umístění?</string>
+	<string name="whats_new_3d_title">Vaše oblíbené mapy z nové perspektivy</string>
+	<string name="whats_new_3d_subtitle">Přidali jsme do navigačního režimu zobrazení perspektivy.</string>
+	<string name="whats_new_3d_buildings_title">Nová dimenze v MAPS.ME</string>
+	<string name="whats_new_3d_buildings_subtitle">Díky 3D budovám jsou naše mapy pěknější a více informativní.</string>
 </resources>
