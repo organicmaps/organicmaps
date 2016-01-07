@@ -6,6 +6,11 @@ from threading import Lock
 from threading import Thread
 import traceback
 import logging
+from os import path
+
+
+from Queue import Queue
+
 
 from run_desktop_tests import tests_on_disk
 
@@ -20,14 +25,14 @@ class IntegrationRunner:
         logging.info("Number of processors is: {}".format(self.proc_count))
 
         self.file_lock = Lock()
-        self.queue_lock = Lock()
 
-        self.tests = list()
+        self.tests = Queue()
 
     def run_tests(self):
         for exec_file in self.runlist:
-            tests = list(self.get_tests_from_exec_file(exec_file, "--list_tests")[0])[::-1]
-            self.tests.extend(map(lambda x: (exec_file, x),  tests))
+            tests = self.get_tests_from_exec_file(exec_file, "--list_tests")[0]
+            for test in tests:
+                self.tests.put((exec_file, test))
 
         self.file = open(self.output, "w")
         self.run_parallel_tests()
@@ -49,37 +54,26 @@ class IntegrationRunner:
     def exec_tests_in_queue(self):
         while True:
             try:
-                self.queue_lock.acquire()
-                if not len(self.tests):
+                if self.tests.empty():
                     return
 
-                test_file, test = self.tests.pop()
-
-                self.queue_lock.release()
+                test_file, test = self.tests.get()
                 self.exec_test(test_file, test)
             except:
                 logging.error(traceback.format_exc())
 
-            finally:
-                if self.queue_lock.locked():
-                    self.queue_lock.release()
-
 
     def exec_test(self, test_file, test):
         out, err, result = self.get_tests_from_exec_file(test_file, '--filter={test}'.format(test=test))
-
-        try:
-            self.file_lock.acquire()
+        with self.file_lock:
             self.file.write("BEGIN: {}\n".format(test_file))
             self.file.write(str(err))
             self.file.write("\nEND: {} | result: {}\n\n".format(test_file, result))
             self.file.flush()
-        finally:
-            self.file_lock.release()
 
 
     def get_tests_from_exec_file(self, test, keys):
-        spell = "{tests_path}/{test} {keys}".format(tests_path=self.workspace_path, test=test, keys=keys)
+        spell = "{test} {keys}".format(test=path.join(self.workspace_path, test), keys=keys)
 
         process = subprocess.Popen(spell.split(" "),
                                    stdout=subprocess.PIPE,
@@ -109,9 +103,6 @@ class IntegrationRunner:
         self.output = options.output
 
 
-def main():
+if __name__ == "__main__":
     runner = IntegrationRunner()
     runner.run_tests()
-
-if __name__ == "__main__":
-    main()
