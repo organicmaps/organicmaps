@@ -7,7 +7,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView * image;
 @property (weak, nonatomic) IBOutlet UILabel * alertTitle;
 @property (weak, nonatomic) IBOutlet UILabel * alertText;
-@property (weak, nonatomic) IBOutlet UIButton * button;
+@property (weak, nonatomic) IBOutlet UIButton * nextPageButton;
+@property (weak, nonatomic, readwrite) IBOutlet UIButton * enableButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * containerWidth;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * containerHeight;
 
@@ -16,6 +17,7 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * titleTopOffset;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * titleImageOffset;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * betweenButtonsOffset;
 
 @end
 
@@ -33,20 +35,25 @@
 
 - (void)configureFirstPage
 {
-  self.image.image = [UIImage imageNamed:@"img_tts"];
-  self.alertTitle.text = L(@"whats_new_where_to_turn");
-  self.alertText.text = L(@"whats_new_voice_instructions");
-  [self.button setTitle:L(@"whats_new_next") forState:UIControlStateNormal];
-  [self.button addTarget:self.pageController action:@selector(nextPage) forControlEvents:UIControlEventTouchUpInside];
+  self.image.image = [UIImage imageNamed:@"img_3d_buildings"];
+  self.alertTitle.text = L(@"whats_new_3d_buildings_title");
+  self.alertText.text = [NSString stringWithFormat:@"%@\n\n%@", L(@"whats_new_3d_buildings_subtitle"), L(@"3d_new_update_maps")];
+  [self.enableButton setTitle:L(@"3d_new_buildings_on") forState:UIControlStateNormal];
+  [self.nextPageButton setTitle:L(@"dialog_routing_not_now") forState:UIControlStateNormal];
+  [self.nextPageButton addTarget:self.pageController action:@selector(skipFirst) forControlEvents:UIControlEventTouchUpInside];
+  [self.enableButton addTarget:self.pageController action:@selector(enableFirst:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)configureSecondPage
 {
-  self.image.image = [UIImage imageNamed:@"img_p2p"];
-  self.alertTitle.text = L(@"whats_new_between_any_points");
-  self.alertText.text = L(@"whats_new_happy_day");
-  [self.button setTitle:L(@"done") forState:UIControlStateNormal];
-  [self.button addTarget:self.pageController action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
+  self.image.image = [UIImage imageNamed:@"img_perspective_view"];
+  self.alertTitle.text = L(@"whats_new_3d_title");
+  self.alertText.text = L(@"whats_new_3d_subtitle");
+  [self.enableButton setTitle:L(@"3d_new_on") forState:UIControlStateNormal];
+  [self.nextPageButton setTitle:L(@"dialog_routing_not_now") forState:UIControlStateNormal];
+  [self.nextPageButton addTarget:self.pageController action:@selector(skipSecond) forControlEvents:UIControlEventTouchUpInside];
+  [self.enableButton addTarget:self.pageController action:@selector(enableSecond) forControlEvents:UIControlEventTouchUpInside];
+  self.enableButton.selected = NO;
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
@@ -71,6 +78,8 @@
   self.image.hidden = hideImage;
   self.containerWidth.constant = width;
   self.containerHeight.constant = height;
+  BOOL const isPortrait = (!IPAD && size.height > size.width);
+  self.betweenButtonsOffset.constant = isPortrait ? 16 : 8;
 }
 
 @end

@@ -2,9 +2,17 @@
 #import "MWMWhatsNewController.h"
 #import "Statistics.h"
 
-static NSString * const kPageViewControllerStoryboardID = @"PageViewController";
-static NSString * const kContentViewControllerStoryboardID = @"PageContentController";
-static NSUInteger const kNumberOfPages = 2;
+#include "Framework.h"
+
+namespace
+{
+
+NSString * const kPageViewControllerStoryboardID = @"PageViewController";
+NSString * const kContentViewControllerStoryboardID = @"PageContentController";
+NSUInteger const kNumberOfPages = 2;
+
+} // namespace
+
 extern NSString * const kUDWhatsNewWasShown;
 
 @protocol MWMPageControllerDataSource <UIPageViewControllerDataSource>
@@ -16,6 +24,7 @@ extern NSString * const kUDWhatsNewWasShown;
 NS_CLASS_AVAILABLE_IOS(8_0) @interface MWMPageControllerDataSourceImpl : NSObject <MWMPageControllerDataSource>
 
 @property (weak, nonatomic, readonly) MWMPageController * pageController;
+@property (nonatomic) BOOL isButtonSelectedOnFirstScreen;
 
 - (instancetype)initWithPageController:(MWMPageController *)pageController;
 
@@ -55,28 +64,27 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface MWMPageControllerDataSourceImpl : NSObjec
                                    bundle:[NSBundle mainBundle]];
 }
 
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(MWMWhatsNewController *)viewController
 {
-  NSUInteger index = [(MWMWhatsNewController *)viewController pageIndex];
+  NSUInteger index = viewController.pageIndex;
+  viewController.enableButton.selected = self.isButtonSelectedOnFirstScreen;
 
-  if ((index == 0) || (index == NSNotFound))
+  if (index == 0 || index == NSNotFound)
     return nil;
 
   index--;
   return [self viewControllerAtIndex:index];
 }
 
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(MWMWhatsNewController *)viewController
 {
-  NSUInteger index = [(MWMWhatsNewController *)viewController pageIndex];
+  NSUInteger index = viewController.pageIndex;
+  viewController.enableButton.selected = NO;
 
-  if (index == NSNotFound)
+  if (index == NSNotFound || index == kNumberOfPages - 1)
     return nil;
 
   index++;
-  if (index == kNumberOfPages)
-    return nil;
-
   return [self viewControllerAtIndex:index];
 }
 
@@ -105,7 +113,8 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface MWMPageControllerDataSourceImpl : NSObjec
 
 - (void)close
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatWhatsNew, kUDWhatsNewWasShown) withParameters:@{kStatAction : kStatClose}];
+  [[Statistics instance] logEvent:kStatEventName(kStatWhatsNew, kUDWhatsNewWasShown)
+                   withParameters:@{kStatAction : kStatClose}];
   [self.iPadBackgroundView removeFromSuperview];
   [self.view removeFromSuperview];
   [self removeFromParentViewController];
@@ -113,13 +122,15 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface MWMPageControllerDataSourceImpl : NSObjec
 
 - (void)nextPage
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatWhatsNew, kUDWhatsNewWasShown) withParameters:@{kStatAction : kStatNext}];
+  [[Statistics instance] logEvent:kStatEventName(kStatWhatsNew, kUDWhatsNewWasShown)
+                   withParameters:@{kStatAction : kStatNext}];
   [self setViewControllers:@[[self.pageControllerDataSource viewControllerAtIndex:1]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 }
 
 - (void)show
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatWhatsNew, kUDWhatsNewWasShown) withParameters:@{kStatAction : kStatOpen}];
+  [[Statistics instance] logEvent:kStatEventName(kStatWhatsNew, kUDWhatsNewWasShown)
+                   withParameters:@{kStatAction : kStatOpen}];
   if (IPAD)
     [self.parent.view addSubview:self.iPadBackgroundView];
   [self.parent addChildViewController:self];
@@ -127,19 +138,64 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface MWMPageControllerDataSourceImpl : NSObjec
   [self didMoveToParentViewController:self.parent];
 }
 
+#pragma mark - Enabled methods
+
+- (void)enableFirst:(UIButton *)button
+{
+  auto & f = GetFramework();
+  bool _ = true, is3dBuildings = true;
+  f.Load3dMode(_, is3dBuildings);
+  BOOL const isEnabled = !button.selected;
+  f.Save3dMode(_, isEnabled);
+  f.Allow3dMode(_, isEnabled);
+  button.selected = self.pageControllerDataSource.isButtonSelectedOnFirstScreen = isEnabled;
+  [self nextPage];
+}
+
+- (void)enableSecond
+{
+  auto & f = GetFramework();
+  bool _ = true;
+  f.Load3dMode(_, _);
+  f.Save3dMode(true, _);
+  f.Allow3dMode(true, _);
+  [self close];
+}
+
+- (void)skipFirst
+{
+  auto & f = GetFramework();
+  bool _ = true, is3dBuildings = true;
+  f.Load3dMode(_, is3dBuildings);
+  f.Save3dMode(_, false);
+  f.Allow3dMode(_, false);
+  [self nextPage];
+}
+
+- (void)skipSecond
+{
+  auto & f = GetFramework();
+  bool _ = true;
+  f.Load3dMode(_, _);
+  f.Save3dMode(false, _);
+  f.Allow3dMode(false, _);
+  [self close];
+}
+
+#pragma mark - Private methods
+
 - (CGSize)defaultSize
 {
   return IPAD ? CGSizeMake(520.0, 600.0) : self.parent.view.frame.size;
 }
-
-#pragma mark Private methods
 
 - (void)configure
 {
   UIView * mainView = self.view;
   UIView * parentView = self.parent.view;
   CGSize const size = self.defaultSize;
-  CGPoint const origin = IPAD ? CGPointMake(parentView.center.x - size.width / 2, parentView.center.y - size.height / 2) : CGPointZero;
+  CGPoint const origin = IPAD ? CGPointMake(parentView.center.x - size.width / 2, parentView.center.y - size.height / 2) :
+                                CGPointZero;
   mainView.frame = {origin, size};
   mainView.backgroundColor = [UIColor whiteColor];
   if (IPAD)
@@ -158,7 +214,7 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface MWMPageControllerDataSourceImpl : NSObjec
 {
   [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   if (IPAD)
-    self.view.center = {size.width / 2, size.height / 2 };
+    self.view.center = self.parent.view.center;
   else
     self.view.origin = {};
 }

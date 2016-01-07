@@ -33,7 +33,7 @@
 #import "../../../private.h"
 
 extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
-extern NSString * const kUDWhatsNewWasShown = @"WhatsNewWithTTSAndP2PWasShown";
+extern NSString * const kUDWhatsNewWasShown = @"WhatsNewWith3dAndPerspectiveWasShown";
 extern char const * kAdForbiddenSettingsKey;
 extern char const * kAdServerForbiddenKey;
 
@@ -395,8 +395,9 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   self.controlsManager.menuState = self.menuRestoreState;
 
   [self refreshAd];
-  
+
   GetFramework().InvalidateRendering();
+  [self showWhatsNewIfNeeded];
 }
 
 - (void)viewDidLoad
