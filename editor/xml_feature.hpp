@@ -1,5 +1,6 @@
 #pragma once
 
+#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
@@ -41,7 +42,7 @@ public:
 
   Type GetType() const;
 
-  m2::PointD GetCenter() const;
+  ms::LatLon GetCenter() const;
   void SetCenter(m2::PointD const & mercatorCenter);
 
   string GetName(string const & lang) const;

@@ -5,8 +5,6 @@
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
-#include "geometry/mercator.hpp"
-
 #include "std/set.hpp"
 #include "std/unordered_set.hpp"
 
@@ -32,20 +30,20 @@ pugi::xml_node FindTag(pugi::xml_document const & document, string const & key)
   return document.select_node(("//tag[@k='" + key + "']").data()).node();
 }
 
-m2::PointD PointFromLatLon(pugi::xml_node const node)
+ms::LatLon PointFromLatLon(pugi::xml_node const node)
 {
-  double lat, lon;
-  if (!strings::to_double(node.attribute("lat").value(), lat))
+  ms::LatLon ll;
+  if (!strings::to_double(node.attribute("lat").value(), ll.lat))
   {
     MYTHROW(editor::XMLFeatureNoLatLonError,
             ("Can't parse lat attribute: " + string(node.attribute("lat").value())));
   }
- if (!strings::to_double(node.attribute("lon").value(), lon))
+ if (!strings::to_double(node.attribute("lon").value(), ll.lon))
  {
    MYTHROW(editor::XMLFeatureNoLatLonError,
            ("Can't parse lon attribute: " + string(node.attribute("lon").value())));
  }
-  return MercatorBounds::FromLatLon(lat, lon);
+  return ll;
 }
 
 void ValidateNode(pugi::xml_node const & node)
@@ -101,7 +99,7 @@ void XMLFeature::Save(ostream & ost) const
   m_document.save(ost, "  ", pugi::format_indent_attributes);
 }
 
-m2::PointD XMLFeature::GetCenter() const
+ms::LatLon XMLFeature::GetCenter() const
 {
   return PointFromLatLon(GetRootNode());
 }
