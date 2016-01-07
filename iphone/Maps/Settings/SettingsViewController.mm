@@ -124,7 +124,7 @@ typedef NS_ENUM(NSUInteger, Section)
     {
       bool _ = true;
       GetFramework().Load3dMode(_, on);
-      customCell.titleLabel.text = L(@"pref_3d_buildings");
+      customCell.titleLabel.text = L(@"pref_map_3d_buildings_title");
     }
     else
     {
@@ -143,7 +143,7 @@ typedef NS_ENUM(NSUInteger, Section)
     {
       cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
       SwitchCell * customCell = (SwitchCell *)cell;
-      customCell.titleLabel.text = L(@"prefs_3d_mode");
+      customCell.titleLabel.text = L(@"pref_map_3d_title");
       customCell.delegate = self;
       bool _ = true, on = true;
       GetFramework().Load3dMode(on, _);
