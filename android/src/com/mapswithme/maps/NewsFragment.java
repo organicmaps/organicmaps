@@ -241,7 +241,7 @@ public class NewsFragment extends BaseMwmDialogFragment
    * @return whether "What's new" dialog should be shown.
    */
   @SuppressWarnings("TryWithIdenticalCatches")
-  public static boolean showOn(FragmentActivity activity)
+  static boolean showOn(FragmentActivity activity)
   {
     if (Config.getFirstInstallVersion() >= BuildConfig.VERSION_CODE)
       return false;
