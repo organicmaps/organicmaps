@@ -814,9 +814,10 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     }
     else if (selectedObject == SelectionShape::OBJECT_POI)
     {
-      hasSelectedPOI = true;
-      if (!isPerspective)
+      if (!isPerspective && !has3dAreas)
         m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+      else
+        hasSelectedPOI = true;
     }
   }
 
@@ -842,7 +843,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     m_transparentLayer->Render(m_framebuffer->GetTextureId(), make_ref(m_gpuProgramManager));
   }
 
-  if (isPerspective && hasSelectedPOI)
+  if (hasSelectedPOI)
   {
     GLFunctions::glDisable(gl_const::GLDepthTest);
     m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
