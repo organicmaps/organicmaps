@@ -97,7 +97,6 @@ class TestRunner:
         except (urllib2.URLError, socket.timeout):
             logging.info("Failed to stop the server...")
 
-
     def categorize_tests(self):
             
         tests_to_run = list()
@@ -223,5 +222,10 @@ class TestRunner:
         self.print_pretty("not found", categorized_tests[NOT_FOUND])
 
 
-runner = TestRunner()
-runner.execute()
+def tests_on_disk(path):
+    return filter(lambda x: x.endswith("_tests"), listdir(path))
+
+
+if __name__ == "__main__":
+    runner = TestRunner()
+    runner.execute()
