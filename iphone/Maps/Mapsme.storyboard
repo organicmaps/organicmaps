@@ -730,7 +730,7 @@
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                                 <integer key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="8"/>
                                             </userDefinedRuntimeAttribute>
@@ -773,7 +773,7 @@
                                     <constraint firstItem="oRc-M5-KT8" firstAttribute="leading" secondItem="D7d-Qb-2An" secondAttribute="leading" constant="16" id="Lq4-9h-Qmh"/>
                                     <constraint firstAttribute="trailing" secondItem="oRc-M5-KT8" secondAttribute="trailing" constant="16" id="VTi-wm-ggu"/>
                                     <constraint firstAttribute="bottom" secondItem="eUZ-Ui-GVQ" secondAttribute="bottom" constant="36" id="bUn-Gh-Rlr"/>
-                                    <constraint firstItem="89l-86-0xk" firstAttribute="height" secondItem="D7d-Qb-2An" secondAttribute="height" multiplier="0.3" priority="750" id="eDv-46-dEZ"/>
+                                    <constraint firstItem="89l-86-0xk" firstAttribute="height" secondItem="D7d-Qb-2An" secondAttribute="height" multiplier="0.2" priority="750" id="eDv-46-dEZ"/>
                                     <constraint firstAttribute="height" constant="600" id="iuE-gX-na2"/>
                                     <constraint firstAttribute="width" constant="520" id="ooZ-hL-8Wc"/>
                                     <constraint firstItem="eUZ-Ui-GVQ" firstAttribute="centerX" secondItem="D7d-Qb-2An" secondAttribute="centerX" id="wiT-zA-c6e"/>
