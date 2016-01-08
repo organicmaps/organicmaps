@@ -99,6 +99,26 @@ void XMLFeature::Save(ostream & ost) const
   m_document.save(ost, "  ");
 }
 
+string XMLFeature::ToOSMString() const
+{
+  ostringstream ost;
+  // Ugly way to wrap into <osm>..</osm> tags.
+  // Unfortunately, pugi xml library doesn't allow to insert documents into other documents.
+  ost << "<?xml version=\"1.0\"?>" << endl;
+  ost << "<osm>" << endl;
+  m_document.save(ost, "  ", pugi::format_no_declaration | pugi::format_indent);
+  ost << "</osm>" << endl;
+  return ost.str();
+}
+
+void XMLFeature::ApplyPatch(XMLFeature const & featureWithChanges)
+{
+  featureWithChanges.ForEachTag([this](string const & k, string const & v)
+  {
+    SetTagValue(k, v);
+  });
+}
+
 ms::LatLon XMLFeature::GetCenter() const
 {
   return PointFromLatLon(GetRootNode());

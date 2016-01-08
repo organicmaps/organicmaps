@@ -75,6 +75,24 @@ UNIT_TEST(XMLFeature_Setters)
   TEST_EQUAL(sstr.str(), expectedString, ());
 }
 
+UNIT_TEST(XMLFeature_ToOSMString)
+{
+  XMLFeature feature(XMLFeature::Type::Node);
+  feature.SetCenter(MercatorBounds::FromLatLon(55.7978998, 37.4745280));
+  feature.SetName("OSM");
+  feature.SetTagValue("amenity", "atm");
+
+  auto const expectedString = R"(<?xml version="1.0"?>
+<osm>
+<node lat="55.7978998" lon="37.474528">
+  <tag k="name" v="OSM" />
+  <tag k="amenity" v="atm" />
+</node>
+</osm>
+)";
+  TEST_EQUAL(expectedString, feature.ToOSMString(), ());
+}
+
 // UNIT_TEST(XMLFeature_FromXml)
 // {
 //   auto const srcString = R"(<?xml version="1.0"?>

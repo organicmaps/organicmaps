@@ -33,12 +33,17 @@ public:
     Way
   };
 
+  /// Creates empty node or way.
   XMLFeature(Type const type);
   XMLFeature(string const & xml);
   XMLFeature(pugi::xml_document const & xml);
   XMLFeature(pugi::xml_node const & xml);
   XMLFeature(XMLFeature const & feature) : XMLFeature(feature.m_document) {}
   void Save(ostream & ost) const;
+  string ToOSMString() const;
+
+  /// Tags from featureWithChanges are applied to this(osm) feature.
+  void ApplyPatch(XMLFeature const & featureWithChanges);
 
   Type GetType() const;
 
