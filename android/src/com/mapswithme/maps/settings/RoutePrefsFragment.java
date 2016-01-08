@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.sound.LanguageData;
 import com.mapswithme.maps.sound.TtsPlayer;
@@ -150,6 +151,23 @@ public class RoutePrefsFragment extends PreferenceFragment
 
     mPrefEnabled = (TwoStatePreference) findPreference(getString(R.string.pref_tts_enabled));
     mPrefLanguages = (ListPreference) findPreference(getString(R.string.pref_tts_language));
+
+    final Framework.Params3dMode _3d = new Framework.Params3dMode();
+    Framework.nativeGet3dMode(_3d);
+
+    final TwoStatePreference pref3d = (TwoStatePreference)findPreference(getString(R.string.pref_3d));
+    pref3d.setChecked(_3d.enabled);
+
+    pref3d.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+    {
+      @Override
+      public boolean onPreferenceChange(Preference preference, Object newValue)
+      {
+        Framework.nativeSet3dMode((Boolean)newValue, _3d.buildings);
+        return true;
+      }
+    });
+
     update();
   }
 

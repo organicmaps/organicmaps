@@ -63,6 +63,6 @@
 
   <string-array name="news_switch_subtitles">
     <item/>
-    <item>@string/pref_map_3d_buildings_subtitle</item>
+    <item/>
   </string-array>
 </resources>
