@@ -294,8 +294,8 @@ public class RoutingController
   {
     StringBuilder builder = new StringBuilder();
     for (int resId : new int[] { R.string.dialog_routing_disclaimer_priority, R.string.dialog_routing_disclaimer_precision,
-                                 R.string.dialog_routing_disclaimer_recommendations, R.string.dialog_routing_disclaimer_beware,
-                                 R.string.dialog_routing_disclaimer_borders })
+                                 R.string.dialog_routing_disclaimer_recommendations, R.string.dialog_routing_disclaimer_borders,
+                                 R.string.dialog_routing_disclaimer_beware })
       builder.append(MwmApplication.get().getString(resId)).append("\n\n");
 
     new AlertDialog.Builder(mContainer.getActivity())

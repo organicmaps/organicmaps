@@ -1170,7 +1170,7 @@
 
 "dialog_routing_disclaimer_recommendations" = "— Navrhované trasy je třeba brát pouze jako doporučení;";
 
-"dialog_routing_disclaimer_borders" = "U tratí v hraničních zónách buďte opatrní: trasy vytvořené naší aplikací občas překračují hranice zemí na nepovolených místech.";
+"dialog_routing_disclaimer_borders" = "— U tratí v hraničních zónách buďte opatrní: trasy vytvořené naší aplikací občas překračují hranice zemí na nepovolených místech;";
 
 "dialog_routing_disclaimer_beware" = "Na silnici buďte pozorní a chovejte se bezpečně!";
 

@@ -1170,7 +1170,7 @@
 
 "dialog_routing_disclaimer_recommendations" = "— Rute yang disarankan hanya untuk digunakan sebagai rekomendasi;";
 
-"dialog_routing_disclaimer_borders" = "Berhati-hatilah dengan rute di zona perbatasan: rute yang dibuat oleh aplikasi kami terkadang mungkin saja melintasi batas negara di lokasi yang tidak sah.";
+"dialog_routing_disclaimer_borders" = "— Berhati-hatilah dengan rute di zona perbatasan: rute yang dibuat oleh aplikasi kami terkadang mungkin saja melintasi batas negara di lokasi yang tidak sah;";
 
 "dialog_routing_disclaimer_beware" = "Jaga selalu kewaspadaan dan keselamatan di jalan!";
 

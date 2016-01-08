@@ -1170,7 +1170,7 @@
 
 "dialog_routing_disclaimer_recommendations" = "— L'itinéraire proposé doit être considéré comme une simple recommandation;";
 
-"dialog_routing_disclaimer_borders" = "Faites attention aux itinéraires traversant des zones frontalières : les itinéraires générés par l'application peuvent parfois franchir des frontières étatiques dans des zones interdites.";
+"dialog_routing_disclaimer_borders" = "— Faites attention aux itinéraires traversant des zones frontalières : les itinéraires générés par l'application peuvent parfois franchir des frontières étatiques dans des zones interdites;";
 
 "dialog_routing_disclaimer_beware" = "Restez vigilant et soyez prudent sur la route !";
 

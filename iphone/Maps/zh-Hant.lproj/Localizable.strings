@@ -1170,7 +1170,7 @@
 
 "dialog_routing_disclaimer_recommendations" = "— 建議的路線僅供推薦參考；";
 
-"dialog_routing_disclaimer_borders" = "小心對待國界區的路線：我們應用創造的路線有時會在未經授權的地方跨越國界。";
+"dialog_routing_disclaimer_borders" = "— 小心對待國界區的路線：我們應用創造的路線有時會在未經授權的地方跨越國界;";
 
 "dialog_routing_disclaimer_beware" = "祝您出外安全，自身多加注意！";
 

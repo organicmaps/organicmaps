@@ -1170,7 +1170,7 @@
 
 "dialog_routing_disclaimer_recommendations" = "— Sugerowane trasy należy traktować jedynie jako rekomendacje;";
 
-"dialog_routing_disclaimer_borders" = "Prosimy zachować ostrożność na trasach w strefie nadgranicznej: wyznaczone przez naszą aplikację trasy mogą przecinać granice państw w niedozwolonych do przekroczenia miejscach.";
+"dialog_routing_disclaimer_borders" = "— Prosimy zachować ostrożność na trasach w strefie nadgranicznej: wyznaczone przez naszą aplikację trasy mogą przecinać granice państw w niedozwolonych do przekroczenia miejscach;";
 
 "dialog_routing_disclaimer_beware" = "Podczas podróży zachowaj czujność i prowadź ostrożnie!";
 

@@ -728,7 +728,7 @@
 	<string name="dialog_routing_disclaimer_priority">— Дорожня обстановка, правила дорожнього руху і знаки пріоритетніші, ніж поради програми;</string>
 	<string name="dialog_routing_disclaimer_precision">— Карта може бути неточною, а запропонований маршрут не завжди оптимальний;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— Запропоновані маршрути — лише рекомендації;</string>
-	<string name="dialog_routing_disclaimer_borders">Дотримуйтеся обережності з маршрутами у прикордонних зонах: маршрути, створені нашою програмою, іноді можуть перетинати кордони країн у несанкціонованих місцях.</string>
+	<string name="dialog_routing_disclaimer_borders">— Дотримуйтеся обережності з маршрутами у прикордонних зонах: маршрути, створені нашою програмою, іноді можуть перетинати кордони країн у несанкціонованих місцях;</string>
 	<string name="dialog_routing_disclaimer_beware">Будьте уважні на дорогах і бережіть себе!</string>
 	<string name="dialog_routing_check_gps">Перевірте сигнал GPS</string>
 	<string name="dialog_routing_error_location_not_found">Маршрут не побудовано. Поточну геопозицію не визначено.</string>

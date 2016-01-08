@@ -1170,7 +1170,7 @@
 
 "dialog_routing_disclaimer_recommendations" = "— 表示されるルートはあくまでも推奨ルートとしてご利用ください。;";
 
-"dialog_routing_disclaimer_borders" = "国境付近のルートにご注意ください。アプリの作成したルートは時々入国の許可されていない国への国境を超える場合があります。";
+"dialog_routing_disclaimer_borders" = "— 国境付近のルートにご注意ください。アプリの作成したルートは時々入国の許可されていない国への国境を超える場合があります;";
 
 "dialog_routing_disclaimer_beware" = "よく注意して安全運転を心がけましょう！";
 

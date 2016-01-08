@@ -766,7 +766,7 @@
 	<string name="dialog_routing_disclaimer_priority">— Road conditions, traffic laws and road signs always take priority over the navigational advice;</string>
 	<string name="dialog_routing_disclaimer_precision">— The map might be inaccurate and the suggested route might not always be the most optimal way to reach the destination;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— Suggested routes are to be taken only as recommendations;</string>
-	<string name="dialog_routing_disclaimer_borders">Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.</string>
+	<string name="dialog_routing_disclaimer_borders">— Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places;</string>
 	<string name="dialog_routing_disclaimer_beware">Please stay alert and safe on the roads!</string>
 	<string name="dialog_routing_check_gps">Check GPS signal</string>
 	<string name="dialog_routing_error_location_not_found">Unable to create route. Current GPS coordinates could not be identified.</string>

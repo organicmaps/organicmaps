@@ -1170,7 +1170,7 @@
 
 "dialog_routing_disclaimer_recommendations" = "— Suggested routes are to be taken only as recommendations;";
 
-"dialog_routing_disclaimer_borders" = "Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.";
+"dialog_routing_disclaimer_borders" = "— Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places;";
 
 "dialog_routing_disclaimer_beware" = "Please stay alert and safe on the roads!";
 

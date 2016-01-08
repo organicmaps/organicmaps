@@ -727,7 +727,7 @@
 	<string name="dialog_routing_disclaimer_priority">— Vägförhållanden, trafiklagar och vägskyltar alltid ska prioriteras över navigeringsråd;</string>
 	<string name="dialog_routing_disclaimer_precision">— Kartan kan vara felaktig och den föreslagna vägen inte alltid är det optimala sättet att ta sig till destinationen;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— Föreslagna vägar endast är rekommendationer;</string>
-	<string name="dialog_routing_disclaimer_borders">Iakttag försiktighet med rutter i gränszoner: rutterna som vår app skapat kan ibland korsa landsgränser på otillåtna platser.</string>
+	<string name="dialog_routing_disclaimer_borders">— Iakttag försiktighet med rutter i gränszoner: rutterna som vår app skapat kan ibland korsa landsgränser på otillåtna platser;</string>
 	<string name="dialog_routing_disclaimer_beware">Var uppmärksam och kör säkert på vägarna!</string>
 	<string name="dialog_routing_check_gps">Kontrollera GPS-signal</string>
 	<string name="dialog_routing_error_location_not_found">Kan inte skapa väg. Nuvarande GPS-koordinater kan inte identifieras.</string>

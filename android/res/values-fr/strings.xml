@@ -736,7 +736,7 @@
 	<string name="dialog_routing_disclaimer_priority">— Les conditions de circulation, le code de la route et les panneaux de signalisation ont la priorité sur l\&#39;appareil de navigation;</string>
 	<string name="dialog_routing_disclaimer_precision">— La carte peut être imprécise et l\&#39;itinéraire proposé n\&#39;est pas forcément le plus direct pour arriver à destination;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— L\&#39;itinéraire proposé doit être considéré comme une simple recommandation;</string>
-	<string name="dialog_routing_disclaimer_borders">Faites attention aux itinéraires traversant des zones frontalières : les itinéraires générés par l\&#39;application peuvent parfois franchir des frontières étatiques dans des zones interdites.</string>
+	<string name="dialog_routing_disclaimer_borders">— Faites attention aux itinéraires traversant des zones frontalières : les itinéraires générés par l\&#39;application peuvent parfois franchir des frontières étatiques dans des zones interdites;</string>
 	<string name="dialog_routing_disclaimer_beware">Restez vigilant et soyez prudent sur la route !</string>
 	<string name="dialog_routing_check_gps">Vérifiez le signal GPS</string>
 	<string name="dialog_routing_error_location_not_found">Impossible de créer l\&#39;itinéraire. Les coordonnées GPS actuelles n\&#39;ont pas pu être identifiées.</string>

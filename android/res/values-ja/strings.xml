@@ -722,7 +722,7 @@
 	<string name="dialog_routing_disclaimer_priority">— 道路の状況や道路交通法、道路標識をナビゲーションよりも常に優先してください。;</string>
 	<string name="dialog_routing_disclaimer_precision">— マップは必ずしも正確であるとは限らず、また案内ルートが常に目的地までの最適なルートであるとは限りません。;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— 表示されるルートはあくまでも推奨ルートとしてご利用ください。;</string>
-	<string name="dialog_routing_disclaimer_borders">国境付近のルートにご注意ください。アプリの作成したルートは時々入国の許可されていない国への国境を超える場合があります。</string>
+	<string name="dialog_routing_disclaimer_borders">— 国境付近のルートにご注意ください。アプリの作成したルートは時々入国の許可されていない国への国境を超える場合があります;</string>
 	<string name="dialog_routing_disclaimer_beware">よく注意して安全運転を心がけましょう！</string>
 	<string name="dialog_routing_check_gps">GPS信号をご確認ください</string>
 	<string name="dialog_routing_error_location_not_found">案内ルートを作成できません。現在地のGPSコードを確認できません。</string>
