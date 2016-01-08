@@ -7,6 +7,7 @@
 
 #include "storage/country_info_getter.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
 #include "search/search_tests_support/test_search_engine.hpp"
@@ -27,9 +28,12 @@
 #include "std/cstdio.hpp"
 #include "std/fstream.hpp"
 #include "std/iostream.hpp"
+#include "std/map.hpp"
 #include "std/numeric.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
+
+#include "defines.hpp"
 
 #include "3party/gflags/src/gflags/gflags.h"
 
@@ -41,13 +45,16 @@ DEFINE_string(mwm_list_path, "", "Path to a file containing the names of availab
 DEFINE_string(mwm_path, "", "Path to mwm files (writable dir)");
 DEFINE_string(queries_path, "", "Path to the file with queries");
 DEFINE_int32(top, 1, "Number of top results to show for every query");
+DEFINE_string(viewport, "", "Viewport to use when searching (default, moscow, london, zurich)");
+
+map<string, m2::RectD> const kViewports = {
+    {"default", m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0))},
+    {"moscow", MercatorBounds::RectByCenterXYAndSizeInMeters(m2::PointD(37.7, 55.7), 5000)},
+    {"london", MercatorBounds::RectByCenterXYAndSizeInMeters(m2::PointD(0.0, 51.5), 5000)},
+    {"zurich", MercatorBounds::RectByCenterXYAndSizeInMeters(m2::PointD(8.5, 47.4), 5000)}};
 
 string const kDefaultQueriesPathSuffix = "/../search/search_quality_tests/queries.txt";
 string const kEmptyResult = "<empty>";
-
-m2::RectD const kDefaultViewport(m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0));
-m2::RectD const kMoscowViewport =
-    MercatorBounds::RectByCenterXYAndSizeInMeters(m2::PointD(37.6531, 55.7516), 5000);
 
 class SearchQueryV2Factory : public search::SearchQueryFactory
 {
@@ -82,7 +89,7 @@ void PrintTopResults(string const & query, vector<search::Result> const & result
 {
   cout << query;
   char timeBuf[100];
-  sprintf(timeBuf, "\t[%.3fs]", elapsedSeconds);
+  snprintf(timeBuf, sizeof(timeBuf), "\t[%.3fs]", elapsedSeconds);
   if (n > 1)
     cout << timeBuf;
   for (size_t i = 0; i < n; ++i)
@@ -103,7 +110,7 @@ void PrintTopResults(string const & query, vector<search::Result> const & result
 
 uint64_t ReadVersionFromHeader(platform::LocalCountryFile const & mwm)
 {
-  if (mwm.GetCountryName() == "World" || mwm.GetCountryName() == "WorldCoasts")
+  if (mwm.GetCountryName() == WORLD_FILE_NAME || mwm.GetCountryName() == WORLD_COASTS_FILE_NAME)
     return mwm.GetVersion();
 
   ModelReaderPtr reader = FilesContainerR(mwm.GetPath(MapOptions::Map)).GetReader(VERSION_FILE_TAG);
@@ -159,9 +166,20 @@ int main(int argc, char * argv[])
   }
   cout << endl;
 
-  // auto const & viewport = kDefaultViewport;
-  auto const & viewport = kMoscowViewport;
-  cout << "Viewport used in all search invocations: " << DebugPrint(viewport) << endl << endl;
+  m2::RectD viewport;
+  {
+    string name = FLAGS_viewport;
+    auto it = kViewports.find(name);
+    if (it == kViewports.end())
+    {
+      name = "default";
+      it = kViewports.find(name);
+    }
+    CHECK(it != kViewports.end(), ());
+    viewport = it->second;
+    cout << "Viewport used in all search invocations: " << name << " " << DebugPrint(viewport)
+         << "\n\n";
+  }
 
   vector<string> queries;
   string queriesPath = FLAGS_queries_path;
