@@ -96,7 +96,7 @@ XMLFeature::Type XMLFeature::GetType() const
 
 void XMLFeature::Save(ostream & ost) const
 {
-  m_document.save(ost, "  ", pugi::format_indent_attributes);
+  m_document.save(ost, "  ");
 }
 
 ms::LatLon XMLFeature::GetCenter() const

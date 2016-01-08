@@ -32,11 +32,8 @@ UNIT_TEST(XMLFeature_RawGetSet)
   TEST_EQUAL(feature.GetTagValue("opening_hours"), "18:20-19:21", ());
 
   auto const expected = R"(<?xml version="1.0"?>
-<node
-  FooBar="foofoo">
-  <tag
-    k="opening_hours"
-    v="18:20-19:21" />
+<node FooBar="foofoo">
+  <tag k="opening_hours" v="18:20-19:21" />
 </node>
 )";
 
@@ -65,28 +62,13 @@ UNIT_TEST(XMLFeature_Setters)
   feature.Save(sstr);
 
   auto const expectedString = R"(<?xml version="1.0"?>
-<node
-  lat="55.7978998"
-  lon="37.474528"
-  timestamp="2015-11-27T21:13:32Z">
-  <tag
-    k="name"
-    v="Gorki Park" />
-  <tag
-    k="name:en"
-    v="Gorki Park" />
-  <tag
-    k="name:ru"
-    v="Парк Горького" />
-  <tag
-    k="addr:housenumber"
-    v="10" />
-  <tag
-    k="opening_hours"
-    v="Mo-Fr 08:15-17:30" />
-  <tag
-    k="amenity"
-    v="atm" />
+<node lat="55.7978998" lon="37.474528" timestamp="2015-11-27T21:13:32Z">
+  <tag k="name" v="Gorki Park" />
+  <tag k="name:en" v="Gorki Park" />
+  <tag k="name:ru" v="Парк Горького" />
+  <tag k="addr:housenumber" v="10" />
+  <tag k="opening_hours" v="Mo-Fr 08:15-17:30" />
+  <tag k="amenity" v="atm" />
 </node>
 )";
 
@@ -148,28 +130,13 @@ UNIT_TEST(XMLFeature_Setters)
 UNIT_TEST(XMLFeature_ForEachName)
 {
   auto const srcString = R"(<?xml version="1.0"?>
-<node
-  lat="55.7978998"
-  lon="37.474528"
-  timestamp="2015-11-27T21:13:32Z">
-  <tag
-    k="name"
-    v="Gorki Park" />
-  <tag
-    k="name:en"
-    v="Gorki Park" />
-  <tag
-    k="name:ru"
-    v="Парк Горького" />
-  <tag
-    k="addr:housenumber"
-    v="10" />
-  <tag
-    k="opening_hours"
-    v="Mo-Fr 08:15-17:30" />
-  <tag
-    k="amenity"
-    v="atm" />
+<node lat="55.7978998" lon="37.474528" timestamp="2015-11-27T21:13:32Z">
+  <tag k="name" v="Gorki Park" />
+  <tag k="name:en" v="Gorki Park" />
+  <tag k="name:ru" v="Парк Горького" />
+  <tag k="addr:housenumber" v="10" />
+  <tag k="opening_hours" v="Mo-Fr 08:15-17:30" />
+  <tag k="amenity" v="atm" />
 </node>
 )";
 
