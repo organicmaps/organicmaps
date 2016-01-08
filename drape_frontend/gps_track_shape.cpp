@@ -62,7 +62,7 @@ dp::BindingInfo const & GetGpsTrackDynamicBindingInfo()
 } // namespace
 
 GpsTrackHandle::GpsTrackHandle(size_t pointsCount)
-  : OverlayHandle(FeatureID(), dp::Anchor::Center, 0)
+  : OverlayHandle(FeatureID(), dp::Anchor::Center, 0, false)
   , m_needUpdate(false)
 {
   m_buffer.resize(pointsCount * dp::Batcher::VertexPerQuad);
@@ -101,15 +101,17 @@ bool GpsTrackHandle::IndexesRequired() const
   return false;
 }
 
-m2::RectD GpsTrackHandle::GetPixelRect(ScreenBase const & screen) const
+m2::RectD GpsTrackHandle::GetPixelRect(ScreenBase const & screen, bool perspective) const
 {
   UNUSED_VALUE(screen);
+  UNUSED_VALUE(perspective);
   return m2::RectD();
 }
 
-void GpsTrackHandle::GetPixelShape(ScreenBase const & screen, Rects & rects) const
+void GpsTrackHandle::GetPixelShape(ScreenBase const & screen, Rects & rects, bool perspective) const
 {
   UNUSED_VALUE(screen);
+  UNUSED_VALUE(perspective);
 }
 
 void GpsTrackHandle::SetPoint(size_t index, m2::PointD const & position,

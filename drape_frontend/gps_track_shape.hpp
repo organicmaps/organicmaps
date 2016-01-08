@@ -52,8 +52,8 @@ public:
   void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator,
                             ScreenBase const & screen) const override;
   bool Update(ScreenBase const & screen) override;
-  m2::RectD GetPixelRect(ScreenBase const & screen) const override;
-  void GetPixelShape(ScreenBase const & screen, Rects & rects) const override;
+  m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override;
+  void GetPixelShape(ScreenBase const & screen, Rects & rects, bool perspective) const override;
   bool IndexesRequired() const override;
 
   void Clear();
