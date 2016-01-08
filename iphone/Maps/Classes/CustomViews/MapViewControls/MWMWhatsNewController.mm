@@ -39,8 +39,8 @@
   self.alertTitle.text = L(@"whats_new_3d_buildings_title");
   self.alertText.text = [NSString stringWithFormat:@"%@\n\n%@", L(@"whats_new_3d_buildings_subtitle"), L(@"whats_new_3d_update_maps")];
   [self.enableButton setTitle:L(@"whats_new_3d_buildings_on") forState:UIControlStateNormal];
-  [self.nextPageButton setTitle:L(@"dialog_routing_not_now") forState:UIControlStateNormal];
-  [self.nextPageButton addTarget:self.pageController action:@selector(skipFirst) forControlEvents:UIControlEventTouchUpInside];
+  [self.nextPageButton setTitle:L(@"whats_new_next_button") forState:UIControlStateNormal];
+  [self.nextPageButton addTarget:self.pageController action:@selector(nextPage) forControlEvents:UIControlEventTouchUpInside];
   [self.enableButton addTarget:self.pageController action:@selector(enableFirst:) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -50,8 +50,8 @@
   self.alertTitle.text = L(@"whats_new_3d_title");
   self.alertText.text = L(@"whats_new_3d_subtitle");
   [self.enableButton setTitle:L(@"whats_new_3d_on") forState:UIControlStateNormal];
-  [self.nextPageButton setTitle:L(@"dialog_routing_not_now") forState:UIControlStateNormal];
-  [self.nextPageButton addTarget:self.pageController action:@selector(skipSecond) forControlEvents:UIControlEventTouchUpInside];
+  [self.nextPageButton setTitle:L(@"done") forState:UIControlStateNormal];
+  [self.nextPageButton addTarget:self.pageController action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
   [self.enableButton addTarget:self.pageController action:@selector(enableSecond) forControlEvents:UIControlEventTouchUpInside];
   self.enableButton.selected = NO;
 }

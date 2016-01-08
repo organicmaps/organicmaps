@@ -495,7 +495,7 @@
         <!--Whats New Controller-->
         <scene sceneID="BHc-6D-CJw">
             <objects>
-                <viewController id="Fjp-WS-uUD" customClass="MWMWhatsNewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PageContentController" id="Fjp-WS-uUD" customClass="MWMWhatsNewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WHe-e5-0L3"/>
                         <viewControllerLayoutGuide type="bottom" id="jfD-hq-SOU"/>
@@ -637,7 +637,7 @@
         <!--Whats New Controller-->
         <scene sceneID="MYd-bd-VsQ">
             <objects>
-                <viewController storyboardIdentifier="PageContentController" id="efw-TH-VUf" customClass="MWMWhatsNewController" sceneMemberID="viewController">
+                <viewController id="efw-TH-VUf" customClass="MWMWhatsNewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="c3A-fh-ac5"/>
                         <viewControllerLayoutGuide type="bottom" id="sSr-Q7-vth"/>
