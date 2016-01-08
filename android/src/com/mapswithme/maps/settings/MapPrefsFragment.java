@@ -122,30 +122,18 @@ public class MapPrefsFragment extends BaseXmlSettingsFragment
     else
       getPreferenceScreen().removePreference(pref);
 
-    Framework.Params3dMode _3d = new Framework.Params3dMode();
+    final Framework.Params3dMode _3d = new Framework.Params3dMode();
     Framework.nativeGet3dMode(_3d);
 
-    final TwoStatePreference pref3d = (TwoStatePreference)findPreference(getString(R.string.pref_3d));
     final TwoStatePreference pref3dBuildings = (TwoStatePreference)findPreference(getString(R.string.pref_3d_buildings));
-    pref3d.setChecked(_3d.enabled);
     pref3dBuildings.setChecked(_3d.buildings);
-
-    pref3d.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
-    {
-      @Override
-      public boolean onPreferenceChange(Preference preference, Object newValue)
-      {
-        Framework.nativeSet3dMode((Boolean)newValue, pref3dBuildings.isChecked());
-        return true;
-      }
-    });
 
     pref3dBuildings.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
     {
       @Override
       public boolean onPreferenceChange(Preference preference, Object newValue)
       {
-        Framework.nativeSet3dMode(pref3d.isChecked(), (Boolean)newValue);
+        Framework.nativeSet3dMode(_3d.enabled, (Boolean)newValue);
         return true;
       }
     });
