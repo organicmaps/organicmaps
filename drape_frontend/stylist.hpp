@@ -86,4 +86,6 @@ bool InitStylist(FeatureType const & f,
                  bool buildings3d,
                  Stylist & s);
 
+double GetFeaturePriority(FeatureType const & f, int const zoomLevel);
+
 } // namespace df
