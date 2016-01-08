@@ -14,7 +14,7 @@ namespace
 
 NSString * const kOSMCuisineSeparator = @";";
 
-array<MWMPlacePageCellType, 10> const kPatternFieldsArray{
+array<MWMPlacePageCellType, 10> const gMetaFieldsMap{
     {MWMPlacePageCellTypePostcode, MWMPlacePageCellTypePhoneNumber, MWMPlacePageCellTypeWebsite,
      MWMPlacePageCellTypeURL, MWMPlacePageCellTypeEmail, MWMPlacePageCellTypeOpenHours,
      MWMPlacePageCellTypeWiFi, MWMPlacePageCellTypeCoordinate, MWMPlacePageCellTypeBookmark,
@@ -105,8 +105,8 @@ void initFieldsMap()
 
 - (void)sortMetaFields
 {
-  auto const begin = kPatternFieldsArray.begin();
-  auto const end = kPatternFieldsArray.end();
+  auto const begin = gMetaFieldsMap.begin();
+  auto const end = gMetaFieldsMap.end();
   sort(m_fields.begin(), m_fields.end(), [&](MWMPlacePageCellType a, MWMPlacePageCellType b)
   {
     return find(begin, end, a) < find(begin, end, b);
@@ -117,7 +117,7 @@ void initFieldsMap()
 {
   NSAssert(value >= Metadata::FMD_COUNT, @"Incorrect enum value");
   MWMPlacePageCellType const field = static_cast<MWMPlacePageCellType>(value);
-  if (find(kPatternFieldsArray.begin(), kPatternFieldsArray.end(), field) == kPatternFieldsArray.end())
+  if (find(gMetaFieldsMap.begin(), gMetaFieldsMap.end(), field) == gMetaFieldsMap.end())
     return;
   if (find(m_fields.begin(), m_fields.end(), field) == m_fields.end())
     m_fields.emplace_back(field);
@@ -137,7 +137,7 @@ void initFieldsMap()
   [self addMetaField:key];
   NSAssert(key >= Metadata::FMD_COUNT, @"Incorrect enum value");
   MWMPlacePageCellType const cellType = static_cast<MWMPlacePageCellType>(key);
-  m_values.emplace(cellType, value);
+  m_values[cellType] = value;
 }
 
 - (void)configureForBookmark:(UserMark const *)bookmark
@@ -295,7 +295,6 @@ void initFieldsMap()
 
 - (BOOL)isCellEditable:(MWMPlacePageCellType)cellType
 {
-  return YES;
   return m_editableFields.count(cellType) == 1;
 }
 
@@ -408,8 +407,7 @@ void initFieldsMap()
   if ([_cuisines isEqualToSet:cuisines])
     return;
   _cuisines = cuisines;
-  NSMutableArray<NSString *> * localizedCuisines =
-  [NSMutableArray arrayWithCapacity:self.cuisines.count];
+  NSMutableArray<NSString *> * localizedCuisines = [NSMutableArray arrayWithCapacity:self.cuisines.count];
   for (NSString * cus in self.cuisines)
   {
     NSString * cuisine = [NSString stringWithFormat:@"cuisine_%@", cus];

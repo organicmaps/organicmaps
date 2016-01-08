@@ -30,7 +30,6 @@ using WeekDayView = MWMPlacePageOpeningHoursDayView *;
 @property (weak, nonatomic) id<MWMPlacePageOpeningHoursCellProtocol> delegate;
 
 @property (nonatomic) BOOL isClosed;
-@property (nonatomic, readonly) BOOL isExpanded;
 @property (nonatomic) BOOL haveExpandSchedule;
 
 @end
@@ -90,9 +89,9 @@ WeekDayView getWeekDayView()
     cd.isCompatibility = YES;
     [cd setCompatibilityText:info isPlaceholder:delegate.isPlaceholder];
   }
-  BOOL const isExpanded = self.isExpanded;
-  self.middleSeparator.hidden = !isExpanded;
-  self.weekDaysView.hidden = !isExpanded;
+  BOOL const isHidden = !self.isExpanded;
+  self.middleSeparator.hidden = isHidden;
+  self.weekDaysView.hidden = isHidden;
   [cd invalidate];
 }
 

@@ -20,7 +20,7 @@ CGFloat const kDirectionArrowSide = 26.;
 CGFloat const kOffsetFromTitleToDistance = 12.;
 CGFloat const kOffsetFromDistanceToArrow = 8.;
 
-MWMPlacePageCellTypeValueMap const kCellType2ReuseIdentifier{
+MWMPlacePageCellTypeValueMap const gCellType2ReuseIdentifier{
     {MWMPlacePageCellTypeWiFi, "PlacePageInfoCell"},
     {MWMPlacePageCellTypeCoordinate, "PlacePageInfoCell"},
     {MWMPlacePageCellTypePostcode, "PlacePageInfoCell"},
@@ -34,8 +34,8 @@ MWMPlacePageCellTypeValueMap const kCellType2ReuseIdentifier{
 
 NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 {
-  auto const it = kCellType2ReuseIdentifier.find(cellType);
-  BOOL const haveCell = (it != kCellType2ReuseIdentifier.end());
+  auto const it = gCellType2ReuseIdentifier.find(cellType);
+  BOOL const haveCell = (it != gCellType2ReuseIdentifier.end());
   ASSERT(haveCell, ());
   return haveCell ? @(it->second.c_str()) : @"";
 }
@@ -62,7 +62,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   [super awakeFromNib];
   self.featureTable.delegate = self;
   self.featureTable.dataSource = self;
-  for (auto const & type : kCellType2ReuseIdentifier)
+  for (auto const & type : gCellType2ReuseIdentifier)
   {
     NSString * identifier = @(type.second.c_str());
     [self.featureTable registerNib:[UINib nibWithNibName:identifier bundle:nil]

@@ -19,22 +19,24 @@ typedef NS_ENUM(NSUInteger, MWMEditorSection)
   MWMEditorSectionDetails
 };
 
-vector<MWMPlacePageCellType> const kSectionNameCellTypes{MWMPlacePageCellTypeName};
+vector<MWMPlacePageCellType> const gSectionNameCellTypes{MWMPlacePageCellTypeName};
 
-vector<MWMPlacePageCellType> const kSectionAddressCellTypes{
+vector<MWMPlacePageCellType> const gSectionAddressCellTypes{
     {MWMPlacePageCellTypeStreet, MWMPlacePageCellTypeBuilding, MWMPlacePageCellTypeSpacer}};
 
-vector<MWMPlacePageCellType> const kSectionDetailsCellTypes{
+vector<MWMPlacePageCellType> const gSectionDetailsCellTypes{
     {MWMPlacePageCellTypeOpenHours, MWMPlacePageCellTypePhoneNumber, MWMPlacePageCellTypeWebsite,
      MWMPlacePageCellTypeEmail, MWMPlacePageCellTypeCuisine, MWMPlacePageCellTypeWiFi,
      MWMPlacePageCellTypeSpacer}};
 
-map<vector<MWMPlacePageCellType>, MWMEditorSection> const kCellTypesSectionMap{
-    {kSectionNameCellTypes, MWMEditorSectionName},
-    {kSectionAddressCellTypes, MWMEditorSectionAddress},
-    {kSectionDetailsCellTypes, MWMEditorSectionDetails}};
+using CellTypesSectionMap = pair<vector<MWMPlacePageCellType>, MWMEditorSection>;
 
-MWMPlacePageCellTypeValueMap const kCellType2ReuseIdentifier{
+vector<CellTypesSectionMap> const gCellTypesSectionMap{
+    {gSectionNameCellTypes, MWMEditorSectionName},
+    {gSectionAddressCellTypes, MWMEditorSectionAddress},
+    {gSectionDetailsCellTypes, MWMEditorSectionDetails}};
+
+MWMPlacePageCellTypeValueMap const gCellType2ReuseIdentifier{
     {MWMPlacePageCellTypeName, "MWMEditorNameTableViewCell"},
     {MWMPlacePageCellTypeStreet, "MWMEditorSelectTableViewCell"},
     {MWMPlacePageCellTypeBuilding, "MWMEditorTextTableViewCell"},
@@ -48,8 +50,8 @@ MWMPlacePageCellTypeValueMap const kCellType2ReuseIdentifier{
 
 NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 {
-  auto const it = kCellType2ReuseIdentifier.find(cellType);
-  BOOL const haveCell = (it != kCellType2ReuseIdentifier.end());
+  auto const it = gCellType2ReuseIdentifier.find(cellType);
+  BOOL const haveCell = (it != gCellType2ReuseIdentifier.end());
   ASSERT(haveCell, ());
   return haveCell ? @(it->second.c_str()) : @"";
 }
@@ -161,7 +163,7 @@ static NSString * const kCuisineEditorSegue = @"Editor2CuisineEditorSegue";
   m_sections.clear();
   m_cells.clear();
   m_edited_cells.clear();
-  for (auto cellsSection : kCellTypesSectionMap)
+  for (auto cellsSection : gCellTypesSectionMap)
   {
     for (auto cellType : cellsSection.first)
     {
@@ -439,7 +441,7 @@ static NSString * const kCuisineEditorSegue = @"Editor2CuisineEditorSegue";
       break;
     }
     case MWMPlacePageCellTypeStreet:
-//      [self performSegueWithIdentifier:@"Editor2StreetEditorSegue" sender:nil];
+      // TODO
       break;
     case MWMPlacePageCellTypeCuisine:
       [self performSegueWithIdentifier:kCuisineEditorSegue sender:nil];
@@ -471,6 +473,7 @@ static NSString * const kCuisineEditorSegue = @"Editor2CuisineEditorSegue";
 {
   if ([[self getCuisines] isEqualToSet:cuisines])
     return;
+  self.needsReload = YES;
   self.entity.cuisines = cuisines;
   // To get updated value we use [self.entity getCellValue:] not [self getCellValue:]
   NSString * updatedValue = [self.entity getCellValue:MWMPlacePageCellTypeCuisine];

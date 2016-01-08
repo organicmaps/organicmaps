@@ -17,6 +17,8 @@ typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
   MWMFieldCorrectAll = MWMFieldCorrectLogin | MWMFieldCorrectPassword
 };
 
+using namespace osm;
+
 @interface MWMAuthorizationOSMLoginViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField * loginTextField;
@@ -99,7 +101,7 @@ typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
   return YES;
 }
 
-- (void)storeCredentials:(osm::TKeySecret)keySecret
+- (void)storeCredentials:(TKeySecret)keySecret
 {
   NSString * requestToken = @(keySecret.first.c_str());
   NSString * requestSecret = @(keySecret.second.c_str());
@@ -169,12 +171,12 @@ typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
       string const username = self.loginTextField.text.UTF8String;
       string const password = self.passwordTextField.text.UTF8String;
       // TODO(AlexZ): Change to production.
-      osm::OsmOAuth auth = osm::OsmOAuth::DevServerAuth();
-      osm::OsmOAuth::AuthResult const result = auth.AuthorizePassword(username, password);
+      OsmOAuth auth = osm::OsmOAuth::DevServerAuth();
+      OsmOAuth::AuthResult const result = auth.AuthorizePassword(username, password);
       dispatch_async(dispatch_get_main_queue(), ^
       {
         [self stopSpinner];
-        if (result == osm::OsmOAuth::AuthResult::OK)
+        if (result == OsmOAuth::AuthResult::OK)
           [self storeCredentials:auth.GetToken()];
         else
           [self showAlert:L(@"invalid_username_or_password")];
