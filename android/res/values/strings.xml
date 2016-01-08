@@ -857,4 +857,5 @@
 	<string name="whats_new_3d_update_maps">To take full advantage of this feature, please, update your map data.</string>
 	<string name="whats_new_3d_on">Enable Perspective View</string>
 	<string name="whats_new_3d_buildings_on">Enable 3D Buildings</string>
+	<string name="whats_new_next_button">Next</string>
 </resources>

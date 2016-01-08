@@ -853,4 +853,5 @@
 	<string name="whats_new_3d_update_maps">Для полноценной работы функции, пожалуйста, обновите карты.</string>
 	<string name="whats_new_3d_on">Включить перспективный вид</string>
 	<string name="whats_new_3d_buildings_on">Включить 3D здания</string>
+	<string name="whats_new_next_button">Далее</string>
 </resources>
