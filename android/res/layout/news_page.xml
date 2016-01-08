@@ -8,52 +8,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <RelativeLayout
+    <FrameLayout
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      android:layout_weight="1"
-      android:padding="@dimen/margin_base">
-      <FrameLayout
-        android:id="@+id/image_frame"
+      android:layout_weight="1">
+      <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:orientation="vertical"
+        android:layout_gravity="center">
+        <TextView
+          android:id="@+id/title"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/margin_base"
+          android:layout_marginRight="@dimen/margin_base"
+          android:layout_marginBottom="@dimen/margin_base"
+          android:textAppearance="@style/MwmTextAppearance.Title"
+          android:layout_gravity="center_horizontal"
+          android:gravity="center_horizontal"
+          android:fontFamily="@string/robotoMedium"
+          tools:text="@string/whats_new_3d_title"/>
+
         <ImageView
           android:id="@+id/image"
           android:layout_width="180dp"
           android:layout_height="180dp"
-          android:layout_marginBottom="@dimen/margin_base_plus"
+          android:layout_marginBottom="@dimen/margin_base"
+          android:layout_gravity="center_horizontal"
           android:tag="@string/tag_height_limited"
           tools:src="@drawable/img_news_3d"/>
-      </FrameLayout>
 
-      <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_base_plus"
-        android:layout_above="@id/image_frame"
-        android:textAppearance="@style/MwmTextAppearance.Title"
-        android:gravity="center_horizontal"
-        android:fontFamily="@string/robotoMedium"
-        tools:text="@string/whats_new_3d_title"/>
-
-      <TextView
-        android:id="@+id/subtitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/image_frame"
-        android:textAppearance="@style/MwmTextAppearance.Body1"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        tools:text="@string/whats_new_3d_subtitle"/>
-    </RelativeLayout>
+        <TextView
+          android:id="@+id/subtitle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/margin_base"
+          android:layout_marginRight="@dimen/margin_base"
+          android:textAppearance="@style/MwmTextAppearance.Body1"
+          android:layout_gravity="center_horizontal"
+          android:gravity="center_horizontal"
+          tools:text="@string/whats_new_3d_subtitle"/>
+      </LinearLayout>
+    </FrameLayout>
 
     <LinearLayout
       android:id="@+id/switch_block"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:minHeight="72dp"
+      android:minHeight="64dp"
       android:orientation="horizontal"
       android:gravity="center_vertical"
       android:paddingLeft="@dimen/margin_base"
@@ -77,7 +80,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textAppearance="@style/MwmTextAppearance.Body3"
-          tools:text="Switch block subtitle\nwith long"/>
+          tools:text="Switch block subtitle"/>
       </LinearLayout>
 
       <android.support.v7.widget.SwitchCompat
