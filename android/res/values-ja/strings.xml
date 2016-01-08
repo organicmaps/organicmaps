@@ -811,4 +811,5 @@
 	<string name="whats_new_3d_update_maps">この機能をフル活用するために、マップデータを更新してください。</string>
 	<string name="whats_new_3d_on">パースペクティブ表示を有効化</string>
 	<string name="whats_new_3d_buildings_on">3Dビルディングを有効化</string>
+	<string name="whats_new_next_button">次へ</string>
 </resources>

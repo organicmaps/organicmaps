@@ -825,4 +825,5 @@
 	<string name="whats_new_3d_update_maps">Pour profiter pleinement de cette fonction, veuillez mettre à jour les données de votre carte.</string>
 	<string name="whats_new_3d_on">Activer la vue en perspective</string>
 	<string name="whats_new_3d_buildings_on">Activer les bâtiments en 3D</string>
+	<string name="whats_new_next_button">Neste</string>
 </resources>

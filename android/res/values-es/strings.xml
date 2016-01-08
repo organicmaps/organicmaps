@@ -807,4 +807,5 @@
 	<string name="whats_new_3d_update_maps">Para aprovechar al máximo esta característica, por favor, actualiza tus datos de mapa.</string>
 	<string name="whats_new_3d_on">Habilitar vista de perspectiva</string>
 	<string name="whats_new_3d_buildings_on">Habilitar edificios en 3D</string>
+	<string name="whats_new_next_button">Siguiente</string>
 </resources>

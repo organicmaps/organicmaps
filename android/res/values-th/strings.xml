@@ -816,4 +816,5 @@
 	<string name="whats_new_3d_update_maps">เพื่อรับประโยชน์อย่างเต็มที่สำหรับฟีเจอร์นี้ กรุณาอัปเดตข้อมูลแผนที่ของคุณ</string>
 	<string name="whats_new_3d_on">เปิดใช้งานมุมมองเพอร์สเปกทีฟ</string>
 	<string name="whats_new_3d_buildings_on">เปิดใช้งานตึก 3D</string>
+	<string name="whats_new_next_button">ถัดไป</string>
 </resources>

@@ -818,4 +818,5 @@
 	<string name="whats_new_3d_update_maps">要充分利用此功能，请更新您的地图数据。</string>
 	<string name="whats_new_3d_on">启用透视图</string>
 	<string name="whats_new_3d_buildings_on">启用3D建筑</string>
+	<string name="whats_new_next_button">下一页</string>
 </resources>
