@@ -14737,3 +14737,33 @@
     pl = Włącz budynki 3D
     nl = 3D-Gebouwen inschakelen
     pt = Habilitar Prédios em 3D    
+    
+  [whats_new_next_button]    
+    tags = ios
+    en = Next
+    ru = Далее
+    fr = Neste
+    da = Næste
+    id = Berikut
+    ko = 다음
+    sv = Nästa
+    tr = Sonraki
+    uk = Далі
+    vi = Tiếp theo
+    hu = Következő
+    de = Weiter
+    fi = Seuraava
+    cs = Další
+    it = Avanti
+    nb = Neste
+    zh-Hant = 下一頁
+    zh-Hans = 下一页
+    th = ถัดไป
+    ja = 次へ
+    ro = Următoarea
+    ar = التالي
+    sk = Nasledujúca
+    es = Siguiente
+    pl = Dalej
+    nl = Volgende
+    pt = Próxima
