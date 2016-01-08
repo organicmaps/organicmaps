@@ -410,6 +410,8 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 - (void)showWhatsNewIfNeeded
 {
+  if (isIOSVersionLessThan(8))
+    return;
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   BOOL const whatsNewWasShown = [ud boolForKey:kUDWhatsNewWasShown];
   if (whatsNewWasShown)
