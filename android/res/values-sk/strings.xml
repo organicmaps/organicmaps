@@ -728,7 +728,7 @@
 	<string name="dialog_routing_disclaimer_priority">— Podmienky na ceste, dopravné predpisy a značenie majú vždy prednosť pred pokynmi z navigácie;</string>
 	<string name="dialog_routing_disclaimer_precision">— Mapa nemusí byť presná a navrhovaná trasa nemusí byť vždy optimálna na dosiahnutie cieľa;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— Navrhované trasy by sa mali brať len ako odporúčania;</string>
-	<string name="dialog_routing_disclaimer_borders">Buďte opatrní na cestách v pohraničných oblastiach: trasy vytvorené aplikáciou môžu prekročiť hranice štátov na nepovolených miestach.</string>
+	<string name="dialog_routing_disclaimer_borders">— Buďte opatrní na cestách v pohraničných oblastiach: trasy vytvorené aplikáciou môžu prekročiť hranice štátov na nepovolených miestach;</string>
 	<string name="dialog_routing_disclaimer_beware">Na cestách buďte vždy ostražitý a dbajte na bezpečnosť!</string>
 	<string name="dialog_routing_check_gps">Skontrolujte signál GPS</string>
 	<string name="dialog_routing_error_location_not_found">Nedá sa vytvoriť trasa. Aktuálne súradnice GPS sa nedajú identifikovať.</string>

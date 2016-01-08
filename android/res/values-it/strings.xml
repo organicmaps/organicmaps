@@ -722,7 +722,7 @@
 	<string name="dialog_routing_disclaimer_priority">— Le condizioni stradali, il codice della strada e la segnaletica stradale hanno sempre precedenza sui consigli di navigazione;</string>
 	<string name="dialog_routing_disclaimer_precision">— La mappa potrebbe essere imprecisa e il percorso suggerito potrebbe non essere sempre quello ottimale per raggiungere la destinazione;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— I percorsi suggeriti devono essere considerati solo come consigli;</string>
-	<string name="dialog_routing_disclaimer_borders">Fai attenzione ai percorsi nelle zone di confine: i percorsi creati dalla nostra app possono, a volte, attraversare i confini di stato in zone non autorizzate.</string>
+	<string name="dialog_routing_disclaimer_borders">— Fai attenzione ai percorsi nelle zone di confine: i percorsi creati dalla nostra app possono, a volte, attraversare i confini di stato in zone non autorizzate;</string>
 	<string name="dialog_routing_disclaimer_beware">Fai sempre attenzione e guida con prudenza!</string>
 	<string name="dialog_routing_check_gps">Controlla il segnale GPS</string>
 	<string name="dialog_routing_error_location_not_found">Impossibile creare il percorso. Impossibile individuare le coordinate GPS attuali.</string>

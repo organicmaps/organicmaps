@@ -726,7 +726,7 @@
 	<string name="dialog_routing_disclaimer_priority">— Warunki na drodze, przepisy ruchu drogowego i znaki drogowe zawsze są ważniejsze niż wskazówki nawigacji;</string>
 	<string name="dialog_routing_disclaimer_precision">— Mapa może być niedokładna, a sugerowana trasa może nie być optymalnym sposobem dotarcia do celu;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— Sugerowane trasy należy traktować jedynie jako rekomendacje;</string>
-	<string name="dialog_routing_disclaimer_borders">Prosimy zachować ostrożność na trasach w strefie nadgranicznej: wyznaczone przez naszą aplikację trasy mogą przecinać granice państw w niedozwolonych do przekroczenia miejscach.</string>
+	<string name="dialog_routing_disclaimer_borders">— Prosimy zachować ostrożność na trasach w strefie nadgranicznej: wyznaczone przez naszą aplikację trasy mogą przecinać granice państw w niedozwolonych do przekroczenia miejscach;</string>
 	<string name="dialog_routing_disclaimer_beware">Podczas podróży zachowaj czujność i prowadź ostrożnie!</string>
 	<string name="dialog_routing_check_gps">Sprawdź sygnał GPS</string>
 	<string name="dialog_routing_error_location_not_found">Nie można wyznaczyć trasy. Nie można ustalić współrzędnych GPS.</string>

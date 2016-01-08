@@ -725,7 +725,7 @@
 	<string name="dialog_routing_disclaimer_priority">— Tien kunto, liikennesäännöt ja tiekyltit ovat aina tärkeämpiä kuin navigointilaitteen ohjeet;</string>
 	<string name="dialog_routing_disclaimer_precision">— Kartta saattaa olla epätarkka, joten ehdotettu reitti ei välttämättä ole paras mahdollinen tapa päästä määränpäähän;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— Ehdotettuja reittejä tulee pitää vain suosituksina;</string>
-	<string name="dialog_routing_disclaimer_borders">Ole varovainen reittien suhteen raja-alueilla: sovelluksemme luomat reitit voivat toisinaan ylittää maiden rajoja luvattomissa paikoissa.</string>
+	<string name="dialog_routing_disclaimer_borders">— Ole varovainen reittien suhteen raja-alueilla: sovelluksemme luomat reitit voivat toisinaan ylittää maiden rajoja luvattomissa paikoissa;</string>
 	<string name="dialog_routing_disclaimer_beware">Pysy tarkkana ja aja turvallisesti!</string>
 	<string name="dialog_routing_check_gps">Tarkista GPS-signaali</string>
 	<string name="dialog_routing_error_location_not_found">Reittiä ei voi luoda. Tämänhetkisiä GPS-koordinaatteja ei löydy.</string>

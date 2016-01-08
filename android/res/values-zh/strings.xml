@@ -729,7 +729,7 @@
 	<string name="dialog_routing_disclaimer_priority">— 路况、交通法规和路标始终优先于导航建议；</string>
 	<string name="dialog_routing_disclaimer_precision">— 地图可能不准确，建议的路线可能并非总是去往目的地的最佳路径；</string>
 	<string name="dialog_routing_disclaimer_recommendations">— 建议的路线仅作为推荐路线供您采纳。；</string>
-	<string name="dialog_routing_disclaimer_borders">小心对待国界区的路线：我们应用创造的路线有时会在未经授权的地方跨越国界。</string>
+	<string name="dialog_routing_disclaimer_borders">— 小心对待国界区的路线：我们应用创造的路线有时会在未经授权的地方跨越国界;</string>
 	<string name="dialog_routing_disclaimer_beware">上路时请当心，祝您一路平安！</string>
 	<string name="dialog_routing_check_gps">检查 GPS 信号</string>
 	<string name="dialog_routing_error_location_not_found">无法创建路线。当前 GPS 坐标无法识别。</string>

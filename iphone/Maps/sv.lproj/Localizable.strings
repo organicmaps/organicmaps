@@ -1170,7 +1170,7 @@
 
 "dialog_routing_disclaimer_recommendations" = "— Föreslagna vägar endast är rekommendationer;";
 
-"dialog_routing_disclaimer_borders" = "Iakttag försiktighet med rutter i gränszoner: rutterna som vår app skapat kan ibland korsa landsgränser på otillåtna platser.";
+"dialog_routing_disclaimer_borders" = "— Iakttag försiktighet med rutter i gränszoner: rutterna som vår app skapat kan ibland korsa landsgränser på otillåtna platser;";
 
 "dialog_routing_disclaimer_beware" = "Var uppmärksam och kör säkert på vägarna!";
 

@@ -724,7 +724,7 @@
 	<string name="dialog_routing_disclaimer_priority">— Kondisi jalan, peraturan lalu lintas, dan marka jalan harus selalu didahulukan daripada saran navigasi;</string>
 	<string name="dialog_routing_disclaimer_precision">— Peta mungkin tidak akurat dan rute yang disarankan tidak mutlak merupakan cara paling optimal untuk mencapai tujuan;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— Rute yang disarankan hanya untuk digunakan sebagai rekomendasi;</string>
-	<string name="dialog_routing_disclaimer_borders">Berhati-hatilah dengan rute di zona perbatasan: rute yang dibuat oleh aplikasi kami terkadang mungkin saja melintasi batas negara di lokasi yang tidak sah.</string>
+	<string name="dialog_routing_disclaimer_borders">— Berhati-hatilah dengan rute di zona perbatasan: rute yang dibuat oleh aplikasi kami terkadang mungkin saja melintasi batas negara di lokasi yang tidak sah;</string>
 	<string name="dialog_routing_disclaimer_beware">Jaga selalu kewaspadaan dan keselamatan di jalan!</string>
 	<string name="dialog_routing_check_gps">Periksa sinyal GPS</string>
 	<string name="dialog_routing_error_location_not_found">Tidak dapat membuat rute. Koordinat GPS saat ini tidak dapat dikenali.</string>

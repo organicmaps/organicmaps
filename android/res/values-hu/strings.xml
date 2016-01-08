@@ -726,7 +726,7 @@
 	<string name="dialog_routing_disclaimer_priority">— Az útviszonyok, forgalmi törvények és jelzőtáblák mindig elsőbbséget élveznek a navigációs útmutatásokkal szemben;</string>
 	<string name="dialog_routing_disclaimer_precision">— A térkép pontatlan lehet és a javasolt útvonal lehetséges, hogy nem mindig a legoptimálisabb módja a célállomás elérésének;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— A javasolt útvonalakat mindössze javaslatoknak kell tekinteni;</string>
-	<string name="dialog_routing_disclaimer_borders">A határmenti útvonalakon közlekedjen óvatosan: az alkalmazásunk által létrehozott útvonalak néha olyan helyeken szelhetik át az országhatárokat, amelyek nem engedélyezettek.</string>
+	<string name="dialog_routing_disclaimer_borders">— A határmenti útvonalakon közlekedjen óvatosan: az alkalmazásunk által létrehozott útvonalak néha olyan helyeken szelhetik át az országhatárokat, amelyek nem engedélyezettek;</string>
 	<string name="dialog_routing_disclaimer_beware">Kérjük, mindig maradjon éber és vezessen biztonságosan az utakon!</string>
 	<string name="dialog_routing_check_gps">Ellenőrizze a GPS jelet</string>
 	<string name="dialog_routing_error_location_not_found">Nem sikerült létrehozni az útvonalat. A jelenlegi GPS koordináták nem azonosíthatók.</string>

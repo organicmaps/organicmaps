@@ -1170,7 +1170,7 @@
 
 "dialog_routing_disclaimer_recommendations" = "— 제안된 경로는 권장 사항으로만 참고하세요;";
 
-"dialog_routing_disclaimer_borders" = "국경 지역에서 경로를 주의하십시오: 앱에 의해 생성된 경로는 허가받지 않은 장소에서 국가 경계에 걸쳐 종종 일어날 수 있습니다.";
+"dialog_routing_disclaimer_borders" = "— 국경 지역에서 경로를 주의하십시오: 앱에 의해 생성된 경로는 허가받지 않은 장소에서 국가 경계에 걸쳐 종종 일어날 수 있습니다;";
 
 "dialog_routing_disclaimer_beware" = "항상 안전에 주의하세요!";
 

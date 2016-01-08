@@ -725,7 +725,7 @@
 	<string name="dialog_routing_disclaimer_priority">— Điều kiện đường, luật giao thông và biển báo đường bộ luôn được ưu tiên hơn lời khuyên định hướng;</string>
 	<string name="dialog_routing_disclaimer_precision">— Bản đồ có thể không chính xác và tuyến đường được đề xuất có thể không luôn là cách tối ưu nhất để đi đến đích;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— Các tuyến đường được đề nghị chỉ nên được coi là các khuyến nghị;</string>
-	<string name="dialog_routing_disclaimer_borders">Chú ý khi thể dục theo những con đường gần đường biên giới: những con đường do ứng dụng của chúng tôi tạo ra đôi khi có khả năng vượt ra khỏi biên giới vào những địa điểm không được phép.</string>
+	<string name="dialog_routing_disclaimer_borders">— Chú ý khi thể dục theo những con đường gần đường biên giới: những con đường do ứng dụng của chúng tôi tạo ra đôi khi có khả năng vượt ra khỏi biên giới vào những địa điểm không được phép;</string>
 	<string name="dialog_routing_disclaimer_beware">Hãy cảnh giác và giữ an toàn trên đường!</string>
 	<string name="dialog_routing_check_gps">Kiểm tra tín hiệu GPS</string>
 	<string name="dialog_routing_error_location_not_found">Không thể tạo tuyến đường. Không xác định được tọa độ GPS hiện tại.</string>

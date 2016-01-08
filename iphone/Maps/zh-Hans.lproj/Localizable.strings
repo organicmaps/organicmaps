@@ -1170,7 +1170,7 @@
 
 "dialog_routing_disclaimer_recommendations" = "— 建议的路线仅作为推荐路线供您采纳。；";
 
-"dialog_routing_disclaimer_borders" = "小心对待国界区的路线：我们应用创造的路线有时会在未经授权的地方跨越国界。";
+"dialog_routing_disclaimer_borders" = "— 小心对待国界区的路线：我们应用创造的路线有时会在未经授权的地方跨越国界;";
 
 "dialog_routing_disclaimer_beware" = "上路时请当心，祝您一路平安！";
 

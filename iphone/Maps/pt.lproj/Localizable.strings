@@ -1170,7 +1170,7 @@
 
 "dialog_routing_disclaimer_recommendations" = "— As rotas indicadas devem ser tratadas apenas como sugestões;";
 
-"dialog_routing_disclaimer_borders" = "Use de cautela em rotas de zonas fronteiriças: as rotas criadas por nosso aplicativo podem algumas vezes cruzar fronteiras nacionais em locais não autorizados.";
+"dialog_routing_disclaimer_borders" = "— Use de cautela em rotas de zonas fronteiriças: as rotas criadas por nosso aplicativo podem algumas vezes cruzar fronteiras nacionais em locais não autorizados;";
 
 "dialog_routing_disclaimer_beware" = "Fique sempre alerta nas estradas!";
 
