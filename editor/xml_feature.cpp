@@ -264,4 +264,12 @@ bool XMLFeature::AttachToParentNode(pugi::xml_node parent) const
 {
   return !parent.append_copy(GetRootNode()).empty();
 }
+
+string DebugPrint(XMLFeature const & feature)
+{
+  ostringstream ost;
+  feature.Save(ost);
+  return ost.str();
+}
+
 } // namespace editor

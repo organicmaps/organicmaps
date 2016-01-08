@@ -116,4 +116,7 @@ private:
 
   pugi::xml_document m_document;
 };
+
+string DebugPrint(XMLFeature const & feature);
+
 } // namespace editor
