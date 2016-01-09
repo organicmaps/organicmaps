@@ -169,7 +169,8 @@ typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
     {
       string const username = self.loginTextField.text.UTF8String;
       string const password = self.passwordTextField.text.UTF8String;
-      osm::OsmOAuth auth(OSM_CONSUMER_KEY, OSM_CONSUMER_SECRET);
+      // TODO(AlexZ): Change to production.
+      osm::OsmOAuth const auth = osm::OsmOAuth::DevServerAuth();
       osm::ClientToken token;
       osm::OsmOAuth::AuthResult const result = auth.AuthorizePassword(username, password, token);
       dispatch_async(dispatch_get_main_queue(), ^

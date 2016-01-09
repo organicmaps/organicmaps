@@ -13,9 +13,6 @@ struct ClientToken
   inline bool IsValid() const { return !m_key.empty() && !m_secret.empty(); }
 };
 
-constexpr char const * kDefaultBaseURL = "https://www.openstreetmap.org";
-constexpr char const * kDefaultApiURL = "https://api.openstreetmap.org";
-
 class OsmOAuth
 {
 public:
@@ -55,8 +52,14 @@ public:
   /// The constructor. Simply stores a lot of strings in fields.
   /// @param[apiUrl] The OSM API URL defaults to baseUrl, or kDefaultApiURL if not specified.
   OsmOAuth(string const & consumerKey, string const & consumerSecret,
-           string const & baseUrl = kDefaultBaseURL,
-           string const & apiUrl = kDefaultApiURL);
+           string const & baseUrl, string const & apiUrl);
+
+  /// Ilya Zverev's test server.
+  static OsmOAuth IZServerAuth();
+  /// master.apis.dev.openstreetmap.org
+  static OsmOAuth DevServerAuth();
+  /// api.openstreetmap.org
+  static OsmOAuth ProductionServerAuth();
 
   /// @name Stateless methods.
   //@{

@@ -1,10 +1,15 @@
 #include "editor/osm_auth.hpp"
 
+#include "coding/url_encode.hpp"
+
 #include "base/assert.hpp"
 #include "base/logging.hpp"
-#include "coding/url_encode.hpp"
+
 #include "std/iostream.hpp"
 #include "std/map.hpp"
+
+#include "private.h"
+
 #include "3party/liboauthcpp/include/liboauthcpp/liboauthcpp.h"
 #include "3party/Alohalytics/src/http_client.h"
 
@@ -51,13 +56,32 @@ bool isLoggedIn(string const & contents)
 
 OsmOAuth::OsmOAuth(string const & consumerKey, string const & consumerSecret,
          string const & baseUrl, string const & apiUrl):
-    m_consumerKey(consumerKey), m_consumerSecret(consumerSecret), m_baseUrl(baseUrl)
+    m_consumerKey(consumerKey), m_consumerSecret(consumerSecret),
+    m_baseUrl(baseUrl), m_apiUrl(apiUrl)
 {
-  // If base URL has been changed, but api URL is omitted, we use the same base URL for api calls.
-  if (apiUrl.empty() || (apiUrl == kDefaultApiURL && baseUrl != kDefaultBaseURL))
-    m_apiUrl = baseUrl;
-  else
-    m_apiUrl = apiUrl;
+}
+
+OsmOAuth OsmOAuth::IZServerAuth()
+{
+  constexpr char const * kIZTestServer = "http://188.166.112.124:3000";
+  constexpr char const * kIZConsumerKey = "QqwiALkYZ4Jd19lo1dtoPhcwGQUqMCMeVGIQ8Ahb";
+  constexpr char const * kIZConsumerSecret = "wi9HZKFoNYS06Yad5s4J0bfFo2hClMlH7pXaXWS3";
+  return OsmOAuth(kIZConsumerKey, kIZConsumerSecret, kIZTestServer, kIZTestServer);
+}
+
+OsmOAuth OsmOAuth::DevServerAuth()
+{
+  constexpr char const * kOsmDevServer = "http://master.apis.dev.openstreetmap.org";
+  constexpr char const * kOsmDevConsumerKey = "eRtN6yKZZf34oVyBnyaVbsWtHIIeptLArQKdTwN3";
+  constexpr char const * kOsmDevConsumerSecret = "lC124mtm2VqvKJjSh35qBpKfrkeIjpKuGe38Hd1H";
+  return OsmOAuth(kOsmDevConsumerKey, kOsmDevConsumerSecret, kOsmDevServer, kOsmDevServer);
+}
+
+OsmOAuth OsmOAuth::ProductionServerAuth()
+{
+  constexpr char const * kOsmMainSiteURL = "https://www.openstreetmap.org";
+  constexpr char const * kOsmApiURL = "https://api.openstreetmap.org";
+  return OsmOAuth(OSM_CONSUMER_KEY, OSM_CONSUMER_SECRET, kOsmMainSiteURL, kOsmApiURL);
 }
 
 // Opens a login page and extract a cookie and a secret token.
@@ -254,6 +278,7 @@ OsmOAuth::Response OsmOAuth::DirectRequest(string const & method, bool api) cons
   HTTPClientPlatformWrapper request(url);
   if (!request.RunHTTPRequest())
     return Response(ResponseCode::NetworkError, string());
+  // TODO(AlexZ): Static cast causes big problems if doesn't match ResponseCode enum.
   return Response(static_cast<ResponseCode>(request.error_code()), request.server_response());
 }
 

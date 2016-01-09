@@ -10,17 +10,13 @@ using osm::ServerApi06;
 using osm::OsmOAuth;
 using namespace pugi;
 
-constexpr char const * kOsmDevServer = "http://master.apis.dev.openstreetmap.org";
-constexpr char const * kOsmConsumerKey = "eRtN6yKZZf34oVyBnyaVbsWtHIIeptLArQKdTwN3";
-constexpr char const * kOsmConsumerSecret = "lC124mtm2VqvKJjSh35qBpKfrkeIjpKuGe38Hd1H";
 constexpr char const * kValidOsmUser = "MapsMeTestUser";
 constexpr char const * kInvalidOsmUser = "qwesdxzcgretwr";
 constexpr char const * kValidOsmPassword = "12345678";
 
 UNIT_TEST(OSM_ServerAPI_TestUserExists)
 {
-  OsmOAuth auth(kOsmConsumerKey, kOsmConsumerSecret, kOsmDevServer);
-  ServerApi06 api(auth);
+  ServerApi06 api(OsmOAuth::DevServerAuth());
   TEST_EQUAL(OsmOAuth::ResponseCode::OK, api.TestUserExists(kValidOsmUser), ());
   TEST_EQUAL(OsmOAuth::ResponseCode::NotFound, api.TestUserExists(kInvalidOsmUser), ());
 }
@@ -29,7 +25,7 @@ namespace
 {
 ServerApi06 CreateAPI()
 {
-  OsmOAuth auth(kOsmConsumerKey, kOsmConsumerSecret, kOsmDevServer);
+  OsmOAuth auth = OsmOAuth::DevServerAuth();
   OsmOAuth::AuthResult result = auth.AuthorizePassword(kValidOsmUser, kValidOsmPassword);
   TEST_EQUAL(result, OsmOAuth::AuthResult::OK, ());
   TEST(auth.IsAuthorized(), ("OSM authorization"));
