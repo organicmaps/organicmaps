@@ -26,7 +26,7 @@ public:
     ECanNotBeDeleted
   };
 
-  ServerApi06(OsmOAuth & auth);
+  ServerApi06(OsmOAuth const & auth);
   /// This function can be used to check if user did not confirm email validation link after registration.
   /// @returns OK if user exists, NotFound if it is not, and ServerError if there is no connection.
   OsmOAuth::ResponseCode TestUserExists(string const & userName);

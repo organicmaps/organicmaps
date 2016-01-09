@@ -12,7 +12,7 @@
 namespace osm
 {
 
-ServerApi06::ServerApi06(OsmOAuth & auth)
+ServerApi06::ServerApi06(OsmOAuth const & auth)
   : m_auth(auth)
 {
 }
@@ -67,7 +67,7 @@ bool ServerApi06::ModifyNode(string const & nodeXml, uint64_t nodeId) const
   if (response.first == OsmOAuth::ResponseCode::OK)
     return true;
 
-  LOG(LWARNING, ("ModifyNode request has failed:", response.first));
+  LOG(LWARNING, ("ModifyNode request has failed:", response.first, response.second));
   return false;
 }
 
