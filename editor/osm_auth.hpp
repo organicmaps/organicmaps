@@ -35,7 +35,7 @@ public:
   /// A result of a request. Has readable values for all OSM API return codes.
   enum class ResponseCode
   {
-    ServerError = -1,
+    NetworkError = -1,
     OK = 200,
     BadXML = 400,
     Redacted = 403,

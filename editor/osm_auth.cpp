@@ -234,7 +234,7 @@ OsmOAuth::Response OsmOAuth::Request(ClientToken const & token, string const & m
   else
   {
     ASSERT(false, ("Unsupported OSM API request method", httpMethod));
-    return Response(ResponseCode::ServerError, string());
+    return Response(ResponseCode::NetworkError, string());
   }
 
   string const url = m_apiUrl + kApiVersion + method;
@@ -244,7 +244,7 @@ OsmOAuth::Response OsmOAuth::Request(ClientToken const & token, string const & m
   if (httpMethod != "GET")
     request.set_body_data(body, "application/xml", httpMethod);
   if (!request.RunHTTPRequest() || request.was_redirected())
-    return Response(ResponseCode::ServerError, string());
+    return Response(ResponseCode::NetworkError, string());
   return Response(static_cast<ResponseCode>(request.error_code()), request.server_response());
 }
 
@@ -253,7 +253,7 @@ OsmOAuth::Response OsmOAuth::DirectRequest(string const & method, bool api) cons
   string const url = api ? m_apiUrl + kApiVersion + method : m_baseUrl + method;
   HTTPClientPlatformWrapper request(url);
   if (!request.RunHTTPRequest())
-    return Response(ResponseCode::ServerError, string());
+    return Response(ResponseCode::NetworkError, string());
   return Response(static_cast<ResponseCode>(request.error_code()), request.server_response());
 }
 
@@ -303,7 +303,7 @@ string DebugPrint(OsmOAuth::ResponseCode const code)
 {
   switch (code)
   {
-  case OsmOAuth::ResponseCode::ServerError: return "ServerError";
+  case OsmOAuth::ResponseCode::NetworkError: return "NetworkError";
   case OsmOAuth::ResponseCode::OK: return "OK";
   case OsmOAuth::ResponseCode::BadXML: return "BadXML";
   case OsmOAuth::ResponseCode::Redacted: return "Redacted";
