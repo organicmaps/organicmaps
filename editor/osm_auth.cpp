@@ -257,10 +257,11 @@ OsmOAuth::Response OsmOAuth::DirectRequest(string const & method, bool api) cons
   return Response(static_cast<ResponseCode>(request.error_code()), request.server_response());
 }
 
-void OsmOAuth::SetToken(ClientToken const & token)
+OsmOAuth & OsmOAuth::SetToken(ClientToken const & token)
 {
   m_token.m_key = token.m_key;
   m_token.m_secret = token.m_secret;
+  return *this;
 }
 
 OsmOAuth::AuthResult OsmOAuth::FetchAccessToken(SessionID const & sid)

@@ -68,7 +68,7 @@ public:
 
   /// @name Methods for using a token stored in this class. Obviously not thread-safe.
   //@{
-  void SetToken(ClientToken const & token);
+  OsmOAuth & SetToken(ClientToken const & token);
   ClientToken const & GetToken() const { return m_token; }
   bool IsAuthorized() const { return m_token.IsValid(); }
   AuthResult AuthorizePassword(string const & login, string const & password);
