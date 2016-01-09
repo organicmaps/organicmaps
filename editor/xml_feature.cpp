@@ -57,6 +57,16 @@ void ValidateNode(pugi::xml_node const & node)
   if (!node.attribute(kTimestamp))
     MYTHROW(editor::XMLFeatureNoTimestampError, ("Node has no timestamp attribute"));
 }
+
+void ValidateWay(pugi::xml_node const & way)
+{
+  if (!way)
+    MYTHROW(editor::XMLFeatureNoNodeError, ("Document has no node"));
+
+  if (!way.attribute(kTimestamp))
+    MYTHROW(editor::XMLFeatureNoTimestampError, ("Way has no timestamp attribute"));
+}
+
 } // namespace
 
 namespace editor
@@ -73,20 +83,23 @@ XMLFeature::XMLFeature(Type const type)
 XMLFeature::XMLFeature(string const & xml)
 {
   m_document.load(xml.data());
-  ValidateNode(GetRootNode());
+  auto const r = GetRootNode();
+  r.name() == kNodeType ? ValidateNode(r) : ValidateWay(r);
 }
 
 XMLFeature::XMLFeature(pugi::xml_document const & xml)
 {
   m_document.reset(xml);
-  ValidateNode(GetRootNode());
+  auto const r = GetRootNode();
+  r.name() == kNodeType ? ValidateNode(r) : ValidateWay(r);
 }
 
 XMLFeature::XMLFeature(pugi::xml_node const & xml)
 {
   m_document.reset();
   m_document.append_copy(xml);
-  ValidateNode(GetRootNode());
+  auto const r = GetRootNode();
+  r.name() == kNodeType ? ValidateNode(r) : ValidateWay(r);
 }
 
 XMLFeature::Type XMLFeature::GetType() const
