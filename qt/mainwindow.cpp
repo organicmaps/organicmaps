@@ -1,10 +1,10 @@
-#include "qt/mainwindow.hpp"
-
-#include "qt/draw_widget.hpp"
-#include "qt/slider_ctrl.hpp"
 #include "qt/about.hpp"
+#include "qt/draw_widget.hpp"
+#include "qt/mainwindow.hpp"
+#include "qt/osm_auth_dialog.hpp"
 #include "qt/preferences_dialog.hpp"
 #include "qt/search_panel.hpp"
+#include "qt/slider_ctrl.hpp"
 
 #include "defines.hpp"
 
@@ -90,6 +90,7 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
   menuBar()->addMenu(helpMenu);
   helpMenu->addAction(tr("About"), this, SLOT(OnAbout()));
   helpMenu->addAction(tr("Preferences"), this, SLOT(OnPreferences()));
+  helpMenu->addAction(tr("OpenStreetMap Login"), this, SLOT(OnLoginMenuItem()));
 #else
   {
     // create items in the system menu
@@ -362,6 +363,12 @@ void MainWindow::OnSearchButtonClicked()
     m_Docks[0]->show();
   else
     m_Docks[0]->hide();
+}
+
+void MainWindow::OnLoginMenuItem()
+{
+  OsmAuthDialog dlg(this);
+  dlg.exec();
 }
 
 void MainWindow::OnBeforeEngineCreation()
