@@ -120,10 +120,11 @@ UNIT_TEST(OSM_ServerAPI_ChangesetActions)
   // New changeset has new id.
   TEST(SetAttributeForOsmNode(node, "changeset", changeSetId), ());
 
-  string const serverReply = api.GetXmlNodeByLatLon(node.child("osm").child("node").attribute("lat").as_double(),
-                                                     node.child("osm").child("node").attribute("lon").as_double());
+  auto const response = api.GetXmlNodeByLatLon(node.child("osm").child("node").attribute("lat").as_double(),
+                                               node.child("osm").child("node").attribute("lon").as_double());
+  TEST_EQUAL(response.first, OsmOAuth::ResponseCode::OK, ());
   xml_document reply;
-  reply.load_string(serverReply.c_str());
+  reply.load_string(response.second.c_str());
   TEST_EQUAL(nodeId, reply.child("osm").child("node").attribute("id").as_ullong(), ());
 
   TEST(ServerApi06::DeleteResult::ESuccessfullyDeleted == api.DeleteNode(XmlToString(node), nodeId), ());

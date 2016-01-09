@@ -41,8 +41,8 @@ public:
   bool CloseChangeSet(uint64_t changesetId) const;
 
   /// @returns OSM xml string with features in the bounding box or empty string on error.
-  string GetXmlFeaturesInRect(m2::RectD const & latLonRect) const;
-  string GetXmlNodeByLatLon(double lat, double lon) const;
+  OsmOAuth::Response GetXmlFeaturesInRect(m2::RectD const & latLonRect) const;
+  OsmOAuth::Response GetXmlNodeByLatLon(double lat, double lon) const;
 
 private:
   OsmOAuth m_auth;
