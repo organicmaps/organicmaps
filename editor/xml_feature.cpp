@@ -38,11 +38,11 @@ ms::LatLon PointFromLatLon(pugi::xml_node const node)
     MYTHROW(editor::XMLFeatureNoLatLonError,
             ("Can't parse lat attribute: " + string(node.attribute("lat").value())));
   }
- if (!strings::to_double(node.attribute("lon").value(), ll.lon))
- {
-   MYTHROW(editor::XMLFeatureNoLatLonError,
-           ("Can't parse lon attribute: " + string(node.attribute("lon").value())));
- }
+  if (!strings::to_double(node.attribute("lon").value(), ll.lon))
+  {
+    MYTHROW(editor::XMLFeatureNoLatLonError,
+            ("Can't parse lon attribute: " + string(node.attribute("lon").value())));
+  }
   return ll;
 }
 
