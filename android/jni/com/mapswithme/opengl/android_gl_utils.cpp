@@ -11,13 +11,13 @@ ConfigComparator::ConfigComparator(EGLDisplay display)
 {
 }
 
-int ConfigComparator::operator()(EGLConfig const & l, EGLConfig const & r) const
+bool ConfigComparator::operator()(EGLConfig const & l, EGLConfig const & r) const
 {
   int const weight = configWeight(l) - configWeight(r);
   if (weight == 0)
-    return configAlphaSize(l) - configAlphaSize(r);
+    return configAlphaSize(l) < configAlphaSize(r);
 
-  return weight;
+  return weight < 0;
 }
 
 int ConfigComparator::configWeight(EGLConfig const & config) const

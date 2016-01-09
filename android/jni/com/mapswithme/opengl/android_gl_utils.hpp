@@ -13,7 +13,7 @@ class ConfigComparator
 public:
   ConfigComparator(EGLDisplay display);
 
-  int operator()(EGLConfig const & l, EGLConfig const & r) const;
+  bool operator()(EGLConfig const & l, EGLConfig const & r) const;
   int configWeight(EGLConfig const & config) const;
   int configAlphaSize(EGLConfig const & config) const;
 
