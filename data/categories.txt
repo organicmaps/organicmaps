@@ -2972,7 +2972,7 @@ hu:oszlop|sport
 th:ขว้าง|กีฬา
 zh-Hans:2球场|运动
 ar:ميدان اللعب|رياضة
-da:teltplads|fiskested|fodboldbane|bane|sportsplads
+da:sportsplads|fiskested|fodboldbane|bane
 tr:alan|spor
 sv:bana|sport
 vi:đường pích

@@ -4416,7 +4416,7 @@
     th = หวัดดี\n\nฉันปักหมุด: %1$@ ที่ MAPS.ME, โลกแผนที่ออฟไลน์ คลิกลิงก์นี้ %2$@ หรือลิงก์นี้ %3$@ เพื่อดูสถานที่บนแผนที่\n\nขอบคุณ
     zh-Hans = 嗨,\n\n我在 MAPS.ME 世界离线地图上标 注了%1$@。点击此链接%2$@或此链 接 %3$@来查看在地图上的位置。\n\n谢 谢。
     ar = مرحبا،\n\nقمت بوضع دبوس : %1$@ على MAPS.ME، خرائط العالم بدون الاتصال مع الانترنت. انقر على هذا الرابط %2$@ أو الرابط التالي %3$@ لمشاهدة الموقع على الخريطة.\n\nشكرا لك.
-    da = Hey,\n\nI har lagt en knappenål: %1$@ på MAPS.ME, offline kort over hele Verden. Tryk pådettelink: %2$@ellerdette%3$@foratseknappenåletpåkortet.\n\nTak.
+    da = Hey,\n\nI har lagt en knappenål: %1$@ på MAPS.ME, offline kort over hele Verden. Tryk pådettelink: %2$@ ellerdette %3$@ foratseknappenåletpåkortet.\n\nTak.
     tr = Merhaba,\n\nDünyanın çevrimdışı haritaları MAPS.ME’d: %1$@ pinledim. Yeri haritadan görmek için bu bağlantıya %2$@ veya şuna %3$@ tıkla.\n\nTeşekkürler.
     sv = Hej,\n\nJag lade till en knappnål: %1$@ på MAPS.ME, offline-kartor över hela världen. Klicka på denna länk %2$@ eller denna %3$@ för att se platsen på kartan.\n\nTack.
     he = הי, n\nI\ סומן בסיכה: %1$@ במפות העולם הלא-מקוונות של MAPS.ME. הקש על הלינק או על %3$@ כדי לראות את המקום על המפה. %2$@\n\n תודה.
