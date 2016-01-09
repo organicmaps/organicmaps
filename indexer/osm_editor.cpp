@@ -187,22 +187,37 @@ static unordered_map<string, TypeDescription> const gEditableTypes = {
   {"tourism-viewpoint", {{}, true, false}},
   {"waterway-waterfall", {{EType::FMD_HEIGHT}, true, false}}};
 
+TypeDescription const * GetTypeDescription(uint32_t const type)
+{
+  auto const readableType = classif().GetReadableObjectName(type);
+  auto const it = gEditableTypes.find(readableType);
+  if (it != end(gEditableTypes))
+    return &it->second;
+  return nullptr;
+}
+
 template <typename TIterator>
 TEditableFields GetEditableFields(TIterator from, TIterator const to)
 {
   TEditableFields fields;
   while (from != to)
   {
-    auto const & type = classif().GetReadableObjectName(*from++);
-    auto const it = gEditableTypes.find(type);
-    if (it != end(gEditableTypes))
+    auto const * desc = GetTypeDescription(*from++);
+    if (desc)
     {
-      for (auto field : it->second.fields)
+      for (auto field : desc->fields)
         fields.insert(field);
     }
   }
 
   return fields;
+}
+
+Editor::TTypes GetAllTypes(FeatureType const & feature)
+{
+  Editor::TTypes types;
+  feature.ForEachType([&types](uint32_t type) { types.push_back(type); });
+  return types;
 }
 } // namespace
 
@@ -467,11 +482,33 @@ bool Editor::GetEditedFeature(MwmSet::MwmId const & mwmId, uint32_t offset, Feat
 vector<Metadata::EType> Editor::EditableMetadataForType(FeatureType const & feature) const
 {
   // TODO(mgsergio): Load editable fields into memory from XML and query them here.
-  TTypes types;
-  feature.ForEachType([&types](uint32_t type) { types.push_back(type); });
+  auto const types = GetAllTypes(feature);
 
-  // Enable opening hours for the first release.
-  auto const & fields = GetEditableFields(begin(types), end(types));
+  auto const fields = GetEditableFields(begin(types), end(types));
   return {begin(fields), end(fields)};
+}
+
+bool Editor::IsNameEditable(FeatureType const & feature) const
+{
+  for (auto type : GetAllTypes(feature))
+  {
+    auto const * typeDesc = GetTypeDescription(type);
+    if (typeDesc && typeDesc->name)
+      return true;
+  }
+
+  return false;
+}
+
+bool Editor::IsHouseNumberEditable(FeatureType const & feature) const
+{
+  for (auto type : GetAllTypes(feature))
+  {
+    auto const * typeDesc = GetTypeDescription(type);
+    if (typeDesc && typeDesc->house)
+      return true;
+  }
+
+  return false;
 }
 }  // namespace osm

@@ -37,37 +37,41 @@ EditorDialog::EditorDialog(QWidget * parent, FeatureType const & feature) : QDia
   typesRow->addWidget(new QLabel(QString::fromStdString(strTypes)));
   vLayout->addLayout(typesRow);
 
-  // Rows block: Name(s) label(s) and text input.
-  char const * defaultLangStr = StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::DEFAULT_CODE);
-  // Default name editor is always displayed, even if feature name is empty.
-  QHBoxLayout * defaultNameRow = new QHBoxLayout();
-  defaultNameRow->addWidget(new QLabel(QString("Name:")));
-  QLineEdit * defaultNamelineEdit = new QLineEdit();
-  defaultNamelineEdit->setObjectName(defaultLangStr);
-  defaultNameRow->addWidget(defaultNamelineEdit);
-  vLayout->addLayout(defaultNameRow);
-
-  feature.ForEachNameRef([&vLayout, &defaultNamelineEdit](int8_t langCode, string const & name) -> bool
+  if (osm::Editor::Instance().IsNameEditable(feature))
   {
-    if (langCode == StringUtf8Multilang::DEFAULT_CODE)
-      defaultNamelineEdit->setText(QString::fromStdString(name));
-    else
+    // Rows block: Name(s) label(s) and text input.
+    char const * defaultLangStr = StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::DEFAULT_CODE);
+    // Default name editor is always displayed, even if feature name is empty.
+    QHBoxLayout * defaultNameRow = new QHBoxLayout();
+    defaultNameRow->addWidget(new QLabel(QString("Name:")));
+    QLineEdit * defaultNamelineEdit = new QLineEdit();
+    defaultNamelineEdit->setObjectName(defaultLangStr);
+    defaultNameRow->addWidget(defaultNamelineEdit);
+    vLayout->addLayout(defaultNameRow);
+
+    feature.ForEachNameRef([&vLayout, &defaultNamelineEdit](int8_t langCode, string const & name) -> bool
     {
-      QHBoxLayout * nameRow = new QHBoxLayout();
-      char const * langStr = StringUtf8Multilang::GetLangByCode(langCode);
-      nameRow->addWidget(new QLabel(QString("Name:") + langStr));
-      QLineEdit * lineEditName = new QLineEdit(QString::fromStdString(name));
-      lineEditName->setObjectName(langStr);
-      nameRow->addWidget(lineEditName);
-      vLayout->addLayout(nameRow);
-    }
-    return true; // true is needed to enumerate all languages.
-  });
+      if (langCode == StringUtf8Multilang::DEFAULT_CODE)
+        defaultNamelineEdit->setText(QString::fromStdString(name));
+      else
+      {
+        QHBoxLayout * nameRow = new QHBoxLayout();
+        char const * langStr = StringUtf8Multilang::GetLangByCode(langCode);
+        nameRow->addWidget(new QLabel(QString("Name:") + langStr));
+        QLineEdit * lineEditName = new QLineEdit(QString::fromStdString(name));
+        lineEditName->setObjectName(langStr);
+        nameRow->addWidget(lineEditName);
+        vLayout->addLayout(nameRow);
+      }
+      return true; // true is needed to enumerate all languages.
+    });
+  }
 
   // All  metadata rows.
   QVBoxLayout * metaRows = new QVBoxLayout();
-  // TODO(mgsergio): Load editable fields from metadata. Features can have several types, so we merge all editable fields here.
+  // Features can have several types, so we merge all editable fields here.
   set<Metadata::EType> const  editableMetadataFields =
+      // TODO(mgsergio, Alex): Maybe just return set in EditableMetadataForType?
       my::collection_cast<set>(osm::Editor::Instance().EditableMetadataForType(feature));
 
   for (Metadata::EType const field : editableMetadataFields)
