@@ -94,11 +94,10 @@ bool ServerApi06::CloseChangeSet(uint64_t changesetId) const
   return false;
 }
 
-bool ServerApi06::TestUserExists(string const & userName)
+OsmOAuth::ResponseCode ServerApi06::TestUserExists(string const & userName)
 {
   string const method = "/user/" + UrlEncode(userName);
-  OsmOAuth::Response const response = m_auth.DirectRequest(method, false);
-  return response.first == OsmOAuth::ResponseCode::OK;
+  return m_auth.DirectRequest(method, false).first;
 }
 
 string ServerApi06::GetXmlFeaturesInRect(m2::RectD const & latLonRect) const

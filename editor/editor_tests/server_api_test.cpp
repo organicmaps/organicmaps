@@ -21,8 +21,8 @@ UNIT_TEST(OSM_ServerAPI_TestUserExists)
 {
   OsmOAuth auth(kOsmConsumerKey, kOsmConsumerSecret, kOsmDevServer);
   ServerApi06 api(auth);
-  TEST(api.TestUserExists(kValidOsmUser), ());
-  TEST(!api.TestUserExists(kInvalidOsmUser), ());
+  TEST_EQUAL(OsmOAuth::ResponseCode::OK, api.TestUserExists(kValidOsmUser), ());
+  TEST_EQUAL(OsmOAuth::ResponseCode::NotFound, api.TestUserExists(kInvalidOsmUser), ());
 }
 
 namespace

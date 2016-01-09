@@ -28,7 +28,8 @@ public:
 
   ServerApi06(OsmOAuth & auth);
   /// This function can be used to check if user did not confirm email validation link after registration.
-  bool TestUserExists(string const & userName);
+  /// @returns OK if user exists, NotFound if it is not, and ServerError if there is no connection.
+  OsmOAuth::ResponseCode TestUserExists(string const & userName);
   /// Please use at least created_by=* and comment=* tags.
   bool CreateChangeSet(TKeyValueTags const & kvTags, uint64_t & outChangeSetId) const;
   /// nodeXml should be wrapped into <osm> ... </osm> tags.
