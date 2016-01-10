@@ -102,6 +102,11 @@ XMLFeature::XMLFeature(pugi::xml_node const & xml)
   r.name() == kNodeType ? ValidateNode(r) : ValidateWay(r);
 }
 
+bool XMLFeature::operator==(XMLFeature const & other) const
+{
+  return ToOSMString() == other.ToOSMString();
+}
+
 XMLFeature::Type XMLFeature::GetType() const
 {
   return strcmp(GetRootNode().name(), "node") == 0 ? Type::Node : Type::Way;

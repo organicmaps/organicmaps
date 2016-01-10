@@ -39,6 +39,8 @@ public:
   XMLFeature(pugi::xml_document const & xml);
   XMLFeature(pugi::xml_node const & xml);
   XMLFeature(XMLFeature const & feature) : XMLFeature(feature.m_document) {}
+  bool operator==(XMLFeature const & other) const;
+
   void Save(ostream & ost) const;
   string ToOSMString() const;
 
