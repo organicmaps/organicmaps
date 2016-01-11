@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,16 +15,17 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_bookmark" translatesAutoresizingMaskIntoConstraints="NO" id="NJ3-lK-ziZ" userLabel="Bookmark icon">
-                        <rect key="frame" x="16" y="14" width="16" height="16"/>
-                        <animations/>
+                        <rect key="frame" x="16" y="8" width="28" height="28"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="16" id="puH-vO-c70"/>
-                            <constraint firstAttribute="height" constant="16" id="wNH-iS-hGK"/>
+                            <constraint firstAttribute="width" constant="28" id="puH-vO-c70"/>
+                            <constraint firstAttribute="height" constant="28" id="wNH-iS-hGK"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="VLh-WI-T7X" userLabel="Title">
-                        <rect key="frame" x="48" y="0.0" width="220" height="44"/>
-                        <animations/>
+                        <rect key="frame" x="60" y="0.0" width="208" height="44"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="44" id="ycn-hE-8e1"/>
                         </constraints>
@@ -33,6 +34,7 @@
                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="done"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="name"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="delegate" destination="jfp-wb-Z7G" id="00o-sa-QS2"/>
@@ -40,7 +42,6 @@
                     </textField>
                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wax-9r-T5y" userLabel="Mark Button">
                         <rect key="frame" x="280" y="8" width="28" height="28"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="28" id="37w-94-KUu"/>
                             <constraint firstAttribute="width" constant="28" id="Ty5-dA-bOy"/>
@@ -53,16 +54,17 @@
                         </connections>
                     </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6e1-wr-Alw" userLabel="Separator #1">
-                        <rect key="frame" x="48" y="44" width="220" height="1"/>
-                        <animations/>
+                        <rect key="frame" x="60" y="44" width="208" height="1"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="wKq-as-hJq"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jxG-Qv-eKF" userLabel="Category Button">
-                        <rect key="frame" x="48" y="45" width="220" height="44"/>
-                        <animations/>
+                        <rect key="frame" x="60" y="45" width="208" height="44"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="44" id="8lM-kf-teP"/>
@@ -85,15 +87,16 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rwd-Um-zNb" userLabel="Separator #2">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
-                                <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="0g9-86-Unw"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XF8-Ny-HSu" userLabel="Title">
                                 <rect key="frame" x="16" y="13" width="31" height="17"/>
-                                <animations/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -105,7 +108,6 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="fVU-OV-gcK">
                                 <rect key="frame" x="16" y="46" width="288" height="20"/>
-                                <animations/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -116,7 +118,6 @@
                             </label>
                             <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1yW-c7-l8L">
                                 <rect key="frame" x="16" y="38" width="288" height="50"/>
-                                <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
                                 <connections>
@@ -124,7 +125,6 @@
                                 </connections>
                             </webView>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="1yW-c7-l8L" firstAttribute="top" secondItem="XF8-Ny-HSu" secondAttribute="bottom" constant="8" id="1Dv-8c-J8F"/>
@@ -144,15 +144,16 @@
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4nO-GH-Nv6" userLabel="Separator #3">
                         <rect key="frame" x="0.0" y="177" width="320" height="1"/>
-                        <animations/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="oyp-iV-mpJ"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8KR-m1-j51">
                         <rect key="frame" x="0.0" y="178" width="320" height="44"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="44" id="5rE-hZ-GLl"/>
                         </constraints>
@@ -172,22 +173,25 @@
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_gray" translatesAutoresizingMaskIntoConstraints="NO" id="meU-rN-T7y" userLabel="Gray Arrow">
                         <rect key="frame" x="284" y="186" width="28" height="28"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="28" id="XOd-bb-dsE"/>
                             <constraint firstAttribute="width" constant="28" id="xnu-q1-DCI"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMGray"/>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sx9-cz-Scg" userLabel="Separator #4">
                         <rect key="frame" x="0.0" y="222" width="320" height="1"/>
-                        <animations/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="PcL-HG-sPH"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
-                <animations/>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstItem="VLh-WI-T7X" firstAttribute="leading" secondItem="NJ3-lK-ziZ" secondAttribute="trailing" constant="16" id="6qf-Bl-HGm"/>
@@ -218,9 +222,14 @@
                     <constraint firstItem="6e1-wr-Alw" firstAttribute="top" secondItem="VLh-WI-T7X" secondAttribute="bottom" id="yeD-nY-idE"/>
                     <constraint firstAttribute="trailing" secondItem="Wax-9r-T5y" secondAttribute="trailing" constant="12" id="zy0-un-D4A"/>
                 </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
-            <animations/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="categoryButton" destination="jxG-Qv-eKF" id="pom-En-q4u"/>
                 <outlet property="editBookmarkButton" destination="8KR-m1-j51" id="VNq-cx-CxM"/>
@@ -235,8 +244,8 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ic_arrow_gray" width="8" height="14"/>
-        <image name="ic_bookmark" width="16" height="16"/>
+        <image name="ic_arrow_gray" width="28" height="28"/>
+        <image name="ic_bookmark" width="28" height="28"/>
         <image name="placemark-red-on" width="28" height="28"/>
     </resources>
 </document>

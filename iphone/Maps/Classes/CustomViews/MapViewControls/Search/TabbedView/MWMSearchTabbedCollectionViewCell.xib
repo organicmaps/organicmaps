@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,7 +15,7 @@
                 <subviews>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="YiJ-rH-z7n">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tableView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bZi-Dr-fme">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
@@ -61,6 +61,9 @@
                             <constraint firstAttribute="centerX" secondItem="4et-v9-C1K" secondAttribute="centerX" id="vMr-Wp-rze"/>
                             <constraint firstAttribute="trailing" secondItem="9f9-p6-shw" secondAttribute="trailing" constant="16" id="wY3-ZC-5VD"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -76,6 +79,9 @@
                 <constraint firstItem="bZi-Dr-fme" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="jEf-rw-JMK"/>
                 <constraint firstItem="YiJ-rH-z7n" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="tGS-fN-aa6"/>
             </constraints>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="noResultsImage" destination="4et-v9-C1K" id="juR-eQ-mKo"/>
                 <outlet property="noResultsText" destination="9f9-p6-shw" id="bMS-iT-D8w"/>

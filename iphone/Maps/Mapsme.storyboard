@@ -73,6 +73,9 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                            </userDefinedRuntimeAttributes>
                                         </label>
                                     </subviews>
                                     <constraints>
@@ -82,6 +85,9 @@
                                         <constraint firstAttribute="trailingMargin" secondItem="fhF-kM-tcR" secondAttribute="trailing" constant="60" id="u5b-BA-GNg"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="titleLabel" destination="fhF-kM-tcR" id="ivW-qB-zd1"/>
                                 </connections>
@@ -99,6 +105,9 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                            </userDefinedRuntimeAttributes>
                                         </label>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="up5-BH-6Ii">
                                             <rect key="frame" x="538" y="7" width="51" height="31"/>
@@ -108,6 +117,9 @@
                                             </constraints>
                                             <inset key="insetFor6xAndEarlier" minX="3" minY="-2" maxX="-3" maxY="2"/>
                                             <color key="onTintColor" red="0.11764705882352941" green="0.58823529411764708" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="onTintColorName" value="linkBlue"/>
+                                            </userDefinedRuntimeAttributes>
                                         </switch>
                                     </subviews>
                                     <constraints>
@@ -119,6 +131,9 @@
                                         <constraint firstItem="up5-BH-6Ii" firstAttribute="top" secondItem="egv-pz-GkJ" secondAttribute="topMargin" constant="-1.5" id="nQx-6e-sWH"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="switchButton" destination="up5-BH-6Ii" id="P6t-pI-JJm"/>
                                     <outlet property="titleLabel" destination="HGH-S1-QeY" id="QBW-d4-TKD"/>
@@ -136,6 +151,9 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                            </userDefinedRuntimeAttributes>
                                         </label>
                                     </subviews>
                                     <constraints>
@@ -145,6 +163,9 @@
                                         <constraint firstAttribute="bottomMargin" secondItem="8jb-wX-P4h" secondAttribute="bottom" constant="3.5" id="ox3-NV-T2v"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="titleLabel" destination="8jb-wX-P4h" id="swZ-rt-c36"/>
                                 </connections>
@@ -161,11 +182,137 @@
                     <connections>
                         <segue destination="XDU-iY-yV9" kind="custom" identifier="SettingsToTTSSegue" customClass="MWMSegue" id="3NT-hq-Oex"/>
                         <segue destination="NP0-s9-34g" kind="custom" identifier="SettingsToRecentTrackSegue" customClass="MWMSegue" id="Fny-RS-ueu"/>
+                        <segue destination="kBJ-ZO-Mca" kind="custom" identifier="SettingsToNightMode" customClass="MWMSegue" id="dd2-uc-aSe"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I90-hv-hTP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1143" y="-338"/>
+        </scene>
+        <!--Night Mode Controller-->
+        <scene sceneID="f6s-C8-Bfx">
+            <objects>
+                <tableViewController id="kBJ-ZO-Mca" customClass="MWMNightModeController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="fpP-Ix-QtX">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <sections>
+                            <tableViewSection id="XFW-hZ-fJo">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SelectableCell" id="Hgm-jL-Gnn" customClass="SelectableCell">
+                                        <rect key="frame" x="0.0" y="35" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hgm-jL-Gnn" id="LeE-yP-Eoi">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auto" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sHx-XL-o9h">
+                                                    <rect key="frame" x="16" y="11" width="477" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="sHx-XL-o9h" firstAttribute="leading" secondItem="LeE-yP-Eoi" secondAttribute="leadingMargin" constant="8" id="NIa-G2-3TK"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="sHx-XL-o9h" secondAttribute="trailing" constant="99" id="O0j-lU-dvy"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="sHx-XL-o9h" secondAttribute="bottom" constant="3.5" id="pZw-ZI-MFG"/>
+                                                <constraint firstItem="sHx-XL-o9h" firstAttribute="top" secondItem="LeE-yP-Eoi" secondAttribute="topMargin" constant="3" id="yw2-AG-4Y6"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="titleLabel" destination="sHx-XL-o9h" id="gfO-dz-iqf"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SelectableCell" id="WyO-qs-a7i" customClass="SelectableCell">
+                                        <rect key="frame" x="0.0" y="79" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WyO-qs-a7i" id="q2k-AU-VdG">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="um4-D2-sR5">
+                                                    <rect key="frame" x="16" y="11" width="477" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="um4-D2-sR5" firstAttribute="leading" secondItem="q2k-AU-VdG" secondAttribute="leadingMargin" constant="8" id="APc-gM-wmS"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="um4-D2-sR5" secondAttribute="trailing" constant="99" id="Huc-DK-OVi"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="um4-D2-sR5" secondAttribute="bottom" constant="3.5" id="RoM-U8-Vo7"/>
+                                                <constraint firstItem="um4-D2-sR5" firstAttribute="top" secondItem="q2k-AU-VdG" secondAttribute="topMargin" constant="3" id="zoa-XR-3HA"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="titleLabel" destination="um4-D2-sR5" id="ysd-Sz-e53"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SelectableCell" id="HHw-BT-UeJ" customClass="SelectableCell">
+                                        <rect key="frame" x="0.0" y="123" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HHw-BT-UeJ" id="WD5-kW-BlC">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Off" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="abU-K0-dr3">
+                                                    <rect key="frame" x="16" y="11" width="477" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="abU-K0-dr3" secondAttribute="trailing" constant="99" id="AFk-lK-YpH"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="abU-K0-dr3" secondAttribute="bottom" constant="3.5" id="bU5-gP-5eU"/>
+                                                <constraint firstItem="abU-K0-dr3" firstAttribute="top" secondItem="WD5-kW-BlC" secondAttribute="topMargin" constant="3" id="m2g-e7-Xq6"/>
+                                                <constraint firstItem="abU-K0-dr3" firstAttribute="leading" secondItem="WD5-kW-BlC" secondAttribute="leadingMargin" constant="8" id="s24-rN-zC6"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="titleLabel" destination="abU-K0-dr3" id="iv6-Rz-AdP"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="kBJ-ZO-Mca" id="P4t-Wp-YMP"/>
+                            <outlet property="delegate" destination="kBJ-ZO-Mca" id="BU8-5g-Sji"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="autoSwitch" destination="Hgm-jL-Gnn" id="XkH-38-0B3"/>
+                        <outlet property="off" destination="HHw-BT-UeJ" id="52b-e6-5u1"/>
+                        <outlet property="on" destination="WyO-qs-a7i" id="ejq-Bn-uNF"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zDs-eK-xxT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1881" y="-1681"/>
         </scene>
         <!--Recent Track Settings Controller-->
         <scene sceneID="YrW-fi-4QL">
@@ -199,6 +346,9 @@
                                                 <constraint firstItem="2i3-c9-tdU" firstAttribute="top" secondItem="DYw-KH-oDU" secondAttribute="topMargin" constant="3" id="NN8-hB-oG8"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="titleLabel" destination="2i3-c9-tdU" id="enq-hG-Uv3"/>
                                         </connections>
@@ -224,6 +374,9 @@
                                                 <constraint firstItem="J1O-iW-GF3" firstAttribute="top" secondItem="62b-vT-xng" secondAttribute="topMargin" constant="3" id="l65-YD-2Ix"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="titleLabel" destination="J1O-iW-GF3" id="aMM-LR-032"/>
                                         </connections>
@@ -249,6 +402,9 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="55i-C3-b9S" secondAttribute="bottom" constant="3.5" id="qwE-hz-7Kj"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="titleLabel" destination="55i-C3-b9S" id="BqS-iD-fzu"/>
                                         </connections>
@@ -274,6 +430,9 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="QrP-xT-fcM" secondAttribute="bottom" constant="3.5" id="rFT-cJ-n4M"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="titleLabel" destination="QrP-xT-fcM" id="UYW-6c-FWG"/>
                                         </connections>
@@ -299,6 +458,9 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="HyC-if-zpD" secondAttribute="trailing" constant="99" id="mah-ig-QAM"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="titleLabel" destination="HyC-if-zpD" id="BMT-M4-hk7"/>
                                         </connections>
@@ -324,6 +486,9 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="uhN-0k-BL7" secondAttribute="bottom" constant="3.5" id="nz1-ZZ-q4U"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="titleLabel" destination="uhN-0k-BL7" id="9Mv-uo-A5S"/>
                                         </connections>
@@ -409,6 +574,9 @@
                                         <constraint firstItem="FSn-fP-n3e" firstAttribute="leading" secondItem="gBB-ji-big" secondAttribute="leadingMargin" constant="8" id="KXd-hd-5in"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="titleLabel" destination="FSn-fP-n3e" id="CKZ-Gb-7Wa"/>
                                 </connections>
@@ -438,6 +606,9 @@
                                         <constraint firstAttribute="trailingMargin" secondItem="arm-Sx-diY" secondAttribute="trailing" constant="60" id="xT2-p0-snO"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="titleLabel" destination="arm-Sx-diY" id="yow-av-5HT"/>
                                 </connections>
@@ -492,6 +663,9 @@
                                         <constraint firstAttribute="bottomMargin" secondItem="wBg-nH-SXL" secondAttribute="bottom" constant="3.5" id="yh9-ce-ftK"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="titleLabel" destination="wBg-nH-SXL" id="MCZ-tX-MGv"/>
                                     <segue destination="SWt-Am-yp4" kind="unwind" identifier="UnwindToTTSSettings" unwindAction="unwind:" id="bpg-7g-3lb"/>

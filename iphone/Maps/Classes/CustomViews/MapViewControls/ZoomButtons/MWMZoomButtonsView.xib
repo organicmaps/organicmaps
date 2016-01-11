@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMZoomButtons">
@@ -19,10 +19,12 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="NO3-Xl-Oka" userLabel="ZoomIn">
                     <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="btn_white_zoom_in">
+                    <state key="normal" image="btn_zoom_in_light">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
-                    <state key="highlighted" image="btn_white_zoom_in_pressed"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="mwm_name" value="btn_zoom_in"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="zoomTouchDown:" destination="-1" eventType="touchDown" id="5VF-m8-Lwc"/>
                         <action selector="zoomTouchUpInside:" destination="-1" eventType="touchUpInside" id="wbL-zf-fH8"/>
@@ -32,10 +34,12 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hwn-8L-cFX" userLabel="ZoomOut">
                     <rect key="frame" x="0.0" y="60" width="56" height="56"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="btn_white_zoom_out">
+                    <state key="normal" image="btn_zoom_out_light">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
-                    <state key="highlighted" image="btn_white_zoom_out_pressed"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="mwm_name" value="btn_zoom_out"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="zoomTouchDown:" destination="-1" eventType="touchDown" id="o4X-Kp-9ka"/>
                         <action selector="zoomTouchUpInside:" destination="-1" eventType="touchUpInside" id="Gcq-hm-Nk8"/>
@@ -62,14 +66,7 @@
         </panGestureRecognizer>
     </objects>
     <resources>
-        <image name="btn_white_zoom_in" width="56" height="56"/>
-        <image name="btn_white_zoom_in_pressed" width="56" height="56"/>
-        <image name="btn_white_zoom_out" width="56" height="56"/>
-        <image name="btn_white_zoom_out_pressed" width="56" height="56"/>
+        <image name="btn_zoom_in_light" width="56" height="56"/>
+        <image name="btn_zoom_out_light" width="56" height="56"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>
