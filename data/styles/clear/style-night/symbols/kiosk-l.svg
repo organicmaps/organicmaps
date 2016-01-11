@@ -10,7 +10,7 @@
         <g id="kiosk-l" sketch:type="MSLayerGroup">
             <path d="M13.5,27 C6.057,27 0,20.943 0,13.5 C0,6.057 6.057,0 13.5,0 C20.943,0 27,6.057 27,13.5 C27,20.943 20.943,27 13.5,27 L13.5,27 Z" id="Shape" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
             <g id="Shape">
-                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="#383833" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
                 <use fill="none" xlink:href="#path-1"></use>
             </g>
             <path d="M4,7 L4,9 L23,9 L23,7 L4,7 L4,7 Z M6,22 L21,22 L21,11 L6,11 L6,22 L6,22 Z M14,13 L19,13 L19,20 L14,20 L14,13 L14,13 Z M8,13 L13,13 L13,20 L8,20 L8,13 L8,13 Z" id="Shape" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>

@@ -11,12 +11,12 @@
         <g id="bank-2-m" sketch:type="MSLayerGroup" transform="translate(0.000000, 1.000000)">
             <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
             <g id="Oval-1-Copy-40">
-                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="#383833" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
                 <use fill="none" xlink:href="#path-1"></use>
             </g>
             <path d="M11.5,4 C11.5,4 5.00541667,6.86921429 5.00344697,7.23654762 L5,8 L18,8 L18,7.24107143 C17.9945833,6.86921429 11.5,4 11.5,4 Z M17.0365553,16 L16.5,8 L6.5,8 L6.04839683,16 L6.00334852,16 C5.44921444,16 5,16.4438648 5,17 L5,18 L18,18 L18,17 C18,16.4477153 17.5521239,16 17.0365553,16 L17.0365553,16 Z" id="Imported-Layers-Copy" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
             <g id="Rectangle-11">
-                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-2"></use>
+                <use fill="#383833" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-2"></use>
                 <use fill="none" xlink:href="#path-2"></use>
             </g>
         </g>

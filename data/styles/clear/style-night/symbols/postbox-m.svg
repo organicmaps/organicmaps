@@ -10,7 +10,7 @@
         <g id="postbox-m" sketch:type="MSLayerGroup">
             <path d="M11.5,23 C5.159,23 0,17.841 0,11.5 C0,5.159 5.159,0 11.5,0 C17.841,0 23,5.159 23,11.5 C23,17.841 17.841,23 11.5,23 L11.5,23 Z" id="Shape" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
             <g id="Shape">
-                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="#383833" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
                 <use fill="none" xlink:href="#path-1"></use>
             </g>
             <path d="M17,10.469 L17,18 L6,18 L6,10.25 L8,12.25 L8,14 L15,14 L15,12.469 L17,10.469 L17,10.469 Z M17.606,7.449 L13.056,12 L10.165,12 L8.124,10 L12.827,10 L13.999,8.619 L13.999,3.963 L17.606,7.449 L17.606,7.449 Z M12.403,9 L8.125,9 L10.623,6.461 L13,3.963 L13,8.215 L12.403,9 L12.403,9 Z" id="Shape" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>

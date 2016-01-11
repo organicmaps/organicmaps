@@ -1386,7 +1386,12 @@ line|z14-15[aerialway=cable_car],
 line|z14-15[aerialway=chair_lift],
 line|z14-15[aerialway=gondola],
 line|z14-15[aerialway=mixed_lift],
-line|z14-15[aerialway=drag_lift]
+line|z14-15[aerialway=drag_lift],
+line|z14-15[aerialway=j-bar],
+line|z14-15[aerialway=t-bar],
+line|z14-15[aerialway=magic_carpet],
+line|z14-15[aerialway=platter],
+line|z14-15[aerialway=rope_tow],
  {
   color: @aerialway;
   width: 0.5;
@@ -1398,7 +1403,12 @@ line|z16[aerialway=cable_car],
 line|z16[aerialway=chair_lift],
 line|z16[aerialway=gondola],
 line|z16[aerialway=mixed_lift],
-line|z16[aerialway=drag_lift]
+line|z16[aerialway=drag_lift],
+line|z16[aerialway=j-bar],
+line|z16[aerialway=t-bar],
+line|z16[aerialway=magic_carpet],
+line|z16[aerialway=platter],
+line|z16[aerialway=rope_tow],
  {
   color: @aerialway;
   width: 1;
@@ -1410,7 +1420,12 @@ line|z17-[aerialway=cable_car],
 line|z17-[aerialway=chair_lift],
 line|z17-[aerialway=gondola],
 line|z17-[aerialway=mixed_lift],
-line|z17-[aerialway=drag_lift]
+line|z17-[aerialway=drag_lift],
+line|z17-[aerialway=j-bar],
+line|z17-[aerialway=t-bar],
+line|z17-[aerialway=magic_carpet],
+line|z17-[aerialway=platter],
+line|z17-[aerialway=rope_tow],
  {
   color: @aerialway;
   width: 1;
@@ -1420,8 +1435,13 @@ line|z17-[aerialway=drag_lift]
 line|z14[aerialway=cable_car]::dash,
 line|z14[aerialway=chair_lift]::dash,
 line|z14[aerialway=gondola]::dash,
-line|z14[aerialway=mixed_lift]::dash
-line|z14[aerialway=drag_lift] ::dash
+line|z14[aerialway=mixed_lift]::dash,
+line|z14[aerialway=drag_lift] ::dash,
+line|z14[aerialway=j-bar]::dash,
+line|z14[aerialway=t-bar]::dash,
+line|z14[aerialway=magic_carpet]::dash,
+line|z14[aerialway=platter]::dash,
+line|z14[aerialway=rope_tow]::dash,
  {
   color: @aerialway;
   width: 2.5;
@@ -1434,7 +1454,12 @@ line|z15-[aerialway=cable_car]::dash,
 line|z15-[aerialway=chair_lift]::dash,
 line|z15-[aerialway=gondola]::dash,
 line|z15-[aerialway=mixed_lift]::dash,
-line|z15-[aerialway=drag_lift] ::dash
+line|z15-[aerialway=drag_lift] ::dash,
+line|z15-[aerialway=j-bar]::dash,
+line|z15-[aerialway=t-bar]::dash,
+line|z15-[aerialway=magic_carpet]::dash,
+line|z15-[aerialway=platter]::dash,
+line|z15-[aerialway=rope_tow]::dash,
 {
   color: @aerialway;
   width: 2.5;
@@ -1454,7 +1479,13 @@ node|z15[aerialway=station],
 node|z15[aerialway=cable_car],
 node|z15[aerialway=chair_lift],
 node|z15[aerialway=gondola],
-node|z15[aerialway=mixed_lift] {
+node|z15[aerialway=mixed_lift],
+node|z15[aerialway=drag_lift],
+node|z15[aerialway=j-bar],
+node|z15[aerialway=t-bar],
+node|z15[aerialway=magic_carpet],
+node|z15[aerialway=platter],
+node|z15[aerialway=rope_tow], {
   icon-image: cable-car-m.svg;
   z-index: 2600;
   text-offset: 6;
@@ -1470,7 +1501,13 @@ node|z16-17[aerialway=station],
 node|z16-17[aerialway=cable_car],
 node|z16-17[aerialway=chair_lift],
 node|z16-17[aerialway=gondola],
-node|z16-17[aerialway=mixed_lift]{
+node|z16-17[aerialway=mixed_lift],
+node|z16-17[aerialway=drag_lift],
+node|z16-17[aerialway=j-bar],
+node|z16-17[aerialway=t-bar],
+node|z16-17[aerialway=magic_carpet],
+node|z16-17[aerialway=platter],
+node|z16-17[aerialway=rope_tow],{
   icon-image: cable-car-m.svg;
   text-offset: 8;
   font-size: 10;
@@ -1483,10 +1520,16 @@ node|z16-17[aerialway=mixed_lift]{
 }
 
 node|z18-[aerialway=station],
-node|z18[aerialway=cable_car],
-node|z18[aerialway=chair_lift],
-node|z18[aerialway=gondola],
-node|z18[aerialway=mixed_lift] {
+node|z18-[aerialway=cable_car],
+node|z18-[aerialway=chair_lift],
+node|z18-[aerialway=gondola],
+node|z18-[aerialway=mixed_lift],
+node|z18-[aerialway=drag_lift],
+node|z18-[aerialway=j-bar],
+node|z18-[aerialway=t-bar],
+node|z18-[aerialway=magic_carpet],
+node|z18-[aerialway=platter],
+node|z18-[aerialway=rope_tow], {
   icon-image: cable-car-l.svg;
   text-offset: 8;
   font-size: 12;
