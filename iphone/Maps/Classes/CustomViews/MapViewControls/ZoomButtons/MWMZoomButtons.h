@@ -1,4 +1,4 @@
-#import <Foundation/Foundation.h>
+@class MWMZoomButtonsView;
 
 @interface MWMZoomButtons : NSObject
 
@@ -8,5 +8,6 @@
 - (instancetype)initWithParentView:(UIView *)view;
 - (void)setTopBound:(CGFloat)bound;
 - (void)setBottomBound:(CGFloat)bound;
+- (void)refresh;
 
 @end

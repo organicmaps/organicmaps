@@ -12,7 +12,6 @@ IB_DESIGNABLE
 @property (nonatomic) BOOL selected;
 
 @property (nonatomic) IBInspectable UIImage * iconImage;
-@property (nonatomic) IBInspectable UIImage * iconImageHighlighted;
 @property (nonatomic) IBInspectable NSString * localizedText;
 
 @end

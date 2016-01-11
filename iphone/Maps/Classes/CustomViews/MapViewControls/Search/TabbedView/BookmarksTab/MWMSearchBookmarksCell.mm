@@ -85,21 +85,4 @@
   self.countLabel.text = @(count).stringValue;
 }
 
-- (void)setIsLightTheme:(BOOL)isLightTheme
-{
-  _isLightTheme = isLightTheme;
-  if (isLightTheme)
-  {
-    [self.visibilityButton setImage:[UIImage imageNamed:@"ic_hide_light"] forState:UIControlStateNormal];
-    [self.visibilityButton setImage:[UIImage imageNamed:@"ic_show_light"] forState:UIControlStateSelected];
-    self.openArrow.image = [UIImage imageNamed:@"ic_carrot_light"];
-  }
-  else
-  {
-    [self.visibilityButton setImage:[UIImage imageNamed:@"ic_hide_dark"] forState:UIControlStateNormal];
-    [self.visibilityButton setImage:[UIImage imageNamed:@"ic_show_dark"] forState:UIControlStateSelected];
-    self.openArrow.image = [UIImage imageNamed:@"ic_carrot_dark"];
-  }
-}
-
 @end

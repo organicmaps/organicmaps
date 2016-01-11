@@ -6,6 +6,7 @@
 #import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
+#import "UIView+RuntimeAttributes.h"
 
 #include "Framework.h"
 
@@ -93,7 +94,7 @@
     self.streetLabel.alpha = 0.0;
     break;
   case MWMBottomMenuStateActive:
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor white];
     self.bookmarksButton.alpha = 1.0;
     self.downloadBadge.alpha = 0.0;
     self.goButton.alpha = 0.0;

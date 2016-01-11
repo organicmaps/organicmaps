@@ -1,7 +1,6 @@
+#import "MWMTableViewCell.h"
 
-#import <UIKit/UIKit.h>
-
-@interface SelectableCell : UITableViewCell
+@interface SelectableCell : MWMTableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel * titleLabel;
 

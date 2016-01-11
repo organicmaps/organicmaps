@@ -20,12 +20,4 @@
   return 44.0;
 }
 
-#pragma mark - Properties
-
-- (void)setIsLightTheme:(BOOL)isLightTheme
-{
-  _isLightTheme = isLightTheme;
-  self.icon.image = [UIImage imageNamed:isLightTheme ? @"ic_clear_light" : @"ic_clear_dark"];
-}
-
 @end

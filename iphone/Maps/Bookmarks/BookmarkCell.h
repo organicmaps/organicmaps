@@ -1,7 +1,6 @@
-#import <UIKit/UIKit.h>
+#import "MWMTableViewCell.h"
 
-
-@interface BookmarkCell : UITableViewCell
+@interface BookmarkCell : MWMTableViewCell
 
 @property (nonatomic, readonly) UILabel * bmName;
 @property (nonatomic, readonly) UILabel * bmDistance;

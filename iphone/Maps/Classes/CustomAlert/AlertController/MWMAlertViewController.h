@@ -1,12 +1,12 @@
-#import <UIKit/UIKit.h>
 #import "MWMAlert.h"
+#import "ViewController.h"
 
 #include "routing/router.hpp"
 #include "storage/storage.hpp"
 
 typedef void (^CloseAlertCompletion)();
 
-@interface MWMAlertViewController : UIViewController
+@interface MWMAlertViewController : ViewController
 
 @property (weak, nonatomic, readonly) UIViewController * ownerViewController;
 

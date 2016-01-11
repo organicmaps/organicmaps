@@ -1,6 +1,6 @@
-@interface MWMSearchHistoryClearCell : UITableViewCell
+#import "MWMTableViewCell.h"
 
-@property (nonatomic) BOOL isLightTheme;
+@interface MWMSearchHistoryClearCell : MWMTableViewCell
 
 + (CGFloat)cellHeight;
 

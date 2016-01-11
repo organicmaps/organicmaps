@@ -2,13 +2,9 @@
 typedef NS_ENUM(NSInteger, MWMCircularProgressState)
 {
   MWMCircularProgressStateNormal,
-  MWMCircularProgressStateHighlighted,
   MWMCircularProgressStateSelected,
-  MWMCircularProgressStateSelectedHighlighted,
   MWMCircularProgressStateProgress,
-  MWMCircularProgressStateProgressHighlighted,
   MWMCircularProgressStateFailed,
-  MWMCircularProgressStateFailedHighlighted,
   MWMCircularProgressStateCompleted
 };
 

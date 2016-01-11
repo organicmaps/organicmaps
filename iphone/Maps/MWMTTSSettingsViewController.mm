@@ -3,6 +3,7 @@
 #import "MWMTTSSettingsViewController.h"
 #import "SelectableCell.h"
 #import "Statistics.h"
+#import "UIColor+MapsMeColor.h"
 #import "WebViewController.h"
 #import <AVFoundation/AVFoundation.h>
 
@@ -26,6 +27,7 @@ using namespace std;
 {
   [super viewDidLoad];
   self.title = L(@"pref_tts_language_title");
+  self.tableView.separatorColor = [UIColor blackDividers];
   MWMTextToSpeech * tts = [MWMTextToSpeech tts];
 
   _languages.reserve(3);

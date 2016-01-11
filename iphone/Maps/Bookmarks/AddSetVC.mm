@@ -2,6 +2,7 @@
 #import "AddSetVC.h"
 #import "UIViewController+Navigation.h"
 #import "AddSetTableViewCell.h"
+#import "UIColor+MapsMeColor.h"
 
 #include "Framework.h"
 
@@ -60,6 +61,7 @@ static NSString * const kAddSetCellTableViewCell = @"AddSetTableViewCell";
 {
   self.cell = (AddSetTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kAddSetCellTableViewCell];
   self.cell.delegate = self;
+  self.cell.backgroundColor = [UIColor white];
   return self.cell;
 }
 

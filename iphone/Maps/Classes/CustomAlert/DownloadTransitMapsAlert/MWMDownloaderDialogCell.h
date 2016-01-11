@@ -1,6 +1,6 @@
-#import <UIKit/UIKit.h>
+#import "MWMTableViewCell.h"
 
-@interface MWMDownloaderDialogCell : UITableViewCell
+@interface MWMDownloaderDialogCell : MWMTableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel * titleLabel;
 

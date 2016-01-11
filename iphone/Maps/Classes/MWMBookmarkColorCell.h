@@ -1,6 +1,6 @@
-#import <UIKit/UIKit.h>
+#import "MWMTableViewCell.h"
 
-@interface MWMBookmarkColorCell : UITableViewCell
+@interface MWMBookmarkColorCell : MWMTableViewCell
 
 @property (weak, nonatomic) IBOutlet UIButton * colorButton;
 @property (weak, nonatomic) IBOutlet UILabel * titleLabel;

@@ -3,6 +3,7 @@
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageViewManager.h"
 #import "Statistics.h"
+#import "UIColor+MapsMeColor.h"
 #import "UIViewController+navigation.h"
 
 extern NSArray * const kBookmarkColorsVariant;
@@ -26,6 +27,8 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
 {
   [super viewDidLoad];
   self.title = L(@"bookmark_color");
+  self.tableView.separatorColor = [UIColor blackDividers];
+  self.view.backgroundColor = [UIColor pressBackground];
   [self.tableView registerNib:[UINib nibWithNibName:kBookmarkColorCellIdentifier bundle:nil] forCellReuseIdentifier:kBookmarkColorCellIdentifier];
   self.colorWasChanged = NO;
 }

@@ -15,6 +15,8 @@
 #import "UIViewController+Navigation.h"
 #import <MyTargetSDKCorp/MTRGManager_Corp.h>
 
+#import "UIColor+MapsMeColor.h"
+
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "Framework.h"
@@ -140,6 +142,12 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     [self showPopover];
     [self updateRoutingInfo];
 
+    static dispatch_once_t onceToken = 0;
+    dispatch_once(&onceToken, ^
+    {
+      if ([[NSUserDefaults standardUserDefaults] boolForKey:kUDAutoNightMode])
+        [MapsAppDelegate.theApp changeMapStyleIfNedeed];
+    });
     if (self.forceRoutingStateChange == ForceRoutingStateChangeRestoreRoute)
       [self restoreRoute];
   }
@@ -414,6 +422,12 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   self.view.clipsToBounds = YES;
   [MTRGManager setMyCom:YES];
   self.controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
+}
+
+- (void)refresh
+{
+//  [super refresh];
+  [self.controlsManager refresh];
 }
 
 - (void)showWhatsNewIfNeeded

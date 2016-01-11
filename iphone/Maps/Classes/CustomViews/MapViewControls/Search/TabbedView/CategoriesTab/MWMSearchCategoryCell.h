@@ -1,5 +1,7 @@
-@interface MWMSearchCategoryCell : UITableViewCell
+#import "MWMTableViewCell.h"
 
-- (void)setCategory:(NSString *)category isLightTheme:(BOOL)isLightTheme;
+@interface MWMSearchCategoryCell : MWMTableViewCell
+
+- (void)setCategory:(NSString *)category;
 
 @end

@@ -55,6 +55,11 @@ static inline CGFloat LengthCGPoint(CGPoint point)
 
 @end
 
+@interface UIView (Refresh)
+
+- (void)refresh;
+
+@end
 
 @interface UIApplication (URLs)
 
@@ -73,7 +78,6 @@ static inline CGFloat LengthCGPoint(CGPoint point)
 @interface SolidTouchView : UIView
 
 @end
-
 
 @interface SolidTouchImageView : UIImageView
 

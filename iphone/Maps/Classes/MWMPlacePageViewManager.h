@@ -17,6 +17,7 @@
                               delegate:(id<MWMPlacePageViewManagerProtocol>)delegate;
 - (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark;
 - (void)refreshPlacePage;
+- (void)refresh;
 - (void)dismissPlacePage;
 - (void)hidePlacePage;
 - (void)buildRoute;

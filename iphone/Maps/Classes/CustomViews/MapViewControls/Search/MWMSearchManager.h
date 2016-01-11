@@ -31,6 +31,8 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerState)
 - (nullable instancetype)initWithParentView:(nonnull UIView *)view
                                    delegate:(nonnull id<MWMSearchManagerProtocol, MWMSearchViewProtocol, MWMRoutingProtocol>)delegate;
 
+- (void)refresh;
+
 #pragma mark - Layout
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation

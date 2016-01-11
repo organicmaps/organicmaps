@@ -1,5 +1,5 @@
-
 #import "MWMBottomMenuView.h"
+#import "ViewController.h"
 
 #include "platform/location.hpp"
 
@@ -12,7 +12,7 @@
 
 @end
 
-@interface MWMBottomMenuViewController : UIViewController
+@interface MWMBottomMenuViewController : ViewController
 
 @property(nonatomic) MWMBottomMenuState state;
 @property(weak, nonatomic) IBOutlet UIButton * p2pButton;
@@ -21,14 +21,13 @@
 - (instancetype)initWithParentController:(MapViewController *)controller
                                 delegate:(id<MWMBottomMenuControllerProtocol>)delegate;
 
-- (void)onEnterForeground;
-
 - (void)setStreetName:(NSString *)streetName;
 - (void)setInactive;
 - (void)setPlanning;
 - (void)setGo;
 
 - (void)refreshLayout;
+- (void)refresh;
 
 - (void)onLocationStateModeChanged:(location::EMyPositionMode)state;
 

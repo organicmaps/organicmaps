@@ -9,6 +9,7 @@
 #import "MWMPlacePageNavigationBar.h"
 #import "MWMPlacePageViewManager.h"
 #import "MWMSpringAnimation.h"
+#import "UIImageView+Coloring.h"
 
 #include "Framework.h"
 
@@ -320,7 +321,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
   {
     CGSize const size = UIScreen.mainScreen.bounds.size;
     CGFloat const width = MIN(size.height, size.width);
-    self.anchorImageView.image = [UIImage imageNamed:[anchorImageName stringByAppendingString:@((NSUInteger)width).stringValue]];
+    self.anchorImageView.mwm_name = [anchorImageName stringByAppendingString:@((NSUInteger)width).stringValue];
   }
 }
 

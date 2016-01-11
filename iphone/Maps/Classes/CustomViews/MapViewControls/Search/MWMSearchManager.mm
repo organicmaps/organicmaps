@@ -60,6 +60,11 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   return self;
 }
 
+- (void)refresh
+{
+  [self.rootView refresh];
+}
+
 - (void)beginSearch
 {
   if (self.state == MWMSearchManagerStateDefault)

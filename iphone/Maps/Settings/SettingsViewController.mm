@@ -9,6 +9,7 @@
 #import "Statistics.h"
 #import "SwitchCell.h"
 #import "WebViewController.h"
+#import "UIColor+MapsMeColor.h"
 
 #include "Framework.h"
 
@@ -45,7 +46,6 @@ typedef NS_ENUM(NSUInteger, Section)
   [super viewDidLoad];
   self.title = L(@"settings");
   self.tableView.backgroundView = nil;
-  self.tableView.backgroundColor = [UIColor applicationBackgroundColor];
   bool adServerForbidden = false;
   (void)Settings::Get(kAdServerForbiddenKey, adServerForbidden);
   if (isIOSVersionLessThan(8) || adServerForbidden)
@@ -66,8 +66,8 @@ typedef NS_ENUM(NSUInteger, Section)
   switch (sections[section])
   {
   case SectionMetrics:
-  case SectionMap:
     return 2;
+  case SectionMap:
   case SectionRouting:
     return 3;
   case SectionAd:
@@ -117,23 +117,36 @@ typedef NS_ENUM(NSUInteger, Section)
   }
   case SectionMap:
   {
-    cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
-    SwitchCell * customCell = (SwitchCell *)cell;
-    bool on = true;
-    if (indexPath.row == 0)
+    switch (indexPath.row)
     {
-      bool _ = true;
+    case 0:
+    {
+      cell = [tableView dequeueReusableCellWithIdentifier:[LinkCell className]];
+      LinkCell * customCell = static_cast<LinkCell *>(cell);
+      customCell.titleLabel.text = L(@"pref_night_mode");
+      break;
+    }
+    case 1:
+    {
+      cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
+      SwitchCell * customCell = static_cast<SwitchCell *>(cell);
+      bool on = true, _ = true;
       GetFramework().Load3dMode(_, on);
       customCell.titleLabel.text = L(@"pref_map_3d_buildings_title");
     }
-    else
+    case 2:
     {
+      cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
+      SwitchCell * customCell = static_cast<SwitchCell *>(cell);
+      bool on = true;
       (void)Settings::Get("ZoomButtonsEnabled", on);
       customCell.titleLabel.text = L(@"pref_zoom_title");
+      customCell.switchButton.on = on;
+      customCell.delegate = self;
+      break;
     }
-    customCell.switchButton.on = on;
-    customCell.delegate = self;
-    break;
+  }
+  break;
   }
   case SectionRouting:
   {
@@ -216,23 +229,30 @@ typedef NS_ENUM(NSUInteger, Section)
     break;
 
   case SectionMap:
-    if (indexPath.row == 0)
+    switch (indexPath.row)
     {
-      [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStat3DBuildings)
-                       withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
-      auto & f = GetFramework();
-      bool _ = true, is3dBuildings = true;
-      f.Load3dMode(_, is3dBuildings);
-      is3dBuildings = static_cast<bool>(value);
-      f.Save3dMode(_, is3dBuildings);
-      f.Allow3dMode(_, is3dBuildings);
-    }
-    else
-    {
-      [stat logEvent:kStatEventName(kStatSettings, kStatToggleZoomButtonsVisibility)
-          withParameters:@{kStatValue : (value ? kStatVisible : kStatHidden)}];
-      Settings::Set("ZoomButtonsEnabled", (bool)value);
-      [MapsAppDelegate theApp].mapViewController.controlsManager.zoomHidden = !value;
+      case 0:
+        break;
+      case 1:
+      {
+        [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStat3DBuildings)
+                         withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
+        auto & f = GetFramework();
+        bool _ = true, is3dBuildings = true;
+        f.Load3dMode(_, is3dBuildings);
+        is3dBuildings = static_cast<bool>(value);
+        f.Save3dMode(_, is3dBuildings);
+        f.Allow3dMode(_, is3dBuildings);
+        break;
+      }
+      case 2:
+      {
+        [stat logEvent:kStatEventName(kStatSettings, kStatToggleZoomButtonsVisibility)
+            withParameters:@{kStatValue : (value ? kStatVisible : kStatHidden)}];
+        Settings::Set("ZoomButtonsEnabled", (bool)value);
+        [MapsAppDelegate theApp].mapViewController.controlsManager.zoomHidden = !value;
+        break;
+      }
     }
     break;
 
@@ -289,12 +309,17 @@ Settings::Units unitsForIndex(NSInteger index)
     break;
   }
   case SectionRouting:
-    [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatTTS)
-                   withParameters:@{kStatAction : kStatChangeLanguage}];
-    [self performSegueWithIdentifier:@"SettingsToTTSSegue" sender:nil];
+    if (indexPath.row == 3)
+    {
+      [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatTTS)
+                     withParameters:@{kStatAction : kStatChangeLanguage}];
+      [self performSegueWithIdentifier:@"SettingsToTTSSegue" sender:nil];
+    }
     break;
-
   case SectionMap:
+    if (indexPath.row == 0)
+      [self performSegueWithIdentifier:@"SettingsToNightMode" sender:nil];
+    break;
   case SectionAd:
   case SectionCalibration:
   case SectionStatistics:

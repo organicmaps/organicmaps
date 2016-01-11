@@ -82,8 +82,8 @@
       self.selectAnotherMapButton.hidden = NO;
       [self.selectAnotherMapButton setTitle:L(@"search_select_other_map") forState:UIControlStateNormal];
       [self.selectAnotherMapButton setTitleColor:[UIColor linkBlue] forState:UIControlStateNormal];
-      [self.selectAnotherMapButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-      [self.selectAnotherMapButton setBackgroundColor:[UIColor whiteColor] forState:UIControlStateNormal];
+      [self.selectAnotherMapButton setTitleColor:[UIColor white] forState:UIControlStateHighlighted];
+      [self.selectAnotherMapButton setBackgroundColor:[UIColor white] forState:UIControlStateNormal];
       [self.selectAnotherMapButton setBackgroundColor:[UIColor linkBlue] forState:UIControlStateHighlighted];
       break;
     case MWMDownloadMapRequestStateRequestUnknownLocation:
@@ -95,7 +95,7 @@
       self.selectAnotherMapButton.hidden = NO;
       [self.selectAnotherMapButton setTitle:L(@"search_select_map") forState:UIControlStateNormal];
 
-      [self.selectAnotherMapButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+      [self.selectAnotherMapButton setTitleColor:[UIColor white] forState:UIControlStateNormal];
       [self.selectAnotherMapButton setBackgroundColor:[UIColor linkBlue] forState:UIControlStateNormal];
       [self.selectAnotherMapButton setBackgroundColor:[UIColor linkBlueDark] forState:UIControlStateHighlighted];
       break;

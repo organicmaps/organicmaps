@@ -11,20 +11,14 @@
 
 @property (nonatomic) BOOL isWideMenu;
 
-@property (nonatomic) UIImage * image;
-@property (nonatomic) UIImage * highlightedImage;
-
 @end
 
 @implementation MWMBottomMenuCollectionViewCell
 
 - (void)configureWithImage:(UIImage *)image
-          highlightedImage:(UIImage *)highlightedImage
                      label:(NSString *)label
                 badgeCount:(NSUInteger)badgeCount
 {
-  self.image = image;
-  self.highlightedImage = highlightedImage;
   self.icon.image = image;
   self.label.text = label;
   if (badgeCount > 0)
@@ -41,20 +35,14 @@
   [self highlighted:NO];
 }
 
-- (void)configureWithImageName:(NSString *)imageName
-                         label:(NSString *)label
-                    badgeCount:(NSUInteger)badgeCount
+- (void)configureWithImageName:(NSString *)imageName label:(NSString *)label badgeCount:(NSUInteger)badgeCount
 {
-  [self configureWithImage:[UIImage imageNamed:imageName]
-          highlightedImage:[UIImage imageNamed:[imageName stringByAppendingString:@"_press"]]
-                     label:label
-                badgeCount:badgeCount];
+  [self configureWithImage:[UIImage imageNamed:imageName] label:label badgeCount:badgeCount];
 }
 
 - (void)highlighted:(BOOL)highlighted
 {
-  self.icon.image = highlighted ? self.highlightedImage : self.image;
-  self.label.textColor = highlighted ? [UIColor blackHintText] : [UIColor blackPrimaryText];
+  self.icon.tintColor = self.label.textColor = highlighted ? [UIColor blackHintText] : [UIColor blackSecondaryText];
 }
 
 @end

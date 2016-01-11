@@ -1,4 +1,6 @@
 #import "MWMSearchTextField.h"
+#import "UIColor+MapsMeColor.h"
+#import "UIImageView+Coloring.h"
 
 @implementation MWMSearchTextField
 
@@ -9,6 +11,9 @@
     return nil;
   self.isSearching = NO;
   self.leftViewMode = UITextFieldViewModeAlways;
+  self.textColor = [UIColor blackSecondaryText];
+  UILabel * p = [self valueForKey:@"_placeholderLabel"];
+  p.textColor = [UIColor blackHintText];
   return self;
 }
 
@@ -34,7 +39,8 @@
   }
   else
   {
-    self.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_searchbar_search_light"]];
+    self.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_search"]];
+    static_cast<UIImageView *>(self.leftView).mwm_coloring = MWMImageColoringBlack;
   }
 }
 

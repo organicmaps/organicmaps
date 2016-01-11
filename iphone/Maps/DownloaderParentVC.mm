@@ -2,6 +2,7 @@
 #import "DownloaderParentVC.h"
 #import "DiskFreeSpace.h"
 #import "MWMAlertViewController.h"
+#import "UIColor+MapsMeColor.h"
 
 #include "platform/platform.hpp"
 
@@ -11,6 +12,8 @@
 {
   [super viewDidLoad];
   [self.view addSubview:self.tableView];
+  self.tableView.backgroundColor = [UIColor pressBackground];
+  self.tableView.separatorColor = [UIColor blackDividers];
 }
 
 - (UITableView *)tableView

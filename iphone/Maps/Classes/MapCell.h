@@ -1,5 +1,5 @@
 
-#import <UIKit/UIKit.h>
+#import "MWMTableViewCell.h"
 #import "ProgressView.h"
 #import "BadgeView.h"
 
@@ -17,7 +17,7 @@ using namespace storage;
 
 @end
 
-@interface MapCell : UITableViewCell
+@interface MapCell : MWMTableViewCell
 
 @property (nonatomic, readonly) UILabel * titleLabel;
 @property (nonatomic, readonly) UILabel * subtitleLabel;

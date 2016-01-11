@@ -1,10 +1,12 @@
+#import "ViewController.h"
+
 @protocol MWMSearchDownloadProtocol <NSObject>
 
 - (void)selectMapsAction;
 
 @end
 
-@interface MWMSearchDownloadViewController : UIViewController
+@interface MWMSearchDownloadViewController : ViewController
 
 - (nonnull instancetype)init __attribute__((unavailable("init is not available")));
 - (nonnull instancetype)initWithDelegate:(nonnull id<MWMSearchDownloadProtocol>)delegate;

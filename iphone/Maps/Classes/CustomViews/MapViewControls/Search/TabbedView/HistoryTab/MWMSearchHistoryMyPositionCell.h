@@ -1,4 +1,6 @@
-@interface MWMSearchHistoryMyPositionCell : UITableViewCell
+#import "MWMTableViewCell.h"
+
+@interface MWMSearchHistoryMyPositionCell : MWMTableViewCell
 
 + (CGFloat)cellHeight;
 

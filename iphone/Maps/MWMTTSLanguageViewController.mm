@@ -2,6 +2,7 @@
 #import "MWMTTSLanguageViewController.h"
 #import "MWMTTSSettingsViewController.h"
 #import "SelectableCell.h"
+#import "UIColor+MapsMeColor.h"
 
 static NSString * const kUnwingSegueIdentifier = @"UnwindToTTSSettings";
 
@@ -11,6 +12,7 @@ static NSString * const kUnwingSegueIdentifier = @"UnwindToTTSSettings";
 {
   [super viewDidLoad];
   self.title = L(@"pref_tts_other_section_title");
+  self.tableView.separatorColor = [UIColor blackDividers];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(SelectableCell *)sender

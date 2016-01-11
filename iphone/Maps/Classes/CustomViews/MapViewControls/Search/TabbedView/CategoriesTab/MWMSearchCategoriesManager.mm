@@ -49,7 +49,7 @@ static size_t constexpr kCategoriesCount = ARRAY_SIZE(categoriesNames);
 - (void)tableView:(UITableView *)tableView willDisplayCell:(MWMSearchCategoryCell *)cell
 forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  [cell setCategory:@(categoriesNames[indexPath.row]) isLightTheme:YES];
+  [cell setCategory:@(categoriesNames[indexPath.row])];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

@@ -1,0 +1,3 @@
+@interface MWMTableViewCell : UITableViewCell
+
+@end

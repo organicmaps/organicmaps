@@ -5,12 +5,14 @@
 
 @implementation UIButton (RuntimeAttributes)
 
-- (void)setLocalizedText:(NSString *)localizedText {
+- (void)setLocalizedText:(NSString *)localizedText
+{
   [self setTitle:L(localizedText) forState:UIControlStateNormal];
   [self setTitle:L(localizedText) forState:UIControlStateDisabled];
 }
 
-- (NSString *)localizedText {
+- (NSString *)localizedText
+{
   return L([self titleForState:UIControlStateNormal]);
 }
 

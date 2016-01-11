@@ -1,6 +1,7 @@
 #import "MWMPageController.h"
 #import "MWMWhatsNewController.h"
 #import "Statistics.h"
+#import "UIColor+MapsMeColor.h"
 
 #include "Framework.h"
 
@@ -197,7 +198,7 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface MWMPageControllerDataSourceImpl : NSObjec
   CGPoint const origin = IPAD ? CGPointMake(parentView.center.x - size.width / 2, parentView.center.y - size.height / 2) :
                                 CGPointZero;
   mainView.frame = {origin, size};
-  mainView.backgroundColor = [UIColor whiteColor];
+  mainView.backgroundColor = [UIColor white];
   if (IPAD)
   {
     self.iPadBackgroundView = [[SolidTouchView alloc] initWithFrame:parentView.bounds];

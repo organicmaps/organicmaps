@@ -24,6 +24,7 @@
 #pragma mark - Layout
 
 - (void)refreshLayout;
+- (void)refresh;
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
                                 duration:(NSTimeInterval)duration;
