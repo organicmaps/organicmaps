@@ -263,7 +263,7 @@
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Hey, tjek min knappenål på MAPS.ME kortet ud!</string>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">Hey,\n\nI har lagt en knappenål: %1$s på MAPS.ME, offline kort over hele Verden. Tryk pådettelink: %2$sellerdette%3$sforatseknappenåletpåkortet.\n\nTak.</string>
+	<string name="bookmark_share_email">Hey,\n\nI har lagt en knappenål: %1$s på MAPS.ME, offline kort over hele Verden. Tryk pådettelink: %2$s ellerdette %3$s foratseknappenåletpåkortet.\n\nTak.</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Hey, tjek min nuværende lokation ud på MAPS.ME kortet!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->

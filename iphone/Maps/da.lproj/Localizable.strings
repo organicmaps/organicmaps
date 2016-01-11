@@ -414,7 +414,7 @@
 "bookmark_share_email_subject" = "Hey, tjek min knappenål på MAPS.ME kortet ud!";
 
 /* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "Hey,\n\nI har lagt en knappenål: %1$@ på MAPS.ME, offline kort over hele Verden. Tryk pådettelink: %2$@ellerdette%3$@foratseknappenåletpåkortet.\n\nTak.";
+"bookmark_share_email" = "Hey,\n\nI har lagt en knappenål: %1$@ på MAPS.ME, offline kort over hele Verden. Tryk pådettelink: %2$@ ellerdette %3$@ foratseknappenåletpåkortet.\n\nTak.";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Hey, tjek min nuværende lokation ud på MAPS.ME kortet!";
