@@ -1292,7 +1292,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   if (m_routingSession.IsActive())
   {
     InsertRoute(m_routingSession.GetRoute());
-    if (allow3d)
+    if (allow3d && m_routingSession.IsFollowing())
       m_drapeEngine->EnablePerspective(kRotationAngle, kAngleFOV);
   }
 }
