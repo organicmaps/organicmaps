@@ -99,10 +99,10 @@ typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
   return YES;
 }
 
-- (void)storeCredentials:(osm::ClientToken const *)token
+- (void)storeCredentials:(osm::ClientToken)token
 {
-  NSString * requestToken = @(token->m_key.c_str());
-  NSString * requestSecret = @(token->m_secret.c_str());
+  NSString * requestToken = @(token.m_key.c_str());
+  NSString * requestSecret = @(token.m_secret.c_str());
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   [ud setObject:requestToken forKey:kOSMRequestToken];
   [ud setObject:requestSecret forKey:kOSMRequestSecret];
@@ -177,7 +177,7 @@ typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
       {
         [self stopSpinner];
         if (result == osm::OsmOAuth::AuthResult::OK)
-          [self storeCredentials:&token];
+          [self storeCredentials:token];
         else
           [self showInvalidCredentialsAlert];
       });
