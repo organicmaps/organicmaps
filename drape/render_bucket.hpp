@@ -4,6 +4,11 @@
 
 class ScreenBase;
 
+namespace df
+{
+class BatchMergeHelper;
+}
+
 namespace dp
 {
 
@@ -13,6 +18,7 @@ class VertexArrayBuffer;
 
 class RenderBucket
 {
+  friend class df::BatchMergeHelper;
 public:
   RenderBucket(drape_ptr<VertexArrayBuffer> && buffer);
   ~RenderBucket();

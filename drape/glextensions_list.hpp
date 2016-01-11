@@ -15,6 +15,7 @@ public:
     RequiredInternalFormat,
     MapBuffer,
     UintIndices,
+    MapBufferRange
   };
 
   static GLExtensionsList & Instance();

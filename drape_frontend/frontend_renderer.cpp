@@ -6,6 +6,7 @@
 #include "drape_frontend/transparent_layer.hpp"
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
+#include "drape_frontend/batch_merge_helper.hpp"
 
 #include "drape/debug_rect_renderer.hpp"
 #include "drape/shader_def.hpp"
@@ -897,6 +898,49 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 #ifdef DRAW_INFO
   AfterDrawFrame();
 #endif
+
+  MergeBuckets();
+}
+
+void FrontendRenderer::MergeBuckets()
+{
+  if (BatchMergeHelper::IsMergeSupported() == false)
+    return;
+
+  ++m_mergeBucketsCounter;
+  if (m_mergeBucketsCounter < 60)
+    return;
+
+  if (m_renderGroups.empty())
+    return;
+
+  using TGroup = pair<dp::GLState, TileKey>;
+  using TGroupMap = map<TGroup, vector<drape_ptr<RenderGroup>>>;
+  TGroupMap forMerge;
+
+  vector<drape_ptr<RenderGroup>> newGroups;
+  newGroups.reserve(m_renderGroups.size());
+
+  m_mergeBucketsCounter = 0;
+  size_t groupsCount = m_renderGroups.size();
+  for (size_t i = 0; i < groupsCount; ++i)
+  {
+    ref_ptr<RenderGroup> group = make_ref(m_renderGroups[i]);
+    dp::GLState state = group->GetState();
+    if (state.GetDepthLayer() == dp::GLState::GeometryLayer &&
+        group->IsPendingOnDelete() == false)
+    {
+      TGroup const key = make_pair(state, group->GetTileKey());
+      forMerge[key].push_back(move(m_renderGroups[i]));
+    }
+    else
+      newGroups.push_back(move(m_renderGroups[i]));
+  }
+
+  for (TGroupMap::value_type & node : forMerge)
+      BatchMergeHelper::MergeBatches(node.second, newGroups);
+
+  m_renderGroups = move(newGroups);
 }
 
 bool FrontendRenderer::IsPerspective() const
