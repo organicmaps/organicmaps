@@ -19,8 +19,6 @@ public:
   void SetDefaultContext(dp::OGLContext * context);
   void SetSize(uint32_t width, uint32_t height);
 
-  int32_t GetMaxSize();
-
   void Enable();
   void Disable();
 
@@ -38,8 +36,6 @@ private:
   uint32_t m_framebufferId = 0;
 
   dp::OGLContext * m_defaultContext = 0;
-
-  int32_t m_maxTextureSize = 0;
 
   bool m_isSupported = true;
 };
