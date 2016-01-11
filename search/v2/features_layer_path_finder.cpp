@@ -13,9 +13,11 @@ namespace v2
 {
 namespace
 {
+using TParentGraph = vector<unordered_map<uint32_t, uint32_t>>;
+
 // This function tries to estimate amount of work needed to perform an
 // intersection pass on a sequence of layers.
-template<typename TIt>
+template <typename TIt>
 uint64_t CalcPassCost(TIt begin, TIt end)
 {
   uint64_t cost = 0;
@@ -42,6 +44,36 @@ uint64_t CalcBottomUpPassCost(vector<FeaturesLayer const *> const & layers)
 {
   return CalcPassCost(layers.begin(), layers.end());
 }
+
+bool LooksLikeHouseNumber(string const & query)
+{
+  vector<string> tokens;
+  NormalizeHouseNumber(query, tokens);
+  return !tokens.empty() && feature::IsHouseNumber(tokens.front());
+}
+
+bool GetPath(uint32_t id, vector<FeaturesLayer const *> const & layers, TParentGraph const & parent,
+             IntersectionResult & result)
+{
+  result.Clear();
+  size_t level = 0;
+  do
+  {
+    ASSERT_LESS(level, layers.size(), ());
+
+    result.Set(layers[level]->m_type, id);
+
+    if (level >= parent.size())
+      return true;
+
+    auto const & p = parent[level];
+    auto const it = p.find(id);
+    if (it == p.cend())
+      return false;
+    id = it->second;
+    ++level;
+  } while (true);
+}
 }  // namespace
 
 FeaturesLayerPathFinder::FeaturesLayerPathFinder(my::Cancellable const & cancellable)
@@ -51,7 +83,7 @@ FeaturesLayerPathFinder::FeaturesLayerPathFinder(my::Cancellable const & cancell
 
 void FeaturesLayerPathFinder::FindReachableVertices(FeaturesLayerMatcher & matcher,
                                                     vector<FeaturesLayer const *> const & layers,
-                                                    vector<uint32_t> & reachable)
+                                                    vector<IntersectionResult> & results)
 {
   if (layers.empty())
     return;
@@ -60,124 +92,103 @@ void FeaturesLayerPathFinder::FindReachableVertices(FeaturesLayerMatcher & match
   uint64_t const bottomUpCost = CalcBottomUpPassCost(layers);
 
   if (bottomUpCost < topDownCost)
-    FindReachableVerticesBottomUp(matcher, layers, reachable);
+    FindReachableVerticesBottomUp(matcher, layers, results);
   else
-    FindReachableVerticesTopDown(matcher, layers, reachable);
+    FindReachableVerticesTopDown(matcher, layers, results);
 }
 
 void FeaturesLayerPathFinder::FindReachableVerticesTopDown(
     FeaturesLayerMatcher & matcher, vector<FeaturesLayer const *> const & layers,
-    vector<uint32_t> & reachable)
+    vector<IntersectionResult> & results)
 {
-  reachable = *(layers.back()->m_sortedFeatures);
+  ASSERT(!layers.empty(), ());
 
+  vector<uint32_t> reachable = *(layers.back()->m_sortedFeatures);
   vector<uint32_t> buffer;
 
-  auto addEdge = [&](uint32_t childFeature, uint32_t /* parentFeature */)
-  {
-    buffer.push_back(childFeature);
-  };
+  TParentGraph parent(layers.size() - 1);
 
-  // The order matters here, as we need to intersect BUILDINGs with
-  // STREETs first, and then POIs with BUILDINGs.
   for (size_t i = layers.size() - 1; i != 0; --i)
   {
     BailIfCancelled(m_cancellable);
 
     if (reachable.empty())
-      break;
+      return;
+
+    auto addEdge = [&](uint32_t childFeature, uint32_t parentFeature)
+    {
+      parent[i - 1][childFeature] = parentFeature;
+      buffer.push_back(childFeature);
+    };
 
     FeaturesLayer parent(*layers[i]);
+    if (i != layers.size() - 1)
+      my::SortUnique(reachable);
     parent.m_sortedFeatures = &reachable;
     parent.m_hasDelayedFeatures = false;
 
     FeaturesLayer child(*layers[i - 1]);
-    child.m_hasDelayedFeatures = false;
-    if (child.m_type == SearchModel::SEARCH_TYPE_BUILDING)
-    {
-      vector<string> tokens;
-      NormalizeHouseNumber(child.m_subQuery, tokens);
-
-      // When first token of |child.m_subQuery| looks like house
-      // number, additional search of matching buildings must be
-      // performed during POI-BUILDING or BUILDING-STREET
-      // intersections.
-      bool const looksLikeHouseNumber = !tokens.empty() && feature::IsHouseNumber(tokens.front());
-      child.m_hasDelayedFeatures = looksLikeHouseNumber;
-    }
+    child.m_hasDelayedFeatures =
+        child.m_type == SearchModel::SEARCH_TYPE_BUILDING && LooksLikeHouseNumber(child.m_subQuery);
 
     buffer.clear();
     matcher.Match(child, parent, addEdge);
     reachable.swap(buffer);
-    my::SortUnique(reachable);
+  }
+
+  IntersectionResult result;
+  for (auto const & id : reachable)
+  {
+    if (GetPath(id, layers, parent, result))
+      results.push_back(result);
   }
 }
 
 void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(
     FeaturesLayerMatcher & matcher, vector<FeaturesLayer const *> const & layers,
-    vector<uint32_t> & reachable)
+    vector<IntersectionResult> & results)
 {
-  reachable = *(layers.front()->m_sortedFeatures);
+  ASSERT(!layers.empty(), ());
 
-  unordered_map<uint32_t, uint32_t> parentGraph;
-  for (uint32_t id : reachable)
-    parentGraph[id] = id;
-
-  unordered_map<uint32_t, uint32_t> nparentGraph;
+  vector<uint32_t> reachable = *(layers.front()->m_sortedFeatures);
   vector<uint32_t> buffer;
 
-  // We're going from low levels to high levels and we need to report
-  // features from the lowest layer that are reachable from the higher
-  // layer by some path. Therefore, following code checks and updates
-  // edges from features in |reachable| to features on the lowest
-  // layer.
-  auto addEdge = [&](uint32_t childFeature, uint32_t parentFeature)
-  {
-    auto const it = parentGraph.find(childFeature);
-    if (it == parentGraph.cend())
-      return;
-    nparentGraph[parentFeature] = it->second;
-    buffer.push_back(parentFeature);
-  };
-
+  TParentGraph parent(layers.size() - 1);
 
   for (size_t i = 0; i + 1 != layers.size(); ++i)
   {
     BailIfCancelled(m_cancellable);
 
     if (reachable.empty())
-      break;
+      return;
+
+    auto addEdge = [&](uint32_t childFeature, uint32_t parentFeature)
+    {
+      parent[i][childFeature] = parentFeature;
+      buffer.push_back(parentFeature);
+    };
 
     FeaturesLayer child(*layers[i]);
+    if (i != 0)
+      my::SortUnique(reachable);
     child.m_sortedFeatures = &reachable;
     child.m_hasDelayedFeatures = false;
 
     FeaturesLayer parent(*layers[i + 1]);
-    parent.m_hasDelayedFeatures = false;
-    if (parent.m_type == SearchModel::SEARCH_TYPE_BUILDING)
-    {
-      vector<string> tokens;
-      NormalizeHouseNumber(parent.m_subQuery, tokens);
-      bool const looksLikeHouseNumber = !tokens.empty() && feature::IsHouseNumber(tokens.front());
-      parent.m_hasDelayedFeatures = looksLikeHouseNumber;
-    }
+    parent.m_hasDelayedFeatures = parent.m_type == SearchModel::SEARCH_TYPE_BUILDING &&
+                                  LooksLikeHouseNumber(parent.m_subQuery);
 
     buffer.clear();
-    nparentGraph.clear();
     matcher.Match(child, parent, addEdge);
-    parentGraph.swap(nparentGraph);
     reachable.swap(buffer);
-    my::SortUnique(reachable);
   }
 
-  buffer.clear();
-  for (uint32_t id : reachable)
+  IntersectionResult result;
+  for (auto const & id : *(layers.front()->m_sortedFeatures))
   {
-    ASSERT_NOT_EQUAL(parentGraph.count(id), 0, ());
-    buffer.push_back(parentGraph[id]);
+    if (GetPath(id, layers, parent, result))
+      results.push_back(result);
   }
-  reachable.swap(buffer);
-  my::SortUnique(reachable);
 }
 }  // namespace v2
 }  // namespace search

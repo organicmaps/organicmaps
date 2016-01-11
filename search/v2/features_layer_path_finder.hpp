@@ -1,6 +1,7 @@
 #pragma once
 
 #include "search/v2/features_layer.hpp"
+#include "search/v2/intersection_result.hpp"
 
 #include "std/vector.hpp"
 
@@ -53,33 +54,32 @@ public:
     my::Timer timer;
 #endif  // defined(DEBUG)
 
-    vector<uint32_t> reachable;
-    FindReachableVertices(matcher, layers, reachable);
+    vector<IntersectionResult> results;
+    FindReachableVertices(matcher, layers, results);
 
 #if defined(DEBUG)
-    LOG(LINFO, ("Found:", reachable.size(), "elapsed:", timer.ElapsedSeconds(), "seconds"));
+    LOG(LINFO, ("Found:", results.size(), "elapsed:", timer.ElapsedSeconds(), "seconds"));
 #endif  // defined(DEBUG)
 
-    for (uint32_t featureId : reachable)
-      fn(featureId);
+    for_each(results.begin(), results.end(), forward<TFn>(fn));
   }
 
 private:
   void FindReachableVertices(FeaturesLayerMatcher & matcher,
                              vector<FeaturesLayer const *> const & layers,
-                             vector<uint32_t> & reachable);
+                             vector<IntersectionResult> & results);
 
   // Tries to find all |reachable| features from the lowest layer in a
   // high level -> low level pass.
   void FindReachableVerticesTopDown(FeaturesLayerMatcher & matcher,
                                     vector<FeaturesLayer const *> const & layers,
-                                    vector<uint32_t> & reachable);
+                                    vector<IntersectionResult> & results);
 
   // Tries to find all |reachable| features from the lowest layer in a
   // low level -> high level pass.
   void FindReachableVerticesBottomUp(FeaturesLayerMatcher & matcher,
                                      vector<FeaturesLayer const *> const & layers,
-                                     vector<uint32_t> & reachable);
+                                     vector<IntersectionResult> & results);
 
   my::Cancellable const & m_cancellable;
 };

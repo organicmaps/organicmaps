@@ -633,10 +633,14 @@ void Geocoder::FindPaths()
     sortedLayers.push_back(&layer);
   sort(sortedLayers.begin(), sortedLayers.end(), my::CompareBy(&FeaturesLayer::m_type));
 
-  m_finder.ForEachReachableVertex(*m_matcher, sortedLayers, [this](uint32_t featureId)
-                                  {
-                                    m_results->emplace_back(m_context->m_id, featureId);
-                                  });
+  m_finder.ForEachReachableVertex(*m_matcher, sortedLayers,
+                                  [this](IntersectionResult const & result)
+  {
+    ASSERT(result.IsValid(), ());
+    // TODO(@y, @m, @vng): use rest fields of IntersectionResult for
+    // better scoring.
+    m_results->emplace_back(m_context->m_id, result.InnermostResult());
+  });
 }
 
 coding::CompressedBitVector const * Geocoder::LoadStreets(MwmContext & context)
