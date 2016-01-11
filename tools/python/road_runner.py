@@ -38,17 +38,21 @@ def load_towns(path):
     with open(path, "r") as f:
         for line in f:
             data = line.split(";")
-            result.append((float(data[0]), float(data[1])))
+            isCapital = (data[3][0] == "t")
+            result.append((float(data[0]), float(data[1]), isCapital))
     return result
 
-def parallel_worker(tasks, result):
+def parallel_worker(tasks, capitals_list, towns_list):
     while True:
         if not tasks.qsize() % 1000:
            print tasks.qsize()
         task = tasks.get()
         ids = get_way_ids(task[0], task[1], sys.argv[2])
         for id in ids:
-            result.add(id)
+            if task[0][2] and task[1][2]:
+                capitals_list.add(id)
+            else:
+                towns_list.add(id)
         tasks.task_done()
 
 if len(sys.argv) < 3:
@@ -66,10 +70,11 @@ for p1, p2 in tasks:
 tasks = filtered
 
 qtasks = Queue()
-result = set()
+capitals_list = set()
+towns_list = set()
 
 for i in range(WORKERS):
-    t=Thread(target=parallel_worker, args=(qtasks,result))
+    t=Thread(target=parallel_worker, args=(qtasks, capitals_list, towns_list))
     t.daemon = True
     t.start()
 
@@ -78,7 +83,10 @@ for task in tasks:
 qtasks.join()
 
 with open(os.path.join(sys.argv[1], "ways.csv"),"w") as f:
-    for way_id in result:
+    for way_id in capitals_list:
         print >> f, "{0};world_level".format(way_id)
+    for way_id in towns_list:
+        if way_id not in capitals_list:
+            print >> f, "{0};world_towns_level".format(way_id)
 
 print "All done."

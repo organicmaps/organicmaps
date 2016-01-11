@@ -13,7 +13,7 @@
 
 namespace
 {
-uint64_t constexpr kTownsEqualityMeters = 150000;
+uint64_t constexpr kTownsEqualityMeters = 500000;
 }  // namespace
 
 TownsDumper::TownsDumper() {}
@@ -67,7 +67,8 @@ void TownsDumper::Dump(string filePath)
   stream.precision(9);
   for (auto const & record : m_records)
   {
-    stream << record.point.lat << ";" << record.point.lon << ";" << record.id << std::endl;
+    string const isCapital = record.capital ? "t" : "f";
+    stream << record.point.lat << ";" << record.point.lon << ";" << record.id << ";" << isCapital <<  std::endl;
   }
   string result = stream.str();
   FileWriter file(filePath);
