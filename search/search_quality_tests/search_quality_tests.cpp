@@ -124,6 +124,31 @@ uint64_t ReadVersionFromHeader(platform::LocalCountryFile const & mwm)
   return version.timestamp;
 }
 
+void CalcStatistics(vector<double> const & a, double & avg, double & maximum, double & var,
+                    double & stdDev)
+{
+  avg = 0;
+  maximum = 0;
+  var = 0;
+  stdDev = 0;
+
+  for (auto const x : a)
+  {
+    avg += static_cast<double>(x);
+    maximum = max(maximum, static_cast<double>(x));
+  }
+
+  double n = static_cast<double>(a.size());
+  if (a.size() > 0)
+    avg /= n;
+
+  for (auto const x : a)
+    var += math::sqr(static_cast<double>(x) - avg);
+  if (a.size() > 1)
+    var /= n - 1;
+  stdDev = sqrt(var);
+}
+
 int main(int argc, char * argv[])
 {
   ios_base::sync_with_stdio(false);
@@ -191,8 +216,6 @@ int main(int argc, char * argv[])
     queriesPath = my::JoinFoldersToPath(platform.WritableDir(), kDefaultQueriesPathSuffix);
   ReadStringsFromFile(queriesPath, queries);
 
-  double averageTime = 0;
-  double maxTime = 0;
   vector<double> responseTimes(queries.size());
   for (size_t i = 0; i < queries.size(); ++i)
   {
@@ -204,17 +227,13 @@ int main(int argc, char * argv[])
 
     responseTimes[i] = timer.ElapsedSeconds();
     PrintTopResults(query, request.Results(), FLAGS_top, responseTimes[i]);
-    averageTime += responseTimes[i];
-    maxTime = max(maxTime, responseTimes[i]);
   }
-  if (responseTimes.size() > 0)
-    averageTime /= static_cast<double>(responseTimes.size());
-  double stdDevTime = 0;
-  for (auto const t : responseTimes)
-    stdDevTime += math::sqr(t - averageTime);
-  if (responseTimes.size() > 0)
-    stdDevTime /= static_cast<double>(responseTimes.size());
-  stdDevTime = sqrt(stdDevTime);
+
+  double averageTime;
+  double maxTime;
+  double varianceTime;
+  double stdDevTime;
+  CalcStatistics(responseTimes, averageTime, maxTime, varianceTime, stdDevTime);
 
   cout << fixed << setprecision(3);
   cout << endl;
