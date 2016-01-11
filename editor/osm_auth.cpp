@@ -306,6 +306,7 @@ string DebugPrint(OsmOAuth::ResponseCode const code)
   case OsmOAuth::ResponseCode::NetworkError: return "NetworkError";
   case OsmOAuth::ResponseCode::OK: return "OK";
   case OsmOAuth::ResponseCode::BadXML: return "BadXML";
+  case OsmOAuth::ResponseCode::BadAuth: return "BadAuth";
   case OsmOAuth::ResponseCode::Redacted: return "Redacted";
   case OsmOAuth::ResponseCode::NotFound: return "NotFound";
   case OsmOAuth::ResponseCode::WrongMethod: return "WrongMethod";

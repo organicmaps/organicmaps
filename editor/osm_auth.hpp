@@ -38,6 +38,7 @@ public:
     NetworkError = -1,
     OK = 200,
     BadXML = 400,
+    BadAuth = 401,
     Redacted = 403,
     NotFound = 404,
     WrongMethod = 405,
