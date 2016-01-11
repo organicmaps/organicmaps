@@ -12,6 +12,7 @@ namespace platform
 {
 class LocalCountryFile;
 }
+class FeatureBuilder1;
 
 namespace search
 {
@@ -27,6 +28,8 @@ public:
   ~TestMwmBuilder();
 
   void Add(TestFeature const & feature);
+  bool Add(FeatureBuilder1 & fb);
+
   void Finish();
 
 private:

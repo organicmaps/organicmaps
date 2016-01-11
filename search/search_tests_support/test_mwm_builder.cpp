@@ -14,7 +14,7 @@
 
 #include "platform/local_country_file.hpp"
 
-#include "coding/file_writer.hpp"
+#include "coding/internal/file_data.hpp"
 
 #include "base/logging.hpp"
 
@@ -36,19 +36,31 @@ TestMwmBuilder::~TestMwmBuilder()
 {
   if (m_collector)
     Finish();
-  CHECK(!m_collector, ("Features weren't dumped on disk."));
 }
 
 void TestMwmBuilder::Add(TestFeature const & feature)
 {
-  CHECK(m_collector, ("It's not possible to add features after call to Finish()."));
   FeatureBuilder1 fb;
   feature.Serialize(fb);
-  (*m_collector)(fb);
+  CHECK(Add(fb), (fb));
+}
+
+bool TestMwmBuilder::Add(FeatureBuilder1 & fb)
+{
+  CHECK(m_collector, ("It's not possible to add features after call to Finish()."));
+
+  if (fb.PreSerialize() && fb.RemoveInvalidTypes())
+  {
+    (*m_collector)(fb);
+    return true;
+  }
+  return false;
 }
 
 void TestMwmBuilder::Finish()
 {
+  string const tmpFilePath = m_collector->GetFilePath();
+
   CHECK(m_collector, ("Finish() already was called."));
   m_collector.reset();
 
@@ -58,11 +70,18 @@ void TestMwmBuilder::Finish()
   CHECK(GenerateFinalFeatures(info, m_file.GetCountryFile().GetNameWithoutExt(), m_type),
         ("Can't sort features."));
 
+  CHECK(my::DeleteFileX(tmpFilePath), ());
+
   string const path = m_file.GetPath(MapOptions::Map);
+  (void)my::DeleteFileX(path + OSM2FEATURE_FILE_EXTENSION);
+
   CHECK(feature::BuildOffsetsTable(path), ("Can't build feature offsets table."));
+
   CHECK(indexer::BuildIndexFromDataFile(path, path), ("Can't build geometry index."));
+
   CHECK(indexer::BuildSearchIndexFromDataFile(path, true /* forceRebuild */),
         ("Can't build search index."));
+
   CHECK(search::RankTableBuilder::CreateIfNotExists(path), ());
 
   m_file.SyncWithDisk();
