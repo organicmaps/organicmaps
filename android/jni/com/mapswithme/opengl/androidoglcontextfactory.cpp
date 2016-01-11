@@ -19,6 +19,7 @@ static EGLint * getConfigAttributesListRGB8()
     EGL_RED_SIZE, 8,
     EGL_GREEN_SIZE, 8,
     EGL_BLUE_SIZE, 8,
+    EGL_ALPHA_SIZE, 0,
     EGL_STENCIL_SIZE, 0,
     EGL_DEPTH_SIZE, 16,
     EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
