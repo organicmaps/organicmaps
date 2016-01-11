@@ -6,8 +6,7 @@
 #include "std/cmath.hpp"
 #include "std/iomanip.hpp"
 
-#include <boost/algorithm/string.hpp> // boost::trim
-
+#include <boost/algorithm/string/trim.hpp>
 
 namespace strings
 {

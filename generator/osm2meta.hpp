@@ -4,21 +4,46 @@
 #include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
-#include "base/string_utils.hpp"
-
 #include "std/string.hpp"
 
-
-class MetadataTagProcessor
+struct MetadataTagProcessorImpl
 {
-  FeatureParams & m_params;
-
-public:
-  MetadataTagProcessor(FeatureParams &params)
+  MetadataTagProcessorImpl(FeatureParams &params)
   : m_params(params)
   {
   }
 
+  string ValidateAndFormat_maxspeed(string const & v) const;
+  string ValidateAndFormat_stars(string const & v) const;
+  string ValidateAndFormat_cuisine(string v) const;
+  string ValidateAndFormat_operator(string const & v) const;
+  string ValidateAndFormat_url(string const & v) const;
+  string ValidateAndFormat_phone(string const & v) const;
+  string ValidateAndFormat_opening_hours(string const & v) const;
+  string ValidateAndFormat_ele(string const & v) const;
+  string ValidateAndFormat_turn_lanes(string const & v) const;
+  string ValidateAndFormat_turn_lanes_forward(string const & v) const;
+  string ValidateAndFormat_turn_lanes_backward(string const & v) const;
+  string ValidateAndFormat_email(string const & v) const;
+  string ValidateAndFormat_postcode(string const & v) const;
+  string ValidateAndFormat_flats(string const & v) const;
+  string ValidateAndFormat_height(string const & v) const;
+  string ValidateAndFormat_building_levels(string const & v) const;
+  string ValidateAndFormat_denomination(string const & v) const;
+  string ValidateAndFormat_wikipedia(string v) const;
+
+protected:
+  FeatureParams & m_params;
+};
+
+class MetadataTagProcessor : private MetadataTagProcessorImpl
+{
+public:
+  using MetadataTagProcessorImpl::MetadataTagProcessorImpl;
+
+  /// Since it is used as a functor wich stops iteration in ftype::ForEachTag
+  /// and the is no need for interrupting it always returns false.
+  /// TODO(mgsergio): Move to cpp after merge with https://github.com/mapsme/omim/pull/1314
   bool operator() (string const & k, string const & v)
   {
     if (v.empty())
@@ -163,118 +188,7 @@ public:
       if (!value.empty())
         md.Set(Metadata::FMD_DENOMINATION, value);
     }
+
     return false;
   }
-
-protected:
-  /// Validation and formatting functions
-
-  string ValidateAndFormat_maxspeed(string const & v) const
-  {
-    if (!ftypes::IsSpeedCamChecker::Instance()(m_params.m_Types))
-      return string();
-
-    return v;
-  }
-
-  string ValidateAndFormat_stars(string const & v) const
-  {
-    if (v.empty())
-      return string();
-
-    // we accepting stars from 1 to 7
-    if (v[0] <= '0' || v[0] > '7')
-      return string();
-
-    // ignore numbers large then 9
-    if (v.size() > 1 && (v[1] >= '0' && v[1] <= '9'))
-      return string();
-
-    return string(1, v[0]);
-  }
-
-  string ValidateAndFormat_cuisine(string const & v) const
-  {
-    return v;
-  }
-  string ValidateAndFormat_operator(string const & v) const
-  {
-    static ftypes::IsATMChecker const IsATM;
-    static ftypes::IsFuelStationChecker const IsFuelStation;
-
-    if (!(IsATM(m_params.m_Types) || IsFuelStation(m_params.m_Types)))
-      return string();
-
-    return v;
-  }
-  string ValidateAndFormat_url(string const & v) const
-  {
-    return v;
-  }
-  string ValidateAndFormat_phone(string const & v) const
-  {
-    return v;
-  }
-  string ValidateAndFormat_opening_hours(string const & v) const
-  {
-    return v;
-  }
-  string ValidateAndFormat_ele(string const & v) const
-  {
-    static ftypes::IsPeakChecker const IsPeak;
-    if (!IsPeak(m_params.m_Types))
-      return string();
-    double val = 0;
-    if(!strings::to_double(v, val) || val == 0)
-      return string();
-    return v;
-  }
-  string ValidateAndFormat_turn_lanes(string const & v) const
-  {
-    return v;
-  }
-  string ValidateAndFormat_turn_lanes_forward(string const & v) const
-  {
-    return v;
-  }
-  string ValidateAndFormat_turn_lanes_backward(string const & v) const
-  {
-    return v;
-  }
-  string ValidateAndFormat_email(string const & v) const
-  {
-    return v;
-  }
-  string ValidateAndFormat_postcode(string const & v) const
-  {
-    return v;
-  }
-  string ValidateAndFormat_flats(string const & v) const
-  {
-    return v;
-  }
-  string ValidateAndFormat_height(string const & v) const
-  {
-    double val = 0;
-    string corrected(v, 0, v.find(" "));
-    if(!strings::to_double(corrected, val) || val == 0)
-      return string();
-    stringstream ss;
-    ss << fixed << setw(2) << setprecision(1) << val;
-    return ss.str();
-  }
-  string ValidateAndFormat_building_levels(string const & v) const
-  {
-    double val = 0;
-    if(!strings::to_double(v, val) || val == 0)
-      return string();
-    stringstream ss;
-    ss << fixed << setw(2) << setprecision(1) << (val * 3 /*levels multiplied by 3 meters per level*/);
-    return ss.str();
-  }
-  string ValidateAndFormat_denomination(string const & v) const
-  {
-    return v;
-  }
-  string ValidateAndFormat_wikipedia(string v) const;
 };
