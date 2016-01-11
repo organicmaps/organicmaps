@@ -59,6 +59,7 @@ public:
   //@{
   AuthResult AuthorizePassword(string const & login, string const & password, TKeySecret & outKeySecret) const;
   AuthResult AuthorizeFacebook(string const & facebookToken, TKeySecret & outKeySecret) const;
+  AuthResult AuthorizeGoogle(string const & googleToken, TKeySecret & outKeySecret) const;
   /// @param[method] The API method, must start with a forward slash.
   Response Request(TKeySecret const & keySecret, string const & method, string const & httpMethod = "GET", string const & body = "") const;
   //@}
@@ -70,6 +71,7 @@ public:
   bool IsAuthorized() const;
   AuthResult AuthorizePassword(string const & login, string const & password);
   AuthResult AuthorizeFacebook(string const & facebookToken);
+  AuthResult AuthorizeGoogle(string const & googleToken);
   /// @param[method] The API method, must start with a forward slash.
   Response Request(string const & method, string const & httpMethod = "GET", string const & body = "") const;
   //@}
@@ -95,7 +97,7 @@ private:
   AuthResult FetchSessionId(SessionID & sid) const;
   AuthResult LogoutUser(SessionID const & sid) const;
   AuthResult LoginUserPassword(string const & login, string const & password, SessionID const & sid) const;
-  AuthResult LoginFacebook(string const & facebookToken, SessionID const & sid) const;
+  AuthResult LoginSocial(string const & callbackPart, string const & socialToken, SessionID const & sid) const;
   string SendAuthRequest(string const & requestTokenKey, SessionID const & sid) const;
   AuthResult FetchAccessToken(SessionID const & sid, TKeySecret & outKeySecret) const;
   AuthResult FetchAccessToken(SessionID const & sid);

@@ -18,6 +18,8 @@ using alohalytics::HTTPClientPlatformWrapper;
 namespace osm
 {
 constexpr char const * kApiVersion = "/api/0.6";
+constexpr char const * kFacebookCallbackPart = "/auth/facebook_access_token/callback?access_token=";
+constexpr char const * kGoogleCallbackPart = "/auth/google_oauth2_access_token/callback?access_token=";
 
 namespace
 {
@@ -135,9 +137,9 @@ OsmOAuth::AuthResult OsmOAuth::LoginUserPassword(string const & login, string co
 }
 
 // Signs a user in using a facebook token.
-OsmOAuth::AuthResult OsmOAuth::LoginFacebook(string const & facebookToken, SessionID const & sid) const
+OsmOAuth::AuthResult OsmOAuth::LoginSocial(string const & callbackPart, string const & socialToken, SessionID const & sid) const
 {
-  string const url = m_baseUrl + "/auth/facebook_access_token/callback?access_token=" + facebookToken;
+  string const url = m_baseUrl + callbackPart + socialToken;
   HTTPClientPlatformWrapper request(url);
   request.set_cookies(sid.m_cookies);
   if (!request.RunHTTPRequest())
@@ -235,7 +237,21 @@ OsmOAuth::AuthResult OsmOAuth::AuthorizeFacebook(string const & facebookToken, T
   if (result != AuthResult::OK)
     return result;
 
-  result = LoginFacebook(facebookToken, sid);
+  result = LoginSocial(kFacebookCallbackPart, facebookToken, sid);
+  if (result != AuthResult::OK)
+    return result;
+
+  return FetchAccessToken(sid, outKeySecret);
+}
+
+OsmOAuth::AuthResult OsmOAuth::AuthorizeGoogle(string const & googleToken, TKeySecret & outKeySecret) const
+{
+  SessionID sid;
+  AuthResult result = FetchSessionId(sid);
+  if (result != AuthResult::OK)
+    return result;
+
+  result = LoginSocial(kGoogleCallbackPart, googleToken, sid);
   if (result != AuthResult::OK)
     return result;
 
@@ -308,6 +324,11 @@ OsmOAuth::AuthResult OsmOAuth::AuthorizePassword(string const & login, string co
 OsmOAuth::AuthResult OsmOAuth::AuthorizeFacebook(string const & facebookToken)
 {
   return AuthorizeFacebook(facebookToken, m_tokenKeySecret);
+}
+
+OsmOAuth::AuthResult OsmOAuth::AuthorizeGoogle(string const & googleToken)
+{
+  return AuthorizeGoogle(googleToken, m_token);
 }
 
 OsmOAuth::Response OsmOAuth::Request(string const & method, string const & httpMethod, string const & body) const
