@@ -31,6 +31,7 @@ public class TimetableFragment extends BaseMwmToolbarFragment
 
   private TextView mSwitchMode;
 
+  // TODO @yunikkk simplify, extract interface
   private SimpleTimetableFragment mSimpleModeFragment;
   private AdvancedTimetableFragment mAdvancedModeFragment;
 

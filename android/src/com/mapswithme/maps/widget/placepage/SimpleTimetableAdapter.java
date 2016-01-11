@@ -1,6 +1,7 @@
 package com.mapswithme.maps.widget.placepage;
 
 import android.support.annotation.IdRes;
+import android.support.annotation.IntRange;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
@@ -14,8 +15,10 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import com.mapswithme.maps.R;
@@ -33,7 +36,10 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
   private static final int TYPE_ADD_TIMETABLE = 1;
 
   private static final int ID_OPENING = 0;
-  private static final int ID_CLOSED = 1;
+  private static final int ID_CLOSING = 1;
+
+  private final String[] SHORT_WEEKDAYS = DateFormatSymbols.getInstance().getShortWeekdays();
+  private static final int[] DAYS = {R.id.day1, R.id.day2, R.id.day3, R.id.day4, R.id.day5, R.id.day6, R.id.day7};
 
   private final Fragment mFragment;
 
@@ -108,25 +114,15 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
     notifyItemChanged(getItemCount() - 1);
   }
 
-  protected void pickOpeningTime(int position, int tab)
+  protected void pickTime(int position, @IntRange(from = HoursMinutesPickerFragment.TAB_FROM, to = HoursMinutesPickerFragment.TAB_TO) int tab,
+                          @IntRange(from = ID_OPENING, to = ID_CLOSING) int id)
   {
     final Timetable data = mItems.get(position);
     mPickingPosition = position;
     HoursMinutesPickerFragment.pick(mFragment.getActivity(), mFragment.getChildFragmentManager(),
                                     data.workingTimespan.start, data.workingTimespan.end,
-                                    tab, ID_OPENING);
+                                    tab, id);
   }
-
-  protected void pickClosedHours(int position)
-  {
-    final Timetable data = mItems.get(position);
-    mPickingPosition = position;
-    HoursMinutesPickerFragment.pick(mFragment.getActivity(), mFragment.getChildFragmentManager(),
-                                    data.workingTimespan.start, data.workingTimespan.end,
-                                    0, ID_CLOSED);
-
-  }
-
 
   @Override
   public void onHoursMinutesPicked(HoursMinutes from, HoursMinutes to, int id)
@@ -191,13 +187,6 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
     // Limit closed spans to avoid dynamic inflation of views in recycler's children. Yeah, its a hack.
     static final int MAX_CLOSED_SPANS = 10;
 
-    TextView day1Text;
-    TextView day2Text;
-    TextView day3Text;
-    TextView day4Text;
-    TextView day5Text;
-    TextView day6Text;
-    TextView day7Text;
     SparseArray<CheckBox> days = new SparseArray<>(7);
     View allday;
     SwitchCompat swAllday;
@@ -214,27 +203,7 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
     public TimetableViewHolder(View itemView)
     {
       super(itemView);
-      addDay(R.id.chb__day_1, 1);
-      addDay(R.id.chb__day_2, 2);
-      addDay(R.id.chb__day_3, 3);
-      addDay(R.id.chb__day_4, 4);
-      addDay(R.id.chb__day_5, 5);
-      addDay(R.id.chb__day_6, 6);
-      addDay(R.id.chb__day_7, 7);
-      fillDaysTexts();
-      final int[] daysIds = new int[]{R.id.day1, R.id.day2, R.id.day3, R.id.day4, R.id.day5, R.id.day6, R.id.day7};
-      for (int i = 0; i < 7; i++)
-      {
-        final int finalI = i;
-        itemView.findViewById(daysIds[i]).setOnClickListener(new View.OnClickListener()
-        {
-          @Override
-          public void onClick(View v)
-          {
-            days.get(finalI + 1).toggle();
-          }
-        });
-      }
+      initDays();
 
       allday = itemView.findViewById(R.id.allday);
       allday.setOnClickListener(this);
@@ -270,6 +239,17 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
       }
     }
 
+    private void initDays()
+    {
+      final int firstDay = Calendar.getInstance().getFirstDayOfWeek();
+
+      int day = 0;
+      for (int i = firstDay; i <= 7; i++)
+        addDay(i, DAYS[day++]);
+      for (int i = 1; i < firstDay; i++)
+        addDay(i, DAYS[day++]);
+    }
+
     @Override
     void onBind()
     {
@@ -297,16 +277,16 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
       switch (v.getId())
       {
       case R.id.time_open:
-        pickOpeningTime(getAdapterPosition(), HoursMinutesPickerFragment.TAB_FROM);
+        pickTime(getAdapterPosition(), HoursMinutesPickerFragment.TAB_FROM, ID_OPENING);
         break;
       case R.id.time_close:
-        pickOpeningTime(getAdapterPosition(), HoursMinutesPickerFragment.TAB_TO);
+        pickTime(getAdapterPosition(), HoursMinutesPickerFragment.TAB_TO, ID_OPENING);
         break;
       case R.id.tv__remove_timetable:
         removeTimetable(getAdapterPosition());
         break;
       case R.id.tv__add_closed:
-        pickClosedHours(getAdapterPosition());
+        pickTime(getAdapterPosition(), HoursMinutesPickerFragment.TAB_FROM, ID_CLOSING);
         break;
       case R.id.allday:
         swAllday.toggle();
@@ -322,31 +302,14 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
       case R.id.sw__allday:
         setFullday(getAdapterPosition(), isChecked);
         break;
-      case R.id.chb__day_1:
-        switchWorkingDay(1);
-        break;
-      case R.id.chb__day_2:
-        switchWorkingDay(2);
-        break;
-      case R.id.chb__day_3:
-        switchWorkingDay(3);
-        break;
-      case R.id.chb__day_4:
-        switchWorkingDay(4);
-        break;
-      case R.id.chb__day_5:
-        switchWorkingDay(5);
-        break;
-      case R.id.chb__day_6:
-        switchWorkingDay(6);
-        break;
-      case R.id.chb__day_7:
-        switchWorkingDay(7);
+      case R.id.chb__day:
+        final int dayIndex = (Integer) buttonView.getTag();
+        switchWorkingDay(dayIndex);
         break;
       }
     }
 
-    void showDays(int[] weekdays)
+    void showDays(@IntRange(from = 1, to = 7) int[] weekdays)
     {
       for (int i = 1; i <= 7; i++)
         checkWithoutCallback(days.get(i), false);
@@ -387,37 +350,36 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
         UiUtils.hide(closedHours[i++]);
     }
 
-    private void addDay(@IdRes int res, final int dayIndex)
+    /**
+     * @param dayIndex 1 based index of a day in the week
+     * @param id       resource id of day view
+     */
+    private void addDay(@IntRange(from = 1, to = 7) final int dayIndex, @IdRes int id)
     {
-      days.put(dayIndex, (CheckBox) itemView.findViewById(res));
+      final View day = itemView.findViewById(id);
+      final CheckBox checkBox = (CheckBox) day.findViewById(R.id.chb__day);
+      // Save index of the day to get it back wheh checkbox will be toggled.
+      checkBox.setTag(dayIndex);
+      days.put(dayIndex, checkBox);
+      day.setOnClickListener(new View.OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          checkBox.toggle();
+        }
+      });
+
+      ((TextView) day.findViewById(R.id.tv__day)).setText(SHORT_WEEKDAYS[dayIndex]);
     }
 
-    private void switchWorkingDay(int day)
+    private void switchWorkingDay(@IntRange(from = 1, to = 7) int dayIndex)
     {
-      final CheckBox checkBox = days.get(day);
+      final CheckBox checkBox = days.get(dayIndex);
       if (checkBox.isChecked())
-        addWorkingDay(day, getAdapterPosition());
+        addWorkingDay(dayIndex, getAdapterPosition());
       else
-        removeWorkingDay(day, getAdapterPosition());
-    }
-
-    private void fillDaysTexts()
-    {
-      day1Text = (TextView) itemView.findViewById(R.id.tv__day_1);
-      day2Text = (TextView) itemView.findViewById(R.id.tv__day_2);
-      day3Text = (TextView) itemView.findViewById(R.id.tv__day_3);
-      day4Text = (TextView) itemView.findViewById(R.id.tv__day_4);
-      day5Text = (TextView) itemView.findViewById(R.id.tv__day_5);
-      day6Text = (TextView) itemView.findViewById(R.id.tv__day_6);
-      day7Text = (TextView) itemView.findViewById(R.id.tv__day_7);
-      // FIXME @yunik localize texts
-      day1Text.setText("Su");
-      day2Text.setText("Mo");
-      day3Text.setText("Tu");
-      day4Text.setText("We");
-      day5Text.setText("Th");
-      day6Text.setText("Fr");
-      day7Text.setText("Sa");
+        removeWorkingDay(dayIndex, getAdapterPosition());
     }
 
     private void checkWithoutCallback(CompoundButton button, boolean check)
