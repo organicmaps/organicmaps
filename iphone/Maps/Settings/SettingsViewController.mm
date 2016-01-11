@@ -119,6 +119,7 @@ typedef NS_ENUM(NSUInteger, Section)
   {
     switch (indexPath.row)
     {
+    // Night mode
     case 0:
     {
       cell = [tableView dequeueReusableCellWithIdentifier:[LinkCell className]];
@@ -126,6 +127,7 @@ typedef NS_ENUM(NSUInteger, Section)
       customCell.titleLabel.text = L(@"pref_night_mode");
       break;
     }
+    // 3D buildings
     case 1:
     {
       cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
@@ -134,6 +136,7 @@ typedef NS_ENUM(NSUInteger, Section)
       GetFramework().Load3dMode(_, on);
       customCell.titleLabel.text = L(@"pref_map_3d_buildings_title");
     }
+    // Zoom buttons
     case 2:
     {
       cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
@@ -152,6 +155,7 @@ typedef NS_ENUM(NSUInteger, Section)
   {
     switch (indexPath.row)
     {
+    // 3D mode
     case 0:
     {
       cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
@@ -163,6 +167,7 @@ typedef NS_ENUM(NSUInteger, Section)
       customCell.switchButton.on = on;
       break;
     }
+    // Enable TTS
     case 1:
     {
       cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
@@ -172,6 +177,7 @@ typedef NS_ENUM(NSUInteger, Section)
       customCell.delegate = self;
       break;
     }
+    // Change TTS language
     case 2:
     {
       cell = [tableView dequeueReusableCellWithIdentifier:[LinkCell className]];
@@ -231,8 +237,10 @@ typedef NS_ENUM(NSUInteger, Section)
   case SectionMap:
     switch (indexPath.row)
     {
+      // Night mode
       case 0:
         break;
+      // 3D buildings
       case 1:
       {
         [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStat3DBuildings)
@@ -245,6 +253,7 @@ typedef NS_ENUM(NSUInteger, Section)
         f.Allow3dMode(_, is3dBuildings);
         break;
       }
+      // Zoom buttons
       case 2:
       {
         [stat logEvent:kStatEventName(kStatSettings, kStatToggleZoomButtonsVisibility)
@@ -263,6 +272,7 @@ typedef NS_ENUM(NSUInteger, Section)
     break;
 
   case SectionRouting:
+    // 3D mode
     if (indexPath.row == 0)
     {
       [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStat3D)
@@ -274,7 +284,8 @@ typedef NS_ENUM(NSUInteger, Section)
       f.Save3dMode(is3d, _);
       f.Allow3dMode(is3d, _);
     }
-    else
+    // Enable TTS
+    else if (indexPath.row == 1)
     {
       [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatTTS)
                        withParameters:@{kStatValue : value ? kStatOn : kStatOff}];
@@ -309,6 +320,7 @@ Settings::Units unitsForIndex(NSInteger index)
     break;
   }
   case SectionRouting:
+    // Change TTS language
     if (indexPath.row == 3)
     {
       [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatTTS)
@@ -317,8 +329,13 @@ Settings::Units unitsForIndex(NSInteger index)
     }
     break;
   case SectionMap:
+    // Change night mode
     if (indexPath.row == 0)
+    {
+      [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatNightMode)
+                       withParameters:@{kStatAction : kStatChangeNightMode}];
       [self performSegueWithIdentifier:@"SettingsToNightMode" sender:nil];
+    }
     break;
   case SectionAd:
   case SectionCalibration:

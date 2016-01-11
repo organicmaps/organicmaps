@@ -40,10 +40,7 @@ static NSString * const kPlacePageDescriptionViewNibName = @"MWMPlacePageDescrip
 {
   [self.subviews enumerateObjectsUsingBlock:^(UIImageView * star, NSUInteger idx, BOOL *stop)
   {
-    if (idx < count)
-      star.highlighted = YES;
-    else
-      star.highlighted = NO;
+    star.highlighted = (idx < count);
   }];
 }
 

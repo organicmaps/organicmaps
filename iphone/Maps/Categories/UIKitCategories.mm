@@ -250,12 +250,10 @@
 
 - (void)refresh
 {
+  [super refresh];
   UIColor * oppositeText = self.textColor.opposite;
-  UIColor * oppositeBackground = self.backgroundColor.opposite;
   if (oppositeText)
     self.textColor = oppositeText;
-  if (oppositeBackground)
-    self.backgroundColor = oppositeBackground;
 }
 
 @end

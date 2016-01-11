@@ -6,10 +6,10 @@ namespace
 CGFloat const alpha12 = 0.12;
 CGFloat const alpha26 = 0.26;
 CGFloat const alpha30 = 0.3;
-CGFloat const alpha40 = 0.40;
+CGFloat const alpha40 = 0.4;
 CGFloat const alpha54 = 0.54;
 CGFloat const alpha70 = 0.7;
-CGFloat const alpha80 = 0.80;
+CGFloat const alpha80 = 0.8;
 CGFloat const alpha87 = 0.87;
 CGFloat const alpha100 = 1.;
 
@@ -43,7 +43,8 @@ NSDictionary<NSString *, UIColor *> * night =
   @"blackDividers" : [UIColor colorWithWhite:1. alpha:alpha12],
   @"white" : [UIColor colorWithRed:scaled(60) green:scaled(64) blue:scaled(68) alpha:alpha100],
   @"whiteSecondaryText" : [UIColor colorWithWhite:1. alpha:alpha70],
-  @"buttonDisabledBlueText" : [UIColor colorWithRed:scaled(255.) green:scaled(230.) blue:scaled(140.) alpha:alpha30]
+  @"buttonDisabledBlueText" : [UIColor colorWithRed:scaled(255.) green:scaled(230.) blue:scaled(140.) alpha:alpha30],
+  @"alertBackground" : [UIColor colorWithRed:scaled(60) green:scaled(64) blue:68 alpha:alpha100]
 };
 
 NSDictionary<NSString *, UIColor *> * day =
@@ -69,7 +70,8 @@ NSDictionary<NSString *, UIColor *> * day =
   @"blackDividers" : [UIColor colorWithWhite:0. alpha:alpha12],
   @"white" : [UIColor colorWithWhite:1. alpha:alpha100],
   @"whiteSecondaryText" : [UIColor colorWithWhite:1. alpha:alpha54],
-  @"buttonDisabledBlueText" :[UIColor colorWithRed:scaled(3.) green:scaled(122.) blue:scaled(255.) alpha:alpha26]
+  @"buttonDisabledBlueText" :[UIColor colorWithRed:scaled(3.) green:scaled(122.) blue:scaled(255.) alpha:alpha26],
+  @"alertBackground" : [UIColor colorWithWhite:1. alpha:alpha87]
 };
 
 UIColor * color(SEL cmd)
@@ -219,7 +221,7 @@ UIColor * color(SEL cmd)
 
 + (UIColor *)alertBackground
 {
-  return [UIColor colorWithWhite:1. alpha:alpha87];
+  return color(_cmd);
 }
 
 + (UIColor *)colorWithName:(NSString *)colorName

@@ -26,7 +26,7 @@
 #include "base/sunrise_sunset.hpp"
 #include "storage/storage_defines.hpp"
 
-#import "platform/http_thread_apple.h"
+#include "platform/http_thread_apple.h"
 #include "platform/settings.hpp"
 #include "platform/platform_ios.hpp"
 #include "platform/preferred_languages.hpp"
@@ -280,24 +280,26 @@ void InitLocalizedStrings()
   dispatch_async(dispatch_get_main_queue(), ^
   {
     auto & f = GetFramework();
+    ViewController * vc = static_cast<ViewController *>(self.mapViewController.navigationController.topViewController);
+    auto style = f.GetMapStyle();
     switch (dayTime)
     {
     case DayTimeType::Day:
     case DayTimeType::PolarDay:
-      if (f.GetMapStyle() != MapStyleClear)
+      if (style != MapStyleClear && style != MapStyleLight)
       {
         f.SetMapStyle(MapStyleClear);
         [UIColor setNightMode:NO];
-        [static_cast<ViewController *>(self.mapViewController.navigationController.topViewController) refresh];
+        [vc refresh];
       }
       break;
     case DayTimeType::Night:
     case DayTimeType::PolarNight:
-      if (f.GetMapStyle() != MapStyleDark)
+      if (style != MapStyleDark)
       {
         f.SetMapStyle(MapStyleDark);
         [UIColor setNightMode:YES];
-        [static_cast<ViewController *>(self.mapViewController.navigationController.topViewController) refresh];
+        [vc refresh];
       }
       break;
     }

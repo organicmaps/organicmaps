@@ -36,10 +36,10 @@ extern NSString * const kUDAutoNightMode;
     _selectedCell = self.on;
     break;
   case MapStyleClear:
+  case MapStyleLight:
     self.off.accessoryType = UITableViewCellAccessoryCheckmark;
     _selectedCell = self.off;
     break;
-  case MapStyleLight:
   case MapStyleCount:
     break;
   }
