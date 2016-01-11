@@ -41,10 +41,10 @@ NSDictionary<NSString *, UIColor *> * night =
   @"blackSecondaryText" : [UIColor colorWithWhite:1. alpha:alpha70],
   @"blackHintText" : [UIColor colorWithWhite:1. alpha:alpha30],
   @"blackDividers" : [UIColor colorWithWhite:1. alpha:alpha12],
-  @"white" : [UIColor colorWithRed:scaled(60) green:scaled(64) blue:scaled(68) alpha:alpha100],
+  @"white" : [UIColor colorWithRed:scaled(60.) green:scaled(64.) blue:scaled(68.) alpha:alpha100],
   @"whiteSecondaryText" : [UIColor colorWithWhite:1. alpha:alpha70],
   @"buttonDisabledBlueText" : [UIColor colorWithRed:scaled(255.) green:scaled(230.) blue:scaled(140.) alpha:alpha30],
-  @"alertBackground" : [UIColor colorWithRed:scaled(60) green:scaled(64) blue:68 alpha:alpha100]
+  @"alertBackground" : [UIColor colorWithRed:scaled(60.) green:scaled(64.) blue:scaled(68.) alpha:alpha100]
 };
 
 NSDictionary<NSString *, UIColor *> * day =

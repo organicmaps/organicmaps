@@ -392,11 +392,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     return;
   // Notify about entering foreground (should be called on the first launch too).
   GetFramework().EnterForeground();
-
-  if (self.isViewLoaded && self.view.window)
-  {
-    [self.controlsManager onEnterForeground];
-  }
 }
 
 - (void)viewWillAppear:(BOOL)animated

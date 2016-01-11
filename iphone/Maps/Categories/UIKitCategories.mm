@@ -225,9 +225,7 @@
 - (void)refresh
 {
   [super refresh];
-  UIColor * opposite = self.selectedBackgroundView.backgroundColor.opposite;
-  if (opposite)
-    self.selectedBackgroundView.backgroundColor = opposite;
+  [self.selectedBackgroundView refresh];
 }
 
 @end
@@ -305,11 +303,9 @@
 
 - (void)refresh
 {
-  UIColor * oppositeBackground = self.backgroundColor.opposite;
+  [super refresh];
   UIColor * oppositeText = self.textColor.opposite;
   UIColor * oppositeTint = self.tintColor.opposite;
-  if (oppositeBackground)
-    self.backgroundColor = oppositeBackground;
   if (oppositeText)
     self.textColor = oppositeText;
   if (oppositeTint)
@@ -322,14 +318,12 @@
 
 - (void)refresh
 {
+  [super refresh];
   UIColor * oppositeText = self.textColor.opposite;
-  UIColor * oppositeBackground = self.backgroundColor.opposite;
   UILabel * placeholder = [self valueForKey:@"_placeholderLabel"];
   UIColor * oppositePlaceholder = placeholder.textColor.opposite;
   if (oppositeText)
     self.textColor = oppositeText;
-  if (oppositeBackground)
-    self.backgroundColor = oppositeBackground;
   if (oppositePlaceholder)
     placeholder.textColor = oppositePlaceholder;
 }
