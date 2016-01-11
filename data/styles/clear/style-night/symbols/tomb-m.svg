@@ -10,7 +10,7 @@
         <g id="tomb-m" sketch:type="MSLayerGroup">
             <path d="M11.5,23 C5.159,23 0,17.841 0,11.5 C0,5.159 5.159,0 11.5,0 C17.841,0 23,5.159 23,11.5 C23,17.841 17.841,23 11.5,23 L11.5,23 Z" id="Shape" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
             <g id="Shape">
-                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="#383833" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
                 <use fill="none" xlink:href="#path-1"></use>
             </g>
             <path d="M5,18 L5,9.9276 C5,6.65906667 7.849,4 11.35,4 L11.651,4 C15.152,4 18.001,6.65906667 18.001,9.9276 L18.001,18 L5,18 L5,18 Z M16,17.0666667 L16,9.9276 C16,7.68946667 14.049,5.86666667 11.65,5.86666667 L11.349,5.86666667 C8.951,5.86666667 6.999,7.68853333 6.999,9.9276 L6.999,17.0666667 L16,17.0666667 L16,17.0666667 Z M14,16.1333333 L14,9.9276 C14,8.718 12.946,7.73333333 11.65,7.73333333 L11.349,7.73333333 C10.053,7.73333333 8.999,8.718 8.999,9.9276 L8.999,16.1333333 L14,16.1333333 L14,16.1333333 Z" id="Shape" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>

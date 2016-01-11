@@ -10,7 +10,7 @@
         <g id="bicycle-m-copy" sketch:type="MSLayerGroup">
             <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
             <g id="Oval-1-Copy-40">
-                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="#383833" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
                 <use fill="none" xlink:href="#path-1"></use>
             </g>
             <g id="bicycle-18-copy" transform="translate(2.000000, 2.000000)" sketch:type="MSShapeGroup">

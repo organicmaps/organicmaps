@@ -116,14 +116,3 @@ line|z10-[boundary=administrative][admin_level=4]
   z-index: 130;
   dashes: 1.8,0.9;
 }
-
-
-/*
-line|z12-[boundary=administrative][admin_level=4]
-{
-  color: @border_region;
-  width: 1.2;
-  opacity: 1;
-  z-index: 130;
-}
-*/

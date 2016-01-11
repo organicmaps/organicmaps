@@ -10,7 +10,7 @@
         <g id="gate-m" sketch:type="MSLayerGroup">
             <path d="M11.5,23 C5.159,23 0,17.841 0,11.5 C0,5.159 5.159,0 11.5,0 C17.841,0 23,5.159 23,11.5 C23,17.841 17.841,23 11.5,23 L11.5,23 Z" id="Shape" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
             <g id="Shape">
-                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="#383833" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
                 <use fill="none" xlink:href="#path-1"></use>
             </g>
             <path d="M5,15.8 L18,15.8 C18.552,15.8 19,15.353 19,14.8 L19,14.199 L4,14.199 L4,14.8 C4,15.353 4.448,15.8 5,15.8 L5,15.8 Z M9,12 L17.5,12 C18.329,12 19,11.328 19,10.5 C19,9.672 18.329,9 17.5,9 L13.9,9 L10.3,6 L8.7,6 L10.5,9 L7.207,9 L5.528,7 L4,7 L5.25,10.333 L9,12 L9,12 Z" id="Shape" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>

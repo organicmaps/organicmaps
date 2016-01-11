@@ -3,7 +3,6 @@
 /* NAMED AMENITIES BY DEFAULT  — TEMPORARY */
 node|z19-[amenity], area|z19-[amenity] { icon-image: none.svg;  text-offset: 10; font-size: 11; text: name; text-color: @poi_label; }
 
-
 /* ZOOM 15 */
 
 
@@ -140,35 +139,35 @@ area|z12[natural=rock][!name]
 {  }
 
 node|z13[natural=peak][name],
-{ icon-image: peakt-s.svg;text-offset: 6; font-size: 9; text: name; text-color: @poi_label;z-index: 2700;   }
+{ icon-image: peakt-s.svg;text-offset: 5; font-size: 9; text: name; text-color: @poi_label;z-index: 2700;   }
 node|z13[natural=peak][!name],
 node|z13[natural=bare_rock][!name],
 node|z13[natural=rock][!name]
 {  }
 area|z13[natural=peak][name],
-{ icon-image: peakt-s.svg; text-offset: 6; font-size: 9; text: name; text-color: @poi_label;z-index: 2700; }
+{ icon-image: peakt-s.svg; text-offset: 5; font-size: 9; text: name; text-color: @poi_label;z-index: 2700; }
 area|z13[natural=peak][!name],
 area|z13[natural=bare_rock][!name],
 area|z13[natural=rock][!name]
 {  }
 
 node|z14[natural=peak][name],
-{ icon-image: peakt-s.svg; text-offset: 6; font-size: 10; text: name; text-color: @poi_label;z-index: 2700; }
+{ icon-image: peakt-s.svg; text-offset: 5; font-size: 10; text: name; text-color: @poi_label;z-index: 2700; }
 node|z14[natural=peak][!name],
 node|z14[natural=bare_rock][!name],
 node|z14[natural=rock][!name]
 {  }
 area|z14[natural=peak][name],
-{ icon-image: peakt-s.svg; text-offset: 6; font-size: 10; text: name; text-color: @poi_label;z-index: 2700; }
+{ icon-image: peakt-s.svg; text-offset: 5; font-size: 10; text: name; text-color: @poi_label;z-index: 2700; }
 area|z14[natural=peak][!name],
 area|z14[natural=bare_rock][!name],
 area|z14[natural=rock][!name]
 {  }
 
-node|z15-16[natural=peak],node|z15-16[natural=bare_rock],node|z15-16[natural=rock] { icon-image: peakt-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2700; }
-area|z15-16[natural=peak],area|z15-16[natural=bare_rock],area|z15-16[natural=rock] { icon-image: peakt-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2700;}
-node|z17-[natural=peak],node|z17-[natural=bare_rock],node|z17-[natural=rock] { icon-image: peakt-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2700; }
-area|z17-[natural=peak],area|z17-[natural=bare_rock],area|z17-[natural=rock] { icon-image: peakt-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 2700;}
+node|z15-16[natural=peak],node|z15-16[natural=bare_rock],node|z15-16[natural=rock] { icon-image: peakt-m.svg; text-offset: 5; font-size: 10; text: name; text-color: @poi_label;z-index: 2700; }
+area|z15-16[natural=peak],area|z15-16[natural=bare_rock],area|z15-16[natural=rock] { icon-image: peakt-m.svg; text-offset: 5; font-size: 10; text: name; text-color: @poi_label; z-index: 2700;}
+node|z17-[natural=peak],node|z17-[natural=bare_rock],node|z17-[natural=rock] { icon-image: peakt-l.svg; text-offset: 6; font-size: 11; text: name; text-color: @poi_label;z-index: 2700; }
+area|z17-[natural=peak],area|z17-[natural=bare_rock],area|z17-[natural=rock] { icon-image: peakt-l.svg; text-offset: 6; font-size: 11; text: name; text-color: @poi_label; z-index: 2700;}
 
 node|z12-13[landuse=forest][boundary=national_park],area|z12-14[landuse=forest][boundary=national_park] { icon-image: nparkf-s.svg; text-offset: 8; font-size: 10; text: name; text-color: @park_label; text-halo-opacity: 0.8; text-halo-color: @label_halo_light;
 text-halo-radius:0.5; z-index: 2700;}
@@ -194,6 +193,7 @@ node|z17-[natural=beach], area|z17-[natural=beach]{ icon-image: beach-l.svg; tex
 
 
 /* AMENITY */
+
 
 node|z15-[natural=spring],area|z17-[natural=spring]{ icon-image: drinking-water-m.svg; text-offset:8; font-size: 10;  text: name; text-color: @poi_label; z-index: 2700;  }
 node|z15-[amenity=hunting_stand], area|z18-[amenity=hunting_stand] { icon-image: hunting-tower-m.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label;z-index: 2500; }
@@ -318,7 +318,7 @@ node|z17-[leisure=stadium] { icon-image: pitch-l.svg; text-offset: 10; font-size
 node|z17-[leisure=pitch] { icon-image: pitch-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 6; }
 node|z17-[sport=multi] { icon-image: pitch-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 6; }
 
-node|z17-[leisure=sports_centre] { icon-image: pitch-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 6; -x-me-text-priority: 15500; }
+node|z17-[leisure=sports_centre] { icon-image: pitch-l.svg; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; z-index: 6; -x-me-text-priority: 15500;}
 node|z18-[leisure=playground] { icon-image: pitch-l.svg; text-offset: 10; font-size: 11; text: name; text-color: @poi_label; z-index: 2400; }
 node|z17-[leisure=swimming_pool],area|z18-[leisure=swimming_pool] { icon-image: swimming-l.svg;z-index: 2600; text-offset: 10; font-size: 10; text: name; text-color: @poi_label; }
 node|z17-[leisure=golf_course], area|z18-[leisure=golf_course] { icon-image: golf-l.svg;z-index: 50; } /* нельзя другой z-inex^иначе пропадают все объекты на поле */

@@ -10,7 +10,7 @@
         <g id="beauty-m" sketch:type="MSLayerGroup">
             <path d="M11.5,23 C5.159,23 0,17.841 0,11.5 C0,5.159 5.159,0 11.5,0 C17.841,0 23,5.159 23,11.5 C23,17.841 17.841,23 11.5,23 L11.5,23 Z" id="Shape" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
             <g id="Shape">
-                <use fill="#3D3D37" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="#383833" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
                 <use fill="none" xlink:href="#path-1"></use>
             </g>
             <path d="M12,9 L12,18 C12,18.552 12.448,19 13,19 L16,19 C16.553,19 17,18.552 17,18 L17,9 L12,9 L12,9 Z M9,9 L10,9 L10,8 L9,8 L9,7 L10,7 L10,6 L9,6 L9,5 L10,5 L10,4 L7,4 L7,5 L8,5 L8,6 L7,6 L7,7 L8,7 L8,8 L7,8 L7,9 L8,9 L8,13 L6,13 L6,18 C6,18.552 6.447,19 7,19 L10,19 C10.552,19 11,18.552 11,18 L11,13 L9,13 L9,9 L9,9 Z" id="Shape" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>

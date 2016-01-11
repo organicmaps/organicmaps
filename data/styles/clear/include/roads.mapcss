@@ -163,16 +163,7 @@ line|z11[highway=motorway]
   opacity: 1;
   z-index: 900;
 }
-/*
-line|z11[highway=trunk]::case,
-line|z11[highway=motorway]::case
-{
-  color: @trunk_orange_case;
-  width: 3.6;
-  opacity: 1;
-  z-index: 45;
-}
-*/
+
 
 line|z11[highway=primary]
 {
@@ -181,15 +172,7 @@ line|z11[highway=primary]
   opacity: 1;
   z-index: 850;
 }
-/*
-line|z11[highway=primary]::case
-{
-  color: @primary_orange_case;
-  width: 2.6;
-  opacity: 1;
-  z-index: 45;
-}
-*/
+
 
 line|z11[highway=secondary]
 {
@@ -219,16 +202,6 @@ line|z12[highway=motorway]
   opacity: 1;
   z-index: 900;
 }
-/*
-line|z12[highway=trunk]::case,
-line|z12[highway=motorway]::case
-{
-  color: @trunk_orange_case;
-  width: 3.2;
-  opacity: 1;
-  z-index: 45;
-}
-*/
 
 line|z12[highway=motorway][tunnel?],
 line|z12[highway=trunk][tunnel?] {
@@ -247,15 +220,7 @@ line|z12[highway=primary]
   opacity: 1;
   z-index: 850;
 }
-/*
-line|z12[highway=primary]::case
-{
-  color: @primary_orange_case;
-  width: 2.5;
-  opacity: 1;
-  z-index: 45;
-}
-*/
+
 
 line|z12[highway=secondary]
 {
@@ -287,16 +252,6 @@ line|z13[highway=motorway]
   color: @trunk_orange_light;
   z-index: 900;
 }
-/*
-line|z13[highway=trunk]::case,
-line|z13[highway=motorway]::case
-{
-  color: @trunk_orange_case;
-  width: 4;
-  opacity: 1;
-  z-index: 45;
-}
-*/
 
 line|z13[highway=motorway][tunnel?],
 line|z13[highway=trunk][tunnel?],
@@ -324,15 +279,6 @@ line|z13[highway=primary]
   opacity: 1;
   z-index: 850;
 }
-/*
-line|z13[highway=primary]::case
-{
-  color: @primary_orange_case;
-  width: 3.5;
-  opacity: 1;
-  z-index: 45;
-}
-*/
 
 line|z13[highway=secondary]
 {
@@ -367,7 +313,7 @@ line|z13[highway=ford]
 {
   color: @pedestrian;
   width: 1;
-  dashes: 2,1;/*dashes: 0.9,0.45 1.8,0.9;*/
+  dashes: 2,1;
   opacity: 1;
   z-index: 660;
 }
@@ -378,8 +324,7 @@ line|z13[highway=cycleway]
   width: 1;
   opacity: 1;
   z-index: 1000;
-/*  dashes: 0.9,0.9;
-  opacity: 0.8;*/
+
 }
 
 line|z13[highway=construction],
@@ -402,16 +347,7 @@ line|z14[highway=motorway]
   color: @trunk_orange_light;
   z-index: 900;
 }
-/*
-line|z14[highway=trunk]::case,
-line|z14[highway=motorway]::case
-{
-  color: @trunk_orange_case;
-  width: 5;
-  opacity: 1;
-  z-index: 45;
-}
-*/
+
 
 line|z14[highway=motorway_link],
 line|z14[highway=trunk_link]
@@ -439,15 +375,6 @@ line|z14[highway=primary]
   opacity: 1;
   z-index: 850;
 }
-/*
-line|z14[highway=primary]::case
-{
-  color: @primary_orange_case;
-  width: 4;
-  opacity: 1;
-  z-index: 45;
-}
-*/
 
 line|z14[highway=primary_link]
 {
@@ -587,16 +514,6 @@ line|z15[highway=motorway]
   color: @trunk_orange_light;
   z-index: 900;
 }
-/*
-line|z15[highway=trunk]::case,
-line|z15[highway=motorway]::case
-{
-  color: @trunk_orange_case;
-  width: 6;
-  opacity: 1;
-  z-index: 45;
-}
-*/
 
 line|z15[highway=motorway_link],
 line|z15[highway=trunk_link]
@@ -623,20 +540,12 @@ line|z15[highway=primary]
   opacity: 1;
   z-index: 850;
 }
-/*
-line|z15[highway=primary]::case
-{
-  color: @primary_orange_case;
-  width: 5.5;
-  opacity: 1;
-  z-index: 45;
-}
-*/
+
 
 line|z15[highway=primary_link]
 {
   color: @primary_orange_light;
-  width: 2.1;
+  width: 4.2;
   z-index: 840;
 }
 
@@ -781,16 +690,6 @@ line|z16[highway=motorway]
   z-index: 900;
 }
 
-/*
-line|z16[highway=trunk]::case,
-line|z16[highway=motorway]::case
-{
-  color: @trunk_orange_case;
-  width: 8.8;
-  opacity: 1;
-  z-index: 45;
-}
-*/
 
 line|z16[highway=motorway_link],
 line|z16[highway=trunk_link]
@@ -818,20 +717,11 @@ line|z16[highway=primary]
   z-index: 850;
 }
 
-/*
-line|z16[highway=primary]::case
-{
-  color: @primary_orange_case;
-  width: 7.2;
-  opacity: 1;
-  z-index: 45;
-}
-*/
 
 line|z16[highway=primary_link]
 {
   color: @primary_orange_light;
-  width: 2.4;
+  width: 4.8;
   z-index: 840;
 
 }
@@ -1048,20 +938,12 @@ line|z17[highway=primary]
   opacity: 1;
   z-index: 850;
 }
-/*
-line|z17[highway=primary]::case
-{
-  color: @primary_orange_case;
-  width: 10.5;
-  opacity: 1;
-  z-index: 45;
-}
-*/
+
 
 line|z17[highway=primary_link]
 {
   color: @primary_orange_light;
-  width: 3.5;
+  width: 7;
   opacity: 1;
   z-index: 840;
 }
@@ -1288,20 +1170,12 @@ line|z18[highway=primary]
   opacity: 1;
   z-index: 850;
 }
-/*
-line|z18[highway=primary]::case
-{
-  color: @primary_orange_case;
-  width: 16;
-  opacity: 1;
-  z-index: 45;
-}
-*/
+
 
 line|z18[highway=primary_link]
 {
   color: @primary_orange_light;
-  width: 5;
+  width: 10;
   opacity: 1;
   z-index: 840;
 }
@@ -1528,20 +1402,11 @@ line|z19-[highway=primary]
   opacity: 1;
   z-index: 850;
 }
-/*
-line|z19-[highway=primary]::case
-{
-  color: @primary_orange_case;
-  width: 16;
-  opacity: 1;
-  z-index: 45;
-}
-*/
 
 line|z19-[highway=primary_link]
 {
   color: @primary_orange_light;
-  width: 7;
+  width: 13;
   opacity: 1;
   z-index: 840;
 }

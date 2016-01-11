@@ -178,8 +178,8 @@
 
 /* PISTE */
 @piste: #C47AFF;
-@piste_novice: #11dd00;
-@piste_easy: #11dd00;
-@piste_intermadiate: #ff0000;
-@piste_expert: #333333;
-@piste_advanced: #333333;
+@piste_novice:#5feb2e;
+@piste_easy: #0b27fb;
+@piste_intermadiate: #fc0e1b;
+@piste_expert: #220625;
+@piste_advanced: #0a0a0d;
