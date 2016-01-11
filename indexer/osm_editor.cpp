@@ -45,16 +45,16 @@ using TEditableFields = set<EType>;
 
 struct TypeDescription
 {
-  TypeDescription(TEditableFields const & fields, bool const name, bool const house) :
+  TypeDescription(TEditableFields const & fields, bool const name, bool const address) :
       fields(fields),
       name(name),
-      house(house)
+      address(address)
   {
   }
 
   TEditableFields const fields;
   bool const name;
-  bool const house;
+  bool const address;
 };
 
 static unordered_map<string, TypeDescription> const gEditableTypes = {
@@ -83,8 +83,8 @@ static unordered_map<string, TypeDescription> const gEditableTypes = {
   {"amenity-grave_yard", {{}, true, false}},
   {"amenity-hospital", {{EType::FMD_WEBSITE, EType::FMD_PHONE_NUMBER}, true, true}},
   {"amenity-hunting_stand", {{EType::FMD_HEIGHT}, false, false}},
-  {"amenity-kindergarten", {{EType::FMD_WEBSITE, EType::FMD_PHONE_NUMBER, EType::FMD_OPERATOR, EType::FMD_POSTCODE, EType::FMD_WEBSITE}, true, true}},
-  {"amenity-library", {{EType::FMD_PHONE_NUMBER, EType::FMD_WEBSITE, EType::FMD_POSTCODE, EType::FMD_FAX_NUMBER, EType::FMD_FAX_NUMBER, EType::FMD_EMAIL}, true, true}},
+  {"amenity-kindergarten", {{EType::FMD_WEBSITE, EType::FMD_PHONE_NUMBER, EType::FMD_OPERATOR,  EType::FMD_WEBSITE}, true, true}},
+  {"amenity-library", {{EType::FMD_PHONE_NUMBER, EType::FMD_WEBSITE,  EType::FMD_FAX_NUMBER, EType::FMD_FAX_NUMBER, EType::FMD_EMAIL}, true, true}},
   {"amenity-marketplace", {{EType::FMD_OPERATOR, EType::FMD_OPEN_HOURS}, true, false}},
   {"amenity-nightclub", {{EType::FMD_WEBSITE, EType::FMD_PHONE_NUMBER, EType::FMD_OPEN_HOURS, EType::FMD_OPERATOR, EType::FMD_POSTCODE}, true, true}},
   {"amenity-parking", {{EType::FMD_OPERATOR}, true, false}},
@@ -92,17 +92,17 @@ static unordered_map<string, TypeDescription> const gEditableTypes = {
   {"amenity-place_of_worship", {{EType::FMD_OPEN_HOURS, EType::FMD_WEBSITE}, true, false}},
   {"amenity-police", {{EType::FMD_OPERATOR, EType::FMD_PHONE_NUMBER, EType::FMD_WEBSITE, EType::FMD_OPEN_HOURS, EType::FMD_POSTCODE}, true, true}},
   {"amenity-post_box", {{EType::FMD_OPERATOR}, true, false}},
-  {"amenity-post_office", {{EType::FMD_OPERATOR, EType::FMD_WEBSITE, EType::FMD_POSTCODE, EType::FMD_PHONE_NUMBER}, true, true}},
-  {"amenity-pub", {{EType::FMD_OPERATOR, EType::FMD_OPEN_HOURS, EType::FMD_CUISINE, EType::FMD_POSTCODE, EType::FMD_PHONE_NUMBER, EType::FMD_EMAIL, EType::FMD_WEBSITE, EType::FMD_FAX_NUMBER}, true, true}},
+  {"amenity-post_office", {{EType::FMD_OPERATOR, EType::FMD_WEBSITE,  EType::FMD_PHONE_NUMBER}, true, true}},
+  {"amenity-pub", {{EType::FMD_OPERATOR, EType::FMD_OPEN_HOURS, EType::FMD_CUISINE,  EType::FMD_PHONE_NUMBER, EType::FMD_EMAIL, EType::FMD_WEBSITE, EType::FMD_FAX_NUMBER}, true, true}},
   {"amenity-recycling", {{EType::FMD_OPERATOR, EType::FMD_WEBSITE}, true, false}},
   {"amenity-restaurant", {{EType::FMD_OPERATOR, EType::FMD_CUISINE, EType::FMD_OPEN_HOURS, EType::FMD_PHONE_NUMBER, EType::FMD_WEBSITE}, true, true}},
-  {"amenity-school", {{EType::FMD_OPERATOR, EType::FMD_POSTCODE, EType::FMD_WIKIPEDIA}, true, true}},
+  {"amenity-school", {{EType::FMD_OPERATOR,  EType::FMD_WIKIPEDIA}, true, true}},
   {"amenity-taxi", {{EType::FMD_OPERATOR, EType::FMD_PHONE_NUMBER}, true, false}},
   {"amenity-telephone", {{EType::FMD_OPERATOR, EType::FMD_PHONE_NUMBER}, false, false}},
-  {"amenity-theatre", {{EType::FMD_OPERATOR, EType::FMD_POSTCODE, EType::FMD_WEBSITE, EType::FMD_PHONE_NUMBER, EType::FMD_POSTCODE}, true, true}},
+  {"amenity-theatre", {{EType::FMD_OPERATOR,  EType::FMD_WEBSITE, EType::FMD_PHONE_NUMBER, EType::FMD_POSTCODE}, true, true}},
   {"amenity-toilets", {{EType::FMD_OPEN_HOURS, EType::FMD_OPERATOR}, true, false}},
   {"amenity-townhall", {{EType::FMD_OPERATOR}, true, true}},
-  {"amenity-university", {{EType::FMD_OPERATOR, EType::FMD_POSTCODE, EType::FMD_PHONE_NUMBER, EType::FMD_WEBSITE, EType::FMD_FAX_NUMBER, EType::FMD_EMAIL, }, true, true}},
+  {"amenity-university", {{EType::FMD_OPERATOR,  EType::FMD_PHONE_NUMBER, EType::FMD_WEBSITE, EType::FMD_FAX_NUMBER, EType::FMD_EMAIL, }, true, true}},
   {"amenity-waste_disposal", {{EType::FMD_OPERATOR, EType::FMD_WEBSITE}, false, false}},
   {"highway-bus_stop", {{EType::FMD_OPERATOR}, true, false}},
   {"historic-archaeological_site", {{}, true, false}},
@@ -115,7 +115,7 @@ static unordered_map<string, TypeDescription> const gEditableTypes = {
   {"landuse-cemetery", {{}, true, false}},
   {"leisure-garden", {{}, true, false}},
   {"leisure-sports_centre", {{}, true, true}},
-  {"leisure-stadium", {{EType::FMD_POSTCODE, EType::FMD_WIKIPEDIA, EType::FMD_WEBSITE, EType::FMD_OPERATOR}, true, true}},
+  {"leisure-stadium", {{EType::FMD_WIKIPEDIA, EType::FMD_WEBSITE, EType::FMD_OPERATOR}, true, true}},
   {"leisure-swimming_pool", {{EType::FMD_OPEN_HOURS, EType::FMD_OPERATOR}, true, false}},
   {"natural-peak", {{EType::FMD_WIKIPEDIA, EType::FMD_ELE}, true, false}},
   {"natural-spring", {{}, true, false}},
@@ -491,12 +491,12 @@ bool Editor::IsNameEditable(FeatureType const & feature) const
   return false;
 }
 
-bool Editor::IsHouseNumberEditable(FeatureType const & feature) const
+bool Editor::IsAddressEditable(FeatureType const & feature) const
 {
   for (auto type : GetAllTypes(feature))
   {
     auto const * typeDesc = GetTypeDescription(type);
-    if (typeDesc && typeDesc->house)
+    if (typeDesc && typeDesc->address)
       return true;
   }
 

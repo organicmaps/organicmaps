@@ -74,7 +74,7 @@ public:
 
   vector<feature::Metadata::EType> EditableMetadataForType(FeatureType const & feature) const;
   bool IsNameEditable(FeatureType const & feature) const;
-  bool IsHouseNumberEditable(FeatureType const & feature) const;
+  bool IsAddressEditable(FeatureType const & feature) const;
 
 private:
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
