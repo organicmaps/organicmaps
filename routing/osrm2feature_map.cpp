@@ -118,8 +118,7 @@ bool IsInside(FtSeg const & bigSeg, FtSeg const & smallSeg)
   auto segmentLeft = min(bigSeg.m_pointStart, bigSeg.m_pointEnd);
   auto segmentRight = max(bigSeg.m_pointStart, bigSeg.m_pointEnd);
 
-  return (smallSeg.m_pointStart != segmentLeft || smallSeg.m_pointEnd != segmentRight) &&
-         (segmentLeft <= smallSeg.m_pointStart && segmentRight >= smallSeg.m_pointEnd);
+  return (segmentLeft <= smallSeg.m_pointStart && segmentRight >= smallSeg.m_pointEnd);
 }
 
 FtSeg SplitSegment(FtSeg const & segment, FtSeg const & splitter)

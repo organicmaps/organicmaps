@@ -45,7 +45,8 @@ public:
     OnRoute,           // user follows the route
     RouteNeedRebuild,  // user left the route
     RouteFinished,     // destination point is reached but the session isn't closed
-    RouteNoFollowing   // route is built but following mode has been disabled
+    RouteNoFollowing,  // route is built but following mode has been disabled
+    RouteFollowing     // user driwes on road. Similar to OnRoute. Indicates that user pushed the start button.
   };
 
   /*
@@ -57,6 +58,8 @@ public:
    * OnRoute -> RouteNeedRebuild          // user moves away from route - need to rebuild
    * OnRoute -> RouteNoFollowing          // following mode was disabled. Router doesn't track position.
    * OnRoute -> RouteFinished             // user reached the end of route
+   * OnRoute -> RouteFollowing            // user pushed the start button
+   * RouteFollowing -> RouteFinished      // user reached the end of route
    * RouteNeedRebuild -> RouteNotReady    // start rebuild route
    * RouteFinished -> RouteNotReady       // start new route
    */
@@ -83,10 +86,11 @@ public:
 
   m2::PointD GetEndPoint() const { return m_endPoint; }
   bool IsActive() const { return (m_state != RoutingNotActive); }
-  bool IsNavigable() const { return (m_state == RouteNotStarted || m_state == OnRoute || m_state == RouteFinished); }
+  bool IsNavigable() const { return (m_state == RouteNotStarted || m_state == OnRoute || m_state == RouteFinished || m_state == RouteFollowing); }
   bool IsBuilt() const { return (IsNavigable() || m_state == RouteNeedRebuild || m_state == RouteFinished); }
   bool IsBuilding() const { return (m_state == RouteBuilding); }
-  bool IsOnRoute() const { return (m_state == OnRoute); }
+  bool IsOnRoute() const { return (m_state == OnRoute || m_state == RouteFollowing); }
+  bool IsFollowing() const { return (m_state == RouteFollowing); }
   void Reset();
 
   Route const & GetRoute() const { return m_route; }
@@ -106,6 +110,10 @@ public:
   /// If a route is rebuilt you must call DisableFollowMode again.
   /// Returns true if following was disabled, false if a route is not ready for the following yet.
   bool DisableFollowMode();
+
+  /// Now indicates only that user pushed start button. Route follows by default.
+  /// Returns true if following was enabled, false if a route is not ready for the following yet.
+  bool EnableFollowMode();
 
   void SetRoutingSettings(RoutingSettings const & routingSettings);
 

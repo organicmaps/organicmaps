@@ -128,6 +128,7 @@ void Point2PhantomNode::CalculateWeight(OsrmMappingTypes::FtSeg const & seg,
     }
   }
 
+  ASSERT(foundSeg, ("Intersection not found!"));
   ASSERT_GREATER(fullDistanceM, 0, ("No valid segments on the edge."));
   double const ratio = (fullDistanceM == 0) ? 0 : distanceM / fullDistanceM;
   ASSERT_LESS_OR_EQUAL(ratio, 1., ());
