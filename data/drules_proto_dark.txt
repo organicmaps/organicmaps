@@ -35990,7 +35990,7 @@ cont {
         color: 5592405
         offset_y: 10
       }
-      priority: 15067
+      priority: 15500
     }
   }
   element {
@@ -36006,7 +36006,7 @@ cont {
         color: 5592405
         offset_y: 10
       }
-      priority: 15067
+      priority: 15500
     }
   }
   element {
@@ -36022,7 +36022,7 @@ cont {
         color: 5592405
         offset_y: 10
       }
-      priority: 15067
+      priority: 15500
     }
   }
 }
