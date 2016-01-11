@@ -63,8 +63,6 @@ static unordered_map<string, TypeDescription> const gEditableTypes = {
   {"amenity-atm", {{}, true, false}},
   {"amenity-bank", {{EType::FMD_OPERATOR, EType::FMD_OPEN_HOURS /*??*/, EType::FMD_WEBSITE, EType::FMD_OPERATOR}, true, false}},
   {"amenity-bar", {{EType::FMD_OPEN_HOURS}, true, false}},
-  {"amenity-bbq", {{}, false, false}},  // TODO(mgsergio,Alex):Remove from this list?
-  {"amenity-bench", {{}, false, false}},  // TODO(mgsergio,Alex):Remove from this list?
   {"amenity-bicycle_rental", {{EType::FMD_OPERATOR}, false, true}},
   {"amenity-bureau_de_change", {{EType::FMD_OPEN_HOURS}, true, true}},
   {"amenity-bus_station", {{EType::FMD_OPERATOR}, true, false}},
@@ -84,7 +82,7 @@ static unordered_map<string, TypeDescription> const gEditableTypes = {
   {"amenity-fuel", {{EType::FMD_OPERATOR, EType::FMD_OPEN_HOURS, EType::FMD_PHONE_NUMBER, EType::FMD_HEIGHT /*maxheight?*/, EType::FMD_WEBSITE}, true, true }},
   {"amenity-grave_yard", {{}, true, false}},
   {"amenity-hospital", {{EType::FMD_WEBSITE, EType::FMD_PHONE_NUMBER}, true, false}},
-  {"amenity-hunting_stand", {{EType::FMD_HEIGHT}, false, false}},  // TODO(mgsergio,Alex):Remove from this list?
+  {"amenity-hunting_stand", {{EType::FMD_HEIGHT}, false, false}},
   {"amenity-kindergarten", {{EType::FMD_WEBSITE, EType::FMD_PHONE_NUMBER, EType::FMD_OPERATOR}, true, false}},
   {"amenity-library", {{EType::FMD_PHONE_NUMBER, EType::FMD_WEBSITE, EType::FMD_POSTCODE, EType::FMD_FAX_NUMBER, EType::FMD_FAX_NUMBER, EType::FMD_EMAIL}, true, true}},
   {"amenity-marketplace", {{EType::FMD_OPERATOR, EType::FMD_OPEN_HOURS}, true, false}},
@@ -99,7 +97,6 @@ static unordered_map<string, TypeDescription> const gEditableTypes = {
   {"amenity-recycling", {{EType::FMD_OPERATOR, EType::FMD_WEBSITE}, true, false}},
   {"amenity-restaurant", {{EType::FMD_OPERATOR, EType::FMD_CUISINE, EType::FMD_OPEN_HOURS, EType::FMD_PHONE_NUMBER, EType::FMD_WEBSITE}, true, false}},
   {"amenity-school", {{EType::FMD_OPERATOR, EType::FMD_POSTCODE, EType::FMD_WIKIPEDIA}, true, true}},
-  {"amenity-shelter", {{}, false, false}},  // TODO(mgsergio,Alex):Remove from this list?
   {"amenity-taxi", {{EType::FMD_OPERATOR, EType::FMD_PHONE_NUMBER}, true, false}},
   {"amenity-telephone", {{EType::FMD_OPERATOR, EType::FMD_PHONE_NUMBER}, false, false}},
   {"amenity-theatre", {{EType::FMD_OPERATOR, EType::FMD_POSTCODE, EType::FMD_WEBSITE, EType::FMD_PHONE_NUMBER, EType::FMD_POSTCODE}, true, true}},
@@ -108,7 +105,6 @@ static unordered_map<string, TypeDescription> const gEditableTypes = {
   {"amenity-university", {{EType::FMD_OPERATOR, EType::FMD_POSTCODE, EType::FMD_PHONE_NUMBER, EType::FMD_WEBSITE, EType::FMD_FAX_NUMBER, EType::FMD_EMAIL, }, true, true}},
   {"amenity-waste_disposal", {{EType::FMD_OPERATOR, EType::FMD_WEBSITE}, false, false}},
   {"highway-bus_stop", {{EType::FMD_OPERATOR}, true, false}},
-  {"highway-speed_camera", {{}, false, false}},  // TODO(mgsergio,Alex):Remove from this list?
   {"historic-archaeological_site", {{}, true, false}},
   {"historic-castle", {{EType::FMD_WIKIPEDIA}, true, false}},
   {"historic-memorial", {{}, true, false}},
@@ -118,8 +114,6 @@ static unordered_map<string, TypeDescription> const gEditableTypes = {
   {"internet-access|wlan", {{EType::FMD_INTERNET /*??*/}, false, false}},
   {"landuse-cemetery", {{}, true, false}},
   {"leisure-garden", {{}, true, false}},
-  {"leisure-pitch", {{}, false, false}},  // TODO(mgsergio,Alex):Remove from this list?
-  {"leisure-playground", {{}, false , false}},  // TODO(mgsergio,Alex):Remove from this list?
   {"leisure-sports_centre", {{}, true, false}},
   {"leisure-stadium", {{EType::FMD_POSTCODE, EType::FMD_WIKIPEDIA, EType::FMD_WEBSITE, EType::FMD_OPERATOR}, true, true}},
   {"leisure-swimming_pool", {{EType::FMD_OPEN_HOURS, EType::FMD_OPERATOR}, true, false}},
@@ -127,7 +121,6 @@ static unordered_map<string, TypeDescription> const gEditableTypes = {
   {"natural-spring", {{}, true, false}},
   {"natural-waterfall", {{}, true, false}},
   {"office-company", {{}, true, false}},
-  {"office-estate_agent", {{}, false, false}},  // TODO(mgsergio,Alex):Remove from this list?
   {"office-government", {{}, true, false}},
   {"office-lawyer", {{EType::FMD_OPEN_HOURS, EType::FMD_PHONE_NUMBER, EType::FMD_FAX_NUMBER, EType::FMD_WEBSITE, EType::FMD_EMAIL}, true, false}},
   {"office-telecommunication", {{EType::FMD_OPEN_HOURS, EType::FMD_OPERATOR}, true, false}},
@@ -174,7 +167,6 @@ static unordered_map<string, TypeDescription> const gEditableTypes = {
   {"shop-toys", {{EType::FMD_OPEN_HOURS}, true, false}},
   {"tourism-alpine_hut", {{EType::FMD_ELE, EType::FMD_OPEN_HOURS, EType::FMD_OPERATOR}, true, false}},
   {"tourism-artwork", {{EType::FMD_WEBSITE, EType::FMD_WIKIPEDIA}, true, false}},
-  {"tourism-attraction", {{}, false, false}},  // TODO(mgsergio,Alex):Remove from this list?
   {"tourism-camp_site", {{EType::FMD_OPERATOR, EType::FMD_WEBSITE, EType::FMD_OPEN_HOURS}, true, false}},
   {"tourism-caravan_site", {{EType::FMD_WEBSITE, EType::FMD_OPERATOR}, true, false}},
   {"tourism-guest_house", {{EType::FMD_OPERATOR, EType::FMD_WEBSITE}, true, false}},
@@ -183,7 +175,6 @@ static unordered_map<string, TypeDescription> const gEditableTypes = {
   {"tourism-information", {{}, true, false}},
   {"tourism-motel", {{EType::FMD_OPERATOR}, true, false}},
   {"tourism-museum", {{EType::FMD_OPERATOR, EType::FMD_OPEN_HOURS}, true, false}},
-  {"tourism-picnic_site", {{}, false, false}},  // TODO(mgsergio,Alex):Remove from this list?
   {"tourism-viewpoint", {{}, true, false}},
   {"waterway-waterfall", {{EType::FMD_HEIGHT}, true, false}}};
 
