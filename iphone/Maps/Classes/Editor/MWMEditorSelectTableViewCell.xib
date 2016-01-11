@@ -65,12 +65,12 @@
                     <constraint firstItem="MBe-6r-IsA" firstAttribute="top" secondItem="V1p-K9-KlE" secondAttribute="top" id="6FB-in-VCz"/>
                     <constraint firstAttribute="bottom" secondItem="MBe-6r-IsA" secondAttribute="bottom" id="CG0-ar-vx9"/>
                     <constraint firstItem="xur-tJ-HA9" firstAttribute="leading" secondItem="V1p-K9-KlE" secondAttribute="leading" constant="16" id="DlR-yh-2JK"/>
-                    <constraint firstItem="3QW-i5-g6A" firstAttribute="leading" secondItem="V1p-K9-KlE" secondAttribute="leading" priority="250" constant="60" id="Ghg-3J-hYK"/>
+                    <constraint firstItem="3QW-i5-g6A" firstAttribute="leading" secondItem="V1p-K9-KlE" secondAttribute="leading" priority="250" id="Ghg-3J-hYK"/>
                     <constraint firstItem="MBe-6r-IsA" firstAttribute="leading" secondItem="V1p-K9-KlE" secondAttribute="leading" constant="60" id="RGA-XL-gLq"/>
                     <constraint firstAttribute="trailing" secondItem="3QW-i5-g6A" secondAttribute="trailing" id="T8x-8A-gMo"/>
                     <constraint firstItem="xur-tJ-HA9" firstAttribute="centerY" secondItem="V1p-K9-KlE" secondAttribute="centerY" id="agx-Kf-DpK"/>
                     <constraint firstAttribute="bottom" secondItem="nq9-KC-Ujh" secondAttribute="bottom" id="fK8-AO-JKa"/>
-                    <constraint firstItem="3QW-i5-g6A" firstAttribute="leading" secondItem="MBe-6r-IsA" secondAttribute="leading" priority="750" id="hrP-6I-Brp"/>
+                    <constraint firstItem="3QW-i5-g6A" firstAttribute="leading" secondItem="MBe-6r-IsA" secondAttribute="leading" priority="500" id="hrP-6I-Brp"/>
                     <constraint firstItem="nq9-KC-Ujh" firstAttribute="top" secondItem="V1p-K9-KlE" secondAttribute="top" id="ibI-hy-19F"/>
                     <constraint firstItem="jLw-GA-z3y" firstAttribute="centerY" secondItem="V1p-K9-KlE" secondAttribute="centerY" id="nY0-7m-bcZ"/>
                     <constraint firstItem="nq9-KC-Ujh" firstAttribute="leading" secondItem="V1p-K9-KlE" secondAttribute="leading" id="tyN-aq-pC1"/>
