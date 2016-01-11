@@ -193,10 +193,10 @@ void initFieldsMap()
       {
         case Metadata::FMD_CUISINE:
         {
-        [self deserializeCuisine:@(metadata.Get(type).c_str())];
-        NSString * cuisine = [self getCellValue:MWMPlacePageCellTypeCuisine];
-        if (![self.category isEqualToString:cuisine])
-          self.category = [NSString stringWithFormat:@"%@, %@", self.category, cuisine];
+          [self deserializeCuisine:@(metadata.Get(type).c_str())];
+          NSString * cuisine = [self getCellValue:MWMPlacePageCellTypeCuisine];
+          if (![self.category isEqualToString:cuisine])
+            self.category = [NSString stringWithFormat:@"%@, %@", self.category, cuisine];
           break;
         }
         case Metadata::FMD_ELE:
@@ -237,6 +237,8 @@ void initFieldsMap()
           break;
       }
     }
+
+    [self processStreets];
   }
 
   [self addMetaField:MWMPlacePageCellTypeCoordinate];
@@ -275,6 +277,15 @@ void initFieldsMap()
   return [self.cuisines.allObjects componentsJoinedByString:kOSMCuisineSeparator];
 }
 
+- (void)processStreets
+{
+  // TODO Replace with real Getters
+  // FeatureType * feature = self.delegate.userMark->GetFeature();
+  string featureString = "street#2";
+  self.nearbyStreets = @[@"street#1", @(featureString.c_str()), @"street#3"];
+  [self addMetaField:MWMPlacePageCellTypeStreet value:featureString];
+}
+
 #pragma mark - Editing
 
 - (void)setEditableTypes
@@ -287,7 +298,7 @@ void initFieldsMap()
     [self addEditField];
   for (auto const & type : editableTypes)
   {
-    NSAssert(kMetaFieldsMap[type] >= Metadata::FMD_COUNT, @"Incorrect enum value");
+    NSAssert(kMetaFieldsMap[type] >= Metadata::FMD_COUNT || kMetaFieldsMap[type] == 0, @"Incorrect enum value");
     MWMPlacePageCellType const field = static_cast<MWMPlacePageCellType>(kMetaFieldsMap[type]);
     m_editableFields.insert(field);
   }
@@ -295,6 +306,7 @@ void initFieldsMap()
 
 - (BOOL)isCellEditable:(MWMPlacePageCellType)cellType
 {
+  return YES;
   return m_editableFields.count(cellType) == 1;
 }
 
@@ -336,6 +348,7 @@ void initFieldsMap()
       case MWMPlacePageCellTypeStreet:
       {
         // TODO Add implementation
+        // Save cell.second
         break;
       }
       case MWMPlacePageCellTypeBuilding:

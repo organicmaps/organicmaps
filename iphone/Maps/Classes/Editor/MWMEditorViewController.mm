@@ -7,11 +7,17 @@
 #import "MWMEditorViewController.h"
 #import "MWMOpeningHoursEditorViewController.h"
 #import "MWMPlacePageOpeningHoursCell.h"
+#import "MWMStreetEditorViewController.h"
 
 #include "std/algorithm.hpp"
 
 namespace
 {
+
+NSString * const kOpeningHoursEditorSegue = @"Editor2OpeningHoursEditorSegue";
+NSString * const kCuisineEditorSegue = @"Editor2CuisineEditorSegue";
+NSString * const kStreetEditorSegue = @"Editor2StreetEditorSegue";
+
 typedef NS_ENUM(NSUInteger, MWMEditorSection)
 {
   MWMEditorSectionName,
@@ -57,12 +63,10 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 }
 } // namespace
 
-static NSString * const kOpeningHoursEditorSegue = @"Editor2OpeningHoursEditorSegue";
-static NSString * const kCuisineEditorSegue = @"Editor2CuisineEditorSegue";
-
 @interface MWMEditorViewController ()<UITableViewDelegate, UITableViewDataSource,
                                       UITextFieldDelegate, MWMPlacePageOpeningHoursCellProtocol,
-                                      MWMEditorCellProtocol, MWMCuisineEditorProtocol>
+                                      MWMEditorCellProtocol, MWMCuisineEditorProtocol,
+                                      MWMStreetEditorProtocol>
 
 @property (weak, nonatomic) IBOutlet UITableView * tableView;
 
@@ -150,6 +154,8 @@ static NSString * const kCuisineEditorSegue = @"Editor2CuisineEditorSegue";
 
 - (void)setCell:(MWMPlacePageCellType)cellType value:(NSString *)value
 {
+  if ([value isEqualToString:[self getCellValue:cellType]])
+    return;
   self.needsReload = YES;
   m_edited_cells[cellType] = value.UTF8String;
 }
@@ -195,8 +201,18 @@ static NSString * const kCuisineEditorSegue = @"Editor2CuisineEditorSegue";
 
 - (BOOL)isLastCellInSection:(NSIndexPath *)indexPath
 {
-  MWMEditorSection const section = m_sections[indexPath.section];
-  return m_cells[section].size() - 1 == indexPath.row;
+  NSUInteger const row = indexPath.row;
+  NSUInteger const section = indexPath.section;
+  NSUInteger const rowsInSection = m_cells[m_sections[section]].size();
+  BOOL const isLastCell = rowsInSection - 1 == row;
+  if (isLastCell)
+    return YES;
+  BOOL const isPenultimateCell = rowsInSection - 2 == row;
+  if (!isPenultimateCell)
+    return NO;
+  NSIndexPath * lastIndexPath = [NSIndexPath indexPathForRow:row + 1 inSection:section];
+  BOOL const isLastCellSeparator = ([self cellTypeForIndexPath:lastIndexPath] == MWMPlacePageCellTypeSpacer);
+  return isLastCellSeparator;
 }
 
 #pragma mark - Fill cells with data
@@ -415,7 +431,7 @@ static NSString * const kCuisineEditorSegue = @"Editor2CuisineEditorSegue";
 
 #pragma mark - MWMEditorCellProtocol
 
-- (void)actionForCell:(UITableViewCell *)cell
+- (void)cell:(UITableViewCell *)cell changeText:(NSString *)changeText
 {
   NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
   MWMPlacePageCellType const cellType = [self cellTypeForIndexPath:indexPath];
@@ -426,30 +442,47 @@ static NSString * const kCuisineEditorSegue = @"Editor2CuisineEditorSegue";
     case MWMPlacePageCellTypeWebsite:
     case MWMPlacePageCellTypeEmail:
     case MWMPlacePageCellTypeBuilding:
-    {
-      NSString * editedFieldValue = ((MWMEditorTextTableViewCell *)cell).text;
-      if (![editedFieldValue isEqualToString:[self getCellValue:cellType]])
-        [self setCell:cellType value:editedFieldValue];
+      [self setCell:cellType value:changeText];
       break;
-    }
+    default:
+      NSAssert(false, @"Invalid field for changeText");
+      break;
+  }
+}
+
+- (void)cell:(UITableViewCell *)cell changeSwitch:(BOOL)changeSwitch
+{
+  NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+  MWMPlacePageCellType const cellType = [self cellTypeForIndexPath:indexPath];
+  switch (cellType)
+  {
     case MWMPlacePageCellTypeWiFi:
     {
-      BOOL const editedOn = ((MWMEditorSwitchTableViewCell *)cell).on;
       BOOL const on = ([self getCellValue:cellType] != nil);
-      if (editedOn != on)
-        [self setCell:cellType value:editedOn ? @"wlan" : @""];
+      if (changeSwitch != on)
+        [self setCell:cellType value:changeSwitch ? @"wlan" : @""];
       break;
     }
+    default:
+      NSAssert(false, @"Invalid field for changeSwitch");
+      break;
+  }
+}
+
+- (void)cellSelect:(UITableViewCell *)cell
+{
+  NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+  MWMPlacePageCellType const cellType = [self cellTypeForIndexPath:indexPath];
+  switch (cellType)
+  {
     case MWMPlacePageCellTypeStreet:
-      // TODO
+      [self performSegueWithIdentifier:kStreetEditorSegue sender:nil];
       break;
     case MWMPlacePageCellTypeCuisine:
       [self performSegueWithIdentifier:kCuisineEditorSegue sender:nil];
       break;
-    case MWMPlacePageCellTypeSpacer:
-      break;
     default:
-      NSAssert(false, @"Invalid field for editor");
+      NSAssert(false, @"Invalid field for cellSelect");
       break;
   }
 }
@@ -458,8 +491,7 @@ static NSString * const kCuisineEditorSegue = @"Editor2CuisineEditorSegue";
 
 - (void)setOpeningHours:(NSString *)openingHours
 {
-  if (![openingHours isEqualToString:[self getCellValue:MWMPlacePageCellTypeOpenHours]])
-    [self setCell:MWMPlacePageCellTypeOpenHours value:openingHours];
+  [self setCell:MWMPlacePageCellTypeOpenHours value:openingHours];
 }
 
 #pragma mark - MWMCuisineEditorProtocol
@@ -480,6 +512,23 @@ static NSString * const kCuisineEditorSegue = @"Editor2CuisineEditorSegue";
   [self setCell:MWMPlacePageCellTypeCuisine value:updatedValue];
 }
 
+#pragma mark - MWMStreetEditorProtocol
+
+- (NSString *)getStreet
+{
+  return [self getCellValue:MWMPlacePageCellTypeStreet];
+}
+
+- (void)setStreet:(NSString *)street
+{
+  [self setCell:MWMPlacePageCellTypeStreet value:street];
+}
+
+- (NSArray<NSString *> *)getNearbyStreets
+{
+  return self.entity.nearbyStreets;
+}
+
 #pragma mark - Segue
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -493,6 +542,11 @@ static NSString * const kCuisineEditorSegue = @"Editor2CuisineEditorSegue";
   else if ([segue.identifier isEqualToString:kCuisineEditorSegue])
   {
     MWMCuisineEditorViewController * dvc = segue.destinationViewController;
+    dvc.delegate = self;
+  }
+  else if ([segue.identifier isEqualToString:kStreetEditorSegue])
+  {
+    MWMStreetEditorViewController * dvc = segue.destinationViewController;
     dvc.delegate = self;
   }
 }

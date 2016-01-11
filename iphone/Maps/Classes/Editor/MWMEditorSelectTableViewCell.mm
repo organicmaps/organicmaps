@@ -40,7 +40,7 @@
 
 - (IBAction)selectAction
 {
-  [self.delegate actionForCell:self];
+  [self.delegate cellSelect:self];
 }
 
 @end

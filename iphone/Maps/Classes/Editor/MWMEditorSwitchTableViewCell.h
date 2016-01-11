@@ -2,8 +2,6 @@
 
 @interface MWMEditorSwitchTableViewCell : UITableViewCell
 
-@property (nonatomic, readonly) BOOL on;
-
 - (void)configWithDelegate:(id<MWMEditorCellProtocol>)delegate
                       icon:(UIImage *)icon
                       text:(NSString *)text

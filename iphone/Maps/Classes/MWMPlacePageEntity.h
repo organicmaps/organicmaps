@@ -53,6 +53,7 @@ using MWMPlacePageCellTypeValueMap = map<MWMPlacePageCellType, string>;
 @property (nonatomic, readonly) BOOL isHTMLDescription;
 @property (copy, nonatomic) NSString * bookmarkColor;
 @property (copy, nonatomic) NSSet<NSString *> * cuisines;
+@property (copy, nonatomic) NSArray<NSString *> * nearbyStreets;
 
 @property (nonatomic) MWMPlacePageEntityType type;
 

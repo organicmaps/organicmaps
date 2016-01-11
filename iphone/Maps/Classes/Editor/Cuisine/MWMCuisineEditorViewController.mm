@@ -31,7 +31,7 @@ namespace
 
 - (void)configNavBar
 {
-  self.title = L(@"edit_poi");
+  self.title = L(@"cuisine");
   self.navigationItem.leftBarButtonItem =
       [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                                     target:self

@@ -1,5 +1,7 @@
 @protocol MWMEditorCellProtocol <NSObject>
 
-- (void)actionForCell:(UITableViewCell *)cell;
+- (void)cell:(UITableViewCell *)cell changeText:(NSString *)changeText;
+- (void)cell:(UITableViewCell *)cell changeSwitch:(BOOL)changeSwitch;
+- (void)cellSelect:(UITableViewCell *)cell;
 
 @end

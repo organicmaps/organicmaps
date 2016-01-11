@@ -28,14 +28,7 @@
 
 - (IBAction)valueChanged
 {
-  [self.delegate actionForCell:self];
-}
-
-#pragma mark - Properties
-
-- (BOOL)on
-{
-  return self.switchControl.on;
+  [self.delegate cell:self changeSwitch:self.switchControl.on];
 }
 
 @end
