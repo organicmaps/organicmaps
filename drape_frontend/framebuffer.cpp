@@ -41,16 +41,12 @@ void Framebuffer::SetDefaultContext(dp::OGLContext * context)
   m_defaultContext = context;
 }
 
-int32_t Framebuffer::GetMaxSize()
-{
-  if (m_maxTextureSize == 0)
-    m_maxTextureSize = GLFunctions::glGetInteger(gl_const::GLMaxTextureSize);
-  return m_maxTextureSize;
-}
-
 void Framebuffer::SetSize(uint32_t width, uint32_t height)
 {
   ASSERT(m_defaultContext, ());
+
+  if (!m_isSupported)
+    return;
 
   if (m_width == width && m_height == height)
     return;
@@ -83,19 +79,25 @@ void Framebuffer::SetSize(uint32_t width, uint32_t height)
 
   uint32_t const status = GLFunctions::glCheckFramebufferStatus();
   if (status != gl_const::GLFramebufferComplete)
-    LOG(LWARNING, ("Incomplete framebuffer:", strings::to_string(status)));
+  {
+    m_isSupported = false;
+    Destroy();
+    LOG(LWARNING, ("Framebuffer is unsupported. Framebuffer status =", status));
+  }
 
   m_defaultContext->setDefaultFramebuffer();
 }
 
 void Framebuffer::Enable()
 {
+  ASSERT(m_isSupported, ());
   GLFunctions::glBindFramebuffer(m_framebufferId);
 }
 
 void Framebuffer::Disable()
 {
   ASSERT(m_defaultContext, ());
+  ASSERT(m_isSupported, ());
   m_defaultContext->setDefaultFramebuffer();
 }
 

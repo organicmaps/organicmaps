@@ -824,10 +824,17 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
   if (has3dAreas)
   {
-    m_framebuffer->Enable();
-    GLFunctions::glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-    GLFunctions::glClear();
-    GLFunctions::glClearDepth();
+    if (m_framebuffer->IsSupported())
+    {
+      m_framebuffer->Enable();
+      GLFunctions::glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+      GLFunctions::glClear();
+      GLFunctions::glClearDepth();
+    }
+    else
+    {
+      GLFunctions::glClearDepth();
+    }
 
     GLFunctions::glEnable(gl_const::GLDepthTest);
     for (size_t index = area3dRenderGroupStart; index <= area3dRenderGroupEnd; ++index)
@@ -836,10 +843,13 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
       if (group->GetState().GetProgram3dIndex() == gpu::AREA_3D_PROGRAM)
         RenderSingleGroup(modelView, make_ref(group));
     }
-    m_framebuffer->Disable();
 
-    GLFunctions::glDisable(gl_const::GLDepthTest);
-    m_transparentLayer->Render(m_framebuffer->GetTextureId(), make_ref(m_gpuProgramManager));
+    if (m_framebuffer->IsSupported())
+    {
+      m_framebuffer->Disable();
+      GLFunctions::glDisable(gl_const::GLDepthTest);
+      m_transparentLayer->Render(m_framebuffer->GetTextureId(), make_ref(m_gpuProgramManager));
+    }
   }
 
   if (hasSelectedPOI)
