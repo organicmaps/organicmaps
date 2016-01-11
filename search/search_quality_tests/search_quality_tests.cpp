@@ -25,8 +25,11 @@
 #include "base/scope_guard.hpp"
 #include "base/timer.hpp"
 
+#include "std/algorithm.hpp"
+#include "std/cmath.hpp"
 #include "std/cstdio.hpp"
 #include "std/fstream.hpp"
+#include "std/iomanip.hpp"
 #include "std/iostream.hpp"
 #include "std/map.hpp"
 #include "std/numeric.hpp"
@@ -178,7 +181,8 @@ int main(int argc, char * argv[])
     CHECK(it != kViewports.end(), ());
     viewport = it->second;
     cout << "Viewport used in all search invocations: " << name << " " << DebugPrint(viewport)
-         << "\n\n";
+         << endl
+         << endl;
   }
 
   vector<string> queries;
@@ -187,15 +191,36 @@ int main(int argc, char * argv[])
     queriesPath = my::JoinFoldersToPath(platform.WritableDir(), kDefaultQueriesPathSuffix);
   ReadStringsFromFile(queriesPath, queries);
 
-  for (string const & query : queries)
+  double averageTime = 0;
+  double maxTime = 0;
+  vector<double> responseTimes(queries.size());
+  for (size_t i = 0; i < queries.size(); ++i)
   {
+    string const & query = queries[i];
     my::Timer timer;
     // todo(@m) Viewport and position should belong to the query info.
     TestSearchRequest request(engine, query, FLAGS_locale, search::SearchParams::ALL, viewport);
     request.Wait();
 
-    PrintTopResults(query, request.Results(), FLAGS_top, timer.ElapsedSeconds());
+    responseTimes[i] = timer.ElapsedSeconds();
+    PrintTopResults(query, request.Results(), FLAGS_top, responseTimes[i]);
+    averageTime += responseTimes[i];
+    maxTime = max(maxTime, responseTimes[i]);
   }
+  if (responseTimes.size() > 0)
+    averageTime /= static_cast<double>(responseTimes.size());
+  double stdDevTime = 0;
+  for (auto const t : responseTimes)
+    stdDevTime += math::sqr(t - averageTime);
+  if (responseTimes.size() > 0)
+    stdDevTime /= static_cast<double>(responseTimes.size());
+  stdDevTime = sqrt(stdDevTime);
+
+  cout << fixed << setprecision(3);
+  cout << endl;
+  cout << "Maximum response time: " << maxTime << "s" << endl;
+  cout << "Average response time: " << averageTime << "s"
+       << " (std. dev. " << stdDevTime << "s)" << endl;
 
   return 0;
 }
