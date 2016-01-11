@@ -114,7 +114,7 @@ void MergeTokens(vector<HouseNumberTokenizer::Token> const & ts, vector<UniStrin
     {
       if (size_t numTokens = GetNumTokensForBuildingPart(ts, i))
       {
-        UniString token = MakeUniString("b.");
+        UniString token;
         ++i;
         for (size_t j = 1; j < numTokens; ++j, ++i)
           token.append(ts[i].m_token.begin(), ts[i].m_token.end());

@@ -46,13 +46,13 @@ UNIT_TEST(HouseNumberTokenizer_Smoke)
 UNIT_TEST(HouseNumberNormalizer_Smoke)
 {
   CheckNormalizer("123Б", "123б");
-  CheckNormalizer("123/4 Литер А", "123 4 b.а");
-  CheckNormalizer("123а корп. 2б", "123а b.2б");
-  CheckNormalizer("123к4", "123 b.4");
-  CheckNormalizer("123к Корпус 2", "123к b.2");
-  CheckNormalizer("9 литер А корпус 2", "9 b.а b.2");
-  CheckNormalizer("39с79", "39 b.79");
-  CheckNormalizer("9 литер аб1", "9 b.аб1");
+  CheckNormalizer("123/4 Литер А", "123 4 а");
+  CheckNormalizer("123а корп. 2б", "123а 2б");
+  CheckNormalizer("123к4", "123 4");
+  CheckNormalizer("123к Корпус 2", "123к 2");
+  CheckNormalizer("9 литер А корпус 2", "9 а 2");
+  CheckNormalizer("39с79", "39 79");
+  CheckNormalizer("9 литер аб1", "9 аб1");
 }
 
 UNIT_TEST(HouseNumbersMatcher_Smoke)
@@ -60,6 +60,8 @@ UNIT_TEST(HouseNumbersMatcher_Smoke)
   TEST(HouseNumbersMatch("39с79", "39"), ());
   TEST(HouseNumbersMatch("39с79", "39 Строение 79"), ());
   TEST(HouseNumbersMatch("39с79", "39 к. 79"), ());
+  TEST(HouseNumbersMatch("39 - 79", "39 строение 79"), ());
+  TEST(HouseNumbersMatch("39/79", "39 строение 79"), ());
   TEST(HouseNumbersMatch("127а корпус 2", "127а"), ());
   TEST(HouseNumbersMatch("127а корпус 2", "127а кор. 2"), ());
   TEST(HouseNumbersMatch("1234abcdef", "1234  abcdef"), ());
