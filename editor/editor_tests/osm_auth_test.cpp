@@ -3,7 +3,6 @@
 #include "editor/osm_auth.hpp"
 
 using osm::OsmOAuth;
-using osm::ClientToken;
 
 namespace
 {

@@ -99,10 +99,10 @@ typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
   return YES;
 }
 
-- (void)storeCredentials:(osm::ClientToken)token
+- (void)storeCredentials:(osm::TKeySecret)keySecret
 {
-  NSString * requestToken = @(token.m_key.c_str());
-  NSString * requestSecret = @(token.m_secret.c_str());
+  NSString * requestToken = @(keySecret.first.c_str());
+  NSString * requestSecret = @(keySecret.second.c_str());
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   [ud setObject:requestToken forKey:kOSMRequestToken];
   [ud setObject:requestSecret forKey:kOSMRequestSecret];
@@ -170,14 +170,13 @@ typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
       string const username = self.loginTextField.text.UTF8String;
       string const password = self.passwordTextField.text.UTF8String;
       // TODO(AlexZ): Change to production.
-      osm::OsmOAuth const auth = osm::OsmOAuth::DevServerAuth();
-      osm::ClientToken token;
-      osm::OsmOAuth::AuthResult const result = auth.AuthorizePassword(username, password, token);
+      osm::OsmOAuth auth = osm::OsmOAuth::DevServerAuth();
+      osm::OsmOAuth::AuthResult const result = auth.AuthorizePassword(username, password);
       dispatch_async(dispatch_get_main_queue(), ^
       {
         [self stopSpinner];
         if (result == osm::OsmOAuth::AuthResult::OK)
-          [self storeCredentials:token];
+          [self storeCredentials:auth.GetToken()];
         else
           [self showInvalidCredentialsAlert];
       });

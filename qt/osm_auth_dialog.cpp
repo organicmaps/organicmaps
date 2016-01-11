@@ -112,8 +112,8 @@ void OsmAuthDialog::OnAction()
     }
 
     auto const token = auth.GetToken();
-    Settings::Set(kTokenKeySetting, token.m_key);
-    Settings::Set(kTokenSecretSetting, token.m_secret);
+    Settings::Set(kTokenKeySetting, token.first);
+    Settings::Set(kTokenSecretSetting, token.second);
 
     SwitchToLogout(this);
   }
