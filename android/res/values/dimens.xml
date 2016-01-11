@@ -93,4 +93,11 @@
 
   <dimen name="news_max_width">560dp</dimen>
   <dimen name="news_max_height">500dp</dimen>
+
+  <!-- Editor -->
+  <dimen name="editor_height_days">72dp</dimen>
+  <dimen name="editor_height_closed">72dp</dimen>
+  <dimen name="editor_height_allday">56dp</dimen>
+  <dimen name="editor_height_hours">80dp</dimen>
+  <dimen name="editor_height_add_delete_schedule">92dp</dimen>
 </resources>
