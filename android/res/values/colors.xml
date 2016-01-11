@@ -25,13 +25,15 @@
   <color name="divider_night">#1EFFFFFF</color>
 
   <!-- Backgrounds -->
-  <color name="bg_window">#FFFFFFFF</color>
+  <color name="bg_window">#FFF5F5F5</color>
   <color name="bg_window_night">#FF32363A</color>
   <color name="bg_primary">@color/base_green</color>
   <color name="bg_primary_night">#FF1E2226</color>
-  <color name="bg_panel">#FFF5F5F5</color>
-  <color name="bg_panel_night">#FF3C4044</color>
-  <color name="bg_side_panel">#FFFFFFFF</color>
+  <color name="bg_cards">@android:color/white</color>
+  <color name="bg_cards_night">#FF3C4044</color>
+  <color name="bg_panel">@color/bg_window</color>
+  <color name="bg_panel_night">@color/bg_cards_night</color>
+  <color name="bg_side_panel">@color/bg_cards</color>
   <color name="bg_side_panel_night">@color/bg_panel_night</color>
 
   <color name="bg_dialog_translucent">#BB000000</color>
@@ -72,7 +74,6 @@
   <color name="routing_start_text_disabled">#42000000</color>
   <color name="routing_start_text_disabled_night">#4CFFFFFF</color>
 
-
   <color name="bs_divider_color">@color/divider</color>
   <color name="bs_dark_divider_color">@color/divider_night</color>
 
@@ -84,4 +85,11 @@
   <color name="news_marker_active_night">#B3FFFFFF</color>
   <color name="news_marker_inactive">#1F000000</color>
   <color name="news_marker_inactive_night">#4CFFFFFF</color>
+
+  <!-- Editor -->
+  <color name="bg_editor_add_enabled">@color/base_accent</color>
+  <color name="bg_editor_add_disabled">#FFF4F4F4</color>
+  <color name="bg_editor_login_google">#FFF2F6F6</color>
+  <color name="bg_editor_login_fb">#FF4861A3</color>
+
 </resources>

@@ -138,13 +138,6 @@
     <item name="android:indeterminateDrawable">@drawable/rating_bar</item>
   </style>
 
-  <style name="MwmWidget.Editor.TimePicker" parent="MwmWidget">
-    <item name="android:headerBackground">@null</item>
-    <item name="android:headerTimeTextAppearance" tools:targetApi="lollipop">@style/MwmTextAppearance.Editor.TimePicker</item>
-    <item name="android:headerAmPmTextAppearance" tools:targetApi="lollipop">@style/MwmTextAppearance.Editor.Buttons</item>
-    <item name="android:timePickerMode" tools:targetApi="lollipop">clock</item>
-  </style>
-
   <style name="MwmWidget.Counter">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
@@ -157,7 +150,6 @@
     <item name="android:textAppearance">@style/MwmTextAppearance.Body3.Light</item>
     <item name="android:textColor">@color/text_light</item>
   </style>
-
 
   <style name="MwmWidget.Tab">
     <item name="android:layout_width">wrap_content</item>

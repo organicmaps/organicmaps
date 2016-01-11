@@ -4,21 +4,17 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/ll__place_latlon"
   style="@style/PlacePageItemFrame"
-  android:visibility="visible"
   android:tag="latlon"
+  android:visibility="visible"
   tools:background="#20FF0000">
+
   <ImageView
     android:id="@+id/iv__place_latlon"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginRight="@dimen/margin_base"
-    android:src="@drawable/ic_coordinates"
-    android:tint="?iconTint"/>
+    style="@style/PlacePageMetadataIcon"
+    android:src="@drawable/ic_coordinates" />
 
   <TextView
     android:id="@+id/tv__place_latlon"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textAppearance="@style/MwmTextAppearance.PlacePage"
-    tools:text="55.747, 37.616"/>
+    style="@style/PlacePageMetadataText"
+    tools:text="55.747, 37.616" />
 </LinearLayout>

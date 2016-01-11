@@ -117,6 +117,4 @@
   <style name="MwmTextAppearance.Editor.Buttons">
     <item name="android:textSize">@dimen/text_size_body_3</item>
   </style>
-
-
 </resources>

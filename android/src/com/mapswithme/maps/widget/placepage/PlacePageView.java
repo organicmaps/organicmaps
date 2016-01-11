@@ -90,23 +90,23 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private TextView mTvElevation;
   // Place page details
   private ScrollView mPpDetails;
-  private LinearLayout mPhone;
+  private View mPhone;
   private TextView mTvPhone;
-  private LinearLayout mWebsite;
+  private View mWebsite;
   private TextView mTvWebsite;
   private TextView mTvLatlon;
-  private LinearLayout mSchedule;
+  private View mSchedule;
   private TextView mTvSchedule;
-  private LinearLayout mWifi;
-  private LinearLayout mEmail;
+  private View mWifi;
+  private View mEmail;
   private TextView mTvEmail;
-  private LinearLayout mOperator;
+  private View mOperator;
   private TextView mTvOperator;
-  private LinearLayout mCuisine;
+  private View mCuisine;
   private TextView mTvCuisine;
-  private LinearLayout mWiki;
+  private View mWiki;
   private TextView mTvWiki;
-  private LinearLayout mEntrance;
+  private View mEntrance;
   private TextView mTvEntrance;
   private View mEditor;
   private TextView mTvEditor;
@@ -178,31 +178,31 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
     mPpDetails = (ScrollView) findViewById(R.id.pp__details);
     RelativeLayout address = (RelativeLayout)mPpDetails.findViewById(R.id.ll__place_name);
-    mPhone = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_phone);
+    mPhone = mPpDetails.findViewById(R.id.ll__place_phone);
     mPhone.setOnClickListener(this);
     mTvPhone = (TextView) mPpDetails.findViewById(R.id.tv__place_phone);
-    mWebsite = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_website);
+    mWebsite = mPpDetails.findViewById(R.id.ll__place_website);
     mWebsite.setOnClickListener(this);
     mTvWebsite = (TextView) mPpDetails.findViewById(R.id.tv__place_website);
     LinearLayout latlon = (LinearLayout)mPpDetails.findViewById(R.id.ll__place_latlon);
     latlon.setOnClickListener(this);
     mTvLatlon = (TextView) mPpDetails.findViewById(R.id.tv__place_latlon);
-    mSchedule = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_schedule);
+    mSchedule = mPpDetails.findViewById(R.id.ll__place_schedule);
     mTvSchedule = (TextView) mPpDetails.findViewById(R.id.tv__place_schedule);
-    mWifi = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_wifi);
+    mWifi = mPpDetails.findViewById(R.id.ll__place_wifi);
     mIvColor = (ImageView) mPpDetails.findViewById(R.id.iv__bookmark_color);
     mIvColor.setOnClickListener(this);
-    mEmail = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_email);
+    mEmail = mPpDetails.findViewById(R.id.ll__place_email);
     mEmail.setOnClickListener(this);
     mTvEmail = (TextView) mEmail.findViewById(R.id.tv__place_email);
-    mOperator = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_operator);
+    mOperator = mPpDetails.findViewById(R.id.ll__place_operator);
     mOperator.setOnClickListener(this);
     mTvOperator = (TextView) mOperator.findViewById(R.id.tv__place_operator);
-    mCuisine = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_cuisine);
+    mCuisine = mPpDetails.findViewById(R.id.ll__place_cuisine);
     mTvCuisine = (TextView) mCuisine.findViewById(R.id.tv__place_cuisine);
-    mWiki = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_wiki);
+    mWiki = mPpDetails.findViewById(R.id.ll__place_wiki);
     mWiki.setOnClickListener(this);
-    mEntrance = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_entrance);
+    mEntrance = mPpDetails.findViewById(R.id.ll__place_entrance);
     mTvEntrance = (TextView) mEntrance.findViewById(R.id.tv__place_entrance);
     mEditor = mPpDetails.findViewById(R.id.ll__place_editor);
     mTvEditor = (TextView) mEditor.findViewById(R.id.tv__editor);
@@ -572,7 +572,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       mTvLatlon.setText(latLon[0] + ", " + latLon[1]);
   }
 
-  private static void refreshMetadataOrHide(String metadata, LinearLayout metaLayout, TextView metaTv)
+  private static void refreshMetadataOrHide(String metadata, View metaLayout, TextView metaTv)
   {
     if (!TextUtils.isEmpty(metadata))
     {
@@ -729,7 +729,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     case R.id.ll__place_editor:
       showEditor();
       break;
-
     case R.id.iv__bookmark_color:
       saveBookmarkNameIfUpdated();
       selectBookmarkColor();

@@ -1,23 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <style name="Editor"/>
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <style name="MwmWidget.Editor"/>
 
-  <style name="Editor.DayCheckBox">
+  <style name="MwmWidget.Editor.TimePicker">
+    <item name="android:headerBackground">@null</item>
+    <item name="android:headerTimeTextAppearance" tools:targetApi="lollipop">@style/MwmTextAppearance.Editor.TimePicker</item>
+    <item name="android:headerAmPmTextAppearance" tools:targetApi="lollipop">@style/MwmTextAppearance.Editor.Buttons</item>
+    <item name="android:timePickerMode" tools:targetApi="lollipop">clock</item>
+  </style>
+
+  <style name="MwmWidget.Editor.CardView">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginBottom">@dimen/margin_base</item>
+    <item name="android:background">?panel</item>
+    <item name="android:padding">@dimen/margin_base</item>
+  </style>
+
+  <style name="MwmWidget.Editor.MetadataBlock">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">@dimen/editor_height_field</item>
+    <item name="android:layout_marginBottom">@dimen/margin_base</item>
+  </style>
+
+  <style name="MwmWidget.Editor.MetadataIcon">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_centerVertical">true</item>
+    <item name="android:layout_margin">@dimen/margin_half</item>
+    <item name="android:tint">?iconTint</item>
+  </style>
+
+  <style name="MwmWidget.Editor.DayCheckBox">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:checked">true</item>
   </style>
 
-  <style name="Editor.DayText">
+  <style name="MwmWidget.Editor.DayText">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:textAppearance">@style/MwmTextAppearance.Body1</item>
   </style>
 
-  <style name="Editor.DayLayout">
+  <style name="MwmWidget.Editor.DayLayout">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:gravity">center_horizontal</item>
     <item name="android:orientation">vertical</item>
+  </style>
+
+  <style name="MwmWidget.Editor.FieldLayout">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginLeft">@dimen/editor_margin_left</item>
+    <item name="android:layout_marginStart" tools:targetApi="jelly_bean_mr1">@dimen/editor_margin_left</item>
+  </style>
+
+  <style name="MwmWidget.Editor.FieldLayout.EditText">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:singleLine">true</item>
+    <item name="android:textAppearance">@style/MwmTextAppearance.Body1</item>
   </style>
 </resources>

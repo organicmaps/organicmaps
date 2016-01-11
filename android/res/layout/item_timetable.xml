@@ -18,21 +18,20 @@
       android:layout_gravity="center_vertical"
       android:baselineAligned="false"
       android:orientation="horizontal"
-      android:padding="@dimen/margin_half_plus"
-      tools:ignore="DuplicateIds">
+      android:padding="@dimen/margin_half_plus">
 
       <LinearLayout
         android:id="@+id/day1"
-        style="@style/Editor.DayLayout">
+        style="@style/MwmWidget.Editor.DayLayout">
 
         <TextView
           android:id="@+id/tv__day"
-          style="@style/Editor.DayText"
+          style="@style/MwmWidget.Editor.DayText"
           tools:text="Su"/>
 
         <CheckBox
           android:id="@+id/chb__day"
-          style="@style/Editor.DayCheckBox"/>
+          style="@style/MwmWidget.Editor.DayCheckBox"/>
 
       </LinearLayout>
 
@@ -43,16 +42,16 @@
 
       <LinearLayout
         android:id="@+id/day2"
-        style="@style/Editor.DayLayout"
+        style="@style/MwmWidget.Editor.DayLayout"
         android:layout_weight="1">
 
         <TextView
-          android:id="@+id/tv__day"
-          style="@style/Editor.DayText"
+          android:id="@id/tv__day"
+          style="@style/MwmWidget.Editor.DayText"
           tools:text="Mo"/>
 
         <CheckBox
-          android:id="@+id/chb__day"
+          android:id="@id/chb__day"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"/>
 
@@ -60,16 +59,16 @@
 
       <LinearLayout
         android:id="@+id/day3"
-        style="@style/Editor.DayLayout"
+        style="@style/MwmWidget.Editor.DayLayout"
         android:layout_weight="1">
 
         <TextView
-          android:id="@+id/tv__day"
-          style="@style/Editor.DayText"
+          android:id="@id/tv__day"
+          style="@style/MwmWidget.Editor.DayText"
           tools:text="Tu"/>
 
         <CheckBox
-          android:id="@+id/chb__day"
+          android:id="@id/chb__day"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"/>
 
@@ -77,16 +76,16 @@
 
       <LinearLayout
         android:id="@+id/day4"
-        style="@style/Editor.DayLayout"
+        style="@style/MwmWidget.Editor.DayLayout"
         android:layout_weight="1">
 
         <TextView
-          android:id="@+id/tv__day"
-          style="@style/Editor.DayText"
+          android:id="@id/tv__day"
+          style="@style/MwmWidget.Editor.DayText"
           tools:text="We"/>
 
         <CheckBox
-          android:id="@+id/chb__day"
+          android:id="@id/chb__day"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"/>
 
@@ -94,16 +93,16 @@
 
       <LinearLayout
         android:id="@+id/day5"
-        style="@style/Editor.DayLayout"
+        style="@style/MwmWidget.Editor.DayLayout"
         android:layout_weight="1">
 
         <TextView
-          android:id="@+id/tv__day"
-          style="@style/Editor.DayText"
+          android:id="@id/tv__day"
+          style="@style/MwmWidget.Editor.DayText"
           tools:text="Th"/>
 
         <CheckBox
-          android:id="@+id/chb__day"
+          android:id="@id/chb__day"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"/>
 
@@ -111,16 +110,16 @@
 
       <LinearLayout
         android:id="@+id/day6"
-        style="@style/Editor.DayLayout"
+        style="@style/MwmWidget.Editor.DayLayout"
         android:layout_weight="1">
 
         <TextView
-          android:id="@+id/tv__day"
-          style="@style/Editor.DayText"
+          android:id="@id/tv__day"
+          style="@style/MwmWidget.Editor.DayText"
           tools:text="Fr"/>
 
         <CheckBox
-          android:id="@+id/chb__day"
+          android:id="@id/chb__day"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"/>
 
@@ -133,15 +132,15 @@
 
       <LinearLayout
         android:id="@+id/day7"
-        style="@style/Editor.DayLayout">
+        style="@style/MwmWidget.Editor.DayLayout">
 
         <TextView
-          android:id="@+id/tv__day"
-          style="@style/Editor.DayText"
+          android:id="@id/tv__day"
+          style="@style/MwmWidget.Editor.DayText"
           tools:text="Sa"/>
 
         <CheckBox
-          android:id="@+id/chb__day"
+          android:id="@id/chb__day"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"/>
 
@@ -152,7 +151,7 @@
     <View
       android:layout_width="match_parent"
       android:layout_height="1dp"/>
-      <!--android:background="@color/divider_standard"/>-->
+    <!--android:background="@color/divider_standard"/>-->
 
     <LinearLayout
       android:id="@+id/allday"
@@ -188,8 +187,8 @@
 
       <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
-        <!--android:background="@color/divider_standard"/>-->
+        android:layout_height="1dp"
+        android:background="@color/divider"/>
 
       <LinearLayout
         android:id="@+id/time_open_close"
@@ -253,8 +252,9 @@
 
       <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
-        <!--android:background="@color/divider_standard"/>-->
+        android:layout_height="1dp"
+        android:background="@color/divider"/>
+
 
       <LinearLayout
         android:id="@+id/closed_host"
@@ -270,8 +270,8 @@
         android:padding="@dimen/margin_half_plus"
         android:text="@string/editor_time_add_closed"
         android:textAllCaps="true"
-        android:textAppearance="@style/MwmTextAppearance.Body1"/>
-        <!--android:textColor="@color/base_blue_light"/>-->
+        android:textAppearance="@style/MwmTextAppearance.Body1"
+        android:textColor="?colorAccent"/>
 
     </LinearLayout>
 

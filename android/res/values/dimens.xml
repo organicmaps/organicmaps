@@ -100,4 +100,8 @@
   <dimen name="editor_height_allday">56dp</dimen>
   <dimen name="editor_height_hours">80dp</dimen>
   <dimen name="editor_height_add_delete_schedule">92dp</dimen>
+  <dimen name="editor_height_field">64dp</dimen>
+  <dimen name="editor_margin_left">56dp</dimen>
+  <dimen name="editor_margin_left_plus">72dp</dimen>
+  <dimen name="editor_auth_btn_height">36dp</dimen>
 </resources>

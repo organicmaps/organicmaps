@@ -3,48 +3,46 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content">
   <com.mapswithme.maps.widget.ObservableScrollView
-      android:id="@+id/pp__details"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:background="?ppBackground"
-      android:overScrollMode="never">
+    android:id="@+id/pp__details"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?ppBackground"
+    android:overScrollMode="never">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipChildren="false">
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:clipChildren="false">
 
       <View
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:paddingLeft="@dimen/margin_base_plus"
-          android:paddingRight="@dimen/margin_base_plus"
-          android:background="?attr/dividerHorizontal"/>
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/dividerHorizontal"
+        android:paddingLeft="@dimen/margin_base_plus"
+        android:paddingRight="@dimen/margin_base_plus"/>
 
       <RelativeLayout
-          android:id="@+id/rl__details_attrs"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:paddingLeft="@dimen/margin_base_plus"
-          android:paddingRight="@dimen/margin_base_plus"
-          android:paddingBottom="@dimen/margin_half"
-          android:paddingTop="@dimen/margin_half">
+        android:id="@+id/rl__details_attrs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/margin_half"
+        android:paddingLeft="@dimen/margin_base_plus"
+        android:paddingRight="@dimen/margin_base_plus"
+        android:paddingTop="@dimen/margin_half">
 
         <View
-            android:id="@+id/anchor_center"
-            android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="@dimen/margin_base"
-            android:layout_marginRight="@dimen/margin_base"/>
+          android:id="@+id/anchor_center"
+          android:layout_width="0px"
+          android:layout_height="match_parent"
+          android:layout_centerHorizontal="true"
+          android:layout_marginLeft="@dimen/margin_base"
+          android:layout_marginRight="@dimen/margin_base"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/anchor_center"
-            android:orientation="vertical">
-          <include layout="@layout/place_page_editor"/>
-
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_toLeftOf="@id/anchor_center"
+          android:orientation="vertical">
           <include layout="@layout/place_page_placename"/>
 
           <include layout="@layout/place_page_entrance"/>
@@ -54,16 +52,18 @@
           <include layout="@layout/place_page_website"/>
 
           <include layout="@layout/place_page_wiki"/>
+
+          <include layout="@layout/place_page_editor"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/anchor_center"
-            android:orientation="vertical">
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_toRightOf="@id/anchor_center"
+          android:orientation="vertical">
           <include layout="@layout/place_page_email"/>
 
-          <include layout="@layout/place_page_schedule"/>
+          <include layout="@layout/item_opening_hours"/>
 
           <include layout="@layout/place_page_latlon"/>
 
@@ -76,12 +76,12 @@
       </RelativeLayout>
 
       <include
-          layout="@layout/place_page_bookmark_details"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginLeft="@dimen/margin_base_plus"
-          android:layout_marginRight="@dimen/margin_base_plus"
-          android:layout_below="@id/rl__details_attrs"/>
+        layout="@layout/place_page_bookmark_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl__details_attrs"
+        android:layout_marginLeft="@dimen/margin_base_plus"
+        android:layout_marginRight="@dimen/margin_base_plus"/>
     </RelativeLayout>
   </com.mapswithme.maps.widget.ObservableScrollView>
 

@@ -4,26 +4,6 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <android.support.v7.widget.Toolbar
-    android:id="@+id/toolbar"
-    style="@style/MwmWidget.ToolbarStyle"
-    android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:gravity="end"
-    android:theme="@style/MwmWidget.ToolbarTheme">
-
-    <ImageView
-      android:id="@+id/iv__submit"
-      android:layout_width="?actionBarSize"
-      android:layout_height="?actionBarSize"
-      android:layout_gravity="end|center_vertical"
-      android:background="?selectableItemBackgroundBorderless"
-      android:padding="@dimen/margin_half_plus"
-      android:scaleType="center"
-      android:src="@drawable/ic_toolbar_check"/>
-
-  </android.support.v7.widget.Toolbar>
-
   <FrameLayout
     android:id="@+id/fragment_container"
     style="@style/MwmWidget.FrameLayout.Elevation"
@@ -31,20 +11,25 @@
     android:layout_height="match_parent"
     android:layout_above="@+id/tv__mode_switch"
     android:layout_below="@id/toolbar"/>
-    <!--android:background="@color/editor_background"/>-->
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/base_block_size"
+    android:layout_alignParentBottom="true"
+    android:background="@android:color/white"/>
 
   <TextView
     android:id="@+id/tv__mode_switch"
     android:layout_width="match_parent"
     android:layout_height="@dimen/base_block_size"
     android:layout_alignParentBottom="true"
-    android:background="?selectableItemBackground"
+    android:background="?clickableBackground"
     android:gravity="center_vertical"
     android:padding="@dimen/margin_base"
     android:text="@string/editor_time_advanced"
     android:textAllCaps="true"
-    android:textAppearance="@style/MwmTextAppearance.Body3"/>
-    <!--android:textColor="@color/base_blue_light"/>-->
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    android:textColor="?colorAccent"/>
 
   <include
     layout="@layout/shadow_bottom"
