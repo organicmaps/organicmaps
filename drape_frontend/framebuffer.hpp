@@ -25,6 +25,7 @@ public:
   void Disable();
 
   uint32_t GetTextureId() const;
+  bool IsSupported() const { return m_isSupported; }
 
 private:
   void Destroy();
@@ -39,6 +40,8 @@ private:
   dp::OGLContext * m_defaultContext = 0;
 
   int32_t m_maxTextureSize = 0;
+
+  bool m_isSupported = true;
 };
 
 }  // namespace df
