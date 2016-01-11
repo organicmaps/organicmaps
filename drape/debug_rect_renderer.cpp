@@ -12,8 +12,10 @@ namespace
 
 m2::PointF PixelPointToScreenSpace(ScreenBase const & screen, m2::PointF const & pt)
 {
-  float const szX = static_cast<float>(screen.PixelRect().SizeX());
-  float const szY = static_cast<float>(screen.PixelRect().SizeY());
+  float const szX = static_cast<float>(screen.isPerspective() ? screen.PixelRectIn3d().SizeX() :
+                                                                screen.PixelRect().SizeX());
+  float const szY = static_cast<float>(screen.isPerspective() ? screen.PixelRectIn3d().SizeY() :
+                                                                screen.PixelRect().SizeY());
   return m2::PointF(pt.x / szX - 0.5f, -pt.y / szY + 0.5f) * 2.0f;
 }
 

@@ -109,10 +109,18 @@ void RenderBucket::RenderDebug(ScreenBase const & screen) const
   {
     for (auto const & handle : m_overlay)
     {
+      if (!screen.PixelRect().IsIntersect(handle->GetPixelRect(screen, false)))
+        continue;
+
       OverlayHandle::Rects rects;
       handle->GetExtendedPixelShape(screen, rects);
       for (auto const & rect : rects)
+      {
+        if (screen.isPerspective() && !screen.PixelRectIn3d().IsIntersect(m2::RectD(rect)))
+          continue;
+
         DebugRectRenderer::Instance().DrawRect(screen, rect);
+      }
     }
   }
 #endif
